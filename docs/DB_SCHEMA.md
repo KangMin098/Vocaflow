@@ -63,6 +63,27 @@ RLS 켜고 **정책 없음 = service_role 전용**. 인덱스 `idx_qdc_rotation(
 기억한다. `drift IS NULL AND failed_reason IS NOT NULL` = 그 책은 30초 안에 못 쟀다는 뜻이다 —
 **빈칸으로 두지 않는다**(조용한 실패 금지). 지표는 이번 밤 표본이 아니라 이 표 **전체**에서 낸다.
 
+### 📐 `shared_dictionary` — 뜻 채움 카운트 부분 인덱스 + 첫 VACUUM (2026-09-06)
+
+[20260906093000](../supabase/migrations/20260906093000_idx_sd_meaning_ko_present.sql) —
+`idx_sd_meaning_ko_present (word) WHERE meaning_ko IS NOT NULL AND meaning_ko <> ''`.
+
+`pnpm docs:db-stats` 가 이틀째 실패해 CLAUDE.md §DB 핵심 통계가 낡은 채였다. 원인은
+부하가 아니라 **이 카운트 하나**였다:
+
+| | 계획 | 시간 |
+|---|---|---|
+| 인덱스 전 | Seq Scan 49,244행 · buffers 19,801 | **11.2초** (PostgREST 8초 타임아웃 → HTTP 500) |
+| 인덱스 후 | Index Only Scan · Heap Fetches 0 | **0.66초** (PostgREST 66ms) |
+
+이 테이블은 **65열 · heap 155 MB**(행당 ~3.3 KB)라 열 하나만 걸러도 전체를 훑는다.
+같은 이유로 `select('*')` 로 세면 head 요청인데도 모든 열을 투영해 689~8,144ms 가 걸렸다 —
+좁은 열 하나로 세면 84~167ms 다. **느린 것은 DB 가 아니라 투영이었다.**
+
+⚠️ `last_autovacuum` 이 **NULL** 이었다(한 번도 안 돌았음 · dead 8,630). 가시성 맵이 비어
+전체 카운트조차 heap fetch 35,056 번을 했다. 사용자 승인으로 `VACUUM (ANALYZE)` 를
+한 번 돌렸다 — 마이그레이션에는 넣지 않는다(스키마가 아니라 유지보수이고 트랜잭션 밖에서만 돈다).
+
 ### 📐 `csat_dcp_items` — ref_id 인덱스 (2026-09-06)
 
 [20260906080000](../supabase/migrations/20260906080000_idx_dcp_items_ref_id.sql) —

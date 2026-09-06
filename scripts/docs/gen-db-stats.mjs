@@ -57,49 +57,115 @@ const db = createClient(URL_, KEY, { auth: { persistSession: false } })
 
 const fmt = (n) => (n === null ? '?' : n.toLocaleString('en-US'))
 
-/** 정확 카운트 1건. 추정치(n_live_tup)를 쓰지 않는 이유는 파일 머리 주석 참조. */
-async function count(table, apply) {
-  let q = db.from(table).select('*', { count: 'exact', head: true })
+/**
+ * 카운트에 쓸 **좁은 열**. 기본은 `id` 이고, pk 가 다른 테이블만 여기 적는다.
+ * 값을 읽는 것이 아니라 행을 세는 것이므로 무엇을 골라도 결과는 같다 — 폭만 다르다.
+ */
+const NARROW_COL = {
+  shared_dictionary: 'word',
+}
+
+/**
+ * 정확 카운트 1건. 추정치(n_live_tup)를 쓰지 않는 이유는 파일 머리 주석 참조.
+ *
+ * ⚠️ **일시 실패를 그냥 던지면 문서가 낡은 채로 남는다** (실측 2026-09-06).
+ *   이 워크스페이스의 DB 는 여러 세션이 공유해 자주 붐빈다. 붐빌 때
+ *   `shared_dictionary` 카운트가 **message 가 빈 오류**로 돌아왔고("shared_dictionary: "),
+ *   그 한 건 때문에 갱신 전체가 죽어 §DB 핵심 통계가 낡은 채로 이틀을 갔다.
+ *   같은 질의를 혼자 돌리면 976ms 에 성공한다 — 부하이지 결함이 아니다.
+ *   그래서 (1) 물러서며 세 번까지 다시 묻고 (2) 그래도 실패하면 **상태 코드까지** 적는다.
+ */
+async function count(table, apply, attempt = 0) {
+  // ⚠️ **`select('*')` 를 쓰면 head 요청인데도 모든 컬럼을 투영한다** (실측 2026-09-06).
+  //   `shared_dictionary` 는 65열이고 그중 여럿이 큰 jsonb 다(heap 155 MB). 그래서
+  //   같은 카운트가 `*` 로는 **689~8,144ms**(붐빌 때 HTTP 500), 좁은 한 열로는 **84~167ms** 였다.
+  //   원 SQL 은 인덱스 온리 스캔으로 48ms 다 — 느린 것은 DB 가 아니라 **투영**이었다.
+  //   그래서 좁은 열 하나만 고른다. 없는 열이면 PostgREST 가 42703 을 주므로 `*` 로 물러선다.
+  let q = db.from(table).select(NARROW_COL[table] ?? 'id', { count: 'exact', head: true })
   if (apply) q = apply(q)
-  const { count: n, error } = await q
-  if (error) throw new Error(`${table}: ${error.message}`)
+  const { count: n, error, status } = await q
+  if (error) {
+    // 없는 열이면 이 테이블만 넓게 센다 — 느리지만 값은 같다.
+    // ⚠️ 코드로만 보면 안 된다 — 붐빌 때 PostgREST 는 **code 도 message 도 비운 채** 400 만 준다
+    //    (실측 2026-09-06: `pd_comic_series` 에 `id` 가 없어 400 인데 code 가 undefined 였다).
+    if (error.code === '42703' || status === 400) {
+      const wide = db.from(table).select('*', { count: 'exact', head: true })
+      const r = await (apply ? apply(wide) : wide)
+      if (r.error) throw new Error(`${table}: ${r.error.message || `(빈 message · HTTP ${r.status ?? '?'})`}`)
+      return r.count === null ? null : r.count
+    }
+    if (attempt < 2) {
+      await new Promise((r) => setTimeout(r, 2000 * 2 ** attempt))
+      return count(table, apply, attempt + 1)
+    }
+    // 붐빌 때 PostgREST 는 **빈 message** 를 준다 — 상태 코드가 유일한 단서다.
+    throw new Error(`${table}: ${error.message || `(빈 message · HTTP ${status ?? '?'})`}`)
+  }
   // head 요청은 없는 테이블에도 count=null 을 돌려준다 — 0 으로 뭉개면 구멍이 안 보인다.
   return n === null ? null : n
 }
 
 /**
+ * 순서를 지키며 **하나씩** 센다.
+ *
+ * ⚠️ `Promise.all` 로 23건을 한꺼번에 던지던 것이 실패의 원인이었다 — 낱개로는 다 되는
+ *   질의들이 동시에 가면 하나가 죽고, 죽는 건 매번 다른 것이었다. 이 스크립트는 하루에
+ *   몇 번 돌지 않으므로 **동시성으로 벌 이득이 없다.**
+ */
+async function inOrder(jobs) {
+  const out = []
+  for (const job of jobs) out.push(await job())
+  return out
+}
+
+/**
  * status 별 집계.
  *
- * ⚠️ 한 번에 통째로 받으면 안 된다 — PostgREST 는 응답을 **1,000행에서 말없이 자른다**.
+ * ⚠️ **한 번에 통째로 받으면 안 된다** — PostgREST 는 응답을 1,000행에서 말없이 자른다.
  *    2026-08-31 에 이 함수가 `library_articles` 를 `queued 838 · published 160 · analyzing 2`
  *    (= 정확히 1,000) 로 적어 두고 있었다. 실제 queued 는 5,315 였다. 오류가 아니라 잘림이라
  *    아무 신호도 없었고, CLAUDE.md 는 항상 첨부되는 문서라 그 틀린 수치가 곧 판단 근거가 된다.
- *    같은 줄의 총계(`count()` = head 요청)는 맞았기 때문에 눈으로도 안 걸렸다.
  *
- * 그래서 세 겹으로 막는다: (1) range 로 끝까지 넘기고 (2) **정렬을 고정하며**
- * (3) 합이 정확 카운트와 다르면 **던진다**.
- * (2)를 빼면 페이지 사이 순서가 보장되지 않아 행이 중복·누락된다 — 정렬 없는 range 는
- * 페이지네이션이 아니라 표본 추출이다. (3)이 마지막 그물이다: 나중에 또 어긋나도
- * 조용히 틀린 문서가 나오는 대신 갱신 자체가 멈춘다.
+ * ⚠️ **그렇다고 행을 다 받아 세면 안 된다** (실측 2026-09-06). 그 방식이 이번엔 반대로
+ *    갱신을 통째로 막았다. `library_articles` 는 본문을 담아 행이 넓어 **페이지 1,000행마다
+ *    힙 8MB** 를 읽는다 — 91페이지면 700MB 가 넘고, 다섯째 페이지부터 5~6초씩 걸리다
+ *    12페이지에서 statement timeout 으로 죽었다(OFFSET 을 커서로 바꿔도 마찬가지였다 —
+ *    느린 것은 페이징 방식이 아니라 **행의 폭**이었다).
+ *
+ * 그래서 **행을 안 받는다.** 값을 인덱스로 훑고(①) 값마다 세고(②) 합을 총계와 맞춘다(③):
+ *   ① `order(column).limit(1)` 을 `> 직전 값` 으로 이어 던져 서로 다른 값을 찾는다
+ *     — 인덱스 skip scan 흉내다. 값 하나에 25~105ms.
+ *   ② 값마다 `count exact head` (좁은 열). 값 하나에 23~77ms.
+ *   ③ 합이 정확 카운트와 다르면 **던진다.** 조용히 틀린 문서가 나오는 대신 갱신이 멈춘다.
+ *     NULL 은 ①의 정렬에 안 잡히므로 따로 센다 — 이 그물이 그것도 잡는다.
+ *
+ * 실측: `library_articles` 91,358행이 **616ms** (전에는 타임아웃).
  */
-async function byStatus(table, column = 'status', orderBy = 'id') {
-  const PAGE = 1000
+async function byStatus(table, column = 'status') {
   const out = new Map()
-  let seen = 0
-  for (let from = 0; ; from += PAGE) {
-    const { data, error } = await db
-      .from(table)
-      .select(column)
-      .order(orderBy, { ascending: true })
-      .range(from, from + PAGE - 1)
-    if (error) throw new Error(`${table}.${column}: ${error.message}`)
-    for (const row of data) {
-      const k = row[column] ?? '(null)'
-      out.set(k, (out.get(k) ?? 0) + 1)
-    }
-    seen += data.length
-    if (data.length < PAGE) break
+  // ① 서로 다른 값 훑기. 상한을 두어 "상태 열이 아닌 것" 에 잘못 쓰면 조용히 도는 대신 멈춘다.
+  const values = []
+  let last = null
+  for (let i = 0; ; i++) {
+    if (i > 100) throw new Error(`${table}.${column}: 서로 다른 값이 100개를 넘는다 — 상태 열이 맞는가?`)
+    let q = db.from(table).select(column).order(column, { ascending: true }).limit(1)
+    if (last !== null) q = q.gt(column, last)
+    const { data, error } = await q
+    if (error) throw new Error(`${table}.${column} 값 훑기: ${error.message || "(빈 message)"}`)
+    if (!data.length) break
+    last = data[0][column]
+    values.push(last)
   }
+  // ② 값마다 카운트 + NULL 몫
+  let seen = 0
+  for (const v of values) {
+    const n = await count(table, (q) => q.eq(column, v))
+    out.set(v, n ?? 0)
+    seen += n ?? 0
+  }
+  const nulls = await count(table, (q) => q.is(column, null))
+  if (nulls) { out.set('(null)', nulls); seen += nulls }
+  // ③ 마지막 그물
   const total = await count(table)
   if (total !== null && seen !== total) {
     throw new Error(`${table}.${column}: ${seen}행만 셌는데 총계는 ${total}행이다 (잘림 의심 — 문서를 갱신하지 않는다).`)
@@ -121,30 +187,30 @@ async function collect() {
     comicIssues, comicSeries, comicBooksPub,
     records, sessions, daily, scores,
     classes, classMembers, assignments, funnel, profiles,
-  ] = await Promise.all([
-    count('shared_dictionary'),
-    count('shared_dictionary', (q) => q.not('meaning_ko', 'is', null).neq('meaning_ko', '')),
-    count('library_books'),
-    byStatus('library_books'),
-    count('library_articles'),
-    byStatus('library_articles'),
-    count('shared_word_sets'),
-    count('shared_word_sets', (q) => q.eq('is_published', true)),
-    count('library_chapter_quiz'),
-    count('texts'),
-    count('vocabularies'),
-    count('pd_comic_issues'),
-    count('pd_comic_series'),
-    count('comic_books', (q) => q.eq('status', 'published')),
-    count('learning_records'),
-    count('reading_sessions'),
-    count('daily_activity'),
-    count('scores'),
-    count('classes'),
-    count('class_members'),
-    count('class_assignments'),
-    count('funnel_events'),
-    count('user_profiles'),
+  ] = await inOrder([
+    () => count('shared_dictionary'),
+    () => count('shared_dictionary', (q) => q.not('meaning_ko', 'is', null).neq('meaning_ko', '')),
+    () => count('library_books'),
+    () => byStatus('library_books'),
+    () => count('library_articles'),
+    () => byStatus('library_articles'),
+    () => count('shared_word_sets'),
+    () => count('shared_word_sets', (q) => q.eq('is_published', true)),
+    () => count('library_chapter_quiz'),
+    () => count('texts'),
+    () => count('vocabularies'),
+    () => count('pd_comic_issues'),
+    () => count('pd_comic_series'),
+    () => count('comic_books', (q) => q.eq('status', 'published')),
+    () => count('learning_records'),
+    () => count('reading_sessions'),
+    () => count('daily_activity'),
+    () => count('scores'),
+    () => count('classes'),
+    () => count('class_members'),
+    () => count('class_assignments'),
+    () => count('funnel_events'),
+    () => count('user_profiles'),
   ])
 
   // auth.users 는 PostgREST 로 안 보인다 — service_role 의 admin API 로 센다.

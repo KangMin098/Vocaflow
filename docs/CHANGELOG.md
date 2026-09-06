@@ -10,6 +10,37 @@
 
 ## Unreleased (v06.34 → next)
 
+### `docs:db-stats` 가 이틀 막혀 있었다 — 원인은 부하가 아니라 세 가지 결함 (2026-09-06)
+
+CLAUDE.md §DB 핵심 통계는 「기계가 써넣거나 아예 없거나」 규칙을 지키는 자리인데,
+생성기가 이틀째 죽어 **낡은 수치가 근거로 쓰이고 있었다.** "DB 가 붐빈다" 로 넘길 뻔했으나
+`EXPLAIN` 이 세 가지를 따로 짚어냈다.
+
+**① `select('*')` 는 head 요청에도 모든 열을 투영한다.** `shared_dictionary` 는 65열 ·
+heap 155 MB(행당 ~3.3 KB)다. 같은 카운트가 `*` 로는 689~8,144ms(붐빌 때 HTTP 500),
+좁은 한 열로는 84~167ms. 원 SQL 은 48ms — **느린 것은 DB 가 아니라 투영이었다.**
+
+**② 뜻 채움 카운트에 인덱스가 없었다.** `meaning_ko is not null and <> ''` 이
+Seq Scan 11.2초 → PostgREST 8초 타임아웃을 매번 넘겼다. 부분 인덱스
+`idx_sd_meaning_ko_present` (마이그레이션 `20260906093000`) 로 **Index Only Scan ·
+Heap Fetches 0 · 0.66초**. 이 테이블은 `last_autovacuum` 이 NULL 이었고(dead 8,630)
+가시성 맵이 비어 전체 카운트조차 heap fetch 35,056 번을 했다 — 사용자 승인으로
+`VACUUM (ANALYZE)` 한 번 돌렸다.
+
+**③ 상태별 집계가 행을 다 받아 세고 있었다.** `library_articles` 91,358행을 1,000씩
+91번 넘기는데, 이 표는 본문을 담아 **페이지마다 힙 8 MB** 를 읽는다. 다섯째 페이지부터
+5~6초씩 걸리다 12페이지에서 타임아웃했다. OFFSET 을 커서로 바꿔도 같았다 —
+느린 것은 페이징 방식이 아니라 **행의 폭**이었다. 그래서 **행을 안 받는다**:
+값을 인덱스로 훑고(`order(col).limit(1)` 을 `> 직전 값` 으로 이어 던지는 skip scan 흉내)
+값마다 세고 합을 총계와 맞춘다. `library_articles` **616ms**.
+
+- 그 밖에: `Promise.all` 23건 동시 발사 → 순차(동시성으로 벌 이득이 없다) · 재시도 3회 ·
+  빈 message 일 때 **HTTP 상태 코드**를 적는다(이게 없어서 이틀 동안 원인이 "shared_dictionary: "
+  한 줄이었다) · `id` 열이 없는 표는 `*` 로 물러선다(`pd_comic_series`).
+- 전체 실행 **8.7초**. 갱신된 값: `library_articles` 90,485 → **91,358**
+  (queued 53,419 · ready 21,546 · archived 16,099 · published 293 · failed 1) ·
+  퍼널 이벤트 59 → 196 · 일별 활동 47 → 49.
+
 ### 재고 집계가 8초 벽에 걸려 죽고 있었다 — 인덱스 + 순차 (마이그레이션 `20260906_index_library_articles_feed`) (2026-09-06)
 
 - `library_articles` 가 **90,485행**이 되자 `feed_id`·`feed_label` 로 세는 질의가 순차 스캔에 걸려 `canceling statement due to statement timeout` 으로 죽었다 — **82행짜리 각색 집계조차 실패**. 두 컬럼 어디에도 인덱스가 없었다(기존 8개는 전부 다른 컬럼)
