@@ -194,31 +194,108 @@ function structureItem(item, no) {
       source: item.ref_title ?? null,
     }
   }
-  // 생성형 — 지문 하나 + 5지선다. 유형이 열이어도 화면이 그리는 모양은 하나다.
-  // 조판기(`renderExtra`)와 **같은 조건**을 건다: 선택지 5개 + 정답 1~5.
+  // ── 나머지 유형 ─────────────────────────────────────────────────
+  // ⚠️ **여기가 좁으면 미리보기가 복불복이 된다.** 조합은 실행마다 다른 유형을 고르는데
+  //   (실측 2026-09-06: 같은 밴드가 한 시간 사이에 title·blank·topic → word_order·unit_vocab
+  //   ·vocab_choice·grammar_fix 로 통째로 바뀌었다), 화면이 세 모양만 알면 그날 뽑기에 따라
+  //   **2·3·4권의 미리보기가 통째로 사라진다.** 실제로 그렇게 사라졌다.
+  //
+  //   그래서 조판기(`renderExtra`·`renderSchool`)가 그리는 **네 모양을 전부** 낸다.
+  //   조건도 조판기와 같게 맞춘다 — 두 곳이 다르면 책과 화면이 서로 다른 말을 한다.
   const p = item.payload ?? {}
-  const choices = Array.isArray(p.choices) ? p.choices : []
-  const answer = Number(item.answer_key?.answer)
-  // ⚠️ **선택지가 문자열인지 본다.** `unit_vocab` 은 선택지를 객체로 담는데,
-  //   `String(c)` 로 넘기면 화면에 **[object Object]** 가 다섯 줄 찍힌다(실측 2026-09-06 —
-  //   band 4 미리보기 5번 문항이 그랬다). 조판기는 이 유형을 `renderSchool` 로 따로
-  //   그리지만 화면에는 그 그림이 없다 — **못 그리는 것은 뺀다.**
-  const printable = choices.every((c) => typeof c === 'string' && c.trim().length > 0)
-  if (printable && choices.length === 5 && Number.isInteger(answer) && answer >= 1 && answer <= 5) {
-    return {
-      no,
-      type: item.type,
-      stem: String(p.stem_ko ?? '다음 글에 대한 물음에 답하시오.'),
-      passage: String(p.passage ?? ''),
-      // 밑줄 유형은 그 구절을 따로 준다 — 안 주면 발문이 가리키는 곳이 없다.
-      underline: typeof p.underline === 'string' && p.underline ? p.underline : null,
-      given: typeof p.summary_sentence === 'string' && p.summary_sentence ? p.summary_sentence : null,
-      choices: choices.map((c) => String(c)),
-      answer,
-      explanation: pickExplanation(item, explainItem(item.type, item.payload, item.answer_key)),
-      source: item.ref_title ?? null,
+  const ak = item.answer_key ?? {}
+  const stem = String(p.stem_ko ?? p.prompt_ko ?? '')
+  const sentences = Array.isArray(p.sentences) ? p.sentences.map(String) : []
+  const explanation = pickExplanation(item, explainItem(item.type, item.payload, item.answer_key))
+  const source = item.ref_title ?? null
+
+  // ① 선택지형 — 지문(또는 문장들) + 3~5지선다.
+  //    선택지는 문자열이거나 `{ text }` 다(`unit_vocab` 이 후자라 예전에 [object Object] 가 찍혔다).
+  const rawChoices = Array.isArray(p.choices) ? p.choices : []
+  if (rawChoices.length >= 3 && rawChoices.length <= 5) {
+    const choices = rawChoices.map((c) => (typeof c === 'string' ? c : String(c?.text ?? '')).trim())
+    const answer = Number(ak.answer)
+    if (
+      choices.every((c) => c.length > 0) &&
+      Number.isInteger(answer) &&
+      answer >= 1 &&
+      answer <= choices.length
+    ) {
+      return {
+        no,
+        type: item.type,
+        stem: stem || '다음 글에 대한 물음에 답하시오.',
+        passage: String(p.passage ?? sentences.join(' ') ?? ''),
+        underline: typeof p.underline === 'string' && p.underline ? p.underline : null,
+        given: typeof p.summary_sentence === 'string' && p.summary_sentence ? p.summary_sentence : null,
+        choices,
+        answer,
+        explanation,
+        source,
+      }
     }
   }
+
+  // ② 밑줄형 — 문장 안의 구절에 번호를 달고 그중 하나를 고른다.
+  //    번호를 안 달면 발문이 가리키는 곳이 없다(조판기가 같은 이유로 `<u>①word</u>` 를 찍는다).
+  if (Array.isArray(p.underlines) && p.underlines.length >= 3) {
+    const answer = Number(ak.position ?? ak.answer)
+    if (Number.isInteger(answer) && answer >= 1 && answer <= p.underlines.length) {
+      return {
+        no,
+        type: item.type,
+        kind: 'underline',
+        stem: stem || '밑줄 친 부분 중 알맞지 않은 것은?',
+        sentences,
+        underlines: p.underlines.map((u) => ({
+          sentenceIdx: Number(u?.sentenceIdx ?? -1),
+          word: String(u?.word ?? ''),
+        })),
+        choices: [],
+        answer,
+        explanation,
+        source,
+      }
+    }
+  }
+
+  // ③ 단답형 — 빈칸 낱말 쓰기 · 어법 고쳐 쓰기. 정답을 **글자로** 준다.
+  if (typeof p.stem === 'string' && p.stem.trim()) {
+    const text = String(ak.text ?? '').trim()
+    if (text) {
+      return {
+        no,
+        type: item.type,
+        kind: 'short',
+        stem: stem || '빈칸에 알맞은 말을 쓰시오.',
+        shown: p.stem.trim(),
+        hint: p.hint ? String(p.hint) : null,
+        choices: [],
+        answerText: text,
+        explanation,
+        source,
+      }
+    }
+  }
+
+  // ④ 배열형(영작) — 낱말 더미를 문장으로 세운다. 정답이 원문이라 확정된다.
+  if (Array.isArray(p.bank) && p.bank.length >= 3) {
+    const sentence = String(ak.sentence ?? '').trim()
+    if (sentence) {
+      return {
+        no,
+        type: item.type,
+        kind: 'arrange',
+        stem: stem || '주어진 낱말을 알맞게 배열하시오.',
+        bank: p.bank.map((w) => String(w)),
+        choices: [],
+        answerText: sentence,
+        explanation,
+        source,
+      }
+    }
+  }
+
   return null
 }
 
@@ -284,10 +361,19 @@ for (const band of BANDS) {
   // ── 미리보기 단원 ────────────────────────────────────────────────
   // **화면이 그릴 수 있는 문항이 든 첫 단원**을 고른다. 무조건 1단원을 쓰면
   // 그 단원이 전부 생성형일 때 미리보기가 빈 자리로 나온다.
-  let sample = null
+  // ⚠️ **첫 단원이 아니라 가장 잘 그려지는 단원**을 고른다. 처음엔 "그릴 수 있는 문항이
+  //   하나라도 있는 첫 단원" 을 썼는데, 그러면 1문항짜리 미리보기가 나오고 그 옆 단원에
+  //   6문항이 있어도 못 본다(실측 2026-09-06: band 4 가 1문항이었다).
+  let best = null
   for (const u of units) {
     const items = u.items.map((it, i) => structureItem(it, i + 1)).filter(Boolean)
     if (items.length === 0) continue
+    if (!best || items.length > best.items.length) best = { u, items }
+  }
+  let sample = null
+  if (best) {
+    const u = best.u
+    const items = best.items
     sample = {
       no: u.no,
       minutes: u.estimated_minutes ?? null,
@@ -297,7 +383,6 @@ for (const band of BANDS) {
         .filter((v) => v.word && v.meaningKo),
       items,
     }
-    break
   }
   if (!sample) problems.push({ band, error: '화면이 그릴 수 있는 문항이 든 단원이 없다' })
 

@@ -21,7 +21,12 @@
 
 import { BookOpenCheck, CircleCheck, Clock, FileText } from 'lucide-react'
 
-import type { ContentsUnit, PreviewChoiceItem, VolumeContents } from '@/lib/textbook/volume-contents'
+import {
+  unitCovers,
+  type ContentsUnit,
+  type PreviewChoiceItem,
+  type VolumeContents,
+} from '@/lib/textbook/volume-contents'
 import { TYPE_GUIDE } from '@/lib/textbook/type-guide'
 
 const CIRCLED = ['①', '②', '③', '④', '⑤'] as const
@@ -72,6 +77,8 @@ function SheetHead({ kicker, title, aside }: { kicker: string; title: string; as
 // ══════════════════════════════════════════════════════════════════════
 
 function UnitRow({ unit: u }: { unit: ContentsUnit }) {
+  // 초등 3종은 원글이 없어 이 자리에 **낱말**이 들어온다 — 글 제목처럼 조판하면 거짓말이 된다.
+  const covers = unitCovers(u)
   return (
     <li className="grid grid-cols-[36px_minmax(0,1fr)] gap-x-4 gap-y-1 border-b border-[var(--bd)] py-3.5 last:border-b-0 sm:grid-cols-[44px_minmax(0,1fr)_132px_92px]">
       <span className="font-mono text-[13px] font-[700] tabular-nums text-[var(--p)]">
@@ -80,20 +87,38 @@ function UnitRow({ unit: u }: { unit: ContentsUnit }) {
 
       <div className="min-w-0">
         {/* 단원 제목이 아니라 **그 단원이 읽는 글들**이다. 그래서 목록으로 적는다. */}
-        <ul className="flex flex-col gap-0.5">
-          {u.passages.slice(0, 3).map((p) => (
-            <li
-              key={p}
-              className="truncate font-editorial text-[14.5px] leading-snug text-[var(--t1)]"
-              title={p}
-            >
-              {p}
-            </li>
-          ))}
-          {u.passages.length > 3 && (
-            <li className="font-body text-[11.5px] text-[var(--t2)]">외 {u.passages.length - 3}편</li>
-          )}
-        </ul>
+        {covers === 'word' ? (
+          <ul className="flex flex-wrap gap-1.5">
+            {u.passages.slice(0, 8).map((w) => (
+              <li
+                key={w}
+                className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-2 py-0.5 font-english text-[12.5px] text-[var(--t1)]"
+              >
+                {w}
+              </li>
+            ))}
+            {u.passages.length > 8 && (
+              <li className="self-center font-body text-[11.5px] text-[var(--t2)]">
+                외 {u.passages.length - 8}낱말
+              </li>
+            )}
+          </ul>
+        ) : (
+          <ul className="flex flex-col gap-0.5">
+            {u.passages.slice(0, 3).map((p) => (
+              <li
+                key={p}
+                className="truncate font-editorial text-[14.5px] leading-snug text-[var(--t1)]"
+                title={p}
+              >
+                {p}
+              </li>
+            ))}
+            {u.passages.length > 3 && (
+              <li className="font-body text-[11.5px] text-[var(--t2)]">외 {u.passages.length - 3}편</li>
+            )}
+          </ul>
+        )}
       </div>
 
       <span className="col-start-2 font-body text-[11.5px] leading-[1.6] text-[var(--t2)] [word-break:keep-all] sm:col-start-3">
@@ -216,6 +241,59 @@ function PreviewItem({ item: it }: { item: PreviewChoiceItem }) {
         </p>
       )}
 
+      {/* 밑줄형 — 문장 안의 구절에 번호를 단다. 번호가 없으면 발문이 가리키는 곳이 없다.
+          ⚠️ HTML 을 만들어 넣지 않는다 — 조각으로 나눠 React 가 그린다(주입 여지 0). */}
+      {it.kind === 'underline' && it.sentences && (
+        <p className="mt-3 rounded-[var(--r-md)] border-l-[3px] border-[var(--p)] bg-[var(--bg2)] px-4 py-3 font-english text-[14.5px] leading-[1.9] text-[var(--t1)]">
+          {it.sentences.map((sentence, si) => {
+            const marks = (it.underlines ?? []).filter((u) => u.sentenceIdx === si)
+            let rest = sentence
+            const parts: React.ReactNode[] = []
+            for (const m of marks) {
+              const at = rest.indexOf(m.word)
+              if (at < 0 || !m.word) continue
+              const idx = (it.underlines ?? []).indexOf(m)
+              parts.push(rest.slice(0, at))
+              parts.push(
+                <u key={`${si}-${idx}`} className="font-[600] decoration-[var(--p)] underline-offset-4">
+                  <span className="font-display text-[var(--p)]">{CIRCLED[idx] ?? ''}</span>
+                  {m.word}
+                </u>,
+              )
+              rest = rest.slice(at + m.word.length)
+            }
+            parts.push(rest + ' ')
+            return <span key={si}>{parts}</span>
+          })}
+        </p>
+      )}
+
+      {/* 배열형(영작) — 흩어진 낱말 더미. 정답이 원문이라 확정된다. */}
+      {it.kind === 'arrange' && it.bank && (
+        <ul className="mt-3 flex flex-wrap gap-2">
+          {it.bank.map((w, i) => (
+            <li
+              key={`${w}-${i}`}
+              className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5 py-1 font-english text-[13.5px] text-[var(--t1)]"
+            >
+              {w}
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {/* 단답형 — 제시 문장 + 힌트. */}
+      {it.kind === 'short' && it.shown && (
+        <>
+          <p className="mt-3 rounded-[var(--r-md)] bg-[var(--bg2)] px-4 py-3 font-english text-[14.5px] leading-[1.8] text-[var(--t1)]">
+            {it.shown}
+          </p>
+          {it.hint && (
+            <p className="mt-1.5 font-body text-[11.5px] text-[var(--t2)]">힌트 · {it.hint}</p>
+          )}
+        </>
+      )}
+
       {/* 생성형 — 지문 하나 */}
       {it.passage && (
         <p className="mt-3 rounded-[var(--r-md)] border-l-[3px] border-[var(--p)] bg-[var(--bg2)] px-4 py-3 font-english text-[14.5px] leading-[1.8] text-[var(--t1)]">
@@ -223,8 +301,8 @@ function PreviewItem({ item: it }: { item: PreviewChoiceItem }) {
         </p>
       )}
 
-      {/* 철자 완성 — 선택지가 없는 단답. 답 칸을 그리고 정답을 아래 해설에서 밝힌다. */}
-      {it.choices.length === 0 && it.answerText && (
+      {/* 단답·배열 — 선택지가 없다. 답 칸을 그리고 정답을 아래 해설에서도 밝힌다. */}
+      {(it.choices?.length ?? 0) === 0 && it.answerText && (
         <p className="mt-3 font-body text-[13px] text-[var(--t2)]">
           답{' '}
           <span className="ml-1 inline-block min-w-[120px] border-b border-[var(--bd)] pb-0.5 font-english text-[15px] font-[600] text-[var(--success-ink)]">
@@ -234,7 +312,7 @@ function PreviewItem({ item: it }: { item: PreviewChoiceItem }) {
       )}
 
       <ol className="mt-3 flex flex-col gap-1.5">
-        {it.choices.map((c, i) => (
+        {(it.choices ?? []).map((c, i) => (
           <li key={i} className="flex gap-2.5">
             <span
               className={`shrink-0 font-display text-[13px] font-[700] ${
