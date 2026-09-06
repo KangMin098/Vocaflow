@@ -10,6 +10,53 @@
 
 ## Unreleased (v06.34 → next)
 
+### 워커가 11일간 아무 일도 안 하면서 매번 성공을 보고했다 (2026-09-06)
+
+cron 3건을 조치하러 갔다가 **훨씬 큰 것**을 찾았다.
+
+**`library-pipeline-worker`(jobid 7)는 24시간에 2,788회 성공으로 기록됐다.** 그런데
+`pgmq.q_library_pipeline` 에는 메시지 6건이 **10.9일째** 그대로 있고 전부 `read_ct = 0` —
+워커가 **한 번도 읽지 않았다.** 원인은 함수 첫머리다:
+
+```
+SELECT * INTO v_config FROM get_lcp_config();
+IF v_config.vercel_base_url IS NULL OR ... THEN RETURN 0; END IF;
+```
+
+`vault.secrets` 가 **완전히 비어 있어**(0행) 설정이 null 이고, 큐를 읽기도 전에 0 을 돌려준다.
+오류가 아니므로 pg_cron 은 **성공**으로 적는다 — 약 **3만 번의 no-op 이 전부 초록불**이었다.
+도서 6권(The Faerie Queene · Short Fiction · The Mystery of the Blue Train · The Magic City ·
+The Golden Triangle · At the Mountains of Madness)이 2026-08-26 부터 `queued` 로 묶여 있다.
+
+**cron 축의 질문이 틀렸다.** 「잡이 성공했는가」로는 이 종류를 영원히 못 잡는다.
+물어야 할 것은 **「그래서 일이 줄었는가」** 다.
+→ 새 축 `queue` ([20260906060000](../supabase/migrations/20260906060000_db_health_queue_axis.sql) ·
+[061000](../supabase/migrations/20260906061000_db_health_queue_axis_separate.sql)):
+`queue_oldest_age_hours` + `dims.length` · `never_read`. 첫 수집이 **260.97시간 · never_read 6** 을
+그대로 찍었다. `never_read == length` 는 「워커가 큐에 닿지도 못한다」는 뜻이라 읽고 실패하는 것과
+원인이 완전히 다르다 — 그래서 dims 로 갈라 둔다.
+
+⚠️ **조치는 사람만 할 수 있다** — Vault 에 `lcp_vercel_base_url`·`lcp_internal_token` 을 넣어야 하고
+값을 지어낼 수 없다. 넣으면 워커가 다음 분에 스스로 큐를 읽기 시작한다(잡을 다시 켤 필요 없다).
+
+**함께 조치한 cron 3건**
+- 야간 잡 둘의 timeout 을 120초 → **300초**로. ⚠️ 잡이 무거워서가 아니다 —
+  7일 실측 평균 **12.8초**(matview) · **36.8초**(content-gate)인데 **느린 디스크**를 만나면 벽에 부딪힌다
+  (`capacity:disk_io:instance`). `alter function … set statement_timeout` 은 cron·수동 어느 경로로
+  불려도 적용되고 `reset` 한 줄로 되돌린다. 재검증: content-gate 가 **77.7초에 9행 성공**
+  (평균의 두 배 — 지금도 디스크가 느리다는 뜻이라 이 값을 계속 봐야 한다).
+- 30초 워커를 **1분**으로. `max_worker_processes` 가 **6**인데 활성 잡이 12개고 그중 하나가 30초라
+  24시간에 49회 `job startup timeout` 이 났다. 큐가 11일째 멈춰 있어 30초 지연이 아무 값도 하지 않는다.
+- ⚠️ 내가 발견에 적어 둔 조치 SQL `cron.alter_job(7, '1 minute')` 은 **문법이 틀렸다**
+  (pg_cron 은 cron 형식이나 `[1-59] seconds` 만 받는다 → `* * * * *`).
+  **화면이 조치 SQL 을 실행하지 않게 만든 설계가 여기서 값을 했다.**
+
+**실 DB 통합 테스트가 내가 방금 만든 결함을 잡았다** — 큐 지표를 `axis='cron'` 으로 넣었더니
+큐 수집기가 자기 시각에 cron 행만 남겨 **「가장 최근 스냅샷」이 그 실행을 가리켰다**(5축 완전성 검사 실패).
+축을 `queue` 로 분리하고 TS 에 `DAILY_AXES`(일 1회 5축)를 `HEALTH_AXES`(전체 7축)와 따로 뒀다.
+픽스처로는 절대 못 잡는 종류다 — 두 cron 잡이 다른 시각에 쓴다는 사실 자체가 실 DB 에만 있다.
+회귀 **60** · 타입체크 0 · 린트 0. 축 개수를 손으로 적던 단언도 `HEALTH_AXES.length` 로 바꿨다.
+
 ### 관리자 프로세스가 「언제 끝났는지」를 말하지 않았다 — 단계 22/109 (2026-09-06)
 
 「전체 프로세스/단계가 최적합한가」를 처음으로 쟀다. 화면도움말의 `steps` 는 관리자가

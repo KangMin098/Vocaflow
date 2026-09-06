@@ -25,6 +25,7 @@ import {
   toNumber,
   toSeries,
 } from '../derive'
+import { HEALTH_AXES } from '../types'
 import type { FindingRow, HealthMetricRow } from '../types'
 
 /** collect_db_health_metrics 실측 스키마 기반 — value 는 numeric 이라 **문자열**로 온다. */
@@ -165,9 +166,11 @@ describe('sortFindings — 오래 방치된 것이 위로 온다', () => {
     })
   })
 
-  it('축별 열린 건수는 6축 전부를 돌려준다', () => {
+  it('축별 열린 건수는 **등록된 축 전부**를 돌려준다 (개수를 손으로 적지 않는다)', () => {
+    // 축이 늘 때마다 이 숫자를 고치게 두면, 고치는 김에 단언이 헐거워진다.
+    // 목록에서 세면 새 축이 자동으로 포함되고 빠진 축은 그대로 실패한다.
     const byAxis = openByAxis([mk(1, 'critical', '2026-09-01T00:00:00Z', 'integrity')])
-    expect(Object.keys(byAxis)).toHaveLength(6)
+    expect(Object.keys(byAxis)).toHaveLength(HEALTH_AXES.length)
     expect(byAxis.integrity).toBe(1)
     expect(byAxis.capacity).toBe(0)
   })

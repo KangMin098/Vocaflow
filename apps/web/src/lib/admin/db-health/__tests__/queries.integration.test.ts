@@ -16,7 +16,7 @@ import { beforeAll, describe, expect, it } from 'vitest'
 
 import { toSeries } from '../derive'
 import { fetchDbHealth } from '../queries'
-import { ANOMALY_MIN_SAMPLES, HEALTH_AXES } from '../types'
+import { ANOMALY_MIN_SAMPLES, DAILY_AXES, HEALTH_AXES } from '../types'
 import type { AnomalyRow } from '../types'
 
 const SUPABASE_URL = process.env['NEXT_PUBLIC_SUPABASE_URL']
@@ -55,7 +55,7 @@ describe.skipIf(skipIfNoEnv)('fetchDbHealth (integration)', () => {
     // 수집기는 축마다 예외를 잡아 나머지를 살린다(설계). 그래서 한 축이 통째로 빠져도
     // 함수는 성공으로 끝난다. 그 조용한 구멍을 여기서 본다.
     const latestDaily = data.metrics
-      .filter((r) => r.axis !== 'integrity')
+      .filter((r) => (DAILY_AXES as readonly string[]).includes(r.axis))
       .reduce<string | null>((max, r) => (max === null || r.measured_at > max ? r.measured_at : max), null)
     expect(latestDaily).not.toBeNull()
 

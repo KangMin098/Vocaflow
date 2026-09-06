@@ -85,7 +85,33 @@ group by 1 order by delta_mb desc nulls last limit 10;
 
 지문: `cron:<jobname>:stale` · `cron:<jobname>:failing`
 
-### 1-4. latency — 임계값을 statement_timeout 에서 끌어낸다
+### 1-4. 큐 적체 — **"잡이 성공했는가" 로는 못 잡는다**
+
+2026-09-06 실측: `library-pipeline-worker` 가 24시간에 **2,788회 성공**으로 기록되는 동안
+`pgmq` 큐에는 메시지 6건이 **10.9일째** 그대로 있었고 전부 `read_ct = 0` 이었다 —
+워커가 큐를 **읽지도 못했다**. 함수가 설정(Vault) 없음을 보고 큐에 닿기 전에 `RETURN 0` 했고,
+오류가 아니므로 cron 은 성공으로 적었다. 약 3만 번의 no-op 이 전부 초록불이었다.
+
+**cron 축의 질문이 틀렸다.** "잡이 성공했는가" 가 아니라 **"그래서 일이 줄었는가"** 를 물어야 한다.
+
+```sql
+select metric, value, dims from db_health_metrics
+where metric in ('queue_oldest_age_hours','queue_read_failed')
+  and measured_at > now() - interval '3 days'
+order by measured_at desc;
+```
+
+**판정** — 여기서도 상수를 쓰지 않는다:
+- `dims.never_read` 가 `dims.length` 와 **같으면** 워커가 큐에 닿지 못하는 것이다(설정·권한 문제).
+  읽고 실패하는 것과 원인이 완전히 다르므로 **critical** 로 갈라 올린다.
+- `queue_oldest_age_hours` 가 **이전 수집보다 계속 자라면** 처리량이 유입을 못 따라간다.
+  줄고 있으면 밀렸다가 회복 중이므로 올리지 않는다.
+- 그 큐를 도는 cron 잡이 **성공을 보고하고 있는지** 함께 본다. 성공하면서 적체가 자라면
+  그게 조용한 실패다 — 이 조합이 신호이고, 어느 한쪽만 보면 안 보인다.
+
+지문 `cron:<잡 이름>:silent_noop` (성공하는데 일이 안 줄 때) · `cron:<큐>:backlog` (밀릴 때).
+
+### 1-5. latency — 임계값을 statement_timeout 에서 끌어낸다
 
 `slow_stmt_count.dims` 에 `timeout_budget_ms`(현재 120000)와 `top` 5개가 있다.
 
@@ -95,12 +121,12 @@ group by 1 order by delta_mb desc nulls last limit 10;
 
 지문: `latency:stmt:<쿼리 앞 40자 해시 대신 함수명이나 테이블명>`
 
-### 1-5. connections
+### 1-6. connections
 
 - `conn_used_pct > 70` 또는 `idle_in_tx > 0` 가 **2회 연속** 나오면 보고한다(1회는 우연일 수 있다).
 - `by_app` 에서 어느 클라이언트가 먹고 있는지 지목한다.
 
-### 1-6. advisor 축 — **델타가 신호다**
+### 1-7. advisor 축 — **델타가 신호다**
 
 이 저장소는 30일에 마이그레이션 184건이다. 절대값은 이미 크고 안 줄어들지만,
 **어제까지 없던 노출이 오늘 생겼다면 그건 방금 넣은 마이그레이션 때문**이다.
@@ -113,7 +139,7 @@ group by 1 order by delta_mb desc nulls last limit 10;
 
 지문: `advisor:<metric>:<표/함수 이름>`
 
-### 1-7. 쓰기 폭주 — **스냅샷으로는 못 잡는다. 로그로 잡는다**
+### 1-8. 쓰기 폭주 — **스냅샷으로는 못 잡는다. 로그로 잡는다**
 
 2026-09-06 에 DB 가 25분간 전면 정지했다. 원인은 사전 드레인이 `/rest/v1/shared_dictionary` 에
 **1분에 1,995건(초당 33건)을 한 행씩 PATCH** 한 것이고, 그 WAL 이 229MB 체크포인트를 만들어
@@ -150,7 +176,7 @@ evidence 에 `{분, 경로, 건수, 초당, checkpoint_write_s}` 를 싣는다.
 ⚠️ 폭주를 찾았으면 **경로만 적지 말고 어느 스크립트인지까지 좁힌다.** `grep -rn "from('<표>')" scripts/`
 로 그 표에 한 행씩 쓰는 코드를 찾아 evidence 에 파일명을 넣는다. 경로만 적으면 다음 사람이 같은 조사를 다시 한다.
 
-### 1-8. 기록
+### 1-9. 기록
 
 발견마다:
 
@@ -175,7 +201,7 @@ select close_missing_db_health_findings(array['<이번에 본 지문들>']);
 이번에 안 보인 항목이 닫힌다. 이 호출을 빠뜨리면 고쳐진 문제가 화면에 영영 남고,
 그러면 화면 전체를 아무도 안 믿게 된다.
 
-### 1-9. 사람에게 하는 보고
+### 1-10. 사람에게 하는 보고
 
 - open 항목이 없으면 **한 줄**로 끝낸다. "새로 나빠진 것 없음 · 용량 +12MB/일 · 열린 항목 3건(전부 기존)".
 - critical 이 있으면 그것만 먼저, 나머지는 건수로.

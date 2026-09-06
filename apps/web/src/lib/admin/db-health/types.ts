@@ -14,9 +14,19 @@ export const HEALTH_AXES = [
   'connections',
   'advisor',
   'integrity',
+  'queue',
 ] as const
 
 export type HealthAxis = (typeof HEALTH_AXES)[number]
+
+/**
+ * 일 1회 수집기가 채우는 축. **integrity(주 1회)·queue(별도 잡)는 여기 없다.**
+ *
+ * ⚠️ 이 구분이 없으면 "가장 최근 스냅샷" 이 별도 주기 잡의 실행을 가리킨다 —
+ *    화면 헤더의 「최근 수집」과 5축 완전성 검사가 둘 다 엉뚱한 시각을 보게 된다.
+ *    실 DB 통합 테스트가 이 결함을 잡았다(픽스처로는 못 잡는다).
+ */
+export const DAILY_AXES = ['capacity', 'cron', 'latency', 'connections', 'advisor'] as const
 
 export type FindingSeverity = 'critical' | 'warning' | 'info'
 export type FindingStatus = 'open' | 'ack' | 'resolved' | 'excepted'
@@ -74,6 +84,7 @@ export const AXIS_LABEL: Record<HealthAxis, string> = {
   connections: '연결',
   advisor: '접근 안전',
   integrity: '스키마 무결성',
+  queue: '큐 적체',
 }
 
 /**
@@ -90,6 +101,8 @@ export const METRIC_LABEL: Record<string, string> = {
   cron_fail_24h: '24시간 실패',
   cron_stale_max_hours: '최장 미성공 시간',
   cron_read_failed: 'cron 조회 실패',
+  queue_oldest_age_hours: '큐에서 가장 오래 묵은 것',
+  queue_read_failed: '큐 조회 실패',
   slow_stmt_count: '5초 넘는 구문',
   latency_read_failed: '느린 쿼리 조회 실패',
   conn_used_pct: '연결 점유율',
@@ -114,6 +127,7 @@ export const METRIC_UNIT: Record<string, string> = {
   unused_index_mb: 'MB',
   bloat_sampled_pct: '%',
   cron_stale_max_hours: '시간',
+  queue_oldest_age_hours: '시간',
   conn_used_pct: '%',
 }
 

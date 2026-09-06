@@ -48,6 +48,7 @@ import { STALE_AFTER_HOURS, fetchDbHealth } from '@/lib/admin/db-health/queries'
 import {
   ANOMALY_MIN_SAMPLES,
   AXIS_LABEL,
+  DAILY_AXES,
   HEALTH_AXES,
   METRIC_LABEL,
   METRIC_UNIT,
@@ -290,7 +291,9 @@ export default async function AdminDbPage() {
 
   const series = toSeries(metrics)
   const now = new Date()
-  const dailyRows = metrics.filter((r) => r.axis !== 'integrity')
+  // 일 1회 수집기가 채우는 5축만. integrity(주 1회)·queue(별도 잡)를 섞으면
+  // 「최근 수집」이 다른 주기의 실행을 가리킨다.
+  const dailyRows = metrics.filter((r) => (DAILY_AXES as readonly string[]).includes(r.axis))
   const dailyLatest = latestAt(dailyRows)
   const weeklyLatest = latestAt(metrics, 'integrity')
   const stale = isCollectionStale(dailyLatest, now, STALE_AFTER_HOURS)
