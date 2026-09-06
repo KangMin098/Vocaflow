@@ -43,7 +43,7 @@ import { BacklogSection } from './_components/BacklogSection'
 import { QuickActionsSection } from './_components/QuickActionsSection'
 
 export const metadata = {
-  title: 'Dictionary DB Health — Vocaflow Admin',
+  title: '어휘 레벨 (VRL) — Vocaflow Admin',
   description: '사전DB 종합 모니터링 v3 — 9 차원 × 4 책임 × Critical Defects × Schema Evolution',
 }
 
@@ -56,8 +56,8 @@ export default async function VrlDashboardPage() {
     <div className="flex flex-col gap-6 p-6">
       <AdminPageHeader
         icon={Brain}
-        title="Dictionary DB Health"
-        description="사전DB 종합 모니터링 v3 — 플랫폼 4 파이프라인 (R1-R4) 의 기초 자산 점검"
+        title="어휘 레벨"
+        description="VRL 파이프라인이 만든 사전 데이터의 품질 — 플랫폼 4 파이프라인 (R1-R4) 의 기초 자산 점검"
       />
       <Suspense fallback={<DashboardFallback />}>
         <DashboardContent />
@@ -157,7 +157,7 @@ async function DashboardContent() {
 
       {/* footer — v3 진행 표시 */}
       <footer className="border-t border-[var(--bd)] pt-4 text-center font-mono text-[10px] text-[var(--t2)]">
-        Dictionary DB Health v3 · 8 sections · Overall {snapshot.overallScore} /
+        VRL 사전 데이터 품질 v3 · 8 sections · Overall {snapshot.overallScore} /
         100 · revalidate 60s
         <br />
         {/* 숫자의 성격을 화면이 스스로 말한다 — 추정치를 실측처럼 읽으면 0.5% 차이를

@@ -64,8 +64,8 @@ export function HeroSection({ snapshot }: HeroSectionProps) {
 
   return (
     <section
-      aria-label="Dictionary DB Overall Health"
-      className="relative overflow-hidden rounded-[var(--r-xl)] border border-[#8B5CF6]/20 bg-gradient-to-br from-[#8B5CF6]/8 via-[var(--bg)] to-[var(--bg)] p-6 shadow-[var(--sh-sm)]"
+      aria-label="사전 데이터 품질 종합"
+      className="from-[#8B5CF6]/8 relative overflow-hidden rounded-[var(--r-xl)] border border-[#8B5CF6]/20 bg-gradient-to-br via-[var(--bg)] to-[var(--bg)] p-6 shadow-[var(--sh-sm)]"
     >
       {/* ── 헤더 ── */}
       <header className="mb-4 flex items-start justify-between gap-3">
@@ -77,12 +77,19 @@ export function HeroSection({ snapshot }: HeroSectionProps) {
             <Activity size={18} strokeWidth={1.75} />
           </span>
           <div>
+            {/* ⚠️ 이 자리는 「Dictionary DB Health」 · 「사전DB 종합 모니터링 v3」 였다.
+                그런데 메뉴에는 **다른 항목**이 「DB 헬스」(`/admin/db`)로 따로 있고, 그쪽은
+                콘텐츠가 아니라 **그것을 담는 Postgres 자체**를 본다. 두 화면이 같은 이름을
+                주장하면 관리자는 자기가 어디 있는지 알 방법이 없다 — 이름이 겹치는 것은
+                취향 문제가 아니라 길을 잃게 만드는 결함이다.
+                여기는 VRL 파이프라인(어휘 레벨)이 만든 **사전 데이터의 품질**을 본다.
+                회귀 `components/admin/__tests__/sidebar-screen-titles.test.tsx`. */}
             <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.12em] text-[#8B5CF6]">
-              Dictionary DB Health
+              VRL Pipeline
             </p>
-            <h1 className="font-display text-[22px] font-[800] leading-tight text-[var(--t1)]">
-              사전DB 종합 모니터링 v3
-            </h1>
+            <h2 className="font-display text-[22px] font-[800] leading-tight text-[var(--t1)]">
+              어휘 레벨 — 사전 데이터 품질
+            </h2>
           </div>
         </div>
 
@@ -108,9 +115,7 @@ export function HeroSection({ snapshot }: HeroSectionProps) {
             style={{ color: status.fg }}
           >
             {snapshot.overallScore}
-            <span className="ml-1 font-body text-[18px] font-[500] text-[var(--t2)]">
-              / 100
-            </span>
+            <span className="ml-1 font-body text-[18px] font-[500] text-[var(--t2)]">/ 100</span>
           </p>
         </div>
         <span
@@ -141,15 +146,14 @@ export function HeroSection({ snapshot }: HeroSectionProps) {
       >
         {snapshot.responsibilities.map((r) => {
           const isMinScore =
-            r.score ===
-            Math.min(...snapshot.responsibilities.map((rr) => rr.score))
+            r.score === Math.min(...snapshot.responsibilities.map((rr) => rr.score))
           const accent = RESP_COLOR[r.id]
           return (
             <div
               key={r.id}
               className={`flex items-center gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-3 transition-shadow duration-[var(--dur-normal)] ${
                 isMinScore && r.status === 'critical'
-                  ? 'ring-2 ring-[var(--error)] shadow-[0_0_16px_rgba(239,68,68,0.18)]'
+                  ? 'shadow-[0_0_16px_rgba(239,68,68,0.18)] ring-2 ring-[var(--error)]'
                   : ''
               }`}
             >
@@ -205,7 +209,7 @@ export function HeroSection({ snapshot }: HeroSectionProps) {
                   {d.score}
                 </p>
               </div>
-              <div className="h-1.5 flex-1 max-w-[80px] overflow-hidden rounded-full bg-[var(--bg3)]">
+              <div className="h-1.5 max-w-[80px] flex-1 overflow-hidden rounded-full bg-[var(--bg3)]">
                 <div
                   className="h-full rounded-full"
                   style={{

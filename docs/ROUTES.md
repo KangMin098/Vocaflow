@@ -209,7 +209,7 @@
 
 | 경로 | 파일 | 비고 |
 |---|---|---|
-| `/admin/vrl` | `admin/vrl/page.tsx` | Dashboard — KPI 4 + V-Level 12 진행 |
+| `/admin/vrl` | `admin/vrl/page.tsx` | **어휘 레벨** — VRL 파이프라인이 만든 사전 데이터의 품질(9차원 × 4책임 + KPI 4 + V-Level 12 진행). ⚠️ 2026-09-06 이름 정정: h1 이 「Dictionary DB Health」/「사전DB 종합 모니터링 v3」 **둘**이었는데, 메뉴에는 `/admin/db` 가 「DB 헬스」로 따로 있어 두 화면이 같은 이름을 주장했다. h1 하나(「어휘 레벨」)로 줄이고 히어로는 h2 로 내렸다 |
 | `/admin/vrl/taxonomy` | `admin/vrl/taxonomy/page.tsx` | Levels(12) / Tracks(6) / Domains(8) / Skills(5) read-only 4 tab |
 | `/admin/vrl/concerns` | stub | data_integrity_concerns cleanup |
 | `/admin/vrl/diagnostic` | stub | 진단 시드/문제 편집 |
