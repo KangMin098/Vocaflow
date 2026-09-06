@@ -81,7 +81,16 @@ export async function withRetry(label, run, tries = 4, page = null, pageMin = 25
     //   `<!DOCTYPE html>…` 통째다. 위 낱말들만 보면 그게 안 걸려 **재시도 없이 죽는다**
     //   (실측 2026-08-31: content 를 1,000행씩 받다가 페이지당 11MB 가 되어 524 가 났는데
     //    한 번도 재시도하지 않고 배치가 끝났다).
+    // ⚠️ **잘린 응답은 JSON 파싱 오류로 온다.** 게이트웨이가 큰 본문을 중간에 끊으면
+    //   supabase-js 는 그 조각을 파싱하다 실패하고, message 가
+    //   `Unterminated string in JSON at position 14602775` 같은 모양이 된다.
+    //   이 목록에 그것이 없어서 **한 번도 페이지를 안 줄이고 즉시 죽었다** — 위 HTML 오류
+    //   페이지와 정확히 같은 함정이다(실측 2026-09-07: `process-queue --source plos` 가
+    //   1,000행 × 본문 = 14.6MB 에서 죽어 **발췌 11,601편이 통째로 분석 대기에 갇혀 있었다**).
+    //   크기 때문에 끊긴 것이므로 처방도 같다 — 페이지를 반으로.
+    const truncated = /unterminated string in json|unexpected end of json|json\.parse|terminated/i.test(msg)
     const transient =
+      truncated ||
       /schema cache|statement timeout|525|timeout|fetch failed|socket|ECONN|EAI_AGAIN|handshake/i.test(msg) ||
       /<html|<!doctype|error code:\s*5\d\d|\b50[234]\b|\b52[0-4]\b/i.test(msg)
     if (!transient) break
