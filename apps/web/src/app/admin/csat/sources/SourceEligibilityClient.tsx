@@ -349,7 +349,14 @@ function BandTable({ bands }: { bands: BandRow[] }) {
       <h2 className="font-display text-[15px] font-[700] text-[var(--t1)]">학령별 적격</h2>
       <p className="font-body text-[12px] text-[var(--t3)]">
         조판 가능이 0 인 칸은 <b>그 학년 교재를 지금 만들 수 없다</b>는 뜻이다. 재고가 있어도 판정을
-        통과하지 못하면 실을 수 없다.
+        통과하지 못하면 실을 수 없다.{' '}
+        {/*
+          ⚠️ **지문을 안 쓰는 학년이 있다.** V1 은 유형 셋이 전부 no-passage(운율·낱말뜻·철자빈칸)라
+          지문을 한 편도 안 쓴다. 그런데 조판 가능 비율은 5/80 = 6.3% 로 찍혀 "이 학년은 거의 다 못
+          쓴다" 로 읽힌다 — 그 학년에서는 애초에 판단 근거가 아닌 수치다. 요건표가 정본이다.
+        */}
+        <b>「지문 없음」으로 표시된 학년은 이 수치가 판단 근거가 아니다</b> — 그 학년 유형이 지문을
+        쓰지 않는다(요건표가 정본).
       </p>
       <div className="overflow-x-auto">
         <table className="w-full min-w-[760px] border-collapse font-body text-[13px]">
@@ -383,10 +390,18 @@ function BandTable({ bands }: { bands: BandRow[] }) {
                 </td>
                 <td
                   className="py-2 pr-3 text-right font-[700] tabular-nums"
-                  style={{ color: b.composable ? 'var(--success-ink)' : 'var(--error-ink)' }}
+                  style={{
+                    color: !b.needsPassage
+                      ? 'var(--t3)'
+                      : b.composable
+                        ? 'var(--success-ink)'
+                        : 'var(--error-ink)',
+                  }}
                 >
                   {b.composable.toLocaleString()}
-                  {b.composable === 0 ? (
+                  {!b.needsPassage ? (
+                    <span className="ml-1 text-[11px] font-[400]">지문 없음</span>
+                  ) : b.composable === 0 ? (
                     <span className="ml-1 text-[11px]">만들 수 없음</span>
                   ) : null}
                 </td>

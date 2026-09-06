@@ -50,6 +50,15 @@ export interface BandRow extends EligibilityTallyJson {
   /** 학령 이름 — `SERIES_SPINE` 이 정본. 사다리 밖이면 `null`. */
   schoolBand: string | null
   volumeTitle: string | null
+  /**
+   * 이 학년이 **지문을 쓰기는 하는가.**
+   *
+   * ⚠️ 이 열이 없으면 화면이 거짓을 말한다. V1(초등 저학년)은 유형 셋이 전부 `no-passage`
+   * (운율·낱말뜻·철자빈칸)라 **지문을 한 편도 안 쓴다.** 그런데 조판 가능 비율은 5/80 = 6.3%
+   * 로 찍히고, 그것을 보면 "이 학년은 거의 다 못 쓴다" 로 읽힌다 — 그 학년에서는 애초에
+   * 판단 근거가 아닌 수치다. 요건표(`SERIES_SPINE` × `itemWordSpec`)가 정본이므로 거기서 편다.
+   */
+  needsPassage: boolean
 }
 
 export interface GradeRow {
@@ -231,8 +240,19 @@ export function buildSourceEligibilityPanel(now: Date = new Date()): SourceEligi
     blocked: total.byBlockedAxis[a.id] ?? 0,
   }))
 
+  // **지문을 쓰는 학년인지**는 요건표에서 편다 — 재고가 아니라 규격이 정하는 것이다.
+  const requirements = buildSourceRequirements()
+  const passageBands = new Set(
+    requirements.filter((r) => r.types.some((t) => t.family !== 'no-passage')).map((r) => r.vLevel),
+  )
   const bands: BandRow[] = (snapshot.byBand as (EligibilityTallyJson & { vLevel: number | null })[]).map(
-    (b) => ({ ...b, ...bandMeta(b.vLevel) })
+    (b) => ({
+      ...b,
+      ...bandMeta(b.vLevel),
+      // 사다리 밖(V8+ · V 없음)은 요건표에 없다 — 요건을 모르는 것을 "안 쓴다" 로 뭉개면
+      // 화면이 없는 근거를 지어낸다. 모르면 「쓴다」 쪽으로 두어 수치를 그대로 보인다.
+      needsPassage: b.vLevel == null ? true : !requirements.some((r) => r.vLevel === b.vLevel) || passageBands.has(b.vLevel),
+    }),
   )
 
   // 가장 크게 막는 축 — **되돌릴 수 있는 것 중에서** 고른다. 되돌릴 수 없는 탈락은
@@ -268,7 +288,7 @@ export function buildSourceEligibilityPanel(now: Date = new Date()): SourceEligi
     structurallyUnjudged:
       typeof total.structurallyUnjudged === 'number' ? total.structurallyUnjudged : null,
     // 스냅샷과 무관하다 — 정본에서 바로 편다. 재고가 낡아도 **요건은 늘 지금 규격**이다.
-    requirements: buildSourceRequirements(),
+    requirements,
     familySource: FAMILY_SOURCE,
     defects: buildDefectPanel(now),
   }

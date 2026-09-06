@@ -144,6 +144,36 @@ describe('원문 적격 화면', () => {
     expect(html).toContain('고치지 않는다')
   })
 
+  // ── 지문을 안 쓰는 학년 ──────────────────────────────────────────
+  // V1 은 유형 셋이 전부 no-passage(운율·낱말뜻·철자빈칸)라 지문을 한 편도 안 쓴다.
+  // 그런데 조판 가능 비율은 5/80 = 6.3% 로 찍히고, 그것만 보면 "이 학년은 거의 다 못 쓴다"
+  // 로 읽힌다 — 그 학년에서는 애초에 판단 근거가 아닌 수치다. 표가 그 사실을 말해야 한다.
+  it('지문을 안 쓰는 학년은 조판 가능 수치가 근거가 아니라고 말한다', () => {
+    const noPassage = panel.bands.filter((b) => !b.needsPassage)
+    if (!noPassage.length) return
+    expect(html).toContain('판단 근거가 아니다')
+    // ⚠️ **문서 전체에 `toContain` 을 걸면 안 된다.** 「지문 없음」은 요건표가 이미 유형마다
+    //    찍고 있고 안내 문구에도 있다 — 학령표의 표시를 통째로 지워도 검사가 살아남는다
+    //    (변이 2회로 확인했다: 처음엔 toContain, 다음엔 개수 세기, 둘 다 안 잡혔다).
+    //    그래서 **학령표 구간만 떼어** 그 안에서 센다.
+    const bandSection = html.slice(html.indexOf('aria-label="학령별 적격"'))
+    const bandTable = bandSection.slice(0, bandSection.indexOf('</section>'))
+    // 안내 문구 1회 + 학년마다 1회 — 표시를 지우면 안내 문구만 남아 이 수가 모자란다.
+    expect(bandTable.split('지문 없음').length - 1).toBeGreaterThanOrEqual(1 + noPassage.length)
+    // 그 학년을 「만들 수 없음」으로 낙인찍으면 안 된다 — 만들 수 있다.
+    for (const b of noPassage) expect(b.composable).toBeGreaterThanOrEqual(0)
+  })
+
+  // 요건표가 정본이다 — 재고가 아니라 규격이 「지문을 쓰는가」를 정한다.
+  it('지문 필요 여부를 재고가 아니라 요건표에서 편다', () => {
+    for (const b of panel.bands) {
+      const req = panel.requirements.find((r) => r.vLevel === b.vLevel)
+      if (!req) continue
+      const usesPassage = req.types.some((t) => t.family !== 'no-passage')
+      expect(b.needsPassage).toBe(usesPassage)
+    }
+  })
+
   it('언제 잰 값인지와 다시 재는 명령을 함께 보인다', () => {
     expect(html).toContain('에 잰 값')
     expect(html).toContain('source-eligibility-scan.mjs')
