@@ -63,6 +63,34 @@ RLS 켜고 **정책 없음 = service_role 전용**. 인덱스 `idx_qdc_rotation(
 기억한다. `drift IS NULL AND failed_reason IS NOT NULL` = 그 책은 30초 안에 못 쟀다는 뜻이다 —
 **빈칸으로 두지 않는다**(조용한 실패 금지). 지표는 이번 밤 표본이 아니라 이 표 **전체**에서 낸다.
 
+### 📐 `library_articles` — 밴드 인덱스 (2026-09-06)
+
+[20260906101500](../supabase/migrations/20260906101500_idx_la_band_id.sql) —
+`idx_la_band_id (article_v_level, id)`.
+
+`article_v_level` 로 시작하는 인덱스가 **하나도 없었다.** 교재 조판이 밴드 하나의 원글을
+id 커서로 받는데, 계획이 이랬다:
+
+```
+Limit (rows=1000)
+  → Sort (Sort Key: id)                      ← LIMIT 이 무력해지는 자리
+      → Index Scan using idx_la_status_date  (status 로 21,839행)
+            Filter: (article_v_level = 5)
+```
+
+정렬이 LIMIT 앞에 있어 조기 종료가 안 되고, 이 표는 본문을 담아 행이 넓어(1,000행당
+힙 ~8MB) 한 페이지에 175MB 를 읽는다. **커서 페이징으로도 못 피한다 — 매 페이지가
+전체를 다시 읽는다.** V5·V6·V7 조판이 전부 statement timeout 으로 죽어 목표 지표를
+잴 수 없었다.
+
+| | 계획 | 시간 |
+|---|---|---|
+| 인덱스 전 | Sort ← Index Scan(status) 21,839행 | **타임아웃**(8초 초과 · 재시도 3회 모두) |
+| 인덱스 후 | BitmapAnd 두 인덱스 → top-N heapsort 4,285행 | **267ms** |
+
+⚠️ `ANALYZE library_articles` 도 함께 돌렸다(사용자 승인) — 플래너가 4,285행을 1,172행으로
+추정하고 있었다.
+
 ### 📐 `shared_dictionary` — 뜻 채움 카운트 부분 인덱스 + 첫 VACUUM (2026-09-06)
 
 [20260906093000](../supabase/migrations/20260906093000_idx_sd_meaning_ko_present.sql) —
@@ -84,14 +112,14 @@ RLS 켜고 **정책 없음 = service_role 전용**. 인덱스 `idx_qdc_rotation(
 전체 카운트조차 heap fetch 35,056 번을 했다. 사용자 승인으로 `VACUUM (ANALYZE)` 를
 한 번 돌렸다 — 마이그레이션에는 넣지 않는다(스키마가 아니라 유지보수이고 트랜잭션 밖에서만 돈다).
 
-### 📐 `library_articles` — 조판 풀 밴드 인덱스 (2026-09-06) ⚠️ **아직 미적용**
+### 📐 `library_articles` — 조판 풀 밴드 인덱스 (2026-09-06)
 
-[20260906030000](../supabase/migrations/20260906030000_idx_la_pool_band.sql) —
-`idx_la_pool_band (article_v_level, id) WHERE status IN ('ready','published')`.
+[20260906063831](../supabase/migrations/20260906063831_idx_la_band_id.sql) —
+`idx_la_band_id (article_v_level, id)` · **3,648 kB**.
 
-**조판이 지금 통째로 멈춰 있다.** `loadVolume` 이 권마다 던지는
+**조판이 통째로 멈춰 있었다.** `loadVolume` 이 권마다 던지는
 `status in ('ready','published') AND article_v_level = $1 ORDER BY id` 가
-**전량 Seq Scan** 이라 8초 statement timeout 을 넘긴다.
+전량 Seq Scan 이라 8초 statement timeout 을 넘겼다.
 
 | 질의 (PostgREST 경유 · limit 1000) | 결과 | 시간 |
 |---|---|---|
@@ -100,31 +128,26 @@ RLS 켜고 **정책 없음 = service_role 전용**. 인덱스 `idx_qdc_rotation(
 | `article_v_level = 9` 만 | **500 timeout** | 8,308ms |
 | `+ article_v_level = 4` (재고 856편) | **500 timeout** | 8,658ms |
 
-**밴드가 붙는 순간 죽는다 — 그 밴드에 몇 편이 있든 상관없다.** `article_v_level` 로 시작하는
-인덱스가 하나도 없어(이 표의 인덱스는 `idx_la_compose_batch` ·
-`idx_library_articles_cover_missing` · `idx_la_csat_fit_pass` 셋뿐) 11편을 찾으려고
-91,358행을 전부 훑고, 본문이 1.3GB 라 그 훑기가 8초를 넘는다.
+**밴드가 붙는 순간 죽었다 — 그 밴드에 몇 편이 있든 상관없이.** 적용 후 같은 질의를
+`explain (analyze, buffers)` 로 재면 `BitmapAnd(idx_la_band_id · idx_la_status_date)` →
+Bitmap Heap Scan 으로 **59.275 ms** 다. 조판도 돌아왔다(V4 2단원 12문항 실측).
 
-⚠️ **화면·회귀로는 안 보인다.** 조판을 실제로 돌려야 나타난다 — 2026-09-06 에 원문 적격
-게이트를 배선하고 V4 조판으로 검증하려다 발견했다(`library_articles 커서 조회 실패:
-canceling statement due to statement timeout`). 같은 계열을 같은 날 이미 한 번 고쳤다
-(`20260906080000` — `csat_dcp_items` 의 ref_id 선두 인덱스). **거르는 곳과 인덱스를 타는
-곳이 다르다**는 같은 교훈이다.
+⚠️ **화면·회귀로는 안 보인다.** 조판을 실제로 돌려야 나타난다 — 원문 적격 게이트를 배선하고
+V4 조판으로 검증하려다 발견했다(회귀 57종은 전부 통과하고 있었다). 같은 계열을 같은 날
+한 번 더 고쳤다(`20260906080000` — `csat_dcp_items` 의 ref_id 선두 인덱스).
+**거르는 곳과 인덱스를 타는 곳이 다르다**는 같은 교훈이다.
 
-⚠️ 부분 인덱스라 `volume-pool.mjs` 의 `.in('status', ['ready','published'])` 와 **한 벌**이다.
-그쪽 조건이 바뀌면 인덱스가 조용히 안 쓰이고 다시 8초 절벽으로 돌아간다.
+⚠️ **부분 인덱스로 좁히지 않았다.** `WHERE status IN ('ready','published')` 를 붙이면
+21,839행(전체의 24%)만 담아 더 작지만, 그러면 조판의 status 조건과 **한 벌로 묶인다** —
+그쪽이 바뀌는 순간 인덱스가 조용히 안 쓰이고 다시 8초 절벽으로 돌아간다. 지금 계획은
+`idx_la_status_date` 와 BitmapAnd 로 엮이므로 status 조건이 바뀌어도 살아남는다.
+(부분 인덱스 판 `20260906030000_idx_la_pool_band` 는 이 이유로 **철회했다** — 그 파일의
+「이 표의 인덱스는 셋뿐」이라는 서술도 틀렸다. 마이그레이션 grep 으로 셌기 때문인데
+실제 `pg_indexes` 에는 **10개**가 있다.)
 
-**적용 상태**: 사용자 승인(2026-09-06)은 받았으나 **아직 안 들어갔다** — Supabase MCP 가
-연결 실패(`CONNECTION_CLOSED`)이고, CLI 는 링크가 안 잡히며 `db push` 는 DB 비밀번호가 필요하다.
-적용 뒤 확인:
-
-```sql
-explain analyze
-  select id from public.library_articles
-   where status in ('ready','published') and article_v_level = 4
-   order by id asc limit 1000;
--- Index Scan using idx_la_pool_band 이어야 한다. Seq Scan 이면 술어가 어긋난 것이다.
-```
+⚠️ **이 마이그레이션 파일은 뒤늦게 채운 것이다.** 원격 이력에는 있는데 저장소에 대응 파일이
+없었다 — 파일이 없으면 다음 사람이 "누가 언제 왜 만들었는지" 를 못 찾고 `db diff` 가 계속
+이 인덱스를 지우자고 한다. `IF NOT EXISTS` 라 다시 돌려도 무해하다.
 
 ### 📐 `csat_dcp_items` — ref_id 인덱스 (2026-09-06)
 

@@ -369,4 +369,16 @@ describe('조판이 적격 판정을 건다 (규격 v2)', () => {
   it('집계를 부르는 쪽에 돌려준다 — 로그에만 남기면 HTML 과 함께 사라진다', () => {
     expect(POOL).toContain('sourceGate,')
   })
+
+  it('0단원이면 조판 기록을 시도하지 않는다 — 「실패」와 「만들 것이 없었다」는 다르다', () => {
+    // 강제 모드에서 재료가 모자라면 0단원이 된다(실측: V4 문항 풀 12,344 → 54).
+    // 그대로 기록하면 `units_check`(> 0)가 거부해 「조판 기록 실패」로 찍히는데,
+    // 그건 결함이 아니라 책이 안 만들어진 것이다 — 관리자가 없는 마이그레이션 문제를 찾으러 간다.
+    const render = fs.readFileSync(
+      path.resolve(fileURLToPath(new URL('../../../../scripts/textbook/render-volume.mjs', import.meta.url))),
+      'utf8'
+    )
+    expect(render).toMatch(/record\.units === 0/)
+    expect(render).toContain('실패가 아니다')
+  })
 })
