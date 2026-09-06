@@ -168,3 +168,8 @@ scripts/csat/compose-drain/*.imported
 
 # Gutenberg 카탈로그 캐시 (5.5MB · 7일마다 새로 받는다)
 scripts/textbook/data/.cache/
+
+# Claude Design 캔버스 조판물 — 2.6MB 에디터 페이로드가 통째로 들어 있고
+# docs/design/*/ 의 .dc.html + canvas.json 에서 언제든 다시 만들 수 있다.
+# 재생성마다 새 블롭이 되므로 추적하지 않는다(퍼블리시된 아티팩트가 정본).
+docs/design/*/vocaflow-*.html
