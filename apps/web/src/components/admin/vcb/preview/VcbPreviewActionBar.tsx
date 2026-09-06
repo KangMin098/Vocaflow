@@ -1,3 +1,5 @@
+// apps/web/src/components/admin/vcb/preview/VcbPreviewActionBar.tsx
+
 'use client'
 
 import { Loader2, Upload, XCircle } from 'lucide-react'

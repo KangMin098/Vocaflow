@@ -1,3 +1,5 @@
+// apps/web/src/components/admin/vcb/preview/VcbPreviewList.tsx
+
 'use client'
 
 import { useRef } from 'react'

@@ -1,3 +1,5 @@
+// apps/web/src/components/admin/curation/BulkFetchTab.tsx
+
 // 새 시드 탭 — 소스에서 GET batch + library_seed_catalog 리스트 뷰.
 // 리스트형 행 디자인 (cover · title · author · source/장르/CEFR 칩 · enqueue 버튼).
 

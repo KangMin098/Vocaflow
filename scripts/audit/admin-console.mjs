@@ -535,6 +535,33 @@ const swallowHits = []
   }
 }
 
+// ── 전역: 파일 첫 줄 경로 주석 ───────────────────────────────────────────────
+//
+// CLAUDE.md 「항상 지킬 것」의 한 줄인데 **아무도 재지 않고 있었다.** 재 봤더니
+// VCB 하위(`components/admin/vcb/**` · `app/admin/vocab/**`)가 통째로 빠져 있었다 —
+// 규칙이 있어도 자가 없으면 한 구역이 통째로 새는 것을 아무도 모른다.
+//
+// 왜 필요한가: 이 저장소는 파일 조각이 diff·청크·에이전트 출력으로 자주 떠다닌다.
+// 첫 줄이 경로면 그 조각이 어디 것인지 **맥락 없이도** 안다.
+const pathCommentMisses = []
+{
+  const scanned = [
+    ...walk(ADMIN_APP),
+    ...walk(join(WEB_SRC, 'components', 'admin')),
+    ...walk(join(WEB_SRC, 'lib', 'admin')),
+  ].filter((p) => (p.endsWith('.ts') || p.endsWith('.tsx')) && !p.includes('__tests__'))
+  for (const f of scanned) {
+    const want = `// ${rel(f)}`
+    const first = read(f).split('\n')[0].trimEnd()
+    // ⚠️ **완전일치를 요구하면 안 된다.** 경로 뒤에 라우트를 덧붙인 판이 있고
+    //   (`// …/page.tsx — /admin/pd-comics/reader/[issueId]`) 그건 규칙 위반이 아니라
+    //   **더 친절한** 주석이다. 처음에 완전일치로 재서 그 파일에 경로 주석을 하나 더 얹는
+    //   잘못된 수리를 했다(2026-09-06, 되돌림). 자가 요구하는 것은 "첫 줄이 이 파일의
+    //   경로로 시작하는가" 지 "정확히 그것뿐인가" 가 아니다.
+    if (!first.startsWith(want)) pathCommentMisses.push({ at: rel(f), first: first.slice(0, 50) })
+  }
+}
+
 // ── 전역: 이동 깊이 — 사이드바에서 몇 번 눌러야 닿는가 ───────────────────────
 //
 // `nav` 축은 "메뉴에서 닿는가" 를 O/X 로만 본다. 그러면 **묻힌 화면**이 안 보인다 —
@@ -720,6 +747,10 @@ if (AS_JSON) {
   for (const u of undefinedTokens) (byToken[u.token] ??= []).push(u.at)
   for (const [t, at] of Object.entries(byToken))
     console.log(`  ${t}  ${at.length}곳  (예: ${at[0]})`)
+
+  console.log(`\n첫 줄 경로 주석이 없는 파일: ${pathCommentMisses.length}`)
+  for (const m of pathCommentMisses.slice(0, 12)) console.log(`  ${m.at}  ← ${m.first}`)
+  if (pathCommentMisses.length > 12) console.log(`  … 외 ${pathCommentMisses.length - 12}개`)
 
   const depthBuckets = new Map()
   for (const [r, d] of reach.depth) {

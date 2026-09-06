@@ -1,3 +1,5 @@
+// apps/web/src/components/admin/vcb/preview/VcbPreviewHero.tsx
+
 import { CheckCircle2, AlertTriangle } from 'lucide-react'
 import type {
   SeedPreviewItem,

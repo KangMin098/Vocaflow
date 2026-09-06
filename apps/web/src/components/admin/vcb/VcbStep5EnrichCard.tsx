@@ -1,3 +1,5 @@
+// apps/web/src/components/admin/vcb/VcbStep5EnrichCard.tsx
+
 'use client'
 
 import { useCallback, useEffect, useState, useTransition } from 'react'

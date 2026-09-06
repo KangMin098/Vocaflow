@@ -1,3 +1,5 @@
+// apps/web/src/components/admin/vcb/preview/VcbCefrDistributionBar.tsx
+
 import { AlertCircle } from 'lucide-react'
 
 const CEFR_LEVELS = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'] as const

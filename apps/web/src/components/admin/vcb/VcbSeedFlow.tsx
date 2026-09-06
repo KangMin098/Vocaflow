@@ -1,3 +1,5 @@
+// apps/web/src/components/admin/vcb/VcbSeedFlow.tsx
+
 'use client'
 
 import { useEffect, useRef, useState, useTransition } from 'react'

@@ -75,10 +75,15 @@ interface Finding {
 
 test.describe('관리자 전수 훑기', () => {
   test('모든 관리자 화면이 열리고 · 조용하고 · 링크가 살아 있고 · 되돌아온다', async ({ page }) => {
+    // ⚠️ **시간 예산을 가장 먼저 준다.** 예전에는 `adminReachable()` **뒤에** 있었는데,
+    //    그 한 줄이 dev 서버를 깨우는 첫 요청이라 콜드 상태에서는 30초를 넘긴다
+    //    (실측 2026-09-06: 파일 33개를 고쳐 전체 재컴파일이 걸린 직후 이 자리에서
+    //    `Test timeout of 30000ms exceeded` 로 죽었다 — 기본 타임아웃이었다).
+    //    그러면 훑기가 한 화면도 못 재고 끝나면서 **원인과 무관한 메시지**만 남는다.
+    //    측정 한 바퀴(브라우저) + 예열(HTTP GET, 싸다).
+    test.setTimeout(ROUTES.length * 24_000 + 180_000);
     test.skip(!adminBypassEnabled(), 'DEV_ADMIN_BYPASS=1 이 아니다');
     test.skip(!(await adminReachable(page)), '관리자 화면이 열리지 않는다 — dev 우회가 꺼져 있거나(프로덕션 빌드) 서버가 없다. 로그인 화면을 세어 초록을 만들지 않는다');
-    // 측정 한 바퀴(브라우저) + 예열(HTTP GET, 싸다).
-    test.setTimeout(ROUTES.length * 24_000 + 180_000);
 
     const findings: Finding[] = [];
     // 라우트 실재 판정의 분모 — 죽은 링크를 "없는 화면" 으로 판정하려면 목록이 필요하다.

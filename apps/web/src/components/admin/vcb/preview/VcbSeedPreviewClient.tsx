@@ -1,3 +1,5 @@
+// apps/web/src/components/admin/vcb/preview/VcbSeedPreviewClient.tsx
+
 'use client'
 
 import { useCallback, useEffect, useMemo, useState, useTransition } from 'react'

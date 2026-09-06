@@ -1,3 +1,5 @@
+// apps/web/src/app/admin/vocab/sources/page.tsx
+
 import Link from 'next/link'
 import { Database, Plus, ArrowLeft } from 'lucide-react'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'

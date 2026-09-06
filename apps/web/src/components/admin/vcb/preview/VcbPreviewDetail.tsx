@@ -1,3 +1,5 @@
+// apps/web/src/components/admin/vcb/preview/VcbPreviewDetail.tsx
+
 'use client'
 
 import { Check, X, AlertCircle } from 'lucide-react'

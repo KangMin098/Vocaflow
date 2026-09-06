@@ -1,3 +1,5 @@
+// apps/web/src/app/admin/vocab/collections/page.tsx
+
 import Link from 'next/link'
 import { Layers, ExternalLink, ArrowLeft, AlertTriangle, CheckCircle2 } from 'lucide-react'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'

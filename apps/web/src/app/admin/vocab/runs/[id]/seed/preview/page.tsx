@@ -1,3 +1,5 @@
+// apps/web/src/app/admin/vocab/runs/[id]/seed/preview/page.tsx
+
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft, Eye } from 'lucide-react'

@@ -1,3 +1,5 @@
+// apps/web/src/app/admin/vocab/runs/new/page.tsx
+
 import Link from 'next/link'
 import { ArrowLeft, Sparkles } from 'lucide-react'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'

@@ -1,3 +1,5 @@
+// apps/web/src/components/admin/vcb/VcbCurationList.tsx
+
 'use client'
 
 import { useRef } from 'react'

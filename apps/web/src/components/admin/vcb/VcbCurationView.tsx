@@ -1,3 +1,5 @@
+// apps/web/src/components/admin/vcb/VcbCurationView.tsx
+
 'use client'
 
 import { useEffect, useMemo, useState, useTransition } from 'react'

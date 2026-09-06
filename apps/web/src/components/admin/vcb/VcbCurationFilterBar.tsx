@@ -1,3 +1,5 @@
+// apps/web/src/components/admin/vcb/VcbCurationFilterBar.tsx
+
 'use client'
 
 // VcbCurationFilterBar.tsx

@@ -1,3 +1,5 @@
+// apps/web/src/components/admin/vcb/VcbMethodACard.tsx
+
 'use client'
 
 import { useCallback, useEffect, useState, useTransition } from 'react'

@@ -1,3 +1,5 @@
+// apps/web/src/components/admin/vcb/VcbStep8PublishCard.tsx
+
 'use client'
 
 import { useState, useTransition } from 'react'

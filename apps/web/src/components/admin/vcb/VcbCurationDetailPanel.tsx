@@ -1,3 +1,5 @@
+// apps/web/src/components/admin/vcb/VcbCurationDetailPanel.tsx
+
 'use client'
 
 // VcbCurationDetailPanel.tsx

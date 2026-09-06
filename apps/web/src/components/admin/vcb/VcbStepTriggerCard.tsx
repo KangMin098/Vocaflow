@@ -1,3 +1,5 @@
+// apps/web/src/components/admin/vcb/VcbStepTriggerCard.tsx
+
 'use client'
 
 import { useState } from 'react'
