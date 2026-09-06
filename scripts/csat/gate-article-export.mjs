@@ -217,12 +217,32 @@ if (!WRITE) {
 
 /** 한 창의 길이. 두 창이 겹치지 않으려면 둘째 창은 여기부터 시작해야 한다. */
 const SPAN = 420
-const excerpt = (s, from) => String(s ?? '').replace(/\s+/g, ' ').trim().slice(from, from + SPAN)
+
+/**
+ * 본문을 한 줄로 접되 **문단 경계는 남긴다.**
+ *
+ * ⚠️ 예전에는 `\s+ → ' '` 하나로 통째 접었다. 그러면 위키 계열처럼 **절 표제가 마크업 없이
+ *   맨 줄로 서 있는** 본문에서 표제가 앞 문장에 그대로 달라붙는다 — 판정자가 실제로
+ *   `…about 475 million. Overview The mourning dove…` 를 읽고 「절 표제가 본문에 붙었다」고
+ *   보고했다. **DB 는 멀쩡했고 이 줄이 만든 문장이었다.** 실측 2026-09-06: 위키 3원천
+ *   199편에 그렇게 붙을 수 있는 자리가 941군데다.
+ *
+ *   그래서 빈 줄(문단 경계)을 지우지 말고 `¶` 로 보이게 남긴다. 판정자가 "여기서 문단이
+ *   바뀐다" 를 알 수 있으면 표제를 문장으로 오독하지 않는다.
+ */
+const flatten = (s) =>
+  String(s ?? '')
+    .replace(/\r\n?/g, '\n')
+    .replace(/\n{2,}/g, ' ¶ ')
+    .replace(/\s+/g, ' ')
+    .trim()
+
+const excerpt = (s, from) => s.slice(from, from + SPAN)
 // 제목 묶음마다 **대표 한 편**의 본문만 받으면 된다 — 판정은 제목 단위로 붙는다.
 const bodies = await loadBodies([...byTitle.values()].map((g) => g[0].id))
 const items = [...byTitle.entries()].map(([title, group]) => {
   const r = group[0]
-  const body = String(bodies.get(r.id) ?? '').replace(/\s+/g, ' ').trim()
+  const body = flatten(bodies.get(r.id))
   // ⚠️ **두 창이 겹치면 안 된다.** 예전 규칙(`길이/2 - 210`, 900자 넘으면 둘째 창)은
   //   본문이 900~1,260자일 때 둘째 창을 첫 창 **안에서** 시작시켰다 — 판정자가 같은 문장을
   //   두 번 읽고 "문단이 통째로 중복된다" 고 보고했다(2026-09-06 기사 판정에서 청크마다 5~9건).
