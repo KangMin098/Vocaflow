@@ -36,6 +36,12 @@ const REST = Number(arg('rest', 15))
 const MAX = Number(arg('max', 0)) || Infinity
 /** 연속 실패 상한 — 넘으면 멈춘다. 죽은 DB 를 계속 두들기지 않는다. */
 const MAX_FAILS = 3
+/**
+ * `i/n` — 큐를 n 조각으로 나눠 그중 i 번째만 맡는다. 여러 구동기를 **겹치지 않게** 동시에
+ * 돌리기 위한 것이다. 정본은 `scripts/acp/process-queue.mjs` 의 `--shard` 이고 여기서는
+ * 그대로 넘기기만 한다 — 나누는 규칙을 두 벌 두면 언젠가 어긋난다.
+ */
+const SHARD = arg('shard', null)
 
 const num = (n) => n.toLocaleString()
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
@@ -52,6 +58,7 @@ function runBatch() {
       '--commit',
       '--limit',
       String(BATCH),
+      ...(SHARD ? ['--shard', SHARD] : []),
     ]
     const child = spawn('pnpm', args, { shell: true })
     let out = ''
@@ -77,11 +84,14 @@ if (!COMMIT) {
   console.log(`  배치        ${BATCH}편`)
   console.log(`  배치 사이 쉼 ${REST}초`)
   console.log(`  이번 상한    ${MAX === Infinity ? '큐가 빌 때까지' : `${num(MAX)}편`}`)
+  console.log(`  조각        ${SHARD ?? '전량'}`)
   console.log('\n  --commit 을 붙이면 실제로 돈다. 중간에 끊어도 다음 실행이 이어 간다.')
   process.exit(0)
 }
 
-console.log(`발췌 분석 구동기 — 배치 ${BATCH} · 쉼 ${REST}초 · feed=${FEED}`)
+console.log(
+  `발췌 분석 구동기 — 배치 ${BATCH} · 쉼 ${REST}초 · feed=${FEED}${SHARD ? ` · 조각 ${SHARD}` : ''}`,
+)
 console.log('='.repeat(70))
 
 const started = Date.now()

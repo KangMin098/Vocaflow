@@ -66,27 +66,75 @@ interface SolrResponse {
   response?: { docs?: SolrDoc[]; numFound?: number }
 }
 
-/** class 정규식 매칭 첫 <div> inner HTML 을 깊이 추적 슬라이스(중첩 div 안전). */
-function sliceDivByClass(html: string, classRe: RegExp): string | null {
+/** 깊이 추적으로 찾은 <div> 의 경계. outer 는 여는/닫는 태그를 포함, inner 는 제외. */
+interface DivRange {
+  outerStart: number
+  innerStart: number
+  innerEnd: number
+  outerEnd: number
+}
+
+/**
+ * class 정규식에 맞는 첫 `<div>` 의 경계를 **깊이를 세며** 찾는다.
+ *
+ * ⚠️ `<div…>[\s\S]*?</div>` 로는 안 된다 — 자식 div 가 하나라도 있으면 **첫 번째
+ *   `</div>` 에서 끊겨** 뒷부분이 남는다. `article-text` 는 절 div 를 수십 개 품고 있어서
+ *   이 함수 없이는 본문의 첫 절만 잘린다. (`abstract-content` 도 구조화 초록이면
+ *   Background·Methods·Results·Conclusion 을 각각 div 로 품는다.)
+ *
+ * 시작 위치(`openRe.lastIndex`)부터 다시 훑기 때문에 여는 태그 자신은 depth 에 안 센다.
+ * 닫는 태그를 못 찾으면(마크업 파손) 문서 끝까지로 본다 — 잘라 버리는 것보다 낫다.
+ */
+function findDivByClass(html: string, classRe: RegExp): DivRange | null {
   const openRe = /<div\b([^>]*)>/gi
   let m: RegExpExecArray | null
   while ((m = openRe.exec(html)) !== null) {
     const cls = m[1]!.match(/\bclass="([^"]*)"/i)?.[1] ?? ''
     if (!classRe.test(cls)) continue
-    const start = openRe.lastIndex
+    const innerStart = openRe.lastIndex
     const walk = /<div\b[^>]*>|<\/div\s*>/gi
-    walk.lastIndex = start
+    walk.lastIndex = innerStart
     let depth = 1
     let w: RegExpExecArray | null
     while ((w = walk.exec(html)) !== null) {
       if (w[0].startsWith('</')) {
         depth--
-        if (depth === 0) return html.slice(start, w.index)
+        if (depth === 0) {
+          return { outerStart: m.index, innerStart, innerEnd: w.index, outerEnd: walk.lastIndex }
+        }
       } else depth++
     }
-    return html.slice(start)
+    return { outerStart: m.index, innerStart, innerEnd: html.length, outerEnd: html.length }
   }
   return null
+}
+
+/** class 정규식 매칭 첫 <div> inner HTML 을 깊이 추적 슬라이스(중첩 div 안전). */
+function sliceDivByClass(html: string, classRe: RegExp): string | null {
+  const r = findDivByClass(html, classRe)
+  return r ? html.slice(r.innerStart, r.innerEnd) : null
+}
+
+/**
+ * class 정규식 매칭 <div> 를 **태그째** 전부 제거한다(깊이 추적 — 중첩 div 안전).
+ *
+ * 매번 앞에서 다시 찾는다. 제거할 때마다 문자열이 반드시 짧아지므로(여는+닫는 태그 길이 >
+ * 끼워 넣는 개행 1자) 끝난다.
+ *
+ * ⚠️ 끼워 넣는 개행은 **보험이지 필수가 아니다** — 변이 검사로 확인했다(개행 → 빈 문자열로
+ *   바꿔도 8검사 전부 통과). `htmlToPlainText` 가 `</div>` 를 이미 개행으로 바꾸기 때문에
+ *   (`_helpers.ts` — `</(?:p|h[1-6]|li|tr|div|section|article)>` → `\n`) 지운 자리 앞뒤에
+ *   경계가 이미 있다. 그래서 **이 개행을 지키는 검사는 두지 않는다** — 어떤 변이로도 죽지 않는
+ *   검사는 통과해도 아무것도 증명하지 못한다(같은 이유로 이 파일의 `joinAbstractAndBody` 에서도
+ *   빈 body 갈래를 별도로 두지 않았다).
+ */
+function removeDivByClass(html: string, classRe: RegExp): string {
+  let out = html
+  for (;;) {
+    const r = findDivByClass(out, classRe)
+    if (!r) return out
+    out = `${out.slice(0, r.outerStart)}\n${out.slice(r.outerEnd)}`
+  }
 }
 
 /**
@@ -121,10 +169,56 @@ function joinAbstractAndBody(abstract: string, body: string): string {
   return body.includes(needle) ? body : `${abstract}\n\n${body}`
 }
 
-/** PLOS 본문 HTML → 산문(figures/tables/references/인용 제거). */
+/**
+ * 서지 블록 — **후미가 아니라 머리에 있다.**
+ *
+ * ── 실측 2026-09-07 (최신 40편 전수 + `10.1371/journal.pone.0348669` 원본) ──────
+ * PLOS 는 `Citation:` 부터 `Competing interests:` 까지를 **한 div 에 몰아** 넣는다:
+ *
+ *   <div xmlns:plos="http://plos.org" class="articleinfo"> … </div>
+ *
+ * 이 div 는 `article-text` 의 **자식**이고 위치가 **초록 바로 뒤, 첫 절(Introduction) 앞**이다.
+ * pone.0348669 실측 오프셋: `article-text` 안쪽 100,834–232,578 · `abstract-content` 101,046 ·
+ * `articleinfo` 104,574–107,086(내부 **2,452자**). 그 안에 아홉 항목이 전부 들어 있다 —
+ * `Citation:` `Editor:` `Received:` `Accepted:` `Published:` `Copyright:`
+ * `Data Availability:` `Funding:` `Competing interests:`.
+ *
+ * 아래 `references` 절단 세 줄은 **후미**만 자르므로 이건 영영 안 걸린다. figure/table 규칙에도
+ * 안 걸린다. 그래서 그대로 산문에 실렸다 — 저장된 PLOS 24편 표본에서 **24편 전부**가
+ * 본문 안에 이 서지문을 갖고 있었다.
+ *
+ * 최신 40편 전수 실측: `articleinfo` 없는 편 **0** · 내부 길이 중앙 **1,566자**(694–2,632) ·
+ * 항목 수 3–10.
+ *
+ * ⚠️ **왜 문자열이 아니라 class 로 지우는가** — `Citation:` `Funding:` 같은 낱말은 본문 산문에도
+ *   정상적으로 나온다(연구비·이해충돌을 논하는 논증문이 PLOS 의 주요 지면이다).
+ *   문자열/줄 단위로 지우면 그런 문장을 같이 지운다. 경계는 마크업이 이미 갖고 있다.
+ *
+ * ⚠️ **왜 깊이를 세는가** — 위 40편에서 `articleinfo` 안 자식 div 는 **0개**였고, 그래서
+ *   `<div…>[\s\S]*?</div>` 도 오늘은 우연히 맞는다(40편 전부 길이 일치 확인). 그건 운이다 —
+ *   `Data Availability:` 에 div 한 겹만 들어가도 그 정규식은 절반에서 끊겨 나머지를 산문에 남긴다.
+ *   깊이 추적 walker 는 이 파일에 이미 있으므로(`findDivByClass`) 공짜다.
+ */
+const ARTICLE_INFO_RE = /\barticleinfo\b/
+
+/** PLOS 본문 HTML → 산문(서지 블록/figures/tables/references/인용 제거). */
 function extractProse(articleHtml: string): string {
-  const abstract = sliceDivByClass(articleHtml, /\babstract-content\b/) ?? ''
-  let body = sliceDivByClass(articleHtml, /\barticle-text\b/) ?? ''
+  // ── 순서: **자르기 전에** 지운다 ──────────────────────────────────
+  // `articleinfo` 는 `abstract-content` 보다 **뒤**에 있으므로(실측 101,046 < 104,574)
+  // 이 제거로 초록 문자열은 변하지 않는다. 따라서 아래 `joinAbstractAndBody` 의
+  // "본문이 초록을 이미 품고 있는가" 판정 결과가 그대로 유지된다 — 초록 중복 수정은 안 깨진다.
+  // 기존 `plos-abstract-duplication.test.ts` 4검사가 이 자리에서도 전부 통과하는 것으로 확인했다.
+  //
+  // ⚠️ 정직하게 적자면 **`joinAbstractAndBody` 뒤로 옮겨도 오늘은 통과한다**(변이 검사 M6 생존).
+  //   그런데도 앞을 고른 이유는 두 가지다:
+  //   ① 초록과 본문을 **같은 정리본에서** 떼므로 두 조각이 어긋날 여지가 원천적으로 없다.
+  //   ② 뒤에서 지우면 위 `references` 절단(여는 div 만 남기고 문서 끝까지 날린다)이 이미
+  //      div 균형을 깨뜨린 문자열 위에서 깊이를 세게 된다 — 오늘은 `articleinfo` 가 그보다
+  //      앞이라 무사하지만, 기대는 순서의 우연이지 규칙이 아니다.
+  const cleaned = removeDivByClass(articleHtml, ARTICLE_INFO_RE)
+
+  const abstract = sliceDivByClass(cleaned, /\babstract-content\b/) ?? ''
+  let body = sliceDivByClass(cleaned, /\barticle-text\b/) ?? ''
 
   // References 이하 절단 (참고문헌·저자기여·펀딩 등 후미 = 산문 아님).
   body = body.replace(/<div[^>]*class="[^"]*\breferences\b[^"]*"[\s\S]*$/i, '')
