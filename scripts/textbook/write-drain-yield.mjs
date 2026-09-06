@@ -36,6 +36,9 @@ import path from 'node:path'
 
 import { repaginate } from './repaginate.mjs'
 
+// 창은 **유형이 정한다** — 여기서 숫자를 다시 적으면 적재기와 갈린다.
+const { itemWordSpec } = await import('@vocaflow/library-pipeline')
+
 const arg = (n) => {
   const i = process.argv.indexOf(`--${n}`)
   return i >= 0 ? process.argv[i + 1] : null
@@ -43,6 +46,19 @@ const arg = (n) => {
 const BAND = Number(arg('band') ?? 3)
 const ONLY = arg('only')
 const DIR = path.resolve(arg('dir') ?? `scripts/textbook/write-drain/v${BAND}`)
+
+/**
+ * **장문 갈래는 자가 다르다.**
+ *
+ * ── 왜 (실측 2026-09-06) ────────────────────────────────────────────
+ * 장문(43~45번)용으로 쓴 300~340어 지문 두 편을 이 자로 재니 `0/2` 가 나왔고, 이유가
+ * "문단이 90어를 못 넘긴다 — 글을 늘려라" 였다. **그 조언을 따르면 규격이 깨진다** —
+ * 90~200어는 단문 유형(order·insert)이 문단 하나를 지문으로 쓸 때의 창이고, 장문은
+ * **네 문단 전체가 하나의 지문**(260~400어)이다. 자가 갈래를 모르면 맞는 글을 틀렸다고 한다.
+ *
+ * 갈래는 `--mode` 로 주거나 디렉터리 이름(`v6-long`)에서 읽는다 — export 가 그 이름을 짓는다.
+ */
+const LONG = (arg('mode') ?? '').includes('long') || /-long$/.test(path.basename(DIR))
 
 /** 조합기가 문항 지문으로 쓰는 창. 이 밖이면 문단이 통째로 걸린다. */
 const WINDOW = { min: 90, max: 200 }
@@ -74,9 +90,60 @@ for (const f of files) {
   }
 }
 
+/** 남성/여성 대명사를 따로 센다. 장문 지칭은 **같은 성별 둘**을 전제한다. */
+const PRONOUNS = {
+  m: /\b(he|him|his|himself)\b/gi,
+  f: /\b(she|her|hers|herself)\b/gi,
+}
+const countPronoun = (t, re) => (String(t).match(re) ?? []).length
+
+/**
+ * 장문 한 편이 43~45번을 낼 수 있는가.
+ *
+ * ⚠️ **성별 혼재가 실측 반려 사유 1위다.** 남녀 한 쌍이면 he 와 she 가 저절로 갈려
+ *   "이것이 가리키는 대상" 을 물을 수가 없다 — 지칭 수율이 V4 11/16 · V5 4/16 이었고
+ *   반려 사유가 **전부** 이것이었다. 그런데 그것을 적재 전에 재는 자가 없어, 쓰고 넣은
+ *   뒤에야 알았다. 형식(어수·문단·문장)은 이미 세 군데서 재는데 이 조건만 아무도 안 봤다.
+ */
+function checkLong(r) {
+  const spec = itemWordSpec('long_order', BAND)
+  const text = repaginate(r.content)
+  const paras = text.split('\n\n')
+  const words = text.split(/\s+/).filter(Boolean).length
+  const sents = paras.map((x) => sentencesOf(x).length)
+  const m = countPronoun(text, PRONOUNS.m)
+  const f = countPronoun(text, PRONOUNS.f)
+  const perPara = paras.map((x) => countPronoun(x, PRONOUNS.m) + countPronoun(x, PRONOUNS.f))
+  const why = []
+  if (spec.max > 0 && (words < spec.min || words > spec.max))
+    why.push(`전체가 ${words}어 — 장문 창 ${spec.min}~${spec.max}어 밖이다`)
+  if (paras.length !== 4)
+    why.push(`repaginate 뒤 문단이 ${paras.length}개 — (A)(B)(C)(D) 가 서려면 넷이어야 한다`)
+  if (sents.some((n) => n < 6 || n > 10))
+    why.push(`문단 문장 수 [${sents.join('/')}] — 6~10 밖이면 repaginate 가 다시 합친다`)
+  if (m > 0 && f > 0)
+    why.push(`남성 대명사 ${m} · 여성 대명사 ${f} — **둘 다 나온다.** 지칭 문항은 같은 성별 둘을 전제한다`)
+  if (m === 0 && f === 0) why.push('인물 대명사가 없다 — 지칭 문항이 설 수 없다')
+  const thin = perPara.filter((n) => n < 2).length
+  if (thin) why.push(`대명사가 두 번 미만인 문단 ${thin}개 — 문단마다 두 번 이상 필요하다`)
+  return { ok: why.length === 0, why, words, sents, m, f }
+}
+
 let ok = 0
 const bad = []
 for (const r of rows) {
+  if (LONG) {
+    const v = checkLong(r)
+    if (v.ok) {
+      ok += 1
+      continue
+    }
+    bad.push(
+      `  슬롯 ${r.slot} — ${v.words}어 · 문단 [${v.sents.join('/')}문장] · 대명사 남${v.m}/여${v.f}\n` +
+        v.why.map((w) => `      → ${w}`).join('\n'),
+    )
+    continue
+  }
   const paras = repaginate(r.content).split('\n\n').map((p) => {
     const w = p.split(/\s+/).filter(Boolean).length
     return { w, s: sentencesOf(p).length }
@@ -100,13 +167,20 @@ for (const r of rows) {
   )
 }
 
-console.log(`V${BAND} 문항 수율 — 순서와 삽입이 **둘 다** 나오는 글 ${ok}/${rows.length}\n`)
+console.log(
+  LONG
+    ? `V${BAND} 장문 수율 — 43~45번이 설 수 있는 글 ${ok}/${rows.length}\n`
+    : `V${BAND} 문항 수율 — 순서와 삽입이 **둘 다** 나오는 글 ${ok}/${rows.length}\n`,
+)
 if (bad.length) {
   console.log(bad.join('\n'))
   console.log(
-    '\n두 유형이 다 있어야 단원이 만들어진다 — 하나만 나오는 글은 원글 수만 늘리고 단원은 못 늘린다.\n' +
-      '**적재는 되돌릴 수 없다**(source_id 유일키라 덮어쓰지 않는다). 여기서 고치고 넣을 것.',
+    LONG
+      ? '\n장문은 네 문단이 **하나의 지문**이다 — 문단을 90어로 키우려 하지 말 것(그건 단문 자다).\n' +
+          '**적재는 되돌릴 수 없다**(source_id 유일키라 덮어쓰지 않는다). 여기서 고치고 넣을 것.'
+      : '\n두 유형이 다 있어야 단원이 만들어진다 — 하나만 나오는 글은 원글 수만 늘리고 단원은 못 늘린다.\n' +
+          '**적재는 되돌릴 수 없다**(source_id 유일키라 덮어쓰지 않는다). 여기서 고치고 넣을 것.',
   )
 } else {
-  console.log('전부 순서·삽입 둘 다 낸다. 적재해도 좋다.')
+  console.log(LONG ? '전부 43~45번을 낼 수 있다. 적재해도 좋다.' : '전부 순서·삽입 둘 다 낸다. 적재해도 좋다.')
 }
