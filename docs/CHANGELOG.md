@@ -263,6 +263,18 @@ null 이 아무도 보기 전에 0 이 되는 곳" 이라 `.from(`/`.rpc(` 를 �
     near_timeout 14건에 안 든다. 수집기에 **누적(total) 축 지표가 없다.**
 - 오탐 1건 기각 — `recompute-kr-safe` 는 `hours_since_ok=null`(한 번도 성공 못 함)이지만
   스케줄이 `0 15 31 12 *` 로 **12월 31일 연 1회**다. 스킬이 명시한 예외라 critical 이 아니다.
+- 인덱스 적용 완료 (마이그레이션 `20260906014416`) — `idx_lbv_word_lemma` 53MB.
+  **53,668ms -> 7,375ms** · buffers 72,225 -> 1,070(98.5% 감소) · Seq Scan -> Index Only Scan.
+  CONCURRENTLY 는 못 썼다 — MCP 가 SET 과 DDL 을 한 implicit transaction 으로 묶어 25001 이 난다.
+  적용 직전 `pg_stat_activity` 로 쓰는 세션 0 을 확인하고 비-CONCURRENTLY 로 넣었다.
+- **고치고 나서야 나머지 절반이 보였다** (마이그레이션 `20260906015200`) — 인덱스를 태워도 7.4초가 남았다.
+  원인은 인덱스가 아니라 `Heap Fetches 844` 였다. 이 표는 **vacuum 이력이 0** 이라 visibility map 이
+  5.0% 밖에 안 차 있다(relallvisible 3,638 / relpages 72,225). Index Only Scan 이 이름값을 못 한다.
+  직접 VACUUM 은 statement_timeout(120s) 안에 못 끝낸다 — 블록 62,001/72,225 에서 취소됐고, 두 번
+  돌려도 마찬가지였다(인덱스 정리 전에 끊기면 페이지를 all-visible 로 못 찍는다).
+  그래서 **타임아웃이 없는 autovacuum 에 넘겼다** — 표별 `autovacuum_vacuum_scale_factor` 0.2 -> 0.05.
+  기본 0.2 는 1,680,356 행 표에 임계 336,121 을 뜻해서 dead 310,635 로도 **영영 안 돌고 있었다.**
+  0.05 면 임계 84,068 로 즉시 발화한다. 되돌리기는 `RESET (autovacuum_vacuum_scale_factor)`.
 - 판정층 현황: open **critical 5 · warning 6 · info 3**. `close_missing_db_health_findings` 는
   이번에 본 14개 지문 전체를 넘겼다 — 제 3건만 넘겼으면 동시 세션의 11건이 전부 닫힐 뻔했다.
 

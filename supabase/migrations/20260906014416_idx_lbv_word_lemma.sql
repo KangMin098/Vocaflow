@@ -18,19 +18,20 @@
 -- 커서가 읽는 열이 word·lemma 둘뿐이라 index-only scan 이 되고,
 -- 부분 인덱스라 lemma 없는 행(약 8.7만)을 담지 않는다.
 --
--- ⚠️ MCP `apply_migration`·`execute_sql` 은 트랜잭션 안에서 돌아
---    CONCURRENTLY 를 못 쓴다(25001). 아래는 CONCURRENTLY 판이며,
---    psql 등 트랜잭션 밖 세션에서 실행해야 한다:
+-- ⚠️ 원격에는 CONCURRENTLY **없이** 적용했다(version 20260906014416).
+--    MCP 는 SET 과 DDL 을 한 implicit transaction 으로 묶어 보내 CONCURRENTLY 가 25001 로 거부된다.
+--    빌드 동안 이 표의 쓰기가 잠기므로, 적용 직전 pg_stat_activity 로 쓰는 세션 0 을 확인하고 넣었다.
+--    20260906080000_idx_dcp_items_ref_id 와 같은 성질이다.
 --
---      SET statement_timeout = 0;
---      CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_lbv_word_lemma
---        ON public.library_book_vocabularies (word)
---        INCLUDE (lemma) WHERE lemma IS NOT NULL;
+-- ── 적용 후 실측 ────────────────────────────────────────────────────
+--   인덱스 53MB · Index Only Scan 전환 · buffers 72,225 -> 1,070 (98.5% 감소)
+--   53,668ms -> 7,375ms
 --
---    트랜잭션 안에서 적용해야 한다면 CONCURRENTLY 를 빼면 되지만,
---    빌드 동안 이 테이블의 **쓰기가 잠긴다** — 이 테이블은 유휴가 아니다
---    (lemma 백필로 n_tup_upd 80,403). 20260906080000 과 같은 성질이다.
-CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_lbv_word_lemma
+--   아직 Heap Fetches 844 가 남아 시간을 다 먹는다. 이 표는 vacuum 이력이 0 이라
+--   visibility map 이 5.0% 밖에 안 차 있다(relallvisible 3,638 / relpages 72,225).
+--   VACUUM 을 statement_timeout(120s) 안에서 끝낼 수 없어서(블록 62,001 에서 취소)
+--   타임아웃이 없는 autovacuum 에 맡기는 것이 남은 절반이다.
+CREATE INDEX IF NOT EXISTS idx_lbv_word_lemma
   ON public.library_book_vocabularies (word)
   INCLUDE (lemma)
   WHERE lemma IS NOT NULL;
