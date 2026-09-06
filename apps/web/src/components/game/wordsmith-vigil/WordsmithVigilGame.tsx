@@ -18,8 +18,9 @@
 //      → 가속이 오답 횟수에 비례해 계단식으로 커지고 클램프를 없애 실제로 격추된다.
 //        2회 이상 틀린 뒤의 정답은 인출이 아니므로 FSRS 에 올리지 않는다(assisted).
 //   ③ 탭 전환이 무료 무한 일시정지였다(사전 찾기).
-//      → visibilitychange 로 명시 정지 + 복귀 3초 카운트인 + 그 동안 떠 있던 정령은
-//        assisted 처리(게임 점수는 그대로, 복습 기록만 보호).
+//      → 명시 정지 + 복귀 3초 카운트인 + 그 동안 떠 있던 정령은 assisted 처리
+//        (게임 점수는 그대로, 복습 기록만 보호). v08.8 부터 '떠났다/돌아왔다' 판정 자체는
+//        lib/game/session-pause.ts 한 곳이 하고 여기서는 그 결과만 받는다.
 //   ④ Enter 가 인트로에선 '서약', 코드에선 '즉시 확정'이라 아무도 확정을 못 배웠다.
 //      → Enter = 항상 지금 확정 · Space = 서약 으로 분리하고 안내 문구를 일치시켰다.
 //   ⑤ 새벽 요구 처리량 0.72단어/초는 대상 학습자에게 도달 불가였다(승리 분기가 죽은 콘텐츠).
@@ -48,6 +49,7 @@ import {
   useCountUp,
   useCombo,
   usePersonalBest,
+  useSessionPauseClock,
   DEFAULT_COMBO_TIERS,
   clamp,
   shuffle,
@@ -290,7 +292,12 @@ export function WordsmithVigilGame({ wordPool, onExit, onCorrect, onWrong }: Pro
   const vowHotRef = useRef(false);
   /** 단어별 '철자를 마지막으로 보여준 시각' — 재출현을 메아리로 표시하는 근거. */
   const revealedAtRef = useRef<Map<string, number>>(new Map());
-  const hiddenAtRef = useRef(0);
+  /** 이미 처리한 복귀 시각 — 같은 이탈을 두 번 세지 않는다. */
+  const awayHandledRef = useRef(0);
+  // 정지 판정은 lib/game/session-pause.ts 한 곳(19종 공통) — 여기서 리스너를 달지 않는다.
+  const pause = useSessionPauseClock(phase === 'playing');
+  const pauseRef = useRef(pause);
+  pauseRef.current = pause;
   const resumeAtRef = useRef(0);
   const countInRef = useRef(0);
   const awayMsRef = useRef(0);
@@ -801,26 +808,18 @@ export function WordsmithVigilGame({ wordPool, onExit, onCorrect, onWrong }: Pro
   //      **점수는 그대로 주되 복습 기록만 보호**한다.
   useEffect(() => {
     if (phase !== 'playing') return;
-    const onVis = () => {
-      if (document.visibilityState === 'hidden') {
-        hiddenAtRef.current = performance.now();
-        return;
-      }
-      if (hiddenAtRef.current === 0) return;
-      const away = performance.now() - hiddenAtRef.current;
-      hiddenAtRef.current = 0;
-      if (away < AWAY_MIN_MS) return;
-      awayMsRef.current += away;
-      wispsRef.current = wispsRef.current.map((v) => (v.away ? v : { ...v, away: true }));
-      setWisps(wispsRef.current);
-      resumeAtRef.current = performance.now() + COUNT_IN_MS;
-      lastRef.current = performance.now();
-      cancelCommit();
-      setAnnounce('다른 창에 다녀왔어요 — 3초 뒤 다시 시작합니다');
-    };
-    document.addEventListener('visibilitychange', onVis);
-    return () => document.removeEventListener('visibilitychange', onVis);
-  }, [cancelCommit, phase]);
+    if (pause.awayAt === 0 || pause.awayAt === awayHandledRef.current) return;
+    awayHandledRef.current = pause.awayAt;
+    // 짧게 스친 전환(알림 배너 등)까지 3초 카운트인을 물리면 그게 방해다 — 이 게임의 문턱.
+    if (pause.awayMs < AWAY_MIN_MS) return;
+    awayMsRef.current += pause.awayMs;
+    wispsRef.current = wispsRef.current.map((v) => (v.away ? v : { ...v, away: true }));
+    setWisps(wispsRef.current);
+    resumeAtRef.current = performance.now() + COUNT_IN_MS;
+    lastRef.current = performance.now();
+    cancelCommit();
+    setAnnounce('다른 창에 다녀왔어요 — 3초 뒤 다시 시작합니다');
+  }, [cancelCommit, pause.awayAt, pause.awayMs, phase]);
 
   // ── 메인 루프 ───────────────────────────────────────────────────────────
   useEffect(() => {
@@ -831,8 +830,9 @@ export function WordsmithVigilGame({ wordPool, onExit, onCorrect, onWrong }: Pro
     const loop = (now: number) => {
       if (!mounted.current || endedRef.current || phaseRef.current !== 'playing') return;
 
-      // 탭이 숨은 동안은 명시적으로 얼린다(브라우저가 rAF 를 계속 돌리는 경우까지 포함).
-      if (typeof document !== 'undefined' && document.hidden) {
+      // 얼어 있는 동안은 명시적으로 멈춘다 — 탭 이탈·수동 일시정지·복귀 유예가 모두 여기다
+      // (브라우저가 숨은 탭에서도 rAF 를 계속 돌리는 경우까지 포함).
+      if (pauseRef.current.frozen) {
         lastRef.current = now;
         rafRef.current = requestAnimationFrame(loop);
         return;
@@ -997,7 +997,7 @@ export function WordsmithVigilGame({ wordPool, onExit, onCorrect, onWrong }: Pro
     vowHoldUntilRef.current = 0;
     vowHotRef.current = false;
     revealedAtRef.current = new Map();
-    hiddenAtRef.current = 0;
+    awayHandledRef.current = pauseRef.current.awayAt;
     resumeAtRef.current = 0;
     countInRef.current = 0;
     awayMsRef.current = 0;

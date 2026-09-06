@@ -11,14 +11,36 @@
 
 'use client';
 
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react';
 
 import { reportSessionScore } from '@/lib/game/session-score';
+import {
+  drainClock,
+  extendClock,
+  freezeClock,
+  remainingMs,
+  resumeClock,
+  startClock,
+  type ClockState,
+} from '@/lib/game/countdown-clock';
+import {
+  getServerSessionPauseSnapshot,
+  getSessionPauseSnapshot,
+  markClockRunning,
+  registerTimedClock,
+  subscribeSessionPause,
+  type SessionPauseSnapshot,
+} from '@/lib/game/session-pause';
 
 // ─── 카운트다운 ───────────────────────────────────────────────────────────
 //
 // setInterval 을 쓰지 않는다: 백그라운드 탭에서 스로틀되고 누적 드리프트가 생겨
 // "남은 시간"이 실제와 어긋난다. 벽시계(endAt)를 진실로 두고 rAF 는 렌더만 한다.
+//
+// 그 벽시계는 **탭을 떠나 있는 동안에도 갔다**(v08.8 결함 M3 — 17/19 게임). 그래서 시간
+// 산술은 lib/game/countdown-clock.ts(순수 함수 · 얼리기/잇기)로, '지금 멈춰야 하는가' 는
+// lib/game/session-pause.ts(모듈 싱글턴 · visibilitychange 한 곳)로 내렸다.
+// 여기 남은 것은 그 둘을 잇는 렌더 루프뿐이다 — 게임은 리스너를 달지 않는다.
 //
 // extend/drain 이 1급 개념인 이유 — 긴장 곡선을 만들려면 시간이 **보상이자 벌**이어야
 // 한다. 정답에 +시간, 오답에 -시간을 주는 순간 같은 4지선다도 판돈이 생긴다.
@@ -33,6 +55,11 @@ export interface CountdownOptions {
   /** 남은 시간이 이 값 아래로 처음 내려갈 때 한 번 호출 — 경고 연출용. */
   warnAtMs?: number;
   onWarn?: () => void;
+  /**
+   * 탭을 떠나 있는 동안·수동 일시정지 동안 시계를 얼린다. 기본 true.
+   * (전화 한 통이 판을 끝내던 결함 M3 의 기본값이 여기다 — 끄려면 그 이유를 적을 것.)
+   */
+  pauseWhenHidden?: boolean;
 }
 
 export interface Countdown {
@@ -52,6 +79,10 @@ export interface Countdown {
   reset: (ms?: number) => void;
   /** 지금까지 흐른 시간(ms) — 기록용. */
   elapsedMs: number;
+  /** 지금 얼어 있는가(탭 이탈 · 수동 일시정지 · 복귀 유예). */
+  paused: boolean;
+  /** 복귀 유예 중 — 화면이 '곧 다시 시작합니다' 를 말하는 구간. */
+  resuming: boolean;
 }
 
 /**
@@ -60,17 +91,54 @@ export interface Countdown {
  */
 const DEFAULT_EXTEND_CAP_RATIO = 0.75;
 
+const nowMs = () => (typeof performance !== 'undefined' ? performance.now() : Date.now());
+
+/**
+ * 지금 세션의 정지 상태를 읽는다(탭 이탈 · 수동 일시정지 · 복귀 유예).
+ * 감지 규칙은 `lib/game/session-pause.ts` 한 곳에만 있다 — 게임은 결과만 본다.
+ */
+export function useSessionPause(): SessionPauseSnapshot {
+  return useSyncExternalStore(
+    subscribeSessionPause,
+    getSessionPauseSnapshot,
+    getServerSessionPauseSnapshot,
+  );
+}
+
+/**
+ * 제한시간을 가진 게임이 부르는 훅 — "여기 멈출 시계가 있다" 를 알리고 정지 상태를 받는다.
+ * `useCountdown` 은 내부에서 이걸 쓰고, 자기 rAF 루프를 도는 게임(ghost-race ·
+ * wordsmith-vigil)은 직접 부른다. **리스너를 자기 파일에 다시 달지 않는다.**
+ *
+ * @param running 지금 시계가 달리는 중인가 — 일시정지 버튼이 보이는 조건이다.
+ * @param enabled false 면 이 시계는 정지 규칙 밖에 둔다(기본 true).
+ */
+export function useSessionPauseClock(running: boolean, enabled = true): SessionPauseSnapshot {
+  const pause = useSessionPause();
+  useEffect(() => (enabled ? registerTimedClock() : undefined), [enabled]);
+  useEffect(() => (enabled && running ? markClockRunning() : undefined), [enabled, running]);
+  return pause;
+}
+
 export function useCountdown({
   totalMs,
   running = true,
   onEnd,
   warnAtMs = 5000,
   onWarn,
+  pauseWhenHidden = true,
 }: CountdownOptions): Countdown {
   const [totals, setTotals] = useState(totalMs);
-  const endAtRef = useRef(0);
-  const pausedLeftRef = useRef<number | null>(null);
-  const grantedRef = useRef(0);
+
+  // 탭을 떠나 있는 동안·수동 정지 동안 시계는 얼어 있어야 한다.
+  // `running`(게임 상태) 과 `frozen`(학습자 부재) 은 다른 축이고, 둘 다 참일 때만 흐른다.
+  const pause = useSessionPauseClock(running, pauseWhenHidden);
+  const frozen = pauseWhenHidden && pause.frozen;
+  const active = running && !frozen;
+  const activeRef = useRef(active);
+  activeRef.current = active;
+
+  const clockRef = useRef<ClockState>(startClock(nowMs(), totalMs));
   const endedRef = useRef(false);
   const warnedRef = useRef(false);
   const [remainMs, setRemainMs] = useState(totalMs);
@@ -80,33 +148,31 @@ export function useCountdown({
   const onWarnRef = useRef(onWarn);
   onWarnRef.current = onWarn;
 
-  // 마운트 / reset 시 종료 시각 확정
+  // 마운트 / 총량 변경 시 시계를 다시 세운다. 얼어 있는 채로 마운트되면(백그라운드 탭에서
+  // 라우팅) 세우자마자 얼린다 — 안 그러면 학습자가 보기도 전에 첫 판이 소모된다.
   useEffect(() => {
-    endAtRef.current = performance.now() + totals;
-    pausedLeftRef.current = null;
-    grantedRef.current = 0;
+    const t = nowMs();
+    const fresh = startClock(t, totals);
+    clockRef.current = activeRef.current ? fresh : freezeClock(fresh, t);
     endedRef.current = false;
     warnedRef.current = false;
     setRemainMs(totals);
   }, [totals]);
 
-  // 일시정지: 남은 시간을 붙잡아 두었다가 재개 때 종료 시각을 다시 민다.
+  // 정지 / 재개 — 게임 상태·탭 이탈·수동 정지가 전부 이 한 줄로 합쳐진다.
   useEffect(() => {
-    if (running) {
-      if (pausedLeftRef.current != null) {
-        endAtRef.current = performance.now() + pausedLeftRef.current;
-        pausedLeftRef.current = null;
-      }
-      return;
-    }
-    pausedLeftRef.current = Math.max(0, endAtRef.current - performance.now());
-  }, [running]);
+    const t = nowMs();
+    clockRef.current = active
+      ? resumeClock(clockRef.current, t)
+      : freezeClock(clockRef.current, t);
+    setRemainMs(remainingMs(clockRef.current, t));
+  }, [active]);
 
   useEffect(() => {
-    if (!running) return;
+    if (!active) return;
     let raf = 0;
     const tick = () => {
-      const left = Math.max(0, endAtRef.current - performance.now());
+      const left = remainingMs(clockRef.current, nowMs());
       setRemainMs(left);
       if (!warnedRef.current && left <= warnAtMs && left > 0) {
         warnedRef.current = true;
@@ -123,20 +189,17 @@ export function useCountdown({
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [running, warnAtMs]);
+  }, [active, warnAtMs]);
 
   const extend = useCallback(
     (ms: number) => {
       if (endedRef.current || ms <= 0) return;
-      const cap = totals * DEFAULT_EXTEND_CAP_RATIO;
-      const allowed = Math.max(0, Math.min(ms, cap - grantedRef.current));
-      if (allowed <= 0) return;
-      grantedRef.current += allowed;
-      const base = pausedLeftRef.current != null ? null : endAtRef.current;
-      if (base == null) pausedLeftRef.current = (pausedLeftRef.current ?? 0) + allowed;
-      else endAtRef.current = base + allowed;
+      const t = nowMs();
+      const before = clockRef.current.granted;
+      clockRef.current = extendClock(clockRef.current, t, ms, totals * DEFAULT_EXTEND_CAP_RATIO);
+      if (clockRef.current.granted === before) return;
+      const left = remainingMs(clockRef.current, t);
       // 경고 구간을 벗어났으면 다시 경고할 수 있게 되돌린다.
-      const left = pausedLeftRef.current ?? Math.max(0, endAtRef.current - performance.now());
       if (left > warnAtMs) warnedRef.current = false;
       setRemainMs(left);
     },
@@ -145,13 +208,8 @@ export function useCountdown({
 
   const drain = useCallback((ms: number) => {
     if (endedRef.current || ms <= 0) return;
-    if (pausedLeftRef.current != null) {
-      pausedLeftRef.current = Math.max(0, pausedLeftRef.current - ms);
-      setRemainMs(pausedLeftRef.current);
-      return;
-    }
-    endAtRef.current -= ms;
-    setRemainMs(Math.max(0, endAtRef.current - performance.now()));
+    clockRef.current = drainClock(clockRef.current, ms);
+    setRemainMs(remainingMs(clockRef.current, nowMs()));
   }, []);
 
   const reset = useCallback(
@@ -160,14 +218,14 @@ export function useCountdown({
         setTotals(ms); // 위 effect 가 나머지를 처리
         return;
       }
-      endAtRef.current = performance.now() + totals;
-      pausedLeftRef.current = running ? null : totals;
-      grantedRef.current = 0;
+      const t = nowMs();
+      const fresh = startClock(t, totals);
+      clockRef.current = activeRef.current ? fresh : freezeClock(fresh, t);
       endedRef.current = false;
       warnedRef.current = false;
       setRemainMs(totals);
     },
-    [totals, running],
+    [totals],
   );
 
   const frac = totals > 0 ? Math.max(0, Math.min(1, remainMs / totals)) : 0;
@@ -179,7 +237,9 @@ export function useCountdown({
     extend,
     drain,
     reset,
-    elapsedMs: Math.max(0, totals + grantedRef.current - remainMs),
+    elapsedMs: Math.max(0, totals + clockRef.current.granted - remainMs),
+    paused: frozen,
+    resuming: pauseWhenHidden && pause.resuming,
   };
 }
 

@@ -13,6 +13,7 @@ import { useRouter } from 'next/navigation';
 import { ResourceContext } from '@/components/layout/ResourceContext';
 import InGameBrief, { useBriefGate } from '@/components/game/brief/InGameBrief';
 import { GameLoading, NotEnoughWords, type Word, type ArcadeGameId } from '@/components/game/_shared/gamekit';
+import { GamePauseControl } from '@/components/game/_shared/PauseControl';
 import { useGameWordScope } from '@/lib/game/use-word-scope';
 import { useGameSessionRecorder } from '@/lib/game/use-session-recorder';
 import { gameResourceContext } from '@/lib/game/scope-resource';
@@ -155,6 +156,9 @@ export function GamePlayScaffold({
       {brief.phase === 'ready'
         ? render({ wordPool: scope.words, onCorrect, onWrong, onExit })
         : brief.phase === 'resolving' && <GameLoading message="게임 준비 중…" />}
+      {/* 일시정지 버튼 + 정지 커튼. 제한시간 시계가 실제로 올라온 게임에서만 나타난다
+          (session-pause.ts 가 시계 수를 센다) — 시간이 없는 게임에 멈출 것은 없다. */}
+      <GamePauseControl />
     </main>
   );
 }

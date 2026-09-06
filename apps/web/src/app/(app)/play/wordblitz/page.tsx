@@ -24,6 +24,7 @@ import { WordBlitzLoading } from '@/components/game/wordblitz/WordBlitzUI';
 // 게임은 gamekit Word({en,ko,pron?,example?,pos?,inflected?})를 받는다 —
 // lib/wordblitz/data 의 Word({en,ko,pron?})는 그 서브셋이라 v08 이 쓰는 example/pos 가 잘린다.
 import type { Word } from '@/components/game/_shared/gamekit';
+import { GamePauseControl } from '@/components/game/_shared/PauseControl';
 import { gameResourceContext } from '@/lib/game/scope-resource';
 import { useGameSessionRecorder } from '@/lib/game/use-session-recorder';
 import { useGameWordScope, type WordScope } from '@/lib/game/use-word-scope';
@@ -130,6 +131,8 @@ export default function WordBlitzPage() {
       ) : (
         brief.phase === 'resolving' && <WordBlitzLoading message="게임 준비 중..." />
       )}
+      {/* 일시정지 + 정지 커튼 — 스캐폴드 19종과 같은 한 벌(components/game/_shared/PauseControl). */}
+      <GamePauseControl />
     </main>
   );
 }

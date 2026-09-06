@@ -623,6 +623,42 @@ test.describe('아케이드 게임 전수 스모크', () => {
     });
   }
 
+  // v08.8 회귀 — 일시정지(결함 M3). 19종 어디에도 학습자가 손댈 수 있는 정지가 없었고,
+  // 탭을 떠난 시간이 제한 시간에서 그대로 차감됐다. 규칙은 lib/game/session-pause.ts 한 곳이고
+  // 화면은 스캐폴드가 그리는 한 벌(components/game/_shared/PauseControl.tsx)이다.
+  // 시계 산술 자체(떠나 있는 동안 남은 시간이 줄지 않는다)는 단위 회귀가 잰다 —
+  // src/lib/game/__tests__/session-pause.test.ts. 여기서는 **배선**만 본다.
+  test('일시정지 — 시계를 세우고 커튼으로 판을 가린 뒤 이어서 할 수 있다', async ({ page }) => {
+    test.setTimeout(60_000);
+    const errors = collectConsoleErrors(page);
+    await page.goto('/play/morphmerge?from=/arcade', { waitUntil: 'domcontentloaded' });
+    await expect(
+      page.getByRole('group', { name: '형태 타일' }).getByRole('button').first(),
+    ).toBeVisible({ timeout: 30_000 });
+
+    // 제한시간 시계가 실제로 달리는 게임에만 나타난다(session-pause 가 시계 수를 센다).
+    const pauseBtn = page.locator('.gk-pause-btn');
+    await expect(pauseBtn, '일시정지 버튼 없음').toBeVisible({ timeout: 15_000 });
+    const box = await pauseBtn.boundingBox();
+    expect(box!.width, '터치 타깃 44px 미만').toBeGreaterThanOrEqual(44);
+    expect(box!.height, '터치 타깃 44px 미만').toBeGreaterThanOrEqual(44);
+    expect(await pauseBtn.evaluate((el) => getComputedStyle(el).position)).toBe('fixed');
+
+    await pauseBtn.click();
+    // 커튼이 보드를 가린다 — 시계만 멈추고 문제가 보이면 일시정지가 곧 정답 열람 시간이 된다.
+    const veil = page.locator('.gk-pause-veil');
+    await expect(veil).toBeVisible();
+    await expect(page.getByText('잠깐 멈췄어요')).toBeVisible();
+    await expect(pauseBtn).toHaveCount(0);
+
+    await page.getByRole('button', { name: '계속하기' }).click();
+    await expect(veil).toHaveCount(0);
+    await expect(pauseBtn).toBeVisible();
+
+    const fatal = fatalErrors(errors);
+    expect(fatal, `[pause] console: ${fatal.join(' | ')}`).toHaveLength(0);
+  });
+
   // v07.4 회귀 — 아케이드에서 스코프 없이 연 mine 게임이 하드코딩 DEFAULT_POOL 로 조용히
   // 돌아가던 결함(내 단어 미사용 → recordGameResult silent skip → FSRS 무반영)의 재발 차단.
   // 브레드크럼 라벨 + 실제 제시된 뜻이 내 단어장 소속인지 2중으로 단언한다.

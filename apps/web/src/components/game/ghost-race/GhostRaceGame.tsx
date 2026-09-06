@@ -27,8 +27,9 @@
 //     → 보상을 칸이 아니라 **유령 0.5초 정지**로 바꾸고 발동선을 -2 → -3 구간으로 늦췄다.
 //     시뮬: 고의 후퇴(샌드배깅) 전략의 랩승 손실 -3.5pp → -10.9pp = 더 이상 최적이 아니다.
 //  4) [보통] 탭 전환 = 경고 없는 즉시 랩 패배 — rAF 가 멈춘 사이의 시간이 복귀 첫 프레임에
-//     통째로 유령 클록에 더해졌다. → visibilitychange 일시정지 + 1.2초 인라인 '재출발' 배지
-//     (모달 아님 — 학습 중단 금지).
+//     통째로 유령 클록에 더해졌다. → 시계 정지 + 1.2초 인라인 '재출발' 배지(모달 아님).
+//     v08.8 부터 그 판정은 **이 파일에 없다** — lib/game/session-pause.ts 한 곳이 19종 공통으로
+//     visibilitychange 를 듣고, 여기서는 useSessionPauseClock 으로 상태만 읽는다.
 //  5) [보통] 안드로이드 IME 제안 스트립이 아웃코스 생성 인출을 재인으로 강등시켰다.
 //     → 한 번에 2글자 이상 채워진 입력은 자동완성으로 보고 인코스와 같은 +1 만 주고
 //       FSRS 에는 assisted 로 올린다(벌하지 않는다 — 다만 생성 인출로 세지 않는다).
@@ -47,7 +48,7 @@ import {
 } from 'react';
 import {
   GameKitStyles, AmbientBackground, Hud, GameDone, ParticleBurst, useSfx, shuffle, clamp, type Word,
-  GameMusic, FeedbackIcon, Kbd, NotEnoughWords, useCombo, usePersonalBest, type ComboTier,
+  GameMusic, FeedbackIcon, Kbd, NotEnoughWords, useCombo, usePersonalBest, useSessionPauseClock, type ComboTier,
 } from '@/components/game/_shared/gamekit';
 
 /**
@@ -151,8 +152,6 @@ const IN_WRONG_LEAD_MIN = 2;
  * 배열 인덱스가 아니라 문항 카운터로 미뤄야 풀이 6개여도 간격이 보장된다.
  */
 const REQUEUE_GAP = 8;
-/** 탭 복귀 후 유령이 다시 달리기까지의 유예. */
-const RESUME_GRACE_MS = 1200;
 
 const STORE_KEY = 'vf_ghostrace_v3';
 
@@ -352,8 +351,7 @@ export function GhostRaceGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
   const [toast, setToast] = useState('');
   const [srMsg, setSrMsg] = useState('');
   const [lapEndMsg, setLapEndMsg] = useState('');
-  /** 탭에서 돌아온 직후의 재출발 유예 — 트랙 위 인라인 배지(모달 아님). */
-  const [resuming, setResuming] = useState(false);
+
   /** 이번 아웃코스 정답이 IME 자동완성으로 채워졌는가(리빌에 조용히 알린다). */
   const [autoFilledShown, setAutoFilledShown] = useState(false);
 
@@ -383,8 +381,6 @@ export function GhostRaceGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
   const gradedRef = useRef(new Map<string, { n: number; revealed: boolean }>());
   /** 이번 레이스의 랩 페이스 표본(패배 랩 포함). */
   const paceRef = useRef<number[]>([]);
-  /** 탭 복귀 유예 종료 시각(performance.now 기준). 0 이면 유예 없음. */
-  const resumeAtRef = useRef(0);
   /** 이번 문항의 입력이 IME 제안/붙여넣기로 한 번에 채워졌는가. */
   const autoFillRef = useRef(false);
   const typedRef = useRef('');
@@ -395,6 +391,17 @@ export function GhostRaceGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
    * (오답은 그대로 정직하게 올린다 — 모르는 단어를 FSRS 에서 지우면 안 된다.)
    */
   const pausedQRef = useRef(false);
+
+  // 정지(탭 이탈 · 수동 일시정지 · 복귀 유예)는 lib/game/session-pause.ts 가 판정한다.
+  // 이 게임은 리스너를 달지 않고 상태만 읽어 유령 클록을 얼린다 — 규칙은 한 곳에만 있다.
+  const pause = useSessionPauseClock(phase === 'racing');
+  const pauseRef = useRef(pause);
+  pauseRef.current = pause;
+  useEffect(() => {
+    // 정지 중에 화면 밖에서 얼마든지 찾아볼 수 있었으므로 이 문항의 **정답**은
+    // 독립 인출로 세지 않는다(오답은 그대로 정직하게 올린다).
+    if (pause.frozen) pausedQRef.current = true;
+  }, [pause.frozen]);
   /** 마지막 '제출 결과' 낭독 시각 — 리드 밴드 변화가 이를 덮어쓰지 않게 한다. */
   const srAtRef = useRef(0);
   const youRef = useRef(0);
@@ -622,8 +629,6 @@ export function GhostRaceGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
     if (lapEndedRef.current) return;
     lapEndedRef.current = true;
     lockRef.current = true;
-    resumeAtRef.current = 0;
-    setResuming(false);
     clearTimers();
     const ms = Math.round(performance.now() - lapStartRef.current);
     const results = [...lapResRef.current, youWon];
@@ -673,9 +678,7 @@ export function GhostRaceGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
     lapEndedRef.current = false;
     outLockRef.current = 0;
     prevBandRef.current = 99;
-    resumeAtRef.current = 0;
     comboReset();
-    setResuming(false);
     setYouSeg(0);
     setGhostSeg(0);
     setOutLock(0);
@@ -716,20 +719,15 @@ export function GhostRaceGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
     if (phase !== 'racing') return;
     let raf = 0;
     let last = performance.now();
-    let wasHidden = false;
     const loop = () => {
       if (!mountedRef.current || lapEndedRef.current) return;
       const now = performance.now();
-      // 탭 복귀 유예 — 숨어 있던 시간이 통째로 유령 클록에 더해지지 않게 last 를 끌고 가면서
-      // 1.2초 동안 유령을 세워 둔다. 전화 한 통이 랩 즉사가 되던 경로를 끊는다.
-      if (resumeAtRef.current > now) {
+      // 얼어 있는 동안(탭 이탈 · 수동 일시정지 · 복귀 유예 1.2초)은 last 를 끌고만 간다 —
+      // 자리를 비운 시간이 통째로 유령 클록에 더해지던 경로를 끊는다. 전화 한 통이 랩 즉사였다.
+      if (pauseRef.current.frozen) {
         last = now;
         raf = requestAnimationFrame(loop);
         return;
-      }
-      if (resumeAtRef.current !== 0) {
-        resumeAtRef.current = 0;
-        setResuming(false);
       }
       let dt = now - last;
       last = now;
@@ -772,27 +770,8 @@ export function GhostRaceGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
       }
       raf = requestAnimationFrame(loop);
     };
-    const onVis = () => {
-      if (document.visibilityState === 'hidden') {
-        wasHidden = true;
-        cancelAnimationFrame(raf);
-        return;
-      }
-      if (!wasHidden) return;
-      wasHidden = false;
-      if (!mountedRef.current || lapEndedRef.current) return;
-      last = performance.now();
-      resumeAtRef.current = last + RESUME_GRACE_MS;
-      pausedQRef.current = true;
-      setResuming(true);
-      raf = requestAnimationFrame(loop);
-    };
-    document.addEventListener('visibilitychange', onVis);
     raf = requestAnimationFrame(loop);
-    return () => {
-      document.removeEventListener('visibilitychange', onVis);
-      cancelAnimationFrame(raf);
-    };
+    return () => cancelAnimationFrame(raf);
   }, [phase]);
 
   // 최종 구간 고조
@@ -831,7 +810,7 @@ export function GhostRaceGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
   // ─── 제출 ───
   const submit = useCallback((raw: string, tileIdx: number | null) => {
     if (phase !== 'racing' || !target || lockRef.current || lapEndedRef.current) return;
-    if (resumeAtRef.current > performance.now()) return; // 탭 복귀 재출발 유예 중
+    if (pauseRef.current.frozen) return; // 정지 중(탭 이탈 · 일시정지 · 재출발 유예)
     lockRef.current = true;
 
     const isOut = lineRef.current === 'out';
@@ -928,8 +907,6 @@ export function GhostRaceGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
     nextLineRef.current = 'in';
     lineRef.current = 'in';
     outLockRef.current = 0;
-    resumeAtRef.current = 0;
-    setResuming(false);
     setLapRes([]);
     setLapIdx(0);
     setNextLine('in');
@@ -974,8 +951,8 @@ export function GhostRaceGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
 
   // 재출발 유예는 시각 배지(aria-hidden)로 보이므로, 낭독은 라이브 리전 한 곳에서 따로 준다.
   useEffect(() => {
-    if (resuming) say('돌아왔어요 · 유령을 잠시 세웠습니다', 2);
-  }, [resuming, say]);
+    if (pause.resuming) say('돌아왔어요 · 유령을 잠시 세웠습니다', 2);
+  }, [pause.resuming, say]);
 
   // 리빌 뒤 포커스 복원 — disabled 대신 aria-disabled 를 쓰므로 포커스가 날아가지 않지만,
   // 문항이 교체되면 노드가 바뀌므로 키보드 사용자에게 같은 자리로 되돌려준다.
@@ -1079,7 +1056,7 @@ export function GhostRaceGame({ wordPool, onExit, onCorrect, onWrong }: Props) {
         {/* 낭독은 상단 gk-sr 한 곳에서만 — 여기 role="status" 를 두면 라이브 리전이 둘이 되어
             정답 낭독과 경합한다(laneToast 가 gk-sr 로 prio 1 낭독을 이미 보낸다). */}
         {toast && <div className="gr-toast" aria-hidden="true">{toast}</div>}
-        {resuming && (
+        {pause.resuming && (
           <div className="gr-resume" aria-hidden="true">
             <span className="gr-resume-mark">⏸</span> 돌아왔어요 · 유령을 세워 뒀습니다
           </div>

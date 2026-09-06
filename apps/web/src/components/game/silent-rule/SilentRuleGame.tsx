@@ -265,7 +265,12 @@ export function SilentRuleGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
   // 주기적으로 조금씩 깎아 같은 효과를 낸다(300ms 실시간마다 100ms 소모).
   useEffect(() => {
     if (!started || phase !== 'verdict') return;
-    const id = window.setInterval(() => clockRef.current.drain(VERDICT_DRAIN_MS), VERDICT_TICK_MS);
+    const id = window.setInterval(() => {
+      // 자리를 비웠거나(탭 이탈) 멈춰 뒀으면 판정 시계도 함께 선다 — setInterval 은
+      // 백그라운드에서 스로틀될 뿐 멈추지 않아서, 이 가드가 없으면 떠나 있는 동안에도 깎인다.
+      if (clockRef.current.paused) return;
+      clockRef.current.drain(VERDICT_DRAIN_MS);
+    }, VERDICT_TICK_MS);
     return () => window.clearInterval(id);
   }, [started, phase]);
 

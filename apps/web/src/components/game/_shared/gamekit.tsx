@@ -30,11 +30,17 @@ export {
   useCombo,
   useFlipGrid,
   usePersonalBest,
+  useSessionPause,
+  useSessionPauseClock,
   DEFAULT_COMBO_TIERS,
   type Countdown,
   type ComboState,
   type ComboTier,
 } from './mechanics';
+
+// 정지 소유권 — 탭 이탈·수동 일시정지의 판정은 session-pause.ts 한 곳이다.
+// 자기 rAF 루프를 도는 게임도 리스너를 달지 않고 useSessionPauseClock 으로 상태만 읽는다.
+export type { SessionPauseSnapshot } from '@/lib/game/session-pause';
 
 export type Word = {
   en: string;
