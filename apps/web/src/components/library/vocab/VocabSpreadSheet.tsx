@@ -18,7 +18,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { BookOpen, CalendarDays, ListOrdered, RotateCcw } from 'lucide-react'
+import { BookOpen, CalendarDays, Info, ListOrdered, RotateCcw } from 'lucide-react'
 
 /** 라우트가 내려 주는 모양 — `api/vocab/[setId]/spread` 와 짝이다. */
 interface SpreadSense {
@@ -61,6 +61,13 @@ export interface VocabSpreadData {
   reviews: Array<{ label: string; coversDays: number[]; items: Array<{ n: number; word: string }> }>
   indexSize: number
   indexHead: Array<{ word: string; day: number }>
+  /** 설명 지면 — 시중 교재의 머리말 + FEATURES 자리. 조판기가 만든다. */
+  guide: {
+    question: string
+    claims: Array<{ n: number; key: string; label: string; body: string; evidence: string }>
+    features: Array<{ n: number; id: string; label: string; says: string }>
+    sampleWord: string | null
+  } | null
   colophon: {
     brand: string
     title: string
@@ -125,6 +132,67 @@ export function VocabSpreadSheet({ setId }: { setId: string }) {
 
   return (
     <div className="flex flex-col gap-5">
+      {/*
+        설명 지면 — 시중 어휘 교재가 본문 앞에 반드시 두는 것(실측 4권 모두 p2·p5).
+        머리말(왜 이 책인가)과 FEATURES(각 칸이 무엇인지)를 한 자리에 합쳤다.
+
+        **주장마다 근거 수치가 붙는다** — 조판기가 없는 주장은 아예 만들지 않으므로
+        여기서 빈 값을 거를 필요가 없다. 시중 머리말이 "난이도를 일정하게 배분했습니다" 로
+        끝나는 자리에 우리는 센 값을 적는다.
+      */}
+      {data.guide && data.guide.claims.length > 0 && (
+        <section aria-label="이 단어장의 구성">
+          <Kicker><Info size={11} aria-hidden /> {data.guide.question}</Kicker>
+          <ol className="flex flex-col gap-2.5">
+            {data.guide.claims.map((c) => (
+              <li key={c.n} className="grid grid-cols-[18px_minmax(0,1fr)] gap-2">
+                <span className="font-mono text-[11px] text-[var(--t3)]">{c.n}</span>
+                <div>
+                  <p className="font-body text-[13px] text-[var(--t1)]">
+                    <span className="font-display font-[700]">{c.key}</span>
+                    <span className="mx-1.5 text-[var(--t3)]">·</span>
+                    {c.label}
+                    <span className="ml-2 rounded-[3px] bg-[var(--bg3)] px-1.5 py-0.5 font-mono text-[10.5px] text-[var(--t2)]">
+                      {c.evidence}
+                    </span>
+                  </p>
+                  <p className="mt-0.5 font-body text-[12px] leading-relaxed text-[var(--t3)]">{c.body}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+
+          {/* FEATURES — 지면의 어느 자리가 무엇인지. 이 권이 실제로 채운 칸만 가리킨다. */}
+          {data.guide.features.length > 0 && (
+            <div className="mt-4 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)]/40 px-4 py-3">
+              <p className="mb-2 font-display text-[10px] font-[700] uppercase tracking-wider text-[var(--t2)]">
+                지면 보는 법
+                {data.guide.sampleWord && (
+                  <span className="ml-2 font-english text-[11px] font-[500] normal-case tracking-normal text-[var(--t3)]">
+                    예) {data.guide.sampleWord}
+                  </span>
+                )}
+              </p>
+              <ul className="grid grid-cols-1 gap-1.5 sm:grid-cols-2">
+                {data.guide.features.map((f) => (
+                  <li key={f.n} className="grid grid-cols-[18px_minmax(0,1fr)] gap-2">
+                    <span
+                      aria-hidden
+                      className="mt-[1px] inline-flex h-[16px] w-[16px] items-center justify-center rounded-full border border-[var(--bd)] font-mono text-[9.5px] text-[var(--t2)]"
+                    >
+                      {f.n}
+                    </span>
+                    <p className="font-body text-[11.5px] leading-relaxed text-[var(--t3)]">
+                      <b className="text-[var(--t2)]">{f.label}</b> — {f.says}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </section>
+      )}
+
       {/* 학습 계획 — 며칠이면 끝나는가 */}
       <section aria-label="학습 계획">
         <Kicker><CalendarDays size={11} aria-hidden /> 학습 계획</Kicker>

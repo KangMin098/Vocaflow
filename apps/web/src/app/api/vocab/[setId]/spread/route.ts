@@ -19,14 +19,20 @@ import { NextResponse } from 'next/server'
 import { setKindOf } from '@/lib/library/vocab/set-kind'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { buildVocabColophon, ladderStrip, VOCAB_SERIES_BRAND } from '@vocaflow/library-pipeline/vocab-brand'
+import { buildBookGuide } from '@vocaflow/library-pipeline/vocab-book-guide'
 import { typesetVocabSet, type TypesetWord } from '@vocaflow/library-pipeline/vocab-typeset'
 
 export const dynamic = 'force-dynamic'
 
 /** 상세 시트가 받는 지면 분량. 늘리면 응답이 커지고 줄이면 지면이 지면으로 안 보인다. */
 const PREVIEW_DAYS = 2
-/** 조판에 넣을 표제어 상한 — 계획·색인 규모를 참으로 유지하면서 응답을 묶어 둔다. */
-const MAX_WORDS = 1200
+/**
+ * 조판에 넣을 표제어 상한.
+ *
+ * 카탈로그 최대 세트가 1,828낱말이라 2,500이면 전권이 통째로 들어온다 — 상한에 닿아
+ * `truncated` 가 켜지는 일이 실제로는 없어야 맞다. 켜지면 그때는 화면이 그렇게 말한다.
+ */
+const MAX_WORDS = 2500
 
 export async function GET(
   _req: Request,
@@ -55,14 +61,30 @@ export async function GET(
     return NextResponse.json({ error: 'not found' }, { status: 404 })
   }
 
-  const { data: wordRows, error: wErr } = await supabase
-    .from('shared_words')
-    .select('word, sort_order, chapter')
-    .eq('set_id', setId)
-    .order('sort_order', { ascending: true })
-    .limit(MAX_WORDS)
-  if (wErr) return NextResponse.json({ error: wErr.message }, { status: 500 })
-  const rows = (wordRows ?? []) as Array<{ word: string; sort_order: number | null; chapter: number | null }>
+  /*
+    ⚠️ **`.limit()` 만으로는 1,000행에서 잘린다.** PostgREST 는 응답 행 수에 자체 상한(1,000)이
+    있어서 `limit(1200)` 을 줘도 1,000행만 온다. 그 잘림이 조용해서 화면에 **거짓 수치**가 떴다
+    (실측 2026-09-07: 1,828낱말 세트가 "하루 30개 · 34일"= 1,020개 · "색인 1,000개" 로 나왔다.
+     같은 화면의 「단어 수 1,828」과 대놓고 어긋났는데도 아무도 오류를 내지 않았다).
+
+    설명 지면의 근거 수치가 이 행들에서 나오므로 **여기서 잘리면 그 지면이 광고가 된다.**
+    그래서 페이지를 넘겨 끝까지 읽고, 상한에 닿으면 `truncated` 로 밝힌다.
+  */
+  const rows: Array<{ word: string; sort_order: number | null; chapter: number | null }> = []
+  const PAGE = 1000
+  for (let from = 0; from < MAX_WORDS; from += PAGE) {
+    const to = Math.min(from + PAGE, MAX_WORDS) - 1
+    const { data: page, error: wErr } = await supabase
+      .from('shared_words')
+      .select('word, sort_order, chapter')
+      .eq('set_id', setId)
+      .order('sort_order', { ascending: true })
+      .range(from, to)
+    if (wErr) return NextResponse.json({ error: wErr.message }, { status: 500 })
+    const got = (page ?? []) as Array<{ word: string; sort_order: number | null; chapter: number | null }>
+    rows.push(...got)
+    if (got.length < to - from + 1) break
+  }
   if (rows.length === 0) return NextResponse.json({ error: 'empty' }, { status: 404 })
 
   /*
@@ -168,6 +190,12 @@ export async function GET(
     autoTotal: qa?.checked ?? 0,
   })
 
+  /*
+    설명 지면 — **자르기 전에** 만든다. 앞 며칠치만 넘기면 보유율이 그 며칠의 값이 되어
+    근거 수치가 거짓이 된다(주장마다 수치를 붙이는 것이 이 지면의 전부다).
+  */
+  const guide = buildBookGuide(spread)
+
   // 앞 며칠치만 남긴다 — 계획·복습·색인 규모는 전체를 센 값 그대로 둔다.
   const trimmedParts = spread.parts
     .map((p) => ({ ...p, days: p.days.filter((d) => d.n <= PREVIEW_DAYS) }))
@@ -200,6 +228,7 @@ export async function GET(
       ladderStep,
       targetLevel: colophon.ladder,
     },
+    guide,
     apparatus: spread.apparatus,
     previewDays: PREVIEW_DAYS,
     truncated: rows.length >= MAX_WORDS,
