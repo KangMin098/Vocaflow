@@ -150,7 +150,7 @@ function MetricCard({ series }: { series: MetricSeries }) {
             .filter(([, v]) => typeof v !== 'object' || v === null)
             .map(([k, v]) => (
               <div key={k} className="flex items-baseline gap-1">
-                <dt className="font-mono text-[9px] text-[var(--t2)] opacity-70">{k}</dt>
+                <dt className="font-mono text-[9px] text-[var(--t2)]">{k}</dt>
                 <dd className="font-mono text-[10px] font-[600] text-[var(--t2)]">
                   {v === null ? '—' : String(v)}
                 </dd>

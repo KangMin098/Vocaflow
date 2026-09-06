@@ -25,16 +25,24 @@ if (!cssHref) {
   process.exit(1)
 }
 
-const body = readFileSync(`${OUT}/data-state.html`, 'utf8')
-const page = `<!doctype html><html lang="ko"><head><meta charset="utf-8">
-<link rel="stylesheet" href="${base}${cssHref}"></head>
-<body style="margin:0;background:var(--bg2)">${body}</body></html>`
+const wrap = (body) =>
+  `<!doctype html><html lang="ko"><head><meta charset="utf-8">` +
+  `<link rel="stylesheet" href="${base}${cssHref}"></head>` +
+  `<body style="margin:0;background:var(--bg2)">${body}</body></html>`
+
+// 두 상태를 다 잰다 — 장애 때와 평상시에 접힌 위가 답하는 질문이 다르다.
+const STATES = [
+  { file: 'data-state.html', tag: 'incident' },
+  { file: 'calm-state.html', tag: 'calm' },
+]
 
 const browser = await chromium.launch()
+for (const st of STATES)
 for (const vp of [
-  { name: 'data-desktop-1280x900', width: 1280, height: 900 },
-  { name: 'data-mobile-390', width: 390, height: 844 },
+  { name: `${st.tag}-desktop-1280x900`, width: 1280, height: 900 },
+  { name: `${st.tag}-mobile-390`, width: 390, height: 844 },
 ]) {
+  const page = wrap(readFileSync(`${OUT}/${st.file}`, 'utf8'))
   const ctx = await browser.newContext({ viewport: { width: vp.width, height: vp.height } })
   const p = await ctx.newPage()
   await p.setContent(page, { waitUntil: 'networkidle' })
@@ -42,16 +50,31 @@ for (const vp of [
 
   // 접힌 위(1280×900)에서 몇 건까지 보이는가 — 이 화면의 핵심 질문이다.
   const fold = await p.evaluate((h) => {
-    const rows = Array.from(document.querySelectorAll('tbody tr'))
-    const above = rows.filter((r) => r.getBoundingClientRect().top < h).length
+    const all = Array.from(document.querySelectorAll('tbody tr'))
+    const above = all.filter((r) => r.getBoundingClientRect().top < h).length
+    // 경보 표만 따로 — 이 화면이 답해야 하는 질문은 「무엇이 급한가」다.
+    const alertBody = document.querySelector('table th ~ th')
+      ? Array.from(document.querySelectorAll('table')).find((t) =>
+          (t.querySelector('thead')?.textContent ?? '').includes('열린 지'),
+        )
+      : null
+    const alertRows = alertBody ? Array.from(alertBody.querySelectorAll('tbody tr')) : []
+    const alertsAbove = alertRows.filter((r) => r.getBoundingClientRect().top < h).length
     const de = document.documentElement
-    return { rowsAboveFold: above, totalRows: rows.length, scrollWidth: de.scrollWidth, clientWidth: de.clientWidth }
+    return {
+      rowsAboveFold: above,
+      totalRows: all.length,
+      alertsAboveFold: alertsAbove,
+      alertRows: alertRows.length,
+      scrollWidth: de.scrollWidth,
+      clientWidth: de.clientWidth,
+    }
   }, vp.height)
 
   await p.screenshot({ path: `${OUT}/${vp.name}.png`, fullPage: true })
   console.log(
-    `${vp.name}: 접힌 위 표 행 ${fold.rowsAboveFold} / 전체 ${fold.totalRows} · ` +
-      `scrollWidth ${fold.scrollWidth}/${fold.clientWidth}`,
+    `${vp.name}: 접힌 위 경보 ${fold.alertsAboveFold}/${fold.alertRows} · ` +
+      `모든 표 행 ${fold.rowsAboveFold}/${fold.totalRows} · scrollWidth ${fold.scrollWidth}/${fold.clientWidth}`,
   )
   await ctx.close()
 }

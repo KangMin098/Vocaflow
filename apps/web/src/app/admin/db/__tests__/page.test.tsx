@@ -219,6 +219,41 @@ describe('조치 — 화면에서 바로 실행되는 것', () => {
   })
 })
 
+
+describe('평상시에는 «지금» 이 자리를 비켜 준다', () => {
+  // 실측(1280×900): 세션·잠금·예약 실패 목록이 늘 펼쳐져 있으면 접힌 위에 경보가 **0행**이었다.
+  // 볼 것이 없을 때 접으면 5행이 올라온다. 장애 때는 반대로 라이브가 먼저다 — 그래서 자동으로 펼친다.
+  it('볼 것이 없으면 세부가 접혀 있다', async () => {
+    const html = await render({ live: live({ sessions: [], blockers: [], cron_recent: [] }) })
+    expect(html).toContain('세부 펴기')
+    expect(html).toContain('hidden=""')
+  })
+
+  it('도는 세션이 있으면 펼친 채로 뜬다', async () => {
+    const html = await render({
+      live: live({
+        sessions: [
+          {
+            pid: 4242,
+            state: 'active',
+            wait: 'IO:DataFileRead',
+            dur_s: 91,
+            app: 'PostgREST',
+            usename: 'authenticator',
+            query: 'select 1',
+          },
+        ],
+      }),
+    })
+    expect(html).toContain('세부 접기')
+  })
+
+  it('접힘 여부와 상관없이 개수는 늘 보인다 — 접힌 것이 0 으로 읽히면 안 된다', async () => {
+    const html = await render({ live: live({ sessions: [], blockers: [], cron_recent: [] }) })
+    expect(html).toContain('세션 0 · 잠금 0 · 예약 실패 0')
+  })
+})
+
 describe('상태 한 줄 — 접힌 위 첫 줄에서 판정한다', () => {
   it('전부 정상이면 정상이라고 말한다', async () => {
     const html = await render({ findings: [] })

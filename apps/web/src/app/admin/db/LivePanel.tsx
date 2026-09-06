@@ -147,6 +147,35 @@ export function LivePanel({ initial, initialError }: { initial: LiveSnapshot | n
 
   const conn = live?.conn ?? null
 
+  // 볼 것이 있는가 — 도는 세션·잠금 대기·예약 실패 중 하나라도 있으면.
+  const hasDetail =
+    (live?.sessions.length ?? 0) > 0 ||
+    (live?.blockers.length ?? 0) > 0 ||
+    (live?.cron_recent.length ?? 0) > 0
+  const [openDetail, setOpenDetail] = useState(hasDetail)
+  const wasDetail = useRef(hasDetail)
+  useEffect(() => {
+    // 없다가 생기면 펼친다. 사람이 접어 둔 것을 다시 열지는 않는다 —
+    // 15초마다 발밑에서 열리는 패널은 조치를 방해한다.
+    if (hasDetail && !wasDetail.current) setOpenDetail(true)
+    wasDetail.current = hasDetail
+  }, [hasDetail])
+
+  // 다른 탭에 있어도 상태가 보이게 한다 — 장애는 이 화면을 보고 있을 때만 나지 않는다.
+  useEffect(() => {
+    if (!live) return
+    const worst = [
+      signalLevel('conn_used_pct', live.conn.used_pct),
+      signalLevel('cache_hit_pct', live.cache_hit_pct),
+      signalLevel('longest_query_s', live.longest_query_s),
+      signalLevel('oldest_idle_in_tx_s', live.oldest_idle_in_tx_s),
+      signalLevel('blocked_locks', live.blocked_locks),
+      signalLevel('cron_fail_24h', live.cron_fail_24h),
+    ]
+    const mark = worst.includes('crit') ? '[장애] ' : worst.includes('warn') ? '[주의] ' : ''
+    document.title = `${mark}DB 헬스 — Admin`
+  }, [live])
+
   return (
     <section className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5">
       <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
@@ -254,8 +283,23 @@ export function LivePanel({ initial, initialError }: { initial: LiveSnapshot | n
         />
       </div>
 
-      {/* 지금 도는 세션 — 장애 대응의 실제 작업면. 여기서 취소·종료가 바로 된다. */}
-      <div className="mt-4">
+      {/* 지금 도는 세션 — 장애 대응의 실제 작업면. 여기서 취소·종료가 바로 된다.
+          볼 것이 없을 때는 접어 둔다: 정상일 때 이 블록이 접힌 위를 다 먹으면 경보가 밀린다. */}
+      <div className="mt-3">
+        <button
+          type="button"
+          aria-expanded={openDetail}
+          onClick={() => setOpenDetail((v) => !v)}
+          className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5 py-1 font-display text-[11px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg3)] hover:text-[var(--t1)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
+        >
+          {openDetail ? '세부 접기' : '세부 펴기'}
+          <span className="font-mono text-[10px]">
+            {`세션 ${live?.sessions.length ?? 0} · 잠금 ${live?.blockers.length ?? 0} · 예약 실패 ${live?.cron_recent.length ?? 0}`}
+          </span>
+        </button>
+      </div>
+
+      <div className="mt-3" hidden={!openDetail}>
         <h3 className="mb-2 flex items-center gap-2 font-display text-[12px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
           지금 도는 세션
           <span className="font-mono text-[11px] font-[500] normal-case tracking-normal">
@@ -307,7 +351,7 @@ export function LivePanel({ initial, initialError }: { initial: LiveSnapshot | n
                         {s.query || '—'}
                       </span>
                       {s.app && (
-                        <span className="font-mono text-[10px] text-[var(--t2)] opacity-70">
+                        <span className="font-mono text-[10px] text-[var(--t2)]">
                           {s.app}
                         </span>
                       )}
@@ -328,7 +372,7 @@ export function LivePanel({ initial, initialError }: { initial: LiveSnapshot | n
 
       {/* 잠금 대기 — 있을 때만 그린다. 없는 것을 빈 표로 그리면 자리를 먹기만 한다. */}
       {live && live.blockers.length > 0 && (
-        <div className="mt-4">
+        <div className="mt-4" hidden={!openDetail}>
           <h3 className="mb-2 font-display text-[12px] font-[700] uppercase tracking-[0.06em] text-[var(--error-ink)]">
             {`잠금 대기 ${live.blockers.length}건`}
           </h3>
@@ -357,7 +401,7 @@ export function LivePanel({ initial, initialError }: { initial: LiveSnapshot | n
 
       {/* 최근 24시간 안에 성공하지 못한 예약 작업 */}
       {live && live.cron_recent.length > 0 && (
-        <div className="mt-4">
+        <div className="mt-4" hidden={!openDetail}>
           <h3 className="mb-2 flex items-center gap-2 font-display text-[12px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
             예약 작업 실패 (24시간)
             <InfoTip label="예약 작업 실패">

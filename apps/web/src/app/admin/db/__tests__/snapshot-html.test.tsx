@@ -281,11 +281,38 @@ function data(): DbHealthData {
 beforeEach(() => fetchMock.mockReset())
 
 describe('데이터가 있는 상태의 HTML 을 떨군다', () => {
-  it('test-results-admin-db/data-state.html', async () => {
+  it('test-results-admin-db/data-state.html — 장애 상태', async () => {
     fetchMock.mockResolvedValue(data())
     const html = renderToString(await AdminDbPage())
     mkdirSync('test-results-admin-db', { recursive: true })
     writeFileSync('test-results-admin-db/data-state.html', html, 'utf8')
     expect(html.length).toBeGreaterThan(1000)
+  })
+
+  it('test-results-admin-db/calm-state.html — 평상시(볼 세션 없음)', async () => {
+    // 평상시에는 세션·잠금·예약 실패가 비어 있다. 그때 «지금» 이 접힌 위를 다 먹으면
+    // 경보가 한 줄도 안 보인다 — 이 파일이 그 상태를 재는 근거다.
+    const calm = data()
+    fetchMock.mockResolvedValue({
+      ...calm,
+      live: {
+        ...calm.live!,
+        conn: { max: 60, total: 17, active: 1, idle: 16, idle_in_tx: 0, waiting: 0, used_pct: 28.3 },
+        cache_hit_pct: 99.6,
+        blocked_locks: 0,
+        longest_query_s: 1.1,
+        longest_xact_s: 1.1,
+        oldest_idle_in_tx_s: 0,
+        cron_fail_24h: 0,
+        cron_running: 0,
+        sessions: [],
+        blockers: [],
+        cron_recent: [],
+      },
+    })
+    const html = renderToString(await AdminDbPage())
+    mkdirSync('test-results-admin-db', { recursive: true })
+    writeFileSync('test-results-admin-db/calm-state.html', html, 'utf8')
+    expect(html).toContain('세부 펴기')
   })
 })

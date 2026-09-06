@@ -175,7 +175,7 @@ export function AlertTriage({
             }`}
           >
             {f.label}
-            <span className="font-mono text-[10px] opacity-70">{counts[f.key]}</span>
+            <span className="font-mono text-[10px]">{counts[f.key]}</span>
           </button>
         ))}
         {axes.length > 1 && (
@@ -291,7 +291,7 @@ export function AlertTriage({
                             <dl className="flex flex-wrap gap-x-3 gap-y-1">
                               {Object.entries(f.evidence).map(([k, v]) => (
                                 <div key={k} className="flex items-baseline gap-1">
-                                  <dt className="font-mono text-[10px] text-[var(--t2)] opacity-70">{k}</dt>
+                                  <dt className="font-mono text-[10px] text-[var(--t2)]">{k}</dt>
                                   <dd className="font-mono text-[10px] font-[600] text-[var(--t2)]">
                                     {typeof v === 'object' && v !== null ? JSON.stringify(v) : String(v)}
                                   </dd>
