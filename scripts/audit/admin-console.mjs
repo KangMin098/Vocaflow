@@ -601,6 +601,41 @@ const stepsWithoutDone = []
   }
 }
 
+// ── 전역: 도움말이 없는 버튼을 누르라고 하는가 ───────────────────────────────
+//
+// CLAUDE.md 는 "도움말이 낡으면 잘못된 조작을 유발한다 — 코드보다 위험하다" 고 적는다.
+// 탭 라벨 변경은 위 `tabMismatches` 가 잡는데, **버튼 이름 변경은 아무도 안 본다** —
+// 도움말이 「출처 정책」을 누르라고 하는데 화면에는 「출처」만 있으면, 관리자는 없는 것을
+// 찾다가 다른 것을 누른다.
+//
+// ⚠️ **인용된 문자열을 다 세면 안 된다.** 처음에 「…」 전부를 UI 라벨로 봤더니 159개 중
+//    60개가 "못 찾음" 으로 나왔는데, 그중 대부분이 「답이 왜 이것인가」·「판다」 같은
+//    **개념 인용**이었다(이 저장소는 「」 를 두 용도로 쓴다). 그래서 **누르라는 지시**가
+//    붙은 것만 센다 — 그건 UI 요소를 지목한 것이 분명하다.
+// ⚠️ 분모가 작다(실측 8개). 넓은 커버리지가 아니라 **이름 변경 한 종류**를 막는 자다.
+const helpGhostButtons = []
+{
+  const helpDirPath2 = join(WEB_SRC, 'lib', 'admin', 'help')
+  const uiFiles = [
+    ...walk(ADMIN_APP),
+    ...walk(join(WEB_SRC, 'components', 'admin')),
+  ].filter((p) => p.endsWith('.tsx') && !p.includes('__tests__'))
+  const uiText = uiFiles.map((p) => read(p)).join('\n')
+  const CLICK_RE =
+    /[「“"]([^」“”"\n]{2,30})[」”"]\s*(?:를|을|으로|로)?\s*(?:누르|눌러|클릭|펼친|편다|연다|열면|들어간)/g
+  const helpFilesForBtn = existsSync(helpDirPath2)
+    ? readdirSync(helpDirPath2).filter(
+        (f) => f.endsWith('.ts') && f !== 'types.ts' && f !== 'index.ts',
+      )
+    : []
+  for (const f of helpFilesForBtn) {
+    for (const m of read(join(helpDirPath2, f)).matchAll(CLICK_RE)) {
+      const label = m[1].trim()
+      if (label && !uiText.includes(label)) helpGhostButtons.push(`${f}: 「${label}」`)
+    }
+  }
+}
+
 const pathCommentMisses = []
 {
   const scanned = [
@@ -807,6 +842,9 @@ if (AS_JSON) {
   for (const [t, at] of Object.entries(byToken))
     console.log(`  ${t}  ${at.length}곳  (예: ${at[0]})`)
 
+  console.log(`\n도움말이 누르라는데 화면에 없는 라벨: ${helpGhostButtons.length}`)
+  for (const t of helpGhostButtons.slice(0, 10)) console.log(`  ${t}`)
+
   console.log(`\n완료 신호(done)가 없는 프로세스 단계: ${stepsWithoutDone.length}`)
   for (const t of stepsWithoutDone.slice(0, 12)) console.log(`  ${t}`)
 
@@ -846,6 +884,16 @@ if (!Number.isNaN(failUnder) && score < failUnder) {
 // (화면은 멀쩡히 렌더된다) 링크 하나가 사라지면 조용히 생긴다.
 if (!Number.isNaN(failUnder) && reach.unreachable.length > 0) {
   console.error(`FAIL — 메뉴에서 도달 못 하는 화면 ${reach.unreachable.length}개: ${reach.unreachable.join(', ')}`)
+  process.exit(1)
+}
+
+// 도움말이 없는 버튼을 누르라고 하는 것. 관리자는 없는 것을 찾다가 다른 것을 누른다.
+if (!Number.isNaN(failUnder) && helpGhostButtons.length > 0) {
+  console.error(
+    `FAIL — 도움말이 누르라는데 화면에 없는 라벨 ${helpGhostButtons.length}개: ` +
+      helpGhostButtons.join(' · ') +
+      '\n       라벨을 바꿨으면 같은 커밋에서 도움말도 고친다(CLAUDE.md §3).',
+  )
   process.exit(1)
 }
 
