@@ -63,37 +63,28 @@ RLS 켜고 **정책 없음 = service_role 전용**. 인덱스 `idx_qdc_rotation(
 기억한다. `drift IS NULL AND failed_reason IS NOT NULL` = 그 책은 30초 안에 못 쟀다는 뜻이다 —
 **빈칸으로 두지 않는다**(조용한 실패 금지). 지표는 이번 밤 표본이 아니라 이 표 **전체**에서 낸다.
 
-### 📐 `library_articles` — 밴드 인덱스 (2026-09-06)
+### ⏱ 마이그레이션 파일명은 **UTC** 로 붙인다 (2026-09-06)
 
-[20260906101500](../supabase/migrations/20260906101500_idx_la_band_id.sql) —
-`idx_la_band_id (article_v_level, id)`.
+MCP `apply_migration` 은 버전을 **UTC 시각**으로 매긴다. 한국 시각으로 파일명을 지으면
+원장(`supabase_migrations.schema_migrations`)과 아홉 시간 어긋나, 같은 인덱스가
 
-`article_v_level` 로 시작하는 인덱스가 **하나도 없었다.** 교재 조판이 밴드 하나의 원글을
-id 커서로 받는데, 계획이 이랬다:
+- 원장에는 있는데 저장소에는 대응 파일이 없고
+- 저장소에는 원장에 없는 버전의 파일이 남는다
 
+이 되어 `db diff` 가 멀쩡한 객체를 계속 지우자고 한다. 실제로 그렇게 됐다 —
+15:38 KST 에 적용한 `idx_la_band_id` 가 원장에 `20260906063831`(= UTC 06:38:31)로 남았고,
+다른 세션이 그것을 **출처 불명의 고아 인덱스**로 보고 파일을 뒤늦게 채웠다.
+같은 날 세 건이 다 그랬다(`idx_dcp_items_ref_id` · `idx_sd_meaning_ko_present` · `idx_la_band_id`).
+
+**규칙: 적용한 뒤 원장에서 버전을 읽어 그 이름으로 파일을 만든다.** 손으로 짐작하지 않는다.
+
+```sql
+select version, name from supabase_migrations.schema_migrations order by version desc limit 5;
 ```
-Limit (rows=1000)
-  → Sort (Sort Key: id)                      ← LIMIT 이 무력해지는 자리
-      → Index Scan using idx_la_status_date  (status 로 21,839행)
-            Filter: (article_v_level = 5)
-```
-
-정렬이 LIMIT 앞에 있어 조기 종료가 안 되고, 이 표는 본문을 담아 행이 넓어(1,000행당
-힙 ~8MB) 한 페이지에 175MB 를 읽는다. **커서 페이징으로도 못 피한다 — 매 페이지가
-전체를 다시 읽는다.** V5·V6·V7 조판이 전부 statement timeout 으로 죽어 목표 지표를
-잴 수 없었다.
-
-| | 계획 | 시간 |
-|---|---|---|
-| 인덱스 전 | Sort ← Index Scan(status) 21,839행 | **타임아웃**(8초 초과 · 재시도 3회 모두) |
-| 인덱스 후 | BitmapAnd 두 인덱스 → top-N heapsort 4,285행 | **267ms** |
-
-⚠️ `ANALYZE library_articles` 도 함께 돌렸다(사용자 승인) — 플래너가 4,285행을 1,172행으로
-추정하고 있었다.
 
 ### 📐 `shared_dictionary` — 뜻 채움 카운트 부분 인덱스 + 첫 VACUUM (2026-09-06)
 
-[20260906093000](../supabase/migrations/20260906093000_idx_sd_meaning_ko_present.sql) —
+[20260906014615](../supabase/migrations/20260906014615_idx_sd_meaning_ko_present.sql) —
 `idx_sd_meaning_ko_present (word) WHERE meaning_ko IS NOT NULL AND meaning_ko <> ''`.
 
 `pnpm docs:db-stats` 가 이틀째 실패해 CLAUDE.md §DB 핵심 통계가 낡은 채였다. 원인은
@@ -151,7 +142,7 @@ V4 조판으로 검증하려다 발견했다(회귀 57종은 전부 통과하고
 
 ### 📐 `csat_dcp_items` — ref_id 인덱스 (2026-09-06)
 
-[20260906080000](../supabase/migrations/20260906080000_idx_dcp_items_ref_id.sql) —
+[20260905235953](../supabase/migrations/20260905235953_idx_dcp_items_ref_id.sql) —
 `idx_dcp_items_ref_id (ref_id, id)` · **31 MB**.
 
 교재 조판(`loadVolume`)과 문항 드레인이 전부 `ref_id IN (…)` 으로 문항을 읽는데
