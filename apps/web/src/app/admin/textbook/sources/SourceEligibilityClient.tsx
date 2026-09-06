@@ -112,6 +112,7 @@ export function SourceEligibilityClient({ panel }: { panel: SourceEligibilityPan
       </p>
 
       <AxisTable axes={panel.axes} />
+      <RequirementTable panel={panel} />
       <GradeTable grades={panel.grades} total={t.total} />
       <BandTable bands={panel.bands} />
       <BlockedSources rows={panel.blockedBySource} />
@@ -186,6 +187,85 @@ function AxisTable({ axes }: { axes: AxisRow[] }) {
           </tbody>
         </table>
       </div>
+    </section>
+  )
+}
+
+/**
+ * 연령 × 유형별 원문 요건.
+ *
+ * 위 표들이 "지금 몇 편인가" 를 말한다면 이 표는 **"무엇을 갖춰야 하는가"** 를 말한다.
+ * 둘이 함께 있어야 "이 지문을 왜 이 학년 이 유형에 썼나" 에 답할 수 있다 —
+ * 그 답이 없으면 원문 선택은 감이다.
+ *
+ * ⚠️ **DB 를 안 본다.** 정본(`SERIES_SPINE` + `itemWordSpec`)에서 바로 펴므로
+ *   스냅샷이 낡아도 이 표는 늘 지금 규격이다.
+ */
+function RequirementTable({ panel }: { panel: SourceEligibilityPanel }) {
+  const families = [...new Set(panel.requirements.flatMap((b) => b.types.map((t) => t.family)))]
+  return (
+    <section aria-label="연령별 유형별 원문 요건" className="flex flex-col gap-2">
+      <h2 className="font-display text-[15px] font-[700] text-[var(--t1)]">
+        연령 × 유형별 원문 요건
+      </h2>
+      <p className="font-body text-[12px] text-[var(--t3)]">
+        어느 학년에 어느 유형이 열리는지는 <b>학령 사다리 7단</b>이 정하고, 그 유형이 요구하는 지문 어수창은
+        <b> 유형 계열</b>이 정한 뒤 <b>그 학년대 시중 분포(p10~p90)</b>가 좁힌다. 좁히지 못한 칸은 그렇게 적는다 —
+        좁혀진 척하면 근거가 거짓이 된다.
+      </p>
+      <div className="flex flex-col gap-3">
+        {panel.requirements.map((b) => (
+          <div key={b.vLevel} className="rounded-[var(--r-md)] border border-[var(--bd)] p-3">
+            <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+              <span className="font-display text-[13px] font-[700] text-[var(--t1)]">
+                {b.step}단 · {b.schoolBand}
+              </span>
+              <span className="font-body text-[12px] tabular-nums text-[var(--t2)]">V{b.vLevel}</span>
+              <span className="font-body text-[12px] text-[var(--t3)]">{b.volumeTitle}</span>
+              <span className="ml-auto font-body text-[11px] text-[var(--t3)]">
+                {b.marketBucket ? `시중 버킷 ${b.marketBucket}` : '시중 버킷 없음'}
+              </span>
+            </div>
+            <ul className="mt-2 flex flex-wrap gap-1.5">
+              {b.types.map((t) => (
+                <li
+                  key={t.type}
+                  className="flex items-baseline gap-1.5 rounded-[var(--r-sm)] border border-[var(--bd)] px-2 py-1 font-body text-[12px]"
+                  title={`${t.familyLabel} — ${panel.familySource[t.family] ?? ''}`}
+                >
+                  <span className="font-[600] text-[var(--t1)]">{t.label}</span>
+                  <span className="tabular-nums text-[var(--t2)]">
+                    {t.window ? `${t.window.min}–${t.window.max}어` : '지문 없음'}
+                  </span>
+                  {t.window ? (
+                    <span
+                      className="text-[10px]"
+                      style={{ color: t.narrowed ? 'var(--success-ink)' : 'var(--t3)' }}
+                    >
+                      {t.narrowed ? '학년으로 좁힘' : '유형 창 그대로'}
+                    </span>
+                  ) : null}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+      <details className="rounded-[var(--r-sm)] border border-[var(--bd)] px-3 py-2">
+        <summary className="cursor-pointer font-body text-[12px] font-[600] text-[var(--t2)]">
+          계열별 창의 출처 — 짐작으로 정한 값이 없다는 근거
+        </summary>
+        <ul className="mt-2 flex flex-col gap-1">
+          {families.map((f) => (
+            <li key={f} className="font-body text-[11px] text-[var(--t3)]">
+              <b className="text-[var(--t2)]">
+                {panel.requirements.flatMap((b) => b.types).find((t) => t.family === f)?.familyLabel}
+              </b>{' '}
+              — {panel.familySource[f]}
+            </li>
+          ))}
+        </ul>
+      </details>
     </section>
   )
 }

@@ -21,9 +21,12 @@
 import {
   ELIGIBILITY_AXES,
   ELIGIBILITY_SPEC_VERSION,
+  FAMILY_SOURCE,
   GRADE_LABEL,
   GRADE_NEXT_STEP,
   SERIES_SPINE,
+  buildSourceRequirements,
+  type BandRequirements,
   type EligibilityAxisId,
   type EligibilityGrade,
 } from '@vocaflow/library-pipeline'
@@ -98,6 +101,16 @@ export interface SourceEligibilityPanel {
    * 옛 스냅샷(규격 v1)에는 없어서 `null` 이 될 수 있다 — 0 으로 뭉개지 않는다.
    */
   structurallyUnjudged: number | null
+  /**
+   * 연령 × 유형별 원문 요건 — **DB 를 안 본다.** 정본(`SERIES_SPINE` + `itemWordSpec`)에서
+   * 바로 펴므로 스냅샷이 낡아도 이 표는 항상 지금 규격이다.
+   *
+   * 재고 표가 "지금 몇 편인가" 를 말한다면 이 표는 **"무엇을 갖춰야 하는가"** 를 말한다.
+   * 둘이 함께 있어야 "이 지문을 왜 이 학년 이 유형에 썼나" 에 답할 수 있다.
+   */
+  requirements: BandRequirements[]
+  /** 계열별 자의 출처 — 화면이 각주로 쓴다. */
+  familySource: Record<string, string>
 }
 
 /** 등급 표시 순서 — 좋은 것부터 나쁜 것 순. 화면이 이 순서로 읽는다. */
@@ -196,5 +209,8 @@ export function buildSourceEligibilityPanel(now: Date = new Date()): SourceEligi
         : null,
     structurallyUnjudged:
       typeof total.structurallyUnjudged === 'number' ? total.structurallyUnjudged : null,
+    // 스냅샷과 무관하다 — 정본에서 바로 편다. 재고가 낡아도 **요건은 늘 지금 규격**이다.
+    requirements: buildSourceRequirements(),
+    familySource: FAMILY_SOURCE,
   }
 }

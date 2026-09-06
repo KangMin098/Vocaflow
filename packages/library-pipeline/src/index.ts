@@ -850,6 +850,16 @@ export {
   type SourceEligibility,
   type SourceEligibilityInput,
 } from './textbook/source-eligibility'
+// 연령 × 유형별 원문 요건 — "이 지문을 왜 이 학년 이 유형에 썼나" 의 근거표.
+export {
+  FAMILY_LABEL,
+  FAMILY_SOURCE,
+  buildSourceRequirements,
+  familyOf,
+  type BandRequirements,
+  type RequirementFamily,
+  type TypeRequirement,
+} from './textbook/source-requirements'
 export {
   excerptForBand,
   fitExcerptToAnyBand,
@@ -883,3 +893,16 @@ export {
   apparatusTarget,
 } from './textbook/apparatus'
 export type { ApparatusKey, ApparatusSpec } from './textbook/apparatus'
+
+// ── 권 서지 — 구성요소를 화면이 아니라 파이프라인이 만든다 ────────────────────
+// 순수 함수다(DB 를 읽지 않는다). 근거는 `textbook/dossier.ts` 머리 주석.
+export { buildDossier, SKELETON_ITEMS_PER_UNIT } from './textbook/dossier'
+export type {
+  DossierInput,
+  DossierEntry,
+  DossierFeature,
+  DossierPlanDay,
+  DossierPlanWeek,
+  PrefaceCopy,
+  VolumeDossier,
+} from './textbook/dossier'

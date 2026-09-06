@@ -120,6 +120,33 @@ describe('원문 적격 화면', () => {
     }
   })
 
+  it('연령 × 유형별 요건을 보인다 — "왜 이 학년 이 유형인가" 의 답이다', () => {
+    expect(html).toContain('연령 × 유형별 원문 요건')
+    // 사다리 7단이 전부 나와야 한다 — 한 단이라도 빠지면 그 학년은 근거가 없다.
+    expect(panel.requirements).toHaveLength(7)
+    for (const b of panel.requirements) {
+      expect(html).toContain(b.schoolBand)
+      expect(html).toContain(b.volumeTitle)
+      for (const t of b.types) expect(html).toContain(t.label)
+    }
+  })
+
+  it('창을 숫자로 적고, 좁히지 못한 칸은 그렇게 적는다', () => {
+    const withWindow = panel.requirements.flatMap((b) => b.types).filter((t) => t.window)
+    expect(withWindow.length).toBeGreaterThan(0)
+    for (const t of withWindow.slice(0, 5)) {
+      expect(html).toContain(`${t.window!.min}–${t.window!.max}어`)
+    }
+    expect(html).toContain('유형 창 그대로')
+    // 지문이 없는 유형(초등 3종)을 0어로 적지 않는다 — 잴 지문이 없는 것이다.
+    expect(html).toContain('지문 없음')
+  })
+
+  it('계열별 자의 출처를 함께 낸다', () => {
+    expect(html).toContain('짐작으로 정한 값이 없다는 근거')
+    expect(html).toContain('CSAT_ITEM_WORDS')
+  })
+
   it('못 잰 것과 0 을 구별한다', () => {
     // 옛 스냅샷에는 두 열이 없다. 0 으로 채우면 "그런 원문은 없다" 는 거짓말이 된다.
     expect(panel.articlesWithItems === null || typeof panel.articlesWithItems === 'number').toBe(true)
