@@ -13,6 +13,7 @@ import 'server-only'
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 
+import { SERIES_TYPE_LABEL_KO } from '@vocaflow/library-pipeline/textbook-series'
 import {
   SERIES_CATALOG,
   seriesShipping,
@@ -56,7 +57,16 @@ export async function loadSeriesCatalog(): Promise<SeriesCatalogView> {
     const volumes: VolumeCell[] = SERIES_STEPS.map(({ step, schoolBand }) => {
       const rung = s.rungs.find((r) => r.step === step)
       if (!rung) {
-        return { step, schoolBand, title: null, items: null, explained: null, status: 'noRung' as const }
+        return {
+          step,
+          schoolBand,
+          title: null,
+          items: null,
+          explained: null,
+          status: 'noRung' as const,
+          types: [],
+          recipe: null,
+        }
       }
       let items: number | null = inv.ok ? 0 : null
       let explained: number | null = inv.ok ? 0 : null
@@ -79,6 +89,9 @@ export async function loadSeriesCatalog(): Promise<SeriesCatalogView> {
         title: rung.volumeTitle,
         items,
         explained,
+        // 이름표는 정본에서 온다 — 화면이 유형 이름을 다시 지으면 조판물과 갈린다.
+        types: rung.types.map((t) => SERIES_TYPE_LABEL_KO[t] ?? t),
+        recipe: rung.rationale,
         status: judgeVolume({ hasRung: true, published, items, explained }),
       }
     })

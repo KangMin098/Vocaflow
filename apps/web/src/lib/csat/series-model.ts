@@ -49,6 +49,15 @@ export interface VolumeCell {
   items: number | null
   explained: number | null
   status: VolumeStatus
+  /**
+   * **이 권이 무엇으로 만들어지는가** — 그 단이 쓰는 문항 유형(한국어 이름).
+   *
+   * 사슬은 이미 데이터에 있었는데 화면이 안 썼다: 시리즈 단 → 유형 → 그 유형이 요구하는
+   * 원문 규격. 그래서 「어떤 원문을 어떤 기준으로」의 답이 세 화면에 흩어져 있었다.
+   */
+  types: string[]
+  /** 왜 이 유형 배합인가. `SeriesRung.rationale` 을 그대로 나른다 — 화면에서 짓지 않는다. */
+  recipe: string | null
 }
 
 export interface SeriesRow {

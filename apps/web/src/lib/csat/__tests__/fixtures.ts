@@ -393,6 +393,8 @@ function seriesRow(
         items: null,
         explained: null,
         status: 'noRung' as const,
+        types: [],
+        recipe: null,
       }
     }
     return {
@@ -402,6 +404,8 @@ function seriesRow(
       items,
       explained: items,
       status: v,
+      types: ['표본 유형'],
+      recipe: '표본 — 왜 이 배합인가를 실제 사다리는 단마다 적는다',
     }
   })
   return {
