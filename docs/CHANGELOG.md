@@ -10,6 +10,52 @@
 
 ## Unreleased (v06.34 → next)
 
+### DB 가 25분 멈췄고, 그 장애가 감시 시스템의 빈 칸 셋을 드러냈다 (2026-09-06)
+
+**무슨 일이 있었나** — 01:55 UTC 에 사전 드레인이 `/rest/v1/shared_dictionary` 로 **1분에 1,995건
+(초당 33건)을 한 행씩 PATCH** 했다(전부 `204` = `Prefer: return=minimal` 쓰기). 그 WAL 이 02:07 에
+**229MB · write 88.5초**짜리 체크포인트를 만들었고, I/O 포화로 `cron.job_run_details` 조인 같은
+사소한 쿼리가 **42.8초** 걸렸다. 02:09 부터 SQL·Auth·REST 전부 504, `select 1` 조차 60초 타임아웃.
+02:31 경 **재시작 없이 스스로 회복**(postmaster 가동시간 19.4시간). 부하가 멈춘 뒤에도 20분 넘게 안 풀렸다.
+
+**누가 발견했나** — 마침 돌고 있던 클라우드 루틴(`db-health-audit daily`)이다. 다섯 번 연속
+`select 1` 실패를 확인하고 감사를 중단한 뒤 알림을 보냈다. **감시가 실제로 작동한 첫 사례**다.
+
+**그런데 그 감시에 구멍이 셋 있었다**
+
+1. **DB 안만 보면 DB 가 죽는 순간 같이 눈이 먼다.** `db_health_metrics`·`db_health_findings` 를
+   못 읽는 동안 살아 있던 것은 **로그 스트림(ClickHouse)과 관리 API 뿐**이었고, 원인도 거기서 나왔다.
+   → [`/db-incident`](../.claude/commands/db-incident.md) — SQL 을 한 줄도 안 쓰는 분류 절차.
+   `ACTIVE_HEALTHY` 가 "쿼리가 된다" 는 뜻이 **아니라는** 것도 여기 못 박았다(전면 504 중에도 그랬다).
+2. **1분짜리 사건은 일 1회 스냅샷으로 원리적으로 못 잡는다.**
+   → `/db-health-audit` §1-7 「쓰기 폭주」 추가. `edge_logs` 의 분당 쓰기를 보고, **자기 이력의 10배**와
+   **같은 시각 `postgres_logs` 가 실제로 아팠는지**를 함께 요구한다 — 부하만 있고 안 아팠으면 올리지 않는다.
+3. **규칙이 아는 것만 잡고 있었다.** 예상 못 한 자리에서 튀는 것을 볼 장치가 없었다.
+   → `db_health_anomalies()` (마이그레이션 [20260906040000](../supabase/migrations/20260906040000_db_health_anomaly_checkpoint.sql)) —
+   지표별 **MAD 기반 robust z** + 직전 대비 변화율. 임계값은 돌려주지 않는다(판정은 여전히 DB 밖).
+   ⚠️ 표본 부족이면 **아예 안 준다** — 실측으로 확인했다: **n=2 면 robust_z 가 수학적으로 항상 0.67** 이다
+   (`|x−median| / (1.4826·MAD)` 에서 MAD = |x−median|). 소음을 이상 징후로 인쇄하면 그 화면은 곧 꺼진다.
+
+**위험 작업 체크포인트** — `db_health_checkpoints` + `record_db_health_checkpoint()` +
+`db_health_checkpoint_diff()` + [`/db-checkpoint`](../.claude/commands/db-checkpoint.md).
+마이그레이션·대량 발행·드레인 앞뒤로 스냅샷을 찍고 무엇이 바뀌었는지 본다. 비교는 **full outer join** —
+`disappeared`(그 축의 수집이 실패했다)가 가장 중요한 신호인데 inner join 은 그 줄을 조용히 없앤다.
+왕복 검증: 37 same · 1 appeared · 1 disappeared, 그 한 쌍은 회전 블로트 표본이 `lexicon_clean` →
+`topic_corpus_queue` 로 옮겨간 **정상 사례**였다(문서에 양성 사례로 명시 — 모르면 매번 헛짚는다).
+
+**조치 기능** — [`/db-remediate`](../.claude/commands/db-remediate.md).
+증상 재현 확인 → 분류 → 승인 → 적용 → **재검증** → 닫기. §2(재현 확인)를 절차의 중심에 뒀다 —
+첫 판정의 critical 3건 중 2건이 이미 해결됐거나 의도된 것이었고, 확인 없이 고쳤으면 멀쩡한 것을 건드렸다.
+
+**근본 원인은 코드에 있다** — `scripts/lib/scan-row-writes.mjs` 신설(`scan-unpaged-queries.mjs` 와 같은 발상).
+루프 안 단건 쓰기를 훑어 **후보 133건**(`shared_dictionary` **58** · `library_books` 17 · `library_articles` 15).
+게이트가 아니라 목록이다 — 표가 작거나 실행이 드물면 문제가 아니므로 고칠 사람이 판단한다.
+규칙은 [CONVENTIONS.md](./CONVENTIONS.md) 맨 앞에 못 박았다: **동시성 제한은 처리량 상한이 아니다**
+(실제로 걸린 채로 초당 33건이 나갔다).
+
+장애 자체를 발견으로 남겼다 — 지문 `capacity:write_storm:/rest/v1/shared_dictionary`, critical.
+**기록하지 않으면 다음에 또 같은 곳에서 넘어진다.**
+
 ### ⚠️ 조판이 통째로 멈춰 있다 — 밴드 필터가 91,358행 Seq Scan (2026-09-06)
 
 - 원문 적격 게이트를 배선하고 **V4 조판으로 검증하려다** 발견했다. 회귀 57종은 전부 통과했고

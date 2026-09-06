@@ -1090,6 +1090,32 @@ v06.35: `collect_quality_metrics()` 에 **M7 SSoT 드리프트** 추가 ([202608
 에이전트가 MCP 로 postgres 권한에서 부르므로 `auth.uid()` 가 없다. 대신 **권한 자체를 좁혀서** 막는다
 (public·anon·authenticated 에서 EXECUTE 회수).
 
+**이상 감지 · 위험 작업 체크포인트** (마이그레이션 [20260906040000](../supabase/migrations/20260906040000_db_health_anomaly_checkpoint.sql))
+
+| | |
+|---|---|
+| `db_health_anomalies(p_window_days=30, p_min_samples=5)` | 지표별 자기 이력 대비 **MAD 기반 robust z** + 직전 대비 변화율. 임계값을 돌려주지 않는다 — 판정은 여전히 DB 밖. `SECURITY INVOKER` 라 RLS 가 그대로 적용된다 |
+| `db_health_checkpoints(label, phase, measured_at, note)` | 위험 작업 앞뒤의 라벨 붙은 스냅샷. `unique(label, phase)` — 같은 키를 다시 찍으면 덮어쓴다(작업을 다시 시작했는데 옛 before 가 남으면 비교가 거짓이 된다) |
+| `record_db_health_checkpoint(label, phase, note)` | 스냅샷을 찍고 라벨을 건다. SECURITY DEFINER · anon·authenticated 회수 |
+| `db_health_checkpoint_diff(label)` | before/after 비교. **full outer join** |
+| `admin_record_db_health_checkpoint(...)` | 화면용 admin wrapper |
+
+⚠️ **왜 표준편차가 아니라 MAD 인가** — 표본이 적고 이상치가 섞이면 표준편차는 이상치 자신에게 끌려간다
+(한 번 튄 값이 σ 를 키워 그 다음부터는 아무것도 이상해 보이지 않는다). MAD 는 절반이 오염돼야 무너진다.
+`1.4826` 은 정규분포에서 MAD 를 σ 눈금으로 맞추는 상수다.
+
+⚠️ **표본이 모자라면 숫자를 지어내지 않는다.** 실측: **n=2 면 robust_z 가 수학적으로 항상 0.67** 이다
+(MAD = |x−median| 이므로 |x−median|/(1.4826·MAD) = 1/1.4826). 그래서 `p_min_samples` 미만인 계열은
+아예 돌려주지 않는다 — 소음을 이상 징후로 인쇄하면 그 화면은 곧 꺼진다.
+
+⚠️ **diff 가 full outer join 인 이유** — `disappeared`(after 에 그 지표가 없다 = 그 축의 수집이 실패했다)가
+가장 중요한 신호인데, 수집기는 축마다 예외를 삼키도록 만들어져 있어 함수는 성공으로 끝난다.
+inner join 으로 비교하면 그 줄이 조용히 빠져 "아무 변화 없음" 으로 보인다.
+**알려진 양성**: `bloat_sampled_pct` 는 회전 표본이라 거의 항상 `disappeared` 1 + `appeared` 1 이 함께 나온다.
+
+⚠️ `percentile_cont` 는 **double precision** 을 돌려주는데 `round(double, int)` 는 존재하지 않는다
+(`round` 는 numeric 2인자와 double 1인자만 있다). 그래서 본문에 `::numeric` 캐스트가 붙어 있다.
+
 **면제** `db_health_exceptions(fingerprint PK, reason, evidence, created_at, expires_at)` —
 저장소가 이미 내린 결정을 판정층이 다시 올리지 않게 한다(마이그레이션 [20260906031000](../supabase/migrations/20260906031000_db_health_exceptions.sql)).
 `upsert_db_health_finding` 이 살아 있는 면제를 보면 `status='excepted'` 로 넣고 사유·근거를 `note` 에 단다.

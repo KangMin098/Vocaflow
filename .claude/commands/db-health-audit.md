@@ -113,7 +113,44 @@ group by 1 order by delta_mb desc nulls last limit 10;
 
 지문: `advisor:<metric>:<표/함수 이름>`
 
-### 1-7. 기록
+### 1-7. 쓰기 폭주 — **스냅샷으로는 못 잡는다. 로그로 잡는다**
+
+2026-09-06 에 DB 가 25분간 전면 정지했다. 원인은 사전 드레인이 `/rest/v1/shared_dictionary` 에
+**1분에 1,995건(초당 33건)을 한 행씩 PATCH** 한 것이고, 그 WAL 이 229MB 체크포인트를 만들어
+I/O 를 포화시켰다. 일 1회 스냅샷은 이걸 **원리적으로 못 본다** — 사건이 1분짜리다.
+
+그래서 daily 판정은 마지막에 로그를 한 번 본다. `query_logs` 는 ClickHouse 라 Postgres 부하와 무관하다.
+
+```sql
+select toStartOfMinute(timestamp) as m,
+       log_attributes['request.method'] as method,
+       log_attributes['request.path'] as path,
+       count() as n
+from logs
+where source = 'edge_logs'
+  and log_attributes['request.method'] in ('PATCH','POST','PUT','DELETE')
+group by m, method, path
+order by n desc limit 20
+```
+
+창은 **직전 24시간**으로 명시한다(`iso_timestamp_start`/`iso_timestamp_end`).
+
+**판정** — 여기서도 상수를 쓰지 않는다. 기준을 두 곳에서 끌어낸다:
+- **자기 이력**: 같은 경로의 평소 분당 쓰기와 비교한다. 평소의 10배가 넘는 분이 있으면 폭주다.
+- **DB 가 실제로 아팠는가**: 같은 시각 `postgres_logs` 에 `checkpoint complete` 의 `write=` 가
+  수십 초이거나 `statement timeout` 이 쏟아졌는지 본다. **부하만 있고 아프지 않았으면 올리지 않는다.**
+  둘이 겹친 분이 있어야 발견이다.
+
+지문 `capacity:write_storm:<경로>` · severity 는 DB 가 실제로 죽었으면 critical, 느려지기만 했으면 warning.
+evidence 에 `{분, 경로, 건수, 초당, checkpoint_write_s}` 를 싣는다.
+
+⚠️ **PostgREST 의 `204` 는 쓰기다**(`Prefer: return=minimal`). 상태 코드만 보고 "조용한 요청" 으로
+읽지 마라 — 2026-09-06 의 1,995건이 전부 204 였다.
+
+⚠️ 폭주를 찾았으면 **경로만 적지 말고 어느 스크립트인지까지 좁힌다.** `grep -rn "from('<표>')" scripts/`
+로 그 표에 한 행씩 쓰는 코드를 찾아 evidence 에 파일명을 넣는다. 경로만 적으면 다음 사람이 같은 조사를 다시 한다.
+
+### 1-8. 기록
 
 발견마다:
 
@@ -138,10 +175,11 @@ select close_missing_db_health_findings(array['<이번에 본 지문들>']);
 이번에 안 보인 항목이 닫힌다. 이 호출을 빠뜨리면 고쳐진 문제가 화면에 영영 남고,
 그러면 화면 전체를 아무도 안 믿게 된다.
 
-### 1-8. 사람에게 하는 보고
+### 1-9. 사람에게 하는 보고
 
 - open 항목이 없으면 **한 줄**로 끝낸다. "새로 나빠진 것 없음 · 용량 +12MB/일 · 열린 항목 3건(전부 기존)".
 - critical 이 있으면 그것만 먼저, 나머지는 건수로.
+
 
 ---
 
