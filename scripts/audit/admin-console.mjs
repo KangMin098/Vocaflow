@@ -20,6 +20,7 @@
 //   deadLinks   코드 안의 /admin/... 링크 중 존재하지 않는 라우트를 가리키는 것
 //   helpKeys    HELP_REGISTRY 키 ↔ 실제 라우트 슬러그 대조 (양방향 고아)
 //   apiGuards   /api/**/route.ts 의 가드 종류 (JSON 401 vs RSC redirect vs 없음)
+//   reach       사이드바에서 **몇 번 눌러야** 닿는가 (O/X 가 아니라 거리 — 묻힌 화면 탐지)
 //
 // 실행:  node scripts/audit/admin-console.mjs [--json] [--fail-under=<점수>]
 
@@ -534,6 +535,74 @@ const swallowHits = []
   }
 }
 
+// ── 전역: 이동 깊이 — 사이드바에서 몇 번 눌러야 닿는가 ───────────────────────
+//
+// `nav` 축은 "메뉴에서 닿는가" 를 O/X 로만 본다. 그러면 **묻힌 화면**이 안 보인다 —
+// 닿기는 닿는데 네 번 눌러야 하는 화면과, 사이드바에 바로 있는 화면이 똑같이 O 다.
+// 「전체 이동 / 전체 프로세스가 최적합한가」를 재려면 O/X 가 아니라 **거리**가 필요하다.
+//
+// 사이드바에 늘 보이는 링크를 깊이 0 으로 두고, 각 화면이 **실제로 그리는 파일 전부**
+// (`surfaceFiles` — 임포트를 따라간다)에서 나온 /admin 링크를 간선으로 삼아 너비 우선.
+//
+// ⚠️ 라우트 디렉터리의 직계 파일만 보면 안 된다. VCB 는 섹션 내비를 공유 컴포넌트
+//   (`components/admin/vcb/VcbSectionNav.tsx`)에 두고, 대시보드는 링크를
+//   `lib/admin/dashboard-stats.ts` 에서 만든다. 직계만 보는 판으로 재 봤더니
+//   **멀쩡한 화면 9개가 「도달 불가」로 잡혔고 전량 오탐이었다**(2026-09-06 실측).
+const reach = { depth: new Map(), unreachable: [], maxDepth: 0 }
+{
+  const outHrefs = new Map() // route -> 그 화면이 내보내는 라우트들
+  for (const p of adminPages) {
+    const files = [
+      ...surfaceFiles(p.file),
+      ...ancestorLayouts(p.dir).flatMap((l) => surfaceFiles(l)),
+    ]
+    const targets = new Set()
+    for (const f of [...new Set(files)]) {
+      for (const m of read(f).matchAll(HREF_RE)) {
+        const href = normalizeHref(m[1])
+        if (!href.startsWith('/admin')) continue
+        for (const r of ROUTE_SET) if (r !== p.route && linkMatchesRoute(href, r)) targets.add(r)
+      }
+    }
+    outHrefs.set(p.route, [...targets])
+  }
+
+  // 사이드바 = 깊이 0. 어느 화면에서나 보이므로 클릭 한 번이면 닿는다.
+  const sidebarFile = join(WEB_SRC, 'components', 'admin', 'AdminSidebar.tsx')
+  let frontier = []
+  if (existsSync(sidebarFile)) {
+    for (const m of read(sidebarFile).matchAll(HREF_RE)) {
+      const href = normalizeHref(m[1])
+      for (const r of ROUTE_SET) {
+        if (linkMatchesRoute(href, r) && !reach.depth.has(r)) {
+          reach.depth.set(r, 0)
+          frontier.push(r)
+        }
+      }
+    }
+  }
+  if (!reach.depth.has('/admin') && ROUTE_SET.has('/admin')) {
+    reach.depth.set('/admin', 0)
+    frontier.push('/admin')
+  }
+  while (frontier.length) {
+    const next = []
+    for (const r of frontier) {
+      for (const t of outHrefs.get(r) ?? []) {
+        if (reach.depth.has(t)) continue
+        reach.depth.set(t, reach.depth.get(r) + 1)
+        next.push(t)
+      }
+    }
+    frontier = next
+  }
+  for (const r of ROUTE_SET) {
+    if (!reach.depth.has(r)) reach.unreachable.push(r)
+    else reach.maxDepth = Math.max(reach.maxDepth, reach.depth.get(r))
+  }
+  reach.unreachable.sort()
+}
+
 // ── 여기 있던 검사를 뺀 이유 (2026-09-05) ────────────────────────────────────
 //
 // 런타임 스윕이 `/admin/csat/evidence` 의 **390px 가로 스크롤 412px** 를 잡았고, 원인은
@@ -586,6 +655,11 @@ const report = {
   screensWithoutHelp,
   helpKeyMissing,
   tabMismatches,
+  reach: {
+    unreachable: reach.unreachable,
+    maxDepth: reach.maxDepth,
+    depth: Object.fromEntries([...reach.depth].sort()),
+  },
   apiGuard: {
     total: apiRoutes.length,
     json: apiGuard.json.length,
@@ -632,6 +706,18 @@ if (AS_JSON) {
   for (const [t, at] of Object.entries(byToken))
     console.log(`  ${t}  ${at.length}곳  (예: ${at[0]})`)
 
+  const depthBuckets = new Map()
+  for (const [r, d] of reach.depth) {
+    if (!depthBuckets.has(d)) depthBuckets.set(d, [])
+    depthBuckets.get(d).push(r)
+  }
+  console.log(`\n이동 깊이 — 도달 불가 ${reach.unreachable.length} · 최대 ${reach.maxDepth}번`)
+  for (const d of [...depthBuckets.keys()].sort((a, b) => a - b)) {
+    const list = depthBuckets.get(d).sort()
+    console.log(`  ${d}번: ${list.length}개${d >= 3 ? `  ${list.join(', ')}` : ''}`)
+  }
+  if (reach.unreachable.length) console.log(`  도달 불가: ${reach.unreachable.join(', ')}`)
+
   console.log(`\n조회 실패를 0/빈값으로 뭉개는 자리: ${swallowHits.length}`)
   for (const s of swallowHits.slice(0, 15)) console.log(`  [${s.kind}] ${s.at}`)
   console.log(
@@ -644,5 +730,12 @@ if (AS_JSON) {
 
 if (!Number.isNaN(failUnder) && score < failUnder) {
   console.error(`FAIL — 점수 ${score.toFixed(1)}% < 기준 ${failUnder}%`)
+  process.exit(1)
+}
+
+// 도달 불가는 **점수와 별개로** 막는다. 8축 어디에도 안 잡히는 종류의 결함이고
+// (화면은 멀쩡히 렌더된다) 링크 하나가 사라지면 조용히 생긴다.
+if (!Number.isNaN(failUnder) && reach.unreachable.length > 0) {
+  console.error(`FAIL — 메뉴에서 도달 못 하는 화면 ${reach.unreachable.length}개: ${reach.unreachable.join(', ')}`)
   process.exit(1)
 }
