@@ -636,7 +636,7 @@ function QuestionScreen({
                     onClick={() => onSelect(i)}
                     disabled={locked}
                     aria-checked={isSelected}
-                    className={`flex h-32 w-full flex-col items-center justify-center gap-2 rounded-[var(--r-lg)] border-2 transition-all duration-[var(--dur-normal)] md:h-40 ${
+                    className={`relative flex h-32 w-full flex-col items-center justify-center gap-2 rounded-[var(--r-lg)] border-2 transition-all duration-[var(--dur-normal)] md:h-40 ${
                       showCorrect
                         ? 'border-[var(--success)] bg-[var(--success-light)]'
                         : showWrong
@@ -648,6 +648,24 @@ function QuestionScreen({
                               : 'border-[var(--bd)] bg-[var(--bg)] hover:scale-[1.02] hover:border-[var(--p)] hover:bg-[var(--p-light)]'
                     }`}
                   >
+                    {/* ⚠️ **판정 배지 — 4지선다와 같은 것을 여기에도 둔다.**
+                        OX 분기에는 테두리·배경색뿐이라 적록색약 학습자에게는 정오가 보이지
+                        않았다(CLAUDE.md 절대 금지 「색상만으로 정보 전달」). 가운데 72px
+                        O/X 는 **선지의 뜻**이지 판정이 아니다 — 그래서 배지는 모서리에
+                        둬서 기호와 겹치지 않게 한다. */}
+                    {(showCorrect || showWrong) && (
+                      <span
+                        className="absolute right-2 top-2 inline-flex h-7 w-7 items-center justify-center rounded-full bg-[var(--bg)]"
+                        style={{ color: showCorrect ? 'var(--success)' : 'var(--error-ink)' }}
+                        aria-label={showCorrect ? '정답' : '내가 고른 오답'}
+                      >
+                        {showCorrect ? (
+                          <Check size={16} strokeWidth={3} />
+                        ) : (
+                          <X size={16} strokeWidth={3} />
+                        )}
+                      </span>
+                    )}
                     <span
                       className="font-display text-[56px] font-[800] leading-none md:text-[72px]"
                       style={{ color: symbolColor }}

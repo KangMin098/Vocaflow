@@ -31,7 +31,7 @@ import type { Database } from '@vocaflow/types'
 
 import { Screen } from '@/components/ui/ios'
 import { fetchDueGameWords } from '@/lib/game/due-words'
-import { fetchTodayPrescription } from '@/lib/learner/prescription-actions'
+import { fetchDcpPracticeItems } from '@/lib/learner/dcp-actions'
 import { fetchSessionQueue } from '@/lib/learner/session-queue-query'
 import { createClient } from '@/lib/supabase/server'
 
@@ -57,11 +57,17 @@ export default async function PracticePage() {
   // 진입 경로가 허브 처방 하나뿐이었다. 연습 단일 진입면이 자기 밑에 있는 연습을 숨기고
   // 있었다는 뜻이다(통폐합 영향도 전수 검사에서 발견). 다만 DCP 는 stage 게이트가 있어
   // 항상 열려 있지 않으므로, **활성일 때만** 노출한다 — 잠긴 링크를 파는 것도 거짓 약속이다.
-  const [queue, gamePool, prescription] = user
+  //
+  // ⚠️ 처방의 **총 문항 수가 아니라 남은 수**를 센다. `fetchTodayPrescription` 의
+  // `practiceCount` 는 오늘 처방된 5를 하루 종일 그대로 유지해서, 다 풀고 돌아온
+  // 학습자에게도 "대기 5" 라고 말했다 — 그건 다른 카드들이 지키는 계약("각 도구가 실제로
+  // 쓰는 함수를 그대로 부른다")을 이 줄만 어긴 것이었다. `/practice/dcp` 가 실제로 내주는
+  // 목록을 그대로 받는다. 그래서 다 푼 날은 숫자가 아니라 **링크 자체가 사라진다**.
+  const [queue, gamePool, dcp] = user
     ? await Promise.all([
         fetchSessionQueue(client, user.id), // Flashcard · SpellForge 가 공유
         fetchDueGameWords(client, user.id), // WordBlitz
-        fetchTodayPrescription(),
+        fetchDcpPracticeItems(),
       ])
     : [null, null, null]
 
@@ -71,7 +77,7 @@ export default async function PracticePage() {
         ownedTotal={queue?.vocabTotal ?? null}
         sessionSize={queue ? queue.words.length : null}
         gamePoolSize={gamePool ? gamePool.words.length : null}
-        syntaxCount={prescription?.practiceActive ? prescription.practiceCount : null}
+        syntaxCount={dcp?.active ? dcp.items.length : null}
       />
     </Screen>
   )

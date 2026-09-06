@@ -402,14 +402,27 @@ type AnalysisRow = {
   time_budget_sec: number | null
 }
 
-/** 한 유형에 딸린 기출 문항 목록 — 최신 회차 먼저 */
-export async function loadCsatTypeItems(typeId: string): Promise<CsatItemBrief[]> {
+/**
+ * 한 유형에 딸린 기출 문항 목록 — 최신 회차 먼저.
+ *
+ * ⚠️ **조회 실패와 「아직 없음」을 같은 값으로 뭉개지 않는다.** 예전에는 둘 다 `[]` 라
+ *    화면이 「이 유형의 기출」 섹션을 **아무 말 없이 통째로 지웠다** — 문항 해설로 가는
+ *    유일한 문이 그 섹션이다. 게다가 머리글의 「기출 41문항」은 다른 쿼리라 그대로 떠서
+ *    한 화면 안에서 서로 모순됐다. 같은 파일의 다른 로더들
+ *    (`loadCsatTypeCards`·`loadCsatTypeDetail`·`loadCsatPlan`)은 전부 `error` 를 밖으로
+ *    내보낸다 — 이 함수만 삼키고 있었다.
+ */
+export async function loadCsatTypeItems(
+  typeId: string,
+): Promise<{ items: CsatItemBrief[]; error: string | null }> {
   const db = await csatDb()
   const [itemsRes, examsRes] = await Promise.all([
     db.from('csat_items_public').select('id, exam_id, no, points, answer').eq('type_id', typeId).eq('in_scope', true),
     db.from('csat_exams').select('id, label, year, month'),
   ])
-  if (itemsRes.error || examsRes.error) return []
+  if (itemsRes.error || examsRes.error) {
+    return { items: [], error: itemsRes.error?.message ?? examsRes.error?.message ?? '기출 목록을 불러오지 못했어요.' }
+  }
 
   const exam = new Map(
     ((examsRes.data ?? []) as { id: string; label: string; year: number; month: number }[]).map((e) => [e.id, e]),
@@ -467,7 +480,7 @@ export async function loadCsatTypeItems(typeId: string): Promise<CsatItemBrief[]
       .map(([id]) => id),
   )
 
-  return items
+  const brief = items
     .map((it) => ({
       id: it.id,
       slug: toItemSlug(it.id),
@@ -482,6 +495,8 @@ export async function loadCsatTypeItems(typeId: string): Promise<CsatItemBrief[]
       const eb = exam.get(b.id.split('#')[0])
       return (eb?.year ?? 0) - (ea?.year ?? 0) || (eb?.month ?? 0) - (ea?.month ?? 0) || a.no - b.no
     })
+
+  return { items: brief, error: null }
 }
 
 /** 문항 하나의 해설 */

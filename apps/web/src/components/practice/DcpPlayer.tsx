@@ -29,7 +29,16 @@ import { DcpChoiceItem, DcpInsertItem, DcpOrderItem } from './DcpItems'
 
 type Phase = 'answering' | 'grading' | 'graded' | 'done'
 
-export function DcpPlayer({ items }: { items: DcpItem[] }) {
+export function DcpPlayer({
+  items,
+  backHref = '/hub',
+  backCta = '홈으로',
+}: {
+  items: DcpItem[]
+  /** 온 곳으로 돌아가는 경로 — 페이지가 `?from=` 을 검증해 넘긴다(하드코딩 `/hub` 였다). */
+  backHref?: string
+  backCta?: string
+}) {
   const [idx, setIdx] = useState(0)
   const [phase, setPhase] = useState<Phase>('answering')
   const [result, setResult] = useState<DcpGradeOk | null>(null)
@@ -109,11 +118,11 @@ export function DcpPlayer({ items }: { items: DcpItem[] }) {
           </p>
         </div>
         <Link
-          href="/hub"
-          className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] bg-[var(--p)] px-5 font-display text-[14px] font-[700] text-[var(--on-p)] no-underline shadow-[var(--sh-xs)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          href={backHref}
+          className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] bg-[var(--p)] px-5 font-display text-[14px] font-[700] text-[var(--on-p)] no-underline shadow-[var(--sh-xs)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] active:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
           <Home size={16} strokeWidth={2} aria-hidden />
-          홈으로
+          {backCta}
         </Link>
       </section>
     )
@@ -236,8 +245,22 @@ function Feedback({
         </p>
       </div>
 
-      {/* 오답이면 정답 공개 */}
-      {!correct && result.answerKey && <Reveal item={item} answerKey={result.answerKey} />}
+      {/* 오답이면 정답 공개 — 맞혔으면 **해설만**.
+          맞힌 학습자에게 필요한 것은 "정답이 무엇이었나" 가 아니라 "왜" 다. 찍어서 맞힌
+          경우가 특히 그렇다 — 근거를 못 배우고 넘어가면 다음에 같은 자리에서 또 틀린다.
+
+          ⚠️ **오늘은 대개 비어 있다.** `grade_dcp_item` 이
+             `answer_key := CASE WHEN v_correct THEN NULL ELSE it.answer_key END` 이라
+             정답일 때 해설이 아예 안 내려온다(본문 실측 2026-09-06). `csat_dcp_items` 는
+             학습자 정책이 없어 앱에서 따로 읽을 수도 없다. 그래서 화면 쪽 문은 여기서
+             열어 두고, 서버가 해설만 돌려주게 되면 그날로 보이기 시작한다.
+             (정답 선지·정답 순서까지 다시 보여 줄 필요는 없다 — 방금 고른 것이다.) */}
+      {result.answerKey &&
+        (correct ? (
+          <ExplanationNote answerKey={result.answerKey} />
+        ) : (
+          <Reveal item={item} answerKey={result.answerKey} />
+        ))}
 
       {/* 오답이면 error_cause 1-tap */}
       {!correct && (

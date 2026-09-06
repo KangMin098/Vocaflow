@@ -12,6 +12,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import { createClient } from '@/lib/supabase/server'
 
 import type { DcpErrorCause, DcpGradeResult, DcpItem } from './dcp'
+import { remainingAfterAttempts, utcDayStartIso } from './dcp'
 import { SERIES_SPINE, cleanItemPayload, isTooShortForPractice, itemHygieneReject, itemWordSpec } from '@vocaflow/library-pipeline'
 
 import { fetchMyTextbooks } from '@/lib/textbook/my-shelf-query'
@@ -114,38 +115,80 @@ async function pickedVLevels(): Promise<number[]> {
 }
 
 /**
+ * 오늘 이미 시도한 문항을 뺀다. 판정 규칙 자체는 `dcp.ts` 에 있다(순수 · 테스트가 잠근다).
+ *
+ * ⚠️ **조회가 실패하면 거르지 않는다.** 못 읽은 것을 "다 풀었다" 로 뭉개면 오늘 몫이
+ *   통째로 사라진다 — 다시 푸는 낭비보다 못 푸는 손실이 크다. 그래서 `checked` 를 함께
+ *   돌려주고, 화면이 「다 했어요」라고 말하는 것은 그 값이 참일 때뿐이다.
+ */
+async function excludeAttemptedToday(
+  client: SupabaseClient,
+  userId: string,
+  items: DcpItem[],
+): Promise<{ items: DcpItem[]; checked: boolean }> {
+  if (items.length === 0) return { items, checked: true }
+  const { data, error } = await client
+    .from('csat_item_attempts')
+    .select('dcp_item_id')
+    .eq('user_id', userId)
+    .in(
+      'dcp_item_id',
+      items.map((i) => i.id),
+    )
+    .gte('responded_at', utcDayStartIso())
+  if (error || !data) return { items, checked: false }
+  const attempted = (data as { dcp_item_id: string | null }[]).map((r) => r.dcp_item_id)
+  return { items: remainingAfterAttempts(items, attempted), checked: true }
+}
+
+/**
  * 오늘 처방의 구문 연습(DCP) 문항. S3 미만이거나 문항 없으면 active=false.
  *
  * `steered` = 이 문항들이 **담은 교재에서** 나왔는가. 화면이 그 사실을 말할 수 있어야
  * "담기가 무엇을 바꿨는지" 를 학습자가 안다 — 안 그러면 또 보이지 않는 약속이 된다.
+ *
+ * `doneToday` = 처방은 있었는데 **오늘 몫을 이미 다 풀어서** 남은 것이 없다.
+ * `active:false` 하나로 뭉개면 화면이 "학습 단계가 무르익으면 열려요"(잠김 안내)를
+ * 띄운다 — 방금 다 푼 학습자에게 아직 못 연다고 말하는 셈이다.
  */
 export async function fetchDcpPracticeItems(): Promise<{
   active: boolean
   items: DcpItem[]
   steered: boolean
+  doneToday: boolean
 }> {
   const client = await createClient()
   const {
     data: { user },
   } = await client.auth.getUser()
-  if (!user) return { active: false, items: [], steered: false }
+  if (!user) return { active: false, items: [], steered: false, doneToday: false }
 
   const loose = client as unknown as SupabaseClient
   const { data, error } = await loose.rpc('prescribe_today', {
     p_user_id: user.id,
     p_v_levels: await pickedVLevels(),
   })
-  if (error || !data) return { active: false, items: [], steered: false }
+  if (error || !data) return { active: false, items: [], steered: false, doneToday: false }
 
   const blocks = (data as { blocks?: unknown }).blocks
   const practice = Array.isArray(blocks)
     ? (blocks.find((b) => (b as { kind?: string } | null)?.kind === 'practice') as Record<string, unknown> | undefined)
     : undefined
-  if (!practice || practice.active !== true) return { active: false, items: [], steered: false }
+  if (!practice || practice.active !== true) {
+    return { active: false, items: [], steered: false, doneToday: false }
+  }
 
   const raw = practice.items
-  const items = Array.isArray(raw) ? raw.map(parseItem).filter((x): x is DcpItem => x !== null) : []
-  return { active: items.length > 0, items, steered: practice.steered === true }
+  const prescribed = Array.isArray(raw) ? raw.map(parseItem).filter((x): x is DcpItem => x !== null) : []
+  const { items, checked } = await excludeAttemptedToday(loose, user.id, prescribed)
+
+  return {
+    active: items.length > 0,
+    items,
+    steered: practice.steered === true,
+    // 처방은 있었는데 남은 것이 0 — 그 판정은 **실제 조회에 근거할 때만** 내린다.
+    doneToday: checked && prescribed.length > 0 && items.length === 0,
+  }
 }
 
 /**

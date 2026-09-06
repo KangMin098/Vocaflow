@@ -58,9 +58,19 @@ export function PracticeChooser({
   const ready = facets.status === 'ready' ? facets.data : null
 
   // Syntax(DCP)는 문장 안에서 쓰는 훈련이라 Use 면에 속한다. 잠긴 날은 아예 없는 것으로 둔다.
+  //
+  // ⚠️ `?from` 은 게임 링크와 **같은 이유**로 붙인다 — 없으면 `/practice/dcp` 의 복귀
+  //    링크 세 곳(상단 ←, 빈 상태 CTA, 완주 CTA)이 전부 `/hub` 로 가서, 이 화면에서
+  //    들어간 학습자는 온 곳으로 돌아갈 수단을 잃는다(`/practice/dcp` 의 부모는 `/practice` 다).
   const tools: Record<FacetId, PracticeTool[]> =
     syntaxCount != null
-      ? { ...TOOLS, use: [{ label: 'Syntax', href: '/practice/dcp', isGame: false }, ...TOOLS.use] }
+      ? {
+          ...TOOLS,
+          use: [
+            { label: 'Syntax', href: `/practice/dcp?from=${encodeURIComponent('/practice')}`, isGame: false },
+            ...TOOLS.use,
+          ],
+        }
       : TOOLS
 
   const weakest = ready?.weakest ? (ready.weakest.facet as FacetId) : null

@@ -148,3 +148,40 @@ export function pickExplanationText(answerKey: Record<string, unknown> | null | 
  * 고치려면 지문의 인용 잔해를 상류에서 걷거나 그 문항을 연습에서 빼야 한다 —
  * 클라이언트 대체 코드로는 안 된다(번들만 늘고 0건을 덮는다).
  */
+
+// ════════════════════════════════════════════════════════════
+// 오늘 몫 — 「이미 푼 것」을 빼는 규칙
+//
+// (바로 위 블록은 어떤 함수의 문서도 아니다 — 되돌린 시도의 기록이다.)
+// ════════════════════════════════════════════════════════════
+
+/**
+ * `prescribe_today` 가 오늘 몫을 고정하는 경계 — **UTC 자정**.
+ *
+ * RPC 본문이 `ORDER BY md5(i.id::text || current_date::text)` 로 5문항을 고르고 DB
+ * 타임존은 UTC 다(실측 2026-09-06). 그러니 "오늘 이미 풀었나" 도 **같은 경계**로 물어야
+ * 한다 — 이 저장소가 다른 곳에서 쓰는 KST 자정으로 물으면 09:00 KST 이전에는 처방은
+ * 어제 것인데 시도만 오늘로 새로 세어, 방금 푼 문항이 다시 나온다. 경계가 둘이면 어긋난다.
+ */
+export function utcDayStartIso(now: number = Date.now()): string {
+  const d = new Date(now)
+  d.setUTCHours(0, 0, 0, 0)
+  return d.toISOString()
+}
+
+/**
+ * 오늘 이미 시도한 문항을 뺀 나머지.
+ *
+ * ⚠️ **`prescribe_today` 는 시도를 보지 않는다** — practice 블록에 `csat_item_attempts`
+ *   참조가 없다(본문 실측 2026-09-06). 그래서 다 풀고 나갔다 돌아오면 **같은 5문항이
+ *   1번부터 다시** 나왔고, 중간에 이탈하면 이미 푼 것을 또 풀어 같은 날 중복 attempt 가
+ *   쌓였다. 근본 해결은 RPC 에 `NOT EXISTS` 를 더하는 것이지만(마이그레이션 필요),
+ *   `csat_item_attempts` 는 소유자 RLS 라 앱에서 그대로 읽히므로 여기서 뺀다.
+ */
+export function remainingAfterAttempts<T extends { id: string }>(
+  items: readonly T[],
+  attemptedIds: readonly (string | null)[],
+): T[] {
+  const done = new Set(attemptedIds.filter((id): id is string => typeof id === 'string'))
+  return items.filter((i) => !done.has(i.id))
+}

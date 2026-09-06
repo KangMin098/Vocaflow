@@ -92,12 +92,26 @@ test.describe('연습 통합 화면 — /practice', () => {
     expect(box!.y, 'Game Lab 링크가 접힘선 아래').toBeLessThan(vh)
   })
 
-  test('④ Syntax(DCP)가 활성일 때 이 화면에서 갈 수 있다', async ({ page }) => {
-    const dcp = page.locator('a[href="/practice/dcp"], :text("Syntax")')
+  test('④ Syntax(DCP)가 활성일 때 이 화면에서 갈 수 있고, 링크가 연습으로 돌아온다', async ({
+    page,
+  }) => {
+    const dcp = page.locator('a[href^="/practice/dcp"], :text("Syntax")')
     const visible = (await dcp.count()) > 0
     test.skip(!visible, 'DCP 비활성 계정 — stage 게이트')
     // 활성이면 링크가 있어야 한다. 잠긴 날 링크를 파는 것도 결함이므로 반대 방향은 잠그지 않는다.
-    await expect(page.locator('a[href="/practice/dcp"]')).toHaveCount(1)
+    const link = page.locator('a[href^="/practice/dcp"]')
+    await expect(link).toHaveCount(1)
+
+    // `from` 이 없으면 `/practice/dcp` 의 복귀 링크 세 곳이 전부 `/hub` 로 가서, 이 화면에서
+    // 들어간 학습자는 온 곳으로 돌아갈 수단을 잃는다(`/practice/dcp` 의 부모는 `/practice` 다).
+    const href = await link.getAttribute('href')
+    expect(href, `${href} 에 from 이 없다`).toContain('from=%2Fpractice')
+
+    // 실제로 그 문을 열고, 되돌아오는 링크가 화면에 **있는지**까지 본다 — 쿼리만 붙고
+    // 화면이 안 읽으면 계약은 지켜진 게 아니다.
+    await link.click()
+    await page.waitForURL(/\/practice\/dcp/, { timeout: 30_000 })
+    await expect(page.locator('main a[href="/practice"], a[href="/practice"]').first()).toBeVisible()
   })
 
   test('⑤ 흡수한 4모듈로 가는 길이 살아 있다 (딥링크 소실 금지)', async ({ page }) => {

@@ -29,7 +29,10 @@ export async function generateMetadata({
 
 export default async function CsatTypePage({ params }: { params: Promise<{ typeId: string }> }) {
   const { typeId } = await params
-  const [{ detail, error }, items] = await Promise.all([loadCsatTypeDetail(typeId), loadCsatTypeItems(typeId)])
+  const [{ detail, error }, { items, error: itemsError }] = await Promise.all([
+    loadCsatTypeDetail(typeId),
+    loadCsatTypeItems(typeId),
+  ])
 
   if (!error && !detail) notFound()
 
@@ -151,17 +154,35 @@ export default async function CsatTypePage({ params }: { params: Promise<{ typeI
             </div>
           )}
 
-          {items.length ? (
-            <section className="mt-6">
-              {/* **유형 절차만으로는 부족하다.** 학습자가 실제로 막히는 자리는 눈앞의 한 문항이고,
-                  거기서 알고 싶은 것은 "그래서 왜 ③인가" 다. 그 답으로 가는 문을 여기 둔다.
-                  최신 회차가 위에 온다 — 현행 설계부터 보는 것이 시험에 가깝다. */}
-              <h2 className="font-display text-sm font-bold text-[var(--t1)]">
-                이 유형의 기출
+          {/* ⚠️ **세 상태를 갈라 그린다** — 못 불러왔다 / 아직 없다 / 목록.
+              예전에는 `items.length ? … : null` 하나뿐이라 조회가 실패하면 이 섹션이
+              흔적 없이 사라졌고, 학습자는 "이 유형엔 기출이 없구나" 로 읽었다. 문항 해설로
+              가는 문이 여기 하나뿐인데도. 위 머리글의 「기출 {detail.items}문항」은 다른
+              쿼리라 그대로 떠 있어서 화면이 스스로 모순됐다. */}
+          <section className="mt-6">
+            {/* **유형 절차만으로는 부족하다.** 학습자가 실제로 막히는 자리는 눈앞의 한 문항이고,
+                거기서 알고 싶은 것은 "그래서 왜 ③인가" 다. 그 답으로 가는 문을 여기 둔다.
+                최신 회차가 위에 온다 — 현행 설계부터 보는 것이 시험에 가깝다. */}
+            <h2 className="font-display text-sm font-bold text-[var(--t1)]">
+              이 유형의 기출
+              {items.length > 0 && (
                 <span className="ml-2 font-sans text-xs font-normal text-[var(--t3)]">
                   해설 {items.filter((i) => i.explained).length} / {items.length}
                 </span>
-              </h2>
+              )}
+            </h2>
+
+            {itemsError ? (
+              <p className="mt-2 break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4 text-sm text-[var(--t2)]">
+                지금은 기출 목록을 불러오지 못했어요. 잠시 뒤 다시 열어 주세요.
+              </p>
+            ) : items.length === 0 ? (
+              <p className="mt-2 break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4 text-sm text-[var(--t2)]">
+                이 유형의 기출을 아직 연결하지 못했어요. 위의 절차와 함정만으로도 한 번 풀어 볼 수 있어요.
+              </p>
+            ) : null}
+
+            {items.length > 0 ? (
               <ul className="mt-2 grid gap-2 sm:grid-cols-2">
                 {items.map((it) => (
                   <li key={it.id}>
@@ -180,8 +201,8 @@ export default async function CsatTypePage({ params }: { params: Promise<{ typeI
                   </li>
                 ))}
               </ul>
-            </section>
-          ) : null}
+            ) : null}
+          </section>
 
           <p className="mt-8 text-xs leading-relaxed text-[var(--t3)]">
             문항 원문은 싣지 않습니다. 지문·선지의 저작권은 한국교육과정평가원에 있고, 여기 있는 것은

@@ -144,6 +144,12 @@ test.describe('기출 유형 분석 — 학습자 표면', () => {
       await expect(itemsHeading).toBeVisible();
       await expect(itemsHeading).toContainText(/해설 \d+ \/ \d+/);
 
+      // 조회 실패를 「없음」으로 뭉개지 않는다 — 예전에는 이 섹션이 **아무 말 없이 통째로
+      // 사라졌고**(로더가 error 를 `[]` 로 삼켰다) 학습자는 "기출이 없구나" 로 읽었다.
+      // 머리글의 「기출 N문항」은 다른 쿼리라 그대로 떠서 화면이 스스로 모순됐다.
+      await expect(page.getByText('지금은 기출 목록을 불러오지 못했어요.')).toHaveCount(0);
+      await expect(page.getByText(/이 유형의 기출을 아직 연결하지 못했어요/)).toHaveCount(0);
+
       const explained = page.locator('ul.grid > li a[href^="/csat/item/"]').filter({ hasNotText: '준비 중' });
       expect(await explained.count(), '해설이 준비된 문항이 없다').toBeGreaterThan(0);
       await explained.first().click();
