@@ -122,6 +122,17 @@ export interface SourceEligibilityPanel {
   /** 계열별 자의 출처 — 화면이 각주로 쓴다. */
   familySource: Record<string, string>
   /**
+   * 발췌 경로가 **어디까지 와 있는가.**
+   *
+   * ⚠️ 이것이 없으면 화면이 막다른 말을 한다. 미판정의 처방은 「발췌 경로로 가야 한다」인데,
+   * 그 발췌는 **이미 뽑혀 있을 수 있다.** 실측 2026-09-07: 11,601편이 이미 뽑혀 있었고
+   * 전부 `queued` · 학령 분석 0 이라 조판 풀에 못 들어오고 있었다 — 안 만든 것이 아니라
+   * 만들어 놓고 다음 단계에서 서 있었다. 화면이 그걸 모르면 관리자는 이미 한 일을 다시 한다.
+   *
+   * 옛 스냅샷에는 없다 — `null` 이면 **안 쟀다**는 뜻이고, 0 으로 뭉개지 않는다.
+   */
+  extractBacklog: ExtractBacklog | null
+  /**
    * **본문이 글이 아닌 것** — 적격 판정이 통과시킨 뒤에도 남는 결함.
    *
    * 일곱 축은 「이 원문을 써도 되는가」를 묻고, 그 질문은 **본문이 온전하다는 것을 전제**한다.
@@ -132,6 +143,18 @@ export interface SourceEligibilityPanel {
    * 그래서 적격과 **따로** 잰다(`scripts/textbook/extraction-defect-scan.mjs`).
    */
   defects: DefectPanel
+}
+
+/** 발췌 경로의 진행 — 뽑혔는가, 분석됐는가, 조판 풀에 들어왔는가. */
+export interface ExtractBacklog {
+  feed: string
+  /** 뽑힌 발췌 전체. */
+  total: number
+  /** 그중 학령 분석이 붙은 편수 — 붙어야 조판 풀에 들어온다. */
+  analyzed: number
+  /** 아직 분석을 기다리는 편수. */
+  pending: number
+  byStatus: { status: string; count: number }[]
 }
 
 /** 결함 한 갈래. */
@@ -291,6 +314,14 @@ export function buildSourceEligibilityPanel(now: Date = new Date()): SourceEligi
     requirements,
     familySource: FAMILY_SOURCE,
     defects: buildDefectPanel(now),
+    extractBacklog: (() => {
+      // ⚠️ `unknown` 을 거친다 — 옛 스냅샷에는 이 열이 아예 없고, 지금 스냅샷에는
+      //   `pending` 이 없다(화면이 계산한다). 둘 다 JSON 타입과 겹치지 않아 직접 캐스트가 막힌다.
+      const b = (snapshot as unknown as { extractBacklog?: Omit<ExtractBacklog, 'pending'> })
+        .extractBacklog
+      if (!b || typeof b.total !== 'number') return null
+      return { ...b, pending: Math.max(0, b.total - b.analyzed) }
+    })(),
   }
 }
 

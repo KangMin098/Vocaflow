@@ -1,16 +1,31 @@
 {
-  "measuredAt": "2026-09-06T11:52:31.689Z",
+  "measuredAt": "2026-09-06T22:15:18.519Z",
   "specVersion": 2,
-  "elapsedSeconds": 36.3,
+  "elapsedSeconds": 27.9,
   "scope": "status in ('ready','published')",
   "articlesWithItems": 19209,
+  "extractBacklog": {
+    "feed": "plos-extract",
+    "total": 11601,
+    "analyzed": 3,
+    "byStatus": [
+      {
+        "status": "queued",
+        "count": 11598
+      },
+      {
+        "status": "ready",
+        "count": 3
+      }
+    ]
+  },
   "total": {
-    "total": 21252,
+    "total": 21255,
     "byGrade": {
       "usable": 598,
       "excerpt": 6302,
       "excerpt-blind": 585,
-      "unjudged": 13459,
+      "unjudged": 13462,
       "unknown": 14,
       "blocked": 294
     },
@@ -18,7 +33,7 @@
       "format": 659,
       "analysis": 14,
       "legal": 150,
-      "judgement": 13459,
+      "judgement": 13462,
       "safety": 70
     },
     "composable": 6900,
@@ -136,12 +151,12 @@
     },
     {
       "vLevel": 5,
-      "total": 4015,
+      "total": 4016,
       "byGrade": {
         "usable": 82,
         "excerpt": 3301,
         "excerpt-blind": 107,
-        "unjudged": 444,
+        "unjudged": 445,
         "unknown": 3,
         "blocked": 78
       },
@@ -149,23 +164,23 @@
         "analysis": 3,
         "legal": 50,
         "safety": 18,
-        "judgement": 444,
+        "judgement": 445,
         "format": 117
       },
       "composable": 3383,
-      "composablePct": 84.3,
+      "composablePct": 84.2,
       "judged": 3571,
       "composablePctOfJudged": 94.7,
       "structurallyUnjudged": 444
     },
     {
       "vLevel": 6,
-      "total": 12937,
+      "total": 12939,
       "byGrade": {
         "usable": 7,
         "excerpt": 1905,
         "excerpt-blind": 425,
-        "unjudged": 10532,
+        "unjudged": 10534,
         "unknown": 3,
         "blocked": 65
       },
@@ -173,7 +188,7 @@
         "format": 429,
         "analysis": 3,
         "legal": 15,
-        "judgement": 10532,
+        "judgement": 10534,
         "safety": 46
       },
       "composable": 1912,
@@ -249,7 +264,7 @@
   "blockedBySource": [
     {
       "source": "plos",
-      "count": 13515
+      "count": 13518
     },
     {
       "source": "futurity",

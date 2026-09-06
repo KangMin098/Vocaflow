@@ -159,8 +159,52 @@ async function loadArticlesWithItems() {
   return ids
 }
 
+/**
+ * 발췌가 **어디까지 와 있는가** — 미판정의 처방이 실제로 얼마나 진행됐는지.
+ *
+ * ⚠️ 이것이 없으면 화면이 막다른 말을 한다. 미판정 13,459편의 처방은 「발췌 경로로 가야
+ *   한다」인데, 그 발췌는 **이미 11,601편 뽑혀 있다.** 안 만든 것이 아니라 만들어 놓고
+ *   다음 단계(학령 분석)에서 서 있었다(실측 2026-09-07: 전부 `queued` · 학령 0).
+ *   그 사실을 화면이 모르면 관리자는 이미 한 일을 다시 하려 든다.
+ *
+ * 본문을 안 받으므로 가볍다(11,601행 × 세 열 ≈ 12쪽).
+ */
+async function loadExtractBacklog(feed = 'plos-extract') {
+  const byStatus = new Map()
+  let total = 0
+  let analyzed = 0
+  let cursor = '00000000-0000-0000-0000-000000000000'
+  for (;;) {
+    const p = new URLSearchParams({
+      select: 'id,status,article_v_level',
+      feed_id: `eq.${feed}`,
+      id: `gt.${cursor}`,
+      order: 'id.asc',
+      limit: '1000',
+    })
+    const res = await fetch(`${URL_BASE}/rest/v1/library_articles?${p}`, { headers: HEADERS })
+    if (!res.ok) throw new Error(`발췌 재고 조회 실패: ${res.status} ${await res.text()}`)
+    const rows = await res.json()
+    if (!rows.length) break
+    for (const r of rows) {
+      total += 1
+      byStatus.set(r.status, (byStatus.get(r.status) ?? 0) + 1)
+      if (r.article_v_level != null) analyzed += 1
+    }
+    cursor = rows[rows.length - 1].id
+    if (rows.length < 1000) break
+  }
+  return {
+    feed,
+    total,
+    analyzed,
+    byStatus: [...byStatus.entries()].sort((a, b) => b[1] - a[1]).map(([status, count]) => ({ status, count })),
+  }
+}
+
 const started = Date.now()
 const withItems = await loadArticlesWithItems()
+const extractBacklog = await loadExtractBacklog()
 
 /** DB 행 → 판정 입력. **여기서만 열 이름을 안다.** */
 const toInput = (r) => ({
@@ -261,6 +305,7 @@ if (JSON_OUT) {
     elapsedSeconds: Number(elapsed),
     scope: ONLY_BAND ? `V${ONLY_BAND}` : "status in ('ready','published')",
     articlesWithItems: withItems.size,
+    extractBacklog,
     total,
     byBand: bands.map((b) => ({ vLevel: b || null, ...tallyEligibility(perBand.get(b)) })),
     blockedBySource: [...perSourceBlocked.entries()]

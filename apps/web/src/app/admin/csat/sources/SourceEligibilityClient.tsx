@@ -77,6 +77,24 @@ export function SourceEligibilityClient({ panel }: { panel: SourceEligibilityPan
               <span className="font-mono">plos-extract</span>)로 가야 한다.
             </p>
           ) : null}
+          {panel.extractBacklog && panel.extractBacklog.total > 0 ? (
+            <p className="font-body text-[13px] text-[var(--t1)]">
+              발췌는 <b className="tabular-nums">{panel.extractBacklog.total.toLocaleString()}편</b> 이 이미
+              뽑혀 있다 — 그중{' '}
+              <b className="tabular-nums">{panel.extractBacklog.analyzed.toLocaleString()}편</b> 만 학령
+              분석이 붙었고{' '}
+              <b className="tabular-nums text-[var(--warning-ink)]">
+                {panel.extractBacklog.pending.toLocaleString()}편
+              </b>{' '}
+              이 <b>분석을 기다린다</b>. 분석이 붙어야 조판 풀에 들어온다.
+              <br />
+              <span className="text-[var(--t2)]">
+                다음 명령:{' '}
+                <code>{`pnpm dlx tsx scripts/acp/process-queue.mjs --feed ${panel.extractBacklog.feed} --commit --limit N`}</code>{' '}
+                — 결정론 경로라 LLM 비용은 없고, 편당 약 5초다.
+              </span>
+            </p>
+          ) : null}
         </section>
       ) : null}
 

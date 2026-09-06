@@ -174,6 +174,28 @@ describe('원문 적격 화면', () => {
     }
   })
 
+  // ── 처방이 막다른 말이 되지 않게 ────────────────────────────────
+  // 「발췌 경로로 가야 한다」만 적으면 관리자는 발췌를 **새로 뽑으려** 든다. 실측 2026-09-07:
+  // 발췌는 이미 11,601편 뽑혀 있었고 전부 queued 라 조판 풀에 못 들어오고 있었다 —
+  // 안 만든 것이 아니라 만들어 놓고 다음 단계에서 서 있었다. 화면이 그걸 말해야 한다.
+  it('발췌가 어디까지 와 있는지 말한다 — 안 그러면 이미 한 일을 다시 시킨다', () => {
+    const b = panel.extractBacklog
+    if (!b || b.total === 0) return
+    expect(html).toContain(b.total.toLocaleString())
+    expect(html).toContain('분석을 기다린다')
+    // 다음에 무엇을 칠지가 없으면 사실만 알고 못 움직인다.
+    expect(html).toContain('process-queue.mjs')
+    expect(html).toContain(b.feed)
+  })
+
+  it('발췌 재고의 남은 수를 스스로 계산한다 — 스냅샷은 두 수만 준다', () => {
+    const b = panel.extractBacklog
+    if (!b) return
+    expect(b.pending).toBe(Math.max(0, b.total - b.analyzed))
+    // 합이 안 맞으면 화면이 「다 됐다」고 말하면서 큐가 남아 있는 상태가 된다.
+    expect(b.analyzed + b.pending).toBe(b.total)
+  })
+
   it('언제 잰 값인지와 다시 재는 명령을 함께 보인다', () => {
     expect(html).toContain('에 잰 값')
     expect(html).toContain('source-eligibility-scan.mjs')
