@@ -29,10 +29,6 @@ import type { FacetSummary } from '@/lib/framework/word-progress-query'
 import { createClient } from '@/lib/supabase/server'
 import { loadHubData, type HubData } from '@/lib/wordvault/hub-query'
 
-export const metadata = {
-  title: 'WordVault',
-}
-
 export const dynamic = 'force-dynamic'
 
 /** 옛 주소 → 새 라우트. 값 하나를 두 곳에 적지 않으려고 표로 둔다. */
