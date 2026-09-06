@@ -221,6 +221,9 @@ importers:
       '@supabase/supabase-js':
         specifier: ^2.104.1
         version: 2.104.1
+      '@vocaflow/design-tokens':
+        specifier: workspace:*
+        version: link:../design-tokens
       '@vocaflow/types':
         specifier: workspace:*
         version: link:../types
