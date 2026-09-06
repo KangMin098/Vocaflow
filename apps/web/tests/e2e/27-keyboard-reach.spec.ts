@@ -239,10 +239,27 @@ test.describe('제3의 학습자 — 키보드만으로', () => {
             (seen.length ? seen.slice(0, 6).join(' → ') + (seen.length > 6 ? ` … 외 ${seen.length - 6}` : '') : '(아무 데도 포커스가 안 갔다)')
         } else {
           // ③ 갇히지 않는가 — 여기서 더 눌렀을 때 포커스가 실제로 옮겨 가나.
-          const before = await p.evaluate(() => {
-            const el = document.activeElement as HTMLElement | null
-            return el ? el.outerHTML.slice(0, 120) : ''
-          })
+          //
+          // ⚠️ 정체를 `outerHTML.slice(0, 120)` 로 재면 안 된다 (실측 2026-09-06).
+          //    같은 컴포넌트로 만든 목록에서는 **앞 120자가 전부 같다** — 이 저장소의
+          //    사이트맵 링크는 className 만 290자여서, 여섯 개 링크를 지나가도 앞 120자는
+          //    한 가지였다(href 는 6가지). 그래서 멀쩡한 화면이 '포커스가 갇혔다' 로 찍혔고,
+          //    전수 키보드 훑기가 99.4% 에서 멈췄다. **화면이 아니라 자가 진단이 틀렸다.**
+          //    그래서 DOM 안에서의 **자리**로 잰다 — 형제 index 를 뿌리까지 이어 붙이면
+          //    같은 모양의 형제들도 서로 구별된다.
+          const focusId = () =>
+            p.evaluate(() => {
+              const el = document.activeElement
+              if (!el || el === document.body) return 'none'
+              const path: number[] = []
+              let n: Element | null = el
+              while (n && n.parentElement) {
+                path.push(Array.prototype.indexOf.call(n.parentElement.children, n))
+                n = n.parentElement
+              }
+              return el.tagName + '@' + path.join('.')
+            })
+          const before = await focusId()
           // ⚠️ 탈출을 `Tab` 만으로 재면 안 된다. 타이핑 게임처럼 `Tab` 을 기능키로 쓰는
           //    화면에서는 **뒤로 나가는 문(Shift+Tab)** 이 정답이다. 한 방향만 보고
           //    "갇혔다" 고 적으면 고칠 수 없는 실패가 된다.
@@ -252,10 +269,7 @@ test.describe('제3의 학습자 — 키보드만으로', () => {
           for (const key of ['Tab', 'Shift+Tab'] as const) {
             for (let i = 0; i < 5 && !escapedBy; i++) {
               await p.keyboard.press(key)
-              const now = await p.evaluate(() => {
-                const el = document.activeElement as HTMLElement | null
-                return el ? el.outerHTML.slice(0, 120) : ''
-              })
+              const now = await focusId()
               if (now !== before) escapedBy = key
             }
             if (escapedBy) break
