@@ -734,26 +734,18 @@ const { data: prior, error: priorErr } = record.units === 0
   : await db
       .from('textbook_volume_renders')
       .select('render_count, first_rendered_at')
+      // 시리즈까지 짚어야 **그 시리즈의** 앞 기록을 읽는다. band 만 보면 남의 권 횟수를 잇는다.
+      .eq('series', SERIES)
       .eq('band', BAND)
       .maybeSingle()
 
-if (SERIES !== 'reading') {
-  // ⚠️ **조판 기록 테이블에 시리즈 칸이 없다.** `textbook_volume_renders` 는 `band` 하나로
-  //   키를 잡으므로(`onConflict: 'band'`), 어휘 권을 찍으면 그 밴드의 **독해 기록을 덮는다.**
-  //
-  //   실측 2026-09-06: 어휘 V5 를 시험 조판했더니 band 5 의 제목이
-  //   「Vocaflow Reading 4」 → 「Vocaflow Vocab Advanced」로 바뀌었다. 발행 중인 시리즈의
-  //   기록이 시험 조판 한 번에 지워진 것이다.
-  //
-  //   그래서 독해가 아닌 시리즈는 **기록을 남기지 않는다.** 조판물(HTML)은 정상으로 나온다 —
-  //   못 남기는 것은 "이 권이 나갔다" 는 사실뿐이고, 그 사실은 시리즈 칸이 생겨야 남길 수 있다.
-  //   마이그레이션(`series` 열 + 복합 키)은 사용자 승인이 필요하다.
-  console.log(
-    `조판 기록  건너뜀 — 기록 표에 시리즈 칸이 없다(band 로만 키를 잡는다).\n` +
-      `   남기면 band ${BAND} 의 **독해 기록을 덮는다.** 조판물은 정상으로 나왔다.\n` +
-      `   기록까지 남기려면 textbook_volume_renders 에 series 열이 필요하다(마이그레이션).`,
-  )
-} else if (record.units === 0) {
+// ⚠️ **기록은 시리즈마다 따로 남는다.** 예전에는 `textbook_volume_renders` 가 `band` 하나로
+//   키를 잡아서(`onConflict: 'band'`) 어휘 권을 찍으면 그 밴드의 독해 기록을 덮었다 —
+//   실측 2026-09-06 에 band 5 의 제목이 「Vocaflow Reading 4」에서
+//   「Vocaflow Vocab Advanced」로 바뀌며 발행 중인 시리즈의 기록을 잃었다.
+//   마이그레이션 `textbook_volume_renders_series` 가 `series` 열과 `(series, band)` 복합 키를
+//   넣어 그 자리를 막았다. 아래 upsert 가 **반드시 `series` 를 실어야** 그 보호가 작동한다.
+if (record.units === 0) {
   console.log(
     `조판 기록  건너뜀 — 0단원이라 남길 권이 없다 (재료 부족). ` +
       `실패가 아니다 — 재고가 규격을 못 채운 것이다.`,
@@ -762,18 +754,21 @@ if (SERIES !== 'reading') {
   // 조판 자체는 끝났다 — 여기서 죽이지 않는다. 다만 조용히 넘어가지도 않는다.
   console.error(
     `\n⚠️  조판 기록 실패 — ${priorErr.message}\n` +
-      `   마이그레이션 20260830140000_textbook_volume_renders 가 적용됐는지 확인할 것.\n` +
-      `   기록이 없으면 /admin/textbook 의 "조판" 표에 이 권이 안 뜬다.`,
+      `   마이그레이션 textbook_volume_renders_series(series 열 + 복합 키)가 적용됐는지 확인할 것.\n` +
+      `   기록이 없으면 카탈로그에서 이 권이 「안 냈다」로 보인다.`,
   )
 } else {
   const renderCount = (prior?.render_count ?? 0) + 1
   const { error: upErr } = await db.from('textbook_volume_renders').upsert(
     {
       ...record,
+      // ⚠️ 반드시 싣는다. 빠지면 기본값 `reading` 으로 들어가 **어휘 권이 독해 기록을 덮는다** —
+      //   2026-09-06 에 그렇게 band 5 를 잃었다.
+      series: SERIES,
       render_count: renderCount,
       first_rendered_at: prior?.first_rendered_at ?? record.rendered_at,
     },
-    { onConflict: 'band' },
+    { onConflict: 'series,band' },
   )
   if (upErr) console.error(`\n⚠️  조판 기록 실패 — ${upErr.message}`)
   else

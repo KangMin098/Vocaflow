@@ -35,17 +35,17 @@ export async function loadSeriesCatalog(): Promise<SeriesCatalogView> {
   const db = createAdminClient() as unknown as SupabaseClient
   const [inv, renders] = await Promise.all([
     loadDcpInventory(db),
-    // ⚠️ 조판 기록에 **시리즈 칸이 없다.** 지금 찍힌 권은 전부 독해라 그렇게 셀 수 있고,
-    //   그것이 사실이기도 하다(어휘·구문은 draft — 한 번도 안 찍었다). 어휘를 찍기 시작하면
-    //   기록에 시리즈를 남겨야 하고, 그 전까지 이 화면은 "다른 시리즈는 하나도 안 나갔다" 를
-    //   정확히 말한다.
-    db.from('textbook_volume_renders').select('step'),
+    // 시리즈마다 자기 기록을 갖는다 — 마이그레이션 `textbook_volume_renders_series` 가
+    // `(series, band)` 복합 키를 넣기 전에는 `band` 하나로 키를 잡아 어휘 권이 독해 기록을
+    // 덮었다(실측 2026-09-06 에 band 5 를 그렇게 잃었다).
+    db.from('textbook_volume_renders').select('series, step'),
   ])
 
-  const publishedSteps = new Set<number>(
-    ((renders.data ?? []) as { step: number | null }[])
-      .map((r) => r.step)
-      .filter((n): n is number => n != null),
+  /** 「그 시리즈의 그 단이 나갔는가」 — 키가 시리즈+단이다. 단만 보면 남의 권을 센다. */
+  const publishedKeys = new Set<string>(
+    ((renders.data ?? []) as { series: string | null; step: number | null }[])
+      .filter((r) => r.step != null)
+      .map((r) => `${r.series ?? 'reading'}|${r.step}`),
   )
 
   const byCell = new Map<string, { items: number; explained: number }>()
@@ -81,8 +81,7 @@ export async function loadSeriesCatalog(): Promise<SeriesCatalogView> {
           }
         }
       }
-      // 조판 기록에 시리즈가 없으므로 독해만 「냈다」로 셀 수 있다 — 위 주석 참조.
-      const published = s.id === 'reading' && publishedSteps.has(step)
+      const published = publishedKeys.has(`${s.id}|${step}`)
       return {
         step,
         schoolBand,

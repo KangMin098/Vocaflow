@@ -90,15 +90,24 @@ describe('시리즈를 스크립트가 안다', () => {
  * 못 남기는 것은 "이 권이 나갔다" 는 사실뿐이다. 마이그레이션은 사용자 승인이 필요하다.
  */
 describe('조판 기록이 남의 시리즈를 안 덮는다', () => {
-  it('독해가 아니면 기록을 건너뛴다', () => {
-    expect(renderSrc).toContain("if (SERIES !== 'reading') {")
-    // 왜 건너뛰는지 화면에 말한다 — 조용히 안 남기면 "왜 기록이 없지" 가 된다.
-    expect(renderSrc).toContain('기록 표에 시리즈 칸이 없다')
+  // ⚠️ 2026-09-06:  가  하나로 키를 잡던 탓에 어휘 V5 시험
+  //   조판이 발행 중인 독해 V5 기록을 덮었다(제목이 「Vocaflow Reading 4」 →
+  //   「Vocaflow Vocab Advanced」). 마이그레이션  가
+  //    열과  복합 키로 그 자리를 막았고, 아래 셋이 그 보호를 잠근다.
+
+  it('기록에 시리즈를 싣는다 — 빠지면 기본값 reading 으로 들어가 남의 권을 덮는다', () => {
+    expect(renderSrc).toContain('series: SERIES,')
   })
 
-  it('덮어쓰기 키가 아직 band 하나임을 코드가 알고 있다', () => {
-    // 이 문자열이 사라지면 키가 바뀐 것이다 — 그때 위 가드를 풀어야 한다.
-    expect(renderSrc).toContain("onConflict: 'band'")
+  it('앞 기록 조회도 시리즈로 좁힌다 — band 만 보면 남의 권 횟수를 잇는다', () => {
+    expect(renderSrc).toContain("eq('series', SERIES)")
+  })
+
+  it('충돌 키가 복합 키다 — band 하나면 마이그레이션 전으로 돌아간 것이다', () => {
+    expect(renderSrc).toContain("onConflict: 'series,band'")
+    // ⚠️ 통짜 검색으로 옛 키를 금지하면 **주석이 걸린다** — 사고 경위를 적은 줄이
+    //   그 문자열을 갖고 있다. 실제 호출 형태만 본다.
+    expect(renderSrc).not.toMatch(/{ onConflict: .band. }/)
   })
 
   it('시장 적합도 분모가 독해임을 인정한다 — 어휘 권을 그 분모로 재지 않는다', () => {
