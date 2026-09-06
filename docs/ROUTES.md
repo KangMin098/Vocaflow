@@ -160,6 +160,7 @@
 | `/admin/analytics` | stub | 플랫폼 분석 |
 | `/admin/topic-corpus` | `admin/topic-corpus/page.tsx` + `TopicCorpusClient.tsx` | TCP — 주제 코퍼스 적재·드레인·승격 (원문 미저장, 어휘 통계만) |
 | `/admin/textbook` | `admin/textbook/page.tsx` + `TextbookConsoleClient.tsx` | TBP — 교재. 학령 사다리·문항 건강·시중 대비 평가 우위 (조작 없음 · 생성은 Claude Code 드레인) |
+| `/admin/textbook/sources` | `admin/textbook/sources/page.tsx` + `SourceEligibilityClient.tsx` | **원문 적격 — 교재에 실을 수 있는 원문인가.** 일곱 축(법적·게재 안전·게시 게이트·학령 분석·내용 판정·지문 규격·어휘) 판정 결과를 등급 6종으로 낸다. 축마다 **자의 출처**를 함께 보여 「왜 이 원문을 골랐나」에 답한다. 실시간 집계가 아니라 스캔 스냅샷(`source-eligibility-snapshot.json`) — 잰 시각을 항상 함께 낸다 |
 | `/admin/csat` | `admin/csat/page.tsx` + `FactoryLineClient.tsx` + `FactoryLineDiagram.tsx` (+ `layout.tsx` 제목만) | **교재 공장 — 공정 현황판.** 시중 제작 공정 8칸(기출 원천·기획·설계·소재·집필·해설·검수·조판)을 **라인 도식 하나**로 그린다 — 상태는 색+모양+글자, 병목 뒤 연결선은 점선. **한 번에 한 칸만** 펼쳐 실측 눈금·게이트·**복사 가능한 다음 명령**을 낸다(기본 = 병목). 조작 버튼은 없다(생성은 Claude Code 드레인) |
 | `/admin/csat/catalog` | `admin/csat/catalog/page.tsx` + `CatalogClient.tsx` | **카탈로그 — 「뭘 만드나」.** (교재 유형 6 × 학령 7) 격자, 칸 하나가 한 권(60문항). 헤드라인은 **낼 수 있는데 안 낸 권**. 시중 유형 분모는 교재 코퍼스 실측(독해 60·기출 19·어휘 8·구문 5·내신 2) |
 | `/admin/csat/evidence` | `admin/csat/evidence/page.tsx` + `CsatConsoleClient.tsx` | 공정 ① 기출 원천. 탭 3: 회차 커버리지(덮은 배점/사정권 배점) · 유형별 진행 · **가이드 원천**(분석 802문항 → 교재·학습 가이드 한 벌 · Markdown/JSON 내려받기) |
@@ -169,6 +170,7 @@
 | `/admin/csat/authoring` | `admin/csat/authoring/page.tsx` + `AuthorClient.tsx` | 공정 ⑤ 집필. 유형 25 × 수준 9 재고 전량(225칸 · 24개씩 물결 조회 · 실측 7.2초). **사다리 밖 재고**(어느 권에도 안 실리는 문항) 지목 — 실측 392,566/655,092(60%) |
 | `/admin/csat/review` | `admin/csat/review/page.tsx` + `ReviewClient.tsx` | 공정 ⑦ 검수. 층 4개(L1 기계 게이트 · L2 3인 페르소나 · L3 교차 대조 χ² · L4 시중 대조)가 **각자 무엇을 보는지**와 함께. 권별 검수 기록에서 「기록 없음」과 「지적 0건」을 가른다 |
 | `/admin/csat/press` | `admin/csat/press/page.tsx` + `PressClient.tsx` | 공정 ⑧ 조판·발행. 조판된 계단 / 사다리 · 옛 규격 권 · 해설 안 붙은 문항 · 문항 없는 원글. 수치는 **조판기가 찍은 그 값**(다시 계산하지 않는다) |
+| `/admin/db` | `admin/db/page.tsx` + `CollectButtons.tsx` + `FindingActions.tsx` | DB 헬스 — 6축 스냅샷(db_health_metrics) + 판정 결과(db_health_findings). **조치 SQL 은 보여 주기만 하고 실행 경로가 없다** |
 | `/admin/quality` | `admin/quality/page.tsx` | 품질 지표 대시보드 (quality_metrics nightly, read-only) |
 | `/admin/quality/gates` | `admin/quality/gates/page.tsx` + `GateCheckClient.tsx` | 콘텐츠 품질 게이트 — 파이프라인 정확성 결정론 불변식 red/green (`run_content_quality_gates`) + 콘텐츠별 게시전 체크 |
 | `/admin/quality/judge` | `admin/quality/judge/page.tsx` + `JudgeClient.tsx` | 추출 품질 blind 판정 하네스 (Q3/Q5 골든 라벨 — `get_judgment_sample`/`save_extraction_judgment`) |

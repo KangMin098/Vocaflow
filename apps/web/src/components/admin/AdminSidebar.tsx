@@ -3,6 +3,7 @@
 'use client'
 
 import {
+  Activity,
   AlertTriangle,
   ArrowLeft,
   BarChart3,
@@ -126,7 +127,14 @@ function buildNavGroups(reportsBadge: number | null): NavGroup[] {
       { href: '/admin/pd-comics', label: 'PD Comic Pipeline', Icon: ScanLine },
       { href: '/admin/topic-corpus', label: 'TCP Pipeline', Icon: Workflow },
       // TBP — 교재. 조작 버튼이 없는 관측 화면이다(생성은 Claude Code 드레인).
-      { href: '/admin/textbook', label: 'TBP Pipeline', Icon: BookMarked },
+      // 하위 「원문 적격」은 **재고가 아니라 자격**을 본다 — 재고가 있어도 판정을 통과하지
+      // 못하면 실을 수 없고, 그 격차가 여기서만 보인다.
+      {
+        href: '/admin/textbook',
+        label: 'TBP Pipeline',
+        Icon: BookMarked,
+        children: [{ href: '/admin/textbook/sources', label: '원문 적격', Icon: BookMarked }],
+      },
       // 교재 공장 — 시중 제작 공정(기획→설계→소재→집필→해설→검수→조판)을 8칸으로 세운 라인.
       // 조작 버튼은 없지만 **관측 화면이 아니다** — 칸마다 다음에 돌릴 명령을 들고 있다.
       {
@@ -138,11 +146,11 @@ function buildNavGroups(reportsBadge: number | null): NavGroup[] {
           // 관리자가 규격을 고쳐야 할 때 재고 화면을 뒤진다.
           // 카탈로그가 맨 위다 — 「뭘 만드나」에 답하는 유일한 화면이고, 나머지는 전부
           // "그것을 어떻게/무엇으로" 다. 순서가 곧 관리자가 묻는 순서여야 한다.
-          { href: '/admin/csat/catalog', label: '⓪ 카탈로그', Icon: LayoutGrid, group: '무엇을 만드나' },
-          { href: '/admin/csat/evidence', label: '① 기출 원천', Icon: Scale, group: '전략 연구소' },
+          { href: '/admin/csat/catalog', label: '⓪ 카탈로그', Icon: LayoutGrid, group: '뭘 만드나' },
+          { href: '/admin/csat/evidence', label: '① 기출 원천', Icon: Scale, group: '무엇으로 만드나' },
           { href: '/admin/csat/strategy', label: '② 기획', Icon: Target },
           { href: '/admin/csat/blueprint', label: '③ 설계', Icon: Grid3x3 },
-          { href: '/admin/csat/sourcing', label: '④ 소재', Icon: FileText, group: '생산 라인' },
+          { href: '/admin/csat/sourcing', label: '④ 소재', Icon: FileText, group: '어떻게 만드나' },
           { href: '/admin/csat/authoring', label: '⑤ 집필', Icon: PenLine },
           {
             href: '/admin/csat',
@@ -152,7 +160,7 @@ function buildNavGroups(reportsBadge: number | null): NavGroup[] {
               '전용 화면은 아직 없다 — 해설 보유율은 현황판 ⑥ 눈금에서 본다(2026-09-06 부터 집계표로 실측). 유형·수준별 분포까지 보려면 화면이 필요하다',
           },
           { href: '/admin/csat/review', label: '⑦ 검수', Icon: ClipboardCheck },
-          { href: '/admin/csat/press', label: '⑧ 조판·발행', Icon: Printer },
+          { href: '/admin/csat/press', label: '⑧ 조판·발행', Icon: Printer, group: '무엇이 나왔나' },
         ],
       },
       { href: '/admin/pending-words', label: 'Pending Words', Icon: Database },
@@ -163,6 +171,9 @@ function buildNavGroups(reportsBadge: number | null): NavGroup[] {
     color: 'var(--info)',
     items: [
       { href: '/admin/analytics', label: '플랫폼 분석', Icon: BarChart3 },
+      // DB 헬스는 '품질 지표' 와 대상이 다르다 — 저쪽은 콘텐츠, 이쪽은 그것을 담는 DB 자체.
+      // 같은 '운영' 묶음에 나란히 두면 관리자가 '무엇이 아픈가' 를 한 자리에서 가른다.
+      { href: '/admin/db', label: 'DB 헬스', Icon: Activity },
       { href: '/admin/quality', label: '품질 지표', Icon: Gauge },
       { href: '/admin/quality/gates', label: '품질 게이트', Icon: ShieldCheck },
       { href: '/admin/quality/judge', label: '추출 판정', Icon: Scale },

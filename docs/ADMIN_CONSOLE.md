@@ -40,6 +40,7 @@
    = 총 11 항목
 [ 운영 ]     (accent: var(--info))
    플랫폼 분석
+   DB 헬스 (Activity — 콘텐츠가 아니라 그것을 담는 DB 자체)
    품질 지표 (Gauge, v06.140)
    품질 게이트 (ShieldCheck, v06.271 — 파이프라인 정확성 불변식)
    추출 판정 (Scale, v06.270 — blind 판정 하네스)
@@ -539,6 +540,57 @@ KPI 카드는 §13 StatCard 와 다른 디자인 — delta 변화율 (`▲ 12%`)
 - **임계값을 두지 않는다** — "적합도 몇 % 이상 합격" 은 관측된 적이 없다. 판정 대신 **최솟값을 이름으로** 짚는다(사다리 병목). 못 잰 권은 후보에서 뺀다 — 0 으로 치면 그것이 항상 최소가 되어 진짜 병목을 가린다.
 
 ---
+
+## /admin/textbook/sources — 원문 적격 (2026-09-06 신설)
+
+**교재 생성이 임의 판단이 되지 않게 하는 자리.** 「이 지문을 왜 골랐나」에 축·임계값·출처로 답한다.
+재고를 세는 화면이 아니라 **자격을 세는 화면**이다 — 재고가 있어도 판정을 통과하지 못하면 실을 수 없다.
+
+- Server Component + `force-dynamic` · 조립은 `lib/textbook/source-eligibility-view.ts`
+- 판정 정본은 `packages/library-pipeline/src/textbook/source-eligibility.ts` 의 `judgeSource` — **화면이 다시 계산하지 않는다**
+- AdminSidebar 등재 (`사용자 & 콘텐츠` → `TBP Pipeline` 하위 · 부모가 활성일 때만 펼침)
+
+### 일곱 축 — 순서가 곧 판정 순서
+
+되돌릴 수 없는 것부터 본다. 그래야 「고치면 되는 문제」와 「고칠 수 없는 문제」가 사유에 섞이지 않는다.
+
+| 축 | 자의 출처 | 되돌리기 |
+|---|---|---|
+| 법적 안전 | `license_class` · `display_only` · `copyright_safe_in_kr` | 불가 |
+| 게재 안전 | 철회 논문 제목 · 민감 소재 (`csat-format.ts`) | 불가 |
+| 게시 게이트 | `scripts/csat/gate-rules.mjs` — 용도 4 · 차단 21 | 가능 |
+| 학령 분석 | `process-queue` — V-Level · CEFR · register · 구문 | 가능 |
+| 내용 판정 | `csat_fit.gate.verdict` — 규칙만 본 행은 미판정 | 가능 |
+| 지문 규격 | `readability.PASSAGE_WORDS` 100~200어 | 가능 |
+| 어휘 난도 | `curriculum.CURRICULUM_GATE` 시중 p90 | 가능 |
+
+### 등급 6 — 「다음에 무엇을 해야 하는가」로 가른다
+
+`usable`(그대로) · `excerpt`(발췌해) · `excerpt-blind`(자를 자리 없음) · `unjudged`(내용 판정 없음) ·
+`unknown`(분석 없음) · `blocked`(불가). **조판 허용은 앞 둘뿐**이고, 회귀가 그 목록을 잠근다.
+
+「쓸 수 있다/없다」 둘로 가르지 않는 이유는 **고칠 수 있는 것과 못 고치는 것이 한 칸에 뭉치기** 때문이다 —
+어수가 넘치는 글(자르면 된다)과 라이선스가 막힌 글(영영 못 쓴다)은 처방이 정반대다.
+
+### 첫 실측 (2026-09-06)
+
+조판 풀 21,839편 중 **조판 가능 2,210편(10.1%)**. 나머지는 내용 판정 없음 19,333 · 사용 불가 222
+(법적 152 · 게재 안전 70) · 발췌 자리 없음 58 · 분석 없음 16.
+
+⚠️ 그중 **82편이 `restricted` + 국내 불가인데 조판 풀에 있었고, 그중 65편이 V1** 이었다 —
+초등 저학년 재고 84편의 77%다. `volume-pool.mjs` 가 `display_only` 하나만 보고 있었기 때문이고,
+되돌릴 수 없는 축이라 즉시 막았다(`isLegallyUsable` · 회귀 + 변이 검사로 확인).
+나머지 축은 아직 조판이 걸지 않는다 — 막으면 재고가 10%로 줄어 권이 아예 안 나온다.
+그 격차를 편수로 드러내는 것이 이 화면의 일이다.
+
+### 한계 — 실시간이 아니다
+
+`library_articles`(91,358행)는 본문이 1.3GB 라 조건부 `count: exact` 가 **8초 statement timeout**
+에 걸린다(오류 message 가 빈 문자열로 와서 원인이 안 보인다). 전수 훑기는 커서 페이징으로 9~35초 —
+매 요청에 할 일이 아니다. 그래서 스캔 스냅샷(`source-eligibility-snapshot.json`)을 읽고
+**언제 잰 값인지 항상 함께** 말한다. 7일이 넘으면 줄이 경고색으로 바뀐다.
+제대로 된 처방은 matview + 주기 갱신 + RPC(`textbook_shelf_stats` 선례)이고 마이그레이션 승인이 필요하다.
+
 
 ## /admin/quality (v06.140 신규 — 품질평가 Q3)
 
