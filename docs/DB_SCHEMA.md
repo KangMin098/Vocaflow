@@ -1048,6 +1048,15 @@ v06.35: `collect_quality_metrics()` 에 **M7 SSoT 드리프트** 추가 ([202608
 에이전트가 MCP 로 postgres 권한에서 부르므로 `auth.uid()` 가 없다. 대신 **권한 자체를 좁혀서** 막는다
 (public·anon·authenticated 에서 EXECUTE 회수).
 
+**면제** `db_health_exceptions(fingerprint PK, reason, evidence, created_at, expires_at)` —
+저장소가 이미 내린 결정을 판정층이 다시 올리지 않게 한다(마이그레이션 [20260906031000](../supabase/migrations/20260906031000_db_health_exceptions.sql)).
+`upsert_db_health_finding` 이 살아 있는 면제를 보면 `status='excepted'` 로 넣고 사유·근거를 `note` 에 단다.
+`close_missing_db_health_findings` 는 면제를 건드리지 않는다 — 안 보인 것이 아니라 **건너뛴** 것이다.
+`evidence`(그 결정이 어디 적혀 있는지)는 **필수**다. 근거 없는 면제는 면제가 아니라 은폐다.
+`expires_at` 이 지나면 면제가 풀려 다시 판정 대상이 된다 — 「지금은 이렇게 두기로 했다」와
+「영원히 괜찮다」는 다르다. 등록된 면제 1건: `advisor:security_definer_view:csat_items_public`
+(csat_items 는 RLS + authenticated 전용, 뷰는 저작권 있는 지문·선지를 뺀 열만 투영 — 뒤집으면 공개 CSAT 화면이 빈다).
+
 지문 규칙 `<axis>:<대상>:<증상>` — 예 `cron:content-gate-nightly:failing` ·
 `integrity:function:analyze_book_vrl` · `advisor:security_definer_view:csat_items_public`.
 

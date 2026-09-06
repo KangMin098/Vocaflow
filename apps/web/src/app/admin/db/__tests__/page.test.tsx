@@ -88,6 +88,7 @@ function data(over: Partial<DbHealthData> = {}): DbHealthData {
   return {
     metrics: FRESH_METRICS,
     findings: [finding()],
+    excepted: [],
     metricsError: null,
     findingsError: null,
     recentlyResolved: 2,
@@ -242,5 +243,42 @@ describe('두 수집 버튼은 비용이 다르므로 따로 있다', () => {
     expect(html).toContain('정밀 점검')
     expect(html).toContain('5축 · 몇 초')
     expect(html).toContain('함수 128개 정적 분석')
+  })
+})
+
+describe('면제 — 숨기지 않고 접어 둔다', () => {
+  const excepted = finding({
+    id: 99,
+    fingerprint: 'advisor:security_definer_view:csat_items_public',
+    axis: 'advisor',
+    severity: 'critical',
+    title: 'csat_items_public 뷰가 SECURITY DEFINER',
+    status: 'excepted',
+    suggested_sql: null,
+    note: '의도된 저작권 경계다 (supabase/migrations/20260903121759 · 20260904084631)',
+  })
+
+  it('면제 항목은 열린 발견 수에 들어가지 않는다', async () => {
+    const html = await render({ findings: [finding()], excepted: [excepted] })
+    // KPI '치명' 은 열린 것만 센다 — 면제가 섞이면 고칠 것이 없는데 빨간 숫자가 남는다.
+    expect(html).toContain('면제 1건')
+  })
+
+  it('왜 안 뜨는지(사유·근거)를 함께 보여 준다', async () => {
+    const html = await render({ excepted: [excepted] })
+    expect(html).toContain('의도된 저작권 경계다')
+    expect(html).toContain('20260903121759')
+    expect(html).toContain('은폐다')
+  })
+
+  it('면제 항목에는 상태 변경 버튼을 주지 않는다', async () => {
+    // 눌러도 다음 판정이 다시 excepted 로 되돌린다 — 눌리는 버튼은 거짓말이다.
+    const only = await render({ findings: [], excepted: [excepted] })
+    expect(only).not.toContain('해결했음')
+  })
+
+  it('면제가 없으면 그 자리 자체가 없다', async () => {
+    const html = await render()
+    expect(html).not.toContain('이미 결정된 것')
   })
 })

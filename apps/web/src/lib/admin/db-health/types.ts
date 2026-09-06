@@ -19,7 +19,7 @@ export const HEALTH_AXES = [
 export type HealthAxis = (typeof HEALTH_AXES)[number]
 
 export type FindingSeverity = 'critical' | 'warning' | 'info'
-export type FindingStatus = 'open' | 'ack' | 'resolved'
+export type FindingStatus = 'open' | 'ack' | 'resolved' | 'excepted'
 
 export interface HealthMetricRow {
   measured_at: string
@@ -43,6 +43,8 @@ export interface FindingRow {
   first_seen_at: string
   last_seen_at: string
   occurrences: number
+  /** 면제 사유·근거, 또는 사람이 남긴 메모. 면제 항목은 여기에 **왜 안 뜨는지**가 적혀 있다. */
+  note?: string | null
 }
 
 /** 한 지표의 시계열 — 같은 metric 이라도 dims.table 이 다르면 다른 계열이다. */
@@ -125,4 +127,5 @@ export const STATUS_LABEL: Record<FindingStatus, string> = {
   open: '열림',
   ack: '확인함',
   resolved: '해결',
+  excepted: '면제',
 }

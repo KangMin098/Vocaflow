@@ -141,7 +141,7 @@ function Kpi({
   )
 }
 
-function FindingCard({ finding }: { finding: FindingRow }) {
+function FindingCard({ finding, actionable = true }: { finding: FindingRow; actionable?: boolean }) {
   const { Icon, bg, ink } = SEVERITY_STYLE[finding.severity]
   const evidence = finding.evidence ?? {}
   const openedHours = hoursSince(finding.first_seen_at, new Date())
@@ -202,12 +202,18 @@ function FindingCard({ finding }: { finding: FindingRow }) {
         </details>
       )}
 
+      {finding.note && (
+        <p className="mt-3 break-keep border-t border-[var(--bd)] pt-3 font-editorial text-[12px] italic leading-[1.7] text-[var(--t2)]">
+          {finding.note}
+        </p>
+      )}
+
       <div className="mt-3 flex flex-wrap items-center justify-between gap-3 border-t border-[var(--bd)] pt-3">
         <p className="break-keep font-body text-[11px] text-[var(--t2)]">
           처음 본 것 {openedHours === null ? '기록 없음' : formatAge(openedHours)} · 관측{' '}
           {finding.occurrences}회
         </p>
-        <StatusButtons id={finding.id} status={finding.status} />
+        {actionable && <StatusButtons id={finding.id} status={finding.status} />}
       </div>
     </article>
   )
@@ -263,7 +269,8 @@ function MetricCard({ series }: { series: MetricSeries }) {
 }
 
 export default async function AdminDbPage() {
-  const { metrics, findings, metricsError, findingsError, recentlyResolved } = await fetchDbHealth()
+  const { metrics, findings, excepted, metricsError, findingsError, recentlyResolved } =
+    await fetchDbHealth()
 
   const series = toSeries(metrics)
   const now = new Date()
@@ -398,6 +405,28 @@ export default async function AdminDbPage() {
           </div>
         )}
       </section>
+
+      {/* 면제는 숨기지 않고 **접어 둔다.** 안 보이는 면제 목록은 커버리지가 아니라 구멍이다
+          (CLAUDE.md — "면제 목록이 길어지면 커버리지가 아니라 면제 목록이 자란다").
+          여기 있는 항목은 판정이 틀린 게 아니라 저장소가 이미 "이대로 둔다" 고 결정한 것이다. */}
+      {excepted.length > 0 && (
+        <section className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-6">
+          <details>
+            <summary className="cursor-pointer font-display text-[16px] font-[700] text-[var(--t1)] transition-colors duration-[var(--dur-fast)] ease-[var(--ease)] hover:text-[#8B5CF6]">
+              {`면제 ${excepted.length}건 — 이미 결정된 것`}
+            </summary>
+            <p className="mt-2 max-w-[62ch] break-keep font-body text-[13px] leading-[1.7] text-[var(--t2)]">
+              판정이 틀린 것이 아니라 저장소가 이미 「이대로 둔다」고 결정한 항목이다. 사유와
+              그 결정이 적힌 자리가 각 항목에 함께 있다 — 근거 없는 면제는 면제가 아니라 은폐다.
+            </p>
+            <div className="mt-3 space-y-3">
+              {excepted.map((f) => (
+                <FindingCard key={f.id} finding={f} actionable={false} />
+              ))}
+            </div>
+          </details>
+        </section>
+      )}
 
       {HEALTH_AXES.map((axis) => {
         const axisSeries = headlineSeries(series, axis)

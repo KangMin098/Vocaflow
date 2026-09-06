@@ -25,6 +25,11 @@ export const STALE_AFTER_HOURS = 26
 export interface DbHealthData {
   metrics: HealthMetricRow[]
   findings: FindingRow[]
+  /**
+   * 면제된 발견 — 저장소가 이미 "이건 이대로 둔다" 고 결정한 것.
+   * **숨기지 않고 접어 둔다.** 안 보이는 면제 목록은 커버리지가 아니라 구멍이다.
+   */
+  excepted: FindingRow[]
   /** 조회 자체가 실패했는가 — 빈 결과와 구별해야 한다. */
   metricsError: string | null
   findingsError: string | null
@@ -50,9 +55,9 @@ export async function fetchDbHealth(injected?: SupabaseClient): Promise<DbHealth
     supabase
       .from('db_health_findings')
       .select(
-        'id, fingerprint, axis, severity, title, detail, evidence, suggested_sql, status, first_seen_at, last_seen_at, occurrences',
+        'id, fingerprint, axis, severity, title, detail, evidence, suggested_sql, status, first_seen_at, last_seen_at, occurrences, note',
       )
-      .in('status', ['open', 'ack'])
+      .in('status', ['open', 'ack', 'excepted'])
       .order('last_seen_at', { ascending: false }),
     supabase
       .from('db_health_findings')
@@ -68,9 +73,12 @@ export async function fetchDbHealth(injected?: SupabaseClient): Promise<DbHealth
     console.warn('[admin/db] db_health_findings fetch failed:', findingsRes.error.message)
   }
 
+  const allFindings = (findingsRes.data ?? []) as FindingRow[]
+
   return {
     metrics: (metricsRes.data ?? []) as HealthMetricRow[],
-    findings: (findingsRes.data ?? []) as FindingRow[],
+    findings: allFindings.filter((f) => f.status !== 'excepted'),
+    excepted: allFindings.filter((f) => f.status === 'excepted'),
     metricsError: metricsRes.error?.message ?? null,
     findingsError: findingsRes.error?.message ?? null,
     // head 요청은 없는 표에도 204/count=null 을 돌려준다 — 0 으로 채우지 않고 그대로 0 표기하되
