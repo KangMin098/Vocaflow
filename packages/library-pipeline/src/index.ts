@@ -748,6 +748,10 @@ export {
   buildColophon,
   ladderStrip,
   volumeCssVariables,
+  // ⚠️ 이것이 빠져 있어서 **조판기가 통째로 안 돌았다**(`volumeMetricsCss is not a function`).
+  //    `brand.ts` 에 활자 7단 스케일을 넣으면서(2c34e06a) 배럴에 안 실었고, 조판은 스크립트라
+  //    타입체크·회귀 어디에도 안 걸려 조용히 죽어 있었다. 실측 2026-09-06 재현.
+  volumeMetricsCss,
 } from './textbook/brand'
 export type { BrandSpecRow, Colophon, ColophonInput, VolumePalette } from './textbook/brand'
 
@@ -866,3 +870,16 @@ export {
   stripSectionLabels,
   stripSpaceBeforePunct,
 } from './textbook/csat-format'
+
+// ── 교재 구성요소(apparatus) — "책으로서 시중만 한가" 를 재는 축 ──────────────
+// 문항 지수(A1~A7)와 **다른 축**이다. 근거·기준선은 `textbook/apparatus.ts` 머리 주석.
+export {
+  TEXTBOOK_APPARATUS,
+  APPARATUS_BY_KEY,
+  APPARATUS_KEYS,
+  MARKET_APPARATUS_COUNT,
+  MARKET_APPARATUS_MEASURED_AT,
+  apparatusIndex,
+  apparatusTarget,
+} from './textbook/apparatus'
+export type { ApparatusKey, ApparatusSpec } from './textbook/apparatus'

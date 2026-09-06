@@ -20,6 +20,76 @@ const OWNER_FILE = '.dev-server-owner.json'
 /** 표식을 stale 로 볼 시간. dev 서버가 60초마다 touch 하므로 그 3배. */
 const OWNER_STALE_MS = 3 * 60_000
 
+/**
+ * 한 실행(부모 CLI + 자식 start-server)을 묶는 표식.
+ *
+ * 부모가 처음 만들고 `process.env` 에 넣으면 **자식이 물려받는다**. 그래서
+ * "남의 dev 서버인가" 를 PID 가 아니라 이 값으로 가른다 — PID 로 가르면
+ * 자식이 자기 부모를 남으로 보고 못 뜬다.
+ */
+const DEV_GROUP_ENV = 'VOCAFLOW_DEV_GROUP'
+
+/**
+ * **같은 distDir 에 dev 서버 둘이 붙는 것을 막는다.**
+ *
+ * ── 2026-09-06 실측 사고 ────────────────────────────────────────────
+ * `next dev` 두 개가 1분 간격으로 떴다(10:56 · 10:57). 포트는 하나만 잡으므로
+ * 나중 것이 3000 을 쓰고 앞의 것은 **아무도 안 부르는데 살아서 같은 `.next-dev` 를
+ * 계속 쓴다.** 두 컴파일러가 한 디렉터리에 청크를 쓰면 모듈 그래프가 어긋나
+ * 한 라우트만 500 이 된다:
+ *
+ *     TypeError: __webpack_modules__[moduleId] is not a function
+ *       at (rsc)/./src/lib/learner/today-blocks.ts
+ *
+ * 다른 라우트는 멀쩡하고 서버는 살아 있어서 **코드를 의심하게 된다** — 실제로
+ * 라우트 캐시를 지우고 파일을 touch 해도 안 낫는다(메모리 그래프가 깨진 것이라).
+ *
+ * 위 `assertDistDirFree` 는 **빌드↔dev** 만 막았다. dev↔dev 는 뚫려 있었다.
+ *
+ * ⚠️ 재시작을 막지 않는다: 표식의 PID 가 죽었거나 heartbeat 이 끊겼으면 통과시킨다.
+ *   강제 종료로 남은 표식도 PID 확인에서 걸러진다.
+ */
+function assertNoRivalDevServer(distDir, group) {
+  if (process.env.NEXT_ALLOW_DUAL_DEV === '1') return
+  let owner
+  let touchedAt
+  try {
+    const file = ownerPath(distDir)
+    owner = JSON.parse(fs.readFileSync(file, 'utf8'))
+    touchedAt = fs.statSync(file).mtimeMs
+  } catch {
+    return // 표식이 없다 = 아무도 안 쓴다
+  }
+  if (!owner?.pid) return
+  if (owner.group && owner.group === group) return // 같은 실행의 부모/자식
+  if (owner.pid === process.pid) return
+  // ⚠️ **자식이 자기 부모를 남으로 보는 것을 막는다.** `next dev` 는 CLI(부모)가 설정을
+  //   읽어 표식을 쓴 뒤 start-server(자식)를 fork 하는데, 부모가 `process.env` 에 넣은
+  //   조 번호는 자식에게 안 넘어간다(실측 2026-09-06 — 자식이 부모를 보고 즉시 죽었다).
+  //   fork 라 자식의 ppid 가 곧 부모다.
+  if (owner.pid === process.ppid) return
+  if (Date.now() - touchedAt > OWNER_STALE_MS) return // heartbeat 끊긴 유령 표식
+  try {
+    process.kill(owner.pid, 0) // 살아 있는지만 본다
+  } catch {
+    return // 죽은 PID
+  }
+  throw new Error(
+    [
+      '',
+      `dev 서버가 이미 "${distDir}" 를 쓰고 있다 (PID ${owner.pid}, ${owner.startedAt} 기동).`,
+      '둘이 같은 distDir 에 청크를 쓰면 모듈 그래프가 어긋나 일부 라우트만 500 이 된다',
+      '(__webpack_modules__[moduleId] is not a function) — 서버는 살아 있어서 원인이 안 보인다.',
+      '',
+      '  이미 뜬 서버를 쓴다:    http://localhost:3000',
+      '  따로 띄워야 한다면:      NEXT_DIST_DIR=.next-dev2 PORT=3001 pnpm --filter web dev',
+      '',
+      `표식이 잘못 남은 것이라면 ${path.join(distDir, OWNER_FILE)} 를 지운다.`,
+      '',
+    ].join('\n'),
+  )
+}
+
 function ownerPath(distDir) {
   return path.join(process.cwd(), distDir, OWNER_FILE)
 }
@@ -34,11 +104,24 @@ function ownerPath(distDir) {
  */
 function claimDistDir(distDir) {
   const file = ownerPath(distDir)
+  // 부모(CLI)가 조 번호를 만들고 환경으로 넘긴다 — 자식(start-server)이 물려받아
+  // 자기 부모를 "남의 서버" 로 오해하지 않는다.
+  let group = process.env[DEV_GROUP_ENV]
+  if (!group) {
+    group = `${process.pid}-${Date.now().toString(36)}`
+    process.env[DEV_GROUP_ENV] = group
+  }
+  // ⚠️ 표식을 쓰기 **전에** 본다 — 먼저 쓰면 남의 표식을 덮어 검사가 무의미해진다.
+  assertNoRivalDevServer(distDir, group)
   const stamp = () => {
     fs.mkdirSync(path.dirname(file), { recursive: true })
     fs.writeFileSync(
       file,
-      JSON.stringify({ pid: process.pid, startedAt: new Date().toISOString(), cwd: process.cwd() }, null, 2),
+      JSON.stringify(
+        { pid: process.pid, group, startedAt: new Date().toISOString(), cwd: process.cwd() },
+        null,
+        2,
+      ),
     )
   }
   try {
