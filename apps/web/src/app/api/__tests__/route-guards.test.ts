@@ -40,6 +40,13 @@ const PUBLIC: ReadonlyArray<{ route: string; why: string }> = [
   { route: 'fit', why: '공개 진단 — 가치 확인 앞에 로그인을 두지 않는다 (CLAUDE.md D1)' },
   { route: 'lcp/process', why: 'pg_cron 워커 경로 — X-LCP-Token 으로만 연다' },
   {
+    route: 'vocab/[setId]/spread',
+    why:
+      '공개 단어장 서가의 상세 시트 — `/library` 카탈로그는 비로그인 공개다. service-role 로 ' +
+      'RLS 를 넘는 대신 **발행된 세트만** 내준다(is_published 아니면 404) 그리고 첫 며칠치만 ' +
+      '조판한다. 부르는 곳은 components/library/vocab/VocabSpreadSheet.tsx',
+  },
+  {
     route: 'srs/flush',
     why:
       '학습자 beacon 경로(pagehide) — admin 이 아니라 본인 세션이다. 인증은 본체인 ' +
