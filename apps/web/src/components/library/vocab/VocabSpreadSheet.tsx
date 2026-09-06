@@ -61,6 +61,17 @@ export interface VocabSpreadData {
   reviews: Array<{ label: string; coversDays: number[]; items: Array<{ n: number; word: string }> }>
   indexSize: number
   indexHead: Array<{ word: string; day: number }>
+  colophon: {
+    brand: string
+    title: string
+    ladder: string
+    edition: string
+    issued: string
+    selection: string
+    volume: string
+    sourcePolicy: string
+    review: string
+  } | null
   apparatus: string[]
   previewDays: number
   truncated: boolean
@@ -282,6 +293,40 @@ export function VocabSpreadSheet({ setId }: { setId: string }) {
           <p className="font-english text-[12px] leading-relaxed text-[var(--t3)]">
             {data.indexHead.map((x) => `${x.word} ${String(x.day).padStart(2, '0')}`).join(' · ')}
             {data.indexSize > data.indexHead.length && ' …'}
+          </p>
+        </section>
+      )}
+
+      {/*
+        판권면 — 시중 단어장이 뒤에 싣는 것. 값이 없는 줄은 **넣지 않는다**
+        ("정보 없음" 을 채우면 판권면이 있으나 마나가 되고, 지어내면 거짓이 된다).
+        각인 전 세트는 검수가 `0/0` 으로 오는데 그건 "0개 통과" 가 아니라 "센 적이 없다" 이므로 뺀다.
+      */}
+      {data.colophon && (
+        <section aria-label="판권면" className="border-t border-[var(--bd)] pt-4">
+          <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--t3)]">
+            {data.colophon.brand}
+          </p>
+          <dl className="mt-2 grid grid-cols-[auto_1fr] gap-x-3 gap-y-1">
+            {(
+              [
+                ['판차', data.colophon.edition],
+                ['발행', data.colophon.issued],
+                ['구성', data.colophon.volume],
+                ['표제어 선정', data.colophon.selection],
+                ['검수', data.colophon.review.includes('0/0') ? '' : data.colophon.review],
+              ] as Array<[string, string]>
+            )
+              .filter(([, v]) => v)
+              .map(([k, v]) => (
+                <div key={k} className="contents">
+                  <dt className="font-body text-[11px] text-[var(--t3)]">{k}</dt>
+                  <dd className="font-body text-[11.5px] text-[var(--t2)]">{v}</dd>
+                </div>
+              ))}
+          </dl>
+          <p className="mt-2 font-body text-[11px] leading-relaxed text-[var(--t3)]">
+            {data.colophon.sourcePolicy}
           </p>
         </section>
       )}

@@ -525,7 +525,60 @@ export const VCB_HELP: HelpRegistry = {
       cautions: [
         '여기에는 수정·회수 버튼이 없다. 잘못 발행된 단어장은 같은 슬러그로 새 버전을 발행해 덮는 것이 유일한 교정 경로다.',
         '예문 한국어 해석은 이미 채워져 있다(카탈로그 표제어 11,166/11,183 = 99.8%, meanings_ko[].example_ko). 학습자도 플래시카드 정답면·읽기 조회 창에서 보고 있다 — scripts/vocab/example-ko-drain-* 은 다른 칸(example_ko 컬럼·senses[].examples_ko)을 채우는 도구이고, 지금 그 두 칸을 읽는 화면이 없어 돌릴 이유가 없다. 2026-08-30 에 우위지수가 이 축을 0% 로 잘못 읽어 3,450 문장을 중복으로 채운 적이 있다.',
+        '브랜드 각인(curation_query.brand)은 계열 단위다 — 한 세트만 다시 그릴 수 없다. 그 계열 전체가 같은 규격을 받는다.',
       ],
+      drain: {
+        what:
+          '계열(list·structure·corpus·delivery·unique) 다섯의 표지 규격. Claude Design 캔버스에서 확정하고 '
+          + 'VocabBrandCanvas 로 적재한다. 세트 단위가 아니라 계열 단위인 이유는 서가가 계열로 읽히기 때문이다 — '
+          + '표지 듀오톤이 계열 색이고, 세트마다 브랜드를 만들면 카탈로그가 잡지 스크랩북이 된다.',
+        prerequisites: [
+          'apps/web/.env.local 에 SUPABASE_SERVICE_ROLE_KEY 가 있을 것 (import 가 발행 세트를 고친다)',
+          '색을 새로 정할 생각이라면 먼저 디자인 토큰을 고칠 것 — 규격은 색 값을 담을 수 없다(역할 이름만)',
+        ],
+        procedure: [
+          {
+            title: 'export — 그릴 몫을 뽑는다',
+            detail:
+              'npx tsx --tsconfig apps/web/tsconfig.json scripts/vocab/brand-drain-export.mts '
+              + '→ scripts/vocab/brand-drain/chunk-NN.json (계열당 하나). '
+              + '**재실행 안전** — 이미 전권 각인된 계열은 건너뛴다. 다시 그리려면 --force.',
+            done: '청크 파일이 생기고 "건너뜀" 수가 출력된다.',
+          },
+          {
+            title: '아트보드 — 토큰에서 만든다',
+            detail:
+              'npx tsx --tsconfig apps/web/tsconfig.json scripts/vocab/brand-drain-artboards.mts '
+              + '→ scripts/vocab/brand-drain/canvas/*.dc.html + canvas.json. '
+              + '**색을 손으로 적지 않는다** — 토큰을 읽어 칠하므로 토큰이 바뀌면 다시 돌리면 따라온다. '
+              + '재실행 안전(파일만 덮어쓴다).',
+            done: '아트보드 7장(lockup·격자 + 계열 5)이 생긴다.',
+          },
+          {
+            title: 'Claude Design — 캔버스에서 확정',
+            detail:
+              'Claude Code 에서 /design 으로 캔버스를 만들어 규격을 눈으로 확인하고 다듬는다. '
+              + '확정한 값을 chunk-NN.out.json 에 VocabBrandCanvas 한 개로 적는다(캔버스 주소 포함).',
+            done: '계열마다 .out.json 이 생긴다.',
+          },
+          {
+            title: 'import — 발행물에 각인',
+            detail:
+              'npx tsx --tsconfig apps/web/tsconfig.json scripts/vocab/brand-drain-import.mts --commit. '
+              + 'curation_query 에 brand 키를 **더한다**(마이그레이션 불필요·기존 키 보존). '
+              + '**재실행 안전** — 같은 .out.json 으로 몇 번을 돌려도 결과가 같다. 기본은 드라이런.',
+            done: '"캔버스 N개 · 세트 M개" 가 찍히고 건너뛴 수가 0 이다.',
+          },
+        ],
+        verify: [
+          'export 를 다시 돌리면 청크 0개 · 건너뜀 5개가 나온다 (재실행 안전의 증거)',
+          '세트 하나의 curation_query 키에 brand 가 늘고 기존 키(recipe·scorecard·imprint)가 그대로다',
+        ],
+        recovery: [
+          '검증에 걸린 캔버스는 **적재되지 않는다** — 색 값(hex/rgb)을 담았거나 빈 값이면 거절하고 그 계열을 건너뛴다. 출력에 찍힌 field/message 를 고쳐 다시 돌린다.',
+          '잘못 각인했으면 .out.json 을 고쳐 --commit 을 다시 돌린다 (덮어쓰기가 아니라 같은 키를 다시 쓴다).',
+        ],
+      },
     },
   },
 

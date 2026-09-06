@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap">
+  <style>
+    body { margin: 0; font-family: "DM Sans", sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #7E5A1B; } a:hover { color: #1A1714; }
+    .kicker { font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: .18em; text-transform: uppercase; }
+    .num { font-family: "JetBrains Mono", monospace; font-variant-numeric: tabular-nums; }
+    .serif { font-family: "Lora", serif; }
+  </style>
+</helmet>
+<div style="width: 480px; height: 640px; background: #FBFAF6; display: flex; flex-direction: column; box-sizing: border-box;">
+  <!-- 책등 — 서가에서 계열을 가르는 자리 -->
+  <div style="display: flex; flex: 1; min-height: 0;">
+    <div style="width: 14px; background: #B5803A;"></div>
+    <div style="flex: 1; display: flex; flex-direction: column; padding: 28px 30px 0 26px; min-width: 0;">
+
+      <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px;">
+        <span class="kicker" style="color: rgba(26, 23, 20, 0.62);">Vocaflow Vocabulary</span>
+        <span class="num" style="font-size: 11px; color: #B5803A;">VOL. 05</span>
+      </div>
+
+      <div style="margin-top: 6px; height: 1px; background: #E0DBD0;"></div>
+
+      <!-- 도판 — 듀오톤으로 눌린 자리 -->
+      <div style="margin-top: 26px; background: #F2E8D2; display: flex; align-items: center; justify-content: center; padding: 16px 0;">
+        <svg width="212" height="172" viewBox="0 0 212 172" fill="none"
+             stroke="#B5803A" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          
+    <path d="M28 44 C 62 32, 92 36, 106 46 C 120 36, 150 32, 184 44 L184 138 C 150 128, 120 132, 106 142 C 92 132, 62 128, 28 138 Z" />
+    <path d="M106 46 V142" />
+    <path d="M44 66 C 66 58, 86 60, 96 66" />
+    <path d="M44 86 C 66 78, 86 80, 96 86" />
+    <path d="M44 106 C 66 98, 86 100, 96 106" />
+    <path d="M116 66 C 128 60, 148 58, 168 66" />
+    <path d="M116 86 C 128 80, 148 78, 168 86" />
+    <path d="M116 106 C 128 100, 148 98, 168 106" />
+        </svg>
+      </div>
+
+      <div style="margin-top: 26px; display: flex; flex-direction: column; gap: 8px;">
+        <span class="kicker" style="color: #B5803A;">CORPUS · 원서 계열</span>
+        <h1 class="serif" style="margin: 0; font-size: 34px; line-height: 1.18; font-weight: 600; color: #1A1714; text-wrap: pretty;">
+          어원으로 익히는<br>1,500
+        </h1>
+        <p style="margin: 0; font-size: 13px; line-height: 1.6; color: rgba(26, 23, 20, 0.62);">장면과 서사 — 이야기 속에서 만난 것</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 사다리 — 시중 단어장의 뒤표지가 하는 일(다음에 무엇을 볼지)을 앞으로 당겼다 -->
+  <div style="display: flex; align-items: center; gap: 10px; padding: 16px 30px 22px 40px; border-top: 1px solid #E0DBD0;">
+    <span class="kicker" style="color: rgba(26, 23, 20, 0.62);">사다리</span>
+    <div style="display: flex; gap: 6px;">
+      <span class="num" style="font-size: 11px; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: 3px; border: 1px solid #E0DBD0; color: rgba(26, 23, 20, 0.62);">1</span>
+      <span class="num" style="font-size: 11px; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: 3px; border: 1px solid #E0DBD0; color: rgba(26, 23, 20, 0.62);">2</span>
+      <span class="num" style="font-size: 11px; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: 3px; border: 1px solid #E0DBD0; color: rgba(26, 23, 20, 0.62);">3</span>
+      <span class="num" style="font-size: 11px; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: 3px; border: 1px solid #E0DBD0; color: rgba(26, 23, 20, 0.62);">4</span>
+      <span class="num" style="font-size: 11px; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: 3px; background: #B5803A; color: #FBFAF6;">5</span>
+      <span class="num" style="font-size: 11px; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: 3px; border: 1px solid #E0DBD0; color: rgba(26, 23, 20, 0.62);">6</span>
+      <span class="num" style="font-size: 11px; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: 3px; border: 1px solid #E0DBD0; color: rgba(26, 23, 20, 0.62);">7</span>
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

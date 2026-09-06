@@ -18,6 +18,7 @@
 import { NextResponse } from 'next/server'
 import { setKindOf } from '@/lib/library/vocab/set-kind'
 import { createAdminClient } from '@/lib/supabase/admin'
+import { buildVocabColophon, VOCAB_SERIES_BRAND } from '@vocaflow/library-pipeline/vocab-brand'
 import { typesetVocabSet, type TypesetWord } from '@vocaflow/library-pipeline/vocab-typeset'
 
 export const dynamic = 'force-dynamic'
@@ -47,7 +48,7 @@ export async function GET(
   const { data: setRow, error: setErr } = await supabase
     .from('shared_word_sets')
     // `ladder_step` 은 생성된 타입에 없다(스키마 타입이 그 컬럼을 아직 모른다). 쓰지 않으므로 뺀다.
-    .select('id, title, is_published, curation_query')
+    .select('id, title, is_published, curation_query, created_at')
     .eq('id', setId)
     .maybeSingle()
   if (setErr) return NextResponse.json({ error: setErr.message }, { status: 500 })
@@ -125,6 +126,30 @@ export async function GET(
     words,
   })
 
+  /*
+    판권면 — **지면의 일부다.** 시중 단어장은 뒤에 판권면을 싣고, 학습자는 거기서 "누가 언제
+    무엇을 근거로 냈는가" 를 읽는다. 우리 판권면(`VocabColophon`)은 이미 있었지만 그것을 그리는
+    `VocabSetPreviewModal` 이 `/library/vocab` 에서 **열리지 않아** 학습자에게 닿은 적이 없다
+    (실측 2026-09-06). 열리지 않는 쪽을 고치는 대신 **닿는 지면에** 싣는다.
+
+    값은 지어내지 않는다 — 각인(`scripts/vocab/stamp-imprint.mts`) 전 세트는 검수 수치가
+    없으므로 그 줄이 빠진 채로 내려간다.
+  */
+  const qa = (cq as { qa?: { checked?: number; passed?: number } }).qa
+  const level = (cq as { level?: { median: number; min: number; max: number; measured: number } }).level
+  const colophon = buildVocabColophon({
+    title: (setRow as { title: string }).title,
+    step: null,
+    schoolBand: null,
+    vLevel: level?.median ?? 0,
+    selection: principle ?? '',
+    wordCount: rows.length,
+    wordsPerDay: perDay,
+    issued: new Date((setRow as { created_at?: string }).created_at ?? Date.now()),
+    autoPassed: qa?.passed ?? 0,
+    autoTotal: qa?.checked ?? 0,
+  })
+
   // 앞 며칠치만 남긴다 — 계획·복습·색인 규모는 전체를 센 값 그대로 둔다.
   const trimmedParts = spread.parts
     .map((p) => ({ ...p, days: p.days.filter((d) => d.n <= PREVIEW_DAYS) }))
@@ -137,6 +162,7 @@ export async function GET(
     reviews: spread.reviews.slice(0, 2),
     indexSize: spread.index.length,
     indexHead: spread.index.slice(0, 12),
+    colophon: { brand: VOCAB_SERIES_BRAND, ...colophon },
     apparatus: spread.apparatus,
     previewDays: PREVIEW_DAYS,
     truncated: rows.length >= MAX_WORDS,
