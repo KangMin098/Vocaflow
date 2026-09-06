@@ -27,6 +27,7 @@ import {
   CELL_STATUS_KO,
   ITEMS_PER_VOLUME,
   STEPS,
+  productLineGap,
   type CatalogCell,
   type CatalogRow,
 } from '@/lib/csat/product-model'
@@ -36,6 +37,8 @@ import type { CatalogView } from '@/lib/csat/product-view'
 function mark(c: CatalogCell): string {
   if (c.status === 'blocked') return '—'
   if (c.status === 'unmeasured') return '?'
+  // 재고가 아니라 **제품**이 없는 칸. 재고 없음(✕)과 다른 기호여야 할 일이 안 섞인다.
+  if (c.status === 'noLine') return '▢'
   if (c.status === 'empty') return '✕'
   if (c.status === 'ready') return c.published ? '●' : '○'
   return '◐'
@@ -48,6 +51,8 @@ function waitingFor(c: CatalogCell): string {
       return c.blocked ?? '만들 수 없는 칸이다'
     case 'unmeasured':
       return '재고를 못 셌다 — 0 이 아니다'
+    case 'noLine':
+      return '재고는 있는데 **이 유형을 담는 권이 없다** — 찍을 것이 아니라 정의할 것이다'
     case 'empty':
       return '이 학령·유형 조합의 문항이 하나도 없다'
     case 'needsItems':
@@ -139,6 +144,9 @@ function Row({
 }
 
 export function CatalogClient({ rows, coverage, genres, loadError }: CatalogView) {
+  // 격자가 그리는 칸 수와 **실제로 나오는 권 수**의 격차. 둘이 다르다는 것이
+  // 이 화면이 드러내야 할 사실이다 — 42칸을 그리지만 시리즈는 하나뿐이다.
+  const gap = productLineGap()
   const [picked, setPicked] = useState<CatalogCell | null>(null)
   const sel = picked ?? rows.flatMap((r) => r.cells).find((c) => c.status === 'ready' && !c.published) ?? null
   const selRow = sel ? rows.find((r) => r.genre.id === sel.genre) ?? null : null
@@ -166,20 +174,33 @@ export function CatalogClient({ rows, coverage, genres, loadError }: CatalogView
         </p>
       ) : null}
 
-      {/* 헤드라인 — 재고도 커버리지도 아니고 「안 낸 권」이다. 그것만이 행동을 부른다. */}
+      {/*
+        헤드라인은 **가장 앞을 막는 것** 하나만 말한다. 순서가 있다:
+          ① 찍기만 하면 되는 권이 있으면 그것 (가장 싸다)
+          ② 아니면 **재고는 있는데 담을 책이 없는 칸** — 실측 2026-09-06 에 18칸이었고,
+             그동안 이 18칸이 「낼 수 있는데 안 낸 책」으로 세어져 있었다. 조판 명령을 줘도
+             안 나온다. 할 일은 찍는 것이 아니라 **시리즈 단을 정의하는 것**이다.
+      */}
       <p className="break-keep font-display text-[15px] font-[700] text-[var(--t1)]">
         {coverage.unpublished > 0 ? (
           <>
-            <span className="text-[#2E7D5A]">낼 수 있는데 안 낸 책 {coverage.unpublished}권</span>
+            <span className="text-[#2E7D5A]">찍기만 하면 되는 책 {coverage.unpublished}권</span>
             <span className="ml-2 font-body text-[12px] font-[400] text-[var(--t2)]">
-              재고도 해설도 찼다 — 조판만 안 했다
+              재고도 해설도 찼다
+            </span>
+          </>
+        ) : coverage.noLine > 0 ? (
+          <>
+            <span className="text-[#B5803A]">담을 책이 없는 재고 {coverage.noLine}칸</span>
+            <span className="ml-2 font-body text-[12px] font-[400] text-[var(--t2)]">
+              찍을 것이 아니라 <strong>시리즈를 정의할</strong> 차례다
             </span>
           </>
         ) : (
           <span className="text-[#2E7D5A]">낼 수 있는 책은 다 냈다</span>
         )}
         <span className="ml-2 font-mono text-[12px] font-[400] tabular-nums text-[var(--t3)]">
-          시중 유형 {genres.covered}/{genres.market} · 낼 수 있음 {coverage.ready}/{coverage.buildable}
+          시리즈 {gap.volumes}권 · 격자 {gap.cells}칸 · 시중 유형 {genres.covered}/{genres.market}
         </span>
       </p>
 
@@ -207,6 +228,7 @@ export function CatalogClient({ rows, coverage, genres, loadError }: CatalogView
         <span>● 냈다</span>
         <span>○ 낼 수 있는데 안 냈다</span>
         <span>◐ 모자라다</span>
+        <span>▢ 담을 책 없음</span>
         <span>✕ 재고 없음</span>
         <span>— 못 낸다</span>
         <span>? 못 잼</span>

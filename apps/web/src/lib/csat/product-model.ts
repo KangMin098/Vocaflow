@@ -165,6 +165,15 @@ export type CellStatus =
   | 'empty'
   /** 만들 수 없는 칸 — 저작권·관측 부족 등 생산과 무관한 이유. */
   | 'blocked'
+  /**
+   * **재고는 찼는데 담을 책이 없다** — 그 유형을 쓰는 사다리 단이 정의돼 있지 않다.
+   *
+   * `ready` 와 반드시 갈라야 한다. 실측 2026-09-06 에 이 둘을 안 가른 탓에 화면이
+   * 「낼 수 있는데 안 낸 책 18권」이라고 적었는데, 그 18칸은 **조판 명령을 줘도 안 나온다** —
+   * 사다리는 시리즈 하나 7단이고 한 단이 유형을 섞어 한 권을 내므로 「어휘 권」이 없다.
+   * 할 일이 정반대다: `ready` 는 **찍으면 되고**, 이 칸은 **제품을 정의해야** 한다.
+   */
+  | 'noLine'
   /** 못 쟀다. 0 이 아니다. */
   | 'unmeasured'
 
@@ -174,6 +183,7 @@ export const CELL_STATUS_KO: Record<CellStatus, { label: string; color: string }
   needsItems: { label: '문항 모자람', color: '#B5803A' },
   empty: { label: '재고 없음', color: '#9C3A30' },
   blocked: { label: '못 냄', color: '#8A8278' },
+  noLine: { label: '책이 없음', color: '#B5803A' },
   unmeasured: { label: '못 잼', color: '#8A8278' },
 }
 
@@ -184,6 +194,13 @@ export interface CellFacts {
   explained: number | null
   /** 생산과 무관한 차단 사유(장르에서 옴). */
   blocked: string | null
+  /**
+   * 이 (유형 × 학령) 칸을 **실제로 찍어 내는 제품 라인이 있는가.**
+   *
+   * 재고와 무관하다 — 재고가 100만 개여도 그 유형을 쓰는 사다리 단이 없으면 책은 안 나온다.
+   * `productLineOf()` 가 사다리 정본에서 계산한다(손으로 적지 않는다 — 사다리가 바뀌면 따라간다).
+   */
+  hasProductLine: boolean
 }
 
 /**
@@ -195,6 +212,9 @@ export interface CellFacts {
  */
 export function judgeCell(f: CellFacts): CellStatus {
   if (f.blocked) return 'blocked'
+  // ⚠️ **제품 라인을 재고보다 먼저 본다.** 재고가 찼다고 「낼 수 있다」고 적으면,
+  //   관리자가 조판 명령을 돌리고 나서야 그 권이 없다는 것을 안다.
+  if (!f.hasProductLine) return 'noLine'
   if (f.items == null || f.explained == null) return 'unmeasured'
   if (f.items === 0) return 'empty'
   if (f.items < ITEMS_PER_VOLUME) return 'needsItems'
@@ -239,17 +259,30 @@ export function catalogCoverage(rows: readonly CatalogRow[]): {
   ready: number
   buildable: number
   blockedCells: number
-  /** 낼 수 있는데 **안 낸** 권 — 이 화면에서 가장 행동을 부르는 수다. */
+  /** 낼 수 있는데 **안 낸** 권. */
   unpublished: number
+  /**
+   * **재고는 있는데 담을 책이 없는 칸.**
+   *
+   * 실측 2026-09-06 에 이 수가 18이었고, 그 18칸이 「낼 수 있는데 안 낸 책」으로 세어져
+   * 헤드라인에 떠 있었다. 조판 명령을 줘도 안 나오는 칸이다 — 할 일은 찍는 것이 아니라
+   * **그 유형을 쓰는 시리즈 단을 정의하는 것**이다. 그래서 따로 센다.
+   */
+  noLine: number
 } {
   let ready = 0
   let buildable = 0
   let blockedCells = 0
   let unpublished = 0
+  let noLine = 0
   for (const r of rows) {
     for (const c of r.cells) {
       if (c.status === 'blocked') {
         blockedCells += 1
+        continue
+      }
+      if (c.status === 'noLine') {
+        noLine += 1
         continue
       }
       buildable += 1
@@ -259,7 +292,7 @@ export function catalogCoverage(rows: readonly CatalogRow[]): {
       }
     }
   }
-  return { ready, buildable, blockedCells, unpublished }
+  return { ready, buildable, blockedCells, unpublished, noLine }
 }
 
 /**
@@ -271,4 +304,43 @@ export function catalogCoverage(rows: readonly CatalogRow[]): {
 export function genreCoverage(rows: readonly CatalogRow[]): { covered: number; market: number } {
   const market = rows.filter((r) => r.genre.marketDocs != null)
   return { covered: market.filter((r) => r.ready > 0).length, market: market.length }
+}
+
+/* ───────────────────────── 제품 라인 ───────────────────────── */
+
+/**
+ * **한 사다리 단이 실제로 내는 장르들.**
+ *
+ * 사다리(`SERIES_SPINE`)의 한 단은 문항 유형을 **섞어 한 권**을 낸다. 그래서 「어휘 권」 같은
+ * 것은 정의된 적이 없고, 격자의 (유형 × 학령) 칸 대부분은 **담을 책이 없는 재고**다.
+ *
+ * ⚠️ 이 함수는 사다리에서 **계산한다.** 목록을 손으로 적으면 사다리가 바뀔 때 화면만 옛말을
+ *   하고, 그 옛말이 「낼 수 있다」로 세어져 관리자가 안 나오는 조판을 돌린다
+ *   (실측 2026-09-06: 그 상태로 헤드라인이 18권을 약속하고 있었다).
+ */
+export function genresOfStep(step: number): Genre[] {
+  const rung = SERIES_SPINE.find((r) => r.step === step)
+  if (!rung) return []
+  const types = new Set<string>(rung.types)
+  return GENRES.filter((g) => g.itemTypes.some((t) => types.has(t))).map((g) => g.id)
+}
+
+/** 그 칸을 찍어 낼 사다리 단이 있는가. */
+export function hasProductLine(genre: Genre, step: number): boolean {
+  return genresOfStep(step).includes(genre)
+}
+
+/**
+ * **제품 라인 실측** — 격자가 약속하는 칸 수와 사다리가 실제로 내는 권 수의 격차.
+ *
+ * 이 세 수가 다 다르고, 그 차이가 이 화면이 드러내야 할 진짜 일이다:
+ *   · `cells`   격자가 그리는 칸 (유형 × 학령)
+ *   · `covered` 그중 사다리가 닿는 칸
+ *   · `volumes` **실제로 나오는 권** — 사다리 한 단이 한 권이다
+ */
+export function productLineGap(): { cells: number; covered: number; volumes: number } {
+  const steps = SERIES_SPINE.map((r) => r.step)
+  let covered = 0
+  for (const step of steps) covered += genresOfStep(step).length
+  return { cells: GENRES.length * steps.length, covered, volumes: steps.length }
 }

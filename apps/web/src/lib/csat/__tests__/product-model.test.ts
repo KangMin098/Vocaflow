@@ -16,13 +16,15 @@ import {
   STEPS,
   catalogCoverage,
   genreCoverage,
+  genresOfStep,
   judgeCell,
+  productLineGap,
   type CatalogRow,
 } from '../product-model'
 
 describe('judgeCell — 무엇이 없어서 못 내는지 순서대로 말한다', () => {
   const f = (o: Partial<Parameters<typeof judgeCell>[0]>) =>
-    judgeCell({ items: 100, explained: 100, blocked: null, ...o })
+    judgeCell({ items: 100, explained: 100, blocked: null, hasProductLine: true, ...o })
 
   it('문항도 해설도 차면 낼 수 있다', () => {
     expect(f({})).toBe('ready')
@@ -126,6 +128,9 @@ const row = (id: string, statuses: string[]): CatalogRow => {
       items: 0,
       explained: 0,
       blocked: null,
+      // 이 파일은 **판정 규칙**을 시험하므로 사다리를 안 탄다 — 라인은 있다고 두고,
+      // 「라인이 없을 때」는 아래 전용 검사에서 따로 본다.
+      hasProductLine: true,
       status,
       published,
     }
@@ -142,7 +147,13 @@ const row = (id: string, statuses: string[]): CatalogRow => {
 describe('커버리지 — 못 만드는 칸을 분모에서 뺀다', () => {
   it('막힌 칸은 분모가 아니다 — 넣으면 영원히 100% 가 안 되고 그 수는 아무 말도 안 한다', () => {
     const rows = [row('reading', ['ready', 'ready']), row('pastexam', ['blocked', 'blocked'])]
-    expect(catalogCoverage(rows)).toEqual({ ready: 2, buildable: 2, blockedCells: 2, unpublished: 2 })
+    expect(catalogCoverage(rows)).toEqual({
+      ready: 2,
+      buildable: 2,
+      blockedCells: 2,
+      unpublished: 2,
+      noLine: 0,
+    })
   })
 
   it('낼 수 있는데 안 낸 권을 따로 센다 — 이 수가 다음 할 일을 지시한다', () => {
@@ -169,5 +180,64 @@ describe('커버리지 — 못 만드는 칸을 분모에서 뺀다', () => {
 
   it('아무것도 못 내면 0 이다 — 분모는 남는다', () => {
     expect(genreCoverage([row('reading', ['empty'])])).toEqual({ covered: 0, market: 1 })
+  })
+})
+
+/**
+ * **「담을 책이 없다」를 「낼 수 있다」로 세지 않는다.**
+ *
+ * 실측 2026-09-06: 카탈로그 헤드라인이 「낼 수 있는데 안 낸 책 18권」이라고 적고 있었다.
+ * 그 18칸은 어휘·구문·내신 × 6단인데, 사다리(`SERIES_SPINE`)는 **시리즈 하나 7단**이고
+ * 한 단이 유형을 섞어 한 권을 낸다 — 「어휘 권」이 정의된 적이 없다. 화면이 주는 조판 명령을
+ * 그대로 돌려도 그 권은 안 나오고, 나오는 것은 그 밴드의 **독해 권**이다.
+ *
+ * 두 상태를 가르는 이유는 **할 일이 정반대**여서다:
+ *   · `ready`  → 찍으면 된다 (조판 명령)
+ *   · `noLine` → 정의해야 한다 (시리즈 단에 그 유형을 넣는다)
+ */
+describe('담을 책이 없는 재고 — 「낼 수 있다」와 가른다', () => {
+  it('재고가 아무리 많아도 제품 라인이 없으면 낼 수 있다고 하지 않는다', () => {
+    expect(
+      judgeCell({ items: 999_999, explained: 999_999, blocked: null, hasProductLine: false }),
+    ).toBe('noLine')
+  })
+
+  it('제품 라인은 재고보다 **먼저** 본다 — 재고를 세기 전에 갈린다', () => {
+    // 못 잰 재고여도 라인이 없으면 할 일은 「정의」다. 「못 잼」으로 적으면 재러 간다.
+    expect(judgeCell({ items: null, explained: null, blocked: null, hasProductLine: false })).toBe(
+      'noLine',
+    )
+  })
+
+  it('저작권 차단이 제품 라인보다 앞선다 — 정의해도 못 내는 칸이다', () => {
+    expect(
+      judgeCell({ items: 100, explained: 100, blocked: '평가원 저작물', hasProductLine: false }),
+    ).toBe('blocked')
+  })
+
+  it('커버리지가 noLine 을 분모에서 빼고 따로 센다', () => {
+    const rows = [row('reading', ['ready', 'ready']), row('vocab', ['noLine', 'noLine'])]
+    const c = catalogCoverage(rows)
+    // 「낼 수 있음 2/2」이지 2/4 가 아니다 — 라인 없는 칸은 낼 수 있는 칸이 아니다.
+    expect(c.buildable).toBe(2)
+    expect(c.ready).toBe(2)
+    expect(c.noLine).toBe(2)
+  })
+
+  it('사다리에서 계산한다 — 손으로 적은 목록이 아니다', () => {
+    // 1단(초등 저학년)은 소리·낱말이라 어느 장르 권도 안 낸다.
+    expect(genresOfStep(1)).toEqual([])
+    // 5단(고1)은 독해 유형을 쓴다.
+    expect(genresOfStep(5)).toContain('reading')
+    // 없는 단은 빈 배열 — 던지지 않는다.
+    expect(genresOfStep(99)).toEqual([])
+  })
+
+  it('격자가 그리는 칸 수와 실제로 나오는 권 수가 다르다는 것을 숫자로 든다', () => {
+    const g = productLineGap()
+    expect(g.cells).toBe(GENRES.length * STEPS.length)
+    // **이 부등식이 이 화면의 존재 이유다** — 42칸을 그리지만 시리즈는 하나뿐이다.
+    expect(g.volumes).toBeLessThan(g.cells)
+    expect(g.volumes).toBe(STEPS.length)
   })
 })

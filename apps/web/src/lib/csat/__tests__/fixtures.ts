@@ -13,7 +13,15 @@ import type { BlueprintView, MarketView } from '../factory-lab-model'
 import type { AuthorView, PressView, ReviewView, SourceView } from '../factory-line-model'
 import type { KidSourcePanel } from '@/lib/textbook/kid-source-stats'
 import { FACTORY_STAGES, type StageState } from '../factory-model'
-import { GENRES, STEPS, catalogCoverage, genreCoverage, type CatalogRow } from '../product-model'
+import {
+  GENRES,
+  STEPS,
+  catalogCoverage,
+  genreCoverage,
+  hasProductLine,
+  type CatalogRow,
+  type Genre,
+} from '../product-model'
 import type { CatalogView } from '../product-view'
 
 /** 공정 한 칸 — 실측에 가까운 모양으로. */
@@ -374,6 +382,8 @@ function catalogRow(id: string, statuses: string[], items: number): CatalogRow {
       items,
       explained: items,
       blocked: GENRES.find((g) => g.id === id)!.blocked,
+      // 표본도 사다리 실측을 쓴다 — 손으로 true 를 박으면 표본이 화면보다 후해진다.
+      hasProductLine: hasProductLine(id as Genre, STEPS[i]?.step ?? i + 1),
       status,
       published,
     }

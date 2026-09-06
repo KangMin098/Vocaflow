@@ -19,6 +19,7 @@ import {
   STEPS,
   catalogCoverage,
   genreCoverage,
+  hasProductLine,
   judgeCell,
   type CatalogCell,
   type CatalogRow,
@@ -70,9 +71,21 @@ export async function loadCatalogView(): Promise<CatalogView> {
           }
         }
       }
-      const facts = { items, explained, blocked: genre.blocked }
-      // 조판 기록에 유형이 없으므로 독해만 「냈다」로 셀 수 있다 — 위 주석 참조.
-      const published = genre.id === 'reading' && publishedSteps.has(step)
+      // 제품 라인 유무는 재고와 무관하다 — 사다리에서 계산해 붙인다.
+      const facts = {
+        items,
+        explained,
+        blocked: genre.blocked,
+        hasProductLine: hasProductLine(genre.id, step),
+      }
+      // **한 밴드의 권은 하나다.** 사다리 한 단이 유형을 섞어 한 권을 내므로, 그 단의 권이
+      // 나왔고 그 권이 이 유형을 담는다면 이 유형은 **이미 인쇄돼 나간 것**이다.
+      //
+      // ⚠️ 예전에는 `genre.id === 'reading'` 으로만 셌다. 그러면 어휘·구문·내신 칸이
+      //   「낼 수 있는데 안 냈다」로 잡히는데, 그 칸을 찍으려 해도 **새로 나올 권이 없다** —
+      //   그 밴드의 권은 이미 나왔고 그 안에 이 유형이 들어 있다. 실측 2026-09-06 에 그렇게
+      //   센 탓에 헤드라인이 「찍기만 하면 되는 책 14권」이라고 적었다(그 전에는 18권).
+      const published = publishedSteps.has(step) && facts.hasProductLine
       return { genre: genre.id, step, ...facts, status: judgeCell(facts), published }
     })
     const ready = cells.filter((c) => c.status === 'ready')

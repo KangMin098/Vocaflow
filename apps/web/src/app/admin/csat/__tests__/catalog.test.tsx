@@ -10,7 +10,16 @@
 import { renderToString } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
 
-import { GENRES, STEPS, catalogCoverage, genreCoverage, type CatalogRow } from '@/lib/csat/product-model'
+import {
+  GENRES,
+  STEPS,
+  catalogCoverage,
+  genreCoverage,
+  productLineGap,
+  hasProductLine,
+  type CatalogRow,
+  type Genre,
+} from '@/lib/csat/product-model'
 import type { CatalogView } from '@/lib/csat/product-view'
 
 import { CatalogClient } from '../catalog/CatalogClient'
@@ -28,6 +37,8 @@ function row(id: string, statuses: string[], items = 1000): CatalogRow {
       items,
       explained: items,
       blocked: GENRES.find((g) => g.id === id)!.blocked,
+      // 표본도 사다리 실측을 쓴다 — 손으로 true 를 박으면 표본이 화면보다 후해진다.
+      hasProductLine: hasProductLine(id as Genre, STEPS[i]?.step ?? i + 1),
       status,
       published,
     }
@@ -56,9 +67,41 @@ const REAL = view([
 ])
 
 describe('CatalogClient', () => {
-  it('헤드라인은 재고도 커버리지도 아니고 「안 낸 권」이다', () => {
+  /**
+   * ⚠️ **이 검사는 거짓말을 고정하고 있었다.** 「낼 수 있는데 안 낸 책 18권」을 통과 조건으로
+   *    들고 있었는데, 그 18칸(어휘·구문·내신 × 6단)은 조판 명령을 줘도 **안 나온다** —
+   *    사다리는 시리즈 하나 7단이고 한 단이 유형을 섞어 한 권을 낸다. 「어휘 권」이 없다.
+   *    검사가 화면을 지킨 것이 아니라 **틀린 숫자를 지키고 있었다.**
+   *
+   *    그래서 이제는 수를 박지 않고 **화면과 판정이 같은 말을 하는지**를 본다.
+   */
+  it('헤드라인이 가장 앞을 막는 것 하나를 말한다 — 판정과 같은 말로', () => {
     const html = text(renderToString(<CatalogClient {...REAL} />))
-    expect(html).toContain('낼 수 있는데 안 낸 책 18권')
+    const c = catalogCoverage(REAL.rows)
+    if (c.unpublished > 0) {
+      expect(html).toContain(`찍기만 하면 되는 책 ${c.unpublished}권`)
+    } else if (c.noLine > 0) {
+      // 찍을 것이 아니라 **정의할** 차례다 — 할 일이 정반대라 문구도 달라야 한다.
+      expect(html).toContain(`담을 책이 없는 재고 ${c.noLine}칸`)
+      expect(html).toContain('시리즈를 정의할')
+    } else {
+      expect(html).toContain('낼 수 있는 책은 다 냈다')
+    }
+  })
+
+  it('격자 칸 수와 실제로 나오는 권 수를 나란히 적는다 — 둘이 다르다는 것이 요점', () => {
+    const html = text(renderToString(<CatalogClient {...REAL} />))
+    const g = productLineGap()
+    expect(html).toContain(`시리즈 ${g.volumes}권`)
+    expect(html).toContain(`격자 ${g.cells}칸`)
+  })
+
+  it('담을 책이 없는 칸은 재고 없음(✕)과 다른 기호로 그린다 — 할 일이 다르다', () => {
+    const html = text(renderToString(<CatalogClient {...REAL} />))
+    if (catalogCoverage(REAL.rows).noLine > 0) {
+      expect(html).toContain('▢')
+      expect(html).toContain('담을 책 없음')
+    }
   })
 
   it('시중 유형 커버리지를 분자/분모로 적는다 — 기출은 못 내므로 4/5 다', () => {
