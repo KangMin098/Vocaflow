@@ -16,65 +16,62 @@
     .serif { font-family: "Lora", serif; }
   </style>
 </helmet>
-<div style="width: 480px; height: 640px; background: #FBFAF6; display: flex; flex-direction: column; box-sizing: border-box;">
-  <!-- 책등 — 서가에서 계열을 가르는 자리 -->
-  <div style="display: flex; flex: 1; min-height: 0;">
-    <div style="width: 14px; background: #0F2540;"></div>
-    <div style="flex: 1; display: flex; flex-direction: column; padding: 28px 30px 0 26px; min-width: 0;">
+<div style="width: 480px; height: 640px; background: #0F2540; display: flex; flex-direction: column; box-sizing: border-box; position: relative;">
+  <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(12,10,8,.30) 0%, rgba(12,10,8,.42) 100%);"></div>
+  <div style="position: absolute; inset: 7%; border: 1px solid #E3E8EE; opacity: .30;"></div>
 
-      <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px;">
-        <span class="kicker" style="color: rgba(26, 23, 20, 0.62);">Vocaflow Vocabulary</span>
-        <span class="num" style="font-size: 11px; color: #0F2540;">VOL. 05</span>
-      </div>
-
-      <div style="margin-top: 6px; height: 1px; background: #E0DBD0;"></div>
-
-      <!-- 도판 — 듀오톤으로 눌린 자리 -->
-      <div style="margin-top: 26px; background: #E3E8EE; display: flex; align-items: center; justify-content: center; padding: 16px 0;">
-        <svg width="212" height="172" viewBox="0 0 212 172" fill="none"
-             stroke="#0F2540" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-          
-    <circle cx="106" cy="90" r="62" />
-    <circle cx="106" cy="90" r="52" stroke-dasharray="2 6" />
-    <path d="M106 90 V52" />
-    <path d="M106 90 L134 104" />
-    <path d="M106.0 34.0 L106.0 28.0" />
-    <path d="M134.0 41.5 L137.0 36.3" />
-    <path d="M154.5 62.0 L159.7 59.0" />
-    <path d="M162.0 90.0 L168.0 90.0" />
-    <path d="M154.5 118.0 L159.7 121.0" />
-    <path d="M134.0 138.5 L137.0 143.7" />
-    <path d="M106.0 146.0 L106.0 152.0" />
-    <path d="M78.0 138.5 L75.0 143.7" />
-    <path d="M57.5 118.0 L52.3 121.0" />
-    <path d="M50.0 90.0 L44.0 90.0" />
-    <path d="M57.5 62.0 L52.3 59.0" />
-    <path d="M78.0 41.5 L75.0 36.3" />
-        </svg>
-      </div>
-
-      <div style="margin-top: 26px; display: flex; flex-direction: column; gap: 8px;">
-        <span class="kicker" style="color: #0F2540;">DELIVERY · 전달 계열</span>
-        <h1 class="serif" style="margin: 0; font-size: 34px; line-height: 1.18; font-weight: 600; color: #1A1714; text-wrap: pretty;">
-          어원으로 익히는<br>1,500
-        </h1>
-        <p style="margin: 0; font-size: 13px; line-height: 1.6; color: rgba(26, 23, 20, 0.62);">리듬과 반복 — 매일 같은 자리로 돌아오는 것</p>
-      </div>
-
+  <div style="position: relative; display: flex; flex-direction: column; height: 100%; padding: 34px 34px 26px; box-sizing: border-box;">
+    <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px;">
+      <span class="kicker" style="color: #E3E8EE; opacity: .85;">Vocaflow Vocabulary</span>
+      <span class="num" style="font-size: 11px; color: #E3E8EE; opacity: .85;">VOL. 05</span>
     </div>
-  </div>
 
-  <!-- 사다리 — 시중 단어장의 뒤표지가 하는 일(다음에 무엇을 볼지)을 앞으로 당겼다 -->
-  <div style="display: flex; align-items: center; gap: 10px; padding: 16px 30px 22px 40px; border-top: 1px solid #E0DBD0;">
-    <span class="kicker" style="color: rgba(26, 23, 20, 0.62);">사다리</span>
-    <div style="display: flex; gap: 6px;">
-      <span class="num" style="font-size: 11px; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: 3px; border: 1px solid #E0DBD0; color: rgba(26, 23, 20, 0.62);">1</span>
-      <span class="num" style="font-size: 11px; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: 3px; border: 1px solid #E0DBD0; color: rgba(26, 23, 20, 0.62);">2</span>
-      <span class="num" style="font-size: 11px; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: 3px; border: 1px solid #E0DBD0; color: rgba(26, 23, 20, 0.62);">3</span>
-      <span class="num" style="font-size: 11px; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: 3px; border: 1px solid #E0DBD0; color: rgba(26, 23, 20, 0.62);">4</span>
-      <span class="num" style="font-size: 11px; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: 3px; background: #0F2540; color: #FBFAF6;">5</span>
-      <span class="num" style="font-size: 11px; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: 3px; border: 1px solid #E0DBD0; color: rgba(26, 23, 20, 0.62);">6</span>
-      <span class="num" style="font-size: 11px; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: 3px; border: 1px solid #E0DBD0; color: rgba(26, 23, 20, 0.62);">7</span>
+    <div style="flex: 1; display: flex; align-items: center; justify-content: center; padding: 18px 0 0;">
+      <svg width="240" height="195" viewBox="0 0 212 172" fill="none"
+             stroke="#E3E8EE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+             style="opacity: .62">
+          <path d="M106 28 A 58 58 0 1 1 106 28" />
+          <path d="M106 40 L106 28" />
+          <path d="M125.9 38 L128.2 32.4" />
+          <path d="M142.8 49.2 L147 45" />
+          <path d="M148.5 68.4 L159.6 63.8" />
+          <path d="M158 86 L164 86" />
+          <path d="M154 105.9 L159.6 108.2" />
+          <path d="M138.5 118.5 L147 127" />
+          <path d="M125.9 134 L128.2 139.6" />
+          <path d="M106 138 L106 144" />
+          <path d="M88.4 128.5 L83.8 139.6" />
+          <path d="M69.2 122.8 L65 127" />
+          <path d="M58 105.9 L52.4 108.2" />
+          <path d="M60 86 L48 86" />
+          <path d="M58 66.1 L52.4 63.8" />
+          <path d="M69.2 49.2 L65 45" />
+          <path d="M88.4 43.5 L83.8 32.4" />
+          <path d="M106 86 L138.4 75.6" />
+          <path d="M106 86 L60 84.4" />
+          <circle cx="106" cy="86" r="3" />
+        </svg>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 7px;">
+      <span class="kicker" style="color: #E3E8EE; opacity: .8;">DELIVERY · 전달 계열</span>
+      <h1 class="serif" style="margin: 0; font-size: 32px; line-height: 1.18; font-weight: 600; color: #FFFFFF; text-wrap: pretty;">
+        어원으로 익히는 1,500
+      </h1>
+      <p style="margin: 0; font-size: 12.5px; line-height: 1.6; color: #E3E8EE; opacity: .78;">리듬과 반복 — 매일 같은 자리로 돌아오는 것</p>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 10px; margin-top: 16px; padding-top: 14px; border-top: 1px solid #E3E8EE33;">
+      <span class="kicker" style="color: #E3E8EE; opacity: .7;">사다리</span>
+      <div style="display: flex; gap: 6px;">
+        <span class="num" style="font-size: 11px; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: 3px; border: 1px solid #E3E8EE55; color: #E3E8EE; opacity: .8;">1</span>
+        <span class="num" style="font-size: 11px; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: 3px; border: 1px solid #E3E8EE55; color: #E3E8EE; opacity: .8;">2</span>
+        <span class="num" style="font-size: 11px; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: 3px; border: 1px solid #E3E8EE55; color: #E3E8EE; opacity: .8;">3</span>
+        <span class="num" style="font-size: 11px; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: 3px; border: 1px solid #E3E8EE55; color: #E3E8EE; opacity: .8;">4</span>
+        <span class="num" style="font-size: 11px; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: 3px; background: #E3E8EE; color: #0F2540;">5</span>
+        <span class="num" style="font-size: 11px; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: 3px; border: 1px solid #E3E8EE55; color: #E3E8EE; opacity: .8;">6</span>
+        <span class="num" style="font-size: 11px; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: 3px; border: 1px solid #E3E8EE55; color: #E3E8EE; opacity: .8;">7</span>
+      </div>
     </div>
   </div>
 </div>

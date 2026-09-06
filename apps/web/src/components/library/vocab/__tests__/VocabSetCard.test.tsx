@@ -71,12 +71,32 @@ function render(s: PublishedVocabSet): string {
 }
 
 describe('단어장 카드 — 표지와 유형', () => {
-  it('표지 도판이 있으면 그림을 그린다', () => {
-    const html = render(set())
-    expect(html).toContain('https://example.org/plate.jpg')
-    // 듀오톤은 흑백으로 눌러서 계열 색을 얹는 방식이다 — 이 필터가 빠지면 원본 채도가
-    // 그대로 나와 29권이 스크랩북이 된다.
-    expect(html).toMatch(/grayscale/)
+  /*
+    2026-09-07 — 표지는 **수집한 사진이 아니라 그린 도판**이다(`VocabCoverArt`).
+    옛 계약(원본 URL 이 마크업에 있고 흑백 필터가 걸린다)은 사라졌고, 그 자리를
+    "늘 그려진다 · 권마다 다르다 · 같은 권은 같다" 가 대신한다.
+  */
+  it('표지를 **그린다** — 수집 도판이 없어도 선화가 나온다', () => {
+    const html = render(set({ coverImageUrl: null, coverImageMeta: null }))
+    expect(html).toContain('<svg')
+    expect(html).toMatch(/<path[^>]+d="/)
+    // 옛 방식의 흔적이 남아 있으면 두 경로가 공존한다는 뜻이다.
+    expect(html).not.toContain('example.org')
+    expect(html).not.toMatch(/grayscale/)
+  })
+
+  it('권이 다르면 도판도 다르다 — 같은 계열 스물여덟 권이 한 그림이 되지 않는다', () => {
+    const a = render(set({ slug: 'cat-root-a' }))
+    const b = render(set({ slug: 'cat-root-b' }))
+    const pathsOf = (html: string): string => (html.match(/<path[^>]+d="[^"]+"/g) ?? []).join('|')
+    expect(pathsOf(a)).not.toBe(pathsOf(b))
+  })
+
+  it('같은 권은 언제나 같은 도판 — 표지는 손잡이라 변하면 안 된다', () => {
+    const pathsOf = (html: string): string => (html.match(/<path[^>]+d="[^"]+"/g) ?? []).join('|')
+    expect(pathsOf(render(set({ slug: 'cat-root-a' })))).toBe(
+      pathsOf(render(set({ slug: 'cat-root-a' }))),
+    )
   })
 
   // 색 값을 여기 적지 않는다 — 적으면 정본이 하나 더 늘어 드리프트가 생긴다.
@@ -126,10 +146,14 @@ describe('단어장 카드 — 표지와 유형', () => {
     expect(html).not.toContain('CEFR')
   })
 
-  it('표지가 없으면 그라디언트 표지 + 이모지로 폴백한다 (공백 아님)', () => {
+  /*
+    이모지 폴백은 **도판을 못 받은 권의 대타**였다. 이제 모든 권이 도판을 그리므로 대타가
+    필요 없고, 두면 선화 위에 이모지가 겹친다. 폴백이 되살아나면 이 검사가 잡는다.
+  */
+  it('이모지 폴백을 쓰지 않는다 — 모든 권이 도판을 갖기 때문이다', () => {
     const html = render(set({ coverImageUrl: null, coverImageMeta: null }))
-    expect(html).not.toContain('example.org')
-    expect(html).toContain('🏛️')
+    expect(html).not.toContain('🏛️')
+    expect(html).toContain('<svg')
   })
 
   it('유형 라벨과 묶은 원리를 함께 적는다', () => {

@@ -14,7 +14,8 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { ChevronLeft, ChevronRight, Check, Eye, Loader2, Plus } from 'lucide-react'
 
 import { GradientBookCover } from '@/components/library/shared/GradientBookCover'
-import { VocabCoverPlate } from './VocabCoverPlate'
+import { coverFamilyOf } from '@/lib/vcb/covers/design'
+import { VocabCoverArt } from './VocabCoverArt'
 import { rungForSet } from '@/lib/library/vocab/rung'
 import { VOCAB_SERIES_BRAND } from '@vocaflow/library-pipeline/vocab-brand'
 import {
@@ -447,11 +448,15 @@ function CoverCard({
         }}
       >
         {/*
-          표지 도판 — **카드와 같은 것을 그린다**(`VocabCoverPlate`).
+          표지 도판 — **카드와 같은 것을 그린다**(`VocabCoverArt`). 수집이 아니라 그린다.
           한동안 여기만 도판을 빼고 있어서, DB 에 표지가 55/55 인데 서가에서 가장 큰 이
           요소는 그라디언트 상자였다(실측 2026-09-01).
         */}
-        <VocabCoverPlate url={set.coverImageUrl} family={set.coverImageMeta?.family} scrim="hero" />
+        <VocabCoverArt
+          family={coverFamilyOf(set.brandFamily ?? set.coverImageMeta?.family)}
+          artKey={set.slug ?? set.title}
+          scrim="hero"
+        />
         {/* 클로스바운드 표지 — 중앙 serif 제목 + 단어수. 도판이 있으면 이모지는 뺀다(카드와 같은 규칙). */}
         <GradientBookCover
           title={set.title}

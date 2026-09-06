@@ -226,3 +226,15 @@ export function isUsableLicense(license: string | null | undefined): boolean {
   if (!license) return false
   return (ALLOWED_LICENSES as readonly string[]).includes(license.toLowerCase())
 }
+
+/**
+ * 문자열 → 계열. **모르는 값은 `list` 로 떨어진다.**
+ *
+ * 계열은 DB 의 jsonb(`curation_query.brand.family` · `cover_image_meta.family`)에서 오므로
+ * 타입이 보장되지 않는다. 화면이 그것을 그대로 믿고 색 표를 조회하면 `undefined` 가 되어
+ * 표지가 통째로 사라진다 — 그래서 여기서 한 번 좁힌다.
+ */
+export function coverFamilyOf(value: string | null | undefined): CoverFamily {
+  if (value && value in FAMILY_GRAIN) return value as CoverFamily
+  return 'list'
+}

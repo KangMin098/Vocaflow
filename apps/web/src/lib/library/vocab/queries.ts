@@ -89,6 +89,16 @@ export interface PublishedVocabSet {
    * 판권 번호 — 이 **판(edition)** 을 특정하는 표기. 시중 단어장의 ISBN 자리다.
    * 학습자가 인용·검색·문의할 때 쓸 수 있어야 하므로 slug 와 판차를 함께 낸다.
    */
+  /**
+   * 표지를 그릴 **계열**. `curation_query.brand.family` 가 정본이고(브랜드 드레인이 각인),
+   * 각인 전 세트는 수집 도판의 메타로 떨어진다.
+   *
+   * ⚠️ `coverImageMeta.family` 를 정본으로 쓰면 **도판을 못 받은 권은 계열이 없다** —
+   *    그 권은 표지를 그릴 수 없게 된다. 계열은 그림의 성질이 아니라 그 책의 성질이다.
+   */
+  brandFamily: string | null
+  /** 표지 도판의 열쇠이자 판권 번호의 뿌리. 재발행해도 같은 책이면 같은 값이어야 한다. */
+  slug: string | null
   imprintCode: string | null
   /**
    * 자동 검수 실측 — `scripts/vocab/stamp-imprint.mts` 가 각인한다.
@@ -150,6 +160,8 @@ interface SharedSetRow {
     /** `scripts/vocab/stamp-imprint.mts` 가 더한 키. 컴포저의 레시피와 같은 jsonb 에 산다. */
     qa?: { checked: number; passed: number; at: string }
     level?: { median: number; min: number; max: number; measured: number }
+    /** `scripts/vocab/brand-drain-import.mts` 가 각인한 계열 브랜드 규격. */
+    brand?: { family?: string }
   } | null
   cover_image_url?: string | null
   cover_image_meta?: CoverMeta | null
@@ -262,6 +274,8 @@ async function enrichSets(
     coverImageMeta: s.cover_image_meta ?? null,
     brandFingerprint: s.brand_fingerprint ?? null,
     ladderStep: s.ladder_step ?? null,
+    brandFamily: s.curation_query?.brand?.family ?? s.cover_image_meta?.family ?? null,
+    slug: s.slug ?? null,
     // 판권 번호 — slug 가 없으면 만들지 않는다(id 로 지어내면 학습자가 인용할 수 없는 값이 된다).
     imprintCode: s.slug ? `VF-${s.slug}-v${s.version ?? 1}` : null,
     qa: s.curation_query?.qa ?? null,

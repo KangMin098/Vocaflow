@@ -26,6 +26,7 @@ import {
   VOCAB_SERIES_BRAND,
 } from '@vocaflow/library-pipeline/vocab-brand'
 import { BRAND_FAMILIES } from '@vocaflow/library-pipeline/vocab-brand-canvas'
+import { coverArtFor } from '@vocaflow/library-pipeline/vocab-cover-art'
 
 const argOf = (flag: string, fallback: string): string => {
   const i = process.argv.indexOf(flag)
@@ -46,49 +47,20 @@ const DIRECTION: Record<string, { ko: string; en: string; grain: string }> = {
   unique: { ko: '고유', en: 'UNIQUE', grain: '열림과 연결 — 이 플랫폼만 그릴 수 있는 지도' },
 }
 
-/**
- * 계열 도판 — **선으로만** 그린다.
- *
- * 표지 프로그램이 PD 판화(`covers/design.ts`)라 도판의 결이 선이다. 채운 도형이나 그라디언트를
- * 쓰면 수집한 도판과 나란히 놓였을 때 한 시리즈로 안 읽힌다.
- */
-const PLATE: Record<string, string> = {
-  list: `
-    <path d="M20 148 H196" />
-    <path d="M20 148 V20" />
-    ${[0, 1, 2, 3, 4, 5].map((i) => `<rect x="${34 + i * 26}" y="${132 - (12 + i * 19)}" width="14" height="${12 + i * 19}" />`).join('\n    ')}
-    <path d="M34 40 L182 40" stroke-dasharray="3 5" />`,
-  structure: `
-    <path d="M108 152 V88" />
-    <path d="M108 108 C 82 96, 66 74, 62 46" />
-    <path d="M108 100 C 134 88, 152 66, 158 38" />
-    <path d="M108 122 C 88 116, 74 102, 68 84" />
-    ${[[62, 46], [158, 38], [68, 84]].map(([x, y]) => `<ellipse cx="${x}" cy="${y}" rx="13" ry="8" transform="rotate(-18 ${x} ${y})" />`).join('\n    ')}
-    <path d="M84 152 H132" />`,
-  corpus: `
-    <path d="M28 44 C 62 32, 92 36, 106 46 C 120 36, 150 32, 184 44 L184 138 C 150 128, 120 132, 106 142 C 92 132, 62 128, 28 138 Z" />
-    <path d="M106 46 V142" />
-    ${[0, 1, 2].map((i) => `<path d="M44 ${66 + i * 20} C 66 ${58 + i * 20}, 86 ${60 + i * 20}, 96 ${66 + i * 20}" />`).join('\n    ')}
-    ${[0, 1, 2].map((i) => `<path d="M116 ${66 + i * 20} C 128 ${60 + i * 20}, 148 ${58 + i * 20}, 168 ${66 + i * 20}" />`).join('\n    ')}`,
-  delivery: `
-    <circle cx="106" cy="90" r="62" />
-    <circle cx="106" cy="90" r="52" stroke-dasharray="2 6" />
-    <path d="M106 90 V52" />
-    <path d="M106 90 L134 104" />
-    ${Array.from({ length: 12 }, (_, i) => {
-      const a = (i / 12) * Math.PI * 2
-      const x1 = 106 + Math.sin(a) * 56
-      const y1 = 90 - Math.cos(a) * 56
-      const x2 = 106 + Math.sin(a) * 62
-      const y2 = 90 - Math.cos(a) * 62
-      return `<path d="M${x1.toFixed(1)} ${y1.toFixed(1)} L${x2.toFixed(1)} ${y2.toFixed(1)}" />`
-    }).join('\n    ')}`,
-  unique: `
-    <circle cx="106" cy="90" r="66" />
-    ${[[62, 54], [148, 62], [96, 96], [132, 128], [70, 126], [116, 40]]
-      .map(([x, y]) => `<circle cx="${x}" cy="${y}" r="3.5" />`)
-      .join('\n    ')}
-    <path d="M62 54 L96 96 L148 62 M96 96 L132 128 M96 96 L70 126 M116 40 L148 62" />`,
+/*
+  도판은 **제품이 쓰는 엔진**에서 가져온다(`coverArtFor`). 캔버스가 손으로 그린 사본을
+  들고 있으면 규격이 화면과 갈리고, 그 순간 캔버스는 규격이 아니라 그림이 된다.
+*/
+const plateSvg = (family: string, key: string, stroke: string): string => {
+  const art = coverArtFor(family as never, key)
+  const paths = art.paths.map((d) => `<path d="${d}" />`).join('\n          ')
+  const dots = art.dots.map((c) => `<circle cx="${c.cx}" cy="${c.cy}" r="${c.r}" />`).join('\n          ')
+  return `<svg width="240" height="195" viewBox="${art.viewBox}" fill="none"
+             stroke="${stroke}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+             style="opacity: .62">
+          ${paths}
+          ${dots}
+        </svg>`
 }
 
 const head = (): string => `<!doctype html>
@@ -115,57 +87,54 @@ const tail = (): string => `</x-dc>
 </html>
 `
 
-/** 표지 한 장 — 3:4 (480×640). */
+/**
+ * 표지 한 장 — 3:4 (480×640).
+ *
+ * **제품과 같은 결이어야 한다**: 짙은 바탕(계열 잉크) 위에 밝은 선(계열 지면).
+ * 처음엔 반대로 그렸다가 화면에서 창백해지는 것을 보고 되돌렸다(2026-09-07) —
+ * 캔버스가 제품과 다른 결을 보이면 규격을 보고 만든 화면이 규격과 달라진다.
+ */
 function cover(family: string): string {
   const duo = FAMILY_DUOTONE.light[family as keyof typeof FAMILY_DUOTONE.light]
   const d = DIRECTION[family]!
+  const key = `sample-${family}`
   return `${head()}
-<div style="width: 480px; height: 640px; background: ${P.bg}; display: flex; flex-direction: column; box-sizing: border-box;">
-  <!-- 책등 — 서가에서 계열을 가르는 자리 -->
-  <div style="display: flex; flex: 1; min-height: 0;">
-    <div style="width: 14px; background: ${duo.ink};"></div>
-    <div style="flex: 1; display: flex; flex-direction: column; padding: 28px 30px 0 26px; min-width: 0;">
+<div style="width: 480px; height: 640px; background: ${duo.ink}; display: flex; flex-direction: column; box-sizing: border-box; position: relative;">
+  <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(12,10,8,.30) 0%, rgba(12,10,8,.42) 100%);"></div>
+  <div style="position: absolute; inset: 7%; border: 1px solid ${duo.paper}; opacity: .30;"></div>
 
-      <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px;">
-        <span class="kicker" style="color: ${P.sub};">${VOCAB_SERIES_BRAND}</span>
-        <span class="num" style="font-size: 11px; color: ${duo.ink};">VOL. 05</span>
-      </div>
-
-      <div style="margin-top: 6px; height: 1px; background: ${P.line};"></div>
-
-      <!-- 도판 — 듀오톤으로 눌린 자리 -->
-      <div style="margin-top: 26px; background: ${duo.paper}; display: flex; align-items: center; justify-content: center; padding: 16px 0;">
-        <svg width="212" height="172" viewBox="0 0 212 172" fill="none"
-             stroke="${duo.ink}" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-          ${PLATE[family]}
-        </svg>
-      </div>
-
-      <div style="margin-top: 26px; display: flex; flex-direction: column; gap: 8px;">
-        <span class="kicker" style="color: ${duo.ink};">${d.en} · ${d.ko} 계열</span>
-        <h1 class="serif" style="margin: 0; font-size: 34px; line-height: 1.18; font-weight: 600; color: ${P.ink}; text-wrap: pretty;">
-          어원으로 익히는<br>1,500
-        </h1>
-        <p style="margin: 0; font-size: 13px; line-height: 1.6; color: ${P.sub};">${d.grain}</p>
-      </div>
-
+  <div style="position: relative; display: flex; flex-direction: column; height: 100%; padding: 34px 34px 26px; box-sizing: border-box;">
+    <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px;">
+      <span class="kicker" style="color: ${duo.paper}; opacity: .85;">${VOCAB_SERIES_BRAND}</span>
+      <span class="num" style="font-size: 11px; color: ${duo.paper}; opacity: .85;">VOL. 05</span>
     </div>
-  </div>
 
-  <!-- 사다리 — 시중 단어장의 뒤표지가 하는 일(다음에 무엇을 볼지)을 앞으로 당겼다 -->
-  <div style="display: flex; align-items: center; gap: 10px; padding: 16px 30px 22px 40px; border-top: 1px solid ${P.line};">
-    <span class="kicker" style="color: ${P.sub};">사다리</span>
-    <div style="display: flex; gap: 6px;">
-      ${[1, 2, 3, 4, 5, 6, 7]
-        .map(
-          (n) =>
-            `<span class="num" style="font-size: 11px; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: 3px; ${
-              n === 5
-                ? `background: ${duo.ink}; color: ${P.bg};`
-                : `border: 1px solid ${P.line}; color: ${P.sub};`
-            }">${n}</span>`,
-        )
-        .join('\n      ')}
+    <div style="flex: 1; display: flex; align-items: center; justify-content: center; padding: 18px 0 0;">
+      ${plateSvg(family, key, duo.paper)}
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 7px;">
+      <span class="kicker" style="color: ${duo.paper}; opacity: .8;">${d.en} · ${d.ko} 계열</span>
+      <h1 class="serif" style="margin: 0; font-size: 32px; line-height: 1.18; font-weight: 600; color: #FFFFFF; text-wrap: pretty;">
+        어원으로 익히는 1,500
+      </h1>
+      <p style="margin: 0; font-size: 12.5px; line-height: 1.6; color: ${duo.paper}; opacity: .78;">${d.grain}</p>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 10px; margin-top: 16px; padding-top: 14px; border-top: 1px solid ${duo.paper}33;">
+      <span class="kicker" style="color: ${duo.paper}; opacity: .7;">사다리</span>
+      <div style="display: flex; gap: 6px;">
+        ${[1, 2, 3, 4, 5, 6, 7]
+          .map(
+            (n) =>
+              `<span class="num" style="font-size: 11px; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: 3px; ${
+                n === 5
+                  ? `background: ${duo.paper}; color: ${duo.ink};`
+                  : `border: 1px solid ${duo.paper}55; color: ${duo.paper}; opacity: .8;`
+              }">${n}</span>`,
+          )
+          .join('\n        ')}
+      </div>
     </div>
   </div>
 </div>

@@ -12,7 +12,8 @@ import { useEffect, useState } from 'react'
 import { Check, Loader2, Minus, Plus, Users } from 'lucide-react'
 
 import { GradientBookCover } from '@/components/library/shared/GradientBookCover'
-import { VocabCoverPlate } from './VocabCoverPlate'
+import { coverFamilyOf } from '@/lib/vcb/covers/design'
+import { VocabCoverArt } from './VocabCoverArt'
 import { bookCover, cefrToVLevel } from '@/lib/library/book-cover'
 import { rungForSet } from '@/lib/library/vocab/rung'
 import { VOCAB_SERIES_BRAND } from '@vocaflow/library-pipeline/vocab-brand'
@@ -57,9 +58,15 @@ export function VocabSetCard({
   })
   const cat = vocabCategoryMeta(set.category)
 
-  // 표지 도판 + 계열. 도판이 없으면 종전 그라디언트 표지가 그대로 남는다(공백 아님).
-  const coverImage = set.coverImageUrl
-  const family = set.coverImageMeta?.family
+  /*
+    표지 — 이제 **그린다**(`VocabCoverArt`). 계열은 브랜드 각인이 정본이다:
+    수집 도판의 메타를 정본으로 쓰면 도판을 못 받은 권은 계열이 없어 표지를 그릴 수 없다.
+    계열은 그림의 성질이 아니라 그 책의 성질이다.
+
+    열쇠는 **슬러그**다 — id 를 쓰면 재발행 때 표지가 바뀌는데 학습자에게는 같은 책이다.
+  */
+  const family = coverFamilyOf(set.brandFamily ?? set.coverImageMeta?.family ?? null)
+  const artKey = set.slug ?? set.title
 
   // 사다리에서의 자리. 컴포저가 정한 값이 DB 에 있으면 그것을 쓰는 것이 맞지만, 카드는
   // 아직 그 컬럼을 받지 않는다 — 여기서는 카테고리·CEFR 로 **추정**한다(`rungForSet`).
@@ -98,14 +105,16 @@ export function VocabSetCard({
           `,
         }}
       >
-        {/* 표지 도판 — 캐러셀과 **같은 컴포넌트**를 쓴다(왜 듀오톤인지는 그쪽 머리 주석). */}
-        <VocabCoverPlate url={coverImage} family={family} scrim="card" />
+        {/* 표지 도판 — 캐러셀과 **같은 컴포넌트**를 쓴다. 이제 수집이 아니라 그린다. */}
+        <VocabCoverArt family={family} artKey={artKey} scrim="card" />
 
         {/* 클로스바운드 표지 — 중앙 serif 제목 + 단어수 + 이모지 장식 (그리드라 compact) */}
         <GradientBookCover
           title={set.title}
           subtitle={`${set.wordCount.toLocaleString()} 단어`}
-          ornament={coverImage ? null : set.coverEmoji}
+          // 이모지 장식은 **도판을 못 받은 권의 대타**였다. 이제 모든 권이 도판을 그리므로
+          //   자리가 없다 — 두면 선화 위에 이모지가 겹친다.
+          ornament={null}
           // 시리즈 줄 — 계단이 있으면 그 권 이름(`Vocaflow 3`), 학령 밖이면 시리즈명만.
           //   값을 여기서 짓지 않는다: 정본 사다리에서 읽는다.
           series={rung?.volumeTitle ?? VOCAB_SERIES_BRAND}
