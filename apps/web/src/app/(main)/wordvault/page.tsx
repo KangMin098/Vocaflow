@@ -21,9 +21,11 @@
 // ⚠️ 허브 통계는 목업으로 폴백하지 않는다 — "못 셌다" 와 "세어보니 0" 을 화면이 구별한다.
 
 import { redirect } from 'next/navigation'
+import { Suspense } from 'react'
 
 import { WordVaultHub } from '@/components/wordvault/hub/WordVaultHub'
 import { WordVaultHubChrome } from '@/components/wordvault/hub/WordVaultHubChrome'
+import { WordVaultHubSkeleton } from '@/components/wordvault/hub/WordVaultHubSkeleton'
 import { fetchFacetSummary } from '@/lib/framework/word-progress-query'
 import type { FacetSummary } from '@/lib/framework/word-progress-query'
 import { createClient } from '@/lib/supabase/server'
@@ -63,6 +65,26 @@ export default async function WordVaultPage({ searchParams }: PageProps) {
     redirect(qs ? `${target}?${qs}` : target)
   }
 
+  return (
+    <WordVaultHubChrome activeView="hub">
+      {/* 메인은 셸이 칠해진 **뒤에** 흘러 들어온다 — 아래 주석 참조 */}
+      <main className="flex-1 overflow-y-auto bg-[var(--bg2)] pb-12">
+        <Suspense fallback={<WordVaultHubSkeleton />}>
+          <HubSection />
+        </Suspense>
+      </main>
+    </WordVaultHubChrome>
+  )
+}
+
+/**
+ * 데이터가 필요한 부분만 따로 떼어 **스트리밍**한다.
+ *
+ * ⚠️ 이것을 페이지 본문에 그대로 두면 두 조회가 끝날 때까지 **첫 픽셀이 안 나온다** —
+ *    실측 2026-09-06 콜드 진입 본문 등장 **2,831ms**(학습자는 그동안 흰 화면을 본다).
+ *    셸(`WordVaultHubChrome`)은 조회와 무관하므로 먼저 칠하고, 이 안만 기다린다.
+ */
+async function HubSection() {
   const supabase = await createClient()
   const {
     data: { user },
@@ -86,16 +108,13 @@ export default async function WordVaultPage({ searchParams }: PageProps) {
     }
   }
 
+  // 셸(`WordVaultHubChrome`)과 `<main>` 은 **페이지가 이미 그렸다** — 여기서 또 그리면
+  // 캔버스가 두 겹이 되고 스크롤 컨테이너도 둘이 된다.
   return (
-    <WordVaultHubChrome activeView="hub">
-      {/* ── 메인 (iOS 그레이 캔버스) ── */}
-      <main className="flex-1 overflow-y-auto bg-[var(--bg2)] pb-12">
-        <WordVaultHub
-          data={data}
-          facets={facets}
-          state={!user ? 'unauthenticated' : failed || !data ? 'error' : 'ready'}
-        />
-      </main>
-    </WordVaultHubChrome>
+    <WordVaultHub
+      data={data}
+      facets={facets}
+      state={!user ? 'unauthenticated' : failed || !data ? 'error' : 'ready'}
+    />
   )
 }
