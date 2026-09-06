@@ -1,5 +1,8 @@
 // apps/web/src/app/api/srs/flush/route.ts
 //
+// @auth delegated — 인증은 `flushPendingSrsResults`(server action 본체)가 쿠키로 한다.
+//   여기서 또 하면 두 곳이 반드시 갈라진다.
+//
 // **화면을 떠나는 순간에도 평가를 보낼 수 있는 경로.**
 //
 // ── 왜 server action 으로 부족한가 ──────────────────────────────────────

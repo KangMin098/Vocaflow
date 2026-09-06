@@ -1,5 +1,8 @@
 // apps/web/src/app/api/fit/route.ts
 //
+// @auth public — 공개 진단 화면 /fit 의 백엔드. service_role 을 쓰지 않고 anon 키로
+//   공개 테이블만 읽는다(RLS 그대로).
+//
 // 공개 지문 진단 API — `/fit` 화면이 쓰는 유일한 분석 경로.
 //
 // 왜 서버로 옮겼나 (2026-08-17):

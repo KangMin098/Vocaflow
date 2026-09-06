@@ -616,14 +616,29 @@ const reach = { depth: new Map(), unreachable: [], maxDepth: 0 }
 // (그 스펙이 CI 에서 영원히 skip 되던 게이트도 같은 날 고쳤다.)
 
 // ── 전역: API 가드 ───────────────────────────────────────────────────────────
+// ⚠️ 예전 판은 admin 가드만 찾고 나머지를 전부 「없음」에 넣었다. 그러면 학습자 라우트와
+//   의도적으로 공개인 라우트가 같은 칸에 쌓여 **영원히 6** 이 되고, 그 수는 아무도 안 본다.
+//   상시로 0 이 아닌 검사는 새 위반을 숨긴다 — 진짜 구멍이 7번째로 들어와도 안 보인다.
+//   그래서 갈래를 늘리고, 가드가 없는 라우트는 **왜 없는지 선언**하게 한다:
+//     `// @auth public — <이유>`      아무나 불러도 되는 경로 (공개 진단 · 콘텐츠 정보 등)
+//     `// @auth delegated — <어디로>` 인증이 호출하는 쪽에 있는 경로 (server action 재사용 등)
+//   선언 없이 가드가 없으면 그때만 위반이다.
+const AUTH_DECL_RE = /\/\/\s*@auth\s+(public|delegated)\b/
 const apiRoutes = walk(API_APP).filter((p) => p.endsWith(`${sep}route.ts`))
-const apiGuard = { json: [], rscRedirect: [], token: [], none: [] }
+const apiGuard = { json: [], rscRedirect: [], token: [], user: [], declared: [], none: [] }
 for (const f of apiRoutes) {
   const src = read(f)
   const name = rel(f).replace('apps/web/src/app/api/', '').replace('/route.ts', '')
+  const decl = src.match(AUTH_DECL_RE)
+  // 학습자 인증 — `auth.getUser()` 로 확인하고 사용자가 없으면 401/403 을 돌려주는가.
+  // 둘 다 있어야 한다. getUser 만 부르고 그냥 진행하면 가드가 아니다.
+  const userGuard =
+    /auth\.getUser\s*\(/.test(src) && /status:\s*40[13]/.test(src) && /!\s*user\b/.test(src)
   if (/requireAdminApi\s*\(/.test(src)) apiGuard.json.push(name)
   else if (/\brequireAdmin\s*\(/.test(src)) apiGuard.rscRedirect.push(name)
   else if (/INTERNAL_TOKEN|X-[A-Z]+-Token/.test(src)) apiGuard.token.push(name)
+  else if (userGuard) apiGuard.user.push(name)
+  else if (decl) apiGuard.declared.push(`${name} (${decl[1]})`)
   else apiGuard.none.push(name)
 }
 
@@ -721,10 +736,11 @@ if (AS_JSON) {
   console.log(`\n조회 실패를 0/빈값으로 뭉개는 자리: ${swallowHits.length}`)
   for (const s of swallowHits.slice(0, 15)) console.log(`  [${s.kind}] ${s.at}`)
   console.log(
-    `\nAPI 가드 — 총 ${apiRoutes.length} · JSON 401 ${apiGuard.json.length} · RSC redirect ${apiGuard.rscRedirect.length} · 토큰 ${apiGuard.token.length} · 없음 ${apiGuard.none.length}`,
+    `\nAPI 가드 — 총 ${apiRoutes.length} · admin JSON 401 ${apiGuard.json.length} · RSC redirect ${apiGuard.rscRedirect.length} · 토큰 ${apiGuard.token.length} · 학습자 401 ${apiGuard.user.length} · 선언된 예외 ${apiGuard.declared.length} · **미선언 무가드 ${apiGuard.none.length}**`,
   )
   if (apiGuard.rscRedirect.length) console.log(`  redirect: ${apiGuard.rscRedirect.join(', ')}`)
-  if (apiGuard.none.length) console.log(`  없음: ${apiGuard.none.join(', ')}`)
+  if (apiGuard.declared.length) console.log(`  선언된 예외: ${apiGuard.declared.join(', ')}`)
+  if (apiGuard.none.length) console.log(`  미선언 무가드: ${apiGuard.none.join(', ')}`)
   console.log('')
 }
 
@@ -737,5 +753,16 @@ if (!Number.isNaN(failUnder) && score < failUnder) {
 // (화면은 멀쩡히 렌더된다) 링크 하나가 사라지면 조용히 생긴다.
 if (!Number.isNaN(failUnder) && reach.unreachable.length > 0) {
   console.error(`FAIL — 메뉴에서 도달 못 하는 화면 ${reach.unreachable.length}개: ${reach.unreachable.join(', ')}`)
+  process.exit(1)
+}
+
+// 가드도 없고 왜 없는지 선언도 없는 API 라우트. 「공개인가 잊었는가」를 코드가 말하게 하는
+// 것이 요점이다 — 사람이 매번 다시 판단하면 언젠가 틀린다.
+if (!Number.isNaN(failUnder) && apiGuard.none.length > 0) {
+  console.error(
+    `FAIL — 가드도 선언도 없는 API 라우트 ${apiGuard.none.length}개: ${apiGuard.none.join(', ')}\n` +
+      `       공개가 맞다면 route.ts 머리에 \`// @auth public — <이유>\` 를,\n` +
+      `       인증이 한 겹 안에 있다면 \`// @auth delegated — <어디로>\` 를 적는다.`,
+  )
   process.exit(1)
 }

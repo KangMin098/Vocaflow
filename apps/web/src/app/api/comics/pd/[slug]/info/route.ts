@@ -1,5 +1,8 @@
 // apps/web/src/app/api/comics/pd/[slug]/info/route.ts
 //
+// @auth public — /comics 카탈로그 공개 정책(발견·SEO). RPC 가 published 만 돌려주므로
+//   미발행 호의 서지는 새지 않는다.
+//
 // 콘텐츠 정보 팝업 데이터 — 학습자 공개 경로.
 //
 // 왜 별도 라우트인가: 서가에 카드가 수십~수백 개인데 정보를 미리 다 실어 보내면 첫 페인트가

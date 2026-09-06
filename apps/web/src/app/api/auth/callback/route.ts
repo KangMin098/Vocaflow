@@ -1,5 +1,7 @@
 // apps/web/src/app/api/auth/callback/route.ts
 //
+// @auth public — 인증 그 자체를 수행하는 경로다. 로그인 전에 불리므로 가드를 걸 수 없다.
+//
 // Supabase 인증 callback Route Handler — 4가지 진입 케이스 처리.
 //
 // 1) Supabase 가 실어 보낸 실패 파라미터 (?error=&error_code=&error_description=)
