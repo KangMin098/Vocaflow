@@ -203,6 +203,54 @@ export function coverSvg(
   const bandTop = Math.round(H * 0.58)
   const bandH = H - bandTop
 
+  // ── 책등 ────────────────────────────────────────────────────────
+  // 실제 책은 왼쪽에 등이 있다. 표지를 정면으로만 그리면 **종이 한 장**으로 읽히고,
+  // 서가에 세워 둔 물건으로 안 읽힌다. 폭은 판형에 비례한다(4.4% — 112px 표지에서 5px).
+  //
+  // ⚠️ 사각형으로 그리면 바깥 테두리의 `rx=3` 밖으로 모서리가 삐져나온다.
+  //   `clipPath` 를 쓰면 표지가 여럿일 때 id 가 충돌하므로(매대에 일곱 장이 깔린다)
+  //   **왼쪽 두 모서리만 둥근 path** 로 직접 그린다 — id 가 없으니 충돌도 없다.
+  const spineW = Math.max(3, Math.round(W * 0.044))
+
+  // ── 지문 리듬 ───────────────────────────────────────────────────
+  // 표지는 조판물이라 그림이 없다(지문이 열세 곳에서 오므로 어떤 그림도 대표하지 못한다).
+  // 그런데 종이 면이 통째로 비면 매대에서 **이미지 면적 0** 이 되고, 그것이 우리 매대가
+  // "텍스트 위주" 로 읽히던 이유였다(2026-09-01 실측 0.56% 대 다락원 31.9%).
+  //
+  // 그래서 **글줄의 리듬**을 옅게 깐다 — 이 책이 읽는 책이라는 것을 그림 없이 말하고,
+  // 지어낸 그림이 아니라서 거짓말도 하지 않는다.
+  const ruleTop = pad + brandSize + Math.round(H * 0.055)
+  const ruleH = Math.max(1.5, W * 0.018)
+  const ruleGap = ruleH + Math.max(2, Math.round(W * 0.026))
+  const ruleWidths = [0.92, 0.78, 0.86, 0.6]
+  const rules = ruleWidths
+    .map(
+      (frac, i) =>
+        `<rect x="${pad + spineW}" y="${(ruleTop + i * ruleGap).toFixed(1)}" ` +
+        `width="${((inner - spineW) * frac).toFixed(1)}" height="${ruleH.toFixed(1)}" rx="${(ruleH / 2).toFixed(1)}" ` +
+        `fill="${spec.pending ? 'var(--bd, #E0DBD0)' : rung}" opacity="${spec.pending ? '0.5' : '0.26'}"/>`,
+    )
+    .join('')
+
+  // 학령 칩 — 글자만 두면 표지에서 안 읽힌다. 테두리를 둘러 **고르는 값**으로 만든다.
+  //
+  // ⚠️ **긴 라벨이 표지 밖으로 넘쳤다**(실측 2026-09-06 — "고3 / 수능 상위" 11자가
+  //   112px 표지에서 칩 폭 113px 로 계산돼 오른쪽이 잘렸다). SVG 는 넘쳐도 오류를 내지
+  //   않고 **조용히 잘린다** — 그래서 폭을 재는 대신 **들어갈 크기로 글자를 줄인다.**
+  //   한글은 1em 에 가깝고 라틴·공백은 그보다 좁아, 1.02em 은 넉넉한 상한이다.
+  const chipPadX = Math.max(4, Math.round(W * 0.045))
+  const chipAvail = inner - spineW
+  const chipFont = Math.max(
+    6,
+    Math.min(bandSize, (chipAvail - chipPadX * 2) / (spec.schoolBand.length * 1.02)),
+  )
+  const chipH = Math.round(chipFont * 1.9)
+  const chipY = bandTop - Math.round(H * 0.045) - chipH
+  const chipW = Math.min(
+    chipAvail,
+    Math.round(spec.schoolBand.length * chipFont * 1.02) + chipPadX * 2,
+  )
+
   return [
     `<svg viewBox="0 0 ${W} ${H}"${opts.fluid ? ' style="width:100%;height:auto;display:block"' : ` width="${W}" height="${H}"`} role="img"`,
     ` aria-label="${esc(spec.brand)} ${spec.step}권 표지 — ${esc(spec.schoolBand)}"`,
@@ -210,22 +258,34 @@ export function coverSvg(
     // 지면 + 테두리. 테두리가 없으면 밝은 바탕에서 표지가 배경에 녹는다.
     `<rect x="0.5" y="0.5" width="${W - 1}" height="${H - 1}" rx="3" fill="${ground}"`,
     ` stroke="var(--bd, #E0DBD0)"/>`,
+    // 책등 — 왼쪽 두 모서리만 둥글다.
+    `<path d="M${spineW + 0.5} 0.5 H3.5 a3 3 0 0 0 -3 3 V${H - 3.5} a3 3 0 0 0 3 3 H${spineW + 0.5} Z"`,
+    ` fill="${spec.pending ? 'var(--bg3, #ECE6DA)' : rung}"/>`,
     // 계단 색면 — 표지를 구별시키는 것은 여기다.
     `<path d="M0.5 ${bandTop} H${W - 0.5} V${H - 3.5} a3 3 0 0 1 -3 3 H3.5 a3 3 0 0 1 -3 -3 Z"`,
     ` fill="${spec.pending ? 'var(--bg3, #ECE6DA)' : rung}"/>`,
     // 시리즈명 — 종이 쪽에 앉는다.
-    `<text x="${pad}" y="${pad + brandSize}" font-family="Lora, Georgia, serif"`,
+    `<text x="${pad + spineW}" y="${pad + brandSize}" font-family="Lora, Georgia, serif"`,
     ` font-size="${brandSize}" font-weight="600" letter-spacing="${(brandSize * 0.22).toFixed(2)}"`,
     ` fill="${spec.pending ? 'var(--t3, #8A8278)' : rung}">${esc(spec.brand.toUpperCase())}</text>`,
+    rules,
     // 학령 — 종이 쪽. 고르는 사람이 가장 먼저 확인하는 값이라 색면 위에 얹지 않는다.
-    `<text x="${pad}" y="${bandTop - Math.round(H * 0.05)}" font-family="'DM Sans', system-ui, sans-serif"`,
-    ` font-size="${bandSize}" fill="var(--t2, #4A443E)">${esc(spec.schoolBand)}</text>`,
+    `<rect x="${pad + spineW}" y="${chipY}" width="${chipW}" height="${chipH}" rx="${(chipH / 2).toFixed(1)}"`,
+    ` fill="none" stroke="var(--bd, #E0DBD0)"/>`,
+    `<text x="${pad + spineW + chipPadX}" y="${chipY + Math.round(chipH * 0.7)}" font-family="'DM Sans', system-ui, sans-serif"`,
+    ` font-size="${chipFont.toFixed(1)}" fill="var(--t2, #4A443E)">${esc(spec.schoolBand)}</text>`,
     // 권 번호 — 색면 위에 종이색으로 반전. 서가에서 책등처럼 읽힌다.
-    `<text x="${pad}" y="${bandTop + Math.round(bandH * 0.62)}" font-family="Lora, Georgia, serif"`,
+    `<text x="${pad + spineW}" y="${bandTop + Math.round(bandH * 0.62)}" font-family="Lora, Georgia, serif"`,
     ` font-size="${Math.round(bandH * 0.62)}" font-weight="600"`,
     ` fill="${spec.pending ? 'var(--t3, #8A8278)' : 'var(--bg, #FBFAF6)'}">${spec.step}</text>`,
     // 깊이 표시 — 색면 위라 종이색으로 뒤집는다.
-    depthMark(spec, pad, H - pad, inner, spec.pending ? 'var(--bd, #E0DBD0)' : 'var(--bg, #FBFAF6)'),
+    depthMark(
+      spec,
+      pad + spineW,
+      H - pad,
+      inner - spineW,
+      spec.pending ? 'var(--bd, #E0DBD0)' : 'var(--bg, #FBFAF6)',
+    ),
     `</svg>`,
   ].join('')
 }
