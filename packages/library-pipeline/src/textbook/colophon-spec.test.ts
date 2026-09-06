@@ -25,14 +25,26 @@ const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..
 const read = (f: string) =>
   fs.readFileSync(path.resolve(REPO_ROOT, 'scripts/textbook', f), 'utf8')
 
+/**
+ * 문서 조립은 스크립트가 아니라 **패키지**에 있다(2026-09-06 이관) — 뿌리가 달라 helper 를 나눈다.
+ * 조립을 스크립트 최상위에 두면 임포트가 안 돼 회귀를 못 붙인다. 그래서 옮겼고,
+ * 이 검사도 계산(스크립트)과 지면(패키지)을 각자 제자리에서 본다.
+ */
+const readPkg = (f: string) =>
+  fs.readFileSync(path.resolve(REPO_ROOT, 'packages/library-pipeline/src/textbook', f), 'utf8')
+
 describe('판권장 규격 칩', () => {
   const src = read('render-volume.mjs')
 
   it('길이를 하드코딩하지 않는다', () => {
     // ⚠️ 파일 어디에도 없어야 한다고 검사하면 **이 결함을 설명하는 주석까지** 걸린다
     //   (처음에 그렇게 썼다가 걸렸다). 인쇄되는 자리, 즉 칩 템플릿만 본다.
-    expect(src).not.toContain('class="chip">지문 90~200어')
-    expect(src).toContain('class="chip">지문 ${PASSAGE_CHIP}')
+    // 칩을 찍는 자리는 `volume-document.ts` 다(2026-09-06 이관). 스크립트는 값만 넘긴다.
+    const doc = readPkg('volume-document.ts')
+    expect(doc).not.toContain('class="chip">지문 90~200어')
+    expect(doc).toContain('class="chip">지문 ${passageChip}')
+    // 그 값을 실제로 넘기는지는 스크립트 쪽에서 본다 — 안 넘기면 칩이 빈다.
+    expect(src).toContain('passageChip: PASSAGE_CHIP')
   })
 
   it('실제로 인쇄한 유형에서 창을 유도한다', () => {
@@ -61,8 +73,12 @@ describe('판권장 규격 칩', () => {
     expect(src).toContain('assessAnswerBias(counts)')
     expect(src).toContain('summarizeProofread(proofPassages)')
     // 결과를 함께 찍어야 그 줄이 근거가 된다 — 통과 여부만 적으면 또 장식이 된다.
-    expect(src).toContain('bias.chi2.toFixed(1)')
-    expect(src).toContain('proof.defective}/')
+    // ⚠️ 2026-09-06: **찍는 자리가 옮겨졌다.** 계산은 여전히 스크립트가 하고(위 두 줄),
+    //   지면에 올리는 것은 `volume-document.ts` 가 한다. 그래서 여기부터는 그쪽을 본다 —
+    //   문서 조립을 스크립트에 두면 임포트가 안 돼 회귀를 못 붙였다(그것이 옮긴 이유다).
+    const doc = readPkg('volume-document.ts')
+    expect(doc).toContain('answerBias.chi2.toFixed(1)')
+    expect(doc).toContain('proof.defective}/')
   })
 
   it('교정은 **인쇄되는 지문**에 건다 — 저장 원본이 아니다', () => {

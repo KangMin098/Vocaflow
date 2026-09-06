@@ -755,6 +755,10 @@ export {
 } from './textbook/brand'
 export type { BrandSpecRow, Colophon, ColophonInput, VolumePalette } from './textbook/brand'
 
+/** 한 권의 완성 HTML — 순수 함수. 조판 스크립트가 이것만 부른다. */
+export { renderVolumeDocument } from './textbook/volume-document'
+export type { VolumeAnswer, VolumeDocumentInput } from './textbook/volume-document'
+
 /** 표지 — 매대와 조판기가 **같은 표지**를 쓴다(문자열이라 React·Node 양쪽에서 그대로). */
 export { COVER_BRAND, COVER_LIST_WIDTH, COVER_RATIO, coverSpecOf, coverSvg } from './textbook/cover'
 export type { CoverSpec } from './textbook/cover'
