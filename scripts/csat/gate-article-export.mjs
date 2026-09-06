@@ -215,13 +215,22 @@ if (!WRITE) {
   process.exit(0)
 }
 
-const excerpt = (s, from) => String(s ?? '').replace(/\s+/g, ' ').trim().slice(from, from + 420)
+/** 한 창의 길이. 두 창이 겹치지 않으려면 둘째 창은 여기부터 시작해야 한다. */
+const SPAN = 420
+const excerpt = (s, from) => String(s ?? '').replace(/\s+/g, ' ').trim().slice(from, from + SPAN)
 // 제목 묶음마다 **대표 한 편**의 본문만 받으면 된다 — 판정은 제목 단위로 붙는다.
 const bodies = await loadBodies([...byTitle.values()].map((g) => g[0].id))
 const items = [...byTitle.entries()].map(([title, group]) => {
   const r = group[0]
   const body = String(bodies.get(r.id) ?? '').replace(/\s+/g, ' ').trim()
-  const mid = Math.max(0, Math.floor(body.length / 2) - 210)
+  // ⚠️ **두 창이 겹치면 안 된다.** 예전 규칙(`길이/2 - 210`, 900자 넘으면 둘째 창)은
+  //   본문이 900~1,260자일 때 둘째 창을 첫 창 **안에서** 시작시켰다 — 판정자가 같은 문장을
+  //   두 번 읽고 "문단이 통째로 중복된다" 고 보고했다(2026-09-06 기사 판정에서 청크마다 5~9건).
+  //   실제로는 원문이 아니라 이 창 계산이 겹친 것이고, 그만큼 **중간부를 아무도 못 봤다.**
+  //   그래서 둘째 창은 첫 창이 끝난 뒤에서만 시작하고, 남은 본문이 200자도 안 되면 아예 안 뜬다.
+  const secondFrom = Math.max(SPAN, Math.floor(body.length / 2) - Math.floor(SPAN / 2))
+  const excerpts = [excerpt(body, 0)]
+  if (body.length - secondFrom >= 200) excerpts.push(excerpt(body, secondFrom))
   return {
     book: title, // 적재기가 이 이름으로 대조한다 — 기사에서는 제목이다
     url: r.source_url ?? null,
@@ -229,20 +238,57 @@ const items = [...byTitle.entries()].map(([title, group]) => {
     v_level: r.article_v_level ?? null,
     words: r.word_count ?? null,
     rows: group.length,
-    excerpts: [excerpt(body, 0), ...(body.length > 900 ? [excerpt(body, mid)] : [])],
+    excerpts,
   }
 })
 
 fs.mkdirSync(OUT, { recursive: true })
+
+// ── 재실행 안전 — **청크 번호를 항목 위치에서 뽑으면 안 된다** ──────────
+// 예전 규칙은 `items` 의 위치 i 로 번호를 정하고 이미 있는 파일은 건너뛰었다. 그런데
+// 판정이 적재될수록 이 목록은 **줄어든다**(판정된 기사는 훑기에서 빠진다). 그러면 앞자리에
+// 새 기사가 밀려 들어오는데 그 자리 파일은 이미 존재하므로 건너뛴다 — **그 기사들은
+// 영영 청크를 못 받는다.** 오류도 안 나고 개수만 맞아 보인다.
+// 실측 2026-09-06: 1,200편을 적재한 뒤 다시 뽑았더니 chunk-01~12 자리로 밀려든
+// 1,200편이 통째로 빠졌다.
+//
+// 그래서 두 가지로 바꾼다:
+//   ① **이미 어떤 청크에 들어간 제목은 목록에서 뺀다** — 같은 기사가 두 청크에 담겨
+//      서로 다른 판정을 받는 것도 이걸로 막힌다(적재기는 파일 이름 순 나중 것이 이긴다).
+//   ② 번호는 **비어 있는 가장 작은 번호**를 쓴다 — 위치와 무관해진다.
+const already = new Set()
+for (const f of fs.readdirSync(OUT)) {
+  if (!/^chunk-\d+\.json$/.test(f)) continue
+  try {
+    for (const it of JSON.parse(fs.readFileSync(path.join(OUT, f), 'utf8'))) already.add(it.book)
+  } catch {
+    // 반쯤 쓰인 파일이면 이번엔 못 읽는다. 덮지 않는 쪽이 안전하므로 그냥 넘어간다.
+  }
+}
+const pending = items.filter((it) => !already.has(it.book))
+if (already.size) {
+  console.log(`  이미 청크에 들어간 ${already.size.toLocaleString()}편을 빼고 ${pending.length.toLocaleString()}편이 남았다\n`)
+}
+
+let next = 1
+const freeChunk = () => {
+  let file
+  do {
+    file = path.join(OUT, `chunk-${String(next).padStart(2, '0')}.json`)
+    next += 1
+  } while (fs.existsSync(file))
+  return file
+}
+
 let made = 0
-for (let i = 0, n = 1; i < items.length; i += PER, n += 1) {
-  const file = path.join(OUT, `chunk-${String(n).padStart(2, '0')}.json`)
-  // 이미 뽑아 둔 청크는 다시 만들지 않는다 — 채워 둔 것을 덮으면 판정이 날아간다.
-  if (fs.existsSync(file)) continue
+for (let i = 0; i < pending.length; i += PER) {
   if (MAX && made >= MAX) break
-  const slice = items.slice(i, i + PER)
+  const file = freeChunk()
+  const slice = pending.slice(i, i + PER)
   fs.writeFileSync(file, `${JSON.stringify(slice, null, 1)}\n`)
   console.log(`  ${path.relative(process.cwd(), file)} — ${slice.length}편`)
   made += 1
 }
+const left = Math.max(0, pending.length - made * PER)
 console.log(`\n  청크 ${made}개. 각 청크를 판정해 같은 이름 + .out.json 으로 저장할 것.`)
+if (left) console.log(`  아직 청크로 안 뽑은 기사 ${left.toLocaleString()}편 — 다시 돌리면 이어서 뽑는다.`)

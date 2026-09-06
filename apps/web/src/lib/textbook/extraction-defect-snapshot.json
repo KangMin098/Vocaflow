@@ -1,0 +1,190 @@
+{
+  "measuredAt": "2026-09-06T11:07:42.486Z",
+  "elapsedSeconds": 248.7,
+  "scope": "status in ('ready','published')",
+  "scanned": 21740,
+  "defective": 13224,
+  "rules": [
+    {
+      "id": "html-attr",
+      "label": "HTML 속성 혼입",
+      "why": "툴팁·링크 속성이 문장 한복판에 남았다 — 그대로 인쇄된다",
+      "count": 3,
+      "bySource": [
+        {
+          "source": "plos",
+          "count": 3
+        }
+      ],
+      "samples": [
+        {
+          "title": "The normal human lymph node cell classification an",
+          "source": "plos",
+          "evidence": "<A"
+        },
+        {
+          "title": "Mechanistic origin of high-cycle fatigue enhanceme",
+          "source": "plos",
+          "evidence": "<a"
+        },
+        {
+          "title": "Patient perceptions and preferences during a commu",
+          "source": "plos",
+          "evidence": "<a"
+        }
+      ]
+    },
+    {
+      "id": "wiki-markup",
+      "label": "위키 마크업 잔재",
+      "why": "`== 절 ==` · `[[링크]]` · `{{틀}}` 이 본문에 남았다",
+      "count": 14,
+      "bySource": [
+        {
+          "source": "plos",
+          "count": 10
+        },
+        {
+          "source": "simple_wikipedia",
+          "count": 2
+        },
+        {
+          "source": "wikipedia",
+          "count": 2
+        }
+      ],
+      "samples": [
+        {
+          "title": "Community health volunteers as a frontline platfor",
+          "source": "plos",
+          "evidence": "[[,]]"
+        },
+        {
+          "title": "Advanced preclinical testing of a design-optimized",
+          "source": "plos",
+          "evidence": "[[,–]]"
+        },
+        {
+          "title": "Implementation strategies for integrating non-comm",
+          "source": "plos",
+          "evidence": "[[“2016”,”12”]]"
+        }
+      ]
+    },
+    {
+      "id": "browser-notice",
+      "label": "브라우저·재생기 안내",
+      "why": "본문 자리에 \"구형 브라우저\" · \"여기를 눌러 내려받기\" 가 들어왔다 — 추출 실패",
+      "count": 38,
+      "bySource": [
+        {
+          "source": "space_place",
+          "count": 24
+        },
+        {
+          "source": "nasa",
+          "count": 14
+        }
+      ],
+      "samples": [
+        {
+          "title": "How Far Away Is the Moon? (앞부분 발췌)",
+          "source": "space_place",
+          "evidence": "You are using an outdated browser"
+        },
+        {
+          "title": "NASA’s COFFIES Uses AI to Predict Storm-Causing Ac",
+          "source": "nasa",
+          "evidence": "enable JavaScript"
+        },
+        {
+          "title": "APOD: 2026 August 19 - The Case of the Mysterious ",
+          "source": "nasa",
+          "evidence": "enable JavaScript"
+        }
+      ]
+    },
+    {
+      "id": "dup-paragraph",
+      "label": "문단 통째 중복",
+      "why": "같은 문단이 두 번 들어 있다 — 어수가 부풀고 읽으면 되풀이된다",
+      "count": 12917,
+      "bySource": [
+        {
+          "source": "plos",
+          "count": 12878
+        },
+        {
+          "source": "futurity",
+          "count": 15
+        },
+        {
+          "source": "nasa",
+          "count": 8
+        },
+        {
+          "source": "usgs",
+          "count": 8
+        },
+        {
+          "source": "noaa",
+          "count": 4
+        },
+        {
+          "source": "voa",
+          "count": 2
+        },
+        {
+          "source": "space_place",
+          "count": 2
+        }
+      ],
+      "samples": [
+        {
+          "title": "NOAA leaders, experts and climate science take the",
+          "source": "noaa",
+          "evidence": "NOAA experts are on the ground in Dubai as part of the U.S. "
+        },
+        {
+          "title": "NASA’s COFFIES Uses AI to Predict Storm-Causing Ac",
+          "source": "nasa",
+          "evidence": "To view this video please enable JavaScript, and consider up"
+        },
+        {
+          "title": "PLGA - encapsulated harmine derivative H-2-168: A ",
+          "source": "plos",
+          "evidence": "Harmine (HM), a bioactive alkaloid, exhibits remarkable anti"
+        }
+      ]
+    },
+    {
+      "id": "share-chrome",
+      "label": "공유 버튼·크레딧 잔재",
+      "why": "\"Facebook Pinterest X LinkedIn\" · \"Image Credit:\" 가 본문에 섞였다",
+      "count": 286,
+      "bySource": [
+        {
+          "source": "nasa",
+          "count": 286
+        }
+      ],
+      "samples": [
+        {
+          "title": "Ike Theriot Helps Prepare Astronauts to Work on th",
+          "source": "nasa",
+          "evidence": "5 Min Read"
+        },
+        {
+          "title": "NASA’s COFFIES Uses AI to Predict Storm-Causing Ac",
+          "source": "nasa",
+          "evidence": "6 min read"
+        },
+        {
+          "title": "NASA Pushes New Wing Design to Find Structural Lim",
+          "source": "nasa",
+          "evidence": "3 Min Read"
+        }
+      ]
+    }
+  ]
+}
