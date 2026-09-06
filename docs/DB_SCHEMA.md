@@ -84,6 +84,48 @@ RLS 켜고 **정책 없음 = service_role 전용**. 인덱스 `idx_qdc_rotation(
 전체 카운트조차 heap fetch 35,056 번을 했다. 사용자 승인으로 `VACUUM (ANALYZE)` 를
 한 번 돌렸다 — 마이그레이션에는 넣지 않는다(스키마가 아니라 유지보수이고 트랜잭션 밖에서만 돈다).
 
+### 📐 `library_articles` — 조판 풀 밴드 인덱스 (2026-09-06) ⚠️ **아직 미적용**
+
+[20260906030000](../supabase/migrations/20260906030000_idx_la_pool_band.sql) —
+`idx_la_pool_band (article_v_level, id) WHERE status IN ('ready','published')`.
+
+**조판이 지금 통째로 멈춰 있다.** `loadVolume` 이 권마다 던지는
+`status in ('ready','published') AND article_v_level = $1 ORDER BY id` 가
+**전량 Seq Scan** 이라 8초 statement timeout 을 넘긴다.
+
+| 질의 (PostgREST 경유 · limit 1000) | 결과 | 시간 |
+|---|---|---|
+| `status` 만 + keyset(`order by id`) | 200 · 1,000행 | 6,184ms |
+| `+ article_v_level = 9` (재고 **11편**) | **500 timeout** | 8,048ms |
+| `article_v_level = 9` 만 | **500 timeout** | 8,308ms |
+| `+ article_v_level = 4` (재고 856편) | **500 timeout** | 8,658ms |
+
+**밴드가 붙는 순간 죽는다 — 그 밴드에 몇 편이 있든 상관없다.** `article_v_level` 로 시작하는
+인덱스가 하나도 없어(이 표의 인덱스는 `idx_la_compose_batch` ·
+`idx_library_articles_cover_missing` · `idx_la_csat_fit_pass` 셋뿐) 11편을 찾으려고
+91,358행을 전부 훑고, 본문이 1.3GB 라 그 훑기가 8초를 넘는다.
+
+⚠️ **화면·회귀로는 안 보인다.** 조판을 실제로 돌려야 나타난다 — 2026-09-06 에 원문 적격
+게이트를 배선하고 V4 조판으로 검증하려다 발견했다(`library_articles 커서 조회 실패:
+canceling statement due to statement timeout`). 같은 계열을 같은 날 이미 한 번 고쳤다
+(`20260906080000` — `csat_dcp_items` 의 ref_id 선두 인덱스). **거르는 곳과 인덱스를 타는
+곳이 다르다**는 같은 교훈이다.
+
+⚠️ 부분 인덱스라 `volume-pool.mjs` 의 `.in('status', ['ready','published'])` 와 **한 벌**이다.
+그쪽 조건이 바뀌면 인덱스가 조용히 안 쓰이고 다시 8초 절벽으로 돌아간다.
+
+**적용 상태**: 사용자 승인(2026-09-06)은 받았으나 **아직 안 들어갔다** — Supabase MCP 가
+연결 실패(`CONNECTION_CLOSED`)이고, CLI 는 링크가 안 잡히며 `db push` 는 DB 비밀번호가 필요하다.
+적용 뒤 확인:
+
+```sql
+explain analyze
+  select id from public.library_articles
+   where status in ('ready','published') and article_v_level = 4
+   order by id asc limit 1000;
+-- Index Scan using idx_la_pool_band 이어야 한다. Seq Scan 이면 술어가 어긋난 것이다.
+```
+
 ### 📐 `csat_dcp_items` — ref_id 인덱스 (2026-09-06)
 
 [20260906080000](../supabase/migrations/20260906080000_idx_dcp_items_ref_id.sql) —

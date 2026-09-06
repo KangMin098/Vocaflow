@@ -10,6 +10,33 @@
 
 ## Unreleased (v06.34 → next)
 
+### ⚠️ 조판이 통째로 멈춰 있다 — 밴드 필터가 91,358행 Seq Scan (2026-09-06)
+
+- 원문 적격 게이트를 배선하고 **V4 조판으로 검증하려다** 발견했다. 회귀 57종은 전부 통과했고
+  화면도 멀쩡한데, 실제로 돌리니 `library_articles 커서 조회 실패: canceling statement due to
+  statement timeout` 이었다. **실행해 보기 전에는 안 보이는 종류의 결함**이다.
+- 원인은 내 변경이 아니다(원래 select 로도 같다). `loadVolume` 의
+  `status in ('ready','published') AND article_v_level = $1 ORDER BY id` 에서
+  **밴드가 붙는 순간 죽는다 — 그 밴드에 몇 편이 있든 상관없다**:
+
+  | 질의 (limit 1000) | 결과 | 시간 |
+  |---|---|---|
+  | `status` 만 + keyset | 200 · 1,000행 | 6,184ms |
+  | `+ article_v_level = 9` (재고 11편) | **500 timeout** | 8,048ms |
+  | `+ article_v_level = 4` (재고 856편) | **500 timeout** | 8,658ms |
+
+  `article_v_level` 로 시작하는 인덱스가 하나도 없어 11편을 찾으려고 91,358행을 훑고,
+  본문이 1.3GB 라 그 훑기가 8초를 넘는다. **`status` 만 쓰는 훑기도 6.2초** — 절벽 코앞이라
+  원문 적격 스캔도 곧 같은 곳에서 죽는다.
+- 처방은 부분 인덱스 하나 —
+  [20260906030000](../supabase/migrations/20260906030000_idx_la_pool_band.sql)
+  `(article_v_level, id) WHERE status IN ('ready','published')` · 21,839행(전체의 24%).
+  **사용자 승인은 받았으나 아직 적용 못 했다** — Supabase MCP 가 `CONNECTION_CLOSED` 이고,
+  CLI 는 링크가 안 잡히며 `db push` 는 DB 비밀번호를 요구한다.
+- 같은 계열을 같은 날 이미 한 번 고쳤다(`20260906080000` — `csat_dcp_items` ref_id 인덱스).
+  교훈이 같다: **거르는 곳과 인덱스를 타는 곳이 다르다.** 표가 커지면서 넘은 절벽이고,
+  다음 표가 어디인지는 실제로 돌려 봐야 안다.
+
 ### 화면도움말이 죽은 라우트를 가리키던 것 — 그리고 그걸 잡는 자 (2026-09-06)
 
 - `/admin/textbook` 을 지운 커밋이 그 라우트를 가리키던 도움말 링크 **셋**을 남겼다.
