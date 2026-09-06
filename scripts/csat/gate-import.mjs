@@ -16,7 +16,8 @@
 //
 // 재실행 안전: 같은 판정을 다시 써도 결과가 같다. 이미 같은 값이면 건너뛴다.
 //
-// 실행: node scripts/csat/gate-import.mjs [--commit]
+// 실행: node scripts/csat/gate-import.mjs [--commit] [--rate 8] [--stale] [--curl]
+//   --rate 는 **초당 쓰기 수**다. 기본 8 — 이 드레인이 분당 1,100건을 써서 DB 를 무너뜨린 뒤 붙였다.
 
 import fs from 'node:fs'
 import path from 'node:path'
@@ -59,6 +60,37 @@ for (const f of fs.readdirSync(DRAIN).filter((f) => f.endsWith('.out.json')).sor
  *   `settled` 가 판정을 안 봐서 새 판정이 반영되지 않았다. 한 벌로 둬야 둘이 안 갈린다.
  */
 const keyOf = (r) => String(r.title ?? '').split(' — ')[0].trim() || '(무제)'
+
+/**
+ * **쓰기 속도 제한 — 이 드레인이 DB 를 무너뜨렸기 때문에 있다.**
+ *
+ * 실측 2026-09-06: 이 스크립트가 3,353편을 **한 행씩 PATCH** 로 썼다.
+ * edge 로그에 `PATCH /rest/v1/library_articles` 가 07:21~07:23 세 분 동안
+ * 878 · 1,569 · 906 건(합계 정확히 3,353)으로 찍혔다 — **분당 1,100건**이다.
+ * 같은 시각 다른 세션의 사전 드레인이 `shared_dictionary` 에 분당 1,878건을 쓰고 있었고,
+ * 둘이 겹쳐 I/O 가 포화됐다. 08 시대에 Postgres·PostgREST 로그가 끊기고
+ * 09 시부터 **전 소스 0** — 게이트웨이만 살아 Cloudflare 522 를 돌려주는 상태가 40분 이어졌다.
+ *
+ * ⚠️ **일괄 upsert 로 바꾸지 않았다.** 행마다 `csat_fit` 이 달라 한 문장으로 못 묶고,
+ *   PostgREST upsert 는 payload 에 없는 NOT NULL 열에서 터질 수 있다 — 판정을 넣으려다
+ *   원문을 깨뜨리는 위험을 감수할 자리가 아니다. **속도를 줄이는 쪽이 맞다**:
+ *   WAL 총량은 그대로여도 체크포인트가 몰리지 않는다.
+ *
+ * 기본 8건/초(3,353편이면 약 7분). 급하면 `--rate 20`, 다른 드레인과 겹칠 때는 `--rate 3`.
+ */
+const rateArg = (() => {
+  const i = process.argv.indexOf('--rate')
+  return i > 0 && process.argv[i + 1] ? Number(process.argv[i + 1]) : NaN
+})()
+const RATE = Number.isFinite(rateArg) && rateArg > 0 ? rateArg : 8
+let lastWriteAt = 0
+const pace = async () => {
+  const gap = 1000 / RATE
+  const wait = lastWriteAt + gap - Date.now()
+  // `sleep` 은 아래에서 정의된다 — `pace` 는 훑기 루프 안에서만 불리므로 그때는 이미 있다.
+  if (wait > 0) await new Promise((r) => setTimeout(r, wait))
+  lastWriteAt = Date.now()
+}
 
 console.log('게이트 적용' + (COMMIT ? ' — **쓴다**' : ' — 예행(쓰지 않는다)'))
 console.log('='.repeat(78))
@@ -291,6 +323,7 @@ for (;;) {
       patch.status = 'queued'
       patch.status_message = null
     }
+    await pace()
     await retry(() => db.from('library_articles').update(patch).eq('id', row.id), `쓰기 ${row.id}`)
     tally.wrote += 1
   }

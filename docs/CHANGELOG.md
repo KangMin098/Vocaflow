@@ -10,6 +10,31 @@
 
 ## Unreleased (v06.34 → next)
 
+### 🔴 DB 장애 — 쓰기 폭주 두 갈래가 겹쳤고 한쪽은 이 저장소의 적재기였다 (2026-09-06)
+
+- **증상**: `/auth/v1/health` 조차 Cloudflare **522(Connection timed out)** 를 90초 만에 돌려주는
+  상태가 40분 이상. 회복 감시 60회 전부 실패.
+- **층 가르기**(`/db-incident` 절차 — SQL 을 한 줄도 안 쓴다): 로그 스트림은 살아 있었다.
+  | 시각(UTC) | edge | postgrest | postgres | auth |
+  |---|---|---|---|---|
+  | 07:00 | 58,378 | 813 | 507 | 7,492 |
+  | 08:00 | 3,033 | **27** | **21** | 713 |
+  | 09:00 | 68 | **0** | **0** | **0** |
+  게이트웨이만 살고 그 뒤가 전부 죽었다.
+- **원인** — 07:04~07:27 의 쓰기 폭주 두 갈래가 겹쳤다(전부 `204` = `return=minimal` 쓰기):
+  · `PATCH /rest/v1/shared_dictionary` **1,878건/분**(다른 세션의 사전 드레인)
+  · `PATCH /rest/v1/library_articles` 878 · **1,569** · 906 건/분 — **합계 정확히 3,353**,
+    즉 **이 저장소의 `gate-import.mjs` 가 쓴 판정 3,353편**이다. 분당 1,100건.
+  · 더해 Playwright E2E 가 `/auth/v1/user` **799건/분**.
+- **고침** — `gate-import.mjs` 에 **쓰기 속도 제한**(`--rate`, 기본 8건/초)을 넣었다.
+  ⚠️ 일괄 upsert 로 바꾸지 **않았다**: 행마다 `csat_fit` 이 달라 한 문장으로 못 묶고,
+  PostgREST upsert 는 payload 에 없는 NOT NULL 열에서 터질 수 있다 — 판정을 넣으려다
+  원문을 깨뜨릴 자리가 아니다. 속도를 줄이면 WAL 총량은 같아도 **체크포인트가 몰리지 않는다.**
+- **남는 것**: 프로젝트 재시작은 사람만 할 수 있다(대시보드 → Settings → General → Restart project).
+  로컬 부하 정지도 시도했으나 이 세션의 권한 정책이 프로세스 종료를 막았다 — 사용자에게 넘겼다.
+- ⚠️ **이 장애를 `db_health_findings` 에 못 남겼다** — DB 가 죽어 있어서다.
+  살아나면 `capacity:write_storm:/rest/v1/library_articles` 로 기록할 것.
+
 ### DB 가 08:05 UTC 이후 응답하지 않는다 — 원인 기록 (2026-09-06)
 
 `/db-incident` 절차대로 **SQL 없이** 로그 스트림과 관리 API 만으로 좁혔다.
