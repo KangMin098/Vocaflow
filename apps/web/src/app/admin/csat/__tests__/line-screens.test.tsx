@@ -119,6 +119,7 @@ const author: AuthorView = {
   total: 4827,
   ladderCells: [{ type: 'order', vLevel: 5 }],
   loadError: null,
+  inventoryAt: null,
 }
 
 describe('offLadderCount', () => {

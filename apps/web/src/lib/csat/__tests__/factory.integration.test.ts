@@ -46,44 +46,63 @@ describe.skipIf(skip)('교재 공장 공정 현황판 (실 DB)', () => {
     expect(elapsed, `현황판 조회가 ${elapsed}ms 걸렸다`).toBeLessThan(20_000)
   })
 
-  it('해설 보유는 **앱 경로로는** 아직 못 잰다 — 0 이 아니라 「못 잼」과 이유가 나와야 한다', async () => {
-    // ⚠️ 이 테스트는 두 번 뒤집혔다. 그 경위를 남긴다 — 다음 사람이 같은 길을 또 파지 않게.
+  it('해설 보유를 잰다 — 그리고 **언제 잰 값인지**를 함께 말한다', async () => {
+    // ⚠️ 이 테스트는 하루에 **세 번** 뒤집혔다. 그 경위를 남긴다 — 같은 길을 또 파지 않게.
     //
-    //   ① 2026-09-05: "못 잰다" 를 고정. PostgREST 로 65만 행을 전수 세면 50초 뒤 null 이었다.
-    //   ② 2026-09-06 오전: `csat_dcp_inventory()` 적용 후 "잰다" 로 뒤집었다.
-    //      직접 SQL(`execute_sql`, postgres 역할)로 5.7초에 정상 값이 나왔기 때문이다.
-    //   ③ 2026-09-06 오후: **다시 되돌렸다.** 같은 함수를 앱과 같은 길(supabase-js →
-    //      PostgREST → 풀러)로 부르면 statement_timeout 60초에도 취소된다(실측 60,079ms · 2회).
-    //      ②의 근거는 **재는 자리가 쓰는 자리와 달랐다.**
+    //   ① 2026-09-05  "못 잰다" 고정. PostgREST 로 65만 행 전수 count → 50초 뒤 null.
+    //   ② 2026-09-06  `csat_dcp_inventory()` 를 만들어 "잰다" 로 뒤집었다.
+    //                 근거는 직접 SQL(`postgres` 역할) 5.7초였다.
+    //   ③ 같은 날     **되돌렸다.** 같은 함수를 앱 경로(supabase-js → PostgREST → 풀러)로
+    //                 부르면 statement_timeout 60초에도 취소된다(실측 60,079ms · 2회).
+    //                 ②의 근거는 **재는 자리가 쓰는 자리와 달랐다.**
+    //   ④ 같은 날     다시 "잰다". 새 함수를 버리고 **이미 있던 집계표**를 읽는다 —
+    //                 `textbook_shelf_inventory_mv`(20260831090000 · 30분 갱신).
+    //                 읽기 1.2초 · 136행 · 문항 656,984. 만들려던 것이 이미 있었다.
     //
-    //   값 자체는 맞다 — 적용 직후 직접 SQL 로 문항 656,984 · 해설 426,696 · 키/값 불일치 0.
-    //   막힌 것은 **경로**이고, 남은 처방은 matview + 주기 갱신(별도 승인)이다.
-    //   그때 이 테스트를 세 번째로 뒤집으면 된다.
+    //   해설 판정은 그쪽 정의(`explanation_ko` 또는 `rationale_ko`, **빈 값 제외**)를 따른다.
+    //   우리 함수는 키만 보고 빈 값도 세어 1,135건 적게 냈다 — 저쪽이 옳다.
+    //
+    //   **수를 상수로 박지 않는다** — 드레인이 돌면 매일 바뀐다. 잰다는 사실만 고정한다.
     const line = await loadFactoryLine()
     const explain = line.stages.find((s) => s.def.id === 'explain')!
     const gauge = explain.gauges.find((g) => g.label === '해설 보유')!
 
-    expect(gauge.num, '못 재는데 수가 붙어 있다 — 0 으로 뭉갠 것은 아닌지 본다').toBeNull()
-    expect(gauge.den).toBeNull()
-    expect(gauge.unmeasuredReason, '왜 못 재는지가 화면에 없다').toMatch(/RPC|timeout|초/)
-    expect(explain.status).toBe('unmeasured')
+    expect(gauge.den, '문항 수를 못 셌다 — 집계표를 못 읽었거나 권한이 막혔다').toBeGreaterThan(0)
+    expect(gauge.num, '해설 보유 수가 없다').not.toBeNull()
+    expect(gauge.num!).toBeGreaterThanOrEqual(0)
+    // 보유가 전체를 넘을 수 없다 — 넘으면 두 수가 다른 모집단에서 온 것이다.
+    expect(gauge.num!).toBeLessThanOrEqual(gauge.den!)
+    expect(gauge.unmeasuredReason, '잴 수 있는데 「못 잼」 사유가 붙어 있다').toBeUndefined()
+    expect(explain.status, '눈금이 있는데 여전히 unmeasured 다').not.toBe('unmeasured')
+
+    // ⚠️ 이것이 이 테스트의 핵심이다. 30분마다 갱신되는 집계표라 **지금 값이 아닐 수 있고**,
+    //    그 사실이 화면에 없으면 관리자는 드레인 직후 "왜 안 늘었지" 로 읽는다.
+    expect(gauge.note, '언제 잰 값인지가 눈금에 없다').toBeTruthy()
   })
 
-  it('전수 count 는 죽어 있고 셀 count 는 살아 있다 — 이 구분이 설계의 전제다', async () => {
+  it('집계표가 살아 있고 빠르다 — 공정 ⑤·⑥ 이 여기 하나에 기댄다', async () => {
+    // ⚠️ 이 테스트의 **전제가 바뀌었다.** 예전에는 "전수 count 는 죽어 있고 셀 count 는
+    //   살아 있다" 를 고정했다 — 설계가 칸마다 count 를 던지는 방식이었기 때문이다.
+    //   2026-09-06 부터 두 화면이 모두 집계표(`textbook_shelf_inventory_mv` · 30분 갱신)를
+    //   읽으므로, 지금 죽으면 안 되는 것은 **그 RPC 하나**다.
     const svc = createClient(SUPABASE_URL!, SERVICE_KEY!, { auth: { persistSession: false } })
-    // 셀(인덱스를 타는 조회)은 반드시 살아 있어야 한다. 이게 죽으면 표 전체가 못 선다.
-    const cell = await svc
-      .from('csat_dcp_items')
-      .select('id', { count: 'exact', head: true })
-      .eq('type', 'order')
-      .eq('v_level', 6)
-    expect(cell.count, '셀 count 마저 죽었다 — 공장 화면 전체가 못 선다').toBeGreaterThan(0)
 
-    // 플래너 통계는 낡음 감시의 제3의 수다. 이것도 없으면 감시가 사라진다.
-    // (집계 RPC 로 갈아타려 했으나 PostgREST 경유로는 60초에도 안 온다 — 위 테스트 주석 참조.
-    //  matview 가 붙으면 그때 이쪽으로 옮긴다.)
-    const planned = await svc.from('csat_dcp_items').select('id', { count: 'planned', head: true })
-    expect(planned.count, '플래너 통계도 못 읽는다').toBeGreaterThan(0)
+    const t0 = Date.now()
+    const inv = await svc.rpc('textbook_shelf_inventory')
+    const tookMs = Date.now() - t0
+
+    expect(inv.error, `집계표를 못 읽는다: ${inv.error?.message ?? ''}`).toBeNull()
+    const rows = (inv.data ?? []) as { item_count: number | string }[]
+    expect(rows.length, '집계가 빈손으로 왔다 — 갱신이 멈췄거나 권한이 막혔다').toBeGreaterThan(0)
+
+    // 빨라야 쓸모가 있다. 이것이 느려지면 예전처럼 화면이 회색 칸으로 덮인다(실측 1.2초).
+    expect(tookMs, `집계표 읽기가 ${tookMs}ms — 미리 계산해 둔 값인데 느리다`).toBeLessThan(8_000)
+
+    // 갱신 시각을 못 읽으면 화면이 "언제 센 값인지" 를 말할 수 없다 — 낡은 수를 지금 값처럼
+    // 내밀게 되므로, 이것도 함께 잠근다.
+    const at = await svc.rpc('textbook_shelf_refreshed_at')
+    expect(at.error, `갱신 시각을 못 읽는다: ${at.error?.message ?? ''}`).toBeNull()
+    expect(typeof at.data, '갱신 시각이 비어 있다').toBe('string')
   })
 
   it('검수 L2 는 분석 **행**이 아니라 **문항**을 센다 — 통과율이 100%를 넘을 수 없다', async () => {

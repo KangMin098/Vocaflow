@@ -4,16 +4,16 @@
 //
 // ── 왜 조회를 이렇게 쪼개나 ──────────────────────────────────────────
 // `csat_dcp_items` 는 65만 행이다. TBP 콘솔은 이 표를 **1,000행씩 656번** 끌어와 메모리에서 센다.
-// 같은 짓을 여기서 또 하면 현황판 한 번 여는 데 분 단위가 걸린다. 그래서 이 파일은 **행을 안 받고
-// 세기만 한다**(`head:true` + `count:'exact'`) — 서버가 세므로 네트워크에 실리는 것은 헤더뿐이고,
-// 필요한 칸만 병렬로 던진다(실측 2026-09-05: 15칸 병렬 1.9초).
+// 같은 짓을 여기서 또 하면 현황판 한 번 여는 데 분 단위가 걸린다. 그래서 이 파일은 **행을 받지
+// 않는다** — 재고는 미리 계산된 집계표에서 한 번에 읽는다(`item-count.ts`).
 //
 // ⚠️ PostgREST 집계 함수는 이 프로젝트에서 **꺼져 있다**(`PGRST123: Use of aggregate functions is
 //   not allowed`). 그래서 `select=type,v_level,count()` 한 방으로는 못 접는다 — 실측으로 확인했다.
-//   사다리 칸(26개)은 칸 단위 count 다 — 그쪽은 필터가 좁아 인덱스를 탄다. 전체 문항 수는
-//   `planned` 추정치다. 집계 RPC(`csat_dcp_inventory()`)를 2026-09-06 에 만들었고 값도 맞지만,
-//   **앱 경로(PostgREST → 풀러)로는 60초에도 안 온다** — 그래서 아직 못 쓴다(자세한 경위는
-//   `item-count.ts` 의 `loadDcpInventory` 주석). 공정 ⑥ 해설이 여전히 눈금 없는 이유가 이것이다.
+//   2026-09-06 부터 그 자리는 **이미 있던 집계표**(`textbook_shelf_inventory_mv` · 30분 갱신)가
+//   대신한다 — 읽기 1.2초에 (유형 × 수준) 132칸의 문항 수와 해설 보유 수가 함께 온다.
+//   그 전에는 칸마다 조회를 따로 던져 15초 예산을 넘기면 회색으로 남았고(실측 29~133칸),
+//   **화면마다 다른 수를 말할 수 있었다.** 공정 ⑥ 해설이 눈금을 갖게 된 것도 이것 덕이다.
+//   (새 집계 RPC 를 만들었다가 버린 경위는 `item-count.ts` 의 `loadDcpInventory` 주석.)
 //
 // ⚠️ **없는 것과 0 을 가른다.** `head:true` 는 없는 테이블에도 204/count=null 을 돌려준다
 //   (이 저장소가 이미 당한 함정). 그래서 count 가 null 이면 눈금을 `num: null` 로 두고
@@ -26,7 +26,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { createAdminClient } from '@/lib/supabase/admin'
 
-import { countItemCells, plannedItemTotal } from './item-count'
+import { countItemCells, loadDcpInventory } from './item-count'
 
 import {
   BENCH_FILES,
@@ -179,12 +179,13 @@ export async function loadFactoryLine(): Promise<FactoryLine> {
   //   (실측 2026-09-05, 세 번 연속). 유형·수준으로 쪼개면 셀마다는 되지만 재고가 있는 칸이
   //   132개라 다 돌면 몇 분이었다. 그래서 공정 ⑥ 은 눈금 자체가 없었다.
   //
-  //   2026-09-06 — 집계 RPC(`csat_dcp_inventory()`)를 적용했고 **값은 맞다**(직접 SQL 로
-  //   문항 656,984 · 해설 426,696 · 키/값 불일치 0). 그런데 앱과 같은 길(PostgREST → 풀러)로
-  //   부르면 statement_timeout 60초에도 취소된다(실측 60,079ms · 2회). 그래서 **여기서는
-  //   부르지 않는다** — 어차피 안 오는 것을 매번 몇 초씩 기다리는 것은 순수한 낭비다.
-  //   막힌 것은 경로이고 남은 처방은 matview + 주기 갱신이다(별도 승인 대기).
-  const itemsTotal = (await plannedItemTotal(db)).count
+  //   2026-09-06 — **이미 있던 집계표**(`textbook_shelf_inventory_mv`, 30분 주기 갱신)를
+  //   읽는 것으로 끝났다. 새로 만든 `csat_dcp_inventory()` 는 값은 맞았지만 앱 경로로
+  //   60초에도 안 왔고, 그 처방으로 적은 "matview 를 만들자" 는 것이 **이미 있었다**.
+  //   읽기 1.2초 · 136행 · 문항 656,984(실측). 추정치가 아니라 실측이고, 저장 문항과
+  //   해설 보유를 **함께** 준다 — 공정 ⑥ 이 눈금을 갖게 된 것이 이것 덕이다.
+  const inventory = await loadDcpInventory(db)
+  const itemsTotal = inventory.ok ? inventory.items : null
 
   const stages: StageState[] = []
 
@@ -406,7 +407,7 @@ export async function loadFactoryLine(): Promise<FactoryLine> {
             approx: true,
             unmeasuredReason:
               itemsTotal == null
-                ? '문항 수를 못 셌다 — 플래너 통계도 답하지 않았다'
+                ? `문항 수를 못 셌다: ${inventory.ok ? '' : inventory.error}`
                 : '플래너 통계값이다 — 정확한 수는 집필 화면이 칸을 더해서 낸다',
           },
         ],
@@ -440,12 +441,11 @@ export async function loadFactoryLine(): Promise<FactoryLine> {
 
   /* ⑥ 해설 — 문항마다 해설이 붙었는가. */
   {
-    // 아직 잴 수 없다. 집계 RPC 는 만들었고 값도 맞지만(직접 SQL 5.7초), 앱 경로로는
-    // 60초에도 안 온다. 마지막으로 확인한 값(2026-09-06 · 426,696 / 656,984)은 마이그레이션
-    // 주석에 적어 두었다 — **코드에 상수로 박지 않는다.** 박으면 화면이 낡은 수를 현재
-    // 사실처럼 말하게 된다.
-    const total: number | null = null
-    const done: number | null = null
+    // 2026-09-06 부터 잰다 — 30분마다 갱신되는 집계표에서 읽는다.
+    // **수를 상수로 박지 않는다.** 드레인이 돌면 매일 바뀌고, 박으면 화면이 낡은 수를
+    // 현재 사실처럼 말하게 된다.
+    const total: number | null = inventory.ok ? inventory.items : null
+    const done: number | null = inventory.ok ? inventory.explained : null
     stages.push(
       state(
         'explain',
@@ -458,8 +458,13 @@ export async function loadFactoryLine(): Promise<FactoryLine> {
             target: 1,
             unmeasuredReason:
               done == null || total == null
-                ? '집계 RPC(csat_dcp_inventory)는 만들었고 값도 맞지만 PostgREST 경유로 60초에도 ' +
-                  '오지 않는다(실측 2026-09-06). 남은 처방은 matview + 주기 갱신 — 승인 대기.'
+                ? `집계표를 못 읽었다 — ${inventory.ok ? '' : inventory.error}`
+                : undefined,
+            // 30분마다 갱신되는 집계표라 **지금 값이 아닐 수 있다.** 그 사실을 눈금이 말한다 —
+            // 드레인을 막 돌린 직후에는 아직 반영되지 않았을 수 있다.
+            note:
+              inventory.ok && inventory.refreshedAt
+                ? `${new Date(inventory.refreshedAt).toLocaleString('ko-KR')} 기준 (30분마다 갱신)`
                 : undefined,
           },
         ],

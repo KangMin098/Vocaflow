@@ -79,6 +79,11 @@ function Gauge({ g }: { g: StageGauge }) {
           />
         </div>
       ) : null}
+      {/* 값은 맞지만 **시점이 지금이 아닐 수 있는** 눈금 — 언제 잰 것인지 적는다.
+          드레인을 막 돌린 직후 "왜 안 늘었지" 로 읽는 것을 막는 유일한 장치다. */}
+      {g.num != null && g.note ? (
+        <p className="break-keep font-body text-[10.5px] text-[var(--t3)]">{g.note}</p>
+      ) : null}
     </div>
   )
 }

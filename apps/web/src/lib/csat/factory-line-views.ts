@@ -19,7 +19,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { createAdminClient } from '@/lib/supabase/admin'
 
-import { SWEEP_BUDGET_MS, countItemCells, plannedItemTotal } from './item-count'
+import { loadDcpInventory } from './item-count'
 
 import {
   GENERATED_TYPES,
@@ -107,23 +107,28 @@ export async function loadAuthorView(): Promise<AuthorView> {
   const specs: { type: string; vLevel: number }[] = []
   for (const t of GENERATED_TYPES) for (const v of INVENTORY_LEVELS) specs.push({ type: t, vLevel: v })
 
-  // ⚠️ **전수 count 를 쓰지 않는다.** 필터 없는 count 는 이 표에서 50초 뒤 빈손으로 온다
-  //   (실측 2026-09-05 · 세 번 연속). 대신 **칸을 더해서** 총계를 낸다 — 어차피 칸마다 세고
-  //   있으므로 공짜이고, 무엇보다 **정확하다**.
+  // ⚠️ 예전에는 이 225칸을 **칸마다 따로 세었다**(15초 예산 안에 못 들어오면 남은 칸은
+  //   「못 잼」). 실제로 예산을 넘겨 29~133칸이 회색으로 남는 일이 잦았고, 그때마다 화면은
+  //   있지도 않은 구멍을 가리켰다. 전수 count 로 총계를 내는 길도 막혀 있었다 —
+  //   필터 없는 count 는 이 표에서 50초 뒤 빈손으로 온다(실측 2026-09-05 · 세 번 연속).
   //
-  //   그러면 「목록이 낡았는가」를 무엇으로 보나. 칸 합끼리 비교하면 자기 자신과 비교하는 것이라
-  //   아무것도 못 잡는다. 그래서 독립된 제3의 수를 쓴다.
+  //   2026-09-06 — **이미 있던 집계표**(`textbook_shelf_inventory_mv` · 30분 갱신)가
+  //   같은 (유형 × 수준) 칸을 통째로 준다. 조회 **1회 · 1.2초**(실측)로 225회를 대신하고,
+  //   예산을 넘겨 회색으로 남는 칸이 없다.
   //
-  //   2026-09-06 — 집계 RPC 의 정확값으로 갈아타려 했으나 **되돌렸다.** RPC 는 값이 맞지만
-  //   PostgREST 경유로 60초에도 안 온다(`item-count.ts` 의 `loadDcpInventory` 주석).
-  //   낡음 감시는 빨라야 쓸모가 있어서, matview 가 붙기 전까지는 플래너 통계가 유일한 길이다.
-  //   통계값이라 오차가 있으므로 **허용 오차를 넘을 때만** 경고한다.
-  const [counts, planned] = await Promise.all([
-    countItemCells(db, specs),
-    plannedItemTotal(db).then((r) => r.count),
-  ])
-
-  const cells: AuthorCell[] = specs.map((s, i) => ({ ...s, count: counts[i] ?? null }))
+  //   낡음 감시(총계 vs 칸 합)는 그래서 의미를 잃었다 — 둘이 같은 출처라 자기 자신과
+  //   비교하는 셈이다. 대신 **집계표가 언제 갱신됐는지**를 화면이 말한다(`refreshedAt`).
+  const inventory = await loadDcpInventory(db)
+  const byCell = new Map<string, number>()
+  if (inventory.ok) {
+    for (const c of inventory.cells) byCell.set(`${c.type}|${c.vLevel}`, c.items)
+  }
+  // 집계표에 없는 칸은 **0**이다 — group by 결과라 재고가 0인 칸은 행 자체가 없다.
+  // 못 읽었을 때만 null 로 남긴다(0 과 「못 잼」을 가른다).
+  const cells: AuthorCell[] = specs.map((s) => ({
+    ...s,
+    count: inventory.ok ? (byCell.get(`${s.type}|${s.vLevel}`) ?? 0) : null,
+  }))
 
   const ladderCells: { type: string; vLevel: number }[] = []
   for (const rung of SERIES_SPINE) {
@@ -132,13 +137,11 @@ export async function loadAuthorView(): Promise<AuthorView> {
 
   const summed = cells.reduce((n, c) => n + (c.count ?? 0), 0)
   const unmeasured = cells.filter((c) => c.count == null).length
-  // 플래너 통계의 오차 허용치. `reltuples` 는 ANALYZE 시점의 추정이라 정확하지 않다 —
-  // 실측 2026-09-05 에 654,390 vs 실제 655,092(0.11% 차)였다. 그 열 배를 허용치로 잡는다.
-  // ⚠️ **이 검사는 큰 누락만 잡는다.** 새 유형이 1% 미만이면 안 걸린다(그래서 통합 테스트가
-  //   유형 목록을 따로 본다). 허용치를 좁히면 통계 오차마다 거짓 경보가 뜬다.
-  const TOLERANCE = 0.01
-  const gap = planned != null ? planned - summed : 0
-  const stale = planned != null && gap > planned * TOLERANCE
+  // ── 「목록이 낡았나」 검사는 은퇴했다 (2026-09-06) ─────────────────
+  // 플래너 통계(`reltuples`)를 제3의 수로 삼아 칸 합과 견주던 검사가 있었다. 집계표로 옮긴
+  // 뒤로는 그 비교가 뜻을 잃는다 — 집계표가 칸을 **전부** 주므로 합과의 차이는 오차가 아니라
+  // **사다리 밖 재고**(정상)다. 남겨 두면 늘 경보가 울리고, 늘 울리는 경보는 아무도 안 본다.
+  // 목록이 낡았는지는 통합 테스트가 유형 축을 직접 대조해 잡는다.
 
   // ⚠️ 원인이 둘이고 **할 일이 정반대**다.
   //   · 못 센 칸이 있다 → 조회가 빈손으로 왔다. 새로고침하면 대개 맞는다.
@@ -152,12 +155,11 @@ export async function loadAuthorView(): Promise<AuthorView> {
     total: unmeasured ? null : summed,
     ladderCells,
     loadError: unmeasured
-      ? `못 센 칸 ${unmeasured}개 / ${cells.length} — 시간 예산(${SWEEP_BUDGET_MS / 1000}초) 안에 다 못 셌다. ` +
-        `칸마다 조회를 따로 던지는 방식의 한계이고, 집계 RPC 가 붙으면 한 번에 끝난다 ` +
-        `(supabase/migrations/_pending_csat_dcp_inventory.sql). 총계는 내지 않는다 — 모자란 수를 정확한 값처럼 내밀지 않기 위해서다`
-      : stale
-        ? `유형 목록이 낡았을 수 있다 — 다 셌는데 플래너 통계보다 ${gap.toLocaleString()}개 적다. GENERATED_TYPES 를 확인한다`
-        : null,
+      ? `집계표를 못 읽었다 — ${inventory.ok ? '' : inventory.error}. 총계는 내지 않는다 (모자란 수를 정확한 값처럼 내밀지 않기 위해서다)`
+      : null,
+    // 30분마다 갱신되는 집계표라 **지금 값이 아닐 수 있다.** 드레인 직후 "왜 안 늘었지" 로
+    // 읽히지 않도록 화면이 시점을 말한다.
+    inventoryAt: inventory.ok ? inventory.refreshedAt : null,
   }
 }
 

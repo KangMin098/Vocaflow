@@ -99,7 +99,7 @@ export const CSAT_HELP: HelpRegistry = {
           {
             title: '⑥ 해설 — Claude Code 몫 (전용 화면 없음)',
             detail:
-              '규칙으로 쓸 수 있는 해설을 `explain-fill` 로 먼저 채우고(**이 단계를 건너뛰면 다음 단계가 「쓸 몫 0」이라고 거짓말한다**), 남은 것을 `explain-drain-export` 로 뽑아 Claude Code 가 채운 뒤 `explain-drain-import --commit` 으로 적재한다. **`answer_key` 를 통째로 덮지 말고 `explanation_ko` 키 하나만 더한다** — 덮으면 정답 키가 날아간다. ⚠️ 전용 화면은 집계 RPC 승인 후에 생긴다(`supabase/migrations/_pending_csat_dcp_inventory.sql`).',
+              '규칙으로 쓸 수 있는 해설을 `explain-fill` 로 먼저 채우고(**이 단계를 건너뛰면 다음 단계가 「쓸 몫 0」이라고 거짓말한다**), 남은 것을 `explain-drain-export` 로 뽑아 Claude Code 가 채운 뒤 `explain-drain-import --commit` 으로 적재한다. **`answer_key` 를 통째로 덮지 말고 `explanation_ko` 키 하나만 더한다** — 덮으면 정답 키가 날아간다. ⚠️ 해설 보유율은 2026-09-06 부터 현황판 ⑥ 눈금에 **실측**으로 뜬다(30분마다 갱신되는 집계표 — 눈금 아래 기준 시각이 함께 적힌다). 유형·수준별 분포를 보는 전용 화면은 아직 없다.',
             done: '현황판의 「해설 보유」가 오른다.',
           },
           {

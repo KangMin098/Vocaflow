@@ -240,6 +240,7 @@ export const AUTHOR_REAL: AuthorView = {
     { type: 'insert', vLevel: 6 },
   ],
   loadError: null,
+  inventoryAt: null,
 }
 
 export const REVIEW_REAL: ReviewView = {

@@ -115,6 +115,12 @@ export interface AuthorView {
   /** 사다리가 쓰는 (유형, V-Level) 조합. 그 밖의 재고는 **지금 어느 권에도 안 실린다**. */
   ladderCells: { type: string; vLevel: number }[]
   loadError: string | null
+  /**
+   * 재고를 **언제 센 값**인지 (ISO). 30분마다 갱신되는 집계표에서 읽으므로 지금 값이
+   * 아닐 수 있다 — 드레인 직후 "왜 안 늘었지" 로 읽히지 않도록 화면이 이 시각을 적는다.
+   * 못 읽었으면 null: 그때는 신선도를 주장하지 않는다.
+   */
+  inventoryAt: string | null
 }
 
 /** 사다리 밖 재고 — 만들어 뒀지만 **어느 권에도 안 실리는** 문항. 창고만 불리는 자리다. */

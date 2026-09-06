@@ -145,7 +145,7 @@ function buildNavGroups(reportsBadge: number | null): NavGroup[] {
             label: '⑥ 해설',
             Icon: MessageSquareText,
             pendingNote:
-              '전용 화면은 집계 RPC 승인 후에 생긴다 — supabase/migrations/_pending_csat_dcp_inventory.sql. 지금은 현황판 눈금으로만 본다',
+              '전용 화면은 아직 없다 — 해설 보유율은 현황판 ⑥ 눈금에서 본다(2026-09-06 부터 집계표로 실측). 유형·수준별 분포까지 보려면 화면이 필요하다',
           },
           { href: '/admin/csat/review', label: '⑦ 검수', Icon: ClipboardCheck },
           { href: '/admin/csat/press', label: '⑧ 조판·발행', Icon: Printer },
