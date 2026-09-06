@@ -1423,3 +1423,32 @@ katabatic 바람 · firn · sublimation · 마른 골짜기의 미라가 된 물
 
 겨냥 도달 누계 **153편** / 필요 182 — **29편**.
 안전 후보는 V4 25편 + V3 61편 = **86편**. 약 6 사이클.
+
+## 사이클 46 — 1패스 5/5 (누계 158편) · **한 배치에 같은 주제가 셋**
+
+슬롯 26 · 156 · 50 · 160 · 36. 출발 18.8 ~ 22.4 → 66.2 ~ 79.
+2패스는 창 위 둘(88.3 · 84.3)을 되돌린 것뿐이다.
+
+### 근육통 지문이 세 편이었다
+
+같은 배치에 슬롯 26「The Ache That Arrives Late」· 50「The Ache That Proves Nothing」·
+160「Counted In Nights, Not Minutes」— **셋 다 운동 후 근육통**이다.
+
+논지는 실제로 다르다:
+
+| 슬롯 | 논지 | 갈라 쓴 어휘 |
+|---|---|---|
+| 26 | 왜 이틀째에 오는가 (기전) | eccentric · microtear · inflammation · capillary · collagen · oedema |
+| 50 | 통증은 나쁜 지표다 | benchmark · novelty · stimulus · adaptation · cadence · tempo · plateau |
+| 160 | 회복은 밤에 일어난다 | nocturnal · hormone · glycogen · circadian · restorative · taper |
+
+제목만 보면 겹치지만 **어휘를 갈라 놓으면 서로 다른 글로 읽힌다.**
+같은 소재로 세 편을 쓰는 것 자체는 문제가 아니다 — 문제는 셋이 **같은 낱말로** 쓰였을 때다.
+
+중복 네 갈래가 되었다: ①V4↔V5 짝 ②밴드 안 같은 주제(43·51 · 60·72)
+③나방 셋(97·33·161) ④근육통 셋(26·50·160).
+
+### 남은 몫
+
+겨냥 도달 누계 **158편** / 필요 182 — **24편**.
+안전 후보 V4 20편 + V3 61편 = **81편**. 약 5 사이클.
