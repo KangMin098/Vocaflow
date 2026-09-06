@@ -113,6 +113,19 @@ function outsideForPercentile(target, school) {
 // ── 이 밴드의 우리 지문 ──────────────────────────────────────────────
 // 페이지 200 — 400 은 statement timeout(8초) 너머다(실측 2026-09-05: 400 → 57014 / 8.7초,
 // 200 → 124ms). 본문을 함께 읽으므로 한 요청이 무거워진다.
+//
+// ⚠️ **`id` 가 아니라 `source_id` 로 정렬한다.** 쓸 수 있는 인덱스는
+// `(source, source_id)` 유일 인덱스 하나뿐이다. `id` 로 정렬하면 그 인덱스가
+// 정렬을 못 맡아 계획이 전체 훑기로 바뀌고, `article_v_level`·`word_count` 는
+// 인덱스가 없어 걸러 주지도 못한다.
+//
+// 실측 2026-09-06 (DB 가 포화된 같은 순간 · 같은 조건):
+//   order('id')        → **statement timeout (75,282ms)**
+//   order('source_id') → **1,888ms · 200행**
+//
+// `source_id` 는 `source='original'` 안에서 유일하므로 정렬이 결정적이고,
+// `range()` 페이징이 경계에서 새지 않는다. (같은 뿌리의 고장을 이 세션에서
+// 적재기에서도 고쳤다 — 16.9초 → 32ms.)
 const rows = await fetchAllPaged(
   db,
   (d) =>
@@ -124,7 +137,7 @@ const rows = await fetchAllPaged(
       .eq('article_v_level', BAND)
       .gte('word_count', PASSAGE_WORDS.min)
       .lte('word_count', PASSAGE_WORDS.max)
-      .order('id'),
+      .order('source_id'),
   200
 )
 
