@@ -21,6 +21,8 @@ import path from 'node:path'
 
 import { describe, expect, it } from 'vitest'
 
+import { GRADE_NEXT_STEP } from '@vocaflow/library-pipeline'
+
 import { HELP_REGISTRY } from '@/lib/admin/help'
 import type { ScreenHelp } from '@/lib/admin/help'
 
@@ -88,6 +90,18 @@ describe('화면도움말의 앱 링크', () => {
   it('검사할 링크가 실제로 있다 — 0 개를 통과로 세지 않는다', () => {
     // 수집기가 깨져 빈 배열을 돌려주면 위 검사가 **항상 통과**한다.
     expect(links.length).toBeGreaterThan(10)
+  })
+
+  it('**처방이 가리키는 스크립트가 실제로 있다**', () => {
+    // 실측 2026-09-06: 「내용 판정이면 `gate-make.mjs` 를 돌린다」고 적혀 있었는데
+    // 그 스크립트는 **발췌창을 채우는 결정론 스크립트**라 판정과 무관하다. 파일은 있으므로
+    // 이 검사로도 안 잡히지만, **이름이 바뀌거나 지워지는 쪽**은 잡는다 — 그쪽이 더 흔하다.
+    const REPO = path.resolve(__dirname, '../../../../../..')
+    const text = JSON.stringify(HELP_REGISTRY) + JSON.stringify(GRADE_NEXT_STEP)
+    const paths = [...new Set([...text.matchAll(/scripts\/[\w/-]+\.mjs/g)].map((m) => m[0]))]
+    expect(paths.length).toBeGreaterThan(5)
+    const missing = paths.filter((p) => !fs.existsSync(path.join(REPO, p)))
+    expect(missing).toEqual([])
   })
 
   it('외부 URL 은 파일로 판정하지 않는다', () => {

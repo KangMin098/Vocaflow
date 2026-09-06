@@ -47,7 +47,7 @@ export const ELIGIBILITY_SPEC_VERSION = 2
  * | `usable` | 그대로 지문이 된다 | 없음 — 조판에 넣는다 |
  * | `excerpt` | 길지만 **규격에 맞게 잘린 지문이 있다** | 조판이 그 문항을 인쇄한다 |
  * | `excerpt-blind` | 길고 **잘린 지문이 없다** | 문항을 만든다(`store-new-types`) |
- * | `unjudged` | 내용 판정을 안 받았다 | 게이트(`gate-make` → `gate-import`)를 돌린다 |
+ * | `unjudged` | 내용 판정을 안 받았다 | 책 단위 판정 드레인(`gate-book-export` → Claude Code → `gate-import`) |
  * | `unknown` | 학령 분석이 없다 | `process-queue` 를 돌린다 |
  * | `blocked` | 못 쓴다 | 없음 — 조판에서 뺀다 |
  */
@@ -410,7 +410,8 @@ export const GRADE_NEXT_STEP: Record<EligibilityGrade, string> = {
   usable: '조판에 넣는다',
   excerpt: '조판이 그 문항을 인쇄한다',
   'excerpt-blind': 'scripts/textbook/store-new-types.mjs 로 문항을 만든다 — 그때 규격에 맞게 잘린다',
-  unjudged: 'scripts/csat/gate-make.mjs → gate-import.mjs 로 내용을 판정한다',
+  unjudged:
+    'scripts/csat/gate-book-export.mjs → Claude Code 가 청크를 채움 → gate-import.mjs (책 단위)',
   unknown: 'scripts/acp/process-queue.mjs 로 학령 분석을 붙인다',
   blocked: '조판에서 뺀다 — 되돌릴 수 있는 사유면 그 축을 고친다',
 }

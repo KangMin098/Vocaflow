@@ -116,7 +116,12 @@ export const TBP_HELP: HelpRegistry = {
           {
             title: '막힌 축을 푼다',
             detail:
-              '화면 맨 위 “다음 한 걸음” 이 가리키는 축의 드레인을 돌린다 — 내용 판정이면 `scripts/csat/gate-make.mjs` → `gate-import.mjs`, 학령 분석이면 `scripts/acp/process-queue.mjs --commit`, 발췌 자리면 `scripts/csat/score-articles.mjs`. **되돌릴 수 없는 축(법적·안전)은 드레인이 없다** — 그 원문들은 빼는 것이 처방이다.',
+              '화면 맨 위 “다음 한 걸음” 이 가리키는 축의 드레인을 돌린다. ' +
+              '**내용 판정** — `scripts/csat/gate-book-export.mjs` → Claude Code 가 청크를 채움 → `gate-import.mjs`. ' +
+              '**책 단위**다: 같은 책에서 나온 조각은 장르가 같으므로 793권을 판정하면 조각 28,015편이 따라온다(판정 수가 35배 준다). ' +
+              '⚠️ `gate-make.mjs` 는 **발췌창(`csat_fit.make`)을 채우는 결정론 스크립트라 판정과 무관하다** — 그걸 돌리고 “판정했다” 고 믿으면 미판정이 그대로 남는다. ' +
+              '**학령 분석** — `scripts/acp/process-queue.mjs --commit`. **발췌 자리** — `scripts/textbook/store-new-types.mjs`(문항을 만들면 규격에 맞게 잘린 지문이 생긴다). ' +
+              '**되돌릴 수 없는 축(법적·안전)은 드레인이 없다** — 그 원문들은 빼는 것이 처방이다.',
             done: '해당 축의 “지금 탈락” 이 줄어든다.',
           },
           {
