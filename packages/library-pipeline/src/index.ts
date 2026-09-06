@@ -824,6 +824,26 @@ export {
   type KidBandRow,
   type KidSourceInventory,
 } from './textbook/kid-source'
+// 교재에 실을 수 있는 원문인가 — 일곱 축 판정의 정본. 조판·스캔·Admin 화면이 함께 쓴다.
+export {
+  COMPOSABLE_GRADES,
+  ELIGIBILITY_AXES,
+  ELIGIBILITY_BAND_LABELS,
+  ELIGIBILITY_SPEC_VERSION,
+  GRADE_LABEL,
+  GRADE_NEXT_STEP,
+  isComposable,
+  judgeSource,
+  schoolOfVLevel,
+  tallyEligibility,
+  type AxisVerdict,
+  type EligibilityAxis,
+  type EligibilityAxisId,
+  type EligibilityGrade,
+  type EligibilityTally,
+  type SourceEligibility,
+  type SourceEligibilityInput,
+} from './textbook/source-eligibility'
 export {
   excerptForBand,
   fitExcerptToAnyBand,

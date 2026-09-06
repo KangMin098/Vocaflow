@@ -483,6 +483,31 @@ export function isRetractedTitle(title) {
   return /^(retracted|withdrawn)/i.test(t) || t.toLowerCase().includes('[retracted')
 }
 
+/** 파생·문항 제작이 허용되는 라이선스. 정본은 `source-eligibility.ts` 의 `legal` 축이다. */
+const DERIVABLE_LICENSE = new Set(['public_domain', 'cc0', 'cc_by', 'cc_by_sa'])
+
+/**
+ * 이 원글을 **교재에 실을 수 있는가 — 법적으로만** 본다.
+ *
+ * 축이 셋이고 **서로 다른 것을 말한다**:
+ *   `display_only`           표시는 되지만 파생 불가 (The Conversation 의 CC BY-ND)
+ *   `copyright_safe_in_kr`   국내에서 쓸 수 없음
+ *   `license_class`          파생을 허용하지 않는 라이선스
+ *
+ * ⚠️ 오래 `display_only` 하나만 보고 있었다. 실측 2026-09-06: 나머지 둘에 걸리는
+ *   원글 **82편**(전부 `restricted` + 국내 불가)이 조판 풀에 남아 있었고 **65편이 V1** 이었다.
+ *   초등 저학년 재고의 77% 다 — 그 밴드로 권을 찍었다면 그대로 인쇄됐다.
+ *
+ * 라이선스가 비어 있는 행은 통과시킨다. 수집기가 소스별로 확인해 넣는 값이고,
+ * 없다고 막으면 옛 수집분이 통째로 사라진다 — **없는 것과 나쁜 것은 다르다.**
+ */
+export function isLegallyUsable(a) {
+  if (a.display_only) return false
+  if (a.copyright_safe_in_kr === false) return false
+  if (a.license_class && !DERIVABLE_LICENSE.has(a.license_class)) return false
+  return true
+}
+
 /**
  * **단계별 소요 시간 — `VOCAFLOW_TIMING=1` 일 때만 찍는다.**
  *
@@ -641,7 +666,7 @@ export async function loadVolume(db, { band, unitCount, marketMix = true, maxArt
   const arts = await fetchAllKeyset(
     db,
     'library_articles',
-    'id, title, source, article_v_level, display_only',
+    'id, title, source, article_v_level, display_only, license_class, copyright_safe_in_kr',
     'id',
     1000,
     (q) => q.in('status', ['ready', 'published']).eq('article_v_level', band),
@@ -658,9 +683,26 @@ export async function loadVolume(db, { band, unitCount, marketMix = true, maxArt
   //   가는 길이다. 제목만으로 잡히는 것은 1,042편 중 77편(7%)뿐이라 이것만으로는 부족하고,
   //   본문 몫은 `compose-unit` 의 `hasSensitiveTopic` 게이트가 맡는다. 두 자리가 함께 필요하다.
   //   (원글 본문을 여기서 다 받아 오면 V6 12,170편을 매 조판마다 읽는다 — 그 값은 안 치른다.)
+  // ⚠️ **라이선스도 여기서 막는다.** `display_only` 만 보고 있었는데, 실측 2026-09-06:
+  //   `license_class='restricted'` 이고 `copyright_safe_in_kr=false` 인 원글 **82편이
+  //   조판 풀에 그대로 있었다.** 그중 **65편이 V1** 이라 초등 저학년 재고 84편의 77%가
+  //   법적으로 못 쓰는 글이었다 — 이 밴드로 권을 찍었다면 그대로 실렸다.
+  //   `display_only` 와 다른 축이다: 표시는 허용되지만 파생이 안 되는 글이 따로 있다.
+  //   판정 정본은 `judgeSource`(`packages/library-pipeline/.../source-eligibility.ts`)의
+  //   `legal` 축이고, 여기서는 **되돌릴 수 없는 축만** 건다 — 나머지 축(내용 판정·발췌창)은
+  //   막는 순간 재고가 10%로 줄어 권이 아예 안 나온다. 그 몫은 드레인이 먼저 채워야 한다.
+  //   지금 격차는 `/admin/textbook/sources` 가 편수로 보인다.
+  const legalBlocked = (arts ?? []).filter((a) => !isLegallyUsable(a))
   const all = (arts ?? []).filter(
-    (a) => !a.display_only && !isRetractedTitle(a.title) && !hasSensitiveTopic(a.title),
+    (a) => isLegallyUsable(a) && !isRetractedTitle(a.title) && !hasSensitiveTopic(a.title),
   )
+  if (legalBlocked.length) {
+    console.log(
+      `  ⚠ 법적으로 실을 수 없는 원글 ${legalBlocked.length.toLocaleString()}편을 뺐다` +
+        ` (표시전용 ${legalBlocked.filter((a) => a.display_only).length} ·` +
+        ` 파생불가 ${legalBlocked.filter((a) => !a.display_only).length})`,
+    )
+  }
   // 재고가 너무 크면 N편만 본다 — 부르는 쪽이 정한다(아래 `pickArticles` 참조).
   const usable = await pickArticles(db, all, maxArticles)
   timer.mark('원글 조회 (library_articles)')
