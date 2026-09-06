@@ -1,30 +1,30 @@
 {
-  "measuredAt": "2026-09-06T06:51:03.859Z",
+  "measuredAt": "2026-09-06T07:24:18.982Z",
   "specVersion": 2,
-  "elapsedSeconds": 25.2,
+  "elapsedSeconds": 28.5,
   "scope": "status in ('ready','published')",
-  "articlesWithItems": 19202,
+  "articlesWithItems": 19207,
   "total": {
-    "total": 21839,
+    "total": 21829,
     "byGrade": {
       "usable": 9,
-      "excerpt": 2202,
-      "excerpt-blind": 57,
-      "unjudged": 19333,
+      "excerpt": 2210,
+      "excerpt-blind": 264,
+      "unjudged": 19108,
       "unknown": 16,
       "blocked": 222
     },
     "byBlockedAxis": {
-      "judgement": 19333,
-      "format": 57,
+      "judgement": 19108,
+      "format": 264,
       "analysis": 16,
       "legal": 152,
       "safety": 70
     },
-    "composable": 2211,
-    "composablePct": 10.1,
-    "judged": 2506,
-    "composablePctOfJudged": 88.2,
+    "composable": 2219,
+    "composablePct": 10.2,
+    "judged": 2721,
+    "composablePctOfJudged": 81.6,
     "structurallyUnjudged": 13459
   },
   "byBand": [
@@ -98,19 +98,20 @@
       "byGrade": {
         "usable": 0,
         "excerpt": 1,
-        "excerpt-blind": 0,
-        "unjudged": 252,
+        "excerpt-blind": 2,
+        "unjudged": 250,
         "unknown": 1,
         "blocked": 0
       },
       "byBlockedAxis": {
-        "judgement": 252,
+        "judgement": 250,
+        "format": 2,
         "analysis": 1
       },
       "composable": 1,
       "composablePct": 0.4,
-      "judged": 2,
-      "composablePctOfJudged": 50,
+      "judged": 4,
+      "composablePctOfJudged": 25,
       "structurallyUnjudged": 0
     },
     {
@@ -119,89 +120,90 @@
       "byGrade": {
         "usable": 1,
         "excerpt": 38,
-        "excerpt-blind": 0,
-        "unjudged": 812,
+        "excerpt-blind": 26,
+        "unjudged": 786,
         "unknown": 0,
         "blocked": 5
       },
       "byBlockedAxis": {
-        "judgement": 812,
+        "judgement": 786,
+        "format": 26,
         "legal": 5
       },
       "composable": 39,
       "composablePct": 4.6,
-      "judged": 44,
-      "composablePctOfJudged": 88.6,
+      "judged": 70,
+      "composablePctOfJudged": 55.7,
       "structurallyUnjudged": 0
     },
     {
       "vLevel": 5,
-      "total": 4285,
+      "total": 4282,
       "byGrade": {
         "usable": 4,
-        "excerpt": 643,
-        "excerpt-blind": 14,
-        "unjudged": 3552,
+        "excerpt": 647,
+        "excerpt-blind": 106,
+        "unjudged": 3453,
         "unknown": 4,
         "blocked": 68
       },
       "byBlockedAxis": {
-        "judgement": 3552,
+        "judgement": 3453,
         "analysis": 4,
         "legal": 50,
         "safety": 18,
-        "format": 14
+        "format": 106
       },
-      "composable": 647,
-      "composablePct": 15.1,
-      "judged": 733,
-      "composablePctOfJudged": 88.3,
+      "composable": 651,
+      "composablePct": 15.2,
+      "judged": 829,
+      "composablePctOfJudged": 78.5,
       "structurallyUnjudged": 444
     },
     {
       "vLevel": 6,
-      "total": 13062,
+      "total": 13056,
       "byGrade": {
         "usable": 0,
-        "excerpt": 1118,
-        "excerpt-blind": 35,
-        "unjudged": 11844,
+        "excerpt": 1120,
+        "excerpt-blind": 105,
+        "unjudged": 11766,
         "unknown": 4,
         "blocked": 61
       },
       "byBlockedAxis": {
-        "judgement": 11844,
-        "format": 35,
+        "judgement": 11766,
+        "format": 105,
         "analysis": 4,
         "legal": 15,
         "safety": 46
       },
-      "composable": 1118,
+      "composable": 1120,
       "composablePct": 8.6,
-      "judged": 1218,
-      "composablePctOfJudged": 91.8,
+      "judged": 1290,
+      "composablePctOfJudged": 86.8,
       "structurallyUnjudged": 10532
     },
     {
       "vLevel": 7,
-      "total": 2922,
+      "total": 2921,
       "byGrade": {
         "usable": 1,
-        "excerpt": 365,
-        "excerpt-blind": 7,
-        "unjudged": 2543,
+        "excerpt": 367,
+        "excerpt-blind": 23,
+        "unjudged": 2524,
         "unknown": 0,
         "blocked": 6
       },
       "byBlockedAxis": {
-        "judgement": 2543,
-        "format": 7,
+        "judgement": 2524,
+        "format": 23,
         "safety": 6
       },
-      "composable": 366,
-      "composablePct": 12.5,
-      "judged": 379,
-      "composablePctOfJudged": 96.6,
+      "composable": 368,
+      "composablePct": 12.6,
+      "judged": 397,
+      "composablePctOfJudged": 92.7,
       "structurallyUnjudged": 2468
     },
     {
@@ -231,18 +233,19 @@
       "byGrade": {
         "usable": 0,
         "excerpt": 1,
-        "excerpt-blind": 0,
-        "unjudged": 10,
+        "excerpt-blind": 1,
+        "unjudged": 9,
         "unknown": 0,
         "blocked": 0
       },
       "byBlockedAxis": {
-        "judgement": 10
+        "judgement": 9,
+        "format": 1
       },
       "composable": 1,
       "composablePct": 9.1,
-      "judged": 1,
-      "composablePctOfJudged": 100,
+      "judged": 2,
+      "composablePctOfJudged": 50,
       "structurallyUnjudged": 0
     }
   ],
@@ -273,7 +276,7 @@
     },
     {
       "source": "gutenberg",
-      "count": 292
+      "count": 274
     },
     {
       "source": "voa",

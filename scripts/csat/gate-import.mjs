@@ -52,6 +52,14 @@ for (const f of fs.readdirSync(DRAIN).filter((f) => f.endsWith('.out.json')).sor
     book.set(it.book, { verdict: it.verdict, genre: it.genre ?? '', why: it.why ?? '' })
   }
 }
+/**
+ * 이 행이 어느 책의 조각인가 — **판정 대조 키**.
+ *
+ * ⚠️ 두 곳에서 쓴다(`settled` 와 판정 조회). 예전에는 조회 쪽에만 인라인으로 있었고,
+ *   `settled` 가 판정을 안 봐서 새 판정이 반영되지 않았다. 한 벌로 둬야 둘이 안 갈린다.
+ */
+const keyOf = (r) => String(r.title ?? '').split(' — ')[0].trim() || '(무제)'
+
 console.log('게이트 적용' + (COMMIT ? ' — **쓴다**' : ' — 예행(쓰지 않는다)'))
 console.log('='.repeat(78))
 console.log(`  판정 파일 ${files}개 · 책 **${book.size}권**\n`)
@@ -152,6 +160,14 @@ for (;;) {
     const g = r.csat_fit?.gate
     // ⚠️ 규칙 판이 바뀌었으면 저장된 판정을 믿으면 안 된다 — 그게 반영 누락의 원인이었다.
     if (!g || g.v !== 2 || g.rv !== RULES_VERSION || g.purpose !== purposeOf(r)) return false
+    // ⚠️⚠️ **새로 들어온 책 판정이 저장된 것과 다르면 수렴이 아니다.**
+    //   실측 2026-09-06: 책 511권을 새로 판정하고 적재했는데 **한 행도 안 바뀌었다**
+    //   (「판정 있음 0 · 쓴 것 0」). 규칙만으로 한 번 게이트를 돌린 행은
+    //   `by:'rule'` · `verdict:null` · `rv:3` 으로 남는데, 위 세 줄만 보면 그게 "수렴" 이라
+    //   **판정을 조회하기도 전에 건너뛰었다.** 즉 규칙 통과 뒤에 붙은 LLM 판정은
+    //   영영 반영될 수 없었다 — 드레인은 성공했다고 보고하고 구멍은 그대로 남는다.
+    //   `--stale` 로도 안 풀린다(그쪽은 `rv` 가 낡은 행만 좁히는 스위치다).
+    if ((book.get(keyOf(r))?.verdict ?? null) !== (g.verdict ?? null)) return false
     const stuckArchived =
       g.publishable && r.status === 'archived' && String(r.status_message ?? '').startsWith('게시 게이트:')
     const stuckLive = !g.publishable && g.purpose !== 'raw' && r.status !== 'archived'
@@ -190,8 +206,7 @@ for (;;) {
       tally.skipped += 1
       continue
     }
-    const key = String(row.title ?? '').split(' — ')[0].trim() || '(무제)'
-    const v = book.get(key) ?? null
+    const v = book.get(keyOf(row)) ?? null
     if (v) tally.judged += 1
     else tally.unjudged += 1
     byVerdict[v?.verdict ?? '(LLM 판정 없음)'] = (byVerdict[v?.verdict ?? '(LLM 판정 없음)'] ?? 0) + 1
