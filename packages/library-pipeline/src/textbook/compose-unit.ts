@@ -605,9 +605,24 @@ export function composeUnits(
           .filter(([t, left]) => (ignoreQuota || left > 0)
             && (allowRepeatType || !picked.some((x) => x.type === t))
             // 몫을 무시하는 마지막 폴백에서는 페이스도 풀어 준다 — 단원을 못 채우는 것이 더 나쁘다.
-            && (ignoreQuota || takenHere(t) < paceCap(left)))
-          .map(([t, left]) => [t, left, left / Math.max(1, freeRefsIn(t))] as const)
-          .sort((x, y) => y[2] - x[2] || y[1] - x[1] || x[0].localeCompare(y[0]))
+            && (ignoreQuota || takenHere(t) < paceCap(left))
+            // ⚠️ **상한만으로는 뒤 단원이 0 이 된다** (실측 2026-09-06 V2: 20단원 word_order 0).
+            //   앞 단원이 상한까지 가져가면 몫이 먼저 마른다. 그래서 **가져간 뒤에도 남은
+            //   단원마다 1개씩 남는지**를 함께 본다 — 남지 않으면 이번 단원은 더 안 가져간다.
+            //   몫이 단원 수보다 적은 유형(예: 8문항/20단원)에는 애초에 걸리지 않는다.
+            //   조건: 이번 단원의 **두 번째부터**는 `남은 몫 ≥ 남은 단원 수` 일 때만 가져간다.
+            && (takenHere(t) === 0 || left >= unitsLeft))
+          // ⚠️ **상한만으로는 0 이 되는 단원을 못 막는다** (실측 2026-09-06 V2).
+          //   페이스 상한(`ceil`)을 넣어 미달 단원이 7 → 2 로 줄었지만, 30문항을 20단원에
+          //   1.5개씩 나누는 자리에서는 앞 단원이 상한(2)을 다 쓰면 뒤에 0 이 남는다.
+          //   그래서 상한 위에 **하한**을 얹는다: `floor(남은 몫 ÷ 남은 단원)` 만큼은
+          //   이번 단원이 반드시 가져간다. 30/20 이면 하한 1 · 상한 2 가 되어 어느 단원도
+          //   0 이 되지 않는다. 둘 다 몫과 단원 수에서 나오는 값이다 — 상수가 아니다.
+          .map(([t, left]) => {
+            const must = takenHere(t) < Math.floor(left / unitsLeft) ? 1 : 0
+            return [t, left, left / Math.max(1, freeRefsIn(t)), must] as const
+          })
+          .sort((x, y) => y[3] - x[3] || y[2] - x[2] || y[1] - x[1] || x[0].localeCompare(y[0]))
         for (const [t] of cands) {
           const list = byShare.pools.get(t) ?? []
           // 첫 항목이 아니라 **권에서 덜 쓰인 글**의 것을 고른다(위 `refUseCount` 참조).
