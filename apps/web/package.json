@@ -20,7 +20,8 @@
     "ensure:onnx": "node scripts/ensure-onnx-runtime.mjs",
     "tcp:enqueue": "tsx scripts/tcp-drain.mts enqueue",
     "tcp:drain": "tsx scripts/tcp-drain.mts drain",
-    "tcp:promote": "tsx scripts/tcp-drain.mts promote"
+    "tcp:promote": "tsx scripts/tcp-drain.mts promote",
+    "cover:probe": "tsx scripts/cover-probe.mts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.92.0",
