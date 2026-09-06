@@ -1006,6 +1006,30 @@ v06.35: `collect_quality_metrics()` 에 **M7 SSoT 드리프트** 추가 ([202608
 
 추가 확장: `plpgsql_check` 2.8 (schema `extensions`). `pgstattuple` · `pg_stat_statements` 는 기존 설치분 사용.
 
+### DB 헬스 판정층이 결과를 남기는 자리 — `db_health_findings` (2026-09-06)
+
+수집(`db_health_metrics`)이 **사실의 이력**이라면 이 표는 **판단의 이력**이다.
+판정은 DB 밖(Claude Code 명령 `/db-health-audit`)에서 하는데, 판정이 대화 안에서만 살면
+다음 실행 때 처음부터 다시 세고 "이건 지난주에 이미 봤다 / 이건 이번에 새로 생겼다" 를 구별하지 못한다.
+
+| | |
+|---|---|
+| 테이블 | `db_health_findings(fingerprint UNIQUE, axis, severity, title, detail, evidence jsonb, suggested_sql, status, first_seen_at, last_seen_at, occurrences, resolved_at, note)` · RLS read=admin |
+| 쓰기 | `upsert_db_health_finding(...)` — 같은 지문은 갱신 + `occurrences` 증가. **resolved 였다면 다시 open** (재발은 신규보다 나쁜 신호다) |
+| 닫기 | `close_missing_db_health_findings(text[])` — 이번 판정에서 안 보인 open/ack 를 resolved 로. 고쳐진 문제가 화면에 남으면 화면 전체를 못 믿게 된다 |
+| 사람 조작 | `admin_set_db_health_finding_status(id, status, note)` — role='admin' 검사. ack/resolved 표시만 |
+| 마이그레이션 | [20260906020000](../supabase/migrations/20260906020000_db_health_findings.sql) |
+
+**`suggested_sql` 은 실행 경로가 없는 문자열이다.** `VACUUM FULL`·`DROP INDEX` 는 되돌릴 수 없거나
+되돌리는 데 몇 분씩 락을 잡는다. 조치는 사람이 SQL 을 보고 승인한다(CLAUDE.md — 마이그레이션 자동 적용 금지).
+
+`upsert_db_health_finding` · `close_missing_db_health_findings` 는 role 검사를 하지 않는다 —
+에이전트가 MCP 로 postgres 권한에서 부르므로 `auth.uid()` 가 없다. 대신 **권한 자체를 좁혀서** 막는다
+(public·anon·authenticated 에서 EXECUTE 회수).
+
+지문 규칙 `<axis>:<대상>:<증상>` — 예 `cron:content-gate-nightly:failing` ·
+`integrity:function:analyze_book_vrl` · `advisor:security_definer_view:csat_items_public`.
+
 ---
 
 ### TBP 조판 기록 ([20260830140000](../supabase/migrations/20260830140000_textbook_volume_renders.sql))

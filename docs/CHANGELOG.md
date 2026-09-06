@@ -10,6 +10,35 @@
 
 ## Unreleased (v06.34 → next)
 
+### 판정은 DB 밖에서 — `db_health_findings` + `/db-health-audit` (2026-09-06)
+
+- 수집층(위)이 사실만 적으므로 **판정할 곳**이 필요했다. 판정은 Claude Code 명령
+  [`/db-health-audit`](../.claude/commands/db-health-audit.md) 가 하고,
+  결과는 [`db_health_findings`](../supabase/migrations/20260906020000_db_health_findings.sql) 에 남는다.
+  DB 밖에 있어야 하는 이유는 하나다 — **pg_cron 이 죽으면 그 안의 감시자도 같이 죽고,
+  죽었다는 사실조차 기록되지 않는다.**
+- 임계값을 상수로 두지 않는다. 시스템 자신의 설정과 이력에서 끌어낸다 —
+  cron 은 **각 잡의 `schedule` 에서** 기대 주기를 계산해 `hours_since_ok > 3×` 면 warning ·`10×` 면 critical,
+  느린 쿼리는 **`statement_timeout` 의 50%**, advisor 축은 **직전 스냅샷 대비 델타**(마이그레이션 184건/30일
+  속도에서는 절대값이 아니라 "어제 없던 것이 오늘 생겼나" 가 신호다).
+- 같은 문제는 `fingerprint` 로 한 행을 유지한다(`occurrences` 만 증가). `first_seen_at` 이 남아야
+  "이 문제가 얼마나 오래 방치됐나" 를 말할 수 있다. 매 실행 끝에 `close_missing_db_health_findings()` 로
+  이번에 안 보인 항목을 닫는다 — 고쳐진 문제가 화면에 남으면 화면 전체를 아무도 안 믿게 된다.
+  **재발하면 resolved → open 으로 되돌린다.** 재발은 신규보다 나쁜 신호다.
+- 조치 SQL 은 **실행 경로가 없는 문자열**(`suggested_sql`). VACUUM FULL·DROP INDEX 는 되돌릴 수 없거나
+  되돌리는 데 몇 분씩 락을 잡는다.
+- 절차를 실제로 1회 돌려 검증 — **열린 발견 11건**(critical 3 · warning 5 · info 3):
+  · `analyze_book_vrl` 없는 컬럼 참조(critical) · 야간 품질 수집 **평균 551초 vs 예산 120초**(critical) ·
+  `csat_items_public` 뷰가 SECURITY DEFINER(critical, advisor 유일 ERROR) ·
+  30초 워커 24시간 20회 startup timeout · matview 갱신 4회 timeout ·
+  `content-gate-nightly` 30.8시간째 미성공 · search_path 미고정 196 · `shared_dictionary` 빈 공간 45%(75.5MB) ·
+  미사용 인덱스 110개 69.6MB · `shared_words.source_queue_id` FK 인덱스 없음 ·
+  `recompute-kr-safe` 는 12월 31일에만 도는 잡.
+- RPC 3종을 실행 검증했다 — 본 지문을 전부 넘기면 **아무것도 닫히지 않고**(11건 유지), 빠뜨린 지문은
+  `resolved` 로 닫히며, 다시 올리면 `open` 으로 되돌아오고 `resolved_at` 이 지워진다(occurrences 증가 확인).
+  ⚠️ 첫 검증 쿼리는 CTE 하나에 쓰기와 읽기를 같이 넣어 **빈 결과**가 나왔다 — 코드가 아니라 테스트가 틀렸다
+  (같은 스냅샷을 보므로 CTE 안의 쓰기를 뒤 CTE 가 못 본다). 순차 실행으로 다시 쟀다.
+
 ### DB 헬스를 사람이 기억하는 대신 배치가 잰다 — 수집층 6축 (2026-09-06)
 
 - 위 「DB 서버 진단」은 **한 번 재고 끝난다.** 그 진단을 상시로 만드는 수집층을 넣었다.
