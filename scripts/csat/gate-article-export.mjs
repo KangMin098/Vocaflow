@@ -66,10 +66,13 @@ async function fetchPage(from, attempt = 0) {
   const size = attempt === 0 ? 1000 : Math.max(200, Math.floor(1000 / 2 ** attempt))
   const { data, error } = await db
     .from('library_articles')
-    .select(
-      'id,title,source,source_url,word_count,article_v_level,' +
-        'gv:csat_fit->gate->>verdict,gpu:csat_fit->gate->>purpose',
-    )
+    // ⚠️ **jsonb 를 훑기에서 뺐다.** `csat_fit->gate->>verdict` 를 select 에 넣으면 행마다
+    //   jsonb 를 detoast 한다 — 이 인스턴스의 진짜 제약이 **읽기 포화**이기 때문에
+    //   (`capacity:disk_io:instance`: shared_buffers 256MB 대 데이터 6,315MB · 캐시가 4%)
+    //   그 한 열이 21,831행 훑기를 몇 배로 무겁게 만든다. 판정 여부는 **남은 것에만** 따로 묻는다.
+    .select('id,title,source,source_url,word_count,article_v_level')
+    // 소스 제외도 DB 에서 한다 — 여기서 거르면 전송량이 4분의 1로 준다.
+    .not('source', 'in', '("plos","gutenberg")')
     .in('status', ['ready', 'published'])
     .gt('id', from)
     .order('id')
@@ -105,27 +108,69 @@ async function loadBodies(ids) {
 }
 
 // ── 훑어 모은다 ──────────────────────────────────────────────────────
-const rows = []
+let rows = []
 let cursor = '00000000-0000-0000-0000-000000000000'
 let seen = 0
 for (;;) {
   const data = await fetchPage(cursor)
   if (!data?.length) break
+  // plos·gutenberg 는 질의에서 이미 빠졌다(위 `.not`). 남은 것이 곧 후보다 —
+  // 이미 판정을 받았는지는 아래에서 **한 번에** 묻는다.
   for (const r of data) {
     seen += 1
-    // 이미 판정을 받았으면 건너뛴다 — **재실행 안전의 핵심**이다.
-    if (r.gv) continue
-    // 미절단 원본은 책 단위·기사 단위 어느 쪽으로도 판정할 수 없다(자르기 전에는 게시 불가).
-    if (r.gpu === 'raw' || r.source === 'plos') continue
-    // Gutenberg 는 책 단위 드레인 소관이다 — 두 드레인이 같은 글을 두 번 판정하면 안 된다.
-    if (r.source === 'gutenberg') continue
     rows.push(r)
   }
   cursor = data[data.length - 1].id
   process.stdout.write(`\r  훑음 ${seen.toLocaleString()}편 · 대상 ${rows.length.toLocaleString()}편`)
   // ⚠️ 끝은 **빈 쪽**으로만 판단한다 — 재시도가 쪽 크기를 줄이므로 `< size` 로 끊으면 나머지를 빠뜨린다.
 }
-console.log(`\n  훑음 ${seen.toLocaleString()}편 · **판정 대상 ${rows.length.toLocaleString()}편**\n`)
+console.log(`\n  훑음 ${seen.toLocaleString()}편 (plos·gutenberg 제외)\n`)
+
+if (!rows.length) {
+  console.log('  대상 소스의 기사가 없다.')
+  process.exit(0)
+}
+
+/**
+ * 이미 판정을 받았는가 — **남은 것에만** 묻는다.
+ *
+ * 훑기에서 jsonb 를 빼는 대신 여기서 pk `IN` 으로 확인한다. 대상이 훑은 수의 일부라
+ * detoast 하는 행이 그만큼 줄고, `IN` 은 pk 인덱스를 그대로 탄다.
+ */
+async function loadJudged(ids) {
+  const judged = new Set()
+  const raw = new Set()
+  for (let i = 0; i < ids.length; i += 200) {
+    const slice = ids.slice(i, i + 200)
+    for (let a = 0; a < 4; a += 1) {
+      const { data, error } = await db
+        .from('library_articles')
+        .select('id,gv:csat_fit->gate->>verdict,gpu:csat_fit->gate->>purpose')
+        .in('id', slice)
+      if (!error) {
+        for (const r of data ?? []) {
+          if (r.gv) judged.add(r.id)
+          if (r.gpu === 'raw') raw.add(r.id)
+        }
+        break
+      }
+      if (a === 3) throw new Error(`판정 여부 조회 — ${error.message}`)
+      await sleep(1500 * 2 ** a)
+    }
+    process.stdout.write(`\r  판정 여부 ${Math.min(i + 200, ids.length).toLocaleString()}/${ids.length.toLocaleString()}`)
+  }
+  process.stdout.write('\n')
+  return { judged, raw }
+}
+
+const { judged, raw } = await loadJudged(rows.map((r) => r.id))
+const before = rows.length
+// 이미 판정된 것과 미절단 원본을 뺀다 — **재실행 안전의 핵심**이다.
+rows = rows.filter((r) => !judged.has(r.id) && !raw.has(r.id))
+console.log(
+  `  이미 판정 ${judged.size.toLocaleString()} · 미절단 원본 ${raw.size.toLocaleString()} 을 빼고 ` +
+    `**판정 대상 ${rows.length.toLocaleString()}편** (훑은 ${before.toLocaleString()} 중)\n`,
+)
 
 if (!rows.length) {
   console.log('  판정할 기사가 없다 — 전부 판정을 받았다.')

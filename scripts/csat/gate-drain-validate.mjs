@@ -27,7 +27,10 @@ import path from 'node:path'
 
 import { HARMFUL, UNFIT } from './gate-rules.mjs'
 
-const DRAIN = path.resolve('scripts/csat/gate-drain')
+/** 적재기와 **같은 목록**이어야 한다 — 한쪽만 보면 검사 안 한 청크가 적재된다. */
+const DRAINS = ['scripts/csat/gate-drain', 'scripts/csat/gate-article-drain']
+  .map((d) => path.resolve(d))
+  .filter((d) => fs.existsSync(d))
 const VERDICTS = new Set(['use', 'narrative', 'reject'])
 /** `reject` 사유로 쓸 수 있는 것 — 해로운 것 + 지문이 될 수 없는 것 + 운문. */
 const BLOCK_GENRES = new Set([...HARMFUL, ...UNFIT, 'poetry-drama'])
@@ -38,7 +41,9 @@ const seen = new Map() // book → { verdict, file }
 let books = 0
 let files = 0
 
-const outs = fs.readdirSync(DRAIN).filter((f) => f.endsWith('.out.json')).sort()
+const outs = DRAINS.flatMap((d) =>
+  fs.readdirSync(d).filter((f) => f.endsWith('.out.json')).sort().map((f) => ({ dir: d, f })),
+)
 if (!outs.length) {
   console.error('  ❌ 채운 청크가 없다. gate-book-export.mjs 로 뽑고 채울 것.')
   process.exit(1)
@@ -47,14 +52,14 @@ if (!outs.length) {
 console.log('판정 청크 검사 — 읽기 전용')
 console.log('='.repeat(78))
 
-for (const f of outs) {
+for (const { dir, f } of outs) {
   files += 1
-  const inPath = path.join(DRAIN, f.replace(/\.out\.json$/, '.json'))
+  const inPath = path.join(dir, f.replace(/\.out\.json$/, '.json'))
   // ⚠️ 판정이 병렬로 돌고 있으면 **반쯤 쓰인 파일**을 읽을 수 있다. 스택 트레이스로 죽으면
   //   "무엇이 잘못됐는지" 대신 "어디서 죽었는지" 만 남는다 — 파일 이름을 들고 오류로 센다.
   let out
   try {
-    out = JSON.parse(fs.readFileSync(path.join(DRAIN, f), 'utf8'))
+    out = JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8'))
   } catch (e) {
     errors.push(`${f}: JSON 을 못 읽는다 — ${String(e.message).slice(0, 80)} (아직 쓰는 중일 수 있다)`)
     continue

@@ -40,13 +40,24 @@ const FROM = fromArg > 0 ? process.argv[fromArg + 1] : ''
 //   `--stale` 은 아직 지금 판이 아닌 행만 질의한다 — 9만 행을 훑으며 수렴한 것을 건너뛰는 대신,
 //   애초에 안 받는다. 회차당 486편이 남은 것 전부가 된다.
 const STALE = process.argv.includes('--stale')
-const DRAIN = path.resolve('scripts/csat/gate-drain')
+/**
+ * 판정 청크가 있는 곳 — **둘이다.**
+ *
+ * `gate-drain` 은 책 단위(Gutenberg), `gate-article-drain` 은 기사 단위(futurity·usgs·nasa…).
+ * ⚠️ 기사 쪽을 여기 안 넣으면 판정 5,823편이 **아무 오류 없이 무시된다** — 적재기는
+ *   "판정 파일 N개" 만 찍으므로 빠진 줄 모른다. 실측 2026-09-06 에 발사 직전 발견했다.
+ * 청크 번호가 겹치므로(둘 다 chunk-01) **디렉터리를 나눠 둔 채로** 각각 읽는다.
+ */
+const DRAINS = ['scripts/csat/gate-drain', 'scripts/csat/gate-article-drain']
+  .map((d) => path.resolve(d))
+  .filter((d) => fs.existsSync(d))
 
 // ── 책 판정 읽기 ────────────────────────────────────────────────────
 const book = new Map()
 let files = 0
-for (const f of fs.readdirSync(DRAIN).filter((f) => f.endsWith('.out.json')).sort()) {
-  const arr = JSON.parse(fs.readFileSync(path.join(DRAIN, f), 'utf8'))
+for (const dir of DRAINS)
+for (const f of fs.readdirSync(dir).filter((f) => f.endsWith('.out.json')).sort()) {
+  const arr = JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8'))
   files += 1
   for (const it of arr) {
     if (!it.verdict) continue
