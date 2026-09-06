@@ -194,3 +194,177 @@ export interface CheckpointPair {
   /** 가장 최근에 손댄 시각 — 목록 정렬용. */
   touchedAt: string
 }
+
+// ── 라이브 계기판 (마이그레이션 20260906190000) ────────────────────────────
+
+/** 지금 도는 세션 한 줄. `admin_db_health_live()` 의 `sessions[]`. */
+export interface LiveSession {
+  pid: number
+  state: string
+  /** `IO:DataFileRead` 처럼 `유형:이벤트`. 대기 중이 아니면 빈 문자열. */
+  wait: string
+  dur_s: number
+  app: string
+  usename: string
+  query: string
+}
+
+/** 잠금 대기 한 줄 — 누가 누구에게 막혀 있는가. */
+export interface LiveBlocker {
+  blocked_pid: number
+  blocking_pid: number
+  dur_s: number
+  query: string
+}
+
+/** 최근 24시간 안에 성공하지 못한 cron 실행. */
+export interface LiveCronRun {
+  job: string
+  status: string
+  at: string
+  dur_s: number
+  msg: string
+  /** 잡이 지금 켜져 있는가. 꺼진 잡의 실패는 과거의 것이다. */
+  active: boolean | null
+}
+
+export interface LiveSnapshot {
+  at: string
+  conn: {
+    max: number
+    total: number
+    active: number
+    idle: number
+    idle_in_tx: number
+    waiting: number
+    used_pct: number
+  }
+  cache_hit_pct: number | null
+  db_size_mb: number
+  blocked_locks: number
+  longest_query_s: number
+  longest_xact_s: number
+  oldest_idle_in_tx_s: number
+  deadlocks: number
+  rollbacks: number
+  cron_fail_24h: number
+  cron_running: number
+  sessions: LiveSession[]
+  blockers: LiveBlocker[]
+  cron_recent: LiveCronRun[]
+}
+
+/** 신호 하나의 판정. `unknown` 은 "못 읽었다" 이지 "정상" 이 아니다. */
+export type SignalLevel = 'ok' | 'warn' | 'crit' | 'unknown'
+
+/**
+ * 라이브 신호의 임계값. **전부 이 DB 에서 실측한 설정에 걸려 있다** — 어림수를 쓰면
+ * 화면이 남의 DB 를 감시하는 셈이 된다 (2026-09-06 실측: `pg_settings`).
+ *
+ * `null` 은 임계값을 두지 않는 신호다. 근거 없는 선을 그으면 그 선이 곧 무시된다.
+ */
+export const LIVE_THRESHOLDS: Record<
+  string,
+  { warn: number; crit: number; dir: 'high' | 'low'; why: string } | null
+> = {
+  // max_connections = 60 (실측). 초과하면 앱이 연결을 못 얻어 즉시 장애다.
+  conn_used_pct: { warn: 70, crit: 85, dir: 'high', why: 'max_connections 60' },
+  // 캐시 적중률은 99% 위가 정상 — 그 아래는 읽기가 디스크로 간다는 뜻이다.
+  cache_hit_pct: { warn: 99, crit: 95, dir: 'low', why: 'shared_buffers 256MB' },
+  // statement_timeout = 120초 (실측). 절반을 넘기면 타임아웃 사정권이다.
+  longest_query_s: { warn: 60, crit: 110, dir: 'high', why: 'statement_timeout 120초' },
+  // idle_in_transaction_session_timeout = 0 — DB 가 스스로 끊지 않는다. 그래서 사람이 본다.
+  // 5분은 조치 `terminate_idle_in_tx` 가 쓰는 기준과 같은 값이다(두 곳이 갈리면 못 믿는다).
+  oldest_idle_in_tx_s: { warn: 300, crit: 900, dir: 'high', why: 'DB 자동 종료 없음(=0)' },
+  blocked_locks: { warn: 1, crit: 5, dir: 'high', why: '대기 = 이미 멈춘 요청' },
+  cron_fail_24h: { warn: 1, crit: 20, dir: 'high', why: '실패는 0 이 정상' },
+  // 디스크 상한을 모르는 채로 선을 그으면 그 선은 짐작이다 — 값과 증가분만 보여 준다.
+  db_size_mb: null,
+}
+
+// ── 조치 (마이그레이션 20260906190500) ────────────────────────────────────
+
+export type ActionTier = 'safe' | 'guarded'
+
+export type ActionKey =
+  | 'analyze_table'
+  | 'analyze_stale_tables'
+  | 'cancel_query'
+  | 'cron_enable_job'
+  | 'terminate_backend'
+  | 'terminate_idle_in_tx'
+  | 'cron_disable_job'
+
+/**
+ * 화면이 실행할 수 있는 조치. **DB 함수의 허용 목록과 같아야 한다** —
+ * 여기에만 있는 항목은 눌러도 `허용 목록에 없는 조치` 로 거절당하고, 그건 거짓말하는 버튼이다.
+ * (`db-health-actions.test.ts` 가 두 목록이 갈리는 것을 잡는다.)
+ */
+export const ACTION_CATALOG: Record<
+  ActionKey,
+  { label: string; tier: ActionTier; effect: string; needsTarget: boolean }
+> = {
+  analyze_table: {
+    label: '통계 갱신',
+    tier: 'safe',
+    effect: '이 표의 실행계획 통계를 다시 뜬다. 락 없음, 되돌릴 것 없음.',
+    needsTarget: true,
+  },
+  analyze_stale_tables: {
+    label: '낡은 통계 일괄 갱신',
+    tier: 'safe',
+    effect: '7일 넘게 안 뜬 표를 최대 20개까지 ANALYZE 한다.',
+    needsTarget: false,
+  },
+  cancel_query: {
+    label: '쿼리 취소',
+    tier: 'safe',
+    effect: '그 세션의 지금 쿼리만 중단한다. 연결은 살아 있다.',
+    needsTarget: true,
+  },
+  cron_enable_job: {
+    label: '잡 재개',
+    tier: 'safe',
+    effect: '멈춰 둔 예약 작업을 다시 켠다.',
+    needsTarget: true,
+  },
+  terminate_backend: {
+    label: '세션 종료',
+    tier: 'guarded',
+    effect: '연결을 끊는다. 열려 있던 트랜잭션은 롤백된다.',
+    needsTarget: true,
+  },
+  terminate_idle_in_tx: {
+    label: 'idle-in-tx 일괄 종료',
+    tier: 'guarded',
+    effect: '5분 넘게 트랜잭션을 열어 둔 채 노는 세션을 전부 끊는다.',
+    needsTarget: false,
+  },
+  cron_disable_job: {
+    label: '잡 정지',
+    tier: 'guarded',
+    effect: '예약 작업을 끈다. 다시 켜기 전까지 돌지 않는다.',
+    needsTarget: true,
+  },
+}
+
+export interface ActionLogRow {
+  id: number
+  action: string
+  tier: ActionTier
+  target: string | null
+  reason: string | null
+  started_at: string
+  finished_at: string | null
+  ok: boolean | null
+  result: string | null
+  error: string | null
+}
+
+export interface ActionResult {
+  ok: boolean
+  log_id: number | null
+  tier?: ActionTier
+  result?: string
+  error?: string
+}

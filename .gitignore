@@ -130,6 +130,7 @@ docs/reference/seum-code-full.md
 # e2e / 아케이드 회귀 산출물 (매 실행 재생성)
 apps/web/e2e-out/
 apps/web/test-results-arcade/
+apps/web/test-results-admin-db/
 
 # dict 드레인 작업 폴더 (w0815-*/w0816-* 와 같은 계열 — 청크는 import 후 소모품)
 scripts/dict/w0817-*/

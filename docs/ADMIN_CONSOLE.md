@@ -716,6 +716,62 @@ Next.js 는 자식을 그대로 서빙한다. 메뉴에서는 이미 ④ 소재 
 - `extraction_judgments` 테이블(RLS `ej_admin_all` = is_admin_or_curator) · RPC 2종 anon REVOKE + authenticated GRANT
 - Calm UI: 붉은 압박 없이 초록(가치)/앰버(애매) + 아이콘. 회차당 1챕터 ~16단어 5분
 
+## /admin/db — DB 헬스 콘솔 (2026-09-06 재설계)
+
+세 층이 한 화면에 있다. 수집(pg_cron)과 판정(`/db-health-audit`)은 여전히 밖에 있고,
+이 화면은 **지금을 보여 주고 · 판정을 줄 세우고 · 거기서 조치한다.**
+
+### 화면 순서 — 급한 것부터
+
+| 자리 | 무엇 | 출처 |
+|---|---|---|
+| 상태 한 줄 | 정상 / 주의 / 장애 / 수집 멈춤 / 지금 상태를 읽지 못함 + 등급별 건수 + 스냅샷 나이 | `overallStatus()` — **가장 나쁜 신호 하나가 전체를 정한다** |
+| «지금» | 신호 7타일(연결·캐시 적중·최장 쿼리·IDLE TX·잠금 대기·예약 실패·DB 용량) + 도는 세션 표 + 잠금 대기 + cron 실패 | `admin_db_health_live()` · 15초 폴링(끌 수 있음) |
+| «경보» | 열린 발견 표 — 등급 칩 · 축 · 제목 · 열린 지 · 관측 · 조치. 필터(등급·축) + 줄 펼침 | `db_health_findings` |
+| «조치 기록» | 실행한 조치의 감사 기록(실패 포함) + 대상 없는 일괄 조치 2종 | `db_health_action_log` |
+| «추세» | 축별 스냅샷 지표 + 스파크라인(4회부터) | `db_health_metrics` |
+| «이상 징후» · «용량» · «체크포인트» · «면제» | 기존과 같음 | `db_health_anomalies()` 등 |
+
+### 조치 — 화면이 실제로 실행하는 것
+
+| 등급 | 조치 | 어디에 붙나 |
+|---|---|---|
+| 안전 | 통계 갱신 (`analyze_table`) | 용량 표의 각 행 · 증거에 `table` 이 있는 경보 |
+| 안전 | 낡은 통계 일괄 갱신 (`analyze_stale_tables`) | «조치 기록» 머리 · 제목에 「통계」가 있는 경보 |
+| 안전 | 쿼리 취소 (`cancel_query`) | «지금» 세션 표의 각 행 |
+| 안전 | 잡 재개 (`cron_enable_job`) | 꺼진 cron 잡 줄 |
+| 사유 필요 | 세션 종료 (`terminate_backend`) | 세션 표 · 잠금 대기의 「막는 세션」 |
+| 사유 필요 | idle-in-tx 일괄 종료 (`terminate_idle_in_tx`) | «조치 기록» 머리 · 지문에 `idle` 이 있는 경보 |
+| 사유 필요 | 잡 정지 (`cron_disable_job`) | cron 실패 줄 · 증거에 `job` 이 있는 경보 |
+| **실행 안 함** | `VACUUM FULL` · `DROP INDEX` · `ALTER SYSTEM` · 마이그레이션 | 줄을 펼치면 SQL + 「SQL 복사」만 |
+
+- 사유 필요 조치는 **5자 이상**을 적어야 실행 버튼이 열린다. 사유는 감사 기록에 남는다.
+- 허용 목록은 DB 함수 본문(`db_health_run_action`)에 박혀 있어 화면에서 늘릴 수 없다.
+  화면 카탈로그(`lib/admin/db-health/types.ts` `ACTION_CATALOG`)와 갈리는 것을 회귀가 잡는다.
+- 조치는 **재실행 안전하지 않다** — 같은 pid 를 두 번 종료하면 두 번째는 실패로 기록된다.
+
+### 임계값의 출처
+
+전부 이 DB 의 `pg_settings` 실측이고 `LIVE_THRESHOLDS` 한 곳에만 있다 —
+연결 70/85%(`max_connections` 60) · 캐시 적중 99/95% · 최장 쿼리 60/110초(`statement_timeout` 120초) ·
+IDLE TX 5/15분(`idle_in_transaction_session_timeout`=0, DB 가 스스로 안 끊는다) ·
+잠금 대기 1/5 · 예약 실패 1/20. **DB 용량에는 임계값이 없다** — 디스크 상한을 모르는 채 그은 선은 짐작이다.
+
+### 설계 제약 (회귀로 잠겨 있음)
+
+| 규칙 | 회귀 |
+|---|---|
+| 가시 텍스트 ≤ 3,000자 · 화면 자체 설명문 ≤ 150자 · 한 덩어리 ≤ 200자 (실측 2,037 / 60 / 48) | `app/admin/db/__tests__/density.test.tsx` |
+| 재설계 전 화면 사본과 직접 비교해 절반 미만 | 같은 파일 (사본 `__tests__/legacy/page-before-redesign.tsx`) |
+| 되돌릴 수 없는 SQL 에 실행 버튼이 없다 · 「모른다」를 「정상」으로 그리지 않는다 | `app/admin/db/__tests__/page.test.tsx` |
+| 화면 카탈로그 = DB 허용 목록 · 임계값에 근거 문자열이 있다 | `lib/admin/db-health/__tests__/live-signals.test.ts` |
+| 44px 미만 터치 타깃 0 | `components/admin/__tests__/touch-target.test.ts` |
+| 1280×900 · 390px 가로 넘침 0 · axe WCAG2 A/AA 위반 0 | `scripts/shot-admin-db.mjs` |
+
+RLS read=admin — dev-bypass 브라우징은 「지금 상태를 읽지 못함」(정상 동작).
+데이터가 있는 상태를 눈으로 보려면 `scripts/shot-admin-db-data.mjs`.
+
+
 ---
 
 ## 화면도움말 (v06.34 신설 — 전 화면·전 탭)

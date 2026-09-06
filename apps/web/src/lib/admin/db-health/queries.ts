@@ -10,7 +10,14 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { createClient } from '@/lib/supabase/server'
 
-import type { AnomalyRow, CheckpointRow, FindingRow, HealthMetricRow } from './types'
+import type {
+  ActionLogRow,
+  AnomalyRow,
+  CheckpointRow,
+  FindingRow,
+  HealthMetricRow,
+  LiveSnapshot,
+} from './types'
 
 /**
  * 가져올 스냅샷 행 수.
@@ -24,6 +31,9 @@ export const STALE_AFTER_HOURS = 26
 
 /** 체크포인트는 최근 것만 본다 — 라벨당 최대 2행이므로 60이면 30개 작업분. */
 export const CHECKPOINT_ROW_LIMIT = 60
+
+/** 조치 감사 기록은 최근 것만 화면에 둔다. 전체는 db_health_action_log 를 직접 본다. */
+export const ACTION_LOG_ROW_LIMIT = 30
 
 export interface DbHealthData {
   metrics: HealthMetricRow[]
@@ -47,6 +57,15 @@ export interface DbHealthData {
   checkpoints: CheckpointRow[]
   anomaliesError: string | null
   checkpointsError: string | null
+  /**
+   * **지금** 시점 계기판. 서버에서 한 번 읽어 첫 페인트에 실값이 칠해져 있게 한다 —
+   * 클라이언트 폴링만 두면 진입 직후 몇 초간 빈 계기판이 뜨고, 빈 계기판은 "정상" 으로 읽힌다.
+   */
+  live: LiveSnapshot | null
+  liveError: string | null
+  /** 조치 감사 기록(최근분). 실패한 조치도 들어 있다. */
+  actionLog: ActionLogRow[]
+  actionLogError: string | null
 }
 
 /**
@@ -58,7 +77,15 @@ export async function fetchDbHealth(injected?: SupabaseClient): Promise<DbHealth
   // db_health_metrics · db_health_findings 는 생성 타입 미반영 — 언타입 클라이언트 경유
   const supabase = injected ?? ((await createClient()) as unknown as SupabaseClient)
 
-  const [metricsRes, findingsRes, resolvedRes, anomaliesRes, checkpointsRes] = await Promise.all([
+  const [
+    metricsRes,
+    findingsRes,
+    resolvedRes,
+    anomaliesRes,
+    checkpointsRes,
+    liveRes,
+    actionLogRes,
+  ] = await Promise.all([
     supabase
       .from('db_health_metrics')
       .select('measured_at, axis, metric, value, dims')
@@ -84,6 +111,12 @@ export async function fetchDbHealth(injected?: SupabaseClient): Promise<DbHealth
       .select('label, phase, measured_at, note, created_at')
       .order('created_at', { ascending: false })
       .limit(CHECKPOINT_ROW_LIMIT),
+    supabase.rpc('admin_db_health_live'),
+    supabase
+      .from('db_health_action_log')
+      .select('id, action, tier, target, reason, started_at, finished_at, ok, result, error')
+      .order('started_at', { ascending: false })
+      .limit(ACTION_LOG_ROW_LIMIT),
   ])
 
   if (metricsRes.error) {
@@ -108,5 +141,9 @@ export async function fetchDbHealth(injected?: SupabaseClient): Promise<DbHealth
     checkpoints: (checkpointsRes.data ?? []) as CheckpointRow[],
     anomaliesError: anomaliesRes.error?.message ?? null,
     checkpointsError: checkpointsRes.error?.message ?? null,
+    live: (liveRes.data as LiveSnapshot | null) ?? null,
+    liveError: liveRes.error?.message ?? null,
+    actionLog: (actionLogRes.data ?? []) as ActionLogRow[],
+    actionLogError: actionLogRes.error?.message ?? null,
   }
 }

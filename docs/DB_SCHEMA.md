@@ -1142,6 +1142,71 @@ inner join 으로 비교하면 그 줄이 조용히 빠져 "아무 변화 없음
 지문 규칙 `<axis>:<대상>:<증상>` — 예 `cron:content-gate-nightly:failing` ·
 `integrity:function:analyze_book_vrl` · `advisor:security_definer_view:csat_items_public`.
 
+### DB 헬스 라이브층 — `admin_db_health_live()` (2026-09-06)
+
+스냅샷(`db_health_metrics`)은 일 1회다. 그건 「어제 어땠나」에 답하지 **「지금 무슨 일이 벌어지고
+있나」에는 답하지 못한다.** 이 저장소의 실제 장애 두 건(09-06 08:06 UTC 55분 전면 정지 ·
+09-05 단건 PATCH 폭주)은 둘 다 스냅샷 사이에서 시작해 스냅샷 사이에서 끝났고,
+그동안 `/admin/db` 는 어제 숫자를 최신처럼 그리고 있었다.
+
+| | |
+|---|---|
+| 본체 | `db_health_live_snapshot()` → `jsonb`. **권한 검사 없음** — 실행 권한을 public·anon·authenticated 에서 전부 회수해서 막는다. 갈라 둔 이유는 이 본체를 실 DB 에서 그대로 검증할 수 있게 하려고 |
+| 화면용 | `admin_db_health_live()` — role='admin' 검사 후 위임. EXECUTE→authenticated |
+| 읽는 곳 | `pg_stat_activity` · `pg_locks` · `pg_stat_database` · `pg_settings` · `cron.job_run_details` — **카탈로그 뷰만**. 테이블 스캔·쓰기 없음 |
+| 돌려주는 키 | `conn{max,total,active,idle,idle_in_tx,waiting,used_pct}` · `cache_hit_pct` · `db_size_mb` · `blocked_locks` · `longest_query_s` · `longest_xact_s` · `oldest_idle_in_tx_s` · `deadlocks` · `rollbacks` · `cron_fail_24h` · `cron_running` · `sessions[12]` · `blockers[]` · `cron_recent[10]` |
+| 마이그레이션 | [20260906190000](../supabase/migrations/20260906190000_db_health_live.sql) |
+
+⚠️ **`cron.job_run_details` 에는 `jobname` 컬럼이 없다**(`jobid` 만). 첫 정의가 그 컬럼을 읽어
+호출 즉시 `42703` 으로 죽었다 — 잡 이름은 `cron.job` 을 `jobid` 로 조인해서 얻는다.
+`create function` 은 본문을 검증하지 않으므로 **적용 성공 = 동작 확인이 아니다.**
+
+⚠️ **jsonb 한 덩어리로 돌려주는 이유** — 열 여섯 개짜리 composite 을 만들면 지표를 하나 더할
+때마다 마이그레이션이 필요해지고, 그러면 화면이 먼저 굶는다.
+
+⚠️ **여기에 집계 쿼리를 더하지 말 것.** 화면이 15초마다 부르므로 비용이 그대로 상시 부하가 된다
+(직전 장애 원인이 **읽기 포화**였다). 무거운 것은 스냅샷 수집기로 보낸다.
+
+### DB 헬스 조치층 — `db_health_action_log` + 허용 목록 (2026-09-06)
+
+지금까지 `/admin/db` 는 조치 SQL 을 **보여 주기만** 했다. 그 선택은 `VACUUM FULL`·`DROP INDEX`
+같은 되돌릴 수 없는 조작을 막기 위한 것이었고 그건 여전히 옳다. 하지만 장애 대응에는 **초 단위로
+눌러야 하는 조치**가 따로 있다 — 폭주하는 잡을 끄고, 걸린 세션을 끊고, 통계를 다시 뜨는 일이다.
+
+| 등급 | 조치 | 무엇이 일어나나 |
+|---|---|---|
+| safe | `analyze_table(대상)` | 그 표의 실행계획 통계 갱신. 락 없음 |
+| safe | `analyze_stale_tables` | 7일 넘게 안 뜬 public 표 최대 20개 ANALYZE |
+| safe | `cancel_query(pid)` | `pg_cancel_backend` — 쿼리만 중단, 연결은 산다 |
+| safe | `cron_enable_job(잡이름)` | `cron.alter_job(active := true)` |
+| guarded | `terminate_backend(pid)` | `pg_terminate_backend` — 연결을 끊고 트랜잭션 롤백 |
+| guarded | `terminate_idle_in_tx` | idle in transaction 5분 초과 세션 전부 종료 |
+| guarded | `cron_disable_job(잡이름)` | `cron.alter_job(active := false)` |
+| **없음** | `VACUUM FULL` · `DROP INDEX` · `ALTER SYSTEM` · 마이그레이션 | 화면이 실행하지 않는다. SQL 만 건넨다 |
+
+| | |
+|---|---|
+| 감사표 | `db_health_action_log(action, tier, target, reason, actor, finding_id, started_at, finished_at, ok, result, error)` · RLS read=admin · 쓰기 정책 없음 |
+| 본체 | `db_health_run_action(action, target, reason, finding_id, actor)` — 권한 검사 없음, EXECUTE 회수로 막는다 |
+| 화면용 | `admin_run_db_health_action(action, target, reason, finding_id)` — role='admin' 검사 후 위임 |
+| 마이그레이션 | [20260906190500](../supabase/migrations/20260906190500_db_health_actions.sql) |
+
+⚠️ **허용 목록은 함수 본문에 박혀 있다.** 표로 빼면 표에 행 하나를 넣는 것으로 임의 SQL 실행이
+되고, 그 표에 쓸 수 있는 사람은 곧 DB 전체에 쓸 수 있는 사람이다.
+`analyze_table` 은 `to_regclass` 를 거치고 `relkind in ('r','p') and nspname='public'` 을 확인하므로
+주입 경로가 닫혀 있다.
+
+⚠️ **실패를 `raise` 로 올리면 감사 로그가 함께 롤백된다.** PostgREST 는 오류 시 트랜잭션을 통째로
+되돌리고 Postgres 에는 자율 트랜잭션이 없다. 실측(2026-09-06): 실패 5건을 일으켰더니 로그에 남은
+것은 **성공 1건뿐**이었다. 그래서 실패는 예외가 아니라 **결과값**(`ok=false`)으로 돌려준다.
+`guarded` 는 사유 5자 미만이면 실행 전에 거절한다 — 사유 없는 강제 종료는 다음 사람이 해석하지 못한다.
+
+⚠️ **화면 카탈로그와 이 목록이 갈리면 안 된다.** 화면 쪽 `ACTION_CATALOG`
+(`lib/admin/db-health/types.ts`)가 여기와 어긋나면 눌러도 `허용 목록에 없는 조치` 로 거절당하는
+버튼이 생기고, 거절당하는 버튼은 다음부터 아무도 안 누른다.
+회귀 `lib/admin/db-health/__tests__/live-signals.test.ts` 가 키와 등급을 대조한다.
+
+
 ---
 
 ### TBP 조판 기록 ([20260830140000](../supabase/migrations/20260830140000_textbook_volume_renders.sql))

@@ -7,16 +7,19 @@
 // 화면이 임계값을 다시 정하지 않는다. 같은 숫자를 두 곳에서 판정하면 두 곳이 갈린다.
 
 import type {
+  ActionKey,
   CheckpointPair,
   CheckpointRow,
   FindingRow,
   FindingSeverity,
   HealthAxis,
   HealthMetricRow,
+  LiveSnapshot,
   MetricSeries,
+  SignalLevel,
   TableGrowth,
 } from './types'
-import { HEALTH_AXES } from './types'
+import { HEALTH_AXES, LIVE_THRESHOLDS } from './types'
 
 /** 추세선을 그리기 시작하는 최소 점 수. 2점을 이은 선은 추세가 아니라 장식이다. */
 export const TREND_MIN_POINTS = 4
@@ -228,4 +231,139 @@ export function anomalyReadiness(
   minSamples: number,
 ): { ready: boolean; need: number } {
   return { ready: snapshots >= minSamples, need: Math.max(0, minSamples - snapshots) }
+}
+
+// ── 라이브 신호 판정 ──────────────────────────────────────────────────────
+//
+// ⚠️ 이 파일 맨 위의 "화면은 판정하지 않는다" 에 대한 **명시적 예외**다.
+//    스냅샷 지표는 뒤에 판정층(/db-health-audit)이 있지만 **라이브 신호에는 없다** —
+//    판정층은 하루 한 번 DB 밖에서 돌고, 장애는 그 사이에 시작해 그 사이에 끝난다.
+//    그래서 라이브만은 화면이 선을 긋는다. 대신 선은 `LIVE_THRESHOLDS` 한 곳에만 있고
+//    전부 이 DB 의 실측 설정에 걸려 있다(임계값을 두 곳에 두면 두 곳이 갈린다).
+
+/** 신호 하나를 임계값에 대고 판정한다. 임계값이 없는 신호와 값이 없는 신호 모두 `unknown`. */
+export function signalLevel(key: string, value: number | null): SignalLevel {
+  const t = LIVE_THRESHOLDS[key]
+  if (!t || value === null || Number.isNaN(value)) return 'unknown'
+  if (t.dir === 'high') {
+    if (value >= t.crit) return 'crit'
+    if (value >= t.warn) return 'warn'
+    return 'ok'
+  }
+  if (value <= t.crit) return 'crit'
+  if (value <= t.warn) return 'warn'
+  return 'ok'
+}
+
+/**
+ * 화면 맨 위 한 줄의 판정. **가장 나쁜 것 하나가 전체를 정한다** — 평균을 내면
+ * 치명 하나가 정상 아홉에 묻히고, 그 순간 이 화면은 장애를 못 알리는 화면이 된다.
+ *
+ * 라이브를 못 읽은 것(`live === null`)은 정상이 아니라 `unknown` 이다. 스냅샷이 낡은 것도
+ * 마찬가지 — 낡은 숫자로 "정상" 이라고 말하는 화면이 가장 위험하다.
+ */
+export function overallStatus(input: {
+  live: LiveSnapshot | null
+  liveError: string | null
+  criticalCount: number
+  warningCount: number
+  stale: boolean
+}): { level: SignalLevel; headline: string; reason: string } {
+  const worstLive: SignalLevel[] = []
+  if (input.live) {
+    worstLive.push(signalLevel('conn_used_pct', input.live.conn.used_pct))
+    worstLive.push(signalLevel('cache_hit_pct', input.live.cache_hit_pct))
+    worstLive.push(signalLevel('longest_query_s', input.live.longest_query_s))
+    worstLive.push(signalLevel('oldest_idle_in_tx_s', input.live.oldest_idle_in_tx_s))
+    worstLive.push(signalLevel('blocked_locks', input.live.blocked_locks))
+    worstLive.push(signalLevel('cron_fail_24h', input.live.cron_fail_24h))
+  }
+  const liveCrit = worstLive.filter((l) => l === 'crit').length
+  const liveWarn = worstLive.filter((l) => l === 'warn').length
+
+  if (input.liveError) {
+    return {
+      level: 'unknown',
+      headline: '지금 상태를 읽지 못함',
+      reason: '라이브 조회 실패 — 아래 값은 마지막으로 읽은 것이다',
+    }
+  }
+  if (liveCrit > 0 || input.criticalCount > 0) {
+    return {
+      level: 'crit',
+      headline: '장애',
+      reason: `라이브 임계 초과 ${liveCrit} · 치명 발견 ${input.criticalCount}`,
+    }
+  }
+  if (input.stale) {
+    return {
+      level: 'unknown',
+      headline: '수집 멈춤',
+      reason: '스냅샷이 낡았다 — 아래 추세는 지금이 아니다',
+    }
+  }
+  if (liveWarn > 0 || input.warningCount > 0) {
+    return {
+      level: 'warn',
+      headline: '주의',
+      reason: `라이브 경계 ${liveWarn} · 주의 발견 ${input.warningCount}`,
+    }
+  }
+  if (!input.live) {
+    return { level: 'unknown', headline: '지금 상태 없음', reason: '라이브를 아직 읽지 않았다' }
+  }
+  return { level: 'ok', headline: '정상', reason: '임계를 넘은 신호 없음' }
+}
+
+/**
+ * 발견 하나에 붙일 수 있는 **실행 가능한** 조치를 고른다.
+ *
+ * 추측하지 않는다 — 증거(`evidence`)에 대상이 적혀 있을 때만 붙인다. 대상 없는 조치 버튼은
+ * 눌러도 `그런 표가 없다` 로 되돌아오고, 되돌아오는 버튼은 다음부터 아무도 안 누른다.
+ *
+ * 여기 없는 조치(VACUUM FULL · DROP INDEX)는 일부러 없다. 그것들은 `suggested_sql` 로만 간다.
+ */
+export function suggestActions(finding: FindingRow): { action: ActionKey; target: string | null }[] {
+  const ev = finding.evidence ?? {}
+  const out: { action: ActionKey; target: string | null }[] = []
+
+  const table = typeof ev.table === 'string' ? ev.table : null
+  const job = typeof ev.job === 'string' ? ev.job : typeof ev.jobname === 'string' ? ev.jobname : null
+
+  if (table) out.push({ action: 'analyze_table', target: table })
+  if (finding.fingerprint.includes('stats_stale') || finding.title.includes('통계')) {
+    out.push({ action: 'analyze_stale_tables', target: null })
+  }
+  if (job) out.push({ action: 'cron_disable_job', target: job })
+  // ⚠️ 축(connections)만 보고 붙이면 안 된다 — 실측(픽스처 16건)에서 연결 축 발견 전부에
+  //    idle-in-tx 일괄 종료가 달려 한 줄에 버튼이 넷씩 생겼다. 버튼이 넷이면 아무도 안 읽는다.
+  //    「idle」이 지문이나 제목에 실제로 있을 때만 붙인다.
+  if (finding.fingerprint.includes('idle') || finding.title.toLowerCase().includes('idle')) {
+    out.push({ action: 'terminate_idle_in_tx', target: null })
+  }
+  // 같은 조치가 두 조건에 걸릴 수 있다 — 버튼이 둘이면 관리자는 둘이 다른 줄 안다.
+  return out.filter(
+    (a, i) => out.findIndex((b) => b.action === a.action && b.target === a.target) === i,
+  )
+}
+
+/** 초를 사람 말로. 판정하지 않는다 — 길이만 말한다. */
+export function formatSeconds(s: number | null): string {
+  if (s === null || Number.isNaN(s)) return '—'
+  if (s < 1) return '0초'
+  if (s < 60) return `${Math.round(s)}초`
+  if (s < 3600) return `${Math.floor(s / 60)}분 ${Math.round(s % 60)}초`
+  return `${Math.floor(s / 3600)}시간 ${Math.round((s % 3600) / 60)}분`
+}
+
+/**
+ * 게이지 채움 비율(0~1). 임계값이 있는 신호만 채운다.
+ * `dir: 'low'` 는 낮을수록 나쁘므로 값 자체를 그대로 쓰되 100 기준으로 정규화한다.
+ */
+export function gaugeFill(key: string, value: number | null): number | null {
+  const t = LIVE_THRESHOLDS[key]
+  if (!t || value === null || Number.isNaN(value)) return null
+  if (t.dir === 'low') return Math.max(0, Math.min(1, value / 100))
+  // 치명선을 가득 참으로 본다 — 그 위는 넘쳐도 1 이다(막대가 밖으로 나가지 않게).
+  return Math.max(0, Math.min(1, value / (t.crit || 1)))
 }
