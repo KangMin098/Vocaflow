@@ -246,6 +246,17 @@ export type { ReadingLoad } from './analyze/reading-load'
 //   따로 만들면 드레인이 채운 낱말과 파이프라인이 찾는 낱말이 어긋난다.
 // 독해 교재 단원 조립 — 지문 + 문항 + 어휘를 하나로 묶는다.
 // 수능 읽기 유형 정본 + 상업 교재 제작 단계 대응표 — 커버리지의 분모다.
+export {
+  checkDrainItem,
+  answerLengthBias,
+  normChoice,
+  MIN_CHOICE,
+  MIN_RATIONALE,
+  ANSWER_LEN_RATIO,
+  ANSWER_LEN_RATIO_MIN,
+  LONGEST_ANSWER_MAX,
+} from './textbook/item-gate'
+export type { DrainItemRow, ItemGateVerdict, LengthBias } from './textbook/item-gate'
 export { CSAT_READING_TYPES, measureCoverage } from './textbook/csat-types'
 export type { CoverageReport, CsatGeneration, CsatType } from './textbook/csat-types'
 export { PRODUCTION_STAGES, measureStages, measureClaudeStages } from './textbook/production-stages'

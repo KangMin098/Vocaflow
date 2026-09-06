@@ -25,6 +25,12 @@ import { describe, expect, it } from 'vitest'
 const SCRIPTS = path.resolve(fileURLToPath(new URL('../../../../scripts/textbook', import.meta.url)))
 const read = (f: string) => fs.readFileSync(path.join(SCRIPTS, f), 'utf8')
 
+/** 적재 관문 한 벌의 원문. 규칙이 여기 있는지 본다. */
+const gate = fs.readFileSync(
+  path.resolve(fileURLToPath(new URL('./item-gate.ts', import.meta.url))),
+  'utf8',
+)
+
 /**
  * "크게 잡으면 되겠지" 패턴. 1000 은 서버 상한과 같으므로 허용한다.
  *
@@ -92,12 +98,31 @@ describe('한 권을 고르는 규칙은 한 벌뿐이다', () => {
   })
 
   it('적재기는 **지문 길이를 유형별 자로** 막는다 — 원글이 통째로 들어온 적이 있다', () => {
+    // ⚠️ **규칙이 이사했다** (2026-09-06). 이 자는 `item-drain-import.mjs` 안에 인라인으로
+    //   있었는데, DB 를 붙잡아야만 돌릴 수 있어 집필 도중에는 손으로 사본을 짜게 됐고
+    //   그 사본이 게이트와 갈렸다. 그래서 `item-gate.ts` 한 벌로 옮겼다.
+    //   여기서 지키는 것은 **자를 유형과 학년으로 함께 잡는가** 이지 어느 파일에 있는가가
+    //   아니다 — 다만 적재기가 그 한 벌을 부르는지도 함께 못 박는다.
     const imp = read('item-drain-import.mjs')
+    expect(imp).toContain('checkDrainItem(r, TYPE, BAND)')
     // 자는 유형이 정하고 **학년이 좁힌다.** 단문 자 하나로 재면 장문(260~400어)이
     // 전량 걸리고, 학년을 안 주면 중등 창(시장 46~152)을 넘는 지문이 그대로 들어온다.
     // ⚠️ 인자를 빠뜨려도 컴파일은 된다(선택 인자다) — 그래서 여기서 지킨다.
-    expect(imp).toContain('itemWordSpec(TYPE, BAND)')
-    expect(imp).toContain('규격 ${WORD_SPEC.min}~${WORD_SPEC.max}어 밖이라 인쇄할 수 없다')
+    expect(gate).toContain('itemWordSpec(type, band)')
+    expect(gate).toContain('규격 ${spec.min}~${spec.max}어 밖이라 인쇄할 수 없다')
+  })
+
+  it('적재기는 관문 규칙의 **사본을 갖지 않는다** — 갈리면 집필이 헛돈다', () => {
+    // 실측 2026-09-06: 손으로 짠 검사기가 "선택지 최소/최대 길이 비 ≥ 0.85" 라는 없는
+    // 규칙을 써서 멀쩡한 요약 문항 넷을 다시 쓰게 만들었다(진짜 규칙은 정답÷오답 평균).
+    const imp = read('item-drain-import.mjs')
+    for (const dup of ['ANSWER_LEN_RATIO = ', 'MIN_CHOICE = ', 'MIN_RATIONALE = ']) {
+      expect(imp).not.toContain(dup)
+    }
+    // 미리 재는 자도 규칙을 직접 갖지 않는다 — 같은 함수를 부른다.
+    const pre = read('item-selfcheck.mjs')
+    expect(pre).toContain('checkDrainItem(r, TYPE, BAND)')
+    expect(pre).not.toContain('ANSWER_LEN_RATIO = ')
   })
 
   it('예행 조합은 초등 풀과 `rungMix` **뒤**에 온다 — 앞이면 풀이 갈린다', () => {
