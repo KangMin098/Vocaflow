@@ -223,7 +223,7 @@
 
 ---
 
-## API Routes (26)
+## API Routes (27)
 
 ### `/api/auth/*` (1)
 
@@ -236,6 +236,12 @@
 | 라우트 | 설명 |
 |---|---|
 | `POST /api/srs/flush` | 세션을 **떠나는 순간**의 SRS 평가 전송 창구 — `navigator.sendBeacon` / `fetch(keepalive)` 가 server action 을 못 쓰므로 같은 로직(`lib/srs/flush-actions.ts`)에 낸 문. 응답을 아무도 보지 않으므로 이중 적용은 서버의 `(vocabulary_id, attempted_at)` 멱등 가드가 막는다. 인증은 쿠키(server action 본체가 확인). 본문 `{ items: FlushItem[] }` · 상한 500 · 세션 클라이언트(RLS). 호출처는 `hooks/useSrsFlushOnLeave.ts` 하나 |
+
+### `/api/vocab/*` (1)
+
+| 라우트 | 설명 |
+|---|---|
+| `GET /api/vocab/[setId]/spread` | **단어장 지면** — 조판기(`@vocaflow/library-pipeline/vocab-typeset`)가 만든 지면을 상세 시트에 내려 준다. 재료(뜻 갈래·예문 짝·파생형·노트)가 `shared_dictionary` 에 있는데 **anon 은 그 표를 한 행도 못 읽어**(RLS) 브라우저에서 join 할 수 없다 — 서버가 읽어 **조판 결과만** 내려 준다. 응답은 앞 2일치 지면 + 전체를 센 학습계획·누적복습·색인 규모(표제어 상한 1,200). 발행 세트만 · 읽기 전용 |
 
 ### `/api/wordvault/*` (1)
 

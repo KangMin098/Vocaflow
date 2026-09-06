@@ -13,10 +13,12 @@
     "./seed/curated-seed.json": "./src/seed/curated-seed.json",
     "./textbook-cover": "./src/textbook/cover.ts",
     "./textbook-kid-source": "./src/textbook/kid-source.ts",
+    "./source-rollup": "./src/textbook/source-rollup.ts",
     "./textbook-series": "./src/textbook/series.ts",
     "./textbook-brand": "./src/textbook/brand.ts",
     "./textbook-evaluation": "./src/textbook/evaluation.ts",
-    "./textbook-series-catalog": "./src/textbook/series-catalog.ts"
+    "./textbook-series-catalog": "./src/textbook/series-catalog.ts",
+    "./vocab-typeset": "./src/vocab/typeset.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",

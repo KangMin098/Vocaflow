@@ -312,9 +312,17 @@ async function openSheets(page: Page, categoryChip: string | null, nth: number):
   const card = cards.nth(Math.min(nth, n - 1))
   const title = (await card.innerText()).replace(/\s+/g, ' ').trim().slice(0, 60)
   await card.click()
-  // 시트가 뜰 때까지 기다린다 — 낱말 목록은 뒤늦게 채워지므로 그 뒤 한 번 더 짧게 준다.
+  // 시트가 뜰 때까지 기다린다.
   await page.locator('[role="dialog"]').first().waitFor({ state: 'visible', timeout: 20_000 })
-  await page.waitForTimeout(1800)
+  /*
+    ⚠️ **지면은 열린 뒤에 채워진다** — 시트는 즉시 뜨지만 지면은 `/api/vocab/<id>/spread` 를
+    기다린다. 고정 대기로 재면 그 응답이 늦은 시트만 "장치가 없다" 로 세어져, 같은 카탈로그를
+    재는데도 실행마다 다른 지수가 나온다(실측 2026-09-06: 같은 6권에서 15/17 넷 · 1~2 둘).
+    그래서 로딩 문구가 사라질 때까지 기다린다.
+  */
+  const loading = page.locator('[role="dialog"]').first().getByText('지면을 여는 중')
+  await loading.waitFor({ state: 'detached', timeout: 60_000 }).catch(() => {})
+  await page.waitForTimeout(800)
 
   const d = await readDialog(page)
   if (d) {
@@ -429,6 +437,23 @@ const report = {
   },
   designIndex,
   /**
+   * **이 자의 천장.** 장치는 있거나 없거나이므로 우리가 17종을 전부 채워도 지수는
+   * `17 / 시장평균` 을 넘지 못한다. 시장 평균이 14.75 이므로 천장은 **1.153** 이고,
+   * **1.20 은 이 자로는 산술적으로 도달 불가능**하다.
+   *
+   * 이것을 적어 두지 않으면 다음 사람이 "왜 120% 를 못 넘느냐" 를 코드에서 찾는다 —
+   * 독해 쪽 `market-benchmark.mjs` 가 A1·A7 축에서 같은 문제를 겪고 `axisCeiling` 을 둔 이유다.
+   * 이 축의 목표는 1.20 이 아니라 **천장**이며, 120% 주장은 세 자를 함께 본 종합 지수로 한다
+   * (`scripts/vocab/overall-benchmark.mts`).
+   */
+  ceiling: {
+    reachableMax: Number((SIGNAL_COUNT / MARKET_MEAN).toFixed(3)),
+    reason:
+      `장치 ${SIGNAL_COUNT}종을 전부 채운 것이 상한이고 시장 평균이 ${MARKET_MEAN}개다 — `
+      + '이 축에서 120% 는 불가능하다. 목표는 천장이다.',
+    atCeiling: oursMean >= SIGNAL_COUNT - 1e-6,
+  },
+  /**
    * **어느 지면을 재었나.** 이 줄이 없으면 다음 사람이 "격자 모달도 쟀겠지" 라고 읽는다.
    *
    * 실측 2026-09-06: 표본 전부가 `carousel-sheet` 였다. 카테고리를 골라 격자를 띄운 뒤
@@ -475,7 +500,10 @@ if (AS_JSON) {
     )
   }
   console.log(`\n  한 권당 지면 장치   우리 ${oursMean}개  ·  시중 ${MARKET_MEAN}개`)
-  console.log(`  **지면 지수 = ${designIndex}**  (목표 1.20 → 한 권당 ${(MARKET_MEAN * 1.2).toFixed(2)}개)`)
+  console.log(
+    `  **지면 지수 = ${designIndex}**  (천장 ${report.ceiling.reachableMax}`
+    + ` — 장치 ${SIGNAL_COUNT}종이 상한이라 이 축에서 120% 는 불가능하다)`,
+  )
   if (report.gaps.length > 0) {
     console.log(`\n  시중이 주는데 우리가 못 주는 장치 ${report.gaps.length}종:`)
     for (const g of report.gaps) console.log(`    · ${g.id} — ${g.says}`)

@@ -17,6 +17,7 @@ import Link from 'next/link'
 import { useEffect, useRef } from 'react'
 import { X, Clock, BookImage, BookOpen, Layers, Sparkles, Volume2 } from 'lucide-react'
 
+import { VocabSpreadSheet } from '@/components/library/vocab/VocabSpreadSheet'
 import { bookCover } from '@/lib/library/book-cover'
 import { judgeIPlusOne } from '@/lib/library/i-plus-one'
 import { formatReadingTime } from '@/lib/library/reading-time'
@@ -808,6 +809,13 @@ function VocabBody({ v }: { v: VocabVariant }) {
           {v.description}
         </p>
       )}
+
+      {/*
+        지면 — 시중 단어장을 펼쳤을 때 나오는 것. 조판은 파이프라인이 하고
+        (`@vocaflow/library-pipeline/vocab-typeset`) 여기서는 그린다.
+        지면이 만들어지지 않으면 아무것도 그리지 않으므로 아래 낱말 미리보기가 그대로 남는다.
+      */}
+      <VocabSpreadSheet setId={v.id} />
 
       {/* 단어 sample */}
       {v.samples && v.samples.length > 0 && (
