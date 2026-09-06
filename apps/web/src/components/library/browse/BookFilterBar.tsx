@@ -327,7 +327,9 @@ export function BookFilterBar({
             <button
               type="button"
               onClick={() => setAllThemes((v) => !v)}
-              className="inline-flex items-center rounded-[var(--r-full)] px-2 py-1 font-display text-[11px] font-[600] text-[var(--on-p-tint)] transition-colors hover:bg-[var(--p-light)]"
+              // ⚠️ `min-h-11`(44px)이 빠져 있었다 — 390px 에서 실측 **89×25**.
+              //    옆에 늘어선 `Chip` 은 전부 갖고 있는데 이 버튼만 없었다(전수 탭 대상 검사 1건).
+              className="inline-flex min-h-11 items-center rounded-[var(--r-full)] px-3 py-1 font-display text-[11px] font-[600] text-[var(--on-p-tint)] transition-colors hover:bg-[var(--p-light)]"
             >
               {allThemes ? '접기' : `+${facets.themes.length - THEME_PREVIEW}개 더보기`}
             </button>
