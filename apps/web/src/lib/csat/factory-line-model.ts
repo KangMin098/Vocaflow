@@ -190,5 +190,16 @@ export interface PressView {
   rungs: number
   /** 현재 브랜드 지문(fingerprint). 다른 값으로 찍힌 권은 **옛 규격**이다. */
   brandFingerprint: string
+  /**
+   * 조판기가 쓰는 **브랜드 규격** — 지면에서의 자리마다 라이트/다크 색, 그리고 서체 셋.
+   *
+   * TBP 콘솔에 있던 것을 여기로 옮겼다(2026-09-06). 규격은 조판기의 **입력**이므로 조판 공정의
+   * 것이지 별도 관측 화면에 둘 것이 아니었다. 값은 디자인 토큰 패키지에서 온다 —
+   * 조판기가 색을 따로 갖고 있으면 손에 쥔 책이 화면과 달라진다.
+   */
+  brand: {
+    rows: { key: string; label: string; light: string; dark: string }[]
+    fonts: { english: string; body: string; mono: string }
+  }
   loadError: string | null
 }

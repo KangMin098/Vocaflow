@@ -13,6 +13,7 @@ import { renderToString } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
 
 import { HELP_REGISTRY } from '@/lib/admin/help'
+import type { KidSourcePanel } from '@/lib/textbook/kid-source-stats'
 import { FACTORY_STAGES } from '@/lib/csat/factory-model'
 import {
   emptyGateBands,
@@ -63,6 +64,9 @@ describe('공정 정본과 화면·도움말이 어긋나지 않는다', () => {
 
 /* ── ④ 소재 ── */
 
+/** ④ 소재가 TBP 에서 넘겨받은 패널. 이 테스트들은 지문 재고만 보므로 빈 값으로 둔다. */
+const kidSource: KidSourcePanel = { inventory: null, error: null }
+
 const source: SourceView = {
   rows: [
     { band: 'S1', vLevel: 2, count: 15, displayOnly: 0, licenseClasses: ['pd'], cefrLevels: ['A2'] },
@@ -74,7 +78,7 @@ const source: SourceView = {
 
 describe('SourceClient', () => {
   it('게이트는 있는데 지문이 0편인 밴드를 지목한다', () => {
-    const html = text(renderToString(<SourceClient {...source} />))
+    const html = text(renderToString(<SourceClient {...source} kidSource={kidSource} />))
     // 예전에는 빈 밴드 이름을 글로 열거했는데, 띠가 같은 것을 보여 주므로 지웠다(중복).
     // 지금은 「몇 단계가 막혔는가」 + 띠의 「게이트 있는데 0편」 칸이 그 말을 한다.
     expect(html).toContain('3단계는 지금 책을 못 만든다')
@@ -82,7 +86,7 @@ describe('SourceClient', () => {
   })
 
   it('화면 전용 지문을 재고에서 빼고 센다 — 넣으면 있지도 않은 여유를 믿게 된다', () => {
-    const html = text(renderToString(<SourceClient {...source} />))
+    const html = text(renderToString(<SourceClient {...source} kidSource={kidSource} />))
     expect(html).toContain('(−15)')
     expect(html).toContain('190') // 205 − 15
   })
@@ -92,7 +96,7 @@ describe('SourceClient', () => {
       ...source,
       gateBands: ['S1', 'S3'],
     }
-    const html = text(renderToString(<SourceClient {...full} />))
+    const html = text(renderToString(<SourceClient {...full} kidSource={kidSource} />))
     expect(html).toContain('모두 지문이 있다')
   })
 })
@@ -268,6 +272,13 @@ const press: PressView = {
   ],
   rungs: 7,
   brandFingerprint: 'abcdef0123456789',
+  brand: {
+    rows: [
+      { key: 'ink', label: '본문 잉크', light: '#1A1714', dark: '#F0EAE0' },
+      { key: 'rule', label: '괘선 — 표·구분선', light: '#E0DBD0', dark: '#3D362D' },
+    ],
+    fonts: { english: 'Lora, serif', body: 'DM Sans, sans-serif', mono: 'JetBrains Mono, monospace' },
+  },
   loadError: null,
 }
 
@@ -458,7 +469,7 @@ describe('BandStrip', () => {
   })
 
   it('게이트가 있는데 0편인 밴드를 지목한다 — 그 단계 책은 지금 못 만든다', () => {
-    const html = text(renderToString(<SourceClient {...source} />))
+    const html = text(renderToString(<SourceClient {...source} kidSource={kidSource} />))
     expect(html).toContain('게이트 있는데 0편')
   })
 

@@ -11,6 +11,7 @@
 import type { BenchPublisher } from '../factory-bench'
 import type { BlueprintView, MarketView } from '../factory-lab-model'
 import type { AuthorView, PressView, ReviewView, SourceView } from '../factory-line-model'
+import type { KidSourcePanel } from '@/lib/textbook/kid-source-stats'
 import { FACTORY_STAGES, type StageState } from '../factory-model'
 import { GENRES, STEPS, catalogCoverage, genreCoverage, type CatalogRow } from '../product-model'
 import type { CatalogView } from '../product-view'
@@ -350,6 +351,13 @@ export const PRESS_REAL: PressView = {
   ],
   rungs: 7,
   brandFingerprint: 'abcdef0123456789',
+  brand: {
+    rows: [
+      { key: 'ink', label: '본문 잉크', light: '#1A1714', dark: '#F0EAE0' },
+      { key: 'rule', label: '괘선 — 표·구분선', light: '#E0DBD0', dark: '#3D362D' },
+    ],
+    fonts: { english: 'Lora, serif', body: 'DM Sans, sans-serif', mono: 'JetBrains Mono, monospace' },
+  },
   loadError: null,
 }
 
@@ -378,6 +386,9 @@ function catalogRow(id: string, statuses: string[], items: number): CatalogRow {
     published: ready.filter((c) => c.published).length,
   }
 }
+
+/** 초·중 원문 재고 — TBP 콘솔에서 ④ 소재로 옮긴 패널(2026-09-06). */
+export const KID_SOURCE_REAL: KidSourcePanel = { inventory: null, error: null }
 
 /** 2026-09-06 실측 — 독해만 찍혔고 어휘·구문·내신은 재고가 있는데 안 냈다. */
 export const CATALOG_REAL: CatalogView = (() => {

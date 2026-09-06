@@ -22,6 +22,7 @@ import {
   MARKET_REAL,
   PRESS_REAL,
   REVIEW_REAL,
+  KID_SOURCE_REAL,
   SOURCE_REAL,
   STAGES_REAL,
 } from '@/lib/csat/__tests__/fixtures'
@@ -79,7 +80,7 @@ const SCREENS: { name: string; html: () => string }[] = [
   },
   { name: '기획', html: () => renderToString(<MarketClient {...MARKET_REAL} />) },
   { name: '설계', html: () => renderToString(<BlueprintClient {...BLUEPRINT_REAL} />) },
-  { name: '소재', html: () => renderToString(<SourceClient {...SOURCE_REAL} />) },
+  { name: '소재', html: () => renderToString(<SourceClient {...SOURCE_REAL} kidSource={KID_SOURCE_REAL} />) },
   { name: '집필', html: () => renderToString(<AuthorClient {...AUTHOR_REAL} />) },
   { name: '검수', html: () => renderToString(<ReviewClient {...REVIEW_REAL} />) },
   { name: '조판', html: () => renderToString(<PressClient {...PRESS_REAL} />) },
@@ -109,7 +110,10 @@ const BUDGET: Record<string, { chunks: number; chars: number }> = {
   // 예전 텍스트 블록은 「비었나」만 말했고 「얇나」는 못 말했다.
   // ⚠️ 처음엔 띠를 **추가만** 해서 101 이었다 — 상단 텍스트가 빈 밴드를 글로 열거하고 띠가 같은
   //   것을 또 그렸다. 이 예산이 그 중복을 잡아 열거를 지웠고(96), 편 수와 상태를 한 줄로 합쳤다.
-  소재: { chunks: 110, chars: 890 },
+  // 소재 +초·중 원문 재고(TBP 이관 2026-09-06): 96 · 773 → 100 · 902. 사다리 아래 계단은
+  //   수능 지문으로 못 채우므로 그 학령의 원문 재고가 이 공정의 것이다 — 따로 두면 「지문이
+  //   모자란다」와 「원문이 모자란다」를 두 화면에서 따로 읽는다.
+  소재: { chunks: 115, chars: 1040 },
   집필: { chunks: 175, chars: 1035 },
   // 검수: 카드 4장(75 덩어리 · 907 글자)을 층 도식으로 바꾸며 89 · 784 가 됐다. 덩어리가 +14 인
   // 이유는 층마다 통과 막대 1 + 명령 접힘 손잡이 1 + 모양 1 이 붙어서다 — 글자 −14% · 그림 2 → 6 과
@@ -120,7 +124,10 @@ const BUDGET: Record<string, { chunks: number; chars: number }> = {
   // 비었는지** 못 말하는데, 그 빈 계단이 곧 다른 출판사로 가는 학년이다(series.ts).
   // 처음엔 110 이었다 — 범례 4개 중 3개가 칸 안의 글자(조판됨/옛 규격/비어 있음)와 **같은 말**이라
   // 이 예산이 잡았고, 글자 없는 기호(빨간 점) 하나만 남겨 103 이 됐다. 예산은 실측 + 15%.
-  조판: { chunks: 118, chars: 920 },
+  // 조판 +브랜드 규격(TBP 이관 2026-09-06): 103 · 799 → 127 · 1,063. 규격은 조판기의
+  //   **입력**이라 이 공정의 것이다. 색 표 2행 × (자리 + 라이트 + 다크 + 견본 2) + 서체 3줄이
+  //   비용이고, 대신 "규격이 바뀌었는데 왜 옛 규격으로 찍혔지" 를 한 화면에서 맞춰 볼 수 있다.
+  조판: { chunks: 146, chars: 1225 },
 }
 
 describe('화면 밀집도', () => {

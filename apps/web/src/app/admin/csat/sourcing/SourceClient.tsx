@@ -13,6 +13,8 @@
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { emptyGateBands, type SourceView } from '@/lib/csat/factory-line-model'
 
+import type { KidSourcePanel } from '@/lib/textbook/kid-source-stats'
+
 import { BandStrip } from './BandStrip'
 
 const BAND_KO: Record<string, string> = {
@@ -24,7 +26,12 @@ const BAND_KO: Record<string, string> = {
   미분류: '미분류',
 }
 
-export function SourceClient({ rows, gateBands, loadError }: SourceView) {
+export function SourceClient({
+  rows,
+  gateBands,
+  loadError,
+  kidSource,
+}: SourceView & { kidSource: KidSourcePanel }) {
   const empty = emptyGateBands({ rows, gateBands })
   const total = rows.reduce((n, r) => n + r.count, 0)
   const displayOnly = rows.reduce((n, r) => n + r.displayOnly, 0)
@@ -125,6 +132,38 @@ export function SourceClient({ rows, gateBands, loadError }: SourceView) {
             </tbody>
           </table>
         </div>
+      </section>
+
+      {/*
+        초·중 원문 재고 — TBP 콘솔에 있던 패널을 여기로 옮겼다(2026-09-06).
+        지문 수급이 곧 이 공정이라 여기가 제자리다. 따로 두면 「지문이 모자란다」와
+        「원문이 모자란다」를 관리자가 두 화면에서 따로 읽는다.
+      */}
+      <section
+        aria-label="초·중 원문 재고"
+        className="flex flex-col gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4"
+      >
+        <h3 className="font-display text-[13px] font-[700] text-[var(--t1)]">초·중 원문 재고</h3>
+        {kidSource.error ? (
+          <p className="break-keep font-body text-[12px] text-[#9C3A30]">{kidSource.error}</p>
+        ) : kidSource.inventory == null ? (
+          <p className="break-keep font-body text-[12px] text-[#8A8278]">
+            못 잼 — 0 이 아니다. 조회가 값을 안 돌려줬다.
+          </p>
+        ) : (
+          <ul className="flex flex-wrap gap-x-4 gap-y-1 font-mono text-[12px] tabular-nums text-[var(--t2)]">
+            {Object.entries(kidSource.inventory).map(([k, v]) => (
+              <li key={k}>
+                <span className="mr-1 font-body text-[11px] text-[var(--t3)]">{k}</span>
+                {typeof v === 'number' ? v.toLocaleString() : String(v)}
+              </li>
+            ))}
+          </ul>
+        )}
+        <p className="break-keep font-body text-[11px] leading-snug text-[var(--t3)]">
+          사다리 아래 계단(초·중)은 수능 지문으로 못 채운다 — 그 학령의 원문이 따로 있어야 한다.
+          이 수가 얇으면 ④ 밴드가 차 있어도 그 계단 책이 안 나온다.
+        </p>
       </section>
 
       <section className="flex flex-col gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-4">

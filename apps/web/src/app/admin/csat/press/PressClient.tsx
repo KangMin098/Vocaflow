@@ -18,7 +18,7 @@ import type { PressView } from '@/lib/csat/factory-line-model'
 
 import { LadderFill } from './LadderFill'
 
-export function PressClient({ volumes, rungs, brandFingerprint, loadError }: PressView) {
+export function PressClient({ volumes, rungs, brandFingerprint, brand, loadError }: PressView) {
   const stale = volumes.filter((v) => !v.brandCurrent)
   const missingExpl = volumes.reduce((n, v) => n + Math.max(0, v.missingExplanations), 0)
   const idle = volumes.filter((v) => v.articlesIdle != null)
@@ -188,6 +188,63 @@ export function PressClient({ volumes, rungs, brandFingerprint, loadError }: Pre
             : ''}
         </p>
       </section>
+      {/*
+        브랜드 규격 — TBP 콘솔에 있던 표를 여기로 옮겼다(2026-09-06). 규격은 조판기의 **입력**이라
+        조판 공정의 것이다. 별도 관측 화면에 두면 "규격이 바뀌었는데 왜 옛 규격으로 찍혔지" 를
+        두 화면을 오가며 맞춰 봐야 한다.
+      */}
+      <section
+        aria-label="브랜드 규격"
+        className="flex flex-col gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4"
+      >
+        <h3 className="font-display text-[13px] font-[700] text-[var(--t1)]">
+          조판 규격 — 이 값으로 찍힌다
+        </h3>
+        <p className="break-keep font-body text-[11.5px] text-[var(--t3)]">
+          값은 디자인 토큰에서 온다 — 조판기가 색을 따로 갖고 있으면 손에 쥔 책이 화면과 달라진다.
+          위 사다리에서 <strong>옛 규격</strong>으로 뜨는 권은 이 표가 바뀌기 전에 찍힌 것이다.
+        </p>
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[420px] text-left text-[12px]">
+            <thead>
+              <tr className="border-b border-[var(--bd)] text-[11px] text-[var(--t3)]">
+                <th className="py-1.5 pr-3 font-[500]">지면에서의 자리</th>
+                <th className="py-1.5 pr-3 font-[500]">라이트</th>
+                <th className="py-1.5 font-[500]">다크</th>
+              </tr>
+            </thead>
+            <tbody>
+              {brand.rows.map((r) => (
+                <tr key={r.key} className="border-b border-[var(--bd)] last:border-0">
+                  <td className="break-keep py-1.5 pr-3 text-[var(--t2)]">{r.label}</td>
+                  <td className="py-1.5 pr-3 font-mono text-[11px] text-[var(--t1)]">
+                    <span
+                      aria-hidden
+                      className="mr-1.5 inline-block h-3 w-3 rounded-[2px] border border-[var(--bd)] align-middle"
+                      style={{ background: r.light }}
+                    />
+                    {r.light}
+                  </td>
+                  <td className="py-1.5 font-mono text-[11px] text-[var(--t1)]">
+                    <span
+                      aria-hidden
+                      className="mr-1.5 inline-block h-3 w-3 rounded-[2px] border border-[var(--bd)] align-middle"
+                      style={{ background: r.dark }}
+                    />
+                    {r.dark}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="flex flex-wrap gap-x-4 gap-y-1 font-body text-[11px] text-[var(--t3)]">
+          <span>영문 지문 · {brand.fonts.english}</span>
+          <span>한국어 해설 · {brand.fonts.body}</span>
+          <span>문항 번호·수치 · {brand.fonts.mono}</span>
+        </p>
+      </section>
+
     </div>
   )
 }

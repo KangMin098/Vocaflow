@@ -15,6 +15,7 @@
 import 'server-only'
 
 import { SERIES_SPINE, brandFingerprint } from '@vocaflow/library-pipeline'
+import { VOLUME_FONTS, brandSpecRows } from '@vocaflow/library-pipeline/textbook-brand'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { createAdminClient } from '@/lib/supabase/admin'
@@ -311,6 +312,7 @@ export async function loadPressView(): Promise<PressView> {
     volumes,
     rungs: SERIES_SPINE.length,
     brandFingerprint: current,
+    brand: { rows: brandSpecRows(), fonts: VOLUME_FONTS },
     loadError: error ? `조판 기록 조회 실패: ${error.message}` : null,
   }
 }
