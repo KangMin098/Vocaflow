@@ -6,6 +6,8 @@ import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 import { AdminKpiGrid } from '@/components/admin/AdminKpiGrid'
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { VcbRunCard } from '@/components/admin/vcb/VcbRunCard'
+import { VcbMarketPanel } from '@/components/admin/vcb/VcbMarketPanel'
+import { readVcbMarketStatus } from '@/lib/vcb/server/market-status'
 import { fetchRuns } from '@/lib/vcb/server/runs'
 import type { RunStatus } from '@/lib/vcb/types'
 
@@ -15,6 +17,8 @@ const ACTIVE_STATUSES: RunStatus[] = ['enriching', 'qa', 'curating']
 
 export default async function VcbRunsPage() {
   const runs = await fetchRuns()
+  // 시중 대비 지수 — 리포트를 읽기만 한다(계산은 스크립트가 한다).
+  const market = readVcbMarketStatus()
 
   const counts = {
     total: runs.length,
@@ -42,6 +46,8 @@ export default async function VcbRunsPage() {
       />
 
       <AdminScreenHelp screen="vocab-runs" className="mb-6" />
+
+      <VcbMarketPanel status={market} />
 
       <AdminKpiGrid
         cols={4}
