@@ -152,6 +152,16 @@ export function buildSourceEligibilityPanel(now: Date = new Date()): SourceEligi
   const measured = new Date(snapshot.measuredAt)
   const ageDays = Math.max(0, Math.floor((now.getTime() - measured.getTime()) / 86_400_000))
 
+  // ⚠️ **미판정이 전부 구조적이면 처방이 뒤집힌다.**
+  // `GRADE_NEXT_STEP.unjudged` 는 「게이트 드레인을 돌려라」인데, 미절단 원본(`purpose='raw'`)은
+  // 게이트가 판정하지 않는다(`PURPOSE_RULE.raw.verdicts` 가 빈 집합). 2026-09-06 기사 5,245편을
+  // 전부 판정하고 나니 남은 미판정 13,459편이 **전부** 그것이 되었고, 그 상태에서 화면이
+  // 시키는 대로 드레인을 돌리면 **0권**이 나온다. 처방을 여기서 갈라 둔다 —
+  // 콜아웃과 등급표가 같은 문자열을 읽으므로 한 곳만 고치면 둘 다 맞는다.
+  const structural = typeof total.structurallyUnjudged === 'number' ? total.structurallyUnjudged : null
+  const allUnjudgedAreStructural =
+    structural != null && (total.byGrade.unjudged ?? 0) > 0 && structural >= (total.byGrade.unjudged ?? 0)
+
   const grades: GradeRow[] = GRADE_ORDER.map((grade) => {
     const count = total.byGrade[grade] ?? 0
     return {
@@ -159,7 +169,10 @@ export function buildSourceEligibilityPanel(now: Date = new Date()): SourceEligi
       label: GRADE_LABEL[grade],
       count,
       pct: total.total ? +((count / total.total) * 100).toFixed(1) : 0,
-      nextStep: GRADE_NEXT_STEP[grade],
+      nextStep:
+        grade === 'unjudged' && allUnjudgedAreStructural
+          ? '전부 미절단 원본이라 게이트로는 안 풀린다 — 발췌 경로(scripts/csat/plos-extract)로 가야 한다'
+          : GRADE_NEXT_STEP[grade],
       composable: COMPOSABLE.includes(grade),
     }
   })

@@ -45,19 +45,25 @@ export function SourceEligibilityClient({ panel }: { panel: SourceEligibilityPan
             <b className="tabular-nums">{panel.topBlocker.grade.count.toLocaleString()}편</b> 이{' '}
             <b>{panel.topBlocker.axis.label}</b> 에서 막혀 있다 — {panel.topBlocker.grade.label}.
           </p>
+          {/* 처방 문자열의 정본은 `buildSourceEligibilityPanel` 이다 — 미판정이 전부
+              구조적이면 거기서 이미 발췌 경로로 바뀌어 온다(등급표와 같은 문자열을 읽는다). */}
           <p className="font-body text-[13px] text-[var(--t2)]">{panel.topBlocker.grade.nextStep}</p>
           {/*
             ⚠️ **이 줄이 없으면 화면이 헛일을 시킨다.** 미절단 원본(`purpose='raw'`)은
             게이트를 돌려도 판정이 안 붙는다 — `PURPOSE_RULE.raw.verdicts` 가 빈 집합이라
-            `decide()` 가 판정 전에 되돌아온다. 실측 2026-09-06: raw 36,337편이 전부
-            판정자 `rule` · verdict 없음이다. 처방이 다르므로 편수를 갈라 말한다.
+            `decide()` 가 판정 전에 되돌아온다.
+
+            **부분일 때만 "그중" 이라고 쓴다.** 전부일 때(2026-09-04 기사 전량 판정 이후가
+            그렇다) "그중" 은 나머지가 있다는 뜻이 되어 거짓이고, 처방은 위 줄이 이미 말한다.
           */}
-          {panel.topBlocker.axis.id === 'judgement' && panel.structurallyUnjudged ? (
+          {panel.topBlocker.axis.id === 'judgement' &&
+          panel.structurallyUnjudged &&
+          panel.structurallyUnjudged < panel.topBlocker.grade.count ? (
             <p className="font-body text-[13px] text-[var(--error-ink)]">
               그중 <b className="tabular-nums">{panel.structurallyUnjudged.toLocaleString()}편</b> 은{' '}
               <b>게이트를 돌려도 안 풀린다</b> — 미절단 원본은 게이트가 판정하지 않는다(
-              <span className="font-mono">purpose=raw</span>). 발췌 경로(<span className="font-mono">plos-extract</span>)로
-              가야 한다.
+              <span className="font-mono">purpose=raw</span>). 발췌 경로(
+              <span className="font-mono">plos-extract</span>)로 가야 한다.
             </p>
           ) : null}
         </section>

@@ -1,30 +1,30 @@
 {
-  "measuredAt": "2026-09-06T11:27:19.448Z",
+  "measuredAt": "2026-09-06T11:52:31.689Z",
   "specVersion": 2,
-  "elapsedSeconds": 35.8,
+  "elapsedSeconds": 36.3,
   "scope": "status in ('ready','published')",
   "articlesWithItems": 19209,
   "total": {
-    "total": 21522,
+    "total": 21252,
     "byGrade": {
-      "usable": 375,
-      "excerpt": 4854,
-      "excerpt-blind": 445,
-      "unjudged": 15565,
+      "usable": 598,
+      "excerpt": 6302,
+      "excerpt-blind": 585,
+      "unjudged": 13459,
       "unknown": 14,
-      "blocked": 269
+      "blocked": 294
     },
     "byBlockedAxis": {
-      "format": 493,
+      "format": 659,
       "analysis": 14,
-      "legal": 151,
-      "judgement": 15565,
+      "legal": 150,
+      "judgement": 13459,
       "safety": 70
     },
-    "composable": 5229,
-    "composablePct": 24.3,
-    "judged": 5957,
-    "composablePctOfJudged": 87.8,
+    "composable": 6900,
+    "composablePct": 32.5,
+    "judged": 7793,
+    "composablePctOfJudged": 88.5,
     "structurallyUnjudged": 13459
   },
   "byBand": [
@@ -50,202 +50,197 @@
     },
     {
       "vLevel": 1,
-      "total": 83,
+      "total": 80,
       "byGrade": {
-        "usable": 3,
+        "usable": 5,
         "excerpt": 0,
         "excerpt-blind": 0,
-        "unjudged": 12,
+        "unjudged": 0,
         "unknown": 1,
-        "blocked": 67
+        "blocked": 74
       },
       "byBlockedAxis": {
-        "legal": 64,
-        "format": 3,
-        "analysis": 1,
-        "judgement": 12
+        "legal": 63,
+        "format": 11,
+        "analysis": 1
       },
-      "composable": 3,
-      "composablePct": 3.6,
-      "judged": 71,
-      "composablePctOfJudged": 4.2,
+      "composable": 5,
+      "composablePct": 6.3,
+      "judged": 80,
+      "composablePctOfJudged": 6.3,
       "structurallyUnjudged": 0
     },
     {
       "vLevel": 2,
-      "total": 287,
+      "total": 273,
       "byGrade": {
-        "usable": 99,
-        "excerpt": 43,
+        "usable": 160,
+        "excerpt": 70,
         "excerpt-blind": 0,
-        "unjudged": 110,
+        "unjudged": 0,
         "unknown": 1,
-        "blocked": 34
+        "blocked": 42
       },
       "byBlockedAxis": {
-        "format": 17,
+        "format": 25,
         "legal": 17,
-        "analysis": 1,
-        "judgement": 110
+        "analysis": 1
       },
-      "composable": 142,
-      "composablePct": 49.5,
-      "judged": 177,
-      "composablePctOfJudged": 80.2,
+      "composable": 230,
+      "composablePct": 84.2,
+      "judged": 273,
+      "composablePctOfJudged": 84.2,
       "structurallyUnjudged": 0
     },
     {
       "vLevel": 3,
-      "total": 242,
+      "total": 232,
       "byGrade": {
-        "usable": 90,
-        "excerpt": 42,
+        "usable": 154,
+        "excerpt": 66,
         "excerpt-blind": 2,
-        "unjudged": 99,
+        "unjudged": 0,
         "unknown": 1,
-        "blocked": 8
+        "blocked": 9
       },
       "byBlockedAxis": {
-        "format": 10,
-        "analysis": 1,
-        "judgement": 99
+        "format": 11,
+        "analysis": 1
       },
-      "composable": 132,
-      "composablePct": 54.5,
-      "judged": 143,
-      "composablePctOfJudged": 92.3,
+      "composable": 220,
+      "composablePct": 94.8,
+      "judged": 232,
+      "composablePctOfJudged": 94.8,
       "structurallyUnjudged": 0
     },
     {
       "vLevel": 4,
-      "total": 799,
+      "total": 746,
       "byGrade": {
-        "usable": 124,
-        "excerpt": 330,
+        "usable": 188,
+        "excerpt": 516,
         "excerpt-blind": 26,
-        "unjudged": 306,
+        "unjudged": 0,
         "unknown": 0,
-        "blocked": 13
+        "blocked": 16
       },
       "byBlockedAxis": {
-        "format": 34,
-        "legal": 5,
-        "judgement": 306
+        "format": 37,
+        "legal": 5
       },
-      "composable": 454,
-      "composablePct": 56.8,
-      "judged": 493,
-      "composablePctOfJudged": 92.1,
+      "composable": 704,
+      "composablePct": 94.4,
+      "judged": 746,
+      "composablePctOfJudged": 94.4,
       "structurallyUnjudged": 0
     },
     {
       "vLevel": 5,
-      "total": 4145,
+      "total": 4015,
       "byGrade": {
-        "usable": 53,
-        "excerpt": 2361,
+        "usable": 82,
+        "excerpt": 3301,
         "excerpt-blind": 107,
-        "unjudged": 1547,
+        "unjudged": 444,
         "unknown": 3,
-        "blocked": 74
+        "blocked": 78
       },
       "byBlockedAxis": {
         "analysis": 3,
         "legal": 50,
         "safety": 18,
-        "judgement": 1547,
-        "format": 113
+        "judgement": 444,
+        "format": 117
       },
-      "composable": 2414,
-      "composablePct": 58.2,
-      "judged": 2598,
-      "composablePctOfJudged": 92.9,
+      "composable": 3383,
+      "composablePct": 84.3,
+      "judged": 3571,
+      "composablePctOfJudged": 94.7,
       "structurallyUnjudged": 444
     },
     {
       "vLevel": 6,
-      "total": 12991,
+      "total": 12937,
       "byGrade": {
-        "usable": 4,
-        "excerpt": 1644,
-        "excerpt-blind": 285,
-        "unjudged": 10992,
+        "usable": 7,
+        "excerpt": 1905,
+        "excerpt-blind": 425,
+        "unjudged": 10532,
         "unknown": 3,
-        "blocked": 63
+        "blocked": 65
       },
       "byBlockedAxis": {
-        "format": 287,
+        "format": 429,
         "analysis": 3,
         "legal": 15,
-        "judgement": 10992,
+        "judgement": 10532,
         "safety": 46
       },
-      "composable": 1648,
-      "composablePct": 12.7,
-      "judged": 1999,
-      "composablePctOfJudged": 82.4,
+      "composable": 1912,
+      "composablePct": 14.8,
+      "judged": 2405,
+      "composablePctOfJudged": 79.5,
       "structurallyUnjudged": 10532
     },
     {
       "vLevel": 7,
-      "total": 2909,
+      "total": 2907,
       "byGrade": {
         "usable": 1,
-        "excerpt": 397,
+        "excerpt": 407,
         "excerpt-blind": 23,
-        "unjudged": 2480,
+        "unjudged": 2468,
         "unknown": 0,
         "blocked": 8
       },
       "byBlockedAxis": {
-        "judgement": 2480,
+        "judgement": 2468,
         "format": 25,
         "safety": 6
       },
-      "composable": 398,
-      "composablePct": 13.7,
-      "judged": 429,
-      "composablePctOfJudged": 92.8,
+      "composable": 408,
+      "composablePct": 14,
+      "judged": 439,
+      "composablePctOfJudged": 92.9,
       "structurallyUnjudged": 2468
     },
     {
       "vLevel": 8,
-      "total": 57,
+      "total": 54,
       "byGrade": {
         "usable": 0,
         "excerpt": 36,
         "excerpt-blind": 1,
-        "unjudged": 18,
+        "unjudged": 15,
         "unknown": 0,
         "blocked": 2
       },
       "byBlockedAxis": {
-        "judgement": 18,
+        "judgement": 15,
         "format": 3
       },
       "composable": 36,
-      "composablePct": 63.2,
+      "composablePct": 66.7,
       "judged": 39,
       "composablePctOfJudged": 92.3,
       "structurallyUnjudged": 15
     },
     {
       "vLevel": 9,
-      "total": 4,
+      "total": 3,
       "byGrade": {
         "usable": 1,
         "excerpt": 1,
         "excerpt-blind": 1,
-        "unjudged": 1,
+        "unjudged": 0,
         "unknown": 0,
         "blocked": 0
       },
       "byBlockedAxis": {
-        "format": 1,
-        "judgement": 1
+        "format": 1
       },
       "composable": 2,
-      "composablePct": 50,
+      "composablePct": 66.7,
       "judged": 3,
       "composablePctOfJudged": 66.7,
       "structurallyUnjudged": 0
@@ -258,70 +253,62 @@
     },
     {
       "source": "futurity",
-      "count": 1230
+      "count": 323
     },
     {
       "source": "gutenberg",
       "count": 274
     },
     {
-      "source": "usgs",
-      "count": 267
-    },
-    {
-      "source": "original",
-      "count": 220
-    },
-    {
-      "source": "elife",
-      "count": 148
-    },
-    {
-      "source": "nasa",
-      "count": 136
-    },
-    {
-      "source": "voa",
-      "count": 111
-    },
-    {
       "source": "storyweaver",
-      "count": 101
-    },
-    {
-      "source": "frym",
-      "count": 72
+      "count": 71
     },
     {
       "source": "the_conversation",
       "count": 70
     },
     {
-      "source": "noaa",
-      "count": 44
+      "source": "elife",
+      "count": 24
     },
     {
-      "source": "simple_wikipedia",
-      "count": 43
+      "source": "nasa",
+      "count": 23
+    },
+    {
+      "source": "voa",
+      "count": 17
+    },
+    {
+      "source": "usgs",
+      "count": 12
+    },
+    {
+      "source": "original",
+      "count": 7
     },
     {
       "source": "space_place",
-      "count": 26
+      "count": 6
     },
     {
-      "source": "wikipedia",
-      "count": 26
-    },
-    {
-      "source": "factbook",
-      "count": 5
-    },
-    {
-      "source": "owid",
+      "source": "simple_wikipedia",
       "count": 4
     },
     {
-      "source": "wikivoyage",
+      "source": "noaa",
+      "count": 2
+    },
+    {
+      "source": "frym",
+      "count": 2
+    },
+    {
+      "source": "wikipedia",
+      "count": 1
+    },
+    {
+      "source": "factbook",
       "count": 1
     }
   ]

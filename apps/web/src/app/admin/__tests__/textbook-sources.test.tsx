@@ -91,6 +91,26 @@ describe('원문 적격 화면', () => {
     expect(html).toContain('영영 못 쓴다')
   })
 
+  // ── 미판정이 전부 구조적일 때 헛일을 시키지 않는다 ────────────────
+  // 2026-09-06: 기사 5,245편을 전부 판정하고 나니 남은 미판정이 전부 미절단 원본이 되었다
+  // (13,459 / 13,459). 그런데 화면은 위에 `gate-book-export` 를 처방하고 아래에 "그중 …" 을
+  // 덧붙이고 있었다 — 관리자가 그대로 돌리면 **0권**이 나온다. 부분일 때와 전부일 때는
+  // 처방이 다르므로 갈라 말해야 하고, 그 갈림이 사라지면 이 검사가 잡는다.
+  it('미판정이 전부 구조적이면 게이트 처방을 보이지 않는다', () => {
+    const structural = panel.structurallyUnjudged ?? 0
+    const unjudged = panel.grades.find((g) => g.grade === 'unjudged')?.count ?? 0
+    if (structural > 0 && structural >= unjudged) {
+      expect(html).toContain('전부 미절단 원본이라 게이트로는 안 풀린다')
+      expect(html).toContain('plos-extract')
+      // 헛일을 시키는 처방이 어디에도 남아 있으면 안 된다 — 콜아웃도 등급표도.
+      expect(html).not.toContain('gate-book-export')
+      // "그중 N편 은 게이트를 돌려도 안 풀린다" 는 나머지가 있다는 뜻이라 이 상태에서는 거짓이다.
+      expect(html).not.toContain('게이트를 돌려도 안 풀린다')
+    } else {
+      expect(html).toContain('gate-book-export')
+    }
+  })
+
   it('언제 잰 값인지와 다시 재는 명령을 함께 보인다', () => {
     expect(html).toContain('에 잰 값')
     expect(html).toContain('source-eligibility-scan.mjs')
@@ -116,10 +136,16 @@ describe('원문 적격 화면', () => {
   })
 
   it('게이트를 돌려도 안 풀리는 몫을 갈라 말한다 — 안 그러면 헛일을 시킨다', () => {
-    if (panel.topBlocker?.axis.id === 'judgement' && panel.structurallyUnjudged) {
+    if (panel.topBlocker?.axis.id !== 'judgement' || !panel.structurallyUnjudged) return
+    // 처방은 어느 상태에서도 발췌 경로를 가리켜야 한다.
+    expect(html).toContain('plos-extract')
+    if (panel.structurallyUnjudged < panel.topBlocker.grade.count) {
+      // **부분**: 몇 편이 그런지 숫자로 말해야 한다.
       expect(html).toContain('게이트를 돌려도 안 풀린다')
       expect(html).toContain(panel.structurallyUnjudged.toLocaleString())
-      expect(html).toContain('plos-extract')
+    } else {
+      // **전부**: "그중" 은 나머지가 있다는 뜻이라 거짓이다.
+      expect(html).toContain('전부 미절단 원본이라 게이트로는 안 풀린다')
     }
   })
 
