@@ -16,10 +16,17 @@
 // 글·수치·계획표를 여기서 지으면 권이 일곱이라 일곱 번 손으로 적게 되고,
 // 한 권만 고쳐도 나머지 여섯이 어긋난다.
 //
-// ── 무엇을 여전히 보여주지 않는가 ───────────────────────────────────
-// **가짜 목차.** 실제 단원 조합은 길이 게이트(90~200어)와 "한 단원의 문항은 서로 다른
-// 원글에서" 규칙을 더 걸기 때문에, 재고만으로 목차를 지어내면 실제보다 부풀려진다.
-// 목차는 조판된 권(`textbook_volume_renders`)에서만 나온다 — 아직 그 자료가 없다.
+// ── 목차는 어디서 오는가 ────────────────────────────────────────────
+// 이 화면은 오랫동안 목차를 **일부러** 막았다. 이유가 옳았다 — 재고 수만으로 목차를 지으면
+// 실제보다 부풀려진다(한 단원의 문항은 서로 다른 원글에서 와야 하고, 지문은 학년 길이 창에
+// 들어야 한다). 그 금지는 **재고로 짓지 말라**는 것이지 목차를 내지 말라는 것이 아니었다.
+//
+// 그래서 조판과 **같은 코드 경로**(`loadVolume`)로 조합한 결과를 스냅샷으로 굽고
+// (`scripts/textbook/contents-snapshot.mjs` → `lib/textbook/volume-contents.json`)
+// 그것만 편다. 없는 권(초등 저학년은 화면이 그릴 수 있는 문항이 없다)은 절을 통째로 빼고
+// **이유를 적는다** — 빈 자리를 "준비 중" 으로 채우지 않는다.
+//
+// 여전히 안 내는 것: **전문 해석·직독직해.** 재고에 그 열이 없다(실측 2026-09-06).
 
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
@@ -31,6 +38,12 @@ import { buildDossier } from '@vocaflow/library-pipeline'
 import { Screen } from '@/components/ui/ios'
 import { TextbookPickButton } from '@/components/library/textbooks/TextbookPickButton'
 import { ShareVolumeButton } from '@/components/library/textbooks/ShareVolumeButton'
+import {
+  ContentsUnavailable,
+  VolumePreview,
+  VolumeToc,
+  VolumeWordList,
+} from '@/components/library/textbooks/VolumeContents'
 import {
   NeighborCard,
   VolumeBackMatter,
@@ -44,6 +57,11 @@ import { fetchMyTextbooks } from '@/lib/textbook/my-shelf-query'
 import { fetchTextbookShelf } from '@/lib/textbook/shelf-query'
 import { STAGE_LABEL, neighborsOf, stageOf } from '@/lib/textbook/shelf-stage'
 import { TYPE_GUIDE } from '@/lib/textbook/type-guide'
+import {
+  CONTENTS_GENERATED_AT,
+  contentsOf,
+  contentsProblem,
+} from '@/lib/textbook/volume-contents'
 
 /**
  * 없는 권의 제목.
@@ -112,6 +130,11 @@ export default async function TextbookVolumePage({ params }: { params: { step: s
     bySource: v.bySource,
   })
 
+  // 목차·미리보기는 **조판된 결과**에서만 나온다(`volume-contents.json`).
+  // 없으면 절을 통째로 빼고 이유를 적는다 — 빈 자리를 "준비 중" 으로 채우지 않는다.
+  const contents = contentsOf(v.vLevels)
+  const contentsIssue = contentsProblem(v.vLevels)
+
   const { prev, next } = neighborsOf(shelf.volumes, v.step)
   const stage = stageOf(v.schoolBand)
 
@@ -150,6 +173,8 @@ export default async function TextbookVolumePage({ params }: { params: { step: s
 
         <VolumePreface dossier={dossier} />
         <VolumeFeatures dossier={dossier} />
+
+        {contents && <VolumeToc contents={contents} generatedAt={CONTENTS_GENERATED_AT} />}
 
         <section
           aria-label="수록 구성"
@@ -195,6 +220,10 @@ export default async function TextbookVolumePage({ params }: { params: { step: s
             })}
           </ul>
         </section>
+
+        {contents && <VolumePreview contents={contents} />}
+        {contents && <VolumeWordList contents={contents} />}
+        {contentsIssue && <ContentsUnavailable reason={contentsIssue} />}
 
         <VolumeStudyPlan dossier={dossier} />
 

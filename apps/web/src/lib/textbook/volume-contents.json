@@ -1,0 +1,2892 @@
+{
+  "generatedAt": "2026-09-06T07:34:52.508Z",
+  "unitsPerVolume": 10,
+  "bands": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "volumes": {
+    "1": {
+      "band": 1,
+      "step": 1,
+      "title": "Vocaflow Reading Starter",
+      "schoolBand": "초등 저학년",
+      "units": [
+        {
+          "no": 1,
+          "types": [
+            "rhyme",
+            "spell_blank",
+            "word_meaning"
+          ],
+          "items": 6,
+          "minutes": 20,
+          "words": null,
+          "passages": [
+            "add",
+            "about",
+            "act",
+            "afternoon",
+            "bad",
+            "bake"
+          ]
+        },
+        {
+          "no": 2,
+          "types": [
+            "rhyme",
+            "spell_blank",
+            "word_meaning"
+          ],
+          "items": 6,
+          "minutes": 20,
+          "words": null,
+          "passages": [
+            "bat",
+            "across",
+            "and",
+            "be",
+            "bed",
+            "big"
+          ]
+        },
+        {
+          "no": 3,
+          "types": [
+            "rhyme",
+            "spell_blank",
+            "word_meaning"
+          ],
+          "items": 6,
+          "minutes": 20,
+          "words": null,
+          "passages": [
+            "boy",
+            "address",
+            "apartment",
+            "adult",
+            "but",
+            "afraid"
+          ]
+        },
+        {
+          "no": 4,
+          "types": [
+            "rhyme",
+            "word_meaning",
+            "spell_blank"
+          ],
+          "items": 6,
+          "minutes": 20,
+          "words": null,
+          "passages": [
+            "buy",
+            "art",
+            "after",
+            "as",
+            "against",
+            "by"
+          ]
+        },
+        {
+          "no": 5,
+          "types": [
+            "word_meaning",
+            "spell_blank",
+            "rhyme"
+          ],
+          "items": 6,
+          "minutes": 20,
+          "words": null,
+          "passages": [
+            "at",
+            "age",
+            "cap",
+            "badminton",
+            "airplane",
+            "bag"
+          ]
+        },
+        {
+          "no": 6,
+          "types": [
+            "spell_blank",
+            "word_meaning",
+            "rhyme"
+          ],
+          "items": 6,
+          "minutes": 20,
+          "words": null,
+          "passages": [
+            "album",
+            "basketball",
+            "cat",
+            "all",
+            "breakfast",
+            "cut"
+          ]
+        },
+        {
+          "no": 7,
+          "types": [
+            "word_meaning",
+            "spell_blank",
+            "rhyme"
+          ],
+          "items": 6,
+          "minutes": 20,
+          "words": null,
+          "passages": [
+            "chocolate",
+            "almost",
+            "day",
+            "condition",
+            "already",
+            "congratulate"
+          ]
+        },
+        {
+          "no": 8,
+          "types": [
+            "spell_blank",
+            "word_meaning",
+            "rhyme"
+          ],
+          "items": 6,
+          "minutes": 20,
+          "words": null,
+          "passages": [
+            "also",
+            "cup",
+            "do",
+            "always",
+            "delicious",
+            "animal"
+          ]
+        },
+        {
+          "no": 9,
+          "types": [
+            "rhyme",
+            "word_meaning",
+            "spell_blank"
+          ],
+          "items": 6,
+          "minutes": 20,
+          "words": null,
+          "passages": [
+            "dry",
+            "difficult",
+            "answer",
+            "gentleman",
+            "fall",
+            "any"
+          ]
+        },
+        {
+          "no": 10,
+          "types": [
+            "word_meaning",
+            "spell_blank",
+            "rhyme"
+          ],
+          "items": 6,
+          "minutes": 20,
+          "words": null,
+          "passages": [
+            "grandfather",
+            "apple",
+            "fan",
+            "hamburger",
+            "area",
+            "if"
+          ]
+        }
+      ],
+      "totalItems": 60,
+      "totalMinutes": 200,
+      "stoppedBecause": null,
+      "sample": null
+    },
+    "2": {
+      "band": 2,
+      "step": 2,
+      "title": "Vocaflow Reading 1",
+      "schoolBand": "초등 고학년",
+      "units": [
+        {
+          "no": 1,
+          "types": [
+            "content_match",
+            "irrelevant",
+            "title",
+            "blank",
+            "topic",
+            "word_order"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            98,
+            119
+          ],
+          "passages": [
+            "Wilbur and Orville Wright: The First Airplane",
+            "American Inventions: The Television",
+            "The Red Raincoat",
+            "Replacing Animal Testing: How and When?",
+            "Sam's Christmas Present",
+            "NASA's IXPE Studies Magnetar - NASA"
+          ]
+        },
+        {
+          "no": 2,
+          "types": [
+            "content_match",
+            "title",
+            "irrelevant",
+            "blank",
+            "topic",
+            "word_order"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            96,
+            112
+          ],
+          "passages": [
+            "How to 'Dish Up' Something Good",
+            "Maple Meadows station (도입부)",
+            "Green Means Spring and Other Things",
+            "Lake Mud Tells the Surprising Story of Human Impacts on Seabirds",
+            "Grateful People Are Happy and Healthy—But Why?",
+            "What Is the Big Bang? (5문단부터 발췌)"
+          ]
+        },
+        {
+          "no": 3,
+          "types": [
+            "content_match",
+            "title",
+            "irrelevant",
+            "blank",
+            "topic",
+            "word_order"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            96,
+            117
+          ],
+          "passages": [
+            "Learn Prefixes, Suffixes to Expand Your Vocabulary",
+            "R179 (New York City Subway car) (도입부)",
+            "US Schools Use Money, Fun, Support to Get Students to Class",
+            "A Road Trip Down Memory Lane: Mapping the Brain’s Pathways With Diffusion MRI",
+            "The Moon and The Cap",
+            "Grammar Games at Home: Jeopardy"
+          ]
+        },
+        {
+          "no": 4,
+          "types": [
+            "title",
+            "irrelevant",
+            "blank",
+            "topic",
+            "word_order",
+            "blank_word"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            110,
+            110
+          ],
+          "passages": [
+            "Start Strong, Finish Safe: the Power of Warm-Ups and Cool-Downs",
+            "Same-same or Different? (13쪽부터 발췌)",
+            "Following Feathers: Adventures with Bird Experts",
+            "OCLC (도입부)",
+            "'Two Thanksgiving Day Gentlemen,' by O. Henry",
+            "'The Gift of the Magi,' by O. Henry"
+          ]
+        },
+        {
+          "no": 5,
+          "types": [
+            "title",
+            "blank",
+            "topic",
+            "irrelevant",
+            "word_order",
+            "blank_word"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            102,
+            106
+          ],
+          "passages": [
+            "How Your Blood Knows Your Brain Is Sick",
+            "All About Venus (4문단부터 발췌)",
+            "What is Interoception and Why is it Important?",
+            "How Nature Can Help Cities Breathe and Stay Cool",
+            "Pearl S. Buck: The First American Woman to Win a Nobel Prize in Literature",
+            "The Children's Book of London (발췌)"
+          ]
+        },
+        {
+          "no": 6,
+          "types": [
+            "title",
+            "blank",
+            "topic",
+            "word_order",
+            "unit_vocab",
+            "blank_word"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            108,
+            119
+          ],
+          "passages": [
+            "Bheema, the Sleepyhead",
+            "Bunty and Bubbly",
+            "Groundwater: Discovering Our Hidden Resource",
+            "Top US Colleges Will Cost $90,000 or More; Most Students Pay Less",
+            "The Bone Puzzle (앞부분 발췌)",
+            "Mary Kay: A Leader in the Beauty Product Industry"
+          ]
+        },
+        {
+          "no": 7,
+          "types": [
+            "title",
+            "blank",
+            "topic",
+            "word_order",
+            "unit_vocab",
+            "blank_word"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            108,
+            120
+          ],
+          "passages": [
+            "Buildings That Handle Heat",
+            "When Every Buyer Paid the Same",
+            "My fish! No, my fish!",
+            "Proceratophrys belzebul (도입부)",
+            "How Do Aeroplanes Fly? (앞부분 발췌)",
+            "The Soil That Walks Away"
+          ]
+        },
+        {
+          "no": 8,
+          "types": [
+            "title",
+            "blank",
+            "topic",
+            "word_order"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            105,
+            120
+          ],
+          "passages": [
+            "Hiding and Showing",
+            "Visiting Nature in the City During the COVID-19 Pandemic",
+            "Reducing Young Adults’ Alcohol Use Using a Smartphone App",
+            "Program Trains Black Male Teachers for Preschools",
+            "What Is An Artificial Neural Network And Why Do We Need It?",
+            "Thomas Edison: Inventor and Busy Team Leader"
+          ]
+        },
+        {
+          "no": 9,
+          "types": [
+            "title",
+            "blank",
+            "topic",
+            "word_order"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            103,
+            115
+          ],
+          "passages": [
+            "Who Is Our Friend?",
+            "The Body Keeps Its Own Balance",
+            "Make a Stained Glass Earth! (앞부분 발췌)",
+            "The evening the sky went dark",
+            "Hidden Until It Matters",
+            "Letting the Water Through"
+          ]
+        },
+        {
+          "no": 10,
+          "types": [
+            "title",
+            "blank",
+            "word_order"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            98,
+            118
+          ],
+          "passages": [
+            "Two Kinds of Mixing",
+            "V1400 Centauri (도입부 발췌)",
+            "Cracks in the Earth: Why is East Africa Losing Its Soil?",
+            "How Animals Learned Where to Look",
+            "When Every Town Kept Its Own Noon",
+            "OK (도입부 발췌)"
+          ]
+        }
+      ],
+      "totalItems": 60,
+      "totalMinutes": 230,
+      "stoppedBecause": null,
+      "sample": {
+        "no": 1,
+        "minutes": 23,
+        "vocabulary": [
+          {
+            "word": "brother",
+            "meaningKo": "형제"
+          },
+          {
+            "word": "rain",
+            "meaningKo": "비"
+          },
+          {
+            "word": "flight",
+            "meaningKo": "비행"
+          },
+          {
+            "word": "device",
+            "meaningKo": "장치"
+          },
+          {
+            "word": "today",
+            "meaningKo": "오늘"
+          },
+          {
+            "word": "said",
+            "meaningKo": "말했다 (say의 과거형·과거분사)"
+          },
+          {
+            "word": "animal",
+            "meaningKo": "동물"
+          },
+          {
+            "word": "gift",
+            "meaningKo": "선물"
+          },
+          {
+            "word": "machine",
+            "meaningKo": "기계"
+          },
+          {
+            "word": "television",
+            "meaningKo": "텔레비전"
+          },
+          {
+            "word": "work",
+            "meaningKo": "일하다, 근무하다"
+          },
+          {
+            "word": "sky",
+            "meaningKo": "하늘"
+          },
+          {
+            "word": "box",
+            "meaningKo": "상자"
+          },
+          {
+            "word": "airplane",
+            "meaningKo": "비행기"
+          },
+          {
+            "word": "idea",
+            "meaningKo": "생각, 아이디어, 발상"
+          },
+          {
+            "word": "find",
+            "meaningKo": "찾다, 발견하다"
+          },
+          {
+            "word": "paper",
+            "meaningKo": "종이"
+          },
+          {
+            "word": "ago",
+            "meaningKo": "전에"
+          },
+          {
+            "word": "allow",
+            "meaningKo": "허락하다"
+          },
+          {
+            "word": "directly",
+            "meaningKo": "직접, 곧바로"
+          }
+        ],
+        "items": [
+          {
+            "no": 1,
+            "type": "content_match",
+            "stem": "글의 내용과 일치하지 않는 것은?",
+            "passage": "Wilbur and Orville Wright are the American inventors who made a small engine-powered flying machine. They proved that flight without the aid of gas-filled balloons was possible. Wilbur Wright was born in 1867 near Melville, Indiana. His brother Orville was born four years later in Dayton, Ohio. As they grew up, the Wright brothers experimented with mechanical things. Later, the Wright brothers began to design their own flying machine. They used ideas they had developed from earlier experiments with a toy helicopter, kites, the printing machine and bicycles. Soon, they needed a place to test their ideas about flight.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "두 사람은 기구 없이도 비행이 가능함을 보였다",
+              "Orville 은 Wilbur 보다 먼저 태어났다",
+              "Wilbur 는 1867년 인디애나에서 태어났다",
+              "형제는 장난감 헬리콥터와 연, 인쇄기, 자전거를 다뤄 보았다",
+              "형제는 자라면서 기계를 다루는 실험을 했다"
+            ],
+            "answer": 2,
+            "explanation": {
+              "text": "글은 \"His brother Orville was born four years later\" 라 한다 — 네 해 **뒤**에 태어났지 먼저가 아니다. 순서만 뒤집힌 진술이다. 나머지는 본문 그대로다: \"flight without the aid of gas-filled balloons was possible\"(①), \"born in 1867 near Melville, Indiana\"(③), \"a toy helicopter, kites, the printing machine and bicycles\"(④), \"experimented with mechanical things\"(⑤).",
+              "from": "batch"
+            },
+            "source": "Wilbur and Orville Wright: The First Airplane"
+          },
+          {
+            "no": 3,
+            "type": "title",
+            "stem": "글의 제목으로 가장 알맞은 것은?",
+            "passage": "On Sunday, Manu’s parents got him a red raincoat. “Ma, may I wear it now?” asked Manu. “No, my dear, the rains are near, but just now the sky is clear,” said Ma. Monday was bright and sunny. “WILL it rain today, Mummy?” asked Manu. “No Manu, not today. If you wear your raincoat, you will look quite funny!” said Ma. On Tuesday, the sky was blue. “Ma, WHEN will my wish come true?” asked Manu. “Not today, my dear, there is just one white cloud in the sky!” said Ma. Wednesday was hot. “Ma, WHY doesn’t it rain?” asked Manu. “Son, I think it will rain very soon. Maybe even before it is noon,” said Ma.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "How to Choose a Raincoat for a Child",
+              "A Week of Bright and Cloudless Days",
+              "Why Manu’s Mother Bought Him a Gift",
+              "The Day the Rain Finally Arrived",
+              "Manu Waits for the Rain to Come"
+            ],
+            "answer": 5,
+            "explanation": {
+              "text": "Manu 는 월요일부터 \"WILL it rain today, Mummy?\", 화요일에 \"WHEN will my wish come true?\", 수요일에 \"WHY doesn’t it rain?\" 하고 날마다 묻고, 어머니는 그때마다 \"Not today\" 라고 답한다. 비를 기다리는 며칠이 글의 뼈대다. ④는 그럴듯하지만 본문은 \"I think it will rain very soon\" 까지만 가고 비는 아직 안 온다. ①은 고르는 요령으로 이야기가 아니고, ②는 날씨만 떼어 아이를 지웠으며, ③의 선물 이유는 첫 문장 배경일 뿐이다.",
+              "from": "batch"
+            },
+            "source": "The Red Raincoat"
+          },
+          {
+            "no": 4,
+            "type": "blank",
+            "stem": "다음 빈칸에 들어갈 말로 가장 알맞은 것은?",
+            "passage": "An important discussion in today’s society is whether we should make animals suffer for the sake of science and product development. In this article, I present four examples of animal tests that were introduced in the past to protect patients and consumers, and I discuss attempts to ____. When we started using small animals such as mice and rats for testing more than 100 years ago, there were not many alternatives. Today, we have more knowledge and a greater number of options. Scientists can now create tiny functioning organs in the laboratory, and even combine multiple mini-organs, to help us understand how the human body works when it is healthy or sick.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "make animal tests cheaper and faster to run",
+              "prove that animal tests are safe for patients",
+              "replace those animal tests with other methods",
+              "increase the number of mice and rats used",
+              "ban all product development straight away"
+            ],
+            "answer": 3,
+            "explanation": {
+              "text": "글은 \"whether we should make animals suffer for the sake of science\" 를 물음으로 세우고, 100년 전에는 \"there were not many alternatives\" 였지만 이제 \"Scientists can now create tiny functioning organs in the laboratory\" 라고 잇는다. 대안으로 바꾸려는 시도가 논의 대상이다. ①·②·④는 동물시험을 그대로 두거나 늘리는 쪽이라 방향이 반대이고, ⑤는 개발 자체를 멈추자는 비약이다.",
+              "from": "batch"
+            },
+            "source": "Replacing Animal Testing: How and When?"
+          },
+          {
+            "no": 5,
+            "type": "topic",
+            "stem": "글의 주제로 가장 알맞은 것은?",
+            "passage": "Sam was a very curious boy. And what he was curious about was his Christmas present! “Mummy, where is my Christmas present?” asked Sam. She smiled and said, “It is hidden in a secret place, Sam.” Sam stuck his tongue out and went in search of his father. “Daddy, where is my Christmas present?” asked Sam. “It is hidden in a secret place, Sam,” his father replied smiling. “I know what to do!” Sam said. “I will go gift hunting!” He looked behind his father’s desk. And he found... a gift box wrapped in red paper. “But this is for aunt Juju,” said Sam reading the tag. So, he slipped into his parents’ room. And he found...",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "a gift box neatly wrapped in red paper",
+              "the name tag on aunt Juju’s parcel",
+              "parents who forget what they promised",
+              "how presents are wrapped for Christmas",
+              "a boy hunting for his hidden present"
+            ],
+            "answer": 5,
+            "explanation": {
+              "text": "부모가 둘 다 \"It is hidden in a secret place, Sam\" 이라 하자 Sam 은 \"I will go gift hunting!\" 하고 책상 뒤, 부모 방을 뒤진다. 숨긴 선물을 찾아다니는 일이 대상이다. ①·②는 그러다 잘못 찾은 것이고, ④는 포장법이라 이야기가 아니다. ③은 부모가 약속을 잊었다는 뜻인데 본문에는 그런 대목이 없다.",
+              "from": "batch"
+            },
+            "source": "Sam's Christmas Present"
+          }
+        ]
+      }
+    },
+    "3": {
+      "band": 3,
+      "step": 3,
+      "title": "Vocaflow Reading 2",
+      "schoolBand": "중학 1-2학년",
+      "units": [
+        {
+          "no": 1,
+          "types": [
+            "title",
+            "topic",
+            "blank",
+            "irrelevant",
+            "word_order",
+            "unit_vocab"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            109,
+            127
+          ],
+          "passages": [
+            "'The Fall of the House of Usher,' by Edgar Allan Poe, Part One",
+            "What will hurricane season bring this year?",
+            "The Part of the Ice That Shows",
+            "How the Animals Lost Their Tails by Carl Sandburg",
+            "Gappu Can't Dance",
+            "The Grand Patch-up (앞부분 발췌)"
+          ]
+        },
+        {
+          "no": 2,
+          "types": [
+            "title",
+            "topic",
+            "blank",
+            "irrelevant",
+            "word_order",
+            "unit_vocab"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            110,
+            136
+          ],
+          "passages": [
+            "'The Fall of the House of Usher,' by Edgar Allan Poe, Part Two",
+            "XOXO (도입부 발췌)",
+            "When Ships Stopped Waiting for Wind",
+            "How Sports Can Prepare You for Life",
+            "The Loud Work of Empty Space",
+            "New Crew Members Welcomed to International Space Station - NASA"
+          ]
+        },
+        {
+          "no": 3,
+          "types": [
+            "title",
+            "topic",
+            "blank",
+            "word_order",
+            "unit_vocab",
+            "vocab_choice"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            107,
+            131
+          ],
+          "passages": [
+            "Haru (11쪽부터 발췌)",
+            "G4 countries (도입부)",
+            "How a Sunlit Stage Made Night",
+            "the novel coronavirus we can stay safe (9쪽부터 발췌)",
+            "Where a List Loses Its Middle",
+            "The Room Behind the Cup"
+          ]
+        },
+        {
+          "no": 4,
+          "types": [
+            "title",
+            "topic",
+            "blank",
+            "word_order",
+            "unit_vocab",
+            "insert"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            99,
+            153
+          ],
+          "passages": [
+            "A* search algorithm (도입부 발췌)",
+            "'The Open Boat' by Stephen Crane, Part One",
+            "Saving Sea Turtles on Northeastern US Coast",
+            "The Time-Travelling River (앞부분 발췌)",
+            "The Water Rule That Changed Twice",
+            "Listening to a Machine Before It Stops"
+          ]
+        },
+        {
+          "no": 5,
+          "types": [
+            "title",
+            "topic",
+            "blank",
+            "word_order",
+            "unit_vocab",
+            "vocab_choice"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            131,
+            147
+          ],
+          "passages": [
+            "Saving the Seas: What Works (and Why it Matters)",
+            "Finnish Students Go Back to School with Books, Not Screens",
+            "Knitting While Watching Movies Gains Popularity",
+            "DIVE! (5쪽부터 발췌)",
+            "The Short Life of a Nest",
+            "More Than Science! the Social Part of Research Cruises"
+          ]
+        },
+        {
+          "no": 6,
+          "types": [
+            "title",
+            "topic",
+            "word_order",
+            "unit_vocab",
+            "blank",
+            "insert"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            97,
+            149
+          ],
+          "passages": [
+            "Sometimes We 'Spread Ourself Too Thin'",
+            "'The Open Boat' by Stephen Crane, Part Two",
+            "Anna's Extraordinary Experiments with Weather (앞부분 발췌)",
+            "Jadav and the Tree-Place (앞부분 발췌)",
+            "Reading the Sea by the Sky",
+            "Still Warm After the Finish"
+          ]
+        },
+        {
+          "no": 7,
+          "types": [
+            "title",
+            "topic",
+            "word_order",
+            "unit_vocab",
+            "grammar_fix",
+            "vocab_choice"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            118,
+            150
+          ],
+          "passages": [
+            "What is the Super Bowl?",
+            "HBO (도입부)",
+            "a street or a zoo",
+            "When Every Town Kept Its Own Clock",
+            "The Page That Never Stays",
+            "The Cost of a Second Tail"
+          ]
+        },
+        {
+          "no": 8,
+          "types": [
+            "title",
+            "topic",
+            "word_order",
+            "unit_vocab",
+            "grammar_fix"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            94,
+            139
+          ],
+          "passages": [
+            "'The Fall of the House of Usher,' by Edgar Allan Poe, Part Three",
+            "H. R. Bhardwaj (도입부 발췌)",
+            "Australia Plans Social Media Ban for Children under 16",
+            "Built So a Whisper Could Travel",
+            "U-Haul (도입부)",
+            "The Golden Gate Bridge: San Francisco’s Historic Suspension Bridge"
+          ]
+        },
+        {
+          "no": 9,
+          "types": [
+            "topic",
+            "title",
+            "word_order",
+            "unit_vocab"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            111,
+            138
+          ],
+          "passages": [
+            "The Birthday Menu (3쪽부터 발췌)",
+            "The Tank on the Roof",
+            "In Senegal, Deaf Students Study alongside Others",
+            "The Stretch That Comes Too Early",
+            "Study: Around Half of US Teens Always Online",
+            "Before a Painting Had a Name"
+          ]
+        },
+        {
+          "no": 10,
+          "types": [
+            "unit_vocab",
+            "word_order"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": null,
+          "passages": [
+            "Bed-Time Stories",
+            "Pale Cloth as a Claim",
+            "Goplu's Train Ride (앞부분 발췌)",
+            "The Front That Cuts the Water",
+            "Hunting What You Cannot See",
+            "Get your Gummy Greenhouse Gases! (앞부분 발췌)"
+          ]
+        }
+      ],
+      "totalItems": 60,
+      "totalMinutes": 230,
+      "stoppedBecause": null,
+      "sample": {
+        "no": 1,
+        "minutes": 23,
+        "vocabulary": [
+          {
+            "word": "fox",
+            "meaningKo": "여우"
+          },
+          {
+            "word": "tail",
+            "meaningKo": "꼬리"
+          },
+          {
+            "word": "hurricane",
+            "meaningKo": "허리케인"
+          },
+          {
+            "word": "snow",
+            "meaningKo": "눈"
+          },
+          {
+            "word": "average",
+            "meaningKo": "평균; (형용사) 평균의, 보통의"
+          },
+          {
+            "word": "ghost",
+            "meaningKo": "유령, 귀신"
+          },
+          {
+            "word": "fear",
+            "meaningKo": "두려움, 공포"
+          },
+          {
+            "word": "face",
+            "meaningKo": "얼굴"
+          },
+          {
+            "word": "grow",
+            "meaningKo": "자라다, 성장하다"
+          },
+          {
+            "word": "sadness",
+            "meaningKo": "슬픔"
+          },
+          {
+            "word": "major",
+            "meaningKo": "주요한, 중대한; (명사) 전공; (군) 소령"
+          },
+          {
+            "word": "predict",
+            "meaningKo": "예측하다"
+          },
+          {
+            "word": "attempt",
+            "meaningKo": "시도"
+          },
+          {
+            "word": "hole",
+            "meaningKo": "구멍"
+          },
+          {
+            "word": "measure",
+            "meaningKo": "측정하다"
+          },
+          {
+            "word": "wide",
+            "meaningKo": "넓은"
+          },
+          {
+            "word": "fast",
+            "meaningKo": "빠른; 단단한, 고정된"
+          },
+          {
+            "word": "lift",
+            "meaningKo": "들어 올리다; (제한을) 해제하다"
+          },
+          {
+            "word": "slow",
+            "meaningKo": "느린"
+          },
+          {
+            "word": "jump",
+            "meaningKo": "뛰다, 뛰어오르다"
+          }
+        ],
+        "items": [
+          {
+            "no": 1,
+            "type": "title",
+            "stem": "다음 글의 제목으로 가장 적절한 것은?",
+            "passage": "We present the first of three parts of the short story \"The Fall of the House of Usher,\" by Edgar Allan Poe. The story was originally adapted and recorded by the U.S. Department of State. It was a dark and soundless day near the end of the year, and clouds were hanging low in the heavens. All day I had been riding on horseback through country with little life or beauty; and in the early evening, I came within view of the House of Usher. I do not know how it was — but, with my first sight of the building, a sense of heavy sadness filled my spirit.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "A Bright Morning Ride Through Beautiful Country",
+              "The Day the House of Usher Fell",
+              "Why the Narrator Turned Back Home",
+              "First Sight of a House That Brings Sadness",
+              "A Warm Welcome at the End of the Year"
+            ],
+            "answer": 4,
+            "explanation": {
+              "text": "\"It was a dark and soundless day near the end of the year\" 에 집을 처음 보자 \"a sense of heavy sadness filled my spirit\" 이다. 첫 시선과 그 무거움이 이 대목이다. ①·⑤는 분위기를 정반대로 적었고, ②는 이 발췌에 없는 결말이며 ③은 본문과 어긋난다 — 화자는 계속 다가간다.",
+              "from": "batch"
+            },
+            "source": "'The Fall of the House of Usher,' by Edgar Allan Poe, Part One"
+          },
+          {
+            "no": 2,
+            "type": "topic",
+            "stem": "다음 글의 주제로 가장 적절한 것은?",
+            "passage": "For the second year in a row, researchers predict a hurricane season that will be in line with recent averages, with 12 to 15 named storms, six to nine hurricanes, and two to three major hurricanes forming in the Atlantic basin. The Atlantic basin includes the entire Atlantic Ocean, the Gulf of Mexico, and the Caribbean Sea. The number of named storms predicted is in line with recent averages, according to Lian Xie, professor of marine, earth and atmospheric sciences at North Carolina State University. The recent average (1994 to 2025) is 15 named storms. Of the predicted 12 to 15 named storms, six to nine may grow strong enough to become hurricanes (the recent average is seven), with the possibility of two to three storms becoming major hurricanes (the recent average is four).",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "this year’s Atlantic hurricane forecast",
+              "the size of the Atlantic basin",
+              "why storms are named each season",
+              "a professor’s career at North Carolina State",
+              "the difference between storms and hurricanes"
+            ],
+            "answer": 1,
+            "explanation": {
+              "text": "\"researchers predict a hurricane season that will be in line with recent averages\" 하고 명명 폭풍·허리케인·대형 허리케인 수를 차례로 든다. 올해 예보가 대상이다. ②는 범위를 설명한 한 문장이고, ④는 인용한 전문가 소개다. ③·⑤는 본문에 없다.",
+              "from": "batch"
+            },
+            "source": "What will hurricane season bring this year?"
+          },
+          {
+            "no": 3,
+            "type": "blank",
+            "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것은?",
+            "passage": "Sea ice is hard to measure for a simple reason: nearly all of it lies under water. From a ship you see a white plain running to the edge of the sky, and from a plane you see how wide it is, yet neither view gives the thickness, which decides whether the ice lasts the summer. The first attempt was direct. Crews aboard an icebreaker drilled through the ice and dropped a tape down each hole. That works, yet no season of drilling ever managed more than ____ on a sheet of freezing water the size of a continent, and the ice further out stayed unclear. The second attempt used ordinary knowledge instead.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "a handful of points",
+              "one clear reading",
+              "a thousand deep holes",
+              "half of the surface",
+              "the edge of the sky"
+            ],
+            "answer": 1,
+            "explanation": {
+              "text": "\"Crews aboard an icebreaker drilled through the ice and dropped a tape down each hole\" 는 직접 재는 방법이지만, 대륙만 한 얼음판에 견주면 구멍 몇 개에 그친다. 그래서 두 번째 방법으로 넘어간다. ③은 많이 쟀다는 뜻이라 한계를 없애 버리고, ②는 한 점뿐이라 계절 내내 뚫었다는 서술과 안 맞는다. ④·⑤는 \"neither view gives the thickness\" 에서 이미 물리친 겉보기다.",
+              "from": "batch"
+            },
+            "source": "The Part of the Ice That Shows"
+          }
+        ]
+      }
+    },
+    "4": {
+      "band": 4,
+      "step": 4,
+      "title": "Vocaflow Reading 3",
+      "schoolBand": "중학 3학년",
+      "units": [
+        {
+          "no": 1,
+          "types": [
+            "title",
+            "blank",
+            "content_match",
+            "topic",
+            "word_order",
+            "unit_vocab"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            123,
+            144
+          ],
+          "passages": [
+            "These STEM activities can keep kids engaged over winter break",
+            "Can We Use AI Systems While Ensuring A Sustainable Future?",
+            "Pollution exposure can lead to loss of independence for older adults",
+            "Unhoused youth are more likely to get care if pets can come",
+            "All About the Sun (2문단부터 발췌)",
+            "Release of the IPCC 6th Assessment Report from Working Group 1"
+          ]
+        },
+        {
+          "no": 2,
+          "types": [
+            "title",
+            "blank",
+            "content_match",
+            "topic",
+            "word_order",
+            "unit_vocab"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            94,
+            147
+          ],
+          "passages": [
+            "'The Blue Hotel,' by Stephen Crane, Part Four",
+            "La-Bools, Mysterious Fungi that Deserve Your Attention",
+            "Early dementia screening is seriously underused",
+            "Test quickly detects breast cancer with a tiny drop of spit",
+            "Columbia University Cancels Main Graduation Event",
+            "Disappearing photos increase dating app matches"
+          ]
+        },
+        {
+          "no": 3,
+          "types": [
+            "title",
+            "blank",
+            "topic",
+            "content_match",
+            "word_order",
+            "vocab_choice"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            128,
+            153
+          ],
+          "passages": [
+            "Knee Jerk and Gut Reactions: When We Are Not in Control",
+            "Planning an Outdoor Adventure? USGS’s topoBuilder creates custom topographic maps in 3 easy steps.",
+            "Energy drinks may be damaging your heart",
+            "APOD: 2026 August 27 - Colorful Aurora over Icenlandic Waterfall",
+            "Magnitude 7 Earthquake Off the Coast of Greece and Turkey",
+            "Exploring the Tiny World of Microplastics in Your Own “Lab”"
+          ]
+        },
+        {
+          "no": 4,
+          "types": [
+            "title",
+            "blank",
+            "topic",
+            "word_order",
+            "unit_vocab",
+            "insert"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            98,
+            140
+          ],
+          "passages": [
+            "The Power of Learning: From Brainpower to Artificial Intelligence",
+            "Noncaloric monosaccharides induce excessive sprouting angiogenesis in zebrafish via foxo1a-marcksl1a signal",
+            "Team finds new transient objects in 'Christmas tree galaxy cluster'",
+            "Free food motivates frontline workers more than gym memberships",
+            "Cannabis Use and the Developing Brain: Highs and Lows",
+            "The Model on the Kitchen Table"
+          ]
+        },
+        {
+          "no": 5,
+          "types": [
+            "title",
+            "blank",
+            "topic",
+            "word_order",
+            "unit_vocab",
+            "vocab_choice"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            139,
+            152
+          ],
+          "passages": [
+            "Poll indicates many people who take daily aspirin may not need to",
+            "The Case of the Misplaced Deer",
+            "TikTok vasectomy videos spread bad info",
+            "Apple’s Computer Launch Leads to Study of User Experience",
+            "Updated US Topo maps for Kentucky",
+            "Aphasia: How Our Language System Can “Break”"
+          ]
+        },
+        {
+          "no": 6,
+          "types": [
+            "title",
+            "topic",
+            "blank",
+            "word_order",
+            "unit_vocab",
+            "irrelevant"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            134,
+            150
+          ],
+          "passages": [
+            "EarthWord–Scour",
+            "August 2020 was third-warmest on record for the U.S., and dry conditions dominated the West",
+            "August 2021 global climate summary",
+            "'Watching the Grass Grow' Is Not Fun",
+            "Gul in Space (9쪽부터 발췌)",
+            "Scientists Discover Stonehenge-like Circle in Denmark"
+          ]
+        },
+        {
+          "no": 7,
+          "types": [
+            "title",
+            "topic",
+            "word_order",
+            "unit_vocab",
+            "vocab_choice",
+            "grammar_fix"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            149,
+            151
+          ],
+          "passages": [
+            "AI may spot ADHD years before kids get diagnosis",
+            "Something the U.S. can (mostly) agree on: January 2020 was warmer than average",
+            "AI Tools Drive Many New Products at the CES 2025 Electronics Show",
+            "What the Spice Was Really For",
+            "Three for Free - A Folktale from Taiwan (2쪽부터 발췌)",
+            "R142 (New York City Subway car) (도입부 발췌)"
+          ]
+        },
+        {
+          "no": 8,
+          "types": [
+            "title",
+            "topic",
+            "word_order",
+            "unit_vocab",
+            "grammar_fix"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            141,
+            151
+          ],
+          "passages": [
+            "Why Are Some Children More Easily Frustrated Than Others? Irritability and the Brain",
+            "Scientists Link Gene to Human Speech",
+            "All About the Moon (5문단부터 발췌)",
+            "Shedding Light on How the Brain Works Using Optogenetics",
+            "American Inventors: Rocket Scientist Robert Goddard",
+            "A Short History of Spacecraft Landings on the Moon"
+          ]
+        },
+        {
+          "no": 9,
+          "types": [
+            "topic",
+            "title",
+            "word_order",
+            "unit_vocab"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            115,
+            152
+          ],
+          "passages": [
+            "Could a fungal pandemic make 'The Last of Us' a reality?",
+            "How to save energy and money on your holiday lighting",
+            "How Much Water Is on Earth? (앞부분 발췌)",
+            "The Guest That Pays Rent",
+            "When are heat waves climate change's fault?",
+            "Schools Want More Therapy for Students, Not All Parents Agree"
+          ]
+        },
+        {
+          "no": 10,
+          "types": [
+            "unit_vocab",
+            "word_order"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": null,
+          "passages": [
+            "One by Two (앞부분 발췌)",
+            "The USGS Response to Record Flooding in the Midwest Continues",
+            "Colorful Collage of Tarantula Nebula - NASA",
+            "The Weather Report",
+            "What Does It Take to Be a 'Power Couple'?",
+            "CADASIL: From Medical Mystery to Scientific Discovery"
+          ]
+        }
+      ],
+      "totalItems": 60,
+      "totalMinutes": 230,
+      "stoppedBecause": null,
+      "sample": {
+        "no": 1,
+        "minutes": 23,
+        "vocabulary": [
+          {
+            "word": "clinic",
+            "meaningKo": "진료소, 클리닉"
+          },
+          {
+            "word": "global",
+            "meaningKo": "전 세계의"
+          },
+          {
+            "word": "preventative",
+            "meaningKo": "예방의, 예방용의"
+          },
+          {
+            "word": "loss",
+            "meaningKo": "손실, 손해"
+          },
+          {
+            "word": "appointment",
+            "meaningKo": "약속"
+          },
+          {
+            "word": "meal",
+            "meaningKo": "식사, 끼니"
+          },
+          {
+            "word": "author",
+            "meaningKo": "저자, 작가"
+          },
+          {
+            "word": "financial",
+            "meaningKo": "재정의"
+          },
+          {
+            "word": "access",
+            "meaningKo": "접근, 출입"
+          },
+          {
+            "word": "daytime",
+            "meaningKo": "낮, 주간"
+          },
+          {
+            "word": "extreme",
+            "meaningKo": "극단적인, 극도의"
+          },
+          {
+            "word": "frequent",
+            "meaningKo": "잦은, 빈번한"
+          },
+          {
+            "word": "rapid",
+            "meaningKo": "빠른, 신속한"
+          },
+          {
+            "word": "boost",
+            "meaningKo": "끌어올리다; 부양책; 증가"
+          },
+          {
+            "word": "calculate",
+            "meaningKo": "계산하다"
+          },
+          {
+            "word": "confidence",
+            "meaningKo": "자신감; 신뢰; 비밀"
+          },
+          {
+            "word": "consume",
+            "meaningKo": "소비하다; 먹다; 사로잡다"
+          },
+          {
+            "word": "contribute",
+            "meaningKo": "기여하다"
+          },
+          {
+            "word": "environment",
+            "meaningKo": "환경, 주위 상황"
+          },
+          {
+            "word": "footprint",
+            "meaningKo": "발자국; (환경) 발자국"
+          }
+        ],
+        "items": [
+          {
+            "no": 1,
+            "type": "title",
+            "stem": "다음 글의 제목으로 가장 적절한 것은?",
+            "passage": "Winter break offers a perfect opportunity to keep kids curious and engaged without turning learning into homework. Jim Egenrieder, director of the Virginia Tech Thinkabit Labs, shares simple ways families can build real-world skills through everyday activities: Turn everyday moments into STEM lessons Winter break is ideal for hands-on practice. “Whether you’re exploring nature, at the hardware store, or planning a meal, involving kids in the background research builds important executive function skills,” Egenrieder says. Have them compare ratings, create budgets, or map routes to strengthen critical thinking and independence. Egenrieder suggests that parents encourage their students to measure through baking, track day length around the winter solstice, create budgets, identify trees by their winter features, or predict fuel needs on a road trip. Even small actions, like switching clocks to 24-hour time or memorizing phrases from other languages, help boost curiosity.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "Learning Hidden Inside an Ordinary Day",
+              "Why Winter Break Is Too Short for Study",
+              "Baking as a Way to Teach Simple Fractions",
+              "How to Plan a Family Road Trip Together",
+              "Homework Assignments for the Long Holidays"
+            ],
+            "answer": 1,
+            "explanation": {
+              "text": "글의 제안은 따로 공부시키지 말고 일상에 얹으라는 것이다 — \"keep kids curious and engaged without turning learning into homework\" 이고 \"Turn everyday moments into STEM lessons\" 다. 그래서 ①이다. ⑤는 정반대이고 ③④는 예시 하나씩이다.",
+              "from": "batch"
+            },
+            "source": "These STEM activities can keep kids engaged over winter break"
+          },
+          {
+            "no": 2,
+            "type": "blank",
+            "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것은?",
+            "passage": "Did you know that every time people use AI systems, those systems consume huge amounts of water and energy, pollute the environment of countries far away, contribute to deforestation around the globe? In addition, serious health issues can be faced by those living or working close to mining areas, data centers, or e-waste landfills sites, because of toxic chemicals released in the soil, water, and air. Did you know that some children exposed to these chemicals may not be able to grow up healthy? It is extremely important to consider ____ and to think about what we can do about it. Everyone, and especially children and teenagers, can become advocates for responsible AI use and inform others about the negative impacts of AI systems.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "what AI systems cost the earth that carries us all",
+              "how quickly an AI system can answer a hard question",
+              "how much a company pays to build a new data centre",
+              "how many children use an AI system on a daily basis",
+              "which chemicals are used to clean an e-waste landfill"
+            ],
+            "answer": 1,
+            "explanation": {
+              "text": "빈칸 앞은 인공지능이 \"consume huge amounts of water and energy, pollute the environment of countries far away\" 하고 삼림을 깎는다고 줄줄이 세운 대목이고, 빈칸 뒤는 \"think about what we can do about it\" 이다. 그 목록을 한 마디로 묶는 것은 ①이다. ②·③·④ 는 인공지능을 다루되 글이 재는 것과 다른 잣대이고, ⑤ 는 목록의 한 항목을 전체인 척한 것이다.",
+              "from": "batch"
+            },
+            "source": "Can We Use AI Systems While Ensuring A Sustainable Future?"
+          },
+          {
+            "no": 3,
+            "type": "content_match",
+            "stem": "다음 글의 내용과 일치하지 않는 것은?",
+            "passage": "In all, nearly 40% of respondents experienced a new loss of independence during the average 10.2 years that they were followed. “We believe this research extends our understanding of air pollution’s health impacts beyond specific chronic diseases to better capture the cumulative burden of air pollution in late life,” Zhang says. “These findings are quite important given the global population is aging faster than ever before.” In addition to documenting the act of losing independence, the researchers estimated the financial cost of lost independence due to air pollution. Applying a yearly cost of $16,028 per person who needed help with activities of daily living, the researchers estimated that losing independence due to residential exposures to traffic-related air pollution would add up to $11.7 billion in care expenses nationwide per year. Additional coauthors are from the University of Michigan, Georgetown University, Boston University, and the University of Washington.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "응답자의 40% 가까이가 새로 자립을 잃었다",
+              "추적 기간은 평균 10.2개월이었다고 밝혔다",
+              "자립을 잃은 사람 한 명에 연 $16,028 을 매겼다",
+              "연구진은 자립 상실의 비용까지 함께 셈했다",
+              "전국 연간 돌봄 비용은 117억 달러로 추산됐다"
+            ],
+            "answer": 2,
+            "explanation": {
+              "text": "글은 \"the average 10.2 years that they were followed\" 라 한다 — 10.2**년**이지 달이 아니다. 단위만 바꾼 진술이다. 나머지는 본문 그대로다: \"nearly 40% of respondents experienced a new loss of independence\"(①), \"a yearly cost of $16,028 per person\"(③), \"estimated the financial cost of lost independence\"(④), \"$11.7 billion in care expenses nationwide per year\"(⑤).",
+              "from": "batch"
+            },
+            "source": "Pollution exposure can lead to loss of independence for older adults"
+          },
+          {
+            "no": 4,
+            "type": "topic",
+            "stem": "다음 글의 주제로 가장 적절한 것은?",
+            "passage": "“The thinking behind that is because we were able to build trust and create that connection with them that starts with their pet, they are far more likely to engage in their own health care.” The study, led by nurse scientist and University of Washington postdoctoral researcher Natalie Rejto, examined human medical and veterinary records of clinic visits between 2019 and 2022. Rejto found that of the 88 human clients who visited the clinic during that time, 75 visited a health care provider at the clinic. Forty of those individuals established care for the first time in at least two years. In fact, more than 50% of human patients who visited the integrated clinic hadn’t been to a doctor in more than two years. Of those, 85% went on to schedule nonemergency follow-up appointments.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "the health risks that pets pose to homeless youth",
+              "pet care as a path to health care for unhoused youth",
+              "the shortage of veterinary clinics in large cities",
+              "the number of young pet owners in Washington state",
+              "the way nurse scientists are trained in universities"
+            ],
+            "answer": 2,
+            "explanation": {
+              "text": "글은 \"because we were able to build trust and create that connection with them that starts with their pet, they are far more likely to engage in their own health care\" 라고 밝힌다. 반려동물이 의료 이용으로 이어지는 통로라는 것이 대상이자 각도다 — ②. ① 은 각도가 정반대다(동물이 위험이라고 한 적 없다). ③·④·⑤ 는 글에 나오지 않거나 스친 세부다.",
+              "from": "batch"
+            },
+            "source": "Unhoused youth are more likely to get care if pets can come"
+          }
+        ]
+      }
+    },
+    "5": {
+      "band": 5,
+      "step": 5,
+      "title": "Vocaflow Reading 4",
+      "schoolBand": "고1",
+      "units": [
+        {
+          "no": 1,
+          "types": [
+            "claim",
+            "title",
+            "topic",
+            "content_match",
+            "purpose",
+            "blank"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            176,
+            193
+          ],
+          "passages": [
+            "Luminal epithelial cells integrate variable responses to aging into stereotypical changes that underlie breast cancer susceptibility",
+            "These 5 countries have the highest narcissism levels",
+            "Is BMI a bogus measure of health?",
+            "The Lion's Howdah",
+            "History of Tom Jones, a Foundling",
+            "Childfree people are more common in some states than others"
+          ]
+        },
+        {
+          "no": 2,
+          "types": [
+            "topic",
+            "title",
+            "blank",
+            "content_match",
+            "purpose",
+            "summary"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            181,
+            199
+          ],
+          "passages": [
+            "DNA rewrites when Neanderthals bred with modern humans",
+            "How plants push roots through hard soil",
+            "Patch could allow you to test for skin cancer at home",
+            "Talks To Teachers On Psychology; And To Students On Some Of Life's Ideals",
+            "The Essays of Arthur Schopenhauer; Studies in Pessimism",
+            "The mysterious Mr. Quin"
+          ]
+        },
+        {
+          "no": 3,
+          "types": [
+            "topic",
+            "title",
+            "blank",
+            "content_match",
+            "main_point",
+            "implication"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            190,
+            198
+          ],
+          "passages": [
+            "Alaska Earthquake Rattles Florida’s Groundwater Plumbing",
+            "Eleven Days Under a Cloth",
+            "Trees don't benefit health for everyone",
+            "The positive outcome of philosophy",
+            "What has driven deforestation in the 21st century?",
+            "APOD: 2026 August 19 - The Case of the Mysterious Maybe Meteor - NASA Science"
+          ]
+        },
+        {
+          "no": 4,
+          "types": [
+            "title",
+            "topic",
+            "blank",
+            "purpose",
+            "summary",
+            "content_match"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            171,
+            193
+          ],
+          "passages": [
+            "USGS Brown Treesnake Research Continues at Guam National Wildlife Refuge",
+            "Taking the Ocean's Temperature",
+            "Laser blasts could solve the world's plastic problem",
+            "The History of Modern Painting, Volume 2 (of 4)",
+            "Children of the Whirlwind",
+            "What Is Art?"
+          ]
+        },
+        {
+          "no": 5,
+          "types": [
+            "title",
+            "blank",
+            "main_point",
+            "implication",
+            "long_reference",
+            "mood"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            165,
+            337
+          ],
+          "passages": [
+            "USGS prepares for Hurricane Ian",
+            "Sourdough starters shed light on microscopic life",
+            "Washington, D.C./Anacostia",
+            "Which countries have already passed peak population, and when will the rest do so?",
+            "The Case on the Last Bus",
+            "The Green Umbrella on the Steps"
+          ]
+        },
+        {
+          "no": 6,
+          "types": [
+            "blank",
+            "long_reference",
+            "mood",
+            "irrelevant",
+            "order",
+            "vocab_choice"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            148,
+            338
+          ],
+          "passages": [
+            "PUFA stabilizes a conductive state of the selectivity filter in IKs channels",
+            "Two Envelopes Came Back",
+            "The Hour That Would Not Move",
+            "A common virus can trigger Parkinson's-like brain damage",
+            "Comment on &ldquo;Using genomic data and machine learning to predict antibiotic resistance: A tutorial paper&rdquo;",
+            "Our First View of the Surface of Mars - NASA"
+          ]
+        },
+        {
+          "no": 7,
+          "types": [
+            "blank",
+            "irrelevant",
+            "insert",
+            "order",
+            "vocab_choice",
+            "grammar_choice"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            128,
+            195
+          ],
+          "passages": [
+            "Discrimination drives smoking habits and boosts heart disease risks",
+            "Keeping track of rehabbed wild turtles isn't easy",
+            "Understanding the challenges of healthcare transition in the context of HIV-related stigma for young adults with perinatal HIV in Thailand",
+            "Food pricing: A study on the sales of food in Brazilian private schools",
+            "Indigenous Knowledge: Providing Insight into Climate Change",
+            "Image-based identification and isolation of micronucleated cells to dissect cellular consequences"
+          ]
+        },
+        {
+          "no": 8,
+          "types": [
+            "blank",
+            "irrelevant",
+            "order",
+            "insert",
+            "vocab_choice",
+            "grammar_fix"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            125,
+            194
+          ],
+          "passages": [
+            "Team cracks avocado farming origins",
+            "U.S. climate summary for May 2021",
+            "Effect of long-term use of treated wastewater and clean water mixtures on soil heavy metal accumulation: An assessment using pollution indices",
+            "A survey of barriers and facilitators to primary care staff conducting research",
+            "WaterWords-Autonomous Underwater Vehicle",
+            "Key cell traits help plants survive in saltwater"
+          ]
+        },
+        {
+          "no": 9,
+          "types": [
+            "order",
+            "vocab_choice",
+            "insert",
+            "word_order",
+            "grammar_fix"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            98,
+            122
+          ],
+          "passages": [
+            "Geographically weighted regression analysis of incomplete basic childhood vaccination in Sub-Saharan Africa: Evidence from DHS, 2019&ndash;2024",
+            "Exploring Gas Hydrates as a Future Energy Source",
+            "What matters most to older adults in treatment decision making: A discrete choice experiment",
+            "First month of Northern Hemisphere spring 2021 was warmer than average across the globe",
+            "High-tech fertilizers come with a hidden downside",
+            "Ensuring thermal comfort in the cabin of an electric vehicle at extremely low atmospheric temperatures (down to -45&deg;C)"
+          ]
+        },
+        {
+          "no": 10,
+          "types": [
+            "grammar_fix",
+            "vocab_choice",
+            "word_order",
+            "blank"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            171,
+            171
+          ],
+          "passages": [
+            "Eco-friendly tool could bring down drug costs",
+            "Hurricanes may pose a threat to people along the coasts and far inland",
+            "Biochar gives soil a boost for better cotton growing",
+            "Swarms of small robots could get big stuff done",
+            "Earth may have 2X as many vertebrate species as we thought",
+            "Fungus is spreading to blueberries around the globe"
+          ]
+        }
+      ],
+      "totalItems": 60,
+      "totalMinutes": 230,
+      "stoppedBecause": null,
+      "sample": {
+        "no": 1,
+        "minutes": 23,
+        "vocabulary": [
+          {
+            "word": "cell",
+            "meaningKo": "세포; 감방; 휴대전화"
+          },
+          {
+            "word": "breast",
+            "meaningKo": "가슴; 유방; 가슴살"
+          },
+          {
+            "word": "cancer",
+            "meaningKo": "암"
+          },
+          {
+            "word": "gene",
+            "meaningKo": "유전자"
+          },
+          {
+            "word": "focus",
+            "meaningKo": "초점, 집중; (지진) 진원"
+          },
+          {
+            "word": "trait",
+            "meaningKo": "특성, 특질"
+          },
+          {
+            "word": "category",
+            "meaningKo": "범주, 분류"
+          },
+          {
+            "word": "formula",
+            "meaningKo": "공식"
+          },
+          {
+            "word": "ideal",
+            "meaningKo": "이상적인; 이상"
+          },
+          {
+            "word": "associate",
+            "meaningKo": "연관 짓다; 동료; 준-"
+          },
+          {
+            "word": "characteristic",
+            "meaningKo": "특징, 특징적인"
+          },
+          {
+            "word": "explore",
+            "meaningKo": "탐험하다"
+          },
+          {
+            "word": "found",
+            "meaningKo": "설립하다, 창건하다; find의 과거·과거분사형"
+          },
+          {
+            "word": "individual",
+            "meaningKo": "개인, 개별의"
+          },
+          {
+            "word": "psychology",
+            "meaningKo": "심리학"
+          },
+          {
+            "word": "alarmed",
+            "meaningKo": "놀란; 경보 설치된"
+          },
+          {
+            "word": "branch",
+            "meaningKo": "나뭇가지; 지점, 지사"
+          },
+          {
+            "word": "copy",
+            "meaningKo": "사본"
+          },
+          {
+            "word": "monkey",
+            "meaningKo": "원숭이"
+          },
+          {
+            "word": "absence",
+            "meaningKo": "부재, 결석"
+          }
+        ],
+        "items": [
+          {
+            "no": 1,
+            "type": "claim",
+            "stem": "다음 글에서 필자가 주장하는 바로 가장 적절한 것은?",
+            "passage": "One of the main risk factors for breast cancers is aging. But how exactly aging contributes to breast cancer is not fully understood. The mammary gland is the part of the breast that can produce milk, and is composed of two major cell types: luminal epithelial cells and myoepithelial cells. Most age-related breast cancers are thought to originate from luminal epithelial cells, but some age-related changes in myoepithelial cells may also cause cancer. These changes in breast epithelial cells vary across individuals, which may explain why some individuals are at a higher risk for breast cancer than others. Studying age-related changes in luminal and myoepithelial cells may help scientists pinpoint what causes age-related breast cancers. It may also help scientists to identify those at high risk for breast cancer, or develop alternative treatments. It could also help prevent breast cancers from occuring, getting worse or coming back. Studying age-related changes in gene expression in these two types of breast epithelial cells is the first step. Sayaman et al. showed that aging leads to widespread changes in the genes expressed by luminal and myoepithelial cells.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "노화한 유방 상피세포의 유전자 변화를 먼저 연구해야 한다.",
+              "유방암 검진은 마흔 살 이전부터 받도록 권해야 한다.",
+              "근상피세포 연구를 관강 상피세포 연구보다 앞세워야 한다.",
+              "유방암 치료는 유전자 발현을 조절하는 쪽으로 바꿔야 한다.",
+              "위험도는 개인별 대신 집단 평균을 기준으로 삼아야 한다."
+            ],
+            "answer": 1,
+            "explanation": {
+              "text": "①이 필자가 요구하는 바다. 글은 \"how exactly aging contributes to breast cancer is not fully understood\" 로 빈자리를 짚은 뒤 \"Studying age-related changes in gene expression in these two types of breast epithelial cells is the first step\" 이라고 무엇부터 할지 못 박는다. 나머지는 글이 말하지 않았다 — ②의 검진 연령, ④의 치료 방식 전환은 글에 없다(치료는 \"develop alternative treatments\" 라는 기대로만 나온다). ③은 대부분의 암이 관강 상피세포에서 비롯한다는 서술과 순서가 어긋나고, ⑤는 개인차가 위험도를 가른다는 글의 방향과 정반대다.",
+              "from": "batch"
+            },
+            "source": "Luminal epithelial cells integrate variable responses to aging into stereotypical changes that underlie breast cancer susceptibility"
+          },
+          {
+            "no": 2,
+            "type": "title",
+            "stem": "다음 글의 제목으로 가장 적절한 것은?",
+            "passage": "A recent study found that narcissism is a universal trait with consistent patterns across cultures. If you watch TV, read popular books, or even study research articles, you may walk away believing narcissism is a uniquely United States-based characteristic, whether most common in American young adults, professionals in law, business, or entertainment, or politicians. Interestingly, the new findings indicate the US is not even in the top five countries with the highest levels of narcissism—and that rates are higher among young adults and men. Narcissism, which is a psychological trait that involves excessively high self-esteem but relatively low empathy, also involves an excessive positive focus on the self and a low regard for others. The study, published in Self and Identity, included over 45,000 people from 53 countries who provided survey data on how narcissistic they were. This data set used one of the largest and most culturally diverse data collections on psychological characteristics available. The researchers examined how age, gender, and perceived status differences in narcissism manifested across countries, including examining the roles of individualism/collectivism values and each country’s gross domestic product, or GDP.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "Why Americans Are the World’s Most Narcissistic People",
+              "How Television Shapes Our View of Personality",
+              "The Link Between a Country’s GDP and Its Happiness",
+              "Measuring Empathy in Large International Surveys",
+              "Narcissism Follows the Same Pattern in Every Culture"
+            ],
+            "answer": 5,
+            "explanation": {
+              "text": "연구의 결론은 문화를 가로질러 같은 모양이 나타난다는 것이다 — \"narcissism is a universal trait with consistent patterns across cultures\". 미국이 상위 다섯에 들지 않는다는 사실도 그 결론을 받치는 근거다. 그래서 ⑤가 제목이다. ①은 글이 명시적으로 부정하는 통념이고, ③은 GDP 를 소재로 쓰되 행복이 아니라 나르시시즘을 본다.",
+              "from": "batch"
+            },
+            "source": "These 5 countries have the highest narcissism levels"
+          },
+          {
+            "no": 3,
+            "type": "topic",
+            "stem": "다음 글의 주제로 가장 적절한 것은?",
+            "passage": "It may be time to leave BMI in the past, a new commentary argues. For years, BMI—body mass index—has been the go-to tool for plotting our weight into categories: underweight, normal, overweight, or obese. BMI is a number that comes from a formula based on your weight and height. If your number is 25 or higher, you fall into the overweight or obese category. So, does that mean that a BMI over 25 is unhealthy? It’s complicated, says University of Rochester Medicine family medicine physician Holly Russell in her new commentary. Many of us cling to the belief that a thin body is a healthy body, but recent evidence suggests that’s not necessarily true. For example, new research has shown that some people in the “overweight” BMI category have a lower risk of death from heart-related causes than those with a “normal” BMI. Studies have also shown that BMI can mislabel a person’s health when compared to objective measures, like results from tests for cholesterol and blood-sugar levels. “Despite assumptions we’ve come to accept as facts, the evidence linking weight and health is inconsistent,” Russell says.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "the formula used to calculate body mass index",
+              "the health risks of being underweight in old age",
+              "the rise of obesity rates in the United States",
+              "the accuracy of cholesterol and blood-sugar tests",
+              "the unreliability of BMI as a measure of health"
+            ],
+            "answer": 5,
+            "explanation": {
+              "text": "체중과 키로 계산하는 \"body mass index\" 를 오래 써 왔지만, 과체중 범주의 일부가 정상 범주보다 심장 사망 위험이 낮다는 연구가 나온다. BMI 가 건강의 척도로 못 미덥다는 것이 대상이다. 나머지는 계산 공식이나 체중 분류처럼 그 판단을 세우려고 든 배경이다.",
+              "from": "batch"
+            },
+            "source": "Is BMI a bogus measure of health?"
+          },
+          {
+            "no": 4,
+            "type": "content_match",
+            "stem": "다음 글의 내용과 일치하지 않는 것은?",
+            "passage": "The lion was the king of the jungle. One day, he spotted the king of the city. He sat atop an elephant, proud and erect. I will do the same, thought the lion. He summoned the elephant in the jungle. He told him what he wished to do. The poor elephant was alarmed. He said, “Maharaj, why must you copy the king of the city?” The lion was adamant. He sat astride the elephant but he did not look regal. He looked silly! The monkey said, “Kings sit on howdahs. They don’t ride bare-backed elephants!” The lion said, “Send for the howdah maker!” The howdah maker came. He made a royal howdah. It was placed on the elephant’s back. The lion jumped up and sat in it. As soon as the elephant took a few steps, the howdah began rocking. It had not been tied properly. It hit the branch of a tree and overturned! The lion fell down with a huge thud! He never sat atop an elephant again. He said, “I think, it is best to walk.”",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "사자는 도시의 왕이 코끼리 위에 앉은 것을 보고 따라 하려 했다.",
+              "코끼리는 왜 도시의 왕을 흉내 내야 하느냐고 되물었다.",
+              "맨등에 앉은 사자는 위엄이 아니라 우스꽝스러움을 보였다.",
+              "원숭이는 왕들이 하우다에 앉는 법이라고 일러 주었다.",
+              "장인이 만든 하우다는 코끼리 등에 단단히 묶여 있었다."
+            ],
+            "answer": 5,
+            "explanation": {
+              "text": "글은 하우다가 제대로 묶이지 않았다고 적는다 — \"It had not been tied properly.\" 그래서 흔들리다 나뭇가지에 부딪혀 뒤집혔다. ⑤가 일치하지 않는다. 나머지는 지문 그대로다: \"I will do the same, thought the lion\"(①) · \"why must you copy the king of the city?\"(②) · \"he did not look regal. He looked silly!\"(③) · \"Kings sit on howdahs\"(④).",
+              "from": "batch"
+            },
+            "source": "The Lion's Howdah"
+          },
+          {
+            "no": 5,
+            "type": "purpose",
+            "stem": "다음 글의 목적으로 가장 적절한 것은?",
+            "passage": "By her conversation and instructions, Sophia was perfectly well bred, though perhaps she wanted a little of that ease in her behaviour which is to be acquired only by habit, and living within what is called the polite circle. But this, to say the truth, is often too dearly purchased; and though it hath charms so inexpressible, that the French, perhaps, among other qualities, mean to express this, when they declare they know not what it is; yet its absence is well compensated by innocence; nor can good sense and a natural gentility ever stand in need of it. Wherein the history goes back to commemorate a trifling incident that happened some years since; but which, trifling as it was, had some future consequences. The amiable Sophia was now in her eighteenth year, when she is introduced into this history. Her father, as hath been said, was fonder of her than of any other human creature. To her, therefore, Tom Jones applied, in order to engage her interest on the behalf of his friend the gamekeeper. But before we proceed to this business, a short recapitulation of some previous matters may be necessary.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "프랑스식 예법이 어째서 더 우월한지 논증하려고",
+              "본격적인 사건에 앞서 소피아라는 인물을 소개하려고",
+              "사냥터지기가 처한 딱한 사정을 세상에 고발하려고",
+              "소피아 아버지가 재산을 어떻게 모았는지 밝히려고",
+              "상류 사회의 자녀 교육 방식을 정면으로 비판하려고"
+            ],
+            "answer": 2,
+            "explanation": {
+              "text": "글은 소피아의 교양과 순진함을 설명한 뒤 \"The amiable Sophia was now in her eighteenth year, when she is introduced into this history\" 라고 못 박고, 톰이 그녀에게 부탁하러 오는 장면 앞에서 \"a short recapitulation of some previous matters may be necessary\" 로 멈춘다. 사건에 들어가기 전 인물을 세우는 대목이므로 ②다. ①③④⑤는 글에 이름만 나온 소재(프랑스·사냥터지기·아버지·예법)를 목적으로 부풀린 오답이다.",
+              "from": "batch"
+            },
+            "source": "History of Tom Jones, a Foundling"
+          },
+          {
+            "no": 6,
+            "type": "blank",
+            "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것은?",
+            "passage": "Researchers have found that childfree people are more common in some states than others. “We’ve known that childfree adults were a large and growing group in the United States, but not whether they were concentrated in certain places,” says Zachary Neal, professor of psychology at Michigan State University and coauthor of the study. “These new data show that there’s a lot of variation. One in five are childfree in California and Michigan, but only one in ten are childfree in Louisiana and the Dakotas.” The study in PLOS One used data from the Civic Health and Institutions Project, or CHIP. It focused on surveys from a nationally representative sample of over 20,000 adults covering all 50 US states in 2024. The surveys made it possible to distinguish childfree people from people who plan to have kids in the future or who couldn’t have kids. The study, which is the first to examine the percent of childfree people in each US state, found that although being childfree was more common in states with higher costs of living, ____.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "the cost of living explained nearly all of the variation between states",
+              "personal demographic traits mattered more than where a person lived",
+              "state-level family policies proved to be the single decisive factor",
+              "the number of childfree adults has begun to fall across the country",
+              "the surveys could not separate childfree adults from unable ones"
+            ],
+            "answer": 2,
+            "explanation": {
+              "text": "빈칸 앞이 \"although(~이긴 하지만)\"로 시작하므로 뒤에는 앞 절을 누르는 내용이 와야 한다. ①은 바로 앞 절과만 어울려 양보 구문을 무너뜨리는 함정이다. ③은 글에 없는 요인이고, ④는 \"크고 늘고 있는 집단\"이라는 서두와 반대이며, ⑤는 설문이 그 구분을 가능하게 했다는 본문과 어긋난다.",
+              "from": "batch"
+            },
+            "source": "Childfree people are more common in some states than others"
+          }
+        ]
+      }
+    },
+    "6": {
+      "band": 6,
+      "step": 6,
+      "title": "Vocaflow Reading 5",
+      "schoolBand": "고2",
+      "units": [
+        {
+          "no": 1,
+          "types": [
+            "mood",
+            "content_match",
+            "purpose",
+            "title",
+            "blank",
+            "claim"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            183,
+            200
+          ],
+          "passages": [
+            "The Memoirs of the Conquistador Bernal Diaz del Castillo, Vol 1 (of 2)",
+            "Genetic diversity affects ecosystem functions across trophic levels as much as species diversity, but in an opposite direction",
+            "Thirdhand smoke is a 'silent threat' to kids",
+            "Bilateral regulation of EGFR activity and local PI(4,5)P2 dynamics in mammalian cells observed with superresolution microscopy",
+            "Golf ball dimples could make underwater vehicles more agile",
+            "Gene discovery could lead to resilient 'pixie' corn"
+          ]
+        },
+        {
+          "no": 2,
+          "types": [
+            "mood",
+            "content_match",
+            "blank",
+            "title",
+            "implication",
+            "main_point"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            169,
+            191
+          ],
+          "passages": [
+            "The wisdom of Father Brown",
+            "Does your dog have 'rage syndrome'?",
+            "Keto supplement may improve immunotherapy for prostate cancer",
+            "T cell tweak enhances immune system memory",
+            "Over-the-counter meds beat opioids after wisdom tooth removal",
+            "Composition and paleoecology of the mid-Jurassic bony fish assemblage of the Vaches Noires cliffs (Normandy, France)"
+          ]
+        },
+        {
+          "no": 3,
+          "types": [
+            "purpose",
+            "blank",
+            "topic",
+            "title",
+            "content_match",
+            "summary"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            167,
+            196
+          ],
+          "passages": [
+            "A scenario for an evolutionary selection of ageing",
+            "Immune cells can turn into pro-cancer traitors",
+            "From Earth to Sky: How Minerals Create the Dazzling Colors of Independence Day Fireworks",
+            "Nursing home location may shape 'chemical restraint' overuse",
+            "Exposure to flame retardants tied to premature birth",
+            "Natural supplement can benefit sleep and gut bacteria"
+          ]
+        },
+        {
+          "no": 4,
+          "types": [
+            "blank",
+            "topic",
+            "title",
+            "claim",
+            "implication",
+            "main_point"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            177,
+            198
+          ],
+          "passages": [
+            "First week of life is key for senses of smell and touch",
+            "Netherlands",
+            "Spongey implant helps guide multiple sclerosis treatment in mice",
+            "After Trump's 2016 election, more women of color gave birth early",
+            "Validation and refinement of existing methods for timed mating and early pregnancy detection in guinea pigs",
+            "Traumatic stuff gives ChatGPT 'anxiety,' but therapy helps"
+          ]
+        },
+        {
+          "no": 5,
+          "types": [
+            "blank",
+            "purpose",
+            "topic",
+            "content_match",
+            "summary",
+            "title"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            161,
+            196
+          ],
+          "passages": [
+            "Cytotoxicity in vitro assay in 3D vs. 2D L929 cell cultures &ndash; comparative analysis of the response to the latex extracts",
+            "Epilepsy drug may slow osteoarthritis joint breakdown",
+            "Department of the Interior launches effort to recover critical minerals from mine waste",
+            "Diet and exercise reverse liver damage",
+            "Spiramycin (SPR) antibiotics degradation with WO3 photocatalyst and ML XGBoost model for process parameters screening",
+            "Why it matters how much political parties hate each other"
+          ]
+        },
+        {
+          "no": 6,
+          "types": [
+            "blank",
+            "topic",
+            "irrelevant",
+            "vocab_choice",
+            "grammar_fix",
+            "word_order"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            191,
+            191
+          ],
+          "passages": [
+            "Stress takes a toll on caregivers at the cellular level",
+            "Landsat at Work: USGS Informing Domestic Lithium Development",
+            "New research on the global prevalence of female genital mutilation/cutting: Research, clinical, and policy implications",
+            "Bird Mortality at Renewable Energy Facilities have Population-Level Effects",
+            "Roman Space Telescope Travels to SpaceX Hangar - NASA",
+            "Anil Menon Launches to Space Station - NASA"
+          ]
+        },
+        {
+          "no": 7,
+          "types": [
+            "blank",
+            "irrelevant",
+            "vocab_choice",
+            "grammar_fix",
+            "grammar_choice",
+            "word_order"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            182,
+            182
+          ],
+          "passages": [
+            "How weird anglerfish defied evolutionary odds",
+            "Microbially mediated carbon dioxide removal for sustainable mining",
+            "USGS-NASA Award Honors Excellence in Earth Observation",
+            "The Polypill: From Promise to Pragmatism",
+            "Lay worker-administered behavioral treatments for psychological distress in resource-limited settings: Time to move from evidence to practice?",
+            "Investment in preventive health needs to be seen as a driver of economic development"
+          ]
+        },
+        {
+          "no": 8,
+          "types": [
+            "blank",
+            "irrelevant",
+            "vocab_choice",
+            "grammar_fix",
+            "order",
+            "insert"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            127,
+            184
+          ],
+          "passages": [
+            "Neotropical bats as sentinels for emerging zoonoses in Central America: A case study identifying Trypanosoma cruzi in bats from Belize using metagenomic next-generation sequencing",
+            "How multi-scale modeling can help examine social determinants of health and resulting disparities",
+            "APOD: 2026 July 23 - The Large Magellanic Cloud - NASA Science",
+            "Team cracks mystery of how flocking birds and fish schools move",
+            "Identification and characterization of two new markers for differentiating fall armyworm strains across the Western Hemisphere",
+            "Habitat associations of Chihuahua Chub (Gila nigrescens) and Rio Grande Sucker (Pantosteus plebeius) in the Mimbres River, New Mexico"
+          ]
+        },
+        {
+          "no": 9,
+          "types": [
+            "blank",
+            "irrelevant",
+            "vocab_choice",
+            "grammar_fix",
+            "order",
+            "insert"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            122,
+            184
+          ],
+          "passages": [
+            "Adrenomedullin restores the human cortical interneurons migration defects induced by hypoxia",
+            "Research on the treatment of rifampin-susceptible tuberculosis&mdash;Time for a new approach",
+            "USGS experts responding simultaneously to two major natural hazards",
+            "There's a link between climate anxiety and social media use",
+            "Impacts of polymorphisms in drug-metabolizing enzyme and transporter genes on irinotecan toxicity and efficacy in Thai colorectal cancer patients",
+            "A chemical bactericide dioctyldiethylenetriamine (Xinjunan) exerts a non-lethal effect by inhibiting RpfG activity to regulate the quorum sensing system"
+          ]
+        },
+        {
+          "no": 10,
+          "types": [
+            "vocab_choice",
+            "grammar_fix",
+            "order",
+            "insert"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            123,
+            149
+          ],
+          "passages": [
+            "EarthWord - Microbiome",
+            "Do AI models 'understand' the real world?",
+            "Anisotropic fracture mechanisms and crack-mediated mechanical degradation in trigraphene nanosheets: A molecular dynamics study",
+            "Multivariate control based on recurrent wavelet neural network for wastewater treatment process",
+            "Sub-national modelling of surveillance sensitivity to inform declaration of disease elimination: A retrospective validation against the elimination of wild poliovirus in Nigeria",
+            "Invasive plants reduce functional feeding diversity and trophic interactions of insect herbivores on a remote tropical island"
+          ]
+        }
+      ],
+      "totalItems": 60,
+      "totalMinutes": 230,
+      "stoppedBecause": null,
+      "sample": {
+        "no": 1,
+        "minutes": 23,
+        "vocabulary": [
+          {
+            "word": "ecosystem",
+            "meaningKo": "생태계 — 생물 군집과 그 환경이 이루는 하나의 체계"
+          },
+          {
+            "word": "species",
+            "meaningKo": "종; 종류"
+          },
+          {
+            "word": "sphere",
+            "meaningKo": "구"
+          },
+          {
+            "word": "diversity",
+            "meaningKo": "다양성"
+          },
+          {
+            "word": "tobacco",
+            "meaningKo": "담배"
+          },
+          {
+            "word": "drag",
+            "meaningKo": "끌다"
+          },
+          {
+            "word": "gene",
+            "meaningKo": "유전자"
+          },
+          {
+            "word": "exposure",
+            "meaningKo": "노출"
+          },
+          {
+            "word": "asthma",
+            "meaningKo": "천식"
+          },
+          {
+            "word": "biodiversity",
+            "meaningKo": "생물 다양성"
+          },
+          {
+            "word": "adjust",
+            "meaningKo": "조정하다, 적응하다"
+          },
+          {
+            "word": "depth",
+            "meaningKo": "깊이"
+          },
+          {
+            "word": "environmental",
+            "meaningKo": "환경의"
+          },
+          {
+            "word": "activation",
+            "meaningKo": "활성화"
+          },
+          {
+            "word": "membrane",
+            "meaningKo": "막 (생체·공학)"
+          },
+          {
+            "word": "protein",
+            "meaningKo": "단백질"
+          },
+          {
+            "word": "monarch",
+            "meaningKo": "군주, 왕"
+          },
+          {
+            "word": "bind",
+            "meaningKo": "묶다, 결속하다"
+          },
+          {
+            "word": "breeding",
+            "meaningKo": "사육"
+          },
+          {
+            "word": "characterize",
+            "meaningKo": "특징짓다"
+          }
+        ],
+        "items": [
+          {
+            "no": 1,
+            "type": "mood",
+            "stem": "다음 글에 드러난 인물의 심경 변화로 가장 적절한 것은?",
+            "passage": "At first he certainly did not approve of this at all, but, in the end, quietly submitted, and grew even the more tractable afterwards. When the executions had taken place, Cortes approached him, with five of our officers, and himself took off his chains again, with the assurance that he loved him more than a brother. He likewise told him, however great a monarch he might be at present, that additional countries should be annexed to his empire, and he was at liberty to visit any of his other palaces whenever he felt inclined. At these words Motecusuma became affected, and big tears rolled down his cheeks; and though he felt that all was mere empty sound he had heard, he nevertheless thanked Cortes for his kindness, adding, that at present he felt no inclination to go anywhere. His nephews, relations, and grandees daily stormed him with petitions to allow them to make war upon us, and release him from confinement. And, indeed, it required all his persuasion to prevent them from rising up in arms immediately. If he were once, said they, outside of our quarters, they would take forcible possession of his person.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "grateful → deeply suspicious",
+              "disapproving → moved yet resigned",
+              "moved yet resigned → disapproving",
+              "indifferent → openly rebellious",
+              "hopeful → bitterly triumphant"
+            ],
+            "answer": 2,
+            "explanation": {
+              "text": "글은 목테수마가 처음에는 전혀 받아들이지 않았다고 적는다 — \"At first he certainly did not approve of this at all, but, in the end, quietly submitted\". 그러나 코르테스가 사슬을 풀고 형제보다 사랑한다고 말하자 \"Motecusuma became affected, and big tears rolled down his cheeks\" 로 마음이 움직이고, 동시에 \"though he felt that all was mere empty sound he had heard\" 라며 지금은 아무 데도 갈 마음이 없다고 답한다. 감동하되 체념한 ②가 그 방향이다. ③은 앞뒤를 뒤집었다. ①④⑤는 글에 없는 정서다 — 의심도 공공연한 반항도 승리감도 그의 것이 아니다(무장 봉기를 조르는 쪽은 조카와 친족이고, 그는 오히려 그들을 말린다).",
+              "from": "batch"
+            },
+            "source": "The Memoirs of the Conquistador Bernal Diaz del Castillo, Vol 1 (of 2)"
+          },
+          {
+            "no": 2,
+            "type": "content_match",
+            "stem": "다음 글의 내용과 일치하지 않는 것은?",
+            "passage": "When we speak about the loss of biodiversity, we often think of the loss of different species from an ecosystem. However, when ecosystems start to lose biodiversity, often, the first thing lost is diversity within species. This is, individuals of the same species become more like one another, leading to a loss of variety within a species. This can cause issues at the species level as a lack of variation means that the species as a whole is less able to adapt to new environmental challenges, which can potentially lead to extinction. Humans are driving a loss of biodiversity worldwide, but it is unclear how the loss of diversity within a species affects ecosystems. To answer this question, Fargeot et al. analyzed a complete food chain in an aquatic ecosystem in the wild, quantifying species diversity and using genetic tools to quantify within-species diversity. The researchers also quantified seven ecosystem functions associated with the ecosystem’s productivity (how much biomass the ecosystem produces) and its ability to degrade dead organic matter. Fargeot et al. found that the effects of losing within-species diversity in the ecosystem were as impactful as losing species diversity.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "생태계가 다양성을 잃을 때 먼저 줄어드는 것은 종 안의 다양성이다",
+              "종 안의 변이가 줄면 새 환경에 적응하기 어려워진다",
+              "연구진은 야생 수생 생태계의 먹이사슬 전체를 분석했다",
+              "생산성과 유기물 분해에 관련된 기능 일곱 가지를 쟀다",
+              "종 안의 다양성 상실은 종 자체의 상실보다 영향이 작았다"
+            ],
+            "answer": 5,
+            "explanation": {
+              "text": "글은 \"the effects of losing within-species diversity in the ecosystem were as impactful as losing species diversity\" 라 한다 — 작은 것이 아니라 **맞먹는다**. 크기를 바꾼 진술이다. 나머지는 본문 그대로다: \"the first thing lost is diversity within species\"(①), \"less able to adapt to new environmental challenges\"(②), \"analyzed a complete food chain in an aquatic ecosystem in the wild\"(③), \"seven ecosystem functions\"(④).",
+              "from": "batch"
+            },
+            "source": "Genetic diversity affects ecosystem functions across trophic levels as much as species diversity, but in an opposite direction"
+          },
+          {
+            "no": 3,
+            "type": "purpose",
+            "stem": "다음 글의 목적으로 가장 적절한 것은?",
+            "passage": "A new study finds that parents may underestimate their children’s exposure to environmental tobacco smoke, and a newly identified phenomenon called thirdhand smoke may be to blame. Thirdhand smoke occurs when chemical residue from smoking lingers in carpets, furniture. and walls long after the cigarette was lit. Children can inhale these particles by disturbing fabric fibers while playing or ingest them by touching contaminated surfaces and then putting their hands in their mouths. The study in the Journal of Clinical and Translational Science surveyed caregivers of 162 children in three major US cities. Although 60% says their children had no exposure to environmental tobacco smoke (ETS), urine testing showed that all of the children tested positive for low levels of cotinine, which forms when nicotine is broken down in the body and is a biomarker of tobacco exposure. More than 90% of the children tested positive for intermediate levels of cotinine. While the study couldn’t conclusively distinguish if the children were exposed to secondhand or thirdhand smoke, the caregiver surveys point to a less obvious source of tobacco smoke exposure, says lead author Katherine McKeon, PhD candidate at Tulane University’s Celia Scott Weatherhead School of Public Health and Tropical Medicine.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "금연 상담 프로그램에 부모들이 참여하도록 독려하려고",
+              "부모가 놓치고 있는 담배 연기 노출의 통로를 알리려고",
+              "카펫과 가구에 밴 담배 냄새를 없애는 법을 안내하려고",
+              "코티닌 검사를 모든 아동에게 의무화하자고 주장하려고",
+              "간접 흡연이 3차 흡연보다 위험하다는 것을 증명하려고"
+            ],
+            "answer": 2,
+            "explanation": {
+              "text": "글은 \"parents may underestimate their children's exposure to environmental tobacco smoke\" 로 열고, 부모의 60%가 노출이 없다고 답했지만 검사에서는 전원이 양성이었다고 잇는다. ②다. ⑤ 는 글이 하지 못한 일이다 — \"the study couldn't conclusively distinguish if the children were exposed to secondhand or thirdhand smoke\". ①·③·④ 는 글에 없다.",
+              "from": "batch"
+            },
+            "source": "Thirdhand smoke is a 'silent threat' to kids"
+          },
+          {
+            "no": 4,
+            "type": "title",
+            "stem": "다음 글의 제목으로 가장 적절한 것은?",
+            "passage": "Residing on the surface of cells are proteins called receptors, which bind to external molecules. Once activated, receptors undergo various changes that allow them to relay the signal to other components inside the cell that can alter the cell’s behavior. One such protein is the epidermal growth factor receptor (or EGFR for short), which helps regulate cell division and development. When molecules bind to an EGFR, this causes the receptor to attach to another EGFR in the membrane to form a dimer. This dimerization is crucial as it allows the two receptors to add chemicals known as phosphates to each other, which recruit additional proteins that relay the activation signal to downstream targets inside the cell. Studies have shown that a lipid which sits within the cell membrane, called PI(4,5)P2, helps stabilize the EGFR dimer and aid its activation. However, it is not fully understood exactly how PI(4,5)P2 achieves this. To investigate, Abe et al. used a super-resolution microscope that can visualize single molecules to examine how PI(4,5)P2 lipids are distributed around the receptor. This revealed that EGFR and PI(4,5)P2 overlap one another to form structures termed ‘nanodomains’ before the receptor is stimulated.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "The Discovery of the Epidermal Growth Factor Itself",
+              "Why Cell Division Cannot Be Controlled by Receptors Alone",
+              "Seeing How a Lipid Readies a Receptor to Signal",
+              "A Microscope That Finally Sees a Whole Cell",
+              "How Phosphates Are Stripped Away from a Dimer Pair"
+            ],
+            "answer": 3,
+            "explanation": {
+              "text": "글은 지질 PI(4,5)P2 가 이합체를 안정시키는 방식이 \"not fully understood\" 라 해 놓고, 초해상 현미경으로 둘이 \"overlap one another to form structures termed 'nanodomains' before the receptor is stimulated\" 임을 봤다고 한다. 요지는 ③이다. ⑤ 는 방향이 반대다 — 인산기를 서로 **붙인다**. ①·②·④ 는 소재를 쓰되 결론이 다르다.",
+              "from": "batch"
+            },
+            "source": "Bilateral regulation of EGFR activity and local PI(4,5)P2 dynamics in mammalian cells observed with superresolution microscopy"
+          },
+          {
+            "no": 5,
+            "type": "blank",
+            "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것은?",
+            "passage": "Underwater or aerial vehicles with dimples like golf balls could be more efficient and maneuverable, researchers have demonstrated with a new prototype. These nimble vehicles could access typically hard-to-reach areas in the ocean while conducting surveillance, mapping new areas, or collecting data on water conditions. Golf ball dimples cut through pressure drag—the resistance force an object meets when moving through a fluid—propelling the ball 30% further than a smooth ball on average. Taking this as inspiration, a research team developed a spherical prototype with adjustable surface dimples and tested its aerodynamics in a controlled wind tunnel. “A dynamically programmable outer skin on an underwater vehicle could drastically reduce drag while ____. By actively adjusting its surface texture, the vehicle could achieve precise maneuverability with enhanced efficiency and control,” says Anchal Sareen, a University of Michigan assistant professor of naval architecture and marine engineering and mechanical engineering and corresponding author of two studies published in Flow and The Physics of Fluids. Sareen and colleagues formed the prototype by stretching a thin layer of latex over a hollow sphere dotted with holes, resembling a pickleball.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "removing the last need for a motor mounted at the rear of the craft",
+              "letting the craft drift without any power at all for several days",
+              "keeping the outer shell cool in the warm water near the surface",
+              "doing away with jutting parts such as fins or rudders for steering",
+              "making the hull strong enough for the deepest trenches of the ocean"
+            ],
+            "answer": 4,
+            "explanation": {
+              "text": "빈칸은 인용문 안에 있고, 바로 다음 문장이 그 자리를 되받는다 — \"By actively adjusting its surface texture, the vehicle could achieve precise maneuverability\". 표면만으로 방향을 잡는다는 것은 곧 지느러미·방향타가 필요 없다는 말이다 — ④. ①·②·③·⑤ 는 글이 재는 것(항력과 조종)과 다른 잣대다.",
+              "from": "batch"
+            },
+            "source": "Golf ball dimples could make underwater vehicles more agile"
+          },
+          {
+            "no": 6,
+            "type": "claim",
+            "stem": "다음 글에서 필자가 주장하는 바로 가장 적절한 것은?",
+            "passage": "Researchers have identified a widely found gene in plants as a key transporter of a hormone that influences the size of corn. The discovery offers plant breeders a new tool to develop desirable dwarf varieties that could enhance the crop’s resilience and profitability. A team of scientists spent years working to pinpoint the functions of the gene ZmPILS6. Now, they have been able to characterize it as an important driver of plant size and architecture, a carrier for an auxin hormone that helps govern growth in roots below ground and shoots, or stalks, above ground. Their findings are published in the Proceedings of the National Academy of Sciences. “A hallmark of the current age of science is that we have all this high-quality genome data, whether for corn or humans or other organisms, and now we have the task of figuring out what the genes actually do,” says Dior Kelley, assistant professor of genetics, development and cell biology at Iowa State University, who led the research team. The group used “reverse genetic screening” (from the gene to traits expressed in the plant), combined with other techniques, as they tracked their gene’s role in corn development.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "옥수수는 키가 작은 품종으로 모두 바꾸어 심어야 한다",
+              "육종가는 호르몬을 직접 뿌려 작물의 키를 조절해야 한다",
+              "쌓인 유전체 자료를 두고 유전자가 하는 일을 밝혀야 한다",
+              "뿌리보다 줄기의 생장을 앞세워 연구 자원을 써야 한다",
+              "역유전학보다 정유전학을 먼저 쓰는 것을 원칙으로 삼아야 한다"
+            ],
+            "answer": 3,
+            "explanation": {
+              "text": "필자가 독자에게 요구하는 것은 연구 책임자의 말에 담겨 있다 — \"we have all this high-quality genome data … and now we have the task of figuring out what the genes actually do\". ③이다. ① 은 발견의 쓰임(왜성 품종)을 당위로 부풀린 것이고, ④ 는 글이 뿌리와 줄기를 함께 든 것을 좁혔다. ②·⑤ 는 글에 없다.",
+              "from": "batch"
+            },
+            "source": "Gene discovery could lead to resilient 'pixie' corn"
+          }
+        ]
+      }
+    },
+    "7": {
+      "band": 7,
+      "step": 7,
+      "title": "Vocaflow Reading 6",
+      "schoolBand": "고3 / 수능 상위",
+      "units": [
+        {
+          "no": 1,
+          "types": [
+            "implication",
+            "mood",
+            "content_match",
+            "title",
+            "blank",
+            "topic"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            146,
+            172
+          ],
+          "passages": [
+            "Renaissance in Italy, Volume 2 (of 7)",
+            "For Every Music Lover",
+            "PLoS Biology Issue Image | Vol. 24(6) July 2026",
+            "Gene may stop diabetic kidney disease progression",
+            "The mediaeval stage, volume 2 (of 2)",
+            "The Evolution of Modern Orchestration"
+          ]
+        },
+        {
+          "no": 2,
+          "types": [
+            "mood",
+            "content_match",
+            "title",
+            "purpose",
+            "claim",
+            "main_point"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            148,
+            171
+          ],
+          "passages": [
+            "History of Tom Jones, a Foundling",
+            "The Nipah virus threat in India: Epidemiological trends, risk drivers, and lessons for pandemic preparedness",
+            "Can a 'molecular crowbar' fight pancreatic cancer?",
+            "Democracy in America — Volume 2",
+            "Cardenolide toxin diversity impacts monarch butterfly growth and sequestration",
+            "The American Republic: Its Constitution, Tendencies, and Destiny"
+          ]
+        },
+        {
+          "no": 3,
+          "types": [
+            "content_match",
+            "blank",
+            "title",
+            "topic",
+            "purpose",
+            "summary"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            140,
+            175
+          ],
+          "passages": [
+            "A scoping review on emerging biomarkers in inflammatory bowel disease: Towards precision medicine in diagnosis and therapeutic management",
+            "The decline of the West, Volume 1",
+            "Tampons contain toxic metals like arsenic and lead",
+            "Amenities of Literature",
+            "PLoS Biology Issue Image | Vol. 24(7) August 2026"
+          ]
+        },
+        {
+          "no": 4,
+          "types": [
+            "blank",
+            "title",
+            "topic",
+            "claim",
+            "content_match",
+            "main_point"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            148,
+            173
+          ],
+          "passages": [
+            "The Essays of Adam Smith",
+            "High-fat diets let gut bacteria enter the brain",
+            "A toolbox for ablating excitatory and inhibitory synapses",
+            "Calcineurin inhibition enhances Caenorhabditis elegans lifespan by defecation defects-mediated calorie restriction and nuclear hormone signaling",
+            "Phenotypic variations of naturally grown Iris persica L. accessions as revealed using multivariate analytical methods",
+            "Amenities of Literature"
+          ]
+        },
+        {
+          "no": 5,
+          "types": [
+            "blank",
+            "purpose",
+            "summary",
+            "title",
+            "topic",
+            "irrelevant"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            151,
+            166
+          ],
+          "passages": [
+            "Anne of Avonlea (발췌)",
+            "The Works of the Right Honourable Edmund Burke, Vol. 06 (of 12)",
+            "Sub-daily virus sampling at the Bermuda Atlantic Time Series reveals diel and depth-structured population dynamics without community-level shifts",
+            "Red cabbage juice may ease inflammatory bowel disease",
+            "62-million-year-old skeleton sheds light on mysterious mammal",
+            "Interpreting circulating microbiome-related metabolites in coronary heart disease"
+          ]
+        },
+        {
+          "no": 6,
+          "types": [
+            "blank",
+            "irrelevant",
+            "order",
+            "vocab_choice",
+            "grammar_fix",
+            "insert"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            91,
+            141
+          ],
+          "passages": [
+            "Essays of Schopenhauer",
+            "Placenta accreta spectrum in the 21st century: Challenging dogma and redefining disorder",
+            "Thrombotic thrombocytopenia associated with COVID-19 infection or vaccination: Possible paths to platelet factor 4 autoimmunity",
+            "Rising tides: Unveiling the spatial and temporal evolution of sea level rise under climate change",
+            "Does HIV Cause Cardiovascular Disease?",
+            "Age-associated accumulation of carbamylation-derived products in tissues is independent from the myeloperoxidase pathway in mice"
+          ]
+        },
+        {
+          "no": 7,
+          "types": [
+            "blank",
+            "irrelevant",
+            "order",
+            "vocab_choice",
+            "grammar_fix",
+            "insert"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            165,
+            172
+          ],
+          "passages": [
+            "On Heroes, Hero-Worship, and the Heroic in History",
+            "Computation suggests that the cell adhesion sub-proteome is enriched for sites of pH-dependence and charge burial",
+            "How did vocal communication come to dominate human language? A view from the womb",
+            "The early human interferon gamma response to Toxoplasma gondii is driven by V&gamma;9V&delta;2 T-cell sensing of host phosphoantigens and subsequent NK-cell activation",
+            "Complement Factor H Gene Abnormalities in Haemolytic Uraemic Syndrome: From Point Mutations to Hybrid Gene",
+            "Identifying severe COVID-19 risk variants modulating enhancer reporter activity in lung cells"
+          ]
+        },
+        {
+          "no": 8,
+          "types": [
+            "blank",
+            "order",
+            "vocab_choice",
+            "grammar_fix",
+            "irrelevant",
+            "word_order"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            107,
+            142
+          ],
+          "passages": [
+            "'Factory' implant shows promise for fighting several cancers",
+            "The details and entropy demons in a transmembrane allosteric machine",
+            "Awakening from Sleep and Hypoglycemia in Type 1 Diabetes Mellitus",
+            "Sexual reproduction is the null hypothesis for life cycles of rust fungi",
+            "Mining Methylation for Early Detection of Common Cancers",
+            "A Transgenic mouse tolerant to syngeneic cancer cells expressing truncated human epidermal growth factor receptor"
+          ]
+        },
+        {
+          "no": 9,
+          "types": [
+            "blank",
+            "order",
+            "vocab_choice",
+            "grammar_choice",
+            "grammar_fix",
+            "insert"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            122,
+            156
+          ],
+          "passages": [
+            "COVID virus can infect your eyes and damage vision",
+            "&ldquo;Anecdotal Evidence&rdquo;: Why Narratives Matter to Medical Practice",
+            "Evaluating the efficacy and specificity of PVPP for phenolic compound removal from natural organic matter",
+            "Sequencing of the invasive E. coli strain BEN2908 isolated from poultry: A comparative investigation of genomic regions shared with intestinal and extraintestinal model E. coli strains",
+            "Context-specific roles for IL-17 in tuberculosis",
+            "Harmful Waste Products as Novel Immune Modulators for Treating Inflammatory Arthritis?"
+          ]
+        },
+        {
+          "no": 10,
+          "types": [
+            "blank",
+            "order",
+            "word_order",
+            "vocab_choice",
+            "grammar_fix"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            101,
+            154
+          ],
+          "passages": [
+            "Climate change could be a problem for your gut health",
+            "Baobab isotope records and rainfall forcing in Southwest Madagascar over the last 700 years",
+            "Fabrication of Ag3PO4/g-C3N4 heterojunction photocatalyst via in-situ growth and its photocatalytic performance",
+            "PLoS Pathogens Issue Image | Vol. 22(5) July 2026",
+            "Ancient Milky Way Merger - NASA",
+            "Is oxygen vital for advanced alien tech?"
+          ]
+        }
+      ],
+      "totalItems": 60,
+      "totalMinutes": 230,
+      "stoppedBecause": null,
+      "sample": {
+        "no": 1,
+        "minutes": 23,
+        "vocabulary": [
+          {
+            "word": "kidney",
+            "meaningKo": "신장"
+          },
+          {
+            "word": "marine",
+            "meaningKo": "해양의, 바다의"
+          },
+          {
+            "word": "biomass",
+            "meaningKo": "생물량, 바이오매스"
+          },
+          {
+            "word": "glacier",
+            "meaningKo": "빙하"
+          },
+          {
+            "word": "metabolism",
+            "meaningKo": "신진대사, 물질대사"
+          },
+          {
+            "word": "scholar",
+            "meaningKo": "학자"
+          },
+          {
+            "word": "rival",
+            "meaningKo": "경쟁자, 라이벌"
+          },
+          {
+            "word": "diabetes",
+            "meaningKo": "당뇨병"
+          },
+          {
+            "word": "mechanism",
+            "meaningKo": "메커니즘"
+          },
+          {
+            "word": "solo",
+            "meaningKo": "독주(곡), 단독 공연"
+          },
+          {
+            "word": "aesthetic",
+            "meaningKo": "미적인, 심미적인"
+          },
+          {
+            "word": "distinguished",
+            "meaningKo": "저명한"
+          },
+          {
+            "word": "emphasis",
+            "meaningKo": "강조, 역점"
+          },
+          {
+            "word": "admission",
+            "meaningKo": "입장, 입학"
+          },
+          {
+            "word": "compass",
+            "meaningKo": "나침반"
+          },
+          {
+            "word": "composer",
+            "meaningKo": "작곡가"
+          },
+          {
+            "word": "activate",
+            "meaningKo": "활성화하다"
+          },
+          {
+            "word": "contemporary",
+            "meaningKo": "현대의, 동시대의"
+          },
+          {
+            "word": "counterpart",
+            "meaningKo": "상대방, 대응 인물"
+          },
+          {
+            "word": "demonstration",
+            "meaningKo": "시위"
+          }
+        ],
+        "items": [
+          {
+            "no": 1,
+            "type": "implication",
+            "stem": "밑줄 친 부분이 다음 글에서 의미하는 바로 가장 적절한 것은?",
+            "passage": "This purity of taste was no mere matter of æsthetic sensibility with Vittorino. Habits which brutalise the mind or debase the body, however sanctioned by the usage of the times, met with little toleration in his presence. Swearing, obscene language, vulgar joking, and angry altercation were severely punished. Personal morality and the observance of religious exercises he exacted from his pupils. Lying was a heinous offence. Those who proved intractable upon these points were excluded from his school. Of the rest Vespasiano writes with emphasis that ’his house was a sanctuary of manners, deeds, and words.’ Concerning the noble Italian youths who were educated with the Gonzaga family at Mantua, enough has been said in another place. Appended to Rosmini’s copious biography will be found, by those who are curious to read such details, the notices of forty more or less distinguished pupils. Beside the two sons of Gian Francesco Gonzaga already mentioned, Vittorino educated three other children of his master--Gianlucido, Alessandro, and Cecilia.",
+            "underline": "his house was a sanctuary of manners, deeds, and words",
+            "given": null,
+            "choices": [
+              "his home was a protected refuge that no civil authority was allowed to enter",
+              "no coarse habit, act, or word was tolerated anywhere inside his school",
+              "he opened his house as a shelter for pupils who had nowhere else to live",
+              "he set one room of the house aside for prayer and for religious exercise",
+              "he kept a written record of the manners and words of every pupil he taught"
+            ],
+            "answer": 2,
+            "explanation": {
+              "text": "글은 그 집에서 무엇이 금지됐는지를 먼저 적는다 — \"Habits which brutalise the mind or debase the body … met with little toleration in his presence\" · \"Swearing, obscene language, vulgar joking, and angry altercation were severely punished\" · \"Lying was a heinous offence\". 그러니 \"sanctuary\" 는 몸을 숨기는 피난처가 아니라 **행실·행동·말이 흐트러질 수 없는 자리**라는 뜻이고 ②가 답이다. ①③④는 \"성역·피난처\" 라는 사전적 뜻을 법적 보호·기숙·기도실로 옮긴 오답이다. ⑤는 글에 없는 기록 이야기다.",
+              "from": "batch"
+            },
+            "source": "Renaissance in Italy, Volume 2 (of 7)"
+          },
+          {
+            "no": 2,
+            "type": "mood",
+            "stem": "다음 글에 드러난 인물의 심경 변화로 가장 적절한 것은?",
+            "passage": "Handel, in whose operas she sang, composed airs calculated to display her charms, but she, confident of her supremacy, rewarded him with conduct so capricious that, finding her at last intolerable, he sent to Italy for the noble Venetian lady, Faustina Bordoni. She was elegant in figure, handsome of face, had an amiable disposition, a ringing mezzo-soprano, with a compass from B-flat to G in altissimo, and was renowned for her brilliant execution, distinct enunciation, beautiful shake, happy memory for embellishments and fine expression. However pleased the directors may have been at first to have two popular songstresses, they were soon dismayed at the fierce rivalry that sprang up between them and was fanned to flames by Master Handel himself, who now composed exclusively for Faustina. By increasing the salary of her more tractable rival they finally disposed of Cuzzoni, who thenceforth through her exaggerated demands, managed to disgust her patrons wherever she appeared. Her reckless extravagance left her wholly destitute after losing her voice and her husband, Signor Sandoni, a harpsichord-maker.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "ruined → self-assured",
+              "anxious → triumphant",
+              "self-assured → ruined",
+              "grateful → contented",
+              "envious → forgiving"
+            ],
+            "answer": 3,
+            "explanation": {
+              "text": "앞부분의 그는 \"confident of her supremacy\" 라 작곡가를 제멋대로 대한다. 그러나 경쟁자가 오고 후원자들이 등을 돌린 끝에 \"Her reckless extravagance left her wholly destitute after losing her voice and her husband\" 로 맺는다. 자신만만함에서 파멸로 가는 방향이므로 ③이다. ① 은 그 방향을 뒤집었고 ②·④·⑤ 는 한쪽 또는 양쪽이 글에 없다.",
+              "from": "batch"
+            },
+            "source": "For Every Music Lover"
+          },
+          {
+            "no": 3,
+            "type": "content_match",
+            "stem": "다음 글의 내용과 일치하지 않는 것은?",
+            "passage": "Fungi serve as critical biological carbon storage reservoirs in soil ecosystems, but whether this fungal trait is also important for marine sediment carbon storage processes is poorly understood. Trejos-Espeleta et al. quantify for the first time the assimilation of dissolved free amino acids by fungi in marine sediments from a high Arctic fjord and show that a distinct community of marine fungi promote the stabilization of assimilated carbon with a relatively high metabolic efficiency. This corresponds to higher in situ ratios of fungi:prokaryote biomass in the fjord benthos, indicating that efficient fungal metabolism promotes increased retention of microbial biomass at the seafloor. Quantitative stable isotope probing links this efficient assimilation of amino acids to more than 80 fungal taxa in the fjord sediments, primarily associated with aquatic hyphomycetes. These results indicate that fungal metabolism and biomass in marine sediment should be considered as an important contributor to seafloor carbon storage. The image shows a photograph taken from the northern coast of Kongsfjorden (Svalbard) in summer of 2024, facing east.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "해양 퇴적물의 탄소 저장에서 균류가 하는 몫은 잘 알려지지 않았다",
+              "연구진은 고북극 피오르 퇴적물에서 아미노산 동화를 처음 쟀다",
+              "피오르 바닥에서는 균류 대 원핵생물 생물량 비가 더 높았다",
+              "효율적인 동화가 80종 넘는 균류 분류군과 이어졌다",
+              "사진은 피오르 남안에서 서쪽을 바라보고 찍은 것이다"
+            ],
+            "answer": 5,
+            "explanation": {
+              "text": "글은 \"The image shows a photograph taken from the northern coast of Kongsfjorden (Svalbard) … facing east\" 라 한다 — 남안도 서쪽도 아니다. 방향만 뒤집은 진술이다. 나머지는 본문 그대로다: \"poorly understood\"(①), \"quantify for the first time the assimilation of dissolved free amino acids\"(②), \"higher in situ ratios of fungi:prokaryote biomass in the fjord benthos\"(③), \"more than 80 fungal taxa\"(④).",
+              "from": "batch"
+            },
+            "source": "PLoS Biology Issue Image | Vol. 24(6) July 2026"
+          },
+          {
+            "no": 4,
+            "type": "title",
+            "stem": "다음 글의 제목으로 가장 적절한 것은?",
+            "passage": "New research may help prevent or reduce the progression of diabetic kidney disease, the leading cause of chronic kidney disease worldwide. The research centers on targeting key cellular signaling between two types of kidney cells, and inducing a certain gene within those processes. According to the National Kidney Foundation, approximately one in seven adults in the United States has kidney disease, or more than 35 million people. As many as one-third of all Americans with diabetes has kidney disease. Nephrology researchers have yet to create a therapeutic approach to reverse or prevent the progression of diabetic kidney disease (DKD). Sandeep K. Mallipattu and lead author Nehaben A. Gujarati of the Division of Nephrology and Hypertension in the medicine department in the Renaissance School of Medicine at Stony Brook University, are hoping that their murine model is a first step toward a new, more effective therapeutic strategy against DKD. Their findings appear in Nature Communications.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "Switching On a Gene to Slow Diabetic Kidney Loss",
+              "The Cure for Chronic Kidney Disease Has Arrived",
+              "Why One in Seven Americans Turns Down Dialysis",
+              "How Diabetes Damages the Eyes and the Nerves Too",
+              "Two Kidney Cells That Never Speak to Each Other"
+            ],
+            "answer": 1,
+            "explanation": {
+              "text": "글은 \"targeting key cellular signaling between two types of kidney cells, and inducing a certain gene\" 이라 하고, 연구진이 이것을 \"a first step\" 으로 본다고 적는다. ①이다. ② 는 글보다 훨씬 세고(아직 생쥐 모형이다), ⑤ 는 정반대다 — 두 세포는 서로 신호를 주고받는다. ③·④ 는 글에 없다.",
+              "from": "batch"
+            },
+            "source": "Gene may stop diabetic kidney disease progression"
+          },
+          {
+            "no": 5,
+            "type": "blank",
+            "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것은?",
+            "passage": "The popular stage, as has been said, had its farcical elements, but did not, in England, arrive at any notable development of the farce. Nor is any marked influence of the overseas habit even now to be traced. The name is not used in England, although it is in Scotland, where at the beginning of the sixteenth century the relations with France were much closer. Whether directly or indirectly through French channels, the farce is perhaps the contribution of minstrelsy to the nascent interlude. That some dramatic tradition was handed down from the mimi of the Empire to the mimi of the Middle Ages, although not susceptible of demonstration, is exceedingly likely. That solitary mediaeval survival, the Interludium de Clerico et Puella, hardly declares its origin. But the farce, in its free handling of contemporary life, in the outspokenness, which often becomes indecency, of its language, in its note of satire, especially towards the priest and other institutions deserving of reverence, is the exact counterpart of ____.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "the solemn religious drama that the church had staged",
+              "the courtly romance that the nobility liked to hear read",
+              "the Latin comedy that scholars copied out of the Empire",
+              "the puppet plays that travelled from town to town",
+              "the fabliau, that most typical form of minstrel writing"
+            ],
+            "answer": 5,
+            "explanation": {
+              "text": "글은 farce 가 \"perhaps the contribution of minstrelsy to the nascent interlude\" 라 해 두고, 마지막 문장에서 그 대응 관계를 못 박는다 — 세속을 자유로이 다루고 성직자를 풍자하는 결이 음유문학의 한 갈래와 같다는 것이다. ⑤다. ①·② 는 글이 대비시킨 반대쪽이고 ③·④ 는 글에 없다.",
+              "from": "batch"
+            },
+            "source": "The mediaeval stage, volume 2 (of 2)"
+          },
+          {
+            "no": 6,
+            "type": "topic",
+            "stem": "다음 글의 주제로 가장 적절한 것은?",
+            "passage": "The strings were now one complete and compact body. Careful attention was bestowed both upon the manner of writing for them and upon a judicious numerical selection of each species to the end that they might not only balance, but also assist and show off to the best advantage the characteristic qualities of every part, one against the other. Only the violoncello was as yet subservient, and the harpsichord was still retained. In the distribution of the parts for the wood-wind, he at first imitated Händel’s usual methods of merely reënforcing the string parts in unison. But having benefited by repeated practical experience, and especially after the appearance of Mozart upon the arena, Haydn’s writing for the wood became freer. The oboe, whose functions are now largely supplanted by the more feminine and soulful clarinet, was much used as a solo instrument.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "the replacement of the oboe by the modern clarinet",
+              "Händel’s habit of doubling the strings in unison",
+              "how orchestral sections gained independent voices",
+              "the balance of numbers within the string section",
+              "why the harpsichord survived in early orchestras"
+            ],
+            "answer": 3,
+            "explanation": {
+              "text": "글은 현이 하나의 몸을 이룬 뒤 관이 현을 겹쳐 쓰던 자리에서 벗어나는 과정을 짚는다 — \"Haydn's writing for the wood became freer\". ③이 주제다. ④는 대상은 맞지만 각도가 좁다(글은 현의 수 균형에서 멈추지 않는다). ①②⑤는 글에 한 번 나온 세부를 주제인 척한 것이다.",
+              "from": "batch"
+            },
+            "source": "The Evolution of Modern Orchestration"
+          }
+        ]
+      }
+    }
+  },
+  "problems": [
+    {
+      "band": 1,
+      "error": "화면이 그릴 수 있는 문항이 든 단원이 없다"
+    }
+  ]
+}
