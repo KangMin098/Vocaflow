@@ -10,6 +10,39 @@
 
 ## Unreleased (v06.34 → next)
 
+### DB 가 08:05 UTC 이후 응답하지 않는다 — 원인 기록 (2026-09-06)
+
+`/db-incident` 절차대로 **SQL 없이** 로그 스트림과 관리 API 만으로 좁혔다.
+
+| | |
+|---|---|
+| 관리 API | `ACTIVE_HEALTHY` — 컨트롤 플레인은 정상(이 값은 「쿼리가 된다」는 뜻이 아니다) |
+| REST 게이트웨이 | 401 응답 — **살아 있다** |
+| SQL · MCP 질의 | `Connection terminated due to connection timeout` |
+| 로그 소스 | 08:54 이후 `edge_logs` 만 남았다. `postgres_logs`·`postgrest_logs` **0** |
+| Postgres 마지막 말 | 08:05:03 `cron job 7 completed` 이후 침묵 |
+
+**앞선 서사** — 07:58부터 `canceling statement due to statement timeout` 이 쏟아졌고
+08:00:32 에 `refresh_textbook_shelf_stats()` 가 **28.9초**를 썼다. 체크포인트는 49MB·6.5초로
+평범했다 — **쓰기 폭주가 아니라 읽기 포화**다.
+
+**부하의 출처(07:30~08:06, 36분)**
+
+| 클라이언트 | 경로 | 건수 |
+|---|---|--:|
+| `Next.js Middleware` | `/auth/v1/user` | 3,498 |
+| `Next.js Middleware` | `/rest/v1/user_profiles` | 3,482 |
+| `node`(스크립트) | `csat_dcp_items` · `library_articles` · `shared_dictionary` 등 | ≈ 9,000 |
+
+⚠️ **미들웨어가 요청마다 DB 를 두 번 친다**(인증 + 프로필). 36분에 약 7,000건이고,
+그 시간대에 페이지를 대량으로 여는 것이 있으면 그대로 곱해진다. 이것이 단일 최대 기여자다.
+스크립트 쪽(권 조판 7회 + 스냅샷 굽기)도 같은 창에 겹쳤다.
+
+**조치** — 부하는 09:00 이후 멎었다(분당 1~8건). 그런데도 회복되지 않으므로 표준 조치는
+**프로젝트 재시작**이고, 그 버튼은 사람만 누를 수 있다(Supabase → Settings → General →
+Restart project). 되살아나면 `/db-health-audit daily` 로 장애 전후를 남기고
+`capacity:read_saturation:middleware_auth` 로 발견을 기록한다.
+
 ### 책 단위 드레인이 손댈 수 없는 5,824편 — 기사 단위 export 신설 (2026-09-06)
 
 - 책 단위 판정을 전량 끝낸 뒤 남은 미판정을 프로파일했더니 결정적인 사실이 나왔다:
