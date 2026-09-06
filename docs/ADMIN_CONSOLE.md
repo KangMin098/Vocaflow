@@ -25,30 +25,54 @@
 
 ```
 [ 단독 ]    대시보드 (LayoutDashboard)
-[ 사용자 & 콘텐츠 ] (accent: #8B5CF6)
-   사용자
-   콘텐츠
-   LCP Pipeline
-   ACP Pipeline
-   단어장 마스터
-   VCB Pipeline
-   VRL Pipeline
-   VRL Automation
-   Comic Pipeline
-   PD Comic Pipeline
-   Pending Words
-   = 총 11 항목
+[ 교재 ]     (accent: #8B5CF6)
+   교재 공장 (Factory) — 들어가면 하위 11칸이 펼쳐진다 (아래 §하위메뉴)
+[ 콘텐츠 공급 ] (accent: #8B5CF6)
+   콘텐츠            /admin/library
+   도서 수집   LCP   /admin/curation
+   짧은 글     ACP   /admin/articles
+   사실 재저작 Compose /admin/compose
+   만화        CCP   /admin/comic
+   스캔 만화   PDCP  /admin/pd-comics
+   주제 코퍼스 TCP   /admin/topic-corpus
+   = 7 항목
+[ 어휘 ]     (accent: #8B5CF6)
+   단어장 마스터     /admin/vocabulary
+   어휘 빌드   VCB   /admin/vocab
+   어휘 레벨   VRL   /admin/vrl  — 하위 6칸
+   대기 단어         /admin/pending-words
+   = 4 항목
 [ 운영 ]     (accent: var(--info))
-   플랫폼 분석
-   DB 헬스 (Activity — 콘텐츠가 아니라 그것을 담는 DB 자체)
-   품질 지표 (Gauge, v06.140)
-   품질 게이트 (ShieldCheck, v06.271 — 파이프라인 정확성 불변식)
-   추출 판정 (Scale, v06.270 — blind 판정 하네스)
-   신고·문의 (실 데이터 뱃지)
-   결제
-[ 시스템 ]   (accent: var(--active))
-   시스템 설정
+   사용자 · 플랫폼 분석 · 신고/문의(실 데이터 뱃지) · 결제/구독
+   = 4 항목
+[ 품질 · 시스템 ] (accent: var(--active))
+   품질 지표 · 품질 게이트 · 추출 판정 · DB 헬스 · 시스템 설정
+   = 5 항목
 ```
+
+#### 왜 이 모양인가 (2026-09-06 재설계 · 회귀 `components/admin/__tests__/sidebar-readability.test.tsx`)
+
+앞 판은 「사용자 & 콘텐츠」 한 묶음에 **1차 항목 13개**가 머리글 없이 이어졌고, 그중 일곱이
+이름 대신 약칭(`LCP Pipeline`·`VCB Pipeline`…)을 달고 있었다 — 라벨이 무엇을 만드는
+파이프라인인지 말하지 않으니 목록을 매번 처음부터 다시 읽는다. 실측으로 고친 것 넷:
+
+| | 앞 | 뒤 |
+|---|---|---|
+| 가장 큰 묶음의 1차 항목 | **13** | **7** |
+| 묶음 수 | 4 | 6 (만드는 것 기준) |
+| 가장 작은 글자 | **9.5px** | **11px** |
+| 하위 항목이 부모 밖 href 에서 사라짐 | 1건(`원문 적격`) | 0 |
+
+- **약칭은 오른쪽 색인(`NavItem.tag`)으로 내렸다** — 지울 수는 없다(문서·스크립트가 「LCP」로
+  부르고, 각 화면의 제목도 아직 「VRL Pipeline」이다). 이름을 먼저 읽고 약칭이 다리를 놓는다.
+- **하위메뉴는 자기 면을 갖는다** — 부모의 아래쪽 모서리를 펴서 맞물린 패널 안에 들어가고,
+  줄마다 레일에서 뻗은 가지(`├`/`└`)가 걸린다. 앞 판은 세로선 하나뿐이라 **글자 크기만 1px
+  작은 형제 목록**으로 읽혔다("하위메뉴 같지 않다"의 실체가 이것이었다).
+- **`opacity` 로 글자를 깎지 않는다** — `--t3`(4.77:1)에 `opacity-60` 을 곱하면 실효 대비가
+  **2.31:1** 로 떨어져 AA 를 깬다. 「해설(준비 중)」 줄이 그랬다. 흐림은 색으로 표현한다.
+- **펼침 판정이 자식 href 까지 본다**(`inSection`). 「원문 적격」은 라우트가 아직
+  `/admin/textbook/sources` 라 부모 밖인데, 부모 href 만 보면 **그 항목을 누르는 순간
+  자기가 속한 메뉴가 통째로 접혔다.** 화면은 멀쩡히 뜨므로 눈으로는 안 잡힌다.
 
 ### 신고 뱃지 (v06.28 · ⚠️ 무효)
 

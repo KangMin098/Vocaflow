@@ -36,41 +36,7 @@ import { ReviewClient } from '../review/ReviewClient'
 import { SourceClient } from '../sourcing/SourceClient'
 import { MarketClient } from '../strategy/MarketClient'
 
-export interface Density {
-  chunks: number
-  chars: number
-  actions: number
-  svg: number
-}
-
-/**
- * 렌더 결과의 밀집도. 주석(`<!-- -->`)과 태그를 걷어낸 뒤 센다.
- *
- * ⚠️ **접힌 것은 세지 않는다.** `<details>` 안쪽은 열기 전까지 화면에 없으므로, 그것까지 세면
- *   「깊이를 접었다」는 개선이 오히려 나빠진 것으로 잡힌다(실측: 기획 화면의 근거 서술을 접었더니
- *   글자 수가 1,254 → 1,276 으로 **올라갔다**). 여는 손잡이(`<summary>`)는 보이므로 남긴다.
- */
-export function measure(html: string): Density {
-  const clean = html
-    .replace(/<!--[\s\S]*?-->/g, '')
-    // <details> … </details> 안에서 <summary>…</summary> 만 남긴다
-    .replace(/<details\b[^>]*>([\s\S]*?)<\/details>/g, (_m, body: string) => {
-      const summary = body.match(/<summary\b[\s\S]*?<\/summary>/)
-      return summary ? summary[0] : ''
-    })
-  const text = clean
-    .replace(/<[^>]*>/g, ' ')
-    .replace(/&[a-z#0-9]+;/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim()
-  const count = (re: RegExp) => (clean.match(re) || []).length
-  return {
-    chunks: count(/<(div|section|article|p|span|li|tr|td|th|h[1-6]|code|details|summary)\b/g),
-    chars: text.length,
-    actions: count(/<(button|a|input|select|summary)\b/g),
-    svg: count(/<svg\b/g),
-  }
-}
+import { type Density, measure } from './density-scan'
 
 const SCREENS: { name: string; html: () => string }[] = [
   { name: '카탈로그', html: () => renderToString(<SeriesShelf {...SERIES_REAL} />) },
