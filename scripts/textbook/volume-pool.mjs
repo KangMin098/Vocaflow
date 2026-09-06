@@ -372,7 +372,12 @@ export const SCHOOL_TYPES = new Set([
 export const ELEMENTARY_TYPES = new Set(['rhyme', 'word_meaning', 'spell_blank'])
 
 /** 교육과정 별표 태그 — 밴드별 어휘 풀. */
-const ELEMENTARY_TAG = { 1: 'kcurr2022_1', 2: 'kcurr2022_1' }
+// ⚠️ **V3 가 빠져 있었다** (실측 2026-09-06). 사다리 3단(`Vocaflow Reading 2`)은
+//   `word_meaning` 을 유형으로 선언하는데 이 표에 V3 가 없어 그 유형의 재고가 **0** 이었고,
+//   조판이 단의 다섯 유형 중 넷만 실었다. 사전에는 중학 기본어휘 `kcurr2022_2` 가
+//   1,211낱말 들어 있다 — 없어서가 아니라 **연결이 안 돼 있었다.**
+//   (V3 단은 `rhyme`·`spell_blank` 를 안 쓰므로 시리즈 좁히기가 그 둘은 알아서 버린다.)
+const ELEMENTARY_TAG = { 1: 'kcurr2022_1', 2: 'kcurr2022_1', 3: 'kcurr2022_2' }
 
 /**
  * 사전에서 초등 문항 풀을 만든다. 밴드가 별표를 안 쓰면 빈 배열.
