@@ -12,6 +12,7 @@
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "test:e2e:smoke": "playwright test 04-ui-smoke",
+    "test:e2e:sweep": "node scripts/e2e-sweep.mjs",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:report": "playwright show-report",
     "predev": "node scripts/ensure-onnx-runtime.mjs",

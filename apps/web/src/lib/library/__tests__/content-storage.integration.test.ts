@@ -1,4 +1,11 @@
-// apps/web/src/lib/library/__tests__/content-storage.test.ts
+// apps/web/src/lib/library/__tests__/content-storage.integration.test.ts
+//
+// ⚠️ 2026-09-06 개명 — 아래 줄이 "통합 테스트" 라고 적고 있는데 **이름만 규칙을 안 따랐다**
+//    (바로 옆 content-quality-gate.integration.test.ts 는 따른다). 그래서 단위 실행
+//    vitest run --exclude "**/*.integration.test.*" 에 이 파일이 섞여 들어갔고,
+//    Supabase 가 멈춘 동안 단위층이 통째로 빨간불이 됐다 — 실패 메시지는
+//    storeContentChunk failed: <!DOCTYPE html> (Cloudflare 522 페이지가 JSON 자리에 왔다).
+//    env 가 있으면 skip 되지 않으므로 로컬에서는 항상 네트워크를 탄다. 이름으로 갈라야 한다.
 // 통합 테스트 — 실제 Supabase 와 통신
 // 환경변수 없으면 skip (vitest.config.ts 가 .env.local 자동 로드)
 
