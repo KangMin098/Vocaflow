@@ -123,26 +123,31 @@ async function countRows(
 }
 
 interface RollupRow {
-  status: string
   register: string | null
   cefr_level: string | null
   items: number
 }
 
 /**
- * 재고 집계 — **한 번의 그룹 스캔**(`acp_article_rollup()`).
+ * 커버리지 집계 — **발행분만** 훑는 인덱스 스캔 1회(`acp_article_rollup()`).
  *
  * ── 왜 RPC 로 갔나 (2026-09-06) ──────────────────────────────────────
- * 예전에는 상태 8개 + 커버리지 31칸 = **카운트 38개를 동시에** 던졌다. 그러면 서버가 몇 개를
- * **본문 없는 오류**로 돌려주고, 화면은 콘솔에 오류를 14건 뱉었다(런타임 훑기 실측).
- * 재시도·동시성 제한·`estimated` 모드를 차례로 넣었지만 증상이 줄되 **다른 화면으로 옮겨
- * 갔을 뿐**이다 — 질의 수가 그대로였기 때문이다.
+ * 예전에는 커버리지 31칸을 **카운트 31개로 동시에** 던졌다. 그러면 서버가 몇 개를 **본문 없는
+ * 오류**로 돌려주고, 화면은 콘솔에 오류를 14건 뱉었다(런타임 훑기 실측). 재시도·동시성
+ * 제한·`estimated` 모드를 차례로 넣었지만 증상이 줄되 다른 화면으로 옮겨 갔을 뿐이다.
  *
- * 지금은 조회 1회다. 게다가 **정확값**이 돌아온다(합계 91,356 = 실제 91,356 · 반환 47행) —
- * `estimated` 로 얻던 근사치보다도 낫다.
+ * ⚠️ **첫 판은 틀렸다 — 두 번 고쳤다.**
+ *   ① 전량(91,356행)을 `group by status, register, cefr_level` 로 훑는 함수를 만들었다.
+ *      근거로 쓴 `EXPLAIN ANALYZE` 8,902ms 는 `postgres` 로 직접 잰 값이라 **실제 경로를
+ *      대표하지 못했다.** PostgREST 경유로 재 보니 **29,816ms** 였고, `authenticator` 역할의
+ *      `statement_timeout=8s` 에 걸려 `canceling statement due to statement timeout` 으로 죽었다.
+ *   ② 더 근본적으로, 커버리지는 **발행분에만** 해당하는데 그 30칸을 채우려고 queued 5.2만
+ *      행까지 훑고 있었다. `where status='published'` 로 좁히니 **75ms / 22ms**(재실행)다.
  *
- * `cache()` 로 감싼 이유: 한 화면이 상태 타일과 커버리지 매트릭스를 각각 부르므로,
- * 감싸지 않으면 같은 요청에서 8.9초짜리 스캔이 **두 번** 돈다.
+ *   교훈은 하나다 — **재는 자리가 쓰는 자리와 같아야 한다.** 직접 SQL 로 잰 수를 근거로
+ *   앱 경로의 성능을 말하면 안 된다.
+ *
+ * `cache()` 는 요청 단위 dedupe 용이다(같은 화면이 두 번 부르지 않게).
  */
 const fetchRollup = cache(async (): Promise<RollupRow[]> => {
   // service_role — RPC 가 security definer 라 admin 게이트 뒤에서만 부른다(호출부가 지킨다).
@@ -165,19 +170,25 @@ const fetchRollup = cache(async (): Promise<RollupRow[]> => {
  * 않는다 — 그 차이가 "스키마에 새 상태가 생겼다" 는 신호로 남는다.
  */
 export async function getArticleStatusCounts(): Promise<ArticleStatusCounts> {
-  const rollup = await fetchRollup()
-  const out = emptyStatusCounts()
-  for (const r of rollup) {
-    out.total += r.items
-    const st = r.status
-    if (isKnownStatus(st)) out.byStatus[st] += r.items
-  }
-  return out
-}
+  // ⚠️ 이것을 커버리지와 **한 함수에 몰아넣었다가 되돌렸다.** 상태별 건수는 `estimated` head
+  //    카운트로 각 124ms 에 이미 되던 길이었는데(실측), 전량 group by 로 합치니 PostgREST
+  //    경유 29.8초가 되어 통째로 죽었다. 합치는 것이 늘 싼 것은 아니다 —
+  //    커버리지는 발행분 293행만 보면 되고 상태 카운트는 인덱스를 탄다. 각자 싸다.
+  const sb = await db()
+  const specs = ['전체' as const, ...ALL_ARTICLE_STATUSES]
+  const results = await Promise.all(
+    specs.map((s) =>
+      s === '전체' ? countRows((b) => b, '전체', sb) : countRows((b) => b.eq('status', s), s, sb),
+    ),
+  )
+  const [total, ...perStatus] = results
 
-/** 스키마에 우리가 아는 상태인가 — 모르는 값이 오면 byStatus 에 넣지 않고 total 에만 센다. */
-function isKnownStatus(s: string): s is ArticleStatus {
-  return (ALL_ARTICLE_STATUSES as readonly string[]).includes(s)
+  const out = emptyStatusCounts()
+  out.total = total ?? 0
+  ALL_ARTICLE_STATUSES.forEach((s, i) => {
+    out.byStatus[s] = perStatus[i] ?? 0
+  })
+  return out
 }
 
 /**
@@ -195,10 +206,10 @@ export async function getPublishedCoverage(): Promise<CoverageCounts> {
     for (const c of CEFR_ORDER) cells[coverageKey(r.key, c)] = 0
   }
 
+  // 함수가 이미 `status='published'` 로 좁혀서 준다 — 여기서 또 거르지 않는다.
   let publishedTotal = 0
   let inMatrix = 0
   for (const row of rollup) {
-    if (row.status !== 'published') continue
     publishedTotal += row.items
     if (row.register == null || row.cefr_level == null) continue
     const key = coverageKey(row.register, row.cefr_level)

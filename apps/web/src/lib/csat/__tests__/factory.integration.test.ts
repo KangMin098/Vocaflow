@@ -46,26 +46,27 @@ describe.skipIf(skip)('교재 공장 공정 현황판 (실 DB)', () => {
     expect(elapsed, `현황판 조회가 ${elapsed}ms 걸렸다`).toBeLessThan(20_000)
   })
 
-  it('해설 보유를 실제로 잰다 — 집계 RPC 가 붙은 뒤', async () => {
-    // ⚠️ 이 테스트는 **뒤집힌 것**이다. 2026-09-05 까지는 "못 재는 상태"를 고정하고 있었다 —
-    //   PostgREST 로 `csat_dcp_items`(65만 행)를 필터 없이 세면 50초 뒤 `count=null` 이었고
-    //   (세 번 연속), 유형·수준으로 쪼개면 132칸이라 몇 분이었다. 그래서 공정 ⑥ 은 눈금이
-    //   아예 없었다.
+  it('해설 보유는 **앱 경로로는** 아직 못 잰다 — 0 이 아니라 「못 잼」과 이유가 나와야 한다', async () => {
+    // ⚠️ 이 테스트는 두 번 뒤집혔다. 그 경위를 남긴다 — 다음 사람이 같은 길을 또 파지 않게.
     //
-    //   2026-09-06 `csat_dcp_inventory()` 적용 후 한 번의 그룹 스캔으로 잰다.
-    //   적용 직후 실측: 136행 · 문항 656,984 · 해설 426,696 · 키/값 셈 불일치 0.
-    //   **수를 상수로 박지 않는다** — 드레인이 돌면 매일 바뀐다. 잰다는 사실만 고정한다.
+    //   ① 2026-09-05: "못 잰다" 를 고정. PostgREST 로 65만 행을 전수 세면 50초 뒤 null 이었다.
+    //   ② 2026-09-06 오전: `csat_dcp_inventory()` 적용 후 "잰다" 로 뒤집었다.
+    //      직접 SQL(`execute_sql`, postgres 역할)로 5.7초에 정상 값이 나왔기 때문이다.
+    //   ③ 2026-09-06 오후: **다시 되돌렸다.** 같은 함수를 앱과 같은 길(supabase-js →
+    //      PostgREST → 풀러)로 부르면 statement_timeout 60초에도 취소된다(실측 60,079ms · 2회).
+    //      ②의 근거는 **재는 자리가 쓰는 자리와 달랐다.**
+    //
+    //   값 자체는 맞다 — 적용 직후 직접 SQL 로 문항 656,984 · 해설 426,696 · 키/값 불일치 0.
+    //   막힌 것은 **경로**이고, 남은 처방은 matview + 주기 갱신(별도 승인)이다.
+    //   그때 이 테스트를 세 번째로 뒤집으면 된다.
     const line = await loadFactoryLine()
     const explain = line.stages.find((s) => s.def.id === 'explain')!
     const gauge = explain.gauges.find((g) => g.label === '해설 보유')!
 
-    expect(gauge.den, '문항 수를 못 셌다 — RPC 가 답하지 않았거나 권한이 막혔다').toBeGreaterThan(0)
-    expect(gauge.num, '해설 보유 수가 없다').not.toBeNull()
-    expect(gauge.num!).toBeGreaterThanOrEqual(0)
-    // 보유가 전체를 넘을 수 없다 — 넘으면 두 수가 다른 모집단에서 온 것이다.
-    expect(gauge.num!).toBeLessThanOrEqual(gauge.den!)
-    expect(gauge.unmeasuredReason, '잴 수 있는데 「못 잼」 사유가 붙어 있다').toBeUndefined()
-    expect(explain.status, '눈금이 있는데 여전히 unmeasured 다').not.toBe('unmeasured')
+    expect(gauge.num, '못 재는데 수가 붙어 있다 — 0 으로 뭉갠 것은 아닌지 본다').toBeNull()
+    expect(gauge.den).toBeNull()
+    expect(gauge.unmeasuredReason, '왜 못 재는지가 화면에 없다').toMatch(/RPC|timeout|초/)
+    expect(explain.status).toBe('unmeasured')
   })
 
   it('전수 count 는 죽어 있고 셀 count 는 살아 있다 — 이 구분이 설계의 전제다', async () => {
@@ -78,11 +79,11 @@ describe.skipIf(skip)('교재 공장 공정 현황판 (실 DB)', () => {
       .eq('v_level', 6)
     expect(cell.count, '셀 count 마저 죽었다 — 공장 화면 전체가 못 선다').toBeGreaterThan(0)
 
-    // 낡음 감시의 제3의 수는 이제 플래너 통계가 아니라 **집계 RPC** 다(2026-09-06).
-    // 이것이 죽으면 공정 ⑤·⑥ 이 동시에 눈금을 잃으므로, 살아 있음을 여기서 고정한다.
-    const inv = await svc.rpc('csat_dcp_inventory')
-    expect(inv.error, `집계 RPC 가 죽었다: ${inv.error?.message ?? ''}`).toBeNull()
-    expect(Array.isArray(inv.data) && inv.data.length, '집계가 빈손으로 왔다').toBeGreaterThan(0)
+    // 플래너 통계는 낡음 감시의 제3의 수다. 이것도 없으면 감시가 사라진다.
+    // (집계 RPC 로 갈아타려 했으나 PostgREST 경유로는 60초에도 안 온다 — 위 테스트 주석 참조.
+    //  matview 가 붙으면 그때 이쪽으로 옮긴다.)
+    const planned = await svc.from('csat_dcp_items').select('id', { count: 'planned', head: true })
+    expect(planned.count, '플래너 통계도 못 읽는다').toBeGreaterThan(0)
   })
 
   it('검수 L2 는 분석 **행**이 아니라 **문항**을 센다 — 통과율이 100%를 넘을 수 없다', async () => {

@@ -19,7 +19,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { createAdminClient } from '@/lib/supabase/admin'
 
-import { SWEEP_BUDGET_MS, countItemCells, loadDcpInventory } from './item-count'
+import { SWEEP_BUDGET_MS, countItemCells, plannedItemTotal } from './item-count'
 
 import {
   GENERATED_TYPES,
@@ -114,16 +114,14 @@ export async function loadAuthorView(): Promise<AuthorView> {
   //   그러면 「목록이 낡았는가」를 무엇으로 보나. 칸 합끼리 비교하면 자기 자신과 비교하는 것이라
   //   아무것도 못 잡는다. 그래서 독립된 제3의 수를 쓴다.
   //
-  //   2026-09-06 — 그 제3의 수가 `count: 'planned'`(플래너 통계 · 오차 있음)에서
-  //   **집계 RPC 의 정확값**으로 바뀌었다(`csat_dcp_inventory()` · 그룹 스캔 1회).
-  //   추정치가 아니므로 허용 오차를 크게 잡을 이유가 없어졌다 — 다만 임계값은 그대로 둔다.
-  //   목록이 낡았는지를 보는 것이지 소수점을 다투는 자리가 아니고, 좁혔다가 오탐이 나면
-  //   그때부터 아무도 이 경고를 안 본다.
-  const [counts, inventory] = await Promise.all([
+  //   2026-09-06 — 집계 RPC 의 정확값으로 갈아타려 했으나 **되돌렸다.** RPC 는 값이 맞지만
+  //   PostgREST 경유로 60초에도 안 온다(`item-count.ts` 의 `loadDcpInventory` 주석).
+  //   낡음 감시는 빨라야 쓸모가 있어서, matview 가 붙기 전까지는 플래너 통계가 유일한 길이다.
+  //   통계값이라 오차가 있으므로 **허용 오차를 넘을 때만** 경고한다.
+  const [counts, planned] = await Promise.all([
     countItemCells(db, specs),
-    loadDcpInventory(db),
+    plannedItemTotal(db).then((r) => r.count),
   ])
-  const planned = inventory.ok ? inventory.items : null
 
   const cells: AuthorCell[] = specs.map((s, i) => ({ ...s, count: counts[i] ?? null }))
 
