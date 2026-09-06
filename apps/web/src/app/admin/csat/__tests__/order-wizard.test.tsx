@@ -21,6 +21,7 @@ import {
   CSAT_BACKING,
   firstBlocked,
   judgeGates,
+  pressPlan,
   renderCommand,
   type OrderEvidence,
   type OrderTypeAsset,
@@ -219,5 +220,29 @@ describe('새 교재 만들기 — 화면', () => {
     const html = renderToString(<OrderWizard {...view} />)
     // 걸음 넷 중 셋이 비활성 — 고르기 전에는 보여 줄 것이 없다.
     expect((html.match(/disabled=""/g) ?? []).length).toBe(3)
+  })
+})
+
+describe('새 교재 만들기 — 이미 낸 권', () => {
+  // 실측 2026-09-06: 카탈로그 19권이 **전부** 조판 기록을 갖고 있다. 그래서 이 갈래가
+  // 사실상 기본 경로인데, 처음 내는 권과 같은 말을 쓰면 이미 서가에 있는 권을 두고
+  // 「아래 한 줄이면 이 권이 나온다」고 말하게 된다.
+  it('이미 낸 권에는 「다시 찍는다」와 「덮어쓴다」를 말한다', () => {
+    const p = pressPlan(volume({ published: true }), 4)
+    expect(p.note).toContain('이미 냈다')
+    expect(p.note).toContain('다시 찍는다')
+    expect(p.why).toContain('덮어쓴다')
+    expect(p.note).not.toContain('이 권이 나온다')
+  })
+
+  it('처음 내는 권에는 그 말을 하지 않는다 — 갈래가 실제로 갈린다', () => {
+    const p = pressPlan(volume({ published: false }), 4)
+    expect(p.note).toContain('이 권이 나온다')
+    expect(p.note).not.toContain('이미 냈다')
+  })
+
+  it('관문 수를 그대로 나른다 — 화면이 다시 세지 않는다', () => {
+    expect(pressPlan(volume(), 4).note).toContain('관문 4개')
+    expect(pressPlan(volume(), 3).note).toContain('관문 3개')
   })
 })

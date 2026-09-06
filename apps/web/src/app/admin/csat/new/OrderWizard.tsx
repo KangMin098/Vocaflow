@@ -34,6 +34,7 @@ import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import {
   firstBlocked,
   judgeGates,
+  pressPlan,
   renderCommand,
   type OrderView,
   type OrderVolume,
@@ -431,13 +432,15 @@ export function OrderWizard({
             </>
           ) : (
             <>
+              {/* 문구는 `pressPlan()` 이 정한다 — 이 갈래는 걸음 ④ 에서만 보여서 DOM 으로는
+                  검증이 안 되기 때문이다(그 이유는 그 함수 머리말). */}
               <p className="break-keep font-body text-[12.5px] leading-snug text-[#2E7D5A]">
-                관문 {gates.length}개를 모두 넘었다 — 아래 한 줄이면 이 권이 나온다.
+                {pressPlan(chosen, gates.length).note}
               </p>
               <ul className="flex flex-col gap-2 rounded-[var(--r-sm)] bg-[var(--bg2)] p-2.5">
                 <CommandRow
                   cmd={renderCommand(chosen, unitsPerBook)}
-                  why="조판한다. 재실행 안전 — 조판 기록은 (시리즈, 단) 한 행을 덮어쓴다"
+                  why={pressPlan(chosen, gates.length).why}
                 />
               </ul>
             </>

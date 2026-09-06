@@ -257,6 +257,30 @@ export function renderCommand(v: OrderVolume, unitsPerBook: number): string {
   )
 }
 
+/**
+ * 관문을 다 넘은 권에게 할 말 — **이미 낸 권과 처음 내는 권을 같은 말로 부르지 않는다.**
+ *
+ * ⚠️ 실측 2026-09-06: 카탈로그 19권이 **전부** 조판 기록을 갖고 있다. 그래서 이 갈래가
+ *   사실상 기본 경로인데, 둘을 같은 말로 부르면 이미 서가에 있는 권을 두고
+ *   「아래 한 줄이면 이 권이 나온다」고 말하게 된다 — 사실이 아니고, 덮어쓴다는 것도 안 보인다.
+ *
+ * 문구를 화면이 아니라 여기 두는 이유: 화면의 이 갈래는 걸음 ④ 에서만 보이는데
+ * `renderToString` 은 늘 걸음 ①을 그리므로 **DOM 으로는 검증이 안 된다**(없는 문자열을
+ * 「없다」고 확인하는 빈 테스트가 된다). 순수 함수로 빼면 갈래가 실제로 갈리는지 잰다.
+ */
+export function pressPlan(v: OrderVolume, gateCount: number): { note: string; why: string } {
+  if (v.published) {
+    return {
+      note: `관문 ${gateCount}개를 모두 넘었다 — 이 권은 이미 냈다. 아래 한 줄은 같은 자리에 다시 찍는다.`,
+      why: '다시 조판한다 — 조판 기록의 (시리즈, 단) 그 행과 출력 HTML 을 덮어쓴다. 행이 늘지는 않는다',
+    }
+  }
+  return {
+    note: `관문 ${gateCount}개를 모두 넘었다 — 아래 한 줄이면 이 권이 나온다.`,
+    why: '조판한다. 재실행 안전 — 조판 기록은 (시리즈, 단) 한 행을 덮어쓴다',
+  }
+}
+
 /** 유형 코드 → 한국어 이름. 정본을 그대로 나른다 — 화면이 다시 짓지 않는다. */
 export function typeLabel(t: SeriesItemType): string {
   return SERIES_TYPE_LABEL_KO[t] ?? t
