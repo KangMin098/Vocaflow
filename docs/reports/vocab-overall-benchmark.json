@@ -1,6 +1,6 @@
 {
   "$schema": "vocab-overall-benchmark/1",
-  "generatedAt": "2026-09-06T11:58:50.903Z",
+  "generatedAt": "2026-09-06T12:21:56.644Z",
   "goal": 1.2,
   "axes": [
     {
@@ -28,7 +28,7 @@
       "index": 1.153,
       "ceiling": 1.153,
       "attainment": 1,
-      "generatedAt": "2026-09-06T11:58:41.428Z"
+      "generatedAt": "2026-09-06T12:21:40.849Z"
     }
   ],
   "overall": 1.344,
