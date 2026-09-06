@@ -55,9 +55,14 @@ export interface NavItem {
    * 다른 파이프라인 12개가 밀려난다. 그렇다고 안 세우면 그 화면들은 URL 을 아는 사람만 쓴다.
    * 그래서 **들어갔을 때만** 보이게 한다.
    *
-   * ⚠️ 하위의 href 가 부모 밖일 수 있다(「원문 적격」은 아직 `/admin/textbook/sources` 다).
-   *   펼침 판정을 부모 href 만으로 하면 **그 항목을 누르는 순간 자기가 속한 메뉴가 통째로
-   *   접힌다** — 화면은 멀쩡히 뜨므로 눈으로는 안 잡힌다. `inSection()` 이 자식까지 본다.
+   * ⚠️ 하위의 href 가 **부모 밖일 수 있다.** 펼침 판정을 부모 href 만으로 하면 그 항목을
+   *   누르는 순간 자기가 속한 메뉴가 통째로 접힌다 — 화면은 멀쩡히 뜨므로 눈으로는 안 잡힌다.
+   *   그래서 `inSection()` 이 자식 href 까지 본다.
+   *
+   *   2026-09-06 현재 그런 항목은 **없다**(「원문 적격」이 `/admin/textbook/sources` 에서
+   *   `/admin/csat/sources` 로 옮겨 오면서 마지막 하나가 사라졌다). 그래도 판정은 남긴다 —
+   *   이 메뉴는 라우트가 아직 안 옮겨진 화면을 **자리부터** 잡아 주는 일을 반복해 왔고,
+   *   다음에 또 그럴 때 조용히 접히는 대신 그냥 동작해야 한다.
    */
   children?: NavItem[]
   /**
@@ -156,9 +161,9 @@ function buildNavGroups(reportsBadge: number | null): NavGroup[] {
               group: '재료',
             },
             // 「원문 적격」 — 재고가 아니라 **자격**을 본다: 재고가 있어도 판정을 통과 못 하면 못 싣는다.
-            // ⚠️ 라우트는 아직 `/admin/textbook/sources` 다 — 부모 밖 href 라서 펼침 판정이
-            //   자식까지 보지 않으면 이 항목을 누르는 순간 하위메뉴가 통째로 접힌다.
-            { href: '/admin/textbook/sources', label: '원문 적격', Icon: BookMarked },
+            // 라우트도 2026-09-06 에 `/admin/textbook/sources` → 여기로 옮겼다. 메뉴에서는 교재
+            // 공장 안인데 URL 은 다른 파이프라인이면, 주소창과 메뉴가 서로 다른 말을 한다.
+            { href: '/admin/csat/sources', label: '원문 적격', Icon: BookMarked },
             { href: '/admin/csat/strategy', label: '기획', tag: '②', Icon: Target, group: '공정' },
             { href: '/admin/csat/blueprint', label: '설계', tag: '③', Icon: Grid3x3 },
             { href: '/admin/csat/sourcing', label: '소재', tag: '④', Icon: FileText },

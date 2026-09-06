@@ -71,7 +71,7 @@
 - **`opacity` 로 글자를 깎지 않는다** — `--t3`(4.77:1)에 `opacity-60` 을 곱하면 실효 대비가
   **2.31:1** 로 떨어져 AA 를 깬다. 「해설(준비 중)」 줄이 그랬다. 흐림은 색으로 표현한다.
 - **펼침 판정이 자식 href 까지 본다**(`inSection`). 「원문 적격」은 라우트가 아직
-  `/admin/textbook/sources` 라 부모 밖인데, 부모 href 만 보면 **그 항목을 누르는 순간
+  `/admin/textbook/sources` 라 부모 밖이었는데, 부모 href 만 보면 **그 항목을 누르는 순간
   자기가 속한 메뉴가 통째로 접혔다.** 화면은 멀쩡히 뜨므로 눈으로는 안 잡힌다.
 
 ### 신고 뱃지 (v06.28 · ⚠️ 무효)
@@ -585,13 +585,13 @@ KPI 카드는 §13 StatCard 와 다른 디자인 — delta 변화율 (`▲ 12%`)
 `lib/textbook/console-stats.ts` · `app/admin/__tests__/textbook-console.test.tsx` ·
 `lib/admin/help/textbook.ts` 의 `textbook` 항목.
 
-⚠️ **하위 라우트 `/admin/textbook/sources` 는 남아 있다**(아래). 부모 세그먼트에 페이지가 없어도
+⚠️ **하위 라우트도 2026-09-06 에 `/admin/csat/sources` 로 옮겼다**(아래) — 세그먼트 `app/admin/textbook` 은 이제 없다. 옛 설명: 부모 세그먼트에 페이지가 없어도
 Next.js 는 자식을 그대로 서빙한다. 메뉴에서는 이미 ④ 소재 옆(`④-1 원문 적격`)으로 옮겼고,
 경로 자체를 `/admin/csat/sourcing/eligibility` 로 옮기는 것은 별도 작업이다.
 
 ---
 
-## /admin/textbook/sources — 원문 적격 (2026-09-06 신설)
+## /admin/csat/sources — 원문 적격 (2026-09-06 신설 · 같은 날 `/admin/textbook/sources` 에서 이전)
 
 **교재 생성이 임의 판단이 되지 않게 하는 자리.** 「이 지문을 왜 골랐나」에 축·임계값·출처로 답한다.
 재고를 세는 화면이 아니라 **자격을 세는 화면**이다 — 재고가 있어도 판정을 통과하지 못하면 실을 수 없다.

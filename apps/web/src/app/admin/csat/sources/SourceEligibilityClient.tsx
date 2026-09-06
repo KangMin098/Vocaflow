@@ -1,4 +1,4 @@
-// apps/web/src/app/admin/textbook/sources/SourceEligibilityClient.tsx
+// apps/web/src/app/admin/csat/sources/SourceEligibilityClient.tsx
 // 원문 적격 — 교재에 실을 수 있는 원문인가를 일곱 축으로 판정한 결과. 조작은 없다(판정은 스캔).
 
 'use client'
@@ -28,15 +28,16 @@ const GRADE_TONE: Record<string, string> = {
 export function SourceEligibilityClient({ panel }: { panel: SourceEligibilityPanel }) {
   const t = panel.total
   return (
-    <div className="flex flex-col gap-6 p-6">
+    <div className="flex flex-col gap-6">
       <header className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="font-display text-[22px] font-[800] text-[var(--t1)]">원문 적격</h1>
+          <h2 className="font-display text-[18px] font-[800] text-[var(--t1)]">원문 적격</h2>
           <p className="font-body text-[13px] text-[var(--t2)]">
-            교재에 실을 수 있는 원문인가를 일곱 축으로 판정한다. 조판은 이 판정을 통과한 원문만 받아야 한다.
+            교재에 실을 수 있는 원문인가를 일곱 축으로 판정한다. 조판은 이 판정을 통과한 원문만
+            받아야 한다.
           </p>
         </div>
-        <AdminScreenHelp screen="textbook/sources" />
+        <AdminScreenHelp screen="csat-sources" />
       </header>
 
       <FreshnessBar panel={panel} />
@@ -46,14 +47,18 @@ export function SourceEligibilityClient({ panel }: { panel: SourceEligibilityPan
           aria-label="다음 한 걸음"
           className="flex flex-col gap-1 rounded-[var(--r-md)] border border-[var(--warning)] bg-[var(--bg)] p-4"
         >
-          <span className="font-body text-[12px] font-[700] text-[var(--warning-ink)]">다음 한 걸음</span>
+          <span className="font-body text-[12px] font-[700] text-[var(--warning-ink)]">
+            다음 한 걸음
+          </span>
           <p className="font-body text-[14px] text-[var(--t1)]">
             <b className="tabular-nums">{panel.topBlocker.grade.count.toLocaleString()}편</b> 이{' '}
             <b>{panel.topBlocker.axis.label}</b> 에서 막혀 있다 — {panel.topBlocker.grade.label}.
           </p>
           {/* 처방 문자열의 정본은 `buildSourceEligibilityPanel` 이다 — 미판정이 전부
               구조적이면 거기서 이미 발췌 경로로 바뀌어 온다(등급표와 같은 문자열을 읽는다). */}
-          <p className="font-body text-[13px] text-[var(--t2)]">{panel.topBlocker.grade.nextStep}</p>
+          <p className="font-body text-[13px] text-[var(--t2)]">
+            {panel.topBlocker.grade.nextStep}
+          </p>
           {/*
             ⚠️ **이 줄이 없으면 화면이 헛일을 시킨다.** 미절단 원본(`purpose='raw'`)은
             게이트를 돌려도 판정이 안 붙는다 — `PURPOSE_RULE.raw.verdicts` 가 빈 집합이라
@@ -66,8 +71,8 @@ export function SourceEligibilityClient({ panel }: { panel: SourceEligibilityPan
           panel.structurallyUnjudged &&
           panel.structurallyUnjudged < panel.topBlocker.grade.count ? (
             <p className="font-body text-[13px] text-[var(--error-ink)]">
-              그중 <b className="tabular-nums">{panel.structurallyUnjudged.toLocaleString()}편</b> 은{' '}
-              <b>게이트를 돌려도 안 풀린다</b> — 미절단 원본은 게이트가 판정하지 않는다(
+              그중 <b className="tabular-nums">{panel.structurallyUnjudged.toLocaleString()}편</b>{' '}
+              은 <b>게이트를 돌려도 안 풀린다</b> — 미절단 원본은 게이트가 판정하지 않는다(
               <span className="font-mono">purpose=raw</span>). 발췌 경로(
               <span className="font-mono">plos-extract</span>)로 가야 한다.
             </p>
@@ -101,7 +106,9 @@ export function SourceEligibilityClient({ panel }: { panel: SourceEligibilityPan
         */}
         <Stat
           label="문항이 붙은 원문"
-          value={panel.articlesWithItems == null ? '못 잼' : panel.articlesWithItems.toLocaleString()}
+          value={
+            panel.articlesWithItems == null ? '못 잼' : panel.articlesWithItems.toLocaleString()
+          }
           sub={
             panel.articlesWithItems == null
               ? '옛 스냅샷 — 다시 재야 한다'
@@ -111,13 +118,14 @@ export function SourceEligibilityClient({ panel }: { panel: SourceEligibilityPan
         />
       </section>
       <p className="font-body text-[12px] text-[var(--t3)]">
-        판정 규격 <span className="font-mono">v{panel.specVersion}</span> · 훑는 데 {panel.scanSeconds}초
+        판정 규격 <span className="font-mono">v{panel.specVersion}</span> · 훑는 데{' '}
+        {panel.scanSeconds}초
         {panel.articlesWithItems != null && panel.articlesWithItems > t.composable ? (
           <>
             {' · '}
             <b className="text-[var(--warning-ink)]">
-              {(panel.articlesWithItems - t.composable).toLocaleString()}편은 문항이 이미 있는데 원문이 판정을
-              통과하지 못한다
+              {(panel.articlesWithItems - t.composable).toLocaleString()}편은 문항이 이미 있는데
+              원문이 판정을 통과하지 못한다
             </b>
           </>
         ) : null}
@@ -166,8 +174,9 @@ function AxisTable({ axes }: { axes: AxisRow[] }) {
     <section aria-label="판정 기준" className="flex flex-col gap-2">
       <h2 className="font-display text-[15px] font-[700] text-[var(--t1)]">판정 기준 — 일곱 축</h2>
       <p className="font-body text-[12px] text-[var(--t3)]">
-        순서가 곧 판정 순서다. <b>되돌릴 수 없는 축을 먼저</b> 본다 — 그래야 “고치면 되는 문제” 와 “고칠 수 없는
-        문제” 가 사유에 섞이지 않는다. 임계값은 전부 실측에서 나온 값이고, 그 출처를 함께 적는다.
+        순서가 곧 판정 순서다. <b>되돌릴 수 없는 축을 먼저</b> 본다 — 그래야 “고치면 되는 문제” 와
+        “고칠 수 없는 문제” 가 사유에 섞이지 않는다. 임계값은 전부 실측에서 나온 값이고, 그 출처를
+        함께 적는다.
       </p>
       <div className="overflow-x-auto">
         <table className="w-full min-w-[720px] border-collapse font-body text-[13px]">
@@ -222,9 +231,10 @@ function RequirementTable({ panel }: { panel: SourceEligibilityPanel }) {
         연령 × 유형별 원문 요건
       </h2>
       <p className="font-body text-[12px] text-[var(--t3)]">
-        어느 학년에 어느 유형이 열리는지는 <b>학령 사다리 7단</b>이 정하고, 그 유형이 요구하는 지문 어수창은
-        <b> 유형 계열</b>이 정한 뒤 <b>그 학년대 시중 분포(p10~p90)</b>가 좁힌다. 좁히지 못한 칸은 그렇게 적는다 —
-        좁혀진 척하면 근거가 거짓이 된다.
+        어느 학년에 어느 유형이 열리는지는 <b>학령 사다리 7단</b>이 정하고, 그 유형이 요구하는 지문
+        어수창은
+        <b> 유형 계열</b>이 정한 뒤 <b>그 학년대 시중 분포(p10~p90)</b>가 좁힌다. 좁히지 못한 칸은
+        그렇게 적는다 — 좁혀진 척하면 근거가 거짓이 된다.
       </p>
       <div className="flex flex-col gap-3">
         {panel.requirements.map((b) => (
@@ -233,7 +243,9 @@ function RequirementTable({ panel }: { panel: SourceEligibilityPanel }) {
               <span className="font-display text-[13px] font-[700] text-[var(--t1)]">
                 {b.step}단 · {b.schoolBand}
               </span>
-              <span className="font-body text-[12px] tabular-nums text-[var(--t2)]">V{b.vLevel}</span>
+              <span className="font-body text-[12px] tabular-nums text-[var(--t2)]">
+                V{b.vLevel}
+              </span>
               <span className="font-body text-[12px] text-[var(--t3)]">{b.volumeTitle}</span>
               <span className="ml-auto font-body text-[11px] text-[var(--t3)]">
                 {b.marketBucket ? `시중 버킷 ${b.marketBucket}` : '시중 버킷 없음'}
@@ -272,7 +284,10 @@ function RequirementTable({ panel }: { panel: SourceEligibilityPanel }) {
           {families.map((f) => (
             <li key={f} className="font-body text-[11px] text-[var(--t3)]">
               <b className="text-[var(--t2)]">
-                {panel.requirements.flatMap((b) => b.types).find((t) => t.family === f)?.familyLabel}
+                {
+                  panel.requirements.flatMap((b) => b.types).find((t) => t.family === f)
+                    ?.familyLabel
+                }
               </b>{' '}
               — {panel.familySource[f]}
             </li>
@@ -308,7 +323,10 @@ function GradeTable({ grades, total }: { grades: GradeRow[]; total: number }) {
             >
               <span
                 className="block h-full rounded-[var(--r-sm)]"
-                style={{ width: `${Math.max(1, Math.round(g.pct))}%`, background: GRADE_TONE[g.grade] }}
+                style={{
+                  width: `${Math.max(1, Math.round(g.pct))}%`,
+                  background: GRADE_TONE[g.grade],
+                }}
               />
             </span>
             <span className="tabular-nums text-[var(--t1)]">{g.count.toLocaleString()}</span>
@@ -330,8 +348,8 @@ function BandTable({ bands }: { bands: BandRow[] }) {
     <section aria-label="학령별 적격" className="flex flex-col gap-2">
       <h2 className="font-display text-[15px] font-[700] text-[var(--t1)]">학령별 적격</h2>
       <p className="font-body text-[12px] text-[var(--t3)]">
-        조판 가능이 0 인 칸은 <b>그 학년 교재를 지금 만들 수 없다</b>는 뜻이다. 재고가 있어도 판정을 통과하지
-        못하면 실을 수 없다.
+        조판 가능이 0 인 칸은 <b>그 학년 교재를 지금 만들 수 없다</b>는 뜻이다. 재고가 있어도 판정을
+        통과하지 못하면 실을 수 없다.
       </p>
       <div className="overflow-x-auto">
         <table className="w-full min-w-[760px] border-collapse font-body text-[13px]">
@@ -368,9 +386,13 @@ function BandTable({ bands }: { bands: BandRow[] }) {
                   style={{ color: b.composable ? 'var(--success-ink)' : 'var(--error-ink)' }}
                 >
                   {b.composable.toLocaleString()}
-                  {b.composable === 0 ? <span className="ml-1 text-[11px]">만들 수 없음</span> : null}
+                  {b.composable === 0 ? (
+                    <span className="ml-1 text-[11px]">만들 수 없음</span>
+                  ) : null}
                 </td>
-                <td className="py-2 pr-3 text-right tabular-nums text-[var(--t2)]">{b.composablePct}%</td>
+                <td className="py-2 pr-3 text-right tabular-nums text-[var(--t2)]">
+                  {b.composablePct}%
+                </td>
                 <td className="py-2 pr-3 text-right tabular-nums text-[var(--t3)]">
                   {b.byGrade.usable.toLocaleString()}
                 </td>
@@ -397,9 +419,12 @@ function BlockedSources({ rows }: { rows: { source: string; count: number }[] })
   if (!rows.length) return null
   return (
     <section aria-label="조판 불가 원천" className="flex flex-col gap-2">
-      <h2 className="font-display text-[15px] font-[700] text-[var(--t1)]">조판 불가가 많은 원천</h2>
+      <h2 className="font-display text-[15px] font-[700] text-[var(--t1)]">
+        조판 불가가 많은 원천
+      </h2>
       <p className="font-body text-[12px] text-[var(--t3)]">
-        한 원천이 통째로 막혀 있으면 대개 <b>그 원천의 처리 단계가 밀린 것</b>이지 원천이 나쁜 것이 아니다.
+        한 원천이 통째로 막혀 있으면 대개 <b>그 원천의 처리 단계가 밀린 것</b>이지 원천이 나쁜 것이
+        아니다.
       </p>
       <ul className="flex flex-wrap gap-2">
         {rows.slice(0, 12).map((r) => (
@@ -436,14 +461,16 @@ function DefectTable({ defects }: { defects: DefectPanel }) {
           적격 판정이 통과시켜도 <b>지문으로 못 쓰는</b> 본문 — 따로 잰다
         </span>
         <span className="ml-auto font-body text-[11px] text-[var(--t3)]">
-          {defects.measuredAt.slice(0, 10)} 에 잰 값 · {defects.ageDays === 0 ? '오늘' : `${defects.ageDays}일 전`} ·{' '}
+          {defects.measuredAt.slice(0, 10)} 에 잰 값 ·{' '}
+          {defects.ageDays === 0 ? '오늘' : `${defects.ageDays}일 전`} ·{' '}
           {defects.scanned.toLocaleString()}편 훑음
         </span>
       </div>
 
       <p className="font-body text-[12px] text-[var(--t2)]">
         하나라도 걸린 편 <b className="tabular-nums">{defects.defective.toLocaleString()}편</b> (
-        {defects.defectivePct}%). 갱신: <code>pnpm dlx tsx scripts/textbook/extraction-defect-scan.mjs --all</code>
+        {defects.defectivePct}%). 갱신:{' '}
+        <code>pnpm dlx tsx scripts/textbook/extraction-defect-scan.mjs --all</code>
       </p>
 
       <div className="overflow-x-auto">
@@ -458,7 +485,7 @@ function DefectTable({ defects }: { defects: DefectPanel }) {
           </thead>
           <tbody>
             {defects.rules.map((r) => (
-              <tr key={r.id} className="border-b border-[var(--bd)]/50 align-top">
+              <tr key={r.id} className="border-[var(--bd)]/50 border-b align-top">
                 <td className="py-2 pr-3 font-[600] text-[var(--t1)]">{r.label}</td>
                 <td className="py-2 pr-3 text-right tabular-nums text-[var(--t1)]">
                   {r.count.toLocaleString()}
@@ -493,8 +520,9 @@ function DefectTable({ defects }: { defects: DefectPanel }) {
       </div>
 
       <p className="font-body text-[11px] text-[var(--t3)]">
-        이 스캔은 <b>고치지 않는다</b> — 어디에 몇 편 있는지만 센다. 무엇을 지울지는 소스별
-        추출기를 고칠 때 사람이 정한다(<code>==</code> 는 수식에도, <code>Media</code> 는 본문 낱말로도 나온다).
+        이 스캔은 <b>고치지 않는다</b> — 어디에 몇 편 있는지만 센다. 무엇을 지울지는 소스별 추출기를
+        고칠 때 사람이 정한다(<code>==</code> 는 수식에도, <code>Media</code> 는 본문 낱말로도
+        나온다).
       </p>
     </section>
   )
@@ -514,7 +542,9 @@ function Stat({
   return (
     <div className="flex flex-col gap-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-3">
       <span className="font-body text-[12px] text-[var(--t2)]">{label}</span>
-      <span className="font-display text-[20px] font-[800] tabular-nums text-[var(--t1)]">{value}</span>
+      <span className="font-display text-[20px] font-[800] tabular-nums text-[var(--t1)]">
+        {value}
+      </span>
       {sub ? (
         <span
           className="font-body text-[11px]"

@@ -11,7 +11,7 @@
 import type { HelpRegistry } from './types'
 
 export const TBP_HELP: HelpRegistry = {
-  'textbook/sources': {
+  'csat-sources': {
     title: '원문 적격',
     screen: {
       summary:

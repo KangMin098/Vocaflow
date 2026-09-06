@@ -1,4 +1,4 @@
-// apps/web/src/app/admin/__tests__/textbook-sources.test.tsx
+// apps/web/src/app/admin/csat/__tests__/sources-screen.test.tsx
 //
 // 원문 적격 화면 회귀 + 도움말 계약.
 //
@@ -18,7 +18,7 @@ import { describe, expect, it } from 'vitest'
 import { HELP_REGISTRY } from '@/lib/admin/help'
 import { buildSourceEligibilityPanel } from '@/lib/textbook/source-eligibility-view'
 
-import { SourceEligibilityClient } from '../textbook/sources/SourceEligibilityClient'
+import { SourceEligibilityClient } from '../sources/SourceEligibilityClient'
 
 const panel = buildSourceEligibilityPanel(new Date('2026-09-06T12:00:00Z'))
 const html = renderToString(<SourceEligibilityClient panel={panel} />)
@@ -211,7 +211,9 @@ describe('원문 적격 화면', () => {
 
   it('못 잰 것과 0 을 구별한다', () => {
     // 옛 스냅샷에는 두 열이 없다. 0 으로 채우면 "그런 원문은 없다" 는 거짓말이 된다.
-    expect(panel.articlesWithItems === null || typeof panel.articlesWithItems === 'number').toBe(true)
+    expect(panel.articlesWithItems === null || typeof panel.articlesWithItems === 'number').toBe(
+      true
+    )
     expect(
       panel.structurallyUnjudged === null || typeof panel.structurallyUnjudged === 'number'
     ).toBe(true)
@@ -219,7 +221,7 @@ describe('원문 적격 화면', () => {
 })
 
 describe('도움말 계약', () => {
-  const entry = HELP_REGISTRY['textbook/sources']
+  const entry = HELP_REGISTRY['csat-sources']
 
   it('레지스트리 키가 라우트 슬러그와 같다', () => {
     expect(entry).toBeTruthy()
@@ -249,11 +251,16 @@ describe('도움말 계약', () => {
   // 그래서 두 가지를 잠근다: 기본 대상이 화면이 읽는 파일일 것, 그리고 안내가
   // 그 경로를 손으로 적으라고 시키지 말 것(손으로 적는 경로는 언젠가 어긋난다).
   it('스캐너가 인자 없이도 화면이 읽는 스냅샷에 쓴다', () => {
-    const scan = readFileSync(resolve(process.cwd(), '../../scripts/textbook/source-eligibility-scan.mjs'), 'utf8')
-    expect(scan).toContain("path.resolve('apps/web/src/lib/textbook/source-eligibility-snapshot.json')")
+    const scan = readFileSync(
+      resolve(process.cwd(), '../../scripts/textbook/source-eligibility-scan.mjs'),
+      'utf8'
+    )
+    expect(scan).toContain(
+      "path.resolve('apps/web/src/lib/textbook/source-eligibility-snapshot.json')"
+    )
     // `--json` 이 없을 때 null 로 떨어지면 기본 갱신이 아니다.
     expect(scan).toContain(
-      "const JSON_OUT = NO_WRITE ? null : arg('json') ?? (ONLY_BAND ? null : SNAPSHOT_PATH)",
+      "const JSON_OUT = NO_WRITE ? null : arg('json') ?? (ONLY_BAND ? null : SNAPSHOT_PATH)"
     )
   })
 
