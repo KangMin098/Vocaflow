@@ -1,6 +1,6 @@
 {
   "$schema": "vocab-design-benchmark/1",
-  "generatedAt": "2026-09-06T12:21:40.849Z",
+  "generatedAt": "2026-09-06T12:37:17.080Z",
   "base": "http://localhost:3000",
   "specGeneratedAt": "2026-09-06T11:05:04.254Z",
   "market": {
@@ -80,7 +80,7 @@
         "missing": []
       },
       {
-        "title": "VOCAFLOW VOCABULARY ❧ 어원으로 익히는 1,500 1,500 단어",
+        "title": "VOCAFLOW VOCABULARY 5 ❧ 수능 필수 2,000 1,828 단어",
         "path": "carousel-sheet",
         "count": 17,
         "found": [
@@ -155,7 +155,7 @@
         "missing": []
       },
       {
-        "title": "VOCAFLOW VOCABULARY 5 ❧ 수능 필수 2,000 1,828 단어",
+        "title": "VOCAFLOW VOCABULARY 4 ❧ 레벨 입문 (V1-V3) 400 단어",
         "path": "carousel-sheet",
         "count": 17,
         "found": [
@@ -205,7 +205,7 @@
         "missing": []
       },
       {
-        "title": "VOCAFLOW VOCABULARY 5 ❧ 수능 필수 2,000 1,828 단어",
+        "title": "VOCAFLOW VOCABULARY 3 ❧ 교육과정 기본어휘 (중등) 1,175 단어",
         "path": "carousel-sheet",
         "count": 17,
         "found": [

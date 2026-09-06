@@ -1,6 +1,6 @@
 {
   "$schema": "vocab-choice-benchmark/1",
-  "generatedAt": "2026-09-06T10:56:51.353Z",
+  "generatedAt": "2026-09-06T12:41:20.057Z",
   "catalog": {
     "sets": 55,
     "words": 27075
@@ -22,7 +22,7 @@
       "proofread": 0
     }
   },
-  "ours": {
+  "catalogSignals": {
     "meanSignalsPerSet": 10.945,
     "rates": {
       "colophon": 1,
@@ -35,6 +35,169 @@
       "seriesGuide": 1,
       "targetGrade": 1,
       "extras": 0.982,
+      "proofread": 1
+    },
+    "index": 1.288
+  },
+  "renderedSignals": {
+    "sheets": 7,
+    "meanSignalsPerSheet": 11,
+    "rates": {
+      "colophon": 1,
+      "isbn": 1,
+      "toc": 1,
+      "studyPlan": 1,
+      "preface": 1,
+      "dayPacing": 1,
+      "reviewTest": 1,
+      "seriesGuide": 1,
+      "targetGrade": 1,
+      "extras": 1,
+      "proofread": 1
+    },
+    "perSheet": [
+      {
+        "title": "VOCAFLOW VOCABULARY 5 ❧ 수능 필수 2,000 1,828 단어",
+        "path": "carousel-sheet",
+        "found": [
+          "colophon",
+          "isbn",
+          "toc",
+          "studyPlan",
+          "preface",
+          "dayPacing",
+          "reviewTest",
+          "seriesGuide",
+          "targetGrade",
+          "extras",
+          "proofread"
+        ],
+        "missing": []
+      },
+      {
+        "title": "VOCAFLOW VOCABULARY ❧ 어원으로 익히는 1,500 1,500 단어",
+        "path": "carousel-sheet",
+        "found": [
+          "colophon",
+          "isbn",
+          "toc",
+          "studyPlan",
+          "preface",
+          "dayPacing",
+          "reviewTest",
+          "seriesGuide",
+          "targetGrade",
+          "extras",
+          "proofread"
+        ],
+        "missing": []
+      },
+      {
+        "title": "VOCAFLOW VOCABULARY 1 ❧ 빈출 어휘 2,000 1,622 단어",
+        "path": "carousel-sheet",
+        "found": [
+          "colophon",
+          "isbn",
+          "toc",
+          "studyPlan",
+          "preface",
+          "dayPacing",
+          "reviewTest",
+          "seriesGuide",
+          "targetGrade",
+          "extras",
+          "proofread"
+        ],
+        "missing": []
+      },
+      {
+        "title": "VOCAFLOW VOCABULARY 4 ❧ 레벨 중급 (V4-V7) 800 단어",
+        "path": "carousel-sheet",
+        "found": [
+          "colophon",
+          "isbn",
+          "toc",
+          "studyPlan",
+          "preface",
+          "dayPacing",
+          "reviewTest",
+          "seriesGuide",
+          "targetGrade",
+          "extras",
+          "proofread"
+        ],
+        "missing": []
+      },
+      {
+        "title": "VOCAFLOW VOCABULARY 4 ❧ 레벨 입문 (V1-V3) 400 단어",
+        "path": "carousel-sheet",
+        "found": [
+          "colophon",
+          "isbn",
+          "toc",
+          "studyPlan",
+          "preface",
+          "dayPacing",
+          "reviewTest",
+          "seriesGuide",
+          "targetGrade",
+          "extras",
+          "proofread"
+        ],
+        "missing": []
+      },
+      {
+        "title": "VOCAFLOW VOCABULARY 6 ❧ 학술 어휘 NAWL 605 단어",
+        "path": "carousel-sheet",
+        "found": [
+          "colophon",
+          "isbn",
+          "toc",
+          "studyPlan",
+          "preface",
+          "dayPacing",
+          "reviewTest",
+          "seriesGuide",
+          "targetGrade",
+          "extras",
+          "proofread"
+        ],
+        "missing": []
+      },
+      {
+        "title": "VOCAFLOW VOCABULARY 5 ❧ 수능 필수 2,000 1,828 단어",
+        "path": "carousel-sheet",
+        "found": [
+          "colophon",
+          "isbn",
+          "toc",
+          "studyPlan",
+          "preface",
+          "dayPacing",
+          "reviewTest",
+          "seriesGuide",
+          "targetGrade",
+          "extras",
+          "proofread"
+        ],
+        "missing": []
+      }
+    ]
+  },
+  "basis": "rendered",
+  "ours": {
+    "meanSignalsPerSet": 11,
+    "rates": {
+      "colophon": 1,
+      "isbn": 1,
+      "toc": 1,
+      "studyPlan": 1,
+      "preface": 1,
+      "dayPacing": 1,
+      "reviewTest": 1,
+      "seriesGuide": 1,
+      "targetGrade": 1,
+      "extras": 1,
       "proofread": 1
     }
   },
@@ -61,24 +224,24 @@
   "catalogLevelBeyond": [
     "개인 맞춤 추천 — 진단 V-Level·트랙 기반으로 권을 골라 **이유와 함께** 보여 준다 (`recommend_word_sets_for_user`). 권별 비율이 아니라 화면 전체의 성질이라 지수에 넣지 않는다."
   ],
-  "choiceIndex": 1.288,
+  "choiceIndex": 1.294,
   "perSignalRatio": {
     "colophon": 1,
     "isbn": 1,
-    "toc": 0.964,
+    "toc": 1,
     "studyPlan": 1,
     "preface": 4,
     "dayPacing": 1,
     "reviewTest": 1,
     "seriesGuide": 1.333,
     "targetGrade": 1,
-    "extras": 1.964,
+    "extras": 2,
     "proofread": null
   },
   "weakest": [
-    "toc",
     "colophon",
     "isbn",
+    "toc",
     "studyPlan",
     "dayPacing"
   ]

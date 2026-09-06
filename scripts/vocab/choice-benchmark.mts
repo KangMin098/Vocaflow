@@ -238,13 +238,98 @@ const catalogLevelBeyond = [
   + ' (`recommend_word_sets_for_user`). 권별 비율이 아니라 화면 전체의 성질이라 지수에 넣지 않는다.',
 ]
 
+// ── 지면 실측 — **학습자가 실제로 보는가** ─────────────────────────
+//
+// ⚠️ 위의 계산은 `VocabSetPreviewModal` 의 렌더 조건을 옮겨 적은 것이다. 그런데 그 모달은
+//    `/library/vocab` 에서 **열리지 않는다**(실측 2026-09-06 · `#vocab-preview-title` 0).
+//    이 파일 머리주석이 스스로 정한 기준("DB 에 값이 있다 가 아니라 학습자가 본다")을
+//    그동안 어기고 있었던 것이고, 그래서 1.288 이라는 값이 닿지 않는 화면의 것이었다.
+//
+//    그래서 **지면을 열어 다시 센다.** DB 쪽 값은 버리지 않고 `catalogSignals`(재고)로 남긴다 —
+//    독해 쪽 벤치마크가 창고와 출간물을 함께 보는 것과 같은 이유다. 보고하는 지수는 지면 쪽이다.
+const RENDERED = !process.argv.includes('--no-rendered')
+const baseFlagIdx = process.argv.indexOf('--base')
+const BASE = baseFlagIdx >= 0 ? process.argv[baseFlagIdx + 1]! : 'http://localhost:3000'
+const sampleIdx = process.argv.indexOf('--samples')
+const SAMPLES = sampleIdx >= 0 ? Number(process.argv[sampleIdx + 1]) : 8
+
+/** 지면에서 그 신호를 찾는 법. 시장 쪽과 같은 모양(추출 글자 + 정규식)이다. */
+const RENDERED_PROBE: Record<SignalKey, (text: string, html: string) => boolean> = {
+  colophon: (_t, h) => /aria-label="판권면"/.test(h),
+  isbn: (t) => /판권 번호/.test(t),
+  toc: (t) => /색인/.test(t),
+  studyPlan: (t) => /학습 계획/.test(t),
+  preface: (t) => /(묶음 원리|표제어 선정)/.test(t),
+  dayPacing: (t) => /하루\s*\d+\s*개/.test(t),
+  reviewTest: (t) => /(DAILY TEST|누적 복습)/.test(t),
+  seriesGuide: (t) => /사다리/.test(t),
+  targetGrade: (t) => /대상 수준/.test(t),
+  // 부가자료 — 발음 표기가 지면에 실제로 찍히는가.
+  extras: (t) => /\/[^/\n]{2,}\//.test(t),
+  proofread: (t) => /자동 검수/.test(t),
+}
+
+interface RenderedResult {
+  sheets: number
+  meanSignalsPerSheet: number
+  rates: Record<SignalKey, number>
+  perSheet: Array<{ title: string; path: string; found: SignalKey[]; missing: SignalKey[] }>
+}
+
+let rendered: RenderedResult | null = null
+if (RENDERED) {
+  const { sampleSheets } = await import('./_sheet-sampler.mts')
+  const { sheets, browser } = await sampleSheets(BASE, SAMPLES)
+  await browser.close()
+  if (sheets.length === 0) {
+    console.error(`지면을 하나도 열지 못했다 — ${BASE} 가 떠 있는지 확인할 것 (--no-rendered 로 건너뛸 수 있다).`)
+    process.exit(1)
+  }
+  const perSheet = sheets.map((s) => {
+    const found = SIGNAL_KEYS.filter((k) => RENDERED_PROBE[k](s.text, s.html))
+    return {
+      title: s.title,
+      path: s.path,
+      found,
+      missing: SIGNAL_KEYS.filter((k) => !found.includes(k)),
+    }
+  })
+  rendered = {
+    sheets: perSheet.length,
+    meanSignalsPerSheet: Number(
+      (perSheet.reduce((a, b) => a + b.found.length, 0) / perSheet.length).toFixed(3),
+    ),
+    rates: Object.fromEntries(
+      SIGNAL_KEYS.map((k) => [
+        k,
+        Number((perSheet.filter((p) => p.found.includes(k)).length / perSheet.length).toFixed(3)),
+      ]),
+    ) as Record<SignalKey, number>,
+    perSheet,
+  }
+}
+
 const n = sets.length
+/** 보고에 쓰는 우리 쪽 보유율 — 지면을 쟀으면 지면 값, 못 쟀으면 재고 값. */
 const ourRates = Object.fromEntries(
   SIGNAL_KEYS.map((k) => [k, n === 0 ? 0 : Number((hit[k] / n).toFixed(3))]),
 ) as Record<SignalKey, number>
 const ourMean = n === 0 ? 0 : perSet.reduce((a, b) => a + b.signals.length, 0) / n
 const marketMean: number = spec.shelfSignals.meanSignalsPerBook
-const index = Number((ourMean / marketMean).toFixed(3))
+/** 재고 지수 — DB 조건으로 센 값. 참고용이고 **보고하는 지수가 아니다.** */
+const catalogIndex = Number((ourMean / marketMean).toFixed(3))
+/**
+ * 보고하는 선택 지수 — **지면에서 잰 것**.
+ *
+ * 지면을 못 열었을 때만 재고 값으로 떨어진다(`--no-rendered`). 그때 리포트의 `basis` 가
+ * `catalog` 로 찍히므로, 나중에 이 숫자를 인용하는 사람이 무엇을 잰 값인지 알 수 있다.
+ */
+const index = rendered
+  ? Number((rendered.meanSignalsPerSheet / marketMean).toFixed(3))
+  : catalogIndex
+
+const reportedRates: Record<SignalKey, number> = rendered ? rendered.rates : ourRates
+const reportedMean = rendered ? rendered.meanSignalsPerSheet : Number(ourMean.toFixed(3))
 
 const report = {
   $schema: 'vocab-choice-benchmark/1',
@@ -255,10 +340,17 @@ const report = {
     meanSignalsPerBook: marketMean,
     rates: spec.shelfSignals.rates,
   },
-  ours: { meanSignalsPerSet: Number(ourMean.toFixed(3)), rates: ourRates },
+  /**
+   * **재고** — DB 조건으로 센 값(발행 55권 전부). 학습자가 그 화면을 여는지는 말하지 않는다.
+   * 독해 쪽 `market-benchmark.mjs` 의 창고/출간물 구분과 같은 자리다.
+   */
+  catalogSignals: { meanSignalsPerSet: Number(ourMean.toFixed(3)), rates: ourRates, index: catalogIndex },
+  /** **지면** — 실제로 열어 센 값. 보고하는 지수는 이쪽이다. */
+  renderedSignals: rendered,
+  basis: rendered ? 'rendered' : 'catalog',
+  /** 하위호환 — 예전 리포트를 읽던 곳이 있어 남긴다. 값은 지면 쪽이다. */
+  ours: { meanSignalsPerSet: reportedMean, rates: reportedRates },
   /** 지수에 **넣지 않은** 우위 — 시장에 그 칸이 아예 없어 같은 자로 못 잰다. */
-  beyondMarket,
-  catalogLevelBeyond,
   beyondMarket,
   catalogLevelBeyond,
   choiceIndex: index,
@@ -266,12 +358,12 @@ const report = {
   perSignalRatio: Object.fromEntries(
     SIGNAL_KEYS.map((k) => {
       const m = spec.shelfSignals.rates[k]
-      return [k, m ? Number((ourRates[k] / m).toFixed(3)) : null]
+      return [k, m ? Number((reportedRates[k] / m).toFixed(3)) : null]
     }),
   ),
   weakest: [...SIGNAL_KEYS]
     .filter((k) => spec.shelfSignals.rates[k] > 0)
-    .sort((a, b) => ourRates[a] / spec.shelfSignals.rates[a] - ourRates[b] / spec.shelfSignals.rates[b])
+    .sort((a, b) => (reportedRates[a] ?? 0) / spec.shelfSignals.rates[a] - (reportedRates[b] ?? 0) / spec.shelfSignals.rates[b])
     .slice(0, 5),
 }
 
@@ -291,12 +383,14 @@ if (process.argv.includes('--json')) {
     const r = report.perSignalRatio[k]
     const mark = r == null ? '  —' : r >= 1.2 ? ' ▲' : r >= 1 ? ' =' : ' ▼'
     console.info(
-      `  ${pad(k, 12)} 우리 ${pad((ourRates[k] * 100).toFixed(1) + '%', 7)}`
+      `  ${pad(k, 12)} 우리 ${pad((reportedRates[k] * 100).toFixed(1) + '%', 7)}`
       + ` 시장 ${pad((m * 100).toFixed(1) + '%', 7)}${mark} ${r == null ? '' : r.toFixed(2)}`,
     )
   }
   console.info('')
-  console.info(`  한 권당 선택 근거   우리 ${ourMean.toFixed(2)}개  ·  시중 ${marketMean.toFixed(2)}개`)
+  console.info(`  한 권당 선택 근거   우리 ${reportedMean.toFixed(2)}개  ·  시중 ${marketMean.toFixed(2)}개`)
+  console.info(`  잰 것: ${report.basis === 'rendered' ? `지면 ${rendered.sheets}개 (학습자가 실제로 여는 화면)` : '재고 (DB 조건 — 화면 확인 안 함)'}`)
+  if (report.basis === 'rendered') console.info(`  참고 · 재고 지수 ${catalogIndex.toFixed(2)} (발행 ${n}권 DB 조건)`)
   console.info(`  **선택 지수 = ${index.toFixed(2)}**  (목표 1.20 → 한 권당 ${(marketMean * 1.2).toFixed(2)}개)`)
   console.info('')
   console.info(`  가장 약한 신호: ${report.weakest.join(' · ')}`)

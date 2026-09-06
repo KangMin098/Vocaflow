@@ -71,6 +71,12 @@ export interface VocabSpreadData {
     volume: string
     sourcePolicy: string
     review: string
+    /** 시중 ISBN 자리. slug 가 없는 세트는 null — 지어낸 번호는 인용할 수 없다. */
+    imprintCode: string | null
+    /** 일곱 계단 중 이 권의 자리. `[5]` 처럼 대괄호가 선 칸이 지금 권이다. */
+    ladderStrip: string[]
+    ladderStep: number | null
+    targetLevel: string
   } | null
   apparatus: string[]
   previewDays: number
@@ -315,6 +321,8 @@ export function VocabSpreadSheet({ setId }: { setId: string }) {
                 ['구성', data.colophon.volume],
                 ['표제어 선정', data.colophon.selection],
                 ['검수', data.colophon.review.includes('0/0') ? '' : data.colophon.review],
+                ['대상 수준', data.colophon.targetLevel],
+                ['판권 번호', data.colophon.imprintCode ?? ''],
               ] as Array<[string, string]>
             )
               .filter(([, v]) => v)
@@ -325,6 +333,36 @@ export function VocabSpreadSheet({ setId }: { setId: string }) {
                 </div>
               ))}
           </dl>
+          {/*
+            사다리 — 시중 단어장의 뒤표지가 하는 일(다음에 무엇을 볼지). **계단 밖이어도 띠는
+            그린다** — 어느 칸도 세우지 않을 뿐이다. 띠를 통째로 빼면 그 권만 시리즈에서
+            떨어져 나온 것처럼 보인다.
+          */}
+          <div className="mt-3 flex items-center gap-2" aria-label="시리즈 사다리">
+            <span className="font-body text-[11px] text-[var(--t3)]">사다리</span>
+            <div className="flex gap-1">
+              {data.colophon.ladderStrip.map((mark, i) => {
+                const here = mark.startsWith('[')
+                return (
+                  <span
+                    key={i}
+                    className="inline-flex h-5 w-5 items-center justify-center rounded-[3px] font-mono text-[10px]"
+                    style={
+                      here
+                        ? { background: 'var(--p)', color: 'var(--on-p)' }
+                        : { border: '1px solid var(--bd)', color: 'var(--t3)' }
+                    }
+                  >
+                    {i + 1}
+                  </span>
+                )
+              })}
+            </div>
+            {data.colophon.ladderStep == null && (
+              <span className="font-body text-[11px] text-[var(--t3)]">학령 밖</span>
+            )}
+          </div>
+
           <p className="mt-2 font-body text-[11px] leading-relaxed text-[var(--t3)]">
             {data.colophon.sourcePolicy}
           </p>

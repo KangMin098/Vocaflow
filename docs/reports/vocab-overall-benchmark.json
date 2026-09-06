@@ -1,6 +1,6 @@
 {
   "$schema": "vocab-overall-benchmark/1",
-  "generatedAt": "2026-09-06T12:21:56.644Z",
+  "generatedAt": "2026-09-06T12:41:26.467Z",
   "goal": 1.2,
   "axes": [
     {
@@ -16,10 +16,10 @@
       "id": "choice",
       "label": "선택 지수",
       "says": "고르기 전에 줄 근거가 있나",
-      "index": 1.288,
+      "index": 1.294,
       "ceiling": null,
-      "attainment": 1.073,
-      "generatedAt": "2026-09-06T10:56:51.353Z"
+      "attainment": 1.078,
+      "generatedAt": "2026-09-06T12:41:20.057Z"
     },
     {
       "id": "design",
@@ -28,10 +28,10 @@
       "index": 1.153,
       "ceiling": 1.153,
       "attainment": 1,
-      "generatedAt": "2026-09-06T12:21:40.849Z"
+      "generatedAt": "2026-09-06T12:37:17.080Z"
     }
   ],
-  "overall": 1.344,
+  "overall": 1.346,
   "pass": true,
   "weakAxes": [],
   "method": "기하평균 — 비율의 평균은 기하평균이고 한 축이 0 에 가까우면 종합도 끌어내려야 맞다. 지면 지수는 장치가 있거나 없거나라 천장(17종 ÷ 시장 평균)이 있으므로 그 축의 목표는 1.20 이 아니라 천장이다. 120% 판정은 종합으로 한다."

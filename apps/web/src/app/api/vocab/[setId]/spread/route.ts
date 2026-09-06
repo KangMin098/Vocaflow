@@ -18,7 +18,7 @@
 import { NextResponse } from 'next/server'
 import { setKindOf } from '@/lib/library/vocab/set-kind'
 import { createAdminClient } from '@/lib/supabase/admin'
-import { buildVocabColophon, VOCAB_SERIES_BRAND } from '@vocaflow/library-pipeline/vocab-brand'
+import { buildVocabColophon, ladderStrip, VOCAB_SERIES_BRAND } from '@vocaflow/library-pipeline/vocab-brand'
 import { typesetVocabSet, type TypesetWord } from '@vocaflow/library-pipeline/vocab-typeset'
 
 export const dynamic = 'force-dynamic'
@@ -47,8 +47,7 @@ export async function GET(
 
   const { data: setRow, error: setErr } = await supabase
     .from('shared_word_sets')
-    // `ladder_step` 은 생성된 타입에 없다(스키마 타입이 그 컬럼을 아직 모른다). 쓰지 않으므로 뺀다.
-    .select('id, title, is_published, curation_query, created_at')
+    .select('id, title, is_published, curation_query, created_at, slug, version')
     .eq('id', setId)
     .maybeSingle()
   if (setErr) return NextResponse.json({ error: setErr.message }, { status: 500 })
@@ -135,11 +134,30 @@ export async function GET(
     값은 지어내지 않는다 — 각인(`scripts/vocab/stamp-imprint.mts`) 전 세트는 검수 수치가
     없으므로 그 줄이 빠진 채로 내려간다.
   */
+  const slug = (setRow as { slug?: string | null }).slug ?? null
+  /*
+    ⚠️ `ladder_step` 은 **생성된 스키마 타입에 없다**(DB 에는 있고 `queries.ts` 도 읽는다 —
+       타입만 낡았다). 위 select 에 넣으면 그 한 컬럼 때문에 행 전체가 SelectQueryError 로
+       추론돼 나머지 필드까지 다 깨진다. 그래서 **따로** 읽는다. 타입을 다시 생성하면
+       이 두 번째 질의를 지우고 위 select 에 합칠 수 있다.
+  */
+  const { data: stepRow } = await (supabase as unknown as {
+    from: (t: string) => {
+      select: (c: string) => {
+        eq: (k: string, v: string) => { maybeSingle: () => Promise<{ data: { ladder_step: number | null } | null }> }
+      }
+    }
+  })
+    .from('shared_word_sets')
+    .select('ladder_step')
+    .eq('id', setId)
+    .maybeSingle()
+  const ladderStep = stepRow?.ladder_step ?? null
   const qa = (cq as { qa?: { checked?: number; passed?: number } }).qa
   const level = (cq as { level?: { median: number; min: number; max: number; measured: number } }).level
   const colophon = buildVocabColophon({
     title: (setRow as { title: string }).title,
-    step: null,
+    step: ladderStep,
     schoolBand: null,
     vLevel: level?.median ?? 0,
     selection: principle ?? '',
@@ -162,7 +180,26 @@ export async function GET(
     reviews: spread.reviews.slice(0, 2),
     indexSize: spread.index.length,
     indexHead: spread.index.slice(0, 12),
-    colophon: { brand: VOCAB_SERIES_BRAND, ...colophon },
+    /*
+      판권면에 세 줄을 더 싣는다 — 렌더 기준으로 선택 지수를 재니 **0.94** 였고, 못 준 것이
+      정확히 이 셋이었다(실측 2026-09-06: `isbn` · `seriesGuide` · `targetGrade` 전부 0%).
+      셋 다 시중 단어장이 반드시 싣는 칸이고 우리도 값을 갖고 있었다 — 지면에 자리가 없었을 뿐이다.
+
+      · 판권 번호 — `queries.ts` 와 **같은 규칙**으로 만든다(slug 없으면 만들지 않는다.
+        id 로 지어내면 학습자가 인용할 수 없는 값이 된다).
+      · 사다리 — 일곱 계단 중 이 권의 자리. 계단 밖이어도 띠는 그린다(어느 칸도 안 세운다) —
+        띠를 통째로 빼면 그 권만 시리즈에서 떨어져 나온 것처럼 보인다.
+      · 대상 수준 — 계단이 있으면 계단, 없으면 각인된 V-Level 중앙값. 사다리 밖이라고
+        수준이 없는 것이 아니다.
+    */
+    colophon: {
+      brand: VOCAB_SERIES_BRAND,
+      ...colophon,
+      imprintCode: slug ? `VF-${slug}-v${(setRow as { version?: number }).version ?? 1}` : null,
+      ladderStrip: ladderStrip(ladderStep),
+      ladderStep,
+      targetLevel: colophon.ladder,
+    },
     apparatus: spread.apparatus,
     previewDays: PREVIEW_DAYS,
     truncated: rows.length >= MAX_WORDS,
