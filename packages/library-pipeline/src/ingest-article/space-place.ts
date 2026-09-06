@@ -116,6 +116,31 @@ export async function listSpacePlaceFeed(
 }
 
 /**
+ * 태그 하나를 삼키는 규칙 — **따옴표로 닫힌 속성값 안은 통째로 건너뛴다.**
+ *
+ * ⚠️ 흔한 `<[^>]*>` 는 **속성값 안의 `<`** 에서 멈춘다. Space Place 는 낱말 풀이를
+ *   속성에 통째로 싣는데 그 값 안에 태그가 들어 있다 (실측 2026-09-06 `/galaxy/en/` 원본):
+ *
+ *     <span class="definition" definitiontext="A <strong>supermassive black hole</strong> is the
+ *       biggest kind of black hole. … pulls in everything around it." clicked="0">supermassive black hole</span>
+ *
+ *   `<[^>]*>` 는 `…definitiontext="A <strong>` 까지만 먹고 끝나 속성 나머지가 본문으로 샌다:
+ *     "…also has a supermassive black hole is the biggest kind of black hole. Its gravity …
+ *      pulls in everything around it." clicked="0">supermassive black hole in the middle."
+ *   실측: 내려받은 42편 중 **4편**의 본문에 `clicked="0">` 가 그대로 남아 문장이 파열돼 있었다.
+ *
+ *   그래서 `<` 뒤를 (따옴표 밖 문자) 와 (`=` 뒤에 오는 따옴표 구간) 의 반복으로 읽는다.
+ *   값 안의 홑따옴표(`our sun's`)도, 홑따옴표로 쓴 중첩 속성(`<img src='…' width='95%'>` —
+ *   실측 `/galaxy/en/` 의 Hubble 풀이)도 둘 다 실측 형태라 양쪽을 받는다.
+ *
+ *   ⚠️ 따옴표 건너뛰기를 `=` 뒤로 한정한 것은 **오탐 방지**다. 그냥 따옴표만 보면
+ *   `<p title=don't>` 같은 비따옴표 속성에서 본문의 다음 `'` 까지 삼킨다.
+ *   ⚠️ 두 번째 대안 `<[^>]*>` 는 **되돌림 안전판**이다 — 따옴표가 열리고 안 닫힌 깨진
+ *   마크업에서 첫 대안이 실패해도 예전과 똑같이 동작해 `<` 가 본문에 남지 않는다.
+ */
+const HTML_TAG = /<[^>"']*(?:=\s*(?:"[^"]*"|'[^']*')[^>"']*)*>|<[^>]*>/g
+
+/**
  * 본문 문단만 뽑는다 — **발췌기가 문단 배열을 받기 때문에** 이어붙이지 않고 배열로 돌려준다.
  *
  * ⚠️ 8낱말 미만은 캡션·버튼이라 뺀다. 안 빼면 "More about this" 같은 조각이
@@ -123,15 +148,38 @@ export async function listSpacePlaceFeed(
  */
 export function spacePlaceParagraphs(html: string): string[] {
   const h = String(html)
-    .replace(/<head[\s\S]*?<\/head>/i, ' ')
     .replace(/<script[\s\S]*?<\/script>/gi, ' ')
     .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+    // ⚠️ **HTML 주석을 지운다 — 이게 없으면 브라우저 안내가 언제나 첫 문단이다.**
+    //   `<body>` 바로 다음에 IE 조건부 주석이 있고 그 안에 `<p>` 가 들어 있다(실측 2026-09-06,
+    //   내려받은 42편 **전부**가 같은 틀을 쓴다):
+    //     <!--[if lt IE 7]>
+    //         <div class = "outdated-browser-warning">
+    //             <p> You are using an outdated browser. For a faster, safer, … upgrade for free today. …
+    //   18낱말이라 아래 8낱말 문턱을 넘어 **offset 0 의 첫 문단**이 됐다. 98~189낱말짜리 짧은
+    //   설명글에서는 이것만으로 앞머리가 브라우저 안내로 바뀌어, 멀쩡한 글이 판정에서
+    //   `fragmentary` 로 반려됐다.
+    //   오탐 위험 없음 — 조건부 주석 안에 본문이 없다(그래서 주석이다). script 를 먼저 지우는
+    //   것은 JS 문자열 안의 `-->` 가 주석 끝으로 오인되는 것을 막는 순서다(실측 42편 중 0건이지만
+    //   순서가 공짜다).
+    .replace(/<!--[\s\S]*?-->/g, ' ')
+    .replace(/<head[\s\S]*?<\/head>/i, ' ')
     .replace(/<nav[\s\S]*?<\/nav>/gi, ' ')
     .replace(/<footer[\s\S]*?<\/footer>/gi, ' ')
-  return [...h.matchAll(/<p[^>]*>([\s\S]*?)<\/p>/gi)]
+  return [...h.matchAll(/<p\b([^>]*)>([\s\S]*?)<\/p>/gi)]
+    // ⚠️ **사진 설명은 구조로 뺀다** — `Credit: NASA` 를 문자열로 지우면 본문 산문에 정당하게
+    //   나오는 것까지 지운다(`_helpers.ts` 에 캡션을 문장 필터로 잡으려다 실패한 기록이 있다).
+    //   Space Place 는 `<p class="caption">` 이라는 표지를 직접 달아 준다 — 실측 42편에 118개,
+    //   `class = "caption"` 처럼 공백을 넣은 것 8개 포함. 전수로 훑어보니 **전부 사진·위젯 설명**
+    //   이고 본문 산문은 한 건도 없었다. 여기에 위젯 조작 안내
+    //   ("Explore Earth! Click and drag to rotate Earth. …" 11편) 와 출처 표기
+    //   ("… Credit: NASA/JPL-Caltech" 26편) 가 모두 들어 있다.
+    //   ⚠️ 이 필터는 `class` 에 `caption` 이 있는 `<p>` 만 본다 — `<figcaption>`·`<figure>` 는
+    //   이 사이트에 0건이라 일부러 다루지 않는다(없는 것을 지키는 규칙은 낡는다).
+    .filter((m) => !/\bclass\s*=\s*["'][^"']*\bcaption\b/i.test(m[1]!))
     .map((m) =>
-      m[1]!
-        .replace(/<[^>]*>/g, ' ')
+      m[2]!
+        .replace(HTML_TAG, ' ')
         .replace(/&nbsp;/g, ' ')
         .replace(/&#(\d+);/g, (_, d: string) => String.fromCharCode(Number(d)))
         .replace(/&#x([0-9a-f]+);/gi, (_, d: string) => String.fromCharCode(parseInt(d, 16)))
@@ -146,7 +194,9 @@ export function spacePlaceParagraphs(html: string): string[] {
 export function spacePlaceTitle(html: string): string | null {
   const h1 = String(html).match(/<h1[^>]*>([\s\S]*?)<\/h1>/i)?.[1]
   const t = (h1 ?? String(html).match(/<title>([^<]+)<\/title>/i)?.[1] ?? '')
-    .replace(/<[^>]*>/g, ' ')
+    // 본문과 같은 규칙을 쓴다 — 제목에도 낱말 풀이 `<span>` 이 붙을 수 있고, 그때
+    // `<[^>]*>` 면 속성값이 제목으로 샌다.
+    .replace(HTML_TAG, ' ')
     .replace(/&[a-z]+;/gi, ' ')
     .replace(/\|?\s*NASA Space Place.*$/i, '')
     .replace(/\s+/g, ' ')

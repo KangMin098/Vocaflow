@@ -38,7 +38,16 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-import { mediawikiRandom, mediawikiAllpages, mediawikiLead } from './_mediawiki.mjs'
+// `countWords`·`trimToWindow` 도 여기서 가져온다 — **개행 규약과 같은 파일에 둔다.**
+// 수확기가 문단 경계(빈 줄)를 살려 주는데 자르기가 `' '` 로 다시 이으면 그 자리가 도로
+// 뭉개진다. 규약을 만든 쪽과 읽는 쪽이 갈려 있으면 한쪽만 고쳐도 조용히 어긋난다.
+import {
+  mediawikiRandom,
+  mediawikiAllpages,
+  mediawikiLead,
+  countWords,
+  trimToWindow,
+} from './_mediawiki.mjs'
 
 for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
   const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/)
@@ -159,26 +168,7 @@ if (warm) console.log(`REST 예열 ${warm.ok ? `${warm.ms}ms (${warm.attempts}�
 const vMap = V_RANGE ? await loadVLevelMap(db) : null
 if (vMap) console.log(`사전 ${vMap.size.toLocaleString()}낱말 적재`)
 
-const countWords = (s) => s.split(/\s+/).filter(Boolean).length
-
-/**
- * 긴 도입부를 **앞에서 문장 단위로** 끊어 창에 넣는다.
- *
- * 백과 도입부는 첫 문장이 정의라 앞을 남기는 편이 자립적이다(`standaloneFit` 이 그것을 본다).
- * 창에 못 들면 `null` — 억지로 넣지 않는다. 한 문장이 이미 창을 넘으면 그 글은 이 창의 글이 아니다.
- */
-function trimToWindow(text, min, max) {
-  const sentences = text.split(/(?<=[.!?])\s+/).filter(Boolean)
-  let out = ''
-  for (const s of sentences) {
-    const next = out ? `${out} ${s}` : s
-    if (countWords(next) > max) break
-    out = next
-    // 최소치를 넘겼으면 거기서 멈춘다 — 길수록 좋은 것이 아니라 창 안이면 된다.
-    if (countWords(out) >= min) return out
-  }
-  return null
-}
+// `countWords` · `trimToWindow` 는 `_mediawiki.mjs` 에 있다(위 import 주석 참조).
 
 const sample =
   PICK === 'random'

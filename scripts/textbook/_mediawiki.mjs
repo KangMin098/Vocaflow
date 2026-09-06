@@ -122,6 +122,93 @@ export async function mediawikiAllpages(api, n, { minSize = 2000, from = null, .
 }
 
 /**
+ * 평문 추출 질의 URL — **`exsectionformat=plain` 이 여기 있어야 하는 이유.**
+ *
+ * ⚠️ 이 파라미터가 **여기만 빠져 있었다.** 정규 ingester
+ * (`packages/library-pipeline/src/ingest-article/_mediawiki.ts`)는
+ * `prop=extracts|info&explaintext=1&exsectionformat=plain&inprop=url` 로 부르는데
+ * 이 수확기는 `explaintext=1` 까지만 줬다. `exsectionformat` 의 MediaWiki **기본값은
+ * `wiki`** 라, 같은 API·같은 위키인데 이쪽으로만 `== Plot ==` 이 그대로 딸려 왔다.
+ *
+ * 실측(2026-09-06, 위키 계열 199편 전수): `== X ==` 가 든 글이
+ * wikipedia 0편 · wikivoyage 0편 · **simple_wikipedia 35편/74개**.
+ * 74개를 전수 확인하니 **전부 절 표제**다(References 16 · Other websites 4 · History 3 ·
+ * Track listing 2 · Body 2 · Home 2 · Career 2 · Plot · Programs · Cast …) — 수식·코드 오탐 0.
+ * 즉 이 구멍은 "정규 경로가 못 거른 마크업" 이 아니라 **이 경로만 다르게 물어본 결과**다.
+ *
+ * ⚠️ 그래서 고치는 자리는 **질의**이지 본문이 아니다. 받아 놓고 `==` 를 지우는 규칙은
+ * 넣지 않는다 — 같은 규칙을 다른 원천에 걸면 오탐이 난다(plos 250편 표본에서
+ * `gene_biotype == 'snoRNA'` 같은 비교 연산자가 1건 걸렸다).
+ */
+export function mediawikiExtractUrl(api, title, { intro = true } = {}) {
+  return (
+    `${api}?action=query&prop=extracts&explaintext=1&exsectionformat=plain` +
+    `${intro ? '&exintro=1' : ''}` +
+    `&titles=${encodeURIComponent(title)}&format=json`
+  )
+}
+
+/**
+ * 추출 본문의 공백 정규화 — **줄바꿈은 살리고 가로 공백만 접는다.**
+ *
+ * ⚠️ 예전에는 `replace(/\s+/g, ' ')` 였다. 줄바꿈까지 공백으로 뭉개면 **문단 경계가 사라지고,
+ * 절 표제가 앞 문장 뒤에 그냥 이어 붙는다** — `…lives in Ohio. Plot The film opens…` 처럼.
+ * `exsectionformat=plain` 을 줘도 표제 자체는 **자기 줄에 남아서** 온다(`==` 만 사라진다).
+ * 그러니 표제를 문장으로 오독하지 않게 하는 것은 개행이다.
+ *
+ * 규모: 위키 3원천(wikipedia 92 · simple_wikipedia 99 · wikivoyage 8)에 그런 자리가
+ * **941군데**다. 그리고 simple_wikipedia 99편 중 **59편(59.6%)은 줄바꿈이 아예 없다** —
+ * 이 함수가 뭉갠 결과가 그대로 DB 에 남은 것이다(이번 변경은 수확기만이다. 이미 저장된
+ * 행은 건드리지 않는다).
+ *
+ * 접는 것: 가로 공백(스페이스·탭·NBSP 등)·줄 끝 공백·CRLF·빈 줄 3연속 이상.
+ * 남기는 것: 문단 경계 한 칸(`\n\n`)과 줄 경계(`\n`).
+ */
+export function normalizeExtract(raw) {
+  return String(raw ?? '')
+    .replace(/\r\n?/g, '\n') // CRLF·CR → LF
+    .replace(/[^\S\n]+/g, ' ') // 가로 공백만 접는다 — `\s` 를 쓰면 개행이 같이 죽는다
+    .replace(/ *\n */g, '\n') // 줄 앞뒤에 남은 공백 제거
+    .replace(/\n{3,}/g, '\n\n') // 빈 줄은 최대 하나 — 문단 경계로 충분하다
+    .trim()
+}
+
+/** 낱말 수. `\s` 로 갈라도 개행은 낱말을 만들지 않으므로 정규화 전후 값이 같다. */
+export const countWords = (s) => String(s ?? '').split(/\s+/).filter(Boolean).length
+
+/**
+ * 긴 글을 **앞에서 문장 단위로** 끊어 어수 창에 넣는다.
+ *
+ * 백과 도입부는 첫 문장이 정의라 앞을 남기는 편이 자립적이다(`standaloneFit` 이 그것을 본다).
+ * 창에 못 들면 `null` — 억지로 넣지 않는다. 한 문장이 이미 창을 넘으면 그 글은 이 창의 글이 아니다.
+ *
+ * ⚠️ **문장 사이의 공백을 그대로 들고 간다.** 예전에는 `split(/(?<=[.!?])\s+/)` 로 갈라
+ * `' '` 로 다시 이었는데, 그러면 `normalizeExtract` 가 살려 둔 문단 경계가 **여기서 다시
+ * 뭉개진다.** 적재되는 글의 대부분이 이 자르기를 거치므로(전문을 받아 창만큼 뗀다),
+ * 이 줄을 안 고치면 위쪽 수정이 사실상 무효가 된다.
+ *
+ * 이 함수가 수확기 쪽에 있는 이유: 개행 규약을 만든 쪽이 그 규약을 읽는 법도 함께 준다.
+ * 규약과 소비자가 다른 파일에 있으면 한쪽만 바뀌어도 조용히 어긋난다.
+ */
+export function trimToWindow(text, min, max) {
+  // 캡처 그룹을 두면 `split` 이 구분자(문장 사이 공백)도 배열에 넣는다 →
+  // [문장0, 공백0, 문장1, 공백1, …]. `filter(Boolean)` 을 걸면 짝이 깨지므로 걸지 않는다.
+  const parts = String(text ?? '').split(/(?<=[.!?])(\s+)/)
+  let out = ''
+  for (let i = 0; i < parts.length; i += 2) {
+    const s = parts[i]
+    if (!s) continue
+    const gap = i === 0 ? '' : (parts[i - 1] ?? ' ')
+    const next = out ? `${out}${gap}${s}` : s
+    if (countWords(next) > max) break
+    out = next
+    // 최소치를 넘겼으면 거기서 멈춘다 — 길수록 좋은 것이 아니라 창 안이면 된다.
+    if (countWords(out) >= min) return out.trim()
+  }
+  return null
+}
+
+/**
  * MediaWiki 평문 추출.
  *
  * `intro: true`(기본)면 도입부(`exintro`)만, `false` 면 본문 전체를 준다.
@@ -132,16 +219,12 @@ export async function mediawikiAllpages(api, n, { minSize = 2000, from = null, .
  * 자르기로는 못 푼다. **없는 문장을 만들 수는 없다.**
  */
 export async function mediawikiLead(api, title, { intro = true, ...opts } = {}) {
-  const r = await mediawikiGet(
-    `${api}?action=query&prop=extracts&explaintext=1${intro ? '&exintro=1' : ''}` +
-      `&titles=${encodeURIComponent(title)}&format=json`,
-    { json: true, ...opts },
-  )
+  const r = await mediawikiGet(mediawikiExtractUrl(api, title, { intro }), { json: true, ...opts })
   if (!r.ok) return { error: r.error ? `연결 실패 — ${r.error}` : `HTTP ${r.status}` }
   const pages = r.data?.query?.pages ?? {}
   const page = Object.values(pages)[0]
   return {
-    body: (page?.extract ?? '').replace(/\s+/g, ' ').trim(),
+    body: normalizeExtract(page?.extract),
     pageid: page?.pageid ?? null,
   }
 }

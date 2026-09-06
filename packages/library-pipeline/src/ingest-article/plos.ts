@@ -89,6 +89,38 @@ function sliceDivByClass(html: string, classRe: RegExp): string | null {
   return null
 }
 
+/**
+ * 초록과 본문을 **더하지 않고 합친다.**
+ *
+ * ⚠️ PLOS 에서 `abstract-content` 는 `article-text` 의 **자식**이다.
+ *   실측(`10.1371/journal.pone.0348669` 원본 HTML):
+ *     `<div class="article-text" id="artText">`  오프셋 100,807
+ *       `<div class="abstract …"><h2>Abstract</h2>`
+ *         `<div class="abstract-content">`       오프셋 101,053  ← article-text 안쪽
+ *   `sliceDivByClass` 는 중첩 depth 를 세며 자르므로 두 조각 다 온전하지만, 바로 그래서
+ *   **초록 조각은 본문 조각에 이미 통째로 들어 있다.** 예전처럼 `${abstract}\n\n${body}` 로
+ *   앞에 한 번 더 붙이면 산출물이 `[초록] / "Abstract" / [같은 초록] / Introduction …` 이 된다.
+ *   구조화 초록이면 Background·Methods·Results·Conclusion 블록이 통째로 반복된다.
+ *
+ *   실측 400편 중 **393편(98.3%)** 이 이 중복이었고(‘Abstract’ 제목이 있는 387편은 반례 0),
+ *   96.7% 는 두 덩어리가 바이트 동일이었다. 그 결과 `word_count` 가 평균 **6.2% 과대**
+ *   (중앙 5.7% · 최대 25.9%) — 학령 판정과 지문 규격 판정이 그만큼 틀린 분모 위에서 돌았다.
+ *
+ * 그래도 "앞에 붙이는" 갈래를 지우지는 않는다 — 두 경우에 그 갈래가 답이다:
+ *   ① **본문 div 가 없고 초록 div 만 있는 편** — 실측 20편 중 1편이 그랬고 정상 산출이었다.
+ *      초록만 버리면 그 편이 통째로 빈 지문이 되어 200단어 게이트에서 사라진다.
+ *      (빈 `body` 는 `''.includes(…) === false` 라 아래 같은 줄이 그대로 처리한다.
+ *       `if (!body.trim())` 같은 별도 갈래를 두면 **어떤 테스트도 죽일 수 없는 죽은 줄**이 된다 —
+ *       실제로 변이 검사에서 그 줄만 무력화했더니 4검사가 전부 통과했다.)
+ *   ② 초록이 `article-text` **밖**에 있는 레이아웃(마크업이 바뀌면 되살아난다).
+ */
+function joinAbstractAndBody(abstract: string, body: string): string {
+  const needle = abstract.trim()
+  if (!needle) return body
+  // 본문 조각이 초록을 이미 품고 있으면(= 자식) 다시 붙이지 않는다.
+  return body.includes(needle) ? body : `${abstract}\n\n${body}`
+}
+
 /** PLOS 본문 HTML → 산문(figures/tables/references/인용 제거). */
 function extractProse(articleHtml: string): string {
   const abstract = sliceDivByClass(articleHtml, /\babstract-content\b/) ?? ''
@@ -99,7 +131,7 @@ function extractProse(articleHtml: string): string {
   body = body.replace(/<(h[1-3])[^>]*>\s*References\s*<\/\1>[\s\S]*$/i, '')
   body = body.replace(/<(h[1-3])[^>]*>\s*Supporting information[\s\S]*$/i, '')
 
-  let work = `${abstract}\n\n${body}`
+  let work = joinAbstractAndBody(abstract, body)
   // figure/table/미주 블록 제거
   work = work.replace(/<div[^>]*class="[^"]*\bfigure\b[^"]*"[\s\S]*?<\/div>\s*<\/div>/gi, '\n')
   work = work.replace(/<figure[\s\S]*?<\/figure>/gi, '\n')
