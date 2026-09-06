@@ -421,8 +421,24 @@ export interface EligibilityTally {
   byBlockedAxis: Partial<Record<EligibilityAxisId, number>>
   /** 조판이 받아도 되는 편수. */
   composable: number
-  /** 조판 가능 비율 % (소수 한 자리). */
+  /**
+   * 조판 가능 비율 % — **분모가 전체**다(미판정 포함).
+   *
+   * ⚠️ 이 값만 보면 "떨어졌다" 와 "아직 안 쟀다" 가 구별이 안 된다. 실측 2026-09-06:
+   * 조판 로그가 `원문 적격 0/11,337 (0%)` 를 찍었는데 그중 **11,333편이 미판정**이었다 —
+   * 재고가 못 쓸 물건이라는 뜻이 아니라 **아무도 안 쟀다**는 뜻이고, 할 일이 정반대다.
+   * 판정된 것 중의 비율은 `composablePctOfJudged` 를 쓴다.
+   */
   composablePct: number
+  /** 실제로 **판정이 붙은** 편수 = total − 미판정. */
+  judged: number
+  /**
+   * 판정된 것 중 조판 가능 비율 % — **하나도 안 쟀으면 0 이 아니라 `null`**.
+   *
+   * 0 은 "재 봤더니 쓸 게 없다"(사실)이고 `null` 은 "안 쟀다"(모름)이다. 둘을 같은 0 으로
+   * 적으면 관리자가 재고를 버리러 간다.
+   */
+  composablePctOfJudged: number | null
   /**
    * 미판정 중 **드레인으로는 못 푸는 것** — 미절단 원본(`purpose='raw'`).
    *
@@ -456,12 +472,16 @@ export function tallyEligibility(rows: readonly SourceEligibility[]): Eligibilit
     }
   }
   const composable = byGrade.usable + byGrade.excerpt
+  const judged = rows.length - byGrade.unjudged
   return {
     total: rows.length,
     byGrade,
     byBlockedAxis,
     composable,
     composablePct: rows.length ? +((composable / rows.length) * 100).toFixed(1) : 0,
+    judged,
+    // 판정이 하나도 없으면 비율이 없다 — 0 으로 적으면 "재 봤더니 0" 으로 읽힌다.
+    composablePctOfJudged: judged > 0 ? +((composable / judged) * 100).toFixed(1) : null,
     structurallyUnjudged,
   }
 }

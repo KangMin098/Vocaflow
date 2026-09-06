@@ -842,9 +842,17 @@ export async function loadVolume(db, { band, unitCount, marketMix = true, maxArt
     )
   }
   const sourceGate = tallyEligibility([...verdictByRef.values()])
+  // ⚠️ **비율의 분모를 「판정된 것」으로 쓴다.** 전체를 분모로 쓰면 미판정이 많을 때
+  //    `0/11,337 (0%)` 이 찍히는데, 그건 "재고가 못 쓸 물건" 이 아니라 "아무도 안 쟀다" 다
+  //    (실측 2026-09-06: 그 0% 안에 미판정이 11,333편이었다). 할 일이 정반대라 — 앞은
+  //    재고를 더 모으는 일이고 뒤는 게이트를 돌리는 일이다 — 한 줄이 둘을 섞으면 안 된다.
+  const judgedPart =
+    sourceGate.composablePctOfJudged == null
+      ? '판정된 것이 없다 — 비율을 못 낸다(0% 가 아니다)'
+      : `판정 ${sourceGate.judged.toLocaleString()}편 중 ${sourceGate.composablePctOfJudged}%`
   const gateLine =
     `  원문 적격 ${sourceGate.composable.toLocaleString()}/${sourceGate.total.toLocaleString()}` +
-    ` (${sourceGate.composablePct}%)` +
+    ` — ${judgedPart}` +
     ` — ${Object.entries(sourceGate.byGrade)
       .filter(([, n]) => n > 0)
       .map(([g, n]) => `${GRADE_LABEL[g]} ${n.toLocaleString()}`)

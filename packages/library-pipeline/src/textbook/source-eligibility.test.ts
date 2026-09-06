@@ -249,6 +249,30 @@ describe('tallyEligibility', () => {
     expect(tallyEligibility([]).composablePct).toBe(0)
   })
 
+  it('「안 쟀다」를 0% 로 적지 않는다 — 재고를 버리러 가게 만든다', () => {
+    // 실측 2026-09-06: 조판 로그가 `원문 적격 0/11,337 (0%)` 를 찍었는데 그중 11,333편이
+    // **미판정**이었다. 0% 는 "재 봤더니 쓸 게 없다" 로 읽히지만 사실은 "아무도 안 쟀다" 였고,
+    // 할 일이 정반대다 — 앞은 재고를 더 모으는 일, 뒤는 게이트를 돌리는 일.
+    const allUnjudged = tallyEligibility([at({ gateVerdict: null }), at({ gateVerdict: null })])
+    expect(allUnjudged.judged).toBe(0)
+    expect(allUnjudged.composablePctOfJudged).toBeNull()
+    // 전체 분모 쪽은 여전히 0 이다 — 그래서 이 값만 보면 안 된다는 것이 요점이다.
+    expect(allUnjudged.composablePct).toBe(0)
+
+    // 재 봤는데 정말 없는 경우는 **0 이 맞다** — null 과 구별된다.
+    const judgedButNone = tallyEligibility([at({ displayOnly: true }), at({ displayOnly: true })])
+    expect(judgedButNone.judged).toBe(2)
+    expect(judgedButNone.composablePctOfJudged).toBe(0)
+  })
+
+  it('판정된 것만 분모로 쓰면 비율이 달라진다', () => {
+    const t = tallyEligibility([at({}), at({ displayOnly: true }), at({ gateVerdict: null })])
+    expect(t.composable).toBe(1)
+    expect(t.composablePct).toBe(33.3) // 분모 3 (미판정 포함)
+    expect(t.judged).toBe(2)
+    expect(t.composablePctOfJudged).toBe(50) // 분모 2 (판정된 것만)
+  })
+
   it('드레인으로 못 푸는 미판정을 따로 센다 — 안 그러면 화면이 헛일을 시킨다', () => {
     const t = tallyEligibility([
       at({ gateVerdict: null, gatePurpose: 'raw' }),
