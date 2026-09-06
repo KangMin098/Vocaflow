@@ -27,6 +27,7 @@ import type {
   ResponsibilityId,
   ResponsibilityReadiness,
   SchemaEvolutionTier,
+  VrlClassificationStatsData,
 } from './types'
 
 // ─────────────────────────────────────────────────────────────
@@ -168,13 +169,28 @@ function scoreLearning(raw: DictSnapshotRaw): number {
 /**
  * 5. VRL Classification — v_level 채움률 + reclassified ratio
  */
+/**
+ * 재분류 비율에 따른 감점 — **순수 함수로 꺼냈다.** 이 규칙의 위험은 눈에 안 보이는
+ * 종류라서(측정 실패가 감점 0 = 만점이 된다) 회귀로 못 박아야 한다.
+ * `health-score-null.test.ts` 가 이 함수를 직접 잰다.
+ */
+export function reclassAdjustment(
+  reclassifiedCount: number | null,
+  totalClassified: number,
+): number {
+  // ⚠️ **못 잰 것(null)에는 감점을 매기지 않는다.** 0 으로 뭉개면 "정정이 하나도 없다" 는
+  //   가장 좋은 상태와 구별이 안 되고, 질의 실패가 곧 만점이 된다. 대신 감점을 건너뛴
+  //   사실을 요약 문구가 말한다(vrlSummaryText) — 조용히 넘어가지 않는다.
+  if (reclassifiedCount == null || totalClassified <= 0) return 0
+  const ratio = reclassifiedCount / totalClassified
+  return ratio > 0.3 ? -5 : ratio > 0.15 ? -2 : 0
+}
+
 function scoreVrlClassification(raw: DictSnapshotRaw): number {
   const v = raw.vrlClassification
   const fillScore = v.classifiedRatio * 100
   // Reclassified ratio — 분류 정정 활동 신호. 30% 면 amber.
-  const reclassRatio =
-    v.totalClassified > 0 ? v.reclassifiedCount / v.totalClassified : 0
-  const adjustment = reclassRatio > 0.3 ? -5 : reclassRatio > 0.15 ? -2 : 0
+  const adjustment = reclassAdjustment(v.reclassifiedCount, v.totalClassified)
   return Math.max(0, Math.min(100, Math.round(fillScore + adjustment)))
 }
 
@@ -618,10 +634,20 @@ function summaryLearning(raw: DictSnapshotRaw): string {
   const audio = raw.learning.audioUrl ? `audio ${pct(raw.learning.audioUrl.ratio)}` : 'audio_url 컬럼 부재'
   return `note ${pct(raw.learning.koreanLearnerNote.ratio)} · ${audio}`
 }
+/**
+ * VRL 분류 요약 문구. 재분류를 못 읽었으면 **그 사실을 붙인다** — 점수에서 감점 항이
+ * 빠졌다는 뜻인데, 숫자만 보여 주면 관리자는 감점 없음을 "정정할 게 없다" 로 읽는다.
+ * 정반대의 결론이다.
+ */
+export function vrlSummaryText(v: VrlClassificationStatsData): string {
+  const head = `${v.totalClassified.toLocaleString()} / ${(
+    v.totalClassified + v.totalUnclassified
+  ).toLocaleString()} (${pct(v.classifiedRatio)})`
+  return v.reclassifiedCount == null ? `${head} · 재분류 못 잼` : head
+}
+
 function summaryVrlClassification(raw: DictSnapshotRaw): string {
-  return `${raw.vrlClassification.totalClassified.toLocaleString()} / ${(
-    raw.vrlClassification.totalClassified + raw.vrlClassification.totalUnclassified
-  ).toLocaleString()} (${pct(raw.vrlClassification.classifiedRatio)})`
+  return vrlSummaryText(raw.vrlClassification)
 }
 function summaryIntegrity(raw: DictSnapshotRaw): string {
   return `open ${raw.integrity.open} · resolved ${raw.integrity.resolved}`

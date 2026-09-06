@@ -50,6 +50,8 @@ const STATS: DashboardStats = {
   texts: 275,
   qualityLastMeasuredAt: '2026-08-10T18:25:00.015026+00:00',
   reportsOpen: null,
+  recentUnread: [],
+  qualityUnread: false,
   recent: [
     {
       at: '2026-08-12T10:00:00+00:00',
@@ -139,5 +141,37 @@ describe('AdminDashboardPage', () => {
   it('최근 변경이 없으면 빈 상태를 안내한다', async () => {
     const html = await render({ ...STATS, recent: [] })
     expect(html).toContain('최근 변경된 파이프라인 항목이 없습니다')
+  })
+
+  // ── 「못 읽음」과 「없음」은 다른 말이다 ──────────────────────────────────
+  // 「최근 변경」은 다섯 출처를 합쳐 만든다. 하나가 실패하면 그 파이프라인의 변경이
+  // 통째로 빠지는데, 예전에는 화면이 그 사실을 **한 글자도** 말하지 않았다
+  // (`safeList` 가 오류를 빈 배열로 바꿨다). 짧아진 목록은 "조용한 하루" 처럼 보인다.
+  it('일부 출처를 못 읽으면 어느 것인지 말하고, 빠졌다는 사실을 알린다', async () => {
+    const html = await render({ ...STATS, recentUnread: ['ACP', 'PDCP'] })
+    expect(html).toContain('ACP · PDCP')
+    expect(html).toContain('못 읽었습니다')
+    expect(html).toContain('변경이 없는 것과 다릅니다')
+  })
+
+  it('전부 못 읽어 목록이 비면 "변경이 없다" 고 말하지 않는다', async () => {
+    const html = await render({
+      ...STATS,
+      recent: [],
+      recentUnread: ['LCP', 'ACP', '큐레이션 작업', 'PDCP', 'VCB'],
+    })
+    expect(html).not.toContain('최근 변경된 파이프라인 항목이 없습니다')
+    expect(html).toContain('읽을 수 있었던 출처에는 최근 변경이 없습니다')
+  })
+
+  // 품질 수집 시각도 같은 세 갈래다 — 값 있음 · 한 번도 안 쟀음 · **못 읽음**.
+  // 셋째를 둘째로 적으면 관리자는 "수집을 켜야겠다" 는 엉뚱한 조치를 한다.
+  it('품질 수집 시각을 못 읽은 것과 이력이 없는 것을 가른다', async () => {
+    const missing = await render({ ...STATS, qualityLastMeasuredAt: null })
+    expect(missing).toContain('수집 이력 없음')
+
+    const unread = await render({ ...STATS, qualityLastMeasuredAt: null, qualityUnread: true })
+    expect(unread).toContain('수집 시각을 못 읽음')
+    expect(unread).not.toContain('수집 이력 없음')
   })
 })

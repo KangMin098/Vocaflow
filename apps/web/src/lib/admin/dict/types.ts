@@ -110,8 +110,15 @@ export interface VrlClassificationStatsData {
   totalUnclassified: number
   classifiedRatio: number
   byLevel: VrlLevelDistribution[]
-  /** v_level_rule_v1 와 v_level 이 다른 row 수 (reclassified) */
-  reclassifiedCount: number
+  /**
+   * v_level_rule_v1 와 v_level 이 다른 row 수 (reclassified).
+   *
+   * **`null` = 못 잼**(질의 실패·타임아웃), `0` = 정정된 낱말이 없음. 둘은 정반대다 —
+   * 0 은 "규칙과 사람 판단이 일치한다" 는 좋은 신호이고, null 은 "그 신호를 못 읽었다" 이다.
+   * 이 값은 표시만 되는 게 아니라 **건강 점수의 감점 항**으로 나눠 쓰이므로, 못 잰 것을
+   * 0 으로 두면 측정 실패가 감점 0 = **최고점**으로 둔갑한다. 그래서 null 로 남긴다.
+   */
+  reclassifiedCount: number | null
 }
 
 // ─────────────────────────────────────────────────────────────

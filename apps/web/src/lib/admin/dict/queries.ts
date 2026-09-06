@@ -412,7 +412,9 @@ async function fetchVrlClassificationStats(
     totalUnclassified: total - classified,
     classifiedRatio: total > 0 ? classified / total : 0,
     byLevel,
-    reclassifiedCount: reclassRes.count ?? 0,
+    // 못 잰 것을 0 으로 두지 않는다 — 아래 emptyVrlClassification 과 같은 계약이다.
+    // (estimated head 질의는 실패해도 count=null 로 조용히 온다.)
+    reclassifiedCount: reclassRes.error ? null : reclassRes.count,
   }
 }
 
@@ -670,7 +672,9 @@ function emptyVrlClassification(): VrlClassificationStatsData {
     totalUnclassified: 0,
     classifiedRatio: 0,
     byLevel: [],
-    reclassifiedCount: 0,
+    // 이 객체는 **질의가 통째로 실패했을 때**의 대체값이다. 재분류 수는 못 잰 것이지 0 이
+    // 아니다 — 0 으로 두면 점수 감점이 사라져 실패가 만점으로 보인다.
+    reclassifiedCount: null,
   }
 }
 function emptyIntegrity(): IntegrityDefectsData {

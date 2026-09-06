@@ -61,6 +61,19 @@ export interface DashboardStats {
   /** null = reports 테이블 자체가 없음(신고/문의 미구현) */
   reportsOpen: Count
   recent: RecentEvent[]
+  /**
+   * 「최근 변경」을 만들 때 **못 읽은** 출처 이름들. 빈 배열 = 다섯 출처 전부 읽었다.
+   * 이게 없으면 목록이 짧은 이유가 "변경이 없어서" 인지 "못 읽어서" 인지 구별할 수 없다.
+   */
+  recentUnread: string[]
+  /** `true` = 품질 수집 시각을 **못 읽었다**(null 이 "한 번도 안 쟀다" 를 뜻하지 않는다). */
+  qualityUnread: boolean
+}
+
+/** `fetchRecent` 의 반환 — 사건 목록과, 못 읽은 출처. */
+interface RecentFeed {
+  events: RecentEvent[]
+  unread: string[]
 }
 
 // ─────────────────────────────────────────────
@@ -149,14 +162,23 @@ function release(): void {
   if (next) next()
 }
 
-/** 목록 응답 — supabase-js 의 row 타입 추론을 요구하지 않고 호출자가 T 를 명시한다. */
-async function safeList<T>(query: PromiseLike<{ data: unknown; error: unknown }>): Promise<T[]> {
+/**
+ * 목록 응답 — supabase-js 의 row 타입 추론을 요구하지 않고 호출자가 T 를 명시한다.
+ *
+ * ⚠️ **빈 배열만 돌려주면 안 된다.** 「읽었더니 없었다」와 「못 읽었다」가 같은 모양이 되고,
+ *   화면은 전자로만 말한다("최근 변경된 항목이 없습니다"). 그래서 `ok` 를 함께 준다 —
+ *   호출자가 못 읽은 출처를 세어 화면에 적을 수 있게. `count ?? 0` 과 같은 부류의 함정이고
+ *   이 저장소가 이미 여러 번 당했다.
+ */
+async function safeList<T>(
+  query: PromiseLike<{ data: unknown; error: unknown }>,
+): Promise<{ rows: T[]; ok: boolean }> {
   try {
     const { data, error } = await query
-    if (error || !Array.isArray(data)) return []
-    return data as T[]
+    if (error || !Array.isArray(data)) return { rows: [], ok: false }
+    return { rows: data as T[], ok: true }
   } catch {
-    return []
+    return { rows: [], ok: false }
   }
 }
 
@@ -234,7 +256,7 @@ interface TimestampedRow {
   updated_at: string | null
 }
 
-async function fetchRecent(client: AdminClient): Promise<RecentEvent[]> {
+async function fetchRecent(client: AdminClient): Promise<RecentFeed> {
   const recentQuery = (table: string, columns: string, limit: number) =>
     client
       .from(table)
@@ -243,7 +265,7 @@ async function fetchRecent(client: AdminClient): Promise<RecentEvent[]> {
       .order('updated_at', { ascending: false })
       .limit(limit)
 
-  const [books, articles, jobs, pd, runs] = await Promise.all([
+  const [booksRes, articlesRes, jobsRes, pdRes, runsRes] = await Promise.all([
     safeList<TimestampedRow & { id: string; title: string | null; status: string }>(
       recentQuery('library_books', 'id,title,status,updated_at', 4),
     ),
@@ -272,6 +294,22 @@ async function fetchRecent(client: AdminClient): Promise<RecentEvent[]> {
       recentQuery('vocab_runs', 'id,collection_title,status,updated_at', 3),
     ),
   ])
+
+  // 다섯 출처 중 하나라도 못 읽으면 그 파이프라인의 변경이 **조용히 사라진다**.
+  // 어느 것을 못 읽었는지 이름으로 들고 나가 화면이 말하게 한다.
+  const sources: [string, { ok: boolean }][] = [
+    ['LCP', booksRes],
+    ['ACP', articlesRes],
+    ['큐레이션 작업', jobsRes],
+    ['PDCP', pdRes],
+    ['VCB', runsRes],
+  ]
+  const unread = sources.filter(([, r]) => !r.ok).map(([name]) => name)
+  const books = booksRes.rows
+  const articles = articlesRes.rows
+  const jobs = jobsRes.rows
+  const pd = pdRes.rows
+  const runs = runsRes.rows
 
   const events: RecentEvent[] = [
     ...books.map((b) => ({
@@ -323,10 +361,13 @@ async function fetchRecent(client: AdminClient): Promise<RecentEvent[]> {
     })),
   ]
 
-  return events
-    .filter((e) => Boolean(e.at))
-    .sort((a, b) => (a.at < b.at ? 1 : a.at > b.at ? -1 : 0))
-    .slice(0, 8)
+  return {
+    events: events
+      .filter((e) => Boolean(e.at))
+      .sort((a, b) => (a.at < b.at ? 1 : a.at > b.at ? -1 : 0))
+      .slice(0, 8),
+    unread,
+  }
 }
 
 // ─────────────────────────────────────────────
@@ -372,7 +413,7 @@ export async function getAdminDashboardStats(client: AdminClient): Promise<Dashb
     activeToday,
     texts,
     reportsOpen,
-    qualityRows,
+    qualityRes,
     recent,
   ] = await Promise.all([
     safeCount(() => head(client, 'library_books').eq('status', 'published')),
@@ -465,9 +506,13 @@ export async function getAdminDashboardStats(client: AdminClient): Promise<Dashb
     words: { dict, pending: pendingWords, judgments, chapterQuiz },
     learners: { total: learnersTotal, activeToday },
     texts,
-    qualityLastMeasuredAt: qualityRows[0]?.measured_at ?? null,
+    // ⚠️ 못 읽었으면 "한 번도 안 쟀다" 와 같아진다. 화면은 이 값이 null 이면 "수집 기록
+    //   없음" 이라고 말하는데, 질의 실패였다면 그건 거짓이다 — 그래서 실패를 분리해 적는다.
+    qualityLastMeasuredAt: qualityRes.ok ? (qualityRes.rows[0]?.measured_at ?? null) : null,
+    qualityUnread: !qualityRes.ok,
     reportsOpen,
-    recent,
+    recent: recent.events,
+    recentUnread: recent.unread,
   }
 }
 

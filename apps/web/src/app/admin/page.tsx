@@ -211,9 +211,13 @@ interface OpsLink {
 }
 
 function buildOpsLinks(s: DashboardStats): OpsLink[] {
-  const quality = s.qualityLastMeasuredAt
-    ? `마지막 수집 ${relativeKo(s.qualityLastMeasuredAt)}`
-    : '수집 이력 없음'
+  // 셋을 가른다 — 읽었고 값이 있다 · 읽었는데 한 번도 안 쟀다 · **못 읽었다**.
+  // 셋째를 둘째로 적으면 관리자는 "품질 수집을 켜야겠다" 는 엉뚱한 조치를 한다.
+  const quality = s.qualityUnread
+    ? '수집 시각을 못 읽음'
+    : s.qualityLastMeasuredAt
+      ? `마지막 수집 ${relativeKo(s.qualityLastMeasuredAt)}`
+      : '수집 이력 없음'
 
   return [
     {
@@ -531,9 +535,21 @@ export default async function AdminDashboardPage() {
           <span className="font-mono text-[11px] text-[var(--t2)]">updated_at 기준</span>
         </header>
 
+        {stats.recentUnread.length > 0 && (
+          <p
+            role="status"
+            className="mb-2 rounded-[var(--r-sm)] bg-[var(--bg2)] px-3 py-2 font-body text-[12px] text-[var(--t2)]"
+          >
+            {stats.recentUnread.join(' · ')} 를 못 읽었습니다 — 아래 목록에 그만큼이 빠져
+            있습니다. <strong className="text-[var(--t1)]">변경이 없는 것과 다릅니다.</strong>
+          </p>
+        )}
+
         {stats.recent.length === 0 ? (
           <p className="py-4 text-center font-body text-[13px] text-[var(--t2)]">
-            최근 변경된 파이프라인 항목이 없습니다.
+            {stats.recentUnread.length > 0
+              ? '읽을 수 있었던 출처에는 최근 변경이 없습니다.'
+              : '최근 변경된 파이프라인 항목이 없습니다.'}
           </p>
         ) : (
           <ul className="divide-y divide-[var(--bg2)]">

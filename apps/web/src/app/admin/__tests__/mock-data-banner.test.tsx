@@ -48,6 +48,8 @@ const STATS: DashboardStats = {
   texts: 278,
   qualityLastMeasuredAt: null,
   reportsOpen: null,
+  recentUnread: [],
+  qualityUnread: false,
   recent: [],
 }
 

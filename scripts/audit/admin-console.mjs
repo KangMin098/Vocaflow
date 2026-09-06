@@ -500,7 +500,10 @@ const swallowHits = []
   ].filter((p) => p.endsWith('.tsx') || p.endsWith('.ts'))
   for (const f of scanned) {
     if (f.includes('__tests__')) continue
-    const lines = read(f).split('\n')
+    const src = read(f)
+    /** 이 파일이 DB 를 직접 부르는가 — 「질의 경계」인지의 판정. 아래 count??0 에서 쓴다. */
+    const queriesDb = /\.from\(|\.rpc\(/.test(src)
+    const lines = src.split('\n')
     lines.forEach((line, i) => {
       // 주석 줄은 세지 않는다 — 이 안티패턴을 **금지한다고 적은 주석**이 위반으로 잡혔다.
       const t = line.trim()
@@ -512,6 +515,16 @@ const swallowHits = []
         // `arr[0]?.count ?? 0` 은 DB 응답이 아니라 **배열이 비었을 때의 기본값**이다.
         // 없는 행을 0 으로 두는 것은 거짓말이 아니라 정의다.
         if (/\]\s*\?\.\s*count\s*\?\?\s*0|\)\s*\?\.\s*count\s*\?\?\s*0/.test(line)) return
+        // **질의를 하지 않는 파일은 이 경계가 아니다** (2026-09-06 정밀도 수정).
+        //   이 결함이 사는 자리는 "DB 응답의 null 이 아무도 보기 전에 0 이 되는 곳" 이다.
+        //   렌더 컴포넌트가 받는 값은 이미 뷰모델이고 거기까지 null 은 살아서 왔다 —
+        //   그 뒤의 `?? 0` 은 색 농도의 **분모**·**정렬 키**·합계 같은 산술이지 주장이 아니다.
+        //   실측: `AuthorClient.tsx` 3건이 전부 그랬다(농도 분모 · 정렬 키 · `unmeasured`
+        //   를 따로 세는 합계). 오탐만 내는 자는 안 잡는 자보다 나쁘다.
+        //   ⚠️ 무디게 만드는 것이 아님을 확인하고 넣었다 — 이 자가 지금까지 잡은 **진짜**
+        //   위반(`admin/layout.tsx` 신고 수 · `dashboard-stats.ts` · `dict/queries.ts`)은
+        //   전부 `.from(`/`.rpc(` 를 가진 파일에 있었고, 완화 뒤에도 그대로 잡힌다.
+        if (!queriesDb) return
         swallowHits.push({ kind: 'count??0', at: `${rel(f)}:${i + 1}` })
       }
       if (/if\s*\(\s*\w*[eE]rr\w*\s*(\|\||\)\s*)/.test(line) && /return\s*\[\]/.test(line)) {
