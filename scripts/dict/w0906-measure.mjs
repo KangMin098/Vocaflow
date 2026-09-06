@@ -46,6 +46,7 @@ async function allRows() {
   return out
 }
 
+/** 「비어 있지 않다」 — 결손 판정(`w0906-fill` missing)이 쓰는 느슨한 기준 */
 const has = {
   collocations: (r) => Array.isArray(r.collocations) && r.collocations.length > 0,
   korean_learner_note: (r) => !!r.korean_learner_note && r.korean_learner_note.trim().length > 5,
@@ -53,13 +54,38 @@ const has = {
   ipa: (r) => !!r.ipa && !!r.ipa.trim(),
 }
 
+/**
+ * 「게이트를 통과할 값이다」 — 적재기(`w0906-fill` gate*)가 실제로 요구하는 기준.
+ *
+ * ⚠️ **두 기준이 어긋나 있었다.** 게이트는 유의어 2~5개를 요구해 1개짜리를 반려하는데
+ * 결손 판정과 채움률은 `length > 0` 이라 1개짜리를 완료로 셌다. 그래서 유의어가 하나뿐인
+ * 행은 **다시 안 잡히면서 채움률에는 들어간다** — 실측 2026-09-06: 68.3% 대 38.9%.
+ * 그 차이(1개 7,997 · 6개 이상 6,430)를 숫자 하나로 감추지 않으려고 둘 다 찍는다.
+ */
+const strict = {
+  collocations: (r) => Array.isArray(r.collocations) && r.collocations.length >= 2 && r.collocations.length <= 5,
+  korean_learner_note: (r) => {
+    const n = r.korean_learner_note
+    return !!n && n.trim().length >= 12 && n.trim().length <= 160 && /[가-힣]/.test(n)
+  },
+  synonyms: (r) => Array.isArray(r.synonyms) && r.synonyms.length >= 2 && r.synonyms.length <= 5,
+  ipa: (r) => !!r.ipa && !!r.ipa.trim() && !/[가-힣0-9[\]]/.test(r.ipa),
+}
+
 async function main() {
   const rows = await allRows()
   const n = rows.length
   console.log(`\n  분모 ${n} (archived 제외)\n`)
+  console.log('  칸                     비어있지 않음        게이트 통과')
+  console.log('  ' + '─'.repeat(56))
   for (const f of Object.keys(has)) {
-    const k = rows.filter(has[f]).length
-    console.log(`  ${f.padEnd(20)} ${String(k).padStart(6)} / ${n}  ${((k / n) * 100).toFixed(1)}%`)
+    const loose = rows.filter(has[f]).length
+    const tight = rows.filter(strict[f]).length
+    const pct = (k) => `${((k / n) * 100).toFixed(1)}%`.padStart(6)
+    console.log(
+      `  ${f.padEnd(20)} ${String(loose).padStart(6)} ${pct(loose)}     ${String(tight).padStart(6)} ${pct(tight)}`,
+    )
   }
+  console.log('\n  왼쪽은 「칸이 찼는가」, 오른쪽은 「적재기가 지금 넣어도 통과할 값인가」다.')
 }
 main()
