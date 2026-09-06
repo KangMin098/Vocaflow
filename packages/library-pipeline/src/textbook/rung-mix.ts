@@ -73,7 +73,21 @@ export const ITEMS_PER_UNIT = 6
  *    그래서 새 유형은 **목표 비중을 채울 만큼 한 번에** 넣어야 한다. 한 청크만 넣고
  *    "효과가 없다" 고 판단하면 정반대로 읽는 것이다.
  */
-export function rungMix(band: number, available?: Iterable<string>): RungMix {
+export interface RungMixOptions {
+  /**
+   * 조판이 **시리즈 단으로 풀을 좁혔을 때** 그 단의 유형 목록.
+   *
+   * 주면 목표도 그 유형 안에서만 나뉘고, 시장이 그 단을 다 알지 못하면 사다리로 넘어간다.
+   * 안 주면 예전 그대로 — 시장 측정이 쓰는 길이다.
+   */
+  seriesTypes?: readonly string[]
+}
+
+export function rungMix(
+  band: number,
+  available?: Iterable<string>,
+  opts?: RungMixOptions,
+): RungMix {
   const school = schoolOfBand(band)
   const density = (spec as {
     typeDensity: { bySchool: Record<string, { densityPerPage: Record<string, number> }> }
@@ -97,6 +111,34 @@ export function rungMix(band: number, available?: Iterable<string>): RungMix {
     have = have ? new Set([...have].filter((t) => rung.has(t))) : rung
   }
 
+  // ── 시리즈 권을 조판할 때 ───────────────────────────────────────────
+  // ⚠️ **시장이 그 단을 일부만 알면, 아는 유형이 몫을 통째로 가져간다** (실측 2026-09-06).
+  //   조판이 풀을 시리즈 단으로 좁힌 뒤 이 목표를 쓰므로, 그 결과가 그대로 책이 된다:
+  //
+  //     밴드   단 유형   시장이 아는 것        조판된 유형
+  //     V2       4        1 (word_order)      **1** — 120문항이 전부 word_order 였다
+  //     V3       5        3                     3
+  //     V4       7        4                     4
+  //     V5~V7   4·5·5     전부                  전부   ← 여기만 멀쩡했다
+  //
+  //   한 유형짜리 120문항은 책이 아니다. 시장 표가 그 단을 **설명하지 못한다**는 뜻이므로
+  //   (코퍼스의 "초등" 은 초3~초6 독해서라 파닉스·낱말 표본이 아예 없다) 그때는 시장을
+  //   섞지 말고 사다리의 설계 의도를 따른다.
+  //
+  //   ⚠️ **기본 동작은 그대로 둔다.** `rungMix` 는 조판뿐 아니라 **시장 측정**(type-gap ·
+  //   market-benchmark)에도 쓰인다. 거기서 사다리로 바꾸면 "시중 대비 어디가 비었나" 를
+  //   못 재게 된다. 그래서 **조판이 좁혔다는 사실을 인자로 받는다** — 자를 바꾸는 것이
+  //   아니라 어느 자를 쓸지 부르는 쪽이 정한다.
+  const seriesTypes = opts?.seriesTypes
+  const useLadder =
+    !!seriesTypes &&
+    seriesTypes.length > 0 &&
+    !seriesTypes.every((t) => (density[t] ?? 0) * 1000 >= RUNG_TYPE_FLOOR_PER_MILLE)
+  if (seriesTypes && seriesTypes.length > 0) {
+    const allow = new Set<string>(seriesTypes)
+    have = have ? new Set([...have].filter((t) => allow.has(t))) : allow
+  }
+
   const kept: Array<[string, number]> = Object.entries(density)
     .filter(([type, d]) => d * 1000 >= RUNG_TYPE_FLOOR_PER_MILLE && (!have || have.has(type)))
 
@@ -110,7 +152,10 @@ export function rungMix(band: number, available?: Iterable<string>): RungMix {
   //   (실측 2026-08-30: V1 조합 0단원).
   //   그 경우에만 사다리(`series.ts`)의 설계 의도를 따라 **가진 유형에 고르게** 나눈다.
   //   근거가 다르므로 `derivedFrom` 으로 구분해 둔다 — 시장 실측인 척하지 않는다.
-  const derivedFrom: 'market' | 'ladder' = kept.length > 0 ? 'market' : 'ladder'
+  //   ⚠️ `kept.length > 0` 만으로 판단하면 안 된다 — 시장이 단의 **일부만** 알 때도
+  //   `kept` 는 비지 않는다(V2 는 word_order 하나가 남아 몫을 독차지했다). 위에서 낸
+  //   `useLadder` 를 함께 본다.
+  const derivedFrom: 'market' | 'ladder' = !useLadder && kept.length > 0 ? 'market' : 'ladder'
   if (derivedFrom === 'ladder' && have && have.size > 0) {
     const each = 1 / have.size
     for (const t of have) targetShare[t] = each

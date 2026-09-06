@@ -1012,7 +1012,7 @@ export async function loadVolume(
   }
 
   const mix = marketMix
-    ? rungMix(band, new Set(pool.map((it) => it.type)))
+    ? rungMix(band, new Set(pool.map((it) => it.type)), { seriesTypes: seriesRung?.types })
     : null
 
   // 두 조합이 **글자 그대로 같은 옵션**을 써야 같은 문항이 나온다 — 한 번만 만든다.
