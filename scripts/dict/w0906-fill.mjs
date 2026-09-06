@@ -207,14 +207,15 @@ function gateIpa(v) {
 }
 
 async function doApply() {
-  const outs = readOuts(DIR)
-  if (!outs.length) {
+  // `readOuts` 는 배열이 아니라 `{ files, rows }` 를 돌려준다 — rows 는 이미 평평하다
+  const { files, rows: outRows } = readOuts(DIR)
+  if (!files || !outRows.length) {
     console.log('  채워진 청크가 없다.')
     return
   }
   const byWord = new Map()
-  for (const arr of outs) for (const it of arr ?? []) if (it?.word) byWord.set(String(it.word), it)
-  console.log(`  파일 ${outs.length} · 낱말 ${byWord.size}`)
+  for (const it of outRows) if (it?.word) byWord.set(String(it.word), it)
+  console.log(`  파일 ${files} · 낱말 ${byWord.size}`)
 
   const rows = await pageAll('word, meaning_ko, collocations, korean_learner_note, synonyms, ipa')
   const cur = new Map(rows.map((r) => [r.word, r]))
