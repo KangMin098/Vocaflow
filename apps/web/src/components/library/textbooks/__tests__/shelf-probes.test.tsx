@@ -26,6 +26,8 @@ import { describe, expect, it } from 'vitest'
 import { TextbookShelf } from '../TextbookShelf'
 import { buildShelf } from '@/lib/textbook/shelf'
 import type { Inventory } from '@vocaflow/library-pipeline'
+import { SERIES_SPINE } from '@vocaflow/library-pipeline/textbook-series'
+import { taglineOf } from '@/lib/textbook/shelf-copy'
 
 /**
  * ⚠️ 패키지 export 로 못 가져온다 — `@vocaflow/library-pipeline` 의 `exports` 에
@@ -108,5 +110,36 @@ describe('구조적 우위 probe (저쪽이 가질 수 없는 것)', () => {
 
   it.each(structural)('$id $label — "$probe"', (item) => {
     expect(html).toContain(item.probe)
+  })
+})
+
+/**
+ * **표지가 카드와 같은 말을 하는가** — 배선까지 확인한다.
+ *
+ * `cover.test.ts` 는 `coverSvg` 가 받은 값을 제대로 그리는지 본다. 여기서는 **매대가 그 값을
+ * 실제로 넘기는지**를 본다 — 파이프라인을 고쳐 놓고 화면이 옛 인자를 넘기면 표지는 그대로다
+ * (실측 2026-09-07: 매대는 `coverSpecOf` 를 안 거치고 spec 을 직접 조립하고 있었다).
+ */
+describe('매대 표지가 카드 제목과 어긋나지 않는다', () => {
+  it('표지의 큰 글자가 **계단 번호가 아니라 권 이름**이다', () => {
+    // ⚠️ 숫자로 재면 안 된다 — 계단과 권 이름이 한 칸씩 밀려 있을 뿐 **둘 다 숫자**라
+    //    배선이 빠져도 그 숫자가 다른 권 표지에 있어서 통과한다
+    //    (실측 2026-09-07: `>4</text>` 는 4단 표지가, `>1</text>` 는 2단 권 이름이 채웠다).
+    //    1단만 계단 번호(`1`)와 권 이름(`Starter`)이 **다른 글자**다 — 여기서만 갈린다.
+    expect(html).toContain('>Starter</text>')
+    // 카드 제목도 같은 화면에 있다 — 표지와 제목이 다른 수를 말하면 그게 결함이었다.
+    expect(html).toContain('Vocaflow Reading Starter')
+  })
+
+  it('표지의 한 줄이 카드가 쓰는 문장과 **같다**', () => {
+    // `taglineOf(rationale)` 한 벌에서 나온다 — 표지가 따로 문장을 지으면 여기서 갈린다.
+    const tagline = taglineOf(SERIES_SPINE[4]!.rationale)
+    expect(tagline.length).toBeGreaterThan(0)
+    // 표지(SVG text)와 카드 본문 양쪽에 같은 문장이 있다.
+    expect(html.split(tagline).length - 1).toBeGreaterThanOrEqual(2)
+  })
+
+  it('스켈레톤으로 읽히던 글줄 네 줄이 매대에도 없다', () => {
+    expect(html).not.toContain('opacity="0.26"')
   })
 })
