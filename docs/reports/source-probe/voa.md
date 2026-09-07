@@ -11,6 +11,8 @@
 | 증분 커서 | sitemap `lastmod` (67,316행 **전부** 보유) + 4개 `.gz` 전량 재열거(합 1.4 MB) |
 | 정찰 일자 | 2026-09-07 |
 | **구현** | **2026-09-07 완료** — `scripts/acp/harvest-voa-sitemap.mjs` (아래 §수확기를 짠다면 설계대로). 회귀 `packages/library-pipeline/src/ingest-article/voa-sitemap.test.ts` 21종 |
+| **1회차 실적** | GET 1,896 → 전문 보유 806(42.5%) → **적재 1,002편**. `library_articles.source='voa'` **266 → 1,268**. 요청 실패 0 · 중복 0 |
+| **FK 분포(적재 1,007편 · 전문 기준)** | p25 **7.30** · 중앙 **8.20** · p75 **9.01** · **FK 9.0~11.0 = 241편(23.9%)**. VOA 전체 1,273편으로 보면 356편(28.0%) |
 
 ---
 
@@ -31,7 +33,11 @@
    (`THIS IS AMERICA - …` · `PEOPLE IN AMERICA - …` · `IN THE NEWS - …`). 첫 회차 적재분의
    **36%** 가 그 자리였고, 안 읽으면 전부 register 기본값 `news` 로 떨어져
    **인물 전기가 시사 뉴스로 안내된다.** → `voaFeedIdFor(section, title)` 이 둘 다 본다.
-3. **reference 코너가 섹션만으로는 안 걸린다.** id 608067 「Words and Their Stories:
+3. **커서는 겹쳐 도는 회차에 안전하지 않았다.** 죽은 줄 알았던 앞 회차가 살아 있어서
+   나중 쓰기가 **판정 1,940 → 830 으로 커서를 되돌렸다.** DB 행은 유니크 제약이 지켰지만
+   「전문 없음」 기록이 날아가 다음 회차가 같은 900여 쪽을 다시 GET 하게 된다. →
+   `flushCursor` 가 쓰기 직전에 **디스크를 다시 읽어 합집합으로** 쓴다(겹쳐 돌아도 더해질 뿐 빠지지 않는다).
+4. **reference 코너가 섹션만으로는 안 걸린다.** id 608067 「Words and Their Stories:
    In the Red」의 `articleSection` 은 코너가 아니라 `learningenglish` 였다. 제목 앞머리와
    `Slangman:`·`Wordmaster:` 같은 중간 표지도 함께 본다.
 

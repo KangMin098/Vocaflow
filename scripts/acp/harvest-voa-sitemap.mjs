@@ -97,6 +97,45 @@ const UA =
 
 const CURSOR_FILE = lib.harvestCursorPath('acp', 'voa', 'sitemap')
 
+// ── 0-b. 코너 수리 모드 (`--repair-feeds`) ───────────────────────────────
+//
+// `voa-unsectioned` 로 들어간 행의 코너를 **제목에서 다시 읽는다**(네트워크 0 — 제목은 이미 있다).
+// 옛 아카이브는 `articleSection` 이 비고 코너가 제목 앞에 대문자로 붙는다
+// (`THIS IS AMERICA - …`). 이 규칙을 넣기 전에 담긴 행이 그 자리에 남아 있다.
+// 재실행 안전: 제목에서 코너를 못 읽으면 그대로 둔다(없는 코너를 지어내지 않는다).
+if (process.argv.includes('--repair-feeds')) {
+  const rows = []
+  for (let from = 0; ; from += 1000) {
+    const { data, error } = await db
+      .from('library_articles')
+      .select('id, title, feed_id')
+      .eq('source', 'voa')
+      .eq('feed_id', 'voa-unsectioned')
+      .range(from, from + 999)
+    if (error) throw new Error('조회 실패: ' + error.message)
+    rows.push(...(data ?? []))
+    if (!data || data.length < 1000) break
+  }
+  const fixes = rows
+    .map((r) => ({ id: r.id, title: r.title, to: lib.voaFeedIdFor(null, r.title) }))
+    .filter((f) => f.to !== 'voa-unsectioned')
+  console.log(
+    `voa-unsectioned ${rows.length}행 · 제목에서 코너를 읽어낸 것 **${fixes.length}**${COMMIT ? '' : ' — 읽기 전용'}`,
+  )
+  const byTarget = new Map()
+  for (const f of fixes) byTarget.set(f.to, (byTarget.get(f.to) ?? 0) + 1)
+  for (const [k, n] of [...byTarget].sort((a, b) => b[1] - a[1])) console.log(`  ${k.padEnd(28)} ${n}`)
+  if (COMMIT) {
+    let done = 0
+    for (const f of fixes) {
+      const { error } = await db.from('library_articles').update({ feed_id: f.to }).eq('id', f.id)
+      if (!error) done++
+    }
+    console.log(`고침 ${done}`)
+  }
+  process.exit(0)
+}
+
 // ── 0. 발행일 수리 모드 (`--repair-dates`) ───────────────────────────────
 //
 // **정규식 2개를 고쳐도 이미 들어온 행은 그대로다.** 실측 2026-09-07 — VOA 266행 중
@@ -267,9 +306,15 @@ function bump(map, k) {
  */
 function flushCursor(exhausted) {
   if (!COMMIT) return
+  // ⚠️ **디스크의 커서를 다시 읽어 합친다 — 실행 시작 시점의 사본을 덮어쓰지 않는다.**
+  //   실측 2026-09-07: 두 회차가 겹쳐 돌았더니(앞 회차가 죽은 줄 알았는데 살아 있었다)
+  //   나중에 쓴 쪽이 **판정 1,940 → 830 으로 커서를 되돌렸다.** DB 행은 유니크 제약이
+  //   지켰지만, 「전문 없음」 기록이 날아가 다음 회차가 같은 900여 쪽을 다시 GET 하게 된다.
+  //   합집합으로 쓰면 겹쳐 돌아도 **더해질 뿐 빠지지 않는다.**
+  const onDisk = lib.readHarvestCursor(CURSOR_FILE, 'voa', 'sitemap')
   lib.writeHarvestCursor(CURSOR_FILE, {
     ...cursor,
-    seen: [...cursor.seen, ...newlyJudged],
+    seen: [...onDisk.seen, ...cursor.seen, ...newlyJudged],
     token: null, // 사이트맵은 전수 열거라 다음-페이지 토큰이 없다
     exhausted,
   })
