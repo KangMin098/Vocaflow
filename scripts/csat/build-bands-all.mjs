@@ -67,6 +67,11 @@ function listeningSamples() {
   const typeOf = new Map(cls.rows.map((r) => [`${r.exam}#${r.no}`, r.type]))
   const ref = {}, years = {}, extra = {}
   for (const it of L.items) {
+    // ⚠️ **대역은 수능만으로 만든다**(아래 `rule` 이 그렇게 적혀 있다). 2026-09-07 에 대본이
+    //    수능 7회차 → 수능 7 + 모평 9 로 늘었는데, 그때 모평이 걸러진 이유는 규칙이 아니라
+    //    `classified.json` 에 모평 듣기 행이 없다는 **우연**이었다. 행이 생기는 날 대역이
+    //    소리 없이 바뀌므로 여기서 못을 박는다 — 모평을 넣으려면 `rule` 을 함께 고칠 것.
+    if (it.exam.startsWith('M')) continue
     const t = typeOf.get(`${it.exam}#${it.no}`)
     if (!t) continue
     const text = (it.turns ?? []).map((x) => x.text).join(' ').replace(/\s+/g, ' ').trim()

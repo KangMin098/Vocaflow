@@ -20,14 +20,23 @@ const DIR = path.resolve('scripts/csat/data')
 const L = JSON.parse(fs.readFileSync(path.join(DIR, 'listening-all.json'), 'utf8')).items
 const rows = JSON.parse(fs.readFileSync(path.join(DIR, 'classified.json'), 'utf8')).rows
 const typeOf = new Map(rows.map((r) => [`${r.exam}#${r.no}`, r.type]))
-for (const it of L) it.type = typeOf.get(`${it.exam}#${it.no}`) ?? null
+// `classified.json` 이 정본이고, 행이 없는 회차(= 모의평가 듣기)만 대본에서 붙인 유형으로 메운다.
+// 이 추정기는 라벨이 있는 수능 119문항에서 **119/119 재현**을 확인한 뒤에만 쓰인다(ingest-listening.mjs).
+for (const it of L) it.type = typeOf.get(`${it.exam}#${it.no}`) ?? it.typeGuess ?? null
+
+const EXAMS = [...new Set(L.map((i) => i.exam))]
+const N_SUNEUNG = EXAMS.filter((e) => !e.startsWith('M')).length
+const N_MOCK = EXAMS.length - N_SUNEUNG
 
 const med = (a) => { const x = [...a].sort((p, q) => p - q); return x.length ? x[Math.floor(x.length / 2)] : 0 }
 const mean = (a) => (a.length ? a.reduce((s, x) => s + x, 0) / a.length : 0)
 const pct = (a, b) => (b ? Math.round((a / b) * 1000) / 10 : 0)
 
 // ── ① 유형별 대본 규모 ────────────────────────────────────────────────
-console.log('듣기 17문항 계측 — 7개년 119문항 (2017~2023)')
+console.log(
+  `듣기 17문항 계측 — ${EXAMS.length}회차 ${L.length}문항 ` +
+  `(수능 ${N_SUNEUNG} · 모의평가 ${N_MOCK})`,
+)
 console.log('='.repeat(72))
 console.log()
 console.log('  ① 유형별 대본 규모')
@@ -52,7 +61,7 @@ for (const it of L) perExam[it.exam] = (perExam[it.exam] ?? 0) + it.words
 const lisPerExam = mean(Object.values(perExam))
 console.log('  ② 듣기 vs 읽기 부담 (회차당 영어 낱말)')
 console.log('  ' + '-'.repeat(66))
-console.log(`    듣기 17문항   ${Math.round(lisPerExam).toLocaleString()} 낱말 (7회차 평균)`)
+console.log(`    듣기 17문항   ${Math.round(lisPerExam).toLocaleString()} 낱말 (${EXAMS.length}회차 평균)`)
 console.log(`    독해 23문항   2,955 낱말 (CSAT_BLUEPRINT.md §4.1 최근 5회차)`)
 console.log(`    합계          약 ${Math.round(lisPerExam + 2955).toLocaleString()} 낱말`)
 console.log()

@@ -24,7 +24,11 @@
    "W",
    "M"
   ],
-  "isDialogue": true
+  "isDialogue": true,
+  "typeGuess": "L-RESPONSE",
+  "typeGuessAll": [
+   "L-RESPONSE"
+  ]
  },
  {
   "exam": "2018",
@@ -51,7 +55,11 @@
    "M",
    "W"
   ],
-  "isDialogue": true
+  "isDialogue": true,
+  "typeGuess": "L-RESPONSE",
+  "typeGuessAll": [
+   "L-RESPONSE"
+  ]
  },
  {
   "exam": "2018",
@@ -69,7 +77,11 @@
   "speakers": [
    "W"
   ],
-  "isDialogue": false
+  "isDialogue": false,
+  "typeGuess": "L-PURPOSE",
+  "typeGuessAll": [
+   "L-PURPOSE"
+  ]
  },
  {
   "exam": "2018",
@@ -132,7 +144,11 @@
    "M",
    "W"
   ],
-  "isDialogue": true
+  "isDialogue": true,
+  "typeGuess": "L-OPINION",
+  "typeGuessAll": [
+   "L-OPINION"
+  ]
  },
  {
   "exam": "2018",
@@ -195,7 +211,11 @@
    "W",
    "M"
   ],
-  "isDialogue": true
+  "isDialogue": true,
+  "typeGuess": "L-RELATION",
+  "typeGuessAll": [
+   "L-RELATION"
+  ]
  },
  {
   "exam": "2018",
@@ -262,7 +282,11 @@
    "M",
    "W"
   ],
-  "isDialogue": true
+  "isDialogue": true,
+  "typeGuess": "L-PICTURE",
+  "typeGuessAll": [
+   "L-PICTURE"
+  ]
  },
  {
   "exam": "2018",
@@ -321,7 +345,11 @@
    "W",
    "M"
   ],
-  "isDialogue": true
+  "isDialogue": true,
+  "typeGuess": "L-TODO",
+  "typeGuessAll": [
+   "L-TODO"
+  ]
  },
  {
   "exam": "2018",
@@ -384,7 +412,11 @@
    "M",
    "W"
   ],
-  "isDialogue": true
+  "isDialogue": true,
+  "typeGuess": "L-REASON",
+  "typeGuessAll": [
+   "L-REASON"
+  ]
  },
  {
   "exam": "2018",
@@ -455,7 +487,11 @@
    "W",
    "M"
   ],
-  "isDialogue": true
+  "isDialogue": true,
+  "typeGuess": "L-MONEY",
+  "typeGuessAll": [
+   "L-MONEY"
+  ]
  },
  {
   "exam": "2018",
@@ -522,7 +558,11 @@
    "M",
    "W"
   ],
-  "isDialogue": true
+  "isDialogue": true,
+  "typeGuess": "L-NOTMENTION",
+  "typeGuessAll": [
+   "L-NOTMENTION"
+  ]
  },
  {
   "exam": "2018",
@@ -540,7 +580,11 @@
   "speakers": [
    "W"
   ],
-  "isDialogue": false
+  "isDialogue": false,
+  "typeGuess": "L-ANNOUNCE",
+  "typeGuessAll": [
+   "L-ANNOUNCE"
+  ]
  },
  {
   "exam": "2018",
@@ -607,7 +651,11 @@
    "M",
    "W"
   ],
-  "isDialogue": true
+  "isDialogue": true,
+  "typeGuess": "L-TABLE",
+  "typeGuessAll": [
+   "L-TABLE"
+  ]
  },
  {
   "exam": "2018",
@@ -678,7 +726,11 @@
    "W",
    "M"
   ],
-  "isDialogue": true
+  "isDialogue": true,
+  "typeGuess": "L-RESPONSE",
+  "typeGuessAll": [
+   "L-RESPONSE"
+  ]
  },
  {
   "exam": "2018",
@@ -749,7 +801,11 @@
    "M",
    "W"
   ],
-  "isDialogue": true
+  "isDialogue": true,
+  "typeGuess": "L-RESPONSE",
+  "typeGuessAll": [
+   "L-RESPONSE"
+  ]
  },
  {
   "exam": "2018",
@@ -771,7 +827,11 @@
   "speakers": [
    "W"
   ],
-  "isDialogue": false
+  "isDialogue": false,
+  "typeGuess": "L-SITUATION",
+  "typeGuessAll": [
+   "L-SITUATION"
+  ]
  },
  {
   "exam": "2018",
@@ -790,7 +850,11 @@
   "speakers": [
    "M"
   ],
-  "isDialogue": false
+  "isDialogue": false,
+  "typeGuess": "L-SET-TOPIC",
+  "typeGuessAll": [
+   "L-SET-TOPIC"
+  ]
  },
  {
   "exam": "2018",
@@ -809,6 +873,10 @@
   "speakers": [
    "M"
   ],
-  "isDialogue": false
+  "isDialogue": false,
+  "typeGuess": "L-SET-NOT",
+  "typeGuessAll": [
+   "L-SET-NOT"
+  ]
  }
 ]
