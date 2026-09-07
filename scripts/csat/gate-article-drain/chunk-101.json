@@ -1,0 +1,1202 @@
+[
+ {
+  "book": "Immorally obtained principal increases investors’ risk preference",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0175181",
+  "source": "plos",
+  "v_level": 6,
+  "words": 310,
+  "rows": 2,
+  "excerpts": [
+   "Guilt: A moral emotion As a moral emotion, the feeling of guilt plays an essential role in forming people’s attitudes and behavioral tendencies toward immoral objects. Moral emotions are emotions “that are linked to the interests or welfare either of society as a whole or at least of persons other than the judge or agent”. These emotions mediate the relationship between moral values and moral judgements and will infl",
+   "as been shown to be the cause for cleansing after immoral behaviors. The authors believe that guilt may also result in individuals’ intentions to distance themselves from immorally earned money and devalue it. Therefore, guilt would play a mediation role between the morality of the means by which capital is obtained and the riskiness of individual investments involving such capital. Guilt would lead people to get awa"
+  ]
+ },
+ {
+  "book": "The Extent and Consequences of P-Hacking in Science",
+  "url": "https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1002106",
+  "source": "plos",
+  "v_level": 5,
+  "words": 329,
+  "rows": 2,
+  "excerpts": [
+   "However, others note that many of the problems with publication bias reoccur with other approaches, such as reporting effect sizes and their confidence intervals or Bayesian credible intervals. Publication biases are not a problem with p-values per se. They simply reflect the incentives to report strong (i.e., significant) effects. A p-curve is the distribution of p-values for a set of studies. P-curves can be a help",
+   "equally likely to be observed. So, as the true effect size increases the p-curve is more right skewed. While a discontinuity in the distribution of p-values around 0.05 is indicative of publication bias, it does not distinguish between selective publication bias and p-hacking (see Box 1). P-hacking The p-curve can, however, be used to identify p-hacking, by only considering significant findings. Consequently, a p-hac"
+  ]
+ },
+ {
+  "book": "Affective temperament, job stress and professional burnout in nurses and civil servants",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0176698",
+  "source": "plos",
+  "v_level": 5,
+  "words": 316,
+  "rows": 1,
+  "excerpts": [
+   "Nurses and civil servants perform work which belongs to the public sector. Therefore, while carrying out their professional duties, the employees help citizens every day. In the case of nurses, it is taking care of patients by assisting them in activities of daily living, or serving them medicine. The civil servants’ work consists in helping citizens in cases where public administrative bodies can be of assistance, o",
+   "case of committing an error. Moreover, in Poland, the majority of workers of those professions receive similar salaries, which most of them consider insufficient. The factor which differs in the two professions is the specificity of contact with the patient/applicant. The nurse encounters people who are hurting or dying, the contact is longer and more direct, which is a source of additional mental burden. The feature"
+  ]
+ },
+ {
+  "book": "Optimal performance of stand-alone hybrid microgrid systems based on integrated techno-economic-environmental energy man",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0298094",
+  "source": "plos",
+  "v_level": 4,
+  "words": 326,
+  "rows": 1,
+  "excerpts": [
+   "In normal operating strategies, the net energy at each period is determined by comparing the amount of energy provided by RES and the load demand. If the net energy is greater than zero, it means there is a surplus of energy that can be used to charge the ESS until it reaches full capacity, and the rest is described as surplus energy. However, if there is an energy shortage i.e. the net energy is less than zero, the ",
+   " load ratio is the ratio of the energy produced by the MT to compensate the load to the maximum generating capacity (before this value the fuel consumption rate is much higher and is frequently set at 30% of the maximum generating value). This value indicates that MT units start generating power only when the power shortage exceeds 30% of their rated capacity. Meanwhile, with the DRMS, the MT operates according to lo"
+  ]
+ },
+ {
+  "book": "Spatial and temporal heterogeneity alter the cost of plasticity in Pristionchus pacificus",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pcbi.1011823",
+  "source": "plos",
+  "v_level": 6,
+  "words": 347,
+  "rows": 3,
+  "excerpts": [
+   "The expression of alternative phenotypes by a single genotype in different environments, i.e., phenotypic plasticity or polyphenism, remains a topic of great interest and discussion in both ecology and evolution. A plastic organism capable of assuming the form and function fitted to multiple environments could have a considerable advantage in competition against genetically hard-wired competitors. However, intuitivel",
+   "nsider a defensive phenotype P d that confers benefit to an organism by protecting it against the predators, similar to the expression of the defensive spine in Daphnia pulex. Genotype G f expresses P d regardless of the presence or the absence of any predator, i.e., genotype G f lacks any phenotypic plasticity with respect to this trait. In contrast, genotype G p is plastic with respect to the defensive phenotype P "
+  ]
+ },
+ {
+  "book": "Exploring the genetic factors of nitrogen use efficiency in potato",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0325578",
+  "source": "plos",
+  "v_level": 6,
+  "words": 330,
+  "rows": 1,
+  "excerpts": [
+   "Potato is an essential food for humanity, characterized by its high nutritional value, significant yield potential, and wide adaptability, making it a crucial crop for global food security. It is considered an important source of carbohydrates, but it also provides dietary fiber, vitamin C, vitamin B6, potassium, magnesium, iron, carotenoids, and phenolic acids. It is affordable food that is accessible throughout the",
+   "hese products led to increased crop yields, with wheat yields increasing by up to 400%.This positioned nitrogen as one of the most important fertilizers in crop production. In the last 20 years, there has not been a proportional increase in crop yields despite increased applications of nitrogen fertilizers. As a result, Nitrogen Use Efficiency (NUE) has become the second most studied trait worldwide due to its import"
+  ]
+ },
+ {
+  "book": "Developing Bayesian EWMA chart for change detection in the shape parameter of Inverse Gaussian process",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0301259",
+  "source": "plos",
+  "v_level": 5,
+  "words": 316,
+  "rows": 3,
+  "excerpts": [
+   "The specific form of this LF depends on the problem being addressed. The main purpose of DLF is to evaluate the accuracy of decision making and estimation procedures by assigning penalties for incorrect decisions or the estimates. By minimizing the DLF, the optimal decision rules or estimators can be selected that can lead to improved performance and minimized expected loss. The estimator θ ^, which minimizes the PR,",
+   "decision making and financial planning. PLF is represented as L ( θ, θ ^ ) = ( θ − θ ^ ) 2 θ ^ and its BE under PLF is given as θ ^ P L F = E θ 2 ∣ x. The EWMA control chart exhibit higher sensitivity in detecting small process shifts as compared to the Shewhart type control chart. For example, in certain situations, it is crucial to ensure that leakage remains below a specific threshold, while breaking strength must"
+  ]
+ },
+ {
+  "book": "The Pathological Buying Screener: Development and Psychometric Properties of a New Screening Instrument for the Assessme",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0141094",
+  "source": "plos",
+  "v_level": 6,
+  "words": 323,
+  "rows": 1,
+  "excerpts": [
+   "While Ridgway et al. recommended using the scale in the general population and not solely in patients with PB, this instrument probably carries a risk of overestimating tendencies toward PB. Most European studies used the one-dimensional German Addictive Buying Scale (GABS). The GABS was modeled on the 13-item Canadian Compulsive Buying Measurement Scale, resulting in a final version with 16 items that are answered o",
+   "not afford. All questions are answered on a 7-point Likert scale indicating either level of agreement or frequency. However, the suggested 2-factor structure (CAS-Buy and a CAS-Free) of the German version could not be replicated in a population-based sample ( N = 2,373). Afterwards, items were created with respect to these aspects, based on clinical experience with PB over more than 20 years (i.e. clinical interviews"
+  ]
+ },
+ {
+  "book": "Purpose in life, loneliness and depression among patients with substance use disorders in the psychiatric hospitals in G",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0299391",
+  "source": "plos",
+  "v_level": 5,
+  "words": 318,
+  "rows": 2,
+  "excerpts": [
+   "Substance use Disorders (SUD) are characterized by escalated and sustained drug intake, loss of control over drug intake and craving (American Psychiatric Association, 2013). SUD occurs only in individuals whose drug-use opportunities develop into a maladaptive pattern of drug-taking and seeking ). Early substance use is associated with polysubstance as well as substance use disorders, cognitive difficulties, behavio",
+   " to have used any illicit substance in the past year compared to their peers without mental ill-health. The found students with a diagnosis of mental disorder were three to six times more likely to report using illicit drugs compared to those without mental ill-health. Similar trends were also observed in other countries, such as the UK and the USA. Studies focusing on substance use in young people with emerging ment"
+  ]
+ },
+ {
+  "book": "What makes a peer? Characteristics of certified peer recovery support specialists in an emergency department-based inter",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0289920",
+  "source": "plos",
+  "v_level": 6,
+  "words": 331,
+  "rows": 3,
+  "excerpts": [
+   "Peer support services were described as “a key part” of these interventions, however a discussion on the characteristics of the peers themselves was missing. Other studies point to what makes an effective workflow for CPRSS in the ED but not the unique characteristics of the people that make these interventions work. Although these studies provide useful information on the need to and process for engaging CPRSSs in t",
+   ". ED staff are trained to attend to patients based on acuity, first caring for those with life threatening conditions. Although the immediate response to an OD or other substance use-related concern can be acute care, the underlying SUD is a chronic condition, requiring longer-term interventions including medications (e.g., to treat opioid use disorder), longer-term rehabilitation, social support, mental health refer"
+  ]
+ },
+ {
+  "book": "Exploring the bounds of consumer choice in supported housing: A reflexive thematic analysis of data generated from suppo",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pmen.0000505",
+  "source": "plos",
+  "v_level": 5,
+  "words": 249,
+  "rows": 2,
+  "excerpts": [
+   "But there’s people here that should be on clear disciplinary effects, right? Because they haven’t received any kind of – and it’s just like abuse to the staff and all sorts of stuff like that. Jessica commented, “They need to make a lot more buildings like this... These, however, were often contextualized within a readiness (stepped or phased) transitional paradigm. Emma stated: I really think with, like, second stag",
+   "ry strongly that there needs to be more housing for people in active addiction, with harm reduction being a short-term goal and recovery being a long-term goal. Similarly, Ryan shared: They need to have more second stage programs after treatment or even without treatment or second stage. And like [the] halfway house thing where you live in a house, then you have to be actively seeking employment, you have to stay sob"
+  ]
+ },
+ {
+  "book": "An improved grey wolf optimization algorithm for 3-D UWB indoor positioning",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0352111",
+  "source": "plos",
+  "v_level": 6,
+  "words": 311,
+  "rows": 1,
+  "excerpts": [
+   "With the rapid development of wireless communication technology and the Internet of Things, services based on indoor positioning technology are gradually becoming the focus of attention. Among them, Ultra-Wideband (UWB) technology has excellent anti-multipath effects, flexible data transfer rates, and high-ranking accuracy, making it widely used in intelligent warehousing, autonomous driving, and other fields. Compar",
+   "gorithms treat the indoor positioning problem as an optimization problem, which can reduce the computational complexity and improve the indoor positioning accuracy. In recent years, an increasing number of researchers have combined indoor positioning technology with optimization algorithms. The TLS positioning results were optimized using the WCA optimization algorithm. However, the WCA optimization algorithm has iss"
+  ]
+ },
+ {
+  "book": "A survey of barriers and facilitators to primary care staff conducting research",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0334892",
+  "source": "plos",
+  "v_level": 5,
+  "words": 321,
+  "rows": 2,
+  "excerpts": [
+   "Research is essential to find ways of improving healthcare although is not established in primary care. Research is essential to find ways of improving healthcare although is not established in primary care. The pressures on the National Health Service (NHS) are greater than they have ever been. In a post COVID-19 world there are backlogs in healthcare and resources are increasingly stretched to cope with demand. The",
+   "al health and a deterioration in other conditions related to weight and alcohol consumption influenced by repeated lockdowns. Even before the pandemic, the NHS was under increasing pressure for staff and resources. In the absence of greater funding, finding better ways of working, more effective medicines and treatment pathways to lessen the strain on the NHS - by research - is the only way of relieving this pressure"
+  ]
+ },
+ {
+  "book": "Language evolution and complexity considerations: The no half-Merge fallacy",
+  "url": "https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.3000389",
+  "source": "plos",
+  "v_level": 6,
+  "words": 331,
+  "rows": 2,
+  "excerpts": [
+   "The capacity for language is a defining trait of the human species. A leading proposal on the nature of the capacity, coming from the work of Chomsky, is that humans are equipped with some form of innate circuitry that allows for recursive computation over hierarchical structures. The theory describing this capacity has changed over the decades, with the most recent major articulation proposing a basic operation name",
+   "ent to yield grammatical structure and to be unique to humans. As for the question of evolution, in a recent book, Berwick and Chomsky propose that Merge, being such a simple operation, had to be the result of a single genetic mutation that endowed one individual with the necessary biological equipment for language. This idea is also defended in other recent work. The argument here is that because there can be no int"
+  ]
+ },
+ {
+  "book": "Does art reduce pain and stress? A registered report protocol of investigating autonomic and endocrine markers of music,",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0266545",
+  "source": "plos",
+  "v_level": 5,
+  "words": 317,
+  "rows": 2,
+  "excerpts": [
+   "And if so, can only music achieve this effect or also other forms of art? Not only is pain one of the biggest global health problems, but its prevalence is continuously increasing as the population ages. Today, pain serves as a leading reason for seeking medical care. Because of the unpleasant sensory and emotional nature of pain, and the associated tissue damage, there is a great interest to reduce the noxious senso",
+   "ivity in stress-responsive systems like subjective acute stress, autonomic and endocrine activity, and can be influenced by these. Therefore, concomitant investigation of both pain and stress is essential. Art can be a powerful, and—in its digitized form—an accessible resource, creating a cost-effective tool to promote health in everyday life. The health-related benefits of art have gained more and more attention in "
+  ]
+ },
+ {
+  "book": "Collaborative agglomeration level and spatial correlation of intercity manufacturing industry: An empirical study based",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0293645",
+  "source": "plos",
+  "v_level": 6,
+  "words": 330,
+  "rows": 1,
+  "excerpts": [
+   "The E-G index constructed by Ellison and Glaeser measures the strength of the relationship between enterprises’ “co-location” according to the relevance of enterprise location, and weed out the market concentration ratio to eliminate the impact of enterprise size differences on industrial agglomeration, so as to more accurately measure the agglomeration degree of industrial geographical distribution. The calculation ",
+   "ment of spatial weight matrix is the foundation for conducting regional spatial correlation analysis and an important tool for reflecting regional spatial relationships. The strength of this interactive influence is influenced by the geographical distance between spatial units. The geographical metric space weight matrix can more comprehensively and actually reflect the interaction effect between spatial units. The v"
+  ]
+ },
+ {
+  "book": "Artificial intelligence-based modeling for accurate leaf area estimation in olive (Olea europaea L.) cultivars",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0339865",
+  "source": "plos",
+  "v_level": 6,
+  "words": 332,
+  "rows": 2,
+  "excerpts": [
+   "The olive tree (Olea europaea L.) is one of the most widely cultivated fruit trees worldwide, particularly well-suited to the Mediterranean climate. Various olive cultivars are grown depending on their intended use (edible olives and/or olive oil) and local microclimatic conditions. With a cultivation history that spans over three thousand years, the olive tree is considered to be one of the most important and ancien",
+   "an area to other regions of the globe, including North and South America, Australia, and China, as a result of the economic and ecological advantages that olive farming offers. An olive tree’s capacity to flourish in dry and semi-arid settings, displaying a high tolerance to water shortages and poor soils, is one of the reasons why olive trees are so highly appreciated. Because of their extensive root systems, they c"
+  ]
+ },
+ {
+  "book": "Interdependent relationship between depression and Internet gaming disorder in parent-child dyads: The mediating role of",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0351947",
+  "source": "plos",
+  "v_level": 6,
+  "words": 312,
+  "rows": 1,
+  "excerpts": [
+   "Internet Gaming Disorder (IGD) is defined as “a pattern of excessive and prolonged Internet gaming that leads to a cluster of cognitive and behavioral symptoms, including progressive loss of control over gaming, tolerance, and withdrawal symptoms, analogous to the symptoms of substance use disorders” in the Diagnostic and Statistical Manual of Mental Disorders, Fifth Edition (DSM-5). IGD has become a significant glob",
+   "n Internet games. In addition, a prior research reported that around half of mothers and over 60% of fathers in Hong Kong were Internet gamers. Whereas the IGD among this age group, particularly in parents, received little attention. Previous studies solely reported the IGD prevalence either in young adults (pooled: 6.1%) or in adults across broad age ranges (pooled: 1.9%). No studies have reported it in middle-aged "
+  ]
+ },
+ {
+  "book": "Does the Video Assistant Referee (VAR) mitigate referee bias on professional football?",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0294507",
+  "source": "plos",
+  "v_level": 5,
+  "words": 313,
+  "rows": 3,
+  "excerpts": [
+   "The sports field is actively popularized all over the world. Various competitions, from the Olympic Games to e-sports tournaments, are attracting more and more attention from a wide variety of groups of people: fans, sponsors, sports experts, scientists. The audience is interested in the persistent struggle of motivated athletes, based on the principles of fair sport and rivalry, when everything is determined by dili",
+   "be able to make unbiased decisions. The most popular sport in the world is a platform for confrontation between different groups of people pursuing their own goals and interested in a certain result of the match. Since it is much more difficult to influence the whole team than one person, these people often define the referee as the object of their pressure and try to force him to make decisions in favor of one of th"
+  ]
+ },
+ {
+  "book": "Grandmothering and cognitive resources are required for the emergence of menopause and extensive post-reproductive lifes",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pcbi.1005631",
+  "source": "plos",
+  "v_level": 6,
+  "words": 311,
+  "rows": 1,
+  "excerpts": [
+   "Menopause, the permanent cessation of ovulation, occurs in women well before the end of their expected lifespan; reproductive senescence occurs substantially earlier than somatic senescence, leading to a particularly long post-reproductive life. This is a rather uniform pattern across traditional and modern human societies. For example, if a man or a woman reaches age 45, he or she can expect to live at least an addi",
+   "ant feature of human biology. Among other species, only pilot and killer whales also exhibit extensive female PRLS. For instance, female killer whales can live into the 90s although they usually stop reproducing around age 40. However, patterns of reproductive and somatic senescence in killer whales differ from those of humans in some other ways, especially for males. In contrast, observations in traditional human po"
+  ]
+ },
+ {
+  "book": "Comparison of local large language models for extraction of signs and symptoms data from electronic health records",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0350625",
+  "source": "plos",
+  "v_level": 6,
+  "words": 329,
+  "rows": 2,
+  "excerpts": [
+   "For these types of models, one of the following setup types can be applied: Zero-shot classification: The model classifies based solely on a task description. Example prompt: “Classify whether the patient in this text has fever or not: [text]” One-shot classification: The model classifies based on a task description and one labelled sample. Example prompt: ““While the patient coughs constantly, there is no sign of el",
+   " trained using the manually annotated dataset to discriminate between the three classes of ‘present’, ‘absent’, and ‘not reported’. After fine-tuning, a prompt could be used in which the multiclass prediction task is instructed to the model by providing a sample and an instruction to classify based on some provided samples. The original Dutch prompt and the translated English prompt that was used for the prompt-based"
+  ]
+ },
+ {
+  "book": "The role of informal support systems during illness: A qualitative study of solo self-employed workers in Ontario, Canad",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0297770",
+  "source": "plos",
+  "v_level": 5,
+  "words": 347,
+  "rows": 4,
+  "excerpts": [
+   "Because I just don’t have any extra money. (Mary) In some cases, SE’d workers managed their lack of funds by not buying required medications: “I … don’t take medication either for it. For example, a SE’d financial advisor was able to rely on her savings when ill and additionally had been paying into private critical illness insurance: I have no choice. I have to use my own savings […] Yes, yes, I have saved so much t",
+   "uldn’t trust the Government … I’m paid into EI many years, jobs before I’m paid into one time I had to claim, and they ask for back, I don’t trust the Government. (Remi) Loans and financial support through social networks Credit card loans were another way that SE’d workers managed financially when their income was low. So, I had to charge my credit card a lot. And after work I have to pay those” (Mamun). These netwo"
+  ]
+ },
+ {
+  "book": "Inoculation of Pan02 cells produces tumor nodules in mouse pancreas: Characterization of a novel orthotopic pancreatic d",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0300723",
+  "source": "plos",
+  "v_level": 6,
+  "words": 327,
+  "rows": 1,
+  "excerpts": [
+   "While modern small molecule and biologic therapies extend the life of patients with many cancers, these advances have had a limited impact on pancreatic cancer. Fewer than 50% of patients with pancreatic cancer live beyond 1 year; ~5% for 5 years. Even with its relatively low incidence, the annual death rate for pancreatic cancer is one of the highest for all cancers as its annual incidence is roughly equivalent to i",
+   "c tumor cells may express some of these druggable molecular targets, low-to-moderate levels of target-protein expression mean that the drugs that work for other types of cancer may be insufficient to improve pancreatic cancer treatment outcomes. While pancreatic tumor markers are being developed and verified, current pancreatic cancer treatments are relegated to broadly cytotoxic yet highly potent small molecules, in"
+  ]
+ },
+ {
+  "book": "Investigating time-efficiency of forward masking paradigms for estimating basilar membrane input-output characteristics",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0174776",
+  "source": "plos",
+  "v_level": 6,
+  "words": 323,
+  "rows": 1,
+  "excerpts": [
+   "The human auditory system is complex and nonlinear and a potential hearing loss can result from deficits at various auditory processing stages, even in the case of the most typical, sensorineural hearing loss. Currently, the main method used to categorize hearing loss is pure tone audiometry and the results are presented in terms of the audiogram reflecting pure-tone sensitivity. While useful, it is not sufficient on",
+   " for researchers to increase the homogeneity of test groups and/or allow more fine-grained investigations into the perceptual consequences of hearing loss from different etiologies. Intact functioning of the basilar membrane (BM) in the cochlea is crucial for proper auditory perception. In a normal cochlea, outer hair cells (OHCs) sharpen the tuning and amplify the mechanical response of the BM. When OHCs are damaged"
+  ]
+ },
+ {
+  "book": "Knowledge of breast cancer and practice of breast self-examination among adolescent girls in semi-urban area &ndash; Sav",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0334375",
+  "source": "plos",
+  "v_level": 5,
+  "words": 324,
+  "rows": 2,
+  "excerpts": [
+   "In Bangladesh, breast cancer screening has been implemented through clinical breast examination (CBE), a low-cost and easily practicable technique that can be readily taught to healthcare providers in low-resource settings. Presently, 271 Upazila Health Complexes (UHCs) have already introduced the CBE services in all districts in Bangladesh, and the ongoing training is enabling senior staff nurses of 14 other UHCs in",
+   "ries like Bangladesh, to find any changes in their breasts. The Bangladeshi report of the National Cancer Control Strategy and Plan of Action 2009−15 also supports the findings of the promotion of clinical breast examination (CBE) and BSE as an early detection method of breast cancer, to downstage and improve survival. In addition to that, the Breast Health Global Initiative (BHGI) guidelines for low and middle-incom"
+  ]
+ },
+ {
+  "book": "Optimizing solar irradiance forecasting: ANN models enhanced with ADAM and Cuckoo search algorithm",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0335342",
+  "source": "plos",
+  "v_level": 5,
+  "words": 314,
+  "rows": 1,
+  "excerpts": [
+   "Conventional energy sources that rely on fossil fuels are ecologically unsustainable and negatively affect the environment. This has led to a recent surge in research on alternative energy sources. In addition, the global energy crisis is getting worse since technological and economic advancements heavily rely on energy availability, which is necessary for global urbanization and industrialization. On the other hand,",
+   "sions, nations have imposed high taxes on carbon emissions from conventional power plants. Developing strategies to lower energy costs and guarantee environmental sustainability presents major challenges for researchers and policymakers. The research community has been working on amazing green energy solutions. According to current research trends, combining renewable energy sources with conventional fossil fuel-base"
+  ]
+ },
+ {
+  "book": "What do other people think he deserves? Social influence on utilization of mitigating information regarding a violent of",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0291729",
+  "source": "plos",
+  "v_level": 6,
+  "words": 346,
+  "rows": 1,
+  "excerpts": [
+   "These findings led Stevenson to lament that it is “sobering that child abuse appears not to be used as a mitigating factor” [ 18; pg. In one illustrative study that inspired the present work, Stevenson, Bottoms, and Diamond examined how evidence regarding an offender’s unfortunate history was framed in discussions among mock jurors. The most common framing was that the history information should be ignored. In short,",
+   "ceptions of prior suffering per se would mitigate blame. The studies cited above cast doubt on this assumption. Yet, it might still be the case that offender history information can mitigate blame, but the mechanism might involve something other than perceived suffering. In line with this possibility, Gill and Cerce proposed that information about an unfortunate history would effectively mitigate blame when the infor"
+  ]
+ },
+ {
+  "book": "Motivations to reciprocate cooperation and punish defection are calibrated by estimates of how easily others can switch",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0267153",
+  "source": "plos",
+  "v_level": 6,
+  "words": 307,
+  "rows": 2,
+  "excerpts": [
+   "Nor did they have access to an unlimited number of partners with zero cost of switching. Most social ecologies were intermediate between these two extremes. Does this imply that human motivations to reciprocate, defect, or punish are tuned to a social ecology with a single, intermediate level of partner choice? The availability of cooperative partners, i.e., the pool of potential partners for dyadic cooperation, depe",
+   "cate their help and down-regulate motivations to sanction their defections. This calibration requires mechanisms that can estimate the degree of partner choice in the situation one is facing. This can be decomposed into two questions: (i) How much partner choice is there in my local social ecology in general, and (ii) what are the prospects for partner switching right now, in my immediate situation? Estimating the pr"
+  ]
+ },
+ {
+  "book": "Supporting patient self-management: A cross-sectional and prospective cohort study investigating Patient Activation Meas",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0303299",
+  "source": "plos",
+  "v_level": 5,
+  "words": 319,
+  "rows": 1,
+  "excerpts": [
+   "These permissions are renewed annually by the UK’s Health Research Authority’s Confidentiality Advisory Group. Ethical approval for staff data collection was obtained on 4 th May 2018 from the University of Sheffield Research Ethics Committee as administered by the medical school (approval number: 019561). Individual staff participation was informed consent after reading the research information on the front of each ",
+   "hree satellites), Royal Liverpool University Hospital (four satellites), Salford Royal Hospital in Greater Manchester (four satellites) and Western Trust in Altnagelvin (no satellites). Belfast, Birmingham and Liverpool are the only participating kidney transplant centres. HD care in the UK is provided by both the NHS and private companies and therefore participating satellite units are either NHS-run or privately-ru"
+  ]
+ },
+ {
+  "book": "Social credit scores reduce interpersonal cooperation and trust",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0335810",
+  "source": "plos",
+  "v_level": 5,
+  "words": 341,
+  "rows": 1,
+  "excerpts": [
+   "For example, in systems with unequal access to information and resources, pre-existing disparities can be exacerbated, as individuals with advantages are more likely to selectively engage in interactions that further reinforce their privileged status. Moreover, individuals may actively avoid interactions that pose potential social or economic risks, similar to the strategic decision-making observed in group defense c",
+   " others, obtained through observed behavior, to guide future interactions. However, this information is often incomplete or unavailable. Thus, individuals must rely on external sources (e.g., gossip, reputation) as a substitute for direct experience. In some contexts, the availability of third-party information has been found to increase cooperation between individuals. However, reliance on reputational information c"
+  ]
+ },
+ {
+  "book": "Role of a LORELEI- like gene from Phaseolus vulgaris during a mutualistic interaction with Rhizobium tropici",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0294334",
+  "source": "plos",
+  "v_level": 7,
+  "words": 345,
+  "rows": 1,
+  "excerpts": [
+   "An important group of plant root mutualistic microbes are the nitrogen-fixing bacteria in the Rhizobiaceae family, which convert the diatomic nitrogen (N 2 ) to ammonium ion (NH 4 ) + inside root nodules of leguminous plants. During this interaction, the plant releases phenolic metabolites, such as flavonoids into the rhizosphere, which are specifically recognized by rhizobia. This induce the synthesis and secretion ",
+   "quires root morphological changes. In plants, ROS are produced by NADPH oxidases, known as RboHs (Respiratory Burst Oxidase Homologue). In Arabidopsis, RboHs have many important roles, such as in plant cell development and interactions with microorganisms. For instance, deletion mutants of AtRbohC have impaired root hairs that burst immediately after emergence, and deletion mutants of AtRbohD and AtRohF are more susc"
+  ]
+ },
+ {
+  "book": "Morphological and genetic characterization of the broad mite Polyphagotarsonemus latus Banks (Acari: Tarsonemidae) from",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0266335",
+  "source": "plos",
+  "v_level": 7,
+  "words": 310,
+  "rows": 1,
+  "excerpts": [
+   "The phytophagous broad mite Polyphagotarsonemus latus Banks (Acari: Tarsonemidae) is a cosmopolitan pest. It is prevalent in tropical and subtropical regions but has been recorded in temperate areas as well. The broad mite has been reported in Australia, Asia, Africa, Europe, North and South America, and the Pacific Islands. This phytophagous mite has a wide range of hosts belonging to more than 60 botanical families",
+   "humidity and temperature. Furthermore, broad mites often go undetected at the outset of an outbreak due to their small size (0.1 to 0.2 mm long). Their presence is recognized only at the moment that infested plants already begin to exhibit signs of damage. Symptoms include leaf bronzing and misshapen fruits, distorted flowers and producing multiple buds, and the curling of leaf margins. Injury, however, may be mistak"
+  ]
+ },
+ {
+  "book": "Sources of individual variability in a pragmatic reference game: Effects of logical reasoning and Theory of Mind",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0339899",
+  "source": "plos",
+  "v_level": 5,
+  "words": 325,
+  "rows": 2,
+  "excerpts": [
+   "It involves a speaker sending a message to refer to one of the objects in the shared view and a listener trying to identify the intended referent based on the message. The task is a replication of the comprehension experiment (Experiment 1) of F&D, with two modifications. The objects differed along two dimensions – shapes (triangle, square and circle) and colors (red, green and blue). On those trials, the target cont",
+   "t took place on December 6 and 7, 2022, and the first study session was conducted on the same days due to the efficiency of the platform. The optimal set length and equation difficulty was determined by conducting a set of pilot studies. This was done to avoid a ceiling effect. Internal consistency, measured by Cronbach’s α, typically ranges fron.7 to.8, while test-retest reliability over multiple weeks has found to "
+  ]
+ },
+ {
+  "book": "Barriers and facilitators to hepatitis C patient engagement: Interview study with general practitioner champions in Engl",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0337867",
+  "source": "plos",
+  "v_level": 5,
+  "words": 322,
+  "rows": 1,
+  "excerpts": [
+   "To boost testing rates, targeted testing trials have been delivered in primary care and found to be cost-effective. One study engaged primary care in searches for patients with hepatitis C risk factors in their patient record. They found that GPs knew some of the risk factors but did not always offer tests based on these risk factors; that GPs did not always remember to regularly re-offer testing; and that hepatitis ",
+   "s with historical diagnoses In addition to identifying (newly diagnosing) people with hepatitis C, primary care can also be a way to re-engage patients with historical diagnoses, if they have not received treatment or cleared the virus. Several re-engagement exercises have been conducted internationally in various healthcare settings. Re-engaging historically diagnosed patients may require understanding and addressin"
+  ]
+ },
+ {
+  "book": "Markov modeling in R: Advanced method using a cost-effectiveness analysis",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0350698",
+  "source": "plos",
+  "v_level": 6,
+  "words": 323,
+  "rows": 1,
+  "excerpts": [
+   "The foundation of many health economic evaluations is often a cohort state-transition model, commonly known as a Markov model. Such models are generally used to evaluate a health system, such as health technologies, diagnostic tests, and medical interventions. The objective of heath economic evaluations is to help decision-makers make an efficient 1allocation of resources, by determining, between several considered s",
+   "ome important restrictions in the context of structuring complex prognoses, due to the Markov assumption, or the fact that Markov models are memoryless. This assumption means once a patient has moved from one state to another the Markov model will have “no memory’‘ of where the patient has come from or the timing of that transition. In addition, simple Markov models are often not adapted to chronic diseases, because "
+  ]
+ },
+ {
+  "book": "A phenomenological computational model of the evoked action potential fitted to human cochlear implant responses",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pcbi.1010134",
+  "source": "plos",
+  "v_level": 7,
+  "words": 333,
+  "rows": 1,
+  "excerpts": [
+   "The best-known and most successful implantable neurostimulator or neuroprosthesis is the CI, designed to provide a sense of sound to an adult or child with severe to profound hearing loss. CI is composed of a microphone, a speech processor, a transmitter and receiver/stimulator, and an electrode array, which is inserted in the cochlea. In the past two decades, assessment of CI functionality is clinically recognized t",
+   "he spread of excitation of nerve activity that is excited when it is subjected to neuronal stimulation produced by a CI. It is essential to predict the activation of nerve fibers out of the target region of each electrode of the CI (crosstalk) and to design electrodes that improve the focalization. Also, it could be useful to predict dead regions of the cochlea. The complexity of biological systems makes it impossibl"
+  ]
+ },
+ {
+  "book": "Post-flood communicable disease surveillance following the 2023 dam collapse in Eastern Libya",
+  "url": "https://journals.plos.org/globalpublichealth/article?id=10.1371/journal.pgph.0007124",
+  "source": "plos",
+  "v_level": 5,
+  "words": 310,
+  "rows": 1,
+  "excerpts": [
+   "They were serious findings that required immediate maintenance and repair; however, due to the country’s instability and military conflict, these problems were not solved. Furthermore, the disaster triggered a complex public health crisis characterized by mass displacement and infrastructure collapse across Derna and other cities in the northeast of Libya. While the Libyan National Center for Disease Control (NCDC) p",
+   "odology Affected area Libya is located in the North African region, and it is bordered by the Mediterranean Sea to the north, Egypt and Sudan to the east, Tunisia and Algeria to the west, and Chad and Niger to the south. It has a vast area of 1.7 million square kilometers, and an extended coastline of around 1700 km. Most of the country is characterized by an arid desert climate. The primary source of national income"
+  ]
+ },
+ {
+  "book": "Assessing spider fear: Validity of a novel computerized behavioral avoidance test",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0346624",
+  "source": "plos",
+  "v_level": 6,
+  "words": 340,
+  "rows": 1,
+  "excerpts": [
+   "Spider phobia, which is defined by excessive and exaggerated fear towards spiders, can be highly detrimental to one’s quality of life and has a prevalence that varies between 2.7 and 9.5%. The current gold standard for the treatment of spider phobia is exposure therapy (ET), with even single-session treatments showing efficacy. Although exposure therapy is highly beneficial, it has a dropout rate of up to 45%, and re",
+   "hich can be utilized via the internet or through smartphone apps. Such computerized applications have the potential to offer treatment to affected individuals that may not enroll in or drop out of conventional exposure therapy. Indeed, several studies have shown that self-exposure to virtual or digital spiders can result in a reduction in fear. For exposure-based treatments to be successful, it is crucial to assess a"
+  ]
+ },
+ {
+  "book": "Challenging Medical Ghostwriting in US Courts",
+  "url": "https://journals.plos.org/plosmedicine/article?id=10.1371/journal.pmed.1001163",
+  "source": "plos",
+  "v_level": 6,
+  "words": 314,
+  "rows": 1,
+  "excerpts": [
+   "The following hypothetical case, which is applicable to many real world events, illustrates how liability can be established: A drug manufacturer conducts a study whose primary endpoints show the study drug poses serious risks and is not effective. The drug manufacturer manipulates the data and creates post hoc secondary and tertiary endpoints to create favorable outcomes. Once a favorable outcome is created, the man",
+   "ce on the article's claims and the “authors'” reputations. Placebo responses help mask efficacy issues, but some patients begin to suffer from the undisclosed side effects—which in many cases cause serious and fatal injuries. Under these circumstances, the injured patients and their families sue the manufacturer for injuries and death caused by the drug's side effects. The guest authors, however, are never named as d"
+  ]
+ },
+ {
+  "book": "Proximate determinants of the frequency of mosquito sounds: separating species-specific effects from environmentally dri",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0343060",
+  "source": "plos",
+  "v_level": 6,
+  "words": 310,
+  "rows": 2,
+  "excerpts": [
+   "Mosquitoes are vectors of several human and animal pathogens, including the malaria parasite and the dengue, chikungunya and ZIKA viruses, that are responsible for hundreds of thousands of deaths, and millions of cases every year. The most effective way to cope with the threat of emerging or re-emerging vector borne diseases is the prevention by rigorous surveillance system, which can help early detection of risk and",
+   "l point of view to monitor all species of mosquitoes, from a public health perspective, only few species are relevant. One of the most important aspects of vector monitoring will therefore be to detect and identify these select vector species. In recent years, numerous technologies have been developed to monitor and control vector and vector-borne diseases, including automatic remote monitoring, drones and mobile-pho"
+  ]
+ },
+ {
+  "book": "Optimal two-point loading strategy for accurate leg press force&ndash;velocity assessment",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0356566",
+  "source": "plos",
+  "v_level": 5,
+  "words": 314,
+  "rows": 1,
+  "excerpts": [
+   "Leg extensions are performed during various athletic activities, such as vertical jumps and sprint running, and horizontal dynamic leg press exercises are widely used to train and evaluate leg extension performance. Furthermore, unlike the vertical jump, the horizontal dynamic leg press avoids the landing impact, making it a potentially useful option for researchers and practitioners seeking to measure performance wi",
+   "s lower when force and/or velocity are reduced. Although force-velocity-power measurements are often conducted using a single load (e.g., body weight [BW]), this approach does not allow evaluation of an individual’s maximum force, velocity, and power production capability. Therefore, investigators have used methods to determine the force–velocity (F–V) relationship for a given task through measurements under multiple"
+  ]
+ },
+ {
+  "book": "Obtaining accurate population estimates with reduced workload and lower fish mortality in multi-mesh gillnet sampling of",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0299774",
+  "source": "plos",
+  "v_level": 6,
+  "words": 315,
+  "rows": 2,
+  "excerpts": [
+   "In the case of DIN 14757, the precision of a single sampling event must be sufficient to ensure detection of a 50% difference from other samplings in the abundance of dominant species with 95% likelihood. Despite this requirement, few studies report the precision of sampling campaigns, an exception being those dealing with the standardization of net sampling by comparing abundance of captured species among sites, pop",
+   " number of nets required under the CEN protocol is manageable, and multi-mesh gillnet sampling can be relatively time- and cost-effective. However, the DIN 14757 reaches its limits in large deep-water bodies like Lake Constance, where the number of nets and the effort required to deploy them render the method logistically challenging and prohibitively expensive. Gillnet sampling is also highly invasive, with the majo"
+  ]
+ },
+ {
+  "book": "Heterogeneity in the development of proactive and reactive aggression in childhood: Common and specific genetic - enviro",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0188730",
+  "source": "plos",
+  "v_level": 6,
+  "words": 311,
+  "rows": 1,
+  "excerpts": [
+   "Yet, none of the above studies considered the possibility of common genetic influences. Furthermore, a previously cited study found the correlation between PA and RA’s genetic factors was about.87 and this correlation was entirely accounted for by their joint overlap with physical aggression, a measure of the form of aggression. Longitudinal studies of aggression shows that the stability of aggression through childho",
+   " genetic and environmental factors associated with the stability of PA and RA. The study show that common genetic factors explained 63% of the stability of PA and 80% of the stability of RA. Common nonshared environmental factors explained the remaining 37% and 20% of the stability of PA and RA. In line with the Brendgen’s study, their results suggest genetic factors are substantially associated with interindividual "
+  ]
+ },
+ {
+  "book": "TRAILS: Tree reconstruction of ancestry using incomplete lineage sorting",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pgen.1010836",
+  "source": "plos",
+  "v_level": 6,
+  "words": 330,
+  "rows": 1,
+  "excerpts": [
+   "However, SMC models are generally restricted to a single coalescent event between a pair of samples, which limits their usefulness. More recently, there have been new developments to model multiple samples explicitly. For example, ARGweaver, Relate, tsinfer+tsdate or ARG-Needle use techniques such as resampling, threading and mathematical approximations to sequentially build the ARG. TRAILS extends the isolation mode",
+   "s another layer of complexity, since the coalescent events need to be contained within the underlying phylogeny or speciation tree. Moreover, the models described above typically use the presence or absence of a certain mutation to construct haplotypes, but ignore or filter out instances where more than two alleles are observed. This infinite sites model poses a problem for inter-species analysis, because recurrent m"
+  ]
+ },
+ {
+  "book": "Frequency-oriented hierarchical fusion network for single image raindrop removal",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0301439",
+  "source": "plos",
+  "v_level": 6,
+  "words": 325,
+  "rows": 1,
+  "excerpts": [
+   "Multi-stage hierarchical learning In contrast to single-stage deraining methods, multi-stage learning achieves better results by increasing the depth of the network and focusing on different features at each stage. Simultaneously, the increased complexity of the network makes the contribution of each module unclear. Besides, the designed hierarchical feature fusion networks makes full use of the multi-stage feature, ",
+   " the previous iteration. RPM can gradually extract the deep representation of raindrop images through the recurrent iteration. Each iteration uses the original raindrop image and the output of RPM in the previous iteration as the input, which can be expressed as: X t = f R P M ( X t - 1, X ), (1) where f RPM denotes the RPM recurrent operation. Also, X, X t −1 and X t mean the original image, output features of the p"
+  ]
+ },
+ {
+  "book": "Selective observation following betrayal shapes the social inference landscape",
+  "url": "https://journals.plos.org/plosbiology/article?id=10.1371/journal.pcbi.1014200",
+  "source": "plos",
+  "v_level": 6,
+  "words": 325,
+  "rows": 1,
+  "excerpts": [
+   "In a social context, one must infer the latent attributes of agents, such as others’ intentions or goals, from a series of observations. This inverse process for inferring latent social attributes or others’ mental states through observing others’ actions and following outcomes is called social inference. Despite its complexity, humans can seamlessly infer latent social attributes (e.g., roles in the scene) even from",
+   "his can be viewed as inverse reinforcement learning, where social inference involves learning others’ state or action value functions through action sequences. Both emphasize the chain-like inference over time as a Markov Decision Process (MDP), where action sequences serve as the key clues for inferring others’ unobservable goals or values. While most focus has been on action per se, less attention has been given to"
+  ]
+ },
+ {
+  "book": "Whether groups value agreement or dissent depends on the strength of consensus",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0334850",
+  "source": "plos",
+  "v_level": 5,
+  "words": 308,
+  "rows": 1,
+  "excerpts": [
+   "Through collective intelligence, the aggregation of inputs from many people can produce solutions and decisions that outperform individual efforts. Whereas collective intelligence once emerged only locally, through co-located groups and teams, the continued proliferation of the internet has extended the reach of collective intelligence to a wide variety of tasks—including evaluation, prediction, and innovation —that ",
+   "t facilitates convergence on optimal judgments from the crowd. In addition to the process of making and updating judgments, another key process in collective intelligence is how the collective weights, or values, different kinds of judgments. Much of the research on this process compares different weighting strategies to see which might be the most optimal. Given the importance of social influence in the processes of"
+  ]
+ },
+ {
+  "book": "Bottleneck analysis of maternal and newborn health services in hard-to-reach areas of Bangladesh using ‘TANAHASHI’ frame",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0268029",
+  "source": "plos",
+  "v_level": 6,
+  "words": 321,
+  "rows": 1,
+  "excerpts": [
+   "Despite the astonishing achievement of decreasing the maternal mortality ratio (MMR) from 342 to 211 per 100,000 live births between 2000 and 2017, still annually over 800 women worldwide are dying from pregnancy and childbirth-related complications. Maternal deaths during pregnancy and childbirth are more prominent in low and middle-income countries. Similarly, during the same time, although the global neonatal mort",
+   "ction of maternal and neonatal mortality in recent decades. For instance, the MMR was reduced by almost 70% between 1990–2017, from 574 to 173 per 100000 live births with an average annual declining rate of 4.35%. If Bangladesh sustains this rate, by the year 2030, the MMR of the country would be 97 per 100,000 livebirths while to reach the global target for MMR of 70 per 100,000 livebirths, the rate needs to be acce"
+  ]
+ },
+ {
+  "book": "Revisiting the exposure criterion for PTSD: Using the COVID-19 pandemic as an opportunity to assess measurement invarian",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0347315",
+  "source": "plos",
+  "v_level": 6,
+  "words": 325,
+  "rows": 1,
+  "excerpts": [
+   "Over successive editions of the DSM, the conceptualization of PTSD has evolved, particularly regarding what qualifies as a traumatic event: the exposure criterion. In the International Classification of Diseases 11th revision (ICD-11), the exposure criterion is slightly different: exposure to an extremely threatening or horrific event occurring through direct experience, witnessing, or learning that it happened to a ",
+   "erion is challenging, even for experts. The global COVID-19 pandemic further fueled this debate. During this pandemic, part of the population learned about the actual or threatened death of a family member or friend, directly or indirectly caused by COVID-19. Importantly, the containment measures often excluded personal contacts and visits. However, according to the DSM-5, such experiences only meet the related expos"
+  ]
+ },
+ {
+  "book": "Effects on individual level behaviour in mackerel (Scomber scombrus) of sub-lethal capture related stressors: Crowding a",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0213709",
+  "source": "plos",
+  "v_level": 6,
+  "words": 315,
+  "rows": 1,
+  "excerpts": [
+   "Stress prior to the escape, release or slaughter of wild fish caught by fishing gear has been shown to reduce subsequent fitness, survival and resulting product quality. Therefore, the minimisation of stress to promote good fish welfare during capture should be of paramount concern for ethical, sustainable and profitable wild capture fisheries. In order to promote good welfare, objective and easily measurable indicat",
+   "sive to record and potentially non-intrusive. They are also a more holistic and often more immediate expression of the stress response, reflecting underlying neurological and physiological changes. Purse seine fishing targets aggregations of pelagic schooling species, by surrounding the school with a net to trap them. As the net volume is reduced by hauling the net aboard, catches are concentrated to a sufficient deg"
+  ]
+ },
+ {
+  "book": "Modeling the Evolution of Beliefs Using an Attentional Focus Mechanism",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pcbi.1004558",
+  "source": "plos",
+  "v_level": 6,
+  "words": 314,
+  "rows": 1,
+  "excerpts": [
+   "This is computationally difficult because the real-world environment displays a large number of environmental features. In addition, the relevance of the features can change over time and the observations do not always reflect the relevance of specific features. For example, to increase the chance of catching a fish, a fisherman has to consider various features ( e. To perfectly solve such tasks all possible features",
+   "elevant for correctly solving the task. The WCST was originally designed to test for the damage or dysfunction of the prefrontal cortex, which regulates executive functions. More recently it was employed in various behavioral models as a paradigm with which one can investigate computational mechanisms of higher cognitive functions. However, inferring the hidden belief states of subjects performing the standard WCST i"
+  ]
+ },
+ {
+  "book": "Influence of riders&rsquo; physical activity on improving seat balance in the context of horse welfare &ndash; A pilot s",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0344969",
+  "source": "plos",
+  "v_level": 5,
+  "words": 321,
+  "rows": 1,
+  "excerpts": [
+   "The welfare of horses used for riding under saddle is an extremely important issue that is receiving increasing attention. Since these horses are exposed to a variety of dangers, primarily injuries and diseases, it is essential to provide them with suitable living conditions and care to ensure their welfare. Currently, the main use of the horses is horseback riding. Across the world, various activities related to hor",
+   "rse comfort while riding primarily examines the correct fitting of equipment, especially the saddle, the use of various materials in the pads, and subjective assessment of the effect of the rider’s seating on the horse’s motor skills. The method commonly used to assess equipment fit is thermal imaging, which enables the identification of incorrect weight distribution while riding or an incorrectly fitted saddle. Hors"
+  ]
+ },
+ {
+  "book": "Catalyzing decisions: How a coin flip strengthens affective reactions",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0220736",
+  "source": "plos",
+  "v_level": 5,
+  "words": 318,
+  "rows": 2,
+  "excerpts": [
+   "Individuals face a multitude of decisions every day. Some are clear-cut, and allow for easy decisions, whereas for others individuals may be torn between options. In some of these cases, individuals might try to find a solution for their dilemma by using a simple random outcome decision-making aid such as a coin. By determining the meaning of heads and tails and by flipping the coin, individuals can easily come to a ",
+   "Apparently, flipping a coin may be more than a decider that shoulders the burden of choice by suggesting a random outcome, but may affect feelings that help individuals to decide on their own. A brief overview of coin flips Coin flips or other decision-making aids with random outcomes have been studied before, but in a more classical situation such as the old standing practice in soccer games to determine which team "
+  ]
+ },
+ {
+  "book": "Regional differences in the distribution of melanocyte-containing hair bulbs in the skin of male albino rats",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0336110",
+  "source": "plos",
+  "v_level": 6,
+  "words": 294,
+  "rows": 1,
+  "excerpts": [
+   "The coloration patterns observed in most terrestrial mammals arise from the diverse color combinations within their fur, which covers most of their body surfaces. Hair is produced by the division of hair-matrix cells in the hair matrix of hair follicles, where melanocytes produce melanin pigment and provide it for hair. The presence of melanocytes and their production of melanin in the hair matrix thus give hair or f",
+   "ar is well known as a specific marker for the detection of melanocyte lineages. Tyrosinase is the first enzyme in the melanin synthesis pathway converting tyrosine to DOPA and to dopaquinone and is thus considered the key enzyme in the pathway. Albino rats are frequently used as laboratory animals. Their characteristic white coat and body are due to a mutation in the tyrosinase gene, which eliminates the tyrosinase e"
+  ]
+ },
+ {
+  "book": "Indexical and linguistic processing by 12-month-olds: Discrimination of speaker, accent and vowel differences",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0176762",
+  "source": "plos",
+  "v_level": 6,
+  "words": 309,
+  "rows": 3,
+  "excerpts": [
+   "These eyetrackers are accurate within 0.5° and have a 0.2° compensation error for head movements. They implement both dark-pupil and bright-pupil technology to minimize data loss, and track both eyes simultaneously, which allows for data collection even when one eye is not being tracked. This binocular tracking also allows for correction of drift through continuous averaging of drift effects between the two eyes. The",
+   " right of the right edge of the monitor. The camera did not transmit an audio signal, so experimenters were blind to the experimental condition. The testing room at the University of Amsterdam implemented the 17-in monitor built into the Tobii T120 eye-tracker, which is permanently fixed directly above the eyetracker. A single AOI was drawn to cover the entire monitor, which measured 33.8 cm x 27.0 cm. Although the v"
+  ]
+ },
+ {
+  "book": "Efficient hybrid algorithm for nonnegative matrix factorization based on modified nonmonotone linear search",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0344857",
+  "source": "plos",
+  "v_level": 7,
+  "words": 309,
+  "rows": 2,
+  "excerpts": [
+   "Nonnegative Matrix Factorization (NMF) is a prevalent and efficacious technique for the analysis of high-dimensional datasets. It facilitates the automatic extraction of sparse and significant features from a set of nonnegative, redundant data vectors. The standard NMF problem is formulated as follows: given an data matrix V with and a pre-specified positive integer, NMF seeks two nonnegative matrices and such that (",
+   " processing, text mining, machine learning, and subsystem identification. Lee and Seung developed a multiplicative update (MU) algorithm and showed its equivalence to a gradient descent method. However, a limitation of the MU algorithm is that it may not converge to a stationary point due to the possibility of division by zero in the update rules. The Alternating Nonnegative Least Squares (ANLS) framework provides an"
+  ]
+ },
+ {
+  "book": "Standardised Mindfulness-Based Interventions in Healthcare: An Overview of Systematic Reviews and Meta-Analyses of RCTs",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0124344",
+  "source": "plos",
+  "v_level": 5,
+  "words": 321,
+  "rows": 1,
+  "excerpts": [
+   "Chronic illness is the largest cause of morbidity and mortality worldwide, causing 63% of all deaths. Often there is no cure for these illnesses and patients face a high burden due to symptoms or side-effects of treatment. Consequently, stress, depression and anxiety are very common among these patients. Equally important as finding cures are efforts to provide chronic care and teach patients coping mechanisms to imp",
+   "ly lend themselves to scientific investigation. Core components are usually described as follows: ‘full attention to internal and external experiences as they occur in the present moment’ and ‘an attitude characterized by non-judgment of, and openness to, this current experience’. Recently, Goyal et al. published a review of mindfulness interventions compared to active control and found significant improvements in de"
+  ]
+ },
+ {
+  "book": "Forecasting auditor&rsquo;s going concern opinion using with hybrid robust machine learning model",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0345071",
+  "source": "plos",
+  "v_level": 5,
+  "words": 315,
+  "rows": 1,
+  "excerpts": [
+   "Predicting bankruptcy is a major problem in accounting and financial decision-making. The importance of predicting company bankruptcies draws the attention of information users to the auditor’s going concern opinion (GCO), which addresses whether there is a material uncertainty about an entity’s ability to continue as a going concern. The auditor’s opinion on going concern relates to whether the entity can continue a",
+   "ss an unqualified, qualified, or adverse opinion on going concern when it is not appropriate to use the going concern basis of accounting (ISA 570, Paragraphs 21–23). However, the recent audit reporting failures that resulted in the bankruptcy of the client entity without a GCO have increased public interest in the GCO. Considering the potential adverse effects of audit reporting failures, anticipating the uncertaint"
+  ]
+ },
+ {
+  "book": "Genetic Basis of a Cognitive Complexity Metric",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0123886",
+  "source": "plos",
+  "v_level": 6,
+  "words": 351,
+  "rows": 1,
+  "excerpts": [
+   "Relational processing is defined as the ability to mentally link variables relevant for goal-directed behaviour, and is thought to underlie a diverse range of higher-order cognitive abilities including reasoning, categorisation, planning, quantification, and language. One characteristic of relational processing is that it is effortful. It imposes a load on limited cognitive resources and this load increases with the ",
+   " entities, or conceptual chunks of information, that can be processed in parallel to arrive at a solution and is proposed to underlie capacity limitations in reasoning (as has been shown for the knight-knave task of suppositional reasoning ). Further, it is comparable to the working memory capacity limit of four elements. Indeed, capacity limits in both reasoning and working memory might be based on the limited abili"
+  ]
+ },
+ {
+  "book": "The impact of Kamala Harris&rsquo;s social identities during the 2024 presidential election",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0354231",
+  "source": "plos",
+  "v_level": 6,
+  "words": 332,
+  "rows": 1,
+  "excerpts": [
+   "Kamala Harris was the first woman of Black and South Asian descent to be a major party’s presidential nominee in the United States (U.S.) yet her campaign was perceived as not making those identities a central aspect of her candidacy. This perhaps reflected concern that her race and gender would be a liability for her campaign in part based on lessens from Barack Obama and Hillary Clinton’s presidential campaigns. In",
+   " contrast, the media often highlighted her race and/or gender, and her opponent Donald Trump frequently highlighted her racial heritage. One example occurred in July 2024, when Trump said “She was always of Indian heritage, and she was only promoting Indian heritage... I didn’t know she was Black until a number of years ago, when she happened to turn Black, and now she wants to be known as Black. So I don’t know, is "
+  ]
+ },
+ {
+  "book": "Can lateral tenodesis improve the rotational stability of the ACL reconstruction? A finite element analysis",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0293161",
+  "source": "plos",
+  "v_level": 6,
+  "words": 312,
+  "rows": 1,
+  "excerpts": [
+   "The surgeon passes the graft beneath the LCL, applies a pretension load and fixes it at a given knee flexion angle. Apart from the specific surgical parameters and techniques, the surgeon’s ability and experience are critical factors that affect the outcomes of surgeries, such as ACLR and LET. Also, the optimal combination of the surgery-related criteria for each individual patient is not known in a pre-surgical sett",
+   "g ATT. On the other hand, the latter is better suited for assessing anterolateral knee instability. However, these tests depend on the clinician’s experience and feature high sensitivity and specificity. All these pitfalls have led to the emergence of biomechanics simulations as a valuable alternative tool, available to clinicians, engineers and researchers. These simulations are based on computational numerical tech"
+  ]
+ },
+ {
+  "book": "Comparing the uplink performance of 3D and 2D antenna models in THz networks in the presence of joint human and wall blo",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0351223",
+  "source": "plos",
+  "v_level": 5,
+  "words": 331,
+  "rows": 1,
+  "excerpts": [
+   "The Terahertz (THz) frequency bands (0.1–10 THz) in wireless communication are considered as the key enablers of future Sixth generation (6G) cellular networks, in particular, to enable Enhanced Mobile Broadband Plus (eMBBPlus) networks. The THz band has the potential to employ a wider bandwidth of the order of tens of GBs, which is an essential technology for 6G wireless systems. THz frequencies offer numerous advan",
+   "cation technology under the 6G standard. Moreover, holographic communication, which enables distant users to represent their presence, operates in 3D space with audio that can mimic various physical attributes and requires more bandwidth (up to 100 GHz), which is not supported by Fifth Generation (5G) technology enablers. Regardless of several promising advantages of employing THz communication, there are several cha"
+  ]
+ },
+ {
+  "book": "Comparative evaluation of deep learning models for plant disease classification with edge-aware performance analysis",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0349901",
+  "source": "plos",
+  "v_level": 6,
+  "words": 299,
+  "rows": 3,
+  "excerpts": [
+   "Inefficiency of Traditional CNNs: Despite the high accuracy (>99%) of ResNet50 and DenseNet121, their heavy computational demand has led to higher latency (>14ms). Such latency, i.e., A slower computing speed is detrimental to autonomous systems operating on battery power, as it diminishes the system’s operational time and responsiveness. Inaccuracy of BNNs: The Binarized Neural Network was able to deliver extreme sp",
+   " classification tasks within the Ultralytics framework. Therefore, the model can attain the state, of, the, art accuracy (99. Proposed processing pipeline The developed system serves as the “visual intelligence” unit for an agricultural robot. In a real-world scenario, the robot’s camera would provide this stream. Inference Engine (YOLOv8): The core processor runs the trained YOLOv8, cls model. The model extracts fea"
+  ]
+ },
+ {
+  "book": "Botulinum neurotoxin C mutants reveal different effects of syntaxin or SNAP-25 proteolysis on neuromuscular transmission",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.ppat.1006567",
+  "source": "plos",
+  "v_level": 7,
+  "words": 327,
+  "rows": 1,
+  "excerpts": [
+   "Few species of the bacterial genus Clostridium produce botulinum neurotoxins (BoNTs), which cause the flaccid paralysis of botulism. BoNTs are divided into at least seven different serotypes (BoNT/A to G) that comprise an increasing number of subtypes. BoNTs are the most poisonous toxins known to date and display lethal doses in the low ng/kg range. This remarkable potency is due to their selective action within the ",
+   "ed to BoNT/A1 as it produces the longest effect, and in very few circumstances to BoNT/B1, mainly to overcome BoNT/A1 resistance. These three proteins assemble into a complex, i.e. the SNARE complex, which mediates the fusion of synaptic vesicles with the presynaptic membrane, and their proteolysis is directly responsible for the pathogenicity of BoNTs. BoNT/B, /D, /F and /G cleave the vesicular SNARE protein VAMP-1/"
+  ]
+ },
+ {
+  "book": "Study on knowledge about associated factors of Tuberculosis (TB) and TB/HIV co-infection among young adults in two distr",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0217836",
+  "source": "plos",
+  "v_level": 5,
+  "words": 315,
+  "rows": 1,
+  "excerpts": [
+   "For example, knowledge of TB should result in identifying symptoms and getting a TB test based on identified symptoms and then acting on the results of the TB test. It is therefore important to establish TB knowledge levels of the people in the community so that relevant interventions can be made to control TB. Health behavior theories explain that for one to be tested and take care of themselves against a disease, t",
+   "wareness and knowledge of TB. Young people aged 10 to 24 years constitute 27% of the global population. The size of this population, which constitutes the largest cohort, requires huge health investment through research and programme implementation. In addition, it is understood that important health problems and risk factors for diseases including TB and HIV emerge at this age while these adolescents are generally t"
+  ]
+ },
+ {
+  "book": "Suicidal ideation, attempt and associated factors among prisoners in Northwest Ethiopia: A cross-sectional study",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0301410",
+  "source": "plos",
+  "v_level": 4,
+  "words": 316,
+  "rows": 1,
+  "excerpts": [
+   "Suicide is described as the intentional termination of one’s own life, and it is one of the main causes of death and significant public health issues around the world. There is a difference between thinking about suicide and doing it; some people have suicidal thoughts but never act on it. Suicidal ideation, defined as having thoughts, desires, or wishes to terminate one’s own life, is the beginning of the suicidal p",
+   "mit suicide each year, and it is the second leading cause of death for those between the ages of 15 to 29. More than ten million people are incarcerated throughout the world, and more than two-thirds of the world’s countries have seen an increase in the number of imprisoned people. In the United States, incarcerated people are nearly four times more likely to commit suicide than the general population, and nearly hal"
+  ]
+ },
+ {
+  "book": "A fluctuating intensity of care: A qualitative study on the experiences of informal caregivers of patients with critical",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0298959",
+  "source": "plos",
+  "v_level": 6,
+  "words": 302,
+  "rows": 2,
+  "excerpts": [
+   "Data were collected until no new themes arose, suggesting data saturation had been achieved. How are the care recipient’s physical restraints, due to CLTI, affecting you? How does interacting with the doctors and nurses within the vascular surgery department affect you? Follow up questions Topics Do you have an example? Identity Caregiving tasks Motivation Coping Support Relation with care recipient The two focus gro",
+   "urself as an informal caregiver? Data analysis The analysis followed the process of interpretive phenomenological analysis in which patterns were sought and identified that were related to the research question. The process of analysis was iterative, occurred concurrently with data collection and was based on the intended meaning rather than the frequency of occurrence. By doing so, themes and sub-topics were created"
+  ]
+ },
+ {
+  "book": "The flow, thermal and mass properties of Soret-Dufour model of magnetized Maxwell nanofluid flow over a shrinkage inclin",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0267148",
+  "source": "plos",
+  "v_level": 6,
+  "words": 317,
+  "rows": 2,
+  "excerpts": [
+   "Heat transfer is a heat engineering activity including manufacture, applications, transformation, as well as the transfer of heat energy between portable systems. Heat transmission is divided into many types, like thermal conduction, convection, radiation, and energy transfer through phase changes. Heat transfer was obtained by advection mass transport of chemical compounds considered by Engineers, which can be eithe",
+   "uses the increasing rate of heat transfer, and this condition occurs in chemical engineering procedures. In addition, the polymer extrusion method entails cooling the melted liquid expanded in the cooling gadget is related to the application of metallurgical techniques in chemical engineering procedures. Other polymer liquids such as Polyethylene oxide, a polyisobutylene solution in cetane, which has better electric "
+  ]
+ },
+ {
+  "book": "Assessment of a screening tool to aid home-based identification of adolescents (aged 10–14) living with HIV in Zambia an",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0266573",
+  "source": "plos",
+  "v_level": 6,
+  "words": 320,
+  "rows": 1,
+  "excerpts": [
+   "HIV infection among adolescents remains a challenge, with ≈1.8 million adolescents estimated to be living with HIV globally in 2015. In Africa, HIV/AIDS is now the leading cause of death among adolescents, notably among girls, and is ranked second globally next to unintentional injuries. Furthermore, an estimated 250,000 adolescents aged 15–19 become newly HIV-positive annually. Compared to adults, older adolescents,",
+   "vels, and behaviours in 10–14 year olds is that this age group is rarely a target group for HIV testing. This has likely disadvantaged programmatic planning for HIV testing, treatment and prevention services for young adolescents. Although estimates of the HIV prevalence in this 10–14-year-old age group were limited, among 15–19-year-olds in Zambia, in 2018, the prevalence was estimated to be 2.6% and 1.2% among fema"
+  ]
+ },
+ {
+  "book": "Report from MDE practice: An interview-based evaluation of model-driven engineering uses",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0335461",
+  "source": "plos",
+  "v_level": 5,
+  "words": 262,
+  "rows": 1,
+  "excerpts": [
+   "Semi-structured interviews were selected as the data collection method because of their versatility and effectiveness in capturing expert perspectives and insights. They offer a robust framework that allows researchers to explore the knowledge, thoughts, and opinions of experts in the field of Model-Driven Engineering (MDE), both from academia and industry. The research aims to identify the MDE tools and methods that",
+   "s of MDE as a discipline and in terms of the tools and methods available? What are the main weaknesses or limitations of MDE tools or methods? What changes to MDE tools/methods/notations could improve its effectiveness? What are the most important features that should be present in MDE tools, methods, or notations to enhance their effectiveness? What specific changes or additions are recommended to increase the effec"
+  ]
+ },
+ {
+  "book": "Health improvement of the elderly in five Central Asian countries during COVID-19 based on difference game",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0294697",
+  "source": "plos",
+  "v_level": 5,
+  "words": 310,
+  "rows": 4,
+  "excerpts": [
+   "In general, the relationship between the government and the elderly population has become closer during the COVID-19 pandemic, with the government taking a series of actions to protect the physical health of the elderly population. Only the government and the elderly are considered. There are not only old people in a country, but also many children and young people. The same applies to five Central Asian countries. C",
+   " all centered around these two players. Medical personnel in five Central Asian countries are relatively sufficient. Five Central Asian countries, whose economies are developing more slowly, do not have enough money to upgrade medical equipment and buy specific drugs for COVID-19. Before the collapse of the Soviet Union, however, the Soviet population was relatively well educated and produced a large number of medica"
+  ]
+ },
+ {
+  "book": "Emotional exhaustion and traumatic stress among healthcare workers during the COVID-19 pandemic: Longitudinal changes an",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0291650",
+  "source": "plos",
+  "v_level": 6,
+  "words": 351,
+  "rows": 1,
+  "excerpts": [
+   "Numerous studies have shown that healthcare workers (HCWs) working with infected patients are at particular risk due to increased work stress during health emergencies and epidemics. A specific form of work stress is secondary traumatic stress (STS) that is a psychological response to professional contacts with traumatized individuals. Secondary traumatic stress has been shown to be closely related to burnout, especi",
+   "12) epidemics. Burnout is often an underemphasized and frequently unrecognized problem among healthcare workers (HCWs), and is a precursor to additional mental health issues. Its significance was emphasized in a review which reported that up to 60% of HCWs may be affected by this problem. Additionally, according to the Medscape National Physician Burnout Suicide Report, the burnout rate among physicians in 2020 was 4"
+  ]
+ },
+ {
+  "book": "CAdir: Joint clustering of cells and genes for single-cell transcriptomics with visualization-driven cluster quality ass",
+  "url": "https://journals.plos.org/plosbiology/article?id=10.1371/journal.pcbi.1014418",
+  "source": "plos",
+  "v_level": 6,
+  "words": 332,
+  "rows": 2,
+  "excerpts": [
+   "However, constructing the dense SNN-graph for both cells and genes requires substantial amounts of memory, making it unsuitable for biclustering on large data sets. In order to evaluate the quality of a clustering, researchers often rely on two-dimensional embeddings of their data, such as t-distributed stochastic neighbor embedding (t-SNE) or Uniform Manifold Approximation and Projection (UMAP) plots. Furthermore, U",
+   "e biMAP is fundamentally still based on UMAP and consequently shares many of its shortcomings, most notably the inability to assess cluster quality based on the embedding. It is generally recommended not to use UMAP coordinates for clustering due to their stochastic nature and dependency of hyperparameter choices. It therefore stands to reason that they should equally not be used to determine a clustering’s quality, "
+  ]
+ },
+ {
+  "book": "Measuring the tilt and slant of Chinese handwriting in primary school students: A computerized approach",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0223485",
+  "source": "plos",
+  "v_level": 5,
+  "words": 308,
+  "rows": 1,
+  "excerpts": [
+   "Regarding computerized methods of measuring the slant degree of Chinese characters, several typical algorithms have been created. For instance, several studies have adopted the Hough transform in the skew correction process. This method maps shapes on a Cartesian coordinate system into a polar coordinate. After the transform, every straight line in the original coordinate system is represented by a point, and straigh",
+   "is method to manuscripts is limited. Direction-based pattern extraction has also been conducted in some studies, establishing a four- or eight-directional-based pattern to define standard stroke types. Such stroke types include horizontal, vertical, press, and throw strokes, and the same stroke shapes produced in the opposite direction of writing. Whole characters or strokes are then divided into standard types of st"
+  ]
+ },
+ {
+  "book": "Sole and combined effect of foliar zinc and arbuscular mycorrhizae inoculation on basmati rice growth, productivity and",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0266248",
+  "source": "plos",
+  "v_level": 5,
+  "words": 331,
+  "rows": 1,
+  "excerpts": [
+   "Inoculation of arbuscular mycorrhizae (AMF) is considered helpful in avoiding any disturbance in the balance uptake of phosphorus (P). AMF significantly improve the root elongation, which increases the rhizosphere area where organic secretions regulate the balance uptake of P in plants. Furthermore, improvement in soil characteristics due to improvement in the population of AMF in the soil also facilitate the improve",
+   "covering the knowledge gap of the best developmental stage among panicle and tillering of rice for application of Zn with and without AMF inoculation situation. It is hypothesized that application of Zn at panicle and tillering stages in split may be a better approach than sole application at panicle initiation or tillering stages for improvement in growth and yield of rice with and without AMF inoculation. Material "
+  ]
+ },
+ {
+  "book": "Investigation of household private car ownership considering interdependent consumer preference",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0219212",
+  "source": "plos",
+  "v_level": 5,
+  "words": 331,
+  "rows": 1,
+  "excerpts": [
+   "Research on household private car ownership has received considerable attention in the fields of economics, marketing and transportation. First, household private car ownership is critical in travel demand analysis. It is widely recognized that private car ownership plays a vital and ubiquitous role in the travel behavior of individuals and households both in long-term decisions, such as residential location, and sho",
+   "ehicle attributes that are not yet on the market. For governments, the models are helpful in investment decision making. For example, in the construction of the metro system, future private car ownership and the capacity of the transportation system of a city are key elements for the State Council of China to evaluate the investment. Third, vehicle type holdings and usage play a significant role in reducing greenhous"
+  ]
+ },
+ {
+  "book": "Expanding the fly eye gene regulatory network: From Drosophila to the hoverfly Episyrphus balteatus",
+  "url": "https://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1011864",
+  "source": "plos",
+  "v_level": 6,
+  "words": 333,
+  "rows": 1,
+  "excerpts": [
+   "Despite their very different architectures, eye development across animals relies on a conserved genetic toolkit composed of transcription factors (TFs) and signaling molecules. This fact suggests that all animal eyes, despite having evolved multiple times independently, may share a deep developmental homology. However, the development of the different eye types, being these single lens camera type or compound (compr",
+   "standing of the genetic control of eye development with this resolution is lacking for most eye types. An exception is the eye of Drosophila melanogaster, a small fly whose compound eye has long served as a paradigm for this very common eye type. Developmental genetics studies have already uncovered many of the genes essential for eye development and established some of their mutual cross-regulations. Further researc"
+  ]
+ },
+ {
+  "book": "Parent perceptions of the quality of life of pet dogs living with neuro-typically developing and neuro-atypically develo",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0185300",
+  "source": "plos",
+  "v_level": 6,
+  "words": 313,
+  "rows": 4,
+  "excerpts": [
+   "“He is bouncy, excitable, mischievous, naughty,” (NDD HB) This hyper-responsiveness could be a sign of repeated activation of the sympathetic adrenal medullary system in emotionally stimulating events and may suggest that the dog is experiencing frequent heightened emotions (positive or negative). It is also possible that it is more difficult for parents of NDD children to deal with hyper-responsive behaviours, due t",
+   "s the lack of clarity in which the command is issued, which could be a source of confusion for the dog. Dogs’ health (parent opinion) Parents typically commented that their dog was in good health. Nonetheless, problems relating to the dog’s digestive system (sensitive stomach, inflammatory bowel disease and urine infections) were the most commonly reported problems, and this was particularly evident for dogs living w"
+  ]
+ },
+ {
+  "book": "Stochastic virtual population in type 1 diabetes",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0341034",
+  "source": "plos",
+  "v_level": 6,
+  "words": 310,
+  "rows": 1,
+  "excerpts": [
+   "Insulin can be intermittently injected and it is called multiple daily injection (MDI) therapy, or administered in microboluses by an insulin pump. By observing the input-output dynamics of the blood glucose level a digital representation of the patient, a model can be developed. In general, these models can be used to simulate how the blood glucose changes with respect to the inputs. The simulations are valuable in ",
+   "s affected by external stimuli. Patients exhibit intrapatient variability through diurnal, seasonal variation, but also there are lot of factors that are not known or difficult to model, such as mood, physical activity, stress. There is huge uncertainty even in the self-reported events such as in the carbohydrate content of the meal. Glycemic index, macronutritional composition, and individual factors may also affect"
+  ]
+ },
+ {
+  "book": "ntStat: k-mer characterization using occurrence statistics in raw sequencing data",
+  "url": "https://journals.plos.org/plosbiology/article?id=10.1371/journal.pcbi.1014158",
+  "source": "plos",
+  "v_level": 6,
+  "words": 269,
+  "rows": 1,
+  "excerpts": [
+   "The counting module obtains k-mer occurrence frequencies and depth information using Bloom filters, and the histogram analysis module approximates a mixture model to allow the inference of k-mer statistics from their counts. A BF is a space-efficient probabilistic data structure that uses a set of independent hash functions to map a k-mer to specific indices in a bit array. During insertion, the bits at these indices",
+   "he intermediate CBF. Typically, k-mer count histograms show that most k-mers occur only once in sequencing data. Hence, the intermediate CBF holds a small subset of k-mers. Since CBFs require a byte to be allocated for each hash value, as opposed to one bit in BFs, storing less elements in the CBF substantially reduces memory requirements. Finally, k-mers that are observed more than a user-defined threshold Cmin are "
+  ]
+ },
+ {
+  "book": "Beyond the VSG layer: Exploring the role of intrinsic disorder in the invariant surface glycoproteins of African trypano",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.ppat.1012186",
+  "source": "plos",
+  "v_level": 7,
+  "words": 316,
+  "rows": 1,
+  "excerpts": [
+   "However, immunization with ISGs conferred no or only partial protection against repeated infections. The accessibility of ISGs for the interaction with extracellular host ligands (including antibodies) becomes enigmatic should they strictly conform to the prevailing VSG shielding model. Consequently, ISG exposure is likely to occur either through shedding or increased permissiveness of the VSG coat. For both proteins",
+   ". Material and methods Protein production and purification T. Aliquots were quickly thawed and injected onto a Nepenthesin-2/pepsin column (AffiPro, Czech Republic). Generated peptides were trapped and desalted via a Micro-trap column (Luna Omega 5 μm Polar C18 100 Å Micro Trap, 20 x 0.3 mm) for 3 min at a flow rate of 200 μL/min using an isocratic pump delivering 0.4% (v/v) formic acid in water. Both the protease an"
+  ]
+ },
+ {
+  "book": "Main drivers of regional value chains in CAFTA: Does trade facilitation matter?",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0289775",
+  "source": "plos",
+  "v_level": 5,
+  "words": 314,
+  "rows": 1,
+  "excerpts": [
+   "As it reflects the consumption of final products, the value chain is relatively short and reflects the rigid demand of the importing country. B. indirect domestic value ( DVA-INTrex ) Intermediate products exported by the exporting country to the importing country are transferred to the third country for final consumption by the importing country, which is the main representation of processing trade and reflects the ",
+   "lculate various trade added values of 40 major countries. However, there is still a lack of research on the trade in value-added of most developing countries, especially those with small trade volume. Existing research on the influencing factors of trade in value-added are mainly focused on export scale, FDI, R&D input, total factor productivity, production cost, and the size of international trade cost. Although fac"
+  ]
+ },
+ {
+  "book": "Determinants of low birth weight babies delivered at paropakar maternity and Women&rsquo;s hospital: A case-control stud",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0335107",
+  "source": "plos",
+  "v_level": 6,
+  "words": 311,
+  "rows": 1,
+  "excerpts": [
+   "Low birth weight remains a major public health concern due to its association with adverse neonatal, developmental, and long-term health outcomes, with no substantial improvement observed over the past decade in Nepal. Multiple socioeconomic, maternal, and obstetric factors contribute to low birth weight, particularly in low-resource settings. Low birth weight remains a major public health concern due to its associat",
+   "warm and might suffer from hypothermia. The baby’s risk for complications increases with low birth weight. They might face lifelong consequences including a higher risk of stunted growth, lower IQ, and adult-onset chronicconditions such as hypertension, ischemic heart disease, stroke, metabolic syndrome, obesity, diabetes, malignancies, osteoarthritis and dementia. According to the Nepal Demographic Health Survey (ND"
+  ]
+ },
+ {
+  "book": "Modeling Healthcare Processes Using Commitments: An Empirical Evaluation",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0141202",
+  "source": "plos",
+  "v_level": 6,
+  "words": 319,
+  "rows": 1,
+  "excerpts": [
+   "It has been argued that incorrect processes can lead to inefficiencies and sometimes to critical medical errors adversely impacting patient safety. Healthcare processes naturally involve the participation of multiple individuals and organizations. Other work in healthcare Information Technology (IT) has also concentrated on information modeling from a semantic standpoint, e.g., Unified Medical Language System (UMLS).",
+   "to the physician upon request? In case of a traditional model, the modelers can assure themselves of the correctness of only a few of the possible enactments, which they codify explicitly in their models, for example, as seen in Singureanu’s (, pp. Importantly, Comma is backwards compatible with traditional approaches in that it outputs the same operational representation, namely, Unified Modeling Language 2.0 Sequen"
+  ]
+ },
+ {
+  "book": "Neurally mediated syncope diagnosis based on adenylate cyclase activity in Japanese patients",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0214733",
+  "source": "plos",
+  "v_level": 6,
+  "words": 314,
+  "rows": 1,
+  "excerpts": [
+   "In recent years, approximately 20% of unknown syncope cases were considered to be NMS. Frequently occurring NMS lead to problems in everyday life. The underlying mechanisms causing NMS have yet to be clarified before any treatment can be proposed to patients. In general, NMS patients are treated lightly as they quickly recover consciousness. However, while NMS itself is not fatal, NMS patients can experience secondar",
+   "very important, such as for instance fainting in a standing or sitting position. However, since many diseases can result in fainting spells (e.g., orthostatic hypotension, cardiogenic syncope, arrhythmia, epilepsy, and cerebral vascular disorders), various additional examinations are required to confirm syncope-related symptoms. If NMS is suspected, diagnosis will entail conducting a head-up tilt (HUT) test. The HUT "
+  ]
+ },
+ {
+  "book": "Performance enhancement of short-term wind speed forecasting model using Realtime data",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0302664",
+  "source": "plos",
+  "v_level": 5,
+  "words": 313,
+  "rows": 1,
+  "excerpts": [
+   "Energy demand is rising globally, especially regarding electrical energy, along with the escalating effects of problems like the decreasing supply of fossil fuels and their adverse impact on the environment, rising oil prices, and their combined products on civilizations. To meet global energy demand and reduce greenhouse gas emissions according to the Paris Agreement, the globe is undergoing a switch from fossil fue",
+   "Among RESs, wind power is gaining attention considering its future potential to meet growing electricity demands at a reasonable price. In 2022, 50% of the world’s consumption of green energy came from wind, which grew at a rate of 13.5%, while 31.43% came from solar. However, wind power production relies highly on wind speed, which is stochastic and fluctuating. For this reason, it is crucial to forecast wind speed "
+  ]
+ },
+ {
+  "book": "Long COVID in the United States",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0292672",
+  "source": "plos",
+  "v_level": 6,
+  "words": 317,
+  "rows": 1,
+  "excerpts": [
+   "The SARS-CoV-2 (or COVID) pandemic has resulted in an estimated 6.8 million deaths around the world since the beginning of the outbreak in December 2019 and severely impacted the lives of many others who suffered temporary illness. These show three major spikes in cases, peaking at 5.6 million at the start of 2022. The number of deaths has four major peaks with the highest, 23,387, again at the start of 2021. The lat",
+   " continuation or development of new symptoms three months after the initial infection, with these symptoms lasting for at least 2 months with no other explanation. The recency of long COVID, together with difficulties in precisely defining it mean uncertainty persists regarding its incidence and consequences. Notwithstanding these issues, a consensus is emerging regarding its incidence, factors associated with it, an"
+  ]
+ },
+ {
+  "book": "Multicomponent Interdisciplinary Group Intervention for Self-Management of Fibromyalgia: A Mixed-Methods Randomized Cont",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0126324",
+  "source": "plos",
+  "v_level": 6,
+  "words": 343,
+  "rows": 1,
+  "excerpts": [
+   "Fibromyalgia syndrome (FMS) is a chronic disorder of unclear origin. Growing evidence suggests a combination of interacting neurophysiological, genetic, and psychosocial mechanisms as the cause of FMS. This syndrome is characterized by widespread musculoskeletal pain in association with fatigue, poor sleep quality, cognitive dysfunction, mood disturbances, and many other variable somatic symptoms. Prevalence of FMS i",
+   "goals) along with minimally acceptable changes to be expected a; Homework assignments: a to d. On site exercises: Abdominal breathing b; Pelvic tilt exercises; Ergonomic sit, lay down and lay up d. On site exercises: Exercises with pressure balls; Abdominal breathing c; Pelvic tilt exercises. Home exercises: Personalised exercises program e £; Cardiorespiratory training f. On site exercises: Abdominal breathing-sitti"
+  ]
+ },
+ {
+  "book": "Performance evaluation of GPU-based parallel sorting algorithms",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0342167",
+  "source": "plos",
+  "v_level": 6,
+  "words": 317,
+  "rows": 1,
+  "excerpts": [
+   "CUDA extends GPU functionality beyond graphics, allowing for general-purpose tasks like sorting. GPUs excel at parallelism, with stream processors optimized for floating-point operations, unlike CPUs with fewer cores optimized for sequential tasks. Parallel sorting reduces execution time, and, depending on the algorithm, can decrease time complexity from to near-linear time. For instance, the NVIDIA GTX 1650 has thou",
+   "erns, which align well with CUDA’s parallel architecture. QS, while efficient in ideal conditions, can face imbalances due to pivot selection. Optimized parallel QS, using multi-pivot strategies and balanced partitioning, works well on skewed datasets. Parallel BS, in contrast, is simpler but has limited scalability for large datasets. It distributes element comparisons across processors but remains inefficient for l"
+  ]
+ },
+ {
+  "book": "Reflections on the Cost of \"Low-Cost\" Whole Genome Sequencing: Framing the Health Policy Debate",
+  "url": "https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1001699",
+  "source": "plos",
+  "v_level": 5,
+  "words": 309,
+  "rows": 2,
+  "excerpts": [
+   "The upfront cost of sequencing an individual's entire genome is decreasing rapidly. As a result, whole genome sequencing (WGS) is becoming feasible for broad use in both research and clinical care. There is significant momentum around the idea of using WGS as a clinical tool in the near future. Indeed, some institutions are already seeking to integrate WGS into their clinical programs. For example, for many genomic f",
+   "roaches to screening, diagnosis, risk prediction, and prognostic platforms in clinical practice; the actual impact it will have on health and health care systems is far from certain. As with any new technology, decisions about clinical use should, as much as possible, be based on the best available evidence and on consideration of potential benefits and harms. As some seek to introduce WGS into clinical use—including"
+  ]
+ },
+ {
+  "book": "Age-related changes in oscillatory power affect motor action",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0187911",
+  "source": "plos",
+  "v_level": 6,
+  "words": 318,
+  "rows": 3,
+  "excerpts": [
+   "Unlike phase changes, the ones in the power spectrum have been linked to the proportion of neurons that fire at the same time (i.e., in 'synchrony'). The more neurons fire concurrently, the greater the reduction of the power at low frequencies. However, it appears to be independent of the age of the subjects, hence it does not reflect age-related deficits in motor behavior. In contrast, post-movement ERS in the β ban",
+   "ll subjects had normal or corrected-to-normal vision and no medical history of neurological, psychiatric, or orthopedic diseases. The study was approved by the Ethics Committee of the Medical Faculty of the University of Cologne. Experimental task The subjects performed a finger tapping task in three different conditions: self-initiated tapping, visually-cued tapping, and vision-only (i.e., no finger tapping). In the"
+  ]
+ },
+ {
+  "book": "An ancestral transmembrane transcription factor couples cell envelope regulation and the SOS response in Caulobacter cre",
+  "url": "https://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1011986",
+  "source": "plos",
+  "v_level": 7,
+  "words": 239,
+  "rows": 2,
+  "excerpts": [
+   "The ΔlexA ΔhigBA strain remained as sensitive to DNA damaging antibiotics as the ΔlexA parent strain, and did not display the improved resistance seen in the ΔlexA ΔhigB mutant. The close proximity of this gene (CCNA_03131) to higBA was suggestive of a function as a regulatory third component of the TA system. However, it bore no similarity to the chaperone third components seen in other higBA systems, in some cases ",
+   "es such as competence, extracellular toxin and bacteriocin production, alginate production and quorum sensing. In evolutionary terms, higBA in Caulobacter crescentus is a recent arrival upstream of higX. Insertion of higBA and its LexA-dependent promoter at this position is unique to the crescentus/vibrioides lineage and is not conserved among other Caulobacter species or other alpha-proteobacteria. Conversely, higX "
+  ]
+ },
+ {
+  "book": "Multilayer perceptron neural network approach for power quality improvement in a grid integrated PV and electric vehicle",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0350947",
+  "source": "plos",
+  "v_level": 6,
+  "words": 315,
+  "rows": 1,
+  "excerpts": [
+   "The bias imposed in the activation function is “b,” and “” is the back-propagation algorithm’s learning rate parameter. Comparable values are discovered for phases B and C. Estimation of reference currents The supply currents in terms of direct and quadrature reference are computed as (19)Where, and in which and. Finally, the reference current is calculated from both direct and quadrature components. (20)Reference cu",
+   "r for the boost converters to respond to changing weather conditions on time. Since the system is operated by a non-linear source (PV array), employing a machine learning technique such as ANFIS is very advantageous. Datasets with input and output variables are used to train it. Two types of these variables are considered: linear and non-linear. Two essential elements of the ANFIS architecture in a fuzzy inference sc"
+  ]
+ },
+ {
+  "book": "The social learning and development of intra- and inter-ethnic sharing norms in the Congo Basin",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0340388",
+  "source": "plos",
+  "v_level": 5,
+  "words": 334,
+  "rows": 2,
+  "excerpts": [
+   "Sharing between BaYaka and Bandongo occurs in the context of economic exchange relationships, typically institutionalized through fictive kinship. BaYaka men are often hired as shotgun hunters for Bandongo. In these contexts, BaYaka receive the hunter’s portion of meat, including the head, the tail, and the guts. They also receive a pre-agreed gift, such as a headlamp or clothing. BaYaka women routinely help build Ba",
+   "nt to note that these sharing norms are not without contention. Conflicts can arise when one party considers resources to be unfairly shared, when debts have not been paid, or when an area of the forest no longer produces sufficient resources. In such cases, institutions such as council meetings and nganga (traditional doctor) healing ceremonies help mitigate potential inter-ethnic conflict. BaYaka children begin to "
+  ]
+ },
+ {
+  "book": "Because you had a bad day: General and daily relations between reactive temperament, emotion regulation, and depressive",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0224126",
+  "source": "plos",
+  "v_level": 6,
+  "words": 327,
+  "rows": 1,
+  "excerpts": [
+   "Second, it has been suggested that the momentary choice for a certain ER strategy may be influenced by emotional intensity. However, it remains unclear how within-person differences in ER strategies are related to individual differences in emotional reactivity (i.e., reactive temperament). So, the proposition that the daily use of ER strategies is also–at least partially–driven by individual differences in reactive t",
+   "fe, resilient factors such as temperamental reactivity to positive emotions (PE) may play an imperative role by providing these youths with alternative ER strategies aside from rumination to cope with negative emotions from time to time. Unfortunately, few researchers have adopted a “state approach” to ER, considering ER as a dynamic process. As a result, no study so far examined the role of the NExPE interaction for"
+  ]
+ },
+ {
+  "book": "Determinants of abortion views among reproductive age women in Georgia 2023&ndash;2024",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0335370",
+  "source": "plos",
+  "v_level": 6,
+  "words": 314,
+  "rows": 1,
+  "excerpts": [
+   "Abortion is a continually debated legislative issue in the United States. Abortion is a continually debated legislative issue in the United States. Abortion, defined as a medical intervention that terminates a pregnancy, is one of the most consistently debated legislative issues in the United States (U.S.). Women are uniquely impacted by access to abortion care. Policies surrounding the specifications and limitations",
+   "port of abortion has hovered around 60% since 1995 (and stood at 63% in 2024), views vary by political affiliation, religious identity, and other demographic characteristics. For example, a 2024 survey of U.S. adults conducted by the Pew Research Center found that 85% of liberal-leaning persons support abortion in all or most cases and only 41% of conservative-leaning individuals saying the same. Though much research"
+  ]
+ },
+ {
+  "book": "Serial histological changes in the cartilaginous eustachian tube in the rat following balloon dilation",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0268763",
+  "source": "plos",
+  "v_level": 7,
+  "words": 356,
+  "rows": 1,
+  "excerpts": [
+   "As the sole connector of the middle ear to the nasopharynx, a functioning eustachian tube (ET) is important for maintaining a healthy well-aerated middle ear. The functions of the ET include middle ear ventilation, as well as the transport and secretion of pathogens and the nasopharyngeal reflux. A dysfunctional ET can lead to acute and chronic otitis media, one of the most common disease entities encountered in otol",
+   "aural fullness or ’popping sounds’, reduced hearing, tinnitus, autophony, otalgia, and imbalance. Until recent years, the understanding of ETD among otolaryngologists was limited, and few treatment options were available. Surgical management is now available after the introduction of the ET balloon dilation (ETBD) procedure. The reported success rates of ETBD range from 36–80%. Although ETBD is reported to be superio"
+  ]
+ },
+ {
+  "book": "Multiple instance learning framework can facilitate explainability in murmur detection",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pdig.0000461",
+  "source": "plos",
+  "v_level": 5,
+  "words": 320,
+  "rows": 1,
+  "excerpts": [
+   "Cardiovascular diseases (CVDs) are considered to make up more than a third of all deaths globally per year. Therefore, screening for CVDs is of public interest. While there exists a multitude of preventive medical examinations and techniques, such as heart auscultation, blood pressure measurement, imaging methods, electrocardiography, and even genetic testing, the availability and ease of use are not always given. Ph",
+   "ity changes and are often indicators for CVDs. For this reason, the George B. Moody PhysioNet challenge 2022 raised the task of detecting heart murmurs in PCG recordings from four different auscultation locations of a pediatric population and predicting the clinical outcome of a full diagnostic screening. For children, this is particularly interesting because 80% of children have heart murmurs at the early stage of t"
+  ]
+ },
+ {
+  "book": "Modelling of filamentous phage-induced antibiotic tolerance of P. aeruginosa",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0261482",
+  "source": "plos",
+  "v_level": 7,
+  "words": 332,
+  "rows": 1,
+  "excerpts": [
+   "Polymicrobial biofilms, where microcolonies of bacteria form structured communities surrounded by a self-produced extracellular polymeric substances (EPS), are increasingly linked to infections and to providing an environment that encourages bacterial survival and persistence. Bacterial survival in biofilms is supported by parameters such as lower metabolic rates, stress responses, decreased nutrient diffusion and lo",
+   "tion dynamics and empirical fitting models, with some recent, pioneering work also including cell-level simulations. Although the tactoid morphology has not been directly observed in biofilms, nematic structure has. Due to their uniform properties such as length, diameter, and charge, filamentous phages (with or without non-adsorbing polymers) can provide an experimental model system to study the physics of liquid cr"
+  ]
+ },
+ {
+  "book": "MViT: A vision transformer with fractal path reordering and dynamic positional encoding",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0340788",
+  "source": "plos",
+  "v_level": 6,
+  "words": 332,
+  "rows": 1,
+  "excerpts": [
+   "In visual tasks, dynamic positional encoding improves the modeling of spatial dependency and geometric transformation by combining image content with spatial structural features. However, conventional absolute positional encoding has limited adaptability to spatial transformations and semantic diversity in complex visual scenes.To mitigate this limitation, the Detection Transformer (DETR) introduces learnable positio",
+   "rotated content. Classical examples include the Hilbert curve and the Peano curve, which have been widely used in visual computing. The Peano curve supports flexible recursive subdivision, and it has been used to build a patch reordering strategy; however, such a strategy shows limited adaptability when the texture is not uniform. The Moore curve, which can be viewed as an extension of the Hilbert curve, achieves con"
+  ]
+ }
+]

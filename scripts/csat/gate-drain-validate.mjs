@@ -81,6 +81,24 @@ for (const { dir, f } of outs) {
     for (const it of out) {
       if (!inTitles.has(it.book)) errors.push(`${f}: 입력에 없는 제목 — ${String(it.book).slice(0, 60)}`)
     }
+    // ── 자리가 맞는가 ──────────────────────────────────────────────
+    // ⚠️ **위의 두 검사로는 「한 칸 밀림」을 못 잡는다.** 판정자가 항목 하나를 빠뜨리고
+    //   나머지를 이어 붙이면 개수도 같고(입력 길이만큼 채우므로) 제목도 전부 입력 안에 있다
+    //   — 집합 검사는 통과한다. 그런데 판정은 **전부 옆 글에 붙는다.**
+    //   실측 2026-09-07: 청크 하나에서 index 23 이 빠져 24~99 가 통째로 밀렸다. 판정자가
+    //   스스로 발견해 고쳤지만, 못 봤다면 76편이 남의 판정을 달고 조용히 적재됐다.
+    //   그래서 **같은 자리끼리** 대조한다. 집합이 아니라 순서가 정본이다.
+    const drift = []
+    for (let i = 0; i < Math.min(inp.length, out.length); i += 1) {
+      if (inp[i].book !== out[i].book) drift.push(i)
+    }
+    if (drift.length) {
+      errors.push(
+        `${f}: 판정이 자리에서 밀렸다 — ${drift.length}건 (첫 index ${drift[0]}). ` +
+          `입력 "${String(inp[drift[0]].book).slice(0, 40)}" 자리에 ` +
+          `"${String(out[drift[0]].book).slice(0, 40)}" 의 판정이 있다`,
+      )
+    }
   } else {
     warns.push(`${f}: 대응 입력 파일이 없다 — 개수·제목 대조를 못 한다`)
   }
