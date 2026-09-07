@@ -19,7 +19,7 @@
 // `data-apparatus` 는 계약이다 — 붙이려면 그 자리에 실제 내용이 있어야 한다.
 // 그래서 이 파일의 모든 선언은 **내용이 있을 때만** 렌더되는 자리에 붙어 있다.
 
-import { BookOpenCheck, CircleCheck, Clock, FileText } from 'lucide-react'
+import { BookOpenCheck, ChevronDown, CircleCheck, Clock, FileText } from 'lucide-react'
 
 import {
   unitCovers,
@@ -28,6 +28,15 @@ import {
   type VolumeContents,
 } from '@/lib/textbook/volume-contents'
 import { TYPE_GUIDE } from '@/lib/textbook/type-guide'
+
+/**
+ * 펼쳐 두는 분량 — **모양을 보여 줄 만큼만**이고 그 이상은 접는다.
+ *
+ * 근거(실측 2026-09-07): 권 상세 8,405px 중 목차 1,314px(16%) · 단원 미리보기 3,265px(39%).
+ * 목차는 네 줄이면 "어떻게 생겼는지" 가 보이고, 문항은 두 개면 형식이 보인다.
+ */
+const TOC_OPEN = 4
+const PREVIEW_OPEN = 2
 
 const CIRCLED = ['①', '②', '③', '④', '⑤'] as const
 
@@ -53,6 +62,38 @@ function Sheet({
     >
       {children}
     </section>
+  )
+}
+
+/**
+ * **나머지를 접는다** — 구성 설명은 읽는 글이 아니라 **찾아보는 자료**다.
+ *
+ * ── 왜 (실측 2026-09-07) ────────────────────────────────────────────
+ * 권 상세를 재 보니 **8,405px = 9.3화면**인데 **접힌 블록이 0개**였다. 그중 둘이 절반을
+ * 넘게 먹는다 — 단원 미리보기 3,265px(39%) · 목차 1,314px(16%). 둘 다 처음부터 끝까지
+ * 읽는 글이 아니라 필요할 때 펼쳐 보는 자료인데, 펼친 채로 두어서 그 아래 있는 것들
+ * (학습 계획표 · 계단 안내 · 부가 자료)이 사실상 안 보였다.
+ * CLAUDE.md 철학 2(Progressive Disclosure)이고, **매대가 이미 배운 교훈**이기도 하다
+ * (`ShelfControls` 머리말: "앞면은 고르는 데 필요한 것만").
+ *
+ * ⚠️ `<details>` 를 쓴다. 상태를 JS 로 들면 **서버 HTML 에 내용이 안 남아** 매대 지수
+ *    프로브(`apparatus-surface-probe.mjs` — HTTP GET 한 HTML 의 문자열을 센다)와 크롤러가
+ *    그 구역을 통째로 못 본다. `<details>` 는 접혀 있어도 HTML 에 그대로 있다.
+ * ⚠️ 요약줄은 **안에 무엇이 얼마나 있는지** 말한다 — "더 보기" 만 적으면 열지 말지 못 정한다.
+ */
+function Fold({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <details className="group mt-4">
+      <summary className="inline-flex min-h-[44px] cursor-pointer list-none items-center gap-1.5 rounded-[var(--r-md)] px-2 font-display text-[12.5px] font-[700] text-[var(--p)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] [&::-webkit-details-marker]:hidden">
+        <ChevronDown
+          size={14}
+          aria-hidden
+          className="transition-transform duration-[var(--dur-normal)] ease-[var(--ease)] group-open:rotate-180 motion-reduce:transition-none"
+        />
+        {label}
+      </summary>
+      {children}
+    </details>
   )
 }
 
@@ -153,11 +194,22 @@ export function VolumeToc({
         title="목차"
         aside={`${c.units.length}단원 · 문항 ${c.totalItems} · 약 ${Math.round(c.totalMinutes / 60)}시간`}
       />
+      {/* 앞 네 단원은 펼쳐 둔다 — 목차가 **어떻게 생겼는지**는 보여야 판단이 된다.
+          나머지는 접는다: 열 단원을 다 펴 두면 그 아래 학습 계획표·계단 안내가 안 보인다. */}
       <ul className="mt-4 flex flex-col">
-        {c.units.map((u) => (
+        {c.units.slice(0, TOC_OPEN).map((u) => (
           <UnitRow key={u.no} unit={u} />
         ))}
       </ul>
+      {c.units.length > TOC_OPEN ? (
+        <Fold label={`나머지 ${c.units.length - TOC_OPEN}단원 보기`}>
+          <ul className="flex flex-col">
+            {c.units.slice(TOC_OPEN).map((u) => (
+              <UnitRow key={u.no} unit={u} />
+            ))}
+          </ul>
+        </Fold>
+      ) : null}
       {/* 지어낸 목차가 아니라는 것을 **화면이 스스로 말한다.** 근거 없이 믿으라고 하지 않는다. */}
       <p className="mt-4 rounded-[var(--r-md)] border border-[rgba(176,132,58,0.28)] bg-[var(--warning-light)] px-4 py-3 font-body text-[12px] leading-[1.7] text-[var(--warning-ink)] [word-break:keep-all]">
         이 목차는 <strong className="font-display">실제로 조판한 단원</strong>입니다 — 재고 수로 지어낸
@@ -395,11 +447,22 @@ export function VolumePreview({ contents: c }: { contents: VolumeContents }) {
         </ul>
       </div>
 
+      {/* 앞 두 문항은 펼쳐 둔다 — 문항이 **어떻게 생겼는지**가 이 구역의 요점이다.
+          나머지는 접는다: 한 단원 전체가 3,265px 라 이 아래가 통째로 묻혔다(실측 2026-09-07). */}
       <ol className="mt-6 flex flex-col gap-6">
-        {s.items.map((it) => (
+        {s.items.slice(0, PREVIEW_OPEN).map((it) => (
           <PreviewItem key={it.no} item={it} />
         ))}
       </ol>
+      {s.items.length > PREVIEW_OPEN ? (
+        <Fold label={`남은 문항 ${s.items.length - PREVIEW_OPEN}개 보기`}>
+          <ol className="mt-4 flex flex-col gap-6">
+            {s.items.slice(PREVIEW_OPEN).map((it) => (
+              <PreviewItem key={it.no} item={it} />
+            ))}
+          </ol>
+        </Fold>
+      ) : null}
 
       <p className="mt-5 flex items-center gap-2 font-body text-[12px] text-[var(--t2)]">
         <Clock size={13} aria-hidden />
