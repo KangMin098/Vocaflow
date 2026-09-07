@@ -11,6 +11,7 @@ import type { RawArticle } from '../types-article'
 import { fetchWithTimeout } from './_helpers'
 import { applyArticleCurationSpec, type ArticleScore } from './_curation-spec'
 import { ingestMediaWikiArticle } from './_mediawiki'
+import { sourceKey } from './source-key'
 
 const API_BASE = 'https://en.wikipedia.org/w/api.php'
 
@@ -137,11 +138,18 @@ function shapeWikipediaPages(
   const raw: WikipediaListItem[] = pages
     // extract 충분 + 제목이 영문자로 시작(문장부호-시작 니치 '?Oryzomys'·'.hack'·'*SCAPE' 배제).
     .filter((p) => (p.extract ?? '').trim().length >= 60 && /^[A-Za-z]/.test((p.title ?? '').trim()))
+    // ⚠️ **pageid 없는 페이지는 버린다.** 열쇠를 못 만드는 항목을 제목 슬러그로 채우면
+    //   그 순간 목록기와 적재기가 다시 갈린다(2026-09-07 이전 상태). 실제로 categorymembers
+    //   응답에 pageid 가 빠지는 일은 없다 — 없으면 응답 판형이 바뀐 것이므로 세어서 버린다.
+    .filter((p) => p.pageid != null)
     .slice(0, limit)
     .map((p) => {
       const slug = (p.title ?? '').replace(/\s+/g, '_').slice(0, 80)
       return {
-        source_id: `wikipedia:${slug}`,
+        // 열쇠는 **적재기와 같은 함수**가 만든다 — `wikipedia:<pageid>`.
+        //   제목 슬러그를 쓰던 동안 `wikipedia-feed` 의 중복 검사는 영구 0건이었고
+        //   (DB 92행이 전부 pageid 꼴) 오류는 한 번도 나지 않았다.
+        source_id: sourceKey('wikipedia', { pageid: p.pageid, url: p.fullurl }),
         title: p.title,
         url: p.fullurl ?? `https://en.wikipedia.org/wiki/${encodeURIComponent(slug)}`,
         published_at: p.touched ?? null,

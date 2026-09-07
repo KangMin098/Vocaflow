@@ -84,6 +84,7 @@ import type { RawArticle } from '../types-article'
 
 import { fetchWithTimeout, htmlToPlainText } from './_helpers'
 import { applyArticleCurationSpec, type ArticleScore } from './_curation-spec'
+import { sourceKey } from './source-key'
 
 const CROSSREF = 'https://api.crossref.org/journals/2296-6846/works'
 
@@ -94,12 +95,28 @@ const FULLTEXT_BASE = 'https://kids.frontiersin.org/articles'
  * 피드 = 정렬 축. Crossref 는 `rows` 를 한 번에 100까지 준다 — 그 이상은 `offset`.
  * 학술지가 1,977편이라 한 번에 다 받지 않는다.
  */
-export const FRYM_FEEDS: Array<{ id: string; label: string; sort: string }> = [
-  { id: 'recent', label: 'Frontiers for Young Minds — 최신', sort: 'published' },
+export const FRYM_FEEDS: Array<{
+  id: string
+  label: string
+  sort: string
+  /**
+   * 딥페이징(`cursor=*`)에서 쓸 수 있는 정렬. **null 이면 정렬 없이 훑는다.**
+   *
+   * ⚠️ Crossref 실측 2026-09-07: 날짜 정렬은 커서와 **함께 못 쓴다** —
+   *   `{"type":"sort-criteria-incompatible-with-cursor",…"Sorting by [issued, published,
+   *   published-print, published-online] is not supported when using a cursor"}` (HTTP 400).
+   *   `is-referenced-by-count` 는 200 이다(같은 날 확인).
+   *   정렬 없는 커서 열거는 **완전 순서**가 보장되므로 수확에는 오히려 이쪽이 맞다 —
+   *   `published desc` + offset 이 새 글마다 창을 밀어 누락을 만들던 그 문제가 사라진다.
+   */
+  cursorSort: string | null
+}> = [
+  { id: 'recent', label: 'Frontiers for Young Minds — 최신', sort: 'published', cursorSort: null },
   {
     id: 'cited',
     label: 'Frontiers for Young Minds — 많이 인용된 순',
     sort: 'is-referenced-by-count',
+    cursorSort: 'is-referenced-by-count',
   },
 ]
 
@@ -321,49 +338,106 @@ function countWords(t: string): number {
  */
 const FULLTEXT_MIN_WORDS = 400
 
-export async function listFrymFeed(feedId = 'recent', limit?: number): Promise<FrymListItem[]> {
-  const feed = FRYM_FEEDS.find((f) => f.id === feedId)
-  if (!feed) {
+/**
+ * 목록 URL 1페이지분. **순수 함수** — 커서가 실제로 URL 에 실리는지를 네트워크 없이 잠근다.
+ *
+ * ⚠️ **offset 이 아니라 `cursor` 다.** 2026-09-07 이전에는 `sort=published&order=desc`
+ *   + `offset` 으로 훑고 `offset < 2_000` 에서 멈췄다. 그래서
+ *   ① 커서 파일이 없어 매 실행이 **같은 최신 창**만 보고, ② `published desc` 는 새 글이
+ *   실릴 때마다 창이 밀려 **누락**을 만든다(2026-08-16 IA 사고와 같은 꼴 — 중복은
+ *   `(source, source_id)` 가 잡지만 누락은 아무것도 안 잡는다).
+ *   Crossref 딥페이징은 완전 순서가 있어 둘 다 구조적으로 불가능하다.
+ */
+export function buildFrymListUrl(
+  feedId: string,
+  rows: number,
+  /** `undefined` = 정렬 모드(첫 화면). `null` = 커서 모드 첫 페이지. 문자열 = 이어서. */
+  cursor: string | null | undefined = undefined,
+): string {
+  const feed = FRYM_FEEDS.find((f) => f.id === feedId) ?? FRYM_FEEDS[0]!
+  const params = new URLSearchParams({
+    rows: String(Math.min(Math.max(rows, 1), PER_PAGE)),
+    select: 'DOI,title,license,URL,abstract,published',
+  })
+  if (cursor === undefined) {
+    // 첫 화면(관리자 목록)은 정렬이 의미 있다 — 커서를 안 쓰므로 날짜 정렬도 된다.
+    params.set('sort', feed.sort)
+    params.set('order', 'desc')
+  } else {
+    // 딥페이징. Crossref 가 날짜 정렬 + 커서를 400 으로 거절하므로 정렬은 피드가 허락한 것만.
+    if (feed.cursorSort) {
+      params.set('sort', feed.cursorSort)
+      params.set('order', 'desc')
+    }
+    // `*` = 첫 페이지. 다음부터는 응답의 `next-cursor` 를 **그대로** 되돌려준다.
+    params.set('cursor', cursor ?? '*')
+  }
+  return `${CROSSREF}?${params.toString()}`
+}
+
+/** 한 페이지 + 다음 커서. `nextCursor === null` 이면 **정말로** 끝이다. */
+export async function listFrymFeedPage(
+  feedId = 'recent',
+  rows = PER_PAGE,
+  cursor: string | null = null
+): Promise<{ items: FrymListItem[]; nextCursor: string | null }> {
+  return fetchFrymList(feedId, rows, cursor)
+}
+
+/** 목록 한 번. `cursor === undefined` 면 정렬 모드(첫 화면), 아니면 커서 모드. */
+async function fetchFrymList(
+  feedId: string,
+  rows: number,
+  cursor: string | null | undefined
+): Promise<{ items: FrymListItem[]; nextCursor: string | null }> {
+  if (!FRYM_FEEDS.some((f) => f.id === feedId)) {
     throw new Error(
       `FrYM 피드 '${feedId}' 를 모른다. 쓸 수 있는 것: ${FRYM_FEEDS.map((f) => f.id).join(' · ')}`
     )
   }
-  const want = limit ?? PER_PAGE
-  const items: FrymListItem[] = []
-
-  for (let offset = 0; items.length < want && offset < 2_000; offset += PER_PAGE) {
-    const url =
-      `${CROSSREF}?rows=${Math.min(want, PER_PAGE)}&offset=${offset}` +
-      `&sort=${feed.sort}&order=desc&select=DOI,title,license,URL,abstract,published`
-    // ⚠️ **Accept 를 명시해야 한다.** `fetchWithTimeout` 의 기본값이
-    //   `application/rss+xml, …` 이라 Crossref 가 **406** 을 돌려준다(실측).
-    //   같은 주소를 curl 은 받아 오는데 그건 curl 이 `*/*` 을 보내기 때문이다.
-    const res = await fetchWithTimeout(url, { accept: 'application/json' })
-    if (!res.ok) {
-      if (items.length) break
-      throw new Error(`FrYM Crossref list failed: ${res.status}`)
-    }
-    const json = (await res.json()) as { message?: { items?: CrossrefWork[] } }
-    const got = json.message?.items ?? []
-    if (!got.length) break
-
-    for (const w of got) {
-      if (!w.DOI) continue
-      // 초록은 이제 지문이 아니라 **고르기 위한 설명**이다. 그래도 없으면 거른다 —
-      // 초록조차 없는 항목은 정정문·사설 같은 비기사이기 쉽다(큐레이션이 이 값으로 채점한다).
-      const abstract = frymAbstractText(w.abstract)
-      if (!abstract) continue
-      items.push({
-        source_id: `frym:${w.DOI}`,
-        title: (w.title ?? [])[0]?.replace(/\s+/g, ' ').trim() || '(제목 미상)',
-        url: w.URL ?? `https://doi.org/${w.DOI}`,
-        published_at: frymPublishedAt(w.published),
-        description: abstract.slice(0, 300),
-        licenseUrl: frymLicenseUrl(w.license),
-      })
-    }
+  // ⚠️ **Accept 를 명시해야 한다.** `fetchWithTimeout` 의 기본값이
+  //   `application/rss+xml, …` 이라 Crossref 가 **406** 을 돌려준다(실측).
+  //   같은 주소를 curl 은 받아 오는데 그건 curl 이 `*/*` 을 보내기 때문이다.
+  const res = await fetchWithTimeout(buildFrymListUrl(feedId, rows, cursor), {
+    accept: 'application/json',
+  })
+  if (!res.ok) throw new Error(`FrYM Crossref list failed: ${res.status}`)
+  const json = (await res.json()) as {
+    message?: { items?: CrossrefWork[]; 'next-cursor'?: string }
   }
+  const got = json.message?.items ?? []
+  const items: FrymListItem[] = []
+  for (const w of got) {
+    if (!w.DOI) continue
+    // 초록은 이제 지문이 아니라 **고르기 위한 설명**이다. 그래도 없으면 거른다 —
+    // 초록조차 없는 항목은 정정문·사설 같은 비기사이기 쉽다(큐레이션이 이 값으로 채점한다).
+    const abstract = frymAbstractText(w.abstract)
+    if (!abstract) continue
+    items.push({
+      // 열쇠는 **적재기와 같은 함수**가 만든다(`sourceKey`) — 소문자 DOI.
+      source_id: sourceKey('frym', { doi: w.DOI, url: w.URL }),
+      title: (w.title ?? [])[0]?.replace(/\s+/g, ' ').trim() || '(제목 미상)',
+      url: w.URL ?? `https://doi.org/${w.DOI}`,
+      published_at: frymPublishedAt(w.published),
+      description: abstract.slice(0, 300),
+      licenseUrl: frymLicenseUrl(w.license),
+    })
+  }
+  // **항목 0 을 끝으로 삼는다.** Crossref 는 소진 뒤에도 `next-cursor` 를 계속 준다 —
+  //   토큰만 보고 돌면 영원히 끝나지 않는다.
+  const next = got.length > 0 ? (json.message?.['next-cursor'] ?? null) : null
+  return { items, nextCursor: next }
+}
 
+/**
+ * 기존 호출부(관리자 화면)를 위한 첫 페이지 전용 경로 — 시그니처 유지.
+ * **깊이 캐려면 `listFrymFeedPage` 와 커서 파일을 쓴다**(`scripts/textbook/frym-ingest.mjs`).
+ */
+export async function listFrymFeed(feedId = 'recent', limit?: number): Promise<FrymListItem[]> {
+  const want = limit ?? PER_PAGE
+  // 커서 없이 **정렬 모드**로 첫 페이지만 — 화면은 최신순이 의미 있고, 커서와 날짜 정렬은
+  //   Crossref 에서 함께 쓸 수 없다(§FRYM_FEEDS.cursorSort).
+  const { items } = await fetchFrymList(feedId, Math.min(want, PER_PAGE), undefined)
   return applyArticleCurationSpec(items.slice(0, want), 'frym', feedId, { maxItems: limit })
 }
 
@@ -413,7 +487,8 @@ export async function ingestFrymArticle(itemUrl: string): Promise<RawArticle> {
 
   return {
     source: 'frym',
-    source_id: `frym:${w.DOI ?? doi}`,
+    // 목록기와 **같은 함수** — 여기서 문자열을 조립하면 그게 두 번째 규칙이 된다.
+    source_id: sourceKey('frym', { doi: w.DOI ?? doi, url: fullUrl }),
     // **사람이 읽는 주소는 본문 주소다.** Crossref 의 `URL` 은 doi.org 리다이렉트라
     //   출처 표기에서 한 번 더 튕긴다. 리다이렉트 종착을 그대로 적는다.
     source_url: fullUrl,

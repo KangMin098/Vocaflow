@@ -55,6 +55,11 @@ const PER_FEED = Number(arg('limit') ?? 3)
 const PAGES = Number(arg('pages') ?? 1)
 /** 페이지 사이 간격 — 기관 API 에 몰아치지 않는다. */
 const PAGE_DELAY_MS = Number(arg('page-delay') ?? 350)
+/**
+ * 저장된 커서를 무시하고 처음부터 훑는다.
+ * (기본은 **이어서** — 실행마다 처음으로 돌아가던 것이 위키백과가 92편에서 멈춘 직접 원인이다.)
+ */
+const FRESH = process.argv.includes('--fresh')
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
 
 const { createClient } = await import('@supabase/supabase-js')
@@ -285,7 +290,16 @@ for (const s of targets) {
     try {
       if (feed.runPage && PAGES !== 1) {
         const seen = new Set()
-        let cursor = null
+        // ── 커서를 실행 사이에 남긴다 (2026-09-07) ─────────────────────
+        // **여기가 `let cursor = null` 이었다.** 매 실행이 카테고리 첫 페이지부터
+        //   다시 시작해 `--pages` 예산만큼만 나아갔고, 그 예산 밖은 **한 번도** 닿지
+        //   않았다. 오류는 나지 않는다 — 그래서 위키백과가 92편에서 멈춘 채였다.
+        //   규약·형식: `packages/library-pipeline/src/ingest-article/harvest-cursor.ts`.
+        // 재실행 안전: 이어서 볼 뿐이고, 담을 때는 여전히 `(source, source_id)` 로 거른다.
+        //   `--fresh` 를 주면 저장된 위치를 무시하고 처음부터 훑는다.
+        const cursorFile = lib.harvestCursorPath('acp', s.key, feed.id)
+        const savedCursor = FRESH ? null : lib.readHarvestCursor(cursorFile, s.key, feed.id)
+        let cursor = savedCursor && !savedCursor.exhausted && savedCursor.token ? JSON.parse(savedCursor.token) : null
         let pages = 0
         const budget = PAGES > 0 ? PAGES : Infinity
         while (pages < budget) {
@@ -310,7 +324,14 @@ for (const s of targets) {
           }
           if (pages < budget) await sleep(PAGE_DELAY_MS)
         }
-        walk = { pages, state: cursor ? 'capped' : 'exhausted' }
+        walk = { pages, state: cursor ? 'capped' : 'exhausted', resumed: Boolean(savedCursor?.token) }
+        // 커서는 **본 뒤에** 쓴다. 소진했으면 그 사실을 적어 다음 실행이 처음부터
+        //   다시 돌지 않게 한다(`--fresh` 로만 되돌린다).
+        lib.writeHarvestCursor(cursorFile, {
+          ...(savedCursor ?? lib.emptyHarvestCursor(s.key, feed.id)),
+          token: cursor ? JSON.stringify(cursor) : null,
+          exhausted: !cursor,
+        })
       } else {
         items = await feed.run()
       }
@@ -340,7 +361,9 @@ for (const s of targets) {
         String(fresh.length).padStart(5),
         ((100 * fit) / n).toFixed(1).padStart(6),
         ((100 * unfit) / n).toFixed(1).padStart(7),
-        walk ? `  ${walk.pages}p ${walk.state === 'exhausted' ? '소진' : '예산소진'}` : '',
+        walk
+          ? `  ${walk.pages}p ${walk.state === 'exhausted' ? '소진' : '예산소진'}${walk.resumed ? ' 이어서' : ''}`
+          : '',
       ].join(' '),
     )
 

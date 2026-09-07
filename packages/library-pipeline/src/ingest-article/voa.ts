@@ -10,12 +10,17 @@
 //   https://learningenglish.voanews.com/api/zjroyeuvy_     (Words and Their Stories, Level 3)
 //   ... (각 카테고리별 RSS — VOA 가 RSS URL 직접 제공)
 //
-// source_id 형식: 'voa:<article_id>' 또는 URL slug
+// source_id 형식: 'voa:<article_id>' — URL 끝 숫자 id (`/a/…/7886988.html` → `7886988`).
+//   ⚠️ 2026-09-07 이전에는 적재기가 슬러그 정규식으로 뽑으려다 `.html` 에 안 맞아
+//      **249행 전부 base36 해시**(`voa:ewolkz`)로 들어갔다. 목록기는 `voa:7886988` 을
+//      만들고 있었으므로 seed_catalog(30행)와 articles(249행)가 **한 건도 안 맞았고**,
+//      그래서 중복 차단이 한 번도 작동하지 않았다. 이제 양쪽 다 `sourceKey()` 를 부른다.
 // MVP 동작: RSS 1개 카테고리 fetch → item N 개 → 각 item URL → HTML → transcript 추출
 
 import type { RawArticle } from '../types-article'
 import { applyArticleCurationSpec, type ArticleScore } from './_curation-spec'
 import { safeDate, safeDateISO } from './_helpers'
+import { sourceKey } from './source-key'
 
 // VOA WAF 는 비브라우저 UA (curl/bot) 를 403 차단 → 일반 브라우저 UA 로 fetch.
 const USER_AGENT =
@@ -296,9 +301,9 @@ export async function ingestVoaArticle(itemUrl: string, hintLevel?: 1 | 2 | 3): 
     throw new Error(`VOA article body too short: ${content.length} chars`)
   }
 
-  // source_id: URL 의 마지막 슬러그
-  const slugMatch = itemUrl.match(/\/([a-z0-9\-]+)\/?(?:\?|$)/i)
-  const sourceId = `voa:${slugMatch?.[1] ?? hashString(itemUrl).toString(36)}`
+  // source_id — **목록기와 같은 함수**. 여기서 유도 못 하면 던진다(해시 대체 없음):
+  //   해시는 오류 없이 통과한 뒤 중복 검사를 영구 무력화한다. 못 넣는 편이 싸다.
+  const sourceId = sourceKey('voa', { url: itemUrl })
 
   // v06.45 — audio_url 추출 (LCP librivox_audio 와 동일 연계 패턴):
   //   VOA Learning English = 학습 정체성으로 거의 100% audio (transcript + voice).
@@ -337,6 +342,8 @@ const VOA_LEVEL_TO_CEFR: Record<1 | 2 | 3, string> = {
 
 function parseRssItems(xml: string): VoaListItem[] {
   const items: VoaListItem[] = []
+  /** 안정 식별자를 못 뽑아 버린 item. **0 이 아니면 판형이 바뀐 것이다** — 조용히 넘기지 않는다. */
+  let skippedNoId = 0
   const itemRe = /<item\b[^>]*>([\s\S]*?)<\/item>/g
   let m: RegExpExecArray | null
   while ((m = itemRe.exec(xml)) !== null) {
@@ -348,23 +355,28 @@ function parseRssItems(xml: string): VoaListItem[] {
     const desc = extractTag(block, 'description')
 
     if (!link) continue
-    // v06.45.1 — source_id 는 link URL 의 article ID 우선 (guid 가 URL 일 때
-    //  옛 slugFromGuid 가 .html 의 'html' 만 매치해 모든 item 이 동일 ID 가 되는 버그 수정).
-    //  우선순위: /1234567.html article ID → 끝 slug → link hash.
-    const fromLink =
-      link.match(/\/(\d{4,})\.html?$/)?.[1] ??           // /8010609.html 형식
-      link.match(/\/([a-z0-9\-]{6,})\/?$/i)?.[1] ??      // /article-slug/
-      null
-    const slug = (fromLink && fromLink !== 'html')
-      ? fromLink
-      : (guid ? slugFromGuid(guid) : hashString(link).toString(36))
+    // 열쇠는 **적재기와 같은 함수**가 만든다(`sourceKey`). 예전에는 여기와 적재기가
+    //   서로 다른 정규식을 들고 있었고, 둘이 갈린 것을 아무도 몰랐다.
+    // 유도 못 하는 item 은 **버리고 센다** — 해시로 채우면 그 item 이 매 실행 새 글이 된다.
+    let sourceId: string
+    try {
+      sourceId = sourceKey('voa', { url: link.trim(), guid })
+    } catch {
+      skippedNoId++
+      continue
+    }
     items.push({
-      source_id: `voa:${slug && slug !== 'html' ? slug : hashString(link).toString(36)}`,
+      source_id: sourceId,
       title: decodeEntities(title ?? '(제목 없음)').trim(),
       url: link.trim(),
       published_at: safeDateISO(pubDate),
       description: decodeEntities(stripTags(desc ?? '')).trim().slice(0, 400),
     })
+  }
+  if (skippedNoId > 0) {
+    console.warn(
+      `[voa] article id 를 못 읽어 ${skippedNoId}건을 버렸다 — URL 판형(/a/…/<숫자>.html)이 바뀌었는지 볼 것`,
+    )
   }
   return items
 }
@@ -384,16 +396,9 @@ function extractFirst(html: string, patterns: RegExp[]): string | undefined {
   return undefined
 }
 
-function slugFromGuid(guid: string): string {
-  const m = guid.match(/([a-z0-9\-]+)\/?$/i)
-  return m?.[1] ?? guid.replace(/[^a-z0-9\-]/gi, '').slice(0, 40)
-}
-
-function hashString(s: string): number {
-  let h = 0
-  for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0
-  return Math.abs(h)
-}
+// `slugFromGuid` · `hashString` 은 2026-09-07 에 지웠다 — **되살리지 말 것.**
+//   이 둘이 열쇠의 대체 경로였고, 그 대체가 249행을 base36 해시로 만들어 중복 검사를
+//   영구 무력화했다. 열쇠는 `sourceKey('voa', …)` 한 곳에서만 만든다.
 
 function stripTags(html: string): string {
   return html.replace(/<[^>]+>/g, '')

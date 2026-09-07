@@ -158,6 +158,8 @@ export type { OceanFactsListItem } from './ingest-article/ocean-facts'
 export {
   ingestFrymArticle,
   listFrymFeed,
+  listFrymFeedPage,
+  buildFrymListUrl,
   frymAbstractText,
   frymLicenseUrl,
   frymLicenseCode,
@@ -910,3 +912,28 @@ export type {
   PrefaceCopy,
   VolumeDossier,
 } from './textbook/dossier'
+
+// ── 중복 방지 규약 — 목록기와 적재기가 같은 열쇠를 만들게 하는 한 벌 ──────────
+// 왜 두 벌이면 안 되는지는 `ingest-article/source-key.ts` 머리 주석(실측 2026-09-07).
+export {
+  sourceKey,
+  stableId,
+  baseSourceKey,
+  isCanonicalSourceKey,
+  GOVERNED_SOURCES,
+  SOURCE_KEY_SHAPE,
+  UNGOVERNED_KNOWN_DIVERGENCE,
+} from './ingest-article/source-key'
+export type { GovernedSource, StableIdInput, ExcerptRange } from './ingest-article/source-key'
+
+// 증분 커서 — 저장 위치·형식 규약 + 수확기 등록부.
+export {
+  HARVEST_CURSOR_VERSION,
+  HARVEST_CURSOR_REGISTRY,
+  harvestCursorPath,
+  emptyHarvestCursor,
+  readHarvestCursor,
+  writeHarvestCursor,
+  markSeen,
+} from './ingest-article/harvest-cursor'
+export type { HarvestCursor, HarvestRegistryEntry } from './ingest-article/harvest-cursor'

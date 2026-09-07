@@ -273,6 +273,35 @@ v06.34 — `SELECT DISTINCT lbv.lemma, sd.v_level` type-based p75. Lexile/ATOS/C
 
 ## ACP — Article Curation Pipeline v1.0
 
+### 중복 방지 규약 — 열쇠 한 벌 + 커서 한 벌 (2026-09-07)
+
+같은 소스를 다시 캘 때 **이미 확보·제외한 것을 또 하지 않게** 하는 두 축. 정본은 코드다:
+
+| | 파일 | 규약 |
+|---|---|---|
+| 안정 식별자 | `packages/library-pipeline/src/ingest-article/source-key.ts` | `source_id = <source>:<안정 식별자>[#p<시작>-<끝>]`. **목록기와 적재기가 같은 `sourceKey()` 를 부른다.** 유도 못 하면 던진다(해시·슬러그 대체 금지) |
+| 증분 커서 | `ingest-article/harvest-cursor.ts` | 위치 `scripts/<pipeline>/data/<source>[-<feed>]-cursor.json` · 형식 `{version, source, feed, updated_at, token, seen[], exhausted}`. `token` 은 소스가 준 것 그대로(우리가 만든 offset 금지) · `seen` 에는 **거절한 편도** 적는다 |
+
+규약 소스: `wikipedia` · `voa` · `frym`.
+⚠️ `simple_wikipedia` 는 아직 **3갈래**다(seed_catalog `Title_slug` 34 · articles `Title#lead-trim` 99 ·
+적재기 `pageid`) — `UNGOVERNED_KNOWN_DIVERGENCE` 에 적어 두었고 별도 백필이 필요하다.
+
+**왜 규약이 필요했나** (실측 2026-09-07 — 셋 다 오류를 내지 않았다):
+
+| 소스 | 결함 | 결과 | 조치 |
+|---|---|---|---|
+| Wikipedia | 목록기 `<Title_slug>` vs 적재기 `<pageid>` | 중복 검사 **영구 0건**(DB 92행 전부 pageid) | 목록기 통일 · 백필 0행 |
+| VOA | 적재기 정규식이 `7886988.html` 에 안 맞아 249행 base36 해시 | seed_catalog↔articles 일치 **0건** | 양쪽 통일 · **249행 백필**(→ 일치 30) |
+| FrYM | offset 목록에 커서 파일 없음 | 매 실행 최신 창만 · 조용히 정상 종료 | Crossref `cursor=*` + 커서 파일 · **1,295편 해금** |
+
+⚠️ **Crossref 는 날짜 정렬 + 커서를 함께 거절한다**(HTTP 400
+`sort-criteria-incompatible-with-cursor`). 딥페이징은 정렬 없이 훑고(완전 순서가 보장된다),
+정렬은 첫 화면에서만 쓴다. `is-referenced-by-count` 는 커서와 함께 쓸 수 있다.
+
+회귀: `ingest-article/source-key-contract.test.ts`(14) · `harvest-cursor-contract.test.ts`(10).
+후자는 **목록기를 등록부에 안 적거나, 깊이 캐면서 커서도 이유도 없으면 실패한다.**
+
+
 ### 입력 — 소스별 "얼마나 깊이 들어갈 수 있는가" (실측 2026-08-30)
 
 ⚠️ 이 표의 앞 버전은 `arxiv-feed`(v06.69 에 플랫폼에서 삭제됨) 를 포함한 **4 feed** 로
