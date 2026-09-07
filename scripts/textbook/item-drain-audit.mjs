@@ -36,14 +36,33 @@ const SHOW_FIXABLE = process.argv.includes('--fixable')
 
 const { checkDrainItem } = await import('@vocaflow/library-pipeline')
 
+/** 해설이 걸린 사유인가 — 첫 판정이 여기서 멈췄다는 뜻일 뿐이다. */
+const RATIONALE_REASON = /근거에 지문의 영어를 인용|근거가 왜 나머지가 아닌지|근거가 비었거나/
+
 /**
- * 이 사유는 **해설만 고치면 살아나는가.**
+ * **해설만 고치면 정말 살아나는가 — 고쳐 보고 다시 잰다.**
  *
- * 선택지·정답·지문을 건드리지 않고 `rationale_ko` 한 칸만 다시 쓰면 통과하는 것들이다.
- * 지문 규격·기사 껍데기는 여기 들어가지 않는다 — 집필자가 지문을 못 고치기 때문이다
- * (빈칸 유형만 예외이고, 그건 다시 뽑는 편이 싸다).
+ * ⚠️ 처음에는 「사유가 해설이면 해설만 고치면 된다」고 셌다. **틀렸다.**
+ *   `checkDrainItem` 은 검사를 **순서대로 하고 첫 실패에서 반환**하므로, 해설 사유는
+ *   「해설이 첫 관문이었다」는 뜻이지 「해설이 유일한 관문」이라는 뜻이 아니다.
+ *
+ *   실측 2026-09-08: 그 셈을 믿고 회수 배치 둘을 돌렸더니 한쪽은 46칸 중 39칸이 살았지만
+ *   다른 쪽은 **44칸 중 16칸만** 살았다 — 나머지 28칸은 해설을 고치자 그 뒤에 있던
+ *   **지문 어수 위반**이 드러났다(169~200어, 규격 90~154). 계기가 회수 비용을 두 배 넘게
+ *   낮춰 말하고 있었던 것이다.
+ *
+ *   그래서 사유를 보고 짐작하지 않고 **합격하는 해설을 만들어 끼운 뒤 다시 판정한다.**
+ *   그래도 걸리면 해설이 문제가 아니다.
  */
-const RATIONALE_ONLY = /근거에 지문의 영어를 인용|근거가 왜 나머지가 아닌지|근거가 비었거나/
+function wouldPassWithGoodRationale(row, type, band) {
+  const passage = String(row.passage_edited ?? row.passage ?? '')
+  // 게이트가 요구하는 「4자 이상 영단어 둘이 거의 붙은 자리」를 지문에서 실제로 찾는다.
+  const quote = passage.match(/[A-Za-z]{4,}[^가-힣]{0,3}[A-Za-z]{4,}/)
+  // 인용할 자리가 지문에 아예 없으면 해설로는 못 고친다 — 그것도 사실이다.
+  if (!quote) return false
+  const probe = `글은 "${quote[0]}" 라고 말한다. 나머지 넷은 그 방향이 아니다.`
+  return checkDrainItem({ ...row, rationale_ko: probe }, type, band).ok
+}
 
 const reasons = new Map()
 let filled = 0
@@ -83,7 +102,8 @@ for (const d of fs.readdirSync(BASE)) {
       stat.bad += 1
       const key = v.reason.replace(/\d+/g, 'N')
       reasons.set(key, (reasons.get(key) ?? 0) + 1)
-      if (RATIONALE_ONLY.test(v.reason)) {
+      // 사유가 해설이어도 **고쳐 보고 통과할 때만** 싼 회수로 센다.
+      if (RATIONALE_REASON.test(v.reason) && wouldPassWithGoodRationale(r, type, band)) {
         fixable += 1
         stat.fixable += 1
         fixList.push({ dir: d, file: f, idx, title: String(r.source_title ?? r.article_id ?? ''), reason: v.reason })

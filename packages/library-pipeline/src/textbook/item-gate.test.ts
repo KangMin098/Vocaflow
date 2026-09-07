@@ -45,6 +45,34 @@ describe('문항 관문', () => {
     expect(v.ok).toBe(true)
   })
 
+  // ── 지면에 인쇄되면 안 되는 것 ─────────────────────────────────
+  // ⚠️ 이 둘은 `isPrintablePassage` 안에 있는데 게이트가 그 함수를 통째로 못 부른다 —
+  //    안의 비산문 규칙에 `_{4,}` 가 있어 빈칸 유형의 `____` 를 전부 껍데기로 세기 때문이다.
+  //    그래서 **두 검사만 따로 들었고**, 안 들었던 동안 게이트를 통과하는 1,452문항 중
+  //    65개가 논문 서지를, 5개가 학교 교재 불가 소재를 담고 있었다(실측 2026-09-08).
+  it('논문 서지가 남은 지문은 막는다 — 그대로 학생 지면에 인쇄된다', () => {
+    const p = `${base().passage} Citation: Ma Z, Wu P, Lee J. PLoS One 21(3): e0340496.`
+    const v = checkDrainItem(base({ passage: p }), 'topic', 5)
+    expect(v.ok).toBe(false)
+    expect(v.reason).toMatch(/논문 서식/)
+  })
+
+  it('구조 초록 표제어가 문장 자리에 남은 지문도 막는다', () => {
+    const p = `Objective To evaluate the effect of the intervention. ${base().passage}`
+    const v = checkDrainItem(base({ passage: p }), 'topic', 5)
+    expect(v.ok).toBe(false)
+    expect(v.reason).toMatch(/논문 서식/)
+  })
+
+  // ⚠️ 오탐 가드 — 이 규칙은 V2~V4 지문 653개에서 0건이었다. 평범한 산문이 걸리기
+  //    시작하면 규칙이 넓어진 것이므로 그때 이 시험이 먼저 깨져야 한다.
+  it('평범한 산문은 논문 서식으로 오인하지 않는다', () => {
+    const p =
+      'The results showed up later that week, and the method she used was simple. ' +
+      base().passage
+    expect(checkDrainItem(base({ passage: p }), 'topic', 5).ok).toBe(true)
+  })
+
   it('선택지가 다섯이 아니면 막는다', () => {
     const v = checkDrainItem(base({ choices: ['aaaaaaaaaa', 'bbbbbbbbbb'] }), 'topic', 5)
     expect(v.ok).toBe(false)

@@ -26,6 +26,7 @@ import {
   hasArticleChrome,
   hasCitationResidue,
   hasSensitiveTopic,
+  hasAcademicApparatus,
   hasUnbalancedParens,
 } from './csat-format'
 import { V_TO_MARKET_BUCKET } from './level-chart'
@@ -81,6 +82,8 @@ export interface ComposeResult {
     cutFragment: number
     /** 학교 교재 지면에 올릴 수 없는 소재. */
     sensitive: number
+    /** 논문 서식(`Citation:`·`Funding:`·구조 초록 표제어)이 남아 인쇄할 수 없는 지문. */
+    apparatus: number
     outOfRung: number
   }
   /** 시장 비중을 못 지키고 양보한 횟수. targetShare 를 줬을 때만 0 이 아니다. */
@@ -368,6 +371,7 @@ export function composeUnits(
   let chrome = 0
   let cutFragment = 0
   let sensitive = 0
+  let apparatus = 0
   let outOfRung = 0
   // 사다리 단수가 쓰는 유형만 남긴다. 주지 않으면 전 유형 허용(예전 동작).
   const allowed = allowedSet
@@ -435,6 +439,16 @@ export function composeUnits(
     //   조합기는 드레인이 만든 문항도 받고, 풀은 조판만 지킨다.
     if (!ELEMENTARY_ITEM_TYPES.has(p.type) && hasSensitiveTopic(p.passage_text)) {
       sensitive++
+      return false
+    }
+    // 논문 서식 — `Citation: Ma Z, Wu P, … PLoS One 21(3)` · `Funding:` · `Objective To …`
+    //
+    // ⚠️ 여기만 빠져 있었다(실측 2026-09-08). 껍데기·괄호·민감 소재는 막는데 **논문 서식은
+    //   안 막아**, 이미 적재된 **48문항**이 그 문자열을 지문에 담은 채 인쇄를 기다리고 있었다.
+    //   적재 관문에도 같은 검사를 넣었지만 **이미 들어온 것은 관문이 못 잡는다** — 이 저장소의
+    //   정책대로 지우지 않고 **고르는 자리에서** 막는다(위 껍데기 주석과 같은 이유).
+    if (!ELEMENTARY_ITEM_TYPES.has(p.type) && hasAcademicApparatus(p.passage_text)) {
+      apparatus++
       return false
     }
     return true
@@ -767,7 +781,7 @@ export function composeUnits(
   return {
     units,
     stoppedBecause,
-    rejected: { tooShort, tooLong, wrongFormat, residue, chrome, cutFragment, sensitive, outOfRung },
+    rejected: { tooShort, tooLong, wrongFormat, residue, chrome, cutFragment, sensitive, apparatus, outOfRung },
     mixRelaxed,
   }
 }

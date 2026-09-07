@@ -16,7 +16,7 @@
 //   · **정답 번호 쏠림** — 이번에 새로 넣는 것(`fresh`)만 봐야 하는데, 무엇이 새것인지는
 //     DB 에 물어야 안다. 그래서 import 에 남긴다.
 
-import { hasArticleChrome } from './csat-format'
+import { hasArticleChrome, hasAcademicApparatus, hasSensitiveTopic } from './csat-format'
 import { itemWordSpec } from './compose-unit'
 import { EXPLANATION_MENTIONS_WRONG, EXPLANATION_QUOTES_SOURCE } from './explain-items'
 
@@ -115,6 +115,21 @@ export function checkDrainItem(r: DrainItemRow, type: string, band: number): Ite
   //   `_{4,}` 가 있어 빈칸 유형의 `____` 를 전부 껍데기로 센다.
   if (hasArticleChrome(String(r.passage ?? '')) || hasArticleChrome(passage))
     return no('기사 껍데기가 지문에 있다 — 게이트가 생기기 전에 채운 청크다')
+  // ⚠️ **논문 서식과 민감 소재도 여기서 막는다** (실측 2026-09-08).
+  //   이 둘은 `isPrintablePassage` 에 있는데 게이트가 그 함수를 못 부른다 — 그 안의
+  //   비산문 규칙에 `_{4,}` 가 있어 빈칸 유형의 `____` 를 전부 껍데기로 세기 때문이다.
+  //   그래서 **두 검사만 따로 든다.**
+  //
+  //   안 들었더니 이런 일이 있었다: 게이트를 통과하는 1,452문항 중 **65개가
+  //   `Citation: Ma Z, Wu P, … PLoS One 21(3)` · `Funding:` · `Objective To evaluate …`
+  //   를 지문에 담은 채**였고, **5개는 저장소 정본이 학교 교재 불가로 못박은 소재**였다.
+  //   그대로 조판하면 그 문자열이 학생이 읽는 지면에 인쇄된다.
+  //
+  //   오탐은 이미 재 놓았다 — 학술 소스가 없는 V2~V4 지문 653개에 걸어 **0건**이다.
+  if (hasAcademicApparatus(passage))
+    return no('논문 서식이 지문에 남아 있다 — 그대로 인쇄된다(Citation·Funding·구조 초록 표제어)')
+  if (hasSensitiveTopic(passage))
+    return no('학교 교재에 실을 수 없는 소재다 — 형식이 멀쩡해도 지면에 못 올린다')
   if (spec.max > 0 && (words < spec.min || words > spec.max))
     return no(`지문이 ${words}어 — 규격 ${spec.min}~${spec.max}어 밖이라 인쇄할 수 없다`)
 

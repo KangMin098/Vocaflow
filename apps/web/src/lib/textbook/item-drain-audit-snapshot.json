@@ -1,56 +1,38 @@
 {
-  "measuredAt": "2026-09-07T15:49:22.555Z",
-  "filled": 1404,
-  "blocked": 316,
-  "rationaleOnly": 143,
-  "passageBlocked": 173,
+  "measuredAt": "2026-09-07T16:05:05.494Z",
+  "filled": 1685,
+  "blocked": 233,
+  "rationaleOnly": 17,
+  "passageBlocked": 216,
   "reasons": [
     {
       "reason": "지문이 N어 — 규격 N~N어 밖이라 인쇄할 수 없다",
-      "count": 151
-    },
-    {
-      "reason": "근거에 지문의 영어를 인용하지 않았다 — 학습자가 본문에서 찾을 수 없다",
-      "count": 92
-    },
-    {
-      "reason": "근거가 왜 나머지가 아닌지 짚지 않았다 — \"나머지\"·\"오답\"·번호 중 하나로 명시할 것",
-      "count": 51
+      "count": 187
     },
     {
       "reason": "기사 껍데기가 지문에 있다 — 게이트가 생기기 전에 채운 청크다",
       "count": 22
+    },
+    {
+      "reason": "근거에 지문의 영어를 인용하지 않았다 — 학습자가 본문에서 찾을 수 없다",
+      "count": 17
+    },
+    {
+      "reason": "근거가 왜 나머지가 아닌지 짚지 않았다 — \"나머지\"·\"오답\"·번호 중 하나로 명시할 것",
+      "count": 7
     }
   ],
   "byDir": [
     {
-      "dir": "blank-v2",
-      "blocked": 24,
-      "filled": 105,
-      "rationaleOnly": 24
-    },
-    {
       "dir": "mood-v4",
       "blocked": 22,
       "filled": 22,
-      "rationaleOnly": 7
-    },
-    {
-      "dir": "title-v2",
-      "blocked": 22,
-      "filled": 30,
-      "rationaleOnly": 22
-    },
-    {
-      "dir": "topic-v2",
-      "blocked": 20,
-      "filled": 49,
-      "rationaleOnly": 20
+      "rationaleOnly": 0
     },
     {
       "dir": "topic-v7",
       "blocked": 17,
-      "filled": 24,
+      "filled": 27,
       "rationaleOnly": 0
     },
     {
@@ -62,7 +44,7 @@
     {
       "dir": "content_match-v3",
       "blocked": 16,
-      "filled": 16,
+      "filled": 32,
       "rationaleOnly": 0
     },
     {
@@ -75,13 +57,13 @@
       "dir": "main_point-v3",
       "blocked": 16,
       "filled": 16,
-      "rationaleOnly": 8
+      "rationaleOnly": 0
     },
     {
       "dir": "purpose-v3",
       "blocked": 16,
       "filled": 16,
-      "rationaleOnly": 16
+      "rationaleOnly": 0
     },
     {
       "dir": "summary-v3",
@@ -90,69 +72,57 @@
       "rationaleOnly": 0
     },
     {
+      "dir": "main_point-v4",
+      "blocked": 15,
+      "filled": 15,
+      "rationaleOnly": 0
+    },
+    {
       "dir": "blank-v5",
       "blocked": 14,
-      "filled": 29,
+      "filled": 87,
       "rationaleOnly": 11
     },
     {
-      "dir": "main_point-v4",
-      "blocked": 14,
-      "filled": 14,
-      "rationaleOnly": 0
-    },
-    {
       "dir": "blank-v7",
-      "blocked": 11,
-      "filled": 65,
-      "rationaleOnly": 1
-    },
-    {
-      "dir": "long_order-v5",
-      "blocked": 8,
-      "filled": 16,
-      "rationaleOnly": 8
-    },
-    {
-      "dir": "long_vocab-v4",
-      "blocked": 8,
-      "filled": 16,
-      "rationaleOnly": 8
-    },
-    {
-      "dir": "long_vocab-v5",
-      "blocked": 8,
-      "filled": 16,
-      "rationaleOnly": 8
+      "blocked": 10,
+      "filled": 79,
+      "rationaleOnly": 0
     },
     {
       "dir": "blank-v3",
-      "blocked": 7,
-      "filled": 50,
-      "rationaleOnly": 0
-    },
-    {
-      "dir": "blank-v4",
       "blocked": 7,
       "filled": 51,
       "rationaleOnly": 0
     },
     {
+      "dir": "blank-v4",
+      "blocked": 7,
+      "filled": 52,
+      "rationaleOnly": 0
+    },
+    {
       "dir": "main_point-v7",
       "blocked": 7,
-      "filled": 14,
+      "filled": 19,
       "rationaleOnly": 0
     },
     {
       "dir": "topic-v5",
       "blocked": 6,
-      "filled": 37,
+      "filled": 39,
       "rationaleOnly": 6
     },
     {
       "dir": "main_point-v5",
       "blocked": 5,
-      "filled": 15,
+      "filled": 32,
+      "rationaleOnly": 0
+    },
+    {
+      "dir": "title-v2",
+      "blocked": 5,
+      "filled": 30,
       "rationaleOnly": 0
     },
     {
@@ -162,21 +132,27 @@
       "rationaleOnly": 0
     },
     {
-      "dir": "long_order-v4",
+      "dir": "topic-v2",
       "blocked": 4,
-      "filled": 16,
-      "rationaleOnly": 4
+      "filled": 49,
+      "rationaleOnly": 0
     },
     {
       "dir": "topic-v6",
       "blocked": 3,
-      "filled": 15,
+      "filled": 16,
+      "rationaleOnly": 0
+    },
+    {
+      "dir": "blank-v2",
+      "blocked": 2,
+      "filled": 105,
       "rationaleOnly": 0
     },
     {
       "dir": "blank-v6",
       "blocked": 2,
-      "filled": 54,
+      "filled": 56,
       "rationaleOnly": 0
     },
     {
@@ -188,25 +164,25 @@
     {
       "dir": "title-v7",
       "blocked": 2,
-      "filled": 17,
+      "filled": 18,
       "rationaleOnly": 0
     },
     {
       "dir": "claim-v7",
       "blocked": 1,
-      "filled": 7,
+      "filled": 12,
       "rationaleOnly": 0
     },
     {
       "dir": "purpose-v7",
       "blocked": 1,
-      "filled": 12,
+      "filled": 15,
       "rationaleOnly": 0
     },
     {
       "dir": "summary-v7",
       "blocked": 1,
-      "filled": 11,
+      "filled": 16,
       "rationaleOnly": 0
     }
   ]

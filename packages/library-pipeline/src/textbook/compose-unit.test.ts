@@ -92,6 +92,24 @@ describe('composeUnits', () => {
     expect(CSAT_ITEM_WORDS.min).toBe(90)
   })
 
+  // ⚠️ 조판기가 껍데기·괄호·민감 소재는 막으면서 **논문 서식만 안 막고 있었다**(실측
+  //    2026-09-08). 그 사이 이미 적재된 48문항이 `Citation: … PLoS One 21(3)` 을 지문에
+  //    담은 채 인쇄를 기다렸다. 적재 관문에도 같은 검사를 넣었지만 **이미 들어온 것은
+  //    관문이 못 잡는다** — 이 자리가 마지막 방어선이다.
+  it('논문 서식이 남은 지문은 조판이 고르지 않는다 — 그대로 인쇄되기 때문이다', () => {
+    const dirty = item('order', 'rP', 114)
+    dirty.passage_text = `Citation: Ma Z, Wu P. PLoS One 21(3): e0340496. ${dirty.passage_text}`
+    const { rejected } = composeUnits([...pool(8, 2), dirty], vocabFor(8), { band: 5, unitCount: 1 })
+    expect(rejected.apparatus).toBe(1)
+  })
+
+  it('평범한 산문은 논문 서식으로 오인하지 않는다 — 오탐은 재고를 갉는다', () => {
+    const clean = item('order', 'rQ', 114)
+    clean.passage_text = `The results showed later that the method worked. ${clean.passage_text}`
+    const { rejected } = composeUnits([...pool(8, 2), clean], vocabFor(8), { band: 5, unitCount: 1 })
+    expect(rejected.apparatus).toBe(0)
+  })
+
   it('수능 형식으로 못 바꾸는 삽입은 조합 전에 뺀다', () => {
     // 삽입은 지문이 5문장이어야 ①~⑤ 가 된다. 4문장짜리를 넣으면 단원에 "변환 불가"
     //   자리가 생기고, 그건 교재로 나갈 수 없다 — 조합한 뒤가 아니라 **앞에서** 거른다.

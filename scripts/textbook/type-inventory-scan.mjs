@@ -143,9 +143,69 @@ async function tallyItems(band) {
   return { cell, items, orphan }
 }
 
+/**
+ * **초등 세 유형은 저장되지 않는다 — 조판할 때 사전에서 즉석 생성된다.**
+ *
+ * ⚠️ 실측 2026-09-08: 이 스캔이 `csat_dcp_items` 만 세어 V1 을 **0권**이라 말하고 있었다.
+ *   그런데 `rhyme`·`word_meaning`·`spell_blank` 는 `volume-pool.mjs` 가 조판 시점에
+ *   `shared_dictionary` 에서 만든다. 실제 수율은 초등 어휘 806개 기준 운율 470(58.3%) ·
+ *   뜻 805(99.9%) · 철자 528(65.5%) — **권당 40개씩이면 11권**이다.
+ *   **틀린 감시 지표는 감시가 없는 것보다 나쁘다** — 없으면 모른다는 걸 알지만, 틀리면
+ *   안다고 착각한다. V1 을 「못 만든다」고 읽고 없는 일을 시킬 뻔했다.
+ *
+ * 그래서 여기서도 **같은 빌더로** 센다. 별표 표(`ELEMENTARY_TAG`)는 조판기에서 가져온다 —
+ * 사본을 두면 두 벌이 갈린다.
+ */
+async function tallyElementary(cell) {
+  const { ELEMENTARY_TAG } = await import('./volume-pool.mjs')
+  const { buildRhyme, buildWordMeaning, buildSpellBlank } = await import('@vocaflow/library-pipeline')
+  const byTag = new Map()
+  for (const [bandStr, tag] of Object.entries(ELEMENTARY_TAG)) {
+    if (!byTag.has(tag)) {
+      const rows = []
+      let cursor = ''
+      for (;;) {
+        const page = await get(
+          `shared_dictionary?select=word,meaning_ko,rhyme_key,synonyms` +
+            `&list_tags=cs.{${tag}}&word=gt.${encodeURIComponent(cursor)}&order=word.asc&limit=1000`,
+          `초등 어휘(${tag})`,
+        )
+        if (!page.length) break
+        rows.push(...page)
+        cursor = page[page.length - 1].word
+        if (page.length < 1000) break
+      }
+      const pool = rows
+        .map((r) => ({
+          word: String(r.word).toLowerCase(),
+          meaningKo: String(r.meaning_ko ?? ''),
+          rhymeKey: r.rhyme_key || null,
+          synonyms: r.synonyms ?? [],
+        }))
+        .filter((x) => /^[a-z]{2,12}$/.test(x.word) && x.meaningKo)
+      byTag.set(tag, { pool, dictionary: new Set(pool.map((x) => x.word)) })
+    }
+    const { pool, dictionary } = byTag.get(tag)
+    const built = { rhyme: 0, word_meaning: 0, spell_blank: 0 }
+    for (const w of pool) {
+      if (buildRhyme(w, pool)) built.rhyme += 1
+      if (buildWordMeaning(w, pool)) built.word_meaning += 1
+      if (buildSpellBlank(w, dictionary)) built.spell_blank += 1
+    }
+    for (const [type, n] of Object.entries(built)) {
+      // 즉석 생성이라 원글이 없다 — 재료가 낱말이므로 `refs` 는 낱말 수로 센다.
+      cell.set(`${bandStr}|${type}`, { items: n, refs: new Set(pool.map((x) => x.word)) })
+    }
+    process.stderr.write(
+      `  초등 V${bandStr} (${tag}) 운율 ${num(built.rhyme)} · 뜻 ${num(built.word_meaning)} · 철자 ${num(built.spell_blank)}\n`,
+    )
+  }
+}
+
 const started = Date.now()
 const band = await loadBands()
 const { cell, items, orphan } = await tallyItems(band)
+await tallyElementary(cell)
 const elapsed = ((Date.now() - started) / 1000).toFixed(1)
 
 /** 학년 사다리 — `rungMix` 가 목표를 갖는 밴드만 본다. */
