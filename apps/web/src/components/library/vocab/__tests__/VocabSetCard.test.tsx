@@ -45,6 +45,8 @@ function set(overrides: Partial<PublishedVocabSet> = {}): PublishedVocabSet {
     // 기본 fixture 는 **컴포저가 계단을 안 정한** 레거시 세트다 — 그래야 카드가
     // 카테고리·CEFR 추정 경로를 타는지 확인할 수 있다. 저작된 계단은 따로 넘겨 시험한다.
     brandFingerprint: null,
+    brandFamily: null,
+    slug: null,
     ladderStep: null,
     imprintCode: null,
     qa: null,

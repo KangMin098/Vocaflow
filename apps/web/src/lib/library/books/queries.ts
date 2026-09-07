@@ -114,6 +114,9 @@ export async function fetchBookChapterSets(
       // 도서 챕터 세트는 공용 서가 사다리에 앉지 않는다 — 그 책의 맥락에서만 열린다.
       brandFingerprint: null,
       ladderStep: null,
+      // 표지 계열·슬러그도 같은 이유로 없다 — 이 세트는 공용 서가에 뜨지 않아 표지를 안 그린다.
+      brandFamily: null,
+      slug: null,
       // 판권면 3종도 마찬가지다. 이 세트들은 공용 서가에 뜨지 않아
       // `scripts/vocab/stamp-imprint.mts` 의 각인 대상이 아니고, 각인이 없으면
       // 판권면이 그 줄들을 통째로 뺀다(0/0 을 적어 "검수 0 통과" 로 읽히게 두지 않는다).
@@ -239,6 +242,13 @@ export async function fetchBookComposerSets(
         // 달라지면 그 판권면을 믿을 수 없다. (지문은 목록 표시에 안 쓰여 select 에서 뺐다.)
         brandFingerprint: null,
         ladderStep: r.ladder_step ?? null,
+        // 같은 이유로 표지 계열·슬러그도 **각인된 값 그대로** 넘긴다 — `vocab/queries.ts` 와
+        // 같은 순서로 고른다(계열은 그림의 성질이 아니라 그 책의 성질이라 큐레이션 질의가 먼저).
+        brandFamily:
+          (cq['brand'] as { family?: string } | undefined)?.family ??
+          r.cover_image_meta?.family ??
+          null,
+        slug: r.slug ?? null,
         imprintCode: r.slug ? `VF-${r.slug}-v${r.version ?? 1}` : null,
         qa: (cq['qa'] as BookComposerSet['qa']) ?? null,
         level: (cq['level'] as BookComposerSet['level']) ?? null,
