@@ -282,7 +282,7 @@ v06.34 — `SELECT DISTINCT lbv.lemma, sd.v_level` type-based p75. Lexile/ATOS/C
 | 안정 식별자 | `packages/library-pipeline/src/ingest-article/source-key.ts` | `source_id = <source>:<안정 식별자>[#p<시작>-<끝>]`. **목록기와 적재기가 같은 `sourceKey()` 를 부른다.** 유도 못 하면 던진다(해시·슬러그 대체 금지) |
 | 증분 커서 | `ingest-article/harvest-cursor.ts` | 위치 `scripts/<pipeline>/data/<source>[-<feed>]-cursor.json` · 형식 `{version, source, feed, updated_at, token, seen[], exhausted}`. `token` 은 소스가 준 것 그대로(우리가 만든 offset 금지) · `seen` 에는 **거절한 편도** 적는다 |
 
-규약 소스: `wikipedia` · `voa` · `frym`.
+규약 소스: `wikipedia` · `voa` · `frym` · `frontiers`.
 ⚠️ `simple_wikipedia` 는 아직 **3갈래**다(seed_catalog `Title_slug` 34 · articles `Title#lead-trim` 99 ·
 적재기 `pageid`) — `UNGOVERNED_KNOWN_DIVERGENCE` 에 적어 두었고 별도 백필이 필요하다.
 
@@ -327,6 +327,44 @@ v06.34 — `SELECT DISTINCT lbv.lemma, sd.v_level` type-based p75. Lexile/ATOS/C
 제약만 갱신되지 않아, 목록도 본문 추출도 성공하면서 INSERT 가 전량 거절돼 확보량이
 영구히 0 이었다(마이그레이션 `20260830020000` 으로 해소). 화면에는 "담은 것 0" 으로만
 보여 **소스가 비어 있는 것과 구분되지 않는다.**
+
+### 겨냥 수확 — Frontiers 성인 학술지 (`frontiers`, 2026-09-07)
+
+**목적이 편수가 아니라 칸이다.** 분류기(`lib-topic.mjs`)를 고쳐 오분류 23.6% → 8.3% 로
+만든 뒤 소재 칸을 다시 재니 「8칸 전부 부족 0」이 **부족 3,010편**으로 바뀌었고 병목이
+**교육·언어**(배율 **0.57** · 3단계 5만 기준 **부족 1,464편**)로 드러났다. 그 칸은
+PLOS 로 못 채우고(`SUBJECT_QUERY` 에 대응 주제 없음) PMC 로도 못 채운다(의학교육뿐).
+
+| | |
+|---|---|
+| 어댑터 | `packages/library-pipeline/src/ingest-article/frontiers.ts` |
+| 수확기 | `scripts/csat/harvest-frontiers.mjs` (`--journal <약칭> --pages N --max N [--commit]`) |
+| 커서 | `scripts/csat/data/frontiers-<약칭>-cursor.json` — **저널마다 따로** |
+| 목록 | Crossref `journals/<ISSN>/works?cursor=*` — **정렬 없이** 훑는다(400 회피 + 완전 순서) |
+| 본문 | `www.frontiersin.org/journals/<슬러그>/articles/<DOI>/xml/nlm` — JATS 전문 |
+| 저널 | PMC 밖 8종(교육 8,079 · 커뮤니케이션 2,288 · 정치 1,478 · 인간역학 561 · 언어 212 + 생태·환경·기후) |
+| 라이선스 | 항목별. Crossref `license[]` → 비면 JATS `<permissions>`. **`cc by`·`cc0` 만** 통과 |
+| 게이트 | `lib-fit.mjs`(창) + `lib-topic.mjs`(소재 몫) — PLOS 수확과 **같은 자** |
+
+⚠️ **슬러그를 DOI 약칭에서 유추하지 않는다**(`fevo`→`ecology-and-evolution`). 저널당 한 번
+301 을 받아 캐시한다 — 그래서 편당 GET 이 2 → 1 이다. 슬러그 없는 주소는 **404**.
+
+⚠️ **`frym` 과 다른 소스다.** 같은 DOI 접두어(`10.3389/`)를 쓰지만 호스트·본문 형식이
+다르고, `source-key.ts` 가 `frym.` 을 `frontiers` 추출기에서 **거절**해 두 재고가 섞이지
+않게 한다.
+
+⚠️ **인용 제거 피해를 고치지 않고 센다.** 교육·사회 계열은 인용을 문장 성분으로 쓴다
+(`<xref>Wood et al. (1976)</xref>, who coined…`). 어댑터는 **괄호 인용을 괄호째** 지우고,
+주어 자리 인용이 남은 문장만 버리며 그 수를 보고한다 — 실측 표본 7편에서 **문장 25/1,476
+(1.7%)**, 문장을 잃은 편 6/7. 이 손실을 줄이는 것은 별도 작업이다.
+
+⚠️ **`applySourceLevelCap` 은 이 경로에 없다.** 그 캡은 `BulkArticlesTab` 이 `SourceKey`·
+`SOURCE_SPECS` 로 고른 항목에만 걸리는데 `frontiers` 는 `SourceKey` 가 아니다(`plos`·
+`gutenberg` 와 같이 수확기가 DB 에 직접 넣는다). 나중에 대량 GET 화면에 올리려면
+`SourceKey` + `SOURCE_SPECS` + `preferredFeedMix` **셋을 함께** 더해야 한다 — 하나라도
+빠지면 quota 0 을 받아 오류 없이 사라진다.
+
+회귀: `ingest-article/frontiers.test.ts`(36 — 함정 4종 + `<body>` 안 후미 + 열쇠 분리).
 
 ### 확보 배치 (헤드리스)
 

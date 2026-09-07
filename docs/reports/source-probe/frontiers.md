@@ -240,3 +240,42 @@ Political Science · Human Dynamics · Language Sciences**(12,618편 모집단)�
 3. 라이선스 화이트리스트(`cc by` · `cc0`) — Front Psychol 실측 0.5% 가 `cc by-nc` 다.
 4. XML 엔티티 디코딩 + 비ASCII 비율 상한(한자·키릴 혼입).
 5. 제목 접두어(`Editorial:` `Correction:` `Corrigendum:` `Erratum:` `Retraction`) 배제 — 표본 기준 6%.
+
+---
+
+## 착수 기록 (2026-09-07) — 짰고, 재 봤고, 막힌 곳
+
+| | |
+|---|---|
+| 어댑터 | `packages/library-pipeline/src/ingest-article/frontiers.ts` |
+| 수확기 | `scripts/csat/harvest-frontiers.mjs` (`@harvest-source: frontiers`) |
+| 회귀 | `ingest-article/frontiers.test.ts` **36종** — 함정 4개 + `<body>` 안 후미 + 열쇠 분리 |
+| 커서 | `scripts/csat/data/frontiers-<약칭>-cursor.json` (규약 형식) |
+| 막힌 것 | **`library_articles_source_check` 에 `frontiers` 가 없다.** SQL 은 `supabase/migrations/_pending_frontiers_source.sql` — 승인 대기라 적용하지 않았다 |
+
+**정찰이 옳았던 것** — `/xml/nlm` 200 · Crossref 커서 · 슬러그 유추 불가 · 라이선스 항목별,
+전부 실측대로였다. 슬러그는 `doi.org` 를 건너뛰고 `www.frontiersin.org/articles/<DOI>/full` 을
+`redirect: manual` 로 쳐서 **301 Location 한 번**으로 받는다(doi.org 왕복 4.2초 → 1회 301).
+
+**정찰에 없던 것 하나 — 2016~2019년 판형은 후미를 `<back>` 이 아니라 `<body>` 안에 넣는다.**
+`10.3389/feduc.2016.00002` 지문 끝에 "GL led the Better Communication Research Programme…"
+와 "The authors declare that the research was conducted in the absence of any commercial…"
+가 그대로 남았다. `<body>` 만 떼어 오는 것으로는 안 걸러진다 — **절 제목**으로 자른다
+(`dropBackMatterSecs`). 위치로 자르지 않는 이유는 본문 중간에 그 낱말을 인용한 글을
+통째로 날리지 않기 위해서다.
+
+**인용 제거 피해 — 실측(표본 7편, feduc)**
+
+| | |
+|---|---|
+| 괄호째 지운 인용 묶음 | **524개** (문장은 그대로 산다) |
+| 주어 자리 인용 때문에 버린 문장 | **25 / 1,476 = 1.7%** |
+| 문장을 잃은 편 | **6 / 7 (85.7%)** |
+
+정찰 §2 함정 2 가 예고한 손실이 **실제로는 문장 기준 1.7%** 였다. 편수 기준으로는 대부분의
+글이 한두 문장을 잃지만, 그 글이 못 쓰게 되는 것은 아니다(창 게이트 통과 7/7). 손실을 더
+줄이려면 주어 자리 인용을 **지우는 대신 대명사로 바꾸는** 재작성이 필요한데 그건 원문 개작이라
+별도 결정이다 — 여기서는 세는 것까지가 몫이다.
+
+**게이트 통과율(표본 7편)**: 라이선스 탈락 0 · 400어 미만 0 · 비ASCII 초과 0 · 창 게이트 탈락 0.
+소재 판정은 **교육·언어 5 · 사회·경제 1 · 이미 몫이 찬 칸 1** — 겨냥한 칸으로 떨어졌다.

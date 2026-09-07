@@ -134,6 +134,12 @@ export const HARVEST_CURSOR_REGISTRY: Record<string, HarvestRegistryEntry> = {
     deepPaged: true,
     cursorFile: 'scripts/textbook/data/frym-<feed>-cursor.json',
   },
+  frontiers: {
+    deepPaged: true,
+    // 저널마다 따로 훑는다 — 한 저널의 전진이 다른 저널의 자리를 덮으면 안 된다.
+    //   피드 id = DOI 약칭(`feduc` · `fcomm` …)이라 파일 이름만 보고 어디까지 봤는지 안다.
+    cursorFile: 'scripts/csat/data/frontiers-<feed>-cursor.json',
+  },
   wikipedia: {
     deepPaged: true,
     // `scripts/acp/collect-daily.mjs` 가 `--pages` 로 카테고리를 훑을 때 남긴다
@@ -141,12 +147,31 @@ export const HARVEST_CURSOR_REGISTRY: Record<string, HarvestRegistryEntry> = {
     cursorFile: 'scripts/acp/data/wikipedia-<feed>-cursor.json',
   },
   voa: {
-    deepPaged: false,
-    cursorFile: null,
-    // RSS 는 `?count=200` 한 방이라 페이지가 없다. 아카이브 98.6%(66,000편)는
-    //   sitemap 전용 수확기가 있어야 닿는다 — 그건 별도 작업(정찰 §8-6)이고,
-    //   그 수확기를 붙이는 순간 이 줄을 `deepPaged: true` + 커서 파일로 바꿔야 한다.
-    reason: 'RSS 단일 창(count=200). sitemap 수확기 착수 시 커서 필수',
+    // RSS 는 `?count=200` 한 방이라 페이지가 없었다 — 그래서 오래 `deepPaged: false` 였고,
+    //   그 값이 아카이브 98.6%(66,000편)를 못 본다는 사실을 가리고 있었다.
+    //   2026-09-07 `scripts/acp/harvest-voa-sitemap.mjs` 가 붙으면서 이 줄이 바뀌었다.
+    //   사이트맵은 페이지가 아니라 **전수 열거**이므로 커서가 담는 것은 다음-페이지 토큰이
+    //   아니라 `seen`(이미 판정한 article id — 적재분 + 전문 없는 45%)이다.
+    deepPaged: true,
+    cursorFile: 'scripts/acp/data/voa-sitemap-cursor.json',
+  },
+  worldbank: {
+    deepPaged: true,
+    // OAI-PMH `resumptionToken` — 404쪽(40,363 레코드 ÷ 100)을 여러 날에 나눠 훑는다.
+    //   ⚠️ `datestamp` 는 발행일이 아니라 **수정일**이라 같은 글이 다시 온다. 그래서
+    //   `seen`(handle)이 커서보다 중요하다 — 토큰만 믿으면 재수확 때 중복을 다시 받는다.
+    cursorFile: 'scripts/csat/data/worldbank-<feed>-cursor.json',
+  },
+  gutenberg: {
+    // 목록기가 `.ts` 어댑터가 아니라 스크립트다(`scripts/csat/harvest-gutenberg.mjs`).
+    //   그런 목록기는 파일 안에 `@harvest-source: <키>` 를 적어 등록부 검사에 들어온다 —
+    //   적지 않으면 이 표에 없는 채로 조용히 깊이 캘 수 있고, 그것이 FrYM 이 겪은 일이다.
+    // 2026-09-07 이전에는 검색 결과를 `start_index` 로 넘기며 `{done,offset}` 을 남겼다.
+    //   정렬 없는 offset 페이징이라 IA 사고(214건 중복+누락)와 같은 방식이었고, 그 파일이
+    //   867권을 적는 동안 DB 에는 1,631권이 있었다. 지금은 카탈로그를 책 번호 오름차순으로
+    //   훑고 피드(부족한 칸)마다 커서를 따로 둔다.
+    deepPaged: true,
+    cursorFile: 'scripts/csat/data/gutenberg-catalog-<bin>-cursor.json',
   },
   plos: {
     deepPaged: true,

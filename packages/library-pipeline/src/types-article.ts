@@ -25,6 +25,7 @@ export type ArticleSource =
   | 'ocean_facts' // NOAA Ocean Service Ocean Facts — 한 물음에 한 편인 PD 설명글. 실측 FK 중앙 11.4 로 중3 이상
   | 'space_place' // NASA Space Place — 어린이·청소년 우주 설명글(PD · 교재 이용 명시 허용). FK 중앙 6.63 로 초·중 한가운데
   | 'storyweaver' // 초·중 이야기 지문 (Pratham Books · 책마다 CC — 책 안에서 읽는다). narrative 재고가 0 이라 넣는다
+  | 'frontiers' // Frontiers 성인 학술지 **비-PMC 18종** (CC BY 4.0 · JATS 전문). 교육·언어 칸(배율 0.57 · 부족 1,464편)을 직접 겨눈다. ⚠️ frym 과 다른 소스 — 호스트·본문 형식이 다르다
   | 'original' // ACP §20 — 사실 재저작 (CC0 자체 저작 · 외부 본문 미사용 · compose 게이트 통과 필수)
   | 'manual'
 

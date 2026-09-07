@@ -31,9 +31,15 @@
 //     (`frym-ingest.mjs`·`storyweaver-ingest.mjs` 가 이미 쓰던 규칙을 정본화).
 
 /** 이 파일이 열쇠를 책임지는 소스. 여기 없는 소스는 각자 기존 방식 그대로다(§미이관). */
-export type GovernedSource = 'wikipedia' | 'voa' | 'frym'
+export type GovernedSource = 'wikipedia' | 'voa' | 'frym' | 'frontiers' | 'worldbank'
 
-export const GOVERNED_SOURCES: readonly GovernedSource[] = ['wikipedia', 'voa', 'frym'] as const
+export const GOVERNED_SOURCES: readonly GovernedSource[] = [
+  'wikipedia',
+  'voa',
+  'frym',
+  'frontiers',
+  'worldbank',
+] as const
 
 /**
  * ⚠️ **아직 이관하지 않은 곳 — 알고 남긴 것이지 못 본 것이 아니다.**
@@ -74,6 +80,15 @@ export const SOURCE_KEY_SHAPE: Record<GovernedSource, RegExp> = {
   voa: /^voa:[0-9]{4,}$/,
   // DOI 는 소문자 · `#p<a>-<b>` 발췌 접미어 허용
   frym: /^frym:10\.3389\/frym\.[0-9][0-9.]*[0-9](?:#p[0-9]+-[0-9]+)?$/,
+  // Frontiers 성인 학술지. 약칭이 저널마다 달라 `[a-z]+` 이고, **`frym` 은 뺀다** —
+  //   두 소스가 같은 DOI 접두어(`10.3389/`)를 쓰므로 접두어를 갈라 두지 않으면
+  //   재고가 섞이고 중복 검사가 서로를 못 본다(정찰 §4).
+  frontiers: /^frontiers:10\.3389\/(?!frym\.)[a-z]+\.[0-9][0-9.]*[0-9](?:#p[0-9]+-[0-9]+)?$/,
+  // World Bank OKR — DSpace handle `10986/<숫자>`. **DOI 를 쓰지 않는다**: DOI 는 PRWP 등
+  //   일부 유형에만 붙고(실측 표본 100건 중 26), 없는 항목이 열쇠를 못 얻는다.
+  //   `#p<a>-<b>` 는 **쪽 범위**다 — 보고서 한 건에서 여러 쪽이 지문이 되므로 원본과
+  //   다른 행이 되어야 한다.
+  worldbank: /^worldbank:10986\/[0-9]+(?:#p[0-9]+-[0-9]+)?$/,
 }
 
 type Extractor = (raw: StableIdInput) => string | null
@@ -99,6 +114,22 @@ const EXTRACTORS: Record<GovernedSource, Extractor> = {
     const doi = (raw.doi ?? '').trim() || (raw.url ?? '').match(/10\.3389\/frym\.[\d.]+/i)?.[0] || ''
     const clean = doi.toLowerCase().replace(/[).,;]+$/, '')
     return /^10\.3389\/frym\.[0-9][0-9.]*[0-9]$/.test(clean) ? clean : null
+  },
+  // 성인 학술지 DOI. `frym.` 은 **여기서 거절한다** — 같은 접두어를 쓰는 다른 소스다.
+  frontiers: (raw) => {
+    const doi =
+      (raw.doi ?? '').trim() || (raw.url ?? '').match(/10\.3389\/[a-z]+\.[\d.]+/i)?.[0] || ''
+    const clean = doi.toLowerCase().replace(/[).,;]+$/, '')
+    if (clean.startsWith('10.3389/frym.')) return null
+    return /^10\.3389\/[a-z]+\.[0-9][0-9.]*[0-9]$/.test(clean) ? clean : null
+  },
+  // DSpace handle. OAI identifier(`oai:openknowledge.worldbank.org:10986/6318`) ·
+  //   handle URL(`https://hdl.handle.net/10986/6318`) 어느 쪽에서도 같은 값이 나온다.
+  //   ⚠️ `documents.worldbank.org/curated/en/2003/01/…` 형 URL 은 **쓰지 않는다** —
+  //   연도 경로가 박혀 있어 재구성이 불안정하다(정찰 §2-4).
+  worldbank: (raw) => {
+    const src = `${raw.guid ?? ''} ${raw.url ?? ''}`
+    return src.match(/\b10986\/(\d+)\b/)?.[0] ?? null
   },
 }
 
