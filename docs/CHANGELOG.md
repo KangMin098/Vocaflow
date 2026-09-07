@@ -9,6 +9,38 @@
 ---
 ## Unreleased (v06.34 → next)
 
+### 중복 방지 규약 — 세 곳에서 한 번도 작동한 적이 없었다 (2026-09-07)
+
+사용자 요구("이미 확보·제외한 것을 또 확보하지 않게")를 지키는 체계가 **셋 다 오류 없이**
+비어 있었다. 실측·수정·회귀를 한 턴에 끝냈다.
+
+- **열쇠 정본 한 벌** — `packages/library-pipeline/src/ingest-article/source-key.ts`
+  (`sourceKey()` · `stableId()` · `SOURCE_KEY_SHAPE`). 목록기와 적재기가 **같은 함수**를
+  부른다. 유도 못 하면 던진다 — 해시 대체를 지웠다(그 대체가 결함의 원인이었다).
+- **커서 규약 + 수확기 등록부** — `ingest-article/harvest-cursor.ts`.
+  위치 `scripts/<pipeline>/data/<source>[-<feed>]-cursor.json` · 형식
+  `{version, source, feed, updated_at, token, seen[], exhausted}`. `seen` 에는 **거절한 편도**
+  적는다(그래야 "최적합 제외"를 다시 GET 하지 않는다).
+- **Wikipedia** — 목록기가 `wikipedia:<Title_slug>`, 적재기가 `wikipedia:<pageid>` 였다.
+  DB 92행이 전부 pageid 꼴이라 `wikipedia-feed/route.ts` 의 중복 검사가 **영구 0건**.
+  목록기를 pageid 로 통일(백필 **0행** — 이미 규약 꼴).
+- **VOA** — 적재기 슬러그 정규식이 `7886988.html` 에 안 맞아 **249행 전부 base36 해시**.
+  목록기·seed_catalog(30행)는 `voa:<숫자>` 라 **한 건도 안 맞았다**. 양쪽을 `sourceKey` 로
+  통일하고 **249행 백필**(충돌 0 · `adapt:` 재저작본 17행은 건드리지 않음 · 정정 전 값을
+  `scripts/acp/data/backfill-source-ids-voa-*.json` 에 남겨 `--revert` 가능).
+  결과: seed_catalog↔articles 일치가 **0 → 30**.
+- **FrYM** — offset 목록에 커서 파일이 없어 매 실행이 최신 창만 보고 조용히 끝났다.
+  Crossref `cursor=*` 딥페이징으로 교체 + `frym-<feed>-cursor.json`.
+  ⚠️ 실측: Crossref 는 **날짜 정렬 + 커서를 400 으로 거절**한다
+  (`sort-criteria-incompatible-with-cursor`) — 딥페이징은 정렬 없이 훑고, 첫 화면만 정렬한다.
+  전량 열거 확인 **1,977편** · 초록 게이트 통과 1,447 · 기보유 152 → **미방문 1,295편 해금**.
+- **`collect-daily.mjs` 커서 영속화** — `let cursor = null` 이라 매 실행이 카테고리 첫
+  페이지부터 다시 시작했다(`--fresh` 로 되돌린다).
+- **회귀 24종** — `source-key-contract.test.ts`(14) + `harvest-cursor-contract.test.ts`(10).
+  변이 5종 전부 잡힘(목록기 슬러그 복귀 · 적재기 해시 복귀 · FrYM offset 복귀 ·
+  커서 없는 수확기를 이유 없이 등록 · 목록기를 등록부에서 누락).
+
+
 ### 학습자 화면 전면 디자인 감사 — 결함이 아니라 「경로」가 원인이었다 (2026-09-07)
 
 데스크톱 학습자 화면 전체를 21회에 걸쳐 재고 읽었다(라우트 90 · 스크린샷 60+ ·
@@ -109,6 +141,24 @@
   값은 낙관이었고, 예외 **4/4 가 `L-TABLE`·`L-SET-NOT` 두 유형에만** 몰린다(나머지 13유형 0)
 - ⚠️ 별건 — `type-bands-all.json` 을 재빌드하면 **읽기 대역 22개 중 20개가 바뀐다**(듣기는 0).
   이번 변경과 무관한 기존 드리프트라 커밋에 섞지 않고 되돌렸다. 원인 규명 필요
+  → **규명·수정 완료**, 아래 항목 참조
+
+### CSAT — 대역이 12일간 「고쳐지기 전 지문」 위에 서 있었다 (2026-09-07)
+
+`type-bands-all.json` 이 2026-08-26 커밋 뒤로 재생성되지 않았는데, 그 사이
+`lib-passage`·`clean-passage` 가 **6커밋** 바뀌었다 — 그중 「지문 6할이 오염돼 있었다」
+「31번 지문을 32·34번에 복사했다」「빈칸추론 117문항의 빈칸이 사라져 있었다」는
+**지문 추출 자체를 고친 것**이다. 입력 파일(`columns2/`·`classified.json`)의 git 상태는
+전부 「깨끗」이라 **눈으로는 보이지 않았다** — 낡은 것은 입력이 아니라 파서였기 때문이다.
+
+- 읽기 대역 22개 중 **20개**가 고쳐지기 전 지문 위에 서 있었다.
+  이동폭 실측: R-VOCAB `chars.lo` **−351자** · R-NOTICE `chars.lo` **+133자** · R-BLANK **+55자**
+- 재생성 + `--check` 모드 신설(`gen-db-stats.mjs` 와 같은 규약 — 파일 안 고치고 낡으면 exit 1)
+- **같은 병의 범위 실측** — 지문 의존 산출물 12개를 재생성해 대조: **7개가 낡았다**
+  (`choice-bands` · `type-bands` · `difficulty-axis` · `extraction` · `thesis-spread` ·
+  `type-constraints` · `d1-rules-verify`) · 4개는 무변화 · 1개(`source-genre`)는
+  **덤프 `.txt` 를 인자로 받는 스크립트라 인자 없이 돌리면 `bySource` 가 통째로 비는** 측정 무효였다.
+  ⚠️ 그래서 「전부 다시 돌리기」는 안 된다 — 그 7개는 문서가 인용하는 수치를 움직이므로 별도 결정
 
 
 ### ACP — climate.gov 은 129편짜리 사이트가 아니었다, 피드를 2개만 보고 있었다 (2026-09-07)

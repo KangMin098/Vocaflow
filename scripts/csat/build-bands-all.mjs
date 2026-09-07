@@ -5,12 +5,17 @@
 // `check-passage-band.mjs` 의 대역은 17 유형에서 멈춰 있었다. 이유는 둘이었다:
 //   1) 장문(41~45)은 지문이 문항 번호 밑이 아니라 `[41~42]` 머리글 밑에 한 번만 있다
 //      → `setBlockFor()` 로 세트 지문을 세트 구성원 전부에 귀속시킨다.
-//   2) 듣기(1~17)는 문제지에 지문이 없다 → 대본(`listening-all.json`, 2017~2023 7개년)으로 잰다.
+//   2) 듣기(1~17)는 문제지에 지문이 없다 → 대본(`listening-all.json`)으로 잰다.
+//      ⚠️ 그 파일에는 2026-09-07 부터 모평 대본 9회차도 들어 있다(총 16회차). **대역은 그중
+//      수능 7개년만 쓴다** — `listeningSamples()` 의 가드 참조.
 //
 // ⚠️ **표본 연수가 다르다** — 독해·장문 14개년 / 듣기 7개년. 대역마다 `years` 로 적어 둔다.
 //    듣기 대역을 "14개년" 이라고 적으면 거짓이다.
 //
-// 실행: node scripts/csat/build-bands-all.mjs
+// ⚠️ **이 산출물은 입력이 그대로여도 파서가 바뀌면 낡는다.** 그것이 눈에 안 보여서 12일간
+//    고쳐지기 전 지문 위에 서 있었다 — `--check` 주석(아래) 참조. 파서를 고쳤으면 여기도 돌린다.
+//
+// 실행: node scripts/csat/build-bands-all.mjs [--check]
 
 import fs from 'node:fs'
 import path from 'node:path'
@@ -134,14 +139,34 @@ for (const [t, p] of Object.entries(PROXY)) {
 
 const okN = Object.values(bands).filter((b) => b.ok).length
 const proxyN = Object.values(bands).filter((b) => b.proxy).length
-fs.writeFileSync(path.join(DIR, 'type-bands-all.json'), JSON.stringify({
+const OUT_FILE = path.join(DIR, 'type-bands-all.json')
+const next = JSON.stringify({
   builtAt: 'build-bands-all.mjs',
-  rule: 'n>=7 표본(수능만), 10/50/90 분위. 독해·장문 = 수능 14개년 문제지 · 듣기 = 대본 7개년(2017~2023)',
+  rule: 'n>=7 표본(수능만), 10/50/90 분위. 독해·장문 = 수능 14개년 문제지 · 듣기 = 대본 수능 7개년(2017~2023). 모평은 대역에 넣지 않는다 — listeningSamples()·readingSamples() 의 가드 참조',
   denominator: current.length,
   covered: okN,
   proxied: proxyN,
   bands,
-}, null, 1))
+}, null, 1)
+
+/**
+ * **`--check` — 파일을 고치지 않고 낡았는지만 본다** (`gen-db-stats.mjs` 와 같은 규약).
+ *
+ * ⚠️ 이 산출물은 **입력이 아니라 파서가 바뀌어도 낡는다.** 2026-09-07 실측: 이 파일은
+ *    2026-08-26 커밋 뒤로 재생성되지 않았는데 그 사이 `lib-passage`·`clean-passage` 가
+ *    6커밋 바뀌었고(그중 「지문 6할이 오염돼 있었다」·「31번 지문을 32·34번에 복사했다」·
+ *    「빈칸이 사라져 있었다」는 지문 추출 자체를 고친 것이다), 그래서 읽기 대역 22개 중
+ *    **20개가 고쳐지기 전 지문 위에 서 있었다** (R-VOCAB 10분위 −351자 · R-NOTICE +133자).
+ *    입력 파일의 git 상태만 보면 「깨끗」해서 **눈으로는 절대 안 보인다.** 그래서 검사가 필요하다.
+ */
+if (process.argv.includes('--check')) {
+  const cur = fs.existsSync(OUT_FILE) ? fs.readFileSync(OUT_FILE, 'utf8') : ''
+  if (cur === next) { console.log('type-bands-all.json — 변경 없음 (최신).'); process.exit(0) }
+  console.error('type-bands-all.json 이 낡았다. `node scripts/csat/build-bands-all.mjs` 로 갱신할 것.')
+  process.exit(1)
+}
+
+fs.writeFileSync(OUT_FILE, next)
 
 console.log(`대역 확보 ${okN}/${current.length} (그중 대리 ${proxyN})`)
 console.log('')
@@ -154,4 +179,4 @@ for (const row of current) {
     b.sentLen.mid.toFixed(1), b.wordLen.mid.toFixed(2), b.ttr.mid.toFixed(3),
     b.proxy ? `대리 ← ${b.proxy} (자기 표본 ${b.ownN})` : ''].join('\t'))
 }
-console.log(`\n→ ${path.join(DIR, 'type-bands-all.json')}`)
+console.log(`\n→ ${OUT_FILE}`)
