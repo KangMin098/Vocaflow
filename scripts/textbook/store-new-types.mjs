@@ -146,21 +146,45 @@ function report() {
   console.log(`    ${'합계'.padEnd(22)} ${String((total / 1000).toFixed(1)).padStart(7)}s`)
 }
 
+/**
+ * `--since <ISO>` · `--article <uuid>` — **원글 몇 편 때문에 밴드 전체를 읽지 않는다.**
+ *
+ * ⚠️ 실측 2026-09-06: 장문 두 편을 넣고 문항을 만들려고 `--band 6` 을 돌렸더니 이 조회가
+ *   **V6 13,041편을 본문째** 읽었다(이 표는 1,000행당 힙이 ~8 MB 다). 같은 시각 DB 가
+ *   읽기 포화로 55분간 전면 정지했고, 이 실행이 그 부하의 일부였다.
+ *   `--band` 은 "전수보다 좁다" 일 뿐 **새로 넣은 글만 보는 자가 아니었다.**
+ *   드레인 뒤 후속 단계는 거의 언제나 방금 넣은 몇 편이므로 그 경우를 싸게 만든다.
+ */
+const SINCE = arg('since')
+const ONLY_ARTICLE = arg('article')
+
 const arts = []
-for (let from = 0; ; from += ARTICLE_PAGE) {
-  let q = db
-    .from('library_articles')
-    .select('id, article_v_level, display_only, content')
-    .in('status', ['ready', 'published'])
-    .not('content', 'is', null)
-  // --band 을 주면 그 밴드만 본다. 전수는 몇 시간이 걸린다(위 BAND 주석 참조).
-  if (BAND != null) q = q.eq('article_v_level', BAND)
-  // ⚠️ 여기서 끊기면 몇 천 편을 다 읽고 나서 통째로 잃는다 — 실측 2026-08-30 에
-  //   V5(3,408편)를 다 읽은 뒤 Cloudflare 525 로 죽었다. 일시적 실패는 다시 시도한다.
-  const data = await withRetry('기사', () => q.order('id').range(from, from + ARTICLE_PAGE - 1))
-  if (!data?.length) break
-  arts.push(...data)
-  if (data.length < ARTICLE_PAGE) break
+{
+  let cursor = null
+  for (;;) {
+    let q = db
+      .from('library_articles')
+      .select('id, article_v_level, display_only, content')
+      .in('status', ['ready', 'published'])
+      .not('content', 'is', null)
+    // --band 을 주면 그 밴드만 본다. 전수는 몇 시간이 걸린다(위 BAND 주석 참조).
+    if (BAND != null) q = q.eq('article_v_level', BAND)
+    if (SINCE) q = q.gte('created_at', SINCE)
+    if (ONLY_ARTICLE) q = q.eq('id', ONLY_ARTICLE)
+    // ⚠️ **OFFSET 으로 넘기지 않는다.** 뒤 페이지일수록 앞을 다시 훑어 버리는데, 이 표는
+    //   행이 넓어 그 비용이 그대로 디스크 읽기다. `id` 는 pk 라 커서로 안전하다.
+    if (cursor !== null) q = q.gt('id', cursor)
+    // ⚠️ 여기서 끊기면 몇 천 편을 다 읽고 나서 통째로 잃는다 — 실측 2026-08-30 에
+    //   V5(3,408편)를 다 읽은 뒤 Cloudflare 525 로 죽었다. 일시적 실패는 다시 시도한다.
+    const data = await withRetry('기사', () => q.order('id').limit(ARTICLE_PAGE))
+    if (!data?.length) break
+    arts.push(...data)
+    if (data.length < ARTICLE_PAGE) break
+    cursor = data[data.length - 1].id
+  }
+}
+if (SINCE || ONLY_ARTICLE) {
+  console.log(`  대상을 좁혔다 — ${arts.length}편${SINCE ? ` (${SINCE} 이후)` : ''}${ONLY_ARTICLE ? ' (원글 지정)' : ''}`)
 }
 mark('원글 조회(본문 포함)')
 const usable = arts.filter((a) => !a.display_only)
@@ -347,7 +371,24 @@ let woParagraphs = 0
 // **버린 수를 남긴다**(나중에 유일키를 넓힐지 판단할 근거).
 const midDrop = { blank_word: { made: 0, kept: 0 }, grammar_fix: { made: 0, kept: 0 } }
 
+// ⚠️ **진행 표시가 없어서 정상 실행을 두 번 죽일 뻔했다** (실측 2026-09-06·09-07).
+//   자물쇠 안내문은 멈춘 배치를 「CPU 는 도는데 **산출이 안 늘면** 무한 루프」로 가른다.
+//   그런데 이 스크립트는 문항을 **다 만든 뒤 한 번에** 적재한다(타이밍 표의 적재 0.2s) —
+//   즉 끝나기 전에는 DB 쪽 산출이 **언제나 0** 이고, 그 판정을 그대로 쓰면 정상 실행이
+//   무한 루프로 보인다. 실제로 2026-09-06 에 `--band 6` 을 25분째에 그렇게 끊었다.
+//   (V4 656편이 생성에만 257초였으므로 V6 13,041편이면 몇 시간이 정상이다. 이튿날
+//    `--band 5` 는 안 죽이고 기다렸더니 문항 24,814건을 쓰고 끝났다.)
+//   그래서 **여기서 진행을 찍는다.** 이 줄이 늘고 있으면 살아 있는 것이다.
+const PROGRESS_EVERY = 200
+let scanned = 0
 for (const a of usable) {
+  scanned += 1
+  if (scanned % PROGRESS_EVERY === 0 || scanned === usable.length) {
+    process.stdout.write(
+      `\r  문항 생성 ${scanned.toLocaleString()}/${usable.length.toLocaleString()}편 · 지금까지 ${rows.length.toLocaleString()}문항`,
+    )
+    if (scanned === usable.length) process.stdout.write('\n')
+  }
   const band = a.article_v_level ?? -1
   const pool = poolByBand.get(band) ?? []
   const ps = paras(a.content)
