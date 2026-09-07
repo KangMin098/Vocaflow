@@ -49,6 +49,7 @@ const { createClient } = await import('@supabase/supabase-js')
 const {
   SERIES_SPINE,
   MARKET_UNITS_PER_BOOK,
+  proofreadPassage,
   toCsatOrder,
   toCsatInsert,
   explainOrder,
@@ -392,6 +393,23 @@ for (const band of BANDS) {
   // ⚠️ 실패 **사유**는 안 적는다 — `structureItem` 의 분기가 많아 사유를 뽑으려면 그 함수를
   //    통째로 고쳐야 하고, 조판기와 갈릴 위험이 사유 한 줄보다 크다. 대신 **유형별**로 센다:
   //    어느 유형이 안 그려지는지가 곧 다음에 손볼 자리다.
+  // 교정 — 표기 결함(구두점 앞 공백 · 아포스트로피 혼용 · 반복 낱말 …)이 남았는가.
+  //
+  // ⚠️ `payload.sentences` 가 배열인 문항만 대상이다. 대상 밖인 것을 "깨끗함" 으로 세면
+  //    결함률이 실제보다 낮게 나온다(`proofread-report.mjs` 가 세운 규칙 그대로).
+  //    그래서 **분모를 따로 센다** — 검사한 것 중 깨끗한 것이지, 전체 중이 아니다.
+  let proofChecked = 0
+  let proofClean = 0
+  for (const u of units) {
+    for (const it of u.items) {
+      const sents = it.payload?.sentences
+      if (!Array.isArray(sents) || sents.length < 2) continue
+      if (sents.join(' ').trim().length <= 40) continue
+      proofChecked += 1
+      if (proofreadPassage(sents).length === 0) proofClean += 1
+    }
+  }
+
   const readinessByType = {}
   let renderable = 0
   let explainedCount = 0
@@ -449,10 +467,17 @@ for (const band of BANDS) {
     stoppedBecause: stoppedBecause ?? null,
     // 조판 가능 · 해설 — **이 권을 찍을 수 있는가**에 답하는 수치다(재고 전량이 아니라
     // 실제로 실릴 문항 기준). 제작 콘솔이 이것을 읽는다.
-    readiness: { items: units.reduce((n, u) => n + u.items.length, 0), renderable, explained: explainedCount, byType: readinessByType },
+    readiness: {
+      items: units.reduce((n, u) => n + u.items.length, 0),
+      renderable,
+      explained: explainedCount,
+      proofChecked,
+      proofClean,
+      byType: readinessByType,
+    },
     sample,
   }
-  console.log(`단원 ${toc.length} · 문항 ${volumes[String(band)].totalItems} · 조판가능 ${renderable} · 해설 ${explainedCount}${sample ? ` · 미리보기 UNIT ${sample.no}(문항 ${sample.items.length})` : ' · 미리보기 없음'}`)
+  console.log(`단원 ${toc.length} · 문항 ${volumes[String(band)].totalItems} · 조판가능 ${renderable} · 해설 ${explainedCount} · 교정 ${proofClean}/${proofChecked}${sample ? ` · 미리보기 UNIT ${sample.no}(문항 ${sample.items.length})` : ' · 미리보기 없음'}`)
 }
 
 // ── 부분 실행이 나머지를 날리지 않게 한다 ────────────────────────────

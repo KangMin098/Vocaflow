@@ -130,6 +130,22 @@ export const PRODUCTION_STAGES: readonly ProductionStage[] = [
     },
   },
   {
+    id: 'proof',
+    label: '교정',
+    actor: 'claude-code',
+    says: '실릴 지문에 표기 결함이 없는 상태 — 구두점 앞 공백 · 아포스트로피 혼용 · 반복 낱말',
+    next: 'npx tsx --tsconfig apps/web/tsconfig.json scripts/textbook/proofread-report.mjs → 고칠 것과 둘 것을 가른다',
+    /**
+     * ⚠️ **검사 대상이 0 이면 "깨끗함" 이 아니라 판정 불가다.** 초등 낱말 유형은
+     *    `payload.sentences` 가 없어 이 규칙으로 잴 수 없다(실측 2026-09-07: 1·2단이 0/0).
+     *    대상 밖을 통과로 세면 결함률이 실제보다 낮게 나온다.
+     */
+    judge: (_v, r) => {
+      if (!r || r.proofChecked === 0) return 'unmeasured'
+      return r.proofClean >= r.proofChecked ? 'done' : 'todo'
+    },
+  },
+  {
     id: 'open',
     label: '펼치기',
     actor: 'user',

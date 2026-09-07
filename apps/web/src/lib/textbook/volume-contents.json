@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-07T12:51:05.719Z",
+  "generatedAt": "2026-09-07T13:56:43.931Z",
   "unitsPerVolume": 10,
   "bands": [
     1,
@@ -215,6 +215,8 @@
         "items": 60,
         "renderable": 60,
         "explained": 60,
+        "proofChecked": 0,
+        "proofClean": 0,
         "byType": {
           "rhyme": {
             "items": 20,
@@ -584,6 +586,8 @@
         "items": 60,
         "renderable": 60,
         "explained": 60,
+        "proofChecked": 0,
+        "proofClean": 0,
         "byType": {
           "rhyme": {
             "items": 15,
@@ -1040,6 +1044,8 @@
         "items": 60,
         "renderable": 60,
         "explained": 60,
+        "proofChecked": 24,
+        "proofClean": 24,
         "byType": {
           "vocab_choice": {
             "items": 12,
@@ -1558,6 +1564,8 @@
         "items": 60,
         "renderable": 60,
         "explained": 60,
+        "proofChecked": 34,
+        "proofClean": 34,
         "byType": {
           "grammar_choice": {
             "items": 9,
@@ -2088,6 +2096,8 @@
         "items": 60,
         "renderable": 60,
         "explained": 60,
+        "proofChecked": 27,
+        "proofClean": 27,
         "byType": {
           "insert": {
             "items": 13,
@@ -2685,6 +2695,8 @@
         "items": 60,
         "renderable": 60,
         "explained": 60,
+        "proofChecked": 33,
+        "proofClean": 33,
         "byType": {
           "order": {
             "items": 16,
@@ -3270,6 +3282,8 @@
         "items": 60,
         "renderable": 60,
         "explained": 60,
+        "proofChecked": 33,
+        "proofClean": 32,
         "byType": {
           "order": {
             "items": 16,

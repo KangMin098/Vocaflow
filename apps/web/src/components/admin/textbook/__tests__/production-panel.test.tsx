@@ -39,6 +39,8 @@ const readiness = (over: Partial<Readiness> = {}): Readiness => ({
   items: 60,
   renderable: 60,
   explained: 60,
+  proofChecked: 33,
+  proofClean: 33,
   byType: {},
   ...over,
 })

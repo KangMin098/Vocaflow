@@ -109,6 +109,15 @@ export interface VolumeContents {
     renderable: number
     /** 그중 해설이 붙은 수. */
     explained: number
+    /**
+     * 교정 검사 **대상**이 된 문항 수 — `payload.sentences` 가 배열이고 40자를 넘는 것.
+     *
+     * ⚠️ 분모를 따로 센다. 대상 밖(초등 낱말 유형 등)을 "깨끗함" 으로 세면 결함률이
+     *    실제보다 낮게 나온다 — `proofread-report.mjs` 가 세운 규칙 그대로다.
+     */
+    proofChecked: number
+    /** 그중 표기 결함이 **없는** 수. */
+    proofClean: number
     /** 유형별 — 어느 유형이 안 그려지는지가 다음에 손볼 자리다. */
     byType: Record<string, { items: number; renderable: number; explained: number }>
   }

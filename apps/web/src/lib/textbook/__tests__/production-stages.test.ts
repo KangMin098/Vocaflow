@@ -24,7 +24,7 @@ import {
  *    60/60 이라 늘 done 이 나왔다(실측 2026-09-07). 모델을 순수하게 두고 여기서 넣는다.
  */
 function readiness(over: Partial<Readiness> = {}): Readiness {
-  return { items: 60, renderable: 60, explained: 60, byType: {}, ...over }
+  return { items: 60, renderable: 60, explained: 60, proofChecked: 33, proofClean: 33, byType: {}, ...over }
 }
 
 /** 다 끝난 권 하나. 각 검사는 여기서 한 가지만 어긋뜨린다. */
@@ -97,6 +97,18 @@ describe('한 권 판정', () => {
 
   it('조판 안 되는 문항은 해설을 묻지 않는다 — 지면에 없으므로 앞 칸의 일이다', () => {
     expect(stateOf(volume(), 'explain', readiness({ renderable: 49, explained: 49 }))).toBe('done')
+  })
+
+  it('표기 결함이 남으면 교정 칸이 안 끝난다', () => {
+    // 실측 2026-09-07: V7 이 32/33 이었다 — 한 지문에 결함이 남아 있었다.
+    expect(stateOf(volume(), 'proof', readiness({ proofClean: 32 }))).toBe('todo')
+  })
+
+  it('**검사 대상이 0 이면 깨끗함이 아니라 판정 불가**다 — 대상 밖을 통과로 세지 않는다', () => {
+    // 초등 낱말 유형은 `payload.sentences` 가 없어 이 규칙으로 잴 수 없다(1·2단이 0/0).
+    expect(stateOf(volume(), 'proof', readiness({ proofChecked: 0, proofClean: 0 }))).toBe(
+      'unmeasured',
+    )
   })
 
   it('사람이 아직 안 열었으면 펼치기 칸이 안 끝난다', () => {
