@@ -60,6 +60,23 @@ const missingVocab = process.argv.includes('--missing-vocab')
  * 집필 드레인 뒤 후속 단계가 그것이다. 그 경우까지 전수를 훑을 이유가 없다.
  */
 const since = arg('since')
+// ⚠️ **미래 시각을 주면 조용히 0편이 된다** — 한국 시각을 적고 `Z` 를 붙이면 아홉 시간
+//   앞선 값이 되고, 스크립트는 「대상 0편」으로 정상 종료한다(실측 2026-09-07,
+//   `store-new-types` 에서 그렇게 한 바퀴를 헛돌았다). 조용한 0 보다 시끄러운 정지가 낫다.
+if (since) {
+  const t = Date.parse(since)
+  if (Number.isNaN(t)) {
+    console.error(`❌ --since 를 시각으로 못 읽었다: ${since}  (예: 2026-09-07T02:00:00Z)`)
+    process.exit(2)
+  }
+  if (t > Date.now()) {
+    console.error(
+      `❌ --since 가 미래다: ${since} — 지금은 ${new Date().toISOString()} 다.\n` +
+        `   한국 시각을 적고 Z 를 붙이면 아홉 시간 앞선 값이 된다. UTC 로 줄 것.`,
+    )
+    process.exit(2)
+  }
+}
 if (!id && !title && !missingVocab) {
   console.error('--id · --title · --missing-vocab 중 하나가 필요하다.')
   process.exit(2)

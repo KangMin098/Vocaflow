@@ -158,6 +158,26 @@ function report() {
 const SINCE = arg('since')
 const ONLY_ARTICLE = arg('article')
 
+// ⚠️ **미래 시각을 주면 조용히 0편이 된다** (실측 2026-09-07). `--since 2026-09-07T10:00:00Z`
+//   로 돌렸는데 그 시각이 아직 오지 않아 대상이 0편이었고, 스크립트는 정상 종료했다.
+//   한국 시각을 그대로 적고 `Z` 를 붙이면 아홉 시간 앞선 값이 된다 — 이 저장소에서
+//   시각을 UTC 로 잘못 잡아 넘어진 것이 두 번째다(마이그레이션 파일명이 원장과
+//   아홉 시간 어긋난 일이 먼저였다). 조용한 0 보다 시끄러운 정지가 낫다.
+if (SINCE) {
+  const t = Date.parse(SINCE)
+  if (Number.isNaN(t)) {
+    console.error(`❌ --since 를 시각으로 못 읽었다: ${SINCE}  (예: 2026-09-07T02:00:00Z)`)
+    process.exit(2)
+  }
+  if (t > Date.now()) {
+    console.error(
+      `❌ --since 가 미래다: ${SINCE} — 지금은 ${new Date().toISOString()} 다.\n` +
+        `   한국 시각을 적고 Z 를 붙이면 아홉 시간 앞선 값이 된다. UTC 로 줄 것.`,
+    )
+    process.exit(2)
+  }
+}
+
 const arts = []
 {
   let cursor = null
