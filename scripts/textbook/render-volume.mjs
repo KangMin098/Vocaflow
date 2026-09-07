@@ -63,6 +63,8 @@ const {
   // 문서 전체를 내는 순수 함수. 이 이름이 배럴에 없으면 조판이 즉사하는데,
   // `barrel-exports.test.ts` 가 이 목록을 읽어 대조하므로 커밋 전에 잡힌다.
   renderVolumeDocument,
+  // 적격 판정을 조판 쪽에서도 읽는다 — 「문항 없는 원글」을 판정 통과분과 대기분으로 가른다.
+  isComposable,
 } = await import('@vocaflow/library-pipeline')
 
 // ⚠️ **단원 수를 바꾸면 유형-학년 적합도가 바뀐다** — 목표 몫은 인쇄 문항 수에 비례하는데
@@ -105,7 +107,7 @@ const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABA
 // 2문항이 조용히 어긋났다 — 해설을 다 채웠는데도 책은 78/80 으로 나왔다.
 // 기본은 **켬**. `--no-market-mix` 로만 끈다 — 왜 기본이 켬인지는 `volume-pool.mjs` 참조.
 const MARKET_MIX = !process.argv.includes('--no-market-mix')
-const { units, stoppedBecause, articles: byId, pool, mix } = await loadVolume(db, {
+const { units, stoppedBecause, articles: byId, pool, mix, verdictByRef } = await loadVolume(db, {
   band: BAND,
   seriesId: SERIES,
   unitCount: UNITS,
@@ -603,6 +605,20 @@ const withItems = new Set(pool.map((it) => it.ref_id).filter((r) => byId.has(r))
 const usedArticles = new Set()
 for (const u of units) for (const it of u.items) if (it.ref_id && byId.has(it.ref_id)) usedArticles.add(it.ref_id)
 const idle = byId.size - withItems.size
+// ⚠️ **「문항 없는 원글」을 한 덩어리로 세면 안내가 틀린다** (실측 2026-09-07).
+//   V7 에서 「2,985편 — store-new-types 를 돌려야 쓰인다」고 찍었는데, 그중 **지금 채울 수
+//   있는 것은 506편**뿐이었다. 나머지는 내용 판정을 못 받아 게이트가 막으므로 문항을
+//   만들어도 안 실린다 — **다음에 할 일이 다르다**(생성 vs 판정). 그래서 갈라서 말한다.
+let idleReady = 0
+for (const id of byId.keys()) {
+  if (withItems.has(id)) continue
+  if (isComposable(verdictByRef?.get(id)?.grade ?? 'unknown')) idleReady += 1
+}
+const idleBlocked = idle - idleReady
+const idleHint = idle
+  ? ` — 그중 ${idleReady}편은 지금 채울 수 있다(store-new-types.mjs)` +
+    (idleBlocked ? ` · ${idleBlocked}편은 내용 판정을 먼저 받아야 한다` : '')
+  : ''
 if (usedArticles.size === 0) {
   console.log(
     `카탈로그 용량  이 권은 원글을 쓰지 않는다 — 사전에서 나오는 유형뿐이라 ` +
@@ -613,7 +629,7 @@ if (usedArticles.size === 0) {
     `카탈로그 용량  이 권이 쓴 원글 ${usedArticles.size}편 · ` +
       `문항 있는 재고 ${withItems.size}편 → 겹치지 않는 책 ` +
       `**${Math.floor(withItems.size / usedArticles.size)}권**` +
-      (idle ? `  (문항 없는 원글 ${idle}편은 뺐다 — store-new-types.mjs 를 돌려야 쓰인다)` : ''),
+      (idle ? `  (문항 없는 원글 ${idle}편은 뺐다${idleHint})` : ''),
   )
 }
 // ⚠️ **시장 분모는 독해 교재다.** `market-spec.json` 의 유형 밀도는 코퍼스 전체에서 쟀고,
