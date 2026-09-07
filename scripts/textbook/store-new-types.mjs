@@ -310,7 +310,13 @@ const KEY_CHUNK = 100
 mark('사전 조회')
 const existing = new Set()
 const addKey = (r) => existing.add(`${r.ref_id}|${r.type}|${r.paragraph_idx}`)
-if (BAND == null) {
+// ⚠️ **좁혀 놓고 여기서 다시 전수로 갔다** (실측 2026-09-07). `--since` 로 원글을
+//   7,675편으로 줄였는데도 이 조회가 `BAND == null` 이라는 이유로 `csat_dcp_items`
+//   **657,000행 전체**를 OFFSET 으로 훑어 statement timeout 으로 죽었다.
+//   좁히는 축이 `--band` 말고도 둘(`--since`·`--article`) 더 생겼는데 이 분기만
+//   옛 조건을 들고 있었다 — **좁혔는지 아닌지**로 물어야 한다.
+const NARROWED = BAND != null || !!SINCE || !!ONLY_ARTICLE
+if (!NARROWED) {
   // 전수 실행에서는 밴드로 나눌 것이 없다 — 1,000행씩 곧장 받는 편이 싸다.
   for (const r of await fetchAllPaged(db, (q) =>
     q.from('csat_dcp_items').select('ref_id, type, paragraph_idx').eq('kind', 'article').order('id'))) {
