@@ -366,6 +366,75 @@ PLOS 로 못 채우고(`SUBJECT_QUERY` 에 대응 주제 없음) PMC 로도 못 
 
 회귀: `ingest-article/frontiers.test.ts`(36 — 함정 4종 + `<body>` 안 후미 + 열쇠 분리).
 
+### 겨냥 수확 — World Bank OKR (`worldbank`, 2026-09-07) ⛔ **제약 대기**
+
+같은 재측정에서 **사회·경제**가 두 번째 빈 칸이었다(배율 **0.686** · 3단계 5만 기준
+**부족 926편**). 개발경제·사회과학을 대량으로 주면서 **변형이 허용되는** 곳은 정찰
+25갈래 중 여기 하나다 — Pew·Brookings·RAND·World Bank **Blogs** 는 전부 저작권 유보
+(`docs/reports/source-probe/policy-institutes.md` §1).
+
+| | |
+|---|---|
+| 어댑터 | `packages/library-pipeline/src/ingest-article/world-bank-okr.ts` |
+| 수확기 | `scripts/csat/harvest-worldbank.mjs` (`--feed <피드> --pages N --max N [--commit]`) |
+| 커서 | `scripts/csat/data/worldbank-<피드>-cursor.json` — 규약 위치. `seen` 은 handle |
+| 목록 | OAI-PMH `ListRecords&metadataPrefix=xoai` + `resumptionToken` (총 **40,363** 레코드) |
+| 본문 | ORIGINAL 번들의 **`.txt` 형제 파일** — **PDF 파싱기가 없다** |
+| 열쇠 | `worldbank:10986/<숫자>` (DSpace handle). 쪽 발췌는 `#p<쪽>-<쪽>` |
+| 라이선스 | 항목별 `dc:rights`. **NC/ND 를 먼저** 떨어뜨린 뒤 `licenses/by/` 를 본다 |
+| 게이트 | `lib-fit.mjs`(창) + `lib-topic.mjs`(소재 몫) — PLOS·Frontiers 수확과 **같은 자** |
+
+⚠️ **평문이 「선형 읽기 순서」가 아니다.** DOAB 정찰이 같은 날 찾은 함정이 여기에도 있다 —
+「챕터 표제 + 300낱말」로 자르면 다른 단이 섞인다. 실측 8편에서 확인한 비선형 요소 넷:
+**두 단 초록이 줄 단위로 교차**(왼쪽 단과 오른쪽 단이 한 줄에) · **각주가 쪽 중간에 삽입** ·
+**러닝헤더·쪽번호가 쪽 경계에** · **판권면·감사의 말·목차가 앞 10~20%**.
+그래서 추출 단위가 **연속 산문 런**이다 — `\f`(쪽 넘김)에서 무조건 닫고, 쪽 안에서도
+두 단 교차·표·서지·불릿·각주가 나오면 닫는다. 실측 수율 **채택 8.8%**(원문 190,864어 중
+16,749어 · 8편 중 6편에서 지문이 나온다 · 최상 런 258~420어).
+
+⚠️ **왼쪽 끝 숫자와 오른쪽 끝 숫자는 다른 것이다.** 오른쪽 끝(들여쓰기 8칸 이상)은
+쪽번호라 **버리고**, 왼쪽 끝은 각주 번호라 **런을 끊는다.** 둘을 같이 버렸더니 각주가
+본문 한복판에 붙었다(회귀가 잡았다).
+
+⚠️ **비트스트림 주소를 xoai 가 준 대로 쓰면 안 된다.** xoai 는 프런트엔드 경로
+(`/bitstreams/<uuid>/download`)를 주는데 실측 2026-09-07 에 그 경로가 **500** 이다
+(같은 uuid 로 REST `/server/api/core/bitstreams/<uuid>/content` 는 200). 이걸 모르고
+돌렸을 때 **「배선 성공 · 실행 성공 · 결과 0」**(14편 전부 `bitstream 500`)이 나왔다.
+덤으로 robots.txt 가 `Allow: /server/api/core/bitstreams/` 를 명시한다.
+
+⚠️ **robots.txt 가 `/server/oai/` 를 Disallow 한다** (DSpace 기본값 · `Crawl-delay: 10` ·
+AI 크롤러 지목 차단과 Content-Signal 은 **없다**). 정찰 리포트가 이 줄을 적지 않았다.
+SPEC 의 「봇 차단 = 반려」와 「OAI-PMH 는 기계 수확용 공개 인터페이스」가 부딪히는
+**결정 사안**이다 — 수확기는 신원을 밝히고 간격 기본값을 10초로 두지만 `--commit` 은
+사람이 직접 붙인다(자동 실행 금지).
+
+⛔ **`library_articles_source_check` 에 `'worldbank'` 가 없다.** 실측 `--commit --max 2` 는
+`23514` 로 **0편 적재**하고 멈춘다(조용히 0 이 아니라 오류로 멈추게 해 뒀다).
+2026-08-21 `futurity` 사고와 같은 자리다 — 그때는 이 제약만 빠져서 확보량이 **영구 0** 이었다.
+필요한 SQL은 아래 한 문장이고, **적용은 승인 뒤**다:
+
+```sql
+ALTER TABLE public.library_articles DROP CONSTRAINT library_articles_source_check;
+ALTER TABLE public.library_articles ADD CONSTRAINT library_articles_source_check
+  CHECK (source = ANY (ARRAY[
+    'voa','nasa','nih','manual','cdc','medlineplus','wikinews','the_conversation',
+    'simple_wikipedia','owid','factbook','elife','wikipedia','plos','wikivoyage',
+    'usgs','noaa','futurity','storyweaver','space_place','gutenberg','original',
+    'ocean_facts','frym','worldbank'
+  ]));
+```
+
+⚠️ **`applySourceLevelCap` 은 이 경로에도 없다** — Frontiers 와 같은 이유다(`worldbank` 는
+`SourceKey` 가 아니다). 대량 GET 화면에 올리려면 `SourceKey` + `SOURCE_SPECS` +
+`preferredFeedMix` 셋을 함께 더해야 한다.
+
+실측 1쪽(100 레코드 · `working-paper` 피드): 라이선스·언어·유형·평문 통과 **14** —
+NC 11 · ND 4 · 유보 3 · 비영어 2 · 유형불일치 61 · 평문없음 5. 평문 11편 → 산문 런 179 →
+**창 통과 20**(11.2%) → 몫 배분 후 **12편**(사회·경제 11 · 기술·매체 1).
+
+회귀: `ingest-article/world-bank-okr.test.ts`(34 — 라이선스 순서 · 두 단/각주/쪽번호 ·
+비트스트림 경로 · 열쇠).
+
 ### 확보 배치 (헤드리스)
 
 ```

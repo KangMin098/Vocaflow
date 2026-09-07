@@ -22,8 +22,27 @@ export { ingestFromPressbooks } from './ingest/pressbooks'
 
 // S2 INGEST — Articles (ACP — VOA / NASA / NIH + v06.66 wikinews/the_conversation/simple_wikipedia.
 // v06.69 arXiv 제거 — 사용자 명시 플랫폼 전체 삭제)
-export { listVoaFeed, voaFeedUrlWithCount, ingestVoaArticle, VOA_FEEDS } from './ingest-article/voa'
-export type { VoaListItem } from './ingest-article/voa'
+export {
+  listVoaFeed,
+  voaFeedUrlWithCount,
+  ingestVoaArticle,
+  VOA_FEEDS,
+  // 사이트맵 경로 — RSS 창(1.4%) 밖의 아카이브로 가는 유일한 문. `voa.ts` §사이트맵 참조.
+  fetchVoaArticle,
+  parseVoaArticle,
+  parseVoaSitemapXml,
+  voaJsonLd,
+  voaAuthorName,
+  voaFeedIdForSection,
+  voaFeedIdFor,
+  isVoaReferencePiece,
+  VOA_REFERENCE_TITLE_PREFIXES,
+  VOA_REFERENCE_TITLE_MARKERS,
+  VOA_ARTICLE_SITEMAPS,
+  VOA_SECTION_TO_FEED,
+  VOA_REFERENCE_SECTIONS,
+} from './ingest-article/voa'
+export type { VoaListItem, VoaParsedArticle, VoaSitemapEntry } from './ingest-article/voa'
 export {
   listNasaFeed,
   nasaFeedUrlPaged,
@@ -86,6 +105,24 @@ export {
   PLOS_FEEDS,
 } from './ingest-article/plos'
 export type { PlosListItem } from './ingest-article/plos'
+// World Bank OKR — 개발경제·사회과학 (CC BY 3.0 IGO · PDF 옆 `.txt` 형제 파일).
+//   ⚠️ 평문이 선형 읽기 순서가 아니다 — 추출 단위가 **연속 산문 런**이다(파일 머리 주석).
+export {
+  WORLD_BANK_FEEDS,
+  buildWorldBankListUrl,
+  classifyLine,
+  fetchWorldBankText,
+  isEnglish,
+  listWorldBankFeed,
+  listWorldBankFeedPage,
+  originalTextBitstream,
+  proseRuns,
+  runSourceKey,
+  toRestContentUrl,
+  trimToSentences,
+  worldBankLicense,
+} from './ingest-article/world-bank-okr'
+export type { WorldBankListItem, WorldBankPage, ProseRun, LineKind } from './ingest-article/world-bank-okr'
 // ACP §18 — Wikivoyage (여행 가이드 · B1-B2 · CC-BY-SA · reference 밴드 보강).
 export {
   ingestWikivoyageArticle,
@@ -167,6 +204,43 @@ export {
   FRYM_FEEDS,
 } from './ingest-article/frontiers-young-minds'
 export type { FrymListItem } from './ingest-article/frontiers-young-minds'
+// Frontiers 성인 학술지 (비-PMC 18종) — **교육·언어 칸**(배율 0.57 · 부족 1,464편)을 겨눈다.
+//   ⚠️ 위 FrYM 과 다른 소스다(호스트·본문 형식·열쇠 접두어 전부 다름).
+export {
+  ingestFrontiersArticle,
+  fetchFrontiersArticle,
+  listFrontiersFeed,
+  listFrontiersFeedPage,
+  buildFrontiersListUrl,
+  resolveFrontiersSlug,
+  primeFrontiersSlug,
+  frontiersXmlUrl,
+  frontiersAbbrev,
+  frontiersJournal,
+  frontiersBodyXml,
+  dropBackMatterSecs,
+  frontiersBodyText,
+  frontiersJatsLicenseUrl,
+  frontiersJatsTitle,
+  frontiersLicenseUrl,
+  frontiersLicenseCode,
+  frontiersLicenseAllowed,
+  frontiersPublishedAt,
+  frontiersIsResearchTitle,
+  stripJatsCitations,
+  decodeXmlEntities,
+  FRONTIERS_JOURNALS,
+  FRONTIERS_FEEDS,
+  FRONTIERS_MIN_WORDS,
+  FRONTIERS_MAX_NON_ASCII,
+} from './ingest-article/frontiers'
+export type {
+  FrontiersListItem,
+  FrontiersJournal,
+  FrontiersBodyResult,
+  FrontiersFetched,
+  CitationStripResult,
+} from './ingest-article/frontiers'
 export type { NoaaListItem } from './ingest-article/noaa'
 // CTP DCP T2 — 결정론 order/insert 문항 생성 (LLM 0)
 export { generateDcpItems, explainDcpEligibility } from './dcp/generate-items'

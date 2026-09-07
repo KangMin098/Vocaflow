@@ -442,8 +442,56 @@ export const CSAT_HELP: HelpRegistry = {
       cautions: [
         '수확 스크립트는 커서를 남긴다 — 다시 돌려도 같은 것을 두 번 안 가져온다. 그래도 **적재 전에 규격 프로브를 먼저 돌린다**: 규격 밖 글을 넣으면 문항이 안 나오고 재고만 불어난다(실측 2026-08-30: 하한을 다 지킨 V2 원글 40편 중 순서·삽입이 둘 다 나오는 글은 8편뿐이었다 — 문장 수가 정확히 12여야 한다).',
         '`csat_stage_catalog` 는 지문 **메타**만 든다. 본문은 다른 곳에 있고, 이 화면은 편수만 센다.',
+        '**World Bank OKR 수확은 아직 막혀 있다** — `library_articles.source` 의 CHECK 제약에 `worldbank` 가 없어 `--commit` 이 23514 로 0편 적재하고 멈춘다. 2026-08-21 `futurity` 와 같은 자리다(그때는 제약만 빠져 확보량이 영구 0 이었다). 마이그레이션 승인이 먼저다.',
+        '**OKR 은 robots.txt 가 `/server/oai/` 를 Disallow 한다**(`Crawl-delay: 10`). 넘을지 말지는 사람이 정할 사안이라 `--commit` 을 자동 실행·크론에 붙이지 않는다.',
       ],
-      seeAlso: [{ label: '공정 현황판', href: '/admin/csat' }],
+      drain: {
+        what: '빈 소재 칸을 겨냥해 외부 원문을 수확한다 — 지금 겨냥은 **사회·경제**(배율 0.686 · 3단계 5만 기준 부족 926편)와 **교육·언어**(0.568 · 1,464편). 넣기 전에 채점하므로 재고에 들어오는 것은 전부 창을 통과한 글이다.',
+        prerequisites: [
+          '`docs/reports/topic-gap.json` 이 최신이어야 몫이 맞다. 낡았으면 먼저 `node scripts/csat/topic-gap.mjs --sample 3000 --out docs/reports/topic-gap.json`.',
+          '`apps/web/.env.local` 에 `SUPABASE_SERVICE_ROLE_KEY`. 없으면 `--commit` 만 실패하고 읽기 전용 실행은 된다.',
+          'World Bank OKR 은 **DB 제약 + robots 결정 두 가지가 열려야** `--commit` 할 수 있다(위 주의 참조).',
+        ],
+        procedure: [
+          {
+            title: '① 어느 칸이 비었는지 본다',
+            detail:
+              '`pnpm dlx tsx scripts/csat/harvest-worldbank.mjs --plan` — 기출 배합 × 현재 재고로 칸별 부족분과 배율을 낸다. **읽기만 한다.**',
+            done: '「이번 겨냥」 줄에 칸 이름과 부족 편수가 찍힌다. 부족 0 이면 그 칸은 더 담으면 배합이 깨진다.',
+          },
+          {
+            title: '② 읽기 전용으로 수율을 잰다',
+            detail:
+              '`pnpm dlx tsx scripts/csat/harvest-worldbank.mjs --pages 1 --max 12` — 목록 100건을 받아 라이선스(NC/ND 먼저)·언어·유형·평문 유무로 거르고, `.txt` 를 받아 **연속 산문 런**으로 자른 뒤 채점한다. **DB 에도 커서에도 쓰지 않는다.** 문서당 10초 간격이라 12편에 약 2분.',
+            done: '「적재 가능 N편」과 표본 목록. 실측 1쪽 기준 100 → 통과 14 → 평문 11 → 런 179 → 창 통과 20 → 배분 12.',
+          },
+          {
+            title: '③ 적재한다 (제약·robots 결정 이후)',
+            detail:
+              '`pnpm dlx tsx scripts/csat/harvest-worldbank.mjs --pages 20 --max 300 --commit`. **재실행 안전**: `source_id`(`worldbank:10986/<handle>#p<쪽>-<쪽>`)로 DB 와 대조해 이미 있는 것은 건너뛰고, 커서는 **한 쪽을 판정한 뒤에만** 쓴다 — 중간에 죽으면 그 쪽을 다시 본다(결과 동일).',
+            done: '「적재 N편」. 제약이 안 열렸으면 첫 행에서 `23514` 를 찍고 **즉시 멈춘다**(나머지를 태우지 않는다).',
+          },
+          {
+            title: '④ 재고를 다시 잰다',
+            detail:
+              '`node scripts/csat/topic-gap.mjs --sample 3000 --out docs/reports/topic-gap.json` — 넣은 만큼 몫이 달라진다. 안 다시 재면 다음 수확이 같은 칸을 두 번 채운다.',
+            done: '겨냥한 칸의 배율이 1.0 쪽으로 움직인다.',
+          },
+        ],
+        verify: [
+          '이 화면의 밴드별 「쓸 수 있는 것」이 늘어야 한다. 지문 수만 늘고 이 값이 그대로면 `display_only` 로 들어온 것이다.',
+          '`--plan` 을 다시 돌려 겨냥 칸의 배율이 올라갔는지 본다(0.686 → ?). **문서 수치가 아니라 이 출력이 근거다.**',
+        ],
+        recovery: [
+          '「받음 0」이면 먼저 필터 내역 줄을 본다 — 유형불일치가 대부분이면 `--feed all` 로 넓히고, NC/ND 가 대부분이면 그 창(`--from`)에 쓸 것이 없는 것이다.',
+          '`bitstream 500` 이 줄줄이 나오면 상류 프런트 경로를 쓰고 있는 것이다. 어댑터는 REST(`/server/api/core/bitstreams/<uuid>/content`)로 바꿔 부른다 — 되돌리면 전량 실패한다(실측).',
+          '커서를 지워도 안전하다 — 중복은 `source_id` 가 막는다. 커서는 최적화이지 안전장치가 아니다.',
+        ],
+      },
+      seeAlso: [
+        { label: '공정 현황판', href: '/admin/csat' },
+        { label: '수확기·소스별 함정', doc: 'docs/LIBRARY_PIPELINE.md' },
+      ],
     },
   },
 
