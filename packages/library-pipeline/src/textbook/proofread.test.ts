@@ -29,6 +29,18 @@ describe('재교 — 한 자리만 보면 아는 것', () => {
     expect(rules(['The study found a a clear result.'])).toContain('repeated_word')
   })
 
+  it('**수식 변수는 반복이 아니다** — 한 글자는 대소문자가 같을 때만 센다', () => {
+    // 실측 2026-09-07: V7 의 `( 1 + a A )` 가 「"a" 가 두 번 붙어 있다」로 잡혔다.
+    // 인쇄되는 420문항 중 **유일한 교정 적중이자 오탐**이었고, 그 한 건 때문에
+    // 제작 콘솔이 「Claude Code 차례 · 교정」이라고 말하고 있었다.
+    expect(rules(['It follows that P = 1 − exp ( − λ 0 n 2 ( 1 + a A ) ).'])).not.toContain(
+      'repeated_word',
+    )
+    // 진짜 오타는 대소문자가 같으므로 그대로 걸린다 — 좁히다 못 잡게 되면 안 된다.
+    expect(rules(['The study found a a clear result.'])).toContain('repeated_word')
+    expect(rules(['We measured x X and then moved on.'])).not.toContain('repeated_word')
+  })
+
   it('겹친 고유명사는 단정하지 않고 확인을 청한다', () => {
     // 실측: `Durand Durand` 는 Barbarella 악당의 실제 이름이라 중복이 아니다.
     const f = proofreadPassage(['They sent the president to retrieve Durand Durand from Tau Ceti.'])

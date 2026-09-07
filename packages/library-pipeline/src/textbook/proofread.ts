@@ -96,9 +96,21 @@ function secondPass(sentences: readonly string[]): ProofFinding[] {
         hint: '연속 공백을 하나로 줄인다.',
       })
     }
-    for (const m of s.matchAll(/\b(\w+)\s+\1\b/gi)) {
+    // ⚠️ 둘째 낱말을 **소비하지 않는다**(전방탐색). 그냥 `(\w+)\s+(\w+)` 로 쓰면 쌍을 통째로
+    //    먹어서 `found a a clear` 에서 `found a` 를 먹고 **정작 `a a` 를 못 본다**
+    //    (실측 2026-09-07 — 좁히다가 진짜 오타를 놓칠 뻔했다).
+    for (const m of s.matchAll(/\b(\w+)\s+(?=(\w+)\b)/g)) {
       const word = m[1] ?? ''
+      const next = m[2] ?? ''
+      if (word.toLowerCase() !== next.toLowerCase()) continue
       if (DOUBLABLE.has(word.toLowerCase())) continue
+      // ⚠️ **한 글자짜리는 대소문자가 같을 때만 센다** (실측 2026-09-07).
+      //    수식에서 `a` 와 `A` 는 **서로 다른 변수**다 — 대소문자를 무시하고 재던 규칙이
+      //    V7 의 `( 1 + a A )` 를 「"a" 가 두 번 붙어 있다」로 잡았고, 그것이 인쇄되는
+      //    420문항 중 **유일한 교정 적중이자 오탐**이었다(제작 콘솔이 그 한 건 때문에
+      //    「Claude Code 차례 · 교정」이라고 말하고 있었다).
+      //    `a a` 같은 진짜 오타는 대소문자가 같으므로 그대로 걸린다.
+      if (word.length === 1 && word !== next) continue
       // 대문자로 시작하면 **고유명사가 실제로 겹친 이름**일 수 있다 —
       // 실측에서 `Durand Durand`(Barbarella 악당 이름)가 이렇게 걸렸다.
       // 지우라고 단정하지 않고 사람이 확인하도록 말을 바꾼다.
@@ -106,7 +118,8 @@ function secondPass(sentences: readonly string[]): ProofFinding[] {
       out.push({
         rule: 'repeated_word',
         stage: '재교',
-        found: around(s, m.index ?? 0, m[0].length),
+        // 전방탐색이라 `m[0]` 에 둘째 낱말이 안 들어 있다 — 표시 구간에 더해 준다.
+        found: around(s, m.index ?? 0, m[0].length + next.length),
         hint: proper
           ? `"${word}" 가 두 번 붙어 있다 — 겹친 이름인지 중복인지 확인한다.`
           : `"${word}" 가 두 번 붙어 있다 — 하나를 지운다.`,

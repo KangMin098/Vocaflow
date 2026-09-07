@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-07T13:56:43.931Z",
+  "generatedAt": "2026-09-07T14:14:23.606Z",
   "unitsPerVolume": 10,
   "bands": [
     1,
@@ -3283,7 +3283,7 @@
         "renderable": 60,
         "explained": 60,
         "proofChecked": 33,
-        "proofClean": 32,
+        "proofClean": 33,
         "byType": {
           "order": {
             "items": 16,
