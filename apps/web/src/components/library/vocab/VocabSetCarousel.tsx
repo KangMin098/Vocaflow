@@ -510,17 +510,22 @@ function CoverCard({
         <div aria-hidden className="book-spine3d" />
         <div aria-hidden className="book-foreedge" />
 
-        {/* 구독 배지 */}
+        {/*
+          구독 배지 — **아래로 내렸다.** 규격의 권 번호가 오른쪽 위에 앉기 때문이다
+          (`VocabCoverArt` 의 lockup 띠). 겹치면 구독 상태가 권 번호를 가린다.
+          아래 오른쪽은 비어 있고, 가운데 아래 계열 줄과도 좌표가 겹치지 않는다
+          (270px 표지 기준 계열 줄 x 70~200 · 배지 x 236~258).
+        */}
         {isSubscribed && (
           <span
             aria-hidden
-            className="absolute right-3 top-3 inline-flex items-center justify-center rounded-full bg-white/95 p-1 text-[var(--success)] shadow-[0_2px_6px_rgba(0,0,0,0.2)]"
+            className="absolute bottom-3 right-3 inline-flex items-center justify-center rounded-full bg-white/95 p-1 text-[var(--success)] shadow-[0_2px_6px_rgba(0,0,0,0.2)]"
           >
             <Check size={12} strokeWidth={2.5} />
           </span>
         )}
         {isPending && (
-          <span aria-hidden className="absolute right-3 top-3 text-white">
+          <span aria-hidden className="absolute bottom-3 right-3 text-white">
             <Loader2 size={14} className="animate-spin" />
           </span>
         )}

@@ -197,40 +197,25 @@ describe('단어장 카드 — 표지 규격(브랜드 각인)', () => {
   const branded = (overrides: Partial<PublishedVocabSet> = {}) =>
     set({ brandLockup: lockup, brandFamily: 'structure', ladderStep: 5, ...overrides })
 
-  it('kicker 와 계열 줄을 표지에 찍는다 — 규격의 글자가 화면에 있다', () => {
-    const html = render(branded())
-    expect(html).toContain('VOCAFLOW VOCABULARY')
-    expect(html).toContain('STRUCTURE · 구조 계열')
-  })
-
   /*
-    ⚠️ 교재 표지가 여기서 틀렸다 — 5단 표지에 `5` 를 찍었는데 제목은 `… Reading 4` 였다.
-    계단(1~7)과 권 이름(Starter·1~6)이 한 칸 밀려 있어서다. 단어장도 같은 사다리를 탄다.
+    ⚠️ **타일에는 규격의 글자를 얹지 않는다** — 자리가 없기 때문이다(실측 좌표 2026-09-07).
+      좌상 구독/신규 칩 y 12~32 · 우상 사다리 칩 `5단 · 고1` y 12~32 ·
+      좌하 카테고리+구독수 칩 · 우하 추가 버튼. 150px 표지에 남는 띠는 도판과 제목이 쓰는
+      가운데뿐이다. kicker 를 얹으면 좌상 칩과 겹치고, 권 번호는 사다리 칩과 **같은 자리에서
+      다른 수**를 말한다(`VOL. 4` vs `5단`) — 교재 표지가 값을 치른 그 결함이다.
+
+      규격의 **값**(판형·여백·스크림·줄 수·색·서체)은 그대로 따른다. 아래 검사들이 그것을 잰다.
   */
-  it('권 번호는 계단이 아니라 **권 이름**이다 — 5단 권에 VOL. 4 가 찍힌다', () => {
+  it('규격의 글자는 타일에 그리지 않는다 — 네 귀퉁이가 이미 칩으로 차 있다', () => {
     const html = render(branded())
-    expect(html).toContain('VOL. 4')
-    expect(html).not.toContain('VOL. 5')
-    // 계단은 배지가 따로 말한다 — 둘이 다른 것을 말하는 게 정상이고, 그래서 형태가 달라야 한다.
-    expect(html).toContain('5단')
-  })
-
-  it('계단을 못 정한 권은 번호 자리를 비운다 — 없는 수를 지어내지 않는다', () => {
-    const html = render(branded({ ladderStep: null, category: 'etymology', cefrLevel: null, level: null }))
-    expect(html).toContain('VOCAFLOW VOCABULARY')
-    expect(html).not.toContain('VOL.')
-  })
-
-  it('시리즈를 두 번 말하지 않는다 — lockup 이 있으면 중앙 시리즈 줄을 뺀다', () => {
-    const html = render(branded())
-    expect(html).not.toContain('Vocaflow Vocabulary 4')
-  })
-
-  it('각인이 없는 권은 종전 그대로 — kicker 없이 시리즈 줄', () => {
-    const html = render(set({ ladderStep: 5 }))
     expect(html).not.toContain('VOCAFLOW VOCABULARY')
     expect(html).not.toContain('VOL. ')
-    expect(html).toContain('Vocaflow Vocabulary 4')
+    expect(html).not.toContain('STRUCTURE · 구조 계열')
+  })
+
+  it('그래서 시리즈는 종전대로 중앙 줄이 말한다 — 자리를 비우지 않는다', () => {
+    expect(render(branded())).toContain('Vocaflow Vocabulary 4')
+    expect(render(set({ ladderStep: 5 }))).toContain('Vocaflow Vocabulary 4')
   })
 
   it('판형·스크림·도판 여백이 규격 값으로 그려진다', () => {
@@ -264,8 +249,6 @@ describe('단어장 카드 — 표지 규격(브랜드 각인)', () => {
       designedBy: 'claude-design',
     })
     const html = render(branded({ brandLockup: mutated, brandFamily: 'corpus' }))
-    expect(html).toContain('VF READERS')
-    expect(html).toContain('제 4 권')
     expect(html).toContain('aspect-ratio:2 / 3')
     expect(html).toContain('rgba(0,0,0,0.5) 62%')
     expect(html).toContain('padding:14% 14% 33%')

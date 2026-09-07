@@ -17,9 +17,6 @@ import { VocabCoverArt } from './VocabCoverArt'
 import { bookCover, cefrToVLevel } from '@/lib/library/book-cover'
 import { rungForSet } from '@/lib/library/vocab/rung'
 import { VOCAB_SERIES_BRAND } from '@vocaflow/library-pipeline/vocab-brand'
-// 교재 표지가 만든 함수를 그대로 쓴다 — 「표지 숫자와 제목 숫자가 한 칸 어긋난다」는
-// 함정이 단어장에도 똑같이 있고, 두 벌을 두면 한쪽만 고쳐진다.
-import { volumeMark } from '@vocaflow/library-pipeline/textbook-cover'
 import type { PublishedVocabSet } from '@/lib/library/vocab/queries'
 
 import { vocabCategoryMeta } from './categories'
@@ -83,15 +80,6 @@ export function VocabSetCard({
   // 근거가 없으면 null 이고, 그때는 종전대로 CEFR 을 보인다.
   const { rung } = rungForSet(set)
 
-  /*
-    표지 오른쪽 위에 찍을 표시 — **계단 번호가 아니라 권 이름**이다(`Vocaflow Vocabulary 4` → `4`).
-
-    ⚠️ 교재 표지가 정확히 여기서 틀렸다: 5단 표지에 `5` 를 찍었는데 같은 카드의 제목은
-      `Vocaflow Reading 4` 였다. 계단(1~7)과 권 이름(Starter·1~6)이 한 칸 밀려 있어서다.
-      그래서 교재가 만든 `volumeMark` 를 **그대로 쓴다** — 같은 함정을 두 번 파지 않는다.
-  */
-  const mark = rung ? volumeMark(rung.volumeTitle, VOCAB_SERIES_BRAND) : null
-
   // 신규(최근 14일) 배지 — 최신성 discovery 신호. SSR 하이드레이션 회피 위해 mount 후 판정.
   const [mounted, setMounted] = useState(false)
   useEffect(() => setMounted(true), [])
@@ -133,7 +121,10 @@ export function VocabSetCard({
           artKey={artKey}
           scrim="card"
           lockup={lockup}
-          volumeMark={mark}
+          // 타일은 네 귀퉁이가 이미 칩으로 차 있어 규격의 **글자**를 얹을 자리가 없다
+          //   (`VocabCoverArt` 의 `drawLockup` 주석에 좌표까지 적어 두었다).
+          //   값(판형·여백·스크림·제목 줄 수·색·서체)은 그대로 규격을 따른다.
+          drawLockup={false}
         />
 
         {/* 클로스바운드 표지 — 중앙 serif 제목 + 단어수 + 이모지 장식 (그리드라 compact) */}
@@ -145,13 +136,10 @@ export function VocabSetCard({
           //   자리가 없다 — 두면 선화 위에 이모지가 겹친다.
           ornament={null}
           /*
-            시리즈 줄 — 규격이 있으면 **표지 위쪽 lockup 이 이미 말한다**(kicker + 권 번호).
-            둘 다 그리면 한 표지에 시리즈가 두 줄이 되고, 게다가 서로 다른 형태로 말한다
-            (`Vocaflow Vocabulary 4` vs `VOCAFLOW VOCABULARY` + `VOL. 4`).
-
-            규격이 없는 권만 종전대로 이 줄을 쓴다 — 값을 여기서 짓지 않고 정본 사다리에서 읽는다.
+            시리즈 줄 — 타일은 kicker 를 그리지 않으므로(위 `drawLockup` 참조) 이 줄이
+            시리즈를 말하는 유일한 자리다. 값을 여기서 짓지 않고 정본 사다리에서 읽는다.
           */
-          series={lockup ? null : (rung?.volumeTitle ?? VOCAB_SERIES_BRAND)}
+          series={rung?.volumeTitle ?? VOCAB_SERIES_BRAND}
           compact
         />
         <div aria-hidden className="book-cover-sheen absolute inset-0" />

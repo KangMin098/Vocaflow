@@ -49,6 +49,22 @@ interface Props {
    * 호출부가 `volumeMark(rung.volumeTitle)` 로 뽑아 넘긴다(`lockup.ts` 주석의 그 함정).
    */
   volumeMark?: string | null
+  /**
+   * 규격의 **글자**(kicker · 권 번호 · 계열 줄)를 그릴 것인가. 색·여백·스크림 같은 값은
+   * 이 스위치와 무관하게 늘 적용된다.
+   *
+   * ── 왜 스위치가 필요한가 (실측 2026-09-07) ─────────────────────────
+   * 캔버스는 **아무것도 얹히지 않은 480×640 표지**를 그렸다. 그런데 격자 타일의 표지는
+   * 150px 이고 **네 귀퉁이가 이미 차 있다**:
+   *   좌상 구독/신규 칩 · 우상 사다리 칩(`5단 · 고1`) · 좌하 카테고리+구독수 칩 ·
+   *   우하 추가/제외 버튼(hover). 남는 띠는 도판과 제목이 쓰는 가운데뿐이다.
+   * 거기에 kicker 를 얹으면 좌상 칩과 **겹치고**(둘 다 y 12~32), 권 번호는 사다리 칩과
+   * 같은 자리에서 **다른 수**를 말한다(`VOL. 4` vs `5단`) — 교재 표지가 값을 치른 그 결함이다.
+   *
+   * 그래서 타일에서는 글자를 그리지 않는다. **자리가 없다는 사실을 코드가 말하게 두는 것**이,
+   * 겹쳐 그려 놓고 규격을 지켰다고 하는 것보다 정직하다. 칩을 걷어내는 것은 별건의 결정이다.
+   */
+  drawLockup?: boolean
 }
 
 /*
@@ -63,7 +79,7 @@ interface Props {
 */
 
 export function VocabCoverArt({
-  family, artKey, scrim = 'card', lockup = null, volumeMark = null,
+  family, artKey, scrim = 'card', lockup = null, volumeMark = null, drawLockup = true,
 }: Props) {
   const fam: CoverFamily = lockup?.family ?? family ?? 'list'
   const grain = FAMILY_GRAIN[fam]
@@ -124,7 +140,7 @@ export function VocabCoverArt({
              — 이것이 없으면 다섯 색은 그냥 예쁜 색이고, 규격이 노린 "색만 보고 계열을 안다" 가
              학습자에게 도달하지 않는다.
       */}
-      {lockup && (
+      {lockup && drawLockup && (
         <>
           <div
             className={`absolute inset-x-0 top-0 flex items-baseline justify-between gap-2 ${railPad}`}
