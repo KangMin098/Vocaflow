@@ -137,9 +137,15 @@ export function VocabSetCard({
           ornament={null}
           /*
             시리즈 줄 — 타일은 kicker 를 그리지 않으므로(위 `drawLockup` 참조) 이 줄이
-            시리즈를 말하는 유일한 자리다. 값을 여기서 짓지 않고 정본 사다리에서 읽는다.
+            시리즈를 말하는 유일한 자리다.
+
+            ⚠️ **권 이름이 아니라 시리즈명만 싣는다** (실측 2026-09-07 · `vocab:probe`).
+              `Vocaflow Vocabulary 5` 는 대문자 21자라 타일 폭 118px 에 안 들어가고
+              `VOCAFLOW VOCABULAR…` 로 잘렸다 — 정작 뒤에 붙은 **권 번호만 잘려 나가서**
+              한 글자도 전하지 못하면서 표지만 깨져 보였다. 권의 자리는 우상단 사다리 칩이
+              이미 말한다(`6단 · 고2`). 잘린 채로 두는 것보다 시리즈명이 온전한 편이 낫다.
           */
-          series={rung?.volumeTitle ?? VOCAB_SERIES_BRAND}
+          series={VOCAB_SERIES_BRAND}
           compact
         />
         <div aria-hidden className="book-cover-sheen absolute inset-0" />

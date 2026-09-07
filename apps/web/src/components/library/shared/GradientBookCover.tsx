@@ -95,9 +95,14 @@ export function GradientBookCover({
     1: 'line-clamp-1', 2: 'line-clamp-2', 3: 'line-clamp-3', 4: 'line-clamp-4', 5: 'line-clamp-5',
   }
   const clamp = CLAMP[titleMaxLines ?? (compact ? 4 : 5)] ?? (compact ? 'line-clamp-4' : 'line-clamp-5')
+  /*
+    ⚠️ `break-keep` — 없으면 **한글이 낱말 중간에서 쪼개진다.** 표지를 굽어 보고 알았다
+    (2026-09-07 · `vocab:probe`): `어원으로 익히 / 는 1,500` · `아직 어느 단어 / 장에도 없는 말`.
+    150px 타일에서 특히 잦다. CLAUDE.md I7 이 정확히 이 규칙인데 표지만 빠져 있었다.
+  */
   const titleCls = compact
-    ? `${clamp} font-english text-[15px] font-[600] leading-[1.26] tracking-[0.005em] ${titleInk}`
-    : `${clamp} font-english text-[20px] font-[600] leading-[1.28] tracking-[0.005em] ${titleInk}`
+    ? `${clamp} break-keep font-english text-[15px] font-[600] leading-[1.26] tracking-[0.005em] ${titleInk}`
+    : `${clamp} break-keep font-english text-[20px] font-[600] leading-[1.28] tracking-[0.005em] ${titleInk}`
   const subCls = compact
     ? `line-clamp-1 font-display text-[9px] font-[600] uppercase tracking-[0.14em] ${subInk}`
     : `line-clamp-1 font-display text-[10px] font-[600] uppercase tracking-[0.16em] ${subInk}`
@@ -125,8 +130,13 @@ export function GradientBookCover({
           className={
             // `truncate` — 시리즈명이 길어도 표지를 넘지 않게. 그리드 타일은 폭이 150px 대라
             //   자간을 넓히면 금방 넘친다(넘치면 표지가 깨져 보인다).
+            //
+            // ⚠️ **타일은 22px 이 아니라 38px 이다** (실측 2026-09-07 · `vocab:probe`).
+            //   22px 에서는 이 줄이 우상단 사다리 칩(`6단 · 고2` · y 12~32)에 **덮여**
+            //   `VOCAFLOW VOC` 까지만 보였다 — 잘린 것이 아니라 가려진 것이라 CSS 로는 안 보인다.
+            //   칩 아래로 내리면 폭 118px 에 `VOCAFLOW VOCABULARY 5`(≈109px)가 다 들어간다.
             compact
-              ? `absolute left-0 right-0 top-[22px] truncate px-4 font-display text-[7.5px] font-[700] uppercase tracking-[0.14em] ${subInk}`
+              ? `absolute left-0 right-0 top-[38px] truncate px-4 font-display text-[7.5px] font-[700] uppercase tracking-[0.14em] ${subInk}`
               : `absolute left-0 right-0 top-[30px] truncate px-6 font-display text-[9.5px] font-[700] uppercase tracking-[0.22em] ${subInk}`
           }
         >

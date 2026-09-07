@@ -213,9 +213,17 @@ describe('단어장 카드 — 표지 규격(브랜드 각인)', () => {
     expect(html).not.toContain('STRUCTURE · 구조 계열')
   })
 
-  it('그래서 시리즈는 종전대로 중앙 줄이 말한다 — 자리를 비우지 않는다', () => {
-    expect(render(branded())).toContain('Vocaflow Vocabulary 4')
-    expect(render(set({ ladderStep: 5 }))).toContain('Vocaflow Vocabulary 4')
+  /*
+    ⚠️ 시리즈 줄은 **시리즈명까지**다 — 권 번호를 붙이면 대문자 21자가 되어 타일 폭 118px 을
+      넘고, 잘리는 것은 하필 **뒤에 붙은 권 번호**다(실측 `vocab:probe` — `VOCAFLOW VOCABULAR…`).
+      한 글자도 못 전하면서 표지만 깨져 보였다. 권의 자리는 우상단 사다리 칩이 말한다.
+  */
+  it('시리즈 줄은 시리즈명만 — 잘릴 권 번호를 붙이지 않는다', () => {
+    const html = render(branded())
+    expect(html).toContain('Vocaflow Vocabulary')
+    expect(html).not.toContain('Vocaflow Vocabulary 4')
+    // 권은 사라진 게 아니라 칩이 말한다.
+    expect(html).toContain('5단')
   })
 
   it('판형·스크림·도판 여백이 규격 값으로 그려진다', () => {
@@ -256,5 +264,32 @@ describe('단어장 카드 — 표지 규격(브랜드 각인)', () => {
     // 계열이 바뀌면 색도 바뀐다 — 규격의 계열이 정본이다.
     expect(html).toContain(FAMILY_GRAIN.corpus.ink)
     expect(html).not.toContain(FAMILY_GRAIN.structure.ink)
+  })
+})
+
+/*
+  ── 굽어 보고서야 나온 것 (2026-09-07 · `pnpm --filter web vocab:probe`) ──────────
+
+  아래 둘은 **렌더 단언으로는 통과하던 것**이다. 마크업에 글자가 다 있었고, 클래스도 다 있었다.
+  그림을 봐야 보였다 — 교재 표지가 같은 교훈을 남겼는데(`cover-probe.mts`) 단어장 표지는
+  그 도구가 없었다.
+*/
+describe('표지 — 그림으로만 보이던 것', () => {
+  /*
+    실측: `어원으로 익히 / 는 1,500` · `아직 어느 단어 / 장에도 없는 말`.
+    CLAUDE.md I7(한글 `break-keep`)이 정확히 이 규칙인데 표지만 빠져 있었다.
+  */
+  it('한글 제목이 낱말 중간에서 쪼개지지 않는다 (I7)', () => {
+    expect(render(set())).toContain('break-keep')
+  })
+
+  /*
+    실측: 시리즈 줄이 top-22px 라 우상단 사다리 칩(y 12~32)에 **덮여** `VOCAFLOW VOC` 까지만
+    보였다. 잘린 게 아니라 가려진 것이라 `truncate` 를 봐도 알 수 없다.
+  */
+  it('시리즈 줄이 칩 아래로 내려와 있다 — 덮이면 CSS 로는 안 보인다', () => {
+    const html = render(set())
+    expect(html).toContain('top-[38px]')
+    expect(html).not.toContain('top-[22px]')
   })
 })

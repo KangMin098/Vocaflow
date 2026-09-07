@@ -242,6 +242,16 @@ arxiv 0. `lib/library/tabs.ts` · `admin/page.tsx` · `admin/library/page.tsx` �
 - **아트보드도 숫자를 안 들고 있게** — `BRAND_LOCKUP_SPEC`·`BRAND_COVER_GRID` 를 신설해
   아트보드가 「최대 2줄」·「VOL. 05」·「3:4」를 문자열로 박아 두던 것을 읽어 그리게 했다.
   `resolveBrandColors` 는 이제 **역할을 실제로 따라간다**(전에는 `palette` 가 무엇을 적든 결과가 같았다).
+- **굽어 보고서야 나온 것 셋** — 단어장 표지 probe 신설(`pnpm --filter web vocab:probe` ·
+  실제 화면을 찍는다. 표지는 SVG 한 장이 아니라 카드·칩·스크림이 겹친 결과라 합성판을 찍으면
+  화면과 다른 것을 본다). 셋 다 **렌더 단언은 통과하던 것**이다:
+  ① 한글 제목이 낱말 중간에서 쪼개졌다 — `어원으로 익히 / 는 1,500` · `아직 어느 단어 / 장에도`.
+  CLAUDE.md **I7(break-keep)** 이 정확히 이 규칙인데 표지만 빠져 있었다.
+  ② 시리즈 줄이 우상단 사다리 칩(y 12~32)에 **덮여** `VOCAFLOW VOC` 까지만 보였다 —
+  잘린 게 아니라 가려진 것이라 CSS 로는 알 수 없다. 칩 아래(top 38px)로 내렸다.
+  ③ 내리고 보니 `Vocaflow Vocabulary 5`(대문자 21자)가 타일 폭 118px 을 넘어 **권 번호만**
+  잘려 나갔다 — 한 글자도 못 전하면서 표지만 깨져 보였다. 시리즈명까지만 싣는다(권은 칩이 말한다).
+  회귀 2종 추가 · 전후 스크린샷 대조(격자 12장 · 타일 · 모바일 390px).
 - 회귀 **+38** — `lockup.test.ts` 25종(narrowing 10종 · 색 역할 · 대비 10벌) ·
   `VocabSetCard.test.tsx` 5종(값은 따르고 글자는 안 그린다 + 변이 검사: 규격을 바꾸면 표지가
   따라 바뀌는가) · `VocabSetCarousel.test.tsx` 8종 신설(글자가 실제로 보이는 유일한 표면 ·
