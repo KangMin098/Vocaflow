@@ -70,9 +70,16 @@ async function fetchPage(from, attempt = 0) {
     //   jsonb 를 detoast 한다 — 이 인스턴스의 진짜 제약이 **읽기 포화**이기 때문에
     //   (`capacity:disk_io:instance`: shared_buffers 256MB 대 데이터 6,315MB · 캐시가 4%)
     //   그 한 열이 21,831행 훑기를 몇 배로 무겁게 만든다. 판정 여부는 **남은 것에만** 따로 묻는다.
-    .select('id,title,source,source_url,word_count,article_v_level')
+    .select('id,title,source,source_url,word_count,article_v_level,feed_id')
     // 소스 제외도 DB 에서 한다 — 여기서 거르면 전송량이 4분의 1로 준다.
-    .not('source', 'in', '("plos","gutenberg")')
+    //
+    // ⚠️ **`source` 로 거르되 발췌는 남긴다.** 이 제외는 「plos 는 잘리지 않은 논문 전문이라
+    //   판정이 안 붙는다」에서 왔고 그때는 맞았다. 그런데 발췌(`plos-extract`)도 **`source` 가
+    //   그대로 `plos`** 다 — 소스만 보고 거르면 **판정 가능한 11,601편이 통째로 안 보인다.**
+    //   실측 2026-09-07: 발췌 전량을 분석해 `ready` 로 올린 뒤 이 export 를 돌렸더니
+    //   「판정할 기사가 없다」가 나왔다. 큐가 빈 것이 아니라 **질의가 눈을 감고 있었다.**
+    //   거를 기준은 소스가 아니라 **잘렸는가**이므로, 발췌 피드는 예외로 둔다.
+    .or('and(source.not.in.("plos","gutenberg")),feed_id.eq.plos-extract')
     .in('status', ['ready', 'published'])
     .gt('id', from)
     .order('id')
