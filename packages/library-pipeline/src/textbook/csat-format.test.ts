@@ -183,6 +183,14 @@ describe('hasArticleChrome — 기사 껍데기', () => {
     ['날짜 도장', 'Sumer Loggins Aug 03, 2026 Article From serving in the U.S. Army'],
     ['Q&A 표지', 'Q What is lenacapavir and how does it work? A Lenacapavir is a drug.'],
     ['캡션 나열', 'Micro Ocean-Bottom Seismometers Being Deployed Close Meeting a Crucial Need'],
+    // ⚠️ 실측 2026-09-08: 청크 지문 60,058편 중 **153편**이 이 머리말을 달고 있었는데
+    //    위 규칙 어느 것에도 안 걸렸다(날짜 도장도 `Credits:` 도 아니다). 그대로 조판하면
+    //    `APOD APOD Astronomy Picture of the Day Discover the cosmos!` 가 학생 지면에 찍힌다.
+    [
+      'APOD 사이트 머리말',
+      'APOD APOD Astronomy Picture of the Day Discover the cosmos! Each day a different image of our universe is featured.',
+    ],
+    ['이미지 번호 나열', 'Image 1Image 2 The Red Glow of the Cosmic Bat Nebula sits far away.'],
   ])('%s 를 잡는다', (_label, text) => {
     expect(hasArticleChrome(text)).toBe(true)
     expect(isPrintablePassage(text)).toBe(false)
@@ -193,6 +201,8 @@ describe('hasArticleChrome — 기사 껍데기', () => {
     ['문장 속 credit', 'Farmers could not get credit from the bank, so they sold the land.'],
     ['분기 표기', 'Sales in Q4 rose sharply after the new plant opened in March.'],
     ['월 이름만', 'In August the river runs low and the ferries stop for a week.'],
+    // APOD 규칙이 넓어져 평범한 천문 산문까지 버리기 시작하면 이 줄이 먼저 깨져야 한다.
+    ['천문 산문', 'She took a picture of the day the comet passed over the quiet harbor.'],
   ])('%s 는 걸리지 않는다 — 본문을 버리면 안 된다', (_label, text) => {
     expect(hasArticleChrome(text)).toBe(false)
   })

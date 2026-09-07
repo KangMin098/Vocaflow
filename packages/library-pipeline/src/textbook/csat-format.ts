@@ -188,6 +188,15 @@ const ARTICLE_CHROME = [
   /\b(?:Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sept?|Oct|Nov|Dec)\s+\d{1,2},\s*\d{4}\b/, // 약어 날짜 도장 (May 제외)
   /(?:^|\s)Q\s+(?:What|How|Why|When|Who|Where)\b/,             // Q&A 표지
   /\b(?:Close|Read More|Share|Download|Print)\b\s+[A-Z]/,      // 캡션·버튼 나열
+  // APOD(NASA 오늘의 천문 사진) 사이트 머리말 — 지문 앞에 통째로 붙어 온다:
+  //   `APOD APOD Astronomy Picture of the Day Discover the cosmos! Each day a different
+  //    image or photograph of our fascinating universe is featured, …`
+  // ⚠️ 위 규칙 어느 것에도 안 걸린다(날짜 도장도 `Credits:` 도 아니다). 실측 2026-09-08:
+  //   청크 지문 60,058편 중 **153편**이 이 머리말을 달고 있었고 **한 편도 안 잡히고 있었다.**
+  //   오탐은 0 이다 — 학술 소스가 없는 V2~V4 에서 걸린 6편을 눈으로 확인했더니 전부
+  //   진짜 APOD 머리말이었다. `Image 1Image 2` 는 그 뒤에 붙는 이미지 나열이다.
+  /\bAstronomy Picture of the Day\b/,
+  /\bImage \d+Image \d+/,
 ]
 
 /** 기사 껍데기 자국이 있는가. */

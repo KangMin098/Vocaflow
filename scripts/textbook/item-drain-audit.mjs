@@ -33,6 +33,20 @@ import path from 'node:path'
 
 const BASE = path.resolve('scripts/textbook/item-drain')
 const SHOW_FIXABLE = process.argv.includes('--fixable')
+/**
+ * `--prune` — **지문 자체가 죽은 청크를 `_stale/` 로 옮긴다.**
+ *
+ * ⚠️ 왜 필요한가 (실측 2026-09-08): 청크는 게이트보다 오래 산다. `topic-v7` 을 재 보니
+ *   **8/30 수출분은 지문 통과율 7%(10/140)** 이고 **9/7 수출분은 100%(24/24)** 였다.
+ *   그 8/30 청크들은 집필자가 아무리 잘해도 한 문항도 못 낸다 — 그런데 계수기에는
+ *   「지금 시작 가능한 몫」으로 잡히고, 감사에는 「막힌 것」으로 영영 남는다.
+ *   고쳐진 문제가 화면에 영영 남으면 **화면 전체를 아무도 안 믿게 된다.**
+ *
+ * **지우지 않고 옮긴다** — 되돌릴 수 있어야 한다. 그리고 옮기는 조건은
+ * **집필로는 절대 못 고치는 사유**뿐이다(껍데기·논문 서식·민감 소재·어수 규격 밖).
+ * 해설이나 선택지로 고칠 수 있는 것은 건드리지 않는다.
+ */
+const PRUNE = process.argv.includes('--prune')
 
 const { checkDrainItem } = await import('@vocaflow/library-pipeline')
 
@@ -126,6 +140,59 @@ for (const [k, n] of [...reasons].sort((a, b) => b[1] - a[1])) {
 console.log('\n  칸별 (걸린 것 / 채운 것 · 그중 해설만)')
 for (const [d, s] of [...byDir].sort((a, b) => b[1].bad - a[1].bad)) {
   console.log(`    ${d.padEnd(20)} ${String(s.bad).padStart(4)} / ${String(s.filled).padStart(4)}  해설만 ${s.fixable}`)
+}
+
+if (PRUNE) {
+  const { hasArticleChrome, hasAcademicApparatus, hasSensitiveTopic, itemWordSpec } = await import(
+    '@vocaflow/library-pipeline'
+  )
+  /** 집필로는 절대 못 고치는 지문인가. 고칠 수 있는 사유는 여기 넣지 않는다. */
+  const deadPassage = (row, type, band) => {
+    const t = String(row?.passage ?? '')
+    if (!t.trim()) return true
+    if (hasArticleChrome(t) || hasAcademicApparatus(t) || hasSensitiveTopic(t)) return true
+    const spec = itemWordSpec(type, band)
+    const words = t.split(/\s+/).filter(Boolean).length
+    if (spec.max <= 0) return false
+    // ⚠️ 빈칸 유형만 예외 — 구절을 `____` 로 바꾸며 몇 어가 줄어든다. 실측상 3~8어라
+    //   여유를 10어 준다. 그 밖의 유형은 지문을 못 고치므로 창 밖이면 그대로 죽은 것이다.
+    const slack = type === 'blank' ? 10 : 0
+    return words < spec.min || words > spec.max + slack
+  }
+  let movedChunks = 0
+  let movedItems = 0
+  for (const d of fs.readdirSync(BASE)) {
+    const p = path.join(BASE, d)
+    if (!fs.statSync(p).isDirectory()) continue
+    const m = /^(.+)-v(\d+)$/.exec(d)
+    if (!m) continue
+    const [, type, bandStr] = m
+    const band = Number(bandStr)
+    for (const f of fs.readdirSync(p).filter((x) => /^chunk-\d+\.json$/.test(x))) {
+      let rows
+      try {
+        rows = JSON.parse(fs.readFileSync(path.join(p, f), 'utf8'))
+      } catch {
+        continue
+      }
+      if (!Array.isArray(rows) || !rows.length) continue
+      if (!rows.every((r) => deadPassage(r, type, band))) continue
+      const stale = path.join(p, '_stale')
+      fs.mkdirSync(stale, { recursive: true })
+      for (const name of [f, f.replace('.json', '.out.json')]) {
+        const from = path.join(p, name)
+        if (fs.existsSync(from)) fs.renameSync(from, path.join(stale, name))
+      }
+      movedChunks += 1
+      movedItems += rows.length
+      console.log(`    옮김  ${d}/${f}  (${rows.length}편 전부 지문이 죽었다)`)
+    }
+  }
+  console.log(
+    `\n  **죽은 청크 ${movedChunks}개 · 문항칸 ${movedItems}개를 \`_stale/\` 로 옮겼다.**\n` +
+      '  지운 것이 아니다 — 되돌리려면 파일을 상위 폴더로 옮기면 된다.\n' +
+      '  같은 원글은 다음 export 에서 지금 규격의 지문으로 다시 나온다(중복 판정은 DB 를 본다).',
+  )
 }
 
 if (SHOW_FIXABLE) {
