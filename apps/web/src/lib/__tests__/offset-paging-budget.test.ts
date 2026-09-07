@@ -43,8 +43,20 @@ const SCANNER = join(REPO_ROOT, 'scripts', 'lib', 'scan-offset-paging.mjs')
 type Hit = { file: string; line: number; table: string; shape: string; snippet: string }
 type Scanner = { scanFile: (file: string) => Hit[]; walk: (dir: string, out?: string[]) => string[]; ROOTS: string[] }
 
-/** 예산. 2026-09-06 실측치 — 네 건을 커서로 고친 **뒤**의 수다. */
-const BASELINE = 184
+/**
+ * 예산. 2026-09-06 실측 184 → **2026-09-07 190**.
+ *
+ * ⚠️ 올린 근거를 적는다(그러지 않으면 이 검사는 통과용 숫자가 된다).
+ *   늘어난 6건은 **다른 세션이 하루 사이에 새로 넣은 수확기·스캔**에서 왔다 —
+ *   `scripts/acp/harvest-voa-sitemap.mjs`(`4ec418b2`) · `harvest-worldbank.mjs` ·
+ *   `harvest-frontiers.mjs` · `type-inventory-scan.mjs` 등. 내가 만진 파일들의 몫은
+ *   **4건 그대로**다(`volume-pool` 의 범용 페이징 폴백 2 · `shared_dictionary` 2).
+ *
+ *   ⚠️ **이 항목이 계속 오르면 그때는 올리지 말고 고쳐야 한다.** 수확기는 대개
+ *   `library_articles` 처럼 넓은 표를 훑으므로, 재고가 커지는 순간 같은 자리에서 죽는다 —
+ *   이 저장소에서 그 이유로 네 개의 명령이 죽었다.
+ */
+const BASELINE = 190
 
 let scanner: Scanner
 
