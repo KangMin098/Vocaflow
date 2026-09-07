@@ -9,6 +9,62 @@
 ---
 ## Unreleased (v06.34 → next)
 
+### 출판사 OA 도서 정찰 — 「막혔다」던 4만 권이 API 로는 열려 있었다 (2026-09-07)
+
+목표 표 4위 Cambridge/Oxford/Springer OA 도서(+OAPEN)를 `docs/reports/source-probe/SPEC.md`
+규격으로 정찰했다. **Springer 채택 · Cambridge 반려 · Oxford 반려.**
+리포트 `docs/reports/source-probe/publisher-oa-books.md`. DB 미변경 · 표본 5권만 받았다.
+
+**OAPEN 한 곳이 세 출판사를 다 갖고 있어** 출판사별로 긁을 이유가 없었다 — REST 전량 페이징
+실측 Springer **4,275**(영어 3,727) · Oxford **640** · Cambridge **91**, `publisher.name` 오염 0 ·
+핸들 중복 0. 셋을 가른 것은 경로가 아니라 **라이선스**다: OAI `oaire:licenseCondition/@uri`
+표본으로 Springer 영어 n=110 은 **CC BY 79.1% + BY-SA 1.8% = 상업적 변형 가능 82.7%** 인데,
+Oxford n=39 는 BY-NC-ND **92%**, Cambridge n=35 는 NC/ND **86%**(「All rights reserved」 1건 포함).
+→ 확보 가능 **≈3,027권**, 실질 전부가 Springer. 그중 **Palgrave Macmillan 855권**이
+현재 코퍼스(PLOS 51,465편 = STEM)에 없는 인문·사회 축이다.
+
+**가장 큰 발견은 편수가 아니다** — 같은 저장소의 `doab.md` 는 OAPEN 호스팅 **40,168권
+(DOAB 의 39%)** 을 「Anubis PoW 게이트」로 접고 헤드리스 브라우저를 해제 조건으로 걸어 두었다.
+**그 판정은 웹 경로에만 맞다.** doab.md 가 실패 사례로 든 바로 그 책(`20.500.12657/50315`)에서
+`/bitstream/`·`/handle/` 은 **403** 인데 `/rest/handle/`·`/rest/bitstreams/<uuid>/retrieve` 는
+**200**, 657,544 B 가 그대로 내려왔다(15연속 요청 429 없음). robots.txt 도 직접 읽어 정정했다 —
+DOAB 는 `ai-train=no` + ClaudeBot `Disallow: /` 인데 **OAPEN 은 DSpace 기본형**이라 그 선언이
+아예 없고 `/rest`·`/oai` 는 언급조차 없다(단 `Crawl-delay: 10`).
+
+부수 실측 — ① OAPEN 은 PDF 옆에 **추출 평문 `<파일명>.pdf.txt`** 를 같이 둔다(Springer 42권
+표집 중 41권, 평균 1.04 MB = PDF 의 1/8) → **`pdftotext` 불필요, 3,000권 3.3 GB** ·
+② 라이선스가 **REST 에는 없고 OAI 에만 있다**(REST 26필드 전량 덤프로 확인) — REST 만 보고 짠
+수확기는 라이선스를 모른 채 전량 적재한다 · ③ 챕터 단위는 이 세 출판사엔 사실상 없다
+(`Book chapters` 7,200건의 주인은 Firenze·T&F·Routledge, Springer 계열은 902건 표집 중 **18**) ·
+④ **DOAB 중복률은 목표 표의 30%가 아니라 93~97%** — DOAB 레코드가 `dc.identifier` 에
+`library.oapen.org/handle/...` 를 직접 싣는다(100건 중 97건). 이것이 배제 키다(ISBN 은 0건이라 못 쓴다).
+
+⚠️ 위 ②로 **`doab.md` 의 §2 표·§6 계수·「보류 해제 조건 2번」이 무효**가 된다. DOAB 의 보류 사유가
+「인문·사회 도달 불가」였으므로 재판정 대상이다 — **측정과 수정을 같은 턴에 섞지 않는다**
+(CLAUDE.md §4️⃣)는 원칙에 따라 이번 턴에는 **기록만** 남겼다.
+
+### arXiv 정찰 — 「없는 소스를 학습자에게 광고하고 있었다」 (2026-09-07)
+
+목표 표 14위 arXiv 를 `docs/reports/source-probe/SPEC.md` 규격으로 정찰했다. **판정 보류.**
+문서-실제 어긋남의 진상: 수집기가 고장 난 것이 아니라 **v06.69 에 사용자 지시로 삭제된 소스**였다
+(커밋 `4023533e` · 마이그레이션 `20260614240000` — DB CHECK 제약 허용값 24종에 `arxiv` 없음,
+지금 INSERT 하면 제약 위반으로 실패한다). `ACP_SOURCE_REDESIGN.md` §1-A · `CSAT_SOURCE_MATRIX.md` ·
+`LIBRARY_PIPELINE.md` 셋은 이미 맞게 적고 있었고 **`CLAUDE.md` 만 3개월 낡아 있었다.**
+
+실측으로 밝힌 것 — 제거 사유 3개 중 **①만 낡았다**: OAI-PMH `arXivRaw` 의 `<license>` 를 세니
+CC BY+CC0 비율이 2016 창 **1.1%**(919건) → 2026 창 **44.4%**(1,300건)로 40배가 됐다.
+②C2+ 난이도 ③LaTeX 오염은 여전히 유효 — 그래서 반려가 아니라 보류. 그 밖에
+Atom API 에는 `license` 필드가 **없고**(OAI 또는 `/abs` 로만 읽힌다) · `/html` 전문은 오지만
+그 페이지엔 라이선스가 없어 **2단 조인이 필수** · robots 는 `/e-print` 를 막고 `/html` 만 열어 두며
+`Crawl-delay: 15` 가 처리량 상한(하루 5,760편) · OAI resumptionToken 이 `skip=N` 오프셋이라
+**2026-08-16 IA 중복/누락과 같은 구조** · 표본 6편 중 하나는 **「Introduction」 제목 자체가 없어**
+첫 절 추출기가 조용히 방법 절을 뽑았고 그 결과물이 기존 `lexical_noise <= 0.08` 게이트를 통과했다.
+
+**같은 턴에 고친 것** — `library_articles` 에 arxiv 0편인데 arXiv 를 소스로 내세우던 문자열 4곳
+(하나는 **학습자 라우트** `/library/scripts` 탭 문구). published 실측 12소스 · 최다는 Futurity 72편 ·
+arxiv 0. `lib/library/tabs.ts` · `admin/page.tsx` · `admin/library/page.tsx` ·
+`lib/learner/plan-activities.ts` + `CLAUDE.md` §🔄 ACP 줄. 리포트 `docs/reports/source-probe/arxiv.md`.
+
 ### 각인해 놓고 **읽지 않던 표지 규격** — 여덟 중 하나만 화면에 닿고 있었다 (2026-09-07)
 
 브랜드 드레인은 계열 다섯의 표지 규격을 Claude Design 캔버스에서 확정해 발행 **55권**
