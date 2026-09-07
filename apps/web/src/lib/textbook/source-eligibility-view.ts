@@ -32,6 +32,7 @@ import {
 } from '@vocaflow/library-pipeline'
 
 import defectSnapshot from './extraction-defect-snapshot.json'
+import typeSnapshot from './type-inventory-snapshot.json'
 import snapshot from './source-eligibility-snapshot.json'
 
 /** 스냅샷 한 칸의 집계 — 스캔이 찍은 모양 그대로. */
@@ -133,6 +134,16 @@ export interface SourceEligibilityPanel {
    */
   extractBacklog: ExtractBacklog | null
   /**
+   * **유형 재고** — 원문이 아니라 **유형**이 병목인지 말한다.
+   *
+   * ⚠️ 적격 판정을 다 통과해도 교재가 시중을 못 따라갈 수 있다. 조판 로그가 오래
+   * 「시장 유형 적합도 99.4%(가진 유형 안에서) · **시장 전체 기준 30.1%**」라고 말해 왔는데,
+   * 그 격차의 정체가 이것이다 — 실측 2026-09-07: 시장 목표 14%(V5~7 1위)인 `blank` 는
+   * 재고 28개인데, 목표 1%인 `blank_word` 는 **219,810개**다.
+   * **원문을 아무리 늘려도 이 격차는 안 줄어든다.**
+   */
+  typeInventory: TypeInventoryPanel | null
+  /**
    * **본문이 글이 아닌 것** — 적격 판정이 통과시킨 뒤에도 남는 결함.
    *
    * 일곱 축은 「이 원문을 써도 되는가」를 묻고, 그 질문은 **본문이 온전하다는 것을 전제**한다.
@@ -143,6 +154,36 @@ export interface SourceEligibilityPanel {
    * 그래서 적격과 **따로** 잰다(`scripts/textbook/extraction-defect-scan.mjs`).
    */
   defects: DefectPanel
+}
+
+/** 한 학년의 유형 재고 — **시중 구성 그대로 몇 권까지 갈 수 있는가.** */
+export interface TypeInventoryBand {
+  vLevel: number
+  /** 시중 구성 그대로 낼 수 있는 권수 — 가장 얇은 유형이 정한다. */
+  volumes: number
+  /** 그 권수를 정한 유형. 이것을 늘리기 전에는 다른 유형을 아무리 늘려도 권수가 안 는다. */
+  bindingType: string | null
+  totalItems: number
+  missingTypes: string[]
+  missingShare: number
+  types: {
+    type: string
+    /** 시중 실측에서 유도한 목표 비중(%). 정본은 `rungMix`. */
+    targetShare: number
+    items: number
+    articles: number
+    needPerVolume: number
+    volumes: number
+  }[]
+}
+
+export interface TypeInventoryPanel {
+  measuredAt: string
+  ageDays: number
+  totalItems: number
+  bands: TypeInventoryBand[]
+  /** 지금 시중 구성으로 낼 수 있는 권의 총합 — 이 화면에서 가장 무거운 한 수. */
+  totalVolumes: number
 }
 
 /** 발췌 경로의 진행 — 뽑혔는가, 분석됐는가, 조판 풀에 들어왔는가. */
@@ -314,6 +355,22 @@ export function buildSourceEligibilityPanel(now: Date = new Date()): SourceEligi
     requirements,
     familySource: FAMILY_SOURCE,
     defects: buildDefectPanel(now),
+    typeInventory: (() => {
+      const t = typeSnapshot as unknown as {
+        measuredAt?: string
+        totalItems?: number
+        bands?: TypeInventoryBand[]
+      }
+      if (!t?.bands?.length) return null
+      const measured = new Date(t.measuredAt ?? 0)
+      return {
+        measuredAt: t.measuredAt ?? '',
+        ageDays: Math.max(0, Math.floor((now.getTime() - measured.getTime()) / 86_400_000)),
+        totalItems: t.totalItems ?? 0,
+        bands: t.bands,
+        totalVolumes: t.bands.reduce((n, b) => n + b.volumes, 0),
+      }
+    })(),
     extractBacklog: (() => {
       // ⚠️ `unknown` 을 거친다 — 옛 스냅샷에는 이 열이 아예 없고, 지금 스냅샷에는
       //   `pending` 이 없다(화면이 계산한다). 둘 다 JSON 타입과 겹치지 않아 직접 캐스트가 막힌다.

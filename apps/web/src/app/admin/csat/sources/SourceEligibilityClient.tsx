@@ -8,6 +8,7 @@ import type {
   AxisRow,
   BandRow,
   DefectPanel,
+  TypeInventoryPanel,
   GradeRow,
   SourceEligibilityPanel,
 } from '@/lib/textbook/source-eligibility-view'
@@ -154,6 +155,7 @@ export function SourceEligibilityClient({ panel }: { panel: SourceEligibilityPan
       <GradeTable grades={panel.grades} total={t.total} />
       <BandTable bands={panel.bands} />
       <BlockedSources rows={panel.blockedBySource} />
+      {panel.typeInventory ? <TypeInventoryTable inv={panel.typeInventory} /> : null}
       <DefectTable defects={panel.defects} />
     </div>
   )
@@ -485,6 +487,86 @@ function BlockedSources({ rows }: { rows: { source: string; count: number }[] })
  * 함께 말한다 — "본문 절반이 깨졌다" 와 "한 원천의 수확기가 한 군데서 겹쳐 붙인다" 는
  * 처방이 완전히 다르다.
  */
+/**
+ * **유형 재고 — 원문이 아니라 유형이 병목인지 말한다.**
+ *
+ * 일곱 축을 다 통과한 원문이 아무리 많아도, 시중이 내는 **유형**을 우리가 못 내면 교재는
+ * 시중을 못 따라간다. 조판 로그가 오래 「시장 유형 적합도 99.4%(가진 유형 안에서) ·
+ * **시장 전체 기준 30.1%**」라고 말해 왔고, 그 격차의 정체가 이 표다.
+ *
+ * ⚠️ **「재고가 있다」로 세면 안 된다.** 유형당 26개만 있어도 「있다」가 된다 — 한 권이
+ * 120문항이고 `blank` 목표가 14% 면 권당 17개가 필요하므로 26개는 **한 권 쓰면 바닥**이다.
+ * 그래서 재는 것은 **「몇 권까지 갈 수 있는가」** 이고, 그 권수는 **가장 얇은 유형**이 정한다.
+ */
+function TypeInventoryTable({ inv }: { inv: TypeInventoryPanel }) {
+  return (
+    <section aria-label="유형 재고" className="flex flex-col gap-2">
+      <div className="flex flex-wrap items-baseline gap-2">
+        <h2 className="font-display text-[15px] font-[700] text-[var(--t1)]">유형 재고</h2>
+        <span className="font-body text-[12px] text-[var(--t2)]">
+          시중 구성 그대로 <b>몇 권까지</b> 낼 수 있는가 — 원문이 아니라 <b>유형</b>이 병목이다
+        </span>
+        <span className="ml-auto font-body text-[11px] text-[var(--t3)]">
+          {inv.measuredAt.slice(0, 10)} 에 잰 값 · {inv.ageDays === 0 ? '오늘' : `${inv.ageDays}일 전`} ·
+          문항 {inv.totalItems.toLocaleString()}
+        </span>
+      </div>
+
+      <p className="font-body text-[12px] text-[var(--t2)]">
+        지금 낼 수 있는 권{' '}
+        <b className="tabular-nums" style={{ color: inv.totalVolumes > 0 ? 'var(--t1)' : 'var(--error-ink)' }}>
+          {inv.totalVolumes}권
+        </b>
+        . 갱신: <code>pnpm dlx tsx scripts/textbook/type-inventory-scan.mjs</code>
+      </p>
+
+      <div className="overflow-x-auto">
+        <table className="w-full min-w-[720px] border-collapse font-body text-[13px]">
+          <thead>
+            <tr className="border-b border-[var(--bd)] text-left text-[12px] text-[var(--t2)]">
+              <th className="py-2 pr-3 font-[600]">V</th>
+              <th className="py-2 pr-3 text-right font-[600]">만들 수 있는 권</th>
+              <th className="py-2 pr-3 font-[600]">가장 얇은 유형</th>
+              <th className="py-2 pr-3 text-right font-[600]">그 유형 재고 / 권당 필요</th>
+              <th className="py-2 font-[600]">재고 0 유형</th>
+            </tr>
+          </thead>
+          <tbody>
+            {inv.bands.map((b) => {
+              const t0 = b.types.find((t) => t.type === b.bindingType)
+              return (
+                <tr key={b.vLevel} className="border-b border-[var(--bd)]/50">
+                  <td className="py-2 pr-3 font-[700] tabular-nums text-[var(--t1)]">V{b.vLevel}</td>
+                  <td
+                    className="py-2 pr-3 text-right font-[700] tabular-nums"
+                    style={{ color: b.volumes > 0 ? 'var(--success-ink)' : 'var(--error-ink)' }}
+                  >
+                    {b.volumes}권
+                  </td>
+                  <td className="py-2 pr-3 font-mono text-[12px] text-[var(--t2)]">{b.bindingType ?? '—'}</td>
+                  <td className="py-2 pr-3 text-right tabular-nums text-[var(--t2)]">
+                    {t0 ? `${t0.items.toLocaleString()} / ${t0.needPerVolume}` : '—'}
+                  </td>
+                  <td className="py-2 text-[12px] text-[var(--t3)]">
+                    {b.missingTypes.length
+                      ? `${b.missingTypes.length}종 — ${b.missingTypes.slice(0, 4).join(', ')}`
+                      : '없음'}
+                  </td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
+      </div>
+
+      <p className="font-body text-[11px] text-[var(--t3)]">
+        목표 비중의 정본은 <code>rungMix</code> — 시중 79종 실측에서 유도했고 이 화면이 다시 계산하지
+        않는다. <b>가장 얇은 유형을 늘리기 전에는 다른 유형을 아무리 늘려도 권수가 안 는다.</b>
+      </p>
+    </section>
+  )
+}
+
 function DefectTable({ defects }: { defects: DefectPanel }) {
   return (
     <section aria-label="추출 결함" className="flex flex-col gap-2">

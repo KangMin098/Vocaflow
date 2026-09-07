@@ -196,6 +196,45 @@ describe('원문 적격 화면', () => {
     expect(b.analyzed + b.pending).toBe(b.total)
   })
 
+  // ── 유형 재고 ───────────────────────────────────────────────────
+  // 일곱 축을 다 통과한 원문이 아무리 많아도, 시중이 내는 **유형**을 못 내면 교재는 시중을
+  // 못 따라간다. 조판 로그의 「시장 전체 기준 30.1%」가 그 격차이고, 이 표가 그 정체다.
+  it('유형 재고를 원문 적격과 나란히 보인다 — 병목이 원문이 아닐 수 있다', () => {
+    const inv = panel.typeInventory
+    if (!inv) return
+    expect(html).toContain('유형 재고')
+    expect(html).toContain('원문이 아니라')
+    expect(html).toContain('type-inventory-scan.mjs')
+    for (const b of inv.bands) expect(html).toContain(`V${b.vLevel}`)
+  })
+
+  // ⚠️ 「재고가 있다」로 세면 유형당 26개도 100% 가 된다. 한 권이 120문항이고 목표가 14% 면
+  //    권당 17개가 필요하므로 26개는 한 권 쓰면 바닥이다. 그래서 권수로 세고, **가장 얇은
+  //    유형**이 그 권수를 정한다 — 그 산술이 어긋나면 화면이 「만들 수 있다」고 거짓말한다.
+  it('권수는 가장 얇은 유형이 정한다 — 그 산술을 잠근다', () => {
+    const inv = panel.typeInventory
+    if (!inv) return
+    for (const b of inv.bands) {
+      const min = Math.min(...b.types.map((t) => t.volumes))
+      expect(b.volumes).toBe(min)
+      const t0 = b.types.find((t) => t.type === b.bindingType)
+      expect(t0).toBeDefined()
+      expect(t0!.volumes).toBe(min)
+      // 권당 필요 수는 목표 비중에서 나온다 — 0 이면 나눗셈이 무한대가 된다.
+      for (const t of b.types) expect(t.needPerVolume).toBeGreaterThan(0)
+    }
+  })
+
+  it('재고 0 인 유형을 숨기지 않는다 — 숨기면 만들 수 있는 척이 된다', () => {
+    const inv = panel.typeInventory
+    if (!inv) return
+    for (const b of inv.bands) {
+      if (!b.missingTypes.length) continue
+      expect(b.volumes).toBe(0)
+      expect(html).toContain(b.missingTypes[0])
+    }
+  })
+
   it('언제 잰 값인지와 다시 재는 명령을 함께 보인다', () => {
     expect(html).toContain('에 잰 값')
     expect(html).toContain('source-eligibility-scan.mjs')
