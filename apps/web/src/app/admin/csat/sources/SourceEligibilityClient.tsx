@@ -9,6 +9,8 @@ import type {
   BandRow,
   DefectPanel,
   TypeInventoryPanel,
+  FillPlanPanel,
+  DrainAuditPanel,
   GradeRow,
   SourceEligibilityPanel,
 } from '@/lib/textbook/source-eligibility-view'
@@ -156,6 +158,8 @@ export function SourceEligibilityClient({ panel }: { panel: SourceEligibilityPan
       <BandTable bands={panel.bands} />
       <BlockedSources rows={panel.blockedBySource} />
       {panel.typeInventory ? <TypeInventoryTable inv={panel.typeInventory} /> : null}
+      {panel.fillPlan ? <FillPlanTable plan={panel.fillPlan} /> : null}
+      {panel.drainAudit ? <DrainAuditTable audit={panel.drainAudit} /> : null}
       <DefectTable defects={panel.defects} />
     </div>
   )
@@ -562,6 +566,179 @@ function TypeInventoryTable({ inv }: { inv: TypeInventoryPanel }) {
       <p className="font-body text-[11px] text-[var(--t3)]">
         목표 비중의 정본은 <code>rungMix</code> — 시중 79종 실측에서 유도했고 이 화면이 다시 계산하지
         않는다. <b>가장 얇은 유형을 늘리기 전에는 다른 유형을 아무리 늘려도 권수가 안 는다.</b>
+      </p>
+    </section>
+  )
+}
+
+/**
+ * **그래서 무엇부터 쓰는가.**
+ *
+ * ⚠️ 재고표만 두면 관리자가 다음 할 일을 **눈으로 센다.** 실측 2026-09-08 에 내가 그렇게
+ * 세다가 틀렸다 — 표를 보고 「제목·주제·빈칸 셋이 병목」이라 적었는데, 계산해 보니 병목은
+ * **생성형 유형 전부**였다(내용일치·주장·심경도 같이 비어 있었다). 눈으로 세면 눈에 띄는
+ * 것만 센다.
+ *
+ * 비용이 100배 다른 둘을 **갈라 놓는다** — 결정론 유형은 생성기 한 번이고, 생성형 유형은
+ * 사람이 글을 읽고 써야 한다. 섞어 놓으면 「1,118문항」이 한 덩어리로 보여 계획이 안 선다.
+ */
+function FillPlanTable({ plan }: { plan: FillPlanPanel }) {
+  const remaining = Math.max(0, plan.totalChunks - plan.readyChunks)
+  return (
+    <section aria-label="채울 몫" className="flex flex-col gap-2">
+      <div className="flex flex-wrap items-baseline gap-2">
+        <h2 className="font-display text-[15px] font-[700] text-[var(--t1)]">채울 몫</h2>
+        <span className="font-body text-[12px] text-[var(--t2)]">
+          학년마다 <b>{plan.targetVolumes}권</b>을 내려면 무엇을 얼마나 더 써야 하는가
+        </span>
+        <span className="ml-auto font-body text-[11px] text-[var(--t3)]">
+          {plan.computedAt.slice(0, 10)} 계산 · {plan.ageDays === 0 ? '오늘' : `${plan.ageDays}일 전`}
+        </span>
+      </div>
+
+      <p className="font-body text-[12px] text-[var(--t2)]">
+        사람이 써야 하는 문항 <b className="tabular-nums text-[var(--t1)]">{plan.totalItems.toLocaleString()}</b>
+        {' = '}
+        <b className="tabular-nums text-[var(--t1)]">{plan.totalChunks.toLocaleString()}청크</b>. 그중{' '}
+        <b className="tabular-nums" style={{ color: 'var(--success-ink)' }}>
+          {plan.readyChunks.toLocaleString()}청크
+        </b>
+        는 이미 뽑혀 있어 <b>지금 바로 집필할 수 있다</b>
+        {remaining > 0 ? `. 나머지 ${remaining.toLocaleString()}청크는 먼저 뽑아야 한다` : ''}.
+      </p>
+
+      <div className="overflow-x-auto">
+        <table className="w-full min-w-[760px] border-collapse font-body text-[13px]">
+          <thead>
+            <tr className="border-b border-[var(--bd)] text-left text-[12px] text-[var(--t2)]">
+              <th className="py-2 pr-3 font-[600]">V</th>
+              <th className="py-2 pr-3 text-right font-[600]">지금</th>
+              <th className="py-2 pr-3 text-right font-[600]">써야 할 문항</th>
+              <th className="py-2 pr-3 text-right font-[600]">청크</th>
+              <th className="py-2 pr-3 text-right font-[600]">지금 시작 가능</th>
+              <th className="py-2 font-[600]">가장 큰 몫</th>
+            </tr>
+          </thead>
+          <tbody>
+            {plan.bands.map((b) => {
+              const drainTop = b.types.filter((t) => t.drain).slice(0, 3)
+              const deterministic = b.types.filter((t) => !t.drain)
+              return (
+                <tr key={b.vLevel} className="border-b border-[var(--bd)]/50">
+                  <td className="py-2 pr-3 font-[700] tabular-nums text-[var(--t1)]">V{b.vLevel}</td>
+                  <td className="py-2 pr-3 text-right tabular-nums text-[var(--t2)]">{b.volumes}권</td>
+                  <td className="py-2 pr-3 text-right font-[700] tabular-nums text-[var(--t1)]">
+                    {b.drainItems.toLocaleString()}
+                  </td>
+                  <td className="py-2 pr-3 text-right tabular-nums text-[var(--t2)]">{b.drainChunks}</td>
+                  <td
+                    className="py-2 pr-3 text-right font-[700] tabular-nums"
+                    style={{ color: b.readyChunks > 0 ? 'var(--success-ink)' : 'var(--t3)' }}
+                  >
+                    {b.readyChunks}
+                  </td>
+                  <td className="py-2 text-[12px] text-[var(--t3)]">
+                    {drainTop.length
+                      ? drainTop.map((t) => `${t.type} +${t.shortItems}`).join(', ')
+                      : '—'}
+                    {deterministic.length ? (
+                      <span className="ml-1 text-[var(--t3)]">
+                        · 결정론 {deterministic.map((t) => t.type).join(', ')}
+                      </span>
+                    ) : null}
+                  </td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
+      </div>
+
+      <p className="font-body text-[11px] text-[var(--t3)]">
+        갱신: <code>pnpm dlx tsx scripts/textbook/item-fill-plan.mjs</code> (재고 스냅샷을 먼저 뜬 뒤).
+        집필 규격은 <code>scripts/textbook/item-drain-brief.md</code> 한 벌이고, 쓴 것은
+        <code>item-selfcheck.mjs</code> 로 적재 전에 스스로 채점한다.{' '}
+        <b>결정론 유형은 생성기 한 번이면 되지만 생성형 유형은 글을 읽어야 만든다</b> — 권수를
+        올리는 것은 뒤쪽뿐이다.
+      </p>
+    </section>
+  )
+}
+
+/**
+ * **쓰고도 못 싣는 것.**
+ *
+ * ⚠️ 게이트는 시간이 지나며 엄해지는데 **청크와 산출은 게이트보다 오래 산다.** 그래서
+ * 예전에 쓴 문항이 조용히 적재에서 걸리기 시작한다 — 아무도 안 보면 그 일은 두 번 하게 된다.
+ *
+ * 이 표의 요점은 **한 수로 보이지 않는 것**이다. 「315개가 걸렸다」로 적으면 다시 써야 할
+ * 산더미로 읽혀 아무도 손대지 않는다. 그중 142는 **한국어 해설 한 줄**이면 살아나고
+ * (선택지·정답은 이미 검증됐다), 173은 지문이 문제라 집필로 못 고친다. 비용이 100배 다르다.
+ */
+function DrainAuditTable({ audit }: { audit: DrainAuditPanel }) {
+  const pct = audit.filled ? ((audit.blocked / audit.filled) * 100).toFixed(1) : '0.0'
+  return (
+    <section aria-label="쓰고도 못 싣는 것" className="flex flex-col gap-2">
+      <div className="flex flex-wrap items-baseline gap-2">
+        <h2 className="font-display text-[15px] font-[700] text-[var(--t1)]">쓰고도 못 싣는 것</h2>
+        <span className="font-body text-[12px] text-[var(--t2)]">
+          이미 집필했는데 <b>지금 게이트가 막고 있는</b> 문항 — 게이트는 산출보다 나중에 엄해진다
+        </span>
+        <span className="ml-auto font-body text-[11px] text-[var(--t3)]">
+          {audit.measuredAt.slice(0, 10)} 에 잰 값 · {audit.ageDays === 0 ? '오늘' : `${audit.ageDays}일 전`}
+        </span>
+      </div>
+
+      <p className="font-body text-[12px] text-[var(--t2)]">
+        집필한 문항 <b className="tabular-nums text-[var(--t1)]">{audit.filled.toLocaleString()}</b> 중{' '}
+        <b className="tabular-nums" style={{ color: audit.blocked > 0 ? 'var(--error-ink)' : 'var(--t1)' }}>
+          {audit.blocked.toLocaleString()}
+        </b>
+        ({pct}%)이 막혀 있다. 그중{' '}
+        <b className="tabular-nums" style={{ color: 'var(--success-ink)' }}>
+          {audit.rationaleOnly.toLocaleString()}
+        </b>
+        는 <b>해설 한 칸만 고치면 살아난다</b> — 선택지와 정답은 이미 검증됐다. 나머지{' '}
+        <b className="tabular-nums">{audit.passageBlocked.toLocaleString()}</b>는 지문이 문제라 다시 뽑아야 한다.
+      </p>
+
+      {audit.reasons.length ? (
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[560px] border-collapse font-body text-[13px]">
+            <thead>
+              <tr className="border-b border-[var(--bd)] text-left text-[12px] text-[var(--t2)]">
+                <th className="py-2 pr-3 text-right font-[600]">건수</th>
+                <th className="py-2 pr-3 font-[600]">게이트가 막은 이유</th>
+                <th className="py-2 font-[600]">고치는 법</th>
+              </tr>
+            </thead>
+            <tbody>
+              {audit.reasons.map((r) => {
+                const rationale = /근거/.test(r.reason)
+                return (
+                  <tr key={r.reason} className="border-b border-[var(--bd)]/50">
+                    <td className="py-2 pr-3 text-right font-[700] tabular-nums text-[var(--t1)]">
+                      {r.count.toLocaleString()}
+                    </td>
+                    <td className="py-2 pr-3 text-[12px] text-[var(--t2)]">{r.reason}</td>
+                    <td
+                      className="py-2 text-[12px]"
+                      style={{ color: rationale ? 'var(--success-ink)' : 'var(--t3)' }}
+                    >
+                      {rationale ? '해설만 다시 쓴다' : '지문을 다시 뽑는다'}
+                    </td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+        </div>
+      ) : null}
+
+      <p className="font-body text-[11px] text-[var(--t3)]">
+        갱신: <code>pnpm dlx tsx scripts/textbook/item-drain-audit.mjs</code> (읽기만 하므로 재실행 안전 ·
+        DB 를 안 본다). 고칠 파일·칸 번호까지 보려면 <code>--fixable</code>. 규칙의 정본은{' '}
+        <code>item-gate.ts</code> 한 벌이고 이 감사가 그 함수를 그대로 부른다 — 사본을 두면 갈린다.
       </p>
     </section>
   )

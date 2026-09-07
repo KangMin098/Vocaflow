@@ -235,6 +235,120 @@ describe('원문 적격 화면', () => {
     }
   })
 
+  // ── 채울 몫 ─────────────────────────────────────────────────────
+  // 재고표는 「몇 권인가」까지만 답한다. 그 다음 질문(「무엇부터」)을 화면이 안 답하면
+  // 관리자가 표를 눈으로 세는데, 눈으로 세면 눈에 띄는 것만 센다 — 실측 2026-09-08 에
+  // 그렇게 세다가 병목을 셋으로 봤고 실제로는 생성형 유형 전부였다.
+  it('채울 몫을 재고 옆에 함께 보인다 — 사실만 주고 끝내지 않는다', () => {
+    const plan = panel.fillPlan
+    if (!plan) return
+    expect(html).toContain('채울 몫')
+    expect(html).toContain('item-fill-plan.mjs')
+    // 집필 규격이 어디 있는지 화면이 말해야 다음 사람이 규칙을 새로 짜지 않는다.
+    expect(html).toContain('item-drain-brief.md')
+    expect(html).toContain(plan.totalItems.toLocaleString())
+  })
+
+  // ⚠️ **비용이 100배 다른 둘을 한 수로 합치면 계획이 아니다.** 결정론 유형은 생성기 한
+  //    번이고 생성형 유형은 글을 읽어야 한다. 합계에 결정론 몫이 섞여 들어가면 화면이
+  //    「1,118문항을 써야 한다」고 말하면서 실제로는 그중 상당수가 명령 한 줄인 상태가 된다.
+  it('사람이 써야 하는 몫만 집필 합계에 넣는다', () => {
+    const plan = panel.fillPlan
+    if (!plan) return
+    for (const b of plan.bands) {
+      const drain = b.types.filter((t) => t.drain)
+      expect(b.drainItems).toBe(drain.reduce((n, t) => n + t.shortItems, 0))
+      expect(b.drainChunks).toBe(drain.reduce((n, t) => n + t.chunks, 0))
+      // 결정론 유형에 청크를 매기면 그만큼 헛일을 시킨다.
+      for (const t of b.types.filter((t2) => !t2.drain)) expect(t.chunks).toBe(0)
+    }
+    expect(plan.totalItems).toBe(plan.bands.reduce((n, b) => n + b.drainItems, 0))
+    expect(plan.totalChunks).toBe(plan.bands.reduce((n, b) => n + b.drainChunks, 0))
+  })
+
+  // 「지금 시작 가능」이 실제로 뽑혀 있는 것보다 크면 화면이 없는 일을 시작하라고 말한다.
+  it('지금 시작 가능한 청크는 써야 할 청크를 넘지 않는다', () => {
+    const plan = panel.fillPlan
+    if (!plan) return
+    for (const b of plan.bands) {
+      expect(b.readyChunks).toBeLessThanOrEqual(b.drainChunks)
+      expect(b.readyChunks).toBeGreaterThanOrEqual(0)
+      for (const t of b.types) expect(Math.min(t.chunks, t.readyChunks)).toBeLessThanOrEqual(t.chunks)
+    }
+    expect(plan.readyChunks).toBeLessThanOrEqual(plan.totalChunks)
+  })
+
+  // 몫이 0 인 유형이 계획에 남아 있으면 다 끝난 칸을 다시 시키게 된다.
+  it('이미 목표를 채운 유형은 계획에 없다', () => {
+    const plan = panel.fillPlan
+    if (!plan) return
+    expect(plan.targetVolumes).toBeGreaterThan(0)
+    for (const b of plan.bands) {
+      expect(b.volumes).toBeLessThan(plan.targetVolumes)
+      for (const t of b.types) expect(t.shortItems).toBeGreaterThan(0)
+    }
+  })
+
+  // 재고와 계획이 다른 시각에 계산되면 화면이 두 세계를 겹쳐 보인다.
+  it('계획이 재고보다 앞선 값으로 계산되지 않았다', () => {
+    const plan = panel.fillPlan
+    const inv = panel.typeInventory
+    if (!plan || !inv) return
+    expect(new Date(plan.computedAt).getTime()).toBeGreaterThanOrEqual(
+      new Date(inv.measuredAt).getTime(),
+    )
+    // 같은 밴드를 같은 권수로 말해야 한다 — 어긋나면 둘 중 하나가 낡았다.
+    for (const b of plan.bands) {
+      const iv = inv.bands.find((x) => x.vLevel === b.vLevel)
+      if (iv) expect(b.volumes).toBe(iv.volumes)
+    }
+  })
+
+  // ── 쓰고도 못 싣는 것 ───────────────────────────────────────────
+  // 게이트는 시간이 지나며 엄해지는데 청크와 산출은 게이트보다 오래 산다. 이 표가 없으면
+  // 예전에 쓴 문항이 조용히 막힌 채로 남고, 그 일을 두 번 하게 된다.
+  it('이미 쓴 문항이 지금 게이트에 걸리는 수를 드러낸다', () => {
+    const a = panel.drainAudit
+    if (!a) return
+    expect(html).toContain('쓰고도 못 싣는 것')
+    expect(html).toContain('item-drain-audit.mjs')
+    expect(html).toContain(a.filled.toLocaleString())
+  })
+
+  // ⚠️ **비용이 100배 다른 둘을 한 수로 합치면 아무도 손대지 않는다.** 「315개가 걸렸다」는
+  //    다시 써야 할 산더미로 읽히지만, 그중 142는 한국어 해설 한 줄이면 살아난다.
+  it('해설만 고치면 되는 몫과 지문을 다시 뽑아야 하는 몫을 갈라 센다', () => {
+    const a = panel.drainAudit
+    if (!a) return
+    expect(a.rationaleOnly + a.passageBlocked).toBe(a.blocked)
+    expect(a.blocked).toBeLessThanOrEqual(a.filled)
+    expect(a.rationaleOnly).toBeGreaterThanOrEqual(0)
+    // 이유 합계가 막힌 수와 어긋나면 표가 무언가를 숨기고 있다.
+    if (a.reasons.length) {
+      expect(a.reasons.reduce((n, r) => n + r.count, 0)).toBe(a.blocked)
+    }
+  })
+
+  it('이유마다 고치는 법을 함께 말한다 — 사실만 주면 못 움직인다', () => {
+    const a = panel.drainAudit
+    if (!a) return
+    if (!a.reasons.length) return
+    expect(html).toContain('해설만 다시 쓴다')
+    expect(html).toContain('지문을 다시 뽑는다')
+  })
+
+  // 칸별 합계가 총계와 어긋나면 어느 쪽을 믿어야 할지 알 수 없다.
+  it('칸별 수가 총계와 맞는다', () => {
+    const a = panel.drainAudit
+    if (!a || !a.byDir.length) return
+    expect(a.byDir.reduce((n, d) => n + d.blocked, 0)).toBe(a.blocked)
+    expect(a.byDir.reduce((n, d) => n + d.rationaleOnly, 0)).toBe(a.rationaleOnly)
+    for (const d of a.byDir) {
+      expect(d.rationaleOnly).toBeLessThanOrEqual(d.blocked)
+      expect(d.blocked).toBeLessThanOrEqual(d.filled)
+    }
+  })
+
   it('언제 잰 값인지와 다시 재는 명령을 함께 보인다', () => {
     expect(html).toContain('에 잰 값')
     expect(html).toContain('source-eligibility-scan.mjs')

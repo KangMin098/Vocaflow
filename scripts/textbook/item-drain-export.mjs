@@ -492,7 +492,22 @@ const plainFirst = process.argv.includes('--plain-first')
  * 문턱이 아니라 **차례**다 — 인물이 적은 글도 버리지 않고 뒤로 보낸다
  * (같은 이유로 `--plain-first` 도 정렬로만 쓴다).
  */
-const narrativeFirst = process.argv.includes('--narrative-first')
+/**
+ * **인물이 있어야만 서는 유형** — 여기서는 이 정렬이 기본이다.
+ *
+ * ⚠️ 깃발이 있는데 꺼져 있어 두 세션이 같은 낭비를 겪었다(실측 2026-09-08):
+ *   · `mood` V3 — 뽑힌 16편이 **16편 전부 설명문**이었다(목록 기억·재활용·통증 해석…).
+ *     심경 문항은 물어볼 정서 변화가 없어 **한 편도 못 만들었다.**
+ *   · `mood` V7 — 17편 중 15편이 논설·비평·전기. 성립한 것은 2편뿐이다.
+ *
+ * 집필 배치가 아무리 잘해도 만들 수 없는 몫을 뽑아 놓고 있었다. 이 정렬은 **버리지 않고
+ * 차례만 바꾸므로** 기본으로 켜도 잃는 것이 없다 — 인물이 적은 글은 뒤로 갈 뿐이다.
+ * 끄려면 `--no-narrative-first`.
+ */
+const NEEDS_PEOPLE = new Set(['mood', 'long_reference'])
+const narrativeFirst =
+  !process.argv.includes('--no-narrative-first') &&
+  (process.argv.includes('--narrative-first') || NEEDS_PEOPLE.has(TYPE))
 /**
  * ⚠️ **발화 동사가 먼저다.** 인물 밀도만으로 정렬했더니 다섯 편이 전부 평론이었다 —
  *   미술사·자유론·가톨릭 비평, 발화 동사 **전부 0**. 사람 이야기를 **하는** 글과 사람이

@@ -33,6 +33,8 @@ import {
 
 import defectSnapshot from './extraction-defect-snapshot.json'
 import typeSnapshot from './type-inventory-snapshot.json'
+import fillPlanSnapshot from './item-fill-plan.json'
+import drainAuditSnapshot from './item-drain-audit-snapshot.json'
 import snapshot from './source-eligibility-snapshot.json'
 
 /** 스냅샷 한 칸의 집계 — 스캔이 찍은 모양 그대로. */
@@ -144,6 +146,33 @@ export interface SourceEligibilityPanel {
    */
   typeInventory: TypeInventoryPanel | null
   /**
+   * **그래서 무엇부터 쓰는가** — 재고표가 「몇 권인가」를 답하면 이것이 「무엇을 얼마나」를 답한다.
+   *
+   * ⚠️ 재고표만 보면 관리자가 다음에 할 일을 **스스로 세게 된다.** 실측 2026-09-08 에
+   * 내가 그렇게 세다가 틀렸다 — 표를 눈으로 보고 「제목·주제·빈칸 셋이 병목」이라 적었는데,
+   * 계산해 보니 병목은 **생성형 유형 전부**였다(내용일치·주장·심경도 같이 비어 있었다).
+   * 눈으로 세면 눈에 띄는 것만 센다. 그래서 화면이 대신 센다.
+   *
+   * 비용이 100배 다른 둘을 **갈라서** 보여준다 — 결정론 유형은 생성기를 돌리면 되고,
+   * 생성형 유형은 사람(Claude Code)이 글을 읽고 써야 한다.
+   *
+   * 옛 스냅샷에는 없다 — `null` 이면 **안 쟀다**는 뜻이다.
+   */
+  fillPlan: FillPlanPanel | null
+  /**
+   * **쓰고도 못 싣는 것** — 이미 집필했는데 지금 게이트가 막고 있는 문항.
+   *
+   * ⚠️ 게이트는 시간이 지나며 엄해진다(밴드별 어수창 8/31 · 기사 껍데기 차단 9/6 ·
+   * 해설의 인용·오답 언급 요구). 그런데 **청크와 산출은 게이트보다 오래 산다.** 그래서
+   * 어느 날 갑자기가 아니라 조용히, 예전에 쓴 문항이 적재에서 걸리기 시작한다.
+   * 실측 2026-09-08: 이미 채운 1,377 중 **315(22.9%)** 가 걸려 있었다.
+   *
+   * 그 315를 한 수로 보이면 「315개를 다시 써야 한다」로 읽혀 아무도 손대지 않는다.
+   * **비용이 다른 둘을 갈라 보인다** — 해설 한 칸만 고치면 되는 것 142(선택지·정답은
+   * 이미 검증됐다)와 지문이 문제라 다시 뽑아야 하는 것 173.
+   */
+  drainAudit: DrainAuditPanel | null
+  /**
    * **본문이 글이 아닌 것** — 적격 판정이 통과시킨 뒤에도 남는 결함.
    *
    * 일곱 축은 「이 원문을 써도 되는가」를 묻고, 그 질문은 **본문이 온전하다는 것을 전제**한다.
@@ -184,6 +213,70 @@ export interface TypeInventoryPanel {
   bands: TypeInventoryBand[]
   /** 지금 시중 구성으로 낼 수 있는 권의 총합 — 이 화면에서 가장 무거운 한 수. */
   totalVolumes: number
+}
+
+/** 한 학년에서 목표 권수까지 모자란 몫. */
+export interface FillPlanBand {
+  vLevel: number
+  volumes: number
+  bindingType: string | null
+  /** 사람이 써야 하는 문항 수 — 이것이 실제 작업량이다. */
+  drainItems: number
+  drainChunks: number
+  /** 그중 이미 뽑혀 있어 **지금 바로 시작할 수 있는** 청크(손 안 댄 것). */
+  readyChunks: number
+  /**
+   * **반쯤 채우고 만 칸.** `.out.json` 이 있어 파일로 세는 모든 계수기가 완료로 보지만
+   * `choices` 가 비어 있다.
+   *
+   * ⚠️ 실측 2026-09-08: out 파일 225개의 문항칸 1,419 중 **116칸이 빈 채**였고
+   * (반쯤 채운 파일 42개), `mood-v3` 는 out.json 이 **16칸 전부 빈 채**로 존재했다.
+   * 예전 배치가 청크당 3건만 채우고 멈춘 자국이다. CLAUDE.md §🤖 가 경고한
+   * 「빈 값이 들어가면 다음 export 가 완료로 세어 구멍이 영영 남는다」가 실제로 뚫려 있었다.
+   * 이 몫은 **뽑을 필요 없이 바로 채울 수 있다** — 가장 싼 일감이다.
+   */
+  unfinishedItems: number
+  unfinishedFiles: number
+  types: {
+    type: string
+    items: number
+    shortItems: number
+    /** 글을 읽어야 만드는 유형인가. 아니면 결정론 생성기 소관이다. */
+    drain: boolean
+    chunks: number
+    readyChunks: number
+    unfinishedItems: number
+    unfinishedFiles: number
+  }[]
+}
+
+export interface FillPlanPanel {
+  computedAt: string
+  ageDays: number
+  /** 이 계획이 겨냥하는 학년당 권수. */
+  targetVolumes: number
+  totalItems: number
+  totalChunks: number
+  readyChunks: number
+  /** 뽑혀 있는데 비어 있는 칸의 총합 — 0 이 아니면 그만큼 일이 숨어 있다. */
+  unfinishedItems: number
+  unfinishedFiles: number
+  bands: FillPlanBand[]
+}
+
+/** 이미 쓴 문항이 지금 게이트에 걸리는 정도. */
+export interface DrainAuditPanel {
+  measuredAt: string
+  ageDays: number
+  /** 지금까지 집필된 문항(빈 칸은 안 센다 — 그건 「안 쓴 것」이라 채울 몫이 센다). */
+  filled: number
+  blocked: number
+  /** 해설 한 칸만 고치면 살아나는 몫. */
+  rationaleOnly: number
+  /** 지문이 문제라 집필로는 못 고치는 몫 — 다시 뽑아야 한다. */
+  passageBlocked: number
+  reasons: { reason: string; count: number }[]
+  byDir: { dir: string; blocked: number; filled: number; rationaleOnly: number }[]
 }
 
 /** 발췌 경로의 진행 — 뽑혔는가, 분석됐는가, 조판 풀에 들어왔는가. */
@@ -369,6 +462,57 @@ export function buildSourceEligibilityPanel(now: Date = new Date()): SourceEligi
         totalItems: t.totalItems ?? 0,
         bands: t.bands,
         totalVolumes: t.bands.reduce((n, b) => n + b.volumes, 0),
+      }
+    })(),
+    drainAudit: (() => {
+      const a = drainAuditSnapshot as unknown as {
+        measuredAt?: string
+        filled?: number
+        blocked?: number
+        rationaleOnly?: number
+        passageBlocked?: number
+        reasons?: { reason: string; count: number }[]
+        byDir?: { dir: string; blocked: number; filled: number; rationaleOnly: number }[]
+      }
+      // ⚠️ 안 잰 것과 0 은 다르다. `filled` 가 없으면 감사를 돌린 적이 없다는 뜻이다.
+      if (typeof a?.filled !== 'number') return null
+      const measured = new Date(a.measuredAt ?? 0)
+      return {
+        measuredAt: a.measuredAt ?? '',
+        ageDays: Math.max(0, Math.floor((now.getTime() - measured.getTime()) / 86_400_000)),
+        filled: a.filled,
+        blocked: a.blocked ?? 0,
+        rationaleOnly: a.rationaleOnly ?? 0,
+        passageBlocked: a.passageBlocked ?? 0,
+        reasons: a.reasons ?? [],
+        byDir: a.byDir ?? [],
+      }
+    })(),
+    fillPlan: (() => {
+      const p = fillPlanSnapshot as unknown as {
+        computedAt?: string
+        targetVolumes?: number
+        totalItems?: number
+        totalChunks?: number
+        readyChunks?: number
+        unfinishedItems?: number
+        unfinishedFiles?: number
+        bands?: FillPlanBand[]
+      }
+      // ⚠️ 몫이 0 인 것과 **안 잰 것**은 다르다. 밴드 배열이 없으면 `null` 이다 —
+      //   0 으로 뭉개면 화면이 "다 됐다" 고 말한다.
+      if (!p?.bands?.length) return null
+      const computed = new Date(p.computedAt ?? 0)
+      return {
+        computedAt: p.computedAt ?? '',
+        ageDays: Math.max(0, Math.floor((now.getTime() - computed.getTime()) / 86_400_000)),
+        targetVolumes: p.targetVolumes ?? 0,
+        totalItems: p.totalItems ?? 0,
+        totalChunks: p.totalChunks ?? 0,
+        readyChunks: p.readyChunks ?? 0,
+        unfinishedItems: p.unfinishedItems ?? 0,
+        unfinishedFiles: p.unfinishedFiles ?? 0,
+        bands: p.bands,
       }
     })(),
     extractBacklog: (() => {
