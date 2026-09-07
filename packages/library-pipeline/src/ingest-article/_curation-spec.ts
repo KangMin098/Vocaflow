@@ -29,6 +29,22 @@ export type SourceKey =
   | 'wikivoyage'
   | 'usgs'
   | 'noaa'
+  // ACP — Futurity (대학 컨소시엄 연구 기사 · CC BY 4.0). 2026-08-21 추가.
+  //   학술 소재 × 읽히는 문장. 기존 재고가 "쉬운데 학술 아님(VOA·NASA)" 과
+  //   "학술인데 C1–C2(PLOS·위키)" 로 양극화돼 있어 그 사이를 메운다.
+  | 'futurity'
+  // 초·중 **이야기** 지문 (Pratham Books StoryWeaver). 2026-09-02 추가.
+  //   초·중 창에 드는 글 154편의 register 를 세니 **narrative 0** 이었다 —
+  //   재고 부족이 아니라 종류 부재라 편수를 늘려도 해결되지 않는다.
+  // NASA Space Place — 두 관문(robots · 저작권 고지)을 다 통과한 유일한 후보. 2026-09-03 추가.
+  | 'frym'
+  | 'ocean_facts'
+  | 'space_place'
+  | 'storyweaver'
+  // ACP §20 — 사실 재저작. 외부 본문을 가져오지 않으므로 수집 대상이 아니지만,
+  // 발행 후에는 다른 소스와 같은 자리(정책·트랙·표시)에 서야 하므로 SourceKey 를 갖는다.
+  // ⚠ SOURCE_RANKINGS_BY_LEVEL 에는 넣지 않는다 — 대량 GET 화면의 선택지가 아니다.
+  | 'original'
 
 export interface FeedSpec {
   /** 신선도 컷오프 (일). null=무한 (APOD 등 timeless). */
@@ -190,6 +206,22 @@ export const FEED_SPECS: Record<string, FeedSpec> = {
     maxItems: 10,
   },
 
+  // ─── PLOS 논증 지면 — 유일한 CC BY 논증문 공급선 (실측 2026-08-21) ──
+  // 소스 기본 spec 보다 **느슨하게** 잡는다. Essay·Perspective 는 abstract 가
+  // 짧거나 아예 없는 경우가 연구논문보다 흔한데(논증문은 초록을 안 쓰는 지면이 있다),
+  // 소스 기본값(minDescriptionLen 100)을 그대로 쓰면 논증문을 우선 걸러 내
+  // **메우려는 구멍을 spec 이 도로 막는다.**
+  'plos:essay': {
+    recencyDays: 3650, // 논증은 연구보다 더 오래 유효하다
+    minDescriptionLen: 40,
+    minTitleLen: 20,
+    sourceWeight: 0.80, // recent(0.75)보다 높다 — 교재에 더 쓸모 있는 결
+    levelBonus: -0.05, // C1 — 연구논문(C2)보다는 읽힌다
+    idealDescLen: 260,
+    noiseKeywords: ['correction', 'retraction', 'erratum', 'in memoriam'],
+    maxItems: 20,
+  },
+
   // v06.69 — arXiv 관련 FEED_SPECS 6종 제거 (소스 자체가 플랫폼에서 삭제됨).
 }
 
@@ -304,6 +336,70 @@ export const SOURCE_DEFAULT_SPEC: Record<SourceKey, FeedSpec> = {
     noiseKeywords: ['disambiguation', 'list of'],
     maxItems: 30,
   },
+  // Futurity: 대학 공보가 자기 연구를 풀어 쓴 기사(B2). CC BY 4.0. 워드프레스 RSS.
+  //   실측 평균 585단어·15문단(표본 6편) — VOA(881)보다도 짧다.
+  //   한 편이 한 단원 크기라 조합기가 원글을 덜 쪼갠다.
+  futurity: {
+    recencyDays: 540,      // 연구 소개는 시의성이 약하다 — 1.5년까지 유효
+    minDescriptionLen: 60, // RSS description 이 요약 한 문단
+    minTitleLen: 18,
+    sourceWeight: 0.88,    // 학술 소재 × 접근형 문체 — VOA 다음으로 높다
+    levelBonus: 0.00,      // B2
+    idealDescLen: 240,
+    noiseKeywords: ['listen:', 'watch:', 'podcast'], // 오디오/영상 포스트는 본문이 짧다
+    maxItems: 20,
+  },
+  frym: {
+    // 학술지라 시의성이 약하다 — 2019년 글도 오늘 읽힌다.
+    //   다만 Crossref 가 발행일을 주므로 recency 를 아주 길게 열어 둔다(끄지 않는다).
+    recencyDays: 3650,
+    minDescriptionLen: 100, // 초록이 곧 지문이라 짧으면 지문이 아니다
+    minTitleLen: 12,
+    sourceWeight: 0.9, // 중3 칸을 메우는 유일한 후보다
+    levelBonus: -0.05, // FK 중앙 10.55 — 초·중 안에서는 위쪽
+    idealDescLen: 300,
+    // 사설·정오표는 지문이 아니다.
+    noiseKeywords: ['editorial', 'correction', 'erratum', 'retraction'],
+    maxItems: 24,
+  },
+  ocean_facts: {
+    // 쪽에 발행일이 없다 — recency 를 켜 두면 전량이 0점이 되어 한 편도 안 들어온다.
+    recencyDays: null,
+    minDescriptionLen: 0, // 분류 쪽에서 링크만 긁는다 — 설명이 없다
+    minTitleLen: 3,
+    sourceWeight: 0.88,
+    levelBonus: 0.03,
+    idealDescLen: 120,
+    // `oceanfacts-*` 는 분류 쪽이라 지문이 아니다.
+    noiseKeywords: ['oceanfacts-', 'glossary'],
+    maxItems: 24,
+  },
+  space_place: {
+    // 우주 설명글은 시의성이 약하고 **발행일 자체가 쪽에 없다.**
+    //   recency 를 켜 두면 전량이 0점이 되어 소스를 넣고도 한 편도 안 들어온다.
+    recencyDays: null,
+    minDescriptionLen: 0, // 주제 메뉴에서 링크만 긁는다 — 설명이 없다
+    minTitleLen: 3,
+    sourceWeight: 0.9, // 두 관문(robots·저작권 고지)을 다 통과한 드문 소스다
+    levelBonus: 0.05, // FK 중앙 6.63 — 초·중 한가운데
+    idealDescLen: 120,
+    // 놀이·활동 쪽은 지문이 아니다.
+    noiseKeywords: ['glossary', 'activity', 'game'],
+    maxItems: 24,
+  },
+  storyweaver: {
+    // 그림책은 시의성이 없다 — 1990년대 이야기도 오늘 읽힌다. 따라서 recency 를 끄다.
+    //   게다가 발행일 자체가 없어(null) recency 를 켜 두면 전량이 0점이 된다.
+    recencyDays: null,
+    minDescriptionLen: 0, // 목록의 description 이 빈 책이 많다 — 없다고 버리면 재고가 날아간다
+    minTitleLen: 3,       // "Too Big! Too Small!" 처럼 짧은 그림책 제목이 정상이다
+    sourceWeight: 0.90,   // 유일한 narrative 공급선 — 대체가 없다
+    levelBonus: 0.05,     // A1-A2 — 초·중 밴드에서는 가점
+    idealDescLen: 120,
+    // 번역본·음성판은 같은 이야기가 두 번 들어오는 길이다.
+    noiseKeywords: ['(translated)', 'audio version'],
+    maxItems: 24,         // 목록 한 쪽의 상한과 맞춘다
+  },
   // PLOS: CC-BY 오픈 학술 논문(C1-C2), S4 킬러급. solr API list.
   plos: {
     recencyDays: 3650,     // 연구 — stale 관대
@@ -348,6 +444,18 @@ export const SOURCE_DEFAULT_SPEC: Record<SourceKey, FeedSpec> = {
     idealDescLen: 60,      // title 길이 기준
     noiseKeywords: ['outlook', 'event tracker', 'interactive map'],
     maxItems: 24,
+  },
+  // ACP §20 재저작 — 외부 피드를 긁지 않으므로 이 spec 의 필터/점수는 쓰이지 않는다.
+  //   (타입이 Record<SourceKey> 라 자리를 채운다. 발주 규격은 composed_spec 이 갖는다.)
+  original: {
+    recencyDays: 365,
+    minDescriptionLen: 0,
+    minTitleLen: 0,
+    sourceWeight: 1.0,
+    levelBonus: 0,
+    idealDescLen: 200,
+    noiseKeywords: [],
+    maxItems: 0,           // 대량 GET 대상이 아니다
   },
 }
 
@@ -454,6 +562,16 @@ export function applyArticleCurationSpec<T extends ScorableItem>(
   items: T[],
   source: SourceKey,
   feedId: string,
+  /**
+   * 대량 확보용 상한 덮어쓰기. 생략하면 spec 의 `maxItems` 그대로 — **기존 동작 무변경.**
+   *
+   * ⚠️ 왜 필요한가 (실측 2026-08-30): `maxItems` 는 **매일 도는 경로가 넘치지 않게** 두는
+   *   정책이지 품질 규칙이 아니다. 그런데 그 상한이 대량 확보 경로에도 그대로 걸려,
+   *   VOA RSS 를 `count=200` 으로 불러 200건을 받아 와도 여기서 15건으로 잘려 나갔다.
+   *   위 소스들에서 반복해 본 것과 같은 **조용한 상한**이다 — 오류도 경고도 없이
+   *   "이 피드는 15편이 전부" 처럼 보인다.
+   */
+  overrides?: { maxItems?: number },
 ): Array<T & { score: ArticleScore }> {
   const spec = FEED_SPECS[`${source}:${feedId}`] ?? SOURCE_DEFAULT_SPEC[source]
 
@@ -463,7 +581,7 @@ export function applyArticleCurationSpec<T extends ScorableItem>(
 
   passed.sort((a, b) => b.score.total - a.score.total)
 
-  return passed.slice(0, spec.maxItems)
+  return passed.slice(0, overrides?.maxItems ?? spec.maxItems)
 }
 
 /** Source/feedId 의 spec 가져오기 (UI에서 표시용) */
@@ -683,6 +801,87 @@ export const SOURCE_SPECS: Record<SourceKey, SourceSpec> = {
       { feedId: 'good', weight: 0.45 },
     ],
   },
+  // Futurity: 대학 컨소시엄이 CC BY 4.0 으로 개방하는 연구 기사. 원문이 논문인 소재를
+  //   대학 공보가 기자용으로 풀어 쓴 것 — 수능 지문의 소재-문체 조합에 가장 가깝다.
+  //   ⚠️ 라이선스 근거는 **기사 페이지**에 있다. about 페이지에는 "All rights reserved"(사이트 크롬).
+  futurity: {
+    targetLevels: ['intermediate', 'advanced'],
+    targetCefr: { min: 'B1', max: 'B2' },
+    maxItemsPerBatch: 20,
+    minScore: 0.40,
+    bulkPriority: 3,
+    license: 'CC-BY-4.0',
+    attributionRequired: true,
+    topicDomain: ['science', 'health', 'psychology', 'society', 'technology', 'research'],
+    styleGuide: '대학 공보의 연구 소개 기사 (B1-B2) · 학술 소재를 일반 독자용으로 재서술',
+    preferredFeedMix: [{ feedId: 'all', weight: 1.00 }],
+  },
+  // Frontiers for Young Minds: 8~15세 심사 과학지. **중3 칸을 메우는 유일한 후보**다 —
+  //   실측 FK 중앙 10.55 · 초록 89~158어로 창 적중 100% · 초록이 곧 완결된 한 편이라 발췌가 없다.
+  frym: {
+    targetLevels: ['intermediate', 'advanced'],
+    targetCefr: { min: 'B1', max: 'B2' },
+    maxItemsPerBatch: 24,
+    minScore: 0.35,
+    bulkPriority: 2,
+    // ⚠️ 표기는 다수값이고 **정본은 글마다의 Crossref `license[].URL`** 이다.
+    //   어댑터가 글에서 못 읽으면 넣지 않는다 — 학술지 단위로 뭉뚱그리면 예외를 못 본다.
+    license: 'CC-BY-4.0',
+    attributionRequired: true,
+    topicDomain: ['science', 'biology', 'earth', 'astronomy', 'health', 'technology'],
+    styleGuide: '어린이 심사위원이 읽은 논문 요약 (B1-B2) · 물음으로 시작해 답으로 끝난다',
+    preferredFeedMix: [
+      { feedId: 'recent', weight: 0.6 },
+      { feedId: 'cited', weight: 0.4 },
+    ],
+  },
+  // NOAA Ocean Facts: 한 물음에 한 편. **실측 213~753어 · FK 중앙 11.4 로 중3 이상**이다.
+  ocean_facts: {
+    // ⚠️ 처음엔 A2-B1·beginner 로 적었다 — tsunami 한 쪽(112어)만 보고 정한 값이었다.
+    //   8쪽을 재 보니 213~753어 · FK 9.5~13.9(중앙 11.4) · 교육과정 밖 32~54% 로
+    //   **중3 이상**이었다. 표본 하나로 소스를 판정하면 이렇게 틀린다.
+    targetLevels: ['intermediate', 'advanced'],
+    targetCefr: { min: 'B1', max: 'B2' },
+    maxItemsPerBatch: 24,
+    minScore: 0.3,
+    bulkPriority: 2,
+    license: 'PD-Government',
+    attributionRequired: true,
+    topicDomain: ['ocean', 'weather', 'earth', 'science'],
+    styleGuide: '한 물음에 한 편인 바다·날씨 설명글 (B1-B2 · 실측 FK 중앙 11.4)',
+    preferredFeedMix: [{ feedId: 'all', weight: 1.0 }],
+  },
+  // NASA Space Place: 난이도가 초·중 한가운데인 PD 설명글. 길이만 발췌하면 된다.
+  space_place: {
+    targetLevels: ['beginner', 'intermediate'],
+    targetCefr: { min: 'A2', max: 'B1' },
+    maxItemsPerBatch: 24,
+    minScore: 0.3,
+    bulkPriority: 2,
+    license: 'PD-Government',
+    attributionRequired: true, // PD 라 의무는 아니지만 출처를 밝힌다(원문 축 B1)
+    topicDomain: ['space', 'earth', 'science', 'astronomy'],
+    styleGuide: '어린이·청소년용 우주 설명글 (A2-B1) · 문장 13어로 시중 쥅1 교재와 같다',
+    preferredFeedMix: [{ feedId: 'all', weight: 1.0 }],
+  },
+  // StoryWeaver: 초·중 이야기. **register 구멍을 메우려고 넣는다.**
+  storyweaver: {
+    targetLevels: ['beginner'],
+    targetCefr: { min: 'A1', max: 'A2' },
+    maxItemsPerBatch: 24,
+    minScore: 0.30, // 발행일도 설명도 없는 그림책이라 점수가 구조적으로 낮다
+    bulkPriority: 2,
+    // 책마다 다르다 — 여기 적힌 것은 다수이고, 정본은 **책 뒷장의 표시**다.
+    //   어댑터가 못 읽으면 restricted 로 떨어뜨린다.
+    license: 'CC-BY-4.0',
+    attributionRequired: true,
+    topicDomain: ['story', 'family', 'school', 'animals', 'everyday'],
+    styleGuide: '그림책 서사 (A1-A2) · 영어가 제2언어인 독자를 상정하고 쓰였다',
+    preferredFeedMix: [
+      { feedId: 'level-1', weight: 0.75 }, // 적중 초창 49% · 중창 69%
+      { feedId: 'level-2', weight: 0.25 }, // 적중 중창 14% — 적지만 0은 아니다
+    ],
+  },
   // PLOS: CC-BY 오픈 학술 논문, C1-C2 심화(S4 킬러급). abstract+본문 산문(methods/refs 스트립).
   plos: {
     targetLevels: ['advanced'],
@@ -694,8 +893,11 @@ export const SOURCE_SPECS: Record<SourceKey, SourceSpec> = {
     attributionRequired: true,
     topicDomain: ['science', 'biology', 'medicine', 'research', 'genetics'],
     styleGuide: 'CC-BY 오픈 학술 논문 산문 (C1-C2) · S4 킬러급 심화 다독 (methods/refs 제외)',
+    // essay 쪽에 무게를 더 준다 — 논증문은 이 소스 말고 CC BY 공급선이 없고,
+    // 연구논문(recent)은 이미 재고가 쌓여 있다(실측 2026-08-21: plos 15편 → 546문항).
     preferredFeedMix: [
-      { feedId: 'recent', weight: 1.00 },
+      { feedId: 'essay', weight: 0.60 },
+      { feedId: 'recent', weight: 0.40 },
     ],
   },
   // Wikivoyage: 여행 목적지 가이드, CC-BY-SA(파생 허용), B1-B2. reference 밴드 보강(흥미↑).
@@ -749,6 +951,23 @@ export const SOURCE_SPECS: Record<SourceKey, SourceSpec> = {
       { feedId: 'features', weight: 0.3 },               // 기후 피처 기사
     ],
   },
+  // ACP §20 — 사실 재저작. 남의 본문이 아니라 우리가 쓴 글이다.
+  //   license 문자열이 'CC0' 로 시작해야 acp_classify_license·licenseClassOf 가 둘 다 cc0 로
+  //   판정하고, 그 결과 copyright_safe_in_kr=true · display_only=false 가 자동으로 찍힌다.
+  //   attribution 은 면제 — 원저작자가 없다. 다만 **사실 출처 목록은 화면에 남긴다**
+  //   (법적 의무가 아니라 학습자의 검증 수단이다).
+  original: {
+    targetLevels: ['beginner', 'intermediate'],
+    targetCefr: { min: 'A2', max: 'B2' },   // 같은 취재로 A2판·B1판을 뽑는다
+    maxItemsPerBatch: 0,                    // 대량 GET 대상 아님 (발주 단위로 만든다)
+    minScore: 0,
+    bulkPriority: 99,
+    license: 'CC0-1.0 (Vocaflow Original)',
+    attributionRequired: false,
+    topicDomain: ['news', 'society', 'science', 'health', 'environment', 'education', 'work'],
+    styleGuide: '사실 기반 자체 저작 — 발주 셀(register×CEFR) 규격에 맞춰 새로 쓴 글 · 원문 표현 미사용',
+    preferredFeedMix: [{ feedId: 'compose', weight: 1.0 }],
+  },
 }
 
 /**
@@ -761,9 +980,9 @@ export const SOURCE_SPECS: Record<SourceKey, SourceSpec> = {
  * BulkArticlesTab 에서 학습자 수준 선택 시 이 순서로 소스 자동 재정렬.
  */
 export const SOURCE_RANKINGS_BY_LEVEL: Record<LearnerLevel, ReadonlyArray<SourceKey>> = {
-  beginner:     ['voa', 'simple_wikipedia', 'wikivoyage', 'nasa', 'wikinews', 'factbook', 'nih', 'the_conversation'],
-  intermediate: ['voa', 'simple_wikipedia', 'wikivoyage', 'factbook', 'nasa', 'usgs', 'noaa', 'wikinews', 'nih', 'elife', 'wikipedia', 'owid', 'the_conversation'],
-  advanced:     ['the_conversation', 'owid', 'elife', 'plos', 'wikipedia', 'nih', 'nasa', 'usgs', 'noaa', 'wikinews', 'factbook', 'voa', 'simple_wikipedia'],
+  beginner:     ['storyweaver', 'space_place', 'voa', 'simple_wikipedia', 'wikivoyage', 'nasa', 'wikinews', 'factbook', 'nih', 'the_conversation'],
+  intermediate: ['frym', 'ocean_facts', 'voa', 'simple_wikipedia', 'futurity', 'wikivoyage', 'factbook', 'nasa', 'usgs', 'noaa', 'wikinews', 'nih', 'elife', 'wikipedia', 'owid', 'the_conversation'],
+  advanced:     ['the_conversation', 'owid', 'elife', 'plos', 'wikipedia', 'futurity', 'nih', 'nasa', 'usgs', 'noaa', 'wikinews', 'factbook', 'voa', 'simple_wikipedia'],
 }
 
 /**
@@ -784,12 +1003,28 @@ export function getSourceSpec(source: SourceKey): SourceSpec {
 
 /** feed(`source:feedId`) → register override. 없는 feed 는 SOURCE_REGISTER_DEFAULT 폴백. */
 export const FEED_REGISTER: Record<string, string> = {
-  'voa:lets-learn-english': 'narrative', // Anna 연속 드라마 (Level 1 · 서사)
+  // ⚠️ 2026-08-20 정정 — 'narrative' 가 아니다. z/952 를 Anna 연속 드라마로 알았으나
+  //   실제 내용은 일반 피처다(Ice Ages · Goodyear Blimp · Golden Gate Bridge).
+  //   서사로 두면 학습자에게 이야기글로 안내되는데 설명문이 나온다.
+  'voa:lets-learn-english': 'expository', // Lessons of the Day — 종합 피처 (z/952)
   'voa:american-stories': 'narrative', // 고전 단편 각색 (서사)
   'voa:words-and-their-stories': 'expository', // 관용구 어원 설명
   'voa:science-technology': 'expository', // 과학·기술 설명
   'voa:health-lifestyle': 'expository', // 건강·생활 설명
+  'voa:education': 'expository', // 교육 뉴스·유학 피처 (2026-08-19 추가)
+  'voa:arts-culture': 'expository', // 음악·대중문화 주간 (2026-08-19 추가)
+  // /radio/programs 인덱스 발굴분 (2026-08-20). 본문 어수까지 재고 넣은 5개.
+  'voa:everyday-grammar': 'expository', // 문법 설명
+  'voa:ask-a-teacher': 'expository', // 학습자 질문 답변
+  'voa:education-tips': 'expository', // 학습법 안내
+  'voa:all-about-america': 'expository', // 미국 생활·문화 설명
+  'voa:us-history': 'narrative', // 역사 서사 — 사건을 이야기로 푼다
   // voa:as-it-is = 시사 → source 기본값('news')
+
+  // PLOS 논증 지면 (2026-08-21). 소스 기본값은 'expository'(연구논문)지만
+  // Essay·Perspective·Opinion 은 주장하는 글이다. 이 한 줄이 논증문 재고 0 을 푼다 —
+  // 나머지 논증 후보는 전부 ND/NC 라 붙여도 display_only 로 죽는다.
+  'plos:essay': 'argumentative',
 }
 
 /** source → register 기본값 (feed override 없을 때). */
@@ -809,6 +1044,14 @@ export const SOURCE_REGISTER_DEFAULT: Record<string, string> = {
   wikivoyage: 'reference', // 여행 목적지 가이드 (참고 — Factbook 동류)
   usgs: 'expository', // 지구과학·자연재해 과학 저널리즘 (설명문)
   noaa: 'expository', // 기후과학 explainer (설명문)
+  futurity: 'expository', // 대학 연구 소개 — 주장이 아니라 설명이다
+  frym: 'expository', // 심사받은 과학 설명글
+  ocean_facts: 'expository', // 바다·날씨 현상 설명글
+  space_place: 'expository', // 우주 현상 설명글
+  storyweaver: 'narrative', // 그림책 이야기 — 이 자리가 비어 있었다
+  // ACP §20 — 재저작 기본은 시사. 발주가 다른 register 를 지정하면 dev-process 가 아니라
+  //   composed_spec 이 권위이므로, 이 값은 발주 없이 들어온 경우의 안전 기본값이다.
+  original: 'news',
 }
 
 /** (source, feedId) → register. feed override 우선 → source 기본값 → 'expository'. */
@@ -955,9 +1198,20 @@ export interface SourcePolicy {
  *  (types-article.ts: "VOA Learning English = 학습 정체성으로 100% audio"). */
 const AUDIO_SOURCES: ReadonlySet<SourceKey> = new Set<SourceKey>(['voa'])
 
-/** 라이선스 문자열 → 정규화 등급. DB license_class 규칙과 동일 (ND > SA > BY 순서 중요). */
+/** 라이선스 문자열 → 정규화 등급. DB license_class 규칙과 동일 (NC > ND > SA > BY 순서 중요).
+ *
+ * ⚠ NC(NonCommercial)를 **가장 먼저** 판정한다 — `CC-BY-NC-SA` 는 SA 도 포함하므로
+ *   순서를 바꾸면 NC 가 `cc_by_sa`(파생·상업 허용)로 조용히 승격된다. DB
+ *   `acp_classify_license` 는 이미 NC 를 첫 분기에서 restricted 로 떨어뜨리는데
+ *   이쪽만 빠져 있었다: 정책층(UI 게이트 표시)과 권위층(DB)이 갈라져,
+ *   NC 소스를 추가하면 화면은 "단어세트 발행 가능"이라 말하고 DB 는 차단한다.
+ *   Vocaflow 는 유료화를 전제하므로 NC 는 발행 불가가 정답이다. */
 export function licenseClassOf(license: string): LicenseClass {
   const l = license.toUpperCase()
+  // NC — 상업적 이용 불가. SA/BY 판정보다 먼저 (DB acp_classify_license 와 동일 순서).
+  if (l.includes('-NC') || l.includes('NONCOMMERCIAL') || l.includes('NON-COMMERCIAL')) {
+    return 'restricted'
+  }
   if (l.includes('CC0')) return 'cc0'
   if (l.includes('PD') || l.includes('PUBLIC DOMAIN') || l.includes('GOVERNMENT')) return 'public_domain'
   if (l.includes('ND')) return 'cc_by_nd' // No Derivatives — SA/BY 보다 먼저 판정
@@ -1016,10 +1270,19 @@ export const SOURCE_POLICIES: Record<SourceKey, SourcePolicy> = {
   factbook: getSourcePolicy('factbook'),
   elife: getSourcePolicy('elife'),
   wikipedia: getSourcePolicy('wikipedia'),
+  futurity: getSourcePolicy('futurity'),
   plos: getSourcePolicy('plos'),
   wikivoyage: getSourcePolicy('wikivoyage'),
   usgs: getSourcePolicy('usgs'),
   noaa: getSourcePolicy('noaa'),
+  // ⚠️ 여기 적힌 `CC-BY-4.0` 은 **다수값**이지 그 책의 값이 아니다. StoryWeaver 는
+  //   책마다 라이선스가 다르고 정본은 **책 뒷장의 표시**다 — 어댑터가 거기서 읽고,
+  //   못 읽으면 `restricted` 로 떨어뜨린다. 이 표는 화면에 보여 줄 기본값일 뿐이다.
+  frym: getSourcePolicy('frym'),
+  ocean_facts: getSourcePolicy('ocean_facts'),
+  space_place: getSourcePolicy('space_place'),
+  storyweaver: getSourcePolicy('storyweaver'),
+  original: getSourcePolicy('original'),
 }
 
 // ── 분기 라벨 — UI 가 공유하는 정책 표시 카피 (컴포넌트별 재작성 금지) ──

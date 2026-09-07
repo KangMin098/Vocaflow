@@ -26,7 +26,7 @@ export function SingleBox({
   if (isSuccess) {
     stateClass = 'border-[var(--success)] bg-[var(--success-light)] text-[var(--success)]'
   } else if (isError) {
-    stateClass = 'border-[var(--error)] bg-[var(--error-light)] text-[var(--error)]'
+    stateClass = 'border-[var(--error)] bg-[var(--error-light)] text-[var(--error-ink)]'
   }
 
   return (

@@ -1,3 +1,5 @@
+// apps/web/src/components/admin/vcb/VcbCurationDetailPanel.tsx
+
 'use client'
 
 // VcbCurationDetailPanel.tsx
@@ -105,7 +107,7 @@ export function VcbCurationDetailPanel({ detail, onDecision }: Props) {
         </h2>
         <div className="flex gap-2 flex-wrap mt-3">
           <span
-            className="px-2 py-0.5 text-xs rounded-[var(--r-sm)] border"
+            className="px-2 py-1 text-xs rounded-[var(--r-sm)] border"
             style={{
               background: 'var(--bg2)',
               borderColor: 'var(--bd)',
@@ -116,7 +118,7 @@ export function VcbCurationDetailPanel({ detail, onDecision }: Props) {
           </span>
           {p.cefr && (
             <span
-              className="px-2 py-0.5 text-xs rounded-[var(--r-sm)] font-mono"
+              className="px-2 py-1 text-xs rounded-[var(--r-sm)] font-mono"
               style={{
                 background: `var(--cefr-${p.cefr}-bg)`,
                 color: `var(--cefr-${p.cefr}-text)`,
@@ -127,7 +129,7 @@ export function VcbCurationDetailPanel({ detail, onDecision }: Props) {
           )}
           {detail.ngsl_rank && (
             <span
-              className="px-2 py-0.5 text-xs rounded-[var(--r-sm)] border"
+              className="px-2 py-1 text-xs rounded-[var(--r-sm)] border"
               style={{
                 background: 'var(--bg2)',
                 borderColor: 'var(--bd)',
@@ -139,7 +141,7 @@ export function VcbCurationDetailPanel({ detail, onDecision }: Props) {
           )}
           {detail.seed_origin === 'ai_generated' && (
             <span
-              className="px-2 py-0.5 text-xs rounded-[var(--r-sm)]"
+              className="px-2 py-1 text-xs rounded-[var(--r-sm)]"
               style={{ background: 'var(--info-light)', color: 'var(--info)' }}
             >
               AI Generated
@@ -147,7 +149,7 @@ export function VcbCurationDetailPanel({ detail, onDecision }: Props) {
           )}
           {detail.qa_flags.length > 0 && (
             <span
-              className="px-2 py-0.5 text-xs rounded-[var(--r-sm)] border font-mono"
+              className="px-2 py-1 text-xs rounded-[var(--r-sm)] border font-mono"
               style={{
                 background: 'var(--warning-light)',
                 color: 'var(--warning)',
@@ -158,7 +160,7 @@ export function VcbCurationDetailPanel({ detail, onDecision }: Props) {
             </span>
           )}
           <span
-            className="px-2 py-0.5 text-xs rounded-[var(--r-sm)] border font-mono"
+            className="px-2 py-1 text-xs rounded-[var(--r-sm)] border font-mono"
             style={{
               background: 'var(--bg2)',
               borderColor: 'var(--bd)',
@@ -187,7 +189,7 @@ export function VcbCurationDetailPanel({ detail, onDecision }: Props) {
             <li key={i} style={{ color: 'var(--t1)' }} className="text-base">
               {d.sense}
               <span
-                className="ml-2 text-[11px] px-1.5 py-0.5 rounded-[var(--r-sm)]"
+                className="ml-2 text-[11px] px-2 py-1 rounded-[var(--r-sm)]"
                 style={{ background: 'var(--bg2)', color: 'var(--t3)' }}
               >
                 {REGISTER_LABEL[d.register] ?? d.register}
@@ -290,7 +292,7 @@ export function VcbCurationDetailPanel({ detail, onDecision }: Props) {
             type="button"
             onClick={handleApprove}
             disabled={isPending}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-[var(--r-md)] font-display text-sm font-medium text-white"
+            className="min-h-[44px] inline-flex items-center gap-2 px-4 py-2 rounded-[var(--r-md)] font-display text-sm font-medium text-white"
             style={{
               background: 'var(--success)',
               opacity: isPending ? 0.6 : 1,
@@ -303,7 +305,7 @@ export function VcbCurationDetailPanel({ detail, onDecision }: Props) {
             type="button"
             onClick={handleReject}
             disabled={isPending}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-[var(--r-md)] font-display text-sm font-medium text-white"
+            className="min-h-[44px] inline-flex items-center gap-2 px-4 py-2 rounded-[var(--r-md)] font-display text-sm font-medium text-white"
             style={{
               background: 'var(--error)',
               opacity: isPending ? 0.6 : 1,
@@ -316,7 +318,7 @@ export function VcbCurationDetailPanel({ detail, onDecision }: Props) {
             type="button"
             onClick={handleReenrich}
             disabled={isPending}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-[var(--r-md)] font-display text-sm font-medium border"
+            className="min-h-[44px] inline-flex items-center gap-2 px-4 py-2 rounded-[var(--r-md)] font-display text-sm font-medium border"
             style={{
               color: 'var(--t1)',
               borderColor: 'var(--bd)',
@@ -331,7 +333,7 @@ export function VcbCurationDetailPanel({ detail, onDecision }: Props) {
             type="button"
             onClick={() => setEditMode(true)}
             disabled={isPending}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-[var(--r-md)] font-display text-sm font-medium border"
+            className="min-h-[44px] inline-flex items-center gap-2 px-4 py-2 rounded-[var(--r-md)] font-display text-sm font-medium border"
             style={{
               color: 'var(--t1)',
               borderColor: 'var(--bd)',
@@ -361,7 +363,7 @@ export function VcbCurationDetailPanel({ detail, onDecision }: Props) {
             <button
               type="button"
               onClick={copyReenrichCommand}
-              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-[var(--r-sm)] text-xs font-display border"
+              className="min-h-[44px] inline-flex items-center gap-1 px-3 py-2 rounded-[var(--r-sm)] text-xs font-display border"
               style={{
                 color: 'var(--t2)',
                 borderColor: 'var(--bd)',
@@ -456,11 +458,11 @@ function ChipList({
         ? 'var(--error)'
         : 'var(--info)'
   return (
-    <ul className="list-none p-0 m-0 flex flex-wrap gap-1.5">
+    <ul className="list-none p-0 m-0 flex flex-wrap gap-2">
       {items.map((item, i) => (
         <li
           key={i}
-          className="px-2 py-0.5 rounded-[var(--r-sm)] text-xs font-display"
+          className="px-2 py-1 rounded-[var(--r-sm)] text-xs font-display"
           style={{ background: bg, color }}
         >
           {item}

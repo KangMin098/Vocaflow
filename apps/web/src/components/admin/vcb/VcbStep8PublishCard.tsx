@@ -1,3 +1,5 @@
+// apps/web/src/components/admin/vcb/VcbStep8PublishCard.tsx
+
 'use client'
 
 import { useState, useTransition } from 'react'
@@ -153,13 +155,13 @@ export function VcbStep8PublishCard({ runId, runStatus, precheck }: Props) {
       {/* Confirmation gate + Publish button */}
       {!alreadyPublished && precheck.ok && (
         <>
-          <label className="flex items-start gap-2 cursor-pointer p-2">
+          <label className="flex min-h-[44px] items-start gap-2 cursor-pointer p-2">
             <input
               type="checkbox"
               checked={confirmed}
               onChange={(e) => setConfirmed(e.target.checked)}
               disabled={isPending}
-              className="mt-0.5 w-4 h-4 accent-[var(--p)]"
+              className={/* 체크박스는 대체 요소(replaced element)라 ::after 로 히트 영역을 못 넓힌다 — 탭 영역은 감싼 <label> 44px */ 'mt-0.5 w-4 h-4 accent-[var(--p)]'}
             />
             <span className="text-xs" style={{ color: 'var(--t2)' }}>
               발행분은 <strong>수정할 수 없어요</strong>. 새 버전 발행으로만 갱신됩니다. 확인했습니다.
@@ -170,7 +172,7 @@ export function VcbStep8PublishCard({ runId, runStatus, precheck }: Props) {
             type="button"
             onClick={handlePublish}
             disabled={!canPublish}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-[var(--r-md)] font-display text-sm font-semibold disabled:opacity-50 disabled:cursor-not-allowed mt-2"
+            className="inline-flex items-center gap-2 px-5 py-3 rounded-[var(--r-md)] font-display text-sm font-semibold disabled:opacity-50 disabled:cursor-not-allowed mt-2"
             style={{ background: 'var(--p)', color: 'var(--ti)' }}
           >
             {isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <Rocket className="w-4 h-4" />}
@@ -194,7 +196,7 @@ export function VcbStep8PublishCard({ runId, runStatus, precheck }: Props) {
           <CheckCircle2 className="w-5 h-5 shrink-0 mt-0.5" />
           <div className="text-sm flex-1">
             <div className="font-semibold">발행 완료 · version {result.version} · {result.published_count}건</div>
-            <div className="text-xs mt-1 grid grid-cols-2 gap-x-4 gap-y-0.5 font-mono" style={{ color: 'var(--t2)' }}>
+            <div className="text-xs mt-1 grid grid-cols-2 gap-x-4 gap-y-1 font-mono" style={{ color: 'var(--t2)' }}>
               <span>shared_word_set_id</span><span className="truncate" title={result.shared_word_set_id ?? ''}>{result.shared_word_set_id?.slice(0, 8) ?? '—'}…</span>
               <span>collection_id</span><span>#{result.collection_id ?? '—'}</span>
             </div>

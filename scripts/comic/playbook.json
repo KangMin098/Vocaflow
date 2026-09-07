@@ -1,0 +1,21 @@
+{
+  "_doc": "Learned QC lessons, phrased POSITIVELY (FLUX is guidance-distilled at CFG=1, so negative prompts like 'no X' are ignored — always state the positive opposite). 'global' constraints are injected into EVERY panel prompt (prevention). 'by_tag' constraints are applied when repairing a panel with that issue tag. When a rework proves a fix, record it here so quality is maintained, not re-discovered. Update via: node 02b-verify.mjs --learn-global \"...\" or --learn tag=\"...\".",
+  "_lesson_meta": "Do NOT name a specific accessory (e.g. 'top hat') in a GLOBAL constraint — FLUX ignores the exclusivity logic and just draws the named object everywhere (it summoned top hats onto the storm crowd and the creature). Keep accessory rules per-character in the cast, or in by_tag applied only during repair.",
+  "global": [
+    "Draw every character as a complete full-body figure, from head to feet, standing whole in the scene."
+  ],
+  "by_tag": {
+    "cropped_figure": "Show each character's complete body from head to toe, standing whole.",
+    "extra_figures": "Include only the exact characters listed, each a complete separate full body, with empty background around them.",
+    "identity_drift": "Keep each character identical to their own established design from the other panels.",
+    "scene_mismatch": "Show the stated action clearly and literally.",
+    "capzone_blocked": "Keep the caption zone as a plain empty area of background.",
+    "style_drift": "Keep a clean thin black-and-white cartoon line style, light and tidy.",
+    "deathbed": [
+      "Female-dominant emotional scenes (deathbed/sickbed) collapse mixed-gender groups to women on free FLUX and drop male signifiers (glasses) — frame as joined-hands close beat or a 2-figure male-subject shot; full mixed group needs T1 IP-Adapter."
+    ],
+    "krempe": [
+      "Free FLUX will not render Krempe as short/squat/dwarfish — it defaults to average or tall height; lock him instead via wild grey hair + deep scowl + gruff caricature + finger-jab gesture (matches ch3), never rely on stature."
+    ]
+  }
+}

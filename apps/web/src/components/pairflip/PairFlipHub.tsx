@@ -10,7 +10,7 @@
 
 'use client'
 
-import { Activity, Layers, Shuffle, Sparkles } from 'lucide-react'
+import { Activity, ChevronRight, Layers, Shuffle, Sparkles } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
@@ -18,6 +18,8 @@ import { ModuleHero } from '@/components/hub/ModuleHero'
 
 import { STORAGE_KEYS } from './constants'
 import { PairFlipLevelSelector } from './PairFlipLevelSelector'
+import { GamePoolPanel } from '@/components/hub/GamePoolPanel'
+
 import { PairFlipMascot } from './PairFlipMascot'
 import { PairFlipModeSelector } from './PairFlipModeSelector'
 import { PF_COLORS } from './theme'
@@ -40,7 +42,23 @@ const LEARNING_EFFECTS = [
   { ko: '작업 기억', en: 'Working Memory — 동시 다중 매칭' },
 ]
 
-export function PairFlipHub({ stats = STATS_ZERO }: { stats?: PairFlipHubStats }) {
+/**
+ * 한 판이 성립하는 최소 단어 수 = 가장 쉬운 난이도의 pairCount(`constants.ts` Easy = 4).
+ * 허브가 더 낮게 잡으면 "시작" 을 눌러도 판이 안 만들어진다.
+ */
+const MIN_PAIRS = 4
+
+export function PairFlipHub({
+  stats = STATS_ZERO,
+  poolWords = [],
+  ownedTotal = 0,
+}: {
+  stats?: PairFlipHubStats
+  /** 게임이 실제로 쓸 짝 후보(`fetchDuePairs`) — 허브가 따로 세지 않는다 */
+  poolWords?: { en: string; ko: string }[]
+  /** 학습자 보유 단어 총수. 위 풀은 `PAIRFLIP_MAX_PAIRS` 로 잘려 있어 총수가 아니다 */
+  ownedTotal?: number
+}) {
   const router = useRouter()
   const [level, setLevel] = useState<PairFlipLevel>('normal')
   const [mode, setMode] = useState<PairFlipMode>('word_meaning')
@@ -68,6 +86,8 @@ export function PairFlipHub({ stats = STATS_ZERO }: { stats?: PairFlipHubStats }
         title="PairFlip"
         note={note}
         gradient={{ from: '#1E3A8A', to: '#1E1B4B' }}
+        // PRACTICE 그룹 — 조용한 변형(형제 일관)
+        quiet
         icon={Shuffle}
         stats={[
           {
@@ -88,8 +108,26 @@ export function PairFlipHub({ stats = STATS_ZERO }: { stats?: PairFlipHubStats }
         ]}
       />
 
-      {/* ── 2. 학습 효과 + 게임 규칙 ── */}
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+      {/* ── 2. 이번 판 단어 ──
+          설명서보다 먼저 온다. 이 화면에서 학습자가 먼저 알아야 하는 것은 규칙이 아니라
+          **무엇으로 노는가** 다(WordBlitz 와 같은 판단 · 형제 일관성). */}
+      <GamePoolPanel words={poolWords} ownedTotal={ownedTotal} minWords={MIN_PAIRS} />
+
+      {/* ── 3. 설명은 접어 둔다 (WordBlitz 와 같은 판단 · 형제 일관) ──
+          "학습 효과 + 게임 규칙" 이 화면의 30% 를 상시 차지했다. 처음 한 번은 유용하지만
+          매번 보는 것이 되면 설명이 아니라 소음이다. 연습 화면에서 먼저 와야 하는 것은
+          무엇으로 노는가(위 풀)와 시작이다. `<details>` — JS 없이 · 기본 접힘 · SR 지원. */}
+      <details className="group">
+        <summary className="inline-flex cursor-pointer list-none items-center gap-2 rounded-[var(--r-sm)] py-2 font-body text-[12.5px] text-[var(--t2)] transition-colors hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] [&::-webkit-details-marker]:hidden">
+          <ChevronRight
+            size={13}
+            aria-hidden
+            className="shrink-0 transition-transform duration-[var(--dur-normal)] group-open:rotate-90"
+          />
+          이 게임이 뭘 하는지
+        </summary>
+
+        <div className="mt-3 grid grid-cols-1 gap-4 lg:grid-cols-3">
         {/* 학습 효과 */}
         <aside
           aria-label="학습 효과"
@@ -109,7 +147,7 @@ export function PairFlipHub({ stats = STATS_ZERO }: { stats?: PairFlipHubStats }
             {LEARNING_EFFECTS.map((e) => (
               <li key={e.en}>
                 <p className="font-display text-[13px] font-[700] text-[var(--t1)]">{e.ko}</p>
-                <p className="mt-0.5 font-mono text-[10px] text-[var(--t3)]">{e.en}</p>
+                <p className="mt-0.5 font-mono text-[10px] text-[var(--t2)]">{e.en}</p>
               </li>
             ))}
           </ul>
@@ -129,7 +167,7 @@ export function PairFlipHub({ stats = STATS_ZERO }: { stats?: PairFlipHubStats }
               <Sparkles size={14} strokeWidth={1.75} />
             </span>
             <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">게임 규칙</h2>
-            <span className="ml-auto font-mono text-[11px] text-[var(--t3)]">3단계</span>
+            <span className="ml-auto font-mono text-[11px] text-[var(--t2)]">3단계</span>
           </header>
           <ol className="grid grid-cols-1 gap-3 sm:grid-cols-3">
             {[
@@ -141,16 +179,17 @@ export function PairFlipHub({ stats = STATS_ZERO }: { stats?: PairFlipHubStats }
                 key={r.step}
                 className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-3"
               >
-                <p
-                  className="font-mono text-[10px] font-[700] tabular-nums tracking-[0.10em]"
-                  style={{ color: PAIRFLIP_ACCENT }}
-                >
+                {/* ⚠️ 순서 표시는 **글자**다. 강조색(PAIRFLIP_ACCENT #F59E0B)을 그대로 쓰면
+                    --bg2 위에서 **1.89:1** 이 된다(실측 2026-08-22 · 이 하나에서 15건).
+                    면을 칠하는 색과 글자로 쓰는 색은 다르다 — 글자는 테마별 잉크 토큰으로.
+                    (다크에서는 같은 앰버가 8.53:1 로 멀쩡하다. 그래서 한 색으로는 못 맞춘다.) */}
+                <p className="font-mono text-[10px] font-[700] tabular-nums tracking-[0.10em] text-[var(--active-ink)]">
                   {r.step}
                 </p>
                 <p className="mt-1 font-display text-[13px] font-[700] text-[var(--t1)]">
                   {r.title}
                 </p>
-                <p className="mt-0.5 font-body text-[11px] leading-snug text-[var(--t3)]">
+                <p className="mt-0.5 font-body text-[11px] leading-snug text-[var(--t2)]">
                   {r.desc}
                 </p>
               </li>
@@ -165,7 +204,8 @@ export function PairFlipHub({ stats = STATS_ZERO }: { stats?: PairFlipHubStats }
             <PairFlipMascot mood="idle" size={64} />
           </div>
         </aside>
-      </div>
+        </div>
+      </details>
 
       {/* ── 3. 시작 설정 — Level + Mode + CTA ── */}
       <section
@@ -181,7 +221,7 @@ export function PairFlipHub({ stats = STATS_ZERO }: { stats?: PairFlipHubStats }
             <Layers size={14} strokeWidth={1.75} />
           </span>
           <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">시작 설정</h2>
-          <span className="ml-auto font-mono text-[11px] text-[var(--t3)]">
+          <span className="ml-auto font-mono text-[11px] text-[var(--t2)]">
             난이도와 모드를 선택하세요
           </span>
         </header>
@@ -207,7 +247,7 @@ export function PairFlipHub({ stats = STATS_ZERO }: { stats?: PairFlipHubStats }
           type="button"
           onClick={handleStart}
           aria-label="게임 시작"
-          className="group inline-flex w-full items-center justify-center gap-1.5 rounded-[var(--r-md)] py-3.5 font-display text-[15px] font-[700] tracking-[0.01em] transition-all duration-[var(--dur-normal)] ease-[var(--ease-spring)] hover:-translate-y-0.5 active:translate-y-[1px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B] focus-visible:ring-offset-2 md:text-[16px]"
+          className="group inline-flex w-full items-center justify-center gap-2 rounded-[var(--r-md)] py-4 font-display text-[15px] font-[700] tracking-[0.01em] transition-all duration-[var(--dur-normal)] ease-[var(--ease-spring)] hover:-translate-y-0.5 active:translate-y-[1px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B] focus-visible:ring-offset-2 md:text-[16px]"
           style={{
             background: `linear-gradient(135deg, ${PF_COLORS.coverFrom} 0%, ${PF_COLORS.coverMid} 60%, ${PF_COLORS.coverTo} 100%)`,
             color: PF_COLORS.goldLight,

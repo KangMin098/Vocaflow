@@ -1,0 +1,1727 @@
+{
+  "chunk": 6,
+  "type_id": "R-ORDER",
+  "type_name": "글의 순서",
+  "analyses": [
+    {
+      "item_id": "M2706#36",
+      "measured_ability": "블록 끝에 놓인 예고 문장(Nor are individual plants entirely on their own)이 어느 블록의 내용을 부르는지 짚어 두 블록의 인접을 확정하는 능력",
+      "design_intent": "주어진 글이 화학적 방어 한 종류만 말해 두고, 구조적 방어를 더하는 (C)와 이웃 식물의 도움을 말하는 (B) 중 어느 것이 먼저인지를 (C) 끝의 부정 도치문 하나로만 가르게 설계했다. 어휘가 겹치는 (B)를 먼저 붙이게 만드는 것이 이 문항의 미끼다.",
+      "answer_locus": {
+        "sentence_index": [
+          9,
+          6
+        ],
+        "quote": "Nor are individual plants entirely on their own while under attack.",
+        "reasoning": "이 문장은 (C)의 마지막 줄이고, 개별 식물이 혼자가 아니라는 예고다. 예고를 받는 내용은 이웃 식물에게 신호를 보내고 포식자를 부른다는 (B)뿐이므로 (C)-(B) 인접이 고정된다. (A)는 The back-and-forth 라는 정관사 명사구로 식물-곤충의 주고받음 전체를 되받고 maintain the stalemate 로 닫으므로 마지막 자리에만 놓인다. 따라서 (C)-(B)-(A)."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "지시어 선행사 없음",
+          "why_tempting": "(A)의 New plant defenses unintentionally select for insects with ways to get around them 이 주어진 글의 곤충 이야기를 그대로 잇는 듯 보여 (A)를 첫 블록으로 잡게 된다.",
+          "how_to_reject": "(A) 첫 문장 The back-and-forth is not a matter of natural balance 의 정관사 명사구가 가리킬 주고받음이 주어진 글에 없다. 주어진 글은 식물이 곤충을 쫓는 한 방향만 말한다. 또 (C) 끝의 Nor are individual plants entirely on their own 이 (B)와 떨어져 응답을 잃는다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "어휘 반복에 낚임",
+          "why_tempting": "주어진 글의 load their tissues with harsh compounds 와 (B) 첫 문장의 release chemical compounds 가 compounds 로 겹쳐 (B)가 바로 이어지는 것처럼 읽힌다.",
+          "how_to_reject": "(B)를 앞으로 당기면 (C)의 마지막 문장 Nor are individual plants entirely on their own while under attack. 이 이미 말한 이웃 협력을 뒤늦게 처음 꺼내는 문장이 된다. 예고문은 응답 앞에만 설 수 있다. 게다가 이 배열은 (C)로 끝나 예고문이 글의 마지막 줄이 된다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "예고–응답 분리",
+          "why_tempting": "마무리 성격의 (A)를 마지막에 두었으므로 큰 틀이 맞아 보이고, (B)의 화학 신호 뒤에 (C)의 구조적 방어를 또 다른 방어로 더하는 것도 자연스러워 보인다.",
+          "how_to_reject": "(C) 안에서 Structural defenses like thick coats of wax 와 Nor are individual plants entirely on their own 은 한 블록에 붙어 있고, 뒤 문장은 (B)를 부르는 예고다. (B)를 (C) 앞에 두면 이 예고가 응답을 잃는다. 주어진 글의 Some load their tissues with harsh compounds 와 (C)의 Structural defenses 가 방어 유형 열거의 짝이라는 점도 (C)가 먼저임을 가리킨다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "끝맺음 위반",
+          "why_tempting": "(C)를 첫 블록으로 옳게 잡은 뒤, 방어의 진화를 일반화하는 (A)를 곧바로 붙이면 논의가 확장되는 듯 보인다.",
+          "how_to_reject": "(C)의 마지막 문장이 (B)를 직접 부르므로 (C)와 (B) 사이에 (A)가 낄 수 없다. 또 (A)의 마지막 문장 New variations, shading into entire new forms and adaptations, maintain the stalemate. 는 총괄 진술이라 그 뒤에 (B)의 새 사례가 오면 요약 뒤에 예시를 다는 꼴이 된다."
+        },
+        {
+          "n": 5,
+          "verdict": "correct",
+          "why_correct": "이음매 셋이 표지로 잡힌다. ① 주어진 글의 ‘Some load their tissues with harsh compounds’ 는 방어의 한 종류만 든 열거의 첫 항이고, (C)의 첫 문장 ‘Structural defenses like thick coats of wax on leaves’ 가 Structural 로 다른 종류를 더해 그 열거를 잇는다. ② (C)의 끝 ‘Nor are individual plants entirely on their own while under attack.’ 이 예고한 「혼자가 아님」을 (B)의 ‘let their same-species neighbors know that an attack is likely coming’ 과 ‘a call for an assist’ 가 그대로 채운다. ③ (B)까지 와야 식물과 곤충이 주고받은 것이 갖춰져 (A)의 첫 낱말 ‘The back-and-forth’ 가 받을 앞말이 생기고, (A)의 끝 ‘maintain the stalemate’ 가 총괄로 닫는다. 그래서 정답 선지는 (C) － (B) － (A) 다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "주어진 글의 마지막 문장에서 열거·예고를 여는 말을 표시한다. 여기서는 Some load their tissues with harsh compounds — 방어의 한 종류만 말했으므로 다른 종류가 뒤따를 자리가 비어 있다.",
+          "on_fail": "예고어가 안 보이면 주어진 글의 첫 문장에서 화제어(defenses)를 뽑아 각 블록 첫 문장에 그 낱말이 있는지만 표시한다."
+        },
+        {
+          "step": "(A)(B)(C)의 첫 문장만 보고 정관사 명사구·지시어·비교급에 밑줄을 친다. (A)의 The back-and-forth, (B)의 Plants can release, (C)의 Structural defenses like thick coats of wax.",
+          "on_fail": "밑줄 칠 것이 여러 블록에 있으면 그중 앞말 없이도 읽히는 블록을 첫 자리 후보로 남긴다."
+        },
+        {
+          "step": "밑줄이 정관사 명사구인 블록((A))은 첫 자리에서 뺀다. 선지에서 (A)로 시작하는 1번을 지운다.",
+          "on_fail": "(A)를 못 지우겠으면 (A)의 마지막 문장이 총괄인지 확인한다 — 총괄이면 (A)는 마지막 자리다."
+        },
+        {
+          "step": "각 블록의 마지막 문장을 읽고 다음 블록을 부르는 예고문을 찾는다. (C) 끝의 Nor are individual plants entirely on their own while under attack. 이 이웃의 도움을 예고하므로 (C) 바로 뒤는 (B)다.",
+          "on_fail": "예고문을 못 찾으면 (B)의 same-species neighbors 와 collaborators 가 어느 블록의 표현에 응답하는지 역방향으로 찾는다."
+        },
+        {
+          "step": "(C)-(B) 인접을 담은 선지만 남기고, 주어진 글 → (C) → (B) → (A) 순으로 첫 문장만 이어 읽어 같은 대상이 두 번 처음 소개되는 자리가 없는지 확인한다.",
+          "on_fail": "두 선지가 남으면 (A)가 마지막인 쪽을 고른다 — (A)는 maintain the stalemate 로 닫는 총괄이다."
+        }
+      ],
+      "time_budget_sec": 105,
+      "difficulty": {
+        "predicted": 0.62,
+        "drivers": [
+          "(B)와 주어진 글이 compounds 로 어휘가 겹쳐 (B)를 첫 블록으로 당기게 한다",
+          "(C)의 예고문이 부정 도치(Nor are ...)라 예고임을 놓치기 쉽다",
+          "(A)의 The back-and-forth 가 추상 명사구여서 선행사 확인이 늦다"
+        ]
+      },
+      "required_vocab": [
+        "defenses",
+        "compounds",
+        "structural",
+        "stalemate",
+        "resilient"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 를 corpus.json 의 M2706#36 passage 에서 문자열로 확인했다",
+            "순서 유형 정의(블록 경계의 결속 장치로 배열을 확정)에 맞게 근거를 블록 끝과 블록 첫 문장에 두었다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「(C)의 예고문 → (B)의 이웃 협력 → (A)의 총괄 순으로 읽힌다.」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
+          ],
+          "checked": [
+            "answer_locus.quote 를 corpus passage 와 문자열 대조",
+            "정답 5 = (C)-(B)-(A) 가 선지 문자열과 일치하는지 대조",
+            "출제 의도가 이 지문 고유의 장치(부정 도치 예고문)를 지목하는지 확인",
+            "이음매 3곳의 표지와 그 표지가 받는 낱말을 지문에서 문자열로 대조"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "revised": true,
+          "findings": [
+            "1차 작성에서 2번과 3번의 how_to_reject 가 둘 다 Nor 문장이 응답을 잃는다로 동일했다 — 두 선지를 가르는 자가 없었다. 2번은 (C)로 끝나 예고문이 글의 마지막 줄이 되는 점, 3번은 (A) 위치는 맞지만 (C)-(B) 인접이 깨지는 점으로 갈라 다시 썼다",
+            "함정 라벨 4종이 서로 다르다: 지시어 선행사 없음 · 어휘 반복에 낚임 · 예고–응답 분리 · 끝맺음 위반",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「(C)의 예고문 → (B)의 이웃 협력 → (A)의 총괄 순으로 읽힌다.」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
+          ],
+          "checked": [
+            "오답 4개의 trap 라벨 중복 여부",
+            "why_tempting 이 실제 선지 배열(어느 블록이 앞에 오는지)에 근거하는지",
+            "how_to_reject 마다 지문 위치(블록 이름과 문장)가 적혔는지",
+            "재작성 후 2번3번 배제 근거가 서로 다른 문장을 가리키는지 재확인",
+            "정답 근거가 오답 배제 없이 홀로 서는지 확인 — 세 인접이 각각 독립 근거다"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "1~3단계는 지문 본문을 읽기 전에 첫 문장만 보고 실행할 수 있다",
+            "105초 안에 5단계가 들어간다 — 4단계(마지막 문장 3개 읽기)가 가장 오래 걸려 약 35초",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「(C)의 예고문 → (B)의 이웃 협력 → (A)의 총괄 순으로 읽힌다.」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
+          ],
+          "checked": [
+            "각 단계가 지문을 아직 안 본 학생이 실행 가능한지 점검",
+            "금지 표현 문자열 검색",
+            "required_vocab 5개가 정답 확정에 실제로 쓰이는 낱말인지 확인",
+            "학생이 (C)(B)(A) 첫 문장과 끝 문장만 보고 세 이음매를 짚을 수 있는지 점검"
+          ]
+        }
+      ],
+      "revised": true
+    },
+    {
+      "item_id": "M2706#37",
+      "body_recovered": true,
+      "measured_ability": "In saying that · By extension · also 세 연결 표지가 각각 어느 진술을 되받는지 짚어 세 블록의 선후를 확정하는 능력",
+      "design_intent": "주어진 글의 문화 틀 안에서 작동한다는 주장을 (C)가 In saying that 으로 되받고, (C)의 문학 비유를 (A)가 By extension 으로 확장하며, (A)가 남긴 imitation is not enough 를 (B)가 must also be spectacular 로 받는 3단 사슬을 만들었다. 표지 하나만 잘못 걸면 세 자리가 모두 어긋나도록 짠 3점 문항이다.",
+      "answer_locus": {
+        "sentence_index": [
+          7,
+          5
+        ],
+        "quote": "In saying that, we stress that creation of spectacle is neither a universal nor even an inevitable expression of culture",
+        "reasoning": "In saying that 의 that 은 바로 앞에 놓인 진술 전체를 가리킨다. 그 자리에 올 수 있는 것은 주어진 글의 spectacle works primarily within a cultural frame 뿐이다 — (A)는 제작 방법을, (B)는 요구 조건을 말할 뿐 문화의 보편적 표현이 아니라 전략이라고 되받을 대상 진술이 없다. 그래서 (C)가 첫 블록이고, (C) 끝의 문학 비유를 (A)가 By extension 으로 이어받아 but imitation is not enough 로 닫으면 (B)의 Spectacle must also be spectacular. 가 그 also 를 받아 마지막에 온다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "연결사 방향 오독",
+          "why_tempting": "(A)의 By extension 을 주어진 글의 문화 틀 주장을 확장하는 말로 읽으면 (A)가 곧바로 이어지는 것처럼 보인다.",
+          "how_to_reject": "(A)가 확장하는 것은 문화마다 다른 필요에 대응하는 전략이라는 (C)의 규정과 그 뒤 문학 비유(rules and traditions ... yet ... originality)다. (A)의 blending the innovative with the established 가 그 비유의 두 축을 그대로 옮긴 말이므로 (A) 앞에는 (C)가 있어야 한다. 또 (C)의 In saying that 이 (A) 뒤로 가면 that 이 (A)의 제작 방법을 가리키게 되어 보편적 표현이 아니라는 반박 대상이 사라진다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "지시어 선행사 없음",
+          "why_tempting": "(B)가 짧고 일반적이어서 주제문처럼 읽히고, Spectacle must also be spectacular. 가 주어진 글의 spectacle 을 바로 잇는 것처럼 보인다.",
+          "how_to_reject": "(B) 첫 문장의 also 는 앞에 이미 제시된 다른 요구 조건을 전제한다. 주어진 글에는 요구 조건이 없고, 조건은 (A)의 may draw on a repertoire of techniques and conventions ... but imitation is not enough 에서 처음 나온다. 게다가 이 배열은 (C)로 끝나 In saying that 이 (A)를 가리키게 된다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "예고–응답 분리",
+          "why_tempting": "(B)를 먼저 두고 (C)의 In saying that 이 (B)의 주장을 되받는다고 보면 두 블록이 이어지는 것처럼 읽힌다.",
+          "how_to_reject": "(A)의 마지막 but imitation is not enough 와 (B)의 첫 문장 Spectacle must also be spectacular. 는 미해결-응답의 한 쌍이다. 이 배열은 그 둘을 글의 양 끝으로 갈라놓는다. (C)의 that 이 되받을 대상도 (B)의 놀라게 해야 한다가 아니라 주어진 글의 문화 틀 안에서 작동한다이다."
+        },
+        {
+          "n": 4,
+          "verdict": "correct",
+          "why_correct": "이음매 둘이 표지로 잡힌다. ① (C)의 첫머리 'In saying that' 의 that 은 바로 앞에 놓인 진술 전체를 받는데, 그 자리에 올 수 있는 것은 주어진 글의 'spectacle works primarily within a cultural frame and is subject to prevailing modes of perception' 뿐이다 — (A)는 제작 방법을, (B)는 요구 조건을 말할 뿐 '보편적 표현이 아니라 전략' 이라고 되받을 대상 진술이 없다. ② (C)의 끝이 spectacle 만들기를 문학 창작에 빗대 'feel bound by the rules and traditions of their genre yet need to show sufficient originality' 라 하고, (A)의 첫 낱말 'By extension' 이 그 비유를 확장해 'blending the innovative with the established' 로 같은 대립을 spectacle 에 옮긴다. ③ (A)의 끝 'but imitation is not enough' 를 (B)의 'Spectacle must also be spectacular.' 가 also 로 받아 모자란 한 가지를 댄다 — also 는 앞에 이미 요구된 것이 있어야 쓴다. 그래서 정답 선지는 (C) － (A) － (B) 다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "끝맺음 위반",
+          "why_tempting": "(C)를 첫 블록으로 옳게 잡은 뒤, (C) 끝의 need to show sufficient originality to impress their audiences 에 (B)의 has to amaze spectators 를 곧바로 붙이면 뜻이 이어지는 듯 보인다.",
+          "how_to_reject": "이 배열은 (A)로 끝나는데 (A)의 마지막이 but imitation is not enough 라는 미해결 단서다. 글이 응답을 요구하는 문장으로 끝날 수 없다. 그 응답이 (B)의 Spectacle must also be spectacular. 이므로 (B)가 뒤에 와야 하고, (A)의 By extension 은 (C) 바로 뒤에서만 확장 대상을 얻는다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "주어진 글의 마지막 문장에서 주장 하나를 한 줄로 적어 둔다. 여기서는 스펙터클은 문화 틀 안에서 작동한다.",
+          "on_fail": "주장을 못 적으면 주어진 글에서 반복되는 명사(spectacle, culture)만 표시해 둔다."
+        },
+        {
+          "step": "(A)(B)(C)의 첫 두 어절만 보고 연결 표지를 적는다. (A) By extension / (B) must also / (C) In saying that.",
+          "on_fail": "표지가 없는 블록이 있으면 그 블록의 첫 문장 주어가 새 대상인지 확인해 첫 자리 후보로 둔다."
+        },
+        {
+          "step": "that·this 류 지시 표지가 붙은 블록((C))을 골라, 그 지시어가 가리킬 진술이 주어진 글에 있는지 대조한다. 있으면 그 블록이 첫 자리다.",
+          "on_fail": "지시 대상이 주어진 글에 없으면 다른 블록의 마지막 문장들과 차례로 대조한다."
+        },
+        {
+          "step": "also·too 가 붙은 블록((B))은 앞에 또 하나의 조건이 이미 나와야 하므로 첫 자리에서 뺀다. (B)로 시작하는 2번3번을 지운다.",
+          "on_fail": "also 의 짝을 못 찾으면 나머지 두 블록의 마지막 문장에서 충분하지 않다·필요하다 류 표현을 찾는다."
+        },
+        {
+          "step": "남은 4번5번 중, 마지막 블록의 끝 문장이 응답을 요구하는 단서인지 본다. (A)로 끝나는 5번은 but imitation is not enough 로 끝나므로 버리고 4번을 고른다.",
+          "on_fail": "판단이 서지 않으면 (A)의 By extension 이 확장할 진술이 바로 앞 블록 끝에 있는지로 되돌아가 확인한다."
+        }
+      ],
+      "time_budget_sec": 130,
+      "difficulty": {
+        "predicted": 0.44,
+        "drivers": [
+          "3점 문항이며 추상 명사(spectacle, repertoire, convention) 밀도가 높다",
+          "(C)가 첫 블록인데 In saying that 이 앞 블록을 요구하는 것처럼 보여 뒤로 밀기 쉽다",
+          "(A)와 (B)가 모두 모방만으로 부족하다는 같은 방향의 진술이라 선후가 흐릿하다"
+        ]
+      },
+      "required_vocab": [
+        "spectacle",
+        "repertoire",
+        "conventions",
+        "imitation",
+        "originality"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "body_ok:false 문항이라 raw_block 에서 (A)(B)(C) 원문을 다시 읽고 분석했다 — 선지 문자열이 파서에서 깨져 있으나 배열 기호 자체는 표준 5배열이다",
+            "quote 를 corpus passage 에서 문자열로 확인했다",
+            "3차(근거/심리 판별) 재검수 — why_correct 가 표지 이름만 한 줄로 늘어놓아(In saying that → By extension → must also) 어느 표지가 어느 낱말을 받는지가 없었다. 3차 판정에서 반쪽으로 보아 이음매별로 받는 항을 적어 보강했다."
+          ],
+          "checked": [
+            "raw_block 원문과 corpus passage 대조",
+            "answer_locus.quote 문자열 대조",
+            "정답 4 = (C)-(A)-(B) 가 raw_block 의 4번 표기와 일치하는지 확인",
+            "why_correct 의 인용을 corpus.json 현재 지문과 문자열 대조",
+            "why_correct 의 대응이 정답 선지 문면과 낱말 단위로 맞물리는지 재확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "오답 4개가 서로 다른 자에 걸린다: 1번은 By extension 의 확장 대상, 2번은 also 의 짝, 3번은 미해결-응답 쌍의 분리, 5번은 마지막 자리의 끝맺음",
+            "2번과 3번이 모두 (B) 첫 블록이라 근거가 겹칠 위험이 있어 2번은 also, 3번은 (A)-(B) 쌍 분리로 초점을 달리 두었다",
+            "3차 재검수 — 다시 쓴 why_correct 가 소거법(\"나머지가 다 틀렸으므로\")에 기대지 않고 정답 선지 자체의 근거를 대는지 확인했다. 오답 4개의 trap·why_tempting·how_to_reject 는 손대지 않았다."
+          ],
+          "checked": [
+            "trap 라벨 4종 중복 검사",
+            "why_tempting 이 각 배열의 첫 블록 선택에 근거하는지",
+            "how_to_reject 에 블록 이름과 인용 표현이 있는지",
+            "why_correct 에 소거법 서술이 없는지 검사",
+            "오답 선지 서술이 그대로인지 대조"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "revised": true,
+          "findings": [
+            "1차 절차의 2단계가 세 블록을 읽고 연결 표지를 찾는다였는데 3점 지문 전체를 읽으라는 뜻이 되어 시간이 넘쳤다. 첫 두 어절만 본다로 좁혀 다시 썼다",
+            "130초는 3점 순서 문항의 상한에 가깝다 — 4단계까지 90초, 검산 40초로 배분",
+            "3차 재검수 — 다시 쓴 why_correct 가 학습자가 눈으로 맞춰 볼 수 있는 두 자리(지문의 표현 ↔ 선지의 표현)를 지목하는지 확인했다. solve_procedure 는 손대지 않았다."
+          ],
+          "checked": [
+            "단계별 실행 가능성(지문 미독 상태)",
+            "금지 표현 검색",
+            "time_budget_sec 130 을 단계별 소요로 나눠 검증",
+            "required_vocab 5개가 표지 판정에 실제로 필요한지",
+            "학습자가 짚을 자리가 문장 단위로 지정되었는지 확인"
+          ]
+        }
+      ],
+      "revised": true
+    },
+    {
+      "item_id": "2026#36",
+      "body_recovered": true,
+      "measured_ability": "another 와 like this 처럼 앞의 특정 사례를 요구하는 표현을 찾아 그 사례가 있는 블록 뒤로 배치하는 능력",
+      "design_intent": "겉보기에는 연속적인데 실은 반복이라는 특수 사례를 (A)의 양초로 먼저 세우고, (B)가 그것을 another ... that also appears to be like this 로 받게 했다. 물시계·석영이라는 눈에 띄는 예시가 (C)에 있어 (C) 뒤에 (B)를 붙이고 싶게 만드는 것이 미끼다.",
+      "answer_locus": {
+        "sentence_index": [
+          7,
+          4
+        ],
+        "quote": "The use of radiocarbon dating is another, much longer scale clock that also appears to be like this.",
+        "reasoning": "another 와 like this 는 이미 나온 같은 종류의 사례를 요구한다. 여기서 종류는 뒤 문장이 규정한다 — It seems to yield a smooth time scale but in fact does not. 매끄러워 보이지만 실은 반복인 사례는 (A)의 a candle marked in hours 뿐이고, (C)의 물시계·석영은 눈에 보이게 반복하므로 like this 의 선행 사례가 될 수 없다. 따라서 (A)-(B) 인접이 고정되고, 일반 규정과 기본 예시를 담은 (C)가 앞에 와서 (C)-(A)-(B)가 된다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "연결사 방향 오독",
+          "why_tempting": "(A)의 Indeed 가 주어진 글의 the nature of that process is repetitive 를 강조하며 잇는 것처럼 읽힌다.",
+          "how_to_reject": "(A)의 The only example that comes to mind readily is a candle marked in hours. 는 이미 일반 규정과 평범한 예시가 나온 뒤라야 유일한 예외가 된다. 그 규정과 예시가 (C)의 A clock can be almost any process that repeats itself 와 Water clocks drip at a steady pace; quartz crystals vibrate regularly. 이므로 (C)가 (A) 앞에 있어야 한다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "지시어 선행사 없음",
+          "why_tempting": "(B)의 radiocarbon dating 이 시계의 새 사례로 보여 주어진 글 뒤에 바로 놓고 싶어진다.",
+          "how_to_reject": "(B) 첫 문장의 another 와 like this 가 가리킬 앞 사례가 주어진 글에 없다. 주어진 글은 시계가 반복 과정이라는 규정만 말할 뿐 매끄러워 보이는 시계를 하나도 들지 않았다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "첫 등장 역전",
+          "why_tempting": "(B)-(C)-(A)로 두면 (C)의 물시계·석영이 (B)의 사례에 이어지는 예시 목록처럼 보인다.",
+          "how_to_reject": "(C)는 A clock can be almost any process that repeats itself over and over again 이라는 정의문으로 시작한다. 정의는 개별 사례(radiocarbon dating)보다 앞에 온다. 정의가 두 번째 블록에 오면 (B)의 another 가 가리킬 대상이 여전히 비어 있다."
+        },
+        {
+          "n": 4,
+          "verdict": "correct",
+          "why_correct": "이음매 둘이 표지로 잡힌다. ① 주어진 글이 'a clock is really a process embodied in a machine, and the nature of that process is repetitive' 로 그치고, (C)의 첫 문장 'A clock can be almost any process that repeats itself over and over again for an indefinite period.' 이 그 repetitive 를 일반 규정으로 펴며 물시계·석영이라는 눈에 보이는 예를 든다. ② (A)의 'Indeed, it is almost impossible to think of a clock that does not depend on a repetitive cycle of events.' 는 Indeed 로 그 규정을 받아 강조한 뒤 예외처럼 보이는 'a candle marked in hours' 를 들었다가 'but here too there is iteration' 으로 도로 규정 안에 넣는다. ③ (B)의 첫 문장 'The use of radiocarbon dating is another, much longer scale clock that also appears to be like this.' 에서 another 와 like this 가 요구하는 앞 사례는 뒤 문장이 규정한다 — 'It seems to yield a smooth time scale but in fact does not'. 곧 매끄러워 보이지만 실은 반복인 것이라야 하고, (C)의 물시계·석영은 눈에 보이게 반복하므로 자격이 없으며 (A)의 양초만 자격이 있다. 그래서 정답 선지는 (C) － (A) － (B) 다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "예고–응답 분리",
+          "why_tempting": "(C)를 첫 블록으로 옳게 잡은 뒤, 물시계·석영 다음에 radiocarbon dating 을 또 하나의 예로 붙이면 예시 나열이 자연스러워 보인다.",
+          "how_to_reject": "(B)의 like this 는 앞 사례가 appears 즉 겉보기와 실제가 다른 경우여야 함을 요구한다. (C)의 물시계·석영은 drip at a steady pace, vibrate regularly 로 반복이 드러나 있어 조건을 채우지 못한다. 조건을 채우는 것은 (A)의 although at first masked 뿐이므로 (A)와 (B)를 갈라놓을 수 없다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "(A)(B)(C)의 첫 문장에서 another·other·this·these·such 를 찾아 표시한다. 여기서는 (B)에 another 와 like this 가 함께 있다.",
+          "on_fail": "표시할 말이 없으면 각 블록 첫 문장의 주어가 새 대상인지 기존 대상인지만 적는다."
+        },
+        {
+          "step": "표시된 블록((B))은 첫 자리에서 뺀다. (B)로 시작하는 2번3번을 지운다.",
+          "on_fail": "another 의 대상을 주어진 글에서 찾을 수 있다고 판단되면, 그 대상이 주어진 글에 명사로 실제 적혀 있는지 짚어 확인한다."
+        },
+        {
+          "step": "another 가 요구하는 같은 종류가 무엇인지 (B)의 두 번째 문장에서 확정한다 — It seems to yield a smooth time scale but in fact does not.",
+          "on_fail": "종류를 못 정하면 (B)에서 반복되는 형용사(smooth, continuous)를 뽑아 두 블록에서 같은 뜻의 말을 찾는다."
+        },
+        {
+          "step": "남은 (A)(C) 중 그 조건에 맞는 사례가 있는 블록을 (B) 앞에 붙인다. (A)의 although at first masked 가 조건과 맞으므로 (A)-(B) 인접이다.",
+          "on_fail": "두 블록 다 맞아 보이면 정의문으로 시작하는 블록을 앞에, 예외 사례를 든 블록을 뒤에 둔다."
+        },
+        {
+          "step": "남은 선지 중 (A)-(B)가 붙어 있는 4번만 남는다. 주어진 글 → (C) → (A) → (B) 순으로 첫 문장을 이어 읽어 확인한다.",
+          "on_fail": "둘 이상 남으면 첫 블록 후보에서 지시 표현이 없는 쪽((C))을 앞에 둔 선지를 고른다."
+        }
+      ],
+      "time_budget_sec": 105,
+      "difficulty": {
+        "predicted": 0.58,
+        "drivers": [
+          "(C)와 (A) 모두 예시를 들어 예시 나열 순서로 착각하기 쉽다",
+          "like this 가 가리키는 것이 사례가 아니라 겉보기와 실제가 다름이라는 성질이라 한 겹 더 들어간다",
+          "candle 과 radiocarbon dating 등 소재가 서로 멀어 대응 관계가 눈에 늦게 들어온다"
+        ]
+      },
+      "required_vocab": [
+        "repetitive",
+        "iteration",
+        "iterative",
+        "decay",
+        "continuous"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "body_ok:false 라 raw_block 에서 원문을 다시 읽었다. corpus passage 에도 같은 문장들이 있어 quote 대조가 가능했다",
+            "근거를 (B) 첫 문장 하나에 두어 순서 유형의 설계(블록 첫 문장의 결속 장치)와 맞는다",
+            "3차(근거/심리 판별) 재검수 — why_correct 가 '정의·기본 예시 → 예외처럼 보이는 양초 → 추가 사례' 라는 요약뿐이라 이음매마다 어느 표지가 어느 낱말을 받는지가 없었다. 반쪽으로 보아 Indeed · another · like this 를 각각 짚어 보강했다."
+          ],
+          "checked": [
+            "raw_block 과 corpus passage 문장 일치 확인",
+            "quote 문자열 대조",
+            "정답 4 = (C)-(A)-(B) 와 선지 표기 대조",
+            "why_correct 의 인용을 corpus.json 현재 지문과 문자열 대조",
+            "why_correct 의 대응이 정답 선지 문면과 낱말 단위로 맞물리는지 재확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "revised": true,
+          "findings": [
+            "1차에는 5번의 배제 근거를 (A)가 마지막에 오면 어색하다로 적어 위치를 지목하지 못했다. (C)의 drip at a steady pace 와 vibrate regularly, (A)의 although at first masked 를 맞대어 like this 의 조건을 채우는 블록이 (A)뿐임을 근거로 다시 썼다",
+            "trap 4종이 서로 다르다",
+            "3차 재검수 — 다시 쓴 why_correct 가 소거법(\"나머지가 다 틀렸으므로\")에 기대지 않고 정답 선지 자체의 근거를 대는지 확인했다. 오답 4개의 trap·why_tempting·how_to_reject 는 손대지 않았다."
+          ],
+          "checked": [
+            "오답 라벨 중복 검사",
+            "why_tempting 이 각 배열이 만드는 읽기와 맞는지",
+            "how_to_reject 의 근거 위치 표기 유무",
+            "재작성한 5번 근거가 지문 문자열에 실재하는지 대조",
+            "why_correct 에 소거법 서술이 없는지 검사",
+            "오답 선지 서술이 그대로인지 대조"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "3단계에서 조건을 문장으로 확정하게 한 것이 이 문항의 핵심이며, 학생이 (B) 두 번째 문장까지만 읽으면 된다",
+            "105초 배분 가능",
+            "3차 재검수 — 다시 쓴 why_correct 가 학습자가 눈으로 맞춰 볼 수 있는 두 자리(지문의 표현 ↔ 선지의 표현)를 지목하는지 확인했다. solve_procedure 는 손대지 않았다."
+          ],
+          "checked": [
+            "단계 실행 가능성",
+            "금지 표현 검색",
+            "required_vocab 이 조건 판정에 쓰이는 낱말인지 확인",
+            "학습자가 짚을 자리가 문장 단위로 지정되었는지 확인"
+          ]
+        }
+      ],
+      "revised": true
+    },
+    {
+      "item_id": "2026#37",
+      "measured_ability": "This means that 로 시작하는 귀결 문단이 어떤 요구 진술 뒤에 놓여야 하는지, 그리고 개념 규정이 그 개념을 쓰는 진술보다 앞선다는 것을 적용하는 능력",
+      "design_intent": "(C)에서 철학이 비경험적 접근이라고 규정하고, (B)에서 그래서 신경과학과의 협업이 필요하다고 요구한 뒤, (A)가 This means that ... needs to be supplemented by empirical findings 로 그 요구를 풀어 쓰게 했다. (C)의 규정만 보고 (A)를 바로 붙이고 싶게 만드는 것이 3점짜리 미끼다.",
+      "answer_locus": {
+        "sentence_index": [
+          7,
+          3
+        ],
+        "quote": "close collaboration between philosophy and neuroscience is required",
+        "reasoning": "(B)의 마지막 문장이 더 포괄적인 이해를 위해 협업이 필요하다고 요구하고, (A)의 첫 문장이 This means that ... it needs to be supplemented by empirical findings and experiments to reach a more comprehensive understanding 으로 그 요구를 같은 표현(more comprehensive understanding)으로 되풀이한다. 요구가 먼저, 귀결이 뒤이므로 (B)-(A) 인접이 고정된다. (C)는 Unlike scientific methods, philosophizing is a non-empirical approach 로 (B)와 (A)가 쓰는 비경험성 전제를 처음 규정하므로 맨 앞이다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "지시어 선행사 없음",
+          "why_tempting": "(A)가 철학의 가치와 한계를 함께 말해 총론처럼 읽히고, 주어진 글의 더 넓은 질문을 던진다와 valuable insights into theoretical concepts 가 겹쳐 보인다.",
+          "how_to_reject": "(A)는 This means that 으로 시작한다. means 의 주어인 This 가 가리킬 앞 진술이 주어진 글에 없다 — 주어진 글은 철학이 넓은 질문을 던진다고만 하고 보완이 필요하다는 요구를 내놓지 않는다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "첫 등장 역전",
+          "why_tempting": "(B) 뒤에 (A)를 붙이는 인접 자체는 옳아서 앞 두 자리가 맞아 보인다.",
+          "how_to_reject": "이 배열은 (C)로 끝난다. (C)는 Philosophy is particularly important for the interdisciplinary efforts of cognitive science 로 인지과학이라는 새 무대를 처음 소개하고, Unlike scientific methods, philosophizing is a non-empirical approach 로 비경험성을 처음 규정한다. 그 규정을 전제로 삼는 (B)의 질문만 던진다와 (A)의 empirical findings 로 보완 뒤에 규정이 오면 순서가 뒤집힌다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "예고–응답 분리",
+          "why_tempting": "(C)의 non-empirical approach 바로 뒤에 (A)의 needs to be supplemented by empirical findings 를 놓으면 대응이 깔끔해 보인다.",
+          "how_to_reject": "(A)가 되풀이하는 표현은 (B) 마지막의 for a more comprehensive understanding ... is required 다. 두 문장이 more comprehensive understanding 을 공유하므로 (B)와 (A)는 붙어야 하고, 이 배열은 그 사이에 (C)를 끼워 넣는다. 또 (B)를 첫 블록에 두면 (B)가 언급하는 the nature of consciousness 와 neuroscience 가 (C)의 인지과학 소개보다 먼저 나온다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "끝맺음 위반",
+          "why_tempting": "(C)를 첫 블록으로 옳게 잡은 뒤 (A)의 This means that 을 (C)의 비경험성 규정에 대한 귀결로 읽으면 두 블록이 이어진다.",
+          "how_to_reject": "이 배열은 (B)의 However, for a more comprehensive understanding of the nature of consciousness, close collaboration between philosophy and neuroscience is required. 로 끝난다. 요구를 새로 제기하는 문장이 글의 마지막 줄이 되고, 그 요구를 푸는 (A)는 이미 앞에서 소비된다. 귀결문(This means that)은 요구문 뒤에만 설 수 있다."
+        },
+        {
+          "n": 5,
+          "verdict": "correct",
+          "why_correct": "이음매 둘이 모두 표지로 잡힌다. ① 주어진 글의 끝 'the relationships between different areas of knowledge' 를 (C)의 첫 문장 'Philosophy is particularly important for the interdisciplinary efforts of cognitive science, where it helps to bridge gaps between different disciplines' 가 different disciplines 로 좁혀 받는다. ② (C)의 끝 'philosophizing is a non-empirical approach that attempts to validate concepts through logical thinking and argumentation' 이 (B)의 첫 문장 'Philosophers tend to ask questions rather than provide definitive answers' 의 전제다 — 비경험적 방법이 먼저 규정돼야 확답 대신 질문이 그 귀결로 읽힌다. ③ (B)의 끝 'close collaboration between philosophy and neuroscience is required' 를 (A)의 첫 낱말 This 가 받고, 같은 문장의 'to reach a more comprehensive understanding' 이 (B)의 'for a more comprehensive understanding of the nature of consciousness' 를 그대로 되풀이한다. 그래서 정답 선지는 (C) － (B) － (A) 다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "(A)(B)(C)의 첫 두 어절을 적는다. (A) This means / (B) Philosophers tend / (C) Philosophy is.",
+          "on_fail": "첫 두 어절로 구분이 안 되면 첫 문장에 지시어(this, that, such)가 있는지만 표시한다."
+        },
+        {
+          "step": "This·That 로 시작하는 블록((A))은 첫 자리에서 뺀다. (A)로 시작하는 1번을 지운다.",
+          "on_fail": "지시어의 대상이 주어진 글에 있다고 느껴지면, 그 대상 명사가 주어진 글에 실제로 적혀 있는지 짚어 확인한다."
+        },
+        {
+          "step": "지시어가 가리킬 진술을 (B)와 (C)의 마지막 문장에서 찾는다. (A)는 경험적 발견으로 보완되어야 한다는 귀결이므로, 같은 뜻을 요구하는 문장인 (B) 끝의 close collaboration between philosophy and neuroscience is required 와 짝짓는다.",
+          "on_fail": "짝을 못 찾으면 (A)에서 반복되는 어구(a more comprehensive understanding)를 뽑아 두 블록에서 같은 어구를 검색한다."
+        },
+        {
+          "step": "(B)-(A) 인접을 담은 선지만 남긴다. 둘 중 (C)가 어디에 있는지로 가른다 — (C)에 인지과학과 비경험성의 첫 소개가 있으므로 (C)가 앞인 5번을 고른다.",
+          "on_fail": "판단이 안 서면 각 블록에서 처음 등장하는 고유 개념어(cognitive science, non-empirical, consciousness)의 등장 자리를 적어 앞뒤를 정한다."
+        }
+      ],
+      "time_budget_sec": 125,
+      "difficulty": {
+        "predicted": 0.48,
+        "drivers": [
+          "3점 문항",
+          "(C)의 non-empirical 과 (A)의 empirical findings 가 직접 대응해 (C)-(A)를 붙이게 만드는 강한 미끼",
+          "세 블록 모두 철학의 성격을 말해 화제 전환 표지가 약하다"
+        ]
+      },
+      "required_vocab": [
+        "empirical",
+        "supplemented",
+        "interdisciplinary",
+        "definitive",
+        "comprehensive"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 를 corpus passage 에서 문자열로 확인했다",
+            "귀결문과 요구문의 쌍이라는 근거가 순서 유형 설계와 맞고, 유형 일반론에 기대지 않았다",
+            "영어 조각 5개(the relationships between different areas of knowledge / Philosophy is particularly important for the interdisciplinary efforts of cognitive science, where it helps to bridge gaps between different disciplines / philosophizing is a non-empirical approach that attempts to validate concepts through logical thinking and argumentation / Philosophers tend to ask questions rather than provide definitive answers / close collaboration between philosophy and neuroscience is required / for a more comprehensive understanding of the nature of consciousness)를 대조 — 전부 있다.",
+            "3차(근거/심리 판별) 재검수 — 근거는 이미 이음매마다 성립해 있어 내용은 그대로 두었다(3차 판정: 오탐). 다만 마지막 줄의 배열 표기가 ASCII 하이픈이라 선지 문면 '(C) － (B) － (A)' 와 글자가 달라 게이트 경고가 떴으므로 선지 문면 그대로로 고쳤다."
+          ],
+          "checked": [
+            "quote 문자열 대조",
+            "정답 5 = (C)-(B)-(A) 대조",
+            "design_intent 가 이 지문 고유의 장치를 지목하는지 확인",
+            "why_correct 의 영어 인용을 corpus.json 현재 지문에 문자열 대조",
+            "정답 선지 텍스트와 인용의 대응을 낱말 단위로 확인",
+            "why_correct 의 인용을 corpus.json 현재 지문과 문자열 대조",
+            "why_correct 의 대응이 정답 선지 문면과 낱말 단위로 맞물리는지 재확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "4번이 이 문항 최대 오답 후보다 — (C)의 non-empirical 과 (A)의 empirical 이 어휘로 직접 맞물리기 때문이다. why_tempting 에 그 대응을 명시했다",
+            "trap 4종이 서로 다르다",
+            "이음매 셋을 다 적었고, 마지막 이음매는 지시어 This 와 more comprehensive understanding 반복 두 겹이라 (B)-(A) 인접이 홀로 선다. 선지 번호 통계는 쓰지 않았다.",
+            "3차 재검수 — 다시 쓴 why_correct 가 소거법(\"나머지가 다 틀렸으므로\")에 기대지 않고 정답 선지 자체의 근거를 대는지 확인했다. 오답 4개의 trap·why_tempting·how_to_reject 는 손대지 않았다."
+          ],
+          "checked": [
+            "라벨 중복 검사",
+            "why_tempting 의 근거가 배열이 만드는 인접쌍인지",
+            "how_to_reject 에 블록·문장 위치가 적혔는지",
+            "why_correct 가 소거법(나머지가 틀렸으므로)에 기대지 않는지 확인",
+            "정답 선지에 오답용 필드(why_tempting/how_to_reject)가 남아 있지 않은지 확인",
+            "why_correct 에 소거법 서술이 없는지 검사",
+            "오답 선지 서술이 그대로인지 대조"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "revised": true,
+          "findings": [
+            "1차 절차는 5단계였고 마지막 두 단계가 같은 일(인접 확인)을 반복했다. 4단계로 줄이고 마지막 단계에 첫 등장 개념어 위치 적기라는 실행 가능한 판별을 넣었다",
+            "125초 안에 4단계가 들어간다",
+            "학생이 각 덩어리의 첫 낱말(This · Philosophers · Philosophy)만 훑어도 앞가리킴 표지가 어디 있는지 보인다.",
+            "3차 재검수 — 다시 쓴 why_correct 가 학습자가 눈으로 맞춰 볼 수 있는 두 자리(지문의 표현 ↔ 선지의 표현)를 지목하는지 확인했다. solve_procedure 는 손대지 않았다."
+          ],
+          "checked": [
+            "단계 중복 제거 후 실행 가능성 재확인",
+            "금지 표현 검색",
+            "required_vocab 5개가 판정에 쓰이는 낱말인지 확인",
+            "why_correct 가 지목한 자리를 지문을 아직 안 읽은 학생이 직접 짚을 수 있는지 확인",
+            "학습자가 짚을 자리가 문장 단위로 지정되었는지 확인"
+          ]
+        }
+      ],
+      "revised": true
+    },
+    {
+      "item_id": "M2609#36",
+      "body_recovered": true,
+      "body_source": "분석 시점에 corpus.json 의 M2609#36 은 passage·choices·raw_block 이 모두 null 이었고, 저장소의 PDF 추출본 scripts/csat/data/columns2/M2609.txt 751행 이하에서 원문을 복원해 분석했다. 작업 중 다른 세션이 lib-passage.mjs 의 문항 머리줄 정규식을 고치고 corpus 를 다시 만들어(2026-09-02 15:58) 현재는 corpus 에도 같은 본문이 들어와 있다 — 복원문과 corpus 본문의 문장이 일치함을 확인했다",
+      "gate_note": "corpus 본문 결손의 원인은 lib-passage.mjs 의 itemBlocks 가 쓰던 정규식이 이 회차 추출본의 머리줄 ',         36.' 을 못 잡은 것이었다. 같은 결손이 columns2 전체에서 2건(M2609#36 · M2306#19)이었고, 작업 중 파서가 고쳐져 현재 corpus 에는 본문이 들어와 있다(선두에 OCR 잡음 ', ______ 36.' 과 본문 중간의 'lity: 복수' 가 남아 있으나 지문 문장 자체는 온전하다). answer_locus.quote 는 corpus 본문에서 문자열로 대조된다.",
+      "measured_ability": "on the other hand 가 무엇과 무엇을 맞세우는지, In this way 가 어떤 절차를 되받는지 짚어 대조 구조의 두 축을 순서대로 놓는 능력",
+      "design_intent": "주어진 글이 전통적 작문 수업의 앞부분(주제 부여, 브레인스토밍, 중단 없는 쓰기)만 말하게 두고, 그 절차의 마지막 단계와 성격 규정(product-oriented)을 (C)에 숨겼다. 대조 표지 on the other hand 를 (A)에 두어 (C)를 건너뛰면 대조의 한쪽 항이 비게 만든 문항이다.",
+      "answer_locus": {
+        "sentence_index": [
+          6,
+          9
+        ],
+        "quote": "In process writing, on the other hand, students may initially brainstorm ideas about a topic and begin writing",
+        "reasoning": "on the other hand 는 앞에 맞세울 다른 한쪽이 이미 규정되어 있어야 쓰인다. 그 규정은 (C)의 Such instruction is very ‘product-oriented;’ there is no involvement of the teacher in the act or ‘process’ of writing. 이고, 주어진 글에는 절차만 있을 뿐 성격 규정이 없다. 그래서 (C)가 (A) 앞이다. 또 이 문장이 process writing 의 첫 등장이므로, 그 용어를 이미 아는 것으로 쓰는 (B)의 Process writing shifts the emphasis in teaching writing from evaluation to revision. 은 (A) 뒤에만 올 수 있다. 결국 (C)-(A)-(B)."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "연결사 방향 오독",
+          "why_tempting": "(A)의 on the other hand 를 주어진 글의 전통적 방식과 곧바로 맞세우는 말로 읽으면 (A)가 첫 블록으로 보인다.",
+          "how_to_reject": "맞세움의 한쪽은 성격 규정이라야 하는데 주어진 글은 절차만 말한다. 규정은 (C)의 Such instruction is very ‘product-oriented;’ 다. 또 (A)를 앞에 두면 (C)의 Subsequently, teachers collect and evaluate what students have written. 이 회의와 피드백 뒤의 평가로 읽혀 there is no involvement of the teacher in the act or ‘process’ of writing 과 정면으로 어긋난다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "지시어 선행사 없음",
+          "why_tempting": "(B)가 학생의 학습 효과를 말해 총론처럼 보이고, 주어진 글의 write about the topic 과 (B)의 their writing 이 이어지는 듯 읽힌다.",
+          "how_to_reject": "(B)는 In this way 로 시작한다. this way 가 가리킬 방식이 주어진 글에 없다 — 주어진 글의 방식은 without interruption 이고, (B)는 학생이 자기 글을 남의 읽기로 보게 된다고 하므로 반대다. 그 방식은 (A)의 repeated conferences with the teacher and the other students 다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "시간·열거 순서 역전",
+          "why_tempting": "(B)를 앞세우고 (C)의 평가 단계를 뒤에 붙이면 쓰기 다음에 평가라는 시간 순서처럼 보인다.",
+          "how_to_reject": "(C)의 Subsequently 는 주어진 글의 마지막 단계(students write about the topic without interruption)를 바로 잇는 시간 표지다. 그 앞에 (B)가 끼면 Subsequently 가 이어받을 단계가 사라진다. 게다가 이 배열은 (A)로 끝나 대조의 뒷항을 소개만 하고 글이 닫힌다."
+        },
+        {
+          "n": 4,
+          "verdict": "correct",
+          "why_correct": "이음매 셋이 표지로 잡힌다. ① 주어진 글이 ‘have students write about the topic without interruption’ 에서 멈추고, (C)의 첫 낱말 ‘Subsequently’ 가 그 다음 단계인 ‘teachers collect and evaluate what students have written’ 을 잇는다 — 이 시간 부사는 앞에 선행 단계가 있어야 쓰인다. ② (C)의 끝 ‘Such instruction is very ‘product-oriented;’ there is no involvement of the teacher in the act or ‘process’ of writing.’ 이 한쪽의 성격을 규정해야 (A)의 ‘In process writing, on the other hand’ 가 맞세울 상대를 얻는다. ③ (A)가 든 repeated conferences 와 feedback 을 (B)의 첫 낱말 ‘In this way’ 가 되받고, (B)의 ‘shifts the emphasis in teaching writing from evaluation to revision’ 의 evaluation 은 (C)의 evaluate 를 받아 닫는다. 그래서 정답 선지는 (C) － (A) － (B) 다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "첫 등장 역전",
+          "why_tempting": "(C)를 첫 블록으로 옳게 잡은 뒤, (B)의 학생 학습 효과를 (C)의 평가 이야기에 바로 붙이면 수업 효과 이야기로 이어지는 듯 보인다.",
+          "how_to_reject": "(B)의 Process writing shifts the emphasis in teaching writing from evaluation to revision. 은 process writing 을 이미 소개된 용어로 쓴다. 그 첫 소개는 (A)의 In process writing, on the other hand 이므로 (A)가 (B) 앞이어야 한다. (B)의 In this way 가 가리킬 회의·피드백 절차도 (A)에만 있다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "주어진 글에서 절차를 시간 순으로 번호 매긴다. 주제 부여 → 브레인스토밍 → 중단 없이 쓰기. 마지막 단계가 무엇인지 표시해 둔다.",
+          "on_fail": "절차가 안 잡히면 주어진 글의 동사만 순서대로 뽑아 적는다(assign, do, have students write)."
+        },
+        {
+          "step": "(A)(B)(C) 첫 문장에서 시간·대조·지시 표지를 뽑는다. (A) on the other hand / (B) In this way / (C) Subsequently.",
+          "on_fail": "표지가 안 보이면 각 블록 첫 문장의 주어를 적어 새 대상인지 기존 대상인지만 가른다."
+        },
+        {
+          "step": "In this way 처럼 앞 절차를 되받는 표지가 있는 블록((B))은 첫 자리에서 뺀다. Subsequently 가 붙은 블록((C))은 주어진 글의 마지막 단계와 이어 보고, 이어지면 첫 자리로 놓는다.",
+          "on_fail": "Subsequently 뒤 내용이 주어진 글의 단계와 안 이어지면 다른 블록의 마지막 문장과 차례로 이어 본다."
+        },
+        {
+          "step": "대조 표지 on the other hand 가 맞세울 한쪽 항(성격 규정)이 어느 블록에 있는지 찾는다. (C)의 product-oriented 가 그것이므로 (C)-(A) 인접이다.",
+          "on_fail": "규정을 못 찾으면 (A)에서 대조되는 명사(process)를 뽑아 같은 낱말이 어느 블록에 먼저 나오는지 본다."
+        },
+        {
+          "step": "남은 (B)는 process writing 을 이미 아는 말로 쓰는지 확인하고, 첫 소개가 있는 (A) 뒤에 붙여 (C)-(A)-(B)로 확정한다.",
+          "on_fail": "확신이 안 서면 In this way 가 가리키는 절차가 (A)에 문자로 있는지(conferences, feedback, revisions) 짚어 확인한다."
+        }
+      ],
+      "time_budget_sec": 100,
+      "difficulty": {
+        "predicted": 0.66,
+        "drivers": [
+          "대조 표지 on the other hand 가 뚜렷해 두 축을 세우기 쉽다",
+          "다만 주어진 글이 전통 방식의 앞부분만 말해 (C)의 Subsequently 를 놓치면 (A) 첫 블록으로 빠진다",
+          "(B)의 In this way 는 선행 절차가 분명해 마지막 자리 확정이 쉽다"
+        ]
+      },
+      "required_vocab": [
+        "assign",
+        "subsequently",
+        "product-oriented",
+        "conferences",
+        "revisions"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "revised": true,
+          "findings": [
+            "1차에는 corpus 본문이 없어 분석 자체를 미룰 뻔했다. 저장소의 PDF 추출본 columns2/M2609.txt 751행 이하에 이 문항 원문이 온전히 있어 그것으로 복원했고 body_source 에 위치를 남겼다",
+            "복원 본문의 배열 기호(1번~5번)와 평가원 정답 4 = (C)-(A)-(B) 가 일치한다",
+            "복원 시점에는 corpus 에 지문이 없어 게이트 V4 가 대조할 대상이 없었다. 작업 중 파서가 고쳐져 corpus 에 본문이 들어왔고, quote 를 새 corpus 본문과 다시 문자열 대조해 일치를 확인했다 — 복원문과 corpus 본문이 같은 지문이다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「(C)의 마지막 단계와 성격 규정 → (A)의 대조 → (B)의 효과와 요약으로 이어진다.」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
+          ],
+          "checked": [
+            "columns2/M2609.txt 원문과 quote 문자열 대조",
+            "corpus.json 의 M2609#36 이 분석 시점에는 본문 null 이었고, 파서 수정 후 재생성된 corpus 본문과 quote 를 다시 문자열 대조",
+            "복원 본문의 선지 표기와 정답표 4 대조",
+            "결손 원인 재현 — itemBlocks 의 ^\\s*36\\s*[.．] 가 ',         36.' 를 못 잡음",
+            "Subsequently·on the other hand·In this way 세 표지가 각각 받는 앞말을 지문에서 대조"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "오답 4개의 함정이 서로 다르다: 연결사 방향 · 지시어 선행사 · 시간 순서 · 첫 등장",
+            "5번이 최대 오답 후보다 — (C) 첫 블록을 맞힌 학생이 (B)의 학습 효과를 바로 붙이기 쉽다. process writing 의 첫 등장 위치가 유일한 판별자임을 how_to_reject 에 명시했다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「(C)의 마지막 단계와 성격 규정 → (A)의 대조 → (B)의 효과와 요약으로 이어진다.」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
+          ],
+          "checked": [
+            "trap 라벨 중복 검사",
+            "why_tempting 이 각 배열의 인접쌍에 근거하는지",
+            "how_to_reject 에 블록 이름과 원문 표현이 있는지",
+            "required_vocab 5개가 복원 본문에 실제로 있는지 문자열 확인",
+            "세 이음매가 서로 다른 장치(시간 부사·대조 표지·방식 지시)에 근거하는지 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "1단계에서 주어진 글의 절차에 번호를 매기게 한 것이 (C)의 Subsequently 를 잡는 손잡이가 된다",
+            "100초 안에 5단계가 들어간다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「(C)의 마지막 단계와 성격 규정 → (A)의 대조 → (B)의 효과와 요약으로 이어진다.」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
+          ],
+          "checked": [
+            "단계 실행 가능성",
+            "금지 표현 검색",
+            "required_vocab 이 판정에 쓰이는 낱말인지 확인",
+            "학생이 표지어 세 개만 표시해도 배열이 나오는지 점검"
+          ]
+        }
+      ],
+      "revised": true
+    },
+    {
+      "item_id": "M2609#37",
+      "measured_ability": "2인칭 호응(you ... You would not be the first)과 블록 끝의 질문이 어느 블록의 대답을 부르는지 짚어 세 블록을 배열하는 능력",
+      "design_intent": "주어진 글을 you 로 시작하는 한 문장만 주고, 그것에 직접 대꾸하는 (B)를 첫 블록으로 두게 했다. (B) 끝에 질문을 심어 (A)의 겉보기 답(기호)과 (C)의 실제 기준(수학적인 무언가)을 순서대로 놓아야 풀리도록 설계했다.",
+      "answer_locus": {
+        "sentence_index": [
+          8,
+          3
+        ],
+        "quote": "But how do you recognise some writing is mathematical in the first place?",
+        "reasoning": "(B)의 마지막 문장이 던지는 질문이다. 질문 바로 뒤에 올 수 있는 것은 그 답을 다루는 블록인데, (A)는 The complicated notations that might spring to mind ... are obvious signs 로 먼저 떠오르는 답을 내놓고 그것이 근래의 것이라며 물린다. (C)의 Put simply, there has to be something mathematical going on 은 그 답이 물린 뒤에 오는 다듬어진 기준이고, (C)의 from a time even before recorded language 는 (A)의 before the dashes and squiggles were invented 를 이어받는다. 따라서 (B)-(A)-(C)."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "끝맺음 위반",
+          "why_tempting": "(A)의 기호 이야기가 주어진 글의 mathematical writing 을 못 알아본 이유처럼 읽혀 바로 붙이고 싶어진다.",
+          "how_to_reject": "이 배열은 (B)로 끝나는데 (B)의 마지막이 But how do you recognise some writing is mathematical in the first place? 라는 질문이다. 답을 요구하는 문장이 글의 끝줄이 될 수 없다. 또 (B)의 You would not be the first 는 주어진 글의 not understood it 에 직접 대꾸하는 말이라 주어진 글에 붙어야 한다."
+        },
+        {
+          "n": 2,
+          "verdict": "correct",
+          "why_correct": "이음매 둘이 표지로 잡힌다. ① 주어진 글의 'Perhaps at some point you have seen some mathematical writing and not understood it.' 을 (B)의 첫 문장 'You would not be the first' 가 곧장 받는다 — 앞에 그런 사람이 하나 놓여 있어야 the first 가 성립하고, (A)·(C)의 첫 문장에는 그 사람을 받는 표현이 없다. ② (B)는 'But how do you recognise some writing is mathematical in the first place?' 라는 물음으로 끝나고, (A)의 'The complicated notations that might spring to mind ... are obvious signs' 가 먼저 떠오르는 답을 내놓았다가 'a lot of those are really quite modern' 으로 물린다 — spring to mind 는 방금 던져진 물음이 있어야 쓰는 표현이다. ③ (C)의 'Put simply, there has to be something mathematical going on for us to say that it is mathematics.' 는 그 답이 물린 뒤에 오는 다듬어진 기준이고, (C)의 'from a time even before recorded language' 가 (A)의 'before the dashes and squiggles were invented' 를 시간축에서 이어받는다. 그래서 정답 선지는 (B) － (A) － (C) 다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "예고–응답 분리",
+          "why_tempting": "(B)의 질문 바로 뒤에 (C)의 Put simply, there has to be something mathematical going on 이 오면 질문에 대한 정의로 곧장 답하는 것처럼 보인다.",
+          "how_to_reject": "(C)는 Put simply 로 앞의 설명을 줄여 말하는 자리이고, 줄여 말할 앞 설명이 (A)의 기호 이야기다. 또 (C)의 from a time even before recorded language 는 (A)의 Mathematics had been going on for a long time before the dashes and squiggles were invented. 를 받는 말이라 (A)가 (C) 앞이어야 한다. 이 배열은 (A)를 마지막으로 밀어 그 대응을 끊는다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "연결사 방향 오독",
+          "why_tempting": "(C)의 정의문이 화제를 여는 문장처럼 보여 첫 블록으로 잡게 된다.",
+          "how_to_reject": "Put simply 는 앞에 이미 한 설명을 요약해 다시 말할 때 쓴다. 주어진 글에는 수학을 무엇으로 볼지에 대한 설명이 없고 개인적 경험 한 문장뿐이다. 무엇보다 (B)의 You would not be the first 가 주어진 글의 you have seen ... and not understood it 을 직접 받으므로 (B)가 첫 블록이다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "지시어 선행사 없음",
+          "why_tempting": "(C)를 앞에 두고 (B)의 질문을 그 뒤에 붙이면 정의를 세운 뒤 인식 문제를 던지는 구성처럼 보인다.",
+          "how_to_reject": "(C) 마지막의 that can be sometimes difficult to recognise 의 that 은 앞에서 말한 인식 시도를 가리키는데, 첫 블록 자리에서는 가리킬 것이 없다. 또 (B)의 2인칭 대꾸는 주어진 글 바로 뒤에서만 성립하고, 이 배열은 (A)를 끝에 두어 (C)의 시대 언급이 (A)보다 앞서게 만든다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "주어진 글이 인칭·시제로 무엇을 요구하는지 표시한다. 여기서는 you have seen ... and not understood it — 2인칭 경험이므로 you 로 대꾸하는 블록이 뒤에 올 자리다.",
+          "on_fail": "인칭 단서가 없으면 주어진 글의 핵심 명사(mathematical writing)를 뽑아 각 블록 첫 문장에서 찾는다."
+        },
+        {
+          "step": "(A)(B)(C)의 첫 문장을 보고 주어진 글에 직접 대꾸하는 블록을 찾는다. (B)의 You would not be the first 가 그것이다. 그 블록을 첫 자리로 놓고 선지를 (B) 시작으로 좁힌다.",
+          "on_fail": "대꾸하는 블록이 없으면 지시어·요약 표지(Put simply, The complicated notations)가 붙은 블록을 첫 자리에서 빼는 방식으로 좁힌다."
+        },
+        {
+          "step": "각 블록의 마지막 문장에서 질문이나 미해결 단서를 찾는다. (B) 끝의 But how do you recognise some writing is mathematical in the first place? 가 답을 요구한다.",
+          "on_fail": "질문이 없으면 각 블록 끝 문장이 다음 블록의 첫 문장과 같은 낱말을 공유하는지 대조한다."
+        },
+        {
+          "step": "그 질문에 먼저 떠오르는 답을 내놓는 블록((A)의 obvious signs)을 뒤에 붙이고, 그 답을 물린 뒤 다시 말하는 블록((C)의 Put simply)을 마지막에 둔다.",
+          "on_fail": "둘의 선후가 안 정해지면 시대 표현을 대조한다 — (A)의 before the dashes and squiggles were invented 와 (C)의 before recorded language 중 뒤에 오는 쪽이 (C)다."
+        }
+      ],
+      "time_budget_sec": 120,
+      "difficulty": {
+        "predicted": 0.55,
+        "drivers": [
+          "3점 문항",
+          "(C)의 Put simply 가 질문에 대한 답처럼 보여 (B)-(C) 인접을 만들게 하는 미끼가 강하다",
+          "다만 (B)의 2인칭 대꾸가 뚜렷해 첫 블록은 비교적 쉽게 잡힌다"
+        ]
+      },
+      "required_vocab": [
+        "notations",
+        "squiggles",
+        "recognise",
+        "distant",
+        "rest assured"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 를 corpus passage 에서 문자열로 확인했다",
+            "근거를 블록 끝의 질문에 두어 순서 유형 설계와 맞는다. 이 회차 파서가 선지 문자열은 깨뜨렸으나 지문 본문은 온전하다",
+            "3차(근거/심리 판별) 재검수 — why_correct 가 '대꾸와 질문 → 겉보기 답 → 다듬어진 기준' 이라는 요약뿐이었다. 반쪽으로 보아 the first · spring to mind · before ... 라는 표지를 이음매마다 짚어 보강했다."
+          ],
+          "checked": [
+            "quote 문자열 대조",
+            "정답 2 = (B)-(A)-(C) 를 표준 배열표와 대조",
+            "지문 본문 결손 여부 확인",
+            "why_correct 의 인용을 corpus.json 현재 지문과 문자열 대조",
+            "why_correct 의 대응이 정답 선지 문면과 낱말 단위로 맞물리는지 재확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "3번이 최대 오답 후보다 — 질문 바로 뒤에 정의를 붙이는 읽기가 자연스럽기 때문이다. (A)와 (C)의 시대 표현 대응을 판별자로 제시했다",
+            "trap 4종이 서로 다르다",
+            "3차 재검수 — 다시 쓴 why_correct 가 소거법(\"나머지가 다 틀렸으므로\")에 기대지 않고 정답 선지 자체의 근거를 대는지 확인했다. 오답 4개의 trap·why_tempting·how_to_reject 는 손대지 않았다."
+          ],
+          "checked": [
+            "라벨 중복 검사",
+            "why_tempting 이 각 배열의 인접에 근거하는지",
+            "how_to_reject 의 위치 표기 유무",
+            "why_correct 에 소거법 서술이 없는지 검사",
+            "오답 선지 서술이 그대로인지 대조"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "revised": true,
+          "findings": [
+            "1차 4단계의 on_fail 이 다시 읽어 본다 수준이라 실행 지시가 아니었다. 시대 표현 두 개를 맞대는 구체 동작으로 바꿨다",
+            "120초 배분 가능",
+            "3차 재검수 — 다시 쓴 why_correct 가 학습자가 눈으로 맞춰 볼 수 있는 두 자리(지문의 표현 ↔ 선지의 표현)를 지목하는지 확인했다. solve_procedure 는 손대지 않았다."
+          ],
+          "checked": [
+            "on_fail 이 실행 가능한 동작인지 재점검",
+            "금지 표현 검색",
+            "required_vocab 이 판정에 쓰이는 낱말인지 확인",
+            "학습자가 짚을 자리가 문장 단위로 지정되었는지 확인"
+          ]
+        }
+      ],
+      "revised": true
+    },
+    {
+      "item_id": "M2606#36",
+      "body_recovered": true,
+      "measured_ability": "시간 축(진화적 과거 → 한 세기 전 → 현대)을 블록의 시간 표현으로 세우고, 문제를 예고한 문장 뒤에 문제 목록을 놓는 능력",
+      "design_intent": "주어진 글이 진화적 과거의 신체 활동을 말하고, (C)가 한 세기 전으로 한 칸 당겨 온 뒤 현대를 규정하게 했다. (A) 끝에 many problems 라는 예고를 심어 (B)의 질병 목록이 마지막에 오도록 잠갔다.",
+      "answer_locus": {
+        "sentence_index": [
+          7,
+          8
+        ],
+        "quote": "While these changes have created many benefits for our longevity and quality of life, they have also created many problems.",
+        "reasoning": "(A)의 마지막 문장이다. these changes 는 바로 앞에 나열된 현대의 변화(fewer manual jobs, 기계화된 집안일)를 되받고, many problems 는 아직 말하지 않은 문제를 예고한다. 그 문제를 채우는 것은 (B)의 Lack of sufficient physical activity has now been linked to at least 17 unhealthy conditions 뿐이므로 (A)-(B) 인접이 고정된다. 그리고 (A)의 나열은 (C) 끝의 Our modern world has engineered such activity out of our lives. 를 풀어 쓴 것이므로 (C)-(A) 인접도 고정되어 (C)-(A)-(B)가 된다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "시간·열거 순서 역전",
+          "why_tempting": "(A)의 현대 생활 나열이 주어진 글의 과거와 곧바로 대비되어 보여 (A)를 첫 블록으로 잡게 된다.",
+          "how_to_reject": "(C)는 Even one century ago 로 시간을 한 칸만 당겨 놓고 그 다음에 Our modern world 로 넘어간다. (A)를 앞에 두면 현대를 먼저 말하고 한 세기 전으로 되돌아가는 셈이라 (C)의 Our modern world has engineered such activity out of our lives. 가 이미 나열한 내용을 다시 선언하는 문장이 된다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "첫 등장 역전",
+          "why_tempting": "(B)의 건강 문제 통계가 강한 주제문처럼 보여 앞에 놓고 싶어진다.",
+          "how_to_reject": "(B)의 Lack of sufficient physical activity has now been linked to ... 는 활동이 왜 줄었는지가 이미 설명된 뒤라야 now 가 성립한다. 그 설명은 (C)와 (A)에 있다. 또 이 배열은 (A)의 they have also created many problems 라는 예고가 이미 제시된 문제 목록 뒤로 가서 예고가 무용해진다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "끝맺음 위반",
+          "why_tempting": "(B) 다음에 (C)의 한 세기 전 이야기를 배경 설명으로 붙이면 통계 뒤에 원인 설명이 오는 구성처럼 보인다.",
+          "how_to_reject": "이 배열은 (A)로 끝난다. (A)의 마지막 they have also created many problems 는 뒤에 문제 목록이 와야 하는 예고문이므로 글의 끝줄이 될 수 없다. 목록은 (B)에 있으니 (B)가 (A) 뒤여야 한다."
+        },
+        {
+          "n": 4,
+          "verdict": "correct",
+          "why_correct": "이음매 둘이 표지로 잡힌다. ① 주어진 글의 'a life in which high levels of physical activity were required for survival' 을 (C)가 'Even one century ago, most people needed to be physically active to work, to travel, and to take care of homes and families.' 로 한 세기 전까지 끌어오고 'Our modern world has engineered such activity out of our lives.' 로 현대를 규정한다 — such activity 라는 되받는 표현이 가리킬 앞말이 주어진 글의 physical activity 다. ② (A)의 'There are fewer manual jobs, we do not need to travel on foot, ... many domestic chores have been mechanized.' 는 그 engineered ... out of our lives 를 항목으로 풀어 쓴 것이라 (C) 뒤에만 붙는다 — (C)의 work · travel · take care of homes 세 항목이 manual jobs · travel on foot · domestic chores 로 순서까지 그대로 되풀이된다. ③ (A)의 끝 'they have also created many problems' 가 아직 말하지 않은 문제를 예고하고, (B)의 'Lack of sufficient physical activity has now been linked to at least 17 unhealthy conditions' 가 그 목록을 채운다. 그래서 정답 선지는 (C) － (A) － (B) 다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "예고–응답 분리",
+          "why_tempting": "(C)를 첫 블록으로 옳게 잡은 뒤 곧바로 (B)의 건강 문제로 넘어가면 원인과 결과가 이어지는 듯 보인다.",
+          "how_to_reject": "(C) 끝의 Our modern world has engineered such activity out of our lives. 를 항목으로 푸는 것이 (A)의 There are fewer manual jobs, we do not need to travel on foot ... 이고, (C)가 든 to work, to travel 과 항목이 하나씩 대응한다. 그 사이에 (B)를 끼우면 선언과 항목이 갈라지고, (A)의 many problems 예고도 응답을 잃는다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "주어진 글에서 시점 표현을 표시한다. an evolutionary look at our beginnings — 가장 먼 과거다.",
+          "on_fail": "시점 표현이 없으면 주어진 글의 핵심 명사(physical activity)를 뽑아 각 블록에서 그 낱말을 찾는다."
+        },
+        {
+          "step": "(A)(B)(C) 각 블록에서 시점 표현을 하나씩 뽑아 시간 순으로 늘어놓는다. (C) Even one century ago / (A) 현재형 나열 / (B) has now been linked.",
+          "on_fail": "시점 표현이 겹치면 각 블록의 동사 시제(과거·현재완료·현재)를 적어 비교한다."
+        },
+        {
+          "step": "가장 먼 과거 다음 칸에 오는 블록을 첫 자리로 놓는다. 여기서는 (C). (C)로 시작하지 않는 선지를 지운다.",
+          "on_fail": "시간만으로 못 정하면 (C)의 such activity 가 가리키는 대상이 (C) 안에 있는지 확인한다 — 안에 있으면 (C)는 첫 자리에 설 수 있다."
+        },
+        {
+          "step": "각 블록 마지막 문장에서 뒤를 부르는 예고를 찾는다. (A) 끝의 they have also created many problems 가 문제 목록을 예고한다.",
+          "on_fail": "예고를 못 찾으면 (B)의 첫 문장이 무엇에 대한 답인지(문제인지 원인인지) 한 낱말로 적고 그 낱말이 있는 블록을 앞에 둔다."
+        },
+        {
+          "step": "예고와 목록이 붙도록 (A)-(B)를 이어 (C)-(A)-(B)로 확정하고, 주어진 글부터 첫 문장만 이어 읽어 시간이 되돌아가는 자리가 없는지 본다.",
+          "on_fail": "되돌아가는 자리가 있으면 그 블록을 한 칸 뒤로 옮겨 다시 읽는다."
+        }
+      ],
+      "time_budget_sec": 100,
+      "difficulty": {
+        "predicted": 0.7,
+        "drivers": [
+          "시간 표현(one century ago, now)이 표면에 드러나 배열 축이 잡기 쉽다",
+          "(A)의 many problems 예고가 명시적이다",
+          "다만 (B)를 주제문으로 오해해 앞으로 당기는 실수가 나온다"
+        ]
+      },
+      "required_vocab": [
+        "manual",
+        "mechanized",
+        "longevity",
+        "chronic",
+        "inactivity"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "body_ok:false 라 raw_block 원문으로 (A)(B)(C)를 다시 읽었다",
+            "quote 를 corpus passage 에서 문자열로 확인했다 — 122자로 지침 상한을 살짝 넘지만 these changes 와 many problems 두 결속 장치를 한 문장에 담아야 근거가 성립한다",
+            "3차(근거/심리 판별) 재검수 — why_correct 가 '한 세기 전과 현대 규정 → 구체 나열과 예고 → 문제 목록' 이라는 요약뿐이었다. 반쪽으로 보아 such activity 의 되받음, 세 항목의 순서 일치, many problems 의 예고를 각각 짚어 보강했다."
+          ],
+          "checked": [
+            "raw_block 과 corpus passage 대조",
+            "quote 문자열 대조",
+            "정답 4 = (C)-(A)-(B) 대조",
+            "why_correct 의 인용을 corpus.json 현재 지문과 문자열 대조",
+            "why_correct 의 대응이 정답 선지 문면과 낱말 단위로 맞물리는지 재확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "revised": true,
+          "findings": [
+            "1차에는 2번과 3번의 함정을 모두 예고-응답 분리로 달아 두 선지가 같은 자로 재였다. 2번은 (B)를 첫 블록에 두어 now 의 전제가 사라지는 첫 등장 역전으로, 3번은 예고문이 글의 끝줄이 되는 끝맺음 위반으로 갈랐다",
+            "결과적으로 4종이 모두 다르다",
+            "3차 재검수 — 다시 쓴 why_correct 가 소거법(\"나머지가 다 틀렸으므로\")에 기대지 않고 정답 선지 자체의 근거를 대는지 확인했다. 오답 4개의 trap·why_tempting·how_to_reject 는 손대지 않았다."
+          ],
+          "checked": [
+            "라벨 중복 검사와 재분류",
+            "why_tempting 이 배열별로 다른지",
+            "how_to_reject 에 문장 위치가 있는지",
+            "why_correct 에 소거법 서술이 없는지 검사",
+            "오답 선지 서술이 그대로인지 대조"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "시점 표현을 뽑아 늘어놓는 2단계가 이 문항에서 가장 값싼 동작이며 30초면 끝난다",
+            "100초 안에 5단계가 들어간다",
+            "3차 재검수 — 다시 쓴 why_correct 가 학습자가 눈으로 맞춰 볼 수 있는 두 자리(지문의 표현 ↔ 선지의 표현)를 지목하는지 확인했다. solve_procedure 는 손대지 않았다."
+          ],
+          "checked": [
+            "단계 실행 가능성",
+            "금지 표현 검색",
+            "required_vocab 이 판정에 쓰이는 낱말인지 확인",
+            "학습자가 짚을 자리가 문장 단위로 지정되었는지 확인"
+          ]
+        }
+      ],
+      "revised": true
+    },
+    {
+      "item_id": "M2606#37",
+      "measured_ability": "부정관사로 처음 나온 개념(iteration)이 정관사(the iteration)로 되받아지는 순서를 지켜 배열하고, 실험 절차의 두 번 놓기와 on the two occasions 를 잇는 능력",
+      "design_intent": "장난감 진자를 소개한 뒤 (B)에서 두 번 놓아 보게 하고, (C)가 그 두 번을 on the two occasions 로 받으면서 카오스와 iteration 을 처음 규정하게 했다. (A)는 그 규정을 the iteration 으로 되받아 조건을 좁히므로, 정관사 하나로 마지막 자리가 잠긴다.",
+      "answer_locus": {
+        "sentence_index": [
+          9,
+          3
+        ],
+        "quote": "Chaotic systems are generated by iteration, though not all iteration leads to chaos.",
+        "reasoning": "(C)의 마지막 문장이 iteration 을 처음 무관사로 도입하고 not all iteration 이라는 단서를 남긴다. (A)의 첫 문장 In order to produce chaos, the iteration has to be within what is called a nonlinear system. 은 그 개념을 정관사로 되받으며 단서를 좁히고, 이어지는 Nor are all nonlinear systems chaotic 은 not all iteration 의 형식을 그대로 반복한다. 그러므로 (C)-(A) 인접이고 (A)가 마지막이다. (C)의 on the two occasions 는 (B)의 두 번 놓기를 받으므로 (B)-(C)가 앞선다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "지시어 선행사 없음",
+          "why_tempting": "(A)가 카오스의 조건을 설명해 이론적 총론처럼 보이므로 앞에 놓고 싶어진다.",
+          "how_to_reject": "(A)는 the iteration 이라는 정관사 표현으로 시작한다. 주어진 글은 자석과 진자만 말할 뿐 iteration 을 한 번도 꺼내지 않았으므로 정관사가 받을 대상이 없다. 첫 등장은 (C)의 Chaotic systems are generated by iteration 이다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "첫 등장 역전",
+          "why_tempting": "(B)를 첫 블록으로 옳게 잡은 뒤, 진자가 카오스적이라는 (B)의 결론에 (A)의 카오스 설명을 바로 붙이면 설명이 이어지는 듯 보인다.",
+          "how_to_reject": "(A)의 the iteration 이 받을 첫 등장이 (C)에 있다. (B)에는 iteration 이라는 말이 없고 pattern of its movement is chaotic 까지만 있다. 정관사 표현은 무관사 첫 등장 뒤에만 올 수 있으므로 (C)가 (A) 앞이어야 한다."
+        },
+        {
+          "n": 3,
+          "verdict": "correct",
+          "why_correct": "이음매 둘이 표지로 잡힌다. ① 주어진 글이 진자와 네 자석의 배치를 설명하고 끝나므로, 명령문으로 실험을 시작하는 (B)의 'Release the pendulum and note the magnets that it visits, and in what order.' 가 곧장 붙는다 — (A)와 (C)의 첫 문장은 둘 다 앞에 실험 결과가 있어야 쓸 수 있다. ② (C)의 'it will visit an entirely different set of points on the two occasions' 에서 the two occasions 는 정관사로 '두 번 놓기' 를 받는데, 그 두 번을 만든 것은 (B)의 'If the pendulum is released from the same position a second time' 뿐이다. ③ (C)의 끝 'Chaotic systems are generated by iteration, though not all iteration leads to chaos.' 가 iteration 을 무관사로 처음 들여오고, (A)의 첫 문장 'In order to produce chaos, the iteration has to be within what is called a nonlinear system.' 이 정관사 the iteration 으로 그것을 되받으며 'Nor are all nonlinear systems chaotic' 으로 not all ... 형식까지 되풀이한다. 그래서 정답 선지는 (B) － (C) － (A) 다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "예고–응답 분리",
+          "why_tempting": "(C)의 첫 문장이 진자를 다루므로 주어진 글의 진자 소개에 바로 이어지는 것처럼 보인다.",
+          "how_to_reject": "(C)의 첫 문장은 it will visit an entirely different set of points on the two occasions 로 끝난다. the two occasions 가 가리킬 두 번의 시행은 (B)의 Release the pendulum 과 If the pendulum is released from the same position a second time 에만 있다. 주어진 글은 진자가 오간다고만 했지 두 번 놓지 않았다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "시간·열거 순서 역전",
+          "why_tempting": "(C)를 앞에 두고 (B)의 실험 절차를 뒤에 붙이면 결과를 말한 뒤 방법을 설명하는 구성처럼 보인다.",
+          "how_to_reject": "(B)는 Release the pendulum and note the magnets that it visits 라는 명령문으로 시행을 시작하고 (C)는 그 시행의 결과를 받는다. 시행이 결과 뒤로 가면 (C)의 on the two occasions 가 앞에서 가리킬 것을 잃는다. 또 (B)의 In fact, the pattern of its movement is chaotic. 이 (C)의 Chaotic systems 라는 일반 규정보다 뒤로 밀린다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "(A)(B)(C) 첫 문장에서 정관사가 붙은 명사구와 수 표현을 표시한다. (A) the iteration / (B) 명령문 Release the pendulum / (C) on the two occasions.",
+          "on_fail": "표시할 것이 없으면 각 블록 첫 문장의 주어를 적어 새 대상인지 이미 나온 대상인지 가른다."
+        },
+        {
+          "step": "정관사 명사구나 수 표현이 주어진 글에서 받을 대상을 갖는지 대조한다. iteration 과 two occasions 는 주어진 글에 없으므로 (A)와 (C)는 첫 자리에서 뺀다.",
+          "on_fail": "대조가 애매하면 주어진 글의 명사만 나열해 두고 그 목록에 없는 말이 든 블록을 첫 자리에서 뺀다."
+        },
+        {
+          "step": "남은 (B)를 첫 블록으로 놓고, (B) 안에서 몇 번 시행했는지 센다. Release ... 와 a second time 으로 두 번이므로 the two occasions 를 쓴 (C)가 바로 뒤다.",
+          "on_fail": "시행 횟수가 안 세어지면 (C)의 the two occasions 가 어느 블록의 문장 두 개와 짝지어지는지 표시한다."
+        },
+        {
+          "step": "마지막 자리는 개념을 정관사로 되받는 블록이다. (C) 끝의 iteration 첫 등장을 (A)의 the iteration 이 받으므로 (A)가 끝이다. (B)-(C)-(A)로 확정한다.",
+          "on_fail": "확신이 없으면 not all iteration leads to chaos 와 Nor are all nonlinear systems chaotic 이 같은 형식의 이어진 단서인지 확인한다."
+        }
+      ],
+      "time_budget_sec": 120,
+      "difficulty": {
+        "predicted": 0.5,
+        "drivers": [
+          "3점 문항",
+          "정관사 the iteration 이 유일한 판별자라 관사를 안 보면 2번으로 빠진다",
+          "(C)와 (B)가 모두 진자를 다뤄 소재만으로는 선후가 안 갈린다"
+        ]
+      },
+      "required_vocab": [
+        "pendulum",
+        "iteration",
+        "nonlinear",
+        "bifurcation",
+        "chaotic"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 를 corpus passage 에서 문자열로 확인했다",
+            "관사 대조라는 근거가 순서 유형의 표준 장치이며, 이 지문에서는 iteration 의 무관사·정관사 대비가 실제로 유일한 판별자다",
+            "3차(근거/심리 판별) 재검수 — why_correct 가 '실험 → 결과와 개념 도입 → 조건 좁히기' 라는 요약뿐이었다. 반쪽으로 보아 명령문의 자리, the two occasions 의 정관사, iteration 의 무관사→정관사 첫 등장을 각각 짚어 보강했다."
+          ],
+          "checked": [
+            "quote 문자열 대조",
+            "정답 3 = (B)-(C)-(A) 대조",
+            "iteration 의 등장 위치를 지문에서 모두 확인(무관사 (C), 정관사 (A))",
+            "why_correct 의 인용을 corpus.json 현재 지문과 문자열 대조",
+            "why_correct 의 대응이 정답 선지 문면과 낱말 단위로 맞물리는지 재확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "2번이 최대 오답 후보다 — (B) 첫 블록은 맞히고 (A)를 붙이는 학생이 많을 배열이다",
+            "trap 4종이 서로 다르다: 지시어 선행사 · 첫 등장 역전 · 예고-응답 분리 · 시간 순서 역전",
+            "3차 재검수 — 다시 쓴 why_correct 가 소거법(\"나머지가 다 틀렸으므로\")에 기대지 않고 정답 선지 자체의 근거를 대는지 확인했다. 오답 4개의 trap·why_tempting·how_to_reject 는 손대지 않았다."
+          ],
+          "checked": [
+            "라벨 중복 검사",
+            "why_tempting 이 배열별 인접에 근거하는지",
+            "how_to_reject 에 문장 위치가 있는지",
+            "why_correct 에 소거법 서술이 없는지 검사",
+            "오답 선지 서술이 그대로인지 대조"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "2단계의 대조는 주어진 글 3문장만 보면 되므로 빠르다",
+            "120초 안에 4단계가 들어간다",
+            "3차 재검수 — 다시 쓴 why_correct 가 학습자가 눈으로 맞춰 볼 수 있는 두 자리(지문의 표현 ↔ 선지의 표현)를 지목하는지 확인했다. solve_procedure 는 손대지 않았다."
+          ],
+          "checked": [
+            "단계 실행 가능성",
+            "금지 표현 검색",
+            "required_vocab 5개가 판정에 필요한 낱말인지 확인",
+            "학습자가 짚을 자리가 문장 단위로 지정되었는지 확인"
+          ]
+        }
+      ],
+      "revised": true
+    },
+    {
+      "item_id": "2025#36",
+      "body_recovered": true,
+      "measured_ability": "Similarly 가 무엇과 나란한지 찾아 두 블록을 붙이고, 행위자(farmers, landowners)의 첫 소개가 어느 블록에 있는지로 첫 자리를 정하는 능력",
+      "design_intent": "주어진 글이 reputational capital 이라는 추상어만 던지고, 그것을 농부와 지주라는 구체 행위자로 처음 갈아 끼우는 (C)를 첫 블록으로 두게 했다. (B) 끝의 농부의 태만 목록과 (A) 첫머리의 Similarly 를 붙여야만 풀리도록 잠근 문항이다.",
+      "answer_locus": {
+        "sentence_index": [
+          3,
+          8
+        ],
+        "quote": "Similarly, a landowner can undermaintain fences, ditches, and irrigation systems.",
+        "reasoning": "Similarly 는 바로 앞에 같은 형식의 문장이 있어야 성립한다. 그 짝은 (B)의 마지막 문장 In any growing season a farmer can reduce effort, overuse soil, or underreport the crop. 이다 — 한쪽은 a farmer can, 다른 쪽은 a landowner can 으로 주어와 동사 틀이 같고 태만의 목록이 나란하다. 따라서 (B)-(A) 인접이 고정된다. 남은 (C)는 Farmers and landowners develop reputations ... 로 두 행위자를 처음 소개하므로 맨 앞이고, 배열은 (C)-(B)-(A)가 된다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "연결사 방향 오독",
+          "why_tempting": "(A) 뒷부분의 those farmers and landowners who attempt to gain at each other's expense will find that others may refuse to deal with them 이 주어진 글의 market enforcement 를 곧장 잇는 것처럼 읽힌다.",
+          "how_to_reject": "(A)는 Similarly 로 시작한다. 나란히 놓을 앞 문장이 주어진 글에 없다 — 주어진 글에는 지주도 농부도 없고 계약 당사자 일반만 있다. 짝이 되는 문장은 (B) 끝의 a farmer can reduce effort, overuse soil, or underreport the crop 이다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "첫 등장 역전",
+          "why_tempting": "(B)-(A) 인접이 옳으므로 앞 두 자리가 맞아 보이고, (C)의 평판 이야기가 마무리처럼 읽힌다.",
+          "how_to_reject": "이 배열은 (C)로 끝나는데 (C)는 Farmers and landowners develop reputations for honesty, fairness ... 로 두 행위자와 평판을 처음 소개하는 문장이다. 이미 두 블록에서 농부와 지주를 다룬 뒤에 그들을 처음 꺼낼 수 없다. 또 (B)의 Over time landowners indirectly monitor farmers 는 (C)의 In small, close-knit farming communities, reputations are well known. 을 전제로 삼는다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "예고–응답 분리",
+          "why_tempting": "(B)를 앞세우고 (C)의 평판 설명을 중간에 넣으면 감시 다음에 평판이라는 인과처럼 보인다.",
+          "how_to_reject": "이 배열은 (B) 끝의 a farmer can reduce effort ... 와 (A) 첫머리의 Similarly, a landowner can undermaintain ... 사이에 (C)를 끼워 나란한 두 문장을 갈라놓는다. Similarly 의 짝이 세 문장 건너에 있으면 성립하지 않는다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "어휘 반복에 낚임",
+          "why_tempting": "(C)와 (A) 모두 farmers and landowners 를 쓰기 때문에 두 블록이 붙어 있는 것처럼 보이고, (C) 다음에 (A)를 놓으면 평판 이야기가 이어지는 듯하다.",
+          "how_to_reject": "Similarly 가 요구하는 것은 같은 낱말이 아니라 같은 형식의 앞 문장이다. (C)의 마지막은 In small, close-knit farming communities, reputations are well known. 으로 태만 행위가 아니어서 a landowner can undermaintain 과 나란히 놓이지 않는다. 짝은 (B) 끝 문장뿐이다."
+        },
+        {
+          "n": 5,
+          "verdict": "correct",
+          "why_correct": "이음매 셋이 표지로 잡힌다. ① 주어진 글의 ‘reputational capital’ 을 (C)의 첫 문장 ‘Farmers and landowners develop reputations for honesty, fairness, producing high yields’ 이 농사 맥락의 두 행위자로 처음 특정한다(무관사 복수 첫 등장). ② (C)의 ‘In small, close-knit farming communities, reputations are well known.’ 뒤에서 (B)의 ‘Over time landowners indirectly monitor farmers’ 가 그 두 행위자를 이미 아는 것으로 쓰며 감시 방법을 댄다. ③ (B)의 끝 ‘In any growing season a farmer can reduce effort, overuse soil, or underreport the crop.’ 과 (A)의 첫 문장 ‘Similarly, a landowner can undermaintain fences, ditches, and irrigation systems.’ 은 Similarly 와 a farmer can / a landowner can 이라는 같은 틀로 묶여 떨어질 수 없다. 그래서 정답 선지는 (C) － (B) － (A) 다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "(A)(B)(C) 첫 문장에서 대조·병렬 표지(Similarly, Likewise, In contrast)를 찾아 표시한다. 여기서는 (A)에 Similarly 가 있다.",
+          "on_fail": "표지가 없으면 각 블록 첫 문장의 주어를 적어 두고 새 인물이 소개되는 블록을 찾는다."
+        },
+        {
+          "step": "표지가 붙은 블록((A))은 첫 자리에서 뺀다. 그리고 그 표지가 요구하는 짝 문장의 형식을 한 줄로 적는다 — 여기서는 누가 무엇을 소홀히 할 수 있다는 형식.",
+          "on_fail": "형식을 못 적으면 표지 바로 뒤 문장의 주어와 동사(a landowner can undermaintain)만 옮겨 적는다."
+        },
+        {
+          "step": "나머지 두 블록의 마지막 문장에서 그 형식과 같은 문장을 찾는다. (B) 끝의 In any growing season a farmer can reduce effort, overuse soil, or underreport the crop. 이 짝이므로 (B)-(A)를 붙인다.",
+          "on_fail": "짝이 안 보이면 두 블록 끝 문장의 주어만 비교해 a farmer / a landowner 처럼 대응하는 쌍을 찾는다."
+        },
+        {
+          "step": "남은 (C)의 첫 문장이 인물이나 개념을 처음 소개하는지 확인한다. Farmers and landowners develop reputations ... 가 첫 소개이므로 (C)를 맨 앞에 놓아 (C)-(B)-(A)로 확정한다.",
+          "on_fail": "첫 소개인지 애매하면 (B)에서 the reported output, the general quality of the soil 처럼 정관사가 붙은 명사가 (C)에 먼저 나오는지 확인한다."
+        }
+      ],
+      "time_budget_sec": 105,
+      "difficulty": {
+        "predicted": 0.55,
+        "drivers": [
+          "Similarly 의 짝이 블록 끝 문장이라 블록 첫 문장만 보면 안 잡힌다",
+          "(C)와 (A)가 farmers and landowners 를 공유해 어휘로는 갈리지 않는다",
+          "reputational capital, market enforcement 등 경제 추상어가 초반 진입을 늦춘다"
+        ]
+      },
+      "required_vocab": [
+        "reputational",
+        "enforcement",
+        "undermaintain",
+        "yields",
+        "bond"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "body_ok:false 라 raw_block 원문으로 (A)(B)(C)를 다시 읽었다",
+            "quote 를 corpus passage 에서 문자열로 확인했다",
+            "근거를 병렬 표지의 짝 문장에 둔 것이 이 유형의 표준 설계와 맞는다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「(C)의 행위자·평판 소개 → (B)의 감시와 농부의 태만 → (A)의 지주 쪽 태만과 귀결로 이어진다.」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
+          ],
+          "checked": [
+            "raw_block 과 corpus passage 대조",
+            "quote 문자열 대조",
+            "정답 5 = (C)-(B)-(A) 대조",
+            "Similarly 가 받는 짝 문장(a farmer can ↔ a landowner can)을 지문에서 대조"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "4번이 최대 오답 후보다 — (C) 첫 블록을 맞힌 학생이 어휘 반복 때문에 (A)를 바로 붙인다. 그래서 4번의 함정을 어휘 반복에 낚임으로 따로 두었다",
+            "trap 4종이 서로 다르다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「(C)의 행위자·평판 소개 → (B)의 감시와 농부의 태만 → (A)의 지주 쪽 태만과 귀결로 이어진다.」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
+          ],
+          "checked": [
+            "라벨 중복 검사",
+            "why_tempting 이 각 배열의 인접에 근거하는지",
+            "how_to_reject 에 문장 위치가 있는지",
+            "첫 등장(무관사 복수)·감시 서술·Similarly 짝이 서로 다른 근거인지 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "revised": true,
+          "findings": [
+            "1차 절차는 블록 첫 문장만 보게 해서 Similarly 의 짝(블록 끝 문장)에 도달하지 못했다. 3단계를 마지막 문장 대조로 명시해 고쳤다",
+            "105초 안에 4단계가 들어간다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「(C)의 행위자·평판 소개 → (B)의 감시와 농부의 태만 → (A)의 지주 쪽 태만과 귀결로 이어진다.」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
+          ],
+          "checked": [
+            "절차가 실제로 정답에 도달하는지 손으로 따라가며 검증",
+            "금지 표현 검색",
+            "required_vocab 5개가 판정에 필요한 낱말인지 확인",
+            "학생이 각 블록 첫·끝 문장만 읽어 세 이음매를 짚을 수 있는지 점검"
+          ]
+        }
+      ],
+      "revised": true
+    },
+    {
+      "item_id": "2025#37",
+      "measured_ability": "인물·연구가 처음 소개되는 자리를 찾고, 관찰 결과와 그 결과를 해석하는 문장의 선후를 가르는 능력",
+      "design_intent": "Marc 의 연구를 (B)에서 처음 소개하고 조정력 차이만 보고한 뒤, (C)에서 더 불안해했다는 관찰을 덧붙이고, (A)가 그 불안을 해석하게 했다. 세 블록이 모두 같은 새 이름을 쓰기 때문에 소개-관찰-해석의 층을 구분하지 못하면 순서가 무너지도록 짰다.",
+      "answer_locus": {
+        "sentence_index": [
+          7,
+          3
+        ],
+        "quote": "not only were less coordinated when scanning, but also were more nervous",
+        "reasoning": "(C)의 이 문장은 앞의 조정력 결과를 not only 로 되받고 but also 로 새 관찰(더 불안함)을 더한다. 되받는 조정력 결과는 (B)의 birds in a circle showed more coordination in scanning than did birds who were feeding in a line 이므로 (B)-(C) 인접이 고정된다. 그리고 (A)의 Marc wondered whether the birds in line were more fearful 은 더 불안하다는 관찰이 나온 뒤라야 던질 수 있는 물음이므로 (C)-(A)다. 결국 (B)-(C)-(A)."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "지시어 선행사 없음",
+          "why_tempting": "(A)의 emotional contagion 이 주어진 글의 마지막 문장 They have been infected by emotional contagion. 을 그대로 받는 것처럼 보인다.",
+          "how_to_reject": "(A)는 Marc wondered 로 시작하는데 Marc 이 누구인지 주어진 글에 없다. 인명이 성 없이 처음 등장할 수 없다. 또 the birds in line 이라는 정관사 표현이 가리킬 줄지어 있던 새들도 아직 나오지 않았다 — 그 소개는 (B)의 birds who were feeding in a line 이다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "예고–응답 분리",
+          "why_tempting": "(B)와 (A) 모두 Marc 을 언급해 두 블록이 붙어 보이고, 연구 소개 다음에 연구자의 의문이 오는 구성도 자연스럽다.",
+          "how_to_reject": "(A)의 물음은 the birds in line were more fearful 에 관한 것인데, (B)가 보고한 것은 조정력(coordination)뿐이고 두려움이나 불안은 없다. 불안 관찰은 (C)의 but also were more nervous, changing their body and head positions significantly more 에 있으므로 (C)가 (A) 앞이어야 한다."
+        },
+        {
+          "n": 3,
+          "verdict": "correct",
+          "why_correct": "이음매 셋이 표지로 잡힌다. ① 주어진 글의 ‘They have been infected by emotional contagion.’ 를 (B)가 ‘In a long-term research project that Marc did with some of his students’ 로 받아 Marc 와 western evening grosbeaks 를 처음 소개한다. ② (B)의 결과에 나온 ‘birds who were feeding in a line’ 을 (C)의 첫 낱말 ‘The birds in a line’ 이 정관사로 되받고, ‘not only were less coordinated when scanning, but also were more nervous’ 가 (B)의 조정력 결과에 새 관찰을 더한다. ③ (C)의 more nervous 를 (A)의 ‘Marc wondered whether the birds in line were more fearful’ 이 받아 그 이유를 묻고, (C)의 ‘who could only see their nearest neighbor’ 를 (A)의 ‘except with their nearest neighbors’ 가 되풀이한다. 그래서 정답 선지는 (B) － (C) － (A) 다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "첫 등장 역전",
+          "why_tempting": "(C)가 줄지어 있던 새와 원을 이룬 새를 함께 다뤄 실험 요약처럼 보이므로 첫 블록으로 잡게 된다.",
+          "how_to_reject": "(C)는 The birds in a line, who could only see their nearest neighbor 로 시작하고 grosbeaks in a circle 과 비교한다. 정관사와 비교 대상이 모두 앞선 소개를 전제하는데, 그 소개는 (B)의 a long-term research project ... on patterns of antipredatory scanning by western evening grosbeaks 에만 있다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "시간·열거 순서 역전",
+          "why_tempting": "(C)의 관찰을 먼저 보여 준 뒤 (B)에서 연구를 설명하면 결과를 앞세운 서술처럼 읽힌다.",
+          "how_to_reject": "(B)는 In a long-term research project that Marc did with some of his students ... they found that 으로 연구를 처음 소개하고 결과를 보고하는 문장이다. 소개가 관찰 뒤로 가면 (C)의 The birds in a line 과 grosbeaks in a circle 이 근거 없는 정관사가 된다. 또 이 배열은 (A)의 해석을 마지막에 두지만 (A)가 받을 불안 관찰이 두 칸 앞으로 밀려 buffer 가 생긴다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "주어진 글에서 새로 등장한 고유명사나 전문 용어를 적는다. 여기서는 emotional contagion 뿐이고 인명은 없다.",
+          "on_fail": "적을 것이 없으면 주어진 글의 마지막 문장을 한 줄로 요약해 적는다."
+        },
+        {
+          "step": "(A)(B)(C) 첫 문장에서 인명·연구·정관사 명사구를 표시한다. (A) Marc wondered / the birds in line, (B) a long-term research project ... Marc, (C) The birds in a line.",
+          "on_fail": "표시가 겹치면 관사만 본다 — a/an 이면 첫 소개, the 면 되받기다."
+        },
+        {
+          "step": "인명과 연구를 처음 소개하는 블록((B))을 첫 자리로 놓는다. (B)로 시작하지 않는 선지를 지운다.",
+          "on_fail": "첫 소개 블록이 둘 이상으로 보이면 a long-term research project 처럼 부정관사가 붙은 쪽을 앞에 둔다."
+        },
+        {
+          "step": "남은 (A)(C)를 결과와 해석으로 나눈다. 관찰을 보고하는 (C)를 앞에, 그 관찰을 두고 물음을 던지는 (A)를 뒤에 놓아 (B)-(C)-(A)로 확정한다.",
+          "on_fail": "구분이 안 되면 (A)의 more fearful 과 같은 뜻의 낱말(nervous)이 어느 블록에 있는지 찾아 그 블록을 앞에 둔다."
+        }
+      ],
+      "time_budget_sec": 115,
+      "difficulty": {
+        "predicted": 0.58,
+        "drivers": [
+          "3점 문항",
+          "세 블록이 모두 grosbeaks 와 line/circle 을 반복해 어휘로는 선후가 안 갈린다",
+          "(B)와 (A)가 Marc 을 공유해 2번으로 빠지기 쉽다"
+        ]
+      },
+      "required_vocab": [
+        "contagion",
+        "startles",
+        "scanning",
+        "coordination",
+        "flockmates"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 를 corpus passage 에서 문자열로 확인했다",
+            "인명 첫 등장과 not only ... but also 의 되받기라는 두 장치를 근거로 삼아 순서 유형 설계와 맞는다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「(B)의 연구 소개와 조정력 결과 → (C)의 불안 관찰 추가 → (A)의 해석으로 이어진다.」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
+          ],
+          "checked": [
+            "quote 문자열 대조",
+            "정답 3 = (B)-(C)-(A) 대조",
+            "Marc 의 등장 위치를 지문 전체에서 확인",
+            "The birds in a line 정관사가 받는 앞말과 not only…but also 의 앞항을 지문에서 대조"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "revised": true,
+          "findings": [
+            "1차에는 2번과 5번의 함정을 모두 첫 등장 역전으로 달았다. 2번은 (B)가 보고한 것과 (A)가 묻는 것이 다르다는 관찰-해석 분리이므로 예고-응답 분리로, 5번은 소개와 결과의 시간 역전으로 갈랐다",
+            "결과적으로 4종이 모두 다르다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「(B)의 연구 소개와 조정력 결과 → (C)의 불안 관찰 추가 → (A)의 해석으로 이어진다.」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
+          ],
+          "checked": [
+            "라벨 중복 검사와 재분류",
+            "why_tempting 이 배열별로 다른지",
+            "how_to_reject 에 인용 표현과 블록 위치가 있는지",
+            "2번의 근거가 (B) 본문에 두려움 관련 표현이 실제로 없는지 문자열로 확인",
+            "more nervous → more fearful 대응이 소거법 없이 성립하는지 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "2단계의 관사 규칙(a/an 이면 첫 소개, the 면 되받기)이 이 문항에서 그대로 통한다",
+            "115초 안에 4단계가 들어간다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「(B)의 연구 소개와 조정력 결과 → (C)의 불안 관찰 추가 → (A)의 해석으로 이어진다.」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
+          ],
+          "checked": [
+            "단계 실행 가능성",
+            "금지 표현 검색",
+            "required_vocab 이 판정에 필요한 낱말인지 확인",
+            "학생이 정관사·상관접속사·인명 첫 등장 세 표지를 순서대로 쓸 수 있는지 점검"
+          ]
+        }
+      ],
+      "revised": true
+    },
+    {
+      "item_id": "M2509#36",
+      "body_recovered": true,
+      "measured_ability": "가정법 would 로 이어지는 문장을 주어진 글의 가정 뒤에 붙이고, The adjustments 라는 정관사 표현이 되받을 첫 등장을 찾아 배열하는 능력",
+      "design_intent": "주어진 글을 If learning were ... then it shouldn't 라는 가정법으로 열어 두고, 그 가정을 이어받는 (C)의 Each fact would simply be stored separately. 를 첫 블록으로 두게 했다. 그 뒤 조정의 크기를 작은 쪽((B))에서 큰 쪽((A))으로 놓게 해, 비교급만 보고 (A)를 앞으로 당기면 틀리도록 짠 3점 문항이다.",
+      "answer_locus": {
+        "sentence_index": [
+          7,
+          3
+        ],
+        "quote": "The adjustments are clearly smallest when the new information is only slightly new",
+        "reasoning": "(B)의 첫 문장이 The adjustments 라는 정관사 복수로 시작한다. 그 조정이 처음 나오는 곳은 (C)의 each time we learn something new we have to modify the old patterns 이므로 (C)-(B) 인접이 고정된다. 또 이 문장은 최상급 smallest 로 작은 쪽을 먼저 말하고, (A)는 If we are trying to understand something totally new, however, we need to make larger adjustments 로 큰 쪽을 뒤에 말한다. 주어진 글이 a little bit beyond what we already know 를 먼저, totally new information 을 뒤에 든 순서와도 일치해 (B)-(A)가 된다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "연결사 방향 오독",
+          "why_tempting": "(A)의 however 가 주어진 글의 가정을 뒤집는 반박처럼 읽히고, totally new 라는 낱말이 주어진 글에 그대로 있어 이어지는 듯 보인다.",
+          "how_to_reject": "(A)의 larger adjustments 는 비교급이라 더 작은 조정이 먼저 제시되어야 한다. 그 비교 기준은 (B)의 The adjustments are clearly smallest 이고, (A)의 however 도 (B)의 작은 조정과 맞세우는 말이다. 주어진 글에는 조정이라는 개념 자체가 없다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "첫 등장 역전",
+          "why_tempting": "(B)가 새 정보와 기존 지식의 관계를 정리해 총론처럼 보이고, 주어진 글의 a little bit beyond what we already know 와 only slightly new 가 겹쳐 보인다.",
+          "how_to_reject": "(B)는 The adjustments 라는 정관사 표현으로 시작한다. 주어진 글에는 adjustment 가 한 번도 나오지 않으므로 정관사가 받을 대상이 없다. 첫 등장은 (C)의 we have to modify the old patterns so as to keep the old material while adding the new information 이다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "가정법·시제 호응 무시",
+          "why_tempting": "(B)의 작은 조정 다음에 (C)의 연결주의 이론이 오면 설명이 깊어지는 것처럼 보이고, (A)를 마지막에 두는 것도 무난해 보인다.",
+          "how_to_reject": "(C)의 첫 문장 Each fact would simply be stored separately. 는 조동사 would 로 주어진 글의 If learning were ... then it shouldn't 가정을 이어받는다. 가정법 문장은 그 가정 바로 뒤에서만 성립하므로 (C)는 첫 블록이다. (B)를 앞에 두면 would 가 받을 가정이 두 칸 앞으로 밀린다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "예고–응답 분리",
+          "why_tempting": "(C)를 첫 블록으로 옳게 잡은 뒤, (A)의 however 를 (C)의 연결주의 설명에 대한 전환으로 읽으면 두 블록이 이어진다.",
+          "how_to_reject": "(A)의 larger adjustments 와 (B)의 The adjustments are clearly smallest 는 크기를 비교하는 한 쌍이며, 작은 쪽이 먼저다. 이 배열은 그 쌍의 순서를 뒤집는다. 주어진 글이 든 두 경우의 순서(a little bit beyond → totally new)와도 어긋난다."
+        },
+        {
+          "n": 5,
+          "verdict": "correct",
+          "why_correct": "이음매 셋이 표지로 잡힌다. ① 주어진 글의 가정 ‘If learning were simply a matter of accumulating lists of facts’ 를 (C)의 첫 문장 ‘Each fact would simply be stored separately.’ 가 같은 가정법 would 로 잇고 Each fact 가 lists of facts 를 받는다. ② (C)의 ‘each time we learn something new we have to modify the old patterns’ 를 (B)의 첫 낱말 ‘The adjustments’ 가 정관사 복수로 처음 되받는다. ③ (B)의 ‘The adjustments are clearly smallest when the new information is only slightly new’ 와 (A)의 ‘If we are trying to understand something totally new, however, we need to make larger adjustments’ 가 smallest ↔ larger, slightly new ↔ totally new 로 짝을 이루고, 주어진 글이 a little bit beyond what we already know 를 먼저 totally new information 을 뒤에 든 순서와도 같다. 그래서 정답 선지는 (C) － (B) － (A) 다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "주어진 글의 문장 형식을 적는다. If ... were ..., then it shouldn't — 가정법이다. 뒤에 would/should 로 이어지는 블록이 올 자리가 열린다.",
+          "on_fail": "형식이 안 잡히면 주어진 글에서 대비되는 두 경우(a little bit beyond / totally new)를 표시해 둔다."
+        },
+        {
+          "step": "(A)(B)(C) 첫 문장에서 조동사와 관사를 표시한다. (A) however, larger / (B) The adjustments / (C) would.",
+          "on_fail": "표시가 겹치면 정관사가 붙은 명사구만 골라 그 명사가 주어진 글에 있는지 확인한다."
+        },
+        {
+          "step": "가정법 would 로 이어받는 블록((C))을 첫 자리에 놓고, 정관사 The adjustments 로 시작하는 블록((B))은 첫 자리에서 뺀다.",
+          "on_fail": "판단이 안 서면 주어진 글에 adjustment 라는 낱말이 있는지 손가락으로 짚어 확인한다 — 없으면 (B)는 첫 자리가 아니다."
+        },
+        {
+          "step": "남은 (B)(A)를 비교급의 크기 순으로 놓는다. smallest 가 먼저, larger 가 뒤이므로 (C)-(B)-(A)로 확정한다.",
+          "on_fail": "크기 순이 애매하면 주어진 글이 든 두 경우의 등장 순서(조금 새로운 것 → 완전히 새로운 것)에 맞춰 배열한다."
+        }
+      ],
+      "time_budget_sec": 125,
+      "difficulty": {
+        "predicted": 0.45,
+        "drivers": [
+          "3점 문항",
+          "(C)의 첫 문장이 Each fact would simply be stored separately. 라는 짧은 가정법이라 주어진 글과의 연결을 놓치기 쉽다",
+          "(A)와 (B)가 같은 개념(adjustment)의 크기만 다르게 말해 순서 근거가 관사와 비교급뿐이다"
+        ]
+      },
+      "required_vocab": [
+        "accumulating",
+        "adjustments",
+        "compatible",
+        "accommodate",
+        "connectionist"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "revised": true,
+          "findings": [
+            "1차 quote 로 주어진 글의 가정법 문장을 골랐으나 그것은 (C)가 첫 블록임만 말해 주고 4번과 5번을 가르지 못했다. 두 배열을 실제로 가르는 (B) 첫 문장 The adjustments are clearly smallest ... 로 바꿨다",
+            "정관사 되받기와 비교급 순서가 이 지문의 실제 설계다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「(C)의 가정 이어받기와 이론 도입 → (B)의 작은 조정 → (A)의 큰 조정으로 이어진다.」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
+          ],
+          "checked": [
+            "raw_block 과 corpus passage 대조",
+            "교체한 quote 문자열 대조",
+            "정답 5 = (C)-(B)-(A) 대조",
+            "quote 가 4번과 5번을 가르는지 직접 대입해 확인",
+            "가정법 would 의 연결·The adjustments 정관사 선행·최상급 대 비교급 짝을 지문에서 대조"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "4번이 최대 오답 후보다 — (C) 첫 블록을 맞힌 학생이 however 를 보고 (A)를 붙인다",
+            "trap 4종이 서로 다르며, 3번에는 기존 라벨표에 없는 가정법·시제 호응 무시를 새로 달았다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「(C)의 가정 이어받기와 이론 도입 → (B)의 작은 조정 → (A)의 큰 조정으로 이어진다.」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
+          ],
+          "checked": [
+            "라벨 중복 검사",
+            "why_tempting 이 배열별 인접에 근거하는지",
+            "how_to_reject 에 문장 위치가 있는지",
+            "주어진 글에 adjustment 가 없다는 배제 근거를 문자열로 확인",
+            "세 이음매가 각각 다른 장치에 근거해 소거법에 기대지 않는지 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "3단계의 짚어 확인 동작(주어진 글에 adjustment 가 있는가)이 30초 안에 끝나고 2번을 바로 지운다",
+            "125초 안에 4단계가 들어간다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「(C)의 가정 이어받기와 이론 도입 → (B)의 작은 조정 → (A)의 큰 조정으로 이어진다.」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
+          ],
+          "checked": [
+            "단계 실행 가능성",
+            "금지 표현 검색",
+            "required_vocab 5개가 판정에 필요한 낱말인지 확인",
+            "학생이 정관사 명사구 하나만 찾아도 (C)-(B) 인접이 나오는지 점검"
+          ]
+        }
+      ],
+      "revised": true
+    },
+    {
+      "item_id": "M2509#37",
+      "body_recovered": true,
+      "measured_ability": "equally 와 however 가 함께 붙은 문장이 무엇과 대등하고 무엇에 맞서는지 짚어, 사후 대처와 사전 대처의 두 축을 순서대로 놓는 능력",
+      "design_intent": "주어진 글이 동물이 건강을 지키는 방식을 일반론으로 말하고, (B)가 상처 치유와 면역이라는 사후 수단을, (C)가 그에 대등한 사전 수단을 세우게 했다. (A)를 (C)의 세부 설명으로만 성립하게 만들어, 대명사 They 를 따라가지 않으면 (B) 뒤에 (A)를 붙이도록 유도한 문항이다.",
+      "answer_locus": {
+        "sentence_index": [
+          7,
+          3
+        ],
+        "quote": "Animals are equally good, however, at dealing with injury and disease before they even happen.",
+        "reasoning": "equally good 은 앞에 이미 잘하는 일이 제시되어야 성립한다. 그 일은 (B)의 Animals have evolved many different ways of maintaining their health and then regaining it again once it has been damaged 이며, however 는 그 사후 대처와 before they even happen 을 맞세운다. 그러므로 (B)-(C) 인접이 고정된다. (A)의 They can take pre-emptive action so that the worst never happens. 는 (C)가 말한 anticipating and avoiding danger 를 풀어 쓴 문장이므로 (C) 뒤이고, 배열은 (B)-(C)-(A)다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "지시어 선행사 없음",
+          "why_tempting": "(A)의 They start to want things that will be necessary for their health and survival 가 주어진 글의 what animals want 를 그대로 받는 것처럼 보인다.",
+          "how_to_reject": "(A)는 They can take pre-emptive action 으로 시작한다. 선제 행동이라는 말은 앞에서 사전 대처의 틀이 세워진 뒤라야 쓰이는데, 그 틀은 (C)의 dealing with injury and disease before they even happen 과 mechanisms for anticipating and avoiding danger altogether 에 있다. 주어진 글에는 사전과 사후의 구분 자체가 없다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "예고–응답 분리",
+          "why_tempting": "(B)를 첫 블록으로 옳게 잡은 뒤, (A)의 선제 행동을 진화한 여러 수단의 하나로 이어 붙이면 자연스러워 보인다.",
+          "how_to_reject": "(A)와 (B) 사이에는 사후에서 사전으로 넘어가는 전환이 없다. 그 전환을 맡은 문장이 (C)의 Animals are equally good, however, at dealing with injury and disease before they even happen. 이므로 (C)가 (A) 앞에 와야 한다. 이 배열은 전환문을 글의 마지막으로 밀어 (A)의 pre-emptive 가 근거 없이 등장하게 만든다."
+        },
+        {
+          "n": 3,
+          "verdict": "correct",
+          "why_correct": "이음매 셋이 표지로 잡힌다. ① 주어진 글의 ‘major ways in which animals keep themselves healthy’ 를 (B)의 ‘many different ways of maintaining their health and then regaining it again once it has been damaged’ 가 such as 이하의 예로 구체화한다. ② (B)의 사후 대처(heal wounds · warding off infection)가 먼저 있어야 (C)의 ‘Animals are equally good, however, at dealing with injury and disease before they even happen.’ 의 equally good 이 견줄 대상을 얻는다. ③ (C)의 ‘anticipating and avoiding danger altogether’ 를 (A)의 첫 문장 ‘They can take pre-emptive action so that the worst never happens.’ 이 pre-emptive 한 낱말로 되받고, (A)의 끝 ‘They start to want things that will be necessary for their health and survival’ 가 주어진 글의 what animals want 로 돌아와 닫는다. 그래서 정답 선지는 (B) － (C) － (A) 다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "연결사 방향 오독",
+          "why_tempting": "(C)의 however 를 주어진 글에 대한 전환으로 읽으면 (C)가 첫 블록처럼 보이고, 뒤에 (A)의 설명이 이어져 두 블록이 붙는다.",
+          "how_to_reject": "equally good 은 비교 대상이 앞에 있어야 하는 표현인데 주어진 글에는 동물이 잘하는 일이 능력으로 제시되어 있지 않다. 비교 대상은 (B)의 an ability to heal wounds ... and an amazingly complex immune system 이다. 또 이 배열은 (B)를 끝에 두어 사후 대처가 사전 대처 뒤로 간다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "시간·열거 순서 역전",
+          "why_tempting": "(C)의 사전 대처를 앞세우고 (B)의 치유·면역을 뒤에 두면 예방이 먼저, 치료가 나중이라는 시간 순서처럼 보인다.",
+          "how_to_reject": "(C)의 before they even happen 은 앞 블록이 사후 대처를 말했을 때만 대비가 된다. (B)의 regaining it again once it has been damaged 가 그 사후 대처이므로 (B)가 (C) 앞이다. 이 배열은 대비의 두 항을 뒤집고, (A)의 pre-emptive 설명도 (C)에서 두 칸 떨어진다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "주어진 글의 마지막 문장에서 화제어를 뽑는다. ways in which animals keep themselves healthy — 건강을 지키는 방식이 앞으로 나열될 자리다.",
+          "on_fail": "화제어가 안 잡히면 주어진 글에서 반복되는 명사(health, want)를 표시해 둔다."
+        },
+        {
+          "step": "(A)(B)(C) 첫 문장에서 비교·대조 표지와 대명사를 표시한다. (A) They can take pre-emptive / (B) Animals have evolved many different ways / (C) equally good, however.",
+          "on_fail": "표지가 안 보이면 각 블록 첫 문장의 주어가 Animals 인지 They 인지만 적는다."
+        },
+        {
+          "step": "주어가 대명사인 블록((A))과 비교 표지가 붙은 블록((C))은 첫 자리에서 뺀다. 남은 (B)를 첫 블록으로 놓고 (B)로 시작하는 선지만 남긴다.",
+          "on_fail": "둘 다 빼기 어려우면 equally 가 요구하는 앞의 능력이 주어진 글에 문자로 있는지 확인한다 — 없으면 (C)는 첫 자리가 아니다."
+        },
+        {
+          "step": "남은 (C)(A)를 전환문과 세부 설명으로 나눈다. 사후에서 사전으로 넘기는 (C)가 앞, 그 사전 대처를 풀어 쓴 (A)가 뒤이므로 (B)-(C)-(A)로 확정한다.",
+          "on_fail": "구분이 안 되면 (A)의 pre-emptive 와 같은 뜻의 표현(before they even happen)이 어느 블록에 먼저 나오는지 찾아 그 블록을 앞에 둔다."
+        }
+      ],
+      "time_budget_sec": 100,
+      "difficulty": {
+        "predicted": 0.68,
+        "drivers": [
+          "equally 와 however 가 한 문장에 함께 있어 전환 지점이 표면에 드러난다",
+          "(A)의 주어가 대명사 They 뿐이라 첫 자리에서 빼기 쉽다",
+          "다만 (B) 뒤에 (A)를 바로 붙이는 2번 선택이 흔하다"
+        ]
+      },
+      "required_vocab": [
+        "pre-emptive",
+        "regaining",
+        "immune",
+        "anticipating",
+        "altogether"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "body_ok:false 라 raw_block 원문으로 (A)(B)(C)를 다시 읽었다",
+            "quote 를 corpus passage 에서 문자열로 확인했다",
+            "equally 와 however 의 이중 표지가 이 지문의 실제 판별 장치다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「(B)의 사후 대처 → (C)의 대등한 사전 대처 전환 → (A)의 선제 행동 설명으로 이어진다.」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
+          ],
+          "checked": [
+            "raw_block 과 corpus passage 대조",
+            "quote 문자열 대조",
+            "정답 3 = (B)-(C)-(A) 대조",
+            "equally good 이 견주는 앞항과 pre-emptive 가 되받는 표현을 지문에서 대조"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "2번이 최대 오답 후보다 — (B) 첫 블록을 맞히고 (A)를 붙이는 배열이며, 전환문 부재가 유일한 판별자다",
+            "trap 4종이 서로 다르다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「(B)의 사후 대처 → (C)의 대등한 사전 대처 전환 → (A)의 선제 행동 설명으로 이어진다.」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
+          ],
+          "checked": [
+            "라벨 중복 검사",
+            "why_tempting 이 배열별 인접에 근거하는지",
+            "how_to_reject 에 인용 표현과 블록 위치가 있는지",
+            "ways 구체화·equally good·pre-emptive 세 근거가 독립인지 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "3단계에서 대명사 주어와 비교 표지 둘로 첫 자리를 한 번에 좁힌다",
+            "100초 안에 4단계가 들어간다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「(B)의 사후 대처 → (C)의 대등한 사전 대처 전환 → (A)의 선제 행동 설명으로 이어진다.」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
+          ],
+          "checked": [
+            "단계 실행 가능성",
+            "금지 표현 검색",
+            "required_vocab 이 판정에 필요한 낱말인지 확인",
+            "학생이 equally good 한 표지만 잡아도 (B)-(C) 인접이 나오는지 점검"
+          ]
+        }
+      ],
+      "revised": true
+    }
+  ],
+  "type_report": {
+    "type_id": "R-ORDER",
+    "type_name": "글의 순서",
+    "n_analyzed": 12,
+    "recurring_traps": [
+      {
+        "trap": "예고–응답 분리",
+        "count": 11,
+        "signature": "반드시 붙어야 할 두 문장(예고문과 그 응답, 병렬 표지와 짝 문장, 관찰과 해석)을 다른 블록이 갈라놓는다"
+      },
+      {
+        "trap": "지시어 선행사 없음",
+        "count": 9,
+        "signature": "지시어·대명사·정관사 명사구로 시작하는 블록을 첫 자리에 놓아 가리킬 대상이 없게 만든다"
+      },
+      {
+        "trap": "첫 등장 역전",
+        "count": 8,
+        "signature": "개념·인물·용어가 처음 소개되는 블록보다 그것을 이미 아는 것으로 쓰는 블록을 앞에 둔다"
+      },
+      {
+        "trap": "연결사 방향 오독",
+        "count": 7,
+        "signature": "however·Similarly·By extension·Indeed 가 되받을 대상을 주어진 글로 착각하게 만든다"
+      },
+      {
+        "trap": "끝맺음 위반",
+        "count": 5,
+        "signature": "질문·미해결 단서·예고문으로 끝나는 블록을 마지막 자리에 둔다"
+      },
+      {
+        "trap": "시간·열거 순서 역전",
+        "count": 5,
+        "signature": "시간 표현이나 실험 절차의 앞뒤를 뒤집는다"
+      },
+      {
+        "trap": "어휘 반복에 낚임",
+        "count": 2,
+        "signature": "주어진 글과 낱말이 겹치는 블록을 인접으로 착각하게 만든다"
+      },
+      {
+        "trap": "가정법·시제 호응 무시",
+        "count": 1,
+        "signature": "주어진 글의 가정법(If ... were)을 이어받는 would 문장을 첫 블록에서 떼어 놓는다"
+      }
+    ],
+    "answer_locus_pattern": "12개 전부 근거가 **블록의 경계**에 있다 — 어떤 블록의 마지막 문장(예고·질문·미해결 단서)이거나 어떤 블록의 첫 문장(지시어·정관사·비교급·연결사)이다. 블록 한가운데 문장이 근거인 경우는 0개였다. 근거의 성격별로는 뒤 블록 첫 문장의 결속 장치가 7개(M2706#37 In saying that · 2026#36 another ... like this · 2026#37 This means that · M2609#36 on the other hand · M2606#37 the iteration · 2025#36 Similarly · M2509#36 The adjustments), 앞 블록 마지막 문장의 예고·질문이 5개(M2706#36 Nor are ... · M2609#37 But how do you recognise ... · M2606#36 many problems · 2025#37 not only ... but also · M2509#37 equally good, however)다. 정답 배열의 첫 블록은 (C) 8회 · (B) 4회 · (A) 0회, 마지막 블록은 (A) 7회 · (B) 4회 · (C) 1회. 정답 번호 분포는 2 → 1 · 3 → 3 · 4 → 4 · 5 → 4 다(이 청크 12문항). 번호 분포는 절차에 쓰지 않는다 — 근거는 블록 경계의 결속 장치이지 선지 번호가 아니다.",
+    "procedure": [
+      {
+        "step": "선지 다섯 개를 먼저 본다. 이 유형의 선지는 (A)(B)(C)의 배열 기호뿐이므로 읽을 것이 없다 — 순서를 정하는 일은 전적으로 지문 쪽에서 일어난다는 것을 확인하고 넘어가는 단계다. **선지 번호의 분포는 보지 않는다**(아래 open_questions 참조).",
+        "on_fail": "선지 배열이 표준 5종이 아니면(파본·인쇄 오류) 배열을 손으로 적어 두고 진행한다."
+      },
+      {
+        "step": "주어진 글의 마지막 문장만 정독해 뒤에 무엇이 올 자리가 열렸는지 한 줄로 적는다 — 열거의 첫 항목인가(다음 항목), 가정법인가(would 문장), 2인칭 경험인가(대꾸), 시점인가(다음 시점).",
+        "on_fail": "자리를 못 적으면 주어진 글에서 처음 나온 명사 두세 개를 적어 두고 각 블록 첫 문장에서 그 명사를 찾는다."
+      },
+      {
+        "step": "(A)(B)(C)의 **첫 문장만** 읽고 각 블록에 표를 붙인다 — 지시어(this/that/such/they) · 정관사 명사구 · 비교급/최상급 · another/other · 병렬 대조 표지(however/Similarly/also/By extension) · 시점 표현.",
+        "on_fail": "표가 세 블록 모두에 붙으면 관사만 본다. a/an 이면 첫 소개, the 면 되받기다."
+      },
+      {
+        "step": "표가 붙은 블록은 첫 자리에서 뺀다. 표의 대상이 주어진 글에 문자로 있는지 손가락으로 짚어 확인하고, 없으면 그 블록은 첫 블록이 아니다. 남는 블록으로 시작하는 선지만 남긴다.",
+        "on_fail": "두 블록이 남으면 부정관사로 대상을 처음 소개하는 쪽을 첫 블록으로 잡는다."
+      },
+      {
+        "step": "각 블록의 **마지막 문장**을 읽어 다음 블록을 부르는 예고(질문 · 문제 예고 · 미해결 단서 · 개념의 첫 도입)를 찾고, 그 예고에 답하는 블록을 붙여 인접쌍을 만든다. 인접쌍을 담은 선지만 남는다.",
+        "on_fail": "예고가 안 보이면 각 블록 마지막 문장과 다른 블록 첫 문장이 공유하는 낱말을 표시해 짝을 찾는다."
+      },
+      {
+        "step": "고른 배열을 주어진 글 → 1 → 2 → 3 순으로 **첫 문장만** 이어 읽으며 두 가지를 검산한다 — 같은 대상이 두 번 처음 소개되는 자리가 있는가, 응답을 요구하는 문장이 마지막 줄에 왔는가. 둘 중 하나라도 걸리면 그 배열은 아니다.",
+        "on_fail": "검산에서 걸리면 걸린 블록을 한 칸 옮긴 배열이 선지에 있는지 확인하고, 없으면 3단계의 표부터 다시 붙인다."
+      }
+    ],
+    "failure_modes": [
+      "주어진 글과 낱말이 겹치는 블록을 무조건 바로 뒤에 붙인다(M2706#36 compounds · 2026#37 empirical). 순서를 정하는 것은 어휘 반복이 아니라 지시 관계다.",
+      "블록의 첫 문장만 보고 판단을 끝낸다. 이 청크에서 5문항은 근거가 앞 블록의 **마지막** 문장에 있었다(예고문·질문·미해결 단서).",
+      "지시어의 선행사를 주어진 글에 있다고 느낌으로 처리한다. 짚어서 확인하면 M2606#37 iteration · M2509#36 adjustment 처럼 주어진 글에 아예 없는 낱말인 경우가 많다.",
+      "첫 블록만 맞히고 두 번째를 그럴듯한 쪽에 붙인다. 이 청크의 최대 오답 후보 8개가 모두 첫 블록은 맞고 둘째가 틀린 배열이다(2026#37 4번 · M2609#36 5번 · 2025#36 4번 · M2509#36 4번 · M2509#37 2번 등).",
+      "역접·병렬 표지를 보면 곧바로 주어진 글과 맞세운다. however·Similarly·equally 는 바로 앞 블록의 특정 문장과만 짝을 이룬다.",
+      "3점 문항에서 시간이 밀려 마지막 검산(첫 문장 이어 읽기)을 건너뛴다. 검산 20초가 첫 블록만 맞은 배열을 걸러 낸다."
+    ],
+    "time_budget_sec": 115,
+    "open_questions": [
+      "**라벨표 확장 제안** — 기존 trap 라벨(범위 과대 · 인과 역전 · 어휘 함정 등)은 빈칸/요지형의 명제 축이라 배열형에는 하나도 들어맞지 않았다. 이 청크는 순서형 고유의 8종을 새로 썼다: 예고–응답 분리 · 지시어 선행사 없음 · 첫 등장 역전 · 연결사 방향 오독 · 끝맺음 위반 · 시간·열거 순서 역전 · 어휘 반복에 낚임 · 가정법·시제 호응 무시. 앞의 다섯은 12문항 중 각각 5회 이상 나와 안정적이고, 뒤의 셋(어휘 반복 2회 · 가정법 호응 1회)은 표본이 모자란다. 문장 삽입형(R-INSERT)과 라벨을 공유할 수 있는지도 다음 청크에서 볼 것.",
+      "**「1번은 정답이 된 적 없다」는 거짓이다 — 그리고 유의하지도 않다.** 이 청크 초안이 절차 1단계에 「13개년 192문항에서 1번 정답 0회, 보정 p=1.0e-25」를 검산으로 넣었으나, 저장소 실측으로 둘 다 틀렸다. 분모 192는 근거가 없다(R-ORDER 사정권 56문항 중 **정답표가 있는 것은 42**), 그리고 **①은 실제로 한 번 정답이었다 — M2506#36**(2025학년도 6월 모평, 손으로 복원한 (A)-(C)-(B) 배열과 교차 확인). 실측 분포는 ①1 · ②11 · ③8 · ④13 · ⑤9. 1/42 의 단측 이항 p=9.78e-4 는 이 저장소의 보정 문턱(가족 130 · 3.85e-4)을 **넘지 못한다**. 따라서 절차에서 뺐다. 장문 쪽(X-ORDER)은 22문항 중 ① 0회로 따로 세어 둘 것 — 두 유형을 합쳐 64문항으로 만들면 문턱을 통과하지만, 그 합치기는 결과를 본 뒤에 고른 분모라 근거로 쓰지 않는다.",
+      "**M2609#36 의 corpus 본문 결손 — 작업 중 해소됨** : 분석을 시작할 때 corpus.json 의 M2609#36 은 passage·choices·raw_block 이 모두 null 이어서 게이트 V4(인용 대조)가 대조할 지문을 갖지 못했다. 본문은 저장소의 PDF 추출본 scripts/csat/data/columns2/M2609.txt 751행 이하에 온전히 있어 그것으로 복원해 분석했다(body_recovered). 원인은 lib-passage.mjs 의 itemBlocks 정규식이 이 회차 추출본의 머리줄 \",         36.\" 을 못 잡은 것이고, columns2 31파일 전체를 훑었을 때 이렇게 누락되는 머리줄은 정확히 2개(M2609#36 · M2306#19)로 오탐 0이었다. 파서 수정은 모든 청크의 입력을 바꾸므로 이 청크에서 손대지 않았는데, 작업 중 다른 세션이 lib-passage.mjs 를 고치고 corpus 를 재생성해(2026-09-02 15:58) 결손이 해소되었다 — 복원문과 새 corpus 본문이 같은 지문임을 확인했고 quote 도 corpus 에서 대조된다. 남은 문제: 재생성된 본문에 OCR 잡음(\", ______ 36.\" · \"lity: 복수\")이 섞여 있고, in_scope 인데 본문이 없는 항목은 23개에서 5개로 줄었다(2026-09-02 15:58 재생성 직후 실측: 2022#40 · M2106#40 · M2109#36 · M2306#40 · M2406#40). 그중 M2109#36 은 이 유형(R-ORDER)이므로 해당 청크에서 같은 결손을 만날 수 있다.",
+      "**예상 정답률의 근거** — 12개 모두 실제 문항반응 통계 없이, 판별자의 수(하나뿐인가 둘 이상인가) · 미끼 배열이 첫 블록을 맞히고도 걸리는가 · 배점(2/3점)으로만 추정했다. 3점 6문항 평균 0.50, 2점 6문항 평균 0.63으로 갈렸으나 표본 12로는 배점과 난이도의 관계를 확인할 수 없다.",
+      "**반려가 10문항에서 나왔다(setter 2 · analyst 4 · tutor 4)** — 세 자가 서로 다른 것을 재고 있다는 뜻으로 본다. 다만 analyst 반려 4건이 모두 \"오답 두 개의 함정 라벨이 같다\"는 같은 사유였다. 배열형은 오답 4개가 구조적으로 겹치기 쉬우므로(첫 블록이 같은 배열이 둘씩 나온다) analyst 의 자에 \"첫 블록이 같은 두 오답을 무엇으로 갈랐는가\"를 명시적으로 넣는 것이 낫겠다."
+    ]
+  }
+}

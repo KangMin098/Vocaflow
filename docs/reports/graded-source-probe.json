@@ -1,0 +1,296 @@
+{
+  "measuredAt": "2026-09-03T03:49:33.828Z",
+  "targetWords": {
+    "min": 97,
+    "max": 200
+  },
+  "lesson": "robots.txt 는 라이선스가 아니다 — 크롤 허용과 이용 허락은 다른 일이다.",
+  "sources": [
+    {
+      "id": "nasa_space_place",
+      "label": "NASA Space Place — 어린이·청소년 우주 설명글",
+      "ok": true,
+      "license": "Public Domain (미 연방정부 저작물) — 판매·변형·재배포 제한 없음",
+      "robots": "User-agent: * / Disallow: /magic/ (본문 허용)",
+      "note": "문단 구조가 뚜렷해 발췌 경로(`excerptForBand`)를 그대로 쓸 수 있다.",
+      "total": 42,
+      "sampled": 29,
+      "wordsMedian": 354,
+      "fkMedian": 6.63,
+      "sentMedian": 13,
+      "inSpec": 4,
+      "bands": {
+        "중1~2": 10,
+        "초6~중1": 11,
+        "초5~6": 5,
+        "초3~4": 2,
+        "중3": 1
+      },
+      "items": [
+        {
+          "id": "all-about-the-moon",
+          "words": 789,
+          "fk": 7.66,
+          "sent": 16.4,
+          "band": "중1~2"
+        },
+        {
+          "id": "moon-phases",
+          "words": 609,
+          "fk": 5.52,
+          "sent": 15.2,
+          "band": "초6~중1"
+        },
+        {
+          "id": "moon-distance",
+          "words": 315,
+          "fk": 4.64,
+          "sent": 12.1,
+          "band": "초5~6"
+        },
+        {
+          "id": "launching-into-space",
+          "words": 669,
+          "fk": 7.08,
+          "sent": 15.6,
+          "band": "중1~2"
+        },
+        {
+          "id": "dsn-game",
+          "words": 354,
+          "fk": 8.12,
+          "sent": 16.1,
+          "band": "중1~2"
+        },
+        {
+          "id": "art-challenge",
+          "words": 955,
+          "fk": 8.98,
+          "sent": 17.7,
+          "band": "중1~2"
+        },
+        {
+          "id": "tsunami",
+          "words": 632,
+          "fk": 6.81,
+          "sent": 13.4,
+          "band": "초6~중1"
+        },
+        {
+          "id": "all-about-the-sun",
+          "words": 618,
+          "fk": 5.56,
+          "sent": 12.4,
+          "band": "초6~중1"
+        },
+        {
+          "id": "sun-paper",
+          "words": 173,
+          "fk": 3.1,
+          "sent": 9.6,
+          "band": "초3~4"
+        },
+        {
+          "id": "eclipses",
+          "words": 673,
+          "fk": 6.6,
+          "sent": 14.3,
+          "band": "초6~중1"
+        },
+        {
+          "id": "seasons",
+          "words": 579,
+          "fk": 7.87,
+          "sent": 18.1,
+          "band": "중1~2"
+        },
+        {
+          "id": "spaceweather",
+          "words": 638,
+          "fk": 8.53,
+          "sent": 13.6,
+          "band": "중1~2"
+        },
+        {
+          "id": "sun-heat",
+          "words": 397,
+          "fk": 6.2,
+          "sent": 12.8,
+          "band": "초6~중1"
+        },
+        {
+          "id": "sun-compare",
+          "words": 250,
+          "fk": 4.41,
+          "sent": 10.9,
+          "band": "초5~6"
+        },
+        {
+          "id": "all-about-earth",
+          "words": 248,
+          "fk": 6.8,
+          "sent": 12.4,
+          "band": "초6~중1"
+        },
+        {
+          "id": "atmosphere",
+          "words": 116,
+          "fk": 5.31,
+          "sent": 10.5,
+          "band": "초5~6"
+        },
+        {
+          "id": "water",
+          "words": 260,
+          "fk": 3.99,
+          "sent": 10.4,
+          "band": "초3~4"
+        },
+        {
+          "id": "blue-sky",
+          "words": 566,
+          "fk": 6.63,
+          "sent": 14.9,
+          "band": "초6~중1"
+        },
+        {
+          "id": "loopy-legends",
+          "words": 194,
+          "fk": 5.51,
+          "sent": 13.9,
+          "band": "초6~중1"
+        },
+        {
+          "id": "all-about-mercury",
+          "words": 474,
+          "fk": 9.76,
+          "sent": 13.9,
+          "band": "중3"
+        },
+        {
+          "id": "all-about-venus",
+          "words": 333,
+          "fk": 5.29,
+          "sent": 11.5,
+          "band": "초5~6"
+        },
+        {
+          "id": "all-about-mars",
+          "words": 391,
+          "fk": 7.16,
+          "sent": 12.6,
+          "band": "중1~2"
+        },
+        {
+          "id": "all-about-jupiter",
+          "words": 327,
+          "fk": 8.39,
+          "sent": 14.9,
+          "band": "중1~2"
+        },
+        {
+          "id": "all-about-saturn",
+          "words": 240,
+          "fk": 6.02,
+          "sent": 10.9,
+          "band": "초6~중1"
+        },
+        {
+          "id": "all-about-uranus",
+          "words": 212,
+          "fk": 6.63,
+          "sent": 10.6,
+          "band": "초6~중1"
+        },
+        {
+          "id": "all-about-neptune",
+          "words": 130,
+          "fk": 5.82,
+          "sent": 9.3,
+          "band": "초6~중1"
+        },
+        {
+          "id": "mars-2020",
+          "words": 332,
+          "fk": 7.63,
+          "sent": 14.4,
+          "band": "중1~2"
+        },
+        {
+          "id": "ice-dwarf",
+          "words": 559,
+          "fk": 7.53,
+          "sent": 13,
+          "band": "중1~2"
+        },
+        {
+          "id": "how-many-moons",
+          "words": 338,
+          "fk": 4.48,
+          "sent": 9.7,
+          "band": "초5~6"
+        }
+      ]
+    }
+  ],
+  "unavailable": [
+    {
+      "id": "breaking_news_english",
+      "level": "같은 기사를 난이도별로 다시 쓴다 — 수준은 후보 중 가장 알맞다",
+      "robots": "전면 허용 (`Disallow:` 빈 값)",
+      "why": "저작권 고지가 **판매·수익화 전면 금지**, 앱·LMS·타 사이트 게재 금지, **\"부분을 복사해 다른 형태로 만드는 것\" 도 명시적으로 금지**한다(anti-plagiarism 소프트웨어 사용 명시). robots 만 보고 후보로 적었다가 고지를 열어 보고 뺐다."
+    },
+    {
+      "id": "news_in_levels",
+      "level": "같은 기사 3단계",
+      "robots": "전면 허용",
+      "why": "공개 라이선스 고지를 못 찾았다 = 기본값은 전부 보유. 서면 허락 없이는 쓸 수 없다."
+    },
+    {
+      "id": "bbc_newsround",
+      "level": "어린이 뉴스 — 수준은 맞다",
+      "robots": "**명시적 금지**",
+      "why": "robots.txt 가 scraping·AI 학습·RAG·데이터셋 생성을 조목조목 금지한다. 측정도 하지 않았다."
+    },
+    {
+      "id": "commonlit",
+      "level": "학년별 읽기 지문 — 수준이 매우 알맞다",
+      "robots": "크롤 허용 · `Content-Signal: ai-train=no, use=reference`",
+      "why": "크롤은 허용이나 AI 학습 거부를 선언했다. 뜻이 분명해 **측정도 하지 않는다**."
+    },
+    {
+      "id": "dogonews",
+      "level": "어린이 뉴스",
+      "robots": "`ai-train=no`",
+      "why": "CommonLit 과 같은 선언."
+    },
+    {
+      "id": "science_news_explores",
+      "level": "학생용 과학 기사",
+      "robots": "GPTBot·ChatGPT-User 차단",
+      "why": "우리 UA 는 차단 대상이 아니지만 뜻이 분명하다."
+    }
+  ],
+  "unchecked": [
+    {
+      "id": "nasa_climate_kids",
+      "why": "PD 일 가능성이 높으나(미 연방정부) 기사 목록을 못 뽑았다 — sitemap 이 없고 메뉴가 JS 다."
+    },
+    {
+      "id": "natgeo_kids",
+      "why": "robots 는 허용. 저작권 고지 미확인."
+    },
+    {
+      "id": "time_for_kids",
+      "why": "robots 는 허용. 저작권 고지 미확인."
+    },
+    {
+      "id": "british_council_teens",
+      "why": "robots 는 허용. 저작권 고지 미확인."
+    },
+    {
+      "id": "newsela",
+      "why": "robots 는 허용이나 본문이 로그인 뒤에 있다."
+    }
+  ]
+}

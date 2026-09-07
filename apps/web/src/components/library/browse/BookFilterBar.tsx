@@ -2,14 +2,14 @@
 //
 // 도서 탐색 필터/정렬 바 — "항상 펼친 상세 패널" 재설계 (v06.35).
 //   상단: 검색 · 정렬 · 결과수 · 초기화
-//   구획(항상 노출, facet-adaptive): 내 학습 상태 · 나에게(i+1) · 레벨 · 장르 · 주제 · 연령 · 길이 · 음성
+//   구획(항상 노출, facet-adaptive): 내 학습 상태 · 나에게(i+1) · 레벨 · 장르 · 주제 · 연령 · 길이 · 포맷(만화/음성)
 // 이전 "묶음 한 카드 + 상세 disclosure" 를 라벨 구획으로 분리해 각 조건을 또렷하게.
 // 레벨 단위 = V-Level (CEFR 는 카드 배지 보조). 상태는 BooksExplorer 소유, facets 로 실재 값만 노출.
 
 'use client'
 
 import { useState } from 'react'
-import { Search, SlidersHorizontal, X } from 'lucide-react'
+import { BookImage, Search, SlidersHorizontal, X } from 'lucide-react'
 
 import {
   AGE_BANDS,
@@ -39,6 +39,14 @@ export interface BookFilters {
   age: AgeBand | null
   length: LengthBucket | null
   audioOnly: boolean
+  /** 포맷 — 만화(comic_books published)로도 볼 수 있는 도서만 */
+  comicOnly: boolean
+  /**
+   * 내 수준에서 지금 읽을 수 있는 **챕터**가 하나라도 있는 책만.
+   * 책 라벨(p75)은 책 안의 쉬운 챕터를 가린다 — 실측 2026-08-30, 책 단위로는
+   * 고1(V5) 이 2권뿐인데 챕터로는 87권에 263개 있었다.
+   */
+  readableChaptersOnly: boolean
 }
 
 export type BookSort = 'recommended' | 'easy' | 'hard' | 'short' | 'popular' | 'new'
@@ -53,6 +61,8 @@ export const EMPTY_FILTERS: BookFilters = {
   age: null,
   length: null,
   audioOnly: false,
+  comicOnly: false,
+  readableChaptersOnly: false,
 }
 
 const ENROLL_OPTIONS: { key: EnrollFilter; label: string }[] = [
@@ -85,8 +95,12 @@ export interface FacetData {
   ages: AgeBand[]
   lengths: LengthBucket[]
   hasAudio: boolean
+  /** 발행된 만화를 가진 도서가 하나라도 있는지 */
+  hasComic: boolean
   /** 로그인 사용자가 등록(내 서재)한 도서가 하나라도 있는지 */
   hasEnrollments: boolean
+  /** 챕터 난이도 분포를 가진 도서가 하나라도 있는지 (없으면 칩을 숨긴다) */
+  hasReadableChapters: boolean
 }
 
 interface Props {
@@ -117,9 +131,9 @@ function Chip({
       type="button"
       aria-pressed={active}
       onClick={onClick}
-      className={`inline-flex items-center gap-1 rounded-[var(--r-full)] border px-2.5 py-1 font-display text-[11.5px] font-[600] transition-colors ${
+      className={`inline-flex min-h-11 items-center gap-1 rounded-[var(--r-full)] border px-3 py-1 font-display text-[11.5px] font-[600] transition-colors ${
         active
-          ? 'border-[var(--p)] bg-[var(--p-light)] text-[var(--p-dark)]'
+          ? 'border-[var(--p)] bg-[var(--p-light)] text-[var(--on-p-tint)]'
           : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t2)] hover:border-[var(--t3)] hover:bg-[var(--bg2)]'
       }`}
     >
@@ -131,11 +145,11 @@ function Chip({
 /** 라벨 구획 — 좌측 고정폭 라벨 + 칩 묶음. 각 조건을 또렷한 compartment 로 분리. */
 function Section({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="flex flex-col gap-1.5 px-3.5 py-2.5 sm:flex-row sm:items-start sm:gap-3">
+    <div className="flex flex-col gap-2 px-4 py-3 sm:flex-row sm:items-start sm:gap-3">
       <span className="shrink-0 pt-1 font-display text-[11px] font-[700] text-[var(--t2)] sm:w-[56px]">
         {label}
       </span>
-      <div className="flex flex-1 flex-wrap items-center gap-1.5">{children}</div>
+      <div className="flex flex-1 flex-wrap items-center gap-2">{children}</div>
     </div>
   )
 }
@@ -163,7 +177,9 @@ export function BookFilterBar({
     filters.theme !== null ||
     filters.age !== null ||
     filters.length !== null ||
-    filters.audioOnly
+    filters.audioOnly ||
+    filters.comicOnly ||
+    filters.readableChaptersOnly
 
   const myBand = diagnosed ? vBandOf(userVLevel) : null
 
@@ -178,12 +194,12 @@ export function BookFilterBar({
   return (
     <div className="flex flex-col divide-y divide-[var(--bd)] rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)]/60">
       {/* 상단 — 검색 + 정렬 + 초기화 + 결과수 */}
-      <div className="flex flex-wrap items-center gap-2.5 p-3.5">
+      <div className="flex flex-wrap items-center gap-3 p-4">
         <div className="relative min-w-[180px] flex-1">
           <Search
             size={14}
             aria-hidden
-            className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[var(--t3)]"
+            className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[var(--t2)]"
           />
           <input
             type="search"
@@ -191,12 +207,12 @@ export function BookFilterBar({
             onChange={(e) => onChange({ search: e.target.value })}
             placeholder="제목·저자 검색"
             aria-label="도서 검색"
-            className="w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] py-2 pl-9 pr-3 font-body text-[13px] text-[var(--t1)] placeholder:text-[var(--t3)] focus:border-[var(--bdf)] focus:outline-none focus:ring-2 focus:ring-[var(--p)]/20"
+            className="min-h-11 w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] py-2 pl-9 pr-3 font-body text-[13px] text-[var(--t1)] placeholder:text-[var(--t2)] focus:border-[var(--bdf)] focus:outline-none focus:ring-2 focus:ring-[var(--p)]/20"
           />
         </div>
 
-        <div className="inline-flex items-center gap-1.5">
-          <SlidersHorizontal size={13} aria-hidden className="text-[var(--t3)]" />
+        <div className="inline-flex items-center gap-2">
+          <SlidersHorizontal size={13} aria-hidden className="text-[var(--t2)]" />
           <label htmlFor="book-sort" className="sr-only">
             정렬
           </label>
@@ -204,7 +220,7 @@ export function BookFilterBar({
             id="book-sort"
             value={sort}
             onChange={(e) => onSortChange(e.target.value as BookSort)}
-            className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] py-2 pl-2.5 pr-7 font-display text-[12px] font-[600] text-[var(--t1)] focus:border-[var(--bdf)] focus:outline-none focus:ring-2 focus:ring-[var(--p)]/20"
+            className="min-h-11 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] py-2 pl-3 pr-7 font-display text-[12px] font-[600] text-[var(--t1)] focus:border-[var(--bdf)] focus:outline-none focus:ring-2 focus:ring-[var(--p)]/20"
           >
             {SORT_OPTIONS.map((o) => (
               <option key={o.key} value={o.key}>
@@ -218,13 +234,13 @@ export function BookFilterBar({
           <button
             type="button"
             onClick={onReset}
-            className="inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-2.5 py-1.5 font-display text-[11px] font-[600] text-[var(--t3)] transition-colors hover:bg-[var(--bg3)] hover:text-[var(--t1)]"
+            className="inline-flex min-h-11 items-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[11px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg3)] hover:text-[var(--t1)]"
           >
             <X size={11} aria-hidden /> 초기화
           </button>
         )}
 
-        <span className="whitespace-nowrap font-mono text-[11.5px] text-[var(--t3)]">
+        <span className="whitespace-nowrap font-mono text-[11.5px] text-[var(--t2)]">
           <strong className="font-display font-[700] text-[var(--t1)]">{resultCount}</strong>
           {resultCount !== totalCount && ` / ${totalCount}`} 권
         </span>
@@ -271,7 +287,7 @@ export function BookFilterBar({
             >
               <span className="font-mono">{b.short}</span> {b.label}
               {myBand === b.key && (
-                <span className="ml-0.5 rounded-[var(--r-full)] bg-[var(--p)] px-1 py-px font-mono text-[8.5px] font-[700] text-white">
+                <span className="ml-0.5 rounded-[var(--r-full)] bg-[var(--p)] px-1 py-px font-mono text-[8.5px] font-[700] text-[var(--on-p)]">
                   내 레벨
                 </span>
               )}
@@ -311,7 +327,9 @@ export function BookFilterBar({
             <button
               type="button"
               onClick={() => setAllThemes((v) => !v)}
-              className="inline-flex items-center rounded-[var(--r-full)] px-2 py-1 font-display text-[11px] font-[600] text-[var(--p)] transition-colors hover:bg-[var(--p-light)]"
+              // ⚠️ `min-h-11`(44px)이 빠져 있었다 — 390px 에서 실측 **89×25**.
+              //    옆에 늘어선 `Chip` 은 전부 갖고 있는데 이 버튼만 없었다(전수 탭 대상 검사 1건).
+              className="inline-flex min-h-11 items-center rounded-[var(--r-full)] px-3 py-1 font-display text-[11px] font-[600] text-[var(--on-p-tint)] transition-colors hover:bg-[var(--p-light)]"
             >
               {allThemes ? '접기' : `+${facets.themes.length - THEME_PREVIEW}개 더보기`}
             </button>
@@ -349,15 +367,34 @@ export function BookFilterBar({
         </Section>
       )}
 
-      {/* 음성 — 원어민 음성 보유 도서 (facet-adaptive) */}
-      {facets.hasAudio && (
-        <Section label="음성">
-          <Chip
-            active={filters.audioOnly}
-            onClick={() => onChange({ audioOnly: !filters.audioOnly })}
-          >
-            🔊 원어민 음성
-          </Chip>
+      {/* 포맷 — 같은 책의 다른 표현형(만화/음성). 장르 축과 직교(docs/CCP_LIBRARY_INTEGRATION.md D3). */}
+      {(facets.hasComic || facets.hasAudio) && (
+        <Section label="포맷">
+          {facets.hasComic && (
+            <Chip
+              active={filters.comicOnly}
+              onClick={() => onChange({ comicOnly: !filters.comicOnly })}
+            >
+              <BookImage size={11} aria-hidden /> 만화로도 볼 수 있어요
+            </Chip>
+          )}
+          {facets.hasAudio && (
+            <Chip
+              active={filters.audioOnly}
+              onClick={() => onChange({ audioOnly: !filters.audioOnly })}
+            >
+              🔊 원어민 음성
+            </Chip>
+          )}
+          {/* 진단한 학습자에게만 — 수준을 모르면 baseline V5 가정이라 "내 수준" 이 거짓말이 된다. */}
+          {diagnosed && facets.hasReadableChapters && (
+            <Chip
+              active={filters.readableChaptersOnly}
+              onClick={() => onChange({ readableChaptersOnly: !filters.readableChaptersOnly })}
+            >
+              📖 지금 읽을 챕터 있음
+            </Chip>
+          )}
         </Section>
       )}
     </div>

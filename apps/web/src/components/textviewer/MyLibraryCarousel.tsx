@@ -1,18 +1,33 @@
 // apps/web/src/components/textviewer/MyLibraryCarousel.tsx
 //
 // v06.33 — /text 허브 OTT coverflow.
-// 3 탭 (도서 · 스크립트 · 단어장) — 각 탭 안에서 좌우 토글로 항목 선택.
+// 3 탭 (Books · Texts · Decks) — 각 탭 안에서 좌우 토글로 항목 선택.
 // LibraryGrid / VocabSetCarousel 와 동일 iOS easing + premium cover.
+//
+// v08.4 — 탭이 **주소를 갖는다**(`/text?view=`). 이전에는 순수 useState 라 사이드바·북마크·
+//   공유 어디서도 특정 면으로 들어올 수 없었고, 탭 이름도 여기서 한국어로 따로 짓고 있었다
+//   (프로젝트 규칙: 메뉴·탭 이름은 레지스트리에서 import — 화면에서 짓지 않는다).
+//   목록·라벨·강조색은 이제 `lib/library/tabs.ts` 의 `MY_LIBRARY_TABS` 가 소유한다.
 
 'use client'
 
 import Image from 'next/image'
 import Link from 'next/link'
+import { usePathname, useRouter } from 'next/navigation'
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { BookOpen, ChevronLeft, ChevronRight, FileText, Layers, Sparkles } from 'lucide-react'
+// 탭 아이콘은 `MY_LIBRARY_TABS` 가 들고 온다 — 여기서 다시 고르지 않는다.
+import { ChevronLeft, ChevronRight, Sparkles } from 'lucide-react'
 
+import { useScrollHint, scrollActiveIntoView } from '@/hooks/useScrollHint'
 import { bookCover, cefrToVLevel } from '@/lib/library/book-cover'
+import {
+  MY_LIBRARY_TABS,
+  MY_LIBRARY_VIEW_PARAM,
+  type MyLibraryView,
+} from '@/lib/library/tabs'
 import { GradientBookCover } from '@/components/library/shared/GradientBookCover'
+import { MediaCover } from '@/components/library/MediaCover'
+import { resolveMediaForm, mediaFormSrLabel } from '@/lib/library/media-form'
 import { workspaceHref } from '@/lib/text-viewer/workspace-href'
 import type { LibraryText } from '@/types/library'
 import type { SubscribedSet } from '@/hooks/useSubscribedSets'
@@ -24,7 +39,7 @@ import {
 const IOS_EASING = 'cubic-bezier(0.22, 1, 0.36, 1)'
 const DURATION = 600
 
-type TabKey = 'books' | 'scripts' | 'vocab'
+type TabKey = MyLibraryView
 
 interface Props {
   books: LibraryText[]      // texts with bookId (aggregated)
@@ -32,6 +47,18 @@ interface Props {
   vocabSets: SubscribedSet[]
   /** 학습자 V레벨 — 도서 상세의 i+1 레벨 권장 (0 = 미진단) */
   userVLevel?: number
+  /** `?view=` 로 지정된 면. null 이면 항목이 가장 많은 면으로 착지(기존 동작). */
+  view?: MyLibraryView | null
+  /** 담은 교재 수 — 탭 뱃지에만 쓴다. 조회는 서버가 한다(RLS). */
+  textbookCount?: number
+  /**
+   * Textbooks 면의 본문 — **서버가 그려서 넘긴 노드**.
+   *
+   * 이 면은 코버플로가 아니다. 교재는 "고르고 쌓아 두는" 것이라 낱개 카드를 넘기는 동작이
+   * 뜻을 갖지 않는다. 그래서 탭줄만 공유하고 무대는 통째로 바꾼다 —
+   * 탭줄을 복제하면 그 순간 두 번째 내비 표면이 생긴다(이 저장소가 반복해 겪은 실패).
+   */
+  textbooksSlot?: React.ReactNode
 }
 
 /** progressPercent → 학습 상태 */
@@ -79,17 +106,55 @@ function cardTransform(offset: number) {
   }
 }
 
-export function MyLibraryCarousel({ books, scripts, vocabSets, userVLevel = 0 }: Props) {
-  // 첫 진입 탭 — 가장 많은 항목 기준
+export function MyLibraryCarousel({
+  books,
+  scripts,
+  vocabSets,
+  userVLevel = 0,
+  view = null,
+  textbookCount = 0,
+  textbooksSlot = null,
+}: Props) {
+  const router = useRouter()
+  const pathname = usePathname()
+
+  // 첫 진입 탭 — 주소가 말하면 그것, 아니면 가장 많은 항목 기준.
   const initial: TabKey =
-    books.length > 0 ? 'books' : scripts.length > 0 ? 'scripts' : 'vocab'
+    view ?? (books.length > 0 ? 'books' : scripts.length > 0 ? 'scripts' : 'vocab')
   const [tab, setTab] = useState<TabKey>(initial)
+
+  // 주소가 바뀌면 따라간다 — 사이드바에서 **같은 화면의 다른 면**을 누르면 경로가 그대로라
+  // 리마운트가 없다. 이 동기화가 없으면 URL 만 바뀌고 화면은 그대로 있는다.
+  useEffect(() => {
+    if (view && view !== tab) setTab(view)
+    // tab 을 의존성에 넣으면 사용자가 탭을 눌러 바꾼 직후 주소가 되돌려 놓는다.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [view])
+
+  /** 탭 전환은 주소도 함께 옮긴다 — 뒤로가기·북마크·공유가 성립하도록. */
+  const selectTab = useCallback(
+    (key: TabKey) => {
+      setTab(key)
+      // `replace` — 탭 전환마다 히스토리가 쌓이면 뒤로가기가 탭 순회가 된다.
+      // `scroll: false` — 캐러셀이 화면 중간에 있어 위로 튀면 방금 고른 것을 놓친다.
+      router.replace(`${pathname}?${MY_LIBRARY_VIEW_PARAM}=${key}`, { scroll: false })
+    },
+    [router, pathname],
+  )
   const [activeMap, setActiveMap] = useState<Record<TabKey, number>>({
     books: 0,
     scripts: 0,
     vocab: 0,
+    textbooks: 0,
   })
   const [detail, setDetail] = useState<DetailVariant | null>(null)
+  const { ref: stripRef, hint, measure: measureStrip } = useScrollHint<HTMLDivElement>()
+
+  // 주소로 곧장 들어온 면의 탭이 화면 밖이면 위치를 알 수 없다 — 보이는 자리로 끌어온다.
+  useEffect(() => {
+    scrollActiveIntoView(stripRef.current, '[aria-selected="true"]')
+    measureStrip()
+  }, [tab, stripRef, measureStrip])
   const touchStartX = useRef<number | null>(null)
 
   function openDetail(item: LibraryText | SubscribedSet, type: TabKey) {
@@ -163,15 +228,20 @@ export function MyLibraryCarousel({ books, scripts, vocabSets, userVLevel = 0 }:
         // 구독 = 활성 학습 풀에 포함 (진도 세부는 Phase 2 — Memory Decay 집계)
         mine: { status: 'in_progress' },
         ctaLabel: '단어장 열기',
-        secondaryHref: `/wordvault?set=${v.id}`,
+        // ⚠️ `/wordvault?set=<id>` 로 보내고 있었는데 **허브는 `set` 을 읽지 않는다**
+        //    (읽는 것은 `view` 하나다 — 실측 2026-08-30). "단어장 보기" 를 눌러도
+        //    그 세트가 아니라 **허브 전체**가 열렸다. 세트로 거를 수 있는 곳은
+        //    `/wordvault/browse` 이고 그쪽은 `filter=set:<id>` 를 읽는다.
+        secondaryHref: `/wordvault/browse?filter=set:${v.id}`,
         secondaryLabel: '단어장 보기',
         onCtaClick: () => setDetail(null),
       })
     }
   }
 
+  // Textbooks 면은 넘길 카드가 없다 — 무대 자리를 서버 노드가 통째로 쓴다.
   const items: Array<LibraryText | SubscribedSet> =
-    tab === 'books' ? books : tab === 'scripts' ? scripts : vocabSets
+    tab === 'books' ? books : tab === 'scripts' ? scripts : tab === 'vocab' ? vocabSets : []
   const active = activeMap[tab]
   const last = items.length - 1
 
@@ -212,19 +282,42 @@ export function MyLibraryCarousel({ books, scripts, vocabSets, userVLevel = 0 }:
     touchStartX.current = null
   }
 
-  const tabs: { key: TabKey; label: string; icon: typeof BookOpen; count: number; accent: string }[] = [
-    { key: 'books', label: '도서', icon: BookOpen, count: books.length, accent: '#6366F1' },
-    { key: 'scripts', label: '스크립트', icon: FileText, count: scripts.length, accent: '#3B82F6' },
-    { key: 'vocab', label: '단어장', icon: Layers, count: vocabSets.length, accent: '#0EA5E9' },
-  ]
+  // 라벨·아이콘·강조색은 레지스트리에서. 개수만 이 화면이 안다.
+  const countOf: Record<TabKey, number> = {
+    books: books.length,
+    scripts: scripts.length,
+    vocab: vocabSets.length,
+    textbooks: textbookCount,
+  }
+  const tabs = MY_LIBRARY_TABS.map((t) => ({
+    key: t.view,
+    label: t.label,
+    says: t.says,
+    icon: t.icon,
+    count: countOf[t.view],
+    accent: t.accent,
+  }))
   const currentTabAccent = tabs.find((t) => t.key === tab)!.accent
 
-  if (items.length === 0 && tabs.every((t) => t.count === 0)) return null
+  // ⚠️ Textbooks 면에서는 사라지면 안 된다 — 0권이어도 그 면의 할 일은 "서가로 보내기" 다.
+  if (tab !== 'textbooks' && items.length === 0 && tabs.every((t) => t.count === 0)) return null
 
   return (
-    <section className="flex flex-col items-center gap-5">
-      {/* 3 탭 */}
-      <div role="tablist" aria-label="라이브러리 탭" className="flex items-center gap-1.5 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg2)] p-1">
+    <section aria-label="내 라이브러리 목록" className="flex flex-col items-center gap-5">
+      {/* 면 탭 — 목록은 레지스트리(MY_LIBRARY_TABS)가 소유한다 */}
+      {/* aria-label 이 '라이브러리 탭' 이었다 — `LibraryTabs`(공용 서가)와 **같은 이름**이라
+          스크린리더 사용자에게는 두 화면의 다른 탭줄이 같은 것으로 불렸다. */}
+      {/* ⚠️ 390px 에서 탭이 넷이면 화면을 넘는다 — 넘침은 **이 줄 안에서** 처리한다.
+          페이지가 가로로 밀리면 학습자는 본문을 읽다가 옆으로 흔들린다(실측 2026-08-21: 51px). */}
+      <div
+        ref={stripRef}
+        role="tablist"
+        aria-label="내 라이브러리 탭"
+        // ⚠️ 넘친다는 사실을 알린다 — 없으면 네 번째 탭(Textbooks)이 **9px** 만 보인다.
+        //    모바일에는 사이드바가 없어서 그 탭이 교재로 가는 유일한 통로다(실측 2026-08-22).
+        data-scroll-hint={hint === 'none' ? undefined : hint}
+        className="flex max-w-full items-center gap-2 overflow-x-auto rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg2)] p-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden data-[scroll-hint=both]:[mask-image:linear-gradient(to_right,transparent,black_20px,black_calc(100%-20px),transparent)] data-[scroll-hint=end]:[mask-image:linear-gradient(to_right,black_calc(100%-20px),transparent)] data-[scroll-hint=start]:[mask-image:linear-gradient(to_right,transparent,black_20px)]"
+      >
         {tabs.map((t) => {
           const isActive = t.key === tab
           const Icon = t.icon
@@ -233,20 +326,23 @@ export function MyLibraryCarousel({ books, scripts, vocabSets, userVLevel = 0 }:
               key={t.key}
               role="tab"
               aria-selected={isActive}
-              onClick={() => setTab(t.key)}
-              disabled={t.count === 0}
-              className={`inline-flex items-center gap-1.5 rounded-[var(--r-full)] px-3.5 py-1.5 font-display text-[13px] font-[700] transition-all disabled:cursor-not-allowed disabled:opacity-40 ${
+              aria-label={`${t.label} — ${t.says}`}
+              onClick={() => selectTab(t.key)}
+              // 0권이어도 Textbooks 탭은 눌려야 한다 — 그 면이 서가로 가는 통로다.
+              disabled={t.count === 0 && t.key !== 'textbooks'}
+              className={`inline-flex min-h-[44px] shrink-0 items-center gap-1 whitespace-nowrap rounded-[var(--r-full)] px-3 font-display text-[12.5px] font-[700] transition-all disabled:cursor-not-allowed disabled:opacity-40 sm:gap-2 sm:px-4 sm:text-[13px] ${
                 isActive
                   ? 'text-white shadow-[var(--sh-sm)]'
                   : 'text-[var(--t2)] hover:bg-[var(--bg)]'
               }`}
               style={isActive ? { backgroundColor: t.accent } : undefined}
             >
-              <Icon size={13} aria-hidden />
+              {/* 장식이라 좁은 화면에서 먼저 접는다 — 라벨이 길이를 결정하게 둔다 */}
+              <Icon size={13} aria-hidden className="hidden sm:block" />
               {t.label}
               <span
-                className={`rounded-[var(--r-full)] px-1.5 text-[10px] tabular-nums ${
-                  isActive ? 'bg-white/25' : 'bg-[var(--bg3)] text-[var(--t3)]'
+                className={`rounded-[var(--r-full)] px-2 text-[10px] tabular-nums ${
+                  isActive ? 'bg-black/25' : 'bg-[var(--bg3)] text-[var(--t2)]'
                 }`}
               >
                 {t.count}
@@ -256,8 +352,10 @@ export function MyLibraryCarousel({ books, scripts, vocabSets, userVLevel = 0 }:
         })}
       </div>
 
-      {/* Coverflow stage */}
-      {items.length > 0 ? (
+      {/* Coverflow stage — Textbooks 면만 무대를 통째로 바꾼다(탭줄은 공유). */}
+      {tab === 'textbooks' ? (
+        <div className="w-full max-w-[1280px]">{textbooksSlot}</div>
+      ) : items.length > 0 ? (
         <>
           <div className="relative w-full overflow-hidden">
             <div
@@ -365,7 +463,7 @@ export function MyLibraryCarousel({ books, scripts, vocabSets, userVLevel = 0 }:
         </>
       ) : (
         <div className="rounded-[var(--r-lg)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-8 py-12 text-center">
-          <p className="font-body text-[13px] text-[var(--t3)]">
+          <p className="font-body text-[13px] text-[var(--t2)]">
             {tab === 'books'
               ? '아직 라이브러리에 도서가 없어요'
               : tab === 'scripts'
@@ -413,14 +511,16 @@ function BookCard({
         imageAlt={`${item.title} 표지`}
         coverSlot={
           /* 그라디언트 표지 — 클로스바운드 클래식 풍 (실 표지엔 제목 박혀있어 미표시) */
-          !item.coverImageUrl ? <GradientBookCover title={item.title} author={item.author} /> : null
+          !item.coverImageUrl ? (
+            <GradientBookCover title={item.title} author={item.author} textTone={cover.textTone} />
+          ) : null
         }
       >
         {/* 진행 배지 우상단 */}
         {item.progressPercent > 0 && (
           <span
             aria-hidden
-            className="absolute right-3.5 top-3.5 inline-flex items-center rounded-[3px] bg-white/95 px-2 py-0.5 font-mono text-[10.5px] font-[700] text-[var(--t1)] shadow-[0_2px_4px_rgba(0,0,0,0.18)]"
+            className="absolute right-3.5 top-3.5 inline-flex items-center rounded-[3px] bg-[var(--chip-cover-bg)] px-2 py-1 font-mono text-[10.5px] font-[700] text-[var(--chip-cover-ink)] shadow-[0_2px_4px_rgba(0,0,0,0.18)]"
           >
             {item.progressPercent}%
           </span>
@@ -428,7 +528,7 @@ function BookCard({
         {/* CEFR 좌상단 */}
         <span
           aria-hidden
-          className="absolute left-3.5 top-3.5 inline-flex items-center rounded-[3px] bg-black/55 px-2 py-0.5 font-mono text-[10.5px] font-[700] text-white backdrop-blur-sm"
+          className="absolute left-3.5 top-3.5 inline-flex items-center rounded-[3px] bg-black/55 px-2 py-1 font-mono text-[10.5px] font-[700] text-white backdrop-blur-sm"
         >
           {item.cefrLevel}
         </span>
@@ -447,46 +547,44 @@ function ScriptCard({
   isCenter: boolean
   onClick: () => void
 }) {
-  const cover = bookCover({
-    title: item.title,
-    bookVLevel: cefrToVLevel(item.cefrLevel),
-    coverFrom: null,
-    coverTo: null,
+  // 매체 형식 판정 — `register==='news'` 가 소스보다 **우선**한다.
+  //   같은 소스가 해설과 단신을 함께 내기 때문이다(VOA 'As It Is' vs 'Words and Their Stories').
+  //   `texts` 에는 출처 컬럼이 없어 `useTexts` 가 ACP 마커(`article:{uuid}`)로 되짚어 넘긴다 —
+  //   안 넘기면 `kind:'text'` 로 떨어져 VOA 강의도 NASA 보도자료도 전부 **대본 표지**가 된다.
+  const form = resolveMediaForm({
+    kind: item.articleSource ? 'article' : 'text',
+    source: item.articleSource,
+    register: item.articleRegister,
+    hasAudio: item.articleHasAudio,
   })
+
+  // 표지 그림은 `aria-hidden` 이라 **유일한 텍스트 대안이 이 라벨**이다(BBC GEL 패턴).
+  //   이 카드는 버튼의 `aria-label` 이 내부 텍스트를 덮으므로, 별도 span 이 아니라
+  //   라벨 문자열에 직접 잇는다 — `MediaCoverSrLabel` 을 넣어도 읽히지 않는다.
+  const srLabel = `${item.title} ${mediaFormSrLabel(form, {
+    readingMinutes: item.articleReadingMinutes ?? null,
+  })}`
+
   return (
-    <CardWrap
-      onClick={onClick}
-      ariaLabel={item.title}
-    >
-      <CoverShell
-        from={cover.from}
-        to={cover.to}
-        isCenter={isCenter}
-        coverSlot={
-          <GradientBookCover
-            title={item.title}
-            author={item.author && item.author !== '저자 미상' ? item.author : null}
-          />
-        }
-      >
-        <span
-          aria-hidden
-          className="absolute left-3.5 top-3.5 inline-flex items-center gap-1 rounded-[3px] bg-black/55 px-2 py-0.5 font-display text-[10.5px] font-[700] text-white backdrop-blur-sm"
-        >
-          <FileText size={10} /> {item.category}
-        </span>
+    <CardWrap onClick={onClick} ariaLabel={srLabel}>
+      {/* 기사는 **책 표지도 책 셸도 쓰지 않는다** — 매체 형식 표지를 가로 4:3 평면 셸에 담는다.
+          편집 관습에서 세로는 "이번 호(號)", 가로는 "기사"다(Economist 16:9 · NY 4:3 ·
+          Monocle 4:3 토큰 강제 · 롱블랙·뉴닉·폴인 4:3). 실측 2026-08-17. */}
+      <ArticleShell isCenter={isCenter}>
+        <MediaCover form={form} title={item.title} imageUrl={item.articleCoverUrl ?? null} />
         {item.progressPercent > 0 && (
           <span
             aria-hidden
-            className="absolute right-3.5 top-3.5 inline-flex items-center rounded-[3px] bg-white/95 px-2 py-0.5 font-mono text-[10.5px] font-[700] text-[var(--t1)] shadow-[0_2px_4px_rgba(0,0,0,0.18)]"
+            className="absolute bottom-3 right-4 inline-flex items-center font-editorial text-[10.5px] font-[600] tabular-nums text-white/75"
           >
             {item.progressPercent}%
           </span>
         )}
-      </CoverShell>
+      </ArticleShell>
     </CardWrap>
   )
 }
+
 
 // ─── Vocab Card ──────────────────────────────────────────
 function VocabCard({
@@ -593,6 +691,39 @@ function CoverShell({
   )
 }
 
+/**
+ * 기사 전용 셸 — **가로 4:3 · 평면**.
+ *
+ * `CoverShell` 을 쓰면 안 되는 이유: 그건 3D 책 오브젝트다(`book-cover-premium` 의
+ * `border-radius: 2px 7px 7px 2px` = 책등 날카롭고 페이지 단면 둥근 모서리 · 갈색 캐스트
+ * 섀도 · `book-spine3d` · `book-foreedge` · 바닥 반사). 기사에 그걸 씌우면 신문이 양장본이 된다.
+ *
+ * 편집 레퍼런스 실측(Economist·New Yorker·Monocle): 기사 카드에 **`border-radius`·
+ * `box-shadow`·입체 프레임이 전부 0**이고, 구분은 1px 괘선이나 여백이 맡는다.
+ * 다만 이 캐러셀은 Coverflow 라 카드가 공중에 떠 있어야 해서, 최소한의 평면 그림자만 남긴다.
+ *
+ * 탭이 갈려 있어(Books · Texts · Decks) 기사 탭만 다른 비율을 가져도 레이아웃이 어긋나지 않는다.
+ */
+function ArticleShell({
+  isCenter,
+  children,
+}: {
+  isCenter: boolean
+  children: React.ReactNode
+}) {
+  return (
+    <div
+      className={`relative aspect-[4/3] w-[344px] overflow-hidden rounded-[3px] transition-shadow duration-[var(--dur-slow)] ${
+        isCenter
+          ? 'shadow-[0_2px_4px_rgba(12,14,20,0.14),0_18px_38px_-12px_rgba(12,14,20,0.34)]'
+          : 'shadow-[0_1px_2px_rgba(12,14,20,0.10),0_8px_18px_-8px_rgba(12,14,20,0.22)]'
+      }`}
+    >
+      {children}
+    </div>
+  )
+}
+
 function CardWrap({
   onClick,
   ariaLabel,
@@ -644,7 +775,7 @@ function HeroInfo({
     const v = item as SubscribedSet
     title = v.title
     subtitle = `${v.wordCount.toLocaleString()} 단어${v.description ? ' · ' + v.description : ''}`
-    href = `/wordvault?set=${v.id}`
+    href = `/wordvault/browse?filter=set:${v.id}`
     cta = '단어장 열기'
   }
 
@@ -657,10 +788,10 @@ function HeroInfo({
       <h2 className="line-clamp-2 font-display text-[22px] font-[800] leading-tight tracking-[-0.01em] text-[var(--t1)] md:text-[26px]">
         {title}
       </h2>
-      <p className="font-body text-[13px] text-[var(--t3)]">{subtitle}</p>
+      <p className="font-body text-[13px] text-[var(--t2)]">{subtitle}</p>
       <Link
         href={href}
-        className="mt-2 inline-flex items-center gap-1.5 rounded-[var(--r-md)] px-5 py-2.5 font-display text-[13px] font-[700] text-white shadow-[var(--sh-sm)] transition-all hover:scale-[1.03] active:scale-[0.97]"
+        className="mt-2 inline-flex min-h-11 items-center gap-2 rounded-[var(--r-md)] px-5 py-3 font-display text-[13px] font-[700] text-white shadow-[var(--sh-sm)] transition-all hover:scale-[1.03] active:scale-[0.97]"
         style={{ backgroundColor: accent }}
       >
         {cta}

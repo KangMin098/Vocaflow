@@ -10,7 +10,7 @@ export default function DictationResultsPage() {
   return (
     <Suspense
       fallback={
-        <div className="mx-auto max-w-4xl px-4 py-12 text-center font-body text-[14px] text-[var(--t3)]">
+        <div className="mx-auto max-w-4xl px-4 py-12 text-center font-body text-[14px] text-[var(--t2)]">
           결과를 불러오는 중...
         </div>
       }

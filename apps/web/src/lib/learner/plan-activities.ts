@@ -5,6 +5,8 @@
 // P1 재설계: 학습 계획 = 플랫폼 자료(도서/스크립트/공용단어장/내 스크립트) × 활동 (리틀팍스형).
 //   book=library_books · article=library_articles(공개 스크립트) · word_set=shared_word_sets · script=texts(개인)
 
+import { SOURCE_META } from '@/lib/articles/source-meta'
+
 import { isFullScreenRoute } from '@/lib/layout/full-screen-routes'
 
 export type MaterialType = 'book' | 'article' | 'word_set' | 'script'
@@ -36,16 +38,21 @@ export interface ActivityDef {
  * "아이콘=활동" 연상이 화면 어디서나 성립해야 한다.
  */
 export const PLAN_ACTIVITIES: ActivityDef[] = [
-  { id: 'listen', label: '듣기', layer: 'L0 입력', icon: 'Headphones' },
-  { id: 'read', label: '읽기', layer: 'L1 독해', icon: 'BookOpen' },
-  { id: 'echo', label: '따라하기', layer: 'L4c 청각생성', icon: 'Mic2' },
-  { id: 'vocab', label: '단어', layer: 'L3 노출', icon: 'WholeWord' },
-  { id: 'flashcard', label: 'Flashcard', layer: 'L4a 재인', icon: 'Layers' },
-  { id: 'wordblitz', label: 'WordBlitz', layer: 'L4a 자동화', icon: 'Zap' },
-  { id: 'pairflip', label: 'PairFlip', layer: 'L4a 공간기억', icon: 'Grid2x2' },
-  { id: 'spellforge', label: 'SpellForge', layer: 'L4b 시각생성', icon: 'Hammer' },
-  { id: 'scriptquiz', label: 'ScriptQuiz', layer: 'L5 정복', icon: 'HelpCircle' },
-  { id: 'dictation', label: 'Dictation', layer: 'L6 완성', icon: 'PencilLine' },
+  // v06.141 — 앞의 넷만 한글('듣기'·'읽기'·'따라하기'·'단어')이고 나머지 여섯은 모듈 브랜드명이라
+  // 한 줄에 두 언어가 섞여 있었다. 활동 칩은 늘 한 줄로 나열되므로 그 섞임이 그대로 보인다.
+  //   Echo — 모듈명 EchoMatch 의 축약. '따라하기'가 가리키던 그 활동이다.
+  //   Words — 어휘 노출 단계. 사이드바 그룹 `Words` 와 같은 말을 쓴다.
+  // layer 는 인지 계층 표기(L0~L6)이고 화면에 칩으로 뜬다 — 코드는 두고 설명만 영어로.
+  { id: 'listen', label: 'Listen', layer: 'L0 Input', icon: 'Headphones' },
+  { id: 'read', label: 'Read', layer: 'L1 Reading', icon: 'BookOpen' },
+  { id: 'echo', label: 'Echo', layer: 'L4c Voice', icon: 'Mic2' },
+  { id: 'vocab', label: 'Words', layer: 'L3 Exposure', icon: 'WholeWord' },
+  { id: 'flashcard', label: 'Flashcard', layer: 'L4a Recognition', icon: 'Layers' },
+  { id: 'wordblitz', label: 'WordBlitz', layer: 'L4a Automation', icon: 'Zap' },
+  { id: 'pairflip', label: 'PairFlip', layer: 'L4a Spatial', icon: 'Grid2x2' },
+  { id: 'spellforge', label: 'SpellForge', layer: 'L4b Spelling', icon: 'Hammer' },
+  { id: 'scriptquiz', label: 'ScriptQuiz', layer: 'L5 Mastery', icon: 'HelpCircle' },
+  { id: 'dictation', label: 'Dictation', layer: 'L6 Completion', icon: 'PencilLine' },
 ]
 
 export const ACTIVITY_BY_ID: Record<PlanActivity, ActivityDef> = PLAN_ACTIVITIES.reduce(
@@ -74,11 +81,39 @@ export function isActivityAllowed(type: MaterialType, activity: PlanActivity): b
   return activitiesForType(type).includes(activity)
 }
 
+/**
+ * 자료 유형 표시명 — **학습자가 읽는 이름의 단일 출처** (v06.141 영어화).
+ *
+ * ⚠️ 화면에서 이 이름을 다시 짓지 말 것. 한글이던 시절 같은 유형이 화면마다 갈렸다:
+ *   `article` = Plan '스크립트' vs Library '짧은 글' · `word_set` = '공용단어장' vs '단어장' vs '세트'.
+ * 이름을 각자 정하게 두면 영어로도 똑같이 갈린다 (인증 모듈에서 `?next=`/`?returnTo=` 로 겪은 것과 같은 실패).
+ *
+ * 이름의 근거:
+ *   Books      — 큐레이션 장문. `library_books` 와 같은 말을 쓴다.
+ *   Dispatches — arXiv·NASA·NIH·VOA 4피드에서 오는 짧은 글. "현장에서 온 보고"라는 뜻이
+ *                출처의 성격과 정확히 맞고, 사이드바 `Scripts`(읽을 원문) 와 충돌하지 않는다.
+ *                'Articles' 는 평범하고 'Shorts' 는 영상 플랫폼 연상이라 버렸다.
+ *   Decks      — 발행 어휘 세트. ts-fsrs(Anki 계보)를 쓰는 제품에서 통용어이고,
+ *                Vault(내 단어)·Words(사이드바 그룹)와 층위가 분명히 갈린다.
+ *   Texts      — 학습자가 직접 넣은 본문. 사이드바 `Texts` 와 같은 말.
+ *                v08.4 이전에는 여기만 'Scripts' 였다 — `axes.ts` NAME_DECISIONS 가 같은 것을
+ *                **Texts** 로 확정하고 'My Scripts' 를 retire 시킨 뒤에도 이 표가 안 따라와서,
+ *                한 대상에 두 이름(사이드바 'My Scripts' · Dictation/Vault 'Scripts')이 살아 있었다.
+ *                "Script" 는 이제 활동명 ScriptQuiz 안에만 남는다.
+ */
 export const MATERIAL_LABEL: Record<MaterialType, string> = {
-  book: '도서',
-  article: '스크립트',
-  word_set: '공용단어장',
-  script: '내 스크립트',
+  book: 'Books',
+  article: 'Dispatches',
+  word_set: 'Decks',
+  script: 'Texts',
+}
+
+/** 단수형 — 한 건을 가리킬 때(뱃지·행 레이블). 복수형을 잘라 쓰면 'Dispatche' 가 된다. */
+export const MATERIAL_LABEL_ONE: Record<MaterialType, string> = {
+  book: 'Book',
+  article: 'Dispatch',
+  word_set: 'Deck',
+  script: 'Text',
 }
 
 export interface MaterialRef {
@@ -181,41 +216,45 @@ export function isActivityScoped(type: MaterialType, activity: PlanActivity): bo
 
 // ── 학습 요일 (study_plan_items.weekdays) ──
 
-/** 요일 — ISO 1=월 .. 7=일 */
+/** 요일 — ISO 1=Mon .. 7=Sun. 요일 칩은 7개가 한 줄에 붙으므로 3글자 축약을 쓴다. */
 export const WEEKDAYS: { value: number; label: string }[] = [
-  { value: 1, label: '월' },
-  { value: 2, label: '화' },
-  { value: 3, label: '수' },
-  { value: 4, label: '목' },
-  { value: 5, label: '금' },
-  { value: 6, label: '토' },
-  { value: 7, label: '일' },
+  { value: 1, label: 'Mon' },
+  { value: 2, label: 'Tue' },
+  { value: 3, label: 'Wed' },
+  { value: 4, label: 'Thu' },
+  { value: 5, label: 'Fri' },
+  { value: 6, label: 'Sat' },
+  { value: 7, label: 'Sun' },
 ]
 
-/** 요일 단축 라벨 (월·화·…) — value 1=월..7=일 */
+/** 요일 단축 라벨 (Mon·Tue·…) — value 1=Mon..7=Sun */
 export function weekdayLabel(value: number): string {
   return WEEKDAYS.find((d) => d.value === value)?.label ?? String(value)
 }
 
-/** library_articles.source + texts.source(text_source) → 표시 라벨 (소스별 분류 레일).
- *  키가 겹치지 않아 한 맵으로 스크립트(공개)·내 스크립트(개인) 모두 커버. */
-export const ARTICLE_SOURCE_LABEL: Record<string, string> = {
-  voa: 'VOA',
-  nasa: 'NASA',
-  nih: 'NIH',
-  simple_wikipedia: 'Simple Wikipedia',
-  wikinews: 'Wikinews',
-  the_conversation: 'The Conversation',
-  // texts.source (내 스크립트 origin)
-  library: '도서에서',
-  'direct-script': '직접 입력',
-  'direct-file': '파일 업로드',
-  'shared-set': '공유 세트',
+/** texts.source(내가 넣은 본문의 출처) 전용 라벨.
+ *
+ *  ⚠️ **발행사 이름은 여기 적지 않는다** — 정본은 `SOURCE_META`(lib/articles/source-meta.ts)다.
+ *  이 맵이 발행사까지 들고 있던 동안 두 레지스트리가 조용히 갈렸다: 소스가 9개 늘어나는 사이
+ *  이쪽은 6개에 멈춰 있었고, 재저작(`original`) 글은 레일에 **"original"** 이라는 내부 키가
+ *  그대로 찍혔다(`??` 폴백이라 터지지도 않아 아무도 몰랐다). 이제 발행사는 아래에서 위임한다. */
+export const TEXT_ORIGIN_LABEL: Record<string, string> = {
+  library: 'From a Book',
+  'direct-script': 'Typed In',
+  'direct-file': 'File Upload',
+  'shared-set': 'Shared Deck',
 }
 
+/** library_articles.source + texts.source(text_source) → 표시 라벨 (소스별 분류 레일).
+ *  키가 겹치지 않아 한 함수로 스크립트(공개)·내 스크립트(개인) 모두 커버. */
 export function articleSourceLabel(source: string | null | undefined): string {
-  if (!source) return '기타'
-  return ARTICLE_SOURCE_LABEL[source] ?? source.replace(/[_-]/g, ' ')
+  if (!source) return 'Other'
+  const origin = TEXT_ORIGIN_LABEL[source]
+  if (origin) return origin
+  // 레일 항목은 칩 한 칸이라 긴 정식명 대신 `short` 를 쓴다.
+  const meta = SOURCE_META[source]
+  if (meta) return meta.short
+  return source.replace(/[_-]/g, ' ')
 }
 
 /** CEFR → 대표 V-Level (V밴드 폴백 — 단어장 등 v_level 컬럼 부재 시). */

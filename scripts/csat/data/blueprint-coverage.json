@@ -1,0 +1,356 @@
+{
+ "denominator": 37,
+ "requirements": [
+  "R1",
+  "R2",
+  "R3",
+  "R4",
+  "R5"
+ ],
+ "cells": 185,
+ "done": 185,
+ "pct": 100,
+ "fullTypes": 37,
+ "perReq": {
+  "R1": 37,
+  "R2": 37,
+  "R3": 37,
+  "R4": 37,
+  "R5": 37
+ },
+ "rows": [
+  {
+   "type": "L-RESPONSE",
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true,
+   "blocked": []
+  },
+  {
+   "type": "L-PURPOSE",
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true,
+   "blocked": []
+  },
+  {
+   "type": "L-OPINION",
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true,
+   "blocked": []
+  },
+  {
+   "type": "L-RELATION",
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true,
+   "blocked": []
+  },
+  {
+   "type": "L-MAIN",
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true,
+   "blocked": []
+  },
+  {
+   "type": "L-PICTURE",
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true,
+   "blocked": []
+  },
+  {
+   "type": "L-TODO",
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true,
+   "blocked": []
+  },
+  {
+   "type": "L-MONEY",
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true,
+   "blocked": []
+  },
+  {
+   "type": "L-REASON",
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true,
+   "blocked": []
+  },
+  {
+   "type": "L-NOTMENTION",
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true,
+   "blocked": []
+  },
+  {
+   "type": "L-ANNOUNCE",
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true,
+   "blocked": []
+  },
+  {
+   "type": "L-TABLE",
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true,
+   "blocked": []
+  },
+  {
+   "type": "L-SITUATION",
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true,
+   "blocked": []
+  },
+  {
+   "type": "L-SET-TOPIC",
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true,
+   "blocked": []
+  },
+  {
+   "type": "L-SET-NOT",
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true,
+   "blocked": []
+  },
+  {
+   "type": "R-GIST",
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true,
+   "blocked": []
+  },
+  {
+   "type": "R-PURPOSE",
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true,
+   "blocked": []
+  },
+  {
+   "type": "R-MOOD",
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true,
+   "blocked": []
+  },
+  {
+   "type": "R-TOPIC",
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true,
+   "blocked": []
+  },
+  {
+   "type": "R-CLAIM",
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true,
+   "blocked": []
+  },
+  {
+   "type": "R-IMPLY",
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true,
+   "blocked": []
+  },
+  {
+   "type": "R-TITLE",
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true,
+   "blocked": []
+  },
+  {
+   "type": "R-CHART",
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true,
+   "blocked": []
+  },
+  {
+   "type": "R-FACT",
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true,
+   "blocked": []
+  },
+  {
+   "type": "R-NOTICE",
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true,
+   "blocked": []
+  },
+  {
+   "type": "R-GRAMMAR",
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true,
+   "blocked": []
+  },
+  {
+   "type": "R-VOCAB",
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true,
+   "blocked": []
+  },
+  {
+   "type": "R-BLANK",
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true,
+   "blocked": []
+  },
+  {
+   "type": "R-ORDER",
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true,
+   "blocked": []
+  },
+  {
+   "type": "R-IRRELEVANT",
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true,
+   "blocked": []
+  },
+  {
+   "type": "R-INSERT",
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true,
+   "blocked": []
+  },
+  {
+   "type": "R-SUMMARY",
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true,
+   "blocked": []
+  },
+  {
+   "type": "X-TITLE",
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true,
+   "blocked": []
+  },
+  {
+   "type": "X-VOCAB",
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true,
+   "blocked": []
+  },
+  {
+   "type": "X-ORDER",
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true,
+   "blocked": []
+  },
+  {
+   "type": "X-REFER",
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true,
+   "blocked": []
+  },
+  {
+   "type": "X-FACT",
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true,
+   "blocked": []
+  }
+ ]
+}

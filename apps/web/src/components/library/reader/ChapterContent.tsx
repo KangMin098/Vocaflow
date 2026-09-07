@@ -34,12 +34,13 @@ export function ChapterContentView({
 
   return (
     <article
-      className="mx-auto max-w-2xl px-8 py-10"
+      // 390px 에서 `px-8`(64px)은 본문 열의 16%다 — 좁을 때는 여백보다 글줄이 먼저다.
+      className="mx-auto max-w-2xl px-4 py-6 sm:px-8 sm:py-10"
       role="article"
       aria-label={content.chapter_title ?? `Chapter ${content.chapter_idx}`}
     >
       <header className="mb-8 border-b border-[var(--bd)] pb-4">
-        <span className="font-mono text-[11px] uppercase tracking-wider text-[var(--t3)]">
+        <span className="font-mono text-[11px] uppercase tracking-wider text-[var(--t2)]">
           Chapter {content.chapter_idx}
         </span>
         {content.chapter_title && (
@@ -95,7 +96,7 @@ function Paragraph({
     <div className="flex gap-3">
       {showMarker && (
         <span
-          className="flex h-6 w-8 shrink-0 items-center justify-center rounded-[var(--r-sm)] bg-[var(--bg2)] font-mono text-[10px] tabular-nums text-[var(--t3)]"
+          className="flex h-6 w-8 shrink-0 items-center justify-center rounded-[var(--r-sm)] bg-[var(--bg2)] font-mono text-[10px] tabular-nums text-[var(--t2)]"
           aria-label={`문단 ${index}`}
         >
           {index}
@@ -116,7 +117,7 @@ function SampleWordsLegend({ words }: { words: SampleWord[] }) {
       className="mt-10 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-5"
       aria-label="이 장의 핵심 어휘"
     >
-      <h2 className="mb-3 font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">
+      <h2 className="mb-3 font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">
         ✦ LV 상위 10개 어휘 (학습 가치 순)
       </h2>
       <ul role="list" className="flex flex-col gap-2">
@@ -129,9 +130,9 @@ function SampleWordsLegend({ words }: { words: SampleWord[] }) {
               {w.word}
             </span>
             {w.cefr_level && (
-              <span className="font-mono text-[10px] text-[var(--t3)]">{w.cefr_level}</span>
+              <span className="font-mono text-[10px] text-[var(--t2)]">{w.cefr_level}</span>
             )}
-            <span className="font-mono text-[10px] tabular-nums text-[var(--t3)]">
+            <span className="font-mono text-[10px] tabular-nums text-[var(--t2)]">
               LV {w.base_learning_value.toFixed(2)}
             </span>
             {w.first_sentence && (
@@ -186,7 +187,7 @@ function renderTokens(
         continue
       }
       const highlightCls = isSample
-        ? 'rounded-[2px] bg-[var(--cefr-C1-bg)] px-0.5 text-[var(--cefr-C1-text)]'
+        ? 'rounded-[2px] bg-[var(--cefr-C1-bg)] px-1 text-[var(--cefr-C1-text)]'
         : ''
       const interactiveCls = clickable
         ? 'cursor-pointer rounded-[2px] transition-colors duration-[var(--dur-fast)] hover:bg-[var(--p-light)] hover:text-[var(--p-dark)]'

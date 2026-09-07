@@ -1,3 +1,5 @@
+// apps/web/src/components/admin/vcb/VcbStep6QaCard.tsx
+
 'use client'
 
 import { useState, useTransition } from 'react'
@@ -88,20 +90,20 @@ export function VcbStep6QaCard({ runId, runStatus, enrichedCount }: Props) {
           type="button"
           onClick={handleRun}
           disabled={!canRun}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-[var(--r-md)] font-display text-sm font-semibold disabled:opacity-50"
+          className="min-h-[44px] inline-flex items-center gap-2 px-4 py-2 rounded-[var(--r-md)] font-display text-sm font-semibold disabled:opacity-50"
           style={{ background: 'var(--p)', color: 'var(--ti)' }}
         >
           {isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <ShieldCheck className="w-4 h-4" />}
           {isPending ? '실행 중…' : isDone ? '재실행' : 'QA 실행'}
         </button>
 
-        <label className="flex items-center gap-1.5 cursor-pointer">
+        <label className="flex min-h-[44px] items-center gap-2 cursor-pointer">
           <input
             type="checkbox"
             checked={requeue}
             onChange={(e) => setRequeue(e.target.checked)}
             disabled={isPending}
-            className="w-4 h-4 accent-[var(--warning)]"
+            className={/* 체크박스는 대체 요소(replaced element)라 ::after 로 히트 영역을 못 넓힌다 — 탭 영역은 감싼 <label> 44px */ 'w-4 h-4 accent-[var(--warning)]'}
           />
           <span className="text-xs font-display" style={{ color: 'var(--t2)' }}>
             flagged 항목 다시 enrichment 대기열로
@@ -145,7 +147,7 @@ export function VcbStep6QaCard({ runId, runStatus, enrichedCount }: Props) {
           )}
           <div className="text-sm flex-1">
             <div className="font-semibold">QA 완료 · {fmtMs(result.duration_ms)}</div>
-            <div className="text-xs mt-1 grid grid-cols-2 gap-x-4 gap-y-0.5 font-mono" style={{ color: 'var(--t2)' }}>
+            <div className="text-xs mt-1 grid grid-cols-2 gap-x-4 gap-y-1 font-mono" style={{ color: 'var(--t2)' }}>
               <span>passed</span><span>{result.passed}</span>
               <span>flagged</span><span style={{ color: result.flagged > 0 ? 'var(--warning)' : 'inherit' }}>{result.flagged}</span>
               <span>failed</span><span style={{ color: result.failed > 0 ? 'var(--error)' : 'inherit' }}>{result.failed}</span>

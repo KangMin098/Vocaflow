@@ -1,0 +1,1676 @@
+{
+ "chunk": 2,
+ "type_id": "X-ORDER",
+ "type_name": "장문 순서",
+ "analyses": [
+  {
+   "item_id": "2022#43",
+   "body_recovered": true,
+   "revised": true,
+   "measured_ability": "(A) 끝의 직접 질문을 어느 문단이 대답으로 받는지, 그리고 사과·화해 장면이 그 사과를 부른 발언보다 뒤에 놓이는지를 대사 단위로 판정하는 능력",
+   "design_intent": "Cora의 등장(B)을 어디에 놓느냐 하나로 갈리게 설계했다. (B)는 \"문이 열렸다\"는 (D)의 마지막 문장이 있어야만 성립하는 장면인데, (A)에서 이미 Anna가 문 쪽을 흘끔거리므로 (B)를 (A) 바로 뒤로 당기고 싶어진다. 등장 인물의 부상(bandages)이라는 시각적 사건을 미끼로 쓴 것이 이 문항 고유의 장치다.",
+   "answer_locus": {
+    "sentence_index": [
+     16,
+     29
+    ],
+    "quote": "Anna answered the question by nodding uneasily. In fact, Jane knew what her friend was thinking.",
+    "reasoning": "\"the question\" 은 (A) 마지막 줄 Jane 의 \"are you waiting for Cora?\" 를 정관사로 받는다 — (C)가 (A) 바로 뒤 자리다. 반대쪽 끝은 (D)의 마지막 문장 \"the door swung open. There she was!\" 이고, (B)의 첫 문장 \"Cora walked in\" 이 그 열린 문을 받는다. 이 두 이음매가 동시에 성립하는 배열은 (C)-(D)-(B) 하나뿐이다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "시간·인과 순서 역전",
+     "why_tempting": "(A)가 Anna 가 입구를 흘끔거리며 누군가를 기다리는 장면으로 끝나므로, 기다리던 Cora 가 들어오는 (B)를 바로 뒤에 붙이면 장면이 이어지는 것처럼 읽힌다.",
+     "how_to_reject": "(B) 마지막 문장 \"Jane gave Anna an apologetic look\" — 사과할 일은 (D)에서 Jane 이 \"Why don’t you forget about her?\" 라고 몰아붙인 것이다. (B)를 첫 자리에 놓으면 사과가 원인보다 앞선다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "마무리 문장 위치 오판",
+     "why_tempting": "(C)를 첫 자리에 놓는 것까지는 맞아서 안심하고, (C) 끝의 \"she came to practice only once and then never showed up again\" 을 (B)의 Cora 등장이 뒤집는 반전으로 붙이게 된다.",
+     "how_to_reject": "(D)의 마지막 문장이 \"the door swung open. There she was!\" 로 끝난다 — 문이 열린 채로 글이 끝날 수 없으므로 (D)는 마지막 자리에 못 온다."
+    },
+    {
+     "n": 3,
+     "verdict": "correct",
+     "why_correct": "(C)가 (A) 끝의 질문을 \"the question\" 으로 받고, (D) 끝에서 열린 문을 (B) 첫 문장의 Cora 등장이 받는다. 두 이음매가 동시에 성립하는 유일한 배열이다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "첫 등장 위반",
+     "why_tempting": "(D) 첫 문장 \"Since Cora had missed several practices\" 가 (A)의 기다리는 상황을 그대로 설명해 주는 것처럼 보인다.",
+     "how_to_reject": "(C)에 \"Cora was a new member, whom Anna had personally invited to join the club\" 이라는 신원 소개가 처음 나온다. (D)는 이미 Cora 를 아는 사람들의 대화이므로 소개 문단인 (C)보다 앞설 수 없다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "지시어 선행사 앞당김",
+     "why_tempting": "(B)를 끝에 두는 것은 맞아 보이고, (D) 안에도 Jane 의 질문(\"Still waiting for her, huh?\")이 있어서 (C) 첫 문장의 \"the question\" 을 그 질문에 붙이면 (D)-(C) 가 이어지는 듯 읽힌다.",
+     "how_to_reject": "(D)에서 Anna 는 이미 \"Well, I know most newcomers don’t keep their commitment…\" 라고 말로 대답했다. (C)의 \"answered the question by nodding uneasily\"(말없이 끄덕임)와 겹칠 수 없으므로 (C)가 받는 질문은 (A) 끝의 것이다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "(A)의 마지막 두 문장만 먼저 읽고, 거기서 답을 요구하며 끊긴 것(질문·대사·미해결 상태)을 한 줄로 적는다.",
+     "on_fail": "(A)가 상황 묘사로만 끝나면 (A)에 처음 나온 인물 이름과 그 인물의 상태를 대신 적는다."
+    },
+    {
+     "step": "(B)(C)(D)의 첫 문장만 차례로 읽고, 그중 (A)의 그 질문에 대한 대답·반응인 문단에 표시한다. 대답 문단이 (A) 바로 뒤다.",
+     "on_fail": "대답처럼 보이는 문단이 둘이면, 대답의 형식(말/끄덕임)이 (A)의 물음 형식과 맞는 쪽만 남긴다."
+    },
+    {
+     "step": "남은 두 문단의 마지막 문장을 읽어, 사건이 열린 채 끝나는 문단(문이 열림·인물 등장 직전)을 찾는다. 그 문단은 마지막 자리에 놓을 수 없다.",
+     "on_fail": "둘 다 닫힌 듯 보이면, 인물의 부상·사과처럼 원인이 필요한 사건을 담은 문단을 뒤로 보낸다."
+    },
+    {
+     "step": "정한 배열로 이음매 세 곳을 훑어 (a)~(e) 밑줄의 지시 대상이 전부 정해지는지 확인한다.",
+     "on_fail": "지시 대상이 안 정해지는 이음매가 있으면 그 이음매의 두 문단을 맞바꿔 다시 확인한다."
+    }
+   ],
+   "time_budget_sec": 90,
+   "difficulty": {
+    "predicted": 0.85,
+    "drivers": [
+     "(A)가 직접 질문으로 끝나 첫 연결이 명시적",
+     "문단 첫 문장마다 인물명이 되풀이돼 어휘 겹침 미끼가 강함"
+    ]
+   },
+   "required_vocab": [
+    "glancing",
+    "apologetic",
+    "commitment",
+    "uneasily",
+    "bandages"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "인용 \"Anna answered the question by nodding uneasily.\" 를 코퍼스 지문에서 문자 그대로 확인했다.",
+      "body_ok:false 문항이라 (D) 안의 OCR 잔여(\"wondered t what\")를 피해 손상 없는 (C) 첫 문장을 인용으로 골랐다."
+     ],
+     "checked": [
+      "quote 를 corpus.json 지문과 문자열 대조",
+      "장문 순서 유형 정의(주어진 (A) 뒤 3문단 배열)와 서술 대조",
+      "OCR 손상 구간을 인용에서 배제"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "초안에서 ④와 ⑤에 모두 \"첫 등장 위반\" 을 달았다 — 중복이라 반려하고, ⑤는 (C)의 \"the question\" 을 (D) 속 질문에 잘못 붙이는 경로이므로 \"지시어 선행사 앞당김\" 으로 교체했다.",
+      "네 오답의 함정이 4종으로 갈렸고 각 how_to_reject 에 문단·문장 위치를 명시했다."
+     ],
+     "checked": [
+      "오답 4개의 trap 라벨 중복 검사",
+      "why_tempting 이 실제 선지 순열과 맞는지 대조",
+      "how_to_reject 마다 근거 문단 표기 확인",
+      "분석 정답 ③ 과 평가원 정답표 3 대조"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "절차 2단계가 \"첫 문장만 읽는다\" 로 범위를 못박아 지문을 안 본 상태에서도 실행된다.",
+      "43~45 세트 전체 배분에서 90초면 44·45번에 각 60초를 남긴다."
+     ],
+     "checked": [
+      "각 단계를 지문 미열람 상태에서 실행 가능한지 점검",
+      "순환논법 표현 유무 확인",
+      "required_vocab 5낱말이 정답 판정에 실제로 쓰이는지 확인"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "M2209#43",
+   "measured_ability": "한 인물의 회상(교수의 말)과 그 회상이 끼어드는 대화 장면을 갈라, 말을 건 쪽과 받은 쪽이 짝을 이루도록 문단을 잇는 능력",
+   "design_intent": "주방 장면 하나를 회상·질문·조언 세 국면으로 잘라 놓고, 각 문단 첫머리에 \"그 수업에서(In that class)\" 같은 지시 표현과 인물의 반응 동사를 심어 두었다. 요리라는 같은 소재가 세 문단에 다 나오므로 소재 겹침만으로는 자리를 못 정하게 한 것이 이 문항의 설계다.",
+   "solve_procedure": [
+    {
+     "step": "(A) 마지막 문장이 무엇을 예고하며 끊기는지 한 줄로 적는다 — 인물이 무엇을 떠올리려는 중인지, 누가 아직 말을 안 걸었는지.",
+     "on_fail": "(A)가 묘사로만 끝나면 (A)에 등장한 인물 두 명 중 아직 입을 열지 않은 쪽을 표시해 둔다."
+    },
+    {
+     "step": "(B)(C)(D)의 첫 문장만 읽고, 앞 문단의 말이 있어야만 성립하는 표현(대답·되묻기·\"그 수업에서\" 같은 지시 표현)에 밑줄을 친다.",
+     "on_fail": "첫 문장에 그런 표현이 없으면 그 문단의 두 번째 문장까지만 더 본다."
+    },
+    {
+     "step": "밑줄 친 표현마다 그 표현이 요구하는 앞 내용이 (A)에 있는지 확인한다. (A)에 있는 문단이 (A) 바로 뒤 자리다.",
+     "on_fail": "요구 내용이 (A)에 없는 문단은 후보에서 빼고, 남은 두 문단끼리 같은 검사를 되풀이한다."
+    },
+    {
+     "step": "남은 두 문단 중 인물의 문제가 해결되고 웃음·수긍으로 닫히는 문단을 마지막 자리에 놓는다.",
+     "on_fail": "둘 다 닫힌 듯하면 \"던진 질문 → 받은 대답\" 쌍이 끊기지 않는 배열을 고른다."
+    },
+    {
+     "step": "고른 배열로 (a)~(e) 밑줄 다섯 개의 지시 대상이 전부 한 사람으로 정해지는지 44번과 함께 확인한다.",
+     "on_fail": "한 밑줄이라도 지시 대상이 둘로 갈리면 그 이음매의 두 문단을 맞바꿔 다시 본다."
+    }
+   ],
+   "time_budget_sec": 95,
+   "difficulty": {
+    "predicted": 0.8,
+    "drivers": [
+     "문단 세 개 중 두 개가 대사로 시작해 인접쌍 단서가 표면에 드러난다",
+     "요리·색 어휘가 세 문단에 고르게 퍼져 있어 어휘 겹침이 자리 판정에 쓰이지 못한다",
+     "지문 중간에 파서 잔여물(\"tfall: 함정\")이 끼어 있어 한 문장이 매끄럽게 안 읽힌다"
+    ]
+   },
+   "required_vocab": [
+    "chopping",
+    "alter",
+    "frustrated",
+    "container",
+    "ingredients"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "이음매 셋(that class · her roommate’s words · start over)을 모두 적어, 하나만 적으면 두 배열이 남는다는 이 유형의 요구를 채웠다"
+     ],
+     "checked": [
+      "answer_locus.quote 를 corpus passage 와 문자열 대조 — Katie, surprised by her roommate’s words, turned her head to Sally and sighed 가 그대로 있다",
+      "(A) 끝이 But Katie didn’t notice her 로 끝나는지 재확인 — (B)가 첫 자리에 못 오는 근거",
+      "코퍼스 answer=4 와 correct 선지 번호 일치 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "trap 4종(지시어 선행사 절단·어휘 반복 유인·시간·인과 순서 역전·조건-귀결 절단)이 서로 다르고 모두 위치형 표에서 골랐다",
+      "②의 유인이 낱말 겹침(pasta·sauce·cooking)에서 온다는 것을 명시했다"
+     ],
+     "checked": [
+      "trap 라벨 중복 대조",
+      "라벨이 _PROMPT §1-b (B) 위치형 표에서만 나왔는지 확인",
+      "how_to_reject 넷에 문단 기호와 어구 인용이 있는지 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "절차 2단계(각 문단 첫 문장만 읽고 앞 발화를 요구하는 표현에 밑줄)가 세 이음매를 모두 드러낸다"
+     ],
+     "checked": [
+      "절차 5단계 모의 실행",
+      "순환논법 금지어 대조 — 0건",
+      "time_budget 95초 확인"
+     ]
+    }
+   ],
+   "answer_locus": {
+    "sentence_index": [
+     6,
+     7
+    ],
+    "quote": "Katie, surprised by her roommate’s words, turned her head to Sally and sighed",
+    "reasoning": "her roommate’s words 는 앞에 Sally 가 건넨 말이 있어야 성립하는 표현이고, 그 말은 (D) 끝의 Is there anything I can do to help? 하나뿐이다. (A)에서는 Katie didn’t notice her 라고 못 박아 Sally 가 아직 말을 걸지 않았으므로, (B) 앞자리는 (D)로 고정된다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "지시어 선행사 절단",
+     "why_tempting": "(A)에서 Sally 가 주방으로 달려가 Katie 를 지켜보므로 곧바로 말을 건넨 것처럼 이어진다.",
+     "how_to_reject": "(B) 첫머리 Katie, surprised by her roommate’s words 가 받을 발언이 (A)에 없다. (A)는 But Katie didn’t notice her 로 끝나 대화가 아직 시작되지 않았음을 밝힌다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "어휘 반복 유인",
+     "why_tempting": "(C)의 pasta·sauce·refrigerator 가 (A)의 cooking·chopping 과 겹쳐 주방 장면이 곧바로 이어지는 것처럼 보인다.",
+     "how_to_reject": "(C) 첫머리 “Wait! You don’t have to start over.” 가 받을 '다시 시작하려는 동작'은 (B) 끝의 about to throw away all of her hard work and start again 이다. (A)에는 그 동작이 없다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "시간·인과 순서 역전",
+     "why_tempting": "(C)에서 문제가 풀리고 (B)에서 어려움을 말하니, 조언 뒤에 감사와 설명이 오는 배열로 읽힌다.",
+     "how_to_reject": "(B) 안의 I can’t think of any ways to alter the feeling of the final dish 가 문제 제기이고 (C)의 You just need to add some color to the plate 가 그 해답이다. 해답이 문제보다 앞설 수 없다."
+    },
+    {
+     "n": 4,
+     "verdict": "correct",
+     "why_correct": "(A) 끝의 She was trying to remember what her professor had said in class that day 를 (D) 첫머리 In that class, Professor Brown said 의 that class 가 받고, (D) 끝의 물음 Is there anything I can do to help? 를 (B) 첫머리 Katie, surprised by her roommate’s words ... sighed, “I don’t know.” 가 her roommate’s words 로 되받는다. 마지막 이음매는 (B) 끝의 about to throw away all of her hard work and start again 을 (C) 첫머리 “Wait! You don’t have to start over.” 가 start over 로 받는 자리다. 세 이음매가 동시에 서는 배열은 (D) － (B) － (C) 하나뿐이다.",
+     "confirmed_at": {
+      "sentence_index": [
+       5,
+       6,
+       10
+      ],
+      "note": "이음매가 셋 다 표지로 드러난다 — that class(지시) · her roommate’s words(발화 수신) · start over(동작 되받기). 하나만 확인하면 두 배열이 남는다."
+     }
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "조건-귀결 절단",
+     "why_tempting": "(D)를 첫 자리에 두는 것까지는 맞고, (D) 끝의 도움 제안 뒤에 조언 문단 (C)가 오는 것이 자연스러워 보인다.",
+     "how_to_reject": "(C) 첫머리는 대답이 아니라 이미 나온 좌절을 막는 말이고, (D) 끝의 물음에 대한 대답 “I don’t know. This is really hard.” 는 (B) 첫머리에 있다."
+    }
+   ],
+   "revised": true
+  },
+  {
+   "item_id": "M2206#43",
+   "measured_ability": "급류 타기라는 진행 중인 사건과, 그 사이에 오가는 대화의 화제 전환(무서움 → 졸업 → 용기)을 두 축으로 놓고 문단의 선후를 정하는 능력",
+   "design_intent": "(A)가 Mia 의 물음 \"Aren’t you scared?\" 로 끊기고, 세 문단이 각각 그 물음에 대한 응답·화제를 이어받은 맞장구·화제의 결말을 담는다. 물살이 거세졌다가 잔잔해지는 자연 사건과 대화의 진행을 겹쳐 놓아, 한쪽 축만 보면 두 배열이 다 그럴듯해지도록 만든 것이 이 문항의 설계다.",
+   "solve_procedure": [
+    {
+     "step": "(A) 마지막 문장이 누구의 어떤 물음으로 끝나는지 적고, 그 물음에 \"예/아니오\"로 답할 사람이 누구인지 표시한다.",
+     "on_fail": "(A)가 물음으로 안 끝나면 (A)에서 아직 안 끝난 물리적 사건(배·물살 상태)을 적는다."
+    },
+    {
+     "step": "(B)(C)(D)의 첫 문장만 읽어, 큰따옴표로 시작하는 문단과 \"누구에게 동의하며\" 처럼 앞 발언을 받는 문단을 나눈다.",
+     "on_fail": "세 문단 다 대사로 시작하면 각 대사가 대답인지 새 화제인지만 표시한다."
+    },
+    {
+     "step": "(A)의 물음에 직접 답하는 문단을 (A) 바로 뒤에 둔다. 나머지 두 문단은 서로의 첫 문장에서 \"앞사람 말에 동의·추가\" 표시가 있는 쪽을 뒤로 보낸다.",
+     "on_fail": "동의 표시가 양쪽에 다 있으면 물살의 상태(거칢 → 잔잔함)가 되돌아가지 않는 배열만 남긴다."
+    },
+    {
+     "step": "마지막 자리는 인물이 스스로를 돌아보며 닫는 문단(자기 모습을 보거나 이유가 밝혀지는 장면)에 준다.",
+     "on_fail": "둘 다 닫힌 듯하면, 뒤 문단이 앞 문단에 없는 정보를 새로 요구하지 않는 배열을 고른다."
+    }
+   ],
+   "time_budget_sec": 100,
+   "difficulty": {
+    "predicted": 0.75,
+    "drivers": [
+     "세 문단이 모두 대사로 시작해 인접쌍 단서가 여러 갈래로 보인다",
+     "물살 상태 변화와 대화 화제 전환이라는 두 축이 서로 다른 배열을 지지하는 것처럼 읽힌다",
+     "지문 후반에 파서 잔여물(\"의의 ______\")이 끼어 한 문장이 끊겨 보인다"
+    ]
+   },
+   "required_vocab": [
+    "paddle",
+    "soaked",
+    "reflection",
+    "daring",
+    "breathtaking"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "이음매 셋(Are you OK? → I’m great! / No wonder ~ → Agreeing / test my bravery → You’ve got a good point)을 모두 적었다"
+     ],
+     "checked": [
+      "answer_locus.quote 를 corpus passage 와 문자열 대조 — It’s a real advantage to graduate from college with the mindset of a daring adventurer 가 그대로 있다",
+      "(A) 끝이 Mia 의 물음으로 끝나는지 재확인",
+      "코퍼스 answer=3 과 correct 선지 번호 일치 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "trap 4종(지시어 선행사 절단·조건-귀결 절단·어휘 반복 유인·시간·인과 순서 역전)이 서로 다르다",
+      "④가 낱말 겹침이 가장 큰 배열이라는 점을 how_to_reject 에서 되짚었다"
+     ],
+     "checked": [
+      "trap 라벨 중복 대조",
+      "라벨이 위치형 표에서만 나왔는지 확인",
+      "how_to_reject 넷에 문단 기호와 어구 인용이 있는지 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "절차 3단계(물음에 직접 답하는 문단을 (A) 뒤에 두기)가 첫 이음매를 곧바로 정한다"
+     ],
+     "checked": [
+      "절차 4단계 모의 실행",
+      "순환논법 금지어 대조 — 0건",
+      "time_budget 100초 확인"
+     ]
+    }
+   ],
+   "revised": true,
+   "answer_locus": {
+    "sentence_index": [
+     8,
+     9
+    ],
+    "quote": "It’s a real advantage to graduate from college with the mindset of a daring adventurer",
+    "reasoning": "이 말이 동의할 대상은 '졸업을 앞두고 대담한 일을 해 보고 싶었다'는 발언이고, 그것은 (D) 끝에서 Sophia 가 밝힌 I graduate from college in a few months ... I wanted to do something really adventurous to test my bravery 하나뿐이다. 따라서 (B)는 (D) 바로 뒤다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "지시어 선행사 절단",
+     "why_tempting": "(B)가 대사로 시작해 (A) 끝의 Mia 의 물음에 바로 답하는 것처럼 보인다.",
+     "how_to_reject": "(B) 첫머리 “You’ve got a good point.” 가 인정할 앞 발언이 (A)에 없다. (A)의 마지막 발화는 물음이지 주장이 아니다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "조건-귀결 절단",
+     "why_tempting": "(C)가 (A)의 물음에 답하는 것은 맞아 보이고, 그 뒤 대화가 이어지니 (B)가 곧바로 붙는 듯하다.",
+     "how_to_reject": "(B)의 It’s a real advantage to graduate from college with the mindset of a daring adventurer 가 받을 말은 (D) 끝의 before I do, I wanted to do something really adventurous to test my bravery 다. (D)가 (B)보다 앞이어야 한다."
+    },
+    {
+     "n": 3,
+     "verdict": "correct",
+     "why_correct": "(A) 끝의 물음 “Are you OK? Aren’t you scared?” 를 (C) 첫머리 “I’m great!” Sophia shouted back excitedly 가 직접 받고, (C) 끝의 No wonder rafting is the best thing to do in Colorado! 를 (D) 첫머리 Agreeing with her friend, Rebecca gave a thumbs-up 의 Agreeing 이 받는다. 그리고 (D) 끝에서 Sophia 가 I wanted to do something really adventurous to test my bravery 라고 밝힌 뒤라야 (B) 첫머리의 “You’ve got a good point. It’s a real advantage to graduate from college with the mindset of a daring adventurer” 가 무엇에 동의하는지 정해진다. 세 이음매가 함께 서는 배열은 (C) － (D) － (B) 뿐이다.",
+     "confirmed_at": {
+      "sentence_index": [
+       5,
+       8,
+       9
+      ],
+      "note": "물살 상태(거칢 → 잔잔함)만 좇으면 (C)가 (A) 뒤라는 것까지만 정해지고 (B)와 (D)의 앞뒤가 남는다. 두 번째 이음매는 발화 내용(졸업·용기)으로만 갈린다."
+     }
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "어휘 반복 유인",
+     "why_tempting": "(D)에 rafting·water·afraid of water 가 있어 (A)의 물살 장면과 낱말이 가장 많이 겹친다.",
+     "how_to_reject": "(A) 끝의 물음 Aren’t you scared? 에 답한 발화가 사라진다. 그 답은 (C) 첫머리 “I’m great!” 이다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "시간·인과 순서 역전",
+     "why_tempting": "(D)에서 이유가 밝혀지고 (C)에서 풍경을 감상하며 닫히는 배열이 이야기의 마무리처럼 느껴진다.",
+     "how_to_reject": "(D) 첫머리 Agreeing with her friend, Rebecca gave a thumbs-up 이 동의할 앞 발언은 (C) 끝의 No wonder rafting is the best thing to do in Colorado! 다. (C)가 (D)보다 앞이다."
+    }
+   ]
+  },
+  {
+   "item_id": "2021#43",
+   "measured_ability": "엄마–형–동생 세 사람의 말이 오가는 순서를 대사의 수신자로 판정하고, 고발–해명–확인이라는 인과 사슬대로 문단을 배열하는 능력",
+   "design_intent": "(B)의 첫 대사 \"All right. I’m sure you’re doing your work.\" 는 누구에게 하는 말인지가 곧 답이 되도록 설계됐다. Sean 이 등장하는 문단이 둘(B·C)이라 인물 이름만 보고 잇는 학생은 (C)-(B)로 붙게 되고, 이 대사의 수신자가 Felix 라는 것을 (D)의 해명에서 확인해야만 자리가 정해진다.",
+   "answer_locus": {
+    "sentence_index": [
+     8,
+     28
+    ],
+    "quote": "“All right. I’m sure you’re doing your work.” Mom replied, and then sharply added a question.",
+    "reasoning": "\"Mom replied\" 는 엄마가 무엇엔가 대답했다는 뜻인데, 이 대사가 받을 말은 (D) 끝의 Felix 의 해명 \"I’m watching a lecture video for my science class.\" 하나뿐이다. 따라서 (B)는 (D) 바로 뒤다. 그리고 (D)의 \"Felix argued against Sean’s accusation\" 의 accusation 은 (C)에서 Sean 이 주방 쪽으로 외친 말이므로 (C)-(D)-(B) 로 고정된다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "마무리 문장 위치 오판",
+     "why_tempting": "(B)에서 Sean 이 주방으로 불려 가 Mom 을 돕는 장면이 (A)의 \"집안을 돌아다니는 Sean\" 과 바로 붙는 것처럼 보인다.",
+     "how_to_reject": "(B) 끝의 \"Felix was pleased to get rid of the policeman, and now he could concentrate on the lesson\" 은 방해가 이미 벌어진 뒤의 정리다. 방해 장면은 (C)·(D)에 있으므로 (B)가 첫 자리에 올 수 없다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "어휘 반복 유인",
+     "why_tempting": "(C) 끝에서 Sean 이 주방 쪽으로 외치고 (B) 안에 \"Sean, what are you doing?\" 이 있어, 같은 이름이 이어지니 두 문단이 붙는 것처럼 읽힌다.",
+     "how_to_reject": "(B)의 첫 대사는 Sean 이 아니라 \"you’re doing your work\" 를 듣는 사람, 곧 Felix 에게 한 말이다. Felix 의 해명은 (D) 끝에 있으므로 (B) 앞에는 (D)가 와야 한다."
+    },
+    {
+     "n": 3,
+     "verdict": "correct",
+     "why_correct": "(C)에서 Sean 이 주방 쪽으로 외친 고발을 (D)의 'Felix argued against Sean’s accusation' 이 accusation 으로 받고, 그 해명 'I’m watching a lecture video for my science class.' 를 (B) 첫머리의 'Mom replied' 가 대답으로 받는다. 두 이음매가 동시에 이어지는 배열은 (C)-(D)-(B) 하나뿐이다.",
+     "confirmed_at": {
+      "sentence_index": [
+       8,
+       28
+      ],
+      "note": "3차 보강 전 서술: (C)의 고발 → (D)의 해명 → (B)의 확인. (B) 첫 대사의 수신자가 Felix 이고 그 해명이 (D) 끝에 있다."
+     }
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "지시어 선행사 절단",
+     "why_tempting": "(D) 첫 문장 \"Felix was mad because his little brother was bothering him\" 이 (A)의 돌아다니는 Sean 을 바로 받는 것처럼 보인다.",
+     "how_to_reject": "(D) 안의 \"Felix argued against Sean’s accusation\" — 이 accusation(고발)은 (C)의 \"Mom, Felix isn’t studying.\" 이다. (C)를 뒤로 보내면 선행사가 사라진다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "시간·인과 순서 역전",
+     "why_tempting": "(B)를 끝에 두는 것은 맞아 보이고, (D)의 형–동생 갈등이 (C)의 훔쳐보기보다 먼저 일어난 일처럼 느껴진다.",
+     "how_to_reject": "(D)에서 Mom 이 \"What are you doing, Felix?\" 라고 묻는 것은 Sean 의 외침을 들은 뒤의 반응이다. 그 외침은 (C)에 있으므로 (C)가 (D)보다 앞이다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "(A)를 읽고 아직 벌어지지 않은 일(누가 누구를 감시하려 하는가)을 한 줄로 적는다.",
+     "on_fail": "(A)에 사건이 없으면 등장인물 세 명의 위치(방·주방)를 적어 둔다."
+    },
+    {
+     "step": "(B)(C)(D)의 첫 문장에서 대사가 있는 문단을 찾고, 그 대사의 **듣는 사람**이 누구인지 대사 안의 표현(\"you’re doing your work\")으로 정한다.",
+     "on_fail": "듣는 사람이 안 정해지면 그 대사에 붙은 서술어(replied·argued·shouted)가 대답인지 새 발언인지만 표시한다."
+    },
+    {
+     "step": "대답인 대사가 있는 문단은 그 대답이 받을 말이 있는 문단 뒤에 놓는다. 받을 말이 (A)에 없으면 그 문단은 첫 자리 후보에서 뺀다.",
+     "on_fail": "후보가 둘 남으면 각 문단의 \"accusation·the question\" 같은 정관사 명사를 찾아 그 내용이 어느 문단에 있는지로 정한다."
+    },
+    {
+     "step": "남은 자리를 사건의 인과(감시 → 고발 → 해명 → 확인)로 채우고, (a)~(e) 밑줄의 대상이 전부 정해지는지 확인한다.",
+     "on_fail": "밑줄 대상이 갈리면 그 이음매의 두 문단을 맞바꿔 다시 본다."
+    }
+   ],
+   "time_budget_sec": 90,
+   "difficulty": {
+    "predicted": 0.8,
+    "drivers": [
+     "같은 인물 이름이 세 문단에 반복돼 겹침 단서가 미끼로 작동",
+     "대사의 수신자 판정이 유일한 결정 근거"
+    ]
+   },
+   "required_vocab": [
+    "sneaking",
+    "interfered",
+    "accusation",
+    "concentrate",
+    "mischievously"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "인용을 corpus.json 지문에서 문자 그대로 확인했다.",
+      "출제 의도를 \"대사의 수신자\" 라는 이 문항 고유 장치로 좁혔다 — 유형 일반론에 머물지 않는다.",
+      "3차 재검수 — why_correct 에 대응은 있으나 한쪽(선지 또는 이음매의 받는 낱말)이 우리말 풀이로만 있어 revise 로 반려했다. 양쪽 표현을 그대로 넣어 보강한 뒤 pass."
+     ],
+     "checked": [
+      "quote 문자열 대조",
+      "유형 정의 대조",
+      "design_intent 가 문항 고유 장치를 짚는지 확인",
+      "새 why_correct 의 영어 인용을 corpus.json 의 해당 지문에서 문자열 대조",
+      "정답 선지 문자열과의 대응이 낱말 단위로 성립하는지 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "오답 4개의 함정이 마무리 위치 오판 · 어휘 반복 유인 · 지시어 선행사 절단 · 시간·인과 순서 역전 4종으로 갈렸다.",
+      "②의 why_tempting 이 실제 선지 (C)-(B)-(D) 순열과 맞는지 대조했다.",
+      "3차 재검수 — 보강한 서술이 정답 선지의 실제 문자열에 근거하는지, 소거법으로 미끄러지지 않았는지 확인했다. 오답 4개 서술은 3차에서 손대지 않았다."
+     ],
+     "checked": [
+      "trap 라벨 중복 검사",
+      "선지 순열과 서술 일치 확인",
+      "how_to_reject 의 근거 문단 표기 확인",
+      "정답 ③ 과 정답표 3 대조",
+      "why_correct 에 소거법·되풀이 서술이 남았는지 확인",
+      "오답 4개의 trap/why_tempting/how_to_reject 가 3차에서 바뀌지 않았음을 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "초안 2단계가 \"대사의 주인을 찾는다\" 였는데 이 지문은 말한 사람이 아니라 **듣는 사람**이 갈림길이라, 대사 안의 표현으로 수신자를 정하도록 고쳐 실행 가능하게 만들었다.",
+      "3차 재검수 — 보강 후 학생이 지문에서 찾아갈 자리가 낱말 단위로 지목됐는지 봤다. 다른 필드는 3차에서 바뀌지 않았다."
+     ],
+     "checked": [
+      "단계 실행 가능성 점검",
+      "금지 표현 검색",
+      "required_vocab 이 판정에 쓰이는지 확인",
+      "why_correct 가 지목한 지문 자리를 학생이 번호·표지로 찾아갈 수 있는지 확인"
+     ]
+    }
+   ],
+   "revised": true
+  },
+  {
+   "item_id": "M2109#43",
+   "measured_ability": "옥수수 수확이라는 하루 일과의 시간 진행(해뜰 무렵 → 오전 중반 → 점심 뒤)과, 한 아이의 꾀가 들통나는 사건 사슬을 겹쳐 읽어 문단 자리를 정하는 능력",
+   "design_intent": "문단마다 하루의 다른 시각이 박혀 있고(\"Around mid-morning\", \"after lunch\"), 동시에 \"do the same thing\", \"her final load\" 처럼 앞 문단의 행동을 정관사·지시 표현으로 받는 자리가 있다. 시간 표지와 지시 표현이 서로 다른 두 축인데 둘이 같은 답을 가리키도록 짜여 있어, 한 축만 보면 검산이 안 되게 만든 것이 이 문항의 설계다.",
+   "solve_procedure": [
+    {
+     "step": "(A) 마지막 문장에서 인물이 무엇을 아직 안 했는지 적는다(다른 아이들과 함께 갔는가, 혼자 남았는가).",
+     "on_fail": "(A)가 인물 소개로 끝나면 등장인물 중 나머지와 다르게 행동한 사람 이름만 적어 둔다."
+    },
+    {
+     "step": "(B)(C)(D)에서 하루의 시각을 나타내는 표현(sunrise · mid-morning · after lunch)에 전부 동그라미를 친다.",
+     "on_fail": "시각 표현이 없는 문단은 그 문단 첫 문장의 정관사·지시 표현(the same thing · her final load)에 동그라미를 친다."
+    },
+    {
+     "step": "동그라미 친 시각을 이른 것부터 늘어놓아 문단 순서의 초안을 만든다.",
+     "on_fail": "시각이 겹치거나 없어서 순서가 안 정해지면, 지시 표현이 요구하는 앞 행동이 있는 문단을 그 문단 바로 앞에 둔다."
+    },
+    {
+     "step": "초안 배열에서 각 문단 첫 문장의 지시 표현이 바로 앞 문단 안에서 대상을 찾는지 하나씩 확인한다. 하나라도 못 찾으면 그 이음매를 맞바꾼다.",
+     "on_fail": "두 배열이 끝까지 남으면, 인물의 꾀가 드러나는 사건이 그 꾀를 부린 장면보다 뒤에 오는 배열을 고른다."
+    }
+   ],
+   "time_budget_sec": 100,
+   "difficulty": {
+    "predicted": 0.7,
+    "drivers": [
+     "시간 표지가 문단 중간에 흩어져 있어 첫 문장만으로는 순서 초안이 안 만들어진다",
+     "세 문단 모두 같은 등장인물(할머니·아이들)과 sack·granary 어휘를 공유해 겹침이 단서가 되지 못한다",
+     "지문 중간에 파서 잔여물(\"delicious 치 lunch\")이 끼어 한 문장이 끊겨 보인다"
+    ]
+   },
+   "required_vocab": [
+    "harvest",
+    "granary",
+    "sack",
+    "stalks",
+    "irritated"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "초안은 (A)→(C) 이음매(field 로 이동)만 근거로 적었는데, 그것만으로는 (C)－(B)－(D) 와 (C)－(D)－(B) 가 둘 다 남는다. 결정 이음매인 (B)→(D)의 the same thing 으로 인용을 옮기고, 나머지 두 이음매는 why_correct 와 reasoning 에서 함께 적도록 고쳤다",
+      "고친 뒤 세 자리(A→C · C→B · B→D)가 모두 표지로 확인된다"
+     ],
+     "checked": [
+      "초안 인용(They reached the field ...)으로는 배열이 둘 남는 것을 직접 확인",
+      "고친 인용 Grandmother asked the other children to do the same thing. 을 corpus passage 와 문자열 대조 — 그대로 있다",
+      "코퍼스 answer=2 와 correct 선지 번호 일치 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "trap 4종(첫 등장 위반·지시어 선행사 절단·시간·인과 순서 역전·어휘 반복 유인)이 서로 다르다",
+      "①의 배제 근거를 '셋째 자루라는 셈이 (C)에서 선다'로 수치와 함께 적었다"
+     ],
+     "checked": [
+      "trap 라벨 중복 대조",
+      "라벨이 위치형 표에서만 나왔는지 확인",
+      "how_to_reject 넷에 문단 기호와 어구 인용이 있는지 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "절차 2·3단계(시각 표현에 동그라미 → 이른 것부터 늘어놓기)만으로는 (B)와 (D)의 앞뒤가 안 정해지고, 4단계(지시 표현 확인)에서 정해진다. 절차 순서가 실제 판정 순서와 맞다"
+     ],
+     "checked": [
+      "절차 4단계 모의 실행",
+      "순환논법 금지어 대조 — 0건",
+      "time_budget 100초 확인"
+     ]
+    }
+   ],
+   "revised": true,
+   "answer_locus": {
+    "sentence_index": [
+     16,
+     17
+    ],
+    "quote": "Grandmother asked the other children to do the same thing.",
+    "reasoning": "the same thing 이 가리킬 행동은 (B) 끝의 her grandmother asked her to put aside the final load and write her name on it 하나뿐이다. 곧 (D)는 (B) 바로 뒤다. 그리고 (B)의 the others were now taking their third sacks to the granary 는 (C)의 Each child had to make three trips to the granary 가 먼저 나와야 '셋째 자루'라는 셈이 선다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "첫 등장 위반",
+     "why_tempting": "(A)에서 Sally 가 혼자 뒤처졌고 (B)도 Sally 의 짜증으로 시작해 곧바로 이어지는 것처럼 보인다.",
+     "how_to_reject": "(B)의 She had only filled her sack twice, but the others were now taking their third sacks 는 셋째 자루라는 셈을 전제하는데, (A)에는 the others took a sack each 라는 첫 자루 장면뿐이다. 그 셈은 (C)의 Each child had to make three trips to the granary 에서 선다."
+    },
+    {
+     "n": 2,
+     "verdict": "correct",
+     "why_correct": "(A) 끝의 the others took a sack each and then sang their way to the field 를 (C) 첫머리 They reached the field and started to work happily 가 받고, (C)의 Each child had to make three trips to the granary 가 있어야 (B)의 the others were now taking their third sacks to the granary 에서 '셋째'라는 셈이 선다. 그리고 (B) 끝의 her grandmother asked her to put aside the final load and write her name on it 을 (D) 첫머리 Grandmother asked the other children to do the same thing 의 the same thing 이 받는다. 세 자리를 다 만족하는 배열은 (C) － (B) － (D) 다.",
+     "confirmed_at": {
+      "sentence_index": [
+       10,
+       12,
+       16
+      ],
+      "note": "(C) 끝의 Grandmother ... wanted to give them presents accordingly 를 (B) 첫머리 Sally just wanted to get her present 의 her present 가 정관 표현으로 받는 것도 같은 이음매를 뒷받침한다."
+     }
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "지시어 선행사 절단",
+     "why_tempting": "(C)가 (A) 뒤라는 것은 맞고, (C) 끝에서 할머니가 선물을 주려 하니 (D)의 선물 장면이 곧바로 오는 듯하다.",
+     "how_to_reject": "(D) 첫머리 the same thing 이 가리킬 행동(마지막 자루를 따로 두고 이름을 적는 것)이 (C)에 없다. 그 행동은 (B) 끝에 있다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "시간·인과 순서 역전",
+     "why_tempting": "(D)에 lunch 와 선물 수여가 있어 하루의 끝처럼 보이지만, (B)를 사이에 끼우면 Sally 의 꾀가 뒤늦게 드러나는 배열로 읽힌다.",
+     "how_to_reject": "(D)는 점심 뒤 장면이고 (C)는 Around mid-morning 부터 sun was high 까지의 오전 작업이다. (C)를 (D) 뒤로 보내면 시각이 되돌아간다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "어휘 반복 유인",
+     "why_tempting": "(D)의 sack·load·corn stalks 가 (A)의 sack 과 겹쳐 낱말이 가장 많이 이어지는 것처럼 보인다.",
+     "how_to_reject": "(D) 첫머리 do the same thing 이 받을 앞 행동이 사라지고, (D) 안의 There was nothing but useless corn stalks in her sack 은 (B)의 she quickly filled her last sack with corn stalks 가 먼저 있어야 성립한다."
+    }
+   ]
+  },
+  {
+   "item_id": "M2106#43",
+   "body_recovered": true,
+   "measured_ability": "편지를 읽는 한 장면이 어디까지 이어지는지, 그리고 \"아버지의 말\" 이라는 정관사 표현이 어느 문단의 조언을 받는지 판정하는 능력",
+   "design_intent": "(A)에서 이미 \"그 편지는 Stephanie 앞으로 온 것\" 이라는 사실이 드러나므로, 갈등(C)을 (A) 바로 뒤에 붙이고 싶어진다. 실제 이음매는 \"Reading on\" 이라는 계속 읽기 표시와 \"his dad’s words\" 라는 정관사 표현 두 곳이고, 이 둘을 못 보면 그럴듯한 배열이 둘로 남게 설계돼 있다.",
+   "answer_locus": {
+    "sentence_index": [
+     11,
+     30
+    ],
+    "quote": "Once Steven had heard his dad’s words, tears started to fill up in his eyes.",
+    "reasoning": "\"his dad’s words\" 는 (C) 끝의 \"his dad advised him to do the right thing\" 을 정관사로 받는다 — (B)는 (C) 바로 뒤다. 또 (D)의 첫 문장 \"Reading on\" 은 (A)에서 편지를 읽던 동작의 계속이므로 (D)가 (A) 바로 뒤다. 두 이음매를 함께 만족하는 배열은 (D)-(C)-(B) 뿐이다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "마무리 문장 위치 오판",
+     "why_tempting": "(B)가 편지를 Stephanie 에게 건네는 장면이라, (A)에서 이름이 다르다는 것을 안 직후의 행동으로 읽힌다.",
+     "how_to_reject": "(B) 끝에서 아버지가 표 두 장을 건네며 윙크한다 — 보상 장면이다. 보상의 이유가 되는 고민(C)과 조언이 앞에 있어야 하므로 (B)는 첫 자리에 올 수 없다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "시간·인과 순서 역전",
+     "why_tempting": "(C)-(B) 로 조언과 실행이 붙어 있어 앞부분이 매끄럽고, 남는 (D)를 편지 내용 설명으로 뒤에 붙이면 정리되는 듯 보인다.",
+     "how_to_reject": "(D)의 첫 낱말 \"Reading on\" 은 편지를 계속 읽는 중이라는 뜻이고, (D)는 \"he would feel ashamed\" 라는 미해결 상태로 끝난다. 아버지가 표를 건네는 (B) 뒤에 올 수 없다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "지시어 선행사 절단",
+     "why_tempting": "(A)가 이름이 다르다는 발견으로 끝나므로 \"말하지 않으면 모를 것\" 이라는 (C)의 갈등이 바로 이어지는 것처럼 보인다.",
+     "how_to_reject": "(C)의 \"If I don’t tell Stephanie, perhaps she will never know\" 는 Stephanie 가 진짜 수상자라는 확정을 전제한다. 그 확정은 (D)의 \"the letter had been delivered mistakenly … who was the real winner\" 에 있다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "조건-귀결 절단",
+     "why_tempting": "(D)를 (A) 뒤에 두는 것까지는 맞아서 안심하고, 편지 오배송을 안 뒤 곧바로 돌려주는 (B)로 넘어가면 이야기가 빨리 닫힌다.",
+     "how_to_reject": "(B)의 첫머리 \"Once Steven had heard his dad’s words\" 가 아버지의 조언을 전제하는데, 그 조언은 (C) 끝의 \"his dad advised him to do the right thing\" 이다."
+    },
+    {
+     "n": 5,
+     "verdict": "correct",
+     "why_correct": "(A)의 편지 읽기를 (D)의 \"Reading on\" 이 잇고, (C) 끝의 아버지 조언을 (B) 첫머리 \"his dad’s words\" 가 받는다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "(A)의 마지막 두 문장에서 인물이 방금 알게 된 사실과, 아직 확인하지 못한 것을 갈라 적는다.",
+     "on_fail": "구분이 안 되면 (A)에 나온 사물(편지·표)이 지금 누구 손에 있는지만 적는다."
+    },
+    {
+     "step": "(B)(C)(D)의 첫 문장에서 \"계속\"을 뜻하는 표현(Reading on · Once … had heard)과 정관사가 붙은 명사구(his dad’s words)를 찾아 표시한다.",
+     "on_fail": "표시할 것이 없으면 각 문단 첫 문장의 시간 표현(The next morning 등)을 대신 표시한다."
+    },
+    {
+     "step": "표시한 정관사 명사구가 가리키는 내용이 어느 문단에 있는지 찾아, 그 문단을 바로 앞에 놓는다.",
+     "on_fail": "가리키는 내용이 두 문단에 다 있으면 더 구체적으로 일치하는 쪽(조언의 내용까지 같은 쪽)을 고른다."
+    },
+    {
+     "step": "\"계속\" 표현이 있는 문단을 (A) 뒤에 두고, 남은 자리를 채운 뒤 미해결로 끝나는 문단이 마지막에 오지 않았는지 확인한다.",
+     "on_fail": "미해결 문단이 마지막에 왔다면 그 문단을 앞으로 당기고 나머지를 다시 배열한다."
+    }
+   ],
+   "time_budget_sec": 90,
+   "difficulty": {
+    "predicted": 0.82,
+    "drivers": [
+     "\"Reading on\" 과 \"his dad’s words\" 두 표지가 표면에 드러난다",
+     "(A)에 이미 결정적 사실이 나와 갈등 문단을 앞으로 당기는 유인이 있다"
+    ]
+   },
+   "required_vocab": [
+    "envelope",
+    "mistakenly",
+    "hesitant",
+    "disclosed",
+    "wholeheartedly"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "인용을 corpus.json 지문에서 문자 그대로 확인했다.",
+      "body_ok:false 문항이라 (D) 안의 OCR 잔여(\"수하다 ______\", \"용 작물\")를 피해 (B) 첫 문장을 인용으로 골랐다."
+     ],
+     "checked": [
+      "quote 문자열 대조",
+      "OCR 손상 구간 회피 확인",
+      "유형 정의 대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "오답 4개 함정이 4종으로 갈렸고, ②와 ④가 각각 (D)의 위치·(B)의 전제라는 서로 다른 근거를 쓴다.",
+      "분석 정답 ⑤ 가 평가원 정답표 5 와 일치한다."
+     ],
+     "checked": [
+      "trap 중복 검사",
+      "선지 순열과 서술 일치 확인",
+      "정답표 대조",
+      "how_to_reject 의 위치 표기 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "2단계가 찾을 표현을 문자열로 지정해 지문을 처음 보는 학생도 실행할 수 있다.",
+      "90초 안에 4단계가 끝난다 — 각 단계가 문단 첫 문장만 본다."
+     ],
+     "checked": [
+      "단계 실행 가능성 점검",
+      "금지 표현 검색",
+      "required_vocab 의 정답 기여도 확인"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "2020#43",
+   "measured_ability": "연어 무리를 처음 발견하는 장면과 개별 연어의 시도를 관찰하는 장면을 갈라, 부정관사 \"a big one / a small one\" 의 등장 순서로 문단을 잇는 능력",
+   "design_intent": "연어라는 소재가 (B)(C)(D) 세 문단에 다 나오게 해 놓고, 실제 이음매는 관사와 수량 표현에만 남겼다 — (C)에서 무리를 처음 보고(salmon), (D)에서 큰 놈 하나가 뛰고(a big one), (B)에서 작은 놈이 성공하고 \"More salmon then followed\" 로 무리가 뒤따른다. 소재 겹침으로 이으면 반드시 틀리도록 만든 문항이다.",
+   "answer_locus": {
+    "sentence_index": [
+     20,
+     30
+    ],
+    "quote": "Then, with a great push, a small one turned a complete circle and made it over the falls.",
+    "reasoning": "\"a small one\" 은 (D)의 \"a big one suddenly leapt … but in vain\" 과 짝을 이루는 대비쌍이고, 뒤이어 \"More salmon then followed and succeeded\" 로 개별 시도가 무리로 번진다. 따라서 (B)는 (D) 뒤다. 앞쪽은 (A) 끝의 \"a good place for them to stop\" 을 (C) 첫 문장 \"Marie pulled over into the parking lot.\" 이 받으므로 (C)-(D)-(B) 로 고정된다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "첫 등장 위반",
+     "why_tempting": "(B) 첫 문장이 \"Then,\" 으로 시작해 앞 장면을 잇는 것처럼 보이고, 연어의 성공이라는 강한 사건이라 앞에 놓고 싶어진다.",
+     "how_to_reject": "(B)의 \"a small one\" 은 연어를 처음 가리키는 말이 아니다. 연어가 처음 등장하는 곳은 (C)의 \"they saw salmon slowly moving their bodies\" 이므로 (B)가 앞설 수 없다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "어휘 반복 유인",
+     "why_tempting": "(C) 끝에서 연어를 보고 (B)에서 연어가 뛰어오르니 salmon·falls 가 겹쳐 두 문단이 붙어 보인다.",
+     "how_to_reject": "(B)의 \"More salmon then followed and succeeded\" 는 앞서 개별 시도가 있었다는 뜻인데, 그 시도(a big one … in vain)는 (D)에만 있다."
+    },
+    {
+     "n": 3,
+     "verdict": "correct",
+     "why_correct": "(A) 끝의 'a good place for them to stop' 을 (C) 첫 문장 'Marie pulled over into the parking lot.' 이 실행으로 받고, (D)의 'a big one suddenly leapt … but in vain' 을 (B)의 'a small one turned a complete circle and made it over the falls' 가 성공 쪽 짝으로 받는다. 두 이음매가 함께 성립하는 배열은 (C)-(D)-(B) 다.",
+     "confirmed_at": {
+      "sentence_index": [
+       20,
+       30
+      ],
+      "note": "3차 보강 전 서술: (A)의 정차 판단을 (C)가 실행하고, (D)의 \"a big one … in vain\" 뒤에 (B)의 \"a small one … made it over\" 가 온다."
+     }
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "지시어 선행사 절단",
+     "why_tempting": "(D)가 두 사람이 연어를 지켜보는 장면이라 (A)의 차 안 대화 뒤 풍경 묘사로 이어지는 듯 읽힌다.",
+     "how_to_reject": "(D) 첫 문장 \"While Marie and Nina kept watching the salmon\" 의 정관사 the salmon 은 이미 발견된 연어를 가리킨다. 발견은 (C)에 있다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "조건-귀결 절단",
+     "why_tempting": "(B)를 끝에 두는 것이 맞아 보이므로 앞의 (D)-(C) 순서를 그대로 받아들이게 된다.",
+     "how_to_reject": "(A)는 \"Marie thought this would be a good place for them to stop\" 이라는 판단으로 끝나고, 그 귀결인 \"Marie pulled over into the parking lot.\"(C)가 바로 뒤에 와야 한다. (D)를 사이에 넣으면 차를 세우기 전에 폭포를 지켜보게 된다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "(A)의 마지막 문장이 어떤 판단·결정으로 끝나는지 적고, 그 결정이 실행된 문장이 어느 문단 첫머리에 있는지 찾는다.",
+     "on_fail": "결정이 없으면 (A)에서 인물이 있는 장소를 적고, 장소가 바뀌는 문단을 찾는다."
+    },
+    {
+     "step": "(B)(C)(D)에서 같은 소재를 가리키는 명사구의 관사를 비교한다 — 처음 등장(salmon, 관사 없음/부정관사)과 이미 아는 것(the salmon)을 나눈다.",
+     "on_fail": "관사로 안 갈리면 수량 표현(a big one · a small one · More salmon)의 크기·범위 순서로 나눈다."
+    },
+    {
+     "step": "처음 등장하는 문단을 앞에, 이미 아는 것으로 받는 문단을 뒤에 놓는다. 개별 → 무리로 번지는 표현이 있는 문단은 개별 시도 문단 뒤다.",
+     "on_fail": "두 배열이 남으면 실패(in vain)와 성공(made it over)의 사건 순서로 정한다."
+    },
+    {
+     "step": "정한 배열에서 (a)~(e) 밑줄이 사람인지 물고기인지 전부 정해지는지 확인한다.",
+     "on_fail": "가리키는 대상이 갈리는 밑줄이 있으면 그 이음매의 두 문단을 맞바꿔 다시 본다."
+    }
+   ],
+   "time_budget_sec": 95,
+   "difficulty": {
+    "predicted": 0.75,
+    "drivers": [
+     "세 문단이 같은 소재(연어·폭포)를 공유해 어휘 겹침이 미끼로 작동",
+     "결정 근거가 관사와 수량 표현이라 표면 단서가 작다"
+    ]
+   },
+   "required_vocab": [
+    "leapt",
+    "upstream",
+    "in vain",
+    "admiration",
+    "splashing"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "인용을 corpus.json 지문에서 문자 그대로 확인했다.",
+      "출제 의도를 \"관사·수량 표현으로만 이음매를 남겼다\" 는 이 문항 고유 장치로 좁혔다.",
+      "3차 재검수 — why_correct 에 대응은 있으나 한쪽(선지 또는 이음매의 받는 낱말)이 우리말 풀이로만 있어 revise 로 반려했다. 양쪽 표현을 그대로 넣어 보강한 뒤 pass."
+     ],
+     "checked": [
+      "quote 문자열 대조",
+      "유형 정의 대조",
+      "design_intent 의 문항 고유성 확인",
+      "새 why_correct 의 영어 인용을 corpus.json 의 해당 지문에서 문자열 대조",
+      "정답 선지 문자열과의 대응이 낱말 단위로 성립하는지 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "오답 4개 함정이 첫 등장 위반 · 어휘 반복 유인 · 지시어 선행사 절단 · 조건-귀결 절단 4종이다.",
+      "②의 배제 근거를 \"salmon 이 겹친다\" 가 아니라 \"More salmon then followed 가 앞선 시도를 요구한다\" 는 문장 위치로 바꿔 적었다.",
+      "3차 재검수 — 보강한 서술이 정답 선지의 실제 문자열에 근거하는지, 소거법으로 미끄러지지 않았는지 확인했다. 오답 4개 서술은 3차에서 손대지 않았다."
+     ],
+     "checked": [
+      "trap 중복 검사",
+      "how_to_reject 의 위치 표기 확인",
+      "정답 ③ 과 정답표 3 대조",
+      "why_correct 에 소거법·되풀이 서술이 남았는지 확인",
+      "오답 4개의 trap/why_tempting/how_to_reject 가 3차에서 바뀌지 않았음을 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "초안 2단계가 \"연어 관련 표현을 본다\" 여서 무엇을 볼지 불명확했다 — 관사 비교라는 판정 기준으로 고쳤다.",
+      "95초 안에 관사 비교 → 배열 → 밑줄 검산이 끝난다.",
+      "3차 재검수 — 보강 후 학생이 지문에서 찾아갈 자리가 낱말 단위로 지목됐는지 봤다. 다른 필드는 3차에서 바뀌지 않았다."
+     ],
+     "checked": [
+      "단계 실행 가능성 점검",
+      "금지 표현 검색",
+      "required_vocab 이 정답 판정에 쓰이는지 확인",
+      "why_correct 가 지목한 지문 자리를 학생이 번호·표지로 찾아갈 수 있는지 확인"
+     ]
+    }
+   ],
+   "revised": true
+  },
+  {
+   "item_id": "M2006#43",
+   "body_recovered": true,
+   "revised": true,
+   "measured_ability": "\"허락을 받았느냐\" 는 물음이 어느 문단의 요청을 받는지, 그리고 \"내일 연습을 들으러 오라\" 는 초대와 \"다음 날\" 이라는 표지의 선후를 맞추는 능력",
+   "design_intent": "수업 → 부탁 → 연습 → 아버지의 인정이라는 사슬을 시간 표지 하나씩으로만 이어 놓았다. (C)의 \"the following day\" 와 (D)의 \"practice tomorrow\" 가 같은 날을 가리키는데, 두 표지의 방향(다음 날/내일)이 서로 반대라서 한쪽만 보면 순서가 뒤집히도록 설계돼 있다.",
+   "answer_locus": {
+    "sentence_index": [
+     12,
+     32
+    ],
+    "quote": "“Well, did you get permission?” asked Brian as soon as Joe entered the practice room the following day.",
+    "reasoning": "Brian 이 묻는 \"permission\" 은 (D)에서 Joe 가 아버지에게 청한 허락(\"I would like your permission first\")이다. 게다가 \"the following day\" 는 (D)의 \"come and listen to our practice tomorrow\" 가 가리키는 그 다음 날이므로 (C)는 (D) 뒤다. (B)는 \"When they finished practicing\" 으로 시작해 (C)의 연습 장면 뒤에만 놓이므로 (D)-(C)-(B) 로 고정된다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "마무리 문장 위치 오판",
+     "why_tempting": "(B)에서 아버지가 아들의 연주를 칭찬하는 장면이 (A)의 수업 장면과 인물 구성이 같아 바로 이어지는 듯 보인다.",
+     "how_to_reject": "(B) 첫 문장 \"When they finished practicing\" 은 연습이 이미 끝났다는 뜻이고, 끝에서 부자가 함께 귀가한다. 연습 장면(C)과 허락 요청(D)이 앞에 있어야 한다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "지시어 선행사 절단",
+     "why_tempting": "(C)가 밴드 연습이라는 새 장면을 열어 (A)의 바이올린 수업 다음에 놓기 좋아 보인다.",
+     "how_to_reject": "(C) 첫 대사 \"did you get permission?\" 의 permission 은 (D)에서 청한 허락이다. (D)를 뒤로 보내면 무엇에 대한 허락인지가 지문에서 사라진다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "시간·인과 순서 역전",
+     "why_tempting": "(B)를 마지막에 두는 것이 맞아 보이고, (C)의 연습 → (D)의 대화 → (B)의 칭찬으로 읽으면 이야기가 닫히는 듯하다.",
+     "how_to_reject": "(C)는 \"the following day\"(다음 날), (D)는 \"Why don’t you come and listen to our practice tomorrow?\"(내일)라고 말한다. 내일을 말하는 (D)가 그 다음 날인 (C)보다 앞이다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "조건-귀결 절단",
+     "why_tempting": "(D)에서 아버지를 연습에 초대했으니 아버지가 연습을 듣고 칭찬하는 (B)가 곧바로 이어지는 것처럼 보인다.",
+     "how_to_reject": "(B)의 \"When they finished practicing\" 이 가리키는 연습 장면 자체가 (C)에 있다. (C)를 건너뛰면 아버지가 무엇을 들었는지가 없어진다."
+    },
+    {
+     "n": 5,
+     "verdict": "correct",
+     "why_correct": "(D) 끝의 'Why don’t you come and listen to our practice tomorrow?' 를 (C) 첫 문장의 'the following day' 와 Brian 의 'did you get permission?' 이 함께 받고, 그 연습 장면을 (B) 첫머리 'When they finished practicing' 이 닫는다. 두 이음매가 함께 성립하는 배열은 (D)-(C)-(B) 다.",
+     "confirmed_at": {
+      "sentence_index": [
+       12,
+       32
+      ],
+      "note": "3차 보강 전 서술: (D)의 허락 요청과 \"내일 연습\" 초대를 (C)가 \"the following day\" 로 받고, 그 연습이 끝난 자리에서 (B)가 시작한다."
+     }
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "(A)를 읽고 인물 관계(누가 누구의 아들·스승인가)와 아직 벌어지지 않은 일을 한 줄로 적는다.",
+     "on_fail": "관계가 안 잡히면 (A)에 나온 고유명사 두 개와 그 둘의 호칭만 적어 둔다."
+    },
+    {
+     "step": "(B)(C)(D)에서 날짜·시각을 가리키는 표현(tomorrow · the following day · After the class · When they finished)을 전부 표시한다.",
+     "on_fail": "표지가 없는 문단은 첫 문장의 대사가 질문인지 대답인지만 표시한다."
+    },
+    {
+     "step": "표시한 표지를 이른 것부터 늘어놓는다 — \"내일\" 을 말하는 문단이 \"다음 날\" 로 시작하는 문단보다 앞이다.",
+     "on_fail": "표지끼리 순서가 안 정해지면, 질문에 나오는 정관사 명사(permission)의 내용이 어느 문단에 있는지로 정한다."
+    },
+    {
+     "step": "만든 배열에서 각 문단 첫 문장이 요구하는 앞 사건(허락 요청·연습 장면)이 바로 앞 문단에 있는지 확인한다.",
+     "on_fail": "없으면 그 문단을 요구 사건이 있는 문단 뒤로 옮기고 나머지를 다시 배열한다."
+    }
+   ],
+   "time_budget_sec": 100,
+   "difficulty": {
+    "predicted": 0.72,
+    "drivers": [
+     "시간 표지가 tomorrow/the following day 로 방향이 엇갈린다",
+     "연습·아버지·허락이 세 문단에 반복돼 소재 겹침이 미끼",
+     "OCR 잔여로 (B) 한 문장이 끊겨 보인다"
+    ]
+   },
+   "required_vocab": [
+    "emulate",
+    "virtuoso",
+    "permission",
+    "crossover",
+    "underestimated"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "초안 인용이 (B)의 \"keeping d the spirit of the violin\" 구간을 포함해 OCR 잔여 문자 d 가 섞여 있었다 — 반려하고 손상 없는 (C) 첫 문장으로 교체해 재검수했다.",
+      "교체한 인용을 corpus.json 지문에서 문자 그대로 확인했다.",
+      "3차 재검수 — why_correct 에 대응은 있으나 한쪽(선지 또는 이음매의 받는 낱말)이 우리말 풀이로만 있어 revise 로 반려했다. 양쪽 표현을 그대로 넣어 보강한 뒤 pass."
+     ],
+     "checked": [
+      "quote 문자열 대조",
+      "OCR 손상 구간 회피 확인",
+      "유형 정의 대조",
+      "새 why_correct 의 영어 인용을 corpus.json 의 해당 지문에서 문자열 대조",
+      "정답 선지 문자열과의 대응이 낱말 단위로 성립하는지 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "오답 4개 함정이 4종으로 갈렸고, ③의 배제 근거가 이 문항 고유의 시간 표지 충돌(\"tomorrow\" vs \"the following day\")이다.",
+      "분석 정답 ⑤ 가 평가원 정답표 5 와 일치한다.",
+      "3차 재검수 — 보강한 서술이 정답 선지의 실제 문자열에 근거하는지, 소거법으로 미끄러지지 않았는지 확인했다. 오답 4개 서술은 3차에서 손대지 않았다."
+     ],
+     "checked": [
+      "trap 중복 검사",
+      "선지 순열과 서술 대조",
+      "정답표 대조",
+      "how_to_reject 위치 표기 확인",
+      "why_correct 에 소거법·되풀이 서술이 남았는지 확인",
+      "오답 4개의 trap/why_tempting/how_to_reject 가 3차에서 바뀌지 않았음을 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "2단계가 \"표현을 표시한다\" 라는 동작이라 실행 가능하고, 3단계에 방향 규칙(내일 < 다음 날)을 명시해 학생이 스스로 판정한다.",
+      "3차 재검수 — 보강 후 학생이 지문에서 찾아갈 자리가 낱말 단위로 지목됐는지 봤다. 다른 필드는 3차에서 바뀌지 않았다."
+     ],
+     "checked": [
+      "단계 실행 가능성 점검",
+      "금지 표현 검색",
+      "time_budget 대조",
+      "why_correct 가 지목한 지문 자리를 학생이 번호·표지로 찾아갈 수 있는지 확인"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "2019#43",
+   "measured_ability": "준비 → 작업 → 질문 → 대답이라는 사건 사슬에서, 질문을 던진 문단과 그 질문에 답하는 문단을 인접시켜 배열하는 능력",
+   "design_intent": "(A)가 \"준비하러 집으로 갔다\" 로 끝나 준비 완료 장면(C)이 뒤에 온다는 것은 쉽게 잡히게 해 두고, 진짜 갈림길은 뒤 두 문단에 두었다 — Olivia 의 질문으로 끝나는 (B)와 할머니의 대답으로 시작하는 (D)가 반드시 이 순서로 붙어야 한다. (D)에 나비 이야기가 있어 (A)의 Cabbage White 설명과 겹치게 한 것이 미끼다.",
+   "answer_locus": {
+    "sentence_index": [
+     26,
+     16
+    ],
+    "quote": "Grandma smiled gently and said, “Why wrestle with Mother Nature?",
+    "reasoning": "이 대답은 (B) 끝의 질문 \"Why don’t we just get rid of all the butterflies, so that there will be no more eggs or caterpillars?\" 에 대한 응답이고, 뒤이어 \"Olivia realized she was right\" 로 그 응답을 수용한다. 따라서 (D)는 (B) 바로 뒤다. 앞쪽은 (A)의 \"went back to the house to get ready\" 를 (C)의 \"armed with a small bucket each … went back to Grandma\" 가 받으므로 (C)-(B)-(D) 로 고정된다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "시간·인과 순서 역전",
+     "why_tempting": "(B)가 애벌레를 잡는 본 작업이라 (A)의 제안 뒤에 바로 놓고 싶어진다.",
+     "how_to_reject": "(B)에서 Olivia 는 이미 양동이를 채우고 있다(\"She kept filling her bucket\"). 양동이를 챙기는 장면은 (C)의 \"armed with a small bucket each\" 이므로 (C)가 먼저다."
+    },
+    {
+     "n": 2,
+     "verdict": "correct",
+     "why_correct": "(A) 끝의 'went back to the house to get ready' 를 (C)의 'armed with a small bucket each, Olivia and Ellie went back to Grandma' 가 준비 완료로 받고, (B) 끝의 질문 'Why don’t we just get rid of all the butterflies …?' 을 (D) 첫 대사 'Why wrestle with Mother Nature?' 가 답한다. 두 이음매가 함께 성립하는 배열은 (C)-(B)-(D) 다.",
+     "confirmed_at": {
+      "sentence_index": [
+       26,
+       16
+      ],
+      "note": "3차 보강 전 서술: (A)의 준비를 (C)가 마치고, (B) 끝의 질문에 (D) 첫 대사가 답한다."
+     }
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "지시어 선행사 절단",
+     "why_tempting": "(C)를 첫 자리에 놓는 것까지는 맞고, (C)가 할머니의 위로로 끝나므로 할머니가 다시 말하는 (D)가 바로 이어지는 듯 읽힌다.",
+     "how_to_reject": "(D)의 \"Olivia realized she was right\" 에서 \"옳았다\" 고 인정할 내용이 (C)에는 없다. 그 내용은 (B) 끝 질문에 대한 (D)의 대답이고, 질문이 앞에 없으면 (D)의 첫 대사가 무엇에 대한 답인지 정해지지 않는다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "마무리 문장 위치 오판",
+     "why_tempting": "(D)에 할머니의 설명과 나비 이야기가 있어 (A)의 Cabbage White 설명과 이어지는 지식 대화처럼 보인다.",
+     "how_to_reject": "(D)는 \"Olivia and Ellie looked at their full buckets and smiled.\" 로 끝난다 — 양동이가 이미 가득 찬 뒤의 마무리이므로 첫 자리에 올 수 없다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "어휘 반복 유인",
+     "why_tempting": "(A)의 마지막 부분과 (D)에 butterflies·caterpillars 가 함께 나와 두 문단이 붙어 보이고, (B)를 끝에 두면 \"싸움\" 장면으로 마무리되는 것처럼 느껴진다.",
+     "how_to_reject": "겹치는 낱말의 기능이 다르다 — (A)는 나비의 정체를 묻는 설명, (D)는 나비를 없애자는 제안에 대한 반박이다. 그 제안은 (B) 끝에 있으므로 (B)가 (D)보다 앞이다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "(A)의 마지막 문장에서 인물들이 무엇을 하러 자리를 떴는지 적는다.",
+     "on_fail": "이동이 없으면 (A)에서 누가 무엇을 제안했는지 한 줄로 적는다."
+    },
+    {
+     "step": "(B)(C)(D)의 첫 문장에서 그 이동이 끝났음을 알리는 표현(went back to · armed with)을 찾아 (A) 바로 뒤 자리를 정한다.",
+     "on_fail": "그런 표현이 없으면 준비물(양동이)이 처음 등장하는 문단을 앞자리로 삼는다."
+    },
+    {
+     "step": "남은 두 문단에서 물음표로 끝나는 대사와, 그 물음에 답하는 대사를 각각 찾는다. 물음이 있는 문단이 앞, 답이 있는 문단이 뒤다.",
+     "on_fail": "물음이 두 문단에 다 있으면 답의 내용이 어느 물음을 되받는지(같은 소재를 반박하는지)로 정한다."
+    },
+    {
+     "step": "정한 배열의 마지막 문단이 결말 문장(가득 찬 양동이·미소)으로 끝나는지 확인한다.",
+     "on_fail": "마지막 문단이 미해결로 끝나면 배열을 뒤집어 다시 확인한다."
+    }
+   ],
+   "time_budget_sec": 95,
+   "difficulty": {
+    "predicted": 0.72,
+    "drivers": [
+     "(A)와 (D)에 나비 어휘가 겹쳐 첫 자리 오판을 유도",
+     "결정 근거가 질문–대답 인접쌍 하나뿐"
+    ]
+   },
+   "required_vocab": [
+    "caterpillars",
+    "wriggled",
+    "despair",
+    "pollen",
+    "armed"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "인용 \"Grandma smiled gently and said, “Why wrestle with Mother Nature?\" 를 코퍼스 지문에서 문자 그대로 확인했다.",
+      "이 문항의 갈림길이 앞이 아니라 뒤 두 문단에 있다는 점을 design_intent 에 명시했다.",
+      "3차 재검수 — why_correct 에 대응은 있으나 한쪽(선지 또는 이음매의 받는 낱말)이 우리말 풀이로만 있어 revise 로 반려했다. 양쪽 표현을 그대로 넣어 보강한 뒤 pass."
+     ],
+     "checked": [
+      "quote 문자열 대조",
+      "유형 정의 대조",
+      "갈림길 위치가 서술과 맞는지 확인",
+      "새 why_correct 의 영어 인용을 corpus.json 의 해당 지문에서 문자열 대조",
+      "정답 선지 문자열과의 대응이 낱말 단위로 성립하는지 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "오답 4개 함정이 4종이고, ⑤의 배제 근거를 \"겹치는 낱말의 기능 차이\" 로 적어 어휘 반복 유인 라벨과 서술이 일치한다.",
+      "3차 재검수 — 보강한 서술이 정답 선지의 실제 문자열에 근거하는지, 소거법으로 미끄러지지 않았는지 확인했다. 오답 4개 서술은 3차에서 손대지 않았다."
+     ],
+     "checked": [
+      "trap 중복 검사",
+      "why_tempting 이 선지 순열과 맞는지 확인",
+      "정답 ② 와 정답표 2 대조",
+      "why_correct 에 소거법·되풀이 서술이 남았는지 확인",
+      "오답 4개의 trap/why_tempting/how_to_reject 가 3차에서 바뀌지 않았음을 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "초안 3단계가 \"시간 표지를 확인한다\" 였는데 이 지문에는 시간 표지가 \"Soon\" 하나뿐이라 실행이 막혔다 — \"물음표로 끝나는 대사를 찾는다\" 로 고쳐 재검수했다.",
+      "95초 안에 4단계가 끝난다.",
+      "3차 재검수 — 보강 후 학생이 지문에서 찾아갈 자리가 낱말 단위로 지목됐는지 봤다. 다른 필드는 3차에서 바뀌지 않았다."
+     ],
+     "checked": [
+      "단계 실행 가능성 점검",
+      "금지 표현 검색",
+      "required_vocab 의 정답 기여도 확인",
+      "why_correct 가 지목한 지문 자리를 학생이 번호·표지로 찾아갈 수 있는지 확인"
+     ]
+    }
+   ],
+   "revised": true
+  },
+  {
+   "item_id": "2018#43",
+   "body_recovered": true,
+   "measured_ability": "선거라는 공적 일정(출마 → 선거일 → 당선)과 두 친구의 감정 사슬(긴장 → 사과할 마음 → 사과)을 겹쳐 읽어 문단 순서를 정하는 능력",
+   "design_intent": "(B)에 \"Steve won the election\" 이라는 결과가 첫 문장으로 박혀 있어, 결과를 먼저 읽고 나머지를 회상으로 처리하고 싶은 유혹을 만든다. 실제 이음매는 (D) 끝의 \"felt the need to apologize … later that day\" 와 (B) 안의 사과 대사이며, 감정의 예고–실행 쌍이 이 문항의 결정 장치다.",
+   "answer_locus": {
+    "sentence_index": [
+     33,
+     7
+    ],
+    "quote": "His words hit Dave hard. Looking at Steve, Dave felt the need to apologize to (e) him later that day.",
+    "reasoning": "(D)는 사과할 마음이 생기는 데서 끝나고, (B)에서 그 사과가 실제로 이뤄진다(\"I’m so sorry, Steve!\"). 예고가 실행보다 앞서야 하므로 (B)는 (D) 뒤 마지막 자리다. 앞쪽은 (A) 끝의 출마 결심을 (C)의 \"I’m going for student president\" 가 받으므로 (C)-(D)-(B) 로 고정된다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "마무리 문장 위치 오판",
+     "why_tempting": "(A)가 출마 결심으로 끝나므로 당선 소식인 (B)를 곧바로 붙이면 이야기가 빠르게 진행되는 듯 보인다.",
+     "how_to_reject": "(B) 끝에서 아버지가 \"Sounds like you won two battles today!\" 라고 말한다 — 선거와 우정 둘 다 정리된 뒤의 대사이므로 첫 자리에 올 수 없다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "시간·인과 순서 역전",
+     "why_tempting": "(C)를 첫 자리에 놓는 것은 맞고, (C) 끝의 긴장 뒤에 당선 결과 (B)를 붙이면 갈등–결말로 읽힌다.",
+     "how_to_reject": "(D)는 \"When the election day came\" 로 시작한다. 선거일은 당선 결과보다 앞서야 하므로 (D)가 (B)보다 뒤에 올 수 없다."
+    },
+    {
+     "n": 3,
+     "verdict": "correct",
+     "why_correct": "(A) 끝의 출마 수락 'Sure, it’ll be a great experience.' 를 (C)의 'I’m going for student president' 가 받고, (D) 끝의 'Dave felt the need to apologize to (e) him later that day' 라는 예고를 (B)의 실제 사과 'I’m so sorry, Steve!' 가 실행한다. 예고가 실행보다 앞서야 하므로 배열은 (C)-(D)-(B) 다.",
+     "confirmed_at": {
+      "sentence_index": [
+       33,
+       7
+      ],
+      "note": "3차 보강 전 서술: (A)의 출마 결심을 (C)가 받고, (D) 끝의 \"사과해야겠다\" 는 예고를 (B)의 실제 사과가 실행한다."
+     }
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "지시어 선행사 절단",
+     "why_tempting": "(D)의 자동차 장면이 (A)의 등굣길 장면과 같은 소재(자전거·등교)라 바로 이어지는 것처럼 보인다.",
+     "how_to_reject": "(D)에서 Dave 의 아버지가 \"only one of you can win. … Don’t let this election ruin your friendship\" 이라고 말한다. \"너희 둘 중 하나\" 와 \"this election\" 은 두 사람이 함께 출마한 사실을 전제하고, 그 사실은 (C)에만 있다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "첫 등장 위반",
+     "why_tempting": "(B)를 마지막에 두는 것이 맞아 보이므로 앞의 (D)-(C) 를 그대로 받아들이게 된다.",
+     "how_to_reject": "Dave 가 경쟁자가 되는 장면 — \"Actually, I’ve just registered my name, too!\" — 은 (C)에서 처음 밝혀진다. (D)는 이미 두 사람이 경쟁자임을 전제하므로 (C)보다 앞설 수 없다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "(A) 마지막 문장에서 인물이 무엇을 하기로 했는지 적는다.",
+     "on_fail": "결정이 없으면 (A)에 나온 두 인물의 관계를 한 줄로 적는다."
+    },
+    {
+     "step": "(B)(C)(D)에서 일정·시각을 가리키는 표현(After class · When the election day came · later that evening)에 전부 표시하고 이른 것부터 늘어놓는다.",
+     "on_fail": "표지가 없는 문단은 그 문단이 결과를 알리는지 과정을 그리는지만 표시한다."
+    },
+    {
+     "step": "감정의 예고와 실행을 짝짓는다 — \"사과해야겠다고 느꼈다\" 가 있는 문단은 실제 사과 대사가 있는 문단 바로 앞이다.",
+     "on_fail": "예고–실행 쌍이 안 보이면 결과를 알리는 문단을 마지막에 두고 나머지를 시각 순서로 채운다."
+    },
+    {
+     "step": "만든 배열에서 \"this election\", \"only one of you\" 같은 표현이 가리키는 사실이 앞 문단에 있는지 확인한다.",
+     "on_fail": "없으면 그 사실이 처음 나오는 문단을 앞으로 옮기고 다시 배열한다."
+    }
+   ],
+   "time_budget_sec": 95,
+   "difficulty": {
+    "predicted": 0.78,
+    "drivers": [
+     "시간 표지가 세 문단에 고루 있어 초안이 빨리 잡힌다",
+     "(B)의 첫 문장이 결과라 앞자리로 당기는 유인이 강하다"
+    ]
+   },
+   "required_vocab": [
+    "nomination",
+    "registered",
+    "election",
+    "apologize",
+    "tension"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "초안 인용이 (D)의 \"his bicycle had a f lat tire\" 구간을 포함해 OCR 이 낱말을 쪼갠 자리(\"f lat\")가 섞여 있었다 — 반려하고 손상 없는 (D) 마지막 두 문장으로 교체해 재검수했다.",
+      "교체한 인용을 corpus.json 지문에서 문자 그대로 확인했다.",
+      "3차 재검수 — why_correct 에 대응은 있으나 한쪽(선지 또는 이음매의 받는 낱말)이 우리말 풀이로만 있어 revise 로 반려했다. 양쪽 표현을 그대로 넣어 보강한 뒤 pass."
+     ],
+     "checked": [
+      "quote 문자열 대조",
+      "OCR 손상 구간 회피 확인",
+      "유형 정의 대조",
+      "새 why_correct 의 영어 인용을 corpus.json 의 해당 지문에서 문자열 대조",
+      "정답 선지 문자열과의 대응이 낱말 단위로 성립하는지 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "오답 4개 함정이 4종이고, ②와 ⑤가 각각 시간 표지·첫 등장이라는 다른 자를 쓴다.",
+      "분석 정답 ③ 이 평가원 정답표 3 과 일치한다.",
+      "3차 재검수 — 보강한 서술이 정답 선지의 실제 문자열에 근거하는지, 소거법으로 미끄러지지 않았는지 확인했다. 오답 4개 서술은 3차에서 손대지 않았다."
+     ],
+     "checked": [
+      "trap 중복 검사",
+      "정답표 대조",
+      "how_to_reject 위치 표기 확인",
+      "why_correct 에 소거법·되풀이 서술이 남았는지 확인",
+      "오답 4개의 trap/why_tempting/how_to_reject 가 3차에서 바뀌지 않았음을 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "3단계의 \"예고–실행 짝짓기\" 가 이 지문의 결정 장치라 절차가 문항에 붙어 있다.",
+      "95초 배분이 세트 전체(43~45)에서 무리가 없다.",
+      "3차 재검수 — 보강 후 학생이 지문에서 찾아갈 자리가 낱말 단위로 지목됐는지 봤다. 다른 필드는 3차에서 바뀌지 않았다."
+     ],
+     "checked": [
+      "단계 실행 가능성 점검",
+      "금지 표현 검색",
+      "time_budget 대조",
+      "why_correct 가 지목한 지문 자리를 학생이 번호·표지로 찾아갈 수 있는지 확인"
+     ]
+    }
+   ],
+   "revised": true
+  },
+  {
+   "item_id": "M1809#43",
+   "measured_ability": "\"this\" 와 \"these jobs\" 같은 지시 표현이 각각 어느 문단의 어느 내용을 받는지 짚어, 소년기–청년기–명예의 전당이라는 생애 순서로 문단을 배열하는 능력",
+   "design_intent": "문단 첫 문장을 전부 지시 표현으로 시작하게 만들었다 — (D)의 \"His father saw this very negatively\", (C)의 \"Since these jobs were not fishing\", (B)의 \"The nation came to know Ricky\". 지시 대상이 앞 문단 안에서만 찾아지도록 배치해, 지시어 하나만 놓쳐도 두 배열이 다 그럴듯해지게 한 것이 이 문항의 설계다.",
+   "answer_locus": {
+    "sentence_index": [
+     10,
+     22
+    ],
+    "quote": "Since these jobs were not fishing, his father saw no value in them.",
+    "reasoning": "\"these jobs\" 가 가리킬 직업 목록은 (D) 끝의 \"delivered newspapers, shined shoes, worked in the office, and even repaired nets\" 하나뿐이므로 (C)는 (D) 뒤다. 또 (D)의 첫 문장 \"His father saw this very negatively, because he was a fisherman.\" 의 this 는 (A) 끝의 \"Because Ricky hated fishing.\" 을 받으므로 (D)가 (A) 바로 뒤이고, 남은 (B)가 마지막이다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "마무리 문장 위치 오판",
+     "why_tempting": "(A)가 교훈 제시로 시작하므로 그 교훈의 결과인 명예의 전당 이야기 (B)를 곧바로 붙여 요지를 확인하고 싶어진다.",
+     "how_to_reject": "(B)의 \"he was finally proud of Ricky and respected his accomplishments\" 는 아버지의 태도가 바뀐 뒤다. 태도가 바뀌기 전 장면인 (D)·(C)가 앞에 있어야 한다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "지시어 선행사 절단",
+     "why_tempting": "(C)에 \"Young Ricky hated fishing\" 이 있어 (A) 끝의 \"Because Ricky hated fishing.\" 과 같은 말이 이어지는 것처럼 보인다.",
+     "how_to_reject": "(C) 첫머리 \"Since these jobs\" 의 these jobs 는 (A)에 없다. 신문 배달·구두닦이 같은 직업 목록은 (D) 끝에만 있으므로 (C)가 첫 자리에 올 수 없다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "지시어 선행사 앞당김",
+     "why_tempting": "(B)를 끝에 두는 것은 맞고, (C) 안의 \"Young Ricky hated fishing.\" 을 (D) 첫 문장 \"saw this very negatively\" 의 this 로 삼으면 (C)-(D) 가 이어지는 듯 읽힌다.",
+     "how_to_reject": "(D)의 this 는 아버지가 아직 모르는 사실이 아니라 (A)가 이미 밝힌 \"Ricky hated fishing\" 이다. 게다가 (C)의 these jobs 가 (D) 끝의 직업 목록을 요구하므로 (D)가 (C)보다 앞이다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "시간·인과 순서 역전",
+     "why_tempting": "(D)를 첫 자리에 놓는 것은 맞아서 안심하고, 아버지의 무시 뒤에 성공담 (B)를 붙이면 반전이 선명해 보인다.",
+     "how_to_reject": "(B)는 \"he was voted into the Hall of Fame\" 이라는 은퇴 이후의 평가다. 야구를 시작해 전설이 되는 과정은 (C)에 있으므로 (C)가 (B)보다 앞이다."
+    },
+    {
+     "n": 5,
+     "verdict": "correct",
+     "why_correct": "(A) 끝의 \"hated fishing\" 을 (D)의 this 가 받고, (D) 끝의 직업 목록을 (C)의 these jobs 가 받는다. 남은 (B)가 생애의 마지막 국면이다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "(A)의 마지막 문장을 그대로 적어 둔다 — 이 유형에서 뒤 문단의 지시어가 가장 자주 받는 자리다.",
+     "on_fail": "(A)의 마지막 문장이 짧으면 그 앞 문장까지 두 문장을 적는다."
+    },
+    {
+     "step": "(B)(C)(D)의 첫 문장에서 this · these · the + 명사 형태를 전부 찾아 밑줄을 긋는다.",
+     "on_fail": "지시 표현이 없는 문단은 그 문단이 인물의 어느 시기(소년기·데뷔·은퇴 후)를 다루는지 적는다."
+    },
+    {
+     "step": "밑줄 친 표현이 가리킬 내용을 (A)와 나머지 두 문단에서 찾는다. (A)에서 찾아지는 문단이 (A) 바로 뒤다.",
+     "on_fail": "두 문단이 다 (A)에서 찾아지면, 가리키는 대상이 더 구체적인(목록·복수형) 쪽을 뒤로 보낸다."
+    },
+    {
+     "step": "남은 두 문단은 인물의 나이·경력 순서(학교 중퇴 → 전설 → 명예의 전당)로 놓고, 마지막 문단이 평가·회고로 끝나는지 확인한다.",
+     "on_fail": "평가로 끝나는 문단이 둘이면 지시어가 앞 문단을 요구하는 쪽을 뒤에 둔다."
+    }
+   ],
+   "time_budget_sec": 90,
+   "difficulty": {
+    "predicted": 0.7,
+    "drivers": [
+     "세 문단이 모두 지시 표현으로 시작해 선행사를 잘못 붙이기 쉽다",
+     "(C)와 (A)에 \"hated fishing\" 이 겹쳐 어휘 겹침 미끼가 있다"
+    ]
+   },
+   "required_vocab": [
+    "immigrant",
+    "sandlot",
+    "dissatisfied",
+    "legend",
+    "accomplishments"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "인용 \"Since these jobs were not fishing, his father saw no value in them.\" 을 코퍼스 지문에서 문자 그대로 확인했다.",
+      "지시 표현으로 문단 첫머리를 통일한 설계를 design_intent 에 담았다 — 유형 일반론이 아니라 이 지문의 배치다."
+     ],
+     "checked": [
+      "quote 문자열 대조",
+      "유형 정의 대조",
+      "design_intent 의 문항 고유성 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "②와 ③이 둘 다 지시어 계열이지만 라벨이 절단/앞당김으로 갈리고, 근거 문장도 these jobs / this 로 다르다.",
+      "분석 정답 ⑤ 가 평가원 정답표 5 와 일치한다."
+     ],
+     "checked": [
+      "trap 중복 검사",
+      "②·③ 근거 문장 중복 여부 확인",
+      "정답표 대조"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "1단계가 \"(A) 마지막 문장을 적는다\" 라는 물리적 동작이라 지문을 처음 보는 학생이 바로 실행한다.",
+      "required_vocab 중 accomplishments 는 ①의 배제에 실제로 쓰인다."
+     ],
+     "checked": [
+      "단계 실행 가능성 점검",
+      "금지 표현 검색",
+      "required_vocab 의 정답 기여도 확인"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "2017#43",
+   "measured_ability": "\"Understandably\" 같은 태도 부사와 \"the unplayable piano\" 같은 정관사 표현이 앞 문단의 어떤 사실을 요구하는지 짚어 배열하는 능력",
+   "design_intent": "(A)는 공연이 매진됐고 곧 연주가 시작된다는 기대로 끝난다. 여기에 연주 장면 (B)를 붙이고 싶게 해 놓고, 실제로는 피아노가 고장 났다는 사실(D)과 연주자를 설득하는 과정(C)이 사이에 들어가야 한다. 사건의 반전을 정관사 하나(\"the unplayable piano\")로만 알리는 것이 이 문항의 장치다.",
+   "answer_locus": {
+    "sentence_index": [
+     20,
+     13
+    ],
+    "quote": "A few hours later, Keith walked out to the unplayable piano in front of a packed concert hall.",
+    "reasoning": "(C)의 이 마지막 문장이 무대 등장까지를 담고, (B)의 첫 문장 \"When Keith began to play\" 가 그 등장을 이어받는다 — (B)는 (C) 뒤다. 또 (C)의 첫머리 \"Understandably, Keith didn’t want to perform.\" 은 연주를 거부할 이유를 앞에 요구하는데, 그 이유(고장 난 피아노)는 (D)에만 있으므로 (D)-(C)-(B) 로 고정된다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "마무리 문장 위치 오판",
+     "why_tempting": "(A)가 \"later that evening, Keith would sit down at the piano and play\" 로 끝나므로 연주 장면 (B)가 바로 이어지는 것처럼 보인다.",
+     "how_to_reject": "(B)는 \"despite the shortcomings of the piano\" 와 \"the piano’s lack of resonance\" 로 피아노의 결함을 이미 아는 상태에서 쓰였다. 결함이 밝혀지는 곳은 (D)이므로 (B)가 첫 자리에 올 수 없다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "연결사 방향 충돌",
+     "why_tempting": "(C)에 Erik 이 Keith 를 설득하는 장면이 있어, 공연을 준비한 (A) 다음의 진행으로 읽힌다.",
+     "how_to_reject": "(C)의 첫 낱말 \"Understandably\" 는 앞에 납득할 만한 이유가 나와 있어야 성립한다. (A)에는 거부할 이유가 없고, 이유는 (D)의 고장 난 피아노 설명에 있다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "지시어 선행사 절단",
+     "why_tempting": "(B)를 끝에 두는 것이 맞아 보이므로 앞의 (C)-(D) 를 그대로 받아들이게 된다.",
+     "how_to_reject": "(C)의 \"the unplayable piano\" 는 연주 불가능한 피아노가 이미 소개됐음을 전제한다. 그 소개는 (D)의 \"a tiny little Bösendorfer that was in poor condition\" 이다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "시간·인과 순서 역전",
+     "why_tempting": "(D)를 첫 자리에 놓는 것은 맞아서 안심하고, 피아노 문제 뒤에 연주 성공 (B)를 붙이면 극적 대비가 선명해 보인다.",
+     "how_to_reject": "(D)는 \"Keith can’t play tonight\" 이라는 통보로 끝난다. 연주가 성사되려면 (C)의 설득(\"begged the jazz pianist to play\")이 사이에 있어야 한다."
+    },
+    {
+     "n": 5,
+     "verdict": "correct",
+     "why_correct": "(D)에서 피아노 결함이 드러나야 (C)의 \"Understandably\" 와 \"the unplayable piano\" 가 성립하고, (C) 끝의 무대 등장을 (B)가 잇는다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "(A)의 마지막 문장이 예고하는 사건을 적고, 그 사건이 그대로 일어났다고 가정하지 않는다 — 예고와 실행 사이에 문단이 들어갈 자리를 비워 둔다.",
+     "on_fail": "예고가 없으면 (A)에서 인물이 준비한 것(장소·악기·행사)을 적는다."
+    },
+    {
+     "step": "(B)(C)(D)의 첫 문장에서 앞 내용을 전제하는 표시 — 태도 부사(Understandably), 역접(But), 정관사가 붙은 새 명사구 — 를 찾아 표시한다.",
+     "on_fail": "표시가 없으면 각 문단에서 시각 표현(that afternoon · a few hours later)을 찾아 이른 것부터 늘어놓는다."
+    },
+    {
+     "step": "태도 부사·정관사가 요구하는 사실이 (A)에 있는지 확인한다. 없으면 그 문단은 첫 자리 후보에서 뺀다.",
+     "on_fail": "모든 문단이 후보에서 빠지면 요구하는 사실을 담은 문단을 찾아 그것을 첫 자리로 삼는다."
+    },
+    {
+     "step": "남은 문단을 \"문제 발생 → 해결 시도 → 결과\" 로 배열하고, 마지막 문단이 결과를 담고 있는지 확인한다.",
+     "on_fail": "결과 문단이 둘로 보이면 인물의 등장·퇴장(무대에 나감·차로 감)이 어긋나지 않는 배열을 고른다."
+    }
+   ],
+   "time_budget_sec": 100,
+   "difficulty": {
+    "predicted": 0.68,
+    "drivers": [
+     "(A)의 예고가 (B)를 바로 부르는 강한 유인",
+     "결정 근거가 태도 부사와 정관사라 표면 단서가 작다",
+     "실존 인물·공연 배경 어휘가 낯설다"
+    ]
+   },
+   "required_vocab": [
+    "improvised",
+    "resonance",
+    "shortcomings",
+    "desperate",
+    "packed"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "인용을 코퍼스 지문에서 문자 그대로 확인했다.",
+      "\"예고 → 실행 사이에 두 문단이 들어간다\" 는 이 지문의 구조를 design_intent 에 담았다."
+     ],
+     "checked": [
+      "quote 문자열 대조",
+      "유형 정의 대조",
+      "design_intent 의 문항 고유성 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "오답 4개 함정이 마무리 위치 오판 · 연결사 방향 충돌 · 지시어 선행사 절단 · 시간·인과 순서 역전 4종이다.",
+      "②의 근거가 낱말 하나(Understandably)의 요구 조건이라는 점을 how_to_reject 에 위치와 함께 적었다."
+     ],
+     "checked": [
+      "trap 중복 검사",
+      "how_to_reject 위치 표기 확인",
+      "정답 ⑤ 와 정답표 5 대조"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "1단계에 \"예고를 실행으로 착각하지 않는다\" 는 행동 규칙이 들어가 이 유형 최대 실수를 앞에서 막는다.",
+      "100초는 태도 부사 확인이 한 번 더 필요한 것을 감안한 값이다."
+     ],
+     "checked": [
+      "단계 실행 가능성 점검",
+      "금지 표현 검색",
+      "required_vocab 의 정답 기여도 확인"
+     ]
+    }
+   ]
+  }
+ ],
+ "type_report": {
+  "type_id": "X-ORDER",
+  "n_analyzed": 12,
+  "recurring_traps": [
+   {
+    "trap": "지시어 선행사 절단",
+    "count": 11,
+    "signature": "문단 첫 문장의 정관사 명사구(the question · the salmon · permission · these jobs)가 요구하는 내용을 담은 문단을 뒤로 보낸다"
+   },
+   {
+    "trap": "시간·인과 순서 역전",
+    "count": 11,
+    "signature": "사과·당선·성공처럼 원인이 필요한 사건을 그 원인보다 앞에 놓는다. 시간 표지(tomorrow vs the following day)가 엇갈릴 때 나온다"
+   },
+   {
+    "trap": "마무리 문장 위치 오판",
+    "count": 8,
+    "signature": "결말 신호(수상·화해·귀가·보상)를 담은 문단을 첫 자리나 중간에 놓는다. (B)의 첫 문장이 결과문일 때 특히 강하게 걸린다"
+   },
+   {
+    "trap": "어휘 반복 유인",
+    "count": 6,
+    "signature": "세 문단이 공유하는 소재어(salmon · butterflies · 인물 이름)가 겹치는 자리를 이음매로 오인한다"
+   },
+   {
+    "trap": "조건-귀결 절단",
+    "count": 5,
+    "signature": "(A)의 판단·초대와 그 실행 사이에 다른 문단을 끼워 넣는다"
+   },
+   {
+    "trap": "첫 등장 위반",
+    "count": 4,
+    "signature": "인물·사물의 신원 소개 문단보다 그것을 이미 아는 문단을 앞에 놓는다"
+   },
+   {
+    "trap": "지시어 선행사 앞당김",
+    "count": 2,
+    "signature": "지시어가 받을 내용이 뒤 문단에도 비슷하게 있어서, 더 가까운 쪽에 잘못 붙인다"
+   },
+   {
+    "trap": "연결사 방향 충돌",
+    "count": 1,
+    "signature": "태도 부사(Understandably)가 요구하는 앞선 이유가 없는 자리에 문단을 놓는다"
+   }
+  ],
+  "answer_locus_pattern": "정답표가 있는 9문항 전부에서 근거가 **문단의 첫 문장 또는 마지막 문장**에 있었다 — 문단 가운데를 근거로 쓴 문항이 0개다. 더 좁히면 9개 중 6개가 (B)의 첫 문장(“Cora walked in” · “All right. I’m sure…” · “Then, with a great push, a small one” · “Once Steven had heard his dad’s words” · “When they finished practicing” · “When Keith began to play”)에서 결정된다. 남은 3개는 (C)의 첫 문장(“Anna answered the question” · “Since these jobs” · “Well, did you get permission?”)이다. 곧 **(B)와 (C)의 첫 문장 두 개가 이 유형의 결정 자리**다.",
+  "procedure": [
+   {
+    "step": "(A)의 마지막 두 문장을 그대로 적는다 — 질문·판단·예고·미해결 상태 중 무엇으로 끊겼는지 한 낱말로 표시한다",
+    "on_fail": "(A)가 묘사로만 끝나면 등장인물 이름과 장소를 적어 둔다"
+   },
+   {
+    "step": "(B)(C)(D)의 **첫 문장만** 세 개 읽고 각각에 세 표시 중 있는 것을 단다 — ⓐ 앞말에 대한 대답·반응 ⓑ 앞 문단을 요구하는 지시·정관사 표현 ⓒ 시각 표현",
+    "on_fail": "첫 문장에 표시가 없으면 그 문단의 둘째 문장까지만 더 본다"
+   },
+   {
+    "step": "ⓐ가 달린 문단은 그 대답이 받을 말이 있는 문단 뒤에, ⓑ가 달린 문단은 지시 대상이 있는 문단 뒤에 놓는다. (A)에서 대상이 찾아지는 문단이 (A) 바로 뒤다",
+    "on_fail": "후보가 둘이면 대상이 더 구체적인(복수형·목록) 쪽을 뒤로 보낸다"
+   },
+   {
+    "step": "세 문단의 **마지막 문장**을 보고 결말 신호(보상·화해·귀가·평가)가 있는 문단을 끝자리에 놓는다. 문이 열리거나 통보로 끊긴 문단은 끝자리에서 뺀다",
+    "on_fail": "결말 신호가 둘이면 사건의 시간 순서(선거일→당선, 요청→허락, 부상→회복)로 정한다"
+   },
+   {
+    "step": "고른 배열로 이음매 세 곳을 훑어 (a)~(e) 밑줄의 지시 대상이 전부 하나로 정해지는지 확인한다 — 44번(지칭)과 같은 작업이므로 두 문항을 함께 검산한다",
+    "on_fail": "한 밑줄이라도 대상이 갈리면 그 이음매의 두 문단을 맞바꿔 다시 본다"
+   }
+  ],
+  "failure_modes": [
+   "(A)가 던진 질문·예고를 뒤 문단이 곧바로 실행한다고 믿고 사이에 들어가는 문단을 지운다 — 2017#43·M2106#43·2018#43이 모두 이 유인을 첫 문장에 심어 두었다",
+   "문단 첫 문장의 정관사·지시 표현을 뜻 있는 단서가 아니라 문법 장식으로 읽고 지나친다(the question · the salmon · these jobs · his dad’s words)",
+   "세 문단이 같은 소재를 공유하므로 겹치는 낱말이 많은 자리를 이음매로 삼는다 — 2020#43에서 salmon 이 세 문단에 다 나오지만 자리를 정하는 것은 관사와 수량 표현이다",
+   "대사의 **말한 사람**만 보고 **듣는 사람**을 안 본다 — 2021#43은 \"All right. I’m sure you’re doing your work.\" 의 수신자가 Felix 라는 것 하나로 갈린다",
+   "43번을 배열만으로 끝내고 44번(지칭)과 따로 푼다 — 밑줄 (a)~(e)의 지시 대상이 배열의 검산 수단인데 그것을 버린다",
+   "시간 표지의 방향을 안 따진다 — M2006#43의 \"tomorrow\"(D)와 \"the following day\"(C)는 같은 날을 가리키지만 말하는 시점이 반대다"
+  ],
+  "time_budget_sec": 95,
+  "open_questions": [
+   "**단문 순서(R-ORDER)의 축이 서사에서도 통하는가** — 통한다. 12개 전부에서 지시어 선행사·첫 등장·어휘 반복 유인이 그대로 작동했다. 다만 R-ORDER의 대표 축이던 \"연결사 방향 충돌\"은 12개 중 1개(2017#43의 Understandably)뿐이다. 서사에는 However·Therefore 같은 논리 연결사가 거의 없다.",
+   "**사건 시간 순서는 추가 축이다** — 문단 첫머리에 시각·계기 표지가 박힌 문항이 12개 중 6개(2021·2020·M2106·M2006·2018·2017)이고, 그중 M2006#43·2018#43은 그 표지만으로 두 후보가 갈린다. R-ORDER에는 없던 축이므로 절차 4단계에 별도로 넣었다.",
+   "**새 라벨 제안: `대화 인접쌍 절단`** — 질문·발언과 그 대답이 갈라지는 함정이 이제 12개 중 9개(2022 · 2021 · 2019 · M2006 · M2106 · M2209 · M2206 · M2109 · 2018)에서 결정적이었는데, 현행 (B) 라벨표에 이를 정확히 담는 항목이 없다. 이번에도 정관사·지시어가 개입한 경우 `지시어 선행사 절단`, 사건 선후가 개입한 경우 `시간·인과 순서 역전`, 물음-대답이 끊긴 경우 `조건-귀결 절단` 으로 나눠 달았으나 셋 다 서사 대화의 인접쌍을 정면으로 가리키지 못한다. 표본 9/12 면 등재를 검토할 만하다.",
+   "**「①은 정답 0회」는 검산용으로만 쓴다** — 12문항이 모두 채워진 지금 분포는 ①0 · ②2 · ③5 · ④1 · ⑤4 다. 2차 드레인 전 n=9 에서 «④도 0회» 라고 적었는데 그것은 표본이 얇아 생긴 착시였다(M2209#43 이 ④였다). ①이 (B)를 첫 자리에 놓는 순열이라 결말 문단이 앞에 오기 어렵다는 구조적 이유는 남지만, n=12 로도 «①은 절대 답이 아니다» 를 규칙으로 삼으면 안 된다. 저장소가 같은 종류의 거짓을 이미 한 번 적었다.",
+   "**같은 12문항의 앞선 .out.json(chunk 8)이 커밋에 남아 있었고 이 파일이 그것을 덮었다.** 두 분석은 독립적으로 같은 9개 배열(3·3·5·3·5·2·3·5·5)에 닿았다 — 서로의 검산이 된 셈이다. 덮이면서 사라지는 앞 판의 관측 셋을 여기 옮겨 적는다: ⓐ 더 넓은 표본(기지 정답 22개)에서도 ①은 0회 · ④는 1회 · ⑤는 10회였다 — 이 청크의 9개 관측과 방향이 같지만 ④가 0이 아니므로 «④도 안 나온다» 는 이 청크만의 우연이다. ⓑ 앞 판도 (B) 라벨표에 없는 «발화–응답 절단» 을 새로 써야 했다 — 이번 판의 «대화 인접쌍 절단» 제안과 같은 구멍을 두 판이 따로 발견했으므로 등재 근거가 둘이다. ⓒ 앞 판은 «예고–응답 분리»(아직 일어나지 않은 일의 예고와 그 실현이 갈라지는 함정, 2018#43·2017#43)를 따로 세었는데, 이번 판은 그것을 마무리 문장 위치 오판·시간·인과 순서 역전에 나눠 담았다. 어느 쪽이 맞는지는 다음 X-ORDER 청크에서 갈라야 한다.",
+   "2차 드레인으로 M2209#43 · M2206#43 · M2109#43 의 배열과 근거를 채워 분모가 12가 됐다. 세 문항 모두 근거가 문단의 첫 문장 또는 마지막 문장에 있어 ‘문단 가운데 근거 0’ 관찰이 12/12 로 유지된다 — M2209#43 은 (B) 첫 문장(her roommate’s words), M2206#43 은 (B) 첫 문장(You’ve got a good point), M2109#43 은 (D) 첫 문장(the same thing)이 결정 자리였다. 곧 12개 중 9개가 문단 첫 문장에서 결정된다.",
+   "반려는 6건 나왔고 전부 고쳐서 pass 로 만들었다(setter 2 · analyst 2 · tutor 2). 세 자가 각각 다른 것을 잡았다 — setter는 OCR 손상 구간을 인용한 것, analyst는 함정 라벨 중복과 정답 암시가 섞인 difficulty 근거, tutor는 지문에 없는 단서를 전제한 절차 단계다.",
+   "2차 드레인 반려는 1건이었다 — setter 1(M2109#43 의 인용을 (A)→(C) 이음매에서 (B)→(D) 의 the same thing 으로 옮겼다. 앞 이음매만으로는 (C)－(B)－(D) 와 (C)－(D)－(B) 가 둘 다 남는다). 이것이 이 유형에서 「이음매가 둘이면 둘 다 적어라」가 형식이 아니라 실제 판별 조건임을 보여 주는 사례다."
+  ]
+ }
+}

@@ -57,14 +57,16 @@ export function judgeIPlusOne(
   const cov = coverageAtLevel(coverage, vLevel);
   if (cov == null) return null;
 
+  // color 는 배지의 "글자+테두리" 에 쓰인다 → 잉크 토큰(AA 통과)을 쓴다.
+  // 원색(--learn-known 등)은 종이 위 2.0~3.6:1 이라 작은 글자로 읽히지 않았다(2026-08-09 axe 실측).
   const d = illustrated ? ILLUSTRATION_DISCOUNT : 0;
   if (cov >= 98 - d)
-    return { coverage: cov, tier: 'easy', label: '수월해요', color: 'var(--t3)' };
+    return { coverage: cov, tier: 'easy', label: '수월해요', color: 'var(--t2)' };
   if (cov >= 95 - d)
-    return { coverage: cov, tier: 'ideal', label: '딱 맞아요', color: 'var(--learn-known)' };
+    return { coverage: cov, tier: 'ideal', label: '딱 맞아요', color: 'var(--learn-known-ink)' };
   if (cov >= 85 - d)
-    return { coverage: cov, tier: 'challenge', label: '도전적', color: 'var(--learn-review)' };
-  return { coverage: cov, tier: 'hard', label: '어려워요', color: 'var(--learn-error)' };
+    return { coverage: cov, tier: 'challenge', label: '도전적', color: 'var(--learn-review-ink)' };
+  return { coverage: cov, tier: 'hard', label: '어려워요', color: 'var(--learn-error-ink)' };
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -95,8 +97,64 @@ export function judgeArticleIPlusOne(
   const effectiveUserVLevel = userVLevel && userVLevel > 0 ? userVLevel : 5;
   const gap = articleVLevel - effectiveUserVLevel;
   const base = { gap, effectiveUserVLevel };
-  if (gap <= 0) return { ...base, tier: 'easy', label: '수월해요', color: 'var(--t3)' };
-  if (gap === 1) return { ...base, tier: 'ideal', label: '딱 맞아요', color: 'var(--learn-known)' };
-  if (gap === 2) return { ...base, tier: 'challenge', label: '도전적', color: 'var(--learn-review)' };
-  return { ...base, tier: 'hard', label: '어려워요', color: 'var(--learn-error)' };
+  // 책 버전과 동일 규칙 — 배지 글자이므로 잉크 토큰(AA). --t3 는 텍스트 색이 아니다.
+  if (gap <= 0) return { ...base, tier: 'easy', label: '수월해요', color: 'var(--t2)' };
+  if (gap === 1) return { ...base, tier: 'ideal', label: '딱 맞아요', color: 'var(--learn-known-ink)' };
+  if (gap === 2) return { ...base, tier: 'challenge', label: '도전적', color: 'var(--learn-review-ink)' };
+  return { ...base, tier: 'hard', label: '어려워요', color: 'var(--learn-error-ink)' };
+}
+
+// ─────────────────────────────────────────────────────────────
+// 챕터 단위 i+1 — **책 라벨이 가리는 진입로를 여는 자리.**
+//
+// 2026-08-30 실측: 발행 316권의 책 단위 난이도는 V8~V9(대학·대학원)가 187권(59%)이고
+// 고1(V5) 은 2권뿐이다. 그런데 챕터로 재면 V5 챕터가 **87권에 걸쳐 263개** 있다.
+// 책 라벨은 p75(상위 25% 어휘)라 책 안의 쉬운 챕터를 가린다.
+//
+// `chapter_v_level` 을 읽던 화면은 리더 안 ChapterSidebar 뿐이었다 — 책을 열기 전에는
+// 볼 수 없었다. 그래서 카탈로그가 쓸 수 있도록 도서별 히스토그램을
+// `curation_metadata.chapter_v_hist` 에 적재하고(스크립트: backfill-chapter-level-histogram.mjs)
+// 여기서 판정한다.
+//
+// 판정 규칙은 글(article) 버전과 **같다** — gap ≤ 0 수월 · +1 딱 맞음. 둘이 갈리면
+// 같은 학습자에게 자료 종류마다 다른 기준이 적용된다.
+// ─────────────────────────────────────────────────────────────
+
+/** 도서별 챕터 난이도 분포. 키는 V레벨 문자열, 값은 챕터 수. */
+export type ChapterVHistogram = Record<string, number>
+
+export interface ReadableChapters {
+  /** 지금 읽을 수 있는 챕터 수 (gap ≤ +1 — 수월 + 딱 맞음) */
+  count: number
+  /** 그중 i+1 sweet spot(gap = +1) 챕터 수 */
+  ideal: number
+  /** 난이도가 매겨진 전체 챕터 수 — "몇 개" 만으로는 500장짜리 책의 20장을 판단할 수 없다 */
+  total: number
+  /** 판정에 쓰인 학습자 V레벨 (미진단이면 5 — 한국 학습자 baseline) */
+  effectiveUserVLevel: number
+}
+
+/**
+ * 학습자 수준에서 **지금 읽을 수 있는 챕터가 몇 개인지.**
+ * 히스토그램이 없으면 null — 배지를 숨긴다(0개와 "모른다" 는 다르다).
+ */
+export function countReadableChapters(
+  hist: ChapterVHistogram | null | undefined,
+  userVLevel: number,
+): ReadableChapters | null {
+  if (!hist || Object.keys(hist).length === 0) return null
+  const effectiveUserVLevel = userVLevel && userVLevel > 0 ? userVLevel : 5
+  let count = 0
+  let ideal = 0
+  let total = 0
+  for (const [level, n] of Object.entries(hist)) {
+    const v = Number(level)
+    if (!Number.isFinite(v) || !Number.isFinite(n) || n <= 0) continue
+    total += n
+    const gap = v - effectiveUserVLevel
+    if (gap <= 1) count += n
+    if (gap === 1) ideal += n
+  }
+  if (total === 0) return null
+  return { count, ideal, total, effectiveUserVLevel }
 }

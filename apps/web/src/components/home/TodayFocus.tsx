@@ -1,233 +1,127 @@
 // apps/web/src/components/home/TodayFocus.tsx
 //
-// Hub Tier 2 — "지금 무엇을 할지" 1순위 액션 카드.
-// 사용자 페르소나 (4시나리오 — §17 학습 모델 정합) 자동 분기:
+// 관문의 **첫 방문 지면** — 아직 진단하지 않은 사람이 보는 화면.
 //
-//   ① 미진단     → V-Level 진단 5분 CTA (Compass · 보라 토널)
-//   ② Cold        → 첫 학습 시작 CTA (단어 < 50)
-//   ③ Warm-Risk  → risk 단어 N개 즉시 복습 (Flame · 위급 표시 X — 격려)
-//   ④ Hot         → 정복 가능 텍스트 surface (ScriptQuiz CTA)
+// ─────────────────────────────────────────────────────────────
+// v06.203 재설계 — 관문은 시험이 아니라 지면이어야 한다
 //
-// 데이터: useHubData()
-//   - vrl.isDiagnosed, vrl.currentVLevel, vrl.riskWordCount
-//   - stats.totalWords, stats.reviewDueCount
-//   - continueCard (이어하기 후보)
+// 이전 버전(v06.202)은 문구·토큰·다크모드를 고쳤지만 **구조는 그대로 시험 하나**였다:
+// 신규 학습자가 관문에서 받는 것이 "5분 진단하세요" 뿐이고, 진단을 안 하면 화면에
+// 남는 것이 없었다 — 어휘 학습 제품인데 **단어 한 개, 문장 한 줄이 없었다.**
 //
-// Calm UI · Empathetic Feedback · SDT 자율성 — solid accent X, tonal tint + 1.5px border.
+// 근거:
+//   · 자체 실측(2026-08-16, `/admin` 리텐션 패널 1회차) — **가입 → 첫 학습 중앙값 55일**.
+//     리텐션 이전에 활성화가 막혀 있고, 그 지점의 화면이 여기다.
+//   · 온보딩 연구 — 가치를 게이트 뒤에 두는 것이 가장 비싼 실수 · 가치 도달 30분 초과 시
+//     이탈 약 3배 · 신규의 70~80%가 3일 내 이탈하며 대부분 **가치를 만나기 전 첫 세션**에서 빠진다.
+//   · 재료는 이미 있었다 — `shared_dictionary` 에 뜻·예문·CEFR·빈도를 다 갖춘 단어 28,946개.
+//     파이프라인이 몇 달간 채운 것을 관문이 한 번도 쓰지 않았다.
+//
+// 그래서 순서를 뒤집었다:
+//   **① 제품이 하는 일을 먼저 보여준다(단어 하나) → ② 진단은 게이트가 아니라 제안으로 아래에.**
+//
+// 이 지면은 진단을 마친 학습자의 무대(`TodayStage`)와 **같은 조판**을 쓴다. 처음 온 사람이
+// 보는 것이 나중에 매일 볼 것과 같아야, 진단이 "새로운 곳으로 가는 문" 이 아니라
+// "이 지면을 내 것으로 만드는 일" 로 읽힌다.
+//
+// 단일 CTA 규칙 유지 — 1차 행동은 진단 하나. 서재 둘러보기는 링크(2차)다.
+// ⚠️ 색은 토큰만 쓴다. 이전 버전이 `#F5F3FF` 배경 + `var(--t1)` 글자로 **다크모드에서
+//    흰 바탕에 흰 글자**(대비 약 1.05:1)였다 — 이 화면은 검증 계정에서 렌더되지 않아
+//    눈으로는 영영 안 잡히는 자리다. 회귀는 `__tests__/TodayFocus.test.tsx` 가 잠근다.
+// ─────────────────────────────────────────────────────────────
 
-'use client'
-
+import { ArrowRight, Compass } from 'lucide-react'
 import Link from 'next/link'
-import {
-  ArrowRight,
-  Compass,
-  type LucideIcon,
-  Sparkles,
-  Sprout,
-  Target,
-  Zap,
-} from 'lucide-react'
 
-import { useHubData } from '@/hooks/useHubData'
+import type { TasteWord } from '@/lib/learner/taste-word'
 
-// ────────────────────────────────────────────────────────────
-// 페르소나 분기 — §17.2 사용자 상태 축 정합
-// ────────────────────────────────────────────────────────────
-type Persona = 'undiagnosed' | 'cold' | 'warm-risk' | 'warm-progress' | 'hot'
-
-function getPersona(args: {
-  isDiagnosed: boolean
-  totalWords: number
-  riskWordCount: number
-  streak: number
-}): Persona {
-  const { isDiagnosed, totalWords, riskWordCount, streak } = args
-
-  if (!isDiagnosed) return 'undiagnosed'
-  if (totalWords < 50) return 'cold'
-  if (riskWordCount >= 3) return 'warm-risk'
-  if (totalWords >= 500 || streak >= 30) return 'hot'
-  return 'warm-progress'
-}
-
-// ────────────────────────────────────────────────────────────
-// Focus card schema
-// ────────────────────────────────────────────────────────────
-interface FocusCard {
-  eyebrow: string
-  title: string
-  description: string
-  ctaLabel: string
-  ctaHref: string
-  icon: LucideIcon
-  accent: string // hex (8% tint)
-  accentTint: string // 12% tint (background)
-  accentDeep: string // text/border
-}
-
-const PERSONA_CARDS: Record<Persona, (ctx: { vLevel: number | null; riskWordCount: number; continueTextId: string | null }) => FocusCard> = {
-  undiagnosed: () => ({
-    eyebrow: '시작 단계',
-    title: '5분 V-Level 진단으로 시작하세요',
-    description:
-      '한국 학습자 12단계 V-Level 체계로 본인의 어휘 수준을 정확히 측정합니다. 진단 후 맞춤 단어장과 추천 학습 경로가 활성화돼요.',
-    ctaLabel: '진단 시작',
-    ctaHref: '/diagnostic',
-    icon: Compass,
-    accent: '#AF52DE',
-    accentTint: '#F5F3FF',
-    accentDeep: '#6D28D9',
-  }),
-  cold: ({ vLevel }) => ({
-    eyebrow: '첫 학습',
-    title: vLevel ? `V${vLevel} 추천 단어장으로 시작해보세요` : '첫 단어장으로 시작해보세요',
-    description: vLevel
-      ? `V-Level ${vLevel} 에 맞는 단어장을 추천해드려요. 50개 단어를 모으면 다음 단계가 열립니다.`
-      : '단어장 또는 스크립트을 골라 처음 50단어를 만들어 보세요.',
-    ctaLabel: '추천 단어장 보기',
-    ctaHref: '/library/vocab',
-    icon: Sprout,
-    accent: '#5856D6',
-    accentTint: '#EBEAFB',
-    accentDeep: '#3C3AAB',
-  }),
-  'warm-risk': ({ riskWordCount }) => ({
-    eyebrow: '오늘의 복습',
-    title: `${riskWordCount}개 단어가 흐려지고 있어요`,
-    description:
-      'SRS 일정상 오늘 다시 만나야 하는 단어들입니다. 한 번만 만나도 기억이 강화됩니다 — 부담 없이 시작해 보세요.',
-    ctaLabel: '플래시카드 시작',
-    ctaHref: '/flashcard/play',
-    icon: Target,
-    accent: '#FF9500',
-    accentTint: '#FFF1E5',
-    accentDeep: '#C2410C',
-  }),
-  'warm-progress': ({ continueTextId }) => ({
-    eyebrow: '오늘의 학습',
-    title: '꾸준한 흐름을 이어가세요',
-    description: continueTextId
-      ? '최근 학습한 자료가 이어집니다. 1-2개 단어만 더 만나도 다음 V-Level 진입에 가까워져요.'
-      : '추천 단어장을 골라 오늘 분량을 채워 보세요. Memory Decay 색이 바뀌는 걸 직접 볼 수 있어요.',
-    ctaLabel: continueTextId ? '이어 학습하기' : '추천 보기',
-    ctaHref: continueTextId ? `/text/${continueTextId}?mode=read` : '/library/vocab',
-    icon: Zap,
-    accent: '#5856D6',
-    accentTint: '#EBEAFB',
-    accentDeep: '#3C3AAB',
-  }),
-  hot: ({ continueTextId }) => ({
-    eyebrow: '정복 도전',
-    title: '스크립트 전체를 점검해볼 시간이에요',
-    description:
-      '쌓아온 어휘로 텍스트를 통째로 검증해 보세요. ScriptQuiz 4지선다로 의미 통합을 확인하고 Dictation 으로 마무리합니다.',
-    ctaLabel: continueTextId ? '정복 도전' : '스크립트 고르기',
-    ctaHref: continueTextId ? `/text/${continueTextId}?mode=quiz` : '/library/books',
-    icon: Sparkles,
-    accent: '#34C759',
-    accentTint: '#D1FAE5',
-    accentDeep: '#047857',
-  }),
-}
-
-// ════════════════════════════════════════════════════════════
-// TodayFocus
-// ════════════════════════════════════════════════════════════
-export function TodayFocus() {
-  const { data, isLoading } = useHubData()
-
-  if (isLoading || !data) {
-    return (
-      <div
-        className="rounded-[var(--r-lg)] border p-5 animate-pulse"
-        style={{ background: 'var(--bg)', borderColor: 'var(--bd)', height: 124 }}
-        aria-hidden
-      />
-    )
-  }
-
-  const persona = getPersona({
-    isDiagnosed: data.vrl.isDiagnosed,
-    totalWords: data.stats.totalWords,
-    riskWordCount: data.vrl.riskWordCount,
-    streak: data.stats.streak,
-  })
-
-  const card = PERSONA_CARDS[persona]({
-    vLevel: data.vrl.currentVLevel,
-    riskWordCount: data.vrl.riskWordCount,
-    continueTextId: data.continueCard?.textId ?? null,
-  })
-
-  const Icon = card.icon
-
+export function TodayFocus({ word }: { word: TasteWord | null }) {
   return (
     <section
-      aria-label="오늘의 추천 액션"
-      className="relative overflow-hidden rounded-[var(--r-lg)] border transition-all"
-      style={{
-        background: card.accentTint,
-        borderColor: card.accent,
-        borderWidth: 1,
-      }}
+      aria-label="시작하기"
+      className="relative overflow-hidden rounded-ios-2xl bg-[var(--bg)] px-5 py-6 shadow-ios-2 md:px-8 md:py-8"
     >
-      {/* 좌측 accent strip */}
-      <span
-        className="absolute inset-y-0 left-0 w-[3px]"
-        style={{ background: card.accent }}
-        aria-hidden
-      />
+      <span aria-hidden className="absolute inset-y-0 left-0 w-[3px] bg-[var(--p)]" />
 
-      <div className="flex flex-col gap-4 p-5 md:flex-row md:items-center md:gap-6">
-        {/* Icon + eyebrow + title + description */}
-        <div className="flex flex-1 items-start gap-4 min-w-0">
+      {/* ── 지면: 제품이 하는 일 ── */}
+      {word && (
+        <>
+          <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.18em] text-[var(--t3)]">
+            오늘 만나 볼 단어
+          </p>
+
+          <h2 className="mt-4 font-editorial text-[40px] font-[500] leading-[1.02] tracking-[-0.02em] text-[var(--t1)] md:text-[52px]">
+            {word.word}
+          </h2>
+
+          <p className="mt-2 flex flex-wrap items-center gap-x-3 font-mono text-[11px] tabular-nums text-[var(--t3)]">
+            {word.cefr && <span>{word.cefr}</span>}
+            {word.rank !== null && <span>· 자주 쓰는 순 {word.rank.toLocaleString()}위</span>}
+          </p>
+
+          <hr className="my-5 border-0 border-t border-[var(--bd)]" />
+
+          <p className="max-w-[54ch] font-body text-[17px] leading-[1.65] text-[var(--t1)] [word-break:keep-all] md:text-[18px]">
+            {word.meaningKo}
+          </p>
+
+          <blockquote className="mt-4 max-w-[58ch] border-l-2 border-[var(--bd)] pl-4 font-editorial text-[15px] italic leading-[1.7] text-[var(--t2)] md:text-[17px]">
+            {word.exampleEn}
+          </blockquote>
+        </>
+      )}
+
+      {/* ── 제안: 게이트가 아니다 ──
+          단어를 본 다음에 온다. 순서가 뒤집히면 다시 시험이 된다. */}
+      <div
+        className={`flex flex-col gap-4 md:flex-row md:items-center md:gap-8 ${
+          word ? 'mt-8 border-t border-[var(--bd)] pt-6' : ''
+        }`}
+      >
+        <div className="flex min-w-0 flex-1 items-start gap-4">
           <span
-            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-[var(--r-md)]"
-            style={{ background: 'rgba(255,255,255,0.7)' }}
             aria-hidden
+            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-[var(--r-md)] bg-[var(--p-light)] text-[var(--on-p-tint)]"
           >
-            <Icon size={20} strokeWidth={2} style={{ color: card.accent }} />
+            <Compass size={20} strokeWidth={1.9} />
           </span>
+
           <div className="min-w-0 flex-1">
-            <p
-              className="font-mono text-[10.5px] font-[700] uppercase tracking-[0.10em]"
-              style={{ color: card.accentDeep }}
-            >
-              {card.eyebrow}
-            </p>
-            <h2
-              className="mt-0.5 font-display text-[16px] font-[700] leading-tight md:text-[17px]"
-              style={{ color: 'var(--t1)' }}
-            >
-              {card.title}
-            </h2>
-            <p
-              className="mt-1.5 font-body text-[13px] leading-relaxed"
-              style={{ color: 'var(--t2)' }}
-            >
-              {card.description}
+            <h3 className="max-w-[26ch] font-display text-[16px] font-[700] leading-[1.4] text-[var(--t1)] [word-break:keep-all] md:text-[17px]">
+              {word
+                ? '이런 단어를 내 수준에 맞춰 골라 드릴까요?'
+                : '5분이면 오늘 읽을 것이 정해져요'}
+            </h3>
+            <p className="mt-1.5 max-w-[46ch] font-body text-[13px] leading-[1.7] text-[var(--t2)] [word-break:keep-all]">
+              몇 개의 단어를 아는지만 확인하면, 지금 읽을 수 있는 글과 오늘 만날 단어를 골라
+              드려요. 맞히지 못해도 괜찮아요 — 맞은 개수가 아니라 어디쯤인지를 봅니다.
             </p>
           </div>
         </div>
 
-        {/* CTA */}
         <Link
-          href={card.ctaHref}
-          className="inline-flex shrink-0 items-center gap-2 rounded-[var(--r-md)] px-4 py-2.5 font-display text-[13px] font-[600] transition-all hover:opacity-90"
-          style={{
-            background: card.accent,
-            color: 'var(--ti)',
-            boxShadow: 'var(--sh-xs)',
-          }}
+          href="/diagnostic"
+          className="group inline-flex min-h-[48px] shrink-0 items-center gap-2 self-start rounded-ios-pill bg-[var(--p)] px-5 font-display text-[14px] font-[700] text-[var(--on-p)] no-underline motion-safe:transition-all motion-safe:duration-[var(--dur-ios-normal)] motion-safe:hover:brightness-110 motion-safe:active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 md:self-auto"
         >
-          <span>{card.ctaLabel}</span>
-          <ArrowRight size={14} aria-hidden />
+          5분 시작하기
+          <ArrowRight
+            size={15}
+            aria-hidden
+            className="motion-safe:transition-transform motion-safe:group-hover:translate-x-0.5"
+          />
         </Link>
       </div>
+
+      {/* 2차 — 진단을 안 하고도 갈 곳이 있다. 게이트가 아님을 화면으로 증명하는 줄이다. */}
+      <p className="mt-4 font-body text-[13px] leading-snug text-[var(--t3)]">
+        <Link
+          href="/library"
+          className="inline-flex min-h-[44px] items-center font-display font-[700] text-[var(--p)] no-underline transition-colors hover:text-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+        >
+          먼저 둘러보기
+        </Link>
+        <span className="ml-2">— 진단 없이도 서재를 볼 수 있어요</span>
+      </p>
     </section>
   )
 }
-
-// ── 보조 export — 다른 곳에서도 같은 페르소나 분기 쓰고 싶을 때
-export { getPersona }
-export type { Persona }

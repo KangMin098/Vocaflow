@@ -1,0 +1,675 @@
+{
+  "book": {
+    "id": "shelley-frankenstein-ch9",
+    "title": "Frankenstein · Chapter 9 — The Weight of Remorse",
+    "author": "Mary Shelley, Frankenstein (1831), Chapter 9",
+    "source": "file",
+    "ref": "scratchpad-foreign/frank4/pg84.raw.txt",
+    "total_words": 75000
+  },
+  "adaptation": {
+    "style": "gonick",
+    "panel_count": 16,
+    "default_tier": "teen",
+    "tiers": [
+      "child",
+      "teen",
+      "adult"
+    ],
+    "target_v_level": 10,
+    "art_maturity": "mature",
+    "source_span": [
+      0,
+      12445
+    ],
+    "original_words": 2210,
+    "art_shared_across_tiers": true,
+    "seed": 84
+  },
+  "cast": [
+    {
+      "id": "victor",
+      "name": "Victor",
+      "role": "protagonist — brilliant, obsessive, guilt-ridden, sickly",
+      "canonical": "a lean, slightly hunched young man with untidy dark hair, round glasses, dark shadowed feverish eyes, wearing a stained lab apron",
+      "anchor": "round glasses, a stained lab apron and dark shadowed eyes",
+      "seed_role": 84
+    },
+    {
+      "id": "alphonse",
+      "name": "Alphonse",
+      "role": "father — wise, loving patriarch and magistrate",
+      "canonical": "a tall stooped elderly gentleman, balding grey hair, a long white beard, leaning on a walking cane, in a long coat",
+      "anchor": "a long white beard and a walking cane (elderly, stooped)",
+      "seed_role": 20
+    },
+    {
+      "id": "elizabeth",
+      "name": "Elizabeth",
+      "role": "cousin & beloved — gentle, devoted, the family's moral heart",
+      "canonical": "a gentle graceful young woman with bright fair golden hair in a long braid under a white bonnet, an oval locket at her throat and a shoulder shawl",
+      "anchor": "bright fair golden hair, a white bonnet, an oval locket and a shawl",
+      "seed_role": 12
+    }
+  ],
+  "panels": [
+    {
+      "n": 1,
+      "wide": true,
+      "cap_zone": "top",
+      "scene": "the bespectacled dark-haired young man in a dark coat wandering sleepless through empty midnight streets of Geneva like a haunted ghost, hollow shadowed eyes, utterly alone",
+      "composition": "wide, a soul wandering in guilt",
+      "characters": [
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "AFTER JUSTINE'S DEATH, VICTOR IS CONSUMED BY REMORSE.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "I wandered like an evil spirit, for I had committed deeds of mischief beyond description horrible",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "Sleep fled from my eyes",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        0,
+        778
+      ]
+    },
+    {
+      "n": 2,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "the gaunt bespectacled young man sitting alone in a dark room, turned from a shaft of daylight, wrapped in deep unbroken solitude and shadow",
+      "composition": "close, deathlike solitude",
+      "characters": [
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "HE SHUNS ALL HUMAN COMPANY.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "I shunned the face of man; all sound of joy or complacency was torture to me",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "solitude was my only consolation-deep, dark, deathlike solitude",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        778,
+        1556
+      ]
+    },
+    {
+      "n": 3,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "a tall stooped elderly gentleman with a long white beard and a cane, tears in his eyes, laying a consoling hand on the shoulder of the bespectacled young man who cannot meet his gaze",
+      "composition": "close two-shot, a father's grief and counsel",
+      "characters": [
+        "alphonse",
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "HIS FATHER TRIES TO LIFT THE DARK CLOUD.",
+          "bubbles": [
+            {
+              "speaker": "ALPHONSE",
+              "text": "Do you think, Victor... that I do not suffer also?",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "ALPHONSE",
+              "text": "No one could love a child more than I loved your brother",
+              "pos": "bl",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "ALPHONSE",
+              "text": "excessive sorrow prevents improvement or enjoyment",
+              "pos": "br",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        1556,
+        2333
+      ]
+    },
+    {
+      "n": 4,
+      "wide": true,
+      "cap_zone": "top",
+      "scene": "the bespectacled young man alone in a small boat drifting on the vast still moonlit surface of Lake Geneva at midnight, oars shipped, mountains black on the horizon",
+      "composition": "wide, solitary on the night lake",
+      "characters": [
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "AT NIGHT HE ROWS ALONE ONTO THE DARK LAKE.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "Often, after the rest of the family had retired for the night, I took the boat and passed many hours upon the water",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        2333,
+        3111
+      ]
+    },
+    {
+      "n": 5,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "a close view of the young man leaning over the side of the boat, gazing down into the black silent water with terrible temptation on his shadowed face",
+      "composition": "close, the pull of the silent water",
+      "characters": [
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "THE STILL WATER TEMPTS HIM TO END IT ALL.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "I was tempted to plunge into the silent lake, that the waters might close over me and my calamities for ever",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "if I except some bat, or the frogs",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        3111,
+        3889
+      ]
+    },
+    {
+      "n": 6,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "the young man drawing back from the water's edge, a faint image of a golden-haired young woman and an old man rising in his mind, restraining him, moonlight on his face",
+      "composition": "close, held back by love",
+      "characters": [
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "ONLY LOVE FOR THE LIVING HOLDS HIM BACK.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "But I was restrained, when I thought of the heroic and suffering Elizabeth, whom I tenderly loved",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        3889,
+        4667
+      ]
+    },
+    {
+      "n": 7,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "the bespectacled young man's face contorted with hatred and fury, teeth bared, eyes inflamed, fists clenched, thinking of the monster he made",
+      "composition": "close, hatred bursting all bounds",
+      "characters": [
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "AGAINST THE CREATURE, HIS HATRED KNOWS NO BOUNDS.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "When I thought of him I gnashed my teeth, my eyes became inflamed",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "my hatred and revenge burst all bounds of moderation",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "I ardently wished to extinguish that life which I had so thoughtlessly bestowed",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        4667,
+        5445
+      ]
+    },
+    {
+      "n": 8,
+      "wide": true,
+      "cap_zone": "top",
+      "scene": "a fevered imagined vision: the young man standing on the highest jagged Andean peak, hurling a small distant figure of the creature down into a bottomless abyss, storm clouds",
+      "composition": "wide, a vision of vengeance",
+      "characters": [
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "HE DREAMS OF HURLING THE FIEND FROM THE HIGHEST PEAK.",
+          "bubbles": [
+            {
+              "speaker": "VICTOR",
+              "text": "I would have made a pilgrimage to the highest peak of the Andes, could I, when there, have precipitated him to their base",
+              "pos": "tc",
+              "kind": "thought",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "VICTOR",
+              "text": "I wished to see him again, that I might wreak the utmost extent of abhorrence on his head and avenge the deaths of William and Justine",
+              "pos": "br",
+              "kind": "thought",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        5445,
+        6223
+      ]
+    },
+    {
+      "n": 9,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "a golden-haired young woman with a long braid under a white bonnet and an oval locket, sad and desponding by a shrouded window in a house of mourning, her smile gone",
+      "composition": "close, Elizabeth dimmed by grief",
+      "characters": [
+        "elizabeth"
+      ],
+      "text": {
+        "teen": {
+          "narration": "THE WHOLE HOUSE IS IN MOURNING. EVEN ELIZABETH IS CHANGED.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "Our house was the house of mourning.",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "Elizabeth was sad and desponding",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "all pleasure seemed to her sacrilege toward the dead",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        6223,
+        7000
+      ]
+    },
+    {
+      "n": 10,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "the golden-haired young woman speaking with quiet bitterness, gesturing to an open book, disillusion darkening her gentle face",
+      "composition": "close, her lost faith in the world",
+      "characters": [
+        "elizabeth"
+      ],
+      "text": {
+        "teen": {
+          "narration": "JUSTINE'S FATE HAS SHATTERED ELIZABETH'S VIEW OF THE WORLD.",
+          "bubbles": [
+            {
+              "speaker": "ELIZABETH",
+              "text": "now misery has come home, and men appear to me as monsters thirsting for each other's blood",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        7000,
+        7778
+      ]
+    },
+    {
+      "n": 11,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "the golden-haired young woman gently taking the bespectacled young man's hand, pleading and tender, trying to soothe the despair in his face",
+      "composition": "close two-shot, her tender plea",
+      "characters": [
+        "elizabeth",
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "SHE BEGS HIM TO BANISH HIS DARK PASSIONS.",
+          "bubbles": [
+            {
+              "speaker": "ELIZABETH",
+              "text": "I feel as if I were walking on the edge of a precipice, towards which thousands are crowding",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "ELIZABETH",
+              "text": "Dear Victor, banish these dark passions.",
+              "pos": "bl",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "ELIZABETH",
+              "text": "There is an expression of despair, and sometimes of revenge, in your countenance that makes me tremble",
+              "pos": "br",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        7778,
+        8556
+      ]
+    },
+    {
+      "n": 12,
+      "wide": true,
+      "cap_zone": "top",
+      "scene": "the bespectacled young man riding a sure-footed mule up a rugged Alpine road away from home, snow-capped peaks rising ahead, seeking oblivion in the mountains",
+      "composition": "wide, fleeing into the Alps",
+      "characters": [
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "HE FLEES ALONE INTO THE HIGH ALPINE VALLEYS.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "My wanderings were directed towards the valley of Chamounix.",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "sought in the magnificence, the eternity of such scenes, to forget myself and my ephemeral, because human, sorrows",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        8556,
+        9334
+      ]
+    },
+    {
+      "n": 13,
+      "wide": true,
+      "cap_zone": "top",
+      "scene": "a tiny figure of the rider dwarfed at the foot of immense sheer precipices in the ravine of the Arve, a raging river and thundering waterfalls, overwhelming sublime grandeur",
+      "composition": "wide, humbled by the sublime ravine",
+      "characters": [
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "THE SUBLIME RAVINE OF THE ARVE BEGINS TO LIFT HIS SPIRIT.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "the sound of the river raging among the rocks, and the dashing of the waterfalls around spoke of a power mighty as Omnipotence",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "The immense mountains and precipices that overhung me on every side",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        9334,
+        10112
+      ]
+    },
+    {
+      "n": 14,
+      "wide": true,
+      "cap_zone": "top",
+      "scene": "the vast white dome of Mont Blanc towering above sharp aiguilles and immense glaciers, smoke of a distant avalanche, the rider a speck below the eternal snows",
+      "composition": "wide, the supreme Mont Blanc overhead",
+      "characters": [
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "MONT BLANC ITSELF RISES ABOVE HIM.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "Mont Blanc, the supreme and magnificent Mont Blanc, raised itself from the surrounding",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "I heard the rumbling thunder of the falling avalanche",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "The high and snowy mountains were its immediate boundaries",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        10112,
+        10889
+      ]
+    },
+    {
+      "n": 15,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "the bespectacled young man pausing on the mountain road, eyes closed, a fragile moment of peace on his worn face as the wind stirs his hair, soft light",
+      "composition": "close, a fleeting solace from Nature",
+      "characters": [
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "FOR A MOMENT, NATURE BIDS HIM WEEP NO MORE.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "The very winds whispered in soothing accents, and maternal Nature bade me weep no more.",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "A tingling long-lost sense of pleasure often came across me during this journey",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        10889,
+        11667
+      ]
+    },
+    {
+      "n": 16,
+      "wide": true,
+      "cap_zone": "top",
+      "scene": "the exhausted young man at a dark inn window at Chamounix, watching pallid sheet-lightning flicker over the great dome of Mont Blanc in the night, at last near sleep",
+      "composition": "wide, exhausted peace at Chamounix",
+      "characters": [
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "AT CHAMOUNIX, EXHAUSTION FINALLY BRINGS HIM SLEEP.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "watching the pallid lightnings that played above Mont Blanc",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "I felt it as it came and blessed the giver of oblivion.",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "listening to the rushing of the Arve",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        11667,
+        12445
+      ]
+    }
+  ]
+}

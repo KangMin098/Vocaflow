@@ -71,13 +71,17 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
         htmlFor={inputId}
         className={cn(
           "inline-flex items-start gap-s-3 cursor-pointer select-none",
-          "p-s-1", // 터치 타겟 확장 (22px + 8px = 30px → 추가로 hit area 보장)
+          // 터치 타겟 — **라벨 전체가 탭 대상**이다(입력은 sr-only).
+          // `p-s-1` 만으로는 30px 이었다(주석이 그렇게 적고 있었다). 44px 미만은
+          // CLAUDE.md 절대 금지이고, 가입 화면의 **필수 동의 3개**가 여기에 걸려 있었다
+          // (실측 2026-08-26 · 390px). 잘못 누르면 가입이 막히는 자리다.
+          "p-s-1 min-h-[44px]",
           disabled && "cursor-not-allowed opacity-50",
           className,
         )}
       >
         {/* 시각적 박스 영역 */}
-        <span className="relative flex items-center justify-center pt-[2px]">
+        <span className="relative flex items-center justify-center pt-[4px]">
           {/* 네이티브 input — 시각적으로 숨김, 접근성용 */}
           <input
             ref={innerRef}

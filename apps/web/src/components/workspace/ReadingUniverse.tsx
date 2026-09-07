@@ -159,7 +159,7 @@ export function ReadingUniverse({
           </span>
           <span className="h-px flex-1 bg-gradient-to-r from-[var(--bd)] via-[var(--bd)] to-transparent" />
           {typeof chapterMeta.readingMinutes === 'number' && chapterMeta.readingMinutes > 0 && (
-            <span className="font-body text-[11.5px] italic text-[var(--t3)]">
+            <span className="font-body text-[11.5px] italic text-[var(--t2)]">
               약 {chapterMeta.readingMinutes}분 읽기
             </span>
           )}

@@ -1,0 +1,373 @@
+// scripts/ux-bench/measure.mjs
+//
+// **한 번의 페이지 로드에서 4축을 재는 브라우저 내 측정식.**
+//
+// 왜 문자열인가: Vocaflow 와 **경쟁 플랫폼**에 똑같이 주입해야 한다.
+// 두 곳을 다른 코드로 재면 그 비교는 아무것도 증명하지 못한다 — 같은 자를 써야 한다.
+//
+// 여기 있는 것은 전부 **판단이 필요 없는 값**이다. "예쁜가" 는 못 재지만
+// "본문 대비가 4.5:1 인가 · 폰트 크기가 몇 종인가 · 44px 인가" 는 잰다.
+// 재는 것만 점수에 넣는다 — 못 재는 것을 점수에 넣으면 그 점수는 의견이다.
+
+export const MEASURE_FN = String.raw`() => {
+  // 프레임셋이거나 아직 본문이 없으면 잴 것이 없다.
+  // ⚠️ 실측 2026-08-25: 국내 대상 하나가 이 경우였고, 가드가 없어 createTreeWalker 가
+  //    던지면서 **측정 실패가 예외로 새어 나갔다**. 실패는 값으로 돌려야 걸러진다.
+  if (!document.body) return { fatal: 'NO_BODY' };
+
+  // ── 색 ──────────────────────────────────────────────────────────────
+  const parseColor = (s) => {
+    if (!s) return null;
+    const m = s.match(/rgba?\(([^)]+)\)/);
+    if (!m) return null;
+    const p = m[1].split(/[,\s/]+/).filter(Boolean).map(Number);
+    if (p.length < 3 || p.some((n) => Number.isNaN(n))) return null;
+    return { r: p[0], g: p[1], b: p[2], a: p.length > 3 ? p[3] : 1 };
+  };
+  const lum = (c) => {
+    const f = (v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); };
+    return 0.2126 * f(c.r) + 0.7152 * f(c.g) + 0.0722 * f(c.b);
+  };
+  const ratio = (a, b) => { const l1 = lum(a), l2 = lum(b); const hi = Math.max(l1, l2), lo = Math.min(l1, l2); return (hi + 0.05) / (lo + 0.05); };
+  const over = (fg, bg) => fg.a >= 1 ? fg : ({
+    r: fg.r * fg.a + bg.r * (1 - fg.a),
+    g: fg.g * fg.a + bg.g * (1 - fg.a),
+    b: fg.b * fg.a + bg.b * (1 - fg.a), a: 1,
+  });
+  /**
+   * 조상을 거슬러 **불투명한** 배경을 찾는다. 못 찾으면 흰색(문서 기본).
+   *
+   * ⚠️ 그라디언트·배경이미지를 만나면 **모른다고 답한다**('gradient: true').
+   *    실측 2026-08-25: '/arcade' 는 'background: radial-gradient(...)' 로 어두운 무대를 깔고
+   *    밝은 글자를 얹는다. 'backgroundColor' 는 비어 있으므로 위로 계속 올라가다 흰색으로
+   *    떨어지고, 그래서 **68개 글자 중 59개가 "대비 미달"** 로 잡혔다 — 화면은 멀쩡한데
+   *    자가 틀린 것이다. 그 값으로 "디자인 31.7점" 을 보고할 뻔했다.
+   *
+   *    한 픽셀 색을 DOM 만으로 정확히 알 수는 없다(층·투명도·혼합 모드). 그래서
+   *    **점수로 바꾸지 않고 분모에서 뺀다** — 못 잰 것을 통과로도, 실패로도 세지 않는다.
+   *    대신 못 잰 개수를 그대로 낸다('contrastUnknown'): 0 이 아니면 눈으로 볼 대상이다.
+   */
+  const bgOf = (el) => {
+    // ⚠️ **반투명 배경을 무시하면 안 된다.** 첫 판은 alpha >= 0.999 인 배경만 받아들이고
+    //    그렇지 않으면 계속 위로 올라갔다. 그래서 rgba(26,23,20,0.62) 위의 흰 글자가
+    //    '흰 배경 위 흰 글자'(대비 1.0)로 잡혔다 — 실측 2026-08-25 에 /diagnostic/history 15건 ·
+    //    /library/books 22건 · /comics/restored 9건이 전부 이 가짜 위반이었다.
+    //    칩·배지는 대개 반투명 배경을 쓰므로, 이 버그는 **잘 만든 화면일수록 더 깎았다**.
+    //    올바른 계산은 아래에서 위로 **합성**하는 것이다.
+    const layers = [];
+    let n = el, opaque = null;
+    while (n && n !== document.documentElement) {
+      const cs = getComputedStyle(n);
+      if (cs.backgroundImage && cs.backgroundImage !== 'none') return { gradient: true };
+      const c = parseColor(cs.backgroundColor);
+      if (c && c.a > 0.001) {
+        if (c.a >= 0.999) { opaque = c; break; }
+        layers.push(c);
+      }
+      n = n.parentElement;
+    }
+    if (!opaque) {
+      const rootCs = getComputedStyle(document.documentElement);
+      if (rootCs.backgroundImage && rootCs.backgroundImage !== 'none') return { gradient: true };
+      const html = parseColor(rootCs.backgroundColor);
+      opaque = html && html.a >= 0.999 ? html : { r: 255, g: 255, b: 255, a: 1 };
+    }
+    // 아래(불투명)에서 위(요소 자신)로 쌓아 올린다.
+    let out = opaque;
+    for (let i = layers.length - 1; i >= 0; i--) out = over(layers[i], out);
+    return out;
+    };
+
+  const vh = document.documentElement.clientHeight;
+  const visible = (el) => {
+    const r = el.getBoundingClientRect();
+    // 2px 미만은 **볼 수도 누를 수도 없다.** sr-only 건너뛰기 링크가 이 모양이다
+    // (clip 으로 1x1 로 접어 두고 포커스 때만 펼친다). 실측 2026-08-25: 그 1x1 이
+    // 전 화면에서 "44px 미만 터치 타겟" 으로 잡혀 화면마다 1건씩 깎고 있었다 —
+    // 키보드 전용 요소를 터치 타겟으로 세는 것은 계측 착오다.
+    if (r.width < 2 || r.height < 2) return false;
+    const cs = getComputedStyle(el);
+    if (cs.visibility === 'hidden' || cs.display === 'none' || Number(cs.opacity) === 0) return false;
+    return true;
+  };
+
+  // ── 축 1. 디자인 ─────────────────────────────────────────────────────
+  // D1 본문 대비 (WCAG 1.4.3 AA) · D2 타이포 종수 · D3 색 종수 · D4 4px 그리드
+  const fontSizes = new Map();
+  const textColors = new Set();
+  const bgColors = new Set();
+  let textNodes = 0, contrastFail = 0, contrastUnknown = 0;
+  const contrastWorst = [];
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+  let tn;
+  while ((tn = walker.nextNode())) {
+    const t = (tn.nodeValue || '').trim();
+    if (t.length < 2) continue;
+    const el = tn.parentElement;
+    if (!el || !visible(el)) continue;
+    const r = el.getBoundingClientRect();
+    if (r.bottom < 0 || r.top > vh * 3) continue;    // 첫 3화면만 — 무한 스크롤 사이트 보호
+    const cs = getComputedStyle(el);
+    const fg0 = parseColor(cs.color);
+    if (!fg0) continue;
+    const bg = bgOf(el);
+    const size = parseFloat(cs.fontSize) || 16;
+    const weight = Number(cs.fontWeight) || 400;
+    // 규율 지표(폰트 종수·글자색 종수)는 배경을 몰라도 셀 수 있다 — 먼저 센다.
+    fontSizes.set(Math.round(size), (fontSizes.get(Math.round(size)) || 0) + 1);
+    textColors.add(cs.color);
+    if (bg.gradient) { contrastUnknown++; continue; }   // 대비만 못 잰다
+    const fg = over(fg0, bg);
+    const large = size >= 24 || (size >= 18.66 && weight >= 700);
+    const need = large ? 3 : 4.5;
+    const got = ratio(fg, bg);
+    textNodes++;
+    bgColors.add('rgb(' + Math.round(bg.r) + ',' + Math.round(bg.g) + ',' + Math.round(bg.b) + ')');
+    if (got < need - 0.05) {
+      contrastFail++;
+      if (contrastWorst.length < 8) contrastWorst.push({ text: t.slice(0, 28), got: Math.round(got * 100) / 100, need, size: Math.round(size) });
+    }
+  }
+
+  // 4px 그리드 — 보이는 블록 요소의 padding/gap 이 4의 배수인가 (디자인 시스템 규율의 대리 지표)
+  let spacingTotal = 0, spacingOnGrid = 0;
+  const offCount = {};                 // 격자 밖 값 -> 몇 번 (무엇을 고칠지 바로 나오게)
+  const blocks = Array.from(document.body.querySelectorAll('div,section,article,li,header,footer,main,nav,button,a')).slice(0, 900);
+  for (const el of blocks) {
+    if (!visible(el)) continue;
+    const cs = getComputedStyle(el);
+    for (const prop of ['paddingTop', 'paddingBottom', 'paddingLeft', 'paddingRight', 'gap']) {
+      const v = parseFloat(cs[prop]);
+      if (!v || Number.isNaN(v)) continue;
+      spacingTotal++;
+      if (Math.abs(v % 4) < 0.51 || Math.abs((v % 4) - 4) < 0.51) spacingOnGrid++;
+      else {
+        const k = Math.round(v * 10) / 10;
+        offCount[k] = (offCount[k] || 0) + 1;
+      }
+    }
+  }
+  // 상위 8개만 — "68% 가 격자 밖" 은 어디를 고칠지 말해 주지 않는다. 값이 말해 준다.
+  const spacingOff = Object.entries(offCount).sort((a, b) => b[1] - a[1]).slice(0, 8).map((e) => ({ px: Number(e[0]), n: e[1] }));
+
+  // ── 축 2. 사용성 ─────────────────────────────────────────────────────
+  const CTRL = 'button, [role="button"], a[href], input, select, textarea, [role="link"], [role="tab"], [role="checkbox"], [role="switch"]';
+  const ctrls = Array.from(document.querySelectorAll(CTRL)).filter(visible);
+  let ctrlTotal = 0, ctrlBig = 0, ctrlNamed = 0;
+  const smallSample = [];
+  const namelessSample = [];
+  /**
+   * WCAG 2.2 §2.5.5 는 예외를 명시한다 — 그중 **Inline**:
+   * '문장이나 텍스트 블록 안에 있는 타겟' 은 44px 요구에서 빠진다.
+   * 문장 속 링크를 44px 로 만들면 줄 간격이 무너져 오히려 읽기가 나빠지기 때문이다.
+   *
+   * ⚠️ 실측 2026-08-25: '특정 도서·챕터·단어장으로 학습하려면 [내 자료]에서 …' 의
+   *    문장 속 링크(39x16)가 위반으로 잡히고 있었다. 기준서가 빼라고 한 것을
+   *    세면 그건 우리 화면이 아니라 자가 틀린 것이다. 양쪽에 똑같이 적용한다.
+   */
+  const inlineInSentence = (el) => {
+    if (el.tagName !== 'A') return false;
+    if (!/^inline$/.test(getComputedStyle(el).display)) return false;
+    const parent = el.parentElement;
+    if (!parent) return false;
+    let around = '';
+    for (const n of Array.from(parent.childNodes)) {
+      if (n.nodeType === 3) around += n.nodeValue || '';
+    }
+    return around.trim().length > 0;   // 링크 옆에 문장이 있다
+  };
+  let ctrlInlineExempt = 0;
+
+  for (const el of ctrls) {
+    const r = el.getBoundingClientRect();
+    const host = el.closest('label') || el;
+    const hr = host.getBoundingClientRect();
+    const w = Math.max(r.width, hr.width), h = Math.max(r.height, hr.height);
+    if (inlineInSentence(el)) { ctrlInlineExempt++; continue; }
+    ctrlTotal++;
+    if (w >= 44 && h >= 44) ctrlBig++;
+    else if (smallSample.length < 8) smallSample.push({ tag: el.tagName.toLowerCase(), w: Math.round(w), h: Math.round(h), label: (el.getAttribute('aria-label') || el.textContent || '').trim().slice(0, 24), cls: (el.className || '').toString().slice(0, 40) });
+    let name = (el.getAttribute('aria-label') || el.getAttribute('title') || el.textContent || el.getAttribute('alt') || '').trim();
+    if (!name && el.getAttribute('aria-labelledby')) name = 'ref';
+    if (!name && el.id) { try { if (document.querySelector('label[for="' + CSS.escape(el.id) + '"]')) name = 'label'; } catch (e) { /* noop */ } }
+    if (!name) { const lb = el.closest('label'); if (lb && lb.textContent.trim()) name = 'wrap'; }
+    if (!name && el.querySelector('img[alt]:not([alt=""]), svg title')) name = 'img';
+    if (name) ctrlNamed++;
+    else if (namelessSample.length < 8) namelessSample.push({ tag: el.tagName.toLowerCase(), cls: (el.className || '').toString().slice(0, 30) });
+  }
+
+  const de = document.documentElement;
+  const overflowPx = Math.max(0, de.scrollWidth - de.clientWidth);
+  const main = document.querySelector('main, [role="main"]');
+  /**
+   * 제목·랜드마크는 **접근성 트리에 있으면** 센다 — 눈에 보이는지는 기준이 아니다.
+   *
+   * ⚠️ 실측 2026-08-25: '/library/textbooks' 는 h1 을 'sr-only' 로 둔다(시각 디자인상
+   *    제목 자리가 없지만 스크린리더에는 있어야 하니까 — 정석이다). 그런데 보이는 것만
+   *    세다 보니 'h1 없음' 으로 잡혔다. 스크린리더용으로 **일부러** 숨긴 것을
+   *    결함으로 세면, 고치는 방향이 정반대가 된다.
+   */
+  const a11yVisible = (el) => {
+    if (el.closest('[aria-hidden="true"]')) return false;
+    const cs = getComputedStyle(el);
+    return cs.display !== 'none' && cs.visibility !== 'hidden';
+  };
+  const h1s = Array.from(document.querySelectorAll('h1')).filter(a11yVisible);
+  const hasNav = !!document.querySelector('nav, [role="navigation"]');
+  const hasLang = !!document.documentElement.getAttribute('lang');
+  const title = (document.title || '').trim();
+  const heads = Array.from(document.querySelectorAll('h1,h2,h3,h4,h5,h6')).filter(a11yVisible).map((h) => Number(h.tagName[1]));
+  let headSkips = 0;
+  for (let i = 1; i < heads.length; i++) if (heads[i] - heads[i - 1] > 1) headSkips++;
+  const imgs = Array.from(document.querySelectorAll('img')).filter(visible);
+  const imgsWithAlt = imgs.filter((i) => i.hasAttribute('alt')).length;
+
+  // ── 축 3. 연계성 ─────────────────────────────────────────────────────
+  // 목적지는 **경로 + 쿼리**다.
+  // ⚠️ 실측 2026-08-25: '/comics/restored' 는 시리즈 13개를 '?series=' 로 갈라 놓는데,
+  //    쿼리를 버리고 세면 13개가 전부 자기 자신이 되어 **앞길 1개**로 잡혔다.
+  //    ('10-a11y-sweep' 도 같은 사각을 주석으로 적어 두고 "참고값으로만" 이라 미뤄 뒀다.)
+  //    학습자에게 '?series=atomic-war' 는 다른 화면이다 — 그렇게 센다.
+  const here = location.pathname + location.search;
+  const scope = main || document.body;
+  // 셸(사이드바·헤더·하단 탭)은 **랜드마크로** 판별한다.
+  // ⚠️ 첫 판은 "셸 = 전체 − 본문" 이었다. 그러면 <main> 이 없는 사이트에서 셸이
+  //    **원리적으로 0** 이 된다(전체 = 본문이므로). 상대를 구조적으로 깎는 계측은
+  //    비교를 무의미하게 만든다 — 우위가 제품이 아니라 자에서 나오기 때문이다.
+  // ⚠️ 두 번째 판: **본문 안의 nav 는 셸이 아니다.** 화면 자신의 탭 줄('<nav>' 로 마크업된
+  //    면 전환)은 학습자에게 진짜 앞길인데, 이름이 nav 라는 이유로 빼면 그 화면이
+  //    "막다른 길" 로 잡힌다. 셸은 **본문 밖의** 랜드마크다 — 위치로 판별한다.
+  const shellEls = Array.from(document.querySelectorAll('nav, header, footer, [role="navigation"], [role="banner"], [role="contentinfo"]'))
+    .filter((s) => !(main && main.contains(s)));
+  const inShell = (el) => shellEls.some((s) => s.contains(el));
+  const paths = (root, opts) => {
+    const out = new Set();
+    for (const a of Array.from(root.querySelectorAll('a[href]'))) {
+      if (!visible(a)) continue;
+      if (opts && opts.shellOnly && !inShell(a)) continue;
+      if (opts && opts.skipShell && inShell(a)) continue;
+      const href = a.getAttribute('href') || '';
+      let p = null;
+      if (href.startsWith('#')) continue;                      // 같은 화면 안 앵커는 이동이 아니다
+      if (href.startsWith('/')) p = href.split('#')[0];
+      else if (/^https?:/.test(href)) { try { const u = new URL(href); if (u.origin === location.origin) p = u.pathname + u.search; } catch (e) { /* noop */ } }
+      if (!p || p === here) continue;
+      out.add(p);
+    }
+    return out;
+  };
+  const forward = paths(scope, { skipShell: true });
+  const shell = paths(document.body, { shellOnly: true });
+  let actionButtons = 0;
+  for (const b of Array.from(scope.querySelectorAll('button,[role="button"]'))) {
+    if (!visible(b) || inShell(b)) continue;
+    const r = b.getBoundingClientRect();
+    if (r.width < 44 || r.height < 44) continue;
+    if ((b.getAttribute('aria-label') || b.textContent || '').trim()) actionButtons++;
+  }
+  // **"지금 어디" 를 말하는 표준 패턴은 하나가 아니다.**
+  //
+  // ⚠️ 첫 판은 [aria-current] 만 인정했다. 그런데 ARIA Authoring Practices 는
+  //    탭 묶음에서 현재 항목을 aria-selected 로 표시하라고 정한다 — 탭에 aria-current 를
+  //    붙이는 것은 오히려 잘못된 조언이다. 실측 2026-08-25: /wordvault/browse 는
+  //    role="tablist" + aria-selected 로 **정석대로** 표시하는데 "현재 위치 없음" 으로 잡혔다.
+  //    기준서가 인정하는 패턴을 계측기가 모르면, 고치는 방향이 반대가 된다.
+  const hasCurrent =
+    !!document.querySelector('[aria-current]:not([aria-current="false"])') ||
+    !!document.querySelector('[role="tab"][aria-selected="true"]');
+
+  // ── WCAG 2.4(Navigable) 에서 **아직 안 재던 기준 둘** ──
+  //
+  // 지금 연계성 하위 지표는 이진(C1·C4)이거나 3에서 포화(C2·C3)라, 랜딩 페이지 한 장도
+  // 만점을 받는다. 좋은 것과 훌륭한 것을 구별하지 못하는 지표는 품질이 아니라
+  // **있고 없고**를 재는 것이다. 그래서 기준서에서 둘을 더 가져온다.
+  //
+  // ⚠️ 우리에게 유리한 것을 고른 것이 아니다 — 2.4.5 는 화면마다 검색을 요구하므로
+  //    이 저장소가 **질 가능성이 높은** 지표다(비관리자 검색 입력 6개뿐). 그래도 넣는다.
+
+  // 2.4.1 Bypass Blocks (A) — 반복 블록을 건너뛰는 수단.
+  //   탭 순서 앞쪽의 같은 문서 앵커 링크가 그 수단이다(G1/G123 기법).
+  const FOCUSABLE = 'a[href], button, input, select, textarea, [tabindex]:not([tabindex="-1"])';
+  const firstFocusable = Array.from(document.querySelectorAll(FOCUSABLE)).slice(0, 6);
+  const hasSkipLink = firstFocusable.some((el) => {
+    if (el.tagName !== 'A') return false;
+    const href = el.getAttribute('href') || '';
+    if (!href.startsWith('#') || href.length < 2) return false;
+    try { return !!document.querySelector(href); } catch (e) { return false; }
+  });
+
+  // 2.4.5 Multiple Ways (AA) — 한 화면에 닿는 길이 둘 이상인가.
+  //   내비게이션 + (검색 | 사이트맵) 을 센다.
+  const searchEl = document.querySelector('[role="search"], input[type="search"]')
+    || Array.from(document.querySelectorAll('input[type="text"], input:not([type])')).find((i) => {
+        const nm = ((i.getAttribute('aria-label') || '') + ' ' + (i.getAttribute('placeholder') || '')).toLowerCase();
+        return /search|검색|찾기/.test(nm);
+      });
+  const sitemapEl = Array.from(document.querySelectorAll('a[href]')).find((a2) => /sitemap|사이트맵|전체보기|전체 보기/i.test((a2.textContent || '') + ' ' + (a2.getAttribute('href') || '')));
+  const hasSearch = !!searchEl;
+  const hasSitemap = !!sitemapEl;
+  const hasBreadcrumb = !!document.querySelector('nav[aria-label*="bread" i], [class*="breadcrumb" i]');
+
+  // ── 축 4. 흐름성 ─────────────────────────────────────────────────────
+  // 첫 화면(above the fold)에 **누를 수 있는 다음 행동**이 있는가.
+  let foldActions = 0;
+  for (const el of ctrls) {
+    const r = el.getBoundingClientRect();
+    if (r.top >= 0 && r.top < vh && r.width >= 44 && r.height >= 44) {
+      if ((el.getAttribute('aria-label') || el.textContent || '').trim()) foldActions++;
+    }
+  }
+  // ── WCAG 2.2 §2.2.2 Pause, Stop, Hide (A) ──
+  // 5초 넘게 저절로 움직이는 내용은 멈출 수단을 줘야 한다. 무한 반복 애니메이션이
+  // 그 대상이고, getAnimations() 로 실제 **돌고 있는 것**을 센다(스타일시트를 읽지
+  // 않으므로 교차 출처에서도 잰다 — 상대에게도 똑같이 적용된다).
+  //
+  // ⚠️ 이 기준은 **우리가 질 가능성이 높다** — /arcade 는 상시 분위기 애니메이션을 쓴다.
+  //    그래서 넣는다. 이길 것만 고르면 그 비교는 아무것도 증명하지 않는다.
+  let movingForever = 0;
+  try {
+    const anims = typeof document.getAnimations === 'function' ? document.getAnimations() : [];
+    for (const an of anims) {
+      const eff = an.effect;
+      if (!eff || typeof eff.getTiming !== 'function') continue;
+      const t = eff.getTiming();
+      if (t.iterations !== Infinity) continue;
+      const el = eff.target;
+      if (!el || typeof el.getBoundingClientRect !== 'function') continue;
+      const r = el.getBoundingClientRect();
+      if (r.width < 2 || r.height < 2) continue;          // 안 보이는 것은 방해가 아니다
+      if (r.top > vh * 2) continue;                        // 한참 아래는 시야 밖
+      movingForever++;
+    }
+  } catch (e) { movingForever = -1; }
+  const autoplayMedia = document.querySelectorAll('video[autoplay]:not([muted]), audio[autoplay]').length;
+  // 멈춤 수단이 있으면 기준을 충족한다(정지·일시정지 컨트롤).
+  const pauseControl = !!Array.from(document.querySelectorAll('button, [role="button"], input[type="checkbox"]'))
+    .find((el) => /정지|멈춤|일시|pause|stop|motion/i.test((el.getAttribute('aria-label') || el.textContent || '')));
+
+  const nav = performance.getEntriesByType('navigation')[0];
+  const paints = performance.getEntriesByType('paint');
+  const fcp = paints.find((p) => p.name === 'first-contentful-paint');
+  return {
+    textNodes: textNodes, contrastFail: contrastFail, contrastUnknown: contrastUnknown, contrastWorst: contrastWorst,
+    fontSizeKinds: fontSizes.size,
+    textColorKinds: textColors.size,
+    bgColorKinds: bgColors.size,
+    spacingTotal: spacingTotal, spacingOnGrid: spacingOnGrid, spacingOff: spacingOff,
+    ctrlTotal: ctrlTotal, ctrlBig: ctrlBig, ctrlNamed: ctrlNamed, ctrlInlineExempt: ctrlInlineExempt,
+    smallSample: smallSample, namelessSample: namelessSample,
+    overflowPx: overflowPx, hasMain: !!main, hasNav: hasNav, hasLang: hasLang, h1Count: h1s.length,
+    title: title, headSkips: headSkips, headCount: heads.length,
+    imgCount: imgs.length, imgsWithAlt: imgsWithAlt,
+    forwardPaths: forward.size, shellPaths: shell.size,
+    actionButtons: actionButtons, hasCurrent: hasCurrent, hasBreadcrumb: hasBreadcrumb,
+    hasSkipLink: hasSkipLink, hasSearch: hasSearch, hasSitemap: hasSitemap,
+    cls: (window.__uxbCls !== undefined ? Math.round(window.__uxbCls * 1000) / 1000 : -1),
+    foldActions: foldActions,
+    movingForever: movingForever, autoplayMedia: autoplayMedia, pauseControl: pauseControl,
+    domInteractive: nav ? Math.round(nav.domInteractive) : -1,
+    loadEventEnd: nav ? Math.round(nav.loadEventEnd) : -1,
+    fcp: fcp ? Math.round(fcp.startTime) : -1,
+    domNodes: document.getElementsByTagName('*').length,
+  };
+}`;

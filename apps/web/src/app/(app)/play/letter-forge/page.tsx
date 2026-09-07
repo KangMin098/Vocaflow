@@ -17,7 +17,9 @@ export default function LetterForgePlayPage() {
       <GamePlayScaffold
         module="letter-forge"
         label="Letter Forge"
-        minWords={5}
+        // 한 세션 = 중복 없는 단어 12개(길이 오름차순). 스코프가 작아도 최소 6개는 있어야
+        // "매 판 다른 단어 · 겹치지 않는 라운드"가 성립한다.
+        minWords={6}
         render={(p) => <Game {...p} />}
       />
     </Suspense>

@@ -1,0 +1,790 @@
+[
+ {
+  "exam": "2020",
+  "no": 1,
+  "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "?",
+    "text": "[Cell phone rings.]"
+   },
+   {
+    "who": "M",
+    "text": "Honey, I’ve just left work. I’ll be home in half an hour."
+   },
+   {
+    "who": "W",
+    "text": "Good. Is it possible for you to stop by the dry cleaner’s shop and pick up my dress?"
+   },
+   {
+    "who": "M",
+    "text": "Sure. Can you tell me where the shop is located?"
+   }
+  ],
+  "script": "[Cell phone rings.] Honey, I’ve just left work. I’ll be home in half an hour. Good. Is it possible for you to stop by the dry cleaner’s shop and pick up my dress? Sure. Can you tell me where the shop is located?",
+  "words": 43,
+  "nTurns": 4,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2020",
+  "no": 2,
+  "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "David, look at this advertisement! Jason Stevens is going to sing at the opening of City Concert Hall next Saturday."
+   },
+   {
+    "who": "M",
+    "text": "Wow! You know I’m a big fan of him, Mom. Luckily, I don’t have anything scheduled that day."
+   },
+   {
+    "who": "W",
+    "text": "Great. Mark the date on your calendar, so you don’t miss his performance."
+   }
+  ],
+  "script": "David, look at this advertisement! Jason Stevens is going to sing at the opening of City Concert Hall next Saturday. Wow! You know I’m a big fan of him, Mom. Luckily, I don’t have anything scheduled that day. Great. Mark the date on your calendar, so you don’t miss his performance.",
+  "words": 51,
+  "nTurns": 3,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2020",
+  "no": 3,
+  "stem": "다음을 듣고, 남자가 하는 말의 목적으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Shoppers, may I have your attention please? Thank you for visiting Miracle Department Store. We’d like to inform you of the special events going on through this weekend. First, we’re offering a 50 percent discount on certain electronics and sporting goods on the seventh floor. Second, we’re providing a free beverage at our coffee shop on the first floor to shoppers who spend over $50. Third, we’re also giving away $10 gift certificates to all shoppers who spend over $100. Last but not least, you don’t have to worry about parking fees this weekend. Parking is free. We hope you enjoy this weekend’s special events at our department store."
+   }
+  ],
+  "script": "Shoppers, may I have your attention please? Thank you for visiting Miracle Department Store. We’d like to inform you of the special events going on through this weekend. First, we’re offering a 50 percent discount on certain electronics and sporting goods on the seventh floor. Second, we’re providing a free beverage at our coffee shop on the first floor to shoppers who spend over $50. Third, we’re also giving away $10 gift certificates to all shoppers who spend over $100. Last but not least, you don’t have to worry about parking fees this weekend. Parking is free. We hope you enjoy this weekend’s special events at our department store.",
+  "words": 105,
+  "nTurns": 1,
+  "speakers": [
+   "M"
+  ],
+  "isDialogue": false
+ },
+ {
+  "exam": "2020",
+  "no": 4,
+  "stem": "대화를 듣고, 여자의 의견으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Hi, Sam. How are you?"
+   },
+   {
+    "who": "M",
+    "text": "Fine. How about you, Christine?"
+   },
+   {
+    "who": "W",
+    "text": "I feel really good."
+   },
+   {
+    "who": "M",
+    "text": "Wow! What happened to you? You usually say you’re tired."
+   },
+   {
+    "who": "W",
+    "text": "Well, I changed how I sleep. I started sleeping on my left side, and it has improved my health."
+   },
+   {
+    "who": "M",
+    "text": "Really?"
+   },
+   {
+    "who": "W",
+    "text": "Yeah. I’ve done it for a week, and my digestion has got better."
+   },
+   {
+    "who": "M",
+    "text": "I didn’t know how we sleep has something to do with digestion."
+   },
+   {
+    "who": "W",
+    "text": "It does. Sleeping on your left side helps the digestive process because your stomach is on the left."
+   },
+   {
+    "who": "M",
+    "text": "I can see that. But does improving digestion make you that much healthier?"
+   },
+   {
+    "who": "W",
+    "text": "Sleeping on the left side does more than that. I think it’s good for health because it also helps blood circulation to the heart."
+   },
+   {
+    "who": "M",
+    "text": "That makes sense. I guess I should try it."
+   }
+  ],
+  "script": "Hi, Sam. How are you? Fine. How about you, Christine? I feel really good. Wow! What happened to you? You usually say you’re tired. Well, I changed how I sleep. I started sleeping on my left side, and it has improved my health. Really? Yeah. I’ve done it for a week, and my digestion has got better. I didn’t know how we sleep has something to do with digestion. It does. Sleeping on your left side helps the digestive process because your stomach is on the left. I can see that. But does improving digestion make you that much healthier? Sleeping on the left side does more than that. I think it’s good for health because it also helps blood circulation to the heart. That makes sense. I guess I should try it.",
+  "words": 133,
+  "nTurns": 12,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2020",
+  "no": 5,
+  "stem": "대화를 듣고, 두 사람의 관계를 가장 잘 나타낸 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Hello, I’m Ted Benson. You must be Ms. Brown."
+   },
+   {
+    "who": "W",
+    "text": "Hi, Mr. Benson. Thank you for sparing time for this interview. I’ve wanted to meet you since you won the “Best Rice Award.”"
+   },
+   {
+    "who": "M",
+    "text": "I’m honored. I’m a regular reader of your magazine. The articles are very informative."
+   },
+   {
+    "who": "W",
+    "text": "Thank you. Can you tell me the secret to your success?"
+   },
+   {
+    "who": "M",
+    "text": "I grow rice without using any chemicals to kill harmful insects. It’s organic."
+   },
+   {
+    "who": "W",
+    "text": "How do you do that?"
+   },
+   {
+    "who": "M",
+    "text": "I put ducks into my fields, and they eat the insects."
+   },
+   {
+    "who": "W",
+    "text": "So that’s how you grew the best rice in the country. What a great idea!"
+   },
+   {
+    "who": "M",
+    "text": "Yeah, that’s the know-how I’ve got from my 30 years of farming life."
+   },
+   {
+    "who": "W",
+    "text": "Well, it’s amazing. May I take a picture of you in front of your rice fields for my magazine article?"
+   },
+   {
+    "who": "M",
+    "text": "Go ahead."
+   }
+  ],
+  "script": "Hello, I’m Ted Benson. You must be Ms. Brown. Hi, Mr. Benson. Thank you for sparing time for this interview. I’ve wanted to meet you since you won the “Best Rice Award.” I’m honored. I’m a regular reader of your magazine. The articles are very informative. Thank you. Can you tell me the secret to your success? I grow rice without using any chemicals to kill harmful insects. It’s organic. How do you do that? I put ducks into my fields, and they eat the insects. So that’s how you grew the best rice in the country. What a great idea! Yeah, that’s the know-how I’ve got from my 30 years of farming life. Well, it’s amazing. May I take a picture of you in front of your rice fields for my magazine article? Go ahead.",
+  "words": 135,
+  "nTurns": 11,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2020",
+  "no": 6,
+  "stem": "대화를 듣고, 그림에서 대화의 내용과 일치하지 않는 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "What are you looking at, honey?"
+   },
+   {
+    "who": "M",
+    "text": "Aunt Mary sent me a picture. She’s already set up a room for Peter."
+   },
+   {
+    "who": "W",
+    "text": "Wow! She’s excited for him to stay during the winter vacation, isn’t she?"
+   },
+   {
+    "who": "M",
+    "text": "Yes, she is. I like the blanket with the checkered pattern on the bed."
+   },
+   {
+    "who": "W",
+    "text": "I’m sure it must be very warm. Look at the chair below the window."
+   },
+   {
+    "who": "M",
+    "text": "It looks comfortable. He could sit there and read."
+   },
+   {
+    "who": "W",
+    "text": "Right. I guess that’s why Aunt Mary put the bookcase next to it."
+   },
+   {
+    "who": "M",
+    "text": "That makes sense. Oh, there’s a toy horse in the corner."
+   },
+   {
+    "who": "W",
+    "text": "It looks real. I think it’s a gift for Peter."
+   },
+   {
+    "who": "M",
+    "text": "Yeah, I remember she mentioned it. And do you see the round mirror on the wall?"
+   },
+   {
+    "who": "W",
+    "text": "It’s nice. It looks like the one Peter has here at home."
+   },
+   {
+    "who": "M",
+    "text": "It does. Let’s show him this picture."
+   }
+  ],
+  "script": "What are you looking at, honey? Aunt Mary sent me a picture. She’s already set up a room for Peter. Wow! She’s excited for him to stay during the winter vacation, isn’t she? Yes, she is. I like the blanket with the checkered pattern on the bed. I’m sure it must be very warm. Look at the chair below the window. It looks comfortable. He could sit there and read. Right. I guess that’s why Aunt Mary put the bookcase next to it. That makes sense. Oh, there’s a toy horse in the corner. It looks real. I think it’s a gift for Peter. Yeah, I remember she mentioned it. And do you see the round mirror on the wall? It’s nice. It looks like the one Peter has here at home. It does. Let’s show him this picture.",
+  "words": 139,
+  "nTurns": 12,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2020",
+  "no": 7,
+  "stem": "대화를 듣고, 여자가 할 일로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Good morning, Jane."
+   },
+   {
+    "who": "W",
+    "text": "Good morning, Mr. Smith."
+   },
+   {
+    "who": "M",
+    "text": "Thanks for volunteering to work at our senior citizen’s center again."
+   },
+   {
+    "who": "W",
+    "text": "I’m happy to help. And I brought some snacks for the elderly."
+   },
+   {
+    "who": "M",
+    "text": "How considerate of you! Last time you donated some books. Everyone really enjoyed reading them."
+   },
+   {
+    "who": "W",
+    "text": "It was my pleasure. So, what am I supposed to do today? Should I prepare lunch like I did before?"
+   },
+   {
+    "who": "M",
+    "text": "There are some other volunteers today, and they’ll do that work."
+   },
+   {
+    "who": "W",
+    "text": "Good. Then what would you like me to do?"
+   },
+   {
+    "who": "M",
+    "text": "Well, you could do the dishes or clean the laundry room."
+   },
+   {
+    "who": "W",
+    "text": "I’m good at washing dishes. So I’ll do that."
+   },
+   {
+    "who": "M",
+    "text": "Great. We’ll have someone else clean the laundry room."
+   }
+  ],
+  "script": "Good morning, Jane. Good morning, Mr. Smith. Thanks for volunteering to work at our senior citizen’s center again. I’m happy to help. And I brought some snacks for the elderly. How considerate of you! Last time you donated some books. Everyone really enjoyed reading them. It was my pleasure. So, what am I supposed to do today? Should I prepare lunch like I did before? There are some other volunteers today, and they’ll do that work. Good. Then what would you like me to do? Well, you could do the dishes or clean the laundry room. I’m good at washing dishes. So I’ll do that. Great. We’ll have someone else clean the laundry room.",
+  "words": 114,
+  "nTurns": 11,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2020",
+  "no": 8,
+  "stem": "대화를 듣고, 남자가 요리 대회 참가를 포기한 이유를 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Hi, Michael."
+   },
+   {
+    "who": "M",
+    "text": "Hi, Sarah. Did you apply for the cooking contest?"
+   },
+   {
+    "who": "W",
+    "text": "I did. I’ve already finished developing a recipe."
+   },
+   {
+    "who": "M",
+    "text": "That’s great. Actually, I gave up participating in it."
+   },
+   {
+    "who": "W",
+    "text": "Why? Is your arm still hurt?"
+   },
+   {
+    "who": "M",
+    "text": "No, it’s fully healed."
+   },
+   {
+    "who": "W",
+    "text": "Is your recipe not ready yet?"
+   },
+   {
+    "who": "M",
+    "text": "I already created a unique recipe for the contest."
+   },
+   {
+    "who": "W",
+    "text": "Then, what made you give up the contest?"
+   },
+   {
+    "who": "M",
+    "text": "You know I’ve planned to study abroad. The cooking school in Italy just informed me that I’ve been accepted. The problem is I have to leave before the contest begins."
+   },
+   {
+    "who": "W",
+    "text": "I’m sorry you’ll miss the contest. But it’s good for you since you’ve always wanted to study in Italy."
+   },
+   {
+    "who": "M",
+    "text": "I think so, too. I wish you luck in the contest."
+   },
+   {
+    "who": "W",
+    "text": "Thanks. I’ll do my best."
+   }
+  ],
+  "script": "Hi, Michael. Hi, Sarah. Did you apply for the cooking contest? I did. I’ve already finished developing a recipe. That’s great. Actually, I gave up participating in it. Why? Is your arm still hurt? No, it’s fully healed. Is your recipe not ready yet? I already created a unique recipe for the contest. Then, what made you give up the contest? You know I’ve planned to study abroad. The cooking school in Italy just informed me that I’ve been accepted. The problem is I have to leave before the contest begins. I’m sorry you’ll miss the contest. But it’s good for you since you’ve always wanted to study in Italy. I think so, too. I wish you luck in the contest. Thanks. I’ll do my best.",
+  "words": 126,
+  "nTurns": 13,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2020",
+  "no": 9,
+  "stem": "대화를 듣고, 여자가 지불할 금액을 고르시오. [3점]",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Welcome to the Science and Technology Museum. How can I help you?"
+   },
+   {
+    "who": "W",
+    "text": "Hi. I want to buy admission tickets."
+   },
+   {
+    "who": "M",
+    "text": "Okay. They’re $20 for adults and $10 for children."
+   },
+   {
+    "who": "W",
+    "text": "Good. Two adult tickets and two child tickets, please. And I’m a member of the National Robot Club. Do I get a discount?"
+   },
+   {
+    "who": "M",
+    "text": "Yes. You get 10 percent off all of those admission tickets with your membership."
+   },
+   {
+    "who": "W",
+    "text": "Excellent."
+   },
+   {
+    "who": "M",
+    "text": "We also have the AI Robot program. You can play games with the robots and take pictures with them."
+   },
+   {
+    "who": "W",
+    "text": "That sounds interesting. How much is it?"
+   },
+   {
+    "who": "M",
+    "text": "It’s just $5 per person. But the membership discount does not apply to this program."
+   },
+   {
+    "who": "W",
+    "text": "Okay. I’ll take four tickets."
+   },
+   {
+    "who": "M",
+    "text": "So two adult and two child admission tickets, and four AI Robot program tickets, right?"
+   },
+   {
+    "who": "W",
+    "text": "Yes. Here are my credit card and membership card."
+   }
+  ],
+  "script": "Welcome to the Science and Technology Museum. How can I help you? Hi. I want to buy admission tickets. Okay. They’re $20 for adults and $10 for children. Good. Two adult tickets and two child tickets, please. And I’m a member of the National Robot Club. Do I get a discount? Yes. You get 10 percent off all of those admission tickets with your membership. Excellent. We also have the AI Robot program. You can play games with the robots and take pictures with them. That sounds interesting. How much is it? It’s just $5 per person. But the membership discount does not apply to this program. Okay. I’ll take four tickets. So two adult and two child admission tickets, and four AI Robot program tickets, right? Yes. Here are my credit card and membership card.",
+  "words": 132,
+  "nTurns": 12,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2020",
+  "no": 10,
+  "stem": "대화를 듣고, Ten Year Class Reunion Party에 관해 언급되지 않은 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Hi, Ross. How’s everything going for our Ten Year Class Reunion Party?"
+   },
+   {
+    "who": "M",
+    "text": "I think we’re done, Jennifer."
+   },
+   {
+    "who": "W",
+    "text": "Then let’s go over what we’ve prepared."
+   },
+   {
+    "who": "M",
+    "text": "I already booked the Silver Corral Restaurant for the party."
+   },
+   {
+    "who": "W",
+    "text": "Good. It must have been very difficult to get a reservation because our party is on December 24th."
+   },
+   {
+    "who": "M",
+    "text": "Yeah, we were lucky."
+   },
+   {
+    "who": "W",
+    "text": "What food will they serve?"
+   },
+   {
+    "who": "M",
+    "text": "Their steak, spaghetti, and pizza are famous, so that’s what I ordered."
+   },
+   {
+    "who": "W",
+    "text": "Sounds delicious. And the souvenirs for the party are ready, too."
+   },
+   {
+    "who": "M",
+    "text": "You ordered mugs for souvenirs, right?"
+   },
+   {
+    "who": "W",
+    "text": "Yes, I did. I’ll bring them that day."
+   },
+   {
+    "who": "M",
+    "text": "Perfect. It’s going to be a great party."
+   }
+  ],
+  "script": "Hi, Ross. How’s everything going for our Ten Year Class Reunion Party? I think we’re done, Jennifer. Then let’s go over what we’ve prepared. I already booked the Silver Corral Restaurant for the party. Good. It must have been very difficult to get a reservation because our party is on December 24th. Yeah, we were lucky. What food will they serve? Their steak, spaghetti, and pizza are famous, so that’s what I ordered. Sounds delicious. And the souvenirs for the party are ready, too. You ordered mugs for souvenirs, right? Yes, I did. I’ll bring them that day. Perfect. It’s going to be a great party.",
+  "words": 106,
+  "nTurns": 12,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2020",
+  "no": 11,
+  "stem": "Green Ocean 영화 시사회에 관한 다음 내용을 듣고, 일치하지 않는 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Hello, listeners. Welcome to Good Day Movie. We’d like to let you know about a great chance to see the preview of the movie Green Ocean by Feather Pictures. One hundred people will be invited to the event. It’ll begin at the Glory Theater at 4 p.m. next Saturday. After watching the movie, you can meet and take pictures with the actors of the movie. If you’re interested, apply for admission tickets on the Green Ocean homepage, and the tickets will be sent by text message to the first 100 people who apply. Those who are invited will be given a poster at the theater. Hurry up and don’t miss this chance to watch Green Ocean in advance. Now we’ll be back after the commercial break. So stay tuned."
+   }
+  ],
+  "script": "Hello, listeners. Welcome to Good Day Movie. We’d like to let you know about a great chance to see the preview of the movie Green Ocean by Feather Pictures. One hundred people will be invited to the event. It’ll begin at the Glory Theater at 4 p.m. next Saturday. After watching the movie, you can meet and take pictures with the actors of the movie. If you’re interested, apply for admission tickets on the Green Ocean homepage, and the tickets will be sent by text message to the first 100 people who apply. Those who are invited will be given a poster at the theater. Hurry up and don’t miss this chance to watch Green Ocean in advance. Now we’ll be back after the commercial break. So stay tuned.",
+  "words": 128,
+  "nTurns": 1,
+  "speakers": [
+   "W"
+  ],
+  "isDialogue": false
+ },
+ {
+  "exam": "2020",
+  "no": 12,
+  "stem": "다음 표를 보면서 대화를 듣고, 두 사람이 예약할 항공편을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Ms. Roberts, we’re going on a business trip to New York City next week. Why don’t we book the flight on this website?"
+   },
+   {
+    "who": "W",
+    "text": "Okay, Mr. White. Let’s take a look at the flight schedule."
+   },
+   {
+    "who": "M",
+    "text": "Sure. How much can we spend on the flight?"
+   },
+   {
+    "who": "W",
+    "text": "Our company policy doesn’t allow us to spend more than $800 per ticket."
+   },
+   {
+    "who": "M",
+    "text": "I see. And what about the departure time? I have to take my daughter to daycare early in the morning that day."
+   },
+   {
+    "who": "W",
+    "text": "Then how about choosing a flight after 9 a.m.?"
+   },
+   {
+    "who": "M",
+    "text": "That’ll be great. Which airport should we arrive at?"
+   },
+   {
+    "who": "W",
+    "text": "JFK is closer to the company we’re visiting."
+   },
+   {
+    "who": "M",
+    "text": "Oh, you’re right. Let’s go there."
+   },
+   {
+    "who": "W",
+    "text": "Then we have two options left, nonstop or one stop."
+   },
+   {
+    "who": "M",
+    "text": "I don’t want to spend hours waiting for a connecting flight."
+   },
+   {
+    "who": "W",
+    "text": "Me, neither. We should choose the nonstop flight."
+   },
+   {
+    "who": "M",
+    "text": "Okay. Let’s book the flight now."
+   }
+  ],
+  "script": "Ms. Roberts, we’re going on a business trip to New York City next week. Why don’t we book the flight on this website? Okay, Mr. White. Let’s take a look at the flight schedule. Sure. How much can we spend on the flight? Our company policy doesn’t allow us to spend more than $800 per ticket. I see. And what about the departure time? I have to take my daughter to daycare early in the morning that day. Then how about choosing a flight after 9 a.m.? That’ll be great. Which airport should we arrive at? JFK is closer to the company we’re visiting. Oh, you’re right. Let’s go there. Then we have two options left, nonstop or one stop. I don’t want to spend hours waiting for a connecting flight. Me, neither. We should choose the nonstop flight. Okay. Let’s book the flight now.",
+  "words": 144,
+  "nTurns": 13,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2020",
+  "no": 13,
+  "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Hi, Justin. I heard you’re going to be the MC at the school festival."
+   },
+   {
+    "who": "M",
+    "text": "Yes, I am, Cindy."
+   },
+   {
+    "who": "W",
+    "text": "Do you have everything ready?"
+   },
+   {
+    "who": "M",
+    "text": "Mostly. I have all the introductions ready and I’ve practiced a lot."
+   },
+   {
+    "who": "W",
+    "text": "I’m sure you’ll do a great job."
+   },
+   {
+    "who": "M",
+    "text": "I hope so, too. But there’s one thing I’m worried about."
+   },
+   {
+    "who": "W",
+    "text": "What is it?"
+   },
+   {
+    "who": "M",
+    "text": "I need a suit, so I’m thinking of buying one. But it’s expensive, and I don’t think I’ll wear it after the festival."
+   },
+   {
+    "who": "W",
+    "text": "Well, if you want, I can ask my older brother to lend you one of his suits. He has a lot of them."
+   },
+   {
+    "who": "M",
+    "text": "Could you please?"
+   },
+   {
+    "who": "W",
+    "text": "I’d be happy to."
+   },
+   {
+    "who": "M",
+    "text": "Thanks. But will his suit be my size?"
+   },
+   {
+    "who": "W",
+    "text": "It will. You and my brother pretty much have the same build."
+   }
+  ],
+  "script": "Hi, Justin. I heard you’re going to be the MC at the school festival. Yes, I am, Cindy. Do you have everything ready? Mostly. I have all the introductions ready and I’ve practiced a lot. I’m sure you’ll do a great job. I hope so, too. But there’s one thing I’m worried about. What is it? I need a suit, so I’m thinking of buying one. But it’s expensive, and I don’t think I’ll wear it after the festival. Well, if you want, I can ask my older brother to lend you one of his suits. He has a lot of them. Could you please? I’d be happy to. Thanks. But will his suit be my size? It will. You and my brother pretty much have the same build.",
+  "words": 129,
+  "nTurns": 13,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2020",
+  "no": 14,
+  "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "?",
+    "text": "[3점]"
+   },
+   {
+    "who": "M",
+    "text": "Amy, what are you reading?"
+   },
+   {
+    "who": "W",
+    "text": "Dad, it’s a book for my philosophy course."
+   },
+   {
+    "who": "M",
+    "text": "Let me take a look. Wow! It’s a book by Kant."
+   },
+   {
+    "who": "W",
+    "text": "Yeah. It’s very difficult to understand."
+   },
+   {
+    "who": "M",
+    "text": "You’re right. His books take a lot of effort to read since they include his deep knowledge and thoughts."
+   },
+   {
+    "who": "W",
+    "text": "I think so, too. Do you have any ideas for me to understand the book better, Dad?"
+   },
+   {
+    "who": "M",
+    "text": "Well, why don’t you join a philosophy discussion group? You can find one in our area."
+   },
+   {
+    "who": "W",
+    "text": "Are there discussion groups for philosophy? That sounds interesting."
+   },
+   {
+    "who": "M",
+    "text": "Yeah. You can share ideas with others in the group about the book you’re reading."
+   },
+   {
+    "who": "W",
+    "text": "You mean I can understand Kant’s book more clearly by discussing it?"
+   },
+   {
+    "who": "M",
+    "text": "Absolutely. Plus, you can develop critical thinking skills in the group as well."
+   }
+  ],
+  "script": "[3점] Amy, what are you reading? Dad, it’s a book for my philosophy course. Let me take a look. Wow! It’s a book by Kant. Yeah. It’s very difficult to understand. You’re right. His books take a lot of effort to read since they include his deep knowledge and thoughts. I think so, too. Do you have any ideas for me to understand the book better, Dad? Well, why don’t you join a philosophy discussion group? You can find one in our area. Are there discussion groups for philosophy? That sounds interesting. Yeah. You can share ideas with others in the group about the book you’re reading. You mean I can understand Kant’s book more clearly by discussing it? Absolutely. Plus, you can develop critical thinking skills in the group as well.",
+  "words": 131,
+  "nTurns": 12,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2020",
+  "no": 15,
+  "stem": "다음 상황 설명을 듣고, Brian의 어머니가 Brian에게 할 말로 가장 적절한 것을",
+  "turns": [
+   {
+    "who": "?",
+    "text": "고르시오. [3점]"
+   },
+   {
+    "who": "W",
+    "text": "Brian is a high school student. He has only traveled with his family before. Until now his mother has always taken care of his travel bag, so he doesn’t have any experience preparing it himself. This weekend, Brian is supposed to go on a school trip with his friends. He asks his mother to get his stuff ready for his trip this time, too. However, she believes Brian is old enough to prepare what he needs, and she thinks this time is a great opportunity for him to learn to be more independent. So, she wants to tell Brian that he should get his things ready and put them in his bag without her help. In this situation, what would Brian’s mother most likely say to Brian? 16번부터 17번까지는 두 번 들려줍니다."
+   }
+  ],
+  "script": "고르시오. [3점] Brian is a high school student. He has only traveled with his family before. Until now his mother has always taken care of his travel bag, so he doesn’t have any experience preparing it himself. This weekend, Brian is supposed to go on a school trip with his friends. He asks his mother to get his stuff ready for his trip this time, too. However, she believes Brian is old enough to prepare what he needs, and she thinks this time is a great opportunity for him to learn to be more independent. So, she wants to tell Brian that he should get his things ready and put them in his bag without her help. In this situation, what would Brian’s mother most likely say to Brian? 16번부터 17번까지는 두 번 들려줍니다.",
+  "words": 127,
+  "nTurns": 2,
+  "speakers": [
+   "W"
+  ],
+  "isDialogue": false
+ },
+ {
+  "exam": "2020",
+  "no": 16,
+  "stem": "남자가 하는 말의 주제로 가장 적절한 것은?",
+  "turns": [
+   {
+    "who": "M",
+    "text": "How did people send mail before they had access to cars and trains? There were simple options out there, like delivery by animal. Horses were frequently utilized in delivery of letters and messages. In the 19th century, a mail express system that used horses serviced a large area of the United States. Pigeons may be seen as a problem by many people today. However, in ancient Greece, they were used to mail people the results of the Olympics between cities. Alaska and Canada are known for their cold winters. In their early days, dogs were utilized to deliver mail because they’ve adapted to run over ice and snow. Maybe the most fascinating of all delivery animals is the camel. Australia imported camels from the Middle East and utilized them to transfer mail across vast deserts. They were ideally suited to this job because they can go without water for quite a while. Fortunately, we’ve developed faster and more reliable delivery systems, but we should not ignore the important roles these animals played in the past."
+   }
+  ],
+  "fromSet": "16~17",
+  "script": "How did people send mail before they had access to cars and trains? There were simple options out there, like delivery by animal. Horses were frequently utilized in delivery of letters and messages. In the 19th century, a mail express system that used horses serviced a large area of the United States. Pigeons may be seen as a problem by many people today. However, in ancient Greece, they were used to mail people the results of the Olympics between cities. Alaska and Canada are known for their cold winters. In their early days, dogs were utilized to deliver mail because they’ve adapted to run over ice and snow. Maybe the most fascinating of all delivery animals is the camel. Australia imported camels from the Middle East and utilized them to transfer mail across vast deserts. They were ideally suited to this job because they can go without water for quite a while. Fortunately, we’ve developed faster and more reliable delivery systems, but we should not ignore the important roles these animals played in the past.",
+  "words": 175,
+  "nTurns": 1,
+  "speakers": [
+   "M"
+  ],
+  "isDialogue": false
+ },
+ {
+  "exam": "2020",
+  "no": 17,
+  "stem": "언급된 동물이 아닌 것은?",
+  "turns": [
+   {
+    "who": "M",
+    "text": "How did people send mail before they had access to cars and trains? There were simple options out there, like delivery by animal. Horses were frequently utilized in delivery of letters and messages. In the 19th century, a mail express system that used horses serviced a large area of the United States. Pigeons may be seen as a problem by many people today. However, in ancient Greece, they were used to mail people the results of the Olympics between cities. Alaska and Canada are known for their cold winters. In their early days, dogs were utilized to deliver mail because they’ve adapted to run over ice and snow. Maybe the most fascinating of all delivery animals is the camel. Australia imported camels from the Middle East and utilized them to transfer mail across vast deserts. They were ideally suited to this job because they can go without water for quite a while. Fortunately, we’ve developed faster and more reliable delivery systems, but we should not ignore the important roles these animals played in the past."
+   }
+  ],
+  "fromSet": "16~17",
+  "script": "How did people send mail before they had access to cars and trains? There were simple options out there, like delivery by animal. Horses were frequently utilized in delivery of letters and messages. In the 19th century, a mail express system that used horses serviced a large area of the United States. Pigeons may be seen as a problem by many people today. However, in ancient Greece, they were used to mail people the results of the Olympics between cities. Alaska and Canada are known for their cold winters. In their early days, dogs were utilized to deliver mail because they’ve adapted to run over ice and snow. Maybe the most fascinating of all delivery animals is the camel. Australia imported camels from the Middle East and utilized them to transfer mail across vast deserts. They were ideally suited to this job because they can go without water for quite a while. Fortunately, we’ve developed faster and more reliable delivery systems, but we should not ignore the important roles these animals played in the past.",
+  "words": 175,
+  "nTurns": 1,
+  "speakers": [
+   "M"
+  ],
+  "isDialogue": false
+ }
+]

@@ -1,0 +1,59 @@
+{
+  "$schema": "vocab-brand-drain/1",
+  "family": "list",
+  "facts": {
+    "setCount": 13,
+    "wordCount": 9917,
+    "coversPresent": 13,
+    "blueprints": [
+      "academic-awl",
+      "curriculum-grade",
+      "domain-specialty",
+      "exam-items",
+      "exam-list",
+      "freq-tier",
+      "level-band"
+    ],
+    "titles": [
+      "학술 어휘 NAWL",
+      "빈출 어휘 2,000",
+      "레벨 상급 (V8-V10)",
+      "수능 장문독해 빈출",
+      "교육과정 기본어휘 (고등)",
+      "수능 글의 목적·요지",
+      "레벨 중급 (V4-V7)",
+      "교육과정 기본어휘 (초등)",
+      "레벨 입문 (V1-V3)",
+      "수능 필수 2,000",
+      "교육과정 기본어휘 (중등)",
+      "의학 영어 (MOEL)"
+    ],
+    "duotoneNow": {
+      "light": {
+        "ink": "#50697F",
+        "paper": "#E1E8EF"
+      },
+      "dark": {
+        "ink": "#8AA8C0",
+        "paper": "#2D261F"
+      }
+    }
+  },
+  "setIds": [
+    "1d6a62d2-3e60-4aae-be28-d162c7d1ab39",
+    "325694e3-2cde-4a80-812b-62dbd2b58cc6",
+    "75156304-e224-48d6-8407-0c653fe21a04",
+    "8b4a4f99-94c8-489f-bb80-9733537010b1",
+    "8cb7cbfc-eada-46bf-b44c-9501810f7c4c",
+    "8feae103-20e6-4fed-ae51-924e1bf352e0",
+    "90dd9f80-8269-4fd5-bbf7-bbeaeae14779",
+    "9144d769-702a-4ab3-b418-1323a301eb93",
+    "bfcaaa6f-29f2-4cd5-a444-405a6e120a09",
+    "db3e3e50-55cf-41d7-a362-a8717a5cd24d",
+    "dc0d381b-8977-4774-9f58-319ebd2ac1f6",
+    "ec16ec5d-9127-4ea6-89b4-d226876ebdc7",
+    "f97a2158-bfa7-46f6-aa49-f47bdee855a8"
+  ],
+  "alreadyBranded": 0,
+  "instructions": "Claude Design 캔버스로 이 계열의 표지 규격을 확정한 뒤 `chunk-NN.out.json` 에 VocabBrandCanvas 한 개를 쓴다. **색 값(hex/rgb)을 담으면 import 가 거절한다** — 역할 이름(ink·paper·accent)만 쓴다. 값은 디자인 토큰이 정본이다."
+}

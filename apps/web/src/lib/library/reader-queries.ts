@@ -7,6 +7,10 @@
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 
+import { cleanWordWebRow } from '@/lib/dict/word-web'
+
+import { pagedSelect } from '@/lib/supabase/paged-select'
+
 export interface ChapterListItem {
   chapter_idx: number
   chapter_title: string | null
@@ -46,12 +50,35 @@ export interface WordLookup {
   cefrLevel: string | null
   vLevel: number | null
   exampleEn: string | null
-  /** 'direct' | 'inflection' | 'variant' | 'cluster' | 'not_found' | 'invalid' */
+  /**
+   * 'direct'|'inflection'|'variant'|'cluster'|'derivation'|'dialect'|'proper_noun'|
+   * 'coverage-clean'|'coverage-clean_en'|'spelling'|'normalized'|'normalized-coverage'|
+   * 'suggestion'|'not_found'|'invalid'
+   *
+   * 'proper_noun' (ADR 0004 D4a) — found=false 지만 not_found 와 다르다. 코퍼스에서
+   * 대문자로만 등장한 인명·지명이라 뜻을 주지 않는 것이지, 못 찾은 게 아니다.
+   */
   matchVia: string
   /** 'standard' | 'modern_advanced' | 'period_cultural' | 'archaic_literary' | 'phrase_unit' (V11 분류) */
   wordRegister: string | null
   /** 자주 함께 쓰는 표현 — 툴팁 절제 노출(Progressive Disclosure). 없으면 null */
   collocations: string[] | null
+  /**
+   * 예문 해석 — `meanings_ko[].example_ko` 중 `exampleEn` 과 같은 문장의 것.
+   * 읽는 중에 뜬 영어 예문은 **해석이 없으면 읽히지 않는다** — 모르는 낱말을 만나서 연 창이다.
+   * RPC 는 이 값을 주지 않으므로 연어와 같은 왕복에서 함께 가져온다(마이그레이션 회피).
+   */
+  exampleKo: string | null
+  /**
+   * 낱말 그물 — 파생어 · 유의어 · 반의어. 플래시카드 정답면(`CardBack`)과 **같은 것**을 보여 준다.
+   * 읽다가 만난 낱말과 카드에서 만난 낱말이 다르게 보이면 학습자가 두 곳을 다른 사전으로 여긴다.
+   * 없으면 null — 빈 줄이 툴팁을 흔들지 않게.
+   */
+  derived: string[] | null
+  synonyms: string[] | null
+  antonyms: string[] | null
+  /** 해소 언어 — 'en'(영어) | 'fr' 등(선제형 외국어 사전). 외국어면 배지 표기 */
+  lang: string | null
 }
 
 /**
@@ -77,6 +104,7 @@ export async function lookupWord(
         example_en: string | null
         match_via: string
         word_register: string | null
+        lang: string | null
       }
     | undefined
   if (!row) return null
@@ -84,17 +112,49 @@ export async function lookupWord(
   // 연어 보강 — lookup_word_meaning RPC 미반환이라 해소된 word 로 shared_dictionary 1행 조회.
   // 툴팁은 단어 1개 on-demand 라 추가 round-trip 허용. 실패해도 조회 결과는 그대로.
   let collocations: string[] | null = null
+  let exampleKo: string | null = null
+  // 낱말 그물 — 파생어·유의어·반의어. 플래시카드 정답면과 **같은 자리에서 같은 것**을 보여
+  // 준다(`CardBack`). 읽다가 만난 낱말과 카드에서 만난 낱말이 다르게 보이면 안 된다.
+  let derived: string[] | null = null
+  let synonyms: string[] | null = null
+  let antonyms: string[] | null = null
   if (row.found && row.resolved_word) {
     const { data: cd, error: cErr } = await client
       .from('shared_dictionary')
-      .select('collocations')
+      .select('collocations, meanings_ko, derived_forms, synonyms, antonyms')
       .eq('word', row.resolved_word)
       .maybeSingle()
     if (cErr) {
       console.warn('[reader/lookupWord] collocations fetch failed:', cErr.message)
     } else {
-      const c = (cd as { collocations: string[] | null } | null)?.collocations
+      const d = cd as {
+        collocations: string[] | null
+        meanings_ko: Array<{ example?: string; example_ko?: string }> | null
+        derived_forms: string[] | null
+        synonyms: string[] | null
+        antonyms: string[] | null
+      } | null
+      const c = d?.collocations
       collocations = c && c.length > 0 ? c : null
+
+      // 정제 규칙은 `lib/dict/word-web.ts` 한 곳에 있다 — 플래시카드 정답면도 같은 함수를
+      // 쓴다. 두 곳이 다르게 거르면 같은 낱말이 화면마다 다르게 보인다.
+      const head = row.resolved_word
+      derived = cleanWordWebRow(d?.derived_forms, head)
+      synonyms = cleanWordWebRow(d?.synonyms, head)
+      antonyms = cleanWordWebRow(d?.antonyms, head)
+
+      // RPC 가 준 예문과 **같은 문장**의 해석만 쓴다. 뜻이 여러 개일 때 아무 해석이나 붙이면
+      // 다른 뜻을 가르치게 된다 — 틀린 해석은 없는 해석보다 나쁘다.
+      const key = (s: string) => s.trim().toLowerCase().replace(/\s+/g, ' ')
+      const ex = (row.example_en ?? '').trim()
+      if (ex && Array.isArray(d?.meanings_ko)) {
+        const hit = d.meanings_ko.find(
+          (m) => (m?.example ?? '').trim() && key(m.example as string) === key(ex),
+        )
+        const ko = (hit?.example_ko ?? '').trim()
+        if (ko) exampleKo = ko
+      }
     }
   }
 
@@ -110,6 +170,11 @@ export async function lookupWord(
     matchVia: row.match_via,
     wordRegister: row.word_register,
     collocations,
+    exampleKo,
+    derived,
+    synonyms,
+    antonyms,
+    lang: row.lang,
   }
 }
 
@@ -121,15 +186,24 @@ export async function listChapters(
   client: SupabaseClient,
   libraryBookId: string
 ): Promise<ChapterListItem[]> {
-  const { data, error } = await client
-    .from('library_chapters_master')
-    .select(
-      'chapter_idx, chapter_title, group_label, source_href, word_count, paragraph_offsets, chapter_v_level'
-    )
-    .eq('library_book_id', libraryBookId)
-    .order('chapter_idx', { ascending: true })
+  // ⚠️ **끝까지 받는다.** 목차는 전량이 필요한데(한 장이라도 빠지면 그 장으로 갈 길이 없다)
+  //    PostgREST 는 한 응답에 1,000행까지만 준다 — 넘으면 오류 없이 잘린다.
+  //    지금 최대 보유는 Clarissa 528장으로 상한의 절반이다(실측 2026-08-30). 아직 안 닿지만
+  //    도서는 계속 들어오고, **잘린 목차는 "그 책에 그 장이 없다" 로 보인다** — 조용한 거짓말이다.
+  //    저장소 규칙(`lib/supabase/paged-select.ts`): 전량이 필요하면 이 헬퍼를 쓴다.
+  const data = await pagedSelect<Record<string, unknown>>(
+    (from, to) =>
+      client
+        .from('library_chapters_master')
+        .select(
+          'chapter_idx, chapter_title, group_label, source_href, word_count, paragraph_offsets, chapter_v_level'
+        )
+        .eq('library_book_id', libraryBookId)
+        .order('chapter_idx', { ascending: true })
+        .range(from, to),
+    'listChapters',
+  )
 
-  if (error) throw new Error(`listChapters failed: ${error.message}`)
   return (data ?? []).map((row) => {
     const r = row as {
       chapter_idx: number

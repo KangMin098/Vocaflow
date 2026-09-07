@@ -7,13 +7,23 @@ import { Search } from 'lucide-react'
 import { useState } from 'react'
 
 export interface SearchRowProps {
+  /** URL(`?q=`)로 들어온 검색어 — 목록은 걸러졌는데 입력칸이 비어 있으면 화면이 거짓말을 한다. */
+  initialQuery?: string
+  /** URL(`?level=`)로 들어온 난이도 묶음. 낱개 CEFR 은 호출부가 묶음으로 환산해 넘긴다. */
+  initialLevel?: string
   onSearchChange?: (query: string) => void
   onLevelChange?: (level: string) => void
   onSortChange?: (sort: string) => void
 }
 
-export function SearchRow({ onSearchChange, onLevelChange, onSortChange }: SearchRowProps) {
-  const [query, setQuery] = useState('')
+export function SearchRow({
+  initialQuery = '',
+  initialLevel = 'all',
+  onSearchChange,
+  onLevelChange,
+  onSortChange,
+}: SearchRowProps) {
+  const [query, setQuery] = useState(initialQuery)
 
   const handleQuery = (v: string) => {
     setQuery(v)
@@ -29,13 +39,16 @@ export function SearchRow({ onSearchChange, onLevelChange, onSortChange }: Searc
           value={query}
           onChange={(e) => handleQuery(e.target.value)}
           placeholder="단어 또는 의미로 검색..."
-          className="h-[38px] w-full rounded-md border border-bd bg-bg pl-[38px] pr-s-4 font-body text-sm text-t1 transition-all duration-fast placeholder:text-t4 focus:border-bdf focus:shadow-[0_0_0_4px_rgba(59,130,246,0.15)] focus:outline-none"
+          // placeholder 는 이름이 아니다 — 입력이 시작되면 사라진다(CLAUDE.md 절대 금지 항목).
+          aria-label="단어 검색"
+          className="h-11 w-full rounded-md border border-bd bg-bg pl-[40px] pr-s-4 font-body text-sm text-t1 transition-all duration-fast placeholder:text-t3 focus:border-bdf focus:shadow-[0_0_0_4px_rgba(59,130,246,0.15)] focus:outline-none"
         />
       </div>
 
       <select
+        defaultValue={initialLevel}
         onChange={(e) => onLevelChange?.(e.target.value)}
-        className="h-[38px] cursor-pointer appearance-none rounded-md border border-bd bg-bg bg-[url('data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%2210%22%20height=%2210%22%20viewBox=%220%200%2024%2024%22%20fill=%22none%22%20stroke=%22%23A1A1AA%22%20stroke-width=%222.5%22%3E%3Cpolyline%20points=%226%209%2012%2015%2018%209%22/%3E%3C/svg%3E')] bg-[right_11px_center] bg-no-repeat pl-[13px] pr-[32px] font-display text-[13px] font-semibold tracking-[-0.01em] text-t2 focus:border-bdf focus:outline-none"
+        className="h-11 cursor-pointer appearance-none rounded-md border border-bd bg-bg bg-[url('data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%2210%22%20height=%2210%22%20viewBox=%220%200%2024%2024%22%20fill=%22none%22%20stroke=%22%23A1A1AA%22%20stroke-width=%222.5%22%3E%3Cpolyline%20points=%226%209%2012%2015%2018%209%22/%3E%3C/svg%3E')] bg-[right_11px_center] bg-no-repeat pl-[12px] pr-[32px] font-display text-[13px] font-semibold tracking-[-0.01em] text-t2 focus:border-bdf focus:outline-none"
       >
         <option value="all">난이도: 전체</option>
         <option value="a">A1 ~ A2 · 기초</option>
@@ -45,7 +58,7 @@ export function SearchRow({ onSearchChange, onLevelChange, onSortChange }: Searc
 
       <select
         onChange={(e) => onSortChange?.(e.target.value)}
-        className="h-[38px] cursor-pointer appearance-none rounded-md border border-bd bg-bg bg-[url('data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%2210%22%20height=%2210%22%20viewBox=%220%200%2024%2024%22%20fill=%22none%22%20stroke=%22%23A1A1AA%22%20stroke-width=%222.5%22%3E%3Cpolyline%20points=%226%209%2012%2015%2018%209%22/%3E%3C/svg%3E')] bg-[right_11px_center] bg-no-repeat pl-[13px] pr-[32px] font-display text-[13px] font-semibold tracking-[-0.01em] text-t2 focus:border-bdf focus:outline-none"
+        className="h-11 cursor-pointer appearance-none rounded-md border border-bd bg-bg bg-[url('data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%2210%22%20height=%2210%22%20viewBox=%220%200%2024%2024%22%20fill=%22none%22%20stroke=%22%23A1A1AA%22%20stroke-width=%222.5%22%3E%3Cpolyline%20points=%226%209%2012%2015%2018%209%22/%3E%3C/svg%3E')] bg-[right_11px_center] bg-no-repeat pl-[12px] pr-[32px] font-display text-[13px] font-semibold tracking-[-0.01em] text-t2 focus:border-bdf focus:outline-none"
       >
         <option value="recent">최근 추가</option>
         <option value="alpha">알파벳 순</option>

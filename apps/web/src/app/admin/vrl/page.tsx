@@ -43,7 +43,7 @@ import { BacklogSection } from './_components/BacklogSection'
 import { QuickActionsSection } from './_components/QuickActionsSection'
 
 export const metadata = {
-  title: 'Dictionary DB Health — Vocaflow Admin',
+  title: '어휘 레벨 (VRL) — Vocaflow Admin',
   description: '사전DB 종합 모니터링 v3 — 9 차원 × 4 책임 × Critical Defects × Schema Evolution',
 }
 
@@ -56,8 +56,8 @@ export default async function VrlDashboardPage() {
     <div className="flex flex-col gap-6 p-6">
       <AdminPageHeader
         icon={Brain}
-        title="Dictionary DB Health"
-        description="사전DB 종합 모니터링 v3 — 플랫폼 4 파이프라인 (R1-R4) 의 기초 자산 점검"
+        title="어휘 레벨"
+        description="VRL 파이프라인이 만든 사전 데이터의 품질 — 플랫폼 4 파이프라인 (R1-R4) 의 기초 자산 점검"
       />
       <Suspense fallback={<DashboardFallback />}>
         <DashboardContent />
@@ -82,7 +82,7 @@ async function DashboardContent() {
       {/* fetch errors banner (silent failure 가시화) */}
       {fetchErrors.length > 0 && (
         <div
-          className="flex items-start gap-2.5 rounded-[var(--r-md)] border border-[var(--active)]/30 bg-[var(--warning-light)] p-3"
+          className="flex items-start gap-3 rounded-[var(--r-md)] border border-[var(--active)]/30 bg-[var(--warning-light)] p-3"
           role="alert"
         >
           <AlertTriangle
@@ -100,7 +100,7 @@ async function DashboardContent() {
                 <li key={i}>{e}</li>
               ))}
               {fetchErrors.length > 4 && (
-                <li className="text-[var(--t3)]">...외 {fetchErrors.length - 4}건</li>
+                <li className="text-[var(--t2)]">...외 {fetchErrors.length - 4}건</li>
               )}
             </ul>
           </div>
@@ -146,13 +146,26 @@ async function DashboardContent() {
       {/* ── Section 8 — Backlog + Quick Actions ── */}
       <section id="s8-backlog" className="flex flex-col gap-8 scroll-mt-16">
         <BacklogSection />
-        <QuickActionsSection />
+        {/* 이 카드들의 부제는 예전에 `L4 1,030 row 잔여` 처럼 **상수**였다 — 스냅샷이 움직여도
+            글자는 안 움직여, 다 끝난 일을 아직 남은 것처럼 읽게 했다. 실측만 넘긴다. */}
+        <QuickActionsSection
+          openConcerns={snapshot.raw.integrity.open}
+          unclassified={snapshot.raw.vrlClassification.totalUnclassified}
+          r3Score={snapshot.responsibilities.find((r) => r.id === 'R3')?.score ?? null}
+        />
       </section>
 
       {/* footer — v3 진행 표시 */}
-      <footer className="border-t border-[var(--bd)] pt-4 text-center font-mono text-[10px] text-[var(--t3)]">
-        Dictionary DB Health v3 · 8 sections · Overall {snapshot.overallScore} /
+      <footer className="border-t border-[var(--bd)] pt-4 text-center font-mono text-[10px] text-[var(--t2)]">
+        VRL 사전 데이터 품질 v3 · 8 sections · Overall {snapshot.overallScore} /
         100 · revalidate 60s
+        <br />
+        {/* 숫자의 성격을 화면이 스스로 말한다 — 추정치를 실측처럼 읽으면 0.5% 차이를
+            "줄었다/늘었다" 로 오독한다. */}
+        <span className="text-[var(--t3)]">
+          큰 표(2만 행 이상)의 건수는 플래너 추정치입니다(오차 &lt;1%). 정확 카운트는 이
+          크기에서 시간초과로 실패합니다 — 실측 근거는 `lib/admin/dashboard-stats.ts` 주석.
+        </span>
       </footer>
     </div>
   )

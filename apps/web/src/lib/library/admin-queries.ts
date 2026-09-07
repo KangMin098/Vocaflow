@@ -93,6 +93,20 @@ export interface LibraryBookAdminRow {
   /** NUMERIC(5,1) — supabase-js 는 string 반환 */
   lemma_coverage_pct: string | null
   /**
+   * v06.35 — lemma_coverage_pct 는 shared_dictionary 결합만 재서, 고어(ADR D4 로 등재 금지)·
+   * 외국어 원문 인용·인명/지명을 전부 "추출 실패" 로 표시했다. 아래 4개가 실제 판단 지표.
+   */
+  /** 인명·지명 (학습 단어가 아니므로 분모에서 제외) */
+  noise_count: number | null
+  /** lemma 는 없지만 고어/방언/철자/외국어 사전으로 해석된 행 */
+  resolved_other_count: number | null
+  /** 어떤 자산으로도 해석 안 되는 행 = 진짜 남은 공백 */
+  unresolved_count: number | null
+  /** (결합 + 노이즈 + 타사전 해석) / 전체 — NUMERIC(5,1) */
+  resolved_pct: string | null
+  /** 결합 / (전체 − 노이즈) — NUMERIC(5,1) */
+  learnable_coverage_pct: string | null
+  /**
    * 발행된 챕터 단어장 수 — `shared_word_sets` 중 category='library_book'
    * AND is_published=true AND curation_query->>'book_id' = books.id.
    * 0/null = admin 검수·발행 작업 안 됨, N = N개 챕터 단어장 발행됨.
@@ -195,28 +209,51 @@ export async function listAllAdminBooks(
   if (books.length === 0) return books
 
   // v06.34 — 추출/매핑 stats 머지 (v_book_extraction_stats)
+  // v06.35 — 해석률 계열 5개 추가. lemma_coverage_pct 단독으로는 고어·외국어·인명이 전부
+  //          "추출 실패" 로 보였다 (Les Misérables 89.5% → 실제 해석률 98.7%).
+  type ExtractionStats = Pick<
+    LibraryBookAdminRow,
+    | 'extracted_count'
+    | 'lemma_bound'
+    | 'lemma_unbound'
+    | 'lemma_coverage_pct'
+    | 'noise_count'
+    | 'resolved_other_count'
+    | 'unresolved_count'
+    | 'resolved_pct'
+    | 'learnable_coverage_pct'
+  >
+  const STATS_COLUMNS = [
+    'book_id',
+    'extracted_count',
+    'lemma_bound',
+    'lemma_unbound',
+    'lemma_coverage_pct',
+    'noise_count',
+    'resolved_other_count',
+    'unresolved_count',
+    'resolved_pct',
+    'learnable_coverage_pct',
+  ].join(', ')
+
   const ids = books.map((b) => b.id)
   const { data: statsRows } = await client
     .from('v_book_extraction_stats')
-    .select('book_id, extracted_count, lemma_bound, lemma_unbound, lemma_coverage_pct')
+    .select(STATS_COLUMNS)
     .in('book_id', ids)
 
-  const statsMap = new Map<
-    string,
-    Pick<LibraryBookAdminRow, 'extracted_count' | 'lemma_bound' | 'lemma_unbound' | 'lemma_coverage_pct'>
-  >()
-  for (const r of (statsRows ?? []) as Array<{
-    book_id: string
-    extracted_count: number | null
-    lemma_bound: number | null
-    lemma_unbound: number | null
-    lemma_coverage_pct: string | null
-  }>) {
+  const statsMap = new Map<string, ExtractionStats>()
+  for (const r of (statsRows ?? []) as unknown as Array<ExtractionStats & { book_id: string }>) {
     statsMap.set(r.book_id, {
       extracted_count: r.extracted_count,
       lemma_bound: r.lemma_bound,
       lemma_unbound: r.lemma_unbound,
       lemma_coverage_pct: r.lemma_coverage_pct,
+      noise_count: r.noise_count,
+      resolved_other_count: r.resolved_other_count,
+      unresolved_count: r.unresolved_count,
+      resolved_pct: r.resolved_pct,
+      learnable_coverage_pct: r.learnable_coverage_pct,
     })
   }
 
@@ -226,6 +263,11 @@ export async function listAllAdminBooks(
     b.lemma_bound = s?.lemma_bound ?? null
     b.lemma_unbound = s?.lemma_unbound ?? null
     b.lemma_coverage_pct = s?.lemma_coverage_pct ?? null
+    b.noise_count = s?.noise_count ?? null
+    b.resolved_other_count = s?.resolved_other_count ?? null
+    b.unresolved_count = s?.unresolved_count ?? null
+    b.resolved_pct = s?.resolved_pct ?? null
+    b.learnable_coverage_pct = s?.learnable_coverage_pct ?? null
   }
 
   // 발행된 챕터 단어장 카운트 머지 — shared_word_sets.curation_query->>'book_id' 별 count.
@@ -1059,13 +1101,32 @@ export async function extractBookVocabularyAdmin(
 // 9. 책 lemma 사전 바인딩 실패 진단 (원인별)
 // ─────────────────────────────────────────────
 
+/**
+ * 미바인딩 사유.
+ *
+ * 앞 5개 = **조치 대상**, 뒤 4개(v06.35 신규 3 + noise) = **설명됨, 조치 불요**.
+ * v06.35 이전에는 뒤쪽이 전부 genuine_miss/noise 로 뭉뚱그려져 Les Misérables 이
+ * 1,294건으로 보였다(실제 조치 대상 165건).
+ */
 export type UnboundReason =
-  | 'spelling_variant'  // US/UK 철자 변형 시 사전 히트 (variant_hit 에 canonical)
   | 'genuine_miss'      // 영단어로 보이나 사전 미등재 — seed 후보
-  | 'noise'             // 고유명사·로마숫자·단편 (학습 대상 아님)
+  | 'no_meaning'        // meaning_ko 비어있음
   | 'no_v_level'        // dict row 있으나 v_level NULL
   | 'not_classified'    // classified_by NULL (자동 분류 미완료)
-  | 'no_meaning'        // meaning_ko 비어있음
+  | 'spelling_variant'  // US/UK 철자 차이·방언 표기 — canonical 이 사전에 있음
+  | 'lexicon_only'      // v06.35 — lexicon_clean 에만 존재 (shared_dictionary 등재 대상 아님)
+  | 'morphology'        // v06.35 — 파생/굴절/복합/정규화로 base 도달 (재추출 시 base 로 surface)
+  | 'foreign'           // v06.35 — 영어가 아님 (resolved_lang 에 언어 코드)
+  | 'noise'             // 고유명사·로마숫자·단편 (학습 대상 아님)
+
+/** 조치가 필요한 사유 — 패널 헤더 건수의 기준. */
+export const ACTIONABLE_UNBOUND_REASONS: readonly UnboundReason[] = [
+  'genuine_miss',
+  'no_meaning',
+  'no_v_level',
+  'not_classified',
+  'spelling_variant',
+]
 
 export interface UnboundLemma {
   lemma: string
@@ -1097,6 +1158,13 @@ export interface UnboundLemma {
    * (processed/addable_modern/person_noise/geo_noise/spelling_variant/pending). 미수집 시 null.
    */
   archaic_class: string | null
+  /**
+   * v06.35 — lookup_word_meaning 해석 경로 (coverage-clean/derivation/dialect/…).
+   * reason 이 lexicon_only·morphology·foreign 일 때 "무엇이 해석했는지" 근거.
+   */
+  resolved_via: string | null
+  /** v06.35 — 해석 언어. 'en' 이 아니면 원문 외국어 인용 (fr/la/it/de/es …). */
+  resolved_lang: string | null
 }
 
 export async function findUnboundBookLemmas(

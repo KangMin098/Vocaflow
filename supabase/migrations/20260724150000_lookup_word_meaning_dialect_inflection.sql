@@ -1,0 +1,6 @@
+-- dialect·spelling tier × 굴절 합성 — 굴절형 방언(chilluns→chillun→children) 해소.
+-- variant를 s뿐 아니라 en_inflection_bases(s)로도 조회. exact variant 우선. 표준형 게이트 유지(정밀).
+-- 200권 +134 lemma/261 등장. 검증: chilluns→children·yallers→yellow·goils→girl·wuks→work·borryed→borrow. 회귀 0.
+-- 전체 정의는 DB 적용본 기준(20260724140000 위). 핵심 변경 = dialect(7.5)·spelling(7.6) WHERE:
+--   WHERE dm.variant = ANY(ARRAY[s] || en_inflection_bases(s)) ... ORDER BY (dm.variant = s) DESC, ...
+--   WHERE sn.variant = ANY(ARRAY[s] || en_inflection_bases(s)) ... ORDER BY (sn.variant = s) DESC, ...

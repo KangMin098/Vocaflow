@@ -1,0 +1,944 @@
+{
+  "chunk": 3,
+  "type_id": "R-TOPIC",
+  "type_name": "주제",
+  "analyses": [
+    {
+      "item_id": "2017#21",
+      "measured_ability": "지도의 정확성·객관성·권위를 서술하는 명사마다 붙어 있는 겉보기 한정어(aura of · appears to · apparent)를 놓치지 않고, 'X is what makes Y' 지목 문형이 가리킨 Y(powerful carriers of ideology)를 주제의 술어로 옮겨 오는 능력",
+      "design_intent": "첫 두 문장에 정확성·객관성·권위를 길게 늘어놓아 ①과 ④가 앞부분만으로 지지되게 만들되, 그 진술 전부에 aura/appears/apparent 라는 한정어를 달아 두었다. 곧 명사(accuracy·objectivity·authority)를 세는 학습자와 그 명사에 붙은 한정어를 세는 학습자를 가른다. 정답 선지 ⑤의 lying beneath 는 지문에 없는 표현이라 낱말 대조로는 닿지 않고, 셋째 문장의 인과(겉보기 객관성 → 신뢰 → 이데올로기 운반)를 따라가야만 닿는다.",
+      "answer_locus": {
+        "sentence_index": [
+          3,
+          5
+        ],
+        "quote": "The very trust that this apparent objectivity inspires is what makes maps such powerful carriers of ideology.",
+        "reasoning": "이 문장 하나가 선지 ⑤의 두 항을 모두 준다. 주어 자리의 apparent objectivity 가 '객관성'을, 술어 자리의 carriers of ideology 가 '이데올로기'를 주고, is what makes 가 둘의 방향을 겉보기 객관성 → 이데올로기로 못박는다. 곧 ⑤의 beneath(객관성 아래에 이데올로기가 깔려 있다)는 이 문장의 인과를 위치어로 바꿔 쓴 것이다. 이어지는 However unnoticeably ~ 문장과 마지막 예시(This land is and has long been ours)가 그 이데올로기의 내용을 채워 확인해 준다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "선지의 accurate 는 첫 문장 끝의 scientific accuracy 와 같은 낱말이고, 첫 문장이 precision of the lines · consistency · grid · legend and scale 처럼 '조건 목록'처럼 읽히는 항목을 다섯 개나 늘어놓는다. 첫 문장만 읽으면 이 목록이 정확한 지도의 요건으로 보인다.",
+          "how_to_reject": "첫 문장의 술어는 give the map an aura of scientific accuracy 다 — 그 항목들은 정확성을 만드는 조건이 아니라 정확성의 '분위기'를 준다고만 되어 있다. 둘째 문장의 Although subjective interpretation goes into the construction of these cartographic elements 가 그 항목들 자체에 주관이 들어간다고 못박아, 정확성의 요건으로 삼는 독법을 막는다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "인과 역전",
+          "why_tempting": "넷째 문장에 the political and social conditions under which they were made 가 있고 마지막 예시가 the enemies you most fear will 로 끝나 대립·분쟁의 그림이 떠오른다. political and social 두 낱말이 선지에 그대로 있어 근거가 있는 것처럼 보인다.",
+          "how_to_reject": "넷째 문장은 maps do indeed reflect ~ in addition to the political and social conditions under which they were made 로, 정치·사회 조건이 원인이고 지도가 그것을 반영하는 결과다. 선지는 지도가 갈등을 일으킨다며 화살표를 반대로 돌린다. 지문에 지도가 갈등을 낳았다는 서술은 한 문장도 없다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "무관",
+          "why_tempting": "둘째 문장의 subjective interpretation 이 선지의 subjectivity 와 같은 어근이고, 지도 제작에 주관이 개입한다는 사실 자체는 지문에 실제로 있다.",
+          "how_to_reject": "지문에서 creativity(창의성)라는 낱말도, 지도 제작을 창작으로 보는 서술도 한 번도 나오지 않는다. 둘째 문장의 subjective interpretation 은 곧바로 the finished map appears to express an authoritative truth 로 이어져, 주관의 개입은 창의성이 아니라 '객관적으로 보이는 완성물'을 설명하기 위해 언급된다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "부분 사실",
+          "why_tempting": "authority 는 둘째 문장 an authoritative truth 에, trust 는 셋째 문장 The very trust 에 실제로 있다. 두 낱말이 모두 지문에 있으니 선지 넷이 가장 근거가 많아 보인다.",
+          "how_to_reject": "둘째 문장의 authoritative 앞에는 appears to express 가, 셋째 문장의 trust 앞에는 this apparent objectivity 가 붙어 있어 둘 다 '겉보기'로 한정된다. 선지는 이 한정어를 떼고 trustworthy maps 라고 단정한다. 게다가 셋째 문장은 그 신뢰가 무엇을 낳는지까지 말한다 — carriers of ideology 이지 권위가 아니다."
+        },
+        {
+          "n": 5,
+          "verdict": "correct",
+          "why_correct": "lying beneath 라는 표현이 지문에 없어 낱말만 맞춰 보는 학습자에게는 가장 낯설게 느껴진다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "선지 다섯의 중심 명사만 뽑아 세로로 적는다 — conditions · conflicts · subjectivity · authority · ideologies. 지문을 읽기 전에 이 다섯 중 어느 것이 지문의 결론 자리에 놓이는지만 확인하면 되는 문제로 줄어든다",
+          "on_fail": "명사를 못 고르겠으면 선지에서 of 앞에 오는 낱말에 동그라미 친다 — 주제 선지는 대개 'A of B' 꼴이고 A가 결론 자리다"
+        },
+        {
+          "step": "지문을 훑으며 aura of · appears to · apparent · seem 처럼 겉보기를 나타내는 표현에 전부 표시한다. 이 표현이 붙은 명사(accuracy · objectivity · authoritative)는 필자가 인정한 사실이 아니므로 선지 후보에서 내려 둔다",
+          "on_fail": "겉보기 표현이 안 보이면 Although · However 로 시작하는 절을 찾아 그 절 안의 명사를 같은 방식으로 내려 둔다"
+        },
+        {
+          "step": "지목 문형 'X is what makes Y' 또는 'It is X that Y' 를 찾아 Y를 그대로 옮겨 적는다 — 여기서는 셋째 문장의 such powerful carriers of ideology",
+          "on_fail": "지목 문형이 없으면 do indeed · very 처럼 강조어가 붙은 문장의 목적어를 옮겨 적는다"
+        },
+        {
+          "step": "옮겨 적은 Y(ideology)가 중심 명사로 들어 있는 선지만 남긴다. 2단계에서 내려 둔 명사가 중심인 선지(① accurate · ④ authority)는 여기서 지운다",
+          "on_fail": "남는 선지가 없으면 옮겨 적은 Y를 다른 말로 바꾼 선지가 있는지 본다 — 정답 선지는 지문 낱말을 안 쓸 수 있다"
+        },
+        {
+          "step": "마지막 문장의 예시가 남은 선지의 어느 쪽 내용인지 대 본다 — This land is and has long been ours 같은 문구가 무엇의 예인지 지문이 직접 말해 준다(ideological messages)",
+          "on_fail": "예시가 두 선지에 걸쳐 보이면 예시를 소개하는 문장의 명사(ideological messages)를 그대로 쓴 선지를 고른다"
+        }
+      ],
+      "time_budget_sec": 95,
+      "difficulty": {
+        "predicted": 0.55,
+        "drivers": [
+          "첫 두 문장이 정답과 반대 방향으로 길다(정확성·객관성·권위)",
+          "정답 선지의 lying beneath 가 지문에 없는 표현이라 낱말 대조로 안 닿는다",
+          "오답 ④에 지문 낱말 두 개(authority · trust)가 동시에 들어 있다",
+          "cartographic · projection system 등 전문어가 첫 문장에 몰려 있어 앞부분에서 시간이 샌다"
+        ]
+      },
+      "required_vocab": [
+        "aura",
+        "apparent",
+        "objectivity",
+        "ideology",
+        "convey"
+      ],
+      "revised": true,
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "인용 문장이 지문 셋째 문장과 문자 그대로 일치한다",
+            "R-TOPIC 은 명제형이므로 §1-b (A) 라벨표만 썼다 — 위치형 라벨 사용 없음",
+            "관찰: 이 문항의 설계는 '역접 뒤를 본다' 로는 안 풀린다. However 는 넷째 문장에 있으나 결론은 셋째 문장이고, However unnoticeably 는 역접이 아니라 양보 부사구다. 절차 3단계가 역접 대신 지목 문형을 쓰게 한 것이 유형 설계와 맞다"
+          ],
+          "checked": [
+            "answer_locus.quote 를 corpus.json 2017#21 passage 와 문자열 대조",
+            "선지 5개 텍스트를 columns2/2017.txt 277~281행과 대조",
+            "design_intent 가 유형 일반론이 아니라 이 지문의 한정어 설계를 지목하는지 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "초안에서 ④를 '인과 역전' 으로 달았다가 ②와 라벨이 겹쳤다. ④의 실제 결함은 방향이 아니라 한정어(appears to · apparent) 탈락이므로 '부분 사실' 로 고쳤다 — 고친 뒤 오답 넷의 라벨이 어휘 함정 · 인과 역전 · 무관 · 부분 사실 4종으로 갈린다",
+            "why_tempting 넷이 각각 지문의 다른 문장(1 · 4 · 2 · 2~3)을 근거로 삼는지 확인했다",
+            "how_to_reject 넷 모두 문장 번호 또는 인용구로 위치를 지목한다"
+          ],
+          "checked": [
+            "오답 4개의 trap 라벨 중복 검사",
+            "선지 텍스트의 낱말이 why_tempting 서술에 실제로 등장하는지 대조(accurate · political and social · subjectivity · trustworthy)",
+            "how_to_reject 마다 지문 위치가 있는지 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "1~2단계는 지문을 안 읽은 상태에서 실행 가능하다(선지 명사 추출 · 겉보기 표현 표시). 3단계 이후만 지문을 요구한다",
+            "required_vocab 다섯 낱말이 모두 지문에 있고, 그중 aura · apparent 를 모르면 2단계가 통째로 무너지므로 정답에 직접 필요한 낱말이다",
+            "95초 안에 선지 5개(각 6~8낱말)와 지문 5문장을 처리할 수 있다 — 첫 문장이 길지만 2단계에서 표시만 하고 넘어가게 되어 있다"
+          ],
+          "checked": [
+            "solve_procedure 5단계를 지문 미독 상태 기준으로 실행 가능성 점검",
+            "금지 표현(흐름을 파악하면 · 문맥을 파악한다 등) 문자열 검색",
+            "required_vocab 5개를 지문에서 문자열 대조"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "2016#22",
+      "measured_ability": "같은 정의 문형(X is the belief that ~)이 두 번 반복될 때 그 공통 상위어(belief)를 주제의 주어로 올리고, 결과 표지(unite to cause · leads to · tempt ~ into)가 이끄는 마지막 명사구를 술어로 삼는 능력",
+      "design_intent": "지문 낱말이 culture · cultures · times · past · history 로 쏠려 있어 낱말 겹침으로 고르면 ① ② ③ 이 동시에 살아남는다. 정답 선지 ⑤ 에는 지문에 없는 낱말 biased 가 들어 있고 지문과 겹치는 낱말은 belief 와 past 둘뿐이다. 곧 소재어를 세는 학습자와 unjustified criticisms · misunderstanding 을 biased 로 묶어 읽는 학습자를 가른다. 또 twin · two 라는 수 표현을 미끼로 두어 '둘을 다룬 글'이라는 형태만으로 ④에 닿게 만든다.",
+      "answer_locus": {
+        "sentence_index": [
+          3,
+          9
+        ],
+        "quote": "Temporocentrism and ethnocentrism tempt moderns into unjustified criticisms of the peoples of the past.",
+        "reasoning": "마지막 문장이 선지 ⑤의 술어(biased interpretations of the past)를 그대로 준다 — tempt A into B 는 두 믿음이 원인이고 unjustified criticisms of the peoples of the past 가 결과임을 못박고, unjustified(부당한)가 biased(치우친)와 같은 부호의 판정어다. 선지의 주어(beliefs)는 셋째·다섯째 문장이 두 개념을 각각 is the belief that ~ 으로 정의하면서 공통 상위어로 내놓는다. 곧 정의 문형 둘이 주어를, 결과 문형 하나가 술어를 채워 선지 ⑤의 두 항이 모두 지문 문장에 대응한다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "무관",
+          "why_tempting": "첫 문장의 the sea of history 와 마지막 문장의 the peoples of the past 때문에 역사가 소재로 잡히고, 두 개념이 나오므로 '차이(distinct differences)' 라는 틀도 맞아 보인다.",
+          "how_to_reject": "지문은 역사를 기록하는 방식(ways of recording)을 한 번도 언급하지 않는다. 두 개념이 나오지만 셋째~여섯째 문장은 둘의 차이가 아니라 같은 꼴(is the belief that your X are the best / All other X are thus inferior)로 나란히 정의되고, 일곱째 문장은 unite to cause 로 둘을 하나로 묶는다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "반대 진술",
+          "why_tempting": "cultures 와 different 가 지문에 반복되고, 여러 문화를 다루는 글이라는 인상이 강하다.",
+          "how_to_reject": "여덟째 문장은 a total lack of perspective when dealing with past and / or foreign cultures 라고 말한다 — 지문의 인물들은 다른 문화에서 보편적 특징을 발견하기는커녕 자기 기준으로 재어 이해에 실패한다. 선지가 말하는 발견은 지문의 결과와 정반대다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "주체 역전",
+          "why_tempting": "ethnocentrism 의 정의(your culture is the best of all possible cultures)가 '자기 문화 옹호' 로 읽히고, 소재가 역사라 그 주체를 역사가로 채우기 쉽다.",
+          "how_to_reject": "지문이 지목하는 주체는 일곱째 문장의 individuals and cultures, 마지막 문장의 moderns 다 — 역사가(historians)라는 낱말은 지문에 없다. 첫 문장의 those seeking to understand and appreciate the past 도 역사가가 아니라 과거를 이해하려는 사람 일반이다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "부분 사실",
+          "why_tempting": "Twin sirens · These twin dangers 때문에 '둘' 이라는 수가 맞고, 두 개념이 관점(perspectives)이라는 점도 맞다. 선지의 절반이 지문과 겹친다.",
+          "how_to_reject": "지문은 두 개념을 sirens · dangers · reefs of misunderstanding 으로만 부르고 이점(pros)을 한 문장도 주지 않는다. 또 temporocentrism 은 시대에 관한 믿음이라 cross-cultural(문화 간)이 아니다 — 셋째 문장 your times are the best of all possible times 가 문화 축이 아님을 보여 준다."
+        },
+        {
+          "n": 5,
+          "verdict": "correct",
+          "why_correct": "biased 가 지문에 없는 낱말이라 낱말 대조로는 근거가 약해 보인다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "선지 다섯을 '무엇이(주어) + 무엇을 낳는가(술어)' 두 칸으로 쪼개 적는다 — differences / features / efforts / pros and cons / beliefs 가 주어 칸이다",
+          "on_fail": "쪼개지지 않는 선지는 맨 앞 명사만 적어 둔다"
+        },
+        {
+          "step": "지문에서 정의 문형(A is the belief that ~ · A is B)을 찾아 정의어 쪽 상위 명사에 동그라미 친다. 같은 상위 명사가 두 번 이상 쓰였으면 그것이 주어 칸의 정답이다 — 여기서는 belief 가 셋째·다섯째 문장에 반복된다",
+          "on_fail": "정의 문형이 없으면 지문에서 두 번 이상 되풀이되는 추상 명사를 찾아 대신 쓴다"
+        },
+        {
+          "step": "결과 표지(cause · leads to · results in · tempt ~ into)가 있는 문장을 찾아 표지 뒤 명사구를 옮겨 적는다 — unjustified criticisms of the peoples of the past",
+          "on_fail": "결과 표지가 없으면 마지막 문장의 목적어를 옮겨 적는다"
+        },
+        {
+          "step": "옮겨 적은 결과가 좋은 것인지 나쁜 것인지 부호(+/-)를 적고, 부호가 반대인 선지를 지운다 — universal features discovered · pros 는 + 라서 지워진다",
+          "on_fail": "부호가 안 정해지면 지문에 dangers · misunderstanding 같은 부정어가 몇 번 나오는지 세어 정한다"
+        },
+        {
+          "step": "남은 선지에서 지문에 없는 주체어(historians)나 지문에 없는 소재어(recording)가 있는지 지문을 눈으로 훑어 확인하고, 없으면 지운다",
+          "on_fail": "모두 남으면 2단계 상위 명사(belief)가 들어 있는 선지를 고른다"
+        }
+      ],
+      "time_budget_sec": 80,
+      "difficulty": {
+        "predicted": 0.75,
+        "drivers": [
+          "두 개념이 같은 문형으로 반복 정의돼 구조가 뚜렷하다",
+          "temporocentrism · ethnocentrism 이 지문 안에서 정의되므로 미리 알 필요가 없다",
+          "다만 첫 문장의 은유(sirens · reefs)가 길어 첫 줄에서 막히면 시간이 샌다",
+          "오답 ④의 twin/two 대응이 형태상 매력적이다"
+        ]
+      },
+      "required_vocab": [
+        "belief",
+        "inferior",
+        "unjustified",
+        "misunderstanding",
+        "perspective"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "초안의 answer_locus.quote 가 지문과 어긋났다 — criticisms 를 criticsisms 로 잘못 적었고 문장이 tempt moderns into unjustified criticsisms 에서 잘려 있었으며 reasoning 도 «임시» 한 낱말이었다. 지어낸 근거와 구별되지 않으므로 인용을 지문 마지막 문장 전체로 교체하고 reasoning 을 채운 뒤 재검수했다 — 교체 후 문자열이 지문과 일치한다",
+            "R-TOPIC 은 명제형이므로 §1-b (A) 라벨표만 썼다",
+            "관찰: 이 문항은 정의 문형(X is the belief that ~)이 두 번 반복되는 드문 구조라, 같은 청크의 다른 문항이 쓰는 표지(명령문·비례 구문)와 다른 자리를 봐야 한다"
+          ],
+          "checked": [
+            "answer_locus.quote 를 corpus.json 2016#22 passage 와 문자열 대조(교체 전 불일치 → 교체 후 일치)",
+            "선지 5개를 columns2/2016.txt 304~308행과 대조",
+            "reasoning 이 선지 ⑤의 두 항을 각각 어느 문장에서 얻는지 명시하는지 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "오답 라벨 4종(무관 · 반대 진술 · 주체 역전 · 부분 사실)이 모두 다르다",
+            "③에 '주체 역전' 을 쓴 것은 라벨표 주석의 정의(행위는 같은데 하는 사람이 바뀜)와 정확히 맞는 사례다 — 자기 문화를 우월시하는 행위는 지문에 있고 그 주체만 historians 로 좁혀졌다",
+            "④의 배제 근거를 두 겹으로 적었다(pros 부재 + cross-cultural 오분류) — 한 겹만으로는 '둘' 이라는 형태 매력을 못 이긴다"
+          ],
+          "checked": [
+            "trap 라벨 중복 검사",
+            "선지 텍스트 낱말(recording · universal features · historians · pros and cons)이 why_tempting 에 실제로 인용되는지 대조",
+            "how_to_reject 마다 문장 위치 지목 여부 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "4단계의 부호(+/-) 판정이 이 유형에서 가장 값싼 배제 수단이다 — 선지 둘을 한 번에 지운다",
+            "required_vocab 다섯 개가 모두 지문에 있고, 특히 inferior 와 unjustified 를 모르면 4단계 부호 판정이 불가능하다",
+            "80초 배분 타당 — 지문 9문장이지만 셋째~여섯째가 짧은 정의문이라 실제 처리량은 적다"
+          ],
+          "checked": [
+            "solve_procedure 5단계 실행 가능성 점검(지문 미독 상태 1~2단계)",
+            "금지 표현 문자열 검색",
+            "required_vocab 5개를 지문에서 문자열 대조"
+          ]
+        }
+      ],
+      "revised": true
+    },
+    {
+      "item_id": "2015#20",
+      "measured_ability": "첫 문장의 비교급 주장(A가 B보다 낫다)을 논지로 붙잡고, For example · For instance 로 이어지는 두 예시를 주제 후보에서 빼면서 그 두 예시가 같은 주장의 사례임을 확인하는 능력",
+      "design_intent": "예시를 철학(logic)과 과학(bubble chamber) 두 분야에서 하나씩 뽑아, 예시의 소재를 세면 ④ ⑤ 로, 예시 안 문장(Only after some time and struggle)의 어려움을 세면 ② 로 새게 만들었다. 논지 문장은 첫 문장 하나뿐이고 다섯째 문장에서 같은 표현(learning by doing)으로 한 번 더 나온다 — 곧 예시를 주제로 승격시키는 습관을 가르는 문항이다.",
+      "answer_locus": {
+        "sentence_index": [
+          1,
+          5
+        ],
+        "quote": "Many disciplines are better learned by entering into the doing than by mere abstract study.",
+        "reasoning": "비교급 better ~ than 이 두 방식(실행 vs 추상적 공부)의 우열을 첫 문장에서 못박고, 주어가 Many disciplines 이라 적용 범위도 한 분야가 아니라 여러 분야다. 선지 ③의 두 항이 여기서 그대로 나온다 — importance 는 better ~ than 의 우열 판정에서, learning by doing 은 다섯째 문장 This learning by doing is essential 이 같은 표현으로 되받아 확정한다. 뒤의 두 예시(logic · bubble chamber)는 이 한 문장을 각각 철학과 과학에서 예시할 뿐 새 논점을 더하지 않는다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "무관",
+          "why_tempting": "다섯째~여섯째 문장이 sciences 와 실험 장치(bubble chamber)를 다루고, 글 전체가 학습을 논해 '과학 교육' 이라는 틀이 그럴듯하게 맞는다.",
+          "how_to_reject": "history(역사·변천)에 해당하는 서술이 지문에 없다 — 시점을 나타내는 표현은 Only after some time and struggle 과 only after a good deal of observation 둘뿐이고, 둘 다 개인 학습자의 시간이지 교육사의 시간이 아니다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "범위 과대",
+          "why_tempting": "첫 문장이 mere abstract study 를 낮추고, 넷째 문장의 some time and struggle 이 학습의 고충으로 읽힌다. 한 방식을 낮춘 서술을 '학습 전략 일반의 한계' 로 넓히면 이 선지에 닿는다.",
+          "how_to_reject": "첫 문장은 abstract study 를 버리라고 하지 않고 better ~ than 으로 우열만 매긴다. 둘째 문장은 오히려 the most abstract as well as the seemingly more practical disciplines 로 추상적 분야까지 같은 주장에 포함시킨다 — 전략의 한계가 아니라 한 전략의 우위가 논점이다."
+        },
+        {
+          "n": 3,
+          "verdict": "correct",
+          "why_correct": "선지의 주어 learning by doing 은 다섯째 문장 「This learning by doing is essential」 에 같은 형태로 있고, 선지의 서술부 importance 는 첫 문장 「are better learned by entering into the doing than by mere abstract study」 의 비교급 better ~ than 이 실행을 추상적 공부 위에 놓은 데서 나온다. 첫 문장 주어가 Many disciplines 이라 이 우위 판정이 한 분야에 그치지 않으므로, 분야를 한정하지 않은 선지와 범위도 맞는다.",
+          "confirmed_at": {
+            "sentence_index": [
+              1,
+              5
+            ],
+            "note": "한 문장으로 확정되지 않는다 — 첫 문장이 서술부(우위 판정)를, 다섯째 문장이 주어(learning by doing 이라는 이름)를 준다. 선지가 지문 어구를 그대로 옮긴 평범한 명사구여서, 더 정교해 보이는 ④ ⑤ 를 확인하느라 시간을 쓰는 일이 잦다."
+          }
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "인과 역전",
+          "why_tempting": "넷째 문장에 the insights and intuitions 가, 다섯째~여섯째 문장에 sciences 와 관찰 장면이 있어 두 낱말이 모두 지문에서 나온다.",
+          "how_to_reject": "넷째 문장은 Only after some time and struggle does the student begin to develop the insights and intuitions 다 — 직관은 실행과 분투의 결과이지 원인이 아니다. 선지는 직관을 원인 자리에 놓아 화살표를 거꾸로 돌린다. 또 지문은 과학적 '발견' 이 아니라 학습(입자를 알아보게 됨)을 말한다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "부분 사실",
+          "why_tempting": "셋째 문장이 philosophical disciplines 를, 다섯째 문장이 sciences 를 실제로 든다. 두 분야가 나란히 나오므로 대조가 논점처럼 보인다.",
+          "how_to_reject": "셋째 문장은 For example, 다섯째 문장은 For instance 로 시작한다 — 두 분야는 대조 항이 아니라 같은 주장의 예시 둘이다. 둘째 문장 the most abstract as well as the seemingly more practical disciplines 가 이미 두 분야를 '차이' 가 아니라 '둘 다 해당' 으로 묶어 둔다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "지문의 첫 문장만 읽고 비교급·최상급·필수 표현(better ~ than · must · essential · the key to)이 있는지 본다. 있으면 그 문장을 논지 후보로 표시한다",
+          "on_fail": "첫 문장에 그런 표현이 없으면 마지막 문장에서 같은 표현을 찾는다"
+        },
+        {
+          "step": "For example · For instance · such as 로 시작하는 문장에 '예' 라고 적고 접어 둔다. 그 안에서만 나오는 고유 소재(logic · bubble chamber · particles)는 주제 후보에서 뺀다",
+          "on_fail": "예시 표지가 없으면 고유명사·장치명·숫자가 나오는 문장을 예시로 간주한다"
+        },
+        {
+          "step": "접지 않은 문장들 사이에서 같은 표현이 두 번 이상 되풀이되는지 확인한다 — 여기서는 첫 문장 learned by entering into the doing 과 다섯째 문장 This learning by doing 이 같은 개념을 되풀이한다. 되풀이된 표현을 그대로 옮겨 적는다",
+          "on_fail": "되풀이가 없으면 1단계에서 표시한 논지 후보 문장의 주어와 목적어를 옮겨 적는다"
+        },
+        {
+          "step": "옮겨 적은 표현이 그대로 들어 있는 선지를 고른다. 그 표현을 부정하거나(limitations) 예시 소재를 주어로 삼은 선지(science education · philosophy and science)는 지운다",
+          "on_fail": "그대로 쓴 선지가 없으면 옮겨 적은 표현의 결과가 아니라 원인 쪽에 놓인 선지를 찾아 배제한다"
+        }
+      ],
+      "time_budget_sec": 70,
+      "difficulty": {
+        "predicted": 0.85,
+        "drivers": [
+          "논지가 첫 문장에 있고 다섯째 문장이 같은 표현으로 되받는다",
+          "정답 선지가 지문 표현(learning by doing)을 글자 그대로 쓴다",
+          "다만 넷째·여섯째 문장의 도치(Only after ~ does the student · only after ~ do the sparks)가 구문상 걸림돌이다",
+          "선지 ⑤에 OCR 잔여 숫자 8이 붙어 있어 화면으로 풀 때 혼란을 줄 수 있다"
+        ]
+      },
+      "required_vocab": [
+        "disciplines",
+        "abstract",
+        "essential",
+        "intuitions",
+        "struggle"
+      ],
+      "revised": true,
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "초안은 인용을 다섯째 문장 This learning by doing is essential in many of the sciences. 로 잡았다. 지문에 실재하지만 in many of the sciences 라는 한정 때문에 주제 범위가 과학으로 좁아 보여, 적용 범위를 여러 분야로 여는 첫 문장으로 교체하고 다섯째 문장은 reasoning 안에서 확인 근거로 남겼다",
+            "코퍼스의 선지 ⑤ 텍스트에 페이지 번호 8이 섞여 있다(difference between philosophy and science 8) — columns2/2015.txt 253~256행 대조 결과 원문 선지는 8 없이 끝나고 8은 다음 페이지 번호다. 분석은 원문 기준으로 했고 이 사실을 difficulty.drivers 와 type_report.open_questions 에 남겼다",
+            "why_correct 를 다시 썼다 — 옛 서술은 이 정답을 왜 못 고르는가(학습자 심리)여서 정답 근거가 아니었다. 정답 선지를 성분으로 갈라 성분마다 지문 대응 어구를 지정하고, 인용은 corpus.json 2015#20 passage 에서 문자열로 복사했다. 옮긴 심리 관찰은 confirmed_at.note 에 남겼다."
+          ],
+          "checked": [
+            "교체한 인용을 corpus.json 2015#20 passage 와 문자열 대조",
+            "선지 5개를 columns2/2015.txt 249~253행과 대조 — ⑤의 잔여 숫자 확인",
+            "명제형 라벨표(A)만 사용했는지 확인",
+            "why_correct 안의 영어 어구를 corpus.json 2015#20 passage 와 문자열 대조",
+            "정답 선지를 성분(주어부·술어부·한정어)으로 갈라 성분마다 대응 어구가 지정됐는지 확인",
+            "why_tempting · how_to_reject · trap 이 정답 선지에 들어가 있지 않은지 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "오답 라벨 4종(무관 · 범위 과대 · 인과 역전 · 부분 사실)이 서로 다르다",
+            "④의 '인과 역전' 은 넷째 문장의 Only after ~ does 도치가 시간 순서를 명시한다는 점에 근거한다 — 문형 자체가 배제 근거라 검증 가능하다",
+            "⑤의 배제 근거를 예시 표지(For example / For instance)에 둔 것이 좋다. '둘이 나온다' 는 형태 매력은 표지로만 깨진다",
+            "새 why_correct 가 소거법에 기대지 않는지 다시 쟀다 — 다른 선지를 근거로 삼지 않고 정답 선지 자체의 성분 대응만으로 서 있다. 오답 4개의 trap·why_tempting·how_to_reject 는 이번에 손대지 않았고 라벨 4종이 여전히 서로 다르다."
+          ],
+          "checked": [
+            "trap 라벨 중복 검사",
+            "why_tempting 이 선지 텍스트의 낱말(science education · limitations · intuition · philosophy and science)을 실제로 지목하는지 대조",
+            "how_to_reject 마다 문장 위치 명시 여부 확인",
+            "why_correct 에 '나머지가 틀렸으므로' 류의 소거 서술이 없는지 확인",
+            "정답 선지의 성분 중 오답과 공유하지 않는 성분에도 근거가 붙었는지 대조",
+            "trap 라벨 4종 중복 재확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "2단계(예시 접기)가 이 문항 실점의 대부분을 막는다 — 오답 ① ④ ⑤ 셋이 전부 예시 문장에서 나온 낱말로 만들어졌다",
+            "required_vocab 에 bubble chamber 같은 예시 어휘를 넣지 않았다. 예시는 접는 것이 절차이므로 정답에 필요한 낱말이 아니다",
+            "70초 배분 타당 — 지문 6문장, 선지가 짧은 명사구다",
+            "지문을 아직 안 읽은 학생이 이 설명만 들고 그 자리를 직접 짚을 수 있는지 시연했다 — 인용 어구가 지문에 있는 그대로여서 눈으로 찾아 대조된다. confirmed_at.sentence_index 가 몇 번째 문장을 볼지 알려 주므로 찾는 시간이 준다."
+          ],
+          "checked": [
+            "solve_procedure 4단계 실행 가능성 점검",
+            "금지 표현 문자열 검색",
+            "required_vocab 5개를 지문에서 문자열 대조",
+            "인용 어구를 지문에서 눈으로 찾는 과정을 순서대로 시연",
+            "금지 표현 문자열 검색(why_correct 신규 서술 대상)",
+            "confirmed_at.sentence_index 가 가리키는 문장이 실제 근거 문장인지 대조"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "2015#21",
+      "measured_ability": "판단 문형(it is usually best to ~)이 내린 처방과 그 처방에 붙은 조건절(When there is no immediate danger)을 함께 옮겨, 놀이의 기능(cope with problems)을 주어로 처방을 술어로 삼는 능력",
+      "design_intent": "지문 낱말 play · danger · child · assist 를 오답 넷에 하나씩 흩어 두어, 낱말이 겹치는지만 보면 어느 선지에서도 근거가 생기게 만들었다. 결정은 두 자리에서만 난다 — 둘째 문장의 by playing them out ~ cope with them(놀이 = 문제 해결)과 다섯째 문장의 without interfering(개입 최소). 정답 선지는 이 둘을 'A as B with C' 로 붙여 놓았고, 오답 ④는 그중 개입 축만 반대로 뒤집는다.",
+      "answer_locus": {
+        "sentence_index": [
+          2,
+          5
+        ],
+        "quote": "When there is no immediate danger, it is usually best to approve of the child’s play without interfering.",
+        "reasoning": "판단 문형 it is usually best to 가 필자의 처방을 명시하고, without interfering 이 선지 ③의 with minimal intervention 을 그대로 준다. 조건절 When there is no immediate danger 가 처방을 무조건이 아닌 것으로 한정하므로 선지의 minimal(무개입이 아니라 최소 개입)과도 어긋나지 않는다. 선지 ③의 나머지 항(problem solving)은 둘째 문장 by playing them out, he may become able to cope with them 과 마지막 문장 finding the solution that will serve him best 가 채운다 — 곧 놀이의 정체와 어른의 태도가 각각 한 문장씩 근거를 갖는다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "선지의 danger 는 다섯째 문장 When there is no immediate danger 에 실제로 있고, playing 과 mental health(무의식 · 내면 과정)도 지문 어휘와 겹쳐 보인다.",
+          "how_to_reject": "다섯째 문장의 danger 는 개입 여부를 판단하는 조건이지 놀이가 끼치는 해악이 아니다 — no immediate danger 라는 부정 조건 안에 들어 있다. violent(폭력적) 이나 게임에 해당하는 낱말은 지문에 없고, 지문의 play 는 둘째 문장에서 cope with them 의 수단으로 긍정된다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "지문 밖 상식",
+          "why_tempting": "지문이 놀이의 이로움을 말하는 것은 맞고, '놀이 = 바깥놀이가 아이에게 좋다' 는 통념이 그 위에 얹히면 자연스럽게 읽힌다.",
+          "how_to_reject": "outdoors(바깥)에 해당하는 서술이 지문에 없다. 셋째 문장은 오히려 in symbolic ways ~ buried deep in his unconscious 로 놀이의 내면성을 말해, 장소가 아니라 상징적 기능이 논점임을 보여 준다."
+        },
+        {
+          "n": 3,
+          "verdict": "correct",
+          "why_correct": "선지의 주어 children’s play 는 다섯째 문장 「approve of the child’s play without interfering」 의 the child’s play 와 같고, 술어 자리의 problem solving 은 둘째 문장 「by playing them out, he may become able to cope with them」 과 마지막 문장 「finding the solution that will serve him best」 가 놀이의 기능으로 명시한다. 한정어 with minimal intervention 은 같은 다섯째 문장의 without interfering 이 주되, 앞에 붙은 조건 「When there is no immediate danger」 가 무개입이 아님을 남겨 minimal 이라는 정도 표현과 어긋나지 않는다.",
+          "confirmed_at": {
+            "sentence_index": [
+              2,
+              5,
+              6
+            ],
+            "note": "세 항의 근거가 갈린다 — 다섯째 문장은 어른의 태도만 주고, 놀이의 기능(problem solving)은 둘째·여섯째 문장이 준다. 선지가 세 항을 한꺼번에 담아 길어서, 지문이 그중 하나만 말했다고 느껴 이 선지를 건너뛰는 일이 있다."
+          }
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "반대 진술",
+          "why_tempting": "마지막 문장 Efforts to assist him in his struggles 가 개입을 화제로 삼고 while well intentioned 가 그 선의를 인정해, 개입의 필요를 말하는 글로 오독될 수 있다.",
+          "how_to_reject": "그 문장의 술어는 may divert him from ~ finding the solution that will serve him best 로, 개입이 해를 끼친다는 판정이다. 앞 문장은 아예 without interfering 을 최선으로 못박는다. 선지는 지문의 처방을 정확히 뒤집는다. 형제(siblings)나 다툼(disputes)이라는 낱말도 지문에 없다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "무관",
+          "why_tempting": "어른이 아이의 놀이에 어떻게 대할지가 다섯째~여섯째 문장의 화제여서 '부모 역할' 이라는 틀이 맞아 보인다.",
+          "how_to_reject": "지문이 말하는 아이의 성장은 신체가 아니라 내면이다 — 첫 문장 problems in living, 셋째 문장 inner processes ~ unconscious, 마지막 문장 finding the solution 이 모두 심리 층위다. physical development 에 해당하는 서술이 한 문장도 없고, 지문의 주어도 parents 가 아니라 we(us) 와 the child 다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "선지 다섯을 훑어 서로 반대되는 짝이 있는지 표시한다 — ③ with minimal intervention 과 ④ necessity of intervening 이 정면으로 반대다. 반대 짝이 보이면 지문에서 확인할 것은 그 축 하나로 준다",
+          "on_fail": "반대 짝이 없으면 선지마다 맨 앞 명사를 적어 소재 목록을 만든다"
+        },
+        {
+          "step": "지문에서 판단·처방 문형(it is best to · should · must · usually best · it is impossible)을 찾아 그 문장에 밑줄 긋고 통째로 옮겨 적는다",
+          "on_fail": "처방 문형이 없으면 마지막 문장에서 may · will 이 붙은 술어를 옮겨 적는다"
+        },
+        {
+          "step": "옮겨 적은 문장 앞에 When · If · Unless 로 시작하는 부분이 붙어 있으면 함께 적고 '조건' 이라고 표시한다. 조건이 붙었다는 것은 선지에서도 무조건 표현(never · always)이 아니라 정도 표현(minimal)이 맞다는 뜻이다",
+          "on_fail": "조건절이 없으면 usually · often 같은 빈도 부사를 대신 표시한다"
+        },
+        {
+          "step": "놀이가 무엇을 위한 것인지 말한 동사구를 앞부분에서 찾는다 — cope with them · finding the solution. 이 동사구를 명사로 바꾼 표현(problem solving)이 선지에 있는지 본다",
+          "on_fail": "동사구를 못 찾으면 지문에서 두 번 이상 나오는 명사(problems · solution)를 대신 쓴다"
+        },
+        {
+          "step": "남은 선지의 명사를 하나씩 지문에서 눈으로 찾아본다 — violent games · outdoors · siblings · physical 처럼 지문에 한 번도 안 나오는 낱말이 중심인 선지를 지운다",
+          "on_fail": "낱말이 다 있어 보이면 그 낱말이 부정 조건절(no immediate danger) 안에 있는지 확인한다 — 부정 조건 안의 낱말은 주제가 아니다"
+        }
+      ],
+      "time_budget_sec": 80,
+      "difficulty": {
+        "predicted": 0.8,
+        "drivers": [
+          "처방 문장이 다섯째 문장에 명시돼 있어 표지로 잡힌다",
+          "정답 선지가 세 항으로 길어 확인할 근거가 두 자리로 나뉜다",
+          "셋째 문장(unconscious · symbolic ways)이 추상적이라 중간에서 속도가 떨어진다",
+          "오답 ④가 마지막 문장의 assist 를 근거로 삼아 매력적이다"
+        ]
+      },
+      "required_vocab": [
+        "insurmountable",
+        "cope",
+        "interfering",
+        "divert",
+        "intentioned"
+      ],
+      "revised": true,
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "인용이 지문 다섯째 문장과 문자 그대로 일치한다(child’s 의 굽은 따옴표 포함)",
+            "관찰: 이 문항의 처방 문장은 글 끝이 아니라 5/6 지점에 있고 마지막 문장은 그 처방의 이유다. '마지막 문장이 결론' 이라는 습관은 여기서 ④로 이어진다 — design_intent 에 그 설계를 명시했다",
+            "why_correct 를 다시 썼다 — 옛 서술은 이 정답을 왜 못 고르는가(학습자 심리)여서 정답 근거가 아니었다. 정답 선지를 성분으로 갈라 성분마다 지문 대응 어구를 지정하고, 인용은 corpus.json 2015#21 passage 에서 문자열로 복사했다. 옮긴 심리 관찰은 confirmed_at.note 에 남겼다."
+          ],
+          "checked": [
+            "answer_locus.quote 를 corpus.json 2015#21 passage 와 문자열 대조",
+            "선지 5개 텍스트를 corpus.json choices 와 대조",
+            "명제형 라벨표(A) 사용 확인",
+            "why_correct 안의 영어 어구를 corpus.json 2015#21 passage 와 문자열 대조",
+            "정답 선지를 성분(주어부·술어부·한정어)으로 갈라 성분마다 대응 어구가 지정됐는지 확인",
+            "why_tempting · how_to_reject · trap 이 정답 선지에 들어가 있지 않은지 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "오답 라벨 4종(어휘 함정 · 지문 밖 상식 · 반대 진술 · 무관)이 서로 다르다",
+            "①에 '무관' 대신 '어휘 함정' 을 쓴 이유가 서술에 있다 — danger 가 지문에 실재하되 조건절 자리에 있다는 것이 이 선지의 정확한 결함이다. ⑤가 '무관' 이므로 두 라벨이 겹치지 않는다",
+            "⑤의 배제 근거로 문장 셋(1 · 3 · 6)을 든 것은 physical 이라는 부재를 증명해야 하기 때문이다 — 부재 증명은 근거를 여러 자리에서 모아야 한다",
+            "새 why_correct 가 소거법에 기대지 않는지 다시 쟀다 — 다른 선지를 근거로 삼지 않고 정답 선지 자체의 성분 대응만으로 서 있다. 오답 4개의 trap·why_tempting·how_to_reject 는 이번에 손대지 않았고 라벨 4종이 여전히 서로 다르다."
+          ],
+          "checked": [
+            "trap 라벨 중복 검사",
+            "선지 텍스트 낱말(violent games · outdoors · siblings · physical development)의 지문 내 존재 여부를 문자열로 확인",
+            "how_to_reject 마다 문장 위치 명시 여부 확인",
+            "why_correct 에 '나머지가 틀렸으므로' 류의 소거 서술이 없는지 확인",
+            "정답 선지의 성분 중 오답과 공유하지 않는 성분에도 근거가 붙었는지 대조",
+            "trap 라벨 4종 중복 재확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "초안 3단계는 '처방에 붙은 조건절을 한정어로 표시한다' 였는데, 조건절이라는 용어를 모르는 학생은 실행할 수 없다. When · If · Unless 라는 실제 낱말을 찾게 고쳤다",
+            "초안 5단계가 '지문에 없는 낱말을 지운다' 로만 되어 있어 없다는 것을 어떻게 확인하는지가 빠져 있었다. '선지의 명사를 하나씩 지문에서 눈으로 찾아본다' 로 행동을 명시했다",
+            "required_vocab 중 divert 를 모르면 ④의 배제가 불가능하다 — 마지막 문장의 판정어가 divert 하나에 걸려 있다",
+            "지문을 아직 안 읽은 학생이 이 설명만 들고 그 자리를 직접 짚을 수 있는지 시연했다 — 인용 어구가 지문에 있는 그대로여서 눈으로 찾아 대조된다. confirmed_at.sentence_index 가 몇 번째 문장을 볼지 알려 주므로 찾는 시간이 준다."
+          ],
+          "checked": [
+            "solve_procedure 5단계를 학생 실행 관점으로 재작성 후 재점검",
+            "금지 표현 문자열 검색",
+            "required_vocab 5개를 지문에서 문자열 대조(intentioned 는 well intentioned 안에 있음)",
+            "인용 어구를 지문에서 눈으로 찾는 과정을 순서대로 시연",
+            "금지 표현 문자열 검색(why_correct 신규 서술 대상)",
+            "confirmed_at.sentence_index 가 가리키는 문장이 실제 근거 문장인지 대조"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "2014B#24",
+      "measured_ability": "비례 구문(The more ~, the more ~, the better ~)이 이어 놓은 세 항(권위 전달 → 안정감 → 부모에게서 벗어남)을 순서 그대로 유지해 주제의 수단과 목적을 정하는 능력",
+      "design_intent": "결론이 마지막 문장(he will become clingy, or disobedient, or both)이 아니라 둘째 문장의 비례 구문에 있다. '마지막 문장이 결론' 이라는 대개 통하는 습관을 여기서 뒤집어 ④로 몰고, 지문의 safety · authority 와 이웃한 낱말 supervision · intervention 을 오답에 심어 근접 어휘로도 흔든다. 다섯 선지가 모두 '부모-아이' 라는 같은 소재라, 소재로는 하나도 못 지운다.",
+      "answer_locus": {
+        "sentence_index": [
+          2,
+          4
+        ],
+        "quote": "The more effectively they communicate that authority, the more secure the child feels, and the better able he is to move away from them toward a life of his own.",
+        "reasoning": "이 한 문장이 선지 ⑤의 세 항을 순서대로 담는다 — communicate that authority(권위를 전달하기) · the more secure the child feels(중간 고리) · move away from them toward a life of his own(독립). 비례 구문은 앞항을 늘리면 뒷항이 늘어난다는 방향까지 고정하므로, 수단은 권위의 전달이고 목적은 독립이라는 배치가 확정된다. 넷째 문장 it is impossible for a child to successfully release himself unless he knows exactly where his parents stand 가 같은 관계를 부정 조건으로 다시 진술해, 이 배치가 우연한 한 문장이 아님을 확인해 준다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "지문 밖 상식",
+          "why_tempting": "셋째 문장에 the safety of his parents’ love and authority 가 있어 safety 라는 낱말이 겹치고, '부모가 개입해 아이의 안전을 지킨다' 는 통념이 그 위에 바로 얹힌다.",
+          "how_to_reject": "셋째 문장의 safety 는 위협을 느낀 아이가 되돌아가는 심리적 안전지대이지 부모가 확보해야 할 신체 안전이 아니다 — whenever he feels threatened, he turns back toward 가 그 자리를 보여 준다. 게다가 지문의 처방은 개입이 아니라 첫 문장의 release himself from the control of his parents, 곧 통제에서 벗어나는 쪽이다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "부분 사실",
+          "why_tempting": "parental authority 는 첫·둘째·셋째 문장에 반복되는 지문의 핵심어라 선지 앞부분이 정확히 맞는다. 앞부분이 맞으면 뒷부분도 맞다고 넘기기 쉽다.",
+          "how_to_reject": "둘째 문장의 비례 구문이 권위 전달의 귀결로 지목하는 것은 move away from them toward a life of his own 이다. social skills(사교 능력)에 해당하는 서술은 지문에 없고, 마지막 문장이 실패의 결과로 드는 것도 clingy · disobedient 로 관계 능력이 아니라 독립 실패의 두 모습이다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "children’s independence 라는 목적이 지문과 맞고, supervision 은 authority 와 뜻이 이웃해 보인다. 목적 칸이 정답과 같아서 마지막까지 남는 선지다.",
+          "how_to_reject": "지문의 동사는 일관되게 communicate 다 — 둘째 문장 communicate that authority, 여섯째 문장 cannot communicate security to their child. 감독(supervision)에 해당하는 낱말은 없고, 첫 문장은 오히려 the control of his parents 에서 벗어나는 것을 목표로 둔다. 곧 수단 칸의 낱말이 바뀐 선지다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "범위 과소",
+          "why_tempting": "마지막 문장 he will become clingy, or disobedient, or both 에 disobedient 가 글자 그대로 있고, 그것이 글의 마지막 낱말 자리라 결론처럼 보인다.",
+          "how_to_reject": "마지막 문장은 앞의 If they don’t know where they stand 라는 부정 조건에 딸린 결과다 — 조건이 깨졌을 때의 두 증상 중 하나이지 글의 목적이 아니다. 둘째 문장이 지목하는 목적은 a life of his own 이고, 불복종 방지는 그 목적이 이루어질 때 따라오는 부산물이다."
+        },
+        {
+          "n": 5,
+          "verdict": "correct",
+          "why_correct": "선지가 가장 길어 군더더기처럼 보이고, ③과 목적 칸(independence)이 같아 둘 중 하나를 고르는 마지막 판단이 필요하다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "선지 다섯을 'X 를 하면 / Y 를 위해' 꼴로 쪼개 목적 칸만 모아 적는다 — safety · social skills development · independence · preventing disobedience · independence. 같은 목적이 둘 이상 나오면 그 목적이 지문의 목적일 가능성이 높으니 표시해 둔다",
+          "on_fail": "쪼개지지 않으면 선지에서 for · in 뒤에 오는 명사구만 적는다"
+        },
+        {
+          "step": "지문에서 The more ~, the more ~ · in order to · unless · impossible 같은 조건·비례 표현을 찾아 그 문장의 앞항과 뒷항을 화살표로 잇는다",
+          "on_fail": "그런 표현이 없으면 첫 문장의 In order to ~ 부분을 대신 화살표의 오른쪽 항으로 삼는다"
+        },
+        {
+          "step": "화살표의 맨 오른쪽 항(a life of his own · release himself)을 목적으로 확정하고, 1단계 목적 칸이 다른 선지를 지운다",
+          "on_fail": "오른쪽 항이 여러 개면 첫 문장과 겹치는 것을 고른다 — 첫 문장의 목적 표현이 글 전체의 목적이다"
+        },
+        {
+          "step": "남은 선지의 수단 칸을 지문 동사와 대 본다. 지문이 실제로 쓴 동사(communicate)가 들어 있는 선지를 고르고, 지문에 없는 동사(supervise · intervene)로 바뀐 선지는 지운다",
+          "on_fail": "동사가 안 보이면 선지의 수단 명사(authority · supervision · intervention)를 지문에서 하나씩 찾아본다"
+        },
+        {
+          "step": "If they don’t ~ 처럼 부정 조건으로 시작하는 문장 뒤의 결과(clingy · disobedient)는 실패 사례이므로 주제 후보에서 뺀다",
+          "on_fail": "부정 조건절을 못 찾으면 마지막 문장이 앞 문장의 결과인지 새 주장인지 In other words · Under the circumstances 같은 연결어로 판별한다"
+        }
+      ],
+      "time_budget_sec": 90,
+      "difficulty": {
+        "predicted": 0.6,
+        "drivers": [
+          "선지 다섯이 모두 같은 소재(부모-아이)라 소재로는 하나도 못 지운다",
+          "③과 ⑤가 목적 칸을 공유해 마지막 판단이 수단 칸의 동사 하나로 갈린다",
+          "결론이 마지막 문장이 아니라 둘째 문장에 있다",
+          "both literally and figuratively · where they stand 같은 비유 표현이 두 번 나온다"
+        ]
+      },
+      "required_vocab": [
+        "authority",
+        "secure",
+        "release",
+        "insecure",
+        "disobedient"
+      ],
+      "revised": true,
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "인용이 지문 둘째 문장과 문자 그대로 일치한다",
+            "선지 ⑤가 columns2/2014B.txt 에서 두 줄로 나뉘어 있으나(305~306행) 코퍼스 선지 텍스트는 온전하다 — 복원 불필요",
+            "관찰: 여섯 문항 중 유일하게 정답 근거가 글 앞부분(2/8)에 있는 문항이다. type_report 의 위치 통계에 반영했다"
+          ],
+          "checked": [
+            "answer_locus.quote 를 corpus.json 2014B#24 passage 와 문자열 대조",
+            "선지 5개를 columns2/2014B.txt 296~306행과 대조",
+            "명제형 라벨표(A) 사용 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "초안에서 ①을 '어휘 함정' 으로 달았는데 ③과 라벨이 겹쳤다. ①은 safety 라는 낱말 겹침보다 '부모 개입 = 안전 확보' 라는 바깥 통념이 작동하는 선지이므로 '지문 밖 상식' 으로 고쳤다 — 고친 뒤 라벨이 지문 밖 상식 · 부분 사실 · 어휘 함정 · 범위 과소 4종으로 갈린다",
+            "③은 정답과 목적 칸이 같은 유일한 오답이라 배제 근거를 동사 대조(communicate vs supervision) 한 겹으로 좁혀 두었다 — 학습자가 실제로 갈리는 자리가 거기다",
+            "④의 근거로 마지막 문장이 부정 조건절에 딸려 있음을 지목했다 — 위치가 아니라 종속 관계가 배제 근거다"
+          ],
+          "checked": [
+            "trap 라벨 중복 검사 및 재라벨",
+            "선지 텍스트 낱말(intervention · social skills · supervision · disobedient)의 지문 내 존재 여부를 문자열로 확인 — disobedient 만 지문에 있다",
+            "how_to_reject 마다 문장 위치 명시 여부 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "1단계에서 목적 칸을 모으면 independence 가 둘(③⑤) 나오는데, 이것이 오히려 '정답은 이 축 위에 있다' 는 신호가 된다는 점을 단계 안에 적었다",
+            "required_vocab 의 secure/insecure 쌍을 모르면 2단계 화살표가 이어지지 않는다 — 지문에서 안정감이 중간 고리이기 때문이다",
+            "90초 배분 타당 — 지문 8문장에 선지 다섯이 모두 길어 선지 읽기에만 25초가 든다"
+          ],
+          "checked": [
+            "solve_procedure 5단계 실행 가능성 점검",
+            "금지 표현 문자열 검색",
+            "required_vocab 5개를 지문에서 문자열 대조"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "2014A#25",
+      "measured_ability": "명령문(Break out of this pattern by ~)이 글의 처방임을 알아보고, 그 앞을 문제 상황 · 뒤를 효과로 나누어 처방의 목적어(휴식)와 조건구(시간 압박)를 함께 담은 한국어 선지를 고르는 능력",
+      "design_intent": "선지가 한국어라 영어 낱말 겹침이라는 값싼 단서가 통하지 않는다. 대신 지문의 소재(PC 게임 · 친구 · 죄책감 · 창의성)를 오답 넷에 하나씩 한국어로 번역해 심어 두어, 소재를 세는 학습자는 넷 다 근거를 찾는다. 결정은 명령문 한 줄과 그 안의 조건구 when you are under pressure 에서만 난다 — 곧 소재 대응이 아니라 처방 문형을 잡는지를 가른다.",
+      "answer_locus": {
+        "sentence_index": [
+          4,
+          8
+        ],
+        "quote": "Break out of this pattern by paying more attention to relaxation and getting more involved in living when you are under pressure.",
+        "reasoning": "동사원형으로 시작하는 명령문은 필자가 독자에게 내리는 처방이고, 이 문장 하나에 선지 ⑤의 두 항이 모두 들어 있다 — by 뒤의 relaxation 이 '휴식', 문장 끝의 when you are under pressure 가 '시간적 압박하에서' 다. 앞의 세 문장은 이 처방이 깨뜨리려는 this pattern(스스로를 벌하는 행동)이고, 뒤의 네 문장은 처방의 효과(more creative · mentally fitter · strength to do high-quality work · reduces the chances of developing stress-related disorders)라서 이 문장이 글의 축이다. 마지막 문장의 recreation 이 relaxation 을 되받아 처방 대상이 휴식임을 한 번 더 확정한다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "반대 진술",
+          "why_tempting": "둘째 문장 They delete all the games on their PC 와 다섯째 문장 ten minutes to play a game on your PC 에 PC 게임이 두 번 나온다. 소재 빈도만 보면 가장 자주 나오는 소재다.",
+          "how_to_reject": "지문은 게임을 문제로 보지 않는다 — 게임을 지우는 행위가 셋째 문장에서 less pleasure · less balance · work performance actually declines 로 이어지고, 다섯째 문장은 게임 10분을 처방의 예로 든다. 중독을 경계하는 글이 아니라 짧은 게임을 허용하는 글이므로 방향이 반대다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "무관",
+          "why_tempting": "둘째 문장의 they don’t spend time with their friends 와 일 이야기(work performance · high-quality work)가 겹쳐, 직장에서의 사람 관계라는 틀이 만들어진다.",
+          "how_to_reject": "friends 는 시간 압박에 몰린 사람이 끊어 버리는 활동 목록 셋 중 하나로 한 번 나올 뿐이고, 직장(workplace)이나 동료를 가리키는 말은 지문에 없다. 넷째 문장의 명령문도 대인 관계가 아니라 relaxation 을 목적어로 삼는다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "여섯째 문장 Your mind will become more creative ~ you will become mentally fitter 가 정신 능력 향상을 말해, 집중력과 학습 능력이라는 한국어 표현으로 바꿔 읽으면 그대로 들어맞아 보인다.",
+          "how_to_reject": "creative 와 mentally fitter 는 휴식의 효과 자리에 놓인 낱말이지 두 능력 사이의 관계를 논하는 말이 아니다 — 여섯째 문장의 during the break 가 그 낱말들이 무엇에 딸린 결과인지 못박는다. 학습(learning · study)에 해당하는 낱말도 지문에 없다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "범위 과소",
+          "why_tempting": "일곱째 문장 Free time without feelings of guilt 에 죄책감이 있고 마지막 문장에 stress-related disorders 가 있어, 죄책감과 정신 건강이 한 선지 안에서 이어지는 듯 보인다.",
+          "how_to_reject": "guilt 는 처방에 붙은 수식어(죄책감 없는 자유 시간)로 한 번 나올 뿐이고, 그 문장의 주어와 술어는 Free time ~ will give you the strength to do high-quality work 다. 죄책감이 무엇에 어떤 영향을 주는지는 지문이 다루지 않는다 — 수식어 하나를 주제로 올린 선지다."
+        },
+        {
+          "n": 5,
+          "verdict": "correct",
+          "why_correct": "선지의 «휴식» 은 넷째 문장 명령문의 by 구 「paying more attention to relaxation」 의 relaxation 이고, 조건 «시간적 압박하에서» 는 같은 문장 끝의 「when you are under pressure」 다. «필요성» 은 그 문장이 동사원형 Break out of 로 시작하는 명령문이라는 형태와, 마지막 문장 「a certain amount of recreation reduces the chances of developing stress-related disorders」 가 그 효과를 대는 데서 나온다. 세 항이 모두 한 명령문과 그 효과 문장 안에서 같은 역할로 대응한다.",
+          "confirmed_at": {
+            "sentence_index": [
+              4,
+              8
+            ],
+            "note": "넷째 문장이 처방(무엇을 · 언제)을, 여덟째 문장이 그 처방의 값어치(필요성)를 준다. 선지 다섯 중 유일하게 지문 소재 낱말(게임 · 친구 · 죄책감)을 옮기지 않은 선지라, 소재 빈도로 고르는 학습자에게는 근거가 가장 얇아 보인다 — 근거는 소재가 아니라 명령문 자리에 있다."
+          }
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "선지가 한국어이므로 다섯 개를 각각 한 낱말로 줄여 적는다 — 중독 · 대인관계 · 집중력 · 죄책감 · 휴식. 이 다섯 중 지문의 처방 문장에 나오는 것이 답이다",
+          "on_fail": "한 낱말로 안 줄면 각 선지에서 조사 '의' 앞의 명사를 적는다"
+        },
+        {
+          "step": "지문에서 동사원형으로 시작하는 문장(명령문)을 찾아 밑줄 긋는다 — 명령문은 필자가 독자에게 직접 내리는 처방이라 주제문 1순위다",
+          "on_fail": "명령문이 없으면 should · need to · must · it is best to 가 있는 문장을 대신 찾는다"
+        },
+        {
+          "step": "밑줄 친 명령문에서 by 뒤의 명사와 when · if 로 시작하는 부분을 각각 한국어로 옮겨 적는다 — relaxation → 휴식, when you are under pressure → 시간 압박 아래",
+          "on_fail": "by 구가 없으면 명령문의 목적어를 옮겨 적는다"
+        },
+        {
+          "step": "1단계 다섯 낱말 중 3단계에서 옮긴 두 낱말을 모두 담은 선지를 고른다. 한쪽만 담은 선지는 남기지 않는다",
+          "on_fail": "둘 다 담은 선지가 없으면 처방의 목적어(휴식) 쪽을 우선한다 — 조건은 배경이고 목적어가 주제의 중심이다"
+        },
+        {
+          "step": "남은 오답의 소재어가 지문 어디에서 나왔는지 확인한다 — 명령문 앞(문제 상황: 게임 삭제 · 친구)에서 나왔거나 수식어 자리(without feelings of guilt)에서 나온 낱말은 주제가 아니다",
+          "on_fail": "위치가 헷갈리면 그 낱말이 있는 문장이 명령문보다 앞인지 뒤인지만 표시한다 — 앞이면 문제, 뒤면 효과다"
+        }
+      ],
+      "time_budget_sec": 75,
+      "difficulty": {
+        "predicted": 0.85,
+        "drivers": [
+          "명령문이 글 중앙에 뚜렷하게 서 있어 처방 문장을 찾기 쉽다",
+          "선지가 한국어라 지문 이해 정도가 낮아도 대응이 가능하다",
+          "다만 오답 넷에 지문 소재가 하나씩 번역돼 들어 있어 소재 대조로 풀면 갈린다",
+          "코퍼스 선지 텍스트가 마지막 명사(심각성 · 중요성 · 관계 · 영향 · 필요성)에서 잘려 있어 화면으로 풀 때 뜻이 불완전하다"
+        ]
+      },
+      "required_vocab": [
+        "relaxation",
+        "recreation",
+        "guilt",
+        "pressure",
+        "declines"
+      ],
+      "body_recovered": true,
+      "revised": true,
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "코퍼스의 선지 다섯이 모두 마지막 명사에서 잘려 있었다(예: «시간적 압박하에서의 휴식의»). 잘린 선지로는 ①이 중독의 심각성인지 원인인지 알 수 없어 오답 분석이 성립하지 않아 반려했고, 회차 원문에서 복원한 뒤 재검수했다",
+            "columns2/2014A.txt 284~289행에서 온전한 선지를 복원했다 — ① 컴퓨터 게임 중독의 심각성 · ② 직장 내 대인 관계의 중요성 · ③ 집중력과 학습 능력 간의 관계 · ④ 죄책감이 정신 건강에 미치는 영향 · ⑤ 시간적 압박하에서의 휴식의 필요성. 복원한 텍스트로 오답 분석을 다시 썼고 body_recovered 를 표시했다",
+            "복원 후에도 정답은 ⑤로 평가원 정답표와 일치한다",
+            "관찰: 여섯 문항 중 유일하게 선지가 한국어인 회차다(2014A). 2014B 이후로는 이 유형 선지가 전부 영어다",
+            "why_correct 를 다시 썼다 — 옛 서술은 이 정답을 왜 못 고르는가(학습자 심리)여서 정답 근거가 아니었다. 정답 선지를 성분으로 갈라 성분마다 지문 대응 어구를 지정하고, 인용은 corpus.json 2014A#25 passage 에서 문자열로 복사했다. 옮긴 심리 관찰은 confirmed_at.note 에 남겼다."
+          ],
+          "checked": [
+            "answer_locus.quote 를 corpus.json 2014A#25 passage 와 문자열 대조 — 일치",
+            "columns2/2014A.txt 267~289행 원문 창에서 지문과 선지 전체를 재확인",
+            "복원한 선지 다섯이 오답 분석의 서술과 어긋나지 않는지 재대조",
+            "answer_locus.quote 재대조",
+            "why_correct 안의 영어 어구를 corpus.json 2014A#25 passage 와 문자열 대조",
+            "정답 선지를 성분(주어부·술어부·한정어)으로 갈라 성분마다 대응 어구가 지정됐는지 확인",
+            "why_tempting · how_to_reject · trap 이 정답 선지에 들어가 있지 않은지 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "오답 라벨 4종(반대 진술 · 무관 · 어휘 함정 · 범위 과소)이 서로 다르다",
+            "①에 '반대 진술' 을 쓴 근거가 확실하다 — 지문은 게임 삭제를 self-punishment 로 부르고 게임 10분을 처방으로 든다. 중독 경계와 정반대 방향이다",
+            "④ '범위 과소' 는 without feelings of guilt 가 수식어 자리라는 점에 근거한다. 위치가 근거라 검증 가능하다",
+            "복원 전 선지로 쓴 서술 넷을 복원 후 텍스트(심각성 · 중요성 · 관계 · 영향)로 다시 맞췄다 — ③의 '관계' 는 두 능력 사이의 관계를 묻는 것이라 how_to_reject 를 '효과 자리의 낱말이지 관계 서술이 아니다' 로 고쳤다",
+            "새 why_correct 가 소거법에 기대지 않는지 다시 쟀다 — 다른 선지를 근거로 삼지 않고 정답 선지 자체의 성분 대응만으로 서 있다. 오답 4개의 trap·why_tempting·how_to_reject 는 이번에 손대지 않았고 라벨 4종이 여전히 서로 다르다."
+          ],
+          "checked": [
+            "trap 라벨 중복 검사",
+            "복원한 한국어 선지의 각 명사가 지문 어느 문장의 어느 자리에서 왔는지 하나씩 위치 지정",
+            "how_to_reject 마다 문장 위치 명시 여부 확인",
+            "why_correct 에 '나머지가 틀렸으므로' 류의 소거 서술이 없는지 확인",
+            "정답 선지의 성분 중 오답과 공유하지 않는 성분에도 근거가 붙었는지 대조",
+            "trap 라벨 4종 중복 재확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "2단계(명령문 찾기)는 영어 실력이 낮은 학습자도 형태만으로 실행할 수 있어, 한국어 선지 문항에서 가장 값싼 절차다",
+            "required_vocab 다섯 개가 모두 지문에 있고, relaxation 과 recreation 이 같은 것을 가리킨다는 점을 모르면 마지막 문장의 확인이 안 된다",
+            "75초 배분 타당 — 선지가 한국어라 읽기에 10초면 충분하다",
+            "지문을 아직 안 읽은 학생이 이 설명만 들고 그 자리를 직접 짚을 수 있는지 시연했다 — 인용 어구가 지문에 있는 그대로여서 눈으로 찾아 대조된다. confirmed_at.sentence_index 가 몇 번째 문장을 볼지 알려 주므로 찾는 시간이 준다."
+          ],
+          "checked": [
+            "solve_procedure 5단계 실행 가능성 점검",
+            "금지 표현 문자열 검색",
+            "required_vocab 5개를 지문에서 문자열 대조(declines 는 work performance actually declines 안에 있음)",
+            "인용 어구를 지문에서 눈으로 찾는 과정을 순서대로 시연",
+            "금지 표현 문자열 검색(why_correct 신규 서술 대상)",
+            "confirmed_at.sentence_index 가 가리키는 문장이 실제 근거 문장인지 대조"
+          ]
+        }
+      ]
+    }
+  ],
+  "type_report": {
+    "type_id": "R-TOPIC",
+    "n_analyzed": 6,
+    "recurring_traps": [
+      {
+        "trap": "무관",
+        "count": 5,
+        "signature": "지문의 소재 영역에 어울리는 상투적 틀을 만들되 지문이 한 번도 다루지 않은 축으로 바꾼다 — creativity of map-making(2017 ③) · ways of recording history(2016 ①) · history of science education(2015#20 ①) · physical development(2015#21 ⑤) · 직장 내 대인 관계(2014A ②). 6문항 중 5문항에 하나씩 들어 있어 이 유형에서 가장 흔한 오답 형태다"
+      },
+      {
+        "trap": "부분 사실",
+        "count": 4,
+        "signature": "선지의 앞 절반만 지문과 맞고 뒤 절반이 지문에 없다 — trust/authority 는 맞고 trustworthy 라는 단정이 틀림(2017 ④) · '둘' 과 cons 는 맞고 pros 가 없음(2016 ④) · 두 분야가 나오는 건 맞고 대조가 아님(2015#20 ⑤) · parental authority 는 맞고 귀결이 social skills 가 아님(2014B ②). 넷 모두 앞 절반의 일치 때문에 마지막까지 남는다"
+      },
+      {
+        "trap": "어휘 함정",
+        "count": 4,
+        "signature": "지문 낱말을 그대로 쓰되 그 낱말이 놓였던 자리를 바꾼다 — accuracy 가 aura 의 목적어였는데 요건으로(2017 ①) · danger 가 조건절 안이었는데 놀이의 해악으로(2015#21 ①) · communicate 를 supervision 으로 바꿔치기(2014B ③) · creative/mentally fitter 가 효과 자리였는데 능력 간 관계로(2014A ③)"
+      },
+      {
+        "trap": "반대 진술",
+        "count": 3,
+        "signature": "지문이 처방한 것을 금지로, 문제라 부른 것을 미덕으로 뒤집는다 — universal features discovered(2016 ②, 지문은 lack of perspective) · necessity of intervening(2015#21 ④, 지문은 without interfering) · 게임 중독 경계(2014A ①, 지문은 게임 10분을 처방)"
+      },
+      {
+        "trap": "인과 역전",
+        "count": 2,
+        "signature": "지문이 결과 자리에 둔 것을 원인 자리로 옮긴다 — 정치·사회 조건이 지도에 반영되는데 지도가 갈등을 낳는다고(2017 ②) · 직관이 실행의 결과인데 발견의 원인이라고(2015#20 ④)"
+      },
+      {
+        "trap": "범위 과소",
+        "count": 2,
+        "signature": "부정 조건절의 결과나 수식어 하나를 주제로 승격시킨다 — disobedient(2014B ④, If they don’t ~ 뒤의 증상) · 죄책감(2014A ④, without feelings of guilt 라는 수식어)"
+      },
+      {
+        "trap": "지문 밖 상식",
+        "count": 2,
+        "signature": "소재에 따라붙는 통념을 주제로 만든다 — 놀이는 바깥놀이가 좋다(2015#21 ②) · 부모가 개입해 안전을 지킨다(2014B ①)"
+      },
+      {
+        "trap": "범위 과대",
+        "count": 1,
+        "signature": "한 방식의 우열 판정을 그 범주 전체의 한계로 넓힌다 — limitations of learning strategies(2015#20 ②)"
+      },
+      {
+        "trap": "주체 역전",
+        "count": 1,
+        "signature": "행위는 지문과 같은데 하는 사람이 좁혀진다 — 자기 문화를 우월시하는 주체가 individuals and cultures/moderns 인데 historians 로(2016 ③)"
+      }
+    ],
+    "answer_locus_pattern": "6문항 전부 **한 문장**이 정답을 확정했고, 그 문장을 알려 주는 것은 위치가 아니라 **문형**이었다 — 비교급 주장 better ~ than(2015#20, 1/6) · 비례 구문 The more ~, the more ~(2014B, 2/8) · 지목 문형 X is what makes Y(2017, 3/5) · 명령문 Break out of ~(2014A, 4/9) · 판단 문형 it is usually best to ~(2015#21, 5/6) · 결과 문형 tempt A into B(2016, 9/9). 위치는 1·2·3·4·5·9번째 문장으로 완전히 흩어져 있어 '첫 문장' 도 '마지막 문장' 도 규칙이 아니다. 그리고 역접 표지(However/But)는 6문항 중 2문항에만 논지 언저리에 있다(2017#21 However 는 넷째 문장이라 논지 문장보다 뒤, 2015#21 But 은 둘째 문장) — 곧 **역접 뒤를 본다는 습관은 이 유형에서 6문항 중 4문항을 놓친다.** R-TITLE 청크가 옛 회차에서 '앞쪽 명시 문형' 을 보고했는데, R-TOPIC 은 위치조차 흩어져 문형 표지가 유일한 안내판이다.",
+    "year_pattern": "청크가 2014A~2017 여섯 문항이라 최근 회차와의 직접 대비는 못 하지만, **이 4년 안에서만도 두 축이 갈린다.** (a) **정답 선지의 추상화 정도** — 2014A · 2014B · 2015#20 · 2015#21 네 문항은 정답 선지가 지문 표현을 거의 그대로 쓴다(learning by doing / without interfering→minimal intervention / communicating parental authority / relaxation→휴식). 반면 2016 · 2017 두 문항은 정답 선지의 핵심어가 지문에 없다(biased 는 2016 지문에 없고, lying beneath 는 2017 지문에 없다) — 지문의 인과를 상위어로 바꿔야 닿는다. 곧 **낱말 대조 전략은 2015 이전에서만 통하고 2016부터 깨진다.** 예상 정답률도 그 선을 따라 갈린다(2014~2015 네 문항 0.80~0.85 vs 2016~2017 두 문항 0.55~0.75). (b) **선지 언어** — 2014A 는 다섯 선지가 모두 한국어이고 2014B 부터는 전부 영어다. 한국어 선지 회차에서는 오답이 지문 소재를 한국어로 번역해 심는 방식으로만 만들어져, 영어 낱말 겹침 단서가 통째로 무력해진다. 다만 (a)의 표본이 2016·2017 두 문항뿐이라 단정하지 않는다 — open_questions 로 넘긴다.",
+    "procedure": [
+      {
+        "step": "지문보다 선지 다섯을 먼저 읽고 각 선지를 '무엇에 관한 글인가(주어 칸)' 와 '그래서 무엇이라는 글인가(술어 칸)' 두 칸으로 쪼개 적는다. 같은 낱말이 두 선지 이상에 나오면 표시해 둔다 — 그 축 위에서 정답이 갈린다",
+        "on_fail": "쪼개지지 않는 선지는 of · for · in 앞뒤 명사만 뽑아 적는다"
+      },
+      {
+        "step": "지문을 훑으며 논지 문형 여섯 가지에 밑줄 긋는다 — ① 비교급/최상급 주장(better ~ than · essential · the key to) ② 비례·조건 구문(The more ~, the more ~ · unless · impossible) ③ 지목 문형(It is X that Y · X is what makes Y) ④ 명령문(동사원형으로 시작) ⑤ 판단 문형(it is usually best to · should · must) ⑥ 결과 문형(leads to · cause · tempt ~ into · results in). 이 유형에서 논지는 위치가 아니라 이 여섯 문형 중 하나에 실려 있다",
+        "on_fail": "여섯 중 하나도 안 보이면 두 번 이상 되풀이되는 추상 명사를 찾아 그 명사가 든 문장을 논지로 삼는다"
+      },
+      {
+        "step": "밑줄 친 문장에서 겉보기 한정어(aura of · appears to · apparent · seem)와 조건절(When · If · Unless)을 따로 표시한다. 한정어가 붙은 명사는 필자가 인정한 사실이 아니므로 선지 후보에서 내리고, 조건절은 선지의 정도 표현(minimal · usually)과 맞는지 대는 데 쓴다",
+        "on_fail": "한정어가 없으면 Although · While 로 시작하는 절을 같은 방식으로 처리한다"
+      },
+      {
+        "step": "For example · For instance · such as 로 시작하는 문장과 고유 소재(장치명 · 학문명 · 물건 이름)를 예시로 접는다. 접은 부분에서만 나오는 낱말이 주어 칸에 있는 선지를 지운다",
+        "on_fail": "예시 표지가 없으면 첫 등장이 구체 명사인 문장을 예시로 간주한다"
+      },
+      {
+        "step": "밑줄 친 논지 문장의 주어와 술어를 선지의 두 칸에 각각 대 본다. 술어 칸이 어긋나는 선지를 먼저 지우고(부호가 반대인 것 포함), 남은 선지가 둘이면 주어 칸의 동사·명사를 지문이 실제로 쓴 낱말과 대조한다",
+        "on_fail": "지문 낱말을 그대로 쓴 선지가 없으면 논지 문장의 인과를 한 낱말로 요약해(예: 겉보기 객관성 → 이데올로기) 그 요약과 같은 말을 하는 선지를 고른다 — 2016년 이후 정답 선지는 지문에 없는 낱말을 쓴다"
+      }
+    ],
+    "failure_modes": [
+      "**소재 세기** — 오답 넷에 지문 소재가 하나씩 심겨 있어(2015#21 의 play/danger/assist, 2014A 의 게임/친구/죄책감) 낱말이 겹치는지만 보면 넷 다 근거가 생긴다. 6문항 24개 오답 중 20개가 지문에 실재하는 낱말 또는 그 번역을 담고 있었다",
+      "**한정어 탈락** — 지문이 aura of · appears to · apparent 로 한정한 명사를 선지가 단정으로 바꾼 것을 놓친다(2017 ④가 대표). 명사만 세면 오답 ④가 정답보다 근거가 많아 보인다",
+      "**마지막 문장 = 결론이라는 습관** — 2014B 의 마지막 문장은 부정 조건절에 딸린 증상이고, 2015#21 의 마지막 문장은 처방의 이유다. 두 문항 모두 그 습관이 특정 오답(④)으로 바로 이어지도록 설계돼 있다",
+      "**예시를 주제로 승격** — 2015#20 은 예시 소재(philosophy · science · bubble chamber)로 만든 오답이 둘(①④⑤ 중 셋)이다. For example 표지를 표시하지 않고 읽으면 예시가 주제 후보로 남는다",
+      "**정답 선지가 낯설어 건너뜀** — 2016 의 biased, 2017 의 lying beneath 는 지문에 없는 표현이라, 지문 낱말이 많은 오답 쪽이 안전해 보인다. 낱말 겹침이 근거라는 믿음이 정확히 반대로 작동하는 자리다"
+    ],
+    "time_budget_sec": 82,
+    "open_questions": [
+      "**연도 축의 표본이 모자란다.** 정답 선지가 지문 낱말을 안 쓰기 시작하는 경계를 2016으로 잡았으나 근거는 2016·2017 두 문항뿐이다. R-TOPIC 의 다른 청크(M2306 · M2706 계열)에서 '정답 선지의 핵심어가 지문에 있는가' 를 같은 방식으로 세어 대조해야 한다 — 있으면 이 유형의 학습 전략이 회차별로 갈린다는 뜻이다",
+      "**반려는 6문항 중 3건 나왔다** — 2016#22 setter(인용이 지문과 어긋남: 철자 오류 + 문장 절단 + reasoning 공란) · 2014A#25 setter(코퍼스 선지 다섯이 끝에서 잘려 오답 분석 불가) · 2015#21 tutor(절차에 «조건절»이라는 용어가 있어 학생이 실행 못 함, 부재 확인 행동도 빠짐). 셋 다 고쳐 pass 로 만들고 findings 에 무엇을 고쳤는지 남겼다. 다만 반려 셋이 모두 «텍스트 무결성·실행 가능성»에서 나왔고 **오답 라벨 중복(2017#21 ④ · 2014B#24 ①)은 analyst 가 스스로 고쳐 반려로 세어지지 않았다** — analyst 의 자체 수정이 반려 통계를 실제보다 깨끗하게 만든다. 다음 청크에서는 라벨 중복도 반려로 남기는 편이 정직하다",
+      "**코퍼스 파싱 결함 둘을 기록해 둔다.** (1) 2015#20 선지 ⑤ 끝에 페이지 번호 8이 붙어 있다(difference between philosophy and science 8). (2) 2014A#25 의 한국어 선지 다섯이 모두 마지막 명사에서 잘려 있다(심각성 · 중요성 · 관계 · 영향 · 필요성 누락). 둘 다 body_ok: true 로 들어와 있어 파서가 결함을 못 알아챈 경우다 — 한국어 선지 회차(2014A 이전)에 같은 잘림이 더 있는지 파서 쪽에서 확인할 값어치가 있다",
+      "**명령문 표지의 일반성**을 확인하지 못했다. 이 청크에서 명령문이 논지인 문항은 2014A#25 하나뿐인데, 한국어 선지 회차라 표본이 특수하다. 명령문이 주제문인 문항이 최근 회차에도 있는지 세어 봐야 절차 2단계의 ④ 항목을 유지할지 정할 수 있다"
+    ]
+  }
+}

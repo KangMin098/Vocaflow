@@ -1,40 +1,403 @@
 // apps/web/src/app/(main)/library/scripts/[bookId]/page.tsx
 //
-// article/book 열기 리졸버 (v06.208 — plan/hub article 링크 404 수정).
-//   - 발행 article id  → startArticleLearning(멱등: texts 변환) → /text/[textId]?mode=read
-//   - 그 외(도서 id·레거시 북마크) → /library/books/[id]
+// 짧은 글 — **공개 상세 + 학습 리졸버**.
 //
-// 배경: materialHref('article') = /library/scripts/{articleId} 인데 기존엔 무조건 도서로 redirect →
-//   /library/books/{articleId} → notFound()(404). 브라우즈 카드·처방은 startArticleLearning 을 거쳐
-//   정상이었으나 plan·TodayPlanCard 만 이 리졸버를 안 거쳐 깨졌음. 이제 article 을 여기서 리더로 연결.
+// ── 왜 공개 상세가 생겼나 (2026-08-26 실측) ─────────────────────────
+// 발행 글이 **160개** 있고, `library_articles` 의 RLS 는 published+`copyright_safe_in_kr` 를
+// **익명에게 연다**(`anyone_read_published_safe_articles`). 본문도 같은 표에 있다.
+// 즉 데이터도 정책도 라이선스도 공개 준비가 끝나 있었는데 **그것을 보여주는 주소가 없었다.**
+//
+// 이 라우트는 리졸버뿐이어서, 비로그인이 글 주소로 오면 `startArticleLearning` 이 실패하고
+// **목록으로 튕겼다**. 검색에서 특정 글로 온 사람이 갈 곳을 잃는다는 뜻이다.
+// 같은 날 sitemap 에 도서 13 · 만화 110 을 올렸는데 글 160 은 올릴 수조차 없었다 —
+// 가리킬 주소가 없었으니까.
+//
+// ── 동작 (도서 상세와 같은 갈래) ────────────────────────────────────
+//   로그인  → `startArticleLearning`(멱등) → `/text/[textId]?mode=read` 로 학습 시작
+//   비로그인 → **공개 미리보기**(제목·난이도·본문·출처) + 로그인 CTA
+//   글이 아님 → 도서 라우트로 (레거시 북마크 보존)
+//
+// ── 라이선스 ────────────────────────────────────────────────────────
+// 발행 160개는 PD 76 · CC-BY-SA 43 · CC-BY 16 · CC-BY-ND 25 다. CC 는 **출처 표시가 조건**이라
+// 화면과 구조화 데이터 양쪽에 원문 링크와 라이선스를 남긴다. `display_only`(ND 25)는
+// 개작이 금지된 것이지 표시가 금지된 것이 아니다 — 원문 그대로만 보여준다.
 
+import type { Metadata } from 'next'
+import Link from 'next/link'
 import { redirect } from 'next/navigation'
+import { ArrowLeft, ExternalLink } from 'lucide-react'
+import { cache } from 'react'
+import type { SupabaseClient } from '@supabase/supabase-js'
 
+import { RETURN_PARAM } from '@/lib/auth/redirect'
 import { startArticleLearning } from '@/lib/articles/start-learning'
+import {
+  fetchArticleVocabPreview,
+  type ArticleVocabPreview,
+} from '@/lib/library/article-vocab'
+import { formatReadingTime } from '@/lib/library/reading-time'
+import { articleJsonLd } from '@/lib/seo/structured-data'
 import { createClient } from '@/lib/supabase/server'
 
 interface PageProps {
   params: { bookId: string }
 }
 
-export default async function LibraryScriptsResolve({ params }: PageProps) {
-  const id = params.bookId
+interface ArticleRow {
+  id: string
+  title: string
+  author: string | null
+  content: string | null
+  source: string | null
+  source_url: string | null
+  feed_label: string | null
+  published_at: string | null
+  word_count: number | null
+  reading_minutes: number | null
+  cefr_level: string | null
+  article_v_level: number | null
+  license_class: string | null
+}
 
-  const supabase = await createClient()
-  const { data: article } = await supabase
+/** 라이선스 코드 → 화면 표기. 모르는 값은 그대로 보여준다(숨기면 출처 표시가 깨진다). */
+const LICENSE_LABEL: Record<string, string> = {
+  public_domain: '퍼블릭 도메인',
+  cc_by: 'CC BY 4.0',
+  cc_by_sa: 'CC BY-SA 4.0',
+  cc_by_nd: 'CC BY-ND 4.0',
+}
+
+/**
+ * 글 하나를 한 번만 읽는다 — `generateMetadata` 와 본문이 같은 요청에서 각각 부르면 왕복이 두 배다.
+ *
+ * 조건을 RLS 와 **같게** 맞춘다(`published` + `copyright_safe_in_kr`). 갈라지면
+ * 익명에게는 404 인 주소를 sitemap 이 광고하게 된다.
+ */
+const articleOnce = cache(async (id: string): Promise<ArticleRow | null> => {
+  const supabase = (await createClient()) as unknown as SupabaseClient
+  const { data } = await supabase
     .from('library_articles')
-    .select('id')
+    .select(
+      'id, title, author, content, source, source_url, feed_label, published_at, ' +
+        'word_count, reading_minutes, cefr_level, article_v_level, license_class',
+    )
     .eq('id', id)
     .eq('status', 'published')
+    .eq('copyright_safe_in_kr', true)
     .maybeSingle()
 
-  if (article) {
+  return (data as ArticleRow | null) ?? null
+})
+
+interface NextUpRow {
+  id: string
+  title: string
+  word_count: number | null
+  reading_minutes: number | null
+}
+
+/**
+ * **이어서 읽을 글** — 같은 V-Level 에서 분량이 가까운 순으로 셋.
+ *
+ * 왜 필요한가: 검색으로 글 하나에 도착한 사람의 출구가 로그인 CTA 하나뿐이었다.
+ * 읽고 나면 갈 곳이 없으니 떠난다. 그리고 크롤러도 마찬가지다 — 글 160개가
+ * sitemap 으로만 연결돼 있고 **서로를 가리키지 않으면** 묶음으로 읽히지 않는다.
+ *
+ * 왜 V-Level 인가: 피드(`feed_label`)는 흩어져 있고 가장 큰 묶음이 `null`(41개)이라
+ * 기준이 못 된다. 난이도는 이 제품이 이미 쓰는 축이고("이 글이 편했다면 다음은 이것"),
+ * §학습원칙 Desirable Difficulty 와 같은 이야기다.
+ *
+ * 정렬을 분량 근접으로 두는 이유: 무작위는 요청마다 달라져 캐시와 맞지 않고,
+ * 최신순은 같은 글만 계속 나온다. 방금 읽은 것과 **비슷한 크기**가 이어읽기에 가깝다.
+ */
+const nextUpOnce = cache(
+  async (id: string, vLevel: number | null, wordCount: number | null): Promise<NextUpRow[]> => {
+    const supabase = (await createClient()) as unknown as SupabaseClient
+
+    let q = supabase
+      .from('library_articles')
+      .select('id, title, word_count, reading_minutes')
+      .eq('status', 'published')
+      .eq('copyright_safe_in_kr', true)
+      .neq('id', id)
+      .limit(24)
+
+    if (vLevel != null) q = q.eq('article_v_level', vLevel)
+
+    const { data } = await q
+    const rows = (data as NextUpRow[] | null) ?? []
+    if (rows.length === 0) return []
+
+    const base = wordCount ?? 0
+    return [...rows]
+      .sort((a, b) => Math.abs((a.word_count ?? 0) - base) - Math.abs((b.word_count ?? 0) - base))
+      .slice(0, 3)
+  },
+)
+
+/**
+ * **이 글의 단어장** — 쿼리는 `lib/library/article-vocab.ts` 가 소유한다.
+ * 여기서 하는 일은 캐시뿐이다(한 요청 안에서 metadata 와 본문이 같은 값을 쓴다).
+ */
+const vocabOnce = cache(async (articleId: string) => {
+  const supabase = (await createClient()) as unknown as SupabaseClient
+  return fetchArticleVocabPreview(supabase, articleId)
+})
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const a = await articleOnce(params.bookId)
+  if (!a) return {}
+
+  const by = a.author ? ` — ${a.author}` : ''
+  const lead = (a.content ?? '').replace(/\s+/g, ' ').trim().slice(0, 150)
+
+  return {
+    title: a.title,
+    description: lead || `${a.title}${by}. 영어 원문을 어휘와 함께 읽습니다.`,
+    alternates: { canonical: `/library/scripts/${a.id}` },
+  }
+}
+
+export default async function LibraryScriptsResolve({ params }: PageProps) {
+  const id = params.bookId
+  const article = await articleOnce(id)
+
+  // 글이 아니면 도서 라우트로 — 레거시 북마크를 보존한다.
+  if (!article) redirect(`/library/books/${id}`)
+
+  const supabase = await createClient()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+
+  // 로그인 사용자는 곧장 학습으로. (실패하면 아래 미리보기로 떨어진다 — 목록으로 튕기지 않는다.)
+  if (user) {
     const res = await startArticleLearning(id)
     if (res.ok) redirect(`/text/${res.textId}?mode=read`)
-    // 학습 텍스트 생성 불가(미로그인/미발행 등) → 스크립트 브라우즈로 폴백
-    redirect('/library/scripts')
   }
 
-  // article 아님 → 도서 라우트(레거시 북마크 보존)
-  redirect(`/library/books/${id}`)
+  const [nextUp, vocab] = await Promise.all([
+    nextUpOnce(article.id, article.article_v_level, article.word_count),
+    vocabOnce(article.id),
+  ])
+
+  return <ArticlePreview a={article} isLoggedIn={!!user} nextUp={nextUp} vocab={vocab} />
+}
+
+function ArticlePreview({
+  a,
+  isLoggedIn,
+  nextUp,
+  vocab,
+}: {
+  a: ArticleRow
+  isLoggedIn: boolean
+  nextUp: NextUpRow[]
+  vocab: ArticleVocabPreview | null
+}) {
+  const paragraphs = (a.content ?? '')
+    .split(/\n{2,}/)
+    .map((p) => p.trim())
+    .filter(Boolean)
+
+  const readingTime = formatReadingTime(a.reading_minutes)
+  const licenseLabel = a.license_class
+    ? (LICENSE_LABEL[a.license_class] ?? a.license_class)
+    : null
+
+  return (
+    <div className="mx-auto flex w-full max-w-[720px] flex-col gap-5 px-4 py-6 md:px-6">
+      {/* 검색엔진에 **글로** 보이게 한다 — 제목만이 아니라 저자·출처·라이선스까지. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: articleJsonLd({
+            id: a.id,
+            title: a.title,
+            author: a.author,
+            sourceUrl: a.source_url,
+            sourceLabel: a.feed_label ?? a.source,
+            publishedAt: a.published_at,
+            wordCount: a.word_count,
+            licenseClass: a.license_class,
+          }),
+        }}
+      />
+
+      <div className="flex items-center justify-between gap-3">
+        <Link
+          href="/library/scripts"
+          className="inline-flex min-h-11 items-center gap-2 rounded-[var(--r-sm)] px-3 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+        >
+          <ArrowLeft size={14} aria-hidden />
+          Dispatches
+        </Link>
+        {readingTime && (
+          <span className="font-mono text-[11px] text-[var(--t2)]">읽는 시간 {readingTime}</span>
+        )}
+      </div>
+
+      <header className="flex flex-col gap-2">
+        <h1 className="m-0 text-balance font-display text-[24px] font-[800] leading-[1.25] tracking-[-0.02em] text-[var(--t1)] md:text-[30px]">
+          {a.title}
+        </h1>
+        <p className="m-0 flex flex-wrap items-center gap-x-2 gap-y-1 font-body text-[12px] text-[var(--t2)]">
+          {a.author && <span>{a.author}</span>}
+          {a.cefr_level && (
+            <span className="font-mono text-[11px]">{a.cefr_level}</span>
+          )}
+          {a.article_v_level != null && (
+            <span className="font-mono text-[11px]">V{a.article_v_level}</span>
+          )}
+          {a.word_count != null && a.word_count > 0 && (
+            <span className="font-mono text-[11px] tabular-nums">
+              {a.word_count.toLocaleString()} 단어
+            </span>
+          )}
+        </p>
+      </header>
+
+      {/*
+        ⚠️ `break-words` 는 장식이 아니라 **레이아웃 방어**다.
+           본문은 우리가 쓴 글이 아니라 외부 소스(VOA·NASA·위키…)에서 온 것이라,
+           줄바꿈할 곳이 없는 긴 토큰이 섞여 들어온다. 실측 2026-08-30:
+           발행 160편 중 **49편(31%)** 에 40자 이상 붙어 있는 토큰이 있고,
+           28편은 VOA 대본의 밑줄 구분선(`______…` 54자)이다.
+           그 한 줄이 폰(390px)에서 페이지 전체를 **161px 밀어냈다**
+           — 문단 하나가 넘치는 게 아니라 화면이 통째로 가로로 흔들린다.
+           `33-public-surface` 가 그걸 잡았고, 그 화면은 **로그인 없이 본문까지 열리는**
+           가장 값나가는 검색 착지점이다(anyone_read_published_safe_articles).
+           소스를 손보는 길도 있지만 그건 편마다 다르고 계속 들어온다 —
+           **읽는 쪽에서 한 번** 막는 것이 맞다.
+      */}
+      <article className="flex flex-col gap-4">
+        {paragraphs.length > 0 ? (
+          paragraphs.map((p, i) => (
+            <p
+              key={i}
+              className="m-0 break-words font-body text-[15px] leading-[1.85] text-[var(--t1)] md:text-[16px]"
+            >
+              {p}
+            </p>
+          ))
+        ) : (
+          <p className="m-0 font-body text-[13px] text-[var(--t2)]">
+            본문을 준비하고 있어요.
+          </p>
+        )}
+      </article>
+
+      {/* 출처·라이선스 — CC 는 표시가 **조건**이다. 장식이 아니라 준수 사항. */}
+      {(a.source_url || licenseLabel) && (
+        <footer className="flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-[var(--bd)] pt-4 font-body text-[11.5px] text-[var(--t3)]">
+          {a.source_url && (
+            <a
+              href={a.source_url}
+              target="_blank"
+              rel="noopener noreferrer nofollow"
+              // 푸터의 독립 링크라 문장 속이 아니다 — 44px 히트영역을 준다.
+              className="inline-flex min-h-[44px] items-center gap-1 underline decoration-[var(--bd)] underline-offset-2 transition-colors hover:text-[var(--t1)]"
+            >
+              출처 {a.feed_label ?? a.source ?? '원문'}
+              <ExternalLink size={11} aria-hidden />
+            </a>
+          )}
+          {licenseLabel && <span>{licenseLabel}</span>}
+        </footer>
+      )}
+
+      {/*
+        이 글의 단어장 — **이 화면의 두 번째 근거.**
+
+        발행 글 160개 중 135개에 자동 생성된 세트가 있다. 그런데 그 세트는 공용 카탈로그에서
+        일부러 빠져 있고("소스 컨텍스트에서만"), 그 소스 컨텍스트가 로그인 뒤 학습 화면뿐이라
+        **비로그인 방문자는 볼 곳이 없었다.** RLS 는 이미 열려 있다 — 데이터도 정책도 준비됐는데
+        화면만 없던 자리다.
+
+        왜 여기가 중요한가: 아래 CTA 는 "모르는 단어만 골라" 라는 **약속**이다.
+        약속만으로는 가입하지 않는다. 실제 낱말 여섯 개와 개수를 먼저 보여 주면 약속이 표본이 된다.
+      */}
+      {vocab && (
+        <section className="flex flex-col gap-3 border-t border-[var(--bd)] pt-4">
+          <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+            <h2 className="m-0 font-display text-[12px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
+              이 글의 단어장
+            </h2>
+            {vocab.wordCount > 0 && (
+              <span className="font-mono text-[11px] text-[var(--t3)]">
+                낱말 {vocab.wordCount}개
+              </span>
+            )}
+          </div>
+
+          {vocab.samples.length > 0 && (
+            <ul className="m-0 grid list-none grid-cols-1 gap-x-4 gap-y-1.5 p-0 sm:grid-cols-2">
+              {vocab.samples.map((w) => (
+                <li
+                  key={w.word}
+                  className="flex items-baseline gap-2 font-body text-[13px] leading-[1.6]"
+                >
+                  <span className="font-[600] text-[var(--t1)]">{w.word}</span>
+                  {w.meaningKo && (
+                    <span className="line-clamp-1 text-[var(--t3)]">{w.meaningKo}</span>
+                  )}
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
+      )}
+
+      {/*
+        이어서 읽을 글 — 이 화면의 **두 번째 출구**.
+
+        그전에는 출구가 로그인 CTA 하나뿐이었다. 읽고 나면 갈 곳이 없으니 떠난다.
+        크롤러도 같다 — 글 160개가 sitemap 으로만 이어져 있고 서로를 가리키지 않으면
+        묶음으로 읽히지 않는다. 같은 난이도의 이웃을 거는 것이 사람에게도 기계에도 맞다.
+      */}
+      {nextUp.length > 0 && (
+        <nav
+          aria-label="이어서 읽을 글"
+          className="flex flex-col gap-2 border-t border-[var(--bd)] pt-4"
+        >
+          <h2 className="m-0 font-display text-[12px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
+            비슷한 난이도로 이어 읽기
+          </h2>
+          <ul className="m-0 flex list-none flex-col gap-1 p-0">
+            {nextUp.map((n) => {
+              const t = formatReadingTime(n.reading_minutes)
+              return (
+                <li key={n.id}>
+                  <Link
+                    href={`/library/scripts/${n.id}`}
+                    className="flex min-h-11 items-center justify-between gap-3 rounded-[var(--r-sm)] px-3 font-body text-[13.5px] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+                  >
+                    <span className="line-clamp-1">{n.title}</span>
+                    {t && (
+                      <span className="shrink-0 font-mono text-[11px] text-[var(--t3)]">{t}</span>
+                    )}
+                  </Link>
+                </li>
+              )
+            })}
+          </ul>
+        </nav>
+      )}
+
+      {!isLoggedIn && (
+        <section className="flex flex-col items-start gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-4">
+          <p className="m-0 font-body text-[13px] leading-relaxed text-[var(--t2)]">
+            로그인하면 위 {vocab && vocab.wordCount > 0 ? `${vocab.wordCount}개` : '이 글의'} 낱말 중{' '}
+            <strong>모르는 것만 골라</strong> 단어장으로 만들고, 읽은 곳부터 이어서 볼 수 있어요.
+          </p>
+          <Link
+            href={`/login?${RETURN_PARAM}=${encodeURIComponent(`/library/scripts/${a.id}`)}`}
+            className="inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] bg-[var(--p)] px-5 font-display text-[13px] font-[700] text-[var(--on-p)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+          >
+            이 글로 학습 시작
+          </Link>
+        </section>
+      )}
+    </div>
+  )
 }

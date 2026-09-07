@@ -1,0 +1,21 @@
+{
+  "source": "2015 개정 교육과정 공통 <영어> 읽기 영역 성취기준 6개",
+  "provenance": "교육부 고시 제2015-74호 별책14 / 영어과 최소 학업 성취수준 진술문 표6 (jbecredit.kr 배포본에서 추출)",
+  "why": "수학 출제가 교육과정 개념에서 출발하듯 영어도 성취기준에서 출발한다. 평가원이 '2015 개정 교육과정에 의거' 를 공식 출제 방향으로 명시한다.",
+  "caveat": "유형→개념 대응은 3점 데이터를 보기 전에 정했다. 개념은 난이도를 서열화하지만 개념 안의 유형 간 편차는 설명하지 못한다(6개 중 4개에서 편차가 넓다) — 두 번째 차원이 필요하다.",
+  "difficulty_measured": "13개년 585문항의 3점 부여율. 3점은 실제 정답률이 아니라 출제자가 부여한 것이므로 '출제자가 무엇을 어렵다고 보는가' 의 기록이다.",
+  "concepts": [
+    { "id": "C5", "name": "필자의 심정이나 태도 파악", "rate": 0.0, "n": 22, "types": ["R-MOOD", "L-RELATION"] },
+    { "id": "C1", "name": "세부 정보 파악", "rate": 4.1, "n": 169, "types": ["R-FACT","R-NOTICE","R-CHART","X-FACT","L-NOTMENTION","L-ANNOUNCE","L-TABLE","L-SET-NOT","L-PICTURE","L-MONEY","L-TODO","L-REASON","L-FAVOR","L-MENTIONED"] },
+    { "id": "C2", "name": "줄거리·주제·요지 파악", "rate": 9.2, "n": 87, "types": ["R-GIST","R-TOPIC","R-TITLE","R-SUMMARY","X-TITLE","L-MAIN","L-TOPIC","L-SET-TOPIC"] },
+    { "id": "C4", "name": "필자의 의도·글의 목적 파악", "rate": 27.7, "n": 112, "types": ["R-PURPOSE","R-CLAIM","L-PURPOSE","L-OPINION","L-SITUATION","L-RESPONSE"] },
+    { "id": "C6", "name": "낱말·어구·문장의 함축적 의미 파악", "rate": 40.0, "n": 60, "types": ["R-IMPLY","R-VOCAB","X-VOCAB","R-REFER","X-REFER","R-GRAMMAR"] },
+    { "id": "C3", "name": "내용의 논리적 관계 파악", "rate": 44.4, "n": 135, "types": ["R-BLANK","R-BLANK2","R-ORDER","R-INSERT","R-IRRELEVANT","X-ORDER","X-BLANK","X-BLANK2"] }
+  ],
+  "within_concept_outliers": {
+    "C1": "지불 금액 54% — 유일하게 계산을 요구",
+    "C3": "장문 순서 0% · 무관한 문장 0% — 판단이 한 번",
+    "C4": "상황 후 할 말 85% · 짧은 응답 38% — 둘 다 듣기",
+    "C6": "지칭 추론 0% — 대명사를 되짚으면 되는 기계적 판단"
+  }
+}

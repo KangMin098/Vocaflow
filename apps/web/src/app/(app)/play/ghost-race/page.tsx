@@ -14,7 +14,9 @@ const Game = dynamic(
 export default function GhostRacePlayPage() {
   return (
     <Suspense fallback={<GameLoading message="게임 초기화 중…" />}>
-      <GamePlayScaffold module="ghost-race" label="Ghost Race" minWords={4} render={(p) => <Game {...p} />} />
+      {/* minWords 6 — 후반 랩은 보기 5개(정답 1 + 오답 4)를 쓰고, 중복 제거 큐가 한 랩(12구간)
+          안에서 같은 단어를 반복하지 않으려면 최소 6개가 필요하다. */}
+      <GamePlayScaffold module="ghost-race" label="Ghost Race" minWords={6} render={(p) => <Game {...p} />} />
     </Suspense>
   );
 }

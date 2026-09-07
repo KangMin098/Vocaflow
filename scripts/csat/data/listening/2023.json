@@ -1,0 +1,774 @@
+[
+ {
+  "exam": "2023",
+  "no": 1,
+  "stem": "다음을 듣고, 남자가 하는 말의 목적으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Hello, Lockwood High School students. This is your school librarian, Mr. Wilkins. I’m sure you’re aware that our school library is hosting a bookmark design competition. I encourage students of all grades to participate in the competition. The winning designs will be made into bookmarks, which will be distributed to library visitors. We’re also giving out a variety of other prizes. So don’t let this great opportunity slip away. Since the registration period for the bookmark design competition ends this Friday, make sure you visit our school library to submit your application. Come and participate to display your creativity and talents."
+   }
+  ],
+  "script": "Hello, Lockwood High School students. This is your school librarian, Mr. Wilkins. I’m sure you’re aware that our school library is hosting a bookmark design competition. I encourage students of all grades to participate in the competition. The winning designs will be made into bookmarks, which will be distributed to library visitors. We’re also giving out a variety of other prizes. So don’t let this great opportunity slip away. Since the registration period for the bookmark design competition ends this Friday, make sure you visit our school library to submit your application. Come and participate to display your creativity and talents.",
+  "words": 101,
+  "nTurns": 1,
+  "speakers": [
+   "M"
+  ],
+  "isDialogue": false
+ },
+ {
+  "exam": "2023",
+  "no": 2,
+  "stem": "대화를 듣고, 여자의 의견으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Honey, do you want some apples with breakfast?"
+   },
+   {
+    "who": "W",
+    "text": "Sounds great. Can you save the apple peels for me?"
+   },
+   {
+    "who": "M",
+    "text": "Why? What do you want them for?"
+   },
+   {
+    "who": "W",
+    "text": "I’m going to use them to make a face pack. Apple peels are effective for improving skin condition."
+   },
+   {
+    "who": "M",
+    "text": "Where did you hear about that?"
+   },
+   {
+    "who": "W",
+    "text": "I recently read an article about their benefits for our skin."
+   },
+   {
+    "who": "M",
+    "text": "Interesting. What’s in them?"
+   },
+   {
+    "who": "W",
+    "text": "It said apple peels are rich in vitamins and minerals, so they moisturize our skin and enhance skin glow."
+   },
+   {
+    "who": "M",
+    "text": "That’s good to know."
+   },
+   {
+    "who": "W",
+    "text": "Also, they remove oil from our skin and have a cooling effect."
+   },
+   {
+    "who": "M",
+    "text": "Wow! Then I shouldn’t throw them away."
+   },
+   {
+    "who": "W",
+    "text": "Right. Apple peels can help improve our skin condition."
+   },
+   {
+    "who": "M",
+    "text": "I see. I’ll save them for you."
+   }
+  ],
+  "script": "Honey, do you want some apples with breakfast? Sounds great. Can you save the apple peels for me? Why? What do you want them for? I’m going to use them to make a face pack. Apple peels are effective for improving skin condition. Where did you hear about that? I recently read an article about their benefits for our skin. Interesting. What’s in them? It said apple peels are rich in vitamins and minerals, so they moisturize our skin and enhance skin glow. That’s good to know. Also, they remove oil from our skin and have a cooling effect. Wow! Then I shouldn’t throw them away. Right. Apple peels can help improve our skin condition. I see. I’ll save them for you.",
+  "words": 122,
+  "nTurns": 13,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2023",
+  "no": 3,
+  "stem": "대화를 듣고, 두 사람의 관계를 가장 잘 나타낸 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Hello, Mr. Roberts. I appreciate you taking the time to share your experience and knowledge."
+   },
+   {
+    "who": "M",
+    "text": "My pleasure, Ms. Lee. I’ve enjoyed all your bestselling books. So, I’m excited to help you."
+   },
+   {
+    "who": "W",
+    "text": "Thanks. Since I’m writing about world-class athletes, I wanted to hear how you’ve trained children who became Olympic swimming champions."
+   },
+   {
+    "who": "M",
+    "text": "Then we should start with what I observe on the first day of my swimming classes."
+   },
+   {
+    "who": "W",
+    "text": "Do some children stand out right away?"
+   },
+   {
+    "who": "M",
+    "text": "Yes. Some kids are able to pick up my instructions quickly and easily."
+   },
+   {
+    "who": "W",
+    "text": "I see. So did many of those kids go on to become Olympic champions?"
+   },
+   {
+    "who": "M",
+    "text": "Well, practicing is much more important. Those who consistently practiced made great improvements and ultimately became champions."
+   },
+   {
+    "who": "W",
+    "text": "This is good insight I can use in my book."
+   },
+   {
+    "who": "M",
+    "text": "I hope it helps."
+   }
+  ],
+  "script": "Hello, Mr. Roberts. I appreciate you taking the time to share your experience and knowledge. My pleasure, Ms. Lee. I’ve enjoyed all your bestselling books. So, I’m excited to help you. Thanks. Since I’m writing about world-class athletes, I wanted to hear how you’ve trained children who became Olympic swimming champions. Then we should start with what I observe on the first day of my swimming classes. Do some children stand out right away? Yes. Some kids are able to pick up my instructions quickly and easily. I see. So did many of those kids go on to become Olympic champions? Well, practicing is much more important. Those who consistently practiced made great improvements and ultimately became champions. This is good insight I can use in my book. I hope it helps.",
+  "words": 132,
+  "nTurns": 10,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2023",
+  "no": 4,
+  "stem": "대화를 듣고, 그림에서 대화의 내용과 일치하지 않는 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Hi, Jane. What are you looking at on your phone?"
+   },
+   {
+    "who": "W",
+    "text": "Hi, Brian. It’s a picture I took at Grand Boulder National Park. I went hiking there last weekend."
+   },
+   {
+    "who": "M",
+    "text": "Let me see. I like the bear statue wearing the check pattern jacket."
+   },
+   {
+    "who": "W",
+    "text": "It’s cute, right?"
+   },
+   {
+    "who": "M",
+    "text": "Yeah. There’s a park map between the lights. It seems to include useful information."
+   },
+   {
+    "who": "W",
+    "text": "It helps me pick a different trail each time I go hiking. Do you see the two flowerpots in front of the cabin?"
+   },
+   {
+    "who": "M",
+    "text": "Yes. They look beautiful. Oh, there’s a round table by the path."
+   },
+   {
+    "who": "W",
+    "text": "I had lunch there."
+   },
+   {
+    "who": "M",
+    "text": "What a nice place to enjoy lunch! Look at the bird on the tree branch."
+   },
+   {
+    "who": "W",
+    "text": "Isn’t it lovely? I love going there and being close to nature."
+   }
+  ],
+  "script": "Hi, Jane. What are you looking at on your phone? Hi, Brian. It’s a picture I took at Grand Boulder National Park. I went hiking there last weekend. Let me see. I like the bear statue wearing the check pattern jacket. It’s cute, right? Yeah. There’s a park map between the lights. It seems to include useful information. It helps me pick a different trail each time I go hiking. Do you see the two flowerpots in front of the cabin? Yes. They look beautiful. Oh, there’s a round table by the path. I had lunch there. What a nice place to enjoy lunch! Look at the bird on the tree branch. Isn’t it lovely? I love going there and being close to nature.",
+  "words": 124,
+  "nTurns": 10,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2023",
+  "no": 5,
+  "stem": "대화를 듣고, 남자가 할 일로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Honey, I’m so excited for our restaurant’s reopening event tomorrow."
+   },
+   {
+    "who": "M",
+    "text": "So am I. Let’s see. We’ve ordered enough ingredients, right?"
+   },
+   {
+    "who": "W",
+    "text": "I think so. We need to remind our loyal customers of the event."
+   },
+   {
+    "who": "M",
+    "text": "I already sent text messages."
+   },
+   {
+    "who": "W",
+    "text": "Good. I hope people like the new menu items that we added."
+   },
+   {
+    "who": "M",
+    "text": "Don’t worry. We have a great chef. So I’m sure the new dishes will be a hit."
+   },
+   {
+    "who": "W",
+    "text": "What about the live music? Did you confirm the song list with the band?"
+   },
+   {
+    "who": "M",
+    "text": "Not yet. And we also need to wrap wine glasses to give as gifts for the customers."
+   },
+   {
+    "who": "W",
+    "text": "Okay. Could you wrap them?"
+   },
+   {
+    "who": "M",
+    "text": "Sure. I’ll do it now."
+   },
+   {
+    "who": "W",
+    "text": "Great! Then I’ll contact the band."
+   }
+  ],
+  "script": "Honey, I’m so excited for our restaurant’s reopening event tomorrow. So am I. Let’s see. We’ve ordered enough ingredients, right? I think so. We need to remind our loyal customers of the event. I already sent text messages. Good. I hope people like the new menu items that we added. Don’t worry. We have a great chef. So I’m sure the new dishes will be a hit. What about the live music? Did you confirm the song list with the band? Not yet. And we also need to wrap wine glasses to give as gifts for the customers. Okay. Could you wrap them? Sure. I’ll do it now. Great! Then I’ll contact the band.",
+  "words": 114,
+  "nTurns": 11,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2023",
+  "no": 6,
+  "stem": "대화를 듣고, 여자가 지불할 금액을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Hello, are you enjoying your time here at Magic Unicorn Children’s Farm?"
+   },
+   {
+    "who": "W",
+    "text": "Yes, thank you. I’d like to buy some snacks to feed the animals."
+   },
+   {
+    "who": "M",
+    "text": "Sure. We sell two kinds of food for the animals, vegetable sticks and sliced fruits."
+   },
+   {
+    "who": "W",
+    "text": "How much do they cost?"
+   },
+   {
+    "who": "M",
+    "text": "It’s $5 for a pack of vegetable sticks and $10 for a pack of sliced fruits."
+   },
+   {
+    "who": "W",
+    "text": "I’ll take four packs of vegetable sticks. Are there any other activities?"
+   },
+   {
+    "who": "M",
+    "text": "We offer horseback riding. A ticket for a ride around the farm is $25."
+   },
+   {
+    "who": "W",
+    "text": "Oh, my son and daughter will love it. Two tickets, please."
+   },
+   {
+    "who": "M",
+    "text": "So, four packs of vegetable sticks and two horseback riding tickets, correct?"
+   },
+   {
+    "who": "W",
+    "text": "Right. And I heard you’re offering a 10% discount as an autumn promotional event."
+   },
+   {
+    "who": "M",
+    "text": "I’m sorry. That event ended last week."
+   },
+   {
+    "who": "W",
+    "text": "I see. Here’s my credit card."
+   }
+  ],
+  "script": "Hello, are you enjoying your time here at Magic Unicorn Children’s Farm? Yes, thank you. I’d like to buy some snacks to feed the animals. Sure. We sell two kinds of food for the animals, vegetable sticks and sliced fruits. How much do they cost? It’s $5 for a pack of vegetable sticks and $10 for a pack of sliced fruits. I’ll take four packs of vegetable sticks. Are there any other activities? We offer horseback riding. A ticket for a ride around the farm is $25. Oh, my son and daughter will love it. Two tickets, please. So, four packs of vegetable sticks and two horseback riding tickets, correct? Right. And I heard you’re offering a 10% discount as an autumn promotional event. I’m sorry. That event ended last week. I see. Here’s my credit card.",
+  "words": 133,
+  "nTurns": 12,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2023",
+  "no": 7,
+  "stem": "대화를 듣고, 남자가 K-Trend Festival에 갈 수 없는 이유를 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Sam, do you want to go to the K-Trend Festival with me this Saturday?"
+   },
+   {
+    "who": "M",
+    "text": "Hi, Olivia. Is that the festival held at Central Square?"
+   },
+   {
+    "who": "W",
+    "text": "Yeah, that’s it. There’ll be many attractions including Taekwondo performances that incorporate K-pop dance moves."
+   },
+   {
+    "who": "M",
+    "text": "Really? Sounds cool! What time does it start?"
+   },
+   {
+    "who": "W",
+    "text": "It starts at 5 p.m. Will you be working at the movie theater at that time?"
+   },
+   {
+    "who": "M",
+    "text": "No, I’m not working this Saturday. But I can’t come to the festival."
+   },
+   {
+    "who": "W",
+    "text": "Too bad. Do you have to study for your economics exam?"
+   },
+   {
+    "who": "M",
+    "text": "Actually, I already took the exam yesterday."
+   },
+   {
+    "who": "W",
+    "text": "Then, what’s the matter?"
+   },
+   {
+    "who": "M",
+    "text": "I have to take my younger sister to the airport on Saturday evening."
+   },
+   {
+    "who": "W",
+    "text": "Where’s she going?"
+   },
+   {
+    "who": "M",
+    "text": "She’s going to Canada to study abroad."
+   },
+   {
+    "who": "W",
+    "text": "That’s awesome. I hope she has a good experience there."
+   }
+  ],
+  "script": "Sam, do you want to go to the K-Trend Festival with me this Saturday? Hi, Olivia. Is that the festival held at Central Square? Yeah, that’s it. There’ll be many attractions including Taekwondo performances that incorporate K-pop dance moves. Really? Sounds cool! What time does it start? It starts at 5 p.m. Will you be working at the movie theater at that time? No, I’m not working this Saturday. But I can’t come to the festival. Too bad. Do you have to study for your economics exam? Actually, I already took the exam yesterday. Then, what’s the matter? I have to take my younger sister to the airport on Saturday evening. Where’s she going? She’s going to Canada to study abroad. That’s awesome. I hope she has a good experience there.",
+  "words": 131,
+  "nTurns": 13,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2023",
+  "no": 8,
+  "stem": "대화를 듣고, 졸업 사진 촬영에 관해 언급되지 않은 것을 고르시오.",
+  "turns": [
+   {
+    "who": "?",
+    "text": "[Telephone rings.]"
+   },
+   {
+    "who": "W",
+    "text": "Hello, Jennifer Porter speaking."
+   },
+   {
+    "who": "M",
+    "text": "Hi, Ms. Porter. This is Steve Jackson from Lifetime Photo Studio."
+   },
+   {
+    "who": "W",
+    "text": "Oh, how are you?"
+   },
+   {
+    "who": "M",
+    "text": "Good. I’m scheduled to shoot your school’s graduation photos on Wednesday, November 23rd. So, I’m calling to confirm the details."
+   },
+   {
+    "who": "W",
+    "text": "Sure. As we previously discussed, the place will be Lily Pond Park."
+   },
+   {
+    "who": "M",
+    "text": "Okay. Could you tell me the exact number of students taking part in the photo session?"
+   },
+   {
+    "who": "W",
+    "text": "Let me check. [Pause] Well, it’ll be 180 students."
+   },
+   {
+    "who": "M",
+    "text": "I see. The same as you said before."
+   },
+   {
+    "who": "W",
+    "text": "That’s right. How long will it take to shoot the photos?"
+   },
+   {
+    "who": "M",
+    "text": "It’ll take almost three hours. We should finish by noon."
+   },
+   {
+    "who": "W",
+    "text": "Great. Is there any other information you need?"
+   },
+   {
+    "who": "M",
+    "text": "No, I’m all set. Bye."
+   }
+  ],
+  "script": "[Telephone rings.] Hello, Jennifer Porter speaking. Hi, Ms. Porter. This is Steve Jackson from Lifetime Photo Studio. Oh, how are you? Good. I’m scheduled to shoot your school’s graduation photos on Wednesday, November 23rd. So, I’m calling to confirm the details. Sure. As we previously discussed, the place will be Lily Pond Park. Okay. Could you tell me the exact number of students taking part in the photo session? Let me check. [Pause] Well, it’ll be 180 students. I see. The same as you said before. That’s right. How long will it take to shoot the photos? It’ll take almost three hours. We should finish by noon. Great. Is there any other information you need? No, I’m all set. Bye.",
+  "words": 119,
+  "nTurns": 13,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2023",
+  "no": 9,
+  "stem": "Greenville Houseplant Expo에 관한 다음 내용을 듣고, 일치하지 않는 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Hello, listeners. I’m Melinda Jones from the organizing committee of the Greenville Houseplant Expo. I’m here to announce that the expo will run for three days starting on March 17th, 2023. Just on the opening day, there’ll be a lecture on plant care methods. This lecture will be given by Dr. Evans, host of the TV show Plants Love You. Most importantly, you can buy a variety of plants, including rare species, exhibited in the expo. Due to its popularity, you’d better get your tickets early. Tickets are available through online purchase only. If you’re a plant lover, come to the expo, which will take place at the Emerald Convention Center, and refresh your houseplant collection."
+   }
+  ],
+  "script": "Hello, listeners. I’m Melinda Jones from the organizing committee of the Greenville Houseplant Expo. I’m here to announce that the expo will run for three days starting on March 17th, 2023. Just on the opening day, there’ll be a lecture on plant care methods. This lecture will be given by Dr. Evans, host of the TV show Plants Love You. Most importantly, you can buy a variety of plants, including rare species, exhibited in the expo. Due to its popularity, you’d better get your tickets early. Tickets are available through online purchase only. If you’re a plant lover, come to the expo, which will take place at the Emerald Convention Center, and refresh your houseplant collection.",
+  "words": 115,
+  "nTurns": 1,
+  "speakers": [
+   "W"
+  ],
+  "isDialogue": false
+ },
+ {
+  "exam": "2023",
+  "no": 10,
+  "stem": "다음 표를 보면서 대화를 듣고, 여자가 구매할 첼로 케이스를 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Welcome to Uptown Music Shop. How can I help you?"
+   },
+   {
+    "who": "W",
+    "text": "Hi, I’m looking for a hard cello case."
+   },
+   {
+    "who": "M",
+    "text": "All right. Here’s our catalog. These are the ones we have in stock. How much are you willing to spend?"
+   },
+   {
+    "who": "W",
+    "text": "I can spend up to $200."
+   },
+   {
+    "who": "M",
+    "text": "Okay. How about the interior material? Do you have a preference?"
+   },
+   {
+    "who": "W",
+    "text": "Well, I don’t want the velvet one. It seems difficult to take care of."
+   },
+   {
+    "who": "M",
+    "text": "Right. Then how about the length?"
+   },
+   {
+    "who": "W",
+    "text": "I have a full-size cello, so I want a case that’s at least 50 inches long."
+   },
+   {
+    "who": "M",
+    "text": "Now you have two options left. Do you need wheels on your case?"
+   },
+   {
+    "who": "W",
+    "text": "No, I don’t need them. I won’t carry it around a lot."
+   },
+   {
+    "who": "M",
+    "text": "Then this is the one for you."
+   },
+   {
+    "who": "W",
+    "text": "Thank you. I’ll take it."
+   }
+  ],
+  "script": "Welcome to Uptown Music Shop. How can I help you? Hi, I’m looking for a hard cello case. All right. Here’s our catalog. These are the ones we have in stock. How much are you willing to spend? I can spend up to $200. Okay. How about the interior material? Do you have a preference? Well, I don’t want the velvet one. It seems difficult to take care of. Right. Then how about the length? I have a full-size cello, so I want a case that’s at least 50 inches long. Now you have two options left. Do you need wheels on your case? No, I don’t need them. I won’t carry it around a lot. Then this is the one for you. Thank you. I’ll take it.",
+  "words": 126,
+  "nTurns": 12,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2023",
+  "no": 11,
+  "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Mom, I’d like to get a new bicycle helmet. Can you buy me one?"
+   },
+   {
+    "who": "W",
+    "text": "I’ll buy you a new helmet if you need it. But what’s the problem with the one you have now?"
+   },
+   {
+    "who": "M",
+    "text": "My helmet feels too tight. It hurts my head."
+   }
+  ],
+  "script": "Mom, I’d like to get a new bicycle helmet. Can you buy me one? I’ll buy you a new helmet if you need it. But what’s the problem with the one you have now? My helmet feels too tight. It hurts my head.",
+  "words": 43,
+  "nTurns": 3,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2023",
+  "no": 12,
+  "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Honey, are you free on Saturday afternoon? Our son said he’s going to a career fair and asked if we can come along."
+   },
+   {
+    "who": "M",
+    "text": "Great, I’m free. I’ve been wondering what kinds of emerging careers might suit him."
+   },
+   {
+    "who": "W",
+    "text": "Me, too. Then why don’t we join him?"
+   }
+  ],
+  "script": "Honey, are you free on Saturday afternoon? Our son said he’s going to a career fair and asked if we can come along. Great, I’m free. I’ve been wondering what kinds of emerging careers might suit him. Me, too. Then why don’t we join him?",
+  "words": 45,
+  "nTurns": 3,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2023",
+  "no": 13,
+  "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "?",
+    "text": "[3점]"
+   },
+   {
+    "who": "M",
+    "text": "Can I come in, Professor Rossini?"
+   },
+   {
+    "who": "W",
+    "text": "Of course. Come on in, Ben. What brings you here?"
+   },
+   {
+    "who": "M",
+    "text": "I came to ask for advice on studying Italian."
+   },
+   {
+    "who": "W",
+    "text": "Is there anything specific you’re having trouble with?"
+   },
+   {
+    "who": "M",
+    "text": "Yes. I’m experiencing difficulty using words properly. Could I get some tips?"
+   },
+   {
+    "who": "W",
+    "text": "Sure. First, let me ask how you use your dictionary."
+   },
+   {
+    "who": "M",
+    "text": "Well, I use it to look up words that I don’t know the meanings of."
+   },
+   {
+    "who": "W",
+    "text": "Dictionaries provide example sentences for most words. Do you read them, too?"
+   },
+   {
+    "who": "M",
+    "text": "No, I don’t pay attention to the example sentences."
+   },
+   {
+    "who": "W",
+    "text": "Knowing the meaning of words is important, but you should also understand the context in which the words are properly used."
+   },
+   {
+    "who": "M",
+    "text": "I see. So you’re suggesting that I study the example sentences as well, right?"
+   }
+  ],
+  "script": "[3점] Can I come in, Professor Rossini? Of course. Come on in, Ben. What brings you here? I came to ask for advice on studying Italian. Is there anything specific you’re having trouble with? Yes. I’m experiencing difficulty using words properly. Could I get some tips? Sure. First, let me ask how you use your dictionary. Well, I use it to look up words that I don’t know the meanings of. Dictionaries provide example sentences for most words. Do you read them, too? No, I don’t pay attention to the example sentences. Knowing the meaning of words is important, but you should also understand the context in which the words are properly used. I see. So you’re suggesting that I study the example sentences as well, right?",
+  "words": 126,
+  "nTurns": 12,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2023",
+  "no": 14,
+  "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "?",
+    "text": "[3점]"
+   },
+   {
+    "who": "W",
+    "text": "Dad, I found these old photos of our camping trip from 25 years ago."
+   },
+   {
+    "who": "M",
+    "text": "Oh, I remember this trip. You were about the same age as your son, Peter."
+   },
+   {
+    "who": "W",
+    "text": "Right. It was a really fun trip."
+   },
+   {
+    "who": "M",
+    "text": "Yeah. I still go camping often, but that’s the most memorable one."
+   },
+   {
+    "who": "W",
+    "text": "I agree. I want Peter to have that experience, too. But he always refuses to go."
+   },
+   {
+    "who": "M",
+    "text": "Why doesn’t he want to go camping?"
+   },
+   {
+    "who": "W",
+    "text": "He just wants to stay home and spend all his time on his smartphone."
+   },
+   {
+    "who": "M",
+    "text": "Don’t worry. I’m sure Peter will like camping once he experiences how fun it is."
+   },
+   {
+    "who": "W",
+    "text": "You’re probably right. Dad, when is the next time you’re going camping?"
+   },
+   {
+    "who": "M",
+    "text": "This weekend. We should all go together."
+   },
+   {
+    "who": "W",
+    "text": "That’d be great. Peter might come as well if his favorite grandpa invites him."
+   }
+  ],
+  "script": "[3점] Dad, I found these old photos of our camping trip from 25 years ago. Oh, I remember this trip. You were about the same age as your son, Peter. Right. It was a really fun trip. Yeah. I still go camping often, but that’s the most memorable one. I agree. I want Peter to have that experience, too. But he always refuses to go. Why doesn’t he want to go camping? He just wants to stay home and spend all his time on his smartphone. Don’t worry. I’m sure Peter will like camping once he experiences how fun it is. You’re probably right. Dad, when is the next time you’re going camping? This weekend. We should all go together. That’d be great. Peter might come as well if his favorite grandpa invites him.",
+  "words": 132,
+  "nTurns": 12,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2023",
+  "no": 15,
+  "stem": "다음 상황 설명을 듣고, Katie가 Jacob에게 할 말로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "?",
+    "text": "[3점]"
+   },
+   {
+    "who": "M",
+    "text": "Jacob just started volunteering at a nursing home and is planning his next visit. He recalls that not every resident in the nursing home enjoyed the activity he had prepared last time. To avoid this situation, he tries to find an activity that all residents in the nursing home can enjoy. But he can’t come up with one that everyone would like. He asks his friend Katie for advice because she has lots of experience volunteering at a nursing home. Katie thinks there’s no single activity that can interest all the residents. So Katie wants to suggest to Jacob that next time he should plan more than one activity. In this situation, what would Katie most likely say to Jacob? 16번부터 17번까지는 두 번 들려줍니다."
+   }
+  ],
+  "script": "[3점] Jacob just started volunteering at a nursing home and is planning his next visit. He recalls that not every resident in the nursing home enjoyed the activity he had prepared last time. To avoid this situation, he tries to find an activity that all residents in the nursing home can enjoy. But he can’t come up with one that everyone would like. He asks his friend Katie for advice because she has lots of experience volunteering at a nursing home. Katie thinks there’s no single activity that can interest all the residents. So Katie wants to suggest to Jacob that next time he should plan more than one activity. In this situation, what would Katie most likely say to Jacob? 16번부터 17번까지는 두 번 들려줍니다.",
+  "words": 120,
+  "nTurns": 2,
+  "speakers": [
+   "M"
+  ],
+  "isDialogue": false
+ },
+ {
+  "exam": "2023",
+  "no": 16,
+  "stem": "여자가 하는 말의 주제로 가장 적절한 것은?",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Hello, students. Perhaps no material on earth has been more important in human history than metal. Today, we’re going to discuss the contribution of metals to the development of civilization. First, gold was considered the most valuable metal due to its beauty and scarcity. Because of its visual appeal and ability to be easily shaped, it’s been used to decorate religious places and objects. Second, silver was mainly prized for being the shiniest of all metals. It’s been one of the main forms of currency since it was the chief metal used for making coins. Next, iron became widely used once humans discovered techniques to strengthen it. This metal was fashioned into tools that revolutionized farming, and later, machines that industrialized the world. Finally, aluminum is the most abundant metal in the world and is also lightweight. That’s why it’s been essential to countless industries in modern society from automotive to aerospace to household products. Now, let’s watch a short related video."
+   }
+  ],
+  "fromSet": "16~17",
+  "script": "Hello, students. Perhaps no material on earth has been more important in human history than metal. Today, we’re going to discuss the contribution of metals to the development of civilization. First, gold was considered the most valuable metal due to its beauty and scarcity. Because of its visual appeal and ability to be easily shaped, it’s been used to decorate religious places and objects. Second, silver was mainly prized for being the shiniest of all metals. It’s been one of the main forms of currency since it was the chief metal used for making coins. Next, iron became widely used once humans discovered techniques to strengthen it. This metal was fashioned into tools that revolutionized farming, and later, machines that industrialized the world. Finally, aluminum is the most abundant metal in the world and is also lightweight. That’s why it’s been essential to countless industries in modern society from automotive to aerospace to household products. Now, let’s watch a short related video.",
+  "words": 162,
+  "nTurns": 1,
+  "speakers": [
+   "W"
+  ],
+  "isDialogue": false
+ },
+ {
+  "exam": "2023",
+  "no": 17,
+  "stem": "언급된 금속이 아닌 것은?",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Hello, students. Perhaps no material on earth has been more important in human history than metal. Today, we’re going to discuss the contribution of metals to the development of civilization. First, gold was considered the most valuable metal due to its beauty and scarcity. Because of its visual appeal and ability to be easily shaped, it’s been used to decorate religious places and objects. Second, silver was mainly prized for being the shiniest of all metals. It’s been one of the main forms of currency since it was the chief metal used for making coins. Next, iron became widely used once humans discovered techniques to strengthen it. This metal was fashioned into tools that revolutionized farming, and later, machines that industrialized the world. Finally, aluminum is the most abundant metal in the world and is also lightweight. That’s why it’s been essential to countless industries in modern society from automotive to aerospace to household products. Now, let’s watch a short related video."
+   }
+  ],
+  "fromSet": "16~17",
+  "script": "Hello, students. Perhaps no material on earth has been more important in human history than metal. Today, we’re going to discuss the contribution of metals to the development of civilization. First, gold was considered the most valuable metal due to its beauty and scarcity. Because of its visual appeal and ability to be easily shaped, it’s been used to decorate religious places and objects. Second, silver was mainly prized for being the shiniest of all metals. It’s been one of the main forms of currency since it was the chief metal used for making coins. Next, iron became widely used once humans discovered techniques to strengthen it. This metal was fashioned into tools that revolutionized farming, and later, machines that industrialized the world. Finally, aluminum is the most abundant metal in the world and is also lightweight. That’s why it’s been essential to countless industries in modern society from automotive to aerospace to household products. Now, let’s watch a short related video.",
+  "words": 162,
+  "nTurns": 1,
+  "speakers": [
+   "W"
+  ],
+  "isDialogue": false
+ }
+]

@@ -67,7 +67,8 @@ pnpm dlx tsx scripts/lcp/reprocess-book.mjs <book_id> --commit
 > queued(소스 GET) 도서를 위 흐름으로 curation → ready → 게이트 → 게시.
 
 ### ACP (아티클)
-- `/api/acp/dev-enqueue`(소스 GET) → `/api/acp/dev-process`(ingest→추출→ready) → `/api/acp/dev-publish`.
+- `/api/acp/dev-enqueue`(소스 GET) → `/api/acp/dev-process`(ingest→추출→ready) → `/api/admin/articles/force-publish`(발행).
+  (구 `/api/acp/dev-publish` 는 force-publish 와 같은 requireAdminApi + service_role 로직인데 dev 전용이라 2026-09-06 삭제.)
 - ingesters: `packages/library-pipeline/src/ingest-article/*`(nasa/voa/wikipedia/the-conversation…) + `analyzeArticle`.
 
 ### VCB (단어장)
@@ -88,6 +89,7 @@ pnpm dlx tsx scripts/lcp/reprocess-book.mjs <book_id> --commit
 | **I9** article register 결측 | 발행 아티클 register 미산정 | ACP 재처리(analyzeArticle) |
 | **I10** SSoT 드리프트 | 발행 세트 ≠ 현 추출 로직 (stale) | **재발행** (아래 §6) |
 | **I11** 아티클 라이선스 | copyright_safe_in_kr ≠ true | 라이선스 재확인 / display_only 전환 |
+| **I12** 발행세트 예문 공백 | 사전에 example_en 이 있는데 발행 세트가 비어 있음 (발행은 스냅샷이라 나중에 채운 예문이 반영 안 됨) | `SELECT sync_published_set_examples()` — 재발행 아님, 빈 칸만 채우는 멱등 재동기화 |
 | 추출 비어있음 | select 산출 0단어 | 추출/레벨 재점검 (게시 불가) |
 
 ---

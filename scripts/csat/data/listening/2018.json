@@ -1,0 +1,814 @@
+[
+ {
+  "exam": "2018",
+  "no": 1,
+  "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Dad, I want to send this book to Grandma. Do you have a box?"
+   },
+   {
+    "who": "M",
+    "text": "Yeah. I’ve got this one to put photo albums in, but it’s a bit small."
+   },
+   {
+    "who": "W",
+    "text": "The box looks big enough for the book. Can I use it?"
+   }
+  ],
+  "script": "Dad, I want to send this book to Grandma. Do you have a box? Yeah. I’ve got this one to put photo albums in, but it’s a bit small. The box looks big enough for the book. Can I use it?",
+  "words": 41,
+  "nTurns": 3,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2018",
+  "no": 2,
+  "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Emily, is your cousin from Germany still in Korea?"
+   },
+   {
+    "who": "W",
+    "text": "Yes. He’ll be here for a few more days. Why?"
+   },
+   {
+    "who": "M",
+    "text": "You know I’m interested in German culture, so I’m wondering if I could talk with him."
+   }
+  ],
+  "script": "Emily, is your cousin from Germany still in Korea? Yes. He’ll be here for a few more days. Why? You know I’m interested in German culture, so I’m wondering if I could talk with him.",
+  "words": 35,
+  "nTurns": 3,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2018",
+  "no": 3,
+  "stem": "다음을 듣고, 여자가 하는 말의 목적으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Hello, NPBC radio station listeners! I’m Jennifer Lee, the host of Monday Live. More than 100,000 listeners have installed and used our radio app on their smart phones to listen to our programs. To satisfy our audience’s growing needs, we’ve added three new functions to our app. The best function is that you can download your favorite programs. This is useful if you miss our show or want to listen to it again. Another useful function is that you can bookmark your favorite stories and listen to a personalized playlist. Finally, you can set an alarm to wake up to your favorite radio program. I hope these new functions of our radio app will make your day more enjoyable."
+   }
+  ],
+  "script": "Hello, NPBC radio station listeners! I’m Jennifer Lee, the host of Monday Live. More than 100,000 listeners have installed and used our radio app on their smart phones to listen to our programs. To satisfy our audience’s growing needs, we’ve added three new functions to our app. The best function is that you can download your favorite programs. This is useful if you miss our show or want to listen to it again. Another useful function is that you can bookmark your favorite stories and listen to a personalized playlist. Finally, you can set an alarm to wake up to your favorite radio program. I hope these new functions of our radio app will make your day more enjoyable.",
+  "words": 118,
+  "nTurns": 1,
+  "speakers": [
+   "W"
+  ],
+  "isDialogue": false
+ },
+ {
+  "exam": "2018",
+  "no": 4,
+  "stem": "대화를 듣고, 남자의 의견으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Honey, I heard the Smith family moved out to the countryside. I really envy them."
+   },
+   {
+    "who": "W",
+    "text": "Really? Why is that?"
+   },
+   {
+    "who": "M",
+    "text": "I think we can stay healthy if we live in the country."
+   },
+   {
+    "who": "W",
+    "text": "Hmm, can you be more specific?"
+   },
+   {
+    "who": "M",
+    "text": "Here in the city the air is polluted, but it’s cleaner in the country."
+   },
+   {
+    "who": "W",
+    "text": "That makes sense because there’re fewer cars."
+   },
+   {
+    "who": "M",
+    "text": "Right. And it’s less noisy in the country, too. We’ll be less stressed."
+   },
+   {
+    "who": "W",
+    "text": "I guess we could also sleep better since there isn’t constant noise at night."
+   },
+   {
+    "who": "M",
+    "text": "Plus, we can even grow our own fruits and vegetables."
+   },
+   {
+    "who": "W",
+    "text": "That’d be nice. We can have a healthier diet."
+   },
+   {
+    "who": "M",
+    "text": "Definitely. I’m sure country living will help us enjoy a healthy life."
+   },
+   {
+    "who": "W",
+    "text": "I agree."
+   }
+  ],
+  "script": "Honey, I heard the Smith family moved out to the countryside. I really envy them. Really? Why is that? I think we can stay healthy if we live in the country. Hmm, can you be more specific? Here in the city the air is polluted, but it’s cleaner in the country. That makes sense because there’re fewer cars. Right. And it’s less noisy in the country, too. We’ll be less stressed. I guess we could also sleep better since there isn’t constant noise at night. Plus, we can even grow our own fruits and vegetables. That’d be nice. We can have a healthier diet. Definitely. I’m sure country living will help us enjoy a healthy life. I agree.",
+  "words": 118,
+  "nTurns": 12,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2018",
+  "no": 5,
+  "stem": "대화를 듣고, 두 사람의 관계를 가장 잘 나타낸 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Mr. Thomson. Thank you for your demonstration. I learned a lot today."
+   },
+   {
+    "who": "M",
+    "text": "Glad to hear that. Everyone should know what to do in emergencies."
+   },
+   {
+    "who": "W",
+    "text": "Right. Can I ask you some questions? I’m thinking of getting a job in your field after graduation."
+   },
+   {
+    "who": "M",
+    "text": "Sure. Go ahead."
+   },
+   {
+    "who": "W",
+    "text": "Fighting fires is your main duty. But what other things do you do?"
+   },
+   {
+    "who": "M",
+    "text": "One thing we do is search for and rescue people during natural disasters like floods."
+   },
+   {
+    "who": "W",
+    "text": "Wonderful. I’d love to learn more."
+   },
+   {
+    "who": "M",
+    "text": "Well, we provide a job experience program for high schoolers on weekday afternoons at our fire station."
+   },
+   {
+    "who": "W",
+    "text": "Really? I think I have time after school. What would I do there?"
+   },
+   {
+    "who": "M",
+    "text": "You’ll practice how to use various equipment for extinguishing fires. You can also check out the fire trucks."
+   },
+   {
+    "who": "W",
+    "text": "Sounds great. How do I sign up?"
+   },
+   {
+    "who": "M",
+    "text": "Your teacher has some pamphlets, so you can ask her."
+   }
+  ],
+  "script": "Mr. Thomson. Thank you for your demonstration. I learned a lot today. Glad to hear that. Everyone should know what to do in emergencies. Right. Can I ask you some questions? I’m thinking of getting a job in your field after graduation. Sure. Go ahead. Fighting fires is your main duty. But what other things do you do? One thing we do is search for and rescue people during natural disasters like floods. Wonderful. I’d love to learn more. Well, we provide a job experience program for high schoolers on weekday afternoons at our fire station. Really? I think I have time after school. What would I do there? You’ll practice how to use various equipment for extinguishing fires. You can also check out the fire trucks. Sounds great. How do I sign up? Your teacher has some pamphlets, so you can ask her.",
+  "words": 144,
+  "nTurns": 12,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2018",
+  "no": 6,
+  "stem": "대화를 듣고, 그림에서 대화의 내용과 일치하지 않는 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Honey, Aunt Sophie just called me and said we can stay at her house next weekend."
+   },
+   {
+    "who": "W",
+    "text": "Wonderful. I really like the family room there."
+   },
+   {
+    "who": "M",
+    "text": "She said she rearranged it and emailed me a photo. [Clicking sound] Here. Look."
+   },
+   {
+    "who": "W",
+    "text": "Wow, the curtains on the window are pretty. I like their star pattern."
+   },
+   {
+    "who": "M",
+    "text": "That’s her favorite style."
+   },
+   {
+    "who": "W",
+    "text": "Do you see the chair next to the sofa? It looks comfortable."
+   },
+   {
+    "who": "M",
+    "text": "Maybe we should get one like that."
+   },
+   {
+    "who": "W",
+    "text": "Good idea."
+   },
+   {
+    "who": "M",
+    "text": "What do you think of the vase between the lamp and the book?"
+   },
+   {
+    "who": "W",
+    "text": "Oh, it’s lovely. I also like the flowers in the vase."
+   },
+   {
+    "who": "M",
+    "text": "Wait. I know those two candles on the fireplace. They were our gift for her birthday."
+   },
+   {
+    "who": "W",
+    "text": "That’s right. Hey, look at the round mirror on the wall."
+   },
+   {
+    "who": "M",
+    "text": "It looks cute. I can’t wait to see it all in person."
+   }
+  ],
+  "script": "Honey, Aunt Sophie just called me and said we can stay at her house next weekend. Wonderful. I really like the family room there. She said she rearranged it and emailed me a photo. [Clicking sound] Here. Look. Wow, the curtains on the window are pretty. I like their star pattern. That’s her favorite style. Do you see the chair next to the sofa? It looks comfortable. Maybe we should get one like that. Good idea. What do you think of the vase between the lamp and the book? Oh, it’s lovely. I also like the flowers in the vase. Wait. I know those two candles on the fireplace. They were our gift for her birthday. That’s right. Hey, look at the round mirror on the wall. It looks cute. I can’t wait to see it all in person.",
+  "words": 139,
+  "nTurns": 13,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2018",
+  "no": 7,
+  "stem": "대화를 듣고, 남자가 할 일로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Charlie, our department workshop in Jeju is only two weeks away."
+   },
+   {
+    "who": "M",
+    "text": "That’s right. Let’s check if everything is prepared."
+   },
+   {
+    "who": "W",
+    "text": "Okay. I’ve already booked the flight for everyone. Did you take care of the accommodations?"
+   },
+   {
+    "who": "M",
+    "text": "I did. I called several possible hotels and made a reservation at the one that gave us the best group price."
+   },
+   {
+    "who": "W",
+    "text": "Excellent. Then what else do we need to do?"
+   },
+   {
+    "who": "M",
+    "text": "We need to figure out where to eat and also order the T-shirts with the company logo."
+   },
+   {
+    "who": "W",
+    "text": "I heard there’re many good places to eat in Jeju. I’ll find restaurants online."
+   },
+   {
+    "who": "M",
+    "text": "Sounds good. Then I’ll order the T-shirts."
+   },
+   {
+    "who": "W",
+    "text": "You have everybody’s sizes, right?"
+   },
+   {
+    "who": "M",
+    "text": "Of course. I got them the other day."
+   },
+   {
+    "who": "W",
+    "text": "That’s perfect."
+   }
+  ],
+  "script": "Charlie, our department workshop in Jeju is only two weeks away. That’s right. Let’s check if everything is prepared. Okay. I’ve already booked the flight for everyone. Did you take care of the accommodations? I did. I called several possible hotels and made a reservation at the one that gave us the best group price. Excellent. Then what else do we need to do? We need to figure out where to eat and also order the T-shirts with the company logo. I heard there’re many good places to eat in Jeju. I’ll find restaurants online. Sounds good. Then I’ll order the T-shirts. You have everybody’s sizes, right? Of course. I got them the other day. That’s perfect.",
+  "words": 117,
+  "nTurns": 11,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2018",
+  "no": 8,
+  "stem": "대화를 듣고, 여자가 영화를 보고 있는 이유를 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Ellen, what are you looking at on your smart phone?"
+   },
+   {
+    "who": "W",
+    "text": "Hey, John. I’m watching the movie Romeo and Juliet."
+   },
+   {
+    "who": "M",
+    "text": "I didn’t know you’re interested in romantic movies."
+   },
+   {
+    "who": "W",
+    "text": "To be honest, I like action movies."
+   },
+   {
+    "who": "M",
+    "text": "Then, is it for your writing assignment? You said you needed to write a paper on Shakespeare."
+   },
+   {
+    "who": "W",
+    "text": "No, I’ve already finished it."
+   },
+   {
+    "who": "M",
+    "text": "Well, do you like the actors in the movie?"
+   },
+   {
+    "who": "W",
+    "text": "Not really. Actually, I’m going to play Juliet in the school play. And I’m watching this because I want to better understand my role."
+   },
+   {
+    "who": "M",
+    "text": "Oh, that’s a good idea. I’m sure it’ll help you."
+   },
+   {
+    "who": "W",
+    "text": "I hope so. I really want to do well."
+   },
+   {
+    "who": "M",
+    "text": "Don’t worry. You’ll do great."
+   },
+   {
+    "who": "W",
+    "text": "Thanks. You should come and watch the play."
+   }
+  ],
+  "script": "Ellen, what are you looking at on your smart phone? Hey, John. I’m watching the movie Romeo and Juliet. I didn’t know you’re interested in romantic movies. To be honest, I like action movies. Then, is it for your writing assignment? You said you needed to write a paper on Shakespeare. No, I’ve already finished it. Well, do you like the actors in the movie? Not really. Actually, I’m going to play Juliet in the school play. And I’m watching this because I want to better understand my role. Oh, that’s a good idea. I’m sure it’ll help you. I hope so. I really want to do well. Don’t worry. You’ll do great. Thanks. You should come and watch the play.",
+  "words": 121,
+  "nTurns": 12,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2018",
+  "no": 9,
+  "stem": "대화를 듣고, 남자가 지불할 금액을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Hello. Can I help you?"
+   },
+   {
+    "who": "M",
+    "text": "Yes. I need a winter blanket."
+   },
+   {
+    "who": "W",
+    "text": "How about this one? It’s lightweight but it’ll keep you warm."
+   },
+   {
+    "who": "M",
+    "text": "Oh, it’s soft, too. How much is it?"
+   },
+   {
+    "who": "W",
+    "text": "It was originally $50, but it’s on sale. Now it’s only $40."
+   },
+   {
+    "who": "M",
+    "text": "Great. I’ll take one. Do you also have pillows?"
+   },
+   {
+    "who": "W",
+    "text": "Of course. What kind of pillow are you looking for?"
+   },
+   {
+    "who": "M",
+    "text": "I’m looking for a supportive pillow because my neck hurts sometimes."
+   },
+   {
+    "who": "W",
+    "text": "This one will keep your head slightly raised. The price is also reasonable. It’s $10."
+   },
+   {
+    "who": "M",
+    "text": "That’s exactly what I need. I’ll take two."
+   },
+   {
+    "who": "W",
+    "text": "Okay. You’re getting one blanket and two pillows, right?"
+   },
+   {
+    "who": "M",
+    "text": "Right. And can I use this coupon I got from your website?"
+   },
+   {
+    "who": "W",
+    "text": "Sure. You’ll get 10% off the total price."
+   },
+   {
+    "who": "M",
+    "text": "Great. I’ll use the coupon and pay by credit card."
+   }
+  ],
+  "script": "Hello. Can I help you? Yes. I need a winter blanket. How about this one? It’s lightweight but it’ll keep you warm. Oh, it’s soft, too. How much is it? It was originally $50, but it’s on sale. Now it’s only $40. Great. I’ll take one. Do you also have pillows? Of course. What kind of pillow are you looking for? I’m looking for a supportive pillow because my neck hurts sometimes. This one will keep your head slightly raised. The price is also reasonable. It’s $10. That’s exactly what I need. I’ll take two. Okay. You’re getting one blanket and two pillows, right? Right. And can I use this coupon I got from your website? Sure. You’ll get 10% off the total price. Great. I’ll use the coupon and pay by credit card.",
+  "words": 130,
+  "nTurns": 14,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2018",
+  "no": 10,
+  "stem": "대화를 듣고, Winter Discovery Camp에 관해 언급되지 않은 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Honey, I’m looking at the Natural History Museum’s website. The museum’s going to hold the Winter Discovery Camp."
+   },
+   {
+    "who": "W",
+    "text": "What’s it about?"
+   },
+   {
+    "who": "M",
+    "text": "It says here that the theme is dinosaurs."
+   },
+   {
+    "who": "W",
+    "text": "That sounds interesting. You know our son Peter loves dinosaurs."
+   },
+   {
+    "who": "M",
+    "text": "He does. The camp is for elementary school students, so it’s perfect for him."
+   },
+   {
+    "who": "W",
+    "text": "What activities will they do?"
+   },
+   {
+    "who": "M",
+    "text": "The camp offers fun, hands-on activities. For example, participants will look for dinosaur bones hidden in sand and then put them together."
+   },
+   {
+    "who": "W",
+    "text": "I’m sure Peter will love the camp. When is it?"
+   },
+   {
+    "who": "M",
+    "text": "It’ll be held from January 11 to 13."
+   },
+   {
+    "who": "W",
+    "text": "That’s good. It won’t overlap with our family trip. And how much does it cost?"
+   },
+   {
+    "who": "M",
+    "text": "The participation fee is $20."
+   },
+   {
+    "who": "W",
+    "text": "That’s not bad. I’ll ask Peter if he wants to go."
+   },
+   {
+    "who": "M",
+    "text": "Okay."
+   }
+  ],
+  "script": "Honey, I’m looking at the Natural History Museum’s website. The museum’s going to hold the Winter Discovery Camp. What’s it about? It says here that the theme is dinosaurs. That sounds interesting. You know our son Peter loves dinosaurs. He does. The camp is for elementary school students, so it’s perfect for him. What activities will they do? The camp offers fun, hands-on activities. For example, participants will look for dinosaur bones hidden in sand and then put them together. I’m sure Peter will love the camp. When is it? It’ll be held from January 11 to 13. That’s good. It won’t overlap with our family trip. And how much does it cost? The participation fee is $20. That’s not bad. I’ll ask Peter if he wants to go. Okay.",
+  "words": 127,
+  "nTurns": 13,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2018",
+  "no": 11,
+  "stem": "Global Design Conference에 관한 다음 내용을 듣고, 일치하지 않는 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Welcome back to Design Talk. Today I have exciting news for you. One of the world’s largest design conferences is coming soon. It’s the Global Design Conference. The conference is held every year in Chicago. It aims to keep people informed about the current trends in design. This year there’ll be lectures by famous designers and practical workshops. In addition, the works made by 100 designers will be displayed. These selected works will change the way you look at design. The conference begins on June 20 and ends on the 22. Registration is only available on the conference website. The registration fee is $30, and it’s non-refundable. If design is important to you, mark your calendar now!"
+   }
+  ],
+  "script": "Welcome back to Design Talk. Today I have exciting news for you. One of the world’s largest design conferences is coming soon. It’s the Global Design Conference. The conference is held every year in Chicago. It aims to keep people informed about the current trends in design. This year there’ll be lectures by famous designers and practical workshops. In addition, the works made by 100 designers will be displayed. These selected works will change the way you look at design. The conference begins on June 20 and ends on the 22. Registration is only available on the conference website. The registration fee is $30, and it’s non-refundable. If design is important to you, mark your calendar now!",
+  "words": 113,
+  "nTurns": 1,
+  "speakers": [
+   "W"
+  ],
+  "isDialogue": false
+ },
+ {
+  "exam": "2018",
+  "no": 12,
+  "stem": "다음 표를 보면서 대화를 듣고, 여자가 구입할 재킷을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Alice, Blackhills Hiking Jackets is having a big sale this weekend."
+   },
+   {
+    "who": "W",
+    "text": "Nice. I need a jacket for the hiking trip next week, Jason."
+   },
+   {
+    "who": "M",
+    "text": "Here. Have a look at their online catalog."
+   },
+   {
+    "who": "W",
+    "text": "Wow! They all look nice. But I don’t want to spend more than $80."
+   },
+   {
+    "who": "M",
+    "text": "Then you should choose from these four. How many pockets do you want?"
+   },
+   {
+    "who": "W",
+    "text": "The more the better. Three pockets are not enough."
+   },
+   {
+    "who": "M",
+    "text": "Does it need to be waterproof?"
+   },
+   {
+    "who": "W",
+    "text": "Of course. It’s really important because it often rains in the mountains."
+   },
+   {
+    "who": "M",
+    "text": "Then there’re two options left."
+   },
+   {
+    "who": "W",
+    "text": "I like this yellow one."
+   },
+   {
+    "who": "M",
+    "text": "It looks nice, but yellow can get dirty easily."
+   },
+   {
+    "who": "W",
+    "text": "That’s true. Then I’ll buy the other one."
+   },
+   {
+    "who": "M",
+    "text": "I think that’s a good choice."
+   }
+  ],
+  "script": "Alice, Blackhills Hiking Jackets is having a big sale this weekend. Nice. I need a jacket for the hiking trip next week, Jason. Here. Have a look at their online catalog. Wow! They all look nice. But I don’t want to spend more than $80. Then you should choose from these four. How many pockets do you want? The more the better. Three pockets are not enough. Does it need to be waterproof? Of course. It’s really important because it often rains in the mountains. Then there’re two options left. I like this yellow one. It looks nice, but yellow can get dirty easily. That’s true. Then I’ll buy the other one. I think that’s a good choice.",
+  "words": 117,
+  "nTurns": 13,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2018",
+  "no": 13,
+  "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "?",
+    "text": "[3점]"
+   },
+   {
+    "who": "W",
+    "text": "Richard, this is a great place to spend vacation, isn’t it?"
+   },
+   {
+    "who": "M",
+    "text": "Yes. I really love this city, Mom."
+   },
+   {
+    "who": "W",
+    "text": "So what do you want to do today?"
+   },
+   {
+    "who": "M",
+    "text": "Why don’t we take a walking tour downtown? I heard it’s a must-do."
+   },
+   {
+    "who": "W",
+    "text": "I don’t think a walking tour is a good idea."
+   },
+   {
+    "who": "M",
+    "text": "Why not?"
+   },
+   {
+    "who": "W",
+    "text": "It’s very cold and windy today. We might catch a cold if we walk outside too long."
+   },
+   {
+    "who": "M",
+    "text": "But I want to see the famous tourist attractions downtown."
+   },
+   {
+    "who": "W",
+    "text": "Then we can take a bus tour, instead."
+   },
+   {
+    "who": "M",
+    "text": "A bus tour? I didn’t think about that."
+   },
+   {
+    "who": "W",
+    "text": "The bus goes around downtown and visits all the famous places."
+   },
+   {
+    "who": "M",
+    "text": "Well, I guess we could see all the places and stay warm on the bus."
+   },
+   {
+    "who": "W",
+    "text": "Definitely. And we can save time, too."
+   }
+  ],
+  "script": "[3점] Richard, this is a great place to spend vacation, isn’t it? Yes. I really love this city, Mom. So what do you want to do today? Why don’t we take a walking tour downtown? I heard it’s a must-do. I don’t think a walking tour is a good idea. Why not? It’s very cold and windy today. We might catch a cold if we walk outside too long. But I want to see the famous tourist attractions downtown. Then we can take a bus tour, instead. A bus tour? I didn’t think about that. The bus goes around downtown and visits all the famous places. Well, I guess we could see all the places and stay warm on the bus. Definitely. And we can save time, too.",
+  "words": 127,
+  "nTurns": 14,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2018",
+  "no": 14,
+  "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "?",
+    "text": "[3점] [Cell phone rings.]"
+   },
+   {
+    "who": "M",
+    "text": "Hey, Rebecca? What’s up? You’re calling early in the morning."
+   },
+   {
+    "who": "W",
+    "text": "Sorry, Daniel. I need to tell you something. Do you remember I applied for the school orchestra?"
+   },
+   {
+    "who": "M",
+    "text": "Of course. Did you hear anything from the director?"
+   },
+   {
+    "who": "W",
+    "text": "Yes. I got a text message from him last night. I got accepted."
+   },
+   {
+    "who": "M",
+    "text": "Congratulations! I’m really happy for you."
+   },
+   {
+    "who": "W",
+    "text": "Thank you. But there’s a problem."
+   },
+   {
+    "who": "M",
+    "text": "What is it?"
+   },
+   {
+    "who": "W",
+    "text": "You know I was going to help you write a speech for the school election."
+   },
+   {
+    "who": "M",
+    "text": "Yes. I need to finish it by tomorrow."
+   },
+   {
+    "who": "W",
+    "text": "But I have to attend the orchestra practice tomorrow."
+   },
+   {
+    "who": "M",
+    "text": "Then can you help me today?"
+   },
+   {
+    "who": "W",
+    "text": "Well, there’s an orientation for new members today. I’m terribly sorry, but I don’t think I can help you."
+   },
+   {
+    "who": "M",
+    "text": "Don’t worry about it. I know you really wanted to join the orchestra."
+   }
+  ],
+  "script": "[3점] [Cell phone rings.] Hey, Rebecca? What’s up? You’re calling early in the morning. Sorry, Daniel. I need to tell you something. Do you remember I applied for the school orchestra? Of course. Did you hear anything from the director? Yes. I got a text message from him last night. I got accepted. Congratulations! I’m really happy for you. Thank you. But there’s a problem. What is it? You know I was going to help you write a speech for the school election. Yes. I need to finish it by tomorrow. But I have to attend the orchestra practice tomorrow. Then can you help me today? Well, there’s an orientation for new members today. I’m terribly sorry, but I don’t think I can help you. Don’t worry about it. I know you really wanted to join the orchestra.",
+  "words": 137,
+  "nTurns": 14,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2018",
+  "no": 15,
+  "stem": "다음 상황 설명을 듣고, David가 Julia에게 할 말로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "?",
+    "text": "[3점]"
+   },
+   {
+    "who": "W",
+    "text": "David and Julia are teachers working at the same high school. This year, they have to develop an after-school program for first-year students. Before they get to work, they look at the last year’s program, which was very successful. Julia thinks the program looks quite good and wants to do it again. However, David is unsure. He thinks that the students may want to do different things from what last year’s students did. And he wants to first find out what this year’s students would like to do. Therefore, he wants to suggest to Julia that they should hear from the students about their preferences. In this situation, what would David most likely say to Julia? 16번부터 17번까지는 두 번 들려줍니다."
+   }
+  ],
+  "script": "[3점] David and Julia are teachers working at the same high school. This year, they have to develop an after-school program for first-year students. Before they get to work, they look at the last year’s program, which was very successful. Julia thinks the program looks quite good and wants to do it again. However, David is unsure. He thinks that the students may want to do different things from what last year’s students did. And he wants to first find out what this year’s students would like to do. Therefore, he wants to suggest to Julia that they should hear from the students about their preferences. In this situation, what would David most likely say to Julia? 16번부터 17번까지는 두 번 들려줍니다.",
+  "words": 116,
+  "nTurns": 2,
+  "speakers": [
+   "W"
+  ],
+  "isDialogue": false
+ },
+ {
+  "exam": "2018",
+  "no": 16,
+  "stem": "남자가 하는 말의 주제로 가장 적절한 것은?",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Good morning, everyone. Last class, we learned about different kinds of musical instruments around the world. Today, we’ll talk about a variety of materials used to make them. One common source of materials is different parts of animals. For example, in China, a wing bone from a large bird was made into a flute about 8,000 years ago. Another example of making musical instruments from animals comes from Mongolia. There, people made a stringed instrument using animal skin around a frame and horsehair for the strings. In another part of the world, people in Nigeria dig out clay from the ground to make a traditional drum. The entire process of making this musical instrument takes around a month. Lastly, in Australia, the material of choice is hardwood from local trees. It’s made into a type of wind instrument by the native people there. Now let’s take a look at some photos, and then we’ll discuss them in detail."
+   }
+  ],
+  "fromSet": "16~17",
+  "script": "Good morning, everyone. Last class, we learned about different kinds of musical instruments around the world. Today, we’ll talk about a variety of materials used to make them. One common source of materials is different parts of animals. For example, in China, a wing bone from a large bird was made into a flute about 8,000 years ago. Another example of making musical instruments from animals comes from Mongolia. There, people made a stringed instrument using animal skin around a frame and horsehair for the strings. In another part of the world, people in Nigeria dig out clay from the ground to make a traditional drum. The entire process of making this musical instrument takes around a month. Lastly, in Australia, the material of choice is hardwood from local trees. It’s made into a type of wind instrument by the native people there. Now let’s take a look at some photos, and then we’ll discuss them in detail.",
+  "words": 157,
+  "nTurns": 1,
+  "speakers": [
+   "M"
+  ],
+  "isDialogue": false
+ },
+ {
+  "exam": "2018",
+  "no": 17,
+  "stem": "언급된 나라가 아닌 것은?",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Good morning, everyone. Last class, we learned about different kinds of musical instruments around the world. Today, we’ll talk about a variety of materials used to make them. One common source of materials is different parts of animals. For example, in China, a wing bone from a large bird was made into a flute about 8,000 years ago. Another example of making musical instruments from animals comes from Mongolia. There, people made a stringed instrument using animal skin around a frame and horsehair for the strings. In another part of the world, people in Nigeria dig out clay from the ground to make a traditional drum. The entire process of making this musical instrument takes around a month. Lastly, in Australia, the material of choice is hardwood from local trees. It’s made into a type of wind instrument by the native people there. Now let’s take a look at some photos, and then we’ll discuss them in detail."
+   }
+  ],
+  "fromSet": "16~17",
+  "script": "Good morning, everyone. Last class, we learned about different kinds of musical instruments around the world. Today, we’ll talk about a variety of materials used to make them. One common source of materials is different parts of animals. For example, in China, a wing bone from a large bird was made into a flute about 8,000 years ago. Another example of making musical instruments from animals comes from Mongolia. There, people made a stringed instrument using animal skin around a frame and horsehair for the strings. In another part of the world, people in Nigeria dig out clay from the ground to make a traditional drum. The entire process of making this musical instrument takes around a month. Lastly, in Australia, the material of choice is hardwood from local trees. It’s made into a type of wind instrument by the native people there. Now let’s take a look at some photos, and then we’ll discuss them in detail.",
+  "words": 157,
+  "nTurns": 1,
+  "speakers": [
+   "M"
+  ],
+  "isDialogue": false
+ }
+]

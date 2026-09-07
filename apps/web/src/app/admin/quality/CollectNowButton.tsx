@@ -42,7 +42,7 @@ export function CollectNowButton() {
         type="button"
         onClick={handleCollect}
         disabled={status === 'loading'}
-        className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] border border-[#8B5CF6]/40 bg-[#8B5CF6]/8 px-3 py-1.5 font-display text-[12px] font-[600] text-[#8B5CF6] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[#8B5CF6]/15 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+        className="min-h-[44px] inline-flex items-center gap-2 rounded-[var(--r-md)] border border-[#8B5CF6]/40 bg-[#8B5CF6]/8 px-3 py-2 font-display text-[12px] font-[600] text-[#8B5CF6] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[#8B5CF6]/15 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
       >
         <RefreshCw
           size={13}
@@ -53,12 +53,12 @@ export function CollectNowButton() {
         {status === 'loading' ? '수집 중…' : '지금 수집'}
       </button>
       {status === 'done' && (
-        <p role="status" className="font-body text-[11px] text-[var(--t3)]">
+        <p role="status" className="font-body text-[11px] text-[var(--t2)]">
           새 스냅샷을 수집했어요
         </p>
       )}
       {status === 'error' && (
-        <p role="alert" className="font-body text-[11px] text-[var(--t3)]">
+        <p role="alert" className="font-body text-[11px] text-[var(--t2)]">
           수집하지 못했어요 — admin 세션인지 확인해 주세요
         </p>
       )}

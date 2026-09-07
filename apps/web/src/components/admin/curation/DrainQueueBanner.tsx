@@ -124,7 +124,7 @@ export function DrainQueueBanner({ reloadKey }: { reloadKey: number }) {
         >
           {open ? <ChevronDown size={14} aria-hidden /> : <ChevronRight size={14} aria-hidden />}
           🛠 큐레이션 드레인 큐
-          <span className="font-mono text-[11px] font-[600] text-[var(--t3)]">
+          <span className="font-mono text-[11px] font-[600] text-[var(--t2)]">
             {total}건
             {(voice?.length ?? 0) > 0 && ` · 🔊 ${voice?.length}`}
             {(quiz?.length ?? 0) > 0 && ` · 📝 ${quiz?.length}`}
@@ -135,11 +135,11 @@ export function DrainQueueBanner({ reloadKey }: { reloadKey: number }) {
 
         <div className="flex items-center gap-2">
           {/* 상태별 카운트 칩 (두 task 합산) */}
-          <div className="flex flex-wrap items-center gap-1.5">
+          <div className="flex flex-wrap items-center gap-2">
             {STATUS_ORDER.filter((s) => (counts[s] ?? 0) > 0).map((s) => (
               <span
                 key={s}
-                className="inline-flex items-center gap-1 rounded-[var(--r-full)] border bg-[var(--bg)] px-2 py-0.5 font-mono text-[10px] font-[600]"
+                className="inline-flex items-center gap-1 rounded-[var(--r-full)] border bg-[var(--bg)] px-2 py-1 font-mono text-[10px] font-[600]"
                 style={{ color: STATUS_META[s].color, borderColor: STATUS_META[s].color }}
               >
                 {STATUS_META[s].label}
@@ -154,7 +154,7 @@ export function DrainQueueBanner({ reloadKey }: { reloadKey: number }) {
             disabled={loading}
             title="새로고침"
             aria-label="드레인 큐 새로고침"
-            className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] text-[var(--t3)] hover:bg-[var(--bg)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:opacity-50"
+            className={/* 탭 영역 44px — 시각 크기(h-7, 28px)와 다르다 */ "relative after:absolute after:left-1/2 after:top-1/2 after:h-11 after:w-11 after:-translate-x-1/2 after:-translate-y-1/2 inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] text-[var(--t2)] hover:bg-[var(--bg)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:opacity-50"}
           >
             {loading ? (
               <Loader2 size={13} className="animate-spin" aria-hidden />
@@ -167,7 +167,7 @@ export function DrainQueueBanner({ reloadKey }: { reloadKey: number }) {
               type="button"
               onClick={() => setDismissed(true)}
               aria-label="닫기"
-              className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] text-[var(--t3)] hover:bg-[var(--bg)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+              className={/* 탭 영역 44px — 시각 크기(h-7, 28px)와 다르다 */ "relative after:absolute after:left-1/2 after:top-1/2 after:h-11 after:w-11 after:-translate-x-1/2 after:-translate-y-1/2 inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] text-[var(--t2)] hover:bg-[var(--bg)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"}
             >
               <X size={13} aria-hidden />
             </button>
@@ -177,7 +177,7 @@ export function DrainQueueBanner({ reloadKey }: { reloadKey: number }) {
 
       {/* 안내 — 드레인 주체 명시 */}
       {activeCount > 0 && (
-        <p className="font-body text-[11px] text-[var(--t3)]">
+        <p className="font-body text-[11px] text-[var(--t2)]">
           LibriVox 매핑 · 스크립트 퀴즈 생성을 Claude Code 배치가 처리합니다 (큐 적재됨). 진행 시 자동 갱신.
         </p>
       )}
@@ -190,12 +190,12 @@ export function DrainQueueBanner({ reloadKey }: { reloadKey: number }) {
               {voice.map((j) => {
                 const sm = STATUS_META[j.status]
                 return (
-                  <li key={j.id} className="flex items-center gap-2 px-3 py-1.5">
+                  <li key={j.id} className="flex items-center gap-2 px-3 py-2">
                     <Dot color={sm.color} />
                     <span className="min-w-0 flex-1 truncate font-body text-[12px] text-[var(--t1)]">
                       {j.bookTitle}
                     </span>
-                    <span className="shrink-0 font-mono text-[10px] text-[var(--t3)]">
+                    <span className="shrink-0 font-mono text-[10px] text-[var(--t2)]">
                       {j.mode ? MODE_LABEL[j.mode] : '—'}
                     </span>
                     <StatusTag color={sm.color} label={sm.label} />
@@ -210,17 +210,17 @@ export function DrainQueueBanner({ reloadKey }: { reloadKey: number }) {
               {quiz.map((j) => {
                 const sm = STATUS_META[j.status]
                 return (
-                  <li key={j.id} className="flex items-center gap-2 px-3 py-1.5">
+                  <li key={j.id} className="flex items-center gap-2 px-3 py-2">
                     <Dot color={sm.color} />
                     <span className="min-w-0 flex-1 truncate font-body text-[12px] text-[var(--t1)]">
                       {j.bookTitle}
                     </span>
                     {j.bookVLevel != null && (
-                      <span className="shrink-0 font-mono text-[10px] text-[var(--t3)]">
+                      <span className="shrink-0 font-mono text-[10px] text-[var(--t2)]">
                         V{j.bookVLevel} · {j.targetPerChapter ?? '?'}문/ch
                       </span>
                     )}
-                    <span className="shrink-0 font-mono text-[10px] tabular-nums text-[var(--t3)]">
+                    <span className="shrink-0 font-mono text-[10px] tabular-nums text-[var(--t2)]">
                       {j.chaptersDone}/{j.chaptersTotal}ch · {j.questionsCreated}문
                     </span>
                     <StatusTag color={sm.color} label={sm.label} />
@@ -236,12 +236,12 @@ export function DrainQueueBanner({ reloadKey }: { reloadKey: number }) {
                 const sm = STATUS_META[j.status]
                 const summary = reviewSummary(j.result)
                 return (
-                  <li key={j.id} className="flex items-center gap-2 px-3 py-1.5">
+                  <li key={j.id} className="flex items-center gap-2 px-3 py-2">
                     <Dot color={sm.color} />
                     <span className="min-w-0 flex-1 truncate font-body text-[12px] text-[var(--t1)]">
                       {j.bookTitle}
                     </span>
-                    <span className="shrink-0 font-mono text-[10px] text-[var(--t3)]">
+                    <span className="shrink-0 font-mono text-[10px] text-[var(--t2)]">
                       {REVIEW_LABEL[j.taskType]}
                     </span>
                     {summary && (
@@ -265,7 +265,7 @@ export function DrainQueueBanner({ reloadKey }: { reloadKey: number }) {
 function TaskGroup({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="flex flex-col rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)]">
-      <div className="border-b border-[var(--bd)] px-3 py-1 font-mono text-[10px] font-[700] uppercase tracking-wider text-[var(--t3)]">
+      <div className="border-b border-[var(--bd)] px-3 py-1 font-mono text-[10px] font-[700] uppercase tracking-wider text-[var(--t2)]">
         {title}
       </div>
       <ul className="flex flex-col divide-y divide-[var(--bd)]/60">{children}</ul>
@@ -294,7 +294,7 @@ function StatusTag({ color, label }: { color: string; label: string }) {
 function ErrorTag({ error }: { error: string }) {
   return (
     <span
-      className="max-w-[180px] shrink-0 truncate font-mono text-[10px] text-[var(--error)]"
+      className="max-w-[180px] shrink-0 truncate font-mono text-[10px] text-[var(--error-ink)]"
       title={error}
     >
       {error}

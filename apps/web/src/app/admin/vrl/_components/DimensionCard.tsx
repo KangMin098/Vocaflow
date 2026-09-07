@@ -56,7 +56,7 @@ export function DimensionCard({ dimension: d }: DimensionCardProps) {
   return (
     <article
       aria-label={`${d.label} dimension card`}
-      className="flex flex-col gap-2.5 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4 shadow-[var(--sh-sm)] transition-shadow duration-[var(--dur-normal)] hover:shadow-[var(--sh-md)]"
+      className="flex flex-col gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4 shadow-[var(--sh-sm)] transition-shadow duration-[var(--dur-normal)] hover:shadow-[var(--sh-md)]"
     >
       <header className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">
@@ -83,8 +83,8 @@ export function DimensionCard({ dimension: d }: DimensionCardProps) {
         >
           {d.score}
         </p>
-        <p className="mb-0.5 font-body text-[10px] text-[var(--t3)]">/ 100</p>
-        <p className="ml-auto mb-0.5 rounded-full bg-[var(--bg2)] px-1.5 py-0.5 font-mono text-[9px] font-[700] text-[var(--t3)]">
+        <p className="mb-0.5 font-body text-[10px] text-[var(--t2)]">/ 100</p>
+        <p className="ml-auto mb-0.5 rounded-full bg-[var(--bg2)] px-2 py-1 font-mono text-[9px] font-[700] text-[var(--t2)]">
           w={weightPct}%
         </p>
       </div>

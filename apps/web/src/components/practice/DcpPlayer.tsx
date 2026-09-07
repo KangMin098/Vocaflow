@@ -8,27 +8,45 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { ArrowRight, Check, Home, Sparkles, X } from 'lucide-react'
+import { AlertTriangle, ArrowRight, Check, Home, RefreshCw, Sparkles, X } from 'lucide-react'
 
 import {
   correctOrderFromKey,
   type DcpErrorCause,
-  type DcpGradeResult,
+  type DcpGradeOk,
+  type DcpChoicePayload,
   type DcpInsertPayload,
   type DcpItem,
   type DcpOrderPayload,
   ERROR_CAUSES,
+  pickExplanationText,
 } from '@/lib/learner/dcp'
+
+import { isChoiceDcpType } from '@/lib/learner/dcp-types'
 import { gradeDcpItem, recordDcpErrorCause } from '@/lib/learner/dcp-actions'
 
-import { DcpInsertItem, DcpOrderItem } from './DcpItems'
+import { DcpChoiceItem, DcpInsertItem, DcpOrderItem } from './DcpItems'
 
 type Phase = 'answering' | 'grading' | 'graded' | 'done'
 
-export function DcpPlayer({ items }: { items: DcpItem[] }) {
+export function DcpPlayer({
+  items,
+  backHref = '/hub',
+  backCta = '홈으로',
+}: {
+  items: DcpItem[]
+  /** 온 곳으로 돌아가는 경로 — 페이지가 `?from=` 을 검증해 넘긴다(하드코딩 `/hub` 였다). */
+  backHref?: string
+  backCta?: string
+}) {
   const [idx, setIdx] = useState(0)
   const [phase, setPhase] = useState<Phase>('answering')
-  const [result, setResult] = useState<DcpGradeResult | null>(null)
+  const [result, setResult] = useState<DcpGradeOk | null>(null)
+  /**
+   * 채점을 **못 한** 이유. 오답과 다른 상태다 — 예전에는 둘이 같은 값이라
+   * 세션이 「채점 중」에 잠기거나(예외) 맞힌 학습자에게 「아쉬워요」라고 말했다(RPC 오류).
+   */
+  const [gradeError, setGradeError] = useState<string | null>(null)
   const [cause, setCause] = useState<DcpErrorCause | null>(null)
   const [correctCount, setCorrectCount] = useState(0)
 
@@ -38,8 +56,26 @@ export function DcpPlayer({ items }: { items: DcpItem[] }) {
 
   async function handleSubmit(answer: Record<string, unknown>) {
     if (!item) return
+    setGradeError(null)
     setPhase('grading')
-    const res = await gradeDcpItem(item.id, answer)
+    // ⚠️ **reject 도 잡는다.** try/catch 가 없던 동안 세션 만료·네트워크 끊김이
+    //   `setPhase('graded')` 에 못 닿아 제출 버튼이 회색으로 잠긴 채 영영 멈췄다.
+    //   새로고침이 유일한 탈출이었고, 그러면 1번 문항부터 다시였다.
+    let res
+    try {
+      res = await gradeDcpItem(item.id, answer)
+    } catch (e) {
+      // 학습자가 고른 답은 그대로 둔다(입력 유실 금지) — 화면을 'answering' 으로 되돌리면
+      // 문항 컴포넌트가 언마운트되지 않으므로 배열·선택이 남는다.
+      setGradeError(e instanceof Error ? e.message : '연결이 끊겼어요.')
+      setPhase('answering')
+      return
+    }
+    if (!res.ok) {
+      setGradeError(res.error)
+      setPhase('answering')
+      return
+    }
     setResult(res)
     if (res.correct) setCorrectCount((c) => c + 1)
     setPhase('graded')
@@ -58,6 +94,7 @@ export function DcpPlayer({ items }: { items: DcpItem[] }) {
     setIdx((i) => i + 1)
     setResult(null)
     setCause(null)
+    setGradeError(null)
     setPhase('answering')
   }
 
@@ -77,15 +114,15 @@ export function DcpPlayer({ items }: { items: DcpItem[] }) {
         <div>
           <h2 className="font-display text-[18px] font-[800] text-[var(--t1)]">오늘 구문 연습을 마쳤어요</h2>
           <p className="mt-1 font-body text-[13px] text-[var(--t2)]">
-            {total}문항 중 {correctCount}문항을 정확히 배열했어요. 꾸준함이 실력이 돼요.
+            {total}문항 중 {correctCount}문항을 맞혔어요. 꾸준함이 실력이 돼요.
           </p>
         </div>
         <Link
-          href="/hub"
-          className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] bg-[var(--p)] px-5 font-display text-[14px] font-[700] text-[var(--ti)] no-underline shadow-[var(--sh-xs)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          href={backHref}
+          className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] bg-[var(--p)] px-5 font-display text-[14px] font-[700] text-[var(--on-p)] no-underline shadow-[var(--sh-xs)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] active:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
           <Home size={16} strokeWidth={2} aria-hidden />
-          홈으로
+          {backCta}
         </Link>
       </section>
     )
@@ -97,7 +134,7 @@ export function DcpPlayer({ items }: { items: DcpItem[] }) {
     <section aria-label="구문 연습" className="flex flex-col gap-4">
       {/* 진행 */}
       <div className="flex items-center gap-3">
-        <span className="font-mono text-[12px] font-[700] text-[var(--t3)]">
+        <span className="font-mono text-[12px] font-[700] text-[var(--t2)]">
           {idx + 1} / {total}
         </span>
         <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-[var(--bg3)]" aria-hidden>
@@ -108,9 +145,43 @@ export function DcpPlayer({ items }: { items: DcpItem[] }) {
         </div>
       </div>
 
+      {/* 채점 실패 — **오답이 아니라 「못 했다」**. 고른 답은 그대로 남아 있으므로
+          「제출」을 다시 누르면 된다(그 사실을 말해 주지 않으면 학습자는 새로고침한다). */}
+      {gradeError && phase !== 'graded' && (
+        <div
+          role="alert"
+          aria-live="assertive"
+          className="flex items-start gap-3 rounded-[var(--r-md)] border border-[var(--error)] bg-[var(--error-light)] p-3"
+        >
+          <span
+            className="mt-[1px] inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--bg)] text-[var(--error-ink)]"
+            aria-hidden
+          >
+            <AlertTriangle size={14} strokeWidth={2.5} />
+          </span>
+          <div className="min-w-0 flex-1">
+            <p className="break-keep font-display text-[13px] font-[700] text-[var(--error-ink)]">
+              채점을 못 했어요 — 고른 답은 그대로 있어요.
+            </p>
+            <p className="mt-1 break-keep font-body text-[12px] leading-relaxed text-[var(--t2)]">
+              아래 「제출」을 한 번 더 눌러 주세요. 계속 안 되면 로그인이 풀렸을 수 있어요.
+            </p>
+          </div>
+          <span className="inline-flex shrink-0 items-center gap-1 font-mono text-[11px] text-[var(--t3)]" aria-hidden>
+            <RefreshCw size={12} strokeWidth={2.25} />
+          </span>
+        </div>
+      )}
+
       <div className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-4 shadow-[var(--sh-sm)]">
         {phase === 'graded' && result ? (
           <Feedback item={item} result={result} cause={cause} onCause={handleCause} onNext={handleNext} isLast={isLast} />
+        ) : isChoiceDcpType(item.type) ? (
+          <DcpChoiceItem
+            payload={item.payload as DcpChoicePayload}
+            submitting={phase === 'grading'}
+            onSubmit={handleSubmit}
+          />
         ) : item.type === 'order' ? (
           <DcpOrderItem
             payload={item.payload as DcpOrderPayload}
@@ -141,7 +212,7 @@ function Feedback({
   isLast,
 }: {
   item: DcpItem
-  result: DcpGradeResult
+  result: DcpGradeOk
   cause: DcpErrorCause | null
   onCause: (c: DcpErrorCause) => void
   onNext: () => void
@@ -153,7 +224,7 @@ function Feedback({
       {/* 배너 (색+아이콘 이중부호 · aria-live) */}
       <div
         aria-live="polite"
-        className="flex items-center gap-2.5 rounded-[var(--r-md)] p-3"
+        className="flex items-center gap-3 rounded-[var(--r-md)] p-3"
         style={{
           background: correct ? 'var(--success-light)' : 'var(--error-light)',
           color: correct ? 'var(--success)' : 'var(--error)',
@@ -163,18 +234,39 @@ function Feedback({
           {correct ? <Check size={16} strokeWidth={2.5} /> : <X size={16} strokeWidth={2.5} />}
         </span>
         <p className="font-display text-[14px] font-[700]">
-          {correct ? '정확해요! 문장 흐름을 잘 잡았어요.' : '아쉬워요 — 정답 흐름을 함께 볼게요.'}
+          {/* 유형마다 '무엇을 잘했는지' 가 다르다 — 한 문장으로 뭉개면 선택지 유형에서 어색해진다. */}
+          {correct
+            ? isChoiceDcpType(item.type)
+              ? '정확해요! 근거를 잘 찾았어요.'
+              : '정확해요! 문장 흐름을 잘 잡았어요.'
+            : isChoiceDcpType(item.type)
+              ? '아쉬워요 — 정답과 근거를 함께 볼게요.'
+              : '아쉬워요 — 정답 흐름을 함께 볼게요.'}
         </p>
       </div>
 
-      {/* 오답이면 정답 공개 */}
-      {!correct && result.answerKey && <Reveal item={item} answerKey={result.answerKey} />}
+      {/* 오답이면 정답 공개 — 맞혔으면 **해설만**.
+          맞힌 학습자에게 필요한 것은 "정답이 무엇이었나" 가 아니라 "왜" 다. 찍어서 맞힌
+          경우가 특히 그렇다 — 근거를 못 배우고 넘어가면 다음에 같은 자리에서 또 틀린다.
+
+          ⚠️ **오늘은 대개 비어 있다.** `grade_dcp_item` 이
+             `answer_key := CASE WHEN v_correct THEN NULL ELSE it.answer_key END` 이라
+             정답일 때 해설이 아예 안 내려온다(본문 실측 2026-09-06). `csat_dcp_items` 는
+             학습자 정책이 없어 앱에서 따로 읽을 수도 없다. 그래서 화면 쪽 문은 여기서
+             열어 두고, 서버가 해설만 돌려주게 되면 그날로 보이기 시작한다.
+             (정답 선지·정답 순서까지 다시 보여 줄 필요는 없다 — 방금 고른 것이다.) */}
+      {result.answerKey &&
+        (correct ? (
+          <ExplanationNote answerKey={result.answerKey} />
+        ) : (
+          <Reveal item={item} answerKey={result.answerKey} />
+        ))}
 
       {/* 오답이면 error_cause 1-tap */}
       {!correct && (
         <div className="flex flex-col gap-2">
           <p className="font-display text-[12px] font-[700] text-[var(--t2)]">어떤 점이 어려웠나요? (선택)</p>
-          <div className="flex flex-wrap gap-1.5">
+          <div className="flex flex-wrap gap-2">
             {ERROR_CAUSES.map((ec) => (
               <button
                 key={ec.cause}
@@ -199,7 +291,7 @@ function Feedback({
       <button
         type="button"
         onClick={onNext}
-        className="inline-flex min-h-[44px] items-center justify-center gap-2 self-start rounded-[var(--r-md)] bg-[var(--p)] px-5 font-display text-[14px] font-[700] text-[var(--ti)] shadow-[var(--sh-xs)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+        className="inline-flex min-h-[44px] items-center justify-center gap-2 self-start rounded-[var(--r-md)] bg-[var(--p)] px-5 font-display text-[14px] font-[700] text-[var(--on-p)] shadow-[var(--sh-xs)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
       >
         {isLast ? '마치기' : '다음'}
         <ArrowRight size={15} strokeWidth={2.25} aria-hidden />
@@ -212,12 +304,12 @@ function CauseTip({ cause }: { cause: DcpErrorCause }) {
   const def = ERROR_CAUSES.find((e) => e.cause === cause)
   if (!def) return null
   return (
-    <div className="flex items-center gap-2 rounded-[var(--r-md)] bg-[var(--bg)] p-2.5">
+    <div className="flex items-center gap-2 rounded-[var(--r-md)] bg-[var(--bg)] p-3">
       <p className="min-w-0 flex-1 font-body text-[12.5px] leading-relaxed text-[var(--t2)]">{def.tip}</p>
       {def.href && (
         <Link
           href={def.href}
-          className="inline-flex min-h-[36px] shrink-0 items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 font-display text-[12px] font-[700] text-[var(--p)] no-underline transition-all duration-[var(--dur-normal)] hover:border-[var(--p)] hover:bg-[var(--p-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          className="inline-flex min-h-[36px] shrink-0 items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 font-display text-[12px] font-[700] text-[var(--on-p-tint)] no-underline transition-all duration-[var(--dur-normal)] hover:border-[var(--p)] hover:bg-[var(--p-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
           복습하기
           <ArrowRight size={12} strokeWidth={2.25} aria-hidden />
@@ -227,27 +319,70 @@ function CauseTip({ cause }: { cause: DcpErrorCause }) {
   )
 }
 
+/**
+ * 해설 한 덩이.
+ *
+ * ⚠️ **해설은 두 이름으로 산다** — 생성형 드레인은 `rationale_ko`, 결정론·배치는
+ *   `explanation_ko`. 한쪽만 읽으면 그 유형의 해설이 있는데도 화면에 안 나온다.
+ *   순서·삽입이 실제로 그랬다: 2026-08-30 에 2,755건을 채웠는데 화면은 정답 순서만
+ *   보여 주고 **왜 그렇게 이어지는지는 한 글자도 안 보여 줬다.**
+ */
+function ExplanationNote({ answerKey }: { answerKey: Record<string, unknown> }) {
+  // 두 키 중 무엇을 읽을지는 `pickExplanationText` 한 곳에만 있다.
+  // ⚠️ 여기에 **규칙 해설 대체를 붙이려다 되돌렸다** — 실측 0건이었다. 이유는 `dcp.ts` 참조.
+  const text = pickExplanationText(answerKey)
+  if (!text) return null
+  return (
+    <p className="rounded-[var(--r-sm)] bg-[var(--bg)] p-3 font-body text-[12.5px] leading-relaxed text-[var(--t2)]">
+      {text}
+    </p>
+  )
+}
+
 // 정답 공개 — order: 원래 순서 문장 / insert: 삽입 위치에 문장 배치
 function Reveal({ item, answerKey }: { item: DcpItem; answerKey: Record<string, unknown> }) {
+  // ── 선택지 9종 — 정답 번호 + 해설 ──
+  if (isChoiceDcpType(item.type)) {
+    const answer = answerKey.answer
+    const p = item.payload as DcpChoicePayload
+    if (typeof answer !== 'number') return null
+    return (
+      <div className="flex flex-col gap-2">
+        <p className="font-display text-[12px] font-[700] text-[var(--t2)]">정답</p>
+        <div className="flex items-start gap-3 rounded-[var(--r-sm)] border border-[var(--success)] bg-[var(--success-light)] p-3">
+          <span className="mt-[1px] inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--success)] font-mono text-[12px] font-[700] text-[var(--bg)]" aria-hidden>
+            {answer}
+          </span>
+          <p className="min-w-0 flex-1 font-body text-[13px] leading-relaxed text-[var(--t1)]">
+            {p.choices[answer - 1] ?? ''}
+          </p>
+        </div>
+        {/* 해설은 **왜 나머지가 아닌지**까지 적혀 있다 — 오답 노트가 따로 필요 없게 만든 자리다. */}
+        <ExplanationNote answerKey={answerKey} />
+      </div>
+    )
+  }
+
   if (item.type === 'order') {
     const sourceOrder = answerKey.source_order
     const presented = (item.payload as DcpOrderPayload).presented
     if (!Array.isArray(sourceOrder)) return null
     const correctOrder = correctOrderFromKey(sourceOrder as number[])
     return (
-      <div className="flex flex-col gap-1.5">
-        <p className="font-display text-[12px] font-[700] text-[var(--t3)]">정답 순서</p>
-        <ol className="flex flex-col gap-1.5">
+      <div className="flex flex-col gap-2">
+        <p className="font-display text-[12px] font-[700] text-[var(--t2)]">정답 순서</p>
+        <ol className="flex flex-col gap-2">
           {correctOrder.map((pIdx, pos) => (
             <li
               key={pos}
-              className="flex items-start gap-2 rounded-[var(--r-sm)] border border-[var(--success)] bg-[var(--success-light)] p-2.5"
+              className="flex items-start gap-2 rounded-[var(--r-sm)] border border-[var(--success)] bg-[var(--success-light)] p-3"
             >
               <span className="font-mono text-[12px] font-[700] text-[var(--success)]">{pos + 1}</span>
               <p className="min-w-0 flex-1 font-body text-[13px] leading-relaxed text-[var(--t1)]">{presented[pIdx]}</p>
             </li>
           ))}
         </ol>
+        <ExplanationNote answerKey={answerKey} />
       </div>
     )
   }
@@ -259,15 +394,15 @@ function Reveal({ item, answerKey }: { item: DcpItem; answerKey: Record<string, 
   const withInsert = [...p.remaining]
   withInsert.splice(position, 0, `〔${p.insert_sentence}〕`)
   return (
-    <div className="flex flex-col gap-1.5">
-      <p className="font-display text-[12px] font-[700] text-[var(--t3)]">정답 위치</p>
-      <ol className="flex flex-col gap-1.5">
+    <div className="flex flex-col gap-2">
+      <p className="font-display text-[12px] font-[700] text-[var(--t2)]">정답 위치</p>
+      <ol className="flex flex-col gap-2">
         {withInsert.map((sentence, i) => {
           const isInserted = i === position
           return (
             <li
               key={i}
-              className="rounded-[var(--r-sm)] border p-2.5 font-body text-[13px] leading-relaxed"
+              className="rounded-[var(--r-sm)] border p-3 font-body text-[13px] leading-relaxed"
               style={{
                 borderColor: isInserted ? 'var(--success)' : 'var(--bd)',
                 background: isInserted ? 'var(--success-light)' : 'var(--bg)',
@@ -280,6 +415,7 @@ function Reveal({ item, answerKey }: { item: DcpItem; answerKey: Record<string, 
           )
         })}
       </ol>
+      <ExplanationNote answerKey={answerKey} />
     </div>
   )
 }

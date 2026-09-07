@@ -12,7 +12,7 @@
 
 'use client'
 
-import { useEffect, useId, useMemo, useState, type ReactNode } from 'react'
+import { useEffect, useId, useMemo, useRef, useState, type ReactNode } from 'react'
 import {
   ArrowRight,
   BarChart3,
@@ -40,6 +40,8 @@ import {
   type TrackStat,
 } from '@/lib/articles/source-map'
 import type { PublishedArticle } from '@/lib/articles/types'
+import { useCloseOnBack } from '@/lib/ui/use-close-on-back'
+import { useFocusTrap } from '@/lib/ui/use-focus-trap'
 
 /** 개인화 훅 — fit + idealCount + 진단여부 (감정 부호화·자기효능감). */
 function appealLine(stat: TrackStat, userV: number): { lead: string; body: string } {
@@ -90,6 +92,9 @@ export function SeriesInfoModal({
   onClose: () => void
   onEnter: () => void
 }) {
+  // 이 모달은 열려 있을 때만 마운트된다 — 마운트 = 열림.
+  useCloseOnBack(true, onClose)
+
   const { track, count, cefrLabel, hasAudio, fit, sources, idealCount, vMin, vMax } = stat
   const fitMeta = TRACK_FIT_META[fit]
   const appeal = appealLine(stat, userV)
@@ -108,6 +113,7 @@ export function SeriesInfoModal({
   const maxSourceCount = Math.max(1, ...sources.map((s) => s.count))
 
   const [shown, setShown] = useState(false)
+  const dialogRef = useRef<HTMLDivElement>(null)
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose()
@@ -123,6 +129,13 @@ export function SeriesInfoModal({
     }
   }, [onClose])
 
+  // 포커스: 열 때 팝업 안으로 · Tab 순환 · 닫을 때 트리거로 복원.
+  //   이 팝업은 **열 때 포커스를 옮기지도, 닫을 때 되돌리지도 않았다**(실측 2026-09-05).
+  //   키보드 사용자에게는 팝업이 떴다는 사실 자체가 전달되지 않았고, 첫 Tab 이 팝업이
+  //   아니라 그 뒤 목록의 다음 항목으로 갔다. 규칙은 `lib/ui/use-focus-trap.ts` 단일 출처.
+  //   이 컴포넌트는 열려 있을 때만 마운트된다(호출부 조건부 렌더) — 그래서 상시 `true`.
+  useFocusTrap(true, dialogRef)
+
   return (
     <div
       className={`fixed inset-0 z-[60] flex items-end justify-center bg-[color-mix(in_srgb,var(--t1)_50%,transparent)] p-0 backdrop-blur-[3px] transition-opacity duration-[var(--dur-normal)] sm:items-center sm:p-4 ${shown ? 'opacity-100' : 'opacity-0'}`}
@@ -130,11 +143,15 @@ export function SeriesInfoModal({
       role="presentation"
     >
       <div
+        ref={dialogRef}
+        // 패널 자체가 포커스를 받는다 — 열 때 「닫기」 버튼으로 뛰면 제목·난이도 게이지를
+        // 지나친 자리에서 시작한다. 스크린리더는 "무엇이 떴는지" 부터 읽어야 한다.
+        tabIndex={-1}
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
         onClick={(e) => e.stopPropagation()}
-        className={`flex max-h-[92vh] w-full max-w-[560px] flex-col overflow-hidden rounded-t-[var(--r-xl)] bg-[var(--bg)] shadow-[var(--sh-lg)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] sm:rounded-[var(--r-xl)] ${shown ? 'translate-y-0 opacity-100 sm:scale-100' : 'translate-y-6 opacity-0 sm:translate-y-0 sm:scale-95'}`}
+        className={`flex max-h-[92vh] w-full max-w-[560px] flex-col overflow-hidden rounded-t-[var(--r-xl)] bg-[var(--bg)] shadow-[var(--sh-lg)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] focus:outline-none sm:rounded-[var(--r-xl)] ${shown ? 'translate-y-0 opacity-100 sm:scale-100' : 'translate-y-6 opacity-0 sm:translate-y-0 sm:scale-95'}`}
       >
         {/* ═══ 히어로 — 정체성 ═══ */}
         <header
@@ -181,13 +198,13 @@ export function SeriesInfoModal({
 
           {/* ── 개인화 훅 (Von Restorff) ── */}
           <div
-            className="flex items-start gap-3 rounded-[var(--r-lg)] border-l-[3px] px-4 py-3.5"
+            className="flex items-start gap-3 rounded-[var(--r-lg)] border-l-[3px] px-4 py-4"
             style={{ borderColor: fitMeta.color, backgroundColor: `color-mix(in srgb, ${fitMeta.color} 9%, var(--bg))` }}
           >
             <span aria-hidden className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-[var(--r-full)]" style={{ backgroundColor: fitMeta.color, color: 'var(--ti)' }}>
               <Sparkles size={13} aria-hidden />
             </span>
-            <div className="flex flex-col gap-0.5">
+            <div className="flex flex-col gap-1">
               <span className="font-display text-[16px] font-[800] leading-[1.3] text-[var(--t1)]">{appeal.lead}</span>
               <span className="font-body text-[13.5px] leading-[1.45] text-[var(--t2)]">{appeal.body}</span>
             </div>
@@ -199,7 +216,7 @@ export function SeriesInfoModal({
               {track.skills.map((sk) => {
                 const Icon = skillIcon(sk)
                 return (
-                  <div key={sk} className="flex items-center gap-2.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2.5">
+                  <div key={sk} className="flex items-center gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-3">
                     <span aria-hidden className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--r-md)]" style={{ backgroundColor: `color-mix(in srgb, ${accent} 14%, transparent)`, color: accent }}>
                       <Icon size={16} aria-hidden />
                     </span>
@@ -237,27 +254,27 @@ export function SeriesInfoModal({
                   <SourceDetail key={s.key} source={s} maxCount={maxSourceCount} />
                 ))}
               </div>
-              <p className="mt-0.5 font-body text-[11px] leading-[1.4] text-[var(--t3)]">
+              <p className="mt-0.5 font-body text-[11px] leading-[1.4] text-[var(--t2)]">
                 모두 신뢰할 수 있는 원문에서 큐레이션 · 원문은 각 글에서 열 수 있어요.
               </p>
             </Zone>
           )}
 
           {/* ── 왜 효과적 (아이콘 앵커) ── */}
-          <div className="flex items-start gap-2.5 rounded-[var(--r-lg)] bg-[var(--bg2)] p-4">
+          <div className="flex items-start gap-3 rounded-[var(--r-lg)] bg-[var(--bg2)] p-4">
             <span aria-hidden className="mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-[var(--r-full)]" style={{ backgroundColor: `color-mix(in srgb, ${accent} 16%, transparent)`, color: accent }}>
               <Lightbulb size={14} aria-hidden />
             </span>
-            <div className="flex flex-col gap-0.5">
+            <div className="flex flex-col gap-1">
               <span className="font-display text-[11px] font-[800] uppercase tracking-[0.08em] text-[var(--t2)]">왜 효과적일까요</span>
               <p className="font-body text-[13px] leading-[1.5] text-[var(--t1)]">{track.why}</p>
-              {track.note && <p className="mt-1 font-body text-[11.5px] leading-[1.45] text-[var(--t3)]">※ {track.note}</p>}
+              {track.note && <p className="mt-1 font-body text-[11.5px] leading-[1.45] text-[var(--t2)]">※ {track.note}</p>}
             </div>
           </div>
         </div>
 
         {/* ═══ 스티키 CTA ═══ */}
-        <footer className="flex items-center gap-2.5 border-t border-[var(--bd)] bg-[var(--bg)] px-6 py-4">
+        <footer className="flex items-center gap-3 border-t border-[var(--bd)] bg-[var(--bg)] px-6 py-4">
           <button
             type="button"
             onClick={onClose}
@@ -268,7 +285,7 @@ export function SeriesInfoModal({
           <button
             type="button"
             onClick={onEnter}
-            className="group inline-flex min-h-[48px] flex-1 items-center justify-center gap-1.5 rounded-[var(--r-md)] px-4 font-display text-[15px] font-[800] text-[var(--ti)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:shadow-[var(--sh-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 active:translate-y-0"
+            className="group inline-flex min-h-[48px] flex-1 items-center justify-center gap-2 rounded-[var(--r-md)] px-4 font-display text-[15px] font-[800] text-[var(--ti)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:shadow-[var(--sh-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 active:translate-y-0"
             style={{ backgroundColor: accent }}
           >
             {idealCount > 0 ? `딱 맞는 글 ${idealCount}편부터 시작` : '이 시리즈로 시작하기'}
@@ -301,12 +318,12 @@ function DifficultyGauge({
   const me = vToPct(effectiveUserV(userV))
   const myCefr = vToCefrLabel(effectiveUserV(userV))
   return (
-    <div className="flex flex-col gap-2 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3.5">
+    <div className="flex flex-col gap-2 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-4">
       <div className="flex items-center justify-between">
-        <span className="inline-flex items-center gap-1.5 font-display text-[13px] font-[800]" style={{ color: fitMeta.color }}>
+        <span className="inline-flex items-center gap-2 font-display text-[13px] font-[800]" style={{ color: fitMeta.color }}>
           <Target size={14} aria-hidden /> {fitMeta.label}
         </span>
-        <span className="font-mono text-[11px] font-[600] text-[var(--t3)]">시리즈 {cefrLabel}</span>
+        <span className="font-mono text-[11px] font-[600] text-[var(--t2)]">시리즈 {cefrLabel}</span>
       </div>
       <div className="relative mt-1 h-2.5 w-full rounded-[var(--r-full)] bg-[var(--bg3)]">
         {/* 시리즈 밴드 */}
@@ -320,7 +337,7 @@ function DifficultyGauge({
           <span className="block h-4 w-4 rounded-[var(--r-full)] border-[2.5px] border-[var(--bg)] bg-[var(--t1)] shadow-[var(--sh-sm)]" />
         </span>
       </div>
-      <div className="flex items-center justify-between font-mono text-[10.5px] font-[600] text-[var(--t3)]">
+      <div className="flex items-center justify-between font-mono text-[10.5px] font-[600] text-[var(--t2)]">
         <span>← 쉬움</span>
         <span className="font-[700] text-[var(--t2)]">내 레벨 · {userV > 0 ? `V${userV}` : '기준'} · {myCefr}</span>
         <span>어려움 →</span>
@@ -339,14 +356,14 @@ function SourceDetail({ source, maxCount }: { source: TrackStat['sources'][numbe
         <div className="flex items-center gap-2">
           <span className="truncate font-display text-[13.5px] font-[800] text-[var(--t1)]">{source.label}</span>
           <span
-            className="inline-flex shrink-0 items-center rounded-[var(--r-sm)] px-1.5 py-0.5 font-display text-[10px] font-[700]"
+            className="inline-flex shrink-0 items-center rounded-[var(--r-sm)] px-2 py-1 font-display text-[10px] font-[700]"
             style={{ color: source.color, backgroundColor: `color-mix(in srgb, ${source.color} 12%, transparent)` }}
           >
             {source.domain}
           </span>
           <span className="ml-auto shrink-0 font-mono text-[11px] font-[700] text-[var(--t2)]">{source.count}편</span>
         </div>
-        {source.blurb && <p className="font-body text-[12px] leading-[1.4] text-[var(--t3)]">{source.blurb}</p>}
+        {source.blurb && <p className="font-body text-[12px] leading-[1.4] text-[var(--t2)]">{source.blurb}</p>}
         <div className="mt-0.5 h-[3px] w-full rounded-[var(--r-full)] bg-[var(--bg3)]">
           <div className="h-full rounded-[var(--r-full)]" style={{ width: `${pct}%`, backgroundColor: `color-mix(in srgb, ${source.color} 60%, transparent)` }} />
         </div>
@@ -371,7 +388,7 @@ function StatTile({
 }) {
   return (
     <div
-      className="flex flex-col items-center gap-1 rounded-[var(--r-md)] border px-2 py-2.5 text-center"
+      className="flex flex-col items-center gap-1 rounded-[var(--r-md)] border px-2 py-3 text-center"
       style={{
         borderColor: tint ? `color-mix(in srgb, ${tint} 28%, var(--bd))` : 'var(--bd)',
         backgroundColor: tint ? `color-mix(in srgb, ${tint} 7%, var(--bg))` : 'var(--bg2)',
@@ -380,7 +397,7 @@ function StatTile({
       <span aria-hidden style={{ color: muted ? 'var(--t3)' : tint ?? 'var(--t2)' }}>
         <Icon size={16} aria-hidden />
       </span>
-      <span className="font-display text-[9.5px] font-[700] uppercase tracking-[0.05em] text-[var(--t3)]">{label}</span>
+      <span className="font-display text-[9.5px] font-[700] uppercase tracking-[0.05em] text-[var(--t2)]">{label}</span>
       <span className="font-display text-[14px] font-[800] leading-none" style={{ color: muted ? 'var(--t3)' : 'var(--t1)' }}>
         {value}
       </span>
@@ -391,8 +408,8 @@ function StatTile({
 /** 정보 존 — 라벨 + 내용 (Gestalt 근접성). */
 function Zone({ label, accent, children }: { label: string; accent: string; children: ReactNode }) {
   return (
-    <section className="flex flex-col gap-2.5">
-      <span className="inline-flex items-center gap-1.5 font-display text-[12px] font-[800] uppercase tracking-[0.07em] text-[var(--t2)]">
+    <section className="flex flex-col gap-3">
+      <span className="inline-flex items-center gap-2 font-display text-[12px] font-[800] uppercase tracking-[0.07em] text-[var(--t2)]">
         <span aria-hidden className="h-3 w-[3px] rounded-full" style={{ backgroundColor: accent }} />
         {label}
       </span>

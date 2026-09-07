@@ -23,10 +23,12 @@ import { useTypingMode } from '@/hooks/useTypingMode'
 
 import { SpellForgeCompletion } from './SpellForgeCompletion'
 
+import { useSessionEscape } from '@/components/layout/session-escape'
 import { useNextAction } from '@/lib/recommend/use-next-action'
 import { evaluateInput, generateReflectionMessage } from '@/lib/spellforge/scoring'
 import { applyReview, createNewCard } from '@/lib/srs'
 import { flushPendingSession } from '@/lib/srs/flush-session'
+import { useSrsFlushOnLeave } from '@/hooks/useSrsFlushOnLeave'
 import { spellforgeResultToRating } from '@/lib/srs/rating-mapper'
 import {
   cacheCard,
@@ -34,7 +36,33 @@ import {
   pushPendingResult,
 } from '@/lib/srs/session-storage'
 import { cardToUpdatePayload } from '@/lib/srs/supabase-adapter'
+import { blankSurface } from '@/lib/text/surface-match'
+import type { ContentRef } from '@/lib/content/content-ref'
 import type { Phase, SpellForgeWord } from '@/types/spellforge'
+
+/**
+ * **예문에서 정답 철자를 가린다.**
+ *
+ * SpellForge 는 뜻만 보고 철자를 쓰는 L4b(시각생성) 모듈인데, 입력칸 바로 아래에
+ * 그 낱말이 든 원문 문장을 통째로 인쇄하고 있었다. 실측 2026-09-05 — 발행 세트
+ * `shared_words` **619,958 / 656,031 = 94.5%**, hub 진입 `vocabularies`
+ * **1,585 / 1,622 = 97.7%** 가 예문에 정답 철자를 그대로 담고 있다.
+ * 저장·렌더·채점이 다 성공하므로 조용하다. 모듈이 사실상 **베껴쓰기**가 된다.
+ *
+ * ⚠️ `blankSurface` 하나로는 부족하다 — 표면형을 못 찾으면 **문장을 그대로 돌려준다**
+ *    (그 폴백이 바로 이 결함이 조용했던 이유다). 그래서 결과를 다시 확인하고, 남아 있으면
+ *    글자 그대로 지운다. 가리기는 실패해도 조용하면 안 되는 쪽이다.
+ */
+export function maskSpelling(sentence: string, word: string): string {
+  const w = String(word ?? '').trim()
+  if (!sentence || w.length < 2) return sentence
+  let out = blankSurface(sentence, w)
+  if (!out.toLowerCase().includes(w.toLowerCase())) return out
+  // 규칙이 놓친 자리 — 대소문자 무시 전역 치환으로 확실히 지운다
+  const esc = w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  out = out.replace(new RegExp(esc, 'gi'), '___')
+  return out
+}
 
 interface SpellForgeProps {
   textId: string
@@ -42,6 +70,11 @@ interface SpellForgeProps {
   words: SpellForgeWord[]
   /** 닫기/완료 시 복귀 경로 — 페이지가 ?from/스코프로 계산 (textId 는 세션 키라 링크에 부적합). */
   backHref: string
+  /**
+   * 무엇으로 학습했나 — 완주 기록의 콘텐츠 귀속. 페이지가 스코프에서 계산해 주입.
+   * (props 의 `textId` 는 'vocab'|'script'|'all' 같은 세션 키라 콘텐츠 식별에 쓸 수 없다.)
+   */
+  content?: ContentRef
 }
 
 const SUCCESS_MESSAGES = [
@@ -52,7 +85,7 @@ const SUCCESS_MESSAGES = [
   { icon: '🏆', message: '스펠링 마스터.' },
 ]
 
-export function SpellForge({ textId, textTitle, words, backHref }: SpellForgeProps) {
+export function SpellForge({ textId, textTitle, words, backHref, content }: SpellForgeProps) {
   const inputRef = useRef<HTMLInputElement>(null)
 
   // Hooks
@@ -84,6 +117,9 @@ export function SpellForge({ textId, textTitle, words, backHref }: SpellForgePro
     document.body.classList.add('studying')
     return () => document.body.classList.remove('studying')
   }, [])
+
+  // 완주하지 않고 떠나도 평가가 남는다(✕ · Esc · 뒤로가기 · 탭 닫기) — 서버가 멱등하다.
+  useSrsFlushOnLeave()
 
   // 세션 종료 시 SRS 큐 → DB flush (멱등 가드, 1회).
   const flushedRef = useRef(false)
@@ -298,6 +334,15 @@ export function SpellForge({ textId, textTitle, words, backHref }: SpellForgePro
     }
   }, [currentWord, hintCount, recordRating, skipWord])
 
+  // Esc = 건너뛰기 — 화면이 그렇게 광고한다. 셸도 같은 키로 세션을 닫고 있어서,
+  // 예전에는 한 번의 Esc 가 단어를 건너뛰는 **동시에** 세션 밖으로 내보냈다(v08.7 [B1]).
+  // 건너뛸 단어가 없을 때(완료 화면)만 셸에 돌려준다 — 셸 X 는 언제나 그대로 출구다.
+  useSessionEscape(() => {
+    if (showCompletion || !currentWord) return false
+    handleSkip()
+    return true
+  })
+
   /**
    * Keyboard
    */
@@ -307,8 +352,20 @@ export function SpellForge({ textId, textTitle, words, backHref }: SpellForgePro
       const isTextInput = target.tagName === 'TEXTAREA'
       if (isTextInput) return
 
-      // Tab — 힌트
+      // Tab — 힌트. **다만 Tab 은 이 앱에서 유일한 이동 수단이기도 하다.**
+      //
+      // ⚠️ 실측 2026-08-23: 이 핸들러가 `document` 전역에서 Tab 을 삼키고 있어
+      //    `/spellforge/play` 에서는 **Tab 을 40번 눌러도 포커스가 한 번도 안 움직였다.**
+      //    마우스를 못 쓰는 학습자는 나가기·모드 선택 어디에도 닿지 못한다 —
+      //    키보드 함정이다(WCAG 2.1.2 "No Keyboard Trap").
+      //
+      // 단축키는 살리되 **빠져나갈 길을 남긴다**:
+      //   · 타이핑 칸에 있을 때의 Tab 만 힌트다 (게임의 의도는 그대로)
+      //   · Shift+Tab 은 언제나 이동 — 이것이 함정에서 나가는 문이다
+      //   · 타이핑 칸 밖의 Tab 은 평범한 이동
       if (e.key === 'Tab') {
+        if (e.shiftKey) return
+        if (target !== inputRef.current) return
         e.preventDefault()
         triggerHint()
         playWordAudio(currentWord?.text ?? '')
@@ -324,12 +381,6 @@ export function SpellForge({ textId, textTitle, words, backHref }: SpellForgePro
         return
       }
 
-      // Esc — Skip
-      if (e.key === 'Escape') {
-        e.preventDefault()
-        handleSkip()
-        return
-      }
     }
 
     document.addEventListener('keydown', handler)
@@ -347,7 +398,7 @@ export function SpellForge({ textId, textTitle, words, backHref }: SpellForgePro
   if (!currentWord) {
     return (
       <div className="flex min-h-screen items-center justify-center">
-        <p className="font-body text-[var(--t3)]">학습할 단어가 없어요.</p>
+        <p className="font-body text-[var(--t2)]">학습할 단어가 없어요.</p>
       </div>
     )
   }
@@ -359,6 +410,7 @@ export function SpellForge({ textId, textTitle, words, backHref }: SpellForgePro
         correctCount={session.totalCorrect}
         startedAt={session.startedAt}
         backHref={backHref}
+        content={content}
         recommendation={recommendation}
       />
     )
@@ -382,7 +434,8 @@ export function SpellForge({ textId, textTitle, words, backHref }: SpellForgePro
         href={backHref}
         aria-label="스펠 닫기 — 스크립트로 돌아가기"
         title="스크립트로 돌아가기"
-        className="fixed right-4 top-4 z-[55] inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)] text-[var(--t2)] transition-colors hover:bg-[var(--error-light)] hover:text-[var(--error)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+        /* 36×36 이었다 — 44px 미만 탭 대상이었다(CLAUDE.md 절대 금지 · 실측 390px). 세션에서 빠져나가는 유일한 버튼이라 특히 크게. */
+        className="fixed right-4 top-4 z-[55] inline-flex h-11 w-11 items-center justify-center rounded-[var(--r-md)] text-[var(--t2)] transition-colors hover:bg-[var(--error-light)] hover:text-[var(--error-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
       >
         <X size={18} strokeWidth={2} aria-hidden />
       </Link>
@@ -458,33 +511,35 @@ export function SpellForge({ textId, textTitle, words, backHref }: SpellForgePro
             message={reflectionMsg}
           />
 
-          {/* Example */}
+          {/* Example — 타이핑 중에는 정답 철자를 가린다 (maskSpelling 주석 참조) */}
           {currentWord.exampleSentence && (
             <div className="relative mt-6 w-full rounded-r-[var(--r-md)] border-l-[3px] border-[var(--p)] bg-gradient-to-br from-[var(--p-light)] to-[var(--bg2)] px-5 py-4 font-english text-[15px] italic leading-relaxed text-[var(--t1)]">
-              {currentWord.exampleSentence}
-              <span className="mt-2 block font-body text-[11px] not-italic text-[var(--t3)]">
+              {phase === 'success'
+                ? currentWord.exampleSentence
+                : maskSpelling(currentWord.exampleSentence, currentWord.text)}
+              <span className="mt-2 block font-body text-[11px] not-italic text-[var(--t2)]">
                 — {textTitle}
               </span>
             </div>
           )}
 
           {/* Feedback Strip */}
-          <div className="mt-4 flex w-full items-center justify-center gap-5 py-2 font-mono text-[11px] text-[var(--t3)] opacity-40 transition-opacity duration-[var(--dur-normal)] hover:opacity-100">
-            <div className="flex items-center gap-1.5">
+          <div className="mt-4 flex w-full items-center justify-center gap-5 py-2 font-mono text-[11px] text-[var(--t2)] opacity-40 transition-opacity duration-[var(--dur-normal)] hover:opacity-100">
+            <div className="flex items-center gap-2">
               <span className="font-display text-[9px] font-[700] uppercase tracking-[0.08em]">
                 정확도
               </span>
               <strong className="font-[700] text-[var(--t1)]">{sessionAccuracy}%</strong>
             </div>
             <span className="h-3 w-px bg-[var(--bd)]" />
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-2">
               <span className="font-display text-[9px] font-[700] uppercase tracking-[0.08em]">
                 힌트
               </span>
               <strong className="font-[700] text-[var(--t1)]">{hintCount}</strong>
             </div>
             <span className="h-3 w-px bg-[var(--bd)]" />
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-2">
               <span className="font-display text-[9px] font-[700] uppercase tracking-[0.08em]">
                 진행
               </span>
@@ -496,21 +551,33 @@ export function SpellForge({ textId, textTitle, words, backHref }: SpellForgePro
         </div>
 
         {/* Hint Bar */}
-        <div className="mt-3 flex w-full max-w-[720px] items-center justify-center gap-2 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] px-6 py-3.5">
+        <div className="mt-3 flex w-full max-w-[720px] items-center justify-center gap-2 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] px-6 py-4">
           <button
             onClick={triggerHint}
-            className="inline-flex cursor-pointer items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3.5 py-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:-translate-y-px hover:border-[var(--p)] hover:bg-[var(--bg)] hover:text-[var(--t1)]"
+            className="inline-flex cursor-pointer items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:-translate-y-px hover:border-[var(--p)] hover:bg-[var(--bg)] hover:text-[var(--t1)]"
           >
-            <kbd className="rounded border border-[var(--bd)] bg-[var(--bg)] px-1 py-0.5 font-mono text-[9px] font-[700] text-[var(--t3)]">
+            <kbd className="rounded border border-[var(--bd)] bg-[var(--bg)] px-1 py-1 font-mono text-[9px] font-[700] text-[var(--t2)]">
               Tab
             </kbd>
             <span>힌트 (잠깐 보기)</span>
           </button>
 
+          {/*
+            Tab 이 힌트라 **여기서 나가는 방법을 화면이 말해야 한다.**
+            WCAG 2.1.2 는 표준 키가 아닌 방법으로 빠져나가야 한다면 그 방법을 **알리라**고 한다 —
+            알리지 않으면 길이 있어도 없는 것과 같다(실측 2026-08-23: 키보드 축이 이걸 잡았다).
+          */}
+          <span className="font-body text-[11px] text-[var(--t3)]">
+            <kbd className="rounded border border-[var(--bd)] bg-[var(--bg)] px-1 py-1 font-mono text-[9px] font-[700] text-[var(--t2)]">
+              Shift+Tab
+            </kbd>{' '}
+            으로 나가기
+          </span>
+
           {mode === 'blind' && (
             <button
               onClick={() => setShowLength((s) => !s)}
-              className="inline-flex cursor-pointer items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3.5 py-2 font-display text-[11px] font-[600] text-[var(--t3)] transition-all duration-[var(--dur-normal)] hover:-translate-y-px hover:border-[var(--p)] hover:bg-[var(--bg)] hover:text-[var(--t1)]"
+              className="inline-flex cursor-pointer items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-2 font-display text-[11px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:-translate-y-px hover:border-[var(--p)] hover:bg-[var(--bg)] hover:text-[var(--t1)]"
             >
               {showLength ? '글자 수 가리기' : '글자 수 보기'}
             </button>
@@ -518,9 +585,9 @@ export function SpellForge({ textId, textTitle, words, backHref }: SpellForgePro
 
           <button
             onClick={handleSkip}
-            className="inline-flex cursor-pointer items-center gap-1.5 rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-3.5 py-2 font-display text-[12px] font-[600] text-[var(--t3)] transition-all duration-[var(--dur-normal)] hover:-translate-y-px hover:border-solid hover:border-[var(--t3)] hover:bg-[var(--bg)] hover:text-[var(--t1)]"
+            className="inline-flex cursor-pointer items-center gap-2 rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:-translate-y-px hover:border-solid hover:border-[var(--t3)] hover:bg-[var(--bg)] hover:text-[var(--t1)]"
           >
-            <kbd className="rounded border border-[var(--bd)] bg-[var(--bg)] px-1 py-0.5 font-mono text-[9px] font-[700] text-[var(--t3)]">
+            <kbd className="rounded border border-[var(--bd)] bg-[var(--bg)] px-1 py-1 font-mono text-[9px] font-[700] text-[var(--t2)]">
               Esc
             </kbd>
             <span>건너뛰기</span>

@@ -1,9 +1,11 @@
+// apps/web/src/components/admin/curation/BulkFetchTab.tsx
+
 // 새 시드 탭 — 소스에서 GET batch + library_seed_catalog 리스트 뷰.
 // 리스트형 행 디자인 (cover · title · author · source/장르/CEFR 칩 · enqueue 버튼).
 
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Loader2, Download, Plus, BookOpen, ExternalLink, Search, AlertCircle, CheckCircle2, Info, Clock, Calendar, FileText, Trash2, ArrowRightLeft } from 'lucide-react'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { createClient } from '@/lib/supabase/client'
@@ -109,6 +111,15 @@ export function BulkFetchTab() {
   // 큐레이션 메타 큐잉 (Claude Code 배치가 drain)
   const [queuingCuration, setQueuingCuration] = useState(false)
   const [curationResult, setCurationResult] = useState<QueueCurationResult | null>(null)
+
+  // 소스 메타 보강 — 반복 호출이라 "멈춤" 이 필요하다. ref 로 두는 이유: 루프 안에서
+  // 최신 값을 읽어야 하는데 state 는 클로저에 갇힌 옛 값을 보여준다.
+  const [enriching, setEnriching] = useState(false)
+  const stopEnrichRef = useRef(false)
+  const [enrichProgress, setEnrichProgress] = useState<
+    { filled: number; empty: number; failed: number; remaining: number; done: boolean } | null
+  >(null)
+  const [enrichError, setEnrichError] = useState<string | null>(null)
   // SE 중복 정리 — 행별 액션(삭제/변환) pending + 일괄 삭제 pending
   const [rowActionId, setRowActionId] = useState<string | null>(null)
   const [bulkDeleting, setBulkDeleting] = useState(false)
@@ -168,7 +179,12 @@ export function BulkFetchTab() {
         }),
       })
       const data = await res.json()
-      if (!res.ok) throw new Error(data.error ?? `HTTP ${res.status}`)
+      if (!res.ok) {
+        // 가드는 401/403 을 { error: 'Unauthorized', message: '로그인이 필요합니다.' } 로 낸다 —
+        // 사람이 읽을 문장은 message 쪽이므로 그것을 먼저 본다.
+        const err = data as { message?: string; error?: string }
+        throw new Error(err.message ?? err.error ?? `HTTP ${res.status}`)
+      }
       setLastResult(data)
       setFetchOffset(data.next_offset ?? offset + batchSize)
       await loadList()
@@ -210,6 +226,69 @@ export function BulkFetchTab() {
       alert(e instanceof Error ? e.message : '큐레이션 큐잉 실패')
     } finally {
       setQueuingCuration(false)
+    }
+  }
+
+  // 소스 메타 보강 — **AI 생성이 아니라 소스 사이트가 이미 가진 것**(줄거리·주제·분량·읽기시간)을 긁어온다.
+  // 위의 큐레이션 큐(Claude Code 생성)와는 다른 축이고, 이쪽이 먼저다: 원문 줄거리가 있으면
+  // 굳이 생성하지 않아도 "이 책이 무엇인지" 가 목록에서 보인다.
+  //
+  // 한 번에 다 돌리지 않는 이유는 서버 라우트 주석 참조(외부 사이트를 건당 1회 때린다).
+  // 여기서는 **멈출 수 있는 반복**으로 만든다 — 관리자가 진행을 보면서 중단할 수 있어야 한다.
+  async function handleEnrichMeta() {
+    if (enriching) {
+      stopEnrichRef.current = true
+      return
+    }
+    stopEnrichRef.current = false
+    setEnriching(true)
+    setEnrichError(null)
+    let filled = 0
+    let empty = 0
+    let failed = 0
+    try {
+      for (;;) {
+        if (stopEnrichRef.current) break
+        const res = await fetch('/api/admin/library/enrich-seed-batch', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            limit: 8,
+            source: filterSource === 'all' ? undefined : filterSource,
+          }),
+        })
+        const json = (await res.json()) as {
+          done?: boolean
+          enriched?: number
+          empty?: number
+          failed?: number
+          remaining?: number
+          error?: string
+          message?: string
+        }
+        if (!res.ok) throw new Error(json.message ?? json.error ?? `보강 실패 (${res.status})`)
+        if (json.done) {
+          setEnrichProgress({ filled, empty, failed, remaining: 0, done: true })
+          break
+        }
+        filled += json.enriched ?? 0
+        empty += json.empty ?? 0
+        failed += json.failed ?? 0
+        setEnrichProgress({ filled, empty, failed, remaining: json.remaining ?? 0, done: false })
+
+        // 회차마다 아무것도 못 채웠는데 실패·빈손만 쌓이면 멈춘다 —
+        // 소스 페이지 구조가 바뀐 상황에서 남의 사이트를 계속 때리지 않기 위해서다.
+        if ((json.enriched ?? 0) === 0 && (json.empty ?? 0) + (json.failed ?? 0) > 0) {
+          setEnrichError('이번 회차에서 한 건도 채우지 못했습니다 — 소스 페이지 구조 변경일 수 있어 중단했습니다')
+          break
+        }
+      }
+      await loadList()
+    } catch (e) {
+      setEnrichError(e instanceof Error ? e.message : '메타 보강 실패')
+    } finally {
+      setEnriching(false)
+      stopEnrichRef.current = false
     }
   }
 
@@ -331,7 +410,7 @@ export function BulkFetchTab() {
             소스에서 가져오기 (GET batch)
           </h2>
           {opts.hint && (
-            <span className="hidden font-body text-[10.5px] text-[var(--t3)] sm:inline">
+            <span className="hidden font-body text-[10.5px] text-[var(--t2)] sm:inline">
               {opts.hint}
             </span>
           )}
@@ -392,7 +471,7 @@ export function BulkFetchTab() {
         </div>
 
         {lastResult && !fetchError && (
-          <div className="mt-3 flex flex-wrap items-center gap-3 rounded-[var(--r-sm)] bg-[var(--bg2)] p-2.5 font-mono text-[11px] text-[var(--t2)]">
+          <div className="mt-3 flex flex-wrap items-center gap-3 rounded-[var(--r-sm)] bg-[var(--bg2)] p-3 font-mono text-[11px] text-[var(--t2)]">
             {lastResult.inserted === 0 && lastResult.skipped === 0 ? (
               <>
                 <AlertCircle size={12} className="text-[var(--learn-review)]" />
@@ -404,7 +483,7 @@ export function BulkFetchTab() {
               <>
                 <CheckCircle2 size={12} className="text-[var(--learn-known)]" />
                 신규 <strong className="text-[var(--learn-known)]">{lastResult.inserted}</strong>건 ·
-                중복 <span className="text-[var(--t3)]">{lastResult.skipped}</span>건
+                중복 <span className="text-[var(--t2)]">{lastResult.skipped}</span>건
                 {lastResult.total_available != null && (
                   <span>· 소스 전체 ~{lastResult.total_available.toLocaleString()}권</span>
                 )}
@@ -412,14 +491,14 @@ export function BulkFetchTab() {
             )}
             {lastResult.next_offset != null && (
               <button type="button" onClick={() => handleFetch(true)} disabled={fetching}
-                className="ml-auto inline-flex items-center gap-1 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p-light)] px-3 py-1 font-display text-[11px] font-[600] text-[var(--p)] hover:bg-[var(--p)] hover:text-[var(--ti)]">
+                className="min-h-[44px] ml-auto inline-flex items-center gap-1 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p-light)] px-3 py-1 font-display text-[11px] font-[600] text-[var(--on-p-tint)] hover:bg-[var(--p)] hover:text-[var(--on-p)]">
                 <Plus size={11} /> 더 가져오기 ({batchSize}권)
               </button>
             )}
           </div>
         )}
         {fetchError && (
-          <div className="mt-3 flex items-center gap-2 rounded-[var(--r-sm)] border border-[var(--learn-error)] bg-[var(--learn-error-light)] p-2.5 font-body text-[12px] text-[var(--learn-error)]">
+          <div className="mt-3 flex items-center gap-2 rounded-[var(--r-sm)] border border-[var(--learn-error)] bg-[var(--learn-error-light)] p-3 font-body text-[12px] text-[var(--learn-error)]">
             <AlertCircle size={12} /> {fetchError}
           </div>
         )}
@@ -435,14 +514,14 @@ export function BulkFetchTab() {
           ))}
           {stats.shadowed > 0 && (
             <label
-              className="inline-flex cursor-pointer items-center gap-1.5 rounded-[var(--r-full)] border border-[var(--learn-review)] bg-[var(--learn-review-light)] px-2 py-1 font-mono text-[10px] text-[var(--learn-review)]"
+              className="inline-flex min-h-[44px] cursor-pointer items-center gap-2 rounded-[var(--r-full)] border border-[var(--learn-review)] bg-[var(--learn-review-light)] px-2 py-1 font-mono text-[10px] text-[var(--learn-review)]"
               title="Standard Ebooks 가 같은 책을 가진 Gutenberg 행 — 기본 숨김"
             >
               <input
                 type="checkbox"
                 checked={showShadowed}
                 onChange={(e) => { setShowShadowed(e.target.checked); setListOffset(0) }}
-                className="h-3 w-3"
+                className={/* 체크박스는 대체 요소(replaced element)라 ::after 로 히트 영역을 못 넓힌다 — 탭 영역은 감싼 <label> 44px */ 'h-3 w-3'}
               />
               Std Ebooks 가 대체한 Gutenberg <strong className="font-display tabular-nums">{stats.shadowed}</strong>건 표시
             </label>
@@ -453,7 +532,7 @@ export function BulkFetchTab() {
               onClick={handleDeleteAllShadowed}
               disabled={bulkDeleting}
               title="SE 가 대체한 Gutenberg 중복 행 전체 삭제 (큐 추가된 행은 보호)"
-              className="inline-flex items-center gap-1.5 rounded-[var(--r-full)] border border-[var(--learn-error)] bg-[var(--learn-error-light)] px-2 py-1 font-mono text-[10px] font-[700] text-[var(--learn-error)] hover:opacity-90 disabled:opacity-50"
+              className="min-h-[44px] inline-flex items-center gap-2 rounded-[var(--r-full)] border border-[var(--learn-error)] bg-[var(--learn-error-light)] px-2 py-1 font-mono text-[10px] font-[700] text-[var(--learn-error)] hover:opacity-90 disabled:opacity-50"
             >
               {bulkDeleting ? <Loader2 size={11} className="animate-spin" /> : <Trash2 size={11} />}
               삭제 대상 {stats.shadowed}건 모두 삭제
@@ -490,11 +569,39 @@ export function BulkFetchTab() {
           {DUP_OPTIONS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
         </select>
         <div className="relative ml-auto flex-1 max-w-xs">
-          <Search size={12} className="absolute left-2 top-1/2 -translate-y-1/2 text-[var(--t3)]" />
+          <Search size={12} className="absolute left-2 top-1/2 -translate-y-1/2 text-[var(--t2)]" />
           <input type="text" placeholder="제목/저자 검색" value={search}
             onChange={(e) => { setSearch(e.target.value); setListOffset(0) }}
             className={`${filterCls} w-full pl-7`} />
         </div>
+      </section>
+
+      {/* 소스 메타 보강 — 소스 사이트가 이미 가진 줄거리·주제·분량을 긁어온다(AI 생성 아님) */}
+      <section className="flex flex-wrap items-center gap-2 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] p-3">
+        <Info size={13} className="text-[var(--t2)]" aria-hidden />
+        <span className="font-body text-[11px] text-[var(--t2)]">
+          소스 원문 메타(줄거리·주제·분량·읽기 시간) 보강 — Gutenberg · Standard Ebooks · Lit2Go
+        </span>
+        <button
+          type="button"
+          onClick={handleEnrichMeta}
+          className="ml-auto inline-flex h-11 items-center gap-2 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[11px] font-[600] text-[var(--t1)] transition-[background-color,border-color,opacity] duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--t2)] hover:bg-[var(--bg2)] active:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] disabled:opacity-50"
+        >
+          {enriching ? <Loader2 size={11} className="animate-spin" /> : <Info size={11} />}
+          {enriching ? '멈추기' : '메타 없는 후보 보강'}
+        </button>
+        {enrichProgress && (
+          <span className="w-full font-mono text-[11px] text-[var(--t2)]">
+            채움 <strong className="text-[var(--p)]">{enrichProgress.filled}</strong>건
+            {enrichProgress.empty > 0 && <> · 빈손 {enrichProgress.empty}건</>}
+            {enrichProgress.failed > 0 && <> · 실패 {enrichProgress.failed}건</>}
+            {' · '}
+            {enrichProgress.done ? '남은 후보 없음' : `남은 후보 ${enrichProgress.remaining}건`}
+          </span>
+        )}
+        {enrichError && (
+          <span className="w-full font-body text-[11px] text-[var(--memory-risk)]">{enrichError}</span>
+        )}
       </section>
 
       {/* 큐레이션 메타 배치 — Claude Code 가 drain */}
@@ -507,7 +614,7 @@ export function BulkFetchTab() {
           type="button"
           onClick={handleQueueCuration}
           disabled={queuingCuration}
-          className="ml-auto inline-flex h-8 items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-3 font-display text-[11px] font-[600] text-[var(--ti)] hover:opacity-90 disabled:opacity-50"
+          className="ml-auto inline-flex h-11 items-center gap-2 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-3 font-display text-[11px] font-[600] text-[var(--on-p)] hover:opacity-90 disabled:opacity-50"
         >
           {queuingCuration ? <Loader2 size={11} className="animate-spin" /> : <Plus size={11} />}
           정보 없는 도서 큐에 추가 (인기순 top 100)
@@ -524,7 +631,7 @@ export function BulkFetchTab() {
       {/* List */}
       <section className="overflow-hidden rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)]">
         {rows.length === 0 ? (
-          <div className="p-8 text-center font-body text-[12px] text-[var(--t3)]">
+          <div className="p-8 text-center font-body text-[12px] text-[var(--t2)]">
             카탈로그가 비어있습니다. 위 picker로 GET 하세요.
           </div>
         ) : (
@@ -548,7 +655,7 @@ export function BulkFetchTab() {
                       /* eslint-disable-next-line @next/next/no-img-element */
                       <img src={r.cover_url} alt="" className="h-full w-full object-cover" loading="lazy" />
                     ) : (
-                      <div className="flex h-full w-full items-center justify-center text-[var(--t4)]">
+                      <div className="flex h-full w-full items-center justify-center text-[var(--t2)]">
                         <BookOpen size={20} />
                       </div>
                     )}
@@ -566,11 +673,11 @@ export function BulkFetchTab() {
                     <div className="truncate font-body text-[11px] text-[var(--t2)]">{r.author ?? '—'}</div>
 
                     {/* 칩 행 — 출처/장르/난이도/연령/인기/언어/상태 + 소스 stat */}
-                    <div className="mt-1 flex flex-wrap items-center gap-1.5">
+                    <div className="mt-1 flex flex-wrap items-center gap-2">
                       <SourcePill source={r.source} />
                       {r.shadowed_by_se && (
                         <span
-                          className="inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[var(--learn-error)] bg-[var(--learn-error-light)] px-2 py-0.5 font-mono text-[9px] font-[700] text-[var(--learn-error)]"
+                          className="inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[var(--learn-error)] bg-[var(--learn-error-light)] px-2 py-1 font-mono text-[9px] font-[700] text-[var(--learn-error)]"
                           title="Standard Ebooks 에 동일 도서 존재 — 이 Gutenberg 행은 삭제 대상"
                         >
                           <Trash2 size={9} aria-hidden /> 삭제 대상
@@ -580,7 +687,7 @@ export function BulkFetchTab() {
                       {r.est_v_level != null && (
                         <span
                           title={`추정 난이도 (ingest 후 실측 대체): ${cm?.est_basis ?? ''}`}
-                          className="inline-flex items-center rounded-[var(--r-full)] bg-[var(--p-light)] px-2 py-0.5 font-mono text-[9px] font-[700] text-[var(--p)]"
+                          className="inline-flex items-center rounded-[var(--r-full)] bg-[var(--p-light)] px-2 py-1 font-mono text-[9px] font-[700] text-[var(--on-p-tint)]"
                         >
                           ~V{r.est_v_level}
                           {cm?.est_cefr ? `·${cm.est_cefr}` : ''}
@@ -590,17 +697,17 @@ export function BulkFetchTab() {
                       {r.popularity_rank != null && <Chip subtle>↓ {r.popularity_rank.toLocaleString()}</Chip>}
                       {r.language && r.language !== 'en' && <Chip subtle>{r.language}</Chip>}
                       {r.published_year && (
-                        <span className="inline-flex items-center gap-1 font-mono text-[9px] text-[var(--t3)]">
+                        <span className="inline-flex items-center gap-1 font-mono text-[9px] text-[var(--t2)]">
                           <Calendar size={10} /> {r.published_year}
                         </span>
                       )}
                       {r.word_count && (
-                        <span className="inline-flex items-center gap-1 font-mono text-[9px] text-[var(--t3)]">
+                        <span className="inline-flex items-center gap-1 font-mono text-[9px] text-[var(--t2)]">
                           <FileText size={10} /> {r.word_count.toLocaleString()}
                         </span>
                       )}
                       {r.reading_time_minutes && (
-                        <span className="inline-flex items-center gap-1 font-mono text-[9px] text-[var(--t3)]">
+                        <span className="inline-flex items-center gap-1 font-mono text-[9px] text-[var(--t2)]">
                           <Clock size={10} />{' '}
                           {r.reading_time_minutes >= 60
                             ? `${Math.floor(r.reading_time_minutes / 60)}h ${r.reading_time_minutes % 60}m`
@@ -619,7 +726,7 @@ export function BulkFetchTab() {
                         {r.description}
                       </p>
                     ) : r.curation_status === 'queued' ? (
-                      <p className="mt-1.5 inline-flex items-center gap-1 font-body text-[11px] italic text-[var(--t3)]">
+                      <p className="mt-1.5 inline-flex items-center gap-1 font-body text-[11px] italic text-[var(--t2)]">
                         <Clock size={10} /> 큐레이션 정보 생성 대기 중
                       </p>
                     ) : null}
@@ -637,7 +744,7 @@ export function BulkFetchTab() {
                         {cm.themes.map((th, i) => (
                           <span
                             key={`${th}-${i}`}
-                            className="inline-flex items-center rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[9px] text-[var(--t2)]"
+                            className="inline-flex items-center rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-1 font-mono text-[9px] text-[var(--t2)]"
                           >
                             {th}
                           </span>
@@ -647,14 +754,14 @@ export function BulkFetchTab() {
                   </div>
 
                   {/* Actions */}
-                  <div className="flex shrink-0 items-center gap-1.5">
+                  <div className="flex shrink-0 items-center gap-2">
                     {r.source_url && (
                       <a
                         href={r.source_url}
                         target="_blank"
                         rel="noopener noreferrer"
                         title="원문 보기"
-                        className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-sm)] text-[var(--t3)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
+                        className={/* 탭 영역 44px — 시각 크기(h-8, 32px)와 다르다 */ "relative after:absolute after:left-1/2 after:top-1/2 after:h-11 after:w-11 after:-translate-x-1/2 after:-translate-y-1/2 inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-sm)] text-[var(--t2)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]"}
                       >
                         <ExternalLink size={12} />
                       </a>
@@ -666,7 +773,7 @@ export function BulkFetchTab() {
                         onClick={() => handleConvertToSe(r)}
                         disabled={rowActionId === r.id}
                         title="Standard Ebooks 에서 같은 도서를 찾아 카탈로그에 추가 (있으면 이 Gutenberg 는 삭제 대상으로 전환)"
-                        className="inline-flex h-8 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--learn-known)] bg-[var(--learn-known-light)] px-2 font-display text-[10px] font-[600] text-[var(--learn-known)] hover:opacity-90 disabled:opacity-50"
+                        className="inline-flex h-11 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--learn-known)] bg-[var(--learn-known-light)] px-2 font-display text-[10px] font-[600] text-[var(--learn-known)] hover:opacity-90 disabled:opacity-50"
                       >
                         {rowActionId === r.id ? (
                           <Loader2 size={11} className="animate-spin" />
@@ -684,7 +791,7 @@ export function BulkFetchTab() {
                         disabled={rowActionId === r.id}
                         title="SE 가 대체한 Gutenberg 중복 행 삭제"
                         aria-label={`${r.title} Gutenberg 중복 삭제`}
-                        className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-sm)] text-[var(--learn-error)] hover:bg-[var(--learn-error-light)] disabled:opacity-50"
+                        className={/* 탭 영역 44px — 시각 크기(h-8, 32px)와 다르다 */ "relative after:absolute after:left-1/2 after:top-1/2 after:h-11 after:w-11 after:-translate-x-1/2 after:-translate-y-1/2 inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-sm)] text-[var(--learn-error)] hover:bg-[var(--learn-error-light)] disabled:opacity-50"}
                       >
                         {rowActionId === r.id ? (
                           <Loader2 size={11} className="animate-spin" />
@@ -694,7 +801,7 @@ export function BulkFetchTab() {
                       </button>
                     )}
                     {r.imported_to_books ? (
-                      <span className="inline-flex h-8 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--learn-known)] bg-[var(--learn-known-light)] px-2.5 font-mono text-[10px] font-[700] text-[var(--learn-known)]">
+                      <span className="inline-flex h-8 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--learn-known)] bg-[var(--learn-known-light)] px-3 font-mono text-[10px] font-[700] text-[var(--learn-known)]">
                         <CheckCircle2 size={11} /> 큐
                       </span>
                     ) : (
@@ -702,7 +809,7 @@ export function BulkFetchTab() {
                         type="button"
                         onClick={() => handleEnqueue(r)}
                         disabled={enqueuingId === r.id}
-                        className="inline-flex h-8 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-2.5 font-display text-[11px] font-[600] text-[var(--ti)] hover:opacity-90 disabled:opacity-50"
+                        className="inline-flex h-11 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-3 font-display text-[11px] font-[600] text-[var(--on-p)] hover:opacity-90 disabled:opacity-50"
                       >
                         {enqueuingId === r.id ? <Loader2 size={11} className="animate-spin" /> : <Plus size={11} />}
                         enqueue
@@ -716,15 +823,15 @@ export function BulkFetchTab() {
         )}
 
         {total > PAGE && (
-          <div className="flex items-center justify-between border-t border-[var(--bd)] bg-[var(--bg2)] p-2 font-mono text-[11px] text-[var(--t3)]">
+          <div className="flex items-center justify-between border-t border-[var(--bd)] bg-[var(--bg2)] p-2 font-mono text-[11px] text-[var(--t2)]">
             <span>{listOffset + 1}–{Math.min(listOffset + PAGE, total)} / {total}</span>
             <div className="flex gap-1">
               <button type="button" disabled={listOffset === 0}
                 onClick={() => setListOffset(Math.max(0, listOffset - PAGE))}
-                className="rounded border border-[var(--bd)] bg-[var(--bg)] px-2 py-1 hover:bg-[var(--bg2)] disabled:opacity-50">이전</button>
+                className="min-h-[44px] rounded border border-[var(--bd)] bg-[var(--bg)] px-2 py-1 hover:bg-[var(--bg2)] disabled:opacity-50">이전</button>
               <button type="button" disabled={listOffset + PAGE >= total}
                 onClick={() => setListOffset(listOffset + PAGE)}
-                className="rounded border border-[var(--bd)] bg-[var(--bg)] px-2 py-1 hover:bg-[var(--bg2)] disabled:opacity-50">다음</button>
+                className="min-h-[44px] rounded border border-[var(--bd)] bg-[var(--bg)] px-2 py-1 hover:bg-[var(--bg2)] disabled:opacity-50">다음</button>
             </div>
           </div>
         )}
@@ -744,7 +851,7 @@ export function BulkFetchTab() {
 function SourcePill({ source }: { source: string }) {
   const cfg = SOURCE_OPTIONS.find((s) => s.value === source)
   return (
-    <span className="inline-flex items-center rounded-[var(--r-full)] px-2 py-0.5 font-mono text-[9px] font-[700]"
+    <span className="inline-flex items-center rounded-[var(--r-full)] px-2 py-1 font-mono text-[9px] font-[700]"
       style={{ color: cfg?.color, backgroundColor: cfg ? `color-mix(in srgb, ${cfg.color} 12%, transparent)` : 'var(--bg2)' }}>
       {cfg?.label ?? source}
     </span>
@@ -753,8 +860,8 @@ function SourcePill({ source }: { source: string }) {
 
 function Chip({ children, subtle }: { children: React.ReactNode; subtle?: boolean }) {
   return (
-    <span className={`inline-flex items-center rounded-[var(--r-full)] px-2 py-0.5 font-mono text-[9px] font-[600] ${
-      subtle ? 'bg-[var(--bg2)] text-[var(--t3)]' : 'bg-[var(--bg2)] text-[var(--t2)]'
+    <span className={`inline-flex items-center rounded-[var(--r-full)] px-2 py-1 font-mono text-[9px] font-[600] ${
+      subtle ? 'bg-[var(--bg2)] text-[var(--t2)]' : 'bg-[var(--bg2)] text-[var(--t2)]'
     }`}>{children}</span>
   )
 }
@@ -762,7 +869,7 @@ function Chip({ children, subtle }: { children: React.ReactNode; subtle?: boolea
 function StatPill({ label, n, tone }: { label: string; n: number; tone: 'neutral' | 'success' | 'info' }) {
   const color = tone === 'success' ? 'var(--learn-known)' : tone === 'info' ? 'var(--p)' : 'var(--t3)'
   return (
-    <span className="inline-flex items-center gap-1.5 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-2 py-1 font-mono text-[10px] text-[var(--t2)]">
+    <span className="inline-flex items-center gap-2 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-2 py-1 font-mono text-[10px] text-[var(--t2)]">
       {label} <strong className="font-display tabular-nums" style={{ color }}>{n.toLocaleString()}</strong>
     </span>
   )
@@ -771,15 +878,15 @@ function StatPill({ label, n, tone }: { label: string; n: number; tone: 'neutral
 function PickerField({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <label className="flex flex-col gap-1">
-      <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">{label}</span>
+      <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">{label}</span>
       {children}
     </label>
   )
 }
 
 const selectCls =
-  'h-9 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-body text-[12px] text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]'
+  'h-11 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-body text-[12px] text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]'
 const filterCls =
-  'h-8 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-body text-[12px] text-[var(--t1)]'
+  'h-11 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-body text-[12px] text-[var(--t1)]'
 const primaryBtn =
-  'inline-flex h-9 items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-3 font-display text-[12px] font-[600] text-[var(--ti)] hover:opacity-90 disabled:opacity-50'
+  'inline-flex h-11 items-center gap-2 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-3 font-display text-[12px] font-[600] text-[var(--ti)] hover:opacity-90 disabled:opacity-50'

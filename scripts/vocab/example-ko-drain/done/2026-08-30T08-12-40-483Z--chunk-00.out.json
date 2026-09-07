@@ -1,0 +1,1447 @@
+{
+  "chunk": 0,
+  "generatedAt": "2026-08-30T08:11:13.110Z",
+  "instruction": "examples_ko 를 examples 와 **같은 길이**로 채운다. 한 문장에 한 줄. 직역이 아니라 학습자가 읽을 자연스러운 한국어로 쓰되, 표제어의 그 뜻(sense_ko)이 문장에서 어떻게 쓰였는지 드러나게 옮긴다. 빈 문자열을 넣지 않는다 — 넣으면 import 가 건너뛰고 그 자리는 영영 구멍으로 남는다.",
+  "items": [
+    {
+      "word": "bang",
+      "sense_idx": 1,
+      "pos": "verb",
+      "sense_ko": "쾅 치다, 세게 부딪치다",
+      "examples": [
+        "Hold the picture while I bang in this nail."
+      ],
+      "examples_ko": [
+        "내가 이 못을 박는 동안 그림을 붙잡고 있어라."
+      ]
+    },
+    {
+      "word": "bankrupt",
+      "sense_idx": 0,
+      "pos": "adjective",
+      "sense_ko": "파산한",
+      "examples": [
+        "a bankrupt merchant"
+      ],
+      "examples_ko": [
+        "파산한 상인"
+      ]
+    },
+    {
+      "word": "banner",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "현수막, (인터넷) 배너",
+      "examples": [
+        "The mayor hung a banner across Main Street to commemorate the town's 100th anniversary."
+      ],
+      "examples_ko": [
+        "시장은 마을 100주년을 기념해 메인 스트리트를 가로질러 현수막을 걸었다."
+      ]
+    },
+    {
+      "word": "banner",
+      "sense_idx": 1,
+      "pos": "noun",
+      "sense_ko": "기(旗), 깃발; (비유) 기치, 대의 (under the banner of ~)",
+      "examples": [
+        "They usually make their case under the banner of environmentalism."
+      ],
+      "examples_ko": [
+        "그들은 보통 환경 보호라는 기치 아래 자기 주장을 편다."
+      ]
+    },
+    {
+      "word": "baptism",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "(기독교) 세례, 침례",
+      "examples": [
+        "The child’s baptism was held at the old church."
+      ],
+      "examples_ko": [
+        "그 아이의 세례식은 오래된 그 교회에서 열렸다."
+      ]
+    },
+    {
+      "word": "bar",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "술집, 바",
+      "examples": [
+        "Step up to the bar and order a drink."
+      ],
+      "examples_ko": [
+        "바로 다가가서 마실 것을 주문해라."
+      ]
+    },
+    {
+      "word": "bar",
+      "sense_idx": 1,
+      "pos": "noun",
+      "sense_ko": "막대, 막대기",
+      "examples": [
+        "The window was protected by steel bars."
+      ],
+      "examples_ko": [
+        "그 창문은 쇠막대로 막아 놓았다."
+      ]
+    },
+    {
+      "word": "bar",
+      "sense_idx": 2,
+      "pos": "noun",
+      "sense_ko": "(초콜릿·비누 등의) 한 개, 바",
+      "examples": [
+        "bar of chocolate"
+      ],
+      "examples_ko": [
+        "초콜릿 한 개"
+      ]
+    },
+    {
+      "word": "barbecue",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "바비큐(구이 요리); 바비큐 파티",
+      "examples": [
+        "We're having a barbecue on Saturday, and you're invited."
+      ],
+      "examples_ko": [
+        "우리는 토요일에 바비큐를 할 건데, 너도 초대할게."
+      ]
+    },
+    {
+      "word": "barbecue",
+      "sense_idx": 1,
+      "pos": "noun",
+      "sense_ko": "바비큐 그릴, 화로·석쇠 (조리 기구)",
+      "examples": [
+        "We cooked our food on the barbecue."
+      ],
+      "examples_ko": [
+        "우리는 바비큐 그릴에 음식을 구웠다."
+      ]
+    },
+    {
+      "word": "bargain",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "싸게 사는 물건, 특가품",
+      "examples": [
+        "At that price, it’s not just a bargain, it’s a steal."
+      ],
+      "examples_ko": [
+        "그 값이면 싸게 사는 정도가 아니라 거저 가져오는 셈이다."
+      ]
+    },
+    {
+      "word": "bargain",
+      "sense_idx": 2,
+      "pos": "verb",
+      "sense_ko": "흥정하다, 협상하다",
+      "examples": [
+        "They had to bargain for a few minutes to get a decent price for the rug."
+      ],
+      "examples_ko": [
+        "그들은 그 양탄자를 적당한 값에 사려고 몇 분 동안 흥정해야 했다."
+      ]
+    },
+    {
+      "word": "bark",
+      "sense_idx": 2,
+      "pos": "verb",
+      "sense_ko": "(개가) 짖다; 고함치다",
+      "examples": [
+        "The neighbour's dog is always barking."
+      ],
+      "examples_ko": [
+        "이웃집 개가 늘 짖어 댄다."
+      ]
+    },
+    {
+      "word": "barter",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "물물교환, 교역",
+      "examples": [
+        "We had no money so we had to live by barter."
+      ],
+      "examples_ko": [
+        "우리는 돈이 없어서 물물교환으로 살아가야 했다."
+      ]
+    },
+    {
+      "word": "barter",
+      "sense_idx": 1,
+      "pos": "verb",
+      "sense_ko": "물물교환하다, 교역하다",
+      "examples": [
+        "She bartered a bonsai for one of the rare books in my library."
+      ],
+      "examples_ko": [
+        "그녀는 내 서재에 있는 희귀본 하나와 분재를 맞바꾸었다."
+      ]
+    },
+    {
+      "word": "base",
+      "sense_idx": 1,
+      "pos": "verb",
+      "sense_ko": "~에 근거를 두다",
+      "examples": [
+        "Top management decided to base our new Spanish subsidiary in Arévalo (Ávila)."
+      ],
+      "examples_ko": [
+        "경영진은 스페인에 새로 세울 자회사를 아레발로(아빌라)에 두기로 결정했다."
+      ]
+    },
+    {
+      "word": "baseline",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "(측정·비교의) 기준선, 기준값",
+      "examples": [
+        "We used the last doctor visit to provide baselines for vital statistics."
+      ],
+      "examples_ko": [
+        "우리는 가장 최근 진료 기록을 활력 징후의 기준값으로 삼았다."
+      ]
+    },
+    {
+      "word": "baseline",
+      "sense_idx": 1,
+      "pos": "noun",
+      "sense_ko": "(테니스·농구 코트의) 베이스라인, 엔드라인",
+      "examples": [
+        "The umpire missed the call. The ball hit the baseline."
+      ],
+      "examples_ko": [
+        "심판이 판정을 놓쳤다. 공은 베이스라인에 떨어졌다."
+      ]
+    },
+    {
+      "word": "basic",
+      "sense_idx": 0,
+      "pos": "adjective",
+      "sense_ko": "기본적인, 기초적인",
+      "examples": [
+        "Flour is a basic ingredient of bread."
+      ],
+      "examples_ko": [
+        "밀가루는 빵의 기본 재료다."
+      ]
+    },
+    {
+      "word": "basic",
+      "sense_idx": 1,
+      "pos": "noun",
+      "sense_ko": "기본 사항, 기초",
+      "examples": [
+        "I know the basics of sailing and would love to learn more."
+      ],
+      "examples_ko": [
+        "나는 항해의 기초는 알고 있고 더 배우고 싶다."
+      ]
+    },
+    {
+      "word": "basket",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "바구니, 광주리",
+      "examples": [
+        "A basket of fake fruit adorned the table."
+      ],
+      "examples_ko": [
+        "가짜 과일을 담은 바구니가 식탁을 장식하고 있었다."
+      ]
+    },
+    {
+      "word": "basket",
+      "sense_idx": 1,
+      "pos": "noun",
+      "sense_ko": "(농구) 바스켓, 골; 득점",
+      "examples": [
+        "The last-second basket sealed the victory."
+      ],
+      "examples_ko": [
+        "종료 직전에 넣은 그 골이 승리를 굳혔다."
+      ]
+    },
+    {
+      "word": "bass",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "베이스, 저음",
+      "examples": [
+        "Peter adjusted the equalizer on his audio equipment to emphasize the bass."
+      ],
+      "examples_ko": [
+        "피터는 저음이 강조되도록 오디오 장비의 이퀄라이저를 조정했다."
+      ]
+    },
+    {
+      "word": "bass",
+      "sense_idx": 2,
+      "pos": "adjective",
+      "sense_ko": "(음이) 저음의, 낮은",
+      "examples": [
+        "The giant spoke in a deep, bass, rumbling voice that shook me to my boots."
+      ],
+      "examples_ko": [
+        "그 거인은 낮고 우렁우렁 울리는 목소리로 말했는데, 나는 발끝까지 떨렸다."
+      ]
+    },
+    {
+      "word": "bass",
+      "sense_idx": 3,
+      "pos": "noun",
+      "sense_ko": "베이스 기타; 베이스 (최저 음역 가수)",
+      "examples": [
+        "Halfway through middle school, Edgar morphed from a soprano to a bass, much to the amazement and amusement of his fellow choristers."
+      ],
+      "examples_ko": [
+        "중학교를 절반쯤 다녔을 때 에드거는 소프라노에서 베이스로 바뀌었고, 합창단 친구들은 놀라면서도 재미있어했다."
+      ]
+    },
+    {
+      "word": "bastard",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "(욕설·속어) 자식, 놈",
+      "examples": [
+        "Some bastard stole my car while I was helping an injured person."
+      ],
+      "examples_ko": [
+        "내가 다친 사람을 돕는 사이에 어떤 자식이 내 차를 훔쳐 갔다."
+      ]
+    },
+    {
+      "word": "bastard",
+      "sense_idx": 1,
+      "pos": "noun",
+      "sense_ko": "(다루기) 몹시 힘든 것, 골칫거리",
+      "examples": [
+        "Life can be a real bastard."
+      ],
+      "examples_ko": [
+        "인생은 정말 고약할 때가 있다."
+      ]
+    },
+    {
+      "word": "batch",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "한 묶음, 한 회분, 배치",
+      "examples": [
+        "We made a batch of cookies to take to the party."
+      ],
+      "examples_ko": [
+        "우리는 파티에 가져갈 쿠키를 한 판 구웠다."
+      ]
+    },
+    {
+      "word": "batch",
+      "sense_idx": 1,
+      "pos": "verb",
+      "sense_ko": "일괄 처리하다, 한데 묶다",
+      "examples": [
+        "The contractor batched the purchase orders for the entire month into one statement."
+      ],
+      "examples_ko": [
+        "그 도급업자는 한 달 치 구매 주문을 한 장의 명세서로 묶었다."
+      ]
+    },
+    {
+      "word": "bath",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "목욕",
+      "examples": [
+        "Do you prefer baths or showers?"
+      ],
+      "examples_ko": [
+        "너는 욕조 목욕이 좋아, 샤워가 좋아?"
+      ]
+    },
+    {
+      "word": "bathe",
+      "sense_idx": 0,
+      "pos": "verb",
+      "sense_ko": "목욕하다, 멱감다",
+      "examples": [
+        "I'm going to have a midnight bathe tonight."
+      ],
+      "examples_ko": [
+        "나는 오늘 밤 한밤중에 물놀이를 할 참이다."
+      ]
+    },
+    {
+      "word": "bathe",
+      "sense_idx": 1,
+      "pos": "verb",
+      "sense_ko": "(아기·환자 등을) 목욕시키다",
+      "examples": [
+        "We bathe our baby before going to bed; other parents do it in the morning if they have time."
+      ],
+      "examples_ko": [
+        "우리는 아기를 재우기 전에 씻기는데, 시간이 되는 부모들은 아침에 씻기기도 한다."
+      ]
+    },
+    {
+      "word": "bathe",
+      "sense_idx": 2,
+      "pos": "verb",
+      "sense_ko": "(상처 등을) 물·약물로 씻다, 적시다",
+      "examples": [
+        "The nurse bathed his wound with a sponge."
+      ],
+      "examples_ko": [
+        "간호사가 스펀지로 그의 상처를 씻어 주었다."
+      ]
+    },
+    {
+      "word": "bathe",
+      "sense_idx": 3,
+      "pos": "verb",
+      "sense_ko": "(빛·색 등이) 뒤덮다, 감싸다",
+      "examples": [
+        "The room was bathed in moonlight."
+      ],
+      "examples_ko": [
+        "그 방은 달빛에 잠겨 있었다."
+      ]
+    },
+    {
+      "word": "batter",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "반죽, 묽은 반죽; (야구) 타자",
+      "examples": [
+        "To the dismay of his mother, the boy put his finger into the pancake batter."
+      ],
+      "examples_ko": [
+        "어머니가 질색하는 가운데 그 아이는 팬케이크 반죽에 손가락을 집어넣었다."
+      ]
+    },
+    {
+      "word": "batter",
+      "sense_idx": 1,
+      "pos": "verb",
+      "sense_ko": "연달아 세게 때리다, 난타하다",
+      "examples": [
+        "The firemen battered down the door."
+      ],
+      "examples_ko": [
+        "소방관들이 그 문을 연달아 내리쳐 부수었다."
+      ]
+    },
+    {
+      "word": "battery",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "건전지, 배터리",
+      "examples": [
+        "His flashlight takes two AA batteries."
+      ],
+      "examples_ko": [
+        "그의 손전등에는 AA 건전지 두 개가 들어간다."
+      ]
+    },
+    {
+      "word": "battle",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "전투, 싸움",
+      "examples": [
+        "the battle of life"
+      ],
+      "examples_ko": [
+        "삶이라는 싸움"
+      ]
+    },
+    {
+      "word": "battle",
+      "sense_idx": 1,
+      "pos": "verb",
+      "sense_ko": "싸우다, 분투하다",
+      "examples": [
+        "She has been battling against cancer for years."
+      ],
+      "examples_ko": [
+        "그녀는 여러 해 동안 암과 싸워 오고 있다."
+      ]
+    },
+    {
+      "word": "bay",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "만(灣), 후미 — 육지로 굽어 들어간 바다·호수 부분",
+      "examples": [
+        "This hotel has a great view across the bay."
+      ],
+      "examples_ko": [
+        "이 호텔에서는 만 건너편이 훤히 내다보인다."
+      ]
+    },
+    {
+      "word": "bead",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "구슬; (땀·물) 방울",
+      "examples": [
+        "beads of sweat"
+      ],
+      "examples_ko": [
+        "송골송골 맺힌 땀방울"
+      ]
+    },
+    {
+      "word": "bead",
+      "sense_idx": 1,
+      "pos": "verb",
+      "sense_ko": "방울방울 맺히다",
+      "examples": [
+        "The raindrops beaded on the car's waxed finish."
+      ],
+      "examples_ko": [
+        "빗방울이 왁스를 칠한 차 표면에 방울방울 맺혔다."
+      ]
+    },
+    {
+      "word": "bear",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "곰",
+      "examples": [
+        "We had barbecued bear for dinner."
+      ],
+      "examples_ko": [
+        "우리는 저녁으로 곰고기 바비큐를 먹었다."
+      ]
+    },
+    {
+      "word": "bear",
+      "sense_idx": 1,
+      "pos": "verb",
+      "sense_ko": "견디다, 참다; (아이를) 낳다; (무게를) 지탱하다; (감정을) 품다",
+      "examples": [
+        "The scan showed that the ewe was bearing twins."
+      ],
+      "examples_ko": [
+        "검사 결과 그 암양이 쌍둥이를 배고 있는 것으로 나타났다."
+      ]
+    },
+    {
+      "word": "beast",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "짐승, 야수",
+      "examples": [
+        "Language is what separates man and beast."
+      ],
+      "examples_ko": [
+        "언어가 사람과 짐승을 가른다."
+      ]
+    },
+    {
+      "word": "beast",
+      "sense_idx": 2,
+      "pos": "noun",
+      "sense_ko": "(구어) 아주 힘든 것, 골칫거리; 대단한 것",
+      "examples": [
+        "The subwoofer that comes with this set of speakers is a beast."
+      ],
+      "examples_ko": [
+        "이 스피커 세트에 딸려 오는 서브우퍼는 물건이 대단하다."
+      ]
+    },
+    {
+      "word": "bed",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "침대",
+      "examples": [
+        "My cat often sleeps on my bed."
+      ],
+      "examples_ko": [
+        "우리 고양이는 자주 내 침대에서 잔다."
+      ]
+    },
+    {
+      "word": "beep",
+      "sense_idx": 2,
+      "pos": "verb",
+      "sense_ko": "경적을 울리다, 빵빵거리다",
+      "examples": [
+        "The motorists in the traffic jam were getting more and more frustrated and started beeping their horns."
+      ],
+      "examples_ko": [
+        "정체에 갇힌 운전자들은 점점 더 짜증이 나서 경적을 울려 대기 시작했다."
+      ]
+    },
+    {
+      "word": "beetle",
+      "sense_idx": 1,
+      "pos": "verb",
+      "sense_ko": "종종걸음으로 서둘러 가다",
+      "examples": [
+        "He beetled off on his vacation."
+      ],
+      "examples_ko": [
+        "그는 서둘러 휴가를 떠났다."
+      ]
+    },
+    {
+      "word": "before",
+      "sense_idx": 0,
+      "pos": "adverb",
+      "sense_ko": "이전에, 전에 (시간)",
+      "examples": [
+        "I've never done this before."
+      ],
+      "examples_ko": [
+        "나는 전에 이걸 해 본 적이 없다."
+      ]
+    },
+    {
+      "word": "before",
+      "sense_idx": 1,
+      "pos": "adverb",
+      "sense_ko": "앞에, 앞쪽에 (위치·순서)",
+      "examples": [
+        "He stood before me."
+      ],
+      "examples_ko": [
+        "그가 내 앞에 섰다."
+      ]
+    },
+    {
+      "word": "believe",
+      "sense_idx": 0,
+      "pos": "verb",
+      "sense_ko": "믿다, 신뢰하다",
+      "examples": [
+        "Why did I ever believe you?"
+      ],
+      "examples_ko": [
+        "내가 대체 왜 너를 믿었을까?"
+      ]
+    },
+    {
+      "word": "believe",
+      "sense_idx": 1,
+      "pos": "verb",
+      "sense_ko": "~라고 생각하다, 여기다",
+      "examples": [
+        "Do you think this is good? —Hmm, I believe it's okay."
+      ],
+      "examples_ko": [
+        "이거 괜찮은 것 같아? — 음, 괜찮은 것 같은데."
+      ]
+    },
+    {
+      "word": "believe",
+      "sense_idx": 2,
+      "pos": "verb",
+      "sense_ko": "(신·종교를) 믿다, 신앙을 가지다",
+      "examples": [
+        "Do you believe in God / the Easter Bunny / ghosts?"
+      ],
+      "examples_ko": [
+        "너는 신을, 부활절 토끼를, 유령을 믿니?"
+      ]
+    },
+    {
+      "word": "belonging",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "소지품(belongings)",
+      "examples": [
+        "Make sure you take all your belongings when you leave."
+      ],
+      "examples_ko": [
+        "나갈 때 소지품을 모두 챙겼는지 확인하세요."
+      ]
+    },
+    {
+      "word": "belonging",
+      "sense_idx": 1,
+      "pos": "noun",
+      "sense_ko": "소속감",
+      "examples": [
+        "A need for belonging seems fundamental to humans."
+      ],
+      "examples_ko": [
+        "어딘가에 속하고 싶은 마음은 사람에게 근본적인 욕구인 듯하다."
+      ]
+    },
+    {
+      "word": "belt",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "벨트, 허리띠",
+      "examples": [
+        "As part of the act, the fat clown's belt broke, causing his pants to fall down."
+      ],
+      "examples_ko": [
+        "공연 중에 뚱뚱한 광대의 허리띠가 끊어져 바지가 흘러내렸다."
+      ]
+    },
+    {
+      "word": "bench",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "벤치, 긴 의자",
+      "examples": [
+        "They sat on a park bench and tossed bread crumbs to the ducks and pigeons."
+      ],
+      "examples_ko": [
+        "그들은 공원 벤치에 앉아 오리와 비둘기에게 빵 부스러기를 던져 주었다."
+      ]
+    },
+    {
+      "word": "bench",
+      "sense_idx": 2,
+      "pos": "noun",
+      "sense_ko": "판사석; (집합적) 판사단, 법관",
+      "examples": [
+        "They are awaiting a decision on the motion from the bench."
+      ],
+      "examples_ko": [
+        "그들은 그 신청에 대한 재판부의 결정을 기다리고 있다."
+      ]
+    },
+    {
+      "word": "bend",
+      "sense_idx": 1,
+      "pos": "verb",
+      "sense_ko": "굽히다, 구부리다",
+      "examples": [
+        "If you bend the pipe too far, it will break."
+      ],
+      "examples_ko": [
+        "그 파이프를 너무 심하게 구부리면 부러진다."
+      ]
+    },
+    {
+      "word": "bend",
+      "sense_idx": 2,
+      "pos": "verb",
+      "sense_ko": "굽다, 휘다",
+      "examples": [
+        "The road bends to the right."
+      ],
+      "examples_ko": [
+        "그 길은 오른쪽으로 굽어 있다."
+      ]
+    },
+    {
+      "word": "benefit",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "혜택, 이득",
+      "examples": [
+        "Exposure to cutting-edge technologies is one of the benefits of the job."
+      ],
+      "examples_ko": [
+        "최신 기술을 접할 수 있다는 것이 이 일의 이점 가운데 하나다."
+      ]
+    },
+    {
+      "word": "benign",
+      "sense_idx": 1,
+      "pos": "adjective",
+      "sense_ko": "(종양이) 양성의 — 심각한 위협이 되지 않는",
+      "examples": [
+        "a benign tumor"
+      ],
+      "examples_ko": [
+        "양성 종양"
+      ]
+    },
+    {
+      "word": "benign",
+      "sense_idx": 3,
+      "pos": "adjective",
+      "sense_ko": "환경에 해가 없는",
+      "examples": [
+        "an ozone-benign refrigerant"
+      ],
+      "examples_ko": [
+        "오존층에 해가 없는 냉매"
+      ]
+    },
+    {
+      "word": "bereave",
+      "sense_idx": 0,
+      "pos": "verb",
+      "sense_ko": "죽음으로 가까운 사람을 잃게 하다 (주로 수동태)",
+      "examples": [
+        "The family has been recently bereaved."
+      ],
+      "examples_ko": [
+        "그 가족은 최근에 가까운 이를 잃었다."
+      ]
+    },
+    {
+      "word": "besides",
+      "sense_idx": 0,
+      "pos": "preposition",
+      "sense_ko": "~외에, ~말고도",
+      "examples": [
+        "Besides English, she speaks two other languages."
+      ],
+      "examples_ko": [
+        "그녀는 영어 말고도 다른 두 언어를 할 줄 안다."
+      ]
+    },
+    {
+      "word": "bet",
+      "sense_idx": 0,
+      "pos": "verb",
+      "sense_ko": "내기를 걸다, 돈을 걸다",
+      "examples": [
+        "I bet you dinner at the Ritz that you can't run faster than me."
+      ],
+      "examples_ko": [
+        "네가 나보다 빨리 달리지 못한다는 데 리츠 호텔 저녁을 걸겠다."
+      ]
+    },
+    {
+      "word": "bet",
+      "sense_idx": 1,
+      "pos": "verb",
+      "sense_ko": "장담하다, 확신하다",
+      "examples": [
+        "I('ll) bet I can run faster than you."
+      ],
+      "examples_ko": [
+        "내가 너보다 빨리 달릴 수 있다고 장담한다."
+      ]
+    },
+    {
+      "word": "bet",
+      "sense_idx": 2,
+      "pos": "noun",
+      "sense_ko": "내기, 베팅; 추측",
+      "examples": [
+        "Dylan owes Fletcher $30 from an unsuccessful bet."
+      ],
+      "examples_ko": [
+        "딜런은 내기에서 져서 플레처에게 30달러를 빚졌다."
+      ]
+    },
+    {
+      "word": "bias",
+      "sense_idx": 1,
+      "pos": "verb",
+      "sense_ko": "편견을 갖게 하다",
+      "examples": [
+        "Our prejudices bias our views."
+      ],
+      "examples_ko": [
+        "우리의 선입견이 우리의 시각을 한쪽으로 기울게 한다."
+      ]
+    },
+    {
+      "word": "biblical",
+      "sense_idx": 0,
+      "pos": "adjective",
+      "sense_ko": "성경의, 성서의",
+      "examples": [
+        "The biblical teaching is that…"
+      ],
+      "examples_ko": [
+        "성경의 가르침은 …라는 것이다"
+      ]
+    },
+    {
+      "word": "biblical",
+      "sense_idx": 1,
+      "pos": "adjective",
+      "sense_ko": "(규모가) 어마어마한, 엄청난 (of biblical proportions)",
+      "examples": [
+        "of biblical proportions"
+      ],
+      "examples_ko": [
+        "어마어마한 규모의"
+      ]
+    },
+    {
+      "word": "bid",
+      "sense_idx": 0,
+      "pos": "verb",
+      "sense_ko": "명하다, 청하다; (인사·작별을) 고하다 (bid farewell)",
+      "examples": [
+        "He bade me come in."
+      ],
+      "examples_ko": [
+        "그가 나에게 들어오라고 했다."
+      ]
+    },
+    {
+      "word": "bid",
+      "sense_idx": 1,
+      "pos": "noun",
+      "sense_ko": "입찰, 호가; (a bid for) 시도, 노력",
+      "examples": [
+        "His bid was $35,000."
+      ],
+      "examples_ko": [
+        "그가 부른 값은 3만 5천 달러였다."
+      ]
+    },
+    {
+      "word": "bid",
+      "sense_idx": 2,
+      "pos": "verb",
+      "sense_ko": "입찰하다, 값을 부르다",
+      "examples": [
+        "She bid £2000 for the Persian carpet."
+      ],
+      "examples_ko": [
+        "그녀는 그 페르시아 양탄자에 2천 파운드를 불렀다."
+      ]
+    },
+    {
+      "word": "bifocal",
+      "sense_idx": 0,
+      "pos": "adjective",
+      "sense_ko": "두 개의 초점 거리를 가진 (렌즈·안경)",
+      "examples": [
+        "bifocal lenses"
+      ],
+      "examples_ko": [
+        "이중 초점 렌즈"
+      ]
+    },
+    {
+      "word": "bifocal",
+      "sense_idx": 1,
+      "pos": "noun",
+      "sense_ko": "이중 초점 안경 (복수형 bifocals)",
+      "examples": [
+        "wear bifocals"
+      ],
+      "examples_ko": [
+        "이중 초점 안경을 쓰다"
+      ]
+    },
+    {
+      "word": "bike",
+      "sense_idx": 1,
+      "pos": "verb",
+      "sense_ko": "자전거를 타다",
+      "examples": [
+        "I biked so much yesterday that I'm very sore today."
+      ],
+      "examples_ko": [
+        "어제 자전거를 너무 많이 탔더니 오늘 몸이 몹시 쑤신다."
+      ]
+    },
+    {
+      "word": "biking",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "자전거 타기",
+      "examples": [
+        "Professional biking is plagued with controversies over drug use."
+      ],
+      "examples_ko": [
+        "프로 자전거 경기는 약물 사용 논란에 시달리고 있다."
+      ]
+    },
+    {
+      "word": "biking",
+      "sense_idx": 1,
+      "pos": "verb",
+      "sense_ko": "bike의 -ing형",
+      "examples": [
+        "Harley-Davidson fans have been biking up this highway in huge numbers this week, on their way to Sturgis."
+      ],
+      "examples_ko": [
+        "이번 주 할리데이비슨 애호가들이 스터지스로 가는 길에 이 고속도로를 떼 지어 달리고 있다."
+      ]
+    },
+    {
+      "word": "bill",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "청구서, 계산서",
+      "examples": [
+        "He received a bill of £9 for the groceries."
+      ],
+      "examples_ko": [
+        "그는 식료품값으로 9파운드짜리 청구서를 받았다."
+      ]
+    },
+    {
+      "word": "bill",
+      "sense_idx": 1,
+      "pos": "noun",
+      "sense_ko": "법안",
+      "examples": [
+        "Mr. Speaker, on behalf of the Prime Minister, I beg to introduce a bill entitled[…]"
+      ],
+      "examples_ko": [
+        "의장님, 총리를 대신하여 다음과 같은 제목의 법안을 발의하고자 합니다"
+      ]
+    },
+    {
+      "word": "bimonthly",
+      "sense_idx": 0,
+      "pos": "adjective",
+      "sense_ko": "격월의, 두 달에 한 번의",
+      "examples": [
+        "The organization's bimonthly meetings allow for two discussions each quarter."
+      ],
+      "examples_ko": [
+        "그 단체의 격월 회의 덕분에 분기마다 두 차례 논의할 수 있다."
+      ]
+    },
+    {
+      "word": "bimonthly",
+      "sense_idx": 2,
+      "pos": "noun",
+      "sense_ko": "격월 간행물",
+      "examples": [
+        "We have to get the report done. If the boss doesn't get his bimonthly he'll scream."
+      ],
+      "examples_ko": [
+        "그 보고서를 끝내야 한다. 사장이 격월 간행물을 못 받으면 난리가 날 것이다."
+      ]
+    },
+    {
+      "word": "bin",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "쓰레기통",
+      "examples": [
+        "a rubbish bin"
+      ],
+      "examples_ko": [
+        "쓰레기통"
+      ]
+    },
+    {
+      "word": "binary",
+      "sense_idx": 0,
+      "pos": "adjective",
+      "sense_ko": "이진의, 2진법의",
+      "examples": [
+        "Binary states are often represented as 1 and 0 in computer science."
+      ],
+      "examples_ko": [
+        "컴퓨터 과학에서 이진 상태는 흔히 1과 0으로 나타낸다."
+      ]
+    },
+    {
+      "word": "binary",
+      "sense_idx": 2,
+      "pos": "adjective",
+      "sense_ko": "둘 중 하나만 되는, 양자택일의",
+      "examples": [
+        "He has a very binary understanding of gender."
+      ],
+      "examples_ko": [
+        "그는 성별을 둘 중 하나로만 보는 이해에 머물러 있다."
+      ]
+    },
+    {
+      "word": "binary",
+      "sense_idx": 3,
+      "pos": "adjective",
+      "sense_ko": "두 부분으로 이루어진, 쌍을 이루는",
+      "examples": [
+        "Two ingredients are combined in a binary poison."
+      ],
+      "examples_ko": [
+        "두 가지 성분을 섞어 만드는 이원 독극물"
+      ]
+    },
+    {
+      "word": "binary",
+      "sense_idx": 4,
+      "pos": "adjective",
+      "sense_ko": "(데이터가) 이진 형식의, 텍스트가 아닌",
+      "examples": [
+        "He downloaded the binary distribution for Linux, then burned it to DVD."
+      ],
+      "examples_ko": [
+        "그는 리눅스용 이진 배포판을 내려받아 DVD로 구웠다."
+      ]
+    },
+    {
+      "word": "bind",
+      "sense_idx": 0,
+      "pos": "verb",
+      "sense_ko": "묶다, 결속하다",
+      "examples": [
+        "To bind a prisoner."
+      ],
+      "examples_ko": [
+        "죄수를 결박하다"
+      ]
+    },
+    {
+      "word": "binding",
+      "sense_idx": 0,
+      "pos": "adjective",
+      "sense_ko": "구속력 있는, 법적 구속력이 있는",
+      "examples": [
+        "This contract is a legally binding agreement."
+      ],
+      "examples_ko": [
+        "이 계약은 법적 구속력이 있는 약정이다."
+      ]
+    },
+    {
+      "word": "binge",
+      "sense_idx": 2,
+      "pos": "verb",
+      "sense_ko": "폭식·폭음하다; 한꺼번에 몰아 보다",
+      "examples": [
+        "I binged on ice cream."
+      ],
+      "examples_ko": [
+        "나는 아이스크림을 폭식했다."
+      ]
+    },
+    {
+      "word": "biology",
+      "sense_idx": 1,
+      "pos": "noun",
+      "sense_ko": "(특정 생물·환경의) 생태, 생리",
+      "examples": [
+        "the biology of the whale"
+      ],
+      "examples_ko": [
+        "고래의 생태"
+      ]
+    },
+    {
+      "word": "bitter",
+      "sense_idx": 0,
+      "pos": "adjective",
+      "sense_ko": "(맛이) 쓴",
+      "examples": [
+        "The coffee tasted bitter."
+      ],
+      "examples_ko": [
+        "그 커피는 쓴맛이 났다."
+      ]
+    },
+    {
+      "word": "bitter",
+      "sense_idx": 1,
+      "pos": "adjective",
+      "sense_ko": "쓰라린, 비통한",
+      "examples": [
+        "I've been bitter ever since that defeat."
+      ],
+      "examples_ko": [
+        "나는 그때 패한 뒤로 줄곧 쓰라린 마음을 안고 있다."
+      ]
+    },
+    {
+      "word": "bitter",
+      "sense_idx": 2,
+      "pos": "adjective",
+      "sense_ko": "원한 맺힌, 적대적인",
+      "examples": [
+        "They're bitter enemies."
+      ],
+      "examples_ko": [
+        "그들은 원한이 깊은 원수 사이다."
+      ]
+    },
+    {
+      "word": "black",
+      "sense_idx": 0,
+      "pos": "adjective",
+      "sense_ko": "검은",
+      "examples": [
+        "The items around him were black in colour."
+      ],
+      "examples_ko": [
+        "그의 주위에 있던 물건들은 검은색이었다."
+      ]
+    },
+    {
+      "word": "blackout",
+      "sense_idx": 3,
+      "pos": "noun",
+      "sense_ko": "보도 통제, 일시적 정보 차단",
+      "examples": [
+        "the 2012 English Wikipedia blackout"
+      ],
+      "examples_ko": [
+        "2012년 영어 위키백과 접속 차단"
+      ]
+    },
+    {
+      "word": "blackout",
+      "sense_idx": 4,
+      "pos": "noun",
+      "sense_ko": "등화 관제, 빛 완전 차단",
+      "examples": [
+        "blackout blinds; blackout curtains"
+      ],
+      "examples_ko": [
+        "암막 블라인드; 암막 커튼"
+      ]
+    },
+    {
+      "word": "blah",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "별 의미 없는 말, 헛소리, 시시한 잡담",
+      "examples": [
+        "Yeah, yeah, blah blah blah, Mom, you said this all yesterday."
+      ],
+      "examples_ko": [
+        "네네, 어쩌고저쩌고, 엄마, 그거 어제도 다 하신 말이잖아요."
+      ]
+    },
+    {
+      "word": "blah",
+      "sense_idx": 1,
+      "pos": "adjective",
+      "sense_ko": "시시한, 따분한, 밋밋한",
+      "examples": [
+        "Well, the new restaurant seems nice, but their menu is a little blah."
+      ],
+      "examples_ko": [
+        "음, 새로 생긴 그 식당은 괜찮아 보이는데 메뉴가 좀 밋밋하다."
+      ]
+    },
+    {
+      "word": "blah",
+      "sense_idx": 2,
+      "pos": "adjective",
+      "sense_ko": "기운 없는, 축 처진",
+      "examples": [
+        "I decided to go exercise rather than sit around all day feeling blah."
+      ],
+      "examples_ko": [
+        "나는 하루 종일 축 처져 앉아 있느니 운동을 하러 가기로 했다."
+      ]
+    },
+    {
+      "word": "bland",
+      "sense_idx": 0,
+      "pos": "adjective",
+      "sense_ko": "맛이 밋밋한, 싱거운",
+      "examples": [
+        "The coffee was bland."
+      ],
+      "examples_ko": [
+        "그 커피는 맛이 밋밋했다."
+      ]
+    },
+    {
+      "word": "bland",
+      "sense_idx": 2,
+      "pos": "adjective",
+      "sense_ko": "자극이 없는·순한 (bland diet 자극 없는 식단)",
+      "examples": [
+        "a bland diet"
+      ],
+      "examples_ko": [
+        "자극이 없는 순한 식단"
+      ]
+    },
+    {
+      "word": "blanket",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "담요",
+      "examples": [
+        "The baby was cold, so his mother put a blanket over him."
+      ],
+      "examples_ko": [
+        "아기가 추워하자 어머니가 담요를 덮어 주었다."
+      ]
+    },
+    {
+      "word": "blanket",
+      "sense_idx": 2,
+      "pos": "verb",
+      "sense_ko": "뒤덮다",
+      "examples": [
+        "A fresh layer of snow blanketed the area."
+      ],
+      "examples_ko": [
+        "새로 내린 눈이 그 일대를 뒤덮었다."
+      ]
+    },
+    {
+      "word": "blaze",
+      "sense_idx": 0,
+      "pos": "verb",
+      "sense_ko": "활활 타다, 이글거리다",
+      "examples": [
+        "The campfire blazed merrily."
+      ],
+      "examples_ko": [
+        "모닥불이 기분 좋게 활활 타올랐다."
+      ]
+    },
+    {
+      "word": "blaze",
+      "sense_idx": 1,
+      "pos": "noun",
+      "sense_ko": "화염, 불길; (빛·감정의) 격렬함",
+      "examples": [
+        "They sought shelter from the blaze of the sun."
+      ],
+      "examples_ko": [
+        "그들은 이글거리는 햇볕을 피할 곳을 찾았다."
+      ]
+    },
+    {
+      "word": "bleak",
+      "sense_idx": 0,
+      "pos": "adjective",
+      "sense_ko": "암울한, 절망적인",
+      "examples": [
+        "A bleak future is in store for you."
+      ],
+      "examples_ko": [
+        "너에게는 암울한 앞날이 기다리고 있다."
+      ]
+    },
+    {
+      "word": "bleak",
+      "sense_idx": 1,
+      "pos": "adjective",
+      "sense_ko": "황량한, 스산한 — 휑하고 찬 바람이 몰아치는",
+      "examples": [
+        "a bleak, crater-pocked moonscape"
+      ],
+      "examples_ko": [
+        "분화구가 얽은, 황량한 달 표면 같은 풍경"
+      ]
+    },
+    {
+      "word": "bleed",
+      "sense_idx": 0,
+      "pos": "verb",
+      "sense_ko": "피를 흘리다, 출혈하다",
+      "examples": [
+        "If her nose bleeds, try to use ice."
+      ],
+      "examples_ko": [
+        "그녀가 코피를 흘리면 얼음을 대 보아라."
+      ]
+    },
+    {
+      "word": "bleep",
+      "sense_idx": 1,
+      "pos": "verb",
+      "sense_ko": "삐 소리를 내다",
+      "examples": [
+        "The robot bleeped to acknowledge its new instructions."
+      ],
+      "examples_ko": [
+        "그 로봇은 새 명령을 받았다는 뜻으로 삐 소리를 냈다."
+      ]
+    },
+    {
+      "word": "blend",
+      "sense_idx": 0,
+      "pos": "verb",
+      "sense_ko": "섞다, 혼합하다",
+      "examples": [
+        "To make hummus you need to blend chickpeas, olive oil, lemon juice and garlic."
+      ],
+      "examples_ko": [
+        "후무스를 만들려면 병아리콩과 올리브유, 레몬즙, 마늘을 함께 갈아 섞어야 한다."
+      ]
+    },
+    {
+      "word": "blend",
+      "sense_idx": 1,
+      "pos": "noun",
+      "sense_ko": "혼합, 혼합물",
+      "examples": [
+        "Their music has been described as a blend of jazz and heavy metal."
+      ],
+      "examples_ko": [
+        "그들의 음악은 재즈와 헤비메탈을 섞어 놓은 것이라고 평가받아 왔다."
+      ]
+    },
+    {
+      "word": "bless",
+      "sense_idx": 0,
+      "pos": "verb",
+      "sense_ko": "축복하다",
+      "examples": [
+        "In some countries, priests bless farm animals on St. Anthony's Day."
+      ],
+      "examples_ko": [
+        "어떤 나라에서는 성 안토니오 축일에 사제가 가축을 축복한다."
+      ]
+    },
+    {
+      "word": "blessing",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "축복, 신의 가호",
+      "examples": [
+        "He was given blessings hoping he would pass his final exam."
+      ],
+      "examples_ko": [
+        "그가 기말시험에 붙기를 바라며 사람들이 축복을 빌어 주었다."
+      ]
+    },
+    {
+      "word": "blessing",
+      "sense_idx": 1,
+      "pos": "noun",
+      "sense_ko": "승인, 동의",
+      "examples": [
+        "We will not proceed without the executive director's blessing."
+      ],
+      "examples_ko": [
+        "전무이사의 승인 없이는 진행하지 않겠습니다."
+      ]
+    },
+    {
+      "word": "blessing",
+      "sense_idx": 2,
+      "pos": "noun",
+      "sense_ko": "좋은 일, 다행",
+      "examples": [
+        "After two weeks of sun, last night's rainfall was a blessing."
+      ],
+      "examples_ko": [
+        "두 주 내리 볕이 든 뒤라 어젯밤 비는 반가운 일이었다."
+      ]
+    },
+    {
+      "word": "blight",
+      "sense_idx": 1,
+      "pos": "verb",
+      "sense_ko": "(인생·전망을) 망치다, 그르치다",
+      "examples": [
+        "Those obscene tattoos are going to blight your job prospects."
+      ],
+      "examples_ko": [
+        "그 낯 뜨거운 문신들이 네 취업 전망을 망칠 것이다."
+      ]
+    },
+    {
+      "word": "blind",
+      "sense_idx": 0,
+      "pos": "adjective",
+      "sense_ko": "눈먼, 시력을 잃은",
+      "examples": [
+        "Even a blind hen sometimes finds a grain of corn."
+      ],
+      "examples_ko": [
+        "눈먼 닭도 때로는 낟알을 찾는다."
+      ]
+    }
+  ]
+}

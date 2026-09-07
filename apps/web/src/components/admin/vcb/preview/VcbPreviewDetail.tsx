@@ -1,3 +1,5 @@
+// apps/web/src/components/admin/vcb/preview/VcbPreviewDetail.tsx
+
 'use client'
 
 import { Check, X, AlertCircle } from 'lucide-react'
@@ -98,13 +100,13 @@ export function VcbPreviewDetail({ selected, spec, isRejected, onToggleReject }:
           행을 선택하면 rationale 과 spec match 가 표시돼요.
         </p>
         <p className="text-xs mt-auto" style={{ color: 'var(--t3)' }}>
-          키보드: <kbd className="px-1 py-0.5 rounded-[var(--r-sm)] font-mono text-[10px]"
+          키보드: <kbd className="px-1 py-1 rounded-[var(--r-sm)] font-mono text-[10px]"
             style={{ background: 'var(--bg2)', color: 'var(--t2)' }}>↑/↓</kbd> 행 이동
           {' · '}
-          <kbd className="px-1 py-0.5 rounded-[var(--r-sm)] font-mono text-[10px]"
+          <kbd className="px-1 py-1 rounded-[var(--r-sm)] font-mono text-[10px]"
             style={{ background: 'var(--bg2)', color: 'var(--t2)' }}>r</kbd> 거부 토글
           {' · '}
-          <kbd className="px-1 py-0.5 rounded-[var(--r-sm)] font-mono text-[10px]"
+          <kbd className="px-1 py-1 rounded-[var(--r-sm)] font-mono text-[10px]"
             style={{ background: 'var(--bg2)', color: 'var(--t2)' }}>/</kbd> 검색
         </p>
       </aside>
@@ -133,7 +135,7 @@ export function VcbPreviewDetail({ selected, spec, isRejected, onToggleReject }:
         </div>
         <div className="mt-1 flex items-center gap-2 text-xs">
           <span
-            className="font-mono px-2 py-0.5 rounded-[var(--r-sm)]"
+            className="font-mono px-2 py-1 rounded-[var(--r-sm)]"
             style={{ background: 'var(--bg3)', color: 'var(--t2)' }}
           >
             {selected.pos}
@@ -165,7 +167,7 @@ export function VcbPreviewDetail({ selected, spec, isRejected, onToggleReject }:
           {selected.confidence.toFixed(2)}
         </span>
         <span
-          className="text-[11px] px-1.5 py-0.5 rounded-[var(--r-sm)] font-mono"
+          className="text-[11px] px-2 py-1 rounded-[var(--r-sm)] font-mono"
           style={{ background: 'var(--bg)', color: conf.color }}
         >
           {conf.label}
@@ -184,7 +186,7 @@ export function VcbPreviewDetail({ selected, spec, isRejected, onToggleReject }:
         </div>
       </div>
 
-      <div className="flex flex-col gap-1.5">
+      <div className="flex flex-col gap-2">
         <div className="text-[11px] uppercase tracking-wider" style={{ color: 'var(--t3)' }}>
           rationale
         </div>
@@ -200,7 +202,7 @@ export function VcbPreviewDetail({ selected, spec, isRejected, onToggleReject }:
         <div className="text-[11px] uppercase tracking-wider" style={{ color: 'var(--t3)' }}>
           spec match
         </div>
-        <dl className="flex flex-col gap-1.5">
+        <dl className="flex flex-col gap-2">
           {matches.map((m) => (
             <div key={m.label} className="flex items-center gap-2 text-xs">
               {m.status === 'pass' ? (
@@ -231,7 +233,7 @@ export function VcbPreviewDetail({ selected, spec, isRejected, onToggleReject }:
         <button
           type="button"
           onClick={onToggleReject}
-          className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-[var(--r-md)] text-sm font-display font-semibold border"
+          className="min-h-[44px] flex-1 inline-flex items-center justify-center gap-2 px-3 py-2 rounded-[var(--r-md)] text-sm font-display font-semibold border"
           style={{
             background: isRejected ? 'var(--success-light)' : 'var(--error-light)',
             color: isRejected ? 'var(--success)' : 'var(--error)',

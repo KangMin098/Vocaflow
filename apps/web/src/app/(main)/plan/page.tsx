@@ -7,7 +7,7 @@ import { Screen } from '@/components/ui/ios'
 import { fetchAvailableMaterials, fetchStudyPlanItems } from '@/lib/learner/plan-actions'
 
 export const metadata = {
-  title: '학습 계획 · Vocaflow',
+  title: '학습 계획',
   description: '요일별로 도서(챕터)·스크립트·단어장·내 글을 골라 나만의 학습 계획을 만들어요',
 }
 

@@ -1,0 +1,349 @@
+{
+ "total": 382,
+ "ok": 368,
+ "rate": 96.3,
+ "byExam": {
+  "2015": {
+   "n": 28,
+   "ok": 28
+  },
+  "2016": {
+   "n": 28,
+   "ok": 27
+  },
+  "2017": {
+   "n": 28,
+   "ok": 28
+  },
+  "2018": {
+   "n": 28,
+   "ok": 27
+  },
+  "2019": {
+   "n": 28,
+   "ok": 28
+  },
+  "2020": {
+   "n": 28,
+   "ok": 28
+  },
+  "2021": {
+   "n": 28,
+   "ok": 27
+  },
+  "2022": {
+   "n": 28,
+   "ok": 24
+  },
+  "2023": {
+   "n": 28,
+   "ok": 26
+  },
+  "2024": {
+   "n": 28,
+   "ok": 25
+  },
+  "2025": {
+   "n": 28,
+   "ok": 27
+  },
+  "2026": {
+   "n": 28,
+   "ok": 27
+  },
+  "2014B": {
+   "n": 23,
+   "ok": 23
+  },
+  "2014A": {
+   "n": 23,
+   "ok": 23
+  }
+ },
+ "byType": {
+  "R-GIST": {
+   "n": 14,
+   "ok": 14,
+   "noP": 0,
+   "noC": 0
+  },
+  "R-TOPIC": {
+   "n": 15,
+   "ok": 15,
+   "noP": 0,
+   "noC": 0
+  },
+  "R-TITLE": {
+   "n": 16,
+   "ok": 16,
+   "noP": 0,
+   "noC": 0
+  },
+  "R-REFER": {
+   "n": 5,
+   "ok": 5,
+   "noP": 0,
+   "noC": 0
+  },
+  "R-GRAMMAR": {
+   "n": 14,
+   "ok": 14,
+   "noP": 0,
+   "noC": 0
+  },
+  "R-VOCAB": {
+   "n": 14,
+   "ok": 14,
+   "noP": 0,
+   "noC": 0
+  },
+  "R-CHART": {
+   "n": 14,
+   "ok": 14,
+   "noP": 0,
+   "noC": 0
+  },
+  "R-FACT": {
+   "n": 13,
+   "ok": 13,
+   "noP": 0,
+   "noC": 0
+  },
+  "R-BLANK": {
+   "n": 55,
+   "ok": 51,
+   "noP": 0,
+   "noC": 4
+  },
+  "R-BLANK2": {
+   "n": 4,
+   "ok": 4,
+   "noP": 0,
+   "noC": 0
+  },
+  "R-ORDER": {
+   "n": 26,
+   "ok": 22,
+   "noP": 0,
+   "noC": 4
+  },
+  "R-INSERT": {
+   "n": 26,
+   "ok": 24,
+   "noP": 1,
+   "noC": 2
+  },
+  "R-SUMMARY": {
+   "n": 13,
+   "ok": 12,
+   "noP": 1,
+   "noC": 1
+  },
+  "X-TITLE": {
+   "n": 14,
+   "ok": 14,
+   "noP": 0,
+   "noC": 0
+  },
+  "X-BLANK": {
+   "n": 5,
+   "ok": 5,
+   "noP": 0,
+   "noC": 0
+  },
+  "X-ORDER": {
+   "n": 14,
+   "ok": 13,
+   "noP": 0,
+   "noC": 1
+  },
+  "X-REFER": {
+   "n": 14,
+   "ok": 14,
+   "noP": 0,
+   "noC": 0
+  },
+  "X-FACT": {
+   "n": 14,
+   "ok": 14,
+   "noP": 0,
+   "noC": 0
+  },
+  "R-PURPOSE": {
+   "n": 12,
+   "ok": 12,
+   "noP": 0,
+   "noC": 0
+  },
+  "R-NOTICE": {
+   "n": 27,
+   "ok": 27,
+   "noP": 0,
+   "noC": 0
+  },
+  "R-IRRELEVANT": {
+   "n": 13,
+   "ok": 12,
+   "noP": 1,
+   "noC": 1
+  },
+  "R-MOOD": {
+   "n": 13,
+   "ok": 12,
+   "noP": 0,
+   "noC": 1
+  },
+  "R-CLAIM": {
+   "n": 10,
+   "ok": 10,
+   "noP": 0,
+   "noC": 0
+  },
+  "X-BLANK2": {
+   "n": 1,
+   "ok": 1,
+   "noP": 0,
+   "noC": 0
+  },
+  "R-IMPLY": {
+   "n": 8,
+   "ok": 8,
+   "noP": 0,
+   "noC": 0
+  },
+  "X-VOCAB": {
+   "n": 8,
+   "ok": 8,
+   "noP": 0,
+   "noC": 0
+  }
+ },
+ "fail": [
+  {
+   "exam": "2016",
+   "no": 31,
+   "type": "R-BLANK",
+   "chars": 978,
+   "okP": true,
+   "okC": false,
+   "ok": false
+  },
+  {
+   "exam": "2018",
+   "no": 19,
+   "type": "R-MOOD",
+   "chars": 789,
+   "okP": true,
+   "okC": false,
+   "ok": false
+  },
+  {
+   "exam": "2021",
+   "no": 36,
+   "type": "R-ORDER",
+   "chars": 1121,
+   "okP": true,
+   "okC": false,
+   "ok": false
+  },
+  {
+   "exam": "2022",
+   "no": 31,
+   "type": "R-BLANK",
+   "chars": 852,
+   "okP": true,
+   "okC": false,
+   "ok": false
+  },
+  {
+   "exam": "2022",
+   "no": 35,
+   "type": "R-IRRELEVANT",
+   "chars": 0,
+   "okP": false,
+   "okC": false,
+   "ok": false
+  },
+  {
+   "exam": "2022",
+   "no": 39,
+   "type": "R-INSERT",
+   "chars": 0,
+   "okP": false,
+   "okC": false,
+   "ok": false
+  },
+  {
+   "exam": "2022",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "chars": 70,
+   "okP": false,
+   "okC": false,
+   "ok": false
+  },
+  {
+   "exam": "2023",
+   "no": 31,
+   "type": "R-BLANK",
+   "chars": 1169,
+   "okP": true,
+   "okC": false,
+   "ok": false
+  },
+  {
+   "exam": "2023",
+   "no": 38,
+   "type": "R-INSERT",
+   "chars": 1264,
+   "okP": true,
+   "okC": false,
+   "ok": false
+  },
+  {
+   "exam": "2024",
+   "no": 31,
+   "type": "R-BLANK",
+   "chars": 1010,
+   "okP": true,
+   "okC": false,
+   "ok": false
+  },
+  {
+   "exam": "2024",
+   "no": 37,
+   "type": "R-ORDER",
+   "chars": 1102,
+   "okP": true,
+   "okC": false,
+   "ok": false
+  },
+  {
+   "exam": "2024",
+   "no": 43,
+   "type": "X-ORDER",
+   "chars": 2048,
+   "okP": true,
+   "okC": false,
+   "ok": false
+  },
+  {
+   "exam": "2025",
+   "no": 36,
+   "type": "R-ORDER",
+   "chars": 1121,
+   "okP": true,
+   "okC": false,
+   "ok": false
+  },
+  {
+   "exam": "2026",
+   "no": 36,
+   "type": "R-ORDER",
+   "chars": 1128,
+   "okP": true,
+   "okC": false,
+   "ok": false
+  }
+ ]
+}

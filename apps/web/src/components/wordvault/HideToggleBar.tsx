@@ -22,14 +22,15 @@ interface ToggleConfig {
   shortcut: string
 }
 
+// 단축키(H·M)가 라벨 첫 글자와 맞물린다 — Hide word / Meaning. 한글일 때는 없던 연결이다.
 const HIDE_TOGGLES: ToggleConfig[] = [
-  { type: 'word', label: '영단어 숨김', shortcut: 'H' },
-  { type: 'meaning', label: '뜻 숨김', shortcut: 'M' },
+  { type: 'word', label: 'Hide Word', shortcut: 'H' },
+  { type: 'meaning', label: 'Hide Meaning', shortcut: 'M' },
 ]
 
 export function HideToggleBar({ hideStates, onToggle }: HideToggleBarProps) {
   return (
-    <div className="py-s-2.5 flex flex-col gap-s-3 rounded-lg border border-bd bg-bg2 px-s-4 sm:flex-row sm:items-center sm:justify-between">
+    <div className="py-s-3 flex flex-col gap-s-3 rounded-lg border border-bd bg-bg2 px-s-4 sm:flex-row sm:items-center sm:justify-between">
       {/* ── Active Recall 그룹 ── */}
       <div className="flex flex-wrap items-center gap-s-3">
         <div className="flex items-center gap-s-2">
@@ -49,7 +50,8 @@ export function HideToggleBar({ hideStates, onToggle }: HideToggleBarProps) {
                 onClick={() => onToggle(cfg.type)}
                 className={cn(
                   'inline-flex items-center gap-s-2',
-                  'py-s-1.5 rounded-md border px-s-3',
+                  // 실측 20px — 알약 크기는 유지하고 히트영역만 44px 로 올린다.
+                  'min-h-[44px] py-s-2 rounded-md border px-s-3',
                   'font-display text-xs font-semibold tracking-[-0.01em]',
                   'transition-all duration-fast',
                   isHidden

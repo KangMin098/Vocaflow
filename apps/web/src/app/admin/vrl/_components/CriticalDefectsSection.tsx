@@ -55,7 +55,7 @@ export function CriticalDefectsSection({ defects }: CriticalDefectsSectionProps)
   if (defects.length === 0) {
     return (
       <section
-        className="flex items-center gap-2.5 rounded-[var(--r-xl)] border border-dashed border-[var(--success)]/40 bg-[var(--success-light)] p-5"
+        className="flex items-center gap-3 rounded-[var(--r-xl)] border border-dashed border-[var(--success)]/40 bg-[var(--success-light)] p-5"
         aria-label="critical defects empty state"
       >
         <CheckCircle2 size={18} className="text-[var(--success)]" aria-hidden />
@@ -70,7 +70,7 @@ export function CriticalDefectsSection({ defects }: CriticalDefectsSectionProps)
     <section aria-label="Critical Defects (15 rules)" className="flex flex-col gap-4">
       {/* ── 섹션 헤더 ── */}
       <header className="flex flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-3">
           <span
             className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)]"
             style={{ backgroundColor: 'var(--error-light)', color: 'var(--error)' }}
@@ -82,7 +82,7 @@ export function CriticalDefectsSection({ defects }: CriticalDefectsSectionProps)
             <h2 className="font-display text-[18px] font-[800] leading-tight text-[var(--t1)]">
               Critical Defects
             </h2>
-            <p className="font-body text-[12px] text-[var(--t3)]">
+            <p className="font-body text-[12px] text-[var(--t2)]">
               자동 탐지 — P0 {summary.byPriority.P0} · P1 {summary.byPriority.P1} · P2 {summary.byPriority.P2}
             </p>
           </div>
@@ -101,10 +101,10 @@ export function CriticalDefectsSection({ defects }: CriticalDefectsSectionProps)
           <section
             key={g.priority}
             aria-label={`${g.priority} defects`}
-            className="flex flex-col gap-2.5"
+            className="flex flex-col gap-3"
           >
             <header
-              className="flex items-center gap-2 rounded-[var(--r-md)] px-3 py-1.5"
+              className="flex items-center gap-2 rounded-[var(--r-md)] px-3 py-2"
               style={{ backgroundColor: g.bg }}
             >
               <GIcon size={13} strokeWidth={2} style={{ color: g.color }} aria-hidden />
@@ -115,7 +115,7 @@ export function CriticalDefectsSection({ defects }: CriticalDefectsSectionProps)
                 {g.label}
               </h3>
               <span
-                className="ml-auto rounded-full bg-[var(--bg)] px-2 py-0.5 font-mono text-[10px] font-[700]"
+                className="ml-auto rounded-full bg-[var(--bg)] px-2 py-1 font-mono text-[10px] font-[700]"
                 style={{ color: g.color }}
               >
                 {items.length}
@@ -150,10 +150,10 @@ function ImpactSummary({
   }
   return (
     <div
-      className="flex items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-2.5 py-1.5"
+      className="flex items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2"
       aria-label="affects per responsibility"
     >
-      <p className="font-mono text-[9px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]">
+      <p className="font-mono text-[9px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
         affects
       </p>
       {(['R1', 'R2', 'R3', 'R4'] as const).map((r) => {
@@ -161,7 +161,7 @@ function ImpactSummary({
         return (
           <span
             key={r}
-            className={`inline-flex items-center gap-1 rounded-[var(--r-sm)] px-1.5 py-0.5 font-mono text-[10px] font-[700] ${
+            className={`inline-flex items-center gap-1 rounded-[var(--r-sm)] px-2 py-1 font-mono text-[10px] font-[700] ${
               isMax ? 'ring-1' : ''
             }`}
             style={{

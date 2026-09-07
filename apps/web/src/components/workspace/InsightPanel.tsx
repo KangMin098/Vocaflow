@@ -2,6 +2,7 @@
 
 'use client'
 
+import { ChapterLevelWords } from '@/components/library/reader/ChapterLevelWords'
 import { Bookmark, Info, Layers, X } from 'lucide-react'
 import { useEffect } from 'react'
 
@@ -25,6 +26,14 @@ interface InsightPanelProps {
   softQuote: string
   bookmarks: BookmarkItem[]
   memoryStats: MemoryStats
+  /**
+   * v06.35 (ADR 0004 D7) — 도서 챕터일 때 이 챕터의 개인화 학습 단어를 함께 낸다.
+   * 이 패널을 여는 버튼은 라벨이 "챕터 단어장 N/M" 인데 정작 안에 단어가 없었다.
+   * 개인화 단어 패널(ChapterLevelWords)은 그동안 enroll **전** 미리보기에만 있어서,
+   * 정작 읽기 시작하면 사라졌다. 읽는 자리에 두는 게 맞다.
+   */
+  libraryBookId?: string | null
+  chapterIdx?: number | null
 }
 
 export function InsightPanel({
@@ -33,6 +42,8 @@ export function InsightPanel({
   softQuote,
   bookmarks,
   memoryStats,
+  libraryBookId,
+  chapterIdx,
 }: InsightPanelProps) {
   // 패널 열릴 때 body 스크롤 잠금 — Stale-safe: cleanup 항상 reset
   useEffect(() => {
@@ -89,15 +100,22 @@ export function InsightPanel({
             </p>
           </div>
 
+          {/* 이 챕터에서 익힐 단어 (도서 챕터에서만) — 패널이 열릴 때만 조회한다 */}
+          {isOpen && libraryBookId && chapterIdx != null && (
+            <div className="mb-8">
+              <ChapterLevelWords libraryBookId={libraryBookId} chapterIdx={chapterIdx} bare />
+            </div>
+          )}
+
           {/* Bookmarks */}
           <section className="mb-8">
-            <h3 className="mb-3 flex items-center gap-1.5 font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--t3)]">
+            <h3 className="mb-3 flex items-center gap-2 font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
               <Bookmark size={11} fill="currentColor" strokeWidth={0} aria-hidden="true" />
               북마크 ({bookmarks.length})
             </h3>
 
             {bookmarks.length === 0 ? (
-              <p className="px-3 py-6 text-center font-body text-[12px] italic text-[var(--t3)]">
+              <p className="px-3 py-6 text-center font-body text-[12px] italic text-[var(--t2)]">
                 북마크가 없어요. B 키로 추가할 수 있어요.
               </p>
             ) : (
@@ -105,7 +123,7 @@ export function InsightPanel({
                 {bookmarks.map((b) => (
                   <button
                     key={b.id}
-                    className="flex items-center gap-3 rounded-[var(--r-md)] bg-[var(--bg2)] px-3 py-2.5 text-left transition-all duration-[var(--dur-normal)] hover:translate-x-0.5 hover:bg-[var(--bg3)]"
+                    className="flex items-center gap-3 rounded-[var(--r-md)] bg-[var(--bg2)] px-3 py-3 text-left transition-all duration-[var(--dur-normal)] hover:translate-x-0.5 hover:bg-[var(--bg3)]"
                   >
                     <span className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-[var(--r-sm)] bg-[var(--active-light)] text-[var(--active)]">
                       <Bookmark size={13} fill="currentColor" strokeWidth={0} aria-hidden="true" />
@@ -114,7 +132,7 @@ export function InsightPanel({
                       <span className="line-clamp-2 block font-english text-[13px] italic leading-snug text-[var(--t1)]">
                         &ldquo;{b.text}&rdquo;
                       </span>
-                      <span className="mt-0.5 block font-body text-[11px] text-[var(--t3)]">
+                      <span className="mt-0.5 block font-body text-[11px] text-[var(--t2)]">
                         Page {b.page} · {b.addedAt}
                       </span>
                     </span>
@@ -126,7 +144,7 @@ export function InsightPanel({
 
           {/* Memory Decay */}
           <section>
-            <h3 className="mb-3 flex items-center gap-1.5 font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--t3)]">
+            <h3 className="mb-3 flex items-center gap-2 font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
               <Layers size={11} strokeWidth={2} aria-hidden="true" />
               기억 상태
             </h3>
@@ -186,13 +204,13 @@ function DecayCard({ color, label, count, hint, hasGlow, hasPulse }: DecayCardPr
         }}
         aria-hidden="true"
       />
-      <p className="mb-1 font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]">
+      <p className="mb-1 font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
         {label}
       </p>
       <p className="mb-0.5 font-display text-[22px] font-[800] tabular-nums leading-none text-[var(--t1)]">
         {count}
       </p>
-      <p className="font-body text-[11px] text-[var(--t3)]">{hint}</p>
+      <p className="font-body text-[11px] text-[var(--t2)]">{hint}</p>
     </div>
   )
 }

@@ -1,0 +1,194 @@
+{
+ "measuredAt": "2026-09-03T11:47:34.031Z",
+ "subject": "history",
+ "doajTotal": 448111,
+ "stat": {
+  "ojs": 11,
+  "nonOjs": 4,
+  "htmlGalley": 4,
+  "pdfOnly": 11,
+  "english": 5,
+  "scored": 2,
+  "fit": 1,
+  "dead": 9
+ },
+ "hosts": {
+  "qr.urfu.ru": 1,
+  "journals.openedition.org": 2,
+  "www.historia-actual.org": 1,
+  "juah.uoanbar.edu.iq": 1,
+  "asclepio.revistas.csic.es": 1,
+  "doi.org": 2,
+  "journal.uokufa.edu.iq": 1,
+  "grbs.library.duke.edu": 1,
+  "czaz.akademiazamojska.edu.pl": 1,
+  "revistacaracteres.net": 1,
+  "ojs.uv.es": 1,
+  "revistes.uab.cat": 1,
+  "mafs.journals.ekb.eg": 1,
+  "journals.phil.muni.cz": 1,
+  "qarts.journals.ekb.eg": 1,
+  "revistas.uned.es": 1,
+  "pmpjournal.org": 1,
+  "www.seer.ufu.br": 1,
+  "alteridades.izt.uam.mx": 1,
+  "jps.library.utoronto.ca": 1,
+  "www.estudiosirlandeses.org": 1,
+  "copas.uni-regensburg.de": 1
+ },
+ "topics": {
+  "예술·문화": 2
+ },
+ "rows": [
+  {
+   "host": "qr.urfu.ru",
+   "ojs": "generator",
+   "via": "본문",
+   "words": 174,
+   "english": true,
+   "pass": 0,
+   "topic": "—",
+   "title": "Мигранты и Российское государство в XX веке: возмо"
+  },
+  {
+   "host": "journals.openedition.org",
+   "ojs": null,
+   "via": "본문",
+   "words": 597,
+   "english": false,
+   "pass": 0,
+   "topic": "—",
+   "title": "Alain Blanchard, Les Bucoliques de Théocrite. Cons"
+  },
+  {
+   "host": "juah.uoanbar.edu.iq",
+   "ojs": null,
+   "via": "본문",
+   "words": 399,
+   "english": true,
+   "pass": 0,
+   "topic": "—",
+   "title": "Statistical Relations of The Agricultural Workforc"
+  },
+  {
+   "host": "journal.uokufa.edu.iq",
+   "ojs": "generator",
+   "via": "본문",
+   "words": 1947,
+   "english": true,
+   "pass": 0,
+   "topic": "예술·문화",
+   "title": "رمزية المكان (الطلل) في شعر حسام الدين الحاجري  "
+  },
+  {
+   "host": "journals.openedition.org",
+   "ojs": null,
+   "via": "본문",
+   "words": 10138,
+   "english": true,
+   "pass": 30,
+   "topic": "예술·문화",
+   "title": "Of Exile in America: The Immigrant Experience in “"
+  },
+  {
+   "host": "grbs.library.duke.edu",
+   "ojs": "generator",
+   "via": "본문",
+   "words": 0,
+   "english": false,
+   "pass": 0,
+   "topic": "—",
+   "title": "The Introduction of the Antiochene Olympics: A Pro"
+  },
+  {
+   "host": "czaz.akademiazamojska.edu.pl",
+   "ojs": "generator",
+   "via": "본문",
+   "words": 481,
+   "english": false,
+   "pass": 0,
+   "topic": "—",
+   "title": "Strategie komunikowania buddyjskich związków wyzna"
+  },
+  {
+   "host": "ojs.uv.es",
+   "ojs": "url",
+   "via": "본문",
+   "words": 0,
+   "english": false,
+   "pass": 0,
+   "topic": "—",
+   "title": "Ressenya a Delle Donne, Fulvio & Torró, Jaume (eds"
+  },
+  {
+   "host": "journals.phil.muni.cz",
+   "ojs": "generator",
+   "via": "본문",
+   "words": 0,
+   "english": false,
+   "pass": 0,
+   "topic": "—",
+   "title": "[Horáčková, Květoslava. Janáčkovy opery v překlade"
+  },
+  {
+   "host": "revistas.uned.es",
+   "ojs": "generator",
+   "via": "본문",
+   "words": 14,
+   "english": false,
+   "pass": 0,
+   "topic": "—",
+   "title": "La Junta de Alivios de 1669 y las primeras reforma"
+  },
+  {
+   "host": "pmpjournal.org",
+   "ojs": "generator",
+   "via": "본문",
+   "words": 237,
+   "english": true,
+   "pass": 0,
+   "topic": "—",
+   "title": "Media Convergence and Mobile Measurement of New Me"
+  },
+  {
+   "host": "www.seer.ufu.br",
+   "ojs": "generator",
+   "via": "본문",
+   "words": 246,
+   "english": false,
+   "pass": 0,
+   "topic": "—",
+   "title": "Plural, coeducativo e gratuito: o primeiro ginásio"
+  },
+  {
+   "host": "alteridades.izt.uam.mx",
+   "ojs": "generator",
+   "via": "본문",
+   "words": 0,
+   "english": false,
+   "pass": 0,
+   "topic": "—",
+   "title": "Tres procedimientos diagnósticos de la medicina tr"
+  },
+  {
+   "host": "jps.library.utoronto.ca",
+   "ojs": "generator",
+   "via": "본문",
+   "words": 47,
+   "english": false,
+   "pass": 0,
+   "topic": "—",
+   "title": "An Essay on the Unity of Stoic Philosophy"
+  },
+  {
+   "host": "www.estudiosirlandeses.org",
+   "ojs": null,
+   "via": "본문",
+   "words": 0,
+   "english": false,
+   "pass": 0,
+   "topic": "—",
+   "title": "Responses to the Holocaust in Modern Irish Poetry"
+  }
+ ]
+}

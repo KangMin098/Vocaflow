@@ -107,7 +107,7 @@ export function ActivityRing({
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center gap-0">
         {capLabel && (
-          <span className="font-mono text-[9px] font-[700] uppercase tracking-[0.16em] text-[var(--t3)]">
+          <span className="font-mono text-[9px] font-[700] uppercase tracking-[0.16em] text-[var(--t2)]">
             {capLabel}
           </span>
         )}
@@ -117,7 +117,7 @@ export function ActivityRing({
           </span>
         )}
         {centerSub && (
-          <span className="font-mono text-[10.5px] tabular-nums text-[var(--t3)]">
+          <span className="font-mono text-[11px] tabular-nums text-[var(--t2)]">
             {centerSub}
           </span>
         )}

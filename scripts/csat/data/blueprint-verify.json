@@ -1,0 +1,242 @@
+{
+ "method": "leave-one-exam-out",
+ "results": [
+  {
+   "exam": "2014B",
+   "n": 45,
+   "pass": 45
+  },
+  {
+   "exam": "2015",
+   "n": 45,
+   "pass": 45
+  },
+  {
+   "exam": "2016",
+   "n": 45,
+   "pass": 45
+  },
+  {
+   "exam": "2017",
+   "n": 45,
+   "pass": 44
+  },
+  {
+   "exam": "2018",
+   "n": 45,
+   "pass": 45
+  },
+  {
+   "exam": "2019",
+   "n": 45,
+   "pass": 44
+  },
+  {
+   "exam": "2020",
+   "n": 45,
+   "pass": 45
+  },
+  {
+   "exam": "2021",
+   "n": 45,
+   "pass": 45
+  },
+  {
+   "exam": "2022",
+   "n": 45,
+   "pass": 45
+  },
+  {
+   "exam": "2023",
+   "n": 45,
+   "pass": 45
+  },
+  {
+   "exam": "2024",
+   "n": 45,
+   "pass": 45
+  },
+  {
+   "exam": "2025",
+   "n": 45,
+   "pass": 45
+  },
+  {
+   "exam": "2026",
+   "n": 45,
+   "pass": 45
+  }
+ ],
+ "total": 585,
+ "pass": 583,
+ "violations": [
+  {
+   "exam": "2017",
+   "no": 42,
+   "type": "X-BLANK2",
+   "fail": [
+    "유형이 나머지 회차에 없음"
+   ]
+  },
+  {
+   "exam": "2019",
+   "no": 7,
+   "type": "L-FAVOR",
+   "fail": [
+    "선택지 언어 ko 미관측"
+   ]
+  }
+ ],
+ "lengthOutliers": [
+  {
+   "exam": "2014B",
+   "no": 26,
+   "type": "R-REFER",
+   "words": 176,
+   "band": [
+    150,
+    173
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 18,
+   "type": "R-GIST",
+   "words": 105,
+   "band": [
+    109,
+    198
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 24,
+   "type": "R-FACT",
+   "words": 114,
+   "band": [
+    125,
+    173
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 29,
+   "type": "R-REFER",
+   "words": 145,
+   "band": [
+    158,
+    174
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 43,
+   "type": "X-ORDER",
+   "words": 310,
+   "band": [
+    313,
+    414
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 44,
+   "type": "X-REFER",
+   "words": 310,
+   "band": [
+    313,
+    414
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 45,
+   "type": "X-FACT",
+   "words": 310,
+   "band": [
+    313,
+    414
+   ]
+  },
+  {
+   "exam": "2016",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "words": 166,
+   "band": [
+    178,
+    231
+   ]
+  },
+  {
+   "exam": "2016",
+   "no": 42,
+   "type": "X-BLANK",
+   "words": 248,
+   "band": [
+    255,
+    259
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 43,
+   "type": "X-ORDER",
+   "words": 408,
+   "band": [
+    314,
+    404
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 44,
+   "type": "X-REFER",
+   "words": 408,
+   "band": [
+    314,
+    404
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 45,
+   "type": "X-FACT",
+   "words": 408,
+   "band": [
+    314,
+    404
+   ]
+  },
+  {
+   "exam": "2022",
+   "no": 20,
+   "type": "R-CLAIM",
+   "words": 164,
+   "band": [
+    117,
+    161
+   ]
+  },
+  {
+   "exam": "2025",
+   "no": 21,
+   "type": "R-IMPLY",
+   "words": 191,
+   "band": [
+    197,
+    231
+   ]
+  },
+  {
+   "exam": "2026",
+   "no": 42,
+   "type": "X-VOCAB",
+   "words": 275,
+   "band": [
+    213,
+    269
+   ]
+  }
+ ]
+}

@@ -24,6 +24,7 @@ export function PairFlipLevelSelector({ selected, onChange }: LevelSelectorProps
         return (
           <button
             key={lvl.id}
+            data-design-card
             type="button"
             role="radio"
             aria-checked={isActive}
@@ -44,9 +45,10 @@ export function PairFlipLevelSelector({ selected, onChange }: LevelSelectorProps
                 : undefined
             }
           >
-            <span className="text-[24px] leading-none" aria-hidden="true">
-              {lvl.emoji}
-            </span>
+            {/* 이모지(🌱🎯🔥🚀👑)를 뺐다 — 난이도는 **장 수**가 이미 말하고 있고,
+                이모지는 다섯 칸에 서로 다른 정서를 얹어 조용한 선택을 시끄럽게 만들었다.
+                다섯 칸을 구분하는 것은 라벨(Easy~Master)과 장 수면 충분하다.
+                (형제 화면 어디에도 이모지가 없다 — 여기만 튀었다.) */}
             <span
               className="font-display text-[14px] font-[700] leading-none"
               style={isActive ? { color: PF_COLORS.goldLight } : undefined}
@@ -55,7 +57,7 @@ export function PairFlipLevelSelector({ selected, onChange }: LevelSelectorProps
             </span>
             <span
               className={`font-mono text-[11px] font-[600] tabular-nums ${
-                isActive ? 'opacity-90' : 'text-[var(--t3)]'
+                isActive ? 'opacity-90' : 'text-[var(--t2)]'
               }`}
             >
               {lvl.cardCount}장

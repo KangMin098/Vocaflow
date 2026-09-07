@@ -11,6 +11,7 @@ import { NextResponse } from 'next/server'
 import { createClient as createServiceClient } from '@supabase/supabase-js'
 import {
   analyzeArticle,
+  assessReadingLoad,
   computeLexicalNoise,
   normalizePunctuation,
   reflowSoftHyphens,
@@ -18,7 +19,7 @@ import {
 } from '@vocaflow/library-pipeline'
 import type { RawArticle, NormalizedArticle } from '@vocaflow/library-pipeline'
 
-import { requireAdmin } from '@/lib/auth/require-admin'
+import { requireAdminApi } from '@/lib/auth/require-admin-api'
 
 // ACP §18 §4-B — register 는 (source, feed_id) 단위로 산정 (resolveArticleRegister).
 //   VOA 처럼 피드마다 글 유형이 다른 소스의 오분류 교정 (american-stories=narrative 등).
@@ -39,7 +40,8 @@ export async function POST(request: Request): Promise<NextResponse> {
     )
   }
 
-  await requireAdmin('/admin/articles')
+  const admin = await requireAdminApi()
+  if (admin instanceof NextResponse) return admin
 
   const supabaseUrl = process.env['NEXT_PUBLIC_SUPABASE_URL']
   const serviceKey = process.env['SUPABASE_SERVICE_ROLE_KEY']
@@ -83,7 +85,11 @@ export async function POST(request: Request): Promise<NextResponse> {
 
     // 2) normalize (구두점 통일 + reflow — article 은 boundary/TOC 단계 불필요)
     await updateStatus('normalizing')
-    const body_text = reflowSoftHyphens(normalizePunctuation(article.content as string))
+    // ⚠️ 기사는 HTML 이라 줄바꿈 하이픈이 없다(322편 전수 실측 0건). 배치 경로와 같은 설정이어야
+    //   화면으로 처리한 글과 배치로 처리한 글의 어휘가 갈리지 않는다 — reflow.ts 주석 참조.
+    const body_text = reflowSoftHyphens(normalizePunctuation(article.content as string), {
+      joinHyphenLineBreaks: false,
+    })
     const norm: NormalizedArticle = {
       raw: {
         source: article.source,
@@ -142,10 +148,17 @@ export async function POST(request: Request): Promise<NextResponse> {
         ),
         lexical_noise: lexicalNoise,
         status: 'ready',
+        // 표시할 것이 둘 이상일 수 있다 — 앞의 것만 남기면 뒤의 것이 조용히 사라진다.
+        //   길이 판단은 `assessReadingLoad` 한 곳에 있다(배치 경로와 같은 답을 내야 한다).
         status_message:
-          lexicalNoise > 0.08
-            ? `lexical_noise ${lexicalNoise} > 0.08 — 단어세트 미발행(읽기용)`
-            : null,
+          [
+            lexicalNoise > 0.08
+              ? `lexical_noise ${lexicalNoise} > 0.08 — 단어세트 미발행(읽기용)`
+              : null,
+            assessReadingLoad(result.word_count).note,
+          ]
+            .filter(Boolean)
+            .join(' · ') || null,
         content_hash: norm.body_hash,
       })
       .eq('id', body.article_id)

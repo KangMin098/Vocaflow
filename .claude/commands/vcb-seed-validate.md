@@ -100,7 +100,24 @@ Write `summary.json` placeholder so partial completion is inspectable:
 
 ## Step 4 — Fan out via Agent tool
 
-For each chunk in the (possibly waved) work list, spawn a `vcb-seed-validator`
+**Claim first.** The workspace is shared by concurrent sessions and file-based drains
+have no `SKIP LOCKED` equivalent (measured 2026-08-26 on the `pending_words` fan-out:
+two subagents found another session's output already written into their chunk). Do not
+hand-roll this — use the shared tool that all four fan-out commands share:
+
+```bash
+node scripts/lib/claim-chunks.mjs --dir <output-dir>/_chunks \
+     --in 'seed-chunk-*.jsonl' --done 'seed-chunk:chunk' \
+     --done '.jsonl:.seed-validation.md' --done-dir <output-dir> \
+     --max <wave-size> [--force]
+```
+
+Spawn **only** what prints as `CLAIM`. Claims older than 30 minutes are reclaimed
+automatically (`STALE`). Release at the end of the wave, **including failed chunks**
+(a stale claim blocks that chunk for 30 minutes):
+`node scripts/lib/claim-chunks.mjs --release <chunk paths>`
+
+For each claimed chunk, spawn a `vcb-seed-validator`
 subagent in a SINGLE message with multiple Agent tool calls:
 
 ```

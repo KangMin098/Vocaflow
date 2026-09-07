@@ -35,17 +35,17 @@ export function SourceProfile({
   return (
     <section
       aria-label="소스 프로필"
-      className="flex flex-col gap-2.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-3"
+      className="flex flex-col gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-3"
     >
       <header className="flex flex-wrap items-center gap-2">
-        <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">이 소스</span>
+        <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">이 소스</span>
         <span
-          className="rounded-[var(--r-full)] px-2 py-0.5 font-mono text-[9px] font-[700]"
+          className="rounded-[var(--r-full)] px-2 py-1 font-mono text-[9px] font-[700]"
           style={{ backgroundColor: tone.bg, color: tone.fg }}
         >
           {FIT_LABEL[fit]}
         </span>
-        <span className="font-mono text-[10px] text-[var(--t3)]">
+        <span className="font-mono text-[10px] text-[var(--t2)]">
           CEFR {g.cefr.min}–{g.cefr.max}
         </span>
       </header>
@@ -62,7 +62,7 @@ export function SourceProfile({
             {REGISTER_LABEL[r] ?? r}
           </Chip>
         ))}
-        <span className="font-body text-[11px] text-[var(--t3)]">{g.style}</span>
+        <span className="font-body text-[11px] text-[var(--t2)]">{g.style}</span>
       </ProfileRow>
 
       <ProfileRow label="라이선스">
@@ -77,10 +77,10 @@ export function SourceProfile({
           {feeds.map((f) => (
             <span
               key={f.feedId}
-              className="inline-flex items-center gap-1 rounded-[var(--r-sm)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[10px] text-[var(--t2)]"
+              className="inline-flex items-center gap-1 rounded-[var(--r-sm)] bg-[var(--bg2)] px-2 py-1 font-mono text-[10px] text-[var(--t2)]"
             >
               {f.feedLabel}
-              <span className="text-[var(--t4)]">
+              <span className="text-[var(--t2)]">
                 {f.pending}/{f.candidates}
               </span>
             </span>
@@ -93,8 +93,8 @@ export function SourceProfile({
 
 function ProfileRow({ label, children }: { label: string; children: ReactNode }) {
   return (
-    <div className="flex flex-wrap items-center gap-1.5">
-      <span className="w-[52px] shrink-0 font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">
+    <div className="flex flex-wrap items-center gap-2">
+      <span className="w-[52px] shrink-0 font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">
         {label}
       </span>
       {children}
@@ -105,7 +105,7 @@ function ProfileRow({ label, children }: { label: string; children: ReactNode })
 function Chip({ children, tone }: { children: ReactNode; tone?: 'known' }) {
   return (
     <span
-      className="rounded-[var(--r-full)] border border-[var(--bd)] px-2 py-0.5 font-mono text-[10px]"
+      className="rounded-[var(--r-full)] border border-[var(--bd)] px-2 py-1 font-mono text-[10px]"
       style={
         tone === 'known'
           ? { backgroundColor: 'var(--learn-known-light)', color: 'var(--learn-known)' }

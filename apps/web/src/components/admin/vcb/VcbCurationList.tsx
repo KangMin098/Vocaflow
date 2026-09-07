@@ -1,3 +1,5 @@
+// apps/web/src/components/admin/vcb/VcbCurationList.tsx
+
 'use client'
 
 import { useRef } from 'react'
@@ -79,14 +81,14 @@ export function VcbCurationList({
               />
               <span className="flex-1 font-display font-medium text-sm">{item.lemma}</span>
               <span
-                className="text-[10px] px-1.5 py-0.5 rounded-[var(--r-sm)]"
+                className="text-[10px] px-2 py-1 rounded-[var(--r-sm)]"
                 style={{ background: 'var(--bg2)', color: 'var(--t3)' }}
               >
                 {item.pos}
               </span>
               {item.cefr && (
                 <span
-                  className="text-[10px] px-1.5 py-0.5 rounded-[var(--r-sm)] font-mono"
+                  className="text-[10px] px-2 py-1 rounded-[var(--r-sm)] font-mono"
                   style={{
                     background: `var(--cefr-${item.cefr}-bg)`,
                     color: `var(--cefr-${item.cefr}-text)`,
@@ -105,7 +107,7 @@ export function VcbCurationList({
               )}
               {item.seed_origin === 'ai_generated' && (
                 <span
-                  className="text-[10px] px-1.5 py-0.5 rounded-[var(--r-sm)]"
+                  className="text-[10px] px-2 py-1 rounded-[var(--r-sm)]"
                   style={{ background: 'var(--info-light)', color: 'var(--info)' }}
                 >
                   AI

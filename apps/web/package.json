@@ -12,8 +12,16 @@
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "test:e2e:smoke": "playwright test 04-ui-smoke",
+    "test:e2e:sweep": "node scripts/e2e-sweep.mjs",
     "test:e2e:ui": "playwright test --ui",
-    "test:e2e:report": "playwright show-report"
+    "test:e2e:report": "playwright show-report",
+    "predev": "node scripts/ensure-onnx-runtime.mjs",
+    "prebuild": "node scripts/ensure-onnx-runtime.mjs",
+    "ensure:onnx": "node scripts/ensure-onnx-runtime.mjs",
+    "tcp:enqueue": "tsx scripts/tcp-drain.mts enqueue",
+    "tcp:drain": "tsx scripts/tcp-drain.mts drain",
+    "tcp:promote": "tsx scripts/tcp-drain.mts promote",
+    "cover:probe": "tsx scripts/cover-probe.mts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.92.0",
@@ -35,6 +43,8 @@
     "next": "14.2.35",
     "openai": "^6.34.0",
     "pitchfinder": "^2.3.4",
+    "posthog-js": "^1.417.1",
+    "qrcode-generator": "2.0.4",
     "react": "^18",
     "react-dom": "^18",
     "react-error-boundary": "^6.1.1",
@@ -47,6 +57,7 @@
     "zustand": "^5.0.12"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.12.1",
     "@playwright/test": "^1.60.0",
     "@types/node": "^20",
     "@types/react": "^18",

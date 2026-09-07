@@ -10,6 +10,7 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { Gauge } from 'lucide-react'
 
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { createClient } from '@/lib/supabase/server'
 
 import { CollectNowButton } from './CollectNowButton'
@@ -58,6 +59,8 @@ const METRIC_LABEL: Record<string, string> = {
   set_size_p90: '챕터 세트 크기 p90',
   shared_words_meaning_ko_pct: '단어 뜻(한국어) 채움률',
   book_librivox_audio_pct: '챕터 오디오 보유율',
+  published_set_ssot_drift_books: '발행세트 SSoT 드리프트 (도서)',
+  published_set_ssot_drift_words: '발행세트 SSoT 드리프트 (단어)',
 }
 
 function formatValue(metric: string, v: number): string {
@@ -149,9 +152,13 @@ export default async function AdminQualityPage() {
 
   return (
     <div className="mx-auto max-w-6xl space-y-8 p-8">
-      <header className="flex items-start justify-between gap-4">
-        <div>
-          <h1 className="inline-flex items-center gap-2.5 font-display text-[28px] font-[800] text-[var(--t1)]">
+      {/* 좁은 화면에서는 두 블록이 나란히 설 자리가 없다 — 감싸서 아래로 내린다.
+          `flex-wrap` 없이 오른쪽에 `shrink-0` 을 두면 390px 에서 화면 밖으로 36px 밀려
+          **페이지 전체가 가로로 스크롤된다**(실측 2026-08-25 · CLAUDE.md "모바일 퍼스트 390" 위반).
+          왼쪽 블록에 `min-w-0` 을 주는 이유도 같다 — 없으면 긴 설명 문장이 줄바꿈되지 않는다. */}
+      <header className="flex flex-wrap items-start justify-between gap-4">
+        <div className="min-w-0">
+          <h1 className="inline-flex items-center gap-3 font-display text-[28px] font-[800] text-[var(--t1)]">
             <Gauge size={26} className="text-[#8B5CF6]" aria-hidden="true" /> 품질 지표
           </h1>
           <p className="mt-2 font-body text-[14px] text-[var(--t2)]">
@@ -159,18 +166,20 @@ export default async function AdminQualityPage() {
           </p>
         </div>
         <div className="flex shrink-0 items-start gap-3">
-          <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-2.5 text-right">
-            <p className="font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--t3)]">
+          <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3 text-right">
+            <p className="font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
               최근 수집
             </p>
             <p className="mt-0.5 font-body text-[13px] text-[var(--t1)]">
               {latestAt ? new Date(latestAt).toLocaleString('ko-KR') : '기록 없음'}
             </p>
-            <p className="font-body text-[11px] text-[var(--t3)]">수집 {snapshotCount}회 보관</p>
+            <p className="font-body text-[11px] text-[var(--t2)]">수집 {snapshotCount}회 보관</p>
           </div>
           <CollectNowButton />
         </div>
       </header>
+
+      <AdminScreenHelp screen="quality" className="-mt-4" />
 
       {series.length === 0 ? (
         <section className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-10 text-center">
@@ -187,8 +196,8 @@ export default async function AdminQualityPage() {
               key={stage}
               className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-6"
             >
-              <h2 className="mb-4 flex items-center gap-2.5">
-                <span className="rounded-[var(--r-sm)] bg-[#8B5CF6]/10 px-2 py-0.5 font-mono text-[11px] font-[700] uppercase tracking-[0.08em] text-[#8B5CF6]">
+              <h2 className="mb-4 flex items-center gap-3">
+                <span className="rounded-[var(--r-sm)] bg-[#8B5CF6]/10 px-2 py-1 font-mono text-[11px] font-[700] uppercase tracking-[0.08em] text-[#8B5CF6]">
                   {stage}
                 </span>
                 <span className="font-display text-[16px] font-[700] text-[var(--t1)]">
@@ -211,7 +220,7 @@ export default async function AdminQualityPage() {
                           <p className="font-display text-[13px] font-[600] text-[var(--t1)]">
                             {METRIC_LABEL[s.metric] ?? s.metric}
                             {s.segment && (
-                              <span className="ml-1.5 rounded-[var(--r-full)] bg-[var(--bg3)] px-1.5 py-0.5 font-mono text-[10px] font-[600] text-[var(--t2)]">
+                              <span className="ml-1.5 rounded-[var(--r-full)] bg-[var(--bg3)] px-2 py-1 font-mono text-[10px] font-[600] text-[var(--t2)]">
                                 {s.segment}
                               </span>
                             )}
@@ -221,24 +230,24 @@ export default async function AdminQualityPage() {
                               {formatValue(s.metric, latest.value)}
                             </span>
                             {delta !== null && delta !== 0 && (
-                              <span className="font-body text-[12px] text-[var(--t3)]">
+                              <span className="font-body text-[12px] text-[var(--t2)]">
                                 {delta > 0 ? '▲' : '▼'}{' '}
                                 {formatValue(s.metric, Math.abs(delta)).replace('%', '')}
                                 {s.metric.endsWith('_pct') ? '%p' : ''} (전회 대비)
                               </span>
                             )}
                             {delta === 0 && (
-                              <span className="font-body text-[12px] text-[var(--t3)]">변동 없음</span>
+                              <span className="font-body text-[12px] text-[var(--t2)]">변동 없음</span>
                             )}
                           </p>
                         </div>
                         <Sparkline points={s.points.map((p) => p.value)} />
                       </div>
                       {Object.keys(dims).length > 0 && (
-                        <dl className="mt-3 flex flex-wrap gap-x-3 gap-y-1 border-t border-[var(--bd)] pt-2.5">
+                        <dl className="mt-3 flex flex-wrap gap-x-3 gap-y-1 border-t border-[var(--bd)] pt-3">
                           {Object.entries(dims).map(([k, v]) => (
                             <div key={k} className="flex items-baseline gap-1">
-                              <dt className="font-mono text-[10px] text-[var(--t3)]">{k}</dt>
+                              <dt className="font-mono text-[10px] text-[var(--t2)]">{k}</dt>
                               <dd className="font-mono text-[11px] font-[600] text-[var(--t2)]">
                                 {formatDim(v)}
                               </dd>
@@ -255,7 +264,7 @@ export default async function AdminQualityPage() {
         })
       )}
 
-      <p className="text-center font-body text-[11px] text-[var(--t3)]">
+      <p className="text-center font-body text-[11px] text-[var(--t2)]">
         수집: pg_cron jobid=12 (매일 KST 03:10) + 수동 &lsquo;지금 수집&rsquo;
         (admin_collect_quality_metrics) · 골든셋 스냅샷 회귀는 CI verify 참조
       </p>

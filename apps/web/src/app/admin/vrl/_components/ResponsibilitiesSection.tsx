@@ -29,7 +29,7 @@ export function ResponsibilitiesSection({ snapshot }: ResponsibilitiesSectionPro
     <section aria-label="4 Responsibilities (R1-R4)" className="flex flex-col gap-4">
       {/* ── Section Header ── */}
       <header className="flex items-center justify-between gap-3">
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-3">
           <span
             className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)]"
             style={{ backgroundColor: '#8B5CF61A', color: '#8B5CF6' }}
@@ -41,14 +41,14 @@ export function ResponsibilitiesSection({ snapshot }: ResponsibilitiesSectionPro
             <h2 className="font-display text-[18px] font-[800] leading-tight text-[var(--t1)]">
               4 Pipeline Responsibilities
             </h2>
-            <p className="font-body text-[12px] text-[var(--t3)]">
+            <p className="font-body text-[12px] text-[var(--t2)]">
               Pipeline Fitness 차원 (가중 20%) — 각 책임이 사전DB 자산을 얼마나 잘 활용 중인지
             </p>
           </div>
         </div>
         {pipelineFitness && (
           <div className="text-right">
-            <p className="font-mono text-[10px] font-[600] uppercase tracking-[0.08em] text-[var(--t3)]">
+            <p className="font-mono text-[10px] font-[600] uppercase tracking-[0.08em] text-[var(--t2)]">
               Pipeline Fitness
             </p>
             <p
@@ -63,7 +63,7 @@ export function ResponsibilitiesSection({ snapshot }: ResponsibilitiesSectionPro
               }}
             >
               {pipelineFitness.score}
-              <span className="ml-0.5 font-body text-[12px] font-[500] text-[var(--t3)]">
+              <span className="ml-0.5 font-body text-[12px] font-[500] text-[var(--t2)]">
                 /100
               </span>
             </p>
@@ -74,17 +74,17 @@ export function ResponsibilitiesSection({ snapshot }: ResponsibilitiesSectionPro
       {/* ── R3 본질 페인 부각 띠 (R3 critical일 때만) ── */}
       {r3IsLowest && r3 && r3.status === 'critical' && (
         <div
-          className="flex items-start gap-2.5 rounded-[var(--r-md)] border border-[var(--error)]/30 bg-[var(--error-light)] p-3"
+          className="flex items-start gap-3 rounded-[var(--r-md)] border border-[var(--error)]/30 bg-[var(--error-light)] p-3"
           role="alert"
         >
           <Sparkles
             size={15}
             strokeWidth={2}
-            className="mt-0.5 shrink-0 text-[var(--error)]"
+            className="mt-0.5 shrink-0 text-[var(--error-ink)]"
             aria-hidden
           />
           <p className="font-body text-[12px] leading-snug text-[var(--t1)]">
-            <span className="font-display font-[700] text-[var(--error)]">
+            <span className="font-display font-[700] text-[var(--error-ink)]">
               본질 페인 — R3 Wordset Publishing
             </span>{' '}
             점수 {r3.score} (critical). VCB Pipeline 이 V-Level/register 활용 불가 →

@@ -33,7 +33,7 @@ export function AdminPageHeader({
           {title}
         </h1>
         {description && (
-          <p className="mt-0.5 font-body text-[13px] text-[var(--t3)]">{description}</p>
+          <p className="mt-0.5 font-body text-[13px] text-[var(--t2)]">{description}</p>
         )}
       </div>
       {actions && <div className="ml-auto flex shrink-0 items-center gap-2">{actions}</div>}

@@ -1,3 +1,5 @@
+// apps/web/src/app/admin/vocab/runs/[id]/seed/preview/page.tsx
+
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft, Eye } from 'lucide-react'
@@ -27,7 +29,7 @@ export default async function VcbSeedPreviewPage({ params }: PageProps) {
           actions={
             <Link
               href={`/admin/vocab/runs/${runId}/seed`}
-              className="inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] font-display text-sm border"
+              className="min-h-[44px] inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] font-display text-sm border"
               style={{
                 color: 'var(--t2)',
                 borderColor: 'var(--bd)',

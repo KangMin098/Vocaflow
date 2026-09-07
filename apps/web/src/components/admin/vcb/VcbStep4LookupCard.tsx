@@ -1,3 +1,5 @@
+// apps/web/src/components/admin/vcb/VcbStep4LookupCard.tsx
+
 'use client'
 
 import { useState, useTransition } from 'react'
@@ -83,7 +85,7 @@ export function VcbStep4LookupCard({ runId, runStatus, seedCount }: Props) {
           type="button"
           onClick={handleRun}
           disabled={!canRun}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-[var(--r-md)] font-display text-sm font-semibold disabled:opacity-50"
+          className="min-h-[44px] inline-flex items-center gap-2 px-4 py-2 rounded-[var(--r-md)] font-display text-sm font-semibold disabled:opacity-50"
           style={{ background: 'var(--p)', color: 'var(--ti)' }}
         >
           {isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <Search className="w-4 h-4" />}
@@ -109,7 +111,7 @@ export function VcbStep4LookupCard({ runId, runStatus, seedCount }: Props) {
           <CheckCircle2 className="w-5 h-5 shrink-0 mt-0.5" />
           <div className="text-sm flex-1">
             <div className="font-semibold">매칭 완료 · {fmtMs(result.duration_ms)}</div>
-            <div className="text-xs mt-1 grid grid-cols-2 gap-x-4 gap-y-0.5 font-mono" style={{ color: 'var(--t2)' }}>
+            <div className="text-xs mt-1 grid grid-cols-2 gap-x-4 gap-y-1 font-mono" style={{ color: 'var(--t2)' }}>
               <span>full hits</span><span>{result.full_hits}</span>
               <span>partial hits</span><span>{result.partial_hits}</span>
               <span>misses</span><span>{result.misses}</span>

@@ -1,0 +1,66 @@
+{
+  "bar": 9.5,
+  "_doc": "Per-stave vision-QC ledger for A Christmas Carol final acceptance gate. Teen art tier. consistency = cross-panel 캐릭터 동일성(별도 게이트).",
+  "consistency": {
+    "_doc": "cross-panel 캐릭터 일관성(ViStoryBench 헤드라인 · 1순위). 한 캐릭터의 모든 등장을 함께 보고 얼굴·실루엣·시그니처 동일성 0-10. 2+ 등장은 필수 평가(미평가=차단). 천장 초과는 자가생성 시트 LoRA.",
+    "scrooge": { "score": 9.3, "flagged": [{ "sections": [16], "status": "accepted-limit", "note": "대머리·뾰족코·클린셰이븐 실루엣은 전 등장 일관 — P16만 스타일 basin(사실체+수염)" }] },
+    "marley": { "score": 9.2, "flagged": [{ "sections": [15, 17, 18], "status": "remediated", "note": "남성+체인 시그니처 재확립(chain-first+seed); pigtail→queue 토큰 수정으로 돼지코 제거" }] },
+    "bob": { "score": 9.3, "flagged": [] },
+    "fred": { "score": 9.3, "flagged": [] }
+  },
+  "chapters": {
+    "1": {
+      "elements": {
+        "art": 9,
+        "character": 9,
+        "scene": 9.2
+      },
+      "flagged": [
+        {
+          "panel": 0,
+          "element": "character",
+          "score": 9.2,
+          "status": "remediated",
+          "note": "re-staged fully single-subject; Scrooge costume-neutral bible fixed day/night; Marley P15 now male + chain via chain-first + seed change"
+        },
+        {
+          "panel": 16,
+          "element": "art",
+          "score": 8.4,
+          "status": "accepted-limit",
+          "note": "P16 stubbornly renders photorealistic + bearded despite explicit cartoon/clean-shaven wording — free-FLUX style-drift basin"
+        },
+        {
+          "panel": 17,
+          "element": "character",
+          "score": 8.5,
+          "status": "accepted-limit",
+          "note": "Marley P17 reads androgynous (full face-bandage); the wound cash-box chain is a complex accessory free FLUX renders unreliably — needs paid reference-conditioning"
+        }
+      ]
+    },
+    "2": {
+      "elements": {
+        "art": 9.3,
+        "character": 9.3,
+        "scene": 9.2
+      },
+      "flagged": [
+        {
+          "panel": 0,
+          "element": "character",
+          "score": 9.3,
+          "status": "remediated",
+          "note": "RE-STAGED FULLY SINGLE-SUBJECT: eliminated the 2-figure wizard-bleed. Scrooge locked via bare-headed + striped nightshirt (positive anti-wizard anchor, since negatives are ignored); Ghost head-flame via fire-from-scalp wording"
+        },
+        {
+          "panel": 2,
+          "element": "scene",
+          "score": 9.2,
+          "status": "accepted-limit",
+          "note": "Ghost still adds a small handheld candle alongside the head-flame; teen-tier free-FLUX line quality caps ~9.3 — true 9.5 needs paid reference-conditioning"
+        }
+      ]
+    }
+  }
+}

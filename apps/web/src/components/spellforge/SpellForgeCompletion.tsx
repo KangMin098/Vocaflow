@@ -7,6 +7,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 
 import { NextActionCard } from '@/components/recommend/NextActionCard'
+import type { ContentRef } from '@/lib/content/content-ref'
 import type { RecommendedAction } from '@/lib/recommend/types'
 import { useRecordGameScore } from '@/lib/scores/record-score'
 
@@ -17,6 +18,8 @@ interface SpellForgeCompletionProps {
   startedAt: Date
   /** 세션 종료 시 복귀 경로 — 페이지가 ?from/스코프로 계산. */
   backHref: string
+  /** 무엇으로 학습했나 — scores 콘텐츠 귀속(없으면 자료 미상으로 남는다). */
+  content?: ContentRef
   /** §17.3 추천 축 — 부모가 주입 */
   recommendation?: RecommendedAction
 }
@@ -26,6 +29,7 @@ export function SpellForgeCompletion({
   correctCount,
   startedAt,
   backHref,
+  content,
   recommendation,
 }: SpellForgeCompletionProps) {
   // 마운트 시점에 durationMs 1회 캡처 — 이후 리렌더에 영향 없음
@@ -42,6 +46,7 @@ export function SpellForgeCompletion({
     correctCount,
     accuracy,
     durationSeconds: Math.round(durationMs / 1000),
+    content,
     metadata: { totalWords, correctCount },
   })
 
@@ -95,7 +100,7 @@ function Stat({ value, label }: { value: string | number; label: string }) {
       <p className="mb-1.5 font-display text-[32px] font-[800] tabular-nums leading-none text-[var(--t1)]">
         {value}
       </p>
-      <p className="font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t3)]">
+      <p className="font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
         {label}
       </p>
     </div>

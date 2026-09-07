@@ -53,7 +53,7 @@ export function ArticleExtractionPanel({
             >
               학습 단어 추출 — 분석 결과
             </h2>
-            <p className="mt-0.5 font-body text-[12px] text-[var(--t3)]">
+            <p className="mt-0.5 font-body text-[12px] text-[var(--t2)]">
               article_v_level{articleVLevel != null ? ` V${articleVLevel}` : ''} 이상 · 📜 고어·🏛
               시대어 제외(본문 툴팁으로) · composite = freq_boost 0.70 + salience 0.10 + skill
               penalty · 발행 단어장과 동일 결과·순서 (LCP SSoT)
@@ -65,7 +65,7 @@ export function ArticleExtractionPanel({
           <button
             type="button"
             onClick={() => setModalOpen(true)}
-            className="inline-flex min-h-[36px] shrink-0 items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p-light)] px-3.5 font-display text-[12px] font-[600] text-[var(--p)] transition-colors hover:bg-[var(--p)] hover:text-[var(--ti)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+            className="inline-flex min-h-[44px] shrink-0 items-center gap-2 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p-light)] px-4 font-display text-[12px] font-[600] text-[var(--on-p-tint)] transition-colors hover:bg-[var(--p)] hover:text-[var(--on-p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           >
             <SearchCheck size={13} aria-hidden />
             단어장 검수 팝업
@@ -81,7 +81,7 @@ export function ArticleExtractionPanel({
         <MetaCell label="추출 단어" value={`${vocab.length}개`} />
       </div>
       {readingMinutes != null && (
-        <p className="font-mono text-[10px] text-[var(--t3)]">읽기 시간: {readingMinutes}분</p>
+        <p className="font-mono text-[10px] text-[var(--t2)]">읽기 시간: {readingMinutes}분</p>
       )}
 
       {missing > 0 && (
@@ -91,13 +91,13 @@ export function ArticleExtractionPanel({
       )}
 
       {vocab.length === 0 ? (
-        <p className="rounded-[var(--r-sm)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] p-4 font-body text-[12px] text-[var(--t3)]">
+        <p className="rounded-[var(--r-sm)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] p-4 font-body text-[12px] text-[var(--t2)]">
           추출된 단어가 없어요. 상단 “지금 처리/재분석”으로 파이프라인을 실행하세요.
         </p>
       ) : (
         <div className="overflow-x-auto rounded-[var(--r-sm)] border border-[var(--bd)]">
           <table className="w-full border-collapse text-left">
-            <thead className="bg-[var(--bg2)] text-[11px] font-[700] uppercase tracking-wider text-[var(--t3)]">
+            <thead className="bg-[var(--bg2)] text-[11px] font-[700] uppercase tracking-wider text-[var(--t2)]">
               <tr>
                 <Th className="text-right">#</Th>
                 <Th>단어</Th>
@@ -114,9 +114,9 @@ export function ArticleExtractionPanel({
                   key={r.word}
                   className="border-t border-[var(--bd)] font-body text-[12px] text-[var(--t1)] hover:bg-[var(--bg2)]"
                 >
-                  <Td className="text-right font-mono text-[var(--t3)]">{r.rank}</Td>
+                  <Td className="text-right font-mono text-[var(--t2)]">{r.rank}</Td>
                   <Td className="font-display font-[600]">
-                    <span className="inline-flex items-center gap-1.5">
+                    <span className="inline-flex items-center gap-2">
                       {r.word}
                       <RegisterBadge register={r.wordRegister} />
                     </span>
@@ -125,8 +125,8 @@ export function ArticleExtractionPanel({
                   <Td className="text-right font-mono">
                     {r.vLevel != null ? `V${r.vLevel}` : '—'}
                   </Td>
-                  <Td className="text-center font-mono text-[var(--t3)]">{r.cefrLevel ?? '—'}</Td>
-                  <Td className="text-right font-mono text-[var(--t3)]">
+                  <Td className="text-center font-mono text-[var(--t2)]">{r.cefrLevel ?? '—'}</Td>
+                  <Td className="text-right font-mono text-[var(--t2)]">
                     {r.frequencyInArticle ?? '—'}
                   </Td>
                   <Td className="text-right font-mono">
@@ -161,7 +161,7 @@ export function ArticleExtractionPanel({
                 <button
                   type="button"
                   onClick={() => setLimit(50)}
-                  className="font-display text-[12px] font-[600] text-[var(--t3)] hover:underline"
+                  className="font-display text-[12px] font-[600] text-[var(--t2)] hover:underline"
                 >
                   접기 (50개만 보기)
                 </button>
@@ -184,8 +184,8 @@ export function ArticleExtractionPanel({
 
 function MetaCell({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex flex-col gap-0.5">
-      <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">
+    <div className="flex flex-col gap-1">
+      <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">
         {label}
       </span>
       <span className="font-display text-[14px] font-[700] tabular-nums text-[var(--t1)]">

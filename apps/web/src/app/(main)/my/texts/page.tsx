@@ -1,18 +1,13 @@
 // apps/web/src/app/(main)/my/texts/page.tsx
-// IA Refactor v06.26 — TextVault (내가 입력한 텍스트)
+//
+// ADR 0006 D4 — 폐지. `/text` 로 보낸다.
+//
+// 이 라우트는 `/text` 와 **동작이 같았다**(둘 다 `<Screen><TextHubContent /></Screen>`).
+// 같은 것을 두 이름으로 부른 자리이기도 하다 — `axes.ts` NAME_DECISIONS 가
+// "TextVault" 를 retire 로 지정했고 정식명은 **Texts**(`/text`)다.
 
-import { Screen } from '@/components/ui/ios';
-import { TextHubContent } from '@/components/textviewer/TextHubContent';
+import { redirect } from 'next/navigation'
 
-export const metadata = {
-  title: 'TextVault — Vocaflow',
-  description: '내가 입력한 텍스트',
-};
-
-export default function MyTextsPage() {
-  return (
-    <Screen width="wide" background="bg2" padX="md">
-      <TextHubContent />
-    </Screen>
-  );
+export default function MyTextsPage(): never {
+  redirect('/text')
 }

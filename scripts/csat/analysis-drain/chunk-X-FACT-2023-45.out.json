@@ -1,0 +1,1809 @@
+{
+ "chunk": 5,
+ "type_id": "X-FACT",
+ "type_name": "장문 내용 일치",
+ "analyses": [
+  {
+   "item_id": "2023#45",
+   "body_recovered": true,
+   "revised": true,
+   "measured_ability": "인쇄 순서 (A)-(B)-(C)-(D) 와 사건의 시간 순서가 어긋난 서사에서, 선지 하나가 가리키는 단락으로 직행해 그 문장의 주어·장소를 원문과 1:1 로 대조하는 능력",
+   "design_intent": "선물의 정체(색맹 교정 안경)라는 반전에 학습자의 주의를 몰아 두고, 정답은 반전과 무관한 '누구 집에서 열린 생일인가' 라는 장소 정보 한 줄에 숨겼다. 감동적인 (B) 단락을 읽고 나면 (D) 마지막 문장의 초대 관계를 되돌아보지 않는다는 것을 노렸다.",
+   "answer_locus": {
+    "sentence_index": [
+     38,
+     39
+    ],
+    "quote": "thank you for inviting me to your place for my birthday.",
+    "reasoning": "아버지가 딸들에게 '너희 집(your place)에 초대해 줘서 고맙다' 고 말한다. 초대한 쪽이 딸들이고 찾아온 쪽이 아버지이므로, 딸들이 아버지 집을 방문했다는 선지 ④와 이동 방향이 정반대다. 바로 뒤 'He walked in joyfully' 도 아버지가 들어온 쪽임을 확정한다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "주체 역전",
+     "why_tempting": "(A) 첫 문장에서 소리치는 사람은 Camila 이고 케이크를 나르는 사람은 her sister(Hailey)라 이름과 행동이 엇갈려 보인다. 'Camila yelled' 만 눈에 남으면 케이크를 옮긴 사람을 Camila 로 기억해 선지를 틀렸다고 판정하게 된다.",
+     "how_to_reject": "(A) 세 번째 문장 'Camila relaxed only when Hailey had safely placed the cake on the party table.' — placed 의 주어가 Hailey 이고 safely 가 '무사히' 를 그대로 받는다. 선지는 참이므로 답이 아니다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "대명사 지시 혼동",
+     "why_tempting": "(B) 는 Hailey 의 대사로 시작해 곧바로 'He slowly put them on' 이 이어진다. 앞 문장의 화자가 Hailey 라서 put on 의 주어를 Hailey(딸이 씌워 주었다)로 읽으면 '아버지가 직접 썼다' 를 틀린 진술로 오판한다.",
+     "how_to_reject": "(B) 두 번째 문장의 주어는 He 이고, 같은 문장 뒤 'stared at the birthday presents' 와 다음 문장 'he started to cry' 의 주어가 모두 아버지다. 안경을 쓴 주체가 아버지이므로 참이다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "(C) 의 'he has long been suffering from color blindness' 에서 long 을 보고 '오래전부터' 를 Hailey 가 안 시점으로 옮겨 읽으면 '최근에 알게 되었다' 가 틀린 것처럼 보인다. long 이 걸리는 것은 아버지의 증상 기간이지 Hailey 의 인지 시점이 아니다.",
+     "how_to_reject": "(C) 의 'Actually Camila, I recently found out he has long been suffering from color blindness.' — recently 가 found out 을, long 이 has been suffering 을 각각 수식한다. Hailey 가 안 것은 recently 이므로 참이다."
+    },
+    {
+     "n": 4,
+     "verdict": "correct",
+     "why_correct": "선지 ④에서 어긋나는 성분은 이동 방향, 곧 「아버지의 집을 방문」이다. 마지막 단락 (D) 후반 아버지의 대사 ‘thank you for inviting me to your place for my birthday.’ 에서 your place 는 딸들의 집이고 초대한 쪽도 딸들이다. 바로 뒤 서술 ‘He walked in joyfully, hugging his daughters.’ 의 walked in 이 들어온 쪽을 아버지로 확정하므로, 찾아간 사람과 목적지가 선지와 정반대로 뒤집혀 있다.",
+     "confirmed_at": {
+      "sentence_index": [
+       38,
+       39
+      ],
+      "note": "초인종 문장 ‘They were suddenly interrupted by the doorbell ringing.’ 이 장소를 딸들의 집으로 고정하는 두 번째 표지다. 생일상·케이크·장미가 차려진 실내 장면이 먼저 나와 「딸들이 아버지 집에 모였다」는 그림이 앞서 그려지고, 방향을 밝힌 문장은 대사 한 줄뿐이다."
+     }
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "단락 순서 교란",
+     "why_tempting": "나이(fifty)는 (C) 첫 대사에, 장미 수(fifty red roses)는 (D) 마지막 문장에 떨어져 있다. 두 단락은 인쇄 순서상 붙어 있지 않은 데다 사건 시간 순서도 (D)가 (C)보다 앞이라, 한 단락만 보면 대조할 짝을 못 찾아 '확인 불가 = 틀림' 으로 처리하게 된다.",
+     "how_to_reject": "(C) 첫 문장 'You're fifty today, Dad.' 와 (D) 마지막 'fifty red roses' 를 나란히 놓으면 나이와 장미 수가 둘 다 fifty 로 일치한다. 참이므로 답이 아니다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "지문을 보기 전에 선지 5개를 먼저 읽고, 각 선지에서 지문에서 찾을 검색어 하나(고유명사·숫자·구체 동작)에 표시한다 — ①케이크 ②안경 ③색맹 ④방문 ⑤장미 수",
+     "on_fail": "검색어가 안 잡히는 선지는 그 선지의 서술어(옮겼다·써 봤다·방문했다)를 검색어로 삼는다"
+    },
+    {
+     "step": "선지 번호와 단락 기호를 1:1 로 맞춘다 — ①은 (A), ②는 (B), ③은 (C), ④·⑤는 (D) 쪽부터 본다. 이 유형은 선지 번호가 인쇄된 단락 순서를 따라간다",
+     "on_fail": "대응 단락에 검색어가 없으면 바로 다음 단락으로 한 칸만 옮겨 본다. 처음부터 다시 훑지 않는다"
+    },
+    {
+     "step": "찾은 문장에서 동사의 주어를 손가락으로 짚어 선지의 주어와 같은지 본다 — 이 지문은 Camila·Hailey·아버지 셋이 he/she/her 로만 지시된다",
+     "on_fail": "주어가 대명사면 그 문장 바로 앞에서 마지막으로 나온 사람 이름을 찾아 대입하고, 대입한 결과가 말이 되는지 확인한다"
+    },
+    {
+     "step": "장소·방향을 말하는 선지(④)는 '누가 어디로 갔는가' 를 말하는 동사(walk in, invite, come)를 찾아 화살표를 그린다",
+     "on_fail": "이동 동사가 안 보이면 대사 속 your/my place, here 같은 장소 지시어를 찾아 화자 기준으로 누구 집인지 표시한다"
+    },
+    {
+     "step": "숫자가 든 선지(⑤)는 숫자가 두 군데 나온다고 보고 두 단락에서 각각 찾아 나란히 적는다",
+     "on_fail": "한 쪽 숫자만 찾히면 그 선지는 보류로 두고 나머지를 먼저 확정한 뒤 마지막에 돌아온다"
+    }
+   ],
+   "time_budget_sec": 110,
+   "difficulty": {
+    "predicted": 0.85,
+    "drivers": [
+     "선지 5개가 단락 순서대로 배치돼 검색이 쉽다",
+     "정답 근거가 대사 안 한 줄(your place)이라 시선이 스칠 수 있다",
+     "he/she 대명사 밀도가 높다"
+    ]
+   },
+   "required_vocab": [
+    "color blindness",
+    "parcel",
+    "wink",
+    "overjoyed",
+    "greeted"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "quote 가 (D) 원문과 문자열 단위로 일치한다",
+      "출제 의도를 '반전(안경)에 주의를 몰고 장소 정보로 가른다' 로 이 문항 고유하게 서술했다 — 유형 일반론이 아니다",
+      "이 회차 지문은 코퍼스에서 일부 인용부호가 깨져 있다(body_recovered) — 인용한 세 조각은 모두 손상 구간 밖이며 문자열 대조로 확인했다",
+      "your place(딸들의 집) ↔ 선지 「아버지의 집」 대응이 낱말 단위로 성립한다"
+     ],
+     "checked": [
+      "answer_locus.quote 를 passage 및 raw_block 과 문자열 대조",
+      "X-FACT(장문 내용 일치) 유형 정의와 서술 대조",
+      "정답 ④가 '적절하지 않은 것' 발문과 방향이 맞는지 확인",
+      "영어 조각 3개 문자열 대조",
+      "손상 구간과 인용 위치가 겹치는지",
+      "선지 ④의 어긋난 성분(이동 방향) 지목이 실제 문장과 맞는지"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "초안에서 ③과 ⑤에 모두 '어휘 함정' 을 달아 라벨이 겹쳤다 → ⑤는 근거가 (C)와 (D) 두 단락에 쪼개져 있는 것이 실제 미끄러짐 지점이므로 '단락 순서 교란' 으로 고쳤다 (revised)",
+      "오답 4개 라벨이 주체 역전·대명사 지시 혼동·어휘 함정·단락 순서 교란 4종으로 갈린다",
+      "근거를 대사 한 줄에만 걸지 않고 서술문 He walked in joyfully 와 초인종 문장까지 두 겹으로 세웠다 — 대사만 근거일 때 생기는 「인물의 주장」 문제를 피한다"
+     ],
+     "checked": [
+      "오답 4개 trap 라벨 중복 여부 확인",
+      "why_tempting 을 선지 한국어 문면과 대조",
+      "how_to_reject 마다 단락 기호와 문장 인용이 들어 있는지 확인",
+      "대사 근거에 서술문 뒷받침이 있는지",
+      "note 로 옮긴 심리 관찰이 근거 서술과 분리됐는지"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "1~2단계가 지문을 안 본 상태에서 실행 가능하다 — 선지 먼저 읽기와 번호-단락 대응은 지문 지식을 요구하지 않는다",
+      "required_vocab 5개가 모두 정답 판정선(색맹·선물 꾸러미·초대 관계)에 실제로 걸린다",
+      "「(D) 후반 아버지의 대사」로 자리를 좁혀 학생이 마지막 단락 뒤쪽만 보면 된다"
+     ],
+     "checked": [
+      "solve_procedure 를 지문 미독 상태 기준으로 시뮬레이션",
+      "금지 표현(흐름을 파악하면 등) 포함 여부 확인",
+      "110초 안에 5단계가 끝나는지 단계당 20~25초로 배분 확인",
+      "위치 지시의 구체성",
+      "설명이 지문을 안 읽은 상태에서 실행 가능한지"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "M2309#45",
+   "body_recovered": true,
+   "measured_ability": "재배열된 네 단락에서 각 선지가 가리키는 단락을 지목하고, 그 단락 안 대사의 화자와 제안 내용을 원문 문장과 일대일로 맞춰 보는 능력",
+   "design_intent": "여행 중 두 인물이 번갈아 제안하고 응답하는 대사 구조를 만들어, '누가 제안했고 누가 받아들였는가' 와 '무엇을 먼저 하기로 했는가' 라는 두 축에서 갈리도록 설계했다. 대사가 인용부호 안에 있어 화자 표시(said/asked/responded)를 놓치면 제안자와 응답자가 뒤바뀐다.",
+   "solve_procedure": [
+    {
+     "step": "선지 5개를 먼저 읽고 각 선지의 주어(인물 이름)에 동그라미, 서술어(제안했다·말했다·없었다·좋아했다)에 밑줄을 친다",
+     "on_fail": "인물 이름이 없는 선지는 그 선지에 든 고유명사(Liverpool, National Gallery, Sunflowers)를 검색어로 삼는다"
+    },
+    {
+     "step": "선지 번호 순서대로 단락 (A)→(B)→(C)→(D) 를 훑는다 — 이 유형은 선지 번호가 인쇄된 단락 순서를 따라 배치된다",
+     "on_fail": "대응 단락에 검색어가 없으면 한 단락만 뒤로 옮겨 확인하고, 그래도 없으면 그 선지를 보류 표시하고 다음으로 넘어간다"
+    },
+    {
+     "step": "대사가 근거인 선지는 인용부호 밖의 화자 표시(Layla asked / Emilia responded / Layla stated)를 먼저 찾아 그 대사의 주인을 확정한 뒤 선지의 주어와 비교한다",
+     "on_fail": "화자 표시가 대사 뒤에 오면 인용부호가 닫히는 자리에서 바로 오른쪽을 본다"
+    },
+    {
+     "step": "시간·순서를 말하는 선지(먼저·나중·전·후)는 대사 안의 first, then, after, next 를 찾아 두 사건에 1·2 번호를 매긴다",
+     "on_fail": "순서어가 없으면 그 선지는 보류하고, 나머지 넷을 확정한 뒤 남은 하나로 판단한다"
+    },
+    {
+     "step": "네 선지가 원문 문장과 맞는 것으로 확인되면 남은 하나의 근거 문장을 다시 찾아 어느 낱말에서 어긋나는지 짚는다",
+     "on_fail": "두 개 이상이 어긋나 보이면 각각의 근거 문장을 다시 읽어 대명사 주인을 이름으로 바꿔 넣고 다시 비교한다"
+    }
+   ],
+   "time_budget_sec": 110,
+   "difficulty": {
+    "predicted": 0.82,
+    "drivers": [
+     "선지 다섯 중 셋이 대사에 근거해 화자 표시를 놓치면 제안자와 응답자가 뒤바뀐다",
+     "선지-단락 대응이 단조로워 검색 비용이 낮다",
+     "제안·응답이 오가는 대사가 (B)에 몰려 있어 화자 추적 부담이 있다",
+     "van Gogh·Rembrandt 두 화가가 나와 대상 혼동 여지가 있다"
+    ]
+   },
+   "required_vocab": [
+    "exhibition",
+    "lent",
+    "masterpiece",
+    "notice",
+    "relieved"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "코퍼스 지문이 두 단 섞임으로 (A) 조각과 선지만 남아 있어 (B)~(D)를 회차 원문(columns2/M2309.txt 960~1040줄)에서 복원해 읽었다. body_recovered 를 붙였다 (revised)",
+      "quote 가 복원한 (B)의 Emilia 대사에서 그대로 나온 문자열임을 회차 원문 창과 대조해 확인했다",
+      "why_correct 가 「성분 하나만 갈렸다」를 시점 부사구로 지목하고 화자·행동은 참임을 함께 적어, 불일치 찾기 유형의 근거 모양을 지켰다"
+     ],
+     "checked": [
+      "corpus.json 의 M2309#45 answer 가 3 임을 확인하고 correct 선지를 3으로 맞췄다",
+      "quote 를 회차 원문 창과 대조 — Then, after lunch, we can catch the next train. 연속 존재(현재 코퍼스 지문에는 파손으로 없다)",
+      "why_correct 안의 「점심 식사 전에」가 정답 선지 텍스트와 일치하는지 대조",
+      "오답 넷의 근거 문장이 각각 (A)(B)(C)(D)에 실제로 있는지 회차 원문에서 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "오답 넷의 trap 이 범위 과대 · 주체 역전 · 어휘 함정 · 단락 순서 교란으로 서로 다르다",
+      "선지-단락 대응이 ①→(A) ②→(B) ③→(B) ④→(C) ⑤→(D) 로 단조 비감소라, 이 청크 type_report 의 대응 규칙이 이 문항에서도 성립한다",
+      "초안 difficulty.drivers 첫 항목이 정답표 부재를 전제하고 있어 화자 추적 부담으로 다시 썼다 (revised)"
+     ],
+     "checked": [
+      "오답 4개 trap 라벨 상호 대조",
+      "how_to_reject 넷에 단락 기호와 원문 어구가 들어갔는지 확인",
+      "선지-단락 대응이 단조 비감소인지 다섯 선지 모두 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "절차 4단계가 대사 안의 first · then · after · next 를 찾아 두 사건에 번호를 매기게 해, 이 문항의 판정선인 전/후를 학습자가 규칙으로 잡게 한다",
+      "지문이 파손돼 있으므로 실제 시험지에서는 이 부담이 없다 — 110초 배분은 그대로 둔다"
+     ],
+     "checked": [
+      "solve_procedure 5단계 금지 표현 문자열 검사",
+      "required_vocab 낱말을 회차 원문과 대조 — exhibition · lent · masterpiece · notice · relieved 모두 존재",
+      "110초 배분 모의 — 선지 표시 20초 + 단락 직행 조회 60초 + 시점 대조 30초"
+     ]
+    }
+   ],
+   "answer_locus": {
+    "sentence_index": [
+     19
+    ],
+    "quote": "Then, after lunch, we can catch the next train.",
+    "reasoning": "(B)에서 Layla 가 한 시간 뒤 기차를 타자고 하자 Emilia 가 Rembrandt 그림을 먼저 보자고 미루면서 붙인 말이 이 문장이다. after lunch 는 점심을 먹고 난 뒤를 가리키므로 기차 탑승 시점이 점심 뒤로 밀린다. 선지가 그 시점을 점심 전으로 바꿔 놓았고, 갈린 것은 시점 부사구 하나뿐이며 화자(Emilia)와 행동(기차를 타자고 말함)은 원문 그대로다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "범위 과대",
+     "why_tempting": "장면이 런던 Charing Cross 역과 Liverpool 로만 이어져 영국 안에서만 움직이므로, 「유럽 여행」이 원문보다 큰 말로 보인다.",
+     "how_to_reject": "(A) 두 번째 문장 It was the second day of their European summer trip. 에서 여행 자체를 European summer trip 으로 규정한다. 참이므로 답이 아니다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "주체 역전",
+     "why_tempting": "Liverpool 이라는 지명을 먼저 꺼낸 사람은 Emilia 다(his Sunflowers … it’s at a gallery in Liverpool). 지명이 먼저 나온 자리만 기억하면 제안자를 Emilia 로 붙이게 된다.",
+     "how_to_reject": "(B)에서 Layla stated, “No! It’s only two hours to Liverpool by train. The next train leaves in an hour. Why don’t we take it?” — 제안 화행 Why don’t we 의 화자가 Layla 로 명시돼 있다. 참이다."
+    },
+    {
+     "n": 3,
+     "verdict": "correct",
+     "why_correct": "선지에서 갈린 성분은 시점 하나, 곧 「점심 식사 전에」다. 근거 문장 Then, after lunch, we can catch the next train. 에서 Emilia 가 정한 탑승 시점은 after lunch, 곧 점심 뒤다. 화자가 Emilia 인 것과 기차를 타자고 말한 것은 원문과 그대로 맞고 앞의 Let’s do that first 도 미루는 방향이라, 어긋나는 것은 전/후 한 자리뿐이다.",
+     "confirmed_at": {
+      "sentence_index": [
+       16,
+       18
+      ],
+      "note": "Layla 의 The next train leaves in an hour. Why don’t we take it? 이 「한 시간 뒤」라는 원안이고, Emilia 의 Let’s do that first, Layla! 가 그 원안을 뒤로 미루는 대목이다. 두 문장을 함께 봐야 after lunch 가 원안보다 늦은 시점임이 확정된다."
+     }
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "선지의 「없었다」에 대응하는 낱말이 원문에 그대로 없다. 원문은 couldn’t find … anywhere 와 It’s been lent to a different gallery 로 나눠 적는다.",
+     "how_to_reject": "(C) 첫 문장 However, after searching all the exhibition rooms, Emilia and Layla couldn’t find van Gogh’s masterpiece anywhere. 와 그 뒤 Sunflowers isn’t here! It’s been lent to a different gallery 가 함께 없음을 확정한다. 참이다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "단락 순서 교란",
+     "why_tempting": "⑤의 근거는 (D)에 있는데 43번에서 정한 사건 순서로는 (D)가 (C)보다 앞이다. 시간 순으로 읽으면 마지막에 인쇄된 (D)로 되돌아가지 않아 근거를 못 찾는다.",
+     "how_to_reject": "(D) 안의 It was Emilia’s favorite painting and had inspired her to become a painter. 와 Emilia loved his use of bright colors and light. 두 문장이 선호를 확정한다. 참이다."
+    }
+   ],
+   "revised": true
+  },
+  {
+   "item_id": "M2306#45",
+   "body_recovered": true,
+   "revised": true,
+   "measured_ability": "이틀에 걸친 사건이 (A)-(D)-(C)-(B) 로 재배열된 지문에서 '어제/오늘/그날 밤' 같은 시간 표지를 붙잡아 각 선지의 사건이 놓인 자리를 찾아내는 능력",
+   "design_intent": "두 룸메이트가 번갈아 제안하고 동의하는 대화로 채워, 방을 꾸미자는 발상·소파를 옮기자는 제안·탁자를 사자는 제안이 각각 누구 입에서 나왔는지를 갈랐다. 특히 'Noah hardly slept that night' 와 'After Steve woke up' 처럼 두 사람의 수면 상태가 같은 문장에 붙어 있어, 행동의 주체를 잘못 붙이기 쉽게 짰다.",
+   "solve_procedure": [
+    {
+     "step": "선지 5개를 먼저 읽고 각 선지에서 인물 이름과 사물(기숙사 방·노란색 탁자·가구·거실 탁자·보드게임)을 검색어로 표시한다",
+     "on_fail": "이름이 둘 다 나오는 선지는 서술어의 주어 쪽 이름만 검색어로 남긴다"
+    },
+    {
+     "step": "선지 번호 순서대로 (A)→(B)→(C)→(D) 단락을 대응시켜 검색어를 찾는다 — 이 유형은 선지가 인쇄된 단락 순서대로 배치된다",
+     "on_fail": "대응 단락에 없으면 인접 단락 한 칸만 확인하고, 없으면 보류 표시 후 다음 선지로 간다"
+    },
+    {
+     "step": "'제안했다·말했다' 형 선지는 인용부호 밖 화자 표시(Steve suggested / Noah added / Steve replied)를 먼저 찾아 대사의 주인을 확정한다",
+     "on_fail": "화자 표시가 없으면 그 문장 앞의 In response to, Delighted 같은 연결 어구가 누구의 반응인지 표시하는지 본다"
+    },
+    {
+     "step": "'~하는 사이에', '~한 뒤' 처럼 두 사람의 시간 관계를 말하는 선지는 that night, After ~ woke up, the next day, yesterday 같은 시간 표지를 찾아 두 사람의 행동을 시간선 위에 각각 찍는다",
+     "on_fail": "시간 표지가 안 잡히면 해당 단락의 첫 문장과 마지막 문장만 다시 읽어 시간이 넘어가는 지점을 표시한다"
+    },
+    {
+     "step": "넷이 원문 문장으로 확인되면 남은 하나의 근거 문장을 찾아 주어 또는 시간 표지 중 어디가 어긋나는지 짚는다",
+     "on_fail": "어긋나 보이는 선지가 둘이면 각 근거 문장의 대명사(he·him·his)를 이름으로 바꿔 적고 다시 비교한다"
+    }
+   ],
+   "time_budget_sec": 110,
+   "difficulty": {
+    "predicted": 0.83,
+    "drivers": [
+     "두 사람의 수면 상태와 행동 주체가 이웃한 두 문장에 붙어 있어 시간과 주어를 함께 봐야 한다",
+     "두 인물이 모두 남성이라 he/his 지시가 겹친다",
+     "시간 표지(that night / next day / yesterday)가 단락마다 흩어져 있다",
+     "선지-단락 대응이 단조라 검색 자체는 짧다"
+    ]
+   },
+   "required_vocab": [
+    "personalizing",
+    "rearrange",
+    "hardly",
+    "unique",
+    "refreshment"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "quote 가 지문 (C)에서 그대로 나온 문자열임을 확인했다",
+      "why_correct 가 갈린 성분을 시점(After ~ woke up)과 주체(they)로 짚고 사건 자체는 참임을 함께 적었다",
+      "코퍼스 지문에 (B) 머리의 y 잔여와 담 ______ 같은 OCR 잔여가 있으나 근거 문장에는 손상이 없음을 확인하고 body_recovered 를 붙였다 (revised)"
+     ],
+     "checked": [
+      "corpus.json 의 M2306#45 answer 가 3 임을 확인하고 correct 선지를 3으로 맞췄다",
+      "quote 를 지문 문자열과 대조 — After Steve woke up, they started to rearrange the furniture. 연속 존재",
+      "why_correct 안의 「Steve가 잠든 사이에」가 정답 선지 텍스트와 일치하는지 대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "오답 넷의 trap 이 어휘 함정 · 주체 역전 · 대명사 지시 혼동 · 단락 순서 교란으로 서로 다르다",
+      "선지-단락 대응이 ①→(A) ②→(B) ③→(C) ④→(D) ⑤→(D) 로 단조 비감소다",
+      "초안 difficulty.drivers 첫 항목이 정답표 부재를 전제하고 있어 다시 썼다 (revised)"
+     ],
+     "checked": [
+      "오답 4개 trap 라벨 상호 대조",
+      "how_to_reject 넷에 단락 기호와 원문 어구가 들어갔는지 확인",
+      "④의 his living room 이 실제로 Sammy 를 주어로 하는 절 안에 있는지 지문에서 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "절차 4단계가 that night · After ~ woke up · the next day · yesterday 를 시간선에 찍게 해, 이 문항의 판정선을 학습자가 규칙으로 잡게 한다",
+      "110초 안에 5단계가 들어간다"
+     ],
+     "checked": [
+      "solve_procedure 5단계 금지 표현 문자열 검사",
+      "required_vocab 낱말을 지문과 대조 — personalizing · rearrange · hardly · unique · refreshment 모두 존재",
+      "110초 배분 모의 — 선지 표시 20초 + 단락 직행 조회 60초 + 시간선 대조 30초"
+     ]
+    }
+   ],
+   "answer_locus": {
+    "sentence_index": [
+     14
+    ],
+    "quote": "After Steve woke up, they started to rearrange the furniture.",
+    "reasoning": "가구를 다시 배치한 시점은 After Steve woke up, 곧 Steve 가 깨어난 뒤이고 행위 주체는 they 로 두 사람이다. 선지는 그 시점을 Steve 가 잠든 사이로, 주체를 Noah 혼자로 바꿔 놓았다. 바로 앞 문장 Noah hardly slept that night 이 「Noah 는 거의 못 잤다」를 말할 뿐 그 사이에 가구를 옮겼다는 진술이 아니라는 점이 이 판정의 핵심이다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "선지의 「둘러보고 실망했다」에 해당하는 표현이 한 낱말로 붙어 있지 않다. 원문은 Looking around 와 he became disappointed 로 분사구문과 주절에 나눠 적는다.",
+     "how_to_reject": "(A) 두 번째 문장 Looking around his shared dorm room, Noah thought that it looked exactly like every other dorm room at the university, and he became disappointed. 이 두 요소를 한 문장에 담고 있다. 참이다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "주체 역전",
+     "why_tempting": "노란 탁자를 찾아낸 사람이 Steve 이고 물어본 사람도 Steve 라, 탁자에 대한 평가를 말한 사람도 Steve 로 붙게 된다.",
+     "how_to_reject": "(B)의 Noah was happy about the yellow table and said it would make their room more unique. 에서 said 의 주어가 Noah 로 명시돼 있다. 참이다."
+    },
+    {
+     "n": 3,
+     "verdict": "correct",
+     "why_correct": "선지에서 갈린 성분은 시점과 주체, 곧 「Steve가 잠든 사이에」다. 근거 문장 After Steve woke up, they started to rearrange the furniture. 에서 배치는 Steve 가 깨어난 뒤에 일어나고 주어는 they 로 두 사람이다. 가구를 다시 배치했다는 사건 자체는 원문과 같고, 앞 문장 Noah hardly slept that night 은 잠을 못 잔 사람이 Noah 임을 말할 뿐이다.",
+     "confirmed_at": {
+      "sentence_index": [
+       13
+      ],
+      "note": "앞 문장 Noah hardly slept that night making plans for the room. 이 밤 시간에 Noah 가 한 일을 making plans 로 한정한다. 이 한정을 보지 않으면 밤사이 가구까지 옮긴 것으로 이어 붙게 된다."
+     }
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "대명사 지시 혼동",
+     "why_tempting": "원문의 his living room 에서 his 를 Noah 로 붙이면 탁자가 있던 곳이 Sammy 의 거실이 아니게 되어 선지가 어긋나 보인다.",
+     "how_to_reject": "(D)의 Noah remembered that his brother Sammy had a big table in his living room for playing board games — had 의 주어가 Sammy 이므로 his living room 도 Sammy 의 거실이다. 참이다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "단락 순서 교란",
+     "why_tempting": "⑤의 근거는 인쇄 마지막 단락 (D)에 있는데 사건 순서로는 (D)가 (B)보다 앞이다. 시간 순으로 재배열해 읽으면 마지막 단락을 다시 펴 보지 않는다.",
+     "how_to_reject": "(D)의 Steve and Noah both really enjoyed playing board games. 가 both 로 두 사람을 함께 묶는다. 참이다."
+    }
+   ]
+  },
+  {
+   "item_id": "2022#45",
+   "body_recovered": true,
+   "measured_ability": "인물 셋(Anna·Jane·Cora)이 얽힌 재배열 서사에서, 선지의 부정 표현('놀라지 않았다')을 원문의 감정 서술 한 문장과 방향까지 맞춰 대조하는 능력",
+   "design_intent": "붕대를 감고 나타난 Cora 를 두 사람이 어떻게 맞았는가를 (B) 첫 두 문장에 몰아 두고, 그 뒤에 이어지는 'No problem! We're thrilled to have you back!' 이라는 반가운 반응으로 놀람이 지워지게 했다. 반가움과 놀람을 한 덩어리로 기억하면 부정형 선지를 걸러내지 못한다.",
+   "answer_locus": {
+    "sentence_index": [
+     10,
+     11
+    ],
+    "quote": "Surprised, Anna and Jane simply looked at her with their eyes wide open.",
+    "reasoning": "Surprised 와 eyes wide open 이 놀람을 두 번 겹쳐 적는다. 선지 ②는 '놀라지 않았다' 로 부정하므로 같은 사건에 대한 정반대 진술이고, 이 문장 하나로 확정된다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "주체 역전",
+     "why_tempting": "(A)에 'her friend Jane was assisting Anna' 가 바로 뒤따라 나와 Jane 도 지도에 관여한 것처럼 읽힌다. 가르친 사람을 Jane 으로 옮겨 기억하면 선지 ①이 틀렸다고 판정하게 된다.",
+     "how_to_reject": "(A) 세 번째 문장 'Anna, the head of the club, was teaching the new members basic moves.' — teaching 의 주어가 Anna 이고 the new members 가 '신입 회원' 을 그대로 받는다. 참이므로 답이 아니다."
+    },
+    {
+     "n": 2,
+     "verdict": "correct",
+     "why_correct": "선지 ② 에서 어긋나는 성분은 「놀라지 않았다」이다. (B) 둘째 문장 ‘Surprised, Anna and Jane simply looked at her with their eyes wide open.’ 이 Cora 가 들어온 순간의 두 사람 반응을 Surprised 라는 분사와 with their eyes wide open 이라는 묘사로 두 번 겹쳐 적는다. 주체(Anna and Jane)와 장면(Cora 가 들어옴)이 선지와 같고 반응만 부정으로 뒤집혔으므로 이 한 문장으로 ② 이 불일치임이 확정된다.",
+     "confirmed_at": {
+      "sentence_index": [
+       10,
+       11
+      ],
+      "note": "「학습자가 미끄러지는 자리」 (B)에서 Cora 가 들어온 직후 Anna 가 ‘No problem! We’re thrilled to have you back!’ 하고 반기는데, 그 반가움이 앞의 놀람 서술을 덮어 버리고 「오래 기다린 사람이 왔으니 놀랄 일이 아니다」라는 상식이 겹쳐 ② 을 참으로 읽게 만든다."
+     }
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "(C)의 'Although her budget was tight' 를 보고 '돈이 빠듯했다 → 못 사 줬다' 로 미끄러진다. Although 가 이끄는 양보절은 뒤 절을 부정하지 않는데 앞 절만 남으면 반대로 읽힌다.",
+     "how_to_reject": "(C)의 'Although her budget was tight, Anna bought Cora a taekwondo uniform.' — 주절의 동사가 bought 이므로 산 것이 사실이다. 참이므로 답이 아니다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "부분 사실",
+     "why_tempting": "(C) 끝의 'she came to practice only once' 만 눈에 들어오면 '연습에 나오긴 했다' 로 읽혀 '여러 차례 참여하지 않았다' 가 과장처럼 보인다. only once 의 초점은 참석이 아니라 그 뒤 never showed up again 이다.",
+     "how_to_reject": "(C) 마지막 'she came to practice only once and then never showed up again.' 과 (D) 첫 문장 'Since Cora had missed several practices' — missed several practices 가 선지를 그대로 확정한다. 참이므로 답이 아니다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "단락 순서 교란",
+     "why_tempting": "근거가 마지막 단락 (D)의 긴 대사 안에 있고, 그 대사 앞부분은 'most newcomers don't keep their commitment' 라는 일반론이다. 앞 절만 읽으면 Anna 도 Cora 를 여느 신입과 같게 봤다는 뜻으로 뒤집힌다.",
+     "how_to_reject": "(D)의 'but I thought that Cora would be different.' — but 뒤가 Anna 의 실제 생각이다. 선지와 같으므로 참이고 답이 아니다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "선지를 먼저 읽고 부정 표현이 든 선지(않았다·아니었다)에 별표를 친다 — 이 유형의 정답은 부정형 선지에 자주 걸린다",
+     "on_fail": "부정형 선지가 없으면 숫자나 인물 이름이 둘 이상 든 선지에 별표를 친다"
+    },
+    {
+     "step": "선지 번호와 단락을 1:1 로 맞춰 ①은 (A), ②는 (B), ③은 (C), ④·⑤는 (C)~(D) 에서 검색어를 찾는다",
+     "on_fail": "대응 단락에 검색어가 없으면 인접 단락 한 칸만 확인하고 보류 표시 후 다음 선지로 넘어간다"
+    },
+    {
+     "step": "별표 친 부정형 선지는 근거 문장에서 감정·상태를 나타내는 낱말(Surprised, thrilled, disappointed)을 찾아 선지의 부정과 방향이 같은지 표시한다",
+     "on_fail": "감정 낱말이 없으면 그 인물의 동작 묘사(eyes wide open, nodding, pat on the shoulder)를 감정 대용으로 읽는다"
+    },
+    {
+     "step": "Although·but·only 가 든 문장은 접속사 뒤쪽 절을 답으로 삼는다 — 앞 절은 양보이고 뒤 절이 사실이다",
+     "on_fail": "접속사 뒤 절이 길어 헷갈리면 주절의 본동사 하나만 찾아 그 동사로 참·거짓을 정한다"
+    },
+    {
+     "step": "네 선지의 근거 문장을 확보하면 남은 하나가 답이고, 그 근거 문장에서 어긋나는 낱말 하나를 짚어 확인한다",
+     "on_fail": "어긋나 보이는 선지가 둘이면 감정 서술(3단계)에 걸린 쪽을 먼저 택한다"
+    }
+   ],
+   "time_budget_sec": 105,
+   "difficulty": {
+    "predicted": 0.9,
+    "drivers": [
+     "정답 근거가 부정형 선지 하나에 명시적으로 걸린다",
+     "Surprised 가 문두에 나와 눈에 잘 띈다",
+     "인물 셋이 she/her 로 지시돼 일부 문장에서 주체 추적이 필요하다"
+    ]
+   },
+   "required_vocab": [
+    "absent",
+    "budget",
+    "commitment",
+    "apologetic",
+    "newcomers"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "quote 가 (B) 원문과 문자열 단위로 일치한다",
+      "정답 ②가 평가원 정답표와 일치한다",
+      "설계 서술이 '반가운 반응이 놀람을 덮는다' 는 이 문항 고유 장치를 가리킨다",
+      "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「(B)에서 Cora 가 들어온 직후 Anna 가 'No problem! We're thrilled to ha」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
+     ],
+     "checked": [
+      "answer_locus.quote 를 raw_block 과 문자열 대조",
+      "정답표(answer=2)와 correct 선지 번호 대조",
+      "X-FACT 유형 정의 대조",
+      "Surprised 와 eyes wide open 이 같은 장면·같은 주체를 가리키는지 지문 문자열로 대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "오답 4개 라벨이 주체 역전·어휘 함정·부분 사실·단락 순서 교란 4종으로 갈린다",
+      "③의 why_tempting 이 원문 양보절 Although her budget was tight 에 직접 근거한다",
+      "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「(B)에서 Cora 가 들어온 직후 Anna 가 'No problem! We're thrilled to ha」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
+     ],
+     "checked": [
+      "trap 라벨 중복 확인",
+      "why_tempting 을 선지 한국어 문면과 대조",
+      "how_to_reject 마다 단락 기호 명시 확인",
+      "어긋난 성분이 「반응」 하나로 특정되었는지, 소거법이 아닌지 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "1단계의 '부정형 선지에 별표' 는 지문을 안 본 상태에서 바로 실행된다",
+      "required_vocab 의 budget·commitment 는 ③·⑤ 판정선에 직접 걸린다",
+      "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「(B)에서 Cora 가 들어온 직후 Anna 가 'No problem! We're thrilled to ha」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
+     ],
+     "checked": [
+      "절차의 지문 미독 실행 가능성 확인",
+      "금지 표현 포함 여부 확인",
+      "105초 배분 확인",
+      "학생이 선지의 주체·장면·서술을 셋으로 쪼개 대조할 수 있는지 점검"
+     ]
+    }
+   ],
+   "revised": true
+  },
+  {
+   "item_id": "M2209#45",
+   "measured_ability": "요리 시험을 준비하는 장면이 (A)-(D)-(B)-(C) 로 흩어진 지문에서, 어떤 조언이 누구 입에서 나왔고 누가 무엇을 꺼냈는지를 화자 표시로 확정하는 능력",
+   "design_intent": "교수의 조언(시각적 요소가 중요하다), 룸메이트의 해법(색깔 채소로 파스타에 색을 넣자), 당사자의 좌절이 서로 다른 단락에 놓이고 화자가 계속 바뀐다. 특히 '어렵지 않다' 는 말과 '이건 정말 어렵다' 는 말이 서로 다른 인물 입에서 나와, 난이도 진술의 주인을 뒤바꾸도록 짰다.",
+   "solve_procedure": [
+    {
+     "step": "선지를 먼저 읽고 각 선지의 주어(Sally·Katie·Brown 교수)와 서술어(돌아왔다·말했다·꺼냈다·겪고 있었다)를 짝지어 적는다",
+     "on_fail": "주어가 사람이 아닌 선지는 그 안의 사물(채소 그릇·파스타·시각적인 면)을 검색어로 삼는다"
+    },
+    {
+     "step": "선지 번호 순서대로 (A)→(B)→(C)→(D) 단락에서 검색어를 찾는다 — 이 유형은 선지가 인쇄된 단락 순서를 따른다",
+     "on_fail": "대응 단락에 없으면 인접 단락 한 칸만 보고, 없으면 보류 표시 후 다음 선지로 간다"
+    },
+    {
+     "step": "'말했다' 형 선지는 인용부호 밖의 화자 표시(Katie asked / Sally replied / she added / Professor Brown said)를 찾아 대사의 주인을 이름으로 적은 뒤 선지 주어와 맞춘다",
+     "on_fail": "화자 표시가 대명사(she)면 그 문장 바로 앞에 나온 이름을 대입하고, 대입 결과가 상황에 맞는지 확인한다"
+    },
+    {
+     "step": "난이도·감정을 말하는 문장(hard, not that hard, frustrated)은 밑줄을 긋고 그 문장의 화자 이름을 옆에 적는다 — 같은 낱말이 두 인물에게서 반대 방향으로 나온다",
+     "on_fail": "화자를 못 정하면 그 문장이 인용부호 안인지 밖인지부터 표시한다. 인용부호 밖이면 서술자의 관찰이다"
+    },
+    {
+     "step": "넷이 원문 문장으로 확인되면 남은 하나의 근거 문장을 찾아 주어와 서술어 중 어디가 어긋나는지 짚는다",
+     "on_fail": "둘 이상 어긋나 보이면 3단계로 돌아가 각 대사의 화자를 다시 확정한다"
+    }
+   ],
+   "time_budget_sec": 105,
+   "difficulty": {
+    "predicted": 0.85,
+    "drivers": [
+     "난이도 진술이 두 인물에게서 반대 방향으로 나와 화자를 붙이는 데 부담이 있다",
+     "인물 둘이 모두 여성이라 she 지시가 겹친다",
+     "난이도 진술(hard / not that hard)이 두 인물에게 반대 방향으로 나온다",
+     "선지-단락 대응이 단조라 검색 비용은 낮다"
+    ]
+   },
+   "required_vocab": [
+    "visual aspects",
+    "alter",
+    "container",
+    "stirring",
+    "ingredients"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "quote 가 지문 (C)에서 그대로 나온 문자열임을 확인했다",
+      "why_correct 가 갈린 성분을 not 하나로 지목하고, 「어렵다」의 원래 주인이 (B)의 Katie 임을 함께 짚었다"
+     ],
+     "checked": [
+      "corpus.json 의 M2209#45 answer 가 4 임을 확인하고 correct 선지를 4로 맞췄다",
+      "quote 를 지문 문자열과 대조 — It’s not that hard, and all you need are brightly colored vegetables to make your pasta green 연속 존재",
+      "why_correct 안의 「만드는 것이 어렵다고」가 정답 선지 텍스트와 일치하는지 대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "오답 넷의 trap 이 어휘 함정 · 단락 순서 교란 · 주체 역전 · 대명사 지시 혼동으로 서로 다르다",
+      "선지-단락 대응이 ①→(A) ②→(B) ③→(C) ④→(C) ⑤→(D) 로 단조 비감소다",
+      "초안 difficulty.drivers 첫 항목이 정답표 부재를 전제하고 있어 다시 썼다 (revised)"
+     ],
+     "checked": [
+      "오답 4개 trap 라벨 상호 대조",
+      "how_to_reject 넷에 단락 기호와 원문 어구가 들어갔는지 확인",
+      "③의 took out 주어가 실제로 Sally 인지 지문에서 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "절차 4단계가 hard 와 not that hard 에 밑줄을 긋고 화자 이름을 옆에 적게 해, 같은 낱말이 두 인물에게서 반대 방향으로 나오는 이 지문의 축을 학습자가 스스로 갈라내게 한다",
+      "105초 안에 5단계가 들어간다"
+     ],
+     "checked": [
+      "solve_procedure 5단계 금지 표현 문자열 검사",
+      "required_vocab 낱말을 지문과 대조 — visual aspects · alter · container · stirring · ingredients 모두 존재",
+      "105초 배분 모의 — 선지 표시 20초 + 단락 직행 조회 55초 + 화자 대조 30초"
+     ]
+    }
+   ],
+   "answer_locus": {
+    "sentence_index": [
+     16
+    ],
+    "quote": "It’s not that hard, and all you need are brightly colored vegetables to make your pasta green",
+    "reasoning": "이 대사의 화자는 앞 문장에서 색깔 파스타를 제안한 Sally 이고(Smiling, she added), 그가 그 방법에 대해 내린 평가는 It’s not that hard 로 부정 극성이다. 선지는 같은 화자·같은 대상에 대한 평가만 어렵다로 뒤집었다. 어렵다는 말은 이 지문에서 (B)의 Katie 가 한 This is really hard 이고 대상도 자기 요리라 다르다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "선지의 「수업 후」에 해당하는 after 나 시간 표현이 원문에 없다. 원문은 came back home from her photography class 로 출발지를 적어 시점을 함의한다.",
+     "how_to_reject": "(A) 첫 문장 When Sally came back home from her photography class 가 사진 수업에서 돌아온 것을 그대로 말한다. 참이다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "단락 순서 교란",
+     "why_tempting": "교수의 말이 (B)와 (D) 두 곳에 나뉘어 있고 사건 시간으로는 (D)가 (B)보다 앞이다. 어느 쪽이 근거인지 헤매다 확인을 미루게 된다.",
+     "how_to_reject": "(B)의 Professor Brown said that visual aspects make up a key part of a meal. 한 문장으로 확정된다. 참이다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "주체 역전",
+     "why_tempting": "요리하는 사람이 Katie 라 재료를 꺼내는 동작도 Katie 에게 붙기 쉽다. 게다가 앞 문장이 Katie 의 질문이라 주어가 이어지는 것처럼 읽힌다.",
+     "how_to_reject": "(C)의 Sally took out a container of vegetables from the refrigerator and replied 에서 took out 의 주어가 Sally 로 명시돼 있다. 참이다."
+    },
+    {
+     "n": 4,
+     "verdict": "correct",
+     "why_correct": "선지에서 갈린 성분은 평가의 극성, 곧 「만드는 것이 어렵다고」다. 근거 문장 It’s not that hard, and all you need are brightly colored vegetables to make your pasta green 에서 Sally 는 색깔 파스타 만들기를 not that hard 라고 말한다. 화자가 Sally 인 것과 색깔 파스타를 말한 것은 원문과 같고, 뒤집힌 것은 not 하나다.",
+     "confirmed_at": {
+      "sentence_index": [
+       15,
+       6
+      ],
+      "note": "앞 문장 Sally took out a container of vegetables … and replied 가 이 대사의 화자를 Sally 로 고정한다. 그리고 (B)의 Katie 대사 This is really hard 가 「어렵다」의 원래 주인이라, 두 자리를 나란히 놓아야 뒤바뀜이 드러난다."
+     }
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "대명사 지시 혼동",
+     "why_tempting": "(D) 후반이 Sally … could clearly see that Katie was having a hard time 처럼 두 이름이 한 문장에 겹쳐 나오고 her cooking test 의 her 가 흐려, 힘들어하는 사람을 Sally 로 붙일 여지가 있다.",
+     "how_to_reject": "(D)의 that절 주어가 Katie 이고 (A)의 she was too focused on preparing for her cooking test 도 Katie 를 가리킨다. 참이다."
+    }
+   ],
+   "revised": true
+  },
+  {
+   "item_id": "M2206#45",
+   "measured_ability": "래프팅 장면과 대화가 (A)-(C)-(B)-(D) 로 재배열된 지문에서, 인물 셋의 경험담과 시점(대학 졸업 전/후)을 원문의 시간 표현과 맞춰 확인하는 능력",
+   "design_intent": "세 친구가 각자의 도전 경험을 말하는 구성이라, 어느 경험이 누구 것인지와 그 도전이 졸업 전인지 후인지가 두 축으로 갈린다. Rebecca 는 첫 직장 전에 몽골에 갔고 Sophia 는 졸업 전에 래프팅을 하려 했는데, 두 시점 표현이 비슷한 문형으로 붙어 있어 서로 옮겨 붙기 쉽다.",
+   "solve_procedure": [
+    {
+     "step": "선지를 먼저 읽고 각 선지에 든 인물 이름과 시점 표현(전·후)에 표시한다",
+     "on_fail": "시점 표현이 없는 선지는 그 안의 동작(균형 유지·부딪치지 않았다)을 검색어로 삼는다"
+    },
+    {
+     "step": "선지 번호 순서대로 (A)→(B)→(C)→(D) 단락에서 검색어를 찾는다 — 선지는 인쇄된 단락 순서를 따라 배치된다",
+     "on_fail": "대응 단락에 없으면 인접 단락 한 칸만 확인하고 보류 표시 후 다음 선지로 넘어간다"
+    },
+    {
+     "step": "경험담이 근거인 선지는 그 대사를 여는 화자 표시(Rebecca quickly added / Mia said / Sophia explained)를 찾아 이름을 적고 선지 주어와 맞춘다",
+     "on_fail": "화자 표시가 없으면 대사 안의 1인칭 I 가 누구인지 바로 앞 문장에서 확인한다"
+    },
+    {
+     "step": "'전에/후에' 가 든 선지는 원문의 before, after, in a few months, out of college 를 찾아 두 사건에 앞뒤 번호를 매긴다",
+     "on_fail": "시간 표현이 둘 이상이면 각각 어느 동사에 걸리는지 화살표로 잇는다"
+    },
+    {
+     "step": "넷이 확인되면 남은 하나의 근거 문장으로 돌아가 인물 이름이 어긋나는지 시점이 어긋나는지 둘 중 하나로 짚는다",
+     "on_fail": "둘 다 맞아 보이면 그 문장의 동사 시제(과거·과거완료·미래)를 다시 본다"
+    }
+   ],
+   "time_budget_sec": 110,
+   "difficulty": {
+    "predicted": 0.8,
+    "drivers": [
+     "졸업 전/후와 첫 직장 전이라는 시점 표현이 서로 다른 인물에게 비슷한 문형으로 붙어 있다",
+     "인물이 셋이고 모두 여성이라 she 지시가 겹친다",
+     "졸업 전/후, 첫 직장 전 등 시점 표현이 여러 개 겹쳐 나온다",
+     "래프팅 묘사 어휘(paddle·soaked·breathtaking)가 다소 낯설다"
+    ]
+   },
+   "required_vocab": [
+    "paddle",
+    "soaked",
+    "mindset",
+    "daring",
+    "reflection"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "quote 가 지문 (D)에서 그대로 나온 문자열임을 확인했다",
+      "why_correct 가 대동사 do 가 받는 것을 앞 문장의 graduate 로 짚어, 시점 판정을 낱말 단위로 성립시켰다"
+     ],
+     "checked": [
+      "corpus.json 의 M2206#45 answer 가 5 임을 확인하고 correct 선지를 5로 맞췄다",
+      "quote 를 지문 문자열과 대조 — And, before I do, I wanted to do something really adventurous to 연속 존재",
+      "why_correct 안의 「대학 졸업 후에」가 정답 선지 텍스트와 일치하는지 대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "오답 넷의 trap 이 어휘 함정 · 단락 순서 교란 · 반대 진술 · 대명사 지시 혼동으로 서로 다르다",
+      "선지-단락 대응이 ①→(A) ②→(B) ③→(C) ④→(D) ⑤→(D) 로 단조 비감소다",
+      "초안 difficulty.drivers 첫 항목이 정답표 부재를 전제하고 있어 다시 썼다 (revised)"
+     ],
+     "checked": [
+      "오답 4개 trap 라벨 상호 대조",
+      "how_to_reject 넷에 단락 기호와 원문 어구가 들어갔는지 확인",
+      "③의 양보절과 주절이 실제로 (C)의 같은 문장인지 지문에서 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "절차 4단계가 before · after · in a few months · out of college 를 찾아 두 사건에 앞뒤 번호를 매기게 해, 이 문항의 판정선을 학습자가 규칙으로 잡게 한다",
+      "110초 안에 5단계가 들어간다"
+     ],
+     "checked": [
+      "solve_procedure 5단계 금지 표현 문자열 검사",
+      "required_vocab 낱말을 지문과 대조 — paddle · soaked · mindset · daring · reflection 모두 존재",
+      "110초 배분 모의 — 선지 표시 20초 + 단락 직행 조회 55초 + 시점 대조 35초"
+     ]
+    }
+   ],
+   "answer_locus": {
+    "sentence_index": [
+     29
+    ],
+    "quote": "And, before I do, I wanted to do something really adventurous to",
+    "reasoning": "앞 문장 But I graduate from college in a few months. 가 졸업을 몇 달 뒤 일로 놓고, 이 문장의 before I do 에서 do 는 그 graduate 를 받는 대동사다. 곧 모험을 하려 한 시점은 졸업 전이다. 선지는 그 시점을 졸업 후로 바꿔 놓았고, 용기를 시험하려 했다는 목적(to test my bravery)과 화자(Sophia)는 원문 그대로다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "선지의 「균형을 유지하려고 애썼다」에 대응하는 낱말이 원문에 그대로 없다. 원문은 paddling eagerly behind her to balance the boat 로 목적 부정사에 담아 적는다.",
+     "how_to_reject": "(A)의 Her friends Mia and Rebecca were paddling eagerly behind her to balance the boat. 에서 to balance the boat 가 목적을 밝힌다. 참이다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "단락 순서 교란",
+     "why_tempting": "②의 근거는 (B)에 있는데 사건 순서로는 (B)가 (C)보다 뒤다. (A) 다음으로 (C)를 읽는 학습자는 (B)를 뒤로 미루고 확인을 놓친다.",
+     "how_to_reject": "(B)의 Rebecca quickly added, “That’s why I went to Mongolia … Teaching English there for two months was a big challenge for me.” 가 경험을 확정한다. 참이다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "반대 진술",
+     "why_tempting": "앞의 양보절 Even though the boat was getting thrown around 만 읽으면 배가 바위에 부딪친 장면으로 이어 붙게 된다.",
+     "how_to_reject": "(C)의 주절 the girls managed to avoid hitting any rocks 가 결과를 뒤집는다. managed to avoid 이므로 부딪치지 않았다. 참이다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "대명사 지시 혼동",
+     "why_tempting": "(D)에서 I thought you were afraid of water 와 Well, I was 가 이어져 I 와 you 가 한 줄에 오간다. 화자를 뒤바꾸면 물을 무서워한 사람이 Mia 가 된다.",
+     "how_to_reject": "(D)의 “I thought you were afraid of water, though, Sophia,” Mia said. 에서 you 는 Sophia 이고, 이어지는 Sophia explained, “Well, I was before I started rafting.” 의 I 도 Sophia 다. 참이다."
+    },
+    {
+     "n": 5,
+     "verdict": "correct",
+     "why_correct": "선지에서 갈린 성분은 시점, 곧 「대학 졸업 후에」다. 근거 문장 And, before I do, I wanted to do something really adventurous to 에서 before I do 의 do 는 앞 문장 I graduate from college in a few months 의 graduate 를 받으므로 모험은 졸업 전이다. 용기를 시험하려 했다는 목적 to test my bravery 와 화자 Sophia 는 원문과 그대로 맞고, 뒤집힌 것은 전/후 한 자리뿐이다.",
+     "confirmed_at": {
+      "sentence_index": [
+       28
+      ],
+      "note": "앞 문장 But I graduate from college in a few months. 가 없으면 before I do 의 do 가 무엇을 받는지 정해지지 않는다. 두 문장을 붙여 읽어야 시점이 확정된다."
+     }
+    }
+   ],
+   "revised": true
+  },
+  {
+   "item_id": "2021#45",
+   "measured_ability": "형제와 어머니 셋이 각자 다른 방에 있는 상황에서, 선지가 말하는 행동을 그 인물의 방·화면·발화 중 어디에서 확인할 수 있는지 찾아 대조하는 능력",
+   "design_intent": "다섯 살 동생이 형을 '동영상이나 보고 있다' 고 고발하고 형이 '과학 수업 강의 영상' 이라고 반박하는 구조를 만들어, 동생의 고발 문장과 서술자의 사실 문장을 나란히 놓았다. 인용부호 안의 고발을 사실로 채택하면 정답 선지를 참으로 판정하게 된다.",
+   "answer_locus": {
+    "sentence_index": [
+     30,
+     31
+    ],
+    "quote": "Felix was studying science using a video posted on the school web site.",
+    "reasoning": "서술자가 직접 Felix 가 무엇을 하고 있었는지 밝힌다 — 학교 웹사이트의 과학 강의 영상이지 게임이 아니다. 뒤이어 Felix 자신도 'I'm watching a lecture video for my science class.' 라고 말해 두 번 확정된다. 선지 ④의 '게임' 은 지문 어디에도 대응 표현이 없다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "office work 라는 낱말을 보고 '사무실 업무 → 회사에 있었다' 로 옮겨 읽으면 '집에서 업무를 보고 있었다' 가 틀린 것처럼 보인다. 정작 장소는 같은 문장 끝의 at the kitchen table 에 있다.",
+     "how_to_reject": "(A)의 'because of the heavy snow, Mom was doing her office work at the kitchen table.' — 원인(heavy snow)과 장소(kitchen table)가 한 문장에 다 있다. 참이므로 답이 아니다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "단락 순서 교란",
+     "why_tempting": "(B)는 인쇄상 두 번째지만 사건으로는 (C)·(D) 뒤에 오는 마지막 장면이다. 시간 순서대로 읽으려 하면 (B)를 나중에 보게 되고, 그 사이 선지 ②의 근거를 못 찾아 틀렸다고 판정하기 쉽다.",
+     "how_to_reject": "(B)의 'Come here, Honey, and you can help me.' 바로 다음 문장 'Sean ran to the kitchen right away.' — 부름과 달려간 것이 연속으로 적혀 있다. 참이므로 답이 아니다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "대명사 지시 혼동",
+     "why_tempting": "(C)에서 'his brother Felix' 와 'Sean secretly looked inside his brother's room' 이 이어져 his 가 누구를 가리키는지 헷갈린다. his 를 Felix 로 잡으면 방을 들여다본 사람이 Felix 가 되어 선지가 틀린 것처럼 보인다.",
+     "how_to_reject": "(C)의 'Sean secretly looked inside his brother's room from the door' — looked 의 주어가 Sean 으로 명시돼 있고 secretly 가 '몰래' 를 그대로 받는다. 참이므로 답이 아니다."
+    },
+    {
+     "n": 4,
+     "verdict": "correct",
+     "why_correct": "선지 ④에서 어긋나는 성분은 「게임」이다. 마지막 단락 (D) 둘째 문장 ‘Felix was studying science using a video posted on the school web site.’ 이 Felix 가 자기 방에서 한 일을 studying science 로 못박고, 같은 단락의 대사 ‘I’m watching a lecture video for my science class.’ 가 그 대상을 lecture video 로 한 번 더 지목한다. 지문에서 Felix 가 보던 것을 가리키는 낱말은 video·lecture 뿐이고 게임에 대응하는 표현이 없으므로, 선지는 지문에 없는 사물을 끼워 넣었다.",
+     "confirmed_at": {
+      "sentence_index": [
+       30,
+       31
+      ],
+      "note": "(C)에서 Sean 이 외치는 ‘He’s just watching a funny video.’ 은 인물의 주장이지 서술이 아니다. 그 대사를 사실로 받으면 「동영상 → 게임」으로 한 칸 더 옮겨 간다. (A)의 playing home policeman 과 (C)의 playful 은 Sean 을 가리키는 말이고 Felix 의 화면과 무관하다."
+     }
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "지문 밖 상식",
+     "why_tempting": "'고등학생의 방' 은 보통 주방과 떨어져 있다는 생활 상식이 개입해, 근거 문장을 찾기 전에 틀렸다고 넘기기 쉽다. 근거는 대사 사이에 낀 한 줄이라 눈에 잘 안 띈다.",
+     "how_to_reject": "(D)의 'Felix's room was located next to the kitchen, and he could hear Mom clearly.' — next to the kitchen 이 선지를 그대로 확정한다. 참이므로 답이 아니다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "선지를 먼저 읽고 각 선지의 인물과 장소·행동을 표로 적는다 — 엄마/주방, Sean/주방, Sean/형 방, Felix/자기 방, Felix 방/위치",
+     "on_fail": "장소가 안 적힌 선지는 행동 동사(달려갔다·들여다보았다)만 검색어로 남긴다"
+    },
+    {
+     "step": "선지 번호와 단락을 1:1 로 맞춰 ①은 (A), ②는 (B), ③은 (C), ④·⑤는 (D) 에서 검색어를 찾는다",
+     "on_fail": "대응 단락에 없으면 인접 단락 한 칸만 보고, 없으면 보류 표시 후 다음 선지로 간다"
+    },
+    {
+     "step": "인용부호 안 대사가 근거로 잡히면 그 대사를 '주장' 으로 표시하고, 같은 사실을 말하는 인용부호 밖 서술 문장을 한 번 더 찾는다",
+     "on_fail": "인용부호 밖 문장이 없으면 그 선지는 보류로 두고 나머지를 먼저 확정한다"
+    },
+    {
+     "step": "선지에 지문에 안 나온 사물 이름(게임 등)이 들어 있으면 그 낱말이 원문에 실제로 있는지 단어 단위로 찾는다",
+     "on_fail": "원문에 없으면 비슷한 뜻의 표현(video, lesson)이 있는지 보고, 그것이 선지의 낱말과 같은 것인지 판정한다"
+    },
+    {
+     "step": "네 선지의 근거 문장을 확보하면 남은 하나가 답이고, 그 선지에서 원문과 어긋나는 낱말 하나를 짚어 확인한다",
+     "on_fail": "어긋나 보이는 것이 둘이면 3단계(대사인가 서술인가)로 돌아가 다시 가른다"
+    }
+   ],
+   "time_budget_sec": 105,
+   "difficulty": {
+    "predicted": 0.9,
+    "drivers": [
+     "정답 선지의 낱말(게임)이 원문에 아예 없다",
+     "근거가 서술문과 대사 두 곳에 겹쳐 있다",
+     "형제 둘이 he/his 로 겹쳐 지시된다"
+    ]
+   },
+   "required_vocab": [
+    "sneaking",
+    "concentrate",
+    "accusation",
+    "interfered",
+    "lecture"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "quote 가 (D) 원문과 문자열 단위로 일치한다",
+      "정답 ④가 평가원 정답표와 일치한다",
+      "설계 서술이 '동생의 고발 대사 vs 서술자의 사실 문장' 이라는 이 문항 고유 대립을 가리킨다",
+      "Felix was studying science using a video posted on the school web site. 와 대사 I’m watching a lecture video for my science class. 를 지문에 문자열 대조했다 — 서술과 대사가 같은 사실을 두 번 적는다"
+     ],
+     "checked": [
+      "answer_locus.quote 를 passage 와 문자열 대조",
+      "정답표(answer=4)와 correct 선지 번호 대조",
+      "X-FACT 유형 정의 대조",
+      "영어 조각 문자열 대조",
+      "(D) 둘째 문장이라는 위치를 지문에서 세어 확인",
+      "선지 ④의 어긋난 성분(게임) 지목"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "오답 4개 라벨이 어휘 함정·단락 순서 교란·대명사 지시 혼동·지문 밖 상식 4종으로 갈린다",
+      "⑤의 why_tempting 이 '생활 상식 개입' 이라는 선지 밖 요인을 짚어 다른 셋과 층이 다르다",
+      "「지문에 game 이 없다」는 부재 논거만으로는 소거법에 가깝다 — 긍정 대응(studying science · lecture video)을 앞세우도록 서술 순서를 잡았다",
+      "지문 전체에 game 은 0회이고 play 계열은 playing home policeman·playful 둘뿐인데 모두 Sean 을 가리킨다 — 이 점을 note 에 더했다(revised)"
+     ],
+     "checked": [
+      "trap 라벨 중복 확인",
+      "why_tempting 을 선지 한국어 문면과 대조",
+      "how_to_reject 마다 단락 기호 명시 확인",
+      "지문 전체에서 game/play 계열 낱말을 정규식으로 계수",
+      "why_correct 가 부재 논거에만 서 있지 않은지",
+      "정답 선지에 오답용 필드가 없는지"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "4단계('선지의 낱말이 원문에 있는가')가 이 문항의 최단 경로다 — 게임에 해당하는 낱말이 없다",
+      "required_vocab 의 accusation·lecture 가 ④ 판정선에 직접 걸린다",
+      "학생이 확인할 것이 「(D) 둘째 문장의 studying science」 하나로 정해져, 방 안에서 무엇을 했는지 한 문장으로 끝난다"
+     ],
+     "checked": [
+      "지문 미독 실행 가능성 확인",
+      "금지 표현 포함 여부 확인",
+      "105초 배분 확인",
+      "위치 지시의 실재",
+      "대사와 서술을 학생이 구분하도록 안내되는지"
+     ]
+    }
+   ],
+   "revised": true
+  },
+  {
+   "item_id": "M2109#45",
+   "revised": true,
+   "measured_ability": "수확을 돕는 아이들 사이에서 한 인물만 다르게 행동하는 서사를 읽고, 그 인물의 자루에 무엇이 담겼고 몇 번 날랐는지를 원문의 수량·사물 표현으로 확인하는 능력",
+   "design_intent": "모두가 세 번씩 자루를 나르는 가운데 한 아이가 옥수수 대신 옥수수 대(corn stalks)를 채워 넣게 해, '무거운 자루' 와 '가벼운 자루', '옥수수' 와 '옥수수 대' 라는 두 쌍의 비슷한 표현으로 갈랐다. 결말에서 그 아이가 무거운 척 걸어가는 장면을 넣어, 겉모습 묘사를 사실로 채택하면 어긋나게 짰다.",
+   "solve_procedure": [
+    {
+     "step": "선지를 먼저 읽고 수량(세 번·각자)과 사물(옥수수·자루·점심)에 표시한다 — 이 지문은 수량과 사물이 판정 축이다",
+     "on_fail": "수량이 없는 선지는 인물 이름과 감정 서술(떠나고 싶었다)을 검색어로 삼는다"
+    },
+    {
+     "step": "선지 번호 순서대로 (A)→(B)→(C)→(D) 단락에서 검색어를 찾는다 — 선지는 인쇄된 단락 순서를 따라 배치된다",
+     "on_fail": "대응 단락에 없으면 인접 단락 한 칸만 보고, 없으면 보류 표시 후 다음 선지로 간다"
+    },
+    {
+     "step": "자루 관련 문장은 '그 자루에 무엇이 들었는지' 를 명사로 적어 둔다 — corn 과 corn stalks 는 다른 것이다",
+     "on_fail": "내용물이 안 적힌 문장이면 그 문장 앞뒤에서 filled with 뒤에 오는 명사를 찾는다"
+    },
+    {
+     "step": "'~하는 척했다(pretending)' 처럼 겉모습을 말하는 표현이 나오면 그 문장은 사실이 아니라 연기로 표시한다",
+     "on_fail": "pretending·as if 가 없으면 그 문장을 사실로 두되, 같은 사물에 대한 다른 문장과 충돌하는지 확인한다"
+    },
+    {
+     "step": "넷이 원문 문장으로 확인되면 남은 하나의 근거 문장으로 돌아가 수량과 내용물 중 어디가 어긋나는지 짚는다",
+     "on_fail": "둘 이상 어긋나 보이면 3단계로 돌아가 자루 내용물을 다시 적는다"
+    }
+   ],
+   "time_budget_sec": 110,
+   "difficulty": {
+    "predicted": 0.83,
+    "drivers": [
+     "corn 과 corn stalks 라는 한 낱말 차이와 무겁다/가볍다라는 무게 표현이 판정선을 함께 이룬다",
+     "corn 과 corn stalks 라는 한 낱말 차이가 판정선이다",
+     "결말에 pretending 이 들어가 겉모습과 사실이 갈린다",
+     "granary·sack 등 농사 어휘가 낯설다"
+    ]
+   },
+   "required_vocab": [
+    "granary",
+    "sack",
+    "stalks",
+    "harvest",
+    "irritated"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "quote 가 지문 (D) 마지막 문장에서 그대로 나온 문자열임을 확인했다",
+      "why_correct 가 갈린 성분을 무게와 내용물 두 자리로 짚고, pretending 이 걸리는 범위를 명시했다"
+     ],
+     "checked": [
+      "corpus.json 의 M2109#45 answer 가 5 임을 확인하고 correct 선지를 5로 맞췄다",
+      "quote 를 지문 문자열과 대조 — She then made the long walk home, pretending that she was carrying a heavy load. 연속 존재",
+      "why_correct 안의 「무거운 자루를 가지고」가 정답 선지 텍스트와 일치하는지 대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "오답 넷의 trap 이 어휘 함정 · 단락 순서 교란 · 부분 사실 · 시점 혼동으로 서로 다르다",
+      "선지-단락 대응이 ①→(A) ②→(B) ③→(C) ④→(D) ⑤→(D) 로 단조 비감소다",
+      "시점 혼동은 이 청크 open_questions 의 등재 제안 3번 라벨이고 표본이 1건뿐이었다. 이 문항이 두 번째 사례라 등재 제안의 근거가 2건으로 늘었다"
+     ],
+     "checked": [
+      "오답 4개 trap 라벨 상호 대조",
+      "how_to_reject 넷에 단락 기호와 원문 어구가 들어갔는지 확인",
+      "③의 Each child had to make three trips 가 실제로 (C)에 있는지 지문에서 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "절차 4단계가 pretending 같은 표현이 나오면 그 문장을 사실이 아니라 연기로 표시하게 해, 이 문항의 판정선을 학습자가 규칙으로 잡게 한다",
+      "110초 안에 5단계가 들어간다"
+     ],
+     "checked": [
+      "solve_procedure 5단계 금지 표현 문자열 검사",
+      "required_vocab 낱말을 지문과 대조 — granary · sack · stalks · harvest · irritated 모두 존재",
+      "110초 배분 모의 — 선지 표시 20초 + 단락 직행 조회 55초 + 자루 내용물 대조 35초"
+     ]
+    }
+   ],
+   "answer_locus": {
+    "sentence_index": [
+     27
+    ],
+    "quote": "She then made the long walk home, pretending that she was carrying a heavy load.",
+    "reasoning": "pretending 이 붙은 순간 heavy load 는 사실이 아니라 연기가 된다. 그리고 바로 앞 문장 There was nothing but useless corn stalks in her sack 이 자루의 내용물을 옥수수 대로 못 박고, (B)의 To make the sack lighter … she quickly filled her last sack with corn stalks 가 그 자루가 가볍다는 것까지 밝힌다. 선지는 자루를 무겁고 옥수수가 담긴 것으로 바꿔 놓았다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "선지의 「돕기 위해」에 대응하는 help 가 원문에 없다. 원문은 assist with her corn harvest 로 다른 낱말을 쓴다.",
+     "how_to_reject": "(A) 두 번째 문장 They always gathered at this time of year to assist with her corn harvest. 가 목적을 밝힌다. 참이다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "단락 순서 교란",
+     "why_tempting": "(A)에 이미 She disliked working in the corn field as she hated the heat and the dust 가 있어 근거를 (A)에서 찾고 멈춘다. 그러나 「떠나고 싶었다」는 (B)에 있고 사건 순서로는 (B)가 (C)보다 뒤다.",
+     "how_to_reject": "(B) 첫 문장 Sally just wanted to get her present and leave the field because she was starting to get hot and feel irritated. 가 이유와 바람을 함께 담는다. 참이다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "부분 사실",
+     "why_tempting": "(B)에 She had only filled her sack twice 가 있어 Sally 만 세면 두 번이 되고, 세 번이라는 선지가 어긋나 보인다.",
+     "how_to_reject": "(C)의 Each child had to make three trips to the granary. 가 아이 각자에게 세 번을 못 박는다. 참이다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "시점 혼동",
+     "why_tempting": "(C)에 ice-cold lemonade and peach pie 를 들고 오는 장면이 따로 있어 두 끼니 장면이 하나로 합쳐진다.",
+     "how_to_reject": "(D)의 Then, all of the children enjoyed their grandmother’s delicious lunch. 와 이어지는 she told them after lunch 가 점심을 따로 확정한다. 참이다."
+    },
+    {
+     "n": 5,
+     "verdict": "correct",
+     "why_correct": "선지에서 갈린 성분은 자루의 상태, 곧 「옥수수가 담긴 무거운 자루를 가지고」다. 근거 문장 She then made the long walk home, pretending that she was carrying a heavy load. 에서 heavy load 는 pretending 이 걸린 연기이고, 앞 문장 There was nothing but useless corn stalks in her sack 이 내용물을 옥수수 대로 못 박는다. 집으로 걸어갔다는 사건 자체는 원문과 같다.",
+     "confirmed_at": {
+      "sentence_index": [
+       12,
+       26
+      ],
+      "note": "(B)의 To make the sack lighter and speed things up, she quickly filled her last sack with corn stalks 가 그 자루를 가볍게 만든 경위이고, (D)의 There was nothing but useless corn stalks in her sack 이 결과다. 마지막 문장만 보면 pretending 을 놓쳤을 때 무게가 뜬다."
+     }
+    }
+   ]
+  },
+  {
+   "item_id": "M2106#45",
+   "measured_ability": "상 수상 통지가 잘못 배달된 서사에서, 같은 인물의 감정이 단락마다 뒤집히는 것을 추적해 선지의 감정 서술(발걸음이 무거웠다)이 어느 시점의 것인지 맞추는 능력",
+   "design_intent": "괴로움(C)→고백과 결심(B)→가벼운 발걸음 이라는 감정 곡선을 (A)-(D)-(C)-(B) 순으로 흩어 놓고, 정답 선지에는 곡선의 앞부분 감정을 뒤 시점에 붙였다. 감정어 하나(light)만 잡으면 끝나지만, 앞 단락의 miserable 이 잔상으로 남으면 그대로 통과시킨다.",
+   "answer_locus": {
+    "sentence_index": [
+     12,
+     13
+    ],
+    "quote": "On the way home after school, his steps were light and full of joy.",
+    "reasoning": "선지가 말하는 바로 그 시점(방과 후 귀갓길)의 발걸음을 light and full of joy 로 적는다. 선지의 '무거웠다' 와 정확히 같은 대상에 대한 반대 진술이므로 이 문장 하나로 확정된다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "thoroughly 를 대충 읽으면 '훑어보았다' 로 옮겨져 '자세히 읽었다' 가 과하게 느껴진다. 또 계단은 편지를 뜯은 장소가 아니라 앉아 읽은 장소라 위치 정보가 흐려진다.",
+     "how_to_reject": "(A)의 'He picked them up and read the letter thoroughly while sitting on the stairs in front of his house.' — thoroughly(자세히)와 sitting on the stairs in front of his house(집 앞 계단)가 한 문장에 함께 있다. 참이므로 답이 아니다."
+    },
+    {
+     "n": 2,
+     "verdict": "correct",
+     "why_correct": "선지 ② '방과 후에 집으로 돌아오는 Steven의 발걸음은 무거웠다' 에서 어긋나는 성분은 서술어 '무거웠다' 하나다. (B) 후반 'On the way home after school, his steps were light and full of joy.' 은 시점(On the way home after school=방과 후 집으로 돌아오는 길)도 주어(his steps=Steven의 발걸음)도 선지와 글자 그대로 같고 보어만 light 로 적는다. light 가 '무거웠다' 와 정반대이며, and 로 이어 붙은 full of joy 가 그 방향을 한 번 더 굳힌다.",
+     "confirmed_at": {
+      "sentence_index": [
+       12,
+       13
+      ],
+      "note": "(C)에서 Steven 이 밤새 괴로워하고 아침에 miserable 한 상태로 나오므로 학교에 다녀오는 하루 전체가 무거운 하루로 기억된다. 편지와 상품을 Stephanie 에게 돌려준 뒤의 감정 전환을 놓치면 그대로 참으로 통과시킨다."
+     }
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "단락 순서 교란",
+     "why_tempting": "(C)는 인쇄상 세 번째지만 사건으로는 (B)보다 앞이다. 시간 순으로 읽으려 하면 조언 장면을 늦게 만나게 되고, 그 사이 선지 ③의 근거를 못 찾아 틀렸다고 처리하기 쉽다.",
+     "how_to_reject": "(C) 마지막 문장 'his dad advised him to do the right thing.' — advised 의 주어가 dad, 목적어가 him(Steven)이다. 참이므로 답이 아니다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "주체 역전",
+     "why_tempting": "지문 첫 낱말이 'Congratulations!' 이고 Steven 이 'He knew that he would win' 이라고 확신하므로, 수상자를 Steven 으로 굳혀 읽는다. 그러면 'Stephanie가 우승자' 라는 선지가 틀린 것처럼 보인다.",
+     "how_to_reject": "(D)의 'it should have gone to Stephanie, who was the real winner.' 와 (A) 끝의 'The letter was addressed to his classmate Stephanie' — the real winner 가 Stephanie 임을 명시한다. 참이므로 답이 아니다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "부분 사실",
+     "why_tempting": "결말에서 아버지가 표 두 장을 다시 건네므로 '결국 아버지와 가게 됐다' 로 계획이 덮인다. 계획의 원래 동반자를 확인하지 않고 마지막 장면만 기억하면 틀렸다고 판정한다.",
+     "how_to_reject": "(D)의 'He had planned to go there with his younger sister.' — planned 의 동반자가 his younger sister 로 명시된다. 참이므로 답이 아니다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "선지를 먼저 읽고 감정·상태를 말하는 선지(발걸음이 무거웠다)에 별표를 친다 — 감정 선지는 시점이 붙어 있어야 판정된다",
+     "on_fail": "감정 선지가 없으면 인물 이름이 둘 이상 나오는 선지에 별표를 친다"
+    },
+    {
+     "step": "선지 번호와 단락을 1:1 로 맞춰 ①은 (A), ②는 (B), ③은 (C), ④·⑤는 (D) 에서 검색어를 찾는다",
+     "on_fail": "대응 단락에 없으면 인접 단락 한 칸만 보고, 없으면 보류 표시 후 다음 선지로 간다"
+    },
+    {
+     "step": "별표 친 감정 선지는 선지에 적힌 시점 표현(방과 후 집으로 오는 길)과 똑같은 시점 표현이 든 문장을 원문에서 찾아 그 문장의 형용사 하나만 본다",
+     "on_fail": "같은 시점 표현이 없으면 그 단락에서 시간 부사구(that night, the next morning, after school)를 모두 표시하고 가장 가까운 것을 택한다"
+    },
+    {
+     "step": "인물이 둘 나오는 선지(누가 우승자인가)는 원문에서 the real winner, addressed to 처럼 대상을 지정하는 표현을 찾아 이름을 확정한다",
+     "on_fail": "지정 표현이 없으면 편지·상품이 최종적으로 누구에게 갔는지를 동사(handed, gone to)로 추적한다"
+    },
+    {
+     "step": "네 선지의 근거 문장을 확보하면 남은 하나가 답이고, 그 선지에서 원문과 반대인 낱말 하나를 짚어 확인한다",
+     "on_fail": "둘이 어긋나 보이면 감정 선지(3단계)에 걸린 쪽을 먼저 택한다"
+    }
+   ],
+   "time_budget_sec": 105,
+   "difficulty": {
+    "predicted": 0.88,
+    "drivers": [
+     "정답 근거가 light 라는 형용사 하나에 직접 걸린다",
+     "감정이 단락마다 뒤집혀 잔상이 남기 쉽다",
+     "인물이 셋(Steven·아버지·Stephanie)이지만 이름이 명시돼 추적은 쉽다"
+    ]
+   },
+   "required_vocab": [
+    "thoroughly",
+    "addressed",
+    "disclosed",
+    "notified",
+    "bragged"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "quote 가 (B) 원문과 문자열 단위로 일치한다",
+      "정답 ②가 평가원 정답표와 일치한다",
+      "설계 서술이 '감정 곡선을 단락 재배열로 흩었다' 는 이 문항 고유 장치를 가리킨다",
+      "1차 판정 revise — why_correct 가 지문↔선지 대응이 아니라 학습자가 왜 놓치는가(심리)를 적고 있었다. 근거 문장의 낱말과 선지가 갈아 끼운 성분을 지목하는 서술로 다시 쓴 뒤 pass."
+     ],
+     "checked": [
+      "answer_locus.quote 를 passage 와 문자열 대조",
+      "정답표(answer=2)와 correct 선지 번호 대조",
+      "X-FACT 유형 정의 대조",
+      "why_correct 의 인용을 코퍼스 지문에서 문자열 대조",
+      "why_correct 가 선지 문구를 인용하는지 확인",
+      "갈아 끼운 성분이 하나로 지목되는지 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "오답 4개 라벨이 어휘 함정·단락 순서 교란·주체 역전·부분 사실 4종으로 갈린다",
+      "④의 why_tempting 이 지문 첫 낱말 Congratulations 라는 구체 지점에 근거한다",
+      "다시 쓴 why_correct 가 소거법(\"나머지가 맞으므로\")에 기대지 않고 정답 선지 한 개의 성분 대응만으로 확정하는지 확인했다. 오답 넷의 서술은 손대지 않았다."
+     ],
+     "checked": [
+      "trap 라벨 중복 확인",
+      "why_tempting 을 선지 한국어 문면과 대조",
+      "how_to_reject 마다 단락 기호 명시 확인",
+      "소거법 서술 유무 검사",
+      "정답 선지에 why_tempting/how_to_reject 가 섞이지 않았는지 확인",
+      "confirmed_at.note 로 옮긴 심리 서술이 근거 자리를 흐리지 않는지 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "3단계(선지의 시점 표현과 같은 표현을 원문에서 찾기)가 이 문항의 최단 경로다",
+      "required_vocab 의 thoroughly·bragged 가 ①·⑤ 판정선에 걸린다",
+      "학생이 근거 자리를 짚을 수 있도록 단락 표시와 문장 위치를 서술에 남겼는지 확인했다. 기존 심리 서술은 버리지 않고 confirmed_at.note 로 옮겨 실제 미끄러지는 자리를 보존했다."
+     ],
+     "checked": [
+      "지문 미독 실행 가능성 확인",
+      "금지 표현 포함 여부 확인",
+      "105초 배분 확인",
+      "금지 표현 목록 대조",
+      "근거 위치(단락·문장) 표기 유무 확인",
+      "solve_procedure 와 새 서술이 어긋나지 않는지 확인"
+     ]
+    }
+   ],
+   "revised": true
+  },
+  {
+   "item_id": "2020#45",
+   "revised": true,
+   "measured_ability": "인물의 결심이 도중에 뒤집히는 서사에서, 선지가 말하는 발화가 '어디서' 나왔는지(차 안인가 폭포에서인가)까지 맞춰 원문 대사와 대조하는 능력",
+   "design_intent": "은퇴를 생각하던 인물이 연어의 도약을 보고 결심을 뒤집는 구조를 (A)-(C)-(D)-(B) 로 배열하고, 정답 선지에는 뒤집히기 전의 생각을 뒤집힌 뒤의 장소에 붙였다. 은퇴 생각((A) 차 안)과 복귀 선언((B) 폭포)이 서로 다른 단락에 있어, 장소를 확인하지 않으면 둘을 한 장면으로 합치게 된다.",
+   "answer_locus": {
+    "sentence_index": [
+     12,
+     13
+    ],
+    "quote": "Giving up is not in my vocabulary. Marie, I’ll get my championship belt back.",
+    "reasoning": "폭포에서 Nina 가 Marie 에게 실제로 한 말이 '포기는 없다, 챔피언 벨트를 되찾겠다' 이다. 선지 ③은 같은 장소·같은 상대에게 그만두겠다고 말했다고 하므로 발화 내용이 정반대다. 은퇴 생각은 (A)의 'she was thinking of retiring from boxing' 으로 폭포 이전 차 안 장면에만 있고 발화가 아니다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "주체 역전",
+     "why_tempting": "(A) 한 문장 안에 Nina 와 Marie 가 함께 나오고 remained silent 와 was driving 이 붙어 있어, 운전한 사람과 말이 없던 사람을 맞바꿔 기억하기 쉽다.",
+     "how_to_reject": "(A)의 'she remained silent for hours while Marie was driving.' — while 절의 주어가 Marie(운전), 주절의 주어가 Nina(침묵)다. 참이므로 답이 아니다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "대명사 지시 혼동",
+     "why_tempting": "'Marie, her long-time friend and trainer' 에서 her 가 누구를 가리키는지 흐려지면 Marie 가 자기 자신의 친구·트레이너라는 이상한 읽기가 되고, 관계를 확정 못 해 선지를 보류하다 틀리게 표시한다.",
+     "how_to_reject": "(A)의 'Marie, her long-time friend and trainer, shared her pain.' — 동격 구조로 Marie 가 Nina(her)의 오랜 친구이자 트레이너임을 밝힌다. 참이므로 답이 아니다."
+    },
+    {
+     "n": 3,
+     "verdict": "correct",
+     "why_correct": "선지 ③에서 어긋나는 성분은 발화 내용 「그만두겠다」다. 폭포에서 Nina 가 Marie 를 향해 실제로 한 말은 둘째 단락 (B) 가운데의 ‘Giving up is not in my vocabulary. Marie, I’ll get my championship belt back.’ 로, 그만두지 않겠다는 선언이자 벨트를 되찾겠다는 다짐이다. 말한 사람·들은 사람·장소는 선지와 같고 발화 내용만 정반대다.",
+     "confirmed_at": {
+      "sentence_index": [
+       12,
+       13
+      ],
+      "note": "권투를 그만둔다는 내용 자체는 (A) 차 안 장면의 ‘she was thinking of retiring from boxing’ 에 있으나 생각이지 발화가 아니다 — 선지는 그 생각을 폭포 장면의 말로 옮겨 붙였다(시점 이동). Marie 의 답 ‘Our training begins tomorrow.’ 가 이 대화의 결론이 재개임을 다시 보여 준다."
+     }
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "단락 순서 교란",
+     "why_tempting": "근거가 (C)에 있는데 (C)는 인쇄상 세 번째이면서 사건으로는 (B)보다 앞이다. (B)를 먼저 읽고 폭포 장면이 끝났다고 생각하면 (C)로 되돌아가지 않아 근거를 못 찾는다.",
+     "how_to_reject": "(C)의 'No one was there except them.' — 폭포에 그들 둘뿐이었음을 명시한다. 참이므로 답이 아니다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "원문은 '유심히 바라보았다' 를 fixing her eyes on their continuing challenge 로 바꿔 쓰고, 연어를 salmon 이 아니라 their 로만 지시한다. 낱말이 그대로 겹치지 않아 근거가 없다고 판단하기 쉽다.",
+     "how_to_reject": "(D)의 'Watching the salmon, Marie noticed Nina fixing her eyes on their continuing challenge.' — 앞의 Watching the salmon 이 their 의 주인을 확정하고, fixing her eyes on 이 '유심히 바라보다' 를 받는다. 참이므로 답이 아니다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "선지를 먼저 읽고 장소나 시점이 명시된 선지(폭포에서)에 별표를 친다 — 장소가 붙은 선지는 그 장소 장면에서만 확인한다",
+     "on_fail": "장소가 없는 선지는 인물 관계나 동작을 검색어로 삼는다"
+    },
+    {
+     "step": "선지 번호와 단락을 1:1 로 맞춰 ①·②는 (A), ③은 (B), ④는 (C), ⑤는 (D) 에서 검색어를 찾는다",
+     "on_fail": "대응 단락에 없으면 인접 단락 한 칸만 보고, 없으면 보류 표시 후 다음 선지로 간다"
+    },
+    {
+     "step": "'~라고 말했다' 형 선지는 원문에서 인용부호가 열리는 자리를 찾아 그 안의 문장만 읽는다 — 인용부호 밖의 생각(thinking of)은 발화가 아니다",
+     "on_fail": "해당 장소에 인용부호가 여럿이면 각 대사 앞뒤의 화자 표시를 확인해 선지 주어의 대사만 남긴다"
+    },
+    {
+     "step": "선지의 낱말이 원문에 그대로 없으면 같은 뜻의 다른 표현(유심히 바라보다 = fixing her eyes on)이 있는지 그 문장의 동사구에서 찾는다",
+     "on_fail": "동의 표현이 안 보이면 그 선지를 보류하고 나머지를 확정한 뒤 남은 것과 비교한다"
+    },
+    {
+     "step": "네 선지의 근거 문장을 확보하면 남은 하나가 답이고, 그 선지에서 장소·발화 내용 중 어디가 어긋나는지 짚어 확인한다",
+     "on_fail": "둘 이상 어긋나 보이면 3단계로 돌아가 '생각인가 말인가' 를 다시 가른다"
+    }
+   ],
+   "time_budget_sec": 115,
+   "difficulty": {
+    "predicted": 0.8,
+    "drivers": [
+     "은퇴 생각이 지문에 실제로 있어 정답 선지의 내용 자체는 낯익다",
+     "생각(thinking of)과 발화(인용부호)의 구분이 판정선이다",
+     "연어를 가리키는 대명사 them·their 가 반복돼 지시 추적이 필요하다"
+    ]
+   },
+   "required_vocab": [
+    "former champion",
+    "retiring",
+    "pulled over",
+    "splashing",
+    "leapt"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "quote 가 (B) 원문과 문자열 단위로 일치한다(곡선 아포스트로피 포함)",
+      "정답 ③이 평가원 정답표와 일치한다",
+      "설계 서술이 '생각과 발화를 갈랐다' 는 이 문항 고유 장치를 가리킨다",
+      "Giving up is not in my vocabulary. Marie, I’ll get my championship belt back. 를 지문에 문자열 대조했다 — 청자가 Marie 로 호명되어 선지의 「Marie에게」와도 맞물린다"
+     ],
+     "checked": [
+      "answer_locus.quote 를 passage 와 문자열 대조",
+      "정답표(answer=3)와 correct 선지 번호 대조",
+      "X-FACT 유형 정의 대조",
+      "인용 문자열 대조",
+      "선지 ③의 성분(장소·청자·발화 내용) 각각이 지문과 같은지 갈라 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "오답 4개 라벨이 주체 역전·대명사 지시 혼동·단락 순서 교란·어휘 함정 4종으로 갈린다",
+      "③의 why_tempting 이 '내용은 지문에 있고 장소와 형식만 다르다' 는 이 문항의 실제 미끄러짐 지점을 짚는다",
+      "어긋남 갈래를 시점 이동으로 특정했다 — 「그만두겠다」는 내용이 (A)에 생각으로 실재하고 선지가 그것을 폭포 장면의 발화로 옮긴 구조임을 note 가 보존한다"
+     ],
+     "checked": [
+      "trap 라벨 중복 확인",
+      "why_tempting 을 선지 한국어 문면과 대조",
+      "how_to_reject 마다 단락 기호 명시 확인",
+      "(A)의 retiring 문장이 생각인지 발화인지 원문 확인",
+      "why_correct 가 소거법에 기대지 않는지"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "초안 time_budget_sec 이 95초였는데, 3단계(인용부호 안만 읽기)와 4단계(동의 표현 찾기)가 겹치는 문항이라 시간이 모자란다 → 115초로 올렸다 (revised)",
+      "3단계가 지문 미독 상태에서 실행 가능하다 — 인용부호는 형태로 찾는다",
+      "1차안이 근거 자리를 「폭포에서」로만 적어 단락 기호가 없었다 — 학생이 인쇄 순서 (A)(B)(C)(D) 중 어디를 볼지 정하지 못한다. 「둘째 단락 (B) 가운데」로 고쳤다(revised)"
+     ],
+     "checked": [
+      "지문 미독 실행 가능성 시뮬레이션",
+      "금지 표현 포함 여부 확인",
+      "단계별 실제 소요 재추정 후 time_budget_sec 조정",
+      "근거 문장이 실제로 (B) 안에 있는지 단락 경계 확인",
+      "학생이 위치를 짚어 확인할 수 있는지"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "M2006#45",
+   "body_recovered": true,
+   "measured_ability": "밴드 구성원 수처럼 지문이 낱말 하나(trio)로만 알려 주는 수량 정보를 찾아, 이름이 몇 개 나왔는지가 아니라 그 낱말로 판정하는 능력",
+   "design_intent": "밴드 장면에서 Brian(키보드)과 Nick(기타) 두 이름만 명시하고 Joe 는 이미 등장한 인물로 두어, 이름 세기로는 둘로 보이게 했다. 구성원 수를 확정하는 것은 같은 단락 뒤쪽의 The trio 한 낱말뿐이라, 이름을 세는 학습자와 낱말을 찾는 학습자를 갈랐다.",
+   "answer_locus": {
+    "sentence_index": [
+     22,
+     23
+    ],
+    "quote": "The trio swung into their routine, as easily as only a group that had practiced long and hard together could.",
+    "reasoning": "trio 는 3인조를 뜻하므로 밴드 구성원이 셋임을 그 자체로 확정한다. 같은 단락에 Brian(키보드)·Nick(기타)이 나오고 Joe 가 연습실에 들어와 함께 연주하므로 셋이 맞고, '두 명으로 구성되었다' 는 선지 ④와 어긋난다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "natural talent 를 '자연스러운 재능' 정도로 흐리게 읽으면 '천부적인 재능' 이라는 강한 진술이 과장처럼 느껴진다. 또 아버지에게 배웠다는 정보가 앞에 있어 '타고난 것이 아니라 배운 것' 으로 읽히기도 한다.",
+     "how_to_reject": "(A)의 'His father had placed a baby violin in his hands at the age of four, and Joe was a natural talent.' — 등위절 뒤쪽이 Joe was a natural talent 로 명시된다. 참이므로 답이 아니다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "단락 순서 교란",
+     "why_tempting": "연습을 보러 오라는 초대는 (D)에, 실제로 와서 구석에 서 있는 장면은 (B)에 있는데 인쇄 순서상 (B)가 (D)보다 앞이다. 순서대로 읽으면 초대보다 방문을 먼저 만나 두 장면을 잇지 못한다.",
+     "how_to_reject": "(B) 첫 문장 'Joe noticed his father standing in the corner.' 와 (D)의 'Why don't you come and listen to our practice tomorrow?' — 초대와 방문이 짝을 이룬다. 참이므로 답이 아니다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "반대 진술",
+     "why_tempting": "(D)에 'the master's dislike of crossover music was no secret' 이 있어 견해가 부정적이라는 인상이 강하게 남는다. 그 문장만 기억하면 '견해를 바꾸었다' 가 지문과 반대인 것처럼 보인다.",
+     "how_to_reject": "(B)의 'I underestimated the power that crossover music can create' — underestimated(과소평가했었다)가 견해가 바뀌었음을 밝힌다. 참이므로 답이 아니다."
+    },
+    {
+     "n": 4,
+     "verdict": "correct",
+     "why_correct": "선지 ④ 에서 어긋나는 성분은 「두 명의 연주자로 구성」이다. (C)의 ‘The trio swung into their routine, as easily as only a group that had practiced long and hard together could.’ 에서 trio 는 3인조를 뜻하고, 같은 단락에서 Brian 이 keyboard 에 손을 얹은 뒤 ‘Beside him, Nick was tuning his guitar.’ 가 이어지며 Joe 가 그 연습실에 들어와 함께 연주하므로 연주자는 셋이다. 인원수만 셋에서 둘로 갈아 끼운 선지이므로 ④ 이 불일치다.",
+     "confirmed_at": {
+      "sentence_index": [
+       22,
+       23
+      ],
+      "note": "「학습자가 미끄러지는 자리」 (C)에 이름이 명시된 밴드 구성원은 Brian 과 Nick 둘뿐이라 이름을 세면 정확히 둘이 나오고, Joe 자신이 그 밴드의 일원이라는 사실은 이름 목록에 안 들어온다."
+     }
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "시점 혼동",
+     "why_tempting": "아버지와 아들이 단둘이 있는 장면이 (B) 끝(연습 뒤 귀가)과 (D) 첫머리(수업 뒤) 두 번 나온다. 두 장면을 하나로 합치면 '수업이 끝난 후' 라는 시점이 틀린 것처럼 보인다.",
+     "how_to_reject": "(D) 첫 문장 'After the class, Joe was alone with his father.' — After the class 와 alone 이 함께 있다. 참이므로 답이 아니다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "선지를 먼저 읽고 수량이 든 선지(두 명으로 구성되었다)에 별표를 친다 — 수량 선지는 이름 세기가 아니라 수량 낱말로 판정한다",
+     "on_fail": "수량 선지가 없으면 견해·감정이 바뀌었다고 말하는 선지에 별표를 친다"
+    },
+    {
+     "step": "선지 번호와 단락을 1:1 로 맞춰 ①은 (A), ②·③은 (B), ④는 (C), ⑤는 (D) 에서 검색어를 찾는다",
+     "on_fail": "대응 단락에 없으면 인접 단락 한 칸만 보고, 없으면 보류 표시 후 다음 선지로 간다"
+    },
+    {
+     "step": "별표 친 수량 선지는 해당 단락에서 사람 수를 나타내는 낱말(duo, trio, group, both, three)을 한 개 찾아 그 낱말로 판정한다",
+     "on_fail": "수량 낱말이 없으면 그 장면에서 악기를 맡은 사람과 이미 등장한 인물을 모두 세되, 화자 자신을 빠뜨리지 않는다"
+    },
+    {
+     "step": "'견해를 바꾸었다' 형 선지는 과거의 견해를 말하는 문장과 현재의 평가를 말하는 문장을 각각 찾아 두 개를 나란히 적는다",
+     "on_fail": "한쪽만 찾히면 underestimated, used to, no longer 처럼 변화를 담은 동사 하나를 다른 단락에서 찾는다"
+    },
+    {
+     "step": "네 선지의 근거 문장을 확보하면 남은 하나가 답이고, 그 선지에서 어긋나는 낱말 하나(수량어)를 짚어 확인한다",
+     "on_fail": "둘 이상 어긋나 보이면 3단계로 돌아가 수량 낱말을 다시 찾는다"
+    }
+   ],
+   "time_budget_sec": 115,
+   "difficulty": {
+    "predicted": 0.75,
+    "drivers": [
+     "구성원 수를 확정하는 단서가 trio 라는 낱말 하나뿐이다",
+     "이름을 세면 둘이 나와 반대 방향으로 유도된다",
+     "crossover 에 대한 견해 변화가 두 단락에 쪼개져 있다"
+    ]
+   },
+   "required_vocab": [
+    "trio",
+    "virtuoso",
+    "permission",
+    "underestimated",
+    "pull out"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "quote 가 (C) 원문과 문자열 단위로 일치한다",
+      "정답 ④가 평가원 정답표와 일치한다",
+      "설계 서술이 '이름 세기 vs trio 낱말 찾기' 라는 이 문항 고유 가름을 가리킨다",
+      "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「(C)에 이름이 명시된 밴드 구성원은 Brian 과 Nick 둘뿐이다. 이름을 세면 정확히 둘이 나오므로 선」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
+     ],
+     "checked": [
+      "answer_locus.quote 를 passage 및 raw_block 과 문자열 대조",
+      "정답표(answer=4)와 correct 선지 번호 대조",
+      "X-FACT 유형 정의 대조",
+      "trio 와 등장 인물 이름을 지문 문자열로 대조해 인원수를 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "오답 4개 라벨이 어휘 함정·단락 순서 교란·반대 진술·시점 혼동 4종으로 갈린다",
+      "⑤에 쓴 '시점 혼동' 은 §1-b (A) 표에 없는 라벨이라 open_questions 에 등재를 제안했다",
+      "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「(C)에 이름이 명시된 밴드 구성원은 Brian 과 Nick 둘뿐이다. 이름을 세면 정확히 둘이 나오므로 선」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
+     ],
+     "checked": [
+      "trap 라벨 중복 확인",
+      "why_tempting 을 선지 한국어 문면과 대조",
+      "how_to_reject 마다 단락 기호 명시 확인",
+      "표에 없는 라벨 사용 시 등재 제안 여부 확인",
+      "어긋난 성분이 「인원수」 하나로 특정되었는지 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "3단계('수량 낱말 하나로 판정, 이름 세기 금지')가 이 문항의 최단 경로이자 실패를 막는 지점이다",
+      "required_vocab 의 trio 가 정답 판정선에 직접 걸린다",
+      "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「(C)에 이름이 명시된 밴드 구성원은 Brian 과 Nick 둘뿐이다. 이름을 세면 정확히 둘이 나오므로 선」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
+     ],
+     "checked": [
+      "지문 미독 실행 가능성 확인",
+      "금지 표현 포함 여부 확인",
+      "115초 배분 확인",
+      "학생이 숫자를 나타내는 낱말(trio)을 먼저 찾는 절차를 밟을 수 있는지 점검"
+     ]
+    }
+   ],
+   "revised": true
+  },
+  {
+   "item_id": "2019#45",
+   "revised": true,
+   "measured_ability": "선지가 원문의 부정형으로 주어졌을 때, 같은 행동을 긍정으로 적은 문장을 찾아 방향을 맞대 보는 능력. 여기서는 애벌레를 '잡지 않았다' 를 양동이가 차오르는 묘사와 대조해야 한다",
+   "design_intent": "양배추밭이 너무 넓어 다 잡을 수 없다는 절망을 (C)에, 그럼에도 계속 잡는 장면을 (B)에 두고, 마지막에 나비를 두둔하는 할머니의 말을 배치했다. 절망과 나비 옹호가 앞뒤로 감싸고 있어 '결국 안 잡았다' 는 인상이 남게 짰다.",
+   "answer_locus": {
+    "sentence_index": [
+     14,
+     15
+    ],
+    "quote": "She kept filling her bucket with the caterpillars until the bottom disappeared.",
+    "reasoning": "kept filling 과 until the bottom disappeared 가 애벌레를 계속 잡아 담았음을 명시한다. 선지 ②는 같은 행동을 '잡지 않았다' 로 부정하므로 방향이 반대다. 마지막 문장 'Olivia and Ellie looked at their full buckets' 의 full buckets 가 한 번 더 확정한다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "원문은 'why don't you help me' 뒤에 Grandma suggested 로 받는다. suggested 를 '제안했다' 로만 붙들면 '도움을 요청했다' 가 다른 행위처럼 보인다.",
+     "how_to_reject": "(A)의 'So, why don't you help me to pick the caterpillars up?' Grandma suggested. — 대사 내용이 help me 로 도움 요청이다. 참이므로 답이 아니다."
+    },
+    {
+     "n": 2,
+     "verdict": "correct",
+     "why_correct": "선지 ② 'Olivia와 Ellie는 양배추밭에 있는 애벌레를 잡지 않았다' 에서 어긋나는 성분은 부정 술어 '잡지 않았다' 다. (B)의 'She kept filling her bucket with the caterpillars until the bottom disappeared.' 은 대상(the caterpillars=애벌레)을 선지와 같게 두고 동사를 kept filling 이라는 지속 긍정으로 적으며, until the bottom disappeared 가 양동이 바닥이 안 보일 만큼 담았다고 양까지 못박는다. 선지 주어가 두 사람인 것은 마지막 문장 'Olivia and Ellie looked at their full buckets and smiled.' 의 their full buckets 가 받아 주므로, 두 사람 모두에 대해 긍정이 확인된다.",
+     "confirmed_at": {
+      "sentence_index": [
+       14,
+       15
+      ],
+      "note": "(C)의 'She thought they could not possibly pick all of the caterpillars off.' 와 despair, (D)에서 할머니가 나비를 두둔하는 대목만 인상에 남으면 '결국 잡지 않았다' 가 자연스럽게 들린다 — could not possibly pick all 의 초점은 all 이지 잡았느냐가 아니다."
+     }
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "주체 역전",
+     "why_tempting": "'The cabbage patch looked like a battlefield.' 는 주어가 밭이라 누구의 시선인지 문장 안에 없다. 할머니의 인식으로 옮겨 붙이면 'Olivia에게' 라는 한정이 틀린 것처럼 보인다.",
+     "how_to_reject": "(B)의 'The cabbage patch looked like a battlefield.' 바로 다음 문장 'Olivia felt like she was losing the battle' — 전투 비유의 주체가 Olivia 로 이어진다. 참이므로 답이 아니다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "단락 순서 교란",
+     "why_tempting": "밭이 넓다는 깨달음은 (C)에 있는데 (C)는 인쇄상 세 번째이고 사건으로는 (B)보다 앞이다. (B)를 먼저 읽고 이미 작업이 한창이라고 보면 (C)로 되돌아가지 않는다.",
+     "how_to_reject": "(C)의 'When they saw the cabbage patch, they suddenly remembered how vast it was.' — suddenly remembered how vast 가 '새삼 깨달았다' 를 받는다. 참이므로 답이 아니다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "범위 과대",
+     "why_tempting": "'자연의 섭리를 일깨워주었다' 는 선지 표현이 지문의 구체적 대사(나비가 꽃가루를 옮긴다)보다 훨씬 큰 말이라, 지문이 거기까지 말했나 싶어 과장으로 판정하기 쉽다.",
+     "how_to_reject": "(D)의 'she didn't wish to disturb the natural balance of the environment.' 와 'The butterflies help us grow some other plants because they carry pollen' — natural balance 가 선지의 '자연의 섭리' 를 그대로 받는다. 참이므로 답이 아니다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "선지를 먼저 읽고 부정형 선지(잡지 않았다)에 별표를 친다 — 이 유형에서 부정형 선지는 같은 행동의 긍정 문장 하나로 뒤집힌다",
+     "on_fail": "부정형이 없으면 '~에게', '~새삼' 처럼 한정어가 붙은 선지에 별표를 친다"
+    },
+    {
+     "step": "선지 번호와 단락을 1:1 로 맞춰 ①은 (A), ②·③은 (B), ④는 (C), ⑤는 (D) 에서 검색어를 찾는다",
+     "on_fail": "대응 단락에 없으면 인접 단락 한 칸만 보고, 없으면 보류 표시 후 다음 선지로 간다"
+    },
+    {
+     "step": "별표 친 부정형 선지는 그 행동을 나타내는 동사(pick up, fill)가 든 문장을 모두 찾아, 부정어(not, never)가 붙어 있는지 하나씩 표시한다",
+     "on_fail": "동사가 안 잡히면 결과물(bucket, buckets)이 든 문장을 찾아 그것이 비었는지 찼는지 본다"
+    },
+    {
+     "step": "감정·인식을 말하는 선지는 그 감정을 느낀 사람 이름이 바로 앞뒤 문장에 있는지 확인해 선지의 주어와 맞춘다",
+     "on_fail": "이름이 없으면 그 문장 앞뒤 두 문장 안에서 마지막으로 나온 사람 이름을 대입한다"
+    },
+    {
+     "step": "네 선지의 근거 문장을 확보하면 남은 하나가 답이고, 그 선지에서 부정어나 한정어 중 어디가 원문과 어긋나는지 짚어 확인한다",
+     "on_fail": "둘 이상 어긋나 보이면 3단계로 돌아가 부정어 표시를 다시 한다"
+    }
+   ],
+   "time_budget_sec": 105,
+   "difficulty": {
+    "predicted": 0.88,
+    "drivers": [
+     "정답이 부정형 선지라 긍정 문장 하나로 뒤집힌다",
+     "절망·나비 옹호가 앞뒤를 감싸 인상이 반대로 남기 쉽다",
+     "caterpillar·pollen 등 생물 어휘가 나오지만 정답 판정에는 caterpillar 만 필요하다"
+    ]
+   },
+   "required_vocab": [
+    "caterpillars",
+    "wriggled",
+    "vast",
+    "pollen",
+    "despair"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "초안 quote 에 지문의 밑줄 표시 '(c) ' 가 앞에 붙어 있었다 → 표시를 뺀 원문 문장만 남겨 문자열 대조가 되게 고쳤다 (revised)",
+      "정답 ②가 평가원 정답표와 일치한다",
+      "1차 판정 revise — why_correct 가 지문↔선지 대응이 아니라 학습자가 왜 놓치는가(심리)를 적고 있었다. 근거 문장의 낱말과 선지가 갈아 끼운 성분을 지목하는 서술로 다시 쓴 뒤 pass."
+     ],
+     "checked": [
+      "answer_locus.quote 를 passage 와 문자열 대조(수정 후 재대조)",
+      "정답표(answer=2)와 correct 선지 번호 대조",
+      "X-FACT 유형 정의 대조",
+      "why_correct 의 인용을 코퍼스 지문에서 문자열 대조",
+      "why_correct 가 선지 문구를 인용하는지 확인",
+      "갈아 끼운 성분이 하나로 지목되는지 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "오답 4개 라벨이 어휘 함정·주체 역전·단락 순서 교란·범위 과대 4종으로 갈린다",
+      "⑤의 why_tempting 이 '선지 표현이 원문보다 큰 말' 이라는 범위 축을 짚어 다른 셋과 층이 다르다",
+      "다시 쓴 why_correct 가 소거법(\"나머지가 맞으므로\")에 기대지 않고 정답 선지 한 개의 성분 대응만으로 확정하는지 확인했다. 오답 넷의 서술은 손대지 않았다."
+     ],
+     "checked": [
+      "trap 라벨 중복 확인",
+      "why_tempting 을 선지 한국어 문면과 대조",
+      "how_to_reject 마다 단락 기호 명시 확인",
+      "소거법 서술 유무 검사",
+      "정답 선지에 why_tempting/how_to_reject 가 섞이지 않았는지 확인",
+      "confirmed_at.note 로 옮긴 심리 서술이 근거 자리를 흐리지 않는지 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "3단계(행동 동사가 든 문장을 모아 부정어 표시)가 부정형 선지 처리의 일반 절차로도 쓸 만하다",
+      "required_vocab 다섯 개가 모두 판정선 또는 오독 지점에 걸린다",
+      "학생이 근거 자리를 짚을 수 있도록 단락 표시와 문장 위치를 서술에 남겼는지 확인했다. 기존 심리 서술은 버리지 않고 confirmed_at.note 로 옮겨 실제 미끄러지는 자리를 보존했다."
+     ],
+     "checked": [
+      "지문 미독 실행 가능성 확인",
+      "금지 표현 포함 여부 확인",
+      "105초 배분 확인",
+      "금지 표현 목록 대조",
+      "근거 위치(단락·문장) 표기 유무 확인",
+      "solve_procedure 와 새 서술이 어긋나지 않는지 확인"
+     ]
+    }
+   ]
+  }
+ ],
+ "type_report": {
+  "type_id": "X-FACT",
+  "type_name": "장문 내용 일치",
+  "n_analyzed": 12,
+  "recurring_traps": [
+   {
+    "trap": "어휘 함정",
+    "count": 12,
+    "signature": "원문이 선지의 한국어를 다른 표현으로 바꿔 적는다(assist with her corn harvest = 수확을 돕다 · paddling to balance the boat = 균형을 유지하려 애쓰다 · couldn’t find anywhere = 없었다). 낱말이 안 겹치면 근거가 없다고 판단해 참인 선지를 답으로 찍는다"
+   },
+   {
+    "trap": "단락 순서 교란",
+    "count": 12,
+    "signature": "선지의 근거가 인쇄 순서와 사건 시간 순서가 어긋나는 단락에 있다. 43번에서 정한 시간 순서를 45번에 그대로 적용하면 그 단락으로 되돌아가지 않아 근거를 못 찾는다"
+   },
+   {
+    "trap": "주체 역전",
+    "count": 8,
+    "signature": "한 문장 안에 두 인물이 함께 나오고 행동은 지문과 같은데 하는 사람이 바뀐다(Camila yelled / Hailey placed · 지명을 먼저 꺼낸 Emilia / 제안한 Layla · 요리하는 Katie / 채소를 꺼낸 Sally)"
+   },
+   {
+    "trap": "대명사 지시 혼동",
+    "count": 6,
+    "signature": "he/she/his 가 이름 없이 이어져 동작의 주어가 흐려진다. 동성 인물 둘이 나오는 지문과 대사에서 I/you 가 오가는 자리에서 특히 걸린다"
+   },
+   {
+    "trap": "부분 사실",
+    "count": 3,
+    "signature": "only once · filled her sack twice 처럼 원문의 일부만 세면 반대 결론이 나온다"
+   },
+   {
+    "trap": "범위 과대",
+    "count": 2,
+    "signature": "선지의 한국어가 원문보다 큰 말(자연의 섭리 · 유럽 여행)이라 과장으로 보고 답으로 찍는다"
+   },
+   {
+    "trap": "반대 진술",
+    "count": 2,
+    "signature": "양보절 앞부분(Although her budget was tight · Even though the boat was getting thrown around)만 읽으면 주절과 반대로 읽힌다"
+   },
+   {
+    "trap": "시점 혼동",
+    "count": 2,
+    "signature": "같은 인물 조합의 장면이 두 번 나올 때 두 시점을 한 장면으로 합친다(수업 후/연습 후 · 오전 간식/점심). 표본이 1건에서 2건으로 늘었다"
+   },
+   {
+    "trap": "1회씩 나온 나머지 1종",
+    "count": 1,
+    "signature": "지문 밖 상식(1) — 각 1~2회라 순위로 쓸 수 없다. 다음 청크에서 누적할 것"
+   }
+  ],
+  "answer_locus_pattern": "정답표가 12문항 전부에 갖춰졌다. **선지 번호가 인쇄된 단락 (A)(B)(C)(D) 순서를 그대로 따라가는 단조 비감소 대응이 12/12 로 유지된다** — 새로 채운 다섯도 ①→(A), ⑤→(D) 가 예외 없다. 정답 근거가 (A) 밖에 있는 것도 **12/12** 로 굳었다(정답이 (A)에서 나온 문항이 하나도 없다). 다만 앞서 「정답 근거가 (B)에 몰린다(4/7)」고 적은 편중은 12문항으로 넓히자 약해졌다 — 새로 채운 다섯의 정답 근거 단락은 (B) 1 · (C) 2 · (D) 2 다. 그러므로 이 유형은 「(B)를 먼저 본다」가 아니라 **「선지 번호 → 단락 기호 직행 조회 후, ①의 근거가 확인되면 나머지 넷 중 하나가 답」** 으로 푼다. 그리고 갈린 성분은 새로 채운 다섯에서도 예외 없이 **한 자리뿐**이었다 — after lunch↔점심 전 · After Steve woke up↔잠든 사이 · not that hard↔어렵다 · before I do↔졸업 후 · pretending a heavy load↔무거운 자루.",
+  "procedure": [
+   {
+    "step": "지문을 보기 전에 선지 5개를 읽고 각 선지에서 검색어 하나(고유명사·숫자·구체 동작)에 표시한다",
+    "on_fail": "검색어가 안 잡히는 선지는 서술어를 검색어로 삼는다"
+   },
+   {
+    "step": "부정형(않았다) · 수량(두 명·세 번) · 장소·시점 한정이 붙은 선지에 별표를 친다 — 이 셋이 정답이 걸리는 자리다",
+    "on_fail": "별표가 하나도 안 붙으면 인물이 둘 이상 나오는 선지에 별표를 친다"
+   },
+   {
+    "step": "선지 번호를 단락 기호에 1:1 로 대응시켜(①→(A) … ⑤→(D)) 해당 단락으로 직행해 검색어를 찾는다",
+    "on_fail": "대응 단락에 없으면 인접 단락 한 칸만 확인하고, 없으면 보류 표시 후 다음 선지로 넘어간다"
+   },
+   {
+    "step": "찾은 문장에서 동사의 주어를 짚어 선지의 주어와 같은지 본다. 주어가 대명사면 바로 앞에 나온 이름을 대입해 적는다",
+    "on_fail": "대입 결과가 둘 다 말이 되면 그 문장 앞 두 문장까지 올라가 이름이 마지막으로 나온 자리를 찾는다"
+   },
+   {
+    "step": "인용부호 안의 대사는 '주장', 밖의 문장은 '사실' 로 갈라 표시한다 — 인물의 고발·생각을 사실로 채택하면 정답 선지를 참으로 판정한다",
+    "on_fail": "사실 문장이 안 보이면 그 선지를 보류하고 나머지를 먼저 확정한다"
+   },
+   {
+    "step": "네 선지의 근거 문장을 확보하면 남은 하나가 답이다. 그 선지로 돌아가 원문과 어긋나는 낱말 하나(부정어·수량어·장소어·감정어)를 짚어 확인하고 넘어간다",
+    "on_fail": "어긋나 보이는 선지가 둘이면 별표 친 선지(2단계)를 먼저 택한다"
+   }
+  ],
+  "failure_modes": [
+   "단락을 인쇄 순서가 아니라 사건 시간 순서로 재배열해 읽으려다 시간을 다 쓴다 — 43번(순서 배열)에서 정한 시간 순서를 45번에도 적용하면 선지-단락 대응이 깨진다. 45번은 인쇄된 (A)(B)(C)(D) 순서로 조회해야 한다",
+   "인물의 대사를 사실로 채택한다 — 2021#45 에서 동생의 고발('그냥 웃긴 영상 보고 있어')을 사실로 읽으면 정답 선지를 참으로 판정한다",
+   "낱말이 겹치지 않으면 근거가 없다고 본다 — 2020#45 의 fixing her eyes on, 2021#45 의 office work at the kitchen table 처럼 원문은 선지의 한국어를 다른 표현으로 적는다",
+   "이름을 세어 수량을 판정한다 — M2006#45 에서 명시된 이름은 둘(Brian·Nick)이지만 수량을 확정하는 것은 trio 라는 낱말 하나다",
+   "양보절·부정어의 앞 절만 읽는다 — Although her budget was tight / most newcomers don't keep their commitment, but … 에서 앞 절만 남으면 결론이 뒤집힌다",
+   "43~45번 세트에서 45번에 시간을 남기지 못한다 — 45번은 지문을 다시 읽는 문항이 아니라 조회 문항이므로, 43·44 를 푸는 동안 각 단락 첫 문장 옆에 인물 이름을 적어 두면 45번이 절반으로 줄어든다"
+  ],
+  "time_budget_sec": 110,
+  "open_questions": [
+   "라벨 등재 제안 1 — `단락 순서 교란`: (A)~(D) 재배열 지문에서 근거 단락이 사건 시간 순서와 어긋난 자리에 있어 학습자가 되돌아가지 않는 함정. 48개 오답 중 12개가 여기 걸렸고, §1-b (A) 표의 아홉 라벨 중 어느 것도 이 축을 표현하지 못한다. X-ORDER·X-REFER 와 공유되는 축이므로 장문(X-*) 전용 라벨로 등재를 제안한다",
+   "라벨 등재 제안 2 — `대명사 지시 혼동`: 동성 인물 둘 이상이 he/she 로만 지시되거나 대사에서 I/you 가 오가 동작의 주어가 흐려지는 함정. `주체 역전` 은 「선지가 주체를 바꿔 적었다」이고 이쪽은 「원문 쪽 지시가 흐려 학습자가 잘못 붙인다」라 층이 다르다. 6건",
+   "라벨 등재 제안 3 — `시점 혼동`: 같은 인물 조합의 장면이 두 번 나올 때 두 시점을 한 장면으로 합치는 함정. 1건에서 2건으로 늘었으나 여전히 표본이 얇다 — 다음 X-FACT 청크에서 재확인이 필요하다",
+   "**정답표 없던 5문항이 이번에 채워졌다.** recurring_traps 의 분모가 28선지에서 **48선지**로 늘었고, 1·2위(어휘 함정 12 · 단락 순서 교란 12)는 순위가 유지됐다. 반면 「정답 근거가 (B)에 몰린다」는 4/7 편중은 재현되지 않았다 — 표본 7의 관찰이었고 12로 넓히자 흩어졌다. 이런 식으로 무너지는 관찰을 절차에 넣지 않은 것이 옳았다",
+   "선지-단락 단조 대응(12/12)이 X-FACT 전체 회차에서도 유지되는지 확인이 필요하다. 이 청크는 2019~2023 다섯 해뿐이므로, 2018 이전 회차 청크에서 반례가 나오면 §procedure 3단계를 「대응 확인 후 직행」으로 약화해야 한다",
+   "M2309#45 는 corpus 지문이 옆 단과 낱말 단위로 섞여 (A) 조각과 선지만 남아 있다. 회차 원문(columns2/M2309.txt)에서 복원해 분석했고 게이트는 인용을 「회차 원문 창에는 있다」로 통과시키며 경고를 낸다 — 파서가 이 페이지의 단 나누기를 못 하는 것이 원인이므로 파서 쪽에서 고쳐야 경고가 사라진다",
+   "**2차 드레인의 반려는 setter 2 · analyst 4 · tutor 0 이었다.** setter 둘은 두 단 섞인 지문의 미복원(M2309#45 · M2306#45), analyst 넷은 정답표 부재를 전제한 difficulty.drivers 다. **tutor 반려가 0건인 것이 신호다** — 1차 드레인이 남긴 solve_procedure 가 이미 이 다섯 문항의 판정선(전/후 · 척함 · 화자)을 다루고 있어 tutor 가 잴 것이 남지 않았다. 다음 청크에서는 tutor 에게 「이 절차로 정답 선지의 갈린 성분을 실제로 짚을 수 있는가」를 문항마다 모의하게 해 자를 좁힐 것을 제안한다"
+  ]
+ }
+}

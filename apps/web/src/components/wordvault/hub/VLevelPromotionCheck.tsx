@@ -68,7 +68,7 @@ export function VLevelPromotionCheck() {
   // 미진단 분기 UI
   if (result && !result.promoted && result.reason.includes('진단 미완료')) {
     return (
-      <div className="mt-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-3 text-center font-body text-[12px] text-[var(--t3)]">
+      <div className="mt-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-3 text-center font-body text-[12px] text-[var(--t2)]">
         {result.reason}
       </div>
     )
@@ -97,7 +97,7 @@ export function VLevelPromotionCheck() {
     return (
       <div className="mt-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-3">
         <div className="mb-2 flex items-center justify-between font-body text-[11px] text-[var(--t2)]">
-          <span className="inline-flex items-center gap-1.5">
+          <span className="inline-flex items-center gap-2">
             <TrendingUp size={12} className="text-[var(--p)]" />
             다음 V-Level 진행도
           </span>
@@ -111,7 +111,7 @@ export function VLevelPromotionCheck() {
             style={{ width: `${pct}%` }}
           />
         </div>
-        <p className="mt-2 font-body text-[10px] text-[var(--t3)]">
+        <p className="mt-2 font-body text-[10px] text-[var(--t2)]">
           {result.reason}
         </p>
       </div>
@@ -125,14 +125,15 @@ export function VLevelPromotionCheck() {
         <p className="font-display text-[12px] font-[600] text-[var(--t2)]">
           학습 활동 기반 V-Level 갱신
         </p>
-        <p className="mt-0.5 font-body text-[10px] text-[var(--t3)]">
+        <p className="mt-0.5 font-body text-[10px] text-[var(--t2)]">
           최근 30일 학습으로 다음 단계 진입 여부 확인
         </p>
       </div>
       <button
         onClick={() => void handleCheck()}
         disabled={loading}
-        className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:border-[var(--p)] hover:text-[var(--p)] active:scale-[0.97] disabled:opacity-50"
+        // 44px 하한 — 실측 94x32 (a11y 스윕 17회차)
+        className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:border-[var(--p)] hover:text-[var(--p)] active:scale-[0.97] disabled:opacity-50"
       >
         {loading ? (
           <Loader2 size={12} className="animate-spin" />
@@ -142,7 +143,7 @@ export function VLevelPromotionCheck() {
         {loading ? '확인 중…' : '갱신 확인'}
       </button>
       {error && (
-        <p role="alert" className="ml-2 font-body text-[11px] text-[var(--error)]">
+        <p role="alert" className="ml-2 font-body text-[11px] text-[var(--error-ink)]">
           {error}
         </p>
       )}

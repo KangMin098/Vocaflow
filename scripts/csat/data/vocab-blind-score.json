@@ -1,0 +1,25 @@
+{
+ "underlined": {
+  "n": 13,
+  "answerAntonym": 12,
+  "distractorAntonym": 0,
+  "solved": 13,
+  "tied": 0,
+  "notAntonym": [
+   {
+    "id": "2023#30",
+    "word": "maintain"
+   }
+  ]
+ },
+ "boxed": {
+  "n": 4,
+  "pairs": 12,
+  "antonym": 8,
+  "formNear": 2,
+  "unrelated": 2
+ },
+ "converge": {
+  "p": 0.1602484472040857
+ }
+}

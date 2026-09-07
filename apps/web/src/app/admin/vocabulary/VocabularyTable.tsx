@@ -41,7 +41,7 @@ export function VocabularyTable({
   if (rows.length === 0) {
     return (
       <div className="flex flex-col items-center gap-2 rounded-[var(--r-xl)] border border-dashed border-[var(--bd)] bg-[var(--bg)] py-12 text-center">
-        <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[var(--bg3)] text-[var(--t3)]">
+        <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[var(--bg3)] text-[var(--t2)]">
           <Database size={18} aria-hidden />
         </span>
         <p className="font-body text-[13px] text-[var(--t2)]">조건에 맞는 단어 없음</p>
@@ -55,31 +55,31 @@ export function VocabularyTable({
         <table className="w-full min-w-[900px] border-collapse">
           <thead>
             <tr className="border-b border-[var(--bd)] bg-[var(--bg2)]">
-              <th className="px-3 py-2 text-left font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]">
+              <th className="px-3 py-2 text-left font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
                 word
               </th>
-              <th className="px-3 py-2 text-left font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]">
+              <th className="px-3 py-2 text-left font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
                 POS
               </th>
-              <th className="px-3 py-2 text-left font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]">
+              <th className="px-3 py-2 text-left font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
                 meaning
               </th>
-              <th className="px-3 py-2 text-center font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]">
+              <th className="px-3 py-2 text-center font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
                 CEFR
               </th>
-              <th className="px-3 py-2 text-center font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]">
+              <th className="px-3 py-2 text-center font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
                 V
               </th>
-              <th className="px-3 py-2 text-right font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]">
+              <th className="px-3 py-2 text-right font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
                 freq
               </th>
-              <th className="px-3 py-2 text-center font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]">
+              <th className="px-3 py-2 text-center font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
                 src
               </th>
-              <th className="px-3 py-2 text-center font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]">
+              <th className="px-3 py-2 text-center font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
                 ✓
               </th>
-              <th className="px-3 py-2 text-left font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]">
+              <th className="px-3 py-2 text-left font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
                 sanity
               </th>
             </tr>
@@ -116,20 +116,20 @@ export function VocabularyTable({
                       {row.word}
                     </p>
                   </td>
-                  <td className="px-3 py-2 font-mono text-[10px] text-[var(--t3)]">
+                  <td className="px-3 py-2 font-mono text-[10px] text-[var(--t2)]">
                     {row.primary_pos ?? row.pos ?? '—'}
                   </td>
                   <td className="px-3 py-2">
                     <p className="line-clamp-1 font-body text-[12px] text-[var(--t2)]">
                       {row.meaning_ko ?? (
-                        <span className="italic text-[var(--error)]">empty</span>
+                        <span className="italic text-[var(--error-ink)]">empty</span>
                       )}
                     </p>
                   </td>
                   <td className="px-3 py-2 text-center">
                     {cefr ? (
                       <span
-                        className="inline-flex items-center gap-0.5 rounded-[var(--r-sm)] px-1.5 py-0.5 font-mono text-[10px] font-[700]"
+                        className="inline-flex items-center gap-1 rounded-[var(--r-sm)] px-2 py-1 font-mono text-[10px] font-[700]"
                         style={{
                           backgroundColor: `${cefrColor}1A`,
                           color: cefrColor,
@@ -143,13 +143,13 @@ export function VocabularyTable({
                         )}
                       </span>
                     ) : (
-                      <span className="font-mono text-[10px] text-[var(--t4)]">—</span>
+                      <span className="font-mono text-[10px] text-[var(--t2)]">—</span>
                     )}
                   </td>
                   <td className="px-3 py-2 text-center">
                     {row.v_level != null ? (
                       <span
-                        className={`inline-flex items-center gap-0.5 rounded-[var(--r-sm)] px-1.5 py-0.5 font-mono text-[10px] font-[700] ${
+                        className={`inline-flex items-center gap-1 rounded-[var(--r-sm)] px-2 py-1 font-mono text-[10px] font-[700] ${
                           reclassified
                             ? 'bg-[#8B5CF61A] text-[#8B5CF6]'
                             : 'bg-[var(--bg3)] text-[var(--t2)]'
@@ -168,13 +168,13 @@ export function VocabularyTable({
                         )}
                       </span>
                     ) : (
-                      <span className="font-mono text-[10px] text-[var(--t4)]">—</span>
+                      <span className="font-mono text-[10px] text-[var(--t2)]">—</span>
                     )}
                   </td>
-                  <td className="px-3 py-2 text-right font-mono text-[10px] tabular-nums text-[var(--t3)]">
+                  <td className="px-3 py-2 text-right font-mono text-[10px] tabular-nums text-[var(--t2)]">
                     {row.frequency_rank?.toLocaleString() ?? '—'}
                   </td>
-                  <td className="px-3 py-2 text-center font-mono text-[9px] text-[var(--t3)]">
+                  <td className="px-3 py-2 text-center font-mono text-[9px] text-[var(--t2)]">
                     {row.source}
                   </td>
                   <td className="px-3 py-2 text-center">
@@ -183,7 +183,7 @@ export function VocabularyTable({
                         ✓
                       </span>
                     ) : (
-                      <span className="text-[12px] text-[var(--t4)]" aria-label="unverified">
+                      <span className="text-[12px] text-[var(--t2)]" aria-label="unverified">
                         —
                       </span>
                     )}
@@ -197,7 +197,7 @@ export function VocabularyTable({
                         {issues.slice(0, 3).map((iss) => (
                           <span
                             key={iss.id}
-                            className="inline-flex items-center gap-1 rounded-full bg-[var(--bg2)] px-1.5 py-0.5 font-mono text-[9px] text-[var(--t2)]"
+                            className="inline-flex items-center gap-1 rounded-full bg-[var(--bg2)] px-2 py-1 font-mono text-[9px] text-[var(--t2)]"
                             title={iss.detail}
                           >
                             <span
@@ -209,7 +209,7 @@ export function VocabularyTable({
                           </span>
                         ))}
                         {issues.length > 3 && (
-                          <span className="font-mono text-[9px] text-[var(--t3)]">
+                          <span className="font-mono text-[9px] text-[var(--t2)]">
                             +{issues.length - 3}
                           </span>
                         )}
@@ -227,7 +227,7 @@ export function VocabularyTable({
 
       {/* Pagination */}
       <div className="flex items-center justify-between gap-3">
-        <p className="font-mono text-[11px] text-[var(--t3)]">
+        <p className="font-mono text-[11px] text-[var(--t2)]">
           page {currentPage} {hasNext ? '/ ...' : '(last)'}
         </p>
         <div className="flex items-center gap-2">
@@ -235,7 +235,7 @@ export function VocabularyTable({
             type="button"
             onClick={() => onPageChange(Math.max(1, currentPage - 1))}
             disabled={currentPage <= 1}
-            className="inline-flex items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-1.5 font-display text-[11px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)] disabled:cursor-not-allowed disabled:opacity-40"
+            className="min-h-[44px] inline-flex items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[11px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)] disabled:cursor-not-allowed disabled:opacity-40"
           >
             <ChevronLeft size={12} aria-hidden /> prev
           </button>
@@ -243,7 +243,7 @@ export function VocabularyTable({
             type="button"
             onClick={() => onPageChange(currentPage + 1)}
             disabled={!hasNext}
-            className="inline-flex items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-1.5 font-display text-[11px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)] disabled:cursor-not-allowed disabled:opacity-40"
+            className="min-h-[44px] inline-flex items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[11px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)] disabled:cursor-not-allowed disabled:opacity-40"
           >
             next <ChevronRight size={12} aria-hidden />
           </button>

@@ -190,7 +190,7 @@ export function JudgeClient({ books, articles }: { books: BookOption[]; articles
                 key={k}
                 type="button"
                 onClick={() => setKind(k)}
-                className={`rounded-[var(--r-md)] border px-4 py-2 font-display text-[13px] font-[600] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] ${
+                className={`min-h-[44px] rounded-[var(--r-md)] border px-4 py-2 font-display text-[13px] font-[600] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] ${
                   kind === k
                     ? 'border-[#8B5CF6] bg-[#8B5CF6]/10 text-[#8B5CF6]'
                     : 'border-[var(--bd)] bg-[var(--bg2)] text-[var(--t2)] hover:text-[var(--t1)]'
@@ -208,7 +208,7 @@ export function JudgeClient({ books, articles }: { books: BookOption[]; articles
                 <select
                   value={bookId}
                   onChange={(e) => setBookId(e.target.value)}
-                  className="w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2 font-body text-[14px] text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
+                  className="min-h-[44px] w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2 font-body text-[14px] text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
                 >
                   {books.map((b) => (
                     <option key={b.id} value={b.id}>
@@ -225,7 +225,7 @@ export function JudgeClient({ books, articles }: { books: BookOption[]; articles
                   max={selectedBook?.chapter_count ?? 999}
                   value={chapter}
                   onChange={(e) => setChapter(Math.max(1, Number(e.target.value) || 1))}
-                  className="w-24 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2 font-body text-[14px] text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
+                  className="min-h-[44px] w-24 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2 font-body text-[14px] text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
                 />
               </label>
             </div>
@@ -235,7 +235,7 @@ export function JudgeClient({ books, articles }: { books: BookOption[]; articles
               <select
                 value={articleId}
                 onChange={(e) => setArticleId(e.target.value)}
-                className="w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2 font-body text-[14px] text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
+                className="min-h-[44px] w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2 font-body text-[14px] text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
               >
                 {articles.map((a) => (
                   <option key={a.id} value={a.id}>
@@ -254,10 +254,10 @@ export function JudgeClient({ books, articles }: { books: BookOption[]; articles
                   key={m}
                   type="button"
                   onClick={() => setMode(m)}
-                  className={`rounded-[var(--r-full)] border px-3 py-1 font-body text-[12px] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] ${
+                  className={`min-h-[44px] rounded-[var(--r-full)] border px-3 py-1 font-body text-[12px] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] ${
                     mode === m
                       ? 'border-[#8B5CF6]/50 bg-[#8B5CF6]/10 text-[#8B5CF6]'
-                      : 'border-[var(--bd)] text-[var(--t3)] hover:text-[var(--t2)]'
+                      : 'border-[var(--bd)] text-[var(--t2)] hover:text-[var(--t2)]'
                   }`}
                 >
                   {m === 'absolute' ? '절대 판정' : '쌍대 비교'}
@@ -268,7 +268,7 @@ export function JudgeClient({ books, articles }: { books: BookOption[]; articles
               type="button"
               onClick={loadSample}
               disabled={loading || (kind === 'book' ? !bookId : !articleId)}
-              className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] bg-[#8B5CF6] px-4 py-2 font-display text-[13px] font-[600] text-white transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[#7c4ff0] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+              className="min-h-[44px] inline-flex items-center gap-2 rounded-[var(--r-md)] bg-[#8B5CF6] px-4 py-2 font-display text-[13px] font-[600] text-white transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[#7c4ff0] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {loading ? <Loader2 size={14} className="animate-spin" /> : <Sparkles size={14} />}
               표본 불러오기
@@ -288,22 +288,22 @@ export function JudgeClient({ books, articles }: { books: BookOption[]; articles
         <section className="space-y-4">
           <div className="flex items-center justify-between">
             <p className="font-body text-[13px] text-[var(--t2)]">
-              <span className="font-mono text-[var(--t3)]">{sourceLabel}</span> — 이 챕터를 공부하는
+              <span className="font-mono text-[var(--t2)]">{sourceLabel}</span> — 이 챕터를 공부하는
               학습자에게 <strong className="text-[var(--t1)]">가치 있는 단어</strong>를 고르세요.
             </p>
-            <span className="rounded-[var(--r-full)] bg-[var(--bg3)] px-2.5 py-1 font-mono text-[11px] text-[var(--t3)]">
+            <span className="rounded-[var(--r-full)] bg-[var(--bg3)] px-3 py-1 font-mono text-[11px] text-[var(--t2)]">
               {mode === 'absolute' ? '절대 판정' : '쌍대 비교'}
             </span>
           </div>
 
           {mode === 'absolute' ? (
-            <ul className="grid grid-cols-1 gap-2.5 md:grid-cols-2">
+            <ul className="grid grid-cols-1 gap-3 md:grid-cols-2">
               {sample.map((w) => {
                 const v = verdicts[w.word] ?? 'not_valuable'
                 return (
                   <li
                     key={w.word}
-                    className={`rounded-[var(--r-md)] border bg-[var(--bg2)] p-3.5 transition-all duration-[var(--dur-normal)] ease-[var(--ease)] ${
+                    className={`rounded-[var(--r-md)] border bg-[var(--bg2)] p-4 transition-all duration-[var(--dur-normal)] ease-[var(--ease)] ${
                       v === 'valuable'
                         ? 'border-[#2E7D5A]/50 bg-[#2E7D5A]/6'
                         : v === 'uncertain'
@@ -315,7 +315,7 @@ export function JudgeClient({ books, articles }: { books: BookOption[]; articles
                       <div className="min-w-0">
                         <p className="font-display text-[15px] font-[700] text-[var(--t1)]">{w.word}</p>
                         <p className="font-body text-[13px] text-[var(--t2)]">{w.meaning_ko}</p>
-                        <p className="mt-0.5 font-mono text-[10px] text-[var(--t3)]">
+                        <p className="mt-0.5 font-mono text-[10px] text-[var(--t2)]">
                           {w.pos} · V{w.v_level}
                         </p>
                       </div>
@@ -325,10 +325,10 @@ export function JudgeClient({ books, articles }: { books: BookOption[]; articles
                           aria-pressed={v === 'valuable'}
                           onClick={() => setVerdict(w.word, 'valuable')}
                           title="가치 있음"
-                          className={`grid h-8 w-8 place-items-center rounded-[var(--r-sm)] border transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2E7D5A] ${
+                          className={/* 탭 영역 44px — 시각 크기(h-8, 32px)와 다르다 */ `relative after:absolute after:left-1/2 after:top-1/2 after:h-11 after:w-11 after:-translate-x-1/2 after:-translate-y-1/2 grid h-8 w-8 place-items-center rounded-[var(--r-sm)] border transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2E7D5A] ${
                             v === 'valuable'
                               ? 'border-[#2E7D5A] bg-[#2E7D5A] text-white'
-                              : 'border-[var(--bd)] text-[var(--t3)] hover:border-[#2E7D5A]/50 hover:text-[#2E7D5A]'
+                              : 'border-[var(--bd)] text-[var(--t2)] hover:border-[#2E7D5A]/50 hover:text-[#2E7D5A]'
                           }`}
                         >
                           <Check size={15} />
@@ -338,10 +338,10 @@ export function JudgeClient({ books, articles }: { books: BookOption[]; articles
                           aria-pressed={v === 'uncertain'}
                           onClick={() => setVerdict(w.word, 'uncertain')}
                           title="애매함"
-                          className={`grid h-8 w-8 place-items-center rounded-[var(--r-sm)] border transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B5803A] ${
+                          className={/* 탭 영역 44px — 시각 크기(h-8, 32px)와 다르다 */ `relative after:absolute after:left-1/2 after:top-1/2 after:h-11 after:w-11 after:-translate-x-1/2 after:-translate-y-1/2 grid h-8 w-8 place-items-center rounded-[var(--r-sm)] border transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B5803A] ${
                             v === 'uncertain'
                               ? 'border-[#B5803A] bg-[#B5803A] text-white'
-                              : 'border-[var(--bd)] text-[var(--t3)] hover:border-[#B5803A]/50 hover:text-[#B5803A]'
+                              : 'border-[var(--bd)] text-[var(--t2)] hover:border-[#B5803A]/50 hover:text-[#B5803A]'
                           }`}
                         >
                           <HelpCircle size={15} />
@@ -349,7 +349,7 @@ export function JudgeClient({ books, articles }: { books: BookOption[]; articles
                       </div>
                     </div>
                     {w.first_sentence && (
-                      <p className="mt-2 border-t border-[var(--bd)] pt-2 font-body text-[12px] italic leading-[1.5] text-[var(--t3)]">
+                      <p className="mt-2 border-t border-[var(--bd)] pt-2 font-body text-[12px] italic leading-[1.5] text-[var(--t2)]">
                         “{w.first_sentence}”
                       </p>
                     )}
@@ -361,7 +361,7 @@ export function JudgeClient({ books, articles }: { books: BookOption[]; articles
             <ul className="space-y-2.5">
               {pairs.map(([a, b], i) => (
                 <li key={a.word + b.word} className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-3">
-                  <p className="mb-2 text-center font-body text-[12px] text-[var(--t3)]">
+                  <p className="mb-2 text-center font-body text-[12px] text-[var(--t2)]">
                     이 챕터에 더 가치 있는 쪽은?
                   </p>
                   <div className="flex items-stretch gap-2">
@@ -373,7 +373,7 @@ export function JudgeClient({ books, articles }: { books: BookOption[]; articles
                           key={side}
                           type="button"
                           onClick={() => setPairChoices((p) => ({ ...p, [i]: side }))}
-                          className={`flex-1 rounded-[var(--r-sm)] border p-2.5 text-left transition-all duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] ${
+                          className={`flex-1 rounded-[var(--r-sm)] border p-3 text-left transition-all duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] ${
                             chosen
                               ? 'border-[#8B5CF6] bg-[#8B5CF6]/10'
                               : 'border-[var(--bd)] hover:border-[#8B5CF6]/40'
@@ -394,7 +394,7 @@ export function JudgeClient({ books, articles }: { books: BookOption[]; articles
             <button
               type="button"
               onClick={reset}
-              className="font-body text-[13px] text-[var(--t3)] underline-offset-2 hover:text-[var(--t2)] hover:underline"
+              className="font-body text-[13px] text-[var(--t2)] underline-offset-2 hover:text-[var(--t2)] hover:underline"
             >
               다른 표본
             </button>
@@ -402,7 +402,7 @@ export function JudgeClient({ books, articles }: { books: BookOption[]; articles
               type="button"
               onClick={submit}
               disabled={saving || (mode === 'pairwise' && pairwiseAnswered === 0)}
-              className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] bg-[#8B5CF6] px-5 py-2 font-display text-[13px] font-[600] text-white transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[#7c4ff0] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+              className="min-h-[44px] inline-flex items-center gap-2 rounded-[var(--r-md)] bg-[#8B5CF6] px-5 py-2 font-display text-[13px] font-[600] text-white transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[#7c4ff0] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {saving ? <Loader2 size={14} className="animate-spin" /> : <Scale size={14} />}
               판정 제출
@@ -443,7 +443,7 @@ function RevealPanel({
     <section className="space-y-4">
       <div className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-6">
         <p className="font-body text-[13px] text-[var(--t2)]">
-          <span className="font-mono text-[var(--t3)]">{sourceLabel}</span> — 판정 저장 완료. 시스템
+          <span className="font-mono text-[var(--t2)]">{sourceLabel}</span> — 판정 저장 완료. 시스템
           선택(in-cap)과 비교했어요.
         </p>
         <div className="mt-4 grid grid-cols-3 gap-3">
@@ -462,9 +462,9 @@ function RevealPanel({
           return (
             <li
               key={w.word}
-              className="flex items-center justify-between gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3.5 py-2"
+              className="flex items-center justify-between gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-2"
             >
-              <div className="flex items-center gap-2.5">
+              <div className="flex items-center gap-3">
                 <span
                   className={`grid h-5 w-5 place-items-center rounded-full ${
                     match ? 'bg-[#2E7D5A]/15 text-[#2E7D5A]' : 'bg-[#B5803A]/15 text-[#B5803A]'
@@ -473,13 +473,13 @@ function RevealPanel({
                   {match ? <Check size={12} /> : <X size={12} />}
                 </span>
                 <span className="font-display text-[14px] font-[600] text-[var(--t1)]">{w.word}</span>
-                <span className="font-body text-[12px] text-[var(--t3)]">{w.meaning_ko}</span>
+                <span className="font-body text-[12px] text-[var(--t2)]">{w.meaning_ko}</span>
               </div>
               <div className="flex shrink-0 items-center gap-2 font-mono text-[10px]">
-                <span className={`rounded-[var(--r-sm)] px-1.5 py-0.5 ${youKept ? 'bg-[#2E7D5A]/12 text-[#2E7D5A]' : 'bg-[var(--bg3)] text-[var(--t3)]'}`}>
+                <span className={`rounded-[var(--r-sm)] px-2 py-1 ${youKept ? 'bg-[#2E7D5A]/12 text-[#2E7D5A]' : 'bg-[var(--bg3)] text-[var(--t2)]'}`}>
                   나: {youKept ? '가치' : v === 'uncertain' ? '애매' : '제외'}
                 </span>
-                <span className={`rounded-[var(--r-sm)] px-1.5 py-0.5 ${r.in_cap ? 'bg-[#8B5CF6]/12 text-[#8B5CF6]' : 'bg-[var(--bg3)] text-[var(--t3)]'}`}>
+                <span className={`rounded-[var(--r-sm)] px-2 py-1 ${r.in_cap ? 'bg-[#8B5CF6]/12 text-[#8B5CF6]' : 'bg-[var(--bg3)] text-[var(--t2)]'}`}>
                   시스템: {r.in_cap ? 'in-cap' : `#${r.sort_order_at}`}
                 </span>
               </div>
@@ -492,7 +492,7 @@ function RevealPanel({
         <button
           type="button"
           onClick={onReset}
-          className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] border border-[#8B5CF6]/40 bg-[#8B5CF6]/8 px-4 py-2 font-display text-[13px] font-[600] text-[#8B5CF6] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[#8B5CF6]/15 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
+          className="min-h-[44px] inline-flex items-center gap-2 rounded-[var(--r-md)] border border-[#8B5CF6]/40 bg-[#8B5CF6]/8 px-4 py-2 font-display text-[13px] font-[600] text-[#8B5CF6] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[#8B5CF6]/15 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
         >
           <Sparkles size={14} /> 다음 표본 판정
         </button>
@@ -506,7 +506,7 @@ function Stat({ label, hint, value }: { label: string; hint: string; value: stri
     <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-3 text-center">
       <p className="font-display text-[24px] font-[800] tracking-tight text-[var(--t1)]">{value}</p>
       <p className="font-mono text-[11px] font-[700] uppercase tracking-[0.06em] text-[#8B5CF6]">{label}</p>
-      <p className="mt-0.5 font-body text-[10px] text-[var(--t3)]">{hint}</p>
+      <p className="mt-0.5 font-body text-[10px] text-[var(--t2)]">{hint}</p>
     </div>
   )
 }

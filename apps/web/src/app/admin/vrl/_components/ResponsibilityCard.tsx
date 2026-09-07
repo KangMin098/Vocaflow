@@ -141,7 +141,7 @@ export function ResponsibilityCard({ readiness, defects }: ResponsibilityCardPro
           </div>
         </div>
         <span
-          className="inline-flex items-center gap-1 rounded-full px-2.5 py-1 font-display text-[10px] font-[700]"
+          className="inline-flex items-center gap-1 rounded-full px-3 py-1 font-display text-[10px] font-[700]"
           style={{ backgroundColor: status.bg, color: status.color }}
         >
           <StatusIcon size={11} strokeWidth={2} aria-hidden />
@@ -157,7 +157,7 @@ export function ResponsibilityCard({ readiness, defects }: ResponsibilityCardPro
         >
           {readiness.score}
         </p>
-        <p className="mb-1 font-body text-[12px] text-[var(--t3)]">/ 100</p>
+        <p className="mb-1 font-body text-[12px] text-[var(--t2)]">/ 100</p>
         <div className="ml-auto h-2 flex-1 max-w-[140px] overflow-hidden rounded-full bg-[var(--bg3)]">
           <div
             className="h-full rounded-full transition-[width] duration-500"
@@ -180,10 +180,10 @@ export function ResponsibilityCard({ readiness, defects }: ResponsibilityCardPro
         className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-3"
         aria-label="readiness factors"
       >
-        <h4 className="mb-2 font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t3)]">
+        <h4 className="mb-2 font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
           Factors ({readiness.factors.length})
         </h4>
-        <ul className="flex flex-col gap-1.5">
+        <ul className="flex flex-col gap-2">
           {readiness.factors.map((f) => {
             const fScorePct = Math.round(f.score * 100)
             const wPct = Math.round(f.weight * 100)
@@ -196,11 +196,11 @@ export function ResponsibilityCard({ readiness, defects }: ResponsibilityCardPro
                 <div className="min-w-0">
                   <p className="truncate font-display text-[11px] font-[600] text-[var(--t1)]">
                     {f.label}{' '}
-                    <span className="font-mono text-[9px] font-[500] text-[var(--t3)]">
+                    <span className="font-mono text-[9px] font-[500] text-[var(--t2)]">
                       w={wPct}%
                     </span>
                   </p>
-                  <p className="truncate text-[10px] text-[var(--t3)]">{f.evidence}</p>
+                  <p className="truncate text-[10px] text-[var(--t2)]">{f.evidence}</p>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="h-1 w-12 overflow-hidden rounded-full bg-[var(--bg3)]">
@@ -229,14 +229,14 @@ export function ResponsibilityCard({ readiness, defects }: ResponsibilityCardPro
       {/* ── Affected Defects ── */}
       {relatedDefects.length > 0 && (
         <section aria-label="affected critical defects">
-          <h4 className="mb-2 font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t3)]">
+          <h4 className="mb-2 font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
             Affected Defects ({relatedDefects.length})
           </h4>
-          <div className="flex flex-wrap gap-1.5">
+          <div className="flex flex-wrap gap-2">
             {relatedDefects.map((d) => (
               <span
                 key={d.id}
-                className="inline-flex items-center gap-1.5 rounded-full border border-[var(--bd)] bg-[var(--bg2)] px-2 py-1 font-mono text-[10px] text-[var(--t2)]"
+                className="inline-flex items-center gap-2 rounded-full border border-[var(--bd)] bg-[var(--bg2)] px-2 py-1 font-mono text-[10px] text-[var(--t2)]"
                 title={d.title}
               >
                 <span
@@ -270,7 +270,7 @@ export function ResponsibilityCard({ readiness, defects }: ResponsibilityCardPro
             >
               Primary Action
               {primaryImprovement.backlogId && (
-                <span className="ml-1.5 rounded-full bg-[var(--bg)] px-1.5 py-0.5 text-[9px]">
+                <span className="ml-1.5 rounded-full bg-[var(--bg)] px-2 py-1 text-[9px]">
                   {primaryImprovement.backlogId}
                 </span>
               )}
@@ -280,9 +280,9 @@ export function ResponsibilityCard({ readiness, defects }: ResponsibilityCardPro
             {primaryImprovement.action}
           </p>
           <div className="mt-1.5 grid grid-cols-[auto_1fr] gap-x-2 font-body text-[10px] text-[var(--t2)]">
-            <span className="font-mono text-[var(--t3)]">cost</span>
+            <span className="font-mono text-[var(--t2)]">cost</span>
             <span>{primaryImprovement.cost}</span>
-            <span className="font-mono text-[var(--t3)]">effect</span>
+            <span className="font-mono text-[var(--t2)]">effect</span>
             <span>{primaryImprovement.effect}</span>
           </div>
         </section>

@@ -48,14 +48,56 @@ function stripTags(s: string): string {
   return decodeEntities(s.replace(/<[^>]+>/g, '')).replace(/\s+/g, ' ').trim()
 }
 
+/**
+ * ⚠️ **목록 수는 확보 가능 수가 아니다** (실측 2026-08-30).
+ *
+ * 페이지네이션을 붙이자 목록이 2편 → **18,649편**(196p 소진, API `total` 19,461)으로 열렸다.
+ * 그런데 대량 확보를 돌리니 **담은 것 293 · 실패 2,707** 이었다 — 실패 사유는 전부
+ * `digest 없음`. eLife 는 2023년부터 Reviewed Preprint 모델로 바뀌었고 그쪽에는
+ * 편집자 digest 가 없다. 이 어댑터는 digest 만 받는다(연구 본문은 C2 라 학습에 못 쓴다).
+ *
+ * 표본 24편 실측 digest 보유율 **8.3%** → eLife 의 실질 상류는 19,461 이 아니라 **약 1,550편**이다.
+ *
+ * 목록 단계에서 거를 판별자를 찾아봤지만 **없다** — `elifeAssessment` 유무 가설을 세워
+ * 검증했더니 있음 20편 중 digest 1편 · 없음 3편 중 1편으로 갈리지 않았다.
+ * `type`·`status`·`stage` 도 전부 vor/published 로 균일하다.
+ * 즉 한 편씩 쳐 보는 수밖에 없고, 그래서 **19,000회 요청에 1,550편**이 이 소스의 값이다.
+ * 대량 확보 계획에서 eLife 를 상류 19,461 로 세면 안 된다.
+ *
+ * 목록 URL 1페이지분. eLife API 는 `page` 로 과거 기사를 준다.
+ *
+ * ⚠️ 예전에는 `per-page` 만 있고 `page` 가 없었다. 그래서 **언제나 최신 perPage 편**이
+ *   상한이었고, 상류 19,461편 중 손에 있는 것이 **2편**이었다. VOA(`count`)·
+ *   위키미디어(continuation)·PLOS(`start`) 에서 이미 네 번 본 것과 같은 상한이다.
+ */
+export function buildElifeListUrl(perPage: number, page: number): string {
+  const p = Math.max(1, page)
+  return `${ELIFE_API}?per-page=${perPage}&page=${p}&order=desc`
+}
+
 /** 최근 eLife 기사 목록 (큐레이션 picker — digest 보유 여부는 단건 ingest 시 확정). 대량 GET 위해 스코어 부여. */
-export async function listElifeFeed(perPage = 20): Promise<Array<ElifeListItem & { score: ArticleScore }>> {
-  const res = await fetchWithTimeout(`${ELIFE_API}?per-page=${perPage}&order=desc`, {
+export async function listElifeFeed(
+  perPage = 20,
+  /** 생략하면 큐레이션 spec 의 maxItems 그대로 — 기존 동작 무변경. */
+  limit?: number,
+): Promise<Array<ElifeListItem & { score: ArticleScore }>> {
+  const { items } = await listElifeFeedPage(perPage, 1, limit)
+  return items
+}
+
+/** 한 페이지 — 다음 페이지 번호를 함께 돌려준다. 항목이 없으면 끝이다. */
+export async function listElifeFeedPage(
+  perPage = 100,
+  page = 1,
+  limit?: number,
+): Promise<{ items: Array<ElifeListItem & { score: ArticleScore }>; cont: number | null }> {
+  const res = await fetchWithTimeout(buildElifeListUrl(perPage, page), {
     accept: LIST_ACCEPT,
   })
   if (!res.ok) throw new Error(`eLife list failed: ${res.status}`)
   const data = JSON.parse(await res.text()) as ElifeListJson
-  const raw: ElifeListItem[] = (data.items ?? [])
+  const rawItems = data.items ?? []
+  const raw: ElifeListItem[] = rawItems
     .filter((it) => it.id && /^\d+$/.test(it.id))
     .map((it) => ({
       source_id: `elife:${it.id}`,
@@ -64,7 +106,12 @@ export async function listElifeFeed(perPage = 20): Promise<Array<ElifeListItem &
       published_at: it.published ?? null,
       description: stripTags(it.impactStatement ?? ''),
     }))
-  return applyArticleCurationSpec(raw, 'elife', 'all')
+  return {
+    items: applyArticleCurationSpec(raw, 'elife', 'all', { maxItems: limit }),
+    // 목록이 비면 끝이다. 큐레이션이 전부 걸러도 **원 목록**이 있으면 다음 쪽이 있다 —
+    // 걸러진 것을 소진으로 읽으면 뒤쪽 기사를 통째로 잃는다.
+    cont: rawItems.length > 0 ? page + 1 : null,
+  }
 }
 
 /** 단일 eLife 기사 → digest 산문 추출 (연구 본문 아님 — 접근형 요약만). */

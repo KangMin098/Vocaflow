@@ -55,38 +55,41 @@ const TONE: Record<PrimaryButtonTone, ToneStyle> = {
   },
   brand: {
     bg: 'bg-[var(--p)]',
-    text: 'text-white',
+    text: 'text-[var(--on-semantic)]',
     hoverBg: 'hover:bg-[var(--p-hover)]',
     glow: 'shadow-ios-glow-tint',
   },
+  // 채움 위 흰 글자는 4.5:1 을 넘겨야 한다 — iOS 원색(red 3.55 · orange 2.20 · green 2.22)은
+  //   전부 미달이었다(2026-08-09 axe 실측). Reading Room semantic 팔레트(더 깊은 톤)로 교체하고,
+  //   앰버처럼 밝은 면에는 흰 글자 대신 잉크 글자를 얹는다(#231a09 on --warning = 5.00).
   critical: {
-    bg: 'bg-ios-red',
-    text: 'text-white',
+    bg: 'bg-[var(--error)]',
+    text: 'text-[var(--on-semantic)]',
     hoverBg: 'hover:brightness-95',
     glow: 'shadow-ios-glow-red',
   },
   warning: {
-    bg: 'bg-ios-orange',
-    text: 'text-white',
+    bg: 'bg-[var(--warning)]',
+    text: 'text-[#231a09]',
     hoverBg: 'hover:brightness-95',
     glow: 'shadow-ios-glow-orange',
   },
   info: {
-    bg: 'bg-ios-blue',
-    text: 'text-white',
+    bg: 'bg-[var(--info)]',
+    text: 'text-[var(--on-semantic)]',
     hoverBg: 'hover:brightness-95',
     glow: 'shadow-ios-glow-blue',
   },
   success: {
-    bg: 'bg-ios-green',
-    text: 'text-white',
+    bg: 'bg-[var(--success)]',
+    text: 'text-[var(--on-semantic)]',
     hoverBg: 'hover:brightness-95',
     glow: 'shadow-ios-glow-green',
   },
 }
 
 const SIZE: Record<NonNullable<PrimaryButtonProps['size']>, { font: string; pad: string }> = {
-  sm: { font: 'text-[13px]', pad: 'px-4 py-2.5' },
+  sm: { font: 'text-[13px]', pad: 'px-4 py-3' },
   md: { font: 'text-[15px]', pad: 'px-5 py-4' },
   lg: { font: 'text-[16px]', pad: 'px-6 py-5' },
 }
@@ -126,8 +129,12 @@ export function PrimaryButton({
       <span>{children}</span>
       {(count != null && count > 0) || rightIcon !== null ? (
         <span className="flex items-center gap-2">
+          {/* 배지 바탕을 밝히면(white/20) 흰 글자와의 대비가 깎인다 — 12px 라 AA 4.5 를
+              넘겨야 하는데 semantic 채움 위에서 3.99 로 떨어졌다(2026-08-14 axe 실측,
+              /wordvault 다크). count>0 일 때만 렌더돼 데이터에 따라 나타났다 사라진다.
+              어둡게 깔면 어떤 채움색 위에서도 흰 글자 대비가 올라간다. */}
           {count != null && count > 0 && (
-            <span className="rounded-ios-pill bg-white/20 px-2.5 py-0.5 font-mono text-[12px] tabular-nums">
+            <span className="rounded-ios-pill bg-black/25 px-3 py-1 font-mono text-[12px] tabular-nums">
               {count}
             </span>
           )}

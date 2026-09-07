@@ -1,0 +1,1058 @@
+{
+ "n": 33,
+ "excluded": 33,
+ "mono": 25,
+ "totPairs": 111,
+ "totConc": 101,
+ "rows": [
+  {
+   "exam": "2014B",
+   "no": 29,
+   "type": "R-CHART",
+   "ok": true,
+   "pos": [
+    0,
+    1,
+    0,
+    1,
+    0
+   ],
+   "nKnown": 5,
+   "pairs": 4,
+   "conc": 2,
+   "mono": false,
+   "nSent": 13
+  },
+  {
+   "exam": "2014B",
+   "no": 30,
+   "type": "R-FACT",
+   "ok": false,
+   "why": "닻 1개",
+   "pos": [
+    null,
+    null,
+    null,
+    null,
+    16
+   ]
+  },
+  {
+   "exam": "2014A",
+   "no": 29,
+   "type": "R-NOTICE",
+   "ok": false,
+   "why": "닻 1개",
+   "pos": [
+    null,
+    null,
+    null,
+    7,
+    null
+   ]
+  },
+  {
+   "exam": "2014A",
+   "no": 30,
+   "type": "R-NOTICE",
+   "ok": true,
+   "pos": [
+    5,
+    1,
+    null,
+    13,
+    21
+   ],
+   "nKnown": 4,
+   "pairs": 3,
+   "conc": 2,
+   "mono": false,
+   "nSent": 22
+  },
+  {
+   "exam": "2014A",
+   "no": 31,
+   "type": "R-NOTICE",
+   "ok": true,
+   "pos": [
+    2,
+    null,
+    10,
+    null,
+    20
+   ],
+   "nKnown": 3,
+   "pairs": 2,
+   "conc": 2,
+   "mono": true,
+   "nSent": 22
+  },
+  {
+   "exam": "2014A",
+   "no": 32,
+   "type": "R-CHART",
+   "ok": true,
+   "pos": [
+    0,
+    1,
+    0,
+    1,
+    0
+   ],
+   "nKnown": 5,
+   "pairs": 4,
+   "conc": 2,
+   "mono": false,
+   "nSent": 13
+  },
+  {
+   "exam": "2015",
+   "no": 24,
+   "type": "R-FACT",
+   "ok": false,
+   "why": "닻 2개",
+   "pos": [
+    0,
+    null,
+    null,
+    null,
+    13
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 25,
+   "type": "R-CHART",
+   "ok": true,
+   "pos": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "nKnown": 5,
+   "pairs": 4,
+   "conc": 4,
+   "mono": true,
+   "nSent": 12
+  },
+  {
+   "exam": "2015",
+   "no": 26,
+   "type": "R-NOTICE",
+   "ok": false,
+   "why": "닻 0개",
+   "pos": [
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 27,
+   "type": "R-NOTICE",
+   "ok": false,
+   "why": "닻 2개",
+   "pos": [
+    null,
+    7,
+    11,
+    null,
+    null
+   ]
+  },
+  {
+   "exam": "2016",
+   "no": 24,
+   "type": "R-CHART",
+   "ok": true,
+   "pos": [
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "nKnown": 5,
+   "pairs": 4,
+   "conc": 4,
+   "mono": true,
+   "nSent": 17
+  },
+  {
+   "exam": "2016",
+   "no": 25,
+   "type": "R-FACT",
+   "ok": true,
+   "pos": [
+    null,
+    3,
+    4,
+    4,
+    4
+   ],
+   "nKnown": 4,
+   "pairs": 3,
+   "conc": 3,
+   "mono": true,
+   "nSent": 14
+  },
+  {
+   "exam": "2016",
+   "no": 26,
+   "type": "R-NOTICE",
+   "ok": false,
+   "why": "닻 2개",
+   "pos": [
+    null,
+    null,
+    12,
+    14,
+    null
+   ]
+  },
+  {
+   "exam": "2016",
+   "no": 27,
+   "type": "R-NOTICE",
+   "ok": false,
+   "why": "닻 2개",
+   "pos": [
+    null,
+    null,
+    0,
+    null,
+    0
+   ]
+  },
+  {
+   "exam": "2017",
+   "no": 24,
+   "type": "R-CHART",
+   "ok": true,
+   "pos": [
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "nKnown": 5,
+   "pairs": 4,
+   "conc": 4,
+   "mono": true,
+   "nSent": 21
+  },
+  {
+   "exam": "2017",
+   "no": 25,
+   "type": "R-FACT",
+   "ok": true,
+   "pos": [
+    2,
+    2,
+    null,
+    11,
+    14
+   ],
+   "nKnown": 4,
+   "pairs": 3,
+   "conc": 3,
+   "mono": true,
+   "nSent": 15
+  },
+  {
+   "exam": "2017",
+   "no": 26,
+   "type": "R-NOTICE",
+   "ok": false,
+   "why": "닻 0개",
+   "pos": [
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "exam": "2017",
+   "no": 27,
+   "type": "R-NOTICE",
+   "ok": false,
+   "why": "닻 0개",
+   "pos": [
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 24,
+   "type": "R-CHART",
+   "ok": true,
+   "pos": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "nKnown": 5,
+   "pairs": 4,
+   "conc": 4,
+   "mono": true,
+   "nSent": 14
+  },
+  {
+   "exam": "2018",
+   "no": 25,
+   "type": "R-FACT",
+   "ok": true,
+   "pos": [
+    3,
+    4,
+    6,
+    null,
+    12
+   ],
+   "nKnown": 4,
+   "pairs": 3,
+   "conc": 3,
+   "mono": true,
+   "nSent": 16
+  },
+  {
+   "exam": "2018",
+   "no": 26,
+   "type": "R-NOTICE",
+   "ok": false,
+   "why": "닻 0개",
+   "pos": [
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 27,
+   "type": "R-NOTICE",
+   "ok": false,
+   "why": "닻 1개",
+   "pos": [
+    null,
+    5,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "exam": "2019",
+   "no": 25,
+   "type": "R-CHART",
+   "ok": true,
+   "pos": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "nKnown": 5,
+   "pairs": 4,
+   "conc": 4,
+   "mono": true,
+   "nSent": 33
+  },
+  {
+   "exam": "2019",
+   "no": 26,
+   "type": "R-FACT",
+   "ok": true,
+   "pos": [
+    1,
+    1,
+    null,
+    8,
+    6
+   ],
+   "nKnown": 4,
+   "pairs": 3,
+   "conc": 2,
+   "mono": false,
+   "nSent": 16
+  },
+  {
+   "exam": "2019",
+   "no": 27,
+   "type": "R-NOTICE",
+   "ok": false,
+   "why": "닻 2개",
+   "pos": [
+    3,
+    5,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "exam": "2019",
+   "no": 28,
+   "type": "R-NOTICE",
+   "ok": false,
+   "why": "닻 2개",
+   "pos": [
+    null,
+    null,
+    8,
+    null,
+    16
+   ]
+  },
+  {
+   "exam": "2020",
+   "no": 25,
+   "type": "R-CHART",
+   "ok": true,
+   "pos": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "nKnown": 5,
+   "pairs": 4,
+   "conc": 4,
+   "mono": true,
+   "nSent": 13
+  },
+  {
+   "exam": "2020",
+   "no": 26,
+   "type": "R-FACT",
+   "ok": false,
+   "why": "닻 1개",
+   "pos": [
+    1,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "exam": "2020",
+   "no": 27,
+   "type": "R-NOTICE",
+   "ok": false,
+   "why": "닻 2개",
+   "pos": [
+    null,
+    4,
+    null,
+    null,
+    13
+   ]
+  },
+  {
+   "exam": "2020",
+   "no": 28,
+   "type": "R-NOTICE",
+   "ok": true,
+   "pos": [
+    2,
+    11,
+    9,
+    12,
+    17
+   ],
+   "nKnown": 5,
+   "pairs": 4,
+   "conc": 3,
+   "mono": false,
+   "nSent": 18
+  },
+  {
+   "exam": "2021",
+   "no": 25,
+   "type": "R-CHART",
+   "ok": true,
+   "pos": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "nKnown": 5,
+   "pairs": 4,
+   "conc": 4,
+   "mono": true,
+   "nSent": 12
+  },
+  {
+   "exam": "2021",
+   "no": 26,
+   "type": "R-FACT",
+   "ok": true,
+   "pos": [
+    null,
+    2,
+    null,
+    6,
+    15
+   ],
+   "nKnown": 3,
+   "pairs": 2,
+   "conc": 2,
+   "mono": true,
+   "nSent": 16
+  },
+  {
+   "exam": "2021",
+   "no": 27,
+   "type": "R-NOTICE",
+   "ok": false,
+   "why": "닻 1개",
+   "pos": [
+    null,
+    7,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "exam": "2021",
+   "no": 28,
+   "type": "R-NOTICE",
+   "ok": false,
+   "why": "닻 0개",
+   "pos": [
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "exam": "2022",
+   "no": 25,
+   "type": "R-CHART",
+   "ok": true,
+   "pos": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "nKnown": 5,
+   "pairs": 4,
+   "conc": 4,
+   "mono": true,
+   "nSent": 14
+  },
+  {
+   "exam": "2022",
+   "no": 26,
+   "type": "R-FACT",
+   "ok": true,
+   "pos": [
+    2,
+    4,
+    null,
+    7,
+    13
+   ],
+   "nKnown": 4,
+   "pairs": 3,
+   "conc": 3,
+   "mono": true,
+   "nSent": 14
+  },
+  {
+   "exam": "2022",
+   "no": 27,
+   "type": "R-NOTICE",
+   "ok": false,
+   "why": "닻 0개",
+   "pos": [
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "exam": "2022",
+   "no": 28,
+   "type": "R-NOTICE",
+   "ok": false,
+   "why": "닻 1개",
+   "pos": [
+    17,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "exam": "2023",
+   "no": 25,
+   "type": "R-CHART",
+   "ok": true,
+   "pos": [
+    1,
+    0,
+    0,
+    0,
+    0
+   ],
+   "nKnown": 5,
+   "pairs": 4,
+   "conc": 3,
+   "mono": false,
+   "nSent": 14
+  },
+  {
+   "exam": "2023",
+   "no": 26,
+   "type": "R-FACT",
+   "ok": true,
+   "pos": [
+    null,
+    3,
+    2,
+    null,
+    13
+   ],
+   "nKnown": 3,
+   "pairs": 2,
+   "conc": 1,
+   "mono": false,
+   "nSent": 14
+  },
+  {
+   "exam": "2023",
+   "no": 27,
+   "type": "R-NOTICE",
+   "ok": false,
+   "why": "닻 1개",
+   "pos": [
+    5,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "exam": "2023",
+   "no": 28,
+   "type": "R-NOTICE",
+   "ok": false,
+   "why": "닻 1개",
+   "pos": [
+    0,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "exam": "2024",
+   "no": 25,
+   "type": "R-CHART",
+   "ok": true,
+   "pos": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "nKnown": 5,
+   "pairs": 4,
+   "conc": 4,
+   "mono": true,
+   "nSent": 16
+  },
+  {
+   "exam": "2024",
+   "no": 26,
+   "type": "R-FACT",
+   "ok": true,
+   "pos": [
+    null,
+    4,
+    6,
+    9,
+    13
+   ],
+   "nKnown": 4,
+   "pairs": 3,
+   "conc": 3,
+   "mono": true,
+   "nSent": 14
+  },
+  {
+   "exam": "2024",
+   "no": 27,
+   "type": "R-NOTICE",
+   "ok": false,
+   "why": "닻 1개",
+   "pos": [
+    null,
+    11,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "exam": "2024",
+   "no": 28,
+   "type": "R-NOTICE",
+   "ok": false,
+   "why": "닻 1개",
+   "pos": [
+    null,
+    null,
+    null,
+    5,
+    null
+   ]
+  },
+  {
+   "exam": "2025",
+   "no": 25,
+   "type": "R-CHART",
+   "ok": true,
+   "pos": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "nKnown": 5,
+   "pairs": 4,
+   "conc": 4,
+   "mono": true,
+   "nSent": 15
+  },
+  {
+   "exam": "2025",
+   "no": 26,
+   "type": "R-FACT",
+   "ok": false,
+   "why": "닻 2개",
+   "pos": [
+    1,
+    null,
+    null,
+    null,
+    13
+   ]
+  },
+  {
+   "exam": "2025",
+   "no": 27,
+   "type": "R-NOTICE",
+   "ok": true,
+   "pos": [
+    null,
+    null,
+    10,
+    12,
+    16
+   ],
+   "nKnown": 3,
+   "pairs": 2,
+   "conc": 2,
+   "mono": true,
+   "nSent": 17
+  },
+  {
+   "exam": "2025",
+   "no": 28,
+   "type": "R-NOTICE",
+   "ok": false,
+   "why": "닻 1개",
+   "pos": [
+    null,
+    null,
+    7,
+    null,
+    null
+   ]
+  },
+  {
+   "exam": "2026",
+   "no": 25,
+   "type": "R-CHART",
+   "ok": true,
+   "pos": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "nKnown": 5,
+   "pairs": 4,
+   "conc": 4,
+   "mono": true,
+   "nSent": 17
+  },
+  {
+   "exam": "2026",
+   "no": 26,
+   "type": "R-FACT",
+   "ok": true,
+   "pos": [
+    2,
+    4,
+    6,
+    10,
+    null
+   ],
+   "nKnown": 4,
+   "pairs": 3,
+   "conc": 3,
+   "mono": true,
+   "nSent": 16
+  },
+  {
+   "exam": "2026",
+   "no": 27,
+   "type": "R-NOTICE",
+   "ok": false,
+   "why": "닻 1개",
+   "pos": [
+    null,
+    1,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "exam": "2026",
+   "no": 28,
+   "type": "R-NOTICE",
+   "ok": false,
+   "why": "닻 2개",
+   "pos": [
+    0,
+    null,
+    null,
+    null,
+    18
+   ]
+  },
+  {
+   "exam": "M2606",
+   "no": 25,
+   "type": "R-CHART",
+   "ok": true,
+   "pos": [
+    0,
+    1,
+    1,
+    1,
+    1
+   ],
+   "nKnown": 5,
+   "pairs": 4,
+   "conc": 4,
+   "mono": true,
+   "nSent": 12
+  },
+  {
+   "exam": "M2606",
+   "no": 26,
+   "type": "R-FACT",
+   "ok": true,
+   "pos": [
+    2,
+    6,
+    9,
+    11,
+    null
+   ],
+   "nKnown": 4,
+   "pairs": 3,
+   "conc": 3,
+   "mono": true,
+   "nSent": 16
+  },
+  {
+   "exam": "M2606",
+   "no": 27,
+   "type": "R-NOTICE",
+   "ok": false,
+   "why": "닻 0개",
+   "pos": [
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "exam": "M2606",
+   "no": 28,
+   "type": "R-NOTICE",
+   "ok": false,
+   "why": "닻 1개",
+   "pos": [
+    null,
+    null,
+    null,
+    null,
+    2
+   ]
+  },
+  {
+   "exam": "M2609",
+   "no": 25,
+   "type": "R-CHART",
+   "ok": true,
+   "pos": [
+    0,
+    1,
+    0,
+    0,
+    0
+   ],
+   "nKnown": 5,
+   "pairs": 4,
+   "conc": 3,
+   "mono": false,
+   "nSent": 16
+  },
+  {
+   "exam": "M2609",
+   "no": 26,
+   "type": "R-FACT",
+   "ok": false,
+   "why": "닻 2개",
+   "pos": [
+    null,
+    null,
+    null,
+    9,
+    11
+   ]
+  },
+  {
+   "exam": "M2609",
+   "no": 27,
+   "type": "R-NOTICE",
+   "ok": false,
+   "why": "닻 0개",
+   "pos": [
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "exam": "M2609",
+   "no": 28,
+   "type": "R-NOTICE",
+   "ok": false,
+   "why": "추출 실패"
+  },
+  {
+   "exam": "M2706",
+   "no": 25,
+   "type": "R-CHART",
+   "ok": true,
+   "pos": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "nKnown": 5,
+   "pairs": 4,
+   "conc": 4,
+   "mono": true,
+   "nSent": 11
+  },
+  {
+   "exam": "M2706",
+   "no": 26,
+   "type": "R-FACT",
+   "ok": true,
+   "pos": [
+    0,
+    null,
+    9,
+    12,
+    null
+   ],
+   "nKnown": 3,
+   "pairs": 2,
+   "conc": 2,
+   "mono": true,
+   "nSent": 15
+  },
+  {
+   "exam": "M2706",
+   "no": 27,
+   "type": "R-NOTICE",
+   "ok": false,
+   "why": "닻 0개",
+   "pos": [
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "exam": "M2706",
+   "no": 28,
+   "type": "R-NOTICE",
+   "ok": true,
+   "pos": [
+    3,
+    null,
+    4,
+    null,
+    15
+   ],
+   "nKnown": 3,
+   "pairs": 2,
+   "conc": 2,
+   "mono": true,
+   "nSent": 16
+  }
+ ]
+}

@@ -1,0 +1,202 @@
+{
+ "n": 24,
+ "noAnaphor": 16,
+ "items": [
+  {
+   "id": "2014B#39",
+   "given": "So, when someone is threatening to go to war, or trying to convince us and mounting a huge public relations campaign to justify it, the news media have a responsibility to question everything.",
+   "anaphors": []
+  },
+  {
+   "id": "2015#38",
+   "given": "The researchers had made this happen by lengthening the period of daylight to which the peach trees on whose roots the insects fed were exposed.",
+   "anaphors": []
+  },
+  {
+   "id": "2015#39",
+   "ans": 2,
+   "given": "They also rated how generally extroverted those fake extroverts appeared, based on their recorded voices and body language.",
+   "anaphors": [
+    {
+     "kind": "dem",
+     "text": "those fake",
+     "head": "fake"
+    },
+    {
+     "kind": "pro",
+     "text": "They",
+     "head": null
+    }
+   ]
+  },
+  {
+   "id": "2016#37",
+   "ans": 5,
+   "given": "Surprised by the vision of an unfamiliar silhouette pushing into the house, these dogs were using their eyes instead of their noses.",
+   "anaphors": [
+    {
+     "kind": "dem",
+     "text": "these dogs",
+     "head": "dogs"
+    }
+   ]
+  },
+  {
+   "id": "2016#38",
+   "given": "Even so, it is not the money per se that is valuable, but the fact that it can potentially yield more positive experiences.",
+   "anaphors": []
+  },
+  {
+   "id": "2017#38",
+   "given": "Most readers of reports and papers are reading the documents because they are interested in, and know something about, the subject.",
+   "anaphors": []
+  },
+  {
+   "id": "2017#39",
+   "given": "Rather, they will happen only through state intervention, based on parliamentary decision.",
+   "anaphors": []
+  },
+  {
+   "id": "2018#38",
+   "given": "Experiments show that rats display an immediate liking for salt the first time they experience a salt deficiency.",
+   "anaphors": []
+  },
+  {
+   "id": "2018#39",
+   "ans": 4,
+   "given": "It is postulated that such contamination may result from airborne transport from remote power plants or municipal incinerators.",
+   "anaphors": [
+    {
+     "kind": "dem",
+     "text": "such contamination",
+     "head": "contamination"
+    },
+    {
+     "kind": "pro",
+     "text": "It",
+     "head": null
+    }
+   ]
+  },
+  {
+   "id": "2019#38",
+   "given": "The advent of literacy and the creation of handwritten scrolls and, eventually, handwritten books strengthened the ability of large and complex ideas to spread with high fidelity.",
+   "anaphors": []
+  },
+  {
+   "id": "2019#39",
+   "given": "A round hill rising above a plain, therefore, would appear on the map as a set of concentric circles, the largest at the base and the smallest near the top.",
+   "anaphors": []
+  },
+  {
+   "id": "2020#38",
+   "given": "Thus, individuals of many resident species, confronted with the fitness benefits of control over a productive breeding site, may be forced to balance costs in the form of lower nonbreeding survivorship by remaining in the specific habitat where highest breeding success occurs.",
+   "anaphors": []
+  },
+  {
+   "id": "2020#39",
+   "ans": 3,
+   "given": "Still, it is arguable that advertisers worry rather too much about this problem, as advertising in other media has always been fragmented.",
+   "anaphors": [
+    {
+     "kind": "dem",
+     "text": "this problem",
+     "head": "problem"
+    }
+   ]
+  },
+  {
+   "id": "2021#38",
+   "given": "I have still not exactly pinpointed Maddy s character since wickedness takes many forms.",
+   "anaphors": []
+  },
+  {
+   "id": "2021#39",
+   "given": "Note that copyright covers the expression of an idea and not the idea itself.",
+   "anaphors": []
+  },
+  {
+   "id": "2022#38",
+   "ans": 5,
+   "given": "phenomena. Scientific explanations organize and systematize Retraining current employees for new positions within the our knowledge of the empirical world; the more economical company will also greatly reduce their fear of being laid the systematization, the deeper our understanding of what off. is explained. The other view is the causal/mechanical approach. According to it, a scientific explanation of a Introduction of robots into factories, while employment of human phenomenon consists of uncovering the mechanisms that workers is being reduced, creates worry and fear. ( ) It is produced the phenomenon of interest. This view sees the the responsibility of management to prevent or, at least, to ease explanation of individual events as primary, with the these fears. ( ) For example, robots could be introduced only explanation of generalizations flowing from them. That is, in new plants rather than replacing humans in existing assembly the explanation of scientific generalizations comes from lines. ( ) Workers should be included in the planning for the causal mechanisms that produce the regularities. new factories or the introduction of robots into existing plants, so they can participate in the process. ( ) It may be that robots * subsume: ( ) ** empirical: are needed to reduce manufacturing costs so that the company remains competitive, but planning for such cost reductions should be done jointly by labor and management. ( ) Since Scientific explanations can be made either by seeking the robots are particularly good at highly repetitive simple motions, the replaced human workers should be moved to positions (A) number of principles covering all observations where judgment and decisions beyond the abilities of robots are required. or by finding general (B) drawn from individual",
+   "anaphors": [
+    {
+     "kind": "dem",
+     "text": "This view",
+     "head": "view"
+    },
+    {
+     "kind": "dem",
+     "text": "these fears",
+     "head": "fears"
+    },
+    {
+     "kind": "dem",
+     "text": "such cost",
+     "head": "cost"
+    }
+   ]
+  },
+  {
+   "id": "2023#38",
+   "ans": 5,
+   "given": "There s a reason for that: traditionally, park designers attempted to create such a feeling by planting tall trees at park boundaries, building stone walls, and constructing other means of partition.",
+   "anaphors": [
+    {
+     "kind": "dem",
+     "text": "such feeling",
+     "head": "feeling"
+    }
+   ]
+  },
+  {
+   "id": "2023#39",
+   "ans": 4,
+   "given": "It may be easier to reach an agreement when settlement terms don t have to be implemented until months in the future.",
+   "anaphors": [
+    {
+     "kind": "pro",
+     "text": "It",
+     "head": null
+    }
+   ]
+  },
+  {
+   "id": "2024#38",
+   "given": "Yes, some contests are seen as world class, such as identification of the Higgs particle or the development of high temperature superconductors.",
+   "anaphors": []
+  },
+  {
+   "id": "2024#39",
+   "given": "At the next step in the argument, however, the analogy breaks down.",
+   "anaphors": []
+  },
+  {
+   "id": "2025#38",
+   "given": "Without any special legal protection for trade secrets, however, the secretive inventor risks that an employee or contractor will disclose the proprietary information.",
+   "anaphors": []
+  },
+  {
+   "id": "2025#39",
+   "given": "In reality, objects do not conform to a linear lifecycle model; instead, they undergo breakdowns, await repairs, are stored away, or find themselves relegated to the basement, only to be rediscovered and repurposed later.",
+   "anaphors": []
+  },
+  {
+   "id": "2026#38",
+   "ans": 5,
+   "given": "Sometimes these internal narratives we form not only shape our beliefs and opinions but also become deeply rooted in our identity.",
+   "anaphors": [
+    {
+     "kind": "dem",
+     "text": "these internal",
+     "head": "internal"
+    }
+   ]
+  },
+  {
+   "id": "2026#39",
+   "given": "The difference is that the action in the game world can only be explored through the virtual bodily space of the avatar.",
+   "anaphors": []
+  }
+ ]
+}

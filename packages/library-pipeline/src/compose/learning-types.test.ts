@@ -1,0 +1,271 @@
+// packages/library-pipeline/src/compose/learning-types.test.ts
+// ACP §20 — 학습 유형이 소스·처리·결과물을 가르는지.
+//
+// 지키는 것: 유형이 정해지면 나머지가 **따라 정해져야** 한다. 유형을 골랐는데
+// 소스·길이·활동이 전부 같다면 이 축은 이름만 있는 것이다.
+
+import { describe, expect, it } from 'vitest'
+
+import { COMPOSE_ACTIVITIES } from './activities'
+import {
+  LEARNING_TYPES,
+  buildJobSpec,
+  composableTracks,
+  renderJobBrief,
+  sourcesForType,
+  trackCoverage,
+  validateLearningTypes,
+  type LearningTrack,
+} from './learning-types'
+
+describe('레지스트리 정합', () => {
+  it('키와 spec.track 이 일치한다', () => {
+    for (const [k, v] of Object.entries(LEARNING_TYPES)) expect(v.track).toBe(k)
+  })
+
+  it('활동 키와 주제가 실재한다 (오타 잠금)', () => {
+    expect(validateLearningTypes()).toEqual([])
+  })
+
+  it('축 값은 VRL 실측 어휘를 쓴다', () => {
+    // shared_dictionary.track_levels 키 6종 (2026-08-17 실측)
+    expect(Object.keys(LEARNING_TYPES).sort()).toEqual([
+      'academic_english',
+      'business_english',
+      'conversational',
+      'csat_korean',
+      'general_proficiency',
+      'literary',
+    ])
+  })
+})
+
+describe('유형이 실제로 다른 것을 만든다', () => {
+  const composable = (Object.keys(LEARNING_TYPES) as LearningTrack[]).filter(
+    (t) => LEARNING_TYPES[t].composable,
+  )
+
+  it('길이가 유형마다 다르다 — 수능이 가장 짧다', () => {
+    const csat = LEARNING_TYPES['csat_korean'].compose.words
+    const academic = LEARNING_TYPES['academic_english'].compose.words
+    expect(csat.max).toBeLessThan(academic.min)
+    // 서가 평균(1,100어)으로 쓰면 유형 연습이 안 된다
+    expect(csat.max).toBeLessThanOrEqual(200)
+  })
+
+  it('문장 길이가 밴드를 따라간다 — 일반 영어가 가장 짧다', () => {
+    const byLen = composable
+      .map((t) => [t, LEARNING_TYPES[t].compose.avgSentenceWords] as const)
+      .sort((a, b) => a[1] - b[1])
+    expect(byLen[0]![0]).toBe('conversational')
+    expect(byLen[byLen.length - 1]![0]).toBe('academic_english')
+  })
+
+  it('활동 세트가 유형마다 다르다', () => {
+    const sets = composable.map((t) => LEARNING_TYPES[t].activities.join(','))
+    expect(new Set(sets).size).toBe(sets.length)
+  })
+
+  it('수능만 순서·삽입을 붙인다 — 그게 수능 문항 유형이다', () => {
+    expect(LEARNING_TYPES['csat_korean'].activities).toContain('order')
+    expect(LEARNING_TYPES['csat_korean'].activities).toContain('insert')
+    expect(LEARNING_TYPES['conversational'].activities).not.toContain('order')
+    expect(LEARNING_TYPES['business_english'].activities).not.toContain('insert')
+  })
+
+  it('회화만 듣기 계열이 핵심이고 토론으로 끝난다', () => {
+    const conv = LEARNING_TYPES['conversational'].activities
+    expect(conv).toContain('shadowing')
+    expect(conv).toContain('dictation')
+    expect(conv).toContain('discussion')
+    expect(LEARNING_TYPES['academic_english'].activities).not.toContain('shadowing')
+  })
+
+  it('어휘 기능이 유형 목표를 반영한다', () => {
+    expect(LEARNING_TYPES['conversational'].skills).toContain('idiom')
+    expect(LEARNING_TYPES['business_english'].skills).toContain('collocation')
+    expect(LEARNING_TYPES['csat_korean'].skills).toContain('polysemy')
+  })
+
+  it('작성 지시가 검사 가능한 문장으로 쓰여 있다 (모호한 형용사 금지)', () => {
+    for (const t of composable) {
+      const ds = LEARNING_TYPES[t].compose.directives
+      expect(ds.length).toBeGreaterThanOrEqual(3)
+      for (const d of ds) expect(d.length).toBeGreaterThan(10)
+    }
+  })
+})
+
+describe('literary — 재저작 대상이 아니다', () => {
+  it('composable=false 이고 발주가 서지 않는다', () => {
+    expect(LEARNING_TYPES['literary'].composable).toBe(false)
+    const plan = sourcesForType('literary')
+    expect(plan.feasible).toBe(false)
+    expect(plan.blocker).toContain('재저작 대상이 아니다')
+  })
+
+  it('사유가 라이선스가 아니라 "서사는 사실이 아니다" 로 적혀 있다', () => {
+    expect(LEARNING_TYPES['literary'].note).toContain('서사는 사실이 아니다')
+    expect(LEARNING_TYPES['literary'].note).toContain('LCP')
+  })
+
+  it('발주 사양을 만들려 하면 거부한다', () => {
+    const r = buildJobSpec('literary', 6)
+    expect('error' in r).toBe(true)
+  })
+})
+
+describe('sourcesForType — 유형이 소스를 고른다', () => {
+  it('수능은 환경·과학 소스를 받는다', () => {
+    const p = sourcesForType('csat_korean')
+    expect(p.feasible).toBe(true)
+    expect(p.sources.map((s) => s.key)).toContain('noaa')
+    expect(p.sources.map((s) => s.key)).toContain('voa')
+  })
+
+  it('비즈니스는 통신사·지표 소스를 받는다', () => {
+    const p = sourcesForType('business_english')
+    expect(p.feasible).toBe(true)
+    const keys = p.sources.map((s) => s.key)
+    expect(keys).toContain('owid')
+    expect(keys.some((k) => ['reuters', 'ap', 'bbc', 'dw', 'koreaherald'].includes(k))).toBe(true)
+  })
+
+  it('유형마다 받는 소스 조합이 다르다', () => {
+    const csat = sourcesForType('csat_korean').sources.map((s) => s.key).sort().join(',')
+    const biz = sourcesForType('business_english').sources.map((s) => s.key).sort().join(',')
+    expect(csat).not.toBe(biz)
+  })
+
+  it('막힌 주제는 사유와 함께 남는다 (조용히 빠지지 않는다)', () => {
+    const p = sourcesForType('academic_english')
+    for (const b of p.blockedTopics) expect(b.blocker.length).toBeGreaterThan(0)
+  })
+
+  it('재저작 가능한 유형 5종 — literary 만 빠진다', () => {
+    expect(composableTracks().sort()).toEqual([
+      'academic_english',
+      'business_english',
+      'conversational',
+      'csat_korean',
+      'general_proficiency',
+    ])
+  })
+})
+
+describe('buildJobSpec', () => {
+  it('유형 밴드 안이면 사양을 만든다', () => {
+    const r = buildJobSpec('csat_korean', 6)
+    expect('error' in r).toBe(false)
+    if ('error' in r) return
+    expect(r.words.max).toBeLessThanOrEqual(200)
+    expect(r.activities).toContain('order')
+    expect(r.skillFocus).toBe('single_word')
+  })
+
+it('길이는 형식과 독자의 좁은 쪽 — 충돌하면 독자가 이긴다', () => {
+    // 수능 지문 길이는 시험 형식이 정한다(130~190). 중등 밴드(180~320)와 겹치는 구간을 취한다.
+    const csat = buildJobSpec('csat_korean', 6)
+    expect('error' in csat).toBe(false)
+    if ('error' in csat) return
+    expect(csat.words).toEqual({ min: 180, max: 190 })
+
+    // 초등 독자에게 180어 하한은 한 자리에서 못 읽는다. 겹치지 않으므로 독자가 이긴다.
+    const el = buildJobSpec('general_proficiency', 2)
+    expect('error' in el).toBe(false)
+    if ('error' in el) return
+    expect(el.words).toEqual({ min: 90, max: 170 })
+    expect(el.gradeBand).toBe('elementary')
+  })
+
+
+  it('밴드 밖 레벨은 조용히 보정하지 않고 거부한다', () => {
+    // 보정하면 "수능 유형인데 V2" 발주가 성공한 것처럼 보이고 산출물이 어디에도 안 맞는다.
+    const r = buildJobSpec('csat_korean', 2)
+    expect('error' in r).toBe(true)
+    if (!('error' in r)) return
+    expect(r.error).toContain('V4–V8')
+  })
+
+  it('유형이 쓰지 않는 register 는 거부한다', () => {
+    const r = buildJobSpec('academic_english', 8, { register: 'narrative' })
+    expect('error' in r).toBe(true)
+  })
+
+  it('유형이 쓰지 않는 어휘 기능은 거부한다', () => {
+    const r = buildJobSpec('academic_english', 8, { skillFocus: 'idiom' })
+    expect('error' in r).toBe(true)
+  })
+})
+
+describe('renderJobBrief — drain 프롬프트에 그대로 들어간다', () => {
+  it('유형·목표·지시·활동이 모두 담긴다', () => {
+    const job = buildJobSpec('conversational', 4)
+    if ('error' in job) throw new Error(job.error)
+    const brief = renderJobBrief(job)
+    expect(brief).toContain('생활 회화')
+    expect(brief).toContain('V4')
+    expect(brief).toContain('구동사')
+    expect(brief).toContain(COMPOSE_ACTIVITIES['shadowing']!.label)
+  })
+})
+
+describe('trackCoverage — Admin 소스 화면 표시원', () => {
+  it('유형 6종을 전부 돌려주고 literary 는 불가로 표시된다', () => {
+    const rows = trackCoverage()
+    expect(rows).toHaveLength(6)
+    expect(rows.find((r) => r.track === 'literary')!.feasible).toBe(false)
+    expect(rows.find((r) => r.track === 'csat_korean')!.sources).toContain('noaa')
+  })
+
+  it('학령 밴드는 유형이 아니라 그 판의 목표 레벨에서 나온다', () => {
+    // 팩트시트 1개 → 학령별 N판의 전제. 같은 유형이 목표 레벨에 따라 다른 밴드를 서야 한다 —
+    // 유형의 vBand 전체로 정하면 V2 발주와 V5 발주가 같은 학령으로 뭉개지고, 학령 확장이
+    // 곧 유형 추가가 돼 버린다(그렇게 만들려다 VRL 축과 갈려서 되돌렸다).
+    const band = (t: LearningTrack, v: number) =>
+      (buildJobSpec(t, v) as { gradeBand: string }).gradeBand
+
+    expect(band('general_proficiency', 2)).toBe('elementary')
+    expect(band('general_proficiency', 5)).toBe('middle')
+    expect(band('csat_korean', 6)).toBe('middle')
+    expect(band('csat_korean', 8)).toBe('high')
+    expect(band('academic_english', 9)).toBe('exam')
+  })
+
+  it('학령 지시가 유형 지시에 더해지고 중복은 걸러진다', () => {
+    const el = buildJobSpec('general_proficiency', 2) as { directives: string[] }
+    const mi = buildJobSpec('general_proficiency', 5) as { directives: string[] }
+    // 초등 판에만 안전성 규칙이 붙는다.
+    expect(el.directives.some((d) => d.includes('사건사고'))).toBe(true)
+    expect(mi.directives.some((d) => d.includes('사건사고'))).toBe(false)
+    // 같은 문장이 두 번 들어가지 않는다.
+    expect(new Set(el.directives).size).toBe(el.directives.length)
+    expect(new Set(mi.directives).size).toBe(mi.directives.length)
+  })
+})
+
+describe('발주 지시는 서로 모순되면 안 된다', () => {
+  it('한 유형 안에 문단 수를 두고 다투는 지시가 없다', () => {
+    // 실측 2026-08-19: csat_korean 이 "한 문단으로 쓴다" 와 학령 밴드의 "한 문단은 4~6문장"
+    //   을 동시에 지시하고 있었다. 180~190어를 평균 14어절로 쓰면 13문장이라 둘 다 지킬
+    //   방법이 없고, 실제로 그 문구를 지킨 초안은 구문 연습 문항이 0개 나왔다.
+    for (const track of Object.keys(LEARNING_TYPES)) {
+      for (const level of [2, 4, 6, 8, 10]) {
+        const spec = buildJobSpec(track as never, level)
+        if ('error' in spec) continue
+        const joined = spec.directives.join(' ')
+        const forcesSingle = /한 문단으로 쓴다/.test(joined)
+        const forcesSplit = /한 문단은 \d+~\d+문장/.test(joined)
+        expect(forcesSingle && forcesSplit, `${track} V${level}`).toBe(false)
+      }
+    }
+  })
+
+  it('수능 유형은 논지 전개 순서를 여전히 지시한다 — 모순만 걷어냈지 본질은 남긴다', () => {
+    const spec = buildJobSpec('csat_korean', 6)
+    expect('error' in spec).toBe(false)
+    if ('error' in spec) return
+    expect(spec.directives.join(' ')).toContain('주제문')
+    expect(spec.directives.join(' ')).toContain('함의')
+  })
+})

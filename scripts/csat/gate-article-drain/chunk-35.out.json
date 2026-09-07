@@ -1,0 +1,1500 @@
+[
+  {
+    "book": "Hubble Sees Crimson Cloud and Stars - NASA",
+    "url": "https://www.nasa.gov/image-article/hubble-sees-crimson-cloud-and-stars/",
+    "source": "nasa",
+    "v_level": 6,
+    "words": 118,
+    "rows": 2,
+    "excerpts": [
+      "1 min read Hubble Sees Crimson Cloud and Stars HQ Web Team Jul 14, 2026 Image Article Blue and white stars shine brilliantly against a crimson background of glowing gas in this July 3, 2026, image of stellar nursery LH 95 from NASA’s Hubble Space Telescope. LH 95 is a region in the Large Magellanic Cloud, a dwarf galaxy that orbits the Milky Way. Low-mass infant stars live alongside massive blue giant stars in what i",
+      "s known as a stellar association, one of many in the Large Magellanic Cloud. Learn more about LH 95. Image credit: NASA, ESA, and N. Da Rio (The University of Virginia), G. De Marchi (European Space Agency – ESTEC), and D. Gouliermis (Universitat Heidelberg); Processing: Gladys Kober (NASA/Catholic University of America)"
+    ],
+    "verdict": "reject",
+    "genre": "fragmentary",
+    "why": "이미지 캡션 두 줄에 크레딧 명단이 본문 절반"
+  },
+  {
+    "book": "How a newborn's cry triggers the flow of breast milk",
+    "url": "https://www.futurity.org/oxytocin-breast-milk-babies-crying-2977502/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 676,
+    "rows": 1,
+    "excerpts": [
+      "Hearing the sound of a newborn’s cry can trigger the release of oxytocin, a brain chemical that controls breast milk release in mothers, a new study with rodents shows. Once prompted, this flood of hormones continues for roughly five minutes before tapering off, enabling mothers to feed their babies until they are sated or begin crying again, researchers found. For the study, published in Nature, researchers explored",
+      "itry only responded to her pups’ cries and not to computer-generated tones designed to mimic natural wails. The study offers the first description of how sensory experiences like hearing directly activate oxytocin neurons in mothers, Issa says. She notes that the scientists used a relatively new kind of molecular sensor called iTango to measure actual oxytocin release from brain cells in real time. Previously, she sa"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "울음소리가 옥시토신을 분비시키는 기작을 전개"
+  },
+  {
+    "book": "Study sheds light on mysterious 'swirls' on the moon",
+    "url": "https://www.futurity.org/moon-swirls-magma-activity-3236702/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 715,
+    "rows": 1,
+    "excerpts": [
+      "Mysterious, light-colored swirls on the moon’s surface could be rocks magnetized by magma activity underground, according to new research. Lunar swirls are light-colored, sinuous features on the moon’s surface, bright enough to be visible from a backyard telescope. Some people think they look like the brushstrokes in an abstract painting. But these are not mere artistic flourishes: NASA images show that the tendrils ",
+      "oling rates on a mineral called ilmenite to see if they could produce a magnetizing effect. “Earth rocks are very easily magnetized because they often have tiny bits of magnetite in them, which is a magnetic mineral,” Krawczynski says. “A lot of the terrestrial studies that have focused on things with magnetite are not applicable to the moon, where you don’t have this hyper-magnetic mineral.” But ilmenite, which is a"
+    ],
+    "verdict": "use",
+    "genre": "space",
+    "why": "달 소용돌이 자기화 가설을 실험으로 논증"
+  },
+  {
+    "book": "What Is Genetic Diversity and Why Does it Matter?",
+    "url": "https://doi.org/10.3389/frym.2021.656168",
+    "source": "frym",
+    "v_level": 4,
+    "words": 149,
+    "rows": 1,
+    "excerpts": [
+      "All living things on Earth contain a unique code within them, called DNA. DNA is organised into genes, similar to the way letters are organised into words. Genes give our bodies instructions on how to function. However, the exact DNA code is different even between individuals within the same species. We call this genetic diversity. Genetic diversity causes differences in the shape of bird beaks, in the flavours of to",
+      "matoes, and even in the colour of your hair! Genetic diversity is important because it gives species a better chance of survival. However, genetic diversity can be lost when populations get smaller and isolated, which decreases a species’ ability to adapt and survive. In this article, we explore the importance of genetic diversity, discuss how it is formed and maintained in wild populations, how it is lost and why th"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "유전 다양성의 정의와 상실 원인을 설명"
+  },
+  {
+    "book": "Why scientists are interested in shaking presents",
+    "url": "https://www.futurity.org/shaking-presents-3006992-2/",
+    "source": "futurity",
+    "v_level": 4,
+    "words": 515,
+    "rows": 1,
+    "excerpts": [
+      "As you shake the present with your name on it, know that people watching can tell what you’re trying to find out: number of objects or the shape of what’s inside. “There are few things more delightful than seeing a child’s eyes light up as they pick up a present and wonder what might be inside,” says author Chaz Firestone, an assistant professor of psychological and brain sciences at Johns Hopkins University who inve",
+      "Croom, a Johns Hopkins graduate student. “But people are amazing at picking up on such subtleties.” Recognizing another person’s actions is something we do every day, whether it’s guessing which way someone is headed or figuring out what object they’re reaching for. These are known as “pragmatic actions.” Numerous studies have shown people can quickly and accurately identify these actions just by watching them. The n"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "선물 흔들기 실험으로 행동 인지를 논증"
+  },
+  {
+    "book": "'Grounding zone' explains Greenland glacier's rapid melting",
+    "url": "https://www.futurity.org/greenland-glaciers-sea-level-melting-3192852/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 554,
+    "rows": 1,
+    "excerpts": [
+      "The intrusion of warm ocean water beneath the ice at Greenland’s Petermann Glacier explains the accelerated melting it has experienced since the turn of the century, according to new research. The research is the first large-scale observation and modeling study of the area. The researchers’ computer predictions indicate that potential sea level rise will be much worse than previously estimated. As reported in Geophys",
+      " senior coauthor Eric Rignot, a professor of Earth system science. “For a long time, we thought of the transition boundary between ice and ocean to be sharp, but it’s not, and in fact it diffuses over a very wide zone, the ‘grounding zone,’ which is several kilometers wide,” says Rignot, who is also a senior research scientist at NASA JPL. “Seawater rises and falls with changes in oceanic tides in that zone and melts"
+    ],
+    "verdict": "use",
+    "genre": "climate",
+    "why": "접지대 개념으로 빙하 융해 가속을 설명"
+  },
+  {
+    "book": "Nations Agree to $300 Billion Deal at Climate Talks",
+    "url": "https://learningenglish.voanews.com/a/nations-agree-to-300-billion-deal-at-climate-talks/7876556.html",
+    "source": "voa",
+    "v_level": 4,
+    "words": 618,
+    "rows": 1,
+    "excerpts": [
+      "Countries from around the world recently agreed to provide $300 billion to support poor nations in the face of climate change. The agreement reached on November 24 at the United Nations climate talks in Azerbaijan left many unsatisfied. But some were hopeful that it would be a step in the right direction. The final deal says that rich countries have agreed to collectively provide at least $300 billion a year by 2035.",
+      "al agreement at climate talks The final agreement includes a call for parties to work together using \"all public and private sources\" to get closer to the $1.3 trillion per year goal by 2035. That means also pushing for large international banks to help pay the bill. And it means, hopefully, that companies and private investors will follow by spending their money toward climate action. The agreement also calls for de"
+    ],
+    "verdict": "use",
+    "genre": "news",
+    "why": "기후 재원 합의 내용과 쟁점을 서술한 기사"
+  },
+  {
+    "book": "AI learns language through a baby's eyes",
+    "url": "https://www.futurity.org/language-learning-artificial-intelligence-3176672/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 808,
+    "rows": 1,
+    "excerpts": [
+      "New research shows how child-like language learning is possible using AI tools. AI systems, such as GPT-4, can now learn and use human language, but they learn from astronomical amounts of language input—much more than children receive when learning how to understand and speak a language. The best AI systems train on text with a word count in the trillions, whereas children receive just millions per year. Due to this",
+      "can get more with just learning than commonly thought.” Vong, Lake, and their colleagues, Wentao Wang and Emin Orhan, analyzed a child’s learning process captured on first-person video—via a light, head-mounted camera—on a weekly basis beginning at six months and through 25 months, using more than 60 hours of footage. The footage contained approximately a quarter of a million word instances (i.e., the number of words"
+    ],
+    "verdict": "use",
+    "genre": "technology",
+    "why": "아기 시점 영상으로 AI 언어학습을 검증"
+  },
+  {
+    "book": "Drilling Down or Reading the Water",
+    "url": "",
+    "source": "original",
+    "v_level": 5,
+    "words": 325,
+    "rows": 1,
+    "excerpts": [
+      "Under a volcanic field the ground holds heat that never fully leaves. That heat is a hazard when it rises fast and a resource when it rises slowly. The trouble is that both cases look the same from the surface. A hot spring may hint at a calm system venting steadily for centuries. The same spring may hint at a chamber filling faster than it can drain. Anyone who wants to use the heat must first settle which case hold",
+      " season of drilling settles the question. The risk is that the well itself disturbs the pressure it came to read. Water forced down a fresh crack can shift a fault that had been quiet. The other approach never drills and reads the springs already at the surface. Its cost is light, because the water arrives on its own and asks nothing. Dissolved gas, mineral load, and steady temperature each carry a trace of the depth"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "지열 탐사 두 방법의 이해득실을 논증"
+  },
+  {
+    "book": "NASA's IXPE Studies Magnetar - NASA",
+    "url": "https://www.nasa.gov/image-article/nasas-ixpe-studies-magnetar/",
+    "source": "nasa",
+    "v_level": 5,
+    "words": 101,
+    "rows": 2,
+    "excerpts": [
+      "1 min read NASA’s IXPE Studies Magnetar HQ Web Team Aug 07, 2026 Image Article Scientists using NASA’s IXPE (Imaging X-ray Polarimetry Explorer) conducted more than 140 hours of observations of the magnetar 1E 1547-5408, shown in this Aug. 5, 2026, artist’s concept, between March and April 2025. In doing so, they may have captured empty space behaving in a way physicists have predicted for 90 years, but never directl",
+      "y observed. Magnetars are a special class of neutron stars with ultra-strong magnetic fields, the strongest of any object in the observable universe, around a trillion times stronger than the strongest permanent magnets ever built on Earth. Image credit: NASA/Pablo Garcia"
+    ],
+    "verdict": "use",
+    "genre": "space",
+    "why": "101어지만 마그네타와 예측된 진공 효과를 설명"
+  },
+  {
+    "book": "Neuronal detection triggers systemic digestive shutdown in response to adverse food sources in Caenorhabditis elegans",
+    "url": "https://elifesciences.org/articles/104028",
+    "source": "elife",
+    "v_level": 5,
+    "words": 362,
+    "rows": 1,
+    "excerpts": [
+      "Eating is essential for survival – but not all food is safe. Spoiled or toxic meals can cause illness, so animals must distinguish good food from harmful food. While the brain helps animals smell and taste, it is less clear how the nervous system communicates with the digestive system to prevent harm. The tiny worm Caenorhabditis elegans (C. elegans) is a powerful model organism in biology because it has a simple ner",
+      "th this approach, the team identified a pair of neurons in the worm’s head, called AWC neurons, as key “taste sentinels.” A protein located in these neurons, NSY-1, enabled the worms to recognize S. saprophyticus as a threat. This detection triggered a neural circuit (the AWCOFF state), sending a body-wide signal that shut down the digestive system. Without this protective mechanism governed by the nsy-1 gene, worms "
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "선충의 신경-소화 연결 기작을 설명"
+  },
+  {
+    "book": "Breast cancer is on the rise among young women",
+    "url": "https://www.futurity.org/breast-cancer-young-women-3172792/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 774,
+    "rows": 1,
+    "excerpts": [
+      "Diagnoses of breast cancer have increased steadily in young women under age 50 over the past two decades, with steeper increases in more recent years, according to a new study. The surge is driven largely by increases in the number of women diagnosed with estrogen-receptor positive tumors, cancerous growths fueled by estrogen. While overall trends show increases, however, some decreases have occurred in specific tumo",
+      " entirely to an increase in tumors that are estrogen-receptor positive, Toriola says. These tumors have proteins on their surfaces that bind to estrogen, which fuels tumor growth. In fact, the incidence of tumors without the estrogen receptor decreased over the 20 years of data analyzed in the study. “We need to understand what is driving the specific increase in estrogen-receptor positive tumors,” Toriola says. “We "
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "젊은 여성 유방암 증가를 종양 유형별로 분석"
+  },
+  {
+    "book": "Chicken feathers can pave way for cleaner energy",
+    "url": "https://www.futurity.org/chicken-feathers-fuel-cells-sustainability-2990242/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 543,
+    "rows": 1,
+    "excerpts": [
+      "Researchers have figured out how to use chicken feathers to create an environmentally friendly and cost-effective membrane for fuel cells. The food industry generates enormous amounts of waste and byproducts, including from poultry production. Each year, some 44 million tons of chicken feathers are incinerated. This not only releases large amounts of CO2, but also produces toxic gases such as sulphur dioxide. The new",
+      "his means the membrane manufactured in the laboratory is already up to three times cheaper than conventional membranes. “I’ve devoted a number of years to researching different ways we can use food waste for renewable energy systems,” says Raffaele Mezzenga, professor of food and soft materials at ETH Zurich. “Our latest development closes a cycle: we’re taking a substance that releases CO2 and toxic gases when burne"
+    ],
+    "verdict": "use",
+    "genre": "technology",
+    "why": "닭털 단백질로 연료전지막을 만드는 원리"
+  },
+  {
+    "book": "The Small Shelf We Carry",
+    "url": "",
+    "source": "original",
+    "v_level": 2,
+    "words": 175,
+    "rows": 1,
+    "excerpts": [
+      "For a long time people thought of memory as a store room with almost no limit. Under that view, forgetting was careless packing rather than a lack of space. The change came when researchers began testing how many items a person could hold in mind at once. They read out strings of numbers and asked listeners to repeat them; nearly everyone managed a short string, and nearly everyone failed once the string grew a littl",
+      "e longer. That sharp edge appeared again and again, whatever the material, whether letters or colours or words. The limit, it turned out, was not the amount of information but the number of separate pieces. Later work showed that the pieces themselves can be enlarged. A long line of digits becomes easy when it is grouped into dates or phone numbers, because each group counts as one piece instead of many. Since then, "
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "작업기억 용량 한계의 연구사를 설명"
+  },
+  {
+    "book": "George F. Durand",
+    "url": "https://en.wikipedia.org/wiki/George_F._Durand",
+    "source": "wikipedia",
+    "v_level": 5,
+    "words": 2027,
+    "rows": 1,
+    "excerpts": [
+      "George Ferguson Durand (July 9, 1850 – December 20, 1889) was a Canadian architect. Born in London, Canada West (now Ontario), to a Scottish immigrant, he showed an interest in the arts from a young age. He apprenticed under William Robinson before working with Thomas Fuller on the Parliament Buildings in Ottawa and the New York State Capitol in Albany, New York. Returning to London by 1878, he joined Robinson, Tracy",
+      "pprentices. Death Beginning in March 1889, Durand became sickly. Contemporary daybooks record frequent absences, and on June 27 The London Free Press reported that he had taken a leave of absence to focus on his health; his apprentice Fred Henry took charge of everyday business operations. Despite some positive signs in August, Durand's condition was reported to be hopeless in December 1889. He died on December 20, w"
+    ],
+    "verdict": "use",
+    "genre": "history",
+    "why": "캐나다 건축가의 생애를 산문으로 서술"
+  },
+  {
+    "book": "NASA's Chandra and IXPE Study Pulsar in Lighthouse Nebula - NASA",
+    "url": "https://www.nasa.gov/image-article/nasas-chandra-and-ixpe-study-pulsar-in-lighthouse-nebula/",
+    "source": "nasa",
+    "v_level": 6,
+    "words": 180,
+    "rows": 2,
+    "excerpts": [
+      "1 min read NASA’s Chandra and IXPE Study Pulsar in Lighthouse Nebula HQ Web Team Jul 17, 2026 Image Article This composite image, released on July 9, 2026, shows the region around a pulsar – a neutron star with a strong magnetic field that spins incredibly fast – within the Lighthouse nebula. The image contains X-ray data from NASA’s Chandra X-ray Observatory in purple, X-rays from NASA’s IXPE (Imaging X-ray Polarime",
+      "try Explorer) in blue, and radio emission captured by the Australia Compact Telescope Array in green. Scientists used IXPE – for the first time ever – to directly measure the magnetic fields of the pulsar. The results provide new insight into the structure of some of the most extreme objects in the cosmos, as NASA continues to explore the secrets of how the universe works. A paper describing the results published Jul"
+    ],
+    "verdict": "use",
+    "genre": "space",
+    "why": "펄서 자기장 최초 직접 측정을 설명"
+  },
+  {
+    "book": "Lin Daiyu (courtesan)",
+    "url": "https://en.wikipedia.org/wiki/Lin_Daiyu_(courtesan)",
+    "source": "wikipedia",
+    "v_level": 6,
+    "words": 1775,
+    "rows": 1,
+    "excerpts": [
+      "Lin Daiyu (Chinese: 林黛玉; pinyin: Lín Dàiyù, c. 1865 – 1925) was a Chinese courtesan active in Shanghai during the Qing dynasty and early Republic of China. Many things about her early life are unknown, including her birth name and place of birth; her professional name was taken from the character in Cao Xueqin's novel Dream of the Red Chamber. By the end of the century, Lin had risen to prominence in Shanghai's court",
+      "a manifestation of Molihong. Lin was considered the most charismatic of the four, and noted for her extensive network of wealthy connections. During this period, Lin was associated with numerous men. She was reported to have taken eight thousand yuan to become the concubine of a Nanxun-based man named Qiu. This relationship, according to Wang Liaoweng, dissolved after Lin conducted several affairs, leading Qiu to att"
+    ],
+    "verdict": "use",
+    "genre": "history",
+    "why": "청말 상하이 기녀의 생애를 산문 서술"
+  },
+  {
+    "book": "The Bag on the Late Platform",
+    "url": "",
+    "source": "original",
+    "v_level": 4,
+    "words": 339,
+    "rows": 1,
+    "excerpts": [
+      "Mira ran for the last bus and left her cloth bag on the station bench. Inside lay a half-finished scarf, rolls of thick wool, and a steel needle worth more than the rest. She had knitted at it since her mother's hands grew too stiff to hold one. Tobin, who swept the platform after the last bus, found the bag at ten. He looked for a name and found only a paper tag with half an address. He put it on the shelf behind hi",
+      "rk ended long after midnight. For three days she stopped at the station and looked at the same empty spot. Each time the loss sat heavier on her than the day before. On the fourth day she stopped coming at all. By the end of that week Tobin carried the bag home and set it on his kitchen table. Under a stronger lamp he read the torn tag again and made out a narrow lane. After his shift he walked that lane and knocked "
+    ],
+    "verdict": "narrative",
+    "genre": "fiction",
+    "why": "잃어버린 가방을 둘러싼 인물 이야기"
+  },
+  {
+    "book": "AI Tools Often Used for Fake Product Reviews",
+    "url": "https://learningenglish.voanews.com/a/ai-tools-often-used-for-fake-product-reviews/7911616.html",
+    "source": "voa",
+    "v_level": 4,
+    "words": 882,
+    "rows": 1,
+    "excerpts": [
+      "Artificial intelligence (AI) tools that permit people to produce online reviews have put sellers, service providers and buyers in unfamiliar territory, public protection groups and researchers say. False, or fake, reviews have long appeared on many popular websites such as Amazon and Yelp. The reviews are often traded on private social media groups between fake review dealers and businesses willing to pay. Sometimes,",
+      "padvisor, Expedia and Booking.com launched last year, said that even though people may put AI to illegal use, the technology also presents “an opportunity to push back against those who seek to use reviews to mislead others.” The FTC’s rule banning fake reviews, which took effect in October, permits the agency to fine businesses and individuals who take part in fake reviews. Tech companies hosting such reviews are pr"
+    ],
+    "verdict": "use",
+    "genre": "technology",
+    "why": "AI 가짜 리뷰 실태와 규제를 설명"
+  },
+  {
+    "book": "April Showers may Bring May Flowers, but Winter Snow is Water in the Bank",
+    "url": "https://www.usgs.gov/news/featured-story/april-showers-may-bring-may-flowers-winter-snow-water-bank",
+    "source": "usgs",
+    "v_level": 5,
+    "words": 1201,
+    "rows": 1,
+    "excerpts": [
+      "The type of precipitation falling from the sky matters, especially for delicate mountain ecosystems. It’s really all about snow – mountain ecosystems across the western United States are helped the most by precipitation in the form of snowfall. When snow falls on higher elevations it accumulates as snowpack and becomes a water “savings account” for lower elevation landscapes across the country for later in the year. ",
+      "ying snowpack sublimation, which is similar to evaporation from land or water bodies and which represent water loss from the snowpack that can be of particular concern during drought years. The Repercussions of Snowpack Declines In the Rocky Mountains, runoff from winter snowpack accounts for 60 to 80 percent of the annual water supply for more than 70 million people living in the western United States, and is influe"
+    ],
+    "verdict": "use",
+    "genre": "nature",
+    "why": "적설이 수자원 저장고가 되는 과정을 설명"
+  },
+  {
+    "book": "Who benefits most from AI data centers?",
+    "url": "https://www.futurity.org/ai-data-centers-economic-benefits-3341202/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 892,
+    "rows": 1,
+    "excerpts": [
+      "As data centers expand across the US, new research reveals that their economic benefits are real but uneven, shaped largely by local economic conditions and geography. Artificial intelligence is reshaping how businesses operate and driving a historic surge in data center construction across the United States. These sprawling facilities, which can span hundreds of acres, represent one of the largest waves of capital i",
+      "killed workforce. Those connections are far easier to build in places that already have deep labor markets and established business networks. Metropolitan areas are well-positioned to absorb the indirect spending that data centers generate. High-wage technical employees support restaurants, retail, and local services. Suppliers and contractors can scale up quickly. These spillover effects amplify the impact of the in"
+    ],
+    "verdict": "use",
+    "genre": "economics",
+    "why": "데이터센터 경제효과가 지역별로 갈린 이유"
+  },
+  {
+    "book": "The Second Turning",
+    "url": "",
+    "source": "original",
+    "v_level": 4,
+    "words": 340,
+    "rows": 1,
+    "excerpts": [
+      "Rina reached the far edge of the city with a heavy crate and no direction. Every street board had faded, and one narrow corner looked much like the next. Vesna was locking the door of her laundry when a stranger stopped beside her. She asked her for the road to the river gate in a flat, tired voice. Vesna did not simply point; she walked her to the second turning herself. Rina thanked her twice and went on with the c",
+      " forgotten the whole act by the time she got home. She had given directions to strangers all her life and never kept count. So she felt a small joy when the same stranger appeared at her door later. A month later the laundry lost its water, and the machines stood quiet. Vesna carried a bucket across the district for two days, and the effort left her sore. On the third morning Rina came with a hose and a neighbour who"
+    ],
+    "verdict": "narrative",
+    "genre": "fiction",
+    "why": "낯선 이의 친절이 되돌아오는 서사"
+  },
+  {
+    "book": "Legalization of non-medical cannabis in the United States (도입부)",
+    "url": "https://simple.wikipedia.org/wiki/Legalization_of_non-medical_cannabis_in_the_United_States",
+    "source": "simple_wikipedia",
+    "v_level": 5,
+    "words": 137,
+    "rows": 1,
+    "excerpts": [
+      "In certain places of the USA, it is not criminal to use cannabis for recreation. (That is different than using cannabis to treat medical conditions; That use can als be done, without breaking laws). In certain places of the USA, it is not criminal to use cannabis for recreation (versus using cannabis to treat medical conditions). People generally do not have to go to jail for this. However, there is a \"civil penalty\"",
+      " for this, because this is a dangerous drug. It does not matter whether you use it or not, because merely keeping large amounts of cannabis without a licence or government permission is law-breaking. This pattern of decriminalization of \"recreational cannabis\" started in the 1970s. Oregon was the first state to do so. == Related page == Cannabis and sex Illegal drugs Medical cannabis in ABC order. == References =="
+    ],
+    "verdict": "reject",
+    "genre": "fragmentary",
+    "why": "같은 문장 반복 + == 표제·참고문헌 잔재만"
+  },
+  {
+    "book": "How the Ground Moves",
+    "url": "",
+    "source": "original",
+    "v_level": 3,
+    "words": 214,
+    "rows": 1,
+    "excerpts": [
+      "An earthquake is usually pictured as the ground shaking up and down, and that picture explains very little about the damage. What travels out from the source is a set of waves of different kinds. They arrive at different times, and they do different things when they get there. The first to reach a building pushes and pulls it along the line of travel, and it causes the least harm. The second shakes the building from ",
+      "side to side, and buildings support weight far better than they support a push from the side. Slower surface waves arrive last, and they can roll the ground like a wave at sea. This order is why a distant earthquake gives a warning of several seconds before the worst shaking arrives. Warning systems do nothing more than detect the first wave and send a message faster than the second one travels. The same idea explain"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "지진파 종류와 도달 순서로 피해를 설명"
+  },
+  {
+    "book": "Archaeological sites in Grand Canyon National Park eroding following six decades of Glen Canyon Dam operations",
+    "url": "https://www.usgs.gov/news/science-snippet/archaeological-sites-grand-canyon-national-park-eroding-following-six-decades",
+    "source": "usgs",
+    "v_level": 6,
+    "words": 577,
+    "rows": 1,
+    "excerpts": [
+      "Along the Colorado River in Grand Canyon National Park, windblown river sand provides important wildlife habitat, sandy areas for camping, and a protective cover for archeological sites. The potential for archaeological sites to be buried, and thus protected, by wind-deposited river sand has decreased since construction of the upstream Glen Canyon Dam in 1963, and the proportion of sites eroding by gullying processes",
+      "conditions, and less water in the river will likely result in more frequent lower flows, allowing more wind transport of sand for maintaining sandy landscapes throughout the river corridor. A third alternative is to remove invasive riparian vegetation on river sandbars which otherwise blocks the wind from blowing sand on top of sites to keep them buried and protected. Native peoples have inhabited the Grand Canyon re"
+    ],
+    "verdict": "use",
+    "genre": "nature",
+    "why": "댐 운영이 유적 침식을 부른 경로를 설명"
+  },
+  {
+    "book": "the novel coronavirus we can stay safe (9쪽부터 발췌)",
+    "url": "https://storyweaver.org.in/stories/128586-the-novel-coronavirus-we-can-stay-safe",
+    "source": "storyweaver",
+    "v_level": 3,
+    "words": 67,
+    "rows": 1,
+    "excerpts": [
+      "Nani’s Staying Inside Her House Written and illustrated by Deepa Balsavar Now is not the time to roam. Nani says you are safe at home. The park can wait for another day, Just for now, indoors you stay. Nani tells her friends, “Do what’s right. Stay indoors, day and night. And if you can, do a good deed, There are so many others who are in need.”"
+    ],
+    "verdict": "reject",
+    "genre": "poetry-drama",
+    "why": "각운 반복 그림책 — 산문 지문이 아니다"
+  },
+  {
+    "book": "The brain prepares for a viral attack in advance",
+    "url": "https://www.futurity.org/brain-viruses-attack-3340522/",
+    "source": "futurity",
+    "v_level": 6,
+    "words": 1203,
+    "rows": 1,
+    "excerpts": [
+      "Researchers have found that the brain prepares for a potential viral attack in advance. Picture this: You’re enjoying a summer lunch outdoors, unaware that beneath the table, a hungry mosquito is circling your ankles—until you feel the telltale bite. If that mosquito happens to be carrying a pathogen like West Nile Virus (WNV), that bite could turn into more than a nuisance. There is a chance the virus could make its",
+      "s we once thought.” To try to fill in that knowledge gap, the researchers investigated whether the brain responds to a viral invasion that occurs far from it—and if it does so, when. First they examined WNV, which causes tens of thousands of cases of encephalitis every year. It moves from the skin to the lymph nodes and spleen, causing fever and other symptoms. Most human immune systems conquer the virus at that stag"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "뇌의 선제적 항바이러스 대비를 실험으로 설명"
+  },
+  {
+    "book": "Kids don't learn motor skills faster than adults",
+    "url": "https://www.futurity.org/kids-adults-learning-motor-skills-3256972/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 742,
+    "rows": 1,
+    "excerpts": [
+      "Contrary to popular belief, children aren’t better at learning new skills than adults, according to new research. It’s widely believed that children learn new motor skills faster than adults, whether it’s mastering slopes or skateparks, learning new languages, doing cartwheels, or picking up new dance moves from TikTok. “There’s an assumption in popular science literature and various textbooks that children in a cert",
+      "results demonstrate that the older the participants are, the more skillful they become during the early stages of training. This suggests that they get more out of the task introduction. We suspect that cognitive development and an increased ability to process information play a role—meaning adults may have more experience receiving instructions and translating them into action,” says Lundbye-Jensen, adding: “The dif"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "연령별 운동학습 통설을 자료로 반박"
+  },
+  {
+    "book": "What will city growth do to waste?",
+    "url": "https://www.futurity.org/growing-cities-waste-wastewater-emissions-3173392/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 547,
+    "rows": 1,
+    "excerpts": [
+      "New research considers how three types of waste production—municipal solid waste, wastewater, and greenhouse gas emissions—scale with city size. More than half of the world’s population—4.4 billion people—lives in cities, and that proportion will grow to two-thirds by the year 2050, according to the United Nations. As the world’s population expands, and becomes increasingly urbanized, many have raised concerns about ",
+      "up, and how big a recycling burden there is as a consequence,” says Kempes. Their findings, which appears in the journal Nature Cities, shows distinct differences in waste production as cities grow. Specifically, their analysis revealed that solid waste scales linearly; because it is tied to individual consumption, it increases at the same rate as population growth. By contrast, wastewater production scales superline"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "도시 규모와 폐기물 증가의 스케일링 분석"
+  },
+  {
+    "book": "Bunty and Bubbly",
+    "url": "https://storyweaver.org.in/stories/202-bunty-and-bubbly",
+    "source": "storyweaver",
+    "v_level": 2,
+    "words": 120,
+    "rows": 1,
+    "excerpts": [
+      "Bunty loves to play with butterflies... ...and with birds. She loves to play with paper boats. She also likes to make sand castles. When Bunty goes back home, her mother asks her to clean up. But she refuses. \"I hate soaps!\" she screams. One night, she has a dream. The germs are all around her castle, and are attacking her. Bunty is chased by the germs. She runs for her life and screams, “Help… Help!” Suddenly, Soap ",
+      "King Bubbly appears. “Bunty, don’t be afraid,” he says. “Go attack the germs!” the Soap King orders his army of bubbles. The army of bubbles chases the germs away. These days, Bunty likes to use soap, and she brushes and scrubs herself clean."
+    ],
+    "verdict": "narrative",
+    "genre": "fiction",
+    "why": "비누를 싫어하던 아이의 꿈 이야기"
+  },
+  {
+    "book": "Why tiny 'water balloons' cover quinoa plants",
+    "url": "https://www.futurity.org/quinoa-bladder-cells-3002652-2/",
+    "source": "futurity",
+    "v_level": 6,
+    "words": 1025,
+    "rows": 1,
+    "excerpts": [
+      "Quinoa and other extremely resilient plants are covered with strange balloon-like bladders that were long believed to protect them from drought and salt. New findings say otherwise. These so-called bladder cells serve a completely different though important function. The finding makes the breeding of more resistant quinoa plants more, which could lead to wider cultivation of the sustainable crop worldwide. “Quinoa ha",
+      "ites trudge around on a plant covered with bladder cells, they are simply unable to get to the juicy green shoots that they’re most interested in. And as soon as they try to gnaw their way through the bladder cells, they find that the contents are toxic to them,” says Palmgren. Among other things, the epidermal bladder cells of quinoa contain oxalic acid, a compound also found in rhubarb, which acts as a deadly poiso"
+    ],
+    "verdict": "use",
+    "genre": "nature",
+    "why": "퀴노아 소포 세포의 실제 기능을 규명"
+  },
+  {
+    "book": "Genome unveils coffee's prehistoric origins",
+    "url": "https://www.futurity.org/arabica-coffee-genome-3208092/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 1204,
+    "rows": 1,
+    "excerpts": [
+      "The key to growing coffee plants that can better resist climate change in the decades to come may lie in the ancient past, researchers report. Researchers have created what they say is the highest-quality reference genome to date of the world’s most popular coffee species, Arabica, unearthing secrets about its lineage that span millennia and continents. Their findings in Nature Genetics suggest that Coffea arabica de",
+      "loped in Ethiopia, but varieties that the team collected around the Great Rift Valley, which stretches from Southeast Africa to Asia, displayed a clear geographic split. The wild varieties studied all originated from the western side, while the cultivated varieties all originated from the eastern side closest to the Bab al-Mandab strait that separates Africa and Yemen. That would align with evidence that coffee culti"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "아라비카 게놈으로 기원과 이동을 추적"
+  },
+  {
+    "book": "Rules That Hold a Crowd Together",
+    "url": "",
+    "source": "original",
+    "v_level": 2,
+    "words": 162,
+    "rows": 1,
+    "excerpts": [
+      "Living in a group solves one problem and creates another. Many eyes spot a hunter early, yet many mouths want the same food and many bodies push for the same warm spot. Animals that stay together must therefore settle who goes first, and they settle it without fighting whenever they can. One common answer is a fixed order. Among some birds, each member knows which neighbour it may push aside and which one it must giv",
+      "e way to, so a meal ends in seconds instead of blows. Another answer is spacing. Fish in a school keep an even distance from the bodies beside them, turning when their neighbours turn, and the whole group moves like one shape. Neither rule is written down or taught directly. Both are learned by watching, and both save the energy that open fighting would waste. That saving is the real reason such orders last, because "
+    ],
+    "verdict": "use",
+    "genre": "nature",
+    "why": "무리 생활의 서열·간격 규칙을 설명"
+  },
+  {
+    "book": "T cell insight may boost cancer immunotherapies",
+    "url": "https://www.futurity.org/t-cell-receptors-cancer-immunotherapies-3317442/",
+    "source": "futurity",
+    "v_level": 6,
+    "words": 1017,
+    "rows": 1,
+    "excerpts": [
+      "A new insight into T cell receptors may improve cancer immunotherapies. One of the most exciting advances in cancer treatments in the past decade is the development of T cell immunotherapies, in which a patient’s own immune system is trained to recognize and attack dangerous cells. Yet a full understanding of how they actually work has eluded researchers. That’s been a significant limitation, because while T cell imm",
+      "ens are being presented by HLAs, to the inside of the cell, where signaling turns on the T cell,” he says. Notti, who received his PhD in structural microbiology at Rockefeller before shifting his focus to oncology, proposed to Walz that they investigate it. Walz’s group specializes in designing custom membrane environments that aim to mimic the native environment of specific membrane proteins. “We can change the bio"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "T세포 수용체 구조로 면역치료 개선을 설명"
+  },
+  {
+    "book": "Origami robots could make drug delivery better",
+    "url": "https://www.futurity.org/origami-robots-drug-delivery-3301442/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 620,
+    "rows": 1,
+    "excerpts": [
+      "A new 3D printing technique can create paper-thin “magnetic muscles,” which can be applied to origami structures to make them move. By infusing rubber-like elastomers with materials called ferromagnetic particles, researchers at North Carolina State University 3D printed a thin magnetic film which can be applied to origami structures. When exposed to magnetism, the films acted as actuators which caused the system to ",
+      "xternal magnetism, researchers successfully maneuvered it to an ulcer site, deployed it into its unfolded state, and secured it in place by externally attached soft magnetic films. This setup enabled controlled and steady drug release over time, for a safe and non-invasive procedure which allows patients to carry out daily activities as normal. Previous attempts to use ferromagnetic particles have struggled to genera"
+    ],
+    "verdict": "use",
+    "genre": "technology",
+    "why": "자기 구동 오리가미 로봇의 약물전달 원리"
+  },
+  {
+    "book": "Vegetarian diet benefits aren't the same for everyone",
+    "url": "https://www.futurity.org/vegetarian-diet-benefits-genetics-3238212/",
+    "source": "futurity",
+    "v_level": 6,
+    "words": 521,
+    "rows": 1,
+    "excerpts": [
+      "When it comes to determining if a vegetarian diet is right for you, genetics are an important part of the equation, according to a new study. For many, vegetarianism leads to health benefits like lowered cholesterol and decreased risk of heart disease and Type 2 diabetes. But for some, this specialized diet may come with a cost, the researchers say. The study looked at how differences in genes influence how a person ",
+      "or bone health and immune function, and a deficiency can lead to negative health effects. Higher levels of triglycerides, which are a type of fat in the blood, can also increase risk of cardiovascular disease. By including a genetic component to their analysis, the study found that when specific gene variants, also known as minor alleles, were present, participants saw different health outcomes. This included a varia"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "유전자 변이별 채식 효과 차이를 분석"
+  },
+  {
+    "book": "Gappu Can't Dance",
+    "url": "https://storyweaver.org.in/stories/48016-gappu-can-t-dance",
+    "source": "storyweaver",
+    "v_level": 3,
+    "words": 145,
+    "rows": 1,
+    "excerpts": [
+      "Komal Ma’am is showing 1A Dance steps for Wednesday’s class play. Thaka dhimi thai! “Lift your left hand high.” Uh-oh! Gappu lifts her right hand. Gappu can’t dance! Bippity bop bop boom! “Run fast around the room.” Uh-oh! Gappu is too slow . Gappu can’t dance! Thaka-dina-din tak! “Everybody jump up. ” Uh-oh! Gappu sits down . Gappu can’t dance! Dooby doop diddly din din! “Put your right leg in .” Uh-oh! Gappu puts h",
+      "er right leg out . Gappu can’t dance! Everyone giggles and points, As Gappu gets it wrong. But Komal Ma’am knows what to do. She tells the class, “Follow Gappu!” Thaka dhimi thai! Some hands low, some hands high. Bippity bop bop boom! Fast and slow around the room. Thaka-dina-din tak! It doesn’t matter if you’re down or up. Dooby doop diddly din din! Just make sure you join in. Gappu CAN dance. And so can you!"
+    ],
+    "verdict": "reject",
+    "genre": "poetry-drama",
+    "why": "의성어 후렴이 반복되는 운문 그림책"
+  },
+  {
+    "book": "The Tail That Does Three Jobs",
+    "url": "",
+    "source": "original",
+    "v_level": 4,
+    "words": 184,
+    "rows": 1,
+    "excerpts": [
+      "A body part often has to do more than one job. An animal is not born with a separate tool for every need. Consider the bushy tail of a tree squirrel. When it races out along a thin bough, the tail works as a rudder and a counterbalance. Tendons at the base flick it wide, and the body stops falling. When the air freezes after midnight, the pelt is pulled over the back. The tuft insulates the drey better than fur alone",
+      ". And when a predator comes to the foot of the tree, the squirrel flicks the tail. The quiver is sudden enough to send every other squirrel up the bough. The predator abandons the path below. Three jobs, one part. Not one is done perfectly. A tail shaped only as a rudder would be thin and bare. One shaped only for insulation would be too heavy to flick. Each job is done with a small flaw, and the vertebrae carry all "
+    ],
+    "verdict": "use",
+    "genre": "nature",
+    "why": "다람쥐 꼬리 세 기능으로 절충을 설명"
+  },
+  {
+    "book": "NASA’s SkyFall Helicopters at Work (Artist’s Concept) - NASA Science",
+    "url": "https://science.nasa.gov/photojournal/nasas-skyfall-helicopters-at-work-artists-concept/",
+    "source": "nasa",
+    "v_level": 4,
+    "words": 252,
+    "rows": 1,
+    "excerpts": [
+      "Photojournal Navigation 2 Min Read NASA’s SkyFall Helicopters at Work (Artist’s Concept) Credits: NASA/JPL-Caltech Image Addition Date:08/06/2026 Downloads NASA’s SkyFall Helicopters at Work (Artist’s Concept) JPEG (3.25 MB) Description This artist’s concept depicts NASA’s three SkyFall Mars helicopters collecting data while flying over the surface of the Red Planet. The green frequency waves emanating from the helic",
+      "Ingenuity Mars Helicopter, a technology demonstrator that flew 72 times over nearly three years, proving that powered, controlled flight is possible in the rarefied Martian atmosphere. It also demonstrated how an aerial perspective can generate valuabledata by helping NASA’s Perseverance Mars rover team plan time-saving routes and choose locations for science-gathering. SkyFall is expected to launch aboard NASA’s Spa"
+    ],
+    "verdict": "use",
+    "genre": "space",
+    "why": "머리말은 메타데이터지만 본문이 설명을 전개"
+  },
+  {
+    "book": "Kidney disease hampers immune response to the flu",
+    "url": "https://www.futurity.org/kidney-disease-infection-fighting-cells-3264092/",
+    "source": "futurity",
+    "v_level": 6,
+    "words": 608,
+    "rows": 1,
+    "excerpts": [
+      "A new study shows that advanced kidney disease compromises the survival of B cells and significantly reduces the immune response to the influenza virus. B cells are a type of infection-fighting white blood cell that produces antibodies to kill microbes. Fighting off infections when one has chronic disease is a common problem, and during the COVID-19 pandemic that scenario often turned out to be dangerous and deadly. ",
+      "correlative in nature. Since kidney transplant patients are immune compromised, it is difficult to assess the impact of kidney disease on B cell response per se,” explains Biswas. The researchers used a multiple well-characterized murine model of kidney disease that progresses to renal dysfunction in the subjects. Healthy mice and those with kidney disease were immunized with model immunogens or infected with the inf"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "신장병이 B세포 면역을 떨어뜨림을 실험"
+  },
+  {
+    "book": "Changes to the Coastline Can Affect Where, and How Severely, Flooding Occurs",
+    "url": "https://www.usgs.gov/news/featured-story/changes-coastline-can-affect-where-and-how-severely-flooding-occurs",
+    "source": "usgs",
+    "v_level": 5,
+    "words": 504,
+    "rows": 1,
+    "excerpts": [
+      "Sand dunes may not have a reputation for their sturdiness, but they are critical buffers protecting shorelines from hurricanes and tropical storms. When stormwaters erode, inundate, or wash away sand dunes during coastal storms the coastal communities, habitats and infrastructure behind the dunes become more exposed to possible flooding. As a storm approaches land, USGS scientists forecast how it may reshape the coas",
+      "to make landfall. Coastal change forecasts are available at the USGS Coastal Change Hazards Portal. A newer model developed by USGS scientists in collaboration with NOAA is called the Total Water Level and Coastal Change Forecast. This model estimates the location and timing of potential coastal impacts as well as the height of stormwater levels at the shoreline, and where protective coastal sand dunes are likely to "
+    ],
+    "verdict": "use",
+    "genre": "nature",
+    "why": "모래언덕 변화가 침수 범위를 바꾸는 기작"
+  },
+  {
+    "book": "Sex and gender in biology textbooks don't mesh with science",
+    "url": "https://www.futurity.org/high-school-biology-textbooks-sex-gender-3184072/",
+    "source": "futurity",
+    "v_level": 6,
+    "words": 686,
+    "rows": 1,
+    "excerpts": [
+      "A study of how biology textbooks in the US instruct students about sex and gender finds that these concepts are frequently described in ways that are at odds with scientific research. The teaching of science has long generated controversy in the United States—from evolution in the early 20th century to climate change today. Debates have also often emerged around how textbooks teach concepts related to social groups, ",
+      "n an estimated two-thirds of high school introductory biology classes across the US—found that none of the textbooks differentiated between the concepts of sex and gender, despite the clear distinction made between them in the scientific literature. In addition, consistent with the idea that textbooks communicate essentialist views to students, more paragraphs described people of the same sex or gender as uniform rat"
+    ],
+    "verdict": "use",
+    "genre": "education",
+    "why": "교과서의 성·젠더 서술을 자료로 분석"
+  },
+  {
+    "book": "New device draws blood samples like a leech",
+    "url": "https://www.futurity.org/microneedles-suction-leeches-blood-3214682/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 599,
+    "rows": 1,
+    "excerpts": [
+      "Researchers have created a new device for taking blood samples that works like a leech. The new device is less invasive than taking blood from the arm with a needle. It is also easy to handle and can be used by people without medical training. Many people are afraid of needles, and having a doctor take a blood sample from their arm makes them uncomfortable. There is an alternative: a prick to the fingertip or earlobe",
+      "wo and a half centimeters is attached to the patient’s upper arm or back. Within the cup are a dozen microneedles that puncture the skin when pressed against it. Within a few minutes, the negative pressure in the suction cup has ensured that sufficient blood has been collected to be used for diagnostic tests. Looking ahead: Biodegradable version The new device is very cost-effective to produce, says Nicole Zoratto, a"
+    ],
+    "verdict": "use",
+    "genre": "technology",
+    "why": "거머리를 모방한 채혈기의 작동 원리"
+  },
+  {
+    "book": "When Mixing Takes the Light Away",
+    "url": "",
+    "source": "original",
+    "v_level": 2,
+    "words": 196,
+    "rows": 1,
+    "excerpts": [
+      "Anyone who mixes paints long enough arrives at the same dull grey brown, whatever colors were used. Adding a bright color to that pool does not save it; the color only becomes a little weaker. The reason is that paint works by taking light away rather than by giving it. A yellow paint returns the middle of the light that falls on it and swallows the rest. A blue paint returns a different part and swallows what the ye",
+      "llow returned. Put together, the two can only send back what both agree to send back, which is always less. Every extra color makes that shared part narrower, so the mixing runs in one direction only. Once brightness has been taken out of a pool of paint, no amount of stirring brings it back. This is why painters plan their work from light toward dark and keep a clean brush between colors. It is also why some painter"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "감산 혼합으로 물감이 탁해지는 이유를 설명"
+  },
+  {
+    "book": "APOD: 2026 August 6 - New Sharpest Image of the Sun Uncovers Instability - NASA Science",
+    "url": "https://science.nasa.gov/image-article/apod-2026-august-6-new-sharpest-image-of-the-sun-uncovers-instability/",
+    "source": "nasa",
+    "v_level": 5,
+    "words": 255,
+    "rows": 1,
+    "excerpts": [
+      "APOD APOD Astronomy Picture of the Day Discover the cosmos! Each day a different image or photograph of our fascinating universe is featured, along with a brief explanation written by a professional astronomer. New Sharpest Image of the Sun Uncovers Instability Explanation: What does the new sharpest image of our Sun show? Instability. To be clear, a certain kind of interactive process called the Kelvin-Helmholtz ins",
+      " KHI streaks and swirls were confirmed in just-released dramatic high-resolution images taken recently by the Inouye Solar Telescope in Hawaii, USA. The featured false-yellow image, actually taken in deep blue, is the highest resolution image yet of the Sun in visible light. It spans about the radius of the Earth, but its finest details are city sized. Visible are several smooth tops of changing solar granules, while"
+    ],
+    "verdict": "use",
+    "genre": "space",
+    "why": "켈빈-헬름홀츠 불안정을 태양 영상으로 설명"
+  },
+  {
+    "book": "Tiny implant fights cancer with light",
+    "url": "https://www.futurity.org/implant-fights-cancer-with-light-3237982/",
+    "source": "futurity",
+    "v_level": 6,
+    "words": 416,
+    "rows": 1,
+    "excerpts": [
+      "A new implantable LED device uses light to treat deep-seated cancers. Certain types of light have proven to be an effective, minimally-invasive treatment for cancers located on or near the skin when combined with a light-activated drug. But deep-seated cancers, surrounded by tissue, blood, and bone, have been beyond the reach of light’s therapeutic effects. To bring light’s benefits to these harder to access cancers,",
+      "cer cells, a dye with light-absorbing molecules must be administered to the cells. The device turns on, the dye transfers the light into energy, and that energy makes the cells’ own oxygen toxic—effectively, turning the cancer cells against themselves. While other treatments also weaponize the cells’ own oxygen, this device causes a particularly serendipitous form of cell death. “Working together, biochemistry gradua"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "체내 LED 광역동 치료의 원리를 설명"
+  },
+  {
+    "book": "Schools Want More Therapy for Students, Not All Parents Agree",
+    "url": "https://learningenglish.voanews.com/a/schools-want-more-therapy-for-students-not-all-parents-agree/7503166.html",
+    "source": "voa",
+    "v_level": 4,
+    "words": 959,
+    "rows": 1,
+    "excerpts": [
+      "Derry Oliver was in fifth grade when she first talked to her mother about seeing a therapist. They were moving to New York City. Derry had to live with family members in another state while her mother, also named Derry Oliver, found a job and apartment. (In this story, we will call the daughter by her first name, Derry, and her mother by her family name, Oliver.) It was a difficult year. A school worker suggested the",
+      ". She said that she has seen many cases where mental health issues turn severe partly because young people did not get earlier access to therapy. For Derry and her mother, years of talking have led to some progress. Several years ago, her mother agreed to a compromise. They found a Black female therapist, which was important to both of them as a Black family. Oliver agreed that her daughter could start therapy — as l"
+    ],
+    "verdict": "use",
+    "genre": "education",
+    "why": "학교 상담 확대 논쟁을 사례로 서술"
+  },
+  {
+    "book": "Store-bought tulips could be deadly",
+    "url": "https://www.futurity.org/multidrug-resistant-aspergillus-fumigatus-soil-flower-bulbs-3234262/",
+    "source": "futurity",
+    "v_level": 6,
+    "words": 552,
+    "rows": 1,
+    "excerpts": [
+      "Researchers have found high levels of multidrug-resistant fungi in commercially available compost, soil, and flower bulbs, researchers report. Aspergillus fumigatus is a widespread fungus that thrives in soil. But it also poses a serious risk to human health if inhaled. People with compromised immune systems are particularly vulnerable to the opportunistic fungus, facing a near 100% fatality rate if infected with a m",
+      "f the most frequent causes of death in immunocompromised patients. About eight out of every 10 invasive aspergillosis patients die, according to a recent study. Although less common, the fungus can even pose a threat to individuals with healthy immune systems. Known as aspergillomas, the fungus can create a clump on the lung. While some healthy individuals may clear the infection on their own with minimal to no sympt"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "화훼 배양토의 내성 진균 위험을 설명"
+  },
+  {
+    "book": "Is news overload giving you 'vicarious trauma'?",
+    "url": "https://www.futurity.org/news-social-media-vicarious-trauma-3301142/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 1069,
+    "rows": 1,
+    "excerpts": [
+      "Researchers say they’re worried that consuming a deluge of harrowing news could leave many people with “vicarious trauma.” In a year of violence and suffering, here and around the world, harrowing reports and images have flooded news channels and social media feeds, affecting even those who haven’t personally witnessed the horrors. That has two Boston University researchers bracing for a surge in “vicarious trauma”: ",
+      "y to be traumatic when we don’t have relational, embodied spaces where we can talk about it and try to make meaning of this in relationship with others. Sandage: A trauma response is a survival mechanism to turn on hypervigilance and alertness. For any of us that feel under threat and with serious trauma effects, it’s gotten stuck in place as a hypervigilant alarm response. We can expect that it’s going to be harder "
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "간접 트라우마를 전문가 문답으로 논의"
+  },
+  {
+    "book": "Going Low and Slow in Testing - NASA",
+    "url": "https://www.nasa.gov/image-detail/x-59-lbfd-flight-10-2/",
+    "source": "nasa",
+    "v_level": 4,
+    "words": 90,
+    "rows": 1,
+    "excerpts": [
+      "Going Low and Slow in Testing NASA’s X-59 quiet supersonic research aircraft flies above NASA’s Armstrong Flight Research Center in Edwards, California, during testing focused on lower-speed and altitude flight conditions in support of NASA’s Quesst mission. NASA continues to include two-flight days in its envelope expansion as teams work to better understand how the aircraft responds throughout its operating range. ",
+      "Image Credit: NASA/Jim Ross Read More Facebook Pinterest X LinkedIn Email https://www.nasa.gov/image-detail/x-59-lbfd-flight-10-2/Copy URL to clipboard> DownloadShare TakenApril 28, 2026 Image CreditNASA/Jim Ross Size2998x1999px"
+    ],
+    "verdict": "reject",
+    "genre": "fragmentary",
+    "why": "캡션에 공유 버튼·이미지 크기 잔재뿐"
+  },
+  {
+    "book": "Climate change will increse value of rooftop solar panels",
+    "url": "https://www.futurity.org/climate-change-rooftop-solar-panels-renewable-energy-3209342/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 910,
+    "rows": 1,
+    "excerpts": [
+      "Climate change will increase the future value of residential rooftop solar panels across the United States by up to 19% by the end of the century, according to new research. The study defines the value of solar, or VOS, as household-level financial benefits from electricity bill savings plus revenues from selling excess electricity to the grid—minus the initial installation costs. For many US households, increased ea",
+      "g owners of rooftop solar systems, according to the study. That’s because—in many states—solar energy used to power a home reduces the homeowner’s electric bill by the full retail cost of electricity, while electricity that is sent to the grid is credited at a lower rate. “Greater cooling demand means more solar power is consumed at the household rather than sent back to the grid,” Craig says. “And it’s generally mor"
+    ],
+    "verdict": "use",
+    "genre": "climate",
+    "why": "냉방 수요 증가가 태양광 가치를 올리는 셈"
+  },
+  {
+    "book": "People in Asia get less sleep and it's lower quality",
+    "url": "https://www.futurity.org/sleep-asia-2979162-2/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 558,
+    "rows": 1,
+    "excerpts": [
+      "People in Asia go to sleep later and have shorter sleep as well as lower sleep quality than those in other parts of the world, a study finds. Additionally, the study finds that their sleep during the work week is more variable and they do not extend their sleep as much at the weekend. This finding surfaced after professor Michael Chee, Adrian Willoughby, and their team of researchers from the Centre for Sleep and Cog",
+      "extension. While there was a clear association between shorter weekday sleep and longer weekend sleep extension, suggesting that people caught up on sleep at the weekend, even after accounting for this, people in Asia had the shortest weekend sleep extension. While there are many socio-cultural factors that affect sleep patterns, the team hypothesizes that because it plays such a fundamental role in our lives, work ("
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "아시아권 수면 시간·질 차이를 분석"
+  },
+  {
+    "book": "The Battle for Sullivan's Island - NASA Science",
+    "url": "https://science.nasa.gov/earth/earth-observatory/the-battle-for-sullivans-island/",
+    "source": "nasa",
+    "v_level": 6,
+    "words": 1080,
+    "rows": 1,
+    "excerpts": [
+      "Earth Observatory 5 min read The Battle for Sullivan’s Island Image of the Day for June 26, 2026 Marshy, sandy terrain and an impassable inlet helped colonial forces repel British forces during a pivotal battle on the barrier island near Charleston, South Carolina, on June 28, 1776. NASA Earth Observatory Jun 26, 2026 Article View more Images of the Day: Jun 25, 2026 Jun 29, 2026 Instruments:Landsat 8 — OLI Collectio",
+      "sier for colonial defenders to repel them during fierce skirmishing throughout the day. On the other side of the island, British warships had dropped anchor near Fort Sullivan and begun launching thousands of cannonballs and exploding shells at the fort. However, the natural durability and pliability of the palmetto wood absorbed incoming fire like a sponge. Most incoming shells that fell within the fort’s walls were"
+    ],
+    "verdict": "use",
+    "genre": "history",
+    "why": "지형이 전투 결과를 가른 과정을 서술"
+  },
+  {
+    "book": "Artificial nose can smell if food has gone bad",
+    "url": "https://www.futurity.org/artificial-nose-spoiled-food-3256822-2/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 751,
+    "rows": 1,
+    "excerpts": [
+      "A new artificial “nose” can sniff out damaged fruit and spoiled meat. Although smell has historically played an important role in the fight against diseases such as the plague and tuberculosis, the human nose is generally not sensitive enough to be used as a reliable diagnostic tool. However, the new artificial “nose” inspired by our sense of smell could now make it possible to detect undiagnosed disease, hazardous g",
+      "not only on par with the performance of the best electronic noses to date, but in some areas, it even surpasses them. The antenna transmits radio signals at a range of different frequencies into the surroundings. It then analyzes how they are reflected back. The way the signals behave changes based on the gases present, and because the antenna transmits signals at multiple frequencies, the changes create unique patte"
+    ],
+    "verdict": "use",
+    "genre": "technology",
+    "why": "전파 반사로 냄새를 읽는 인공 코 원리"
+  },
+  {
+    "book": "Team turns DNA into a rewritable hard drive",
+    "url": "https://www.futurity.org/rewritable-dna-hard-drive-3324952-2/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 553,
+    "rows": 1,
+    "excerpts": [
+      "Researchers are developing a rewritable DNA hard drive. Around the world, scientists are exploring an unexpected solution to the growing data crisis: storing digital information in synthetic DNA. The idea is simple but powerful—DNA is one of the most compact, durable information systems on Earth. But one issue has held the field back. Once data is written into DNA, it can’t be changed. Now, researchers at the Univers",
+      "nd storing data this way requires far less energy than running massive data centers. Until now, however, DNA storage has been permanent. Once the data is encoded, it can’t be updated or reused—a major limitation for anything beyond long-term archiving. That’s where Gu’s team comes in. They’ve developed a method that allows data stored in DNA to be erased and overwritten repeatedly. This rewritability is essential for"
+    ],
+    "verdict": "use",
+    "genre": "technology",
+    "why": "다시 쓸 수 있는 DNA 저장 기술을 설명"
+  },
+  {
+    "book": "USGS Installs Storm-tide Sensors along Texas Coast prior to Harvey’s Arrival",
+    "url": "https://www.usgs.gov/news/featured-story/usgs-installs-storm-tide-sensors-along-texas-coast-prior-harveys-arrival",
+    "source": "usgs",
+    "v_level": 5,
+    "words": 532,
+    "rows": 1,
+    "excerpts": [
+      "Storm-tide sensors are being installed at key locations along the Texas Gulf Coast by the U.S. Geological Survey in advance of Hurricane Harvey. Storm surge, coastal erosion and inland flooding are among the most dangerous natural hazards unleashed by hurricanes, with the capacity to destroy homes and businesses, wipe out roads, bridges, water and sewer systems, and profoundly alter landscapes. The USGS has experts o",
+      "e Galveston Bay area along critical roadways to provide real-time information to forecast floods and coordinate flood-response activities in the affected areas. The sensors augment a network of existing USGS streamgaging stations already in place before the storm arrives. The public can access current conditions and critical flood information throughout Texas by using the USGS “Water On-the-Go” mobile app. The mobile"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "허리케인 대비 조위 센서 설치를 설명"
+  },
+  {
+    "book": "The USGS ShakeCast System",
+    "url": "https://www.usgs.gov/news/featured-story/usgs-shakecast-system",
+    "source": "usgs",
+    "v_level": 4,
+    "words": 620,
+    "rows": 1,
+    "excerpts": [
+      "Early on the morning of August 24, 2014, Loren Turner was awoken by clattering window blinds, a moving bed, and the sound of water splashing out of his backyard pool. He experienced what is now named the “South Napa Earthquake.” Turner lives in Davis, California, about 45 miles northeast of Napa, the epicenter of the magnitude 6.0 earthquake. As a native Californian and Senior Transportation Engineer for the Californ",
+      "actors, water systems, defense, and energy. ShakeCast is also used by many international agencies, including the International Atomic Energy Agency. Early next year, Caltrans is leading a project with the Federal Highway Administration and several other State departments of transportation to expand ShakeCast capabilities nationally. This project includes the States of Washington, Utah, Oregon, Idaho, and Oklahoma. Fo"
+    ],
+    "verdict": "use",
+    "genre": "technology",
+    "why": "지진 피해 자동 통보 체계의 작동을 설명"
+  },
+  {
+    "book": "At the USGS, Amphibians are Out of Sight but Top of Mind",
+    "url": "https://www.usgs.gov/news/featured-story/usgs-amphibians-are-out-sight-top-mind",
+    "source": "usgs",
+    "v_level": 5,
+    "words": 1256,
+    "rows": 1,
+    "excerpts": [
+      "It’s a warm, humid evening in a swampy wetland somewhere in the extreme southeastern United States. A soft breeze causes the grasses and willows to sigh and the high-pitched whining of insects begins. Nearby, a guttural croak adds to the ethereal springtime symphony. Soon, more guttural croaks join in. The croaks build in a slow crescendo as the night progresses until there are too many to count. The source of the cr",
+      "phibian population declines so far. In short, there are many factors contributing to the declines with habitat loss, introduced species, and disease at the top of the list. But there’s also an elephant-sized giant salamander in the room—climate change. Amphibians are especially vulnerable to the effects of climate change, which can have direct effects on things like water availability and indirect effects by making p"
+    ],
+    "verdict": "use",
+    "genre": "nature",
+    "why": "양서류 감소 원인과 조사 방법을 설명"
+  },
+  {
+    "book": "How social media and news drive gun sales",
+    "url": "https://www.futurity.org/gun-sales-news-social-media-3286772-2/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 482,
+    "rows": 1,
+    "excerpts": [
+      "As gun sales in the United States continue to soar, researchers have uncovered insights into what drives Americans to buy firearms. A new study in Proceedings of the National Academy of Sciences (PNAS) Nexus journal reveals the complex interaction among media coverage, social media activity, and firearm purchases. Led by Igor Belykh, a professor of applied mathematics at Georgia State University, the research team—in",
+      "isitions. Personal safety concerns drive many gun buyers more than reactions to mass shootings or potential legislative changes. The team used PCMCI+, a novel statistical technique, to capture real-time interactions among media, social media (specifically X, formerly known as Twitter) and FBI background checks. This method provided insights into how daily media coverage and social media posts shape decisions to purch"
+    ],
+    "verdict": "use",
+    "genre": "social",
+    "why": "언론·SNS 와 총기 구매의 인과를 분석"
+  },
+  {
+    "book": "Smiling AirBnB hosts get more bookings",
+    "url": "https://www.futurity.org/airbnb-hosts-smile-more-bookings-3244622/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 501,
+    "rows": 1,
+    "excerpts": [
+      "Airbnb hosts who smile in their profile photos can get more bookings, a new study shows. Hosts with a smile see an average increase in bookings of 3.5%. Smiling hosts, especially those with higher uncertainty in their listings, e.g., hosts with less experience or those with properties in high-crime areas, see a significant boost in demand. A smile may reduce perceived uncertainty and improve perceptions of warmth and",
+      "otos. This large-scale analysis, which would be difficult and time-consuming for humans to perform manually, allowed the researchers to uncover patterns and draw conclusions about how smiles affect consumer behavior. “Our approach combined machine learning with behavioral science, providing precise and scalable insights into how nonverbal cues influence decisions in online marketplaces,” says Shunyuan Zhang, assistan"
+    ],
+    "verdict": "use",
+    "genre": "economics",
+    "why": "호스트 미소가 예약에 미친 효과를 분석"
+  },
+  {
+    "book": "NASA Seeks Volunteers for New Yearlong Simulated Moon, Mars Mission - NASA",
+    "url": "https://www.nasa.gov/humans-in-space/nasa-seeks-volunteers-for-new-yearlong-simulated-moon-mars-mission/",
+    "source": "nasa",
+    "v_level": 5,
+    "words": 469,
+    "rows": 1,
+    "excerpts": [
+      "3 min read NASA Seeks Volunteers for New Yearlong Simulated Moon, Mars Mission Lauren E. Low Jul 01, 2026 Article NASA is recruiting research participants for the agency’s next simulated deep space mission. Beginning no earlier than August 2027, research volunteers will spend one year living and working in interplanetary environments at the agency’s Johnson Space Center in Houston, operating under isolated conditions",
+      "ssion to Mars. The Moon and Mars Exploration Analog evolves elements of the agency’s HERA (Human Exploration Research Analog) and CHAPEA (Crew Health And Performance Exploration Analog) missions into a single, integrated mission to streamline how researchers evaluate astronaut adaptation across the full range of potential mission scenarios. Using the HERA habitat as a spacecraft and the CHAPEA habitat as a base, the "
+    ],
+    "verdict": "reject",
+    "genre": "reference",
+    "why": "연구 참가자 모집 공고 — 읽는 글이 아니다"
+  },
+  {
+    "book": "The Bench in the Long Corridor",
+    "url": "",
+    "source": "original",
+    "v_level": 5,
+    "words": 338,
+    "rows": 1,
+    "excerpts": [
+      "The corridor outside the clinic had one bench, and Ines had sat on it since noon. Her mother had gone through the glass door without turning, and it stayed shut. A clock above the tile floor moved in jumps that Ines could hear. Marek, an old man with a paper cup, sat at the far end, hat beside him. He did not speak to her, and she felt a small relief at that. Neither guessed how far into the evening the wait would st",
+      "refuse him, but her courage came out as an awkward thank you. When she came back, steam was still rising from his cup, untouched. He asked her nothing about the door, and she was thankful for his manner. The next morning Ines returned with a book she never opened. Marek was there before her, chin down, his face more weary than before. His wife lay behind one of those doors too, he said, for nine days now. He spoke ab"
+    ],
+    "verdict": "narrative",
+    "genre": "fiction",
+    "why": "병원 복도에서 만난 두 사람의 이야기"
+  },
+  {
+    "book": "APOD: 2026 August 8 - A Messier Moment for Tempel 2 - NASA Science",
+    "url": "https://science.nasa.gov/image-article/apod/apod-2026-august-8-a-messier-moment-for-tempel-2/",
+    "source": "nasa",
+    "v_level": 6,
+    "words": 274,
+    "rows": 1,
+    "excerpts": [
+      "APOD APOD Astronomy Picture of the Day Discover the cosmos! Each day a different image or photograph of our fascinating universe is featured, along with a brief explanation written by a professional astronomer. A Messier Moment for Tempel 2 Explanation: Which of these is not a comet? You guessed it - the one on the right is a globular star cluster. The diffuse greenish coma of periodic comet 10P/Tempel 2 is at left i",
+      "us Messier Catalogue of Nebulae and Star Clusters, which did not move from night to night against the background stars and so were not the comets he was hunting for. So the famous comet hunter would get the correct answer too, even though his telescope would show both 10P/Tempel 2 and distant star cluster as similar looking faint and fuzzy objects in his field of view. Recorded on July 29, this modern telescopic imag"
+    ],
+    "verdict": "use",
+    "genre": "space",
+    "why": "혜성과 구상성단 구별법을 사진으로 설명"
+  },
+  {
+    "book": "How to 'Dish Up' Something Good",
+    "url": "https://learningenglish.voanews.com/a/how-to-dish-up-something-good/7980848.html",
+    "source": "voa",
+    "v_level": 2,
+    "words": 425,
+    "rows": 1,
+    "excerpts": [
+      "And now, Words and Their Stories, from VOA Learning English. Food is a popular subject with many people around the world. It is fun to talk about our favorite dishes. It is even more fun to share a favorite dish with others. Today we talk about the word “dish.” A dish can be the object on which you serve food. But, a dish can also mean a specially prepared food. Do you have a signature dish? Our signature is how we s",
+      "is usage might be a bit dated, it is still used. Now, let’s talk about the verb “dish.” “To dish” can mean to talk about private or personal information. It might be gossip. But I can also dish about myself. For example, a friend may ask me to dish about my new job. I could also use a phrasal verb form and say my friend want me to dish out all the interesting details. Now, to dish up something means to put food on a "
+    ],
+    "verdict": "use",
+    "genre": "education",
+    "why": "dish 의 여러 용법을 예문으로 설명"
+  },
+  {
+    "book": "Discovery could lead to weight loss drugs with fewer side effects",
+    "url": "https://www.futurity.org/weight-loss-drugs-nausea-3289072-2/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 632,
+    "rows": 1,
+    "excerpts": [
+      "Researchers have identified a potential new way to help people lose weight without the nausea and vomiting that make most patients stop taking popular drugs like Ozempic. Weight loss and diabetes drugs on the market often do not achieve long-term weight loss for patients. GLP-1 drugs target brain neurons that control appetite but frequently cause side effects. Nausea and vomiting force 70% of patients to stop treatme",
+      "onents that allow the light bulb to brighten, including the wiring, switch, and filament. “All of those supporting parts beyond the light bulb play a role in making the light shine,” says Doyle. The research team discovered that some support cells in the hindbrain naturally produce a molecule named octadecaneuropeptide (ODN), which suppresses appetite. In lab tests, injecting ODN directly into rats’ brains made them "
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "구역질 없는 체중감량 표적 발견을 설명"
+  },
+  {
+    "book": "WASP-17 (도입부)",
+    "url": "https://simple.wikipedia.org/wiki/WASP-17",
+    "source": "simple_wikipedia",
+    "v_level": 4,
+    "words": 180,
+    "rows": 1,
+    "excerpts": [
+      "WASP-17 is a main sequence star about 1,300 light years away in the constellation Scorpius. It has the spectral type F6V. WASP-17 is also known as Dìwö. The name was selected in the NameExoWorlds campaign by Costa Rica. At that time, it was the 100th anniversary of the IAU. Dìwö in Bribri language means the sun. The star has about the same amount of heavy elements as the Sun. However, it has less carbon than the Sun.",
+      " The carbon-to-oxygen molar ratio of 0.18±0.04 for WASP-17 is far below the solar ratio of 0.55. == Planetary system == An extrasolar planet known as WASP-17b was confirmed orbiting the star as of 2009. The star is unusual for the reason that WASP-17b is believed to orbit in the opposite direction to the direction the star spins and is said to be twice the size of Jupiter, but half its mass. It is subject to deep pho"
+    ],
+    "verdict": "reject",
+    "genre": "reference",
+    "why": "항성 제원 나열에 == 표제만 붙은 스텁"
+  },
+  {
+    "book": "Mathematicians solve a decades-old problem",
+    "url": "https://www.futurity.org/kakeya-conjecture-3273462/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 517,
+    "rows": 1,
+    "excerpts": [
+      "Mathematicians have resolved a decades-old geometric problem, the Kakeya conjecture in 3D, which studies the shape left behind by a needle moving in multiple directions. The Kakeya conjecture was inspired by a problem asked in 1917 by Japanese mathematician Sōichi Kakeya: What is the region of smallest possible area in which it is possible to rotate a needle 180 degrees in the plane? Such regions are called Kakeya ne",
+      "al achievements of the 21st century,” says Eyal Lubetzky, the chair of the mathematics department at the Courant Institute. “This is a wonderful piece of mathematics,” adds Courant Institute Professor Guido De Philippis. “The latest work follows years of progress that has enhanced our understanding of a complicated geometry and brings it to a new level. I am expecting that their ideas will lead to a series of excitin"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "카케야 추측 해결의 의미를 설명"
+  },
+  {
+    "book": "4th traffic light would benefit pedestrians and drivers",
+    "url": "https://www.futurity.org/four-light-traffic-signals-pedestrians-drivers-self-driving-cars-319187/",
+    "source": "futurity",
+    "v_level": 4,
+    "words": 525,
+    "rows": 1,
+    "excerpts": [
+      "Adding a fourth light to traffic signals—in addition to red, green, and yellow—would shorten wait times at street corners for pedestrians, a new study shows. It would also improve traffic flow for both autonomous vehicles and human drivers. And the more autonomous vehicles there are in the traffic network, the shorter the wait times for everyone. “Our earlier work introduced the idea of a fourth traffic signal called",
+      "re coordinating their movement to facilitate traffic through the intersection more efficiently. “Our previous research found that the more AVs there are on the road, the more efficiently the traffic moves,” Hajbabaie says. “To be clear, this improves travel time, fuel efficiency, and safety for all of the cars on the road—not just AVs.” To account for pedestrian traffic, the researchers incorporated a suite of new pa"
+    ],
+    "verdict": "use",
+    "genre": "technology",
+    "why": "네 번째 신호등의 대기시간 효과를 분석"
+  },
+  {
+    "book": "Cell transplant may boost heart health after spinal cord injury",
+    "url": "https://www.futurity.org/cell-transplant-heart-health-spinal-cord-injury-3312542/",
+    "source": "futurity",
+    "v_level": 6,
+    "words": 352,
+    "rows": 1,
+    "excerpts": [
+      "Researchers have tested a therapeutic strategy that may improve the cardiovascular health of people with spinal cord injuries. Spinal cord injuries (SCIs) can be devastating. Depending on where the damage is, it could cause loss of function and put people at greater risk of developing other health problems. Dysfunction in the cardiovascular system is one of the leading causes of death or developing other conditions i",
+      "t the University of Missouri School of Medicine and is also an investigator at the Dalton Cardiovascular Research Center (DCRC). “After transplanting them to the site of injury, we saw that cardiovascular function improved. For example, resting blood pressure stabilized, and the average heart rate decreased.” While some nerve control was restored, there wasn’t a decrease in hormonal control of the cardiovascular syst"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "세포 이식이 심혈관 기능을 개선한 실험"
+  },
+  {
+    "book": "Unsocial kids may be happier than you think",
+    "url": "https://www.futurity.org/unsocial-kids/",
+    "source": "futurity",
+    "v_level": 4,
+    "words": 746,
+    "rows": 1,
+    "excerpts": [
+      "The child who plays alone during recess may be perfectly content doing so, according to a new study. The research found that some elementary school children who appear unsociable actually just prefer being solo, as long as they know they belong in a broader social setting. These children knew their peers would still invite them to play even if they opted out from time to time. That knowledge acted as a buffer against",
+      "hese withdrawn children were still able to maintain successful individual friendships, however. Although that is a positive, navigating group dynamics is an important skill during childhood, the researchers say. “By fourth and fifth grade, peer groups are more established, children have developed stronger social skills, and they have more experience interacting with one another,” says Rachael Pfanz, corresponding aut"
+    ],
+    "verdict": "use",
+    "genre": "social",
+    "why": "혼자 노는 아이의 심리를 자료로 분석"
+  },
+  {
+    "book": "Who’s Sharing? Inconsistent Eyewitness Accounts Can Affect How We Understand Earthquakes",
+    "url": "https://www.usgs.gov/news/featured-story/whos-sharing-inconsistent-eyewitness-accounts-can-affect-how-we-understand",
+    "source": "usgs",
+    "v_level": 5,
+    "words": 922,
+    "rows": 1,
+    "excerpts": [
+      "As early American pioneers forged a long, arduous path across the country during the Westward Expansion, an earthquake hit what is now the State of Oklahoma on October 22, 1822. “The trembling and vibrating were so severe as to cause door and window shutters to open and shut, hogs in pens to fall and squeal, poultry to run and hide, the tops of weeds to dip, [and] cattle to lowe [sic],” the Cherokee Advocate reported",
+      "nts can still lead to poor characterizations of even relatively strong shaking, which can hinder immediate emergency response and affect tools that are used to estimate losses in life and property. However, Hough did note a bright spot. “Although there are disparities in reporting between places like California and India, over time, eyewitness reporting systems in California appear to have become more inclusive,” Hou"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "목격 진술 편중이 진도 추정을 왜곡함"
+  },
+  {
+    "book": "1 ice grain from Jupiter's moon may be enough to find signs of life",
+    "url": "https://www.futurity.org/moons-emits-ice-grain-signs-of-life-3204962/",
+    "source": "futurity",
+    "v_level": 6,
+    "words": 835,
+    "rows": 1,
+    "excerpts": [
+      "Individual ice grains ejected from some of the moons orbiting Saturn and Jupiter may contain enough material for instruments headed there in the fall to detect signs of life, if such life exists. The ice-encrusted oceans of these planetary bodies are leading candidates in the search for extraterrestrial life. “For the first time we have shown that even a tiny fraction of cellular material could be identified by a mas",
+      "able of fitting into ice grains that are emitted from an ocean world like Enceladus or Europa,” Klenner says. Results show that the instruments can detect this bacterium, or portions of it, in a single ice grain. Different molecules end up in different ice grains. The new research shows that analyzing single ice grains, where biomaterial may be concentrated, is more successful than averaging across a larger sample co"
+    ],
+    "verdict": "use",
+    "genre": "space",
+    "why": "얼음 알갱이 한 알로 생명 흔적을 탐지"
+  },
+  {
+    "book": "Eyes on the Coast—Video Cameras Help Forecast Coastal Change",
+    "url": "https://www.usgs.gov/news/featured-story/eyes-coast-video-cameras-help-forecast-coastal-change",
+    "source": "usgs",
+    "v_level": 5,
+    "words": 1285,
+    "rows": 1,
+    "excerpts": [
+      "If we understand these processes well enough, scientists can include them in computer models of coastal change that can be used to forecast, for example, how the shoreline will react to severe storms and how it could change over years, decades, or even centuries. Coastal communities can use these forecasts to plan for storms, sea-level rise, changes in sand supply, and other threats. “When a storm is on the way, it’s",
+      "ess than \\$5,000,” says Harrison. Nuts and bolts The Santa Cruz camera station includes two cameras in weatherproof cases and a computer in a separate weatherproof box. The computer is smaller than a deck of cards, costs less than a tank of gas, and uses easily replaceable parts. The whole system runs on a rechargeable battery, solar power, or a standard wall outlet. The Madeira Beach station is similar but uses a la"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "해안 관측 카메라의 구성과 원리를 설명"
+  },
+  {
+    "book": "Muscles made from cow cells could make lab-grown burgers better",
+    "url": "https://www.futurity.org/cow-muscle-fibers-lab-grown-meat-alternatives-3289262/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 739,
+    "rows": 1,
+    "excerpts": [
+      "Researchers have cultivated cow muscle fibers in the lab that are much closer to real muscle than previous efforts. The research could pave way for better lab-grown meat. Beef is growing in the Petri dishes of ETH professor Ori Bar-Nur, an expert in regenerative and muscle biology. However, he hasn’t yet tasted the cultivated meat because human consumption requires official approval in Switzerland. However, Bar-Nur h",
+      "oduced in the lab from cultured animal cells is already commercially available. In the case of lab-grown beef, development has yet to reach that stage. The new findings could now accelerate developments in this area. To produce thick and functional muscle fibers, the ETH Zurich researchers added a cocktail of three molecules to the cell culture medium—the nutrient-rich liquid used to grow cells in lab dishes. The add"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "배양육 근섬유 형성 조건을 설명"
+  },
+  {
+    "book": "Molecular feature-based classification of retroperitoneal liposarcoma: a prospective cohort study",
+    "url": "https://elifesciences.org/articles/100887",
+    "source": "elife",
+    "v_level": 5,
+    "words": 353,
+    "rows": 1,
+    "excerpts": [
+      "Retroperitoneal liposarcoma (or RPLS for short) is a rare type of cancer that forms a tumor deep in the abdomen. Although it can be treated through surgery, results vary widely, and the cancer often returns. Determining which RPLS tumours are likely to respond well to treatment, and which are more aggressive, can be challenging. This is partly because many of the tumors appear similar under a microscope, making it di",
+      "ion medicine approach from being applied to this type of cancer. To help close this gap, Xiao et al. studied the genetic activity of tumors from 88 RPLS patients to look for activity associated with more aggressive tumors. Analysis revealed two distinct groups of tumors. One group showed high activity of a gene known as LEP, which is involved in metabolism. Tumors with high LEP activity were less aggressive, with pat"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "지방육종 분자 분류로 예후를 가름"
+  },
+  {
+    "book": "Team discovers fruit fly larvae have a sixth sense",
+    "url": "https://www.futurity.org/fruit-fly-larvae-can-sense-electric-fields-electroreception-3277402/",
+    "source": "futurity",
+    "v_level": 6,
+    "words": 1501,
+    "rows": 1,
+    "excerpts": [
+      "Scientists have discovered that fruit fly larvae can sense electric fields. While it may be an unfamiliar sensation to humans, electroreception is relatively commonplace in the animal kingdom. Sharks, bees, and even the platypus all share this ability to detect electric fields in their environment. Now, researchers at the University of California, Santa Barbara have just added fruit flies to that list. A team of rese",
+      "ric field in the experiment. Eden provided the group with the sophisticated simulations they needed to characterize the environment within the experiment. And while Louis’ lab is no stranger to running simulations, “that modeling is several orders of magnitude beyond what we can typically do,” he says. With a better account of the experimental conditions, the team could now begin systematically eliminating those conf"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "초파리 유충의 전기 감각 발견을 설명"
+  },
+  {
+    "book": "Wastewater tests enhance COVID hospitalization forecasts",
+    "url": "https://www.futurity.org/wastewater-covid-19-hospital-admissions-3002442/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 536,
+    "rows": 1,
+    "excerpts": [
+      "Testing wastewater for COVID-19 provides a better forecast of new COVID hospital admissions than clinical data, according to a new study. The COVID-19 pandemic has been a burden on the US health care system since its arrival in early 2020. COVID remains a threat to our communities, particularly during the winter months when new cases and hospitalizations are likely to surge. The ability to predict where and when new ",
+      "r the new study, published in the journal Infectious Disease Modeling, the researchers combined wastewater surveillance data (how much SARS-CoV-2 is found in wastewater) with clinical case and comorbidity data to predict the seven-day average of new hospital admissions 10 days after the wastewater sample collection. Wastewater data are being collected across New York state through the New York State Wastewater Survei"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "하수 감시가 입원 예측을 개선함을 검증"
+  },
+  {
+    "book": "Landsat Before, After Images Show Flooding in Carolinas From Florence",
+    "url": "https://www.usgs.gov/news/featured-story/landsat-after-images-show-flooding-carolinas-florence",
+    "source": "usgs",
+    "v_level": 4,
+    "words": 466,
+    "rows": 1,
+    "excerpts": [
+      "The U.S. Geological Survey has released new Landsat satellite images that show some of the flooding Hurricane Florence’s historic rains caused across the Carolinas. Preliminary USGS data indicates that Florence’s heavy rains resulted in 19 new water level records on rivers and streams in North Carolina and 11 in South Carolina. Dozens of USGS specialists have been in the field in the Carolinas documenting the extent ",
+      "r 28 and these Landsat 8 images taken September 26 of Georgetown, South Carolina, show how badly the area was already flooded as the river was still rising. In North Carolina, Florence’s strong winds and storm surge could be felt along the coast and intense rains reached deep into the interior of the state. These Landsat 8 images of Goldsboro, North Carolina, about a hundred miles from the coastline where Florence ma"
+    ],
+    "verdict": "use",
+    "genre": "news",
+    "why": "위성 영상으로 홍수 범위를 비교 서술"
+  },
+  {
+    "book": "Global climate summary for January 2024",
+    "url": "https://www.climate.gov/news-features/understanding-climate/global-climate-summary-january-2024",
+    "source": "noaa",
+    "v_level": 5,
+    "words": 747,
+    "rows": 1,
+    "excerpts": [
+      "Highlights Temperatures were above average over much of the globe, but the eastern United States, most of Europe and a few other areas were cooler than average. There is a 22% chance that 2024 will be the warmest year in NOAA’s 175-year record and a 79% chance that El Niño will transition to neutral conditions by mid-year. Northern Hemisphere snow cover was near average, but Antarctic sea ice extent was fifth lowest ",
+      " U.S. are more clearly El Niño-like. Overall the pattern correlation between this January’s rainfall anomaly pattern and the El Niño composite plummeted from a high of +0.59 last month to only +0.19. Global total precipitation for this January is nearly a record high following December’s record high for that month of the year. The current El Niño continues through January, but the departures from average on the globa"
+    ],
+    "verdict": "reject",
+    "genre": "reference",
+    "why": "월간 기후 요약 — 순위·수치 나열"
+  },
+  {
+    "book": "Compound in veggies may help repair gut damage caused by HIV",
+    "url": "https://www.futurity.org/gut-damage-hiv-3335812/",
+    "source": "futurity",
+    "v_level": 6,
+    "words": 441,
+    "rows": 1,
+    "excerpts": [
+      "A new study suggests a diet-derived compound could repair gut damage caused by HIV. For many people living with HIV, today’s treatments can suppress the virus and dramatically improve health. But even when HIV is controlled, damage to the gut caused by the disease can persist, fueling chronic inflammation linked to serious health problems. The new study in JCI Insight helps explains why. Researchers found that long-t",
+      "included gamma delta T cells and innate lymphoid cells, which normally produce molecules involved in communication between cells that help protect the intestinal lining and support tissue repair. In the treated animals, those protective responses were reduced and linked to changes in proteins that help direct immune activity needed to maintain the gut barrier. The researchers then tested whether that pathway could be"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "식이 화합물의 장 손상 회복 경로를 설명"
+  },
+  {
+    "book": "How 'badass' microbes move in after volcanoes erupt",
+    "url": "https://www.futurity.org/how-microbes-colonize-new-habitats-3315972/",
+    "source": "futurity",
+    "v_level": 6,
+    "words": 1209,
+    "rows": 1,
+    "excerpts": [
+      "New research digs into how microbes colonize new habitats. Life has a way of bouncing back, even after catastrophic events like forest fires or volcanic eruptions. While nature’s resilience to natural disasters has long been recognized, not much is known about how organisms colonize brand-new habitats for the first time. The new study led by a team of ecologists and planetary scientists from the University of Arizona",
+      "r playing a critical role in shaping microbial communities on freshly deposited lava, according to the researchers. “Early on, it appears colonizers are mostly coming from soil that is blown onto the lava surface, as well as aerosols being deposited,” Hadland says. “But later, after that winter shift in diversity we observed, we see most of the microbes are coming from rainwater, and that’s a pretty interesting resul"
+    ],
+    "verdict": "use",
+    "genre": "nature",
+    "why": "용암 위 미생물 정착 순서를 추적"
+  },
+  {
+    "book": "Can a fiber supplement gel treat food allergies?",
+    "url": "https://www.futurity.org/fiber-supplement-gel-food-allergies-3237482/",
+    "source": "futurity",
+    "v_level": 6,
+    "words": 545,
+    "rows": 1,
+    "excerpts": [
+      "Researchers have identified a potential new treatment for food allergies in inulin, a naturally occurring plant fiber commonly used as a supplement, a prebiotic in soda, and a replacement for sweeteners. In what appears to be a major advancement that offers the promise of relief to food allergy sufferers around the world, the paper in Nature Materials describes inulin gel-based oral immunotherapy’s success in stoppin",
+      " Other, newer treatment options have seen low uptake due to adverse reactions and spotty effectiveness. As many as 1 in 3 adults and more than 1 in 4 children have food allergies, a life-altering condition that is getting harder to manage as allergens can be hidden in a variety of foods and drinks, according to the Centers for Disease Control and Prevention. Food allergies have become a significant concern globally, "
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "이눌린 젤 경구 면역치료 원리를 설명"
+  },
+  {
+    "book": "What isolated presidents can teach us",
+    "url": "https://www.futurity.org/isolated-presidents-governing-3167342/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 1097,
+    "rows": 1,
+    "excerpts": [
+      "Given increasing voter and party differences, US presidents must govern in the face of more opposition, further evidenced by declining approval ratings. Jordan Cash, assistant professor in Michigan State University’s James Madison College, has written a new book, The Isolated Presidency (Oxford University Press, 2023) that explores presidents who came into office without being elected and who then lacked strong suppo",
+      "t the president is too powerful, what you should look at is how Congress might reassert its constitutional authority against the president to reestablish those limitations. Q Do you think President Joe Biden exemplifies an isolated president? A I would not say that President Biden is a fully isolated president. He certainly faces some conditions of isolation. With Republicans in control of the House, he faces a divid"
+    ],
+    "verdict": "use",
+    "genre": "social",
+    "why": "고립된 대통령의 통치 조건을 문답으로 분석"
+  },
+  {
+    "book": "An AI agent spent your money – can anyone prove you authorized it?",
+    "url": "https://theconversation.com/an-ai-agent-spent-your-money-can-anyone-prove-you-authorized-it-288485",
+    "source": "the_conversation",
+    "v_level": 5,
+    "words": 1294,
+    "rows": 1,
+    "excerpts": [
+      "You tell an artificial intelligence agent, an AI capable of autonomous reasoning and multistep actions, “Find me a shirt for less than $30, but do not buy it.” The agent finds one – and places the order anyway. You challenge the charge. The retailer shows the order came through your account. The AI agent provider shows your instruction not to buy. The payment service shows the charge. Each record may be accurate. But",
+      "se later alteration can be detected. Payment systems have begun assembling those pieces. The first record identifies the authenticated user account that approved the task and the agent that received the authority. The retailer cannot rely only on the AI agent provider’s name. The provider binds the account, agent and task in an authorization record and digitally signs it, allowing the retailer and payment service to "
+    ],
+    "verdict": "use",
+    "genre": "technology",
+    "why": "AI 대리 결제의 책임 입증 구조를 논증"
+  },
+  {
+    "book": "Gulf of Mexico seagrass is retreating as sea levels rise",
+    "url": "https://www.futurity.org/gulf-of-mexico-seagrass-sea-level-rise-3185592/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 462,
+    "rows": 1,
+    "excerpts": [
+      "A new study links rising sea levels in the Gulf of Mexico to a loss of valuable seagrass habitats in Texas. The Gulf of Mexico is experiencing sea level rise two to three times as fast as the global average. due to a combination of warmer waters and wind circulation patterns. Seagrasses are recognized globally as foundation species that play a key role in supporting fisheries and mitigating climate change, efficientl",
+      " noted that these losses could be compensated by plant expansion into areas that were once too shallow. “We were surprised to see that under all sea level rise scenarios, newly flooded land was greater than lost habitat,” Capistrant-Fossa says. “The study emphasizes the importance of long-term multidecadal studies that capture the often slow and insidious effects of climate change on some of our most valued ecologica"
+    ],
+    "verdict": "use",
+    "genre": "climate",
+    "why": "해수면 상승과 잘피 서식지 변화를 분석"
+  },
+  {
+    "book": "AI tools are surprisingly vulnerable to targeted attacks",
+    "url": "https://www.futurity.org/ai-vulnerable-targeted-attacks-3005912-2/",
+    "source": "futurity",
+    "v_level": 4,
+    "words": 641,
+    "rows": 1,
+    "excerpts": [
+      "Artificial intelligence tools are more vulnerable than previously thought to targeted attacks that effectively force AI systems to make bad decisions, a study finds. At issue are so-called “adversarial attacks,” in which someone manipulates the data being fed into an AI system to confuse it. For example, someone might know that putting a specific type of sticker at a specific spot on a stop sign could effectively mak",
+      "t against these sorts of attacks, you don’t want to put the system into practical use—particularly for applications that can affect human lives.” To test the vulnerability of deep neural networks to these adversarial attacks, the researchers developed a piece of software called QuadAttacK. The software can be used to test any deep neural network for adversarial vulnerabilities. “Basically, if you have a trained AI sy"
+    ],
+    "verdict": "use",
+    "genre": "technology",
+    "why": "적대적 공격에 취약한 AI 를 실험으로 검증"
+  },
+  {
+    "book": "Alzheimer's moves faster in people with Down syndrome",
+    "url": "https://www.futurity.org/alzheimers-disease-down-syndrome-3212032/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 951,
+    "rows": 1,
+    "excerpts": [
+      "A new study shows that Alzheimer’s disease both starts earlier and moves faster in people with Down syndrome, The finding may have important implications for the treatment and care of this vulnerable group of patients. Nearly all adults with Down syndrome will develop evidence of Alzheimer’s disease by late middle age. The new findings were part of a study in Lancet Neurology comparing how Alzheimer’s develops and pr",
+      "vel of amyloid. “Normal progression with Alzheimer’s is that you see amyloid, and then you get tau—and this happens five to seven years apart—and then neurodegeneration,” Wisch explains. “With Down syndrome, the amyloid and tau buildup happen at nearly the same time.” There is currently only one treatment for Alzheimer’s disease approved by the Food and Drug Administration (FDA) and proven to change the course of the"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "다운증후군의 알츠하이머 진행을 비교"
+  },
+  {
+    "book": "'Chameleon' attacks drug-resistant brain cancers",
+    "url": "https://www.futurity.org/chameleon-drug-resistant-brain-cancers-glioma-glioblastomas-3227962/",
+    "source": "futurity",
+    "v_level": 6,
+    "words": 538,
+    "rows": 1,
+    "excerpts": [
+      "In a new study, researchers describe how a new chemical compound attacks drug-resistant brain tumors without harming healthy surrounding tissue. The research in the Journal of the American Chemical Society is a crucial step in the development of so-called “chameleon compounds” that may be used to target an array of pernicious cancers. Every year, an estimated 20,000 Americans are diagnosed with glioma, a malignant tu",
+      "deadly interstrand cross-links. For their new study, co-corresponding authors Herzon and Bindra focused on their lead chameleon, KL-50. “We used a combination of synthetic chemistry and molecular biology studies to elucidate the molecular basis for our earlier observations, as well as the chemical kinetics that give rise to the unique selectivity of these compounds,” says Herzon, a professor of chemistry in Yale. “We"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "카멜레온 화합물의 선택적 작용을 설명"
+  },
+  {
+    "book": "Ignoring boredom at work hampers your productivity later",
+    "url": "https://www.futurity.org/boredom-work-productivity-3200802-2/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 466,
+    "rows": 1,
+    "excerpts": [
+      "Suppressing boredom at work hurts future productivity, a new study shows. Boredom is more common at work than in any other setting, studies show, and employees are bored at work for more than 10 hours per week on average. Even astronauts and police officers get bored on the job. No occupation is immune. Boredom serves an important purpose—it signals the need to stop an action and find an alternative project. But bore",
+      "a broader audience and focused on how meaningful work tasks help mitigate boredom’s prolonged effects. Boredom is viewed as a nuisance emotion that any strong-willed employee should subdue for the sake of productivity, says lead author Casher Belinda, an assistant professor of management at the University of Notre Dame’s Mendoza College of Business who specializes in emotions, interpersonal communication, and close r"
+    ],
+    "verdict": "use",
+    "genre": "social",
+    "why": "지루함 억제가 생산성에 남기는 영향"
+  },
+  {
+    "book": "How optimism can keep you healthy during stressful times",
+    "url": "https://www.futurity.org/optimism-stress-pessimism-3269352/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 739,
+    "rows": 1,
+    "excerpts": [
+      "An expert has answers for you about how optimism and pessimism influence well-being when facing stressors, such as those experienced during the COVID-19 pandemic. Do you see the glass as half empty or half full? If you rewind to the start of the COVID-19 pandemic, chances are you experienced some level of pessimism. And who could blame you? With social isolation, health concerns, and economic uncertainty, fear and an",
+      "es action. Since optimists view stressful situations positively, they are more likely to directly address the issue or try to adapt when things are uncontrollable. Q What were the benefits for those who were more optimistic? How did optimism/pessimism correlate with well-being during the pandemic? A Both optimism and pessimism had independent associations with psychological well-being. So, people who are more optimis"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "낙관·비관이 스트레스 대처에 미친 차이"
+  },
+  {
+    "book": "Babies' health suffered during infant formula shortage",
+    "url": "https://www.futurity.org/babies-health-infant-formula-shortage-3190782/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 484,
+    "rows": 1,
+    "excerpts": [
+      "When a nationwide baby formula shortage two years ago forced many parents to switch brands or types, the substitutions led to undesirable effects for some babies, including vomiting, according to a new survey. As reported in the journal Nutrients, the online survey of 178 parents whose infants were under six months of age during the May 2022 shortage, 81% of respondents switched formulas, with 87% of those switching ",
+      "uired specialty formulas. “I was really shocked to see so many babies have adverse effects from changing formulas, that’s something we don’t really talk about,” Smilowitz says. The survey shows about 30% of parents switched formulas three to five times during the shortage. They also visited more than four stores in a 24-hour period to find baby formula and traveled more than 20 miles in a 24-hour period to purchase f"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "분유 대란기 교체가 낳은 이상 반응 조사"
+  },
+  {
+    "book": "The Bench Under the Station Clock",
+    "url": "",
+    "source": "original",
+    "v_level": 4,
+    "words": 197,
+    "rows": 1,
+    "excerpts": [
+      "On a cold Saturday in October I waited for my brother at the bus station. He had promised to arrive by ten, and I lingered on the concourse with his ticket in my pocket. By eleven the benches had emptied and the kiosk shutter came down with a rattle. I read every timetable twice, then turned a coin over in my pocket. A chime above the doors marked each quarter. A driver crossed the forecourt, glimpsed me, and drove a",
+      "way. I leaned on a bollard and watched the clock until I began to doubt it. Later a drizzle began, and the wind pushed me under the awning by the turnstile. Puddles spread across the flagstones and ran to the kerb. I ate the biscuit I had saved and folded the paper into a flat square. A hush settled over the concourse, and the gloom under the canopy deepened. At two a bus I had not expected pulled in. My brother step"
+    ],
+    "verdict": "narrative",
+    "genre": "fiction",
+    "why": "역에서 형을 기다린 하루의 일인칭 서사"
+  },
+  {
+    "book": "Shark skin inspiration could lead to better sonar arrays",
+    "url": "https://www.futurity.org/shark-skin-towed-sonar-arrays-3202862/",
+    "source": "futurity",
+    "v_level": 6,
+    "words": 695,
+    "rows": 1,
+    "excerpts": [
+      "A new textured surface designed to mimic shark skin that can reduce drag and mitigate flow-based noise, potentially opens the door to a new generation of more effective and efficient towed sonar arrays. Submarines and ships rely on towed sonar arrays (TSAs) for underwater exploration and security operations, but dragging these sensors through water, especially at high cruising speeds, creates excess noise that can ma",
+      "n conducting simulations with turbulent flows. Under these conditions, the rectangular riblets demonstrated a reduction in noise by up to 14.3%, along with a 5.1% decrease in hydrodynamic drag, in comparison to a smooth array surface. In addition, their parametric study revealed that riblets with finer, more closely spaced geometries can further reduce drag by another 25.7%. “These findings underscore the efficacy of"
+    ],
+    "verdict": "use",
+    "genre": "technology",
+    "why": "상어 피부 모방 리블렛의 소음 저감 설명"
+  },
+  {
+    "book": "Social media policies are no match for AI bots",
+    "url": "https://www.futurity.org/social-media-ai-bots-3253512-2/",
+    "source": "futurity",
+    "v_level": 6,
+    "words": 549,
+    "rows": 1,
+    "excerpts": [
+      "Social media platforms aren’t doing enough to stop harmful AI bots, research finds. While artificial intelligence (AI) bots can serve a legitimate purpose on social media—such as marketing or customer service—some are designed to manipulate public discussion, incite hate speech, spread misinformation, or enact fraud and scams. To combat potentially harmful bot activity, some platforms have published policies on using",
+      "e most difficult to launch bots on—it took multiple attempts to bypass their policy enforcement mechanisms. Although the researchers racked up three suspensions in the process, they were successful in launching a bot and posting a “test” post on their fourth attempt. The only other platform that presented a modest challenge was TikTok, due to the platform’s frequent use of CAPTCHAs. But three platforms provided no ch"
+    ],
+    "verdict": "use",
+    "genre": "technology",
+    "why": "플랫폼 봇 정책의 실효성을 실험 검증"
+  },
+  {
+    "book": "Induced Earthquakes Raise Chances of Damaging Shaking in 2016",
+    "url": "https://www.usgs.gov/news/featured-story/induced-earthquakes-raise-chances-damaging-shaking-2016",
+    "source": "usgs",
+    "v_level": 5,
+    "words": 1346,
+    "rows": 1,
+    "excerpts": [
+      "For the first time, new USGS maps identify potential ground-shaking hazards from both human-induced and natural earthquakes. In the past, USGS maps only identified natural earthquake hazards. This is also the first one-year outlook for the nation’s earthquake hazards, and is a supplement to existing USGS assessments that provide a 50-year forecast The report shows that approximately 7 million people live and work in ",
+      " Dramatic Change in the Central U.S. The central U.S. has undergone the most dramatic increase in seismicity over the past six years. From 1973 to 2008, there was an average of 24 earthquakes of magnitude 3.0 and larger per year. From 2009 to 2015, the rate steadily increased, averaging 318 per year and peaking in 2015 with 1,010 earthquakes. Through mid-March in 2016, there have been 226 earthquakes of magnitude 3.0"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "유발 지진을 포함한 위험도 지도를 설명"
+  },
+  {
+    "book": "How a Nickname Became a Family Name",
+    "url": "",
+    "source": "original",
+    "v_level": 3,
+    "words": 198,
+    "rows": 1,
+    "excerpts": [
+      "In a small hamlet one given name was enough, because everyone knew which person was meant. Trouble began when a hamlet grew into a town. A name started to repeat down one row of houses. Every tithe ledger then began to fail, since a scribe could not tell one tithe from another. The first cure added a describing word, chosen from whatever made the person easy to know. Trade often supplied it. The smith who beat iron o",
+      "r the cooper who made barrels gained a second word. Others took a word from their father, from their hamlet, or from unusual height. These additions were still nicknames, and an adult could lose his when he moved. The second cure went further, passing the added word from father to child down the parish ledger. That step is why families now carry the surname of a trade nobody practises: a Smith who never held a hammer"
+    ],
+    "verdict": "use",
+    "genre": "history",
+    "why": "별명이 성씨로 굳어진 과정을 설명"
+  },
+  {
+    "book": "Henry II of England",
+    "url": "https://en.wikipedia.org/wiki/Henry_II_of_England",
+    "source": "wikipedia",
+    "v_level": 6,
+    "words": 13247,
+    "rows": 1,
+    "excerpts": [
+      "Henry II ( (1133-March-05) (1189-July-06)5 March 1133 – 6 July 1189) was King of England from 1154 until his death in 1189. During his reign he controlled England, limited parts of Wales and Ireland, and much of France (including Normandy, Anjou, and Aquitaine), an area that was later called the Angevin Empire, and also held power over Scotland for a time and the Duchy of Brittany. Henry was the eldest son of Geoffre",
+      "1159. In 1163 Henry returned to England, intent on reforming the role of the royal courts. He cracked down on crime, seizing the belongings of thieves and fugitives, and dispatched travelling justices to the north and the Midlands. After 1166 Henry's exchequer court in Westminster, which had previously only heard cases connected with royal revenues, began to take wider civil cases on behalf of the King. The reforms c"
+    ],
+    "verdict": "use",
+    "genre": "history",
+    "why": "헨리 2세 치세와 법제 개혁을 산문 서술"
+  },
+  {
+    "book": "It is easier than ever to view Mars landscapes in high resolution",
+    "url": "https://www.usgs.gov/news/featured-story/it-easier-ever-view-mars-landscapes-high-resolution",
+    "source": "usgs",
+    "v_level": 5,
+    "words": 940,
+    "rows": 1,
+    "excerpts": [
+      "There is a huge difference between looking at a photo of the Grand Canyon and seeing it in person. If you want to look at another planet’s landscape, seeing it in person is not an option. That’s why a team at the U.S. Geological Survey used supercomputers and cloud computing to process and release a treasure trove of ready-to-use Mars data: more than 4,800 digital terrain models, known as DTMs, and more than 155,000 ",
+      "y is working to process, which will eventually result in even greater topographic coverage at 20 meters per pixel. Big Data Require Big Processing USGS Astrogeology is also pioneering a new way to access and work with images from HiRISE. Each individual HiRISE image covers only a small patch of the planet’s surface – strips just 6 km (3.7 mi) wide by up to 60 km (37 mi) long – but with a resolution of 25 cm (9.8 in) "
+    ],
+    "verdict": "use",
+    "genre": "space",
+    "why": "화성 지형 모델 공개와 처리 방식을 설명"
+  },
+  {
+    "book": "Rats may use cannabis to cope with stress",
+    "url": "https://www.futurity.org/rats-cannabis-stress-3317992/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 602,
+    "rows": 1,
+    "excerpts": [
+      "It isn’t just people—when given the chance rats may also use cannabis to cope with stress, according to a new study. Published in the journal Neuropsychopharmacology, the study was designed to examine cannabis-seeking behavior and found that rats with higher natural stress levels are far more likely to self-administer the popular recreational drug. “We ran rats through this extensive battery of behavioral and biologi",
+      "s sense given that the most common reason that people habitually use cannabis is to cope with stress,” McLaughlin says. He says it’s important to note that it was a rat’s resting baseline stress levels that were associated with cannabis self-administration, not stress that fluctuates in real time with exercise or mentally challenging tasks. Stress hormone levels were also calculated after exposure to a stressor and s"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "스트레스 수준과 대마 자가투여의 상관"
+  },
+  {
+    "book": "Sensors That Watch the Air",
+    "url": "https://science.nasa.gov/photojournal/mapping-air-pollution-with-maia-sensors-in-addis-ababa/",
+    "source": "nasa",
+    "v_level": 1,
+    "words": 101,
+    "rows": 1,
+    "excerpts": [
+      "Addis Ababa is the capital city of Ethiopia. The air over the city carries tiny particles. The particles are far too small to see. Doctors link them to problems in the lungs. NASA placed 10 sensors around the city. The sensors measured the air for years. They caught particles smaller than a grain of dust. Soot from fires and engines is one part. Scientists drew a map from the sensor readings. The map paints cleaner a"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "대기 오염 센서 관측을 쉬운 문장으로 설명"
+  }
+]

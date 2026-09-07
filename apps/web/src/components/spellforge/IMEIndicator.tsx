@@ -16,21 +16,21 @@ export function IMEIndicator({ status }: IMEIndicatorProps) {
     en: {
       bg: 'var(--success-light)',
       bd: 'rgba(34,197,94,0.3)',
-      color: 'var(--success)',
+      color: 'var(--success-ink)',
       text: 'EN',
       animate: false,
     },
     'ko-warning': {
       bg: 'var(--active-light)',
       bd: 'rgba(245,158,11,0.3)',
-      color: 'var(--active)',
+      color: 'var(--active-ink)',
       text: 'KO ⚠',
       animate: false,
     },
     'ko-error': {
       bg: 'var(--error-light)',
       bd: 'rgba(239,68,68,0.3)',
-      color: 'var(--error)',
+      color: 'var(--error-ink)',
       text: 'KO!',
       animate: true,
     },
@@ -43,7 +43,7 @@ export function IMEIndicator({ status }: IMEIndicatorProps) {
       role="status"
       aria-live="polite"
       aria-label={`입력 모드: ${s.text}`}
-      className={`inline-flex flex-shrink-0 items-center gap-1.5 rounded-[var(--r-full)] border px-2.5 py-1 font-mono text-[10px] font-[700] transition-all duration-[var(--dur-normal)] ${s.animate ? 'animate-[ime-shake_400ms_ease]' : ''} `}
+      className={`inline-flex flex-shrink-0 items-center gap-2 rounded-[var(--r-full)] border px-3 py-1 font-mono text-[10px] font-[700] transition-all duration-[var(--dur-normal)] ${s.animate ? 'animate-[ime-shake_400ms_ease]' : ''} `}
       style={{
         background: s.bg,
         borderColor: s.bd,

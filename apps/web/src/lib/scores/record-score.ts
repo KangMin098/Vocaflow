@@ -11,6 +11,8 @@
 
 import { useEffect, useRef } from 'react'
 
+import { awardArcadeXp } from '@/lib/game/arcade-meta'
+import { toScoreColumns, type ContentRef } from '@/lib/content/content-ref'
 import { createClient } from '@/lib/supabase/client'
 
 export type ScoreModule =
@@ -35,6 +37,10 @@ export type ScoreModule =
   | 'silent-rule'
   | 'lexicon-estate'
   | 'word-orrery'
+  | 'wordsmith-vigil'
+  | 'morphmerge'
+  | 'wordfall-cadence'
+  | 'pirate-quest'
 
 export interface GameScoreInput {
   module: ScoreModule
@@ -45,8 +51,17 @@ export interface GameScoreInput {
   /** 0~100 */
   accuracy?: number
   durationSeconds?: number
-  /** 스크립트 스코프 게임이면 texts.id */
+  /**
+   * 스크립트 스코프 게임이면 texts.id.
+   * @deprecated `content` 를 쓴다 — `text_id` 는 texts FK 라 큐레이션 도서·단어장·짧은 글을
+   * 가리킬 수 없었고, 그래서 49행 전부 NULL 이었다. 기존 쿼리 호환으로만 유지한다.
+   */
   textId?: string
+  /**
+   * 무엇으로 학습했나 — 콘텐츠 단위 진행률·리포트·i+1 승급의 유일한 근거.
+   * 없으면 그 세션은 "어떤 자료였는지 모르는 기록" 이 된다(적재는 되지만 집계에서 빠진다).
+   */
+  content?: ContentRef
   metadata?: Record<string, unknown>
 }
 
@@ -68,6 +83,9 @@ export async function recordGameScore(input: GameScoreInput): Promise<void> {
       accuracy: input.accuracy ?? null,
       duration_seconds: input.durationSeconds ?? null,
       text_id: input.textId ?? null,
+      // content_ref 3컬럼 — 형태가 어긋나면 null 로 떨어뜨린다(CHECK 위반으로 세션 기록을
+      // 통째로 잃는 것보다, 자료 미상으로 남기는 편이 낫다).
+      ...toScoreColumns(input.content ?? (input.textId ? { type: 'text', id: input.textId } : null)),
       metadata: input.metadata ?? {},
     }
     // module enum 은 DB module_id 와 정합(생성 타입 stale 가능성 대비 unknown 경유).
@@ -87,6 +105,8 @@ export function useRecordGameScore(input: GameScoreInput | null): void {
     if (done.current || !input) return
     done.current = true
     void recordGameScore(input)
+    // 리텐션 메타: 데일리 플레이 스트릭 + XP (localStorage, 미로그인도 동작).
+    awardArcadeXp(input.accuracy ?? 0)
     // 완료 시점 1회만 — input 갱신에 재실행하지 않음(의도)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [input !== null])

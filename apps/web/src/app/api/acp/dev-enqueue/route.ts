@@ -17,6 +17,8 @@ import {
   ingestElifeArticle,
   ingestFactbookArticle,
   ingestNasaArticle,
+  ingestSpacePlaceArticle,
+  ingestStoryweaverArticle,
   ingestNihArticle,
   ingestNoaaArticle,
   ingestOwidArticle,
@@ -32,14 +34,14 @@ import {
   type RawArticle,
 } from '@vocaflow/library-pipeline'
 
-import { requireAdmin } from '@/lib/auth/require-admin'
+import { requireAdminApi } from '@/lib/auth/require-admin-api'
 
 export const runtime = 'nodejs'
 export const maxDuration = 300
 export const dynamic = 'force-dynamic'
 
 type ArticleSource =
-  | 'voa' | 'nasa' | 'nih' | 'simple_wikipedia' | 'the_conversation' | 'wikinews' | 'owid' | 'factbook' | 'elife' | 'wikipedia' | 'plos' | 'wikivoyage' | 'usgs' | 'noaa'
+  | 'voa' | 'nasa' | 'nih' | 'simple_wikipedia' | 'the_conversation' | 'wikinews' | 'owid' | 'factbook' | 'elife' | 'wikipedia' | 'plos' | 'wikivoyage' | 'usgs' | 'noaa' | 'storyweaver' | 'space_place'
 
 interface DevEnqueueBody {
   item_url?: string
@@ -65,6 +67,8 @@ const HOST_TO_SOURCE: Array<{ pattern: RegExp; source: ArticleSource }> = [
   { pattern: /^https?:\/\/en\.wikivoyage\.org\/wiki\//, source: 'wikivoyage' },
   { pattern: /^https?:\/\/(?:www\.)?usgs\.gov\/news\//, source: 'usgs' },
   { pattern: /^https?:\/\/(?:www\.)?climate\.gov\/news-features\//, source: 'noaa' },
+  { pattern: /^https?:\/\/storyweaver\.org\.in\/stories\//, source: 'storyweaver' },
+  { pattern: /^https?:\/\/spaceplace\.nasa\.gov\/[a-z0-9-]+\//, source: 'space_place' },
 ]
 
 function detectSource(url: string | undefined, explicit?: ArticleSource): ArticleSource | null {
@@ -83,7 +87,8 @@ export async function POST(request: Request): Promise<NextResponse> {
       { status: 403 },
     )
   }
-  await requireAdmin('/admin/articles')
+  const admin = await requireAdminApi()
+  if (admin instanceof NextResponse) return admin
 
   const supabaseUrl = process.env['NEXT_PUBLIC_SUPABASE_URL']
   const serviceKey = process.env['SUPABASE_SERVICE_ROLE_KEY']
@@ -154,6 +159,12 @@ export async function POST(request: Request): Promise<NextResponse> {
         break
       case 'noaa':
         article = await ingestNoaaArticle(body.item_url)
+        break
+      case 'storyweaver':
+        article = await ingestStoryweaverArticle(body.item_url)
+        break
+      case 'space_place':
+        article = await ingestSpacePlaceArticle(body.item_url)
         break
     }
 

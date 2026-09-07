@@ -1,0 +1,204 @@
+{
+ "n": 22,
+ "hit": 17,
+ "rows": [
+  {
+   "exam": "2015",
+   "no": 38,
+   "sents": 8,
+   "pool": 7,
+   "cand": 7,
+   "hit": true,
+   "ansIdx": 2
+  },
+  {
+   "exam": "2015",
+   "no": 39,
+   "sents": 7,
+   "pool": 6,
+   "cand": 6,
+   "hit": true,
+   "ansIdx": 1
+  },
+  {
+   "exam": "2016",
+   "no": 37,
+   "sents": 8,
+   "pool": 7,
+   "cand": 7,
+   "hit": true,
+   "ansIdx": 4
+  },
+  {
+   "exam": "2016",
+   "no": 38,
+   "sents": 9,
+   "pool": 8,
+   "cand": 2,
+   "hit": true,
+   "ansIdx": 4
+  },
+  {
+   "exam": "2017",
+   "no": 38,
+   "sents": 9,
+   "pool": 8,
+   "cand": 7,
+   "hit": true,
+   "ansIdx": 1
+  },
+  {
+   "exam": "2017",
+   "no": 39,
+   "sents": 8,
+   "pool": 7,
+   "cand": 6,
+   "hit": true,
+   "ansIdx": 4
+  },
+  {
+   "exam": "2018",
+   "no": 38,
+   "sents": 8,
+   "pool": 7,
+   "cand": 5,
+   "hit": true,
+   "ansIdx": 3
+  },
+  {
+   "exam": "2018",
+   "no": 39,
+   "sents": 9,
+   "pool": 8,
+   "cand": 4,
+   "hit": true,
+   "ansIdx": 3
+  },
+  {
+   "exam": "2019",
+   "no": 38,
+   "sents": 9,
+   "pool": 8,
+   "cand": 2,
+   "hit": false,
+   "ansIdx": 2
+  },
+  {
+   "exam": "2019",
+   "no": 39,
+   "sents": 9,
+   "pool": 8,
+   "cand": 5,
+   "hit": false,
+   "ansIdx": 2
+  },
+  {
+   "exam": "2020",
+   "no": 38,
+   "sents": 7,
+   "pool": 6,
+   "cand": 4,
+   "hit": false,
+   "ansIdx": 3
+  },
+  {
+   "exam": "2020",
+   "no": 39,
+   "sents": 7,
+   "pool": 6,
+   "cand": 3,
+   "hit": true,
+   "ansIdx": 2
+  },
+  {
+   "exam": "2021",
+   "no": 38,
+   "sents": 9,
+   "pool": 8,
+   "cand": 5,
+   "hit": false,
+   "ansIdx": 3
+  },
+  {
+   "exam": "2021",
+   "no": 39,
+   "sents": 8,
+   "pool": 7,
+   "cand": 7,
+   "hit": true,
+   "ansIdx": 3
+  },
+  {
+   "exam": "2023",
+   "no": 38,
+   "sents": 9,
+   "pool": 8,
+   "cand": 6,
+   "hit": true,
+   "ansIdx": 4
+  },
+  {
+   "exam": "2023",
+   "no": 39,
+   "sents": 7,
+   "pool": 6,
+   "cand": 4,
+   "hit": true,
+   "ansIdx": 3
+  },
+  {
+   "exam": "2024",
+   "no": 38,
+   "sents": 8,
+   "pool": 7,
+   "cand": 6,
+   "hit": true,
+   "ansIdx": 2
+  },
+  {
+   "exam": "2024",
+   "no": 39,
+   "sents": 7,
+   "pool": 6,
+   "cand": 4,
+   "hit": false,
+   "ansIdx": 3
+  },
+  {
+   "exam": "2025",
+   "no": 38,
+   "sents": 7,
+   "pool": 6,
+   "cand": 6,
+   "hit": true,
+   "ansIdx": 3
+  },
+  {
+   "exam": "2025",
+   "no": 39,
+   "sents": 7,
+   "pool": 6,
+   "cand": 5,
+   "hit": true,
+   "ansIdx": 3
+  },
+  {
+   "exam": "2026",
+   "no": 38,
+   "sents": 8,
+   "pool": 7,
+   "cand": 4,
+   "hit": true,
+   "ansIdx": 4
+  },
+  {
+   "exam": "2026",
+   "no": 39,
+   "sents": 7,
+   "pool": 6,
+   "cand": 4,
+   "hit": true,
+   "ansIdx": 2
+  }
+ ]
+}

@@ -10,7 +10,7 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
   return (
     <div className="flex min-h-screen flex-col bg-bg text-t1">
       <header className="sticky top-0 z-30 flex h-[60px] items-center gap-s-4 border-b border-bd bg-bg/90 px-s-4 backdrop-blur lg:px-s-8">
-        <Link href="/" className="flex items-center gap-s-2">
+        <Link href="/" className="flex min-h-[44px] items-center gap-s-2">
           <span
             className="flex h-8 w-8 items-center justify-center rounded-lg text-white"
             style={{ background: 'linear-gradient(135deg, var(--p) 0%, var(--combo) 100%)' }}
@@ -22,15 +22,19 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
         </Link>
 
         <nav className="ml-auto flex items-center gap-s-4 font-display text-sm">
-          <Link href="/pricing" className="text-t2 hover:text-t1">
+          {/* 가입 전에 써볼 수 있는 유일한 기능 — 헤더 첫 자리에 둔다. */}
+          <Link href="/fit" className="inline-flex min-h-[44px] items-center text-t2 hover:text-t1">
+            지문 진단
+          </Link>
+          <Link href="/pricing" className="inline-flex min-h-[44px] items-center text-t2 hover:text-t1">
             요금제
           </Link>
-          <Link href="/about" className="text-t2 hover:text-t1">
+          <Link href="/about" className="inline-flex min-h-[44px] items-center text-t2 hover:text-t1">
             소개
           </Link>
           <Link
             href="/login"
-            className="rounded-md bg-p px-s-4 py-s-2 font-semibold text-white hover:opacity-90"
+            className="inline-flex min-h-[44px] items-center rounded-md bg-p px-s-4 py-s-2 font-semibold text-white hover:opacity-90"
           >
             로그인
           </Link>
@@ -88,7 +92,7 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
                     <li key={l.label}>
                       <Link
                         href={l.href}
-                        className="font-body text-[13px] text-t2 transition-colors hover:text-t1"
+                        className="inline-flex min-h-[44px] items-center font-body text-[13px] text-t2 transition-colors hover:text-t1"
                       >
                         {l.label}
                       </Link>
@@ -101,7 +105,7 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
 
           {/* 하단 줄 */}
           <div className="mt-s-8 flex flex-col items-start justify-between gap-s-3 border-t border-bd pt-s-6 sm:flex-row sm:items-center">
-            <Link href="/" className="flex items-center gap-s-2">
+            <Link href="/" className="flex min-h-[44px] items-center gap-s-2">
               <span
                 className="flex h-7 w-7 items-center justify-center rounded-md text-white"
                 style={{ background: 'linear-gradient(135deg, var(--p) 0%, var(--combo) 100%)' }}

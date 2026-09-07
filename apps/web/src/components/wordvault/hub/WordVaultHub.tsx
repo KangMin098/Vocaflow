@@ -1,6 +1,6 @@
 // apps/web/src/components/wordvault/hub/WordVaultHub.tsx
 //
-// WordVault 허브 v06.35 — iOS/iPadOS 감성 + 단어 관점 종합 포트폴리오.
+// WordVault 허브 v06.36 — iOS/iPadOS 감성 + 단어 관점 종합 포트폴리오.
 //
 // iOS HIG 핵심:
 //   · 그레이 캔버스 (bg2) 위에 떠있는 흰 카드 (24px radius + soft shadow)
@@ -11,23 +11,21 @@
 // 6 Section 구조:
 //   1. VaultIdentity        — Activity Ring + 거대 숫자 + 4 bucket + CTA
 //   2. VocabularyLevelMap   — V-Level 캡슐 막대 + 트랙별 인셋 list
-//   3. ResourcePortfolio    — 도서/스크립트/단어장 (세그먼트 + 인셋 list)
-//   4. RecommendedBooks     — App Store 가로 스크롤 카드
-//   5. NextStepList         — 추천 단어장 인셋 list + 컬러 type 캡슐
-//   6. FlowStripe           — Stats 캡슐 + 28일 캡슐 막대
+//   3. FacetProgressSection — 면 상태 + 가장 뒤처진 면 하나
+//   4. ResourcePortfolio    — 도서/스크립트/단어장 (세그먼트 + 인셋 list)
+//   5. RecommendedBooks     — App Store 가로 스크롤 카드
+//   6. NextStepList         — 추천 단어장 인셋 list + 컬러 type 캡슐
+//   7. FlowStripe           — Stats 캡슐 + 28일 캡슐 막대
+//
+// ── 2026-09-05 — 이 컴포넌트는 이제 **조회를 하지 않는다** ─────────────
+// 여섯 섹션이 각자 `auth.getUser()` + 테이블을 치던 것을 `lib/wordvault/hub-query.ts`
+// 하나로 접었다(서버에서 한 번). 여기서는 받은 값을 나눠 줄 뿐이다.
+// 그 덕에 **서버 HTML 에 실제 수치가 남는다** — 예전 첫 화면은 스켈레톤뿐이었다.
 
-'use client'
+import type { FacetSummary } from '@/lib/framework/word-progress-query'
+import type { HubData } from '@/lib/wordvault/hub-query'
 
-import { useEffect, useState } from 'react'
-
-import { createClient } from '@/lib/supabase/client'
-import { getMemoryState } from '@/lib/srs'
-import type { MemoryState } from '@/lib/srs'
-
-import { MOCK_BOOKS } from '../mock-data'
-import type { WordItem } from '../types'
-
-import type { HubStats } from '../hooks/useHubStats'
+import { FacetProgressSection } from './FacetProgressSection'
 import { FlowStripe } from './FlowStripe'
 import { NextStepList } from './NextStepList'
 import { RecommendedBooks } from './RecommendedBooks'
@@ -37,74 +35,38 @@ import { VocabularyLevelMap } from './VocabularyLevelMap'
 import { WordVaultEmptyState } from './WordVaultEmptyState'
 
 interface WordVaultHubProps {
-  words: WordItem[]
-  realStats?: HubStats | null
+  /** 서버가 한 번에 접어 준 허브 데이터. `state !== 'ready'` 면 null 이다. */
+  data: HubData | null
+  /** 면 요약 — 실패해도 나머지 섹션은 그대로 뜬다. */
+  facets: FacetSummary | null
+  /**
+   * "아직 못 셌다" 와 "세어보니 0" 은 다른 것이다.
+   * 그 구별이 없어서 목업이 실수치 자리에 앉아 있던 적이 있다(실측 2026-08-15:
+   * 실제 252개인 계정이 "13 단어" 를 보고 있었다).
+   */
+  state: 'unauthenticated' | 'error' | 'ready'
 }
 
-const DEFAULT_DAILY_GOAL = 12
-
-export function WordVaultHub({ words, realStats }: WordVaultHubProps) {
-  const [weekly, setWeekly] = useState<{ done: number; target: number } | null>(null)
-
-  useEffect(() => {
-    let cancelled = false
-    const supabase = createClient()
-    ;(async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser()
-      if (cancelled || !user) return
-
-      const { data: profile } = await supabase
-        .from('user_profiles')
-        .select('daily_word_goal')
-        .eq('user_id', user.id)
-        .maybeSingle()
-      const dailyGoal =
-        (profile as { daily_word_goal: number | null } | null)?.daily_word_goal ?? DEFAULT_DAILY_GOAL
-      const target = dailyGoal * 7
-
-      const now = new Date()
-      const day = now.getDay()
-      const offset = day === 0 ? 6 : day - 1
-      const monday = new Date(now)
-      monday.setDate(now.getDate() - offset)
-      monday.setHours(0, 0, 0, 0)
-      const mondayStr = monday.toISOString().slice(0, 10)
-
-      const { data: activity } = await supabase
-        .from('daily_activity')
-        .select('total_words')
-        .eq('user_id', user.id)
-        .gte('date', mondayStr)
-
-      const done = (activity ?? []).reduce(
-        (s: number, r: { total_words: number | null }) => s + (r.total_words ?? 0),
-        0,
-      )
-      if (cancelled) return
-      setWeekly({ done, target })
-    })().catch(() => {})
-    return () => {
-      cancelled = true
-    }
-  }, [])
-
-  const mockCounts: Record<MemoryState, number> = { stable: 0, shaky: 0, risk: 0, new: 0 }
-  for (const w of words) {
-    const state = w.srs ? getMemoryState(w.srs) : 'new'
-    mockCounts[state] += 1
+export function WordVaultHub({ data, facets, state }: WordVaultHubProps) {
+  // 규칙: 못 세었으면 못 세었다고 말한다. 그럴듯한 숫자를 지어내지 않는다.
+  if (state !== 'ready' || !data) {
+    // 실패를 침묵하지 않는다. Empathetic Feedback — 학습자 잘못이 아니라는 것과
+    // 지금 무엇을 해도 되는지를 말한다.
+    return (
+      <div className="mx-auto max-w-[820px] px-4 py-10 md:px-6">
+        <p
+          role="status"
+          className="rounded-ios-2xl bg-[var(--bg)] px-5 py-6 text-center font-body text-[13.5px] leading-[1.7] text-[var(--t2)] shadow-ios-1 [word-break:keep-all]"
+        >
+          {state === 'unauthenticated'
+            ? '로그인하면 내 단어장이 여기 나타나요.'
+            : '지금 단어장을 세지 못했어요. 잠시 뒤 다시 열어 주세요 — 단어가 사라진 건 아니에요.'}
+        </p>
+      </div>
+    )
   }
 
-  const buckets = realStats?.buckets ?? mockCounts
-  const total = realStats?.total ?? words.length
-  const collections = realStats?.collectionsCount ?? MOCK_BOOKS.filter((b) => !b.isLocked).length
-  const accumulatedDays = realStats?.accumulatedDays ?? 0
-
-  const shouldShowEmpty =
-    realStats !== undefined ? (realStats?.total ?? 0) === 0 : words.length === 0
-
-  if (shouldShowEmpty) {
+  if (data.total === 0) {
     return (
       <div className="mx-auto flex max-w-4xl flex-col gap-4 px-4 py-10 md:px-6 md:py-14">
         <WordVaultEmptyState />
@@ -116,28 +78,42 @@ export function WordVaultHub({ words, realStats }: WordVaultHubProps) {
     <div className="mx-auto flex max-w-[820px] flex-col gap-4 px-4 py-6 md:px-6 md:py-8">
       {/* Section 1 — Identity Hero: 자산 + V-Level + 4 bucket + 주간 목표 + 단일 CTA */}
       <VaultIdentity
-        total={total}
-        buckets={buckets}
-        collections={collections}
-        accumulatedDays={accumulatedDays}
-        weeklyDone={weekly?.done ?? 0}
-        weeklyTarget={weekly?.target ?? DEFAULT_DAILY_GOAL * 7}
+        total={data.total}
+        buckets={data.buckets}
+        collections={data.collectionsCount}
+        accumulatedDays={data.accumulatedDays}
+        weeklyDone={data.weeklyDone}
+        weeklyTarget={data.weeklyTarget}
+        vLevel={data.currentVLevel}
       />
 
       {/* Section 2 — Vocabulary Level Map: V-Level 분포 + i+1 zone + 트랙 */}
-      <VocabularyLevelMap />
+      <VocabularyLevelMap data={data.levelMap} />
 
-      {/* Section 3 — Resource Portfolio: 도서 / 스크립트 / 공용 단어장 학습 이력 */}
-      <ResourcePortfolio />
+      {/* Section 3 — 면(facet) 상태 + 가장 뒤처진 면 하나 (설계안 §2.3).
+          레벨 맵이 "어디까지 왔나" 라면 이쪽은 "어느 쪽으로 아는가" 다.
+          준비 전/실패 시에는 렌더하지 않는다 — 빈 카드가 자리만 차지하는 것보다 낫다. */}
+      {facets && facets.total > 0 && <FacetProgressSection summary={facets} />}
 
-      {/* Section 4 — Recommended Books: i+1 권장 도서 4권 */}
-      <RecommendedBooks />
+      {/* Section 4 — Resource Portfolio: 도서 / 스크립트 / 공용 단어장 학습 이력 */}
+      <ResourcePortfolio
+        books={data.resources.books}
+        scripts={data.resources.scripts}
+        sets={data.resources.sets}
+      />
 
-      {/* Section 5 — Next Step (단어장 추천): recommend_word_sets_for_user */}
-      <NextStepList />
+      {/* Section 5 — Recommended Books: i+1 권장 도서 */}
+      <RecommendedBooks books={data.recommendedBooks} vLevel={data.currentVLevel} />
 
-      {/* Section 6 — Flow: 28일 sparkline + 마지막 활동 */}
-      <FlowStripe />
+      {/* Section 6 — Next Step (단어장 추천): recommend_word_sets_for_user */}
+      <NextStepList
+        sets={data.recommendedSets}
+        status={data.recommendedSetsStatus}
+        vLevel={data.currentVLevel}
+      />
+
+      {/* Section 7 — Flow: 28일 sparkline + 마지막 활동 */}
+      <FlowStripe days={data.flow.days} lastActivity={data.flow.lastActivity} />
     </div>
   )
 }

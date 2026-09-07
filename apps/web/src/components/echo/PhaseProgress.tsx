@@ -33,12 +33,12 @@ export function PhaseProgress({ phase, currentSentence, totalSentences }: Props)
             return (
               <span
                 key={p.key}
-                className={`inline-flex items-center rounded-[var(--r-full)] px-2 py-0.5 font-display text-[10px] font-[700] transition-colors ${
+                className={`inline-flex items-center rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700] transition-colors ${
                   isActive
-                    ? 'bg-[var(--p)] text-[var(--ti)]'
+                    ? 'bg-[var(--p)] text-[var(--on-p)]'
                     : isPassed
                       ? 'bg-[var(--success-light)] text-[var(--success)]'
-                      : 'bg-[var(--bg3)] text-[var(--t3)]'
+                      : 'bg-[var(--bg3)] text-[var(--t2)]'
                 }`}
               >
                 {p.label}
@@ -46,7 +46,7 @@ export function PhaseProgress({ phase, currentSentence, totalSentences }: Props)
             )
           })}
         </div>
-        <span className="font-mono text-[11px] text-[var(--t3)] tabular-nums">
+        <span className="font-mono text-[11px] text-[var(--t2)] tabular-nums">
           {currentSentence}/{totalSentences} · {pct}%
         </span>
       </div>

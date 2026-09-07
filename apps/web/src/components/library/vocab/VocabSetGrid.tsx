@@ -9,14 +9,18 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { useMemo, useState, useTransition } from 'react'
+import { useCallback, useEffect, useMemo, useState, useTransition } from 'react'
 import { Search, Sparkles } from 'lucide-react'
 
 import { subscribeSet, unsubscribeSet } from '@/app/(main)/library/vocab/actions'
 import type { PublishedVocabSet, RecommendedSet } from '@/lib/library/vocab/queries'
+import { rungForSet } from '@/lib/library/vocab/rung'
+import { readEnumParam, useShelfUrlState } from '@/lib/library/shelf-url-state'
+import { ShelfEmptyState } from '@/components/library/shared/ShelfEmptyState'
+import { track } from '@/lib/analytics/client'
 
 import { CategoryMatrix } from './CategoryMatrix'
-import { categoryImportance, type VocabCategoryId } from './categories'
+import { VOCAB_CATEGORIES, categoryImportance, type VocabCategoryId } from './categories'
 import { SubscribeSuccessToast, type SubscribeToastData } from './SubscribeSuccessToast'
 import { VocabSetCard } from './VocabSetCard'
 import { VocabSetCarousel } from './VocabSetCarousel'
@@ -24,16 +28,19 @@ import { VocabSetPreviewModal } from './VocabSetPreviewModal'
 
 // 추천 티어 배지 (recommend_word_sets_for_user recommendation_type) — RecommendedSetsSection 정합.
 const TIER_BADGE: Record<string, { label: string; bg: string; text: string }> = {
-  primary: { label: '메인', bg: 'var(--p)', text: 'var(--ti)' },
-  stretch: { label: '도전', bg: 'var(--active)', text: 'var(--ti)' },
+  // bg 는 면 · text 는 그 위 글자 — 채움/틴트별로 잉크를 맞춘다(2026-08-09 axe).
+  primary: { label: '메인', bg: 'var(--p)', text: 'var(--on-p)' },
+  stretch: { label: '도전', bg: 'var(--active)', text: '#231a09' },
   review: { label: '보강', bg: 'var(--bg3)', text: 'var(--t2)' },
-  specialty: { label: '관심', bg: 'var(--info-light)', text: 'var(--info)' },
-  etymology: { label: '어원', bg: 'var(--warn-light, var(--info-light))', text: 'var(--warn, var(--info))' },
+  specialty: { label: '관심', bg: 'var(--info-light)', text: 'var(--info-ink)' },
+  etymology: { label: '어원', bg: 'var(--warning-light)', text: 'var(--warning-ink)' },
   topic: { label: '주제', bg: 'var(--bg3)', text: 'var(--t2)' },
   fallback: { label: '추천', bg: 'var(--bg3)', text: 'var(--t2)' },
 }
 
-type SortKey = 'recommended' | 'most_words' | 'fewest_words' | 'newest'
+/** 정렬 키 — 닫힌 열거형. 주소에서 읽은 값을 이 목록으로 검증한다(손으로 고친 `?sort=` 방어). */
+const SORT_KEYS = ['recommended', 'most_words', 'fewest_words', 'newest'] as const
+type SortKey = (typeof SORT_KEYS)[number]
 
 interface Props {
   sets: PublishedVocabSet[]
@@ -51,16 +58,95 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn, userVLevel, reco
   // Optimistic subscribed set — 서버 액션 성공 시 즉시 반영
   const [subscribed, setSubscribed] = useState<Set<string>>(() => new Set(subscribedIds))
 
-  const [category, setCategory] = useState<VocabCategoryId>('all')
-  const [query, setQuery] = useState('')
-  const [sort, setSort] = useState<SortKey>('recommended')
-  const [mineOnly, setMineOnly] = useState(false)
-  const [previewing, setPreviewing] = useState<PublishedVocabSet | null>(null)
+  /**
+   * 고르던 자리(카테고리·검색어·정렬·내 것만)는 **주소가 기억한다.**
+   * 왜 로컬 상태와 주소를 함께 쓰는지는 `lib/library/shelf-url-state.ts` 머리 주석.
+   */
+  const { searchParams, setParams } = useShelfUrlState()
+  const [category, setCategoryState] = useState<VocabCategoryId>(
+    () =>
+      readEnumParam<VocabCategoryId>(
+        searchParams,
+        'cat',
+        VOCAB_CATEGORIES.map((c) => c.id)
+      ) ?? 'all'
+  )
+  const [query, setQueryState] = useState(() => searchParams?.get('q') ?? '')
+  const [sort, setSortState] = useState<SortKey>(
+    () => readEnumParam<SortKey>(searchParams, 'sort', SORT_KEYS) ?? 'recommended'
+  )
+  const [mineOnly, setMineOnlyState] = useState(() => searchParams?.get('mine') === '1')
+
+  // 상태를 바꾸는 곳마다 주소를 함께 쓴다 — 세터를 감싸 두면 빠뜨릴 자리가 없다.
+  const setCategory = useCallback(
+    (v: VocabCategoryId) => {
+      setCategoryState(v)
+      setParams({ cat: v === 'all' ? null : v })
+    },
+    [setParams]
+  )
+  const setQuery = useCallback(
+    (v: string) => {
+      setQueryState(v)
+      setParams({ q: v.trim() || null })
+    },
+    [setParams]
+  )
+  const setSort = useCallback(
+    (v: SortKey) => {
+      setSortState(v)
+      setParams({ sort: v === 'recommended' ? null : v })
+    },
+    [setParams]
+  )
+  const setMineOnly = useCallback(
+    (v: boolean) => {
+      setMineOnlyState(v)
+      setParams({ mine: v ? '1' : null })
+    },
+    [setParams]
+  )
+  /** 0건을 만든 조건을 한 번에 되돌린다 — 빈 상태의 「필터 초기화」. */
+  const resetFilters = useCallback(() => {
+    setCategoryState('all')
+    setQueryState('')
+    setSortState('recommended')
+    setMineOnlyState(false)
+    setParams({ cat: null, q: null, sort: null, mine: null })
+  }, [setParams])
+  const [previewing, setPreviewingState] = useState<PublishedVocabSet | null>(null)
   const [pendingId, setPendingId] = useState<string | null>(null)
   const [errors, setErrors] = useState<Record<string, string | null>>({})
   const [toast, setToast] = useState<SubscribeToastData | null>(null)
 
   const [, startTransition] = useTransition()
+
+  /*
+    선택 퍼널 — **분모만 수집한다.**
+
+    구독은 `user_word_set_subscriptions` 에 행이 남으므로 파생할 수 있다(수집하지 않는다 —
+    `lib/admin/retention-math.ts` 의 "수집기 대신 계산기"). 반면 "서가에 왔다" 와
+    "한 권을 열어 봤다" 는 어떤 테이블에도 흔적이 없어, 없으면 전환율의 분모가 영원히 없다.
+
+    2026-08-31 — 이 서가를 브랜딩해 놓고도 **그것이 선택을 바꿨는지 물을 수단이 없었다.**
+  */
+  useEffect(() => {
+    track({ name: 'catalog_viewed', props: { volumes: sets.length } })
+    // 서가 진입 1회만 — 필터·검색으로 목록이 바뀔 때마다 세면 분모가 부풀려진다.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  /** 미리보기 열기 — 여는 자리가 하나뿐이라 여기서만 센다. */
+  function setPreviewing(set: PublishedVocabSet | null) {
+    if (set) {
+      const { rung } = rungForSet(set)
+      track({
+        name: 'volume_previewed',
+        props: { step: rung?.step ?? null, hasCover: !!set.coverImageUrl },
+      })
+    }
+    setPreviewingState(set)
+  }
 
   function handleToggle(set: PublishedVocabSet) {
     if (!isLoggedIn) {
@@ -74,7 +160,7 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn, userVLevel, reco
         `"${set.title}" 을(를) 내 학습에서 제외할까요?\n` +
           '· 단어장 구독이 해제됩니다.\n' +
           '· 이미 학습한 단어와 학습 기록은 보존됩니다.\n' +
-          '· 언제든 다시 추가할 수 있어요.',
+          '· 언제든 다시 추가할 수 있어요.'
       )
       if (!ok) return
     }
@@ -156,7 +242,7 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn, userVLevel, reco
             categoryImportance(b.category) - categoryImportance(a.category) ||
             b.subscriberCount - a.subscriberCount ||
             a.sortOrder - b.sortOrder ||
-            b.wordCount - a.wordCount,
+            b.wordCount - a.wordCount
         )
         break
     }
@@ -178,8 +264,7 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn, userVLevel, reco
 
   // '전체' + 검색·필터 미사용 시에만 카테고리별 섹션 그룹핑 (chunking — Miller 7±2).
   // 검색/구독필터/특정 카테고리 선택 시에는 평탄 그리드 (사용자 의도 명확).
-  const isGrouped =
-    category === 'all' && query.trim() === '' && !mineOnly && sort === 'recommended'
+  const isGrouped = category === 'all' && query.trim() === '' && !mineOnly && sort === 'recommended'
 
   // 개인 맞춤 추천 — recommend_word_sets_for_user RPC 결과를 라이브러리 세트에 매핑(티어·사유 유지).
   const diagnosed = userVLevel >= 1
@@ -195,14 +280,17 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn, userVLevel, reco
       .slice(0, 8)
   }, [sets, recommended])
 
-  return (
-    <div className="flex flex-col gap-5">
+  /*
+    검색·정렬 줄. **자리를 상황에 따라 옮긴다** — 아래 `controlsFirst` 참조.
+  */
+  const controls = (
+    <>
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
         <div className="relative flex-1">
           <Search
             size={16}
             aria-hidden
-            className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[var(--t3)]"
+            className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[var(--t2)]"
           />
           <input
             type="search"
@@ -210,7 +298,7 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn, userVLevel, reco
             onChange={(e) => setQuery(e.target.value)}
             placeholder="단어장 이름·설명 검색"
             aria-label="공용 단어장 검색"
-            className="h-11 w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] pl-9 pr-3 font-body text-[14px] text-[var(--t1)] placeholder:text-[var(--t3)] transition-colors focus:border-[var(--t1)] focus:outline-none focus:ring-2 focus:ring-[var(--t1)]/10"
+            className="focus:ring-[var(--t1)]/10 h-11 w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] pl-9 pr-3 font-body text-[14px] text-[var(--t1)] transition-colors placeholder:text-[var(--t2)] focus:border-[var(--t1)] focus:outline-none focus:ring-2"
           />
         </div>
 
@@ -222,7 +310,7 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn, userVLevel, reco
             id="vocab-sort"
             value={sort}
             onChange={(e) => setSort(e.target.value as SortKey)}
-            className="h-11 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[13px] font-[600] text-[var(--t2)] focus:border-[var(--t1)] focus:outline-none focus:ring-2 focus:ring-[var(--t1)]/10"
+            className="focus:ring-[var(--t1)]/10 h-11 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[13px] font-[600] text-[var(--t2)] focus:border-[var(--t1)] focus:outline-none focus:ring-2"
           >
             <option value="recommended">추천순</option>
             <option value="most_words">단어 많은 순</option>
@@ -233,9 +321,9 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn, userVLevel, reco
           {isLoggedIn && (
             <button
               type="button"
-              onClick={() => setMineOnly((v) => !v)}
+              onClick={() => setMineOnly(!mineOnly)}
               aria-pressed={mineOnly}
-              className={`inline-flex h-11 items-center gap-1.5 rounded-[var(--r-md)] border px-3 font-display text-[13px] font-[600] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--t1)]/20 focus-visible:ring-offset-1 ${
+              className={`focus-visible:ring-[var(--t1)]/20 inline-flex h-11 items-center gap-2 rounded-[var(--r-md)] border px-3 font-display text-[13px] font-[600] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 ${
                 mineOnly
                   ? 'border-[var(--t1)] bg-[var(--t1)] text-[var(--bg)]'
                   : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t2)] hover:bg-[var(--bg2)]'
@@ -244,7 +332,7 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn, userVLevel, reco
               내 단어장만
               <span
                 className={`inline-flex min-w-[18px] justify-center rounded-[var(--r-full)] px-1 text-[11px] tabular-nums ${
-                  mineOnly ? 'bg-white/20 text-white' : 'bg-[var(--bg3)] text-[var(--t3)]'
+                  mineOnly ? 'bg-white/20 text-white' : 'bg-[var(--bg3)] text-[var(--t2)]'
                 }`}
               >
                 {mineCount}
@@ -253,7 +341,27 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn, userVLevel, reco
           )}
         </div>
       </div>
+    </>
+  )
 
+  /*
+    ⚠️ **둘러볼 때는 책이 먼저, 검색할 때는 검색창이 먼저.**
+
+    실측 2026-09-07(1280×900): 검색 줄과 진단 배너가 위에 있어 첫 표지가 `top 736` 이었고,
+    표지의 **제목이 y=959** 로 접힘(900) 아래였다 — 첫 화면에 제목이 읽히는 책이 한 권도 없었다.
+    서가의 첫인상은 필터가 아니라 책이다.
+
+    검색어를 넣었거나 카테고리를 고른 뒤에는 반대다: 그때 화면의 주인공은 조건이므로
+    조건 줄이 위에 있어야 방금 무엇을 눌렀는지 보인다.
+
+    (모바일 크롬 축소는 이미 `VocabSeriesHeader` 가 한다 — 그쪽은 **면적**을 줄이는 일이고
+     여기는 **순서**를 바꾸는 일이라 서로 다른 축이다.)
+  */
+  const controlsFirst = !isGrouped
+
+  return (
+    <div className="flex flex-col gap-5">
+      {controlsFirst && controls}
       {/* 카테고리 선택 시에만 빠른 클리어를 위해 CategoryMatrix 유지 (필터 active 표시). 기본 matrix view 일 때는 hide. */}
       {category !== 'all' && (
         <CategoryMatrix
@@ -265,18 +373,28 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn, userVLevel, reco
       )}
 
       {isEmptyAll ? (
-        <EmptyState
+        <ShelfEmptyState
           title="아직 공개된 단어장이 없어요"
-          body="새 컬렉션이 곧 추가될 예정이에요. 그동안 내 스크립트에서 단어를 직접 추출해 보세요."
+          body="큐레이션된 컬렉션이 준비되는 대로 여기에 올라와요. 그동안 원서 한 권을 담으면 챕터별 단어장이 함께 생기니, 거기서부터 시작해도 좋아요."
+          ctaHref="/library/books"
+          ctaLabel="도서 보러 가기"
         />
       ) : isEmptyFiltered ? (
-        <EmptyState
+        // ⚠️ 필터가 0건을 만든 경우다. 여기에 되돌릴 버튼이 없으면 카테고리 칩을 잘못 누른
+        //    사람이 빠져나오지 못한다 — 이웃 화면(BooksExplorer·ComicsBrowser)은 이미
+        //    「필터 초기화」를 주는데 여기만 없었다(2026-09-05).
+        <ShelfEmptyState
+          tone="filtered"
           title="조건에 맞는 단어장이 없어요"
           body={
             mineOnly
-              ? '아직 구독한 단어장이 없어요. 마음에 드는 세트를 추가해 보세요.'
-              : '검색어나 카테고리를 바꿔보세요.'
+              ? '「내 단어장만」이 켜져 있어요. 아직 담은 세트가 없다면 조건을 풀고 전체에서 골라 보세요.'
+              : '검색어나 카테고리가 서로를 좁히고 있어요. 조건을 되돌리면 전체 목록이 다시 보여요.'
           }
+          onAction={resetFilters}
+          actionLabel="필터 초기화"
+          ctaHref="/library/books"
+          ctaLabel="도서 보러 가기"
         />
       ) : isGrouped ? (
         <div className="flex flex-col gap-6">
@@ -297,10 +415,10 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn, userVLevel, reco
           ) : null}
           {/* v06.33 — OTT/Netflix 스타일 카테고리별 가로 carousel */}
           <VocabSetCarousel
-          sets={filtered}
-          subscribedIds={subscribed}
-          pendingId={pendingId}
-          isLoggedIn={isLoggedIn}
+            sets={filtered}
+            subscribedIds={subscribed}
+            pendingId={pendingId}
+            isLoggedIn={isLoggedIn}
             onPreview={setPreviewing}
             onToggle={handleToggle}
             onSelectCategory={(id) => setCategory(id)}
@@ -323,6 +441,9 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn, userVLevel, reco
         </div>
       )}
 
+      {/* 둘러보기 화면에서는 책을 먼저 보인 뒤 조건 줄을 준다. */}
+      {!controlsFirst && controls}
+
       <VocabSetPreviewModal
         set={previewing}
         isSubscribed={previewing ? subscribed.has(previewing.id) : false}
@@ -341,9 +462,9 @@ function DiagnosePrompt() {
   return (
     <a
       href="/diagnostic"
-      className="flex items-center justify-between gap-3 rounded-[var(--r-lg)] border border-dashed border-ios-purple/40 bg-ios-purple/[0.06] px-4 py-3 no-underline transition-colors hover:bg-ios-purple/[0.1] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ios-purple/40"
+      className="border-ios-purple/40 bg-ios-purple/[0.06] hover:bg-ios-purple/[0.1] focus-visible:ring-ios-purple/40 flex items-center justify-between gap-3 rounded-[var(--r-lg)] border border-dashed px-4 py-3 no-underline transition-colors focus-visible:outline-none focus-visible:ring-2"
     >
-      <span className="flex items-center gap-2.5">
+      <span className="flex items-center gap-3">
         <span
           aria-hidden
           className="inline-flex h-8 w-8 items-center justify-center rounded-ios-sm bg-ios-purple text-white"
@@ -354,12 +475,12 @@ function DiagnosePrompt() {
           <span className="font-display text-[13.5px] font-[800] text-[var(--t1)]">
             내 수준 맞춤 추천 받기
           </span>
-          <span className="font-body text-[12px] text-[var(--t3)]">
+          <span className="font-body text-[12px] text-[var(--t2)]">
             1분 진단하면 지금 딱 맞는 단어장을 추천해드려요
           </span>
         </span>
       </span>
-      <span className="shrink-0 rounded-[var(--r-md)] bg-ios-purple px-3 py-1.5 font-display text-[12px] font-[700] text-white">
+      <span className="shrink-0 rounded-[var(--r-md)] bg-ios-purple px-3 py-2 font-display text-[12px] font-[700] text-white">
         진단하기
       </span>
     </a>
@@ -391,18 +512,21 @@ function FeaturedRow({
       <div className="flex items-center gap-2 px-1">
         <span
           aria-hidden
-          className="inline-flex h-6 w-6 items-center justify-center rounded-ios-sm bg-ios-purple/12 text-ios-purple"
+          className="bg-ios-purple/12 inline-flex h-6 w-6 items-center justify-center rounded-ios-sm text-ios-purple"
         >
           <Sparkles size={14} />
         </span>
         <h2 className="font-display text-[15px] font-[800] text-[var(--t1)]">{title}</h2>
-        <span className="font-body text-[12px] text-[var(--t3)]">{subtitle}</span>
+        <span className="font-body text-[12px] text-[var(--t2)]">{subtitle}</span>
       </div>
       <div className="-mx-1 flex snap-x gap-3 overflow-x-auto px-1 pb-2 [scrollbar-width:thin]">
         {items.map(({ set, type, reason }) => {
           const badge = TIER_BADGE[type] ?? TIER_BADGE.fallback!
           return (
-            <div key={set.id} className="flex w-[128px] shrink-0 snap-start flex-col gap-1.5 sm:w-[144px]">
+            <div
+              key={set.id}
+              className="flex w-[128px] shrink-0 snap-start flex-col gap-2 sm:w-[144px]"
+            >
               <VocabSetCard
                 set={set}
                 isSubscribed={subscribed.has(set.id)}
@@ -410,16 +534,29 @@ function FeaturedRow({
                 errorMessage={errors[set.id] ?? null}
                 onToggle={onToggle}
                 onPreview={onPreview}
+                hideKind
               />
-              {/* 왜 추천? — 티어 배지 + 사유 (recommend_word_sets_for_user reason) */}
-              <div className="flex flex-col gap-0.5 px-0.5">
+              {/*
+                왜 추천? — 티어 배지 + 사유.
+
+                **한 줄로 고정한다.** `line-clamp-2` 였을 때 사유가 문장 중간에서 잘렸고
+                ("남들이 비워 둔 자리를 메…"), 카드마다 1~2줄로 갈려 배지 아래 블록 높이가
+                제각각이었다(실측 2026-08-16). 사유는 추천의 **근거**라 반쯤 잘리면 설득이
+                안 되느니만 못하다 — 그럴 바엔 한 줄만 단정하게 보이고, 전문은 카드를 열어
+                보게 한다. 높이를 예약해(`min-h`) 사유가 짧은 카드도 줄이 안 밀리게 한다.
+                전체 문장은 `title` 로 남겨 마우스·스크린리더가 닿게 둔다.
+              */}
+              <div className="flex flex-col gap-1 px-1">
                 <span
-                  className="inline-flex w-fit items-center rounded-[var(--r-full)] px-1.5 py-0.5 font-display text-[9px] font-[800] uppercase tracking-wider"
+                  className="inline-flex w-fit items-center rounded-[var(--r-full)] px-2 py-1 font-display text-[9px] font-[800] uppercase tracking-wider"
                   style={{ backgroundColor: badge.bg, color: badge.text }}
                 >
                   {badge.label}
                 </span>
-                <span className="line-clamp-2 font-body text-[10.5px] leading-snug text-[var(--t3)]">
+                <span
+                  title={reason}
+                  className="line-clamp-1 min-h-[14px] font-body text-[10.5px] leading-snug text-[var(--t2)]"
+                >
                   {reason}
                 </span>
               </div>
@@ -428,14 +565,5 @@ function FeaturedRow({
         })}
       </div>
     </section>
-  )
-}
-
-function EmptyState({ title, body }: { title: string; body: string }) {
-  return (
-    <div className="flex flex-col items-center justify-center gap-2 rounded-[var(--r-lg)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] py-12 text-center">
-      <p className="font-display text-[14px] font-[600] text-[var(--t2)]">{title}</p>
-      <p className="max-w-[360px] font-body text-[12px] text-[var(--t3)]">{body}</p>
-    </div>
   )
 }

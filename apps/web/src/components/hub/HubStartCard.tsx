@@ -30,6 +30,8 @@ export interface HubStartCardProps {
     label: string
     href: string
     accent?: string
+    /** 채움(accent) 위에 얹는 글자색 — 밝은 면(골드 등)에는 잉크를 넘겨야 AA 를 넘긴다 */
+    accentText?: string
     /** 비활성 시 사유 메시지 */
     disabled?: boolean
     disabledReason?: string
@@ -45,6 +47,8 @@ export function HubStartCard({
   cta,
 }: HubStartCardProps) {
   const accent = cta.accent ?? 'var(--p)'
+  // 기본은 종이색이지만, 밝은 채움에서는 호출부가 잉크를 지정한다(2026-08-09 axe: 골드 3.23 · 핑크 3.37).
+  const accentText = cta.accentText ?? 'var(--ti)'
   return (
     <section
       aria-label={title}
@@ -62,8 +66,8 @@ export function HubStartCard({
         <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">{title}</h2>
         {description && (
           <>
-            <span className="font-body text-[12px] text-[var(--t3)]">·</span>
-            <p className="font-body text-[12px] text-[var(--t3)]">{description}</p>
+            <span className="font-body text-[12px] text-[var(--t2)]">·</span>
+            <p className="font-body text-[12px] text-[var(--t2)]">{description}</p>
           </>
         )}
       </header>
@@ -73,7 +77,7 @@ export function HubStartCard({
         <div className="mb-4">
           <label
             htmlFor={`vocab-${vocabulary.label}`}
-            className="mb-1.5 block font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]"
+            className="mb-1.5 block font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]"
           >
             {vocabulary.label}
           </label>
@@ -97,7 +101,7 @@ export function HubStartCard({
       <div className="space-y-4">
         {choices.map((c) => (
           <fieldset key={c.label} className="flex flex-wrap items-center gap-3">
-            <legend className="contents font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]">
+            <legend className="contents font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
               {c.label}
             </legend>
             <div className="flex flex-wrap items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-1">
@@ -110,7 +114,9 @@ export function HubStartCard({
                     role="radio"
                     aria-checked={active}
                     onClick={() => c.onChange(opt.value)}
-                    className={`rounded-[var(--r-sm)] px-3 py-1.5 font-display text-[12px] font-[600] transition-all duration-[var(--dur-normal)] ${
+                    // 44px 하한 — 실측 30px(`10장`·`20장`·`전체 50장`). 이 컴포넌트는
+                    // Flashcard·SpellForge·ScriptQuiz 허브가 공유하므로 한 곳이 세 화면을 정한다.
+                    className={`inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] px-3 py-2 font-display text-[12px] font-[600] transition-all duration-[var(--dur-normal)] ${
                       active
                         ? 'bg-[var(--bg)] text-[var(--t1)] shadow-[var(--sh-xs)]'
                         : 'text-[var(--t2)] hover:text-[var(--t1)]'
@@ -131,9 +137,9 @@ export function HubStartCard({
       {/* CTA */}
       <div className="mt-6 flex flex-col items-start gap-2 border-t border-[var(--bd)] pt-5 sm:flex-row sm:items-center sm:justify-between">
         {cta.disabled && cta.disabledReason ? (
-          <p className="font-body text-[12px] italic text-[var(--t3)]">{cta.disabledReason}</p>
+          <p className="font-body text-[12px] italic text-[var(--t2)]">{cta.disabledReason}</p>
         ) : (
-          <p className="font-body text-[12px] text-[var(--t3)]">
+          <p className="font-body text-[12px] text-[var(--t2)]">
             준비됐어요. 시작 버튼을 눌러주세요.
           </p>
         )}
@@ -143,7 +149,7 @@ export function HubStartCard({
             type="button"
             disabled
             aria-disabled
-            className="inline-flex w-full items-center justify-center gap-2 rounded-[var(--r-md)] bg-[var(--bg3)] px-6 py-3 font-display text-[14px] font-[700] text-[var(--t3)] sm:w-auto"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-[var(--r-md)] bg-[var(--bg3)] px-6 py-3 font-display text-[14px] font-[700] text-[var(--t2)] sm:w-auto"
           >
             <Play size={14} strokeWidth={2.5} aria-hidden />
             {cta.label}
@@ -151,8 +157,8 @@ export function HubStartCard({
         ) : (
           <a
             href={cta.href}
-            className="inline-flex w-full items-center justify-center gap-2 rounded-[var(--r-md)] px-6 py-3 font-display text-[14px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:scale-[1.02] hover:shadow-[var(--sh-md)] active:scale-[0.97] sm:w-auto"
-            style={{ backgroundColor: accent }}
+            className="inline-flex w-full items-center justify-center gap-2 rounded-[var(--r-md)] px-6 py-3 font-display text-[14px] font-[700] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:scale-[1.02] hover:shadow-[var(--sh-md)] active:scale-[0.97] sm:w-auto"
+            style={{ backgroundColor: accent, color: accentText }}
           >
             <Play size={14} strokeWidth={2.5} aria-hidden />
             {cta.label}

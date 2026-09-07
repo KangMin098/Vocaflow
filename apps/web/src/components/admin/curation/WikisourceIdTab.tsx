@@ -81,7 +81,7 @@ export function WikisourceIdTab({ onPickPreview }: WikisourceIdTabProps) {
         <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">
           📜 Wikisource 페이지 직접 입력
         </h2>
-        <span className="font-mono text-[12px] text-[var(--t3)]">
+        <span className="font-mono text-[12px] text-[var(--t2)]">
           en.wikisource.org 페이지 제목
         </span>
       </div>
@@ -103,7 +103,7 @@ export function WikisourceIdTab({ onPickPreview }: WikisourceIdTabProps) {
             onKeyDown={handleKeyDown}
             placeholder="예: Pride_and_Prejudice 또는 The_Adventures_of_Sherlock_Holmes"
             className={[
-              'min-h-[40px] flex-1 min-w-[240px] rounded-[var(--r-sm)]',
+              'min-h-[44px] flex-1 min-w-[240px] rounded-[var(--r-sm)]',
               'border border-[var(--bd)] bg-[var(--bg)]',
               'px-3 font-mono text-[13px] text-[var(--t1)]',
               'transition-colors duration-[var(--dur-normal)] ease-[var(--ease)]',
@@ -120,7 +120,7 @@ export function WikisourceIdTab({ onPickPreview }: WikisourceIdTabProps) {
             onClick={handleFetch}
             disabled={isLoading || !titleInput.trim()}
             className={[
-              'min-h-[40px] inline-flex items-center justify-center gap-2',
+              'min-h-[44px] inline-flex items-center justify-center gap-2',
               'rounded-[var(--r-sm)] px-4',
               'bg-[var(--p)] hover:bg-[var(--p-hover)]',
               'font-display text-[12px] font-[600] text-[var(--ti)]',
@@ -142,14 +142,14 @@ export function WikisourceIdTab({ onPickPreview }: WikisourceIdTabProps) {
           <div
             id="wikisource-title-error"
             role="alert"
-            className="flex items-center gap-1.5 rounded-[var(--r-sm)] bg-[var(--learn-error-light)] px-3 py-2"
+            className="flex items-center gap-2 rounded-[var(--r-sm)] bg-[var(--learn-error-light)] px-3 py-2"
           >
             <AlertCircle size={12} className="text-[var(--learn-error)]" aria-hidden />
             <span className="font-body text-[11px] text-[var(--learn-error)]">{error}</span>
           </div>
         )}
 
-        <p className="font-body text-[11px] text-[var(--t3)]">
+        <p className="font-body text-[11px] text-[var(--t2)]">
           Wikisource 페이지 URL 의 마지막 부분입니다. 공백은 자동으로 <code>_</code> 로 변환됩니다.<br />
           상위 페이지를 입력하면 챕터 sub-page (최대 100개) 가 자동 수집됩니다. 예:{' '}
           <code className="font-mono text-[var(--t2)]">
@@ -157,7 +157,7 @@ export function WikisourceIdTab({ onPickPreview }: WikisourceIdTabProps) {
           </code>
         </p>
 
-        <p className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-body text-[11px] text-[var(--t3)]">
+        <p className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-body text-[11px] text-[var(--t2)]">
           📜 Wikisource 작품은 대부분 PD (저자 사후 70년 경과) — 하지만 페이지 메타에 저자
           생몰년이 노출되지 않아 자동 KR 저작권 룰이 적용되지 않습니다. 큐레이션 단계에서
           작품을 직접 확인 후 강제 publish 가 필요합니다.
@@ -197,18 +197,18 @@ function PreviewCard({
             href={preview.source_url}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex shrink-0 items-center gap-1 rounded-[var(--r-sm)] px-2 py-1 font-mono text-[10px] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+            className="min-h-[44px] inline-flex shrink-0 items-center gap-1 rounded-[var(--r-sm)] px-2 py-1 font-mono text-[10px] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
             aria-label="Wikisource 페이지 새 탭에서 열기"
           >
             {preview.source_id}
             <ExternalLink size={10} aria-hidden />
           </a>
         </div>
-        <p className="font-body text-[12px] text-[var(--t3)]">
+        <p className="font-body text-[12px] text-[var(--t2)]">
           {preview.author ?? '저자 미상'}
           <span className="ml-2 font-mono text-[10px] text-[var(--t5)]">· PD</span>
           {preview.subpage_count > 0 && (
-            <span className="ml-2 inline-flex items-center gap-0.5 font-mono text-[10px] text-[var(--t5)]">
+            <span className="ml-2 inline-flex items-center gap-1 font-mono text-[10px] text-[var(--t5)]">
               <Layers size={9} aria-hidden /> 챕터 {preview.subpage_count}개
             </span>
           )}
@@ -216,7 +216,7 @@ function PreviewCard({
       </header>
 
       <div className="px-5 py-4">
-        <div className="mb-2 font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">
+        <div className="mb-2 font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">
           본문 미리보기
         </div>
         <p className="line-clamp-6 font-body text-[13px] leading-relaxed text-[var(--t1)]">
@@ -229,7 +229,7 @@ function PreviewCard({
           type="button"
           onClick={onPick}
           disabled={isPickPending}
-          className="inline-flex min-h-[36px] items-center justify-center gap-2 rounded-[var(--r-sm)] bg-[var(--p)] px-4 font-display text-[12px] font-[600] text-[var(--ti)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+          className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-[var(--r-sm)] bg-[var(--p)] px-4 font-display text-[12px] font-[600] text-[var(--on-p)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
         >
           ➕ 큐에 추가
         </button>

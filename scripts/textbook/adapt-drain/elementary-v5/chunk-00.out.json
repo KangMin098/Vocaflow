@@ -1,0 +1,346 @@
+[
+  {
+    "adapted_from_id": "5d2c9b39-8245-4074-8721-c2cba7661a50",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "The Hunniwell boys and the platinum mystery (발췌)",
+    "source_feed": "gutenberg",
+    "source_license": "public_domain",
+    "source_v_level": 5,
+    "source_url": "https://www.gutenberg.org/ebooks/76521",
+    "source_text": "The rope had nearly reached him when there was a slight sound just ahead which caught his ears and, looking up, he saw a triangular fin cutting through the water and but a few feet away. Even as he yelled his hands grasped the rope and he began to pull himself from the water. But his weight was pulling the plane down and, as he afterward told Bill, it seemed as though he would never get above it. And the shark was coming with the speed of an express train. But Bill had, the instant Gordon had the rope in his hands, thrown the lever over to the last notch, and nobly did the plane respond. Then came a flash of white as the monster turned to grasp his prey and for a second Gordon gave himself up for lost.",
+    "teachable_new_words": {
+      "teachable": 15,
+      "outside": 26,
+      "pct": 57.7
+    },
+    "title": "",
+    "text": ""
+  },
+  {
+    "adapted_from_id": "45fc686f-5470-4873-bce3-a0bfaf5565b4",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "Bleak House (발췌)",
+    "source_feed": "gutenberg",
+    "source_license": "public_domain",
+    "source_v_level": 7,
+    "source_url": "https://www.gutenberg.org/ebooks/1023",
+    "source_text": "Fog everywhere. Fog up the river, where it flows among green aits and meadows; fog down the river, where it rolls defiled among the tiers of shipping and the waterside pollutions of a great (and dirty) city. Fog on the Essex marshes, fog on the Kentish heights. Fog creeping into the cabooses of collier-brigs; fog lying out on the yards and hovering in the rigging of great ships; fog drooping on the gunwales of barges and small boats. Fog in the eyes and throats of ancient Greenwich pensioners, wheezing by the firesides of their wards; fog in the stem and bowl of the afternoon pipe of the wrathful skipper, down in his close cabin; fog cruelly pinching the toes and fingers of his shivering little ’prentice boy on deck. Chance people on the bridges peeping over the parapets into a nether sky of fog, with fog all round them, as if they were up in a balloon and hanging in the misty clouds.",
+    "teachable_new_words": {
+      "teachable": 5,
+      "outside": 41,
+      "pct": 12.2
+    },
+    "title": "",
+    "text": ""
+  },
+  {
+    "adapted_from_id": "e713523f-08c6-43d3-9442-e9f8e5504d63",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "The Dash for Khartoum: A Tale of the Nile Expedition (발췌)",
+    "source_feed": "gutenberg",
+    "source_license": "public_domain",
+    "source_v_level": 5,
+    "source_url": "https://www.gutenberg.org/ebooks/21986",
+    "source_text": "Pursuers and pursued were soon out of sight, and Edgar turned to see how his companions had fared. Three of them had been killed and six of the others had received spear-thrusts or sword-cuts more or less severe. \"We should have beaten them,\" the sheik said. \"That gun of yours would have turned the scale. Had it not been for that they would have been too strong for us, for they were all fighting men in their prime, and five or six of my men were no match for them in a hand-to-hand fight. Mashallah! it has been a great day; it will be talked of long in our tribe, how, with but twenty men, and many of these not at their best, we withstood forty dervishes, and so beat them that when a reinforcement of eight men came to us we destroyed them altogether.\"",
+    "teachable_new_words": {
+      "teachable": 11,
+      "outside": 30,
+      "pct": 36.7
+    },
+    "title": "",
+    "text": ""
+  },
+  {
+    "adapted_from_id": "68b19598-dbf8-47af-a0d7-5fdc4d0773a1",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "Secondary structure of the SARS-CoV-2 genome is predictive of nucleotide substitution frequency",
+    "source_feed": "elife",
+    "source_license": "cc_by",
+    "source_v_level": 5,
+    "source_url": "https://elifesciences.org/articles/98102",
+    "source_text": "Tracking and characterizing mutations in a fast-evolving virus such as SARS-CoV-2, the cause of COVID-19, are valuable for an effective public health response and for developing treatments and vaccines that work well against mutated viruses. Mutations in the SARS-CoV-2 genome happen when errors are made as the RNA genetic material is copied.\n\nThe SARS-CoV-2 genome is made of an RNA chain consisting of four units called nucleotides, known as A, C, G, and U. Unlike DNA, where all nucleotides of one strand are paired with the other strand, RNA usually consists of a single strand. However, the SARS-CoV-2 genome folds into a compact and dynamic structure where some RNA nucleotides form pairs with others within the same strand, similar to the double-stranded DNA molecules.\n\nMany mutations have no effect, but some can increase the ability of the virus to spread from person to person. This increased ‘viral fitness’ is difficult to predict, but understanding which mutations are more likely to occur can help scientists estimate risks. For example, a common type of mutation causes one RNA nucleotide – A, U, C or G – to be replaced by another. In SARS-CoV-2, the most common mutations involve C being replaced by U.\n\nTo find out if the pairing of RNA nucleotides affects how likely it is for a mutation to occur, Hensel looked at the rates of tens of thousands of different mutations, previously estimated from millions of publicly available sequences of the SARS-CoV-2 genome. He analyzed how often different types of mutations happen in paired versus unpaired RNA nucleotides. Only mutations that change the nucleotide sequence and not the protein sequences (so-called ‘neutral’ mutations) were considered in this analysis.\n\nHensel observed that C to U and G to U mutations are about four times more likely in unpaired nucleotides compared to paired ones. Other types of ‘neutral’ mutations, like A to G, were found to be equally likely, regardless of being paired or unpaired. Understanding that certain unpaired nucleotides mutate more often can help explain why some mutations are much more common than others. This should be considered in future models of the evolution of SARS-CoV-2 and other RNA viruses. A better understanding of mutation rates will also inform vaccine development and improve our estimates of viral fitness, potentially improving future public health responses.",
+    "teachable_new_words": {
+      "teachable": 16,
+      "outside": 66,
+      "pct": 24.2
+    },
+    "title": "How a Virus Copies Itself Wrong",
+    "text": "A virus must copy its genome to spread. The copy is not always perfect. A small mistake in the copy is called a mutation. Most mutations change nothing at all. A few help the virus escape our immune defence. Scientists watch for those few. The genome of this virus is a single strand of RNA. The strand is built from four nucleotides. Scientists label them A, C, G and U. The strand does not stay straight in the cell. It folds and some nucleotides pair with others. The folded regions are packed tightly together. Mistakes appear less often inside those packed regions. So the folded shape shows where mutations are likely."
+  },
+  {
+    "adapted_from_id": "0880e1bc-5eb7-4c78-913c-1ae4e209bd38",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "Golf ball dimples could make underwater vehicles more agile",
+    "source_feed": "futurity",
+    "source_license": "cc_by",
+    "source_v_level": 6,
+    "source_url": "https://www.futurity.org/golf-ball-dimples-underwater-vehicles-drag-lift-3281702/",
+    "source_text": "Underwater or aerial vehicles with dimples like golf balls could be more efficient and maneuverable, researchers have demonstrated with a new prototype.\n\nThese nimble vehicles could access typically hard-to-reach areas in the ocean while conducting surveillance, mapping new areas, or collecting data on water conditions.\n\nGolf ball dimples cut through pressure drag—the resistance force an object meets when moving through a fluid—propelling the ball 30% further than a smooth ball on average.\n\nTaking this as inspiration, a research team developed a spherical prototype with adjustable surface dimples and tested its aerodynamics in a controlled wind tunnel.\n\n“A dynamically programmable outer skin on an underwater vehicle could drastically reduce drag while eliminating the need for protruding appendages like fins or rudders for maneuvering. By actively adjusting its surface texture, the vehicle could achieve precise maneuverability with enhanced efficiency and control,” says Anchal Sareen, a University of Michigan assistant professor of naval architecture and marine engineering and mechanical engineering and corresponding author of two studies published in Flow and The Physics of Fluids.\n\nSareen and colleagues formed the prototype by stretching a thin layer of latex over a hollow sphere dotted with holes, resembling a pickleball. A vacuum pump depressurizes the core, pulling the latex inwards to create precise dimples when switched on. Turning off the pump makes the sphere smooth again.\n\nTo find out how the dimples affected drag, the researchers put the sphere to the test within a 3-meter-long wind tunnel, suspending it by a thin rod and subjecting it to different wind velocities.\n\nFor each flow condition, the researchers could finely adjust dimple depth by shifting the vacuum pump’s strength. They measured drag using a load cell, a sensor that detects force exerted by airflow on the object. At the same time, they sprayed an aerosol into the wind tunnel while a high-speed laser and camera captured the motion of the tiny particles as they flowed around the sphere.\n\nFor high wind speeds, shallower dimples cut the drag more effectively while deeper dimples were more efficient at lower wind speeds. By adjusting dimple depth, the sphere reduced drag by 50% compared to a smooth counterpart for all conditions.\n\n“The adaptive skin setup is able to notice changes in the speed of the incoming air and adjust dimples accordingly to maintain drag reductions. Applying this concept to underwater vehicles would reduce both drag and fuel consumption,” says Rodrigo Vilumbrales-Garcia, a postdoctoral research fellow of naval architecture and marine engineering at UM and contributing author to the studies.\n\nThe smart morphable sphere can also generate lift, allowing for controlled movement. Often thought of as the upwards force responsible for keeping planes in the air, lift can work in any direction as long as it is perpendicular to the direction of the flow.\n\nTo achieve this, researchers designed the inner skeleton with holes on only one side, causing the sphere to develop one smooth and one dimpled side when activated.\n\nThis created asymmetric flow separation on the two sides of the sphere, deflecting the wake toward the smooth side. By Newton’s third law, the fluid applies an equal and opposite force toward the rough side, effectively pushing the sphere in the direction of the dimples. Dimples on the right generate force to the right while those on the left push left. This enables precise steering by selectively activating dimples on the desired side.\n\nThe team tested the new sphere in the same wind tunnel setup with varying wind velocity and dimple depth. With the optimal dimple depth, the half rough/half smooth sphere generated lift forces up to 80% of the drag force. The lift generation was as strong as the Magnus effect, but instead of using rotation, it was created entirely by modifying the surface texture.\n\n“I was surprised that such a simple approach could produce results comparable to the Magnus effect, which requires continuous rotation,” says Putu Brahmanda Sudarsana, a UM graduate student in mechanical engineering and contributing author to the studies.\n\n“In the long run, this could benefit, for example, compact spherical robotic submarines that prioritize maneuverability over speed for exploration and inspection. Typically, these submarines would require multiple propulsion systems, but this mechanism could help reduce that need.”\n\nLooking ahead, Sareen anticipates collaborations that combine expertise in materials science and soft robotics, further advancing the capabilities of this dynamic skin technology.\n\n“This smart dynamic skin technology could be a game-changer for unmanned aerial and underwater vehicles, offering a lightweight, energy-efficient and highly responsive alternative to traditional jointed control surfaces,” she says. “By enabling real-time adaptation to changing flow conditions, this innovation promises to enhance maneuverability, optimize performance and unlock new possibilities for vehicle design.”",
+    "teachable_new_words": {
+      "teachable": 21,
+      "outside": 169,
+      "pct": 12.4
+    },
+    "title": "Dimples That Cut Through Water",
+    "text": "A golf ball is covered with small dimples. The dimples are not there for looks. Air pushes back on anything that moves through it. That push is called drag. The dimples break up the air near the surface. A dimpled ball flies much further than a smooth one. Engineers borrowed the idea for machines. They built a round robot with dimples on its skin. The dimples on the robot can change depth. The robot can make them deep or almost flat. A deep dimple grips the water in a new way. So the robot turns without any fins or rudders. The team tested the ball in a wind tunnel. A dimpled skin may soon steer robots under the sea."
+  },
+  {
+    "adapted_from_id": "5527f456-050e-47d4-bdc7-4020dab0add7",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "NASA to Cover Three US Spacewalks, Host Preview News Conference - NASA",
+    "source_feed": "nasa",
+    "source_license": "public_domain",
+    "source_v_level": 5,
+    "source_url": "https://www.nasa.gov/news-release/nasa-to-cover-three-us-spacewalks-host-preview-news-conference/",
+    "source_text": "4 min read\n\nNASA to Cover Three US Spacewalks, Host Preview News Conference\n\nLauren E. Low\n\nJul 27, 2026\n MEDIA ADVISORYM26-058\n\nNASA Headquarters\n\nEditor’s Note: This advisory was updated on Aug. 20, 2026, to reflect updated information for U.S. spacewalk 98 planned for Tuesday, Aug. 25. Visit the International Space Station blog for more information. \n\nEditor’s Note: This advisory was updated on Aug. 10, 2026, to reflect the assigned crew members and coverage times for U.S. spacewalk 97, scheduled to take place on Tuesday, Aug. 18.\n\nEditor’s Note: The advisory was updated on Aug. 7, 2026, with a date change for U.S. spacewalk 97, which is now scheduled for Tuesday, Aug. 18. Read more on the International Space Station blog.\n\nEditor’s note: This media advisory was updated July 27, 2026 to reflect an updated start time for the spacewalk on Thursday, Aug. 6.\n\nNASA will provide coverage as astronauts venture outside the International Space Station during three spacewalks in August to continue upgrading solar arrays, replace a communications antenna, and connect power and data cables in support of space station operations.\n\nExperts will preview the upcoming spacewalks during a news conference at 2 p.m. EDT, Thursday, July 30, from NASA’s Johnson Space Center in Houston.\n\nNASA will stream these events through a variety of platforms. Learn where to watch online:\n\nhttps://www.nasa.gov/live\n\nNASA participants in the news conference include:\n\nBill Spetch, deputy manager of Commercial, Low Earth Orbit Program\n\nChris Dobbins, spacewalk flight director\n\nChloe Mehring, spacewalk flight director\n\nUnited States-based media interested in attending in person must contact the Johnson newsroom no later than 3 p.m., Wednesday, July 29, at jsccommu@mail.nasa.gov. Media joining by phone should request dial-in details by the same deadline. To ask a question, media must dial in no later than 15 minutes before the start of the news conference.\n\nThursday, Aug. 6\n\nNASA astronauts Jessica Meir and Anil Menon will exit the Quest airlock to install hardware that will modify the station’s 3B power channel and prepare it for the future installation of an International Space Station Roll-Out Solar Array (IROSA). The solar array, scheduled for delivery later this year, will be the seventh IROSA and will provide additional power to support critical station operations, including its safe and controlled deorbit.\n\nWatch NASA’s live coverage of U.S. spacewalk 96 beginning at 7 a.m. The spacewalk is expected to start at 8:35 a.m. and last about six and a half hours.\n\nThis spacewalk will be the sixth for Meir and the first for Menon. Meir will serve as spacewalk crew member 1 and will wear a suit with red stripes. Menon will serve as crew member 2 and will wear an unmarked suit.\n\nTuesday, Aug. 18\n\nDuring U.S. spacewalk 97, NASA astronaut Anil Menon and ESA (European Space Agency) astronaut Sophie Adenot will exit the station’s Quest airlock to replace a Space-to-Ground antenna on the orbital complex. The antenna is a critical communications link NASA uses to transmit data, enabling high-speed communications between the Mission Control Center in Houston and the space station.\n\nWatch NASA’s live coverage beginning at 7 a.m. The spacewalk is expected to start at approximately 8:35 a.m. and last about six and a half hours.\n\nMenon will serve as spacewalk crew member 1, and Adenot will serve as crew member 2. The spacewalk will be Menon’s second and Adenot’s first. Adenot will become the first French woman to conduct a spacewalk.\n\nTuesday, Aug. 25\n\nDuring U.S. spacewalk 98, NASA astronaut Anil Menon and ESA astronaut Sophie Adenot will make their second spacewalk to finish replacing the space‑to‑ground antenna on the International Space Station. The pair began the work on Aug. 18.\n\nIf time allows, Menon and Adenot also will attempt a get‑ahead task to replace a retroreflector on the forward port of the space station’s Harmony module, which will improve navigation data for visiting spacecraft.\n\nWatch NASA’s live coverage beginning at 7 a.m. The spacewalk is expected to begin at approximately 8:35 a.m. and last about six and a half hours.\n\nMenon will serve as spacewalk crew member 1, and Adenot will serve as crew member 2. The spacewalk will be Menon’s third and Adenot’s second.\n\nThe spacewalks will be the 281st, 282nd, and 283rd conducted in support of space station assembly, maintenance, and upgrades.\n\nTo learn more about International Space Station research, operations, and its crews, visit:\n\nhttps://www.nasa.gov/station\n\n-end-\n\nJoshua Finch / Jimi Russell\nHeadquarters, Washington\n202-358-1100\njoshua.a.finch@nasa.gov / james.j.russell@nasa.gov\n\nSandra Jones / Anna Schneider\nJohnson Space Center, Houston\n281-483-5111\nsandra.p.jones@nasa.gov / anna.c.schneider@nasa.gov\n\nShare\n\nDetails\n\n Last Updated\n\n Aug 20, 2026\n\n Editor\n\nJennifer M. Dooren\n\nLocation\n\nNASA Headquarters\n\nRelated Terms\n\nHumans in Space\nInternational Space Station (ISS)",
+    "teachable_new_words": {
+      "teachable": 23,
+      "outside": 124,
+      "pct": 18.5
+    },
+    "title": "",
+    "text": ""
+  },
+  {
+    "adapted_from_id": "c681afec-1bf4-428b-a34b-40f5aba5b246",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "Understanding climate: Antarctic sea ice extent",
+    "source_feed": "noaa",
+    "source_license": "public_domain",
+    "source_v_level": 5,
+    "source_url": "https://www.climate.gov/news-features/understanding-climate/understanding-climate-antarctic-sea-ice-extent",
+    "source_text": "As it does in the Arctic, the surface of the ocean around Antarctica freezes over in the winter and melts back each summer. Antarctic sea ice usually reaches its annual maximum extent in mid- to late September, and reaches its annual minimum in late February or early March.\n\nIn 2022, Antarctic sea ice reached its annual peak on September 16. The 2022 winter maximum extent was 18.19 million square kilometers (7.02 million square miles). In 2023, Antarctic sea ice reached its annual minimum on February 21. At 1.79 million square kilometers (691,000 square miles), it was the lowest extent on record. This low value punctuated a series of below-average extents, including multiple record lows. Whether this was due to natural variability or the start of a climate-change signal was not clear as of February 2023. Making such a determination could require several more years.\n\nThe timing of the seasonal cycles isn’t the only way that Antarctic sea ice differs from the Arctic. One key difference is the larger range between austral winter maximum extent and summer minimum extent. Historically, Antarctic sea ice has extended to about 19 million square kilometers (7 million square miles) in winter and retreated to about 3 million square kilometers (1 million square miles) in summer. That’s a bigger winter-summer difference than in the Arctic, where the range is about 15 million square kilometers (6 million square miles) in winter and 6 million square kilometers (2 million square miles) in summer.\n\nThe differences in seasonal extremes are largely due to basic geography. The Arctic is an ocean basin largely surrounded by land. Sea ice is always present over the North Pole and central Arctic, and it expands southward every autumn, but its expansion is checked by Eurasia, North America, and Greenland. The Antarctic is a continent surrounded by a vast ocean. Sea ice can expand freely across the Southern Ocean in winter, but it can get no closer to the South Pole than the Antarctic coastline will allow. This barrier means that sea ice can't form over the very coldest parts of the Southern Hemisphere.\n\nBecause a substantial amount of Antarctic sea ice forms at lower, warmer latitudes, less ice survives the summer. On average, about 40 percent of the Arctic Ocean’s winter ice cover remains at the summer minimum, whereas in the Southern Ocean only about 15 percent does. Because so little Antarctic ice persists through the summer, the majority of Antarctica’s sea ice is only one winter old. As a result, Antarctic sea ice is relatively thin, often 1 meter (about 3 feet) or less. (In the Arctic, multiyear ice that survives at least one summer is generally 3–4 meters (10–12 feet) thick, and even seasonal ice that formed since the previous summer can often reach about 2 meters (roughly 6 feet) in thickness.)\n\nSo overall, average Antarctic ice thickness is much lower than Arctic sea ice. However, snowfall often thickens Antarctic sea ice. The heavy snow burden can depress ice floes, and seawater can subsequently flood the snow layer. This saturated snow can freeze, forming “snow ice,” an important component of southern sea ice. Although this can occur in the Arctic as well, it is less common.\n\nVariability and long-term change\n\nSea ice waxes and wanes with the seasons, and minimum and maximum summer and winter extents vary. Compared to the Arctic, Antarctic sea ice shows lower variability in summer, and higher variability in winter. These changes largely result from the geographic differences mentioned above, namely Antarctic sea ice’s distance from the pole (sea ice can melt back only as far as the coast in summer, making for less year-to-year variability) and unconstrained growth potential in winter. Weather events often drive variability, but have different effects in the Northern and Southern Hemispheres. Weather exerts a greater influence on the Arctic minimum, and the Antarctic maximum.\n\nThe sea ice satellite record dates back to October 25, 1978. Unlike the Arctic, where sea ice extent is declining in all areas in all seasons, Antarctic trends are less apparent. From 1979–2017, Antarctic-wide sea ice extent showed a slightly positive trend overall, although some regions experienced declines. Those exceptions have primarily occurred around the Antarctic Peninsula. The region south and west of the Antarctic Peninsula has shown a persistent decline, but this downward trend is small compared to the high variability of Antarctic sea ice overall. Another region near the northern tip of the Peninsula, in the Weddell Sea, showed strong sea ice declines until 2006, but the ice in that region rebounded in the 2010s; most recently it has declined slightly again. The eastern Ross Sea region has shown a modest increase in ice extent over the same period.\n\nOverall, the long-term trend in Antarctic sea ice is nearly flat. (in contrast, the glaciers and ice sheets over land in Antarctica are losing mass.) The satellite record spans more than four decades, and although the ice has shown increasing and decreasing trends over portions of that record, few of those trends have been statistically significant. Year-to-year variability has dominated, especially over the last decade. Since the year 2013, Antarctic sea ice has exhibited its highest and lowest extents in the entire record—the highest-ever winter maximum occurred in September 2014, and the lowest-ever summer minimum was in February 2023. But the overall trend, as of early 2023, is close to zero.\n\nAccording to the National Snow and Ice Data Center’s Sea Ice Index, from the start of the satellite record in November 1978 through February 2023, Antarctic sea ice showed a slightly positive long-term trend in most months, with the exceptions of January, February, November, and December, which showed slightly negative trends. None of the trends are statistically significant.\n\nA study published in 2022 reconstructed Antarctic sea ice back to 1905 using a combination of several climate models. The study found that, prior to the continuous satellite record, Antarctic sea ice experienced declining trends over much of the early and mid-twentieth century.\n\nImpacts of change\n\nLand-sea configurations affect sea ice extents not only by limiting where ice can form, but also by introducing their own effects. In the Arctic, landmasses surround and influence the sea ice in the Arctic Ocean. Ice and (especially) snow are highly reflective, bouncing much of the Sun’s energy back into space. As Northern Hemisphere spring and summer snow cover declines, the underlying land surface absorbs more energy and warms. Warmer conditions on land affect the nearby ocean, and more sea ice melts as a result. As sea ice melts, more of the ocean warms. The melt-warmth-melt feedback cycle means that the Arctic is warming faster than the rest of the globe.\n\nNo such polar amplification effect has occurred on a large scale in the Southern Hemisphere, however. Antarctica is surrounded by ocean, not a land surface that is losing its reflective snow and ice cover in the spring and summer. It was already normal, historically, for summertime sea ice to melt back nearly to the Antarctic coastline, leaving large expanses of the Southern Ocean exposed to heating from the summer sun. By contrast, the loss of reflective snow and ice in high northern latitudes surrounding the Arctic Basin represents a profound change from what was historically normal.\n\nThe Southern Ocean is vast, a fact often underplayed in map projections focused on the Northern Hemisphere. Natural cycles in the Southern Ocean can have pronounced effects on Antarctic sea ice. Atmospheric patterns, partly influenced by greenhouse gas emissions, are also at work.\n\nThe Southern Annular Mode (SAM) is a pattern of westerly winds circling Antarctica. The SAM is influenced by El Niño-Southern Oscillation (ENSO) conditions, so it is partly driven by natural oscillations. At the same time, research has found that human-caused global warming tips the SAM into its positive mode more frequently, and the resulting wind effects generally tend to increase Antarctic sea ice extent. The SAM also affects the Amundsen Sea Low, which in turn affects sea ice transport and weather conditions over a broad area from the western Antarctic Peninsula to the eastern Ross Sea.\n\nSeveral consecutive years of below-average Antarctic sea ice extent, however, have captured growing attention from researchers. At the time of the record-low extent observed in February 2023, Ted Scambos, senior research scientist at the University of Colorado, Boulder, said, “If lower-than-average Antarctic sea ice extent continues, despite a shift in ENSO or with a range of SAM index values, it would be a strong indication that we're seeing a climate signal emerging from the high variability of the Antarctic system.”\n\nLong story short: Climate change has a discernible influence on Arctic sea ice, but it has a complicated, messy influence on Antarctic sea ice. (Meanwhile, the Antarctic Ice Sheet is losing mass.)\n\nWhere sea ice does melt away completely in the Antarctic summer, the ice’s absence can have cascading effects. For example, sea ice retreat in the Weddell Sea along the northern tip of the Antarctic Peninsula probably contributed to Larsen Ice Shelf losses. Ice shelves—thick slabs of floating ice attached to coastlines and usually fed by glaciers—fringe the frozen continent. Intact sea ice in front of an ice shelf buffers the shelf from ocean swells. When the ice is gone, ocean waves can flex the shelf and make it more vulnerable to disintegration. Depending on how much an ice shelf disintegrates, the glacier feeding it may accelerate into the ocean. Another potential impact of reduced sea ice cover is greater accumulation on the continent, as winds from the open ocean reach the ice sheet without first flowing over an extensive sea ice fringe. This possibility, if it occurs, would tend to reduce the impact of sea level rise from the ice sheet.",
+    "teachable_new_words": {
+      "teachable": 53,
+      "outside": 233,
+      "pct": 22.7
+    },
+    "title": "The Ice Around Antarctica",
+    "text": "The ocean around Antarctica freezes every winter. The same sea ice melts back every summer. The frozen area is widest in September. It shrinks to its minimum in late February. Satellites in orbit measure the area from above. They have tracked it for four decades. In 2023 the summer minimum was the smallest on record. The seasons before it were also below average. Polar scientists cannot yet explain the drop. It may belong to a natural swing in the region. It may also be an early signal of a warming climate. Telling the two apart needs a longer record. So the satellites keep measuring the ice each season."
+  },
+  {
+    "adapted_from_id": "01d5287d-c829-47e5-a03a-f01f146da345",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "Outdoor ground surface influences spatiotemporal parameters of walking for individuals undergoing rehabilitation: An observational study",
+    "source_feed": "plos",
+    "source_license": "cc_by",
+    "source_v_level": 6,
+    "source_url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0337177",
+    "source_text": "Clinical measures of walking capacity may differ from walking performed in outdoor environmental settings. This study assessed spatiotemporal aspects of gait in individuals undergoing rehabilitation when walking over various outdoor surfaces and compared them to a standard clinical gait measure. We sought to identify how spatiotemporal aspects of gait change across terrains commonly encountered in the community in individuals undergoing rehabilitation. Forty-six individuals with mobility deficits undergoing outpatient physical therapy completed the 10-meter walk test in clinic and walked over six standardized terrains (e.g., pavers, gravel, sand). We calculated gait speed, cadence, average step length, and walk ratio (calculated as cm/steps/min) from video recordings for all conditions and used repeated measures ANOVAs to assess differences between terrains compared to the 10-meter walk test. We then used multiple linear regressions to examine spatiotemporal mechanisms underlying gait speed changes across terrains. Gait speed and cadence were reduced when participants walked over sand, mulch, up sloping gravel, and down sloping gravel compared to the 10-meter walk test. Step length decreased in the sand, gravel upslope, and gravel downslope conditions compared to the 10-meter walk test. Walk ratio was decreased in the sloped gravel conditions. Cadence and step length changes explained 95–99% of the variance in gait speed changes across conditions with step length being more heavily weighted across conditions. Individuals undergoing physical therapy for mobility deficits walked slower, with smaller step lengths and cadence when faced with uneven outdoor terrain compared to an indoor 10-meter walk test while walk ratio remained consistent across level surfaces. Speed reductions were related to both step length and cadence. Walk ratio remained consistent across level terrains, indicating a consistent central control strategy, despite terrain changes. Although standardized measures like the 10-meter walk test provide critical information about gait capacity, they may not fully reflect performance in all real-world environments.\n\nAbstract\nClinical measures of walking capacity may differ from walking performed in outdoor environmental settings. This study assessed spatiotemporal aspects of gait in individuals undergoing rehabilitation when walking over various outdoor surfaces and compared them to a standard clinical gait measure. We sought to identify how spatiotemporal aspects of gait change across terrains commonly encountered in the community in individuals undergoing rehabilitation. Forty-six individuals with mobility deficits undergoing outpatient physical therapy completed the 10-meter walk test in clinic and walked over six standardized terrains (e.g., pavers, gravel, sand). We calculated gait speed, cadence, average step length, and walk ratio (calculated as cm/steps/min) from video recordings for all conditions and used repeated measures ANOVAs to assess differences between terrains compared to the 10-meter walk test. We then used multiple linear regressions to examine spatiotemporal mechanisms underlying gait speed changes across terrains. Gait speed and cadence were reduced when participants walked over sand, mulch, up sloping gravel, and down sloping gravel compared to the 10-meter walk test. Step length decreased in the sand, gravel upslope, and gravel downslope conditions compared to the 10-meter walk test. Walk ratio was decreased in the sloped gravel conditions. Cadence and step length changes explained 95–99% of the variance in gait speed changes across conditions with step length being more heavily weighted across conditions. Individuals undergoing physical therapy for mobility deficits walked slower, with smaller step lengths and cadence when faced with uneven outdoor terrain compared to an indoor 10-meter walk test while walk ratio remained consistent across level surfaces. Speed reductions were related to both step length and cadence. Walk ratio remained consistent across level terrains, indicating a consistent central control strategy, despite terrain changes. Although standardized measures like the 10-meter walk test provide critical information about gait capacity, they may not fully reflect performance in all real-world environments.\n\nCitation: Killen BS, Harris S, Levinson A, Hamilton C, Lewek MD (2025) Outdoor ground surface influences spatiotemporal parameters of walking for individuals undergoing rehabilitation: An observational study. PLoS One 20(12):\n e0337177.\n\n https://doi.org/10.1371/journal.pone.0337177\nEditor: Yih-Kuen Jan, University of Illinois Urbana-Champaign, UNITED STATES OF AMERICA\nReceived: August 14, 2025; Accepted: November 5, 2025; Published: December 2, 2025\nCopyright: © 2025 Killen et al. This is an open access article distributed under the terms of the Creative Commons Attribution License, which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.\nData Availability: All Excel files that include spatiotemporal data are available at the Open Science Framework database (https://doi.org/10.17605/OSF.IO/S3QYE). All R code files used for statistical analysis are available at the Recovery of Gait and Neuro Rehabilitation Lab Github database (https://github.com/RegainLabUNC/SpatioTemporal-Changes-Across-Terrains).\nFunding: The author(s) received no specific funding for this work.\nCompeting interests: The authors have declared that no competing interests exist.\n\nIntroduction\nPhysical rehabilitation often focuses on restoring the ability to independently move within one’s community environment (i.e., functional mobility). To assess mobility, physical therapists frequently measure movement domains like gait speed using standardized, clinical outcomes such as the 10-meter walk test (10MWT). Such measures of walking capacity are important because they are associated with functional mobility status and falls risk []. Decreased gait speed, for example, is a consequence of many injuries and disorders [–], and can lead to reduced participation in community activities and increased safety concerns, particularly in urban areas where gait speed demands may be increased [,].\n\nTo interpret findings in those with deficits in functional mobility [–], normative values for gait speed have been established using the 10MWT for adults at varying levels of community ambulation [–]. Importantly, however, these normative and threshold values were derived from tests conducted in well-lit, indoor clinical settings on unobstructed, flat surfaces which may limit the generalizability of these values. In the community, individuals frequently contend with various slopes and surface textures, challenging balance and dynamic stability []. Because individuals undergoing physical therapy for functional mobility concerns often present with concomitant balance deficits, it is likely that walking over such terrains would require adjustments in gait to handle the increased balance challenge or risk of trip-related falls. Specifically, individuals may adjust step length and cadence [,], both of which can change with age [], walking surface [], and pathology []. Gait speed and its underlying spatiotemporal measures have been well characterized on smooth level indoor and outdoor surfaces [,,], but few studies have addressed ambulation over varying terrains typically encountered in the community. Previous work comparing indoor and outdoor walking has primarily recruited a specific population [,], or has included only a few commonly encountered terrains like sidewalks or grass [,]. However, it remains unknown how indoor clinical measures of gait (10MWT) compare to a variety of typically encountered outdoor, community-level terrains in individuals with mobility deficits.\n\nBeyond understanding the differences across terrains for spatiotemporal gait variables, it is important to understand how individuals with mobility deficits alter their gait on different terrains. Previous literature has demonstrated that comfortable gait speeds are dictated by a relatively constant step length-cadence relationship, known as the walk ratio (WR), in both younger and older adults without pathology []. Although the WR typically remains constant when changing speeds and walking over uneven surfaces, it may vary with more cognitively challenging activities like dual tasking, and lower walk ratios may be predictive of falls risk in older adults [,]. The WR has been explored on uneven surfaces in healthy older and younger adults, yet we are unaware of literature that examined how this relationship changes on uneven, outdoor terrains typically experienced in the community for individuals with pathological gait. From an intervention standpoint, it is prudent to understand which spatiotemporal characteristics of gait change in such environments, as well as how they change across terrains.\n\nThe purpose of this study was therefore to quantify the changes in gait speed and spatiotemporal parameters that occur between a smooth, firm clinic setting and various outdoor community-level terrains such as pavers, sand, up and down sloping gravel, and mulch. Second, we sought to describe how spatiotemporal aspects of gait (i.e., cadence and step length) influence these anticipated changes in gait speed. We hypothesized that gait speed would decrease when walking over outdoor, uneven terrains compared to the 10MWT due to reductions in both step length and cadence that may be necessary to maintain stability. We also hypothesized that changes in step length would contribute to greater changes in gait speed on uneven terrains compared to changes in cadence, given that individuals with impaired balance and gait tend to demonstrate decreased step lengths compared to those without mobility impairment.\n\nMaterials and methods\n\nStudy protocol\n\nUsing an observational cross-sectional design, we examined gait changes in individuals undergoing physical therapy to improve functional mobility, while completing an indoor 10MWT and walking over a variety of outdoor surfaces. Participants were recruited as a convenience sample from the Center for Rehabilitation Care at the University of North Carolina at Chapel Hill. Inclusion criteria required that participants were adults, participating in physical therapy services due to difficulty with walking and were able to walk with no more than contact guard assistance. Two Spanish-speaking participants participated with the assistance of an interpreter. All participants provided written informed consent by signing a consent form approved by the Institutional Review Board at the University of North Carolina at Chapel Hill (Approval # 17–1985). Participants were recruited between August 23, 2017, and November 30, 2017.\n\nA total of 50 (28 female, 22 male) participants were recruited across multiple clinical diagnoses. One participant did not complete all walking conditions, and three participants did not follow instructions, excluding them from the study. This left a sample size of 46 (24 female, 22 male) participants for analysis (see Table 1 for participant demographics and description of outdoor conditions). Participant diagnoses included Parkinson disease (n = 11); stroke (n = 8); musculoskeletal complaints such arthritis, amputation, joint pain (n = 17); trauma events such as traumatic brain injury, spinal cord injury, pain due to motor vehicle crash (n = 4); and other conditions such as spina bifida, cancer-related pain, falls prevention, multiple sclerosis, shortness of breath with weakness (n = 7).\n\nResults\n\nGait speed, cadence, average step length, and walk ratio\n\nAll gait variables are presented in Table 2. During the baseline 10MWT, participants walked at an average (standard deviation) gait speed of 0.89 (0.26) meters per second with an average cadence of 97.81 (14.34) steps per minute, and an average step length of 0.53 (0.11) meters. Overall, we observed a significant main effect for terrain on gait speed (F(3.34, 150.35)= 86.45, p < .001, ηp2 = 0.66), cadence (F(3.59, 161.37)= 25.38, p < .001, ηp2 = 0.36), average step length (F(4.3, 193.36)= 88.24, p < .001, ηp2 = 0.66), and WR (F(4.1, 184.53)= 34.20, p < .001, ηp2 = .43). We observed slower gait speed during the sand (p < .001, d = 0.96), gravel downslope (p < .001, d = 1.43), gravel upslope (p < .001, d = 1.60), and mulch (p= < .001, d = 0.67) conditions compared to the 10MWT (Fig 2A). In contrast, no difference in gait speed was noted between the 10MWT and the large paver (p = 1.00, d = 0.17) and small paver (p = 1.00, d = 0.26) conditions. Similarly, no differences were seen in cadence between the 10MWT and the large paver (p = 1.00, d = 0.07) and small paver (p = 1.00, d = 0.13) conditions but, participants showed a slower cadence in the sand (p < .001, d = 0.85), gravel upslope (p < .001, d = 0.95), gravel downslope (p = .03, d = 0.51), and mulch (p = .003, d = 0.61) conditions (Fig 2B). We noted decreased step lengths when walking in the sand (p = .01, d = 0.54), gravel downslope (p < .001, d = 1.80), and gravel upslope (p < .001, d = 1.69) conditions compared to the 10MWT. No differences were noted in the large paver (p = 1.00, d = 0.30), small paver (p = 1.00, d = 0.23), or mulch (p = .31, d = 0.37) conditions. Finally, we noted significant differences in the WR in the gravel downslope (p < .001, d = 1.19) and gravel upslope (p < .001, d = 0.90) conditions. However, no significant differences in WR were noted in the large paver (p = 1.00, d = 0.28), small paver (p = 1.00, d = 0.08), sand (p = 1.00, d = 0.19), and mulch (p = 1.00, d = 0.07) conditions.\n\nSpatiotemporal mechanism for gait speed change\n\nMultiple regression revealed that the change in gait speed from the 10MWT was related to both the change in step length and change in cadence for all conditions (p < .001). Regression coefficients, standardized regression coefficients, and R2 values are reported in Table 3. As expected, the combined change in step length and change in cadence explained between 95 and 99% of the variance of the change in gait speed across the different terrains. Standardized coefficients for change in step length (βStep Length) and change in cadence (βCadence) were statistically significant (p < .001) across terrains. Specifically, we observed the following standardized coefficients: large paver (βStep Length = 0.70, βCadence = 0.62, R2 = 0.98) small paver (βStep Length = 0.74, βCadence = 0.60, R2 = 0.99), sand (βStep Length = 0.72, βCadence = 0.63, R2 = 0.96), gravel downslope (βStep Length = 0.68, βCadence = 0.54, R2 = 0.95), gravel upslope (βStep Length = 0.76, βCadence = 0.48, R2 = 0.95), and mulch (βStep Length = 0.82, βCadence = 0.55, R2 = 0.98).\n\nDiscussion\n\nGait spatiotemporal changes across terrains\n\nParticipants reduced their gait speed in the sand, mulch, and both sloped gravel conditions compared to an indoor 10WMT. These gait speed changes coincided with reduced cadence in the sloped gravel, mulch, and sand conditions and with decreased step lengths in the sloped gravel and sand conditions. Thus, our hypothesis that participants’ gait speed, obtained initially using the 10MWT in the clinic, would decrease when navigating various outdoor terrains was partially supported. Notably, average gait speed changes were at, or comparable to, the minimal detectable change for gait speed for most diagnoses included in the study, indicating that the observed gait speed changes may be both statistically and clinically significant [–]. Overall, these data suggest that more compliant and sloped surfaces (i.e., mulch, sand, and gravel) have a greater influence on spatiotemporal measures of gait than outdoor surfaces that were firm and level (i.e., large and small pavers). These findings indicate that the 10MWT assessed in a clinical setting best reflects walking performance on outdoor surfaces that are sufficiently similar to the testing environment (i.e., firm and level surfaces). However, it may not fully reflect gait on more challenging outdoor terrains that are less like the indoor level conditions used to standardize the 10MWT.\n\nChanges in step length and cadence\n\nAs expected, changes in step length and cadence explained most of the variance in changes in gait speed compared to the 10MWT (95–99% across conditions). We also noted that the WR significantly decreased in both sloped gravel conditions but remained unchanged over all other terrains. Bogan et al. reported that walk ratios for unimpaired community-dwelling older adults do not change when walking on uneven terrains []. Our findings of decreased gait speed in the sand and mulch conditions without changes in the WR corroborate these findings across a broader range of diagnoses affecting gait. Yet, the combination of slope and gravel appeared to alter the strategy used by our participants to modulate gait speed.\n\nSlopes are well-known to affect spatiotemporal aspects of gait, with previous evidence of decreased speed, step length, and cadence when walking on an upslope [–]. The observed decrease in cadence in the gravel downslope condition conflicts with previous literature in unimpaired individuals which generally shows an increase in cadence with downslope walking (presumably to maintain speed) [,]. This may be explained by the concomitant decrease in walk ratio, indicating that the combination of slope and uneven terrain may alter the control strategy used to adapt to very challenging terrains. We can speculate that individuals with mobility deficits select this strategy to demonstrate a more cautious approach to navigating down sloping terrains, proportionally decreasing step length more than cadence.\n\nStandardized regression coefficients revealed that step length changes appeared to be more heavily weighted than cadence changes to alter gait speed, despite varying degrees of difference. In some conditions (e.g., large paver, small paver), step length and cadence changes demonstrated similar contributions to gait speed change while step length change demonstrated a much larger contribution in others (e.g., the upsloping gravel conditions). To manipulate gait speed, individuals can change both step length and cadence while walking []. For example, unimpaired individuals can maintain gait speed by decreasing step lengths and increasing cadence on a treadmill, which may improve the margin of stability []. Our data suggest that despite the ability to change gait speed with both step length and cadence, step length changes appear to contribute to larger changes in gait speed compared to cadence. However, both variables changed proportionally in conditions where WR did not change.\n\nIn the sloped gravel conditions, we can speculate that the decrease in WR may reflect a strategy intended to proportionally decrease step length relative to cadence to increase gait stability. This is further supported by the greater weighting of step length in modulating gait speed change in these conditions. Changing both step length and cadence, however, can influence walking stability [–]. It is possible that walking on mulch may not have perturbed balance enough to require a modulation in step length, given that walk ratio remained unchanged from the 10MWT but still led to a decrease in cadence. Except for the sloped gravel conditions, our findings suggest that individuals with mobility concerns do not alter their WR when walking over level challenging terrains like mulch and sand.\n\nOverall, individuals with mobility deficits walked differently on outdoor terrains that included slopes, gravel, mulch, and sand compared to the indoor 10MWT. Though our findings do not examine individuals in their own community environments, these data indicate that gait performance may differ on uneven, outdoor terrains compared to standardized indoor clinical measures of gait performance. Likewise, others have shown that gait variability [–], joint work [], muscle activity [,], and whole-body angular momentum [,] also change when walking on uneven terrains. Clearly, walking performance on unlevel surfaces may not be fully reflected by walking under the conditions of clinical measures like the 10MWT. Despite these changes, the underlying mechanism by which gait speed is controlled (walk ratio) remained relatively unchanged except when participants walked over sloped gravel.\n\nStrengths and limitations\n\nInterpretation of this study should consider certain limitations with our design. First, sample size was based on a convenience sample rather than a priori power calculation. Nevertheless, we recruited a relatively robust sample size and report effect sizes to aid in the interpretation of our results. Second, the effect of supervision from the physical therapist and investigators during sessions could have unintentionally influenced participants’ speed on the course [], either through the perception of pacing or increased confidence due to the therapist’s presence. Given that some participants required contact guarding or close supervision for safety, this was an unavoidable limitation. Similarly, assessing outdoor walking during a physical therapy session may have led participants to walk slower towards the end of the session. The fact that the large and small paver conditions (at the beginning and end of the course) did not differ from the 10MWT, though, indicates that there was likely no ordering effect. Similarly, we averaged passes in each direction to minimize the effects of fatigue and curvature of the path. We also used video-based estimates of gait speed, step length, and cadence which may overestimate spatiotemporal aspects of gait compared to other instrumented measures [,]. However, previous literature has demonstrated that this method demonstrates good inter- and intra-rater reliability when estimating spatiotemporal aspects of gait []. As our method was kept consistent between participants and terrains, our data should accurately reflect the magnitude of change. Additionally, although other methods such as the use of markerless motion capture or inertial measurement units may offer accurate results, our method is more consistent with clinical practice at this time. Rehabilitation care has historically relied on very basic measurement tools (i.e., stopwatches and visual estimation) to measure gait quantity and quality, and this remains the norm in standard physical therapy practice today. Therefore, these data are directly interpretable for physical therapists and other rehabilitation practitioners across a broad range of populations. Unlike other studies which have focused on single clinical populations [,,] or unimpaired adults [,], these results are generalizable to the treatment of a broader range of mobility deficits. To our knowledge, no other study has examined changes in gait on real-world surfaces compared to the 10MWT across a diverse sample of diagnoses, reflecting conventional practice.\n\nConclusions\nThe findings of this study indicate that a standardized measure of walking capacity like the 10MWT may not reflect an individual’s chosen gait speed or underlying spatiotemporal characteristics, while walking on challenging terrains commonly encountered in the community such as gravel, mulch, sand, and slopes. The reduction in gait speed appeared to result from proportional changes in both step length and cadence while on level surfaces but may reflect a more cautious gait pattern on sloped surfaces. Rehabilitation specialists should take this into account when training and preparing individuals for discharge.\n\nAcknowledgments\n\nThe authors would like to thank Dr. Peter Halpin for his assistance with interpretation of the statistical analysis.",
+    "teachable_new_words": {
+      "teachable": 61,
+      "outside": 391,
+      "pct": 15.6
+    },
+    "title": "Walking on Gravel and Sand",
+    "text": "A clinic floor is flat and smooth. Real ground outside is not. People walk on pavers, gravel and sand every day. Researchers wanted to know if that matters. They asked patients in rehabilitation to walk. Each person walked ten metres in the clinic first. Then the same person walked over six outdoor surfaces. The team measured speed and step length. They also counted steps in each minute. Loose gravel and soft sand slowed people down. The steps grew shorter on those surfaces too. A clinic test can look better than real walking. So therapists should test outdoors as well."
+  }
+]

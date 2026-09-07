@@ -5,7 +5,7 @@
 
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { ChevronDown, ChevronRight, ExternalLink, Lock } from 'lucide-react'
 import type { ChapterListItem } from '@/lib/library/reader-queries'
 import { chapterSourceUrl } from '@/lib/library/source-urls'
@@ -19,6 +19,15 @@ interface ChapterSidebarProps {
   /** v06.34 — admin-review 모드에서 챕터 옆에 원본 소스 외부링크 표시 */
   source?: string | null
   sourceId?: string | null
+  /**
+   * 목차 `<nav>` 의 레이아웃 클래스 (기본 = 데스크톱 200px 레일).
+   *
+   * ⚠️ **인스턴스는 하나만 둔다.** 데스크톱 레일과 모바일 시트를 따로 렌더하면 목차가
+   *    두 벌이 되는데, 여기는 장이 528개인 책을 그리는 자리다(위 FLAT_BUCKET_MIN 주석의
+   *    실측 — 이 `<nav>` 하나가 문서 1.18MB 의 54%였다). 두 벌은 그 비용을 그대로 두 배로
+   *    만든다. 그래서 **같은 노드**를 브레이크포인트로 레일 ↔ 펼침 패널로 바꾼다.
+   */
+  className?: string
 }
 
 interface Segment {
@@ -27,8 +36,48 @@ interface Segment {
   items: ChapterListItem[]
 }
 
+/**
+ * 그룹 라벨이 **없는** 긴 책을 범위로 묶는 기준.
+ *
+ * ── 왜 (실측 2026-08-30 · 4배 CPU 감속 · 390px) ──────────────────────────
+ * `group_label` 이 있는 책은 그룹이 접혀서 DOM 이 작다 — Le Morte d'Arthur(502장)는
+ * **842 노드 · FCP 2.5초**. 그런데 라벨이 하나도 없는 책은 접을 단위가 없어서 전 장이
+ * 그대로 그려진다 — Clarissa(528장)는 **5,695 노드 · FCP 4.8초**로, 같은 크기의 책인데
+ * 노드가 7배다. 발행 316권 중 100장 넘는 평면 책이 4권이고, 그 넷이 가장 느리다.
+ *
+ * 그래서 라벨이 없으면 **번호 범위로 스스로 묶는다.** 접기만 하는 것이 아니라 —
+ * 528줄을 끝없이 스크롤하는 것보다 "251–300" 을 한 번 눌러 들어가는 편이 실제로 낫다.
+ * (한 번에 다 펼쳐 두는 것은 목차가 아니라 벽이다 — Cognitive Load.)
+ *
+ * 임계값을 60으로 둔 이유: 그 아래는 스크롤 한두 번이면 훑히므로 묶으면 오히려 방해다.
+ */
+const FLAT_BUCKET_MIN = 60
+const FLAT_BUCKET_SIZE = 50
+
 // group_label 이 같은 연속 챕터를 한 그룹으로 (책 안에서 같은 Book/sub-book 은 연속)
 function buildSegments(chapters: ChapterListItem[]): Segment[] {
+  const hasLabel = chapters.some((c) => c.group_label != null)
+
+  // 라벨 없는 긴 책 — 번호 범위로 묶는다(위 주석 참조).
+  if (!hasLabel && chapters.length > FLAT_BUCKET_MIN) {
+    const segs: Segment[] = []
+    for (let i = 0; i < chapters.length; i += FLAT_BUCKET_SIZE) {
+      const items = chapters.slice(i, i + FLAT_BUCKET_SIZE)
+      const first = items[0]
+      const last = items[items.length - 1]
+      if (!first || !last) continue
+      segs.push({
+        key: `range#${first.chapter_idx}`,
+        label:
+          first.chapter_idx === last.chapter_idx
+            ? `${first.chapter_idx}장`
+            : `${first.chapter_idx}–${last.chapter_idx}장`,
+        items,
+      })
+    }
+    return segs
+  }
+
   const segs: Segment[] = []
   for (const ch of chapters) {
     const label = ch.group_label ?? null
@@ -46,14 +95,45 @@ export function ChapterSidebar({
   onSelect,
   source,
   sourceId,
+  className,
 }: ChapterSidebarProps) {
   const showSourceLink = mode === 'admin-review' && !!source && !!sourceId
   const segments = useMemo(() => buildSegments(chapters), [chapters])
-  const [collapsed, setCollapsed] = useState<Set<string>>(new Set())
 
-  // 그룹 있는 책: 기본 전부 접되, 활성 챕터가 든 그룹만 펼침
+  /**
+   * 그룹 있는 책: 기본 전부 접되, 활성 챕터가 든 그룹만 펼침.
+   *
+   * ⚠️ **첫 렌더에서 계산한다** — 예전에는 `useEffect` 로 접었다. 결과가 화면에는 같아
+   *    보였지만, 접히는 것은 **하이드레이션 뒤**라 서버가 보낸 HTML 에는 챕터 행이
+   *    **전부** 들어 있었다. 실측 2026-08-30 (Clarissa · 528장):
+   *    이 목차 `<nav>` 하나가 **637KB** 로 문서 1.18MB 의 54% 였다.
+   *    접을 작정이었던 것을 그리고 나서 지우고 있었던 셈이다(레이아웃도 한 번 튄다).
+   *
+   *    발행 316권 중 100장 넘는 책이 17권(그룹 있는 13 · 평면 4)이고, 챕터는 계속 는다.
+   *
+   * 서버와 클라이언트가 **같은 props(chapters·activeIdx)로 같은 값**을 내므로
+   * 하이드레이션 불일치가 없다.
+   */
+  const [collapsed, setCollapsed] = useState<Set<string>>(() => {
+    const next = new Set<string>()
+    if (!segments.some((s) => s.label)) return next
+    for (const s of segments) {
+      if (s.label && !s.items.some((c) => c.chapter_idx === activeIdx)) next.add(s.key)
+    }
+    return next
+  })
+
+  // 챕터 목록 자체가 바뀌면(다른 책) 접힘 상태를 다시 세운다.
+  //   ⚠️ 첫 렌더는 위 initializer 가 이미 처리했다 — 여기서 또 하면 같은 일을 두 번 한다.
+  //      그래서 **처음 한 번은 건너뛴다.**
+  const firstSegments = useRef(segments)
   useEffect(() => {
-    if (!segments.some((s) => s.label)) return
+    if (firstSegments.current === segments) return
+    firstSegments.current = segments
+    if (!segments.some((s) => s.label)) {
+      setCollapsed(new Set())
+      return
+    }
     const next = new Set<string>()
     for (const s of segments) {
       if (s.label && !s.items.some((c) => c.chapter_idx === activeIdx)) next.add(s.key)
@@ -86,14 +166,17 @@ export function ChapterSidebar({
 
   return (
     <nav
-      className="flex w-[200px] shrink-0 flex-col overflow-y-auto border-r border-[var(--bd)] bg-[var(--bg2)]"
+      className={
+        className ??
+        'flex w-[200px] shrink-0 flex-col overflow-y-auto border-r border-[var(--bd)] bg-[var(--bg2)]'
+      }
       aria-label="장 목록"
     >
       <div className="border-b border-[var(--bd)] px-3 py-2">
-        <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">목차</span>
+        <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">목차</span>
       </div>
 
-      <ul role="list" className="flex flex-col gap-0.5 p-2">
+      <ul role="list" className="flex flex-col gap-1 p-2">
         {segments.map((seg) => {
           const isCollapsed = collapsed.has(seg.key)
           return (
@@ -103,14 +186,14 @@ export function ChapterSidebar({
                   type="button"
                   onClick={() => toggle(seg.key)}
                   aria-expanded={!isCollapsed}
-                  className="flex w-full items-center gap-1 rounded-[var(--r-sm)] px-1.5 py-1.5 text-left text-[var(--t2)] transition-colors hover:bg-[var(--bg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+                  className="flex w-full items-center gap-1 rounded-[var(--r-sm)] px-2 py-2 text-left text-[var(--t2)] transition-colors hover:bg-[var(--bg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
                 >
                   {isCollapsed ? (
-                    <ChevronRight size={12} className="shrink-0 text-[var(--t3)]" aria-hidden />
+                    <ChevronRight size={12} className="shrink-0 text-[var(--t2)]" aria-hidden />
                   ) : (
-                    <ChevronDown size={12} className="shrink-0 text-[var(--t3)]" aria-hidden />
+                    <ChevronDown size={12} className="shrink-0 text-[var(--t2)]" aria-hidden />
                   )}
-                  <span className="line-clamp-2 font-display text-[11px] font-[700] uppercase tracking-wide text-[var(--t3)]">
+                  <span className="line-clamp-2 font-display text-[11px] font-[700] uppercase tracking-wide text-[var(--t2)]">
                     {seg.label}
                   </span>
                   <span className="ml-auto shrink-0 font-mono text-[10px] text-[var(--t5)]">
@@ -120,7 +203,7 @@ export function ChapterSidebar({
               )}
 
               {!(seg.label && isCollapsed) && (
-                <ul role="list" className={seg.label ? 'flex flex-col gap-0.5 pl-2' : 'flex flex-col gap-0.5'}>
+                <ul role="list" className={seg.label ? 'flex flex-col gap-1 pl-2' : 'flex flex-col gap-1'}>
                   {seg.items.map((ch) => (
                     <ChapterRow
                       key={ch.chapter_idx}
@@ -170,7 +253,7 @@ function ChapterRow({
         aria-current={active ? 'page' : undefined}
         className={[
           'group flex w-full items-center justify-between gap-2',
-          'rounded-[var(--r-sm)] px-2.5 py-2 text-left',
+          'rounded-[var(--r-sm)] px-3 py-2 text-left',
           sourceUrl ? 'pr-9' : '',
           'transition-colors duration-[var(--dur-normal)] ease-[var(--ease)]',
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]',
@@ -185,7 +268,7 @@ function ChapterRow({
           <span
             className={[
               'font-mono text-[11px] tabular-nums',
-              active ? 'text-[var(--ti)]' : 'text-[var(--t3)]',
+              active ? 'text-[var(--ti)]' : 'text-[var(--t2)]',
             ].join(' ')}
           >
             {ch.chapter_idx.toString().padStart(2, '0')}
@@ -195,16 +278,16 @@ function ChapterRow({
           </span>
         </div>
 
-        <div className="flex shrink-0 items-center gap-1.5">
+        <div className="flex shrink-0 items-center gap-2">
           {/* 챕터별 어휘 V-level — 단일 book_v_level 이 뭉개는 챕터 편차 노출 (색상만 의존 X, 숫자 텍스트) */}
           {ch.chapter_v_level != null && (
             <span
               className={[
-                'inline-flex items-center rounded-[var(--r-full)] border px-1.5 py-0.5',
+                'inline-flex items-center rounded-[var(--r-full)] border px-2 py-1',
                 'font-mono text-[9px] font-[700] leading-none tabular-nums',
                 active
                   ? 'border-[var(--ti)] text-[var(--ti)] opacity-80'
-                  : 'border-[var(--bd)] text-[var(--t3)]',
+                  : 'border-[var(--bd)] text-[var(--t2)]',
               ].join(' ')}
               title={`이 장의 어휘 난이도 V${ch.chapter_v_level} — 책 전체 라벨과 다를 수 있어요`}
             >
@@ -241,7 +324,7 @@ function ChapterRow({
             'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]',
             active
               ? 'text-[var(--ti)] opacity-70 hover:opacity-100'
-              : 'text-[var(--t3)] hover:bg-[var(--bg2)] hover:text-[var(--p)]',
+              : 'text-[var(--t2)] hover:bg-[var(--bg2)] hover:text-[var(--p)]',
           ].join(' ')}
         >
           <ExternalLink size={11} aria-hidden />

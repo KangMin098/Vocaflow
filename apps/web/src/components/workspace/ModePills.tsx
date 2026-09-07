@@ -22,29 +22,44 @@ interface Mode {
   group: GroupKey
 }
 
+// 알약은 한 줄에 12개가 늘어서므로 **짧은 쪽**을 고른다 — 모듈 정식명(SpellForge)이 아니라
+// 그 활동을 가리키는 한 단어. `Game Lab` 은 이미 짧아 그대로 둔다.
+// PLAN_ACTIVITIES 와 같은 활동을 가리키는 항목은 같은 말을 쓴다(Listen·Read·Words·Flashcard…).
 const MODES: Mode[] = [
-  { key: 'listen', label: '듣기', group: 'input' },
-  { key: 'read', label: '읽기', group: 'input' },
-  { key: 'shadow', label: '따라읽기', group: 'input' },
-  { key: 'words', label: '단어', group: 'study' },
-  { key: 'flashcard', label: '카드', group: 'study' },
-  { key: 'spellforge', label: '스펠', group: 'practice' },
-  { key: 'wordblitz', label: '블리츠', group: 'practice' },
-  { key: 'quiz', label: '퀴즈', group: 'practice' },
+  { key: 'listen', label: 'Listen', group: 'input' },
+  { key: 'read', label: 'Read', group: 'input' },
+  { key: 'comic', label: 'Comic', group: 'input' },
+  { key: 'shadow', label: 'Shadow', group: 'input' },
+  { key: 'words', label: 'Words', group: 'study' },
+  { key: 'flashcard', label: 'Cards', group: 'study' },
+  { key: 'spellforge', label: 'Spell', group: 'practice' },
+  { key: 'wordblitz', label: 'Blitz', group: 'practice' },
+  // ADR 0006 D1 — 사이드바를 4표면으로 줄이려면 7 모듈 전부가 여기서 열려야 한다.
+  { key: 'pairflip', label: 'Pairs', group: 'practice' },
+  { key: 'arcade', label: 'Game Lab', group: 'practice' },
+  { key: 'quiz', label: 'Quiz', group: 'practice' },
+  { key: 'dictation', label: 'Dictate', group: 'practice' },
 ]
 
 const GROUPS: { key: GroupKey; label: string; color: string; colorLight: string }[] = [
-  { key: 'input', label: '본문', color: '#8B5CF6', colorLight: '#F5F3FF' },
-  { key: 'study', label: '단어 학습', color: '#6366F1', colorLight: '#EEF2FF' },
-  { key: 'practice', label: '연습', color: '#EC4899', colorLight: '#FDF2F8' },
+  { key: 'input', label: 'Text', color: '#8B5CF6', colorLight: '#F5F3FF' },
+  { key: 'study', label: 'Vocabulary', color: '#6366F1', colorLight: '#EEF2FF' },
+  { key: 'practice', label: 'Practice', color: '#EC4899', colorLight: '#FDF2F8' },
 ]
 
 // 워크스페이스 본문 모드가 아니라 각 학습 모듈로 이동하는 pill.
 //   listen/read = 워크스페이스 본문 모드 (?mode=) · spellforge = 인라인 렌더 (page.tsx)
 //   shadow = 인라인 따라읽기 (?mode=shadow) · words = wordsHref · flashcard = flashcardHref · wordblitz = wordblitzHref (자료 스코프)
 //   quiz = 해당 모듈 hub (스크립트 기반 AI 문제 생성 필요 — 미연결)
+//   pairflip = 이 자료의 단어로 짝맞추기 세션 · dictation = 받아쓰기 setup (자료 스코프)
 const MODULE_ROUTES: Partial<Record<ModeKey, string>> = {
   quiz: '/scriptquiz',
+}
+
+/** 자료 스코프(`?text=`)를 붙여 여는 모듈 — 라우트 계약은 기존 런처와 같다. */
+const TEXT_SCOPED_ROUTES: Partial<Record<ModeKey, (textId: string) => string>> = {
+  pairflip: (id) => `/pairflip/play?text=${id}`,
+  dictation: (id) => `/dictate/setup?text=${id}`,
 }
 
 interface ModePillsProps {
@@ -58,6 +73,12 @@ interface ModePillsProps {
   flashcardHref: string
   /** "블리츠" pill 목적지 — 해당 자료의 단어로 WordBlitz 진입 (?set/?text 스코프) */
   wordblitzHref: string
+  /**
+   * "아케이드" pill 목적지 — 같은 스코프를 아케이드 허브로 넘긴다.
+   * 허브가 ?set/?text 를 받아 모든 카드에 실어주므로(v07.8) 이 자료의 단어가
+   * 게임 19종 전부에 연결된다. 개별 게임을 여기 다 나열하면 선택 과부하라 문 하나만 둔다.
+   */
+  arcadeHref: string
 }
 
 export function ModePills({
@@ -68,6 +89,7 @@ export function ModePills({
   wordsHref,
   flashcardHref,
   wordblitzHref,
+  arcadeHref,
 }: ModePillsProps) {
   // 그룹별 modes 분리
   const grouped = GROUPS.map((g) => ({
@@ -84,15 +106,15 @@ export function ModePills({
     <nav
       aria-label="학습 단계 선택"
       // UnifiedHeader 부모가 이미 sticky — 자체 sticky 제거 (stacking context 충돌 차단)
-      className={`relative border-b border-[var(--bd)]/40 bg-[var(--reading-bg)]/95 backdrop-blur-[16px] transition-all duration-[var(--dur-slower)] ${
+      className={`relative border-b border-[var(--bd)]/40 bg-[var(--reading-bg)]/95 backdrop-blur-[16px] transition-all duration-[var(--dur-slower)] motion-reduce:transition-none ${
         isFocusMode
           ? '-translate-y-1 opacity-40 hover:translate-y-0 hover:opacity-100'
           : 'opacity-100'
       }`}
     >
-      <div className="mx-auto flex max-w-[1080px] items-center justify-center gap-0.5 px-4 py-1.5 md:gap-1.5 md:px-8">
+      <div className="mx-auto flex max-w-[1080px] items-center justify-center gap-1 px-4 py-2 md:gap-2 md:px-8">
         {grouped.map((group, gIdx) => (
-          <div key={group.key} className="flex items-center gap-0.5">
+          <div key={group.key} className="flex items-center gap-1">
             {gIdx > 0 && (
               <span aria-hidden className="mx-1.5 h-4 w-px shrink-0 bg-[var(--bd)] md:mx-2" />
             )}
@@ -105,7 +127,9 @@ export function ModePills({
                   //   shadow → 같은 페이지 인라인 따라읽기 (?mode=shadow) · words → 단어장(WordVault) · 게임 → 모듈 hub
                   //   listen/read/spellforge → 워크스페이스 내부 (?mode=)
                   const href =
-                    mode.key === 'shadow'
+                    mode.key === 'comic'
+                      ? `/text/${textId}/comic`
+                      : mode.key === 'shadow'
                       ? `/text/${textId}?mode=shadow`
                       : mode.key === 'words'
                         ? withReturn(wordsHref)
@@ -113,25 +137,29 @@ export function ModePills({
                           ? withReturn(flashcardHref)
                           : mode.key === 'wordblitz'
                             ? withReturn(wordblitzHref)
-                            : (MODULE_ROUTES[mode.key] ?? `/text/${textId}?mode=${mode.key}`)
+                            : mode.key === 'arcade'
+                              ? withReturn(arcadeHref)
+                              : TEXT_SCOPED_ROUTES[mode.key]
+                                ? withReturn(TEXT_SCOPED_ROUTES[mode.key]!(textId))
+                                : (MODULE_ROUTES[mode.key] ?? `/text/${textId}?mode=${mode.key}`)
                   return (
                     <span key={mode.key} className="inline-flex items-center">
                       {mIdx > 0 && (
                         <ChevronRight
                           size={11}
                           aria-hidden
-                          className="mx-0.5 shrink-0 text-[var(--t4)]"
+                          className="mx-0.5 shrink-0 text-[var(--t2)]"
                         />
                       )}
                       <Link
                         href={href}
                         aria-current={isActive ? 'page' : undefined}
-                        className={`inline-flex items-center gap-1.5 rounded-[var(--r-full)] px-2.5 py-1 font-display text-[12px] font-[700] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] ${
+                        className={`inline-flex items-center gap-2 rounded-[var(--r-full)] px-3 py-1 font-display text-[12px] font-[700] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] motion-reduce:transition-none ${
                           isActive
                             ? 'text-white shadow-[var(--sh-sm)]'
                             : isDone
                             ? 'text-[var(--t1)] hover:bg-[var(--bg2)]'
-                            : 'text-[var(--t3)] hover:text-[var(--t1)] hover:bg-[var(--bg2)]'
+                            : 'text-[var(--t2)] hover:text-[var(--t1)] hover:bg-[var(--bg2)]'
                         }`}
                         style={
                           isActive
@@ -142,6 +170,7 @@ export function ModePills({
                             : undefined
                         }
                       >
+                        {/* 만화 = 킬러 모드: 비활성 시 gold underline 신호(Calm — 폭죽 없음) */}
                         {/* Status dot */}
                         <span
                           aria-hidden
@@ -159,7 +188,15 @@ export function ModePills({
                                 : undefined,
                           }}
                         />
-                        <span>{mode.label}</span>
+                        <span
+                          className={
+                            mode.key === 'comic' && !isActive
+                              ? 'underline decoration-2 underline-offset-4 decoration-[#B0843A]'
+                              : undefined
+                          }
+                        >
+                          {mode.label}
+                        </span>
                       </Link>
                     </span>
                   )

@@ -1,0 +1,51 @@
+{
+  "$schema": "vocab-brand-drain/1",
+  "family": "unique",
+  "facts": {
+    "setCount": 10,
+    "wordCount": 3058,
+    "coversPresent": 10,
+    "blueprints": [
+      "facet-ladder",
+      "recycle",
+      "uncovered",
+      "unlock"
+    ],
+    "titles": [
+      "아직 없는 말 · 중학",
+      "Fables 해금 300",
+      "아직 어느 단어장에도 없는 말 600",
+      "Pinocchio 1~5장 다시 만날 단어",
+      "여섯 면이 다 열리는 300",
+      "Pride and Prejudice 1~5장 · 다시 만날 단어",
+      "Pride and Prejudice 해금 200",
+      "아직 없는 말 · 초등 저학년",
+      "다섯 면이 다 열리는 500",
+      "아직 없는 말 · 초등 고학년"
+    ],
+    "duotoneNow": {
+      "light": {
+        "ink": "#AF52DE",
+        "paper": "#F3E8FF"
+      },
+      "dark": {
+        "ink": "#BF5AF2",
+        "paper": "#2D261F"
+      }
+    }
+  },
+  "setIds": [
+    "0488540b-6253-4490-9bad-c33134930777",
+    "10539845-4cc4-4b89-9d10-fb132e569617",
+    "25781423-31c9-4740-9e6e-30f5ac6bd67d",
+    "49a0450c-7465-4fc1-a5a8-52a995fa0d39",
+    "ac5dbb31-0ef2-4a5d-8dad-57a7bb979e5f",
+    "ba5da09a-0c57-49d0-92e1-6035ff8caf56",
+    "bdf3fcb8-76f1-45b1-a07d-121a3272faef",
+    "d6977598-05c9-4965-9025-a7771043bebf",
+    "ed597955-fa48-4552-98a4-ae63db3a695e",
+    "eff64cc4-fa34-410a-9486-4f8f13cac948"
+  ],
+  "alreadyBranded": 0,
+  "instructions": "Claude Design 캔버스로 이 계열의 표지 규격을 확정한 뒤 `chunk-NN.out.json` 에 VocabBrandCanvas 한 개를 쓴다. **색 값(hex/rgb)을 담으면 import 가 거절한다** — 역할 이름(ink·paper·accent)만 쓴다. 값은 디자인 토큰이 정본이다."
+}

@@ -4,6 +4,17 @@
 // - on open: 챕터 유무 감지 → 챕터형이면 전체 단어를 챕터별 아코디언으로, 아니면 10개 미리보기.
 //   (하나의 세트가 여러 챕터로 "내부 구성" — shared_words.chapter. 챕터별 세트 아님.)
 // - Esc / 오버레이 클릭 / X 버튼 닫기 · 본 세트 구독 CTA 동봉.
+//
+// ── 액센트가 왜 보라에서 `--p` 로 바뀌었나 (실측 2026-09-05) ─────────────
+// 이 모달의 액센트 12곳이 `#8B5CF6`/`#6D28D9`/`#7C3AED` 상수였다. 문제가 둘이다:
+//   ① `#8B5CF6` 은 **Admin Console 액센트**다(CLAUDE.md §🛡). 학습자 화면이 관리자
+//      색을 입고 있었다 — 같은 색이 두 가지를 뜻하면 색은 정보를 잃는다.
+//   ② 상수라 `data-theme="dark"` 에서 따라오지 않는다. `#6D28D9` 는 다크 `--bg`
+//      (`#231D17`) 위에서 **약 2.4:1** 로, 「챕터별 학습」 링크·라벨이 본문과 구분되지
+//      않았다(AA 4.5:1 미달).
+// 전부 학습자 축 토큰으로 옮겼다 — 면은 `--p`/`--p-light`, 그 위 글자는 `--on-p`/
+// `--on-p-tint`(다크 tint 위 7.24:1 · 라이트 12.54:1), 호버 면만 `color-mix` 로 짙게.
+// 토큰이라 두 테마에서 함께 뒤집힌다.
 
 'use client'
 
@@ -11,8 +22,13 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { CalendarClock, Check, ChevronDown, Layers, Loader2, Plus, RefreshCw, Volume2, X } from 'lucide-react'
 
+import CourseLauncher from '@/components/game/CourseLauncher'
+import type { ResourceKind } from '@/lib/game/sets'
 import { createClient } from '@/lib/supabase/client'
 import type { PublishedVocabSet } from '@/lib/library/vocab/queries'
+import { VocabColophon } from './VocabColophon'
+import { useCloseOnBack } from '@/lib/ui/use-close-on-back'
+import { useFocusTrap } from '@/lib/ui/use-focus-trap'
 
 interface PWord {
   word: string
@@ -25,11 +41,17 @@ interface PWord {
 }
 
 // 챕터 학습 — 게임별 launch (로더가 ?set=X&chapter=N 지원). from 으로 닫기 시 복귀.
-const CHAPTER_GAMES: { key: string; label: string; emoji: string; path: (setId: string, ch: number) => string }[] = [
+//
+// 마지막 항목은 개별 게임이 아니라 **아케이드 허브로 스코프를 넘기는 문**이다.
+// 아케이드 19종을 여기 전부 나열하면 선택 과부하(CLAUDE.md 인지부하)라, 허브의
+// "추천 1 + 전체 열람" 패턴을 재사용한다. 허브가 ?set/?chapter 를 받아 모든 카드에
+// 실어주므로(v07.8) 이 한 줄로 19종 전부가 이 챕터 단어로 연결된다.
+const CHAPTER_GAMES: { key: string; label: string; emoji: string; wide?: boolean; path: (setId: string, ch: number) => string }[] = [
   { key: 'flashcard', label: '플래시카드', emoji: '🃏', path: (s, c) => `/flashcard/play?set=${s}&chapter=${c}` },
   { key: 'wordblitz', label: '블리츠', emoji: '⚡', path: (s, c) => `/play/wordblitz?set=${s}&chapter=${c}` },
   { key: 'spellforge', label: '스펠', emoji: '🔨', path: (s, c) => `/spellforge/play?set=${s}&chapter=${c}` },
   { key: 'pairflip', label: '페어', emoji: '🎴', path: (s, c) => `/pairflip/play?set=${s}&chapter=${c}` },
+  { key: 'arcade', label: 'Game Lab 19종', emoji: '🕹', wide: true, path: (s, c) => `/arcade?set=${s}&chapter=${c}` },
 ]
 interface Props {
   set: PublishedVocabSet | null
@@ -39,6 +61,16 @@ interface Props {
   onClose: () => void
   /** 챕터 게임 launch 의 닫기 복귀 경로(?from) — 재사용처(/wordvault 등)가 지정. 기본 /library/vocab. */
   fromPath?: string
+  /**
+   * 이 세트로 여는 게임 코스의 종류. 기본은 주제 단어장.
+   *
+   * `PublishedVocabSet` 만으로는 도서 챕터 세트인지 알 수 없다(`category` 유니온에
+   * `library_book` 이 없고, 챕터 번호는 `curation_query` 에 있어 여기까지 오지 않는다).
+   * 도서 상세에서 열 때는 호출부가 'book' 을 알려 준다 — 도서 챕터는 서사 맥락과 품사가
+   * 살아 있어 검증·의미망 코스가 맞고, 주제 단어장은 속사·관계·형태 코스가 맞다
+   * (근거는 lib/game/sets.ts 헤더의 실측표).
+   */
+  courseKind?: ResourceKind
 }
 
 /**
@@ -47,6 +79,15 @@ interface Props {
  *   챕터형이면 챕터를 하루 단위로. 순수 계산(사용자 상태 무관) — 세트 규모만.
  */
 const DAILY_NEW = 22 // 인지부하 기반 하루 신규 권장(Cognitive Load — Sweller)
+
+/**
+ * 챕터를 펼쳤을 때 처음 보여줄 단어 수.
+ *
+ * 하루 신규 권장(22)과 같은 자리에 둔다 — "한 번에 눈에 들어오는 양" 의 기준이
+ * 학습 분량과 어긋나면 안 된다. 나머지는 "더 보기" 로 요청할 때만 펼친다.
+ */
+const CHAPTER_PREVIEW = 24
+const CHAPTER_PREVIEW_STEP = 50
 function computeStudyPlan(wordCount: number, chapterCount: number) {
   if (wordCount <= 0) return null
   return {
@@ -63,11 +104,20 @@ export function VocabSetPreviewModal({
   onToggle,
   onClose,
   fromPath = '/library/vocab',
+  courseKind = 'wordset',
 }: Props) {
+  // 뒤로가기로 닫는다 — 폰에는 Esc 가 없다(lib/ui/use-close-on-back.ts).
+  useCloseOnBack(!!set, onClose)
+
   const fromEnc = encodeURIComponent(fromPath)
   const [words, setWords] = useState<PWord[] | null>(null)
   const [chaptered, setChaptered] = useState(false)
   const [openChapters, setOpenChapters] = useState<Set<number>>(new Set([1]))
+  // v06.35 — 챕터를 펼쳤을 때 한 번에 보여줄 개수. 발행 cap 을 제거하면서(학습 대상
+  //   누락을 없애기 위해) 챕터 세트가 300개 내외가 됐고, 그대로 flat 렌더하면
+  //   "여기서 뭘 해야 하는지" 가 사라진다 — Progressive Disclosure 위반이고
+  //   목록 자체가 압박이 된다(Calm UI). 처음엔 CHAPTER_PREVIEW 개만, 나머지는 요청 시.
+  const [shownByChapter, setShownByChapter] = useState<Record<number, number>>({})
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   /** 진도-aware 완성 추정(F2) — 구독+로그인+챕터형(전체 단어 로드) 시 사용자 vocab∩세트 교집합 */
@@ -83,6 +133,7 @@ export function VocabSetPreviewModal({
     setWords(null)
     setChaptered(false)
     setOpenChapters(new Set([1]))
+    setShownByChapter({}) // 다른 세트를 열면 "더 보기" 진행도도 초기화
     // shared_words.chapter 는 방금 추가된 컬럼 — database.ts 재생성 전이라 loose client 로 접근
     const supabase = createClient() as unknown as SupabaseClient
 
@@ -195,23 +246,25 @@ export function VocabSetPreviewModal({
     }
   }, [set, isSubscribed, words, chaptered])
 
-  // Esc / body scroll lock / focus 관리
+  // Esc / body scroll lock
   useEffect(() => {
     if (!set) return
-    const prevActive = document.activeElement as HTMLElement | null
     const prevOverflow = document.body.style.overflow
     document.body.style.overflow = 'hidden'
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose()
     }
     document.addEventListener('keydown', onKey)
-    dialogRef.current?.focus()
     return () => {
       document.removeEventListener('keydown', onKey)
       document.body.style.overflow = prevOverflow
-      prevActive?.focus()
     }
   }, [set, onClose])
+
+  // 포커스: 열 때 모달 안으로 · Tab 순환 · 닫을 때 트리거로 복원.
+  //   이 모달은 열린 뒤에 단어를 받아 오고 챕터 아코디언이 펼쳐지며 버튼이 늘어난다 —
+  //   그래서 트랩은 목록을 keydown 마다 다시 구한다(`lib/ui/use-focus-trap.ts`).
+  useFocusTrap(!!set, dialogRef)
 
   // 챕터별 그룹 (챕터형일 때). label = 챕터 내 note 가 균일하면 그 note(어원 세트 어근 라벨), 아니면 null.
   const chapters = useMemo(() => {
@@ -263,9 +316,9 @@ export function VocabSetPreviewModal({
       <div className="min-w-0 flex-1">
         <div className="flex items-baseline gap-2">
           <span className="font-english text-[16px] font-[600] text-[var(--t1)]">{w.word}</span>
-          {w.partOfSpeech && <span className="font-body text-[11px] italic text-[var(--t3)]">{w.partOfSpeech}</span>}
+          {w.partOfSpeech && <span className="font-body text-[11px] italic text-[var(--t2)]">{w.partOfSpeech}</span>}
           {w.cefrLevel && (
-            <span className="rounded-[var(--r-full)] bg-[var(--bg3)] px-1.5 py-0.5 font-display text-[10px] font-[600] text-[var(--t3)]">
+            <span className="rounded-[var(--r-full)] bg-[var(--bg3)] px-2 py-1 font-display text-[10px] font-[600] text-[var(--t2)]">
               {w.cefrLevel}
             </span>
           )}
@@ -275,7 +328,7 @@ export function VocabSetPreviewModal({
       <button
         type="button"
         onClick={() => speak(w.word)}
-        className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--r-full)] bg-[#8B5CF6]/10 text-[#6D28D9] transition-colors hover:bg-[#8B5CF6]/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
+        className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--r-full)] bg-[var(--p-light)] text-[var(--on-p-tint)] transition-colors hover:bg-[color-mix(in_srgb,var(--p)_28%,transparent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         aria-label={`${w.word} 발음 듣기`}
       >
         <Volume2 size={16} aria-hidden />
@@ -304,12 +357,15 @@ export function VocabSetPreviewModal({
             <h2 id="vocab-preview-title" className="line-clamp-2 font-display text-[18px] font-[700] text-[var(--t1)]">
               {set.coverEmoji} {set.title}
             </h2>
-            <p className="mt-1 font-body text-[12px] text-[var(--t3)]">{subtitle}</p>
+            <p className="mt-1 font-body text-[12px] text-[var(--t2)]">{subtitle}</p>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--r-full)] text-[var(--t3)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
+            // h-9(36px) 이었다 — CLAUDE.md 가 금지하는 44px 미만 터치 타겟이다.
+            // 폰에는 Esc 가 없어서 이 버튼이 **닫는 유일한 길**인데 손가락으로 놓치기 쉬웠다
+            // (실측 2026-08-25 · 390px). 아이콘 크기는 그대로 두고 누를 면적만 넓힌다.
+            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-[var(--r-full)] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
             aria-label="미리보기 닫기"
           >
             <X size={18} aria-hidden />
@@ -319,13 +375,13 @@ export function VocabSetPreviewModal({
         {/* 본문 */}
         <div className="flex-1 overflow-y-auto px-6 py-4">
           {loading && (
-            <div className="flex items-center justify-center gap-2 py-10 text-[var(--t3)]">
+            <div className="flex items-center justify-center gap-2 py-10 text-[var(--t2)]">
               <Loader2 size={18} className="animate-spin" aria-hidden />
               <span className="font-body text-[13px]">단어를 불러오는 중...</span>
             </div>
           )}
           {error && !loading && (
-            <p role="alert" className="py-6 text-center font-body text-[13px] text-[var(--error)]">
+            <p role="alert" className="py-6 text-center font-body text-[13px] text-[var(--error-ink)]">
               {error}
             </p>
           )}
@@ -334,13 +390,13 @@ export function VocabSetPreviewModal({
           {!loading && !error && plan && (
             <div className="mb-4 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3">
               <div className="flex items-center gap-2">
-                <CalendarClock size={15} className="shrink-0 text-[#6D28D9]" aria-hidden />
+                <CalendarClock size={15} className="shrink-0 text-[var(--on-p-tint)]" aria-hidden />
                 <span className="font-display text-[12px] font-[700] text-[var(--t1)]">학습 플랜</span>
               </div>
               <p className="mt-1.5 font-body text-[13px] leading-relaxed text-[var(--t2)]">
                 하루 <b className="font-[700] text-[var(--t1)]">{plan.dailyNew}단어</b>씩 · 약{' '}
                 <b className="font-[700] text-[var(--t1)]">{plan.introDays}일</b>에 새 단어를 익혀요
-                {plan.chapters > 0 && <span className="text-[var(--t3)]"> · {plan.chapters}챕터 구성</span>}.
+                {plan.chapters > 0 && <span className="text-[var(--t2)]"> · {plan.chapters}챕터 구성</span>}.
               </p>
 
               {/* 진도-aware — 구독 후 실제 학습 진도 반영(개인화) */}
@@ -353,15 +409,15 @@ export function VocabSetPreviewModal({
                     <div className="flex items-baseline justify-between gap-2">
                       <span className="font-body text-[12px] text-[var(--t2)]">
                         학습 <b className="font-[700] text-[var(--t1)]">{learned}</b>
-                        <span className="text-[var(--t3)]"> / {set.wordCount.toLocaleString()}</span>
+                        <span className="text-[var(--t2)]"> / {set.wordCount.toLocaleString()}</span>
                       </span>
-                      <span className="font-body text-[12px] text-[var(--t3)]">
+                      <span className="font-body text-[12px] text-[var(--t2)]">
                         {remaining === 0 ? '한 바퀴 완주했어요 🎉' : `남은 ${remaining.toLocaleString()}단어 · 약 ${daysLeft}일 더`}
                       </span>
                     </div>
                     <div className="mt-1.5 h-[6px] w-full overflow-hidden rounded-[var(--r-full)] bg-[var(--bg3)]">
                       <div
-                        className="h-full rounded-[var(--r-full)] bg-[#8B5CF6] transition-[width] duration-[var(--dur-slow)]"
+                        className="h-full rounded-[var(--r-full)] bg-[var(--p)] transition-[width] duration-[var(--dur-slow)]"
                         style={{ width: `${pct}%` }}
                         role="progressbar"
                         aria-valuenow={pct}
@@ -374,10 +430,27 @@ export function VocabSetPreviewModal({
                 )
               })()}
 
-              <p className="mt-2 flex items-start gap-1.5 font-body text-[12px] leading-relaxed text-[var(--t3)]">
+              <p className="mt-2 flex items-start gap-2 font-body text-[12px] leading-relaxed text-[var(--t2)]">
                 <RefreshCw size={12} className="mt-[3px] shrink-0" aria-hidden />
                 <span>복습은 <b className="font-[600] text-[var(--t2)]">기억이 흐려질 때</b> 자동으로 배치돼요 — 고정 일정이 아니라 당신의 기억에 맞춰 조절돼요.</span>
               </p>
+
+              {/* 세트 전체 코스 — 챕터가 없는 세트(전체의 66%)에는 지금까지 게임 진입이
+                  아예 없었다. 챕터 아코디언 안의 런처는 챕터형에서만 렌더되기 때문이다. */}
+              <div className="mt-3 border-t border-[var(--bd)] pt-3">
+                <CourseLauncher
+                  kind={courseKind}
+                  poolSize={set.wordCount}
+                  scope={{ set: set.id, from: fromPath }}
+                  heading={
+                    courseKind === 'book'
+                      ? '이 챕터로 할 코스'
+                      : chaptered
+                        ? '세트 전체로 할 코스'
+                        : '이 단어장으로 할 코스'
+                  }
+                />
+              </div>
             </div>
           )}
 
@@ -393,24 +466,24 @@ export function VocabSetPreviewModal({
                         type="button"
                         onClick={() => toggleChapter(ch.n)}
                         aria-expanded={open}
-                        className="flex min-w-0 flex-1 items-center justify-between gap-2 px-4 py-2.5 text-left transition-colors hover:bg-[var(--bg3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#8B5CF6]"
+                        className="flex min-w-0 flex-1 items-center justify-between gap-2 px-4 py-3 text-left transition-colors hover:bg-[var(--bg3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--p)]"
                       >
                         <span className="min-w-0 font-display text-[13px] font-[700] text-[var(--t1)]">
                           {ch.label ?? `Chapter ${ch.n}`}
-                          <span className="ml-2 font-body text-[12px] font-[400] text-[var(--t3)]">
+                          <span className="ml-2 font-body text-[12px] font-[400] text-[var(--t2)]">
                             {ch.words.length}단어 · {ch.words[0]?.cefrLevel ?? '?'}~{ch.words[ch.words.length - 1]?.cefrLevel ?? '?'}
                           </span>
                         </span>
                         <ChevronDown
                           size={16}
-                          className={`shrink-0 text-[var(--t3)] transition-transform ${open ? 'rotate-180' : ''}`}
+                          className={`shrink-0 text-[var(--t2)] transition-transform ${open ? 'rotate-180' : ''}`}
                           aria-hidden
                         />
                       </button>
                       <a
                         href={`/flashcard/play?set=${set.id}&chapter=${ch.n}&from=${fromEnc}`}
                         title={`Chapter ${ch.n} 플래시카드 학습`}
-                        className="inline-flex shrink-0 items-center gap-1 border-l border-[var(--bd)] px-3 font-display text-[12px] font-[700] text-[#6D28D9] no-underline transition-colors hover:bg-[#8B5CF6]/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#8B5CF6]"
+                        className="inline-flex shrink-0 items-center gap-1 border-l border-[var(--bd)] px-3 font-display text-[12px] font-[700] text-[var(--on-p-tint)] no-underline transition-colors hover:bg-[var(--p-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--p)]"
                       >
                         <Layers size={14} aria-hidden /> 학습
                       </a>
@@ -418,8 +491,8 @@ export function VocabSetPreviewModal({
                     {open && (
                       <div className="flex flex-col">
                         {/* 게임별 챕터 학습 런처 */}
-                        <div className="flex flex-wrap items-center gap-1.5 border-t border-[var(--bd)] bg-[var(--bg)] px-4 py-2.5">
-                          <span className="mr-0.5 font-display text-[11px] font-[700] text-[var(--t3)]">
+                        <div className="flex flex-wrap items-center gap-2 border-t border-[var(--bd)] bg-[var(--bg)] px-4 py-3">
+                          <span className="mr-0.5 font-display text-[11px] font-[700] text-[var(--t2)]">
                             이 챕터 학습
                           </span>
                           {CHAPTER_GAMES.map((g) => (
@@ -427,14 +500,60 @@ export function VocabSetPreviewModal({
                               key={g.key}
                               href={`${g.path(set.id, ch.n)}&from=${fromEnc}`}
                               title={`Chapter ${ch.n} — ${g.label}`}
-                              className="inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5 py-1 font-display text-[11px] font-[700] text-[var(--t2)] no-underline transition-colors hover:border-[#8B5CF6] hover:bg-[#8B5CF6]/10 hover:text-[#6D28D9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
+                              // 44px 최소 터치 타겟(CLAUDE.md) — 기존 py-1 은 24px 였다.
+                              // 아케이드 칩만 액센트를 줘 "개별 게임"이 아니라 "전부로 가는 문"임을 구분.
+                              className={
+                                'inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-full)] border px-3 font-display text-[11.5px] font-[700] no-underline transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ' +
+                                (g.wide
+                                  ? 'border-[color-mix(in_srgb,var(--p)_45%,transparent)] bg-[var(--p-light)] text-[var(--on-p-tint)] hover:border-[var(--p)] hover:bg-[color-mix(in_srgb,var(--p)_24%,transparent)]'
+                                  : 'border-[var(--bd)] bg-[var(--bg2)] text-[var(--t2)] hover:border-[var(--p)] hover:bg-[var(--p-light)] hover:text-[var(--on-p-tint)]')
+                              }
                             >
                               <span aria-hidden>{g.emoji}</span>
                               {g.label}
+                              {g.wide && <span aria-hidden>→</span>}
                             </a>
                           ))}
                         </div>
-                        <ul className="flex flex-col divide-y divide-[var(--bd)] px-4">{ch.words.map((w, i) => wordRow(w, i))}</ul>
+                        {(() => {
+                          const shown = shownByChapter[ch.n] ?? CHAPTER_PREVIEW
+                          const visible = ch.words.slice(0, shown)
+                          const rest = ch.words.length - visible.length
+                          return (
+                            <>
+                              <ul className="flex flex-col divide-y divide-[var(--bd)] px-4">
+                                {visible.map((w, i) => wordRow(w, i))}
+                              </ul>
+                              {rest > 0 && (
+                                <div className="flex items-center justify-center gap-2 border-t border-[var(--bd)] px-4 py-3">
+                                  <button
+                                    type="button"
+                                    onClick={() =>
+                                      setShownByChapter((s) => ({
+                                        ...s,
+                                        [ch.n]: shown + CHAPTER_PREVIEW_STEP,
+                                      }))
+                                    }
+                                    className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 font-display text-[12px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] hover:text-[var(--on-p-tint)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] active:scale-[0.98]"
+                                  >
+                                    {Math.min(rest, CHAPTER_PREVIEW_STEP)}개 더 보기
+                                  </button>
+                                  {rest > CHAPTER_PREVIEW_STEP && (
+                                    <button
+                                      type="button"
+                                      onClick={() =>
+                                        setShownByChapter((s) => ({ ...s, [ch.n]: ch.words.length }))
+                                      }
+                                      className="inline-flex min-h-[44px] items-center px-3 font-display text-[12px] font-[600] text-[var(--t2)] underline-offset-2 transition-colors hover:text-[var(--on-p-tint)] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+                                    >
+                                      전체 {ch.words.length}개
+                                    </button>
+                                  )}
+                                </div>
+                              )}
+                            </>
+                          )
+                        })()}
                       </div>
                     )}
                   </div>
@@ -449,8 +568,10 @@ export function VocabSetPreviewModal({
           )}
 
           {!loading && !error && words && words.length === 0 && (
-            <p className="py-6 text-center font-body text-[13px] text-[var(--t3)]">아직 등록된 단어가 없어요</p>
+            <p className="py-6 text-center font-body text-[13px] text-[var(--t2)]">아직 등록된 단어가 없어요</p>
           )}
+
+          <VocabColophon set={set} />
         </div>
 
         {/* 푸터 CTA */}
@@ -467,7 +588,7 @@ export function VocabSetPreviewModal({
               type="button"
               onClick={() => onToggle(set)}
               disabled={isPending}
-              className="inline-flex min-h-[40px] items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] px-4 py-2 font-display text-[13px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] disabled:opacity-60"
+              className="inline-flex min-h-[40px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] px-4 py-2 font-display text-[13px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] disabled:opacity-60"
             >
               {isPending ? <Loader2 size={14} className="animate-spin" aria-hidden /> : <Check size={14} aria-hidden />}
               구독 해지
@@ -477,7 +598,7 @@ export function VocabSetPreviewModal({
               type="button"
               onClick={() => onToggle(set)}
               disabled={isPending}
-              className="inline-flex min-h-[40px] items-center gap-1.5 rounded-[var(--r-md)] bg-[#8B5CF6] px-4 py-2 font-display text-[13px] font-[700] text-white transition-colors hover:bg-[#7C3AED] disabled:opacity-60"
+              className="inline-flex min-h-[40px] items-center gap-2 rounded-[var(--r-md)] bg-[var(--p)] px-4 py-2 font-display text-[13px] font-[700] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)] disabled:opacity-60"
             >
               {isPending ? <Loader2 size={14} className="animate-spin" aria-hidden /> : <Plus size={14} aria-hidden />}
               내 단어장에 추가

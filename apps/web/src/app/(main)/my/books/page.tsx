@@ -8,7 +8,7 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 import { createClient } from '@/lib/supabase/server';
 
 export const metadata = {
-  title: 'BookVault — Vocaflow',
+  title: 'BookVault',
   description: 'Library에서 추가한 책',
 };
 
@@ -222,7 +222,7 @@ function Hero({
     >
       <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-[var(--p)]/[0.07] blur-2xl" aria-hidden />
       <div className="relative flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-        <div className="flex flex-col gap-1.5">
+        <div className="flex flex-col gap-2">
           <div className="flex items-center gap-2 font-display text-[10.5px] font-[700] uppercase tracking-[0.10em] text-[var(--p)]">
             <Library size={12} aria-hidden />
             BookVault
@@ -233,7 +233,7 @@ function Hero({
           >
             내 책장
           </h1>
-          <p className="font-body text-[12.5px] text-[var(--t3)]">
+          <p className="font-body text-[12.5px] text-[var(--t2)]">
             Library 에서 내 학습에 추가한 책들 · chapter 단위로 이어 읽어요
           </p>
         </div>
@@ -258,7 +258,7 @@ function Stat({
   highlight?: boolean;
 }) {
   return (
-    <div className="flex flex-col items-end gap-0.5 md:items-start">
+    <div className="flex flex-col items-end gap-1 md:items-start">
       <dd
         className={`font-display text-[22px] font-[700] leading-none tabular-nums md:text-[26px] ${
           highlight ? 'text-[var(--p)]' : 'text-[var(--t1)]'
@@ -266,7 +266,7 @@ function Stat({
       >
         {value}
       </dd>
-      <dt className="font-display text-[10.5px] font-[600] uppercase tracking-[0.08em] text-[var(--t3)]">
+      <dt className="font-display text-[10.5px] font-[600] uppercase tracking-[0.08em] text-[var(--t2)]">
         {label}
       </dt>
     </div>
@@ -287,15 +287,15 @@ function BookCard({ book }: { book: BookSummary }) {
       aria-label={`${book.title} 이어 읽기 · ${progress}% 진행`}
       className="group flex h-full flex-col overflow-hidden rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:-translate-y-0.5 hover:border-[var(--p)]/40 hover:shadow-[var(--sh-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
     >
-      <div className="flex flex-1 flex-col gap-2 p-5 pb-3.5">
+      <div className="flex flex-1 flex-col gap-2 p-5 pb-4">
         <div className="flex items-start justify-between gap-2">
-          <h3 className="line-clamp-2 font-display text-[15px] font-[700] leading-snug text-[var(--t1)]">
+          <h2 className="line-clamp-2 font-display text-[15px] font-[700] leading-snug text-[var(--t1)]">
             {book.title}
-          </h3>
+          </h2>
           <div className="flex shrink-0 items-center gap-1">
             {(book.cefr_band ?? book.cefr_level) && (
               <span
-                className="inline-flex items-center rounded-[var(--r-sm)] px-2 py-0.5 font-mono text-[10px] font-[700]"
+                className="inline-flex items-center rounded-[var(--r-sm)] px-2 py-1 font-mono text-[10px] font-[700]"
                 style={{
                   backgroundColor: `var(--cefr-${book.cefr_band ?? book.cefr_level}-bg)`,
                   color: `var(--cefr-${book.cefr_band ?? book.cefr_level}-text)`,
@@ -311,7 +311,7 @@ function BookCard({ book }: { book: BookSummary }) {
             )}
             {book.book_v_level != null && (
               <span
-                className="inline-flex items-center rounded-[var(--r-sm)] bg-[var(--bg3)] px-2 py-0.5 font-display text-[10px] font-[700] text-[var(--t2)]"
+                className="inline-flex items-center rounded-[var(--r-sm)] bg-[var(--bg3)] px-2 py-1 font-display text-[10px] font-[700] text-[var(--t2)]"
                 title="V-Level (한국 학습자 어휘 부담)"
               >
                 V{book.book_v_level}
@@ -320,13 +320,13 @@ function BookCard({ book }: { book: BookSummary }) {
           </div>
         </div>
         {book.author && (
-          <p className="line-clamp-1 font-body text-[12px] text-[var(--t3)]">
+          <p className="line-clamp-1 font-body text-[12px] text-[var(--t2)]">
             {book.author}
           </p>
         )}
 
         {/* Next/Last hint — 학습 흐름 단서 */}
-        <div className="mt-1 flex items-center gap-1.5 font-body text-[11.5px] text-[var(--t3)]">
+        <div className="mt-1 flex items-center gap-2 font-body text-[11.5px] text-[var(--t2)]">
           {isComplete ? (
             <span className="inline-flex items-center gap-1 font-[600] text-[var(--learn-known)]">
               <Sparkles size={11} aria-hidden /> 완독했어요
@@ -339,11 +339,11 @@ function BookCard({ book }: { book: BookSummary }) {
               </span>
             </span>
           ) : (
-            <span className="text-[var(--t3)]">시작 대기</span>
+            <span className="text-[var(--t2)]">시작 대기</span>
           )}
           {last && (
             <>
-              <span className="text-[var(--t4)]" aria-hidden>·</span>
+              <span className="text-[var(--t2)]" aria-hidden>·</span>
               <span>{last}</span>
             </>
           )}
@@ -352,9 +352,9 @@ function BookCard({ book }: { book: BookSummary }) {
 
       <div className="flex flex-col gap-2 border-t border-[var(--bd)] bg-[var(--bg2)] px-5 py-3">
         <div className="flex items-baseline justify-between">
-          <span className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t3)]">
+          <span className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t2)]">
             <strong className="font-[700] text-[var(--t1)]">{book.completed_chapters}</strong>
-            <span className="text-[var(--t4)]"> / </span>
+            <span className="text-[var(--t2)]"> / </span>
             {book.chapter_count}장 완료
           </span>
           <span
@@ -382,7 +382,7 @@ function ChapterDotRow({ book }: { book: BookSummary }) {
   if (total <= MAX_DOTS) {
     return (
       <div
-        className="flex flex-wrap items-center gap-[3px]"
+        className="flex flex-wrap items-center gap-[4px]"
         role="progressbar"
         aria-valuemin={0}
         aria-valuemax={total}
@@ -427,7 +427,7 @@ function ChapterDotRow({ book }: { book: BookSummary }) {
 
   return (
     <div
-      className="flex flex-wrap items-center gap-[3px]"
+      className="flex flex-wrap items-center gap-[4px]"
       role="progressbar"
       aria-valuemin={0}
       aria-valuemax={total}
@@ -453,13 +453,14 @@ function ChapterDot({
   const tone = (() => {
     switch (status) {
       case 'completed':
-        return { bg: 'var(--learn-known)', label: '완료' };
+        return { bg: 'var(--learn-known)', label: 'Done' };
       case 'in_progress':
-        return { bg: 'var(--p)', label: '학습 중' };
+        return { bg: 'var(--p)', label: 'Reading' };
       case 'not_started':
-        return { bg: 'var(--t4)', label: '미시작' };
+        return { bg: 'var(--t4)', label: 'Not Started' };
       default:
-        return { bg: 'var(--bg3)', label: '미등록' };
+        // '미등록' = 내 서재에 담지 않은 챕터. 'Not Started'(담았지만 안 연 것)와 다르다.
+        return { bg: 'var(--bg3)', label: 'Not Added' };
     }
   })();
   const isLive = status === 'in_progress';
@@ -497,10 +498,12 @@ function Empty({ message }: { message: string }) {
       <div className="select-none text-3xl" aria-hidden>
         📚
       </div>
-      <h3 className="font-display text-[14px] font-[700] text-[var(--t1)]">{message}</h3>
+      <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">{message}</h2>
       <Link
         href="/library/books"
-        className="rounded-[var(--r-sm)] bg-[var(--p)] px-4 py-2 font-display text-[12px] font-[600] text-[var(--ti)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+        // 151×34 였다 — 44px 미만 탭 대상(CLAUDE.md 절대 금지 · 실측 390px).
+        // 빈 서가에서 **밖으로 나가는 유일한 버튼**이라 특히 놓치면 안 된다.
+        className="inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] bg-[var(--p)] px-4 py-2 font-display text-[12px] font-[600] text-[var(--on-p)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
       >
         Library에서 책 발견 →
       </Link>

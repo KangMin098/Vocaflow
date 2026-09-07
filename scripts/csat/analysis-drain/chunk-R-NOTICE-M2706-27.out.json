@@ -1,0 +1,1761 @@
+{
+  "chunk": 1,
+  "type_id": "R-NOTICE",
+  "type_name": "안내문 일치",
+  "analyses": [
+    {
+      "item_id": "M2706#27",
+      "revised": true,
+      "measured_ability": "표로 제시된 조건이 행마다 같은 값인지 다른 값인지 대조해, 선지의 '모든·동일한' 같은 전칭 표현이 표를 견디는지 판정하는 능력",
+      "design_intent": "산문 문장(취지·요일·등록·상품)은 전부 참으로 두고, 참·거짓을 표의 Paper Size 열 한 곳에만 숨겼다. 표를 항목이 '있다/없다' 로만 훑고 행 사이 값을 비교하지 않는 학생을 걸러내려는 설계다.",
+      "answer_locus": {
+        "sentence_index": [
+          9,
+          10
+        ],
+        "quote": "6—9 ______ A3 ______ Crayons 10—13 ______ A2 14—17 ______ A2",
+        "reasoning": "Paper Size 열의 값이 6—9 연령대는 A3, 10—13 과 14—17 은 A2 로 갈린다. 종이 크기가 두 종류로 나뉘어 있으므로 참가자 전원이 같은 크기를 쓴다는 진술은 표 자체와 충돌한다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "선지의 '환경 보존을 장려' 를 안내문에서 찾으려 할 때 environmental preservation 을 못 알아보면 근거가 없다고 판단해 불일치로 고르게 된다.",
+          "how_to_reject": "제목 바로 다음 문장 We are holding a drawing competition to encourage environmental preservation. 이 목적을 그대로 말한다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "부분 사실",
+          "why_tempting": "안내문에 날짜 줄이 둘(행사 Sunday, June 21 과 등록 June 10 to June 15)이라, 등록 기간 쪽을 행사일로 잡으면 요일이 어긋나 보인다.",
+          "how_to_reject": "When & Where 항목의 Sunday, June 21, 1:00 p.m.—4:30 p.m. 이 행사일이고 요일이 명시되어 있다. June 10 to June 15 는 Registration 항목 아래에 있다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "무관",
+          "why_tempting": "Registration 항목의 둘째 줄 There is no registration fee. 를 근거로 삼으면 등록 절차 자체가 없다고 읽혀 온라인 등록 요구가 거짓처럼 보인다.",
+          "how_to_reject": "등록비 유무는 등록 요구 여부와 다른 줄이다. 같은 항목 첫 줄 Online registration is required from June 10 to June 15 가 요구 여부를 직접 말한다."
+        },
+        {
+          "n": 4,
+          "verdict": "correct",
+          "why_correct": "발문이 '일치하지 않는 것'이고, Competition Categories 표의 Paper Size 열은 연령대마다 값이 갈린다 — 6—9 는 A3, 10—13 과 14—17 은 A2 다. 선지 ④ '모든 참가자는 동일한 크기의 종이를 사용한다' 에서 '종이' 와 '크기' 는 이 열이 그대로 받지만, 값이 A3·A2 두 가지이므로 '모든 참가자' 가 쓰는 크기가 '동일한' 이라는 성분만 표와 충돌한다. 어긋나는 자리는 종이의 유무나 종류가 아니라 한정어 '동일한' 하나다.",
+          "confirmed_at": {
+            "sentence_index": [
+              9,
+              10
+            ],
+            "note": "표에서 Ages 열만 훑고 넘어가면 Paper Size 열의 값이 몇 종류인지 세지 않게 되고, A3 과 A2 는 한 글자만 달라 같은 값처럼 스쳐 지나간다 — 표가 나오면 열마다 서로 다른 값이 몇 개인지부터 센다."
+          }
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "범위 과소",
+          "why_tempting": "Prize 항목 첫 줄이 One winner in each age group 이라 우승자가 한 명이라고 좁혀 읽으면, 복수로 서술된 선지가 어긋난 것처럼 보인다.",
+          "how_to_reject": "Prize 둘째 줄 Winners will each receive a canvas bag. 이 우승자 각각이 받는다고 못박는다. each age group 이 셋이므로 우승자도 셋이다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "발문이 '일치하지 않는 것' 인지 '일치하는 것' 인지에 표시하고, 안내문 왼쪽의 항목 이름(Theme·When & Where·Registration·Categories·Prize)만 먼저 훑어 선지가 놓일 자리를 잡는다",
+          "on_fail": "항목 이름이 표에 섞여 안 보이면 콜론(:) 앞 낱말과 ∙ 기호 뒤 첫 낱말을 항목으로 삼는다"
+        },
+        {
+          "step": "선지 ①부터 차례로 읽으며 각 선지의 핵심어(환경 보존·일요일·온라인 등록·종이 크기·캔버스 가방)를 안내문에서 대응하는 영어 낱말로 찾아 짚는다",
+          "on_fail": "대응 낱말이 안 보이면 선지의 숫자와 고유명사만 들고 위에서 아래로 훑는다"
+        },
+        {
+          "step": "숫자·요일·크기가 든 선지는 그 값이 적힌 줄을 찾은 뒤 표의 같은 열 다른 행 값과도 나란히 놓고 비교한다",
+          "on_fail": "표가 깨져 열이 안 맞으면 그 열에 값이 몇 종류 나오는지만 센다"
+        },
+        {
+          "step": "'모든·동일한·~만' 같은 전칭·한정 표현이 든 선지는 예외가 되는 행이 하나라도 있는지 확인한다",
+          "on_fail": "예외를 못 찾으면 그 선지는 보류하고 나머지 선지부터 지운다"
+        },
+        {
+          "step": "답을 적기 전에 지운 선지 넷이 각각 안내문의 어느 줄로 확인됐는지 손가락으로 되짚는다",
+          "on_fail": "근거 줄을 못 대는 선지가 둘 이상이면 그 둘만 다시 대조한다"
+        }
+      ],
+      "time_budget_sec": 60,
+      "difficulty": {
+        "predicted": 0.92,
+        "drivers": [
+          "정답 근거가 산문이 아니라 표의 행 간 값 비교",
+          "선지가 안내문 서술 순서를 그대로 따라 대조가 쉽다"
+        ]
+      },
+      "required_vocab": [
+        "preservation",
+        "registration",
+        "material",
+        "canvas"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "최초 작성에서 answer_locus.quote 를 Winners will each receive a canvas bag. 으로 잡았다 — 지문에 있는 문장이지만 정답(종이 크기)과 무관한 줄이어서 반려했고, Paper Size 열이 든 표 행으로 교체했다.",
+            "선지 다섯 개가 안내문 서술 순서(취지→When→Registration→Categories→Prize)를 단조 대응한다 — 이 유형의 실제 설계와 맞는다.",
+            "3차 검수(근거/심리 판정)에서 why_correct 를 다시 썼다: 표 열이 두 값으로 갈린다는 요약만 있어 선지의 어느 성분(한정어 \"동일한\")이 깨지는지가 없었다 — 연령대별 값(A3/A2)과 선지 문구를 낱말 단위로 맞물렸다."
+          ],
+          "checked": [
+            "quote 를 corpus passage 와 문자열 대조",
+            "선지 순서와 안내문 항목 순서의 단조성 확인",
+            "정답 4 가 표 열 비교로만 확정되는지 확인",
+            "why_correct 의 대응을 근거 줄 낱말과 선지 문구로 재대조"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "오답 넷의 함정이 어휘 함정·부분 사실·무관·범위 과소로 서로 다르다.",
+            "③의 why_tempting 이 등록비 줄을 지목해 선지 텍스트가 아니라 학습자의 근거 오선택을 설명한다 — how_to_reject 에 올바른 줄 위치를 넣어 보완 확인.",
+            "보강된 why_correct 가 소거법(\"나머지가 틀리므로\")에 기대지 않고 근거 줄 하나로 판정하는지 확인했다."
+          ],
+          "checked": [
+            "오답 4개의 trap 중복 여부",
+            "how_to_reject 마다 안내문 줄 위치가 적혔는지",
+            "why_tempting 이 선지 문구와 실제로 연결되는지",
+            "why_correct 가 오답 배제에 의존하는지 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "5단계 절차가 지문을 안 본 상태에서 실행 가능하다 — 1단계가 발문 표시, 2단계가 선지 핵심어 추출로 시작한다.",
+            "60초 안에 표 한 열 비교까지 가능하다고 봤다.",
+            "보강된 서술이 선지 문구를 그대로 인용해, 학습자가 안내문 줄과 선지를 눈으로 맞대 볼 수 있다."
+          ],
+          "checked": [
+            "절차 단계가 지문 사전 지식 없이 실행 가능한지",
+            "금지 표현(흐름을 파악하면 등) 포함 여부",
+            "required_vocab 4개가 정답 판정에 실제로 필요한 낱말인지",
+            "선지 원문과 why_correct 인용 문구 문자열 대조"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "M2706#28",
+      "measured_ability": "선지 다섯 개를 안내문의 한 줄씩과 짝지어, 기간·장소 조건·시각·판매 여부·우천 조치 중 어느 축이 비틀렸는지 판정하는 능력",
+      "design_intent": "숫자 3(날짜)·6(시작 시각)·7(영화 시각)·9(드론쇼)를 서로 다른 줄에 흩뿌려 놓고 선지가 엉뚱한 줄의 숫자를 가져오게 했다. 마지막 선지는 cancelled 한 낱말을 '연기' 로 바꿔 술어 하나로 참·거짓을 가른다.",
+      "answer_locus": {
+        "sentence_index": [
+          8
+        ],
+        "quote": "Food and beverages will be sold during the event.",
+        "reasoning": "Additional Information 첫 줄이 음식·음료의 판매 여부를 직접 진술한다. 선지 ④는 주어와 술어를 그대로 옮긴 것이라 다른 줄을 보지 않고도 참이 확정된다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "범위 과대",
+          "why_tempting": "Date: Friday, July 3, 2026 의 3 이 날짜인데 기간으로 읽히면 '3일 동안' 이 맞아 보인다.",
+          "how_to_reject": "Date 줄에 요일이 Friday 하나만 붙어 있고, Time 줄이 6 p.m. to 11 p.m. 로 하루치 시각만 준다 — 며칠간이라는 기간 표기가 없다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "반대 진술",
+          "why_tempting": "Place 가 공원이라 야외 행사면 주차장이 있으리라는 짐작이 선지를 참으로 보이게 한다.",
+          "how_to_reject": "Place 줄 괄호 안에 Parking is not available. 이 적혀 있다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "부분 사실",
+          "why_tempting": "6 p.m. 은 Time 줄에 실제로 있는 숫자여서 영화 시작 시각으로 옮겨 붙이기 쉽다.",
+          "how_to_reject": "Attractions·Activities 칸에서 Movie 에 붙은 시각은 Deep into the Universe at 7 p.m. 이고, 6 p.m. 은 Time 줄의 행사 전체 시작 시각이다."
+        },
+        {
+          "n": 4,
+          "verdict": "correct",
+          "why_correct": "발문이 '일치하는 것'이고, Additional Information 첫 줄 'Food and beverages will be sold during the event.' 가 선지 ④ '음식과 음료가 판매될 것이다' 와 성분끼리 겹친다 — Food and beverages=음식과 음료, will be sold=판매될 것이다. 부정어도 조건도 붙지 않았고, 음식·음료를 언급하는 줄이 안내문에 이 한 줄뿐이라 다른 항목이 이 서술을 뒤집을 자리가 없다.",
+          "confirmed_at": {
+            "sentence_index": [
+              8
+            ],
+            "note": "이 줄은 Date·Time·Place 와 Attractions 표 아래 Additional Information 에 있어, 위쪽 세 줄로 ①②③ 을 처리하고 나면 판단이 끝났다고 여겨 닿지 않는다."
+          }
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "Note 줄에 heavy rain 조건이 실제로 있어 우천 시 조치가 있다는 데까지는 맞고, cancelled 를 '연기' 로 옮기면 그대로 참이 된다.",
+          "how_to_reject": "Note 줄의 술어는 the event will be cancelled 다 — 취소이지 연기(postponed)가 아니다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "발문의 '일치하는 것' 에 표시하고, 선지 다섯 개를 먼저 읽어 각 선지가 다루는 축(기간·주차·시각·판매·우천)을 옆에 한 낱말로 적는다",
+          "on_fail": "축이 안 잡히면 선지에서 숫자와 명사에만 밑줄을 긋는다"
+        },
+        {
+          "step": "적어 둔 축 순서대로 안내문을 위에서 아래로 따라가며 해당 줄을 하나씩 찾는다 — 선지 번호와 안내문 줄 순서는 대체로 함께 내려간다",
+          "on_fail": "줄을 못 찾으면 그 선지는 건너뛰고 다음 선지의 줄부터 찾은 뒤 남은 구간에서 되돌아 찾는다"
+        },
+        {
+          "step": "찾은 줄과 선지를 술어까지 맞춘다. 숫자는 값이 같은지, 부정어(not·no)와 한정어(only)가 양쪽에 다 있는지 본다",
+          "on_fail": "술어가 달라 보이면 그 낱말만 우리말로 바꿔 적어 본다(cancelled=취소, postponed=연기)"
+        },
+        {
+          "step": "괄호와 Note 줄은 마지막에 따로 한 번 더 본다 — 조건과 예외가 거기에 들어간다",
+          "on_fail": "둘이 남으면 괄호 안 문구부터 다시 대조한다"
+        }
+      ],
+      "time_budget_sec": 60,
+      "difficulty": {
+        "predicted": 0.9,
+        "drivers": [
+          "시각 숫자가 세 줄에 분산",
+          "cancelled 와 '연기' 의 어휘 대립"
+        ]
+      },
+      "required_vocab": [
+        "beverage",
+        "available",
+        "cancelled"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 가 Additional Information 첫 줄과 문자 그대로 일치한다.",
+            "일치 문항이므로 정답 근거를 한 줄에서 끝내고 나머지 넷을 각각 다른 줄에서 배제하도록 서술했다 — 유형 설계와 맞는다.",
+            "3차 검수(근거/심리 판정)에서 why_correct 를 다시 썼다: \"그대로 말한다\" 로 끝나 영문 근거 줄과 선지 문구의 대응이 없었다 — 근거 문장을 인용하고 성분별로 짝지었다."
+          ],
+          "checked": [
+            "quote 를 corpus passage 와 문자열 대조",
+            "정답 4 가 평가원 정답표와 같은지 확인",
+            "선지 다섯이 안내문 순서를 단조 대응하는지 확인",
+            "why_correct 의 대응을 근거 줄 낱말과 선지 문구로 재대조"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "범위 과대·반대 진술·부분 사실·어휘 함정 네 축이 겹치지 않는다.",
+            "③이 6 p.m. 이라는 실제 지문 숫자를 다른 항목에서 끌어온 전형적 표 이동형 함정임을 확인했다.",
+            "보강된 why_correct 가 소거법(\"나머지가 틀리므로\")에 기대지 않고 근거 줄 하나로 판정하는지 확인했다."
+          ],
+          "checked": [
+            "오답 4개의 trap 중복 여부",
+            "why_tempting 이 선지 숫자·낱말에 근거하는지",
+            "how_to_reject 의 위치 표기 유무",
+            "why_correct 가 오답 배제에 의존하는지 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "4단계 모두 지문을 보기 전에 시작할 수 있다(선지 먼저 읽기).",
+            "괄호·Note 를 마지막에 따로 보게 한 4단계가 이 유형에서 가장 값이 크다.",
+            "보강된 서술이 선지 문구를 그대로 인용해, 학습자가 안내문 줄과 선지를 눈으로 맞대 볼 수 있다."
+          ],
+          "checked": [
+            "절차의 실행 가능성",
+            "금지 표현 포함 여부",
+            "60초 배분 타당성",
+            "선지 원문과 why_correct 인용 문구 문자열 대조"
+          ]
+        }
+      ],
+      "revised": true
+    },
+    {
+      "item_id": "2026#27",
+      "measured_ability": "안내문의 수치 한정어(Three)와 선지의 수치(네 개)를 한 자리에서 맞춰 보고, 나머지 선지를 각각 다른 줄로 확인해 지우는 능력",
+      "design_intent": "Selection Method 한 줄에만 숫자를 넣고 나머지 항목은 전부 참으로 두었다. 선택 방법을 '학생 투표' 라는 방식까지만 확인하고 개수를 지나치는 학생을 노린 설계다.",
+      "answer_locus": {
+        "sentence_index": [
+          8
+        ],
+        "quote": "Three school bell sounds will be selected by student vote, based on creativity and suitability.",
+        "reasoning": "선정되는 종소리 수가 Three 로 못박혀 있다. 선지 ④는 방식(학생 투표)은 옮기면서 수만 네 개로 바꿨으므로 이 한 줄로 거짓이 확정된다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "대회 이름 School Bell Sound Contest 를 주제로 오인하면 '행복한 학교생활' 이 주제가 아니라고 판단하게 된다.",
+          "how_to_reject": "둘째 문장 The theme of this contest is Happy School Life. 가 theme 을 직접 지정한다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "범위 과대",
+          "why_tempting": "참가 자격에는 보통 학년 제한이 붙는다는 예상 때문에 '모든 학년' 이 지나치게 넓은 진술로 보인다.",
+          "how_to_reject": "Participants 줄이 Wakeville High School students of all grades 로 all grades 를 명시한다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "지문 밖 상식",
+          "why_tempting": "공모전은 이메일로 접수한다는 통념 때문에 업로드 경로를 확인하지 않고 웹사이트 제출을 의심하게 된다.",
+          "how_to_reject": "Application Details 둘째 줄 Upload entries to our school website (file size limit: 1MB). 가 제출 경로를 지정한다."
+        },
+        {
+          "n": 4,
+          "verdict": "correct",
+          "why_correct": "Selection Method 줄은 ‘Three school bell sounds will be selected by student vote’ 인데 선지는 ‘네 개’라고 말한다. by student vote 부분이 그대로 겹쳐 뒷부분은 참이지만, 수를 세는 낱말 Three 와 ‘네 개’ 한 곳에서만 어긋나므로 이 줄 하나로 불일치가 확정된다.",
+          "confirmed_at": {
+            "sentence_index": [
+              1
+            ],
+            "note": "Awards 의 수상 내역(a wireless speaker)은 이 선지와 무관하다 — 판정은 Selection Method 한 줄의 수사(Three)에서만 갈린다"
+          }
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "부분 사실",
+          "why_tempting": "Awards 첫 줄이 종소리 교체라는 비물질적 보상만 말해서, 거기서 멈추면 별도 상품이 없다고 판단하게 된다.",
+          "how_to_reject": "Awards 둘째 줄 The winners of the contest will each get a wireless speaker. 가 상품을 명시한다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "발문이 '일치하지 않는 것' 임을 표시하고, 선지 다섯 개에서 숫자·전칭어(모든·네 개)에 먼저 동그라미를 친다",
+          "on_fail": "숫자가 없는 선지가 많으면 각 선지의 명사 하나씩만 골라 표시한다"
+        },
+        {
+          "step": "안내문을 항목 이름(Deadline·Participants·Application Details·Selection Method·Awards) 순으로 따라가며 선지 ①~⑤를 차례로 붙여 본다",
+          "on_fail": "붙일 항목을 못 정하면 선지의 고유명사(MP3·웹사이트·스피커)로 줄을 검색한다"
+        },
+        {
+          "step": "숫자에 동그라미 친 선지는 그 줄의 수를 나타내는 낱말(Three·one·all)까지 읽고 값을 맞춘다",
+          "on_fail": "수를 나타내는 낱말이 안 보이면 그 항목의 첫 낱말을 다시 본다 — 개수는 문두에 오는 일이 많다"
+        },
+        {
+          "step": "항목이 두 줄 이상인 곳(Application Details·Awards)은 줄을 끝까지 읽고 나서 판정한다",
+          "on_fail": "첫 줄만으로 판정하고 싶어지면 그 선지에 물음표를 달아 두고 나중에 되돌아온다"
+        },
+        {
+          "step": "지운 넷의 근거 줄을 되짚어 남은 하나를 답으로 확정한다",
+          "on_fail": "근거를 못 댄 선지가 둘이면 그 둘의 항목만 다시 대조한다"
+        }
+      ],
+      "time_budget_sec": 55,
+      "difficulty": {
+        "predicted": 0.94,
+        "drivers": [
+          "정답이 수치 하나(Three vs 네 개)로 갈린다",
+          "나머지 선지가 항목 순서대로 배치"
+        ]
+      },
+      "required_vocab": [
+        "entries",
+        "suitability",
+        "creativity",
+        "wireless"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 가 Selection Method 줄과 문자 그대로 일치한다.",
+            "정답 근거가 문장 첫 낱말 Three 에 놓인 것이 이 회차의 특징 — 개수 한정어가 문두에 온다는 점을 서술에 반영했다.",
+            "Three school bell sounds will be selected by student vote 가 안내문에 그대로 있고, 선지의 「네 개」와 Three 한 곳에서만 어긋난다"
+          ],
+          "checked": [
+            "quote 문자열 대조",
+            "정답 4 와 평가원 정답표 일치 확인",
+            "design_intent 가 유형 일반론이 아니라 이 문항의 수치 배치를 말하는지",
+            "why_correct 안의 영어 어구를 corpus.json 2026#27 의 passage·choices 에 문자열 대조(불일치 0)",
+            "근거 어구와 정답 선지 4 의 대응을 낱말 단위로 짝지어 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "어휘 함정·범위 과대·지문 밖 상식·부분 사실 네 축이 겹치지 않는다.",
+            "⑤의 함정이 '항목의 첫 줄에서 멈춤' 이라는 이 유형 고유의 실패와 맞물린다.",
+            "불일치 지점을 수사(Three) 한 낱말로 특정했고, 나머지 넷을 참으로 확인한 결과에 기대지 않는다",
+            "analyst revise — 기존 why_correct 가 「앞부분만 맞춰 보면 참으로 보인다」는 why_tempting 서술이었고 왜 불일치인지가 없었다. Three↔네 개 대응으로 다시 썼다"
+          ],
+          "checked": [
+            "trap 중복 여부",
+            "how_to_reject 마다 항목 이름이 적혔는지",
+            "why_tempting 이 선지 문구에 근거하는지",
+            "why_correct 가 소거법(나머지가 틀리므로)에 기대지 않고 정답 선지 자체의 근거로 서 있는지 확인",
+            "정답 선지에 오답용 필드(why_tempting·how_to_reject·trap)가 남아 있지 않은지 확인",
+            "반려 후 다시 쓴 why_correct 를 같은 자로 재검수해 pass 로 확정"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "3단계(수를 나타내는 낱말까지 읽기)가 이 문항의 실점을 직접 막는다.",
+            "55초는 선지 5개 대조에 충분하다.",
+            "Selection Method 라는 항목 이름이 적혀 있어 학생이 그 줄로 바로 간다"
+          ],
+          "checked": [
+            "절차 실행 가능성",
+            "금지 표현 검사",
+            "required_vocab 이 지문에 실재하는 낱말인지",
+            "지문을 아직 안 읽은 학생이 why_correct 만 읽고 근거 자리를 찾아갈 수 있는지 확인",
+            "근거가 안내문의 어느 항목·줄인지 서술에 적혀 있는지 확인"
+          ]
+        }
+      ],
+      "revised": true
+    },
+    {
+      "item_id": "2026#28",
+      "revised": true,
+      "measured_ability": "가격표의 등급별 행에서 선지가 가리키는 행을 골라, 혜택 수치와 부정 조건(no discounts·not transferable)을 함께 읽는 능력",
+      "design_intent": "세 등급 행에 무료 게임 수와 신발 대여 조건을 계단식으로 배치해, 선지가 다른 등급의 혜택을 끌어오거나 수치를 한 칸 올리도록 만들었다. 정답만 표 밖의 Purchase Details 에 두어 표에서만 답을 찾는 학생을 지나치게 한다.",
+      "answer_locus": {
+        "sentence_index": [
+          10
+        ],
+        "quote": "The pass can be purchased only online.",
+        "reasoning": "구매 경로를 only online 으로 한정한 유일한 문장이다. 선지 ④는 이 한정어까지 그대로 옮겼으므로 표를 보지 않고도 참이 확정된다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "범위 과소",
+          "why_tempting": "지점마다 조건이 다른 것이 흔하다는 짐작 때문에 '일부 지점' 이라는 제한이 그럴듯해 보인다.",
+          "how_to_reject": "Where to Use 줄이 All branches of Bowl Heaven 로 전 지점을 명시한다 — 제한 문구가 없다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "부분 사실",
+          "why_tempting": "표 아래쪽 Silver 행에 50% off shoe rentals 가 실제로 있어, 등급을 헷갈리면 스탠다드에도 할인이 있는 것처럼 보인다.",
+          "how_to_reject": "Standard $40 행의 괄호가 (no discounts for shoe rentals) 다 — 할인이 없다고 그 행에서 못박는다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "범위 과대",
+          "why_tempting": "Standard 2회, Silver 3회로 하나씩 늘어나는 계단을 보고 Gold 를 다섯 회로 이어 세기 쉽다.",
+          "how_to_reject": "Gold $80 행이 Four free games a day + free shoe rentals 로 네 회를 적는다."
+        },
+        {
+          "n": 4,
+          "verdict": "correct",
+          "why_correct": "Purchase Details 첫 줄 'The pass can be purchased only online.' 의 한정어 only online 이 선지의 '온라인 구매만 가능하다' 에서 '온라인' 과 '만' 을 함께 받는다. 구매 경로를 말하는 줄은 이 한 줄뿐이고 다른 줄에 오프라인 구매처가 없으므로 표의 가격·혜택을 보지 않아도 참이 확정된다.",
+          "confirmed_at": {
+            "sentence_index": [
+              10
+            ],
+            "note": "3차 보강 전 서술: Purchase Details 첫 줄이 구매 경로를 온라인으로만 한정한다."
+          }
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "반대 진술",
+          "why_tempting": "1인 1매 제한 줄을 읽고 '남에게 넘기면 된다' 는 쪽으로 생각이 흐르면 양도 가능이 자연스러워 보인다.",
+          "how_to_reject": "Purchase Details 셋째 줄 The pass is not transferable to another person. 이 양도를 금지한다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "발문이 '일치하는 것' 임을 표시하고, 선지 다섯 개를 읽어 표를 봐야 하는 선지(등급·가격·횟수)와 표 밖을 봐야 하는 선지(구매·양도)로 두 무리로 나눈다",
+          "on_fail": "구분이 안 되면 선지에 등급 이름이나 숫자가 있는지만 보고 나눈다"
+        },
+        {
+          "step": "표를 봐야 하는 선지는 선지에 적힌 등급 이름을 표 맨 왼쪽 열에서 먼저 찾고, 같은 행의 Details 칸만 읽는다",
+          "on_fail": "행이 깨져 등급과 값이 어긋나 보이면 가격($40·$60·$80) 순서로 행을 다시 세운다"
+        },
+        {
+          "step": "Details 칸의 괄호와 no·free 같은 낱말을 선지의 '할인된다/무료' 와 하나씩 맞춘다",
+          "on_fail": "괄호 안이 길면 그 안의 부정어(no)만 먼저 확인한다"
+        },
+        {
+          "step": "표 밖을 봐야 하는 선지는 Purchase Details 목록 세 줄을 위에서 아래로 짚으며 only·not 같은 한정·부정 낱말을 찾는다",
+          "on_fail": "목록에서 못 찾으면 ※ 로 시작하는 줄을 본다"
+        },
+        {
+          "step": "표에서 지운 것과 목록에서 지운 것을 합쳐 남은 하나를 답으로 정한다",
+          "on_fail": "둘이 남으면 한정어(only·all)가 든 쪽을 지문 문장과 낱말 단위로 다시 맞춘다"
+        }
+      ],
+      "time_budget_sec": 65,
+      "difficulty": {
+        "predicted": 0.88,
+        "drivers": [
+          "세 등급 행의 계단식 수치",
+          "정답 근거가 표 밖 목록에 있다"
+        ]
+      },
+      "required_vocab": [
+        "branches",
+        "rentals",
+        "transferable",
+        "purchased"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 가 Purchase Details 첫 줄과 문자 그대로 일치한다.",
+            "정답이 표 밖에 있다는 배치를 design_intent 에 명시했다 — 이 회차 설계의 핵심이다.",
+            "3차 재검수 — why_correct 에 대응은 있으나 한쪽(선지 또는 이음매의 받는 낱말)이 우리말 풀이로만 있어 revise 로 반려했다. 양쪽 표현을 그대로 넣어 보강한 뒤 pass."
+          ],
+          "checked": [
+            "quote 문자열 대조",
+            "정답 4 와 평가원 정답표 대조",
+            "표 행과 선지 대응 관계 확인",
+            "새 why_correct 의 영어 인용을 corpus.json 의 해당 지문에서 문자열 대조",
+            "정답 선지 문자열과의 대응이 낱말 단위로 성립하는지 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "범위 과소·부분 사실·범위 과대·반대 진술 네 축이 겹치지 않는다.",
+            "②는 다른 등급 행의 혜택을 끌어온 것이고 ③은 같은 열의 수치를 한 칸 올린 것이라, 표를 비트는 두 방식이 각각 하나씩 배치되어 있다.",
+            "3차 재검수 — 보강한 서술이 정답 선지의 실제 문자열에 근거하는지, 소거법으로 미끄러지지 않았는지 확인했다. 오답 4개 서술은 3차에서 손대지 않았다."
+          ],
+          "checked": [
+            "trap 중복 여부",
+            "why_tempting 이 표의 어느 행을 오독한 것인지 명시됐는지",
+            "how_to_reject 의 행 위치 표기",
+            "why_correct 에 소거법·되풀이 서술이 남았는지 확인",
+            "오답 4개의 trap/why_tempting/how_to_reject 가 3차에서 바뀌지 않았음을 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "최초 절차 2단계가 '가격표를 확인한다' 로 모호해 반려했고, '선지의 등급 이름을 왼쪽 열에서 찾아 같은 행의 Details 만 읽는다' 로 고쳤다.",
+            "선지를 표 안·표 밖 두 무리로 나누는 1단계가 이 문항의 시간을 줄인다.",
+            "3차 재검수 — 보강 후 학생이 지문에서 찾아갈 자리가 낱말 단위로 지목됐는지 봤다. 다른 필드는 3차에서 바뀌지 않았다."
+          ],
+          "checked": [
+            "절차 단계의 구체성(무엇을 어디서 보는지)",
+            "금지 표현 검사",
+            "65초 배분 타당성",
+            "why_correct 가 지목한 지문 자리를 학생이 번호·표지로 찾아갈 수 있는지 확인"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "M2609#27",
+      "measured_ability": "괄호 안의 부정 조건(No private restroom ...)을 본문 항목과 같은 무게로 읽어, 선지의 긍정 진술과 맞대는 능력",
+      "design_intent": "정답 근거를 Lodging 항목의 괄호 안에 넣고, 그 괄호가 부정(No private restroom)과 보완(but common restrooms)을 한 문장에 담게 했다. 괄호를 부가 설명으로 여겨 건너뛰거나 뒷부분만 읽는 학생을 걸러낸다.",
+      "answer_locus": {
+        "sentence_index": [
+          7
+        ],
+        "quote": "(No private restroom inside bungalow, but common restrooms easily accessible)",
+        "reasoning": "방갈로 안에는 개인 화장실이 없고 공용 화장실이 가깝다는 두 정보가 한 괄호에 들어 있다. 선지는 앞 절의 부정을 지운 형태이므로 이 괄호만으로 거짓이 확정된다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "year after year 를 '해가 갈수록' 정도로만 옮기면 '매년 다시 참여한다' 와 다른 말처럼 보인다.",
+          "how_to_reject": "머리글 셋째 문장 Many travelers join us again year after year. 에 again 과 year after year 가 함께 있어 반복 참여를 말한다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "부분 사실",
+          "why_tempting": "What 항목의 세 줄 중 요가와 하이킹만 눈에 들어오면 조류 관찰이 없는 활동처럼 보인다.",
+          "how_to_reject": "What 항목 둘째 줄이 Bird watching in the jungle 이다 — 세 줄을 끝까지 짚으면 나온다."
+        },
+        {
+          "n": 3,
+          "verdict": "correct",
+          "why_correct": "Lodging 줄 괄호의 ‘No private restroom inside bungalow, but common restrooms easily accessible’ 에서 No private restroom inside bungalow 가 선지의 ‘방갈로 안에 개인 화장실이 있다’와 정면으로 어긋난다. 뒤따르는 common restrooms 는 공용이므로 선지를 살려 주지 않는다 — 부정어 No 하나가 판정 지점이다.",
+          "confirmed_at": {
+            "sentence_index": [
+              1
+            ],
+            "note": "괄호가 Lodging 항목 안에 묻혀 있어 항목 제목만 훑으면 지나친다"
+          }
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "무관",
+          "why_tempting": "Application 항목 둘째 줄의 이메일 주소를 신청 경로로 오인하면 온라인 신청서 작성이 요구가 아닌 것처럼 보인다.",
+          "how_to_reject": "이메일 줄은 For more information 용이다. 신청은 첫 줄 Visit our website ... and fill out the application form online 이 지정한다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "주체 역전",
+          "why_tempting": "It is offered 의 제공 주체가 드러나지 않아 참가자가 스스로 교통편을 마련하는 것으로 뒤집어 읽기 쉽다.",
+          "how_to_reject": "마지막 줄 Transportation: It is offered from the airport to the yoga center. 에서 offered 는 주최 측이 제공한다는 수동 표현이고 구간도 공항에서 센터로 명시된다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "발문이 '일치하지 않는 것' 임을 표시한 뒤, 안내문에서 괄호 ( ) 와 ※ 가 있는 자리를 먼저 찾아 표시해 둔다 — 이 유형은 정답 근거가 그 안에 자주 들어간다",
+          "on_fail": "괄호가 없으면 부정어 no·not 이 든 줄에 표시한다"
+        },
+        {
+          "step": "선지 ①~⑤를 읽으며 각각이 안내문의 어느 항목(머리글·What·Lodging·Application·Transportation)에 속하는지 번호를 적는다",
+          "on_fail": "속할 항목이 애매하면 선지의 명사(조류·화장실·신청서·교통편)로 줄을 찾는다"
+        },
+        {
+          "step": "표시해 둔 괄호와 선지를 먼저 맞춘다. 괄호 안에 부정어가 있으면 선지가 그 부정을 지웠는지 확인한다",
+          "on_fail": "괄호가 길면 쉼표 앞부분만 먼저 읽고 선지와 맞댄다"
+        },
+        {
+          "step": "남은 선지는 해당 항목의 줄을 끝까지 짚어 가며 하나씩 지운다 — 항목이 여러 줄이면 마지막 줄까지 본다",
+          "on_fail": "줄이 많아 시간이 밀리면 숫자·부정어가 든 선지부터 처리한다"
+        }
+      ],
+      "time_budget_sec": 55,
+      "difficulty": {
+        "predicted": 0.93,
+        "drivers": [
+          "정답 근거가 괄호 안 부정",
+          "나머지 넷이 항목 순서대로 대응"
+        ]
+      },
+      "required_vocab": [
+        "accessible",
+        "lodging",
+        "application",
+        "offered"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 가 Lodging 줄의 괄호와 괄호 기호까지 문자 그대로 일치한다.",
+            "정답 근거를 괄호에 넣는 배치는 이 유형에서 반복되는 설계다 — design_intent 를 그 배치로 서술했다.",
+            "No private restroom inside bungalow, but common restrooms easily accessible 이 Lodging 줄 괄호에 그대로 있다",
+            "setter revise — 기존 why_correct 에 안내문 영어 표현이 없어 대응을 낱말 단위로 확인할 수 없었다. 괄호 전체를 인용해 다시 썼다"
+          ],
+          "checked": [
+            "quote 문자열 대조(괄호 포함)",
+            "정답 3 과 평가원 정답표 대조",
+            "선지-항목 단조 대응 확인",
+            "why_correct 안의 영어 어구를 corpus.json M2609#27 의 passage·choices 에 문자열 대조(불일치 0)",
+            "근거 어구와 정답 선지 3 의 대응을 낱말 단위로 짝지어 확인",
+            "반려 후 다시 쓴 why_correct 를 같은 자로 재검수해 pass 로 확정"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "어휘 함정·부분 사실·무관·주체 역전 네 축이 겹치지 않는다.",
+            "⑤에 주체 역전 라벨을 쓴 근거는 수동태 It is offered 의 행위자 생략이다 — 인과 역전으로 뭉뚱그리지 않았다.",
+            "부정어 No 한 곳이 판정 지점이라고 특정했고, 뒤의 common restrooms 가 선지를 살리지 못하는 이유도 적었다"
+          ],
+          "checked": [
+            "trap 중복 여부",
+            "④의 배제 근거가 이메일 줄과 신청 줄을 구분해 짚는지",
+            "why_tempting 이 선지 텍스트에 근거하는지",
+            "why_correct 가 소거법(나머지가 틀리므로)에 기대지 않고 정답 선지 자체의 근거로 서 있는지 확인",
+            "정답 선지에 오답용 필드(why_tempting·how_to_reject·trap)가 남아 있지 않은지 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "1단계에서 괄호를 먼저 표시하게 한 것이 이 문항에서 곧바로 득점으로 이어진다.",
+            "4단계 절차가 55초 안에 끝난다.",
+            "「Lodging 줄 괄호」라는 위치가 적혀 있어 학생이 그 자리를 짚는다"
+          ],
+          "checked": [
+            "절차 실행 가능성",
+            "금지 표현 검사",
+            "required_vocab 4개가 지문에 실재하는지",
+            "지문을 아직 안 읽은 학생이 why_correct 만 읽고 근거 자리를 찾아갈 수 있는지 확인",
+            "근거가 안내문의 어느 항목·줄인지 서술에 적혀 있는지 확인"
+          ]
+        }
+      ],
+      "revised": true
+    },
+    {
+      "item_id": "M2609#28",
+      "measured_ability": "표 두 개(수상 인원·평가 비중)에서 행과 값을 정확히 짝지어, 선지가 다른 행의 값을 끌어왔는지 판정하는 능력",
+      "design_intent": "일정·수상 인원·평가 비중 세 표를 겹쳐 두고, 오답마다 값을 한 행씩 밀어 놓았다. 정답만 비중 표에서 가장 큰 값을 고르게 해 표를 끝까지 읽었는지 확인한다.",
+      "answer_locus": {
+        "sentence_index": [
+          12
+        ],
+        "quote": "Percentage 50% Creativity ______ 30% Relevance to Theme ______ 20% Attractiveness",
+        "reasoning": "평가 기준의 비중이 창의성 50%, 주제 관련성 30%, 매력도 20% 로 적혀 있다. 세 값 중 50% 가 가장 크고 그 값이 Creativity 에 붙으므로 선지 ⑤가 표와 그대로 맞는다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "부분 사실",
+          "why_tempting": "9월 15일과 10월 15일은 Schedule 에 실제로 있는 날짜여서, 항목 이름을 확인하지 않으면 심사 기간으로 보인다.",
+          "how_to_reject": "그 날짜는 Submission period: September 15—October 15 의 것이고, Judging period 는 October 16—October 20 이다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "범위 과대",
+          "why_tempting": "Prizes 표에 2 라는 수가 실제로 있어 2등의 인원처럼 보인다.",
+          "how_to_reject": "표에서 2nd prize 행의 인원은 1 이고, 2 는 3rd prize 행의 인원이다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "반대 진술",
+          "why_tempting": "상금이 큰 대회이므로 참가비가 있으리라는 짐작이 선지를 받아들이게 한다.",
+          "how_to_reject": "Guidelines 첫 줄이 There is no participation fee. 로 참가비가 없다고 말한다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "must submit one 을 '최소 한 개' 로 읽으면 두 개 이상 제출도 허용되는 것처럼 보인다.",
+          "how_to_reject": "Guidelines 셋째 줄 Each participant must submit one mascot design. 은 제출 수를 하나로 지정한다 — at least 같은 하한 표현이 없다."
+        },
+        {
+          "n": 5,
+          "verdict": "correct",
+          "why_correct": "Assessment Criteria 표의 세 값 ‘50% Creativity’ · ‘30% Relevance to Theme’ · ‘20% Attractiveness’ 중 Creativity 에 붙은 50% 가 가장 크므로, 선지의 ‘창의성이 가장 높은 비중’이 그대로 성립한다. 한 줄만 보아서는 확정되지 않고 세 값을 견줘야 하는 자리다.",
+          "confirmed_at": {
+            "sentence_index": [
+              1
+            ],
+            "note": "표가 안내문 맨 끝에 있어 앞의 일정·상금 표에서 시간을 다 쓰면 확인하지 못한다"
+          }
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "발문이 '일치하는 것' 임을 표시하고, 안내문에서 표가 몇 개인지(일정 목록·수상 인원표·평가 비중표) 먼저 센다",
+          "on_fail": "표 경계가 흐리면 Percentage·Prize Money 같은 열 이름을 기준으로 나눈다"
+        },
+        {
+          "step": "선지마다 어느 표를 봐야 하는지 표 번호를 적는다 — 날짜는 일정, 인원·상금은 수상표, 퍼센트는 비중표다",
+          "on_fail": "표를 못 정하면 선지의 단위(일·명·달러·%)로 정한다"
+        },
+        {
+          "step": "해당 표에서 선지가 말하는 행 이름(2nd prize·Judging period·Creativity)을 먼저 찾고, 그 행에 붙은 값만 읽는다",
+          "on_fail": "행과 값이 어긋나 보이면 값의 개수와 행의 개수가 같은지 세어 순서대로 다시 붙인다"
+        },
+        {
+          "step": "'가장 높은/가장 많은' 같은 비교 표현이 든 선지는 그 열의 값을 전부 나열해 크기를 비교한다",
+          "on_fail": "값이 세 개를 넘으면 최대와 그다음만 비교한다"
+        },
+        {
+          "step": "지운 넷의 근거 행을 되짚고 남은 하나를 답으로 확정한다",
+          "on_fail": "둘이 남으면 숫자가 든 쪽을 표에서 다시 대조한다"
+        }
+      ],
+      "time_budget_sec": 65,
+      "difficulty": {
+        "predicted": 0.87,
+        "drivers": [
+          "표 세 개에 값이 분산",
+          "정답 근거가 마지막 표의 최대값 비교"
+        ]
+      },
+      "required_vocab": [
+        "submission",
+        "judging",
+        "participation",
+        "attractiveness"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 가 Assessment Criteria 구간과 문자 그대로 일치한다(값과 항목이 어긋난 인쇄 배열 그대로 인용).",
+            "정답이 비교 판단(가장 높은 비중)을 요구하는 유일한 선지라는 점을 design_intent 에 넣었다.",
+            "50% Creativity · 30% Relevance to Theme · 20% Attractiveness 세 값이 Assessment Criteria 표에 그대로 있고, 50%가 최대라 선지가 성립한다"
+          ],
+          "checked": [
+            "quote 문자열 대조",
+            "정답 5 와 평가원 정답표 대조",
+            "세 표의 값이 선지에 어떻게 배분됐는지 확인",
+            "why_correct 안의 영어 어구를 corpus.json M2609#28 의 passage·choices 에 문자열 대조(불일치 0)",
+            "근거 어구와 정답 선지 5 의 대응을 낱말 단위로 짝지어 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "부분 사실·범위 과대·반대 진술·어휘 함정 네 축이 겹치지 않는다.",
+            "①과 ②가 각각 날짜 축과 인원 축에서 '행 밀기' 를 하는 쌍이라, 같은 방식이지만 축이 달라 라벨을 나눴다.",
+            "세 값을 견줘야 확정된다는 점까지 적어, 한 줄만 보고 참으로 넘기는 일을 막는다",
+            "analyst revise — 기존 why_correct 가 「표가 맨 끝이라 지나친다」는 실패 지점 서술이었고 정답 근거가 아니었다. 세 값의 비교로 다시 쓰고, 원래 서술은 confirmed_at.note 로 옮겼다"
+          ],
+          "checked": [
+            "trap 중복 여부",
+            "각 오답의 값이 지문 어느 행에서 왔는지 명시 여부",
+            "how_to_reject 의 행 위치 표기",
+            "why_correct 가 소거법(나머지가 틀리므로)에 기대지 않고 정답 선지 자체의 근거로 서 있는지 확인",
+            "정답 선지에 오답용 필드(why_tempting·how_to_reject·trap)가 남아 있지 않은지 확인",
+            "반려 후 다시 쓴 why_correct 를 같은 자로 재검수해 pass 로 확정"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "2단계(선지마다 볼 표를 먼저 정하기)가 표 세 개를 오가는 시간을 줄인다.",
+            "65초 안에 표 세 개 대조가 가능하다.",
+            "표가 안내문 맨 끝이라는 위치를 confirmed_at 로 옮겨 두어 학생이 시간 배분을 조절할 수 있다"
+          ],
+          "checked": [
+            "절차 실행 가능성",
+            "금지 표현 검사",
+            "required_vocab 이 지문에 실재하는지",
+            "지문을 아직 안 읽은 학생이 why_correct 만 읽고 근거 자리를 찾아갈 수 있는지 확인",
+            "근거가 안내문의 어느 항목·줄인지 서술에 적혀 있는지 확인"
+          ]
+        }
+      ],
+      "revised": true
+    },
+    {
+      "item_id": "M2606#27",
+      "measured_ability": "일정표 칸 안의 명령문에서 금지 조건(do not send it by post)을 찾아 선지의 제출 방식과 맞대는 능력",
+      "design_intent": "정답 근거를 일정표의 What to Do 칸 안, 그것도 문장 뒤쪽 and 뒤에 붙은 부정 명령에 숨겼다. 표를 날짜 위주로 읽고 칸 안의 문장을 끝까지 읽지 않는 학생을 노렸다.",
+      "answer_locus": {
+        "sentence_index": [
+          8
+        ],
+        "quote": "Bring the product in person to our Submission 14—18 office and do not send it by post.",
+        "reasoning": "제출 방식이 직접 방문으로 지정되고 우편 발송은 do not 으로 금지된다. 선지는 그 금지된 방식을 의무로 뒤집었으므로 이 칸 하나로 거짓이 확정된다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "제목 Hanok-inspired Cultural Product Contest 를 주제로 삼으면 '한옥의 아름다움' 이 주제가 아니라고 판단하게 된다.",
+          "how_to_reject": "Theme: The beauty of Hanok 줄이 주제를 직접 지정한다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "범위 과대",
+          "why_tempting": "공모전 응모 자격은 보통 개인 창작자에 한정된다는 예상 때문에 사회적 기업까지 포함한 선지가 넓어 보인다.",
+          "how_to_reject": "Applicants: Artists and social enterprises 줄이 둘 다 명시한다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "지문 밖 상식",
+          "why_tempting": "공모전의 보상은 상금이라는 통념 때문에 판매라는 혜택이 낯설어 어긋난 진술로 보인다.",
+          "how_to_reject": "Benefit: Selected products will be sold in Hanok village souvenir shops. 가 혜택을 판매로 명시한다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "부분 사실",
+          "why_tempting": "같은 칸에 download 와 upload 가 함께 있어 방향을 뒤집어 읽으면 신청서를 웹사이트에서 받는 것이 아니라 올리기만 하는 것으로 보인다.",
+          "how_to_reject": "Application 행의 칸이 Download the application form ... from our website and upload a completed one. 로 내려받기와 올리기를 순서대로 적는다."
+        },
+        {
+          "n": 5,
+          "verdict": "correct",
+          "why_correct": "Product Submission 줄의 ‘Bring the product in person’ 과 ‘do not send it by post’ 가 선지의 ‘우편으로 제출해야 한다’를 정면으로 뒤집는다. in person 이 방문 제출을 지정하고 do not send 가 우편을 금지하므로, 같은 줄 안에서 두 번 어긋난다.",
+          "confirmed_at": {
+            "sentence_index": [
+              1
+            ],
+            "note": "표의 한 칸이 두 문장으로 이어져 있어 What to Do 열을 끝까지 읽어야 do not send it by post 가 보인다"
+          }
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "발문이 '일치하지 않는 것' 임을 표시하고, 안내문의 콜론 항목(Theme·Applicants·Benefit)과 아래 일정표를 두 구역으로 나눈다",
+          "on_fail": "구역이 안 나뉘면 Schedule 이라는 낱말을 경계로 삼는다"
+        },
+        {
+          "step": "선지 ①~⑤를 위 구역용과 표 구역용으로 갈라 적는다 — 주제·자격·혜택은 위, 신청과 제출은 표다",
+          "on_fail": "갈라지지 않으면 선지의 동사(응모하다·다운로드하다·제출하다)로 정한다"
+        },
+        {
+          "step": "표 구역 선지는 날짜 칸이 아니라 What to Do 칸의 문장을 마침표까지 읽고, and 뒤에 붙은 절과 do not 을 찾는다",
+          "on_fail": "칸이 깨져 문장이 끊기면 do·not·send·bring 같은 동사만 이어 읽는다"
+        },
+        {
+          "step": "부정 명령(do not)이 든 칸과 선지의 서술을 맞대 방향이 같은지 본다",
+          "on_fail": "부정 명령이 없으면 그 선지는 보류하고 다른 선지부터 지운다"
+        },
+        {
+          "step": "지운 넷의 근거 위치를 되짚고 남은 하나를 답으로 확정한다",
+          "on_fail": "근거를 못 댄 것이 둘이면 표 칸 문장을 다시 끝까지 읽는다"
+        }
+      ],
+      "time_budget_sec": 60,
+      "difficulty": {
+        "predicted": 0.9,
+        "drivers": [
+          "정답 근거가 표 칸 문장 뒤쪽 부정 명령",
+          "표가 두 줄로 접혀 문장이 끊겨 보인다"
+        ]
+      },
+      "required_vocab": [
+        "applicants",
+        "enterprises",
+        "souvenir",
+        "post"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 가 표 칸 문장과 문자 그대로 일치한다(표가 접힌 형태의 삽입 문자열까지 포함).",
+            "정답 근거를 문장 뒤쪽 and 뒤에 둔 배치가 이 문항 고유의 설계라 design_intent 에 반영했다.",
+            "Bring the product in person 과 do not send it by post 가 Product Submission 칸에 그대로 있다",
+            "setter revise — 기존 why_correct 가 한국어 요약뿐이라 안내문의 어느 어구인지 짚을 수 없었다. in person / do not send it by post 를 인용해 다시 썼다"
+          ],
+          "checked": [
+            "quote 문자열 대조",
+            "정답 5 와 평가원 정답표 대조",
+            "선지-구역 대응 확인",
+            "why_correct 안의 영어 어구를 corpus.json M2606#27 의 passage·choices 에 문자열 대조(불일치 0)",
+            "근거 어구와 정답 선지 5 의 대응을 낱말 단위로 짝지어 확인",
+            "반려 후 다시 쓴 why_correct 를 같은 자로 재검수해 pass 로 확정"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "어휘 함정·범위 과대·지문 밖 상식·부분 사실 네 축이 겹치지 않는다.",
+            "④의 함정이 download/upload 방향 혼동이라 표 칸 안 두 동사에 실제로 근거한다.",
+            "같은 칸 안에서 두 번 어긋난다는 것을 밝혀, 다른 선지 확인 없이 판정된다"
+          ],
+          "checked": [
+            "trap 중복 여부",
+            "why_tempting 이 칸 안 낱말에 근거하는지",
+            "how_to_reject 의 행·항목 표기",
+            "why_correct 가 소거법(나머지가 틀리므로)에 기대지 않고 정답 선지 자체의 근거로 서 있는지 확인",
+            "정답 선지에 오답용 필드(why_tempting·how_to_reject·trap)가 남아 있지 않은지 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "3단계가 '날짜 칸이 아니라 What to Do 칸을 마침표까지' 라고 볼 자리를 지정해 실행 가능하다.",
+            "60초 안에 두 구역 대조가 끝난다.",
+            "What to Do 열을 끝까지 읽어야 한다는 동작이 적혀 있다"
+          ],
+          "checked": [
+            "절차 실행 가능성",
+            "금지 표현 검사",
+            "required_vocab 이 정답 판정에 필요한 낱말인지(post 는 정답 직결)",
+            "지문을 아직 안 읽은 학생이 why_correct 만 읽고 근거 자리를 찾아갈 수 있는지 확인",
+            "근거가 안내문의 어느 항목·줄인지 서술에 적혀 있는지 확인"
+          ]
+        }
+      ],
+      "revised": true
+    },
+    {
+      "item_id": "M2606#28",
+      "revised": true,
+      "measured_ability": "시각 두 개로 지속 시간을 계산하고, 괄호와 Note 의 한정어(not included·Only the first)를 선지의 전칭 표현과 맞대는 능력",
+      "design_intent": "네 오답을 시간 계산·예약 필요 여부·괄호 안 부정·Note 의 한정으로 흩어 놓고, 정답만 Guidelines 목록의 평범한 한 줄에 두었다. 조건이 붙은 줄에만 눈이 가는 학생이 정답 줄을 그냥 지나치게 만든다.",
+      "answer_locus": {
+        "sentence_index": [
+          5
+        ],
+        "quote": "Start the first mission at the main gate.",
+        "reasoning": "첫 미션의 출발 장소가 정문으로 지정된다. 선지 ②는 이 줄의 장소와 순서를 그대로 옮겼으므로 다른 줄을 보지 않고 참이 확정된다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "부분 사실",
+          "why_tempting": "9시 시작은 맞고 종료 시각을 정오로 어림하면 3시간이 되어, 앞부분이 맞는 만큼 통과시키기 쉽다.",
+          "how_to_reject": "Date and Time 줄이 June 7, 9:00 a.m.—11:30 a.m. 로 종료가 11시 30분이다 — 2시간 30분이다."
+        },
+        {
+          "n": 2,
+          "verdict": "correct",
+          "why_correct": "Guidelines 둘째 줄 'Start the first mission at the main gate.' 에서 the first mission 이 선지의 '첫 번째 미션을', at the main gate 가 '정문에서', 명령형 Start 가 '시작한다' 와 하나씩 대응한다. 넷째 줄의 Go back to the main gate 는 다섯 미션을 끝낸 뒤의 복귀라 시작 장소를 말하는 자리가 아니다.",
+          "confirmed_at": {
+            "sentence_index": [
+              5
+            ],
+            "note": "3차 보강 전 서술: Guidelines 둘째 줄이 첫 미션의 출발 장소를 정문으로 지정한다."
+          }
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "반대 진술",
+          "why_tempting": "지도 내려받기만 하면 참여가 되는 것처럼 보이면 예약이 없어도 된다고 판단하게 된다.",
+          "how_to_reject": "Reservation: Online reservation is required. 가 예약을 요구한다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "참가비 20달러라는 앞부분이 맞아 통과시키기 쉽고, 괄호 안 not 을 놓치면 점심 포함으로 읽힌다.",
+          "how_to_reject": "Participation Fee: $20 (lunch not included) 의 괄호 안에 not included 가 있다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "범위 과대",
+          "why_tempting": "미션을 다 마치면 메달을 준다는 부분만 읽으면 완주자 전원이 대상인 것처럼 보인다.",
+          "how_to_reject": "Note 줄이 Only the first participant who completes all five missions will receive a medal. 로 Only the first 로 한 명에 한정한다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "발문이 '일치하는 것' 임을 표시하고, 선지에서 시간·수량·전칭 표현(3시간·모든 참가자·포함)에 먼저 표시한다",
+          "on_fail": "표시할 것이 없으면 선지의 명사(정문·예약·점심·메달)로 대신한다"
+        },
+        {
+          "step": "시간이 든 선지는 Date and Time 줄의 두 시각을 빼서 분 단위로 계산하고 선지의 값과 맞춘다",
+          "on_fail": "계산이 헷갈리면 종료 시각을 그대로 적고 시작 시각에서 한 시간씩 세어 올라간다"
+        },
+        {
+          "step": "괄호와 Note 로 시작하는 줄을 따로 읽어 not·only 같은 낱말을 찾고, 그 낱말이 선지에 있는지 본다",
+          "on_fail": "괄호가 짧아 지나쳤으면 문장 끝의 소괄호부터 다시 본다"
+        },
+        {
+          "step": "남은 선지는 Guidelines 목록 네 줄을 위에서 아래로 짚으며 장소·순서를 그대로 맞춘다",
+          "on_fail": "목록에서 못 찾으면 Reservation·Participation Fee 줄을 본다"
+        }
+      ],
+      "time_budget_sec": 60,
+      "difficulty": {
+        "predicted": 0.89,
+        "drivers": [
+          "시각 뺄셈이 필요한 선지",
+          "정답이 조건 없는 평범한 지시문 줄"
+        ]
+      },
+      "required_vocab": [
+        "reservation",
+        "required",
+        "included",
+        "participant"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 가 Guidelines 둘째 줄과 문자 그대로 일치한다.",
+            "정답이 조건어 없는 줄에 놓였다는 점이 이 문항의 설계 특징이다.",
+            "3차 재검수 — why_correct 에 대응은 있으나 한쪽(선지 또는 이음매의 받는 낱말)이 우리말 풀이로만 있어 revise 로 반려했다. 양쪽 표현을 그대로 넣어 보강한 뒤 pass."
+          ],
+          "checked": [
+            "quote 문자열 대조",
+            "정답 2 와 평가원 정답표 대조",
+            "네 오답이 서로 다른 줄에서 나왔는지 확인",
+            "새 why_correct 의 영어 인용을 corpus.json 의 해당 지문에서 문자열 대조",
+            "정답 선지 문자열과의 대응이 낱말 단위로 성립하는지 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "최초 라벨에서 ①과 ⑤에 모두 범위 과대를 달아 함정 축이 겹쳤다 — ①은 종료 시각 어림에서 오는 것이므로 부분 사실로 고쳤고, ⑤만 Only the first 에 대한 범위 과대로 남겼다.",
+            "③과 ④가 둘 다 부정 표현이지만 ③은 required 에 대한 정면 반대, ④는 괄호 안 not 누락이라 축이 다르다.",
+            "3차 재검수 — 보강한 서술이 정답 선지의 실제 문자열에 근거하는지, 소거법으로 미끄러지지 않았는지 확인했다. 오답 4개 서술은 3차에서 손대지 않았다."
+          ],
+          "checked": [
+            "trap 중복 여부(수정 전후 두 번)",
+            "why_tempting 이 선지 문구에 근거하는지",
+            "how_to_reject 의 줄 위치 표기",
+            "why_correct 에 소거법·되풀이 서술이 남았는지 확인",
+            "오답 4개의 trap/why_tempting/how_to_reject 가 3차에서 바뀌지 않았음을 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "2단계에 시각 뺄셈 방법과 실패 시 세어 올라가는 방법을 함께 넣어 계산에서 막히지 않게 했다.",
+            "60초 배분이 적절하다.",
+            "3차 재검수 — 보강 후 학생이 지문에서 찾아갈 자리가 낱말 단위로 지목됐는지 봤다. 다른 필드는 3차에서 바뀌지 않았다."
+          ],
+          "checked": [
+            "절차 실행 가능성",
+            "금지 표현 검사",
+            "required_vocab 4개가 판정에 쓰이는지",
+            "why_correct 가 지목한 지문 자리를 학생이 번호·표지로 찾아갈 수 있는지 확인"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "2025#27",
+      "revised": true,
+      "measured_ability": "표에서 혜택 칸이 어느 행에 걸려 있는지 확인해, 선지의 배타적 한정('~에만')이 표에 실제로 있는지 판정하는 능력",
+      "design_intent": "가격은 세 행에 하나씩 붙지만 Additional Benefit 은 한 칸이 여러 행에 걸치도록 만들었다. 배타 한정어 '~에만' 을 표에 없는 조건으로 얹어, 표의 칸 경계를 확인하지 않는 학생을 걸러낸다.",
+      "answer_locus": {
+        "sentence_index": [
+          6,
+          7
+        ],
+        "quote": "3-Day ______ $10 5-Day ______ $25 ______ 10% off admission for $40 ______ major tourist attractions",
+        "reasoning": "카드 종류(1-Day·3-Day·5-Day)와 가격($10·$25·$40)이 순서대로 붙고, Additional Benefit 문구는 $25 행과 $40 행 두 줄에 걸쳐 놓여 3-Day 와 5-Day 가 함께 받는 칸임을 보여 준다. 1-Day 행만 이 칸이 비어 있으므로, 선지 ③ 이 얹은 배타 한정 '5일 패스 카드에만' 이 표와 어긋난다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "지문 밖 상식",
+          "why_tempting": "교통카드는 지역 주민도 쓰는 것이라는 통념 때문에 '관광객을 위한' 이라는 한정이 지나쳐 보인다.",
+          "how_to_reject": "첫 문장 The Adenville City Pass Card is a public transportation card for tourists visiting Adenville. 이 대상을 관광객으로 지정한다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "부분 사실",
+          "why_tempting": "Service Range 에 Adenville-licensed buses 가 있어 버스면 다 된다고 읽으면 시티 투어 버스 제외가 틀린 것처럼 보인다.",
+          "how_to_reject": "Service Range 아래 ※ 줄이 This card cannot be used for city tour buses. 로 예외를 따로 적는다."
+        },
+        {
+          "n": 3,
+          "verdict": "correct",
+          "why_correct": "발문이 '일치하지 않는 것'이고, 표의 Additional Benefit 칸에 놓인 문구 '10% off admission for major tourist attractions' 는 한 행에 담기지 않고 $25 행과 $40 행에 걸쳐 있다 — 곧 이 혜택 칸은 3-Day 와 5-Day 두 등급이 함께 갖고 $10 짜리 1-Day 행만 비어 있다. 선지 ③ '5일 패스 카드에만 주요 관광지 입장료 할인 혜택이 제공된다' 는 뒷부분('주요 관광지 입장료 할인 혜택이 제공된다')을 그대로 옮기면서 앞에 배타 한정 '5일 패스 카드에만' 을 얹었으므로, 어긋나는 성분은 할인의 존재 여부가 아니라 '~에만' 하나다.",
+          "confirmed_at": {
+            "sentence_index": [
+              6,
+              7
+            ],
+            "note": "칸 하나가 두 행에 걸치면 추출된 글줄에서는 한 행에만 붙은 것처럼 보인다 — 값의 개수가 행의 개수보다 적으면 병합된 칸을 의심하고, 배타 한정어('~에만'·only)가 붙은 선지는 그 한정어부터 표와 맞댄다. (3차 보강 전 서술: 입장료 10% 할인 칸이 5-Day 한 행 전용이라는 표시가 표에 없다.)"
+          }
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "refundable within 30 days of the purchase date 에서 기산점(purchase date)을 놓치면 기간 조건이 다르게 읽힌다.",
+          "how_to_reject": "표 아래 ※ 줄 Unused cards are refundable within 30 days of the purchase date. 가 미사용 조건과 30일 기한, 기산점을 모두 적는다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "주체 역전",
+          "why_tempting": "Purchase Information 의 두 줄이 실물 카드와 모바일 카드로 나뉘어 있어 구매 장소를 서로 바꿔 읽으면 앱 구매가 틀린 것처럼 보인다.",
+          "how_to_reject": "둘째 줄 Mobile cards can be purchased on the A-Transit app. 이 모바일 카드와 앱을 짝짓는다. 지하철역은 첫 줄의 Physical cards 쪽이다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "발문이 '일치하지 않는 것' 임을 표시하고, 선지에서 '~에만·~만' 같은 배타 한정어가 든 것에 별표를 친다",
+          "on_fail": "배타 한정어가 없으면 숫자(30일·10%)가 든 선지에 별표를 친다"
+        },
+        {
+          "step": "별표 친 선지는 표에서 그 혜택·조건이 적힌 칸을 찾고, 그 칸이 몇 개 행에 걸려 있는지 열 이름(Card Type·Price·Additional Benefit)과 함께 확인한다",
+          "on_fail": "칸 경계가 안 보이면 가격 값의 개수와 카드 종류의 개수를 세어 짝지은 뒤 남는 칸이 혜택 칸인지 본다"
+        },
+        {
+          "step": "나머지 선지는 첫 문장, ※ 줄, Purchase Information 목록 순으로 대응 줄을 찾아 하나씩 지운다",
+          "on_fail": "대응 줄을 못 찾으면 선지의 고유명사(A-Transit·시티 투어 버스)로 검색한다"
+        },
+        {
+          "step": "표에 없는 조건을 얹은 선지가 하나 남는지 확인하고 답으로 정한다",
+          "on_fail": "둘이 남으면 ※ 줄 두 개를 다시 읽어 예외 조건이 이미 처리됐는지 본다"
+        }
+      ],
+      "time_budget_sec": 70,
+      "difficulty": {
+        "predicted": 0.75,
+        "drivers": [
+          "표의 칸 병합 관계를 읽어야 한다",
+          "배타 한정어가 지문에 없는 형태의 오류"
+        ]
+      },
+      "required_vocab": [
+        "refundable",
+        "admission",
+        "attractions",
+        "licensed"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 를 표 구간에서 문자 그대로 가져왔다 — 표가 접힌 형태 그대로 인용해 대조가 가능하다.",
+            "정답 근거가 '표에 없는 조건' 이라는 부재형이라 reasoning 에서 무엇이 없는지를 명시했다.",
+            "3차 재검수 — why_correct 에 대응은 있으나 한쪽(선지 또는 이음매의 받는 낱말)이 우리말 풀이로만 있어 revise 로 반려했다. 양쪽 표현을 그대로 넣어 보강한 뒤 pass.",
+            "3차 검수(근거/심리 판정)에서 why_correct 를 다시 썼다: 근거가 \"표에 표시가 없다\"는 자료 결손 논증이었다 — 원문 조판에서 혜택 칸이 $25·$40 두 행에 걸친다는 사실로 바꿔 배타 한정 \"~에만\" 이 깨지는 것을 짚었다."
+          ],
+          "checked": [
+            "quote 문자열 대조",
+            "정답 3 과 평가원 정답표 대조",
+            "혜택 칸의 행 대응 관계 재확인",
+            "새 why_correct 의 영어 인용을 corpus.json 의 해당 지문에서 문자열 대조",
+            "정답 선지 문자열과의 대응이 낱말 단위로 성립하는지 확인",
+            "why_correct 의 대응을 근거 줄 낱말과 선지 문구로 재대조"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "최초 라벨에서 ②와 ⑤에 모두 부분 사실을 달아 겹쳤다 — ⑤는 실물 카드와 모바일 카드의 구매 경로를 맞바꾸는 오독이므로 주체 역전으로 고쳤다.",
+            "지문 밖 상식·부분 사실·어휘 함정·주체 역전 네 축이 남았고 서로 다르다.",
+            "3차 재검수 — 보강한 서술이 정답 선지의 실제 문자열에 근거하는지, 소거법으로 미끄러지지 않았는지 확인했다. 오답 4개 서술은 3차에서 손대지 않았다.",
+            "보강된 why_correct 가 소거법(\"나머지가 틀리므로\")에 기대지 않고 근거 줄 하나로 판정하는지 확인했다."
+          ],
+          "checked": [
+            "trap 중복 여부(수정 전후 두 번)",
+            "how_to_reject 마다 줄 위치가 있는지",
+            "why_tempting 이 선지 문구에 근거하는지",
+            "why_correct 에 소거법·되풀이 서술이 남았는지 확인",
+            "오답 4개의 trap/why_tempting/how_to_reject 가 3차에서 바뀌지 않았음을 확인",
+            "why_correct 가 오답 배제에 의존하는지 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "1단계에서 배타 한정어에 별표를 치게 한 것이 이 문항의 정답으로 곧장 이어진다.",
+            "표 칸 병합 판단이 들어가 70초로 다른 문항보다 길게 잡았다 — 타당하다.",
+            "3차 재검수 — 보강 후 학생이 지문에서 찾아갈 자리가 낱말 단위로 지목됐는지 봤다. 다른 필드는 3차에서 바뀌지 않았다.",
+            "보강된 서술이 선지 문구를 그대로 인용해, 학습자가 안내문 줄과 선지를 눈으로 맞대 볼 수 있다."
+          ],
+          "checked": [
+            "절차 실행 가능성",
+            "금지 표현 검사",
+            "time_budget 70초의 근거",
+            "why_correct 가 지목한 지문 자리를 학생이 번호·표지로 찾아갈 수 있는지 확인",
+            "선지 원문과 why_correct 인용 문구 문자열 대조"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "2025#28",
+      "measured_ability": "annual·7 days·$1 같은 기간·요금 표기를 선지의 우리말 수치와 하나씩 맞대는 능력",
+      "design_intent": "주기(annual)·기간(7 days)·주차·요금 네 축에 각각 오답을 하나씩 걸고, 정답은 팀 수라는 단순 수치에 두었다. 숫자를 읽되 단위와 주기를 함께 읽는지 확인한다.",
+      "answer_locus": {
+        "sentence_index": [
+          5
+        ],
+        "quote": "Snow Sculpture Contest: 11 teams will participate.",
+        "reasoning": "참가 팀 수가 11로 명시된다. 선지 ③은 이 수와 활동 이름을 그대로 옮겼으므로 다른 줄을 보지 않고 참이 확정된다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "the 15th annual 에서 15 라는 수에 눈이 가면 주기를 셈으로 착각해 격년제로 읽게 된다.",
+          "how_to_reject": "첫 문장의 annual 은 해마다라는 뜻이고 15th 는 회차다 — the 15th annual Luckwood Snow Festival."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "범위 과대",
+          "why_tempting": "1월 24일에서 30일까지를 날짜 차이로 어림하면 열흘 가까이 되는 것처럼 보인다.",
+          "how_to_reject": "When & Where 줄이 January 24th—30th (7 days) 로 괄호에 일수를 직접 적는다."
+        },
+        {
+          "n": 3,
+          "verdict": "correct",
+          "why_correct": "발문이 '일치하는 것'이고, Special Activities 첫 줄 'Snow Sculpture Contest: 11 teams will participate.' 가 선지 ③ '눈 조각 경연에는 11개 팀이 참가할 것이다' 와 낱말 단위로 겹친다 — Snow Sculpture Contest=눈 조각 경연, 11 teams=11개 팀, will participate=참가할 것이다. 안내문의 다른 수치(15th annual · 7 days · One-way fare: $1)는 각각 회차·기간·요금이라 팀 수와 섞일 자리가 없다.",
+          "confirmed_at": {
+            "sentence_index": [
+              5
+            ],
+            "note": "안내문에 수치가 15th·24th—30th·7·11·1 로 여럿이라 숫자만 훑으면 11 이 어느 항목의 값인지 잃는다 — 수치가 든 선지는 숫자와 그 숫자가 걸린 명사(teams)를 한 덩어리로 옮겨 적고 맞댄다."
+          }
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "반대 진술",
+          "why_tempting": "셔틀버스와 대중교통 안내가 함께 있어 교통 편의가 갖춰진 행사로 읽으면 주차도 가능해 보인다.",
+          "how_to_reject": "Transportation 첫 줄이 Parking is not available 로 시작한다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "지문 밖 상식",
+          "why_tempting": "축제 셔틀버스는 무료라는 통념 때문에 요금 표기를 확인하지 않고 넘어가게 된다.",
+          "how_to_reject": "Transportation 둘째 줄 괄호가 (One-way fare: $1, cash only) 로 편도 요금을 적는다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "발문이 '일치하는 것' 임을 표시하고, 선지 다섯 개의 수치·단위(2년·열흘·11개 팀·가능·무료)에 밑줄을 긋는다",
+          "on_fail": "수치가 없는 선지는 서술어(가능하다·무료이다)에 밑줄을 긋는다"
+        },
+        {
+          "step": "안내문에서 숫자와 괄호가 있는 자리를 먼저 표시한다 — 15th·24th—30th (7 days)·11 teams·$1 네 곳이다",
+          "on_fail": "숫자를 못 찾으면 ∙ 로 시작하는 줄만 훑는다"
+        },
+        {
+          "step": "표시한 숫자마다 옆에 붙은 단위·수식어(annual·days·teams·One-way fare)를 함께 읽고 선지의 밑줄과 맞춘다",
+          "on_fail": "단위가 없으면 그 숫자가 회차인지 개수인지 앞뒤 낱말로 정한다"
+        },
+        {
+          "step": "가능·무료처럼 여부를 묻는 선지는 not·no 가 든 줄과 괄호를 확인해 지운다",
+          "on_fail": "부정어를 못 찾으면 그 항목의 괄호 안을 본다"
+        }
+      ],
+      "time_budget_sec": 55,
+      "difficulty": {
+        "predicted": 0.93,
+        "drivers": [
+          "숫자가 네 곳뿐이고 단위가 붙어 있다",
+          "정답이 단순 수치 일치"
+        ]
+      },
+      "required_vocab": [
+        "annual",
+        "sculpture",
+        "available",
+        "fare"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 가 Special Activities 첫 줄과 문자 그대로 일치한다.",
+            "네 오답이 주기·기간·가능 여부·요금으로 축을 나눠 배치된 것이 이 문항 설계다 — design_intent 에 반영.",
+            "3차 검수(근거/심리 판정)에서 why_correct 를 다시 썼다: \"그대로 적혀 있다\" 로 끝나 대응이 없었다 — 근거 문장을 인용하고 11 teams 가 걸린 명사까지 선지와 맞물렸다."
+          ],
+          "checked": [
+            "quote 문자열 대조",
+            "정답 3 과 평가원 정답표 대조",
+            "오답의 축 분포 확인",
+            "why_correct 의 대응을 근거 줄 낱말과 선지 문구로 재대조"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "어휘 함정·범위 과대·반대 진술·지문 밖 상식 네 축이 겹치지 않는다.",
+            "①의 함정이 annual 이라는 낱말 하나에 걸려 있어 어휘 처방이 분명하다.",
+            "보강된 why_correct 가 소거법(\"나머지가 틀리므로\")에 기대지 않고 근거 줄 하나로 판정하는지 확인했다."
+          ],
+          "checked": [
+            "trap 중복 여부",
+            "why_tempting 이 선지 수치와 연결되는지",
+            "how_to_reject 의 줄 위치 표기",
+            "why_correct 가 오답 배제에 의존하는지 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "2단계(숫자 있는 자리 먼저 표시)가 이 문항에서는 네 곳으로 한정되어 실행이 빠르다.",
+            "55초로 충분하다.",
+            "보강된 서술이 선지 문구를 그대로 인용해, 학습자가 안내문 줄과 선지를 눈으로 맞대 볼 수 있다."
+          ],
+          "checked": [
+            "절차 실행 가능성",
+            "금지 표현 검사",
+            "required_vocab 이 지문에 실재하는지",
+            "선지 원문과 why_correct 인용 문구 문자열 대조"
+          ]
+        }
+      ],
+      "revised": true
+    },
+    {
+      "item_id": "M2509#27",
+      "measured_ability": "일정표의 각 시각 줄에 붙은 서술어(Free lunch provided)를 선지의 부정 진술과 맞대는 능력",
+      "design_intent": "정답 선지만 부정문('무료로 제공되지 않는다')으로 만들어, 일정표에서 항목의 존재만 확인하고 그 앞의 Free 를 지나치는 학생을 노렸다. 나머지 넷은 참가 자격·일정·※·등록으로 흩어 두었다.",
+      "answer_locus": {
+        "sentence_index": [
+          6
+        ],
+        "quote": "12:00 p.m.: Free lunch provided at the students’ cafeteria",
+        "reasoning": "점심이 무료로 제공된다고 시각 줄에 그대로 적혀 있다. 선지는 이 서술을 부정으로 뒤집었으므로 이 한 줄로 거짓이 확정된다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "범위 과소",
+          "why_tempting": "머리글의 prospective students(예비 학생)가 넓은 대상으로 읽히면 3학년만이라는 제한이 지나치게 좁아 보인다.",
+          "how_to_reject": "Participants 줄이 3rd-year high school students only 로 only 를 붙여 대상을 한정한다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "admissions process 를 '행정 절차' 정도로 뭉뚱그리면 입학 절차 소개와 다른 말처럼 보인다.",
+          "how_to_reject": "Schedule 의 10:00 a.m.: Presentation on the admissions process 가 입학 절차 발표를 지정한다."
+        },
+        {
+          "n": 3,
+          "verdict": "correct",
+          "why_correct": "Schedule 의 ‘12:00 p.m.: Free lunch provided at the students’ cafeteria’ 에서 Free lunch provided 가 선지의 ‘무료로 제공되지 않는다’와 부정 하나로 어긋난다. 장소(cafeteria)까지 적혀 있어 제공 사실이 그 줄에서 확정된다.",
+          "confirmed_at": {
+            "sentence_index": [
+              1
+            ],
+            "note": "Schedule 네 줄 중 셋째 줄이라, 시간표를 훑고 지나가면 부정으로 뒤집힌 선지를 참으로 넘긴다"
+          }
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "부분 사실",
+          "why_tempting": "티셔츠 줄이 일정표 밖 ※ 에 있고 '행사 후' 라는 시점이 붙어 있어, 일정 안에 없으니 제공되지 않는다고 판단하기 쉽다.",
+          "how_to_reject": "※ 줄이 After the event, a T-shirt with our university logo will be given out as a gift. 로 제공을 명시한다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "주체 역전",
+          "why_tempting": "'학교 웹사이트' 를 고등학교 쪽으로 읽으면 등록처가 다른 것처럼 보인다.",
+          "how_to_reject": "Registration 줄이 on our website, www.teverley.edu 로 대학 자체 사이트를 지정한다 — our 의 주체는 University of Teverley 다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "발문이 '일치하지 않는 것' 임을 표시하고, 선지 중 부정으로 서술된 것(제공되지 않는다)에 별표를 친다 — 부정 선지는 지문의 긍정 한 낱말로 뒤집히는 일이 많다",
+          "on_fail": "부정 선지가 없으면 한정어(만·모두)가 든 선지에 별표를 친다"
+        },
+        {
+          "step": "별표 친 선지의 명사(점심)를 일정표에서 찾고, 그 줄을 시각부터 마침표까지 읽어 앞에 붙은 수식어를 확인한다",
+          "on_fail": "줄에서 수식어가 안 보이면 명사 바로 앞 낱말 하나를 소리 내어 읽는다"
+        },
+        {
+          "step": "나머지 선지는 Participants → Schedule → ※ → Registration 순으로 대응 줄을 찾아 하나씩 지운다",
+          "on_fail": "대응 줄을 못 찾으면 선지의 시각·고유명사로 검색한다"
+        },
+        {
+          "step": "일정표 밖의 ※ 줄과 Registration 줄도 반드시 한 번 짚는다 — 선지 넷째·다섯째가 거기 걸린다",
+          "on_fail": "시간이 밀리면 별표 친 선지의 판정만 확정하고 넘어간다"
+        }
+      ],
+      "time_budget_sec": 55,
+      "difficulty": {
+        "predicted": 0.91,
+        "drivers": [
+          "정답이 Free 한 낱말에 걸린다",
+          "선지가 일정 순서를 그대로 따른다"
+        ]
+      },
+      "required_vocab": [
+        "prospective",
+        "admissions",
+        "auditorium",
+        "register"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 가 12:00 p.m. 줄과 문자 그대로 일치한다(cafeteria 앞 아포스트로피 포함).",
+            "다섯 선지가 Participants→Schedule→※→Registration 순서를 단조로 따른다 — 유형 설계와 맞는다.",
+            "12:00 p.m.: Free lunch provided at the students’ cafeteria 가 Schedule 에 그대로 있고, 선지의 부정과 한 곳에서 어긋난다",
+            "setter revise — 기존 why_correct 에 안내문 영어 표현이 없었다. 시각과 문구를 통째로 인용해 다시 썼다"
+          ],
+          "checked": [
+            "quote 문자열 대조",
+            "정답 3 과 평가원 정답표 대조",
+            "선지-항목 순서 대응 확인",
+            "why_correct 안의 영어 어구를 corpus.json M2509#27 의 passage·choices 에 문자열 대조(불일치 0)",
+            "근거 어구와 정답 선지 3 의 대응을 낱말 단위로 짝지어 확인",
+            "반려 후 다시 쓴 why_correct 를 같은 자로 재검수해 pass 로 확정"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "범위 과소·어휘 함정·부분 사실·주체 역전 네 축이 겹치지 않는다.",
+            "⑤에 주체 역전을 쓴 근거는 our website 의 our 가 대학을 가리킨다는 점이다 — 선지의 '학교' 가 모호해 실제로 갈리는 지점이다.",
+            "부정 하나로 뒤집힌 선지라는 점을 특정했고 소거법이 아니다"
+          ],
+          "checked": [
+            "trap 중복 여부",
+            "why_tempting 이 선지 문구에 근거하는지",
+            "how_to_reject 의 줄 위치 표기",
+            "why_correct 가 소거법(나머지가 틀리므로)에 기대지 않고 정답 선지 자체의 근거로 서 있는지 확인",
+            "정답 선지에 오답용 필드(why_tempting·how_to_reject·trap)가 남아 있지 않은지 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "1단계에서 부정 선지를 먼저 걸러내게 한 것이 이 문항의 정답으로 직행한다.",
+            "55초 안에 다섯 선지 대조가 끝난다.",
+            "Schedule 셋째 줄이라는 위치가 적혀 있다"
+          ],
+          "checked": [
+            "절차 실행 가능성",
+            "금지 표현 검사",
+            "required_vocab 이 판정에 쓰이는 낱말인지",
+            "지문을 아직 안 읽은 학생이 why_correct 만 읽고 근거 자리를 찾아갈 수 있는지 확인",
+            "근거가 안내문의 어느 항목·줄인지 서술에 적혀 있는지 확인"
+          ]
+        }
+      ],
+      "revised": true
+    },
+    {
+      "item_id": "M2509#28",
+      "revised": true,
+      "measured_ability": "제출 기간의 전치사(from A to B)와 수상 인원 표의 행을 각각 선지와 맞춰, 지문에 있는 값이 엉뚱한 자리에 붙었는지 판정하는 능력",
+      "design_intent": "주제·기간·제출 수·수상 인원 네 곳에 오답을 하나씩 걸고, 정답은 결정 주체(선정 위원회)라는 서술어 정보에 두었다. 숫자만 대조하는 학생이 마지막 문장을 확인하지 않게 만든 배치다.",
+      "answer_locus": {
+        "sentence_index": [
+          10
+        ],
+        "quote": "The winners will be decided by the selection committee and will be announced on December 30th.",
+        "reasoning": "수상자를 정하는 주체가 선정 위원회로 명시된다. 선지 ⑤는 이 문장의 행위 주체를 그대로 옮겼으므로 표를 보지 않고도 참이 확정된다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "무관",
+          "why_tempting": "green future 라는 표현이 친환경 일반을 떠올리게 해 농업 기술까지 주제 범위로 넘겨짚게 된다.",
+          "how_to_reject": "Theme: Renewable energy for a green future 줄이 주제를 재생 에너지로 지정한다 — 농업을 뜻하는 낱말은 안내문에 없다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "from October 1st to November 30th 에서 뒤쪽 날짜만 눈에 남으면 11월 30일이 시작일처럼 읽힌다.",
+          "how_to_reject": "Submission Details 첫 줄의 from 이 October 1st 에, to 가 November 30th 에 붙는다 — 11월 30일은 마감일이다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "범위 과대",
+          "why_tempting": "웹툰은 여러 편을 낼 수 있다는 짐작과, only 를 놓친 독해가 겹치면 두 개 제출이 가능해 보인다.",
+          "how_to_reject": "Submission Details 셋째 줄 Each participant is allowed to submit only one webtoon. 의 only one 이 제출 수를 하나로 묶는다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "부분 사실",
+          "why_tempting": "Prizes 표에 3 이라는 수가 실제로 있어 2등 인원으로 옮겨 붙이기 쉽다.",
+          "how_to_reject": "표에서 2nd prize 행의 인원은 2 이고, 3 은 3rd prize 행의 인원이다. 3,000 은 1등 상금이다."
+        },
+        {
+          "n": 5,
+          "verdict": "correct",
+          "why_correct": "마지막 줄 ‘The winners will be decided by the selection committee’ 에서 주어 The winners 가 선지의 ‘수상자’와, 행위 주체 the selection committee 가 ‘선정 위원회’와 그대로 대응하고 수동태 be decided by 가 ‘결정될 것이다’와 맞물린다. 표의 인원·상금을 보지 않아도 이 한 문장으로 참이 확정된다.",
+          "confirmed_at": {
+            "sentence_index": [
+              1
+            ],
+            "note": "Prizes 표 아래에 붙은 줄이라 숫자만 대조하는 학생은 여기까지 오지 않는다"
+          }
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "발문이 '일치하는 것' 임을 표시하고, 선지를 숫자형(기간·제출 수·인원)과 서술형(주제·결정 주체)으로 나눠 표시한다",
+          "on_fail": "구분이 안 되면 선지에 숫자가 있는지 없는지로만 나눈다"
+        },
+        {
+          "step": "서술형 선지부터 처리한다 — 주제는 Theme 줄, 결정 주체는 by 가 든 문장을 찾아 맞춘다",
+          "on_fail": "by 가 든 문장을 못 찾으면 표 아래 마지막 두 줄을 읽는다"
+        },
+        {
+          "step": "기간 선지는 from 과 to 뒤에 붙은 날짜를 각각 짚어 시작일과 마감일을 갈라 적는다",
+          "on_fail": "전치사가 안 보이면 앞에 오는 날짜를 시작으로 잡고 선지와 맞춘다"
+        },
+        {
+          "step": "인원 선지는 Prizes 표에서 등수 이름을 먼저 찾고 그 행의 수만 읽는다 — 상금 숫자와 인원 숫자를 섞지 않는다",
+          "on_fail": "행이 어긋나 보이면 등수 세 개와 수 세 개를 순서대로 짝지어 다시 붙인다"
+        },
+        {
+          "step": "네 개를 지우고 남은 하나가 안내문 한 문장으로 확인되는지 되짚는다",
+          "on_fail": "둘이 남으면 only·from·by 같은 기능어가 든 쪽을 다시 읽는다"
+        }
+      ],
+      "time_budget_sec": 60,
+      "difficulty": {
+        "predicted": 0.9,
+        "drivers": [
+          "상금과 인원 숫자가 한 줄에 섞여 인쇄",
+          "정답이 표 밖 마지막 문장"
+        ]
+      },
+      "required_vocab": [
+        "renewable",
+        "submissions",
+        "allowed",
+        "committee"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 가 Prizes 아래 문장과 문자 그대로 일치한다.",
+            "정답이 표 밖 문장의 행위 주체(by the selection committee)에 놓인 배치를 design_intent 에 반영했다.",
+            "The winners will be decided by the selection committee 가 마지막 줄에 그대로 있고, The winners↔수상자 · the selection committee↔선정 위원회 · be decided by↔결정될 것이다 세 쌍이 대응한다",
+            "setter revise — 기존 why_correct 가 31자로 게이트 문턱(40자) 미달이었고, 「선정 위원회가 결정한다」는 되풀이라 선지와의 낱말 대응이 없었다. 세 쌍의 대응으로 다시 썼다"
+          ],
+          "checked": [
+            "quote 문자열 대조",
+            "정답 5 와 평가원 정답표 대조",
+            "선지-항목 순서 대응 확인",
+            "why_correct 안의 영어 어구를 corpus.json M2509#28 의 passage·choices 에 문자열 대조(불일치 0)",
+            "근거 어구와 정답 선지 5 의 대응을 낱말 단위로 짝지어 확인",
+            "반려 후 다시 쓴 why_correct 를 같은 자로 재검수해 pass 로 확정"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "무관·어휘 함정·범위 과대·부분 사실 네 축이 겹치지 않는다.",
+            "④가 3rd prize 행의 3 을 2등으로 끌어온 행 밀기이고 ②는 전치사 대응 오류라, 같은 숫자 오독이라도 원인이 다르다는 것을 서술로 구분했다.",
+            "표를 보지 않아도 확정된다는 점을 밝혀, 다른 선지 확인 결과에 기대지 않는다"
+          ],
+          "checked": [
+            "trap 중복 여부",
+            "각 오답 값의 출처 행 명시 여부",
+            "how_to_reject 의 위치 표기",
+            "why_correct 가 소거법(나머지가 틀리므로)에 기대지 않고 정답 선지 자체의 근거로 서 있는지 확인",
+            "정답 선지에 오답용 필드(why_tempting·how_to_reject·trap)가 남아 있지 않은지 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "최초 절차는 숫자형 선지부터 처리하도록 되어 있었다 — 정답이 서술형에 있어 표에서 시간을 다 쓰게 만들어 반려했고, 서술형(2단계)을 앞으로 옮겼다.",
+            "60초 안에 다섯 선지가 처리된다.",
+            "Prizes 표 아래 줄이라는 위치가 적혀 있어 숫자만 대조하던 학생이 그 자리로 간다"
+          ],
+          "checked": [
+            "절차 순서가 정답 도달에 유리한지",
+            "금지 표현 검사",
+            "required_vocab 이 판정에 필요한 낱말인지",
+            "지문을 아직 안 읽은 학생이 why_correct 만 읽고 근거 자리를 찾아갈 수 있는지 확인",
+            "근거가 안내문의 어느 항목·줄인지 서술에 적혀 있는지 확인"
+          ]
+        }
+      ]
+    }
+  ],
+  "type_report": {
+    "type_id": "R-NOTICE",
+    "type_name": "안내문 일치",
+    "n_analyzed": 12,
+    "recurring_traps": [
+      {
+        "trap": "어휘 함정",
+        "count": 11,
+        "signature": "낱말 하나(annual·cancelled·only one·from)의 뜻을 바꾸면 참·거짓이 뒤집힌다"
+      },
+      {
+        "trap": "부분 사실",
+        "count": 11,
+        "signature": "지문에 있는 값·시각을 다른 항목·다른 행에서 끌어와 붙인다"
+      },
+      {
+        "trap": "범위 과대",
+        "count": 8,
+        "signature": "하루를 사흘로, 넷을 다섯으로, 한 명을 전원으로 늘린다"
+      },
+      {
+        "trap": "반대 진술",
+        "count": 5,
+        "signature": "not·no 가 든 줄을 긍정으로 뒤집는다"
+      },
+      {
+        "trap": "지문 밖 상식",
+        "count": 4,
+        "signature": "셔틀은 무료·공모전은 상금 같은 통념으로 지문에 없는 조건을 만든다"
+      },
+      {
+        "trap": "무관",
+        "count": 3,
+        "signature": "판정과 상관없는 줄(등록비·이메일 주소)을 근거로 삼는다"
+      },
+      {
+        "trap": "범위 과소",
+        "count": 3,
+        "signature": "All branches·all grades 같은 전칭을 일부로 좁힌다"
+      },
+      {
+        "trap": "주체 역전",
+        "count": 3,
+        "signature": "행위는 지문과 같은데 제공·구매·등록의 주체나 경로가 뒤바뀐다"
+      }
+    ],
+    "answer_locus_pattern": "12문항 전부에서 선지 ①~⑤가 안내문의 서술 순서를 그대로 따라 내려간다(머리글→콜론 항목→표→※·Note). 곧 선지 번호가 곧 지문 위치이므로 되돌아 훑을 필요가 없다. 정답 근거의 자리는 두 갈래다 — 표·목록의 한 행에 있는 것 7개(M2706#27·2026#27·2026#28·M2609#28·M2606#28·2025#27·2025#28), 괄호·※·표 밖 마지막 문장처럼 본문 가장자리에 있는 것 5개(M2706#28·M2609#27·M2606#27·M2509#27·M2509#28).",
+    "procedure": [
+      {
+        "step": "발문에서 '일치하는 것' 인지 '일치하지 않는 것' 인지에 표시한다 — 이 표시를 빠뜨리면 네 개를 맞게 처리하고도 반대로 적는다",
+        "on_fail": "표시를 잊었으면 답을 고른 뒤 발문으로 되돌아가 한 번 더 확인한다"
+      },
+      {
+        "step": "지문보다 선지를 먼저 읽고, 각 선지가 다루는 축(기간·시각·인원·금액·가능 여부·경로)을 옆에 한 낱말로 적는다",
+        "on_fail": "축이 안 잡히면 선지의 숫자·단위·부정어·한정어(만·모두)에만 밑줄을 긋는다"
+      },
+      {
+        "step": "선지 순서가 곧 안내문 순서이므로 위에서 아래로 한 번만 내려가며 ①부터 짝짓는다",
+        "on_fail": "짝이 안 맞는 선지가 나오면 건너뛰고 다음 선지의 줄부터 찾은 뒤, 남은 구간에서만 되돌아 찾는다"
+      },
+      {
+        "step": "표가 걸린 선지는 행 이름을 먼저 찾고 같은 행의 값만 읽는다 — 값의 개수와 행의 개수를 세어 어긋나지 않는지 확인한다",
+        "on_fail": "행과 값이 어긋나면 가격·인원처럼 커지는 순서로 늘어선 값을 기준 삼아 행을 다시 세운다"
+      },
+      {
+        "step": "괄호 ( ) · ※ · Note 로 시작하는 줄은 마지막에 따로 한 번 더 읽는다 — 부정(no·not)과 한정(only)이 그 안에 들어간다",
+        "on_fail": "시간이 모자라면 아직 판정하지 못한 선지와 관련된 괄호만 본다"
+      },
+      {
+        "step": "답을 적기 전에 지운 선지 넷의 근거 줄을 하나씩 되짚는다",
+        "on_fail": "근거를 못 대는 선지가 둘 이상이면 그 둘만 다시 대조하고, 하나면 남은 선지를 답으로 정한다"
+      }
+    ],
+    "failure_modes": [
+      "발문의 일치/불일치를 반대로 잡아 네 선지를 옳게 판정하고도 답을 뒤집는다 — 이 유형의 실점 중 가장 아까운 형태다",
+      "표에서 값은 읽지만 그 값이 붙은 행을 확인하지 않는다(M2609#28 ② 3등 인원 2 를 2등에, M2509#28 ④ 3등 인원 3 을 2등에, 2026#28 ③ Gold 를 다섯 회로)",
+      "괄호·※·Note 를 부가 설명으로 여겨 건너뛴다 — 그런데 12문항 중 5문항의 정답 근거가 거기 있다(M2609#27 괄호 안 No private restroom, M2606#28 lunch not included, 2025#28 One-way fare $1)",
+      "항목이 여러 줄일 때 첫 줄만 읽고 판정한다(2026#27 ⑤ Awards 둘째 줄, M2609#27 ② What 둘째 줄)",
+      "숫자를 단위·수식어 없이 읽는다 — the 15th annual 의 15(회차)를 주기로, Friday, July 3 의 3(날짜)을 기간으로 옮긴다",
+      "부정·한정 낱말 하나(Free·only·not·cancelled)를 지나쳐 술어를 반대로 옮긴다"
+    ],
+    "time_budget_sec": 60,
+    "open_questions": [
+      "표본 12개의 정답 번호가 4·4·4·4·3·5·5·2·3·3·3·5 로 ②~⑤에 몰려 ①이 한 번도 정답이 아니다. 첫 선지가 대개 머리글의 목적 문장과 짝지어져 참이 되기 쉬운 구조 때문인지는 12개로 단정할 수 없다 — 다음 청크에서 ① 정답 사례가 나오는지 확인해야 한다",
+      "'일치하는 것' 문항 6개 중 4개에서 정답 근거가 괄호·※·표 밖 문장에 있었다. 설계상의 규칙인지 이 표본의 우연인지는 R-NOTICE 다음 청크로 검증한다",
+      "오답 라벨 중 '주체 역전' 을 세 번(M2609#27 ⑤ · 2025#27 ⑤ · M2509#27 ⑤) 썼는데 셋 다 '누가 제공·구매·등록하는가' 를 뒤집는 것이라, 안내문 유형 전용 라벨(경로 역전)이 따로 필요한지 검토가 필요하다",
+      "이번 청크의 반려는 5건(setter 1 · analyst 2 · tutor 2)으로 세 자가 각각 다른 것을 잡았다 — 자를 고칠 필요는 없었다. 다만 '불일치' 문항의 오답은 모두 참인 진술이므로 trap 라벨이 '선지의 왜곡 축' 이 아니라 '학습자의 오독 축' 을 가리킨다. 두 의미가 한 필드에 섞여 있다는 점은 다음 청크에서 라벨 정의를 나눌지 판단해야 한다"
+    ]
+  }
+}

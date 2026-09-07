@@ -38,6 +38,12 @@ export interface DictCoverageData {
   collocations: DictCoverageMetric
   inflections: DictCoverageMetric
   koreanLearnerNote: DictCoverageMetric
+  /**
+   * 예문 해석 — `meanings_ko[0].example_ko` 를 가진 row.
+   * ⚠️ **하한 추정치다.** 다의어는 뒤쪽 sense 에만 해석이 붙어 있을 수 있는데, 카운트 쿼리로는
+   * jsonb 배열을 순회할 수 없어 첫 원소만 본다. 실제 충전율은 이 값 이상이다.
+   */
+  exampleKo: DictCoverageMetric
   frequencyRank: DictCoverageMetric
   ngslSfi: DictCoverageMetric
   verified: DictCoverageMetric
@@ -104,8 +110,15 @@ export interface VrlClassificationStatsData {
   totalUnclassified: number
   classifiedRatio: number
   byLevel: VrlLevelDistribution[]
-  /** v_level_rule_v1 와 v_level 이 다른 row 수 (reclassified) */
-  reclassifiedCount: number
+  /**
+   * v_level_rule_v1 와 v_level 이 다른 row 수 (reclassified).
+   *
+   * **`null` = 못 잼**(질의 실패·타임아웃), `0` = 정정된 낱말이 없음. 둘은 정반대다 —
+   * 0 은 "규칙과 사람 판단이 일치한다" 는 좋은 신호이고, null 은 "그 신호를 못 읽었다" 이다.
+   * 이 값은 표시만 되는 게 아니라 **건강 점수의 감점 항**으로 나눠 쓰이므로, 못 잰 것을
+   * 0 으로 두면 측정 실패가 감점 0 = **최고점**으로 둔갑한다. 그래서 null 로 남긴다.
+   */
+  reclassifiedCount: number | null
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -151,17 +164,33 @@ export interface SchemaPresenceData {
 // ─────────────────────────────────────────────────────────────
 // 8b. Categorical Distributions (dict_categorical_distributions RPC)
 // ─────────────────────────────────────────────────────────────
+/**
+ * ⚠️ **모든 분포가 `null` 일 수 있다.** 이 타입은 2026-08-27 이전까지 전부 non-nullable
+ * 이라고 말했는데 **거짓말이었다.**
+ *
+ * RPC 본문의 `jsonb_object_agg` 는 **그룹이 0행이면 SQL NULL** 을 돌려준다. 그래서:
+ *   ① 그 컬럼에 비-NULL 값이 하나도 없으면 그 키가 null (정상적으로 가능하다)
+ *   ② 호출자가 RLS 로 0행을 보면 **일곱 개 전부** null —
+ *      `shared_dictionary` 정책은 `authenticated`·`service_role` 뿐이고 **`anon` 정책이 없다.**
+ *      dev admin 우회는 합성 admin 이라 실 세션이 없어 `anon` 으로 질의한다 → 전부 null.
+ *
+ * 실제로 소비자 대부분(`queries.ts` · `word-search.ts` · `critical-defects-detector.ts`)은
+ * 이미 `?? {}` / `?.` 로 막고 있었다 — **타입만 혼자 다른 말을 하고 있었다.**
+ * 그 틈으로 `DistributionAnalysisSection` 이 무방비로 `Object.entries(data)` 를 불렀고,
+ * RPC 성능을 고쳐 호출이 성공하기 시작한 순간 `/admin/vrl` 전체가 에러 경계로 떨어졌다.
+ * 타입을 사실대로 고쳐 **다음 소비자가 같은 실수를 못 하게** 한다.
+ */
 export interface DictCategoricalDistributions {
-  by_primary_pos: Record<string, number>
-  by_v_level: Record<string, number>
-  by_v_level_rule_v1: Record<string, number>
-  by_source: Record<string, number>
-  by_cefr_level: Record<string, number>
-  by_frequency_band: Record<string, number>
+  by_primary_pos: Record<string, number> | null
+  by_v_level: Record<string, number> | null
+  by_v_level_rule_v1: Record<string, number> | null
+  by_source: Record<string, number> | null
+  by_cefr_level: Record<string, number> | null
+  by_frequency_band: Record<string, number> | null
   verified_by_v_level: Record<
     string,
     { total: number; verified: number; pct: number }
-  >
+  > | null
 }
 
 // ─────────────────────────────────────────────────────────────

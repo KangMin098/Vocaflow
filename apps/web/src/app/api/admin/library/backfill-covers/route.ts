@@ -13,7 +13,7 @@ import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 
 import { requireAdminApi } from '@/lib/auth/require-admin-api'
-import { resolveCoverImageUrl } from '@/lib/library/cover-image'
+import { resolveCoverImageUrlWithSeed } from '@/lib/library/cover-image'
 
 export const runtime = 'nodejs'
 export const maxDuration = 300
@@ -46,11 +46,12 @@ export async function POST(request: Request): Promise<NextResponse> {
     auth: { persistSession: false, autoRefreshToken: false },
   })
 
+  // 소스를 gutenberg/SE 로 제한하지 않는다 — 시드가 표지를 갖고 있으면 어느 소스든 채울 수 있다.
+  // (제한하던 동안 pressbooks·lit2go 등은 백필 대상에서 아예 빠져 있었다.)
   let query = client
     .from('library_books')
     .select('id, title, source, source_id')
     .is('cover_image_url', null)
-    .in('source', ['gutenberg', 'standard_ebooks'])
     .not('source_id', 'is', null)
     .limit(limit)
   if (onlyPublished) query = query.eq('status', 'published')
@@ -67,21 +68,36 @@ export async function POST(request: Request): Promise<NextResponse> {
     source_id: string | null
   }>
 
-  const results: Array<{ id: string; title: string; cover_image_url: string | null }> = []
+  const results: Array<{
+    id: string
+    title: string
+    cover_image_url: string | null
+    via: 'seed' | 'origin' | 'none' | 'seed-dead'
+  }> = []
   let updated = 0
+  let fromSeed = 0
   for (const b of books) {
     let coverUrl: string | null = null
+    let via: 'seed' | 'origin' | 'none' | 'seed-dead' = 'none'
     try {
-      coverUrl = await resolveCoverImageUrl({ source: b.source, sourceId: b.source_id })
+      const r = await resolveCoverImageUrlWithSeed(client, {
+        source: b.source,
+        sourceId: b.source_id,
+      })
+      coverUrl = r.url
+      via = r.via
     } catch {
       coverUrl = null
     }
     if (coverUrl) {
       await client.from('library_books').update({ cover_image_url: coverUrl }).eq('id', b.id)
       updated += 1
+      if (via === 'seed') fromSeed += 1
     }
-    results.push({ id: b.id, title: b.title, cover_image_url: coverUrl })
+    results.push({ id: b.id, title: b.title, cover_image_url: coverUrl, via })
   }
 
-  return NextResponse.json({ ok: true, scanned: books.length, updated, results })
+  // via 를 응답에 싣는 이유: 시드에서 온 것과 원천에서 받아온 것을 구분해야
+  // "시드가 비어 있는 소스가 어디인가" 를 백필 한 번으로 알 수 있다.
+  return NextResponse.json({ ok: true, scanned: books.length, updated, fromSeed, results })
 }

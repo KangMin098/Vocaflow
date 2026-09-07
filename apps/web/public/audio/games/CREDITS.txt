@@ -1,0 +1,140 @@
+Vocaflow Arcade — Audio Credits
+===============================
+
+BACKGROUND MUSIC
+----------------
+Tracks by Alexander Nakarada (creatorchords.com) and Scott Buckley
+(www.scottbuckley.com.au). Both libraries are licensed under
+Creative Commons Attribution 4.0 International (CC-BY 4.0)
+https://creativecommons.org/licenses/by/4.0/
+
+Attribution is also surfaced in-app on the /arcade page footer.
+
+
+v07.7 — SELECTED BY MEASUREMENT, NOT BY TITLE
+----------------------------------------------
+Brief: 웅장하면서 긴장감과 긴박감이 있어야 하고, 빠른 템포가 필요하다.
+
+The v07.6 set failed that brief, and the reason was measurable. 118 candidate
+tracks (Scott Buckley 72 + Alexander Nakarada 46) were analysed for:
+
+  bpm       tempo, from autocorrelation of the spectral-flux onset envelope
+  onset/s   attacks per second — the direct proxy for 긴박감
+  pulse     sharpness of the autocorrelation peak. ~1.0 means the beat is
+            indistinguishable from noise: the track is an ambient pad and has
+            no drive at all, whatever its title suggests
+  low%      share of onset energy below 150 Hz — kick / low strings, the punch
+  full%     share of time RMS stays above 60% of peak — 웅장 (a full tutti)
+  tension   time-variance of the 2–6 kHz band — tremolo, staccato, dissonance
+
+Most of the Scott Buckley library sits at pulse ≈ 1.0–1.3: beautiful, but
+ambient. That is why the previous set read as calm rather than urgent.
+Alexander Nakarada's epic/cinematic catalogue measured far higher on every
+drive axis, so 16 of 19 slots moved there. Every selected track is
+129–161 BPM with a clearly detectable pulse.
+
+
+BEAT-ALIGNED SEAMLESS LOOPS
+---------------------------
+Each track is cut to a whole number of BARS at its measured tempo, so the
+loop point is phase-coherent:
+
+    out = concat( acrossfade(tail 1 bar, head 1 bar), body )
+
+Because loopLen is an exact multiple of the bar, the tail (at start+loopLen)
+carries the same beat phase as the head (at start) — the crossfade lands beat
+on beat instead of smearing two offset grooves into a flam. Both join points
+(body→tail, head→body) are original, uncut continuity. Loops run 109.5–110.6 s
+depending on tempo (59–74 bars).
+
+⚠️ Two build traps, both silent, both now guarded by an assertion that the
+   output length equals loopLen:
+   1. Splitting one input with `asplit=3` and feeding three `atrim`s into
+      `acrossfade` makes the crossfade vanish entirely — the trims deadlock in
+      lockstep and acrossfade receives an empty stream. Open head/tail/body as
+      three separate `-i` inputs instead.
+   2. A segment extracted with `-t X` can come back a hair shorter than X
+      because of MP3 frame granularity, and then `acrossfade=d=X` silently
+      drops the crossfade as well. Extract X+0.4 s and `atrim` to exactly X.
+   In both cases the file still serves HTTP 200 and still plays; it is just
+   1 bar short and clicks on every loop. Nothing catches it but the length
+   assertion and tests/e2e/12-arcade-audio.spec.ts.
+
+Loudness: EBU R128 to -16 LUFS (TP -1.5 dBTP) across all tracks so no game is
+louder than another. Encoding: VBR MP3 (-q:a 5), 44.1 kHz stereo. 33.3 MB total.
+No melodic content altered.
+
+
+PER-GAME TRACKS (19 games, 19 distinct tracks)
+-----------------------------------------------
+
+  -- 속사 인출 계열 (blitz family) --
+  wordblitz          "Riders of Ragnarok"             Nakarada   161 BPM · 74 bars
+  ghost-race         "Through the White Steppes 2021" Nakarada   161 BPM · 74 bars
+  word-economy       "Explorer"                       Nakarada   161 BPM · 74 bars
+  daily-blitz        "Dream of a Dream"               Nakarada   152 BPM · 70 bars
+
+  -- 내 단어로 플레이 --
+  cascade            "Vortex of Souls"                Nakarada   152 BPM · 70 bars
+  wordfall-cadence   "Into Battle"                    Nakarada   144 BPM · 66 bars
+  letter-forge       "Grundar"                        Nakarada   152 BPM · 70 bars
+  wordsmith-vigil    "Daudir"                         Nakarada   152 BPM · 70 bars
+  morphmerge         "Mjói"                           Nakarada   129 BPM · 59 bars
+
+  -- 큐레이션 세계 --
+  connections        "Curiosity"                      Nakarada   129 BPM · 59 bars
+  glyph-tongue       "Fantasy Soundscape"             Nakarada   136 BPM · 62 bars
+  word-customs       "Bloodmoon Ritual"               Nakarada   144 BPM · 66 bars
+  morpheme-rules     "Simulacra"                      Buckley    129 BPM · 59 bars
+  silent-rule        "Find Them"                      Nakarada   161 BPM · 74 bars
+  lexicon-hands      "Enchanted Forest"               Nakarada   152 BPM · 70 bars
+  lexicon-detective  "Honour Among Thieves"           Buckley    129 BPM · 59 bars
+  lexicon-estate     "Foreverlands"                   Nakarada   136 BPM · 62 bars
+  word-orrery        "Electric Dreams"                Buckley    152 BPM · 70 bars
+  pirate-quest       "Pirate's Journey"               Nakarada   161 BPM · 74 bars
+
+Notable picks and why the numbers chose them:
+  wordfall-cadence "Into Battle"  — pulse 3.74, the clearest beat in the pool;
+                                    the game is built on a rhythmic cadence.
+  wordsmith-vigil  "Daudir"       — low% 39, the hardest low-end punch measured.
+  glyph-tongue     "Fantasy Soundscape" — pulse 5.65 with tension 1.33: the
+                                    most relentless pressure, for decoding runes.
+  word-economy     "Explorer"     — full% 50, the fullest tutti, for the
+                                    strategy game's weight.
+
+Attribution format requested by Alexander Nakarada:
+  Music: [song name] by Alexander Nakarada https://creatorchords.com
+  Licensed under Creative Commons Attribution 4.0 International (CC BY 4.0)
+
+
+SOUND EFFECTS
+-------------
+Source: Mixkit (mixkit.co) — Mixkit Free Sound Effects License.
+Free for commercial and non-commercial use, no attribution required;
+redistribution as a standalone sound library is not permitted (we embed only).
+
+v07.6 — KENNEY SYNTH BLIPS REPLACED BY RECORDED SOURCES
+--------------------------------------------------------
+Measured (FFT) on the outgoing Kenney set: all six files were MONO, carried
+0–0.6% of their energy above 8 kHz, and two of them (correct, complete) had a
+spectral flatness of 0.0000. Those are band-limited synthesised tones — the
+"just computer sounds" complaint was literally correct. Every replacement is a
+stereo recording with inharmonic partials, a natural decay and real
+high-frequency air.
+
+  correct   ← "Achievement bell"              0.65 s  peak -3 dBFS
+  wrong     ← "Wood hard hit"                 0.30 s  peak -8 dBFS
+  combo     ← "Fairy arcade sparkle"          0.95 s  peak -6 dBFS
+  click     ← "Typewriter soft click"         0.15 s  peak -9 dBFS
+  coin      ← "Clinking coins"                0.45 s  peak -6 dBFS
+  complete  ← "Orchestra triumphant trumpets" 2.80 s  peak -3 dBFS
+
+Processing: trimmed to the window shown (chosen off a 0.1 s-resolution RMS
+envelope so no attack is clipped and no tail is cut mid-decay), 8 ms fade in
+against click noise, fade out over the last 0.1–0.9 s, then two-pass peak
+normalisation to the target above. Peak targets encode the intended hierarchy
+(완주 > 정답 > 코인·콤보 > 오답 > 클릭); the per-call gains in gamekit's
+useSfx sit on top of them.
+
+wrong is a wooden knock rather than a buzzer on purpose — Empathetic
+Feedback (CLAUDE.md 디자인 철학 3): 오답에 비난조를 싣지 않는다.

@@ -20,12 +20,16 @@
 //   pnpm db:seed-dictionary:dry       — INSERT 없이 통계만
 //   pnpm db:seed-dictionary -- --yes  — 확인 프롬프트 스킵 (CI 용)
 
-import { existsSync } from 'node:fs'
+import nodeFs, { existsSync } from 'node:fs'
 import { argv, exit, stdin, stdout } from 'node:process'
 import { createInterface } from 'node:readline/promises'
 
 import Database from 'better-sqlite3'
 import { createClient } from '@supabase/supabase-js'
+import { gateHeadwords, writeHold } from './dict/headword-gate.mjs'
+
+/** 게이트 보류분 격리 파일 — 자동 삭제하지 않는다. */
+const HOLD_PATH = 'data/import/seed-dictionary.hold.json'
 import dotenv from 'dotenv'
 
 import { config } from './seed-dictionary.config.mjs'
@@ -250,6 +254,31 @@ console.log(`  skipped — bad POS : ${skippedBadPos}`)
 console.log(`  skipped — empty   : ${skippedEmptyPos}`)
 console.log(`  skipped — bad CEFR: ${skippedBadCefr}`)
 console.log()
+
+// ════════════════════════════════════════════════════════════
+// ⛔ 표제어 유효성 게이트 — 2026-08-17 추가
+//
+//   이 스크립트가 **비단어 12건을 사전에 넣은 문**이었다. 데크의 word 필드를 검증 없이
+//   표제어로 쓴 결과 `railro`·`overlo`·`proofre`·`sidelo`·`behe` 같은 조각이 들어갔고,
+//   10건이 전부 "낱말 − 끝의 `ad`" 에 `pos='adverb'` 였다 — 잘려나간 `ad` 가 품사 표기로
+//   소비된 것, 즉 원본의 `word|pos` 필드 경계가 한 칸 밀린 것이다.
+//   `meaning_ko: null` 로 넣어 두면 나중에 LLM 이 **없는 낱말에 뜻을 창작**한다.
+//
+//   보류분은 삭제하지 않고 격리 파일로 뺀다 — 사람이 본다.
+// ════════════════════════════════════════════════════════════
+{
+  const gateClient = createClient(SUPABASE_URL, SERVICE_ROLE, { auth: { persistSession: false } })
+  const { accept, hold } = await gateHeadwords(gateClient, [...dictMap.keys()])
+  if (hold.length) {
+    for (const h of hold) dictMap.delete(h.word)
+    writeHold(nodeFs, HOLD_PATH, hold, { script: 'seed-dictionary', at: new Date().toISOString() })
+    const by = hold.reduce((m, h) => ((m[h.reason] = (m[h.reason] ?? 0) + 1), m), {})
+    console.log(`  ⛔ 표제어 게이트 보류: ${hold.length}  ${JSON.stringify(by)}`)
+    console.log(`     → ${HOLD_PATH} (사람 검토 · 자동 삭제 안 함)`)
+  }
+  console.log(`  ✅ 표제어 게이트 통과: ${accept.length.toLocaleString()}`)
+  console.log()
+}
 
 if (dryRun) {
   console.log('🟡 DRY-RUN 종료 — DB 변경 없음.')

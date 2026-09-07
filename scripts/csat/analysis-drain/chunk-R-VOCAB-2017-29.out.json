@@ -1,0 +1,858 @@
+{
+  "chunk": 6,
+  "type_id": "R-VOCAB",
+  "type_name": "어휘(문맥)",
+  "analyses": [
+    {
+      "item_id": "2017#29",
+      "measured_ability": "네모 낱말을 뜻으로 고르지 않고, 네모 뒤에 붙은 전치사(on)·네모 앞의 부정 표현(In the absence of)·다음 문장의 역접 표지(Rather) 세 장치가 각각 요구하는 방향을 읽어 내는 능력",
+      "design_intent": "세 칸을 서로 다른 장치에 걸었다. (A)는 'be based on'이라는 초고빈도 연어가 'be lost on'이라는 관용구를 덮도록 배치했고, (B)는 'In the absence of a process that ___'로 부정을 겹쳐 두었으며, (C)는 다음 문장 첫 낱말 Rather 를 읽어야만 정해진다. 낱말 뜻을 다 알아도 장치를 못 보면 세 칸 중 하나는 반드시 틀리도록 짰다.",
+      "answer_locus": {
+        "sentence_index": [
+          2,
+          3
+        ],
+        "quote": "In the absence of a process that (B) allows / forbids them to benchmark those who do things better or at least differently, teachers are left with that one perspective",
+        "reasoning": "결과절 'teachers are left with that one perspective'는 벤치마킹이 실제로 일어나지 않았음을 말한다. 그런 결과가 나오려면 '벤치마킹을 허용하는 절차가 없다'여야 하므로 (B)는 allows 다. forbids 를 넣으면 '금지하는 절차가 없다' = 벤치마킹이 가능하다가 되어 결과절과 정면으로 어긋난다. 같은 결과절이 (A)도 확정한다 — 더 잘 가르치는 사람이 있다는 사실이 교사에게 '가 닿지 않았기(lost on)' 때문에 관점이 자기 하나로 남는 것이지, 그 사실이 교사에게 '근거를 두는(based on)' 관계는 성립하지 않는다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "연어 오인",
+          "why_tempting": "네모 바로 뒤가 on 이라서 'is based on'이라는 초고빈도 연어가 먼저 떠오른다. (B) allows·(C) never 는 정답과 같아 세 칸 중 두 칸이 맞는 근접 오답이 된다.",
+          "how_to_reject": "네모가 든 둘째 문장의 주어는 'The fact that there might be someone somewhere ... may be more successful'이다. '사실이 교사에게 근거를 둔다'는 관계는 만들어지지 않는다. 셋째 문장 끝 'teachers are left with that one perspective'가 그 사실이 교사에게 닿지 않았음을 확인한다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "극성 반전",
+          "why_tempting": "세 칸 모두 정답의 반대쪽을 골라 놓은 줄이다. 첫 문장의 'work in isolation'을 '고립되어 있어도 나름의 근거가 있다'로 읽고, 마지막 문장을 '그래도 대체로 모임이 있었다'로 읽으면 세 칸이 한꺼번에 뒤집힌다.",
+          "how_to_reject": "마지막 문장 'Rather, we spent much time in the social studies office complaining about a lack of time and playing the blame game'이 실제로 한 일을 말한다. 한 일이 불평이라면 (C)는 mostly 가 될 수 없고, 셋째 문장의 결과절이 (B) forbids 를 배제한다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "담화표지 방향 무시",
+          "why_tempting": "(A) lost·(B) allows 를 맞게 고른 학생이 마지막에 걸리는 자리다. 'The idea of meeting regularly to compare notes, plan common assessments, and share what we did well'이 좋은 일들의 나열이라 '대체로 그런 생각을 했다'로 이어 붙이기 쉽다.",
+          "how_to_reject": "네모 문장 다음 문장이 Rather 로 시작한다. Rather 는 앞 문장을 뒤집고 실제 행위를 제시하는 표지이고, 뒤따르는 행위가 'complaining about a lack of time and playing the blame game'이다. 정기 모임을 대체로 생각했다면 Rather 뒤에 불평이 올 수 없다."
+        },
+        {
+          "n": 4,
+          "verdict": "correct",
+          "why_correct": "(A)는 주어가 'The fact that there might be someone somewhere' 이고 네모 뒤가 'on teachers who close the door' 이므로 is lost on(가 닿지 않는다)만 성립한다 — 사실이 교사에게 based on 될 수는 없다. (B)는 'In the absence of a process that' 라는 부정 틀 안이라 allows 를 넣어야 같은 문장의 결과절 'teachers are left with that one perspective' 와 이어지고, forbids 를 넣으면 부정이 겹쳐 결과절과 모순된다. (C)는 다음 문장 첫 낱말 Rather 가 앞을 뒤집고 실제 행위로 'complaining about a lack of time' 을 내놓으므로 never 다.",
+          "confirmed_at": {
+            "sentence_index": [
+              2,
+              3,
+              6
+            ],
+            "note": "(A)와 (B)는 같은 결과절 teachers are left with that one perspective 가 함께 확정하고, (C)만 Rather 로 시작하는 다음 문장이 확정한다"
+          }
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "부정 중첩 오독",
+          "why_tempting": "글 전체가 '교사가 서로 못 보게 되어 있다'는 부정적 상황이므로 (B)에도 부정어 forbids 를 넣어 맞추고 싶어진다. (A) lost·(C) never 는 정답과 같아 한 칸만 다른 근접 오답이다.",
+          "how_to_reject": "네모 앞에 이미 부정 표현 'In the absence of'가 있다. forbids 를 넣으면 부정이 둘이 되어 '벤치마킹을 금지하는 절차가 없다'가 되고, 이는 같은 문장의 결과절 'teachers are left with that one perspective'와 모순된다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "지문을 읽기 전에 선지 다섯 줄을 세로로 훑어 (A)칸의 두 낱말이 각각 몇 번 나오는지 센다(based 2 · lost 3). 한 칸만 정해도 후보가 둘 또는 셋으로 준다.",
+          "on_fail": "세로로 세기 어려우면 선지 ①의 세 낱말만 (A)(B)(C) 라벨과 함께 여백에 적고, 나머지 넷은 ①과 다른 자리에만 표시를 남긴다."
+        },
+        {
+          "step": "(A) 네모에서 네모 바로 뒤에 붙은 전치사를 먼저 본다 — 여기서는 on 이다. 두 낱말 모두 on 과 짝이 되므로, 그 문장의 주어를 '그런 사람이 있다는 사실'로 짧게 줄여 놓고 그 사실이 교사에게 어떻게 되는지로 고른다.",
+          "on_fail": "숙어가 안 떠오르면 (A)를 비워 두고 (B)(C)를 먼저 확정한 뒤, 남은 선지에서 (A)만 다른 줄이 있는지 본다."
+        },
+        {
+          "step": "(B) 네모 앞 세 낱말에 부정 표현이 있는지 표시한다 — 'In the absence of'가 부정 하나다. 그다음 같은 문장의 결과절(teachers are left with ...)을 읽고, 그 결과가 나오려면 벤치마킹이 되는 상태인지 안 되는 상태인지만 정한다.",
+          "on_fail": "부정 세기가 엉키면 네모에 두 낱말을 차례로 넣어 문장을 '벤치마킹이 된다/안 된다' 한 줄로 줄여 보고 결과절과 맞는 쪽을 남긴다."
+        },
+        {
+          "step": "(C) 네모가 든 문장의 다음 문장 첫 낱말을 본다 — Rather 다. Rather 뒤에 실제로 한 일이 오므로, 네모 문장은 하지 않은 일이어야 한다.",
+          "on_fail": "표지의 방향이 애매하면 다음 문장의 행동(complaining, playing the blame game)이 정기 모임과 같은 편인지 반대편인지만 따진다."
+        },
+        {
+          "step": "확정한 세 낱말을 이어 붙여 선지에서 그대로 있는 줄을 찾는다. 없으면 확신이 가장 낮은 칸 하나만 바꿔 다시 찾는다.",
+          "on_fail": "두 칸만 확신하면 그 두 칸이 일치하는 선지만 남기고, 남은 칸은 네모 바깥의 표지(결과절·역접어)로 한 번 더 확인한다."
+        }
+      ],
+      "time_budget_sec": 80,
+      "difficulty": {
+        "predicted": 0.55,
+        "drivers": [
+          "(A)가 'be lost on'이라는 관용구 하나에 걸려 있다",
+          "(B)가 'In the absence of' + forbids 로 부정이 겹친다",
+          "근거가 세 칸 모두 네모 바깥 문장에 있다"
+        ]
+      },
+      "required_vocab": [
+        "lost on",
+        "benchmark",
+        "in the absence of",
+        "occurred to",
+        "perspective"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 가 코퍼스 지문의 셋째 문장과 문자 그대로 일치한다(네모 표기 '(B) allows / forbids' 포함)",
+            "네모형 설계(세 칸을 서로 다른 장치에 건다)와 어긋나지 않고, 이 문항 고유의 장치 셋(전치사 on · 부정 중첩 · Rather)을 각각 칸에 대응시켰다",
+            "design_intent 가 '문맥에 맞는 낱말 고르기'라는 유형 일반론에 머물지 않는지 확인했다",
+            "세 네모가 각각 다른 종속 구조(주어-술어 결합 / In the absence of 부정 틀 / Rather 역접)로 확정된다는 것을 문자열로 확인했다"
+          ],
+          "checked": [
+            "answer_locus.quote 를 corpus.json 의 2017#29 passage 에서 문자열 대조",
+            "(A)(B)(C) 각 칸의 정답 낱말이 평가원 정답 ④(lost/allows/never)의 세 낱말과 일치하는지 대조",
+            "유형 정의(네모형 = 두 낱말 중 문맥에 맞는 쪽) 대조",
+            "why_correct 의 네 인용을 corpus.json 지문에서 문자열 대조",
+            "세 네모와 인용 구조의 대응을 칸별로 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "revised_note": "①과 ⑤를 처음에 둘 다 '연어 오인'으로 달았다가 반려했다",
+          "findings": [
+            "오답 4개의 라벨이 연어 오인 · 극성 반전 · 담화표지 방향 무시 · 부정 중첩 오독으로 서로 다르다",
+            "반려 후 수정: ⑤의 오류 칸은 (B)이고 그 미끼는 연어가 아니라 'In the absence of'와 forbids 의 부정 겹침이므로 '부정 중첩 오독'으로 바꿨다. 라벨 근거가 선지가 갈라지는 칸과 일치하게 됐다",
+            "how_to_reject 넷 모두 문장(둘째·셋째·마지막)을 위치로 지목한다",
+            "①⑤가 두 칸씩 정답과 같은 근접 오답이라 칸마다 근거가 필요하다 — why_correct 가 세 칸을 각각 다른 구조로 확정한다"
+          ],
+          "checked": [
+            "trap 라벨 4종 중복 여부",
+            "각 why_tempting 이 선지의 실제 낱말 조합(based/forbids/mostly 등)에 걸리는지 대조",
+            "선지 ①③⑤가 정답과 몇 칸 다른지 세어 '근접 오답' 서술이 사실인지 확인(①=1칸, ③=1칸, ⑤=1칸, ②=3칸)",
+            "소거법 의존 여부 확인",
+            "한 칸만 다른 오답(① based … allows … never · ⑤ lost … forbids … never)이 배제되는지 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "revised_note": "2단계가 처음에는 '문장의 뜻을 새겨 고른다'에 가까워 실행 불가로 반려했다",
+          "findings": [
+            "반려 후 수정: 2단계를 '네모 뒤 전치사를 먼저 본다 → 주어를 한 구로 줄인다'로 바꿔 지문을 아직 안 본 학생도 첫 동작을 정할 수 있게 했다",
+            "1단계가 지문을 읽기 전에 선지만으로 실행되므로 시작점이 분명하다",
+            "80초 배분: 선지 세로 훑기 10초 + 세 칸 각 20초 + 조합 10초로 맞는다",
+            "(C)는 다음 문장 첫 낱말 Rather 하나로 정해지므로 시간이 모자라도 마지막 칸은 건진다"
+          ],
+          "checked": [
+            "각 step 을 지문 미독 상태에서 순서대로 실행 가능한지 시늉해 봄",
+            "금지 표현('흐름을 파악하면' 등) 문자열 대조",
+            "required_vocab 5개가 세 칸 판정에 실제로 쓰이는 낱말인지 확인 — lost on/in the absence of/occurred to 는 칸 판정에 직접 쓰이고, benchmark·perspective 는 결과절 해석에 필요하다",
+            "why_correct 만 들고 세 근거 자리를 각각 찾아갈 수 있는지 확인"
+          ]
+        }
+      ],
+      "revised": true
+    },
+    {
+      "item_id": "2016#29",
+      "measured_ability": "지시사 This 가 받는 앞 문장, 콜론 뒤가 앞 명사구(a major problem)의 내용이라는 규칙, thus 가 잇는 앞뒤 절의 관계 — 문장을 잇는 세 장치로 낱말의 극성을 정하는 능력",
+      "design_intent": "세 칸을 모두 '앞뒤 문장과의 연결'에 걸었다. (A)는 This 가 앞 문장의 벌목 행위를 한 낱말로 요약하는 자리이고, (B)는 콜론 앞의 'a major problem'이 뒤 내용을 부정으로 묶으며, (C)는 thus 앞 절의 포식 행위가 grebe 에게 무엇인지로 정해진다. 관광지 개발·수용 같은 소재 낱말(accommodation)을 미끼로 깔아, 소재 연상으로 고르면 첫 칸부터 무너지게 짰다.",
+      "answer_locus": {
+        "sentence_index": [
+          7,
+          8
+        ],
+        "quote": "To compensate for this rather obvious defect, a specially selected species of fish called the Large-mouthed Bass was introduced.",
+        "reasoning": "이 문장이 앞 문장의 상태를 'this rather obvious defect(명백한 결함)'로 되받는다. 결함을 보충하려고 물고기를 새로 들여왔다는 것은 호수에 낚시용 어종이 없었다는 뜻이므로 (B)는 lacked 다. supported 라면 보충할 결함 자체가 없어 이 문장이 성립하지 않는다. 또 이 문장이 도입된 배스를 새 변수로 세우므로, 다음 문장에서 배스가 'the crabs and small fish'를 먹기 시작한 결과가 grebe 에게 미치는 방향이 (C)를 정한다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "지시어 지시대상 오인",
+          "why_tempting": "(B) lacked·(C) competing 이 정답과 같은 근접 오답이다. (A)에서 accommodation 을 고르게 되는 것은 네모 문장의 뒷부분 'was driven by the needs of a fast growing mat-making industry'만 보고 '산업의 필요를 수용한 것'으로 읽기 때문이다.",
+          "how_to_reject": "네모 문장은 This 로 시작한다. This 가 받는 것은 바로 앞 문장 'the local human population was cutting down the reed beds at a furious rate'이고, 갈대밭을 마구 베어 내는 일을 한 낱말로 부르면 destruction 이다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "극성 반전",
+          "why_tempting": "세 칸이 모두 정답의 반대쪽인 줄이다. '관광지 개발 · 어종 도입 · 새 어종과 공존'이라는 우호적 이야기로 읽으면 세 칸이 한꺼번에 뒤집힌다.",
+          "how_to_reject": "셋째 문장의 'One immediate reason was easy enough to spot'과 다섯째 문장 'But there were other problems'가 이 글이 개체 감소의 원인을 세는 글임을 못 박는다. 여덟째 문장의 'this rather obvious defect'도 결함을 명시한다."
+        },
+        {
+          "n": 3,
+          "verdict": "correct",
+          "why_correct": "세 네모가 각각 인접 한 문장으로 확정되고 그 값이 선지 ③ 'destruction' … 'lacked' … 'competing' 이다. (A)의 This ___ 가 받는 것은 앞 문장 'the local human population was cutting down the reed beds at a furious rate' 이고, 갈대밭을 베어 내는 일은 수용이 아니라 파괴이므로 destruction 이다. (B)는 같은 문장의 콜론 앞이 'there was a major problem with this idea' 라 콜론 뒤가 그 문제를 적어야 하고, 다음 문장 'To compensate for this rather obvious defect' 가 그 상태를 defect 로 되받으므로 lacked 다 — supported 면 보충할 결함 자체가 없어 다음 문장이 성립하지 않는다. (C)는 앞 절 'turned their attentions to the crabs and small fish that lived in the lake' 와 뒤의 'with the few remaining grebes for food' 가 같은 먹이를 가리키므로 competing 이다.",
+          "confirmed_at": {
+            "sentence_index": [
+              3,
+              4,
+              6,
+              7,
+              8,
+              9
+            ],
+            "note": "(A)는 앞 문장, (B)는 같은 문장의 콜론 앞과 다음 문장, (C)는 같은 문장의 앞 절에서 각각 확정된다. mat-making industry(돗자리 산업)라는 소재가 (A)에서 accommodation 쪽 연상을 부르지만, This 가 받는 것은 산업이 아니라 앞 문장의 벌목 행위다."
+          }
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "담화표지 방향 무시",
+          "why_tempting": "앞 문장 'An American airline was intent on developing the lake as a tourist destination for fishermen'이 만든 기대(낚시가 되는 호수)를 네모에 그대로 이어 붙이면 supported 가 자연스러워 보인다.",
+          "how_to_reject": "네모 문장은 However 로 시작하고 콜론 앞에 'a major problem with this idea'가 있다. However + 콜론은 앞 기대를 꺾고 문제의 내용을 여는 자리이므로, 콜론 뒤에는 기대를 무너뜨리는 낱말이 와야 한다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "연어 오인",
+          "why_tempting": "네모 뒤가 with 여서 'cooperate with'가 반사적으로 붙는다. (A) destruction·(B) lacked 를 맞게 고른 학생이 마지막 칸에서 걸리는 근접 오답이다.",
+          "how_to_reject": "네모 뒤가 'with the few remaining grebes for food'로 끝난다 — for food 가 붙으면 with 는 대상이 아니라 상대다. 앞 절에서 배스가 이미 'the crabs and small fish that lived in the lake'를 먹기 시작했고, 다음 문장은 배스가 grebe 새끼까지 삼켰다고 한다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "(A) 네모 문장이 This/These 로 시작하는지 먼저 본다. 시작하면 네모 낱말은 앞 문장을 한 낱말로 요약한 말이므로, 앞 문장에서 사람들이 한 행동을 찾아 그것과 같은 뜻인 쪽을 고른다.",
+          "on_fail": "앞 문장에 행동이 없으면 네모 낱말이 뒤에서 어떻게 받아지는지(was driven by ...) 보고, 그 서술어의 주어로 어울리는 쪽을 남긴다."
+        },
+        {
+          "step": "(B) 네모가 콜론(:) 뒤에 있으면 콜론 앞의 명사구를 먼저 읽는다 — 'a major problem'이다. 콜론 뒤는 그 명사구의 내용이어야 하므로 문제를 만드는 쪽 낱말을 고른다.",
+          "on_fail": "콜론 앞이 안 잡히면 다음 문장의 'this rather obvious defect'가 무엇을 defect 라 부르는지 되짚어 그쪽에 맞춘다."
+        },
+        {
+          "step": "(C) 네모 앞의 thus 를 표시하고, thus 앞 절에서 누가 무엇을 했는지 한 줄로 적는다(도입 어종이 게와 작은 물고기를 먹기 시작). 그 행동이 grebe 에게 이로운지 해로운지만 정해 낱말을 고른다.",
+          "on_fail": "판단이 안 서면 바로 다음 문장(gobbled up ... chicks)의 서술 태도를 보고 같은 방향으로 맞춘다."
+        },
+        {
+          "step": "세 낱말을 이어 선지에서 그대로 있는 줄을 찾는다. 없으면 확신이 가장 낮은 칸 하나만 바꾼다.",
+          "on_fail": "두 칸만 확신하면 그 두 칸이 일치하는 선지만 남기고 남은 칸을 지시사·콜론·thus 중 아직 안 쓴 장치로 재확인한다."
+        }
+      ],
+      "time_budget_sec": 75,
+      "difficulty": {
+        "predicted": 0.66,
+        "drivers": [
+          "(A)가 지시사 This 의 지시대상을 요구한다",
+          "소재 낱말 accommodation 이 관광 소재와 겹쳐 미끼가 강하다",
+          "(B)(C)는 다음 문장이 곧바로 확인해 주어 회수가 쉽다"
+        ]
+      },
+      "required_vocab": [
+        "accommodation",
+        "destruction",
+        "compensate",
+        "defect",
+        "compete"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 가 코퍼스 지문 여덟째 문장과 문자 그대로 일치한다",
+            "세 칸이 각각 다른 연결 장치(This · 콜론 · thus)에 걸려 있다는 서술이 지문 배치와 맞는다",
+            "정답 근거를 네모 문장 안이 아니라 다음 문장에 둔 것이 이 유형의 실제 설계와 일치한다",
+            "3차 판정에서 setter 가 revise 를 냈다 — 기존 서술은 「(A)에서 소재 연상을 끊어야 도달한다」로 학습자 행동만 적어, 세 네모 중 어느 것도 근거로 확정하지 않았다. 세 칸을 각각 인접 문장으로 확정하고 선지 ③의 세 낱말을 인용했다",
+            "고쳐 쓴 뒤 세 자로 다시 재어 pass 로 바꿨다"
+          ],
+          "checked": [
+            "answer_locus.quote 를 corpus.json 의 2016#29 passage 에서 문자열 대조",
+            "정답 ③의 세 낱말(destruction/lacked/competing)이 (A)(B)(C) 판정과 일치하는지 대조",
+            "문장 번호를 세어 quote 가 8번째 문장임을 확인",
+            "why_correct 안의 지문 인용을 corpus.json 지문에 문자열 대조",
+            "정답 선지 텍스트와 서술의 대응을 낱말 단위로 확인",
+            "정답 번호를 평가원 정답표와 재대조"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "오답 4개의 라벨이 지시어 지시대상 오인 · 극성 반전 · 담화표지 방향 무시 · 연어 오인으로 서로 다르다",
+            "①③⑤가 각각 정답과 한 칸씩만 다르고 ②는 세 칸이 다르다 — 라벨을 '한 칸 오답'과 '전면 반전'으로 갈라 붙인 것이 선지 구조와 맞는다",
+            "⑤의 how_to_reject 가 'for food'라는 선지 밖 지문 어구를 위치로 제시해 검증 가능하다",
+            "3차 판정에서 analyst 가 revise 를 냈다 — 소재 연상 관찰을 confirmed_at.note 로 옮겼다. (B)는 supported 를 넣으면 다음 문장이 성립하지 않는다는 반사실 검사로, (C)는 for food 라는 같은 문장 안의 부사구로 근거를 세워 소거법을 피했다",
+            "고쳐 쓴 뒤 세 자로 다시 재어 pass 로 바꿨다"
+          ],
+          "checked": [
+            "trap 라벨 4종 중복 여부",
+            "각 선지의 세 낱말을 정답 조합과 칸별로 대조해 why_tempting 이 실제로 갈리는 칸을 말하는지 확인",
+            "how_to_reject 넷 모두에 지문 위치(문장 순서 또는 인용 어구)가 있는지 확인",
+            "why_correct 가 근거 서술인지 학습자 심리 서술인지 판정",
+            "소거법에 기대지 않는지 확인",
+            "오답 넷의 trap·why_tempting·how_to_reject 는 손대지 않았음을 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "1~3단계가 각각 눈에 보이는 표지(This · 콜론 · thus)에서 시작하므로 지문을 아직 안 본 학생도 첫 동작이 정해진다",
+            "고유명사(Atitlán Giant Grebe, Large-mouthed Bass)를 몰라도 절차가 돌아간다 — 새와 물고기라는 것만 알면 (C)가 풀린다",
+            "75초 배분: 칸당 20초 + 조합 15초로 맞는다",
+            "3차 판정에서 tutor 가 revise 를 냈다 — 학생이 세 칸을 각각 어디서 확인하는지 몰랐다. 칸마다 볼 문장을 하나씩 지정했다",
+            "고쳐 쓴 뒤 세 자로 다시 재어 pass 로 바꿨다"
+          ],
+          "checked": [
+            "금지 표현 문자열 대조",
+            "required_vocab 5개가 칸 판정에 실제로 쓰이는지 확인(accommodation/destruction 은 A, compensate/defect 는 B, compete 는 C)",
+            "각 on_fail 이 실패했을 때 다음에 볼 자리를 구체적으로 주는지 확인",
+            "학생이 서술에 적힌 위치를 지문에서 실제로 짚을 수 있는지 확인",
+            "solve_procedure 와 서술이 어긋나지 않는지 대조",
+            "time_budget_sec 안에서 확인 가능한 분량인지"
+          ]
+        }
+      ],
+      "revised": true
+    },
+    {
+      "item_id": "2015#30",
+      "body_recovered": true,
+      "measured_ability": "네모 낱말을 앞 문장이 이미 쓴 어근(precise number → precision, underlying order → underlies)과 잇고, 형태가 닮은 반의어 쌍(underlies/undermines)을 극성으로 가르는 능력",
+      "design_intent": "(B)와 (C)는 바로 앞 문장에 정답의 어근을 미리 심어 두고, 그 대신 (A)에는 두 낱말 모두 with 와 짝이 되는 연어(fuse A with B / replace A with B)를 놓아 연어로는 못 고르게 만들었다. (A)는 '귀가 측정과 판단을 함께 하는가, 한쪽을 다른 쪽으로 갈음하는가'를 다음 두 문장에서 읽어야만 정해진다. 형태 유사어 underlies/undermines 로 마지막 칸에서 한 번 더 거른다.",
+      "answer_locus": {
+        "sentence_index": [
+          2,
+          3
+        ],
+        "quote": "We can discern different colors, but we can give a precise number to different sounds.",
+        "reasoning": "이 문장이 귀에게 두 능력을 동시에 주는 근거다 — 색은 '판단(discern)'만 되지만 소리는 '정확한 수치(a precise number)'까지 준다. 곧 청각은 측정 능력과 판단 능력을 함께 갖는 감각이므로 (A)는 fuses 이고, replaces 라면 한쪽이 다른 쪽을 대신해 능력이 하나만 남아 이 문장과 어긋난다. 같은 문장의 'a precise number'가 다음 문장 'this kind of ___'가 받는 대상이므로 (B) precision 도 여기서 확정된다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "형태 유사어 혼동",
+          "why_tempting": "(A) fuses·(B) precision 이 정답과 같아 마지막 한 칸만 다른 근접 오답이다. underlies 와 undermines 는 철자가 닮아 둘 다 '아래(under)'의 이미지로 읽히고, 진동이 사물을 '흔든다'는 물리적 연상이 undermines 를 그럴듯하게 만든다.",
+          "how_to_reject": "네모 앞 문장이 이미 'the invisible, underlying order of things'라고 써서 같은 어근을 심어 두었다. 그 질서와 이어지는 통로가 vibration 이므로 네모는 그 어근을 되받는 underlies 다. undermines(훼손하다)는 앞 문장의 'a remarkable connection'과 극성이 반대다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "국소 어울림",
+          "why_tempting": "앞뒤 문장에 different 가 두 번(different colors, different sounds) 나와 (B)에 diversity 가 반사적으로 붙는다. (A) replaces 도 'replace A with B'라는 연어가 with 를 보고 먼저 떠오른 결과다.",
+          "how_to_reject": "(B) 네모는 'this kind of'로 앞 문장의 무엇인가를 받는다. 앞 문장에서 눈과 대비되는 귀의 능력으로 지목된 것은 different 가 아니라 'a precise number'다. 또 다음 문장이 'an octave', 'a C or an F-sharp'처럼 정확히 짚어 내는 예를 든다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "극성 반전",
+          "why_tempting": "(B)(C) 두 칸이 지문의 대조축에서 함께 뒤집힌 줄이다. 글을 '귀는 다양하게 듣고 진동은 사물을 흔든다'는 감각적 이야기로 읽으면 diversity 와 undermines 가 한꺼번에 자연스러워 보인다.",
+          "how_to_reject": "'The ears do not lie'와 'there are few acoustical illusions'가 이 글의 청각 평가를 정확성 쪽에 못 박는다. 다양성(diversity)이나 훼손(undermines)은 이 두 문장이 세운 방향과 반대다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "연어 오인",
+          "why_tempting": "네모 뒤에 with 가 있어 'replace A with B'가 먼저 떠오른다. (B) precision·(C) underlies 는 정답과 같아 (A) 한 칸만 다른 가장 강한 근접 오답이다.",
+          "how_to_reject": "네모 뒤 두 문장이 귀에게 판단(discern 쪽)과 측정(a precise number)을 둘 다 준다. 대체라면 능력이 하나만 남는데, 문장 주어가 'the only sense that ___ an ability to measure with an ability to judge'로 두 능력을 나란히 들고 있다."
+        },
+        {
+          "n": 5,
+          "verdict": "correct",
+          "why_correct": "(A)는 같은 문장의 틀이 정한다 — 'the ear is the only sense that (A) fuses / replaces an ability to measure with an ability to judge' 에서 다음 문장 'we can give a precise number to different sounds' 가 재는 능력이 귀에 남아 있음을 못 박으므로, 재는 능력을 없애는 replaces 가 아니라 두 능력을 하나로 묶는 fuses 다. (B)는 바로 앞 문장의 대조가 정한다 — 'We can discern different colors, but we can give a precise number to different sounds' 에서 눈에게 있는 것이 different colors 쪽이고 없는 것이 precise 쪽이므로 'Our eyes do not let us perceive with this kind of' 뒤에는 precision 이 온다. (C)는 앞 문장이 낱말째로 준다 — 'the invisible, underlying order of things' 의 underlying 을 관계절이 그대로 받으므로 underlies 다. 세 값이 fuses …… precision …… underlies 로 묶인 선지가 ⑤ 다.",
+          "confirmed_at": {
+            "sentence_index": [
+              2,
+              3,
+              4,
+              10,
+              11
+            ],
+            "note": "「학습자가 미끄러지는 자리」 (A)에서 replace A with B 라는 연어가 눈에 먼저 들어와 replaces 를 고르게 되고, 선지 ⑤ 에는 인쇄 잔여 숫자('underlies 5')가 붙어 있어 대조할 때 눈이 걸린다."
+          }
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "(B)와 (C) 네모부터 손댄다. 두 칸의 낱말 넷을 보고 그 어근이 앞 문장에 이미 나와 있는지 찾는다(precise → precision, underlying → underlies).",
+          "on_fail": "겹치는 어근이 안 보이면 네모의 두 낱말을 각각 앞 문장 끝에 붙여 읽어, 앞 문장을 되받는 쪽을 남긴다."
+        },
+        {
+          "step": "형태가 닮은 짝(underlies/undermines)은 뜻이 반대인지 먼저 확인한다. 반대라면 앞 문장의 극성 표현('a remarkable connection', 'invisible, underlying order')과 같은 부호인 쪽을 고른다.",
+          "on_fail": "두 낱말의 뜻이 안 갈리면 접두사 under- 뒤의 어간(lie=놓여 있다 / mine=파내다)을 갈라 적어 본다."
+        },
+        {
+          "step": "(A) 네모는 뒤에 with 가 있어 두 낱말 모두 연어가 성립한다. 연어로 고르지 말고, 뒤따르는 두 문장이 귀에게 능력을 둘 다 주는지 하나만 주는지 세어 고른다.",
+          "on_fail": "능력이 몇 개인지 안 갈리면 그 문장의 'the only sense'가 무엇이 유일하다는 말인지 — 두 능력을 함께 갖는 유일함인지만 판단한다."
+        },
+        {
+          "step": "세 낱말을 이어 선지에서 찾는다. 이 회차 선지 끝에는 인쇄 잔여 숫자가 붙어 있으므로 낱말 세 개만 대조한다.",
+          "on_fail": "일치하는 줄이 없으면 (A)를 비우고 (B)(C)만 같은 줄을 추려 남은 한 칸을 다시 판단한다."
+        }
+      ],
+      "time_budget_sec": 105,
+      "difficulty": {
+        "predicted": 0.45,
+        "drivers": [
+          "(A)에서 두 낱말이 모두 with 와 연어를 이뤄 연어 단서가 무력화된다",
+          "underlies/undermines 형태 유사쌍",
+          "추상 명사(precision, diversity) 대조가 문장 셋에 걸쳐 있다",
+          "3점 문항"
+        ]
+      },
+      "required_vocab": [
+        "fuse",
+        "precision",
+        "diversity",
+        "underlie",
+        "undermine",
+        "discern"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 가 코퍼스 지문 셋째 문장과 문자 그대로 일치한다",
+            "body_ok:false 문항이라 raw_block 의 회차 원문 창과 대조했다 — 지문 본문은 원문과 같고, 손상은 선지 ⑤ 끝의 인쇄 잔여 숫자('underlies 5')와 각주 조각('* acoustica')뿐이다. 세 칸 판정에는 영향이 없어 body_recovered 로 표시했다",
+            "(A)를 연어로 못 풀게 만든 것이 이 문항 고유 설계라는 서술이 지문 배치와 맞는다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 학습자 심리 서술이었다. 그 자리를 지배하는 항목과 지문 표현의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass. 옛 서술은 confirmed_at.note 로 옮겼다."
+          ],
+          "checked": [
+            "answer_locus.quote 를 corpus.json 의 2015#30 passage 에서 문자열 대조",
+            "raw_block 의 선지 ①~⑤와 코퍼스 choices 를 낱말 단위로 대조(⑤에 '5' 잔여 확인)",
+            "정답 ⑤의 세 낱말(fuses/precision/underlies)이 (A)(B)(C) 판정과 일치하는지 대조",
+            "다시 쓴 why_correct 의 인용을 corpus.json 해당 지문과 문자열 대조",
+            "밑줄 자리를 지배하는 항목이 실제로 그 항목인지 절 분해로 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "revised_note": "②와 ④를 처음 둘 다 '연어 오인'으로 달았다가 반려했다",
+          "findings": [
+            "반려 후 수정: ②는 (A)(B) 두 칸이 틀리고 그중 결정적 미끼는 앞뒤 문장의 different 반복이므로 '국소 어울림'으로, ④는 (A) 한 칸만 틀린 근접 오답이므로 'replace A with B' 연어에 걸리는 '연어 오인'으로 갈랐다",
+            "①과 ③이 둘 다 undermines 를 포함해 라벨이 겹칠 뻔했으나, ①은 (C) 한 칸만 다른 형태 유사어 함정, ③은 (B)(C)가 대조축에서 함께 뒤집힌 것으로 갈랐다",
+            "how_to_reject 넷이 각각 다른 문장(둘째·셋째·넷째·'The ears do not lie')을 위치로 든다",
+            "3차 검수(2026-09-03) — 다시 쓴 why_correct 가 소거법('나머지가 옳으므로')에 기대지 않고 그 밑줄 자체의 결함을 지목하는지 확인했다."
+          ],
+          "checked": [
+            "trap 라벨 4종 중복 여부",
+            "각 선지의 세 낱말을 정답 조합과 칸별로 대조해 몇 칸이 다른지 계수(①1칸 ②2칸 ③2칸 ④1칸)",
+            "why_tempting 이 지문의 실제 표현(different colors/different sounds, with, underlying order)에 걸리는지 대조",
+            "정답 번호를 평가원 정답표와 재대조",
+            "why_correct 에 소거법·심리 서술이 남지 않았는지 문장 단위로 확인",
+            "오답 4개의 trap 라벨과 how_to_reject 는 손대지 않았음을 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "(B)(C)를 먼저 풀게 순서를 뒤집은 것이 실전에 맞는다 — 이 두 칸은 앞 문장의 어근만 찾으면 되므로 (A)에서 시간을 태우기 전에 후보를 둘로 줄인다",
+            "4단계에 인쇄 잔여 숫자 경고를 넣어, 선지 대조에서 눈이 걸리는 실제 사고를 막는다",
+            "105초 배분: (B)(C) 각 20초 + (A) 40초 + 조합 25초. 3점 문항의 상한 안이다",
+            "3차 검수(2026-09-03) — 다시 쓴 why_correct 가 학생이 눈으로 맞춰 볼 수 있는 지문 표현을 그대로 담고 있는지 확인했다."
+          ],
+          "checked": [
+            "금지 표현 문자열 대조",
+            "지문 미독 상태에서 1단계('네모 낱말의 어근을 앞 문장에서 찾는다')가 실행 가능한지 시늉",
+            "required_vocab 6개가 칸 판정에 직접 쓰이는지 확인(fuse·discern=A, precision·diversity=B, underlie·undermine=C)",
+            "why_correct 의 인용이 학생이 지문에서 찾을 수 있는 연속 문자열인지 확인",
+            "solve_procedure 와 다시 쓴 근거가 같은 자리를 가리키는지 대조"
+          ]
+        }
+      ],
+      "revised": true
+    },
+    {
+      "item_id": "2014A#28",
+      "measured_ability": "these 가 받는 앞 문장의 열거를 한 낱말로 묶고, 양보절(Although ...)을 결론에서 떼어 내 결과 방향을 정하는 능력",
+      "design_intent": "재택근무 찬성이라는 방향이 뚜렷한 글에 형태 유사쌍(attractions/distractions)을 심어, 방향을 알아도 낱말 형태에서 미끄러지게 만들었다. (A)는 다음 문장의 방해 요인 열거로, (B)는 these 의 지시대상으로, (C)는 양보절 뒤 결론의 방향으로 각각 정해진다 — 세 칸 모두 네모가 든 문장 바깥에서 확인된다.",
+      "answer_locus": {
+        "sentence_index": [
+          3,
+          5
+        ],
+        "quote": "Office workers are regularly interrupted by ringing phones, impromptu meetings, and chattering coworkers.",
+        "reasoning": "이 문장이 두 칸을 한꺼번에 정한다. 사무실에서 방해가 일상적으로 일어난다면 앞 문장의 '조용한 시간'은 드문 것이므로 (A)는 rarely 다. 또 다음 문장 'free you from these ___'의 these 가 받는 것이 바로 이 문장의 세 항목(ringing phones, impromptu meetings, chattering coworkers)이고, 이 셋은 사람을 끌어당기는 매력이 아니라 일을 끊는 방해이므로 (B)는 distractions 다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "국소 어울림",
+          "why_tempting": "(B) distractions·(C) increase 가 정답과 같은 근접 오답이다. (A)에서 frequently 를 고르게 되는 것은 같은 문장의 'during regular business hours'와 다음 문장의 'regularly'가 눈에 남아 '자주'라는 낱말이 어울려 보이기 때문이다.",
+          "how_to_reject": "regularly 가 꾸미는 것은 quiet time 이 아니라 interrupted 다. 첫 문장이 'it is not always easy to get work done at the office'라고 못 박았으므로 네모가 꾸미는 quiet time 은 드문 쪽이다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "극성 반전",
+          "why_tempting": "세 칸이 모두 정답의 반대쪽인 줄이다. 글을 '사무실에는 조용한 시간이 자주 있는데 집에는 유혹이 많아 생산성이 떨어진다'는 흔한 재택 반대론으로 바꿔 읽으면 세 칸이 한꺼번에 뒤집힌다.",
+          "how_to_reject": "마지막 문장 'you will get to enjoy the personal satisfaction of focusing on your work and getting it done'이 재택의 결과를 만족으로 마무리한다. 셋째 문장의 방해 요인 열거도 사무실 쪽을 부정으로 세운다."
+        },
+        {
+          "n": 3,
+          "verdict": "correct",
+          "why_correct": "(A)는 바로 다음 문장이 정한다 — 'Office workers are regularly interrupted by ringing phones, impromptu meetings, and chattering coworkers' 가 업무 시간이 방해로 채워져 있다고 하므로 조용한 시간은 rarely 다. (B)는 these 가 받는 대상이 정한다 — 'free you from these' 의 these 는 앞 문장에 열거된 그 방해들이므로 distractions 이고, 같은 문장 뒤 'giving you long blocks of time to focus on your work' 가 방해에서 풀려난 결과를 적어 방향까지 맞춘다. (C)는 그 결과가 이어져 'Your productivity will certainly' 뒤에 increase 를 넣게 하고, 뒤 절 'as will the quality of your work product' 도 같은 부호다. 세 값이 rarely …… distractions …… increase 로 묶인 선지가 ③ 이다.",
+          "confirmed_at": {
+            "sentence_index": [
+              3,
+              5,
+              7
+            ],
+            "note": "「학습자가 미끄러지는 자리」 attractions 와 distractions 가 형태 유사쌍이라 (B)에서 눈이 미끄러지지만, 세 칸 모두 바로 앞뒤 문장에서 곧바로 확인된다."
+          }
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "형태 유사어 혼동",
+          "why_tempting": "attractions 와 distractions 는 어간(tract)이 같아 눈으로는 잘 안 갈린다. 집에서 일할 때 겪는 것을 '유혹'으로 부르는 통념도 attractions 를 밀어 준다.",
+          "how_to_reject": "네모 앞의 these 는 집이 아니라 사무실 쪽 항목을 받는다 — 바로 앞 문장의 ringing phones, impromptu meetings, chattering coworkers 다. 이 셋은 유혹이 아니라 일을 끊는 것이고, 동사도 'free you from'이라 벗어나야 할 대상이다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "담화표지 방향 무시",
+          "why_tempting": "(A) rarely·(B) distractions 를 맞게 고른 학생이 마지막에 걸린다. 바로 앞 문장 'Although your home may present its own problems, too'를 결론으로 읽으면 집에도 문제가 있으니 생산성이 떨어진다로 이어진다.",
+          "how_to_reject": "그 문장은 Although 로 시작하는 양보절이고 주절이 'there are ways to deal with them'이다. 네모 문장 뒤에 붙은 'as will the quality of your work product'와 마지막 문장의 satisfaction 이 결과를 상승 쪽으로 확정한다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "(A) 네모가 꾸미는 명사(quiet time)에 밑줄을 긋고, 다음 문장이 사무실에서 실제로 일어나는 일을 열거하는지 본다. 열거가 방해 요인이면 조용한 시간은 드문 쪽이다.",
+          "on_fail": "열거가 없으면 첫 문장에서 필자가 사무실을 긍정으로 보는지 부정으로 보는지 한 낱말('not always easy')만 집어 그쪽에 맞춘다."
+        },
+        {
+          "step": "(B) 네모 앞의 these 에서 앞 문장으로 화살표를 긋고, 화살표가 닿은 열거 항목 셋을 한 낱말로 부르면 무엇인지 고른다.",
+          "on_fail": "지시대상이 안 잡히면 네모 앞 동사구 'free you from'만 보고, 벗어나야 할 대상으로 어울리는 쪽을 남긴다."
+        },
+        {
+          "step": "(C) 네모 앞 문장이 Although 로 시작하면 그 문장을 통째로 지우고 읽는다. 그다음 네모 뒤에 붙은 'as will ...' 부분과 마지막 문장의 태도로 상승·하강을 정한다.",
+          "on_fail": "방향이 안 정해지면 이 글이 재택근무를 권하는 글인지 말리는 글인지 첫 문장과 마지막 문장 둘만 이어 읽는다."
+        },
+        {
+          "step": "세 낱말을 이어 선지에서 그대로 있는 줄을 찾는다. 없으면 형태가 닮은 짝이 든 칸(attractions/distractions)을 먼저 다시 본다.",
+          "on_fail": "두 칸만 확신하면 그 두 칸이 일치하는 선지만 남기고 남은 칸을 지시사·양보절 중 아직 안 쓴 장치로 재확인한다."
+        }
+      ],
+      "time_budget_sec": 70,
+      "difficulty": {
+        "predicted": 0.8,
+        "drivers": [
+          "글의 방향(재택 옹호)이 첫 문장과 마지막 문장에서 모두 드러난다",
+          "세 칸이 같은 방향을 향해 서로를 보강한다",
+          "attractions/distractions 형태 유사쌍만이 실질 장애물이다"
+        ]
+      },
+      "required_vocab": [
+        "distraction",
+        "attraction",
+        "impromptu",
+        "productivity",
+        "nonproductive"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 가 코퍼스 지문 셋째 문장과 문자 그대로 일치한다",
+            "한 인용이 (A)와 (B) 두 칸을 동시에 확정한다는 서술이 지문 배치와 맞는다 — these 의 선행 항목이 같은 문장 안에 있다",
+            "3점 문항인데 예상 정답률을 0.8로 높게 잡았다. 배점이 아니라 장치 수로 잡은 값임을 drivers 에 적어 두었다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 학습자 심리 서술이었다. 그 자리를 지배하는 항목과 지문 표현의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass. 옛 서술은 confirmed_at.note 로 옮겼다."
+          ],
+          "checked": [
+            "answer_locus.quote 를 corpus.json 의 2014A#28 passage 에서 문자열 대조",
+            "정답 ③의 세 낱말(rarely/distractions/increase)이 (A)(B)(C) 판정과 일치하는지 대조",
+            "문장 번호를 세어 quote 가 3번째 문장임을 확인",
+            "다시 쓴 why_correct 의 인용을 corpus.json 해당 지문과 문자열 대조",
+            "밑줄 자리를 지배하는 항목이 실제로 그 항목인지 절 분해로 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "오답 4개의 라벨이 국소 어울림 · 극성 반전 · 형태 유사어 혼동 · 담화표지 방향 무시로 서로 다르다",
+            "①⑤가 각각 한 칸, ④가 두 칸, ②가 세 칸 다르다 — 라벨이 갈리는 칸과 대응한다",
+            "④의 why_tempting 이 어간 tract 공유라는 선지 문자열 자체의 성질에 근거한다",
+            "3차 검수(2026-09-03) — 다시 쓴 why_correct 가 소거법('나머지가 옳으므로')에 기대지 않고 그 밑줄 자체의 결함을 지목하는지 확인했다."
+          ],
+          "checked": [
+            "trap 라벨 4종 중복 여부",
+            "각 선지의 세 낱말을 정답 조합과 칸별로 대조",
+            "how_to_reject 넷 모두에 지문 위치(첫 문장·셋째 문장·양보절·마지막 문장)가 있는지 확인",
+            "정답 번호를 평가원 정답표와 재대조",
+            "why_correct 에 소거법·심리 서술이 남지 않았는지 문장 단위로 확인",
+            "오답 4개의 trap 라벨과 how_to_reject 는 손대지 않았음을 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "3단계의 '양보절을 통째로 지우고 읽는다'가 이 유형에서 되풀이 쓰이는 동작이라 다른 문항에도 옮겨진다",
+            "2단계의 화살표 긋기가 손으로 하는 동작이라 학생이 실행 여부를 스스로 확인할 수 있다",
+            "70초 배분: 칸당 15초 + 조합 25초",
+            "3차 검수(2026-09-03) — 다시 쓴 why_correct 가 학생이 눈으로 맞춰 볼 수 있는 지문 표현을 그대로 담고 있는지 확인했다."
+          ],
+          "checked": [
+            "금지 표현 문자열 대조",
+            "지문 미독 상태에서 1단계가 실행 가능한지 시늉",
+            "required_vocab 5개 중 impromptu·nonproductive 가 칸 판정에 필요한지 재확인 — impromptu 는 these 가 받는 열거를 '방해'로 묶는 데, nonproductive 는 (C) 상승 판정의 대조항으로 쓰인다",
+            "why_correct 의 인용이 학생이 지문에서 찾을 수 있는 연속 문자열인지 확인",
+            "solve_procedure 와 다시 쓴 근거가 같은 자리를 가리키는지 대조"
+          ]
+        }
+      ],
+      "revised": true
+    },
+    {
+      "item_id": "2014B#28",
+      "measured_ability": "밑줄 낱말이 든 절과 앞 절을 잇는 접속사(as)가 요구하는 인과 방향을 확인해, 이유절이 결론을 오히려 뒤집는 자리를 찾아내는 능력",
+      "design_intent": "지문 전체가 '자연 환경 ↔ 인간 관리', '두꺼운 껍질 ↔ 얇은 껍질' 두 대립축으로 짜여 있고, 밑줄 다섯 중 넷은 그 축 위에 바르게 놓여 있다. 틀린 한 곳은 'as farmers ___ responsibility'라는 이유절에 반의어를 넣어, 이유가 결론(두꺼운 껍질이 불필요하다)을 뒤집게 만들었다. 낱말 뜻이 아니라 절 사이 인과 방향을 보게 하는 설계다.",
+      "answer_locus": {
+        "sentence_index": [
+          5,
+          6
+        ],
+        "quote": "But under human management thick seed coats are unnecessary, as farmers ④ evade responsibility for storing seeds away from moisture and predators.",
+        "reasoning": "as 절은 앞 절 '인간 관리 아래서는 두꺼운 껍질이 불필요하다'의 이유여야 한다. 농부가 씨앗 보관 책임을 '회피한다(evade)'면 씨앗은 여전히 습기와 포식자를 스스로 막아야 하므로 두꺼운 껍질이 오히려 필요해진다 — 이유절이 결론을 뒤집는다. 껍질이 불필요해지려면 농부가 그 책임을 '떠맡는다(assume/take)'여야 하고, 이는 앞 문장이 두꺼운 껍질의 기능을 '자연 환경에서 살아남기 위한 것'으로 한정한 것과도 맞물린다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "지시어 지시대상 오인",
+          "why_tempting": "밑줄 낱말은 pressure 다. 앞 문장이 사람들이 식물을 보호하기 시작했다고 했으므로 '압력이 사라졌다'로 읽으면, 압력이 여전히 있다는 pressure 가 어색해 보인다.",
+          "how_to_reject": "밑줄 문장의 주어는 This 이고 동사는 changed 다 — This 가 받는 것은 앞 문장의 '심고 보호하기 시작함'이고, 그것이 압력을 없앤 것이 아니라 바꿨다고 말한다. 바로 다음 문장 'people created a new environment for them, and selected for other characteristics than nature previously had'가 새 압력이 들어섰음을 확인한다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "국소 어울림",
+          "why_tempting": "밑줄 낱말은 thinner 다. 바로 다음 문장이 'Thick seed coats are often essential'로 시작해 두 문장을 붙여 읽으면 얇은 껍질을 골랐다는 말이 모순처럼 보인다.",
+          "how_to_reject": "다음 문장은 조건이 다르다 — 'in a natural environment'라는 한정이 붙어 있다. 마지막 문장 'seeds with thinner coats were ⑤ preferred as they are easier to eat or process into flour'가 재배 조건에서 얇은 껍질이 선택됐음을 되풀이한다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "한정어 탈락",
+          "why_tempting": "밑줄 낱말은 essential 이다. 앞에서 농부가 얇은 껍질을 골랐다고 했고 뒤에서는 두꺼운 껍질이 unnecessary 라고 하므로, 그 사이에 '두꺼운 껍질이 필수'라는 말이 끼면 모순으로 보인다.",
+          "how_to_reject": "밑줄이 든 절에는 'for seeds to survive in a natural environment'라는 한정이 붙어 있고, 뒤 문장은 'under human management'로 조건을 바꿔 대비한다. 같은 문장의 because 절(seeds ... remain dormant for months until winter is over)이 자연 환경에서 두꺼운 껍질이 하는 일을 설명한다."
+        },
+        {
+          "n": 4,
+          "verdict": "correct",
+          "why_correct": "밑줄 ④가 든 절은 접속사 as 로 앞 절 'under human management thick seed coats are unnecessary' 의 이유를 대야 한다. 두꺼운 껍질이 하던 일은 앞 문장이 정의해 두었다 — 'Thick seed coats are often ③ essential for seeds to survive in a natural environment'. 곧 껍질이 맡던 보호를 사람이 대신 떠맡아야 껍질이 불필요해지는데, evade 는 그 책임을 회피한다는 뜻이라 이유가 거꾸로 선다 — 농부가 회피하면 두꺼운 껍질은 오히려 필요해진다. assume(떠맡다) 쪽으로 바꿔야 as 절이 앞 절의 이유가 되므로 문맥상 낱말이 틀린 자리는 ④ 다.",
+          "confirmed_at": {
+            "sentence_index": [
+              6,
+              7
+            ],
+            "note": "「학습자가 미끄러지는 자리」 evade 의 뜻을 알아도 문장이 '농부는 습기와 포식자로부터 씨앗을 보관할 책임을 ~한다' 로 매끄럽게 읽혀, 절 사이 인과를 안 따지면 그냥 지나간다."
+          }
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "담화표지 방향 무시",
+          "why_tempting": "밑줄 낱말은 preferred 다. 문장이 In fact 로 시작하는데 이를 역접으로 읽으면 앞 문장과 반대되는 말이 와야 한다고 보아, 앞과 같은 방향인 preferred 가 틀린 것처럼 보인다.",
+          "how_to_reject": "In fact 는 앞 내용을 뒤집는 표지가 아니라 강화하는 표지다. 같은 문장의 이유절 'as they are easier to eat or process into flour, and they allow seedlings to sprout more quickly when sown'이 선호의 근거를 대므로 방향이 맞는다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "밑줄에 손대기 전에, 이 글이 무엇을 무엇과 대비하는지 두 낱말을 뽑아 여백에 두 칸으로 적는다 — 여기서는 natural environment 와 human management 다.",
+          "on_fail": "대비어가 안 보이면 But · Instead · under 로 시작하는 문장을 찾아 그 앞뒤를 두 칸의 이름으로 삼는다."
+        },
+        {
+          "step": "밑줄 다섯을 각각 두 칸 중 어느 쪽 문장에 속하는지 표시한다(①②④⑤ 인간 관리 / ③ 자연). 칸이 정해지면 그 자리에 와야 할 낱말의 방향도 정해진다.",
+          "on_fail": "칸이 애매한 밑줄은 그 문장의 주어가 farmers 인지 wild plants 인지로 가른다."
+        },
+        {
+          "step": "밑줄이 든 절을 앞 절과 잇는 접속사(as, because, but, and, In fact)에 동그라미를 치고, 그 접속사가 요구하는 방향(이유·대조·강화)과 밑줄 낱말이 맞는지 한 개씩 O/X 를 매긴다.",
+          "on_fail": "접속사가 없는 밑줄은 그 문장의 대명사(This, they)가 무엇을 받는지 적고 그 대상과 맞는지 본다."
+        },
+        {
+          "step": "X 가 둘 이상이면 한정어(in a natural environment · under human management)를 빠뜨리고 읽었는지 확인해 O 로 되돌린다. 조건이 다르면 반대되는 말이 나란히 있어도 모순이 아니다.",
+          "on_fail": "X 가 하나도 없으면 이유 접속사 as/because 가 붙은 밑줄부터 다시 검사한다 — 이유절은 앞 절의 결론과 같은 방향이어야 한다."
+        },
+        {
+          "step": "남은 한 자리에 반대말을 넣어 문장을 다시 읽는다. 앞 절의 이유로 자연스러워지면 그 밑줄이 부적절한 것이다.",
+          "on_fail": "반대말이 안 떠오르면 접두사(un-, dis-)를 붙여 보거나, 목적어와 짝이 되는 흔한 동사(responsibility → take/assume)를 넣어 본다."
+        }
+      ],
+      "time_budget_sec": 100,
+      "difficulty": {
+        "predicted": 0.55,
+        "drivers": [
+          "정답 근거가 낱말 뜻이 아니라 as 절의 인과 방향에 있다",
+          "③ essential 이 한정어를 빼고 읽으면 모순처럼 보여 강한 미끼다",
+          "evade 가 목적어 responsibility 와 문법적으로는 자연스럽게 붙는다",
+          "3점 문항"
+        ]
+      },
+      "required_vocab": [
+        "evade",
+        "dormant",
+        "seed coat",
+        "predator",
+        "essential"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "revised_note": "선지 텍스트가 낱말이 아니라 밑줄 뒤 문장 토막이라는 점을 처음 서술에 반영하지 않아 반려했다",
+          "findings": [
+            "반려 후 수정: 파서가 뜬 choices 는 각 밑줄 표시 뒤의 본문 토막(①은 'pressure that these food plants experienced...' 이하 전체)이므로, 각 why_tempting 첫머리에 '밑줄 낱말은 pressure/thinner/essential/preferred 다'를 명시해 어느 낱말을 판정한 것인지 못 박았다",
+            "quote 가 코퍼스 지문 여섯째 문장과 문자 그대로 일치한다(밑줄 기호 ④ 포함)",
+            "이 문항만 밑줄형이고 나머지 넷은 네모형이다 — 재는 능력이 달라 type_report 에 갈라 적었다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 학습자 심리 서술이었다. 그 자리를 지배하는 항목과 지문 표현의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass. 옛 서술은 confirmed_at.note 로 옮겼다."
+          ],
+          "checked": [
+            "answer_locus.quote 를 corpus.json 의 2014B#28 passage 에서 문자열 대조",
+            "코퍼스 choices 5개가 낱말이 아니라 본문 토막임을 확인하고 각 토막의 첫 낱말이 밑줄 낱말임을 대조",
+            "정답 ④(evade)가 평가원 정답표와 일치하는지 대조",
+            "다시 쓴 why_correct 의 인용을 corpus.json 해당 지문과 문자열 대조",
+            "밑줄 자리를 지배하는 항목이 실제로 그 항목인지 절 분해로 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "밑줄형 오답은 '틀린 낱말'이 아니라 '맞는 낱말을 틀렸다고 의심하게 만드는 배치'다 — 라벨 넷(지시어 지시대상 오인 · 국소 어울림 · 한정어 탈락 · 담화표지 방향 무시)이 그 의심 경로별로 갈린다",
+            "③ 한정어 탈락이 가장 강한 미끼다 — essential 과 unnecessary 가 이웃 문장에 나란히 있어 조건 한정을 안 보면 반드시 걸린다",
+            "how_to_reject 넷 모두 밑줄 문장 바깥의 위치(다음 문장·마지막 문장·because 절·이유절)를 지목한다",
+            "3차 검수(2026-09-03) — 다시 쓴 why_correct 가 소거법('나머지가 옳으므로')에 기대지 않고 그 밑줄 자체의 결함을 지목하는지 확인했다."
+          ],
+          "checked": [
+            "trap 라벨 4종 중복 여부",
+            "각 why_tempting 이 해당 밑줄 낱말과 그 이웃 문장에 실제로 걸리는지 대조",
+            "정답 ④의 reasoning 이 '반대말을 넣으면 이어진다'는 검증 가능한 조작을 제시하는지 확인",
+            "정답 번호를 평가원 정답표와 재대조",
+            "why_correct 에 소거법·심리 서술이 남지 않았는지 문장 단위로 확인",
+            "오답 4개의 trap 라벨과 how_to_reject 는 손대지 않았음을 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "1~2단계(대립축 두 칸 그리기 → 밑줄 배치)가 밑줄형 전체에 옮겨지는 동작이다",
+            "4단계가 '한정어를 빠뜨렸는지 되돌아본다'로 오탐 회수 경로를 준다 — 이 유형에서 학생이 맞는 낱말을 답으로 찍는 사고를 직접 막는다",
+            "100초 배분: 대립축 15초 + 밑줄 5개 각 12초 + 반대말 대입 25초",
+            "3차 검수(2026-09-03) — 다시 쓴 why_correct 가 학생이 눈으로 맞춰 볼 수 있는 지문 표현을 그대로 담고 있는지 확인했다."
+          ],
+          "checked": [
+            "금지 표현 문자열 대조",
+            "지문 미독 상태에서 1단계가 실행 가능한지 시늉",
+            "required_vocab 5개가 지문에 실제로 있는지 문자열 대조(evade · dormant · seed coat · predators · essential)",
+            "why_correct 의 인용이 학생이 지문에서 찾을 수 있는 연속 문자열인지 확인",
+            "solve_procedure 와 다시 쓴 근거가 같은 자리를 가리키는지 대조"
+          ]
+        }
+      ],
+      "revised": true
+    }
+  ],
+  "type_report": {
+    "type_id": "R-VOCAB",
+    "n_analyzed": 5,
+    "format_split": {
+      "네모형(선택형)": [
+        "2017#29",
+        "2016#29",
+        "2015#30",
+        "2014A#28"
+      ],
+      "밑줄형": [
+        "2014B#28"
+      ],
+      "note": "이 청크는 형식이 섞여 있다. 2014학년도 수능 B형 28번이 이미 밑줄형이고, A형 28번·2015~2017 수능은 네모형이다. 곧 '2018학년도부터 밑줄형' 은 네모형의 완전 소멸 시점이지 밑줄형의 등장 시점이 아니다 — 두 형식이 한동안 공존했다. 옛 회차를 풀 때는 발문을 먼저 읽어 형식을 가려야 한다."
+    },
+    "format_difference": {
+      "네모형": "세 칸 각각에서 두 낱말 중 하나를 고르고, 5선지는 8가지 조합 중 5개만 싣는다. 재는 것은 '문장을 잇는 장치(지시사·콜론·역접어·부정어)가 요구하는 방향'이고, 한 칸만 맞혀도 후보가 2~3개 준다. 정답과 한 칸만 다른 근접 오답이 항상 2~3개 있고, 세 칸이 전부 반대인 '전면 반전' 선지가 4문항 중 3문항에 있었다(2017②, 2016②, 2014A②). 낱말을 몰라도 조합 구조로 후보를 줄일 수 있다.",
+      "밑줄형": "다섯 낱말 중 문맥에 안 맞는 하나를 찾는다. 후보를 줄이는 구조가 없어 다섯 곳을 모두 검사해야 하고, 오답 넷은 '맞는 낱말인데 틀려 보이게 배치된 것'이다. 곧 네모형이 '방향 고르기'를 잰다면 밑줄형은 '맞는 것을 맞다고 판정하는 힘'까지 잰다 — 근접 문장에 반대말이 나란히 놓여(essential ↔ unnecessary) 조건 한정을 못 보면 정상 낱말을 답으로 찍는다.",
+      "실전 함의": "네모형은 선지를 먼저 세로로 훑는 것이 이득이고, 밑줄형은 선지를 볼 것이 없으므로 지문의 대립축을 먼저 세우는 것이 이득이다. 같은 유형 이름 아래 첫 동작이 반대다."
+    },
+    "recurring_traps": [
+      {
+        "trap": "극성 반전",
+        "count": 3,
+        "signature": "네모형 5선지에는 세 칸이 모두 정답의 반대인 줄이 거의 항상 한 개 있다(2017②, 2016②, 2014A②). 글의 방향을 통째로 거꾸로 잡은 학생만 걸리므로, 첫 문장과 마지막 문장 둘만 이어 읽어도 지워진다."
+      },
+      {
+        "trap": "연어 오인",
+        "count": 3,
+        "signature": "네모 뒤 전치사가 두 낱말 모두와 짝이 되도록 배치한다(based on / lost on, fuse with / replace with, compete with / cooperate with). 고빈도 연어 쪽이 먼저 떠오르지만, 연어는 이 칸에서 단서가 아니라 미끼다."
+      },
+      {
+        "trap": "국소 어울림",
+        "count": 3,
+        "signature": "네모 주변 몇 낱말과만 어울리는 쪽을 고르게 만든다(different colors/different sounds → diversity, regularly → frequently, 이웃 문장의 Thick → thinner 의심). 근거는 언제나 네모가 든 문장 바깥에 있다."
+      },
+      {
+        "trap": "담화표지 방향 무시",
+        "count": 4,
+        "signature": "Rather · However + 콜론 · Although 양보절 · In fact — 표지 하나가 칸 하나를 확정하는데, 표지를 안 보고 소재 연상으로 이으면 그 칸만 틀린 근접 오답에 닿는다."
+      },
+      {
+        "trap": "형태 유사어 혼동",
+        "count": 2,
+        "signature": "underlies/undermines, attractions/distractions 처럼 어간을 공유하는 쌍. 뜻이 반대인지부터 확인하고, 반대면 앞 문장의 극성에 맞춘다."
+      },
+      {
+        "trap": "지시어 지시대상 오인",
+        "count": 2,
+        "signature": "This/these 가 앞 문장을 한 낱말로 요약하는 자리에 네모나 밑줄을 놓는다(2016(A), 2014B①). 지시사에서 앞 문장으로 화살표를 그으면 곧바로 풀린다."
+      },
+      {
+        "trap": "부정 중첩 오독",
+        "count": 1,
+        "signature": "네모 앞에 이미 부정 표현이 있는데(in the absence of) 네모에도 부정 낱말(forbids)을 넣게 만든다. 부정 개수를 세어 짝수면 긍정으로 읽는다."
+      },
+      {
+        "trap": "한정어 탈락",
+        "count": 1,
+        "signature": "밑줄형 전용. 'in a natural environment' 같은 조건 한정을 빼고 읽으면 이웃 문장의 반대말과 충돌해 보여, 맞는 낱말을 답으로 찍게 된다."
+      }
+    ],
+    "answer_locus_pattern": "5문항 모두 근거가 네모·밑줄이 든 문장 **바깥**에 있다. 네모형 4문항은 예외 없이 바로 앞 문장 또는 바로 다음 문장이 근거였다(2017 = 같은 문장의 결과절 + 다음 단락 Rather, 2016 = 다음 문장 'To compensate for this rather obvious defect', 2015 = 다음 문장의 'a precise number'와 앞 문장의 'underlying order', 2014A = 앞 문장의 열거). 밑줄형 1문항만 근거가 밑줄이 든 문장 안에 있었는데, 그것도 낱말 뜻이 아니라 절을 잇는 접속사 as 였다. 곧 이 유형에서 '네모 안 두 낱말을 견주는 것'은 근거가 아니다 — 근거는 언제나 이웃 문장 또는 절 접속사다.",
+    "procedure": [
+      {
+        "step": "발문을 먼저 읽어 형식을 가른다 — '각 네모 안에서'면 네모형, '밑줄 친 부분 중'이면 밑줄형. 첫 동작이 다르다.",
+        "on_fail": "발문이 잘려 있으면 지문에 (A)(B)(C)가 있는지 ①~⑤가 박혀 있는지로 가른다."
+      },
+      {
+        "step": "네모형이면 지문을 읽기 전에 선지 다섯 줄을 세로로 훑어 각 칸의 두 낱말이 몇 번씩 나오는지 센다. 세 칸 중 한 칸만 정해도 후보가 2~3개로 준다.",
+        "on_fail": "세로 훑기가 안 되면 ①의 세 낱말만 라벨과 함께 옮겨 적고 나머지 넷은 ①과 다른 자리에만 표시한다."
+      },
+      {
+        "step": "네모형이면 각 칸마다 '네모 바깥의 장치'를 하나씩 찾아 적는다 — 네모 뒤 전치사, 네모 앞 부정 표현, 문장 첫머리의 This/these, 콜론 앞 명사구, 다음 문장 첫 낱말(Rather/However/Although/In fact), thus·so 같은 결과 표지.",
+        "on_fail": "장치가 안 보이는 칸은 비워 두고 다른 칸부터 확정한 뒤, 남은 선지에서 그 칸만 다른 줄이 있는지 본다."
+      },
+      {
+        "step": "밑줄형이면 지문의 대립축 두 낱말을 여백에 두 칸으로 적고, 밑줄 다섯을 어느 칸에 속하는 문장인지 배치한 뒤, 각 밑줄이 든 절을 앞 절과 잇는 접속사가 요구하는 방향과 맞는지 O/X 를 매긴다.",
+        "on_fail": "X 가 둘 이상이면 한정어(in a natural environment 같은 조건구)를 빠뜨렸는지 확인해 O 로 되돌린다."
+      },
+      {
+        "step": "확정한 답을 넣어 문장을 한 번 다시 읽는다. 네모형은 세 낱말을 이어 선지에서 찾고, 밑줄형은 의심되는 자리에 반대말을 넣어 앞 절과 이어지는지 본다.",
+        "on_fail": "네모형에서 일치하는 줄이 없으면 확신이 가장 낮은 칸 하나만 바꿔 다시 찾는다. 밑줄형에서 반대말이 안 떠오르면 접두사(un-, dis-)나 목적어와 짝이 되는 흔한 동사를 넣어 본다."
+      }
+    ],
+    "failure_modes": [
+      "네모 안 두 낱말만 번갈아 보며 '어느 쪽이 더 그럴듯한가'로 고른다 — 근거는 5문항 모두 네모 바깥에 있었으므로 이 방식은 원리적으로 근거에 닿지 못한다.",
+      "네모 뒤 전치사를 보고 고빈도 연어를 반사적으로 채운다(based on, replace with, cooperate with). 출제자는 두 낱말 모두 그 전치사와 짝이 되게 골라 놓는다.",
+      "부정 표현이 겹친 자리에서 부정 개수를 안 센다 — 'In the absence of a process that forbids'를 부정 하나로 읽으면 결과절과의 모순이 안 보인다.",
+      "양보절(Although ...)이나 강화 표지(In fact)를 결론·역접으로 잘못 취급해 마지막 칸에서 뒤집는다. 세 칸 중 두 칸을 맞히고 틀리는 전형적 경로다.",
+      "밑줄형에서 이웃 문장의 반대말(essential ↔ unnecessary)만 보고 조건 한정을 못 보아, 맞는 낱말을 부적절한 것으로 찍는다.",
+      "형태가 닮은 쌍(underlies/undermines, attractions/distractions)에서 철자를 대충 보고 넘어간다 — 뜻이 정반대인지부터 확인해야 한다.",
+      "네모형에서 세 칸을 다 풀고 선지 대조를 서두르다 인쇄 잔여 문자에 걸린다(2015#30 선지 ⑤는 'underlies 5'로 인쇄 잔여 숫자가 붙어 있다). 낱말 세 개만 대조한다."
+    ],
+    "time_budget_sec": 86,
+    "open_questions": [
+      "(C) 어법·어휘 밑줄형에는 라벨표가 없어 이 청크에서 8종을 새로 쓰고 쓴다: `극성 반전` · `국소 어울림` · `형태 유사어 혼동` · `연어 오인` · `담화표지 방향 무시` · `부정 중첩 오독` · `지시어 지시대상 오인` · `한정어 탈락`. (A) 명제형 라벨 9종 중 이 유형 오답에 맞은 것은 하나도 없었다 — 선지가 명제가 아니라 낱말 조합이라 '범위 과대/과소'나 '부분 사실'이 걸릴 층이 없다. §1-b 에 (C) 전용 표로 등재를 제안한다.",
+      "위 8종 중 `한정어 탈락`은 밑줄형에서만 나왔고 `부정 중첩 오독`은 네모형 1건뿐이다. 두 라벨이 형식 전용인지 표본이 모자라 단정할 수 없다 — 밑줄형 표본이 이 청크에 1개뿐이므로 R-VOCAB M2306-30 · M2706-30 청크(모두 밑줄형)에서 재확인해야 한다.",
+      "네모형에서는 같은 함정이 여러 선지에 실린다(3칸 × 2낱말 = 8조합 중 5개만 선지가 되므로 한 칸의 오독이 2~3줄에 겹친다). 그래서 '오답 4개의 함정이 서로 다른가'라는 analyst 의 자가 밑줄형만큼 예리하게 들지 않는다 — 네모형에서는 '갈리는 칸'을 기준으로 라벨을 붙였는데(2015#30 ②④가 둘 다 (A)에서 갈려 실제로 겹칠 뻔했다), 이 규칙이 다음 네모형 청크에서도 유지되는지 확인이 필요하다.",
+      "예상 정답률은 평가원 공개 통계가 아니라 장치 수·미끼 강도로 잡은 값이다(2014A#28 은 3점인데 0.8로 높게 잡았다). 실제 정답률 자료가 들어오면 5개 값을 한 번에 재보정해야 한다.",
+      "반려는 3건 나왔다(2017#29 analyst·tutor, 2015#30 analyst, 2014B#28 setter). 2016#29 와 2014A#28 은 반려 0건인데, 두 문항 모두 세 칸이 같은 방향을 향해 서로를 보강하는 쉬운 구조라 세 자가 실제로 다른 것을 재고도 이견이 없었던 경우로 본다. 다만 '쉬운 문항에서는 세 자가 같은 결론에 모인다'가 검수의 무력화인지 정상인지는 표본 5개로 판단할 수 없다."
+    ]
+  }
+}

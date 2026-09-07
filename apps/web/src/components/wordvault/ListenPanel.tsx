@@ -55,18 +55,24 @@ export interface ListenPanelProps {
   queueLength: number
   /** 현재 재생 단어 */
   currentWord: WordItem | null
+  /**
+   * 이 브라우저에 **영어 음성이 설치돼 있는가**. 재생은 브라우저 TTS 가 맡으므로,
+   * 영어 음성이 없으면 소리는 나도 영어를 영어로 읽지 않을 수 있다.
+   * 그 사실을 말해 주지 않으면 학습자는 "발음이 이상하다" 를 자기 귀 탓으로 돌린다.
+   */
+  englishVoice?: boolean
 }
 
 const CONTENT_OPTS: { value: ListenContent; label: string }[] = [
-  { value: 'word', label: '영어만' },
-  { value: 'word-example', label: '영어+예문' },
+  { value: 'word', label: 'Word only' },
+  { value: 'word-example', label: 'Word + example' },
 ]
 const SPEED_OPTS: ListenSpeed[] = [0.75, 1.0, 1.25, 1.5]
 const GAP_OPTS: ListenGap[] = [0.5, 1.0, 2.0]
 const REPEAT_OPTS: { value: ListenRepeat; label: string }[] = [
-  { value: 1, label: '1회' },
-  { value: 2, label: '2회' },
-  { value: 999, label: '무한' },
+  { value: 1, label: '1x' },
+  { value: 2, label: '2x' },
+  { value: 999, label: 'Loop' },
 ]
 
 export function ListenPanel({
@@ -84,6 +90,7 @@ export function ListenPanel({
   currentIndex,
   queueLength,
   currentWord,
+  englishVoice = true,
 }: ListenPanelProps) {
   const selectedCount = selectedIds.size
 
@@ -156,10 +163,12 @@ export function ListenPanel({
             onClick={handleToggleAll}
             className={cn(
               'inline-flex items-center gap-s-2',
-              'rounded-md px-s-4 py-s-2',
-              'font-display text-[13px] font-bold tracking-[-0.01em] text-white',
+              'min-h-[44px] rounded-md px-s-4 py-s-2',
+              // ⚠️ 흰 글자를 --learn-fresh(#3B82F6) 위에 얹어 3.68:1 이었다(실측 2026-08-22).
+              //    색을 새로 고르지 않는다 — 저장소에 이미 두 테마 모두 계산된 짝이 있다.
+              'font-display text-[13px] font-bold tracking-[-0.01em] text-[var(--on-p)]',
               'shadow-sm transition-all duration-fast hover:shadow-md',
-              isPlaying ? 'bg-learn-error hover:bg-[#DC2626]' : 'bg-learn-fresh hover:bg-[#2563EB]'
+              isPlaying ? 'bg-[var(--error)] hover:opacity-90' : 'bg-[var(--p)] hover:opacity-90'
             )}
           >
             {isPlaying ? <Square size={13} /> : <Play size={13} />}
@@ -172,7 +181,7 @@ export function ListenPanel({
             disabled={selectedCount === 0}
             className={cn(
               'inline-flex items-center gap-s-2',
-              'rounded-md px-s-3 py-s-2',
+              'min-h-[44px] rounded-md px-s-3 py-s-2',
               'border font-display text-[13px] font-semibold tracking-[-0.01em]',
               'transition-all duration-fast',
               'disabled:cursor-not-allowed disabled:opacity-40',
@@ -184,7 +193,7 @@ export function ListenPanel({
             <span>선택 듣기</span>
             <span
               className={cn(
-                'px-s-1.5 inline-flex h-[20px] min-w-[20px] items-center justify-center rounded-[10px]',
+                'px-s-2 inline-flex h-[20px] min-w-[20px] items-center justify-center rounded-[10px]',
                 'font-mono text-[11px] font-bold',
                 selectedCount > 0 ? 'bg-learn-mastered text-white' : 'bg-bg2 text-t3'
               )}
@@ -195,6 +204,17 @@ export function ListenPanel({
 
         </div>
       </div>
+
+      {/*
+        영어 음성 없음 — 재생은 되지만 영어를 영어로 읽지 않을 수 있다.
+        모달로 막지 않는다(학습 중단 금지). 무엇을 하면 되는지까지 한 줄로 말한다.
+      */}
+      {!englishVoice && (
+        <p className="mt-s-3 rounded-[var(--r-md)] bg-bg2 px-s-3 py-s-2 text-xs font-medium leading-relaxed text-t2">
+          이 브라우저에 영어 음성이 없어요. 소리는 나지만 발음이 정확하지 않을 수 있어요 — 기기 설정에서
+          영어 음성을 추가하면 자연스럽게 들려요.
+        </p>
+      )}
 
       {/* 진행률 (재생 중에만) */}
       {isPlaying && (
@@ -225,7 +245,7 @@ export function ListenPanel({
           <button
             type="button"
             onClick={onPrev}
-            className="flex h-[34px] w-[34px] items-center justify-center rounded-md text-t2 transition-all duration-fast hover:bg-bg2 hover:text-t1"
+            className="flex h-11 w-11 items-center justify-center rounded-md text-t2 transition-all duration-fast hover:bg-bg2 hover:text-t1"
             aria-label="이전"
           >
             <SkipBack size={13} />
@@ -233,7 +253,7 @@ export function ListenPanel({
           <button
             type="button"
             onClick={onTogglePause}
-            className="flex h-[42px] w-[42px] items-center justify-center rounded-full bg-p text-bg shadow-sm transition-all duration-fast hover:bg-p-hover hover:shadow-md"
+            className="flex h-11 w-11 items-center justify-center rounded-full bg-p text-bg shadow-sm transition-all duration-fast hover:bg-p-hover hover:shadow-md"
             aria-label="일시정지/재개"
           >
             {isPaused ? <Play size={14} /> : <Pause size={14} />}
@@ -241,7 +261,7 @@ export function ListenPanel({
           <button
             type="button"
             onClick={onNext}
-            className="flex h-[34px] w-[34px] items-center justify-center rounded-md text-t2 transition-all duration-fast hover:bg-bg2 hover:text-t1"
+            className="flex h-11 w-11 items-center justify-center rounded-md text-t2 transition-all duration-fast hover:bg-bg2 hover:text-t1"
             aria-label="다음"
           >
             <SkipForward size={13} />
@@ -262,7 +282,7 @@ export function ListenPanel({
           <button
             type="button"
             onClick={onStop}
-            className="flex h-[34px] w-[34px] items-center justify-center rounded-md text-t2 transition-all duration-fast hover:bg-bg2 hover:text-t1"
+            className="flex h-11 w-11 items-center justify-center rounded-md text-t2 transition-all duration-fast hover:bg-bg2 hover:text-t1"
             aria-label="정지"
           >
             <Square size={13} />
@@ -349,14 +369,24 @@ function OptBtn({
     <button
       type="button"
       onClick={onClick}
-      className={cn(
-        'px-s-2.5 rounded-sm border py-s-1',
-        'font-display text-xs font-semibold',
-        'transition-all duration-fast',
-        active ? 'border-p bg-p text-bg' : 'border-bd bg-bg text-t2 hover:bg-bg2 hover:text-t1'
-      )}
+      // ⚠️ 실측 26px 였다(기준 44px) — 속도·간격·반복·내용 칩 **8종 전부**.
+      //    칩 자체를 44px 로 키우면 설정 줄이 두 배가 돼 화면을 잡아먹는다.
+      //    → 보이는 알약은 그대로 두고 **세로 패딩으로 히트영역만** 44px 로 만든다.
+      //      `::after` 가 아니라 요소 자체의 크기여야 계측기가 본다(WordRow 에서 겪었다).
+      className="group/opt -m-2.5 flex min-h-[44px] min-w-[44px] items-center justify-center p-3"
     >
-      {children}
+      <span
+        className={cn(
+          'px-s-3 rounded-sm border py-s-1',
+          'font-display text-xs font-semibold',
+          'transition-all duration-fast',
+          active
+            ? 'border-p bg-p text-bg'
+            : 'border-bd bg-bg text-t2 group-hover/opt:bg-bg2 group-hover/opt:text-t1'
+        )}
+      >
+        {children}
+      </span>
     </button>
   )
 }

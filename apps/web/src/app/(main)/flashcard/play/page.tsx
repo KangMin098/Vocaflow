@@ -8,6 +8,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import type { Database } from '@vocaflow/types'
 
 import { FlashcardSession } from '@/components/flashcard/FlashcardSession'
+import { contentRefFromScope } from '@/lib/content/content-ref'
 import { ResourceContext } from '@/components/layout/ResourceContext'
 import { fetchDueFlashcardWords } from '@/lib/flashcard/hub-words'
 import { fetchScopedFlashcardWords } from '@/lib/flashcard/scoped-words'
@@ -15,11 +16,11 @@ import { resolveSessionReturnHref } from '@/lib/layout/session-return'
 import { createClient } from '@/lib/supabase/server'
 
 export const metadata = {
-  title: 'Flashcard 학습 · Vocaflow',
+  title: 'Flashcard 학습',
 }
 
 interface PageProps {
-  searchParams?: { set?: string; text?: string; chapter?: string; from?: string }
+  searchParams?: { set?: string; text?: string; chapter?: string; from?: string; limit?: string }
 }
 
 export default async function FlashcardPlayPage({ searchParams }: PageProps) {
@@ -28,6 +29,12 @@ export default async function FlashcardPlayPage({ searchParams }: PageProps) {
   // 세트 내 특정 챕터만 학습 (?set=…&chapter=N) — 유효 양수만
   const chapterNum = searchParams?.chapter ? parseInt(searchParams.chapter, 10) : NaN
   const chapter = Number.isInteger(chapterNum) && chapterNum > 0 ? chapterNum : null
+  // 세션 길이 (?limit=N) — 허브의 길이 선택. 유효 양수만 받고 없으면 전체.
+  // 허브가 보여준 분포는 "앞에서 N개" 를 센 것이므로(session-queue.bucketsOf) 여기서도
+  // **앞에서** 자른다. 뒤에서 자르거나 섞으면 허브가 미리 보여준 단어와 달라진다.
+  const limitNum = searchParams?.limit ? parseInt(searchParams.limit, 10) : NaN
+  const limit = Number.isInteger(limitNum) && limitNum > 0 ? limitNum : null
+  const applyLimit = <T,>(words: T[]): T[] => (limit == null ? words : words.slice(0, limit))
   // 닫기 복귀: ?from 우선 → 스코프 텍스트 → hub (스코프 단어 id 오용 방지)
   const backHref = resolveSessionReturnHref(searchParams?.from, text, '/flashcard')
 
@@ -45,6 +52,7 @@ export default async function FlashcardPlayPage({ searchParams }: PageProps) {
     })
 
     if (scoped && scoped.words.length > 0) {
+      const words = applyLimit(scoped.words)
       return (
         <>
           <ResourceContext
@@ -54,9 +62,9 @@ export default async function FlashcardPlayPage({ searchParams }: PageProps) {
               position: scoped.subtitle,
               href: '/text',
             }}
-            total={scoped.words.length}
+            total={words.length}
           />
-          <FlashcardSession initialWords={scoped.words} backHref={backHref} />
+          <FlashcardSession initialWords={words} backHref={backHref} content={contentRefFromScope({ set, text, chapter })} />
         </>
       )
     }
@@ -73,8 +81,9 @@ export default async function FlashcardPlayPage({ searchParams }: PageProps) {
 
   if (!user) return <HubEmpty reason="auth" />
 
-  const words = await fetchDueFlashcardWords(client, user.id)
-  if (words.length === 0) return <HubEmpty reason="empty" />
+  const all = await fetchDueFlashcardWords(client, user.id)
+  if (all.length === 0) return <HubEmpty reason="empty" />
+  const words = applyLimit(all)
 
   return (
     <>
@@ -82,12 +91,14 @@ export default async function FlashcardPlayPage({ searchParams }: PageProps) {
         resource={{
           type: 'vocab',
           label: '내 단어 자산 · SRS 큐',
-          position: `오늘 ${words.length}개`,
+          // "오늘 N개" 는 due 처방처럼 읽히지만 이 큐는 due 필터가 아니라 급한 순 상한이다
+          // (study-queries.fetchStudyVocabularies). 문구를 동작에 맞춘다.
+          position: `급한 순 ${words.length}개`,
           href: '/wordvault',
         }}
         total={words.length}
       />
-      <FlashcardSession initialWords={words} backHref={backHref} />
+      <FlashcardSession initialWords={words} backHref={backHref} content={contentRefFromScope({ set, text, chapter })} />
     </>
   )
 }
@@ -101,14 +112,14 @@ function HubEmpty({ reason }: { reason: 'auth' | 'empty' }) {
       <h1 className="font-display text-[16px] font-[700] text-[var(--t1)]">
         {reason === 'auth' ? '로그인이 필요해요' : '복습할 단어가 아직 없어요'}
       </h1>
-      <p className="font-body text-[13px] leading-relaxed text-[var(--t3)]">
+      <p className="font-body text-[13px] leading-relaxed text-[var(--t2)]">
         {reason === 'auth'
           ? '로그인하면 내 단어장의 복습 카드를 학습할 수 있어요.'
           : '단어장에 단어를 추가하면 SRS 큐에서 복습 카드가 채워져요. 본문에서 단어를 모으거나 단어장을 살펴보세요.'}
       </p>
       <a
         href={reason === 'auth' ? '/login' : '/wordvault'}
-        className="rounded-[var(--r-md)] bg-[var(--p)] px-5 py-2.5 font-display text-[13px] font-[700] text-[var(--ti)] transition-colors hover:bg-[var(--p-hover)]"
+        className="rounded-[var(--r-md)] bg-[var(--p)] px-5 py-3 font-display text-[13px] font-[700] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)]"
       >
         {reason === 'auth' ? '로그인' : '내 단어장으로'}
       </a>
@@ -125,12 +136,12 @@ function ScopedEmpty({ title }: { title: string | null }) {
       <h1 className="font-display text-[16px] font-[700] text-[var(--t1)]">
         {title ? `"${title}" 에 학습할 단어가 아직 없어요` : '학습할 단어가 없어요'}
       </h1>
-      <p className="font-body text-[13px] leading-relaxed text-[var(--t3)]">
+      <p className="font-body text-[13px] leading-relaxed text-[var(--t2)]">
         이 자료의 단어장이 비어 있어요. 본문에서 단어를 추가하거나 단어장을 먼저 살펴보세요.
       </p>
       <a
         href="/wordvault"
-        className="rounded-[var(--r-md)] bg-[var(--p)] px-5 py-2.5 font-display text-[13px] font-[700] text-[var(--ti)] transition-colors hover:bg-[var(--p-hover)]"
+        className="rounded-[var(--r-md)] bg-[var(--p)] px-5 py-3 font-display text-[13px] font-[700] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)]"
       >
         내 단어장으로
       </a>

@@ -1,0 +1,554 @@
+{
+  "book": {
+    "id": "0a98bd58-97e0-415a-914a-efc11f30779c",
+    "title": "The Voyages of Doctor Dolittle",
+    "book_v_level": 7
+  },
+  "target_per_chapter": 7,
+  "chapters": [
+    {
+      "chapter_idx": 1,
+      "chapter_title": "The Cobbler's Son",
+      "word_count": 891,
+      "chapter_v_level": 4,
+      "content": "CHAPTER 1. The Cobbler's Son\u001fBook Part I\u001ehttps://standardebooks.org/ebooks/hugh-lofting/the-voyages-of-doctor-dolittle/text/chapter-1-1\n\nMy name was Tommy Stubbins, son of Jacob Stubbins, the cobbler of Puddleby-on-the-Marsh; and I was nine and a half years old. At that time Puddleby was only quite a small town. A river ran through the middle of it; and over this river there was a very old stone bridge, called Kingsbridge, which led you from the marketplace on one side to the churchyard on the other.\n\nSailing-ships came up this river from the sea and anchored near the bridge. I used to go down and watch the sailors unloading the ships upon the river-wall. The sailors sang strange songs as they pulled upon the ropes; and I learned these songs by heart. And I would sit on the river-wall with my feet dangling over the water and sing with the men, pretending to myself that I too was a sailor.\n\nFor I longed always to sail away with those brave ships when they turned their backs on Puddleby Church and went creeping down the river again, across the wide lonely marshes to the sea. I longed to go with them out into the world to seek my fortune in foreign lands⁠--Africa, India, China and Peru! When they got round the bend in the river and the water was hidden from view, you could still see their huge brown sails towering over the roofs of the town, moving onward slowly⁠--like some gentle giants that walked among the houses without noise. What strange things would they have seen, I wondered, when next they came back to anchor at Kingsbridge! And, dreaming of the lands I had never seen, I'd sit on there, watching till they were out of sight.\n\nThree great friends I had in Puddleby in those days. One was Joe, the mussel-man, who lived in a tiny hut by the edge of the water under the bridge. This old man was simply marvelous at making things. I never saw a man so clever with his hands. He used to mend my toy ships for me which I sailed upon the river; he built windmills out of packing-cases and barrel-staves; and he could make the most wonderful kites from old umbrellas.\n\nJoe would sometimes take me in his mussel-boat, and when the tide was running out we would paddle down the river as far as the edge of the sea to get mussels and lobsters to sell. And out there on the cold lonely marshes we would see wild geese flying, and curlews and redshanks and many other kinds of seabirds that live among the samphire and the long grass of the great salt fen. And as we crept up the river in the evening, when the tide had turned, we would see the lights on Kingsbridge twinkle in the dusk, reminding us of teatime and warm fires.\n\nAnother friend I had was Matthew Mugg, the cat's-meatman. He was a funny old person with a bad squint. He looked rather awful but he was really quite nice to talk to. He knew everybody in Puddleby; and he knew all the dogs and all the cats. In those times being a cat's-meatman was a regular business. And you could see one nearly any day going through the streets with a wooden tray full of pieces of meat stuck on skewers crying, \"Meat! M‑E‑A‑T!\" People paid him to give this meat to their cats and dogs instead of feeding them on dog-biscuits or the scraps from the table.\n\nI enjoyed going round with old Matthew and seeing the cats and dogs come running to the garden-gates whenever they heard his call. Sometimes he let me give the meat to the animals myself; and I thought this was great fun. He knew a lot about dogs and he would tell me the names of the different kinds as we went through the town. He had several dogs of his own; one, a whippet, was a very fast runner, and Matthew used to win prizes with her at the Saturday coursing races; another, a terrier, was a fine ratter. The cat's-meatman used to make a business of rat-catching for the millers and farmers as well as his other trade of selling cat's-meat.\n\nMy third great friend was Luke the Hermit. But of him I will tell you more later on.\n\nI did not go to school; because my father was not rich enough to send me. But I was extremely fond of animals. So I used to spend my time collecting birds' eggs and butterflies, fishing in the river, rambling through the countryside after blackberries and mushrooms and helping the mussel-man mend his nets.\n\nYes, it was a very pleasant life I lived in those days long ago⁠--though of course I did not think so then. I was nine and a half years old; and, like all boys, I wanted to grow up⁠--not knowing how well off I was with no cares and nothing to worry me. Always I longed for the time when I should be allowed to leave my father's house, to take passage in one of those brave ships, to sail down the river through the misty marshes to the sea⁠--out into the world to seek my fortune.",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "Who is telling this story, and what is his father’s trade?",
+          "questionKo": "이 이야기를 들려주는 사람은 누구이며, 그 아버지의 직업은?",
+          "options": [
+            {
+              "text": "Tommy Stubbins — his father is the cobbler of Puddleby.",
+              "textKo": "토미 스터빈스 — 아버지는 퍼들비의 구두 수선공."
+            },
+            {
+              "text": "Joe the mussel-man — his father was a sailor.",
+              "textKo": "홍합 장수 조 — 아버지는 선원이었다."
+            },
+            {
+              "text": "Matthew Mugg — his father sold cat’s-meat.",
+              "textKo": "매슈 머그 — 아버지는 고양이 고기를 팔았다."
+            },
+            {
+              "text": "John Dolittle — his father was a doctor.",
+              "textKo": "존 두리틀 — 아버지는 의사였다."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "My name was Tommy Stubbins, son of Jacob Stubbins, the cobbler of Puddleby-on-the-Marsh"
+        },
+        {
+          "type": "multiple",
+          "question": "How did Tommy come to know the sailors’ songs by heart?",
+          "questionKo": "토미가 뱃사람들의 노래를 외우게 된 경위는?",
+          "options": [
+            {
+              "text": "His father sang them at home.",
+              "textKo": "아버지가 집에서 불러 주어서."
+            },
+            {
+              "text": "He watched the sailors unload the ships and sang along from the river-wall.",
+              "textKo": "짐 부리는 뱃사람들을 보며 강둑에서 함께 불러서."
+            },
+            {
+              "text": "Joe taught them to him in the mussel-boat.",
+              "textKo": "조가 홍합 배에서 가르쳐 주어서."
+            },
+            {
+              "text": "He learned them at school.",
+              "textKo": "학교에서 배워서."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "And I would sit on the river-wall with my feet dangling over the water and sing with the men"
+        },
+        {
+          "type": "multiple",
+          "question": "What did the departing ships look like once they rounded the bend in the river?",
+          "questionKo": "강굽이를 돌아 나간 배들은 어떤 모습으로 보였는가?",
+          "options": [
+            {
+              "text": "Like a line of dark birds settling on the marsh.",
+              "textKo": "늪에 내려앉는 검은 새들의 행렬처럼."
+            },
+            {
+              "text": "Like torches moving through the mist.",
+              "textKo": "안개 속을 지나는 횃불처럼."
+            },
+            {
+              "text": "Like gentle giants walking noiselessly among the houses, their brown sails towering over the roofs.",
+              "textKo": "갈색 돛이 지붕 위로 우뚝 솟아, 집들 사이를 소리 없이 걷는 온순한 거인처럼."
+            },
+            {
+              "text": "Their sails vanished at once behind the churchyard.",
+              "textKo": "돛이 교회 묘지 뒤로 곧장 사라졌다."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "like some gentle giants that walked among the houses without noise"
+        },
+        {
+          "type": "multiple",
+          "question": "What was Joe the mussel-man especially good at?",
+          "questionKo": "홍합 장수 조가 특히 잘하던 일은?",
+          "options": [
+            {
+              "text": "Telling stories about foreign lands.",
+              "textKo": "먼 나라 이야기를 들려주는 것."
+            },
+            {
+              "text": "Catching rats for the millers and farmers.",
+              "textKo": "방앗간 주인과 농부를 위해 쥐를 잡는 것."
+            },
+            {
+              "text": "Naming every dog in Puddleby.",
+              "textKo": "퍼들비의 개를 모두 이름으로 아는 것."
+            },
+            {
+              "text": "Making things with his hands — mending toy ships, building windmills, making kites from old umbrellas.",
+              "textKo": "손으로 만드는 일 — 장난감 배 수리, 풍차 만들기, 헌 우산으로 연 만들기."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "He used to mend my toy ships for me … he could make the most wonderful kites from old umbrellas."
+        },
+        {
+          "type": "multiple",
+          "question": "What was a cat’s-meatman’s regular business in those times?",
+          "questionKo": "그 시절 고양이 고기 장수의 일이란 무엇이었나?",
+          "options": [
+            {
+              "text": "Selling skewered pieces of meat that people paid him to give to their cats and dogs.",
+              "textKo": "꼬치에 꿴 고깃점을 팔아, 사람들의 고양이와 개에게 주는 일."
+            },
+            {
+              "text": "Buying stray cats and dogs from the streets.",
+              "textKo": "거리의 떠돌이 고양이와 개를 사들이는 일."
+            },
+            {
+              "text": "Cooking meat pies for the market.",
+              "textKo": "시장에 낼 고기 파이를 굽는 일."
+            },
+            {
+              "text": "Doctoring sick animals for the farmers.",
+              "textKo": "농부들의 병든 짐승을 돌보는 일."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "People paid him to give this meat to their cats and dogs instead of feeding them on dog-biscuits"
+        },
+        {
+          "type": "multiple",
+          "question": "Why did Tommy not go to school?",
+          "questionKo": "토미가 학교에 다니지 않은 이유는?",
+          "options": [
+            {
+              "text": "He preferred to work in the mussel-boat.",
+              "textKo": "홍합 배에서 일하는 편이 좋아서."
+            },
+            {
+              "text": "His father was not rich enough to send him.",
+              "textKo": "아버지가 보낼 만큼 넉넉하지 못해서."
+            },
+            {
+              "text": "The school in Puddleby had closed.",
+              "textKo": "퍼들비의 학교가 문을 닫아서."
+            },
+            {
+              "text": "He was too often ill as a child.",
+              "textKo": "어릴 적 자주 앓아서."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "I did not go to school; because my father was not rich enough to send me."
+        },
+        {
+          "type": "truefalse",
+          "question": "Looking back, the grown-up Tommy says he knew at the time how well off he was.",
+          "questionKo": "어른이 된 토미는 그 시절 자기가 얼마나 복 받았는지 그때도 알고 있었다고 말한다.",
+          "options": [
+            {
+              "text": "True",
+              "textKo": "맞다"
+            },
+            {
+              "text": "False",
+              "textKo": "아니다"
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "though of course I did not think so then"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 2,
+      "chapter_title": "I Hear of the Great Naturalist",
+      "word_count": 1521,
+      "chapter_v_level": 4,
+      "content": "CHAPTER 2. I Hear of the Great Naturalist\u001fBook Part I\u001ehttps://standardebooks.org/ebooks/hugh-lofting/the-voyages-of-doctor-dolittle/text/chapter-1-2\n\nOne early morning in the Springtime, when I was wandering among the hills at the back of the town, I happened to come upon a hawk with a squirrel in its claws. It was standing on a rock and the squirrel was fighting very hard for its life. The hawk was so frightened when I came upon it suddenly like this, that it dropped the poor creature and flew away. I picked the squirrel up and found that two of its legs were badly hurt. So I carried it in my arms back to the town.\n\nWhen I came to the bridge I went into the mussel-man's hut and asked him if he could do anything for it. Joe put on his spectacles and examined it carefully. Then he shook his head.\n\n\"Yon crittur's got a broken leg,\" he said⁠--\"and another badly cut an' all. I can mend you your boats, Tom, but I haven't the tools nor the learning to make a broken squirrel seaworthy. This is a job for a surgeon⁠--and for a right smart one an' all. There be only one man I know who could save yon crittur's life. And that's John Dolittle.\"\n\n\"Who is John Dolittle?\" I asked. \"Is he a vet?\"\n\n\"No,\" said the mussel-man. \"He's no vet. Doctor Dolittle is a nacheralist.\"\n\n\"What's a nacheralist?\"\n\n\"A nacheralist,\" said Joe, putting away his glasses and starting to fill his pipe, \"is a man who knows all about animals and butterflies and plants and rocks an' all. John Dolittle is a very great nacheralist. I'm surprised you never heard of him⁠--and you daft over animals. He knows a whole lot about shellfish⁠--that I know from my own knowledge. He's a quiet man and don't talk much; but there's folks who do say he's the greatest nacheralist in the world.\"\n\n\"Where does he live?\" I asked.\n\n\"Over on the Oxenthorpe Road, t'other side the town. Don't know just which house it is, but 'most anyone 'cross there could tell you, I reckon. Go and see him. He's a great man.\"\n\nSo I thanked the mussel-man, took up my squirrel again and started off towards the Oxenthorpe Road.\n\nThe first thing I heard as I came into the marketplace was someone calling \"Meat! M‑e‑a‑t!\"\n\n\"There's Matthew Mugg,\" I said to myself. \"He'll know where this Doctor lives. Matthew knows everyone.\"\n\nSo I hurried across the marketplace and caught him up.\n\n\"Matthew,\" I said, \"do you know Doctor Dolittle?\"\n\n\"Do I know John Dolittle!\" said he. \"Well, I should think I do! I know him as well as I know my own wife⁠--better, I sometimes think. He's a great man⁠--a very great man.\"\n\n\"Can you show me where he lives?\" I asked. \"I want to take this squirrel to him. It has a broken leg.\"\n\n\"Certainly,\" said the cat's-meatman. \"I'll be going right by his house directly. Come along and I'll show you.\"\n\nSo off we went together.\n\n\"Oh, I've known John Dolittle for years and years,\" said Matthew as we made our way out of the marketplace. \"But I'm pretty sure he ain't home just now. He's away on a voyage. But he's liable to be back any day. I'll show you his house and then you'll know where to find him.\"\n\nAll the way down the Oxenthorpe Road Matthew hardly stopped talking about his great friend, Doctor John Dolittle⁠--\"M.D.\" He talked so much that he forgot all about calling out \"Meat!\" until we both suddenly noticed that we had a whole procession of dogs following us patiently.\n\n\"Where did the Doctor go to on this voyage?\" I asked as Matthew handed round the meat to them.\n\n\"I couldn't tell you,\" he answered. \"Nobody never knows where he goes, nor when he's going, nor when he's coming back. He lives all alone except for his pets. He's made some great voyages and some wonderful discoveries. Last time he came back he told me he'd found a tribe of Red Indians in the Pacific Ocean⁠--lived on two islands, they did. The husbands lived on one island and the wives lived on the other. Sensible people, some of them savages. They only met once a year, when the husbands came over to visit the wives for a great feast⁠--Christmas-time, most likely. Yes, he's a wonderful man is the Doctor. And as for animals, well, there ain't no one knows as much about 'em as what he does.\"\n\n\"How did he get to know so much about animals?\" I asked.\n\nThe cat's-meatman stopped and leant down to whisper in my ear.\n\n\"He talks their language,\" he said in a hoarse, mysterious voice.\n\n\"The animals' language?\" I cried.\n\n\"Why certainly,\" said Matthew. \"All animals have some kind of a language. Some sorts talk more than others; some only speak in sign-language, like deaf-and-dumb. But the Doctor, he understands them all⁠--birds as well as animals. We keep it a secret though, him and me, because folks only laugh at you when you speak of it. Why, he can even write animal-language. He reads aloud to his pets. He's wrote history-books in monkey-talk, poetry in canary language and comic songs for magpies to sing. It's a fact. He's now busy learning the language of the shellfish. But he says it's hard work⁠--and he has caught some terrible colds, holding his head under water so much. He's a great man.\"\n\n\"He certainly must be,\" I said. \"I do wish he were home so I could meet him.\"\n\n\"Well, there's his house, look,\" said the cat's-meatman⁠--\"that little one at the bend in the road there⁠--the one high up⁠--like it was sitting on the wall above the street.\"\n\nWe were now come beyond the edge of the town. And the house that Matthew pointed out was quite a small one standing by itself. There seemed to be a big garden around it; and this garden was much higher than the road, so you had to go up a flight of steps in the wall before you reached the front gate at the top. I could see that there were many fine fruit trees in the garden, for their branches hung down over the wall in places. But the wall was so high I could not see anything else.\n\nWhen we reached the house Matthew went up the steps to the front gate and I followed him. I thought he was going to go into the garden; but the gate was locked. A dog came running down from the house; and he took several pieces of meat which the cat's-meatman pushed through the bars of the gate, and some paper bags full of corn and bran. I noticed that this dog did not stop to eat the meat, as any ordinary dog would have done, but he took all the things back to the house and disappeared. He had a curious wide collar round his neck which looked as though it were made of brass or something. Then we came away.\n\n\"The Doctor isn't back yet,\" said Matthew, \"or the gate wouldn't be locked.\"\n\n\"What were all those things in paper-bags you gave the dog?\" I asked.\n\n\"Oh, those were provisions,\" said Matthew⁠--\"things for the animals to eat. The Doctor's house is simply full of pets. I give the things to the dog, while the Doctor's away, and the dog gives them to the other animals.\"\n\n\"And what was that curious collar he was wearing round his neck?\"\n\n\"That's a solid gold dog-collar,\" said Matthew. \"It was given to him when he was with the Doctor on one of his voyages long ago. He saved a man's life.\"\n\n\"How long has the Doctor had him?\" I asked.\n\n\"Oh, a long time. Jip's getting pretty old now. That's why the Doctor doesn't take him on his voyages any more. He leaves him behind to take care of the house. Every Monday and Thursday I bring the food to the gate here and give it him through the bars. He never lets anyone come inside the garden while the Doctor's away⁠--not even me, though he knows me well. But you'll always be able to tell if the Doctor's back or not⁠--because if he is, the gate will surely be open.\"\n\nSo I went off home to my father's house and put my squirrel to bed in an old wooden box full of straw. And there I nursed him myself and took care of him as best I could till the time should come when the Doctor would return. And every day I went to the little house with the big garden on the edge of the town and tried the gate to see if it were locked. Sometimes the dog, Jip, would come down to the gate to meet me. But though he always wagged his tail and seemed glad to see me, he never let me come inside the garden.",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "How did Tommy come to be carrying an injured squirrel?",
+          "questionKo": "토미가 다친 다람쥐를 안고 다니게 된 경위는?",
+          "options": [
+            {
+              "text": "He found it caught in one of Joe’s nets.",
+              "textKo": "조의 그물에 걸린 것을 발견했다."
+            },
+            {
+              "text": "One of Matthew’s dogs had chased it down.",
+              "textKo": "매슈의 개가 쫓아 잡았다."
+            },
+            {
+              "text": "A hawk dropped it in fright when Tommy came upon them suddenly.",
+              "textKo": "토미가 갑자기 나타나자 놀란 매가 떨어뜨렸다."
+            },
+            {
+              "text": "It fell from a tree while he was collecting eggs.",
+              "textKo": "알을 모으던 중 나무에서 떨어졌다."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "The hawk was so frightened when I came upon it suddenly like this, that it dropped the poor creature"
+        },
+        {
+          "type": "multiple",
+          "question": "Why does Joe say he cannot help the squirrel himself?",
+          "questionKo": "조는 왜 자기가 다람쥐를 고칠 수 없다고 말하는가?",
+          "options": [
+            {
+              "text": "His eyes are too weak for such small work.",
+              "textKo": "눈이 나빠 그런 작은 일을 못 해서."
+            },
+            {
+              "text": "He believes the squirrel cannot be saved at all.",
+              "textKo": "다람쥐를 도저히 살릴 수 없다고 보아서."
+            },
+            {
+              "text": "He has to take the tide out to the sea.",
+              "textKo": "썰물을 타고 바다로 나가야 해서."
+            },
+            {
+              "text": "He has neither the tools nor the learning — it is a job for a surgeon.",
+              "textKo": "연장도 배움도 없어서 — 그것은 외과의의 일이라서."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "I haven’t the tools nor the learning to make a broken squirrel seaworthy. This is a job for a surgeon"
+        },
+        {
+          "type": "multiple",
+          "question": "How does Joe define a \"nacheralist\" (naturalist)?",
+          "questionKo": "조는 \"박물학자\" 를 어떻게 설명하는가?",
+          "options": [
+            {
+              "text": "A man who knows all about animals and butterflies and plants and rocks.",
+              "textKo": "동물과 나비와 식물과 바위를 두루 아는 사람."
+            },
+            {
+              "text": "A man who cures animals for money.",
+              "textKo": "돈을 받고 동물을 고치는 사람."
+            },
+            {
+              "text": "A man who travels to foreign lands.",
+              "textKo": "먼 나라를 여행하는 사람."
+            },
+            {
+              "text": "A man who writes books about the sea.",
+              "textKo": "바다에 관한 책을 쓰는 사람."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "is a man who knows all about animals and butterflies and plants and rocks an’ all"
+        },
+        {
+          "type": "multiple",
+          "question": "What does Matthew reveal in a whisper about how the Doctor knows so much?",
+          "questionKo": "의사가 그토록 많이 아는 까닭에 대해 매슈가 속삭여 알려 준 것은?",
+          "options": [
+            {
+              "text": "He has read every book in the West Country.",
+              "textKo": "서쪽 지방의 책을 죄다 읽었다는 것."
+            },
+            {
+              "text": "He talks the animals’ language.",
+              "textKo": "동물의 말을 한다는 것."
+            },
+            {
+              "text": "He was raised among sailors and traders.",
+              "textKo": "뱃사람과 상인들 틈에서 자랐다는 것."
+            },
+            {
+              "text": "He keeps notes on every animal he treats.",
+              "textKo": "치료한 동물마다 기록을 남긴다는 것."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "He talks their language, he said in a hoarse, mysterious voice."
+        },
+        {
+          "type": "multiple",
+          "question": "Why do Matthew and the Doctor keep that a secret?",
+          "questionKo": "매슈와 의사가 그것을 비밀로 하는 이유는?",
+          "options": [
+            {
+              "text": "Other naturalists would steal the method.",
+              "textKo": "다른 박물학자들이 방법을 훔쳐 갈까 봐."
+            },
+            {
+              "text": "It is against the law in Puddleby.",
+              "textKo": "퍼들비에서는 법으로 금해서."
+            },
+            {
+              "text": "Folks only laugh at you when you speak of it.",
+              "textKo": "그 말을 하면 사람들이 비웃기만 해서."
+            },
+            {
+              "text": "The animals asked them to.",
+              "textKo": "동물들이 그렇게 부탁해서."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "because folks only laugh at you when you speak of it"
+        },
+        {
+          "type": "multiple",
+          "question": "What is unusual about the dog that comes to the locked gate?",
+          "questionKo": "잠긴 대문으로 나온 개에게서 눈에 띄는 점은?",
+          "options": [
+            {
+              "text": "He barks until Matthew leaves.",
+              "textKo": "매슈가 갈 때까지 짖어 댄다."
+            },
+            {
+              "text": "He refuses to take the paper bags.",
+              "textKo": "종이봉지 받기를 거부한다."
+            },
+            {
+              "text": "He can open the gate from the inside.",
+              "textKo": "안쪽에서 문을 열 줄 안다."
+            },
+            {
+              "text": "He wears a solid gold collar, and carries the food to the house instead of eating it.",
+              "textKo": "순금 목걸이를 하고 있고, 먹이를 먹지 않고 집으로 나른다."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "this dog did not stop to eat the meat, as any ordinary dog would have done, but he took all the things back to the house"
+        },
+        {
+          "type": "multiple",
+          "question": "What sign will tell Tommy that the Doctor has come home?",
+          "questionKo": "의사가 돌아왔음을 토미가 알 수 있는 표시는?",
+          "options": [
+            {
+              "text": "The garden gate will be open.",
+              "textKo": "정원 대문이 열려 있다."
+            },
+            {
+              "text": "Jip will be waiting on the road below.",
+              "textKo": "지프가 아래쪽 길에 나와 기다린다."
+            },
+            {
+              "text": "Smoke will rise from the chimney.",
+              "textKo": "굴뚝에서 연기가 오른다."
+            },
+            {
+              "text": "Matthew will stop bringing provisions.",
+              "textKo": "매슈가 먹을 것을 나르지 않게 된다."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "because if he is, the gate will surely be open"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 3,
+      "chapter_title": "The Doctor's Home",
+      "word_count": 1806,
+      "chapter_v_level": 5,
+      "content": "CHAPTER 3. The Doctor's Home\u001fBook Part I\u001ehttps://standardebooks.org/ebooks/hugh-lofting/the-voyages-of-doctor-dolittle/text/chapter-1-3\n\nOne Monday afternoon towards the end of April my father asked me to take some shoes which he had mended to a house on the other side of the town. They were for a Colonel Bellowes who was very particular.\n\nI found the house and rang the bell at the front door. The Colonel opened it, stuck out a very red face and said, \"Go round to the tradesmen's entrance⁠--go to the back door.\" Then he slammed the door shut.\n\nI felt inclined to throw the shoes into the middle of his flowerbed. But I thought my father might be angry, so I didn't. I went round to the back door, and there the Colonel's wife met me and took the shoes from me. She looked a timid little woman and had her hands all over flour as though she were making bread. She seemed to be terribly afraid of her husband whom I could still hear stumping round the house somewhere, grunting indignantly because I had come to the front door. Then she asked me in a whisper if I would have a bun and a glass of milk. And I said, \"Yes, please.\"\n\nAfter I had eaten the bun and milk, I thanked the Colonel's wife and came away. Then I thought that before I went home I would go and see if the Doctor had come back yet. I had been to his house once already that morning. But I thought I'd just like to go and take another look. My squirrel wasn't getting any better and I was beginning to be worried about him.\n\nSo I turned into the Oxenthorpe Road and started off towards the Doctor's house. On the way I noticed that the sky was clouding over and that it looked as though it might rain.\n\nI reached the gate and found it still locked. I felt very discouraged. I had been coming here every day for a week now. The dog, Jip, came to the gate and wagged his tail as usual, and then sat down and watched me closely to see that I didn't get in.\n\nI began to fear that my squirrel would die before the Doctor came back. I turned away sadly, went down the steps on to the road and turned towards home again.\n\nI wondered if it were suppertime yet. Of course I had no watch of my own, but I noticed a gentleman coming towards me down the road; and when he got nearer I saw it was the Colonel out for a walk. He was all wrapped up in smart overcoats and mufflers and bright-colored gloves. It was not a very cold day but he had so many clothes on he looked like a pillow inside a roll of blankets. I asked him if he would please tell me the time.\n\nHe stopped, grunted and glared down at me⁠--his red face growing redder still; and when he spoke it sounded like the cork coming out of a gingerbeer-bottle.\n\n\"Do you imagine for one moment,\" he spluttered, \"that I am going to get myself all unbuttoned just to tell a little boy like you the time!\" And he went stumping down the street, grunting harder than ever.\n\nI stood still a moment looking after him and wondering how old I would have to be, to have him go to the trouble of getting his watch out. And then, all of a sudden, the rain came down in torrents.\n\nI have never seen it rain so hard. It got dark, almost like night. The wind began to blow; the thunder rolled; the lightning flashed, and in a moment the gutters of the road were flowing like a river. There was no place handy to take shelter, so I put my head down against the driving wind and started to run towards home.\n\nI hadn't gone very far when my head bumped into something soft and I sat down suddenly on the pavement. I looked up to see whom I had run into. And there in front of me, sitting on the wet pavement like myself, was a little round man with a very kind face. He wore a shabby high hat and in his hand he had a small black bag.\n\n\"I'm very sorry,\" I said. \"I had my head down and I didn't see you coming.\"\n\nTo my great surprise, instead of getting angry at being knocked down, the little man began to laugh.\n\n\"You know this reminds me,\" he said, \"of a time once when I was in India. I ran full tilt into a woman in a thunderstorm. But she was carrying a pitcher of molasses on her head and I had treacle in my hair for weeks afterwards⁠--the flies followed me everywhere. I didn't hurt you, did I?\"\n\n\"No,\" I said. \"I'm all right.\"\n\n\"It was just as much my fault as it was yours, you know,\" said the little man. \"I had my head down too⁠--but look here, we mustn't sit talking like this. You must be soaked. I know I am. How far have you got to go?\"\n\n\"My home is on the other side of the town,\" I said, as we picked ourselves up.\n\n\"My Goodness, but that was a wet pavement!\" said he. \"And I declare it's coming down worse than ever. Come along to my house and get dried. A storm like this can't last.\"\n\nHe took hold of my hand and we started running back down the road together. As we ran I began to wonder who this funny little man could be, and where he lived. I was a perfect stranger to him, and yet he was taking me to his own home to get dried. Such a change, after the old red-faced Colonel who had refused even to tell me the time! Presently we stopped.\n\n\"Here we are,\" he said.\n\nI looked up to see where we were and found myself back at the foot of the steps leading to the little house with the big garden! My new friend was already running up the steps and opening the gate with some keys he took from his pocket.\n\n\"Surely,\" I thought, \"this cannot be the great Doctor Dolittle himself!\"\n\nI suppose after hearing so much about him I had expected someone very tall and strong and marvelous. It was hard to believe that this funny little man with the kind smiling face could be really he. Yet here he was, sure enough, running up the steps and opening the very gate which I had been watching for so many days!\n\nThe dog, Jip, came rushing out and started jumping up on him and barking with happiness. The rain was splashing down heavier than ever.\n\n\"Are you Doctor Dolittle?\" I shouted as we sped up the short garden-path to the house.\n\n\"Yes, I'm Doctor Dolittle,\" said he, opening the front door with the same bunch of keys. \"Get in! Don't bother about wiping your feet. Never mind the mud. Take it in with you. Get in out of the rain!\"\n\nI popped in, he and Jip following. Then he slammed the door to behind us.\n\nThe storm had made it dark enough outside; but inside the house, with the door closed, it was as black as night. Then began the most extraordinary noise that I have ever heard. It sounded like all sorts and kinds of animals and birds calling and squeaking and screeching at the same time. I could hear things trundling down the stairs and hurrying along passages. Somewhere in the dark a duck was quacking, a cock was crowing, a dove was cooing, an owl was hooting, a lamb was bleating and Jip was barking. I felt birds' wings fluttering and fanning near my face. Things kept bumping into my legs and nearly upsetting me. The whole front hall seemed to be filling up with animals. The noise, together with the roaring of the rain, was tremendous; and I was beginning to grow a little bit scared when I felt the Doctor take hold of my arm and shout into my ear.\n\n\"Don't be alarmed. Don't be frightened. These are just some of my pets. I've been away three months and they are glad to see me home again. Stand still where you are till I strike a light. My Gracious, what a storm!⁠--Just listen to that thunder!\"\n\nSo there I stood in the pitch-black dark, while all kinds of animals which I couldn't see chattered and jostled around me. It was a curious and a funny feeling. I had often wondered, when I had looked in from the front gate, what Doctor Dolittle would be like and what the funny little house would have inside it. But I never imagined it would be anything like this. Yet somehow after I had felt the Doctor's hand upon my arm I was not frightened, only confused. It all seemed like some queer dream; and I was beginning to wonder if I was really awake, when I heard the Doctor speaking again:\n\n\"My blessed matches are all wet. They won't strike. Have you got any?\"\n\n\"No, I'm afraid I haven't,\" I called back.\n\n\"Never mind,\" said he. \"Perhaps Dab-Dab can raise us a light somewhere.\"\n\nThen the Doctor made some funny clicking noises with his tongue and I heard someone trundle up the stairs again and start moving about in the rooms above.\n\nThen we waited quite a while without anything happening.\n\n\"Will the light be long in coming?\" I asked. \"Some animal is sitting on my foot and my toes are going to sleep.\"\n\n\"No, only a minute,\" said the Doctor. \"She'll be back in a minute.\"\n\nAnd just then I saw the first glimmerings of a light around the landing above. At once all the animals kept quiet.\n\n\"I thought you lived alone,\" I said to the Doctor.\n\n\"So I do,\" said he. \"It is Dab-Dab who is bringing the light.\"\n\nI looked up the stairs trying to make out who was coming. I could not see around the landing but I heard the most curious footstep on the upper flight. It sounded like someone hopping down from one step to the other, as though he were using only one leg.\n\nAs the light came lower, it grew brighter and began to throw strange jumping shadows on the walls.\n\n\"Ah⁠--at last!\" said the Doctor. \"Good old Dab-Dab!\"\n\nAnd then I thought I really must be dreaming. For there, craning her neck round the bend of the landing, hopping down the stairs on one leg, came a spotless white duck. And in her right foot she carried a lighted candle!",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "How does Colonel Bellowes receive Tommy at the front door?",
+          "questionKo": "벨로스 대령은 현관에서 토미를 어떻게 맞는가?",
+          "options": [
+            {
+              "text": "He invites him in for a bun and milk.",
+              "textKo": "빵과 우유를 먹고 가라며 들인다."
+            },
+            {
+              "text": "He orders him round to the tradesmen’s entrance and slams the door.",
+              "textKo": "납품업자용 뒷문으로 돌아가라 이르고 문을 쾅 닫는다."
+            },
+            {
+              "text": "He pays him and thanks him politely.",
+              "textKo": "값을 치르고 정중히 고마워한다."
+            },
+            {
+              "text": "He refuses the shoes as badly mended.",
+              "textKo": "수선이 형편없다며 구두를 물린다."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "Go round to the tradesmen’s entrance⁠--go to the back door."
+        },
+        {
+          "type": "multiple",
+          "question": "What excuse does the Colonel give for not telling Tommy the time?",
+          "questionKo": "대령이 토미에게 시간을 알려 주지 않으며 댄 구실은?",
+          "options": [
+            {
+              "text": "That his watch had stopped that morning.",
+              "textKo": "그날 아침 시계가 멎었다는 것."
+            },
+            {
+              "text": "That boys should carry watches of their own.",
+              "textKo": "아이라면 제 시계를 지녀야 한다는 것."
+            },
+            {
+              "text": "That he will not get himself all unbuttoned just to tell a little boy the time.",
+              "textKo": "어린애에게 시간을 알려 주자고 단추를 다 풀 수는 없다는 것."
+            },
+            {
+              "text": "That he is late for an appointment.",
+              "textKo": "약속에 늦었다는 것."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "that I am going to get myself all unbuttoned just to tell a little boy like you the time!"
+        },
+        {
+          "type": "multiple",
+          "question": "How does Tommy actually meet Doctor Dolittle?",
+          "questionKo": "토미는 실제로 두리틀 박사를 어떻게 만나게 되는가?",
+          "options": [
+            {
+              "text": "Jip finally lets him through the gate.",
+              "textKo": "지프가 마침내 대문 안으로 들여보낸다."
+            },
+            {
+              "text": "Matthew introduces them in the marketplace.",
+              "textKo": "매슈가 장터에서 소개해 준다."
+            },
+            {
+              "text": "The Doctor comes to his father’s shop for shoes.",
+              "textKo": "박사가 구두를 맡기러 아버지 가게에 온다."
+            },
+            {
+              "text": "He runs head-first into him in the rain and knocks them both onto the pavement.",
+              "textKo": "빗속에서 머리를 숙이고 달리다 그와 부딪혀 둘 다 보도에 주저앉는다."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "my head bumped into something soft and I sat down suddenly on the pavement"
+        },
+        {
+          "type": "multiple",
+          "question": "How does the little man react to being knocked down?",
+          "questionKo": "부딪혀 넘어진 그 작은 남자의 반응은?",
+          "options": [
+            {
+              "text": "He laughs, and tells a story about running into a woman in India.",
+              "textKo": "웃으면서, 인도에서 어떤 여인과 부딪혔던 이야기를 들려준다."
+            },
+            {
+              "text": "He scolds Tommy for running in the street.",
+              "textKo": "길에서 뛰었다고 토미를 꾸짖는다."
+            },
+            {
+              "text": "He gets up without a word and walks away.",
+              "textKo": "말없이 일어나 가 버린다."
+            },
+            {
+              "text": "He asks Tommy to carry his black bag.",
+              "textKo": "토미에게 검은 가방을 들라고 한다."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "instead of getting angry at being knocked down, the little man began to laugh"
+        },
+        {
+          "type": "multiple",
+          "question": "Why is Tommy slow to believe this is the great Doctor Dolittle?",
+          "questionKo": "토미가 이 사람이 그 위대한 두리틀 박사임을 얼른 믿지 못한 이유는?",
+          "options": [
+            {
+              "text": "The man never gives his name.",
+              "textKo": "그 남자가 이름을 밝히지 않아서."
+            },
+            {
+              "text": "He had expected someone very tall and strong and marvelous.",
+              "textKo": "아주 크고 힘세고 대단한 사람일 줄 알았기 때문에."
+            },
+            {
+              "text": "Matthew had said the Doctor was still away.",
+              "textKo": "매슈가 박사는 아직 멀리 있다고 했기 때문에."
+            },
+            {
+              "text": "The house they reach is not the one he had been watching.",
+              "textKo": "다다른 집이 그가 지켜보던 집이 아니어서."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "I had expected someone very tall and strong and marvelous"
+        },
+        {
+          "type": "multiple",
+          "question": "What causes the tremendous noise in the pitch-dark front hall?",
+          "questionKo": "캄캄한 현관에서 엄청난 소리가 난 까닭은?",
+          "options": [
+            {
+              "text": "The storm had broken a window at the back.",
+              "textKo": "폭풍이 뒤쪽 창을 깨뜨려서."
+            },
+            {
+              "text": "Jip was fighting with the other animals.",
+              "textKo": "지프가 다른 동물들과 싸워서."
+            },
+            {
+              "text": "The Doctor’s pets crowding in — he has been away three months and they are glad he is home.",
+              "textKo": "박사의 동물들이 몰려들어서 — 석 달 만에 돌아온 그를 반겨서."
+            },
+            {
+              "text": "Someone had got into the house while the Doctor was away.",
+              "textKo": "박사가 없는 사이 누군가 집에 들어와서."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "These are just some of my pets. I’ve been away three months and they are glad to see me home again."
+        },
+        {
+          "type": "multiple",
+          "question": "Who brings the light down the stairs, and how?",
+          "questionKo": "계단으로 불을 가져오는 것은 누구이며, 어떻게 가져오는가?",
+          "options": [
+            {
+              "text": "Jip, carrying a lantern by the handle in his teeth.",
+              "textKo": "지프가 손잡이를 입에 물고 등을 나른다."
+            },
+            {
+              "text": "Polynesia, dragging a candle along the landing.",
+              "textKo": "폴리네시아가 초를 층계참으로 끌고 온다."
+            },
+            {
+              "text": "The Doctor himself, after finding dry matches upstairs.",
+              "textKo": "박사 본인이 위층에서 마른 성냥을 찾아 와서."
+            },
+            {
+              "text": "Dab-Dab the duck, hopping down on one leg with a lighted candle in her right foot.",
+              "textKo": "오리 답답이 한 발로 뛰어 내려오며, 오른발에 켠 초를 들고서."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "hopping down the stairs on one leg, came a spotless white duck. And in her right foot she carried a lighted candle!"
+        }
+      ]
+    }
+  ]
+}

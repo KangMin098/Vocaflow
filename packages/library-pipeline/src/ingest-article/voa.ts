@@ -33,6 +33,30 @@ const MAX_ITEMS_PER_FEED = 20
  *  P2 — register gap 보강 2종 (zoneid 라이브 검증):
  *    1581 = American Stories (서사/narrative) · 955 = Health & Lifestyle (설명문/expository)
  */
+/**
+ * VOA 피드 목록.
+ *
+ * ⚠️ **`level` 을 텍스트 난이도로 쓰지 말 것.** 2026-08-20 에 그렇게 썼다가 틀렸다.
+ *
+ * VOA 의 Level 은 **프로그램 편성 등급**(대상 청취자·말하기 속도)이고, 글의 읽기 난이도가
+ * 아니다. 실측하면 오히려 **뒤집혀 있다**:
+ *
+ *   VOA 선언   편수   평균 CEFR 지수(0=A1)   평균 어수   평균 통사점수
+ *   Level 2     47          2.38              701          61.1
+ *   Level 3     20          1.85            1,166          57.6
+ *
+ * 더 어렵다고 선언한 Level 3 이 텍스트로는 더 쉽다. 이유는 `american-stories` 가
+ * **원문이 아니라 학습자용 각색**이기 때문이다:
+ *
+ *   "Our story today is called "The Purloined Letter." It was written by Edgar Allan Poe.
+ *    Poe is generally known for his horror stories. ... The story is about a stolen letter."
+ *
+ * 문장이 짧고 낱말이 흔하다. 어려운 것은 문장이 아니라 **문학·문화 배경지식**인데,
+ * 그건 우리가 재는 축이 아니다.
+ *
+ * 한때 이 `level` 을 정답표 삼아 CEFR 추정을 교차검증하는 모듈을 만들었다가, 위 실측을
+ * 보고 **철회했다**(오탐 6/6). 같은 것을 다시 만들지 말 것 — 두 축은 비교 가능한 눈금이 아니다.
+ */
 export const VOA_FEEDS: Array<{ id: string; label: string; level: 1 | 2 | 3; url: string }> = [
   {
     id: 'as-it-is',
@@ -53,9 +77,20 @@ export const VOA_FEEDS: Array<{ id: string; label: string; level: 1 | 2 | 3; url
     url: 'https://learningenglish.voanews.com/rss/?count=20&zoneid=1579',
   },
   {
+    // ⚠️ 2026-08-20 정정 — `Level 1` 도 `Let's Learn English` 도 **틀린 라벨이었다.**
+    //   z/952 는 그날의 학습 자료 모음("Lessons of the Day")이고 실제 내용은 일반 피처다:
+    //     Study Shows How Earth's Orbit Affects Ice Ages · The Goodyear Blimp ·
+    //     The Golden Gate Bridge · Methods for Protecting Earth against an Asteroid Strike
+    //   초급 강좌인 줄 알고 `level: 1` 을 달아 뒀는데, 실측 CEFR 은 B1 7 · B2 5 다.
+    //
+    //   교차검증기(`crossCheckDeclaredLevel`)가 이 5편을 "Level 1 인데 B2" 로 잡아 냈고,
+    //   확인해 보니 **틀린 쪽은 추정이 아니라 우리 라벨**이었다. 그게 교차검증의 값이다.
+    //
+    //   `id` 는 그대로 둔다 — DB 의 `feed_id` 13행이 이 값을 가리키고 있어서, 바꾸면
+    //   연결이 끊어지고 register 도 같이 날아간다. 라벨과 레벨만 사실에 맞춘다.
     id: 'lets-learn-english',
-    label: "Let's Learn English (Level 1) — Lessons of the Day",
-    level: 1,
+    label: 'Lessons of the Day (종합 피처 · z/952)',
+    level: 2,
     url: 'https://learningenglish.voanews.com/rss/?count=20&zoneid=952',
   },
   // P2 — register gap 보강: 서사(American Stories) + 설명문(Health & Lifestyle).
@@ -71,6 +106,71 @@ export const VOA_FEEDS: Array<{ id: string; label: string; level: 1 | 2 | 3; url
     label: 'Health & Lifestyle (Level 2)',
     level: 2,
     url: 'https://learningenglish.voanews.com/rss/?count=20&zoneid=955',
+  },
+  // 아래 둘은 2026-08-19 프로브로 확정한 것이다(`scripts/acp/feed-probe.mjs`).
+  //   VOA 는 z-코드가 곧 RSS 라 스크래핑이 필요 없다 — 병목이 없는 쪽이다.
+  //   ⚠️ 같이 검토한 z/1574(Technology Report)는 **넣지 않았다.** HTTP 200 이지만
+  //     항목이 0이다. 200 을 받았다고 살아 있는 피드가 아니다.
+  {
+    id: 'education',
+    // 실측 적합 73.3% · 부적합 0% — 후보 19개 중 2위. 한국 학습자 소재로 가장 좋은 축이다.
+    label: 'Education (Level 2)',
+    level: 2,
+    url: 'https://learningenglish.voanews.com/rss/?count=20&zoneid=959',
+  },
+  {
+    id: 'arts-culture',
+    // 실측 적합 40.0% · 부적합 0%. 주간 프로그램이라 신선도는 낮지만 소재가 안전하다.
+    label: 'Arts & Culture (Level 2)',
+    level: 2,
+    url: 'https://learningenglish.voanews.com/rss/?count=20&zoneid=986',
+  },
+
+  // ── 2026-08-20 · `/radio/programs` 인덱스에서 발굴 ────────────────────
+  // 그 인덱스에 z-코드가 **20개**인데 우리는 8개만 쓰고 있었다. VOA 는 본문을 그대로
+  // 쓸 수 있는 유일한 소스이므로(PD), 안 쓰는 피드는 그대로 공급 손실이다.
+  //
+  // 12개를 두드려 **본문 어수까지 재고** 5개만 배선했다. 나머지는 근거를 남긴다:
+  //   z/1689 Podcast              본문 없음(오디오 전용) — 3건 전부 ingest 실패
+  //   z/4716 Everyday Grammar Video · z/3619 English in a Minute · z/3620 News Words
+  //                               RSS 는 30건인데 큐레이션 필터 통과 0 — 설명이 너무 짧다
+  //   z/4691 English @ the Movies 본문 184어 — 학습 지문으로 쓰기엔 얇다
+  //   z/5091 America's Presidents 3건 중 2건 ingest 실패 — 안정되면 다시 본다
+  //   z/1574 Technology Report    HTTP 200 인데 항목 0 (두 번 확인)
+  {
+    id: 'everyday-grammar',
+    // 실측 본문 916·1164·798어 · 부적합 0%. 문법 설명문이라 소재가 안전하다.
+    label: 'Everyday Grammar (Level 2)',
+    level: 2,
+    url: 'https://learningenglish.voanews.com/rss/?count=20&zoneid=4456',
+  },
+  {
+    id: 'ask-a-teacher',
+    // 학습자 질문에 답하는 코너 — 부적합 0%. 실측 본문 490어.
+    label: 'Ask a Teacher (Level 2)',
+    level: 2,
+    url: 'https://learningenglish.voanews.com/rss/?count=20&zoneid=5535',
+  },
+  {
+    id: 'education-tips',
+    // 실측 적합 50.0% · 부적합 0% — 발굴분 중 적합률 1위. 본문 381~1,043어.
+    label: 'Education Tips (Level 2)',
+    level: 2,
+    url: 'https://learningenglish.voanews.com/rss/?count=20&zoneid=7468',
+  },
+  {
+    id: 'all-about-america',
+    // 미국 생활·문화 — 부적합 0%. 본문 388~679어로 짧아 진입 밴드에 맞는다.
+    label: 'All About America (Level 2)',
+    level: 2,
+    url: 'https://learningenglish.voanews.com/rss/?count=20&zoneid=8133',
+  },
+  {
+    id: 'us-history',
+    // 역사 서사 — 본문 594~1,120어. 부적합 3.3%(전쟁 소재가 간간이 섞인다).
+    label: 'U.S. History (Level 3)',
+    level: 3,
+    url: 'https://learningenglish.voanews.com/rss/?count=20&zoneid=979',
   },
 ]
 
@@ -90,12 +190,35 @@ export interface VoaListItem {
   has_audio?: boolean
 }
 
+/**
+ * VOA RSS 는 창 크기가 **URL 파라미터**다 — `?count=N`.
+ * 배선된 URL 은 전부 `count=20` 이라, 그 뒤가 있는데도 20편이 전부인 것처럼 보였다.
+ * 실측 2026-08-30: `count=200` → item 200개(응답 200 OK). 상한은 우리가 정한 것이었다.
+ */
+export function voaFeedUrlWithCount(feedUrl: string, count: number): string {
+  try {
+    const u = new URL(feedUrl)
+    if (!u.searchParams.has('count')) return feedUrl
+    u.searchParams.set('count', String(count))
+    return u.toString()
+  } catch {
+    return feedUrl
+  }
+}
+
+/**
+ * @param limit 이 피드에서 돌려받을 최대 편수. **예전에는 받아 놓고 버렸다**(`void _limit`).
+ *   그래서 큐레이션 spec 의 `maxItems`(대개 15)가 언제나 최종 상한이었고, RSS 를
+ *   `count=200` 으로 불러도 15편으로 잘렸다. 지금은 이 값이 실제 상한이 된다.
+ *
+ *   ⚠️ 기본값을 두지 않는다. `MAX_ITEMS_PER_FEED`(20)를 기본으로 넣으면 spec 의 15 보다
+ *   커서 **아무도 요청하지 않은 동작 변화**가 생긴다. 생략하면 spec 그대로다.
+ */
 export async function listVoaFeed(
   feedUrl: string,
   feedId: string = 'as-it-is',
-  _limit: number = MAX_ITEMS_PER_FEED,
+  limit?: number,
 ): Promise<VoaListItem[]> {
-  void _limit
   const res = await fetchWithTimeout(feedUrl)
   if (!res.ok) {
     throw new Error(`VOA RSS fetch failed: ${res.status}`)
@@ -105,7 +228,7 @@ export async function listVoaFeed(
   // v06.45 — VOA Learning English 는 모두 audio 가 article HTML 에 존재 (학습 정체성).
   //          list 단계에서 RSS 만으로는 확정 불가하지만 has_audio=true 휴리스틱.
   const withAudio = raw.map((it) => ({ ...it, has_audio: true }))
-  return applyArticleCurationSpec(withAudio, 'voa', feedId)
+  return applyArticleCurationSpec(withAudio, 'voa', feedId, { maxItems: limit })
 }
 
 /**

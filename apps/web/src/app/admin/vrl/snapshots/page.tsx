@@ -8,7 +8,9 @@ import { History, ArrowUpRight, ArrowDownRight, Minus } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { requireAdmin } from '@/lib/auth/require-admin'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { fetchVrlSnapshots, type VrlSnapshotsData } from '@/lib/admin/vrl/queries'
+import { VrlEmptyNotice, VrlUnreadableNotice } from '../_components/VrlStateNotice'
 
 export const metadata = {
   title: 'VRL Snapshots — Vocaflow Admin',
@@ -26,6 +28,7 @@ export default async function VrlSnapshotsPage() {
         title="VRL Level Snapshots"
         description="user_level_snapshots audit log. snapshot_type/triggered_by/trigger_details + delta chain 추적 (최근 200건)."
       />
+      <AdminScreenHelp screen="vrl-snapshots" className="-mt-4" />
       <Suspense fallback={<Fallback />}>
         <Content />
       </Suspense>
@@ -56,12 +59,34 @@ const TRIGGER_BADGE: Record<string, string> = {
 }
 
 function SnapshotsView({ data }: { data: VrlSnapshotsData }) {
+  // "없음" 과 "못 읽음" 은 다른 화면이다. 예전엔 둘 다 헤더만 남은 표였고, 관리자는
+  // RLS 거부를 "아직 변경 이력이 없다" 로 읽었다.
+  if (data.error) {
+    return (
+      <VrlUnreadableNotice
+        subject="V-Level 변경 이력"
+        detail={data.error}
+        hint="user_level_snapshots 조회 권한(RLS)과 테이블 존재 여부를 먼저 본다."
+        nextStep={{ href: '/admin/vrl/automation', label: '자동화 상태 보기' }}
+      />
+    )
+  }
+  if (data.rows.length === 0) {
+    return (
+      <VrlEmptyNotice
+        icon={History}
+        title="아직 기록된 레벨 변경이 없습니다"
+        body="진단이나 학습 데이터로 V-Level 이 바뀌면 여기에 한 줄씩 쌓입니다. 아직 아무 사용자도 레벨이 움직이지 않았습니다."
+        nextStep={{ href: '/admin/vrl/automation', label: '자동화(cron) 상태 확인' }}
+      />
+    )
+  }
   return (
     <div className="flex flex-col gap-4">
       {/* 요약 분포 */}
       <section className="grid grid-cols-1 gap-3 md:grid-cols-2">
         <div className="rounded-[var(--r-xl)] border border-[var(--bd)] bg-[var(--bg)] p-4 shadow-[var(--sh-sm)]">
-          <h3 className="mb-2 font-display text-[12px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]">
+          <h3 className="mb-2 font-display text-[12px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
             snapshot_type
           </h3>
           <div className="flex flex-wrap gap-2">
@@ -70,7 +95,7 @@ function SnapshotsView({ data }: { data: VrlSnapshotsData }) {
               return (
                 <span
                   key={t.type}
-                  className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 font-display text-[11px] font-[700]"
+                  className="inline-flex items-center gap-2 rounded-full px-3 py-1 font-display text-[11px] font-[700]"
                   style={{ backgroundColor: b.bg, color: b.color }}
                 >
                   {t.type}
@@ -81,14 +106,14 @@ function SnapshotsView({ data }: { data: VrlSnapshotsData }) {
           </div>
         </div>
         <div className="rounded-[var(--r-xl)] border border-[var(--bd)] bg-[var(--bg)] p-4 shadow-[var(--sh-sm)]">
-          <h3 className="mb-2 font-display text-[12px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]">
+          <h3 className="mb-2 font-display text-[12px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
             taken_reason
           </h3>
           <div className="flex flex-wrap gap-2">
             {data.byReason.map((r) => (
               <span
                 key={r.reason}
-                className="inline-flex items-center gap-1.5 rounded-full border border-[var(--bd)] bg-[var(--bg2)] px-2.5 py-1 font-mono text-[11px] font-[600] text-[var(--t2)]"
+                className="inline-flex items-center gap-2 rounded-full border border-[var(--bd)] bg-[var(--bg2)] px-3 py-1 font-mono text-[11px] font-[600] text-[var(--t2)]"
               >
                 {r.reason}
                 <span className="font-display font-[700] text-[var(--t1)]">{r.n}</span>
@@ -102,7 +127,7 @@ function SnapshotsView({ data }: { data: VrlSnapshotsData }) {
       <section className="overflow-x-auto rounded-[var(--r-xl)] border border-[var(--bd)] bg-[var(--bg)] shadow-[var(--sh-sm)]">
         <table className="w-full min-w-[1000px] border-collapse text-left">
           <thead>
-            <tr className="border-b border-[var(--bd)] font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]">
+            <tr className="border-b border-[var(--bd)] font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
               <th className="px-3 py-2">taken_at</th>
               <th className="px-3 py-2">user</th>
               <th className="px-3 py-2">type</th>
@@ -128,15 +153,15 @@ function SnapshotsView({ data }: { data: VrlSnapshotsData }) {
                   key={r.id}
                   className="border-b border-[var(--bd)] font-body text-[12px] hover:bg-[var(--bg2)]"
                 >
-                  <td className="px-3 py-2 font-mono text-[10px] text-[var(--t3)]">
+                  <td className="px-3 py-2 font-mono text-[10px] text-[var(--t2)]">
                     {r.takenAt.slice(0, 16).replace('T', ' ')}
                   </td>
-                  <td className="px-3 py-2 font-mono text-[10px] text-[var(--t3)]">
+                  <td className="px-3 py-2 font-mono text-[10px] text-[var(--t2)]">
                     {r.userId.slice(0, 8)}…
                   </td>
                   <td className="px-3 py-2">
                     <span
-                      className="rounded-full px-2 py-0.5 font-display text-[10px] font-[700]"
+                      className="rounded-full px-2 py-1 font-display text-[10px] font-[700]"
                       style={{ backgroundColor: tb.bg, color: tb.color }}
                     >
                       {r.snapshotType ?? '—'}
@@ -151,7 +176,7 @@ function SnapshotsView({ data }: { data: VrlSnapshotsData }) {
                   <td className="px-3 py-2 text-center">
                     <span className="inline-flex items-center gap-1 font-mono text-[11px] text-[var(--t2)]">
                       {r.previousVLevel ?? '·'}
-                      <span className="text-[var(--t4)]">→</span>
+                      <span className="text-[var(--t2)]">→</span>
                       <span className="font-[700] text-[var(--t1)]">{r.vLevel}</span>
                     </span>
                   </td>
@@ -164,7 +189,7 @@ function SnapshotsView({ data }: { data: VrlSnapshotsData }) {
                   <td className="px-3 py-2 text-right font-mono text-[11px] text-[var(--t2)]">
                     {r.confidence != null ? r.confidence.toFixed(2) : '—'}
                   </td>
-                  <td className="px-3 py-2 font-mono text-[10px] text-[var(--t3)]">
+                  <td className="px-3 py-2 font-mono text-[10px] text-[var(--t2)]">
                     {r.triggerDetailsKeys.length > 0
                       ? r.triggerDetailsKeys.join(', ')
                       : '—'}
@@ -181,25 +206,25 @@ function SnapshotsView({ data }: { data: VrlSnapshotsData }) {
 
 function DeltaPill({ delta }: { delta: number | null }) {
   if (delta == null) {
-    return <Minus size={12} className="inline text-[var(--t4)]" aria-label="no delta" />
+    return <Minus size={12} className="inline text-[var(--t2)]" aria-label="no delta" />
   }
   if (delta > 0) {
     return (
-      <span className="inline-flex items-center gap-0.5 font-mono text-[10px] font-[700] text-[var(--success)]">
+      <span className="inline-flex items-center gap-1 font-mono text-[10px] font-[700] text-[var(--success)]">
         <ArrowUpRight size={11} aria-hidden />+{delta}
       </span>
     )
   }
   if (delta < 0) {
     return (
-      <span className="inline-flex items-center gap-0.5 font-mono text-[10px] font-[700] text-[var(--error)]">
+      <span className="inline-flex items-center gap-1 font-mono text-[10px] font-[700] text-[var(--error-ink)]">
         <ArrowDownRight size={11} aria-hidden />
         {delta}
       </span>
     )
   }
   return (
-    <span className="inline-flex items-center gap-0.5 font-mono text-[10px] font-[700] text-[var(--t3)]">
+    <span className="inline-flex items-center gap-1 font-mono text-[10px] font-[700] text-[var(--t2)]">
       <Minus size={11} aria-hidden />0
     </span>
   )

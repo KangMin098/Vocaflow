@@ -1,6 +1,9 @@
+// apps/web/src/app/admin/vocab/sources/page.tsx
+
 import Link from 'next/link'
 import { Database, Plus, ArrowLeft } from 'lucide-react'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { VcbSourceCard } from '@/components/admin/vcb/VcbSourceCard'
 import { fetchSources } from '@/lib/vcb/server/sources'
 
@@ -19,7 +22,7 @@ export default async function VcbSourcesPage() {
           <div className="flex gap-2">
             <Link
               href="/admin/vocab/runs"
-              className="inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] font-display text-sm border"
+              className="min-h-[44px] inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] font-display text-sm border"
               style={{
                 color: 'var(--t2)',
                 borderColor: 'var(--bd)',
@@ -31,7 +34,7 @@ export default async function VcbSourcesPage() {
             </Link>
             <Link
               href="/admin/vocab/sources/new"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-[var(--r-md)] font-display text-sm font-medium text-white"
+              className="min-h-[44px] inline-flex items-center gap-2 px-4 py-2 rounded-[var(--r-md)] font-display text-sm font-medium text-white"
               style={{ background: 'var(--admin-strong)' }}
             >
               <Plus className="w-4 h-4" />
@@ -40,6 +43,8 @@ export default async function VcbSourcesPage() {
           </div>
         }
       />
+
+      <AdminScreenHelp screen="vocab-sources" className="mb-6" />
 
       {sources.length === 0 ? (
         <div
@@ -54,7 +59,7 @@ export default async function VcbSourcesPage() {
           <p className="text-sm m-0 mb-4">첫 Source 를 등록해 VCB 빌드를 시작하세요</p>
           <Link
             href="/admin/vocab/sources/new"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-[var(--r-md)] font-display text-sm font-medium text-white"
+            className="min-h-[44px] inline-flex items-center gap-2 px-4 py-2 rounded-[var(--r-md)] font-display text-sm font-medium text-white"
             style={{ background: 'var(--admin-strong)' }}
           >
             <Plus className="w-4 h-4" />첫 Source 등록

@@ -1,0 +1,1497 @@
+[
+  {
+    "book": "Global climate summary for May 2024",
+    "url": "https://www.climate.gov/news-features/understanding-climate/global-climate-summary-may-2024",
+    "source": "noaa",
+    "v_level": 5,
+    "words": 1430,
+    "rows": 1,
+    "excerpts": [
+      "Highlights Temperatures were above average over much of the globe, while western North America, southern South America, and western Russia were cooler than average. Sea surface temperatures were record warm for the 14th consecutive month. Global tropical cyclone activity was above average, with five named storms. May temperature The May global surface temperature was 1.18°C (2.12°F) above the 20th-century average of ",
+      " The Niño 3.4 Index [the primary dataset for tracking the El Niño-Southern Oscillation climate pattern] decreased during the month to a near neutral value indicating continued transition from El Niño and this is reflected in observed anomaly patterns [depatures from average]. Tropical cyclones were active in both the North and South Indian Ocean and helped to produce the observed patterns. North America was mainly we"
+    ],
+    "verdict": "reject",
+    "genre": "reference",
+    "why": "NOAA 월간 요약 — 순위·수치 나열이 본문이다"
+  },
+  {
+    "book": "Who Is Leading the Flock",
+    "url": "",
+    "source": "original",
+    "v_level": 2,
+    "words": 218,
+    "rows": 1,
+    "excerpts": [
+      "A flock of birds turning together looks as though it must be following someone at the front. We picture a leader out ahead of the others, and the rest of them reading its every move. However, when the turns are filmed and then slowed right down, no such bird can be found anywhere. The turn begins at different places on different days, and it spreads outward from wherever it happened to begin. Each bird is in fact doi",
+      "r it happened to begin. Each bird is in fact doing something very much smaller than leading or following a leader. It watches the six or seven birds nearest to it and stays about the same distance from them. It points about the same way that they are pointing, and that is the whole of the rule. A pattern that looks exactly like a plan is what appears when hundreds of animals follow that rule at once. The same thing h"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "새 떼 군집 규칙을 사례로 설명하는 산문"
+  },
+  {
+    "book": "Video game aims to nudge teens to get tested for HIV",
+    "url": "https://www.futurity.org/teenagers-hiv-test-video-games-2987892-2/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 809,
+    "rows": 1,
+    "excerpts": [
+      "A new video game seeks to correct misconceptions about HIV, increase awareness, and ideally motivate teens to seek HIV testing and counseling services. Teenagers made up an estimated 20% of new cases of HIV infection in the United States in 2020. The actual percentage, however, is likely to be higher because it is known that adolescents are the least likely of any age group to be aware of their HIV status and may unk",
+      "avoiding negative things.” For the new study, published in the Journal of Adolescent Health, the authors enrolled 287 participants ranging from 14 to 18 years. There were an equal number of boys and girls, an equal number of age groups, and an equal number of different racial groups; 145 were randomized to PlayTest!, while the 142 participants in the control group played a set of commercial video games that had no ed"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "HIV 검사 유도 게임의 임상 연구를 설명한다"
+  },
+  {
+    "book": "'Peach fuzz' could hold clues to new chronic itch treatments",
+    "url": "https://www.futurity.org/peach-fuzz-chronic-itch-3338362-2/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 831,
+    "rows": 1,
+    "excerpts": [
+      "Working with mouse models, research has revealed previously hidden biology of how touch-sensitive hairs create itching sensations. This fundamental discovery opens new avenues to better understand and potentially address human health conditions characterized by persistent itchiness. “Itch is one of the major symptoms in most chronic skin inflammation patients,” says Bo Duan, associate professor in the molecular, cell",
+      "s respond to the same proteins, the team found. “Our study indicates that humans may have this same kind of mechanism to transmit mechanical itch,” Duan says. “It also reveals that the body has a dedicated system for this type of sensation.” It’s one of Duan’s favorite science demonstrations, one that he gave while interviewing for his job and one that he still shows to students joining his lab. First, you take a tis"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "촉각 털이 가려움을 만드는 기작을 설명한다"
+  },
+  {
+    "book": "Different training could cut AI power use by 30%",
+    "url": "https://www.futurity.org/ai-training-power-use-3258132/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 649,
+    "rows": 1,
+    "excerpts": [
+      "A less wasteful way to train large language models, such as the GPT series, finishes in the same amount of time for up to 30% less energy, according to a new study. The approach could save enough energy to power 1.1 million US homes in 2026, based on Wells Fargo’s projections of AI power demand. It could also take a bite out of the International Monetary Fund’s prediction that data centers could account for 1.2% of t",
+      "in computer science and engineering and the first author of the study. “They need to be divided into tens of thousands of processors to be trained, but dividing the models in perfectly equal sizes across all processors is practically impossible.” The training jobs are so difficult to evenly split up because some tasks need to be grouped together on the same processor—like how each installment of a book series will be"
+    ],
+    "verdict": "use",
+    "genre": "technology",
+    "why": "LLM 학습 전력 30% 절감 방법을 설명한다"
+  },
+  {
+    "book": "SPARK",
+    "url": "https://www.nasa.gov/directorates/stmd/niac/niac-studies/solid-state-propulsion-for-autonomous-reconnaissance-of-karst-spark/",
+    "source": "nasa",
+    "v_level": 6,
+    "words": 301,
+    "rows": 1,
+    "excerpts": [
+      "2 min read Solid-state Propulsion for Autonomous Reconnaissance of Karst (SPARK) Loura Hall Jul 21, 2026 Article Daniel Drew University of Hawaii, Honolulu, HI While karst terrain and subsurface caves are sites of immense scientific value on bodies like Titan, they are difficult or impossible to safely explore using current methods. In this proposal, we seek to develop small lighter-than-air vehicles (“aerobots”) tha",
+      "it received by rotorcraft. Favorable plasma inception conditions should also decrease the payload mass required for high voltage conversion compared to Earth, and there is no need for in-situ heating to prevent actuator failure at cryogenic temperatures as with rotors. In addition to independent aerobots, we envision small-scale EHD thrusters as a complementary technology for other applications, like long-term high-a"
+    ],
+    "verdict": "use",
+    "genre": "space",
+    "why": "카르스트 탐사 비행체 제안의 원리를 전개한다"
+  },
+  {
+    "book": "EarthWord - Microbiome",
+    "url": "https://www.usgs.gov/news/science-snippet/earthword-microbiome",
+    "source": "usgs",
+    "v_level": 6,
+    "words": 498,
+    "rows": 1,
+    "excerpts": [
+      "The EarthWord: Microbiome Definition: Microbiomes are the communities of microorganisms (for example, bacteria, viruses, and fungi) that live on, in, and around people, plants, animals, soil, water, and the atmosphere. Etymology: \"micro\" - from the Greek 'mikros' means small; in this usage it refers to microorganisms, i.e., organisms so small you need the magnification of a microscope to see them biome\" - from Ancien",
+      "asive plants (for example, Phragmites australis, a reed) and their microbiomes. USGS scientists working with U.S. Fish and Wildlife Service and other partners, play a primary role in White Nose Syndrome surveillance and research. Current projects include the collection of baseline skin microbiome data on bats to identify natural defenses and potential biocontrol agents against WNS. Gulls in urban areas of Alaska were"
+    ],
+    "verdict": "reject",
+    "genre": "reference",
+    "why": "정의·어원 표제로 된 사전식 참고 항목이다"
+  },
+  {
+    "book": "Q-learning with temporal memory to navigate turbulence",
+    "url": "https://elifesciences.org/articles/102906",
+    "source": "elife",
+    "v_level": 5,
+    "words": 381,
+    "rows": 1,
+    "excerpts": [
+      "Many animals use odors to locate mates, food, and to avoid danger. Unlike light, which travels in straight lines, odors are carried by turbulent air or water, leading to intermittent whiffs separated by long gaps with no detectable scent. These patchy odor landscapes can make it difficult for animals to decide which direction to move in. Despite these challenges, animals are remarkably good at using odors to navigate",
+      "ent relative to the wind. The simulated environment mimicked realistic odor plumes in turbulent air and the algorithm was given a short-term memory to track changes in a limited set of specific odor-related signals over time. Analysis showed that there is an optimal length of memory that helps the agent ignore temporary gaps in the odor signal while still recognizing when it has fully exited the plume. This allowed t"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "난류 속 냄새 추적 알고리즘 연구를 해설한다"
+  },
+  {
+    "book": "The Power of One (앞부분 발췌)",
+    "url": "https://storyweaver.org.in/stories/130189-the-power-of-one",
+    "source": "storyweaver",
+    "v_level": 2,
+    "words": 91,
+    "rows": 1,
+    "excerpts": [
+      "Tring tring tringggg! It was the last day of school. The students of Class 6 gathered around Didi's table for lunch. They passed food around and dipped into each other's dabbas. Ajay fed a roti to the school dog, Gundu. \"What are your plans for the summer vacation?\" Didi asked the students. \"I will practice my football skills, just like Messi,\" said Anita. \"I'm going to make lots of toys,\" said Rafiq. \"I'm going to e"
+    ],
+    "verdict": "narrative",
+    "genre": "fiction",
+    "why": "학급 아이들의 방학 이야기 — 서사다"
+  },
+  {
+    "book": "Time to change how researchers classify Parkinson's disease?",
+    "url": "https://www.futurity.org/parkinsons-disease-classification-3169622/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 479,
+    "rows": 1,
+    "excerpts": [
+      "In a new paper, scientists argue that the complexity of Parkinson’s disease demands a new way of classifying the disease for research purposes. One of the things that makes developing effective treatments for Parkinson’s disease so challenging is its complexity. While some forms are caused by genetics, others have environmental factors, and patients can show a wide range of symptoms of varying severity. Diagnosis of ",
+      " are included in the classification. The “Ge” stands for genetics. The role of genetics in Parkinson’s is complex. Mutations in many different genes have been found to predispose someone to the disease. The likelihood of developing Parkinson’s disease depends on the gene involved, the specific mutation within the gene and environmental exposures. The authors argue that for research purposes, patients should be classi"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "파킨슨병 분류 체계 개편 논의를 설명한다"
+  },
+  {
+    "book": "Microbes with higher metabolic independence are enriched in human gut microbiomes under stress",
+    "url": "https://elifesciences.org/articles/89862",
+    "source": "elife",
+    "v_level": 6,
+    "words": 308,
+    "rows": 1,
+    "excerpts": [
+      "The human gut hosts an array of microbes that form a complex community beginning shortly after birth. These microbes prime the immune system, help extract nutrients from the diet and offer protection against pathogens. Decades of research have shown that individuals who suffer from inflammatory bowel diseases (IBD) or other systemic disorders tend to have far less variety of gut microbes compared to healthy individua",
+      "h IBD lose most of the ‘dependent’ microbes and retain those that are more self-sufficient and thus able to survive in the stressed and deteriorating gut environment. To test this hypothesis, Veseli et al. – who are part of the research group that performed the 2023 study – developed a computer program to quantify self-sufficient gut microbes in large numbers of stool samples collected from healthy individuals and pa"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "장내 미생물 자립성 가설 검증을 설명한다"
+  },
+  {
+    "book": "What Lake Bonneville Left Behind - NASA Science",
+    "url": "https://science.nasa.gov/earth/earth-observatory/what-lake-bonneville-left-behind/",
+    "source": "nasa",
+    "v_level": 6,
+    "words": 1215,
+    "rows": 1,
+    "excerpts": [
+      "Earth Observatory 5 min read What Lake Bonneville Left Behind Image of the Day for August 24, 2026 The drying of the massive lake exposed playas that became the setting for feats of engineering and technological ingenuity, as well as epic tales of exploration and desperation. NASA Earth Observatory Aug 24, 2026 Article View more Images of the Day: Aug 21, 2026 Aug 25, 2026 Instruments:Landsat 8 — OLI Topics:Human Dim",
+      "apture near-infrared images, measure the atmospheric chemistry, and explore the environment of a world in unprecedented detail. During the rehearsals at Crater Island, the camera system took hundreds of images of various rock formations, including iron-rich and silica-rich rock units, while suspended from a helicopter as it descended toward the surface. Using only the images acquired by DAVINCI's camera systems, the "
+    ],
+    "verdict": "use",
+    "genre": "nature",
+    "why": "말라붙은 호수가 남긴 지형과 활용을 설명한다"
+  },
+  {
+    "book": "1 in 5 households in Canada live in 'energy poverty'",
+    "url": "https://www.futurity.org/canada-energy-poverty-3182372/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 446,
+    "rows": 1,
+    "excerpts": [
+      "As many as one in five Canadian households can be considered to be in energy poverty. Energy poverty occurs when households cannot afford or access the levels of energy necessary to meet their daily needs, live decent lives, and maintain healthy indoor temperatures all year round. More Canadians potentially suffer from energy poverty than from food insecurity. “Earlier research has shown that a cold indoor temperatur",
+      "k of hospitalization and death. The research also shows that there are higher levels of energy poverty in rural areas in Canada, where the population tends to be older, living in larger households, and facing greater income insecurity. “For example, we found that in a small town in Nova Scotia, where around 40% of the population faces energy poverty, one household in three reported having to cut into their grocery sp"
+    ],
+    "verdict": "use",
+    "genre": "social",
+    "why": "캐나다 에너지 빈곤 실태를 자료로 논증한다"
+  },
+  {
+    "book": "Humans and animals will overlap on nearly 57% of Earth by 2070",
+    "url": "https://www.futurity.org/humans-wildlife-overlap-2070-3248132/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 911,
+    "rows": 1,
+    "excerpts": [
+      "The overlap between humans and animals will increase substantially across much of the planet in less than 50 years due to human population growth and climate change, according to a new study. By 2070, the overlap between humans and more than 22,000 vertebrate species will rise across nearly 57% of Earth’s land, according to the researchers. “This gives us an early warning of where we may expect to see future increase",
+      "fe overlap will increase in forested areas, particularly in Africa and South America, two continents with high levels of biodiversity threatened by human activity. They predict that median species richness—the variety of species in a given area—will decrease across most forests on both continents. But preserving biodiversity has real benefits, according to the study. For example, part of their analysis, which was led"
+    ],
+    "verdict": "use",
+    "genre": "nature",
+    "why": "2070년 인간·야생동물 중첩 예측을 설명한다"
+  },
+  {
+    "book": "Volunteering to Map the Nation",
+    "url": "https://www.usgs.gov/news/science-snippet/volunteering-map-nation",
+    "source": "usgs",
+    "v_level": 5,
+    "words": 586,
+    "rows": 1,
+    "excerpts": [
+      "The National Map Corps (TNM Corps) is an online crowdsourcing mapping project with volunteers successfully editing structures in all 50 States, Puerto Rico, and the U.S. Virgin Islands. As part of The National Map, structures include schools, hospitals, post offices, police stations, cemeteries, and other important public buildings. By updating and verifying structures data, volunteers are making significant contribu",
+      "arned from examining maps. So, I was attracted to The National Map Corps and the ability to volunteer from home.” “I worked county-by-county as I went through the Mid-Atlantic states, using available databases, and doing a little research on each jurisdiction before editing structures in the county. Since I grew up here and spent most of my life in Virginia and visiting nearby states, I figured it would be a good mat"
+    ],
+    "verdict": "use",
+    "genre": "social",
+    "why": "시민 참여 지도 제작 사업의 운영을 설명한다"
+  },
+  {
+    "book": "Serene Sirens: USGS Sea Cow Science",
+    "url": "https://www.usgs.gov/news/featured-story/serene-sirens-usgs-sea-cow-science",
+    "source": "usgs",
+    "v_level": 5,
+    "words": 639,
+    "rows": 1,
+    "excerpts": [
+      "It may be hard to believe the legend that sailors long-at-sea once considered manatees to be mermaids. The manatee nickname – the “Sea Cow” – which comes from the herbivores’ affinity for grazing on vegetation and their slow, ambling way just makes more sense. But a U.S. Geological Survey video reveals that while they may be cow-like, they also have more than a bit of the magical mermaid to them. Almost Four Decades ",
+      "e, such as the famous Chessie, who traveled all the way to Chesapeake Bay, which is far outside the usual range for manatees. Seventeen years later, USGS scientists were able to identify the manatee thanks to his unique markings, which include a long, gray scar on his left side. Capturing Baseline Health Information USGS researchers also use manatee captures and health assessments to gather information on this easygo"
+    ],
+    "verdict": "use",
+    "genre": "nature",
+    "why": "매너티 40년 연구와 조사 방법을 설명한다"
+  },
+  {
+    "book": "Arsenic in brown rice may put young kids at risk",
+    "url": "https://www.futurity.org/brown-rice-white-rice-arsenic-3277802/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 891,
+    "rows": 1,
+    "excerpts": [
+      "New research finds that eating brown rice increases exposure to arsenic in young children. Whether you buy rice at the grocery store or order a side of it while dining out, do you prefer brown rice or white rice? Or do you exclusively choose brown rice over white rice because you want to eat healthier, as brown rice contains more nutrients and fiber? Well, the answer to this question is not as simple as you might hav",
+      "to the difference in arsenic levels between brown and white rice as well as more complex data regarding how levels differed by region, highlighting where and what populations may be at increase health risk. Geographic differences The inorganic arsenic concentration of white versus brown rice was considerably different by region. For rice grown in the United States, the researchers found the proportion of the more tox"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "현미 비소 노출 연구를 지역별로 설명한다"
+  },
+  {
+    "book": "Your genes may predispose you to anxiety",
+    "url": "https://www.futurity.org/genetic-predisposition-anxiety-3250152/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 366,
+    "rows": 1,
+    "excerpts": [
+      "Researchers have uncovered a genetic predisposition to anxiety. Investigators in the Yale psychiatry department examined the genetic profiles of more than 1 million participants enrolled in multiple cohorts around the world. Leveraging this large dataset, they uncovered more than 100 genes associated with anxiety. Anxiety disorders and symptoms affect many individuals with a negative impact on people’s quality of lif",
+      " health outcomes.” Integrating genetic information with other molecular features, the scientists understood how genes can act on different brain structures to increase the risk of developing anxiety disorders and symptoms. They also observed that some anxiety-associated genes can also predispose to other mental illnesses, including depression, schizophrenia, and bipolar disorder. In line with anxiety comorbidity with"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "불안 유전 소인 대규모 유전체 연구 해설"
+  },
+  {
+    "book": "Bamboo toilet paper may not be as green as you think",
+    "url": "https://www.futurity.org/bamboo-toilet-paper-3304832/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 407,
+    "rows": 1,
+    "excerpts": [
+      "Bamboo tissue paper may not be as eco-friendly as you think, according to new research. In recent years, Chinese tissue paper made from bamboo has emerged as a trendy choice for eco-friendly shoppers. However, the new research suggests these bamboo paper products may not offer significant climate benefits over tissue produced in the United States and, in some cases, may be more detrimental to the environment. The fin",
+      "d Ph.D candidate in the NC State College of Natural Resources. “Because the Chinese power grid is so reliant on coal for power, emissions throughout the entire tissue supply chain are higher than what we saw with the wood-based option.” Ronalds Gonzalez, an associate professor at NC State University and coauthor of the paper, says that manufacturing tissue paper from bamboo is not meaningfully different from using ot"
+    ],
+    "verdict": "use",
+    "genre": "climate",
+    "why": "대나무 화장지의 탄소 이점 주장을 반박한다"
+  },
+  {
+    "book": "'Watching the Grass Grow' Is Not Fun",
+    "url": "https://learningenglish.voanews.com/a/watching-the-grass-grow-is-not-fun/8003108.html",
+    "source": "voa",
+    "v_level": 4,
+    "words": 377,
+    "rows": 1,
+    "excerpts": [
+      "And now Words and Their Stories from VOA Learning English. Springtime is a time of renewal and growth. Many plants end their long winter sleep and form new buds and shoots. Beautiful flowers will soon be showing their bright colors. And the grass will grow thicker and greener again. Some flowers bloom in a very noticeable way but that is not the case with grass. Imagine you are sitting in a grassy field. And you have",
+      "ch. Two hours! It was as much fun as watching grass grow. I really don’t like watching long sports games. It’s like watching grass grow. Now, grass grows on the ground all the time. And usually, we don’t give it much thought. If you stand in one place for a long time, the grass will continue to grow under your feet. For people who are always active, always moving, always on-the-go, we can say they don't let grass gro"
+    ],
+    "verdict": "use",
+    "genre": "education",
+    "why": "'풀 자라는 걸 본다' 관용구의 유래를 설명한다"
+  },
+  {
+    "book": "High-puff vapes may become more toxic with use",
+    "url": "https://www.futurity.org/vaping-e-cigarettes-3336952/",
+    "source": "futurity",
+    "v_level": 6,
+    "words": 627,
+    "rows": 1,
+    "excerpts": [
+      "A new study finds that heavily used high-puff electronic cigarettes may contain higher levels of harmful chemicals than fresh e-cigarettes, raising concerns about potential health risks for users. E-cigarettes, also called ECs or vapes, are sold with an advertised puff count—roughly how many inhalations the device is designed to deliver before it is depleted. A high-puff EC is one rated for many puffs, typically in t",
+      " reached milligrams-per-milliliter concentrations in some of the vaped fluids we analyzed. These are not trace amounts. When tested on human lung cells, these aldehydes caused measurable damage.” The researchers were concerned that a person using a high-puff device toward the end of its life might inhale significantly more of these compounds than someone using a fresh device. To better understand the health impact, t"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "고퍼프 전자담배의 유해물질 축적을 설명한다"
+  },
+  {
+    "book": "Zero-hours contracts are about to change in the UK - how managers respond will be crucial",
+    "url": "https://theconversation.com/zero-hours-contracts-are-about-to-change-in-the-uk-how-managers-respond-will-be-crucial-290025",
+    "source": "the_conversation",
+    "v_level": 5,
+    "words": 912,
+    "rows": 1,
+    "excerpts": [
+      "Employers in certain sectors will have been concerned to read reports from the UK government that the costs of promised reforms to “zero hours contracts” under the Employment Rights Act 2025 may be anything up to £2.9 billion. The changes, due to be implemented in early 2027, are designed to redress what are seen as “one-sided” working arrangements under which workers bear all the financial risk of fluctuations in de",
+      " for accepting or rejecting an offer of guaranteed hours, with any dismissal primarily for this reason being deemed automatically unfair The duty to offer guaranteed hours would only apply to workers on contracts where the existing contractual hours were below a (yet to be decided) threshold. Similarly, there would be no obligation to offer guaranteed hours to workers on short-term contracts which were shorter than t"
+    ],
+    "verdict": "use",
+    "genre": "economics",
+    "why": "영국 제로아워 계약 개정의 쟁점을 논증한다"
+  },
+  {
+    "book": "Fire Emblem Warriors",
+    "url": "https://en.wikipedia.org/wiki/Fire_Emblem_Warriors",
+    "source": "wikipedia",
+    "v_level": 6,
+    "words": 3374,
+    "rows": 1,
+    "excerpts": [
+      "Fire Emblem Warriors is a 2017 hack and slash action role-playing game co-developed by Omega Force and Team Ninja, and published by Koei Tecmo in Japan and Nintendo internationally for the Nintendo Switch and New Nintendo 3DS. The game is a crossover between Koei Tecmo's Dynasty Warriors franchise, and the Fire Emblem series developed by Intelligent Systems. The story follows the quest of Aytolis's twin royal heirs t",
+      "of the Emblem, Awakening and Fates. This narrowed approach was so the team could get a balance of characters with multiple weapons, as choosing only series leads would result in a large number of sword users and unbalance the planned gameplay systems. Character selection was also dictated by which Fire Emblem games were available worldwide. The development team ranked characters based on a variety of factors, such as"
+    ],
+    "verdict": "use",
+    "genre": "art",
+    "why": "게임의 기획·개발 배경을 서술한 백과 산문이다"
+  },
+  {
+    "book": "Lazy Mama (앞부분 발췌)",
+    "url": "https://storyweaver.org.in/stories/27124-lazy-mama",
+    "source": "storyweaver",
+    "v_level": 1,
+    "words": 45,
+    "rows": 1,
+    "excerpts": [
+      "Knock, knock! Amma opened the door. “Raghu Mama!” Amish and Soni cried, giving him a big hug. Raghu Mama was their mother’s only brother. He always told the best stories and brought them the most interesting presents. But there was one problem with Raghu Mama."
+    ],
+    "verdict": "narrative",
+    "genre": "fiction",
+    "why": "삼촌이 찾아온 장면으로 시작하는 이야기다"
+  },
+  {
+    "book": "What's keeping flying taxis from taking off?",
+    "url": "https://www.futurity.org/flying-taxis-3300612/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 700,
+    "rows": 1,
+    "excerpts": [
+      "A new wave of aviation innovation is taking shape above our cities, where short flights in electric air taxis could complement cars and trains as part of everyday transportation. Known as advanced air mobility (AAM), this emerging industry aims to connect communities more efficiently while reducing emissions and noise. Before these futuristic aircraft can take off, Georgia Tech researchers say there’s serious work to",
+      "t and abrupt variations in the atmosphere that must be accounted for, both for passenger vehicles and smaller delivery drones.” Smith’s team is also integrating artificial intelligence to improve speed and accuracy in certification—but always under expert oversight. “AI can accelerate our work,” she says. “Without the knowledge of domain experts, machine learning can generate misleading results, and that’s unacceptab"
+    ],
+    "verdict": "use",
+    "genre": "technology",
+    "why": "도심 항공 모빌리티의 인증 과제를 설명한다"
+  },
+  {
+    "book": "Structure transfer and consolidation in visual implicit learning",
+    "url": "https://elifesciences.org/articles/100785",
+    "source": "elife",
+    "v_level": 4,
+    "words": 349,
+    "rows": 1,
+    "excerpts": [
+      "People are constantly picking up patterns in the world around them, often without even trying. This is called implicit learning – a natural, unconscious process that helps us notice structure in things that might seem random at first. For example, we might start to recognize that certain shapes often appear together. Scientists already know that when we learn something by actively thinking about it – called explicit ",
+      "ng phases, shapes were shown in fixed pairs, embedded within larger scenes composed of shapes– six pairs (same orientation) in phase one, and four pairs (two horizontal, two vertical) in phase two. Pair learning was assessed using a choice task. In each trial, participants viewed one real pair and one foil pair (mixed shapes from different pairs) and had to indicate the more familiar pair. The experiments confirmed t"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "암묵 학습의 전이·공고화 실험을 설명한다"
+  },
+  {
+    "book": "History of first snow of the season for thousands of U.S. stations",
+    "url": "https://www.climate.gov/news-features/understanding-climate/history-first-snow-season-thousands-us-stations",
+    "source": "noaa",
+    "v_level": 3,
+    "words": 251,
+    "rows": 1,
+    "excerpts": [
+      "View larger map By the calendar, winter is still a month away. For many of us, though, winter starts with the first snow of the season. By that definition, this map shows the earliest first day of winter recorded at thousands of U.S. stations during their period of operation. Zoom in and click on a dot to find out the earliest date snow has fallen in your neighborhood based on these station histories. About the data ",
+      "ng the most hit and miss in terms of the completeness of daily histories. These locations are a subset of the complete Global Historical Climatology Network that met various quality controls for reasonableness and completeness of snow cover. Most stations have at least 20 years of data. A few have a shorter history, but are otherwise of good quality (e.g., little to no missing data). This map should not be interprete"
+    ],
+    "verdict": "reject",
+    "genre": "reference",
+    "why": "지도 데이터 설명문 — 읽는 글이 아니다"
+  },
+  {
+    "book": "France-sized ice shelf moves suddenly once or twice daily",
+    "url": "https://www.futurity.org/ross-ice-shelf-antarctica-3201232-2/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 696,
+    "rows": 1,
+    "excerpts": [
+      "The largest ice shelf in Antarctica lurches forward once or twice each day, researchers report. In Antarctica, heavy glaciers are always on the move. Conveyor belts of ice known as ice streams are the corridors of faster flow that carry most of the vast glaciers’ ice and sediment debris out toward the ocean. One such ice stream jostles the entire Ross Ice Shelf out of place at least once daily, according to the new r",
+      "feeling it,” Wiens says. “The movement occurs over a time period of several minutes, so it is not perceptible without instrumentation. That’s why the movement has not been detected until now, even though people have been walking and camping on the Ross Ice Shelf since the time of the great explorers Robert F. Scott and Roald Amundsen.” The movement of the Ross Ice Shelf is triggered by a relatively sudden—in glacial "
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "로스 빙붕이 하루 한두 번 움직이는 기작 설명"
+  },
+  {
+    "book": "Blood test can diagnose brain cancer in less than 1 hour",
+    "url": "https://www.futurity.org/blood-test-brain-cancer-glioblastoma-3246502/",
+    "source": "futurity",
+    "v_level": 6,
+    "words": 591,
+    "rows": 1,
+    "excerpts": [
+      "Researchers have developed a new, automated device capable of diagnosing glioblastoma, a fast-growing and incurable brain cancer, in less than an hour. The average glioblastoma patient survives 12-18 months after diagnosis. The crux of the diagnostic is a biochip that uses electrokinetic technology to detect biomarkers, or active Epidermal Growth Factor Receptors (EGFRs), which are overexpressed in certain cancers su",
+      " indicating the presence of glioblastoma in the patient. This charge-sensing strategy minimizes interference common in current sensor technologies that use electrochemical reactions or fluorescence. “Our electrokinetic sensor allows us to do things other diagnostics cannot,” says Satyajyoti Senapati, a research associate professor of chemical and biomolecular engineering at Notre Dame and coauthor of the study. “We c"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "1시간 내 교모세포종 진단 칩 원리를 설명한다"
+  },
+  {
+    "book": "5 things to know about norovirus",
+    "url": "https://www.futurity.org/norovirus-stomach-illness-300391/",
+    "source": "futurity",
+    "v_level": 6,
+    "words": 784,
+    "rows": 1,
+    "excerpts": [
+      "Norovirus, a common viral stomach illness, tends to occur between November and April, and can spread almost anywhere. According to the Centers for Disease Control and Prevention, there have been at least 13 cruise ship outbreaks so far in 2023. But norovirus causes about 20 million cases each year in the US with more than 100,000 hospitalizations, so it’s important to know how to spot it and deal with an infection. J",
+      "arer norovirus symptoms may include a fever, chills, or muscle aches. In most healthy people, these symptoms leave almost as quickly as they arrived, and usually last for only about 12-36 hours. Since symptoms arrive quickly, norovirus rarely spreads from asymptomatic people, so it’s unlikely you’ll get it from a seemingly healthy roommate or family member. 3. Watch for dehydration Dehydration is the most dangerous e"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "노로바이러스 증상·대처를 항목별로 설명한다"
+  },
+  {
+    "book": "1 region of the brain links all your senses",
+    "url": "https://www.futurity.org/senses-brain-region-3281592/",
+    "source": "futurity",
+    "v_level": 6,
+    "words": 489,
+    "rows": 1,
+    "excerpts": [
+      "A new study shows that the senses stimulate a region of the brain that controls consciousness. Humans perceive and navigate the world around us with the help of our five senses: sight, hearing, touch, taste, and smell. The study in the journal NeuroImage sheds new light on how sensory perception works in the brain and may fuel the development of therapies to treat disorders involving attention, arousal, and conscious",
+      " and, more surprisingly, that all input—regardless of which sense delivered the signal—stimulates activity in two deep brain regions, the midbrain reticular formation and the central thalamus, when a subject is sharply focused on the senses. The key to stimulating the critical central brain regions, they found, were the sudden shifts in attention demanded by the tasks. “We were expecting to find activity on shared ne"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "감각 입력이 모이는 뇌 영역 연구를 설명한다"
+  },
+  {
+    "book": "New therapy may improve spinal cord injury recovery",
+    "url": "https://www.futurity.org/immunotherapy-spinal-cord-injury-recovery-3250442/",
+    "source": "futurity",
+    "v_level": 6,
+    "words": 668,
+    "rows": 1,
+    "excerpts": [
+      "Researchers have designed, in mice, an approach to minimizing the damage from a spinal cord injury through the use of engineered immune cells. Severe injuries to the spinal cord damage nerve cells, disrupt communication with the brain and rest of the body, and lead to lasting disabilities for millions of people worldwide. The injury itself accounts for only a fraction of the overall damage inflicted on the spinal cor",
+      " the pathology and immunology department and the study’s first author, analyzed T cells from the spinal cords of injured mice and performed a genetic analysis to decode their identities. Her goal was to separate the harmful from the protective T cells and create numerous copies of the beneficial cells with which to treat the injured mice. But there was a catch, she found. The protective T cells that swoop into the in"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "면역세포 조작으로 척수 손상을 줄이는 연구다"
+  },
+  {
+    "book": "Neural activity ramps in frontal cortex signal extended motivation during learning",
+    "url": "https://elifesciences.org/articles/93983",
+    "source": "elife",
+    "v_level": 5,
+    "words": 327,
+    "rows": 1,
+    "excerpts": [
+      "Achieving goals takes motivation. An individual may have to complete a task many times for a future reward. For example, an animal may have to forage repeatedly to find food, or a person may have to study to get a good grade on a test. How these complex behaviors are encoded in the brain’s wiring is not fully understood. Patients with injuries to the frontal cortex of the brain display a lack of motivation to pursue ",
+      "frontal cortex (OFC) contains the blueprint to support this association. Regalado et al. show that the OFC and ACC work together during goal-seeking behavior in mice. In the experiments, mice learned to complete a task to achieve a sugar water reward. As the mice were learning, Regalado et al. recorded activity in the ACC and found that the ACC is active during goal-seeking behavior. They also discovered that the act"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "동기 지속을 담당하는 전두엽 활동을 설명한다"
+  },
+  {
+    "book": "Intraspecific predator interference promotes biodiversity in ecosystems",
+    "url": "https://elifesciences.org/articles/93115",
+    "source": "elife",
+    "v_level": 6,
+    "words": 378,
+    "rows": 1,
+    "excerpts": [
+      "The surface waters of the ocean are teeming with microscopic creatures known as plankton, which get carried across vast distances by the currents. In a single ecosystem, thousands of plankton species may coexist, all competing for very few types of food sources. According to the principle of competitive exclusion, this should not be the case. Indeed, this theory states that the population levels of two species compet",
+      "solve the paradox of the plankton in a steady environment. In response, Kang et al. set out to test whether a phenomenon known as predator interference, which emerges when two or more individuals of the same species compete for the same resources, could help address the paradox of the plankton. To test this idea, Kang et al. developed a mathematical model of predator interference for multiple species of plankton feed"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "포식자 간섭이 플랑크톤 역설을 푸는 모형 해설"
+  },
+  {
+    "book": "Different roles of D1/D2 medium spiny neurons in the nucleus accumbens in pair bond formation of male mandarin voles",
+    "url": "https://elifesciences.org/articles/100292",
+    "source": "elife",
+    "v_level": 6,
+    "words": 302,
+    "rows": 1,
+    "excerpts": [
+      "In some animals, including humans, breeding pairs form strong, lasting bonds. These connections can be useful when raising offspring, especially in species where rearing takes a long time. Chemicals in the brain play a part in forming these bonds, including dopamine, a chemical involved in triggering feelings of pleasure and reward. The nucleus accumbens is a region of the brain that has roles in decision-making, mot",
+      " different dopamine receptor. Changes in dopamine release, or changes in how the D1 and D2 neurons in the nucleus accumbens respond to this chemical, likely shape how pair bonding occurs. To learn more, Zhang, Qu et al. examined dopamine levels and neuron activity in the nucleus accumbens of mandarin voles, a type of rodent that forms monogamous relationships. The researchers found that after the voles paired up, the"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "들쥐 짝 결속의 도파민 수용체 역할을 설명한다"
+  },
+  {
+    "book": "History of Lake Powell Written in Sediment",
+    "url": "https://www.usgs.gov/news/science-snippet/history-lake-powell-written-sediment",
+    "source": "usgs",
+    "v_level": 5,
+    "words": 584,
+    "rows": 1,
+    "excerpts": [
+      "Declining water levels in Lake Powell since 2000 provide a unique opportunity to study the sediments along previous shorelines. Researchers from the University of Utah, U.S. Geological Survey, and Utah State University recorded the changes in deposits, which informs understanding of hydrologic systems and the effects of reservoirs. This research, along with others, will help to build an archive of sediment records th",
+      "n their way downstream to reach the lake. As the researchers recorded the stratigraphy at several sites in the upper end of the Lake Powell area, they read and analyzed the story of those cycles. “Lake Powell acts as a tollbooth for rivers in the Upper Colorado River Basin,” said USGS Hydrologist Casey Root. “As water from the rivers passes through the reservoir into the lower basin, sediment is left behind. In a col"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "파월호 퇴적층으로 읽는 하천 이력 연구다"
+  },
+  {
+    "book": "'Electro-agriculture' could grow food without light",
+    "url": "https://www.futurity.org/electro-agriculture-grow-food-without-light-3257042/",
+    "source": "futurity",
+    "v_level": 6,
+    "words": 397,
+    "rows": 1,
+    "excerpts": [
+      "Researchers have proposed a way to grow food without using light. The agriculture industry relies on photosynthesis to grow food to feed the world. However, the process is slow and requires a lot of resources, making it inefficient to meet the world’s needs. Now, the researchers propose a move to an electro-agriculture framework that combines carbon dioxide electrolysis with biological systems to boost food productio",
+      "k for plants in this system. Plants can be genetically modified to feed off acetate and photosynthesis, thereby making vertical indoor farming much more energy efficient. The goal is to eventually engineer plants that can fully rely on acetate as fuel, which could lead to a massive reduction in agricultural land use—land that can instead be put toward conservation and decarbonization. “Electro-ag would allow for both"
+    ],
+    "verdict": "use",
+    "genre": "technology",
+    "why": "빛 없이 작물을 키우는 전기농업 구상을 설명한다"
+  },
+  {
+    "book": "Men and women have unique strengths in reaching for goals",
+    "url": "https://www.futurity.org/men-women-gender-goals-drive-passion-flow-3268502-2/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 324,
+    "rows": 1,
+    "excerpts": [
+      "Women and men differ in drive, passion, and flow, a new study shows. “This is the first study to look at these factors together, says Professor Hermundur Sigmundsson of the Norwegian University of Science and Technology’s psychology department. The results indicate that the sexes each have their own strengths when it comes to success: Men are more passionate than women when it comes to achieving their goals. They als",
+      "e that is very interesting in this study. There is a strong correlation between drive and flow,” Sigmundsson says. This may seem strange and contradictory, since men have the most flow, while women have the most drive. But then we should remember that these are average figures, which can be misleading when we look at individuals. Many in the sample therefore have both a lot of drive and the ability to find flow, rega"
+    ],
+    "verdict": "use",
+    "genre": "social",
+    "why": "성별 동기 차이를 자료로 다룬 연구 보고다"
+  },
+  {
+    "book": "New Crew Members Welcomed to International Space Station - NASA",
+    "url": "https://www.nasa.gov/image-article/new-crew-members-welcomed-to-international-space-station/",
+    "source": "nasa",
+    "v_level": 3,
+    "words": 123,
+    "rows": 2,
+    "excerpts": [
+      "1 min read New Crew Members Welcomed to International Space Station HQ Web Team Jul 24, 2026 Image Article From left, Expedition 74 flight engineers Anna Kikina and Pyotr Dubrov of Roscosmos, and Anil Menon of NASA pose for a July 18, 2026, photo while holding a cake celebrating their recent arrival aboard the International Space Station. The trio arrived at the space station on July 14, 2026, after launching from th"
+    ],
+    "verdict": "reject",
+    "genre": "fragmentary",
+    "why": "촬영 정보와 크레딧뿐인 사진 캡션이다"
+  },
+  {
+    "book": "How do some mammals hit pause on pregnancy?",
+    "url": "https://www.futurity.org/embryonic-diapause-cancer-treatment-3316092/",
+    "source": "futurity",
+    "v_level": 6,
+    "words": 1052,
+    "rows": 1,
+    "excerpts": [
+      "Some mammals can hit pause on a pregnancy and understanding how that happens could help us treat cancer, researchers report. Seals give birth only when conditions are right. After mating, a female seal can delay implantation of the embryo in the uterine wall—pausing pregnancy until she senses that her fat reserves are aligned with the season. This strategy, known as embryonic diapause, is practiced by hundreds of mam",
+      "luripotent—capable of becoming any cell type—even under stress. The team first established that they could induce a diapause-like state by exposing murine embryonic stem cells to I-BET151, a first-in-class BET inhibitor developed in the lab that mimics Myc deficiency. They also used mTOR inhibition, a standard way to simulate the metabolic slowdown caused by nutrient scarcity. In both cases, the cells behaved like em"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "포유류 배아 휴면 기작과 응용을 설명한다"
+  },
+  {
+    "book": "Star explosions may be behind mysterious fast radio bursts",
+    "url": "https://www.futurity.org/four-fast-radio-bursts-3167822/",
+    "source": "futurity",
+    "v_level": 6,
+    "words": 681,
+    "rows": 1,
+    "excerpts": [
+      "Supernovae are the predominant contributors to forming sources that eventually produce fast radio bursts, new research suggests. Fast radio bursts (FRBs), fleeting blasts of energy from space, are a cosmic enigma. “Fast radio bursts are one of astronomy’s greatest mysteries,” says lead author Mohit Bhardwaj, a member of the Canadian Hydrogen Intensity Mapping Experiment Fast Radio Burst (CHIME/FRB) collaboration and ",
+      "s we amass larger samples of more precisely observed FRBs, we can further scrutinize these distinctions for both nearby and distant FRBs,” he says. “By conducting more in-depth analyses, we hope to refine our understanding of the diverse origins of FRBs and potentially unveil the underlying mechanisms that drive these cosmic phenomena, shedding light on the intricacies of the universe’s radio signal bursts.” The CHIM"
+    ],
+    "verdict": "use",
+    "genre": "space",
+    "why": "초신성이 빠른 전파 폭발의 기원임을 논한다"
+  },
+  {
+    "book": "Do you need to take vitamin D and calcium supplements?",
+    "url": "https://www.futurity.org/vitamin-d-calcium-supplements-3315492/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 642,
+    "rows": 1,
+    "excerpts": [
+      "As we age, getting enough—but not too much—of these essential nutrients will help us avoid falls and fractures, says a bone expert. Bess Dawson-Hughes, an expert at the Jean Mayer USDA Human Nutrition Research Center on Aging and the Tufts University School of Medicine, says: As we enter our 50s, it’s time to reassess our intake of calcium, which helps mitigate bone loss, and vitamin D, which helps us absorb calcium.",
+      "ry infections, and diabetes risk, but additional research is needed to translate these findings into clinical practice. According to the Food and Nutrition Board of the National Academies of Sciences, Engineering, and Medicine, the recommended daily allowance of calcium for woman 51 and older and men 71 and older is 1,200 mg, while men 51-70 need 1,000 mg. For vitamin D, it’s 15 mcg for those 51-70, and 20 mcg for th"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "칼슘·비타민 D 섭취 기준을 근거와 함께 설명한다"
+  },
+  {
+    "book": "How Christian clergy responded after George Floyd's murder",
+    "url": "https://www.futurity.org/clergy-religion-racial-injustice-george-floyd-3232452/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 490,
+    "rows": 1,
+    "excerpts": [
+      "After the murder of George Floyd, evangelical Christians were more likely to avoid the issue of racial injustice, while mainline Protestants and Black clergy addressed the topic and in some cases took a stand against it. The study published online in the Journal for the Scientific Study of Religion, examines how Christian clergy in Houston, Texas responded to the 2020 murder of Floyd and subsequent calls for racial j",
+      "leader of a majority-white church was involved in trying to advance racial justice in their local community. “While clergy of non-Black churches felt convicted by Floyd’s murder to engage in conversations about race in their churches, they also shared with us conflicts and tensions in their congregation that made it difficult to address,” says coauthor Rachel Schneider, director of the Religion and Public Life Progra"
+    ],
+    "verdict": "use",
+    "genre": "social",
+    "why": "플로이드 사건 후 성직자 대응을 연구로 분석한다"
+  },
+  {
+    "book": "Driver's license laws may improve health for undocumented immigrant moms and babies",
+    "url": "https://www.futurity.org/drivers-license-laws-undocumented-immigrants-3184642/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 873,
+    "rows": 1,
+    "excerpts": [
+      "Laws that allow undocumented immigrants to get driver’s licenses indirectly improve the overall health and well-being of immigrant mothers and their babies, a new study finds. In 2023, Rhode Island, Massachusetts, and Minnesota joined a growing list of states that allow undocumented immigrants to obtain driver’s licenses if the applicant can provide certain documentation, such as a foreign birth certificate or passpo",
+      " between these laws and improved birth outcomes among babies born to Mexican and Central American immigrants, but stopped short of explaining why the correlation exists. According to Moinester and Stanhope, these laws likely influence perinatal health by lessening deportation fears and stress. It’s well known that stress prior to and during pregnancy can increase risk of adverse birth outcomes, including low birth we"
+    ],
+    "verdict": "use",
+    "genre": "social",
+    "why": "운전면허 허용법과 출산 건강의 연관을 논증한다"
+  },
+  {
+    "book": "Volcano helped clean up after it erupted",
+    "url": "https://www.futurity.org/volcanoes-eruption-methane-3333772/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 815,
+    "rows": 1,
+    "excerpts": [
+      "A violent volcanic eruption in the South Pacific has revealed a surprising natural mechanism that could potentially help slow global warming. The finding provides entirely new insights into atmospheric chemistry and may inspire new methods to remove methane emissions from the air. When the submarine volcano Hunga Tonga–Hunga Ha’apai in the South Pacific erupted in January 2022, it was not only one of the most violent",
+      "of salty seawater into the stratosphere along with volcanic ash. The theory is that when sunlight hit this mixture, highly reactive chlorine was formed, helping to break down the methane released during the eruption. The visible evidence of this methane breakdown was the large amounts of formaldehyde detected in satellite images. Methane is currently responsible for one third of global warming. Over a 20-year period,"
+    ],
+    "verdict": "use",
+    "genre": "climate",
+    "why": "화산 분출이 메탄을 분해한 기작을 설명한다"
+  },
+  {
+    "book": "Vacations offer longer-lasting benefits than previously thought",
+    "url": "https://www.futurity.org/vacations-employee-well-being-3266242/",
+    "source": "futurity",
+    "v_level": 4,
+    "words": 531,
+    "rows": 1,
+    "excerpts": [
+      "New research suggests that longer vacations offer larger well-being benefits for employees once they head back to work. But those getting back from extended trips can also experience a steeper decline once they’re back to reality. If you’re like many Americans, you probably didn’t take all your vacation time this past year. Even if you did, it’s highly likely you didn’t fully unplug while off the clock. But you might",
+      " vacation makes a difference in how restorative your time off is, though. The researchers found that employees who psychologically disengaged from work on their vacations saw the most improvement in their well-being. “If you’re not at work but you’re thinking about work on vacation, you might as well be at the office,” Grant says. “Vacations are one of the few opportunities we get to fully just disconnect from work.”"
+    ],
+    "verdict": "use",
+    "genre": "social",
+    "why": "휴가 길이와 복귀 후 행복감 연구를 설명한다"
+  },
+  {
+    "book": "Invasive Pest May Not Be Only Cause of Recent Louisiana Marsh Die-off",
+    "url": "https://www.usgs.gov/news/featured-story/invasive-pest-may-not-be-only-cause-recent-louisiana-marsh-die",
+    "source": "usgs",
+    "v_level": 5,
+    "words": 774,
+    "rows": 1,
+    "excerpts": [
+      "Non-native insects from Asia have been the main suspects in a recent, rapid die-off of an important marsh grass that helps stabilize Louisiana’s erosion-prone coastal wetlands. But a new USGS report, based on satellite imagery and a special technique for assessing marsh vegetation, shows much of the affected marsh began declining in 2015, more than a year before the latest die-off and insect infestation were discover",
+      "nsect native to Asia, in affected phragmites stands. The insects, also known as mealy bugs, suck the grasses’ sap, weakening or killing them. Scientists from Louisiana State University, the U.S. Army Corps of Engineers and other agencies are working quickly to determine the extent of the phragmites die-off. According to preliminary estimates about 100,000 acres have been affected, including parts of Delta National Wi"
+    ],
+    "verdict": "use",
+    "genre": "nature",
+    "why": "루이지애나 습지 고사 원인을 위성으로 재검토한다"
+  },
+  {
+    "book": "'Love hormone' plays a role in group competition",
+    "url": "https://www.futurity.org/oxytocin-love-hormone-group-competition-3333762/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 464,
+    "rows": 1,
+    "excerpts": [
+      "The “love hormone” oxytocin plays a role not only in moments of intimacy but also in competitive situations. Researchers at the University of Zurich (UZH) have shown that oxytocin levels increase when rivalry or clearly defined groups are involved—particularly in men. “Previous work showed that receiving oxytocin via a nasal spray can make people more ‘groupish’,” says Charlotte Debras from UZH’s Institute of Evoluti",
+      "d most strongly after matches against familiar rivals but less so among teams from different communities. When Tsimane’ played against non-Tsimane’ people, however, the increase was again higher. “This suggests that oxytocin is sensitive to the salience of the opposition—showing heightened reactivity both toward familiar competitors and toward a clearly defined out-group,” says Jaeggi. One particularly striking findi"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "옥시토신이 집단 경쟁에서 오르는 현상 연구다"
+  },
+  {
+    "book": "The Water You Lose Without Sweating",
+    "url": "",
+    "source": "original",
+    "v_level": 2,
+    "words": 152,
+    "rows": 1,
+    "excerpts": [
+      "The body loses water all day, and not only through sweat. Every breath carries a little of it out, and the loss goes on while a person sits still in a cool room. Thirst appears only after some of that water is already gone, so it arrives late. Consider a long walk taken on a mild autumn day. The walker feels dry lips but no real thirst, because the moving air lifts the sweat away before the skin ever feels damp. Hour"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "땀 없이도 물이 빠져나가는 경로를 설명한다"
+  },
+  {
+    "book": "Why people blame the victim",
+    "url": "https://www.futurity.org/blame-victim-3191802/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 673,
+    "rows": 1,
+    "excerpts": [
+      "New research examines why people blame the victims of misfortune. In an age of GoFundMe campaigns, it’s easier than ever to help family, friends, and even strangers in times of need. It’s also easy to look the other way. “Most people see themselves as cooperative and generous, but there’s a cost to helping people who can’t reciprocate,” says Pascal Boyer, a professor of collective and individual memory at Washington ",
+      "the maximum amount possible. A closer look at the data across multiple experiments revealed an intriguing trend: The more character flaws participants saw in a victim, the less willing they were to donate. “They’re saying that the victim doesn’t deserve help,” Boyer says. The finding goes against a long-held assumption about human nature. In the 1960s, psychologists suggested people were reluctant to help victims of "
+    ],
+    "verdict": "use",
+    "genre": "social",
+    "why": "피해자 비난 심리의 실험 결과를 설명한다"
+  },
+  {
+    "book": "TikTok vasectomy videos spread bad info",
+    "url": "https://www.futurity.org/tiktok-vasectomy-videos-3232232-2/",
+    "source": "futurity",
+    "v_level": 4,
+    "words": 399,
+    "rows": 1,
+    "excerpts": [
+      "TikTok videos about vasectomy have low medical accuracy, a new study shows. Reports of rising rates in vasectomy procedures following the Supreme Court decision on Dobbs are not hard to find, raising questions about the accuracy of information online. When researchers evaluated videos on TikTok using a standard rubric for assessing the quality of health information, they found that the videos had an average score of ",
+      "latform is especially popular among young people, who often do not consume news and information from other more traditional sources. Examining the 100 most liked videos tagged “#vasectomy” on the social media platform, which garnered a combined 353 million views, the researchers also found: 12% of the videos offered scientific or health care information and 6% were made by a health care professional. The videos avera"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "틱톡 정관수술 영상의 의학 정확도를 평가한다"
+  },
+  {
+    "book": "Haru (11쪽부터 발췌)",
+    "url": "https://storyweaver.org.in/stories/300555-haru",
+    "source": "storyweaver",
+    "v_level": 3,
+    "words": 105,
+    "rows": 1,
+    "excerpts": [
+      "My leg is fine now. Here I am, helping with the laundry. Itʼs not a bad life. Haru was a real goat! He was rescued by Granny Ituko in Santiniketan in West Bengal, during the 1970s. He grew up as a member of her family, along with many dogs, birds, cows, squirrels, pigeons and ducks, and one snake. Goats are intelligent and funny, and they come running when called, especially if you learn to bleat like them — which I "
+    ],
+    "verdict": "narrative",
+    "genre": "fiction",
+    "why": "구조된 염소 하루의 이야기 — 서사다"
+  },
+  {
+    "book": "New treatment kills cancer with light but spares healthy cells",
+    "url": "https://www.futurity.org/led-light-cancer-cells-3299392/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 455,
+    "rows": 1,
+    "excerpts": [
+      "A new cancer treatment combines LED light and tiny tin flakes to neutralize cancer cells while shielding healthy cells and avoiding the painful side effects associated with chemotherapy and other treatments. The new discovery could enable widespread use of an emerging light-based treatment that currently faces several hurdles, including high material costs, the need for specialized facilities, and lasers that can dam",
+      "t 30 minutes of exposure, the treatment killed up to 92% of skin cancer cells and 50% of colorectal cancer cells. It did so without harmful effects on healthy human skin cells, demonstrating the safety and selectivity of this approach. Cancer is the second-leading cause of death around the world, and treatment for it remains challenging. Researchers worldwide are investigating alternative options, and one of the most"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "LED와 주석 박편으로 암세포만 죽이는 원리다"
+  },
+  {
+    "book": "Midlife blood test may predict Alzheimer's risk",
+    "url": "https://www.futurity.org/blood-test-alzheimers-risk-3068892/",
+    "source": "futurity",
+    "v_level": 6,
+    "words": 421,
+    "rows": 1,
+    "excerpts": [
+      "Researchers have connected two blood biomarkers to changes in cognitive function in women in midlife. The discovery opens a potentially powerful path to noninvasive, earlier detection and interventions for Alzheimer’s disease and other dementias. The study analyzed two blood-based serum biomarkers, amyloid β (Aβ)42, Aβ42/40 ratio and phosphorylated tau181 (p-tau181), and tracked their levels in middle-aged women and ",
+      "sments may serve as early predictors of cognitive decline, offering an opportunity for early detection and prevention before development of irreversible dementia, Wang says. Besides the possibility of earlier intervention for Alzheimer’s disease and other forms of dementia, the blood biomarker tests such as those the researchers studied could lead to less invasive, possibly more affordable methods of neurological tes"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "중년 혈액 표지자로 치매 위험을 예측하는 연구"
+  },
+  {
+    "book": "APOD: 2026 July 3 - Three Galaxies in Pavo - NASA Science",
+    "url": "https://science.nasa.gov/image-article/apod-2026-july-3-three-galaxies-in-pavo/",
+    "source": "nasa",
+    "v_level": 7,
+    "words": 224,
+    "rows": 1,
+    "excerpts": [
+      "APOD APOD Astronomy Picture of the Day Discover the cosmos! Each day a different image or photograph of our fascinating universe is featured, along with a brief explanation written by a professional astronomer. Three Galaxies in Pavo Explanation: Some 190 million light-years away, far beyond the bright stars and nebulae of the Milky Way, these three galaxies are drawn together by gravity in a mesmerizing cosmic dance",
+      "h luminous galactic disks scarred by obscuring interstellar dust lanes. Their young blue star clusters along drawn out spiral arms are spawned in star forming regions that resulted from collisions of massive molecular clouds . Below, spiral NGC 6771 presents a more edge-on perspective, its boxy central bulge due to tidal star streams . Of course, in the distant future a merger of the three galaxies is inevitable. At "
+    ],
+    "verdict": "use",
+    "genre": "space",
+    "why": "세 은하의 상호작용을 해설한 천문 설명문이다"
+  },
+  {
+    "book": "How did people adapt to the high altitude in the Andes?",
+    "url": "https://www.futurity.org/high-altitude-genetics-indigenous-people-andes-3318232/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 698,
+    "rows": 1,
+    "excerpts": [
+      "New research digs into how Indigenous people living at high altitude in the Andean highlands have adapted to one of the most extreme environments ever inhabited by humans. DNA sequencing technology makes it possible to explore the genome to learn how humans adapted to live in a wide range of environments. Research has shown, for instance, that Tibetans living at high altitude in the Himalayas have a unique variant of",
+      "n DNA methylation between the low- and high-altitude populations for the PSMA8 gene, associated with regulation of the vascular system, and for the FST gene, associated with regulating muscles in the heart. The second strongest signal detected in the high-altitude population compared to the low-altitude population was for genes within the P13K/AKT pathway, which is associated with muscle growth and the creation of ne"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "안데스 고지대 적응의 유전 신호를 설명한다"
+  },
+  {
+    "book": "Get your Gummy Greenhouse Gases! (앞부분 발췌)",
+    "url": "https://spaceplace.nasa.gov/gumdrops/en/",
+    "source": "space_place",
+    "v_level": 3,
+    "words": 187,
+    "rows": 1,
+    "excerpts": [
+      "You are using an outdated browser. For a faster, safer, and more beautiful web upgrade for free today. Got gumdrops? Then you can build models of molecules. Molecules are tiny structures that make up just about all matter—including you! Molecules themselves are made of atoms, the basic building blocks of matter. Using just four kinds of atoms as building blocks, you can construct many different types of molecules. In",
+      "ms as building blocks, you can construct many different types of molecules. In this project, you will build models of some gas molecules. These kinds of gas molecules are part of the air. They are called greenhouse gases. We will explain why later. For now, get ready for some gummy fun! These atoms are usually modeled using red for oxygen, white for hydrogen, gray for carbon, and blue for nitrogen. However, some of t"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "젤리로 온실가스 분자 모형을 만드는 과학 해설"
+  },
+  {
+    "book": "Image-based identification and isolation of micronucleated cells to dissect cellular consequences",
+    "url": "https://elifesciences.org/articles/101579",
+    "source": "elife",
+    "v_level": 5,
+    "words": 341,
+    "rows": 1,
+    "excerpts": [
+      "Healthy cells house most of their genetic information, such as their chromosomes, within a dedicated compartment known as the nucleus. Micronuclei, on the other hand, are small cellular compartments which contain pieces of DNA left behind after improper cell divisions or other abnormal events. Detectable under the microscope, their presence is usually interpreted as a sign of aging, disease or negative perturbations ",
+      "DiPeso et al. aimed to address this gap by developing an AI tool, MNFinder, which can analyse images of live cells and automatically identify micronuclei. This allowed the team to mark and isolate cells in which these compartments were either absent, present, or had ruptured. Further experiments showed that, unexpectedly, patterns of gene expression did not differ between these different groups of cells. This suggest"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "미세핵 세포 식별 AI 도구 연구를 설명한다"
+  },
+  {
+    "book": "The Brass Horn and the Narrow Lane",
+    "url": "",
+    "source": "original",
+    "v_level": 5,
+    "words": 331,
+    "rows": 1,
+    "excerpts": [
+      "Mira carried the last box up four flights and set it by the door. The lane under her window was narrow, and the household noise felt strange to her. Among her things she kept a wooden case that held her grandmother's brass horn. When she opened the pile that evening, the case was gone. She searched every rack and every loose corner, but found only dust. The building was still a blank map to her, and she knew nobody i",
+      "had stacked boxes by the stairwell for an hour. He offered to walk the lane with her before the shops opened. She felt uncomfortable taking help from a stranger, yet she was too tired to refuse him. They asked at the bakery, at the laundry, and at a bicycle shop. By noon Tobin had a scrap of string that he had picked off the pavement. He knew the knot in it as the kind the movers had used to bind a crate. The string "
+    ],
+    "verdict": "narrative",
+    "genre": "fiction",
+    "why": "잃어버린 나팔을 찾는 인물 이야기 — 서사다"
+  },
+  {
+    "book": "The story behind Soweto Blues, Miriam Makeba’s famous song about the June 16 uprising",
+    "url": "https://theconversation.com/the-story-behind-soweto-blues-miriam-makebas-famous-song-about-the-june-16-uprising-285173",
+    "source": "the_conversation",
+    "v_level": 5,
+    "words": 836,
+    "rows": 1,
+    "excerpts": [
+      "Miriam Makeba sang a famous song about the 16 June 1976 uprising in her birthplace, South Africa. The protest was a pivotal point in the fight against apartheid and white minority rule in the country. The song was called Soweto Blues and its opening lines go: The children got a letter from the Master. It said no more Xhosa, Sotho, no more Zulu Refusing to comply they sent an answer That’s when the policemen came… The",
+      " Ghanaian ensemble Hedzoleh (“freedom”) Sounds. Masekela was introduced to the west Africans by Afrobeat legend Fela Kuti in 1973, and the collaboration produced three albums led by his name: Introducing Hedzoleh Soundz (1973); I Am Not Afraid (1974); and The Boy’s Doin’ It (1975). But there were other collaborations between Kwesi and Masekela too, including the 1977 You Told Your Mama Not to Worry. That was recorded"
+    ],
+    "verdict": "use",
+    "genre": "history",
+    "why": "'소웨토 블루스'의 배경과 항쟁을 서술한다"
+  },
+  {
+    "book": "Music can enhance learning and change our memories",
+    "url": "https://www.futurity.org/music-learning-memory-3248012-2/",
+    "source": "futurity",
+    "v_level": 6,
+    "words": 1027,
+    "rows": 1,
+    "excerpts": [
+      "New research demonstrates music’s impact on learning and memory, with possible therapeutic applications for mental health. The music we know and might love, music that feels predictable or even safe—that music can help us study and learn. Yiren Ren, a sixth-year PhD student in Georgia Tech’s School of Psychology, has also discovered, other kinds of music can influence our emotions and reshape old memories. Ren explor",
+      " can play in altering our existing memories,” says Ren. Ren is herself a multi-instrumentalist who originally planned on being a professional musician. As an undergraduate at Boston University, she pursued a dual major in film production and sound design, and psychology. She found a way to combine her interests in music and neuroscience and is interested in how music therapy can be designed to help people with mood d"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "음악이 학습과 기억을 바꾸는 연구를 설명한다"
+  },
+  {
+    "book": "Can a new treatment restore lost sense of smell?",
+    "url": "https://www.futurity.org/lost-sense-of-smell-3277752/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 680,
+    "rows": 1,
+    "excerpts": [
+      "Researchers have found a potential treatment for lost sense of smell. The idea seemed, at first blush, preposterous. “I don’t know anyone spraying vitamin D up a patient’s nose,” says Jennifer Mulligan, codirector of the University of Florida Health Smell Disorders Program. But there they were in 2012, Mulligan and her colleagues, trying to determine why their clinical trial had failed. They had given patients oral s",
+      "o the tissue might seem straightforward, doing so runs counter to the long-standing medical practice of addressing such a deficiency by prescribing oral supplements. A supplement enables the body to metabolize an inactive form of vitamin D into its active counterpart, allowing it to interact with cells throughout the body after being dispersed through the bloodstream. You don’t fix something that isn’t broken. That’s"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "후각 상실에 비타민 D 국소 투여를 시험한 연구"
+  },
+  {
+    "book": "Mars 2020 Mission: The Perseverance Rover Landing",
+    "url": "https://www.usgs.gov/news/featured-story/mars-2020-mission-perseverance-rover-landing",
+    "source": "usgs",
+    "v_level": 5,
+    "words": 850,
+    "rows": 1,
+    "excerpts": [
+      "The time is finally here! When you’re planning to explore someplace new, it’s always a good idea to bring a map so you can avoid dangerous terrain. This is true whether you’re heading out for a hike on Earth or you’re landing a rover on Mars. In either case, the USGS has you covered. After nearly seven months of travel through space, NASA’s Perseverance rover will touch down on Mars on Thursday, February 18. The miss",
+      "board maps used during the descent, USGS researchers also assisted in publishing a new geologic map of Jezero crater and Nili Planum – the ancient, cratered highlands where the crater impacted. The geologic map covers the landing site and surrounding terrain that the rover will encounter on its travels during the course of its mission. The geologic map is at a similar scale to our own USGS topographic maps, which is "
+    ],
+    "verdict": "use",
+    "genre": "space",
+    "why": "퍼서비어런스 착륙 지도 제작 과정을 설명한다"
+  },
+  {
+    "book": "Fluoride levels in pregnancy tied to anxiety and other issues in kids",
+    "url": "https://www.futurity.org/fluoride-exposure-pregnancy-neurobehavioral-problems-kids-3221632/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 702,
+    "rows": 1,
+    "excerpts": [
+      "Higher fluoride levels in pregnant women are linked to increased odds of their children exhibiting neurobehavioral problems at age 3, according to a new study. The findings are based on an analysis involving 229 mother-child pairs living in a US community with typical fluoride exposure levels for pregnant women in fluoridated regions in North America. The study appears in the journal JAMA Network Open. It is believed",
+      "to other US populations or are nationally representative and therefore more research is required to address that question. Individual differences in a person’s fluoride exposure can be attributed to variances in dietary consumption, such as drinking and cooking with tap water versus filtered water, or consuming food and drinks naturally high in fluoride, including green and black tea, certain seafoods, and foods spra"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "임신 중 불소 노출과 아동 행동 문제의 연관이다"
+  },
+  {
+    "book": "Endosomal-lysosomal organellar assembly (ELYSA) structures coordinate lysosomal degradation systems through mammalian oocyte-to-embryo transition",
+    "url": "https://elifesciences.org/articles/99358",
+    "source": "elife",
+    "v_level": 5,
+    "words": 300,
+    "rows": 1,
+    "excerpts": [
+      "Mammalian egg cells, known as oocytes, store the nutrients and materials required for early embryo development. Before fertilisation, they exist in a low-energy, almost hibernation-like state. However, once fertilised, oocytes break down their stored nutrients to support embryo growth. This process partly relies on the digestive activity of organelles called lysosomes, which contain proteins that can break down cell ",
+      "hey are activated too late, the embryo will not have the nutrients it needs to develop. To investigate how the oocyte controls activation of endosome and lysosome activity, Satouh et al. used live imaging techniques to observe mice oocytes as they matured, were fertilised and developed into early embryos. This revealed that early in oocyte development, a large spherical structure forms, which grows as the egg matures"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "난자에서 리소좀 활성 조절 구조를 설명한다"
+  },
+  {
+    "book": "Seeing Water from Space",
+    "url": "https://www.usgs.gov/news/featured-story/seeing-water-space",
+    "source": "usgs",
+    "v_level": 5,
+    "words": 662,
+    "rows": 1,
+    "excerpts": [
+      "This scenario plays out across Alaska's rugged wilderness, where the Department of Transportation manages over 5,600 miles of highways and 839 bridges. Most of these wild lands don’t have flood monitoring capabilities. Now, new satellite technology is changing that reality. Satellites are helping remote communities like these protect themselves from flooding disasters by providing reliable access to water level data.",
+      "ere we've never had monitoring capabilities before,\" Harlan explained. \"The USGS-NASA partnership brings space-age technology down to Earth in ways that directly benefit remote communities.\" The technology is especially valuable for monitoring high-hazard dams—structures where failure could lead to loss of life in downstream communities. By incorporating WISP's satellite observations, engineers can improve spillway w"
+    ],
+    "verdict": "use",
+    "genre": "technology",
+    "why": "위성으로 오지 수위를 관측하는 기술을 설명한다"
+  },
+  {
+    "book": "What critics of college athletes making money get wrong about name, image and likeness policies",
+    "url": "https://theconversation.com/what-critics-of-college-athletes-making-money-get-wrong-about-name-image-and-likeness-policies-256958",
+    "source": "the_conversation",
+    "v_level": 5,
+    "words": 1085,
+    "rows": 1,
+    "excerpts": [
+      "A lot has changed since college athletes began earning compensation in 2021. A small percentage have become rich due to their talent and marketability. The vast majority, however, have earned much more modest additional income, if any at all. But one thing hasn’t changed: Opponents of college students cashing in on marketing their name, image and likeness, or NIL, still argue that athlete compensation has ended the s",
+      "t would be irrational, in my view, to contend that college athletes and their families should operate differently. There’s also another truth that’s been overlooked: NCAA Division I athletics have been getting more and more commercialized for decades, with top officials, athletic directors and coaches commanding high six- or even seven- and eight-figure salaries. The notable exceptions are the athletes themselves, wh"
+    ],
+    "verdict": "use",
+    "genre": "social",
+    "why": "대학 선수 수익화 비판을 자료로 반박하는 논증"
+  },
+  {
+    "book": "EarthView–Landsat 8 Imagery Reveals Heavy Flooding in Sri Lanka",
+    "url": "https://www.usgs.gov/news/science-snippet/earthview-landsat-8-imagery-reveals-heavy-flooding-sri-lanka",
+    "source": "usgs",
+    "v_level": 5,
+    "words": 288,
+    "rows": 1,
+    "excerpts": [
+      "EarthViews is a continuing series in which we share a USGS Image of the Week featuring the USGS/NASA Landsat program. From the artistry of Earth imagery to natural and human-caused land change over time, check back every Friday to finish your week with a visual flourish! The EarthView: Landsat 8 Imagery Reveals Heavy Flooding in Sri Lanka Description: On May 18, 2016, a Landsat 8 acquisition of flood-ravaged Sri Lank",
+      "of the images resulted from data acquired by the shortwave, near-infrared, and red bands (6,5,4) on Landsat 8's Operational Land Imager. Officials in Sri Lanka's national Disaster Management Center say the heaviest rains in a quarter century forced 200,000 people out of the low-lying parts of the country's capital in Colombo, sent 400,000 fleeing to state-run relief camps, and covered entire villages in walls of mud."
+    ],
+    "verdict": "reject",
+    "genre": "fragmentary",
+    "why": "주간 사진 코너의 이미지 설명 캡션이다"
+  },
+  {
+    "book": "US Community Colleges Offer Clean Energy Training",
+    "url": "https://learningenglish.voanews.com/a/us-community-colleges-offer-clean-energy-training/7621377.html",
+    "source": "voa",
+    "v_level": 5,
+    "words": 885,
+    "rows": 1,
+    "excerpts": [
+      "Across the United States, students are now looking to community colleges for training in jobs related to climate change solutions. These include wind and solar energy, electrification, and protecting water and farmland. For example, on the south side of Chicago, Illinois, students learn how to work on an electric vehicle (or EV) in a new technician program at Olive-Harvey College. About 240 kilometers south, students",
+      "d in Danville’s wind energy technician classes. He said, “It really opens the door for people out here for jobs.” College investment in new programs At the same time, community colleges have been losing students, not unlike the rest of higher education. Currently, more people are entering the workforce straight out of high school. And some community colleges have not recovered from the decrease in enrollment that hap"
+    ],
+    "verdict": "use",
+    "genre": "education",
+    "why": "지역 대학의 청정에너지 직업훈련을 설명한다"
+  },
+  {
+    "book": "Can a new gene therapy reverse heart failure?",
+    "url": "https://www.futurity.org/gene-therapy-reverse-heart-failure-3261492/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 926,
+    "rows": 1,
+    "excerpts": [
+      "A new gene therapy can reverse the effects of heart failure and restore heart function in a large animal model. The therapy increases the amount of blood the heart can pump and dramatically improves survival, in what a paper describing the results calls “an unprecedented recovery of cardiac function.” Currently, heart failure is irreversible. In the absence of a heart transplant, most medical treatments aim to reduce",
+      "nce to that of non-failing hearts. Despite the fact that, throughout the trial, the gene-transferred animals experienced the same level of cardiovascular stress that had led to their heart failure, the treatment restored the amount of blood pumped per heartbeat back to entirely normal levels. “Even though the animals are still facing stress on the heart to induce heart failure, in animals that got the treatment, we s"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "심부전을 되돌린 유전자 치료 실험을 설명한다"
+  },
+  {
+    "book": "Why you should look beyond happiness for a good life",
+    "url": "https://www.futurity.org/good-life-happiness-psychology-podcast-3268212-2/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 171,
+    "rows": 1,
+    "excerpts": [
+      "In a new podcast episode, a psychologist argues you should look beyond happiness and meaning to find fulfillment in your life. For decades, psychologists have debated whether true fulfillment comes from happiness—a life of comfort and joy—or meaning—a life of purpose and impact. But what if there’s a third way? University of Chicago psychology professor Shigehiro Oishi has spent his career studying happiness, meaning",
+      "has spent his career studying happiness, meaning, and what truly brings people deep satisfaction. The author of the book Life in Three Dimensions: How Curiosity, Exploration, and Experience Make for a Fuller Better Life (Penguin, 2025), Oishi suggests that some of the most fulfilled people don’t prioritize either—they live psychologically rich lives, full of novelty, challenges, and transformative experiences. In thi"
+    ],
+    "verdict": "reject",
+    "genre": "fragmentary",
+    "why": "팟캐스트 회차 소개와 책 홍보뿐이다"
+  },
+  {
+    "book": "Volcanic explosion penetrates both upper atmosphere and upper crust around the globe",
+    "url": "https://www.usgs.gov/news/science-snippet/volcanic-explosion-penetrates-both-upper-atmosphere-and-upper-crust-around",
+    "source": "usgs",
+    "v_level": 5,
+    "words": 596,
+    "rows": 1,
+    "excerpts": [
+      "On January 15, 2022, the Hunga Tonga-Hunga Ha’apai (HTHH) volcano, 44 miles/70 kilometers south of the Tongan capital of Nuku’alofa, began erupting with a violent explosion. The eruption, one of the largest in the past century, pushed a plume of volcanic ash higher in the atmosphere than ever recorded, about 35 miles/56 kilometers into the sky. In addition to the ash plume, the eruption triggered a tsunami that reach",
+      "e as the various seismic waves generated by the temblor travel through the crust, mantle, and core. However, because of the range of frequencies of the seismic waves, there is a blurry gap between 328 feet/100 meters from the surface and 3.1 miles/5 kilometers down. This region of the Earth is especially important because it can have a large impact on how much shaking will occur in different areas following larger ea"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "통가 화산이 대기와 지각에 남긴 신호를 설명한다"
+  },
+  {
+    "book": "Ads with wide pay ranges can put off job seekers",
+    "url": "https://www.futurity.org/wide-pay-ranges-job-applicants-3068162/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 615,
+    "rows": 1,
+    "excerpts": [
+      "As more states require employers to list compensation on job ads, a trending strategy to use very wide pay ranges could potentially harm recruitment, according to a new study. The study, published in the Journal of Applied Psychology, found that participants in three different experiments were more likely to respond negatively to job ads with very wide pay ranges, viewing those employers as less trustworthy. Prior su",
+      "tings with large pay ranges, Kuhn set up three experiments with different groups of participants to test the effect of this practice. In each experiment, some participants saw ads with wide salary ranges, such as a gap of $50,000 or more between the low and high point, while others saw ads with a narrower gap of around $10,000. The candidates then responded to questions about their perceptions of the organization pos"
+    ],
+    "verdict": "use",
+    "genre": "economics",
+    "why": "넓은 급여 범위가 지원자에 주는 영향 실험이다"
+  },
+  {
+    "book": "What the Burned Forest Keeps",
+    "url": "",
+    "source": "original",
+    "v_level": 3,
+    "words": 198,
+    "rows": 1,
+    "excerpts": [
+      "A scorched forest looks finished, and the common view is that it starts again from nothing. In that picture bare ash waits. Seeds blow in from far away, and the old wood is gone. However, the ash under a scorched stand is not as empty as it looks. Seeds from earlier years lie in the ash. Some wait years for the heat of a wildfire to open them. Roots of certain trees live through the wildfire and push a new sapling up",
+      "sh. Some wait years for the heat of a wildfire to open them. Roots of certain trees live through the wildfire and push a new sapling up within one season. Even the scorched trunks do work, since they cover the ash and slow the wind. Charcoal also feeds the insects that birds hunt, so the birds return before the leaves do. Tidy clearing of that charcoal, meant to help, removes the very cover a young sapling needs. The"
+    ],
+    "verdict": "use",
+    "genre": "nature",
+    "why": "불탄 숲이 스스로 회복하는 기작을 설명한다"
+  },
+  {
+    "book": "Cardiovascular deaths from heat to increase over 40 years",
+    "url": "https://www.futurity.org/cardiovascular-deaths-extreme-heat-climate-change-2993012/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 513,
+    "rows": 1,
+    "excerpts": [
+      "The number of heat-related cardiovascular deaths in the United States will increase over the next four decades, according to a new analysis. Extreme heat can affect heart health in many ways, including increased heart rate, changes in blood pressure, and increased inflammation. Left untreated, these issues can be deadly. The findings, published in Circulation, indicate that older adults and Black adults will experien",
+      "the middle of the century. As a result of more regularly recurring hot temperatures and demographic changes, they project between 4,320 to 5,491 deaths annually come the middle of the 21st century. Furthermore, the researchers analyzed this impact on subgroups of populations, including older adults and Black adults and found that Black adults may experience even greater increases of cardiovascular related deaths due "
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "폭염에 따른 심혈관 사망 증가 예측을 설명한다"
+  },
+  {
+    "book": "Global climate summary for September 2022",
+    "url": "https://www.climate.gov/news-features/understanding-climate/global-climate-summary-september-2022",
+    "source": "noaa",
+    "v_level": 4,
+    "words": 457,
+    "rows": 1,
+    "excerpts": [
+      "Temperature highlights September 2022 tied with 2021 as the globe’s fifth-warmest September in the 143-year NOAA record. The September global surface temperature was 1.58°F (0.88°C) above the 20th-century average of 59.0°F (15.0°C), tying with 2021 as the fifth-warmest September in the 143-year record. September 2022 marked the 46th consecutive September and the 453nd consecutive month with temperatures, at least nom",
+      "-date (January-September) global surface temperature was the sixth warmest on record. According to NCEI’s Global Annual Temperature Outlook, there is a greater than 99% chance that 2022 will rank among the 10-warmest years on record but less than 5% chance that it will rank among the top five. Precipitation highlights On the large scale in the tropics, the La Niña continued, nearly two and a half years at this point "
+    ],
+    "verdict": "reject",
+    "genre": "reference",
+    "why": "월간 기온 순위와 수치 나열이 본문이다"
+  },
+  {
+    "book": "Sometimes We 'Spread Ourself Too Thin'",
+    "url": "https://learningenglish.voanews.com/a/sometimes-we-spread-ourself-too-thin-/7940837.html",
+    "source": "voa",
+    "v_level": 3,
+    "words": 437,
+    "rows": 1,
+    "excerpts": [
+      "And now, Words and Their Stories, from VOA Learning English. Today we talk about our busy lives. Many people have family and work responsibilities. We might have religious or community activities. Taking care of our health is also important. And let’s not forget about our personal projects, our interests, and our friendships. With everything on our plate, it is easy to feel overwhelmed, overextended, and overcommitte",
+      "is possible. Here is a VOA Learning English English in a Minute video explaining the idiom \"to bite off more than you can chew.\" Now, let’s hear these some of these terms and expressions used in a conversation. A: So, how are your classes going? B: Not great. Many of my best students are failing my course. They all missed an important deadline for a project. A: That's strange. What else do they have going on? B: A lo"
+    ],
+    "verdict": "use",
+    "genre": "education",
+    "why": "'너무 많은 일을 벌인다' 표현들을 설명한다"
+  },
+  {
+    "book": "Brain stimulation could help doctors learn to use surgery robots",
+    "url": "https://www.futurity.org/brain-stimulation-doctors-surgery-robots-3067142/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 652,
+    "rows": 1,
+    "excerpts": [
+      "People who received gentle electric currents on the back of their heads learned to maneuver a robotic surgery tool in virtual reality and then in a real setting much more easily than people who didn’t receive those nudges, a new study shows. The findings offer the first glimpse of how stimulating a specific part of the brain called the cerebellum could help health care professionals take what they learn in virtual re",
+      "l for the rest of the tests. People who received the steady currents showed a notable boost in dexterity. None of them had prior training in surgery or robotics. “The group that didn’t receive stimulation struggled a bit more to apply the skills they learned in virtual reality to the actual robot, especially the most complex moves involving quick motions,” says Guido Caccianiga, a former Johns Hopkins roboticist, now"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "소뇌 자극이 로봇수술 습득을 돕는 실험이다"
+  },
+  {
+    "book": "Cheap liquid prevents kids' cavities",
+    "url": "https://www.futurity.org/liquid-silver-diamine-fluoride-kids-cavities-teeth-3188222/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 691,
+    "rows": 1,
+    "excerpts": [
+      "An inexpensive, cavity-fighting liquid called silver diamine fluoride works as well as dental sealants to keep tooth decay at bay in a school cavity prevention and treatment program, according to a new study. For the study, published in JAMA Pediatrics, the researchers followed more than 4,000 elementary school students for four years. The findings show that silver diamine fluoride (SDF) is an effective alternative t",
+      "receive. Sealants were administered by dental hygienists, while SDF was applied by either dental hygienists or registered nurses, all under the supervision of a dentist. Starting in 2018, the team visited each school twice a year, although the COVID-19 pandemic and school closures led to missed visits. The researchers reported last year in the journal JAMA Network Open that a single treatment of either SDF or sealant"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "불화디아민은과 실란트 효과를 비교한 연구다"
+  },
+  {
+    "book": "The Nation Prepares for Extreme Space Weather",
+    "url": "https://www.usgs.gov/news/featured-story/nation-prepares-extreme-space-weather",
+    "source": "usgs",
+    "v_level": 5,
+    "words": 934,
+    "rows": 1,
+    "excerpts": [
+      "A severe solar storm could disrupt the nation’s power grid for months, potentially leading to widespread blackouts. Resulting damage and disruption for such an event could cost more than $1 trillion, with a full recovery time taking months to years, according to the National Academy of Sciences. Today marks a significant advancement towards improving our nation’s preparedness for extreme space weather events. A newly",
+      ". Variations in color are due to the type of gas particles that are colliding. Coordinated Effort In November 2014, the NSTC established the Space Weather Operations, Research and Mitigation (SWORM) Task Force, and its charter directed the development of a National Space Weather Strategy. This was a multi-agency effort, engaging those who are part of the National Space Weather Program (NSWP). The NSWP coordinates the"
+    ],
+    "verdict": "use",
+    "genre": "space",
+    "why": "우주기상 대비 국가 전략 수립을 설명한다"
+  },
+  {
+    "book": "Scandinavia was 'born' in Greenland about 3.75 billion years ago",
+    "url": "https://www.futurity.org/scandinavia-greenland-bedrock-3196542/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 765,
+    "rows": 1,
+    "excerpts": [
+      "The oldest Scandinavian bedrock was “born” in Greenland, according to a new geological study. The study helps us understand the origin of continents and why Earth is the only planet in our solar system with life. Researchers found traces of a previously hidden part of Earth’s crust in a Finnish outcrop that points more than three billion years back in time and north towards Greenland. These traces were found in the m",
+      "s probably a watery planet, like in the movie Waterworld, but without any oxygen in the atmosphere and without emergent crust. But, because that’s so far back in time, we can’t be really be sure about what it actually looked like,” Waight says. According to the researchers, the fact that Earth even has a continental crust composed of granite is quite special when they look out into space and compare it with other pla"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "스칸디나비아 기반암의 기원을 추적한 연구다"
+  },
+  {
+    "book": "USGS Working to Restore Streamgages",
+    "url": "https://www.usgs.gov/news/featured-story/usgs-working-restore-streamgages",
+    "source": "usgs",
+    "v_level": 5,
+    "words": 865,
+    "rows": 1,
+    "excerpts": [
+      "UPDATE, 11/9: As of November 8, the USGS has successfully restored all of the operational gages that stopped transmitting due to an issue with the satellite telemetry system that records and transmits data. The USGS will now focus on restoring other equipment that experienced the telemetry issues, including about 85 rapid deployment gages that are used periodically for emergency response. UPDATE, 11/6: Once all opera",
+      "ecords and transmits streamgage data. The USGS continues to work on prioritized streamgages, those in geographic areas expected to receive rainfall over the next few days, replacing the component that transmits the data as quickly as possible. The USGS is working hand-in-hand with the manufacturer to find a solution to the transmitter issue. The data on the streamgages is being preserved for download and has not been"
+    ],
+    "verdict": "reject",
+    "genre": "reference",
+    "why": "날짜별 복구 현황 갱신 공지 — 읽는 글이 아니다"
+  },
+  {
+    "book": "EarthWord – Watershed",
+    "url": "https://www.usgs.gov/news/science-snippet/earthword-watershed",
+    "source": "usgs",
+    "v_level": 5,
+    "words": 243,
+    "rows": 1,
+    "excerpts": [
+      "EarthWords is an on-going series in which we shed some light on the complicated, often difficult-to-pronounce language of science. Think of us as your terminology tour-guides, and meet us back here every week for a new word! The EarthWord: Watershed Definition: Although it looks like an alternate name for an outhouse, a watershed is the area of land where all of the water that falls in it and drains off of it goes in",
+      "nificance in the Earth Science Community: Watersheds are key landscape-level ecosystems, because they predict water availability (both for human and ecosystem use), demonstrate erosion pathways, and can even illustrate the spread of chemicals and nutrients throughout a region. USGS Use: USGS researches watersheds extensively. Using Landsat and other remote-sensing tools, USGS scientists track landscape-level changes "
+    ],
+    "verdict": "reject",
+    "genre": "reference",
+    "why": "정의·의의 표제로 된 용어 항목이다"
+  },
+  {
+    "book": "The Summer Triangle's Hidden Treasures - NASA Science",
+    "url": "https://science.nasa.gov/solar-system/skywatching/night-sky-network/the-summer-triangles-hidden-treasures/",
+    "source": "nasa",
+    "v_level": 5,
+    "words": 656,
+    "rows": 1,
+    "excerpts": [
+      "4 Min Read The Summer Triangle’s Hidden Treasures Credits: NASA/JPL-Caltech/Harvard-Smithsonian CfA Kat Troche Jul 01, 2026 Article August skies bring the lovely Summer Triangle asterism into prime position after nightfall for observers in the Northern Hemisphere. Its position high in the sky may make it difficult for some to observe its member stars comfortably, since looking straight up while standing can be hard o",
+      "their round, fuzzy appearances were initially thought by early telescopic observers to resemble the discs of planets, form when stars similar to our Sun begin to die. The star will expand into a massive red giant, and its gases drift off into space, forming a nebula. Eventually, the star collapses into a white dwarf – as seen with M27 - and the colorful shell of gases will dissipate throughout the galaxy, leaving beh"
+    ],
+    "verdict": "use",
+    "genre": "space",
+    "why": "여름철 삼각형 속 천체를 해설한 관측 안내다"
+  },
+  {
+    "book": "Sperm organelle works like a 'storage room'",
+    "url": "https://www.futurity.org/sperm-cytoplasmic-droplet-cd-2997782-2/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 468,
+    "rows": 1,
+    "excerpts": [
+      "Researchers have solved the mystery of a poorly understood sperm structure called the cytoplasmic droplet, or CD. The CD is an expanded cytoplasm—watery, gel-like cell contents enclosed by cell membrane—found close to the head, at the neck of the sperm of all mammals, including humans. This new genetic model is the first of its kind. Despite being first discovered more than 100 years ago, it’s been unclear how the CD",
+      "em within the developing sperm that actively transports essential proteins via small membrane vesicles to the CD—the sperm storage room. This process is controlled by a gene called SYPL1. The SYPL1 protein resides on these membrane vesicles and plays a pivotal role in directing them to reach the CD. You can think of these vesicles as cargo trucks delivering protein cargos to the sperm storage room, Chen says. Chen no"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "정자 세포질 소적의 기능과 유전자를 설명한다"
+  },
+  {
+    "book": "5 of the best treatments for eczema in winter",
+    "url": "https://www.futurity.org/eczema-treatments-winter-3068962-2/",
+    "source": "futurity",
+    "v_level": 6,
+    "words": 466,
+    "rows": 1,
+    "excerpts": [
+      "An expert has some tips on how to treat eczema this winter. In the winter, the cold, dry air and indoor heating can wreak havoc on sensitive skin, especially for those with hand or facial eczema. Turning up the thermostat keeps us warm in winter, but it can make eczema worse. It can trigger flare-ups of itchy, red, and inflamed patches. The problem is how we respond to the change in season. “We close the windows and ",
+      "he more we strip away the skin’s natural oils, leading to more dryness. Keep bathing to a maximum of once a day if you can. Dare we say try every other day? Use soaps that are lanolin free, unperfumed, and have a neutral pH. 2. Put on moisturizer immediately after bathing Putting on your moisturizing cream (not lotion, spray, or gel) when you’re still wet after a shower will help lock in the moisture. Moisturizers wi"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "겨울 습진 관리법을 근거와 함께 설명한다"
+  },
+  {
+    "book": "Young, South African and unemployed: finding direction starts with knowing yourself – counsellor",
+    "url": "https://theconversation.com/young-south-african-and-unemployed-finding-direction-starts-with-knowing-yourself-counsellor-283796",
+    "source": "the_conversation",
+    "v_level": 5,
+    "words": 915,
+    "rows": 1,
+    "excerpts": [
+      "Thirty-two years after South Africa became a democratic state, the futures of millions of young people in the country are shaped to a large degree by uncertainty, exclusion, poverty and discouragement. As one lens on this scene, unemployment in the age group 15-34 borders on 46%. I am an educational psychologist who has done 35 years of research on the career-life stories of young people growing up in contexts marked",
+      "articipants then received guidance on managing emotions, stress and study techniques. The aim was to elicit themes about their conscious knowledge about themselves and their subconscious insights. A recurring theme in their reflections was personal development and motivation. Inspiration to work hard, and overcoming adversity, were part of this theme. They showed a growing awareness of the attitudes, beliefs and comp"
+    ],
+    "verdict": "use",
+    "genre": "social",
+    "why": "남아공 청년 실업과 진로 상담 연구를 서술한다"
+  },
+  {
+    "book": "Assessments Evolved: USGS Coal Research in the 21st Century",
+    "url": "https://www.usgs.gov/news/featured-story/assessments-evolved-usgs-coal-research-21st-century",
+    "source": "usgs",
+    "v_level": 5,
+    "words": 1125,
+    "rows": 1,
+    "excerpts": [
+      "Here at the USGS, we have studied coal for more than 100 years, and worked with others, predominantly state geological surveys, to provide the basic geological research and information to assess the Nation’s coal resources. We also coordinate with other federal agencies, including the Bureau of Land Management and the Energy Information Administration (EIA), who also have responsibilities for managing coal resources ",
+      "e acquired a large amount of previously proprietary and unavailable geological data for this area. Mapping the Cost Curves One of the difficulties in determining coal reserves is that they fluctuate with the price of coal. What may be profitable to mine one day may not be the next, as prices for commodities like coal can vary significantly. An assessment of coal reserves needs to be able to account for those changes."
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "석탄 자원 평가 방법의 변화를 설명한다"
+  },
+  {
+    "book": "Carom billiards",
+    "url": "https://simple.wikipedia.org/wiki/Carom_billiards",
+    "source": "simple_wikipedia",
+    "v_level": 5,
+    "words": 3185,
+    "rows": 1,
+    "excerpts": [
+      "Carom billiards, sometimes called carambole billiards or simply carambole (and sometimes used as another word for a game called \"straight rail\") are a family of billiards games played on cloth-covered tables. In these games, the players strike heavy balls with sticks called cues. Carom billiards tables have no pockets or opening where balls are sunk, that snooker and pool tables do have. In its simplest form, the obj",
+      "ushion billiards. Europe hosts professional competitions, known as pentathlons after the ancient Greek Olympic competitions, in which straight rail is one of five billiards games at which players compete. The other four are called 47.1 balkline, cushion caroms, 71.2 balkline and three-cushion billiards. The champion's game A new game appeared in 1879, called the champion's game or limited-rail. The champion's game is"
+    ],
+    "verdict": "use",
+    "genre": "history",
+    "why": "캐롬 당구의 규칙과 종목 변천을 서술한 산문이다"
+  },
+  {
+    "book": "How often do in-flight medical emergencies happen?",
+    "url": "https://www.futurity.org/in-flight-medical-emergencies-3297572/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 442,
+    "rows": 1,
+    "excerpts": [
+      "A new study analyzed more than 77,000 in-flight medical events reported to the world’s busiest airline medical support center. With nearly five billion people flying each year, medical emergencies in the air may be more common than most realize and they can be deadly. The new findings show that while most incidents are minor, thousands of passengers required hospital care after landing, and hundreds died or triggered",
+      "s from 84 airlines across six continents, covering over 3.1 billion passenger boardings between January 2022 and December 2023. They found that one in every 212 flights involved a medical emergency. Of those flights, about 8% of passengers were taken to the hospital after landing, and 1.7% of the total medical events were so serious they caused the plane to divert. The most common reasons for diversion were suspected"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "기내 응급환자 7만7천 건 분석을 설명한다"
+  },
+  {
+    "book": "Is your hand numbness a sign of carpal tunnel or something else?",
+    "url": "https://www.futurity.org/numb-hand-carpal-tunnel-3318192/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 560,
+    "rows": 1,
+    "excerpts": [
+      "The right diagnosis is key when you feel your hand go numb, an expert says. When your hand starts to tingle or go numb, it’s natural to assume that carpal tunnel is to blame. But it could be cubital tunnel instead, says University of Rochester Medical Center hand surgeon Hannah M. Smith. A misdiagnosis can lead to delayed treatment, the wrong splint, or continuing symptoms that affect your quality of life. Smith, a f",
+      "drome What it is: Compression of the ulnar nerve (the nerve that runs along the inside of your elbow and controls many small hand muscles and gives feeling to the pinky finger and half of the ring finger). This often feels like: Numbness, tingling, or burning in the ring and little fingers Aching pain in the elbow Trouble spreading the fingers apart Symptoms that worsen when the elbow is bent (driving, holding a phon"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "손 저림의 두 신경 압박을 구분해 설명한다"
+  },
+  {
+    "book": "The brain has a switch that shuts off chronic pain",
+    "url": "https://www.futurity.org/brains-chronic-pain-3343782/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 673,
+    "rows": 1,
+    "excerpts": [
+      "Scientists have identified a switch in mice brains that shuts off chronic pain. Deep at the base of the brain, a tiny cluster of nerve cells serves as the body’s natural pain reliever, dialing down pain signals traveling up the spinal cord. But nerve damage can flip this system into a hyperactive engine for chronic pain. Now, researchers at Washington University School of Medicine in St. Louis have figured out why th",
+      "rris, a former graduate student, focused on the locus coeruleus, a part of the brain that has been shown to play a role in pain regulation. First, they confirmed that nerve injury turns this region into an active driver of pain. When they temporarily turned off locus coeruleus brain cells in mice, they observed reduced sensitivity to touch and heat among animals modeling neuropathic pain compared with healthy mice. N"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "만성 통증을 끄는 뇌 회로 연구를 설명한다"
+  },
+  {
+    "book": "International Students Face Uncertain Job Market at Home, in US",
+    "url": "https://learningenglish.voanews.com/a/international-students-face-uncertain-job-market-at-home-in-us/7654837.html",
+    "source": "voa",
+    "v_level": 4,
+    "words": 958,
+    "rows": 1,
+    "excerpts": [
+      "International students in the United States are concerned that technology job reductions will make it hard to get a good return on their education. For the last three years, technology companies, including Amazon and Google, have greatly reduced their workforce. The Tech Layoffs Tracker on Crunchbase.com says that 54,000 tech workers in the U.S. have lost jobs in 2024. That is in addition to nearly 300,000 in 2022 an",
+      "t the purpose of their visa. And again, if they express that when they're talking to the consular officer, their visa will be denied.” ‘Intention to stay’ A study from April 2020 produced by the Center for Security and Emerging Technology at Georgetown University noted that most students pursuing advanced STEM degrees in the U.S. want to stay after finishing their studies. Jacob Feldgoise helped write the report. He "
+    ],
+    "verdict": "use",
+    "genre": "education",
+    "why": "유학생 취업 시장 변화와 비자 문제를 설명한다"
+  },
+  {
+    "book": "Strong in One Direction",
+    "url": "",
+    "source": "original",
+    "v_level": 4,
+    "words": 189,
+    "rows": 1,
+    "excerpts": [
+      "Strength is never one thing. A part can carry a huge load in the direction it was built for and give way from elsewhere. Good design decides where the weakness sits. The bicycle wheel makes it easy to see. A solid wooden wheel is hard to break, yet it is heavy on the axle. Weight is what a rider feels on every hill. So the wheel that replaced it keeps only a thin rim. What is left is a thin rim, a small hub, and spok",
+      "ht is what a rider feels on every hill. So the wheel that replaced it keeps only a thin rim. What is left is a thin rim, a small hub, and spokes so light a hand can bend one. Each spoke is a wire under tension, tightened at its nipple. The wheel holds a rider only because every spoke pulls at once. Radial load is shared around the rim instead of resting on the few spokes underneath. Push the same wheel laterally and "
+    ],
+    "verdict": "use",
+    "genre": "technology",
+    "why": "자전거 바퀴로 방향별 강도 설계를 설명한다"
+  },
+  {
+    "book": "NASA’s MAVEN Illuminates New Understanding of Auroras at Mars - NASA Science",
+    "url": "https://science.nasa.gov/missions/maven/nasas-maven-illuminates-new-understanding-of-auroras-at-mars/",
+    "source": "nasa",
+    "v_level": 5,
+    "words": 810,
+    "rows": 1,
+    "excerpts": [
+      "5 min read NASA’s MAVEN Illuminates New Understanding of Auroras at Mars NASA Science Editorial Team Jul 23, 2026 Article NASA MAVEN (Mars Atmosphere and Volatile Evolution) mission scientists have uncovered a key puzzle piece in understanding certain types of auroras on Mars, finding that they form in a similar way to Earth-based auroras. Results published Thursday in Nature Communications show the same mechanism th",
+      "poles, but it wasn’t until now that scientists could fully understand the physics of how they form. The study used several instruments aboard the MAVEN spacecraft to build up a picture of the Dungey-like behavior: the Magnetometer and Solar Wind Electron Analyzer instruments, which were used to determine the magnetic configuration and derive electrical currents, and the STATIC (Suprathermal and Thermal Ion Compositio"
+    ],
+    "verdict": "use",
+    "genre": "space",
+    "why": "화성 오로라 생성 기작을 지구와 비교 설명한다"
+  },
+  {
+    "book": "Actively Steerable Femtosat Constellations",
+    "url": "https://www.nasa.gov/directorates/stmd/niac/actively-steerable-femtosat-constellations-for-in-situ-exploration-of-saturns-rings-atmosphere-and-magnetosphere/",
+    "source": "nasa",
+    "v_level": 5,
+    "words": 152,
+    "rows": 1,
+    "excerpts": [
+      "1 min read Actively Steerable Femtosat Constellations for In-situ Exploration of Saturn’s Rings, Atmosphere, and Magnetosphere Loura Hall Jul 21, 2026 Article Michael Rubenstein Northwestern University, Chicago We propose a mission to use ~10,000 actively steerable femtosats to map the ring composition, atmospheric composition and density, and the magnetic field distribution of Saturn. Conducting in-situ surveys of S",
+      " field distribution of Saturn. Conducting in-situ surveys of Saturn’s rings with a single flagship mission, such as Cassini, would carry an unacceptably high risk of mission failure due to particle collisions. However, the distributed nature of the proposed mission means it can accept a risk that could destroy many of femtosats in the constellation, making in-situ survey of the ring possible. 2026 Selections Facebook"
+    ],
+    "verdict": "use",
+    "genre": "space",
+    "why": "분산 위성으로 토성 탐사 위험을 낮추는 제안이다"
+  },
+  {
+    "book": "South Korean Team Develops Wheels That Climb over Barriers",
+    "url": "https://learningenglish.voanews.com/a/south-korean-team-develops-wheels-that-climb-over-barriers/7865098.html",
+    "source": "voa",
+    "v_level": 4,
+    "words": 462,
+    "rows": 1,
+    "excerpts": [
+      "Imagine a wheelchair equipped with wheels flexible enough to move over all kinds of barriers: including the raised edges of streets. A robotic delivery vehicle could use the same wheels to go up stairs to deliver food or other purchases. This is what researchers from the Korea Institute of Machinery and Materials (KIMM) see as the future for their 'morphing' wheel. The wheels can change their shape and can roll over ",
+      "bout 100 kilometers per hour. Wheels developed for a similar purpose, such as airless wheels, have flexibility but are limited in their ability to overcome barriers, said Song. The difference between airless wheels and the morphing wheel is that airless wheels are always soft, but the morphing wheels can change from hard to soft when they meet a barrier. They can then return to being hard to permit faster travel wher"
+    ],
+    "verdict": "use",
+    "genre": "technology",
+    "why": "장애물을 넘는 변형 바퀴의 원리를 설명한다"
+  },
+  {
+    "book": "ChatGPT may give bad workplace advice to people with autism",
+    "url": "https://www.futurity.org/autism-chatgpt-workplace-advice-3228672/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 967,
+    "rows": 1,
+    "excerpts": [
+      "A new study explores how people with autism interact with ChatGPT and similar artificial intelligence tools for help and advice as they confront problems in their workplaces. The findings show such systems sometimes dispense questionable advice. And controversy remains within the autism community as to whether this use of chatbots is even a good idea. “What we found is there are people with autism who are already usi",
+      "ople with autism might be able to avoid dispensing bad advice, but not everyone in the autism community is likely to embrace it, Begel says. While some might see it as a practical tool for supporting workers with autism, others see it as yet another instance of expecting people whose brains work a bit differently than most people to accommodate everyone else. “There’s this huge debate over whose perspectives we privi"
+    ],
+    "verdict": "use",
+    "genre": "technology",
+    "why": "자폐인의 챗봇 조언 활용과 한계를 다룬 연구다"
+  },
+  {
+    "book": "2-step method for HIV treatments could boost quality of life",
+    "url": "https://www.futurity.org/hiv-treatments-quality-of-life-combination-antiretroviral-therapy-318362/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 492,
+    "rows": 1,
+    "excerpts": [
+      "A new way to optimize HIV treatments balances suppression of the virus with a strategy to reduce side effects. It could ultimately improve the quality of life for people undergoing treatment. To overcome quality-of-life altering side effects linked to combination antiretroviral therapy (cART) in people with HIV, the researchers used a two-step approach to personalizing optimal cART regimens to reduce the chances that",
+      "ed the MGP into an offline reinforcement learning framework to figure out the best sequence of treatments based on what they’ve learned about how patients’ health evolved. The researchers then tested their method using a large HIV database called the Women’s Interagency HIV Study (WIHS). When their approach was used to select treatment plans for a group of 29 people with HIV experiencing serious depression, it result"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "부작용을 줄이는 HIV 치료 최적화를 설명한다"
+  },
+  {
+    "book": "Lots of infections may have protected kids from COVID",
+    "url": "https://www.futurity.org/seasonal-respiratory-viruses-kids-covid-19-3235972/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 795,
+    "rows": 1,
+    "excerpts": [
+      "A new study suggests that susceptibility to a variety of respiratory infections may be part of what protected children from severe COVID-19. In the study, researchers found that the presence and prevalence of respiratory viruses and bacteria in children’s noses was associated with stronger nasal immune responses, which, they say, could be part of why kids were less likely to get severe COVID-19 during the pandemic. T",
+      "h seasons. Rates were highest in the youngest children, with 90% of symptomatic children and about half of asymptomatic children under the age of five testing positive for viruses, bacteria, or both. “We also found that heightened innate immune defenses directly correlated with the type and amount of microbes in the nose,” says Foxman. “So for kids that had viruses in their noses, the antiviral defenses were heighten"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "잦은 호흡기 감염이 코로나 중증을 막은 연구다"
+  }
+]

@@ -23,6 +23,8 @@ exports/
 **/.turbo/
 .next/
 **/.next/
+# dev 서버를 죽이지 않고 프로덕션 빌드를 검증할 때의 격리 출력 (NEXT_DIST_DIR)
+.next-*/
 dist/
 out/
 coverage/
@@ -66,6 +68,9 @@ logs/
 # Playwright e2e — 매 실행마다 재생성, 산출물만 baseline-*.json 으로 docs 에 보존
 apps/web/playwright-report/
 apps/web/test-results/
+# a11y 스윕 리포트 — test-results/ 는 실행 시작 때 통째로 지워져(동시 세션이면 남의 실행이
+# 내 리포트를 지운다) 별도 디렉터리에 남긴다.
+apps/web/a11y-report/
 
 # ONNX Runtime WebAssembly 바이너리 (75MB · CDN 또는 npm install 시 자동 다운로드 권장)
 apps/web/public/onnx/
@@ -85,3 +90,87 @@ scripts/dict/mnem-etym*/
 scripts/dict/exmatch*/
 scripts/dict/exmatch-hi*/
 scripts/dict/covtr*/
+scratchpad-foreign/
+
+# Pollinations API token (Seed+ tier) — never commit secrets
+.pollinations-token
+scripts/comic/.pollinations-token
+scripts/comic/.gemini-token
+scripts/comic/.openai-token
+scripts/comic/.dashscope-token
+scripts/comic/runpod/.runpod-key
+scripts/comic/.comfy-url
+scripts/comic/runpod/.runpod-pod
+
+scripts/comic/.comfy-user
+scripts/comic/.comfy-pass
+scripts/comic/kaggle/_gen-kernel.py
+out/
+
+# PDCP 파이프라인 로컬 바이너리 (ffmpeg·tesseract) — 커밋 대상 아님
+/tools/
+/work/
+apps/web/playwright-auth/
+scripts/dict/w0815-*/
+scripts/lcp/w0815-*/
+scripts/dict/w0816-*/
+
+# 수능 기출 코퍼스 중간 산출물 — 원본 .txt(저장소 밖)에서 재생성 가능.
+# diff.json 은 후속 작업 목록(사전 결손 272종)이라 남긴다.
+scripts/dict/csat-corpus/corpus.json
+scripts/dict/csat-corpus/normalized.json
+
+# 수능 기출 원문 복원 텍스트 — 저작권상 배포 금지, 분석 결과만 커밋한다
+scripts/csat/data/columns/
+
+# 상용 도서 변환본 — 저작권상 커밋 금지 (분석 참조용 로컬 사본)
+docs/reference/seum-code-full.md
+
+# ── 정리 2026-08-26 ──────────────────────────────────────────────
+# e2e / 아케이드 회귀 산출물 (매 실행 재생성)
+apps/web/e2e-out/
+apps/web/test-results-arcade/
+apps/web/test-results-admin-db/
+
+# dict 드레인 작업 폴더 (w0815-*/w0816-* 와 같은 계열 — 청크는 import 후 소모품)
+scripts/dict/w0817-*/
+scripts/dict/article-lemmas/
+scripts/dict/SLUR_CANDIDATES.json
+
+# 스킬 설치기 산출물 (머신별 도구 — .claude/settings.local.json 과 같은 성격)
+.agents/
+.claude/skills/
+skills-lock.json
+
+# 저장소 루트 프로토타입·임시 파일 (작업 산출물은 docs/ 또는 apps/ 안에 둔다)
+/volume-v*.html
+/tmp-*.mjs
+/__probe.out
+
+# D0830 사전 드레인 작업 폴더 — 청크는 import 후 소모품이고, **명세(_PROMPT.md)만 남긴다**
+#   (w0817-* 는 디렉터리째 무시해서 나중에 명세를 되찾을 수 없었다. 같은 실수를 반복하지 않는다)
+scripts/dict/w0830-*/*
+!scripts/dict/w0830-*/_PROMPT.md
+
+# 기출 원장 통합 산출물 — columns2/*.txt + questions/answers 에서 통째로 재생성된다(2 MB).
+# 근거로 쓰는 것은 옆의 corpus-report.json 이고, 그건 커밋한다.
+#   재생성: node scripts/csat/build-corpus.mjs
+scripts/csat/data/corpus.json
+
+# 기출 분석 드레인 — 청크는 export 가 매번 다시 뽑는 소모품이다.
+#   **명세(_PROMPT.md)와 결과(*.out.json)는 남긴다** — out 이 원장이고, 그게 없으면
+#   재실행 안전(이미 채운 몫 건너뛰기)이 성립하지 않는다.
+#   청크 이름은 첫 문항 id 에서 나온다 — 일련번호를 쓰면 export 를 다시 돌릴 때
+#   chunk-01 이 다른 문항을 담게 되고, out 원장이 덮어써진다.
+scripts/csat/analysis-drain/chunk-*.json
+!scripts/csat/analysis-drain/*.out.json
+scripts/csat/analysis-drain/_MANIFEST.json
+scripts/csat/compose-drain/*.imported
+
+# Gutenberg 카탈로그 캐시 (5.5MB · 7일마다 새로 받는다)
+scripts/textbook/data/.cache/
+
+# Claude Design 캔버스 조판물 — 2.6MB 에디터 페이로드가 통째로 들어 있고
+# docs/design/*/ 의 .dc.html + canvas.json 에서 언제든 다시 만들 수 있다.
+# 재생성마다 새 블롭이 되므로 추적하지 않는다(퍼블리시된 아티팩트가 정본).
+docs/design/*/vocaflow-*.html

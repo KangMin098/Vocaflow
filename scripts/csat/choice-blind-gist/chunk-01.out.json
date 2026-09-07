@@ -1,0 +1,886 @@
+{
+ "items": [
+  {
+   "id": "2019#23",
+   "type": "R-TOPIC",
+   "passage": "We argue that the ethical principles of justice provide an essential foundation for policies to protect unborn generations and the poorest countries from climate change. Related issues arise in connection with current and persistently inadequate aid for these nations, in the face of growing threats to agriculture and water supply, and the rules of international trade that mainly benefit rich countries. Increasing aid for the world’s poorest peoples can be an essential part of effective mitigation. With 20 percent of carbon emissions from (mostly tropical) deforestation, carbon credits for forest preservation would combine aid to poorer countries with one of the most cost-effective forms of abatement. Perhaps the most cost-effective but politically complicated policy reform would be the removal of several hundred billions of dollars of direct annual subsidies from the two biggest recipients in the OECD ― destructive industrial agriculture and fossil fuels. Even a small amount of this money would accelerate the already rapid rate of technical progress and investment in renewable energy in many areas, as well as encourage the essential switch to conservation agriculture. * mitigation: 완화 ** abatement: 감소 *** subsidy: 보조금 nacle: 정점",
+   "choices": [
+    {
+     "label": "A",
+     "text": "coping with climate change by reforming aid and policies",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "increasing global awareness of the environmental crisis",
+     "abstractness": 3,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "roles of the OECD in solving international conflicts",
+     "abstractness": 2,
+     "passageEcho": 0,
+     "concreteMarker": true
+    },
+    {
+     "label": "D",
+     "text": "reforming diplomatic policies in poor countries",
+     "abstractness": 2,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "reasons for restoring economic equality in poor countries",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2019#24",
+   "type": "R-TITLE",
+   "passage": "A defining element of catastrophes is the magnitude of their harmful consequences. To help societies prevent or reduce damage from catastrophes, a huge amount of effort and technological sophistication are often employed to assess and communicate the size and scope of potential or actual losses. This effort assumes that people can understand the resulting numbers and act on them appropriately. However, recent behavioral research casts doubt on this fundamental assumption. Many people do not understand large numbers. Indeed, large numbers have been found to lack meaning and to be underestimated in decisions unless they convey affect (feeling). This creates a paradox that rational models of decision making fail to represent. On the one hand, we respond strongly to aid a single individual in need. On the other hand, we often fail to prevent mass tragedies or take appropriate measures to reduce potential losses from natural disasters. ty: 실재(물) * catastrophe: 큰 재해",
+   "choices": [
+    {
+     "label": "A",
+     "text": "How to Reach Out a Hand to People in Desperate Need",
+     "abstractness": 2,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "Preventing Potential Losses Through Technology",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "Power of Numbers: A Way of Classifying Natural Disasters",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "Be Careful, Numbers Magnify Feelings!",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "Insensitivity to Mass Tragedy: We Are Lost in Large Numbers 3 8 4",
+     "abstractness": 4,
+     "passageEcho": 2,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2019#40",
+   "type": "R-SUMMARY",
+   "passage": "(B)에 들어갈 말로 가장 적절한 것은? Biological organisms, including human societies both with and without market systems, discount distant outputs over those available at the present time based on risks associated with an uncertain future. As the timing of inputs and outputs varies greatly depending on the type of energy, there is a strong case to incorporate time when assessing energy alternatives. For example, the energy output from solar panels or wind power engines, where most investment happens before they begin producing, may need to be assessed differently when compared to most fossil fuel extraction technologies, where a large proportion of the energy output comes much sooner, and a larger (relative) proportion of inputs is applied during the extraction process, and not upfront. Thus fossil fuels, particularly oil and natural gas, in addition to having energy quality advantages (cost, storability, transportability, etc.) over many renewable technologies, also have a “temporal advantage” after accounting for human behavioral preference for current consumption /return. * upfront: 선행 투자의 ������ Due to the fact that people tend to favor more (A) outputs, fossil fuels are more (B) than renewable energy alternatives in regards to the distance between inputs and outputs. (A) (B)",
+   "choices": [
+    {
+     "label": "A",
+     "text": "abundant …… competitive 8 8",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "delayed …… competitive",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "available …… expensive",
+     "abstractness": 4,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "immediate …… competitive 7",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "convenient …… expensive",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2020#21",
+   "type": "R-IMPLY",
+   "passage": "하는 바로 가장 적절한 것은? Any learning environment that deals with only the database instincts or only the improvisatory instincts ignores one half of our ability. It is bound to fail. It makes me think of jazz guitarists: They’re not going to make it if they know a lot about music theory but don’t know how to jam in a live concert. Some schools and workplaces emphasize a stable, rote-learned database. They ignore the improvisatory instincts drilled into us for millions of years. Creativity suffers. Others emphasize creative usage of a database, without installing a fund of knowledge in the first place. They ignore our need to obtain a deep understanding of a subject, which includes memorizing and storing a richly structured database. You get people who are great improvisers but don’t have depth of knowledge. You may know someone like this where you work. They may look like jazz musicians and have the appearance of jamming, but in the end they know nothing. They’re playing intellectual air guitar. * rote-learned: 기계적으로 암기한",
+   "choices": [
+    {
+     "label": "A",
+     "text": "posing as experts by demonstrating their in-depth knowledge",
+     "abstractness": 3,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "acquiring necessary experience to enhance their creativity",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "exhibiting artistic talent coupled with solid knowledge of music",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "performing musical pieces to attract a highly educated audience",
+     "abstractness": 2,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "displaying seemingly creative ability not rooted in firm knowledge",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2020#23",
+   "type": "R-TOPIC",
+   "passage": "Human beings do not enter the world as competent moral agents. Nor does everyone leave the world in that state. But somewhere in between, most people acquire a bit of decency that qualifies them for membership in the community of moral agents. Genes, development, and learning all contribute to the process of becoming a decent human being. The interaction between nature and nurture is, however, highly complex, and developmental biologists are only just beginning to grasp just how complex it is. Without the context provided by cells, organisms, social groups, and culture, DNA is inert. Anyone who says that people are “genetically programmed” to be moral has an oversimplified view of how genes work. Genes and environment interact in ways that make it nonsensical to think that the process of moral development in children, or any other developmental process, can be discussed in terms of nature versus nurture. Developmental biologists now know that it is really both, or nature through nurture. A complete scientific explanation of moral evolution and development in the human species is a very long way off. * decency: 예의 ** inert: 비활성의",
+   "choices": [
+    {
+     "label": "A",
+     "text": "nature versus nurture controversies in developmental biology",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "increasing necessity of educating children as moral agents",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "evolution of human morality from a cultural perspective",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "difficulties in studying the evolutionary process of genes",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "complicated gene-environment interplay in moral development",
+     "abstractness": 4,
+     "passageEcho": 2,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2020#24",
+   "type": "R-TITLE",
+   "passage": "Invasions of natural communities by non-indigenous species are currently rated as one of the most important global-scale environmental problems. The loss of biodiversity has generated concern over the consequences for ecosystem functioning and thus understanding the relationship between both has become a major focus in ecological research during the last two decades. The “biodiversity-invasibility hypothesis” by Elton suggests that high diversity increases the competitive environment of communities and makes them more difficult to invade. Numerous biodiversity experiments have been conducted since Elton’s time and several mechanisms have been proposed to explain the often observed negative relationship between diversity and invasibility. Beside the decreased chance of empty ecological niches but the increased probability of competitors that prevent invasion success, diverse communities are assumed to use resources more completely and, therefore, limit the ability of invaders to establish. Further, more diverse communities are believed to be more stable because they use a broader range of niches than species-poor communities. * indigenous: 토착의 ** niche: 생태적 지위",
+   "choices": [
+    {
+     "label": "A",
+     "text": "Carve Out More Empty Ecological Spaces!",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "Guardian of Ecology: Diversity Resists Invasion 3",
+     "abstractness": 4,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "Grasp All, Lose All: Necessity of Species-poor Ecology",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "Diversity Dilemma: The More Competitive, the Less Secure 8 4",
+     "abstractness": 4,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "Challenges in Testing Biodiversity-Invasibility Hypothesis",
+     "abstractness": 2,
+     "passageEcho": 2,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2020#40",
+   "type": "R-SUMMARY",
+   "passage": "(B)에 들어갈 말로 가장 적절한 것은? Because elephant groups break up and reunite very frequently ― for instance, in response to variation in food availability ― reunions are more important in elephant society than among primates. And the species has evolved elaborate greeting behaviors, the form of which reflects the strength of the social bond between the individuals (much like how you might merely shake hands with a long-standing acquaintance but hug a close friend you have not seen in a while, and maybe even tear up). Elephants may greet each other simply by reaching their trunks into each other’s mouths, possibly equivalent to a human peck on the cheek. However, after long absences, members of family and bond groups greet one another with incredibly theatrical displays. The fact that the intensity reflects the duration of the separation as well as the level of intimacy suggests that elephants have a sense of time as well. To human eyes, these greetings strike a familiar chord. I’m reminded of the joyous reunions so visible in the arrivals area of an international airport terminal. * acquaintance: 지인 ** peck: 가벼운 입맞춤 ������ The evolved greeting behaviors of elephants can serve as an indicator of how much they are socially (A) and how long they have been (B) . (A) (B)",
+   "choices": [
+    {
+     "label": "A",
+     "text": "tied …… endangered 7",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "competitive …… disconnected 8 8",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "competitive …… united",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "tied …… parted",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "responsible …… isolated",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2021#21",
+   "type": "R-IMPLY",
+   "passage": "하는 바로 가장 적절한 것은? There is an African proverb that says, ‘Till the lions have their historians, tales of hunting will always glorify the hunter’. The proverb is about power, control and law making. Environmental journalists have to play the role of the ‘lion’s historians’. They have to put across the point of view of the environment to people who make the laws. They have to be the voice of wild India. The present rate of human consumption is completely unsustainable. Forest, wetlands, wastelands, coastal zones, eco-sensitive zones, they are all seen as disposable for the accelerating demands of human population. But to ask for any change in human behaviour ― whether it be to cut down on consumption, alter lifestyles or decrease population growth ― is seen as a violation of human rights. But at some point human rights become ‘wrongs’. It’s time we changed our thinking so that there is no difference between the rights of humans and the rights of the rest of the environment.",
+   "choices": [
+    {
+     "label": "A",
+     "text": "urging a shift to sustainable human behaviour for nature",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "restricting the power of environmental lawmakers",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "fighting against widespread violations of human rights",
+     "abstractness": 3,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "uncovering the history of a species’ biological evolution",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "rewriting history for more underrepresented people",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2021#23",
+   "type": "R-TOPIC",
+   "passage": "Difficulties arise when we do not think of people and machines as collaborative systems, but assign whatever tasks can be automated to the machines and leave the rest to people. This ends up requiring people to behave in machine-like fashion, in ways that differ from human capabilities. We expect people to monitor machines, which means keeping alert for long periods, something we are bad at. We require people to do repeated operations with the extreme precision and accuracy required by machines, again something we are not good at. When we divide up the machine and human components of a task in this way, we fail to take advantage of human strengths and capabilities but instead rely upon areas where we are genetically, biologically unsuited. Yet, when people fail, they are blamed.",
+   "choices": [
+    {
+     "label": "A",
+     "text": "benefits of allowing machines and humans to work together",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "influences of human actions on a machine’s performance",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "issues of allocating unfit tasks to humans in automated systems",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "difficulties of overcoming human weaknesses to avoid failure",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "reasons why humans continue to pursue machine automation",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2021#24",
+   "type": "R-TITLE",
+   "passage": "People don’t usually think of touch as a temporal phenomenon, but it is every bit as time-based as it is spatial. You can carry out an experiment to see for yourself. Ask a friend to cup his hand, palm face up, and close his eyes. Place a small ordinary object in his palm ― a ring, an eraser, anything will do ― and ask him to identify it without moving any part of his hand. He won’t have a clue other than weight and maybe overall size. Then tell him to keep his eyes closed and move his fingers over the object. He’ll most likely identify it at once. By allowing the fingers to move, you’ve added time to the sensory perception of touch. There’s a direct analogy between the fovea at the center of your retina and your fingertips, both of which have high acuity. Your ability to make complex use of touch, such as buttoning your shirt or unlocking your front door in the dark, depends on continuous time-varying patterns of touch sensation. * analogy: 유사 ** fovea: (망막의) 중심와(窩) *** retina: 망막 전문가",
+   "choices": [
+    {
+     "label": "A",
+     "text": "How to Use the Five Senses in a Timely Manner",
+     "abstractness": 2,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "Touch and Movement: Two Major Elements of Humanity",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "Time Does Matter: A Hidden Essence of Touch",
+     "abstractness": 4,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "The Surprising Function of Touch as a Booster of Knowledge K 4",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "The Role of Touch in Forming the Concept of Time",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2021#40",
+   "type": "R-SUMMARY",
+   "passage": "(B)에 들어갈 말로 가장 적절한 것은? From a cross-cultural perspective the equation between public leadership and dominance is questionable. What does one mean by ‘dominance’? Does it indicate coercion? Or control over ‘the most valued’? ‘Political’ systems may be about both, either, or conceivably neither. The idea of ‘control’ would be a bothersome one for many peoples, as for instance among many native peoples of Amazonia where all members of a community are fond of their personal autonomy and notably allergic to any obvious expression of control or coercion. The conception of political power as a coercive force, while it may be a Western fixation, is not a universal. It is very unusual for an Amazonian leader to give an order. If many peoples do not view political power as a coercive force, nor as the most valued domain, then the leap from ‘the political’ to ‘domination’ (as coercion), and from there to ‘domination of women’, is a shaky one. As Marilyn Strathern has remarked, the notions of ‘the political’ and ‘political personhood’ are cultural obsessions of our own, a bias long reflected in anthropological constructs. * coercion: 강제 ** autonomy: 자율 *** anthropological: 인류학의 ������ It is (A) to understand political power in other cultures through our own notion of it because ideas of on: 함축 political power are not (B) across cultures. (A) (B) (A) (B)",
+   "choices": [
+    {
+     "label": "A",
+     "text": "effective … objective K 8",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "misguided … uniform",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "unreasonable … varied",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "appropriate … commonplace",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "rational … flexible",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2022#21",
+   "type": "R-IMPLY",
+   "passage": "or not이 다음 글에서 의미하는 바로 가장 적절한 것은? Scientists have no special purchase on moral or ethical decisions; a climate scientist is no more qualified to comment on health care reform than a physicist is to judge the causes of bee colony collapse. The very features that create expertise in a specialized domain lead to ignorance in many others. In some cases lay people ― farmers, fishermen, patients, native peoples ― may have relevant experiences that scientists can learn from. Indeed, in recent years, scientists have begun to recognize this: the Arctic Climate Impact Assessment includes observations gathered from local native groups. So our trust needs to be limited, and focused. It needs to be very particular. Blind trust will get us into at least as much trouble as no trust at all. But without some degree of trust in our designated experts ― the men and women who have devoted their lives to sorting out tough questions about the natural world we live in ― we are paralyzed, in effect not knowing whether to make ready for the morning commute or not. * lay: 전문가가 아닌 ** paralyze: 마비시키다 *** commute: 통근",
+   "choices": [
+    {
+     "label": "A",
+     "text": "practical information produced by both specialists and lay people",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "questionable facts that have been popularized by non-experts",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "biased knowledge that is widespread in the local community",
+     "abstractness": 3,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "common knowledge that hardly influences crucial decisions",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "readily applicable information offered by specialized experts",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2022#23",
+   "type": "R-TOPIC",
+   "passage": "Scientists use paradigms rather than believing them. The use of a paradigm in research typically addresses related problems by employing shared concepts, symbolic expressions, experimental and mathematical tools and procedures, and even some of the same theoretical statements. Scientists need only understand how to use these various elements in ways that others would accept. These elements of shared practice thus need not presuppose any comparable unity in scientists’ beliefs about what they are doing when they use them. Indeed, one role of a paradigm is to enable scientists to work successfully without having to provide a detailed account of what they are doing or what they believe about it. Thomas Kuhn noted that scientists “can agree in their identification of a paradigm without agreeing on, or even attempting to produce, a full interpretation or rationalization of it. Lack of a standard interpretation or of an agreed reduction to rules will not prevent a paradigm from guiding research.”",
+   "choices": [
+    {
+     "label": "A",
+     "text": "significant influence of personal beliefs in scientific fields",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "functional aspects of a paradigm in scientific research",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "difficulty in drawing novel theories from existing paradigms",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "key factors that promote the rise of innovative paradigms",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "roles of a paradigm in grouping like-minded researchers",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2022#24",
+   "type": "R-TITLE",
+   "passage": "Mending and restoring objects often require even more creativity than original production. The preindustrial blacksmith made things to order for people in his immediate community; customizing the product, modifying or transforming it according to the user, was routine. Customers would bring things back if something went wrong; repair was thus an extension of fabrication. With industrialization and eventually with mass production, making things became the province of machine tenders with limited knowledge. But repair continued to require a larger grasp of design and materials, an understanding of the whole and a comprehension of the designer’s intentions. “Manufacturers all work by machinery or by vast subdivision of labour and not, so to speak, by hand,” an 1896 Manual of Mending and Repairing explained. “But all repairing must be done by hand. We can make every detail of a watch or of a gun by machinery, but the machine cannot mend it when broken, much less a clock or a pistol!”",
+   "choices": [
+    {
+     "label": "A",
+     "text": "A Process of Repair: Create, Modify, Transform!",
+     "abstractness": 2,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "Still Left to the Modern Blacksmith: The Art of Repair K 4",
+     "abstractness": 2,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "Can Industrialization Mend Our Broken Past?",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "How to Be a Creative Repairperson: Tips and Ideas",
+     "abstractness": 2,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "A Historical Survey of How Repairing Skills Evolved",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2023#21",
+   "type": "R-IMPLY",
+   "passage": "하는 바로 가장 적절한 것은? Coming of age in the 18th and 19th centuries, the personal diary became a centerpiece in the construction of a modern subjectivity, at the heart of which is the application of reason and critique to the understanding of world and self, which allowed the creation of a new kind of knowledge. Diaries were central media through which enlightened and free subjects could be constructed. They provided a space where one could write daily about her whereabouts, feelings, and thoughts. Over time and with rereading, disparate entries, events, and happenstances could be rendered into insights and narratives about the self, and allowed for the formation of subjectivity. It is in that context that the idea of “the self [as] both made and explored with words” emerges. Diaries were personal and private; one would write for oneself, or, in Habermas’s formulation, one would make oneself public to oneself. By making the self public in a private sphere, the self also became an object for self-inspection and self-critique. * disparate: 이질적인 ** render: 만들다",
+   "choices": [
+    {
+     "label": "A",
+     "text": "exchange feedback in the process of writing",
+     "abstractness": 2,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "use writing as a means of reflecting on oneself",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "build one’s identity by reading others’ diaries",
+     "abstractness": 2,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "develop topics for writing about selfhood",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "create an alternate ego to present to others",
+     "abstractness": 3,
+     "passageEcho": 0,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2023#23",
+   "type": "R-TOPIC",
+   "passage": "An important advantage of disclosure, as opposed to more aggressive forms of regulation, is its flexibility and respect for the operation of free markets. Regulatory mandates are blunt swords; they tend to neglect diversity and may have serious unintended adverse effects. For example, energy efficiency requirements for appliances may produce goods that work less well or that have characteristics that consumers do not want. Information provision, by contrast, respects freedom of choice. If automobile manufacturers are required to measure and publicize the safety characteristics of cars, potential car purchasers can trade safety concerns against other attributes, such as price and styling. If restaurant customers are informed of the calories in their meals, those who want to lose weight can make use of the information, leaving those who are unconcerned about calories unaffected. Disclosure does not interfere with, and should even promote, the autonomy (and quality) of individual decision-making. * mandate: 명령 ** adverse: 거스르는 *** autonomy: 자율성",
+   "choices": [
+    {
+     "label": "A",
+     "text": "strategies for companies to increase profits in a free market",
+     "abstractness": 2,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "steps to make public information accessible to customers",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "benefits of publicizing information to ensure free choices",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "effects of diversified markets on reasonable customer choices",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "necessities of identifying and analyzing current industry trends",
+     "abstractness": 3,
+     "passageEcho": 0,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2023#24",
+   "type": "R-TITLE",
+   "passage": "Different parts of the brain’s visual system get information on a need-to-know basis. Cells that help your hand muscles reach out to an object need to know the size and location of the object, but they don’t need to know about color. They need to know a little about shape, but not in great detail. Cells that help you recognize people’s faces need to be extremely sensitive to details of shape, but they can pay less attention to location. It is natural to assume that anyone who sees an object sees everything about it ― the shape, color, location, and movement. However, one part of your brain sees its shape, another sees color, another detects location, and another perceives movement. Consequently, after localized brain damage, it is possible to see certain aspects of an object and not others. Centuries ago, people found it difficult to imagine how someone could see an object without seeing what color it is. Even today, you might find it surprising to learn about people who see an object without seeing where it is, or see it without seeing whether it is moving.",
+   "choices": [
+    {
+     "label": "A",
+     "text": "Visual Systems Never Betray Our Trust!",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "Blind Spots: What Is Still Unknown About the Brain",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "Separate and Independent: Brain Cells’ Visual Perceptions K 4",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "Why Brain Cells Exemplify Nature’s Recovery Process",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "Secret Missions of Color-Sensitive Brain Cells",
+     "abstractness": 2,
+     "passageEcho": 2,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2023#40",
+   "type": "R-SUMMARY",
+   "passage": "위협하다 (B)에 들어갈 말로 가장 적절한 것은? “Craftsmanship” may suggest a way of life that declined with the arrival of industrial society ― but this is misleading. Craftsmanship names an enduring, basic human impulse, the desire to do a job well for its own sake. Craftsmanship cuts a far wider swath than skilled manual labor; it serves the computer programmer, the doctor, and the artist; parenting improves when it is practiced as a skilled craft, as does citizenship. In all these domains, craftsmanship focuses on objective standards, on the thing in itself. Social and economic conditions, however, often stand in the way of the craftsman’s discipline and commitment: schools may fail to provide the tools to do good work, and workplaces may not truly value the aspiration for quality. And though craftsmanship can reward an individual with a sense of pride in work, this reward is not simple. The craftsman often faces conflicting objective standards of excellence; the desire to do something well for its own sake can be weakened by competitive pressure, by frustration, or by obsession. * swath: 구획 ������ Craftsmanship, a human desire that has (A) over time in diverse contexts, often encounters factors that (B) its full development. (A) (B) (A) (B)",
+   "choices": [
+    {
+     "label": "A",
+     "text": "diminished … shape",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "evolved … accelerate",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "persisted … cultivate",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "diminished … restrict K 8",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "persisted … limit",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2024#21",
+   "type": "R-IMPLY",
+   "passage": "가장 적절한 것은? How you focus your attention plays a critical role in how you deal with stress. Scattered attention harms your ability to let go of stress, because even though your attention is scattered, it is narrowly focused, for you are able to fixate only on the stressful parts of your experience. When your attentional spotlight is widened, you can more easily let go of stress. You can put in perspective many more aspects of any situation and not get locked into one part that ties you down to superficial and anxiety-provoking levels of attention. A narrow focus heightens the stress level of each experience, but a widened focus turns down the stress level because you’re better able to put each situation into a broader perspective. One anxiety-provoking detail is less important than the bigger picture. It’s like transforming yourself into a nonstick frying pan. You can still fry an egg, but the egg won’t stick to the pan. * provoke: 유발시키다",
+   "choices": [
+    {
+     "label": "A",
+     "text": "having a larger view of an experience beyond its stressful aspects",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "taking stress into account as the source of developing a wide view",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "rarely confining one’s attention to positive aspects of an experience",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "never being confronted with any stressful experiences in daily life",
+     "abstractness": 2,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "broadening one’s perspective to identify the cause of stress",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2024#23",
+   "type": "R-TOPIC",
+   "passage": "Managers of natural resources typically face market incentives that provide financial rewards for exploitation. For example, owners of forest lands have a market incentive to cut down trees rather than manage the forest for carbon capture, wildlife habitat, flood protection, and other ecosystem services. These services provide the owner with no financial benefits, and thus are unlikely to influence management decisions. But the economic benefits provided by these services, based on their non-market values, may exceed the economic value of the timber. For example, a United Nations initiative has estimated that the economic benefits of ecosystem services provided by tropical forests, including climate regulation, water purification, and erosion prevention, are over three times greater per hectare than the market benefits. Thus cutting down the trees is economically inefficient, and markets are not sending the correct “signal” to favor ecosystem services over extractive uses. * exploitation: 이용 ** timber: 목재",
+   "choices": [
+    {
+     "label": "A",
+     "text": "merits of balancing forests’ market and non-market values",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "ways of increasing the efficiency of managing natural resources",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "impact of using forest resources to maximize financial benefits",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "necessity of calculating the market values of ecosystem services",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "significance of weighing forest resources’ non-market values",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2024#24",
+   "type": "R-TITLE",
+   "passage": "The concept of overtourism rests on a particular assumption about people and places common in tourism studies and the social sciences in general. Both are seen as clearly defined and demarcated. People are framed as bounded social actors either playing the role of hosts or guests. Places, in a similar way, are treated as stable containers with clear boundaries. Hence, places can be full of tourists and thus suffer from overtourism. But what does it mean for a place to be full of people? Indeed, there are examples of particular attractions that have limited capacity and where there is actually no room for more visitors. This is not least the case with some man-made constructions such as the Eiffel Tower. However, with places such as cities, regions or even whole countries being promoted as destinations and described as victims of overtourism, things become more complex. What is excessive or out of proportion is highly relative and might be more related to other aspects than physical capacity, such as natural degradation and economic leakages (not to mention politics and local power dynamics). 찬 * demarcate: 경계를 정하다",
+   "choices": [
+    {
+     "label": "A",
+     "text": "Overtourism: Not Simply a Matter of People and Places K 4",
+     "abstractness": 4,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "Are Tourist Attractions Winners or Losers of Overtourism?",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "What Makes Popular Destinations Attractive to Visitors?",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "The Solutions to Overtourism: From Complex to Simple",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "The Severity of Overtourism: Much Worse than Imagined",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    }
+   ]
+  }
+ ]
+}

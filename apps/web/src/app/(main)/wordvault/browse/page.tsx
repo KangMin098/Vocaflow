@@ -19,7 +19,7 @@ import {
 } from '@/lib/wordvault/browse-queries'
 
 export const metadata = {
-  title: 'WordVault — 둘러보기 · Vocaflow',
+  title: 'WordVault — 둘러보기',
 }
 
 export const dynamic = 'force-dynamic'

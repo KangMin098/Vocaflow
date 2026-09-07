@@ -1,0 +1,260 @@
+[
+  {
+    "adapted_from_id": "0222daf4-43df-447d-9695-be5a7b001a0c",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 20,
+      "outside_pct_max": 38.6,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "Acute aerobic exercise intensity does not modulate pain potentially due to differences in fitness levels and sex effects: results from a pharmacological fMRI study",
+    "source_feed": "elife",
+    "source_license": "cc_by",
+    "source_v_level": 5,
+    "source_url": "https://elifesciences.org/articles/102392",
+    "source_text": "Many people turn to exercise as a way to relieve pain, hoping it will help them feel better. One reason this might work is because exercise can release natural chemicals in the body, called endogenous opioids, which help reduce pain. However, scientists still do not fully understand how this process works.\n\nNold et al. explored how different levels of aerobic exercise – such as low vs. high intensity – affect how people feel pain. They used brain imaging and a medication called naloxone, which blocks the body’s opioid system, to better understand what is happening in the brain during exercise. The study included 39 healthy adults and looked at how factors like fitness level and sex might influence the effects of exercise on pain and how participants perceived pain.\n\nTo determine whether high-intensity exercise provides more pain relief than low-intensity exercise, Nold et al. studied 18 males and 21 females during both high- and low-intensity exercises. Following the workout, magnetic resonance imaging was used to study brain activity as the participants received nine painful heat and pressure stimuli. Throughout the entire experiment, participants received a constant dose of either naloxone or a saline solution as a control.\n\nThe study found that high-intensity exercise did not reduce pain any more than low-intensity exercise in the overall group. There were no major changes in how pain was processed in the brain and blocking the body’s opioids with naloxone made pain feel worse, regardless of how hard the participants exercised. However, more detailed analyses revealed that males with higher fitness levels experienced more pain relief after intense exercise than females. However, this effect disappeared when naloxone was given. Brain scans showed this was linked to activity in a part of the brain called the medial frontal cortex.\n\nThese findings suggest that exercise may help reduce pain for some people more than others – especially depending on their sex and fitness level. In the future, personalized exercise programs could be developed to help manage pain more effectively. But before that can happen, more research is needed to understand exactly how the body’s natural pain-relief systems work during exercise, and how they differ between individuals.",
+    "teachable_new_words": {
+      "teachable": 17,
+      "outside": 67,
+      "pct": 25.4
+    },
+    "title": "",
+    "text": ""
+  },
+  {
+    "adapted_from_id": "942efd28-d91b-4864-84da-0c343f0bd176",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 20,
+      "outside_pct_max": 38.6,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "South Korea",
+    "source_feed": "factbook",
+    "source_license": "public_domain",
+    "source_v_level": 7,
+    "source_url": "https://raw.githubusercontent.com/factbook/factbook.json/master/east-n-southeast-asia/ks.json",
+    "source_text": "The first recorded kingdom (Choson) on the Korean Peninsula dates from approximately 2300 B.C. Over the subsequent centuries, three main kingdoms -- Kogoryo, Baekche, and Silla -- were established on the Peninsula. By the 5th century A.D., Kogoryo emerged as the most powerful, with control over much of the Peninsula and part of Manchuria (modern-day northeast China). However, Silla allied with the Chinese to create the first unified Korean state in 688. Following the collapse of Silla in the 9th century, Korea was unified under the Koryo (Goryeo; 918-1392) and the Chosen (Joseon; 1392-1910) dynasties.\n Korea became the object of intense imperialistic rivalry among the Chinese (its traditional benefactor), Japanese, and Russian empires in the latter half of the 19th and early 20th centuries. After the Sino-Japanese War (1894-95) and the Russo-Japanese War (1904-1905), Korea was occupied by Imperial Japan. In 1910, Japan formally annexed the entire Peninsula. Korea regained its independence after Japan's surrender to the US and its allies in 1945. A US-supported democratic government (Republic of Korea, ROK) was set up in the southern half of the Korean Peninsula, while a communist-style government backed by the Soviet Union was installed in the north (North Korea; aka Democratic People's Republic of Korea, DPRK). During the Korean War (1950-53), US troops and UN forces fought alongside ROK soldiers to defend South Korea from a North Korean invasion supported by communist China and the Soviet Union. After the 1953 armistice, the two Koreas were separated by a demilitarized zone.\n\nSyngman RHEE led the country as its first president from 1948 to 1960. PARK Chung-hee took over leadership of the country in a 1961 coup. During his controversial rule (1961-79), South Korea achieved rapid economic growth, with per capita income rising to roughly 17 times the level of North Korea by 1979. PARK was assassinated in 1979, and subsequent years were marked by political turmoil and continued military rule as the country's pro-democracy movement grew. South Korea held its first free presidential election under a revised democratic constitution in 1987, with former South Korean Army general ROH Tae-woo winning a close race. In 1993, KIM Young-sam became the first civilian president of South Korea's new democratic era. President KIM Dae-jung (1998-2003) won the Nobel Peace Prize in 2000 for his contributions to South Korean democracy and his \"Sunshine Policy\" of engagement with North Korea. President PARK Geun-hye, daughter of former South Korean President PARK Chung-hee, took office in 2013 as South Korea's first female leader. In 2016, the National Assembly passed an impeachment motion against PARK over her alleged involvement in a corruption and influence-peddling scandal, triggering an early presidential election in 2017 won by MOON Jae-in. In 2022, longtime prosecutor and political newcomer YOON Suk Yeol won the presidency by the slimmest margin in South Korean history.\n Discord and tensions with North Korea, punctuated by North Korean military provocations, missile launches, and nuclear tests, have permeated inter-Korean relations for years. Relations remained strained, despite a period of respite in 2018-2019 ushered in by North Korea's participation in the 2018 Winter Olympic and Paralympic Games in South Korea and high-level diplomatic meetings, including historic US-North Korea summits. In 2024, Pyongyang announced it was ending all economic cooperation with South Korea, a move that followed earlier proclamations that it was scrapping a 2018 military pact to de-escalate tensions along their militarized border, abandoning the country’s decades-long pursuit of peaceful unification with South Korea, and designating the South as North Korea’s “principal enemy.”",
+    "teachable_new_words": {
+      "teachable": 23,
+      "outside": 161,
+      "pct": 14.3
+    },
+    "title": "",
+    "text": ""
+  },
+  {
+    "adapted_from_id": "081cde0d-1349-47bd-9759-91c033dbc4bf",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 20,
+      "outside_pct_max": 38.6,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "Fungus Among Us: The Hidden Life Beneath Our Feet",
+    "source_feed": "frym",
+    "source_license": "cc_by",
+    "source_v_level": 4,
+    "source_url": "https://doi.org/10.3389/frym.2026.1527658",
+    "source_text": "In this article, we invite young readers on an exciting journey to discover the amazing world of fungi. We start with the discovery of penicillin in 1928 and then explore how fungi act as hidden champions of nature. Readers will learn about the “ Wood Wide Web ” (an underground network created by fungi that helps plants communicate), discover glowing mushrooms that light up forest nights, and meet fungi that work as nature’s cleanup crew, recycling dead leaves and helping to keep Earth’s ecosystems healthy. Fungi also play important roles in our daily lives: they help produce familiar foods like pizza and cheese, protect plants from harmful insects, and can even help clean up environmental pollution. If you are fascinated by nature and curious about the hidden world beneath your feet, keep reading.",
+    "teachable_new_words": {
+      "teachable": 13,
+      "outside": 28,
+      "pct": 46.4
+    },
+    "title": "The Hidden Life of Fungi",
+    "text": "Mushrooms are only the tops of fungi. Most of a fungus lives under the ground. There it spreads out in thin white threads. The threads link tree roots to one another. Trees can share food and water through this web. Some fungi glow in the dark forest at night. Others clean up the forest floor. They break down dead leaves and fallen branches. Without fungi the forest would drown in old leaves. Fungi help people too. Yeast is a fungus that makes bread rise. Another fungus gives blue cheese its flavour. A famous medicine called penicillin also came from a mould. Fungi are small, but they keep the whole forest healthy."
+  },
+  {
+    "adapted_from_id": "0045e963-38a1-414e-a819-407a33c8658e",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 20,
+      "outside_pct_max": 38.6,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "After school activities may do teens more harm than good",
+    "source_feed": "futurity",
+    "source_license": "cc_by",
+    "source_v_level": 4,
+    "source_url": "https://www.futurity.org/enrichment-activities-teenagers-mental-health-3189982/",
+    "source_text": "The time high school teens spend on so-called enrichment activities, including tutoring, sports, school clubs, and even homework, is negatively affecting their mental health, according to new research.\n\nThe study also found that any additional enrichment activities are unlikely to benefit students academically.\n\nWhile the ideal number of study hours will vary student by student, the researchers found that adding more enrichment activities is unlikely to benefit students. Many people think additional study time or tutoring will lead to better test scores and grades, but this research shows that students are already at their limit. Any more “enrichment” will have negative returns.\n\n“We found that the effect of those additional activities on cognitive skills, that last hour, is basically zero,” says Carolina Caetano, assistant professor of economics in the College of Business at the University of Georgia and coauthor of the study in the Economics of Education Review.\n\n“And what’s more surprising is that the last hour doing these activities is contributing negatively to the child’s non-cognitive skills.”\n\nResilience and communication\n\nNon-cognitive skills include emotional regulation and well-being, and they relate to resilience and communication skills. When looking at how teenagers spend their time and how it affects cognitive or academic skills versus non-cognitive or socio-emotional skills, Caetano says most high schoolers are maxing out the academic benefit of these activities while actively losing socio-emotional skills.\n\nIt is best to think of the relationship between enrichment activities and these skills as a curve, Caetano says. For a while, an additional hour of studying, tutoring, or formal activity will help students get more skills and climb up the curve of academic skills. But there is only so much time in the day, and the more time the student spends on enrichment, the less time they can spend on non-enrichment activities such as relaxing, freely socializing, and sleeping.\n\nThese non-enrichment activities are also valuable for life skills and knowledge retention. If a child does not get enough rest, they could lose some of their academic gains because they cannot retain what they learned. They could also lose socio-emotional gains because they do not get enough social practice, or because they get stressed out. Eventually the losses equal the gains, and the benefits from enrichment max out. At this point most students are at the top of the academic skills curve, and any more enrichment will decrease their academic skills.\n\nAdditionally, that time has taken away from activities that promote socio-emotional skills. This is harmful and can result in anxiety, depression and outbursts from being over extended. Essentially, the student would have been better off, in terms of noncognitive skills, if they had scaled back the enrichment activities, Caetano says.\n\n“You’re at the maximum of what you can acquire academically from that work,” she says. “But on the curve for non-cognitive skills, you have gone past the maximum and gone into the descending part of the curve. You’re losing socio-emotional skills at that point.”\n\nPsychologists and educators have highlighted the potential damage of overscheduling for years, Caetano says, and this paper provides solid causal evidence that supports their argument.\n\nEnrichment activities vs. overscheduling\n\nFor the study, the researchers used detailed data from 4,300 children between kindergarten and seniors in high school. The data was collected in the Child Development Supplement of the Panel Study of Income Dynamics.\n\nResearchers looked at three age groups: elementary, middle school, and high school children. High schoolers face the worst situation, Caetano says, but that does not mean younger students are OK. They’re at the top of the curve, she says, which means that any more enrichment and they’re facing negative returns.\n\n“If you look at middle school and elementary school children, they are at zero returns for cognitive and non-cognitive skills,” she says. “While they haven’t gone into a negative area yet, additional work is likely to harm them.”\n\nIf anything, Caetano says, we should look at the status of younger students as a chance to build more social and non-academic skills. Opening children’s schedules and letting them enjoy more free time could lead to emotional regulation skills that will later benefit the busy college prep schedule high schoolers face.\n\n“Non-cognitive skills are highly important, but people don’t always think of them because they’re hard to measure,” she says. “They are important not only for future happiness, but professional success as well.”\n\nCaetano admits that finding a solution to overscheduling is a complicated process. It is important for children to hang out with other children in an unrestricted manner to build their non-cognitive skills, and some parents might worry about taking them away from more measurable enrichment activities.\n\nThe benefit of developing lifelong skills, however, could prove more important.\n\n“If you scale back children’s activities, they could move backwards slightly for cognitive skills, but their losses on non-cognitive skills are already so high that the chance might be worthwhile,” Caetano says.\n\nAdditionally, the point becomes moot unless a significant number of parents commit to the change. Without widespread adoption, the kids who shift away from enrichment activities won’t have anyone to play with to build non-cognitive skills.\n\n“There’s something very unideal when you consider this as an individual problem. What we have here is a societal problem,” Caetano says. “There’s only so much that parents can do.”\n\nThe study does not provide the perfect number of enrichment hours, but Caetano says that parents should continuously assess their mental well-being as well as their child’s.\n\n“There will be variation across families, so if I were to give a recommendation, I’d say that if you have signs that, as a family, you are overly stretched, you probably are in the negative returns side of the curve, and you should scale back,” she says. “If whenever someone contacts you for a play date, you are always scheduled, then it’s very clear that you are overscheduled.”",
+    "teachable_new_words": {
+      "teachable": 51,
+      "outside": 137,
+      "pct": 37.2
+    },
+    "title": "",
+    "text": ""
+  },
+  {
+    "adapted_from_id": "071af436-c6de-4689-b8c6-2f672c039de2",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 20,
+      "outside_pct_max": 38.6,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "Our First View of the Surface of Mars - NASA",
+    "source_feed": "nasa",
+    "source_license": "public_domain",
+    "source_v_level": 5,
+    "source_url": "https://www.nasa.gov/image-article/our-first-view-of-the-surface-of-mars/",
+    "source_text": "2 min read\n\nOur First View of the Surface of Mars\n\nMichele Ostovar\nNASA History Communications Lead\n\nJul 20, 2026\n Image Article\n\n“Touchdown, we have touchdown!” At 5:12 a.m. PDT, July 20, 1976, mission controllers at NASA’s Jet Propulsion Laboratory erupted in cheers as they learned that the Viking 1 lander had survived its descent through the thin Martian atmosphere. Forty minutes later, the lander’s first image began to appear on their monitors, slowly forming line by line from left to right. For the first time, humans were able to see Mars’s rocky terrain from its surface.\n\nDr. Thomas Mutch, leader of the Viking lander imaging team, described the moment: “I studied the black screen, waiting for that narrow strip that will signal the first few lines of the first picture. And it appeared. A sliver of electronic magic. Areas of brightness and darkness. The picture begins to fill the screen. Rocks and sand are visible and — finally at the far right — one of the spacecraft foot pads, a symbolic artifact that stamps our accomplishment with the sign of reality. Time and time again I repeat, ‘It’s incredible.’”\n\nFifty years ago today, the Viking 1 lander became NASA’s first robot to explore Mars’s surface and begin the search for signs of life in our solar system. Viking 1 was joined six weeks later by its twin lander, Viking 2, which explored a different region of Mars, while two mission orbiters that delivered the landers to the Red Planet continued to collect data from space and helped relay communications to Earth.\n\nLearn more about what Viking found and NASA’s legacy of discovery on Mars at Viking: 50 Years on Mars.\n\nImage credit: NASA/JPL",
+    "teachable_new_words": {
+      "teachable": 17,
+      "outside": 65,
+      "pct": 26.2
+    },
+    "title": "The First Picture from Mars",
+    "text": "A spacecraft called Viking landed on Mars long ago. The spacecraft had crossed space for almost a year. It fell through the thin Martian air. Engineers on Earth waited in silence. Then a message arrived: touchdown! The room filled with cheers. Forty minutes later a picture began to appear. It formed on the screen line by line. First came a narrow strip of light and dark. Slowly the strip grew into a photo. It showed rocks, sand and part of the lander. The Martian sky looked pink with dust. For the first time people saw the surface of another planet. The scientists stared at the screen for a long time. One of them called it electronic magic. Later spacecraft found deep craters and a giant volcano on Mars."
+  },
+  {
+    "adapted_from_id": "04277b9e-ceb3-44e2-a1a4-bfabb711c695",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 20,
+      "outside_pct_max": 38.6,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "Global climate summary for July 2022",
+    "source_feed": "noaa",
+    "source_license": "public_domain",
+    "source_v_level": 5,
+    "source_url": "https://www.climate.gov/news-features/understanding-climate/global-climate-summary-july-2022",
+    "source_text": "Highlights from Assessing the Global Climate in July 2022\n\nGlobally, July 2022 was the sixth-warmest July in the 143-year NOAA record. The year-to-date (January-July) global surface temperature was also the sixth-warmest on record. According to NCEI’s Global Annual Temperature Outlook, there is a greater than 99% chance that 2022 will rank among the 10-warmest years on record but only an 11% chance that it will rank among the top five.\n\nThe July global surface temperature was 1.57 °F (0.87 °C) above the 20th-century average of 60.4 °F (15.8 °C). This ranks as the sixth-warmest July in the 143-year record. July 2022 marked the 46th consecutive July and the 451st consecutive month with temperatures, at least nominally, above the 20th-century average. The five warmest Julys on record have all occurred since 2016.\n\nThe month of July was characterized by warmer-than-average conditions across much of North America, Asia, Europe, and South America. Record-high July temperatures were observed in parts of North and South America, southern and eastern Asia, and Europe, as well as parts of the western and southern Pacific Ocean. During the month, an unprecedented heat wave affected much of Europe and many European countries, including Italy, Portugal, Spain, and the United Kingdom, set new record-high July maximum temperatures. Sea surface temperatures were above average across much of the Gulf of Mexico and the northern, western, and southwestern Pacific, as well as parts of the Atlantic and eastern Indian oceans. Overall, the record-warm July temperatures encompassed over 7.3% of the world's surface — the fourth-highest percentage for record-high July temperatures.\n\nPrecipitation highlights from the Global Climate Report for July 2022\n\nThe strongest feature [of the July map] on the dry side is in the western Pacific, just south of the Equator, with the equatorial Pacific in general having broad negatives, with embedded, small positive areas. To the west, over the Maritime Continent, South Asia and the North Indian Ocean positive anomalies dominate, with smaller dry anomalies embedded.\n\nAlthough Australia tends to have generally wet conditions during La Niña..., this July only the eastern part indicates that concurrence, but that monthly feature contained a 250 mm daily rainfall total in Sydney very early in the month with associated serious flood conditions there and surrounding areas. Over South Asia, the summer monsoon has been very wet in some locations including Indochina and especially western India and Pakistan with floods in northern and western India. The above normal percentage rainfall over the eastern part of the Arabian Peninsula and to the east...is linked to floods in Oman, Yemen, Iran and Afghanistan at various times of the month.\n\nFor more details on the July climate around the globe, including major events, sea ice, and global tropical cyclone activity, read NOAA National Centers for Environmental Information's July 2022 climate summary or the full monthly report.",
+    "teachable_new_words": {
+      "teachable": 21,
+      "outside": 92,
+      "pct": 22.8
+    },
+    "title": "",
+    "text": ""
+  }
+]

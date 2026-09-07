@@ -1,19 +1,28 @@
 // apps/web/src/components/layout/Sidebar.tsx
 //
 // 5 그룹 IA — sidebar-config.ts 기반 (CLAUDE.md §17.10 IA 정합).
-// 구성: [Header(로고+토글)] [Streak 미니카드] [META] [divider] [NAV_GROUPS×5] [divider] [FOOTER]
+// 구성: [Header(로고+토글)] [META] [divider] [NAV_GROUPS] [divider] [FOOTER]
 // 햄버거로 240px ↔ 72px 축소/확대, localStorage 유지.
+//
+// v06.36 (ADR 0006 D2) — Streak 미니카드 제거. streak 은 StatusRibbon 하나가 그린다.
+//   이전에는 같은 값이 Sidebar·FlowNav·HubHero 세 곳에 있었다.
+//
+// v08.4 — 펼침 하위 메뉴(`NavItem.children`). 지금은 Library 하나만 갖는다.
+//   기본은 접힘, 그 구역 안에 있으면 자동 펼침, 셰브런으로 어디서나 수동 토글(세션 한정 —
+//   localStorage 에 남기면 "왜 열려 있지" 가 되고, 이 화면의 기본값은 조용함이다).
+//   축소(72px)에서는 렌더하지 않는다 — 자리가 없고, 부모 툴팁이 이미 그 일을 한다.
 
 'use client'
 
-import { Flame, Menu, type LucideIcon } from 'lucide-react'
+import { ChevronDown, Menu, type LucideIcon } from 'lucide-react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useSearchParams, type ReadonlyURLSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 import { isFullScreenRoute } from '@/lib/layout/full-screen-routes'
 
 import {
+  ASIDE_GROUP,
   FOOTER_ITEMS,
   META_ITEMS,
   NAV_GROUPS,
@@ -23,14 +32,100 @@ import {
 
 const STORAGE_KEY = 'vocaflow-sidebar-collapsed'
 
-interface SidebarProps {
-  streak: number
+/**
+ * 현재 위치를 그 항목이 **대표하는가** — 자기 주소이거나, `owns` 로 떠맡은 주소이거나.
+ *
+ * 실측 2026-08-25: 사이드바가 아는 주소는 13개인데 학습자 정적 화면은 42개다.
+ * 나머지에서는 어느 항목에도 `aria-current` 가 붙지 않아 "지금 어디" 가 사라졌다
+ * (전수 52 측정 중 20). `owns` 는 그 빈자리를 메우는 소유 선언이다 — `sidebar-config.ts` 참조.
+ */
+function matchesItem(
+  pathname: string,
+  item: NavItem,
+  search?: ReadonlyURLSearchParams | null,
+): boolean {
+  if (matchesRoute(pathname, item.href, search)) return true
+  return (item.owns ?? []).some((p) => pathname === p || pathname.startsWith(`${p}/`))
 }
 
-export function Sidebar({ streak }: SidebarProps) {
+/**
+ * 현재 위치가 그 항목(또는 하위)인가.
+ *
+ * 두 종류의 href 를 함께 다룬다:
+ *   · 라우트   `/library/vocab` — 하위 라우트까지 활성 (`/wordvault/study` 에서 Vault 유지)
+ *   · 쿼리 뷰  `/text?view=vocab` — `/text` 한 화면의 탭이라 **경로가 같다**. 쿼리를 안 보면
+ *     세 자식이 동시에 활성이 되어 "지금 어디"가 세 번 말해진다.
+ */
+function matchesRoute(
+  pathname: string,
+  href: string,
+  search?: ReadonlyURLSearchParams | null,
+): boolean {
+  const [path = '', query] = href.split('?')
+  if (!query) return pathname === path || (path !== '/' && pathname.startsWith(`${path}/`))
+  if (pathname !== path) return false
+  // 쿼리가 없는 `/text` 진입은 어느 자식도 활성이 아니다 — 화면이 자기 기본 면을 고르고,
+  // 그 선택을 사이드바가 아는 척하지 않는다.
+  const want = new URLSearchParams(query)
+  for (const [k, v] of want.entries()) {
+    if (search?.get(k) !== v) return false
+  }
+  return true
+}
+
+/**
+ * 펼침 하위를 가진 항목의 href 전부 — 아코디언(한 번에 하나)이 나머지를 닫을 때 쓴다.
+ * 설정에서 파생한다: 손으로 적으면 새 서브메뉴가 생겼을 때 조용히 빠진다.
+ */
+const SUB_PARENT_HREFS: string[] = [
+  ...META_ITEMS,
+  ...NAV_GROUPS.flatMap((g) => g.items),
+  ...ASIDE_GROUP.items,
+  ...FOOTER_ITEMS,
+]
+  .filter((i) => (i.children?.length ?? 0) > 0)
+  .map((i) => i.href)
+
+/** 펼침 패널 id — 셰브런의 `aria-controls` 가 가리킨다. */
+function panelId(href: string): string {
+  return `sidebar-sub-${href.replace(/[^a-zA-Z0-9]+/g, '-').replace(/^-|-$/g, '')}`
+}
+
+export function Sidebar() {
   const pathname = usePathname()
+  // `/text?view=` 자식의 활성 판정용. (main) 세그먼트는 레이아웃이 쿠키를 읽어 전부 동적이라
+  // 정적 프리렌더 Suspense 요건에 걸리지 않는다.
+  const searchParams = useSearchParams()
   const [collapsed, setCollapsed] = useState(false)
   const [mounted, setMounted] = useState(false)
+  /**
+   * 하위 메뉴 수동 토글 — href → 열림. **없으면 "그 구역에 있는가"가 기본값**이다.
+   * 값을 미리 채우지 않는 이유: 채우면 경로가 바뀌어도 옛 판단이 남아, 다른 구역에 가 있는데
+   * 열려 있거나 그 반대가 된다. 사용자가 만진 항목만 기억한다.
+   */
+  const [openSub, setOpenSub] = useState<Record<string, boolean>>({})
+
+  /**
+   * 하위 메뉴는 **한 번에 하나만** 열린다 (아코디언).
+   *
+   * 왜: Library(공용)와 My Library(내 것)는 같은 자료 축을 공유해서 자식 이름이 겹친다
+   * (`Books` · `Decks`). 둘을 동시에 펼치면 화면에 `Books` 가 두 개, `Decks` 가 두 개
+   * 나란히 서고, 어느 쪽이 공용인지 부모까지 거슬러 봐야 알 수 있다(실측 지적 2026-08-16).
+   * 애초에 이 자리에서 하는 일은 "읽을 곳 **한 군데**를 고르는 것" 이라 둘을 동시에 볼
+   * 이유가 없다 — `LEARNING_FRAMEWORK` §4④ "한 번에 한 걸음만 보인다" 와 같은 방향.
+   */
+  const toggleSub = (href: string) =>
+    setOpenSub((prev) => {
+      const nextOpen = !(prev[href] ?? matchesRoute(pathname ?? '', href))
+      // 나머지 **전부**(아직 손댄 적 없는 것 포함)를 명시적 false 로 닫는다.
+      //   · `prev` 의 키만 닫으면 부족하다 — 자동 펼침(그 구역에 있음)은 키가 없어서
+      //     그대로 열려 있는다. /library 에서 My Library 를 펼치면 둘 다 열렸다.
+      //   · 키를 지우는 것으로도 안 된다 — 기본값이 되살아나 방금 닫은 것이 다시 열린다.
+      const next: Record<string, boolean> = {}
+      for (const parent of SUB_PARENT_HREFS) next[parent] = false
+      next[href] = nextOpen
+      return next
+    })
 
   useEffect(() => {
     const stored = localStorage.getItem(STORAGE_KEY)
@@ -76,7 +171,7 @@ export function Sidebar({ streak }: SidebarProps) {
         {!collapsed && (
           <Link
             href="/hub"
-            className="flex items-center gap-2.5 transition-opacity duration-[var(--dur-normal)] hover:opacity-90"
+            className="flex min-h-11 items-center gap-3 transition-opacity duration-[var(--dur-normal)] hover:opacity-90"
             aria-label="Vocaflow 홈"
           >
             <span
@@ -97,63 +192,49 @@ export function Sidebar({ streak }: SidebarProps) {
           aria-label={collapsed ? '사이드바 펼치기' : '사이드바 접기'}
           aria-expanded={!collapsed}
           title={collapsed ? '사이드바 펼치기' : '사이드바 접기'}
-          className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--r-md)] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-[var(--r-md)] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
           <Menu size={18} strokeWidth={2} aria-hidden="true" />
         </button>
       </div>
 
-      {/* ── Streak 미니 카드 (collapsed 시 아이콘만) ── */}
-      {collapsed ? (
-        <Link
-          href="/dashboard"
-          className="mx-auto mb-2 mt-4 inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)] border border-[var(--bd)] bg-gradient-to-br from-[var(--bg2)] to-[var(--bg3)] text-[var(--active)] transition-colors hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
-          aria-label={`연속 학습 ${streak}일`}
-          title={`Streak ${streak}일`}
-        >
-          <Flame size={15} strokeWidth={2} aria-hidden="true" />
-        </Link>
-      ) : (
-        <div className="mx-3 mb-2 mt-4 rounded-[var(--r-md)] border border-[var(--bd)] bg-gradient-to-br from-[var(--bg2)] to-[var(--bg3)] px-3 py-2.5">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-1.5">
-              <Flame
-                size={13}
-                strokeWidth={2}
-                className="text-[var(--active)]"
-                aria-hidden="true"
-              />
-              <span className="font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t3)]">
-                Streak
-              </span>
-            </div>
-            <span className="font-display text-[16px] font-[800] tabular-nums text-[var(--t1)]">
-              {streak}일
-            </span>
-          </div>
-        </div>
-      )}
-
       {/* ── 네비게이션 ── */}
       <nav className={`flex-1 overflow-y-auto pb-4 pt-2 ${collapsed ? 'px-2' : 'px-3'}`}>
         {/* META — Hub · Dashboard */}
-        <ul className="mt-2 flex flex-col gap-0.5">
+        <ul className="mt-2 flex flex-col gap-1">
           {META_ITEMS.map((item) => (
-            <NavLinkItem key={item.href} item={item} pathname={pathname} collapsed={collapsed} />
+            <NavLinkItem
+              key={item.href}
+              item={item}
+              pathname={pathname}
+              search={searchParams}
+              collapsed={collapsed}
+              openSub={openSub}
+              onToggleSub={toggleSub}
+            />
           ))}
         </ul>
 
         {/* divider */}
         <div className="my-4 border-t border-[var(--bd)]" aria-hidden="true" />
 
-        {/* NAV_GROUPS — 5 그룹 (FlowNav 1:1 매핑) */}
-        <div className="space-y-6">
-          {NAV_GROUPS.map((group) => (
+        {/* ── 학습 흐름 레일 — 다섯 단계가 한 줄기로 이어진다 ──
+            레일 선은 장식이므로 aria-hidden. 순서는 각 제목의 sr-only 텍스트가 말한다.
+            ⚠️ 여기에 "현재 단계" 표시를 넣지 말 것 — `docs/LEARNING_FRAMEWORK.md` §4 의
+            "이동을 알리는 자리는 정확히 4개" 를 깨고 처방 정본이 갈라진다. */}
+        {/* 레일 선은 **각 단계가 다음 단계까지** 그린다. 통짜 선 하나로 그렸더니 마지막
+            번호 아래로 꼬리가 남아 "다음이 더 있다" 로 읽혔다(실측 캡처에서 확인). */}
+        <div className="space-y-5">
+          {NAV_GROUPS.map((group, i) => (
             <NavGroupBlock
               key={group.flowStage}
               group={group}
+              isLast={i === NAV_GROUPS.length - 1}
               pathname={pathname}
+              search={searchParams}
               collapsed={collapsed}
+              openSub={openSub}
+              onToggleSub={toggleSub}
             />
           ))}
         </div>
@@ -161,10 +242,49 @@ export function Sidebar({ streak }: SidebarProps) {
         {/* divider */}
         <div className="my-5 border-t border-[var(--bd)]" aria-hidden="true" />
 
+        {/* ── 레일 밖 — 단계가 아닌 것. 만화는 학습 단계가 아니라 읽는 방식이다. ── */}
+        <div>
+          {!collapsed && (
+            <h3 className="mb-2 flex items-baseline gap-2 px-3">
+              <span className="font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
+                {ASIDE_GROUP.label}
+              </span>
+              <span className="truncate font-body text-[12px] font-[400] text-[var(--t2)]">
+                {ASIDE_GROUP.says}
+              </span>
+            </h3>
+          )}
+          <ul className="flex flex-col gap-1">
+            {ASIDE_GROUP.items.map((item) => (
+              <NavLinkItem
+                key={item.href}
+                item={item}
+                pathname={pathname}
+                search={searchParams}
+                collapsed={collapsed}
+                accent={ASIDE_GROUP.accent}
+                openSub={openSub}
+                onToggleSub={toggleSub}
+              />
+            ))}
+          </ul>
+        </div>
+
+        {/* divider */}
+        <div className="my-5 border-t border-[var(--bd)]" aria-hidden="true" />
+
         {/* FOOTER — Settings */}
-        <ul className="flex flex-col gap-0.5">
+        <ul className="flex flex-col gap-1">
           {FOOTER_ITEMS.map((item) => (
-            <NavLinkItem key={item.href} item={item} pathname={pathname} collapsed={collapsed} />
+            <NavLinkItem
+              key={item.href}
+              item={item}
+              pathname={pathname}
+              search={searchParams}
+              collapsed={collapsed}
+              openSub={openSub}
+              onToggleSub={toggleSub}
+            />
           ))}
         </ul>
       </nav>
@@ -172,24 +292,80 @@ export function Sidebar({ streak }: SidebarProps) {
   )
 }
 
-// ── Group block — 라벨 + dot + 항목들 ──
+// ── 단계 블록 — 레일 위의 정거장(번호 + 이름) + 그 단계의 항목들 ──
 interface NavGroupBlockProps {
   group: NavGroup
+  /** 마지막 단계는 다음으로 잇는 선을 그리지 않는다 — 흐름은 여기서 끝난다 */
+  isLast: boolean
   pathname: string
+  search: ReadonlyURLSearchParams | null
   collapsed: boolean
+  openSub: Record<string, boolean>
+  onToggleSub: (href: string) => void
 }
 
-function NavGroupBlock({ group, pathname, collapsed }: NavGroupBlockProps) {
+function NavGroupBlock({
+  group,
+  isLast,
+  pathname,
+  search,
+  collapsed,
+  openSub,
+  onToggleSub,
+}: NavGroupBlockProps) {
+  // 지금 이 단계 안에 있는가 — **정거장 강조와 한 줄 설명에만** 쓴다.
+  // 진도가 아니다: 현재 경로가 어디 속하는지일 뿐이고, 그건 이미 항목 활성 표시가 말하고 있다.
+  // 여기서 하는 일은 그 활성 항목이 흐름의 **어디쯤인지**를 붙여 주는 것뿐이다.
+  const here = group.items.some(
+    (i) =>
+      matchesItem(pathname, i, search) ||
+      (i.children ?? []).some((c) => matchesRoute(pathname, c.href, search)),
+  )
+
   return (
-    <div>
+    <div className="relative">
+      {/* 다음 단계로 잇는 선 — 이 번호 아래에서 다음 번호까지(-bottom-5 = space-y-5 간격).
+          선은 장식이므로 aria-hidden. 순서는 제목의 sr-only 문장이 말한다. */}
+      {!isLast && (
+        <span
+          aria-hidden="true"
+          className={`absolute -bottom-5 top-[19px] w-px bg-[var(--bd)] ${
+            collapsed ? 'left-1/2 -translate-x-1/2' : 'left-[9px]'
+          }`}
+        />
+      )}
+
+      {/* 정거장 — 번호는 **순서**다. 진도·자격·잠금이 아니다.
+          번호 배지가 레일 선 위에 얹혀 선을 끊어 준다(bg 로 punch through). */}
       {!collapsed ? (
-        <h3 className="mb-2.5 flex items-center gap-2.5 px-3">
+        <h3 className="mb-2 flex items-center gap-3">
           <span
-            className="h-1 w-1 shrink-0 rounded-full"
-            style={{ backgroundColor: group.accent }}
             aria-hidden="true"
-          />
-          <span className="font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]">
+            className="relative z-[1] inline-flex h-[19px] w-[19px] shrink-0 items-center justify-center rounded-full border font-mono text-[10px] font-[700] tabular-nums transition-colors duration-[var(--dur-normal)]"
+            style={
+              here
+                ? {
+                    borderColor: group.accent,
+                    color: group.accent,
+                    backgroundColor: `color-mix(in srgb, ${group.accent} 10%, var(--bg))`,
+                  }
+                : {
+                    borderColor: 'var(--bd)',
+                    color: 'var(--t3)',
+                    backgroundColor: 'var(--bg)',
+                  }
+            }
+          >
+            {group.step}
+          </span>
+          <span
+            className={`font-display text-[11px] font-[700] uppercase tracking-[0.06em] transition-colors duration-[var(--dur-normal)] ${
+              here ? 'text-[var(--t1)]' : 'text-[var(--t2)]'
+            }`}
+          >
+            {/* 순서는 화면에선 배지가, 스크린리더에선 이 문장이 말한다.
+                "잠김/불가" 류 어휘를 쓰지 않는다 — 막는 것이 아니라 순서다. */}
+            <span className="sr-only">{`흐름 ${group.step}번째 · `}</span>
             {group.label}
           </span>
           <span
@@ -198,21 +374,47 @@ function NavGroupBlock({ group, pathname, collapsed }: NavGroupBlockProps) {
           />
         </h3>
       ) : (
-        <div className="mb-1.5 flex justify-center" aria-hidden="true">
+        <div className="mb-1.5 flex justify-center">
           <span
-            className="h-1 w-1 rounded-full opacity-70"
-            style={{ backgroundColor: group.accent }}
-          />
+            aria-hidden="true"
+            className="relative z-[1] inline-flex h-[19px] w-[19px] items-center justify-center rounded-full border font-mono text-[10px] font-[700] tabular-nums"
+            style={
+              here
+                ? {
+                    borderColor: group.accent,
+                    color: group.accent,
+                    backgroundColor: `color-mix(in srgb, ${group.accent} 10%, var(--bg))`,
+                  }
+                : { borderColor: 'var(--bd)', color: 'var(--t3)', backgroundColor: 'var(--bg)' }
+            }
+          >
+            {group.step}
+          </span>
         </div>
       )}
-      <ul className="flex flex-col gap-1">
+
+      {/* 이 단계에서 하는 일 — **지금 그 단계에 있을 때만** 한 줄.
+          다섯 줄을 늘 띄우면 설명서가 되고, 하나도 없으면 번호의 뜻이 안 읽힌다.
+          (Progressive Disclosure — 깊이는 요청/맥락에서)
+          색은 `--t3` 로 뒀다가 11px 에서 대비가 모자라 `--t2` 로 올렸다(실측 캡처) —
+          보조 문장도 읽혀야 정보다. */}
+      {!collapsed && here && (
+        <p className="mb-1.5 pl-[28px] font-body text-[12px] leading-[1.5] text-[var(--t2)] [word-break:keep-all]">
+          {group.says}
+        </p>
+      )}
+
+      <ul className={`flex flex-col gap-1 ${collapsed ? '' : 'pl-[8px]'}`}>
         {group.items.map((item) => (
           <NavLinkItem
             key={item.href}
             item={item}
             pathname={pathname}
+            search={search}
             collapsed={collapsed}
             accent={group.accent}
+            openSub={openSub}
+            onToggleSub={onToggleSub}
           />
         ))}
       </ul>
@@ -224,71 +426,159 @@ function NavGroupBlock({ group, pathname, collapsed }: NavGroupBlockProps) {
 interface NavLinkItemProps {
   item: NavItem
   pathname: string
+  /** 쿼리 뷰 자식(`/text?view=`)의 활성 판정용 */
+  search?: ReadonlyURLSearchParams | null
   collapsed: boolean
   /** 활성 시 좌측 인디케이터 + 아이콘 컨테이너 색 — 그룹 accent (META/FOOTER 미지정) */
   accent?: string
+  /** href → 수동 토글 결과. 키가 없으면 "그 구역에 있는가" 가 기본값. */
+  openSub?: Record<string, boolean>
+  onToggleSub?: (href: string) => void
 }
 
-function NavLinkItem({ item, pathname, collapsed, accent }: NavLinkItemProps) {
+function NavLinkItem({
+  item,
+  pathname,
+  search,
+  collapsed,
+  accent,
+  openSub,
+  onToggleSub,
+}: NavLinkItemProps) {
   // 하위 라우트(/wordvault/study·review 등)에서도 부모 항목 활성 유지.
-  const isActive =
-    pathname === item.href ||
-    (item.href !== '/' && pathname.startsWith(item.href + '/'))
+  const isActive = matchesItem(pathname, item, search)
   const Icon: LucideIcon = item.icon
   const accentColor = accent ?? 'var(--p)'
 
   // 활성 배경 — accent 8% mix (Calm UI: 색 자체가 약하게)
   const activeBg = `color-mix(in srgb, ${accentColor} 8%, transparent)`
 
+  // 하위 메뉴 — 축소 모드에서는 자리가 없어 아예 렌더하지 않는다(부모 title 툴팁이 대신).
+  const children = item.children ?? []
+  const hasSub = children.length > 0 && !collapsed
+  const open = hasSub ? (openSub?.[item.href] ?? isActive) : false
+  const activeChild = children.find((c) => matchesRoute(pathname, c.href, search))
+
+  // 부모와 자식이 동시에 강조되면 "지금 어디" 가 두 번 말해진다.
+  // 하위가 **보이는 상태에서** 자식이 활성이면, 활성 표식은 자식이 갖고 부모는 글자만 굵힌다.
+  const parentOwnsActive = isActive && !(open && activeChild)
+  const subId = panelId(item.href)
+
   return (
     <li>
-      <Link
-        href={item.href}
-        aria-current={isActive ? 'page' : undefined}
-        aria-label={item.ariaLabel ?? item.label}
-        title={collapsed ? item.label : undefined}
-        className={`group relative flex min-h-[44px] items-center rounded-[var(--r-md)] font-display text-[14px] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1 ${
-          collapsed ? 'justify-center px-1' : 'gap-2.5 pl-3 pr-2'
-        } ${
-          isActive
-            ? 'font-[600] text-[var(--t1)]'
-            : 'font-[500] text-[var(--t3)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]'
-        }`}
-        style={isActive ? { backgroundColor: activeBg } : undefined}
-      >
-        {/* 활성 좌측 인디케이터 (3px · accent · 확장 모드) */}
-        {isActive && !collapsed && (
-          <span
-            className="absolute bottom-2 left-0 top-2 w-[3px] rounded-r-full"
-            style={{ backgroundColor: accentColor }}
-            aria-hidden="true"
-          />
-        )}
-
-        {/* 아이콘 컨테이너 */}
-        <span
-          className={`inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-[var(--r-sm)] transition-colors duration-[var(--dur-normal)] ${
-            isActive ? '' : 'bg-[var(--bg2)] group-hover:bg-[var(--bg3)]'
-          }`}
-          style={
+      <div className="relative flex items-center">
+        <Link
+          href={item.href}
+          // 현재 위치 표식은 **정확히 하나**여야 한다. 하위가 보이고 그중 하나가 활성이면 자식이
+          // 갖고, 접혀 있거나 축소 모드(자식 미렌더)면 부모가 갖는다 — 안 그러면 축소 상태에서
+          // "지금 어디"를 말하는 요소가 하나도 없게 된다.
+          aria-current={parentOwnsActive ? 'page' : undefined}
+          aria-label={item.ariaLabel ?? item.label}
+          title={collapsed ? item.label : undefined}
+          // `min-w-0` — flex 항목 기본 min-width:auto 라 긴 라벨이 셰브런을 밀어낸다(truncate 무효화).
+          className={`group relative flex min-h-[44px] min-w-0 flex-1 items-center rounded-[var(--r-md)] font-display text-[14px] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1 ${
+            collapsed ? 'justify-center px-1' : 'gap-3 pl-3 pr-2'
+          } ${
             isActive
-              ? { backgroundColor: `color-mix(in srgb, ${accentColor} 14%, transparent)` }
-              : undefined
-          }
+              ? 'font-[600] text-[var(--t1)]'
+              : 'font-[500] text-[var(--t2)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]'
+          }`}
+          style={parentOwnsActive ? { backgroundColor: activeBg } : undefined}
         >
-          <Icon
-            size={15}
-            strokeWidth={1.75}
-            aria-hidden="true"
-            className={`transition-colors duration-[var(--dur-normal)] ${
-              isActive ? '' : 'text-[var(--t3)] group-hover:text-[var(--t2)]'
-            }`}
-            style={isActive ? { color: accentColor } : undefined}
-          />
-        </span>
+          {/* 활성 좌측 인디케이터 (3px · accent · 확장 모드) */}
+          {parentOwnsActive && !collapsed && (
+            <span
+              className="absolute bottom-2 left-0 top-2 w-[3px] rounded-r-full"
+              style={{ backgroundColor: accentColor }}
+              aria-hidden="true"
+            />
+          )}
 
-        {!collapsed && <span className="flex-1 truncate">{item.label}</span>}
-      </Link>
+          {/* 아이콘 컨테이너 */}
+          <span
+            className={`inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-[var(--r-sm)] transition-colors duration-[var(--dur-normal)] ${
+              isActive ? '' : 'bg-[var(--bg2)] group-hover:bg-[var(--bg3)]'
+            }`}
+            style={
+              isActive
+                ? { backgroundColor: `color-mix(in srgb, ${accentColor} 14%, transparent)` }
+                : undefined
+            }
+          >
+            <Icon
+              size={15}
+              strokeWidth={1.75}
+              aria-hidden="true"
+              className={`transition-colors duration-[var(--dur-normal)] ${
+                isActive ? '' : 'text-[var(--t2)] group-hover:text-[var(--t2)]'
+              }`}
+              style={isActive ? { color: accentColor } : undefined}
+            />
+          </span>
+
+          {!collapsed && <span className="flex-1 truncate">{item.label}</span>}
+        </Link>
+
+        {/* 펼침 토글 — 링크와 **분리된** 버튼. 링크 안에 넣으면 부모로 가는 길이 사라진다.
+            44px 하한(프로젝트 절대 규칙)을 지키되 폭을 먹으므로 라벨은 truncate 로 보호된다. */}
+        {hasSub && onToggleSub && (
+          <button
+            type="button"
+            onClick={() => onToggleSub(item.href)}
+            aria-expanded={open}
+            aria-controls={subId}
+            aria-label={`${item.label} 하위 메뉴 ${open ? '접기' : '펼치기'}`}
+            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-[var(--r-md)] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          >
+            <ChevronDown
+              size={14}
+              strokeWidth={2}
+              aria-hidden="true"
+              className={`transition-transform duration-[var(--dur-normal)] ease-[var(--ease)] ${
+                open ? 'rotate-180' : ''
+              }`}
+            />
+          </button>
+        )}
+      </div>
+
+      {/* 하위 항목 — 좌측 레일(border-l)이 소속을 그린다. 아이콘 컨테이너는 두지 않는다
+          (같은 크기의 상자를 한 단계 더 쌓으면 층위가 안 읽힌다 — 깊이는 들여쓰기가 말한다). */}
+      {hasSub && open && (
+        <ul
+          id={subId}
+          className="ml-[26px] mt-0.5 flex flex-col gap-1 border-l border-[var(--bd)] pl-2"
+        >
+          {children.map((child) => {
+            const childActive = matchesRoute(pathname, child.href, search)
+            const ChildIcon: LucideIcon = child.icon
+            return (
+              <li key={child.href}>
+                <Link
+                  href={child.href}
+                  aria-current={childActive ? 'page' : undefined}
+                  aria-label={child.ariaLabel ?? child.label}
+                  className={`flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] px-2 font-display text-[13px] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1 ${
+                    childActive
+                      ? 'font-[600] text-[var(--t1)]'
+                      : 'font-[500] text-[var(--t2)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]'
+                  }`}
+                  style={childActive ? { backgroundColor: activeBg } : undefined}
+                >
+                  <ChildIcon
+                    size={14}
+                    strokeWidth={1.75}
+                    aria-hidden="true"
+                    className="shrink-0"
+                    style={childActive ? { color: accentColor } : undefined}
+                  />
+                  <span className="flex-1 truncate">{child.label}</span>
+                </Link>
+              </li>
+            )
+          })}
+        </ul>
+      )}
     </li>
   )
 }

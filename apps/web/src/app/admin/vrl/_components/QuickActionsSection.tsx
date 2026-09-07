@@ -8,6 +8,11 @@
 //   QA3 📋 Tier 2 Migration SQL preview (collapsible)
 //   QA4 🚨 VCB-VRL navigate (→ /admin/vocab)
 //   QA5 🔄 새로고침 (router.refresh — client side)
+//
+// ⚠️ 2026-09-05 — QA1 은 `L4 1,030 row 잔여`, QA4 는 `R3 35→75+` 를 **상수로** 적고 있었다.
+//   같은 1,030 이 RoundHistorySection 의 ROADMAP 에도 복사돼 있어 한쪽만 고치면 두 화면이
+//   서로 다른 말을 한다. 지금은 둘 다 page.tsx 가 이미 들고 있는 snapshot 에서 파생된다 —
+//   근거 없는 수치는 아예 받지 않는다(prop 이 없으면 수치 없는 문구로 떨어진다).
 
 'use client'
 
@@ -82,14 +87,27 @@ BEGIN
   RAISE NOTICE 'Tier 2 schema evolution OK — 3 columns + 1 index';
 END $$;`
 
-export function QuickActionsSection() {
+export interface QuickActionsSectionProps {
+  /** vrl_data_integrity_concerns 미해결 수 (실측). */
+  openConcerns: number
+  /** shared_dictionary v_level NULL 행 수 (실측). */
+  unclassified: number
+  /** R3(공용 단어장 발행) 현재 점수 0~100. 스냅샷에 없으면 null → 수치 없이 그린다. */
+  r3Score: number | null
+}
+
+export function QuickActionsSection({
+  openConcerns,
+  unclassified,
+  r3Score,
+}: QuickActionsSectionProps) {
   const router = useRouter()
   const [showCefrSql, setShowCefrSql] = useState(false)
   const [showTier2Sql, setShowTier2Sql] = useState(false)
 
   return (
     <section aria-label="Quick Actions" className="flex flex-col gap-3">
-      <header className="flex items-center gap-2.5">
+      <header className="flex items-center gap-3">
         <span
           className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)]"
           style={{ backgroundColor: '#8B5CF61A', color: '#8B5CF6' }}
@@ -101,18 +119,18 @@ export function QuickActionsSection() {
           <h2 className="font-display text-[18px] font-[800] leading-tight text-[var(--t1)]">
             Quick Actions
           </h2>
-          <p className="font-body text-[12px] text-[var(--t3)]">
+          <p className="font-body text-[12px] text-[var(--t2)]">
             즉시 시작 가능한 5 액션 (SQL preview · navigate · refresh)
           </p>
         </div>
       </header>
 
       {/* ── 5 액션 grid ── */}
-      <div className="grid grid-cols-1 gap-2.5 md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
         {/* QA1 — R7 분류 navigate */}
         <Link
           href="/admin/vrl/concerns"
-          className="group flex items-start gap-2.5 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-3 shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:shadow-[var(--sh-md)]"
+          className="group flex items-start gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-3 shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:shadow-[var(--sh-md)]"
         >
           <span
             className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--r-md)]"
@@ -127,12 +145,13 @@ export function QuickActionsSection() {
               <ExternalLink
                 size={11}
                 strokeWidth={2}
-                className="text-[var(--t3)] transition-transform group-hover:translate-x-0.5"
+                className="text-[var(--t2)] transition-transform group-hover:translate-x-0.5"
                 aria-hidden
               />
             </p>
             <p className="font-body text-[11px] leading-snug text-[var(--t2)]">
-              L4 1,030 row 잔여 — Concerns 페이지 navigate
+              미해결 의심 단어 {openConcerns.toLocaleString()}건 · v_level 미분류{' '}
+              {unclassified.toLocaleString()}행
             </p>
           </div>
         </Link>
@@ -140,7 +159,7 @@ export function QuickActionsSection() {
         {/* QA4 — VCB-VRL navigate (P0 본질 페인) */}
         <Link
           href="/admin/vocab"
-          className="group flex items-start gap-2.5 rounded-[var(--r-lg)] border border-[var(--error)]/30 bg-[var(--error-light)] p-3 shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:shadow-[var(--sh-md)]"
+          className="group flex items-start gap-3 rounded-[var(--r-lg)] border border-[var(--error)]/30 bg-[var(--error-light)] p-3 shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:shadow-[var(--sh-md)]"
         >
           <span
             className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--r-md)] bg-[var(--error)] text-white"
@@ -149,7 +168,7 @@ export function QuickActionsSection() {
             <AlertTriangle size={15} strokeWidth={2} />
           </span>
           <div className="min-w-0 flex-1">
-            <p className="flex items-center gap-1 font-display text-[12px] font-[700] text-[var(--error)]">
+            <p className="flex items-center gap-1 font-display text-[12px] font-[700] text-[var(--error-ink)]">
               QA4 · VCB-VRL 통합 (B1) — 본질 페인
               <ExternalLink
                 size={11}
@@ -159,7 +178,8 @@ export function QuickActionsSection() {
               />
             </p>
             <p className="font-body text-[11px] leading-snug text-[var(--t2)]">
-              VCB Pipeline → target_v_level_range 추가 (R3 35→75+)
+              VCB Pipeline → target_v_level_range 추가
+              {r3Score != null ? ` — R3 현재 ${r3Score}점` : ''}
             </p>
           </div>
         </Link>
@@ -192,7 +212,7 @@ export function QuickActionsSection() {
         <button
           type="button"
           onClick={() => router.refresh()}
-          className="group flex items-start gap-2.5 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-3 text-left shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:shadow-[var(--sh-md)]"
+          className="group flex items-start gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-3 text-left shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:shadow-[var(--sh-md)]"
         >
           <span
             className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--r-md)]"
@@ -216,7 +236,7 @@ export function QuickActionsSection() {
         </button>
       </div>
 
-      <p className="flex items-center gap-1.5 font-body text-[10px] text-[var(--t3)]">
+      <p className="flex items-center gap-2 font-body text-[10px] text-[var(--t2)]">
         <Sparkles size={10} strokeWidth={2} aria-hidden />
         SQL Preview 는 readonly — apply 전 사용자 confirm 필수 (Supabase MCP 또는 Studio).
       </p>
@@ -253,7 +273,7 @@ function SqlPreviewCard({
         type="button"
         onClick={onToggle}
         aria-expanded={show}
-        className="flex w-full items-start gap-2.5 p-3 text-left transition-all duration-[var(--dur-normal)] hover:bg-[var(--bg2)]"
+        className="flex w-full items-start gap-3 p-3 text-left transition-all duration-[var(--dur-normal)] hover:bg-[var(--bg2)]"
       >
         <span
           className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--r-md)]"

@@ -19,7 +19,7 @@ export function PairFlipProgress({ matchedPairs, totalPairs }: ProgressProps) {
     >
       <div className="relative h-1.5 flex-1 overflow-hidden rounded-[var(--r-full)] bg-[var(--bg3)]">
         <div
-          className="absolute inset-y-0 left-0 rounded-[var(--r-full)] transition-[width] duration-[600ms] ease-out"
+          className="absolute inset-y-0 left-0 rounded-[var(--r-full)] transition-[width] duration-[var(--dur-slow)] ease-out"
           style={{
             width: `${pct}%`,
             background: 'linear-gradient(90deg, #F59E0B 0%, #FCD34D 100%)',
@@ -32,8 +32,8 @@ export function PairFlipProgress({ matchedPairs, totalPairs }: ProgressProps) {
       </div>
       <span className="font-display text-[14px] font-[700] tabular-nums text-[var(--t1)]">
         {matchedPairs}
-        <span className="font-mono text-[12px] font-[600] text-[var(--t3)]">/{totalPairs}</span>
-        <span className="ml-1 font-display text-[11px] font-[600] text-[var(--t3)]">쌍</span>
+        <span className="font-mono text-[12px] font-[600] text-[var(--t2)]">/{totalPairs}</span>
+        <span className="ml-1 font-display text-[11px] font-[600] text-[var(--t2)]">쌍</span>
       </span>
     </footer>
   )

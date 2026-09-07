@@ -51,6 +51,7 @@ vocaflow/
 | `typescript` | 5.x | |
 | `vitest` | 1.6.0 | 단위 테스트 |
 | `@playwright/test` | 1.60.0 | E2E |
+| `@axe-core/playwright` | 4.12.x | 접근성 자동 감사(WCAG 2.1 AA) — 14-learner-quality 게이트 |
 
 ### Supabase
 
@@ -68,6 +69,7 @@ vocaflow/
 | `tailwind-merge` | 3.5.0 | className 병합 |
 | `clsx` | 2.1.1 | conditional class |
 | `lucide-react` | 1.11.0 | 아이콘 |
+| `qrcode-generator` | 2.0.4 | 인쇄 학습지의 QR (무의존성 · SVG 출력). 종이 → 웹 복귀 경로 — 외부 이미지 서비스를 쓰면 오프라인 인쇄가 깨진다 |
 | `postcss` | 8.x | |
 
 ### State / Data
@@ -84,6 +86,30 @@ vocaflow/
 |---|---|---|
 | `@anthropic-ai/sdk` | 0.92.0 | Claude (analyzeBook · quiz 생성) |
 | `openai` | 6.34.0 | OpenAI (fallback) |
+
+### 계측 (2026-08-17 추가)
+
+| 패키지 | 버전 | 용도 |
+|---|---|---|
+| `posthog-js` | 1.417.1 | **공개 퍼널 5단계만** (`/fit` 진입 → 분석 → 공유 → 공유링크 유입 → 가입 클릭) |
+
+⚠️ **로그인 화면에는 붙이지 않았다.** 공개 화면은 식별 정보가 없어 위험이 낮지만,
+로그인 뒤는 식별 가능한 학습 행동이라 별도 판단이 필요하다. 지금 범위는 `(marketing)` 뿐이다.
+
+⚠️ **직접 import 금지** — `lib/analytics/client.ts` 만 `posthog-js` 를 안다.
+화면은 `track()` 에 `lib/analytics/events.ts` 의 **닫힌 이벤트 목록**만 넘길 수 있다.
+`/fit` 이 "붙여넣은 지문은 저장하지 않습니다" 를 약속하므로, 자유 문자열 속성을
+타입에서 없애고 런타임(`isSafeProps`)에서도 막는다. e2e 가 실제 네트워크 요청에
+지문어가 없는지 확인한다.
+
+⚠️ `autocapture` · `session_recording` · `capture_pageview` 를 **모두 끈다**.
+켜져 있으면 클릭한 요소의 DOM 텍스트나 화면 녹화로 지문이 그대로 나갈 수 있다.
+
+🔴 **`.env.local` 의 `NEXT_PUBLIC_POSTHOG_KEY`·`_HOST` 가 빈 값이다**(2026-08-17 실측).
+키가 없으면 코드는 조용히 무동작한다 — 즉 **지금은 아무것도 집계되지 않는다.**
+PostHog 프로젝트를 만들고 값을 채워야 퍼널이 켜진다.
+(클라이언트에서는 `process.env.NEXT_PUBLIC_X` **점 표기**여야 한다 — 대괄호 표기는 Next 가
+빌드 때 치환하지 않아 브라우저에서 항상 `undefined` 이고, 화면은 멀쩡한데 계측만 0 이 된다.)
 
 ### 학습 도메인
 

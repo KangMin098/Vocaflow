@@ -52,7 +52,7 @@ export function SourceGetView({
       <SourceProfile source={source} level={level} feedHealth={feedHealth} />
       <CandidateTable source={source} onImported={onEnqueued} />
       <details className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)]">
-        <summary className="cursor-pointer px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] marker:text-[var(--t4)]">
+        <summary className="cursor-pointer px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] marker:text-[var(--t2)]">
           라이브 RSS 직접 수집 (후보 풀에 추가)
         </summary>
         <div className="border-t border-[var(--bd)] p-3">
@@ -79,7 +79,7 @@ function SourceHeader({ source }: { source: SourceKey }) {
     <header className="flex flex-col gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
       <h2 className="font-display text-[18px] font-[700] text-[var(--t1)]">{SOURCE_LABEL[source] ?? source}</h2>
       <p className="font-body text-[12px] text-[var(--t2)]">
-        <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">학습자에게 </span>
+        <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">학습자에게 </span>
         {offering}
       </p>
       <PolicyRow source={source} />
@@ -102,7 +102,7 @@ function PolicyRow({ source }: { source: string }) {
   const MediaIcon = policy.media === 'audio' ? Volume2 : VolumeX
   return (
     <div className="flex flex-wrap items-center gap-2 rounded-[var(--r-sm)] bg-[var(--bg2)] px-3 py-2">
-      <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">정책</span>
+      <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">정책</span>
       <PolicyChip
         label={`score · ${SUPPLY_LABEL[policy.supply]}`}
         tone={policy.supply === 'static' ? 'info' : 'neutral'}
@@ -129,7 +129,7 @@ function PolicyChip({ label, tone, Icon }: { label: string; tone: ChipTone; Icon
   const c = CHIP_COLORS[tone]
   return (
     <span
-      className="inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] px-2.5 py-1 font-mono text-[10px] font-[600]"
+      className="inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] px-3 py-1 font-mono text-[10px] font-[600]"
       style={{ backgroundColor: c.bg, color: c.fg }}
     >
       {Icon && <Icon size={11} aria-hidden />}

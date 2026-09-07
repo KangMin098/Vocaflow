@@ -61,9 +61,25 @@ function sliceAllDivByClass(html: string, classRe: RegExp): string[] {
 
 /** NOAA 기사 본문 HTML → 산문. field--name-body(본문 필드만·관련링크 region 제외) → 캡션/References 제거. */
 function extractProse(html: string): string {
-  // field--name-body(가장 큰 조각 = 실 본문) 슬라이스 — node__content 는 관련링크 region 포함해 오염.
+  // field--name-body 슬라이스 — node__content 는 관련링크 region 포함해 오염.
+  //
+  // ⚠️ 원래 **가장 긴 HTML 조각**을 본문으로 골랐다. 그게 2026-08-30 에 NOAA 적재를
+  //   211편 중 25편으로 떨어뜨린 원인이다. climate.gov 의 모든 기사 페이지에는
+  //   `field--name-body` 클래스를 단 **11,345자짜리 공통 보일러플레이트 div**가 있고
+  //   그 안에는 산문이 한 글자도 없다. 본문이 그보다 짧은 기사에서는 이 껍데기가 이겨
+  //   `extractProse` 가 **정확히 0 words** 를 돌려주고 "body too short" 로 버려졌다.
+  //
+  //     understanding-cop                 슬라이스 [11345, 8343, 361] → 최장=껍데기 → 0 words
+  //     climate-change-global-temperature 슬라이스 [11345, 21113, 361] → 최장=본문  → 1,579 words
+  //
+  //   같은 코드가 어떤 기사는 되고 어떤 기사는 안 되니 "일부 페이지가 이상하다" 로 보였다.
+  //   길이가 아니라 **산문 양**으로 고르면 두 경우가 같은 이유로 맞는다.
   const bodies = sliceAllDivByClass(html, /\bfield--name-body\b/)
-  let body = bodies.sort((a, b) => b.length - a.length)[0] ?? html
+  const scored = bodies
+    .map((b) => ({ html: b, words: htmlToPlainText(b).split(/\s+/).filter(Boolean).length }))
+    .sort((a, b) => b.words - a.words)
+  // 어느 슬라이스에도 산문이 없으면 문서 전체로 물러선다(기존 폴백 유지).
+  let body = (scored[0]?.words ?? 0) > 0 ? scored[0]!.html : html
   // 차트/미디어 캡션 제거 (Drupal field-media-caption — 그래프 설명, 본문 아님).
   body = body.replace(/<div[^>]*class="[^"]*field--name-field-media-caption[^"]*"[\s\S]*?<\/div>/gi, '\n')
   body = body.replace(/<figcaption[\s\S]*?<\/figcaption>/gi, '\n')
@@ -96,13 +112,32 @@ function extractProse(html: string): string {
   return lines.join('\n').replace(/\n{3,}/g, '\n\n').trim()
 }
 
+/**
+ * 목록 URL 1페이지분. Drupal 뷰라 `?page=N`(0-index)으로 넘어간다 — 실측 2026-08-30:
+ * base·page=1·page=2 의 HTML 해시가 모두 달랐다. 첫 페이지만 읽으면 최신 ~13편이 상한이고,
+ * 그걸 다 담는 순간 "새 것 0" 이 떠서 **소진처럼 보인다**(위키미디어와 같은 조용한 상한).
+ */
+export function buildNoaaListUrl(feedId: string, page: number = 0): string {
+  const feed = NOAA_FEEDS.find((f) => f.id === feedId) ?? NOAA_FEEDS[0]!
+  return page > 0 ? `${SITE}${feed.path}?page=${page}` : `${SITE}${feed.path}`
+}
+
 /** NOAA Climate.gov 리스트 → 항목. anchor 텍스트가 제목(USGS 와 달리 직접 페어). */
 export async function listNoaaFeed(
   feedId: string = 'understanding-climate',
   limit: number = 24,
 ): Promise<NoaaListItem[]> {
+  return listNoaaFeedPage(feedId, limit, 0).then((r) => r.items)
+}
+
+/** 한 페이지 — 항목이 하나도 없을 때를 끝으로 본다(HTML 목록엔 토큰이 없다). */
+export async function listNoaaFeedPage(
+  feedId: string = 'understanding-climate',
+  limit: number = 24,
+  page: number = 0,
+): Promise<{ items: NoaaListItem[]; cont: number | null }> {
   const feed = NOAA_FEEDS.find((f) => f.id === feedId) ?? NOAA_FEEDS[0]!
-  const res = await fetchWithTimeout(`${SITE}${feed.path}`, { accept: 'text/html' })
+  const res = await fetchWithTimeout(buildNoaaListUrl(feedId, page), { accept: 'text/html' })
   if (!res.ok) throw new Error(`NOAA list fetch failed: ${res.status} ${feed.path}`)
   const html = await res.text()
 
@@ -128,7 +163,10 @@ export async function listNoaaFeed(
     })
   }
 
-  return applyArticleCurationSpec(raw.slice(0, limit * 2), 'noaa', feedId)
+  return {
+    items: applyArticleCurationSpec(raw.slice(0, limit * 2), 'noaa', feedId),
+    cont: raw.length > 0 ? page + 1 : null,
+  }
 }
 
 /** www.climate.gov/news-features/<section>/<slug> URL → RawArticle. */

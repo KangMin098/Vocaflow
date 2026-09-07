@@ -27,21 +27,21 @@ export function CardBack({ word, isExampleAudioPlaying }: CardBackProps) {
       )}
 
       <div className="mb-6 flex items-center justify-between opacity-50">
-        <span className="font-body text-[10px] italic text-[var(--t3)]">{word.textTitle}에서</span>
+        <span className="font-body text-[10px] italic text-[var(--t2)]">{word.textTitle}에서</span>
       </div>
 
       <h3 className="mb-1.5 text-center font-english text-[22px] font-[600] text-[var(--t2)]">
         {word.text}
       </h3>
 
-      <p className="mb-3 text-center font-mono text-[12px] text-[var(--t3)]">
+      <p className="mb-3 text-center font-mono text-[12px] text-[var(--t2)]">
         {word.pronunciation}
       </p>
 
       <div className="mx-auto mb-5 h-px w-8 bg-[var(--bd)]" aria-hidden="true" />
 
       <p className="text-center">
-        <span className="inline-block rounded-[var(--r-full)] bg-[var(--p-light)] px-2.5 py-0.5 font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--p)]">
+        <span className="inline-block rounded-[var(--r-full)] bg-[var(--p-light)] px-3 py-1 font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--on-p-tint)]">
           {word.pos}
         </span>
       </p>
@@ -53,18 +53,35 @@ export function CardBack({ word, isExampleAudioPlaying }: CardBackProps) {
       {/* 품사별 여러 뜻 — 다의어일 때만(≥2 sense). 시중 단어장 대비 다의어 한눈에.
           per-sense meanings_ko(Phase B 100%) 노출. 단일 sense면 flat meaning 으로 충분(미표시). */}
       {word.senses && word.senses.length >= 2 && (
-        <div className="mb-5 flex flex-col gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3">
-          <span className="mb-0.5 font-body text-[10px] uppercase tracking-[0.08em] text-[var(--t3)]">
+        <div className="mb-5 flex flex-col gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3">
+          <span className="mb-0.5 font-body text-[10px] uppercase tracking-[0.08em] text-[var(--t2)]">
             품사별 뜻
           </span>
           {word.senses.map((s, i) => (
-            <div key={`${s.pos}-${i}`} className="flex items-baseline gap-2">
-              {s.pos && (
-                <span className="shrink-0 rounded-[var(--r-full)] bg-[var(--bg3)] px-1.5 py-px font-mono text-[10px] font-[700] text-[var(--t3)]">
-                  {posLabel(s.pos)}
+            <div key={`${s.pos}-${i}`} className="flex flex-col gap-1">
+              <div className="flex items-baseline gap-2">
+                {s.pos && (
+                  <span className="shrink-0 rounded-[var(--r-full)] bg-[var(--bg3)] px-2 py-px font-mono text-[10px] font-[700] text-[var(--t2)]">
+                    {posLabel(s.pos)}
+                  </span>
+                )}
+                <span className="font-body text-[14px] leading-snug text-[var(--t1)]">
+                  {s.meaning}
                 </span>
+              </div>
+
+              {/* 뜻마다 붙는 문장 — 뜻 목록만으로는 갈라지지 않는다. 그 뜻으로만 읽히는 문장이
+                  변별을 만든다(Context-Dependent). 해석은 있을 때만 — 없는 예문은 건너뛰게 된다. */}
+              {s.example && (
+                <p className="border-l border-[var(--bd)] pl-3 font-english text-[12px] italic leading-relaxed text-[var(--t2)]">
+                  {s.example}
+                  {s.exampleKo && (
+                    <span className="mt-0.5 block font-body text-[11px] not-italic text-[var(--t3,var(--t2))]">
+                      {s.exampleKo}
+                    </span>
+                  )}
+                </p>
               )}
-              <span className="font-body text-[14px] leading-snug text-[var(--t1)]">{s.meaning}</span>
             </div>
           ))}
         </div>
@@ -73,7 +90,7 @@ export function CardBack({ word, isExampleAudioPlaying }: CardBackProps) {
       {/* Example with audio indicator */}
       <div className="relative mt-auto rounded-[0_var(--r-md)_var(--r-md)_0] border-l-[3px] border-[var(--p)] bg-gradient-to-br from-[var(--p-light)] to-[var(--bg2)] p-4 font-english text-[14px] italic leading-relaxed text-[var(--t1)]">
         <span
-          className={`absolute right-3 top-3 inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--p)] px-2 py-[3px] font-display text-[9px] font-[700] uppercase tracking-[0.06em] text-white transition-opacity duration-[var(--dur-normal)] ${isExampleAudioPlaying ? 'opacity-100' : 'opacity-70'} `}
+          className={`absolute right-3 top-3 inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--p)] px-2 py-[4px] font-display text-[9px] font-[700] uppercase tracking-[0.06em] text-white transition-opacity duration-[var(--dur-normal)] ${isExampleAudioPlaying ? 'opacity-100' : 'opacity-70'} `}
         >
           <Volume2
             size={9}
@@ -92,7 +109,15 @@ export function CardBack({ word, isExampleAudioPlaying }: CardBackProps) {
           forms={word.inflectedForms}
         />
 
-        <span className="mt-2 block font-body text-[11px] not-italic text-[var(--t3)]">
+        {/* 예문 해석 — 국내 교재는 예문마다 해석을 단다. 해석 없는 예문은 학습자가 건너뛴다.
+            없으면 표시하지 않는다(빈 줄이 카드를 흔들지 않게). */}
+        {word.exampleTranslation && (
+          <span className="mt-2 block font-body text-[12px] not-italic leading-relaxed text-[var(--t2)]">
+            {word.exampleTranslation}
+          </span>
+        )}
+
+        <span className="mt-2 block font-body text-[11px] not-italic text-[var(--t2)]">
           — {word.textTitle}, {word.textChapter}
         </span>
       </div>
@@ -101,13 +126,13 @@ export function CardBack({ word, isExampleAudioPlaying }: CardBackProps) {
           정답면 하단, 예문 보조 톤. 학습 중 자극 최소화(Calm UI) — 최대 3개. */}
       {word.collocations && word.collocations.length > 0 && (
         <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1">
-          <span className="font-body text-[10px] uppercase tracking-[0.08em] text-[var(--t3)]">
+          <span className="font-body text-[10px] uppercase tracking-[0.08em] text-[var(--t2)]">
             함께 쓰는 표현
           </span>
           {word.collocations.slice(0, 3).map((c) => (
             <span
               key={c}
-              className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-english text-[12px] text-[var(--t2)]"
+              className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-1 font-english text-[12px] text-[var(--t2)]"
             >
               {c}
             </span>
@@ -115,18 +140,59 @@ export function CardBack({ word, isExampleAudioPlaying }: CardBackProps) {
         </div>
       )}
 
+      {/*
+        낱말 그물 — 파생어 · 유의어 · 반의어.
+
+        ⚠️ **셋 다 사전에 있었는데 화면이 안 읽고 있었다** (실측 2026-08-30:
+          파생어 58.8% · 유의어 71.1% · 반의어 51.5%). 시중 단어장은 표제어 아래에 이 셋을
+          붙이는 것이 기본형이고(실측 파생어 41.4% · 유의/반의 26%), 우리는 그보다 많이
+          갖고도 학습자에게 한 번도 보여 준 적이 없었다 — **DB 재고는 제품이 아니다.**
+
+        묶어서 한 블록으로 두는 이유: 셋 다 "이 낱말 둘레의 말" 이라 학습자에게는 한 가지
+        정보다. 줄을 셋으로 나누면 카드가 길어지고 Calm UI 가 무너진다.
+        각 3개까지만 — 연어 블록과 같은 절제 기준(Cognitive Load).
+      */}
+      {((word.derived?.length ?? 0) > 0
+        || (word.synonyms?.length ?? 0) > 0
+        || (word.antonyms?.length ?? 0) > 0) && (
+        <div className="mt-3 flex flex-col gap-1">
+          {([
+            ['파생어', word.derived, 'bg-[var(--bg2)] text-[var(--t2)]'],
+            ['비슷한 말', word.synonyms, 'bg-[var(--success-light)] text-[var(--t1)]'],
+            // 반의어는 색이 아니라 **라벨**로 갈린다 — 색만으로 정보를 전달하지 않는다(색맹 대응).
+            ['반대말', word.antonyms, 'bg-[var(--bg3)] text-[var(--t2)]'],
+          ] as const)
+            .filter(([, list]) => (list?.length ?? 0) > 0)
+            .map(([label, list, chip]) => (
+              <div key={label} className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                <span className="font-body text-[10px] uppercase tracking-[0.08em] text-[var(--t2)]">
+                  {label}
+                </span>
+                {list!.slice(0, 3).map((w) => (
+                  <span
+                    key={w}
+                    className={`rounded-[var(--r-full)] px-2 py-1 font-english text-[12px] ${chip}`}
+                  >
+                    {w}
+                  </span>
+                ))}
+              </div>
+            ))}
+        </div>
+      )}
+
       {/* 어원 힌트 — 어근 분해(word_root_links). 시중 어원단어장 대비 학습 중 노출.
           prefix→root→suffix 순 chip. 데이터 있을 때만(Progressive Disclosure). */}
       {word.roots && word.roots.length > 0 && (
-        <div className="mt-3 flex flex-wrap items-center gap-x-1.5 gap-y-1">
-          <span className="font-body text-[10px] uppercase tracking-[0.08em] text-[var(--t3)]">
+        <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1">
+          <span className="font-body text-[10px] uppercase tracking-[0.08em] text-[var(--t2)]">
             어원
           </span>
           {word.roots.map((r, i) => (
-            <span key={`${r.root}-${i}`} className="inline-flex items-center gap-1.5">
-              {i > 0 && <span className="text-[11px] text-[var(--t4)]">+</span>}
-              <span className="rounded-[var(--r-full)] bg-[var(--active-light)] px-2 py-0.5 text-[12px]">
-                <span className="font-english font-[700] text-[var(--active)]">{r.root}</span>
+            <span key={`${r.root}-${i}`} className="inline-flex items-center gap-2">
+              {i > 0 && <span className="text-[11px] text-[var(--t2)]">+</span>}
+              <span className="rounded-[var(--r-full)] bg-[var(--active-light)] px-2 py-1 text-[12px]">
+                <span className="font-english font-[700] text-[var(--active-ink)]">{r.root}</span>
                 <span className="font-body text-[var(--t2)]"> {r.gloss}</span>
               </span>
             </span>
@@ -137,7 +203,7 @@ export function CardBack({ word, isExampleAudioPlaying }: CardBackProps) {
       {/* 어근 기반 니모닉 — "어떻게 기억할까"의 다리. 데이터 있을 때만(Progressive Disclosure).
           Empathetic Feedback: 압박 없는 기억 힌트. Lora italic 사람 말투 톤. */}
       {word.mnemonic && (
-        <p className="mt-2.5 flex items-start gap-1.5 font-body text-[12.5px] italic leading-relaxed text-[var(--t2)]">
+        <p className="mt-2.5 flex items-start gap-2 font-body text-[12.5px] italic leading-relaxed text-[var(--t2)]">
           <span className="not-italic" aria-hidden="true">
             💡
           </span>

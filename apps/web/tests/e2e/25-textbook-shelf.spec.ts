@@ -1,0 +1,482 @@
+// apps/web/tests/e2e/25-textbook-shelf.spec.ts
+//
+// 교재 서가 ↔ My Library **왕복** 회귀.
+//
+// ── 왜 이 spec 이 필요한가 ─────────────────────────────────────────────
+// "담기" 는 DB 쓰기라, 화면 단언 없이는 **눌렀는데 아무 일도 안 일어나는 상태**를 알 수 없다.
+// 이 저장소가 지배적 결함으로 못 박은 종류이고, 이 화면에서 이미 한 번 밟았다 —
+// 서가의 "지금 펼치기" 가 `<span>` 이라 보이는데 눌리지 않았다(v06.337).
+// 게다가 담기의 저장소(`user_textbook_selections`)는 **RLS 로 본인만** 읽을 수 있어서,
+// 정책이 잘못되면 쓰기는 성공하고 조회만 0건이 된다 — 그러면 화면은 조용히 "담은 게 없어요" 다.
+// 그래서 **쓰고 → 다른 화면에서 읽고 → 되돌린다**.
+//
+// ⚠️ 검증 계정의 담은 목록을 남기지 않는다. finally 에서 반드시 원복한다 —
+//    남기면 다음 실행의 "0권 빈 상태" 단언이 영구히 깨진다.
+
+import { test, expect, type Page } from '@playwright/test'
+
+const RUNTIME_USER = {
+  email: process.env.PLAYWRIGHT_RUNTIME_EMAIL || 'runtime-test-0705@vocaflow.dev',
+  password: process.env.PLAYWRIGHT_RUNTIME_PASSWORD || 'RuntimeTest1!',
+}
+const STATE_PATH = 'playwright-auth/.auth-textbook-shelf.json'
+
+/** 고등 계단 — 재고가 가장 두꺼워 'ready' 가 확실한 자리(실측 V6 1,241문항). */
+const STEP = 6
+
+async function login(page: Page) {
+  await page.goto('/login', { waitUntil: 'networkidle' })
+  await page.waitForTimeout(800) // hydration
+  await page.fill('input[type="email"]', RUNTIME_USER.email)
+  await page.fill('input[type="password"]', RUNTIME_USER.password)
+  await page.click('button[type="submit"]')
+  await page.waitForURL((u) => !u.pathname.startsWith('/login'), { timeout: 20_000 })
+}
+
+/**
+ * 권 상세를 열고 **담기지 않은 상태로 되돌린다.**
+ *
+ * ⚠️ 서버 렌더된 버튼은 보이자마자 눌리지 않는다 — 하이드레이션 전에 클릭하면 아무 일도
+ *    일어나지 않고, 테스트는 "빼기가 안 된다" 로 **엉뚱한 증상**을 보고한다(실측 2026-08-22).
+ *    그래서 결과(= '담기' 라벨)가 나타날 때까지 재시도한다. 정리는 반드시 성공해야 한다 —
+ *    남기면 다음 실행이 "담기 버튼이 없다" 로 실패한다.
+ */
+async function ensureUnpicked(page: Page, step: number) {
+  await page.goto(`/library/textbooks/${step}`, {
+    waitUntil: 'domcontentloaded',
+    timeout: 60_000,
+  })
+  const pick = page.getByRole('button', { name: /내 교재에 담기$/ })
+  const unpick = page.getByRole('button', { name: /내 교재에서 빼기$/ })
+
+  for (let attempt = 0; attempt < 4; attempt++) {
+    if (await pick.isVisible().catch(() => false)) return
+    if (await unpick.isVisible().catch(() => false)) {
+      await unpick.click({ timeout: 10_000 }).catch(() => {})
+      if (await pick.isVisible({ timeout: 5_000 }).catch(() => false)) return
+    }
+    await page.waitForTimeout(1_500)
+  }
+  await expect(pick, `step ${step} 정리 실패 — 다음 실행이 엉뚱한 증상으로 깨진다`).toBeVisible({
+    timeout: 15_000,
+  })
+}
+
+function fatalErrors(errors: string[]): string[] {
+  return errors.filter(
+    (e) => !/favicon|404 \(Not Found\)|auth-js|auth\/v1\/token|Failed to fetch|ChunkLoadError/.test(e),
+  )
+}
+
+test.describe('교재 서가', () => {
+  test.beforeAll(async ({ browser }) => {
+    const page = await browser.newPage({ storageState: undefined })
+    await login(page)
+    await page.context().storageState({ path: STATE_PATH })
+    await page.close()
+  })
+  test.use({ storageState: STATE_PATH })
+
+  test('세 축 필터가 실제로 목록을 줄이고, 되돌아갈 길이 있다', async ({ page }) => {
+    test.setTimeout(120_000)
+    const errors: string[] = []
+    page.on('console', (m) => {
+      if (m.type() === 'error') errors.push(m.text().slice(0, 200))
+    })
+    page.on('pageerror', (e) => errors.push(`PAGEERROR: ${String(e).slice(0, 200)}`))
+
+    await page.goto('/library/textbooks', { waitUntil: 'domcontentloaded', timeout: 60_000 })
+
+    const shelf = page.getByRole('region', { name: '교재 서가' })
+    await expect(shelf).toBeVisible({ timeout: 30_000 })
+
+    const volumes = shelf.locator('ol > li')
+    const total = await volumes.count()
+    expect(total, '서가에 권이 하나도 없다 — 재고 조회가 막혔거나 사다리가 비었다').toBeGreaterThan(0)
+
+    // 축 칩 하나를 켠다. 어느 축이든 "전체보다 적어져야" 필터가 실제로 동작하는 것이다.
+    const firstChip = page.getByRole('button', { name: /^학령 / }).first()
+    await expect(firstChip).toBeVisible()
+    await firstChip.click()
+    await expect(firstChip).toHaveAttribute('aria-pressed', 'true')
+
+    const filtered = await volumes.count()
+    expect(filtered, '칩을 켰는데 목록이 그대로다 — 필터가 표시만 하고 있다').toBeLessThan(total)
+
+    // ⚠️ 되돌아갈 길 — 이게 없으면 조건을 걸어 0건이 된 학습자는 막힌다.
+    const reset = page.getByRole('button', { name: /조건 \d+개 해제/ })
+    await expect(reset).toBeVisible()
+    await reset.click()
+    await expect(volumes).toHaveCount(total)
+
+    expect(fatalErrors(errors), `콘솔 에러: ${fatalErrors(errors).join(' | ')}`).toEqual([])
+  })
+
+  test('담으면 My Library 교재 면에 나타난다 (쓰기 → 다른 화면에서 읽기 → 원복)', async ({
+    page,
+  }) => {
+    test.setTimeout(150_000)
+
+    // 앞선 실행이 남긴 상태를 먼저 치운다 — 시작 상태를 보장하지 않으면
+    // "담기 버튼이 없다"(사실은 이미 담겨 있어 '빼기' 다)로 엉뚱한 증상을 보고한다.
+    await ensureUnpicked(page, STEP)
+
+    const pick = page.getByRole('button', { name: /내 교재에 담기$/ })
+    await expect(
+      pick,
+      '담기 버튼이 없다 — 저장소를 못 읽었거나(마이그레이션 미적용) 배선이 끊겼다',
+    ).toBeVisible({ timeout: 30_000 })
+
+    // 권 제목은 서가(SERIES_SPINE)가 소유한다 — 여기서 짓지 않고 화면에서 읽어 온다.
+    const title = (await page.locator('h1').first().innerText()).trim()
+    expect(title.length).toBeGreaterThan(0)
+
+    try {
+      await pick.click()
+      // 낙관적 갱신을 하지 않으므로, 라벨이 바뀌었다 = **서버가 확인해 줬다**.
+      await expect(page.getByRole('button', { name: /내 교재에서 빼기$/ })).toBeVisible({
+        timeout: 20_000,
+      })
+
+      // 다른 화면에서 읽는다 — 쓰기는 성공하고 조회만 0건이 되는 RLS 사고를 잡는 유일한 방법.
+      await page.goto('/text?view=textbooks', { waitUntil: 'domcontentloaded', timeout: 60_000 })
+      const mine = page.getByRole('region', { name: '내 교재' })
+      await expect(mine).toBeVisible({ timeout: 30_000 })
+      // ⚠️ `getByText` 로 느슨하게 잡으면 같은 제목이 링크·담기 버튼 이름에 함께 들어 있어
+      //    여러 요소가 걸린다(strict mode 위반). 여는 링크 하나로 좁힌다 —
+      //    "목록에 있다" 가 아니라 **"거기서 열 수 있다"** 가 이 면의 계약이다.
+      await expect(mine.getByRole('link', { name: title })).toBeVisible({ timeout: 20_000 })
+
+      // 못 읽었을 때의 문장이 떠 있으면 안 된다 — 그건 담긴 것을 못 본 것이다.
+      await expect(mine.getByText('확인하지 못했어요')).toHaveCount(0)
+      await expect(mine.getByText('아직 담은 교재가 없어요')).toHaveCount(0)
+    } finally {
+      // ⚠️ 반드시 원복 — 남기면 다음 실행의 빈 상태 단언이 영구히 깨진다.
+      await ensureUnpicked(page, STEP)
+    }
+  })
+
+  test('권 상세가 앞뒤 권을 말한다 — 안 맞을 때 서가로 되돌려보내지 않는다', async ({ page }) => {
+    test.setTimeout(120_000)
+
+    // 가운데 권 — 양쪽이 다 있다.
+    await page.goto(`/library/textbooks/${STEP}`, { waitUntil: 'domcontentloaded', timeout: 60_000 })
+    const ladder = page.getByRole('region', { name: '계단 안내' })
+    await expect(ladder).toBeVisible({ timeout: 30_000 })
+    await expect(ladder.getByText('어렵다면 한 계단 아래')).toBeVisible()
+    await expect(ladder.getByText('쉽다면 한 계단 위')).toBeVisible()
+
+    // 한 계단 위로 실제로 갈 수 있어야 한다 — 보이는데 안 눌리는 것이 이 화면의 첫 결함이었다.
+    await ladder.getByRole('link').last().click()
+    await page.waitForURL(
+      (u) =>
+        u.pathname.startsWith('/library/textbooks/') &&
+        u.pathname.split('/').pop() !== String(STEP),
+      { timeout: 20_000 },
+    )
+    expect(Number(page.url().split('/').pop())).toBeGreaterThan(STEP)
+
+    // 끝 계단 — 빈 칸이 아니라 이유를 적는다.
+    await page.goto('/library/textbooks/1', { waitUntil: 'domcontentloaded', timeout: 60_000 })
+    await expect(page.getByText('시리즈의 첫 권이에요')).toBeVisible({ timeout: 30_000 })
+  })
+
+  test('매대가 초등·중등·고등 세 칸으로 갈린다 (평평한 일곱 줄이 아니다)', async ({ page }) => {
+    test.setTimeout(120_000)
+
+    await page.goto('/library/textbooks', { waitUntil: 'domcontentloaded', timeout: 60_000 })
+
+    // 시중 교재 코너의 1차 분류. 이게 없으면 고1 학습자가 초등 두 권을 지나쳐야 자기 자리에 닿는다.
+    for (const name of ['초등 매대', '중등 매대', '고등 매대']) {
+      await expect(page.getByRole('region', { name }), `${name}가 없다`).toBeVisible({
+        timeout: 30_000,
+      })
+    }
+
+    // 필터로 한 매대만 남기면 나머지 팻말은 사라져야 한다 — 빈 칸에 팻말을 세우지 않는다.
+    await page.getByRole('button', { name: /^학령 초등 저학년/ }).click()
+    await expect(page.getByRole('region', { name: '초등 매대' })).toBeVisible()
+    await expect(page.getByRole('region', { name: '고등 매대' })).toHaveCount(0)
+  })
+})
+
+/**
+ * 모바일에서 교재로 가는 길.
+ *
+ * ⚠️ 데스크톱 사이드바는 `hidden md:flex` 다. 모바일 학습자에게 남는 통로는 **하단 탭 →
+ *    Library → 가로 탭줄** 하나뿐이고, 그 탭줄에서 `Textbooks` 는 **네 번째**다.
+ *    390px 에서 네 번째 탭은 화면 밖으로 밀린다 — 스크롤은 되지만 **더 있다는 표시가 없어서**
+ *    학습자에게는 존재하지 않는 것과 같다(실측 2026-08-22: 오른쪽 끝 485px / 뷰포트 390px).
+ *
+ * 여기서 재는 것은 "DOM 에 있는가" 가 아니라 **"눈에 보이는가"** 다 —
+ * 이 저장소가 죽은 버튼과 같은 부류로 취급하는 결함이 정확히 그 차이에서 생긴다.
+ */
+test.describe('모바일에서 교재로 가는 길', () => {
+  test.use({ storageState: STATE_PATH, viewport: { width: 390, height: 844 } })
+
+  /** 요소가 뷰포트 안에 **실제로 몇 px 보이는가**. 0 이면 DOM 에 있어도 없는 것이다. */
+  async function visibleWidth(page: Page, locator: ReturnType<Page['locator']>) {
+    const box = await locator.boundingBox()
+    if (!box) return 0
+    const vw = page.viewportSize()?.width ?? 0
+    return Math.max(0, Math.min(box.x + box.width, vw) - Math.max(box.x, 0))
+  }
+
+  test('공용 서가 탭줄에서 Textbooks 가 눈에 보인다', async ({ page }) => {
+    test.setTimeout(120_000)
+
+    await page.goto('/library/books', { waitUntil: 'domcontentloaded', timeout: 60_000 })
+    const strip = page.getByRole('tablist', { name: '라이브러리 탭' })
+    await expect(strip).toBeVisible({ timeout: 30_000 })
+
+    const tab = strip.getByRole('tab', { name: /Textbooks/ })
+    await expect(tab, 'Textbooks 탭이 탭줄에 없다').toHaveCount(1)
+
+    const shown = await visibleWidth(page, tab)
+    expect(
+      shown,
+      `Textbooks 탭이 화면 밖이다(보이는 폭 ${Math.round(shown)}px) — 모바일에서 교재로 갈 길이 없다`,
+    ).toBeGreaterThan(44)
+  })
+
+  test('탭줄이 더 있다는 것을 알린다 — 스크롤되는지 모르면 없는 것과 같다', async ({ page }) => {
+    test.setTimeout(120_000)
+
+    await page.goto('/library/books', { waitUntil: 'domcontentloaded', timeout: 60_000 })
+    const strip = page.getByRole('tablist', { name: '라이브러리 탭' })
+    await expect(strip).toBeVisible({ timeout: 30_000 })
+
+    const overflows = await strip.evaluate((el) => el.scrollWidth > el.clientWidth + 1)
+    if (!overflows) return // 다 들어가면 알릴 것도 없다
+
+    // 넘칠 때는 가장자리 표시가 있어야 한다 — 손가락을 대 볼 이유를 주는 것.
+    const hasAffordance = await strip.evaluate((el) => el.hasAttribute('data-scroll-hint'))
+    expect(hasAffordance, '탭줄이 넘치는데 더 있다는 표시가 없다').toBe(true)
+  })
+
+  test('My Library 탭줄에서도 Textbooks 가 눈에 보인다', async ({ page }) => {
+    test.setTimeout(120_000)
+
+    await page.goto('/text?view=books', { waitUntil: 'domcontentloaded', timeout: 60_000 })
+    const strip = page.getByRole('tablist', { name: '내 라이브러리 탭' })
+    await expect(strip).toBeVisible({ timeout: 30_000 })
+
+    const tab = strip.getByRole('tab', { name: /Textbooks/ })
+    await expect(tab, 'Textbooks 탭이 탭줄에 없다').toHaveCount(1)
+
+    const shown = await visibleWidth(page, tab)
+    expect(
+      shown,
+      `Textbooks 탭이 화면 밖이다(보이는 폭 ${Math.round(shown)}px)`,
+    ).toBeGreaterThan(44)
+  })
+})
+
+/**
+ * 키보드·스크린리더로 교재를 고를 수 있는가.
+ *
+ * ⚠️ 이 서가는 필터 칩을 **21개**(학령 7 · 수준 7 · 유형 7 남짓) 얹었다. 눈으로 보면
+ *    한 줄에 늘어선 작은 알약이지만, 키보드로는 **목록에 닿기 전에 지나야 하는 21번의 정지**이고
+ *    스크린리더로는 축 구분 없이 이어지는 21개의 버튼이다.
+ *    "보기에 괜찮다" 와 "쓸 수 있다" 가 갈리는 자리라 숫자로 잡아 둔다.
+ */
+test.describe('교재 서가 — 키보드로 고르기', () => {
+  test.use({ storageState: STATE_PATH })
+
+  test('필터 각 줄이 축 이름을 가진 묶음이다 — 칩 전부가 한 덩어리로 들리면 안 된다', async ({
+    page,
+  }) => {
+    test.setTimeout(120_000)
+
+    await page.goto('/library/textbooks', { waitUntil: 'domcontentloaded', timeout: 60_000 })
+    await expect(page.getByRole('region', { name: '교재 서가' })).toBeVisible({ timeout: 30_000 })
+
+    // 축마다 이름 있는 묶음. 없으면 스크린리더는 "버튼 21개" 로만 읽는다.
+    for (const axis of ['학령', '수준', '유형', '지문 출처']) {
+      const group = page.getByRole('group', { name: axis })
+      await expect(group, `${axis} 축이 묶음으로 안 묶여 있다`).toHaveCount(1)
+      const chips = group.getByRole('button')
+      expect(await chips.count(), `${axis} 축에 칩이 없다`).toBeGreaterThan(0)
+    }
+  })
+
+  test('칩 하나만 들어도 무엇의 값인지 알 수 있다', async ({ page }) => {
+    test.setTimeout(120_000)
+
+    await page.goto('/library/textbooks', { waitUntil: 'domcontentloaded', timeout: 60_000 })
+    await expect(page.getByRole('region', { name: '교재 서가' })).toBeVisible({ timeout: 30_000 })
+
+    // 'V3' 만 읽히면 무엇의 3인지 알 수 없다 — 접근 이름에 축과 권수가 함께 있어야 한다.
+    const chip = page.getByRole('button', { name: /^수준 V\d+ — \d+권$/ }).first()
+    await expect(chip, '수준 칩의 접근 이름에 축·권수가 없다').toBeVisible()
+    await expect(chip).toHaveAttribute('aria-pressed', 'false')
+  })
+
+  test('필터를 건너뛰고 목록으로 갈 수 있다 — 21번 눌러야 닿으면 못 쓰는 것이다', async ({
+    page,
+  }) => {
+    test.setTimeout(120_000)
+
+    await page.goto('/library/textbooks', { waitUntil: 'domcontentloaded', timeout: 60_000 })
+    await expect(page.getByRole('region', { name: '교재 서가' })).toBeVisible({ timeout: 30_000 })
+
+    // ⚠️ **Tab 횟수를 세는 것으로는 통과할 방법이 필터를 없애는 것뿐**이다.
+    //    실제로 필요한 것은 "적게 누르는" 것이 아니라 **"건너뛸 수 있는" 것**이라,
+    //    건너뛰기가 존재하고 **실제로 목록에 포커스를 옮기는지**를 본다.
+    //    (참고 실측 2026-08-22: 건너뛰기가 없던 때 첫 권까지 Tab 24번이었다.)
+    const skip = page.getByRole('link', { name: /건너뛰고 교재 목록으로/ })
+    await expect(skip, '필터를 건너뛸 길이 없다').toHaveCount(1)
+
+    await skip.focus()
+    // 평소엔 숨어 있다가 포커스가 오면 보여야 한다 — 안 보이면 있는 줄 모른다.
+    await expect(skip).toBeVisible()
+
+    await skip.press('Enter')
+    const landed = await page.evaluate(() => {
+      const list = document.getElementById('textbook-list')
+      return !!list && document.activeElement === list
+    })
+    expect(landed, '건너뛰기를 눌렀는데 목록으로 포커스가 가지 않았다').toBe(true)
+  })
+})
+
+/**
+ * 담기의 **실패 경로**.
+ *
+ * 서가는 비로그인에도 열려 있다(발견·SEO — apps/web/CLAUDE.md 공개 표면 표).
+ * 그렇다면 담기를 누른 비로그인 방문자는 **가입으로 이어져야** 한다. 그 자리가
+ * 이 제품에서 CAC 0 경로가 실제로 성립하는 유일한 순간이고, 거기서 막다른 문구만 뜨면
+ * 공개로 열어 둔 이유가 사라진다.
+ *
+ * ⚠️ 실패 경로를 재는 이유: 성공 경로는 이미 왕복 회귀가 지키고 있다. 아무도 안 보는 것은
+ *    **눌렀는데 안 되는 경우 무슨 일이 일어나는가** 쪽이다.
+ */
+test.describe('담기 — 실패 경로', () => {
+  test.use({ storageState: { cookies: [], origins: [] } })
+
+  test('비로그인이 담기를 누르면 로그인으로 이어지고, 돌아올 곳을 들고 간다', async ({ page }) => {
+    test.setTimeout(120_000)
+
+    await page.goto(`/library/textbooks/${STEP}`, {
+      waitUntil: 'domcontentloaded',
+      timeout: 60_000,
+    })
+    await expect(page.getByRole('heading', { level: 1 })).toBeVisible({ timeout: 30_000 })
+
+    // 담기 자리에 **무언가**는 있어야 한다 — 비로그인이라고 자리를 비우면
+    // 방문자는 이 서가에서 할 수 있는 일이 없다고 읽는다.
+    const cta = page.getByRole('link', { name: /담으려면 로그인/ })
+    await expect(cta, '비로그인에게 담기 자리가 막다른 길이다').toHaveCount(1)
+
+    const href = await cta.getAttribute('href')
+    expect(href, '로그인 링크가 없다').toBeTruthy()
+    // 로그인 후 **여기로** 돌아와야 한다. 돌아올 곳을 안 들고 가면 /hub 로 떨어진다
+    // (이 저장소가 ?next= / ?returnTo= 로 이미 한 번 겪은 실패).
+    expect(href!, `돌아올 곳이 없다: ${href}`).toContain('next=')
+    expect(decodeURIComponent(href!)).toContain(`/library/textbooks/${STEP}`)
+  })
+
+  test('비로그인 서가에서도 담기 자리가 비어 있지 않다', async ({ page }) => {
+    test.setTimeout(120_000)
+
+    await page.goto('/library/textbooks', { waitUntil: 'domcontentloaded', timeout: 60_000 })
+    const shelf = page.getByRole('region', { name: '교재 서가' })
+    await expect(shelf).toBeVisible({ timeout: 30_000 })
+
+    const ctas = shelf.getByRole('link', { name: /담으려면 로그인/ })
+    expect(await ctas.count(), '서가의 어느 권에도 담기 자리가 없다').toBeGreaterThan(0)
+  })
+})
+
+/**
+ * 연타 — 같은 권을 빠르게 두 번 누르면.
+ *
+ * `upsert(onConflict: 'user_id,step')` 이라 중복 행은 생기지 않지만, **화면 상태**가
+ * 어긋날 수 있다(담김↔안 담김이 뒤집히는 경합). 서버가 확인해 준 상태만 그린다는
+ * 이 버튼의 계약이 실제로 지켜지는지 본다.
+ */
+test.describe('담기 — 연타', () => {
+  test.use({ storageState: STATE_PATH })
+
+  test('빠르게 두 번 눌러도 화면과 저장소가 어긋나지 않는다', async ({ page }) => {
+    test.setTimeout(150_000)
+
+    await ensureUnpicked(page, STEP)
+    const pick = page.getByRole('button', { name: /내 교재에 담기$/ })
+    await expect(pick).toBeVisible({ timeout: 30_000 })
+
+    try {
+      // 처리 중에는 눌리지 않아야 한다 — 안 그러면 담기/빼기가 교차 실행된다.
+      await pick.click()
+      const second = pick.click({ timeout: 1_000 }).then(
+        () => 'clicked',
+        () => 'blocked',
+      )
+      expect(await second, '처리 중에도 다시 눌렸다 — 담기/빼기가 교차할 수 있다').toBe('blocked')
+
+      await expect(page.getByRole('button', { name: /내 교재에서 빼기$/ })).toBeVisible({
+        timeout: 20_000,
+      })
+
+      // 새로고침해도 같은 상태 — 화면만 바뀌고 저장이 안 된 경우를 잡는다.
+      await page.reload({ waitUntil: 'domcontentloaded' })
+      await expect(page.getByRole('button', { name: /내 교재에서 빼기$/ })).toBeVisible({
+        timeout: 30_000,
+      })
+    } finally {
+      await ensureUnpicked(page, STEP)
+    }
+  })
+})
+
+/**
+ * 없는 권 — **교재 페이지인 척하지 않는다.**
+ *
+ * ⚠️ 상태 코드는 200 이다(앱 전역 — 루트 `loading.tsx` 스트리밍 때문에 200 셸이 먼저 나가
+ *    `notFound()` 가 상태를 못 바꾼다. 없는 **라우트**는 정상 404). 여기서 고칠 수 없다.
+ * ⚠️ 색인 차단은 **Next 가 이미** 한다(`notFound()` 렌더에 noindex 를 넣는다).
+ *    그래서 이 spec 은 noindex 를 **우리가 넣었는지**가 아니라 **결과적으로 걸려 있는지**만 본다 —
+ *    누가 넣었는지는 프레임워크의 사정이고, 학습자·크롤러에게 중요한 건 결과다.
+ *    (`robots` 를 직접 넣었다가 태그가 둘이 되어 되돌렸다.)
+ */
+test.describe('없는 교재', () => {
+  test.use({ storageState: { cookies: [], origins: [] } })
+
+  for (const bad of ['99', 'abc']) {
+    test(`/${bad} 은 404 화면을 그리고 색인을 막는다`, async ({ page }) => {
+      test.setTimeout(90_000)
+
+      await page.goto(`/library/textbooks/${bad}`, {
+        waitUntil: 'domcontentloaded',
+        timeout: 60_000,
+      })
+
+      // 없는 권을 교재 페이지처럼 팔지 않는다.
+      await expect(page).toHaveTitle(/찾을 수 없는 교재/, { timeout: 30_000 })
+
+      // 프레임워크가 넣는 것과 우리가 넣는 것이 섞일 수 있으니 **하나라도** noindex 면 된다.
+      const contents = await page.locator('meta[name="robots"]').evaluateAll((els) =>
+        els.map((el) => el.getAttribute('content') ?? ''),
+      )
+      expect(
+        contents.some((c) => c.includes('noindex')),
+        `없는 권이 색인 가능 상태다: ${JSON.stringify(contents)}`,
+      ).toBe(true)
+    })
+  }
+
+  test('있는 권은 색인을 막지 않는다 — 과잉 차단 금지', async ({ page }) => {
+    test.setTimeout(90_000)
+    await page.goto('/library/textbooks/5', { waitUntil: 'domcontentloaded', timeout: 60_000 })
+    await expect(page).toHaveTitle(/독해 교재/, { timeout: 30_000 })
+    // 있는 권에는 robots 태그가 **아예 없는 것이 정상**이다(색인 가능).
+    // getAttribute 로 물으면 없는 요소를 기다리다 타임아웃한다 — 목록으로 받아 판정한다.
+    const contents = await page.locator('meta[name="robots"]').evaluateAll((els) =>
+      els.map((el) => el.getAttribute('content') ?? ''),
+    )
+    expect(
+      contents.some((c) => c.includes('noindex')),
+      `있는 권에까지 noindex 가 걸렸다: ${JSON.stringify(contents)}`,
+    ).toBe(false)
+  })
+})

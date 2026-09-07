@@ -1,6 +1,9 @@
+// apps/web/src/app/admin/vocab/sources/new/page.tsx
+
 import Link from 'next/link'
 import { ArrowLeft, Database } from 'lucide-react'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { VcbSourceCreateForm } from '@/components/admin/vcb/VcbSourceCreateForm'
 
 export const dynamic = 'force-dynamic'
@@ -15,7 +18,7 @@ export default function VcbSourceCreatePage() {
         actions={
           <Link
             href="/admin/vocab/sources"
-            className="inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] font-display text-sm border"
+            className="min-h-[44px] inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] font-display text-sm border"
             style={{
               color: 'var(--t2)',
               borderColor: 'var(--bd)',
@@ -27,6 +30,8 @@ export default function VcbSourceCreatePage() {
           </Link>
         }
       />
+
+      <AdminScreenHelp screen="vocab-sources-new" className="mb-6" />
 
       <VcbSourceCreateForm />
     </div>

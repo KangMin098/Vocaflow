@@ -4,21 +4,29 @@
 'use client'
 
 import { cn } from '@/lib/utils/cn'
-import { Eye, FileText, Mic, Settings as SettingsIcon, Volume2 } from 'lucide-react'
+import Link from 'next/link'
+import { Eye, FileText, Settings as SettingsIcon, Volume2 } from 'lucide-react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { applyReview, createNewCard } from '@/lib/srs'
 import { studyRatingToFsrs } from '@/lib/srs/rating-mapper'
 import { cacheCard, getCachedCard, pushPendingResult } from '@/lib/srs/session-storage'
 import { cardToUpdatePayload } from '@/lib/srs/supabase-adapter'
 import { flushPendingSession } from '@/lib/srs/flush-session'
+import { useSrsFlushOnLeave } from '@/hooks/useSrsFlushOnLeave'
 import { useSpeech } from './hooks/useSpeech'
 import type { StudyState, WordItem } from './types'
 
 export interface StudyModeProps {
   /** 학습할 단어 목록 */
   words: WordItem[]
-  /** 종료 콜백 */
-  onExit: () => void
+  /**
+   * 세션이 끝났다.
+   *
+   * `completed` = 마지막 단어까지 평가했다 · `aborted` = 중간에 나갔다.
+   * 둘을 가르지 않으면 **다 끝낸 사람도 곧바로 허브로 튕긴다** — 무엇을 했는지
+   * 확인할 자리도, 다음 한 걸음도 없이(실측 2026-09-05).
+   */
+  onExit: (reason: 'completed' | 'aborted') => void
 }
 
 interface RatingConfig {
@@ -28,33 +36,43 @@ interface RatingConfig {
   className: string
 }
 
+// 간격반복 자기평가 5단. Again/Hard/Easy 는 SRS 에서 통용되는 말이라 학습자가 다른 앱에서
+// 이미 만났을 가능성이 높다 — 굳이 새 말을 만들지 않는다. 3단은 Again~Hard 사이라 Fair.
+// srs 는 다음 복습까지의 간격 힌트다(버튼 아래 작은 글씨).
 const RATINGS: RatingConfig[] = [
-  { rate: 1, label: '다시', srs: '10분 후', className: 'rate-1' },
-  { rate: 2, label: '어려움', srs: '1일 후', className: 'rate-2' },
-  { rate: 3, label: '애매', srs: '3일 후', className: 'rate-3' },
-  { rate: 4, label: '쉬움', srs: '7일 후', className: 'rate-4' },
-  { rate: 5, label: '완벽', srs: '14일 후', className: 'rate-5' },
+  { rate: 1, label: 'Again', srs: '10 min', className: 'rate-1' },
+  { rate: 2, label: 'Hard', srs: '1 day', className: 'rate-2' },
+  { rate: 3, label: 'Fair', srs: '3 days', className: 'rate-3' },
+  { rate: 4, label: 'Easy', srs: '7 days', className: 'rate-4' },
+  { rate: 5, label: 'Perfect', srs: '14 days', className: 'rate-5' },
 ]
 
 export function StudyMode({ words, onExit }: StudyModeProps) {
   const [studyIndex, setStudyIndex] = useState(0)
   const [state, setState] = useState<StudyState>('hidden')
-  const [isMicRecording, setIsMicRecording] = useState(false)
   const [isPlayingMain, setIsPlayingMain] = useState(false)
 
   const { speak } = useSpeech()
   const w = words[studyIndex]
   const progress = words.length > 0 ? Math.round((studyIndex / words.length) * 100) : 0
 
+  // **화면 안의 "← 종료" 를 안 눌러도** 평가가 남는다 — 이 화면은 풀스크린이 아니라
+  // 사이드바 링크·뒤로가기·새로고침으로 나가는 경로가 오히려 흔하고, 그 경로들은
+  // `finish()` 를 지나지 않는다(실측 2026-09-05).
+  useSrsFlushOnLeave()
+
   // 세션 종료(또는 마지막 단어 완료) 시 SRS 큐 → DB flush (멱등 가드, 1회)
   const flushedRef = useRef(false)
-  const finish = useCallback(() => {
-    if (!flushedRef.current) {
-      flushedRef.current = true
-      void flushPendingSession()
-    }
-    onExit()
-  }, [onExit])
+  const finish = useCallback(
+    (reason: 'completed' | 'aborted') => {
+      if (!flushedRef.current) {
+        flushedRef.current = true
+        void flushPendingSession()
+      }
+      onExit(reason)
+    },
+    [onExit],
+  )
 
   const reset = useCallback(() => {
     setState('hidden')
@@ -102,7 +120,7 @@ export function StudyMode({ words, onExit }: StudyModeProps) {
 
       const next = studyIndex + 1
       if (next >= words.length) {
-        finish() // 마지막 단어 평가 → 큐 flush + 종료
+        finish('completed') // 마지막 단어 평가 → 큐 flush + 완료 화면
         return
       }
       setStudyIndex(next)
@@ -125,14 +143,17 @@ export function StudyMode({ words, onExit }: StudyModeProps) {
     speak(w.word, { rate: 0.6 })
   }, [w, speak])
 
-  const toggleMic = useCallback(() => {
-    setIsMicRecording((prev) => {
-      if (prev) return false
-      // 데모 — 2초 후 자동 종료
-      setTimeout(() => setIsMicRecording(false), 2000)
-      return true
-    })
-  }, [])
+  /*
+    ⚠️ 「따라말하기」 마이크 버튼이 여기 있었다 — **아무것도 녹음하지 않았다.**
+       누르면 2초 동안 빨갛게 깜빡이다 스스로 꺼지는 표시등이었고(`setTimeout` 데모),
+       'm' 키까지 배정돼 있었다. 학습자는 자기 발음이 기록·비교된다고 믿는다.
+
+       발음을 실제로 듣고 비교하는 모듈은 이미 따로 있다 — EchoMatch(`/text/[id]/echo`,
+       `pitchfinder` + DTW). 단어 단위 녹음 경로는 이 저장소에 없다.
+       그래서 흉내 내는 버튼을 없앤다. 없는 기능을 있는 것처럼 두는 쪽이 더 나쁘다.
+       (되살리려면 EchoMatch 의 마이크 권한·해제 경로를 그대로 써야 한다 —
+        `components/echo/MicPermissionGate.tsx`.)
+  */
 
   // 키보드 단축키
   useEffect(() => {
@@ -144,17 +165,15 @@ export function StudyMode({ words, onExit }: StudyModeProps) {
         if (state === 'hidden') revealMeaning()
         else if (state === 'meaning-shown') revealExample()
         else playMain()
-      } else if (e.key === 'm' || e.key === 'M') {
-        toggleMic()
       } else if (['1', '2', '3', '4', '5'].includes(e.key) && state === 'example-shown') {
         rateWord(parseInt(e.key) as 1 | 2 | 3 | 4 | 5)
       } else if (e.key === 'Escape') {
-        finish()
+        finish('aborted')
       }
     }
     window.addEventListener('keydown', handler)
     return () => window.removeEventListener('keydown', handler)
-  }, [state, revealMeaning, revealExample, playMain, toggleMic, rateWord, finish])
+  }, [state, revealMeaning, revealExample, playMain, rateWord, finish])
 
   if (!w) return null
 
@@ -164,8 +183,9 @@ export function StudyMode({ words, onExit }: StudyModeProps) {
       <div className="mb-s-6 flex items-center justify-between rounded-xl border border-bd bg-bg px-s-5 py-s-3">
         <button
           type="button"
-          onClick={finish}
-          className="py-s-1.5 inline-flex items-center gap-s-2 rounded-md px-s-3 font-display text-[13px] font-semibold text-t2 transition-all duration-fast hover:bg-bg2 hover:text-t1"
+          onClick={() => finish('aborted')}
+          /* 66×36 이었다 — 44px 미만 탭 대상이었다(CLAUDE.md 절대 금지 · 실측 390px). 세로만 늘려 줄 배치는 그대로 둔다. */
+          className="py-s-2 inline-flex min-h-[44px] items-center gap-s-2 rounded-md px-s-3 font-display text-[13px] font-semibold text-t2 transition-all duration-fast hover:bg-bg2 hover:text-t1"
         >
           ← 종료
         </button>
@@ -185,13 +205,16 @@ export function StudyMode({ words, onExit }: StudyModeProps) {
           </span>
         </div>
 
-        <button
-          type="button"
-          className="flex h-9 w-9 items-center justify-center rounded-md text-t2 transition-all duration-fast hover:bg-bg2 hover:text-t1"
-          aria-label="설정"
+        {/* 아무 동작도 없는 장식 버튼이었다 — 이제 실제 설정 화면으로 간다.
+            (음성·모션·학습 흐름이 그 화면에서 기기에 저장된다: lib/settings/device-prefs.ts)
+            36×36 이었던 탭 대상은 44px 로 이미 올려 뒀다(CLAUDE.md 절대 금지 · 실측 390px). */}
+        <Link
+          href="/settings#audio"
+          className="flex h-11 w-11 items-center justify-center rounded-md text-t2 transition-all duration-fast hover:bg-bg2 hover:text-t1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-bg2"
+          aria-label="학습 설정 열기"
         >
           <SettingsIcon size={14} />
-        </button>
+        </Link>
       </div>
 
       {/* 학습 카드 */}
@@ -250,21 +273,7 @@ export function StudyMode({ words, onExit }: StudyModeProps) {
           >
             <Volume2 size={20} />
           </button>
-          <button
-            type="button"
-            onClick={toggleMic}
-            aria-label="따라말하기"
-            className={cn(
-              'h-[60px] w-[60px] rounded-xl border-[1.5px]',
-              'flex items-center justify-center',
-              'transition-all duration-fast',
-              isMicRecording
-                ? 'bg-learn-error border-learn-error animate-[mic-glow_1s_ease-in-out_infinite] text-white'
-                : 'border-bd bg-bg text-t2 hover:-translate-y-0.5 hover:bg-bg2 hover:text-t1 hover:shadow-md'
-            )}
-          >
-            <Mic size={20} />
-          </button>
+
         </div>
 
         {/* Reveal Area */}
@@ -336,7 +345,7 @@ export function StudyMode({ words, onExit }: StudyModeProps) {
               <div className="font-display text-xs font-bold tracking-[-0.01em] text-t1">
                 {r.label}
               </div>
-              <div className="mt-px hidden font-mono text-[9px] font-medium text-t4 sm:block">
+              <div className="mt-px hidden font-mono text-[9px] font-medium text-t3 sm:block">
                 {r.srs}
               </div>
             </button>
@@ -371,13 +380,14 @@ function RevealPrompt({
     <button
       type="button"
       onClick={onClick}
-      className="py-s-3.5 border-bd-strong hover:bg-learn-fresh-light hover:border-learn-fresh hover:text-learn-fresh group inline-flex items-center gap-s-3 rounded-xl border-[1.5px] border-dashed bg-bg2 px-s-6 font-display text-sm font-semibold tracking-[-0.01em] text-t2 transition-all duration-fast hover:-translate-y-px hover:shadow-sm"
+      /* 178×32 였다 — 44px 미만 탭 대상이었다(CLAUDE.md 절대 금지 · 실측 390px). 학습 중 가장 자주 누르는 버튼이다. */
+      className="py-s-3.5 min-h-[44px] border-bd-strong hover:bg-learn-fresh-light hover:border-learn-fresh hover:text-learn-fresh group inline-flex items-center gap-s-3 rounded-xl border-[1.5px] border-dashed bg-bg2 px-s-6 font-display text-sm font-semibold tracking-[-0.01em] text-t2 transition-all duration-fast hover:-translate-y-px hover:shadow-sm"
     >
       <span className="flex items-center gap-s-2">
         {icon}
         <span>{label}</span>
       </span>
-      <kbd className="px-s-1.5 group-hover:bg-learn-fresh group-hover:border-learn-fresh rounded-[4px] border border-bd bg-bg py-[3px] font-mono text-[11px] font-bold text-t3 transition-colors duration-fast group-hover:text-white">
+      <kbd className="px-s-2 group-hover:bg-learn-fresh group-hover:border-learn-fresh rounded-[4px] border border-bd bg-bg py-[4px] font-mono text-[11px] font-bold text-t3 transition-colors duration-fast group-hover:text-white">
         {shortcut}
       </kbd>
     </button>
@@ -389,8 +399,8 @@ function Shortcut({ keys, label, sep = '+' }: { keys: string[]; label: string; s
     <div className="flex items-center gap-s-1">
       {keys.map((k, i) => (
         <span key={k} className="flex items-center gap-s-1">
-          {i > 0 && <span className="text-t4">{sep}</span>}
-          <kbd className="px-s-1.5 inline-flex h-[20px] min-w-[20px] items-center justify-center rounded-[4px] border border-bd bg-bg2 font-mono text-[10px] font-bold text-t2">
+          {i > 0 && <span className="text-t3">{sep}</span>}
+          <kbd className="px-s-2 inline-flex h-[20px] min-w-[20px] items-center justify-center rounded-[4px] border border-bd bg-bg2 font-mono text-[10px] font-bold text-t2">
             {k}
           </kbd>
         </span>

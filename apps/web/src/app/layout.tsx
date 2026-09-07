@@ -11,6 +11,8 @@ import {
   JetBrains_Mono,
 } from "next/font/google";
 import { ToastProvider } from "@/components/ui/Toast";
+import { DevicePreferences } from "@/components/layout/DevicePreferences";
+import { SITE_URL } from "@/lib/seo/site";
 import "./globals.css";
 
 const fontDisplay = Plus_Jakarta_Sans({
@@ -43,6 +45,9 @@ const fontMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  // 이게 없으면 Next 는 OG·canonical 을 **상대경로**로 내보내고, 상대 OG URL 은 대부분의
+  // 메신저·SNS 미리보기에서 무시된다 — 공유 링크에 제목을 붙여 놔도 안 보인다(2026-08-17 실측).
+  metadataBase: SITE_URL,
   title: {
     default: "Vocaflow — 영어 스크립트 기반 종합 학습",
     template: "%s | Vocaflow",
@@ -109,6 +114,10 @@ export default function RootLayout({
         />
       </head>
       <body className="font-body antialiased">
+        {/* 기기 취향(모션 감소)을 **모든 화면에서** 실제로 적용한다 —
+            저장은 설정 화면이 하지만 적용은 여기 한 곳이다. 테마는 위 선행 스크립트가
+            첫 페인트 전에 칠하므로 여기서 다시 만지지 않는다(두 곳이 칠하면 깜빡인다). */}
+        <DevicePreferences />
         <ToastProvider>{children}</ToastProvider>
       </body>
     </html>

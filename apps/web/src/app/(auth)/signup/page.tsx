@@ -1,14 +1,24 @@
 // apps/web/src/app/(auth)/signup/page.tsx
-// 회원가입 v3 — 실제 Supabase 연결 (이메일 단일. 소셜 버튼은 provider 전원
-// 미설정 — "provider is not enabled" 실패 + 목업 토스트 — 이라 제거,
-// provider 설정 시 git 이력 복원)
+// 회원가입 v4 — 실제 Supabase 연결 (이메일 단일. 소셜 provider 전원 미설정이라 제거)
 //
 // 가입 흐름:
-//   1) 폼 검증 (email/password/displayName/약관)
+//   1) 폼 검증 (email/password/displayName/약관) — lib/auth/validation.ts 공유 규칙
 //   2) supabase.auth.signUp({ email, password, options: { data, emailRedirectTo } })
-//   3) DB 트리거 (handle_new_user) 가 auth.users INSERT 후
-//      public.user_profiles 에 자동으로 row 생성 (display_name/locale 포함)
-//   4) /verify-email 로 이동 (email 인증 대기 안내)
+//   3) DB 트리거 handle_new_user() 가 auth.users INSERT 후 public.user_profiles row 생성
+//      (display_name_b64 를 우선 디코드 — 한글 이름 보존. 실측 확인)
+//   4) **세션 유무로 분기** (v06.140 수정):
+//        - session 있음 → 이미 로그인 완료 (프로젝트가 mailer_autoconfirm=true) → /hub
+//        - session 없음 → 메일 인증 대기 → /verify-email
+//      예전엔 무조건 /verify-email 로 보내서, 자동 확인이 켜진 현재 설정에선
+//      **이미 로그인된 사용자에게 "메일을 확인하세요" 라는 오지 않을 메일을 기다리게** 했다.
+//
+// ── 복귀 경로(`?next=`)를 지킨다 (2026-08-26) ──────────────────────
+//   로그인은 `resolveReturnTo` 로 복귀 경로를 지키는데 **가입은 무조건 `/hub` 로 보냈다.**
+//   그래서 딥링크를 받고 온 사람이 가입을 마치면 원래 가려던 곳이 사라졌다 —
+//   하필 **초대받은 학생은 전원 신규 가입자**다. 교사가 초대 링크를 보내도
+//   학생이 그 링크로 가입하는 순간 학급 연결이 끊긴다.
+//   메일 인증 경로도 같다 — `emailRedirectTo` 에 `next` 를 실어 보내야
+//   콜백(`/api/auth/callback`)이 그것을 살린다(콜백은 이미 `safeInternalPath(next)` 우선이다).
 //
 // ⚠️ 약관 동의 시각: user_consents 테이블이 아직 없어 raw_user_meta_data 에 임시 저장.
 //    TODO Phase 3: user_consents 테이블 정식 마이그레이션 후 분리 저장.
@@ -17,8 +27,8 @@
 
 import { AlertCircle, ArrowRight, Lock, Mail, User as UserIcon } from 'lucide-react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { useMemo, useState } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { Suspense, useMemo, useState } from 'react'
 
 import { Card } from '@/components/ui/Card'
 import { Checkbox } from '@/components/ui/Checkbox'
@@ -26,97 +36,25 @@ import { FormField } from '@/components/ui/FormField'
 import { Input } from '@/components/ui/Input'
 import { ProgressBar } from '@/components/ui/ProgressBar'
 import { useToast } from '@/components/ui/Toast'
+import { mapSignupError } from '@/lib/auth/errors'
+import { RETURN_PARAM, resolveReturnTo } from '@/lib/auth/redirect'
+import {
+  DISPLAY_NAME_MAX_LENGTH,
+  encodeDisplayNameB64,
+  getPasswordStrength,
+  isAsciiPrintable,
+  isValidEmail,
+  validateDisplayName,
+  validatePassword,
+} from '@/lib/auth/validation'
 import { createClient } from '@/lib/supabase/client'
 
-// ── 한글 display_name → base64 (브라우저 fetch ISO-8859-1 헤더 검증 우회) ──
-//
-// 일부 supabase-js / 미들웨어 / 쿠키 조합에서 raw_user_meta_data 의 비-ASCII 가
-// RequestInit.headers 경로로 흘러 "String contains non ISO-8859-1 code point" 에러 발생.
-// → 클라이언트에서 UTF-8 → base64 인코드 → 트리거에서 디코드하여 우회.
-//
-// 트리거 (handle_new_user_decode_display_name) 가 display_name_b64 marker 우선 처리.
-function encodeDisplayNameB64(name: string): string {
-  // btoa 는 Latin-1 만 받으므로 TextEncoder 로 UTF-8 바이트 → binary string → btoa
-  // (deprecated `unescape` 패턴 회피)
-  const bytes = new TextEncoder().encode(name)
-  let binary = ''
-  for (let i = 0; i < bytes.length; i++) {
-    binary += String.fromCharCode(bytes[i])
-  }
-  return btoa(binary)
-}
-
-// ── Supabase 에러 → 한국어 매핑 ──
-function mapSignupError(message: string | undefined | null): string {
-  const msg = (message ?? '').toLowerCase()
-
-  // 사용자 측 입력 오류
-  if (msg.includes('already registered') || msg.includes('user already')) {
-    return '이미 가입된 이메일입니다'
-  }
-  if (msg.includes('password should be') || msg.includes('password is too') || msg.includes('weak password')) {
-    return '비밀번호는 최소 8자 이상이어야 합니다'
-  }
-  if (msg.includes('unable to validate email') || msg.includes('invalid email')) {
-    return '올바른 이메일 형식이 아닙니다'
-  }
-  if (msg.includes('email rate limit')) {
-    return '이메일 발송 한도에 도달했습니다. 약 1시간 후 다시 시도하거나 다른 이메일을 사용해주세요'
-  }
-  if (msg.includes('rate limit') || msg.includes('too many')) {
-    return '너무 많은 요청입니다. 잠시 후 다시 시도해주세요'
-  }
-
-  // 서버 / 인프라 오류 — 사용자에게도 단서 제공
-  if (msg.includes('database error') || msg.includes('saving new user')) {
-    return '서버 설정 오류 — 관리자에게 문의해주세요 (DB 트리거 미적용 가능성)'
-  }
-  if (msg.includes('signups not allowed') || msg.includes('disabled')) {
-    return '회원가입이 일시 중단되었습니다. 잠시 후 다시 시도해주세요'
-  }
-  if (msg.includes('email signups are disabled') || msg.includes('email auth is disabled')) {
-    return '이메일 가입이 비활성화되어 있습니다 (관리자 설정 확인 필요)'
-  }
-  if (msg.includes('network') || msg.includes('failed to fetch')) {
-    return '네트워크 연결을 확인해주세요'
-  }
-
-  // 디버그용 — 매칭되지 않은 메시지 일부 노출 (보안상 50자 제한)
-  if (message && process.env.NODE_ENV !== 'production') {
-    return `회원가입 오류: ${message.slice(0, 80)}`
-  }
-  return '회원가입 중 오류가 발생했습니다. 다시 시도해주세요'
-}
-
-// ══════════════════════════════════════════════════════════════
-// 비밀번호 강도
-// ══════════════════════════════════════════════════════════════
-function getPasswordStrength(password: string) {
-  if (!password) return { score: 0, label: '' as const, color: 'error' as const }
-  let score = 0
-  if (password.length >= 8) score++
-  if (password.length >= 12) score++
-  if (/[A-Z]/.test(password) && /[a-z]/.test(password)) score++
-  if (/\d/.test(password)) score++
-  if (/[^A-Za-z0-9]/.test(password)) score++
-  score = Math.min(score, 4)
-
-  if (score <= 1) return { score, label: '약함', color: 'error' as const }
-  if (score === 2) return { score, label: '보통', color: 'warning' as const }
-  if (score === 3) return { score, label: '좋음', color: 'success' as const }
-  return { score, label: '강함', color: 'success' as const }
-}
-
-function isValidEmail(email: string) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-}
-
-// ══════════════════════════════════════════════════════════════
-// Page
-// ══════════════════════════════════════════════════════════════
-export default function SignupPage() {
+function SignupForm() {
   const router = useRouter()
   const toast = useToast()
+  const searchParams = useSearchParams()
+  // 가입 후 갈 곳. 안전하지 않은 값이면 `resolveReturnTo` 가 `/hub` 로 떨어뜨린다.
+  const returnTo = resolveReturnTo(searchParams)
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -138,22 +76,8 @@ export default function SignupPage() {
         : '올바른 이메일 형식이 아닙니다'
       : undefined
 
-  const passwordError =
-    submitted && (!password || password.length < 8 || !/[A-Za-z]/.test(password) || !/\d/.test(password))
-      ? !password
-        ? '비밀번호를 입력해주세요'
-        : password.length < 8
-          ? '8자 이상 입력해주세요'
-          : '영문과 숫자를 모두 포함해주세요'
-      : undefined
-
-  const nameError =
-    submitted && (displayName.trim().length < 2 || displayName.trim().length > 20)
-      ? displayName.trim().length < 2
-        ? '이름은 2자 이상이어야 해요'
-        : '이름은 20자 이하로 입력해주세요'
-      : undefined
-
+  const passwordError = submitted ? (validatePassword(password) ?? undefined) : undefined
+  const nameError = submitted ? (validateDisplayName(displayName) ?? undefined) : undefined
   const termsError =
     submitted && (!agreeTerms || !agreePrivacy) ? '필수 약관에 동의해주세요' : undefined
 
@@ -165,14 +89,9 @@ export default function SignupPage() {
     const trimmedName = displayName.trim()
 
     if (
-      !email ||
-      !password ||
       !isValidEmail(email) ||
-      password.length < 8 ||
-      !/[A-Za-z]/.test(password) ||
-      !/\d/.test(password) ||
-      trimmedName.length < 2 ||
-      trimmedName.length > 20 ||
+      validatePassword(password) !== null ||
+      validateDisplayName(trimmedName) !== null ||
       !agreeTerms ||
       !agreePrivacy
     ) {
@@ -186,69 +105,27 @@ export default function SignupPage() {
       const origin = typeof window !== 'undefined' ? window.location.origin : ''
 
       // ── stale 세션 차단 ──
-      // 이전 가입 시도가 남긴 세션 토큰의 user_metadata 한글이 다음 fetch 헤더로
-      // 흘러들어가 ISO-8859-1 검증 실패시키는 케이스 방지. signUp 은 unauth 요청이므로
-      // 기존 세션을 먼저 비우고 진행.
+      // 이전 시도가 남긴 세션 토큰의 user_metadata 한글이 다음 fetch 헤더로 흘러
+      // ISO-8859-1 검증을 실패시키는 케이스 방지. signUp 은 unauth 요청이므로 먼저 비운다.
       try {
         await supabase.auth.signOut({ scope: 'local' })
       } catch {
-        // 세션 없으면 그냥 진행
-      }
-      // localStorage 의 supabase 키 강제 정리 (storageKey = `sb-<projectRef>-auth-token`)
-      if (typeof window !== 'undefined') {
-        Object.keys(window.localStorage)
-          .filter((k) => k.startsWith('sb-') && k.endsWith('-auth-token'))
-          .forEach((k) => window.localStorage.removeItem(k))
+        // 세션이 없으면 그냥 진행
       }
 
       const consentTimestamp = new Date().toISOString()
+      // 한글 등 비-ASCII 이름은 base64 로 (트리거가 display_name_b64 를 우선 디코드)
+      const asciiName = isAsciiPrintable(trimmedName)
 
-      // 한글 등 비-ASCII display_name 은 base64 로 인코드해서 전송.
-      // 트리거 (handle_new_user_decode_display_name) 가 display_name_b64 우선 디코드.
-      // 순수 ASCII 이름이면 base64 도 같이 보내지만 트리거에서 자연스럽게 처리됨.
-      const isAscii = /^[\x20-\x7E]*$/.test(trimmedName)
-
-      // ── 🔍 진단: 어떤 입력/환경변수에 비-ASCII 가 들어갔는지 검출 ──
-      // (운영에서는 자동 비활성화)
-      if (process.env.NODE_ENV !== 'production') {
-        const checkAscii = (label: string, s: string | undefined | null) => {
-          if (s == null) return
-          for (let i = 0; i < s.length; i++) {
-            const code = s.charCodeAt(i)
-            if (code > 127) {
-              // eslint-disable-next-line no-console
-              console.warn(
-                `[diag] ⚠️ NON-ASCII in ${label} at index ${i}: ` +
-                  `U+${code.toString(16).toUpperCase().padStart(4, '0')} (${s[i]}) ` +
-                  `· length=${s.length}`,
-              )
-              return
-            }
-          }
-          // eslint-disable-next-line no-console
-          console.log(`[diag] ✓ ${label}: ${s.length} chars, all ASCII`)
-        }
-        checkAscii('email', email.trim())
-        checkAscii('password (length only)', '*'.repeat(password.length))
-        checkAscii('displayName(raw)', trimmedName)
-        checkAscii('NEXT_PUBLIC_SUPABASE_URL', process.env.NEXT_PUBLIC_SUPABASE_URL)
-        checkAscii('NEXT_PUBLIC_SUPABASE_ANON_KEY', process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY)
-        // eslint-disable-next-line no-console
-        console.log('[diag] cookies length:', document.cookie.length, 'cookies:', document.cookie.slice(0, 200))
-        // eslint-disable-next-line no-console
-        console.log('[diag] isAscii(displayName)=', isAscii, ', will send b64=', !isAscii)
-      }
-
-      const { error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email: email.trim(),
         password,
         options: {
-          // 이메일 인증 완료 후 OAuth callback 라우트로 (Phase 2 — Supabase 자동 처리)
-          emailRedirectTo: `${origin}/api/auth/callback`,
+          // 메일 인증을 거치는 설정에서도 복귀 경로가 살아 있어야 한다.
+          emailRedirectTo: `${origin}/api/auth/callback?${RETURN_PARAM}=${encodeURIComponent(returnTo)}`,
           // raw_user_meta_data — handle_new_user() 트리거가 user_profiles 생성 시 사용
           data: {
-            // ASCII: 직접 / 비-ASCII (한글 등): base64 marker 만 (헤더 ISO-8859-1 안전)
-            ...(isAscii
+            ...(asciiName
               ? { display_name: trimmedName }
               : { display_name_b64: encodeDisplayNameB64(trimmedName) }),
             locale: 'ko',
@@ -261,29 +138,41 @@ export default function SignupPage() {
       })
 
       if (error) {
-        // 개발 환경에서만 원본 에러 노출 — 디버깅 편의
-        if (process.env.NODE_ENV !== 'production') {
-          // eslint-disable-next-line no-console
-          console.error('[signup] Supabase error:', {
-            message: error.message,
-            status: error.status,
-            name: error.name,
-          })
-        }
         setAuthError(mapSignupError(error.message))
         return
       }
 
-      // 성공 → /verify-email (이메일 인증 안내 화면)
-      toast.success('가입 완료! 이메일을 확인해주세요.', {
-        title: '환영합니다 🎉',
-      })
-      router.push(`/verify-email?email=${encodeURIComponent(email.trim())}`)
-    } catch (err) {
-      if (process.env.NODE_ENV !== 'production') {
-        // eslint-disable-next-line no-console
-        console.error('[signup] unexpected:', err)
+      // ── 이미 가입된 이메일의 "조용한 가짜 성공" 방어 ──
+      // 이메일 확인이 켜진 설정에서 Supabase 는 계정 열거를 막으려고 에러 대신
+      // identities: [] 인 사용자를 돌려준다. 이 신호를 놓치면 기존 회원이
+      // 오지 않을 메일을 기다리게 된다. (현 프로젝트는 autoconfirm=true 라 422 가
+      // 오지만, 설정이 바뀌어도 깨지지 않도록 두 경로를 모두 처리한다.)
+      if (data.user && (data.user.identities?.length ?? 0) === 0) {
+        setAuthError('이미 가입된 이메일입니다')
+        return
       }
+
+
+      // ── 세션 유무로 분기 ──
+      if (data.session) {
+        // 자동 확인(mailer_autoconfirm) — 이미 로그인 상태다. 대기 화면은 거짓말이 된다.
+        toast.success('가입이 완료되었어요. 바로 시작해볼까요?', { title: '환영합니다 🎉' })
+        // `replace` — 히스토리에서 가입 화면을 지운다. `push` 였을 때는 가입 직후
+        // 뒤로가기 한 번이면 방금 가입한 사람에게 가입 폼이 다시 떴다(그 폼을 다시 제출하면
+        // "이미 가입된 이메일입니다" 로 끝난다). 로그인 화면도 같은 이유로 `replace` 다.
+        router.replace(returnTo)
+        router.refresh()
+        return
+      }
+
+      // 메일 인증 대기 — /verify-email 에서 재발송 안내
+      // (여기도 `replace`: 인증 대기 화면에서 뒤로가면 가입 폼이 아니라 오기 전 화면이어야 한다)
+      toast.success('가입 완료! 이메일을 확인해주세요.', { title: '환영합니다 🎉' })
+      router.replace(
+        `/verify-email?email=${encodeURIComponent(email.trim())}` +
+          `&${RETURN_PARAM}=${encodeURIComponent(returnTo)}`,
+      )
+    } catch (err) {
       setAuthError(mapSignupError(err instanceof Error ? err.message : null))
     } finally {
       setLoading(false)
@@ -294,9 +183,12 @@ export default function SignupPage() {
     <Card variant="elevated" padding="lg" className="rounded-xl">
       {/* ── 헤더 영역 ── */}
       <div className="mb-s-8 text-center">
-        {/* 미니멀 라벨 (Linear 톤) */}
+        {/* ⚠️ "14일 무료 체험 · 결제 정보 불필요" 라고 적혀 있었다 — **체험을 시작할 곳도,
+            끝난 뒤 결제할 곳도 코드에 없다**(학습자 표면 결제 라우트 0개, 실측 2026-09-05).
+            받아 줄 곳 없는 약속은 공개 화면에서 즉시 내린다(CLAUDE.md §4️⃣ 표시광고법 예외).
+            요금제 화면과 같은 문장을 쓴다 — 두 화면이 다른 말을 하면 다시 갈라진다. */}
         <p className="mb-s-3 font-mono text-[10px] uppercase tracking-[0.15em] text-t3">
-          14일 무료 체험 · 결제 정보 불필요
+          지금은 모든 기능이 무료
         </p>
 
         <h1 className="mb-s-2 font-display text-2xl font-extrabold leading-[1.1] tracking-[-0.02em] text-t1 sm:text-3xl">
@@ -317,7 +209,9 @@ export default function SignupPage() {
         <div
           role="alert"
           aria-live="assertive"
-          className="mb-s-4 flex items-start gap-s-2 rounded-md border border-error/30 bg-error-light px-s-3 py-s-2.5 font-body text-sm text-error"
+          // Next 의 __next-route-announcer__ 도 role=alert 라 테스트에서 충돌한다 — 고유 훅을 준다
+          data-testid="auth-error"
+          className="mb-s-4 flex items-start gap-s-2 rounded-md border border-error/30 bg-error-light px-s-3 py-s-3 font-body text-sm text-error"
         >
           <AlertCircle size={16} className="mt-px shrink-0" aria-hidden />
           <span>{authError}</span>
@@ -342,7 +236,7 @@ export default function SignupPage() {
               value={displayName}
               onChange={(e) => setDisplayName(e.target.value)}
               autoComplete="name"
-              maxLength={20}
+              maxLength={DISPLAY_NAME_MAX_LENGTH}
               {...props}
             />
           )}
@@ -467,7 +361,7 @@ export default function SignupPage() {
         <button
           type="submit"
           disabled={loading}
-          className={`group relative mt-s-2 flex h-12 w-full items-center justify-center gap-s-2 rounded-md bg-p font-display text-sm font-semibold tracking-[-0.005em] text-ti shadow-sm transition-all duration-normal hover:bg-p-hover hover:shadow-md active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60`}
+          className={`group relative mt-s-2 flex h-12 w-full items-center justify-center gap-s-2 rounded-md bg-p font-display text-sm font-semibold tracking-[-0.005em] text-[var(--on-p)] shadow-sm transition-all duration-normal hover:bg-p-hover hover:shadow-md active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60`}
         >
           {loading ? (
             <>
@@ -486,10 +380,36 @@ export default function SignupPage() {
         </button>
 
         {/* 푸터 안내 */}
-        <p className="pt-s-2 text-center font-mono text-[10px] uppercase tracking-[0.1em] text-t3">
-          14일 무료 · 언제든 해지 가능
+        {/* "14일 무료 · 언제든 해지 가능" 이었다 — 해지할 구독이 존재하지 않는다. */}
+        <p className="break-keep pt-s-2 text-center font-mono text-[10px] uppercase tracking-[0.1em] text-t3">
+          결제 수단을 받지 않습니다 · 유료 플랜은 준비 중
         </p>
       </form>
     </Card>
+  )
+}
+
+/** useSearchParams 사용 컴포넌트를 감싸는 로딩 골격 (Suspense fallback). */
+function SignupSkeleton() {
+  return (
+    <Card variant="elevated" padding="lg" className="rounded-xl">
+      <div className="flex h-72 items-center justify-center">
+        <span
+          className="border-current/30 h-5 w-5 animate-spin rounded-full border-2 border-t-current text-t3"
+          role="status"
+          aria-label="가입 화면 준비 중"
+        />
+      </div>
+    </Card>
+  )
+}
+
+export default function SignupPage() {
+  // useSearchParams 는 Suspense 경계가 없으면 페이지 전체가 CSR 로 이탈한다 (Next 14).
+  // 로그인 화면이 같은 이유로 같은 모양을 하고 있다.
+  return (
+    <Suspense fallback={<SignupSkeleton />}>
+      <SignupForm />
+    </Suspense>
   )
 }

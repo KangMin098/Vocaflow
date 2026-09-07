@@ -27,7 +27,9 @@ import {
   type ReactNode,
 } from 'react'
 
+import { GAME_CATALOG } from '@/lib/game/catalog'
 import { isFullScreenRoute } from '@/lib/layout/full-screen-routes'
+import { consumeSessionEscape, useSessionEscapeClaimed } from '@/components/layout/session-escape'
 
 // ── Session metadata ─────────────────────────────────────────────
 interface SessionMeta {
@@ -36,30 +38,27 @@ interface SessionMeta {
   closeHref: string
 }
 
-const SESSION_META: Record<string, SessionMeta> = {
+// 모듈 세션 — 각 모듈 hub 로 복귀.
+const MODULE_SESSION_META: Record<string, SessionMeta> = {
   '/flashcard/play': { title: '플래시카드', emoji: '🎯', closeHref: '/flashcard' },
   '/spellforge/play': { title: 'SpellForge', emoji: '⚡', closeHref: '/spellforge' },
   '/scriptquiz/play': { title: 'ScriptQuiz', emoji: '🏆', closeHref: '/scriptquiz' },
   '/dictate/session': { title: 'Dictation', emoji: '🎙', closeHref: '/dictate' },
-  '/play/wordblitz': { title: 'WordBlitz', emoji: '⏱', closeHref: '/wordblitz' },
-  '/play/pirate-quest': { title: "Pirate's Bounty", emoji: '🏴‍☠️', closeHref: '/hub' },
   '/pairflip/play': { title: 'PairFlip', emoji: '🎴', closeHref: '/pairflip' },
   '/wordvault/browse': { title: 'WordVault', emoji: '📖', closeHref: '/wordvault' },
-  // ── 아케이드 스위트 6종 (v07.3) ──
-  '/play/letter-forge': { title: 'Letter Forge', emoji: '🔤', closeHref: '/arcade' },
-  '/play/cascade': { title: 'Cascade', emoji: '🌊', closeHref: '/arcade' },
-  '/play/connections': { title: 'Connections', emoji: '🧩', closeHref: '/arcade' },
-  '/play/word-economy': { title: 'Word Economy', emoji: '🪙', closeHref: '/arcade' },
-  '/play/daily-blitz': { title: 'Daily Blitz', emoji: '📅', closeHref: '/arcade' },
-  '/play/ghost-race': { title: 'Ghost Race', emoji: '🏁', closeHref: '/arcade' },
-  '/play/glyph-tongue': { title: 'The Glyph Tongue', emoji: '📜', closeHref: '/arcade' },
-  '/play/word-customs': { title: 'Word Customs', emoji: '🛂', closeHref: '/arcade' },
-  '/play/lexicon-hands': { title: 'Lexicon Hands', emoji: '🃏', closeHref: '/arcade' },
-  '/play/lexicon-detective': { title: 'Lexicon Detective', emoji: '🔍', closeHref: '/arcade' },
-  '/play/morpheme-rules': { title: 'Morpheme Rules', emoji: '🧩', closeHref: '/arcade' },
-  '/play/silent-rule': { title: 'The Silent Rule', emoji: '🔆', closeHref: '/arcade' },
-  '/play/lexicon-estate': { title: 'Lexicon Estate', emoji: '🏛', closeHref: '/arcade' },
-  '/play/word-orrery': { title: 'The Word Orrery', emoji: '🪐', closeHref: '/arcade' },
+}
+
+// 아케이드 게임 세션 — GAME_CATALOG 에서 파생.
+//   손으로 유지하던 시절 신규 3종(wordsmith-vigil·morphmerge·wordfall-cadence)이 누락돼
+//   셸 제목이 "학습 세션 ✨"으로 뜨고 닫기가 /arcade 가 아닌 /hub 로 갔다. 카탈로그 파생으로 재발 차단.
+const SESSION_META: Record<string, SessionMeta> = {
+  ...MODULE_SESSION_META,
+  ...Object.fromEntries(
+    GAME_CATALOG.map((g) => [
+      `/play/${g.slug}`,
+      { title: g.name, emoji: g.emoji, closeHref: g.closeHref } satisfies SessionMeta,
+    ]),
+  ),
 }
 
 const DEFAULT_META: SessionMeta = {
@@ -85,10 +84,12 @@ const RESOURCE_TYPE_META: Record<
   SessionResourceType,
   { label: string; Icon: typeof BookOpen; color: string }
 > = {
-  library: { label: '라이브러리', Icon: Compass, color: '#8B5CF6' },
-  vocab: { label: '공용 단어장', Icon: Layers, color: '#6366F1' },
-  script: { label: '내 스크립트', Icon: BookOpen, color: '#8B5CF6' },
-  custom: { label: '', Icon: Sparkles, color: '#F59E0B' },
+  // ⚠️ 이 색은 **글자로도 쓰인다** — 종이 위에서 AA 를 넘겨야 한다(실측 2026-08-22:
+  //    #6366F1 4.28 · #8B5CF6 4.05 로 미달이었다). 채움용 원색을 그대로 쓰지 않는다.
+  library: { label: '라이브러리', Icon: Compass, color: '#7C3AED' },
+  vocab: { label: '공용 단어장', Icon: Layers, color: '#4F46E5' },
+  script: { label: '내 스크립트', Icon: BookOpen, color: '#7C3AED' },
+  custom: { label: '', Icon: Sparkles, color: '#7E5A1B' },
 }
 
 export interface SessionResource {
@@ -164,14 +165,24 @@ export function SessionFrame({ children }: { children: ReactNode }) {
 
   // 닫기 목적지 — 출처가 있으면 그곳, 없으면 모듈 hub.
   const closeHref = fromHref ?? meta.closeHref
+
+  // ── Esc 소유권 ───────────────────────────────────────────────────
+  // 이 리스너가 앱에서 Esc 를 듣는 **유일한 곳**이다(규약은 session-escape.ts 헤더 하나뿐 —
+  // 여기에 규칙을 복제하지 않는다). 세션이 Esc 를 소비했다면 셸은 물러난다.
+  // 예전에는 두 리스너가 함께 발화해서, 게임이 화면에 <Kbd>Esc</Kbd> 로 광고한 조작이
+  // 카드를 내려놓는 동시에 학습자를 게임 **밖으로** 내보냈다(v08.7 [B1]).
   const handleEscape = useCallback(
     (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        router.push(closeHref)
-      }
+      if (e.key !== 'Escape') return
+      if (consumeSessionEscape()) return
+      router.push(closeHref)
     },
     [router, closeHref],
   )
+
+  // 세션이 Esc 를 가져갔으면 닫기 버튼은 "(Esc)" 라고 말하지 않는다 —
+  // 내 것이 아닌 키를 라벨이 약속하면 그 라벨 자체가 [B1] 과 같은 종류의 거짓이다.
+  const escapeClaimed = useSessionEscapeClaimed()
 
   useEffect(() => {
     if (!isFullScreen) return
@@ -204,9 +215,14 @@ export function SessionFrame({ children }: { children: ReactNode }) {
       <div className="flex min-h-screen flex-col bg-[var(--bg)]">
         {/* ── Sticky session header ── */}
         <header
-          role="banner"
+          // ⚠️ role="banner" 를 걷어냈다. 이 헤더는 (main)/layout 의 <main> **안**에 있는데,
+          //    ARIA 에서 banner 는 최상위 랜드마크여야 한다 — main 안의 banner 는 보조기기에
+          //    거짓을 말하는 것이고, HTML-ARIA 매핑상 <header> 도 main 안에서는 banner 가 아니다.
+          //    ⚠️ <main> 을 이 프레임 밖으로 빼는 방법도 해 봤다. ARIA 는 맞아지지만 세션 화면의
+          //       h1 이 본문 밖으로 나가 화면 정체 검사가 5건 깨졌다(28-screen-identity 100% → 97.3%).
+          //       구조를 옮기는 대신 **거짓 선언만 지운다**.
           className={`sticky top-0 z-40 shrink-0 border-b border-[var(--bd)] bg-[var(--bg)]/95 backdrop-blur ${
-            hasResource ? 'px-3 py-2 md:px-5 md:py-2.5' : 'px-3 md:px-5'
+            hasResource ? 'px-3 py-2 md:px-5 md:py-3' : 'px-3 md:px-5'
           }`}
         >
           {/* Top row */}
@@ -224,14 +240,14 @@ export function SessionFrame({ children }: { children: ReactNode }) {
                 {meta.title}
               </h1>
               {progressLabel && (
-                <span className="ml-1 hidden rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[11px] font-[600] tabular-nums text-[var(--t2)] md:inline-block">
+                <span className="ml-1 hidden rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-1 font-mono text-[11px] font-[600] tabular-nums text-[var(--t2)] md:inline-block">
                   {progressLabel}
                 </span>
               )}
             </div>
 
             {/* Right: stage combo + close */}
-            <div className="flex shrink-0 items-center gap-1.5">
+            <div className="flex shrink-0 items-center gap-2">
               <div className="relative">
                 <select
                   value={currentOptionMatch ? pathname : ''}
@@ -246,7 +262,7 @@ export function SessionFrame({ children }: { children: ReactNode }) {
                   }}
                   aria-label="다른 학습 세션으로 이동"
                   title="단계 이동"
-                  className="h-9 min-h-[36px] cursor-pointer appearance-none rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] py-0 pl-3 pr-8 font-display text-[13px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1"
+                  className="h-11 min-h-[44px] cursor-pointer appearance-none rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] py-0 pl-3 pr-8 font-display text-[13px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1"
                 >
                   {!currentOptionMatch && (
                     <option value="" disabled hidden>
@@ -263,15 +279,17 @@ export function SessionFrame({ children }: { children: ReactNode }) {
                   size={14}
                   strokeWidth={2}
                   aria-hidden="true"
-                  className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-[var(--t3)]"
+                  className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-[var(--t2)]"
                 />
               </div>
 
               <Link
                 href={closeHref}
-                aria-label="세션 닫기 (Esc)"
-                title="세션 닫기 (Esc)"
-                className="inline-flex h-9 w-9 min-h-[36px] min-w-[36px] items-center justify-center rounded-[var(--r-md)] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--error-light)] hover:text-[var(--error)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1"
+                aria-label={escapeClaimed ? '세션 닫기' : '세션 닫기 (Esc)'}
+                title={escapeClaimed ? '세션 닫기' : '세션 닫기 (Esc)'}
+                // 44px 하한(프로젝트 절대 규칙). 36px 로 두면 **학습 세션에서 나가는 유일한
+                // 조작**이 가장 누르기 어려운 요소가 된다 — 셸에는 다른 출구가 없다.
+                className="inline-flex h-11 w-11 items-center justify-center rounded-[var(--r-md)] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--error-light)] hover:text-[var(--error-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1"
               >
                 <X size={18} strokeWidth={2} aria-hidden="true" />
               </Link>
@@ -318,7 +336,7 @@ function ResourceBreadcrumb({ resource }: { resource: SessionResource }) {
   const inner = (
     <>
       {/* Type indicator (icon + label) */}
-      <span className="inline-flex shrink-0 items-center gap-1.5">
+      <span className="inline-flex shrink-0 items-center gap-2">
         <Icon
           size={13}
           strokeWidth={2}
@@ -339,7 +357,7 @@ function ResourceBreadcrumb({ resource }: { resource: SessionResource }) {
       {meta.label && (
         <span
           aria-hidden="true"
-          className="text-[10px] font-[400] text-[var(--t4)]"
+          className="text-[10px] font-[400] text-[var(--t2)]"
         >
           ›
         </span>
@@ -353,10 +371,15 @@ function ResourceBreadcrumb({ resource }: { resource: SessionResource }) {
       {/* Position (옵션) */}
       {resource.position && (
         <>
-          <span aria-hidden="true" className="text-[10px] font-[400] text-[var(--t4)]">
+          <span aria-hidden="true" className="text-[10px] font-[400] text-[var(--t2)]">
             ›
           </span>
-          <span className="shrink-0 font-mono text-[11px] font-[500] tabular-nums text-[var(--t3)]">
+          {/* 회귀가 "문항이 넘어갔는가" 를 잴 유일한 화면 근거다 — 텍스트를 정규식으로
+              긁던 테스트는 못 찾으면 조용히 통과했다(공허한 단언). */}
+          <span
+            data-testid="session-position"
+            className="shrink-0 font-mono text-[11px] font-[500] tabular-nums text-[var(--t2)]"
+          >
             {resource.position}
           </span>
         </>
@@ -371,20 +394,21 @@ function ResourceBreadcrumb({ resource }: { resource: SessionResource }) {
   return (
     <nav
       aria-label="현재 학습 리소스"
-      className="mt-1 flex min-w-0 items-center gap-1.5 md:mt-1.5"
+      className="mt-1 flex min-w-0 items-center gap-2 md:mt-1.5"
     >
       {resource.href ? (
         <Link
           href={resource.href}
           aria-label={ariaLabel}
-          className="group inline-flex min-w-0 items-center gap-1.5 rounded-[var(--r-sm)] px-1 py-0.5 -mx-1 transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          // 실측 2026-08-25: 255×22 였다. 세션 화면에서 **되돌아가는 유일한 이름 있는 링크**다.
+          className="group -my-3 inline-flex min-h-11 min-w-0 items-center gap-2 rounded-[var(--r-sm)] px-1 py-1 -mx-1 transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
           {inner}
         </Link>
       ) : (
         <div
           aria-label={ariaLabel}
-          className="inline-flex min-w-0 items-center gap-1.5"
+          className="inline-flex min-w-0 items-center gap-2"
         >
           {inner}
         </div>

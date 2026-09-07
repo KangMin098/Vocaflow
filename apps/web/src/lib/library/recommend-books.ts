@@ -11,7 +11,7 @@
 //   - Calm UI: hard tier 는 감점만(비난색/카운터 없음), completed 는 하향.
 
 import type { PublishedBook } from './published-book'
-import { judgeIPlusOne } from './i-plus-one'
+import { countReadableChapters, judgeIPlusOne } from './i-plus-one'
 
 export type UserMastery = 'cold' | 'warm' | 'hot'
 
@@ -34,6 +34,12 @@ export interface RankedBook {
 }
 
 const SIGMA = 1.5
+
+/**
+ * 챕터 진입로를 인정하는 최소 개수. 한두 장으로는 "이 책을 시작할 수 있다" 고 말할 수 없다.
+ * 실측 2026-08-30 기준 고1(V5)에게 열리는 책 246권의 중앙값이 이보다 훨씬 크다.
+ */
+const MIN_ENTRY_CHAPTERS = 3
 
 function gaussian(diff: number, sigma: number): number {
   return Math.exp(-(diff * diff) / (2 * sigma * sigma))
@@ -58,7 +64,17 @@ export function scoreBook(book: PublishedBook, ctx: RecommendContext): BookScore
       } else if (fit.tier === 'easy') {
         score += 12
       } else {
-        score -= 25 // hard — 좌절 구간
+        // hard — 좌절 구간. 다만 **책 라벨은 p75 라 책 안의 쉬운 장을 가린다**:
+        //   실측 2026-08-30, 고1(V5)에게 책 단위로는 37권뿐인데 챕터로 보면 246권이었다.
+        //   읽을 수 있는 장이 실제로 있으면 그 비율만큼 감점을 완화한다 —
+        //   지우지는 않는다(책을 통째로 읽기엔 여전히 어렵다는 판정 자체는 옳다).
+        //   비율을 쓰는 이유: 500장짜리에서 20장(4%)이 열린 것을 "진입 가능" 이라 부르면
+        //   대작이 전부 앞으로 나온다.
+        const entry = countReadableChapters(book.chapter_v_hist, ctx.userVLevel)
+        const ratio =
+          entry && entry.count >= MIN_ENTRY_CHAPTERS ? entry.count / entry.total : 0
+        score -= 25 * (1 - ratio)
+        if (ratio > 0) reasons.push(`읽을 수 있는 장 ${entry!.count}개`)
       }
     }
     // 2) V-level 근접 (peak at +1).
@@ -109,6 +125,33 @@ export function scoreBook(book: PublishedBook, ctx: RecommendContext): BookScore
 
   // 사유 우선순위(난이도 > 음성 > 짧게 > 인기 > 단어장)는 push 순서로 보장됨.
   return { score, reasons: reasons.slice(0, 2) }
+}
+
+/**
+ * "이 책은 여기부터" — 책 전체는 어렵지만(hard) **지금 읽을 수 있는 장**이 있는 책을 고른다.
+ *
+ * 왜 별도 목록인가: 2026-08-30 실측으로 고1(V5) 학습자에게 책 단위 판정은
+ *   hard 273 · challenge 30 · easy 7 · **ideal 5** 였다. "지금 딱 맞아요" 레일이 12칸인데
+ *   5권밖에 못 채운다. 그렇다고 hard 책을 그 레일에 섞으면 "모르는 단어가 적당해요" 라는
+ *   설명이 거짓말이 된다 — 책 전체로는 어려운 게 맞다. 그래서 다르게 말하는 자리를 따로 둔다.
+ *
+ * 정렬은 **비율 × log(개수)**:
+ *   · 비율만 쓰면 3장 중 3장 열린 짧은 책이 24장 중 24장인 책을 이긴다.
+ *   · 개수만 쓰면 486장 중 315장인 대작이 항상 이긴다.
+ *   log1p 로 개수를 완만하게 반영해 둘을 섞는다.
+ */
+export function rankStartHereBooks(books: PublishedBook[], ctx: RecommendContext): PublishedBook[] {
+  if (ctx.userVLevel < 1) return [] // 미진단 — 수준을 모르면 "여기부터" 를 말할 수 없다
+  return books
+    .filter((b) => judgeIPlusOne(b.lexical_coverage, ctx.userVLevel, b.is_picture_book)?.tier === 'hard')
+    .map((book) => ({ book, entry: countReadableChapters(book.chapter_v_hist, ctx.userVLevel) }))
+    .filter((x) => (x.entry?.count ?? 0) >= MIN_ENTRY_CHAPTERS)
+    .map((x) => ({
+      book: x.book,
+      weight: (x.entry!.count / x.entry!.total) * Math.log1p(x.entry!.count),
+    }))
+    .sort((a, b) => b.weight - a.weight || (a.book.title < b.book.title ? -1 : 1))
+    .map((x) => x.book)
 }
 
 /** 점수 desc 정렬 (동점 시 인기 → 제목). 미리 계산된 점수도 함께 반환. */

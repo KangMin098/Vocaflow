@@ -65,6 +65,7 @@ interface UnifiedHeaderProps {
   flashcardHref: string
   /** "블리츠" 모드 클릭 시 이동할 WordBlitz href — 자료 스코프(?set/?text) 포함 */
   wordblitzHref: string
+  arcadeHref: string
 }
 
 export function UnifiedHeader({
@@ -85,6 +86,7 @@ export function UnifiedHeader({
   wordsHref,
   flashcardHref,
   wordblitzHref,
+  arcadeHref,
 }: UnifiedHeaderProps) {
   const [isTypeOpen, setIsTypeOpen] = useState(false)
   const [navOpen, setNavOpen] = useState(false)
@@ -119,7 +121,7 @@ export function UnifiedHeader({
           insight·더보기 중복 아이콘 제거(단어장 칩이 insight 트리거). */}
       <div
         className={`mx-auto flex w-full max-w-[1080px] items-center gap-3 px-5 transition-[padding] duration-[var(--dur-slower)] sm:px-8 ${
-          isFocusMode ? 'py-1' : 'py-1.5'
+          isFocusMode ? 'py-1' : 'py-2'
         }`}
       >
         {/* Back — 책(chapter context) 또는 라이브러리로.
@@ -127,9 +129,9 @@ export function UnifiedHeader({
             도서 개요(챕터 그리드·단어장)로 가려면 /library/books/[bookId]?preview=1
             (preview=1 이 enroll 재개 redirect 우회 — page.tsx skipEnrollRedirect). */}
         <Link
-          href={hasChapterContext ? `/library/books/${book.id}?preview=1` : '/my/texts'}
+          href={hasChapterContext ? `/library/books/${book.id}?preview=1` : '/text'}
           aria-label={hasChapterContext ? '책으로 돌아가기' : '라이브러리로 돌아가기'}
-          className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--r-md)] border border-transparent text-[var(--t3)] transition-all duration-[var(--dur-normal)] hover:border-[var(--bd)] hover:bg-[var(--bg)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--r-md)] border border-transparent text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:border-[var(--bd)] hover:bg-[var(--bg)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
           <ArrowLeft size={16} strokeWidth={2} aria-hidden />
         </Link>
@@ -157,7 +159,7 @@ export function UnifiedHeader({
             {hasChapterContext ? book.title : text.title}
           </h1>
           {!isFocusMode && (
-            <div className="flex min-w-0 items-center gap-2 font-body text-[11px] text-[var(--t3)]">
+            <div className="flex min-w-0 items-center gap-2 font-body text-[11px] text-[var(--t2)]">
               <CEFRBadge level={(book?.cefrLevel ?? text.cefrLevel) as CEFRLevel} />
               {(book?.author ?? text.author) && (
                 <span className="hidden truncate font-display font-[600] text-[var(--t2)] md:inline">
@@ -166,7 +168,7 @@ export function UnifiedHeader({
               )}
               {hasChapterContext && (
                 <>
-                  <span className="text-[var(--t4)]" aria-hidden>·</span>
+                  <span className="text-[var(--t2)]" aria-hidden>·</span>
                   <span className="shrink-0 font-mono tabular-nums text-[var(--t2)]">
                     Ch.{currentChapterIdx}/{totalChapters}
                   </span>
@@ -180,7 +182,7 @@ export function UnifiedHeader({
                       type="button"
                       onClick={onToggleInsight}
                       aria-label={`챕터 단어장 ${bookWordSetStats.subscribed} / ${bookWordSetStats.total} — 학습 인사이트 열기`}
-                      className="inline-flex shrink-0 items-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-1.5 py-0.5 font-mono text-[10px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:border-[#8B5CF6] hover:bg-[#8B5CF6]/10 hover:text-[#6D28D9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
+                      className="inline-flex min-h-[44px] min-w-[44px] shrink-0 items-center justify-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-mono text-[11px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:border-[#8B5CF6] hover:bg-[#8B5CF6]/10 hover:text-[#6D28D9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
                     >
                       <Layers size={9} aria-hidden />
                       <span className="tabular-nums">
@@ -211,7 +213,7 @@ export function UnifiedHeader({
 
         {/* Progress Dots — chapter context 아닐 때 (사용자 직접 입력 progress %) */}
         {!hasChapterContext && (
-          <div className="hidden shrink-0 items-center gap-[3px] md:flex">
+          <div className="hidden shrink-0 items-center gap-[4px] md:flex">
             {Array.from({ length: 10 }).map((_, i) => {
               const isFilled = i < filledDots
               const isPartial = i === filledDots && partialDot
@@ -234,7 +236,7 @@ export function UnifiedHeader({
         )}
 
         {/* Actions toolbar — 북마크 · 타이포 · 집중 (insight·더보기 중복 제거) */}
-        <div role="toolbar" aria-label="액션" className="flex shrink-0 items-center gap-0.5">
+        <div role="toolbar" aria-label="액션" className="flex shrink-0 items-center gap-1">
           {/* Bookmark */}
           <button
             type="button"
@@ -244,7 +246,7 @@ export function UnifiedHeader({
             className={`inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-md)] border transition-all duration-[var(--dur-normal)] ${
               isBookmarked
                 ? 'border-[var(--active)]/25 bg-[var(--active-light)] text-[var(--active)]'
-                : 'border-transparent bg-transparent text-[var(--t3)] hover:border-[var(--bd)] hover:bg-[var(--bg)] hover:text-[var(--t1)]'
+                : 'border-transparent bg-transparent text-[var(--t2)] hover:border-[var(--bd)] hover:bg-[var(--bg)] hover:text-[var(--t1)]'
             }`}
           >
             <Bookmark
@@ -262,7 +264,7 @@ export function UnifiedHeader({
               onClick={() => setIsTypeOpen((o) => !o)}
               aria-label="타이포 설정"
               aria-expanded={isTypeOpen}
-              className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-md)] border border-transparent bg-transparent text-[var(--t3)] transition-all duration-[var(--dur-normal)] hover:border-[var(--bd)] hover:bg-[var(--bg)] hover:text-[var(--t1)]"
+              className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-md)] border border-transparent bg-transparent text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:border-[var(--bd)] hover:bg-[var(--bg)] hover:text-[var(--t1)]"
             >
               <Type size={16} strokeWidth={1.75} aria-hidden />
             </button>
@@ -277,8 +279,8 @@ export function UnifiedHeader({
             aria-pressed={isFocusMode}
             className={`inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-md)] border transition-all duration-[var(--dur-normal)] ${
               isFocusMode
-                ? 'border-[var(--p)]/25 bg-[var(--p-light)] text-[var(--p)]'
-                : 'border-transparent bg-transparent text-[var(--t3)] hover:border-[var(--bd)] hover:bg-[var(--bg)] hover:text-[var(--t1)]'
+                ? 'border-[var(--p)]/25 bg-[var(--p-light)] text-[var(--on-p-tint)]'
+                : 'border-transparent bg-transparent text-[var(--t2)] hover:border-[var(--bd)] hover:bg-[var(--bg)] hover:text-[var(--t1)]'
             }`}
           >
             <Focus size={16} strokeWidth={1.75} aria-hidden />
@@ -317,6 +319,7 @@ export function UnifiedHeader({
         wordsHref={wordsHref}
         flashcardHref={flashcardHref}
         wordblitzHref={wordblitzHref}
+        arcadeHref={arcadeHref}
       />
 
       {hasChapterContext && navOpen && (

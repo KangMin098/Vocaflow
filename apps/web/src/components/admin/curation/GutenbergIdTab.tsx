@@ -79,7 +79,7 @@ export function GutenbergIdTab({ onPickPreview }: GutenbergIdTabProps) {
         <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">
           🔢 Gutenberg ID 직접 입력
         </h2>
-        <span className="font-mono text-[12px] text-[var(--t3)]">
+        <span className="font-mono text-[12px] text-[var(--t2)]">
           Project Gutenberg 책 번호
         </span>
       </div>
@@ -102,7 +102,7 @@ export function GutenbergIdTab({ onPickPreview }: GutenbergIdTabProps) {
             onKeyDown={handleKeyDown}
             placeholder="예: 1342 (Pride and Prejudice)"
             className={[
-              'min-h-[40px] flex-1 min-w-[200px] rounded-[var(--r-sm)]',
+              'min-h-[44px] flex-1 min-w-[200px] rounded-[var(--r-sm)]',
               'border border-[var(--bd)] bg-[var(--bg)]',
               'px-3 font-mono text-[13px] text-[var(--t1)]',
               'transition-colors duration-[var(--dur-normal)] ease-[var(--ease)]',
@@ -119,7 +119,7 @@ export function GutenbergIdTab({ onPickPreview }: GutenbergIdTabProps) {
             onClick={handleFetch}
             disabled={isLoading || !idInput.trim()}
             className={[
-              'min-h-[40px] inline-flex items-center justify-center gap-2',
+              'min-h-[44px] inline-flex items-center justify-center gap-2',
               'rounded-[var(--r-sm)] px-4',
               'bg-[var(--p)] hover:bg-[var(--p-hover)]',
               'font-display text-[12px] font-[600] text-[var(--ti)]',
@@ -141,7 +141,7 @@ export function GutenbergIdTab({ onPickPreview }: GutenbergIdTabProps) {
           <div
             id="gutenberg-id-error"
             role="alert"
-            className="flex items-center gap-1.5 rounded-[var(--r-sm)] bg-[var(--learn-error-light)] px-3 py-2"
+            className="flex items-center gap-2 rounded-[var(--r-sm)] bg-[var(--learn-error-light)] px-3 py-2"
           >
             <AlertCircle size={12} className="text-[var(--learn-error)]" aria-hidden />
             <span className="font-body text-[11px] text-[var(--learn-error)]">
@@ -150,7 +150,7 @@ export function GutenbergIdTab({ onPickPreview }: GutenbergIdTabProps) {
           </div>
         )}
 
-        <p className="font-body text-[11px] text-[var(--t3)]">
+        <p className="font-body text-[11px] text-[var(--t2)]">
           Gutenberg 사이트에서 책 페이지 URL의 마지막 숫자입니다.
           예: <code className="font-mono text-[var(--t2)]">https://www.gutenberg.org/ebooks/<strong>1342</strong></code>
         </p>
@@ -201,7 +201,7 @@ function PreviewCard({ preview, isPickPending, onPick }: PreviewCardProps) {
             target="_blank"
             rel="noreferrer"
             className={[
-              'inline-flex shrink-0 items-center gap-1 rounded-[var(--r-sm)]',
+              'min-h-[44px] inline-flex shrink-0 items-center gap-1 rounded-[var(--r-sm)]',
               'px-2 py-1 font-mono text-[10px] text-[var(--t2)]',
               'hover:bg-[var(--bg)] hover:text-[var(--t1)]',
               'transition-colors duration-[var(--dur-normal)] ease-[var(--ease)]',
@@ -213,7 +213,7 @@ function PreviewCard({ preview, isPickPending, onPick }: PreviewCardProps) {
             <ExternalLink size={10} aria-hidden />
           </a>
         </div>
-        <p className="font-body text-[12px] text-[var(--t3)]">
+        <p className="font-body text-[12px] text-[var(--t2)]">
           {preview.author ?? '저자 미상'} {yearRange}
           {preview.language && (
             <span className="ml-2 font-mono text-[10px] text-[var(--t5)]">
@@ -224,7 +224,7 @@ function PreviewCard({ preview, isPickPending, onPick }: PreviewCardProps) {
       </header>
 
       <div className="px-5 py-4">
-        <div className="mb-2 font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">
+        <div className="mb-2 font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">
           본문 미리보기
         </div>
         <p className="line-clamp-6 font-body text-[13px] leading-relaxed text-[var(--t1)]">
@@ -238,7 +238,7 @@ function PreviewCard({ preview, isPickPending, onPick }: PreviewCardProps) {
           onClick={onPick}
           disabled={isPickPending}
           className={[
-            'inline-flex min-h-[36px] items-center justify-center gap-2',
+            'inline-flex min-h-[44px] items-center justify-center gap-2',
             'rounded-[var(--r-sm)] px-4',
             'bg-[var(--p)] hover:bg-[var(--p-hover)]',
             'font-display text-[12px] font-[600] text-[var(--ti)]',

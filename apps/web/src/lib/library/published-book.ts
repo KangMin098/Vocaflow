@@ -33,12 +33,25 @@ export interface PublishedBook {
   est_cefr?: string | null
   age_band?: string | null
   genre_norm?: string | null
+  /**
+   * 챕터 난이도 분포 (V레벨 → 챕터 수). `curation_metadata.chapter_v_hist`.
+   * 책 라벨(p75)이 가리는 진입로를 발견 단계에서 열기 위한 값 —
+   * 실측 2026-08-30: 책 단위로는 고1(V5) 이 2권뿐인데 챕터로는 87권에 263개 있었다.
+   */
+  chapter_v_hist?: Record<string, number> | null
   description_en?: string | null
   // 탐색/추천/정렬 시그널
   /** library_seed_catalog.popularity_rank (작을수록 인기) */
   popularity_rank?: number | null
   /** librivox_audio 존재 여부 (원어민 음성) */
   has_audio?: boolean
+  /** 발행된 만화 존재 여부 (comic_books.status='published') — 포맷 배지/필터용 */
+  has_comic?: boolean
+  /** 만화 진입 경로 — 등록: /text/[chapter]/comic · 미등록: 만화 상세(프리뷰). has_comic 일 때만 유효 */
+  comic_href?: string | null
+  /** 만화 진도 0~100 (comic_read_progress) — 본문 진도(progress_pct)와 분리 회계 */
+  comic_progress_pct?: number
+  comic_completed?: boolean
   /** 정렬 '신규순' 용 */
   published_at?: string | null
   // 사용자별 enrollment 상태 + 진행도 + 동적 CTA

@@ -1,403 +1,372 @@
 // apps/web/src/components/dictation/DictationHubClient.tsx
-// Dictation Hub — 리소스 선택 + 최근 세션 + 통계 + 직접 입력
+//
+// 받아쓰기 허브 — "오늘 뭘 받아쓸지"를 시스템이 먼저 정하고, 고르고 싶으면 고르게 한다.
+//
+// v06 까지 이 화면은 localStorage 시드 3개를 나열하는 선택지 화면이었다. 그 구조에서는
+// 학습자가 매일 "무엇을 골라야 느는가"를 스스로 판단해야 했고, 그 판단 비용이 곧
+// 이탈이었다. 이제 첫 화면 첫 카드가 **오늘의 5문장**이고, 나머지는 그 아래로 접힌다.
+//
 // 학습 과학:
-//   · Variable Reward (Skinner) — Smart Suggestion
-//   · Self-determination — 사용자 선택 폭
-//   · Implicit Progress — 통계 + 최근 활동
+//   · Active Recall + Context-Dependent — 문장 안에서 내 단어를 인출한다
+//   · Spacing — 오늘의 구성이 복습 임박 단어에서 나온다
+//   · Implicit Progress — 게이지 대신 "청취 폭 N단어" 한 줄(§철학4)
+//   · Calm UI — 폭죽·뱃지 없음. 완료는 조용한 한 문장으로 알린다(§철학1)
+//
+// ── 2026-09-06 — 이 컴포넌트는 이제 **조회를 하지 않는다** ─────────────
+// 마운트 뒤 페처 5종을 `Promise.all` 로 부르던 자리를 서버 한 벌(`lib/dictation/hub-query.ts`)
+// 로 옮겼다. 브라우저 데이터 요청 15건이 그렇게 만들어지고 있었다.
+// **여기 조회를 다시 붙이면 그 낭비가 되살아난다** — 새 수치가 필요하면 `hub-query.ts`
+// 에 한 줄 더하고 props 로 받는다.
+//
+// 클라이언트에 남는 것은 셋뿐이고, 각각 이유가 있다:
+//   ① `getResumableSession()` — `localStorage` 라 서버가 볼 수 없다(이 기기 우선, DB 는 폴백)
+//   ② 세션 시작 — 문항 캐시 적재가 브라우저에서 일어난다
+//   ③ [다시 시도] — 서버 데이터를 다시 받아야 하므로 `router.refresh()`
 
-'use client';
+'use client'
 
-import { useEffect, useMemo, useState } from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { Headphones, FileText, Upload, PencilLine, ArrowRight, Flame, TrendingUp, Plus } from 'lucide-react';
+import { useCallback, useEffect, useState, useTransition } from 'react'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { ArrowRight, Headphones, Loader2, Play, RotateCcw, Sparkles } from 'lucide-react'
 
-import { ModuleHero } from '@/components/hub/ModuleHero';
-import {
-  ensureSeedResources,
-  getResources,
-  getSessions,
-  saveResource,
-} from '@/lib/dictation/storage';
-import { detectLevel } from '@/lib/dictation/cefr';
-import type { DictationResource, DictationSession } from '@/lib/dictation/types';
+import { ModuleHero, type HeroStat } from '@/components/hub/ModuleHero'
+import type { DailyDictation } from '@/lib/dictation/daily'
+import type { DictationHubData } from '@/lib/dictation/hub-query'
+import { getResumableSession } from '@/lib/dictation/storage'
+import { createDictationSession, DictationStartError } from '@/hooks/dictation/useDictationSession'
+import type { DictationConfig } from '@/lib/dictation/types'
 
-const DICTATION_ACCENT = '#0EA5E9'; // Cyan — 청각 학습 모듈 색
+import { SourcePicker } from './SourcePicker'
+import { WeaknessPanel } from './WeaknessPanel'
 
-export function DictationHubClient() {
-  const router = useRouter();
-  const [resources, setResources] = useState<DictationResource[]>([]);
-  const [sessions, setSessions] = useState<DictationSession[]>([]);
-  const [showDirectInput, setShowDirectInput] = useState(false);
-  const [scriptInput, setScriptInput] = useState('');
-  const [titleInput, setTitleInput] = useState('');
-  const [inputError, setInputError] = useState<string | null>(null);
+const DICTATION_ACCENT = '#0EA5E9'
+
+/** 오늘의 받아쓰기 기본값 — 고르는 화면 없이 바로 시작하므로 온건한 중간값. */
+const DAILY_CONFIG: DictationConfig = {
+  chunkSize: 1,
+  count: 'all',
+  order: 'sequential',
+  scoring: 'smart',
+  cefr: 'B1',
+  speed: 0.9,
+  autoRepeat: 2,
+  hintsAllowed: true,
+  voice: '',
+}
+
+const SOURCE_KIND_LABEL: Record<string, string> = {
+  book: '도서',
+  text: '스크립트',
+  set: '단어장',
+  daily: '오늘의 받아쓰기',
+  custom: '직접 입력',
+}
+
+export function DictationHubClient({ data }: { data: DictationHubData }) {
+  const router = useRouter()
+  const { overview, catalog, weakness, recent, daily } = data
+  const [starting, setStarting] = useState(false)
+  const [startError, setStartError] = useState<string | null>(null)
+  /**
+   * 이어하기 — 서버가 준 DB 값으로 먼저 그리고, 이 기기 캐시가 있으면 그쪽으로 바꾼다.
+   * 폰에서 시작하고 PC 에서 허브를 열어도 떠야 하므로 둘 다 본다(세션 URL 복원과 같은 이유).
+   */
+  const [resumeId, setResumeId] = useState<string | null>(data.resumeSessionId)
+  /** [다시 시도] 가 서버 렌더를 다시 받는 동안 — 버튼이 죽은 것처럼 보이면 안 된다. */
+  const [retrying, startRetry] = useTransition()
 
   useEffect(() => {
-    ensureSeedResources();
-    setResources(getResources());
-    setSessions(getSessions());
-  }, []);
+    const local = getResumableSession()?.id ?? null
+    if (local) setResumeId(local)
+  }, [])
 
-  const completedSessions = sessions.filter((s) => s.completedAt);
-
-  const stats = useMemo(() => {
-    if (completedSessions.length === 0) {
-      return { weeklyAccuracy: 0, totalSentences: 0, streak: 0 };
+  const startDaily = useCallback(async () => {
+    if (!daily || starting) return
+    setStarting(true)
+    setStartError(null)
+    // 실패를 삼키지 않는다 — `createDictationSession` 은 이제 던진다. 잡지 않으면
+    // 스피너가 영원히 돌고 학습자에겐 "아무 반응 없음" 이 된다(설정 화면에서 겪은 그것).
+    let session
+    try {
+      session = await createDictationSession(daily, DAILY_CONFIG)
+    } catch (e) {
+      setStarting(false)
+      setStartError(
+        e instanceof DictationStartError && e.reason === 'cache-failed'
+          ? '이 브라우저의 저장 공간이 가득 차 세션을 이어받지 못했어요. 사이트 데이터를 정리하고 다시 시도해 주세요.'
+          : '오늘의 문장을 만들지 못했어요. 잠시 뒤 다시 시도해 주세요.',
+      )
+      return
     }
-    const weekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
-    const recent = completedSessions.filter((s) => (s.completedAt ?? 0) > weekAgo);
-    const weeklyAccuracy =
-      recent.length > 0
-        ? recent.reduce((sum, s) => sum + (s.totalAccuracy ?? 0), 0) / recent.length
-        : 0;
-    const totalSentences = completedSessions.reduce(
-      (sum, s) => sum + s.items.length,
-      0
-    );
+    router.push(`/dictate/session?sessionId=${session.id}`)
+  }, [daily, starting, router])
 
-    // streak — 연속 학습 일수 (오늘부터 거꾸로)
-    const days = new Set(
-      completedSessions
-        .map((s) => new Date(s.completedAt ?? 0).toISOString().slice(0, 10))
-        .sort()
-        .reverse()
-    );
-    let streak = 0;
-    const today = new Date();
-    for (let i = 0; i < 30; i++) {
-      const d = new Date(today);
-      d.setDate(today.getDate() - i);
-      const key = d.toISOString().slice(0, 10);
-      if (days.has(key)) streak += 1;
-      else if (i > 0) break;
-    }
+  const hasAnything = catalog.books.length + catalog.scripts.length + catalog.sets.length > 0
 
-    return { weeklyAccuracy: Math.round(weeklyAccuracy), totalSentences, streak };
-  }, [completedSessions]);
+  const heroNote = (() => {
+    if (data.failed) return '지금은 받아쓰기 기록을 읽지 못했어요 — 아래에서 다시 시도할 수 있어요'
+    if (overview.totalSessions === 0) {
+      return '아직 받아쓴 문장이 없어요 — 오늘 5문장으로 시작해 볼까요'
+    }
+    if (overview.streak >= 2) {
+      return `${overview.streak}일 이어오고 있어요 · 한 번에 받아쓴 가장 긴 문장 ${overview.span}단어`
+    }
+    return `누적 ${overview.totalSentences}문장 · 한 번에 받아쓴 가장 긴 문장 ${overview.span}단어`
+  })()
 
-  // Smart Suggestion — 가장 유익한 리소스 1개
-  const suggestion = useMemo(() => {
-    if (resources.length === 0) return null;
-    // 1. 마지막 세션 정확도 70~90% 사이의 리소스 우선
-    const completed = completedSessions[0];
-    if (completed && completed.totalAccuracy != null) {
-      if (completed.totalAccuracy >= 70 && completed.totalAccuracy < 90) {
-        const r = resources.find((r) => r.id === completed.config.resourceId);
-        if (r) {
-          return {
-            resource: r,
-            reason: `지난번 ${Math.round(completed.totalAccuracy)}% — 한 번 더 도전하면 마스터!`,
-          };
-        }
-      }
-    }
-    // 2. 최근 시도 안 한 리소스
-    const triedIds = new Set(sessions.map((s) => s.config.resourceId));
-    const fresh = resources.find((r) => !triedIds.has(r.id));
-    if (fresh) {
-      return {
-        resource: fresh,
-        reason: `${fresh.cefr ?? 'B1'} 레벨 새 콘텐츠`,
-      };
-    }
-    return { resource: resources[0], reason: '오늘의 추천' };
-  }, [resources, sessions, completedSessions]);
-
-  const handleDirectInputSubmit = () => {
-    const text = scriptInput.trim();
-    const title = titleInput.trim() || '직접 입력 스크립트';
-    if (text.length < 20) {
-      setInputError(`조금만 더 있으면 돼요 — 지금 ${text.length}자, 최소 20자가 필요해요.`);
-      return;
-    }
-    setInputError(null);
-    const detected = detectLevel(text);
-    const id = `direct-${Date.now()}`;
-    saveResource({
-      id,
-      title,
-      script: text,
-      source: 'direct-script',
-      cefr: detected.code,
-      createdAt: Date.now(),
-    });
-    router.push(`/dictate/setup?resourceId=${id}`);
-  };
+  // 못 읽었으면 0 을 말하지 않는다 — 0 은 "세어 보니 없다" 는 뜻의 숫자다.
+  const heroStats: HeroStat[] = data.failed
+    ? [
+        { label: '이번 주', value: '—', emphasis: true },
+        { label: '청취 폭', value: '—' },
+        { label: '받아쓰기 연속', value: '—' },
+      ]
+    : [
+        {
+          label: '이번 주',
+          value: overview.weeklyAccuracy != null ? Math.round(overview.weeklyAccuracy) : '—',
+          unit: overview.weeklyAccuracy != null ? '%' : undefined,
+          emphasis: true,
+        },
+        { label: '청취 폭', value: overview.span, unit: '단어' },
+        { label: '받아쓰기 연속', value: overview.streak, unit: '일' },
+      ]
 
   return (
-    <div className="mx-auto flex max-w-5xl flex-col gap-5 px-4 py-8 md:px-6 md:py-10">
+    <div className="mx-auto flex max-w-5xl flex-col gap-4 px-4 py-8 md:px-6 md:py-10">
       <ModuleHero
         eyebrow="Dictation · 청각 인출"
         title="받아쓰기"
-        note={
-          stats.totalSentences === 0
-            ? '아직 받아쓴 문장이 없어요 — 첫 자료를 골라보세요'
-            : stats.streak >= 3
-              ? `연속 ${stats.streak}일 학습 중 · 이번 주 정확도 ${stats.weeklyAccuracy}%`
-              : `이번 주 정확도 ${stats.weeklyAccuracy}% · 누적 ${stats.totalSentences}문장`
-        }
-        gradient={{ from: '#0EA5E9', to: '#1D4ED8' }}
+        note={heroNote}
+        gradient={{ from: DICTATION_ACCENT, to: '#1D4ED8' }}
         icon={Headphones}
-        stats={[
-          { label: '이번 주', value: stats.weeklyAccuracy, unit: '%', emphasis: true },
-          { label: '누적 문장', value: stats.totalSentences, unit: '개' },
-          { label: 'Streak', value: stats.streak, unit: '일' },
-        ]}
+        // 사이드바의 전체 학습 streak 과 다른 지표다 — 라벨에 '받아쓰기'를 박아 혼동을 막는다.
+        stats={heroStats}
       />
 
-      {/* ─── Smart Suggestion ─── */}
-      {suggestion && (
+      {/* ─── 이어하기 (미완주 세션) ─── */}
+      {resumeId && (
         <Link
-          href={`/dictate/setup?resourceId=${suggestion.resource.id}`}
-          className="group flex flex-col gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-gradient-to-br from-[var(--bg)] to-[var(--bg2)] p-5 shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:border-[var(--p)] hover:shadow-[var(--sh-md)]"
+          href={`/dictate/session?sessionId=${resumeId}`}
+          className="flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3 font-body text-[13px] text-[var(--t1)] transition-colors hover:border-[var(--p)] hover:bg-[var(--p-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
         >
-          <div className="flex items-center justify-between">
-            <span
-              className="font-display text-[11px] font-[700] uppercase tracking-[0.10em]"
-              style={{ color: DICTATION_ACCENT }}
-            >
-              ⭐ 오늘의 추천
-            </span>
-            <ArrowRight
-              size={18}
-              className="text-[var(--t3)] transition-transform group-hover:translate-x-1 group-hover:text-[var(--p)]"
-            />
-          </div>
-          <div className="flex flex-col gap-1">
-            <h3 className="font-display text-[20px] font-[700] text-[var(--t1)]">
-              {suggestion.resource.title}
-            </h3>
-            <p className="font-body text-[13px] text-[var(--t2)]">{suggestion.reason}</p>
-          </div>
-          <div className="flex items-center gap-3">
-            <span className="rounded-full bg-[var(--p-light)] px-3 py-1 font-mono text-[11px] font-[700] text-[var(--p-dark)]">
-              {suggestion.resource.cefr ?? 'B1'}
-            </span>
-            <span className="font-body text-[12px] text-[var(--t3)]">
-              {suggestion.resource.script.split(/\s+/).length} words
-            </span>
-          </div>
+          <Play size={13} className="text-[var(--p)]" />
+          풀던 받아쓰기가 남아 있어요
+          <ArrowRight size={13} className="ml-auto text-[var(--t2)]" />
         </Link>
       )}
 
-      {/* ─── 리소스 선택 ─── */}
-      <section className="flex flex-col gap-3">
-        <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">
-          📚 리소스 선택
-        </h2>
-        <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
-          {/* 라이브러리 */}
-          <article className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-sm)]">
-            <header className="mb-3 flex items-center gap-2">
-              <span
-                className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)]"
-                style={{ backgroundColor: `${DICTATION_ACCENT}15`, color: DICTATION_ACCENT }}
-              >
-                <FileText size={14} strokeWidth={2} />
-              </span>
-              <h3 className="font-display text-[14px] font-[700] text-[var(--t1)]">
-                라이브러리
-              </h3>
-              <span className="ml-auto font-mono text-[11px] text-[var(--t3)]">
-                {resources.length}개
-              </span>
-            </header>
-            <ul className="flex flex-col gap-2">
-              {resources.slice(0, 5).map((r) => (
-                <li key={r.id}>
-                  <Link
-                    href={`/dictate/setup?resourceId=${r.id}`}
-                    className="group flex items-center gap-3 rounded-[var(--r-md)] px-3 py-2 transition-colors hover:bg-[var(--bg2)]"
-                  >
-                    <span className="rounded-full bg-[var(--bg3)] px-2 py-0.5 font-mono text-[10px] font-[700] text-[var(--t2)]">
-                      {r.cefr ?? 'B1'}
-                    </span>
-                    <span className="flex-1 truncate font-body text-[13px] text-[var(--t1)]">
-                      {r.title}
-                    </span>
-                    <ArrowRight
-                      size={14}
-                      className="text-[var(--t3)] opacity-0 transition-opacity group-hover:opacity-100"
-                    />
-                  </Link>
-                </li>
-              ))}
-              {resources.length === 0 && (
-                <li className="px-3 py-4 text-center font-body text-[12px] text-[var(--t3)]">
-                  아직 등록된 리소스가 없습니다.
-                </li>
-              )}
-            </ul>
-          </article>
-
-          {/* 직접 입력 */}
-          <article className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-sm)]">
-            <header className="mb-3 flex items-center gap-2">
-              <span
-                className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] bg-[var(--active-light)] text-[var(--active)]"
-              >
-                <PencilLine size={14} strokeWidth={2} />
-              </span>
-              <h3 className="font-display text-[14px] font-[700] text-[var(--t1)]">
-                직접 입력
-              </h3>
-            </header>
-            {!showDirectInput ? (
-              <div className="flex flex-col gap-2">
-                <button
-                  type="button"
-                  onClick={() => setShowDirectInput(true)}
-                  className="flex items-center justify-center gap-2 rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-3 font-display text-[13px] font-[600] text-[var(--t1)] transition-colors hover:border-[var(--p)] hover:bg-[var(--p-light)]"
-                >
-                  <Plus size={14} />
-                  스크립트 붙여넣기
-                </button>
-                <button
-                  type="button"
-                  disabled
-                  title="Phase 2 예정"
-                  className="flex items-center justify-center gap-2 rounded-[var(--r-md)] border border-dashed border-[var(--bd)] px-4 py-3 font-display text-[13px] font-[600] text-[var(--t3)] opacity-60"
-                >
-                  <Upload size={14} />
-                  파일 업로드 (Phase 2)
-                </button>
-              </div>
-            ) : (
-              <div className="flex flex-col gap-2">
-                <input
-                  type="text"
-                  value={titleInput}
-                  onChange={(e) => setTitleInput(e.target.value)}
-                  placeholder="제목 (선택)"
-                  className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-body text-[13px] focus:border-[var(--bdf)] focus:outline-none"
-                />
-                <textarea
-                  value={scriptInput}
-                  onChange={(e) => {
-                    setScriptInput(e.target.value);
-                    if (inputError) setInputError(null);
-                  }}
-                  placeholder="영어 스크립트를 붙여넣으세요 (최소 20자)"
-                  rows={4}
-                  aria-invalid={inputError != null}
-                  className={`rounded-[var(--r-md)] border bg-[var(--bg)] px-3 py-2 font-body text-[13px] focus:outline-none focus:ring-2 focus:ring-[var(--p)]/20 ${
-                    inputError
-                      ? 'border-[var(--warning)] focus:border-[var(--warning)]'
-                      : 'border-[var(--bd)] focus:border-[var(--bdf)]'
-                  }`}
-                />
-                {inputError && (
-                  <p
-                    role="status"
-                    className="font-body text-[12px] italic text-[var(--warning)]"
-                  >
-                    {inputError}
-                  </p>
-                )}
-                <div className="flex gap-2">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setShowDirectInput(false);
-                      setInputError(null);
-                    }}
-                    className="flex-1 rounded-[var(--r-md)] border border-[var(--bd)] py-2 font-display text-[13px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
-                  >
-                    취소
-                  </button>
-                  <button
-                    type="button"
-                    onClick={handleDirectInputSubmit}
-                    className="flex-1 rounded-[var(--r-md)] bg-[var(--p)] py-2 font-display text-[13px] font-[600] text-[var(--ti)] transition-colors hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
-                  >
-                    분석 + 시작
-                  </button>
-                </div>
-              </div>
-            )}
-          </article>
+      {/* 조회 실패 — 빈 화면도, 영원한 스피너도 아닌 "왜 + 다음 한 걸음" */}
+      {data.failed && (
+        <div
+          role="alert"
+          className="flex flex-col gap-3 rounded-[var(--r-md)] border border-[var(--bde)] bg-[var(--error-light)] px-4 py-3 sm:flex-row sm:items-center"
+        >
+          <p className="flex-1 break-keep font-body text-[13px] leading-relaxed text-[var(--error-ink)]">
+            지금은 받아쓰기 자료를 불러오지 못했어요. 연결이 끊겼거나 잠시 응답이 없었어요.
+          </p>
+          <button
+            type="button"
+            onClick={() => startRetry(() => router.refresh())}
+            disabled={retrying}
+            className="inline-flex min-h-[44px] shrink-0 items-center justify-center gap-2 rounded-[var(--r-sm)] border border-[var(--error)]/30 bg-[var(--bg)] px-4 font-display text-[12px] font-[700] text-[var(--error-ink)] transition-colors hover:bg-[var(--error-light)] disabled:cursor-not-allowed disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 active:scale-[0.99]"
+          >
+            <RotateCcw size={13} className={retrying ? 'animate-spin' : undefined} aria-hidden />
+            다시 시도
+          </button>
         </div>
-      </section>
+      )}
+
+      {/* 시작 실패 사유 — 버튼만 되돌아오는 화면은 "아무 일도 안 일어났다" 로 읽힌다 */}
+      {startError && (
+        <p
+          role="alert"
+          className="rounded-[var(--r-md)] border border-[var(--bde)] bg-[var(--error-light)] px-4 py-3 font-body text-[13px] leading-relaxed text-[var(--error-ink)]"
+        >
+          {startError}
+        </p>
+      )}
+
+      {/* ─── 오늘의 받아쓰기 ─── */}
+      <DailyCard
+        loadFailed={data.failed}
+        daily={daily}
+        starting={starting}
+        hasAnything={hasAnything}
+        onStart={startDaily}
+      />
+
+      {/* ─── 자료 고르기 ─── */}
+      <SourcePicker catalog={catalog} />
+
+      {/* ─── 약점 ─── */}
+      <WeaknessPanel rows={weakness} days={14} />
 
       {/* ─── 최근 세션 ─── */}
-      <section className="flex flex-col gap-3">
-        <div className="flex items-center justify-between">
-          <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">
-            🕒 최근 세션
-          </h2>
-          {stats.streak > 0 && (
-            <span className="inline-flex items-center gap-1 font-mono text-[11px] text-[var(--active)]">
-              <Flame size={12} strokeWidth={2.5} />
-              {stats.streak}일 연속
-            </span>
-          )}
-        </div>
-        <ul className="flex flex-col divide-y divide-[var(--bg3)] rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)]">
-          {sessions.slice(0, 5).map((s) => {
-            const acc = s.totalAccuracy ?? 0;
-            const accColor =
-              acc >= 90
-                ? 'var(--success)'
-                : acc >= 70
-                  ? 'var(--p)'
-                  : acc > 0
-                    ? 'var(--warning)'
-                    : 'var(--t3)';
-            return (
-              <li key={s.id} className="flex items-center gap-3 px-4 py-3">
-                <span className="rounded-full bg-[var(--bg3)] px-2 py-0.5 font-mono text-[10px] font-[700] text-[var(--t2)]">
-                  {s.config.cefr}
-                </span>
-                <div className="min-w-0 flex-1">
-                  <p className="truncate font-body text-[13px] font-[600] text-[var(--t1)]">
-                    {s.resourceTitle}
-                  </p>
-                  <p className="font-body text-[11px] text-[var(--t3)]">
-                    {s.completedAt
-                      ? `${new Date(s.completedAt).toLocaleString('ko-KR', {
-                          month: 'numeric',
-                          day: 'numeric',
-                          hour: 'numeric',
-                          minute: 'numeric',
-                        })} · ${s.items.length}개`
-                      : '진행 중'}
-                  </p>
-                </div>
-                {s.totalAccuracy != null ? (
-                  <span
-                    className="font-mono text-[14px] font-[700] tabular-nums"
-                    style={{ color: accColor }}
-                  >
-                    {Math.round(acc)}%
+      {recent.length > 0 && (
+        <section className="flex flex-col gap-3">
+          <h2 className="font-display text-[15px] font-[700] text-[var(--t1)]">최근 받아쓰기</h2>
+          <ul className="flex flex-col divide-y divide-[var(--bg3)] rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)]">
+            {recent.map((s) => {
+              const acc = s.avgAccuracy
+              const accColor =
+                acc == null
+                  ? 'var(--t3)'
+                  : acc >= 90
+                    ? 'var(--success)'
+                    : acc >= 70
+                      ? 'var(--p)'
+                      : 'var(--warning)'
+              const done = !!s.completedAt
+              return (
+                <li key={s.id} className="flex items-center gap-3 px-4 py-3">
+                  <span className="shrink-0 rounded-full bg-[var(--bg3)] px-2 py-1 font-display text-[10px] font-[700] text-[var(--t2)]">
+                    {SOURCE_KIND_LABEL[s.sourceKind] ?? s.sourceKind}
                   </span>
-                ) : null}
-                {s.completedAt ? (
-                  <Link
-                    href={`/dictate/results?sessionId=${s.id}`}
-                    className="rounded-[var(--r-sm)] bg-[var(--bg2)] px-2 py-1 font-display text-[11px] font-[600] text-[var(--t2)] hover:bg-[var(--bg3)]"
-                  >
-                    결과
-                  </Link>
-                ) : (
-                  <Link
-                    href={`/dictate/session?sessionId=${s.id}`}
-                    className="rounded-[var(--r-sm)] bg-[var(--p-light)] px-2 py-1 font-display text-[11px] font-[600] text-[var(--p)] hover:bg-[var(--p)]/20"
-                  >
-                    이어하기
-                  </Link>
-                )}
-              </li>
-            );
-          })}
-          {sessions.length === 0 && (
-            <li className="flex items-center gap-2 px-4 py-6 font-body text-[13px] text-[var(--t3)]">
-              <TrendingUp size={14} />
-              <span>아직 받아쓰기 기록이 없어요. 위에서 리소스를 선택해 시작해보세요.</span>
-            </li>
-          )}
-        </ul>
-      </section>
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate font-body text-[13px] font-[600] text-[var(--t1)]">
+                      {s.title}
+                    </p>
+                    <p className="font-body text-[11px] text-[var(--t2)]">
+                      {done
+                        ? `${new Date(s.completedAt as string).toLocaleString('ko-KR', {
+                            month: 'numeric',
+                            day: 'numeric',
+                            hour: 'numeric',
+                            minute: 'numeric',
+                          })} · ${s.completedItems}문장`
+                        : `진행 중 · ${s.completedItems}/${s.totalItems}문장`}
+                    </p>
+                  </div>
+                  {acc != null && (
+                    <span
+                      className="font-mono text-[14px] font-[700] tabular-nums"
+                      style={{ color: accColor }}
+                    >
+                      {Math.round(acc)}%
+                    </span>
+                  )}
+                  {done && (
+                    <Link
+                      href={`/dictate/results?sessionId=${s.id}`}
+                      className="shrink-0 rounded-[var(--r-sm)] bg-[var(--bg2)] px-2 py-1 font-display text-[11px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+                    >
+                      결과
+                    </Link>
+                  )}
+                </li>
+              )
+            })}
+          </ul>
+        </section>
+      )}
     </div>
-  );
+  )
+}
+
+// ── 오늘의 받아쓰기 카드 ──────────────────────────────────────────
+
+function DailyCard({
+  loadFailed,
+  daily,
+  starting,
+  hasAnything,
+  onStart,
+}: {
+  loadFailed: boolean
+  daily: DailyDictation | null
+  starting: boolean
+  hasAnything: boolean
+  onStart: () => void
+}) {
+  // 조회 실패는 위 alert 가 이유와 [다시 시도] 를 말한다 — 여기에 "자료 없음" 을
+  // 겹쳐 그리면 실패를 빈 상태로 오해하게 만든다.
+  if (loadFailed) return null
+
+  // 서버가 이미 조립해 내려주므로 로딩 상태가 없다(예전에는 여기서 스피너가 돌았다).
+  // 재료가 없는 이유는 하나뿐 — 받아쓸 자료가 없다. (비로그인은 라우트가 막는다.)
+  if (!daily) {
+    return (
+      <section className="flex flex-col gap-3 rounded-[var(--r-lg)] border border-dashed border-[var(--bd)] bg-[var(--bg)] p-5">
+        <h2 className="font-display text-[15px] font-[700] text-[var(--t1)]">오늘의 받아쓰기</h2>
+        <p className="break-keep font-body text-[13px] leading-relaxed text-[var(--t2)]">
+          {hasAnything
+            ? '아래에서 자료를 하나 골라 첫 세션을 마치면, 내일부터는 오늘의 5문장이 자동으로 만들어져요.'
+            : '받아쓸 자료가 아직 없어요. 도서를 담거나 스크립트를 넣으면 여기에 매일 5문장이 놓입니다.'}
+        </p>
+      </section>
+    )
+  }
+
+  const minutes = Math.max(1, Math.round(daily.sentences.length * 0.8))
+
+  return (
+    <section
+      className="flex flex-col gap-4 rounded-[var(--r-lg)] border border-[var(--bd)] bg-gradient-to-br from-[var(--bg)] to-[var(--bg2)] p-5 shadow-[var(--sh-sm)]"
+      aria-labelledby="daily-dictation-title"
+    >
+      <div className="flex items-start justify-between gap-3">
+        <div className="flex flex-col gap-1">
+          <span
+            className="font-display text-[11px] font-[700] uppercase tracking-[0.10em]"
+            style={{ color: DICTATION_ACCENT }}
+          >
+            오늘의 받아쓰기
+          </span>
+          <h2
+            id="daily-dictation-title"
+            className="font-display text-[19px] font-[700] text-[var(--t1)]"
+          >
+            {daily.sentences.length}문장 · 약 {minutes}분
+          </h2>
+          {/* 구성 내역은 아래 칩이 말한다 — 같은 말을 두 번 하지 않는다(§철학2) */}
+        </div>
+        <Sparkles size={18} className="mt-0.5 shrink-0 text-[var(--t3)]" />
+      </div>
+
+      {/* 왜 이 문장인지 — 구성 근거를 접지 않고 보여준다. 시스템을 신뢰하려면 근거가 보여야 한다. */}
+      <ul className="flex flex-wrap gap-2">
+        {daily.meta.due > 0 && <ReasonChip label={`복습 임박 단어 ${daily.meta.due}`} tone="p" />}
+        {daily.meta.retry > 0 && (
+          <ReasonChip label={`지난번 놓친 문장 ${daily.meta.retry}`} tone="warning" />
+        )}
+        {daily.meta.fresh > 0 && (
+          <ReasonChip label={`읽던 자료에서 ${daily.meta.fresh}`} tone="neutral" />
+        )}
+      </ul>
+
+      <button
+        type="button"
+        onClick={onStart}
+        disabled={starting}
+        className="group inline-flex items-center justify-center gap-2 rounded-[var(--r-md)] py-3 font-display text-[14px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:shadow-[var(--sh-md)] active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+        style={{ background: `linear-gradient(135deg, ${DICTATION_ACCENT}, #1D4ED8)` }}
+      >
+        {starting ? (
+          <>
+            <Loader2 size={15} className="animate-spin" />
+            준비 중
+          </>
+        ) : (
+          <>
+            시작하기
+            <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
+          </>
+        )}
+      </button>
+    </section>
+  )
+}
+
+function ReasonChip({ label, tone }: { label: string; tone: 'p' | 'warning' | 'neutral' }) {
+  const cls =
+    tone === 'p'
+      ? 'bg-[var(--p-light)] text-[var(--on-p-tint)]'
+      : tone === 'warning'
+        ? 'bg-[var(--warning-light)] text-[var(--warning)]'
+        : 'bg-[var(--bg3)] text-[var(--t2)]'
+  return (
+    <li className={`rounded-full px-3 py-1 font-body text-[11px] font-[600] ${cls}`}>{label}</li>
+  )
 }

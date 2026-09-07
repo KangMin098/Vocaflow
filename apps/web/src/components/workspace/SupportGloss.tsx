@@ -82,13 +82,13 @@ export function SupportGloss({ support, anchorRect, onClose }: SupportGlossProps
       {/* category chip */}
       <div className="mb-2.5 flex items-center justify-between">
         <span
-          className="inline-flex items-center gap-1.5 rounded-[var(--r-full)] px-2 py-0.5 font-display text-[10px] font-[700] uppercase tracking-[0.06em]"
+          className="inline-flex items-center gap-2 rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700] uppercase tracking-[0.06em]"
           style={{ color: meta.tint, background: meta.bg }}
         >
           <ChipIcon size={11} strokeWidth={2} aria-hidden="true" />
           {chipLabel}
         </span>
-        <span className="font-body text-[10px] text-[var(--t4)]">도움말</span>
+        <span className="font-body text-[10px] text-[var(--t2)]">도움말</span>
       </div>
 
       {/* original surface — Lora (영어) */}
@@ -100,7 +100,7 @@ export function SupportGloss({ support, anchorRect, onClose }: SupportGlossProps
       <p className="font-body text-[13.5px] leading-relaxed text-[var(--t2)]">{support.gloss}</p>
 
       {/* footer — 멘탈 모델: 학습 단어 아님 */}
-      <p className="mt-3 border-t border-[var(--bd)] pt-2 font-body text-[11px] italic text-[var(--t3)]">
+      <p className="mt-3 border-t border-[var(--bd)] pt-2 font-body text-[11px] italic text-[var(--t2)]">
         학습 단어가 아니에요 · 뜻만 참고하고 지나가세요
       </p>
     </div>

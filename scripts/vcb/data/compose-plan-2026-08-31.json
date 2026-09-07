@@ -1,0 +1,43 @@
+{
+  "$schema": "vcb-compose-plan/1",
+  "createdAt": "2026-08-31",
+  "why": "사다리 1~3단(초등~중학 진입)이 얇았다. 재고 문제가 아니라 뽑지 않은 것이었다 — 어느 권에도 안 실린 V1~V3 낱말이 1,333개(V1 356·V2 585·V3 392). `uncovered` 는 청사진 바닥이 없어 계단이 낱말 실측 중앙값 그대로 정해진다.",
+  "volumes": [
+    {
+      "blueprint": "uncovered",
+      "why": "1단(초등 저학년) — 1권뿐이었다",
+      "params": {
+        "v_level_min": 1,
+        "v_level_max": 1,
+        "slug": "cat-uncovered-v1",
+        "title": "아직 없는 말 · 초등 저학년",
+        "cover_emoji": "🌱",
+        "count": 300
+      }
+    },
+    {
+      "blueprint": "uncovered",
+      "why": "2단(초등 고학년) — 3권뿐이었다",
+      "params": {
+        "v_level_min": 2,
+        "v_level_max": 2,
+        "slug": "cat-uncovered-v2",
+        "title": "아직 없는 말 · 초등 고학년",
+        "cover_emoji": "🧭",
+        "count": 400
+      }
+    },
+    {
+      "blueprint": "uncovered",
+      "why": "3단(중학 1-2) 보강",
+      "params": {
+        "v_level_min": 3,
+        "v_level_max": 3,
+        "slug": "cat-uncovered-v3",
+        "title": "아직 없는 말 · 중학",
+        "cover_emoji": "🔭",
+        "count": 300
+      }
+    }
+  ]
+}

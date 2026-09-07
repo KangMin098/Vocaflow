@@ -195,6 +195,33 @@ function parseMetaHtml(html: string): SEMeta {
  * 정규식 단순 치환은 중첩 <section> 에서 깨지므로 깊이 추적 토크나이저로 안전 제거.
  * (frontmatter 는 어차피 첫 챕터 이전이라 대부분 버려졌지만, backmatter 차단이 핵심.)
  */
+// v06.35 — matter 제거의 안전망: 본문 단위를 품은 섹션은 지우지 않는다.
+//
+//   Personal Recollections of Joan of Arc 는 73개 chapter 가 세 개의
+//   `<section epub:type="frontmatter part z3998:fiction">` 안에 중첩돼 있다.
+//   (SE 가 이 책의 Book 1/2/3 을 그렇게 태깅했다 — 보통은 `part` 나 bodymatter 다.)
+//   그래서 frontmatter 제거가 **본문 전체를 삼켰고**, raw_content 가 0바이트가 됐다.
+//   실패는 한참 뒤 DB 에서 `store_content_chunk: empty content` 로 터져 원인이 안 보였다.
+//
+//   태깅 변종을 일일이 쫓는 대신 불변식을 둔다 — matter 판정이 틀려도 본문은 지킨다.
+//   endnotes·colophon·copyright 같은 진짜 boilerplate 는 chapter 를 품지 않으므로
+//   기존 제거 동작(Gibbon 473k 미주 차단 등)에 영향이 없다.
+const UNIT_SECTION_RE =
+  /epub:type="[^"]*\b(?:chapter|short-story|z3998:story|z3998:poem|z3998:fable)\b/i
+
+/** 여는 <section> 위치에서 짝이 맞는 </section> 까지의 구간을 돌려준다 (없으면 끝까지). */
+function sectionBody(html: string, openTagEnd: number): string {
+  const re = /<section\b[^>]*>|<\/section\s*>/gi
+  re.lastIndex = openTagEnd
+  let depth = 1
+  let m: RegExpExecArray | null
+  while ((m = re.exec(html)) !== null) {
+    depth += m[0].startsWith('</') ? -1 : 1
+    if (depth === 0) return html.slice(openTagEnd, m.index)
+  }
+  return html.slice(openTagEnd)
+}
+
 function stripMatterSections(html: string): string {
   const re = /<section\b([^>]*)>|<\/section\s*>/gi
   let out = ''
@@ -209,7 +236,11 @@ function stripMatterSections(html: string): string {
       out += html.slice(pos, m.index)
       if (!isClose) {
         const ty = (m[1]?.match(/epub:type="([^"]*)"/i)?.[1] ?? '').toLowerCase()
-        if (/\b(?:frontmatter|backmatter)\b/.test(ty)) {
+        if (
+          /\b(?:frontmatter|backmatter)\b/.test(ty) &&
+          // ★ 안전망 — 이 블록이 본문 단위를 품고 있으면 보존한다 (위 주석)
+          !UNIT_SECTION_RE.test(sectionBody(html, re.lastIndex))
+        ) {
           skipDepth = depth // 이 섹션부터 제거 시작 (여는 태그도 미방출)
           depth++
           pos = re.lastIndex
@@ -249,7 +280,8 @@ function stripMatterSections(html: string): string {
  * - 기타 태그 stripped
  * - HTML entity 디코딩 (최소)
  */
-function htmlToPlainText(html: string, hrefMap: Map<string, string> = new Map()): string {
+/** export 이유: test/entity-decode.test.ts 회귀 (수치 엔티티 잔존 재발 방지). */
+export function htmlToPlainText(html: string, hrefMap: Map<string, string> = new Map()): string {
   // 1. <body> 만 추출
   const bodyMatch = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i)
   let work = bodyMatch ? bodyMatch[1]! : html
@@ -308,7 +340,28 @@ function htmlToPlainText(html: string, hrefMap: Map<string, string> = new Map())
   let curBook = ''
   // 콘텐츠 단위 epub:type — 소설 chapter 외에 단편/시 모음(article 기반)도 포함.
   //   (Just So Stories=se:short-story article · 시집=z3998:poem · 우화=z3998:fable)
-  const UNIT_TYPES = ['chapter', 'short-story', 'z3998:story', 'z3998:poem', 'z3998:fable']
+  const BASE_UNIT_TYPES = ['chapter', 'short-story', 'z3998:story', 'z3998:poem', 'z3998:fable']
+
+  // v06.35 — chapter 류가 하나도 없는 책의 폴백 unit.
+  //
+  //   Plato Dialogues(plato/dialogues/benjamin-jowett)는 epub:type 에 `chapter` 가
+  //   **0개**다 — 본문이 `division`(24) · `z3998:drama`(17) 로만 표시된다.
+  //   그래서 본문 섹션이 unit 으로 인식되지 않고 직전 챕터에 통째로 붙었다:
+  //       ch10 481,877단어 · ch22 161,624단어 (나머지 20개는 3.6~11.6천으로 정상)
+  //   정상 챕터들은 각 대화편의 Introduction 이고, 대화 본문이 두 덩어리로 뭉친 것이다.
+  //   챕터 제목에도 본문 첫 문장이 들어가 있었다.
+  //
+  //   ⚠ division 을 무조건 unit 으로 넣으면 회귀한다 — Proust(in-search-of-lost-time)는
+  //   chapter 24개 **위에** `bodymatter division` 6개가 상위 컨테이너로 있어서,
+  //   division 을 leaf 로 잡으면 24챕터가 6덩어리로 뭉친다.
+  //   → chapter 류가 하나도 없을 때만 폴백으로 승격한다.
+  const hasChapterUnit = new RegExp(
+    `epub:type="[^"]*\\b(?:${BASE_UNIT_TYPES.join('|').replace(/:/g, ':')})\\b`,
+    'i',
+  ).test(work)
+  const UNIT_TYPES = hasChapterUnit
+    ? BASE_UNIT_TYPES
+    : [...BASE_UNIT_TYPES, 'division', 'z3998:drama']
   work = work.replace(
     /<(?:section|article)\b([^>]*)>\s*(?:<header\b[^>]*>\s*)?(?:<figure\b[^>]*>[\s\S]*?<\/figure>\s*)?(<hgroup\b[^>]*>[\s\S]*?<\/hgroup>|<h[1-6]\b[^>]*>[\s\S]*?<\/h[1-6]>)?/gi,
     (_m: string, attrs: string, block: string | undefined) => {
@@ -369,7 +422,9 @@ function htmlToPlainText(html: string, hrefMap: Map<string, string> = new Map())
   // 6. 모든 남은 태그 strip
   work = work.replace(/<[^>]+>/g, '')
 
-  // 7. HTML entity 디코딩 (최소)
+  // 7. HTML entity 디코딩
+  //    named 만 열거하면 수치 엔티티(&#8220; 등)가 본문에 남아 토큰 첫 글자를 먹는다
+  //    (pressbooks 에서 실측된 결함 — 같은 whitelist 를 복사한 여기도 동일 위험) → generic fallback 필수.
   work = work
     .replace(/&amp;/g, '&')
     .replace(/&lt;/g, '<')
@@ -386,6 +441,8 @@ function htmlToPlainText(html: string, hrefMap: Map<string, string> = new Map())
     .replace(/&lsquo;/g, '‘')
     .replace(/&rdquo;/g, '”')
     .replace(/&ldquo;/g, '“')
+    .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(parseInt(n, 10)))
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, h) => String.fromCodePoint(parseInt(h, 16)))
 
   // 8. whitespace 정규화 (3+ 개 newline → 2개)
   work = work.replace(/[ \t]+/g, ' ')
