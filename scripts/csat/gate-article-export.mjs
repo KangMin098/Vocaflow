@@ -196,10 +196,33 @@ console.log(`  밴드  ${tally((r) => `V${r.article_v_level ?? '?'}`)}\n`)
 // ⚠️ 제목이 겹치면 판정 하나가 여러 기사에 붙는다(적재기가 title 로 대조한다).
 //   책 단위와 같은 성질이지만 기사에서는 우연한 동명이 더 흔하다 — 세어서 밝힌다.
 const byTitle = new Map()
+/**
+ * 철회·취하된 연구인가 — **제목으로만 알 수 있다.**
+ *
+ * ⚠️ 정본은 `source-eligibility.ts` 의 안전 축이고 **그쪽은 이미 막고 있다**(실측 2026-09-07:
+ *   안전 축 탈락 146편). 그런데 이 뽑기는 그 판정을 안 보므로 철회 논문을 그대로 내보냈고,
+ *   판정자들이 읽고 하나하나 `obsolete-fact` 로 반려했다 — **결과는 옳지만 헛일이다.**
+ *   실측: 발췌 11,601편 중 제목이 `RETRACTED` 로 시작하는 것 35편.
+ *
+ * ⚠️ 철회를 **다룬** 글("Retraction studies in ethics")은 통과해야 하므로 **앞머리만** 본다.
+ *   같은 규칙이 `volume-pool.mjs` 와 적격 판정에도 있다 — 세 벌이 된 것은 좋지 않지만,
+ *   여기서 정본을 import 하려면 이 스크립트가 패키지를 끌어와야 해서 지금은 같은 정규식을
+ *   쓰고 **출처를 적어 둔다**(고칠 때 셋을 함께 고칠 것).
+ */
+const RETRACTED = /^\s*(RETRACTED|WITHDRAWN|EXPRESSION OF CONCERN)\b/i
+
+let skippedRetracted = 0
 for (const r of rows) {
+  if (RETRACTED.test(String(r.title ?? ''))) {
+    skippedRetracted += 1
+    continue
+  }
   const k = String(r.title ?? '').split(' — ')[0].trim() || '(무제)'
   if (!byTitle.has(k)) byTitle.set(k, [])
   byTitle.get(k).push(r)
+}
+if (skippedRetracted) {
+  console.log(`  철회·취하 ${skippedRetracted.toLocaleString()}편은 뽑지 않는다 — 적격 판정이 이미 막는다\n`)
 }
 const dup = [...byTitle.values()].filter((v) => v.length > 1)
 if (dup.length) {
