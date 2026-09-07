@@ -74,6 +74,16 @@ export interface KidBandRow {
   quarantinedPct: number
   /** 몫까지 남은 편수. */
   quotaLeft: number
+  /**
+   * **조합 가능** — `status` 가 `ready`/`published` 인 것. 안 주면 `undefined`.
+   *
+   * ⚠️ **적재와 조합 가능은 다르다** (실측 2026-09-07). 이 표가 초·중 재고를
+   *   **97.8%(8,962/9,160)** 로 보고하는 동안, 조판이 실제로 쓸 수 있는 것은
+   *   **9편**뿐이었다 — 나머지 8,873편이 `queued` 로 큐에 잠겨 있었다.
+   *   그 수치를 근거로 「초·중은 다 찼다」고 읽으면 정확히 틀린다.
+   *   조판 풀은 `ready`/`published` 만 쓴다. 그래서 그 축을 함께 찍는다.
+   */
+  composable?: number
 }
 
 export interface KidSourceInventory {
@@ -93,17 +103,18 @@ export interface KidSourceInventory {
  * **무엇을 게시 가능이라 부르는지는 여기서만 정한다.**
  */
 export function buildKidInventory(
-  counts: Record<KidBand, { held: number; quarantined: number }>,
+  counts: Record<KidBand, { held: number; quarantined: number; composable?: number }>,
   adapted: { held: number; quarantined: number }
 ): KidSourceInventory {
   const bands: KidBandRow[] = KID_BANDS.map((band) => {
-    const { held, quarantined } = counts[band]
+    const { held, quarantined, composable } = counts[band]
     const publishable = held - quarantined
     return {
       band,
       held,
       quarantined,
       publishable,
+      composable,
       quarantinedPct: held ? +((quarantined / held) * 100).toFixed(1) : 0,
       quotaLeft: Math.max(0, KID_SOURCE_TARGET.quotaPerBand - publishable),
     }

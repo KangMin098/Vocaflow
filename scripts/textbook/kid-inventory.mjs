@@ -64,7 +64,14 @@ for (const b of BANDS) {
   const { count: bad } = await countOf((q) =>
     quarantined(q.eq('feed_id', KID_FEED_ID).eq('feed_label', label))
   )
-  counted.push([b, { held, quarantined: bad }])
+  // ⚠️ **적재와 조합 가능은 다르다** (실측 2026-09-07). 이 표가 초·중 재고를
+  //   **97.8%** 로 보고하는 동안 조판이 실제로 쓸 수 있는 것은 **9편**뿐이었다 —
+  //   나머지 8,873편이 `queued` 로 큐에 잠겨 있었고, 조판 풀은 `ready`/`published` 만 쓴다.
+  //   그 수치를 근거로 「초·중은 다 찼다」고 읽으면 정확히 틀린다. 그래서 함께 센다.
+  const { count: usable } = await countOf((q) =>
+    q.eq('feed_id', KID_FEED_ID).eq('feed_label', label).in('status', ['ready', 'published'])
+  )
+  counted.push([b, { held, quarantined: bad, composable: usable }])
 }
 const { count: adaptedHeld } = await countOf((q) => q.eq('feed_id', ADAPTED_FEED_ID))
 const { count: adaptedBad } = await countOf((q) => quarantined(q.eq('feed_id', ADAPTED_FEED_ID)))
@@ -82,15 +89,29 @@ if (JSON_OUT) {
   console.log(JSON.stringify({ measuredAt: new Date().toISOString(), target: TARGET, total, pct, rows, adapted: { held: adaptedHeld, publishable: adaptedOk } }, null, 2))
 } else {
   const lp = (v, n) => String(v).padStart(n)
-  console.log('\n  칸           적재   게시 가능   격리율   남은 몫')
-  console.log('  ─────────────────────────────────────────────')
+  console.log('\n  칸           적재   게시 가능   조합 가능   격리율   남은 몫')
+  console.log('  ────────────────────────────────────────────────────────')
   for (const r of rows) {
     const quar = r.held ? ((r.quarantined / r.held) * 100).toFixed(0) : "0"
-    console.log(`  ${r.band.padEnd(8)}${lp(r.held, 6)}${lp(r.publishable, 11)}${lp(quar + '%', 8)}${lp(r.quotaLeft.toLocaleString(), 10)}`)
+    console.log(
+      `  ${r.band.padEnd(8)}${lp(r.held, 6)}${lp(r.publishable, 11)}` +
+        `${lp(r.composable ?? '?', 11)}${lp(quar + '%', 8)}${lp(r.quotaLeft.toLocaleString(), 10)}`,
+    )
   }
   console.log(`  ${'각색'.padEnd(8)}${lp(adaptedHeld, 6)}${lp(adaptedOk, 11)}`)
-  console.log('  ─────────────────────────────────────────────')
+  console.log('  ────────────────────────────────────────────────────────')
   console.log(`  합계 **${total.toLocaleString()}** / ${TARGET.toLocaleString()} = **${pct}%**\n`)
+  // ⚠️ **이 표를 「다 찼다」로 읽지 않게 한다.** 2026-09-07 에 「97.8%」인 채로 조판이 쓸 수
+  //   있는 글은 9편뿐이었다 — 나머지가 `queued` 였다. 두 축이 벌어져 있으면 그렇게 말한다.
+  const composableTotal = rows.reduce((n, r) => n + (r.composable ?? 0), 0)
+  const gap = total - composableTotal
+  if (gap > 0) {
+    console.log(
+      `  ⚠️ 게시 가능 ${total.toLocaleString()} 중 **조합 가능은 ${composableTotal.toLocaleString()}** ` +
+        `— ${gap.toLocaleString()}편이 아직 큐에 있다(조판 풀은 ready/published 만 쓴다).\n` +
+        `     처리: pnpm dlx tsx scripts/acp/process-queue.mjs --feed kid-excerpt --commit --limit N\n`,
+    )
+  }
   console.log('  분모는 고등 재고 18,320 의 절반이다. "게시 가능" 은 격리(publishable=false)가 아닌 것 —')
   console.log('  아직 판정 안 받은 행도 포함한다.\n')
 }
