@@ -946,9 +946,18 @@ export const SOURCE_SPECS: Record<SourceKey, SourceSpec> = {
     attributionRequired: false,       // PD US Gov — 인용 자유
     topicDomain: ['climate-science', 'environment', 'atmosphere', 'ocean', 'science'],
     styleGuide: '기후과학 explainer (접근형 설명문) · 대기 CO₂·해양·온난화·빙하 · CSAT 최빈출 · PD',
+    // ⚠️ `applySourceLevelCap` 은 **여기 없는 feed 에 quota 0 을 준다** — 목록에 빠지면
+    //   `NOAA_FEEDS` 에 배선해도 대량 GET 에서 한 편도 안 뽑힌다(오류 없이 사라진다).
+    //   2026-09-07 에 피드가 2 → 8 이 됐으므로 여기도 8개다. floor(24×weight) 가 전부 ≥1 이도록 배분.
     preferredFeedMix: [
-      { feedId: 'understanding-climate', weight: 0.7 },  // 기후 explainer
-      { feedId: 'features', weight: 0.3 },               // 기후 피처 기사
+      { feedId: 'understanding-climate', weight: 0.22 }, // 기후 explainer (285편)
+      { feedId: 'event-tracker', weight: 0.17 },         // 개별 기후사건 해설 (222편)
+      { feedId: 'features', weight: 0.13 },              // 기후 피처 기사 (124편)
+      { feedId: 'blogs-enso', weight: 0.13 },            // ENSO 블로그 — 엘니뇨/라니냐 정기 해설
+      { feedId: 'blogs-beyond-data', weight: 0.09 },     // Beyond the Data — 관측 데이터 읽는 법
+      { feedId: 'blogs-polar-vortex', weight: 0.09 },    // Polar Vortex 블로그 — 겨울 극와류
+      { feedId: 'climate-qa', weight: 0.09 },            // 독자 질문 1문 1답 (47편)
+      { feedId: 'climate-case-studies', weight: 0.08 },  // 지역 기후적응 사례 (28편)
     ],
   },
   // ACP §20 — 사실 재저작. 남의 본문이 아니라 우리가 쓴 글이다.

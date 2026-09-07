@@ -260,7 +260,13 @@ const SOURCES: SourceConfig[] = [
     color: 'var(--info)',
     feeds: [
       { id: 'understanding-climate', label: 'Understanding Climate (기후)' },
+      { id: 'event-tracker', label: 'Event Tracker (기후사건)' },
       { id: 'features', label: 'Features (기후)' },
+      { id: 'blogs-enso', label: 'ENSO Blog (엘니뇨)' },
+      { id: 'blogs-beyond-data', label: 'Beyond the Data (관측)' },
+      { id: 'blogs-polar-vortex', label: 'Polar Vortex (극와류)' },
+      { id: 'climate-qa', label: 'Climate Q&A (질문답변)' },
+      { id: 'climate-case-studies', label: 'Case Studies (적응사례)' },
     ],
   },
 ]
