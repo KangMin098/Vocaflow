@@ -1,22 +1,27 @@
 {
-  "measuredAt": "2026-09-06T11:07:42.486Z",
-  "elapsedSeconds": 248.7,
+  "measuredAt": "2026-09-07T03:45:02.885Z",
+  "elapsedSeconds": 199,
   "scope": "status in ('ready','published')",
-  "scanned": 21740,
-  "defective": 13224,
+  "scanned": 36507,
+  "defective": 13244,
   "rules": [
     {
       "id": "html-attr",
       "label": "HTML 속성 혼입",
       "why": "툴팁·링크 속성이 문장 한복판에 남았다 — 그대로 인쇄된다",
-      "count": 3,
+      "count": 4,
       "bySource": [
         {
           "source": "plos",
-          "count": 3
+          "count": 4
         }
       ],
       "samples": [
+        {
+          "title": "Research on the \"multi-agent co-governance\" system",
+          "source": "plos",
+          "evidence": "<p"
+        },
         {
           "title": "The normal human lymph node cell classification an",
           "source": "plos",
@@ -26,11 +31,6 @@
           "title": "Mechanistic origin of high-cycle fatigue enhanceme",
           "source": "plos",
           "evidence": "<a"
-        },
-        {
-          "title": "Patient perceptions and preferences during a commu",
-          "source": "plos",
-          "evidence": "<a"
         }
       ]
     },
@@ -38,7 +38,7 @@
       "id": "wiki-markup",
       "label": "위키 마크업 잔재",
       "why": "`== 절 ==` · `[[링크]]` · `{{틀}}` 이 본문에 남았다",
-      "count": 14,
+      "count": 13,
       "bySource": [
         {
           "source": "plos",
@@ -50,7 +50,7 @@
         },
         {
           "source": "wikipedia",
-          "count": 2
+          "count": 1
         }
       ],
       "samples": [
@@ -75,15 +75,15 @@
       "id": "browser-notice",
       "label": "브라우저·재생기 안내",
       "why": "본문 자리에 \"구형 브라우저\" · \"여기를 눌러 내려받기\" 가 들어왔다 — 추출 실패",
-      "count": 38,
+      "count": 20,
       "bySource": [
         {
           "source": "space_place",
-          "count": 24
+          "count": 10
         },
         {
           "source": "nasa",
-          "count": 14
+          "count": 10
         }
       ],
       "samples": [
@@ -108,7 +108,7 @@
       "id": "dup-paragraph",
       "label": "문단 통째 중복",
       "why": "같은 문단이 두 번 들어 있다 — 어수가 부풀고 읽으면 되풀이된다",
-      "count": 12917,
+      "count": 12907,
       "bySource": [
         {
           "source": "plos",
@@ -120,22 +120,18 @@
         },
         {
           "source": "nasa",
-          "count": 8
+          "count": 5
         },
         {
           "source": "usgs",
-          "count": 8
-        },
-        {
-          "source": "noaa",
           "count": 4
         },
         {
-          "source": "voa",
-          "count": 2
+          "source": "noaa",
+          "count": 3
         },
         {
-          "source": "space_place",
+          "source": "voa",
           "count": 2
         }
       ],
@@ -158,14 +154,59 @@
       ]
     },
     {
+      "id": "dropped-math",
+      "label": "수식이 사라진 문장",
+      "why": "기호만 빠지고 문장은 남았다 — 산문처럼 보이는데 뜻이 안 선다",
+      "count": 1789,
+      "bySource": [
+        {
+          "source": "plos",
+          "count": 1768
+        },
+        {
+          "source": "gutenberg",
+          "count": 11
+        },
+        {
+          "source": "futurity",
+          "count": 6
+        },
+        {
+          "source": "usgs",
+          "count": 3
+        },
+        {
+          "source": "storyweaver",
+          "count": 1
+        }
+      ],
+      "samples": [
+        {
+          "title": "&lsquo;Just Play&rsquo; (JP) - creative arts thera",
+          "source": "plos",
+          "evidence": "of ."
+        },
+        {
+          "title": "Patterns between evidence seeking behaviors, reaso",
+          "source": "plos",
+          "evidence": "of ."
+        },
+        {
+          "title": "Seasonal dynamic modeling for real-time prediction",
+          "source": "plos",
+          "evidence": "where represents "
+        }
+      ]
+    },
+    {
       "id": "share-chrome",
       "label": "공유 버튼·크레딧 잔재",
       "why": "\"Facebook Pinterest X LinkedIn\" · \"Image Credit:\" 가 본문에 섞였다",
-      "count": 286,
+      "count": 161,
       "bySource": [
         {
           "source": "nasa",
-          "count": 286
+          "count": 161
         }
       ],
       "samples": [

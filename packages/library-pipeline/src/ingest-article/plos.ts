@@ -233,6 +233,25 @@ function extractProse(articleHtml: string): string {
   // 인용 상첨자·참조 링크 제거 ([1], [2,3] 등)
   work = work.replace(/<a[^>]*class="[^"]*\bref-tip\b[^"]*"[^>]*>[\s\S]*?<\/a>/gi, '')
   work = work.replace(/\[\s*(?:<[^>]+>)*\d+(?:[,–-]\s*\d+)*(?:<[^>]+>)*\s*\]/g, '')
+
+  // ── 인라인 수식은 **글자가 아니라 그림**이다 ────────────────────────
+  // PLOS 는 문장 안의 기호를 `<img class="inline-graphic" src="…e001">` 로 렌더하는데
+  // **`alt` 가 없다**(실측 2026-09-07, pone.0343412 원본 HTML: `inline-graphic` 12개 ·
+  // 그 어느 것에도 alt 없음). 태그를 벗기면 기호가 **통째로 사라지고 문장만 남는다**:
+  //
+  //   "Let ⟨사라짐⟩ be a graph where…"   → "Let be a graph where…"
+  //   "the value of ⟨사라짐⟩ is updated"  → "the value of is updated"
+  //   "increases with the increase of ⟨사라짐⟩." → "increases with the increase of ."
+  //
+  // 겉보기엔 산문이라 어떤 자동 검사도 안 걸리는데 뜻이 서지 않는다. 실측: 발췌 2,000편
+  // 표본의 **5.9%**(전체 11,601편이면 약 680편)가 이 자국을 갖고, PLOS 발췌 판정에서
+  // 반려 사유의 절반 이상이 이것이었다.
+  //
+  // ⚠️ **복원할 문자가 HTML 에 없다.** alt 도 MathML 도 없으니 기호를 되살릴 방법이 없다.
+  //   그러면 남은 선택은 「조용히 사라지게 두기」와 「사라졌다고 말하기」뿐이고, 후자가 맞다 —
+  //   표지가 있으면 판정자도 발췌기도 조판도 그 문장을 걸러낼 수 있다.
+  work = work.replace(/<img[^>]*\bclass="[^"]*\binline-graphic\b[^"]*"[^>]*>/gi, ' [수식] ')
+
   return htmlToPlainText(work)
 }
 

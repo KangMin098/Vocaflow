@@ -125,6 +125,34 @@ const RULES = [
     },
   },
   {
+    id: 'dropped-math',
+    label: '수식이 사라진 문장',
+    why: '기호만 빠지고 문장은 남았다 — 산문처럼 보이는데 뜻이 안 선다',
+    /**
+     * PLOS 는 문장 안 기호를 `<img class="inline-graphic">` 로 렌더하고 **alt 를 안 준다**.
+     * 태그를 벗기면 기호가 통째로 사라져 "Let ⟨사라짐⟩ be a graph" 가 "Let be a graph" 가 된다.
+     * 겉보기엔 산문이라 다른 어떤 규칙도 못 잡는다.
+     *
+     * ⚠️ **규칙은 판정자들이 실제로 인용한 문장에서 뽑았다** — 짐작이 아니다. 실측
+     *   2026-09-07: 발췌 2,000편 표본의 5.9%가 걸렸고, PLOS 발췌 1,200편 판정에서
+     *   반려 사유의 절반 이상이 이것이었다.
+     *   공백은 저장 때 정규화되므로 「이중 공백」으로는 못 잡는다 — **문법이 무너진 자국**을 본다.
+     */
+    test: (b) => {
+      const pats = [
+        /\b(?:of|by|for|with|to|from|than|between)\s+[.,;:)]/, // 전치사 뒤 바로 문장부호
+        /\b(?:Let|Assume|Suppose)\s+(?:be|is|are|denotes?|represents?),?\s/, // 주어가 빠졌다
+        /\bwhere\s+(?:is|are|denotes?|represents?)\s/, // where 뒤 주어 없음
+        /\b(?:denotes?|represents?|equals?)\s+[.,;]/, // 목적어가 빠졌다
+      ]
+      for (const re of pats) {
+        const m = b.match(re)
+        if (m) return m[0].slice(0, 60)
+      }
+      return null
+    },
+  },
+  {
     id: 'share-chrome',
     label: '공유 버튼·크레딧 잔재',
     why: '"Facebook Pinterest X LinkedIn" · "Image Credit:" 가 본문에 섞였다',
