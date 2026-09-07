@@ -19,13 +19,19 @@
 | 순위 | 소스 | 목표 추정 | 실측 | 무엇이 갈랐나 |
 |---|---|---|---|---|
 | 1 | The Conversation | 6,000 | **0** | CC BY-ND. 발췌는 되나 레벨 조정·빈칸·번역이 전부 개작 |
-| 2 | DOAB | 5,250 | **재계산 필요** | 전문은 DOAB 가 아니라 OAPEN `.pdf.txt` 에 있다 |
+| 2 | DOAB | 5,250 | **13,735권** (인문·사회 2,543) | 전문은 DOAB 가 아니라 OAPEN `.pdf.txt` 에. **OAPEN REST 는 열려 있다** — 재판정 §0 |
 | 3 | PMC OA Subset | 4,500 | **4,998,523** | 목표의 1,110배 |
-| 4 | Cambridge/Oxford/Springer | 4,500 | **≈3,027** | Springer 만. Oxford BY-NC-ND 92% · Cambridge NC/ND 86% |
+| 4 | Cambridge/Oxford/Springer | 4,500 | **≈3,027** | Springer 만. Oxford BY-NC-ND 92% · Cambridge NC/ND 86%. ⚠️ **2번의 부분집합 — 더하지 말 것** |
 | 5 | Project MUSE / JSTOR | 4,500 | **0** | 전문 전량 차단 + 표본 전량 NC/ND |
 
 상위 5개가 65%라는 계획은 성립하지 않는다. **PMC 하나가 나머지 넷을 합친 것의 1,000배를
-주고, 나머지는 대부분 0** 이다.
+주고, 둘은 0** 이다.
+
+⚠️ **2번은 같은 날 재판정으로 바뀐 값이다.** 초판은 「도달 가능 6,634권 · 인문·사회 400 미만」
+으로 **보류**였는데, 그 근거였던 「OAPEN 40,168권 Anubis 차단」이 **웹 경로에만 해당**했다.
+`/rest/` 로 같은 책이 200 으로 오고 `.pdf.txt`(추출 완료 평문)까지 붙어 온다 —
+독립 정찰 셋이 각각 확인했다([doab.md](./doab.md) §0·§2 · [publisher-oa-books.md](./publisher-oa-books.md) §2-2
+· [oa-humanities-presses.md](./oa-humanities-presses.md) §2). **판정 보류 → 채택(조건부).**
 
 ---
 
@@ -34,6 +40,7 @@
 | 소스 | 편수 | 라이선스 | 병목 적합 | 비고 |
 |---|---|---|---|---|
 | **PMC OA** | 4,998,523 | 항목별 `license_code` | STEM | ⚠️ **분류기 수정 전 수확 금지**(§5) |
+| **DOAB (+OAPEN)** | **13,735권** ≈ 창 16만 | CC BY 13,080 · BY-SA 651 · PD 4 | **역사·철학·문학·예술 1,054권** | 평문 `.pdf.txt` 가 이미 있다. ⚠️ 아래 Springer 행과 **중복** |
 | Nature Comm·SciRep·BMC | 325,163 | 항목별 · **ND 섞임** | STEM | `LICENSE:"cc by"` 필터 필수 |
 | **Frontiers** | ≈75,000 | CC BY 4.0 | **교육·언어·사회 12,618** | PMC 로 흡수 **안 됨**(§4) |
 | **VOA** | ≈33,300 미확보 | PD | **고1 ≈5,500** | 담을 칸이 없다(§6) |
@@ -43,7 +50,8 @@
 | bioRxiv / medRxiv | 6,670 / 5,624 | 항목별 | 과학 | bioRxiv 는 쓸 수 있는 것 23% |
 | Wikibooks | ≈5,600 조각 | CC BY-SA | 교과 설명 | 산문형 접두어만. 무작위는 적합 0.11 |
 | **BCcampus** | 59권 389만 어 | CC BY 계열 | **역사·인류** | REST 가 챕터 HTML 직접 제공 |
-| **Springer OA** | ≈3,027권 | CC BY 82.7% | **Palgrave 855권 인문·사회** | 라이선스가 REST 에 없다 — OAI 로 |
+| **Springer OA** | ≈3,027권 | CC BY 82.7% | **Palgrave 855권 인문·사회** | 라이선스가 REST 에 없다 — OAI 또는 DOAB CSV 로. ⚠️ **DOAB 행에 포함(별도 합산 금지)** |
+| OBP · OHP (인문 5곳 중 생존 2곳) | **257권** (OBP 203 · OHP 54) | OBP CC BY · OHP 대부분 SA | 인문 | 전수 확정치. ⚠️ **DOAB 행에 포함** |
 | Climate.gov | **+2,200** | PD | 기후 | **피드 네 줄 추가로 끝**(코드 변경 불필요) |
 | UNESCO Courier | ≈940 | CC BY-SA | 문화 | SA 결정 대기 |
 | FrYM | ≈670 | CC BY 4.0 | 청소년 과학 | 커서 결함 수정 시 즉시 해금 |
@@ -84,7 +92,7 @@ content in any way" + 비상업 한정이다.
 | Aeon·Quanta 는 ND 라 변형만 금지 | **아예 CC 가 아니다** — 건별 유료 계약 |
 | Wikipedia 의 "Overview·Criticism 절" | **Criticism 11편 · Overview 7편.** 문서 지침이 그 절을 권장하지 않아 **좋은 글일수록 없다** |
 | Frontiers 는 PMC 가 다 갖고 있다 | **아니다.** 비-PMC 18종 79,956편의 수록률 **0.4%** |
-| DOAB↔출판사 OA 중복 30% | **93~97%.** 조인 키는 DOI·ISBN 이 아니라 **OAPEN 핸들** |
+| DOAB↔출판사 OA 중복 30% | **93~97%.** 전문 조인 키는 DOI·ISBN 이 아니라 **OAPEN 핸들**. ⚠️ 중복 배제는 그것만으로 안 된다 — **같은 책이 DOAB 핸들 두 개**로 들어와 있고 DOI 로 잡히는 것만 1,706쌍([doab.md](./doab.md) §5-2) |
 
 ---
 
@@ -127,7 +135,7 @@ Aeon·Quanta·Knowable 도 전부 ND/NC 라 갈아타도 같다고 적어 뒀고
 | 1 | **CC BY-SA 전염** — `adapt-drain-export.mjs:74-79` 는 각색에서 제외("모르는 채로 쓰는 것보다 빼는 편이 싸다"), `source-eligibility.ts:220` 과 발행 게이트는 허용. **저장소 안에서 두 자가 어긋나 있다** | Wikipedia 1,000 · Wikibooks 5,600 · UNESCO 940 |
 | 2 | **OWID FAQ** 가 CC BY 와 별개로 "must not edit the material" 요구 | 이미 확보한 14편 |
 | 3 | **arXiv 재도입** — v06.69 에서 사용자가 삭제 지시. 당시 사유 중 "CC 는 일부뿐" 은 낡음(2016 1.1% → 2026 **44.4%**), C2 난도·LaTeX 오염 사유는 유효 | ≈650 |
-| 4 | **robots.txt 의 AI 크롤러 명시 차단** — UNESCO·DOAB·The Conversation·JSTOR 가 ClaudeBot 을 `Disallow: /` + `ai-train=no`. 자체 UA + 학습 미사용이면 조건 충족이나 임의로 넘을 선이 아니다 | UNESCO 940 · DOAB 전량 |
+| 4 | **robots.txt 의 AI 크롤러 명시 차단** — UNESCO·DOAB·The Conversation·JSTOR 가 ClaudeBot 을 `Disallow: /` + `ai-train=no`. 자체 UA + 학습 미사용이면 조건 충족이나 임의로 넘을 선이 아니다. ⚠️ **DOAB 는 목록만 걸린다** — 전문 창고인 `library.oapen.org` 에는 `Content-Signal` 도 AI 크롤러 차단도 **없다**(`Crawl-delay: 10` 뿐). 「넘지 않는다」로 정해도 목록을 OAPEN OAI 로 만들면 파이프라인은 선다(요청 1 → 약 500) | UNESCO 940 · **DOAB 13,735권의 「목록 경로」** |
 
 ---
 
@@ -142,7 +150,7 @@ Aeon·Quanta·Knowable 도 전부 ND/NC 라 갈아타도 같다고 적어 뒀고
 5. **Gutenberg 재수확** — 3.1% → 확대. 새 소스보다 싸다
 6. **VOA 사이트맵** — 아카이브 98.6% 가 미개봉
 7. 주제 칸별 재고 **재**실측(분류기 수정 후) → `csat_source_targets` 등록
-8. 대형 수확기: World Bank OKR → Frontiers(비-PMC) → BCcampus/Springer → PMC OA
+8. 대형 수확기: World Bank OKR → Frontiers(비-PMC) → BCcampus → **DOAB/OAPEN 하나**(Springer·OBP·OHP 를 통째로 덮는다 — 세 벌 짜지 말 것) → PMC OA
 
 ---
 
