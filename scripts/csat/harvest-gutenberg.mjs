@@ -1,5 +1,9 @@
 // scripts/csat/harvest-gutenberg.mjs
 //
+// @harvest-source: gutenberg
+//   ↑ 이 선언으로 `harvest-cursor-contract.test.ts` 가 이 파일을 **목록기로 세어**
+//     `HARVEST_CURSOR_REGISTRY` 에 있는지 검사한다. 지우면 검사 밖으로 빠진다.
+//
 // **Project Gutenberg 인문 논픽션 겨냥 수확** — 적재 전에 정제하고 채점한다.
 //
 // 2단계(30,000)의 부족분은 대부분 인문 칸이고, 학술 소스는 전부 막혔다(§20~26).
@@ -16,9 +20,29 @@
 // ⚠️ **재실행 안전.** 처리한 책 번호를 커서 파일에 적고 다음 실행에서 건너뛴다.
 //   조각의 `source_id` 는 본문 해시라 파일을 다시 돌려도 같은 글이 두 번 안 들어간다.
 //
-//   node scripts/csat/harvest-gutenberg.mjs --plan
-//   node scripts/csat/harvest-gutenberg.mjs --books 20            # 읽기 전용
-//   node scripts/csat/harvest-gutenberg.mjs --books 20 --commit
+// ── 2026-09-07 개정 — 목록을 검색이 아니라 **카탈로그**에서 만든다 ──────
+//
+// 옛 목록 경로는 `ebooks/search/?query=…&start_index=N` 이었다. 두 가지가 잘못돼 있었다:
+//
+//   ① **정렬 없는 offset 페이징.** 검색 순위는 우리가 정하는 것이 아니라 상류가 정한다.
+//      순위가 흔들리면 같은 `start_index` 가 다른 책을 가리켜 **중복과 누락이 동시에**
+//      생긴다 — 2026-08-16 IA 수집에서 214건이 겹치고 그만큼 빠진 그 방식이다.
+//   ② **커서가 규약 밖.** `{ done: [...], offset: {...} }` 은 이 저장소의 다른 어떤
+//      수확기와도 모양이 다르고, 그래서 "이 소스는 어디까지 봤나" 를 공통으로 못 묻는다
+//      (`packages/library-pipeline/src/ingest-article/harvest-cursor.ts`).
+//      실제로 그 파일은 867권을 적고 있었는데 DB 에는 **1,631권**이 들어 있었다 —
+//      커서가 진실의 절반만 아는 채로 764권을 다시 받을 수 있는 상태였다.
+//
+// 지금은 Gutenberg 자체 카탈로그(`pg_catalog.csv.gz`)를 받아 **책 번호 오름차순**으로
+// 훑는다. 번호는 발급 후 안 바뀌므로 좌표계가 흔들리지 않고, 페이지네이션 자체가 없다.
+// 고를 때는 **LoCC(의회도서관 분류)** 로 부족한 칸을 겨냥한다 — 주제 문자열로 고르면
+// 「Psychological fiction」 같은 소설이 딸려 온다(§실측).
+//
+//   node scripts/csat/harvest-gutenberg.mjs --plan                       # 재고·몫만
+//   node scripts/csat/harvest-gutenberg.mjs --survey                     # 남은 카탈로그 실측
+//   node scripts/csat/harvest-gutenberg.mjs --feed edu --books 20        # 읽기 전용
+//   node scripts/csat/harvest-gutenberg.mjs --feed edu --books 20 --commit
+//   node scripts/csat/harvest-gutenberg.mjs --search --narrative --books 20   # 옛 검색 경로
 
 import fs from 'node:fs'
 import path from 'node:path'
@@ -29,6 +53,13 @@ import { fitRecord } from './lib-fit.mjs'
 import { classify, TOPIC_KEYS, TOPIC_V } from './lib-topic.mjs'
 import { cleanBookText, looksLikeBookMatter } from './lib-clean.mjs'
 import { looksNarrative, peopleRatio, NARRATIVE_FLOOR } from './lib-narrative.mjs'
+import { catalogRows, catalogByLocc } from '../textbook/lib/pg-catalog.mjs'
+
+// ⚠️ 배럴(`src/index.ts`)이 아니라 **파일을 직접** 부른다. 배럴은 확장자 없는 import 가
+//   섞여 있어 `node` 의 타입 스트리핑만으로는 안 풀린다(tsx 가 필요해진다). 이 파일은
+//   `node:fs`·`node:path` 밖에 안 쓰므로 그대로 열린다 — 규약의 정본은 여전히 저 파일 하나다.
+const { harvestCursorPath, readHarvestCursor, writeHarvestCursor, emptyHarvestCursor } =
+  await import('../../packages/library-pipeline/src/ingest-article/harvest-cursor.ts')
 
 const run = promisify(execFile)
 const arg = (k, d) => {
@@ -40,10 +71,29 @@ const STAGE = Number(arg('stage', 2))
 const MAX = Number(arg('max', 100000))
 const COMMIT = process.argv.includes('--commit')
 const PLAN_ONLY = process.argv.includes('--plan')
+const SURVEY = process.argv.includes('--survey')
+const SEARCH = process.argv.includes('--search')
+const FEED = arg('feed', 'edu')
 const DATA = path.resolve('scripts/csat/data')
-const CURSOR_FILE = path.join(DATA, 'gutenberg-cursor.json')
+/** 옛 커서 — 규약 이전 형식. 읽어서 `seen` 에 흡수만 하고 더는 쓰지 않는다. */
+const LEGACY_CURSOR_FILE = path.join(DATA, 'gutenberg-cursor.json')
 const STAGE_GOAL = { 1: 10000, 2: 30000, 3: 50000 }[STAGE] ?? 30000
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
+
+/**
+ * **부족한 칸 → LoCC 접두어.** 카탈로그 모드의 피드 정의다.
+ *
+ * 값은 2026-09-07 실측으로 정했다(`docs/reports/source-probe/gutenberg-remainder.md`).
+ * 피드 이름을 ASCII 로 두는 이유는 커서 파일 이름이 되기 때문이다
+ * (`harvestCursorPath` 가 한글을 `-` 로 바꾼다 — 그러면 다섯 피드가 한 파일을 덮어쓴다).
+ */
+const FEEDS = {
+  edu: { bin: '교육·언어', prefixes: ['L', 'PE', 'PB', 'PC', 'PD', 'PF', 'PG', 'PH', 'PJ', 'PK', 'PL', 'PM'] },
+  social: { bin: '사회·경제', prefixes: ['H', 'J', 'K'] },
+  tech: { bin: '기술·매체', prefixes: ['T', 'Z'] },
+  psych: { bin: '심리·인지', prefixes: ['BF'] },
+  art: { bin: '예술·문화', prefixes: ['N', 'ML', 'MT'] },
+}
 
 /** 인문 칸을 노린 검색 질의. 한 칸에 여러 질의를 두어 한쪽으로 쏠리지 않게 한다. */
 const QUERIES = {
@@ -164,31 +214,143 @@ console.log(`  ⚠️ 다른 칸에 떨어진 조각도 버리지 않는다 — 
 console.log(`     다만 균형 사정권은 병목 칸만 올린다(§41).\n`)
 if (PLAN_ONLY) process.exit(0)
 
+// ── DB ───────────────────────────────────────────────────────────────
+// 읽기 전용 실행에서도 붙는다 — **이미 가진 책을 다시 받지 않기 위해서**다.
+// (옛 코드는 `--commit` 일 때만 붙었고, 그래서 예행이 매번 같은 책을 다시 GET 했다.)
+let db = null
+try {
+  for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
+    const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/)
+    if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, '')
+  }
+  const { createClient } = await import('@supabase/supabase-js')
+  db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, {
+    auth: { persistSession: false },
+  })
+} catch (e) {
+  if (COMMIT) throw e
+  console.log(`  ⚠️ DB 에 못 붙었다(${String(e.message).slice(0, 40)}) — 보유 목록 없이 진행한다.`)
+}
+
+/**
+ * 이미 조각을 뽑아 온 책 번호. **커서가 아니라 DB 가 정본이다.**
+ *
+ * ⚠️ PostgREST 는 기본 1,000행만 준다 — `range` 로 끝까지 읽지 않으면 잘린 만큼이
+ *   매번 "새 책" 으로 보여 다시 GET 된다.
+ */
+async function booksInDb() {
+  const ids = new Set()
+  if (!db) return ids
+  for (let from = 0; ; from += 1000) {
+    const { data, error } = await db
+      .from('library_articles')
+      .select('source_id')
+      .eq('source', 'gutenberg')
+      .range(from, from + 999)
+    if (error) throw new Error('보유 목록 조회 실패: ' + error.message)
+    for (const r of data ?? []) {
+      const n = Number(String(r.source_id ?? '').split(':')[1])
+      if (n) ids.add(n)
+    }
+    if (!data || data.length < 1000) break
+  }
+  return ids
+}
+
 // ── 책 목록 ──────────────────────────────────────────────────────────
 fs.mkdirSync(DATA, { recursive: true })
-const cursors = fs.existsSync(CURSOR_FILE) ? JSON.parse(fs.readFileSync(CURSOR_FILE, 'utf8')) : { done: [], offset: {} }
-const done = new Set(cursors.done ?? [])
+/** 옛 형식 커서. 이제 읽기만 한다 — 여기 적힌 867권을 `seen` 으로 흡수한다. */
+const legacy = fs.existsSync(LEGACY_CURSOR_FILE)
+  ? JSON.parse(fs.readFileSync(LEGACY_CURSOR_FILE, 'utf8'))
+  : { done: [], offset: {} }
+const cursors = legacy
+const done = new Set((legacy.done ?? []).map(String))
+
+// ── 남은 카탈로그 실측 (--survey) ────────────────────────────────────
+if (SURVEY) {
+  const have = await booksInDb()
+  const rows = await catalogRows()
+  const rest = rows.filter((r) => !have.has(r.id))
+  console.log(`  카탈로그 영어 도서 ${rows.length.toLocaleString()}권 · 이미 소비 ${have.size.toLocaleString()} · **남은 ${rest.length.toLocaleString()}권**\n`)
+  console.log(`  ${'피드'.padEnd(8)}${'칸'.padEnd(11)}${'후보'.padStart(8)}${'비율'.padStart(8)}   LoCC`)
+  console.log('  ' + '-'.repeat(74))
+  const union = new Set()
+  for (const [slug, f] of Object.entries(FEEDS)) {
+    const pool = await catalogByLocc({ prefixes: f.prefixes, skip: have })
+    for (const r of pool) union.add(r.id)
+    console.log(
+      `  ${slug.padEnd(8)}${f.bin.padEnd(11)}${pool.length.toLocaleString().padStart(8)}` +
+        `${((pool.length / rest.length) * 100).toFixed(2).padStart(7)}%   ${f.prefixes.join(' ')}`,
+    )
+  }
+  console.log('  ' + '-'.repeat(74))
+  console.log(`  ${'합집합'.padEnd(19)}${union.size.toLocaleString().padStart(8)}${((union.size / rest.length) * 100).toFixed(2).padStart(7)}%`)
+  console.log(`\n  ⚠️ 이것은 **후보 권수**이지 수확량이 아니다. 실제로 그 칸에 떨어지는 조각 비율은`)
+  console.log(`     책을 받아 봐야 안다 — docs/reports/source-probe/gutenberg-remainder.md §2.`)
+  process.exit(0)
+}
+
+const picked = []
+/** 카탈로그 모드에서 이번 실행이 쓰는 커서(규약 형식). 검색 모드면 null. */
+let cursor = null
+let cursorFile = null
+
+if (!SEARCH) {
+  // ── 카탈로그 모드 (기본) ───────────────────────────────────────────
+  const f = FEEDS[FEED]
+  if (!f) {
+    console.error(`알 수 없는 피드: ${FEED} — 쓸 수 있는 것: ${Object.keys(FEEDS).join(' · ')}`)
+    process.exit(1)
+  }
+  cursorFile = harvestCursorPath('csat', 'gutenberg', `catalog-${FEED}`)
+  cursor = fs.existsSync(cursorFile)
+    ? readHarvestCursor(cursorFile, 'gutenberg', `catalog-${FEED}`)
+    : emptyHarvestCursor('gutenberg', `catalog-${FEED}`)
+  // 옛 커서의 `done` + DB 보유분을 **처음 한 번** 흡수한다. 둘 다 "이미 판정했다" 는 뜻이고,
+  // 흡수하지 않으면 1,631권을 처음부터 다시 받는다.
+  const have = await booksInDb()
+  const seen = new Set([...cursor.seen.map(String), ...done, ...[...have].map(String)])
+  // ⚠️ **`after` 로 자르지 않는다.** 책 번호로 창을 밀면 못 받은 책(상류 5xx)이 창 뒤로
+  //   빠져 영영 안 돌아온다. 진행은 `seen` 차집합이 만든다 — 목록이 번호순이라 결과는
+  //   같고, 실패한 책만 다음 실행에서 한 번 더 시도된다. `token` 은 어디까지 갔는지를
+  //   사람이 읽기 위한 기록이다.
+  const after = Number(cursor.token ?? 0) || 0
+  const pool = await catalogByLocc({ prefixes: f.prefixes, skip: new Set([...seen].map(Number)) })
+  for (const r of pool.slice(0, BOOKS)) picked.push({ id: String(r.id), slot: f.bin, q: `locc:${r.locc}`, title: r.title })
+  cursor = { ...cursor, seen: [...seen] }
+  console.log(
+    `  피드 ${FEED}(${f.bin}) · 커서 ${path.relative(process.cwd(), cursorFile)} — ` +
+      `판정 완료 ${seen.size.toLocaleString()}권 · 마지막 훑은 책 번호 ${after || '없음(처음)'}\n` +
+      `  후보 ${pool.length.toLocaleString()}권 중 ${picked.length}권 고름` +
+      (pool.length === 0 ? ' — **이 피드는 소진됐다**' : ''),
+  )
+  if (!picked.length) {
+    if (COMMIT) writeHarvestCursor(cursorFile, { ...cursor, exhausted: true })
+    console.log('  받을 책이 없다.')
+    process.exit(0)
+  }
+  console.log('')
+}
 
 const flatQ = []
-if (NARRATIVE) {
+if (SEARCH && NARRATIVE) {
   // 소재 몫을 보지 않는다 — 겨냥하는 것이 소재가 아니라 글의 결이다.
   for (const q of NARRATIVE_QUERIES) flatQ.push({ slot: '서사', q })
   console.log(`  --narrative — 인물이 나오는 글만 남긴다(인물 대명사 비율 ≥ ${NARRATIVE_FLOOR}).`)
   console.log(`     그 문턱은 이미 만든 장문 지칭 39편의 실측 최솟값(0.0382)에서 왔다.
 `)
-} else {
+} else if (SEARCH) {
   for (const [slot, qs] of Object.entries(QUERIES)) {
     if (!quota[slot]) continue
     for (const q of qs) flatQ.push({ slot, q })
   }
 }
-if (!flatQ.length) {
+if (SEARCH && !flatQ.length) {
   console.log('  노릴 칸이 없다 — 모든 인문 칸의 몫이 찼다. 서사가 필요하면 --narrative.')
   process.exit(0)
 }
 
-const picked = []
-const perQuery = Math.max(1, Math.ceil(BOOKS / flatQ.length))
+const perQuery = Math.max(1, Math.ceil(BOOKS / Math.max(1, flatQ.length)))
 for (const { slot, q } of flatQ) {
   if (picked.length >= BOOKS) break
   // ⚠️ 같은 질의를 다시 돌리면 같은 첫 쪽이 온다. 질의마다 시작 위치를 기억한다.
@@ -215,20 +377,7 @@ for (const { slot, q } of flatQ) {
   }
   await sleep(700)
 }
-console.log(`  질의 ${flatQ.length}개에서 ${picked.length}권 골랐다 (이미 처리한 ${done.size}권 제외)\n`)
-
-// ── DB ───────────────────────────────────────────────────────────────
-let db = null
-if (COMMIT) {
-  for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
-    const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/)
-    if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, '')
-  }
-  const { createClient } = await import('@supabase/supabase-js')
-  db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, {
-    auth: { persistSession: false },
-  })
-}
+if (SEARCH) console.log(`  질의 ${flatQ.length}개에서 ${picked.length}권 골랐다 (이미 처리한 ${done.size}권 제외)\n`)
 
 // ── 수확 ─────────────────────────────────────────────────────────────
 let chunksAll = 0
@@ -326,9 +475,16 @@ for (const b of picked) {
   //   적합분이 애초에 없었거나. (CLAUDE.md §🤖: "몇 번 돌려도 결과가 같아야 한다")
   const settled = rows.length === 0 || wrote > 0
   if (COMMIT && settled) {
-    done.add(b.id)
-    cursors.done = [...done]
-    fs.writeFileSync(CURSOR_FILE, JSON.stringify(cursors, null, 2))
+    if (cursor) {
+      // 규약 커서 — **판정한 뒤에** 쓴다. `token` 은 여기까지 훑은 책 번호(오름차순 좌표),
+      // `seen` 은 적재분과 「적합 0」 둘 다 담는다(안 그러면 빈 책을 영원히 다시 받는다).
+      cursor = { ...cursor, token: String(b.id), seen: [...new Set([...cursor.seen, String(b.id)])] }
+      writeHarvestCursor(cursorFile, cursor)
+    } else {
+      done.add(b.id)
+      cursors.done = [...done]
+      fs.writeFileSync(LEGACY_CURSOR_FILE, JSON.stringify(cursors, null, 2))
+    }
   }
 
   const top = Object.entries(mine).sort((a, c) => c[1] - a[1]).slice(0, 3).map(([k, v]) => `${k} ${v}`).join(' · ')

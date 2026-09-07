@@ -12,7 +12,7 @@
 //
 // ⚠️ 목록은 소스에서 읽는다. 손으로 적으면 이 파일이 두 번째 사본이 된다.
 
-import { readFileSync, readdirSync } from 'node:fs'
+import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs'
 import path from 'node:path'
 
 import { describe, expect, it } from 'vitest'
@@ -27,10 +27,37 @@ import {
 import { UNGOVERNED_KNOWN_DIVERGENCE } from './source-key'
 
 const DIR = __dirname
+const REPO = path.resolve(DIR, '../../../..')
+
+/**
+ * **스크립트 목록기** — `.ts` 어댑터가 아니라 `scripts/**\/*.mjs` 로 사는 수확기.
+ *
+ * ⚠️ 이 부류가 오래 검사 밖에 있었다. `scripts/csat/harvest-gutenberg.mjs` 는 5만 권짜리
+ *   카탈로그를 훑으면서 규약 밖 커서를 썼는데, 등록부는 `.ts` 어댑터만 세고 있어서
+ *   **한 번도 걸리지 않았다.** 자동 발견(파일명 규칙)으로 하지 않고 **파일이 스스로
+ *   선언**하게 하는 이유는 하나다 — 남의 세션이 짓는 중인 수확기를 이 검사가 먼저
+ *   깨뜨리면, 고치는 대신 검사를 끄게 된다.
+ */
+function scriptListers(): Array<{ file: string; source: string }> {
+  const out: Array<{ file: string; source: string }> = []
+  const roots = path.join(REPO, 'scripts')
+  if (!existsSync(roots)) return out
+  for (const dir of readdirSync(roots)) {
+    const sub = path.join(roots, dir)
+    if (!statSync(sub).isDirectory()) continue
+    for (const f of readdirSync(sub)) {
+      if (!f.endsWith('.mjs')) continue
+      const src = readFileSync(path.join(sub, f), 'utf8')
+      const key = src.match(/@harvest-source:\s*([a-z0-9_]+)/)?.[1]
+      if (key) out.push({ file: `scripts/${dir}/${f}`, source: key })
+    }
+  }
+  return out
+}
 
 /** 어댑터 파일 → 그 파일이 담당하는 소스 키. `listXxxFeed` 를 export 하는 파일만 센다. */
 function listerFiles(): Array<{ file: string; source: string }> {
-  const out: Array<{ file: string; source: string }> = []
+  const out: Array<{ file: string; source: string }> = [...scriptListers()]
   for (const f of readdirSync(DIR)) {
     if (!f.endsWith('.ts') || f.endsWith('.test.ts') || f.startsWith('_')) continue
     const src = readFileSync(path.join(DIR, f), 'utf8')
@@ -72,6 +99,14 @@ describe('수확기 등록부 — 커서 없는 목록기를 말없이 못 붙�
       '커서 없이 깊이 캐는 수확기 — 매 실행이 같은 창만 보고 조용히 끝난다(FrYM 이 그랬다). ' +
         '커서를 두거나 reason 을 적을 것',
     ).toEqual([])
+  })
+
+  it('스크립트 수확기도 등록부 검사에 들어온다 — `@harvest-source:` 선언', () => {
+    // 이 검사가 0건 통과하면 위의 「등록부에 있다」가 스크립트 수확기를 하나도 안 지킨다.
+    const scripts = scriptListers()
+    expect(scripts.length, '`@harvest-source:` 를 선언한 스크립트가 없다').toBeGreaterThan(0)
+    expect(scripts.map((s) => s.source)).toContain('gutenberg')
+    expect(HARVEST_CURSOR_REGISTRY.gutenberg?.cursorFile, 'Gutenberg 커서가 사라졌다').toBeTruthy()
   })
 
   it('2026-09-07 에 고친 셋은 이유가 아니라 커서 파일을 갖는다', () => {
