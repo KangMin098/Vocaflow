@@ -34,7 +34,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-import { classify, TOPIC_KEYS } from './lib-topic.mjs'
+import { classify, TOPIC_KEYS, TOPIC_V } from './lib-topic.mjs'
 
 const arg = (n) => {
   const i = process.argv.indexOf(`--${n}`)
@@ -88,6 +88,10 @@ console.log(
  * 그 잡음 때문에 작문 48편의 효과를 분해하지 못했다(리포트 §22).
  *
  * 아직 안 적힌 행이 있으면 전수라고 말하지 않는다 — 그 경우 표본 경로로 물러선다.
+ *
+ * ⚠️ **`topicV` 를 반드시 함께 본다.** 라벨만 세면 분류기를 고친 뒤에도 **옛 자로 잰 라벨**을
+ *   전수라 부르며 세게 되고, 리포트는 고치기 전 분류로 「부족 0」을 계속 답한다 — 오류 없이.
+ *   (2026-09-07 에 분류기를 고치며 이 검사를 넣었다. 그전에는 판 번호를 아무도 안 봤다.)
  */
 async function exactCounts() {
   const out = {}
@@ -97,6 +101,7 @@ async function exactCounts() {
       .from('library_articles')
       .select('id', { count: 'exact', head: true })
       .gt('csat_fit->>pass', '0')
+      .eq('csat_fit->>topicV', String(TOPIC_V))
       .eq('csat_fit->>topic', k)
     if (error) return null
     out[k] = count ?? 0
@@ -123,7 +128,7 @@ const PAGE = 200
 for (let from = 0; !USE_EXACT && seen < SAMPLE; from += PAGE) {
   const { data, error } = await db
     .from('library_articles')
-    .select('source, content')
+    .select('source, title, content')
     .gt('csat_fit->>pass', '0')
     .not('content', 'is', null)
     .order('id')
@@ -134,7 +139,7 @@ for (let from = 0; !USE_EXACT && seen < SAMPLE; from += PAGE) {
     if (seen >= SAMPLE) break
     // 앞 6,000자만 본다 — 소재는 글머리에서 정해지고, 전문을 다 훑으면 방법 절(methods)의
     // 통계 용어가 뒤에서 표를 흔든다. 기출 지문(≈150어)과 견주려면 앞쪽이 옳다.
-    const t = classify(String(a.content).slice(0, 6000)).topic
+    const t = classify(String(a.content).slice(0, 6000), { title: a.title }).topic
     stock[t] += 1
     if (!bySource.has(a.source)) bySource.set(a.source, Object.fromEntries(TOPIC_KEYS.map((k) => [k, 0])))
     bySource.get(a.source)[t] += 1

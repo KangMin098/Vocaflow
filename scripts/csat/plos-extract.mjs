@@ -29,7 +29,7 @@ import crypto from 'node:crypto'
 
 import { fitRecord, windowsOf, splitSentences, W } from './lib-fit.mjs'
 import { hardReject } from './gate-rules.mjs'
-import { classify } from './lib-topic.mjs'
+import { classify, TOPIC_V } from './lib-topic.mjs'
 import { curlFetch } from './lib-curl-fetch.mjs'
 import { protectAbbr, restoreAbbr, SENT_DROP, cleanSentence } from './lib-plos.mjs'
 
@@ -207,7 +207,7 @@ while (papers < LIMIT) {
   ${text}
 `)
       if (!COMMIT) continue
-      const t = classify(text)
+      const t = classify(text, { title: String(row.title ?? '') })
       const wins = windowsOf(text).filter((w) => w.pass).map((w) => ({ s: w.s, e: w.e }))
       const hash = crypto.createHash('sha256').update(text).digest('hex').slice(0, 32)
       const { error } = await retry(
@@ -231,7 +231,7 @@ while (papers < LIMIT) {
               ...f,
               topic: t.topic,
               topicMargin: t.margin,
-              topicV: 1,
+              topicV: TOPIC_V,
               gate: {
                 v: 2,
                 publishable: true,

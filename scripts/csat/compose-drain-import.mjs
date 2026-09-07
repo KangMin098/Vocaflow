@@ -30,7 +30,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 
 import { fitRecord, scoreArticle, SHAPE, FLOOR, W, splitSentences } from './lib-fit.mjs'
-import { classify } from './lib-topic.mjs'
+import { classify, TOPIC_V } from './lib-topic.mjs'
 
 const COMMIT = process.argv.includes('--commit')
 const DIR = path.resolve('scripts/csat/compose-drain')
@@ -172,7 +172,7 @@ for (const f of outs) {
       continue
     }
     passed++
-    const tp = classify(text.slice(0, 6000))
+    const tp = classify(text.slice(0, 6000), { title })
     const topic = tp.topic
     byTopic[topic] = (byTopic[topic] ?? 0) + 1
     rows.push({
@@ -190,7 +190,7 @@ for (const f of outs) {
       feed_id: 'compose-drain',
       feed_label: `작문 드레인 · ${topic}`,
       // 소재를 적재 시점에 함께 적는다 — 그래야 전수 집계에서 안 빠진다.
-      csat_fit: { ...fitRecord(text), topic, topicMargin: tp.margin, topicV: 1 },
+      csat_fit: { ...fitRecord(text), topic, topicMargin: tp.margin, topicV: TOPIC_V },
       _topic: topic,
       _intended: it.topic ?? null,
       _subject: it.subject ?? null,

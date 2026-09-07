@@ -28,10 +28,8 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-import { classify } from './lib-topic.mjs'
-
-/** 분류표가 바뀌면 올린다 — 그래야 이미 적힌 행이 재분류 대상이 된다. */
-const TOPIC_V = 1
+// 분류판 번호는 **분류기가 갖는다** — 여기 사본을 두면 표를 고치고 번호 올리는 것을 잊는다.
+import { classify, TOPIC_V } from './lib-topic.mjs'
 
 const arg = (n) => {
   const i = process.argv.indexOf(`--${n}`)
@@ -59,21 +57,31 @@ console.log(`소재 백필 — 표본 대신 SQL 로 세기 위해\n${'='.repeat
  *   두 번째 실행이 `canceling statement due to statement timeout` 으로 죽었다 — 이미
  *   다 적어 둔 2만 편을 본문째 다시 받으려 했기 때문이다. 남은 11편만 받으면 즉시 끝난다.
  *   (`--force` 는 의도적으로 전량을 다시 받으므로 그때만 느리다.)
+ *
+ * ⚠️ **커서 페이징이다 — `range()` 오프셋이 아니다.** 2026-09-07 에 분류판을 1→2 로 올리자
+ *   「아직 안 적힌 행」이 다시 6.9만 편이 됐고, 오프셋 22,000 에서 **statement timeout** 으로
+ *   죽었다(오프셋은 매 페이지마다 앞의 행을 전부 다시 세고, 그 위에 jsonb 필터가 얹힌다).
+ *   마지막 `id` 를 이어받으면 페이지 비용이 일정하다. 그리고 `--limit` 은 **읽기에도** 건다 —
+ *   5,000편만 쓸 거면서 6.9만 편의 본문을 받을 이유가 없다.
  */
 const rows = []
-for (let from = 0; ; from += 500) {
+let cursor = null
+while (rows.length < LIMIT) {
   let q = db
     .from('library_articles')
-    .select('id, content, csat_fit')
+    .select('id, title, content, csat_fit')
     .gt('csat_fit->>pass', '0')
     .not('content', 'is', null)
-  if (!FORCE) q = q.is('csat_fit->>topicV', null)
-  const { data, error } = await q.order('id').range(from, from + 499)
+  if (!FORCE) q = q.or('csat_fit->>topicV.is.null,csat_fit->>topicV.neq.' + TOPIC_V)
+  if (cursor) q = q.gt('id', cursor)
+  const page = Math.min(500, LIMIT === Infinity ? 500 : LIMIT - rows.length)
+  const { data, error } = await q.order('id').limit(page)
   if (error) throw new Error(`조회 실패: ${error.message}`)
   if (!data?.length) break
   rows.push(...data)
+  cursor = data[data.length - 1].id
   process.stderr.write(`\r  읽음 ${rows.length.toLocaleString()}…`)
-  if (data.length < 500) break
+  if (data.length < page) break
 }
 process.stderr.write('\r' + ' '.repeat(30) + '\r')
 
@@ -84,12 +92,21 @@ console.log(
 )
 
 const tally = {}
+// 옛 라벨과 달라지는 행 수 — **재분류가 얼마나 큰 일인지 쓰기 전에 안다.**
+// 분류기를 고치면 「몇 편이 바뀌는가」가 곧 결정의 크기다(백필은 별도 결정).
+let changed = 0
+const shift = {}
 let written = 0
 const failures = []
 for (const a of need.slice(0, LIMIT === Infinity ? undefined : LIMIT)) {
   // 앞 6,000자만 본다 — `topic-gap.mjs` 와 같은 입력이어야 두 값을 견줄 수 있다.
-  const c = classify(String(a.content).slice(0, 6000))
+  const c = classify(String(a.content).slice(0, 6000), { title: a.title })
   tally[c.topic] = (tally[c.topic] ?? 0) + 1
+  const before = a.csat_fit?.topic ?? null
+  if (before && before !== c.topic) {
+    changed += 1
+    shift[`${before} → ${c.topic}`] = (shift[`${before} → ${c.topic}`] ?? 0) + 1
+  }
   if (!COMMIT) continue
   // 기존 값을 읽어 **키만 더한다** — 통째로 덮으면 pass·shape·bandsHash 가 날아간다.
   const next = { ...(a.csat_fit ?? {}), topic: c.topic, topicMargin: c.margin, topicV: TOPIC_V }
@@ -104,6 +121,12 @@ console.log(`  ${'소재'.padEnd(11)}${'편수'.padStart(8)}`)
 console.log('  ' + '-'.repeat(20))
 for (const [k, v] of Object.entries(tally).sort((a, b) => b[1] - a[1])) {
   console.log(`  ${k.padEnd(11)}${v.toLocaleString().padStart(8)}`)
+}
+if (changed) {
+  console.log(`\n  옛 라벨과 달라지는 행 **${changed.toLocaleString()}편** (가장 큰 이동 5)`)
+  for (const [k, v] of Object.entries(shift).sort((a, b) => b[1] - a[1]).slice(0, 5)) {
+    console.log(`    ${String(v).toLocaleString().padStart(6)}  ${k}`)
+  }
 }
 if (COMMIT) console.log(`\n  기록 ${written.toLocaleString()}편`)
 if (failures.length) {

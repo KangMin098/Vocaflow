@@ -43,7 +43,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 
 import { fitRecord, scoreArticle } from './lib-fit.mjs'
-import { classify, TOPIC_KEYS } from './lib-topic.mjs'
+import { classify, TOPIC_KEYS, TOPIC_V } from './lib-topic.mjs'
 
 const arg = (n) => {
   const i = process.argv.indexOf(`--${n}`)
@@ -302,7 +302,10 @@ for (let p = 0; p < PAGES; p++) {
     const sc = scoreArticle(text)
     if (sc.pass <= 0) continue
     fitOk++
-    const tp = classify(text.slice(0, 6000))
+    // 제목은 소재의 가장 강한 단서다 — 분류기에 **반드시 함께 넘긴다**.
+    // 넘기지 않으면 같은 글이 적재 경로와 `backfill-topic.mjs` 에서 다른 칸으로 간다.
+    const title = String(d.title_display ?? '').replace(/<[^>]+>/g, '').trim()
+    const tp = classify(text.slice(0, 6000), { title })
     // ⚠️ 질의한 칸으로 안 떨어진 글을 **버리지 않는다.** 실측 2026-09-03: Psychology 질의
     //   200편 중 적합 125편인데 그중 심리·인지 판정은 45편뿐이고, 나머지 80편도 전부 적합한
     //   글이다(기술·매체 31 · 과학·자연 26 · 교육·언어 10 …). 버리면 순 수율이 62.5% → 22.5%
@@ -317,7 +320,6 @@ for (let p = 0; p < PAGES; p++) {
       continue
     }
     accepted[tp.topic] = (accepted[tp.topic] ?? 0) + 1
-    const title = String(d.title_display ?? '').replace(/<[^>]+>/g, '').trim()
     if (samples.length < 6) samples.push({ title: title.slice(0, 62), pass: sc.pass, words: text.split(/\s+/).length })
     passed.push({
       source: 'plos',
@@ -333,7 +335,7 @@ for (let p = 0; p < PAGES; p++) {
       feed_label: `겨냥 수확 · ${tp.topic}`,
       // ⚠️ 소재를 **적재 시점에 함께 적는다.** 안 적으면 `backfill-topic.mjs` 가 나중에
       //   다시 읽어야 하고(편당 본문 전체), 그 사이 이 행들은 전수 집계에서 빠진다.
-      csat_fit: { ...fitRecord(text), topic: tp.topic, topicMargin: tp.margin, topicV: 1 },
+      csat_fit: { ...fitRecord(text), topic: tp.topic, topicMargin: tp.margin, topicV: TOPIC_V },
       // 적재 직전에 떼어 낸다 — 컬럼이 아니다. 중복으로 안 들어간 글의 몫을 돌려주는 데 쓴다.
       _topic: tp.topic,
     })

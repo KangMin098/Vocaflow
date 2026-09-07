@@ -26,7 +26,7 @@ import crypto from 'node:crypto'
 import { execFile } from 'node:child_process'
 import { promisify } from 'node:util'
 import { fitRecord } from './lib-fit.mjs'
-import { classify, TOPIC_KEYS } from './lib-topic.mjs'
+import { classify, TOPIC_KEYS, TOPIC_V } from './lib-topic.mjs'
 import { cleanBookText, looksLikeBookMatter } from './lib-clean.mjs'
 import { looksNarrative, peopleRatio, NARRATIVE_FLOOR } from './lib-narrative.mjs'
 
@@ -271,7 +271,7 @@ for (const b of picked) {
       notNarrative += 1
       continue
     }
-    const tp = classify(text)
+    const tp = classify(text, { title })
     // ⚠️ 몫이 없는 칸도 **버리지 않는다** — 3단계 보관에는 쓰인다. 다만 세어만 둔다.
     mine[tp.topic] = (mine[tp.topic] ?? 0) + 1
     rows.push({
@@ -286,7 +286,7 @@ for (const b of picked) {
       status: 'queued',
       feed_id: 'harvest',
       feed_label: `Gutenberg 수확 · ${tp.topic}`,
-      csat_fit: { ...f, topic: tp.topic, topicMargin: tp.margin, topicV: 1 },
+      csat_fit: { ...f, topic: tp.topic, topicMargin: tp.margin, topicV: TOPIC_V },
     })
   }
   chunksAll += all.length
