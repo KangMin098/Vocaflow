@@ -19,8 +19,26 @@
 export const DEEPEN_TOP = 0.3
 export const DEEPEN_BOTTOM = 0.42
 
-/** 스크림 — 제목이 앉는 62% 지점에서 한 번 더 누른다. */
+/**
+ * 스크림 — 제목이 앉는 62% 지점에서 한 번 더 누른다.
+ *
+ * ⚠️ **이것은 규격이 아니라 하한이다** (2026-09-07). 스크림의 정본은 브랜드 캔버스의
+ *   `coverGrid.scrimStrength` 이고 DB 의 각인에서 온다(`covers/lockup.ts`). 여기 값은
+ *   각인이 없는 권 — 도서 챕터·글 단어장 — 이 쓰는 것이다.
+ *
+ *   두 값이 갈려 있었다는 것 자체가 이 파일이 경고하던 사고였다: 캔버스는 0.35 를 정하고
+ *   화면은 0.4/0.34 를 쓰고 있었고, 아무도 오류를 보지 못했다.
+ */
 export const SCRIM_AT_TITLE = { card: 0.4, hero: 0.34 } as const
+
+/**
+ * 도판이 판면 안에서 물러나는 여백(%).
+ *
+ * 아래(`PLATE_TITLE_BAND`)만 크게 비운다 — 제목이 앉는 자리다. 균등 여백이면 도판이 제목과
+ * 겹쳐 둘 다 흐려진다. 옆·위는 규격(`coverGrid.plateInset`)이 정하고, 없으면 이 값을 쓴다.
+ */
+export const PLATE_INSET_FALLBACK = 11
+export const PLATE_TITLE_BAND = 33
 
 /** 제목이 앉는 세로 위치(0~1). `GradientBookCover` 가 가운데 아래에 그린다. */
 export const TITLE_BAND = 0.62
@@ -29,8 +47,14 @@ export function deepenCss(): string {
   return `linear-gradient(180deg, rgba(12,10,8,${DEEPEN_TOP}) 0%, rgba(12,10,8,${DEEPEN_BOTTOM}) 100%)`
 }
 
-export function scrimCss(kind: 'card' | 'hero'): string {
-  const mid = SCRIM_AT_TITLE[kind]
+/**
+ * `strength` 는 브랜드 각인이 정한 값(`coverGrid.scrimStrength`). 없으면 하한으로 떨어진다.
+ *
+ * 위·아래 기울기(head·shoulder·end)는 규격에 없다 — 규격이 말하는 것은 **제목 띠에서
+ * 얼마나 누르는가** 하나이고, 나머지는 그 값이 자연스럽게 이어지도록 하는 형태다.
+ */
+export function scrimCss(kind: 'card' | 'hero', strength?: number | null): string {
+  const mid = strength ?? SCRIM_AT_TITLE[kind]
   const end = kind === 'card' ? 0.6 : 0.52
   const head = kind === 'card' ? 0.1 : 0.08
   const shoulder = kind === 'card' ? 0.05 : 0.04
@@ -72,10 +96,14 @@ export function contrastRatio(a: Rgb, b: Rgb): number {
  * **도판은 계산에 넣지 않는다** — 선이라 면적이 작고, 넣으면 권마다 값이 달라져 회귀가
  * 흔들린다. 도판 선은 대비를 **올리는** 쪽(밝은 선)이라 이 값은 하한이다.
  */
-export function titleContrast(inkHex: string, kind: 'card' | 'hero' = 'card'): number {
+export function titleContrast(
+  inkHex: string,
+  kind: 'card' | 'hero' = 'card',
+  strength?: number | null,
+): number {
   const ink = parseHex(inkHex)
   const deepAlpha = DEEPEN_TOP + (DEEPEN_BOTTOM - DEEPEN_TOP) * TITLE_BAND
   const deepened = composite([12, 10, 8], deepAlpha, ink)
-  const scrimmed = composite([0, 0, 0], SCRIM_AT_TITLE[kind], deepened)
+  const scrimmed = composite([0, 0, 0], strength ?? SCRIM_AT_TITLE[kind], deepened)
   return contrastRatio([255, 255, 255], scrimmed)
 }

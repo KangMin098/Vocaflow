@@ -18,6 +18,8 @@ import { coverFamilyOf } from '@/lib/vcb/covers/design'
 import { VocabCoverArt } from './VocabCoverArt'
 import { rungForSet } from '@/lib/library/vocab/rung'
 import { VOCAB_SERIES_BRAND } from '@vocaflow/library-pipeline/vocab-brand'
+// 카드와 **같은 함수**로 권 표시를 뽑는다 — 두 벌을 두면 매대와 캐러셀이 다른 수를 말한다.
+import { volumeMark } from '@vocaflow/library-pipeline/textbook-cover'
 import {
   NetflixDetailSheet,
   type DetailVariant,
@@ -445,6 +447,12 @@ function CoverCard({
     coverTo: null,
     category: set.category,
   })
+
+  // 표지 규격 — 매대 카드와 같은 각인을 읽는다(`brandLockup`). 없으면 종전 표지.
+  const lockup = set.brandLockup
+  const { rung } = rungForSet(set)
+  const mark = rung ? volumeMark(rung.volumeTitle, VOCAB_SERIES_BRAND) : null
+
   return (
     <button
       type="button"
@@ -461,10 +469,12 @@ function CoverCard({
       className="focus-visible:ring-[var(--p)]/40 block rounded-[10px] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-offset-4"
     >
       <div
-        className={`book-cover-premium relative aspect-[3/4] w-[270px] overflow-hidden ${
+        className={`book-cover-premium relative w-[270px] overflow-hidden ${
           isCenter ? 'book-cover-premium--center' : ''
         }`}
         style={{
+          // 판형은 규격이 정한다 — 카드와 같은 이유로 `aspect-[3/4]` 를 뺐다.
+          aspectRatio: lockup?.aspectRatio ?? '3 / 4',
           background: `
             radial-gradient(120% 80% at 25% 12%, rgba(255,255,255,0.22) 0%, transparent 45%),
             linear-gradient(155deg, ${cover.from} 0%, ${cover.to} 78%, rgba(0,0,0,0.18) 100%)
@@ -480,13 +490,17 @@ function CoverCard({
           family={coverFamilyOf(set.brandFamily ?? set.coverImageMeta?.family)}
           artKey={set.slug ?? set.title}
           scrim="hero"
+          lockup={lockup}
+          volumeMark={mark}
         />
         {/* 클로스바운드 표지 — 중앙 serif 제목 + 단어수. 도판이 있으면 이모지는 뺀다(카드와 같은 규칙). */}
         <GradientBookCover
           title={set.title}
           subtitle={`${set.wordCount.toLocaleString()} 단어`}
           ornament={set.coverImageUrl ? null : set.coverEmoji}
-          series={rungForSet(set).rung?.volumeTitle ?? VOCAB_SERIES_BRAND}
+          titleMaxLines={lockup?.titleMaxLines}
+          // 규격이 있으면 시리즈는 표지 위쪽 lockup 이 말한다 — 카드와 같은 규칙.
+          series={lockup ? null : (rung?.volumeTitle ?? VOCAB_SERIES_BRAND)}
         />
         {/* 상단 sheen (Apple glass) */}
         <div aria-hidden className="book-cover-sheen absolute inset-0" />

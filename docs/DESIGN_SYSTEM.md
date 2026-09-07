@@ -389,6 +389,34 @@ font-mono        = JetBrains Mono      → 캡션 · 숫자 · 9-12px
 - 클라이언트 컴포넌트는 **서브패스 `@vocaflow/library-pipeline/textbook-cover`** 로 들어온다.
   패키지 루트를 import 하면 적재 스크립트의 `child_process` 까지 딸려와 화면이 500 이 된다
 
+### 단어장 표지 — 정본은 **DB 의 각인**이지 코드가 아니다
+
+교재 표지는 코드(`textbook/cover.ts`)가 정본이지만 단어장 표지는 다르다. 계열 다섯의 규격을
+Claude Design 캔버스에서 확정해 `shared_word_sets.curation_query.brand` 에 각인하고
+(`VocabBrandCanvas` · 브랜드 드레인 3단), **화면은 그 각인을 읽는다.**
+
+| 각인이 정하는 것 | 화면에서 |
+|---|---|
+| `family` | 도형 문법 + 듀오톤 (`VocabCoverArt` · `coverArtFor`) |
+| `lockup.kicker` | 표지 왼쪽 위 |
+| `lockup.volumeFormat` | 오른쪽 위 — `{n}` 은 **계단 번호가 아니라 권 이름**(`volumeMark`) |
+| `lockup.titleMaxLines` | 제목 클램프 (`GradientBookCover`) |
+| `coverGrid.ratio` | 표지 `aspect-ratio` |
+| `coverGrid.plateInset` | 도판 여백 |
+| `coverGrid.scrimStrength` | 제목 띠 스크림 |
+| `palette` · `typography` | 역할 → 토큰(`resolveBrandColors` · `font-*`) |
+| `seriesLine` | 표지 아래 계열 줄 |
+
+⚠️ **코드에 남은 값은 규격이 아니라 하한이다**(`covers/contrast.ts`) — 각인이 없는 권
+(도서 챕터·글 단어장)만 그것을 쓴다. 규격이 화면과 안 맞으면 **코드가 아니라 캔버스를 고친다.**
+실제로 480px 판형에서 정한 「제목 2줄」이 150px 타일에서 여섯 권의 제목을 잘랐고, 그때 고친 것은
+캔버스였다(2 → 4줄).
+
+⚠️ 규격이 **적재만 되고 읽히지 않는 상태**가 실제로 있었다 — 여덟 항목 중 계열 하나만
+화면에 닿았고 나머지 일곱은 코드 사본이 따로 있었다(스크림은 0.35 vs 0.4 로 이미 갈려 있었다).
+그 상태는 타입도 렌더도 안 잡는다. 회귀 `lib/vcb/covers/__tests__/lockup.test.ts` 25종 +
+`VocabSetCard.test.tsx` 의 변이 검사(규격을 바꾸면 표지가 따라 바뀌는가)가 그 자리를 잠근다.
+
 ### 진열 — 기본은 격자
 
 같은 매대를 두 진열로 재니 격자가 **세 축 모두**에서 이겼다(절충이 없었다):

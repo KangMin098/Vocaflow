@@ -44,8 +44,19 @@ export interface VocabBrandCanvas {
     kicker: string
     /** 권 번호 표기 규격. `{n}` 이 번호 자리다. */
     volumeFormat: string
-    /** 제목이 넘칠 때 몇 줄까지 허용하나. */
-    titleMaxLines: 1 | 2 | 3
+    /**
+     * 제목이 넘칠 때 몇 줄까지 허용하나.
+     *
+     * ⚠️ **이 값은 480×640 판형이 아니라 화면의 실제 표지에서 재야 한다** (실측 2026-09-07).
+     *   캔버스는 480px 폭에서 그려졌고 거기서는 2줄이 30자를 담는다. 그런데 제품의 표지는
+     *   격자 타일에서 **150px** 이라 같은 2줄이 14자밖에 못 담는다 —
+     *   발행 55권의 제목은 최장 35자(`Pride and Prejudice 1~5장 · 다시 만날 단어`)이고
+     *   20자 이상이 6권이다. 2 를 그대로 화면에 적용하면 그 여섯 권의 제목이 잘린다.
+     *
+     *   그래서 상한을 5 까지 연다. **캔버스가 정본이라는 말은 캔버스가 늘 옳다는 뜻이 아니라,
+     *   틀렸을 때 코드가 아니라 캔버스를 고친다는 뜻이다.**
+     */
+    titleMaxLines: 1 | 2 | 3 | 4 | 5
   }
   /** 표지 격자 — 도판이 앉는 비율과 여백. */
   coverGrid: {
@@ -64,6 +75,34 @@ export interface VocabBrandCanvas {
   designedAt: string
   designedBy: 'claude-design'
 }
+
+/**
+ * **규격의 씨앗** — 계열이 달라도 같은 값들.
+ *
+ * 캔버스가 정본이지만 캔버스는 DB 에 있고, 아트보드(`brand-drain-artboards.mts`)는 그 규격을
+ * **그림으로** 보여 주는 자리다. 둘이 각자 숫자를 들고 있으면 반드시 갈린다 —
+ * 실제로 아트보드는 「최대 2줄」을 문자열로 박아 두고 있었다(2026-09-07 발견).
+ *
+ * 그래서 여기 한 벌만 둔다: 아트보드가 이것을 그리고, 드레인 산출물(`chunk-NN.out.json`)이
+ * 이것을 담고, 화면은 DB 에 적재된 그 값을 읽는다. **화면이 이 상수를 직접 읽지 않는다** —
+ * 읽으면 DB 를 고쳐도 표지가 안 따라오고, 그 순간 캔버스가 다시 장식이 된다.
+ */
+export const BRAND_LOCKUP_SPEC = {
+  kicker: 'VOCAFLOW VOCABULARY',
+  volumeFormat: 'VOL. {n}',
+  /** 4 인 이유는 `titleMaxLines` 주석에 있다 — 480px 판형이 아니라 150px 타일에서 잰 값이다. */
+  titleMaxLines: 4,
+} as const satisfies VocabBrandCanvas['lockup']
+
+export const BRAND_COVER_GRID = {
+  ratio: '3:4',
+  plateInset: 8,
+  /**
+   * 0.35 — 제목 띠에서 흰 글자의 대비 하한이 **9.28:1**(다크 corpus)로 WCAG AA(4.5) 의 두 배다.
+   * 실측 2026-09-07: 계열 10벌(라이트·다크) 전부 9.28~18.89.
+   */
+  scrimStrength: 0.35,
+} as const satisfies VocabBrandCanvas['coverGrid']
 
 /** hex·rgb·hsl 어느 형태든 **색 값**이면 잡는다. */
 const COLOR_VALUE = /#[0-9a-f]{3,8}\b|\b(rgba?|hsla?)\s*\(/i
@@ -98,6 +137,15 @@ export function validateBrandCanvas(input: unknown): BrandCanvasProblem[] {
   }
   if (!c.lockup || typeof c.lockup.volumeFormat !== 'string' || !c.lockup.volumeFormat.includes('{n}')) {
     problems.push({ field: 'lockup.volumeFormat', message: '번호 자리 `{n}` 이 없다' })
+  }
+  // 줄 수는 **표지가 실제로 읽는 값**이다 — 범위를 벗어난 값이 들어오면 제목이 통째로
+  // 사라지거나(0) 클램프가 풀린다. 빈 값과 같은 급으로 막는다.
+  if (!c.lockup || ![1, 2, 3, 4, 5].includes(Number(c.lockup.titleMaxLines))) {
+    problems.push({ field: 'lockup.titleMaxLines', message: '1~5 줄이어야 한다' })
+  }
+  if (!c.coverGrid || !Number.isFinite(c.coverGrid.plateInset)
+      || c.coverGrid.plateInset < 0 || c.coverGrid.plateInset > 40) {
+    problems.push({ field: 'coverGrid.plateInset', message: '0~40(%) 이어야 한다' })
   }
   if (!c.coverGrid || !/^\d+:\d+$/.test(String(c.coverGrid.ratio))) {
     problems.push({ field: 'coverGrid.ratio', message: '`3:4` 형태여야 한다' })
@@ -158,5 +206,14 @@ export function resolveBrandColors(
   theme: 'light' | 'dark' = 'light',
 ): { ink: string; paper: string } {
   const duo = FAMILY_DUOTONE[theme][canvas.family]
-  return { ink: duo.ink, paper: duo.paper }
+  /*
+    **역할을 실제로 따라간다.** 예전에는 `duo.ink`·`duo.paper` 를 그대로 돌려주어
+    `palette` 가 무엇을 적든 결과가 같았다 — 그러면 규격이 규격이 아니라 장식이 된다.
+    듀오톤이 가진 자리는 둘(`ink`·`paper`)뿐이고, `accent`·`spine`·`plate` 는 서가 팔레트
+    (`CATALOG_PALETTE`)의 자리라 여기서 풀 수 없다. 그래서 그 셋이 오면 자연스러운 짝으로
+    떨어뜨린다 — 표지가 사라지는 것보다 낫다.
+  */
+  const pick = (role: PaletteRole, fallback: 'ink' | 'paper'): string =>
+    role === 'ink' || role === 'paper' ? duo[role] : duo[fallback]
+  return { ink: pick(canvas.palette.ink, 'ink'), paper: pick(canvas.palette.paper, 'paper') }
 }

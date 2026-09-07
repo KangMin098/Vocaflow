@@ -17,6 +17,7 @@ import type { Database } from '@vocaflow/types'
 import type { PublishedVocabSet } from '@/lib/library/vocab/queries'
 import { setKindOf } from '@/lib/library/vocab/set-kind'
 import type { CoverMeta } from '@/lib/vcb/covers/design'
+import { coverLockupOf } from '@/lib/vcb/covers/lockup'
 
 type DB = Database
 
@@ -116,6 +117,8 @@ export async function fetchBookChapterSets(
       ladderStep: null,
       // 표지 계열·슬러그도 같은 이유로 없다 — 이 세트는 공용 서가에 뜨지 않아 표지를 안 그린다.
       brandFamily: null,
+      // 챕터 단어장은 브랜드 각인 대상이 아니다(계열 55권만) — 규격이 없으면 표지가 그리지 않는다.
+      brandLockup: null,
       slug: null,
       // 판권면 3종도 마찬가지다. 이 세트들은 공용 서가에 뜨지 않아
       // `scripts/vocab/stamp-imprint.mts` 의 각인 대상이 아니고, 각인이 없으면
@@ -220,6 +223,8 @@ export async function fetchBookComposerSets(
     .map((r): BookComposerSet => {
       const cq = r.curation_query ?? {}
       const blueprint = String(cq['blueprint'] ?? '')
+      // 표지 규격은 **한 번만** 좁힌다 — 매대(`vocab/queries.ts`)와 같은 함수를 쓴다.
+      const lockup = coverLockupOf(cq['brand'])
       const wordCount = counts.get(r.id) ?? r.word_count ?? 0
       return {
         id: r.id,
@@ -244,10 +249,8 @@ export async function fetchBookComposerSets(
         ladderStep: r.ladder_step ?? null,
         // 같은 이유로 표지 계열·슬러그도 **각인된 값 그대로** 넘긴다 — `vocab/queries.ts` 와
         // 같은 순서로 고른다(계열은 그림의 성질이 아니라 그 책의 성질이라 큐레이션 질의가 먼저).
-        brandFamily:
-          (cq['brand'] as { family?: string } | undefined)?.family ??
-          r.cover_image_meta?.family ??
-          null,
+        brandFamily: lockup?.family ?? r.cover_image_meta?.family ?? null,
+        brandLockup: lockup,
         slug: r.slug ?? null,
         imprintCode: r.slug ? `VF-${r.slug}-v${r.version ?? 1}` : null,
         qa: (cq['qa'] as BookComposerSet['qa']) ?? null,

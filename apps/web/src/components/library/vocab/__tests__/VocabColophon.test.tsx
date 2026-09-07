@@ -32,6 +32,7 @@ function set(overrides: Partial<PublishedVocabSet> = {}): PublishedVocabSet {
     coverImageMeta: null,
     brandFingerprint: null,
     brandFamily: null,
+    brandLockup: null,
     slug: null,
     ladderStep: null,
     imprintCode: null,

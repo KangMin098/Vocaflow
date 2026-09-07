@@ -25,7 +25,9 @@ import {
   FAMILY_DUOTONE,
   VOCAB_SERIES_BRAND,
 } from '@vocaflow/library-pipeline/vocab-brand'
-import { BRAND_FAMILIES } from '@vocaflow/library-pipeline/vocab-brand-canvas'
+import {
+  BRAND_COVER_GRID, BRAND_FAMILIES, BRAND_LOCKUP_SPEC,
+} from '@vocaflow/library-pipeline/vocab-brand-canvas'
 import { coverArtFor } from '@vocaflow/library-pipeline/vocab-cover-art'
 
 const argOf = (flag: string, fallback: string): string => {
@@ -106,7 +108,7 @@ function cover(family: string): string {
   <div style="position: relative; display: flex; flex-direction: column; height: 100%; padding: 34px 34px 26px; box-sizing: border-box;">
     <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px;">
       <span class="kicker" style="color: ${duo.paper}; opacity: .85;">${VOCAB_SERIES_BRAND}</span>
-      <span class="num" style="font-size: 11px; color: ${duo.paper}; opacity: .85;">VOL. 05</span>
+      <span class="num" style="font-size: 11px; color: ${duo.paper}; opacity: .85;">${BRAND_LOCKUP_SPEC.volumeFormat.replace('{n}', '4')}</span>
     </div>
 
     <div style="flex: 1; display: flex; align-items: center; justify-content: center; padding: 18px 0 0;">
@@ -145,10 +147,12 @@ ${tail()}`
 function main(): string {
   const rows: Array<[string, string]> = [
     ['kicker', `표지 맨 위 · ${F.mono} 10px · 자간 .18em · 값은 시리즈 상수에서 읽는다`],
-    ['권 번호', '오른쪽 위 · VOL. {n} · 계열 잉크색 · tabular-nums (자리가 맞아야 서가에서 줄이 선다)'],
+    ['권 번호', `오른쪽 위 · ${BRAND_LOCKUP_SPEC.volumeFormat} · tabular-nums (자리가 맞아야 서가에서 줄이 선다) · `
+      + '{n} 은 계단 번호가 아니라 **권 이름**이다 — 계단은 한 칸 밀려 있어 나란히 두면 한 책이 두 수를 말한다'],
     ['도판', '듀오톤 판 위 선화 · 계열 ink/paper 두 색만 · 채움·그라디언트 금지'],
     ['계열 줄', '도판 아래 · 영문 대문자 + 한국어 계열명'],
-    ['제목', `${F.english} 34px / 1.18 · 최대 2줄 · 넘치면 줄이지 말고 자간을 좁힌다`],
+    ['제목', `${F.english} 34px / 1.18 · 최대 ${BRAND_LOCKUP_SPEC.titleMaxLines}줄`
+      + ' (480px 판형이 아니라 150px 타일에서 잰 값 — 여기서는 넉넉해 보인다)'],
     ['결', '제목 아래 한 줄 · 이 계열이 무엇을 모으는가'],
     ['책등', '왼쪽 14px 띠 · 계열 잉크 · 서가에서 계열을 가르는 유일한 신호'],
     ['사다리', '아래 · 일곱 계단 중 이 권의 자리 · 다음에 무엇을 볼지'],
@@ -198,7 +202,7 @@ function grid(): string {
   </div>
 
   <div>
-    <p class="kicker" style="margin: 0 0 10px; color: ${P.ink};">표지 격자 3:4</p>
+    <p class="kicker" style="margin: 0 0 10px; color: ${P.ink};">표지 격자 ${BRAND_COVER_GRID.ratio}</p>
     <div style="position: relative; width: 240px; height: 320px; border: 1px solid ${P.line}; background: ${P.plate};">
       <div style="position: absolute; left: 0; top: 0; bottom: 0; width: 7px; background: ${P.spine};"></div>
       <div style="position: absolute; left: 7px; right: 15px; top: 14px; height: 1px; background: ${P.line};"></div>
@@ -208,7 +212,7 @@ function grid(): string {
       <span class="num" style="position: absolute; right: 8px; bottom: 10px; font-size: 10px; color: ${P.sub};">480 × 640</span>
     </div>
     <p style="margin: 10px 0 0; font-size: 12px; line-height: 1.6; color: ${P.sub};">
-      바깥 여백 26 / 30 · 도판 안쪽 여백 8% · 도판 위 글자를 덮는 정도 0.35
+      바깥 여백 26 / 30 · 도판 안쪽 여백 ${BRAND_COVER_GRID.plateInset}% · 도판 위 글자를 덮는 정도 ${BRAND_COVER_GRID.scrimStrength}
     </p>
   </div>
 

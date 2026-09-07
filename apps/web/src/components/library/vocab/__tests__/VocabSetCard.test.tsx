@@ -12,6 +12,7 @@
 import { renderToString } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
 import { FAMILY_GRAIN } from '@/lib/vcb/covers/design'
+import { coverLockupOf } from '@/lib/vcb/covers/lockup'
 import type { PublishedVocabSet } from '@/lib/library/vocab/queries'
 import { VocabSetCard } from '../VocabSetCard'
 
@@ -46,6 +47,7 @@ function set(overrides: Partial<PublishedVocabSet> = {}): PublishedVocabSet {
     // 카테고리·CEFR 추정 경로를 타는지 확인할 수 있다. 저작된 계단은 따로 넘겨 시험한다.
     brandFingerprint: null,
     brandFamily: null,
+    brandLockup: null,
     slug: null,
     ladderStep: null,
     imprintCode: null,
@@ -167,5 +169,109 @@ describe('단어장 카드 — 표지와 유형', () => {
   it('유형이 없는 레거시 세트는 그 줄을 생략한다 — 빈 칩을 남기지 않는다', () => {
     const html = render(set({ kind: null }))
     expect(html).not.toContain('어근 하나에 딸린')
+  })
+})
+
+/*
+  ── 표지 규격이 실제로 화면을 움직이는가 (2026-09-07) ─────────────────
+
+  브랜드 드레인은 규격 여덟 항목을 발행 55권에 각인했는데, 화면이 읽은 것은 `family`
+  하나뿐이었다. 나머지 일곱은 **DB 에 있고 코드에 사본이 따로 있는** 상태였다.
+  이 블록은 그 일곱이 각각 화면에 도달하는지를 잰다 — 도달하지 않으면 규격은 장식이다.
+*/
+describe('단어장 카드 — 표지 규격(브랜드 각인)', () => {
+  const lockup = coverLockupOf({
+    family: 'structure',
+    seriesLine: 'STRUCTURE · 구조 계열',
+    grain: '해부와 분해 — 조각으로 나눠 본 것',
+    lockup: { kicker: 'VOCAFLOW VOCABULARY', volumeFormat: 'VOL. {n}', titleMaxLines: 4 },
+    coverGrid: { ratio: '3:4', plateInset: 8, scrimStrength: 0.35 },
+    palette: { ink: 'ink', paper: 'paper', accent: 'accent' },
+    typography: { display: 'english', body: 'body', numerals: 'mono' },
+    canvasUrl: null,
+    designedAt: '2026-09-06T12:15:03.399Z',
+    designedBy: 'claude-design',
+  })
+
+  /** 각인된 권 — 계단 5단(= 권 이름 `Vocaflow Vocabulary 4`). */
+  const branded = (overrides: Partial<PublishedVocabSet> = {}) =>
+    set({ brandLockup: lockup, brandFamily: 'structure', ladderStep: 5, ...overrides })
+
+  it('kicker 와 계열 줄을 표지에 찍는다 — 규격의 글자가 화면에 있다', () => {
+    const html = render(branded())
+    expect(html).toContain('VOCAFLOW VOCABULARY')
+    expect(html).toContain('STRUCTURE · 구조 계열')
+  })
+
+  /*
+    ⚠️ 교재 표지가 여기서 틀렸다 — 5단 표지에 `5` 를 찍었는데 제목은 `… Reading 4` 였다.
+    계단(1~7)과 권 이름(Starter·1~6)이 한 칸 밀려 있어서다. 단어장도 같은 사다리를 탄다.
+  */
+  it('권 번호는 계단이 아니라 **권 이름**이다 — 5단 권에 VOL. 4 가 찍힌다', () => {
+    const html = render(branded())
+    expect(html).toContain('VOL. 4')
+    expect(html).not.toContain('VOL. 5')
+    // 계단은 배지가 따로 말한다 — 둘이 다른 것을 말하는 게 정상이고, 그래서 형태가 달라야 한다.
+    expect(html).toContain('5단')
+  })
+
+  it('계단을 못 정한 권은 번호 자리를 비운다 — 없는 수를 지어내지 않는다', () => {
+    const html = render(branded({ ladderStep: null, category: 'etymology', cefrLevel: null, level: null }))
+    expect(html).toContain('VOCAFLOW VOCABULARY')
+    expect(html).not.toContain('VOL.')
+  })
+
+  it('시리즈를 두 번 말하지 않는다 — lockup 이 있으면 중앙 시리즈 줄을 뺀다', () => {
+    const html = render(branded())
+    expect(html).not.toContain('Vocaflow Vocabulary 4')
+  })
+
+  it('각인이 없는 권은 종전 그대로 — kicker 없이 시리즈 줄', () => {
+    const html = render(set({ ladderStep: 5 }))
+    expect(html).not.toContain('VOCAFLOW VOCABULARY')
+    expect(html).not.toContain('VOL. ')
+    expect(html).toContain('Vocaflow Vocabulary 4')
+  })
+
+  it('판형·스크림·도판 여백이 규격 값으로 그려진다', () => {
+    const html = render(branded())
+    expect(html).toContain('aspect-ratio:3 / 4')
+    // 스크림 0.35 — 코드 하한 0.4 가 아니라 캔버스 값이어야 한다.
+    expect(html).toContain('rgba(0,0,0,0.35) 62%')
+    expect(html).not.toContain('rgba(0,0,0,0.4) 62%')
+    expect(html).toContain('padding:8% 8% 33%')
+  })
+
+  it('제목 줄 수가 규격을 따른다', () => {
+    expect(render(branded())).toContain('line-clamp-4')
+  })
+
+  /*
+    변이 검사 — 위 단언들이 "규격을 읽어서" 통과하는지, 아니면 우연히 코드 기본값과 같아서
+    통과하는지 가른다. 규격을 바꾸면 화면이 **따라 바뀌어야** 한다.
+  */
+  it('규격을 바꾸면 표지가 따라 바뀐다 (사본이면 안 바뀐다)', () => {
+    const mutated = coverLockupOf({
+      family: 'corpus',
+      seriesLine: 'CORPUS · 원서 계열',
+      grain: '장면과 서사 — 이야기 속에서 만난 것',
+      lockup: { kicker: 'VF READERS', volumeFormat: '제 {n} 권', titleMaxLines: 2 },
+      coverGrid: { ratio: '2:3', plateInset: 14, scrimStrength: 0.5 },
+      palette: { ink: 'ink', paper: 'paper', accent: 'accent' },
+      typography: { display: 'english', body: 'mono', numerals: 'body' },
+      canvasUrl: null,
+      designedAt: '2026-09-06T12:15:03.399Z',
+      designedBy: 'claude-design',
+    })
+    const html = render(branded({ brandLockup: mutated, brandFamily: 'corpus' }))
+    expect(html).toContain('VF READERS')
+    expect(html).toContain('제 4 권')
+    expect(html).toContain('aspect-ratio:2 / 3')
+    expect(html).toContain('rgba(0,0,0,0.5) 62%')
+    expect(html).toContain('padding:14% 14% 33%')
+    expect(html).toContain('line-clamp-2')
+    // 계열이 바뀌면 색도 바뀐다 — 규격의 계열이 정본이다.
+    expect(html).toContain(FAMILY_GRAIN.corpus.ink)
+    expect(html).not.toContain(FAMILY_GRAIN.structure.ink)
   })
 })

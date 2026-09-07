@@ -31,6 +31,14 @@ interface GradientBookCoverProps {
   /** 작은 카드(그리드 타일)용 축소 타이포 */
   compact?: boolean
   /**
+   * 제목 줄 수 상한 — **규격이 정한 값**을 받는다(단어장은 `brandLockup.titleMaxLines`).
+   *
+   * 안 주면 종전대로 compact 4줄 / 큰 표지 5줄이다. 그 값은 규격이 없는 표지(도서·스크립트)의
+   * 하한이고, 여기서 새로 정하지 않는다 — 표지가 규격보다 한 줄 더 보여 주면 그 순간
+   * 규격은 규격이 아니게 된다.
+   */
+  titleMaxLines?: number
+  /**
    * 표지 위 글자색 — `bookCover().textTone` 을 그대로 넘긴다.
    *
    * ⚠️ 이 컴포넌트는 오래 `text-white` 를 **박아 두고** 있었고, `bookCover` 가 계산해 주는
@@ -50,6 +58,7 @@ export function GradientBookCover({
   ornament,
   series,
   compact = false,
+  titleMaxLines,
   textTone = 'light',
 }: GradientBookCoverProps) {
   // 옅은 표지에는 어두운 잉크. 프레임·장식 룰도 같은 쪽으로 뒤집어야 테두리가 사라지지 않는다.
@@ -77,9 +86,18 @@ export function GradientBookCover({
     : 'text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.45)]'
   const subInk = dark ? 'text-black/75' : 'text-white/85'
 
+  /*
+    ⚠️ 클래스 이름을 **문자열로 조립하지 않는다**(`line-clamp-${n}`). Tailwind 는 소스에서
+    완성된 문자열만 훑으므로 조립한 이름은 CSS 가 생성되지 않고, **클램프가 조용히 사라진다** —
+    화면은 멀쩡히 뜨고 제목만 끝없이 늘어난다.
+  */
+  const CLAMP: Record<number, string> = {
+    1: 'line-clamp-1', 2: 'line-clamp-2', 3: 'line-clamp-3', 4: 'line-clamp-4', 5: 'line-clamp-5',
+  }
+  const clamp = CLAMP[titleMaxLines ?? (compact ? 4 : 5)] ?? (compact ? 'line-clamp-4' : 'line-clamp-5')
   const titleCls = compact
-    ? `line-clamp-4 font-english text-[15px] font-[600] leading-[1.26] tracking-[0.005em] ${titleInk}`
-    : `line-clamp-5 font-english text-[20px] font-[600] leading-[1.28] tracking-[0.005em] ${titleInk}`
+    ? `${clamp} font-english text-[15px] font-[600] leading-[1.26] tracking-[0.005em] ${titleInk}`
+    : `${clamp} font-english text-[20px] font-[600] leading-[1.28] tracking-[0.005em] ${titleInk}`
   const subCls = compact
     ? `line-clamp-1 font-display text-[9px] font-[600] uppercase tracking-[0.14em] ${subInk}`
     : `line-clamp-1 font-display text-[10px] font-[600] uppercase tracking-[0.16em] ${subInk}`

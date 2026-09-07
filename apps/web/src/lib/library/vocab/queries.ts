@@ -11,6 +11,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import type { Database } from '@vocaflow/types'
 import { setKindOf, type SetKind } from './set-kind'
 import type { CoverMeta } from '@/lib/vcb/covers/design'
+import { coverLockupOf, type CoverLockup } from '@/lib/vcb/covers/lockup'
 import { pagedSelect } from '@/lib/supabase/paged-select'
 
 type DB = Database
@@ -97,6 +98,14 @@ export interface PublishedVocabSet {
    *    그 권은 표지를 그릴 수 없게 된다. 계열은 그림의 성질이 아니라 그 책의 성질이다.
    */
   brandFamily: string | null
+  /**
+   * **표지 규격 한 벌** — kicker · 권 번호 표기 · 제목 줄 수 · 격자 · 스크림 · 서체 역할.
+   * Claude Design 캔버스가 정하고 브랜드 드레인이 각인한 값이다.
+   *
+   * 각인이 없으면 `null` 이고, 그때 표지는 **규격이 말하는 요소를 그리지 않는다**(하한만 쓴다).
+   * 코드가 기본값을 지어내면 두 번째 정본이 생겨 캔버스를 고쳐도 그 권들이 안 따라온다.
+   */
+  brandLockup: CoverLockup | null
   /** 표지 도판의 열쇠이자 판권 번호의 뿌리. 재발행해도 같은 책이면 같은 값이어야 한다. */
   slug: string | null
   imprintCode: string | null
@@ -160,8 +169,15 @@ interface SharedSetRow {
     /** `scripts/vocab/stamp-imprint.mts` 가 더한 키. 컴포저의 레시피와 같은 jsonb 에 산다. */
     qa?: { checked: number; passed: number; at: string }
     level?: { median: number; min: number; max: number; measured: number }
-    /** `scripts/vocab/brand-drain-import.mts` 가 각인한 계열 브랜드 규격. */
-    brand?: { family?: string }
+    /**
+     * `scripts/vocab/brand-drain-import.mts` 가 각인한 **표지 규격 한 벌**
+     * (Claude Design 캔버스 → `VocabBrandCanvas`).
+     *
+     * ⚠️ 모양을 여기서 좁히지 않고 `unknown` 으로 받는다 — jsonb 라 타입이 보장되지 않고,
+     *   좁힌 타입을 믿고 읽으면 낡은 각인 하나가 표지를 통째로 날린다.
+     *   좁히는 일은 `coverLockupOf` 하나가 한다(모양이 안 맞으면 `null`).
+     */
+    brand?: unknown
   } | null
   cover_image_url?: string | null
   cover_image_meta?: CoverMeta | null
@@ -256,7 +272,10 @@ async function enrichSets(
     }
   }
 
-  return sets.map((s) => ({
+  return sets.map((s) => {
+    // 규격은 **한 번만** 좁힌다 — 계열도 여기서 나온다(각인이 유일한 정본이라는 뜻이다).
+    const lockup = coverLockupOf(s.curation_query?.brand)
+    return {
     id: s.id,
     title: s.title,
     description: s.description,
@@ -274,13 +293,15 @@ async function enrichSets(
     coverImageMeta: s.cover_image_meta ?? null,
     brandFingerprint: s.brand_fingerprint ?? null,
     ladderStep: s.ladder_step ?? null,
-    brandFamily: s.curation_query?.brand?.family ?? s.cover_image_meta?.family ?? null,
+    brandFamily: lockup?.family ?? s.cover_image_meta?.family ?? null,
+    brandLockup: lockup,
     slug: s.slug ?? null,
     // 판권 번호 — slug 가 없으면 만들지 않는다(id 로 지어내면 학습자가 인용할 수 없는 값이 된다).
     imprintCode: s.slug ? `VF-${s.slug}-v${s.version ?? 1}` : null,
     qa: s.curation_query?.qa ?? null,
     level: s.curation_query?.level ?? null,
-  }))
+    }
+  })
 }
 
 /**

@@ -5,7 +5,7 @@
   "lockup": {
     "kicker": "VOCAFLOW VOCABULARY",
     "volumeFormat": "VOL. {n}",
-    "titleMaxLines": 2
+    "titleMaxLines": 4
   },
   "coverGrid": {
     "ratio": "3:4",

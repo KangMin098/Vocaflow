@@ -1,7 +1,7 @@
 // apps/web/src/components/library/vocab/VocabSetCard.tsx
 //
 // 클로스바운드 클래식 책 표지 타일 — /library/books 와 동일한 "책 한 권" 메타포.
-// - aspect-[3/4] 책 표지 (그라디언트 + 중앙 serif 제목 + 이모지 장식 + 단어수)
+// - 책 표지 (판형·kicker·권 번호·제목 줄 수·스크림은 **브랜드 각인이 정한다** — `brandLockup`)
 // - 우상단 사다리 배지(계단·학령 — 계단을 못 정한 권만 CEFR) · 좌상단 구독 배지
 // - hover/focus 시 + 추가/제외 액션 reveal
 // - 그리드라 반사(-webkit-box-reflect)는 끔 (행 간 겹침 방지)
@@ -17,6 +17,9 @@ import { VocabCoverArt } from './VocabCoverArt'
 import { bookCover, cefrToVLevel } from '@/lib/library/book-cover'
 import { rungForSet } from '@/lib/library/vocab/rung'
 import { VOCAB_SERIES_BRAND } from '@vocaflow/library-pipeline/vocab-brand'
+// 교재 표지가 만든 함수를 그대로 쓴다 — 「표지 숫자와 제목 숫자가 한 칸 어긋난다」는
+// 함정이 단어장에도 똑같이 있고, 두 벌을 두면 한쪽만 고쳐진다.
+import { volumeMark } from '@vocaflow/library-pipeline/textbook-cover'
 import type { PublishedVocabSet } from '@/lib/library/vocab/queries'
 
 import { vocabCategoryMeta } from './categories'
@@ -68,10 +71,26 @@ export function VocabSetCard({
   const family = coverFamilyOf(set.brandFamily ?? set.coverImageMeta?.family ?? null)
   const artKey = set.slug ?? set.title
 
+  /*
+    표지 규격 — Claude Design 캔버스가 정하고 브랜드 드레인이 각인한 값(발행 55권).
+    kicker·권 번호·제목 줄 수·격자 비율·도판 여백·스크림·서체가 전부 여기서 온다.
+    각인이 없는 권(도서 챕터 단어장)에는 `null` 이라 종전 표지 그대로다.
+  */
+  const lockup = set.brandLockup
+
   // 사다리에서의 자리. 컴포저가 정한 값이 DB 에 있으면 그것을 쓰는 것이 맞지만, 카드는
   // 아직 그 컬럼을 받지 않는다 — 여기서는 카테고리·CEFR 로 **추정**한다(`rungForSet`).
   // 근거가 없으면 null 이고, 그때는 종전대로 CEFR 을 보인다.
   const { rung } = rungForSet(set)
+
+  /*
+    표지 오른쪽 위에 찍을 표시 — **계단 번호가 아니라 권 이름**이다(`Vocaflow Vocabulary 4` → `4`).
+
+    ⚠️ 교재 표지가 정확히 여기서 틀렸다: 5단 표지에 `5` 를 찍었는데 같은 카드의 제목은
+      `Vocaflow Reading 4` 였다. 계단(1~7)과 권 이름(Starter·1~6)이 한 칸 밀려 있어서다.
+      그래서 교재가 만든 `volumeMark` 를 **그대로 쓴다** — 같은 함정을 두 번 파지 않는다.
+  */
+  const mark = rung ? volumeMark(rung.volumeTitle, VOCAB_SERIES_BRAND) : null
 
   // 신규(최근 14일) 배지 — 최신성 discovery 신호. SSR 하이드레이션 회피 위해 mount 후 판정.
   const [mounted, setMounted] = useState(false)
@@ -95,8 +114,11 @@ export function VocabSetCard({
         type="button"
         onClick={() => onPreview(set)}
         aria-label={`${set.title} 미리보기 열기`}
-        className="book-cover-premium focus-visible:ring-[var(--p)]/40 relative aspect-[3/4] w-full overflow-hidden transition-transform hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+        className="book-cover-premium focus-visible:ring-[var(--p)]/40 relative w-full overflow-hidden transition-transform hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
         style={{
+          // 판형 — 규격(`coverGrid.ratio`)이 정한다. `aspect-[3/4]` 로 박아 두었더니 캔버스가
+          //   비율을 바꿔도 서가가 안 따라왔다. 각인이 없는 권은 종전 3:4.
+          aspectRatio: lockup?.aspectRatio ?? '3 / 4',
           // 그리드 카드 — 반사 비활성 (행 간 겹침 방지)
           WebkitBoxReflect: 'none',
           background: `
@@ -106,18 +128,30 @@ export function VocabSetCard({
         }}
       >
         {/* 표지 도판 — 캐러셀과 **같은 컴포넌트**를 쓴다. 이제 수집이 아니라 그린다. */}
-        <VocabCoverArt family={family} artKey={artKey} scrim="card" />
+        <VocabCoverArt
+          family={family}
+          artKey={artKey}
+          scrim="card"
+          lockup={lockup}
+          volumeMark={mark}
+        />
 
         {/* 클로스바운드 표지 — 중앙 serif 제목 + 단어수 + 이모지 장식 (그리드라 compact) */}
         <GradientBookCover
           title={set.title}
           subtitle={`${set.wordCount.toLocaleString()} 단어`}
+          titleMaxLines={lockup?.titleMaxLines}
           // 이모지 장식은 **도판을 못 받은 권의 대타**였다. 이제 모든 권이 도판을 그리므로
           //   자리가 없다 — 두면 선화 위에 이모지가 겹친다.
           ornament={null}
-          // 시리즈 줄 — 계단이 있으면 그 권 이름(`Vocaflow 3`), 학령 밖이면 시리즈명만.
-          //   값을 여기서 짓지 않는다: 정본 사다리에서 읽는다.
-          series={rung?.volumeTitle ?? VOCAB_SERIES_BRAND}
+          /*
+            시리즈 줄 — 규격이 있으면 **표지 위쪽 lockup 이 이미 말한다**(kicker + 권 번호).
+            둘 다 그리면 한 표지에 시리즈가 두 줄이 되고, 게다가 서로 다른 형태로 말한다
+            (`Vocaflow Vocabulary 4` vs `VOCAFLOW VOCABULARY` + `VOL. 4`).
+
+            규격이 없는 권만 종전대로 이 줄을 쓴다 — 값을 여기서 짓지 않고 정본 사다리에서 읽는다.
+          */
+          series={lockup ? null : (rung?.volumeTitle ?? VOCAB_SERIES_BRAND)}
           compact
         />
         <div aria-hidden className="book-cover-sheen absolute inset-0" />
