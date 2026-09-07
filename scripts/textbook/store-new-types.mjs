@@ -147,7 +147,7 @@ function report() {
 }
 
 /**
- * `--since <ISO>` · `--article <uuid>` — **원글 몇 편 때문에 밴드 전체를 읽지 않는다.**
+ * `--since <ISO>`(처리 시각 = updated_at) · `--article <uuid>` — **원글 몇 편 때문에 밴드 전체를 읽지 않는다.**
  *
  * ⚠️ 실측 2026-09-06: 장문 두 편을 넣고 문항을 만들려고 `--band 6` 을 돌렸더니 이 조회가
  *   **V6 13,041편을 본문째** 읽었다(이 표는 1,000행당 힙이 ~8 MB 다). 같은 시각 DB 가
@@ -169,7 +169,12 @@ const arts = []
       .not('content', 'is', null)
     // --band 을 주면 그 밴드만 본다. 전수는 몇 시간이 걸린다(위 BAND 주석 참조).
     if (BAND != null) q = q.eq('article_v_level', BAND)
-    if (SINCE) q = q.gte('created_at', SINCE)
+    // ⚠️ **`created_at` 이 아니라 `updated_at` 이다** (실측 2026-09-07).
+    //   이 옵션을 쓰는 자리는 「방금 처리한 글에 문항을 붙인다」인데, 그 글들은 며칠 전에
+    //   **수확**되고 오늘 **처리**만 됐다. `created_at` 으로 좁혔더니 **0편**이 잡혔고,
+    //   밴드 전체를 돌려 우회해야 했다 — 좁히려고 만든 옵션이 아무것도 안 좁혔다.
+    //   `process-queue` 가 `status`·분석 결과를 쓰면서 `updated_at` 을 올리므로 그쪽이 맞다.
+    if (SINCE) q = q.gte('updated_at', SINCE)
     if (ONLY_ARTICLE) q = q.eq('id', ONLY_ARTICLE)
     // ⚠️ **OFFSET 으로 넘기지 않는다.** 뒤 페이지일수록 앞을 다시 훑어 버리는데, 이 표는
     //   행이 넓어 그 비용이 그대로 디스크 읽기다. `id` 는 pk 라 커서로 안전하다.
@@ -184,7 +189,7 @@ const arts = []
   }
 }
 if (SINCE || ONLY_ARTICLE) {
-  console.log(`  대상을 좁혔다 — ${arts.length}편${SINCE ? ` (${SINCE} 이후)` : ''}${ONLY_ARTICLE ? ' (원글 지정)' : ''}`)
+  console.log(`  대상을 좁혔다 — ${arts.length}편${SINCE ? ` (처리 ${SINCE} 이후)` : ''}${ONLY_ARTICLE ? ' (원글 지정)' : ''}`)
 }
 mark('원글 조회(본문 포함)')
 const usable = arts.filter((a) => !a.display_only)
