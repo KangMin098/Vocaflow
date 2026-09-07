@@ -1030,6 +1030,25 @@ export const FEED_REGISTER: Record<string, string> = {
   'voa:us-history': 'narrative', // 역사 서사 — 사건을 이야기로 푼다
   // voa:as-it-is = 시사 → source 기본값('news')
 
+  // ── 사이트맵 수확분의 옛 코너 (2026-09-07) ──────────────────────────
+  // RSS 는 아카이브의 1.4% 만 보여 줬고, 나머지 98.6% 에는 **지금 없어진 코너**가 산다.
+  //   여기 없으면 전부 소스 기본값 `news` 로 떨어진다 — 인물 전기가 시사로 안내된다.
+  // 코너명은 JSON-LD `articleSection`, 그게 비면 제목 앞머리(`THIS IS AMERICA - …`)에서 온다.
+  'voa:explorations': 'expository', // 과학·탐사 특집 (Space Digest 등)
+  'voa:education-report': 'expository', // 옛 Education Report
+  'voa:health-report': 'expository', // 옛 Health Report
+  'voa:economics-report': 'expository', // 옛 Economics Report
+  'voa:agriculture-report': 'expository', // 옛 Agriculture Report
+  'voa:development-report': 'expository', // 옛 Development Report
+  'voa:science-in-the-news': 'expository', // 옛 Science in the News
+  'voa:environment-and-science': 'expository', // Environment & Science
+  'voa:this-is-america': 'expository', // 미국 사회·문화 해설
+  'voa:people-in-america': 'narrative', // 인물 전기 — **서사다**(news 로 떨어지면 안 된다)
+  'voa:american-mosaic': 'expository', // 대중문화 주간지
+  'voa:what-s-trending-today': 'news', // 화제 뉴스 — 소스 기본값과 같지만 명시해 둔다
+  // 'voa:in-the-news' 는 이름 그대로 시사다 → 소스 기본값('news')
+  // 'voa:voa-unsectioned' 는 코너를 못 읽은 자리다 → 기본값. **코너를 늘려 이 칸을 줄인다.**
+
   // PLOS 논증 지면 (2026-08-21). 소스 기본값은 'expository'(연구논문)지만
   // Essay·Perspective·Opinion 은 주장하는 글이다. 이 한 줄이 논증문 재고 0 을 푼다 —
   // 나머지 논증 후보는 전부 ND/NC 라 붙여도 display_only 로 죽는다.

@@ -10,6 +10,30 @@
 | 안정 식별자 | URL 끝 **숫자 article id** (`/a/…/7886988.html` → `7886988`). 67,316개 전부 고유 · 중복 0 |
 | 증분 커서 | sitemap `lastmod` (67,316행 **전부** 보유) + 4개 `.gz` 전량 재열거(합 1.4 MB) |
 | 정찰 일자 | 2026-09-07 |
+| **구현** | **2026-09-07 완료** — `scripts/acp/harvest-voa-sitemap.mjs` (아래 §수확기를 짠다면 설계대로). 회귀 `packages/library-pipeline/src/ingest-article/voa-sitemap.test.ts` 21종 |
+
+---
+
+## 구현하면서 정찰과 달랐던 것 (실측 2026-09-07)
+
+정찰이 틀린 것은 없었고, **정찰이 아직 못 본 것**이 셋 있었다. 전부 코드에 반영했다.
+
+1. **발행일은 폴백이 「가려 준」 게 아니라 아예 실패했다.** §8 은 「둘 다 폴백이 받아 주고
+   있어 조용하다」고 적었는데, DB 를 세니 **266행 중 실제 발행일을 가진 행이 0** 이다 —
+   236행 NULL + 30행은 `2026-07-05 01:11:0x` 한 분 안에 찍힌 배치 스탬프(2017년 기사에
+   2026년 날짜라 **NULL 보다 나쁘다**). 원인은 `<time datetime>` 값의 엔티티다:
+   `2019-06-30T22:02:29&#x2B;00:00` → `new Date()` → Invalid Date → `safeDate` 가 null.
+   제목 쪽은 정찰대로 `<title>` 폴백이 받아 주고 있었다(249편 전부 · "| VOA" 접미어 0건).
+   → 이제 **JSON-LD 가 정본**이고 메타는 속성 순서와 무관하게 읽는다. 기존 행은
+   `--repair-dates` 로 원문에서 되읽는다.
+2. **옛 아카이브는 `articleSection` 이 비어서 온다.** §8 은 「기사마다 정확히 온다」고
+   적었으나 그건 2012년 이후 얘기다. 그 전 글은 코너가 **제목 앞에 대문자**로 붙어 있다
+   (`THIS IS AMERICA - …` · `PEOPLE IN AMERICA - …` · `IN THE NEWS - …`). 첫 회차 적재분의
+   **36%** 가 그 자리였고, 안 읽으면 전부 register 기본값 `news` 로 떨어져
+   **인물 전기가 시사 뉴스로 안내된다.** → `voaFeedIdFor(section, title)` 이 둘 다 본다.
+3. **reference 코너가 섹션만으로는 안 걸린다.** id 608067 「Words and Their Stories:
+   In the Red」의 `articleSection` 은 코너가 아니라 `learningenglish` 였다. 제목 앞머리와
+   `Slangman:`·`Wordmaster:` 같은 중간 표지도 함께 본다.
 
 ---
 

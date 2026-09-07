@@ -179,6 +179,174 @@ export const VOA_FEEDS: Array<{ id: string; label: string; level: 1 | 2 | 3; url
   },
 ]
 
+// ═══════════════════════════════════════════════════════════════════════
+// 사이트맵 경로 — **아카이브의 나머지 98.6% 로 가는 유일한 문.**
+//
+// RSS 는 `?count=` 한 방이고 **200 이 하드 천장**이다(그 위를 요청하면 오류가 아니라
+// 기본값 20 으로 조용히 되돌아간다 — 실측 2026-09-07). 그래서 14 피드를 다 걷어도
+// 이론 상한 2,800 · 실측 936 이고, 아카이브 67,316편의 **1.4%** 만 보인다.
+//
+// `robots.txt` 가 사이트맵을 스스로 광고하고, 같은 파일이 `/*?p=*`(목록 페이지네이션)와
+// `/s?k=*`(검색)를 **금지**한다. 즉 사이트맵은 허용된 유일한 대량 경로다.
+//
+// ⚠️ 사이트맵은 **전수 열거**라 페이지 개념이 없다 — 2026-08-16 IA 사고(정렬 없는
+//   페이지 넘김으로 214건 중복 + 동수 누락)가 구조적으로 불가능하다. 4 요청 · 1.4MB.
+// ⚠️ UA 필수. 봇 UA 는 WAF 가 403 한다(`USER_AGENT` 상수를 그대로 쓴다).
+// ═══════════════════════════════════════════════════════════════════════
+
+/** 기사 URL 을 담은 사이트맵 4개(gzip). `videos`(8,364)·`sections`(126)는 지문이 아니다. */
+export const VOA_ARTICLE_SITEMAPS: readonly string[] = [1, 2, 3, 4].map(
+  (n) => `https://learningenglish.voanews.com/sitemap_428_${n}.xml.gz`,
+)
+
+export interface VoaSitemapEntry {
+  /** 안정 식별자 붙은 열쇠 — `sourceKey('voa', …)` 와 **같은 함수**가 만든다 */
+  source_id: string
+  url: string
+  /** `<lastmod>` — 표본에서 JSON-LD `datePublished` 와 일치했다 */
+  lastmod: string | null
+}
+
+/**
+ * 사이트맵 XML(압축 해제 후) → 항목. **gunzip 은 부르는 쪽 몫이다**
+ * (이 패키지는 Next.js 앱도 import 하므로 `node:zlib` 를 들이지 않는다).
+ *
+ * 열쇠를 못 뽑는 `<url>` 은 **버리고 센다** — 해시로 채우면 그 쪽이 매 실행 새 글이 된다.
+ */
+export function parseVoaSitemapXml(xml: string): { entries: VoaSitemapEntry[]; skipped: number } {
+  const entries: VoaSitemapEntry[] = []
+  let skipped = 0
+  const re = /<url>([\s\S]*?)<\/url>/g
+  let m: RegExpExecArray | null
+  while ((m = re.exec(xml)) !== null) {
+    const block = m[1]!
+    const loc = extractTag(block, 'loc')
+    if (!loc) continue
+    const url = decodeEntities(loc).trim()
+    let source_id: string
+    try {
+      source_id = sourceKey('voa', { url })
+    } catch {
+      skipped++
+      continue
+    }
+    entries.push({ source_id, url, lastmod: extractTag(block, 'lastmod') ?? null })
+  }
+  return { entries, skipped }
+}
+
+/**
+ * JSON-LD `articleSection` → 우리 `feed_id`.
+ *
+ * ⚠️ **`feed_id` 를 NULL 로 두면 안 된다.** `resolveArticleRegister(source, feed_id)` 가
+ *   피드별 register 를 못 찾고 소스 기본값('news')으로 떨어진다 — 2026-08-20 에 37편이
+ *   그렇게 들어갔다. 사이트맵 경로에는 RSS 가 없으므로 섹션명이 그 자리를 대신한다.
+ *
+ * 이미 배선된 RSS 피드와 **같은 id 로 모은다** — 코너가 같은데 id 가 갈리면 register 표와
+ * 피드별 집계가 두 갈래가 된다. 표에 없는 코너는 슬러그로 만든다(`voaFeedIdForSection`).
+ */
+export const VOA_SECTION_TO_FEED: Readonly<Record<string, string>> = {
+  'as it is': 'as-it-is',
+  'science & technology': 'science-technology',
+  'science and technology': 'science-technology',
+  'words and their stories': 'words-and-their-stories',
+  'lessons of the day': 'lets-learn-english',
+  'american stories': 'american-stories',
+  'health & lifestyle': 'health-lifestyle',
+  education: 'education',
+  'arts & culture': 'arts-culture',
+  'everyday grammar': 'everyday-grammar',
+  'ask a teacher': 'ask-a-teacher',
+  'education tips': 'education-tips',
+  'all about america': 'all-about-america',
+  'u.s. history': 'us-history',
+  'us history': 'us-history',
+}
+
+/**
+ * 옛 아카이브(대략 2012년 이전)는 `articleSection` 이 **비어서 온다** — 그 시절 코너는
+ * 제목 앞머리에 대문자로 붙어 있다:
+ *
+ *   `THIS IS AMERICA - February 11, 2002: VOA's 60th Anniversary`
+ *   `PEOPLE IN AMERICA - March 17, 2002: Langston Hughes, Part Two`
+ *   `IN THE NEWS - August 4, 2001: New FBI Director`
+ *
+ * ⚠️ 이걸 안 읽으면 옛 글이 전부 `voa-unsectioned` 로 들어가고, register 가
+ *   소스 기본값 `news` 로 떨어진다 — **인물 전기가 시사 뉴스로 안내된다.**
+ *   실측 2026-09-07: 첫 회차 적재분의 **36%** 가 그 자리였다.
+ */
+const VOA_TITLE_CORNER_RE = /^([A-Z][A-Z'&.\s]{3,40}?)\s*[-–—:]\s/
+
+/** 코너를 정하는 정본 — 섹션이 먼저, 없으면 제목 앞머리. **절대 빈 값을 돌려주지 않는다.** */
+export function voaFeedIdFor(section: string | null | undefined, title: string | null | undefined): string {
+  const bySection = voaFeedIdForSection(section)
+  if (bySection !== 'voa-unsectioned') return bySection
+  const corner = (title ?? '').match(VOA_TITLE_CORNER_RE)?.[1]?.trim()
+  return corner ? voaFeedIdForSection(corner) : 'voa-unsectioned'
+}
+
+/** 표에 없는 코너는 슬러그. 섹션이 비면 `voa-unsectioned`(NULL 로 두지 않는다). */
+export function voaFeedIdForSection(section: string | null | undefined): string {
+  const key = (section ?? '').trim().toLowerCase()
+  if (!key) return 'voa-unsectioned'
+  const mapped = VOA_SECTION_TO_FEED[key]
+  if (mapped) return mapped
+  const slug = key
+    .replace(/&/g, ' and ')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 48)
+    .replace(/-+$/, '')
+  return slug || 'voa-unsectioned'
+}
+
+/**
+ * 지문으로 쓸 수 없는 코너 — **정의·문법 설명을 나열하는 사전 항목**이다.
+ *
+ * 실측 판정(정찰 §7): `Words and Their Stories` 는 학습자 브랜드가 가장 뚜렷한데
+ * **지문으로는 가장 못 쓴다**(관용구 정의 나열 → `reference`). 같은 결의 코너를 함께 뺀다.
+ * ⚠️ 이것은 **난이도 판정이 아니다** — VOA 의 Level 축은 취득 불가이고 실측에서 뒤집혀 있었다.
+ */
+export function isVoaReferencePiece(feedId: string, title: string): boolean {
+  if (VOA_REFERENCE_SECTIONS.includes(feedId)) return true
+  // ⚠️ 옛 아카이브는 `articleSection` 이 코너가 아니라 `learningenglish` 로 뭉뚱그려 온다
+  //   (실측: id 608067 「Words and Their Stories: In the Red」의 섹션이 `learningenglish`).
+  //   섹션만 보면 사전 항목이 지문으로 들어온다 — 그 시절 코너는 **제목 앞머리**에 있다.
+  const t = title.trim().toLowerCase()
+  if (VOA_REFERENCE_TITLE_PREFIXES.some((p) => t.startsWith(p))) return true
+  // 옛 아카이브의 코너는 제목 **가운데**에 오기도 한다:
+  //   `November 4, 2001 - Slangman: Old Slang ('Little Red Riding Hood')` (속어 뜻풀이 나열).
+  return VOA_REFERENCE_TITLE_MARKERS.some((p) => t.includes(p))
+}
+
+/** 제목 어디에 있어도 사전 항목으로 보는 표지. 앞머리 표기가 아닌 코너용. */
+export const VOA_REFERENCE_TITLE_MARKERS: readonly string[] = ['slangman:', 'wordmaster:']
+
+/** 옛 아카이브가 코너를 제목 앞에 붙이던 표기(`Words and Their Stories: …`). 소문자 비교. */
+export const VOA_REFERENCE_TITLE_PREFIXES: readonly string[] = [
+  'words and their stories',
+  'everyday grammar',
+  'ask a teacher',
+  'english in a minute',
+  'how to pronounce',
+  'news words',
+  'english @ the movies',
+  "english at the movies",
+]
+
+export const VOA_REFERENCE_SECTIONS: readonly string[] = [
+  'words-and-their-stories',
+  'everyday-grammar',
+  'ask-a-teacher',
+  'english-in-a-minute',
+  'how-to-pronounce',
+  'news-words',
+  'english-at-the-movies',
+  // ⚠️ `lets-learn-english`(Lessons of the Day)는 **빼지 않는다.** 이름은 강좌처럼 보이지만
+  //   실제 내용은 일반 피처다(실측 CEFR B1 7 · B2 5). 2026-08-20 에 이름만 보고 `level: 1`
+  //   을 달았다가 틀린 자리이므로, 같은 실수를 배제 목록에서 반복하지 않는다.
+]
+
 /**
  * RSS feed 의 최근 article N개 가져오기 (메타만 — 본문은 별도 fetch).
  * v06.41 — 큐레이션 spec 적용: 필터 + score + sort + top N (_curation-spec.ts)
@@ -261,23 +429,126 @@ function extractDivByClass(html: string, className: string): string | null {
 }
 
 /**
+ * 기사 쪽의 JSON-LD(`<script type="application/ld+json">`) — **VOA 메타의 정본.**
+ *
+ * ⚠️ 왜 정본인가 (실측 2026-09-07): `<meta>` 쪽은 두 군데가 틀려 있었고 **둘 다 조용했다.**
+ *   ① `article:published_time` 메타는 **아예 없다**(28개 메타 전수 확인).
+ *   ② `og:title` 은 있지만 속성 순서가 `content` 먼저다 —
+ *      `<meta content="…" property="og:title">`. `property` 를 먼저 요구한 정규식은 안 맞는다.
+ *   JSON-LD 는 `headline`·`datePublished`·`articleSection` 을 기사마다 정확히 준다.
+ */
+export function voaJsonLd(html: string): Record<string, unknown> | null {
+  const re = /<script[^>]+type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/gi
+  let m: RegExpExecArray | null
+  while ((m = re.exec(html)) !== null) {
+    let parsed: unknown
+    try {
+      parsed = JSON.parse(m[1]!)
+    } catch {
+      continue
+    }
+    const candidates = Array.isArray(parsed) ? parsed : [parsed]
+    for (const c of candidates) {
+      if (c && typeof c === 'object' && ('headline' in c || 'datePublished' in c)) {
+        return c as Record<string, unknown>
+      }
+    }
+  }
+  return null
+}
+
+function ldString(ld: Record<string, unknown> | null, key: string): string | undefined {
+  const v = ld?.[key]
+  return typeof v === 'string' && v.trim() ? v.trim() : undefined
+}
+
+/** JSON-LD `author` — 문자열이거나 `{name}` 객체이거나 그 배열이다. */
+export function voaAuthorName(ld: Record<string, unknown> | null): string | undefined {
+  const raw = ld?.author
+  const first = Array.isArray(raw) ? raw[0] : raw
+  if (typeof first === 'string') return first.trim() || undefined
+  if (first && typeof first === 'object' && typeof (first as { name?: unknown }).name === 'string') {
+    return ((first as { name: string }).name).trim() || undefined
+  }
+  return undefined
+}
+
+/**
+ * `<meta>` 를 **속성 순서에 상관없이** 읽는다.
+ *
+ * VOA 는 `content` 를 먼저 쓴다. 순서를 고정한 정규식은 오류를 내지 않고 그냥 안 맞으므로,
+ * 뒤에 놓인 폴백이 조용히 일을 하게 된다 — 그게 발행일 236행 NULL 의 경로였다.
+ */
+function metaContent(html: string, key: string): string | undefined {
+  const re = /<meta\b([^>]*)>/gi
+  let m: RegExpExecArray | null
+  while ((m = re.exec(html)) !== null) {
+    const attrs = m[1]!
+    const name = attrs.match(/\b(?:property|name)\s*=\s*"([^"]*)"/i)?.[1]
+    if (name?.toLowerCase() !== key.toLowerCase()) continue
+    const content = attrs.match(/\bcontent\s*=\s*"([^"]*)"/i)?.[1]
+    if (content) return content
+  }
+  return undefined
+}
+
+/** 적재기가 돌려주는 한 벌 — 본문(RawArticle) + 분류 축(`articleSection`). */
+export interface VoaParsedArticle {
+  article: RawArticle
+  /**
+   * JSON-LD `articleSection` — **난이도가 아니라 문종·소재 축**이다.
+   * (VOA 의 Level 1/2/3 은 취득 불가이며, 실측에서 뒤집혀 있었다. 위 `VOA_FEEDS` 주석 참조.)
+   */
+  articleSection: string | null
+}
+
+/**
  * 단일 VOA article fetch — RawArticle 반환 (ACP 파이프라인 입력).
  */
 export async function ingestVoaArticle(itemUrl: string, hintLevel?: 1 | 2 | 3): Promise<RawArticle> {
+  return (await fetchVoaArticle(itemUrl, hintLevel)).article
+}
+
+/** `ingestVoaArticle` 과 같은 일 + `articleSection` 을 함께 돌려준다(사이트맵 수확기용). */
+export async function fetchVoaArticle(
+  itemUrl: string,
+  hintLevel?: 1 | 2 | 3,
+): Promise<VoaParsedArticle> {
   const res = await fetchWithTimeout(itemUrl, { Accept: 'text/html' })
   if (!res.ok) throw new Error(`VOA article fetch failed: ${res.status} ${itemUrl}`)
-  const html = await res.text()
+  return parseVoaArticle(await res.text(), itemUrl, hintLevel)
+}
 
-  const title = extractFirst(html, [
-    /<meta\s+property="og:title"\s+content="([^"]+)"/i,
-    /<meta\s+name="title"\s+content="([^"]+)"/i,
-    /<title>([^<]+?)(?:\s*\|\s*VOA)?<\/title>/i,
-  ]) ?? '(제목 미상)'
+/**
+ * 이미 받아 둔 HTML 에서 기사를 뽑는다 — **네트워크를 타지 않는다.**
+ *
+ * 사이트맵 수확기는 쪽을 한 번만 받아 여기에 넘긴다(두 번 받으면 3만 쪽에 대해
+ * 남의 서버를 두 배로 친다). 회귀도 고정 HTML 로 이 함수를 직접 부른다.
+ */
+export function parseVoaArticle(
+  html: string,
+  itemUrl: string,
+  hintLevel?: 1 | 2 | 3,
+): VoaParsedArticle {
+  const ld = voaJsonLd(html)
 
-  const publishedAt = extractFirst(html, [
-    /<meta\s+property="article:published_time"\s+content="([^"]+)"/i,
-    /<time[^>]*datetime="([^"]+)"/i,
-  ])
+  // 정본은 JSON-LD. 메타·<title> 은 폴백이다(그 반대로 두었던 것이 이번에 고친 결함).
+  const title =
+    ldString(ld, 'headline') ??
+    ldString(ld, 'name') ??
+    metaContent(html, 'og:title') ??
+    metaContent(html, 'title') ??
+    html.match(/<title>([^<]+?)(?:\s*\|\s*VOA)?<\/title>/i)?.[1] ??
+    '(제목 미상)'
+
+  const publishedAt =
+    ldString(ld, 'datePublished') ??
+    metaContent(html, 'article:published_time') ??
+    // ⚠️ `<time datetime>` 값은 엔티티가 살아 있다(`2019-06-30T22:02:29&#x2B;00:00`).
+    //   그대로 `new Date()` 에 넣으면 Invalid Date 다 — 236행이 그렇게 NULL 이 됐다.
+    decodeEntities(html.match(/<time[^>]*datetime="([^"]+)"/i)?.[1] ?? '')
+
+  const articleSection = ldString(ld, 'articleSection') ?? null
 
   // VOA 본문: <div class="wsw"> 컨테이너를 div 중첩 균형으로 추출.
   //   wsw 가 오디오 플레이어 div 로 시작해서, 기존 non-greedy `</div></div>` 정규식은
@@ -315,18 +586,24 @@ export async function ingestVoaArticle(itemUrl: string, hintLevel?: 1 | 2 | 3): 
     null
 
   return {
-    source: 'voa',
-    source_id: sourceId,
-    source_url: itemUrl,
-    title: decodeEntities(title).trim(),
-    author: 'VOA Learning English',
-    language: 'en',
-    license: 'PD-Government',
-    published_at: safeDate(publishedAt),
-    content,
-    estimated_cefr: hintLevel ? VOA_LEVEL_TO_CEFR[hintLevel] : null,
-    audio_url: audioUrl,
-    fetched_at: new Date(),
+    article: {
+      source: 'voa',
+      source_id: sourceId,
+      source_url: itemUrl,
+      title: decodeEntities(title).trim(),
+      // JSON-LD 의 author 는 객체(`{"@type":"Person","name":"…"}`)다. 이름만 꺼낸다.
+      //   ⚠️ 통신사 혼입 판별에 쓰는 값이므로 없는 것을 있는 것처럼 만들지 않는다 —
+      //     `VOA Learning English` 상수 폴백은 값이 아예 없을 때만이다.
+      author: voaAuthorName(ld) ?? 'VOA Learning English',
+      language: 'en',
+      license: 'PD-Government',
+      published_at: safeDate(publishedAt),
+      content,
+      estimated_cefr: hintLevel ? VOA_LEVEL_TO_CEFR[hintLevel] : null,
+      audio_url: audioUrl,
+      fetched_at: new Date(),
+    },
+    articleSection: articleSection ? decodeEntities(articleSection).trim() : null,
   }
 }
 
@@ -388,13 +665,9 @@ function extractTag(block: string, tag: string): string | undefined {
   return (m?.[1] ?? m?.[2])?.trim()
 }
 
-function extractFirst(html: string, patterns: RegExp[]): string | undefined {
-  for (const re of patterns) {
-    const m = html.match(re)
-    if (m?.[1]) return m[1]
-  }
-  return undefined
-}
+// `extractFirst` 는 2026-09-07 에 지웠다 — 유일한 호출처가 「순서 고정 메타 정규식 목록」
+//   이었고, 그 목록의 첫 두 줄이 실제 HTML 과 안 맞아 **폴백이 조용히 일을 하고 있었다.**
+//   지금은 JSON-LD 가 정본이고 메타는 `metaContent()` 가 속성 순서와 무관하게 읽는다.
 
 // `slugFromGuid` · `hashString` 은 2026-09-07 에 지웠다 — **되살리지 말 것.**
 //   이 둘이 열쇠의 대체 경로였고, 그 대체가 249행을 base36 해시로 만들어 중복 검사를
