@@ -229,3 +229,42 @@ describe('굴절 판정에 품사가 든다 (2026-09-07)', () => {
     expect(e.derived).toEqual(['follower', 'followers'])
   })
 })
+
+describe('불규칙 동사는 표로 잡는다 (2026-09-07)', () => {
+  it('어미 규칙이 못 잡던 굴절을 활용형으로 센다', () => {
+    for (const [base, form] of [
+      ['throw', 'threw'], ['throw', 'thrown'], ['begin', 'began'], ['break', 'broken'],
+      ['go', 'went'], ['buy', 'bought'], ['write', 'written'], ['take', 'taken'],
+    ] as const) {
+      expect(isInflection(base, form, 'verb'), `${base} → ${form}`).toBe(true)
+    }
+  })
+
+  it('같은 어간의 **파생어**는 여전히 파생이다 — 표가 파생까지 삼키면 안 된다', () => {
+    expect(isInflection('throw', 'thrower', 'verb')).toBe(false)
+    expect(isInflection('write', 'writer', 'verb')).toBe(false)
+    expect(isInflection('build', 'builder', 'verb')).toBe(false)
+  })
+
+  it('표에 없는 낱말은 종전대로 — 규칙만 본다', () => {
+    expect(isInflection('walk', 'walked', 'verb')).toBe(true)
+    expect(isInflection('walk', 'walker', 'verb')).toBe(false)
+  })
+
+  it('조판이 불규칙을 활용형 칸에 앉힌다', () => {
+    const s = typesetVocabSet({
+      title: 'T',
+      wordsPerDay: 4,
+      words: [
+        {
+          word: 'throw',
+          meaningsKo: [{ pos: 'verb', meaning: '던지다', example: null, example_ko: null }],
+          inflectionForms: ['threw', 'thrown', 'throws', 'thrower'],
+        },
+      ],
+    })
+    const e = s.parts[0]!.days[0]!.entries[0]!
+    expect(e.inflections.sort()).toEqual(['threw', 'thrown', 'throws'])
+    expect(e.derived).toEqual(['thrower'])
+  })
+})

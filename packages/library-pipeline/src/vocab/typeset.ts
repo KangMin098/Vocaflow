@@ -184,10 +184,56 @@ export function isUsableForm(form: string): boolean {
   return /^[a-z][a-z'-]{1,}$/i.test(form) && form.length >= 3
 }
 
+/**
+ * **불규칙 동사 — 어미 규칙으로는 못 잡는 굴절.**
+ *
+ * 규칙만 쓰면 `throw → threw · thrown` 이 파생어 줄로 떨어진다. 실측(2026-09-07) 카탈로그
+ * 동사 3,574개 중 **84쌍**이 그 상태였고, 하필 전부 고빈도 동사라 학습자가 가장 자주 보는
+ * 칸에서 틀렸다.
+ *
+ * 불규칙 동사는 **닫힌 부류**라 표로 잡을 수 있다 — 어미 규칙을 더 복잡하게 만드는 것보다
+ * 목록이 정직하다(규칙을 늘리면 규칙 동사가 잘못 걸린다).
+ * 여기 없는 불규칙은 종전대로 파생어 줄로 떨어진다 — 사라지지는 않는다.
+ */
+const IRREGULAR_VERBS: Record<string, readonly string[]> = {
+  be: ['am', 'is', 'are', 'was', 'were', 'been', 'being'],
+  become: ['became'], begin: ['began', 'begun'], bend: ['bent'], bind: ['bound'],
+  bite: ['bit', 'bitten'], bleed: ['bled'], blow: ['blew', 'blown'], break: ['broke', 'broken'],
+  breed: ['bred'], bring: ['brought'], build: ['built'], burst: ['burst'], buy: ['bought'],
+  catch: ['caught'], choose: ['chose', 'chosen'], cling: ['clung'], come: ['came'],
+  cost: ['cost'], creep: ['crept'], cut: ['cut'], deal: ['dealt'], dig: ['dug'],
+  do: ['does', 'did', 'done'], draw: ['drew', 'drawn'], drink: ['drank', 'drunk'],
+  drive: ['drove', 'driven'], eat: ['ate', 'eaten'], fall: ['fell', 'fallen'], feed: ['fed'],
+  feel: ['felt'], fight: ['fought'], find: ['found'], flee: ['fled'], fly: ['flew', 'flown'],
+  forbid: ['forbade', 'forbidden'], forget: ['forgot', 'forgotten'], forgive: ['forgave', 'forgiven'],
+  freeze: ['froze', 'frozen'], get: ['got', 'gotten'], give: ['gave', 'given'],
+  go: ['goes', 'went', 'gone'], grind: ['ground'], grow: ['grew', 'grown'], hang: ['hung'],
+  have: ['has', 'had'], hear: ['heard'], hide: ['hid', 'hidden'], hit: ['hit'], hold: ['held'],
+  hurt: ['hurt'], keep: ['kept'], kneel: ['knelt'], know: ['knew', 'known'], lay: ['laid'],
+  lead: ['led'], leave: ['left'], lend: ['lent'], let: ['let'], lie: ['lay', 'lain'],
+  light: ['lit'], lose: ['lost'], make: ['made'], mean: ['meant'], meet: ['met'], pay: ['paid'],
+  put: ['put'], quit: ['quit'], read: ['read'], ride: ['rode', 'ridden'], ring: ['rang', 'rung'],
+  rise: ['rose', 'risen'], run: ['ran'], say: ['said'], see: ['saw', 'seen'], seek: ['sought'],
+  sell: ['sold'], send: ['sent'], set: ['set'], shake: ['shook', 'shaken'], shed: ['shed'],
+  shine: ['shone'], shoot: ['shot'], show: ['showed', 'shown'], shrink: ['shrank', 'shrunk'],
+  shut: ['shut'], sing: ['sang', 'sung'], sink: ['sank', 'sunk'], sit: ['sat'], sleep: ['slept'],
+  slide: ['slid'], speak: ['spoke', 'spoken'], speed: ['sped'], spend: ['spent'], spin: ['spun'],
+  split: ['split'], spread: ['spread'], spring: ['sprang', 'sprung'], stand: ['stood'],
+  steal: ['stole', 'stolen'], stick: ['stuck'], sting: ['stung'], stink: ['stank', 'stunk'],
+  strike: ['struck'], swear: ['swore', 'sworn'], sweep: ['swept'], swim: ['swam', 'swum'],
+  swing: ['swung'], take: ['took', 'taken'], teach: ['taught'], tear: ['tore', 'torn'],
+  tell: ['told'], think: ['thought'], throw: ['threw', 'thrown'], understand: ['understood'],
+  undertake: ['undertook', 'undertaken'], wake: ['woke', 'woken'], wear: ['wore', 'worn'],
+  weave: ['wove', 'woven'], weep: ['wept'], win: ['won'], wind: ['wound'],
+  withdraw: ['withdrew', 'withdrawn'], write: ['wrote', 'written'],
+}
+
 export function isInflection(headword: string, form: string, pos?: string | null): boolean {
   const h = headword.toLowerCase()
   const f = form.toLowerCase()
   if (f === h) return true
+  // 불규칙 표를 먼저 본다 — 어미 규칙이 못 잡는 것이 여기 있다.
+  if (IRREGULAR_VERBS[h]?.includes(f)) return true
   const suffixes = COMPARABLE_POS.test(pos ?? '')
     ? [...INFLECTION_SUFFIXES, ...COMPARATIVE_SUFFIXES]
     : INFLECTION_SUFFIXES
