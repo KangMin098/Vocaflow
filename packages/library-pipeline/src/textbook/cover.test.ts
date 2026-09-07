@@ -13,7 +13,7 @@
 
 import { describe, expect, it } from 'vitest'
 
-import { COVER_RATIO, RUNG_INK, coverSvg, rungInk } from './cover'
+import { COVER_RATIO, RUNG_INK, coverSpecOf, coverSvg, rungInk, volumeMark } from './cover'
 import { SERIES_SPINE } from './series'
 
 /** WCAG 상대휘도 — 표지 색이 종이 위에서 읽히는지 보는 데만 쓴다. */
@@ -108,5 +108,53 @@ describe('coverSvg — 표지가 실제로 그 색을 쓴다', () => {
 
   it('제목에 든 꺾쇠를 그대로 뱉지 않는다', () => {
     expect(coverSvg({ ...spec, schoolBand: '중<3>' })).toContain('중&lt;3&gt;')
+  })
+})
+
+/**
+ * 아래 셋은 **표지를 처음 굽어 보고서야** 드러난 것이다(2026-09-07 · `pnpm --filter web cover:probe`).
+ * 코드로는 안 보이고 그림으로만 보이므로, 다시 썩지 않게 여기서 잠근다.
+ */
+describe('표지가 카드와 같은 말을 한다', () => {
+  const rung = SERIES_SPINE[4]! // 5단 · volumeTitle "Vocaflow Reading 4"
+
+  it('권 이름에서 표시만 떼어낸다 — 브랜드는 이미 표지 위쪽에 있다', () => {
+    expect(volumeMark('Vocaflow Reading 4')).toBe('4')
+    expect(volumeMark('Vocaflow Reading Starter')).toBe('Starter')
+  })
+
+  it('브랜드가 안 붙은 이름도 마지막 토막으로 떨어진다 — 빈 문자열을 찍지 않는다', () => {
+    expect(volumeMark('별책 3')).toBe('3')
+    expect(volumeMark('Starter')).toBe('Starter')
+  })
+
+  it('**큰 글자는 계단이 아니라 책 이름이다** — 5단 표지에 5 가 아니라 4 가 찍힌다', () => {
+    // 이게 어긋나면 매대 카드에서 표지는 "5", 제목은 "Vocaflow Reading 4" 라 한 책이 두 수를 말한다.
+    const spec = coverSpecOf(rung, 'READING')
+    expect(spec.volume).toBe('4')
+    expect(spec.step).toBe(5)
+    const svg = coverSvg(spec)
+    expect(svg).toContain('>4</text>')
+    expect(svg).not.toContain('>5</text>')
+  })
+
+  it('한 줄 주제를 받으면 표지에 싣는다 — 안 주면 그 자리는 비운다', () => {
+    const bare = coverSvg(coverSpecOf(rung, 'READING'))
+    const withSubject = coverSvg(coverSpecOf(rung, 'READING', SERIES_SPINE.length, false, '학평 대응'))
+    expect(bare).not.toContain('학평 대응')
+    expect(withSubject).toContain('학평 대응')
+  })
+
+  it('**스켈레톤으로 읽히던 글줄 네 줄이 없다** — 콘텐츠가 안 온 카드처럼 보였다', () => {
+    // 옛 판은 opacity 0.26 짜리 둥근 막대 넷을 깔았다. 되살아나면 여기서 걸린다.
+    const svg = coverSvg(coverSpecOf(rung, 'READING', SERIES_SPINE.length, false, '학평 대응'))
+    expect(svg).not.toContain('opacity="0.26"')
+  })
+
+  it('깊이 눈금이 판형을 따라 커진다 — 고정 px 면 큰 판에서 발치의 점이 된다', () => {
+    const spec = coverSpecOf(rung, 'READING')
+    const tallest = (svg: string): number =>
+      Math.max(...[...svg.matchAll(/<rect[^>]*height="([\d.]+)"[^>]*rx="1"/g)].map((m) => Number(m[1])))
+    expect(tallest(coverSvg(spec, 290))).toBeGreaterThan(tallest(coverSvg(spec, 112)) * 2)
   })
 })

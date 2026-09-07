@@ -27,9 +27,12 @@ import { pathToFileURL } from 'node:url'
 
 import { chromium } from '@playwright/test'
 
-import { coverSvg, type CoverSpec } from '@vocaflow/library-pipeline/textbook-cover'
+import { coverSpecOf, coverSvg, type CoverSpec } from '@vocaflow/library-pipeline/textbook-cover'
 import { SERIES_BRAND, SERIES_SPINE } from '@vocaflow/library-pipeline/textbook-series'
 import { SERIES_CATALOG } from '@vocaflow/library-pipeline/textbook-series-catalog'
+
+// 표지의 한 줄 주제는 **매대 카드와 같은 문장**이어야 한다 — 같은 함수에서 뽑는다.
+import { taglineOf } from '../src/lib/textbook/shelf-copy'
 
 const OUT = process.argv[2] ?? '.'
 mkdirSync(OUT, { recursive: true })
@@ -51,11 +54,11 @@ function h2(text: string): string {
   return `<h2 style="font:700 15px/1.3 'Plus Jakarta Sans',system-ui;color:#2A2622;margin:22px 0 0">${text}</h2>`
 }
 
-const specOf = (step: number, schoolBand: string, accent?: string): CoverSpec => ({
-  brand: SHORT,
-  step,
-  totalSteps: SERIES_SPINE.length,
-  schoolBand,
+type Rung = (typeof SERIES_SPINE)[number]
+
+/** 사다리 한 칸 → 표지 사양. 화면과 **같은 경로**로 만든다(다른 길로 만들면 다른 표지를 본다). */
+const specOf = (r: Rung, accent?: string): CoverSpec => ({
+  ...coverSpecOf(r, SHORT, SERIES_SPINE.length, false, taglineOf(r.rationale)),
   ...(accent ? { accent } : {}),
 })
 
@@ -65,7 +68,7 @@ rows.push(h2(`① 독해 7권 · 목록 폭 ${LIST_W}px — 매대 목록에서 
 rows.push(
   `<div style="display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end">` +
     SERIES_SPINE.map((r) =>
-      cell(coverSvg(specOf(r.step, r.schoolBand), LIST_W), `${r.step}단 · ${r.volumeTitle}`),
+      cell(coverSvg(specOf(r), LIST_W), `${r.step}단 · ${r.volumeTitle}`),
     ).join('') +
     `</div>`,
 )
@@ -75,7 +78,7 @@ rows.push(
   `<div style="display:grid;grid-template-columns:repeat(4,${GRID_W}px);gap:20px;align-items:start">` +
     SERIES_SPINE.slice(0, 4)
       .map((r) =>
-        cell(coverSvg(specOf(r.step, r.schoolBand), GRID_W), `${r.step}단 · ${r.volumeTitle}`),
+        cell(coverSvg(specOf(r), GRID_W), `${r.step}단 · ${r.volumeTitle}`),
       )
       .join('') +
     `</div>`,
@@ -87,7 +90,7 @@ rows.push(
     SERIES_CATALOG.map((s) =>
       cell(
         coverSvg(
-          { ...specOf(5, '고1', s.accent), brand: s.brand.split(' ').slice(-1)[0] ?? s.brand },
+          { ...specOf(SERIES_SPINE[4]!, s.accent), brand: s.brand.split(' ').slice(-1)[0] ?? s.brand },
           160,
         ),
         `${s.brand} · ${s.accent}`,
@@ -99,7 +102,7 @@ rows.push(
 rows.push(h2('④ 아직 못 펼친 권(pending)'))
 rows.push(
   `<div style="display:flex;gap:16px;align-items:flex-end">` +
-    cell(coverSvg({ ...specOf(6, '고2'), pending: true }, 160), '준비 중') +
+    cell(coverSvg({ ...specOf(SERIES_SPINE[5]!), pending: true }, 160), '준비 중') +
     `</div>`,
 )
 

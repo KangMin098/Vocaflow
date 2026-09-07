@@ -49,7 +49,12 @@ import { STATUS_LABEL } from '@/lib/textbook/shelf-status'
 import { TYPE_GUIDE } from '@/lib/textbook/type-guide'
 // ⚠️ **서브패스로 들어온다.** 이 파일은 클라이언트 컴포넌트라 패키지 루트를 import 하면
 //    적재 스크립트의 `child_process` 까지 딸려와 화면이 500 이 된다(실측 2026-09-01).
-import { COVER_BRAND, COVER_LIST_WIDTH, coverSvg } from '@vocaflow/library-pipeline/textbook-cover'
+import {
+  COVER_BRAND,
+  COVER_LIST_WIDTH,
+  coverSvg,
+  volumeMark,
+} from '@vocaflow/library-pipeline/textbook-cover'
 
 import { sourceLabel } from '@/lib/textbook/source-guide'
 
@@ -95,6 +100,12 @@ export function VolumeCover({ volume: v, size = 'sm' }: { volume: ShelfVolume; s
     {
       brand: COVER_BRAND,
       step: v.step,
+      // ⚠️ 큰 글자는 **계단이 아니라 책 이름**이다. `step` 을 찍고 있었는데, 그러면 5단 표지에
+      //    `5` 가 찍히고 **바로 아래 카드 제목은 `Vocaflow Reading 4`** 라 한 책이 다른 두 수를
+      //    말한다(실측 2026-09-07 — 표지를 처음 굽어 보고 알았다). 계단은 깊이 눈금이 말한다.
+      volume: volumeMark(v.title),
+      // 표지의 한 줄은 **카드가 쓰는 문장과 같아야** 한다 — 같은 함수에서 뽑는다.
+      subject: taglineOf(v.rationale),
       totalSteps: 7,
       schoolBand: v.schoolBand,
       pending: v.status !== 'ready',

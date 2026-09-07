@@ -96,11 +96,45 @@ export const COVER_RATIO = 5 / 7
  */
 export const COVER_LIST_WIDTH = 112
 
+/**
+ * 권 이름에서 **표지에 찍을 표시**만 떼어낸다 — `Vocaflow Reading 4` → `4`, `… Starter` → `Starter`.
+ *
+ * ── 왜 필요한가 (실측 2026-09-07, 표지를 처음 굽어 보고 알았다) ─────────
+ * 표지는 `step`(1~7)을 크게 찍고 카드 제목은 `volumeTitle`(Starter·1~6)을 쓴다.
+ * 둘은 **한 칸씩 밀려 있고 같은 카드에 나란히 보인다** — 5단 표지에 큰 `5` 가 찍히는데
+ * 바로 옆 제목은 `Vocaflow Reading 4` 다. 학습자는 한 책에서 다른 두 수를 읽는다.
+ *
+ * 계단이 몇 단인지는 **깊이 표시가 이미 말한다**(칠단 중 다섯째 칸). 그러니 큰 글자는
+ * 계단이 아니라 **이 책의 이름**이어야 한다.
+ */
+export function volumeMark(volumeTitle: string, seriesBrand: string = SERIES_BRAND): string {
+  const t = volumeTitle.trim()
+  if (t.startsWith(seriesBrand)) {
+    const rest = t.slice(seriesBrand.length).trim()
+    if (rest) return rest
+  }
+  const parts = t.split(/\s+/)
+  return parts[parts.length - 1] ?? t
+}
+
 export interface CoverSpec {
   /** 시리즈명. `SERIES_BRAND` 에서 온다 — 표지에서 짓지 않는다. */
   brand: string
   /** 권 번호(사다리 계단). 1~7. */
   step: number
+  /**
+   * **표지에 크게 찍는 이 책의 이름** — `4` · `Starter`.
+   *
+   * 없으면 `step` 으로 떨어진다(옛 호출자 호환). 새 호출자는 `coverSpecOf` 가 채워 준다.
+   */
+  volume?: string
+  /**
+   * 한 줄 주제 — 매대 카드가 쓰는 것과 **같은 문장**을 받는다(`taglineOf(rung.rationale)`).
+   *
+   * ⚠️ 여기서 문장을 짓지 않는다. 표지와 카드가 다른 말을 하면 그 자체가 결함이다.
+   *   그리고 파이프라인은 웹 쪽 `shelf-copy` 를 import 하지 않는다 — 방향이 반대다.
+   */
+  subject?: string
   /** 사다리 전체 칸 수. 깊이 표시가 몇 칸인지 정한다. */
   totalSteps: number
   /** 학령. "초등 저학년" 등. */
@@ -123,9 +157,23 @@ export function coverSpecOf(
   brand: string,
   totalSteps: number = SERIES_SPINE.length,
   pending = false,
+  /** 한 줄 주제. 매대 카드와 **같은 문장**을 넘긴다(`taglineOf(rung.rationale)`). */
+  subject?: string,
 ): CoverSpec {
-  return { brand, step: rung.step, totalSteps, schoolBand: rung.schoolBand, pending }
+  return {
+    brand,
+    step: rung.step,
+    // 큰 글자는 계단이 아니라 **이 책의 이름**이다 — 안 그러면 표지와 제목이 다른 수를 말한다.
+    volume: volumeMark(rung.volumeTitle),
+    totalSteps,
+    schoolBand: rung.schoolBand,
+    pending,
+    ...(subject ? { subject } : {}),
+  }
 }
+
+/** 깊이 표시 칸의 최소 높이 — 큰 글자 자리를 잡을 때도 같은 값을 써야 어긋나지 않는다. */
+const minDepth = (height: number): number => Math.max(3, height * 0.032)
 
 const esc = (s: string): string =>
   String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]!)
@@ -143,12 +191,16 @@ function depthMark(
   w: number,
   /** 채워진 칸의 색. 색면 위에 얹히므로 부르는 쪽이 정한다(종이색으로 뒤집는다). */
   onColor: string,
+  /** 표지 세로 — 칸 높이를 판형에 비례시키려고 받는다. */
+  height: number,
 ): string {
   const n = spec.totalSteps
-  const gap = 3
+  // ⚠️ 칸 높이를 **고정 px 로 두면 큰 판에서 사라진다** (실측 2026-09-07: 290px 격자에서
+  //   표지는 2.6배가 되는데 눈금은 그대로 5~20px 라 발치의 점처럼 보였다). 판형에 비례시킨다.
+  const gap = Math.max(2, w * 0.027)
   const barW = Math.max(2, (w - gap * (n - 1)) / n)
-  const minH = 5
-  const maxH = 20
+  const minH = minDepth(height)
+  const maxH = Math.max(minH + 2, height * 0.127)
   const bars: string[] = []
   for (let i = 0; i < n; i += 1) {
     const h = minH + ((maxH - minH) * i) / (n - 1)
@@ -224,25 +276,28 @@ export function coverSvg(
   //   **왼쪽 두 모서리만 둥근 path** 로 직접 그린다 — id 가 없으니 충돌도 없다.
   const spineW = Math.max(3, Math.round(W * 0.044))
 
-  // ── 지문 리듬 ───────────────────────────────────────────────────
-  // 표지는 조판물이라 그림이 없다(지문이 열세 곳에서 오므로 어떤 그림도 대표하지 못한다).
-  // 그런데 종이 면이 통째로 비면 매대에서 **이미지 면적 0** 이 되고, 그것이 우리 매대가
-  // "텍스트 위주" 로 읽히던 이유였다(2026-09-01 실측 0.56% 대 다락원 31.9%).
+  // ── 한 줄 주제 ──────────────────────────────────────────────────
   //
-  // 그래서 **글줄의 리듬**을 옅게 깐다 — 이 책이 읽는 책이라는 것을 그림 없이 말하고,
-  // 지어낸 그림이 아니라서 거짓말도 하지 않는다.
-  const ruleTop = pad + brandSize + Math.round(H * 0.055)
-  const ruleH = Math.max(1.5, W * 0.018)
-  const ruleGap = ruleH + Math.max(2, Math.round(W * 0.026))
-  const ruleWidths = [0.92, 0.78, 0.86, 0.6]
-  const rules = ruleWidths
-    .map(
-      (frac, i) =>
-        `<rect x="${pad + spineW}" y="${(ruleTop + i * ruleGap).toFixed(1)}" ` +
-        `width="${((inner - spineW) * frac).toFixed(1)}" height="${ruleH.toFixed(1)}" rx="${(ruleH / 2).toFixed(1)}" ` +
-        `fill="${spec.pending ? 'var(--bd, #E0DBD0)' : rung}" opacity="${spec.pending ? '0.5' : '0.26'}"/>`,
-    )
-    .join('')
+  // ⚠️ 여기 있던 **「글줄 리듬」 네 줄을 걷어냈다** (실측 2026-09-07 — 표지를 처음 굽어 봤다).
+  //   회색 둥근 막대 넷은 이 저장소의 스켈레톤과 모양이 같아서 **「아직 안 불러온 카드」로
+  //   읽힌다.** 290px 격자에서 특히 그렇다. 매대에서 상품으로 보이려고 넣은 장치가 정반대로
+  //   "미완성" 신호가 됐다.
+  //
+  //   원래 목적(이미지 면적 0 탈출)은 **이 막대가 아니라 표지 SVG 자체**가 이미 해결한다 —
+  //   `shelf-visual-probe.mjs` 는 이미지 요소의 면적을 세지, 그 안의 도형을 세지 않는다.
+  //
+  //   그 자리에는 **정보**를 넣는다: 매대 카드가 쓰는 한 줄 주제와 같은 문장이다.
+  //   표지와 카드가 다른 말을 하면 그 자체가 결함이므로 **문장을 여기서 짓지 않고 받는다.**
+  const subjectSize = Math.max(6.5, Math.round(W * 0.062))
+  const subjectTop = pad + brandSize + Math.round(H * 0.052)
+  // 한글은 1em 에 가깝다 — 넘치면 SVG 는 오류 없이 **조용히 잘리므로** 들어갈 크기로 줄인다.
+  const subjectFit = (inner - spineW) / Math.max(1, (spec.subject?.length ?? 1) * 1.0)
+  const subjectFont = Math.max(6, Math.min(subjectSize, subjectFit))
+  const subject = spec.subject
+    ? `<text x="${pad + spineW}" y="${(subjectTop + subjectFont).toFixed(1)}" ` +
+      `font-family="Lora, Georgia, serif" font-style="italic" font-size="${subjectFont.toFixed(1)}" ` +
+      `fill="${spec.pending ? 'var(--t3, #8A8278)' : rung}" opacity="0.82">${esc(spec.subject)}</text>`
+    : ''
 
   // 학령 칩 — 글자만 두면 표지에서 안 읽힌다. 테두리를 둘러 **고르는 값**으로 만든다.
   //
@@ -263,6 +318,19 @@ export function coverSvg(
     Math.round(spec.schoolBand.length * chipFont * 1.02) + chipPadX * 2,
   )
 
+  // ── 큰 글자 ─────────────────────────────────────────────────────
+  // 숫자 한 자(`4`)일 때가 기준이고, 낱말(`Starter`)이면 들어갈 만큼 줄인다.
+  // 깊이 표시 위로 한 칸 띄운다 — 앞 판은 숫자와 눈금이 맞닿아 붙어 보였다.
+  const mark = spec.volume ?? String(spec.step)
+  const markMax = Math.round(bandH * 0.62)
+  const markFit = (inner - spineW) / Math.max(1, mark.length * 0.62)
+  const markSize = Math.max(9, Math.min(markMax, markFit))
+  const depthTop = H - pad - Math.max(minDepth(H) + 2, H * 0.127)
+  const markBaseline = Math.min(
+    bandTop + Math.round(bandH * 0.62),
+    depthTop - Math.max(3, H * 0.018),
+  )
+
   return [
     `<svg viewBox="0 0 ${W} ${H}"${opts.fluid ? ' style="width:100%;height:auto;display:block"' : ` width="${W}" height="${H}"`} role="img"`,
     ` aria-label="${esc(spec.brand)} ${spec.step}권 표지 — ${esc(spec.schoolBand)}"`,
@@ -280,16 +348,20 @@ export function coverSvg(
     `<text x="${pad + spineW}" y="${pad + brandSize}" font-family="Lora, Georgia, serif"`,
     ` font-size="${brandSize}" font-weight="600" letter-spacing="${(brandSize * 0.22).toFixed(2)}"`,
     ` fill="${spec.pending ? 'var(--t3, #8A8278)' : rung}">${esc(spec.brand.toUpperCase())}</text>`,
-    rules,
+    subject,
     // 학령 — 종이 쪽. 고르는 사람이 가장 먼저 확인하는 값이라 색면 위에 얹지 않는다.
     `<rect x="${pad + spineW}" y="${chipY}" width="${chipW}" height="${chipH}" rx="${(chipH / 2).toFixed(1)}"`,
     ` fill="none" stroke="var(--bd, #E0DBD0)"/>`,
     `<text x="${pad + spineW + chipPadX}" y="${chipY + Math.round(chipH * 0.7)}" font-family="'DM Sans', system-ui, sans-serif"`,
     ` font-size="${chipFont.toFixed(1)}" fill="var(--t2, #4A443E)">${esc(spec.schoolBand)}</text>`,
-    // 권 번호 — 색면 위에 종이색으로 반전. 서가에서 책등처럼 읽힌다.
-    `<text x="${pad + spineW}" y="${bandTop + Math.round(bandH * 0.62)}" font-family="Lora, Georgia, serif"`,
-    ` font-size="${Math.round(bandH * 0.62)}" font-weight="600"`,
-    ` fill="${spec.pending ? 'var(--t3, #8A8278)' : 'var(--bg, #FBFAF6)'}">${spec.step}</text>`,
+    // 이 책의 이름 — 색면 위에 종이색으로 반전. 서가에서 책등처럼 읽힌다.
+    //
+    // ⚠️ 여기 `spec.step` 을 찍고 있었다 — 그래서 5단 표지의 큰 글자가 `5` 인데 바로 옆
+    //   카드 제목은 `Vocaflow Reading 4` 였다(실측 2026-09-07). 계단은 아래 깊이 표시가
+    //   이미 말하므로, 큰 글자는 **책 이름**을 말한다.
+    `<text x="${pad + spineW}" y="${markBaseline.toFixed(1)}" font-family="Lora, Georgia, serif"`,
+    ` font-size="${markSize.toFixed(1)}" font-weight="600"`,
+    ` fill="${spec.pending ? 'var(--t3, #8A8278)' : 'var(--bg, #FBFAF6)'}">${esc(mark)}</text>`,
     // 깊이 표시 — 색면 위라 종이색으로 뒤집는다.
     depthMark(
       spec,
@@ -297,6 +369,7 @@ export function coverSvg(
       H - pad,
       inner - spineW,
       spec.pending ? 'var(--bd, #E0DBD0)' : 'var(--bg, #FBFAF6)',
+      H,
     ),
     `</svg>`,
   ].join('')
