@@ -175,6 +175,29 @@ function structureItem(item, no) {
       source: item.ref_title ?? null,
     }
   }
+  // ── 흐름 무관 ────────────────────────────────────────────────────
+  //
+  // ⚠️ **조판기는 이 유형을 그리는데 여기가 몰랐다**(실측 2026-09-07). `render-volume.mjs`
+  //    의 `renderIrrelevant` 는 인쇄하는데 화면용 구조화가 없어서, 6·7단의 `irrelevant`
+  //    **11문항이 조판가능 0/11** 로 잡혔다 — 목차와 지면에는 있는데 화면에는 못 나오는
+  //    상태다. 이 파일 머리말이 경고한 드리프트 그대로다.
+  //    조건은 조판기와 **같게** 둔다: 문장 5개 + position 1~5.
+  if (item.type === 'irrelevant') {
+    const sents = Array.isArray(item.payload?.sentences) ? item.payload.sentences.map(String) : []
+    const pos = Number(item.answer_key?.position)
+    if (sents.length !== 5 || !Number.isInteger(pos) || pos < 1 || pos > 5) return null
+    return {
+      no,
+      type: item.type,
+      kind: 'irrelevant',
+      stem: '다음 글에서 전체 흐름과 관계 없는 문장은?',
+      intro: String(item.payload?.intro ?? ''),
+      sentences: sents,
+      answer: pos,
+      explanation: pickExplanation(item, explainItem(item.type, item.payload, item.answer_key)),
+      source: item.ref_title ?? null,
+    }
+  }
   if (item.type === 'insert') {
     const q = toCsatInsert(
       item.payload?.remaining ?? [],
@@ -358,6 +381,35 @@ for (const band of BANDS) {
     }
   })
 
+  // ── 준비도 ───────────────────────────────────────────────────────
+  //
+  // **조판기가 실제로 그릴 수 있는 문항이 몇 개인가.** 이 수가 화면에 없으면 관리자는
+  // 없는 일을 하러 간다 — 실측 2026-09-07: 해설 드레인의 **배치 몫이 전 밴드 0** 인데
+  // (V2 47/13/0 · V3 16/44/0 · V4 5/55/0 · V5 34/26/0 · V6·V7 27/33/0 — 이미 해설/변환
+  // 실패/배치 몫) 제작 콘솔은 "Claude Code 차례 · 해설" 이라고 말하고 있었다.
+  // 진짜 막힌 곳은 해설이 아니라 **형식 변환**이었다.
+  //
+  // ⚠️ 실패 **사유**는 안 적는다 — `structureItem` 의 분기가 많아 사유를 뽑으려면 그 함수를
+  //    통째로 고쳐야 하고, 조판기와 갈릴 위험이 사유 한 줄보다 크다. 대신 **유형별**로 센다:
+  //    어느 유형이 안 그려지는지가 곧 다음에 손볼 자리다.
+  const readinessByType = {}
+  let renderable = 0
+  let explainedCount = 0
+  for (const u of units) {
+    u.items.forEach((it, i) => {
+      const t = (readinessByType[it.type] ??= { items: 0, renderable: 0, explained: 0 })
+      t.items += 1
+      const structured = structureItem(it, i + 1)
+      if (!structured) return
+      renderable += 1
+      t.renderable += 1
+      if (structured.explanation) {
+        explainedCount += 1
+        t.explained += 1
+      }
+    })
+  }
+
   // ── 미리보기 단원 ────────────────────────────────────────────────
   // **화면이 그릴 수 있는 문항이 든 첫 단원**을 고른다. 무조건 1단원을 쓰면
   // 그 단원이 전부 생성형일 때 미리보기가 빈 자리로 나온다.
@@ -395,9 +447,12 @@ for (const band of BANDS) {
     totalItems: units.reduce((s, u) => s + u.items.length, 0),
     totalMinutes: units.reduce((s, u) => s + (u.estimated_minutes ?? 0), 0),
     stoppedBecause: stoppedBecause ?? null,
+    // 조판 가능 · 해설 — **이 권을 찍을 수 있는가**에 답하는 수치다(재고 전량이 아니라
+    // 실제로 실릴 문항 기준). 제작 콘솔이 이것을 읽는다.
+    readiness: { items: units.reduce((n, u) => n + u.items.length, 0), renderable, explained: explainedCount, byType: readinessByType },
     sample,
   }
-  console.log(`단원 ${toc.length} · 문항 ${volumes[String(band)].totalItems}${sample ? ` · 미리보기 UNIT ${sample.no}(문항 ${sample.items.length})` : ' · 미리보기 없음'}`)
+  console.log(`단원 ${toc.length} · 문항 ${volumes[String(band)].totalItems} · 조판가능 ${renderable} · 해설 ${explainedCount}${sample ? ` · 미리보기 UNIT ${sample.no}(문항 ${sample.items.length})` : ' · 미리보기 없음'}`)
 }
 
 // ── 부분 실행이 나머지를 날리지 않게 한다 ────────────────────────────

@@ -320,6 +320,25 @@ function PreviewItem({ item: it }: { item: PreviewChoiceItem }) {
         </p>
       )}
 
+      {/* 흐름 무관 — 도입 뒤에 번호 붙은 다섯 문장. 그중 하나가 흐름에서 벗어난다.
+          ⚠️ **조판기는 이 유형을 인쇄하는데 화면이 몰랐다**(실측 2026-09-07 — 6·7단의
+             `irrelevant` 11문항이 미리보기에서 통째로 빠져 있었다). 조건은 조판기와 같다:
+             문장 5개 + 정답 위치 1~5. 그래서 번호도 조판기와 같은 동그라미 숫자를 쓴다. */}
+      {it.kind === 'irrelevant' && it.sentences && (
+        <div className="mt-3 rounded-[var(--r-md)] border-l-[3px] border-[var(--p)] bg-[var(--bg2)] px-4 py-3">
+          {it.intro ? (
+            <p className="font-english text-[14.5px] leading-[1.9] text-[var(--t1)]">{it.intro}</p>
+          ) : null}
+          <p className="mt-2 font-english text-[14.5px] leading-[1.9] text-[var(--t1)]">
+            {it.sentences.map((sentence, si) => (
+              <span key={si}>
+                <span className="font-display text-[var(--p)]">{CIRCLED[si] ?? ''}</span> {sentence}{' '}
+              </span>
+            ))}
+          </p>
+        </div>
+      )}
+
       {/* 배열형(영작) — 흩어진 낱말 더미. 정답이 원문이라 확정된다. */}
       {it.kind === 'arrange' && it.bank && (
         <ul className="mt-3 flex flex-wrap gap-2">

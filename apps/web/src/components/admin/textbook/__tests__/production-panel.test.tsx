@@ -11,7 +11,7 @@ import { renderToString } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
 
 import type { ShelfVolume } from '@/lib/textbook/shelf'
-import { measureProduction } from '@/lib/textbook/production-stages'
+import { measureProduction, type Readiness } from '@/lib/textbook/production-stages'
 
 import { TextbookProductionPanel } from '../TextbookProductionPanel'
 
@@ -34,22 +34,30 @@ function volume(over: Partial<ShelfVolume> = {}): ShelfVolume {
   } as ShelfVolume
 }
 
+/** 실릴 문항 기준 준비도 — 테스트가 직접 넣는다(판정은 스냅샷을 안 읽는다). */
+const readiness = (over: Partial<Readiness> = {}): Readiness => ({
+  items: 60,
+  renderable: 60,
+  explained: 60,
+  byType: {},
+  ...over,
+})
+
 /**
  * ⚠️ React SSR 은 이웃한 텍스트 노드 사이에 `<!-- -->` 를 넣는다 — `{ACTOR_LABEL[…]} 차례` 는
  *    HTML 에서 `Claude Code<!-- --> 차례` 가 된다. 그걸 모르고 문장으로 찾으면 **화면은
  *    멀쩡한데 테스트만 빨간불**이 된다(실측 2026-09-07에 그렇게 두 건이 걸렸다).
  *    사람이 읽는 것을 재려는 것이므로 그 구분자를 지우고 본다.
  */
-const render = (volumes: ShelfVolume[]): string =>
-  renderToString(<TextbookProductionPanel report={measureProduction(volumes)} />).replaceAll(
-    '<!-- -->',
-    '',
-  )
+const render = (volumes: ShelfVolume[], r: Readiness | null = readiness()): string =>
+  renderToString(
+    <TextbookProductionPanel report={measureProduction(volumes, () => r)} />,
+  ).replaceAll('<!-- -->', '')
 
 describe('제작 단계 콘솔', () => {
   it('**지금 누구 차례인가**를 먼저 적는다 — 콘솔이 첫째로 답해야 하는 질문이다', () => {
-    // 해설이 비면 Claude Code 차례여야 한다.
-    const html = render([volume({ explainedCount: 0 })])
+    // 실릴 문항의 해설이 비면 Claude Code 차례여야 한다.
+    const html = render([volume()], readiness({ explained: 10 }))
     expect(html).toContain('Claude Code 차례')
     expect(html).toContain('해설')
   })
@@ -60,7 +68,7 @@ describe('제작 단계 콘솔', () => {
   })
 
   it('막힌 칸의 **다음 한 걸음**을 그대로 적는다 — 막다른 화면을 두지 않는다', () => {
-    const html = render([volume({ explainedCount: 0 })])
+    const html = render([volume()], readiness({ explained: 10 }))
     expect(html).toContain('explain-drain-export')
   })
 
@@ -76,13 +84,19 @@ describe('제작 단계 콘솔', () => {
     expect(html).toContain('단원')
   })
 
+  it('**조판 못 하는 문항**이 있으면 그 칸에서 막힌다 — 목차엔 있고 지면엔 없다', () => {
+    const html = render([volume()], readiness({ renderable: 49, explained: 49 }))
+    expect(html).toContain('조판 가능')
+    expect(html).toContain('스크립트 차례')
+  })
+
   it('**못 잰 권을 따로 적는다** — 0 으로 그리면 없는 일을 하러 간다', () => {
-    const html = render([volume({ explainedCount: null })])
+    const html = render([volume()], null)
     expect(html).toContain('못 잼')
   })
 
   it('색 말고 기호와 이름으로도 상태가 읽힌다 — 색맹 대응', () => {
-    const html = render([volume({ explainedCount: null })])
+    const html = render([volume()], null)
     expect(html).toContain('aria-label="해설 못 잼"')
     expect(html).toContain('aria-label="재고 됨"')
   })

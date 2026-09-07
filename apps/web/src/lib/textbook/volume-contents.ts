@@ -39,7 +39,7 @@ export interface PreviewChoiceItem {
    * ⚠️ 이 셋은 **선택지가 3~4개일 수 있고** 원글이 없다(출처가 교육과정 별표다).
    *   5지선다 규칙으로 그리면 전부 떨어진다 — 그래서 화면이 갈래를 알아야 한다.
    */
-  kind?: 'elementary' | 'underline' | 'short' | 'arrange'
+  kind?: 'elementary' | 'underline' | 'short' | 'arrange' | 'irrelevant'
   stem: string
   /** 초등 3종 — 문제에 제시되는 낱말·문장. */
   shown?: string
@@ -93,6 +93,25 @@ export interface VolumeContents {
   totalItems: number
   totalMinutes: number
   stoppedBecause: string | null
+  /**
+   * **이 권을 찍을 수 있는가** — 실제로 실릴 문항 기준의 준비도.
+   *
+   * ⚠️ 재고 전량(`ShelfVolume.itemCount`, 밴드에 따라 수만 건)과 **다른 것을 잰다.**
+   *   제작 콘솔이 재고 전량으로 판정하다가 "Claude Code 차례 · 해설" 이라며 **할 일이 0인**
+   *   드레인을 가리켰다(실측 2026-09-07: 전 밴드 배치 몫 0). 책은 안 막혀 있었다.
+   *
+   * 옛 스냅샷에는 없으므로 선택 필드다 — 없으면 "못 쟀다" 로 다룬다(0 으로 세지 않는다).
+   */
+  readiness?: {
+    /** 이 권에 실릴 문항 수. */
+    items: number
+    /** 그중 **조판기가 그릴 수 있는** 수. */
+    renderable: number
+    /** 그중 해설이 붙은 수. */
+    explained: number
+    /** 유형별 — 어느 유형이 안 그려지는지가 다음에 손볼 자리다. */
+    byType: Record<string, { items: number; renderable: number; explained: number }>
+  }
   /** 화면이 그릴 수 있는 문항이 든 첫 단원. 없으면 `null`. */
   sample: PreviewUnit | null
 }

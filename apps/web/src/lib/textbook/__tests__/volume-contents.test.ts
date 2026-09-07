@@ -156,6 +156,13 @@ describe('권 목차 스냅샷', () => {
           expect(it.sentences?.length ?? 0, where).toBeGreaterThan(0)
           expect(it.underlines?.length ?? 0, where).toBeGreaterThanOrEqual(3)
           expect(it.answer ?? 0, where).toBeGreaterThanOrEqual(1)
+        } else if (it.kind === 'irrelevant') {
+          // 흐름 무관도 선택지가 없다 — **문장 번호가 곧 선택지**다.
+          // 조건은 조판기(`renderIrrelevant`)와 같아야 한다: 문장 정확히 5개 + 정답 1~5.
+          // 다르면 책과 화면이 서로 다른 말을 한다(이 유형이 그렇게 11문항 빠져 있었다).
+          expect(it.sentences?.length ?? 0, where).toBe(5)
+          expect(it.answer ?? 0, where).toBeGreaterThanOrEqual(1)
+          expect(it.answer ?? 0, where).toBeLessThanOrEqual(5)
         } else {
           // 단답·배열·초등 철자 — 정답이 글자다.
           expect(it.answerText?.trim().length ?? 0, where).toBeGreaterThan(0)

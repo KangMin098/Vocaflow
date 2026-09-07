@@ -27,6 +27,20 @@
 //    여기서도 그대로 지킨다 — 못 잰 것을 미완료로 세면 관리자가 없는 일을 하러 간다.
 
 import type { ShelfVolume } from './shelf'
+import { contentsOf, type VolumeContents } from './volume-contents'
+
+/**
+ * 그 권의 **실릴 문항 기준** 준비도. 스냅샷이 없으면 `null` — 못 쟀다는 뜻이다.
+ *
+ * ⚠️ **판정 함수가 스냅샷을 직접 읽지 않는다.** 처음엔 `judge` 안에서 `contentsOf` 를
+ *    불렀는데, 그러면 모델이 파일에 묶여 **테스트가 실제 스냅샷을 타 버린다**(실측
+ *    2026-09-07: 픽스처로 해설 0 을 넣어도 실제 파일이 60/60 이라 늘 done 이었다).
+ *    바깥에서 넣어 준다 — 기본값만 스냅샷에서 온다.
+ */
+export type Readiness = NonNullable<VolumeContents['readiness']>
+
+export const readinessFromSnapshot = (v: ShelfVolume): Readiness | null =>
+  contentsOf(v.vLevels)?.readiness ?? null
 
 /** 이 단계를 누가 하는가. */
 export type StageActor = 'script' | 'claude-code' | 'user'
@@ -42,8 +56,12 @@ export interface ProductionStage {
   says: string
   /** 아직이면 무엇을 하면 되는가. 명령이면 그대로 붙여넣을 수 있어야 한다. */
   next: string
-  /** 한 권을 보고 판정한다. `unmeasured` 는 **못 쟀다**는 뜻이지 미완료가 아니다. */
-  judge: (v: ShelfVolume) => StageState
+  /**
+   * 한 권을 보고 판정한다. `unmeasured` 는 **못 쟀다**는 뜻이지 미완료가 아니다.
+   *
+   * @param r 실릴 문항 기준 준비도. `null` 이면 못 쟀다.
+   */
+  judge: (v: ShelfVolume, r: Readiness | null) => StageState
 }
 
 export const ACTOR_LABEL: Record<StageActor, string> = {
@@ -78,18 +96,38 @@ export const PRODUCTION_STAGES: readonly ProductionStage[] = [
     judge: (v) => (v.status === 'unmeasured' ? 'unmeasured' : v.maxUnits >= 1 ? 'done' : 'todo'),
   },
   {
+    id: 'render',
+    label: '조판 가능',
+    actor: 'script',
+    says: '실릴 문항을 조판기가 **전부 그릴 수 있는** 상태. 못 그리면 목차엔 있고 지면엔 없다',
+    next: 'npx tsx --tsconfig apps/web/tsconfig.json scripts/textbook/contents-snapshot.mjs --bands <n>',
+    judge: (_v, r) => {
+      if (!r || r.items === 0) return 'unmeasured'
+      return r.renderable >= r.items ? 'done' : 'todo'
+    },
+  },
+  {
     id: 'explain',
     label: '해설',
     actor: 'claude-code',
-    says: '문항마다 **왜 그것이 답인지**가 붙은 상태. 시장이 고르는 기준이 여기다',
-    next: 'node scripts/textbook/explain-drain-export.mjs → Claude Code → explain-drain-import.mjs --commit',
-    // ⚠️ `null` 은 0 이 아니다 — 못 센 것을 "해설 없음" 으로 적으면 없는 일을 하러 간다.
-    judge: (v) =>
-      v.explainedCount == null
-        ? 'unmeasured'
-        : v.itemCount > 0 && v.explainedCount >= v.itemCount
-          ? 'done'
-          : 'todo',
+    says: '실릴 문항마다 **왜 그것이 답인지**가 붙은 상태. 시장이 고르는 기준이 여기다',
+    next: 'npx tsx --tsconfig apps/web/tsconfig.json scripts/textbook/explain-drain-export.mjs --band <n> --volume 10 → Claude Code → explain-drain-import.mjs --commit',
+    /**
+     * ⚠️ **재고 전량이 아니라 실릴 문항으로 판정한다.**
+     *
+     * 처음에는 `ShelfVolume.explainedCount >= itemCount`(재고 전량, 밴드에 따라 수만 건)로
+     * 쟀다. 그랬더니 콘솔이 전 권을 "해설 아직" 으로 적고 **「Claude Code 차례 · 해설」**
+     * 이라며 드레인을 가리켰는데, 그 드레인을 실제로 돌려 보니 **배치 몫이 전 밴드 0** 이었다
+     * (실측 2026-09-07 — V2 47/13/0 · V3 16/44/0 · V4 5/55/0 · V5 34/26/0 · V6·V7 27/33/0).
+     * 책은 안 막혀 있었고 콘솔이 **없는 일을 시키고 있었다.**
+     *
+     * 그래서 분모를 바꿨다: 실제로 실릴 60문항 중 **조판 가능한 것**에 해설이 붙었는가.
+     * (조판이 안 되는 문항은 지면에 없으므로 해설을 물을 대상이 아니다 — 그건 앞 칸의 일이다.)
+     */
+    judge: (_v, r) => {
+      if (!r || r.renderable === 0) return 'unmeasured'
+      return r.explained >= r.renderable ? 'done' : 'todo'
+    },
   },
   {
     id: 'open',
@@ -118,9 +156,10 @@ export interface VolumeProgress {
 
 export function measureVolume(
   v: ShelfVolume,
+  readiness: Readiness | null,
   stages: readonly ProductionStage[] = PRODUCTION_STAGES,
 ): VolumeProgress {
-  const states = stages.map((s) => s.judge(v))
+  const states = stages.map((s) => s.judge(v, readiness))
   const idx = states.findIndex((s) => s !== 'done')
   return {
     step: v.step,
@@ -156,9 +195,11 @@ export interface ProductionReport {
  */
 export function measureProduction(
   volumes: readonly ShelfVolume[],
+  /** 권 → 준비도. 기본값은 스냅샷이고, 테스트는 자기 값을 넣는다. */
+  readinessOf: (v: ShelfVolume) => Readiness | null = readinessFromSnapshot,
   stages: readonly ProductionStage[] = PRODUCTION_STAGES,
 ): ProductionReport {
-  const rows = volumes.map((v) => measureVolume(v, stages))
+  const rows = volumes.map((v) => measureVolume(v, readinessOf(v), stages))
   const doneByStage = stages.map((_, i) => rows.filter((r) => r.states[i] === 'done').length)
   const unmeasuredByStage = stages.map(
     (_, i) => rows.filter((r) => r.states[i] === 'unmeasured').length,
