@@ -68,12 +68,12 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn, userVLevel, reco
       readEnumParam<VocabCategoryId>(
         searchParams,
         'cat',
-        VOCAB_CATEGORIES.map((c) => c.id),
-      ) ?? 'all',
+        VOCAB_CATEGORIES.map((c) => c.id)
+      ) ?? 'all'
   )
   const [query, setQueryState] = useState(() => searchParams?.get('q') ?? '')
   const [sort, setSortState] = useState<SortKey>(
-    () => readEnumParam<SortKey>(searchParams, 'sort', SORT_KEYS) ?? 'recommended',
+    () => readEnumParam<SortKey>(searchParams, 'sort', SORT_KEYS) ?? 'recommended'
   )
   const [mineOnly, setMineOnlyState] = useState(() => searchParams?.get('mine') === '1')
 
@@ -83,28 +83,28 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn, userVLevel, reco
       setCategoryState(v)
       setParams({ cat: v === 'all' ? null : v })
     },
-    [setParams],
+    [setParams]
   )
   const setQuery = useCallback(
     (v: string) => {
       setQueryState(v)
       setParams({ q: v.trim() || null })
     },
-    [setParams],
+    [setParams]
   )
   const setSort = useCallback(
     (v: SortKey) => {
       setSortState(v)
       setParams({ sort: v === 'recommended' ? null : v })
     },
-    [setParams],
+    [setParams]
   )
   const setMineOnly = useCallback(
     (v: boolean) => {
       setMineOnlyState(v)
       setParams({ mine: v ? '1' : null })
     },
-    [setParams],
+    [setParams]
   )
   /** 0건을 만든 조건을 한 번에 되돌린다 — 빈 상태의 「필터 초기화」. */
   const resetFilters = useCallback(() => {
@@ -280,8 +280,11 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn, userVLevel, reco
       .slice(0, 8)
   }, [sets, recommended])
 
-  return (
-    <div className="flex flex-col gap-5">
+  /*
+    검색·정렬 줄. **자리를 상황에 따라 옮긴다** — 아래 `controlsFirst` 참조.
+  */
+  const controls = (
+    <>
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
         <div className="relative flex-1">
           <Search
@@ -338,7 +341,27 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn, userVLevel, reco
           )}
         </div>
       </div>
+    </>
+  )
 
+  /*
+    ⚠️ **둘러볼 때는 책이 먼저, 검색할 때는 검색창이 먼저.**
+
+    실측 2026-09-07(1280×900): 검색 줄과 진단 배너가 위에 있어 첫 표지가 `top 736` 이었고,
+    표지의 **제목이 y=959** 로 접힘(900) 아래였다 — 첫 화면에 제목이 읽히는 책이 한 권도 없었다.
+    서가의 첫인상은 필터가 아니라 책이다.
+
+    검색어를 넣었거나 카테고리를 고른 뒤에는 반대다: 그때 화면의 주인공은 조건이므로
+    조건 줄이 위에 있어야 방금 무엇을 눌렀는지 보인다.
+
+    (모바일 크롬 축소는 이미 `VocabSeriesHeader` 가 한다 — 그쪽은 **면적**을 줄이는 일이고
+     여기는 **순서**를 바꾸는 일이라 서로 다른 축이다.)
+  */
+  const controlsFirst = !isGrouped
+
+  return (
+    <div className="flex flex-col gap-5">
+      {controlsFirst && controls}
       {/* 카테고리 선택 시에만 빠른 클리어를 위해 CategoryMatrix 유지 (필터 active 표시). 기본 matrix view 일 때는 hide. */}
       {category !== 'all' && (
         <CategoryMatrix
@@ -417,6 +440,9 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn, userVLevel, reco
           ))}
         </div>
       )}
+
+      {/* 둘러보기 화면에서는 책을 먼저 보인 뒤 조건 줄을 준다. */}
+      {!controlsFirst && controls}
 
       <VocabSetPreviewModal
         set={previewing}
@@ -541,4 +567,3 @@ function FeaturedRow({
     </section>
   )
 }
-

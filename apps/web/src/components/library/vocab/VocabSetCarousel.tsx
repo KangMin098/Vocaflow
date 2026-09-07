@@ -42,7 +42,13 @@ const DURATION = 600
  *
  * 모르는 유형은 `null` 이 온다 — 다른 유형의 색을 빌리지 않고 중립으로 그린다.
  */
-const NEUTRAL_IDENTITY = { accent: 'var(--t2)', tint: 'var(--bg3)', ink: 'var(--t2)', from: 'var(--bg3)', to: 'var(--bg3)' }
+const NEUTRAL_IDENTITY = {
+  accent: 'var(--t2)',
+  tint: 'var(--bg3)',
+  ink: 'var(--t2)',
+  from: 'var(--bg3)',
+  to: 'var(--bg3)',
+}
 const identityOf = (id: string) => categoryIdentity(id) ?? NEUTRAL_IDENTITY
 
 function cardTransform(offset: number) {
@@ -80,16 +86,10 @@ interface Props {
   onSelectCategory: (id: VocabCategoryId) => void
 }
 
-export function VocabSetCarousel({
-  sets,
-  subscribedIds,
-  pendingId,
-  isLoggedIn,
-  onToggle,
-}: Props) {
+export function VocabSetCarousel({ sets, subscribedIds, pendingId, isLoggedIn, onToggle }: Props) {
   // 데이터 있는 카테고리만 탭으로 — 중요도순(수능·내신→교육과정→공인→테마)
   const categories = VOCAB_CATEGORIES.filter(
-    (c) => c.id !== 'all' && sets.some((s) => s.category === c.id),
+    (c) => c.id !== 'all' && sets.some((s) => s.category === c.id)
   ).sort((a, b) => categoryImportance(b.id) - categoryImportance(a.id))
   const [activeCat, setActiveCat] = useState<string>(categories[0]?.id ?? 'csat')
   const [active, setActive] = useState(0)
@@ -193,10 +193,28 @@ export function VocabSetCarousel({
       <div
         role="tablist"
         aria-label="카테고리"
-        // ⚠️ 모바일에서 `flex-wrap` 이 여러 줄로 접혀 **200px** 을 먹었다(실측 2026-09-01).
-        //   그만큼 상품이 첫 화면 밖으로 밀려 학습자가 상품을 하나도 못 봤다.
-        //   가로가 좁을 때는 한 줄로 굴리고, sm 위로는 원래대로 가운데 정렬해 편다.
-        className="-mx-1 flex min-w-0 max-w-full snap-x gap-2 overflow-x-auto px-1 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:mx-0 sm:flex-wrap sm:justify-center sm:overflow-visible sm:px-0 sm:pb-0"
+        /*
+          ⚠️ 모바일에서 `flex-wrap` 이 여러 줄로 접혀 **200px** 을 먹었다(실측 2026-09-01).
+             그만큼 상품이 첫 화면 밖으로 밀려 학습자가 상품을 하나도 못 봤다.
+
+          ⚠️ **데스크톱도 같은 문제였다**(실측 2026-09-07 · 1280×900): `sm:flex-wrap` 이
+             칩 여덟 개를 두 줄로 접어 **52px** 을 더 먹었고, 그 탓에 첫 표지의 제목이
+             y=959 로 접힘(900) 아래였다 — 첫 화면에 제목이 읽히는 책이 한 권도 없었다.
+             그래서 **모든 너비에서 한 줄로 굴린다.** 가로 스크롤 레일은 서가의 표준형이고
+             (칩이 늘어도 높이가 안 변한다), 줄바꿈은 칩 수에 따라 높이가 요동친다.
+        */
+        /*
+          오른쪽 끝을 흐려 **더 있다는 것**을 알린다. 한 줄로 굴리면 마지막 칩이 그냥 잘려
+          보이는데, 잘림은 "여기서 끝" 과 구별되지 않는다(실측 화면에서 「테마별」이 끊겨 있었다).
+          마스크는 스크롤 위치와 무관하게 늘 오른쪽만 흐리므로 끝까지 굴린 뒤에도 남는데,
+          그게 화살표 버튼을 더 얹는 것보다 조용하다(Calm UI).
+        */
+        style={{
+          maskImage: 'linear-gradient(to right, #000 0, #000 calc(100% - 36px), transparent 100%)',
+          WebkitMaskImage:
+            'linear-gradient(to right, #000 0, #000 calc(100% - 36px), transparent 100%)',
+        }}
+        className="-mx-1 flex min-w-0 max-w-full snap-x gap-2 overflow-x-auto px-1 pb-1 [scrollbar-width:none] sm:mx-0 sm:justify-start sm:px-0 [&::-webkit-scrollbar]:hidden"
       >
         {categories.map((c) => {
           const isActive = c.id === activeCat
@@ -280,7 +298,7 @@ export function VocabSetCarousel({
           onClick={prev}
           disabled={active === 0}
           aria-label="이전 단어장"
-          className="absolute left-2 top-1/2 z-30 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-[var(--bd)] bg-[var(--bg)]/80 text-[var(--t1)] shadow-[var(--sh-md)] backdrop-blur-md transition-all hover:scale-110 hover:bg-[var(--bg)] disabled:cursor-not-allowed disabled:opacity-30 md:left-6"
+          className="bg-[var(--bg)]/80 absolute left-2 top-1/2 z-30 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-[var(--bd)] text-[var(--t1)] shadow-[var(--sh-md)] backdrop-blur-md transition-all hover:scale-110 hover:bg-[var(--bg)] disabled:cursor-not-allowed disabled:opacity-30 md:left-6"
         >
           <ChevronLeft size={20} aria-hidden />
         </button>
@@ -289,7 +307,7 @@ export function VocabSetCarousel({
           onClick={next}
           disabled={active === last}
           aria-label="다음 단어장"
-          className="absolute right-2 top-1/2 z-30 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-[var(--bd)] bg-[var(--bg)]/80 text-[var(--t1)] shadow-[var(--sh-md)] backdrop-blur-md transition-all hover:scale-110 hover:bg-[var(--bg)] disabled:cursor-not-allowed disabled:opacity-30 md:right-6"
+          className="bg-[var(--bg)]/80 absolute right-2 top-1/2 z-30 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-[var(--bd)] text-[var(--t1)] shadow-[var(--sh-md)] backdrop-blur-md transition-all hover:scale-110 hover:bg-[var(--bg)] disabled:cursor-not-allowed disabled:opacity-30 md:right-6"
         >
           <ChevronRight size={20} aria-hidden />
         </button>
@@ -328,7 +346,7 @@ export function VocabSetCarousel({
               // 44px 하한 — 실측 156x36. 이 화면의 **주 행동**이라 가장 먼저 지켜야 한다.
               className={`inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] px-5 py-2 font-display text-[13px] font-[700] transition-all hover:scale-[1.03] active:scale-[0.97] disabled:opacity-60 ${
                 subscribedIds.has(activeSet.id)
-                  ? 'border border-[var(--success)]/30 bg-[var(--success-light)] text-[var(--success-ink)]'
+                  ? 'border-[var(--success)]/30 border bg-[var(--success-light)] text-[var(--success-ink)]'
                   : 'text-white'
               }`}
               style={
@@ -388,8 +406,14 @@ export function VocabSetCarousel({
 
       <style jsx>{`
         @keyframes fadeInUp {
-          from { opacity: 0; transform: translateY(8px); }
-          to { opacity: 1; transform: translateY(0); }
+          from {
+            opacity: 0;
+            transform: translateY(8px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
       `}</style>
 
@@ -434,7 +458,7 @@ function CoverCard({
       tabIndex={isCenter ? undefined : -1}
       aria-hidden={isCenter ? undefined : true}
       aria-label={isCenter ? `${set.title} 미리보기` : `${set.title} 선택`}
-      className="block rounded-[10px] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[var(--p)]/40 focus-visible:ring-offset-4"
+      className="focus-visible:ring-[var(--p)]/40 block rounded-[10px] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-offset-4"
     >
       <div
         className={`book-cover-premium relative aspect-[3/4] w-[270px] overflow-hidden ${
