@@ -454,8 +454,18 @@ for (const b of picked) {
     if (exErr) {
       failures.push(`#${b.id} 중복 확인 — ${exErr.message}`)
     } else {
+      // ⚠️ **한 책 안에서도 같은 조각이 두 번 나온다.** `source_id` 가 본문 해시라
+      //   같은 문단 묶음이 반복되면 열쇠가 겹치고, DB 조회는 「아직 없음」이라 답한다
+      //   (아직 없으니까). 그러면 같은 batch 안에서 unique 제약에 걸려 **그 책의 적재가
+      //   통째로 중단된다** — 실측 2026-09-07: #18 『The Federalist Papers』 936편 중
+      //   41편이 그렇게 날아갔다. 그러니 DB 대조 **전에** 배치 안에서 먼저 접는다.
       const have = new Set((exist ?? []).map((r) => r.source_id))
-      const fresh = rows.filter((r) => !have.has(r.source_id))
+      const inBatch = new Set()
+      const fresh = rows.filter((r) => {
+        if (have.has(r.source_id) || inBatch.has(r.source_id)) return false
+        inBatch.add(r.source_id)
+        return true
+      })
       dup += rows.length - fresh.length
       for (let i = 0; i < fresh.length; i += 200) {
         const { error } = await db.from('library_articles').insert(fresh.slice(i, i + 200))
