@@ -161,13 +161,37 @@ export function posLabel(pos: string | null | undefined): string | null {
  * (자음 중복·e 탈락·y→i 같은 흔한 철자 변화까지 본다. 불규칙 동사는 잡지 못하는데,
  *  그건 사전이 `inflections.forms` 에 실어 주므로 파생어 쪽으로 떨어져도 지면에서 사라지진 않는다.)
  */
-const INFLECTION_SUFFIXES = ['s', 'es', 'ed', 'ing', 'er', 'est', 'ies', 'ied']
+const INFLECTION_SUFFIXES = ['s', 'es', 'ed', 'ing', 'ies', 'ied']
 
-export function isInflection(headword: string, form: string): boolean {
+/**
+ * `-er`·`-est` 는 **형용사·부사에서만** 굴절이다(비교급·최상급).
+ *
+ * 동사에 붙으면 행위자 명사를 만드는 **파생**이다 — `follow` → `follower` 는 활용형이 아니라
+ * 갈라져 나온 낱말이다. 처음엔 품사를 안 보고 잘랐다가 지면 콜아웃에서 `(followed–follower)`
+ * 가 활용형 괄호에 앉은 것을 보고 알았다(2026-09-07). 코드는 아무 오류도 내지 않았고,
+ * 회귀도 형용사(`regular`)로만 짜여 있어 통과했다.
+ */
+const COMPARATIVE_SUFFIXES = ['er', 'est']
+const COMPARABLE_POS = /^(adjective|adverb|adj|adv)$/i
+
+/**
+ * 굴절형으로 세기에 너무 짧거나 낱말이 아닌 것.
+ *
+ * 사전의 `inflections.forms` 에는 `ff` 같은 조각이 섞여 있다(빈도 집계의 부산물).
+ * 그대로 두면 지면의 파생어 줄에 `파생 ff · followers` 처럼 찍힌다.
+ */
+export function isUsableForm(form: string): boolean {
+  return /^[a-z][a-z'-]{1,}$/i.test(form) && form.length >= 3
+}
+
+export function isInflection(headword: string, form: string, pos?: string | null): boolean {
   const h = headword.toLowerCase()
   const f = form.toLowerCase()
   if (f === h) return true
-  for (const suf of INFLECTION_SUFFIXES) {
+  const suffixes = COMPARABLE_POS.test(pos ?? '')
+    ? [...INFLECTION_SUFFIXES, ...COMPARATIVE_SUFFIXES]
+    : INFLECTION_SUFFIXES
+  for (const suf of suffixes) {
     if (!f.endsWith(suf)) continue
     const stem = f.slice(0, f.length - suf.length)
     if (stem === h) return true
@@ -251,9 +275,16 @@ export function typesetVocabSet(input: TypesetInput): VocabSpread {
           }]
         : []
 
-    const forms = (w.inflectionForms ?? []).filter((f) => f && f.toLowerCase() !== w.word.toLowerCase())
-    const inflections = forms.filter((f) => isInflection(w.word, f))
-    const derived = forms.filter((f) => !isInflection(w.word, f))
+    /*
+      사전의 굴절 목록에는 조각(`ff` 등)이 섞여 있다 — 낱말이 아닌 것을 먼저 버린다.
+      품사를 함께 넘기는 이유는 `-er`/`-est` 가 형용사에서만 굴절이기 때문이다.
+    */
+    const pos = raw[0]?.pos ?? w.partOfSpeech ?? null
+    const forms = (w.inflectionForms ?? []).filter(
+      (f) => f && f.toLowerCase() !== w.word.toLowerCase() && isUsableForm(f),
+    )
+    const inflections = forms.filter((f) => isInflection(w.word, f, pos))
+    const derived = forms.filter((f) => !isInflection(w.word, f, pos))
 
     /*
       상호참조는 **이 권 안에 실제로 있는 낱말**만 잇는다. 밖의 낱말을 가리키면 학습자가

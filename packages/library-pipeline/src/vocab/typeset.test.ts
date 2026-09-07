@@ -6,7 +6,7 @@
 // 같이 흔들린다. 조판 규칙 자체는 여기서 잠근다 — 이 층이 맞으면 남는 문제는 렌더뿐이다.
 
 import { describe, expect, it } from 'vitest'
-import { clozeOf, isInflection, posLabel, typesetVocabSet, type TypesetWord } from './typeset'
+import { clozeOf, isInflection, isUsableForm, posLabel, typesetVocabSet, type TypesetWord } from './typeset'
 
 const w = (over: Partial<TypesetWord> & { word: string }): TypesetWord => ({
   meaningsKo: [{ pos: 'noun', meaning: '뜻', example: null, example_ko: null }],
@@ -188,5 +188,44 @@ describe('장치 목록은 **채워진 것만** 센다', () => {
     })
     // 17종 중 채워지지 않는 것은 없다 — 위 재료가 전부를 건드린다.
     expect(rich.apparatus).toHaveLength(17)
+  })
+})
+
+describe('굴절 판정에 품사가 든다 (2026-09-07)', () => {
+  it('동사의 `-er` 는 **파생**이다 — follower 는 활용형이 아니다', () => {
+    expect(isInflection('follow', 'follower', 'verb')).toBe(false)
+    expect(isInflection('follow', 'followed', 'verb')).toBe(true)
+  })
+
+  it('형용사의 `-er`·`-est` 는 굴절이다 (비교급·최상급)', () => {
+    expect(isInflection('fast', 'faster', 'adjective')).toBe(true)
+    expect(isInflection('fast', 'fastest', 'adjective')).toBe(true)
+  })
+
+  it('품사를 모르면 보수적으로 — 파생으로 둔다 (지면의 괄호는 활용형 자리다)', () => {
+    expect(isInflection('follow', 'follower')).toBe(false)
+  })
+
+  it('낱말이 아닌 조각은 아예 싣지 않는다 — `파생 ff` 가 지면에 찍혔다', () => {
+    expect(isUsableForm('ff')).toBe(false)
+    expect(isUsableForm('12')).toBe(false)
+    expect(isUsableForm('followers')).toBe(true)
+  })
+
+  it('조판이 그 조각을 걸러 낸다', () => {
+    const s = typesetVocabSet({
+      title: 'T',
+      wordsPerDay: 4,
+      words: [
+        {
+          word: 'follow',
+          meaningsKo: [{ pos: 'verb', meaning: '따라가다', example: null, example_ko: null }],
+          inflectionForms: ['ff', 'followed', 'follower', 'followers'],
+        },
+      ],
+    })
+    const e = s.parts[0]!.days[0]!.entries[0]!
+    expect(e.inflections).toEqual(['followed'])
+    expect(e.derived).toEqual(['follower', 'followers'])
   })
 })

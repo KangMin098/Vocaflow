@@ -46,7 +46,10 @@ interface SpreadDay {
   n: number
   label: string
   entries: SpreadEntry[]
-  test: { meaning: Array<{ n: number; word: string }>; cloze: Array<{ n: number; sentence: string; answer: string }> }
+  test: {
+    meaning: Array<{ n: number; word: string }>
+    cloze: Array<{ n: number; sentence: string; answer: string }>
+  }
   passes: number
 }
 interface SpreadPart {
@@ -107,12 +110,19 @@ export function VocabSpreadSheet({ setId }: { setId: string }) {
       .then((r) => (r.ok ? r.json() : null))
       .then((j: VocabSpreadData | null) => {
         if (!alive) return
-        if (!j || j.parts.length === 0) { setState('none'); return }
+        if (!j || j.parts.length === 0) {
+          setState('none')
+          return
+        }
         setData(j)
         setState('ready')
       })
-      .catch(() => { if (alive) setState('none') })
-    return () => { alive = false }
+      .catch(() => {
+        if (alive) setState('none')
+      })
+    return () => {
+      alive = false
+    }
   }, [setId])
 
   if (state === 'loading') {
@@ -129,6 +139,11 @@ export function VocabSpreadSheet({ setId }: { setId: string }) {
   if (state === 'none' || !data) return null
 
   const days = data.parts.flatMap((p) => p.days)
+  /*
+    콜아웃이 가리킬 **진짜 표제어 칸.** 조판기가 `sampleWord` 로 이름만 알려 주므로,
+    그림을 그리려면 항목 자체가 필요하다 — 앞 2일치에 늘 들어 있는 첫 항목을 쓴다.
+  */
+  const sampleEntry = days[0]?.entries[0] ?? null
 
   return (
     <div className="flex flex-col gap-5">
@@ -142,7 +157,9 @@ export function VocabSpreadSheet({ setId }: { setId: string }) {
       */}
       {data.guide && data.guide.claims.length > 0 && (
         <section aria-label="이 단어장의 구성">
-          <Kicker><Info size={11} aria-hidden /> {data.guide.question}</Kicker>
+          <Kicker>
+            <Info size={11} aria-hidden /> {data.guide.question}
+          </Kicker>
           <ol className="flex flex-col gap-2.5">
             {data.guide.claims.map((c) => (
               <li key={c.n} className="grid grid-cols-[18px_minmax(0,1fr)] gap-2">
@@ -156,7 +173,9 @@ export function VocabSpreadSheet({ setId }: { setId: string }) {
                       {c.evidence}
                     </span>
                   </p>
-                  <p className="mt-0.5 font-body text-[12px] leading-relaxed text-[var(--t3)]">{c.body}</p>
+                  <p className="mt-0.5 font-body text-[12px] leading-relaxed text-[var(--t3)]">
+                    {c.body}
+                  </p>
                 </div>
               </li>
             ))}
@@ -164,16 +183,19 @@ export function VocabSpreadSheet({ setId }: { setId: string }) {
 
           {/* FEATURES — 지면의 어느 자리가 무엇인지. 이 권이 실제로 채운 칸만 가리킨다. */}
           {data.guide.features.length > 0 && (
-            <div className="mt-4 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)]/40 px-4 py-3">
+            <div className="bg-[var(--bg2)]/40 mt-4 rounded-[var(--r-md)] border border-[var(--bd)] px-4 py-3">
               <p className="mb-2 font-display text-[10px] font-[700] uppercase tracking-wider text-[var(--t2)]">
                 지면 보는 법
-                {data.guide.sampleWord && (
-                  <span className="ml-2 font-english text-[11px] font-[500] normal-case tracking-normal text-[var(--t3)]">
-                    예) {data.guide.sampleWord}
-                  </span>
-                )}
               </p>
-              <ul className="grid grid-cols-1 gap-1.5 sm:grid-cols-2">
+
+              {/*
+                시중 교재의 FEATURES 는 **실제 지면에 번호를 찍는다** — 목록만 주면 학습자가
+                그 칸이 어디인지 눈으로 못 찾는다. 그래서 이 권의 **첫 표제어 칸**을 그대로
+                한 번 더 그리고 그 위에 번호를 얹는다(지어낸 예가 아니라 진짜 항목이다).
+              */}
+              {sampleEntry && <FeatureCallout entry={sampleEntry} features={data.guide.features} />}
+
+              <ul className="mt-3 grid grid-cols-1 gap-1.5 sm:grid-cols-2">
                 {data.guide.features.map((f) => (
                   <li key={f.n} className="grid grid-cols-[18px_minmax(0,1fr)] gap-2">
                     <span
@@ -195,12 +217,16 @@ export function VocabSpreadSheet({ setId }: { setId: string }) {
 
       {/* 학습 계획 — 며칠이면 끝나는가 */}
       <section aria-label="학습 계획">
-        <Kicker><CalendarDays size={11} aria-hidden /> 학습 계획</Kicker>
-        <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)]/40 px-4 py-3">
+        <Kicker>
+          <CalendarDays size={11} aria-hidden /> 학습 계획
+        </Kicker>
+        <div className="bg-[var(--bg2)]/40 rounded-[var(--r-md)] border border-[var(--bd)] px-4 py-3">
           <p className="font-body text-[13px] text-[var(--t2)]">
             하루 <b className="text-[var(--t1)]">{data.studyPlan.perDay}</b>개 ·{' '}
             <b className="text-[var(--t1)]">{data.studyPlan.days}</b>일 완성
-            {data.truncated && <span className="text-[var(--t3)]"> (지면 미리보기는 앞부분만)</span>}
+            {data.truncated && (
+              <span className="text-[var(--t3)]"> (지면 미리보기는 앞부분만)</span>
+            )}
           </p>
           <ol className="mt-2 flex flex-wrap gap-1">
             {data.studyPlan.dayLabels.slice(0, 20).map((l) => (
@@ -223,7 +249,9 @@ export function VocabSpreadSheet({ setId }: { setId: string }) {
       {/* 지면 — PART / DAY / 표제어 칸 */}
       {data.parts.map((part) => (
         <section key={part.label} aria-label={`${part.label} 지면`}>
-          <Kicker><BookOpen size={11} aria-hidden /> {part.label}</Kicker>
+          <Kicker>
+            <BookOpen size={11} aria-hidden /> {part.label}
+          </Kicker>
           {part.principle && (
             <p className="mb-3 font-body text-[12px] italic leading-relaxed text-[var(--t3)]">
               <b className="not-italic">묶음 원리</b> — {part.principle}
@@ -255,8 +283,12 @@ export function VocabSpreadSheet({ setId }: { setId: string }) {
                   <li key={e.no} className="py-3">
                     <div className="flex items-baseline gap-2">
                       <span className="font-mono text-[10px] text-[var(--t3)]">{e.no}</span>
-                      <span className="font-english text-[16px] font-[700] text-[var(--t1)]">{e.word}</span>
-                      {e.ipa && <span className="font-mono text-[11px] text-[var(--t3)]">{e.ipa}</span>}
+                      <span className="font-english text-[16px] font-[700] text-[var(--t1)]">
+                        {e.word}
+                      </span>
+                      {e.ipa && (
+                        <span className="font-mono text-[11px] text-[var(--t3)]">{e.ipa}</span>
+                      )}
                       {e.inflections.length > 0 && (
                         <span className="font-mono text-[10px] text-[var(--t3)]">
                           ({e.inflections.slice(0, 3).join('–')})
@@ -266,8 +298,15 @@ export function VocabSpreadSheet({ setId }: { setId: string }) {
 
                     <ol className="mt-1 flex flex-col gap-1.5">
                       {e.senses.map((s, i) => (
-                        <li key={i} className="font-body text-[13px] leading-relaxed text-[var(--t2)]">
-                          {s.n != null && <span className="mr-1 font-mono text-[11px] text-[var(--t3)]">{s.n}.{' '}</span>}
+                        <li
+                          key={i}
+                          className="font-body text-[13px] leading-relaxed text-[var(--t2)]"
+                        >
+                          {s.n != null && (
+                            <span className="mr-1 font-mono text-[11px] text-[var(--t3)]">
+                              {s.n}.{' '}
+                            </span>
+                          )}
                           {s.pos && (
                             <span className="mr-1 rounded-[3px] bg-[var(--bg3)] px-1 font-body text-[10px] text-[var(--t2)]">
                               {s.pos}
@@ -281,24 +320,32 @@ export function VocabSpreadSheet({ setId }: { setId: string }) {
                             </span>
                           )}
                           {s.exampleKo && (
-                            <span className="block font-body text-[12px] text-[var(--t3)]">{s.exampleKo}</span>
+                            <span className="block font-body text-[12px] text-[var(--t3)]">
+                              {s.exampleKo}
+                            </span>
                           )}
                         </li>
                       ))}
                     </ol>
 
-                    {(e.derived.length > 0 || e.collocations.length > 0 || e.crossRefs.length > 0) && (
+                    {(e.derived.length > 0 ||
+                      e.collocations.length > 0 ||
+                      e.crossRefs.length > 0) && (
                       <div className="mt-1.5 flex flex-col gap-0.5">
                         {e.derived.length > 0 && (
                           <p className="font-body text-[11.5px] text-[var(--t3)]">
                             <span className="mr-1 font-[600]">파생</span>
-                            <span className="font-english">{e.derived.slice(0, 5).join(' · ')}</span>
+                            <span className="font-english">
+                              {e.derived.slice(0, 5).join(' · ')}
+                            </span>
                           </p>
                         )}
                         {e.collocations.length > 0 && (
                           <p className="font-body text-[11.5px] text-[var(--t3)]">
                             <span className="mr-1 font-[600]">연어</span>
-                            <span className="font-english">{e.collocations.slice(0, 3).join(' · ')}</span>
+                            <span className="font-english">
+                              {e.collocations.slice(0, 3).join(' · ')}
+                            </span>
                           </p>
                         )}
                         {e.crossRefs.length > 0 && (
@@ -326,7 +373,7 @@ export function VocabSpreadSheet({ setId }: { setId: string }) {
 
               {/* DAY 끝 테스트 — 그날치를 바로 확인하는 자리 */}
               {day.test.meaning.length > 0 && (
-                <div className="mt-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)]/40 px-4 py-3">
+                <div className="bg-[var(--bg2)]/40 mt-3 rounded-[var(--r-md)] border border-[var(--bd)] px-4 py-3">
                   <p className="mb-1.5 font-display text-[10px] font-[700] uppercase tracking-wider text-[var(--t2)]">
                     DAILY TEST
                   </p>
@@ -349,7 +396,9 @@ export function VocabSpreadSheet({ setId }: { setId: string }) {
       {/* 누적 복습 */}
       {data.reviews.length > 0 && (
         <section aria-label="누적 복습">
-          <Kicker><RotateCcw size={11} aria-hidden /> 누적 복습</Kicker>
+          <Kicker>
+            <RotateCcw size={11} aria-hidden /> 누적 복습
+          </Kicker>
           <ul className="flex flex-col gap-1">
             {data.reviews.map((r) => (
               <li key={r.label} className="font-body text-[12.5px] text-[var(--t2)]">
@@ -363,7 +412,9 @@ export function VocabSpreadSheet({ setId }: { setId: string }) {
       {/* 색인 */}
       {data.indexSize > 0 && (
         <section aria-label="색인">
-          <Kicker><ListOrdered size={11} aria-hidden /> 색인 (전체 {data.indexSize}개)</Kicker>
+          <Kicker>
+            <ListOrdered size={11} aria-hidden /> 색인 (전체 {data.indexSize}개)
+          </Kicker>
           <p className="font-english text-[12px] leading-relaxed text-[var(--t3)]">
             {data.indexHead.map((x) => `${x.word} ${String(x.day).padStart(2, '0')}`).join(' · ')}
             {data.indexSize > data.indexHead.length && ' …'}
@@ -438,11 +489,132 @@ export function VocabSpreadSheet({ setId }: { setId: string }) {
       )}
 
       <p className="font-body text-[11px] text-[var(--t3)]">
-        지면 미리보기는 앞 {data.previewDays}일치입니다 — 나머지 {Math.max(0, data.studyPlan.days - data.previewDays)}일치는
-        추가 후 학습 모듈에서 이어집니다.
+        지면 미리보기는 앞 {data.previewDays}일치입니다 — 나머지{' '}
+        {Math.max(0, data.studyPlan.days - data.previewDays)}일치는 추가 후 학습 모듈에서
+        이어집니다.
       </p>
 
       {days.length === 0 && null}
+    </div>
+  )
+}
+
+/**
+ * **지면 보는 법 — 실제 칸 위에 번호.**
+ *
+ * 시중 어휘 교재는 FEATURES 지면에서 표제어 칸 한 장을 그대로 싣고 ① ② ③ 을 찍는다.
+ * 목록만 주면 "파생어" 가 어느 줄인지 학습자가 눈으로 못 찾는다 — 설명의 값은 **가리키는 데**
+ * 있지 이름을 부르는 데 있지 않다.
+ *
+ * 번호는 조판기가 이미 정한 순서를 그대로 쓴다(`guide.features`) — 여기서 다시 매기면
+ * 아래 범례와 어긋난다.
+ */
+function FeatureCallout({
+  entry,
+  features,
+}: {
+  entry: SpreadEntry
+  features: Array<{ n: number; id: string; label: string }>
+}) {
+  /** 그 장치가 이 콜아웃에서 몇 번인가. 없으면 이 권이 안 채운 칸이라 표시하지 않는다. */
+  const numberOf = (id: string): number | null => features.find((f) => f.id === id)?.n ?? null
+
+  const Marker = ({ id }: { id: string }) => {
+    const n = numberOf(id)
+    if (n == null) return null
+    return (
+      <span
+        aria-hidden
+        className="mr-1 inline-flex h-[15px] w-[15px] shrink-0 translate-y-[-1px] items-center justify-center rounded-full font-mono text-[9px] font-[700]"
+        style={{ background: 'var(--p)', color: 'var(--on-p)' }}
+      >
+        {n}
+      </span>
+    )
+  }
+
+  const sense = entry.senses[0]
+
+  return (
+    <div className="mt-2 rounded-[var(--r-sm)] border border-dashed border-[var(--bd)] bg-[var(--bg)] px-3 py-2.5">
+      <div className="mb-1.5 flex items-center gap-1">
+        <Marker id="runningHead" />
+        <span className="font-mono text-[10px] font-[700] tracking-[0.14em] text-[var(--t3)]">
+          DAY {String(entry.day).padStart(2, '0')}
+        </span>
+      </div>
+
+      <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+        <span className="inline-flex items-baseline">
+          <Marker id="entryNumber" />
+          <span className="font-mono text-[10px] text-[var(--t3)]">{entry.no}</span>
+        </span>
+        <span className="font-english text-[15px] font-[700] text-[var(--t1)]">{entry.word}</span>
+        {entry.ipa && <span className="font-mono text-[10.5px] text-[var(--t3)]">{entry.ipa}</span>}
+        {entry.inflections.length > 0 && (
+          <span className="inline-flex items-baseline">
+            <Marker id="inflection" />
+            <span className="font-mono text-[10px] text-[var(--t3)]">
+              ({entry.inflections.slice(0, 2).join('–')})
+            </span>
+          </span>
+        )}
+      </div>
+
+      {sense && (
+        <p className="mt-1 font-body text-[12.5px] leading-relaxed text-[var(--t2)]">
+          {sense.n != null && (
+            <span className="inline-flex items-baseline">
+              <Marker id="senseNumber" />
+              <span className="mr-1 font-mono text-[10.5px] text-[var(--t3)]">{sense.n}.</span>
+            </span>
+          )}
+          {sense.pos && (
+            <span className="inline-flex items-baseline">
+              <Marker id="posLabel" />
+              <span className="mr-1 rounded-[3px] bg-[var(--bg3)] px-1 font-body text-[10px] text-[var(--t2)]">
+                {sense.pos}
+              </span>
+            </span>
+          )}
+          <span className="text-[var(--t1)]">{sense.meaning}</span>
+        </p>
+      )}
+
+      {sense?.exampleEn && (
+        <p className="mt-1 flex items-baseline font-english text-[12px] text-[var(--t2)]">
+          <Marker id="exampleEn" />
+          <span className="min-w-0">{sense.exampleEn}</span>
+        </p>
+      )}
+      {sense?.exampleKo && (
+        <p className="flex items-baseline font-body text-[11.5px] text-[var(--t3)]">
+          <Marker id="exampleKo" />
+          <span className="min-w-0">{sense.exampleKo}</span>
+        </p>
+      )}
+
+      {entry.derived.length > 0 && (
+        <p className="mt-1 flex items-baseline font-body text-[11px] text-[var(--t3)]">
+          <Marker id="derivedRow" />
+          <span className="mr-1 font-[600]">파생</span>
+          <span className="font-english">{entry.derived.slice(0, 4).join(' · ')}</span>
+        </p>
+      )}
+      {entry.crossRefs.length > 0 && (
+        <p className="flex items-baseline font-body text-[11px] text-[var(--t3)]">
+          <Marker id="crossRef" />
+          <span className="font-english">
+            → {entry.crossRefs[0]!.word} (DAY {String(entry.crossRefs[0]!.day).padStart(2, '0')})
+          </span>
+        </p>
+      )}
+      {entry.note && (
+        <p className="mt-1 flex items-baseline border-l-[3px] border-[var(--p)] bg-[var(--bg2)] px-2 py-1 font-body text-[11px] leading-relaxed text-[var(--t2)]">
+          <Marker id="usageNote" />
+          <span className="min-w-0">{entry.note}</span>
+        </p>
+      )}
     </div>
   )
 }
