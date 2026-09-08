@@ -39,6 +39,16 @@ const arg = (n) => {
 }
 const BAND = Number(arg('band') ?? 3)
 const ONLY = arg('only')
+/**
+ * **왜 못 맞췄는지까지 말한다** (실측 2026-09-08).
+ *
+ * 이 표는 "어려운 낱말을 늘린다" 까지만 말했다. 그 지시로는 **무엇을 늘릴지** 알 수 없어서
+ * V7 장문 3편을 쓰는 동안 검사기와 같은 계산을 하는 임시 스크립트를 따로 짜야 했다.
+ * 그때 나온 답이 이것이다 — 굴절형은 사전에 안 잡혀 **등급 계산에서 통째로 빠진다.**
+ *   `scattered` · `stunned` · `kindled` · `fidgeting` 는 목록의 V7·꼬리 낱말인데 0으로 셌다.
+ * 그래서 14개를 골라 넣고도 p75 가 6 이었다. 눈으로는 절대 안 보인다.
+ */
+const WHY = process.argv.includes('--why')
 const DIR = path.resolve(arg('dir') ?? `scripts/textbook/write-drain/v${BAND}`)
 
 const { createClient } = await import('@supabase/supabase-js')
@@ -118,7 +128,7 @@ for (const { row, lemmas } of perDoc) {
   const tail = levels.filter((n) => n > BAND).length
   const ok = p75 === BAND
   if (ok) hit++
-  else off.push({ slot: row.slot, p75, tail, title: row.title })
+  else off.push({ slot: row.slot, p75, tail, title: row.title, lemmas })
   console.log(
     [
       ok ? '✅' : p75 == null ? '❓' : p75 < BAND ? '⬇ ' : '⬆ ',
@@ -142,6 +152,30 @@ if (off.length) {
   console.log(`\n  고칠 곳 — **낱말을 바꾸는 것은 집필하는 쪽의 일이다.** 여기서는 방향만 말한다:`)
   for (const o of up) console.log(`    ⬆  슬롯 ${o.slot} (p75 ${o.p75}, 꼬리 ${o.tail}) — 어려운 낱말을 줄인다: ${String(o.title).slice(0, 40)}`)
   for (const o of down) console.log(`    ⬇  슬롯 ${o.slot} (p75 ${o.p75}, 꼬리 ${o.tail}) — 어려운 낱말을 늘린다: ${String(o.title).slice(0, 40)}`)
+  if (WHY) {
+    // **몇 개가 모자란지는 산수로 답이 나온다** — p75 는 `PERCENTILE_DISC` 라
+    // 오름차순 idx = ceil(0.75n)-1 자리의 값이다. 그 자리가 밴드가 되려면
+    // 밴드 이상인 낱말이 **n-idx 개 이상** 있어야 한다.
+    for (const o of off) {
+      const got = o.lemmas.map((w) => [w, level.get(w)])
+      const scored = got.filter(([, n]) => Number.isFinite(n))
+      const idx = Math.ceil(0.75 * scored.length) - 1
+      const need = scored.length - idx
+      const atOrAbove = scored.filter(([, n]) => n >= BAND)
+      console.log(
+        `\n  ── 슬롯 ${o.slot} — 등급이 잡힌 낱말 ${scored.length}개 · V${BAND} 이상이 **${need}개** 필요한데 지금 ${atOrAbove.length}개`,
+      )
+      console.log(`     V${BAND}↑ : ${atOrAbove.map(([w, n]) => `${w}(${n})`).join(' ') || '없다'}`)
+      console.log(
+        `     V${BAND - 1} : ${scored.filter(([, n]) => n === BAND - 1).map(([w]) => w).join(' ') || '없다'}`,
+      )
+      // ⚠️ 여기가 이 플래그의 존재 이유다. 굴절형은 사전에 없어 **한 개도 안 세어진다.**
+      const unscored = got.filter(([, n]) => !Number.isFinite(n)).map(([w]) => w)
+      console.log(`     사전에 없어 **안 세어진 것** ${unscored.length}개 — 굴절형이 여기 숨는다: ${unscored.join(' ')}`)
+    }
+  } else {
+    console.log(`\n  어떤 낱말이 세어졌고 무엇이 빠졌는지 보려면 **--why** 를 붙인다.`)
+  }
   console.log(`\n  고친 뒤 이 스크립트를 다시 돌린다. 적중이 안 되는 편은 적재해도 다른 계단에 쌓일 뿐이다`)
   console.log(`  (버리지는 않는다 — 아래 계단도 비어 있다).`)
 }
