@@ -282,7 +282,11 @@ v06.34 — `SELECT DISTINCT lbv.lemma, sd.v_level` type-based p75. Lexile/ATOS/C
 | 안정 식별자 | `packages/library-pipeline/src/ingest-article/source-key.ts` | `source_id = <source>:<안정 식별자>[#p<시작>-<끝>]`. **목록기와 적재기가 같은 `sourceKey()` 를 부른다.** 유도 못 하면 던진다(해시·슬러그 대체 금지) |
 | 증분 커서 | `ingest-article/harvest-cursor.ts` | 위치 `scripts/<pipeline>/data/<source>[-<feed>]-cursor.json` · 형식 `{version, source, feed, updated_at, token, seen[], exhausted}`. `token` 은 소스가 준 것 그대로(우리가 만든 offset 금지) · `seen` 에는 **거절한 편도** 적는다 |
 
-규약 소스: `wikipedia` · `voa` · `frym` · `frontiers`.
+규약 소스: `wikipedia` · `voa` · `frym` · `frontiers` · `worldbank` · `nist`.
+⚠️ `nist` 만 **URL 경로**를 안정 식별자로 쓴다 — 규약이 슬러그를 금지하는데도 그런 이유는
+`source-key.ts` 의 `SOURCE_KEY_SHAPE.nist` 주석에 적혀 있다(요지: 노드 id 는 기사 HTML 안에만
+있어서 그것으로 열쇠를 잡으면 **중복 검사가 본문 GET 뒤로 밀린다**). 목록기는 사이트맵 loc,
+적재기는 `<link rel="canonical">` — 둘 다 같은 값이 나오는 것을 회귀가 잠근다.
 ⚠️ `simple_wikipedia` 는 아직 **3갈래**다(seed_catalog `Title_slug` 34 · articles `Title#lead-trim` 99 ·
 적재기 `pageid`) — `UNGOVERNED_KNOWN_DIVERGENCE` 에 적어 두었고 별도 백필이 필요하다.
 
@@ -434,6 +438,85 @@ NC 11 · ND 4 · 유보 3 · 비영어 2 · 유형불일치 61 · 평문없음 5
 
 회귀: `ingest-article/world-bank-okr.test.ts`(34 — 라이선스 순서 · 두 단/각주/쪽번호 ·
 비트스트림 경로 · 열쇠).
+
+### 겨냥 수확 — NIST (`nist`, 2026-09-08) ⛔ **제약 대기**
+
+Frontiers 1,795편으로 교육·언어 배율이 0.70 → 0.86 이 되면서 병목이 **기술·매체**로 옮겨
+갔다. 그런데 정찰(`docs/reports/source-probe/tech-media.md`)이 낸 답은 새 소스가 아니었다 —
+**NIST 는 `SUMMARY.md` §2 가 이미 「채택」해 뒀는데 `library_articles` 에 0행**이었다.
+
+| | |
+|---|---|
+| 어댑터 | `packages/library-pipeline/src/ingest-article/nist.ts` |
+| 수확기 | `scripts/csat/harvest-nist.mjs` (`--feed news\|blogs --max N [--commit] [--plan] [--ignore-quota]`) |
+| 커서 | `scripts/csat/data/nist-<피드>-cursor.json` — 규약 위치. `seen` 은 **URL 경로** |
+| 목록 | `sitemap.xml` 색인(56쪽) → 쪽마다 최대 2,000 loc. **전수 열거**(약 11MB · 1분) |
+| 본문 | 기사 HTML `div.text-with-summary` 안의 `<p>` |
+| 열쇠 | `nist:<URL 경로>` — 목록기는 sitemap loc, 적재기는 canonical |
+| 라이선스 | **PD**(미 연방정부 저작물). 표기는 usgs·noaa 와 같은 `Public Domain (US Government)` |
+| 게이트 | 150어 미만 · 비ASCII 2% 초과 · `lib-fit.mjs`(창) · `lib-topic.mjs`(소재 몫) |
+
+**사이트맵 실측 2026-09-08 (전 56쪽 전수 열거 · 총 110,154 loc)**
+
+| 경로 | 편수 |
+|---|---|
+| `news-events/news/` | **6,991** ← 기존 문서의 6,496 은 낮게 잡혀 있었다 |
+| `blogs/` | **2,022** |
+| (그 밖) publications 74,515 · people 6,706 · itl 2,038 · news-events 2,849 … | |
+
+⚠️ **쪽 번호로 범위를 좁히면 안 된다.** 뉴스는 1~4쪽에 몰려 있지만 **13쪽에 1편**이 있다.
+「1~5쪽만 본다」로 줄이면 그 1편은 오류 없이 영영 안 보인다 — 2026-08-16 IA 사고와 같은 부류다.
+그래서 매 실행 색인이 말하는 쪽을 전부 읽는다(쪽 번호를 기억하지 않으므로 어긋날 수 없다).
+
+⚠️ **RSS·HTML 목록은 대량 경로가 아니다** — RSS 는 40건 창이고, `/news-events/news` 의 pager 는
+JS 라 서버 HTML 에 2쪽 이후가 없다. 사이트맵이 유일하다.
+
+⚠️ **`.in(source_id, …)` 로 중복을 묻지 않는다** (실측 2026-09-08). 열쇠가 URL 경로(평균 90자)라
+200개만 실어도 요청 줄이 22KB 가 되고 PostgREST 가 아니라 **fetch 가** 죽는다
+(`Headers Overflow Error`). 재시도 6회를 다 태우고 「중복 확인 실패」 한 줄로 끝나는데, 그 줄을
+놓치면 **전량을 새 글로 보고 다시 담는다.** 대신 `source='nist'` 의 열쇠를 한 번 다 읽어
+집합으로 만들고(상한 9,013행), **못 읽었으면 `--commit` 을 중단한다.**
+
+⛔ **`library_articles_source_check` 에 `'nist'` 가 없다.** 실측 `--commit --max 3` 은
+`23514` 로 **0편 적재**하고 멈췄고(오류로 멈추게 해 뒀다) **커서도 전진하지 않았다**(파일 미생성).
+`worldbank` 와 같은 자리이며, 필요한 SQL 은 아래 한 문장이다 — **적용은 승인 뒤**다.
+(2026-09-08 에 `frontiers`·`worldbank` 를 더한 **최신 목록에 `nist` 만** 더한 형태다. 실제 정의는
+`select pg_get_constraintdef(oid) from pg_constraint where conname='library_articles_source_check'`
+로 읽어 확인했다.)
+
+```sql
+ALTER TABLE public.library_articles DROP CONSTRAINT library_articles_source_check;
+ALTER TABLE public.library_articles ADD CONSTRAINT library_articles_source_check
+  CHECK (source = ANY (ARRAY[
+    'voa','nasa','nih','manual','cdc','medlineplus','wikinews','the_conversation',
+    'simple_wikipedia','owid','factbook','elife','wikipedia','plos','wikivoyage',
+    'usgs','noaa','futurity','storyweaver','space_place','gutenberg','original',
+    'ocean_facts','frym','frontiers','worldbank','nist'
+  ]));
+```
+
+⚠️ **`applySourceLevelCap` 은 이 경로에도 없다** — Frontiers·World Bank 와 같은 이유다
+(`nist` 는 `_curation-spec.ts` 의 `SourceKey` 가 아니다. 수확기가 DB 에 직접 넣는다).
+대량 GET 화면에 올리려면 `SourceKey` + `SOURCE_SPECS` + `preferredFeedMix` 셋을 함께 더해야 한다.
+
+**제약 앞 구간 실측 (읽기 전용 2026-09-08 · 뉴스 피드)**
+
+| | |
+|---|---|
+| 사이트맵 열거 | **6,991편** · lastmod 6,991/6,991 |
+| 본문 GET | 58편 · 실패 0 · 컨테이너 없음 0 · 150어 미만 2 · 비ASCII 초과 0 |
+| 창 게이트 | 통과 25 / 탈락 33 (**43%**) |
+| **분류기 명중률** | 본문 58편 → 창 153개 · **기술·매체 22.9%** (정찰 26.7% · 창 30 표본) |
+| 창 소재 분포 | 과학·자연 54% · **기술·매체 23%** · 분류불가 12% · 사회·경제 8% |
+
+정찰의 26.7% 는 창 **30개** 표본이었고 여기서는 창 **153개**로 **22.9%** 다 — 자릿수는
+재현된다(PLOS 7.3% 의 **3.1배** · Gutenberg 0.7% 의 33배). 다만 창의 과반(54%)이 **과학·자연**
+이라 소재 몫 게이트가 켜져 있으면 대부분 「몫 참」으로 미뤄진다(과학·자연 배율 1.50 = 이미 과잉).
+즉 이 소스는 **기술·매체를 값싸게 주지만 전량을 담는 소스가 아니다.**
+
+회귀: `ingest-article/nist.test.ts`(14 — 열쇠 목록↔적재 일치 · 추적 파라미터 접힘 ·
+남의 호스트/publications 거절 · **13쪽 숨은 1편** · lastmod 순서 짝짓기 금지 ·
+컨테이너 없을 때 물러서지 않음 · 후미 상용구/캡션 제거 · 제목 꼬리 `| NIST`).
 
 ### 확보 배치 (헤드리스)
 

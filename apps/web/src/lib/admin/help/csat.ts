@@ -444,13 +444,16 @@ export const CSAT_HELP: HelpRegistry = {
         '`csat_stage_catalog` 는 지문 **메타**만 든다. 본문은 다른 곳에 있고, 이 화면은 편수만 센다.',
         '**World Bank OKR 수확은 아직 막혀 있다** — `library_articles.source` 의 CHECK 제약에 `worldbank` 가 없어 `--commit` 이 23514 로 0편 적재하고 멈춘다. 2026-08-21 `futurity` 와 같은 자리다(그때는 제약만 빠져 확보량이 영구 0 이었다). 마이그레이션 승인이 먼저다.',
         '**OKR 은 robots.txt 가 `/server/oai/` 를 Disallow 한다**(`Crawl-delay: 10`). 넘을지 말지는 사람이 정할 사안이라 `--commit` 을 자동 실행·크론에 붙이지 않는다.',
+        '**NIST 수확도 같은 자리에서 막혀 있다** — CHECK 제약에 `nist` 가 없어 `--commit` 이 23514 로 0편 적재하고 멈춘다(실측 2026-09-08 `--max 3`). 멈출 때 **커서를 전진시키지 않으므로** 제약이 열린 뒤 그대로 다시 돌리면 된다(코드 수정 0건 — Frontiers 가 그렇게 1,795편을 넣었다).',
+        '**NIST 는 전량을 담는 소스가 아니다.** 창의 54%가 과학·자연(배율 1.50 = 이미 과잉)이라 소재 몫 게이트에서 대부분 「몫 참」으로 미뤄진다. 「받음 0」이 나와도 고장이 아니라 **배합이 그렇게 시킨 것**이다 — 몫 줄을 먼저 볼 것.',
       ],
       drain: {
-        what: '빈 소재 칸을 겨냥해 외부 원문을 수확한다 — 지금 겨냥은 **사회·경제**(배율 0.686 · 3단계 5만 기준 부족 926편)와 **교육·언어**(0.568 · 1,464편). 넣기 전에 채점하므로 재고에 들어오는 것은 전부 창을 통과한 글이다.',
+        what: '빈 소재 칸을 겨냥해 외부 원문을 수확한다 — 칸마다 수확기가 다르다: **사회·경제** → World Bank OKR · **교육·언어** → Frontiers · **기술·매체** → NIST. 넣기 전에 채점하므로 재고에 들어오는 것은 전부 창을 통과한 글이다.',
         prerequisites: [
           '`docs/reports/topic-gap.json` 이 최신이어야 몫이 맞다. 낡았으면 먼저 `node scripts/csat/topic-gap.mjs --sample 3000 --out docs/reports/topic-gap.json`.',
           '`apps/web/.env.local` 에 `SUPABASE_SERVICE_ROLE_KEY`. 없으면 `--commit` 만 실패하고 읽기 전용 실행은 된다.',
           'World Bank OKR 은 **DB 제약 + robots 결정 두 가지가 열려야** `--commit` 할 수 있다(위 주의 참조).',
+          'NIST 는 **DB 제약 하나만** 열리면 된다 — PD 라 라이선스 판정이 없고 robots 도 막지 않는다.',
         ],
         procedure: [
           {
@@ -477,6 +480,12 @@ export const CSAT_HELP: HelpRegistry = {
               '`node scripts/csat/topic-gap.mjs --sample 3000 --out docs/reports/topic-gap.json` — 넣은 만큼 몫이 달라진다. 안 다시 재면 다음 수확이 같은 칸을 두 번 채운다.',
             done: '겨냥한 칸의 배율이 1.0 쪽으로 움직인다.',
           },
+          {
+            title: '⑤ 기술·매체 칸 — NIST (같은 3단계, 명령만 다르다)',
+            detail:
+              '`pnpm dlx tsx scripts/csat/harvest-nist.mjs --plan --feed news`(사이트맵 56쪽만 열거 · 기사 GET 0 · 약 1분) → `--feed news --max 12`(읽기 전용 채점 · 명중률까지 찍는다) → `--feed news --max 200 --commit`. 피드는 `news`(6,991) 와 `blogs`(2,022) 둘이고 커서는 피드마다 따로다(`scripts/csat/data/nist-<피드>-cursor.json`). **재실행 안전**: 매 실행 사이트맵을 전수 다시 열거하고(쪽 번호를 기억하지 않는다) 이미 담은 것은 `nist:<URL 경로>` 로 걸러 낸다. 커서는 **적재가 성공한 뒤에만** 쓴다.',
+            done: '「적재 N편」과 「분류기 명중률 … 기술·매체 NN%」. 제약이 안 열렸으면 `23514` 를 찍고 멈추며 **커서 파일이 아예 안 생긴다**(실측).',
+          },
         ],
         verify: [
           '이 화면의 밴드별 「쓸 수 있는 것」이 늘어야 한다. 지문 수만 늘고 이 값이 그대로면 `display_only` 로 들어온 것이다.',
@@ -486,6 +495,7 @@ export const CSAT_HELP: HelpRegistry = {
           '「받음 0」이면 먼저 필터 내역 줄을 본다 — 유형불일치가 대부분이면 `--feed all` 로 넓히고, NC/ND 가 대부분이면 그 창(`--from`)에 쓸 것이 없는 것이다.',
           '`bitstream 500` 이 줄줄이 나오면 상류 프런트 경로를 쓰고 있는 것이다. 어댑터는 REST(`/server/api/core/bitstreams/<uuid>/content`)로 바꿔 부른다 — 되돌리면 전량 실패한다(실측).',
           '커서를 지워도 안전하다 — 중복은 `source_id` 가 막는다. 커서는 최적화이지 안전장치가 아니다.',
+          'NIST 가 「중복 확인 실패」 한 줄을 찍으면 **그 줄이 곧 정지 사유다** — `--commit` 은 거기서 멈춘다(빈 집합을 「없음」으로 읽으면 9,013편을 통째로 다시 담는다). 열쇠가 URL 경로라 `.in()` 에 실으면 요청 줄이 22KB 가 되어 fetch 가 `Headers Overflow Error` 로 죽는 자리다 — 목록 조회 방식을 되돌리지 말 것.',
         ],
       },
       seeAlso: [

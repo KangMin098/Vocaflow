@@ -162,6 +162,15 @@ export const HARVEST_CURSOR_REGISTRY: Record<string, HarvestRegistryEntry> = {
     //   `seen`(handle)이 커서보다 중요하다 — 토큰만 믿으면 재수확 때 중복을 다시 받는다.
     cursorFile: 'scripts/csat/data/worldbank-<feed>-cursor.json',
   },
+  nist: {
+    // 사이트맵 **전수 열거**다 — 색인이 말하는 56쪽을 매 실행 전부 읽는다(약 11MB · 1분).
+    //   그래서 커서가 담는 것은 다음-쪽 토큰이 아니라 `seen`(이미 판정한 URL 경로 —
+    //   적재분 + 짧아서 버린 것 + 게이트 탈락분)이다. VOA 사이트맵과 같은 성질.
+    // ⚠️ 쪽 번호로 범위를 좁히지 않는다: 실측에서 뉴스 1편이 13쪽에 있었고, 「1~5쪽만」으로
+    //   줄였다면 그 1편은 오류 없이 영영 안 보였다.
+    deepPaged: true,
+    cursorFile: 'scripts/csat/data/nist-<feed>-cursor.json',
+  },
   gutenberg: {
     // 목록기가 `.ts` 어댑터가 아니라 스크립트다(`scripts/csat/harvest-gutenberg.mjs`).
     //   그런 목록기는 파일 안에 `@harvest-source: <키>` 를 적어 등록부 검사에 들어온다 —

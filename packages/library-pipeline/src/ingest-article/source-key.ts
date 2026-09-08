@@ -31,7 +31,7 @@
 //     (`frym-ingest.mjs`·`storyweaver-ingest.mjs` 가 이미 쓰던 규칙을 정본화).
 
 /** 이 파일이 열쇠를 책임지는 소스. 여기 없는 소스는 각자 기존 방식 그대로다(§미이관). */
-export type GovernedSource = 'wikipedia' | 'voa' | 'frym' | 'frontiers' | 'worldbank'
+export type GovernedSource = 'wikipedia' | 'voa' | 'frym' | 'frontiers' | 'worldbank' | 'nist'
 
 export const GOVERNED_SOURCES: readonly GovernedSource[] = [
   'wikipedia',
@@ -39,6 +39,7 @@ export const GOVERNED_SOURCES: readonly GovernedSource[] = [
   'frym',
   'frontiers',
   'worldbank',
+  'nist',
 ] as const
 
 /**
@@ -89,6 +90,17 @@ export const SOURCE_KEY_SHAPE: Record<GovernedSource, RegExp> = {
   //   `#p<a>-<b>` 는 **쪽 범위**다 — 보고서 한 건에서 여러 쪽이 지문이 되므로 원본과
   //   다른 행이 되어야 한다.
   worldbank: /^worldbank:10986\/[0-9]+(?:#p[0-9]+-[0-9]+)?$/,
+  // NIST — **이 소스만 URL 경로를 안정 식별자로 쓴다.** 위 규약이 슬러그를 금지하는데도
+  //   그렇게 하는 이유를 여기 적어 둔다(안 적으면 다음 사람이 규약 위반으로 읽고 고친다):
+  //     · DOI 가 없다. Drupal 노드 id 는 있지만 **기사 HTML 안에만** 있고 사이트맵에는 없다
+  //       (`<link rel="shortlink" href="/node/391921">`).
+  //     · 노드 id 를 열쇠로 삼으면 목록기가 열쇠를 만들려고 편당 본문 GET 을 해야 하고,
+  //       그러면 **이미 가진 것을 다 사 온 뒤에야** 중복인 줄 안다. 중복 검사는 GET 앞에
+  //       있어야 값이 있다(Frontiers 가 순서를 뒤집었다가 600편 중 326편을 그렇게 버렸다).
+  //     · 그래서 **소스 자신의 열거 단위**인 URL 경로를 쓴다. 목록기는 사이트맵 loc 에서,
+  //       적재기는 canonical 에서 — 둘 다 같은 값이 나오는 것을 표본으로 확인했다.
+  //   감수하는 것: 슬러그 변경 시 같은 글이 새 행이 된다. **해시로는 물러서지 않는다.**
+  nist: /^nist:(?:news-events\/news|blogs)\/[a-z0-9][a-z0-9/_.-]*(?:#p[0-9]+-[0-9]+)?$/,
 }
 
 type Extractor = (raw: StableIdInput) => string | null
@@ -130,6 +142,24 @@ const EXTRACTORS: Record<GovernedSource, Extractor> = {
   worldbank: (raw) => {
     const src = `${raw.guid ?? ''} ${raw.url ?? ''}`
     return src.match(/\b10986\/(\d+)\b/)?.[0] ?? null
+  },
+  // nist.gov 의 URL 경로. **호스트를 확인한다** — 남의 주소로 nist 열쇠를 만들지 않는다.
+  //   추적 파라미터·앵커·끝 슬래시·대문자는 전부 같은 값으로 접힌다.
+  //   `news-events/news/` · `blogs/` 밖의 경로(publications·people 74,515+6,706행)는
+  //   지문 소스가 아니므로 **여기서 거절한다** — 목록기가 접두어로 거르지만, 열쇠 쪽에서도
+  //   막아야 손으로 URL 을 넣는 경로가 조용히 엉뚱한 것을 담지 않는다.
+  nist: (raw) => {
+    const u = (raw.url ?? '').trim()
+    if (!u) return null
+    let parsed: URL
+    try {
+      parsed = new URL(u)
+    } catch {
+      return null
+    }
+    if (!/(^|\.)nist\.gov$/i.test(parsed.hostname)) return null
+    const p = parsed.pathname.replace(/^\/+/, '').replace(/\/+$/, '').toLowerCase()
+    return /^(?:news-events\/news|blogs)\/[a-z0-9][a-z0-9/_.-]*$/.test(p) ? p : null
   },
 }
 
