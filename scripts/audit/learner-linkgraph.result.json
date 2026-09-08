@@ -1,0 +1,29 @@
+{
+  "generatedAt": "2026-09-07T15:25:18.080Z",
+  "totals": {
+    "pageRoutes": 146,
+    "learnerPages": 91,
+    "apiRoutes": 76,
+    "linkedLearnerPages": 79
+  },
+  "deadLinks": [],
+  "orphanLearnerPages": [
+    "/hub-lab",
+    "/join/[code]"
+  ],
+  "redirectAliasesExcluded": [
+    "/comics",
+    "/library",
+    "/my",
+    "/my/texts",
+    "/my/words"
+  ],
+  "orphanApiRoutes": [
+    "/api/acp/dev-enqueue",
+    "/api/admin/library/backfill-covers",
+    "/api/lcp/dev-enqueue-book",
+    "/api/lcp/dev-ingest-preview",
+    "/api/lcp/process",
+    "/api/pdcp/issue"
+  ]
+}

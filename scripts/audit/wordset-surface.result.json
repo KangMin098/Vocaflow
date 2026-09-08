@@ -1,0 +1,677 @@
+{
+  "stat": {
+    "published": 656257,
+    "withExample": 656257,
+    "clipped": 108903,
+    "clippedMiss": 31307,
+    "notClipped": 547354,
+    "notClippedMiss": 1385,
+    "substringPresentButMatcherMiss": 501
+  },
+  "setDamage": [
+    {
+      "set": "In Search of Lost Time — Ch.2",
+      "n": 545
+    },
+    {
+      "set": "In Search of Lost Time — Ch.3",
+      "n": 278
+    },
+    {
+      "set": "Dialogues — Ch.10",
+      "n": 270
+    },
+    {
+      "set": "In Search of Lost Time — Ch.9",
+      "n": 199
+    },
+    {
+      "set": "In Search of Lost Time — Ch.5",
+      "n": 197
+    },
+    {
+      "set": "The Genealogy of Morals — Ch.3",
+      "n": 195
+    },
+    {
+      "set": "The Genealogy of Morals — Ch.2",
+      "n": 184
+    },
+    {
+      "set": "In Search of Lost Time — Ch.1",
+      "n": 180
+    },
+    {
+      "set": "The Genealogy of Morals — Ch.1",
+      "n": 174
+    },
+    {
+      "set": "In Search of Lost Time — Ch.8",
+      "n": 164
+    },
+    {
+      "set": "Against the Grain — Ch.3",
+      "n": 162
+    },
+    {
+      "set": "In Search of Lost Time — Ch.11",
+      "n": 155
+    },
+    {
+      "set": "In Search of Lost Time — Ch.4",
+      "n": 126
+    },
+    {
+      "set": "Against the Grain — Ch.5",
+      "n": 106
+    },
+    {
+      "set": "In Search of Lost Time — Ch.6",
+      "n": 105
+    }
+  ],
+  "samplesMiss": [
+    {
+      "id": "0005d849-a364-4c77-8d3c-69dfa91f9e3d",
+      "word": "dunghill",
+      "lemma": "dunghill",
+      "meaning_ko": "거름더미",
+      "set": "The Adventurous Simplicissimus — Ch.13",
+      "category": "library_book",
+      "len": 299,
+      "clipped": true,
+      "example": "And these began to yell so frightfully and so furiously to attack with sword and musket that all my hair stood on end; and never had I been at such a merrymaking before: for the peasants of the Spessart and the Vogelsberg are as little wont as are the Hessians and men of the Sauerland and the Black"
+    },
+    {
+      "id": "0009e3d3-79bd-44e2-8149-d7cb37582216",
+      "word": "savor",
+      "lemma": "savor",
+      "meaning_ko": "음미하다, 만끽하다",
+      "set": "Poetry — Ch.26",
+      "category": "library_book",
+      "len": 51,
+      "clipped": false,
+      "example": "And smell renews the salt savour of the sandy earth"
+    },
+    {
+      "id": "000c795b-27e6-4b3f-8bac-f2ea525ee3bd",
+      "word": "delectable",
+      "lemma": "delectable",
+      "meaning_ko": "음식·향이 매우 맛있고 즐거운",
+      "set": "Short Fiction — Ch.14",
+      "category": "library_book",
+      "len": 300,
+      "clipped": true,
+      "example": "And a minute later the schoolboy with horror and repulsion saw that which he had seen so many times before with perfect calmness: a muzhik's bare foot, dead-white, enormous, flat, with a monstrously grown great toe lying crookedly on top of the others, and the thin, hairy skin, which Theodot, having"
+    },
+    {
+      "id": "000d0b5f-f164-4bae-89bf-7209958daeb4",
+      "word": "presumption",
+      "lemma": "presumption",
+      "meaning_ko": "추정, 가정 — 근거를 바탕으로 그럴 것이라 여김",
+      "set": "The Decameron — Ch.15",
+      "category": "library_book",
+      "len": 300,
+      "clipped": true,
+      "example": "Alessandro, after many excuses, put off his clothes and laid himself beside the abbot, who put his hand on his breast and fell to touching him no otherwise than amorous damsels use to do with their lovers; whereat Alessandro marvelled exceedingly and misdoubted him the abbot was moved by unnatural l"
+    },
+    {
+      "id": "000ed9e2-8e6f-47c2-9ece-7984f99636e0",
+      "word": "conflux",
+      "lemma": "conflux",
+      "meaning_ko": "합류, 만남",
+      "set": "The Diary — Ch.47",
+      "category": "library_book",
+      "len": 299,
+      "clipped": true,
+      "example": "So by coach home, to the Exchange, where I talked about several businesses with several people, and so home to dinner with my wife, and then in the afternoon to my office, and there late, and in the evening Mr. Hollyard came, and he and I about our great work to look upon my wife's malady, which he"
+    },
+    {
+      "id": "000f8335-b270-414a-854d-99ba0e60e483",
+      "word": "orator",
+      "lemma": "orator",
+      "meaning_ko": "대중 앞에서 능숙하게 연설하는 사람",
+      "set": "Dialogues — Ch.27",
+      "category": "library_book",
+      "len": 300,
+      "clipped": true,
+      "example": "Consequently, the bravest of men often turns pale while he is putting on his armour; when the signal for battle is given, the knees of the boldest soldier shake for a moment; the heart even of a great general leaps into his mouth just before the lines clash together, and the hands and feet even of t"
+    },
+    {
+      "id": "0011c530-3dc9-41ad-8d15-f9c98be4a222",
+      "word": "glimmering",
+      "lemma": "glimmer",
+      "meaning_ko": "희미하게 빛나다",
+      "set": "Some Do Not … — Ch.11",
+      "category": "library_book",
+      "len": 300,
+      "clipped": true,
+      "example": "Occasionally, however, Mrs. Duchemin would show Valentine, as an enormous privilege, one of the letters to herself from men of genius: usually North British, written, as a rule, from the Continent or more distant and peaceful climates, for most of them believed it their duty in these hideous times t"
+    },
+    {
+      "id": "0012bc5f-959d-444e-9b13-30751ede662d",
+      "word": "dispensing",
+      "lemma": "dispense",
+      "meaning_ko": "나누어 주다, 분배하다",
+      "set": "Dialogues — Ch.102",
+      "category": "library_book",
+      "len": 300,
+      "clipped": true,
+      "example": "There are many who must needs cling to their high pinnacle of power, because they cannot descend from it save by falling headlong: yet they assure us that their greatest burden is being obliged to be burdensome to others, and that they are nailed to their lofty post rather than raised to it: let the"
+    },
+    {
+      "id": "001f2dda-3679-4819-9bc4-c3c402cb9386",
+      "word": "barracks",
+      "lemma": "barracks",
+      "meaning_ko": "병영, 막사",
+      "set": "In Search of Lost Time — Ch.8",
+      "category": "library_book",
+      "len": 300,
+      "clipped": true,
+      "example": "As Bloch had come to the station also⁠--much to Saint-Loup's disgust⁠--the latter, seeing that our companion could hear him begging me to come to luncheon, to dinner, to stay altogether at Doncières, finally turned to him and, in the most forbidding tone, intended to counteract the forced civility o"
+    },
+    {
+      "id": "002035c0-7d3b-4873-be6c-bec9bb8dfe7c",
+      "word": "injustice",
+      "lemma": "injustice",
+      "meaning_ko": "불의, 부당함, 불공정",
+      "set": "Leviathan — Ch.12",
+      "category": "library_book",
+      "len": 300,
+      "clipped": true,
+      "example": "That which taketh away the reputation of sincerity, is the doing or saying of such things, as appear to be signs, that what they require other men to believe is not believed by themselves; all which doings or sayings are therefore called scandalous, because they be stumbling-blocks, that make men to"
+    },
+    {
+      "id": "00229d7c-4bf8-4e8a-89f3-1391678c0eb9",
+      "word": "beavers",
+      "lemma": "beaver",
+      "meaning_ko": "비버, 해리 (반수생 설치류)",
+      "set": "The Mill on the Floss — Ch.30",
+      "category": "library_book",
+      "len": 300,
+      "clipped": true,
+      "example": "But these dead-tinted, hollow-eyed, angular skeletons of villages on the Rhone oppress me with the feeling that human life⁠--very much of it⁠--is a narrow, ugly, grovelling existence, which even calamity does not elevate, but rather tends to exhibit in all its bare vulgarity of conception; and I hav"
+    },
+    {
+      "id": "0023b8b4-abdd-4e85-968d-9b726238c59d",
+      "word": "ginger",
+      "lemma": "ginger",
+      "meaning_ko": "생강 — 알싸한 향의 뿌리줄기 향신료",
+      "set": "Arrowsmith — Ch.10",
+      "category": "library_book",
+      "len": 300,
+      "clipped": true,
+      "example": "Saturday evening they went solemnly to the motion pictures⁠--one- and two-reel films with Cowboy Billy Anderson and a girl later to be famous as Mary Pickford⁠--and solemnly they discussed the nonexistent plots as they returned, unconscious of other people on the streets; but when they walked into t"
+    },
+    {
+      "id": "0024a9cf-ece0-4cfd-b0ef-cf931373ba31",
+      "word": "convertible",
+      "lemma": "convertible",
+      "meaning_ko": "전환 가능한, 바꿀 수 있는",
+      "set": "Gil Blas — Ch.58",
+      "category": "library_book",
+      "len": 300,
+      "clipped": true,
+      "example": "You see that my lord archbishop is going very fast⁠--you ought to warn him of it, not only as his bosom friend, on whose sincerity he relies, but lest some blunt fellow should anticipate you, and bolt out the truth in an offensive manner, in that case you know the consequence; you would be struck ou"
+    },
+    {
+      "id": "00255c12-ee55-4eaf-a00e-75fd276b2a32",
+      "word": "incur",
+      "lemma": "incur",
+      "meaning_ko": "(좋지 않은 결과를) 초래하다, (빚·비용을) 지다",
+      "set": "The Federalist Papers — Ch.70",
+      "category": "library_book",
+      "len": 300,
+      "clipped": true,
+      "example": "The circumstances which may have led to any national miscarriage or misfortune are sometimes so complicated that, where there are a number of actors who may have had different degrees and kinds of agency, though we may clearly see upon the whole that there has been mismanagement, yet it may be impra"
+    },
+    {
+      "id": "002575c9-1952-418d-a9b4-67d8a81e15b6",
+      "word": "rills",
+      "lemma": "rill",
+      "meaning_ko": "좁고 얕게 흐르는 작은 물줄기",
+      "set": "Short Fiction — Ch.24",
+      "category": "library_book",
+      "len": 299,
+      "clipped": true,
+      "example": "⁠ ⁠... Chang got up on his hind legs and looked into the deserted general cabin⁠--there, in the obscurity, was a softly radiant, aureately-lilac something; a something barely perceptible to the eye, but extraordinarily joyous; there the rear port holes were open to the sunlit blue void, open to the"
+    },
+    {
+      "id": "002a7b94-2ecc-4815-a121-ec5ade2ffe9c",
+      "word": "placid",
+      "lemma": "placid",
+      "meaning_ko": "(사람이) 차분한, 온화한",
+      "set": "A Vindication of the Rights of Woman — Ch.2",
+      "category": "library_book",
+      "len": 300,
+      "clipped": true,
+      "example": "Still the regal homage which they receive is so intoxicating, that, till the manners of the times are changed, and formed on more reasonable principles, it may be impossible to convince them that the illegitimate power, which they obtain by degrading themselves, is a curse, and that they must return"
+    },
+    {
+      "id": "002ad492-e65b-4fe6-bbeb-587331398bb1",
+      "word": "malcontent",
+      "lemma": "malcontent",
+      "meaning_ko": "기존 질서·체제에 불만을 품은 사람, 불평분자",
+      "set": "Two Treatises of Government — Ch.29",
+      "category": "library_book",
+      "len": 300,
+      "clipped": true,
+      "example": "Fourthly, But if the unlawful acts done by the magistrate be maintained (by the power he has got) and the remedy which is due by law, be by the same power obstructed: yet the right of resisting, even in such manifest acts of tyranny, will not suddenly, or on slight occasions, disturb the government:"
+    },
+    {
+      "id": "002bc4b8-cc92-41ee-bf3a-64690d10b4f9",
+      "word": "sue",
+      "lemma": "sue",
+      "meaning_ko": "고소하다",
+      "set": "An Autobiography — Ch.12",
+      "category": "library_book",
+      "len": 300,
+      "clipped": true,
+      "example": "If I were on a sailboat, I should not ordinarily meddle with any of the gear; but if a sudden squall struck us, and the main sheet jammed, so that the boat threatened to capsize, I would unhesitatingly cut the main sheet, even though I were sure that the owner, no matter how grateful to me at the mo"
+    },
+    {
+      "id": "002bc829-24dd-4e8b-9b11-2d985fd00d31",
+      "word": "bestowed",
+      "lemma": "bestow",
+      "meaning_ko": "명예·상·권리 등을 공식적으로 주다",
+      "set": "Moll Flanders — Ch.12",
+      "category": "library_book",
+      "len": 300,
+      "clipped": true,
+      "example": "It is true the design of deluding a woman of fortune, if I had been so, was base enough; the putting the face of great things upon poor circumstances was a fraud, and bad enough; but the case a little differed too, and that in his favour, for he was not a rake that made a trade to delude women, and,"
+    },
+    {
+      "id": "002d668c-36c3-4a64-ad86-e7819e85019f",
+      "word": "familiarly",
+      "lemma": "familiarly",
+      "meaning_ko": "친밀하게, 허물없이",
+      "set": "The Golden Bowl — Ch.10",
+      "category": "library_book",
+      "len": 300,
+      "clipped": true,
+      "example": "And what was more to the point still, it often operated while he was quite at the same time conscious that Maggie had been described, even in her prettiness, as \"prim\"⁠--Mrs. Rance herself had enthusiastically used the word of her; while he remembered that when once she had been told before him, fam"
+    },
+    {
+      "id": "0031ca73-a094-4acf-bc46-c807e15d31a7",
+      "word": "confining",
+      "lemma": "confine",
+      "meaning_ko": "제한하다, 가두다",
+      "set": "The Way of All Flesh — Ch.78",
+      "category": "library_book",
+      "len": 300,
+      "clipped": true,
+      "example": "On the whole I concluded that a three and a half years' apprenticeship to a rough life was enough; the shop had done much for him; it had kept him going after a fashion, when he was in great need; it had thrown him upon his own resources, and taught him to see profitable openings all around him, whe"
+    },
+    {
+      "id": "0031fb05-5eb3-4177-9e8d-ad3ab54c9a88",
+      "word": "unwittingly",
+      "lemma": "unwittingly",
+      "meaning_ko": "자기도 모르게, 무심코",
+      "set": "The Scarlet Pimpernel — Ch.7",
+      "category": "library_book",
+      "len": 300,
+      "clipped": true,
+      "example": "Armand knew that: her impulses and imprudence, knew it still better; but Blakeney was slow-witted, he would not listen to \"circumstances,\" he only clung to facts, and these had shown him Lady Blakeney denouncing a fellow man to a tribunal that knew no pardon: and the contempt he would feel for the d"
+    },
+    {
+      "id": "0035a052-4d84-46d9-80da-bc599fa5e22e",
+      "word": "embellish",
+      "lemma": "embellish",
+      "meaning_ko": "아름답게 꾸미다",
+      "set": "Buddenbrooks — Ch.78",
+      "category": "library_book",
+      "len": 300,
+      "clipped": true,
+      "example": "He straightened up a little, and took the ruler and pen, still rather idly; let his eye travel once more over the whole genealogical host; then, with absent care, mechanically and dreamily, he made with the gold pen a beautiful, clean double line diagonally across the entire page, the upper one heav"
+    },
+    {
+      "id": "00399b34-93db-4276-b0b6-ade95113dffb",
+      "word": "pecking",
+      "lemma": "peck",
+      "meaning_ko": "(새가) 부리로 쪼다, 쪼아 먹다",
+      "set": "In Search of Lost Time — Ch.4",
+      "category": "library_book",
+      "len": 299,
+      "clipped": true,
+      "example": "He told Gilberte that she might play one game; he could wait for a quarter of an hour; and, sitting down, just like anyone else, on an iron chair, paid for his ticket with that hand which Philippe VII had so often held in his own, while we began our game upon the lawn, scattering the pigeons, whose"
+    },
+    {
+      "id": "0039e99a-8555-449a-bf7a-5b144b241192",
+      "word": "agony",
+      "lemma": "agony",
+      "meaning_ko": "극심한 고통, 고뇌",
+      "set": "Cranford — Ch.11",
+      "category": "library_book",
+      "len": 300,
+      "clipped": true,
+      "example": "when I knew I had only two days' journey more before me, I could not help it, ma'am⁠--it might be idolatry, I cannot tell⁠--but I was near one of the native temples, and I went into it with my baby to thank God for His great mercy; for it seemed to me that where others had prayed before to their God"
+    },
+    {
+      "id": "003d113a-a48c-4403-a6ea-eceb4f9232a4",
+      "word": "toil",
+      "lemma": "toil",
+      "meaning_ko": "고된 노동",
+      "set": "The Diary — Ch.48",
+      "category": "library_book",
+      "len": 299,
+      "clipped": true,
+      "example": "The great entertainment and sport of the Duke of Corland, and the princes thereabouts, is hunting; which is not with dogs as we, but he appoints such a day, and summons all the country-people as to a campagnia; and by several companies gives everyone their circuit, and they agree upon a place where"
+    },
+    {
+      "id": "003df434-fe8a-4b73-9e17-7f77ea9354b1",
+      "word": "slew",
+      "lemma": "slew",
+      "meaning_ko": "홱 방향을 틀다, 미끄러지다",
+      "set": "The Purple Cloud — Ch.10",
+      "category": "library_book",
+      "len": 300,
+      "clipped": true,
+      "example": "That the whole world should have been made for me alone⁠--that London should have been built only in order that I might enjoy the vast heroic spectacle of its burning⁠--that all history, and all civilisation should have existed only in order to accumulate for my pleasures its inventions and faciliti"
+    },
+    {
+      "id": "003f5287-5830-47c6-a2c1-59e043122202",
+      "word": "solidified",
+      "lemma": "solidify",
+      "meaning_ko": "굳히다, 응고시키다",
+      "set": "Dialogues — Ch.25",
+      "category": "library_book",
+      "len": 300,
+      "clipped": true,
+      "example": "There is also another kind which has parts nearly like gold, and of which there are several species; it is denser than gold, and it contains a small and fine portion of earth, and is therefore harder, yet also lighter because of the great interstices which it has within itself; and this substance, w"
+    },
+    {
+      "id": "004151d3-acf5-45b6-a416-786a709490e4",
+      "word": "expressive",
+      "lemma": "expressive",
+      "meaning_ko": "표현이 풍부한, 표정이 풍부한",
+      "set": "Against the Grain — Ch.3",
+      "category": "library_book",
+      "len": 300,
+      "clipped": true,
+      "example": "Statius, Martial of Bilbilis, Terence even and Plautus, whose jargon, full as it is of neologisms, made-up words and diminutives, might have pleased him, had not his low wit and coarse jocosity repelled him, Des Esseintes only began to be interested in the language of Rome on the appearance of Lucan"
+    },
+    {
+      "id": "00426bf7-e067-49f9-baa1-c88829f17389",
+      "word": "downward",
+      "lemma": "downward",
+      "meaning_ko": "아래쪽의, 하향의",
+      "set": "The Decameron — Ch.42",
+      "category": "library_book",
+      "len": 300,
+      "clipped": true,
+      "example": "That heart, which Girolamo's fair fortune had not availed to open, his illhap opened and the old flames reviving all therein, whenas she saw the dead face it256 melted of a sudden into such compassion that she pressed between the women, veiled as she was in the mantlet, and stayed not till she won t"
+    },
+    {
+      "id": "0043a6cc-5e44-40fc-b870-44be9214e7b9",
+      "word": "swirling",
+      "lemma": "swirl",
+      "meaning_ko": "액체·기체 등이 원을 그리며 빙빙 돌다",
+      "set": "Dead Souls — Ch.12",
+      "category": "library_book",
+      "len": 300,
+      "clipped": true,
+      "example": "Yes, even though thirty degrees of keen, cracking frost may have bound the streets, and the family of the North Wind be wailing there, and the Snowstorm Witch have heaped high the pavements, and be blinding the eyes, and powdering beards and fur collars and the shaggy manes of horses⁠--even then the"
+    },
+    {
+      "id": "004442a3-915e-48bc-b0f2-4bd201d18983",
+      "word": "pining",
+      "lemma": "pin",
+      "meaning_ko": "핀으로 고정하다; 꼼짝 못하게 누르다",
+      "set": "Don Quixote — Ch.9",
+      "category": "library_book",
+      "len": 299,
+      "clipped": true,
+      "example": "Don Quixote was, as has been said, speaking to the lady in the coach: \"Your beauty, lady mine,\" said he, \"may now dispose of your person as may be most in accordance with your pleasure, for the pride of your ravishers lies prostrate on the ground through this strong arm of mine; and lest you should"
+    },
+    {
+      "id": "0044c60a-238d-4ac0-8e74-bb72d17e743f",
+      "word": "allude",
+      "lemma": "allude",
+      "meaning_ko": "암시하다, 넌지시 언급하다",
+      "set": "Dialogues — Ch.2",
+      "category": "library_book",
+      "len": 300,
+      "clipped": true,
+      "example": "Reserving for another place the greater questions of religion or education, we may note further, (1) the approval of the old traditional education of Greece; (2) the preparation which Plato is making for the attack on Homer and the poets; (3) the preparation which he is also making for the use of ec"
+    },
+    {
+      "id": "0044d2da-7a2f-49e9-b2b3-14f846c6c25b",
+      "word": "affectation",
+      "lemma": "affectation",
+      "meaning_ko": "꾸밈, 가식",
+      "set": "The Diary — Ch.85",
+      "category": "library_book",
+      "len": 300,
+      "clipped": true,
+      "example": "Having done with him, home mightily satisfied with my being with him, and coming home I to church, and there, beyond expectation, find our seat, and all the church crammed, by twice as many people as used to be: and to my great joy find Mr. Frampton3176 in the pulpit; so to my great joy I hear him p"
+    },
+    {
+      "id": "0045f292-28f8-474f-9571-ec4394ae618e",
+      "word": "admirers",
+      "lemma": "admirer",
+      "meaning_ko": "찬미자, 흠모하는 사람",
+      "set": "The Wealth of Nations — Ch.29",
+      "category": "library_book",
+      "len": 300,
+      "clipped": true,
+      "example": "Its followers are very numerous; and as men are fond of paradoxes, and of appearing to understand what surpasses the comprehension of ordinary people, the paradox which it maintains, concerning the unproductive nature of manufacturing labour, has not perhaps contributed a little to increase the numb"
+    },
+    {
+      "id": "004911e4-88dd-4d29-b722-5bf31babe9af",
+      "word": "instil",
+      "lemma": "instil",
+      "meaning_ko": "(가치·감정·태도를) 서서히 가르치다, 심어 주다, 주입하다",
+      "set": "Don Quixote — Ch.21",
+      "category": "library_book",
+      "len": 300,
+      "clipped": true,
+      "example": "Thou dost mark well, faithful and trusty squire, the gloom of this night, its strange silence, the dull confused murmur of those trees, the awful sound of that water in quest of which we came, that seems as though it were precipitating and dashing itself down from the lofty mountains of the Moon, an"
+    },
+    {
+      "id": "004b29ed-8e6a-4129-b0bb-2014e9bc98f4",
+      "word": "obliquely",
+      "lemma": "obliquely",
+      "meaning_ko": "비스듬하게",
+      "set": "The Age of Innocence — Ch.1",
+      "category": "library_book",
+      "len": 300,
+      "clipped": true,
+      "example": "In the centre of this enchanted garden Madame Nilsson, in white cashmere slashed with pale blue satin, a reticule dangling from a blue girdle, and large yellow braids carefully disposed on each side of her muslin chemisette, listened with downcast eyes to M. Capoul's impassioned wooing, and affected"
+    },
+    {
+      "id": "004c8a29-af6a-47b5-b847-c4461f13433b",
+      "word": "clung",
+      "lemma": "cling",
+      "meaning_ko": "꼭 붙잡다, 매달리다",
+      "set": "The Call of the Wild — Ch.7",
+      "category": "library_book",
+      "len": 300,
+      "clipped": true,
+      "example": "There is a patience of the wild⁠--dogged, tireless, persistent as life itself⁠--that holds motionless for endless hours the spider in its web, the snake in its coils, the panther in its ambuscade; this patience belongs peculiarly to life when it hunts its living food; and it belonged to Buck as he c"
+    },
+    {
+      "id": "004d1382-77da-4f97-a7bd-38f8d2909f79",
+      "word": "tottering",
+      "lemma": "totter",
+      "meaning_ko": "넘어질 듯 불안하게 걷거나 흔들리다",
+      "set": "The Purple Cloud — Ch.15",
+      "category": "library_book",
+      "len": 300,
+      "clipped": true,
+      "example": "The palace itself was quite in ruins, together with all its surrounding barracks, mosque, and seraglio, and, as we reached the top of the grounds, presented a picture very like those which I have seen of the ruins of Persepolis, only that here the columns, both standing and fallen, were innumerable,"
+    },
+    {
+      "id": "004d3aee-f1df-461e-b778-c989711d9492",
+      "word": "vigilance",
+      "lemma": "vigilance",
+      "meaning_ko": "경계, 조심",
+      "set": "Discourses on Livy — Ch.59",
+      "category": "library_book",
+      "len": 300,
+      "clipped": true,
+      "example": "And were anyone to search for the causes of this good fortune, he would have little difficulty in finding them, since nothing is more certain than that when a potentate has attained so great a reputation that every neighbouring prince or people is afraid to engage him single-handed, and stands in aw"
+    }
+  ],
+  "samplesBoundary": [
+    {
+      "id": "0018ca75-db59-4351-a422-0d53535c3a10",
+      "word": "fiber",
+      "lemma": "fib",
+      "set": "Niels Lyhne — Ch.7",
+      "len": 229,
+      "example": "I am headed for a coast where sentiments twine themselves like luxuriant vines around every fibre of the heart⁠--a rank forest; for every vine that withers, twenty are in blossom; "
+    },
+    {
+      "id": "01373f5e-8d58-404c-86af-d71a0f540396",
+      "word": "tinged",
+      "lemma": "ting",
+      "set": "An Outcast of the Islands — Ch.13",
+      "len": 300,
+      "example": "Standing at a little distance, just within the light⁠--but on the threshold of that darkness from which she had come⁠--she listened, one hand still behind her back, the other arm s"
+    },
+    {
+      "id": "014f4534-f3b8-4e6f-8afd-7b08eb2669e2",
+      "word": "wits",
+      "lemma": "wit",
+      "set": "Gulliver’s Travels — Ch.15",
+      "len": 300,
+      "example": "Neither do I say this, with the least intention to detract from the many virtues of that excellent king, whose character, I am sensible, will, on this account, be very much lessene"
+    },
+    {
+      "id": "0179bb6d-f19b-4b0d-8ba2-c1dfbf57daab",
+      "word": "sled",
+      "lemma": "sled",
+      "set": "Children’s Stories — Ch.5",
+      "len": 102,
+      "example": "She was a Russian Princess, and had driven all the way from Finland in a sledge drawn by six reindeer."
+    },
+    {
+      "id": "018f3caf-bf5c-4bdb-b82e-f9c77f8f86b4",
+      "word": "aye",
+      "lemma": "aye",
+      "set": "Twenty years after — Ch.59",
+      "len": 135,
+      "example": "\"Our good D'Artagnan,\" said Aramis, \"represents among us the opposition\r\nin parliament, which always says _no_, and always does _aye_.\""
+    },
+    {
+      "id": "0278d016-ffa2-49f7-a556-c9b8534bafba",
+      "word": "acute",
+      "lemma": "acute",
+      "set": "Captain Blood — Ch.2",
+      "len": 85,
+      "example": "Finally above all other sounds came the piercing screams of a woman in acutest agony."
+    },
+    {
+      "id": "02c8c947-488f-465c-88ac-d0d52d31e7c1",
+      "word": "diverting",
+      "lemma": "divert",
+      "set": "The New Freedom — Ch.2",
+      "len": 300,
+      "example": "Within the past few months we have witnessed (along with other strange political phenomena, eloquently significant of popular uneasiness) on one side a doubling of the Socialist vo"
+    },
+    {
+      "id": "03bfe46b-0fc6-432e-a82d-495df0f03fa1",
+      "word": "bleakness",
+      "lemma": "bleak",
+      "set": "The Purple Cloud — Ch.7",
+      "len": 300,
+      "example": "For dark, ah dark, is the waste void into which from solid ground I am now plunged a million fathoms deep, the sport of all the whirlwinds: and it were better for me to have died w"
+    },
+    {
+      "id": "04f5094a-e706-4eb1-b28c-b67ac0367327",
+      "word": "mina",
+      "lemma": "mina",
+      "set": "Quo Vadis — Ch.6",
+      "len": 119,
+      "example": "If Aristides were living, it would be his duty to come to me and offer a hundred minae for a short treatise on virtue.\""
+    },
+    {
+      "id": "0506d4d6-e738-4338-86c2-f960e73c7fb5",
+      "word": "foresee",
+      "lemma": "foresee",
+      "set": "Twenty years after — Ch.1",
+      "len": 76,
+      "example": "As the mayor had foreseen, the sight of the guards had exasperated the\r\nmob."
+    },
+    {
+      "id": "064ac542-9160-45fe-b62e-6dde1c7cdc3a",
+      "word": "overheating",
+      "lemma": "overheat",
+      "set": "Dialogues — Ch.84",
+      "len": 300,
+      "example": "Betake yourself to these quieter, safer, larger fields of action; do you think that there can be any comparison between seeing that corn is deposited in the public granary without "
+    },
+    {
+      "id": "06a031aa-9755-4a5c-a229-574c84dbf799",
+      "word": "hew",
+      "lemma": "hew",
+      "set": "Agamemnon — Ch.3",
+      "len": 36,
+      "example": "Thou hast hewn, thou hast cast away;"
+    },
+    {
+      "id": "06bc1163-7915-44e1-89f9-9936712f2e64",
+      "word": "periwinkles",
+      "lemma": "periwinkle",
+      "set": "Lud-in-the-Mist — Ch.20",
+      "len": 300,
+      "example": "Then the greyness became filtered with a delicate sea-green; and next, one realized that the grey-green belonged to the foliage, against which the petals were beginning to show whi"
+    },
+    {
+      "id": "0754475f-47b1-43bd-9c8c-150eba853f8c",
+      "word": "undo",
+      "lemma": "undo",
+      "set": "Pericles — Ch.19",
+      "len": 17,
+      "example": "Can it be undone?"
+    },
+    {
+      "id": "076f3a31-a06d-4b98-938e-b1aaf50c756e",
+      "word": "undo",
+      "lemma": "undo",
+      "set": "The Railway Children — Ch.1",
+      "len": 36,
+      "example": "Phyllis's shoelaces had come undone."
+    },
+    {
+      "id": "086ac328-b326-4b72-a53b-a1417eeb04b7",
+      "word": "appal",
+      "lemma": "appal",
+      "set": "At the Earth’s Core — Ch.1",
+      "len": 30,
+      "example": "\"Death is it that appalls you?"
+    },
+    {
+      "id": "08c1e53c-94d5-4173-9088-a784692af1fe",
+      "word": "fiber",
+      "lemma": "fib",
+      "set": "Captain Blood — Ch.7",
+      "len": 210,
+      "example": "Having whisked away with this the flies that were devouring Jeremy's back, he slung it by a strip of fibre from the lad's neck, so that it protected him from further attacks as wel"
+    },
+    {
+      "id": "08deca31-cfd5-46bc-bd3e-c12bbd4df572",
+      "word": "mina",
+      "lemma": "mina",
+      "set": "Clarissa — Ch.521",
+      "len": 15,
+      "example": "⸺⁠Timor & minae"
+    },
+    {
+      "id": "09c20eae-028a-4204-80b0-99df4455c187",
+      "word": "ore",
+      "lemma": "ore",
+      "set": "The Purple Cloud — Ch.8",
+      "len": 300,
+      "example": "After this, seeing that the autumn warmth was passing away, I set myself with more system to my task, and within the next six months worked with steadfast will, and strenuous assid"
+    },
+    {
+      "id": "09d141d4-f52b-4b89-9482-9bb967758b88",
+      "word": "mo",
+      "lemma": "mo",
+      "set": "Lost Illusions — Ch.15",
+      "len": 69,
+      "example": "Léonide, by Victor Ducange; five volumes 12mo, printed on fine paper."
+    }
+  ]
+}

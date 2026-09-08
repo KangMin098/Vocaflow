@@ -34,7 +34,14 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/app/(main)/hub/page.tsx.bak"
+    "src/app/(main)/hub/page.tsx.bak",
+    ".next-verify/types/**/*.ts",
+    ".next-dev/types/**/*.ts",
+    ".next-gate/types/**/*.ts",
+    ".next-dev-admin/types/**/*.ts",
+    ".next-e2e/types/**/*.ts",
+    ".next-dev2/types/**/*.ts",
+    ".next-adminview/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"
