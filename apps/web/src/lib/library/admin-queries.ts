@@ -1220,8 +1220,12 @@ export async function devProcessBook(bookId: string): Promise<void> {
     body: JSON.stringify({ book_id: bookId }),
   })
   if (!res.ok) {
-    const payload = (await res.json().catch(() => ({}))) as { error?: string }
-    throw new Error(payload.error ?? `dev-process failed: ${res.status}`)
+    const payload = (await res.json().catch(() => ({}))) as {
+      error?: string
+      message?: string
+    }
+    // 401/403 (requireAdminApi) 은 message 에 사람이 읽을 문장을 담는다.
+    throw new Error(payload.message ?? payload.error ?? `dev-process failed: ${res.status}`)
   }
 }
 
@@ -1249,7 +1253,8 @@ export async function devValidateBook(bookId: string): Promise<DevValidateResult
   const payload = (await res.json().catch(() => ({}))) as DevValidateResult
   // dev-validate 는 ingest 실패도 200 + verdict='FAIL' 로 반환 — 비-200 은 auth/config 오류
   if (!res.ok) {
-    throw new Error(payload.error ?? `dev-validate failed: ${res.status}`)
+    const withMessage = payload as DevValidateResult & { message?: string }
+    throw new Error(withMessage.message ?? payload.error ?? `dev-validate failed: ${res.status}`)
   }
   return { ...payload, warnings: payload.warnings ?? [] }
 }
