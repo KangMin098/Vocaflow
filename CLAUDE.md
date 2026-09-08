@@ -289,7 +289,9 @@ UI 작업 전 그 스킬을 먼저 읽는다. **Part 1(§A–§F)이 목표이�
 - **LCP** — 9 외부 소스 → 도서 큐레이션 (auto_curate_book 게이트 + 4축 난이도)
 - **VCB** — seed → enrichment → shared_words (cast-2000 audit chain 보존)
 - **VRL** — 4축 분류 (V-Level 0-11 + Track 6 + Domain 8 + Skill 5) + 진단 5종
-- **ACP** — 4 feed (arXiv/NASA/NIH/VOA) 짧은 글
+- **ACP** — 14 소스 수집(`scripts/acp/collect-daily.mjs`) · `library_articles` 실적 18 소스 짧은 글.
+  ⚠️ **arXiv 는 없다** — v06.69(`20260614240000_acp_remove_arxiv_source`)가 플랫폼 전체에서 삭제했고
+  CHECK 제약이 재삽입을 막는다. 정찰 기록 [docs/reports/source-probe/arxiv.md](./docs/reports/source-probe/arxiv.md)
 
 상세: [docs/LIBRARY_PIPELINE.md](./docs/LIBRARY_PIPELINE.md)
 

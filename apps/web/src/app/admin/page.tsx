@@ -120,7 +120,7 @@ function buildPipelines(s: DashboardStats): PipelineCard[] {
     {
       href: '/admin/articles',
       label: 'ACP · 짧은 글',
-      sub: 'arXiv · NASA · NIH · VOA 4 피드',
+      sub: 'PLOS · Futurity · NASA · VOA 등 14 소스',
       Icon: Newspaper,
       metrics: [
         { label: '후보 시드', value: s.articles.seeds, tone: 'idle' },

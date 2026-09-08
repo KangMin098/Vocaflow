@@ -90,7 +90,7 @@ export function isActivityAllowed(type: MaterialType, activity: PlanActivity): b
  *
  * 이름의 근거:
  *   Books      — 큐레이션 장문. `library_books` 와 같은 말을 쓴다.
- *   Dispatches — arXiv·NASA·NIH·VOA 4피드에서 오는 짧은 글. "현장에서 온 보고"라는 뜻이
+ *   Dispatches — Futurity·VOA·USGS·NASA 등 ACP 소스에서 오는 짧은 글. "현장에서 온 보고"라는 뜻이
  *                출처의 성격과 정확히 맞고, 사이드바 `Scripts`(읽을 원문) 와 충돌하지 않는다.
  *                'Articles' 는 평범하고 'Shorts' 는 영상 플랫폼 연상이라 버렸다.
  *   Decks      — 발행 어휘 세트. ts-fsrs(Anki 계보)를 쓰는 제품에서 통용어이고,

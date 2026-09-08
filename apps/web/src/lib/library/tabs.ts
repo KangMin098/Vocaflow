@@ -51,7 +51,7 @@ export const LIBRARY_TABS: readonly LibraryTab[] = [
     label: MATERIAL_LABEL.article,
     href: '/library/scripts',
     icon: FileText,
-    says: 'arXiv·NASA·NIH·VOA 짧은 글',
+    says: 'Futurity·VOA·USGS 등 12개 소스의 짧은 글',
   },
   {
     label: MATERIAL_LABEL.word_set,

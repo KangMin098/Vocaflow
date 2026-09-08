@@ -89,7 +89,7 @@ const REAL_SCREENS: RealScreen[] = [
   {
     href: '/admin/articles',
     label: 'ACP · 짧은 글',
-    detail: 'library_articles — arXiv · NASA · NIH · VOA 4 피드의 큐를 실측합니다.',
+    detail: 'library_articles — collect-daily 14 소스의 큐를 실측합니다.',
     Icon: Newspaper,
   },
   {
