@@ -225,6 +225,10 @@ export function classify(text, opts = {}) {
   let t = (title ? `${Array(TITLE_REPEAT).fill(title).join('. ')}. ` : '') + String(text)
   t = t.toLowerCase()
   for (const m of MASKS) t = t.replace(m, ' ')
+  // 주석이 아니라 **타입**이다 — 이게 없으면 score 가 {} 로 추론돼 이 모듈을 읽는 회귀
+  // (apps/web/src/lib/csat/__tests__/topic-classifier.test.ts)가 score['과학·자연'] 한 줄마다
+  // TS7053 으로 죽는다(실측 13건). 검사가 못 도는 회귀는 회귀가 아니다.
+  /** @type {Record<string, number>} */
   const score = {}
   for (const [k, res] of COMPILED) {
     let n = 0
