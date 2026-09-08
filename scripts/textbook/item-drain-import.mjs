@@ -76,7 +76,8 @@ if (!outFiles.length) {
   process.exit(0)
 }
 const rows = []
-for (const f of outFiles) rows.push(...JSON.parse(fs.readFileSync(path.join(DIR, f), 'utf8')))
+for (const f of outFiles)
+  rows.push(...JSON.parse(fs.readFileSync(path.join(DIR, f), 'utf8')).map((r) => ({ ...r, __file: f })))
 console.log(`청크 ${outFiles.length}개 · 문항 ${rows.length}건`)
 
 const skipped = []
@@ -119,6 +120,38 @@ const existing = new Set(
 )
 const fresh = ok.filter((r) => !existing.has(r.article_id))
 
+// ── **배치 안 중복** — DB 만 보면 못 본다 (실측 2026-09-08) ──────────
+//
+// 유일키가 `(kind, ref_id, type, paragraph_idx)` 이고 `paragraph_idx` 는 항상 0 이므로
+// **한 원글에 이 유형은 하나뿐**이다. 그런데 위 검사는 DB 만 본다 — 같은 원글이 서로 다른
+// 청크 둘에 들어가 있으면 둘 다 "새것" 으로 통과하고, insert 가 자기 자신과 부딪친다.
+//
+// 그 한 건이 **배치 전체를 되돌린다.** V6 심경 27문항을 넣을 때 실제로 그랬다 —
+// 중복 3편 때문에 `duplicate key ... csat_dcp_items_kind_ref_id_type_paragraph_idx_key` 하나가
+// 뜨고 **적재 0건**이 됐다. 멀쩡한 24문항이 오류 한 줄 뒤에 사라진 것이다.
+//
+// 뽑는 쪽이 DB 기준으로만 건너뛰기 때문에 이 중복은 계속 생긴다(채워 놓고 아직 안 넣은
+// 청크를 export 가 못 본다). 그래서 **넣는 쪽에서 막는다** — 여기가 마지막 관문이다.
+const seen = new Map()
+const dupInBatch = []
+const freshUnique = []
+for (const r of fresh) {
+  const prev = seen.get(r.article_id)
+  if (prev) {
+    dupInBatch.push({ keep: prev, drop: r })
+    continue
+  }
+  seen.set(r.article_id, r)
+  freshUnique.push(r)
+}
+if (dupInBatch.length) {
+  console.log(`  ⚠ **한 원글에 두 번 쓴 것 ${dupInBatch.length}건** — 뒤엣것을 버린다(유일키가 원글당 하나만 받는다):`)
+  for (const d of dupInBatch)
+    console.log(
+      `     ${String(d.drop.source_title ?? d.drop.article_id).slice(0, 46)} — ${d.drop.__file} (남긴 것 ${d.keep.__file})`,
+    )
+}
+
 // ── 배치 단위 **정답 번호** 쏠림 ────────────────────────────────────
 // ⚠️ **길이 편향은 막으면서 번호 편향은 열어 두고 있었다** (실측 2026-08-31).
 //   초등 집필분을 다 넣고 나서 세어 보니 정답 1번이 이랬다:
@@ -156,7 +189,7 @@ if (fresh.length >= 8) {
   }
 }
 
-console.log(`  이미 있음 ${ok.length - fresh.length} · **새로 넣을 것 ${fresh.length}**`)
+console.log(`  이미 있음 ${ok.length - fresh.length} · **새로 넣을 것 ${freshUnique.length}**`)
 
 if (!commit) {
   console.log('\n--commit 을 붙이면 적재한다.')
@@ -164,8 +197,8 @@ if (!commit) {
 }
 
 let inserted = 0
-for (let i = 0; i < fresh.length; i += 100) {
-  const chunk = fresh.slice(i, i + 100).map((r) => ({
+for (let i = 0; i < freshUnique.length; i += 100) {
+  const chunk = freshUnique.slice(i, i + 100).map((r) => ({
     kind: 'article',
     ref_id: r.article_id,
     type: TYPE,

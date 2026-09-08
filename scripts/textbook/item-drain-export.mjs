@@ -415,6 +415,34 @@ const itemRows = (
 const existing = new Set(itemRows.filter((r) => r.type === TYPE).map((r) => r.ref_id))
 
 /**
+ * **채워 놓고 아직 안 넣은 청크도 「이미 했다」로 센다** (실측 2026-09-08).
+ *
+ * 위 `existing` 은 DB 만 본다. 그런데 이 드레인은 「뽑는다 → 사람이 채운다 → 넣는다」 셋으로
+ * 나뉘어 있고, **가운데에서 며칠 머문다.** 그 동안 다시 뽑으면 같은 원글이 두 청크에 들어가고,
+ * 유일키가 `(kind, ref_id, type, paragraph_idx)` 라 원글당 하나만 받으므로 둘 중 하나는
+ * 반드시 버려진다 — **그만큼의 집필이 헛일이 된다.**
+ *
+ * 실제로 V6 심경에서 3편이 그렇게 겹쳤고, 적재기가 그 충돌 하나로 멀쩡한 24문항까지
+ * 통째로 되돌렸다(그쪽도 함께 고쳤다). 여기서 막으면 헛일 자체가 안 생긴다.
+ */
+const pending = new Set()
+if (fs.existsSync(DIR)) {
+  // ⚠️ **안 채운 청크도 센다.** 채운 것(.out.json)만 세면, 뽑아 놓고 아직 손 안 댄 몫을
+  //   다시 뽑아 같은 원글이 두 청크에 앉는다 — 실측: long_reference V6 에서 chunk-00 의
+  //   PLOS 4편이 chunk-03 에 그대로 다시 나왔다. 안 채운 청크를 지우지는 않으므로
+  //   (다른 세션이 쓰고 있을 수 있다) **재발급을 막는 쪽이 맞다.**
+  for (const f of fs.readdirSync(DIR)) {
+    if (!f.endsWith('.json')) continue
+    try {
+      for (const r of JSON.parse(fs.readFileSync(path.join(DIR, f), 'utf8')))
+        if (r?.article_id) pending.add(String(r.article_id))
+    } catch {
+      // 손으로 고치다 깨진 청크가 뽑기를 막으면 안 된다 — 그건 import 가 말한다.
+    }
+  }
+}
+
+/**
  * 글마다 이미 가진 **유형 수**. 뽑는 순서를 정하는 데 쓴다.
  *
  * ── 왜 순서가 중요한가 (실측 2026-09-05) ────────────────────────────
@@ -527,7 +555,7 @@ const narrativeKey = (a) => {
 const plainKey = (a) => (plainFirst ? Math.round(abbrRatio(passages.get(a.id) ?? '') * 100) : 0)
 
 const todo = usable
-  .filter((a) => !existing.has(a.id) && !avoided.has(a.id))
+  .filter((a) => !existing.has(a.id) && !pending.has(a.id) && !avoided.has(a.id))
   // 같은 수면 id 순 — 몇 번 돌려도 같은 몫이 나와야 재실행 안전이 성립한다.
   .sort(
     (a, b) =>
@@ -625,7 +653,7 @@ console.log(
     : `  그중 창(${PASSAGE_WINDOW.min}~${PASSAGE_WINDOW.max}어 · V${BAND} 시중 규격 교차)으로 자를 수 있는 것 ${usable.length}편 · ` +
         `**못 자름 ${outOfWindow.length}편**  ← 문장이 모자라거나 인쇄 불가 자국이 있는 글`,
 )
-console.log(`  이미 이 유형이 붙은 것 ${existing.size}편`)
+console.log(`  이미 이 유형이 붙은 것 ${existing.size}편` + (pending.size ? ` · 이미 청크에 나가 있는 것 ${pending.size}편` : ''))
 console.log(`  **배치가 쓸 몫 ${tasks.length}편**  → 청크 ${chunks.length}개 (${SIZE}편씩)`)
 console.log(`\n  ${path.relative(process.cwd(), DIR)}/chunk-NN.json`)
 console.log(`  각 항목의 choices(5개)·answer(1~5)·rationale_ko 를 채운 뒤 같은 이름 + .out.json 으로 저장하면`)
