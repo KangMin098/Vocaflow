@@ -286,6 +286,7 @@ const stat = {
   dup: 0,
   saved: 0,
   insertFail: 0,
+  deferred: 0,
 }
 const sections = new Map()
 const fks = []
@@ -295,6 +296,26 @@ const newlyJudged = []
 function bump(map, k) {
   map.set(k, (map.get(k) ?? 0) + 1)
 }
+
+/**
+ * **판정과 사고를 가른다 — 커서에 적어도 되는 실패인가.**
+ *
+ * ⚠️ 실측 2026-09-08 (1회차 1,600편): 실패 5건 중 **4건이 일시적**이었다 —
+ * Supabase 가 JSON 대신 Cloudflare 오류 **HTML** 을 돌려준 것 · PostgREST
+ * `schema cache` 재시도 안내 · `TypeError: fetch failed` 2건. 그런데 코드는
+ * 그 넷을 **`seen` 에 적고** 있었다. 다음 회차가 「이미 판정함」으로 건너뛰므로
+ * **전문이 있는 글이 영영 사라진다** — 오류 없이. (빈 값이 「완료」로 세어져
+ * 구멍이 남는 것과 같은 결의 결함이다. 1,600편당 4~5건이면 67,316편 전수에서
+ * **약 200편**이 소리 없이 빠진다.)
+ *
+ * 판정(=`seen` 에 적는다): 전문 없음 · 너무 짧음 · **HTTP 4xx**(429 제외 — 글이 없어졌다).
+ * 보류(=적지 않는다): 네트워크 오류 · HTTP 5xx · 429 · DB 쓰기 실패.
+ *   보류분은 커서에 안 남으므로 **다음 회차의 미확보 목록에 그대로 다시 오른다.**
+ *
+ * 판정 규칙 본체는 `voa.ts` 의 `isTransientHarvestError` — 여기 두면 회귀가 못 잡는다
+ * (이 파일은 최상위 부작용이 있어 import 만 해도 실행된다).
+ */
+const isTransient = lib.isTransientHarvestError
 
 /**
  * 커서를 중간에도 남긴다 — 500편짜리 회차가 중간에 죽어도 앞부분을 다시 GET 하지 않는다.
@@ -334,6 +355,13 @@ for (const [i, e] of queue.entries()) {
     else {
       stat.fetchFail++
       failures.push(`${e.url}: ${msg.slice(0, 90)}`)
+      // 일시적 사고는 **판정이 아니다** — 커서에 적지 않고 다음 회차로 넘긴다.
+      if (isTransient(msg)) {
+        stat.deferred++
+        if ((i + 1) % 50 === 0) flushCursor(false)
+        await sleep(DELAY_MS)
+        continue
+      }
     }
     newlyJudged.push(id)
     if ((i + 1) % 50 === 0) flushCursor(false)
@@ -378,7 +406,7 @@ for (const [i, e] of queue.entries()) {
     if (haveIds.has(article.source_id)) {
       stat.dup++
     } else {
-      const { error } = await db.from('library_articles').insert({
+      const row = {
         source: 'voa',
         source_id: article.source_id,
         title: article.title,
@@ -395,12 +423,25 @@ for (const [i, e] of queue.entries()) {
         //   (2026-08-20 에 37편이 그렇게 들어갔다). 섹션이 RSS 피드 자리를 대신한다.
         feed_id: feedId,
         status: 'queued',
-      })
+      }
+      // 한 번 더 해 본다 — 실패 4건이 전부 일시적이었다(오류 HTML · schema cache · fetch failed).
+      //   여기서 되면 커서가 정상 전진하고, 그래도 안 되면 **판정하지 않고** 다음 회차로 넘긴다.
+      let { error } = await db.from('library_articles').insert(row)
+      if (error && error.code !== '23505') {
+        await sleep(1500)
+        ;({ error } = await db.from('library_articles').insert(row))
+      }
       if (error?.code === '23505') {
         stat.dup++
       } else if (error) {
         stat.insertFail++
+        stat.deferred++
         failures.push(`${e.url}: insert — ${error.message.slice(0, 90)}`)
+        // ⚠️ **적지 않는다.** 전문을 받아 놓고 못 담은 글을 「판정함」으로 적으면 다음 회차가
+        //   건너뛰어 영영 구멍이 된다(§isTransient).
+        if ((i + 1) % 50 === 0) flushCursor(false)
+        await sleep(DELAY_MS)
+        continue
       } else {
         stat.saved++
         haveIds.add(article.source_id)
@@ -429,6 +470,8 @@ console.log(
     COMMIT ? `중복 ${stat.dup}` : null,
     COMMIT ? `**담음 ${stat.saved}**` : '(읽기 전용)',
     stat.insertFail ? `삽입실패 ${stat.insertFail}` : null,
+    // 커서에 안 적은 것 — 다음 회차가 다시 본다. 0 이 아니면 미확보 감소가 GET 수보다 적다.
+    stat.deferred ? `**다음 회차로 보류 ${stat.deferred}**(일시적 사고 — 커서에 안 적음)` : null,
   ]
     .filter(Boolean)
     .join(' · '),

@@ -319,6 +319,40 @@ export function isVoaReferencePiece(feedId: string, title: string): boolean {
   return VOA_REFERENCE_TITLE_MARKERS.some((p) => t.includes(p))
 }
 
+/**
+ * **판정인가 사고인가 — 커서(`seen`)에 적어도 되는 실패인지 가른다.**
+ *
+ * ⚠️ 실측 2026-09-08 (사이트맵 수확 1,600편 회차): 실패 5건 중 **4건이 일시적**이었다 —
+ * Supabase 가 JSON 대신 Cloudflare 오류 **HTML** 을 돌려준 것 · PostgREST 의
+ * `Could not query the database for the schema cache. Retrying.` · `TypeError: fetch failed` 2건.
+ * 그런데 수확기는 그 넷을 **`seen` 에 적고** 있었다. 커서는 「이미 판정함」을 뜻하므로
+ * 다음 회차가 건너뛴다 — **전문이 멀쩡히 있는 글이 오류 없이 영영 빠진다.**
+ * (빈 값이 「완료」로 세어져 구멍이 남는 것과 같은 결의 결함이다. 1,600편당 4~5건이면
+ *  67,316편 전수에서 **약 200편**이 소리 없이 사라진다.)
+ *
+ * - **판정**(`seen` 에 적는다): 전문 없음 · 너무 짧음 · **HTTP 4xx**(429 제외) — 글이 없어졌다.
+ * - **보류**(적지 않는다): 네트워크 오류 · HTTP 5xx · 429 · DB 쓰기 실패 — 우리 쪽 사고다.
+ *
+ * 보류분은 커서에 안 남으므로 다음 회차의 미확보 목록에 그대로 다시 오른다(재실행 안전).
+ */
+export function isTransientHarvestError(message: string): boolean {
+  // ⚠️ **상태 코드를 먼저 본다.** 우리 오류 문구가 `VOA article fetch failed: 404 …` 라
+  //   아래 일반 네트워크 규칙의 `fetch failed` 에 **먼저 걸린다** — 그러면 404(글이 없어짐)가
+  //   보류로 새어 매 회차 같은 죽은 URL 을 영영 다시 GET 한다. (회귀가 이 순서를 잠근다.)
+  const m = message.match(/fetch failed: (\d{3})/)
+  if (m) {
+    const code = Number(m[1])
+    return code === 429 || code >= 500
+  }
+  if (/fetch failed|ETIMEDOUT|ECONNRESET|ECONNREFUSED|EAI_AGAIN|socket hang up|UND_ERR|aborted/i.test(message)) {
+    return true
+  }
+  // Supabase 가 오류 HTML 을 돌려주면 파서가 첫 줄을 그대로 메시지로 준다.
+  if (/^\s*<!DOCTYPE html/i.test(message)) return true
+  if (/schema cache/i.test(message)) return true
+  return false
+}
+
 /** 제목 어디에 있어도 사전 항목으로 보는 표지. 앞머리 표기가 아닌 코너용. */
 export const VOA_REFERENCE_TITLE_MARKERS: readonly string[] = ['slangman:', 'wordmaster:']
 

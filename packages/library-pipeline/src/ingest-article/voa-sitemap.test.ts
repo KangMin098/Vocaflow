@@ -15,6 +15,7 @@ import { describe, expect, it } from 'vitest'
 
 import { sourceKey } from './source-key'
 import {
+  isTransientHarvestError,
   isVoaReferencePiece,
   parseVoaArticle,
   parseVoaSitemapXml,
@@ -196,5 +197,32 @@ describe('reference 코너 배제 — 섹션이 뭉뚱그려 와도 잡는다', 
     expect(isVoaReferencePiece('education', 'Study Shows How Poverty Could Limit Learning')).toBe(false)
     // Lessons of the Day 는 이름만 강좌다 — 실제 내용은 일반 피처(실측 CEFR B1 7 · B2 5).
     expect(isVoaReferencePiece('lets-learn-english', 'The Goodyear Blimp')).toBe(false)
+  })
+})
+
+describe('일시적 사고를 커서에 「판정함」으로 적지 않는다', () => {
+  // 실측 2026-09-08: 1,600편 회차의 실패 5건 중 4건이 아래 모양이었다. 그 넷이 `seen` 에
+  // 적히고 있었고, 다음 회차는 전문이 멀쩡한 그 글들을 영영 건너뛴다 — 오류 없이.
+  it('실제로 관측된 4가지 실패 문자열을 전부 보류로 가른다', () => {
+    expect(isTransientHarvestError('TypeError: fetch failed')).toBe(true)
+    expect(isTransientHarvestError('<!DOCTYPE html>\n<!--[if lt IE 7]> <html class="no-js">')).toBe(true)
+    expect(isTransientHarvestError('Could not query the database for the schema cache. Retrying.')).toBe(true)
+    expect(isTransientHarvestError('connect ECONNRESET 104.16.0.1:443')).toBe(true)
+  })
+
+  it('글이 없어진 것(4xx)은 판정이다 — 매 회차 다시 GET 하면 안 된다', () => {
+    expect(isTransientHarvestError('VOA article fetch failed: 404 https://…/1.html')).toBe(false)
+    expect(isTransientHarvestError('VOA article fetch failed: 403 https://…/1.html')).toBe(false)
+    // 전문 없음·너무 짧음은 아카이브의 45% 다. 여기서 보류로 새면 같은 3만 쪽을 무한히 다시 받는다.
+    expect(isTransientHarvestError('VOA article has no transcript body (no wsw container — audio/video clip?)')).toBe(
+      false,
+    )
+    expect(isTransientHarvestError('VOA article body too short: 91 chars')).toBe(false)
+  })
+
+  it('429·5xx 는 우리 쪽 사고로 본다 — 서버가 잠시 막은 것이지 글이 없어진 게 아니다', () => {
+    expect(isTransientHarvestError('VOA article fetch failed: 429 https://…/1.html')).toBe(true)
+    expect(isTransientHarvestError('VOA article fetch failed: 503 https://…/1.html')).toBe(true)
+    expect(isTransientHarvestError('VOA article fetch failed: 500 https://…/1.html')).toBe(true)
   })
 })
