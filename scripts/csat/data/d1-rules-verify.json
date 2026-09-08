@@ -1,9 +1,9 @@
 {
- "n": 235,
- "nExam": 191,
- "nMock": 44,
+ "n": 237,
+ "nExam": 192,
+ "nMock": 45,
  "violations": [],
  "mutationCaught": 2,
  "holdout": 0,
- "topInFirst": 0.6649214659685864
+ "topInFirst": 0.7083333333333334
 }

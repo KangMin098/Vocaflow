@@ -1,7 +1,7 @@
 {
  "total": 382,
- "ok": 368,
- "rate": 96.3,
+ "ok": 371,
+ "rate": 97.1,
  "byExam": {
   "2015": {
    "n": 28,
@@ -33,7 +33,7 @@
   },
   "2022": {
    "n": 28,
-   "ok": 24
+   "ok": 26
   },
   "2023": {
    "n": 28,
@@ -41,7 +41,7 @@
   },
   "2024": {
    "n": 28,
-   "ok": 25
+   "ok": 26
   },
   "2025": {
    "n": 28,
@@ -129,9 +129,9 @@
   },
   "R-INSERT": {
    "n": 26,
-   "ok": 24,
-   "noP": 1,
-   "noC": 2
+   "ok": 25,
+   "noP": 0,
+   "noC": 1
   },
   "R-SUMMARY": {
    "n": 13,
@@ -153,9 +153,9 @@
   },
   "X-ORDER": {
    "n": 14,
-   "ok": 13,
+   "ok": 14,
    "noP": 0,
-   "noC": 1
+   "noC": 0
   },
   "X-REFER": {
    "n": 14,
@@ -183,9 +183,9 @@
   },
   "R-IRRELEVANT": {
    "n": 13,
-   "ok": 12,
-   "noP": 1,
-   "noC": 1
+   "ok": 13,
+   "noP": 0,
+   "noC": 0
   },
   "R-MOOD": {
    "n": 13,
@@ -223,7 +223,7 @@
    "exam": "2016",
    "no": 31,
    "type": "R-BLANK",
-   "chars": 978,
+   "chars": 1036,
    "okP": true,
    "okC": false,
    "ok": false
@@ -232,7 +232,7 @@
    "exam": "2018",
    "no": 19,
    "type": "R-MOOD",
-   "chars": 789,
+   "chars": 765,
    "okP": true,
    "okC": false,
    "ok": false
@@ -241,7 +241,7 @@
    "exam": "2021",
    "no": 36,
    "type": "R-ORDER",
-   "chars": 1121,
+   "chars": 1131,
    "okP": true,
    "okC": false,
    "ok": false
@@ -250,26 +250,8 @@
    "exam": "2022",
    "no": 31,
    "type": "R-BLANK",
-   "chars": 852,
+   "chars": 926,
    "okP": true,
-   "okC": false,
-   "ok": false
-  },
-  {
-   "exam": "2022",
-   "no": 35,
-   "type": "R-IRRELEVANT",
-   "chars": 0,
-   "okP": false,
-   "okC": false,
-   "ok": false
-  },
-  {
-   "exam": "2022",
-   "no": 39,
-   "type": "R-INSERT",
-   "chars": 0,
-   "okP": false,
    "okC": false,
    "ok": false
   },
@@ -277,7 +259,7 @@
    "exam": "2022",
    "no": 40,
    "type": "R-SUMMARY",
-   "chars": 70,
+   "chars": 0,
    "okP": false,
    "okC": false,
    "ok": false
@@ -286,7 +268,7 @@
    "exam": "2023",
    "no": 31,
    "type": "R-BLANK",
-   "chars": 1169,
+   "chars": 1236,
    "okP": true,
    "okC": false,
    "ok": false
@@ -295,7 +277,7 @@
    "exam": "2023",
    "no": 38,
    "type": "R-INSERT",
-   "chars": 1264,
+   "chars": 1220,
    "okP": true,
    "okC": false,
    "ok": false
@@ -304,7 +286,7 @@
    "exam": "2024",
    "no": 31,
    "type": "R-BLANK",
-   "chars": 1010,
+   "chars": 1088,
    "okP": true,
    "okC": false,
    "ok": false
@@ -313,16 +295,7 @@
    "exam": "2024",
    "no": 37,
    "type": "R-ORDER",
-   "chars": 1102,
-   "okP": true,
-   "okC": false,
-   "ok": false
-  },
-  {
-   "exam": "2024",
-   "no": 43,
-   "type": "X-ORDER",
-   "chars": 2048,
+   "chars": 1104,
    "okP": true,
    "okC": false,
    "ok": false
@@ -331,7 +304,7 @@
    "exam": "2025",
    "no": 36,
    "type": "R-ORDER",
-   "chars": 1121,
+   "chars": 1124,
    "okP": true,
    "okC": false,
    "ok": false
@@ -340,7 +313,7 @@
    "exam": "2026",
    "no": 36,
    "type": "R-ORDER",
-   "chars": 1128,
+   "chars": 1099,
    "okP": true,
    "okC": false,
    "ok": false

@@ -97,9 +97,9 @@
    "type": "R-TOPIC",
    "points": 2,
    "sents": 6,
-   "concentration": 0.5804323573003686,
+   "concentration": 0.5606097602938473,
    "reachRate": 0.5,
-   "effectiveSents": 2.537527778867214
+   "effectiveSents": 2.5579371723274007
   },
   {
    "src": "기출",
@@ -108,9 +108,9 @@
    "type": "R-TOPIC",
    "points": 2,
    "sents": 6,
-   "concentration": 0.3065796574634373,
+   "concentration": 0.31429235260867755,
    "reachRate": 0.6666666666666666,
-   "effectiveSents": 3.9301949800237015
+   "effectiveSents": 3.9556707678578458
   },
   {
    "src": "기출",
@@ -119,9 +119,9 @@
    "type": "R-TITLE",
    "points": 2,
    "sents": 6,
-   "concentration": 0.5071778616537027,
+   "concentration": 0.5273394471747396,
    "reachRate": 1,
-   "effectiveSents": 4.286078823169556
+   "effectiveSents": 4.19867346823242
   },
   {
    "src": "기출",
@@ -130,9 +130,9 @@
    "type": "R-TITLE",
    "points": 2,
    "sents": 6,
-   "concentration": 0.44391278706836385,
+   "concentration": 0.3515221781919032,
    "reachRate": 0.6666666666666666,
-   "effectiveSents": 3.565216464692223
+   "effectiveSents": 3.7805062490725825
   },
   {
    "src": "기출",
@@ -141,9 +141,9 @@
    "type": "R-BLANK",
    "points": 3,
    "sents": 8,
-   "concentration": 0.20132290926510166,
-   "reachRate": 0.75,
-   "effectiveSents": 5.9483061743061025
+   "concentration": 0.18295520968528398,
+   "reachRate": 0.875,
+   "effectiveSents": 6.860708248683918
   },
   {
    "src": "기출",
@@ -195,9 +195,9 @@
    "no": 32,
    "type": "R-BLANK",
    "points": 3,
-   "sents": 7,
+   "sents": 8,
    "concentration": 1,
-   "reachRate": 0.14285714285714285,
+   "reachRate": 0.125,
    "effectiveSents": 1
   },
   {
@@ -207,9 +207,9 @@
    "type": "R-BLANK",
    "points": 3,
    "sents": 7,
-   "concentration": 0.4379371454910422,
-   "reachRate": 0.5714285714285714,
-   "effectiveSents": 3.6768650820410578
+   "concentration": 0.3448155563303453,
+   "reachRate": 0.7142857142857143,
+   "effectiveSents": 4.676845635140423
   },
   {
    "src": "기출",
@@ -229,9 +229,9 @@
    "type": "R-TITLE",
    "points": 2,
    "sents": 7,
-   "concentration": 0.31396157752972964,
+   "concentration": 0.3215730389245319,
    "reachRate": 0.8571428571428571,
-   "effectiveSents": 5.553775881172641
+   "effectiveSents": 5.482102981839723
   },
   {
    "src": "기출",
@@ -240,9 +240,9 @@
    "type": "R-TITLE",
    "points": 2,
    "sents": 5,
-   "concentration": 0.6127761169287782,
-   "reachRate": 0.6,
-   "effectiveSents": 2.46193401477618
+   "concentration": 0.41898141337122174,
+   "reachRate": 0.8,
+   "effectiveSents": 3.45572472545201
   },
   {
    "src": "기출",
@@ -250,10 +250,10 @@
    "no": 33,
    "type": "R-BLANK",
    "points": 3,
-   "sents": 6,
-   "concentration": 0.6752458379141786,
-   "reachRate": 0.3333333333333333,
-   "effectiveSents": 1.8783640479732737
+   "sents": 7,
+   "concentration": 0.44610277277070864,
+   "reachRate": 0.42857142857142855,
+   "effectiveSents": 2.8779489476858964
   },
   {
    "src": "기출",
@@ -262,9 +262,9 @@
    "type": "R-BLANK",
    "points": 3,
    "sents": 7,
-   "concentration": 0.5913867055344403,
-   "reachRate": 0.2857142857142857,
-   "effectiveSents": 1.9666859315022722
+   "concentration": 0.41478075289616284,
+   "reachRate": 0.42857142857142855,
+   "effectiveSents": 2.9566905143091744
   },
   {
    "src": "기출",
@@ -459,9 +459,9 @@
    "no": 32,
    "type": "R-BLANK",
    "points": 2,
-   "sents": 5,
+   "sents": 6,
    "concentration": 0.7081358386822546,
-   "reachRate": 0.4,
+   "reachRate": 0.3333333333333333,
    "effectiveSents": 1.8290786950442794
   },
   {
@@ -471,9 +471,9 @@
    "type": "R-BLANK",
    "points": 3,
    "sents": 6,
-   "concentration": 0.29530543437753654,
+   "concentration": 0.3097432939773327,
    "reachRate": 1,
-   "effectiveSents": 5.317202067042423
+   "effectiveSents": 5.362379461172133
   },
   {
    "src": "기출",
@@ -526,9 +526,9 @@
    "type": "R-BLANK",
    "points": 3,
    "sents": 5,
-   "concentration": 0.5660847756124271,
+   "concentration": 0.5229381022210485,
    "reachRate": 0.4,
-   "effectiveSents": 1.982556505303651
+   "effectiveSents": 1.9978957427536412
   },
   {
    "src": "기출",
@@ -559,9 +559,9 @@
    "type": "R-BLANK",
    "points": 2,
    "sents": 7,
-   "concentration": 0.31613947127524566,
-   "reachRate": 0.5714285714285714,
-   "effectiveSents": 3.9485134682379286
+   "concentration": 0.3227973575009774,
+   "reachRate": 0.7142857142857143,
+   "effectiveSents": 4.754012456854797
   },
   {
    "src": "기출",
@@ -570,9 +570,9 @@
    "type": "R-BLANK",
    "points": 3,
    "sents": 7,
-   "concentration": 0.40314674927734023,
+   "concentration": 0.3932812301634001,
    "reachRate": 0.42857142857142855,
-   "effectiveSents": 2.940761353900905
+   "effectiveSents": 2.9688520156417537
   },
   {
    "src": "기출",
@@ -614,9 +614,9 @@
    "type": "R-BLANK",
    "points": 2,
    "sents": 6,
-   "concentration": 0.43341250615054877,
+   "concentration": 0.3601491683944488,
    "reachRate": 0.5,
-   "effectiveSents": 2.932746107495348
+   "effectiveSents": 2.995202713029933
   },
   {
    "src": "기출",
@@ -657,9 +657,9 @@
    "no": 34,
    "type": "R-BLANK",
    "points": 3,
-   "sents": 7,
+   "sents": 8,
    "concentration": 0.3752243210508062,
-   "reachRate": 0.42857142857142855,
+   "reachRate": 0.375,
    "effectiveSents": 2.9674388408245322
   },
   {
@@ -702,9 +702,9 @@
    "type": "R-BLANK",
    "points": 2,
    "sents": 8,
-   "concentration": 1,
-   "reachRate": 0.125,
-   "effectiveSents": 1
+   "concentration": 0.5632362770017257,
+   "reachRate": 0.25,
+   "effectiveSents": 1.9840259108620089
   },
   {
    "src": "기출",
@@ -778,9 +778,9 @@
    "no": 34,
    "type": "R-BLANK",
    "points": 3,
-   "sents": 7,
+   "sents": 8,
    "concentration": 1,
-   "reachRate": 0.14285714285714285,
+   "reachRate": 0.125,
    "effectiveSents": 1
   },
   {
@@ -823,9 +823,9 @@
    "type": "R-BLANK",
    "points": 2,
    "sents": 6,
-   "concentration": 0.33239155565120126,
-   "reachRate": 0.6666666666666666,
-   "effectiveSents": 3.843613664606931
+   "concentration": 0.30862219610231834,
+   "reachRate": 0.8333333333333334,
+   "effectiveSents": 4.70616742633303
   },
   {
    "src": "기출",
@@ -878,9 +878,9 @@
    "type": "R-BLANK",
    "points": 3,
    "sents": 7,
-   "concentration": 0.3448207429155896,
+   "concentration": 0.35696081551972686,
    "reachRate": 0.42857142857142855,
-   "effectiveSents": 2.999113210577611
+   "effectiveSents": 2.9850788685194765
   }
  ],
  "gen": [
