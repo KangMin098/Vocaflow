@@ -84,8 +84,16 @@ function scanFile(file) {
   const hits = [];
 
   for (let i = 0; i < lines.length; i += 1) {
-    const from = /\.from\s*\(\s*['"`]([a-z_][a-z0-9_]*)['"`]\s*\)/i.exec(lines[i]);
+    // 표 이름은 문자열일 수도 **변수일 수도** 있다.
+    // 2026-09-06 실측: 이 스캐너가 문자열만 보던 동안, 그날 측정된 최악의 사례
+    // (repair-first-sentence.mts — 초당 114건, 체크포인트 272초)가 `db.from(table)` 이라는
+    // 이유로 133건 목록에 **없었다.** 가장 큰 것을 못 보는 감시는 감시가 아니다.
+    const from =
+      /\.from\s*\(\s*['"`]([a-z_][a-z0-9_]*)['"`]\s*\)/i.exec(lines[i]) ??
+      /\.from\s*\(\s*([A-Za-z_$][\w$]*)\s*\)/.exec(lines[i]);
     if (!from) continue;
+    // 변수면 표 이름을 알 수 없다 — 아는 척하지 않고 그렇게 표시한다.
+    const dynamic = !/['"`]/.test(from[0]);
 
     // 줄 오프셋으로 체인을 잘라 온다(같은 내용의 줄이 여러 번 나와도 안전하다).
     const offset = lines.slice(0, i).reduce((n, l) => n + l.length + 1, 0);
@@ -111,7 +119,8 @@ function scanFile(file) {
     hits.push({
       file: file.replace(/\\/g, '/'),
       line: i + 1,
-      table: from[1],
+      table: dynamic ? `<${from[1]}>` : from[1],
+      dynamicTable: dynamic,
       op: /\.update\s*\(/.test(window) ? 'update' : 'delete',
       loopAt: loop.line,
       loop: loop.text,
@@ -163,4 +172,10 @@ function main() {
 드레인을 시작하기 전에 /db-checkpoint before <라벨> 을 찍어 두면 무엇이 바뀌었는지 남는다.`);
 }
 
-main();
+// 회귀 검사가 부를 수 있게 내보낸다 — CLI 로 직접 실행할 때만 main() 이 돈다.
+// (검사가 이 파일을 import 하는데 그때마다 전체 스캔이 돌면 테스트가 느려지고 출력이 섞인다.)
+export { scanFile, walk, ROOTS };
+
+if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1'))) {
+  main();
+}

@@ -94,18 +94,32 @@ async function repairUnit(
   stat.fixed += updates.length
   if (!COMMIT || !updates.length) return
   // PostgREST 는 행마다 값이 다른 일괄 UPDATE 를 못 한다(upsert 로 흉내 내면 안 넘긴 컬럼이
-  // 기본값으로 덮여 다른 자산이 날아간다). 그래서 행 단위로 보내되 **동시성으로만** 줄인다.
-  const CONC = 3
-  for (let i = 0; i < updates.length; i += CONC) {
-    await Promise.all(updates.slice(i, i + CONC).map(async (u) => {
-      const q = db.from(table).update({ first_sentence: u.next })
-      const { error } = await retry(() =>
-        table === 'library_book_vocabularies'
-          ? q.eq('id', u.row.id!)
-          : q.eq('library_article_id', u.row.library_article_id!).eq('word', u.row.word),
-      )
-      if (error) throw new Error(String((error as { message?: string }).message ?? error))
-    }))
+  // 기본값으로 덮여 다른 자산이 날아간다). **여기까지는 맞는 진단이었다.**
+  // 틀린 것은 그다음 결론이다 — "그러니 행 단위로 보낸다".
+  // 실측 2026-09-05 07:37~09:36: 이 경로가 /rest/v1/library_article_vocabularies 에
+  // 분당 2,000~6,859건(피크 초당 114)을 넣었고, 체크포인트가 매번 109·144·189·196·269·272초,
+  // statement timeout 이 분당 최대 34건 났다. 동시성 3은 상한이 아니라 가속기였다.
+  // PostgREST 가 행별 값을 못 넘기는 것이지 Postgres 가 못 하는 게 아니다 —
+  // jsonb 배열 하나를 RPC 로 넘기면 청크 전체가 한 트랜잭션 · 왕복 1회다.
+  // 마이그레이션 20260906074500 · repair_vocab_first_sentences(p_table, p_rows).
+  const CHUNK = 500
+  for (let i = 0; i < updates.length; i += CHUNK) {
+    const payload = updates.slice(i, i + CHUNK).map(({ row, next }) =>
+      table === 'library_book_vocabularies'
+        ? { id: row.id, first_sentence: next }
+        : { library_article_id: row.library_article_id, word: row.word, first_sentence: next },
+    )
+    const { data, error } = await retry(() =>
+      db.rpc('repair_vocab_first_sentences', { p_table: table, p_rows: payload }),
+    )
+    if (error) throw new Error(String((error as { message?: string }).message ?? error))
+    // 서버가 실제로 고친 행 수를 돌려준다. 보낸 수와 다르면 조용히 넘어가지 않는다 —
+    // 값이 이미 같아 건너뛴 행(is distinct from)과 대상이 사라진 행을 구분할 수 없으므로
+    // 세어서 알린다. 다시 돌리면 멱등이라 손해는 없다.
+    const applied = Number(data ?? 0)
+    if (applied !== payload.length) {
+      console.log(`    · 보낸 ${payload.length}행 중 ${applied}행 반영 (나머지는 이미 같은 값이거나 사라진 행)`)
+    }
   }
 }
 
