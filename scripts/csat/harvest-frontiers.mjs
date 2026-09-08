@@ -127,7 +127,7 @@ if (!fs.existsSync(gapFile)) {
 const gap = JSON.parse(fs.readFileSync(gapFile, 'utf8'))
 const stock = Object.fromEntries(gap.rows.map((r) => [r.topic, r.estStock]))
 
-console.log(`Frontiers 겨냥 수확 — 교육·언어 칸\n${'='.repeat(78)}`)
+console.log(`Frontiers 겨냥 수확 — 몫이 남은 칸\n${'='.repeat(78)}`)
 console.log(
   `  목표 ${STAGE}단계 ${STAGE_GOAL.toLocaleString()}편 · 배합 기출 ${gap.examClassified}지문 · ` +
     `재고 ${gap.measuredAt.slice(0, 10)} 실측\n`,
@@ -140,7 +140,10 @@ for (const k of TARGET_KEYS) {
   const have = stock[k] ?? 0
   quota[k] = Math.max(0, want - have)
   const ratio = (gap.rows.find((r) => r.topic === k)?.ratio ?? 0).toFixed(2)
-  const flag = quota[k] > 0 ? (k === '교육·언어' ? '  ← 병목' : '') : '  (참)'
+  // ⚠️ 병목은 **고정이 아니다.** 2026-09-08 전수 집계 전까지 여기에 «교육·언어» 를 박아 뒀는데,
+  //   주제 재분류 백필이 끝나자 실제 병목은 **심리·인지** 였다(그전 표본은 «기술·매체» 로 오인시켰다).
+  //   이름을 박아 두면 화면이 틀린 칸을 가리키고도 멀쩡해 보인다 — 그래서 **몫이 남은 칸**을 표시한다.
+  const flag = quota[k] > 0 ? '  ← 병목' : '  (참)'
   console.log(
     `  ${k.padEnd(11)}${want.toLocaleString().padStart(8)}${have.toLocaleString().padStart(8)}` +
       `${quota[k].toLocaleString().padStart(8)}${ratio.padStart(8)}${flag}`,

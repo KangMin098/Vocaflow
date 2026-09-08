@@ -66,10 +66,16 @@ const MAILTO = 'killerapp51@empal.com'
 /**
  * **겨냥하는 저널 — PMC 밖에 있는 것만.**
  *
- * ⚠️ Psychology(PMC 수록률 98.6%) · Plant Science(99.6%) · Sports(98.9%) · AI(97.7%) ·
- *   Sociology(94.6%) 는 **일부러 뺐다.** 그 다섯은 나중에 PMC 수확기 하나로 라이선스·전문
- *   링크까지 한 번에 오므로, 여기서 편당 2 GET 을 쓰는 것은 같은 글을 비싸게 사는 짓이다.
- *   여기 있는 것은 **Frontiers 경로가 아니면 닿지 못하는 것**뿐이다(수록률 0.4%).
+ * ⚠️ Plant Science(PMC 수록률 99.6%) · Sports(98.9%) · AI(97.7%) · Sociology(94.6%) 는
+ *   **일부러 뺐다.** 그 넷은 나중에 PMC 수확기 하나로 라이선스·전문 링크까지 한 번에 오므로,
+ *   여기서 편당 2 GET 을 쓰는 것은 같은 글을 비싸게 사는 짓이다.
+ *
+ * ⚠️ **Psychology(98.6%) 는 2026-09-08 에 그 원칙을 깨고 넣었다** — 원칙이 틀려서가 아니라
+ *   기다릴 수 없어서다. 전수 집계가 3단계 부족을 **166편**으로 확정했고 그 전부가 심리·인지인데,
+ *   PMC 수확기는 아직 없다. 없는 수확기를 기다리는 것보다 166편을 지금 채우는 편이 싸다.
+ *   **대가는 미래로 미룬 것이지 없앤 것이 아니다** — PMC 를 켜는 날 (source, source_id) 중복
+ *   판정은 소스가 달라 안 걸리므로, **DOI 정규화 후 겹침을 배제**해야 같은 글이 두 번 들어오지
+ *   않는다. 그때 볼 것: library_articles 의 source='frontiers' 중 fpsyg · fnhum · fnbeh.
  *
  * `feed` 는 저널 약칭 = DOI 약칭 = 커서 파일 이름의 일부다. 셋을 같은 문자열로 두어
  * "이 저널을 어디까지 봤나" 를 파일 이름만 보고 알 수 있게 한다.
@@ -85,6 +91,20 @@ export interface FrontiersJournal {
   crossref: number
   /** 이 저널이 주로 떨어지는 소재 칸. 몫 계산이 아니라 **왜 이 저널을 켰는지**의 기록이다 */
   aimsAt: string
+  /**
+   * `type:journal-article` 에 **덧붙일** Crossref 필터. 없으면 안 붙인다.
+   *
+   * ⚠️ 왜 필요한가 (실측 2026-09-08): fpsyg 1쪽 200편이 **라이선스 밖 177/177** 로 전멸했다.
+   * 배선도 실행도 성공했는데 적재가 0 인, 이 저장소에서 열두 번째 「결과 0」이다. 원인은 게이트가
+   * 아니라 **연식**이었다 — Crossref 커서는 정렬이 없어 **가장 오래된 예치부터** 주는데,
+   * fpsyg 는 2010년 창간이라 초기 예치에 `license` 항목이 통째로 비어 있다(`[]`).
+   * 게이트는 「짐작해 붙이지 않는다」가 원칙이므로 옳게 막은 것이고, 고칠 곳은 **목록 쪽**이다.
+   * `has-license:true` 로 좁히면 53,148 → **42,526편**이고, 그 표본 200/200 이 CC BY 4.0 이었다.
+   *
+   * 저널마다 따로 두는 이유: 전 저널에 일괄로 붙이면 **열거 순서가 바뀌어** 이미 쌓인 커서 토큰이
+   * 다른 집합을 가리킨다. 기존 저널(feduc 등)은 2016년 이후 창간이라 이 필터가 필요 없다.
+   */
+  crossrefFilter?: string
 }
 
 /**
@@ -97,6 +117,16 @@ export const FRONTIERS_JOURNALS: readonly FrontiersJournal[] = [
   { id: 'fpos', issn: '2673-3145', label: 'Frontiers in Political Science', crossref: 1478, aimsAt: '사회·경제' },
   { id: 'fhumd', issn: '2673-2726', label: 'Frontiers in Human Dynamics', crossref: 561, aimsAt: '사회·경제' },
   { id: 'flang', issn: '2813-4605', label: 'Frontiers in Language Sciences', crossref: 212, aimsAt: '교육·언어' },
+  // ── 1회차 보강: 심리·인지 (2026-09-08) ──
+  // 주제 재분류 백필(27,128편)이 끝나 `topic-gap` 이 전수 집계로 돌기 시작하자 병목이 바뀌었다 —
+  // 「기술·매체」로 알던 것은 표본 아티팩트였고, 실제 병목은 **심리·인지**(배율 0.69 · 재고 6,944)다.
+  // 3단계 5만 기준 부족은 **166편**이고 그 166편이 전부 이 칸이라, 이 저널 하나로 닫힌다.
+  // ⚠️ **PMC 중복 주의** — 정찰 실측으로 Frontiers in Psychology 는 **98.6% 가 PMC 에도 있다.**
+  //   지금은 PMC 수확기가 없어 충돌이 없지만, PMC 를 켜는 날 **DOI 로 겹침을 배제**해야 한다.
+  //   `(source, source_id)` 중복 판정은 소스가 다르면 안 걸린다 — 같은 글이 두 번 들어온다.
+  { id: 'fpsyg', issn: '1664-1078', label: 'Frontiers in Psychology', crossref: 53148, aimsAt: '심리·인지', crossrefFilter: 'has-license:true' },
+  { id: 'fnhum', issn: '1662-5161', label: 'Frontiers in Human Neuroscience', crossref: 13873, aimsAt: '심리·인지', crossrefFilter: 'has-license:true' },
+  { id: 'fnbeh', issn: '1662-5153', label: 'Frontiers in Behavioral Neuroscience', crossref: 5328, aimsAt: '심리·인지', crossrefFilter: 'has-license:true' },
   // ── 2회차 (교육·언어가 차고도 몫이 남으면) ──
   { id: 'fevo', issn: '2296-701X', label: 'Frontiers in Ecology and Evolution', crossref: 6201, aimsAt: '과학·자연' },
   { id: 'fenvs', issn: '2296-665X', label: 'Frontiers in Environmental Science', crossref: 8445, aimsAt: '과학·자연' },
@@ -148,7 +178,7 @@ export function buildFrontiersListUrl(feedId: string, rows: number, cursor: stri
   const params = new URLSearchParams({
     rows: String(Math.min(Math.max(rows, 1), PER_PAGE)),
     select: 'DOI,title,license,type,created,published,container-title',
-    filter: 'type:journal-article',
+    filter: j.crossrefFilter ? `type:journal-article,${j.crossrefFilter}` : 'type:journal-article',
     cursor: cursor ?? '*',
     mailto: MAILTO,
   })
