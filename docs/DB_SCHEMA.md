@@ -520,6 +520,8 @@ P0 심층 평가(`docs/AI_CONTEXT/diagnostics/ext_quality_p0_20260718.md`)로 �
 
 **v06.164 DEFINER 함수 EXECUTE 잠금** (`20260708120000` + `20260708120500`): 보안 advisor 후속 — anon 키 공개로 앱 인증 우회 호출 가능하던 무가드 SECURITY DEFINER 9종 잠금. 쓰기 3종(`enrich_shared_dictionary`·`regenerate_auto_curated_set`·`process_library_pipeline_batch`) → service_role 전용. admin 읽기 6종(`admin_vrl_*`) → anon 회수·authenticated 유지. ⚠️ 함수 EXECUTE 기본 PUBLIC grant라 `REVOKE FROM anon` 무효 → `REVOKE FROM PUBLIC` 필수.
 
+**v06.34 search_path 고정 58종** (`20260908042344`): advisor `function_search_path_mutable` 해소 — public 함수 58개에 `set search_path = public, extensions, pg_temp`. 58개 전부 SECURITY **INVOKER** 였다(DEFINER 0) — 권한 상승이 아니라 위생 항목. 안전 근거: 타 스키마 참조 0 · 미자격 확장 함수 호출 0. ⚠️ 이 DB 는 `pg_trgm`·`fuzzystrmatch`·`btree_gin`·`pgstattuple`·`pg_net` 이 **public 에** 설치돼 있어 `extensions` 만 넣으면 안 된다. `pg_temp` 는 반드시 맨 뒤. 회귀 `advisor-hygiene.integration.test.ts`.
+
 **v06.34 무가드 쓰기 DEFINER 27종 PUBLIC 회수** (`20260903121358` 시도 → `20260903121759` 실효): 2026-09-03 실측 — public 스키마 SECURITY DEFINER **147종 중 anon 119 · authenticated 137** 이 실행 가능했고, 그중 **쓰기를 하면서 권한 가드가 없고 anon 에 열린 것이 27종**이었다. `purge_ghost_vocab`(가드 없는 DELETE) · `update_user_v_level(p_user_id,…)`·`auto_promote_track_level_for_user`(미로그인자가 임의 사용자 조작) · `refresh_textbook_shelf_stats`(14초 풀스캔을 anon 이 무제한 트리거 — 같은 날 인스턴스를 굶겨 죽인 그 쿼리다, `20260903114408` 참조). **결과: anon 119 → 92 · authenticated 137 유지 · 무가드 anon 쓰기 27 → 0.** 회귀 36 tests 통과(RLS 표면 14 · 저작권 경계 8 · 권한상승 8 · RPC 호출부 6).
 
 ⚠️ **위 v06.164 의 경고를 그대로 반복했다** — 먼저 `REVOKE FROM anon` 을 걸었고 마이그레이션은 성공했지만 anon 실행 가능 수가 119 → 116(3종)에 그쳤다. ACL 의 `=X/postgres`(PUBLIC 부여)가 남아 `purge_ghost_vocab` 이 anon 호출에 **200 을 돌려주며 실제로 실행됐다.** 권한 변경은 마이그레이션 성공이 아니라 **`has_function_privilege()` 재측정 + 실제 anon 키 호출**로 검증할 것.

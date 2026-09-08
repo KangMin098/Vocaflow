@@ -9,6 +9,37 @@
 ---
 ## Unreleased (v06.34 → next)
 
+### 경보판을 비웠다 — 남은 14건 재현 스윕 + search_path 58개 고정 (2026-09-08)
+
+앞 항목에 이어 남은 발견을 전부 처리했다. **절반이 결함이 아니라 「이미 끝난 일의 기록」이었다** —
+그것부터 걷어내야 진짜 신호가 보인다. 열린 경보 14 → **4**(그중 2건은 사람 몫).
+
+- **search_path 미고정 public 함수 58 → 0** (마이그레이션 `20260908042344`). 적용 전에 안전을
+  먼저 실측했다: SECURITY DEFINER **0개**(전부 INVOKER — 권한 상승 경로가 아니라 위생 항목) ·
+  `extensions`/`pgmq`/`net`/`vault`/`auth`/`cron` 참조 **0** · `similarity`·`levenshtein`·`crypt`·
+  `unaccent` 등 **미자격 확장 함수 호출 0**. `pg_trgm`·`fuzzystrmatch`·`pgstattuple`·`pg_net` 이
+  이 DB 에선 `public` 에, `pgcrypto`·`uuid-ossp` 는 `extensions` 에 있어 둘 다 넣었고 `pg_temp` 는
+  맨 뒤(앞에 두면 임시 객체가 실제 표를 가린다). 재검증은 **두 출처가 일치**해야 인정했다 —
+  카탈로그 0 + Supabase advisor 의 `function_search_path_mutable` 0건. 실호출
+  `calc_v_level('house')=1` · `quiz_target_per_chapter(5)=5` · `analyze_book_vrl("Women in Love")` 성공.
+  회귀 `advisor-hygiene.integration.test.ts` 2종 — 변이 2종 다 잡힘(**검사 자기무력화** 변이 포함:
+  모수에 확장 소유 138개를 섞으면 0 이 영영 안 돼 단언이 꺼진다)
+- **닫은 것 5건 — 재현 안 됨**. `library_article_vocabularies` 증가(+508MB/일)와 심야 쓰기 폭주는
+  **끝났다**: 표 크기 9/06 1974.2 → 9/07 2482.7 → 9/08 2482.7 로 평평하고, 재기동 후 12.6시간
+  `n_tup_ins = 0`(그 구간이 문제의 23:00·00:00~03:00 창을 전부 포함한다). 문항 생성도 1,143.0MB 로
+  평평. 미들웨어 프로필 합치기와 야간 잡 예산 상향은 **조치의 기록**이었고 저장소에서 실재 확인
+  (`lib/auth/profile-cache.ts` · `middleware.ts:19`)
+- **면제 1건** — `recompute-kr-safe` 는 `0 15 31 12 *`, 연 1회 잡이다. "한 번도 성공 안 함"은
+  12월 31일이 안 왔다는 뜻이지 결함이 아니다. `hours_since_ok IS NULL` 을 무조건 이상으로 세면
+  이런 잡은 영원히 경보로 남는다 → `db_health_exceptions` 에 근거와 함께 등록
+- **ack 4건 — 재현되지만 지금 고칠 것이 아니다.** 워커 슬롯 불일치는 그대로지만(32 대 6) 증상은
+  사라졌다(24시간 실패 **0** · startup timeout 0, 직전 52 — 매분 LCP 워커를 끈 효과로 보인다).
+  「안 쓰인 인덱스」는 카운터 나이 758분(<7일)이라 지금 지우면 쓰이는 인덱스를 지운다 → 9/14 이후 재측정.
+  인증 증폭은 앱을 안 띄워 재현 자체가 불가(70회/12.6시간) — **고쳐져서가 아니라 안 돌려서**라 닫지 않았다
+- ⚠️ 이번 스윕에서 `shared_dictionary` 가 초당 17.7회 읽히는 것처럼 보였으나 **오독이었다** —
+  `idx_scan` 805,791 을 가동시간으로 나눈 값이고, 실제로는 PostgREST 호출 217건이 각각 수천 행을
+  탐침한 것이다(`word=in.(...)`). 새 발견으로 올리기 전에 확인해서 올리지 않았다
+
 ### 초록불이 가린 것들 — DB 경보 4건 조치 (2026-09-08)
 
 `/admin/db` 의 치명 4건을 재현 확인 후 처리했다. 둘은 고쳤고 둘은 DB 밖의 일이라 `ack` 로 내렸다.
