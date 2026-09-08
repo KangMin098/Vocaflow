@@ -9,6 +9,44 @@
 ---
 ## Unreleased (v06.34 → next)
 
+### 초록불이 가린 것들 — DB 경보 4건 조치 (2026-09-08)
+
+`/admin/db` 의 치명 4건을 재현 확인 후 처리했다. 둘은 고쳤고 둘은 DB 밖의 일이라 `ack` 로 내렸다.
+**관통하는 결함: 판정이 자기가 못 보는 것을 "정상" 으로 셌다.**
+
+- **LCP 워커가 12.7일째 성공을 보고하며 아무것도 안 했다** — `vault.secrets` 가 **0행**이라
+  `get_lcp_config()` 가 NULL 둘을 돌려주고, `process_library_pipeline_batch` 는 `RAISE NOTICE`
+  뒤 `RETURN 0` 했다. cron 은 반환행을 받아 succeeded 로 기록 — **24시간 1,439회 전부 초록불**인 채
+  pgmq 큐 6건이 `read_ct=0` 으로 늙었다(도서 6권: The Faerie Queene · Short Fiction ·
+  The Mystery of the Blue Train · The Magic City · The Golden Triangle · At the Mountains of Madness).
+  마이그레이션 `20260908035616` — 판정 기준을 「설정이 없다」에서 **「할 일이 있는데 못 한다」**로 옮겼다:
+  큐가 비면 조용히 0, 큐에 일이 있으면 예외(53400). 실호출로 확인. cron job 7 은 `active=false`
+  (되돌리기 `cron.alter_job(7, active := true)`). 남은 것은 Vault 값뿐이라 발견
+  `config:vault_missing:lcp` 로 옮겨 뒀다 — 값은 사람만 넣을 수 있다
+- **수집기가 크래시마다 가짜 치명 16건을 냈다** — `stats_stale_tables` 가
+  `last_analyze`·`n_live_tup` 이라는 **활동 카운터**로 "통계가 없다" 를 판정했다. 8MB 넘는 표
+  16개를 전부 stale 로 보고했는데 **16개 전부 `pg_statistic` 에 통계가 실재**하고 진짜 없는 표는 0개였다.
+  마이그레이션 `20260908035514` — 근거를 `pg_statistic` 실재 여부로 바꾸고, 드리프트 절은
+  `counter_age_min >= 1440` 일 때만 적용한다. 재검증 **16 → 0**(분모 `checked` 는 16 그대로 —
+  모수를 줄여 숨긴 것이 아니다) · `counter_age_min` 736 이라 드리프트 절 정확히 보류
+- **인스턴스 등급 2건은 `ack`** — 캐시가 DB 의 3.6%(shared_buffers 256MB / 7,137MB) · 48시간 내
+  비정상 종료 2회. 재현 확인했으나(uptime 12시간 = 9/07 15:39 재기동) **DB 안에 조치가 없다** —
+  t4g.micro → small 이상은 대시보드에서 사람만 가능하다. `open critical` 로 두면 매일 조치 가능한
+  것처럼 보여 진짜 critical 을 가린다. 함께 관측: `library_article_vocabularies` 증가가 9/07 18:40
+  이후 2,482.7MB 로 **멈췄다**(+508MB/일 종료)
+- **가드는 만들려던 것과 다른 것을 만들었다** — 처음엔 "저장소에 있는데 원격에 없는 마이그레이션"
+  가드를 붙이려 했으나 실측하니 repo 372개 중 **275개**가 `schema_migrations` 에 없었다.
+  `apply_migration` 이 자체 타임스탬프를 매겨 파일명과 버전이 구조적으로 어긋나기 때문이다 —
+  붙였으면 **275건 전부 오탐**이었다. 대신 두 수정을 의미로 잠갔다:
+  `silent-noop.integration.test.ts` 4종이 ① 판정 근거가 `pg_statistic` 인지 ② stale 로 센 표가
+  실제로 `stat_cols=0` 인지 ③ 카운터가 어리면 드리프트 절이 보류되는지 ④ **「성공을 보고하면서
+  일이 안 줄어드는 잡」 조합**이 없는지를 본다. 변이 4종 전부 잡히는 것을 확인(탐침 행 주입 → 4 실패 → 제거 → 4 통과)
+- 동반 갱신 — `lib/admin/help/ops.ts` 의 `db` 화면 주의 2줄(초록불 ≠ 정상 · 「낡은 통계 일괄 갱신」
+  판정 기준 변경) · CONVENTIONS 「조용한 실패」 절에 안티패턴 2종
+- ⚠️ 미적용 마이그레이션 `20260906074500` 과는 **충돌하지 않는다** — 그쪽은 수집기를 감싸기만 하고
+  재정의하지 않으므로 나중에 적용해도 `criterion` 키가 살아남는다(`dims ||` 병합).
+  다만 `stats_counter_age_min` 행이 중복 삽입된다
+
 ### 커서와 예산 — 「판정함」으로 적으면 안 되는 것들 (2026-09-08)
 
 커밋되지 않은 채 작업 트리에 쌓여 있던 변경을 8개로 갈라 커밋했다. 관통하는 결함은 하나다 —

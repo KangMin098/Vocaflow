@@ -810,7 +810,7 @@ cast-2000 audit chain — 4 테이블 cascade:
 
 | 함수 | 용도 |
 |---|---|
-| `process_library_pipeline_batch(p_batch_size int)` | pg_cron worker — pgmq read N → POST /api/lcp/process (dev 환경에선 `get_lcp_config()` NULL → early return 0) |
+| `process_library_pipeline_batch(p_batch_size int)` | pg_cron worker — pgmq read N → POST /api/lcp/process. `get_lcp_config()` 가 NULL 이면 **큐가 비었을 때만** 0 을 돌려주고, 큐에 일이 있으면 예외 53400 (`20260908035616`). 그 전엔 무조건 early return 0 이라 cron 이 succeeded 로 세어 큐 6건이 12.7일 방치됐다 |
 | `archive_book_pipeline_messages(p_book_id uuid)` | dev-process 후 pgmq archive |
 | `auto_curate_book(p_book_id uuid)` | RETURNS 'auto_publish' / 'admin_review' / 'reject' — cefr_confidence 게이트 (0.85 / 0.60) |
 | `compute_book_vrl(p_book_id uuid)` | V-Level type-based p75 centroid (v06.34: token → type) |
@@ -1056,7 +1056,7 @@ v06.35: `collect_quality_metrics()` 에 **M7 SSoT 드리프트** 추가 ([202608
 | | |
 |---|---|
 | 테이블 | `db_health_metrics(id, measured_at, axis, metric, value numeric, dims jsonb)` · RLS read=admin · 인덱스 3 (metric·axis·`(metric, dims->>'table')` 추세용) · 보존 180일(수집기가 직접 purge) |
-| 일 1회 | `collect_db_health_metrics()` — 5축 capacity·cron·latency·connections·advisor. **jobid=15** `40 18 * * *`(KST 03:40). 첫 실행 38행 |
+| 일 1회 | `collect_db_health_metrics()` — 5축 capacity·cron·latency·connections·advisor. **jobid=15** `40 18 * * *`(KST 03:40). 첫 실행 38행. `stats_stale_tables` 는 **`pg_statistic` 실재 여부**로 판정하고 드리프트 절은 `counter_age_min >= 1440` 일 때만 적용한다 (`20260908035514`) — 활동 카운터로 판정하던 동안 재기동마다 16/16 오탐이었다 |
 | 주 1회 | `collect_db_health_integrity()` — ⑥ integrity. **jobid=16** `50 18 * * 0`(일 KST 03:50). 첫 실행 4행 |
 | 화면 버튼 | `admin_collect_db_health_metrics()` · `admin_collect_db_health_integrity()` (role='admin' 검사 후 위임, EXECUTE→authenticated) |
 | 마이그레이션 | [20260906010000](../supabase/migrations/20260906010000_db_health_metrics.sql) · [010500](../supabase/migrations/20260906010500_db_health_integrity.sql) · [011000](../supabase/migrations/20260906011000_db_health_advisor_fix.sql) · [011500](../supabase/migrations/20260906011500_db_health_integrity_noise_filter.sql) |
