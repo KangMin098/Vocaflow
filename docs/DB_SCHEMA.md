@@ -1142,6 +1142,38 @@ inner join 으로 비교하면 그 줄이 조용히 빠져 "아무 변화 없음
 지문 규칙 `<axis>:<대상>:<증상>` — 예 `cron:content-gate-nightly:failing` ·
 `integrity:function:analyze_book_vrl` · `advisor:security_definer_view:csat_items_public`.
 
+### CSAT 소재 소스 콘솔 — `csat_source_rollup()` (2026-09-06 · **적용됨**)
+
+④ 소재 화면이 방문마다 `library_articles` 91,360행을 훑던 것을 DB 쪽 집계로 내렸다.
+
+| | |
+|---|---|
+| 표 | `csat_source_snapshots`(추이 · `taken_at desc` 인덱스) · `csat_source_registry`(원천 등록부) · `csat_source_targets`(소재별 수확 목표) |
+| 집계 | `csat_source_rollup()` → 실측 1.4~2.6초. EXECUTE→service_role 만 |
+| 스냅샷 적재 | `csat_source_snapshot_take(p_by text default 'cron')` |
+| 읽는 곳 | `apps/web/src/lib/csat/source-console.ts` — 스냅샷 **2행**(증감을 내려면 직전 행이 필요하다) |
+| 마이그레이션 | [20260906200000](../supabase/migrations/20260906200000_csat_source_console.sql) (원격 적용 버전 `20260906111534`) |
+
+⚠️ 조회가 죽으면 화면은 빈 표가 아니라 `error` 를 받는다 — **「0편」과 「못 잼」은 다른 말이다.**
+
+### first_sentence 일괄 보정 — `repair_vocab_first_sentences()` (⚠️ **아직 적용 안 됨**)
+
+2026-09-05 폭주(분당 최대 6,859건 · 피크 초당 114)의 대체 경로. 청크 500행을 jsonb 배열로
+받아 한 트랜잭션으로 UPDATE 하고, `is distinct from` 으로 값이 같은 행은 쓰지 않는다(WAL 을
+만들지 않는다). 표 이름을 문자열로 받으므로 **화이트리스트 2종**(`library_book_vocabularies` ·
+`library_article_vocabularies`)이 유일한 방어선이다. SECURITY **INVOKER** — 호출자가
+service_role 이라 DEFINER 가 필요 없다.
+
+같은 파일이 `collect_db_health_snapshot()` 도 만든다 — `collect_db_health_metrics()` 를 감싸
+통계 카운터 나이(`stats_counter_age_min`)를 덧대고, 1440분 미만이면 `stats_stale_tables` 와
+`unused_index_mb` 에 `unreliable` 을 박는다(크래시 재시작이 통계를 지우면 「안 쓰였다」와
+「아직 안 세었다」가 구분되지 않는다). cron `db-health-daily` 를 감싼 쪽으로 돌린다.
+
+⚠️ **2026-09-08 실측: 두 함수 모두 원격에 없다.** 마이그레이션 파일만 저장소에 있고
+`apply_migration` 이 안 됐다 — 그 상태로 `scripts/dict/repair-first-sentence.mts` 를 돌리면
+RPC 없음으로 죽는다. 마이그레이션 자동 적용 금지 정책에 따라 **승인 후 적용**한다.
+| 마이그레이션 | [20260906074500](../supabase/migrations/20260906074500_batch_first_sentence_repair_and_stats_counter_age.sql) |
+
 ### DB 헬스 라이브층 — `admin_db_health_live()` (2026-09-06)
 
 스냅샷(`db_health_metrics`)은 일 1회다. 그건 「어제 어땠나」에 답하지 **「지금 무슨 일이 벌어지고
