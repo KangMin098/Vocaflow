@@ -7,6 +7,7 @@
 //   pnpm video voice [<id|kind> …]     Edge TTS 로 나레이션 굽기 (재실행 안전)
 //   pnpm video render <id> [--format]  한 편 찍기
 //   pnpm video render-all [--kind …]   전부 찍기
+//   pnpm video thumbs [<id|kind> …]    YouTube 썸네일 (영상이 아니라 1프레임)
 //
 // ⚠️ **종료코드를 믿지 않는다.** 실측 2026-09-12 — 다른 세션의 dev 서버가 3000 을 잡고 있어
 //   Remotion 이 그 앱을 자기 번들로 착각했는데, 오류를 찍고도 **exit 0** 으로 끝났다.
@@ -19,7 +20,7 @@ import net from 'node:net'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { bundle } from '@remotion/bundler'
-import { renderMedia, selectComposition } from '@remotion/renderer'
+import { renderMedia, renderStill, selectComposition } from '@remotion/renderer'
 
 import { buildSpecs, countByKind } from '../catalog/build'
 import { loadBundle } from '../catalog/bundle'
@@ -35,6 +36,7 @@ const PKG = path.resolve(HERE, '../..')
 const ENTRY = path.join(PKG, 'src/remotion/index.ts')
 const PUBLIC_DIR = path.join(PKG, 'work')
 const OUT_DIR = path.join(PKG, 'out')
+const THUMB_DIR = path.join(PKG, 'dist-media/thumb')
 
 /**
  * 렌더러가 번들을 띄울 포트 — **실제로 비어 있는 것을 찾아서** 쓴다.
@@ -235,6 +237,56 @@ async function cmdRender(all: boolean): Promise<number> {
   return failed === 0 ? 0 : 1
 }
 
+/**
+ * 썸네일 62장 — **포스터와 다른 물건**이다(`Thumbnail.tsx` 머리말 참조).
+ *
+ * 영상이 아니라 1프레임이라 장당 1~3초다. 재실행 안전: 이미 있으면 건너뛴다.
+ */
+async function cmdThumbs(): Promise<number> {
+  ensureWorkFiles()
+  const specs = select(specsWithVoice(), positionals())
+  const force = has('force')
+  fs.mkdirSync(THUMB_DIR, { recursive: true })
+
+  const port = await freePort()
+  console.log(`번들 중… (렌더 포트 ${port})`)
+  const serveUrl = await bundle({ entryPoint: ENTRY, publicDir: PUBLIC_DIR, onProgress: () => undefined })
+
+  let made = 0
+  let skipped = 0
+  let failed = 0
+  for (const spec of specs) {
+    const out = path.join(THUMB_DIR, `${spec.id}.jpg`)
+    if (!force && fs.existsSync(out) && fs.statSync(out).size > 0) {
+      skipped++
+      continue
+    }
+    const id = `${spec.id}--thumb`
+    const inputProps = { spec, brand: 'VOCAFLOW' }
+    try {
+      const composition = await selectComposition({ serveUrl, id, inputProps, port })
+      await renderStill({
+        composition,
+        serveUrl,
+        output: out,
+        inputProps,
+        imageFormat: 'jpeg',
+        jpegQuality: 90,
+        port,
+      })
+      // 종료코드가 아니라 파일로 확인한다 — 이 저장소에서 이미 겪은 함정.
+      if (!fs.existsSync(out) || fs.statSync(out).size === 0) throw new Error('파일이 비었다')
+      made++
+    } catch (err) {
+      failed++
+      console.log(`FAIL ${spec.id} — ${(err as Error).message.split('\n')[0]}`)
+    }
+  }
+  console.log(`썸네일 새로 ${made} · 건너뜀 ${skipped}` + (failed ? ` · 실패 ${failed}` : ''))
+  console.log(`  → ${path.relative(process.cwd(), THUMB_DIR)}`)
+  return failed === 0 ? 0 : 1
+}
+
 async function main(): Promise<void> {
   switch (cmd) {
     case 'list':
@@ -252,6 +304,9 @@ async function main(): Promise<void> {
     case 'render-all':
       process.exitCode = await cmdRender(true)
       break
+    case 'thumbs':
+      process.exitCode = await cmdThumbs()
+      break
     default:
       console.log(
         [
@@ -260,6 +315,7 @@ async function main(): Promise<void> {
           'pnpm video voice [<id|kind> …]      나레이션 굽기 (--force 로 다시)',
           'pnpm video render <id> [--format wide|vertical|square]',
           'pnpm video render-all [--format …]',
+          'pnpm video thumbs [<id|kind> …]     YouTube 썸네일 1280×720 (--force 로 다시)',
         ].join('\n'),
       )
       process.exitCode = 1

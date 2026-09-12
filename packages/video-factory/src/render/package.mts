@@ -29,6 +29,22 @@ const PKG = path.resolve(HERE, '../..')
 const OUT = path.join(PKG, 'out')
 const DIST = path.join(PKG, 'dist-media')
 const MANIFEST = path.resolve(PKG, '../../apps/web/src/lib/video/manifest.json')
+const YOUTUBE = path.join(DIST, 'youtube.json')
+
+/**
+ * YouTube 태그 — **종류에서 파생시킨다.**
+ *
+ * 손으로 적으면 62편이 제각각이 되고, 그러면 검색에서 한 채널로 안 묶인다.
+ * 자유 문자열을 허용하지 않는 것은 계측 계약(`analytics/events.ts`)과 같은 이유다.
+ */
+const KIND_TAG: Record<string, string> = {
+  intro: '영어학습',
+  benefit: '영어공부법',
+  curriculum: '영어커리큘럼',
+  series: '영어교재',
+  type: '수능영어',
+  module: '영단어암기',
+}
 
 export interface ManifestFormat {
   /** 발행 경로(버킷 안 상대 경로). 아직 안 올렸으면 파일만 있고 url 은 없다. */
@@ -125,6 +141,31 @@ function main(): void {
     })
   }
 
+  // ── YouTube 업로드 명세 ────────────────────────────────────────
+  //
+  // 채널을 만들 때 손으로 62번 제목·설명을 적지 않게 한다. 값은 전부 설계도에서 오므로
+  // 영상이 늘면 이 파일도 같이 는다.
+  //
+  // 정사각은 여기 넣지 않는다 — YouTube 에 올릴 규격이 아니다(피드 광고용).
+  const youtube = videos.map((v) => {
+    const spec = specs.find((s) => s.id === v.id)!
+    return {
+      id: v.id,
+      // 제목을 지어내지 않는다 — 구성요소의 실제 이름 + 브랜드. 낚시 문구는 Calm UI 위반이다.
+      title: `${v.title} — Vocaflow`,
+      description: fs.readFileSync(path.join(DIST, `${v.id}.txt`), 'utf8'),
+      tags: ['Vocaflow', KIND_TAG[v.kind] ?? '영어학습', v.title],
+      captions: `${v.id}.vtt`,
+      thumbnail: `thumb/${v.id}.jpg`,
+      video: v.formats.wide ? `../out/${v.formats.wide.file}` : null,
+      shorts: v.formats.vertical ? `../out/${v.formats.vertical.file}` : null,
+      seconds: v.seconds,
+      /** 설명란에 이미 들어 있지만, 검수할 때 한눈에 보라고 따로 싣는다. */
+      evidence: spec.evidence.map((e) => `${e.label} ${e.value} — ${e.source}`),
+    }
+  })
+  fs.writeFileSync(YOUTUBE, JSON.stringify(youtube, null, 2) + '\n', 'utf8')
+
   const prior = fs.existsSync(MANIFEST)
     ? (JSON.parse(fs.readFileSync(MANIFEST, 'utf8')) as Manifest)
     : null
@@ -142,6 +183,11 @@ function main(): void {
     (missing > 0 ? ` · 아직 안 찍은 규격 ${missing}개` : ''))
   console.log(`   ${path.relative(process.cwd(), MANIFEST)}`)
   console.log(`   자막·설명 → ${path.relative(process.cwd(), DIST)}`)
+  const thumbs = youtube.filter((y) => fs.existsSync(path.join(DIST, y.thumbnail))).length
+  console.log(
+    `   YouTube 명세 ${youtube.length}편 → ${path.relative(process.cwd(), YOUTUBE)}` +
+      (thumbs < youtube.length ? `  ⚠ 썸네일 ${thumbs}/${youtube.length} — video thumbs 를 돌린다` : ''),
+  )
   if (!manifest.baseUrl) {
     console.log('   ⚠ baseUrl 이 없다 — 발행 전이라 앱은 아직 플레이어를 그리지 않는다')
   }

@@ -20,6 +20,7 @@ import type { SourceBundle } from '../catalog/bundle'
 import { FORMATS } from '../spec/format'
 import { applyVoiceTiming, type VoiceManifest } from '../voice/timing'
 import { VideoComposition, specDuration } from './VideoComposition'
+import { THUMB_HEIGHT, THUMB_WIDTH, Thumbnail } from './Thumbnail'
 
 const BRAND = 'VOCAFLOW'
 
@@ -33,7 +34,23 @@ export const Root: React.FC = () => (
       // 음성을 구웠으면 그 **실측 길이**가 컷 길이다. 안 구웠으면 자막 길이 계산으로 간다.
       const spec = applyVoiceTiming(raw, voice)
       const duration = specDuration(spec)
-      return spec.formats.map((format) => {
+      const thumb = (
+        // 썸네일도 설계도에서 나온다 — 손으로 만들면 62장이 제각각이 되고, 하나 고칠 때마다
+        // 62번 고쳐야 한다. 1프레임짜리 컴포지션으로 두면 `renderStill` 이 그려 준다.
+        <Composition
+          key={`${spec.id}--thumb`}
+          id={`${spec.id}--thumb`}
+          component={Thumbnail}
+          durationInFrames={1}
+          fps={30}
+          width={THUMB_WIDTH}
+          height={THUMB_HEIGHT}
+          defaultProps={{ spec, brand: BRAND }}
+        />
+      )
+      return [
+        thumb,
+        ...spec.formats.map((format) => {
         const def = FORMATS[format]
         return (
           <Composition
@@ -46,8 +63,9 @@ export const Root: React.FC = () => (
             height={def.height}
             defaultProps={{ spec, format, voice, brand: BRAND }}
           />
-        )
-      })
+          )
+        }),
+      ]
     })}
   </>
 )
