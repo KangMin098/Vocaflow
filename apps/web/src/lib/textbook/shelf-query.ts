@@ -26,6 +26,8 @@ import type { Inventory } from '@vocaflow/library-pipeline'
 
 import { createClient } from '@/lib/supabase/server'
 
+import { SERIES_CATALOG } from '@vocaflow/library-pipeline/textbook-series-catalog'
+
 import { buildShelf, explainedKey, type Shelf } from './shelf'
 
 /** 교육과정 어휘 태그 → 그 어휘가 받쳐 주는 V-Level. */
@@ -38,9 +40,30 @@ const CURRICULUM_TAG_LEVEL: Record<string, number[]> = {
 /** 초등 3종 — 낱말 하나로 문항 하나를 만들 수 있다(결정론). */
 const ELEMENTARY_TYPES = ['rhyme', 'word_meaning', 'spell_blank'] as const
 
-export async function fetchTextbookShelf(): Promise<Shelf> {
+/**
+ * 한 시리즈의 서가를 읽는다.
+ *
+ * ── 왜 인자가 생겼나 (실측 2026-09-12) ──────────────────────────────
+ * `SERIES_CATALOG` 는 시리즈 **3종**(독해·어휘·구문)을 정의하고 Admin 카탈로그가 그것을
+ * 그리는데, 학습자 매대는 이 함수가 **독해 사다리만** 읽어서 나머지 둘이 **학습자에게
+ * 도달하지 않았다.** 조판을 해도 볼 화면이 없었다 — 막고 있던 것은 재고가 아니라 이 기본값이다.
+ *
+ * ⚠️ **기본값은 독해다.** 옛 호출부(`/text`·`/library/textbooks`·Admin 현황판)가 인자 없이
+ *   부르고 있고, 그쪽이 기대하는 것은 지금 발행 중인 독해 서가다. 기본값을 바꾸면 그 화면들이
+ *   조용히 다른 서가를 그린다.
+ */
+export async function fetchTextbookShelf(seriesId = 'reading'): Promise<Shelf> {
   const client = await createClient()
   const lc = client as unknown as SupabaseClient
+  // 사다리는 카탈로그가 소유한다 — 여기서 짓지 않는다. 모르는 id 면 독해로 떨어지지 않고
+  // **던진다**: 조용히 독해를 그리면 「어휘 서가를 열었는데 독해가 보인다」가 된다.
+  const seriesDef = SERIES_CATALOG.find((s) => s.id === seriesId)
+  if (!seriesDef) {
+    throw new Error(
+      `그런 시리즈가 없다: 「${seriesId}」 — 쓸 수 있는 것: ${SERIES_CATALOG.map((s) => s.id).join(' · ')}`,
+    )
+  }
+  const spine = seriesDef.rungs
 
   const inventory: Array<{ type: string; vLevel: number | null; count: number }> = []
 
@@ -164,7 +187,8 @@ export async function fetchTextbookShelf(): Promise<Shelf> {
     inventory as Inventory,
     sourcesByLevel,
     measured,
-    undefined,
+    // 그 시리즈의 사다리 — 여기가 undefined 이던 동안 매대는 늘 독해였다.
+    spine,
     elementaryMeasured,
     sawExplained ? explainedByTypeLevel : null,
   )
