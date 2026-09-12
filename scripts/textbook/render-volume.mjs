@@ -567,6 +567,34 @@ const passed = card.auto.filter((c) => c.pass).length
 // 해설 수는 인쇄된 문항에서 센다(`answerRows`) — 재고 전량이 아니라 **지면에 실린 것**이다.
 const byBatch = answerRows.filter((a) => a.explanation?.from === 'batch').length
 const byRule = answerRows.filter((a) => a.explanation?.from === 'rule').length
+
+// ── L2 다수·다각 검수 ────────────────────────────────────────────────
+// **문서가 아니라 DB 에 묻는다.** 이 저장소는 "없어진 테이블 목록" 을 믿고 멀쩡한 기능을
+// 고장으로 오해한 적이 있다(루트 CLAUDE.md). 표가 아직 없으면 조회가 42P01 로 실패하는데,
+// 그때는 **0 이 아니라 `null`** 이다 — 「검수 0건」과 「아직 아무도 안 쟀다」는 다른 말이고,
+// 0 으로 적으면 게이트가 전 권을 차단해 「고장」처럼 보인다.
+let reviewedItems = null
+{
+  const ids = printedItems.map((it) => it.id).filter(Boolean)
+  if (ids.length) {
+    const { data, error } = await db
+      .from('csat_item_reviews')
+      .select('item_id, persona')
+      .eq('verdict', 'pass')
+      .in('item_id', ids)
+    if (!error) {
+      // **서로 다른 페르소나**를 센다 — 같은 눈이 세 번 본 것은 다각이 아니다
+      // (기출 드레인의 적재 규약과 같다).
+      const byItem = new Map()
+      for (const r of data ?? []) {
+        if (!byItem.has(r.item_id)) byItem.set(r.item_id, new Set())
+        byItem.get(r.item_id).add(r.persona)
+      }
+      reviewedItems = [...byItem.values()].filter((s) => s.size >= 3).length
+    }
+  }
+}
+
 const gate = judgePublish({
   band: BAND,
   items: answerRows.length,
@@ -577,6 +605,7 @@ const gate = judgePublish({
   cramersV: bias ? bias.cramersV : null,
   proofChecked: proof ? proof.passages : null,
   proofDefective: proof ? proof.defective : null,
+  reviewedItems,
 })
 if (gate.findings.length || gate.unmeasured.length) {
   console.log(`\n발행 게이트 — ${gate.pass ? '통과' : '차단'}`)

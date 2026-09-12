@@ -31,6 +31,7 @@ const CLEAN: PublishGateInput = {
   cramersV: 0.04,
   proofChecked: 60,
   proofDefective: 0,
+  reviewedItems: 60,
 }
 
 describe('judgePublish — 차단', () => {
@@ -145,5 +146,59 @@ describe('조판기가 판정을 집행한다', () => {
     expect(src).toContain('--allow-defects')
     // `ALLOW_DEFECTS = true` 처럼 켜 두면 이 검사가 깨진다.
     expect(src).not.toMatch(/ALLOW_DEFECTS\s*=\s*true/)
+  })
+})
+
+describe('L2 다수·다각 검수 — 근거가 생기면 차단이 된다', () => {
+  /** 기본 픽스처는 표가 아직 없는 상태(`null`)를 쓴다 — 지금의 실제 상태다. */
+  const NO_TABLE: PublishGateInput = { ...CLEAN, reviewedItems: null }
+
+  it('표가 없으면 차단이 아니라 「못 잼」이다', () => {
+    // ⚠️ 0 으로 넘기면 전 권이 차단된다 — 그건 사실이 아니라 아직 안 쟀다는 뜻이다.
+    const v = judgePublish(NO_TABLE)
+    expect(v.pass).toBe(true)
+    expect(v.blocked).toHaveLength(0)
+    expect(v.unmeasured.join(' ')).toContain('3인 검수')
+    expect(v.unmeasured.join(' ')).toContain('csat_item_reviews')
+  })
+
+  it('표가 생기고 검수가 모자라면 막는다', () => {
+    const v = judgePublish({ ...CLEAN, reviewedItems: 12 })
+    expect(v.pass).toBe(false)
+    expect(v.blocked.map((f) => f.label)).toContain('3인 검수 미완')
+    expect(v.blocked.find((f) => f.label === '3인 검수 미완')?.detail).toContain('12/60')
+    expect(v.blocked.find((f) => f.label === '3인 검수 미완')?.detail).toContain('48문항')
+  })
+
+  it('실릴 문항 전부가 3인을 받으면 통과한다', () => {
+    const v = judgePublish({ ...CLEAN, reviewedItems: 60 })
+    expect(v.pass).toBe(true)
+    expect(v.unmeasured.join(' ')).not.toContain('3인 검수')
+  })
+
+  it('0문항 권에는 3인 검수를 묻지 않는다 — 지면에 없는 것을 검수할 수 없다', () => {
+    const v = judgePublish({ ...CLEAN, items: 0, explained: 0, reviewedItems: 0 })
+    expect(v.blocked.map((f) => f.label)).not.toContain('3인 검수 미완')
+  })
+})
+
+describe('조판기가 페르소나를 「서로 다른 3인」으로 센다', () => {
+  const src = readFileSync(RENDERER, 'utf8')
+
+  it('검수 기록을 읽는다', () => {
+    expect(src).toContain('csat_item_reviews')
+    expect(src).toContain("eq('verdict', 'pass')")
+  })
+
+  it('같은 페르소나를 여러 번 세지 않는다 — Set 으로 모은다', () => {
+    // 배열 길이로 세면 한 사람이 세 번 본 것이 「3인 검수」가 된다.
+    expect(src).toMatch(/new Set\(\)/)
+    expect(src).toMatch(/\.size >= 3/)
+  })
+
+  it('표가 없으면 0 이 아니라 null 을 넘긴다', () => {
+    expect(src).toMatch(/let reviewedItems = null/)
+    // error 가 있으면 대입하지 않는다 — `if (!error)` 안에서만 센다.
+    expect(src).toContain('if (!error)')
   })
 })

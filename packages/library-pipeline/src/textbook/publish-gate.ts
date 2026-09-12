@@ -66,6 +66,21 @@ export interface PublishGateInput {
   proofChecked: number | null
   /** 그중 결함이 있는 지문 수. */
   proofDefective: number | null
+  /**
+   * 그 권에 실릴 문항 중 **서로 다른 페르소나 3인 이상이 통과시킨** 수.
+   *
+   * ── 왜 이 축이 여기 있어야 하는가 (실측 2026-09-12) ──────────────────
+   * 검증이 **거꾸로 걸려 있었다.** 학습자에게 가지 않는 기출 분석은 3인 검수를 6,702행
+   * 받았는데(분석 2,234건 × 정확히 3인), 학습자가 실제로 받는 책의 문항 **1,860개**
+   * (조판된 19권)는 **0건**이었다 — 담을 표(`csat_item_reviews`)가 없었기 때문이다.
+   * 검수 화면의 「L2 3인 페르소나」 눈금은 기출 쪽 수를 세고 있어서, 교재 쪽 구멍을
+   * 아무도 못 봤다.
+   *
+   * ⚠️ **표가 없으면 `null`** — 0 이 아니다. 0 으로 넘기면 게이트가 「전 권 차단」을 내고,
+   *   그건 사실이 아니라 **아직 아무도 안 쟀다**는 뜻이다. 이 저장소가 이미 당한 함정이다.
+   *   표가 생기고 나서야 이 축은 차단이 된다 — 근거가 생기는 순간 게이트가 조여진다.
+   */
+  reviewedItems: number | null
 }
 
 export interface PublishGateVerdict {
@@ -117,6 +132,24 @@ export function judgePublish(input: PublishGateInput): PublishGateVerdict {
       label: '자동 검수 미통과',
       detail: `떨어진 항목 ${input.failedChecks.length}개 — ${input.failedChecks.join(' · ')}`,
       fix: `pnpm dlx tsx scripts/textbook/build-volume.mjs --band ${input.band} --units 20`,
+    })
+  }
+
+  // ── L2 다수·다각 검수 — 근거가 생기면 차단이 된다 ──────────────────
+  //
+  // 기출 쪽과 같은 규약을 쓴다: **서로 다른 페르소나 3인 이상이 pass** 해야 한 문항이
+  // 검수를 받은 것이다(`analysis-drain-import.mjs` 가 3인 미달을 적재에서 거부한다).
+  // 한 사람이 세 번 본 것은 다각이 아니라 같은 눈이 세 번 본 것이다.
+  if (input.reviewedItems == null) {
+    unmeasured.push('3인 검수 — 교재 문항 검수 기록을 담을 표가 없다(csat_item_reviews)')
+  } else if (input.items > 0 && input.reviewedItems < input.items) {
+    findings.push({
+      severity: 'block',
+      label: '3인 검수 미완',
+      detail:
+        `${input.reviewedItems}/${input.items} — ` +
+        `${input.items - input.reviewedItems}문항이 페르소나 3인 통과를 못 받았다`,
+      fix: `pnpm dlx tsx scripts/textbook/item-review-drain-export.mjs --band ${input.band} --volume 20`,
     })
   }
 
