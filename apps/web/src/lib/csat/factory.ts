@@ -617,7 +617,7 @@ export async function loadFactoryLine(): Promise<FactoryLine> {
           },
           {
             cmd: 'pnpm dlx tsx scripts/textbook/render-volume.mjs --band 6 --units 20 --out volume-v6.html',
-            why: '문제편·정답편·해설을 한 HTML 로 낸다 — 지정한 파일을 덮어쓴다',
+            why: '문제편·정답편·해설을 한 HTML 로 낸다 — 해설 누락·자동 검수 미통과면 **거절한다**(파일도 기록도 안 남는다). 통과하면 지정한 파일을 덮어쓴다',
             writes: true,
           },
         ],

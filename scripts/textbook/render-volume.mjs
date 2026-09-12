@@ -31,6 +31,10 @@ const BAND = Number(arg('band') ?? 5)
 // 어느 시리즈의 권인가. 기본은 독해 — 옛 명령이 그대로 돈다.
 const SERIES = arg('series') ?? 'reading'
 const OUT = arg('out') ?? `volume-v${BAND}.html`
+// ⚠️ **기본값이 false 여야 게이트다.** 해설이 빠졌거나 자동 검수가 떨어진 권은 조판물을
+//   내지 않는다(실측 2026-09-12 이전에는 전부 그냥 나왔다). 그래도 내야 할 때만 이 플래그로
+//   명시한다 — 그때는 조판 기록에 `gate.forced` 로 남아 통과한 권과 구별된다.
+const ALLOW_DEFECTS = process.argv.includes('--allow-defects')
 
 const { createClient } = await import('@supabase/supabase-js')
 const {
@@ -65,6 +69,11 @@ const {
   renderVolumeDocument,
   // 적격 판정을 조판 쪽에서도 읽는다 — 「문항 없는 원글」을 판정 통과분과 대기분으로 가른다.
   isComposable,
+  // 발행 게이트 — **판정을 집행한다.** 이 셋이 붙기 전에는 검수를 돌려 찍기만 하고
+  // 결함 있는 권을 그대로 냈다(`publish-gate.ts` 머리 주석).
+  judgePublish,
+  formatGate,
+  gateRecord,
 } = await import('@vocaflow/library-pipeline')
 
 // ⚠️ **단원 수를 바꾸면 유형-학년 적합도가 바뀐다** — 목표 몫은 인쇄 문항 수에 비례하는데
@@ -548,6 +557,44 @@ for (const u of units) {
 }
 
 const passed = card.auto.filter((c) => c.pass).length
+
+// ── 발행 게이트 ───────────────────────────────────────────────────────
+// **판정을 집행하는 자리.** 여기가 없던 동안(2026-09-12 실측) 이 스크립트는 자동 검수·쏠림·
+// 교정·해설을 전부 돌려 터미널에 찍은 뒤 **그대로 HTML 을 쓰고 조판 기록을 남겼다** —
+// `process.exit` 도 `throw` 도 0건이었다. 게이트는 현황판·발주 화면의 판정으로만 살아 있어서,
+// 화면을 안 보고 명령만 돌리면 해설 빠진 권이 그냥 나왔다.
+//
+// 해설 수는 인쇄된 문항에서 센다(`answerRows`) — 재고 전량이 아니라 **지면에 실린 것**이다.
+const byBatch = answerRows.filter((a) => a.explanation?.from === 'batch').length
+const byRule = answerRows.filter((a) => a.explanation?.from === 'rule').length
+const gate = judgePublish({
+  band: BAND,
+  items: answerRows.length,
+  explained: byBatch + byRule,
+  failedChecks: card.auto.filter((c) => !c.pass).map((c) => c.label),
+  // 못 쟀으면 null 을 넘긴다 — false(괜찮다)로 뭉개면 거짓 초록이 된다.
+  answerBiased: bias ? bias.biased : null,
+  cramersV: bias ? bias.cramersV : null,
+  proofChecked: proof ? proof.passages : null,
+  proofDefective: proof ? proof.defective : null,
+})
+if (gate.findings.length || gate.unmeasured.length) {
+  console.log(`\n발행 게이트 — ${gate.pass ? '통과' : '차단'}`)
+  for (const line of formatGate(gate)) console.log(line)
+}
+if (!gate.pass && !ALLOW_DEFECTS) {
+  // ⚠️ **쓰기 전에 끊는다.** 뒤에서 끊으면 결함 있는 HTML 이 디스크에 남아, 다음 사람이
+  //   그 파일을 열어 「조판됐다」고 읽는다. 조판 기록도 남기지 않는다.
+  console.log(
+    `\n⛔ 조판하지 않았다 — 위 차단 ${gate.blocked.length}건을 푼 뒤 다시 돌린다.` +
+      `\n   그래도 내야 하면 --allow-defects (조판 기록에 forced 로 남는다).`,
+  )
+  process.exit(1)
+}
+if (!gate.pass && ALLOW_DEFECTS) {
+  console.log('\n⚠️ --allow-defects — 차단을 우회해 조판한다. 조판 기록에 forced 로 남는다.')
+}
+
 const colophon = buildColophon({
   title: rung?.volumeTitle ?? `${seriesDef.brand} V${BAND}`,
   step: rung?.step ?? null,
@@ -676,8 +723,7 @@ if (closedTypes.length && SERIES === 'reading') {
 for (const c of card.auto.filter((x) => !x.pass)) {
   console.log(`  ❌ ${c.label}${c.detail ? ` — ${c.detail}` : ''}`)
 }
-const byBatch = answerRows.filter((a) => a.explanation?.from === 'batch').length
-const byRule = answerRows.filter((a) => a.explanation?.from === 'rule').length
+// 해설 수는 **발행 게이트에서 이미 셌다** — 여기서 다시 세면 두 곳이 갈릴 수 있다.
 console.log(
   `해설 ${byBatch + byRule}/${answerRows.length} — 배치 ${byBatch} · 규칙 ${byRule} · ` +
     `없음 ${answerRows.length - byBatch - byRule}`,
@@ -738,6 +784,9 @@ const record = {
           }
         : null,
       proofread: { passages: proof.passages, defective: proof.defective, byRule: proof.byRule },
+      // ⚠️ **우회로 나온 권을 통과와 같은 모양으로 적으면 나중에 구별이 안 된다.**
+      //   `forced: true` 인 권은 「검수를 받은 권」이 아니다 — 화면이 그것을 말할 수 있어야 한다.
+      gate: gateRecord(gate, ALLOW_DEFECTS),
     },
   },
   out_path: path.resolve(OUT),

@@ -974,6 +974,17 @@ export {
 } from './textbook/apparatus'
 export type { ApparatusKey, ApparatusSpec } from './textbook/apparatus'
 
+// ── 발행 게이트 — 조판기가 자기 판정을 집행한다 ───────────────────────────────
+// 판정만 하는 순수 함수다. 우회(`--allow-defects`)는 부르는 쪽의 일이다 —
+// 근거와 차단/경고를 가른 이유는 `textbook/publish-gate.ts` 머리 주석.
+export { judgePublish, formatGate, gateRecord } from './textbook/publish-gate'
+export type {
+  GateSeverity,
+  GateFinding,
+  PublishGateInput,
+  PublishGateVerdict,
+} from './textbook/publish-gate'
+
 // ── 권 서지 — 구성요소를 화면이 아니라 파이프라인이 만든다 ────────────────────
 // 순수 함수다(DB 를 읽지 않는다). 근거는 `textbook/dossier.ts` 머리 주석.
 export { buildDossier, SKELETON_ITEMS_PER_UNIT } from './textbook/dossier'
