@@ -1014,9 +1014,30 @@ set id 만 알면 구독됐다. **화면 게이트는 노출 경계의 증거가
 
 ---
 
+### 영상 (2026-09-13 적용)
+
+`packages/video-factory` 가 찍은 영상을 학습자·교사에게 내보내는 두 조각.
+
+| | |
+|---|---|
+| `storage.buckets.video` | **공개**(public=true) · 200MB/파일 · `video/mp4` `image/jpeg` `text/vtt` `text/plain` |
+| 정책 3 | `video_public_read`(누구나 SELECT) · `video_admin_write` · `video_admin_update` |
+| `funnel_events_event_check` | `video_started` · `video_completed` 추가 (17 → 19종) |
+
+⚠️ **왜 공개 버킷인가**: 이 영상의 첫 독자는 로그인하지 않은 **교사**다
+(허용 CAC ₩400 → 교사→학급 경로만 성립, `PLATFORM_AUDIT.md`). 로그인 뒤에 두면
+"말하지 말고 증명하라" 의 증명이 다시 문 뒤로 들어간다. 만화 버킷(`comic`)과 같은 판단이다.
+
+⚠️ **왜 허용목록을 같이 고쳤나**: 수신구(`/api/analytics/event`)는 계측이 화면을 깨뜨리지
+않도록 **어떤 실패에도 204** 를 준다. 코드에만 이름을 늘리면 그 이벤트는 한 건도 안 쌓이면서
+아무도 눈치채지 못한다 — 이 저장소가 두 번 겪은 사고다. 회귀
+`analytics/__tests__/db-allowlist.integration.test.ts` 가 **실제로 넣어 보며** 지킨다.
+
 ## 최근 마이그레이션 (20개)
 
 ```
+20260913000100  video_bucket                               ← 공개 Storage 버킷 `video` + 정책 3 (아래 참조)
+20260912235900  funnel_events_video                        ← 영상 관측 2종을 허용목록에 (없으면 조용히 버려진다)
 20260906093000  grade_dcp_item_explain_on_correct          ← 정답일 때도 해설을 돌려준다
 20260906080000  idx_dcp_items_ref_id                       ← (ref_id, id) 31 MB
 20260906030000  funnel_events_allow_missing_events         ← 없는 이벤트를 0 으로 세지 않는다

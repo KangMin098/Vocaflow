@@ -214,11 +214,12 @@ video render-all → video package → video publish → (manifest 커밋) → �
 두 곳에 적으면 갈리고, 갈려도 **오류가 안 난다**(영상만 조용히 사라진다).
 회귀 `apps/web/src/lib/video/__tests__/catalog.test.ts` 가 앱 쪽에 id 문자열이 다시 적히는 것을 막는다.
 
-### 적용 대기 중인 마이그레이션 2건
+### 마이그레이션 2건 — **적용 완료 (2026-09-13, 승인 후)**
 
-자동 적용하지 않는다(CLAUDE.md). 사람이 승인해야 한다.
-
-| 파일 | 없으면 생기는 일 |
+| 파일 | 무엇을 열었나 |
 |---|---|
-| `20260912235900_funnel_events_video.sql` | `video_started`·`video_completed` 가 **한 건도 안 쌓인다.** 수신구가 어떤 실패에도 204 를 주므로 아무도 눈치 못 챈다(이 저장소가 두 번 겪은 사고). 회귀 `db-allowlist.integration.test.ts` 가 실패하는 것으로 표시된다 |
-| `20260913000100_video_bucket.sql` | 발행할 곳이 없다. `publish` 가 **무엇이 없는지 말하고 멈춘다** |
+| `20260912235900_funnel_events_video.sql` | `video_started`·`video_completed` 를 `funnel_events_event_check` 에 추가(17 → 19종). 없었다면 수신구가 204 를 주며 **한 건도 안 쌓였다** |
+| `20260913000100_video_bucket.sql` | 공개 버킷 `video` + 정책 3(`video_public_read` · `video_admin_write` · `video_admin_update`) |
+
+확인: 버킷 1 · 정책 3 · 허용목록 통과 · 계측 회귀 57/57.
+상세는 [DB_SCHEMA.md](./DB_SCHEMA.md) §영상.
