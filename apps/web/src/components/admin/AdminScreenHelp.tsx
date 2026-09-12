@@ -23,7 +23,7 @@ import { AlertTriangle, ChevronDown, CircleHelp, ExternalLink, Terminal } from '
 import Link from 'next/link'
 
 import { HELP_REGISTRY } from '@/lib/admin/help'
-import type { ScreenHelp } from '@/lib/admin/help/types'
+import type { HelpActor, HelpDiagram, HelpNode, ScreenHelp } from '@/lib/admin/help/types'
 
 const STORE = 'vocaflow-admin-help-open'
 
@@ -115,8 +115,161 @@ function Cautions({ items }: { items: readonly string[] }) {
   )
 }
 
-/** 도움말 본문 한 덩이 — 화면 단위든 탭 단위든 같은 모양으로 그린다. */
-function HelpBody({ body }: { body: ScreenHelp }) {
+/* ─────────────────────────── 도식 ─────────────────────────── */
+
+const ACTOR: Record<HelpActor, { label: string; mark: string }> = {
+  script: { label: '스크립트', mark: '>_' },
+  claude: { label: 'Claude Code', mark: '✦' },
+  user: { label: '사람', mark: '◉' },
+  auto: { label: '자동', mark: '⟳' },
+}
+
+/**
+ * 상태 — **색 + 기호 + 글자 셋을 함께** 낸다.
+ *
+ * 색만 쓰지 않는 이유는 실측이다: 공정 4색을 팔레트 검증기에 넣으면 「통과(초록)」와
+ * 「몫 남음(주황)」의 색약 분리가 ΔE 7.8(protan)로 경고 대역이다. 현황판의 라인 도식이
+ * 같은 이유로 모양을 갈랐고, 도움말도 같은 규약을 쓴다.
+ */
+const STATE: Record<NonNullable<HelpNode['state']>, { label: string; color: string; mark: string }> = {
+  pass: { label: '통과', color: '#2E7D5A', mark: '●' },
+  short: { label: '몫 남음', color: '#B5803A', mark: '◐' },
+  blocked: { label: '막힘', color: '#9C3A30', mark: '■' },
+  unmeasured: { label: '못 잼', color: '#8A8278', mark: '○' },
+}
+
+function NodeCard({ n }: { n: HelpNode }) {
+  const st = n.state ? STATE[n.state] : null
+  const ac = n.actor ? ACTOR[n.actor] : null
+  return (
+    <div
+      className="flex min-w-0 flex-1 flex-col gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] p-2"
+      style={st ? { borderColor: `${st.color}66` } : undefined}
+    >
+      <p className="flex items-center gap-1 break-keep font-display text-[12px] font-[700] leading-snug text-[var(--t1)]">
+        {st && (
+          <span aria-hidden className="shrink-0 text-[11px]" style={{ color: st.color }}>
+            {st.mark}
+          </span>
+        )}
+        {n.label}
+      </p>
+      {/* 라벨이 이미 그 상태 이름이면 두 번 적지 않는다 — 기호표에서 「통과 / 통과」가 된다. */}
+      {st && st.label !== n.label && (
+        <span className="font-mono text-[10px] font-[700]" style={{ color: st.color }}>
+          {st.label}
+        </span>
+      )}
+      {n.says && (
+        <p className="break-keep font-body text-[11px] leading-[1.55] text-[var(--t2)]">{n.says}</p>
+      )}
+      {ac && (
+        <span className="mt-auto inline-flex w-fit items-center gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-1 py-0.5 font-mono text-[9.5px] font-[700] text-[var(--t3)]">
+          <span aria-hidden>{ac.mark}</span>
+          {ac.label}
+        </span>
+      )}
+    </div>
+  )
+}
+
+/**
+ * 도식 하나.
+ *
+ * ⚠️ **가로 스크롤은 이 그림 안에서만 난다.** 칸이 여덟이면 390px 에 안 들어가는데,
+ *   본문이 옆으로 밀리면 화면 전체가 망가진다(CLAUDE.md 모바일 퍼스트). 그래서 흐름은
+ *   좁은 화면에서 **세로로 쌓고**(화살표도 아래를 가리킨다) 넓어지면 가로로 눕는다.
+ */
+function Diagram({ d }: { d: HelpDiagram }) {
+  return (
+    <figure className="m-0 mt-3 flex flex-col gap-2 rounded-[var(--r-md)] border border-[#8B5CF6]/20 bg-[var(--bg)]/60 p-3">
+      <figcaption className="break-keep font-display text-[11.5px] font-[800] text-[var(--t2)]">
+        {d.caption}
+      </figcaption>
+
+      <div className="flex flex-col items-stretch gap-1.5 sm:flex-row sm:items-stretch">
+        {d.nodes.map((n, i) => (
+          <div key={n.label} className="flex min-w-0 flex-1 flex-col items-stretch gap-1.5 sm:flex-row">
+            {i > 0 && d.kind === 'flow' && (
+              <span
+                aria-hidden
+                className="self-center font-mono text-[12px] leading-none text-[var(--t3)] sm:self-center"
+              >
+                <span className="sm:hidden">↓</span>
+                <span className="hidden sm:inline">→</span>
+              </span>
+            )}
+            <NodeCard n={n} />
+          </div>
+        ))}
+      </div>
+
+      {d.kind === 'flow' && d.branch && d.branch.length > 0 && (
+        <ul className="flex flex-col gap-1">
+          {d.branch.map((b) => (
+            <li
+              key={b.when}
+              className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 break-keep border-l-2 border-[var(--bd)] pl-2 font-body text-[11.5px] leading-[1.55] text-[var(--t2)]"
+            >
+              <span className="font-mono text-[10px] font-[700] text-[var(--t3)]">{b.when}</span>
+              <span>{b.then}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {d.kind === 'flow' && d.loop && (
+        <p className="flex items-start gap-1.5 break-keep font-body text-[11.5px] leading-[1.55] text-[var(--t2)]">
+          <span aria-hidden className="font-mono text-[12px] text-[#8B5CF6]">
+            ↺
+          </span>
+          {d.loop}
+        </p>
+      )}
+    </figure>
+  )
+}
+
+/**
+ * 접히는 절 — **글자의 77%가 여기 있다**(실측 2026-09-12: `fields` 41% · `drain` 36%).
+ *
+ * 지우지 않고 접는다. 그 안에는 실측 근거와 사고 기록이 들어 있어서, 지우면 다음 사람이
+ * 같은 사고를 다시 낸다. 다만 **열었을 때 먼저 오는 것**이 그 벽이어서는 안 된다.
+ *
+ * `<details>` 를 쓰는 이유: 키보드·스크린리더가 그냥 되고, JS 상태가 하나도 안 늘고,
+ * `renderToString` 으로 **닫힌 상태의 글자 수를 잴 수 있다**(회귀가 그것을 잰다).
+ */
+function Fold({
+  label,
+  count,
+  children,
+}: {
+  label: string
+  count: number
+  children: React.ReactNode
+}) {
+  return (
+    <details className="mt-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)]/50">
+      <summary className="flex min-h-[44px] cursor-pointer list-none items-center gap-2 px-3 font-display text-[12px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] motion-reduce:transition-none">
+        <ChevronDown size={13} aria-hidden className="shrink-0" />
+        {label}
+        <span className="font-mono text-[10.5px] font-[400] text-[var(--t3)]">{count}</span>
+      </summary>
+      <div className="px-3 pb-3">{children}</div>
+    </details>
+  )
+}
+
+/**
+ * 도움말 본문 한 덩이 — 화면 단위든 탭 단위든 같은 모양으로 그린다.
+ *
+ * ⚠️ **내보내는 이유는 회귀 때문이다.** 패널 전체(`AdminScreenHelp`)는 `useState(false)` 로
+ * 시작하므로 `renderToString` 이 늘 **닫힌 버튼만** 그린다 — 그 결과로는 「열었을 때 보이는
+ * 글자」를 잴 수 없고, 없는 문자열을 「없다」고 확인하는 빈 검사가 된다. 본문을 따로 내보내면
+ * 접힘이 실제로 닫혀 있는지, 그림이 산문보다 위에 오는지를 **렌더 결과로** 잰다
+ * (`help-diagram.test.ts`).
+ */
+export function HelpBody({ body }: { body: ScreenHelp }) {
   return (
     <>
       <p className="mt-1.5 font-body text-[13.5px] leading-[1.7] text-[var(--t1)]">{body.summary}</p>
@@ -126,6 +279,10 @@ function HelpBody({ body }: { body: ScreenHelp }) {
           {body.when}
         </p>
       )}
+
+      {/* 산문보다 **위에** 그린다 — 관리자가 묻는 「지금 어느 칸이고 다음은 무엇인가」가
+          4,000자 안에 섞여 있던 것이 이 화면의 원래 문제였다. */}
+      {body.diagrams?.map((d) => <Diagram key={d.caption} d={d} />)}
 
       {body.steps && body.steps.length > 0 && (
         <ol className="mt-3 flex flex-col gap-2">
@@ -152,18 +309,21 @@ function HelpBody({ body }: { body: ScreenHelp }) {
       )}
 
       {body.fields && body.fields.length > 0 && (
-        <dl className="mt-3 grid gap-x-4 gap-y-2 sm:grid-cols-[max-content_1fr]">
-          {body.fields.map((f) => (
-            <div key={f.label} className="contents">
-              <dt className="font-display text-[12.5px] font-[700] text-[var(--t1)]">{f.label}</dt>
-              <dd className="font-body text-[12.5px] leading-[1.7] text-[var(--t2)]">{f.detail}</dd>
-            </div>
-          ))}
-        </dl>
+        <Fold label="지표·버튼이 뜻하는 것" count={body.fields.length}>
+          <dl className="grid gap-x-4 gap-y-2 sm:grid-cols-[max-content_1fr]">
+            {body.fields.map((f) => (
+              <div key={f.label} className="contents">
+                <dt className="font-display text-[12.5px] font-[700] text-[var(--t1)]">{f.label}</dt>
+                <dd className="font-body text-[12.5px] leading-[1.7] text-[var(--t2)]">{f.detail}</dd>
+              </div>
+            ))}
+          </dl>
+        </Fold>
       )}
 
       {body.drain && (
-        <section className="mt-3 rounded-[var(--r-md)] border border-[#B0843A]/35 bg-[#B0843A]/[0.06] p-3">
+        <Fold label="Claude Code 드레인 절차" count={body.drain.procedure.length}>
+        <section className="rounded-[var(--r-md)] border border-[#B0843A]/35 bg-[#B0843A]/[0.06] p-3">
           <h3 className="flex items-center gap-2 font-display text-[12.5px] font-[800] text-[var(--t1)]">
             <Terminal size={13} aria-hidden className="text-[#B0843A]" />
             Claude Code 드레인 절차
@@ -221,8 +381,12 @@ function HelpBody({ body }: { body: ScreenHelp }) {
             </>
           )}
         </section>
+        </Fold>
       )}
 
+      {/* ⚠️ **경고는 접지 않는다.** 접는 기준은 「길이」가 아니라 「안 읽으면 무슨 일이
+          벌어지는가」다 — 여기 있는 것은 전부 실제로 사고가 난 지점이고(이 저장소의 작성
+          원칙), 안 보이면 그 사고가 다시 난다. 글자의 15%를 차지하지만 그 값은 낸다. */}
       {body.cautions && body.cautions.length > 0 && <Cautions items={body.cautions} />}
       {body.seeAlso && body.seeAlso.length > 0 && <SeeAlso items={body.seeAlso} />}
     </>

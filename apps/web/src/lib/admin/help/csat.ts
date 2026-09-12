@@ -17,6 +17,33 @@ export const CSAT_HELP: HelpRegistry = {
       summary:
         '이미 준비된 자산(기출 분석 · 시중 교재 코퍼스 · 유형 정본 · 브랜드/시리즈 · 문항 재고)을 **한 권 기준으로 모아** 네 걸음으로 편다. 마지막에 나오는 것은 **인자가 다 채워진 조판 명령 한 줄**이다.',
       when: '한 권을 내기로 정했을 때. 「공장이 지금 어떤가」가 궁금하면 현황판, 「무엇을 파는가」가 궁금하면 카탈로그로 간다.',
+      diagrams: [
+        {
+          kind: 'flow',
+          caption: '네 걸음 — 마지막에 나오는 것은 명령 한 줄이다',
+          nodes: [
+            { label: '① 무엇을', actor: 'user', says: '시리즈 셋 중 하나 · 그 시리즈의 단' },
+            { label: '② 무엇으로', actor: 'auto', says: '그 권이 쓰는 유형의 재고·해설·근거' },
+            { label: '③ 규격', actor: 'user', says: '브랜드 · 단원 수 · 문항 수 · 표지' },
+            { label: '④ 발주', actor: 'auto', says: '관문 넷을 판정한다' },
+          ],
+          branch: [
+            { when: '막혔다', then: '처음 막힌 관문 하나의 채우는 명령만 펼친다' },
+            { when: '넷 다 넘었다', then: '인자가 다 채워진 조판 명령이 나온다' },
+          ],
+          loop: '명령을 돌린 뒤 다시 ④ 로 온다 — 재고는 30분 집계라 바로 안 늘 수 있다.',
+        },
+        {
+          kind: 'flow',
+          caption: '관문 넷 — 순서가 곧 인과다',
+          nodes: [
+            { label: '문항 60', says: '재고가 한 권 몫에 닿았나' },
+            { label: '배합', says: '쓰는 유형 중 재고 0인 것이 없나' },
+            { label: '해설 60', says: '문항이 없으면 해설이 있을 수 없다' },
+            { label: '근거', says: '평가원 대응이 없는 축은 통과다' },
+          ],
+        },
+      ],
       steps: [
         {
           title: '① 무엇을',
@@ -81,6 +108,20 @@ export const CSAT_HELP: HelpRegistry = {
       summary:
         '**행이 시리즈, 열이 학령이고 한 칸이 한 권**이다. 시중이 파는 단위가 시리즈라서 그렇다 — 서점에 있는 것은 「독해 고1」이 아니라 「리딩튜터 주니어 Level 2」이고, 한 브랜드가 학령 전체를 계단으로 잇는다. 공정 8칸이 「공장이 어떤 상태인가」를 말한다면 여기는 **「무엇을 파는가」**를 말한다.',
       when: '무엇을 만들지 정할 때. 그리고 배치를 돌리기 전에 — 어느 권을 겨냥하는지 정해야 헛일을 안 한다.',
+      diagrams: [
+        {
+          kind: 'keys',
+          caption: '칸 하나가 한 권 — 기호가 그 권의 상태다',
+          nodes: [
+            { label: '● 냈음', says: '조판 기록이 있다' },
+            { label: '○ 찍으면 됨', says: '재고·해설 다 찼는데 안 찍었다' },
+            { label: '◐ 해설 모자람', says: '문항은 찼고 해설이 60에 못 미친다' },
+            { label: '◔ 문항 모자람', says: '한 권 몫 60에 못 미친다' },
+            { label: '· 단 없음', says: '결함 아님 — 그 시리즈에 그 학령 단이 없다' },
+            { label: '? 못 잼', says: '0 이 아니라 조회가 빈손으로 왔다' },
+          ],
+        },
+      ],
       fields: [
         {
           label: '⚠️ 축이 바뀌었다 (2026-09-06)',
@@ -143,6 +184,29 @@ export const CSAT_HELP: HelpRegistry = {
       summary:
         '시중 교재 제작 공정(기획 → 설계 → 소재 → 집필 → 해설 → 검수 → 조판)을 그대로 8칸으로 세우고, 칸마다 실측 눈금·게이트·다음에 돌릴 명령을 함께 보여 준다. 조작 버튼은 없다 — 각 칸을 채우는 것은 Claude Code 배치이고, 이 화면은 그 배치를 어디에 돌릴지 정하는 자리다.',
       when: '배치를 한 번 돌린 뒤, 또는 하루를 시작하며 "오늘 무엇을 돌릴까" 를 정할 때.',
+      diagrams: [
+        {
+          kind: 'flow',
+          caption: '이 화면을 읽는 순서 — 조작 버튼은 없다',
+          nodes: [
+            { label: '막힌 곳 한 줄', says: '가장 앞선 막힌 공정. 여기부터 푼다' },
+            { label: '라인 도식', says: '여덟 칸을 색 + 모양 + 글자로' },
+            { label: '고른 칸 상세', says: '눈금 · 게이트 · 다음에 돌릴 명령' },
+            { label: '명령 복사', actor: 'script', says: '터미널에 붙인다 — 웹에서 안 끝난다' },
+          ],
+          loop: '아래 「제작 단계」 표는 축이 다르다 — 공정은 공장 전체, 그 표는 권마다.',
+        },
+        {
+          kind: 'keys',
+          caption: '상태 넷 — 색만으로 가르지 않는다',
+          nodes: [
+            { label: '통과', state: 'pass', says: '게이트를 넘었다' },
+            { label: '몫 남음', state: 'short', says: '재고는 있는데 목표에 못 닿았다' },
+            { label: '막힘', state: 'blocked', says: '분자가 0 — 시작도 못 했다' },
+            { label: '못 잼', state: 'unmeasured', says: '실패가 아니라 안 잰 것. 0 과 다르다' },
+          ],
+        },
+      ],
       fields: [
         {
           label: '병목',
@@ -280,6 +344,18 @@ export const CSAT_HELP: HelpRegistry = {
       summary:
         '시중 교재와 7축으로 견주어 「120% 우위」가 실제로 성립하는지 출판사마다 따로 판정한다. 합본 평균이 아니라 **가장 낮은 출판사(구속점)** 로 판정하는 화면이다.',
       when: '새 밴드를 열기 전, 또는 벤치마크를 다시 돌린 뒤. 「우위」를 주장하는 문서를 쓰기 직전에도 여기를 본다.',
+      diagrams: [
+        {
+          kind: 'flow',
+          caption: '「우위」를 주장하기 전에 거치는 세 걸음',
+          nodes: [
+            { label: '출판사별로 잰다', actor: 'script', says: '합본 평균은 쪽수 가중이라 패배를 감춘다' },
+            { label: '구속점을 읽는다', actor: 'auto', says: '가장 낮은 출판사 지수가 그 권의 천장' },
+            { label: '리포트 갱신', actor: 'script', says: '문서에 숫자를 손으로 적지 않는다' },
+          ],
+          loop: '지수가 목표에 안 닿는 원인이 증거일 수 있다 — 코퍼스에 해설 문서가 없는 출판사가 있다.',
+        },
+      ],
       fields: [
         {
           label: '구속점',
@@ -382,6 +458,19 @@ export const CSAT_HELP: HelpRegistry = {
       summary:
         '원고를 쓰기 전에 정하는 표 — **어느 학년(연령)에 · 어느 수준(V-Level)으로 · 어느 유형을** 낼 것인가. 이 표가 없으면 집필이 있는 소재대로 흘러가고 학년별 난이도 사다리가 들쭉날쭉해진다.',
       when: '새 학년대를 열 때, 계단이 끊겼다는 보고를 받았을 때, 게이트 임계를 손대기 전.',
+      diagrams: [
+        {
+          kind: 'flow',
+          caption: '분류표가 서는 순서 — 선언과 생산이 어긋나면 여기서 보인다',
+          nodes: [
+            { label: '학령 사다리 7단', says: '한 단이 한 권 — 단마다 학령·V-Level' },
+            { label: '단별 허용 유형', says: '그 단이 쓰기로 한 유형의 배합' },
+            { label: '생산 가능 확인', actor: 'auto', says: '선언했는데 재고 0인 유형이 있나' },
+            { label: '단계 게이트 임계', says: 'S1~S5 임계가 정의됐나' },
+          ],
+          loop: '선언만 하고 못 만드는 유형이 있으면 그 단의 권은 반쪽이 된다 — 집필(⑤)이 그 몫이다.',
+        },
+      ],
       fields: [
         {
           label: '빈 칸 (회색 점선)',
@@ -422,6 +511,19 @@ export const CSAT_HELP: HelpRegistry = {
       summary:
         '단계 밴드(S1~S5) × 수준별로 쓸 수 있는 지문이 몇 편인지 본다. 시중은 여기서 섭외비를 쓰고, 우리는 공개 도메인·개방 접근에서 수확하므로 대신 **수율**이 든다.',
       when: '어느 밴드의 책이 안 만들어질 때. 문항을 아무리 만들어도 그 학년 권이 안 차면 원인이 대개 여기다.',
+      diagrams: [
+        {
+          kind: 'flow',
+          caption: '지문이 밴드에 들어오는 길',
+          nodes: [
+            { label: '수확', actor: 'script', says: '개방 접근·PD 에서 긁어 온다' },
+            { label: '규격 판정', actor: 'auto', says: '어수창 · 어휘 커버리지 · 자립성' },
+            { label: '밴드 배정', says: '통과한 것만 그 단계 밴드로' },
+            { label: '조판 풀', says: '학령 분석이 붙어야 풀에 들어온다' },
+          ],
+          loop: '게이트 밴드에 0편이면 그 단계 책은 지금 못 만든다 — 집필보다 이것이 먼저다.',
+        },
+      ],
       fields: [
         {
           label: '재료가 없는 단계',
@@ -512,6 +614,19 @@ export const CSAT_HELP: HelpRegistry = {
       summary:
         'DB 에 있는 문항 **전량**을 유형 25 × 수준 9 표로 편다. 설계 화면(③)이 「사다리가 쓰기로 한 칸」만 보여 준다면, 여기는 그 밖까지 보여 준다 — 그 차이가 이 화면의 요점이다.',
       when: '재고가 많다는데 권이 안 차는 이유를 찾을 때. 새 유형을 만들지 말지 정할 때.',
+      diagrams: [
+        {
+          kind: 'flow',
+          caption: '빈 칸을 채우는 순서 — 글보다 문항이 먼저다',
+          nodes: [
+            { label: '몫을 센다', actor: 'script', says: '인자 없이 돌리면 아무것도 쓰지 않는다' },
+            { label: '문항을 붙인다', actor: 'script', says: '이미 쓰인 원글에서 — 재실행 안전' },
+            { label: '원글 슬롯', actor: 'script', says: '원글이 모자란 밴드만 뽑는다' },
+            { label: '원글을 쓴다', actor: 'claude', says: '쓰기 전에 어느 계단에 떨어질지 잰다' },
+          ],
+          loop: '새 글을 쓰기 전에 문항 붙이기가 먼저다 — 문항 없는 원글은 조판이 재고로 세지 않는다.',
+        },
+      ],
       fields: [
         {
           label: '사다리 밖 재고',
@@ -599,6 +714,28 @@ export const CSAT_HELP: HelpRegistry = {
       summary:
         '층 넷이 각자 **다른 것**을 본다. 통과율 하나로 접지 않는 이유는, 오탈자를 보는 눈이 논리 오류를 못 보고 논리를 보는 눈이 정답 쏠림을 못 보기 때문이다. 한 층만 통과한 원고는 검수를 받은 것이 아니다.',
       when: '조판 직전. 그리고 「우위」를 주장하는 문서를 쓰기 전.',
+      diagrams: [
+        {
+          kind: 'keys',
+          caption: '층 넷이 각자 다른 것을 본다 — 순서가 아니다',
+          nodes: [
+            { label: 'L1 기계 게이트', actor: 'script', says: '인용·정답 대조 · 조판 교정 기록' },
+            { label: 'L2 3인 페르소나', actor: 'claude', says: '출제자 · 오답 · 학습자 시선' },
+            { label: 'L3 교차 대조', actor: 'script', says: '정답 번호 쏠림 χ² · Cramér V' },
+            { label: 'L4 외부 대조', actor: 'script', says: '시중 대비 잰 축 — 안 재면 주장일 뿐' },
+          ],
+        },
+        {
+          kind: 'keys',
+          caption: '이 중 무엇이 조판을 실제로 막는가 (2026-09-12)',
+          nodes: [
+            { label: '해설 누락', state: 'blocked', says: '차단 — 하나라도 빠지면 조판이 거절한다' },
+            { label: '자동 검수', state: 'blocked', says: '차단 — 떨어진 항목이 있으면 거절한다' },
+            { label: '정답 쏠림', state: 'short', says: '경고 — 문턱이 통계 관행이라 막지 않는다' },
+            { label: '표기 결함', state: 'short', says: '경고 — 규칙이 시중 지문 3%를 오탐한다' },
+          ],
+        },
+      ],
       fields: [
         {
           label: '층 도식 — 위에서 아래로',
@@ -700,6 +837,23 @@ export const CSAT_HELP: HelpRegistry = {
       summary:
         '공정의 끝. 여기까지 와야 학습자가 손에 쥐는 것이 생긴다 — 그 앞의 모든 수치는 **재고**이지 책이 아니다.',
       when: '한 밴드의 공정이 다 끝났다고 판단할 때. 그리고 규격(브랜드·지문 길이)을 바꾼 뒤.',
+      diagrams: [
+        {
+          kind: 'flow',
+          caption: '조판 명령 하나가 거치는 길 — 이제 거절할 수 있다',
+          nodes: [
+            { label: '재료를 모은다', actor: 'script', says: '그 시리즈·단의 문항을 단원으로 묶는다' },
+            { label: '검수를 돌린다', actor: 'auto', says: '자동 검수 · 쏠림 · 교정 · 해설 보유' },
+            { label: '발행 게이트', actor: 'auto', says: '차단이 있으면 여기서 끊는다' },
+            { label: '조판 · 기록', actor: 'script', says: '(시리즈, 단) 한 행을 덮어쓴다' },
+          ],
+          branch: [
+            { when: '차단', then: 'exit 1 — HTML 도 조판 기록도 남지 않는다. 터미널이 푸는 명령을 찍는다' },
+            { when: '통과', then: '문제편 · 정답편 · 해설이 한 HTML 로 나온다' },
+          ],
+          loop: '--allow-defects 로 넘기면 그 권은 gate.forced 로 남아 통과한 권과 구별된다.',
+        },
+      ],
       fields: [
         {
           label: '학령 사다리 띠',
@@ -764,6 +918,19 @@ export const CSAT_HELP: HelpRegistry = {
       summary:
         '평가원 수능·모의평가 독해 문항을 유형별로 분석하고, 서로 다른 전문가 셋이 검수한 것만 학습자에게 내보내는 파이프라인의 현황판이다.',
       when: '드레인을 한 배치 돌린 뒤, 다음에 무엇을 돌릴지 정할 때.',
+      diagrams: [
+        {
+          kind: 'flow',
+          caption: '드레인 — 세 단계가 늘 같은 모양이다',
+          nodes: [
+            { label: 'export', actor: 'script', says: '남은 몫만 청크로 — 채운 것은 안 나온다' },
+            { label: 'Claude Code', actor: 'claude', says: '분석 3층위 + 3인 페르소나 검수' },
+            { label: 'validate', actor: 'script', says: '인용이 지문에 그대로 있나 · 정답이 맞나' },
+            { label: 'import', actor: 'script', says: '게이트가 exit 0 일 때만 적재한다' },
+          ],
+          loop: '몇 번 돌려도 결과가 같다 — export 가 이미 채운 몫을 건너뛴다.',
+        },
+      ],
       fields: [
         {
           label: '독해 실점 0 회차',

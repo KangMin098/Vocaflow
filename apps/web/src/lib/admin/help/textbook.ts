@@ -17,6 +17,20 @@ export const TBP_HELP: HelpRegistry = {
       summary:
         '**교재에 실을 수 있는 원문인가**를 일곱 축으로 판정한 결과를 보는 곳. 교재 생성이 임의 판단이 되지 않게 하는 자리다 — “이 지문을 왜 골랐나” 에 축·임계값·출처로 답할 수 있어야 한다. 판정 자체는 `packages/library-pipeline/src/textbook/source-eligibility.ts` 가 갖고, 이 화면은 **최근 스캔이 찍은 값을 읽기만** 한다.',
       when: '권을 새로 조판하기 전. 또는 드레인(분석·게이트·발췌 채점)을 돌린 뒤 재고가 실제로 늘었는지 확인할 때.',
+      diagrams: [
+        {
+          kind: 'flow',
+          caption: '원문이 권으로 가는 길 — 권수를 막는 것은 대개 원문이 아니다',
+          nodes: [
+            { label: '적격 7축', actor: 'auto', says: '장르 · 저작권 · 어수창 · 어휘 · 자립성' },
+            { label: '유형 재고', actor: 'auto', says: '권수는 가장 얇은 유형이 정한다' },
+            { label: '채울 몫', actor: 'auto', says: '결정론과 생성형을 가른다 — 비용 100배' },
+            { label: '청크를 뽑는다', actor: 'script', says: '이미 뽑힌 것부터 — 바로 집필 가능' },
+            { label: '문항을 쓴다', actor: 'claude', says: '쓴 뒤 게이트에 막힌 것을 본다' },
+          ],
+          loop: '원문을 늘려도 유형 격차는 안 줄어든다 — 얇은 유형을 먼저 채운다.',
+        },
+      ],
       fields: [
         {
           label: '유형 재고 — 병목이 원문이 아닐 수 있다',
