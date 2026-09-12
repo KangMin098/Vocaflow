@@ -56,7 +56,8 @@
     "tailwind-merge": "^3.5.0",
     "three": "^0.184.0",
     "ts-fsrs": "^5.2.3",
-    "zustand": "^5.0.12"
+    "zustand": "^5.0.12",
+    "@vocaflow/video-factory": "workspace:*"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.12.1",

@@ -25,6 +25,7 @@ import type {
 import { sec } from '../spec/timing'
 import { FORMAT_IDS } from '../spec/format'
 import type { SourceBundle, BundleSeries, BundleHero } from './bundle'
+import { VIDEO_IDS, activityVideoId, benefitVideoId, seriesVideoId, typeVideoId } from './ids'
 
 /* ── 표기 ─────────────────────────────────────────────────────── */
 
@@ -164,7 +165,7 @@ function introSpec(b: SourceBundle): VideoSpec {
   scenes.push(closing('내 지문으로 바로 재 보세요.', '무료 · 로그인 없이', 'vocaflow.app/fit'))
 
   return {
-    id: 'intro-platform',
+    id: VIDEO_IDS.intro,
     kind: 'intro',
     audience: 'learner',
     title: 'Vocaflow',
@@ -221,7 +222,7 @@ function benefitSpecs(b: SourceBundle): VideoSpec[] {
     scenes.push(closing('직접 확인해 보세요.', '지문 하나면 됩니다', 'vocaflow.app/fit'))
 
     return {
-      id: `benefit-${slug}`,
+      id: benefitVideoId(slug),
       kind: 'benefit',
       audience: 'ad',
       title: d.title,
@@ -247,7 +248,7 @@ function curriculumSpec(b: SourceBundle): VideoSpec {
   const total = b.spine.reduce((s, r) => s + r.items, 0)
 
   return {
-    id: 'curriculum-ladder',
+    id: VIDEO_IDS.curriculum,
     kind: 'curriculum',
     audience: 'learner',
     title: '7단 커리큘럼',
@@ -311,7 +312,7 @@ function seriesSpec(b: SourceBundle, s: BundleSeries): VideoSpec {
   const ready = volumes.filter((v) => v.state !== 'pending').length
 
   return {
-    id: `series-${s.id}`,
+    id: seriesVideoId(s.id),
     kind: 'series',
     audience: 'learner',
     title: s.brand,
@@ -423,7 +424,7 @@ function typeSpecs(b: SourceBundle): VideoSpec[] {
       scenes.push(closing('이 유형만 모아 풀 수 있어요.', '유형별 보기', 'vocaflow.app/textbook'))
 
       return {
-        id: `type-${code.replace(/_/g, '-')}`,
+        id: typeVideoId(code),
         kind: 'type',
         audience: 'learner',
         title: g.label,
@@ -483,7 +484,7 @@ function activitySpecs(b: SourceBundle): VideoSpec[] {
     )
 
     return {
-      id: `module-${a.id}`,
+      id: activityVideoId(a.id),
       kind: 'module',
       audience: 'learner',
       title: a.name,

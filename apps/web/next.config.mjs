@@ -250,6 +250,7 @@ const nextConfig = {
   // - @vocaflow/types: DB row 타입
   // - @vocaflow/design-tokens: CSS 변수
   // - @vocaflow/ui-shared: 공유 UI 로직
+  // - @vocaflow/video-factory: 영상 id 규칙(공장과 앱의 단일 출처)
   transpilePackages: [
     '@vocaflow/vcb-core',
     '@vocaflow/vcb-curate-core',

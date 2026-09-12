@@ -114,6 +114,9 @@ importers:
       '@vocaflow/vcb-curate-core':
         specifier: workspace:*
         version: link:../../packages/vcb-curate-core
+      '@vocaflow/video-factory':
+        specifier: workspace:*
+        version: link:../../packages/video-factory
       '@vocaflow/wlp':
         specifier: workspace:*
         version: link:../../packages/wlp
@@ -312,6 +315,9 @@ importers:
       '@remotion/renderer':
         specifier: ^4.0.524
         version: 4.0.524(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@supabase/supabase-js':
+        specifier: ^2.104.1
+        version: 2.104.1
       '@vocaflow/design-tokens':
         specifier: workspace:*
         version: link:../design-tokens
@@ -6497,13 +6503,13 @@ snapshots:
       '@remotion/timeline-utils': 4.0.524(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@rspack/core': 1.7.11(@swc/helpers@0.5.5)
       '@rspack/plugin-react-refresh': 1.6.1(react-refresh@0.18.0)
-      css-loader: 7.1.4(@rspack/core@1.7.11(@swc/helpers@0.5.5))(webpack@5.105.0(postcss@8.5.10))
+      css-loader: 7.1.4(@rspack/core@1.7.11(@swc/helpers@0.5.5))(webpack@5.105.0(esbuild@0.28.1)(postcss@8.5.10))
       esbuild: 0.28.1
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       react-refresh: 0.18.0
       remotion: 4.0.524(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      style-loader: 4.0.0(webpack@5.105.0(postcss@8.5.10))
+      style-loader: 4.0.0(webpack@5.105.0(esbuild@0.28.1)(postcss@8.5.10))
       webpack: 5.105.0(esbuild@0.28.1)(postcss@8.5.10)
     transitivePeerDependencies:
       - '@minify-html/node'
@@ -7895,7 +7901,7 @@ snapshots:
       shebang-command: 2.0.0
       which: 2.0.2
 
-  css-loader@7.1.4(@rspack/core@1.7.11(@swc/helpers@0.5.5))(webpack@5.105.0(postcss@8.5.10)):
+  css-loader@7.1.4(@rspack/core@1.7.11(@swc/helpers@0.5.5))(webpack@5.105.0(esbuild@0.28.1)(postcss@8.5.10)):
     dependencies:
       icss-utils: 5.1.0(postcss@8.5.10)
       postcss: 8.5.10
@@ -10367,7 +10373,7 @@ snapshots:
     dependencies:
       '@tokenizer/token': 0.3.0
 
-  style-loader@4.0.0(webpack@5.105.0(postcss@8.5.10)):
+  style-loader@4.0.0(webpack@5.105.0(esbuild@0.28.1)(postcss@8.5.10)):
     dependencies:
       webpack: 5.105.0(esbuild@0.28.1)(postcss@8.5.10)
 

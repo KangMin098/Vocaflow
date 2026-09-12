@@ -32,6 +32,10 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
           <Link href="/about" className="inline-flex min-h-[44px] items-center text-t2 hover:text-t1">
             소개
           </Link>
+          {/* 글보다 영상이 빠른 사람이 있다 — 특히 3분 안에 판단하는 교사(디자인 렌즈 6). */}
+          <Link href="/video" className="inline-flex min-h-[44px] items-center text-t2 hover:text-t1">
+            영상
+          </Link>
           <Link
             href="/login"
             className="inline-flex min-h-[44px] items-center rounded-md bg-p px-s-4 py-s-2 font-semibold text-white hover:opacity-90"

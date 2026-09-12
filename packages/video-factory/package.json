@@ -8,13 +8,16 @@
   "exports": {
     ".": "./src/index.ts",
     "./spec": "./src/spec/index.ts",
-    "./catalog": "./src/catalog/index.ts"
+    "./catalog": "./src/catalog/index.ts",
+    "./ids": "./src/catalog/ids.ts"
   },
   "scripts": {
     "studio": "tsx src/render/prestudio.mts && remotion studio src/remotion/index.ts --public-dir work --port 4334",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "video": "tsx src/render/cli.mts"
+    "video": "tsx src/render/cli.mts",
+    "package": "tsx src/render/package.mts",
+    "publish": "tsx src/render/publish.mts"
   },
   "dependencies": {
     "@andresaya/edge-tts": "^1.8.0",
@@ -25,7 +28,8 @@
     "@vocaflow/design-tokens": "workspace:*",
     "react": "^18",
     "react-dom": "^18",
-    "remotion": "^4.0.524"
+    "remotion": "^4.0.524",
+    "@supabase/supabase-js": "^2.104.1"
   },
   "devDependencies": {
     "@types/react": "^18",

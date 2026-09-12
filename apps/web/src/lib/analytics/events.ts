@@ -148,6 +148,36 @@ export type PublicEvent =
       }
     }
 
+
+  /**
+   * 구성요소 영상 재생 시작 — **영상이 실제로 보이는지**의 분모.
+   *
+   * 영상 공장(`packages/video-factory`)이 141개를 찍어 낼 수 있어도, **본 사람이 0 이면
+   * 공급을 늘린 것일 뿐**이다(§D 공급/수요 게이트). 그래서 만든 수가 아니라 **본 수**를 센다.
+   * 속성에 영상 id 를 넣지 않는 이유는 이 파일의 계약 때문이다 — id 는 자유 문자열에 가깝고
+   * 앞으로 늘어난다. `kind` 는 닫힌 목록이고, 그것으로 "어떤 종류가 보이는가" 는 답할 수 있다.
+   */
+  | {
+      name: 'video_started'
+      props: {
+        kind: 'intro' | 'benefit' | 'curriculum' | 'series' | 'type' | 'module'
+        format: 'wide' | 'vertical' | 'square'
+        /** 영상 길이(초). 짧은 것이 더 끝까지 보이는지 보려면 필요하다 */
+        seconds: number
+      }
+    }
+  /**
+   * 영상을 끝까지 봤다 — **완주율**. 시작만 세면 "틀어 놓고 나갔다" 와 구분이 안 된다.
+   */
+  | {
+      name: 'video_completed'
+      props: {
+        kind: 'intro' | 'benefit' | 'curriculum' | 'series' | 'type' | 'module'
+        format: 'wide' | 'vertical' | 'square'
+        seconds: number
+      }
+    }
+
 export type PublicEventName = PublicEvent['name']
 
 /**
@@ -180,6 +210,8 @@ const EVENT_REGISTRY: Record<PublicEventName, true> = {
   wayfinder_opened: true,
   wayfinder_cta_clicked: true,
   screen_viewed: true,
+  video_started: true,
+  video_completed: true,
 }
 
 export const ALLOWED_EVENTS: readonly PublicEventName[] = Object.keys(

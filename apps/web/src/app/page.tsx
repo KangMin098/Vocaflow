@@ -155,6 +155,7 @@ export default async function LandingPage() {
           </p>
           <nav className="flex flex-wrap items-center gap-4">
             <FooterLink href="/about">소개</FooterLink>
+            <FooterLink href="/video">영상</FooterLink>
             <FooterLink href="/pricing">요금제</FooterLink>
             <FooterLink href="/terms">이용약관</FooterLink>
             <FooterLink href="/privacy">개인정보처리방침</FooterLink>

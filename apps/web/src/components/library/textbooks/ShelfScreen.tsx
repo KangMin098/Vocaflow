@@ -14,6 +14,8 @@ import { LevelChart } from '@/components/library/textbooks/LevelChart'
 import { SeriesTabs } from '@/components/library/textbooks/SeriesTabs'
 import { TextbookShelf } from '@/components/library/textbooks/TextbookShelf'
 import { Screen } from '@/components/ui/ios'
+import { ComponentVideo } from '@/components/video/ComponentVideo'
+import { seriesVideo } from '@/lib/video/catalog'
 import type { MySelection } from '@/lib/textbook/my-shelf-query'
 import type { Shelf } from '@/lib/textbook/shelf'
 import { buildLevelChart } from '@vocaflow/library-pipeline'
@@ -39,6 +41,15 @@ export function ShelfScreen({
       <div className="flex flex-col gap-4 py-6 md:py-8">
         {/* 코너 표지판이 매대보다 **먼저** 온다 — 어느 서가인지 모르고 권을 고를 수는 없다. */}
         <SeriesTabs current={shelf.seriesId} />
+
+        {/*
+          이 코너가 **무엇을 파는 곳인지** 12초로 답하는 영상.
+
+          작게 둔 이유: 매대(책)가 이 화면의 증명이고 영상은 보조다. 히어로로 키우면
+          "말하는 것" 이 "보이는 것" 을 밀어낸다(§3 증명 먼저).
+          아직 발행 전이면 `ComponentVideo` 가 **아무것도 그리지 않는다** — 빈 자리를 두지 않는다.
+        */}
+        <ComponentVideo video={seriesVideo(shelf.seriesId)} maxWidth={420} />
 
         <TextbookShelf
           shelf={shelf}
