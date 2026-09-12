@@ -22,6 +22,7 @@
 | 학습자 관리 / 목표 / 리포트 / B2B | [docs/LEARNER_MANAGEMENT.md](./docs/LEARNER_MANAGEMENT.md) · [docs/VOCAB_LAYERS.md](./docs/VOCAB_LAYERS.md) |
 | 라우트 설계 | [docs/ROUTES.md](./docs/ROUTES.md) · [docs/MODULES.md](./docs/MODULES.md) |
 | **평가원 기출 분석 (CSAT)** | **[docs/CSAT_TYPE_ANALYSIS.md](./docs/CSAT_TYPE_ANALYSIS.md)** · [docs/CSAT_TYPE_BLUEPRINTS.md](./docs/CSAT_TYPE_BLUEPRINTS.md) |
+| **영상 (소개·광고·YouTube)** | **[docs/VIDEO_FACTORY.md](./docs/VIDEO_FACTORY.md)** · [docs/DESIGN_SYSTEM.md](./docs/DESIGN_SYSTEM.md) |
 | 코드 리뷰 | [docs/CONVENTIONS.md](./docs/CONVENTIONS.md) · [docs/CHANGELOG.md](./docs/CHANGELOG.md) |
 | 멀티 세션 / worktree | [docs/WORKTREE.md](./docs/WORKTREE.md) |
 | **정기 플랫폼 진단 / 시장·경쟁·산술 재검증** | **[docs/PLATFORM_AUDIT.md](./docs/PLATFORM_AUDIT.md)** |

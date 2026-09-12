@@ -51,7 +51,10 @@
     "tbp:bench-report:check": "node scripts/textbook/gen-benchmark-report.mjs --check",
     "analytics:check": "node scripts/analytics/check-instrumentation.mjs",
     "admin:audit": "node scripts/audit/admin-console.mjs",
-    "admin:audit:gate": "node scripts/audit/admin-console.mjs --fail-under=96"
+    "admin:audit:gate": "node scripts/audit/admin-console.mjs --fail-under=96",
+    "video:source": "pnpm --filter web video:source",
+    "video": "pnpm --filter @vocaflow/video-factory video",
+    "video:studio": "pnpm --filter @vocaflow/video-factory studio"
   },
   "repository": {
     "type": "git",

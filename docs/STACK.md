@@ -184,6 +184,18 @@ Word Learning Pipeline.
 
 공유 TS 타입 — `Tables<'texts'>`, `Tables<'shared_dictionary'>` 등.
 
+### `@vocaflow/video-factory` (2026-09-12 신설)
+
+플랫폼 구성요소 → 영상. 설계도 47편 × 규격 3 = 컴포지션 141개가 **데이터에서 생성**된다.
+
+| 패키지 | 버전 | 쓰임 |
+|---|---|---|
+| `remotion` + `@remotion/cli` · `bundler` · `renderer` | 4.0.524 | React 컴포넌트 → mp4. **4인 이상 법인은 유료** (좌석당 월 \$25 또는 렌더당 \$0.01) |
+| `@andresaya/edge-tts` | 1.8.0 | 한국어 나레이션 + **낱말 경계 타임스탬프** (키 불필요·무료) |
+
+`@vocaflow/design-tokens` 를 그대로 import 한다 — 영상과 제품이 같은 색·서체를 쓴다.
+상세: [VIDEO_FACTORY.md](./VIDEO_FACTORY.md)
+
 ---
 
 ## 외부 인프라

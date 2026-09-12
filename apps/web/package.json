@@ -22,7 +22,8 @@
     "tcp:drain": "tsx scripts/tcp-drain.mts drain",
     "tcp:promote": "tsx scripts/tcp-drain.mts promote",
     "cover:probe": "tsx scripts/cover-probe.mts",
-    "vocab:probe": "tsx scripts/vocab-cover-probe.mts"
+    "vocab:probe": "tsx scripts/vocab-cover-probe.mts",
+    "video:source": "tsx --tsconfig scripts/tsconfig.script.json scripts/video-source.mts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.92.0",
