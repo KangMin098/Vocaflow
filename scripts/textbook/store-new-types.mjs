@@ -673,16 +673,36 @@ const rebuilders = {
  * 그래서 유형별로 무엇을 비교할지 여기 적는다.
  */
 mark('문항 생성(CPU)')
+/**
+ * 밑줄 낱말들 — **어느 자리에 밑줄이 걸렸는가**를 대조한다.
+ *
+ * ⚠️ 이 자리가 없던 동안 「밑줄 고르는 규칙」을 고쳐도 낡음으로 안 걸렸다(실측 2026-09-12).
+ *   `sentences` 는 **정답 자리의 낱말만** 바뀌므로, 오답 밑줄이 다른 낱말로 옮겨져도 문장은
+ *   그대로다. `answer` 도 우연히 같은 번호가 나오면 안 걸린다.
+ *
+ *   그날 고친 규칙이 바로 그것이었다 — 밑줄이 문장부사(`"Analogously,"`)·마크업(`"[Sidenote:"`)·
+ *   고유명사(`"William"`)에 걸리던 것을 막았는데, V5 어휘 10,612문항 중 **4,436(42%)** 이
+ *   그런 밑줄을 갖고 있었다. 이 대조가 없으면 그 4,436이 「낡음 0건」으로 보고된다.
+ *
+ *   이 파일이 이미 같은 교훈을 두 번 적어 뒀다("문장만 대조하면 보기 수가 바뀐 것을 못 잡는다 —
+ *   실제로 그랬다" · "낡음 판정이 수능 3종만 보고 있었다"). 세 번째다.
+ */
+const underlineWords = (u) => JSON.stringify((u ?? []).map((x) => x?.word ?? null))
+
 const staleSignature = {
   vocab_choice: (now, row) => JSON.stringify(now.payload.sentences) !== JSON.stringify(row.payload?.sentences)
-    || now.answer !== row.answer_key?.position,
+    || now.answer !== row.answer_key?.position
+    || underlineWords(now.payload.underlines) !== underlineWords(row.payload?.underlines),
   grammar_choice: (now, row) => JSON.stringify(now.payload.sentences) !== JSON.stringify(row.payload?.sentences)
-    || now.answer !== row.answer_key?.position,
+    || now.answer !== row.answer_key?.position
+    || underlineWords(now.payload.underlines) !== underlineWords(row.payload?.underlines),
   unit_vocab: (now, row) => (now.payload.choices?.length ?? 0) !== (row.payload?.choices?.length ?? 0)
     || now.payload.target !== row.payload?.target
     || JSON.stringify(now.payload.sentences) !== JSON.stringify(row.payload?.sentences),
+  // ⚠️ 개수만 보던 것을 **낱말까지** 본다 — 같은 다섯 자리를 다른 낱말에 걸어도 달라진 것이다.
   unit_grammar: (now, row) => (now.payload.underlines?.length ?? 0) !== (row.payload?.underlines?.length ?? 0)
-    || JSON.stringify(now.payload.sentences) !== JSON.stringify(row.payload?.sentences),
+    || JSON.stringify(now.payload.sentences) !== JSON.stringify(row.payload?.sentences)
+    || underlineWords(now.payload.underlines) !== underlineWords(row.payload?.underlines),
 }
 
 // (글, 문단) → 문장들. 재생성 대조에 쓴다.
