@@ -1160,23 +1160,30 @@ inner join 으로 비교하면 그 줄이 조용히 빠져 "아무 변화 없음
 
 ⚠️ 조회가 죽으면 화면은 빈 표가 아니라 `error` 를 받는다 — **「0편」과 「못 잼」은 다른 말이다.**
 
-### first_sentence 일괄 보정 — `repair_vocab_first_sentences()` (⚠️ **아직 적용 안 됨**)
+### first_sentence 일괄 보정 — `repair_vocab_first_sentences()` (2026-09-12 **적용됨**)
 
 2026-09-05 폭주(분당 최대 6,859건 · 피크 초당 114)의 대체 경로. 청크 500행을 jsonb 배열로
 받아 한 트랜잭션으로 UPDATE 하고, `is distinct from` 으로 값이 같은 행은 쓰지 않는다(WAL 을
 만들지 않는다). 표 이름을 문자열로 받으므로 **화이트리스트 2종**(`library_book_vocabularies` ·
-`library_article_vocabularies`)이 유일한 방어선이다. SECURITY **INVOKER** — 호출자가
-service_role 이라 DEFINER 가 필요 없다.
+`library_article_vocabularies`)이 유일한 방어선이다.
 
-같은 파일이 `collect_db_health_snapshot()` 도 만든다 — `collect_db_health_metrics()` 를 감싸
-통계 카운터 나이(`stats_counter_age_min`)를 덧대고, 1440분 미만이면 `stats_stale_tables` 와
-`unused_index_mb` 에 `unreliable` 을 박는다(크래시 재시작이 통계를 지우면 「안 쓰였다」와
-「아직 안 세었다」가 구분되지 않는다). cron `db-health-daily` 를 감싼 쪽으로 돌린다.
+| | |
+|---|---|
+| 시그니처 | `repair_vocab_first_sentences(p_table text, p_rows jsonb) → integer` (고친 행 수) |
+| 보안 | SECURITY **INVOKER** — 호출자가 service_role 이라 DEFINER 가 필요 없다. EXECUTE 는 `service_role` 만(public·anon·authenticated 회수) |
+| 부르는 곳 | `scripts/dict/repair-first-sentence.mts` |
+| 마이그레이션 | [20260906074500](../supabase/migrations/20260906074500_batch_first_sentence_repair.sql) (원격 버전 `batch_first_sentence_repair`) |
 
-⚠️ **2026-09-08 실측: 두 함수 모두 원격에 없다.** 마이그레이션 파일만 저장소에 있고
-`apply_migration` 이 안 됐다 — 그 상태로 `scripts/dict/repair-first-sentence.mts` 를 돌리면
-RPC 없음으로 죽는다. 마이그레이션 자동 적용 금지 정책에 따라 **승인 후 적용**한다.
-| 마이그레이션 | [20260906074500](../supabase/migrations/20260906074500_batch_first_sentence_repair_and_stats_counter_age.sql) |
+적용 직후 실호출로 검증(2026-09-12): 빈 배열 두 표 모두 0 · 허용되지 않은 표와 비배열은 각각
+exception · 같은 값을 보내면 **0행**(`is distinct from`) · 다른 값을 보내면 1행이 실제로 바뀌고
+되돌리기도 1행. `create function` 은 본문을 검증하지 않으므로 **적용 성공 = 동작 확인이 아니다.**
+
+⚠️ **같은 파일에 있던 `collect_db_health_snapshot()` 래퍼는 적용하지 않고 버렸다.** 이 파일이
+적용을 기다리는 6일 사이에 [20260908035514](../supabase/migrations/20260908035514_db_health_stats_criterion_pg_statistic.sql) 가
+더 나은 자리에서 같은 문제를 해결했다 — `collect_db_health_metrics()` 본문이 카운터 나이를 직접
+계산하고 `pg_statistic` 실재 여부로 판정한다. 2026-09-12 원격 실측 `stats_counter_age_min` **14행** ·
+`unreliable` 낙인 **14행** · cron `db-health-daily` 는 이미 `collect_db_health_metrics()` 를 부른다.
+지금 래퍼를 얹으면 같은 지표가 실행마다 **중복 삽입**된다. 고치는 게 아니라 되돌리는 변경이다.
 
 ### DB 헬스 라이브층 — `admin_db_health_live()` (2026-09-06)
 
