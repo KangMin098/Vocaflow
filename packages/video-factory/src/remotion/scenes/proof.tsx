@@ -13,7 +13,7 @@ import React from 'react'
 import type { CoverageScene, DecayScene, ItemScene } from '../../spec/types'
 import { ACCENT, ACCENT_SOFT, DECAY, FONT, SURFACE, decayColor, retention } from '../../theme/palette'
 import type { AccentKey } from '../../spec/types'
-import { enterExit, progress, stagger, transform } from '../motion'
+import { enterExit, progress, spread, transform } from '../motion'
 import { KO, Title, useFormat } from '../Frame'
 
 /* ── 커버리지 ─────────────────────────────────────────────────── */
@@ -268,7 +268,7 @@ export const Item: React.FC<{ scene: ItemScene; accent: AccentKey; duration: num
       {choices.length > 0 ? (
         <div style={{ marginTop: Math.round(24 * scale) }}>
           {choices.map((c, i) => {
-            const ce = enterExit(frame, duration, 10 + stagger(i))
+            const ce = enterExit(frame, duration, 10 + spread(i, choices.length, duration, 0.25))
             const isAnswer = typeof answer === 'number' ? answer === i : false
             const mark = revealed && isAnswer
             return (

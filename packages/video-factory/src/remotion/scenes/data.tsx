@@ -9,7 +9,7 @@ import React from 'react'
 
 import type { AccentKey, LadderScene, ShelfScene, StatScene } from '../../spec/types'
 import { ACCENT, FONT, SURFACE } from '../../theme/palette'
-import { enterExit, progress, stagger, transform } from '../motion'
+import { enterExit, progress, spread, transform } from '../motion'
 import { KO, useFormat } from '../Frame'
 
 /* ── 수치 ─────────────────────────────────────────────────────── */
@@ -24,11 +24,12 @@ export const Stat: React.FC<{ scene: StatScene; accent: AccentKey; duration: num
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: Math.round(28 * scale) }}>
       {scene.stats.map((s, i) => {
-        const e = enterExit(frame, duration, stagger(i) * 3)
+        const delay = spread(i, scene.stats.length, duration)
+        const e = enterExit(frame, duration, delay)
         // 숫자면 세어 올린다. 문자열이면 그대로 — 억지로 애니메이션하지 않는다.
         const raw = Number(s.value.replace(/,/g, ''))
         const countable = Number.isFinite(raw) && s.value.trim() !== ''
-        const p = progress(frame, 6 + stagger(i) * 3, Math.max(24, duration - 18))
+        const p = progress(frame, 6 + delay, Math.max(24, duration - 18))
         const shown = countable
           ? new Intl.NumberFormat('ko-KR').format(Math.round(raw * p))
           : s.value
@@ -92,8 +93,10 @@ export const Ladder: React.FC<{ scene: LadderScene; accent: AccentKey; duration:
     <div style={{ display: 'flex', flexDirection: 'column-reverse', gap: Math.round(10 * scale) }}>
       {scene.rungs.map((r, i) => {
         // 아래 단부터 차오른다 — 사다리는 밑에서 오른다(철학 4 Implicit Progress).
-        const e = enterExit(frame, duration, stagger(i) * 4)
-        const fill = progress(frame, 8 + stagger(i) * 4, Math.max(30, duration - 20))
+        // 간격은 **컷 길이에 맞춰 눌린다** — 고정 간격은 마지막 단을 삼킨다(`spread` 주석 참조).
+        const delay = spread(i, scene.rungs.length, duration)
+        const e = enterExit(frame, duration, delay)
+        const fill = progress(frame, 6 + delay, Math.max(30, duration - 16))
         const items = r.items
         const unmeasured = items === null
         const width = items === null ? 0 : (items / max) * fill
@@ -111,14 +114,17 @@ export const Ladder: React.FC<{ scene: LadderScene; accent: AccentKey; duration:
               gap: Math.round(16 * scale),
             }}
           >
+            {/* 라벨이 두 줄로 접히면 줄 높이가 들쭉날쭉해진다 — 폭을 넉넉히 잡고 한 줄로 고정. */}
             <div
               style={{
                 fontFamily: FONT.mono,
                 fontSize: Math.round(22 * scale),
                 color: SURFACE.inkFaint,
-                width: Math.round(120 * scale),
+                width: Math.round(230 * scale),
                 flexShrink: 0,
-                ...KO,
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
               }}
             >
               {r.step}단 · {r.schoolBand}
@@ -140,18 +146,23 @@ export const Ladder: React.FC<{ scene: LadderScene; accent: AccentKey; duration:
                   backgroundColor: empty ? SURFACE.border : ACCENT[accent],
                 }}
               />
+              {/*
+                숫자를 막대 **안**에 고정으로 두면 막대가 짧을 때 앞자리가 막대에 먹힌다
+                (실측 2026-09-12: "25,748" 이 "5,748" 로 읽혔다).
+                막대가 짧으면 막대 **오른쪽**에, 길면 막대 안 왼쪽에 둔다.
+              */}
               <div
                 style={{
                   position: 'absolute',
                   inset: 0,
                   display: 'flex',
                   alignItems: 'center',
-                  paddingLeft: Math.round(14 * scale),
+                  paddingLeft: `calc(${(width > 0.3 ? 0 : width) * 100}% + ${Math.round(14 * scale)}px)`,
                   fontFamily: FONT.display,
                   fontSize: Math.round(24 * scale),
                   fontVariantNumeric: 'tabular-nums',
-                  color: width > 0.25 ? SURFACE.inverted : SURFACE.ink,
-                  ...KO,
+                  color: width > 0.3 ? SURFACE.inverted : SURFACE.ink,
+                  whiteSpace: 'nowrap',
                 }}
               >
                 {/* 재고 0 은 빈칸이 아니라 **아직 없다**고 말한다 — 0 을 숨기면 거짓이 된다. */}
@@ -180,19 +191,23 @@ export const Shelf: React.FC<{ scene: ShelfScene; accent: AccentKey; duration: n
   const color = ACCENT[accent]
 
   return (
-    <div>
+    // 책 묶음과 선반을 **같은 폭**으로 묶어 가운데 세운다.
+    // 책은 왼쪽 35%만 쓰는데 선반만 화면을 가로지르면 무게가 한쪽으로 쏠린다
+    // (실측 2026-09-12 스틸).
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <div style={{ display: 'inline-flex', flexDirection: 'column' }}>
       <div
         style={{
           display: 'flex',
           alignItems: 'flex-end',
-          gap: Math.round(14 * scale),
-          minHeight: Math.round(280 * scale),
+          gap: Math.round(18 * scale),
+          minHeight: Math.round(300 * scale),
         }}
       >
         {scene.volumes.map((v, i) => {
           // 책이 하나씩 꽂힌다. 계단이므로 뒤로 갈수록 조금씩 높다.
-          const e = enterExit(frame, duration, stagger(i) * 5)
-          const h = Math.round((190 + i * 14) * scale)
+          const e = enterExit(frame, duration, spread(i, scene.volumes.length, duration))
+          const h = Math.round((230 + i * 16) * scale)
           const pending = v.state === 'pending'
           return (
             <div
@@ -200,7 +215,7 @@ export const Shelf: React.FC<{ scene: ShelfScene; accent: AccentKey; duration: n
               style={{
                 opacity: e.opacity * (pending ? 0.4 : 1),
                 transform: `translateY(${e.y * 2}px)`,
-                width: Math.round(78 * scale),
+                width: Math.round(118 * scale),
                 height: h,
                 backgroundColor: pending ? SURFACE.edge : color,
                 border: pending ? `${Math.round(2 * scale)}px dashed ${SURFACE.border}` : 'none',
@@ -216,11 +231,14 @@ export const Shelf: React.FC<{ scene: ShelfScene; accent: AccentKey; duration: n
                   writingMode: 'vertical-rl',
                   fontFamily: FONT.display,
                   fontWeight: 700,
-                  fontSize: Math.round(20 * scale),
+                  fontSize: Math.round(19 * scale),
                   color: pending ? SURFACE.inkFaint : SURFACE.inverted,
-                  letterSpacing: '0.04em',
-                  maxHeight: h - Math.round(28 * scale),
+                  letterSpacing: '0.03em',
+                  // 책등 제목은 **한 줄**이다. 접히면 두 줄이 나란히 서서 책이 아니라 표처럼 보인다.
+                  whiteSpace: 'nowrap',
+                  maxHeight: h - Math.round(24 * scale),
                   overflow: 'hidden',
+                  textOverflow: 'ellipsis',
                 }}
               >
                 {v.title}
@@ -242,6 +260,7 @@ export const Shelf: React.FC<{ scene: ShelfScene; accent: AccentKey; duration: n
       >
         {/* 점선 책 = 아직 한 권이 안 찬 단. 색만으로 가르지 않고 말로도 적는다. */}
         점선은 아직 한 권(60문항)이 안 찬 단입니다
+      </div>
       </div>
     </div>
   )

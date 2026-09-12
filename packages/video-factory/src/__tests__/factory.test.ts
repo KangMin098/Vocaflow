@@ -15,10 +15,14 @@ import { describe, expect, it } from 'vitest'
 
 import { buildSpecs, countByKind } from '../catalog/build'
 import { loadBundle } from '../catalog/bundle'
-import { validateAll } from '../spec/validate'
+import { sceneFrames, validateAll } from '../spec/validate'
 import { captionFrames, CPS, MAX_CAPTION_SEC, MIN_CAPTION_SEC } from '../spec/timing'
 import { FPS, FORMAT_IDS } from '../spec/format'
 import { ACCENT, retention, decayColor, DECAY } from '../theme/palette'
+import { spread } from '../remotion/motion'
+import { VIDEO_MOTION } from '../spec/timing'
+import { applyVoiceTiming } from '../voice/timing'
+import { loadVoiceManifest } from '../voice/edge-tts'
 
 const bundle = loadBundle()
 const specs = buildSpecs(bundle)
@@ -147,5 +151,46 @@ describe('Memory Decay — CLAUDE.md 4색 임계를 그대로 쓴다', () => {
   it('R(t) 는 저장하지 않고 계산한다 — t=0 이면 1', () => {
     expect(retention(0, 3)).toBe(1)
     expect(retention(3, 3)).toBeCloseTo(0.9, 10)
+  })
+})
+
+describe('목록이 컷 안에 다 들어온다 — 조용히 삼켜지는 항목이 없다', () => {
+  // 실측 2026-09-12: 커리큘럼 7단 중 **7단이 화면에 없었다.** 고정 스태거(항목당 8프레임)가
+  // 48프레임까지 쌓였는데 컷은 107프레임뿐이라, 마지막 단이 컷 절반이 지나도록 안 떴다.
+  // 오류가 나지 않는 종류의 결함이라 스틸을 봐야 보인다 — 그래서 산술로 잠근다.
+  const specsWithVoice = specs.map((s) => applyVoiceTiming(s, loadVoiceManifest(s.id)))
+
+  it('마지막 항목이 컷의 절반 전에는 다 떠 있다', () => {
+    const late: string[] = []
+    for (const spec of specsWithVoice) {
+      for (const [i, scene] of spec.scenes.entries()) {
+        const duration = sceneFrames(scene, spec.audience)
+        const count =
+          scene.kind === 'ladder'
+            ? scene.rungs.length
+            : scene.kind === 'shelf'
+              ? scene.volumes.length
+              : scene.kind === 'stat'
+                ? scene.stats.length
+                : scene.kind === 'item'
+                  ? scene.sample.choices.length
+                  : 0
+        if (count < 2) continue
+        // 마지막 항목의 지연 + 진입 시간이 컷 절반을 넘으면 "늦게 뜨는" 것이다.
+        const lastDelay = spread(count - 1, count, duration)
+        const visibleAt = lastDelay + VIDEO_MOTION.enterFrames
+        if (visibleAt > duration / 2) {
+          late.push(`${spec.id} 컷 ${i}(${scene.kind}): ${visibleAt}f / ${duration}f`)
+        }
+      }
+    }
+    expect(late).toEqual([])
+  })
+
+  it('spread 는 항목이 많아질수록 간격을 줄인다', () => {
+    const short = spread(9, 10, 60)
+    const long = spread(9, 10, 600)
+    expect(short).toBeLessThan(long) // 짧은 컷에서는 눌린다
+    expect(spread(9, 10, 60) + VIDEO_MOTION.enterFrames).toBeLessThanOrEqual(60 * 0.3 + VIDEO_MOTION.enterFrames)
   })
 })

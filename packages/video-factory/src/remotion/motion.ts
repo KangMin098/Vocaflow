@@ -49,9 +49,25 @@ export function enterExit(frame: number, duration: number, delay = 0): EnterExit
   return { opacity: Math.min(opacityIn, opacityOut), y }
 }
 
-/** 목록 n번째 항목의 지연 프레임. */
+/** 목록 n번째 항목의 지연 프레임. 항목이 적고 컷이 길 때만 쓴다. */
 export function stagger(index: number): number {
   return index * VIDEO_MOTION.staggerFrames
+}
+
+/**
+ * 컷 길이에 맞춘 스태거 — **항목이 많으면 간격을 줄인다.**
+ *
+ * 고정 간격은 조용히 항목을 삼킨다. 실측 2026-09-12: 커리큘럼 계단 7단에서 마지막 단의
+ * 지연이 48프레임인데 컷이 107프레임뿐이라, **7단이 컷 절반이 지나도록 화면에 없었다.**
+ * 오류는 나지 않고 그냥 한 줄이 사라진다 — 그게 이 함수가 있는 이유다.
+ *
+ * 마지막 항목의 지연이 컷의 `maxShare`(기본 30%)를 넘지 않도록 간격을 눌러 준다.
+ */
+export function spread(index: number, count: number, duration: number, maxShare = 0.3): number {
+  if (count <= 1) return 0
+  const budget = duration * maxShare
+  const step = Math.min(VIDEO_MOTION.staggerFrames * 4, budget / (count - 1))
+  return Math.round(index * step)
 }
 
 /** 0→1 진행. 컷 안에서 무언가가 차오를 때 쓴다. */
