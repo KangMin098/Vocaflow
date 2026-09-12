@@ -109,3 +109,42 @@ describe('옛 주소는 살아 있다', () => {
     expect(existsSync(join(SRC, 'app', '(main)', 'library', 'textbooks', '[series]', '[step]'))).toBe(true)
   })
 })
+describe('조회부가 시리즈 id 를 끝까지 넘긴다', () => {
+  /**
+   * ⚠️ **이것을 빠뜨렸다가 실측으로 잡혔다**(2026-09-12).
+   *
+   * `fetchTextbookShelf(seriesId)` 가 `buildShelf` 에 **사다리만** 넘기고 id 를 안 넘겼다.
+   * 기본값이 `'reading'` 이라 타입체크는 통과하고, 어휘 코너는 어휘 6권을 제대로 그렸다 —
+   * 그런데 **권 링크가 전부 `/library/textbooks/reading/N`** 이었다. 어휘 서가를 보고 누르면
+   * 독해 권이 열린다. 띄워서 링크를 세어 보고서야 알았다.
+   *
+   * 기본값이 있는 인자는 **빠뜨려도 조용하다.** 그래서 소스로 대조한다.
+   */
+  const src = code('lib/textbook/shelf-query.ts')
+
+  it('buildShelf 호출에 seriesId 가 들어간다', () => {
+    const call = src.slice(src.indexOf('return buildShelf('))
+    expect(call).toContain('seriesId,')
+  })
+
+  it('사다리도 함께 넘긴다 — 둘 중 하나만 넘기면 서가와 주소가 갈린다', () => {
+    const call = src.slice(src.indexOf('return buildShelf('))
+    expect(call).toContain('spine,')
+  })
+
+  it('두 라우트가 같은 화면을 쓴다 — 서가를 두 파일에 적으면 한쪽만 고쳐진다', () => {
+    for (const rel of [
+      'app/(main)/library/textbooks/page.tsx',
+      'app/(main)/library/textbooks/[series]/page.tsx',
+    ]) {
+      expect(code(rel), `${rel} 이 ShelfScreen 을 안 쓴다`).toContain('ShelfScreen')
+    }
+  })
+
+  it('시리즈 코너 주소가 카탈로그의 시리즈 전부를 덮는다', () => {
+    // 칩이 만드는 주소와 라우트가 어긋나면 누를 수 있는데 404 가 난다.
+    const tabs = code('components/library/textbooks/SeriesTabs.tsx')
+    expect(tabs).toContain('/library/textbooks/${seriesId}')
+    expect(tabs).toContain('SERIES_CATALOG.map')
+  })
+})

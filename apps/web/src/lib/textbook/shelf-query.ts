@@ -191,5 +191,10 @@ export async function fetchTextbookShelf(seriesId = 'reading'): Promise<Shelf> {
     spine,
     elementaryMeasured,
     sawExplained ? explainedByTypeLevel : null,
+    // ⚠️ **이것을 빠뜨렸다가 실측으로 잡혔다**(2026-09-12). 사다리만 넘기고 id 를 안 넘기면
+    //   권마다 `seriesId: 'reading'`(기본값)이 박히고, **어휘 코너의 권 링크가 전부
+    //   `/library/textbooks/reading/N` 을 가리킨다** — 어휘 서가를 보고 누르면 독해 권이 열린다.
+    //   타입체크는 통과한다(기본값이 있으므로). 띄워서 링크를 세어 보고서야 알았다.
+    seriesId,
   )
 }
