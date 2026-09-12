@@ -9,6 +9,7 @@ import {
   MIN_CHAIN_OCCURRENCES,
   spread,
   VOCAB_UNDERLINES,
+  isCandidateToken,
   type VocabLexicon,
 } from './vocab-choice'
 
@@ -161,5 +162,59 @@ describe('어휘 문항', () => {
     }
     // 어느 자리가 뽑히든 소문자로 시작하는 문장이 생기면 안 된다.
     for (const s of item?.sentences ?? []) expect(s).toMatch(/^[A-Z]/)
+  })
+})
+/**
+ * **밑줄 후보 — 붙은 부호가 자리를 말해 준다.**
+ *
+ * ── 왜 (3인 검수 + DB 실측 2026-09-12) ──────────────────────────────
+ * 교재 문항 3인 검수에서 같은 자국이 되풀이됐다 — 밑줄이 `"Analogously,"`·`"Importantly,"`
+ * 같은 **문장부사**, `"[Sidenote:"` 같은 **원본 책 마크업**, `"Campbell’s."` 같은 **쪼개진
+ * 조각**, `"William"` 같은 **고유명사**에 걸렸다. 학습자는 뜻을 재는 것이 아니라 「이건 바꿀
+ * 낱말이 아니다」로 걸러 내고, 그만큼 오답 자리가 버려진다.
+ *
+ * 원인은 판정이 구두점을 떼고 본 것이다: `normalize("Analogously,")` → `analogously` 는
+ * 기능어 목록에 없어 후보로 통과했다.
+ *
+ * DB 실측(V5 `vocab_choice` 10,612문항 · 밑줄 53,060): 쉼표로 끝남 **5,389** ·
+ * 마침표로 끝남 260 · 마크업 61 → **4,436문항(42%)** 이 그런 밑줄을 하나 이상 갖고 있었다.
+ */
+describe('밑줄 후보', () => {
+  it('쉼표·세미콜론·콜론이 붙은 낱말은 후보가 아니다 — 문장부사이거나 절 경계다', () => {
+    for (const t of ['Analogously,', 'Importantly,', 'Furthermore,', 'however;', 'following:']) {
+      expect(isCandidateToken(t, true), t).toBe(false)
+    }
+  })
+
+  it('마크업 조각은 후보가 아니다', () => {
+    for (const t of ['[Sidenote:', 'Sidenote]', '(anecdotal)', '[Footnote']) {
+      expect(isCandidateToken(t, true), t).toBe(false)
+    }
+  })
+
+  it('문장 중간의 대문자는 고유명사라 후보가 아니다', () => {
+    for (const t of ['William', 'Jasmine', 'Campbell']) {
+      expect(isCandidateToken(t, false), t).toBe(false)
+    }
+  })
+
+  it('문장 첫 낱말의 대문자는 막지 않는다 — 그 자리는 정상이다', () => {
+    expect(isCandidateToken('Maturity', true)).toBe(true)
+  })
+
+  it('문장 끝 낱말을 막지 않는다 — 마침표만으로는 거절하지 않는다', () => {
+    // 마침표까지 막으면 문장 마지막 낱말이 전부 후보에서 빠진다.
+    expect(isCandidateToken('breath.', false)).toBe(true)
+  })
+
+  it('평범한 내용어는 그대로 후보다', () => {
+    for (const t of ['expensive', 'distant', 'agriculture', 'rationale']) {
+      expect(isCandidateToken(t, false), t).toBe(true)
+    }
+  })
+
+  it('기능어와 짧은 낱말은 여전히 빠진다', () => {
+    expect(isCandidateToken('however', false)).toBe(false)
+    expect(isCandidateToken('cat', false)).toBe(false)
   })
 })

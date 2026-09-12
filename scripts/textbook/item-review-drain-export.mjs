@@ -80,28 +80,45 @@ if (!printed.length) {
   process.exit(0)
 }
 
-// ── 이미 3인이 본 것은 뽑지 않는다 ──────────────────────────────────
+// ── 이미 본 것은 뽑지 않는다 — **세 갈래로 가른다** ────────────────
+//
+// ⚠️ **처음에 「3인 pass」만 걸렀다가 드레인이 영원히 도는 모양이 됐다**(실측 2026-09-12).
+//   3인이 다 읽고 `fail`·`revise` 를 준 문항은 **재검수 대상이 아니라 고칠 대상**이다.
+//   그런데 pass 가 3 미만이라 매번 다시 뽑혔다 — 같은 5문항을 몇 번이고 다시 읽게 된다.
+//   (실측: 검수한 8문항 중 3만 통과, **5는 3인이 다 봤는데 미통과**였다.)
+//
+//   그래서 갈래가 셋이다:
+//     ① 3인 pass        → 통과. 안 뽑는다.
+//     ② 3인이 봤고 미통과 → **고칠 몫.** 안 뽑는다 — 문항·해설을 고친 뒤 검수 행을 지우고 다시 받는다.
+//     ③ 3인 미만        → 읽을 몫. 이것만 뽑는다.
 //
 // ⚠️ **서로 다른 페르소나를 센다.** 행 수로 세면 같은 눈이 세 번 본 것이 「3인 검수」가 된다.
-//   DB 의 `unique (item_id, persona)` 가 중복을 막지만, 세는 쪽도 같은 규약이어야 한다.
-const done = new Set()
+const passed = new Set()
+const settled = new Set()
 {
   const ids = printed.map((p) => p.id)
   for (let i = 0; i < ids.length; i += 200) {
     const { data, error } = await db
       .from('csat_item_reviews')
-      .select('item_id, persona')
-      .eq('verdict', 'pass')
+      .select('item_id, persona, verdict')
       .in('item_id', ids.slice(i, i + 200))
     // 표가 없거나 조회가 실패하면 **「전부 미완」으로 뭉개지 않는다** — 그러면 이미 본 것을
     // 다시 내보내 같은 일을 두 번 하게 된다. 실패는 실패라고 말하고 멈춘다.
     if (error) throw new Error('검수 기록 조회 실패: ' + error.message)
-    const byItem = new Map()
+    const seen = new Map()
+    const ok = new Map()
     for (const r of data ?? []) {
-      if (!byItem.has(r.item_id)) byItem.set(r.item_id, new Set())
-      byItem.get(r.item_id).add(r.persona)
+      if (!seen.has(r.item_id)) seen.set(r.item_id, new Set())
+      seen.get(r.item_id).add(r.persona)
+      if (r.verdict === 'pass') {
+        if (!ok.has(r.item_id)) ok.set(r.item_id, new Set())
+        ok.get(r.item_id).add(r.persona)
+      }
     }
-    for (const [id, personas] of byItem) if (personas.size >= 3) done.add(id)
+    for (const [id, personas] of seen) {
+      if ((ok.get(id)?.size ?? 0) >= 3) passed.add(id)
+      else if (personas.size >= 3) settled.add(id)
+    }
   }
 }
 
@@ -116,12 +133,19 @@ const CIRCLED = ['①', '②', '③', '④', '⑤']
 const tasks = []
 let already = 0
 let noExplanation = 0
+/** 3인이 다 봤는데 통과 못 한 것 — **고칠 몫**이다(재검수 아님). */
+let toFix = 0
 /** 순서·삽입 변환에 실패한 것 — 지면에 못 싣는 문항이라 검수 대상도 아니다. */
 let unprintable = 0
 
 for (const r of printed) {
-  if (done.has(r.id)) {
+  if (passed.has(r.id)) {
     already++
+    continue
+  }
+  if (settled.has(r.id)) {
+    // 3인이 다 봤는데 통과 못 한 것 — 다시 읽을 것이 아니라 고칠 것이다.
+    toFix++
     continue
   }
   // ⚠️ **해설 없는 문항은 검수 대상이 아니다.** 세 페르소나 중 `tutor` 는 「해설이 왜
@@ -192,6 +216,7 @@ for (let i = 0; i < tasks.length; i += SIZE) {
 
 console.log(`V${BAND}(${SERIES}) — 실릴 문항 ${printed.length} (단원 ${VOLUME_UNITS})`)
 console.log(`  이미 3인이 통과시킴            ${already}`)
+console.log(`  3인이 봤는데 미통과            ${toFix}${toFix ? '  ← 재검수가 아니라 고칠 몫' : ''}`)
 console.log(`  해설이 없어 아직 검수 못 함      ${noExplanation}${noExplanation ? '  ← 해설 드레인이 먼저다' : ''}`)
 console.log(`  수능 형식 변환 실패            ${unprintable}`)
 console.log(`  **3인이 읽을 몫               ${tasks.length}**  → 청크 ${chunks.length}개 (${SIZE}개씩)`)

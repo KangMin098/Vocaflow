@@ -48,7 +48,16 @@ if (!fs.existsSync(DIR)) {
   process.exit(1)
 }
 
-const outFiles = fs.readdirSync(DIR).filter((f) => /^chunk-\d+\.out\.json$/.test(f)).sort()
+// ⚠️ **적재한 청크에 표식을 남긴다.** 표식이 없던 동안 이미 넣은 `.out.json` 이 폴더에 남아
+//   다음 import 가 **그것까지 다시 읽었다** — 결과는 같지만(upsert) 「적재 N건」이 부풀어
+//   진척을 잘못 읽게 된다. 해설 드레인이 같은 함정을 파일에 적어 뒀다
+//   (`explain-drain/.gitignore`: "이미 적재된 낡은 .out.json 이 남아 다음 import 가 다시 읽는다").
+//   표식은 옆에 `.imported` 로 둔다 — 원본을 지우지 않으므로 나중에 되짚을 수 있다.
+const isImported = (f) => fs.existsSync(path.join(DIR, `${f}.imported`))
+const outFiles = fs
+  .readdirSync(DIR)
+  .filter((f) => /^chunk-\d+\.out\.json$/.test(f) && !isImported(f))
+  .sort()
 if (!outFiles.length) {
   console.log(`채운 청크(.out.json)가 없다: ${path.relative(process.cwd(), DIR)}`)
   process.exit(1)
@@ -147,6 +156,11 @@ for (let i = 0; i < rows.length; i += 200) {
   if (error) throw new Error(`적재 실패(${i}~): ${error.message}`)
   written += slice.length
   console.log(`  적재 ${written}/${rows.length}`)
+}
+
+// 적재가 끝난 뒤에만 표식을 남긴다 — 중간에 죽으면 표식이 없어 다시 읽는다(그게 맞다).
+for (const f of outFiles) {
+  fs.writeFileSync(path.join(DIR, `${f}.imported`), new Date().toISOString(), 'utf8')
 }
 
 console.log(`\n→ csat_item_reviews ${written}행`)

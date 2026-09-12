@@ -95,12 +95,45 @@ function normalize(token: string): string {
 }
 
 /**
- * 밑줄을 걸 만한 낱말인가 — 내용어이고, 굴절되지 않은 표제어 꼴이다.
+ * **붙은 부호가 자리를 말해 준다** — 그 자리는 바꿔 넣어 볼 곳이 아니다.
+ *
+ * ── 왜 (3인 검수 + DB 실측 2026-09-12) ──────────────────────────────
+ * 검수에서 같은 자국이 되풀이됐다: 밑줄이 `"Analogously,"` · `"Importantly,"` 같은 **문장부사**,
+ * `"[Sidenote:"` 같은 **원본 책 마크업**, `"Campbell’s."` 같은 **쪼개진 조각**에 걸렸다.
+ * 학습자는 뜻을 재는 것이 아니라 「이건 바꿀 낱말이 아니다」로 걸러 내게 되고, 그만큼 오답
+ * 자리가 버려진다.
+ *
+ * 원인은 판정이 **구두점을 떼고** 본 것이다 — `normalize("Analogously,")` → `analogously` 는
+ * 기능어 목록에 없으니 후보로 통과했고, 저장은 부호가 붙은 원본 토큰이었다.
+ *
+ * DB 실측(V5 `vocab_choice` 10,612문항 · 밑줄 53,060): 쉼표로 끝남 **5,389** ·
+ * 마침표로 끝남 260 · 마크업 61 → **4,436문항(42%)** 이 그런 밑줄을 하나 이상 갖는다.
+ *
+ * ⚠️ **문장 끝 낱말을 막지 않는다.** 마침표가 붙었다는 것만으로 거절하면 문장 마지막 낱말이
+ *   전부 후보에서 빠진다 — 그건 정상적인 자리다. 막는 것은 **쉼표·세미콜론·콜론**(문장부사와
+ *   절 경계가 거기 있다)과 **괄호·대괄호**(마크업), 그리고 **문장 중간의 대문자**(고유명사)다.
+ */
+function hasClauseMarker(token: string): boolean {
+  // 낱말 뒤에 절을 끊는 부호가 붙었다 — 문장부사이거나 절 경계다.
+  if (/[,;:]$/.test(token)) return true
+  // 원본 책·논문의 마크업 조각.
+  if (/[[\]()]/.test(token)) return true
+  return false
+}
+
+/**
+ * 밑줄을 걸 만한 낱말인가 — 내용어이고, 굴절되지 않은 표제어 꼴이며, **바꿔 넣어 볼 자리**다.
  *
  * 하이픈이 든 낱말(`well-known`)은 받지 않는다. 그 일부만 반대말로 바꾸면 복합어가
  * 깨지고, 학습자는 뜻이 아니라 **낱말이 이상해서** 고른다.
+ *
+ * ⚠️ **내보내는 이유는 회귀 때문이다.** 문단 픽스처로 이 규칙을 재려면 사슬 빈도·창 크기·
+ * 반대말 보유를 동시에 만족시켜야 해서 검사가 취약해진다 — 규칙이 아니라 픽스처를 재게 된다.
  */
-function isCandidateToken(token: string): boolean {
+export function isCandidateToken(token: string, isSentenceStart = false): boolean {
+  if (hasClauseMarker(token)) return false
+  // 문장 중간의 대문자는 고유명사다 — 반대말로 바꿀 수 없다(William → ?).
+  if (!isSentenceStart && /^[A-Z]/.test(token)) return false
   const w = normalize(token)
   return w.length >= 5 && !FUNCTION_WORDS.has(w) && /^[a-z][a-z']*$/.test(w)
 }
@@ -142,7 +175,10 @@ export function buildVocabChoice(
   for (let si = 0; si < sentences.length; si++) {
     const tokens = sentences[si]!.split(/\s+/)
     for (let ti = 0; ti < tokens.length; ti++) {
-      if (isCandidateToken(tokens[ti]!)) all.push({ sentenceIdx: si, tokenIdx: ti, token: tokens[ti]! })
+      // 문장 첫 낱말은 대문자가 정상이다 — 고유명사 규칙에서 빼 준다.
+      if (isCandidateToken(tokens[ti]!, ti === 0)) {
+        all.push({ sentenceIdx: si, tokenIdx: ti, token: tokens[ti]! })
+      }
     }
   }
 
