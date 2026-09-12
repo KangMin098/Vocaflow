@@ -18,6 +18,7 @@
 //   node scripts/textbook/explain-fill.mjs              보기만 (dry-run)
 //   node scripts/textbook/explain-fill.mjs --commit     실제 적재
 //   node scripts/textbook/explain-fill.mjs --commit --type unit_vocab
+//   node scripts/textbook/explain-fill.mjs --commit --type vocab_choice --band 5   한 권 몫만
 //   node scripts/textbook/explain-fill.mjs --overwrite  결정론 해설을 다시 쓴다(규칙이 좋아졌을 때)
 
 import fs from 'node:fs'
@@ -76,6 +77,9 @@ const OVERWRITE = process.argv.includes('--overwrite')
 const typeFlag = process.argv.indexOf('--type')
 const ONLY_TYPE = typeFlag >= 0 ? process.argv[typeFlag + 1] : null
 const LIMIT = Number(process.argv[process.argv.indexOf('--limit') + 1]) || 0
+/** 한 밴드만 채운다 — **권 단위로 끝내려면 겨냥할 수 있어야 한다**(위 build 주석). */
+const bandFlag = process.argv.indexOf('--band')
+const BAND = bandFlag >= 0 ? Number(process.argv[bandFlag + 1]) : null
 
 /** 결정론 해설임을 표시한다 — 나중에 배치 해설과 구별해 다시 쓸 수 있어야 한다. */
 const WRITER_KEY = 'explanation_writer'
@@ -127,8 +131,17 @@ for (const type of types) {
         .from('csat_dcp_items')
         .select('id,type,payload,answer_key')
         .eq('type', type)
-        .order('id')
-        .limit(page)
+      // ── 밴드로 좁힌다 (2026-09-12) ───────────────────────────────────
+      // ⚠️ 이 자리가 없던 동안 **한 권을 끝낼 방법이 없었다.** 발행 게이트는 권 단위로
+      //   「해설 120/120」을 묻는데, 이 스크립트는 유형 전량을 훑으므로 V5 의 6,087건을
+      //   채우려면 다른 레벨까지 다 훑어야 했다 — 실측: 3,000건 훑어 2,317건 적재했는데
+      //   그중 V5 는 **346건**뿐이었다. 겨냥할 수 없으면 끝낼 수도 없다.
+      if (BAND != null) q = q.eq('v_level', BAND)
+      // ⚠️ **해설 있는 것을 서버에서 건다.** 아래 루프가 어차피 건너뛸 것을 payload 까지
+      //   받아 오고 있었다. 해설 드레인(`explain-drain-export`)이 같은 이유로 이미 그렇게 한다.
+      //   `--overwrite` 일 때는 걸지 않는다 — 그때는 있는 것을 다시 쓰는 것이 목적이다.
+      if (!OVERWRITE) q = q.is('answer_key->>explanation_ko', null)
+      q = q.order('id').limit(page)
       if (cursor) q = q.gt('id', cursor)
       return q
     }
