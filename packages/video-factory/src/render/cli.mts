@@ -15,6 +15,7 @@
 //    포트 충돌은 `npx remotion render` 쪽 이야기다.)
 
 import fs from 'node:fs'
+import net from 'node:net'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { bundle } from '@remotion/bundler'
@@ -36,13 +37,32 @@ const PUBLIC_DIR = path.join(PKG, 'work')
 const OUT_DIR = path.join(PKG, 'out')
 
 /**
- * 렌더러가 번들을 띄울 포트.
+ * 렌더러가 번들을 띄울 포트 — **실제로 비어 있는 것을 찾아서** 쓴다.
  *
- * **반드시 명시한다.** 비워 두면 3000 을 쓰는데, 이 워크스페이스는 여러 세션이 공유해
- * 거기 Next dev 서버가 떠 있기 일쑤다. 그러면 렌더러가 **그 앱을 자기 번들로 착각**하고
- *  로 죽는다(실측 2026-09-12, 두 번 겪었다).
+ * 비워 두면 Remotion 이 3000 을 쓰는데, 이 워크스페이스는 여러 세션이 공유해 거기 Next dev
+ * 서버가 떠 있기 일쑤다. 그러면 렌더러가 **그 앱을 자기 번들로 착각**하고
+ * `window.getStaticCompositions is undefined` 로 죽는다(실측 2026-09-12).
+ *
+ * 그렇다고 한 번호로 못 박으면 **새 실패 모드**가 생긴다 — 앞 렌더를 중단한 직후 그 포트가
+ * 아직 붙들려 있어 141편이 전부 즉시 실패했다(실측 2026-09-13, 4333 고정일 때).
+ * 그래서 후보를 차례로 **바인드해 보고** 되는 것을 쓴다.
  */
-const RENDER_PORT = 4333
+async function freePort(from = 4333, tries = 40): Promise<number> {
+  for (let port = from; port < from + tries; port++) {
+    const ok = await new Promise<boolean>((resolve) => {
+      const srv = net.createServer()
+      srv.once('error', () => resolve(false))
+      srv.once('listening', () => srv.close(() => resolve(true)))
+      // ⚠️ **호스트를 지정하지 않는다**(= 0.0.0.0 전체에 바인드).
+      //   `127.0.0.1` 로 시험하면 Windows 에서 **이미 0.0.0.0 로 잡혀 있어도 성공한다** —
+      //   그래서 "비었다" 고 답한 포트에서 Remotion 이 곧바로 튕겼고, 186편이 전부
+      //   즉시 실패했다(실측 2026-09-13). 렌더러가 잡는 방식과 **같은 방식**으로 시험해야 한다.
+      srv.listen(port)
+    })
+    if (ok) return port
+  }
+  throw new Error(`${from}부터 ${tries}개를 봤는데 빈 포트가 없다`)
+}
 
 const args = process.argv.slice(2)
 const cmd = args[0] ?? 'list'
@@ -147,6 +167,7 @@ async function renderOne(
   serveUrl: string,
   spec: VideoSpec,
   format: FormatId,
+  port: number,
 ): Promise<{ file: string; bytes: number }> {
   const id = `${spec.id}--${format}`
   const outFile = path.join(OUT_DIR, format, `${spec.id}.mp4`)
@@ -155,7 +176,7 @@ async function renderOne(
   const voice = loadVoiceManifest(spec.id)
   const inputProps = { spec, format, voice, brand: 'VOCAFLOW' }
 
-  const composition = await selectComposition({ serveUrl, id, inputProps, port: RENDER_PORT })
+  const composition = await selectComposition({ serveUrl, id, inputProps, port })
   await renderMedia({
     composition,
     serveUrl,
@@ -165,7 +186,7 @@ async function renderOne(
     // 학습자가 휴대폰에서 본다 — 파일이 크면 시작이 늦다. CRF 20 은 눈으로 무손실에 가깝다.
     crf: 20,
     audioCodec: 'aac',
-    port: RENDER_PORT,
+    port,
   })
 
   // **여기가 핵심** — 종료코드가 아니라 파일로 확인한다.
@@ -183,7 +204,8 @@ async function cmdRender(all: boolean): Promise<number> {
     throw new Error(`그런 규격이 없다: ${only} (${Object.keys(FORMATS).join(' · ')})`)
   }
 
-  console.log('번들 중…')
+  const port = await freePort()
+  console.log(`번들 중… (렌더 포트 ${port})`)
   const serveUrl = await bundle({
     entryPoint: ENTRY,
     publicDir: PUBLIC_DIR,
@@ -197,7 +219,7 @@ async function cmdRender(all: boolean): Promise<number> {
       if (only && format !== only) continue
       const t0 = Date.now()
       try {
-        const r = await renderOne(serveUrl, spec, format)
+        const r = await renderOne(serveUrl, spec, format, port)
         ok++
         console.log(
           `OK   ${spec.id}--${format}  ${(r.bytes / 1024 / 1024).toFixed(2)}MB  ` +
