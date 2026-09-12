@@ -121,7 +121,15 @@ export function judgePublish(input: PublishGateInput): PublishGateVerdict {
       severity: 'block',
       label: '해설 누락',
       detail: `${input.explained}/${input.items} — ${missing}문항에 해설이 없다 (시중 20종 중 85%가 정답해설을 낸다)`,
-      fix: `pnpm dlx tsx scripts/textbook/explain-drain-export.mjs --band ${input.band} --volume 20 --size 12`,
+      // ⚠️ **규칙 해설이 먼저다.** 여기가 배치 드레인만 가리키던 동안(2026-09-12) 관리자는
+      //   막다른 길로 갔다: `explain-drain-export` 는 **순서·삽입 전용**이라 어휘·어법 문항을
+      //   「수능 형식 변환 실패」로 세고 **배치 몫 0** 을 찍는다 — 해설이 없는데 「쓸 것이 없다」고
+      //   말한다. 그 51문항은 막힌 것이 아니라 `explain-fill`(규칙 작성기)의 몫이었다
+      //   (실측: 해설 없는 어휘 6,087 · 어법 3,074 가 **전부** 작성기의 조건을 만족한다).
+      //   순서를 명령에 담는다 — 규칙으로 안 되는 것만 배치로 간다.
+      fix:
+        `pnpm dlx tsx scripts/textbook/explain-fill.mjs --commit --type <유형> ` +
+        `→ 남은 것만 explain-drain-export.mjs --band ${input.band} --volume 20 --size 12`,
     })
   }
 

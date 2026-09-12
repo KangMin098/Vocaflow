@@ -111,7 +111,14 @@ describe('formatGate · gateRecord', () => {
     const lines = formatGate(judgePublish({ ...CLEAN, explained: 10 }))
     expect(lines.some((l) => l.includes('해설 누락'))) .toBe(true)
     // 명령을 안 적으면 관리자가 우회 플래그를 붙이게 된다 — 그 순간 게이트가 죽는다.
-    expect(lines.some((l) => l.includes('explain-drain-export'))).toBe(true)
+    // ⚠️ **순서가 명령에 담겨야 한다.** 배치 드레인만 가리키던 동안 관리자는 막다른 길로 갔다 —
+    //   그 스크립트는 순서·삽입 전용이라 어휘·어법 문항에 「배치 몫 0」을 찍는다(해설이 없는데
+    //   쓸 것이 없다고 말한다). 규칙 작성기가 먼저다.
+    const fix = lines.join(String.fromCharCode(10))
+    expect(fix).toContain('explain-fill')
+    expect(fix).toContain('explain-drain-export')
+    // 규칙이 배치보다 앞에 적혀야 한다 — 순서가 뒤바뀌면 같은 막다른 길이 된다.
+    expect(fix.indexOf('explain-fill')).toBeLessThan(fix.indexOf('explain-drain-export'))
   })
 
   it('우회로 나온 권은 통과와 다른 모양으로 기록된다', () => {
