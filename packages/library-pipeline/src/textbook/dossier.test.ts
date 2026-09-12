@@ -11,6 +11,7 @@ import { describe, expect, it } from 'vitest'
 import { buildDossier, SKELETON_ITEMS_PER_UNIT, type DossierInput } from './dossier'
 import { ITEMS_PER_UNIT } from './rung-mix'
 import { SERIES_SPINE } from './series'
+import { SERIES_CATALOG } from './series-catalog'
 
 const base: DossierInput = {
   step: 4,
@@ -101,5 +102,52 @@ describe('권 서지', () => {
 
   it('같은 입력이면 같은 책이 나온다 — 순수 함수다', () => {
     expect(JSON.stringify(buildDossier(base))).toBe(JSON.stringify(buildDossier(base)))
+  })
+})
+/**
+ * **브랜드와 사다리가 시리즈를 따르는지.**
+ *
+ * ── 왜 (실측 2026-09-12) ────────────────────────────────────────────
+ * 서지는 브랜드를 전역 상수에서 읽었다 — `COVER_BRAND || SERIES_BRAND`. 그래서 어휘·구문
+ * 권을 학습자에게 열면 표지와 판권면이 **독해 브랜드**로 찍혔다. 조판기는 2026-09-06 에
+ * 같은 사고를 고쳤는데(카탈로그 도움말에 「전역 브랜드를 쓰면 셋 다 READING 으로 찍힌다」가
+ * 실측으로 적혀 있다) **서지는 따라오지 않았다.** 같은 브랜드를 두 곳이 다른 근거로 말했다.
+ *
+ * 아래 첫 검사가 그 회귀를 잠근다 — 전역 상수로 되돌리면 `brand` 가 'Reading' 으로 나온다.
+ */
+describe('서지가 시리즈를 따른다', () => {
+  const vocabBase: DossierInput = {
+    ...base,
+    step: 5,
+    title: 'Vocaflow Vocab Advanced',
+    schoolBand: '고1',
+    vLevels: [5],
+  }
+
+  it('브랜드를 주면 그 브랜드로 찍는다', () => {
+    const d = buildDossier({ ...vocabBase, brand: 'Vocaflow Vocab' })
+    // 표지는 좁아서 마지막 낱말만 쓴다 — 조판기와 같은 규칙이다.
+    expect(d.brand).toBe('Vocab')
+    expect(d.cover.brand).toBe('Vocab')
+  })
+
+  it('브랜드를 안 주면 독해로 떨어진다 — 옛 명령이 그대로 돈다', () => {
+    expect(buildDossier(vocabBase).brand).toBe('Reading')
+  })
+
+  it('사다리를 주면 그 단수를 쓴다 — 어휘 6단에 독해 7단을 그리면 없는 1단이 붙는다', () => {
+    const vocabSpine = SERIES_CATALOG.find((s) => s.id === 'vocab')!.rungs
+    expect(vocabSpine.length).toBe(6)
+    const d = buildDossier({ ...vocabBase, brand: 'Vocaflow Vocab', spine: vocabSpine })
+    expect(d.difficulty.totalSteps).toBe(6)
+    expect(d.difficulty.rungs).toHaveLength(6)
+    // 어휘 시리즈에 1단은 없다 — 전역 사다리를 쓰면 여기 1이 들어온다.
+    expect(d.difficulty.rungs.map((r) => r.step)).not.toContain(1)
+    // 지금 보는 권이 하나만 표시된다.
+    expect(d.difficulty.rungs.filter((r) => r.current)).toHaveLength(1)
+  })
+
+  it('사다리를 안 주면 독해 7단이다', () => {
+    expect(buildDossier(vocabBase).difficulty.totalSteps).toBe(SERIES_SPINE.length)
   })
 })

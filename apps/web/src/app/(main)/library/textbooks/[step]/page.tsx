@@ -128,6 +128,14 @@ export default async function TextbookVolumePage({ params }: { params: { step: s
     itemCount: v.itemCount,
     explainedCount: v.explainedCount,
     bySource: v.bySource,
+    // ⚠️ **브랜드와 사다리를 넘긴다.** 안 넘기면 서지가 전역 상수(독해)로 떨어진다 —
+    //   그 상태에서 어휘·구문 권을 열면 표지와 판권면이 **독해 브랜드**로 찍히고,
+    //   「앞뒤 권」 띠에 그 시리즈에 없는 1단이 붙는다(실측 2026-09-12 · 어휘는 6단이다).
+    //   조판기는 2026-09-06 에 같은 사고를 고쳤는데 이 화면은 따라오지 않았다.
+    //   **매대가 곧 그 시리즈의 사다리다** — `buildShelf` 가 사다리를 받아 만든 것이므로
+    //   여기서 다시 짓지 않고 그 결과를 그대로 넘긴다.
+    brand: shelf.brand,
+    spine: shelf.volumes.map((x) => ({ step: x.step, schoolBand: x.schoolBand })),
   })
 
   // 목차·미리보기는 **조판된 결과**에서만 나온다(`volume-contents.json`).

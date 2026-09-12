@@ -20,7 +20,9 @@
 // · **부가 자료는 실제로 있는 것만 적는다.** 음원·시험지처럼 없는 것을 적지 않는다.
 
 import { buildColophon, type Colophon } from './brand'
-import { COVER_BRAND, coverSpecOf, type CoverSpec } from './cover'
+// `COVER_BRAND`(전역 독해 브랜드)는 **더 쓰지 않는다** — 브랜드는 입력으로 받는다
+// (2026-09-12: 그것을 쓰던 동안 어휘·구문 권이 독해 브랜드로 찍혔다).
+import { coverSpecOf, type CoverSpec } from './cover'
 import { SERIES_BRAND, SERIES_SPINE, type SeriesRung } from './series'
 // ⚠️ **분(分)이 두 개다.** 같은 이름의 상수가 두 파일에 있고 값이 다르다 —
 // assemble-unit 2분(지문에 문항을 붙이는 모델) · compose-unit 3분(문항이 곧 지문인 모델).
@@ -125,6 +127,27 @@ export interface DossierInput {
   bySource: Readonly<Record<string, number>>
   /** 발행일. 테스트가 고정할 수 있게 받는다. */
   issued?: Date
+  /**
+   * **이 권이 속한 시리즈의 브랜드 이름.** 안 주면 독해(`SERIES_BRAND`)로 떨어진다.
+   *
+   * ⚠️ 실측 2026-09-12: 이 자리가 없던 동안 서지는 브랜드를 **전역 상수**에서 읽었고
+   *   (`COVER_BRAND || SERIES_BRAND`), 그래서 어휘·구문 권을 학습자에게 열면 표지와
+   *   판권면이 **독해 브랜드**로 찍혔다. 조판기는 2026-09-06 에 같은 사고를 고치며
+   *   `coverBrand` 를 시리즈에서 넘기게 됐는데(카탈로그 도움말에 그 기록이 있다),
+   *   **서지는 따라오지 않았다** — 같은 브랜드를 두 곳이 다른 근거로 말하고 있었다.
+   */
+  brand?: string
+  /**
+   * **그 시리즈의 사다리.** 안 주면 독해 7단(`SERIES_SPINE`)으로 떨어진다.
+   *
+   * 「앞뒤 권」 띠와 `difficulty.totalSteps` 가 이것을 쓴다. 어휘 시리즈는 6단(V2~V7)이라
+   *   독해 사다리를 그리면 **있지도 않은 1단**이 앞에 붙고 전체 단수도 틀린다.
+   *
+   * ⚠️ **필요한 것보다 많이 요구하지 않는다.** 서지가 쓰는 것은 계단 번호와 학령뿐이다.
+   *   `SeriesRung` 전체를 요구하면 매대(`ShelfVolume`)가 가진 것을 그대로 넘길 수 없어
+   *   (그쪽 `types` 는 `string[]` 이다) 호출부가 형변환을 하게 되고, 형변환은 거짓말이 된다.
+   */
+  spine?: readonly Pick<SeriesRung, 'step' | 'schoolBand'>[]
 }
 
 export interface DossierFeature {
@@ -338,15 +361,21 @@ export function buildDossier(input: DossierInput): VolumeDossier {
     })
   }
 
-  const rungs = SERIES_SPINE.map((r) => ({
+  // ⚠️ **시리즈의 사다리를 쓴다.** 전역(독해 7단)을 쓰면 어휘 6단 권에 없는 1단이 붙는다.
+  const spine = input.spine ?? SERIES_SPINE
+  const brand = input.brand ?? SERIES_BRAND
+  // 표지는 좁아서 마지막 낱말만 쓴다 — `cover.ts` 의 `COVER_BRAND` 와 **같은 규칙**이고,
+  // 조판기(`render-volume.mjs`)도 같은 식으로 넘긴다. 세 곳이 같은 규칙이어야 한 상품이 된다.
+  const coverBrand = brand.split(' ').slice(-1)[0] ?? brand
+  const rungs = spine.map((r) => ({
     step: r.step,
     schoolBand: r.schoolBand,
     current: r.step === input.step,
   }))
 
   return {
-    brand: COVER_BRAND || SERIES_BRAND,
-    cover: coverSpecOf(rung, COVER_BRAND, SERIES_SPINE.length, false),
+    brand: coverBrand || brand,
+    cover: coverSpecOf(rung, coverBrand, spine.length, false),
     preface,
     features: buildFeatures(input),
     studyPlan: buildStudyPlan(MARKET_UNITS_PER_BOOK.median),
@@ -355,7 +384,7 @@ export function buildDossier(input: DossierInput): VolumeDossier {
     extras,
     difficulty: {
       step: input.step,
-      totalSteps: SERIES_SPINE.length,
+      totalSteps: spine.length,
       schoolBand: input.schoolBand,
       vLevels: input.vLevels,
       rungs,
