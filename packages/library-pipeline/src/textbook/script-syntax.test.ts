@@ -62,3 +62,54 @@ describe('파이프라인 스크립트 구문', () => {
     expect(messages, `${name} 구문 오류:\n  ${messages.join('\n  ')}`).toEqual([])
   })
 })
+/**
+ * **최상위 이름을 두 번 선언했는지** 본다 — 파서 진단으로는 안 잡힌다.
+ *
+ * ── 왜 이 검사가 더 필요했나 (실측 2026-09-12) ──────────────────────
+ * 위 검사는 `ts.createSourceFile` 의 `parseDiagnostics` 를 본다. 그것은 **구문**만 본다.
+ * 그런데 같은 이름을 `const` 로 두 번 선언하는 것은 파서에게는 멀쩡한 구문이고
+ * (진단은 바인더 단계의 TS2451 이다), **Node ESM 에서는 모듈을 즉사시킨다:**
+ *
+ *     SyntaxError: Identifier 'target' has already been declared
+ *
+ * 조판기에 발행 게이트를 붙이면서 `const target` 을 새로 선언했는데, 154행에 이미
+ * 유형 배합 목표가 같은 이름으로 있었다. **패키지 테스트 1,888개가 전부 통과했고**
+ * 조판기는 실행 즉시 죽었다 — 이 자가 지키겠다고 적은 것("깨지면 책이 한 권도 안 나온다")이
+ * 정확히 그 상태였다.
+ *
+ * ⚠️ **최상위만 본다.** 블록 안의 같은 이름은 정상이므로(스코프가 다르다) 그것까지 세면
+ *   멀쩡한 코드가 걸린다. 함수 선언도 세지 않는다 — JS 에서 재선언이 합법이다.
+ */
+describe('파이프라인 스크립트 최상위 이름', () => {
+  it.each(files)('%s — 같은 이름을 두 번 선언하지 않는다', (name) => {
+    const source = fs.readFileSync(path.join(SCRIPT_DIR, name), 'utf8')
+    const sf = ts.createSourceFile(name, source, ts.ScriptTarget.ES2022, true, ts.ScriptKind.JS)
+
+    const seen = new Map<string, number>()
+    const dupes: string[] = []
+    const note = (id: ts.Node, text: string) => {
+      const line = sf.getLineAndCharacterOfPosition(id.getStart(sf)).line + 1
+      const first = seen.get(text)
+      if (first != null) dupes.push(`${text} (${first}행 · ${line}행)`)
+      else seen.set(text, line)
+    }
+    // 구조분해도 이름을 만든다 — `const { a } = …` 를 두 번 쓰면 같은 오류가 난다.
+    const walkBinding = (b: ts.BindingName) => {
+      if (ts.isIdentifier(b)) note(b, b.text)
+      else if (ts.isObjectBindingPattern(b) || ts.isArrayBindingPattern(b)) {
+        for (const el of b.elements) {
+          if (ts.isBindingElement(el)) walkBinding(el.name)
+        }
+      }
+    }
+    for (const st of sf.statements) {
+      if (!ts.isVariableStatement(st)) continue
+      // `var` 는 재선언이 합법이다. `const`·`let` 만 본다.
+      const flags = st.declarationList.flags
+      if (!(flags & ts.NodeFlags.Const) && !(flags & ts.NodeFlags.Let)) continue
+      for (const d of st.declarationList.declarations) walkBinding(d.name)
+    }
+
+    expect(dupes, `${name} 이 같은 최상위 이름을 두 번 선언한다:\n  ${dupes.join('\n  ')}`).toEqual([])
+  })
+})

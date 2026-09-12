@@ -74,7 +74,23 @@ const {
   judgePublish,
   formatGate,
   gateRecord,
+  // 어느 권을 찍는가 — **카탈로그가 정의한 것만 찍는다**(`volume-target.ts` 머리 주석).
+  resolveVolumeTarget,
+  formatVolumeTarget,
 } = await import('@vocaflow/library-pipeline')
+
+// ── 찍을 권이 실제로 있는가 ──────────────────────────────────────────
+// ⚠️ **풀을 읽기 전에 판정한다.** 여기가 없던 동안 조판기는
+//   `SERIES_CATALOG.find(...) ?? SERIES_CATALOG[0]` 로 시리즈를 골랐다 — `--series` 에 오타를
+//   내면 **독해 책이 나오고 기록은 오타난 id 로** 남았다(오류 없이). 카탈로그에는 그 행이
+//   어디에도 안 보이고 진짜 독해 행은 낡은 채로 남는다. 없는 단을 지정하면 유형을 좁히지
+//   않은 채 제목만 그 시리즈로 찍혔다 — **그 시리즈가 정의한 적 없는 책**이 나온다.
+const volumeTarget = resolveVolumeTarget(SERIES, BAND)
+if (!volumeTarget.ok) {
+  for (const line of formatVolumeTarget(volumeTarget)) console.log(line)
+  console.log('   기본값으로 때우지 않는다 — 나오는 책과 남는 기록이 갈리기 때문이다.')
+  process.exit(1)
+}
 
 // ⚠️ **단원 수를 바꾸면 유형-학년 적합도가 바뀐다** — 목표 몫은 인쇄 문항 수에 비례하는데
 //   손으로 쓰는 유형의 재고는 그대로라, 단원을 늘리면 같은 재고가 더 큰 미달로 잡힌다.
@@ -225,9 +241,10 @@ const marketFit = typeMixFit(actualMix, marketTarget)
 const closedTypes = Object.keys(marketTarget).filter((t) => !pool.some((it) => it.type === t))
 // 그 시리즈의 단을 쓴다 — **제목·표지가 여기서 나온다.** 독해 사다리만 보면 어휘 권도
 // 「Vocaflow Reading」 으로 찍힌다(실측 2026-09-06 에 그럴 뻔했다).
-const { SERIES_CATALOG } = await import('@vocaflow/library-pipeline/textbook-series-catalog')
-const seriesDef = SERIES_CATALOG.find((x) => x.id === SERIES) ?? SERIES_CATALOG[0]
-const rung = seriesDef.rungs.find((r) => r.vLevels.includes(BAND))
+// 위에서 이미 판정했다 — 여기서 다시 고르지 않는다. 두 번 고르면 두 값이 갈릴 수 있고,
+// 그 갈림이 바로 「기록은 어휘, 내용은 독해」를 만든 모양이다.
+const seriesDef = volumeTarget.series
+const rung = volumeTarget.rung
 
 // ── 조판 ────────────────────────────────────────────────────────────
 const esc = (s) =>

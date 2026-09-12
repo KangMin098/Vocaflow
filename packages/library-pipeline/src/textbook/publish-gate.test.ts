@@ -134,7 +134,9 @@ describe('조판기가 판정을 집행한다', () => {
     // 원래 결함: 판정은 있고 exit 이 없었다(실측 0건).
     expect(src).toContain('process.exit(1)')
     const gate = src.indexOf('judgePublish(')
-    const stop = src.indexOf('process.exit(1)')
+    // ⚠️ **게이트 뒤의** exit 을 찾는다 — 조판기에는 exit 이 둘이다(앞쪽은 카탈로그에 없는
+    //   권을 거절하는 가드, 뒤쪽이 발행 게이트). 첫 번째를 집으면 이 검사가 순서를 거꾸로 읽는다.
+    const stop = src.indexOf('process.exit(1)', gate)
     const write = src.indexOf('fs.writeFileSync(path.resolve(OUT)')
     expect(gate).toBeGreaterThan(-1)
     expect(stop).toBeGreaterThan(gate)

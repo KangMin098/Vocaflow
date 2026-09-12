@@ -29,6 +29,17 @@ const buildSrc = read('build-volume.mjs')
 const renderSrc = read('render-volume.mjs')
 const poolSrc = read('volume-pool.mjs')
 
+/**
+ * **주석을 지운 소스.** 「이런 코드가 없어야 한다」를 검사할 때 쓴다 — 조판기 머리 주석에는
+ * 고친 옛 코드가 근거로 적혀 있어서, 그대로 찾으면 고쳐 놓고도 「아직 있다」고 읽는다
+ * (실측 2026-09-12에 이 함정에 두 번 걸렸다). 기록은 남기고 검사는 코드만 본다.
+ */
+const codeOf = (src: string) =>
+  src
+    .split('\n')
+    .filter((l) => !l.trimStart().startsWith('//'))
+    .join('\n')
+
 describe('시리즈를 스크립트가 안다', () => {
   it('조합기와 조판기가 `--series` 를 받는다 — 안 받으면 밴드만 보고 독해 권을 낸다', () => {
     for (const [name, src] of [
@@ -55,8 +66,16 @@ describe('시리즈를 스크립트가 안다', () => {
   })
 
   it('제목이 시리즈를 따른다 — 독해 사다리만 보면 어휘 권도 Reading 으로 찍힌다', () => {
-    expect(renderSrc).toContain('SERIES_CATALOG.find((x) => x.id === SERIES)')
-    expect(renderSrc).toContain('seriesDef.rungs.find((r) => r.vLevels.includes(BAND))')
+    // 2026-09-12: 조판기가 카탈로그를 **직접 뒤지지 않는다.** 예전 코드는
+    // `SERIES_CATALOG.find(...) ?? SERIES_CATALOG[0]` 였고, 오타를 내면 독해 책이 나오고
+    // 기록은 오타난 id 로 남았다(`volume-target.ts` 머리 주석). 지켜야 하는 것은 그대로다 —
+    // 제목·표지가 **그 시리즈의 단**에서 나와야 한다. 다만 그 단을 고르는 자리가
+    // 판정 함수로 옮겨졌고, 그 함수는 모르는 (시리즈, 단)을 기본값으로 때우지 않는다.
+    expect(renderSrc).toContain('resolveVolumeTarget(SERIES, BAND)')
+    expect(renderSrc).toContain('const seriesDef = volumeTarget.series')
+    expect(renderSrc).toContain('const rung = volumeTarget.rung')
+    // 카탈로그를 두 번 고르면 두 값이 갈릴 수 있다 — 그 갈림이 사고의 모양이었다.
+    expect(codeOf(renderSrc)).not.toMatch(/SERIES_CATALOG\.find/)
     expect(renderSrc).not.toContain("rung?.volumeTitle ?? `Vocaflow Reading V${BAND}`")
   })
 
@@ -71,10 +90,11 @@ describe('시리즈를 스크립트가 안다', () => {
     }
   })
 
-  it('배럴이 아니라 서브패스로 읽는다 — 배럴은 child_process 를 끌어온다', () => {
-    for (const src of [renderSrc, poolSrc]) {
-      expect(src).toContain('@vocaflow/library-pipeline/textbook-series-catalog')
-    }
+  it('풀은 배럴이 아니라 서브패스로 카탈로그를 읽는다 — 배럴은 child_process 를 끌어온다', () => {
+    // `volume-pool.mjs` 는 여러 스크립트가 함께 쓰므로 카탈로그를 서브패스로 읽는다.
+    expect(poolSrc).toContain('@vocaflow/library-pipeline/textbook-series-catalog')
+    // 조판기는 **카탈로그를 아예 직접 읽지 않는다**(판정 함수를 거친다) — 원래 규칙보다 세다.
+    expect(codeOf(renderSrc)).not.toContain('@vocaflow/library-pipeline/textbook-series-catalog')
   })
 })
 
