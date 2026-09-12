@@ -87,3 +87,34 @@ describe('발행 후에는 manifest 의 모든 항목이 화면에서 찾아진�
     expect(total).toBe(manifest.videos.length)
   })
 })
+
+describe('서가에서 누르기 전에는 아무것도 내려받지 않는다', () => {
+  // 왜 잠그나: `/video` 에는 62편이 한 화면에 깔린다. `<video poster=…>` 를 62개 두면
+  // **포스터 62장이 한꺼번에** 내려온다 — `preload="none"` 은 영상 본체만 막고 포스터는 못 막는다.
+  // 되돌리기 쉬운 최적화라("그냥 video 태그 쓰면 되잖아") 코드로 못 박는다.
+  const RAW = fs.readFileSync(
+    path.join(__dirname, '../../../components/video/ComponentVideo.tsx'),
+    'utf8',
+  )
+  // 주석을 걷어낸 코드만 본다 — 머리말이 왜 이렇게 했는지 설명하며 `<video` 를 인용하는데,
+  // 그걸 세면 검사가 자기 설명에 걸린다(실측: 첫 시도에서 그렇게 실패했다).
+  const SRC = RAW.split('\n')
+    .filter((l) => !l.trim().startsWith('//') && !l.trim().startsWith('*'))
+    .join('\n')
+
+  it('플레이어는 누른 뒤에야 붙는다', () => {
+    expect(SRC).toContain('activated ? (')
+    expect(SRC).toMatch(/<video\b/)
+    // `<video>` 가 조건 바깥에 있으면 항상 붙는다 — 조건문보다 앞에 나오면 안 된다.
+    expect(SRC.indexOf('activated ? (')).toBeLessThan(SRC.indexOf('<video'))
+  })
+
+  it('포스터는 지연 로드한다', () => {
+    expect(SRC).toContain('loading="lazy"')
+  })
+
+  it('자동재생을 켜지 않는다', () => {
+    expect(SRC).not.toMatch(/\bautoPlay\b/)
+    expect(SRC).not.toMatch(/\bloop\b/)
+  })
+})
