@@ -1,0 +1,1495 @@
+[
+ {
+  "book": "'Ground truth' could enable AI to improve colonoscopies",
+  "url": "https://www.futurity.org/ground-truth-data-computer-vision-ai-colonoscopy-3171882/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 620,
+  "rows": 1,
+  "excerpts": [
+   "New research addresses problems that have historically made colonoscopy a challenging application for computer vision, including 3D reconstruction and depth estimation. Computer vision systems show promise for improving the accuracy of colonoscopy screenings, a procedure that uses a camera to see the inside of the large intestine to detect cancer and other diseases. Training and assessing computer vision algorithms t",
+   "t as applied to medicine department first created a digital sculpture of the colon from reference anatomical images and then physically cast it in silicone. Using the 3D colon model, the researchers recorded video sequences with a clinical HD colonoscope to include realistic lighting, sensor gain, gamma, and noise—all factors that play an important role in the performance of computer vision algorithms. After recordin"
+  ],
+  "verdict": "use",
+  "genre": "technology",
+  "why": "실리콘 대장 모형으로 컴퓨터 비전 학습법을 끝까지 설명한다"
+ },
+ {
+  "book": "Lab-made skin may pave way for better scleroderma treatments",
+  "url": "https://www.futurity.org/lab-made-skin-scleroderma-fibrosis-3292652/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 758,
+  "rows": 1,
+  "excerpts": [
+   "Lab-grown skin captures the complexities of real disease to develop more effective treatments for scleroderma and other life-threatening conditions, researchers report. For the 300,000 Americans living with the immune disease scleroderma, better treatments can’t come soon enough. The rare and sometimes fatal illness stiffens and scars tissue in organs like the lungs, liver, and kidneys, as well as skin. It may quietl",
+   "s disease but often is not captured in traditional lab models. Our organs are constantly renewing and repairing themselves by creating new tissue. Normally, this process stays in balance, keeping tissues strong, flexible, and healthy. However, when the immune system goes into overdrive, it can disrupt this balance. The body starts overproducing connective tissue, which should act like scaffolding, but instead builds "
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "실험실 배양 피부로 경피증 기작을 전개하는 설명문"
+ },
+ {
+  "book": "What you should know about Iran's cyber threats",
+  "url": "https://www.futurity.org/iranian-cyber-threats-3327402/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 1163,
+  "rows": 1,
+  "excerpts": [
+   "As US strikes on Iran continue, questions are mounting about the risk of retaliatory cyberattacks on American infrastructure. Alex K. Jones is the electrical engineering department chair and a professor in Syracuse University’s College of Engineering and Computer Science. Here, he breaks down the realistic threat landscape—from water systems and power grids to the looming question of quantum computing—and explains wh",
+   "rensics, which is difficult. Attackers can hide behind multiple layers of infrastructure. Traffic may pass through compromised machines in several countries before reaching the target, so the source of the connection you see in the logs is rarely the actual attacker. Investigators usually rely on a combination of signals. One is infrastructure analysis, looking at things like command-and-control servers, domain regis"
+  ],
+  "verdict": "use",
+  "genre": "technology",
+  "why": "사이버 공격 귀속 추적 방법을 전문가가 논리적으로 전개"
+ },
+ {
+  "book": "Police on patrol spend more time in Black, Hispanic neighborhoods",
+  "url": "https://www.futurity.org/police-patrol-black-hispanic-neighborhoods-2990582/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 479,
+  "rows": 1,
+  "excerpts": [
+   "Police officers on patrol spend more time in predominantly Black and Hispanic neighborhoods, according to a new study. Researchers used anonymized smartphone data from nearly 10,000 police officers in 21 large US cities for the study. “Research on policing has focused on documented actions such as stops and arrests—less is known about patrols and presence,” says Kate Christensen, assistant professor of marketing at t",
+   "sparities and discretionary decision making by police commanders and officers,” the researchers write. On average, the research indicated that police spent: 6% more time in areas of a city where the fraction of Black residents was 10% higher. 2% more time in places with 10% higher share of Hispanic residents. 7% more time in places with 10% as many Asian residents. Variation in socioeconomic status, social disorganiz"
+  ],
+  "verdict": "use",
+  "genre": "social",
+  "why": "위치 데이터로 순찰 편차를 논증한 연구 보고"
+ },
+ {
+  "book": "Counting in Bundles",
+  "url": "",
+  "source": "original",
+  "v_level": 2,
+  "words": 197,
+  "rows": 1,
+  "excerpts": [
+   "Most people believe the mind can hold only a few things at once, and that the number is fixed. The figure usually given is about seven, which is why telephone numbers were once kept short. From that belief follows a simple rule: cut every list down, or the listener drops the end. However, the number counts units, and what makes a unit is not fixed at all. A string of ten digits is heavy while it stays ten separate di",
+   "gits in the head. Broken into three groups, the same string is easy to hold, because the groups have become the units. A skilled reader shows the same effect, holding whole words where a beginner holds single letters. Practice does not raise the limit, then, but changes how much a single item is able to contain. This is why a long piece of music can be carried in the head quite easily. The player is not storing every"
+  ],
+  "verdict": "use",
+  "genre": "education",
+  "why": "청킹 원리를 예시로 끝까지 전개한 짧은 설명문"
+ },
+ {
+  "book": "Prophage-encoded Hm-oscar gene recapitulates Wolbachia-induced male-killing in the tea tortrix moth Homona magnanima",
+  "url": "https://elifesciences.org/articles/101101",
+  "source": "elife",
+  "v_level": 5,
+  "words": 313,
+  "rows": 1,
+  "excerpts": [
+   "Bacteria, viruses and other microbes are often thought of as external threats – but some also live inside animals, where they can be passed from mother to offspring. These types of microbes are commonly carried by insects and have various strategies for manipulating reproduction so they can spread through a population more easily. One striking example is male killing, in which microbes selectively kill the male offsp",
+   " Wolbachia genome that encodes multiple candidate genes involved in male killing. First, Arai et al. explored whether a Wolbachia gene called Hm-oscar is responsible for male killing in the moth Homona magnanima. They found that over activating Hm-oscar in embryos not infected with Wolbachia increased male mortality, reproducing the effects of male killing, leading to a female-biased sex ratio. Further experiments co"
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "수컷 살해 유전자 실험을 단계별로 설명"
+ },
+ {
+  "book": "NASA Invites Media to Serbia Artemis Accords Signing Ceremony - NASA",
+  "url": "https://www.nasa.gov/news-release/nasa-invites-media-to-serbia-artemis-accords-signing-ceremony/",
+  "source": "nasa",
+  "v_level": 5,
+  "words": 225,
+  "rows": 1,
+  "excerpts": [
+   "2 min read NASA Invites Media to Serbia Artemis Accords Signing Ceremony Elizabeth Shaw Jul 14, 2026 MEDIA ADVISORYM26-052 NASA Headquarters The Republic of Serbia will sign the Artemis Accords at 5 p.m. EDT Thursday, July 16, during a ceremony at NASA Headquarters in Washington. NASA Deputy Administrator Matt Anderson will host Serbia’s Minister of Foreign Affairs Marko Đurić and U.S. State Department Assistant Secr",
+   " in attending must RSVP no later than 3 p.m. on July 16, to: hq-media@mail.nasa.gov. NASA’s media accreditation policy is online. In 2020, during the first Trump Administration, the United States, led by NASA and the State Department, joined with seven other founding nations to establish the Artemis Accords, responding to the growing interest in lunar activities by both governments and private companies. The accords "
+  ],
+  "verdict": "reject",
+  "genre": "reference",
+  "why": "행사 안내와 RSVP 연락처 중심의 취재 공지"
+ },
+ {
+  "book": "Hawaiian birds are stealing from their neighbors' nests",
+  "url": "https://www.futurity.org/birds-stealing-kleptoparasitism-3332192/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 620,
+  "rows": 1,
+  "excerpts": [
+   "High in the forests of Hawai’i, songbirds are stealing twigs and moss from one another’s nests. UC Riverside researchers found this quiet canopy crime is surprisingly common and could threaten species already struggling to survive. A new study led by Erin Wilson Rankin, a UCR entomologist, offers a detailed look into nest-material theft among Hawaiian forest birds, a behavior known as kleptoparasitism. While scientis",
+   "s for species already under stress due to habitat loss, disease, and climate change. In combination with threats like avian malaria, subtle risks like this could accelerate population decline. The study in The American Naturalist also sheds light on the thieving birds themselves. Though stealing may reduce the energy and time needed to build a nest, it’s not without potential costs. Stolen materials could carry paras"
+  ],
+  "verdict": "use",
+  "genre": "nature",
+  "why": "둥지 재료 절도 행동과 생태 위험을 설명"
+ },
+ {
+  "book": "NASA Astronaut Chris Williams Closes Out Space Station Mission - NASA",
+  "url": "https://www.nasa.gov/missions/station/iss-research/nasa-astronaut-chris-williams-closes-out-space-station-mission/",
+  "source": "nasa",
+  "v_level": 5,
+  "words": 996,
+  "rows": 1,
+  "excerpts": [
+   "5 Min Read NASA Astronaut Chris Williams Closes Out Space Station Mission Destiny Doran International Space Station Research Communications Team Jul 23, 2026 Article Contents Cancer-fighting constructs Superior semiconductors Eyeing Earth Sub-zero medical samples Capturing cargo Blocking biofilms Strengthening solar power Microgravity medicine Robotic refinement After eight months aboard the International Space Stati",
+   "ore about the Minus Eighty-Degree Laboratory Freezer for the International Space Station (MELFI) and Human Research. Capturing cargo NASA astronauts Jack Hathaway and Chris Williams watch from the cupola windows as Northrop Grumman’s Cygnus XL cargo spacecraft approaches the International Space Station. The two played key roles in the capture of the spacecraft, which delivered approximately 11,000 pounds of supplies,"
+  ],
+  "verdict": "reject",
+  "genre": "reference",
+  "why": "목차와 실험 항목 나열에 더 알아보기 링크 묶음"
+ },
+ {
+  "book": "Plastic junk sounds like tasty food to some whales",
+  "url": "https://www.futurity.org/whales-plastic-pollution-sonar-3253792/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 538,
+  "rows": 1,
+  "excerpts": [
+   "To whales that hunt with soundwaves in the lightless depths of the ocean, a torn plastic party balloon and a delicious squid seem to be remarkably similar, according to a new study that put some plastic beach trash through underwater acoustic testing. “These acoustic signatures are similar, and this might be a reason that these animals are driven to consume plastic instead of, or in addition to, their prey,” says Duk",
+   "e materials to see whether the whales were being confused by plastics. After rounding up some typical, and barnacle-encrusted, plastic trash from beaches in Beaufort and nearby Atlantic Beach, North Carolina, the researchers put them under the sonar transponder on the Duke Marine Lab’s ship R/V Shearwater to test them. “It was plastic bags, balloons, things that are commonly observed in the stomachs of stranded whale"
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "플라스틱과 오징어의 음향 신호 유사성을 실험으로 설명"
+ },
+ {
+  "book": "Tiny gold bits may one day help restore lost vision",
+  "url": "https://www.futurity.org/gold-nanoparticles-vision-loss-3278872/",
+  "source": "futurity",
+  "v_level": 6,
+  "words": 815,
+  "rows": 1,
+  "excerpts": [
+   "A new study suggests that gold nanoparticles—microscopic bits of gold thousands of times thinner than a human hair—might one day be used to help restore vision in people with macular degeneration and other retinal disorders. In a study in the journal ACS Nano, the research team showed that nanoparticles injected into the retina can successfully stimulate the visual system and restore vision in mice with retinal disor",
+   "particle solution, the researchers used patterned near-infrared laser light to project shapes onto the retinas. Using a calcium signal to detect cellular activity, the team confirmed that the nanoparticles were exciting bipolar and ganglion cells in patterns matched the shapes projected by the laser. The experiments showed that neither the nanoparticle solution nor the laser stimulation caused detectable adverse side"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "금 나노입자로 망막을 자극하는 원리를 전개"
+ },
+ {
+  "book": "The UK will add folic acid to flour – but supplements remain vital before pregnancy",
+  "url": "https://theconversation.com/the-uk-will-add-folic-acid-to-flour-but-supplements-remain-vital-before-pregnancy-289252",
+  "source": "the_conversation",
+  "v_level": 5,
+  "words": 952,
+  "rows": 1,
+  "excerpts": [
+   "Fewer than one in five women in England now take folic acid before pregnancy. This is down from one in four just five years ago. The decline is worrying because it could undermine the progress that has been made in recent years to prevent serious birth defects linked to low folic acid intake. Although the UK government has mandated that from December 2026 all non-wholemeal wheat flour must be fortified with folic aci",
+   "a prior healthy pregnancy. So knowledge is not enough. It’s currently not clear why supplement use has been declining overall. It may reflect a combination of limited and unequal access to timely pre-pregnancy advice or practical barriers such as cost and availability. It could also be due to confusion about whether flour fortification means supplements are no longer needed. Why fortification isn’t enough The key cha"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "엽산 강화와 보충제가 왜 둘 다 필요한지 논증"
+ },
+ {
+  "book": "'How' motivates runners more than 'why'",
+  "url": "https://www.futurity.org/what-motivates-runners-3294582/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 662,
+  "rows": 1,
+  "excerpts": [
+   "New research shows that as a run gets harder, athletes focus on the mechanics of finishing rather than broader motivational self-talk. As attention turns to this year’s New York City Marathon, observers will again ask a long-standing question: What do athletes draw upon when trying to complete this 26.2-mile run, especially at those stretches when finishing seems impossible? Many might think that when fatigue sets in",
+   "s with recreational and competitive runners. The researchers surveyed approximately 1,000 runners who ran at slower and faster paces. They were about to or just recently competed in two types of races: a single 10-mile race and multiple 5-kilometer races. The surveys asked runners when, during a race, they used “narrow” vs. “wide” visual attention and when they deployed implemental “how” mindsets vs. deliberative “wh"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "달리기 중 주의 전환을 설문 자료로 설명"
+ },
+ {
+  "book": "The North Star has a spotted surface",
+  "url": "https://www.futurity.org/north-star-polaris-3245962-2/",
+  "source": "futurity",
+  "v_level": 6,
+  "words": 652,
+  "rows": 1,
+  "excerpts": [
+   "Researchers have identified new details about the size and appearance of the North Star, also known as Polaris. The new research appears in The Astrophysical Journal. Earth’s North Pole points to a direction in space marked by the North Star. Polaris is both a navigation aid and a remarkable star in its own right. It is the brightest member of a triple-star system and is a pulsating variable star. Polaris gets bright",
+   "the CHARA Array acted like a 330-meter telescope to detect the faint companion as it passed close to Polaris. The observations of Polaris were recorded using the MIRC-X camera which was built by astronomers at the University of Michigan and Exeter University in the UK. The MIRC-X camera has the remarkable ability to capture details of stellar surfaces. The team successfully tracked the orbit of the close companion an"
+  ],
+  "verdict": "use",
+  "genre": "space",
+  "why": "간섭계로 북극성 표면과 동반성을 관측한 원리 설명"
+ },
+ {
+  "book": "Glia-mediated gut–brain cytokine signaling couples sleep to intestinal inflammatory responses induced by oxidative stress",
+  "url": "https://elifesciences.org/articles/99999",
+  "source": "elife",
+  "v_level": 5,
+  "words": 416,
+  "rows": 1,
+  "excerpts": [
+   "When we are sick, we often feel tired or sleepy. This sickness-induced sleep is a deeply conserved response across species that helps the body recover. While the immune system and the brain must somehow communicate to make this happen, we still know little about how signals from a sick body reach the brain to change sleep behavior. The gut, for instance, plays an important role in health and illness, and inflammation",
+   "how this affected sleep. The flies were then dissected and stained for further immunohistochemical studies and confocal microscopy imaging. The results revealed that oxidative stress triggers the release of specific cytokines from endocrine cells in the lining of the gut as part of an immune and inflammatory response. These cytokines travel through the body’s circulatory system and activate a signaling pathway in gli"
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "장-뇌 사이토카인 경로가 수면을 바꾸는 기작 설명"
+ },
+ {
+  "book": "Are you managing your allergies the wrong way?",
+  "url": "https://www.futurity.org/allergies-allergy-season-3330622/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 327,
+  "rows": 1,
+  "excerpts": [
+   "If you’re sneezing more than usual this spring, there’s a reason. Allergy seasons across the US are starting earlier, lasting longer, and hitting harder, driven by warmer temperatures and rising CO2 levels that are increasing pollen production. What’s more, people who have never had allergies before are suddenly developing them in adulthood—a trend that’s becoming increasingly common. Lisa Olson-Gugerty, a teaching p",
+   "eading to more severe and persistent symptoms. Pollution compounds the problem by making pollen more irritating to airways. And a lesser-known phenomenon—”thunderstorm asthma”—can trigger severe asthma attacks when storms break pollen grains into tiny particles that travel deep into the lungs. You are not born with allergies. First-time allergy symptoms in adulthood are very common, and the changing climate is expand"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "알레르기 계절 변화 원인을 기후와 연결해 설명"
+ },
+ {
+  "book": "Neuro-evolutionary evidence for a universal fractal primate brain shape",
+  "url": "https://elifesciences.org/articles/92080",
+  "source": "elife",
+  "v_level": 5,
+  "words": 322,
+  "rows": 1,
+  "excerpts": [
+   "Many of the brain’s essential functions – from decision-making to movement – take place in its outer layer known as the cerebral cortex. The shape of the cerebral cortex varies significantly between species. For instance, in humans, it is folded in to grooves and ridges, whereas in other animals, including mice, it is completely smooth. The structure of the cortex can also differ within a species, and be altered by a",
+   "s or structures smaller than a given threshold size. As this threshold increases, the cortex becomes progressively smoother. The relationship between surface areas and threshold sizes indicates the fractal dimension – that is, how fragmented the cortex is across different scales. Wang et al. applied their model to the brain scans of eleven primates, including humans, and found the fractal dimension of the cortex was "
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "피질 프랙탈 차원 모델을 영장류에 적용해 설명"
+ },
+ {
+  "book": "NASA Opens New Flight Dynamics Research Facility in Virginia - NASA",
+  "url": "https://www.nasa.gov/news-release/nasa-opens-new-flight-dynamics-research-facility-in-virginia/",
+  "source": "nasa",
+  "v_level": 5,
+  "words": 928,
+  "rows": 1,
+  "excerpts": [
+   "5 min read NASA Opens New Flight Dynamics Research Facility in Virginia Jennifer M. Dooren Jul 31, 2026 RELEASE26-062 NASA Headquarters NASA opened its newest wind tunnel, the Flight Dynamics Research Facility, Friday, providing a critical resource for the agency and its partners to test the safety and performance of future generations of aircraft, rockets, and space exploration vehicles. Located at NASA’s Langley Re",
+   "th these new capabilities, NASA will be better equipped to test bold ideas, validate new designs, and advance technologies that will serve the nation for decades to come.” The Flight Dynamics Research Facility combines and improves upon the capabilities of two historic NASA Langley wind tunnels – the 20-Foot Vertical Spin Tunnel and the 12-Foot Low-Speed Tunnel. The 25,000-square-foot building features a vertical win"
+  ],
+  "verdict": "use",
+  "genre": "technology",
+  "why": "새 풍동의 구조와 시험 능력을 이어서 설명"
+ },
+ {
+  "book": "Can grasslands and wetlands coexist with more agriculture?",
+  "url": "https://www.futurity.org/agriculture-wetlands-grasslands-ecosystems-sustainability-3176262-2/",
+  "source": "futurity",
+  "v_level": 6,
+  "words": 701,
+  "rows": 1,
+  "excerpts": [
+   "A new study offers critical insights to encourage sustainable agriculture and protect Florida grasslands and wetlands. Florida grasslands and wetlands are wide expanses of land that cover about 25% of the Earth’s surface and 70% of agricultural production. Individually, they offer benefits, also known as ecosystem services, to people and the environment. Together, they provide provisioning services such as beef and m",
+   "earcher in Qiu’s lab. “Findings fill a critical knowledge gap about how surrounding natural wetlands respond to planned agricultural land intensification. The study also represents a holistic assessment of agriculture, both onsite grasslands and surrounding wetlands.” The researchers took a deep dive into the complex relationship between land-use practices and the ecosystem services provided by grasslands and wetland"
+  ],
+  "verdict": "use",
+  "genre": "nature",
+  "why": "초지와 습지의 생태계 서비스 상충을 연구로 설명"
+ },
+ {
+  "book": "Where a Price Is Decided",
+  "url": "",
+  "source": "original",
+  "v_level": 2,
+  "words": 230,
+  "rows": 1,
+  "excerpts": [
+   "A price looks like a fact that has been printed on a label, and inside a shop it behaves like one. It is far easier to understand as a meeting point between two people who both want something. People selling will not go below what the thing cost them, and people buying will not go above what it is worth. The price settles somewhere between those two limits, and it stays there only until one of them moves. A fish mark",
+   "et in the early morning shows all of this at once, without anyone having to explain it. The price falls steadily all through the day, and the fish itself has not changed in any way. A person who still holds fish at four o'clock has almost nothing left to gain by keeping it any longer. A seat on a plane behaves the same way for exactly the opposite reason, rising as the day comes near. That seat is worth nothing at al"
+  ],
+  "verdict": "use",
+  "genre": "economics",
+  "why": "가격이 두 한계 사이에서 정해지는 이유를 예시로 전개"
+ },
+ {
+  "book": "Bird spit inspires a new way to make cellulose gels",
+  "url": "https://www.futurity.org/cellulose-gels-bird-spit-biomimicry-2988172/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 465,
+  "rows": 1,
+  "excerpts": [
+   "A new nontoxic process for making cellulose gels takes inspiration from a small bird’s use of spit when making its nest. The freeze-thaw process is simple, cost-effective, and can create cellulose gels that are useful in a number of applications, including tunable gels for timed drug delivery. The process also works with bamboo and potentially other lignin-containing plant fibers. Cellulose is a wonderful material fo",
+   " the saliva acts like a natural resin that holds the nest together and encourages the fibers within the nest to interconnect or crosslink,” Lucia says. “Which is exactly what we want the dissolved cellulose to do when making hydrogels. So we asked ourselves, ‘what if we mimic the birds?'” Zhang, currently a postdoc at Texas Tech University, is a co-corresponding author. The researchers added a water soluble cellulose"
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "새 침에서 착안한 셀룰로스 겔 제조 원리 설명"
+ },
+ {
+  "book": "'Mosquito shield' cuts malaria infections by a third",
+  "url": "https://www.futurity.org/malaria-transmission-3262912-2/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 701,
+  "rows": 1,
+  "excerpts": [
+   "A new tool for fighting malaria called a spatial repellent showed a significant impact on reducing malaria infections in a new study. The spatial repellent product, Mosquito Shield™, used alongside insecticide-treated nets, reduced first-time and overall malaria infections by one-third (33.4% and 32.1%, respectively), compared to the placebo product. “This is a powerful result.” Building on earlier findings from Indo",
+   "0 malaria infections can be averted for every 100 people per year using the product. “Unitaid is proud to have supported the AEGIS trial as the results from Kenya mark a major advance in malaria control,” says Philippe Duneton, executive director of Unitaid. “The spatial repellent, which hangs discreetly on walls and slowly releases chemicals that protect people from mosquitos, could become the first new class of vec"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "공간 기피제의 말라리아 감소 효과를 수치로 논증"
+ },
+ {
+  "book": "To stay in the loop, get out of your social bubble",
+  "url": "https://www.futurity.org/social-circles-staying-informed-3251762-2/",
+  "source": "futurity",
+  "v_level": 4,
+  "words": 356,
+  "rows": 1,
+  "excerpts": [
+   "Contrary to a long-standing social science theory, new research suggests that having people in your life who expose you to other social circles helps you stay most informed. “When it comes to hearing about new things, it doesn’t matter whether someone is just a casual acquaintance or your closest friend. What matters is that they can help you tap into other social circles,” says Zachary Neal, professor in Michigan St",
+   " the Strength of Weak Ties theory, needs revising. This 50-year-old theory states that casual acquaintances or “weak ties” are especially important because they expose you to new ideas. “Although the Strength of Weak Ties theory has been very influential, it makes some assumptions about social networks that usually don’t match reality,” says Neal. “The theory focused attention on whether your connection to a person w"
+  ],
+  "verdict": "use",
+  "genre": "social",
+  "why": "약한 연결 이론의 수정 근거를 자료로 제시"
+ },
+ {
+  "book": "Winter and February 2020 end as second warmest on record for the globe",
+  "url": "https://www.climate.gov/news-features/understanding-climate/winter-and-february-2020-end-second-warmest-record-globe",
+  "source": "noaa",
+  "v_level": 5,
+  "words": 462,
+  "rows": 1,
+  "excerpts": [
+   "February 2020 marked the warm end to one of the most unusually warm months and winters on record for the globe. Both the month and the winter season finished second to 2016. This was among the many highlights of the February 2020 global climate summary released by the National Centers for Environmental Information last week. This map shows how different from normal temperatures were in February 2020. Normal is define",
+   ", northern Canada, and Far East Russia. The cause of these cold temperatures was a record-breakingly strong polar vortex, which kept cold air isolated across the Far North, leading to plunging temperatures and a cold end to winter in the region. (For more on how the polar vortex works, head to this ENSO blog post.) February’s warm temperatures followed the path set by the preceding two months, as December (second war"
+  ],
+  "verdict": "reject",
+  "genre": "reference",
+  "why": "월간 기온 순위와 수치 나열이 본문을 이룬다"
+ },
+ {
+  "book": "Everything Old is New Again",
+  "url": "https://www.usgs.gov/news/science-snippet/everything-old-new-again",
+  "source": "usgs",
+  "v_level": 5,
+  "words": 369,
+  "rows": 1,
+  "excerpts": [
+   "One such area is the Blackbird district of Idaho. Once home to one of the largest copper and cobalt mines in the country, mining ceased in the 1960s, and the area has remained quiet for years. However, attention has been growing recently due to the Blackbird district’s potential for new critical mineral commodities, like bismuth and the rare earth elements. In addition, advances in mining technology and refining capa",
+   "cts might, themselves, contain some of those new critical mineral resources. In processing the leftovers, called tailings, less new mining would be required, lowering costs and reducing potential environmental impacts. The USGS did a similar study of rare earth element potential in mine tailings in Adirondacks iron mines in New York. Still, the first step in studying an area for its mineral potential remains the trad"
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "폐광 광미에서 핵심광물을 찾는 과정을 설명"
+ },
+ {
+  "book": "Some Americans are eating better, but health inequities remain",
+  "url": "https://www.futurity.org/healthy-food-inequities-nutrition-diet-3231812/",
+  "source": "futurity",
+  "v_level": 6,
+  "words": 621,
+  "rows": 1,
+  "excerpts": [
+   "Diet quality among US adults improved modestly between 1999 and 2020, researchers have found. However, they also found that the number of Americans with poor diet quality remains stubbornly high. Most notably, disparities persist and, in some cases, are worsening. Poor diet continues to take a toll on American adults. It’s a major risk factor for obesity, type 2 diabetes, cardiovascular disease, and certain cancers, ",
+   "lthy diet that includes components like fruits, vegetables, beans and nuts, whole grains, sugary beverages, and processed meat. They found that the proportion of adults with poor dietary quality decreased from 48.8% to 36.7% over these two decades, while those with intermediate diet quality increased from 50.6% to 61.1%. They also found that the proportion of adults with an ideal diet improved but remained starkly lo"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "식단 질 추세와 계층 격차를 지표로 논증"
+ },
+ {
+  "book": "People trust science more when they see themselves in it",
+  "url": "https://www.futurity.org/trust-science-scientists-representation-3313462/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 494,
+  "rows": 1,
+  "excerpts": [
+   "Diversifying the ranks of scientists in the United States is crucial to engendering more trust in the scientific community among more Americans. That’s the takeaway from a new study in Nature Human Behaviour. “When it comes to trusting scientists, who is practicing science matters almost as much to Americans as what their science reveals,” says James Druckman, a professor of political science at the University of Roc",
+   "ntific community looks a lot less like the country it serves is more than symbolic, the authors argue. Indeed, it influences how different groups of people trust scientists and scientific institutions, and how likely recommendations of scientists are to become public policy. “Scientists provide important information to the public,” Druckman says. “Whether that information influences decision-making depends on trust.”"
+  ],
+  "verdict": "use",
+  "genre": "social",
+  "why": "과학자 구성과 신뢰의 관계를 연구로 논증"
+ },
+ {
+  "book": "Daylight savings time is bad for your healthy habits",
+  "url": "https://www.futurity.org/daylight-savings-time-healthy-routines-3218742/",
+  "source": "futurity",
+  "v_level": 4,
+  "words": 635,
+  "rows": 1,
+  "excerpts": [
+   "Making the change to daylight saving time isn’t good for our healthy habits, a new study shows. Researchers found that the onset of daylight saving time—when most jurisdictions in the United States “spring forward” and set their clocks ahead by one hour—is associated with increased consumption of processed snack foods and fewer trips to the gym. “There’s quite a bit of research in health fields related to how well-be",
+   "e remembering what they’d eaten. This data was collected using a methodology that had study participants enter their consumption in the moment.” The snack data set included consumption data from the days leading up to the onset of daylight saving time, and the days following the onset. In addition, the data set included information from consumers in parts of the US that do not observe daylight saving time—allowing th"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "서머타임이 간식과 운동에 미친 영향을 자료로 설명"
+ },
+ {
+  "book": "Film made from natural stuff could replace plastic packaging",
+  "url": "https://www.futurity.org/film-plastic-packaging-3306252/",
+  "source": "futurity",
+  "v_level": 6,
+  "words": 493,
+  "rows": 1,
+  "excerpts": [
+   "Researchers have developed a biobased film that could replace traditional plastic packaging. Plastic packaging is ubiquitous in our world, with its waste winding up in landfills and polluting oceans, where it can take centuries to degrade. To ease this environmental burden, industry has worked to adopt renewable biopolymers in place of traditional plastics. However, developers of sustainable packaging have faced hurd",
+   "the barrier properties. However, Meredith and his collaborators found a fix using a blend of these natural ingredients: cellulose (which gives plants their structure), chitosan (derived from crustacean-based food waste or mushrooms), and citric acid (from citrus fruits). “By crosslinking these materials and adding a heat treatment, we created a thin film that reduced both moisture and oxygen transmission, even in hot"
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "천연 성분 가교로 차단성을 높인 필름 제조 설명"
+ },
+ {
+  "book": "Hurricane Vince",
+  "url": "https://simple.wikipedia.org/wiki/Hurricane_Vince",
+  "source": "simple_wikipedia",
+  "v_level": 4,
+  "words": 1102,
+  "rows": 1,
+  "excerpts": [
+   "Hurricane Vince was an unusual hurricane that began in the northeast Atlantic Ocean. It was part of the 2005 Atlantic hurricane season. The waters where it formed were thought to be too cold for tropical cyclones to exist. Vince was the 20th named storm and 12th hurricane of the season. The hurricane season that it happened in was very active. The storm that became Vince started out as an extratropical cyclone. It be",
+   "at was left of the cyclone moved across southern Spain. It moved into the Mediterranean Sea south of Alicante early on October 12. Preparations and impact The Spanish Center for Emergency Coordination declared a rain pre-emergency for the province of Castellón. They were afraid that Hurricane Vince would bring rains which would flood the area. The Instituto Nacional de Meteorología (INM) issued a bulletin. It warned "
+  ],
+  "verdict": "use",
+  "genre": "climate",
+  "why": "이례적 허리케인의 발생과 영향을 순서대로 서술"
+ },
+ {
+  "book": "NASA Astronaut Chris Williams Returns to Earth - NASA",
+  "url": "https://www.nasa.gov/image-article/nasa-astronaut-chris-williams-returns-to-earth/",
+  "source": "nasa",
+  "v_level": 5,
+  "words": 96,
+  "rows": 2,
+  "excerpts": [
+   "1 min read NASA Astronaut Chris Williams Returns to Earth HQ Web Team Jul 27, 2026 Image Article NASA astronaut Chris Williams is all smiles in this July 26, 2026, photo taken shortly after he landed with Expedition 74 Roscosmos cosmonauts Sergey Kud-Sverchkov, and Sergei Mikaev in Kazakhstan. This was Williams’ first mission. Williams spent eight months aboard the International Space Station, where he supported a wi",
+   "de range of scientific investigations and technology demonstrations. He also completed two spacewalks to prep for space station power system upgrades and to replace a faulty joint on the Canadarm2 robotic arm. Image credit: NASA/Bill Ingalls"
+  ],
+  "verdict": "reject",
+  "genre": "fragmentary",
+  "why": "사진 설명과 크레딧만 남은 이미지 기사"
+ },
+ {
+  "book": "Han Ji-pyeong",
+  "url": "https://en.wikipedia.org/wiki/Han_Ji-pyeong",
+  "source": "wikipedia",
+  "v_level": 6,
+  "words": 3976,
+  "rows": 1,
+  "excerpts": [
+   "Han Ji-pyeong (Korean: 한지평) is a fictional character from the South Korean television series Start-Up. Directed by Oh Chung-hwan, the 16-episode series aired on tvN from October 17 to December 6, 2020, every Saturday and Sunday, while simultaneously released on Netflix in 50 countries. The character was created by series screenwriter Park Hye-ryun and portrayed by two actors: Kim Seon-ho as an adult and Nam Da-reum a",
+   ", \"I put a lot of effort into both his external and internal aspects. I thought a lot about how he would walk, how he would speak, and what facial expressions he would make,\" constantly perfecting the role by asking, \"What would Han Ji-pyeong do?\" To portray a convincing executive, Kim collaborated with his team to curate costumes that reflected Ji-pyeong's professional status. Following the story's three-year time j"
+  ],
+  "verdict": "use",
+  "genre": "art",
+  "why": "드라마 인물의 창작과 연기 과정을 산문으로 서술"
+ },
+ {
+  "book": "Farming on Top: Rooftop Agriculture for Healthy Cities",
+  "url": "https://doi.org/10.3389/frym.2022.701756",
+  "source": "frym",
+  "v_level": 4,
+  "words": 150,
+  "rows": 1,
+  "excerpts": [
+   "The world is facing many problems nowadays, including a growing number of people living in cities, many of whom often do not have easy access to fresh food. To solve this problem, it is necessary to develop a new kind of agriculture that provides city residents with food security while also protecting the environment. Rooftop agriculture could be a solution. Rooftop agriculture is a type of urban agriculture, in whic",
+   "h food is grown on the tops of buildings. Rooftop agriculture can have many benefits. For example, it can reduce the extreme heat in the city during summer, it can help to decrease urban poverty, and it can help people to socialize more. In addition, rooftop agriculture can even benefit the buildings themselves. Rooftop agriculture is becoming more popular across the world, thanks to these benefits. We hope it will b"
+  ],
+  "verdict": "use",
+  "genre": "nature",
+  "why": "옥상 농업의 필요와 이점을 스스로 닫는 설명"
+ },
+ {
+  "book": "Team figures out how cavefish lost their eyes",
+  "url": "https://www.futurity.org/genomic-analysis-cavefish-eyes-3292782/",
+  "source": "futurity",
+  "v_level": 6,
+  "words": 729,
+  "rows": 1,
+  "excerpts": [
+   "In a new study, researchers show when cavefishes lost their eyes, which provides a method for dating cave systems. Small, colorless, and blind, amblyopsid cavefishes inhabit subterranean waters throughout the eastern United States. In an analysis of the genomes of all known amblyopsid species, the researchers found that the different species colonized caves systems independently of each other and separately evolved s",
+   " similar anatomies, including elongated bodies and flattened skulls, and their pelvic fins have either been lost or severely reduced. Swampfish (Chologaster cornuta), a sister to cavefish lineage that inhabits murky surface waters, also has a flattened skull, elongated body, and no pelvic fin. While it maintains sight and pigment, there is softening of the bones around its eyes, which disappear in cavefishes. This su"
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "동굴어 눈 퇴화 시점을 유전체로 추정한 설명"
+ },
+ {
+  "book": "USGS Support to the Department of Defense - U.S. Northern Command",
+  "url": "https://www.usgs.gov/news/featured-story/usgs-support-department-defense-us-northern-command",
+  "source": "usgs",
+  "v_level": 5,
+  "words": 1120,
+  "rows": 1,
+  "excerpts": [
+   "In 2003, USGS partnered with USNORTHCOM to establish a liaison between the two organizations to facilitate science support in the event of a major natural disaster. The USGS liaison coordinates requests for science information and expertise, and general civil support and humanitarian assistance activities. This science support enables USNORTHCOM to perform critical national defense and civil support missions, as well",
+   "the availability of standard geospatial products from The National Map (TNM). The National Geospatial Program maintains TNM layers and makes them available to the public and our partners through TNM viewer and download platform. One key TNM product that now supports USNORTHCOM and other DOD partners during a natural disaster is the USGS topographic map or US Topo. Hard copy US Topo maps are made available through a p"
+  ],
+  "verdict": "reject",
+  "genre": "reference",
+  "why": "기관 협력 소개와 지도 제품 목록"
+ },
+ {
+  "book": "How Far Away Is the Moon? (5문단부터 발췌)",
+  "url": "https://spaceplace.nasa.gov/moon-distance/en/",
+  "source": "space_place",
+  "v_level": 2,
+  "words": 117,
+  "rows": 1,
+  "excerpts": [
+   "The Moon definitely seems close because we can see it so well without a telescope, but remember, it’s farther away than most people realize! Distance to the Moon (Educator Guide) Launchpad: Moon Magic To see for yourself how far apart Earth and the Moon are, try this: *If Earth was the size of a basketball, the Moon would be the size of a tennis ball. This can give you an idea of how they compare. Use nearby objects ",
+   "to remember how far 23 feet 9 inches is from the basketball. Ask others to place the tennis ball where they think the Moon is. They will be very surprised when you show them how far away it needs to be!"
+  ],
+  "verdict": "reject",
+  "genre": "fragmentary",
+  "why": "교육자료 링크와 활동 지시만 남은 조각"
+ },
+ {
+  "book": "A-flat minor (도입부 발췌)",
+  "url": "https://simple.wikipedia.org/wiki/A-flat_minor",
+  "source": "simple_wikipedia",
+  "v_level": 6,
+  "words": 113,
+  "rows": 1,
+  "excerpts": [
+   "A-flat minor is a minor scale starting on A♭. Its key signature has seven flats. Its relative major is C-flat major, and its parallel major is A-flat major. Its enharmonic equivalent is G-sharp minor. A-flat minor is rarely used as the main key of a piece of music. More often, pieces in a minor mode that have A♭ as the tonic are written in the enharmonic key, G-sharp minor, because it has a simpler key signature. Bec"
+  ],
+  "verdict": "reject",
+  "genre": "reference",
+  "why": "조표와 이명동음을 나열한 사전 항목"
+ },
+ {
+  "book": "Recombinant origin and interspecies transmission of a HERV-K(HML-2)-related primate retrovirus with a novel RNA transport element",
+  "url": "https://elifesciences.org/articles/80216",
+  "source": "elife",
+  "v_level": 5,
+  "words": 319,
+  "rows": 1,
+  "excerpts": [
+   "Just as we study fossils to understand how animals and plants have evolved, we can study ancient viruses to understand how diseases have emerged and changed over long periods. Unlike fossils, viruses do not leave visible traces in the ground but, instead, they leave viral genes known as endogenous viral elements (or EVEs) that become permanently incorporated in their host’s DNA. HML-2s are the youngest known EVEs in ",
+   "ys are often used as models of human biology in research studies, therefore, understanding how HML-2s have evolved in rhesus macaques may enable researchers to establish this monkey as a model for investigating the role of HML-2s in humans. To investigate this possibility, Williams et al. searched for HML-like EVEs in rhesus macaque genomes published in previous studies. The experiments found that, unlike human HML-2"
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "내생 바이러스 요소의 기원 추적을 설명"
+ },
+ {
+  "book": "Plan Your Next River Trip to Explore the Great Outdoors From Your Computer Using Streamer",
+  "url": "https://www.usgs.gov/news/featured-story/plan-your-next-river-trip-explore-great-outdoors-your-computer-using-streamer",
+  "source": "usgs",
+  "v_level": 4,
+  "words": 412,
+  "rows": 1,
+  "excerpts": [
+   "Field & Stream called it a “…very cool tool and quite a bit of fun.” MinnPost described it as a “…high-tech illustration of Norman Maclean’s timeless view that, ‘Eventually, all things merge into one, and a river runs through it.” And Popular Science noted that, “There’s something especially satisfying about clicking a stream that…shoots its way across multiple states to empty into the ocean.” These publications were",
+   "hese enhancements include: A new map layer displays the locations of selected real-time streamflow stations across the country. Streamer updates this information hourly and symbolizes these stations to illustrate current streamflow conditions compared with each station’s observed mean streamflow on the same day of the year. You can tell at a glance whether conditions are above, below, or at normal levels at each stat"
+  ],
+  "verdict": "reject",
+  "genre": "reference",
+  "why": "도구 소개와 기능 갱신 목록"
+ },
+ {
+  "book": "Before and After: Coastal Change Caused by Hurricane Irma",
+  "url": "https://www.usgs.gov/news/featured-story/and-after-coastal-change-caused-hurricane-irma",
+  "source": "usgs",
+  "v_level": 5,
+  "words": 546,
+  "rows": 1,
+  "excerpts": [
+   "New high angle oblique photos of portions of Florida’s beaches taken before and after Hurricane Irma made landfall and swept up the state show the impact of the hurricane’s storm surge and waves. These NOAA images document changes to the coast after the storm, helping the USGS fine-tune its coastal change forecasting model. “The hurricane's observed impact on Florida was significantly less than the pre-storm predicti",
+   "m is about to strike the U.S. Atlantic or Gulf coast, the team forecasts the likelihood of coastal erosion and other changes, using a computer model that incorporates the National Hurricane Center’s storm surge predictions and National Oceanic and Atmospheric Administration wave forecasts. The USGS model adds information about the beach slope and dune height to predict how high waves and surge will move up the beach."
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "폭풍 전후 사진으로 해안 예측 모델을 설명"
+ },
+ {
+  "book": "This fish has forehead teeth it uses for mating",
+  "url": "https://www.futurity.org/spotted-ratfish-teeth-3294202/",
+  "source": "futurity",
+  "v_level": 6,
+  "words": 1117,
+  "rows": 1,
+  "excerpts": [
+   "New research has identified an an uncommon feature in a common fish: Forehead teeth, used for mating. When it comes to teeth, vertebrates have a lot in common. No matter the shape, size, or sharpness, teeth share genetic origins, physical characteristics, and, of course, a home in the jaw. The new findings call into question one of these core assumptions. Spotted ratfish, a shark-like species native to the northeaste",
+   "h, using micro-CT scans and tissue samples to document tenaculum development. While sharks can be quite hard to study, spotted ratfish abound in Puget Sound. They frequent the shallows surrounding Friday Harbor Labs, the UW research facility located on San Juan Island. They also compared the modern ratfish to ancestral fossils. The scans showed that both male and female ratfish begin making a tenaculum early on. In m"
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "이마 이빨의 발생 과정을 스캔으로 설명"
+ },
+ {
+  "book": "Estuaries, A Happy Place For Fish",
+  "url": "https://doi.org/10.3389/frym.2021.613862",
+  "source": "frym",
+  "v_level": 5,
+  "words": 151,
+  "rows": 1,
+  "excerpts": [
+   "Anchovies, salmon, sardines, gobies, mullets, flounder, bass, barbels, eels, shad, and even sharks—what do they have in common? Well, at certain points in their lives you may find them in estuaries, the final sections of rivers before they meet the ocean. Some fish live in estuaries their entire lives. However, some fish species prefer living in the freshwater parts of estuaries, others only live close to the ocean, ",
+   "and a few others spread throughout the estuary. Some species prefer living close to the bottom, some in marshes, and some constantly swim around in the estuary. Some prefer eating other fish, while other species like worms, or insects, or microscopic animals. Unfortunately, many estuarine species are in danger, and all because of humans. In this article, we will tell you why estuaries are such special places for fish"
+  ],
+  "verdict": "reject",
+  "genre": "fragmentary",
+  "why": "본문 예고로 끝나는 도입 초록"
+ },
+ {
+  "book": "Legal sports betting tied to sharp increases in violent crime",
+  "url": "https://www.futurity.org/legal-sports-betting-violent-crime-3315452/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 507,
+  "rows": 1,
+  "excerpts": [
+   "Legalized sports betting comes with a hidden public safety cost: a measurable rise in violent and impulsive crime on game days—even in states without gambling, according to new research. Researchers from University of Michigan and Rice University analyzed crime incident data from 2017 to 2021 and found that states that legalized sports betting after the 2018 Supreme Court decision in Murphy v. NCAA saw significant in",
+   "n for states like Michigan with a mature, online legalized betting culture is that the dominant driver of betting-related crimes appears to be shifting to nonfinancial-related sources, particularly the stressfulness of the game itself, as bettors increasingly wager on more unpredictable contests. “This introduces an additional challenge for public health experts seeking to mitigate the negative impacts of betting,” W"
+  ],
+  "verdict": "use",
+  "genre": "social",
+  "why": "베팅 합법화와 범죄 증가를 자료로 논증"
+ },
+ {
+  "book": "Shape Your Future: Join the Mendenhall Research Fellowship Program",
+  "url": "https://www.usgs.gov/news/featured-story/shape-your-future-join-mendenhall-research-fellowship-program",
+  "source": "usgs",
+  "v_level": 5,
+  "words": 1078,
+  "rows": 1,
+  "excerpts": [
+   "For over 145 years, the U.S. Geological Survey (USGS) has established itself as a leader in Earth science, providing expertise to support decision-makers, land managers, and the public. From foundational bedrock research to groundbreaking innovations, USGS scientists have consistently been at the forefront of research on environmental issues, natural resources, natural hazards, and the country’s mapping needs. The ex",
+   "ifferent fields, we can come to a holistic understanding of these settings that would not be possible alone. I learn so much from these colleagues, and we have a lot of fun doing it!” Media Ross Salerno is a Mendenhall Fellow at the USGS Geology, Energy & Minerals (GEM) Science Center in Reston, Virginia. Currently, Ross is investigating the tectonic setting and mineral systems of ancient land areas in the northern M"
+  ],
+  "verdict": "reject",
+  "genre": "reference",
+  "why": "연구원 모집 공고와 참여자 소개"
+ },
+ {
+  "book": "Fine-scale tracking reveals visual field use for predator detection and escape in collective foraging of pigeon flocks",
+  "url": "https://elifesciences.org/articles/95549",
+  "source": "elife",
+  "v_level": 5,
+  "words": 356,
+  "rows": 1,
+  "excerpts": [
+   "Most animals have to compromise between spending time foraging for food and other resources and keeping careful watch for approaching predators or other threats. Many are thought to address this trade-off by living in a group where they rely on the vigilance of others to free up more time for foraging. If one individual animal detects a threat, they alert the whole group so that every individual can respond. However,",
+   "cally direct their gaze by moving their whole head instead of moving their eyes, making head orientation a good proxy for researchers to track where they are looking. To better understand how pigeons detect potential threats and communicate them to the rest of the flock, Delacoux and Kano used motion capture technology to track the head movements of groups of pigeons. To encourage the pigeons to forage, grain was sca"
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "비둘기 시야와 위협 탐지를 추적 실험으로 설명"
+ },
+ {
+  "book": "Inflammation and poverty combo spikes mortality risk",
+  "url": "https://www.futurity.org/inflammation-poverty-mortality-risk-3167972/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 592,
+  "rows": 1,
+  "excerpts": [
+   "People with chronic inflammation who live in poverty have more than double the risk of dying from heart disease and nearly triple the risk of dying from cancer within the next 15 years, a new study shows. The findings are based on data representing 95 million Americans ages 40 and over. While chronic inflammation and poverty are each known to increase mortality risk, when combined, the two factors appear to have a sy",
+   "ancer, heart disease, Type 2 diabetes, and kidney disease. Another new study led by Mainous indicates that 34.6% of US adults have systemic inflammation. Chronic inflammation can be caused by a host of lifestyle, physiological and environmental factors, such as poor diet, stress, lack of physical activity, smoking, aging, obesity, autoimmune disorders, and exposure to toxins in the environment. The findings from the "
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "염증과 빈곤의 상승작용을 사망 위험으로 논증"
+ },
+ {
+  "book": "Aphasia: How Our Language System Can “Break”",
+  "url": "https://doi.org/10.3389/frym.2022.626477",
+  "source": "frym",
+  "v_level": 4,
+  "words": 115,
+  "rows": 1,
+  "excerpts": [
+   "Our brains enable us to learn language. We develop it early on in life and use it effortlessly every day. It is only when the language system breaks down that we fully realize how complicated it is to speak and understand. In this article, we will explore what happens when brain damage leads to a language disorder called aphasia. About 15 million people worldwide and about 2 million in the U.S. alone are affected by ",
+   "aphasia. Sadly, many people still do not know what aphasia is. Here, we will explain different types of aphasia, tell you about the language difficulties people with this disorder encounter, and provide information about how language is processed in the brain."
+  ],
+  "verdict": "reject",
+  "genre": "fragmentary",
+  "why": "무엇을 설명할지 예고만 하고 끝난다"
+ },
+ {
+  "book": "COVID virus can infect your eyes and damage vision",
+  "url": "https://www.futurity.org/covid-19-virus-vision-eyes-retina-3219702/",
+  "source": "futurity",
+  "v_level": 7,
+  "words": 446,
+  "rows": 1,
+  "excerpts": [
+   "The virus that causes COVID-19 can breach the protective blood-retinal barrier, leading to potential long-term consequences in the eye, new research shows. The blood-retinal barrier is designed to protect our vision from infections by preventing microbial pathogens from reaching the retina where they could trigger an inflammatory response with potential vision loss. Pawan Kumar Singh, an assistant professor of ophtha",
+   "uring systemic infection but induces a hyperinflammatory response in the retina and causes cell death in the blood-retinal barrier. The longer viral remnants remain in the eye, the risk of damage to the retina and visual function increases.” Singh also discovered that extended presence of SARS-CoV-2 spike antigen can cause retinal microaneurysm, retinal artery and vein occlusion, and vascular leakage. “For those who "
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "바이러스가 혈액망막장벽을 뚫는 과정을 설명"
+ },
+ {
+  "book": "Reading the Ice",
+  "url": "",
+  "source": "original",
+  "v_level": 2,
+  "words": 211,
+  "rows": 1,
+  "excerpts": [
+   "A river of ice moves so slowly that no person has ever been able to watch it happen. For a very long time that simple fact made ice extremely hard to study at all. Early workers wanted to know whether the ice moved in the first place, and if it did, how fast. A whole year of looking at it carefully showed them absolutely nothing worth writing down. The answer came instead from setting a line of marks straight across ",
+   "the ice and coming back the next summer. The line was no longer straight when they returned, and it had been pulled into a long curve. That single observation showed both that the ice moved and that the middle of it moved faster than the sides. Later, long sticks were pushed deep down into the ice, and after a time they leaned over. That showed that the top of the ice was moving faster than the bottom of it. None of "
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "빙하 이동을 표식 실험으로 밝히는 과정을 전개"
+ },
+ {
+  "book": "Mom's immune status changes with how she feeds baby",
+  "url": "https://www.futurity.org/breastfeeding-babies-immune-systems-3216442-2/",
+  "source": "futurity",
+  "v_level": 6,
+  "words": 924,
+  "rows": 1,
+  "excerpts": [
+   "The immune status of postpartum mothers shifts with how she feeds her baby, a new study finds. According to the paper published in the journal Scientific Reports, certain inflammatory proteins—substances that are secreted as part of an immune response—peak at different times of day, correlating with whether the mothers breastfeed, pump, or formula-feed their babies. “It’s a great study; there are so many unanswered q",
+   "astfed. However, for the C-reactive protein (CRP) the researchers found that levels peaked in the evenings for women who relied heavily on breastfeeding, reversing the normal diurnal trend. “We expected that low rates of lactating would be associated with a relatively high morning peak in CRP and vice versa,” Hové says. “What we ended up finding is that among mothers who reported intensive lactation, via either breas"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "수유 방식과 염증 지표 일주기를 연구로 설명"
+ },
+ {
+  "book": "Where you live shapes your thirst for sugary drinks",
+  "url": "https://www.futurity.org/sugar-soft-drinks-juice-demographics-2981362/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 710,
+  "rows": 1,
+  "excerpts": [
+   "The decision to reach for a sugary drink is heavily influenced by where you live, a new study shows. While an analysis of the Global Dietary Database for the years 1990, 2005, and 2018 found overall consumption of sweetened drinks increased—by nearly 16% worldwide over the 28-year period studied—regional intake widely varied, researchers say. Sugary drinks are a public health concern because they have been widely ass",
+   "e were struck by the wide variations by world regions in 2018; that Latin America/Caribbean had the largest intakes at all time points despite an overall decrease overtime; and that Sub-Saharan Africa had the greatest increases across all time points,” says first author Laura Lara-Castor, a PhD candidate in the nutrition epidemiology and data science program at the Friedman School at Tufts University. “These results "
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "지역별 가당음료 섭취 차이를 자료로 설명"
+ },
+ {
+  "book": "EarthWord–Placer",
+  "url": "https://www.usgs.gov/news/science-snippet/earthword-placer",
+  "source": "usgs",
+  "v_level": 4,
+  "words": 273,
+  "rows": 1,
+  "excerpts": [
+   "EarthWords is an on-going series in which we shed some light on the complicated, often difficult-to-pronounce language of science. Think of us as your terminology tour-guides, and meet us back here every week for a new word! The EarthWord: Placer Definition: If you’re panning for gold, you’ve come to the right place-r, that is! Placers are a type of mineral deposit in which grains of a valuable mineral like gold or t",
+   "ation of the Catalan word placel, which itself came from the Spanish word plaza, meaning “open space.” Use/Significance in the Earth Science Community: Placer deposits containing gold are areas that have highly concentrated accumulations due to stream/river erosional processes taking place around/over geologic terranes that contain gold, over a very long period of time. Placer deposits are an important source of many"
+  ],
+  "verdict": "reject",
+  "genre": "reference",
+  "why": "용어 정의와 어원을 담은 사전 항목"
+ },
+ {
+  "book": "Can the body's internal clock help boost stroke recovery?",
+  "url": "https://www.futurity.org/internal-clock-stroke-recovery-3339412/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 826,
+  "rows": 1,
+  "excerpts": [
+   "A new study suggests that reinforcing the body’s natural daily rhythms to improve sleep could help the brain recover after a stroke. The work points to a potential new strategy to improve brain waste clearance and outcomes long after the initial injury. The research in the Journal of Clinical Investigation found that interventions designed to reinforce the body’s natural circadian rhythms improved recovery in mouse m",
+   "ial inflammation from harmful inflammation and finding ways to suppress the latter. Hablitz and her colleagues propose that impaired clearance may be part of the problem. “We think part of the problem may be a failure of cleaning,” she says. “If the system responsible for clearing signaling molecules isn’t working properly, everything builds up.” In this model, stroke damages not only brain tissue but also the pathwa"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "일주기 회복이 뇌 노폐물 배출을 돕는 기작 설명"
+ },
+ {
+  "book": "U.S. climate summary for October 2022",
+  "url": "https://www.climate.gov/news-features/understanding-climate/us-climate-summary-october-2022",
+  "source": "noaa",
+  "v_level": 6,
+  "words": 244,
+  "rows": 1,
+  "excerpts": [
+   "NOAA National Centers for Environmental Information released the agency’s October 2022 climate summary this week. Below are some highlights. Drought On October 13, the U.S. Drought Monitor (USDM) revealed nearly 82% of the continental U.S. to be abnormally dry or in drought, the largest area affected in the history of the USDM, which launched in 2000. According to the November 1 U.S. Drought Monitor report, about 62.",
+   "d by a severe Midwest drought, restricted access to the vital channel to barge traffic at a crucial time of the year for the transport of crops from the nation’s heartland. Temperature The average temperature of the contiguous U.S. in October was 55.3 °Fahrenheit, which is 1.2 °F above average, ranking in the warmest third of the record. Generally temperatures were above average in New England and from parts of the c"
+  ],
+  "verdict": "reject",
+  "genre": "reference",
+  "why": "가뭄과 기온 순위 수치 요약"
+ },
+ {
+  "book": "The Boy at the Corner",
+  "url": "",
+  "source": "original",
+  "v_level": 4,
+  "words": 197,
+  "rows": 1,
+  "excerpts": [
+   "Rina reached the gate, put a hand on the latch, and knew her keys were gone. She set the parcels on the gravel and went through her pockets and satchel. The wind pushed the loose gate on its hinge, and the creak made her count again. She walked back the way she had come, watching the gutter and the cobbles beside the fence. A stall and a kiosk had shuttered their lights, and a board leaned against a narrow window. He",
+   "r hands trembled in the gloom, and at first she did not glimpse the boy at the kerb. He was clutching her keys, and one had a wet leaf stuck to it. He said he had found them by the post box and lingered in case someone came back. She thanked him twice, and he ran off to his friends without answering. On the way home the alley looked shorter, and the cobbles took no time at all. Inside, she put the kettle on the heart"
+  ],
+  "verdict": "narrative",
+  "genre": "fiction",
+  "why": "열쇠를 잃고 되찾는 짧은 서사"
+ },
+ {
+  "book": "The Line He Would Not Explain",
+  "url": "",
+  "source": "original",
+  "v_level": 5,
+  "words": 200,
+  "rows": 1,
+  "excerpts": [
+   "Adel came in before the students and set paper on the dais beside a cold mug. He wrote one line on the blackboard in chalk, then stood aside in the gloom. A boy raised his hand, and Adel only tapped the chalk line. The room grew quiet enough to make the old chairs creak. A hush settled over the desks while Adel pushed back one cuff and one sleeve. A girl at the back read the line aloud, stopped, and sighed. Adel walk",
+   "ed to the blackboard, drew a sharp line under two words, and stepped into the shadow. She tried again from her satchel notes, and her voice held steady. He gave a small nod and set the chalk on the lectern. When the bell rang he wiped the blackboard clean and swept the papers into a pile. Another boy asked at the threshold why he had not explained the line. Adel gave him a glance from the dais, said in a murmur that "
+  ],
+  "verdict": "narrative",
+  "genre": "fiction",
+  "why": "설명하지 않는 교사를 그린 교실 서사"
+ },
+ {
+  "book": "How cigarette smoke speeds up eye aging",
+  "url": "https://www.futurity.org/cigarette-smoke-eye-aging-3327012/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 646,
+  "rows": 1,
+  "excerpts": [
+   "A new study sheds light on how cigarette smoke accelerates eye aging. Through a series of experiments, researchers say they have advanced understanding of how smoking damages the eye and contributes to the development of age-related macular degeneration. Age-related macular degeneration is the leading worldwide cause of visual impairment and blindness among people age 50 and older. It has long been known that people ",
+   "rned on or off—changed post-exposure. Such changes, if found, would indicate drastic shifts in a cell’s ability to adapt, function, and survive. In both young and aged mice, acute exposure to injected cigarette smoke condensate caused the formation of dysfunctional RPE clusters with decreased expression of core RPE cell function genes, decreased chromatin accessibility, and decreased expression of “hallmarks of aging"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "담배 연기가 망막색소상피를 늙히는 기작 설명"
+ },
+ {
+  "book": "The Cart That Opened at Six",
+  "url": "",
+  "source": "original",
+  "v_level": 5,
+  "words": 335,
+  "rows": 1,
+  "excerpts": [
+   "Dara passed the same corner each morning, and the stall was open before she woke. Behind it stood a man named Yusuf, whose cart had one wheel that stuck. He kept his goods on a wooden rack, with string and a hook holding a basket overhead. Dara had bought from him twice and never seen him check a clock. On the third morning she came early, eager to stare from across the lane. She did not expect the order of those cra",
+   "d the dispute. He then gave a plum to the child on her hip, who asked for nothing. When she had gone, Yusuf turned to Dara with a grin she could not read. She began to think the cart was not a shop but a conversation. The next month the wheel broke, and the cart leaned on the wall. Yusuf sat on a crate with a screwdriver and a bent nail, turning the axle. Dara crossed the lane and held the frame steady while he worke"
+  ],
+  "verdict": "narrative",
+  "genre": "fiction",
+  "why": "노점 주인과의 관계를 그린 산문 서사"
+ },
+ {
+  "book": "Jadav and the Tree-Place (앞부분 발췌)",
+  "url": "https://storyweaver.org.in/stories/5052-jadav-and-the-tree-place",
+  "source": "storyweaver",
+  "v_level": 3,
+  "words": 58,
+  "rows": 1,
+  "excerpts": [
+   "This is Jadav, a tree-planter. He loves tree-places because they are full of life. No-tree-places make him terribly sad, because they are full of dead things. Years ago, Jadav was walking along the banks of the great Brahmaputra River when he arrived at a big, empty no-tree-place. It was dry and hot. The sand was powdery and striped."
+  ],
+  "verdict": "narrative",
+  "genre": "nature",
+  "why": "나무 심는 사람의 이야기를 산문으로 서술"
+ },
+ {
+  "book": "Set Goals to Get Goals: Sowing Seeds for Success in Sports",
+  "url": "https://doi.org/10.3389/frym.2022.684422",
+  "source": "frym",
+  "v_level": 4,
+  "words": 133,
+  "rows": 1,
+  "excerpts": [
+   "Sports coaches encourage us to be active, alert, and to get things done quickly; they also advise us to relax, be patient, and do things slowly. With these changing instructions, we need a system to do things at our own pace. In sport psychology, we call this system goal setting. Goal setting means establishing a target that you want to achieve. When your goals are specific, achievable, and challenging, you feel moti",
+   "vated. Getting a glass of water from the kitchen might be specific and achievable but not challenging, whereas training for the nationals in 3 months’ time might challenge you, but you might not know precisely how or when to train. In this article, we introduce a goal-setting system that can help you to set and achieve the goals that matter most to you."
+  ],
+  "verdict": "reject",
+  "genre": "fragmentary",
+  "why": "목표설정 체계를 소개하겠다는 예고문"
+ },
+ {
+  "book": "'Forever chemicals' may last more than 40 years in groundwater",
+  "url": "https://www.futurity.org/forever-chemicals-groundwater-3252942/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 487,
+  "rows": 1,
+  "excerpts": [
+   "Per- and polyfluoroalkyl chemicals, known commonly as PFAS or “forever chemicals,” could take over 40 years to flush out of contaminated groundwater in North Carolina’s Cumberland and Bladen counties, according to a new study. The study used a new combination of data on PFAS, groundwater age-dating tracers, and groundwater flux to forecast PFAS concentrations in groundwater discharging to tributaries of the Cape Fear",
+   "oundwater discharging to tributary streams. They detected PFAS in groundwater up to 43 years old, and concentrations of the two most commonly found PFAS—hexafluoropropylene oxide-dimer acid (HFPO−DA) and perfluoro-2-methoxypropanoic acid (PMPA)—averaged 229 and 498 nanograms per liter (ng/L), respectively. For comparison, the maximum contaminant level (MCL) issued by the US Environmental Protection Agency for HFPO-DA"
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "지하수 PFAS 잔류 기간을 연대 추적으로 설명"
+ },
+ {
+  "book": "Three for Free - A Folktale from Taiwan (2쪽부터 발췌)",
+  "url": "https://storyweaver.org.in/stories/664-three-for-free-a-folktale-from-taiwan",
+  "source": "storyweaver",
+  "v_level": 4,
+  "words": 104,
+  "rows": 1,
+  "excerpts": [
+   "The sweet smell of fresh dumplings filled the air. “Hot dumplings! Fresh, hot dumplings!” he yelled. “One for one cent, two for two cents and three, for FREE!” Villagers passing by became curious and crowded around this foolish man who was giving away dumplings that looked inviting and smelt absolutely delicious. “One for one cent, two for two cents and three, for FREE!” yelled the old man again. “Red beans and sesam"
+  ],
+  "verdict": "narrative",
+  "genre": "fiction",
+  "why": "만두 파는 노인의 민담 서사"
+ },
+ {
+  "book": "Dating platform algorithms skew toward popularity",
+  "url": "https://www.futurity.org/dating-platforms-popularity-algorithms-3003422-2/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 562,
+  "rows": 1,
+  "excerpts": [
+   "A study finds that algorithms used by online dating platforms have popularity bias, meaning that they recommend more popular, attractive users over less popular, less attractive users. The researchers evaluated data from over 240,000 users of a major online dating platform in Asia over three months. They found that a user’s chance of being recommended by the platform’s algorithm increased significantly as their avera",
+   "hances to be recommended to others) as their benchmark for fairness to compare popular and unpopular users’ matching probabilities. Their analysis shows that unbiased recommendations tend to result in significantly lower revenue for the dating platform and fewer matches. This is because popular users help the platform generate more revenue by boosting users’ engagement (through more likes and messages sent). In addit"
+  ],
+  "verdict": "use",
+  "genre": "technology",
+  "why": "추천 알고리즘의 인기 편향을 자료로 논증"
+ },
+ {
+  "book": "Electronic tattoo decodes brainwaves",
+  "url": "https://www.futurity.org/electronic-tattoo-eeg-brainwaves-3262852/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 589,
+  "rows": 1,
+  "excerpts": [
+   "A new conductive ink can be printed directly on the surface of a patient’s head and measure their brainwaves. Since the emergence of temporary, skin-attached electronic tattoos more than a decade ago—and their evolution to measure heart activity, track pneumonia, measure stress levels, and more—researchers have grappled with a major logistical challenge: How can they be applied to hairy skin without losing performanc",
+   " It propels the ink fast enough to get through hair—though so far, the researchers have had success only with short-haired patients. In addition to the printed sensors and connectors, short cables are used to link the printed e-tattoo to a small, commercial EEG recorder. José del R. Millán, a professor in the Cockrell School’s Chandra Family electrical and computer engineering department and the Dell Medical School’s"
+  ],
+  "verdict": "use",
+  "genre": "technology",
+  "why": "머리카락 위 전자문신 인쇄 원리를 설명"
+ },
+ {
+  "book": "Astronauts Come Home",
+  "url": "https://www.nasa.gov/centers-and-facilities/johnson/expedition-73-crew-reflects-on-science-teamwork-and-life-in-orbit/",
+  "source": "nasa",
+  "v_level": 1,
+  "words": 114,
+  "rows": 1,
+  "excerpts": [
+   "Astronauts live and work in space. They live on a space station. The space station moves around the Earth. The astronauts stay on the station for many months. They do science every day. They grow small plants. They run tests. They fix machines. They take pictures of the Earth. One day the astronauts come home. They land on the Earth again. Later they meet their families. They also meet the people who helped them. Man",
+   "y people on the ground help the astronauts. Some people watch the space station all day. Some people build the machines. The astronauts tell stories about space. They talk about their work. They say thank you to the ground team."
+  ],
+  "verdict": "use",
+  "genre": "space",
+  "why": "우주정거장 생활과 귀환을 쉬운 산문으로 설명"
+ },
+ {
+  "book": "Whale in the Sky (앞부분 발췌)",
+  "url": "https://storyweaver.org.in/stories/39842-whale-in-the-sky",
+  "source": "storyweaver",
+  "v_level": 6,
+  "words": 52,
+  "rows": 1,
+  "excerpts": [
+   "Dadu and Muznah love watching clouds. “Did you know that your name comes from the clouds? Muznah means the cloud that carries the rain,” says Dadu. There are so many shapes in the clouds – a cauliflower, a moustache, a crescent moon. Muznah spots a dog-shaped one. “It has such a biiiiig nose!”"
+  ],
+  "verdict": "narrative",
+  "genre": "fiction",
+  "why": "구름을 보며 나누는 대화형 그림책 서사"
+ },
+ {
+  "book": "Climate change will lead to massive tropical plant losses",
+  "url": "https://www.futurity.org/climate-change-tropical-plants-3240762/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 936,
+  "rows": 1,
+  "excerpts": [
+   "A new study shows that a warmer and drier climate will lead to massive losses of tropical plant species. Brown University biologists set out to better understand the effects of climate change on plant species in tropical mountain regions. They found that even small variations in temperature and moisture can have massive impacts, threatening not only plants that live there, but also the ecosystems they support. Emily ",
+   "f most species are often poorly documented, and it is unclear if species can tolerate conditions that differ from those occurring at their current locations. “The field doesn’t have a good handle on just how bad the extinction risk to tropical organisms might be under different levels of climate change,” Sax says. The new study directly addresses these limitations for tropical epiphytes in mountains of Costa Rica and"
+  ],
+  "verdict": "use",
+  "genre": "climate",
+  "why": "기온과 습도 변화가 열대 식물에 미칠 손실 설명"
+ },
+ {
+  "book": "A molecular proximity sensor based on an engineered, dual-component guide RNA",
+  "url": "https://elifesciences.org/articles/98110",
+  "source": "elife",
+  "v_level": 5,
+  "words": 371,
+  "rows": 1,
+  "excerpts": [
+   "Humans are made up of many building blocks known as cells. The lives of cells are dynamic: they change what tasks they perform over time in response to cues from the rest of the body and the external environment. The mixture of proteins and other molecules present inside a cell, and how they interact with each other, influences how the cell behaves. There are many tools available to take snapshots of these molecules ",
+   "the DNA of the cell. Cas9 then binds to the guide RNA and cuts the DNA at this location. When the cell repairs the cut, researchers can manipulate the repair process to make small edits to the DNA, or add or remove larger sections. Choi et al. set out to develop a new method for recording when molecules within living cells interact using CRISPR-based tools. The records would be in the form of changes to the cells’ DN"
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "CRISPR로 분자 상호작용을 기록하는 원리 설명"
+ },
+ {
+  "book": "How well do combo tests for COVID and flu work?",
+  "url": "https://www.futurity.org/combination-tests-covid-flu-3253452/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 1169,
+  "rows": 1,
+  "excerpts": [
+   "As respiratory virus season arrives in the US, a new tool could be a game-changer for families: over-the-counter combination tests that can detect both flu and COVID-19 with a single sample. These tests became available last year, but this is the first flu season where this type of test will be widely available. The combination tests offer a convenient way to quickly check for both viruses at home, but how reliable a",
+   "ou check the timing guidelines provided in the instructions. Q Who can use these combination tests? A These tests are designed for both kids and adults. Parents can perform the test on children as young as two years old, while anyone 14 and older can test themselves. It’s important to refer to the specific instructions provided with the test to ensure proper use, as instructions and applicable ages will vary slightly"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "복합 검사 정확도와 사용법을 문답으로 설명"
+ },
+ {
+  "book": "Robots That Dig Moon Dust",
+  "url": "https://www.nasa.gov/image-detail/afs-8-101-1273/",
+  "source": "nasa",
+  "v_level": 1,
+  "words": 93,
+  "rows": 1,
+  "excerpts": [
+   "The Moon is covered with grey dust and broken rock. Engineers call that loose material regolith. A robot on the Moon must drive across the regolith. It must also scoop the dust into a low wall. Students from many universities built such robots. Each team drove its robot by remote control. The robots crossed a sandy course that copied lunar ground. Some machines sank into the soft grit. Others rolled through and piled"
+  ],
+  "verdict": "use",
+  "genre": "technology",
+  "why": "달 표토 로봇 시연을 쉬운 산문으로 설명"
+ },
+ {
+  "book": "How to calm your kids' travel anxiety",
+  "url": "https://www.futurity.org/kids-travel-anxiety-disasters-3202642/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 438,
+  "rows": 1,
+  "excerpts": [
+   "Families planning summer getaways may find that recent headlines about transportation-related disasters have their children feeling a bit anxious about vacation travel. Derek Seward, a professor in the counseling and Human services department at Syracuse University’s School of Education, shares some signs parents should watch for and tips to help their children feel more secure: Q How can news about these types of di",
+   "ents may (a) have higher levels of anxiousness; (b) exhibit disturbances in their typical sleep patterns such as having nightmares; (c) feel physically ill, exhausted, or have headaches; and (d) be highly irritable. Q How can parents address their children’s fears constructively? A Parents concerned about their children should consider: Provide information to their children about their trip including the destination,"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "아이 여행 불안의 징후와 대처를 문답으로 설명"
+ },
+ {
+  "book": "New model reveals hidden patterns in Alzheimer's",
+  "url": "https://www.futurity.org/personalized-model-hidden-patterns-alzheimers-progression-3207912/",
+  "source": "futurity",
+  "v_level": 6,
+  "words": 611,
+  "rows": 1,
+  "excerpts": [
+   "A new mathematical model offers hope for better prediction and treatment of Alzheimer’s disease, researchers report. Most mathematical models of Alzheimer’s are theoretical, focusing on short term molecular and cellular-level changes that cannot be measured in patients. However, researchers at Duke University School of Medicine and Pennsylvania State University have used real-world data from over 800 people with vary",
+   ".” Petrella led the team of Duke researchers including Juliet Jiang, Kashyap Sreeram, Sophia Dalziel, and Murali Doraiswamy, alongside senior study author Wenrui Hao, professor of mathematics at Penn State, in investigating the feasibility of customizing a causal model of Alzheimer’s disease. Alzheimer’s disease is characterized by changes in the brain including amyloid plaques and neurofibrillary tangles that may ha"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "실데이터 기반 알츠하이머 수학 모델을 설명"
+ },
+ {
+  "book": "What is COP?",
+  "url": "https://www.climate.gov/news-features/understanding-climate/what-cop",
+  "source": "noaa",
+  "v_level": 5,
+  "words": 663,
+  "rows": 1,
+  "excerpts": [
+   "I’m seeing climate news stories about “COP27”. What is COP? COP is an international climate meeting held each year by the United Nations. COP is short for “Conference of the Parties,” meaning those countries who joined—are “party to,” in legal terms—the international treaty called the U.N. Framework Convention on Climate Change (UNFCCC). Parties to the treaty have committed to take voluntary actions to prevent “dange",
+   "the parties to the original UNFCCC treaty signed on to the Paris Agreement in 2015, which obligated countries to develop additional voluntary reductions in greenhouse gas emissions that would limit global warming to well below 2 degrees Celsius (3.6 degrees F), and preferably to no more than 1.5 Celsius (2.7 degrees Fahrenheit). How do these climate treaties work? The parties agree to specific goals for limiting huma"
+  ],
+  "verdict": "use",
+  "genre": "climate",
+  "why": "COP의 정의와 조약 작동 방식을 설명"
+ },
+ {
+  "book": "AI image generator serves up racial, gender stereotypes",
+  "url": "https://www.futurity.org/stable-diffusion-ai-stereotype-3003652-2/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 860,
+  "rows": 1,
+  "excerpts": [
+   "What does a person look like? If you use the popular artificial intelligence image generator Stable Diffusion to conjure answers, too frequently you’ll see images of light-skinned men. Stable Diffusion’s perpetuation of this harmful stereotype is among the findings of a new study. Researchers also found that, when prompted to create images of “a person from Oceania,” for instance, Stable Diffusion failed to equitably",
+   "hite countries Australia (0.77) and New Zealand (0.74), and least with people from Papua New Guinea (0.31), the second most populous country in the region where the population remains predominantly Indigenous. A third finding announced itself as researchers were working on the study: Stable Diffusion was sexualizing certain women of color, especially Latin American women. So the team compared images using a NSFW (Not"
+  ],
+  "verdict": "use",
+  "genre": "technology",
+  "why": "생성 이미지의 고정관념을 지표로 논증"
+ },
+ {
+  "book": "NASA Selects Companies to Provide Payload Processing Services - NASA",
+  "url": "https://www.nasa.gov/news-release/nasa-selects-companies-to-provide-payload-processing-services/",
+  "source": "nasa",
+  "v_level": 5,
+  "words": 222,
+  "rows": 1,
+  "excerpts": [
+   "1 min read NASA Selects Companies to Provide Payload Processing Services Lauren E. Low Aug 17, 2026 CONTRACT RELEASEC26-009 NASA Headquarters NASA has selected four companies to provide payload processing facilities under the Spacecraft Processing Operations Contract on‑ramp provision. The provision enables qualified providers to offer commercial payload processing services for agency missions launching from multiple",
+   " NASA procures facilities and services required to perform prelaunch processing of spacecraft and associated rocket hardware for delivery to the launch pad. The Spacecraft Processing Operations Contract is a multiple-award, commercial, firm-fixed-price, indefinite-delivery/indefinite-quantity contract vehicle that has an aggregate ceiling price of $100 million with an ordering period through Feb. 1, 2033. NASA’s Laun"
+  ],
+  "verdict": "reject",
+  "genre": "reference",
+  "why": "계약 선정 공지와 계약 조건 나열"
+ },
+ {
+  "book": "USGS Responds to Spring Flooding",
+  "url": "https://www.usgs.gov/news/featured-story/usgs-responds-spring-flooding",
+  "source": "usgs",
+  "v_level": 4,
+  "words": 422,
+  "rows": 1,
+  "excerpts": [
+   "What the USGS is Doing Crews are in the field to keep the USGS’s streamgage network of about 11,300 instruments working properly, perform on-site measurements of flooded rivers, and measure high-water marks as flood waters recede. In the coming days and weeks, USGS crews will continue to monitor streamgages, make flood measurements in the field to determine how much water is flowing, and provide other data used for f",
+   "d well-being a priority. \"Our field crews are working long days to help provide critical streamflow information for flood forecasting,\" said USGS National Flood Hazard Coordinator Karl Winters. \"Despite the challenges associated with COVID-19, our field crews have made nearly 800 streamflow measurements per week over the last six weeks.\" USGS water science centers are thoroughly evaluating needs for streamflow measur"
+  ],
+  "verdict": "reject",
+  "genre": "reference",
+  "why": "현장 대응 활동 목록 중심의 상황 공지"
+ },
+ {
+  "book": "Social media users are more likely to buy crypto",
+  "url": "https://www.futurity.org/social-media-cryptocurrencies-crypto-3264352-2/",
+  "source": "futurity",
+  "v_level": 4,
+  "words": 583,
+  "rows": 1,
+  "excerpts": [
+   "Hearing about cryptocurrencies online may affect people’s behavior, according to a new study. Cryptocurrencies, or “crypto,” are digital currencies used for both payment and investment. They’ve seen a surge in popularity over the past decade, especially as more people learn about them through social media. The study found that about half of social media users surveyed have invested in digital currencies. And the more",
+   "to has only been growing with time. In 2018, the National Financial Capability Study and Investor Survey found that only 15% of participants had invested in crypto. Just three years later, that number had almost doubled to 28%. The national study and survey measures demographics, investor behavior, and financial knowledge and capability. The present publication relied on data from the 2021 version. Cryptocurrencies a"
+  ],
+  "verdict": "use",
+  "genre": "economics",
+  "why": "소셜미디어 노출과 암호화폐 투자 상관을 설명"
+ },
+ {
+  "book": "Many Mangoes to Share (앞부분 발췌)",
+  "url": "https://storyweaver.org.in/stories/329224-many-mangoes-to-share",
+  "source": "storyweaver",
+  "v_level": 5,
+  "words": 65,
+  "rows": 1,
+  "excerpts": [
+   "On their first day at kindergarten, Afzal, Bhagya, Vani and George planted a grafted mango sapling each in their backyards. Now they have just completed Class 4 and the mango trees have given them a grand gift for the summer holidays. Lots of delicious, juicy fruit. They count the fruits from each of their trees. Each has the same number of fruits. One hundred and fifty!"
+  ],
+  "verdict": "narrative",
+  "genre": "fiction",
+  "why": "망고를 나누어 세는 아이들의 짧은 서사"
+ },
+ {
+  "book": "Can Methane-Eating Bacteria in Drylands Help Us Reduce Greenhouse Gases?",
+  "url": "https://doi.org/10.3389/frym.2021.556361",
+  "source": "frym",
+  "v_level": 5,
+  "words": 154,
+  "rows": 1,
+  "excerpts": [
+   "What is a dryland? The first thing that may come to your mind is a desert-like place where nothing can live or grow. Despite the scarcity of water, dryland ecosystems are diverse and will expand due to global climate change. The main cause of global warming is the increase of greenhouse gases in our atmosphere. To solve this, we obviously need to reduce the emission of greenhouse gases, but the study of microorganism",
+   "s in nature also gives us exciting clues for how to address the problem of global warming. Microorganisms live in all possible Earth environments, and luckily some of them can even take greenhouse gases from the air as their food! In this article, we describe our search of the global soils for bacteria that can consume one of the most powerful greenhouse gases, methane (CH 4 ). Contrary to what was expected, we found"
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "메탄 먹는 세균 탐색과 예상 밖 결과를 제시"
+ },
+ {
+  "book": "Why is reading for fun plummeting in the US?",
+  "url": "https://www.futurity.org/reading-for-fun-3318742/",
+  "source": "futurity",
+  "v_level": 4,
+  "words": 709,
+  "rows": 1,
+  "excerpts": [
+   "Experts have answers for you about why reading for pleasure is plummeting in the US and share ways to encourage youngsters to dive into pleasure reading. As Dr. Seuss once put it: “The more that you read, the more things you will know. The more that you learn, the more places you’ll go.” Reading provides knowledge and understanding of the world, of ourselves, and of different cultures. It can promote empathy, help de",
+   "them, they do not have the level of concentration that we used to establish in kids.” This deficiency translates into lower scores in the Florida Assessment of Student Thinking (FAST). Those tests require that students read and interpret texts for about 45 minutes or so. Chakeia Andrews, clinical assistant professor and director of the undergraduate Teacher Preparation Programs, says studies show that students with e"
+  ],
+  "verdict": "use",
+  "genre": "education",
+  "why": "취미 독서 감소의 원인과 대책을 전문가로 전개"
+ },
+ {
+  "book": "'Teen' fossil sheds light on mysterious dinosaurs",
+  "url": "https://www.futurity.org/pachycephalosaur-dinosaurs-3296722/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 754,
+  "rows": 1,
+  "excerpts": [
+   "A “teenaged” pachycephalosaur from Mongolia’s Gobi Desert may provide answers to lingering questions around the dinosaur group, according to new research. The fossil represents a new species of pachycephalosaur and is both the oldest and most complete skeleton of this dinosaur group found to date. “This specimen is a once-in-a-lifetime discovery.” “Pachycephalosaurs are iconic dinosaurs, but they’re also rare and mys",
+   "all pachycephalosaurian fossils,” Chinzorig says. How to tell whether two skulls that look different belong to two distinct species or just different growth stages of the same species is a long-standing debate for paleontologists who study this group, and that’s where Z. rinpoche comes in. “Pachycephalosaurs are all about the bling, but we can’t use flashy signaling structures alone to figure out what species they be"
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "청소년기 화석으로 종 구분 논쟁을 설명"
+ },
+ {
+  "book": "From Ashes to Alerts: Science Helps Protect Colorado Travelers",
+  "url": "https://www.usgs.gov/news/featured-story/ashes-alerts-science-helps-protect-colorado-travelers",
+  "source": "usgs",
+  "v_level": 6,
+  "words": 982,
+  "rows": 1,
+  "excerpts": [
+   "The warning system was put into place after the 2020 Grizzly Creek Fire ravaged through the canyon, consuming more than 32,000 acres of forest, leaving behind a landscape primed for destructive debris flows. When rain falls on these fire-scarred areas, the precipitation can quickly transform into fast-moving slurries of mud, rocks and debris, posing a serious threat to people, property and the vital Interstate 70 cor",
+   "e're able to provide a level of situational awareness and early warning that would be impossible for any one agency to achieve on its own.\" Mapping the Hazard Zones Another key aspect of the team's research involves the use of high-resolution laser mapping technology, known as lidar, to create detailed 3D maps of the canyon's terrain. By comparing lidar topographic maps from before and after the fire, scientists can "
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "산불 뒤 토석류 경보와 라이다 지도를 설명"
+ },
+ {
+  "book": "April 2022 ties for fifth-warmest April on record",
+  "url": "https://www.climate.gov/news-features/understanding-climate/april-2022-ties-fifth-warmest-april-record",
+  "source": "noaa",
+  "v_level": 5,
+  "words": 310,
+  "rows": 1,
+  "excerpts": [
+   "Here are the temperature details from the NOAA National Centers for Environmental Information monthly climate summary: The April 2022 global surface temperature was 1.53 °F (0.85 °C) above the 20th-century average of 56.7 °F (13.7 °C)—tying with 2010 as the fifth-warmest April in the 143-year record. The 10 warmest April months have occurred since 2010, with the years 2014-2022 all ranking among the 10 warmest Aprils",
+   "ile, near- to cooler-than-average April temperatures were observed across much of central and northern North America, southern South America, central Europe, southern Africa, and central, eastern tropical and southeastern Pacific Ocean. The influence of the La Niña climate pattern continued to dominate the global precipitation story for April, although its influence in spring is weaker than in winter. A wide swath of"
+  ],
+  "verdict": "reject",
+  "genre": "reference",
+  "why": "월 기온 순위와 지역별 수치 나열"
+ },
+ {
+  "book": "How video games can make life more meaningful",
+  "url": "https://www.futurity.org/video-games-meaningful-change-3298462/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 1159,
+  "rows": 1,
+  "excerpts": [
+   "In this Q&A, researchers discuss their study which surveyed 166 gamers about how video games sparked meaningful changes in their lives. Even though video games have grown as an artistic medium since the mid-20th century, they are still often written off as mindless entertainment. Research is increasingly exploring meaningful gaming experiences. Less studied, though, are the ways such experiences can alter people’s li",
+   "monolith, as if video games are either good or bad, but there’s so much more nuance. The design matters. This study hopefully helps us untangle the positive elements. Certainly, there are bad elements—toxicity and addictiveness, for example. But we also see opportunities for growth and connection. Some people in the study met their spouses through games. Jin Ha Lee: What Nisha studies is essentially what I live. I’m "
+  ],
+  "verdict": "use",
+  "genre": "social",
+  "why": "게임이 삶을 바꾸는 방식을 연구자 문답으로 전개"
+ },
+ {
+  "book": "The Tin Under the Wide Shade",
+  "url": "",
+  "source": "original",
+  "v_level": 5,
+  "words": 337,
+  "rows": 1,
+  "excerpts": [
+   "Ines had buried a small tin under a young tree behind her grandmother's house. Inside it she had put a shell, a coin, a blue ribbon, and a letter to herself. She was nine then, and the trunk was thin enough to bend with one hand. Twenty years later a note told her that the house had been sold. She drove out at dawn on a grey Saturday with a spade in her car. The tree she remembered was gone, and a wide crown of shado",
+   "e laughed gently. He told her that the thin tree and the heavy one were the same. She had measured her memory against a trunk that kept growing without her. With a small sigh, Otto lifted the latch of the gate and let her through. That afternoon they dug in three places where the shade lay thickest. The soil was full of root, and her spade rang until her wrist ached. Otto sat on a low bench and pointed out where the "
+  ],
+  "verdict": "narrative",
+  "genre": "fiction",
+  "why": "묻어둔 깡통을 찾는 기억의 서사"
+ },
+ {
+  "book": "Cassowary",
+  "url": "https://simple.wikipedia.org/wiki/Cassowary",
+  "source": "simple_wikipedia",
+  "v_level": 4,
+  "words": 1369,
+  "rows": 1,
+  "excerpts": [
+   "Cassowaries (Casuarius) are a kind of large bird which cannot fly. They are in a group of flightless birds called the ratites. The ostrich, emu, moa (now extinct) and small kiwi are other ratites. The cassowary lives in the tropical rainforests of New Guinea and north eastern Australia. They are shy birds living deep in the forest. They may become aggressive, and they may attack people. This makes it hard to learn ab",
+   "make a very low sound. It is the lowest known bird call, like a \"boom\", which people can only just hear. The southern cassowary sound was measured at 32 hertz, and the dwarf cassowary was even lower at only 23 hertz. The birds live by themselves, they do not live in groups so the \"booming sound\" might be a way for the birds to communicate (talk) over a long distance in thick rainforest. Some scientists think that thi"
+  ],
+  "verdict": "reject",
+  "genre": "reference",
+  "why": "종 문서로 분류와 제원 나열이 본문"
+ },
+ {
+  "book": "APOD: 2026 August 16 - Milky Way over Yellowstone - NASA Science",
+  "url": "https://science.nasa.gov/image-article/apod/apod-2026-august-16-milky-way-over-yellowstone/",
+  "source": "nasa",
+  "v_level": 5,
+  "words": 215,
+  "rows": 1,
+  "excerpts": [
+   "APOD APOD Astronomy Picture of the Day Discover the cosmos! Each day a different image or photograph of our fascinating universe is featured, along with a brief explanation written by a professional astronomer. Milky Way over Yellowstone Explanation: The Milky Way was not created by an evaporating lake. The colorful pool of water, about 10 meters across, is known as Silex Spring and is located in Yellowstone National",
+   "acteria that grow in the hot spring. Steam rises off the spring, heated by underground magma associated with the Yellowstone Hotspot. Unrelated and far in the distance, the central band of our Milky Way Galaxy arches high overhead, a band lit by billions of stars. The picture features a 16-image panorama taken in 2014. If the Yellowstone Hotspot causes another supervolcanic eruption as it did about 640,000 years ago,"
+  ],
+  "verdict": "use",
+  "genre": "space",
+  "why": "온천 색과 은하수 띠의 원리를 그림 없이도 설명"
+ },
+ {
+  "book": "Bastion (video game)",
+  "url": "https://en.wikipedia.org/wiki/Bastion_(video_game)",
+  "source": "wikipedia",
+  "v_level": 5,
+  "words": 3362,
+  "rows": 1,
+  "excerpts": [
+   "Bastion is a 2011 action role-playing video game developed by independent developer Supergiant Games and originally published by Warner Bros. Interactive Entertainment. In the game, the player controls \"the Kid\" as he moves through floating, fantasy-themed environments and fights enemies of various types. It features a dynamic voiceover from a narrator (Logan Cunningham), and is presented as a two-dimensional game wi",
+   "t themselves. Most of the team built the game in a house in San Jose, though the music and voice acting were recorded in New York City. Some of the San Jose designers—including the writer—did not meet Rucks' voice actor in person until near the release of the game. The team spent the first nine months of development prototyping various ideas, before settling on the game's design. The original idea was based around th"
+  ],
+  "verdict": "use",
+  "genre": "art",
+  "why": "게임의 개발 과정과 설계 결정을 산문으로 서술"
+ },
+ {
+  "book": "colours on the street",
+  "url": "https://storyweaver.org.in/stories/8040-colours-on-the-street",
+  "source": "storyweaver",
+  "v_level": 3,
+  "words": 107,
+  "rows": 1,
+  "excerpts": [
+   "Sonu wore a blue shirt after his bath. Monu and Rina wore blue socks. Oh, we are all dressed in the same colour today! Come, let us see some other colours! Here are Dadi's red chillies, don't touch them! Aha, Bholu is cutting purple brinjals. Rani Didi has sunshine yellow lemons. Colours are fun to see. Now to eat something colourful too! Yummy! Should we eat a pink chuski? Or a creamy white kulfi? We can drink tangy"
+  ],
+  "verdict": "reject",
+  "genre": "fragmentary",
+  "why": "그림에 매인 색 이름 캡션 나열"
+ },
+ {
+  "book": "Swarms of small robots could get big stuff done",
+  "url": "https://www.futurity.org/robot-swarms-3d-printing-3269442/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 617,
+  "rows": 1,
+  "excerpts": [
+   "Researchers have created small, resilient, soft-jointed robots built with 3D printers. Imagine a swarm of tiny robots, each about the size of the palm of your hand, spreading out over a wildfire ravaged community, mapping areas contaminated by toxic materials, searching for survivors, identifying areas of rapid wildfire spread. Or picture the robots being used to clear battlefields of mines, conduct search and rescue",
+   "ft and rigid components, instead of mostly rigid components like you might see on the Boston Dynamics robot dog ‘Spot,'” says Nemitz. “You could drop our robots from a helicopter or flatten them under a wheel, and they will still pick up and walk away. They walk over rocks. They walk over sand. They can crawl up steep inclines. They can handle many different environments, so now we can develop swarm capability that a"
+  ],
+  "verdict": "use",
+  "genre": "technology",
+  "why": "연질 관절 군집 로봇의 제작과 장점 설명"
+ },
+ {
+  "book": "A shot could treat high blood sugar in people with long COVID",
+  "url": "https://www.futurity.org/vaccine-high-blood-sugar-long-covid-3245772/",
+  "source": "futurity",
+  "v_level": 6,
+  "words": 444,
+  "rows": 1,
+  "excerpts": [
+   "Researchers have discovered a new approach to tackling a lingering health challenge faced by some with long-term COVID: high blood sugar levels. Their new study in Nature Communications suggests that the COVID-19 vaccine could be used therapeutically to address metabolic complications experienced among those with long-term COVID, sometimes called long-haulers, even if the vaccine is administered several days after in",
+   "ar levels that was sustained over time. This finding suggests that the vaccine could potentially be used not just for prevention but also as a treatment for managing long-term metabolic complications of COVID-19. The researchers also identified certain inflammatory molecules in the bloodstream linked to high blood sugar levels. The elevated blood sugar seems to result from changes in how the liver stores glucose, eve"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "백신이 롱코비드 혈당을 낮추는 기작 설명"
+ },
+ {
+  "book": "Boosting hyperalignment performance with age-specific templates",
+  "url": "https://elifesciences.org/articles/110566",
+  "source": "elife",
+  "v_level": 5,
+  "words": 264,
+  "rows": 1,
+  "excerpts": [
+   "Brains can implement the same function in different ways. For example, across individuals, the same anatomical location may serve different roles, and the same functional region may vary in size, location, and shape. As a result, directly comparing anatomical locations across brains is like comparing apples to oranges. To address this issue, researchers use a method called hyperalignment, which aligns brains function",
+   "ups. Zhang et al. sought to determine whether age-specific functional templates would be more accurate across age groups. The researchers used preexisting fMRI data from people aged 18 to 87 to build age-specific templates and tested their performance on additional datasets. They found that hyperalignment templates derived from the same age group consistently outperformed those from other age groups by better capturi"
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "연령별 정렬 템플릿의 성능 차이를 설명"
+ },
+ {
+  "book": "'Parentese' chatter improves baby's language later",
+  "url": "https://www.futurity.org/parentese-babies-language-parents-communication-3206052/",
+  "source": "futurity",
+  "v_level": 4,
+  "words": 596,
+  "rows": 1,
+  "excerpts": [
+   "Parents speaking to their baby in a high-pitched voice—known as “parentese”—and responding to the baby’s babbles with eye contact and smiles is important for infant language growth, researchers report. In a study published in Current Biology, the researchers used a safe and noninvasive brain-imaging technique called magnetoencephalography, or MEG, to monitor infant brain activity during social and nonsocial interacti",
+   "en adults and babies, and the study showed they have different measurable effects on a baby’s brain. Researchers found that increased neural activity in response to the social interaction at 5 months predicted enhanced language development at five later ages: 18, 21, 24, 27, and 30 months. The researchers tracked infants’ language development using a well-documented and validated survey that asks parents about words "
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "부모어와 영아 뇌 반응, 언어 발달을 연결해 설명"
+ },
+ {
+  "book": "Wildlife rehab records show human impact on animals",
+  "url": "https://www.futurity.org/wildlife-rehabilitation-human-impact-3007302-2/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 1322,
+  "rows": 1,
+  "excerpts": [
+   "A look at more than 600,000 wildlife rehabilitation center records reveals the human impact on North American wildlife, from lead poisonings to window strikes to vehicle collisions. You see posts like these on neighborhood Facebook pages all the time: “An owl just flew into my window and appears stunned! Help!” or “I found a baby squirrel on the ground after the wind storm last night. Who do I call?” The answer is a ",
+   "s WILD-ONe patient database system for wildlife rehabilitators. WILD-ONe was formed, in part, to help identify wildlife diseases and pathogens—such as West Nile virus or avian flu—that might affect human and livestock health. The software was the biggest data source for Miller’s paper; two of the paper’s coauthors, Karra Pierce and Edward Clark, Jr., work at the Wildlife Center of Virginia. “This was a gigantic datas"
+  ],
+  "verdict": "use",
+  "genre": "nature",
+  "why": "구조 기록으로 인간 활동의 야생동물 피해를 논증"
+ },
+ {
+  "book": "Don’t eat that cookie! We need it for science.",
+  "url": "https://www.usgs.gov/news/featured-story/dont-eat-cookie-we-need-it-science",
+  "source": "usgs",
+  "v_level": 4,
+  "words": 587,
+  "rows": 1,
+  "excerpts": [
+   "Mmmm, the smell of cookies is everywhere this time of year. Just imagine that lovely scent—so woodsy, so piney. We’d take a bite if not for the risk of splinters and breaking our teeth. If that doesn’t sound like your typical holiday cookie, you’d be right—we're talking about tree cookies. “Tree cookie\" is a term for a round slice cut out of a dead woody tree trunk (there are also “root cookies” from thick roots). It",
+   "a contrast between the wood laid down during the growing season and the dormant season. Rings appear wider when the tree is growing quickly and conditions are good and narrower when they are poor, as during a drought or during other times of stress. Read on for three examples of how USGS scientists use tree and root cookies to learn about the environment across the country. In Glacier National Park, scientists use tr"
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "나이테 원반으로 환경을 읽는 방법을 설명"
+ },
+ {
+  "book": "The Pupils Tell All: How Our Eyes Reveal How Well We Can Imagine",
+  "url": "https://doi.org/10.3389/frym.2026.1700515",
+  "source": "frym",
+  "v_level": 5,
+  "words": 155,
+  "rows": 1,
+  "excerpts": [
+   "When you step outside on a sunny day, your pupils (the dark spots in the center of your eyes) shrink to block out light. In the dark, however, your pupils grow to let more light in. This automatic reaction helps your eyes adjust so you can see comfortably. But pupils do not only react to the light; they also change when you imagine light and dark images. This discovery demonstrates that the eyes provide a window into",
+   " the imagination. Not everyone imagines the same way: some people see vivid images, others faint ones, and some none at all. By measuring pupil size, scientists can learn how strong someone’s inner pictures are and can even detect when the ability to see mental images is absent. These findings highlight how the eyes can reflect hidden differences in the way people’s minds work, showing that there are many paths the b"
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "동공 크기로 심상 선명도를 재는 원리를 설명"
+ },
+ {
+  "book": "Learn Prefixes, Suffixes to Expand Your Vocabulary",
+  "url": "https://learningenglish.voanews.com/a/learn-prefixes-and-suffixes-to-expand-your-vocabulary/4140658.html",
+  "source": "voa",
+  "v_level": 2,
+  "words": 582,
+  "rows": 1,
+  "excerpts": [
+   "On a recent program, we explained that knowing just a few root words in English can help you understand the meaning of hundreds more words. To refresh your memory, a root word is the simplest form of a word. For example, two forms of the root for the word “see” are vis- and vid- such as in the words \"television\" and \"video.\" Today, we will tell you about prefixes and suffixes – groups of letters that appear at the be",
+   "oun form of the word. Suffixes also tell us the verb tense of words or whether the words are plural or singular. ​Some common suffixes are -er, -s, -es, -ed, -ing and -ly. Here are a few things to remember when learning suffixes: There are additional suffix rules, but they deal with spelling and can be learned with time and practice. A thing to keep in mind about both prefixes and suffixes is that some are only used "
+  ],
+  "verdict": "use",
+  "genre": "education",
+  "why": "접두사와 접미사의 기능을 예시로 전개한 수업"
+ },
+ {
+  "book": "Even the best artificial intelligence has weaknesses",
+  "url": "https://www.futurity.org/artificial-intelligence-weaknesses-3166732/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 637,
+  "rows": 1,
+  "excerpts": [
+   "New research tries to reveal the weaknesses in artificial intelligence. Machines interpret medical scanning images more accurately than doctors, they translate foreign languages, and may soon be able to drive cars more safely than humans. However, even the best algorithms do have weaknesses. Take an automated vehicle reading a road sign as an example. If someone has placed a sticker on the sign, this will not distrac",
+   "g the weaknesses in machine learning algorithms. This may lead to development of guidelines that describe how algorithms should be tested. And in the long run this may again lead to development of better and more stable algorithms.” A possible application could be for testing algorithms for protection of digital privacy. “Some company might claim to have developed an absolutely secure solution for privacy protection."
+  ],
+  "verdict": "use",
+  "genre": "technology",
+  "why": "알고리즘의 취약점 검증 필요성을 예로 논증"
+ },
+ {
+  "book": "Double Trouble: USGS Responds to Hurricane Joaquin and Nor’easter",
+  "url": "https://www.usgs.gov/news/featured-story/double-trouble-usgs-responds-hurricane-joaquin-and-noreaster",
+  "source": "usgs",
+  "v_level": 5,
+  "words": 885,
+  "rows": 1,
+  "excerpts": [
+   "The East Coast of the United States is dealing with dual storm systems—Hurricane Joaquin and a nor’easter moving through the Carolinas. Both storm systems are interacting with each other, as well as individually bringing their own sets of challenges. USGS is deploying crews throughout the affected region, from South Carolina to Connecticut, to respond to the two storms. Hurricane Joaquin To be clear, the National Hur",
+   "d for a broad suite of chemical and microbial contaminants. Forecasting the Surge Last but not least, USGS has issued forecasts of coastal impacts from Hurricane Joaquin through the newly expanded USGS Coastal Change Hazards Portal. Projections of coastal erosion, storm surge overtopping dunes, and flooding from Joaquin can be found there. Also evolving from Hurricane Sandy, USGS new foray into forecasting coastal ch"
+  ],
+  "verdict": "reject",
+  "genre": "reference",
+  "why": "폭풍 대응 활동과 포털 안내 나열"
+ },
+ {
+  "book": "Engineered plants may make baby formula more like breast milk",
+  "url": "https://www.futurity.org/plants-healthier-baby-formula-3235572/",
+  "source": "futurity",
+  "v_level": 6,
+  "words": 676,
+  "rows": 1,
+  "excerpts": [
+   "New research shows how genetically engineered plants may help make baby formula as nutritious as breast milk. Worldwide, a majority of babies—approximately 75%—drink infant formula in their first six months of life, either as a sole source of nutrition or as a supplement to breastfeeding. But while formula provides essential food for growing babies, it currently does not replicate the full nutritional profile of brea",
+   "es, first author Collin Barnum engineered the genes responsible for the enzymes that make these specific linkages. Working with Daniela Barile, David Mills, and Carlito Lebrilla at UC Davis, he then introduced the genes into the Nicotiana benthamiana plant, a close relative of tobacco. The genetically modified plants produced 11 known human milk oligosaccharides, along with a variety of other complex sugars with simi"
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "식물로 모유 올리고당을 생산하는 과정 설명"
+ }
+]

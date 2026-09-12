@@ -1,0 +1,77 @@
+{
+  "measured_at": "2026-08-21T13:57:09.594Z",
+  "results": [
+    {
+      "id": "worldbank-blogs",
+      "home": "https://blogs.worldbank.org/",
+      "why": "논증문 후보 — 다만 홈에 All rights reserved",
+      "verdict": "unknown",
+      "found": null,
+      "note": "sitemap 안에 피드 주소 없음",
+      "items": null
+    },
+    {
+      "id": "unesco-courier",
+      "home": "https://courier.unesco.org/en",
+      "why": "논증문 후보 (CC BY-SA IGO 주장)",
+      "verdict": "unknown",
+      "found": null,
+      "note": "robots.txt 에 Sitemap 줄 없음",
+      "items": null
+    },
+    {
+      "id": "nasa-spaceplace",
+      "home": "https://spaceplace.nasa.gov/",
+      "why": "초등 저레벨 PD 후보",
+      "verdict": "unknown",
+      "found": null,
+      "note": "robots.txt 에 Sitemap 줄 없음",
+      "items": null
+    },
+    {
+      "id": "ck12",
+      "home": "https://www.ck12.org/",
+      "why": "중고교 교재 — CC BY-NC 라 어차피 restricted",
+      "verdict": "unknown",
+      "found": null,
+      "note": "sitemap 안에 피드 주소 없음",
+      "items": null
+    },
+    {
+      "id": "cdc",
+      "home": "https://www.cdc.gov/",
+      "why": "nih 대체 PD 후보",
+      "verdict": "unknown",
+      "found": null,
+      "note": "sitemap 안에 피드 주소 없음",
+      "items": null
+    },
+    {
+      "id": "nps",
+      "home": "https://www.nps.gov/",
+      "why": "PD 자연·역사 서사 후보",
+      "verdict": "unknown",
+      "found": null,
+      "note": "sitemap 안에 피드 주소 없음",
+      "items": null
+    },
+    {
+      "id": "openstax",
+      "home": "https://openstax.org/",
+      "why": "저장소에 ingestFromPressbooks 경로가 이미 있다",
+      "verdict": "unknown",
+      "found": null,
+      "note": "sitemap 안에 피드 주소 없음",
+      "items": null
+    },
+    {
+      "id": "eurekalert",
+      "home": "https://www.eurekalert.org/",
+      "why": "대학 보도자료 허브 — 라이선스 미확인",
+      "verdict": "unknown",
+      "found": null,
+      "note": "robots.txt 에 Sitemap 줄 없음",
+      "items": null
+    }
+  ]
+}

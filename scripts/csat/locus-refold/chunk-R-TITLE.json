@@ -1,0 +1,92 @@
+{
+  "type_id": "R-TITLE",
+  "name": "제목",
+  "n_analyzed": 31,
+  "time_budget_sec": 92,
+  "detected_markers": [
+    "내부 필드명",
+    "배치 지시"
+  ],
+  "current_answer_locus_pattern": "7문항 전부 **한 문장**이 정답을 확정했고, 두 문장을 종합해야 하는 문항은 없었다. 다만 그 한 문장을 찾는 표지가 회차별로 갈린다. (a) 2014~2016 세 회차는 논점이 **글 앞쪽의 명시적 정의·소망·판정 문형**에 놓인다 — 'The key to successful risk taking is ~'(2015#23, 1번째 문장) · 'This is entirely arbitrary.'(2014B, 3번째) · 'What we would like to have is ~'(2016, 5번째 중 4/6 지점) · 'Large animals are actually less dangerous ~'(2014A, 1번째). (b) 2017 두 문항은 논점이 **마지막 문장의 특수 구문**에 놓인다 — It is X that Y 강조구문(2017#22, 7/7) · does not A but B 대조구문 + 마지막 재진술(2017#23, 4~5/5). (c) 역접 표지가 논점 앞에 서는 문항은 7 중 4(2017#22 However 2번째 · 2015#22 But 3번째 · 2014A But 3번째 · 2015#23 은 mistakes 라는 부정 진단이 역접 구실). 곧 '역접 뒤를 본다'는 기존 실측은 옛 회차에도 통하지만 **단독으로는 3문항을 놓친다**. 정답 번호는 ④④①⑤②①② 로 특정 번호 쏠림이 없다. 그리고 7문항 모두 정답 제목이 논점 문장의 핵심어를 거의 그대로 쓴다(mirror·conduct·focus/next step·440 Hz·small animals·reality·ambiguity) — 다만 **오답도 지문 낱말을 쓰므로 낱말 겹침 자체는 단서가 아니고, 그 낱말이 어느 문장에서 왔는가(논점 문장 vs 사례·양보문)가 단서다.**\n\n이제 12문항 전부에 정답표가 붙었다. 주제문 자리는 **네 곳**으로 정리된다 — ① 역접·양보 표지(But/However/Rather than/Although 양보절 **뒤 주절**) ② 결론 표지(So/Therefore/Consequentially/In short/Curiously) ③ 이름 붙은 개념 + suggests/states 인용문 ④ 첫 문장(단 error/assumption/commonly 가 있으면 반박 대상이므로 다음 문장으로 옮긴다). 이번 회차분 4문항도 모두 여기 든다: M2306#24 는 ④+①(첫 문장 정의 + Rather than 절), M2206#24 는 ①(Although 양보절 뒤 주절), M2209#24 는 ②(Consequentially · therefore), M2109#24 는 ②(Curiously · In short). 그리고 이 유형에서 근거는 **낱말 일치가 아니라 역할 일치로만 선다** — 12문항 전부에 대해 선지별 지문 낱말 겹침 수를 실제로 세어 보니(불용어 제외), 정답이 최대 겹침(공동 최대 포함)인 경우가 8/12 이고 **겹침이 단독 최대인 6문항만 보면 정답 3 · 오답 3 으로 판별력이 없다**(단독 최대가 오답인 것은 2022#24·M2109#24·M1809#23, 정답인 것은 M2209#24·M2206#24·M2006#24). 곧 겹침은 근거도 반증도 아니다. 정답 선지도 화제어(social perception · citizen involvement · knowledge)는 대개 지문에서 그대로 가져오고(12중 11), 갈리는 곳은 콜론 뒤의 **평가·방향 성분**이다. 비유가 든 지문(M2109#24 산, M2306#24 service animals)에서는 원관념이 인용 밖 문장에 있어 confirmed_at 을 따로 채웠다.\n\n정답이 확인된 9문항 중 6문항(2026#24 However · M2606#24 But · 2025#24 not~but · M2509#24 but+Instead · 2024#24 However · 2023#24 However)의 근거가 역접·전환 표지 바로 뒤 또는 그 문장 안에 있다. M2609#24 는 등위 역접 표지 없이 while apparently 라는 양보 표현이 같은 구실을 한다(사실상 7). 규칙이 깨지는 것은 둘이다 — M2706#24 는 역접이 하나도 없고 주제문이 다섯 번째 문장의 시점 전환구(From the mid-1950s onwards)에 있으며, M2506#24 는 통시 나열형이라 주제문 한 문장이 아예 없고 첫 문장(32,000년 전)과 마지막 문장(Ever since)을 함께 봐야 시간 범위가 확정된다. 또 '주제문 한 문장만 읽고 나머지를 가려도 정답이 나온다'는 관찰은 9문항 중 7문항에서만 유지된다 — M2506#24 는 두 문장이 필요하고, 2026#24 도 근거 문장의 This 가 앞 문장을 가리켜 앞 문장 없이는 무엇과 균형인지 잡히지 않는다. 곧 제목 유형에서는 첫 문장이 배경일 확률이 요지·주제 유형보다 높다(9개 중 M2706·M2506·M2606 셋에서 첫 문장이 배경이었다).",
+  "context": {
+    "procedure_steps": [
+      {
+        "step": "지문보다 선지 5개를 먼저 읽고, 각 선지에서 명사 핵 두 개(콜론 앞뒤 또는 of 앞뒤)를 표시한다. 다섯 선지가 공유하는 명사가 소재, 갈리는 자리가 술어 축이다",
+        "on_fail": "공유 명사가 없으면 네 개 이상에 들어간 명사를 소재로 삼는다"
+      },
+      {
+        "step": "각 선지에 부호(+/−)와 형태(단정 · 의문 · 명령 · How to)를 매겨 둔다. 이 표시만으로 뒤 단계의 소거가 기계적이 된다",
+        "on_fail": "부호가 안 매겨지는 선지는 소재어만 적고 보류로 둔다"
+      },
+      {
+        "step": "지문에서 주제문 자리를 이 순서로 찾는다 — ① But/However/Rather than 뒤 ② So/Therefore/In short 뒤 ③ hypothesis·theory + suggests/states 문장 ④ 첫 문장. 찾은 문장 하나에만 밑줄을 긋는다",
+        "on_fail": "①~④가 모두 없으면 마지막 문장에 밑줄"
+      },
+      {
+        "step": "첫 문장에 error, assumption, myth, commonly believed, Supporters like to 중 하나가 있으면 그 문장은 반박 대상이므로 밑줄을 바로 다음 문장으로 옮긴다. 역접 문장 뒤에 문장이 둘 이상 남아 있으면 밑줄을 마지막 문장으로 옮긴다",
+        "on_fail": "옮길 문장이 애매하면 두 문장 모두에 밑줄을 긋고 공통 주어를 찾는다"
+      },
+      {
+        "step": "밑줄 문장의 주어와 술어를 1단계의 명사 핵 두 자리와 하나씩 대응시킨다. 두 자리가 모두 대응하는 선지가 답이고, 한 자리만 대응하면 남긴다",
+        "on_fail": "두 자리 대응 선지가 둘이면 6단계로 간다"
+      },
+      {
+        "step": "남은 선지 중 지문 낱말을 그대로 쓴 것을 골라, 그 낱말이 (가) 밑줄 문장에 있는지 (나) 앞에 부호어(decreased, do not, unless, overstate)가 붙어 있는지 (다) example/such as 뒤에만 있는지 세 가지를 확인한다. 하나라도 걸리면 지운다",
+        "on_fail": "겹치는 낱말이 여럿이면 밑줄 문장 안의 낱말 수가 많은 쪽을 남긴다"
+      }
+    ],
+    "recurring_traps": [
+      {
+        "trap": "어휘 함정",
+        "count": 20,
+        "signature": "지문 낱말을 그대로 쓰되 그 낱말이 놓였던 기능 자리를 바꾼다 — filmic time·space 가 감독의 목적어였는데 선지에서는 주어(2017#23 ②) · esteem 이 '남을 존경한다'였는데 self-esteem 으로(2015#22 ①) · chronological 이 이미 아는 값이었는데 재는 대상으로(2016#23 ③) · arbitrary 는 맞고 덧붙인 'A New Trend'가 틀림(2014B ②) · impossible 이 결과 묘사였는데 논점으로(2015#23 ①)"
+      },
+      {
+        "trap": "무관",
+        "count": 19,
+        "signature": "지문의 소재 영역(언어·영화·노화·도덕·조율·동물)에 어울리는 상투적 제목을 만들되, 지문이 한 번도 묻지 않은 물음으로 바꾼다 — Universal Goal(2017#22 ③) · Exploration into the Unknown(2017#23 ①) · Slow Aging in the Modern Era(2016#23 ②) · Form Their Personalities(2015#22 ④) · How to Correctly Measure(2014B ③) · Attack Human Villages(2014A ④). 7문항 중 6문항에 하나씩 들어 있다"
+      },
+      {
+        "trap": "반대 진술",
+        "count": 16,
+        "signature": "지문이 '실수·결함'이라고 부른 것을 처방으로, 또는 '강점'이라 한 것을 제거 대상으로 뒤집는다 — Erase Ambiguity(2017#22 ①) · Not Creative(② ) · Never Changes(2017#23 ⑤) · Disclosed(2016#23 ④) · Start with Ultimate Goals(2015#23 ③) · True Friends(2014A ③)"
+      },
+      {
+        "trap": "부분 사실",
+        "count": 13,
+        "signature": "역접 앞 양보문이나 사례 한 줄이 실제로 지문에 있다는 점을 이용한다 — 첫 문장 꿀벌 우위(2017#22 ①) · 회피하는 스키어가 실재(2015#23 ⑤) · 소리 차이 서술이 실재(2014B ④)"
+      },
+      {
+        "trap": "범위 과대",
+        "count": 11,
+        "signature": "구체적 작동 기제를 상위 범주로 격상한다 — Moral Integrity: A Principle of Philosophy(2015#22 ③) · The Wonders of Committed Efforts(2015#23 ④) · Unstable Pitches: A Common Thread in Music(2014B ⑤)"
+      },
+      {
+        "trap": "주체 역전",
+        "count": 9,
+        "signature": "속성이나 피해의 임자가 뒤바뀐다 — 왜곡 없는 전달은 꿀벌의 속성인데 언어에 붙임(2017#22 ⑤) · 위험에 처한 쪽이 사람인데 동물로(2014A ⑤)"
+      },
+      {
+        "trap": "지문 밖 상식",
+        "count": 9,
+        "signature": "소재에 따라붙는 통념을 제목으로 만든다 — Fountain of Youth(2016#23 ⑤) · Do Not Let Your Moral Principles Change(2015#22 ②)"
+      },
+      {
+        "trap": "범위 과소",
+        "count": 7,
+        "signature": "주장에 이르는 수단이나 사례 하나를 제목으로 승격시킨다 — Innovative Technology in Film Editing(2017#23 ③) · How to Deal with Allergies(2014A ①)"
+      }
+    ],
+    "failure_modes": [
+      "역접 앞 양보문을 주장으로 읽는다 — 2017#22 는 첫 문장 전체가 정답과 정반대 진술이고 However 는 둘째 문장에 있다. 첫 두 줄만 읽고 제목을 정하면 ①·⑤ 두 오답이 동시에 그럴듯해진다",
+      "사례의 마지막 낱말을 주제로 승격시킨다 — impossible mountain(2015#23 ①) · bee stings(2014A ①) · filmic time and space(2017#23 ②). 사례는 인상에 오래 남고 제목은 인상으로 고르기 쉽다",
+      "낱말 겹침을 근거로 삼는다 — 2014B ②는 논점 낱말 arbitrary 를 그대로 쓰고도 오답이다. 갈림길은 덧붙인 'A New Trend' 한 구이며, 겹치는 낱말이 아니라 덧붙은 수식어를 지문과 대조해야 한다",
+      "의문문·명령문 제목을 형태만 보고 지운다 — 7문항 중 3문항의 정답이 의문문 또는 명령·감탄문이다. '제목은 명사구'라는 습관이 그대로 실점이 된다",
+      "시상(아직/이미)을 안 본다 — 2016#23 은 would like to have(아직 못 가짐)와 Disclosed(이미 밝혀짐)의 대립이 정답과 최다 오답을 가른다. 소재가 맞으면 시상은 안 보게 된다",
+      "임자를 바꿔 읽는다 — 2017#22 ⑤(속성의 임자가 꿀벌→언어) · 2014A ⑤(위험에 처한 쪽이 사람→동물). 서술 내용이 지문과 같아 보여 마지막까지 남는다",
+      "첫 문장을 무조건 주제문으로 읽는다 — 첫 문장이 반박 대상인 통념 제시(M2106#24)이거나 배경(2020#24 · M2209#24)이면 오답 두 개로 동시에 끌린다",
+      "역접 문장을 결론으로 읽는다 — M1809#23 처럼 however 뒤에 사례가 오고 마지막 문장이 방향을 되돌리는 배치에서 반대편 제목을 고른다"
+    ]
+  },
+  "instructions_ref": "scripts/csat/locus-refold/_PROMPT.md"
+}

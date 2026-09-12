@@ -1,0 +1,44 @@
+{
+ "passages": 61,
+ "totalSent": 450,
+ "marked": 43,
+ "base": 0.09555555555555556,
+ "perType": [
+  {
+   "type": "R-GIST",
+   "sent": 100,
+   "mark": 8,
+   "n": 13
+  },
+  {
+   "type": "R-TOPIC",
+   "sent": 77,
+   "mark": 10,
+   "n": 11
+  },
+  {
+   "type": "R-TITLE",
+   "sent": 84,
+   "mark": 6,
+   "n": 12
+  },
+  {
+   "type": "R-SUMMARY",
+   "sent": 92,
+   "mark": 13,
+   "n": 12
+  },
+  {
+   "type": "R-PURPOSE",
+   "sent": 59,
+   "mark": 4,
+   "n": 7
+  },
+  {
+   "type": "R-CLAIM",
+   "sent": 38,
+   "mark": 2,
+   "n": 6
+  }
+ ]
+}

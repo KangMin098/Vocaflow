@@ -16,7 +16,7 @@ export function DimensionsGrid({ dimensions }: DimensionsGridProps) {
 
   return (
     <section aria-label="9 quality dimensions" className="flex flex-col gap-4">
-      <header className="flex items-center gap-2.5">
+      <header className="flex items-center gap-3">
         <span
           className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)]"
           style={{ backgroundColor: '#8B5CF61A', color: '#8B5CF6' }}
@@ -28,7 +28,7 @@ export function DimensionsGrid({ dimensions }: DimensionsGridProps) {
           <h2 className="font-display text-[18px] font-[800] leading-tight text-[var(--t1)]">
             9 Quality Dimensions
           </h2>
-          <p className="font-body text-[12px] text-[var(--t3)]">
+          <p className="font-body text-[12px] text-[var(--t2)]">
             Volume · Coverage · Linguistic · Learning · VRL · Integrity · Pipeline · Freshness · Schema (가중치 합 100%)
           </p>
         </div>

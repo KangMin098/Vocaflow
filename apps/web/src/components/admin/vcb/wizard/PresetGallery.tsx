@@ -112,7 +112,7 @@ function PresetCard({
           <div className="font-display font-semibold text-[15px]" style={{ color: 'var(--t1)' }}>
             {preset.title}
           </div>
-          <div className="text-xs font-body flex items-center gap-1.5 mt-0.5">
+          <div className="text-xs font-body flex items-center gap-2 mt-0.5">
             <Sparkles className="w-3 h-3" style={{ color: preset.accent }} />
             <span style={{ color: preset.accent }}>{preset.persona}</span>
           </div>
@@ -124,7 +124,7 @@ function PresetCard({
       </p>
 
       {/* Variants */}
-      <div className="flex flex-col gap-1.5">
+      <div className="flex flex-col gap-2">
         {preset.variants.map((variant) => {
           const isVariantSelected = selectedVariantId === variant.id
           return (
@@ -132,7 +132,7 @@ function PresetCard({
               key={variant.id}
               type="button"
               onClick={() => onVariantSelect(variant)}
-              className="group flex items-center justify-between gap-2 px-3 py-2 rounded-[var(--r-md)] text-left transition-all"
+              className="min-h-[44px] group flex items-center justify-between gap-2 px-3 py-2 rounded-[var(--r-md)] text-left transition-all"
               style={{
                 // Calm UI — solid accent 대신 12% tint + left accent bar (Material 3 토널)
                 background: isVariantSelected ? `${preset.accent}14` : 'var(--bg2)',

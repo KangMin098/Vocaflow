@@ -1,0 +1,637 @@
+{
+  "book": {
+    "id": "58fe9c13-cbfc-4c00-a910-48cb63f5fefe",
+    "title": "Henry IV, Part II",
+    "book_v_level": 8
+  },
+  "target_per_chapter": 8,
+  "chapters": [
+    {
+      "chapter_idx": 1,
+      "chapter_title": "Induction",
+      "word_count": 319,
+      "chapter_v_level": 6,
+      "content": "CHAPTER 1. Induction\u001ehttps://standardebooks.org/ebooks/william-shakespeare/henry-iv-part-ii/text/induction\n\nWarkworth. Before the castle.\n\nEnter Rumour, painted full of tongues.\n\nRumour\n\nOpen your ears; for which of you will stop\n\nThe vent of hearing when loud Rumour speaks?\n\nI, from the orient to the drooping west,\n\nMaking the wind my post-horse, still unfold\n\nThe acts commenced on this ball of earth:\n\nUpon my tongues continual slanders ride,\n\nThe which in every language I pronounce,\n\nStuffing the ears of men with false reports.\n\nI speak of peace, while covert enmity\n\nUnder the smile of safety wounds the world:\n\nAnd who but Rumour, who but only I,\n\nMake fearful musters and prepared defence,\n\nWhiles the big year, swoln with some other grief,\n\nIs thought with child by the stern tyrant war,\n\nAnd no such matter? Rumour is a pipe\n\nBlown by surmises, jealousies, conjectures,\n\nAnd of so easy and so plain a stop\n\nThat the blunt monster with uncounted heads,\n\nThe still-discordant wavering multitude,\n\nCan play upon it. But what need I thus\n\nMy well-known body to anatomize\n\nAmong my household? Why is Rumour here?\n\nI run before King Harry's victory;\n\nWho in a bloody field by Shrewsbury\n\nHath beaten down young Hotspur and his troops,\n\nQuenching the flame of bold rebellion\n\nEven with the rebels' blood. But what mean I\n\nTo speak so true at first? my office is\n\nTo noise abroad that Harry Monmouth fell\n\nUnder the wrath of noble Hotspur's sword,\n\nAnd that the king before the Douglas' rage\n\nStoop'd his anointed head as low as death.\n\nThis have I rumour'd through the peasant towns\n\nBetween that royal field of Shrewsbury\n\nAnd this worm-eaten hold of ragged stone,\n\nWhere Hotspur's father, old Northumberland,\n\nLies crafty-sick: the posts come tiring on,\n\nAnd not a man of them brings other news\n\nThan they have learn'd of me: from Rumour's tongues\n\nThey bring smooth comforts false, worse than true wrongs. Exit.",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "How is Rumour presented on stage, and what does he say he does?",
+          "questionKo": "루머(소문)는 무대에 어떤 모습으로 나오며, 무엇을 한다고 말하는가?",
+          "options": [
+            {
+              "text": "Painted full of tongues — from the orient to the drooping west he unfolds the acts of the earth, stuffing the ears of men with false reports.",
+              "textKo": "온몸에 혀가 그려진 모습으로 — 동쪽 끝에서 저무는 서쪽까지 땅 위의 일들을 펼치며, 사람들의 귀를 거짓 보고로 채운다고."
+            },
+            {
+              "text": "Robed as a herald — he carries only true tidings from the king.",
+              "textKo": "전령의 옷차림으로 — 오직 왕의 참된 소식만 나른다고."
+            },
+            {
+              "text": "Masked and silent — he shows what has happened without speaking.",
+              "textKo": "가면을 쓰고 말없이 — 말하지 않고 일어난 일을 보여 준다고."
+            },
+            {
+              "text": "Dressed as a soldier — he brings word straight from the battlefield.",
+              "textKo": "병사 차림으로 — 전장에서 곧장 소식을 가져온다고."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "Stuffing the ears of men with false reports"
+        },
+        {
+          "type": "multiple",
+          "question": "How does Rumour describe the harm he does under the appearance of good?",
+          "questionKo": "루머는 좋아 보이는 겉모습 아래 저지르는 해를 어떻게 말하는가?",
+          "options": [
+            {
+              "text": "He speaks only of war, so that men arm themselves too soon.",
+              "textKo": "오직 전쟁만 이야기해 사람들이 너무 일찍 무장하게 한다고."
+            },
+            {
+              "text": "He speaks of peace while covert enmity under the smile of safety wounds the world.",
+              "textKo": "평화를 이야기하는 동안, 안전이라는 미소 아래 숨은 적의가 세상을 상하게 한다고."
+            },
+            {
+              "text": "He tells the truth but always too late to be useful.",
+              "textKo": "참말을 하되 늘 쓸모없이 늦게 한다고."
+            },
+            {
+              "text": "He whispers only to kings, never to common men.",
+              "textKo": "오직 왕에게만 속삭이고 평민에게는 하지 않는다고."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "I speak of peace, while covert enmity Under the smile of safety wounds the world"
+        },
+        {
+          "type": "multiple",
+          "question": "What instrument does Rumour compare himself to?",
+          "questionKo": "루머는 자신을 어떤 악기에 견주는가?",
+          "options": [
+            {
+              "text": "A trumpet that only kings may sound.",
+              "textKo": "오직 왕만이 불 수 있는 나팔."
+            },
+            {
+              "text": "A drum that grows louder the farther it travels.",
+              "textKo": "멀리 갈수록 커지는 북."
+            },
+            {
+              "text": "A pipe blown by surmises, jealousies and conjectures — of so easy a stop that the wavering multitude can play upon it.",
+              "textKo": "추측과 시샘과 억측이 부는 피리 — 구멍 막기가 하도 쉬워 흔들리는 군중도 연주할 수 있다고."
+            },
+            {
+              "text": "A bell rung at the death of great men.",
+              "textKo": "위인이 죽을 때 울리는 종."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "Rumour is a pipe Blown by surmises, jealousies, conjectures"
+        },
+        {
+          "type": "multiple",
+          "question": "What actually happened at Shrewsbury, by Rumour’s own account?",
+          "questionKo": "루머 자신의 말에 따르면 슈루즈베리에서 실제로 일어난 일은?",
+          "options": [
+            {
+              "text": "Hotspur won the day and the king fled north.",
+              "textKo": "핫스퍼가 이겼고 왕은 북으로 달아났다."
+            },
+            {
+              "text": "Neither side prevailed and a truce was made.",
+              "textKo": "어느 쪽도 이기지 못해 휴전했다."
+            },
+            {
+              "text": "The battle was never fought at all.",
+              "textKo": "전투는 아예 벌어지지 않았다."
+            },
+            {
+              "text": "King Harry beat down young Hotspur and his troops in a bloody field, quenching the flame of rebellion with the rebels’ blood.",
+              "textKo": "해리 왕이 피의 벌판에서 젊은 핫스퍼와 그 군대를 쳐부수고, 반란의 불길을 반군의 피로 껐다."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "Hath beaten down young Hotspur and his troops"
+        },
+        {
+          "type": "multiple",
+          "question": "What does Rumour say his \"office\" is, as against the truth?",
+          "questionKo": "루머는 사실과 달리 제 \"직무\" 가 무엇이라고 말하는가?",
+          "options": [
+            {
+              "text": "To noise abroad that Harry Monmouth fell under Hotspur’s sword, and that the king stooped his anointed head as low as death before Douglas.",
+              "textKo": "해리 몬머스가 핫스퍼의 칼에 쓰러졌고, 왕이 더글러스 앞에서 기름 부은 머리를 죽음만큼 낮게 숙였다고 퍼뜨리는 것."
+            },
+            {
+              "text": "To carry the king’s proclamation to every town.",
+              "textKo": "왕의 포고를 고을마다 나르는 것."
+            },
+            {
+              "text": "To keep silent until the king’s heralds have spoken.",
+              "textKo": "왕의 전령들이 말할 때까지 잠자코 있는 것."
+            },
+            {
+              "text": "To warn Northumberland of the coming army.",
+              "textKo": "노섬벌랜드에게 다가오는 군대를 알리는 것."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "To noise abroad that Harry Monmouth fell Under the wrath of noble Hotspur’s sword"
+        },
+        {
+          "type": "multiple",
+          "question": "Where has Rumour spread this false report?",
+          "questionKo": "루머는 그 거짓 보고를 어디에 퍼뜨렸는가?",
+          "options": [
+            {
+              "text": "Only in London, among the court and the merchants.",
+              "textKo": "오직 런던에서, 궁정과 상인들 사이에."
+            },
+            {
+              "text": "Through the peasant towns between the field of Shrewsbury and the worm-eaten hold of ragged stone where old Northumberland lies.",
+              "textKo": "슈루즈베리의 벌판과, 늙은 노섬벌랜드가 누워 있는 벌레 먹은 거친 돌 성채 사이의 농촌 마을들에."
+            },
+            {
+              "text": "In Wales, where the king lately campaigned.",
+              "textKo": "왕이 최근 원정한 웨일스에."
+            },
+            {
+              "text": "Nowhere yet — he is on his way to begin.",
+              "textKo": "아직 어디에도 — 이제 막 시작하러 가는 길이다."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "Between that royal field of Shrewsbury And this worm-eaten hold of ragged stone"
+        },
+        {
+          "type": "multiple",
+          "question": "How does Rumour describe Northumberland’s condition?",
+          "questionKo": "루머는 노섬벌랜드의 상태를 어떻게 말하는가?",
+          "options": [
+            {
+              "text": "That he has already ridden out to join the rebels.",
+              "textKo": "이미 말을 타고 나가 반군에 합류했다고."
+            },
+            {
+              "text": "That he is dead and the news kept secret.",
+              "textKo": "이미 죽었고 그 소식이 감춰져 있다고."
+            },
+            {
+              "text": "Hotspur’s father lies \"crafty-sick\".",
+              "textKo": "핫스퍼의 아버지가 \"꾀병으로 누워 있다\" 고."
+            },
+            {
+              "text": "That he has made his peace with the king.",
+              "textKo": "왕과 화해했다고."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "Lies crafty-sick"
+        },
+        {
+          "type": "multiple",
+          "question": "What does Rumour say of the messengers riding to Northumberland?",
+          "questionKo": "루머는 노섬벌랜드에게 달려가는 전령들에 대해 무엇이라 하는가?",
+          "options": [
+            {
+              "text": "That they alone carry the true account of the battle.",
+              "textKo": "오직 그들만이 전투의 참된 전말을 나른다고."
+            },
+            {
+              "text": "That they have been bribed by the king to lie.",
+              "textKo": "왕에게 매수되어 거짓을 말한다고."
+            },
+            {
+              "text": "That they will arrive too late to matter.",
+              "textKo": "늦게 도착해 아무 소용이 없으리라고."
+            },
+            {
+              "text": "Not a man of them brings other news than they have learned of Rumour — from his tongues they bring smooth comforts false, worse than true wrongs.",
+              "textKo": "루머에게서 배운 것 말고 다른 소식을 가져오는 자가 하나도 없다고 — 그의 혀에서 나온 매끄러운 거짓 위안은 참된 불행보다 더 나쁘다고."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "They bring smooth comforts false, worse than true wrongs"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 2,
+      "chapter_title": "Scene I",
+      "word_count": 1829,
+      "chapter_v_level": 6,
+      "content": "CHAPTER 2. Scene I\u001fAct I\u001ehttps://standardebooks.org/ebooks/william-shakespeare/henry-iv-part-ii/text/act-1#scene-1-1\n\nThe same.\n\nEnter Lord Bardolph.\n\nLord Bardolph Who keeps the gate here, ho?\n\nThe Porter opens the gate.\n\nWhere is the earl?\n\nPorter What shall I say you are?\n\nLord Bardolph\n\nTell thou the earl\n\nThat the Lord Bardolph doth attend him here.\n\nPorter\n\nHis lordship is walk'd forth into the orchard:\n\nPlease it your honour, knock but at the gate,\n\nAnd he himself wilt answer.\n\nEnter Northumberland.\n\nLord Bardolph Here comes the earl. Exit Porter.\n\nNorthumberland\n\nWhat news, Lord Bardolph? every minute now\n\nShould be the father of some stratagem:\n\nThe times are wild; contention, like a horse\n\nFull of high feeding, madly hath broke loose\n\nAnd bears down all before him.\n\nLord Bardolph\n\nNoble earl,\n\nI bring you certain news from Shrewsbury.\n\nNorthumberland Good, an God will!\n\nLord Bardolph\n\nAs good as heart can wish:\n\nThe king is almost wounded to the death;\n\nAnd, in the fortune of my lord your son,\n\nPrince Harry slain outright; and both the Blunts\n\nKill'd by the hand of Douglas; young Prince John\n\nAnd Westmoreland and Stafford fled the field;\n\nAnd Harry Monmouth's brawn, the hulk Sir John,\n\nIs prisoner to your son: O, such a day,\n\nSo fought, so follow'd and so fairly won,\n\nCame not till now to dignify the times,\n\nSince Caesar's fortunes!\n\nNorthumberland\n\nHow is this derived?\n\nSaw you the field? came you from Shrewsbury?\n\nLord Bardolph\n\nI spake with one, my lord, that came from thence,\n\nA gentleman well bred and of good name,\n\nThat freely render'd me these news for true.\n\nNorthumberland\n\nHere comes my servant Travers, whom I sent\n\nOn Tuesday last to listen after news.\n\nEnter Travers.\n\nLord Bardolph\n\nMy lord, I over-rode him on the way;\n\nAnd he is furnish'd with no certainties\n\nMore than he haply may retail from me.\n\nNorthumberland Now, Travers, what good tidings comes with you?\n\nTravers\n\nMy lord, Sir John Umfrevile turn'd me back\n\nWith joyful tidings; and, being better horsed,\n\nOut-rode me. After him came spurring hard\n\nA gentleman, almost forspent with speed,\n\nThat stopp'd by me to breathe his bloodied horse.\n\nHe ask'd the way to Chester; and of him\n\nI did demand what news from Shrewsbury:\n\nHe told me that rebellion had bad luck\n\nAnd that young Harry Percy's spur was cold.\n\nWith that, he gave his able horse the head,\n\nAnd bending forward struck his armed heels\n\nAgainst the panting sides of his poor jade\n\nUp to the rowel-head, and starting so\n\nHe seem'd in running to devour the way,\n\nStaying no longer question.\n\nNorthumberland\n\nHa! Again:\n\nSaid he young Harry Percy's spur was cold?\n\nOf Hotspur Coldspur? that rebellion\n\nHad met ill luck?\n\nLord Bardolph\n\nMy lord, I'll tell you what;\n\nIf my young lord your son have not the day,\n\nUpon mine honour, for a silken point\n\nI'll give my barony: never talk of it.\n\nNorthumberland\n\nWhy should that gentleman that rode by Travers\n\nGive then such instances of loss?\n\nLord Bardolph\n\nWho, he?\n\nHe was some hilding fellow that had stolen\n\nThe horse he rode on, and, upon my life,\n\nSpoke at a venture. Look, here comes more news.\n\nEnter Morton.\n\nNorthumberland\n\nYea, this man's brow, like to a title-leaf,\n\nForetells the nature of a tragic volume:\n\nSo looks the strand whereon the imperious flood\n\nHath left a witness'd usurpation.\n\nSay, Morton, didst thou come from Shrewsbury?\n\nMorton\n\nI ran from Shrewsbury, my noble lord;\n\nWhere hateful death put on his ugliest mask\n\nTo fright our party.\n\nNorthumberland\n\nHow doth my son and brother?\n\nThou tremblest; and the whiteness in thy cheek\n\nIs apter than thy tongue to tell thy errand.\n\nEven such a man, so faint, so spiritless,\n\nSo dull, so dead in look, so woe-begone,\n\nDrew Priam's curtain in the dead of night,\n\nAnd would have told him half his Troy was burnt;\n\nBut Priam found the fire ere he his tongue,\n\nAnd I my Percy's death ere thou report'st it.\n\nThis thou wouldst say, \"Your son did thus and thus;\n\nYour brother thus: so fought the noble Douglas:\"\n\nStopping my greedy ear with their bold deeds:\n\nBut in the end, to stop my ear indeed,\n\nThou hast a sigh to blow away this praise,\n\nEnding with \"Brother, son, and all are dead.\"\n\nMorton\n\nDouglas is living, and your brother, yet;\n\nBut, for my lord your son⁠--\n\nNorthumberland\n\nWhy, he is dead.\n\nSee what a ready tongue suspicion hath!\n\nHe that but fears the thing he would not know\n\nHath by instinct knowledge from others' eyes\n\nThat what he fear'd is chanced. Yet speak, Morton;\n\nTell thou an earl his divination lies,\n\nAnd I will take it as a sweet disgrace\n\nAnd make thee rich for doing me such wrong.\n\nMorton\n\nYou are too great to be by me gainsaid:\n\nYour spirit is too true, your fears too certain.\n\nNorthumberland\n\nYet, for all this, say not that Percy's dead.\n\nI see a strange confession in thine eye:\n\nThou shakest thy head and hold'st it fear or sin\n\nTo speak a truth. If he be slain, say so;\n\nThe tongue offends not that reports his death:\n\nAnd he doth sin that doth belie the dead,\n\nNot he which says the dead is not alive.\n\nYet the first bringer of unwelcome news\n\nHath but a losing office, and his tongue\n\nSounds ever after as a sullen bell,\n\nRemember'd tolling a departing friend.\n\nLord Bardolph I cannot think, my lord, your son is dead.\n\nMorton\n\nI am sorry I should force you to believe\n\nThat which I would to God I had not seen;\n\nBut these mine eyes saw him in bloody state,\n\nRendering faint quittance, wearied and out-breathed,\n\nTo Harry Monmouth; whose swift wrath beat down\n\nThe never-daunted Percy to the earth,\n\nFrom whence with life he never more sprung up.\n\nIn few, his death, whose spirit lent a fire\n\nEven to the dullest peasant in his camp,\n\nBeing bruited once, took fire and heat away\n\nFrom the best-temper'd courage in his troops;\n\nFor from his metal was his party steel'd;\n\nWhich once in him abated, all the rest\n\nTurn'd on themselves, like dull and heavy lead:\n\nAnd as the thing that's heavy in itself,\n\nUpon enforcement flies with greatest speed,\n\nSo did our men, heavy in Hotspur's loss,\n\nLend to this weight such lightness with their fear\n\nThat arrows fled not swifter toward their aim\n\nThan did our soldiers, aiming at their safety,\n\nFly from the field. Then was the noble Worcester\n\nToo soon ta'en prisoner; and that furious Scot,\n\nThe bloody Douglas, whose well-labouring sword\n\nHad three times slain the appearance of the king,\n\n'Gan vail his stomach and did grace the shame\n\nOf those that turn'd their backs, and in his flight,\n\nStumbling in fear, was took. The sum of all\n\nIs that the king hath won, and hath sent out\n\nA speedy power to encounter you, my lord,\n\nUnder the conduct of young Lancaster\n\nAnd Westmoreland. This is the news at full.\n\nNorthumberland\n\nFor this I shall have time enough to mourn.\n\nIn poison there is physic; and these news,\n\nHaving been well, that would have made me sick,\n\nBeing sick, have in some measure made me well:\n\nAnd as the wretch, whose fever-weaken'd joints,\n\nLike strengthless hinges, buckle under life,\n\nImpatient of his fit, breaks like a fire\n\nOut of his keeper's arms, even so my limbs,\n\nWeaken'd with grief, being now enraged with grief,\n\nAre thrice themselves. Hence, therefore, thou nice crutch!\n\nA scaly gauntlet now with joints of steel\n\nMust glove this hand: and hence, thou sickly quoif!\n\nThou art a guard too wanton for the head\n\nWhich princes, flesh'd with conquest, aim to hit.\n\nNow bind my brows with iron; and approach\n\nThe ragged'st hour that time and spite dare bring\n\nTo frown upon the enraged Northumberland!\n\nLet heaven kiss earth! now let not Nature's hand\n\nKeep the wild flood confined! let order die!\n\nAnd let this world no longer be a stage\n\nTo feed contention in a lingering act;\n\nBut let one spirit of the first-born Cain\n\nReign in all bosoms, that, each heart being set\n\nOn bloody courses, the rude scene may end,\n\nAnd darkness be the burier of the dead!\n\nTravers This strained passion doth you wrong, my lord.\n\nLord Bardolph Sweet earl, divorce not wisdom from your honour.\n\nMorton\n\nThe lives of all your loving complices\n\nLean on your health; the which, if you give o'er\n\nTo stormy passion, must perforce decay.\n\nYou cast the event of war, my noble lord,\n\nAnd summ'd the account of chance, before you said\n\n\"Let us make head.\" It was your presurmise,\n\nThat, in the dole of blows, your son might drop:\n\nYou knew he walk'd o'er perils, on an edge,\n\nMore likely to fall in than to get o'er;\n\nYou were advised his flesh was capable\n\nOf wounds and scars and that his forward spirit\n\nWould lift him where most trade of danger ranged:\n\nYet did you say \"Go forth;\" and none of this,\n\nThough strongly apprehended, could restrain\n\nThe stiff-borne action: what hath then befallen,\n\nOr what hath this bold enterprise brought forth,\n\nMore than that being which was like to be?\n\nLord Bardolph\n\nWe all that are engaged to this loss\n\nKnew that we ventured on such dangerous seas\n\nThat if we wrought our life 'twas ten to one;\n\nAnd yet we ventured, for the gain proposed\n\nChoked the respect of likely peril fear'd;\n\nAnd since we are o'erset, venture again.\n\nCome, we will all put forth, body and goods.\n\nMorton\n\n'Tis more than time: and, my most noble lord,\n\nI hear for certain, and do speak the truth,\n\nThe gentle Archbishop of York is up\n\nWith well-appointed powers: he is a man\n\nWho with a double surety binds his followers.\n\nMy lord your son had only but the corpse,\n\nBut shadows and the shows of men, to fight;\n\nFor that same word, rebellion, did divide\n\nThe action of their bodies from their souls;\n\nAnd they did fight with queasiness, constrain'd,\n\nAs men drink potions, that their weapons only\n\nSeem'd on our side; but, for their spirits and souls,\n\nThis word, rebellion, it had froze them up,\n\nAs fish are in a pond. But now the bishop\n\nTurns insurrection to religion:\n\nSupposed sincere and holy in his thoughts,\n\nHe's followed both with body and with mind;\n\nAnd doth enlarge his rising with the blood\n\nOf fair King Richard, scraped from Pomfret stones;\n\nDerives from heaven his quarrel and his cause;\n\nTells them he doth bestride a bleeding land,\n\nGasping for life under great Bolingbroke;\n\nAnd more and less do flock to follow him.\n\nNorthumberland\n\nI knew of this before; but, to speak truth,\n\nThis present grief had wiped it from my mind.\n\nGo in with me; and counsel every man\n\nThe aptest way for safety and revenge:\n\nGet posts and letters, and make friends with speed:\n\nNever so few, and never yet more need. Exeunt.",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "What news does Lord Bardolph bring Northumberland?",
+          "questionKo": "바돌프 경이 노섬벌랜드에게 전한 소식은?",
+          "options": [
+            {
+              "text": "That the king is almost wounded to the death, Prince Harry slain outright, both the Blunts killed by Douglas, and Sir John a prisoner to his son.",
+              "textKo": "왕은 거의 치명상을 입었고 해리 왕자는 즉사했으며 블런트 형제는 더글러스에게 죽고, 존 경은 그의 아들에게 사로잡혔다는 것."
+            },
+            {
+              "text": "That the rebellion failed and Hotspur is dead.",
+              "textKo": "반란이 실패하고 핫스퍼가 죽었다는 것."
+            },
+            {
+              "text": "That the battle has not yet been fought.",
+              "textKo": "아직 전투가 벌어지지 않았다는 것."
+            },
+            {
+              "text": "That the king has offered terms of peace.",
+              "textKo": "왕이 화친 조건을 제시했다는 것."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "The king is almost wounded to the death; And, in the fortune of my lord your son, Prince Harry slain outright"
+        },
+        {
+          "type": "multiple",
+          "question": "On what authority does Lord Bardolph give this news?",
+          "questionKo": "바돌프 경은 무엇을 근거로 그 소식을 전하는가?",
+          "options": [
+            {
+              "text": "He was at Shrewsbury himself and saw the field.",
+              "textKo": "직접 슈루즈베리에 있었고 전장을 보았다고."
+            },
+            {
+              "text": "He spoke with one who came from thence — a gentleman well bred and of good name, who freely rendered him the news for true.",
+              "textKo": "거기서 온 사람과 이야기했다고 — 좋은 가문의 이름난 신사가 그 소식을 참이라며 스스럼없이 전해 주었다고."
+            },
+            {
+              "text": "He received a letter under Hotspur’s own seal.",
+              "textKo": "핫스퍼의 인장이 찍힌 편지를 받았다고."
+            },
+            {
+              "text": "Travers rode ahead and brought it to him.",
+              "textKo": "트래버스가 앞서 달려와 전해 주었다고."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "A gentleman well bred and of good name, That freely render’d me these news for true"
+        },
+        {
+          "type": "multiple",
+          "question": "What did the spurring gentleman tell Travers on the road?",
+          "questionKo": "길에서 박차를 가하던 신사가 트래버스에게 한 말은?",
+          "options": [
+            {
+              "text": "That the king had fallen before Douglas.",
+              "textKo": "왕이 더글러스 앞에 쓰러졌다고."
+            },
+            {
+              "text": "That the Archbishop of York had joined the rebels.",
+              "textKo": "요크 대주교가 반군에 합류했다고."
+            },
+            {
+              "text": "That rebellion had bad luck and that young Harry Percy’s spur was cold — then he gave his horse the head and rode on without another word.",
+              "textKo": "반란은 운이 나빴고 젊은 해리 퍼시의 박차가 식었다고 — 그러고는 말고삐를 놓아 더 묻지도 못하게 달려갔다."
+            },
+            {
+              "text": "Nothing — he rode past without stopping.",
+              "textKo": "아무 말도 — 멈추지 않고 지나갔다."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "that young Harry Percy’s spur was cold"
+        },
+        {
+          "type": "multiple",
+          "question": "How does Lord Bardolph dismiss that report?",
+          "questionKo": "바돌프 경은 그 보고를 어떻게 일축하는가?",
+          "options": [
+            {
+              "text": "That the man was a paid agent of the king.",
+              "textKo": "그자는 왕이 돈을 준 첩자라고."
+            },
+            {
+              "text": "That Travers misheard him in the noise.",
+              "textKo": "트래버스가 소란 속에 잘못 들었다고."
+            },
+            {
+              "text": "He does not dismiss it and begins to doubt.",
+              "textKo": "일축하지 않고 의심하기 시작한다."
+            },
+            {
+              "text": "He was some hilding fellow that had stolen the horse he rode on, and spoke at a venture.",
+              "textKo": "타고 있던 말도 훔친 하찮은 자이며 되는대로 지껄인 것이라고."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "He was some hilding fellow that had stolen The horse he rode on"
+        },
+        {
+          "type": "multiple",
+          "question": "How does Northumberland read Morton’s face before he speaks?",
+          "questionKo": "노섬벌랜드는 모튼이 말하기 전에 그 얼굴을 어떻게 읽는가?",
+          "options": [
+            {
+              "text": "His brow, like a title-leaf, foretells the nature of a tragic volume — as the strand shows where the imperious flood has been.",
+              "textKo": "그 이마가 표제지처럼 비극 한 권의 성격을 미리 알려 준다고 — 거센 물이 지나간 자리를 보여 주는 물가처럼."
+            },
+            {
+              "text": "That his cheerful look promises good news.",
+              "textKo": "밝은 낯빛이 좋은 소식을 약속한다고."
+            },
+            {
+              "text": "That he has ridden too far to be trusted.",
+              "textKo": "너무 멀리서 와 믿을 수 없다고."
+            },
+            {
+              "text": "That he cannot read it at all in the dark.",
+              "textKo": "어두워서 전혀 읽을 수 없다고."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "this man’s brow, like to a title-leaf, Foretells the nature of a tragic volume"
+        },
+        {
+          "type": "multiple",
+          "question": "What does Northumberland say about the bringer of bad news?",
+          "questionKo": "노섬벌랜드는 나쁜 소식을 가져오는 사람에 대해 무엇이라 하는가?",
+          "options": [
+            {
+              "text": "That such a man deserves to be whipped.",
+              "textKo": "그런 자는 매를 맞아 마땅하다고."
+            },
+            {
+              "text": "The first bringer of unwelcome news has but a losing office — his tongue sounds ever after as a sullen bell remembered tolling a departing friend.",
+              "textKo": "반갑지 않은 소식을 처음 가져오는 이는 손해 보는 직책을 맡은 셈이라고 — 그 혀는 이후 내내 벗의 임종을 알리던 침울한 종소리처럼 들린다고."
+            },
+            {
+              "text": "That he should be rewarded above all others.",
+              "textKo": "누구보다 후하게 상 주어야 한다고."
+            },
+            {
+              "text": "That no man should ever bring news he has not seen.",
+              "textKo": "보지 않은 소식은 누구도 가져와서는 안 된다고."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "Yet the first bringer of unwelcome news Hath but a losing office"
+        },
+        {
+          "type": "multiple",
+          "question": "How does Morton explain the collapse of the rebel army?",
+          "questionKo": "모튼은 반군의 붕괴를 어떻게 설명하는가?",
+          "options": [
+            {
+              "text": "That the Scots deserted them at the first charge.",
+              "textKo": "첫 돌격에 스코틀랜드인들이 배신했다고."
+            },
+            {
+              "text": "That Worcester ordered the retreat too early.",
+              "textKo": "우스터가 너무 일찍 퇴각을 명했다고."
+            },
+            {
+              "text": "From Hotspur’s metal was the party steeled; once that was abated the rest turned like dull and heavy lead — and fled faster than arrows toward their safety.",
+              "textKo": "핫스퍼의 기개로 그 무리가 담금질되어 있었는데 그것이 꺾이자 나머지는 무겁고 둔한 납처럼 되었다고 — 그리고 화살보다 빠르게 안전을 향해 달아났다고."
+            },
+            {
+              "text": "That they were outnumbered three to one.",
+              "textKo": "세 배 열세였다고."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "For from his metal was his party steel’d"
+        },
+        {
+          "type": "multiple",
+          "question": "How does Northumberland turn his grief, and what news does Morton add at the end?",
+          "questionKo": "노섬벌랜드는 슬픔을 어떻게 돌려세우며, 모튼이 끝에 덧붙이는 소식은?",
+          "options": [
+            {
+              "text": "He resolves to submit to the king; Morton urges flight to Scotland.",
+              "textKo": "왕에게 항복하기로 하고, 모튼은 스코틀랜드로 달아나라 권한다."
+            },
+            {
+              "text": "He falls truly sick; Morton says Douglas is dead as well.",
+              "textKo": "정말로 병들어 눕고, 모튼은 더글러스도 죽었다고 한다."
+            },
+            {
+              "text": "He blames Lord Bardolph; Morton says the king marches on London.",
+              "textKo": "바돌프 경을 탓하고, 모튼은 왕이 런던으로 진군한다고 한다."
+            },
+            {
+              "text": "He casts away crutch and coif — \"In poison there is physic\" — and Morton reports the Archbishop of York is up, turning insurrection to religion.",
+              "textKo": "지팡이와 두건을 내던지며 \"독 속에 약이 있다\" 고 하고 — 모튼은 요크 대주교가 봉기해 반란을 종교로 바꾸고 있다고 전한다."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "In poison there is physic"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 3,
+      "chapter_title": "Scene II",
+      "word_count": 2269,
+      "chapter_v_level": 7,
+      "content": "CHAPTER 3. Scene II\u001fAct I\u001ehttps://standardebooks.org/ebooks/william-shakespeare/henry-iv-part-ii/text/act-1#scene-1-2\n\nLondon. A street.\n\nEnter Falstaff, with his Page bearing his sword and buckler.\n\nFalstaff Sirrah, you giant, what says the doctor to my water?\n\nPage He said, sir, the water itself was a good healthy water; but, for the party that owed it, he might have more diseases than he knew for.\n\nFalstaff Men of all sorts take a pride to gird at me: the brain of this foolish-compounded clay, man, is not able to invent anything that tends to laughter, more than I invent or is invented on me: I am not only witty in myself, but the cause that wit is in other men. I do here walk before thee like a sow that hath overwhelmed all her litter but one. If the prince put thee into my service for any other reason than to set me off, why then I have no judgment. Thou whoreson mandrake, thou art fitter to be worn in my cap than to wait at my heels. I was never manned with an agate till now: but I will inset you neither in gold nor silver, but in vile apparel, and send you back again to your master, for a jewel⁠--the juvenal, the prince your master, whose chin is not yet fledged. I will sooner have a beard grow in the palm of my hand than he shall get one on his cheek; and yet he will not stick to say his face is a face-royal: God may finish it when he will, 'tis not a hair amiss yet: he may keep it still at a face-royal, for a barber shall never earn sixpence out of it; and yet he'll be crowing as if he had writ man ever since his father was a bachelor. He may keep his own grace, but he's almost out of mine, I can assure him. What said Master Dombledon about the satin for my short cloak and my slops?\n\nPage He said, sir, you should procure him better assurance than Bardolph: he would not take his band and yours; he liked not the security.\n\nFalstaff Let him be damned, like the glutton! pray God his tongue be hotter! A whoreson Achitophel! a rascally yea-forsooth knave! to bear a gentleman in hand, and then stand upon security! The whoreson smooth-pates do now wear nothing but high shoes, and bunches of keys at their girdles; and if a man is through with them in honest taking up, then they must stand upon security. I had as lief they would put ratsbane in my mouth as offer to stop it with security. I looked a' should have sent me two and twenty yards of satin, as I am a true knight, and he sends me security. Well, he may sleep in security; for he hath the horn of abundance, and the lightness of his wife shines through it: and yet cannot he see, though he have his own lanthorn to light him. Where's Bardolph?\n\nPage He's gone into Smithfield to buy your worship a horse.\n\nFalstaff I bought him in Paul's, and he'll buy me a horse in Smithfield: an I could get me but a wife in the stews, I were manned, horsed, and wived.\n\nEnter the Lord Chief-Justice and Servant.\n\nPage Sir, here comes the nobleman that committed the Prince for striking him about Bardolph.\n\nFalstaff Wait close; I will not see him.\n\nChief-Justice What's he that goes there?\n\nServant Falstaff, an't please your lordship.\n\nChief-Justice He that was in question for the robbery?\n\nServant He, my lord: but he hath since done good service at Shrewsbury; and, as I hear, is now going with some charge to the Lord John of Lancaster.\n\nChief-Justice What, to York? Call him back again.\n\nServant Sir John Falstaff!\n\nFalstaff Boy, tell him I am deaf.\n\nPage You must speak louder; my master is deaf.\n\nChief-Justice I am sure he is, to the hearing of any thing good. Go, pluck him by the elbow; I must speak with him.\n\nServant Sir John!\n\nFalstaff What! a young knave, and begging! Is there not wars? is there not employment? doth not the king lack subjects? do not the rebels need soldiers? Though it be a shame to be on any side but one, it is worse shame to beg than to be on the worst side, were it worse than the name of rebellion can tell how to make it.\n\nServant You mistake me, sir.\n\nFalstaff Why, sir, did I say you were an honest man? setting my knighthood and my soldiership aside, I had lied in my throat, if I had said so.\n\nServant I pray you, sir, then set your knighthood and our soldiership aside; and give me leave to tell you, you lie in your throat, if you say I am any other than an honest man.\n\nFalstaff I give thee leave to tell me so! I lay aside that which grows to me! if thou gettest any leave of me, hang me; if thou takest leave, thou wert better be hanged. You hunt counter: hence! avaunt!\n\nServant Sir, my lord would speak with you.\n\nChief-Justice Sir John Falstaff, a word with you.\n\nFalstaff My good lord! God give your lordship good time of day. I am glad to see your lordship abroad: I heard say your lordship was sick: I hope your lordship goes abroad by advice. Your lordship, though not clean past your youth, hath yet some smack of age in you, some relish of the saltness of time; and I must humbly beseech your lordship to have a reverent care of your health.\n\nChief-Justice Sir John, I sent for you before your expedition to Shrewsbury.\n\nFalstaff An't please your lordship, I hear his majesty is returned with some discomfort from Wales.\n\nChief-Justice I talk not of his majesty: you would not come when I sent for you.\n\nFalstaff And I hear, moreover, his highness is fallen into this same whoreson apoplexy.\n\nChief-Justice Well, God mend him! I pray you, let me speak with you.\n\nFalstaff This apoplexy is, as I take it, a kind of lethargy, an't please your lordship; a kind of sleeping in the blood, a whoreson tingling.\n\nChief-Justice What tell you me of it? be it as it is.\n\nFalstaff It hath its original from much grief, from study and perturbation of the brain: I have read the cause of his effects in Galen: it is a kind of deafness.\n\nChief-Justice I think you are fallen into the disease; for you hear not what I say to you.\n\nFalstaff Very well, my lord, very well: rather, an't please you, it is the disease of not listening, the malady of not marking, that I am troubled withal.\n\nChief-Justice To punish you by the heels would amend the attention of your ears; and I care not if I do become your physician.\n\nFalstaff I am as poor as Job, my lord, but not so patient: your lordship may minister the potion of imprisonment to me in respect of poverty; but how should I be your patient to follow your prescriptions, the wise may make some dram of a scruple, or indeed a scruple itself.\n\nChief-Justice I sent for you, when there were matters against you for your life, to come speak with me.\n\nFalstaff As I was then advised by my learned counsel in the laws of this land-service, I did not come.\n\nChief-Justice Well, the truth is, Sir John, you live in great infamy.\n\nFalstaff He that buckles him in my belt cannot live in less.\n\nChief-Justice Your means are very slender, and your waste is great.\n\nFalstaff I would it were otherwise; I would my means were greater, and my waist slenderer.\n\nChief-Justice You have misled the youthful prince.\n\nFalstaff The young prince hath misled me: I am the fellow with the great belly, and he my dog.\n\nChief-Justice Well, I am loath to gall a new-healed wound: your day's service at Shrewsbury hath a little gilded over your night's exploit on Gad's-hill: you may thank the unquiet time for your quiet o'er-posting that action.\n\nFalstaff My lord?\n\nChief-Justice But since all is well, keep it so: wake not a sleeping wolf.\n\nFalstaff To wake a wolf is as bad as to smell a fox.\n\nChief-Justice What! you are as a candle, the better part burnt out.\n\nFalstaff A wassail candle, my lord, all tallow: if I did say of wax, my growth would approve the truth.\n\nChief-Justice There is not a white hair on your face but should have his effect of gravity.\n\nFalstaff His effect of gravy, gravy, gravy.\n\nChief-Justice You follow the young prince up and down, like his ill angel.\n\nFalstaff Not so, my lord; your ill angel is light; but I hope he that looks upon me will take me without weighing: and yet, in some respects, I grant, I cannot go: I cannot tell. Virtue is of so little regard in these costermonger times that true valour is turned bear-herd: pregnancy is made a tapster, and hath his quick wit wasted in giving reckonings: all the other gifts appertinent to man, as the malice of this age shapes them, are not worth a gooseberry. You that are old consider not the capacities of us that are young; you do measure the heat of our livers with the bitterness of your galls: and we that are in the vaward of our youth, I must confess, are wags too.\n\nChief-Justice Do you set down your name in the scroll of youth, that are written down old with all the characters of age? Have you not a moist eye? a dry hand? a yellow cheek? a white beard? a decreasing leg? an increasing belly? is not your voice broken? your wind short? your chin double? your wit single? and every part about you blasted with antiquity? and will you yet call yourself young? Fie, fie, fie, Sir John!\n\nFalstaff My lord, I was born about three of the clock in the afternoon, with a white head and something a round belly. For my voice, I have lost it with halloing and singing of anthems. To approve my youth further, I will not: the truth is, I am only old in judgment and understanding; and he that will caper with me for a thousand marks, let him lend me the money, and have at him! For the box of the ear that the prince gave you, he gave it like a rude prince, and you took it like a sensible lord. I have chequed him for it, and the young lion repents; marry, not in ashes and sackcloth, but in new silk and old sack.\n\nChief-Justice Well, God send the prince a better companion!\n\nFalstaff God send the companion a better prince! I cannot rid my hands of him.\n\nChief-Justice Well, the king hath severed you and Prince Harry: I hear you are going with Lord John of Lancaster against the Archbishop and the Earl of Northumberland.\n\nFalstaff Yea; I thank your pretty sweet wit for it. But look you pray, all you that kiss my lady Peace at home, that our armies join not in a hot day; for, by the Lord, I take but two shirts out with me, and I mean not to sweat extraordinarily: if it be a hot day, and I brandish any thing but a bottle, I would I might never spit white again. There is not a dangerous action can peep out his head but I am thrust upon it: well, I cannot last ever: but it was alway yet the trick of our English nation, if they have a good thing, to make it too common. If ye will needs say I am an old man, you should give me rest. I would to God my name were not so terrible to the enemy as it is: I were better to be eaten to death with a rust than to be scoured to nothing with perpetual motion.\n\nChief-Justice Well, be honest, be honest; and God bless your expedition!\n\nFalstaff Will your lordship lend me a thousand pound to furnish me forth?\n\nChief-Justice Not a penny, not a penny; you are too impatient to bear crosses. Fare you well: commend me to my cousin Westmoreland. Exeunt Chief-Justice and Servant.\n\nFalstaff If I do, fillip me with a three-man beetle. A man can no more separate age and covetousness than a' can part young limbs and lechery: but the gout galls the one, and the pox pinches the other; and so both the degrees prevent my curses. Boy!\n\nPage Sir?\n\nFalstaff What money is in my purse?\n\nPage Seven groats and two pence.\n\nFalstaff I can get no remedy against this consumption of the purse: borrowing only lingers and lingers it out, but the disease is incurable. Go bear this letter to my Lord of Lancaster; this to the prince; this to the Earl of Westmoreland; and this to old Mistress Ursula, whom I have weekly sworn to marry since I perceived the first white hair on my chin. About it: you know where to find me. Exit Page. A pox of this gout! or, a gout of this pox! for the one or the other plays the rogue with my great toe. 'Tis no matter if I do halt; I have the wars for my colour, and my pension shall seem the more reasonable. A good wit will make use of any thing: I will turn diseases to commodity. Exit.",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "What does the doctor’s report say of Falstaff?",
+          "questionKo": "의사의 소견은 폴스타프에 대해 무엇이라 하는가?",
+          "options": [
+            {
+              "text": "The water itself was a good healthy water, but the party that owed it might have more diseases than he knew for.",
+              "textKo": "물 자체는 건강한 물이나, 그 임자는 자기가 아는 것보다 병이 더 많을지 모른다고."
+            },
+            {
+              "text": "That he is perfectly sound for a man of his years.",
+              "textKo": "그 나이의 사람치고 아주 멀쩡하다고."
+            },
+            {
+              "text": "That he must not go to the wars on any account.",
+              "textKo": "무슨 일이 있어도 전쟁에 나가서는 안 된다고."
+            },
+            {
+              "text": "That the doctor refuses to see him again.",
+              "textKo": "의사가 다시는 보지 않겠다고 했다고."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "he might have more diseases than he knew for"
+        },
+        {
+          "type": "multiple",
+          "question": "How does Falstaff boast of his own wit?",
+          "questionKo": "폴스타프는 제 재치를 어떻게 자랑하는가?",
+          "options": [
+            {
+              "text": "That no man in England has ever bettered him in talk.",
+              "textKo": "잉글랜드의 누구도 말로 그를 이긴 적이 없다고."
+            },
+            {
+              "text": "He is not only witty in himself, but the cause that wit is in other men.",
+              "textKo": "제 안에 재치가 있을 뿐 아니라, 남들에게 재치가 생기게 하는 원인이라고."
+            },
+            {
+              "text": "That his wit is worth more than his knighthood.",
+              "textKo": "제 재치가 기사 작위보다 값지다고."
+            },
+            {
+              "text": "That he learned all his wit from the prince.",
+              "textKo": "재치를 전부 왕자에게서 배웠다고."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "I am not only witty in myself, but the cause that wit is in other men"
+        },
+        {
+          "type": "multiple",
+          "question": "Why does the Chief-Justice’s servant say Falstaff escaped answering for Gad’s-hill?",
+          "questionKo": "대법관의 하인은 폴스타프가 개즈힐 사건을 면한 까닭을 무엇이라 하는가?",
+          "options": [
+            {
+              "text": "The prince himself pardoned him in open court.",
+              "textKo": "왕자가 공개 법정에서 직접 사면해서."
+            },
+            {
+              "text": "No witness could be found against him.",
+              "textKo": "그를 칠 증인을 찾지 못해서."
+            },
+            {
+              "text": "He has since done good service at Shrewsbury, and is now going with some charge to Lord John of Lancaster.",
+              "textKo": "그 뒤 슈루즈베리에서 공을 세웠고, 지금은 랭커스터의 존 공에게 임무를 띠고 가는 중이라서."
+            },
+            {
+              "text": "He repaid the stolen money in full.",
+              "textKo": "훔친 돈을 전액 갚아서."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "but he hath since done good service at Shrewsbury"
+        },
+        {
+          "type": "multiple",
+          "question": "How does Falstaff first avoid the Chief-Justice?",
+          "questionKo": "폴스타프는 처음에 대법관을 어떻게 피하는가?",
+          "options": [
+            {
+              "text": "He hides behind his Page and slips into a doorway.",
+              "textKo": "시동 뒤에 숨어 문간으로 빠진다."
+            },
+            {
+              "text": "He claims urgent orders from Lancaster and hurries off.",
+              "textKo": "랭커스터의 급한 명이라며 서둘러 떠난다."
+            },
+            {
+              "text": "He pretends not to know who the Justice is.",
+              "textKo": "대법관이 누구인지 모르는 척한다."
+            },
+            {
+              "text": "He tells his Page to say he is deaf — and the Justice answers that he is sure he is deaf to the hearing of anything good.",
+              "textKo": "시동에게 자기가 귀머거리라 말하라 시킨다 — 대법관은 좋은 말이라면 정말 못 듣는 것이 확실하다고 받는다."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "Boy, tell him I am deaf."
+        },
+        {
+          "type": "multiple",
+          "question": "How does Falstaff answer \"You have misled the youthful prince\"?",
+          "questionKo": "\"젊은 왕자를 잘못 이끌었다\" 는 말에 폴스타프는 어떻게 답하는가?",
+          "options": [
+            {
+              "text": "\"The young prince hath misled me: I am the fellow with the great belly, and he my dog.\"",
+              "textKo": "\"젊은 왕자가 저를 이끌었지요 — 저는 배가 큰 사내이고 그가 제 개입니다.\""
+            },
+            {
+              "text": "That he has served the prince faithfully in all things.",
+              "textKo": "모든 일에서 왕자를 충실히 섬겼다고."
+            },
+            {
+              "text": "That the prince was already lost when he found him.",
+              "textKo": "만났을 때 이미 왕자는 버려진 몸이었다고."
+            },
+            {
+              "text": "That he will keep away from the prince hereafter.",
+              "textKo": "앞으로 왕자를 멀리하겠다고."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "The young prince hath misled me: I am the fellow with the great belly, and he my dog."
+        },
+        {
+          "type": "multiple",
+          "question": "What catalogue does the Chief-Justice recite against Falstaff’s claim of youth?",
+          "questionKo": "폴스타프가 자기는 젊다고 하자 대법관이 늘어놓는 목록은?",
+          "options": [
+            {
+              "text": "His debts, his lies, his thefts and his cowardice.",
+              "textKo": "빚과 거짓말과 도둑질과 비겁함."
+            },
+            {
+              "text": "A moist eye, a dry hand, a yellow cheek, a white beard, a decreasing leg, an increasing belly, a broken voice, a double chin, a single wit.",
+              "textKo": "축축한 눈, 마른 손, 누런 뺨, 흰 수염, 가늘어지는 다리, 불어나는 배, 갈라진 목소리, 이중 턱, 홑겹 재치."
+            },
+            {
+              "text": "The names of every man he has cheated.",
+              "textKo": "그가 속인 사람들의 이름 전부."
+            },
+            {
+              "text": "The battles he claimed to have fought and did not.",
+              "textKo": "싸웠다 우겼으나 싸우지 않은 전투들."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "Have you not a moist eye? a dry hand? a yellow cheek? a white beard?"
+        },
+        {
+          "type": "multiple",
+          "question": "What does Falstaff ask for as the Chief-Justice takes his leave, and what answer does he get?",
+          "questionKo": "대법관이 물러가려 할 때 폴스타프가 청한 것과, 그가 받은 답은?",
+          "options": [
+            {
+              "text": "A pardon in writing for Gad’s-hill — which is granted.",
+              "textKo": "개즈힐에 대한 서면 사면 — 허락된다."
+            },
+            {
+              "text": "Leave to stay in London — which is refused.",
+              "textKo": "런던에 머물 허락 — 거절된다."
+            },
+            {
+              "text": "A loan of a thousand pound to furnish him forth — \"Not a penny, not a penny; you are too impatient to bear crosses.\"",
+              "textKo": "채비할 1,000파운드를 빌려 달라는 것 — \"한 푼도 안 되오, 한 푼도. 그대는 십자가를 지기엔 너무 조급하오.\""
+            },
+            {
+              "text": "A command under Prince Harry — which is promised.",
+              "textKo": "해리 왕자 아래의 지휘권 — 약속받는다."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "Not a penny, not a penny; you are too impatient to bear crosses."
+        },
+        {
+          "type": "multiple",
+          "question": "How does Falstaff describe his money trouble, and what does he resolve at the end?",
+          "questionKo": "폴스타프는 제 돈 사정을 어떻게 말하며, 끝에 무엇을 다짐하는가?",
+          "options": [
+            {
+              "text": "That he is ruined and will retire from the wars.",
+              "textKo": "망했으니 전쟁에서 손을 떼겠다고."
+            },
+            {
+              "text": "That the prince will pay all his debts in time.",
+              "textKo": "때가 되면 왕자가 빚을 다 갚아 주리라고."
+            },
+            {
+              "text": "That he will sell his knighthood to the highest bidder.",
+              "textKo": "기사 작위를 가장 비싸게 부르는 이에게 팔겠다고."
+            },
+            {
+              "text": "A consumption of the purse that borrowing only lingers out — and he resolves that a good wit will make use of anything: he will turn diseases to commodity.",
+              "textKo": "빌리는 것으로는 늦출 뿐인 지갑의 소모증이라고 — 그리고 좋은 재치는 무엇이든 써먹는다며 병을 밑천으로 바꾸겠다고 다짐한다."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "I will turn diseases to commodity"
+        }
+      ]
+    }
+  ]
+}

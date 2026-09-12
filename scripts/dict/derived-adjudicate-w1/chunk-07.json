@@ -1,0 +1,582 @@
+[
+ {
+  "word": "antic",
+  "meaning_ko": "(주로 antics) 익살, 기괴한 행동",
+  "pos": "noun",
+  "candidates": [
+   "anticancer",
+   "antichrist",
+   "anticipate",
+   "anticlimax",
+   "anticline",
+   "antics",
+   "anticyclone"
+  ]
+ },
+ {
+  "word": "clasp",
+  "meaning_ko": "꽉 쥐다, 움켜잡다",
+  "pos": "noun",
+  "candidates": [
+   "claspings",
+   "claspknife"
+  ]
+ },
+ {
+  "word": "fetch",
+  "meaning_ko": "가져오다, 데려오다",
+  "pos": "verb",
+  "candidates": [
+   "fetching",
+   "fetcht"
+  ]
+ },
+ {
+  "word": "pier",
+  "meaning_ko": "부두, 잔교 — 물 위로 뻗어 나간 접안 시설",
+  "pos": "noun",
+  "candidates": [
+   "pierce",
+   "piercing",
+   "piercingly",
+   "pieris",
+   "pierrot"
+  ]
+ },
+ {
+  "word": "railcar",
+  "meaning_ko": "철도 차량",
+  "pos": "noun",
+  "candidates": [
+   "railcard"
+  ]
+ },
+ {
+  "word": "rotary",
+  "meaning_ko": "회전하는, 회전식의",
+  "pos": "adjective",
+  "candidates": [
+   "rotary club"
+  ]
+ },
+ {
+  "word": "safari",
+  "meaning_ko": "사파리",
+  "pos": "noun",
+  "candidates": [
+   "safari park",
+   "safari suit"
+  ]
+ },
+ {
+  "word": "showroom",
+  "meaning_ko": "전시장, 쇼룸",
+  "pos": "noun",
+  "candidates": [
+   "showrooming"
+  ]
+ },
+ {
+  "word": "signpost",
+  "meaning_ko": "이정표, 도로 표지판",
+  "pos": "noun",
+  "candidates": [
+   "signposting"
+  ]
+ },
+ {
+  "word": "spiral",
+  "meaning_ko": "나선; (물가의) 급상승, 악순환",
+  "pos": "noun",
+  "candidates": [
+   "spiral down"
+  ]
+ },
+ {
+  "word": "tram",
+  "meaning_ko": "전차, 트램 (도로 위 궤도 차량)",
+  "pos": "noun",
+  "candidates": [
+   "tramcar",
+   "tramlines",
+   "trammel",
+   "tramp",
+   "trample",
+   "trampoline"
+  ]
+ },
+ {
+  "word": "verge",
+  "meaning_ko": "가장자리; (on the verge of) 직전, 목전",
+  "pos": "noun",
+  "candidates": [
+   "verger"
+  ]
+ },
+ {
+  "word": "visa",
+  "meaning_ko": "비자",
+  "pos": "noun",
+  "candidates": [
+   "visage"
+  ]
+ },
+ {
+  "word": "ballot",
+  "meaning_ko": "투표, 투표용지",
+  "pos": "noun",
+  "candidates": [
+   "ballot box"
+  ]
+ },
+ {
+  "word": "billiard",
+  "meaning_ko": "당구의",
+  "pos": "adjective",
+  "candidates": [
+   "billiards"
+  ]
+ },
+ {
+  "word": "bourgeois",
+  "meaning_ko": "부르주아의, 중산층의",
+  "pos": "adjective",
+  "candidates": [
+   "bourgeoisie"
+  ]
+ },
+ {
+  "word": "corps",
+  "meaning_ko": "군단, 부대, 단체",
+  "pos": "noun",
+  "candidates": [
+   "corpse"
+  ]
+ },
+ {
+  "word": "corpus",
+  "meaning_ko": "(글·자료의) 모음, 말뭉치",
+  "pos": "noun",
+  "candidates": [
+   "corpuscle"
+  ]
+ },
+ {
+  "word": "genera",
+  "meaning_ko": "속(屬), genus의 복수형",
+  "pos": "noun",
+  "candidates": [
+   "general",
+   "generalise",
+   "generalist",
+   "generality",
+   "generalize",
+   "generally",
+   "generals",
+   "generalship"
+  ]
+ },
+ {
+  "word": "genital",
+  "meaning_ko": "생식기의",
+  "pos": "adjective",
+  "candidates": [
+   "genitalia",
+   "genitals"
+  ]
+ },
+ {
+  "word": "militia",
+  "meaning_ko": "민병대",
+  "pos": "noun",
+  "candidates": [
+   "militiamen"
+  ]
+ },
+ {
+  "word": "rifle",
+  "meaning_ko": "소총, 라이플; (동사) 샅샅이 뒤지다, 약탈하다",
+  "pos": "noun",
+  "candidates": [
+   "riflemen"
+  ]
+ },
+ {
+  "word": "colonel",
+  "meaning_ko": "대령",
+  "pos": "noun",
+  "candidates": [
+   "colonel blimp"
+  ]
+ },
+ {
+  "word": "company",
+  "meaning_ko": "회사, 동행",
+  "pos": "noun",
+  "candidates": [
+   "company car"
+  ]
+ },
+ {
+  "word": "continual",
+  "meaning_ko": "끊임없는",
+  "pos": "adjective",
+  "candidates": [
+   "continually"
+  ]
+ },
+ {
+  "word": "delightful",
+  "meaning_ko": "매우 즐거운, 기쁜",
+  "pos": "adjective",
+  "candidates": [
+   "delightfully"
+  ]
+ },
+ {
+  "word": "disappointing",
+  "meaning_ko": "실망스러운",
+  "pos": "adjective",
+  "candidates": [
+   "disappointingly"
+  ]
+ },
+ {
+  "word": "pitiful",
+  "meaning_ko": "불쌍한, 한심한",
+  "pos": "adjective",
+  "candidates": [
+   "pitifully"
+  ]
+ },
+ {
+  "word": "supra",
+  "meaning_ko": "위에, 앞서 (학술 문헌에서 '위 참조')",
+  "pos": "adverb",
+  "candidates": [
+   "suprahuman"
+  ]
+ },
+ {
+  "word": "surge",
+  "meaning_ko": "급증; 밀려들다",
+  "pos": "noun",
+  "candidates": [
+   "surgeon",
+   "surgery"
+  ]
+ },
+ {
+  "word": "amino",
+  "meaning_ko": "아미노의 (아미노기를 포함하는)",
+  "pos": "adjective",
+  "candidates": [
+   "amino acid"
+  ]
+ },
+ {
+  "word": "anthem",
+  "meaning_ko": "국가(國歌), 찬가 — 찬양·충성을 담은 노래",
+  "pos": "noun",
+  "candidates": [
+   "anthemion"
+  ]
+ },
+ {
+  "word": "betting",
+  "meaning_ko": "내기, 도박",
+  "pos": "noun",
+  "candidates": [
+   "betting shop"
+  ]
+ },
+ {
+  "word": "condom",
+  "meaning_ko": "콘돔",
+  "pos": "noun",
+  "candidates": [
+   "condominium"
+  ]
+ },
+ {
+  "word": "decided",
+  "meaning_ko": "decide의 과거·과거분사 (결정했다)",
+  "pos": "adjective",
+  "candidates": [
+   "decidedly"
+  ]
+ },
+ {
+  "word": "delighted",
+  "meaning_ko": "기쁜; 기꺼이 하는",
+  "pos": "adjective",
+  "candidates": [
+   "delightedly"
+  ]
+ },
+ {
+  "word": "depressing",
+  "meaning_ko": "우울하게 하는",
+  "pos": "adjective",
+  "candidates": [
+   "depressingly"
+  ]
+ },
+ {
+  "word": "diploma",
+  "meaning_ko": "수료증, 자격증",
+  "pos": "noun",
+  "candidates": [
+   "diplomacy",
+   "diplomat",
+   "diplomatic",
+   "diplomatist"
+  ]
+ },
+ {
+  "word": "disco",
+  "meaning_ko": "디스코",
+  "pos": "noun",
+  "candidates": [
+   "discography",
+   "discoid",
+   "discolor",
+   "discolour",
+   "discomfit",
+   "discomfort",
+   "discommode",
+   "discompose",
+   "disconcert",
+   "disconfirm",
+   "disconnect"
+  ]
+ },
+ {
+  "word": "dorm",
+  "meaning_ko": "기숙사",
+  "pos": "noun",
+  "candidates": [
+   "dormant",
+   "dormer",
+   "dormitory",
+   "dormouse",
+   "dormy"
+  ]
+ },
+ {
+  "word": "embarrassing",
+  "meaning_ko": "당황스러운",
+  "pos": "adjective",
+  "candidates": [
+   "embarrassingly"
+  ]
+ },
+ {
+  "word": "euro",
+  "meaning_ko": "유로",
+  "pos": "noun",
+  "candidates": [
+   "eurobond",
+   "eurodollar",
+   "europe",
+   "european",
+   "europium",
+   "eurovision"
+  ]
+ },
+ {
+  "word": "firefight",
+  "meaning_ko": "무기를 사용한 짧은 전투, 총격전",
+  "pos": "noun",
+  "candidates": [
+   "firefighter"
+  ]
+ },
+ {
+  "word": "garbage",
+  "meaning_ko": "쓰레기",
+  "pos": "noun",
+  "candidates": [
+   "garbage can",
+   "garbage man",
+   "garbage patch",
+   "garbage time",
+   "garbage truck"
+  ]
+ },
+ {
+  "word": "generals",
+  "meaning_ko": "장군들",
+  "pos": "noun",
+  "candidates": [
+   "generalship"
+  ]
+ },
+ {
+  "word": "ibid",
+  "meaning_ko": "같은 책에서, 위의 책",
+  "pos": "adverb",
+  "candidates": [
+   "ibidem"
+  ]
+ },
+ {
+  "word": "jeep",
+  "meaning_ko": "지프 (소형 군용·오프로드 차량)",
+  "pos": "noun",
+  "candidates": [
+   "jeepers",
+   "jeepney",
+   "jeep™"
+  ]
+ },
+ {
+  "word": "kilo",
+  "meaning_ko": "킬로",
+  "pos": "noun",
+  "candidates": [
+   "kilobase",
+   "kilobit",
+   "kilobyte",
+   "kilogram",
+   "kilohertz",
+   "kilojoule",
+   "kilometer",
+   "kilometre",
+   "kiloton",
+   "kilowatt"
+  ]
+ },
+ {
+  "word": "lantern",
+  "meaning_ko": "랜턴, 등불",
+  "pos": "noun",
+  "candidates": [
+   "lantern jaw",
+   "lanternfish"
+  ]
+ },
+ {
+  "word": "lightning",
+  "meaning_ko": "번개",
+  "pos": "noun",
+  "candidates": [
+   "lightning bug"
+  ]
+ },
+ {
+  "word": "marital",
+  "meaning_ko": "결혼의",
+  "pos": "adjective",
+  "candidates": [
+   "maritally"
+  ]
+ },
+ {
+  "word": "mega",
+  "meaning_ko": "엄청난, 거대한; 메가-",
+  "pos": "adjective",
+  "candidates": [
+   "megabit",
+   "megabyte",
+   "megachurch",
+   "megacity",
+   "megadeal",
+   "megadose",
+   "megafauna",
+   "megaflop",
+   "megahertz",
+   "megalith",
+   "megaparsec",
+   "megaphone",
+   "megapixel",
+   "megaplex",
+   "megapode",
+   "megastar"
+  ]
+ },
+ {
+  "word": "mike",
+  "meaning_ko": "마이크, 마이크로폰",
+  "pos": "noun",
+  "candidates": [
+   "miked"
+  ]
+ },
+ {
+  "word": "mini",
+  "meaning_ko": "소형의, 아주 작은",
+  "pos": "adjective",
+  "candidates": [
+   "miniature",
+   "minibar",
+   "minibeast",
+   "minibus",
+   "minicam",
+   "minicar",
+   "minidisc",
+   "minidress",
+   "minigolf",
+   "minilab",
+   "minim",
+   "minima",
+   "minimal",
+   "minimalism",
+   "minimalist"
+  ]
+ },
+ {
+  "word": "mortar",
+  "meaning_ko": "모르타르; 박격포; 절구",
+  "pos": "noun",
+  "candidates": [
+   "mortar board"
+  ]
+ },
+ {
+  "word": "mosquito",
+  "meaning_ko": "모기",
+  "pos": "noun",
+  "candidates": [
+   "mosquito net"
+  ]
+ },
+ {
+  "word": "pellet",
+  "meaning_ko": "작고 단단한 공 모양의 덩어리, 알갱이",
+  "pos": "noun",
+  "candidates": [
+   "pellete"
+  ]
+ },
+ {
+  "word": "plains",
+  "meaning_ko": "평원, 평지 (복수)",
+  "pos": "noun",
+  "candidates": [
+   "plainsong"
+  ]
+ },
+ {
+  "word": "polling",
+  "meaning_ko": "여론 조사; 투표",
+  "pos": "noun",
+  "candidates": [
+   "polling booth",
+   "polling day"
+  ]
+ },
+ {
+  "word": "rein",
+  "meaning_ko": "고삐; 통제권",
+  "pos": "noun",
+  "candidates": [
+   "reindeer",
+   "reinforce",
+   "reinstate",
+   "reinvent",
+   "reinvest",
+   "reinvests"
+  ]
+ }
+]

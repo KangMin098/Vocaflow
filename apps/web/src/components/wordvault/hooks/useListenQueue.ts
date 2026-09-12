@@ -18,6 +18,8 @@ export interface UseListenQueueReturn {
   togglePause: () => void
   next: () => void
   prev: () => void
+  /** 영어 음성이 설치돼 있는가 — 없으면 재생돼도 영어 발음이 아닐 수 있다 */
+  englishVoice: boolean
 }
 
 export function useListenQueue(settings: ListenSettings): UseListenQueueReturn {
@@ -33,7 +35,7 @@ export function useListenQueue(settings: ListenSettings): UseListenQueueReturn {
   // settings를 ref로 동기화 (재생 중 변경 가능)
   settingsRef.current = settings
 
-  const { speak, cancel } = useSpeech()
+  const { speak, cancel, englishVoice } = useSpeech()
 
   const playWordContent = useCallback(
     (w: WordItem, onComplete: () => void) => {
@@ -151,5 +153,6 @@ export function useListenQueue(settings: ListenSettings): UseListenQueueReturn {
     togglePause,
     next,
     prev,
+    englishVoice,
   }
 }

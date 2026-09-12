@@ -10,7 +10,7 @@ import { Screen } from '@/components/ui/ios'
 import { DiagnosticClient } from '@/components/diagnostic/DiagnosticClient'
 
 export const metadata = {
-  title: '진단 — Vocaflow',
+  title: '진단',
   description: '5분 진단으로 당신의 V-Level을 측정하고 맞춤 단어장을 추천받으세요.',
 }
 

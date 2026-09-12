@@ -1,0 +1,14 @@
+{
+  "why": "파서가 발문을 조각내 유형 정규식이 안 걸리는 문항을 손으로 받아 적는다. bodies-manual.json · answers-manual.json 과 같은 취급 — 출처와 검산을 파일 안에 적어 두고, build-corpus 는 **유형이 비어 있을 때만** 이것을 쓴다(자동 배정을 덮지 않는다). 덮게 두면 손으로 적은 것이 파서 개선을 가린다.",
+  "entries": [
+    {
+      "exam": "M2506",
+      "no": 28,
+      "type": "R-NOTICE",
+      "source": "scripts/csat/data/columns2/M2506.txt:370-374",
+      "self_check": "370행이 `28. LCU Geograp`(2단 조판 복원이 오른쪽 단을 잘라 제목이 끊겼다), 372행이 `일치하는 것은`, 374행이 안내문 제목 `LCU Geography F`. 이어지는 본문이 Participants(380) · Course Options(382) · Participation Fee(390) · How to Apply(392) 로 된 안내문이다. 곧 발문은 「LCU Geography Field Trip에 관한 다음 안내문의 내용과 일치하는 것은?」이고 R-NOTICE 다. 같은 회차 27번도 같은 방식으로 끊겨(`지 않는 것은?`) 자동 구제되었으므로 28번만 남았다.",
+      "stem_recovered": "LCU Geography Field Trip에 관한 다음 안내문의 내용과 일치하는 것은?",
+      "note": "⚠️ 이 회차는 2단 복원이 실패한 12회차 중 하나다(lib-columns.mjs 머리말 참조). 복원을 고치면 발문이 온전해져 이 손 배정이 필요 없어진다 — 그때 이 항목을 지울 것."
+    }
+  ]
+}

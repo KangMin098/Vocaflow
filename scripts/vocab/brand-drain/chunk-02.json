@@ -1,0 +1,78 @@
+{
+  "$schema": "vocab-brand-drain/1",
+  "family": "structure",
+  "facts": {
+    "setCount": 28,
+    "wordCount": 12440,
+    "coversPresent": 28,
+    "blueprints": [
+      "antonym-pair",
+      "collocation",
+      "confusable",
+      "phrasal-idiom",
+      "polysemy",
+      "pos-focus",
+      "rhyme-phonics",
+      "root-etymology",
+      "synonym-cluster",
+      "topic-field",
+      "word-family"
+    ],
+    "titles": [
+      "외모 주제 어휘",
+      "여가 주제 어휘",
+      "구동사와 관용어",
+      "건강 주제 어휘",
+      "동사 핵심 300",
+      "음식과 음료 주제 어휘",
+      "집과 건물 주제 어휘",
+      "동물 주제 어휘",
+      "사람 주제 어휘",
+      "일과 비즈니스 주제 어휘",
+      "함께 쓰는 말",
+      "개념 주제 어휘"
+    ],
+    "duotoneNow": {
+      "light": {
+        "ink": "#2E7D5A",
+        "paper": "#E1EFE6"
+      },
+      "dark": {
+        "ink": "#5BA47D",
+        "paper": "#2D261F"
+      }
+    }
+  },
+  "setIds": [
+    "1022859a-fb6c-4fb6-8c03-0d59453d23f5",
+    "1635c838-7f1d-4b94-a67c-c27adc371864",
+    "3a637e26-cbaa-4aac-aae0-fb80ac63c718",
+    "3b5f6015-3241-41b1-ab80-6694300e5849",
+    "3edadc56-3e85-489c-b411-77ced16426b9",
+    "54ef2fde-02cc-4c61-b3b3-b57e563bf6fd",
+    "5c55ac05-9d30-4bfa-9e01-75d7088900bd",
+    "6176429f-7cff-478a-95d6-fb1804c5c73c",
+    "6cfa9753-d018-47c9-9b49-89a8c6e23ff3",
+    "7204cab6-2294-45ff-acfa-2f9bfe1c4cf5",
+    "8a11ce8c-40be-48d9-bce3-ffb6e2ab414f",
+    "8da71570-5f37-45ea-85e1-e4dedb537e88",
+    "996c91ba-a4c9-426b-afd2-1e4f56fc3bb4",
+    "9af3c07d-08ad-4994-b011-f4e97c6f3624",
+    "9e9ac907-8ab2-471b-9d5a-ec1f7abab74f",
+    "9f48c58c-0b27-4b4c-9d3c-123ead9418af",
+    "a217580e-3e5c-4fc6-9e36-f9ca61dcba23",
+    "ae957d30-6195-420d-a5bd-16aab526d3d7",
+    "b7f35ac8-6278-4267-9c33-47f94f16b959",
+    "bc2003c2-da30-4cbc-9284-e26a46e3b3a1",
+    "c1262a8d-505e-49ee-8998-7fe8fa1f9546",
+    "c6635b0d-89d1-4764-b71b-ee5569da7511",
+    "cb96ed86-6c45-4873-afbb-b5eb86ee974b",
+    "d5b04659-9fc4-4eea-b34a-45ab3812128c",
+    "dd34d9aa-d61a-49fc-8f1b-39b6d1bba64c",
+    "e74e215a-652a-492d-ba93-f8980cf87c71",
+    "eff6b342-d23f-4392-91ce-886252b2e185",
+    "f28cfc83-2761-48df-902e-76d4adc17cfe"
+  ],
+  "alreadyBranded": 0,
+  "instructions": "Claude Design 캔버스로 이 계열의 표지 규격을 확정한 뒤 `chunk-NN.out.json` 에 VocabBrandCanvas 한 개를 쓴다. **색 값(hex/rgb)을 담으면 import 가 거절한다** — 역할 이름(ink·paper·accent)만 쓴다. 값은 디자인 토큰이 정본이다."
+}

@@ -65,7 +65,7 @@ export function SchemaEvolutionSection({ snapshot }: SchemaEvolutionSectionProps
     <section aria-label="Schema Evolution Plan" className="flex flex-col gap-4">
       {/* ── 섹션 헤더 ── */}
       <header className="flex flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-3">
           <span
             className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)]"
             style={{ backgroundColor: '#8B5CF61A', color: '#8B5CF6' }}
@@ -77,7 +77,7 @@ export function SchemaEvolutionSection({ snapshot }: SchemaEvolutionSectionProps
             <h2 className="font-display text-[18px] font-[800] leading-tight text-[var(--t1)]">
               Schema Evolution Plan
             </h2>
-            <p className="font-body text-[12px] text-[var(--t3)]">
+            <p className="font-body text-[12px] text-[var(--t2)]">
               Tier 1-5 확장 컬럼 — 사전DB 미래 자산 ({summary.totalColumns} columns)
             </p>
           </div>
@@ -92,7 +92,7 @@ export function SchemaEvolutionSection({ snapshot }: SchemaEvolutionSectionProps
               className="rounded-[var(--r-md)] border border-[var(--bd)] px-3 py-2"
               style={{ backgroundColor: TIER_COLOR[summary.nextRecommendedTier]?.bg }}
             >
-              <p className="font-mono text-[9px] font-[700] uppercase tracking-[0.08em] text-[var(--t3)]">
+              <p className="font-mono text-[9px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
                 Next Tier
               </p>
               <p
@@ -138,7 +138,7 @@ function ProgressRing({ pct, dimScore }: { pct: number; dimScore: number }) {
         : 'var(--error)'
 
   return (
-    <div className="flex items-center gap-2.5">
+    <div className="flex items-center gap-3">
       <svg width="58" height="58" viewBox="0 0 58 58" aria-hidden>
         <circle
           cx="29"
@@ -174,7 +174,7 @@ function ProgressRing({ pct, dimScore }: { pct: number; dimScore: number }) {
         </text>
       </svg>
       <div>
-        <p className="font-mono text-[9px] font-[700] uppercase tracking-[0.08em] text-[var(--t3)]">
+        <p className="font-mono text-[9px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
           Schema dim
         </p>
         <p
@@ -182,7 +182,7 @@ function ProgressRing({ pct, dimScore }: { pct: number; dimScore: number }) {
           style={{ color }}
         >
           {dimScore}
-          <span className="ml-0.5 font-body text-[11px] font-[500] text-[var(--t3)]">
+          <span className="ml-0.5 font-body text-[11px] font-[500] text-[var(--t2)]">
             /100
           </span>
         </p>
@@ -215,11 +215,11 @@ function TierCard({
   return (
     <article
       aria-label={`Tier ${tier.tier} ${tier.label}`}
-      className={`flex flex-col gap-2.5 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4 shadow-[var(--sh-sm)] transition-shadow duration-[var(--dur-normal)] hover:shadow-[var(--sh-md)] ${ringClass}`}
+      className={`flex flex-col gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4 shadow-[var(--sh-sm)] transition-shadow duration-[var(--dur-normal)] hover:shadow-[var(--sh-md)] ${ringClass}`}
     >
       {/* ── 헤더 ── */}
-      <header className="flex items-start justify-between gap-2.5">
-        <div className="flex items-center gap-2.5">
+      <header className="flex items-start justify-between gap-3">
+        <div className="flex items-center gap-3">
           <span
             className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)] font-display text-[14px] font-[800] text-white shadow-[var(--sh-sm)]"
             style={{ background: color.gradient }}
@@ -231,7 +231,7 @@ function TierCard({
             <h3 className="font-display text-[13px] font-[700] leading-tight text-[var(--t1)]">
               {tier.label}
             </h3>
-            <p className="mt-0.5 font-mono text-[9px] text-[var(--t3)]">
+            <p className="mt-0.5 font-mono text-[9px] text-[var(--t2)]">
               priority {tier.priority}
             </p>
           </div>
@@ -242,13 +242,13 @@ function TierCard({
             style={{ color: color.fg }}
           >
             {present}
-            <span className="font-body text-[12px] font-[500] text-[var(--t3)]">
+            <span className="font-body text-[12px] font-[500] text-[var(--t2)]">
               {' / '}
               {total}
             </span>
           </p>
           {isNext && !isComplete && (
-            <p className="mt-0.5 font-mono text-[9px] font-[700] uppercase tracking-[0.06em] text-[var(--error)]">
+            <p className="mt-0.5 font-mono text-[9px] font-[700] uppercase tracking-[0.06em] text-[var(--error-ink)]">
               next
             </p>
           )}
@@ -292,7 +292,7 @@ function TierCard({
               <XCircle
                 size={13}
                 strokeWidth={2}
-                className="text-[var(--t4)]"
+                className="text-[var(--t2)]"
                 aria-label="absent"
               />
             )}
@@ -300,12 +300,12 @@ function TierCard({
               <p className="truncate font-mono text-[11px] font-[600] text-[var(--t1)]">
                 {c.name}
               </p>
-              <p className="truncate font-body text-[10px] text-[var(--t3)]">
+              <p className="truncate font-body text-[10px] text-[var(--t2)]">
                 {c.purpose}
               </p>
             </div>
             <span
-              className="font-mono text-[9px] text-[var(--t3)]"
+              className="font-mono text-[9px] text-[var(--t2)]"
               aria-hidden
             >
               {c.type}

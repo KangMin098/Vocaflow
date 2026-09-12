@@ -1,32 +1,39 @@
 // apps/web/src/app/(auth)/reset-password/page.tsx
-// 비밀번호 재설정 — 실동작 2모드 (v06.126, 목업 → Supabase 연결)
+// 비밀번호 재설정 — 실동작 2모드 (v06.140)
 //   request: 이메일 입력 → supabase.auth.resetPasswordForEmail (recovery 메일 발송)
-//   update : recovery 링크로 진입(콜백이 세션 수립 후 이곳으로 리다이렉트) → 새 비밀번호 저장
-// 콜백 경로: /api/auth/callback?token_hash=...&type=recovery → verifyOtp → /reset-password
-// Parts Kit + Linear/Vercel 미니멀 톤
+//   update : recovery 링크로 진입 → 새 비밀번호 저장
+//
+// 콜백 경로: /api/auth/callback?token_hash=...&type=recovery
+//            → verifyOtp 로 세션 수립 → /reset-password?mode=update
+//
+// v06.140 수정:
+//   - 모드 판정을 getSession() 단독에서 **?mode=update 명시 마커 우선**으로 바꿨다.
+//     세션만 보면 그냥 로그인해 있는 사용자가 "비밀번호 찾기" 를 눌러도 발송 폼 대신
+//     "마지막 단계예요" 화면이 떠서 **메일을 받을 방법이 아예 없었다**.
+//   - try/finally 만 있어 네트워크 예외가 조용히 사라지던 두 핸들러에 catch 추가.
+//   - 비밀번호 규칙을 signup 과 통일 (8자 + 영문 + 숫자). 이전엔 여기만 8자였다.
 
 'use client'
 
 import { ArrowRight, CheckCircle2, KeyRound, Mail } from 'lucide-react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { Suspense, useEffect, useState } from 'react'
 
 import { Card } from '@/components/ui/Card'
 import { FormField } from '@/components/ui/FormField'
 import { Input } from '@/components/ui/Input'
 import { useToast } from '@/components/ui/Toast'
+import { mapPasswordUpdateError, mapResetRequestError } from '@/lib/auth/errors'
+import { isValidEmail, validatePassword } from '@/lib/auth/validation'
 import { createClient } from '@/lib/supabase/client'
-
-function isValidEmail(email: string) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-}
 
 type Mode = 'checking' | 'request' | 'update'
 
-export default function ResetPasswordPage() {
+function ResetPasswordInner() {
   const toast = useToast()
   const router = useRouter()
+  const searchParams = useSearchParams()
 
   const [mode, setMode] = useState<Mode>('checking')
 
@@ -41,15 +48,29 @@ export default function ResetPasswordPage() {
   const [passwordConfirm, setPasswordConfirm] = useState('')
   const [pwSubmitted, setPwSubmitted] = useState(false)
 
-  // recovery 링크로 진입하면 콜백이 세션을 수립한 뒤 이 페이지로 보냄 → update 모드.
-  // 세션이 없으면 발송 요청 모드.
+  // 모드 결정: 콜백이 붙여 준 ?mode=update 가 1순위, 세션 존재는 보조 신호.
   useEffect(() => {
+    let cancelled = false
+
+    if (searchParams.get('mode') === 'update') {
+      setMode('update')
+      return
+    }
+
     const supabase = createClient()
     supabase.auth
       .getSession()
-      .then(({ data }) => setMode(data.session ? 'update' : 'request'))
-      .catch(() => setMode('request'))
-  }, [])
+      .then(({ data }) => {
+        if (!cancelled) setMode(data.session ? 'update' : 'request')
+      })
+      .catch(() => {
+        if (!cancelled) setMode('request')
+      })
+
+    return () => {
+      cancelled = true
+    }
+  }, [searchParams])
 
   const emailError =
     submitted && (!email || !isValidEmail(email))
@@ -58,8 +79,7 @@ export default function ResetPasswordPage() {
         : '올바른 이메일 형식이 아닙니다'
       : undefined
 
-  const passwordError =
-    pwSubmitted && password.length < 8 ? '비밀번호는 8자 이상이어야 합니다' : undefined
+  const passwordError = pwSubmitted ? (validatePassword(password) ?? undefined) : undefined
   const passwordConfirmError =
     pwSubmitted && passwordConfirm !== password ? '비밀번호가 일치하지 않습니다' : undefined
 
@@ -67,7 +87,7 @@ export default function ResetPasswordPage() {
   const handleSendLink = async (e: React.FormEvent) => {
     e.preventDefault()
     setSubmitted(true)
-    if (!email || !isValidEmail(email)) return
+    if (!isValidEmail(email)) return
 
     setLoading(true)
     try {
@@ -77,16 +97,15 @@ export default function ResetPasswordPage() {
         redirectTo: `${origin}/api/auth/callback`,
       })
       if (error) {
-        // rate limit 등 — 존재하지 않는 이메일은 Supabase 가 200 으로 침묵(enumeration 방지)
-        toast.error(
-          error.status === 429
-            ? '요청이 너무 잦습니다. 잠시 후 다시 시도해주세요.'
-            : `발송에 실패했습니다: ${error.message}`,
-        )
+        // 존재하지 않는 이메일은 Supabase 가 200 으로 침묵한다 (계정 열거 방지)
+        toast.error(mapResetRequestError(error.message, error.status))
         return
       }
       setSent(true)
       toast.success('재설정 링크를 발송했습니다')
+    } catch (err) {
+      // catch 가 없어 네트워크 예외가 조용히 사라지던 자리
+      toast.error(mapResetRequestError(err instanceof Error ? err.message : null))
     } finally {
       setLoading(false)
     }
@@ -96,22 +115,21 @@ export default function ResetPasswordPage() {
   const handleUpdatePassword = async (e: React.FormEvent) => {
     e.preventDefault()
     setPwSubmitted(true)
-    if (password.length < 8 || passwordConfirm !== password) return
+    if (validatePassword(password) !== null || passwordConfirm !== password) return
 
     setLoading(true)
     try {
       const supabase = createClient()
       const { error } = await supabase.auth.updateUser({ password })
       if (error) {
-        toast.error(
-          error.message.includes('different from the old')
-            ? '이전과 다른 비밀번호를 사용해주세요.'
-            : `변경에 실패했습니다: ${error.message}`,
-        )
+        toast.error(mapPasswordUpdateError(error.message))
         return
       }
       toast.success('비밀번호가 변경되었습니다')
       router.replace('/hub')
+      router.refresh()
+    } catch (err) {
+      toast.error(mapPasswordUpdateError(err instanceof Error ? err.message : null))
     } finally {
       setLoading(false)
     }
@@ -124,7 +142,11 @@ export default function ResetPasswordPage() {
     return (
       <Card variant="elevated" padding="lg" className="rounded-xl">
         <div className="flex h-40 items-center justify-center">
-          <span className="border-current/30 h-5 w-5 animate-spin rounded-full border-2 border-t-current text-t3" />
+          <span
+            className="border-current/30 h-5 w-5 animate-spin rounded-full border-2 border-t-current text-t3"
+            role="status"
+            aria-label="확인 중"
+          />
         </div>
       </Card>
     )
@@ -156,12 +178,13 @@ export default function ResetPasswordPage() {
             label="새 비밀번호"
             required
             error={passwordError}
-            helper={!passwordError ? '8자 이상 입력하세요' : undefined}
+            helper={!passwordError ? '8자 이상, 영문과 숫자 포함' : undefined}
           >
             {(props) => (
               <Input
                 type="password"
                 placeholder="••••••••"
+                showPasswordToggle
                 state={passwordError ? 'error' : 'default'}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -177,6 +200,7 @@ export default function ResetPasswordPage() {
               <Input
                 type="password"
                 placeholder="••••••••"
+                showPasswordToggle
                 state={passwordConfirmError ? 'error' : 'default'}
                 value={passwordConfirm}
                 onChange={(e) => setPasswordConfirm(e.target.value)}
@@ -189,7 +213,7 @@ export default function ResetPasswordPage() {
           <button
             type="submit"
             disabled={loading}
-            className="group relative flex h-12 w-full items-center justify-center gap-s-2 rounded-md bg-p font-display text-sm font-semibold tracking-[-0.005em] text-ti shadow-sm transition-all duration-normal hover:bg-p-hover hover:shadow-md active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60"
+            className="group relative flex h-12 w-full items-center justify-center gap-s-2 rounded-md bg-p font-display text-sm font-semibold tracking-[-0.005em] text-[var(--on-p)] shadow-sm transition-all duration-normal hover:bg-p-hover hover:shadow-md active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60"
           >
             {loading ? (
               <>
@@ -207,6 +231,21 @@ export default function ResetPasswordPage() {
             )}
           </button>
         </form>
+
+        {/* 이 화면이 아니라 발송 폼이 필요한 경우의 탈출구 —
+            예전엔 로그인된 사용자가 여기 갇혀 메일을 받을 방법이 없었다. */}
+        <div className="mt-s-6 border-t border-bd pt-s-4 text-center">
+          <button
+            type="button"
+            onClick={() => {
+              setMode('request')
+              setPwSubmitted(false)
+            }}
+            className="font-mono text-[10px] uppercase tracking-[0.1em] text-t3 transition-colors duration-normal hover:text-p"
+          >
+            대신 재설정 메일 받기 →
+          </button>
+        </div>
       </Card>
     )
   }
@@ -218,7 +257,6 @@ export default function ResetPasswordPage() {
     return (
       <Card variant="elevated" padding="lg" className="rounded-xl">
         <div className="mb-s-6 text-center">
-          {/* 성공 아이콘 — Primary 색상 */}
           <div className="mb-s-4 inline-flex h-14 w-14 items-center justify-center rounded-full bg-success-light">
             <CheckCircle2 size={28} className="text-success" />
           </div>
@@ -263,7 +301,7 @@ export default function ResetPasswordPage() {
 
           <Link
             href="/login"
-            className="group block flex h-12 w-full items-center justify-center gap-s-2 rounded-md bg-p font-display text-sm font-semibold tracking-[-0.005em] text-ti shadow-sm transition-all duration-normal hover:bg-p-hover hover:shadow-md active:scale-[0.99]"
+            className="group flex h-12 w-full items-center justify-center gap-s-2 rounded-md bg-p font-display text-sm font-semibold tracking-[-0.005em] text-[var(--on-p)] shadow-sm transition-all duration-normal hover:bg-p-hover hover:shadow-md active:scale-[0.99]"
           >
             <span>로그인 화면으로</span>
             <ArrowRight
@@ -331,7 +369,7 @@ export default function ResetPasswordPage() {
         <button
           type="submit"
           disabled={loading}
-          className={`group relative flex h-12 w-full items-center justify-center gap-s-2 rounded-md bg-p font-display text-sm font-semibold tracking-[-0.005em] text-ti shadow-sm transition-all duration-normal hover:bg-p-hover hover:shadow-md active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60`}
+          className={`group relative flex h-12 w-full items-center justify-center gap-s-2 rounded-md bg-p font-display text-sm font-semibold tracking-[-0.005em] text-[var(--on-p)] shadow-sm transition-all duration-normal hover:bg-p-hover hover:shadow-md active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60`}
         >
           {loading ? (
             <>
@@ -366,5 +404,28 @@ export default function ResetPasswordPage() {
         </Link>
       </div>
     </Card>
+  )
+}
+
+/** useSearchParams 사용 컴포넌트를 감싸는 로딩 골격 (Suspense fallback). */
+function ResetSkeleton() {
+  return (
+    <Card variant="elevated" padding="lg" className="rounded-xl">
+      <div className="flex h-40 items-center justify-center">
+        <span
+          className="border-current/30 h-5 w-5 animate-spin rounded-full border-2 border-t-current text-t3"
+          role="status"
+          aria-label="확인 중"
+        />
+      </div>
+    </Card>
+  )
+}
+
+export default function ResetPasswordPage() {
+  return (
+    <Suspense fallback={<ResetSkeleton />}>
+      <ResetPasswordInner />
+    </Suspense>
   )
 }

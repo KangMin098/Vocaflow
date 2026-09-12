@@ -51,7 +51,7 @@ export function SourceCard({ catalog, rank, onActivate }: SourceCardProps) {
             />
           )}
         </div>
-        <p className="line-clamp-2 font-body text-[12px] text-[var(--t3)]">
+        <p className="line-clamp-2 font-body text-[12px] text-[var(--t2)]">
           {catalog.description ?? '설명 없음'}
         </p>
       </header>
@@ -90,7 +90,7 @@ function RankRibbon({ rank, isPrimary }: { rank: number; isPrimary: boolean }) {
   return (
     <div
       className={[
-        'absolute left-0 top-0 px-2 py-0.5',
+        'absolute left-0 top-0 px-2 py-1',
         'rounded-br-[var(--r-md)]',
         'font-mono text-[10px] font-[700]',
         isPrimary
@@ -115,8 +115,8 @@ function MetaStrip({ catalog }: { catalog: SourceCatalog }) {
       : '—';
 
   return (
-    <div className="border-t border-[var(--bd)] bg-[var(--bg2)] px-5 py-2.5">
-      <div className="flex items-center gap-3 font-mono text-[10px] text-[var(--t3)]">
+    <div className="border-t border-[var(--bd)] bg-[var(--bg2)] px-5 py-3">
+      <div className="flex items-center gap-3 font-mono text-[10px] text-[var(--t2)]">
         <MetaItem label="📜" value={catalog.license_summary} />
         <MetaItem
           label="🇰🇷"
@@ -176,7 +176,7 @@ function CardFooter({
           onClick={onActivate}
           disabled={!onActivate}
           className={[
-            'flex-1 min-h-[36px] rounded-[var(--r-sm)]',
+            'flex-1 min-h-[44px] rounded-[var(--r-sm)]',
             'bg-[var(--p)] hover:bg-[var(--p-hover)]',
             'px-3 font-display text-[12px] font-[600] text-[var(--ti)]',
             'transition-colors duration-[var(--dur-normal)] ease-[var(--ease)]',
@@ -190,7 +190,7 @@ function CardFooter({
         <span
           className={[
             'flex-1 min-h-[36px] rounded-[var(--r-sm)]',
-            'bg-[var(--bg2)] text-[var(--t3)]',
+            'bg-[var(--bg2)] text-[var(--t2)]',
             'px-3 font-display text-[12px] font-[600]',
             'flex items-center justify-center',
           ].join(' ')}
@@ -205,8 +205,8 @@ function CardFooter({
           href={catalog.catalog_url}
           target="_blank"
           rel="noreferrer"
-          className={[
-            'inline-flex h-9 w-9 items-center justify-center',
+          className={/* 탭 영역 44px — 시각 크기(h-9, 36px)와 다르다 */ [
+            'relative after:absolute after:left-1/2 after:top-1/2 after:h-11 after:w-11 after:-translate-x-1/2 after:-translate-y-1/2 inline-flex h-9 w-9 items-center justify-center',
             'rounded-[var(--r-sm)] text-[var(--t2)]',
             'hover:bg-[var(--bg2)] hover:text-[var(--t1)]',
             'transition-colors duration-[var(--dur-normal)] ease-[var(--ease)]',

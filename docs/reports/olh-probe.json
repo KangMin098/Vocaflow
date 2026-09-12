@@ -1,0 +1,163 @@
+{
+ "measuredAt": "2026-09-03T04:59:14.151Z",
+ "journals": [
+  {
+   "host": "c21.openlibhums.org",
+   "size": 225
+  },
+  {
+   "host": "ee.openlibhums.org",
+   "size": 84
+  },
+  {
+   "host": "intransition.openlibhums.org",
+   "size": 316
+  },
+  {
+   "host": "jer.openlibhums.org",
+   "size": 67
+  },
+  {
+   "host": "lifewritingannual.openlibhums.org",
+   "size": 85
+  },
+  {
+   "host": "marvell.openlibhums.org",
+   "size": 63
+  },
+  {
+   "host": "olh.openlibhums.org",
+   "size": 448
+  },
+  {
+   "host": "orbit.openlibhums.org",
+   "size": 0,
+   "error": "oai 0"
+  },
+  {
+   "host": "parishreview.openlibhums.org",
+   "size": 150
+  },
+  {
+   "host": "poetry.openlibhums.org",
+   "size": 120
+  },
+  {
+   "host": "pynchonnotes.openlibhums.org",
+   "size": 512
+  },
+  {
+   "host": "quakerstudies.openlibhums.org",
+   "size": 531
+  },
+  {
+   "host": "traj.openlibhums.org",
+   "size": 465
+  },
+  {
+   "host": "zff.openlibhums.org",
+   "size": 93
+  }
+ ],
+ "total": 3159,
+ "sampled": 10,
+ "fit": 9,
+ "topics": {
+  "사회·경제": 2,
+  "역사·인류": 3,
+  "예술·문화": 3,
+  "기술·매체": 2
+ },
+ "rows": [
+  {
+   "host": "quakerstudies.openlibhums.org",
+   "url": "https://quakerstudies.openlibhums.org/article/id/29297/",
+   "words": 6374,
+   "shape": 29,
+   "pass": 15,
+   "topic": "사회·경제",
+   "cc": "by"
+  },
+  {
+   "host": "traj.openlibhums.org",
+   "url": "https://traj.openlibhums.org/article/id/26533/",
+   "words": 11112,
+   "shape": 41,
+   "pass": 31,
+   "topic": "역사·인류",
+   "cc": "by"
+  },
+  {
+   "host": "traj.openlibhums.org",
+   "url": "https://traj.openlibhums.org/article/id/26637/",
+   "words": 10177,
+   "shape": 3,
+   "pass": 0,
+   "topic": "역사·인류",
+   "cc": "by"
+  },
+  {
+   "host": "traj.openlibhums.org",
+   "url": "https://traj.openlibhums.org/article/id/24483/",
+   "words": 9726,
+   "shape": 12,
+   "pass": 5,
+   "topic": "예술·문화",
+   "cc": "by"
+  },
+  {
+   "host": "olh.openlibhums.org",
+   "url": "https://olh.openlibhums.org/article/id/25309/",
+   "words": 10653,
+   "shape": 28,
+   "pass": 13,
+   "topic": "사회·경제",
+   "cc": "by"
+  },
+  {
+   "host": "olh.openlibhums.org",
+   "url": "https://olh.openlibhums.org/article/id/23491/",
+   "words": 11089,
+   "shape": 33,
+   "pass": 22,
+   "topic": "역사·인류",
+   "cc": "by"
+  },
+  {
+   "host": "olh.openlibhums.org",
+   "url": "https://olh.openlibhums.org/article/id/28860/",
+   "words": 10927,
+   "shape": 28,
+   "pass": 23,
+   "topic": "예술·문화",
+   "cc": "by"
+  },
+  {
+   "host": "olh.openlibhums.org",
+   "url": "https://olh.openlibhums.org/article/id/26769/",
+   "words": 10568,
+   "shape": 33,
+   "pass": 22,
+   "topic": "예술·문화",
+   "cc": "by"
+  },
+  {
+   "host": "olh.openlibhums.org",
+   "url": "https://olh.openlibhums.org/article/id/28685/",
+   "words": 7868,
+   "shape": 13,
+   "pass": 10,
+   "topic": "기술·매체",
+   "cc": "by"
+  },
+  {
+   "host": "olh.openlibhums.org",
+   "url": "https://olh.openlibhums.org/article/id/28650/",
+   "words": 8629,
+   "shape": 4,
+   "pass": 2,
+   "topic": "기술·매체",
+   "cc": "by"
+  }
+ ]
+}

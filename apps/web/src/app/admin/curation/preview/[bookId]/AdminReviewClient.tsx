@@ -2,6 +2,7 @@
 
 'use client'
 
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { BookContentReader } from '@/components/library/reader/BookContentReader'
 import {
   archiveBook,
@@ -72,7 +73,7 @@ export function AdminReviewClient({
       <div className="flex flex-wrap items-center justify-between gap-3">
         <Link
           href="/admin/curation"
-          className="inline-flex min-h-[36px] items-center gap-1.5 rounded-[var(--r-sm)] px-3 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-sm)] px-3 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
           <ArrowLeft size={14} aria-hidden />
           큐레이션으로
@@ -80,7 +81,7 @@ export function AdminReviewClient({
 
         <div className="flex flex-wrap items-center gap-2">
           <span
-            className="inline-flex items-center rounded-[var(--r-sm)] px-2 py-0.5 font-display text-[10px] font-[700]"
+            className="inline-flex items-center rounded-[var(--r-sm)] px-2 py-1 font-display text-[10px] font-[700]"
             style={{
               backgroundColor: getToneStyle(statusInfo.tone).bg,
               color: getToneStyle(statusInfo.tone).text,
@@ -89,7 +90,7 @@ export function AdminReviewClient({
             {statusInfo.label}
           </span>
           {cefrConfidence != null && (
-            <span className="font-mono text-[11px] tabular-nums text-[var(--t3)]">
+            <span className="font-mono text-[11px] tabular-nums text-[var(--t2)]">
               confidence {cefrConfidence.toFixed(2)}
             </span>
           )}
@@ -100,6 +101,9 @@ export function AdminReviewClient({
           />
         </div>
       </div>
+
+      {/* 화면 도움말 — 검수 순서·게시 게이트·경고 임계값 */}
+      <AdminScreenHelp screen="curation-preview" />
 
       {/* Reader */}
       <BookContentReader
@@ -115,11 +119,11 @@ export function AdminReviewClient({
         footerSlot={
           <div className="flex flex-wrap items-center justify-between gap-3">
             {error ? (
-              <span className="inline-flex items-center gap-1.5 font-body text-[12px] text-[var(--learn-error)]">
+              <span className="inline-flex items-center gap-2 font-body text-[12px] text-[var(--learn-error)]">
                 <AlertCircle size={12} aria-hidden /> {error}
               </span>
             ) : (
-              <span className="font-body text-[11px] text-[var(--t3)]">
+              <span className="font-body text-[11px] text-[var(--t2)]">
                 ← / → 키로 장 이동 · 토글 메뉴로 검수
               </span>
             )}
@@ -173,7 +177,7 @@ function ActionButton({
       type="button"
       onClick={onClick}
       disabled={pending}
-      className={`inline-flex min-h-[36px] items-center gap-1.5 rounded-[var(--r-sm)] px-3 font-display text-[12px] font-[600] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${cls}`}
+      className={`inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-sm)] px-3 font-display text-[12px] font-[600] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${cls}`}
     >
       {pending ? <Loader2 size={12} className="animate-spin" aria-hidden /> : icon}
       {label}
@@ -214,7 +218,7 @@ function PublishControl({
         onClick={onPublish}
         disabled={pending}
         title="신뢰도 임계값과 무관하게 즉시 게시 (admin_force_publish_book). 게시하면 챕터 단어장이 자동 생성됩니다."
-        className="inline-flex min-h-[36px] items-center gap-1.5 rounded-[var(--r-sm)] bg-[var(--p)] px-4 font-display text-[12px] font-[700] text-[var(--ti)] transition-opacity duration-[var(--dur-normal)] ease-[var(--ease)] hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+        className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-sm)] bg-[var(--p)] px-4 font-display text-[12px] font-[700] text-[var(--on-p)] transition-opacity duration-[var(--dur-normal)] ease-[var(--ease)] hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
       >
         {pending ? (
           <Loader2 size={13} className="animate-spin" aria-hidden />
@@ -227,7 +231,7 @@ function PublishControl({
   }
   if (gate === 'published') {
     return (
-      <span className="inline-flex min-h-[36px] items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--learn-known)]/40 bg-[var(--learn-known-light)] px-3 font-display text-[12px] font-[700] text-[var(--learn-known)]">
+      <span className="inline-flex min-h-[36px] items-center gap-2 rounded-[var(--r-sm)] border border-[var(--learn-known)]/40 bg-[var(--learn-known-light)] px-3 font-display text-[12px] font-[700] text-[var(--learn-known)]">
         <CheckCircle2 size={13} aria-hidden />
         게시됨
       </span>
@@ -236,7 +240,7 @@ function PublishControl({
   return (
     <span
       title={GATE_REASON[gate]}
-      className="inline-flex min-h-[36px] items-center gap-1.5 rounded-[var(--r-sm)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-3 font-display text-[12px] font-[600] text-[var(--t3)]"
+      className="inline-flex min-h-[36px] items-center gap-2 rounded-[var(--r-sm)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-3 font-display text-[12px] font-[600] text-[var(--t2)]"
     >
       <Ban size={12} aria-hidden />
       {GATE_REASON[gate]}

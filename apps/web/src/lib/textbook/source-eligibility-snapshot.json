@@ -1,0 +1,335 @@
+{
+  "measuredAt": "2026-09-07T03:33:05.251Z",
+  "specVersion": 2,
+  "elapsedSeconds": 69.1,
+  "scope": "status in ('ready','published')",
+  "articlesWithItems": 24404,
+  "extractBacklog": {
+    "feed": "plos-extract",
+    "total": 11601,
+    "analyzed": 11600,
+    "byStatus": [
+      {
+        "status": "ready",
+        "count": 11139
+      },
+      {
+        "status": "archived",
+        "count": 462
+      }
+    ]
+  },
+  "total": {
+    "total": 35889,
+    "byGrade": {
+      "usable": 4092,
+      "excerpt": 8818,
+      "excerpt-blind": 450,
+      "unjudged": 22155,
+      "unknown": 18,
+      "blocked": 356
+    },
+    "byBlockedAxis": {
+      "format": 528,
+      "safety": 128,
+      "analysis": 18,
+      "legal": 150,
+      "judgement": 22155
+    },
+    "composable": 12910,
+    "composablePct": 36,
+    "judged": 13734,
+    "composablePctOfJudged": 94,
+    "structurallyUnjudged": 13236
+  },
+  "byBand": [
+    {
+      "vLevel": null,
+      "total": 6,
+      "byGrade": {
+        "usable": 0,
+        "excerpt": 0,
+        "excerpt-blind": 0,
+        "unjudged": 0,
+        "unknown": 6,
+        "blocked": 0
+      },
+      "byBlockedAxis": {
+        "analysis": 6
+      },
+      "composable": 0,
+      "composablePct": 0,
+      "judged": 6,
+      "composablePctOfJudged": 0,
+      "structurallyUnjudged": 0
+    },
+    {
+      "vLevel": 1,
+      "total": 114,
+      "byGrade": {
+        "usable": 39,
+        "excerpt": 0,
+        "excerpt-blind": 0,
+        "unjudged": 0,
+        "unknown": 1,
+        "blocked": 74
+      },
+      "byBlockedAxis": {
+        "legal": 63,
+        "format": 11,
+        "analysis": 1
+      },
+      "composable": 39,
+      "composablePct": 34.2,
+      "judged": 114,
+      "composablePctOfJudged": 34.2,
+      "structurallyUnjudged": 0
+    },
+    {
+      "vLevel": 2,
+      "total": 657,
+      "byGrade": {
+        "usable": 540,
+        "excerpt": 70,
+        "excerpt-blind": 0,
+        "unjudged": 2,
+        "unknown": 1,
+        "blocked": 44
+      },
+      "byBlockedAxis": {
+        "format": 27,
+        "legal": 17,
+        "judgement": 2,
+        "analysis": 1
+      },
+      "composable": 610,
+      "composablePct": 92.8,
+      "judged": 655,
+      "composablePctOfJudged": 93.1,
+      "structurallyUnjudged": 0
+    },
+    {
+      "vLevel": 3,
+      "total": 682,
+      "byGrade": {
+        "usable": 601,
+        "excerpt": 69,
+        "excerpt-blind": 0,
+        "unjudged": 1,
+        "unknown": 1,
+        "blocked": 10
+      },
+      "byBlockedAxis": {
+        "format": 10,
+        "judgement": 1,
+        "analysis": 1
+      },
+      "composable": 670,
+      "composablePct": 98.2,
+      "judged": 681,
+      "composablePctOfJudged": 98.4,
+      "structurallyUnjudged": 0
+    },
+    {
+      "vLevel": 4,
+      "total": 1823,
+      "byGrade": {
+        "usable": 1006,
+        "excerpt": 597,
+        "excerpt-blind": 0,
+        "unjudged": 204,
+        "unknown": 0,
+        "blocked": 16
+      },
+      "byBlockedAxis": {
+        "format": 11,
+        "judgement": 204,
+        "legal": 5
+      },
+      "composable": 1603,
+      "composablePct": 87.9,
+      "judged": 1619,
+      "composablePctOfJudged": 99,
+      "structurallyUnjudged": 0
+    },
+    {
+      "vLevel": 5,
+      "total": 9261,
+      "byGrade": {
+        "usable": 1251,
+        "excerpt": 4296,
+        "excerpt-blind": 0,
+        "unjudged": 3611,
+        "unknown": 3,
+        "blocked": 100
+      },
+      "byBlockedAxis": {
+        "analysis": 3,
+        "legal": 50,
+        "safety": 40,
+        "judgement": 3611,
+        "format": 10
+      },
+      "composable": 5547,
+      "composablePct": 59.9,
+      "judged": 5650,
+      "composablePctOfJudged": 98.2,
+      "structurallyUnjudged": 429
+    },
+    {
+      "vLevel": 6,
+      "total": 19103,
+      "byGrade": {
+        "usable": 499,
+        "excerpt": 3150,
+        "excerpt-blind": 425,
+        "unjudged": 14925,
+        "unknown": 5,
+        "blocked": 99
+      },
+      "byBlockedAxis": {
+        "format": 430,
+        "safety": 79,
+        "analysis": 5,
+        "legal": 15,
+        "judgement": 14925
+      },
+      "composable": 3649,
+      "composablePct": 19.1,
+      "judged": 4178,
+      "composablePctOfJudged": 87.3,
+      "structurallyUnjudged": 10344
+    },
+    {
+      "vLevel": 7,
+      "total": 4060,
+      "byGrade": {
+        "usable": 136,
+        "excerpt": 580,
+        "excerpt-blind": 23,
+        "unjudged": 3309,
+        "unknown": 1,
+        "blocked": 11
+      },
+      "byBlockedAxis": {
+        "judgement": 3309,
+        "format": 25,
+        "safety": 9,
+        "analysis": 1
+      },
+      "composable": 716,
+      "composablePct": 17.6,
+      "judged": 751,
+      "composablePctOfJudged": 95.3,
+      "structurallyUnjudged": 2448
+    },
+    {
+      "vLevel": 8,
+      "total": 171,
+      "byGrade": {
+        "usable": 15,
+        "excerpt": 54,
+        "excerpt-blind": 1,
+        "unjudged": 99,
+        "unknown": 0,
+        "blocked": 2
+      },
+      "byBlockedAxis": {
+        "judgement": 99,
+        "format": 3
+      },
+      "composable": 69,
+      "composablePct": 40.4,
+      "judged": 72,
+      "composablePctOfJudged": 95.8,
+      "structurallyUnjudged": 15
+    },
+    {
+      "vLevel": 9,
+      "total": 12,
+      "byGrade": {
+        "usable": 5,
+        "excerpt": 2,
+        "excerpt-blind": 1,
+        "unjudged": 4,
+        "unknown": 0,
+        "blocked": 0
+      },
+      "byBlockedAxis": {
+        "judgement": 4,
+        "format": 1
+      },
+      "composable": 7,
+      "composablePct": 58.3,
+      "judged": 8,
+      "composablePctOfJudged": 87.5,
+      "structurallyUnjudged": 0
+    }
+  ],
+  "blockedBySource": [
+    {
+      "source": "plos",
+      "count": 22273
+    },
+    {
+      "source": "futurity",
+      "count": 323
+    },
+    {
+      "source": "gutenberg",
+      "count": 144
+    },
+    {
+      "source": "storyweaver",
+      "count": 70
+    },
+    {
+      "source": "the_conversation",
+      "count": 70
+    },
+    {
+      "source": "elife",
+      "count": 24
+    },
+    {
+      "source": "nasa",
+      "count": 23
+    },
+    {
+      "source": "voa",
+      "count": 17
+    },
+    {
+      "source": "usgs",
+      "count": 12
+    },
+    {
+      "source": "original",
+      "count": 7
+    },
+    {
+      "source": "space_place",
+      "count": 6
+    },
+    {
+      "source": "simple_wikipedia",
+      "count": 4
+    },
+    {
+      "source": "noaa",
+      "count": 2
+    },
+    {
+      "source": "frym",
+      "count": 2
+    },
+    {
+      "source": "wikipedia",
+      "count": 1
+    },
+    {
+      "source": "factbook",
+      "count": 1
+    }
+  ]
+}

@@ -84,26 +84,50 @@ export async function lookupAndEnrich(
   if (missing.length > 0 && !options.skipLlm) {
     const apiKey = process.env['ANTHROPIC_API_KEY']
     if (!apiKey) {
+      // ⚠️ 이 숫자를 "사전 구멍" 으로 읽지 말 것 — 2026-08-19 에 실제로 그렇게 오독했다.
+      //   여기 miss 는 **정확 일치** 실패다. 학습자 경로는 `resolve_dict_headword` 로
+      //   굴절·철자 변이를 푼다(실측 43편: 정확 일치 64.2% → 해소 후 95.6%).
+      //   진짜 빠진 낱말은 `scripts/dict/drain-article-lemmas.mjs --export` 로 센다.
       console.warn(
-        `[lookup-enrich] ANTHROPIC_API_KEY 미설정 — ${missing.length}개 miss skip`,
+        `[lookup-enrich] ANTHROPIC_API_KEY 미설정 — 정확 일치 miss ${missing.length}개 skip ` +
+          `(대부분 굴절형이라 학습자 경로에서는 해소된다. 실제 갭은 drain-article-lemmas 로 확인)`,
       )
     } else {
       const { results, cost } = await enrichWithLlm(missing, apiKey)
       llmCost = cost
 
       // shared_dictionary 에 누적 INSERT
+      //
+      // ⚠️ 원래 `enrich_shared_dictionary` RPC 를 썼는데 **한 행도 넣은 적이 없었다.**
+      //   RPC 본문이 `source='lcp_llm'` 을 하드코딩하는데(20260508120200), 그 나흘 전에
+      //   생긴 `shared_dictionary_source_check`(20260504160708)가 그 값을 금지한다.
+      //   아래 catch 가 `console.warn` 이라 103일 동안 조용히 흘러갔다.
+      //   RPC 를 고치려면 마이그레이션이 필요하므로, 제약이 허용하는 값으로 직접 넣는다 —
+      //   Claude Code 드레인(`scripts/dict/drain-article-lemmas.mjs`)과 **같은 표기**다.
       if (results.length > 0) {
-        const { data: inserted, error: rpcError } = await client.rpc(
-          'enrich_shared_dictionary',
-          { p_words: results },
-        )
-        if (rpcError) {
-          console.warn(
-            `[lookup-enrich] enrich_shared_dictionary failed: ${rpcError.message}`,
+        const { data: inserted, error: insErr } = await client
+          .from('shared_dictionary')
+          .upsert(
+            results.map((r) => ({
+              word: r.word,
+              meaning_ko: r.meaning_ko,
+              cefr_level: r.cefr_level || null,
+              pos: r.pos || null,
+              example_en: r.example_en || null,
+              source: 'ai-generated',
+              verified: false,
+            })),
+            { onConflict: 'word', ignoreDuplicates: true },
           )
-        } else {
-          enrichedCount = (inserted as number) ?? 0
+          .select('word')
+        if (insErr) {
+          // 이제는 삼키지 않는다 — 되돌려 넣기가 실패하면 다음 글에서 또 돈을 쓴다.
+          throw new Error(
+            `shared_dictionary 보강 INSERT 실패: ${insErr.message} ` +
+              `(source/cefr_level/pos 제약을 먼저 확인할 것)`,
+          )
         }
+        enrichedCount = inserted?.length ?? 0
       }
 
       // 결과 map 에 통합

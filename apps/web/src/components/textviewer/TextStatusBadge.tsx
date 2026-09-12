@@ -19,7 +19,7 @@ export function TextStatusBadge({ text }: TextStatusBadgeProps) {
   if (conquered) {
     return (
       <span
-        className="inline-flex items-center gap-1 rounded-[var(--r-sm)] bg-[var(--success)]/10 px-2 py-0.5 font-display text-[10px] font-[700] uppercase tracking-wider text-[var(--success)]"
+        className="inline-flex items-center gap-1 rounded-[var(--r-sm)] bg-[var(--success)]/10 px-2 py-1 font-display text-[10px] font-[700] uppercase tracking-wider text-[var(--success)]"
         aria-label="정복 완료"
       >
         <Trophy size={10} strokeWidth={2.5} aria-hidden="true" />
@@ -31,7 +31,7 @@ export function TextStatusBadge({ text }: TextStatusBadgeProps) {
   if (inProgress) {
     return (
       <span
-        className="inline-flex items-center rounded-[var(--r-sm)] bg-[var(--p)]/10 px-2 py-0.5 font-display text-[10px] font-[700] tabular-nums text-[var(--p)]"
+        className="inline-flex items-center rounded-[var(--r-sm)] bg-[var(--p)]/10 px-2 py-1 font-display text-[10px] font-[700] tabular-nums text-[var(--p)]"
         aria-label={`진행률 ${pct}%`}
       >
         {pct}%
@@ -41,7 +41,7 @@ export function TextStatusBadge({ text }: TextStatusBadgeProps) {
 
   return (
     <span
-      className="inline-flex items-center rounded-[var(--r-sm)] bg-[var(--bg3)] px-2 py-0.5 font-display text-[10px] font-[700] uppercase tracking-wider text-[var(--t3)]"
+      className="inline-flex items-center rounded-[var(--r-sm)] bg-[var(--bg3)] px-2 py-1 font-display text-[10px] font-[700] uppercase tracking-wider text-[var(--t2)]"
       aria-label="미시작"
     >
       미시작

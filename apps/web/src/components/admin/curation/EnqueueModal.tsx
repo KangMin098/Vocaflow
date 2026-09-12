@@ -90,7 +90,7 @@ export function EnqueueModal({ source, onClose, onSuccess }: EnqueueModalProps) 
           >
             큐에 책 추가
           </h2>
-          <p className="mt-0.5 font-body text-[12px] text-[var(--t3)]">
+          <p className="mt-0.5 font-body text-[12px] text-[var(--t2)]">
             처리 큐에 추가하면 자동으로 분석이 시작됩니다.
           </p>
         </div>
@@ -98,7 +98,10 @@ export function EnqueueModal({ source, onClose, onSuccess }: EnqueueModalProps) 
           type="button"
           onClick={onClose}
           disabled={submitting}
-          className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-sm)] text-[var(--t3)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:opacity-50"
+          // h-8(32px) 이었다 — CLAUDE.md 가 금지하는 44px 미만 터치 타겟이다.
+          // 관리자도 폰으로 볼 수 있고, 폰에는 Esc 가 없어 이 버튼이 닫는 유일한 길이다
+          // (실측 2026-08-25 · 390px). 아이콘 크기는 그대로 두고 누를 면적만 넓힌다.
+          className="inline-flex h-11 w-11 items-center justify-center rounded-[var(--r-sm)] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:opacity-50"
           aria-label="닫기"
         >
           <X size={16} aria-hidden />
@@ -155,7 +158,7 @@ export function EnqueueModal({ source, onClose, onSuccess }: EnqueueModalProps) 
           type="button"
           onClick={onClose}
           disabled={submitting}
-          className="inline-flex min-h-[36px] items-center rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-4 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:opacity-50"
+          className="inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-4 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:opacity-50"
         >
           취소
         </button>
@@ -163,7 +166,7 @@ export function EnqueueModal({ source, onClose, onSuccess }: EnqueueModalProps) 
           type="button"
           onClick={handleEnqueue}
           disabled={submitting || result?.kind === 'success'}
-          className="inline-flex min-h-[36px] items-center justify-center gap-2 rounded-[var(--r-sm)] bg-[var(--p)] px-4 font-display text-[12px] font-[600] text-[var(--ti)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+          className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-[var(--r-sm)] bg-[var(--p)] px-4 font-display text-[12px] font-[600] text-[var(--on-p)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
         >
           {submitting ? (
             <>
@@ -294,7 +297,7 @@ function SummaryRow({
 }) {
   return (
     <div className="flex items-baseline gap-3">
-      <span className="w-16 shrink-0 font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">
+      <span className="w-16 shrink-0 font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">
         {label}
       </span>
       <span

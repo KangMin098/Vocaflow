@@ -9,7 +9,7 @@
 import { useState } from 'react'
 import { ChevronDown, ChevronUp } from 'lucide-react'
 
-import type { DcpInsertPayload, DcpOrderPayload } from '@/lib/learner/dcp'
+import type { DcpChoicePayload, DcpInsertPayload, DcpOrderPayload } from '@/lib/learner/dcp'
 
 // ────────────────────────────────────────────────────────────
 // order — presented 문장을 원래 순서로 배열 (이동 버튼)
@@ -45,10 +45,10 @@ export function DcpOrderItem({
         {order.map((pIdx, pos) => (
           <li
             key={pIdx}
-            className="flex items-center gap-2.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-2.5"
+            className="flex items-center gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-3"
           >
             <span
-              className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[var(--p-light)] font-mono text-[12px] font-[700] text-[var(--p)]"
+              className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[var(--p-light)] font-mono text-[12px] font-[700] text-[var(--on-p-tint)]"
               aria-hidden
             >
               {pos + 1}
@@ -76,7 +76,7 @@ function MoveButton({ dir, disabled, onClick }: { dir: 'up' | 'down'; disabled: 
       onClick={onClick}
       disabled={disabled}
       aria-label={dir === 'up' ? '위로 이동' : '아래로 이동'}
-      className="inline-flex h-11 w-11 items-center justify-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:border-[var(--p)] hover:bg-[var(--p-light)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-35"
+      className="inline-flex h-11 w-11 items-center justify-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:border-[var(--p)] hover:bg-[var(--p-light)] hover:text-[var(--on-p-tint)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-35"
     >
       <Icon size={18} strokeWidth={2.25} aria-hidden />
     </button>
@@ -150,7 +150,7 @@ function SlotButton({
       disabled={disabled}
       aria-label={`${index + 1}번째 위치에 삽입`}
       aria-pressed={selected}
-      className="inline-flex min-h-[36px] items-center justify-center gap-1.5 rounded-[var(--r-sm)] border border-dashed px-3 font-display text-[12px] font-[700] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:opacity-50"
+      className="inline-flex min-h-[36px] items-center justify-center gap-2 rounded-[var(--r-sm)] border border-dashed px-3 font-display text-[12px] font-[700] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:opacity-50"
       style={
         selected
           ? { borderColor: 'var(--p)', background: 'var(--p-light)', color: 'var(--p)', borderStyle: 'solid' }
@@ -162,6 +162,109 @@ function SlotButton({
   )
 }
 
+// ────────────────────────────────────────────────────────────
+// 선택지 9종 — 지문 + 5지선다 (요지·주제·제목·빈칸·목적·주장·함축·요약·일치)
+//
+// 아홉 유형이 **한 컴포넌트**인 이유: DB 실측상 payload 모양이 완전히 같고, 유형 차이는
+// 묻는 말(`stemKo`)에 들어 있다. 유형마다 화면을 만들면 아홉 벌이 조금씩 어긋난 채 남는다.
+//
+// ⚠️ 지문이 길다(90~200어). 라디오 그룹을 지문 위에 두지 않는다 — 읽기 전에 고르게 만든다.
+// ────────────────────────────────────────────────────────────
+export function DcpChoiceItem({
+  payload,
+  submitting,
+  onSubmit,
+}: {
+  payload: DcpChoicePayload
+  submitting: boolean
+  onSubmit: (answer: { choice: number }) => void
+}) {
+  const { passage, choices, stemKo, underline, summarySentence } = payload
+  const [picked, setPicked] = useState<number | null>(null)
+
+  return (
+    <div className="flex flex-col gap-3">
+      <p className="font-display text-[13.5px] font-[700] leading-relaxed text-[var(--t1)]">{stemKo}</p>
+
+      <PassageBody passage={passage} underline={underline} />
+
+      {/* 요약 유형의 (A)…(B) 문장 — 지문과 선택지를 잇는 다리라 사이에 둔다. */}
+      {summarySentence && (
+        <p className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg)] p-3 font-body text-[13px] leading-relaxed text-[var(--t1)]">
+          {summarySentence}
+        </p>
+      )}
+
+      <ol className="flex flex-col gap-2" role="radiogroup" aria-label="선택지">
+        {choices.map((choice, i) => {
+          const no = i + 1
+          const selected = picked === no
+          return (
+            <li key={no}>
+              <button
+                type="button"
+                role="radio"
+                aria-checked={selected}
+                disabled={submitting}
+                onClick={() => setPicked(no)}
+                className="flex w-full min-h-[44px] items-start gap-3 rounded-[var(--r-md)] border p-3 text-left transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:opacity-50"
+                style={
+                  selected
+                    ? { borderColor: 'var(--p)', background: 'var(--p-light)' }
+                    : { borderColor: 'var(--bd)', background: 'var(--bg)' }
+                }
+              >
+                <span
+                  className="mt-[1px] inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full font-mono text-[12px] font-[700]"
+                  style={
+                    selected
+                      ? { background: 'var(--p)', color: 'var(--on-p)' }
+                      : { background: 'var(--bg3)', color: 'var(--t2)' }
+                  }
+                  aria-hidden
+                >
+                  {no}
+                </span>
+                <span className="min-w-0 flex-1 font-body text-[13px] leading-relaxed text-[var(--t1)]">{choice}</span>
+              </button>
+            </li>
+          )
+        })}
+      </ol>
+
+      <SubmitButton
+        disabled={submitting || picked === null}
+        onClick={() => picked !== null && onSubmit({ choice: picked })}
+      />
+    </div>
+  )
+}
+
+/**
+ * 지문 — `underline` 이 있으면 그 구절에만 밑줄을 친다(함축 의미 유형의 전제).
+ *
+ * ⚠️ 구절이 지문에 **그대로** 있을 때만 자른다. 없으면 밑줄 없이 지문을 그대로 그린다 —
+ *   못 찾았다고 지문을 안 그리면 문항이 통째로 사라진다.
+ */
+function PassageBody({ passage, underline }: { passage: string; underline: string | null }) {
+  const at = underline ? passage.indexOf(underline) : -1
+  return (
+    <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-3">
+      <p className="font-body text-[13px] leading-[1.75] text-[var(--t1)]">
+        {at < 0 || !underline ? (
+          passage
+        ) : (
+          <>
+            {passage.slice(0, at)}
+            <u className="underline decoration-[var(--p)] decoration-2 underline-offset-4">{underline}</u>
+            {passage.slice(at + underline.length)}
+          </>
+        )}
+      </p>
+    </div>
+  )
+}
+
 // ── 공용 제출 버튼 ──
 function SubmitButton({ disabled, onClick }: { disabled: boolean; onClick: () => void }) {
   return (
@@ -169,7 +272,7 @@ function SubmitButton({ disabled, onClick }: { disabled: boolean; onClick: () =>
       type="button"
       onClick={onClick}
       disabled={disabled}
-      className="inline-flex min-h-[44px] items-center justify-center rounded-[var(--r-md)] bg-[var(--p)] px-5 font-display text-[14px] font-[700] text-[var(--ti)] shadow-[var(--sh-xs)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-45"
+      className="inline-flex min-h-[44px] items-center justify-center rounded-[var(--r-md)] bg-[var(--p)] px-5 font-display text-[14px] font-[700] text-[var(--on-p)] shadow-[var(--sh-xs)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-45"
     >
       제출
     </button>

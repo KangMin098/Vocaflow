@@ -31,20 +31,34 @@ export const THE_CONVERSATION_FEEDS: Array<{ id: string; label: string; url: str
     label: 'The Conversation — All articles',
     url: 'https://theconversation.com/articles.atom',
   },
+  // ⚠️ 2026-08-19 — `topics/<슬러그>-<번호>` 형태를 전부 걷었다. **셋 다 엉뚱한 주제를
+  //   가져오고 있었다.** 해소되는 것은 번호이고 슬러그는 장식인데, The Conversation 이
+  //   그 번호의 주제명을 바꾸면서 우리 피드가 조용히 다른 주제가 됐다(실측 301 추적):
+  //
+  //     topics/science-1391  → topics/molecular-biology-1391
+  //     topics/health-39     → topics/transport-39      (건강 라벨인데 교통)
+  //     topics/politics-127  → topics/nbn-127           (정치 라벨인데 광대역망)
+  //
+  //   기사는 계속 들어오고 영어이고 라이선스도 같아서 **아무 경보도 안 울린다.**
+  //   그래서 번호가 없는 **섹션 경로**만 쓴다 — 이름이 곧 주소라 바뀌면 404 로 드러난다.
+  //   회귀 테스트가 `topics/…-숫자` 형태를 금지한다.
   {
     id: 'science',
+    // 이 주소는 스스로를 "Science + Tech – The Conversation" 이라 부른다(실측 피드 제목).
     label: 'The Conversation — Science + Tech',
-    url: 'https://theconversation.com/topics/science-1391/articles.atom',
+    url: 'https://theconversation.com/us/technology/articles.atom',
   },
   {
     id: 'health',
     label: 'The Conversation — Health + Medicine',
-    url: 'https://theconversation.com/topics/health-39/articles.atom',
+    url: 'https://theconversation.com/us/health/articles.atom',
   },
   {
-    id: 'politics',
-    label: 'The Conversation — Politics + Society',
-    url: 'https://theconversation.com/topics/politics-127/articles.atom',
+    // politics 는 되살리지 않는다 — 이 서비스가 일부러 피하는 소재이고(사건·정치),
+    //   실측 부적합률도 높은 축이었다. 대신 가장 높게 나온 섹션을 넣는다.
+    id: 'education',
+    label: 'The Conversation — Education (적합률 실측 64.0%)',
+    url: 'https://theconversation.com/us/education/articles.atom',
   },
 ]
 

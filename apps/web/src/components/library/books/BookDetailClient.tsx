@@ -13,9 +13,11 @@
 import { useState, useTransition } from 'react'
 import { BookOpen, CheckCircle2, ChevronDown, ChevronUp, Loader2, Sparkles } from 'lucide-react'
 
+import CourseLauncher from '@/components/game/CourseLauncher'
 import { VocabSetPreviewModal } from '@/components/library/vocab/VocabSetPreviewModal'
 import { subscribeSet, unsubscribeSet } from '@/app/(main)/library/vocab/actions'
 import type { PublishedVocabSet } from '@/lib/library/vocab/queries'
+import type { BookComposerSet } from '@/lib/library/books/queries'
 
 export interface ChapterSet extends PublishedVocabSet {
   chapterIdx: number
@@ -26,13 +28,22 @@ interface Props {
   bookId: string
   bookVLevel: number | null
   chapterSets: ChapterSet[]
+  /**
+   * 이 책으로 만든 컴포저 단어장 (해금·재등장·도서 동반).
+   *
+   * Tier 2 "보조 단어장" 자리가 v06.31 부터 "아직 준비되지 않았어요" 로 비어 있었다 —
+   * 그 약속을 지키는 자리이므로 새 섹션을 만들지 않고 여기를 채운다(내비 표면을 늘리지 않는다).
+   */
+  composerSets?: BookComposerSet[]
   subscribedIds: string[]
   isLoggedIn: boolean
 }
 
 export function BookDetailClient({
+  bookId,
   bookVLevel,
   chapterSets,
+  composerSets = [],
   subscribedIds,
   isLoggedIn,
 }: Props) {
@@ -40,6 +51,15 @@ export function BookDetailClient({
   const [supplementaryExpanded, setSupplementaryExpanded] = useState(false)
   const [previewSet, setPreviewSet] = useState<PublishedVocabSet | null>(null)
   const [pendingId, setPendingId] = useState<string | null>(null)
+  /**
+   * 챕터 칩을 한 번에 몇 개까지 그릴 것인가.
+   *
+   * ⚠️ 상한이 없을 때 Clarissa(450챕터)의 이 격자만으로 수백 KB 가 나갔다 —
+   *    도서 상세 문서 1.18MB 중 목차 `<nav>` 637KB 와 함께 대부분을 차지했다.
+   *    발행 316권 중 100챕터 넘는 책이 17권이고 챕터는 계속 는다.
+   *    처음 60개만 그리고 나머지는 눌러서 편다(`/library/books` 카탈로그와 같은 처방).
+   */
+  const [shownChapters, setShownChapters] = useState(60)
   const [localSubscribed, setLocalSubscribed] = useState<Set<string>>(
     () => new Set(subscribedIds),
   )
@@ -66,12 +86,14 @@ export function BookDetailClient({
   const totalWords = chapterSets.reduce((sum, s) => sum + s.wordCount, 0)
   const subscribedCount = chapterSets.filter((s) => localSubscribed.has(s.id)).length
   const cefrLevel = chapterSets[0]?.cefrLevel
+  // 코스가 여는 챕터 — `?book=` 무챕터 진입이 실제로 여는 것과 같은 챕터여야 한다.
+  const firstChapterSet = [...chapterSets].sort((a, b) => a.chapterIdx - b.chapterIdx)[0]
 
   if (chapterSets.length === 0) return null
 
   return (
     <section aria-label="함께 학습할 단어장" className="flex flex-col gap-3">
-      <header className="flex items-center gap-2.5">
+      <header className="flex items-center gap-3">
         <span className="h-px w-4 bg-[var(--t3)]" aria-hidden />
         <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">
           📚 함께 학습할 단어장
@@ -94,14 +116,14 @@ export function BookDetailClient({
               <h3 className="font-display text-[15px] font-[700] text-[var(--t1)]">
                 도서 학습 단어장
               </h3>
-              <span className="inline-flex items-center gap-0.5 rounded-[var(--r-full)] bg-[#FBBF24] px-1.5 py-0.5 font-display text-[9px] font-[700] uppercase tracking-wider text-[#7C2D12]">
+              <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[#FBBF24] px-2 py-1 font-display text-[9px] font-[700] uppercase tracking-wider text-[#7C2D12]">
                 <Sparkles size={9} aria-hidden /> 추천
               </span>
             </div>
-            <p className="mt-1 font-body text-[12px] text-[var(--t3)]">
+            <p className="mt-1 font-body text-[12px] text-[var(--t2)]">
               도서에서 직접 추출된 핵심 어휘 · 챕터별로 학습할 수 있어요
             </p>
-            <div className="mt-1.5 flex flex-wrap items-center gap-2 font-body text-[11px] text-[var(--t3)]">
+            <div className="mt-1.5 flex flex-wrap items-center gap-2 font-body text-[11px] text-[var(--t2)]">
               <span className="font-display font-[700] text-[var(--t1)]">
                 {chapterSets.length}챕터
               </span>
@@ -134,7 +156,7 @@ export function BookDetailClient({
           </div>
           <ChevronDown
             size={18}
-            className={`shrink-0 text-[var(--t3)] transition-transform duration-[var(--dur-normal)] ${primaryExpanded ? 'rotate-180' : ''}`}
+            className={`shrink-0 text-[var(--t2)] transition-transform duration-[var(--dur-normal)] ${primaryExpanded ? 'rotate-180' : ''}`}
             aria-hidden
           />
         </button>
@@ -142,11 +164,28 @@ export function BookDetailClient({
         {/* Tier 1.5 · 챕터별 grid (펼침 시) */}
         {primaryExpanded && (
           <div className="border-t border-[var(--bd)] bg-[var(--bg2)]/40 p-4">
-            <p className="mb-3 font-body text-[11px] text-[var(--t3)]">
+            <p className="mb-3 font-body text-[11px] text-[var(--t2)]">
               챕터를 클릭하면 단어 미리보기 + 내 단어장에 추가할 수 있어요
             </p>
+
+            {/* 도서 코스 — `?book=` 은 챕터를 지정하지 않으면 **첫 챕터** 단어장으로 열린다
+                (lib/workspace/scoped-words.ts fetchByBookChapter). 그러니 풀 크기도 첫 챕터로
+                재야 화면과 실제가 어긋나지 않는다. 다른 챕터로 하려면 칩을 눌러 미리보기로. */}
+            {firstChapterSet && (
+              <div className="mb-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-3">
+                <CourseLauncher
+                  kind="book"
+                  poolSize={firstChapterSet.wordCount}
+                  scope={{
+                    book: bookId,
+                    from: `/library/books/${bookId}?preview=1`,
+                  }}
+                  heading={`이 도서로 할 코스 (Ch.${firstChapterSet.chapterIdx})`}
+                />
+              </div>
+            )}
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-              {chapterSets.map((set) => {
+              {chapterSets.slice(0, shownChapters).map((set) => {
                 const subscribed = localSubscribed.has(set.id)
                 const pending = pendingId === set.id
                 return (
@@ -162,14 +201,14 @@ export function BookDetailClient({
                         Ch.{set.chapterIdx}
                       </span>
                       {pending ? (
-                        <Loader2 size={11} className="animate-spin text-[var(--t3)]" />
+                        <Loader2 size={11} className="animate-spin text-[var(--t2)]" />
                       ) : subscribed ? (
                         <CheckCircle2 size={12} className="text-[var(--success)]" aria-hidden />
                       ) : null}
                     </div>
                     <span className="font-display text-[18px] font-[700] tabular-nums leading-none text-[var(--t1)]">
                       {set.wordCount}
-                      <span className="ml-1 font-display text-[10px] font-[600] text-[var(--t3)]">
+                      <span className="ml-1 font-display text-[10px] font-[600] text-[var(--t2)]">
                         단어
                       </span>
                     </span>
@@ -177,31 +216,105 @@ export function BookDetailClient({
                 )
               })}
             </div>
+
+            {/* 접힌 나머지 — 몇 챕터가 더 있는지 숫자로 말한다. */}
+            {chapterSets.length > shownChapters && (
+              <div className="mt-3 flex flex-col items-center gap-1.5">
+                <button
+                  type="button"
+                  onClick={() => setShownChapters((n) => n + 60)}
+                  className="min-h-11 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-5 font-display text-[12.5px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] active:bg-[var(--bg3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D97706]"
+                >
+                  {Math.min(60, chapterSets.length - shownChapters)}챕터 더 보기
+                </button>
+                <p aria-live="polite" className="font-mono text-[10.5px] text-[var(--t2)]">
+                  {shownChapters} / {chapterSets.length}
+                </p>
+              </div>
+            )}
           </div>
         )}
       </article>
 
-      {/* Tier 2 · Supplementary 토글 (Phase 2 placeholder) */}
+      {/* Tier 2 · Supplementary — 이 책으로 만든 단어장 (없으면 종전 안내 유지) */}
       <details
         className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)]/40"
         onToggle={(e) => setSupplementaryExpanded(e.currentTarget.open)}
       >
-        <summary className="flex cursor-pointer items-center justify-between px-4 py-3 font-body text-[12px] text-[var(--t3)] transition-colors hover:text-[var(--t1)]">
-          <span>보조 단어장 (선택)</span>
+        <summary className="flex min-h-[44px] cursor-pointer items-center justify-between px-4 py-3 font-body text-[12px] text-[var(--t2)] transition-colors hover:text-[var(--t1)]">
+          <span>
+            보조 단어장 (선택)
+            {composerSets.length > 0 && (
+              <span className="ml-1.5 font-display font-[700] text-[var(--t1)]">
+                {composerSets.length}개
+              </span>
+            )}
+          </span>
           {supplementaryExpanded ? (
             <ChevronUp size={14} aria-hidden />
           ) : (
             <ChevronDown size={14} aria-hidden />
           )}
         </summary>
-        <div className="border-t border-dashed border-[var(--bd)] px-4 py-3 font-body text-[11px] text-[var(--t3)]">
-          이 도서와 연관된 추가 단어장은 아직 준비되지 않았어요. <br />
-          공용 단어장은{' '}
-          <a href="/library/vocab" className="font-display font-[700] text-[#8B5CF6] hover:underline">
-            /library/vocab
-          </a>{' '}
-          에서 자유롭게 선택할 수 있어요.
-        </div>
+
+        {composerSets.length > 0 ? (
+          <div className="flex flex-col gap-2 border-t border-dashed border-[var(--bd)] p-4">
+            <p className="font-body text-[11px] text-[var(--t2)]">
+              챕터 목록과 달리 <span className="font-display font-[700] text-[var(--t1)]">읽는 순서가 아니라
+              효율</span>로 고른 목록이에요. 하나만 골라도 충분해요.
+            </p>
+            {composerSets.map((set) => {
+              const subscribed = localSubscribed.has(set.id)
+              const pending = pendingId === set.id
+              return (
+                <button
+                  key={set.id}
+                  type="button"
+                  onClick={() => setPreviewSet(set)}
+                  className={`flex min-h-[44px] items-start gap-3 rounded-[var(--r-md)] border p-3 text-left shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:shadow-[var(--sh-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] active:translate-y-0 ${
+                    subscribed
+                      ? 'border-[var(--success)]/40 bg-[var(--success-light)]/40'
+                      : 'border-[var(--bd)] bg-[var(--bg)]'
+                  }`}
+                  aria-label={`${set.title} — ${set.wordCount}단어 미리보기`}
+                >
+                  <span className="shrink-0 text-[18px] leading-none" aria-hidden>
+                    {set.coverEmoji ?? '📗'}
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    <span className="flex flex-wrap items-baseline gap-2">
+                      <span className="font-display text-[13px] font-[700] text-[var(--t1)]">
+                        {set.title}
+                      </span>
+                      <span className="font-body text-[11px] text-[var(--t2)]">
+                        {set.wordCount.toLocaleString()}단어
+                      </span>
+                      {subscribed && (
+                        <span className="inline-flex items-center gap-1 font-body text-[11px] text-[var(--success)]">
+                          <CheckCircle2 size={11} aria-hidden /> 담아 뒀어요
+                        </span>
+                      )}
+                    </span>
+                    {/* 왜 이 목록이 있는지 — 사람의 말투 (Empathetic Feedback) */}
+                    <span className="mt-1 block font-body text-[11px] italic text-[var(--t2)]">
+                      {set.why}
+                    </span>
+                  </span>
+                  {pending && <Loader2 size={12} className="mt-0.5 animate-spin text-[var(--t2)]" />}
+                </button>
+              )
+            })}
+          </div>
+        ) : (
+          <div className="border-t border-dashed border-[var(--bd)] px-4 py-3 font-body text-[11px] text-[var(--t2)]">
+            이 도서와 연관된 추가 단어장은 아직 준비되지 않았어요. <br />
+            공용 단어장은{' '}
+            <a href="/library/vocab" className="font-display font-[700] text-[#8B5CF6] hover:underline">
+              /library/vocab
+            </a>{' '}
+            에서 자유롭게 선택할 수 있어요.
+          </div>
+        )}
       </details>
 
       <VocabSetPreviewModal
@@ -210,6 +323,12 @@ export function BookDetailClient({
         isPending={previewSet ? pendingId === previewSet.id : false}
         onToggle={handleToggle}
         onClose={() => setPreviewSet(null)}
+        fromPath={`/library/books/${bookId}?preview=1`}
+        // 여기서 열리는 세트는 **도서 챕터 단어장**이다. 모달은 PublishedVocabSet 만 받아
+        // 그 사실을 알 수 없으므로(챕터 번호가 curation_query 에 있어 전달되지 않는다)
+        // 아는 쪽인 이 화면이 알려 준다 — 그래야 챕터마다 도서 코스가 열린다.
+        // (이전에는 도서 코스가 `?book=` 의 첫 챕터 하나뿐이었다.)
+        courseKind="book"
       />
     </section>
   )

@@ -1,0 +1,45 @@
+{
+ "note": "홀드아웃 2판 — 같은 기출 지문 5편. 게이트(C1 + 되쓰기 대역 + 혼동도 대역)를 보며 다시 썼다. **겨냥한 축이다.**",
+ "items": [
+  { "id": "H1", "src": "2014B 25", "answer": 3,
+    "choices": [
+     "a physical law that fixes one note at a single frequency",
+     "how a rock group earned its fame by retuning",
+     "the arbitrary nature of pitch standards and its effect on sound",
+     "the craft of restoring an instrument from an earlier century",
+     "why nobody can hear a difference between two tuning systems"
+    ] },
+  { "id": "H2", "src": "2014A 26", "answer": 4,
+    "choices": [
+     "why a hiker should fear a bear more than a snake",
+     "the chemistry of the poison a serpent carries",
+     "how often a sting proves fatal to an allergic person",
+     "why small animals are more dangerous to hikers than large ones",
+     "the habits that keep a tiger away from a mountain trail"
+    ] },
+  { "id": "H3", "src": "2015 22", "answer": 2,
+    "choices": [
+     "how a community agrees on which rules to teach the young",
+     "what accepting a moral principle involves beyond belief",
+     "the shame felt at a neighbour's wrongdoing rather than one's own",
+     "a test for deciding which standard is best justified",
+     "why a strong code tends to weaken in daily practice"
+    ] },
+  { "id": "H4", "src": "2016 23", "answer": 5,
+    "choices": [
+     "proof that everyone declines at one steady rate",
+     "the organ in which decline can first be detected",
+     "why counting years describes a person better than biology does",
+     "a single marker that has already replaced the calendar",
+     "the difficulty of measuring a biological age that differs among people"
+    ] },
+  { "id": "H5", "src": "2017 22", "answer": 1,
+    "choices": [
+     "the ambiguity of language as a strength rather than a defect",
+     "the exactness that makes signalling among insects superior",
+     "advice for a writer who wishes to remove every vagueness",
+     "the work a reader does to recover an intended thought",
+     "how a shared code loses reliability as it spreads"
+    ] }
+ ]
+}

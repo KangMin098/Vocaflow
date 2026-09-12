@@ -1,6 +1,9 @@
+// apps/web/src/app/admin/vocab/curate/[run_id]/page.tsx
+
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { VcbCurationView } from '@/components/admin/vcb/VcbCurationView'
 import { fetchRunDetail } from '@/lib/vcb/server/runs'
 import { fetchQueueItems, fetchQueueDetail } from '@/lib/vcb/server/queue'
@@ -47,7 +50,7 @@ export default async function VcbCuratePage({ params }: PageProps) {
       <header className="flex items-center gap-4 mb-6">
         <Link
           href={`/admin/vocab/runs/${runId}`}
-          className="inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] font-display text-sm border"
+          className="min-h-[44px] inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] font-display text-sm border"
           style={{
             color: 'var(--t2)',
             borderColor: 'var(--bd)',
@@ -64,6 +67,8 @@ export default async function VcbCuratePage({ params }: PageProps) {
           🔍 큐레이션 · {run.collection_title}
         </h1>
       </header>
+
+      <AdminScreenHelp screen="vocab-curate" className="mb-6" />
 
       <VcbCurationView
         runId={runId}

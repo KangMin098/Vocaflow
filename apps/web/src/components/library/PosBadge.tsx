@@ -83,7 +83,7 @@ export function PosBadge({
   return (
     <span
       title={`품사: ${pos}`}
-      className={`inline-flex items-center gap-1 rounded-[var(--r-sm)] bg-[var(--bg3)] px-1.5 py-0.5 font-body text-[10px] font-[600] text-[var(--t2)] ${className}`}
+      className={`inline-flex items-center gap-1 rounded-[var(--r-sm)] bg-[var(--bg3)] px-2 py-1 font-body text-[10px] font-[600] text-[var(--t2)] ${className}`}
     >
       <Icon size={10} strokeWidth={2.25} aria-hidden style={{ color }} />
       {label}

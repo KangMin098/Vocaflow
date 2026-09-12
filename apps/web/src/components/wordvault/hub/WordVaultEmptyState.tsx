@@ -21,7 +21,7 @@ export function WordVaultEmptyState() {
       </div>
 
       <div className="relative max-w-2xl">
-        <p className="mb-3 font-mono text-[10px] font-[700] uppercase tracking-[0.15em] text-[var(--t3)]">
+        <p className="mb-3 font-mono text-[10px] font-[700] uppercase tracking-[0.15em] text-[var(--t2)]">
           — 단어장이 비어 있어요
         </p>
 

@@ -6,6 +6,7 @@ import { Clock, RefreshCw } from 'lucide-react'
 import Link from 'next/link'
 
 import { NextActionCard } from '@/components/recommend/NextActionCard'
+import type { ContentRef } from '@/lib/content/content-ref'
 import type { RecommendedAction } from '@/lib/recommend/types'
 import { useRecordGameScore } from '@/lib/scores/record-score'
 import type { SessionStats } from '@/types/flashcard'
@@ -15,6 +16,8 @@ interface CompletionStateProps {
   /** 세션 종료 시 복귀 경로 — 페이지가 ?from/스코프로 계산 (스코프 진입 시 단어 id 오용 방지). */
   backHref: string
   onRestart: () => void
+  /** 무엇으로 학습했나 — scores 콘텐츠 귀속(없으면 자료 미상으로 남는다). */
+  content?: ContentRef
   /** §17.3 추천 축 (3곳 중 1곳: 세션 종료 직후) — 부모가 주입 */
   recommendation?: RecommendedAction
 }
@@ -23,6 +26,7 @@ export function CompletionState({
   stats,
   backHref,
   onRestart,
+  content,
   recommendation,
 }: CompletionStateProps) {
   const totalMinutes = Math.round(stats.durationSeconds / 60)
@@ -44,6 +48,7 @@ export function CompletionState({
     correctCount,
     accuracy: totalRated > 0 ? Math.round((correctCount / totalRated) * 100) : 0,
     durationSeconds: stats.durationSeconds,
+    content,
     metadata: {
       ratingCounts: stats.ratingCounts,
       honestyScore: stats.honestyScore,
@@ -83,21 +88,29 @@ export function CompletionState({
               {stats.difficultWords.map((dw) => (
                 <Link
                   key={dw.word.id}
-                  href={`/flashcard?word=${dw.word.id}`}
+                  // ⚠️ `/flashcard?word=<id>` 로 보내고 있었는데 **`/flashcard` 는
+                  //    searchParams 를 한 줄도 읽지 않는다**(실측 2026-08-30). 어려웠던
+                  //    단어를 눌러도 그냥 허브가 열렸다 — 링크가 장식이었다.
+                  //    실제로 그 낱말을 보여 줄 수 있는 곳으로 보낸다(`?q=` 는
+                  //    `lib/wordvault/list-params` 가 읽는다).
+                  href={`/wordvault/browse?q=${encodeURIComponent(dw.word.text)}`}
                   className="flex items-center gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-3 text-left no-underline transition-all duration-[var(--dur-normal)] hover:translate-x-0.5 hover:border-[var(--p)] hover:shadow-[var(--sh-sm)]"
                 >
-                  <span className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-[var(--error-light)] font-display text-[11px] font-[800] text-[var(--error)]">
+                  <span // 「어려웠던 단어」의 시도 횟수다 — **오류가 아니라 주의**다.
+                    // 오류색(빨강)으로 세면 완료 화면이 성과를 비난하는 자리가 된다
+                    // (CLAUDE.md 절대금지 「정답률 빨간 글씨 압박」 · DESIGN_SYSTEM §🎯 D6).
+                    className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-[var(--warning-light)] font-display text-[11px] font-[800] text-[var(--warning-ink)]">
                     {dw.attemptCount}
                   </span>
                   <span className="min-w-0 flex-1">
                     <span className="block font-english text-[16px] font-[600] text-[var(--t1)]">
                       {dw.word.text}
                     </span>
-                    <span className="block font-body text-[12px] text-[var(--t3)]">
+                    <span className="block font-body text-[12px] text-[var(--t2)]">
                       {dw.word.meaning}
                     </span>
                   </span>
-                  <span aria-hidden="true" className="text-[var(--t3)]">
+                  <span aria-hidden="true" className="text-[var(--t2)]">
                     →
                   </span>
                 </Link>
@@ -111,7 +124,7 @@ export function CompletionState({
           <SectionTitle>다음 만남</SectionTitle>
           <div className="rounded-[var(--r-lg)] border border-[rgba(59,130,246,0.2)] bg-gradient-to-br from-[var(--p-light)] to-[var(--bg2)] p-5">
             <div className="flex items-center gap-3">
-              <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-[var(--p)] text-white">
+              <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-[var(--p)] text-[var(--on-p)]">
                 <Clock size={20} strokeWidth={2} aria-hidden="true" />
               </span>
               <p className="font-english text-[15px] italic leading-relaxed text-[var(--t1)]">
@@ -140,14 +153,14 @@ export function CompletionState({
         <div className="flex justify-center gap-3">
           <button
             onClick={onRestart}
-            className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-6 py-3 font-display text-[14px] font-[700] text-[var(--t1)] transition-all duration-[var(--dur-normal)] hover:border-[var(--p)] hover:text-[var(--p)]"
+            className="inline-flex items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-6 py-3 font-display text-[14px] font-[700] text-[var(--t1)] transition-all duration-[var(--dur-normal)] hover:border-[var(--p)] hover:text-[var(--p)]"
           >
             <RefreshCw size={14} strokeWidth={2} aria-hidden="true" />
             <span>다시 학습</span>
           </button>
           <Link
             href={backHref}
-            className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] px-6 py-3 font-display text-[14px] font-[700] text-white no-underline shadow-[0_4px_12px_rgba(59,130,246,0.25)] transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(59,130,246,0.35)]"
+            className="inline-flex items-center gap-2 rounded-[var(--r-md)] px-6 py-3 font-display text-[14px] font-[700] text-[var(--on-p)] no-underline shadow-[0_4px_12px_rgba(59,130,246,0.25)] transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(59,130,246,0.35)]"
             style={{
               background: 'linear-gradient(135deg, var(--p) 0%, var(--p-dark) 100%)',
             }}
@@ -167,7 +180,7 @@ function CompletionStat({ value, label }: { value: string | number; label: strin
       <p className="mb-1.5 font-display text-[32px] font-[800] tabular-nums leading-none text-[var(--t1)]">
         {value}
       </p>
-      <p className="font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t3)]">
+      <p className="font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
         {label}
       </p>
     </div>
@@ -176,7 +189,7 @@ function CompletionStat({ value, label }: { value: string | number; label: strin
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
-    <h3 className="mb-3 flex items-center gap-2 text-left font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--t3)]">
+    <h3 className="mb-3 flex items-center gap-2 text-left font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
       <span>{children}</span>
       <span className="h-px flex-1 bg-[var(--bd)]" aria-hidden="true" />
     </h3>

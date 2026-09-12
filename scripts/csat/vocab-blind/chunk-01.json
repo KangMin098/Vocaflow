@@ -1,0 +1,166 @@
+{
+ "rubric": {
+  "note": "자료를 보기 전에 고정한 규칙표. 표시어 다섯 각각에 두 값을 매긴다. 정답이 무엇인지 모르는 채로 매겨야 한다.",
+  "contextFit": "1~5. 이 낱말이 문맥에 맞는가. 1 = 문맥과 정면으로 어긋난다. 3 = 어색하지만 읽힌다. 5 = 자연스럽다. (대조 항목 — 내 판독이 문항을 실제로 풀 수 있는지 본다)",
+  "antonymFits": "true/false. **이 낱말을 반의어로 바꾸면 문맥이 나아지는가.** 형태가 닮은 다른 낱말(effect/affect 류)이나 무관한 낱말로 바꿔야 나아지는 경우는 false 다. 낱말이 이미 맞으면 false."
+ },
+ "fillInstruction": "각 words 원소에 contextFit(1~5) · antonymFits(true/false) 두 키를 더해 chunk-NN.out.json 으로 저장할 것.",
+ "items": [
+  {
+   "id": "2024#30",
+   "passage": "Bazaar economies feature an apparently flexible price-setting mechanism that sits atop more enduring ties of shared culture. Both the buyer and seller are aware of each other’s ① restrictions. In Delhi’s bazaars, buyers and sellers can ② assess to a large extent the financial constraints that other actors have in their everyday life. Each actor belonging to a specific economic class understands what the other sees as a necessity and a luxury. In the case of electronic products like video games, they are not a ③ necessity at the same level as other household purchases such as food items. So, the seller in Delhi’s bazaars is careful not to directly ask for very ④ low prices for video games because at no point will the buyer see possession of them as an absolute necessity. Access to this type of knowledge establishes a price consensus by relating to each other’s preferences and limitations of belonging to a ⑤ similar cultural and economic universe. * constraint: 압박 ** consensus: 일치 58 5",
+   "words": [
+    {
+     "marker": "①",
+     "word": "restrictions"
+    },
+    {
+     "marker": "②",
+     "word": "assess"
+    },
+    {
+     "marker": "③",
+     "word": "necessity"
+    },
+    {
+     "marker": "④",
+     "word": "low"
+    },
+    {
+     "marker": "⑤",
+     "word": "similar"
+    }
+   ]
+  },
+  {
+   "id": "2025#30",
+   "passage": "Studies in psychology have reported cases in which competitive incentives resulted in lower task effort, and their focus was on the psychological underpinnings of the reduction in motivation. For example, competition presents an inevitable conflict between the motivation to achieve one’s personal goal and the ① desire to maintain good relationships with others. When the maintenance of interpersonal relationships is important with their counterparts in particular or with others generally, competitors experience an ② internal conflict that can harm their desire to achieve their goal and taint the good feeling brought about by winning. Exline and Lobel found that the perception of oneself as a target for upward social comparison often makes people ③ uncomfortable. When they believe that others are making envious comparisons with them, people feel uneasiness, distress, or sorrow. Feelings of guilt, an emotion generally associated with high motivation for goal-achievement, lead to ④ stronger motivation and performance in the pursuit of competitive goals. Consequences of this emotional state inclu lower task motivation in a competition and preferences for more cooperative and altruistic outcomes, such as ⑤ diminishing the significance of the outcome or sharing the winner’s reward. * taint: 더럽히다 ** altruistic: 이타 58 5",
+   "words": [
+    {
+     "marker": "①",
+     "word": "desire"
+    },
+    {
+     "marker": "②",
+     "word": "internal"
+    },
+    {
+     "marker": "③",
+     "word": "uncomfortable"
+    },
+    {
+     "marker": "④",
+     "word": "stronger"
+    },
+    {
+     "marker": "⑤",
+     "word": "diminishing"
+    }
+   ]
+  },
+  {
+   "id": "2026#30",
+   "passage": "Situational ethics is an ethical theory that takes into account the context of a situation or an act when judging whether it is ethical. Supporters of this theory willingly permit casting aside ① absolute moral standards. In the absence of a universal standard or law, what matters is the outcome or consequences; so, the end ② justifies the means. Possibly the following contrasting realities can help illustrate the application of situational ethics. In a pickup game of basketball played among friends, everyone is expected to call his or her own fouls or acknowledge knocking the ball out-of-bounds. Caring about one’s friends and maybe getting to ③ keep playing with the group leads to these actions. But, once an organized game is played with officials, most athletes will not admit to the same fouls or violations as the end goal of winning is more important than expressing ④ concern for competitors. Situational ethics has been extended by many athletes and coaches to mean trying to get away with as many actions on the field or court as possible to ⑤ abandon competitive advantages. 5",
+   "words": [
+    {
+     "marker": "①",
+     "word": "absolute"
+    },
+    {
+     "marker": "②",
+     "word": "justifies"
+    },
+    {
+     "marker": "③",
+     "word": "keep"
+    },
+    {
+     "marker": "④",
+     "word": "concern"
+    },
+    {
+     "marker": "⑤",
+     "word": "abandon"
+    }
+   ]
+  },
+  {
+   "id": "M2606#30",
+   "passage": "Gaining an audience for your writing involves not just finding a voice but ensuring that voice resonates with your intended readers. Entrepreneurs understand the importance of building a brand that makes them memorable and distinct from their competitors, drawing customers to their products or services. They achieve this by ① pinpointing their target audience, crafting a unique value proposition, and shaping a recognizable identity. While scholars might initially find these entrepreneurial concepts ② alien, they actually engage in similar practices when they set themselves apart in their academic writing. Consider the typical literature review and motivation section of a scholarly article ― the aim is to highlight ③ gaps in existing research and position oneself as the one who will address these overlooked areas. The challenge, as Labaree suggests, is not just in developing innovative ideas but in ④ cultivating a distinctive voice that makes readers think, “Ah, this sounds like [the author].” It’s about balancing the expression of your ideas with the development of a unique voice that leaves a ⑤ temporary impression on your audience. * resonate: 공명하다 ** entrepreneur: 기업가 5",
+   "words": [
+    {
+     "marker": "①",
+     "word": "pinpointing"
+    },
+    {
+     "marker": "②",
+     "word": "alien"
+    },
+    {
+     "marker": "③",
+     "word": "gaps"
+    },
+    {
+     "marker": "④",
+     "word": "cultivating"
+    },
+    {
+     "marker": "⑤",
+     "word": "temporary"
+    }
+   ]
+  },
+  {
+   "id": "M2609#30",
+   "passage": "What is soft-path river engineering? One way to visualize its spirit is to liken it to a footpath in the forest. Suppose a tree falls across a footpath. A soft-path response would be simply to redirect the trail around the fallen tree. A more interventionist response would be to ① remove the tree and restore the original route. A still more interventionist response might be to straighten and pave the path to insert it more ② permanently in the landscape. The true high-modernist step would, of course, be to ③ create a superhighway that removes the landscape and bulldozes straight through all obstacles in the topography. Soft-path engineering has the unique advantage of intellectual ④ modesty with respect to what we actually know about river movement and its environmental effects. In contrast to hard-path engineering, soft-path engineering accepts variability in the river’s movement as ⑤ insignificant until proven otherwise. Backwaters, short-lived wetlands, braids and channels, swamps ― all undesirable to hard-path engineering ― are presumed by soft-path engineers to be ecologically important. * pave: 포장하다 ** topography: 지형 5",
+   "words": [
+    {
+     "marker": "①",
+     "word": "remove"
+    },
+    {
+     "marker": "②",
+     "word": "permanently"
+    },
+    {
+     "marker": "③",
+     "word": "create"
+    },
+    {
+     "marker": "④",
+     "word": "modesty"
+    },
+    {
+     "marker": "⑤",
+     "word": "insignificant"
+    }
+   ]
+  },
+  {
+   "id": "M2706#30",
+   "passage": "Classical works by playwrights such as Shakespeare or Euripides or even American musical song lyrics contain unconventional and unrealistic methods of communicating characters’ thoughts and feelings, and take a bit more skill and patience to understand. The reader must be mindful not to let the poetic form or archaic word usage get in the way of getting meaningful information about the story, but instead see the form itself as a ① revealing stylistic technique. Scripts with complex language or unfamiliar styles may require several additional readings in order for the nuance to become ② clear. Musical theater pieces are particularly difficult to visualize when reading because of the diminished emphasis on dialogue and a ③ significant emphasis on song and dance. For example, when the music and lyrics are removed from a musical theater script, what is left is the dialogue, known as the book or libretto, and it can be very ④ thick. There is an emphasis on dance, movement, or action in musical theater that can be ⑤ time-consuming when actually performed on stage, but can take very little space when typed into a play script. * archaic: 고어(古語) 5",
+   "words": [
+    {
+     "marker": "①",
+     "word": "revealing"
+    },
+    {
+     "marker": "②",
+     "word": "clear"
+    },
+    {
+     "marker": "③",
+     "word": "significant"
+    },
+    {
+     "marker": "④",
+     "word": "thick"
+    },
+    {
+     "marker": "⑤",
+     "word": "time-consuming"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,532 @@
+{
+  "book": {
+    "id": "shelley-frankenstein-ch1",
+    "title": "Frankenstein · Chapter 1 — A Gift Called Elizabeth",
+    "author": "Mary Shelley, Frankenstein (1818), Chapter 1",
+    "source": "gutenberg",
+    "ref": "84",
+    "total_words": 75000
+  },
+  "adaptation": {
+    "style": "gonick",
+    "panel_count": 15,
+    "default_tier": "teen",
+    "tiers": [
+      "child",
+      "teen",
+      "adult"
+    ],
+    "target_v_level": 10,
+    "source_span": [
+      0,
+      10132
+    ],
+    "original_words": 1764,
+    "art_shared_across_tiers": true,
+    "seed": 84
+  },
+  "cast": [
+    {
+      "id": "alphonse",
+      "name": "Alphonse",
+      "role": "father",
+      "canonical": "a dignified mature man with a short dark beard, a long coat (a younger Alphonse)",
+      "anchor": "a short dark beard and a dignified long coat",
+      "seed_role": 84,
+      "variant": "young"
+    },
+    {
+      "id": "beaufort",
+      "name": "Beaufort",
+      "role": "ruined merchant",
+      "canonical": "a gaunt sunken balding grey man, clean-shaven, in a threadbare but once-fine coat, a proud broken bearing",
+      "anchor": "gaunt balding grey, clean-shaven, in a threadbare fine coat",
+      "seed_role": 84
+    },
+    {
+      "id": "caroline",
+      "name": "Caroline",
+      "role": "mother",
+      "canonical": "a graceful woman with dark hair in a neat centre-parted bun, a small cross necklace and a high-collar dark dress, warm careworn face",
+      "anchor": "dark hair in a centre-parted bun, a cross necklace and a high-collar dark dress",
+      "seed_role": 84
+    },
+    {
+      "id": "victor",
+      "name": "Victor",
+      "role": "child protagonist",
+      "canonical": "a small young boy with tidy dark hair and tiny round glasses",
+      "anchor": "a small boy with tiny round glasses",
+      "seed_role": 84,
+      "variant": "child"
+    },
+    {
+      "id": "elizabeth",
+      "name": "Elizabeth",
+      "role": "adopted child",
+      "canonical": "a radiant little girl with bright flowing golden hair, angelic face",
+      "anchor": "a little girl with bright flowing golden hair",
+      "seed_role": 84,
+      "variant": "child"
+    }
+  ],
+  "panels": [
+    {
+      "n": 1,
+      "wide": true,
+      "cap_zone": "top",
+      "beat_offset": [
+        0,
+        675
+      ],
+      "scene": "an elegant old Geneva townhouse, a dignified bearded man in a long coat standing proudly before it",
+      "composition": "wide establishing, dignified",
+      "characters": [
+        "alphonse"
+      ],
+      "text": {
+        "teen": {
+          "narration": "OUR STORY BEGINS NOT WITH A MONSTER, BUT WITH A FAMILY. VICTOR&rsquo;S FATHER, <b>ALPHONSE</b>, IS A RESPECTED MAN OF GENEVA.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "I am by birth a Genevese, and my family is one of the most distinguished of that republic. My ancestors had been for many years counsellors and syndics",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "n": 2,
+      "wide": false,
+      "cap_zone": "top",
+      "beat_offset": [
+        675,
+        1350
+      ],
+      "scene": "a proud gaunt merchant in a threadbare fine coat turning his face away in shame, an empty grand room behind him",
+      "composition": "medium, sombre",
+      "characters": [
+        "beaufort"
+      ],
+      "text": {
+        "teen": {
+          "narration": "ALPHONSE&rsquo;S DEAREST FRIEND, THE MERCHANT <b>BEAUFORT</b>, LOSES HIS FORTUNE &mdash; AND HIS PRIDE WON&rsquo;T LET HIM BE PITIED.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "was of a proud and unbending disposition and could not bear to live in poverty and oblivion",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "n": 3,
+      "wide": false,
+      "cap_zone": "tr",
+      "beat_offset": [
+        1350,
+        2025
+      ],
+      "scene": "a poor bare room; a young woman with a bun tends a thin sick old man on a bed",
+      "composition": "medium, tender interior",
+      "characters": [
+        "caroline",
+        "beaufort"
+      ],
+      "text": {
+        "teen": {
+          "narration": "HE HIDES IN A MEAN LITTLE TOWN WITH HIS DAUGHTER, <b>CAROLINE</b>. IT TAKES ALPHONSE TEN MONTHS TO FIND THEM.",
+          "bubbles": [
+            {
+              "speaker": "caroline",
+              "text": "FATHER, WE WILL MANAGE...",
+              "pos": "tr",
+              "kind": "speech"
+            },
+            {
+              "speaker": "",
+              "text": "it was ten months before my father discovered his abode",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "n": 4,
+      "wide": false,
+      "cap_zone": "tl",
+      "beat_offset": [
+        2025,
+        2700
+      ],
+      "scene": "the young woman with a bun plaiting straw by candlelight, exhausted but resolute",
+      "composition": "medium, quiet resolve",
+      "characters": [
+        "caroline"
+      ],
+      "text": {
+        "teen": {
+          "narration": "CAROLINE IS EXTRAORDINARY: SHE WORKS HERSELF RAGGED TO KEEP THEM ALIVE.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "her courage rose to support her in her adversity. She procured plain work; she plaited straw",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "n": 5,
+      "wide": false,
+      "cap_zone": "top",
+      "beat_offset": [
+        2700,
+        3375
+      ],
+      "scene": "the young woman weeping over a coffin in the bare room, utterly alone",
+      "composition": "medium, grief",
+      "characters": [
+        "caroline"
+      ],
+      "text": {
+        "teen": {
+          "narration": "BUT GRIEF TAKES HER FATHER.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "her father died in her arms, leaving her an orphan and a beggar.",
+              "pos": "tr",
+              "kind": "shout",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "n": 6,
+      "wide": false,
+      "cap_zone": "tr",
+      "beat_offset": [
+        3375,
+        4050
+      ],
+      "scene": "the bearded man entering the room and gently reaching a hand to the kneeling weeping woman",
+      "composition": "medium two-shot, tender rescue",
+      "characters": [
+        "alphonse",
+        "caroline"
+      ],
+      "text": {
+        "teen": {
+          "narration": "THEN ALPHONSE ARRIVES &mdash; LIKE A RESCUE.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "He came like a protecting spirit to the poor girl, who committed herself to his care; and after the interment of his friend he conducted her to Geneva and placed her under the protection of a relation.",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "n": 7,
+      "wide": false,
+      "cap_zone": "tr",
+      "beat_offset": [
+        4050,
+        4725
+      ],
+      "scene": "a small tender wedding of the bearded man and the young woman with a bun",
+      "composition": "medium, warm",
+      "characters": [
+        "alphonse",
+        "caroline"
+      ],
+      "text": {
+        "teen": {
+          "narration": "HE CARES FOR HER, AND IN TIME LOVE GROWS.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "Two years after this event Caroline became his wife.",
+              "pos": "tr",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "n": 8,
+      "wide": true,
+      "cap_zone": "top",
+      "beat_offset": [
+        4725,
+        5400
+      ],
+      "scene": "the couple travelling a sunny Italian landscape, he shielding her gently under a parasol",
+      "composition": "wide travel scene, tender",
+      "characters": [
+        "alphonse",
+        "caroline"
+      ],
+      "text": {
+        "teen": {
+          "narration": "HE CHERISHES HER LIKE SOMETHING RARE AND FRAGILE, TAKING HER TO ITALY TO HEAL.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "He strove to shelter her, as a fair exotic is sheltered by the gardener, from every rougher wind",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "n": 9,
+      "wide": false,
+      "cap_zone": "tr",
+      "beat_offset": [
+        5400,
+        6075
+      ],
+      "scene": "the couple doting on a small dark-haired baby boy in a sunny room",
+      "composition": "medium, warm family",
+      "characters": [
+        "alphonse",
+        "caroline",
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "AND SO <b>VICTOR</b> IS BORN &mdash; ADORED, THE CENTRE OF THEIR WORLD.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "I was their plaything and their idol, and something better—their child, the innocent and helpless creature bestowed on them by Heaven",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "n": 10,
+      "wide": false,
+      "cap_zone": "tl",
+      "beat_offset": [
+        6075,
+        6750
+      ],
+      "scene": "the woman with a bun and a small boy stepping into a poor peasant cottage of ragged children by a lake",
+      "composition": "medium, charitable visit",
+      "characters": [
+        "caroline",
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "BY LAKE COMO, KIND CAROLINE VISITS THE POOR &mdash; A GUARDIAN ANGEL TO THE SUFFERING.",
+          "bubbles": [
+            {
+              "speaker": "caroline",
+              "text": "THESE POOR LITTLE ONES...",
+              "pos": "tr",
+              "kind": "speech"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "n": 11,
+      "wide": false,
+      "cap_zone": "top",
+      "beat_offset": [
+        6750,
+        7425
+      ],
+      "scene": "among dark-haired ragged children, one radiant little girl with bright flowing golden hair stands out like a light",
+      "composition": "medium, one child glowing among others",
+      "characters": [
+        "elizabeth"
+      ],
+      "text": {
+        "teen": {
+          "narration": "AND AMONG THE RAGGED CHILDREN, ONE SHINES LIKE GOLD.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "Her hair was the brightest living gold, and despite the poverty of her clothing, seemed to set a crown of distinction on her head.",
+              "pos": "tr",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "n": 12,
+      "wide": false,
+      "cap_zone": "tr",
+      "beat_offset": [
+        7425,
+        8100
+      ],
+      "scene": "a close, tender portrait of the golden-haired little girl, luminous and angelic",
+      "composition": "warm close portrait",
+      "characters": [
+        "elizabeth"
+      ],
+      "text": {
+        "teen": {
+          "narration": "SHE IS NO PEASANT CHILD &mdash; A NOBLEMAN&rsquo;S ORPHANED DAUGHTER, LEFT WITH THIS POOR FAMILY.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "a being heaven-sent, and bearing a celestial stamp in all her features",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "n": 13,
+      "wide": false,
+      "cap_zone": "tl",
+      "beat_offset": [
+        8100,
+        8775
+      ],
+      "scene": "the golden little girl playing in a grand villa hall, radiant against the dark panelling",
+      "composition": "medium, radiant child in a fine hall",
+      "characters": [
+        "elizabeth"
+      ],
+      "text": {
+        "teen": {
+          "narration": "THE FAMILY TAKES HER IN. SHE BLOOMS AMONG THEM.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "fairer than a garden rose among dark-leaved brambles",
+              "pos": "tr",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "n": 14,
+      "wide": false,
+      "cap_zone": "tr",
+      "beat_offset": [
+        8775,
+        9450
+      ],
+      "scene": "the golden-haired girl and the small bespectacled boy holding hands, becoming inseparable",
+      "composition": "medium two children, warm",
+      "characters": [
+        "elizabeth",
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "SHE BECOMES VICTOR&rsquo;S CONSTANT COMPANION &mdash; HIS <b>MORE THAN SISTER</b>.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "Elizabeth Lavenza became the inmate of my parents' house—my more than sister",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "n": 15,
+      "wide": true,
+      "cap_zone": "top",
+      "beat_offset": [
+        9450,
+        10132
+      ],
+      "scene": "the mother with a bun presenting the golden-haired girl to the small bespectacled boy as a gift, both children shy and delighted",
+      "composition": "wide, tender gift moment",
+      "characters": [
+        "caroline",
+        "victor",
+        "elizabeth"
+      ],
+      "text": {
+        "teen": {
+          "narration": "HIS MOTHER OFFERS HER AS A GIFT &mdash; AND LITTLE VICTOR TAKES THE WORD TO HEART FOREVER.",
+          "bubbles": [
+            {
+              "speaker": "caroline",
+              "text": "I have a pretty present for my Victor—tomorrow he shall have it.",
+              "pos": "tr",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "CAROLINE / SHELLEY 1818"
+            },
+            {
+              "speaker": "victor",
+              "text": "my more than sister, since till death she was to be mine only.",
+              "pos": "bl",
+              "kind": "whisper",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

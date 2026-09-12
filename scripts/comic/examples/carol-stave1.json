@@ -1,0 +1,954 @@
+{
+  "book": {
+    "id": "dickens-carol-stave1",
+    "title": "A Christmas Carol · Stave 1 — Marley's Ghost",
+    "author": "Charles Dickens, A Christmas Carol (1843)",
+    "source": "file",
+    "ref": "scratchpad-foreign/carol/pg46.raw.txt",
+    "total_words": 28000
+  },
+  "adaptation": {
+    "style": "gonick",
+    "panel_count": 18,
+    "default_tier": "teen",
+    "tiers": [
+      "child",
+      "teen",
+      "adult"
+    ],
+    "target_v_level": 7,
+    "source_span": [
+      0,
+      36151
+    ],
+    "original_words": 6414,
+    "art_shared_across_tiers": true,
+    "seed": 46
+  },
+  "cast": [
+    {
+      "id": "scrooge",
+      "name": "Scrooge",
+      "role": "protagonist — cold, miserly old man who is redeemed",
+      "canonical": "a bent thin elderly man with a long smooth clean-shaven BARE face, sharp pointed nose, thin lips, hollow cheeks, bald on top with short wispy grey side-hair",
+      "anchor": "bent thin old man, smooth bare clean-shaven face, sharp pointed nose, bald",
+      "seed_role": 46
+    },
+    {
+      "id": "marley",
+      "name": "Marley's Ghost",
+      "role": "Scrooge's dead partner — a warning spirit",
+      "canonical": "a translucent ghostly man in an old-fashioned queue, waistcoat and tights, a cloth bandage tied round his head and jaw, wound in a long heavy chain made of cash-boxes, keys, padlocks and ledgers",
+      "anchor": "translucent ghost, head-bandage + queue, bound in a chain of cash-boxes and padlocks",
+      "seed_role": 70
+    },
+    {
+      "id": "bob",
+      "name": "Bob Cratchit",
+      "role": "Scrooge's poor, warm-hearted clerk",
+      "canonical": "a thin poor clerk with a mild kindly face, wrapped in a long white woollen comforter scarf and fingerless mittens, no overcoat",
+      "anchor": "thin clerk, long white comforter scarf, fingerless mittens, no coat",
+      "seed_role": 22
+    },
+    {
+      "id": "fred",
+      "name": "Fred",
+      "role": "Scrooge's cheerful nephew",
+      "canonical": "a handsome ruddy cheerful young man with side-whiskers and bright eyes, glowing with warmth, a scarf and a sprig of holly on his coat",
+      "anchor": "ruddy glowing young man, side-whiskers, holly sprig, warm laugh",
+      "seed_role": 35
+    }
+  ],
+  "panels": [
+    {
+      "n": 1,
+      "wide": true,
+      "cap_zone": "top",
+      "scene": "a bleak snowy London churchyard at dusk, a fresh gravestone reading MARLEY, a bent thin sharp-nosed old man in a long shabby dark tailcoat standing coldly over it with his cane, unmoved",
+      "composition": "wide, a cold opening at the grave",
+      "characters": [
+        "scrooge"
+      ],
+      "text": {
+        "teen": {
+          "narration": "LONDON, SEVEN YEARS AGO. SCROOGE'S PARTNER MARLEY HAS DIED.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "Marley was dead: to begin with.",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "Old Marley was as dead as a door-nail.",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "There is no doubt whatever about that.",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "There is no doubt that Marley was dead.",
+              "pos": "tr",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        0,
+        2008
+      ]
+    },
+    {
+      "n": 2,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "a grimy counting-house door beneath a weathered sign reading SCROOGE AND MARLEY, the bent sharp-nosed old man in his shabby tailcoat unlocking it, tight-fisted and sour",
+      "composition": "close, the miser and his firm",
+      "characters": [
+        "scrooge"
+      ],
+      "text": {
+        "teen": {
+          "narration": "YEARS PASS. SCROOGE KEEPS THE OLD FIRM'S NAME.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "Scrooge never painted out Old Marley's name.",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "The firm was known as Scrooge and Marley.",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "he answered to both names. It was all the same to him.",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "he answered to both names",
+              "pos": "tr",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        2008,
+        4017
+      ]
+    },
+    {
+      "n": 3,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "a tight close portrait of the bent old miser, sharp pointed nose, shrivelled frowning cheek, thin blue lips, red eyes, a frosty rime on his brow, radiating cold, in a dark tailcoat",
+      "composition": "close, the coldest man in London",
+      "characters": [
+        "scrooge"
+      ],
+      "text": {
+        "teen": {
+          "narration": "SCROOGE — HARD, COLD, AND ALONE.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "a squeezing, wrenching, grasping, scraping, clutching, covetous, old sinner!",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "Hard and sharp as flint... secret, and self-contained, and solitary as an oyster.",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "he iced his office in the dog-days; and didn't thaw it one degree at Christmas.",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        4017,
+        6025
+      ]
+    },
+    {
+      "n": 4,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "the sharp-nosed old miser walking a frozen London street, snow and wind streaming past him while he ignores it entirely, a self-contained aura of cold about him, in a long dark coat",
+      "composition": "close, carrying his own winter",
+      "characters": [
+        "scrooge"
+      ],
+      "text": {
+        "teen": {
+          "narration": "NO WEATHER COULD TOUCH HIM.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "The cold within him froze his old features, nipped his pointed nose, shrivelled his cheek",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "No warmth could warm, no wintry weather chill him.",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "Foul weather didn't know where to have him.",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        6025,
+        8034
+      ]
+    },
+    {
+      "n": 5,
+      "wide": true,
+      "cap_zone": "top",
+      "scene": "a thin poor clerk in a long white woollen comforter scarf and fingerless mittens, ALONE, shivering over letters at a tiny desk by a single glowing coal, fog at the window",
+      "composition": "single subject — the freezing clerk",
+      "characters": [
+        "bob"
+      ],
+      "text": {
+        "teen": {
+          "narration": "CHRISTMAS EVE. SCROOGE WORKS HIS CLERK, BOB CRATCHIT, IN THE COLD.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "It was cold, bleak, biting weather: foggy withal",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "the clerk's fire was so very much smaller that it looked like one coal",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "The fog came pouring in at every chink and keyhole",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        8034,
+        10042
+      ]
+    },
+    {
+      "n": 6,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "a ruddy cheerful young man with side-whiskers, a scarf and a sprig of holly on his coat, ALONE, bursting in from the frosty street with arms wide and a warm grin",
+      "composition": "single subject — Fred arrives",
+      "characters": [
+        "fred"
+      ],
+      "text": {
+        "teen": {
+          "narration": "HIS NEPHEW FRED ARRIVES, GLOWING WITH CHRISTMAS.",
+          "bubbles": [
+            {
+              "speaker": "FRED",
+              "text": "A merry Christmas, uncle! God save you!",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "SCROOGE",
+              "text": "Bah!... Humbug!",
+              "pos": "br",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "his face was ruddy and handsome; his eyes sparkled, and his breath smoked again.",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        10042,
+        12050
+      ]
+    },
+    {
+      "n": 7,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "drawn as a simple flat black-and-white cartoon caricature with thick ink outlines and exaggerated features (a hand-drawn comic, not a photo, not 3D): a bent bald CLEAN-SHAVEN pointed-nose old miser (smooth chin, no beard) in a dark tailcoat, ALONE, scowling and jabbing a finger over his ledger",
+      "composition": "single subject — Scrooge argues back",
+      "characters": [
+        "scrooge"
+      ],
+      "text": {
+        "teen": {
+          "narration": "THEY SPAR OVER THE MEANING OF CHRISTMAS.",
+          "bubbles": [
+            {
+              "speaker": "SCROOGE",
+              "text": "What right have you to be merry? What reason have you to be merry? You're poor enough.",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "FRED",
+              "text": "What right have you to be dismal? What reason have you to be morose? You're rich enough.",
+              "pos": "bl",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "SCROOGE",
+              "text": "What else can I be... when I live in such a world of fools as this?",
+              "pos": "br",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "SCROOGE",
+              "text": "keep Christmas in your own way, and let me keep it in mine",
+              "pos": "tr",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        12050,
+        14059
+      ]
+    },
+    {
+      "n": 8,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "the ruddy cheerful nephew speaking warmly with shining eyes, hand on his heart, the clerk in the white scarf secretly delighted behind him",
+      "composition": "close, Fred's warm creed",
+      "characters": [
+        "fred"
+      ],
+      "text": {
+        "teen": {
+          "narration": "FRED DEFENDS THE DAY.",
+          "bubbles": [
+            {
+              "speaker": "FRED",
+              "text": "a kind, forgiving, charitable, pleasant time",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "FRED",
+              "text": "it has never put a scrap of gold or silver in my pocket... and I say, God bless it!",
+              "pos": "bl",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "FRED",
+              "text": "when men and women seem by one consent to open their shut-up hearts freely",
+              "pos": "br",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "FRED",
+              "text": "as if they really were fellow-passengers to the grave",
+              "pos": "tr",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        14059,
+        16067
+      ]
+    },
+    {
+      "n": 9,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "a bent thin bald clean-shaven pointed-nose old miser in a long dark tailcoat, ALONE, frowning coldly over subscription papers on his desk",
+      "composition": "single subject — the charity refused",
+      "characters": [
+        "scrooge"
+      ],
+      "text": {
+        "teen": {
+          "narration": "TWO GENTLEMEN COME COLLECTING FOR THE POOR.",
+          "bubbles": [
+            {
+              "speaker": "GENTLEMAN",
+              "text": "make some slight provision for the Poor and destitute, who suffer greatly at the present time",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "SCROOGE",
+              "text": "Are there no prisons?",
+              "pos": "br",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "SCROOGE",
+              "text": "And the Union workhouses?... Are they still in operation?",
+              "pos": "bl",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        16067,
+        18076
+      ]
+    },
+    {
+      "n": 10,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "the cold miser waving the charity gentlemen away with a hard sneer, turning back to his money, utterly without pity, in a long dark tailcoat",
+      "composition": "close, a heart of stone",
+      "characters": [
+        "scrooge"
+      ],
+      "text": {
+        "teen": {
+          "narration": "HIS ANSWER IS MERCILESS.",
+          "bubbles": [
+            {
+              "speaker": "SCROOGE",
+              "text": "If they would rather die... they had better do it, and decrease the surplus population.",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "SCROOGE",
+              "text": "It's not my business",
+              "pos": "br",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "SCROOGE",
+              "text": "It's enough for a man to understand his own business, and not to interfere with other people's.",
+              "pos": "bl",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        18076,
+        20084
+      ]
+    },
+    {
+      "n": 11,
+      "wide": true,
+      "cap_zone": "top",
+      "scene": "night, the thin clerk in his long white comforter scarf gleefully sliding down an icy lane behind a line of boys under the gas-lamps, free for Christmas, while the miser stalks off alone",
+      "composition": "wide, the clerk's small joy",
+      "characters": [
+        "bob"
+      ],
+      "text": {
+        "teen": {
+          "narration": "SCROOGE GRUDGINGLY GIVES BOB CHRISTMAS DAY OFF.",
+          "bubbles": [
+            {
+              "speaker": "SCROOGE",
+              "text": "A poor excuse for picking a man's pocket every twenty-fifth of December!",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "went down a slide on Cornhill... in honour of its being Christmas Eve",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "ran home to Camden Town as hard as he could pelt, to play at blindman's-buff.",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        20084,
+        22092
+      ]
+    },
+    {
+      "n": 12,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "drawn as a simple flat black-and-white cartoon caricature with thick ink outlines and exaggerated features (a hand-drawn comic, not a photo, not 3D): a bent old miser in a coat recoiling at his front door, the brass DOOR-KNOCKER transformed into the glowing ghostly FACE of Marley, ALONE",
+      "composition": "close, the knocker becomes a face",
+      "characters": [
+        "scrooge"
+      ],
+      "text": {
+        "teen": {
+          "narration": "AT HOME THAT NIGHT, THE DOOR-KNOCKER CHANGES.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "not a knocker, but Marley's face.",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "with ghostly spectacles turned up on its ghostly forehead",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "It was not angry or ferocious, but looked at Scrooge as Marley used to look",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "As Scrooge looked fixedly at this phenomenon, it was a knocker again.",
+              "pos": "tr",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        22092,
+        24101
+      ]
+    },
+    {
+      "n": 13,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "the miser in nightcap and dressing-gown starting up from his chair by a low fire as a disused bell high on the wall swings wildly of its own accord, dread on his face, in a striped nightshirt and floppy nightcap",
+      "composition": "close, the bells ring themselves",
+      "characters": [
+        "scrooge"
+      ],
+      "text": {
+        "teen": {
+          "narration": "ALONE BY THE FIRE, A DEAD BELL BEGINS TO RING.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "he saw this bell begin to swing",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "soon it rang out loudly, and so did every bell in the house.",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "It was with great astonishment, and with a strange, inexplicable dread",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "It swung so softly in the outset that it scarcely made a sound",
+              "pos": "tr",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        24101,
+        26109
+      ]
+    },
+    {
+      "n": 14,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "a bent bald clean-shaven pointed-nose old man in a striped nightshirt and nightcap, alone, clutching a wooden chair in terror as a heavy chain drags up a dark stairwell toward him",
+      "composition": "close, something climbs the stairs",
+      "characters": [
+        "scrooge"
+      ],
+      "text": {
+        "teen": {
+          "narration": "THEN — DRAGGING CHAINS, CLIMBING TOWARD HIM.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "The cellar-door flew open with a booming sound",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "then coming up the stairs; then coming straight towards his door.",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "ghosts in haunted houses were described as dragging chains",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        26109,
+        28117
+      ]
+    },
+    {
+      "n": 15,
+      "wide": true,
+      "cap_zone": "top",
+      "scene": "a gaunt OLD MAN ghost with a bald head and grey queue, dragging a heavy iron chain hung with cash-boxes and padlocks, ALONE, a dark tailcoat and a cloth bandage tied under his chin, coming through a door, black-and-white cartoon ink",
+      "composition": "single subject — Marley enters",
+      "characters": [
+        "marley"
+      ],
+      "text": {
+        "teen": {
+          "narration": "MARLEY'S GHOST ENTERS — BOUND IN A DREADFUL CHAIN.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "made... of cash-boxes, keys, padlocks, ledgers, deeds, and heavy purses",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "His body was transparent",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "the chilling influence of its death-cold eyes",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "looking through his waistcoat, could see the two buttons on his coat behind",
+              "pos": "tr",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        28117,
+        30126
+      ]
+    },
+    {
+      "n": 16,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "drawn as a simple flat black-and-white cartoon caricature with thick ink outlines and exaggerated features (a hand-drawn comic, not a photo, not 3D): a bent bald CLEAN-SHAVEN old man (smooth chin, no beard) in a striped nightshirt and nightcap, ALONE, cowering by a low fire",
+      "composition": "single subject — Scrooge cowers",
+      "characters": [
+        "scrooge"
+      ],
+      "text": {
+        "teen": {
+          "narration": "SCROOGE TRIES TO DENY HIS OWN EYES.",
+          "bubbles": [
+            {
+              "speaker": "SCROOGE",
+              "text": "You may be an undigested bit of beef, a blot of mustard, a crumb of cheese",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "SCROOGE",
+              "text": "There's more of gravy than of grave about you, whatever you are!",
+              "pos": "bl",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "You may be an undigested bit of beef",
+              "pos": "tr",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "SCROOGE",
+              "text": "A slight disorder of the stomach makes them cheats.",
+              "pos": "br",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        30126,
+        32134
+      ]
+    },
+    {
+      "n": 17,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "drawn as a simple flat black-and-white cartoon caricature with thick ink outlines and exaggerated features (a hand-drawn comic, not a photo, not 3D): a gaunt OLD MAN ghost, bald with a grey queue and a chin-bandage (face uncovered), holding up a heavy chain of cash-boxes, ALONE",
+      "composition": "single subject — the chain he forged",
+      "characters": [
+        "marley"
+      ],
+      "text": {
+        "teen": {
+          "narration": "MARLEY REVEALS THE CHAIN HE MADE IN LIFE.",
+          "bubbles": [
+            {
+              "speaker": "MARLEY",
+              "text": "I wear the chain I forged in life... I made it link by link, and yard by yard",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "MARLEY",
+              "text": "Mankind was my business.",
+              "pos": "bl",
+              "kind": "shout",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "MARLEY",
+              "text": "charity, mercy, forbearance, and benevolence, were, all, my business.",
+              "pos": "br",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "MARLEY",
+              "text": "The dealings of my trade were but a drop of water in the comprehensive ocean of my business!",
+              "pos": "tr",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        32134,
+        34143
+      ]
+    },
+    {
+      "n": 18,
+      "wide": true,
+      "cap_zone": "top",
+      "scene": "a gaunt OLD MAN ghost with a chin-bandage dragging a chain of cash-boxes, ALONE, floating out an open window into the night, black-and-white cartoon ink",
+      "composition": "single subject — Marley departs",
+      "characters": [
+        "marley"
+      ],
+      "text": {
+        "teen": {
+          "narration": "MARLEY GIVES HIS WARNING AND JOINS THE PHANTOMS OF THE NIGHT.",
+          "bubbles": [
+            {
+              "speaker": "MARLEY",
+              "text": "You will be haunted... by Three Spirits.",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "MARLEY",
+              "text": "Expect the first to-morrow, when the bell tolls One.",
+              "pos": "bl",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "The air was filled with phantoms, wandering hither and thither in restless haste",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "MARLEY",
+              "text": "you have yet a chance and hope of escaping my fate",
+              "pos": "tr",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        34143,
+        36151
+      ]
+    }
+  ]
+}

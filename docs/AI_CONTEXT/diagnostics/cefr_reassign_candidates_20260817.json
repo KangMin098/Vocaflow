@@ -1,0 +1,1626 @@
+[
+ {
+  "word": "acceptability",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "ageism",
+  "cefr": "A2",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "air quality",
+  "cefr": "A2",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "availability",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "backwardness",
+  "cefr": "A2",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "behaviourism",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "bus station",
+  "cefr": "A1",
+  "v": 1,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "carelessness",
+  "cefr": "A2",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "centralisation",
+  "cefr": "A1",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "cheapness",
+  "cefr": "A1",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "cleanliness",
+  "cefr": "A1",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "coldness",
+  "cefr": "A2",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "collectivity",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "coloration",
+  "cefr": "A2",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "comparability",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "completeness",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "completion",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "computation",
+  "cefr": "A1",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "computational",
+  "cefr": "A1",
+  "v": 2,
+  "rank": null,
+  "pos": "adjective",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "computerisation",
+  "cefr": "A1",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "connectivity",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "continuation",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "conversational",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "adjective",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "coolness",
+  "cefr": "A2",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "correction",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "correctness",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "desertion",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "documentation",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "dryness",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "escapism",
+  "cefr": "A2",
+  "v": 4,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "expressiveness",
+  "cefr": "A2",
+  "v": 4,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "favouritism",
+  "cefr": "A1",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "freshness",
+  "cefr": "A2",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "friendliness",
+  "cefr": "A2",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "fruity",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "fullness",
+  "cefr": "A1",
+  "v": 1,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "futuristic",
+  "cefr": "A2",
+  "v": 2,
+  "rank": null,
+  "pos": "adjective",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "generalisation",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "generality",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "generalization",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "gentleness",
+  "cefr": "A2",
+  "v": 4,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "greatness",
+  "cefr": "A1",
+  "v": 1,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "handedness",
+  "cefr": "A2",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "hardness",
+  "cefr": "A1",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "helplessness",
+  "cefr": "A2",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "historicity",
+  "cefr": "A1",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "hopelessness",
+  "cefr": "A1",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "immobility",
+  "cefr": "A2",
+  "v": 5,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "impossibility",
+  "cefr": "A1",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "inability",
+  "cefr": "A2",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "industrialisation",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "industrialization",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "inhumanity",
+  "cefr": "A2",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "interconnection",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "internationalisation",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "internationalization",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "irregularity",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "journalistic",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "adjective",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "lawlessness",
+  "cefr": "A2",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "laziness",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "likelihood",
+  "cefr": "A2",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "limitation",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "localisation",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "localization",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "loudness",
+  "cefr": "A2",
+  "v": 5,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "maleness",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "meaningfulness",
+  "cefr": "A2",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "mention",
+  "cefr": "A2",
+  "v": 2,
+  "rank": null,
+  "pos": "verb",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "methodological",
+  "cefr": "A2",
+  "v": 2,
+  "rank": null,
+  "pos": "adjective",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "mindedness",
+  "cefr": "A2",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "modernisation",
+  "cefr": "A1",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "modernity",
+  "cefr": "A1",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "modernization",
+  "cefr": "A1",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "monstrosity",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "nation",
+  "cefr": "A2",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "national",
+  "cefr": "A2",
+  "v": 2,
+  "rank": null,
+  "pos": "adjective",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "nationalisation",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "nationalization",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "nationhood",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "naturalness",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "nearness",
+  "cefr": "A2",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "neighbourhood",
+  "cefr": "A1",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "neighbourliness",
+  "cefr": "A1",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "newness",
+  "cefr": "A1",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "normalisation",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "normality",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "normalization",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "nothingness",
+  "cefr": "A1",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "novelistic",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "adjective",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "ordinariness",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "organisation",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "organisational",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "adjective",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "otherness",
+  "cefr": "A2",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "police station",
+  "cefr": "A2",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "politeness",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "positivism",
+  "cefr": "A1",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "poststructuralism",
+  "cefr": "A2",
+  "v": 4,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "powerlessness",
+  "cefr": "A2",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "predictability",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "preparation",
+  "cefr": "A2",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "preparedness",
+  "cefr": "A1",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "presentation",
+  "cefr": "A2",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "progression",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "protectionism",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "quietness",
+  "cefr": "A1",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "readability",
+  "cefr": "A1",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "readiness",
+  "cefr": "A1",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "reasonableness",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "reductionism",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "regionalism",
+  "cefr": "A2",
+  "v": 4,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "regularity",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "reintroduction",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "reorganisation",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "reorganization",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "revaluation",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "richness",
+  "cefr": "A1",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "sameness",
+  "cefr": "A1",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "science fiction",
+  "cefr": "A2",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "seriousness",
+  "cefr": "A2",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "simplification",
+  "cefr": "A1",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "situation",
+  "cefr": "A2",
+  "v": 1,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "situational",
+  "cefr": "A2",
+  "v": 2,
+  "rank": null,
+  "pos": "adjective",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "smallness",
+  "cefr": "A2",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "smoothness",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "softness",
+  "cefr": "A2",
+  "v": 4,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "spaciousness",
+  "cefr": "A1",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "specialisation",
+  "cefr": "A2",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "specialism",
+  "cefr": "A2",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "specialization",
+  "cefr": "A2",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "specification",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "specificity",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "statehood",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "stillness",
+  "cefr": "A2",
+  "v": 1,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "strangeness",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "structuralism",
+  "cefr": "A2",
+  "v": 4,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "suitability",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "technological",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "adjective",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "termism",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "thinness",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "tidiness",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "transportation",
+  "cefr": "A2",
+  "v": 4,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "uniformity",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "unpopularity",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "unpredictability",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "unrealistic",
+  "cefr": "A1",
+  "v": 2,
+  "rank": null,
+  "pos": "adjective",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "unreality",
+  "cefr": "A1",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "unreasonableness",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "unwillingness",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "usability",
+  "cefr": "A1",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "usefulness",
+  "cefr": "A1",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "version",
+  "cefr": "A2",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "visitation",
+  "cefr": "A1",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "wakefulness",
+  "cefr": "A2",
+  "v": 4,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "wetness",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "wholeness",
+  "cefr": "A2",
+  "v": 2,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "wildness",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "willingness",
+  "cefr": "A2",
+  "v": 3,
+  "rank": null,
+  "pos": "noun",
+  "signal": "rank NULL"
+ },
+ {
+  "word": "ability",
+  "cefr": "A2",
+  "v": 2,
+  "rank": 1986,
+  "pos": "noun",
+  "signal": "rank 1986"
+ },
+ {
+  "word": "action",
+  "cefr": "A2",
+  "v": 1,
+  "rank": 474,
+  "pos": "noun",
+  "signal": "rank 474"
+ },
+ {
+  "word": "activity",
+  "cefr": "A1",
+  "v": 2,
+  "rank": 432,
+  "pos": "noun",
+  "signal": "rank 432"
+ },
+ {
+  "word": "attention",
+  "cefr": "A2",
+  "v": 2,
+  "rank": 2089,
+  "pos": "noun",
+  "signal": "rank 2089"
+ },
+ {
+  "word": "business",
+  "cefr": "A1",
+  "v": 2,
+  "rank": 211,
+  "pos": "noun",
+  "signal": "rank 211"
+ },
+ {
+  "word": "charity",
+  "cefr": "A2",
+  "v": 2,
+  "rank": 2354,
+  "pos": "noun",
+  "signal": "rank 2354"
+ },
+ {
+  "word": "city",
+  "cefr": "A2",
+  "v": 1,
+  "rank": 269,
+  "pos": "noun",
+  "signal": "rank 269"
+ },
+ {
+  "word": "community",
+  "cefr": "A2",
+  "v": 2,
+  "rank": 465,
+  "pos": "noun",
+  "signal": "rank 465"
+ },
+ {
+  "word": "condition",
+  "cefr": "A2",
+  "v": 2,
+  "rank": 445,
+  "pos": "noun",
+  "signal": "rank 445"
+ },
+ {
+  "word": "conversation",
+  "cefr": "A2",
+  "v": 2,
+  "rank": 587,
+  "pos": "noun",
+  "signal": "rank 587"
+ },
+ {
+  "word": "darkness",
+  "cefr": "A2",
+  "v": 4,
+  "rank": 2780,
+  "pos": "noun",
+  "signal": "rank 2780"
+ },
+ {
+  "word": "decision",
+  "cefr": "A2",
+  "v": 1,
+  "rank": 449,
+  "pos": "noun",
+  "signal": "rank 449"
+ },
+ {
+  "word": "description",
+  "cefr": "A1",
+  "v": 2,
+  "rank": 1492,
+  "pos": "noun",
+  "signal": "rank 1492"
+ },
+ {
+  "word": "discussion",
+  "cefr": "A2",
+  "v": 1,
+  "rank": 764,
+  "pos": "noun",
+  "signal": "rank 764"
+ },
+ {
+  "word": "education",
+  "cefr": "A2",
+  "v": 1,
+  "rank": 531,
+  "pos": "noun",
+  "signal": "rank 531"
+ },
+ {
+  "word": "electricity",
+  "cefr": "A2",
+  "v": 2,
+  "rank": 2014,
+  "pos": "noun",
+  "signal": "rank 2014"
+ },
+ {
+  "word": "explanation",
+  "cefr": "A2",
+  "v": 2,
+  "rank": 1986,
+  "pos": "noun",
+  "signal": "rank 1986"
+ },
+ {
+  "word": "fiction",
+  "cefr": "A2",
+  "v": 3,
+  "rank": 2679,
+  "pos": "noun",
+  "signal": "rank 2679"
+ },
+ {
+  "word": "happiness",
+  "cefr": "A2",
+  "v": 4,
+  "rank": 2697,
+  "pos": "noun",
+  "signal": "rank 2697"
+ },
+ {
+  "word": "illness",
+  "cefr": "A2",
+  "v": 2,
+  "rank": 1938,
+  "pos": "noun",
+  "signal": "rank 1938"
+ },
+ {
+  "word": "information",
+  "cefr": "A1",
+  "v": 1,
+  "rank": 1986,
+  "pos": "noun",
+  "signal": "rank 1986"
+ },
+ {
+  "word": "international",
+  "cefr": "A2",
+  "v": 2,
+  "rank": 662,
+  "pos": "adjective",
+  "signal": "rank 662"
+ },
+ {
+  "word": "introduction",
+  "cefr": "A2",
+  "v": 2,
+  "rank": 1203,
+  "pos": "noun",
+  "signal": "rank 1203"
+ },
+ {
+  "word": "invitation",
+  "cefr": "A2",
+  "v": 2,
+  "rank": 1986,
+  "pos": "noun",
+  "signal": "rank 1986"
+ },
+ {
+  "word": "nature",
+  "cefr": "A2",
+  "v": 2,
+  "rank": 666,
+  "pos": "noun",
+  "signal": "rank 666"
+ },
+ {
+  "word": "neighborhood",
+  "cefr": "A2",
+  "v": 2,
+  "rank": 1986,
+  "pos": "noun",
+  "signal": "rank 1986"
+ },
+ {
+  "word": "opportunity",
+  "cefr": "A2",
+  "v": 2,
+  "rank": 520,
+  "pos": "noun",
+  "signal": "rank 520"
+ },
+ {
+  "word": "organization",
+  "cefr": "A2",
+  "v": 3,
+  "rank": 512,
+  "pos": "noun",
+  "signal": "rank 512"
+ },
+ {
+  "word": "permission",
+  "cefr": "A2",
+  "v": 2,
+  "rank": 2414,
+  "pos": "noun",
+  "signal": "rank 2414"
+ },
+ {
+  "word": "pollution",
+  "cefr": "A2",
+  "v": 2,
+  "rank": 2164,
+  "pos": "noun",
+  "signal": "rank 2164"
+ },
+ {
+  "word": "population",
+  "cefr": "A2",
+  "v": 2,
+  "rank": 2089,
+  "pos": "noun",
+  "signal": "rank 2089"
+ },
+ {
+  "word": "position",
+  "cefr": "A2",
+  "v": 2,
+  "rank": 426,
+  "pos": "noun",
+  "signal": "rank 426"
+ },
+ {
+  "word": "possibility",
+  "cefr": "A2",
+  "v": 2,
+  "rank": 951,
+  "pos": "noun",
+  "signal": "rank 951"
+ },
+ {
+  "word": "question",
+  "cefr": "A2",
+  "v": 1,
+  "rank": 181,
+  "pos": "noun",
+  "signal": "rank 181"
+ },
+ {
+  "word": "reality",
+  "cefr": "A2",
+  "v": 2,
+  "rank": 1986,
+  "pos": "noun",
+  "signal": "rank 1986"
+ },
+ {
+  "word": "reception",
+  "cefr": "A2",
+  "v": 2,
+  "rank": 2834,
+  "pos": "noun",
+  "signal": "rank 2834"
+ },
+ {
+  "word": "solution",
+  "cefr": "A2",
+  "v": 2,
+  "rank": 788,
+  "pos": "noun",
+  "signal": "rank 788"
+ },
+ {
+  "word": "station",
+  "cefr": "A1",
+  "v": 1,
+  "rank": 709,
+  "pos": "noun",
+  "signal": "rank 709"
+ },
+ {
+  "word": "suggestion",
+  "cefr": "A2",
+  "v": 2,
+  "rank": 1284,
+  "pos": "noun",
+  "signal": "rank 1284"
+ },
+ {
+  "word": "technology",
+  "cefr": "A2",
+  "v": 2,
+  "rank": 563,
+  "pos": "noun",
+  "signal": "rank 563"
+ },
+ {
+  "word": "television",
+  "cefr": "A1",
+  "v": 1,
+  "rank": 795,
+  "pos": "noun",
+  "signal": "rank 795"
+ },
+ {
+  "word": "temperature",
+  "cefr": "A2",
+  "v": 2,
+  "rank": 1452,
+  "pos": "noun",
+  "signal": "rank 1452"
+ },
+ {
+  "word": "tourism",
+  "cefr": "A2",
+  "v": 2,
+  "rank": 2628,
+  "pos": "noun",
+  "signal": "rank 2628"
+ },
+ {
+  "word": "tradition",
+  "cefr": "A2",
+  "v": 2,
+  "rank": 1338,
+  "pos": "noun",
+  "signal": "rank 1338"
+ },
+ {
+  "word": "university",
+  "cefr": "A1",
+  "v": 1,
+  "rank": 968,
+  "pos": "noun",
+  "signal": "rank 968"
+ },
+ {
+  "word": "vacation",
+  "cefr": "A2",
+  "v": 2,
+  "rank": 2891,
+  "pos": "noun",
+  "signal": "rank 2891"
+ }
+]

@@ -1,0 +1,309 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap">
+  <style>
+    body { margin: 0; background: #F4F0E9; font-family: 'DM Sans', -apple-system, 'Malgun Gothic', system-ui, sans-serif; color: #1A1714; }
+    a { color: #7E5A1B; text-decoration: none; } a:hover { color: #B0843A; }
+    .card { background: #FBFAF6; border-radius: 24px; box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 8px 24px -12px rgba(0,0,0,.08); }
+    .kicker { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(26,23,20,0.62); margin: 0; }
+    .h2 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 16px; font-weight: 700; color: #1A1714; margin: 0; }
+    .ko { font-size: 13px; line-height: 1.75; color: rgba(26,23,20,0.74); word-break: keep-all; margin: 0; }
+    .num { font-family: 'JetBrains Mono', monospace; font-variant-numeric: tabular-nums; }
+  </style>
+</helmet>
+
+<div style="background: #F4F0E9; padding: 28px 40px 56px 40px; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px">
+
+  <!-- 되돌아가기 -->
+  <a href="#" style="display: inline-flex; align-items: center; gap: 8px; height: 44px; width: fit-content; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 700; color: #0F2540">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+    교재 서가
+  </a>
+
+  <!-- ── 표지 히어로 ───────────────────────────────────────── -->
+  <section class="card" style="display: grid; grid-template-columns: 268px minmax(0, 1fr); gap: 40px; padding: 36px 40px">
+
+    <div style="display: flex; flex-direction: column; gap: 14px">
+      <div style="position: relative; background: #FBFAF6; border: 1px solid #442B6E; border-radius: 4px; box-shadow: 0 3px 6px rgba(0,0,0,.06), 0 22px 48px -20px rgba(68,43,110,.42); overflow: hidden; aspect-ratio: 5 / 7">
+        <div style="position: absolute; inset: 0 auto 0 0; width: 14px; background: #442B6E"></div>
+        <div style="position: absolute; left: 14px; right: 0; top: 0; height: 58%; padding: 26px 24px 0 24px; box-sizing: border-box">
+          <p style="margin: 0; font-family: Lora, Georgia, serif; font-size: 15px; font-weight: 600; letter-spacing: 0.22em; color: #442B6E">READING</p>
+          <div style="display: flex; flex-direction: column; gap: 5px; margin-top: 26px; opacity: 0.26">
+            <div style="height: 3px; width: 92%; background: #442B6E"></div>
+            <div style="height: 3px; width: 78%; background: #442B6E"></div>
+            <div style="height: 3px; width: 86%; background: #442B6E"></div>
+            <div style="height: 3px; width: 60%; background: #442B6E"></div>
+          </div>
+          <div style="display: inline-flex; margin-top: 26px; padding: 5px 12px; border: 1px solid #E0DBD0; border-radius: 9999px; font-size: 11px; font-weight: 700; color: rgba(26,23,20,0.74)">중학 3학년</div>
+        </div>
+        <div style="position: absolute; left: 14px; right: 0; bottom: 0; height: 42%; background: #442B6E; padding: 0 24px 20px 24px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: flex-end; gap: 14px">
+          <p style="margin: 0; font-family: Lora, Georgia, serif; font-size: 84px; font-weight: 600; line-height: 0.84; color: #FBFAF6">3</p>
+          <div style="display: flex; align-items: flex-end; gap: 4px; height: 26px">
+            <div style="width: 8px; height: 7px; background: rgba(255,255,255,0.34); border-radius: 1px"></div>
+            <div style="width: 8px; height: 10px; background: rgba(255,255,255,0.34); border-radius: 1px"></div>
+            <div style="width: 8px; height: 14px; background: rgba(255,255,255,0.34); border-radius: 1px"></div>
+            <div style="width: 8px; height: 17px; background: #FBFAF6; border-radius: 1px"></div>
+            <div style="width: 8px; height: 21px; background: rgba(255,255,255,0.34); border-radius: 1px"></div>
+            <div style="width: 8px; height: 24px; background: rgba(255,255,255,0.34); border-radius: 1px"></div>
+            <div style="width: 8px; height: 28px; background: rgba(255,255,255,0.34); border-radius: 1px"></div>
+          </div>
+        </div>
+      </div>
+      <p style="margin: 0; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: rgba(26,23,20,0.62)">일곱 단 중 <span style="color: #442B6E; font-weight: 700">4단</span></p>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 0; padding-top: 6px">
+      <p class="kicker">Vocaflow Reading · Step 4</p>
+      <h1 style="margin: 8px 0 0 0; font-family: Lora, Georgia, serif; font-size: 44px; font-weight: 500; line-height: 1.08; letter-spacing: -0.02em; color: #1A1714">Vocaflow Reading 3</h1>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px">
+        <span style="display: inline-flex; align-items: center; padding: 6px 12px; border-radius: 9999px; background: #E3E8EE; color: #0F2540; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12px; font-weight: 700">중학 3학년</span>
+        <span style="display: inline-flex; align-items: center; padding: 6px 12px; border-radius: 9999px; background: #F4EAD3; color: #7E5A1B; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12px; font-weight: 700">V-Level 4</span>
+        <span style="display: inline-flex; align-items: center; padding: 6px 12px; border-radius: 9999px; border: 1px solid #E0DBD0; color: rgba(26,23,20,0.74); font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12px; font-weight: 700">수록 유형 7</span>
+        <span style="display: inline-flex; align-items: center; padding: 6px 12px; border-radius: 9999px; border: 1px solid #E0DBD0; color: rgba(26,23,20,0.74); font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12px; font-weight: 700">지문 90~152어</span>
+      </div>
+
+      <p class="ko" style="margin-top: 18px; max-width: 62ch; font-size: 14.5px">고교 진입 준비. 어법이 들어간다 — 중등 내신의 서술형 축과 겹친다. 단원 문법(객관식)과 어법 틀린 곳 고쳐 쓰기(단답)가 여기서 함께 열리는 이유는, 같은 규칙을 물어 하나는 고르게 하고 하나는 쓰게 하기 때문이다 — 학교 시험이 실제로 그렇게 낸다.</p>
+
+      <!-- 실측 3수치 -->
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; margin-top: 26px; background: #E0DBD0; border: 1px solid #E0DBD0; border-radius: 12px; overflow: hidden">
+        <div style="background: #FBFAF6; padding: 16px 18px; display: flex; flex-direction: column; gap: 3px">
+          <p class="num" style="margin: 0; font-size: 26px; font-weight: 700; color: #1A1714; line-height: 1">11,267</p>
+          <p style="margin: 0; font-size: 11.5px; color: rgba(26,23,20,0.62)">수록 문항</p>
+        </div>
+        <div style="background: #FBFAF6; padding: 16px 18px; display: flex; flex-direction: column; gap: 3px">
+          <p class="num" style="margin: 0; font-size: 26px; font-weight: 700; color: #1A1714; line-height: 1">10</p>
+          <p style="margin: 0; font-size: 11.5px; color: rgba(26,23,20,0.62)">한 권 단원 수 · 시중 중앙값과 같다</p>
+        </div>
+        <div style="background: #FBFAF6; padding: 16px 18px; display: flex; flex-direction: column; gap: 3px">
+          <p class="num" style="margin: 0; font-size: 26px; font-weight: 700; color: #1A1714; line-height: 1">100%</p>
+          <p style="margin: 0; font-size: 11.5px; color: rgba(26,23,20,0.62)">해설이 붙은 문항 비율</p>
+        </div>
+      </div>
+
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 26px">
+        <a href="#" style="display: inline-flex; align-items: center; gap: 8px; height: 48px; padding: 0 22px; border-radius: 9999px; background: #0F2540; color: #FFFFFF; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 700">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          내 교재에 담기
+        </a>
+        <a href="#" style="display: inline-flex; align-items: center; gap: 8px; height: 48px; padding: 0 22px; border-radius: 9999px; border: 1px solid #E0DBD0; background: #FBFAF6; color: #1A1714; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 700">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+          단원 한 편 미리보기
+        </a>
+        <a href="#" style="display: inline-flex; align-items: center; gap: 8px; height: 48px; padding: 0 22px; border-radius: 9999px; border: 1px solid #E0DBD0; background: #FBFAF6; color: #1A1714; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 700">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4"/><path d="m15.4 6.5-6.8 4"/></svg>
+          공유
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 이 책의 구성과 특징 ───────────────────────────────── -->
+  <section class="card" style="padding: 32px 40px; display: flex; flex-direction: column; gap: 20px">
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <p class="kicker">이 책의 구성과 특징</p>
+      <h2 class="h2" style="font-size: 22px; font-family: Lora, Georgia, serif; font-weight: 500">한 단원이 네 문항, 그 넷이 서로 다른 글에서 온다</h2>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px">
+      <div style="display: flex; flex-direction: column; gap: 10px; padding: 20px; border: 1px solid #E0DBD0; border-radius: 12px; background: #F4F0E9">
+        <span style="display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 8px; background: #E3E8EE; color: #0F2540">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+        </span>
+        <p style="margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13.5px; font-weight: 700">한 단원 = 문항 4개</p>
+        <p class="ko" style="font-size: 12.5px">순서 2 · 삽입 2. 약 8~12분이면 한 단원이 끝난다.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 10px; padding: 20px; border: 1px solid #E0DBD0; border-radius: 12px; background: #F4F0E9">
+        <span style="display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 8px; background: #E1EFE6; color: #1F6B49">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+        </span>
+        <p style="margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13.5px; font-weight: 700">해설이 전부 붙는다</p>
+        <p class="ko" style="font-size: 12.5px">정답 근거 · 오답이 왜 틀렸는지 · 전문 해석까지 한 자리에서.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 10px; padding: 20px; border: 1px solid #E0DBD0; border-radius: 12px; background: #F4F0E9">
+        <span style="display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 8px; background: #F4EAD3; color: #7E5A1B">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+        </span>
+        <p style="margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13.5px; font-weight: 700">틀린 낱말이 단어장으로</p>
+        <p class="ko" style="font-size: 12.5px">지문에서 막힌 낱말이 그대로 복습 카드가 된다 — 옮겨 적을 일이 없다.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 10px; padding: 20px; border: 1px solid #E0DBD0; border-radius: 12px; background: #F4F0E9">
+        <span style="display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 8px; background: #E1E8EF; color: #3E5771">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </span>
+        <p style="margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13.5px; font-weight: 700">출처를 지문마다 밝힌다</p>
+        <p class="ko" style="font-size: 12.5px">NASA · PLOS · VOA 등 공개 원문. 어디서 왔는지 각 지문 아래에 적힌다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 목차 ──────────────────────────────────────────────── -->
+  <section class="card" style="padding: 32px 40px; display: flex; flex-direction: column; gap: 18px">
+    <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 20px">
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <p class="kicker">Contents</p>
+        <h2 class="h2" style="font-size: 22px; font-family: Lora, Georgia, serif; font-weight: 500">목차</h2>
+      </div>
+      <p style="margin: 0; font-size: 12px; color: rgba(26,23,20,0.62)">10단원 · 40문항 · 약 80~120분</p>
+    </div>
+
+    <div style="display: flex; flex-direction: column">
+      <div style="display: grid; grid-template-columns: 58px minmax(0, 1fr) 150px 92px 74px; gap: 16px; padding: 0 0 10px 0; border-bottom: 1px solid #E0DBD0; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.04em; color: rgba(26,23,20,0.62)">
+        <span>UNIT</span><span>소재</span><span>수록 유형</span><span style="text-align: right">지문 길이</span><span style="text-align: right">예상</span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 58px minmax(0, 1fr) 150px 92px 74px; gap: 16px; padding: 13px 0; border-bottom: 1px solid #E0DBD0; align-items: center">
+        <span class="num" style="font-size: 13px; font-weight: 700; color: #442B6E">01</span>
+        <span style="font-family: Lora, Georgia, serif; font-size: 15px; color: #1A1714">Why the Moon Keeps One Face Toward Us</span>
+        <span style="font-size: 11.5px; color: rgba(26,23,20,0.74)">글 순서 · 문장 삽입</span>
+        <span class="num" style="font-size: 11.5px; text-align: right; color: rgba(26,23,20,0.62)">112~140어</span>
+        <span class="num" style="font-size: 11.5px; text-align: right; color: rgba(26,23,20,0.62)">10분</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 58px minmax(0, 1fr) 150px 92px 74px; gap: 16px; padding: 13px 0; border-bottom: 1px solid #E0DBD0; align-items: center">
+        <span class="num" style="font-size: 13px; font-weight: 700; color: #442B6E">02</span>
+        <span style="font-family: Lora, Georgia, serif; font-size: 15px; color: #1A1714">The Bees That Count Landmarks</span>
+        <span style="font-size: 11.5px; color: rgba(26,23,20,0.74)">글 순서 · 문장 삽입</span>
+        <span class="num" style="font-size: 11.5px; text-align: right; color: rgba(26,23,20,0.62)">98~131어</span>
+        <span class="num" style="font-size: 11.5px; text-align: right; color: rgba(26,23,20,0.62)">9분</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 58px minmax(0, 1fr) 150px 92px 74px; gap: 16px; padding: 13px 0; border-bottom: 1px solid #E0DBD0; align-items: center">
+        <span class="num" style="font-size: 13px; font-weight: 700; color: #442B6E">03</span>
+        <span style="font-family: Lora, Georgia, serif; font-size: 15px; color: #1A1714">A City That Cools Itself With Paint</span>
+        <span style="font-size: 11.5px; color: rgba(26,23,20,0.74)">글 순서 · 문장 삽입</span>
+        <span class="num" style="font-size: 11.5px; text-align: right; color: rgba(26,23,20,0.62)">106~149어</span>
+        <span class="num" style="font-size: 11.5px; text-align: right; color: rgba(26,23,20,0.62)">11분</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 58px minmax(0, 1fr) 150px 92px 74px; gap: 16px; padding: 13px 0; border-bottom: 1px solid #E0DBD0; align-items: center; opacity: 0.55">
+        <span class="num" style="font-size: 13px; font-weight: 700; color: #442B6E">04</span>
+        <span style="font-family: Lora, Georgia, serif; font-size: 15px; color: #1A1714">Reading the Rings of a Fallen Tree</span>
+        <span style="font-size: 11.5px; color: rgba(26,23,20,0.74)">글 순서 · 문장 삽입</span>
+        <span class="num" style="font-size: 11.5px; text-align: right; color: rgba(26,23,20,0.62)">94~127어</span>
+        <span class="num" style="font-size: 11.5px; text-align: right; color: rgba(26,23,20,0.62)">9분</span>
+      </div>
+
+      <div style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 16px 0 0 0">
+        <span style="font-size: 12px; color: rgba(26,23,20,0.62)">UNIT 05 – 10 은 담은 뒤에 열립니다</span>
+      </div>
+    </div>
+
+    <p class="ko" style="font-size: 12px; padding: 14px 16px; border-radius: 12px; background: #F2E8D2; color: #7A5200; border: 1px solid rgba(176,132,58,0.28)">이 목차는 <strong style="font-family: 'Plus Jakarta Sans', sans-serif">실제로 조판된 단원</strong>이다 — 재고에서 지어낸 상한이 아니다. 한 단원의 네 문항은 규칙상 서로 다른 원글에서 오므로, 재고만으로 목차를 만들면 실제보다 부풀려진다.</p>
+  </section>
+
+  <!-- ── 수록 구성 ─────────────────────────────────────────── -->
+  <section class="card" style="padding: 32px 40px; display: flex; flex-direction: column; gap: 18px">
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <p class="kicker">수록 구성</p>
+      <h2 class="h2" style="font-size: 22px; font-family: Lora, Georgia, serif; font-weight: 500">유형마다 시키는 것이 다르다</h2>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 0">
+      <div style="display: grid; grid-template-columns: 118px minmax(0, 1fr) 132px 76px; gap: 18px; align-items: center; padding: 14px 0; border-bottom: 1px solid #E0DBD0">
+        <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13.5px; font-weight: 700">영작 배열</span>
+        <span class="ko" style="font-size: 12.5px">흩어진 낱말을 문장으로 세운다. 정답이 원문이라 헷갈릴 여지가 없다.</span>
+        <span style="display: block; height: 6px; border-radius: 9999px; background: #ECE6DA; overflow: hidden"><span style="display: block; height: 6px; width: 25%; background: #442B6E; border-radius: 9999px"></span></span>
+        <span class="num" style="font-size: 13px; font-weight: 700; text-align: right">1,034</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 118px minmax(0, 1fr) 132px 76px; gap: 18px; align-items: center; padding: 14px 0; border-bottom: 1px solid #E0DBD0">
+        <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13.5px; font-weight: 700">어휘 추론</span>
+        <span class="ko" style="font-size: 12.5px">글 안에서 어울리지 않는 낱말을 찾는다. 뜻을 외운 것만으로는 풀리지 않는다.</span>
+        <span style="display: block; height: 6px; border-radius: 9999px; background: #ECE6DA; overflow: hidden"><span style="display: block; height: 6px; width: 13%; background: #442B6E; border-radius: 9999px"></span></span>
+        <span class="num" style="font-size: 13px; font-weight: 700; text-align: right">511</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 118px minmax(0, 1fr) 132px 76px; gap: 18px; align-items: center; padding: 14px 0; border-bottom: 1px solid #E0DBD0">
+        <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13.5px; font-weight: 700">어법</span>
+        <span class="ko" style="font-size: 12.5px">문장에서 어법이 틀린 곳을 고른다. 중등 내신의 서술형과 같은 축이다.</span>
+        <span style="display: block; height: 6px; border-radius: 9999px; background: #ECE6DA; overflow: hidden"><span style="display: block; height: 6px; width: 6%; background: #442B6E; border-radius: 9999px"></span></span>
+        <span class="num" style="font-size: 13px; font-weight: 700; text-align: right">255</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 118px minmax(0, 1fr) 132px 76px; gap: 18px; align-items: center; padding: 14px 0; border-bottom: 1px solid #E0DBD0">
+        <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13.5px; font-weight: 700">본문 어휘</span>
+        <span class="ko" style="font-size: 12.5px">지문에 나온 낱말을 보기에서 고른다. 글을 읽고 나서 뜻을 확인하는 자리다.</span>
+        <span style="display: block; height: 6px; border-radius: 9999px; background: #ECE6DA; overflow: hidden"><span style="display: block; height: 6px; width: 58%; background: #442B6E; border-radius: 9999px"></span></span>
+        <span class="num" style="font-size: 13px; font-weight: 700; text-align: right">2,348</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 118px minmax(0, 1fr) 132px 76px; gap: 18px; align-items: center; padding: 14px 0; border-bottom: 1px solid #E0DBD0">
+        <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13.5px; font-weight: 700">빈칸 낱말</span>
+        <span class="ko" style="font-size: 12.5px">문장의 빈칸에 낱말을 직접 쓴다. 힌트가 붙어 있어 고르기보다 한 단계 어렵다.</span>
+        <span style="display: block; height: 6px; border-radius: 9999px; background: #ECE6DA; overflow: hidden"><span style="display: block; height: 6px; width: 100%; background: #442B6E; border-radius: 9999px"></span></span>
+        <span class="num" style="font-size: 13px; font-weight: 700; text-align: right">4,076</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 118px minmax(0, 1fr) 132px 76px; gap: 18px; align-items: center; padding: 14px 0; border-bottom: 1px solid #E0DBD0">
+        <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13.5px; font-weight: 700">단원 문법</span>
+        <span class="ko" style="font-size: 12.5px">밑줄 친 곳 중 어법에 맞는(틀린) 것을 고른다. 학교 객관식과 같은 형식이다.</span>
+        <span style="display: block; height: 6px; border-radius: 9999px; background: #ECE6DA; overflow: hidden"><span style="display: block; height: 6px; width: 15%; background: #442B6E; border-radius: 9999px"></span></span>
+        <span class="num" style="font-size: 13px; font-weight: 700; text-align: right">617</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 118px minmax(0, 1fr) 132px 76px; gap: 18px; align-items: center; padding: 14px 0">
+        <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13.5px; font-weight: 700">어법 고쳐쓰기</span>
+        <span class="ko" style="font-size: 12.5px">어법이 틀린 곳을 찾아 바르게 고쳐 쓴다. 같은 규칙을 고르는 대신 쓰게 한다.</span>
+        <span style="display: block; height: 6px; border-radius: 9999px; background: #ECE6DA; overflow: hidden"><span style="display: block; height: 6px; width: 60%; background: #442B6E; border-radius: 9999px"></span></span>
+        <span class="num" style="font-size: 13px; font-weight: 700; text-align: right">2,426</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 계단 안내 ─────────────────────────────────────────── -->
+  <section class="card" style="padding: 32px 40px; display: flex; flex-direction: column; gap: 18px">
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <p class="kicker">이 권이 안 맞는다면</p>
+      <h2 class="h2" style="font-size: 22px; font-family: Lora, Georgia, serif; font-weight: 500">한 계단은 학년 하나</h2>
+      <p class="ko" style="max-width: 62ch">지금 보는 권은 중등 매대에 있어요. 어려우면 아래로, 쉬우면 위로 — 담은 권은 언제든 바꿀 수 있습니다.</p>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px">
+      <a href="#" style="display: flex; align-items: center; gap: 16px; padding: 16px 18px; border: 1px solid #E0DBD0; border-radius: 12px; background: #F4F0E9">
+        <span style="position: relative; width: 44px; height: 62px; border-radius: 2px; overflow: hidden; border: 1px solid #E0DBD0; background: #FBFAF6; flex-shrink: 0">
+          <span style="position: absolute; inset: 0 auto 0 0; width: 3px; background: #6E2B65; display: block"></span>
+          <span style="position: absolute; left: 3px; right: 0; bottom: 0; height: 42%; background: #6E2B65; display: block"></span>
+        </span>
+        <span style="display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1">
+          <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11.5px; font-weight: 700; color: rgba(26,23,20,0.62)">어렵다면 한 계단 아래</span>
+          <span style="font-family: Lora, Georgia, serif; font-size: 16px; color: #1A1714">Vocaflow Reading 2</span>
+          <span class="num" style="font-size: 10.5px; color: rgba(26,23,20,0.62)">STEP 3 · 중학 1-2학년</span>
+        </span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(26,23,20,0.62)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="#" style="display: flex; align-items: center; gap: 16px; padding: 16px 18px; border: 1px solid #E0DBD0; border-radius: 12px; background: #F4F0E9">
+        <span style="position: relative; width: 44px; height: 62px; border-radius: 2px; overflow: hidden; border: 1px solid #E0DBD0; background: #FBFAF6; flex-shrink: 0">
+          <span style="position: absolute; inset: 0 auto 0 0; width: 3px; background: #295170; display: block"></span>
+          <span style="position: absolute; left: 3px; right: 0; bottom: 0; height: 42%; background: #295170; display: block"></span>
+        </span>
+        <span style="display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1">
+          <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11.5px; font-weight: 700; color: rgba(26,23,20,0.62)">쉽다면 한 계단 위</span>
+          <span style="font-family: Lora, Georgia, serif; font-size: 16px; color: #1A1714">Vocaflow Reading 4</span>
+          <span class="num" style="font-size: 10.5px; color: rgba(26,23,20,0.62)">STEP 5 · 고1</span>
+        </span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(26,23,20,0.62)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- ── 판권 ──────────────────────────────────────────────── -->
+  <section style="padding: 26px 40px; border-top: 1px solid #E0DBD0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px">
+    <div style="display: flex; flex-direction: column; gap: 3px">
+      <p class="kicker" style="font-size: 9px">판차</p>
+      <p style="margin: 0; font-size: 12.5px; color: rgba(26,23,20,0.74)">초판 1쇄 · 2026-09-06</p>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 3px">
+      <p class="kicker" style="font-size: 9px">규격</p>
+      <p style="margin: 0; font-size: 12.5px; color: rgba(26,23,20,0.74)">지문 90~152어 · 단원 4문항</p>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 3px">
+      <p class="kicker" style="font-size: 9px">검수</p>
+      <p style="margin: 0; font-size: 12.5px; color: rgba(26,23,20,0.74)">교정 초교·재교·삼교 · 정답 편중 검사 통과</p>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 3px">
+      <p class="kicker" style="font-size: 9px">지문 출처</p>
+      <p style="margin: 0; font-size: 12.5px; color: rgba(26,23,20,0.74)">NASA · PLOS · VOA 등 공개 원문 — 각 지문 아래 표기</p>
+    </div>
+  </section>
+
+</div>
+</x-dc>
+</body>
+</html>

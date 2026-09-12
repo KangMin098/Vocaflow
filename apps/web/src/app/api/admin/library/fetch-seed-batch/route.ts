@@ -7,7 +7,7 @@
 
 import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
-import { requireAdmin } from '@/lib/auth/require-admin'
+import { requireAdminApi } from '@/lib/auth/require-admin-api'
 import { FETCHERS, type SeedSource } from '@/lib/library/seed-fetchers'
 import type { FetchBatchParams } from '@/lib/library/seed-fetchers/types'
 
@@ -19,7 +19,8 @@ interface Body extends Partial<FetchBatchParams> {
 }
 
 export async function POST(request: Request): Promise<NextResponse> {
-  await requireAdmin('/admin/curation')
+  const admin = await requireAdminApi()
+  if (admin instanceof NextResponse) return admin
 
   let body: Body
   try {
@@ -88,7 +89,7 @@ export async function POST(request: Request): Promise<NextResponse> {
 
   // dev-bypass 모드(또는 cookie 세션 없는 admin 호출)에서 RLS 거부 방지 위해
   // service_role client 사용 — 다른 admin write route 와 동일 패턴.
-  // requireAdmin 으로 이미 가드 통과한 상태.
+  // requireAdminApi 으로 이미 가드 통과한 상태.
   const supabaseUrl = process.env['NEXT_PUBLIC_SUPABASE_URL']
   const serviceKey = process.env['SUPABASE_SERVICE_ROLE_KEY']
   if (!supabaseUrl || !serviceKey) {

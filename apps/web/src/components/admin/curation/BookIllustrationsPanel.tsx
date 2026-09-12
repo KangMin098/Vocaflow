@@ -40,11 +40,11 @@ export function BookIllustrationsPanel({ illustrations, coverImageUrl, sourceUrl
       <header className="flex items-center justify-between gap-3">
         <h2
           id="illus-panel-title"
-          className="inline-flex items-center gap-1.5 font-display text-[14px] font-[700] text-[var(--t1)]"
+          className="inline-flex items-center gap-2 font-display text-[14px] font-[700] text-[var(--t1)]"
         >
           <Images size={15} aria-hidden className="text-[var(--p)]" />
           삽화 미리보기
-          <span className="font-mono text-[12px] font-[400] text-[var(--t3)]">
+          <span className="font-mono text-[12px] font-[400] text-[var(--t2)]">
             {items.length}장 · 페이지 idx 정합 (학습자 뷰와 동일)
           </span>
         </h2>
@@ -53,7 +53,7 @@ export function BookIllustrationsPanel({ illustrations, coverImageUrl, sourceUrl
             href={sourceUrl}
             target="_blank"
             rel="noreferrer"
-            className="font-mono text-[11px] text-[var(--t3)] underline-offset-2 hover:text-[var(--p)] hover:underline"
+            className="font-mono text-[11px] text-[var(--t2)] underline-offset-2 hover:text-[var(--p)] hover:underline"
           >
             원본 ↗
           </a>
@@ -62,13 +62,13 @@ export function BookIllustrationsPanel({ illustrations, coverImageUrl, sourceUrl
 
       {/* 표지 */}
       {coverImageUrl && (
-        <figure className="flex flex-col items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-3">
+        <figure className="flex flex-col items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-3">
           <ZoomableImage
             src={coverImageUrl}
             alt="표지"
             className="h-auto w-full max-w-[320px] rounded-[var(--r-sm)] object-contain"
           />
-          <figcaption className="font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">
+          <figcaption className="font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">
             표지 (cover)
           </figcaption>
         </figure>
@@ -87,7 +87,7 @@ export function BookIllustrationsPanel({ illustrations, coverImageUrl, sourceUrl
                 alt={it.alt ?? ''}
                 className="block h-44 w-full object-cover"
               />
-              <figcaption className="flex flex-col gap-1 p-2.5">
+              <figcaption className="flex flex-col gap-1 p-3">
                 <span className="font-mono text-[10px] font-[700] uppercase tracking-wider text-[var(--p)]">
                   페이지 {it.idx + 1}
                 </span>
@@ -101,7 +101,7 @@ export function BookIllustrationsPanel({ illustrations, coverImageUrl, sourceUrl
           ))}
         </div>
       ) : (
-        <p className="inline-flex items-center gap-1.5 font-body text-[12px] text-[var(--t3)]">
+        <p className="inline-flex items-center gap-2 font-body text-[12px] text-[var(--t2)]">
           <ImageOff size={13} aria-hidden /> 페이지 삽화 없음 (표지만)
         </p>
       )}

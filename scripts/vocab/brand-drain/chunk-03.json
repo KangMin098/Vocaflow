@@ -1,0 +1,33 @@
+{
+  "$schema": "vocab-brand-drain/1",
+  "family": "corpus",
+  "facts": {
+    "setCount": 2,
+    "wordCount": 560,
+    "coversPresent": 2,
+    "blueprints": [
+      "book-companion",
+      "chapter-companion"
+    ],
+    "titles": [
+      "Pride and Prejudice 1~3장",
+      "Pride and Prejudice 도서 단어장"
+    ],
+    "duotoneNow": {
+      "light": {
+        "ink": "#B5803A",
+        "paper": "#F2E8D2"
+      },
+      "dark": {
+        "ink": "#CEA254",
+        "paper": "#2D261F"
+      }
+    }
+  },
+  "setIds": [
+    "55976ad8-fe4f-41ef-a9ba-dd5feedc604c",
+    "6222f812-0b25-4d3a-a21a-75b79c315115"
+  ],
+  "alreadyBranded": 0,
+  "instructions": "Claude Design 캔버스로 이 계열의 표지 규격을 확정한 뒤 `chunk-NN.out.json` 에 VocabBrandCanvas 한 개를 쓴다. **색 값(hex/rgb)을 담으면 import 가 거절한다** — 역할 이름(ink·paper·accent)만 쓴다. 값은 디자인 토큰이 정본이다."
+}

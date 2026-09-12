@@ -18,6 +18,7 @@ import { BookMarked } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { requireAdmin } from '@/lib/auth/require-admin'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import {
   fetchDictSearchFacets,
   fetchDictWordDetail,
@@ -57,6 +58,7 @@ export default async function AdminVocabularyPage({ searchParams }: PageProps) {
         title="사전 DB 직접 관리"
         description="shared_dictionary 검색 + 다차원 분류 정합 검토 (V-Level / Track / Domain / Skill / CEFR / register)"
       />
+      <AdminScreenHelp screen="vocabulary" className="-mt-6" />
       <Suspense fallback={<PageFallback />}>
         <PageContent searchParams={sp} />
       </Suspense>

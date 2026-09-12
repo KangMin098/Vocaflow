@@ -72,7 +72,21 @@ export function TextContentProvider({
   );
 }
 
-/** Provider 부재 시 null. page.tsx에서 fallback과 함께 사용. */
+/**
+ * Provider 를 **요구**한다. layout.tsx 가 텍스트를 못 찾으면 notFound() 로 끝나므로,
+ * 이 훅이 던지는 것은 배선 실수뿐이다 — 예전처럼 목업으로 조용히 메우지 않는다.
+ */
+export function useTextContent(): TextContentData {
+  const ctx = useContext(TextContentContext);
+  if (!ctx) {
+    throw new Error(
+      'useTextContent 는 TextContentProvider 안에서만 쓸 수 있어요 (text/[id]/layout.tsx)',
+    );
+  }
+  return ctx;
+}
+
+/** Provider 밖에서도 렌더돼야 하는 부수 컴포넌트 전용 — 없으면 null. */
 export function useTextContentSafe(): TextContentData | null {
   return useContext(TextContentContext);
 }

@@ -24,7 +24,8 @@ import {
   segmentBook,
 } from '@vocaflow/library-pipeline'
 
-import { requireAdmin } from '@/lib/auth/require-admin'
+import { requireAdminApi } from '@/lib/auth/require-admin-api'
+import { internalTokenMatches } from '@/lib/auth/internal-token'
 
 export const runtime = 'nodejs'
 export const maxDuration = 300
@@ -52,8 +53,9 @@ export async function POST(request: Request): Promise<NextResponse> {
   // 인증 — 토큰(스크립트) 우선, 없으면 admin 쿠키(브라우저)
   const token = process.env['LCP_INTERNAL_TOKEN']
   const reqToken = request.headers.get('X-LCP-Token')
-  if (!(token && reqToken === token)) {
-    await requireAdmin('/admin/curation')
+  if (!internalTokenMatches(reqToken, token)) {
+    const admin = await requireAdminApi()
+    if (admin instanceof NextResponse) return admin
   }
 
   let body: Body

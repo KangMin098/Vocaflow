@@ -45,7 +45,7 @@ interface BookShelfSectionProps {
 const TYPE_BADGE: Record<BookType, { label: string; className: string }> = {
   text: {
     label: '스크립트',
-    className: 'bg-[var(--p-light)] text-[var(--p-dark)]',
+    className: 'bg-[var(--p-light)] text-[var(--on-p-tint)]',
   },
   shared: {
     label: '공용 단어장',
@@ -74,7 +74,7 @@ const TEXT_STATUS_BADGE: Record<
   { label: string; className: string }
 > = {
   'in-progress': { label: '진행 중', className: 'text-[var(--p)]' },
-  extracted: { label: '추출 완료', className: 'text-[var(--t3)]' },
+  extracted: { label: '추출 완료', className: 'text-[var(--t2)]' },
   conquered: { label: '정복 ✓', className: 'text-[var(--success)]' },
 }
 
@@ -104,7 +104,7 @@ export function BookShelfSection({ books }: BookShelfSectionProps) {
           <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">
             📚 내 단어장 성장
           </h2>
-          <p className="font-body text-[11px] text-[var(--t3)]">
+          <p className="font-body text-[11px] text-[var(--t2)]">
             출처·레벨·스마트 큐로 묶인 내 단어장
           </p>
         </div>
@@ -142,21 +142,21 @@ function BookCard({ book, compact }: { book: VaultBook; compact: boolean }) {
       >
         <div className="flex items-center justify-between">
           <span
-            className={`inline-flex rounded-[var(--r-full)] px-2 py-0.5 font-display text-[10px] font-[700] uppercase tracking-wider ${badge.className}`}
+            className={`inline-flex rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700] uppercase tracking-wider ${badge.className}`}
           >
             {badge.label}
           </span>
-          <Lock size={13} className="text-[var(--t3)]" aria-hidden="true" />
+          <Lock size={13} className="text-[var(--t2)]" aria-hidden="true" />
         </div>
         <div>
           <h3 className="line-clamp-1 font-display text-[15px] font-[700] text-[var(--t1)]">
             {book.title}
           </h3>
-          <p className="mt-0.5 line-clamp-1 font-body text-[12px] text-[var(--t3)]">
+          <p className="mt-0.5 line-clamp-1 font-body text-[12px] text-[var(--t2)]">
             {book.subtitle}
           </p>
         </div>
-        <p className="mt-auto font-body text-[11px] text-[var(--t3)]">곧 추가됩니다</p>
+        <p className="mt-auto font-body text-[11px] text-[var(--t2)]">곧 추가됩니다</p>
       </div>
     )
   }
@@ -170,7 +170,7 @@ function BookCard({ book, compact }: { book: VaultBook; compact: boolean }) {
       {/* Top — type badge + (text 한정) status */}
       <div className="flex items-center justify-between">
         <span
-          className={`inline-flex rounded-[var(--r-full)] px-2 py-0.5 font-display text-[10px] font-[700] uppercase tracking-wider ${badge.className}`}
+          className={`inline-flex rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700] uppercase tracking-wider ${badge.className}`}
         >
           {badge.label}
         </span>
@@ -188,7 +188,7 @@ function BookCard({ book, compact }: { book: VaultBook; compact: boolean }) {
         <h3 className="line-clamp-1 font-display text-[15px] font-[700] text-[var(--t1)]">
           {book.title}
         </h3>
-        <p className="mt-0.5 line-clamp-1 font-body text-[12px] text-[var(--t3)]">
+        <p className="mt-0.5 line-clamp-1 font-body text-[12px] text-[var(--t2)]">
           {book.subtitle}
         </p>
       </div>
@@ -203,7 +203,7 @@ function BookCard({ book, compact }: { book: VaultBook; compact: boolean }) {
         </span>
         <ArrowRight
           size={14}
-          className="shrink-0 text-[var(--t3)] transition-transform duration-[var(--dur-normal)] group-hover:translate-x-0.5 group-hover:text-[var(--p)]"
+          className="shrink-0 text-[var(--t2)] transition-transform duration-[var(--dur-normal)] group-hover:translate-x-0.5 group-hover:text-[var(--p)]"
           aria-hidden="true"
         />
       </div>

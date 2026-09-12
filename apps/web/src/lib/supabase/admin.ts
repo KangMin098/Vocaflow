@@ -30,5 +30,13 @@ export function createAdminClient(): SupabaseClient<Database> {
   }
   return createSbClient<Database>(url, serviceKey, {
     auth: { persistSession: false, autoRefreshToken: false },
+    // Next 14 는 전역 fetch 를 패치해 서버 측 GET 을 기본 캐시한다. supabase-js 의 조회는
+    // 그냥 GET 이라 그 캐시에 걸리고, **admin 화면이 낡은 스냅샷을 계속 보여준다**
+    // (실측: 파이프라인이 review·8컷까지 진행됐는데 큐 API 는 직전 failed 상태를 반환).
+    // 서비스롤 조회는 항상 최신이어야 하므로 라우트마다 챙기지 말고 여기서 못 박는다.
+    global: {
+      fetch: (input: RequestInfo | URL, init?: RequestInit) =>
+        fetch(input, { ...init, cache: 'no-store' }),
+    },
   })
 }

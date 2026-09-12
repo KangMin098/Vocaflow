@@ -1,0 +1,326 @@
+{
+  "_doc": "VISION-QC defect ledger. Every built section's panels are inspected by a vision agent (Read each image) against the defect checklist: anatomy (extra limbs), extra-objects, subject-count, style-drift, identity, readability. final-audit BLOCKS ship on (a) any built section not inspected, or (b) any panel with an OPEN high-severity defect. status: open | remediated | accepted-limit.",
+  "checklist": [
+    "anatomy",
+    "extra-object",
+    "subject-count",
+    "style-drift",
+    "identity",
+    "readability"
+  ],
+  "sections": {
+    "1": {
+      "inspected": true,
+      "backend": "qwen-image-edit-max (free, DashScope) + t2i --noref fallback for sheet-prone close-ups",
+      "remediated_note": "Initial 18-panel Qwen pass: 10 pass / 8 fail. 6 defect classes found → fixed in gen-qwen.mjs: (1) colour drift from scene colour-words → HARDBW clause; (2) garbled text on papers → BLANK clause; (3) duplicate character / extra bystander → solo/no-dup clause + NEG; (4) thin coloring-book lineart → solid-black INK; (5) legacy 'drawn as a caricature:' scene meta-prefix → stripped; (6) multi-view sheet leak on tight close-ups (p2,12,13) + costume-override failure → t2i --noref fallback. Re-QC after remediation: all 18 pass, low residuals accepted below.",
+      "defects": [
+        {
+          "panel": 1,
+          "severity": "low",
+          "tags": [
+            "identity"
+          ],
+          "note": "faint jaw shading reads as light stubble; ref is clean-shaven",
+          "status": "accepted-limit"
+        },
+        {
+          "panel": 7,
+          "severity": "low",
+          "tags": [
+            "style-drift"
+          ],
+          "note": "grey wash mid-tones, still clearly hand-inked cartoon",
+          "status": "accepted-limit"
+        },
+        {
+          "panel": 9,
+          "severity": "low",
+          "tags": [
+            "subject-count"
+          ],
+          "note": "stands full-body rather than seated at desk; papers blank so no text risk",
+          "status": "accepted-limit"
+        },
+        {
+          "panel": 11,
+          "severity": "low",
+          "tags": [
+            "extra-object"
+          ],
+          "note": "a few small background automobiles (anachronism); B&W, Bob alone, boys not clearly shown",
+          "status": "accepted-limit"
+        },
+        {
+          "panel": 14,
+          "severity": "low",
+          "tags": [
+            "readability"
+          ],
+          "note": "faint garbled scrawl in lower-right corner, small/non-intrusive",
+          "status": "accepted-limit"
+        },
+        {
+          "panel": 15,
+          "severity": "low",
+          "tags": [
+            "identity"
+          ],
+          "note": "chain has padlocks but cash-boxes not clearly present",
+          "status": "accepted-limit"
+        }
+      ]
+    },
+    "2": {
+      "inspected": true,
+      "defects": [
+        {
+          "panel": 1,
+          "severity": "low",
+          "tags": [
+            "identity"
+          ],
+          "note": "day-coat+cane instead of nightcap/nightshirt",
+          "status": "remediated"
+        },
+        {
+          "panel": 2,
+          "severity": "high",
+          "tags": [
+            "extra-object"
+          ],
+          "note": "head-flame PLUS a handheld flaming vessel (should be empty hands)",
+          "status": "remediated"
+        },
+        {
+          "panel": 3,
+          "severity": "high",
+          "tags": [
+            "extra-object"
+          ],
+          "note": "head-flame PLUS handheld torch/candle",
+          "status": "remediated"
+        },
+        {
+          "panel": 4,
+          "severity": "high",
+          "tags": [
+            "extra-object"
+          ],
+          "note": "head-flame PLUS handheld candle/vessel",
+          "status": "remediated"
+        },
+        {
+          "panel": 5,
+          "severity": "med",
+          "tags": [
+            "style-drift"
+          ],
+          "note": "sepia wash + elfin ears on Scrooge",
+          "status": "remediated"
+        },
+        {
+          "panel": 9,
+          "severity": "high",
+          "tags": [
+            "identity"
+          ],
+          "note": "Fezziwig drawn bearded (must be clean-shaven)",
+          "status": "remediated"
+        },
+        {
+          "panel": 12,
+          "severity": "med",
+          "tags": [
+            "subject-count"
+          ],
+          "note": "three main dancers (should be Fezziwig + one wife)",
+          "status": "remediated"
+        }
+      ]
+    }
+  },
+  "_status_note": "BREAKTHROUGH (2026-08-01): the free Qwen-Image-Edit backend (gen-qwen.mjs) CLEARS section 1 — all 18 panels pass Vision-QC at $0. This replaces the old Pollinations conclusion below. The detect→remediate loop now closes on free: reference-sheet identity lock + HARDBW/BLANK/solo prompt clauses + t2i --noref fallback for sheet-prone close-ups. Section 2 defects below are STALE (old Pollinations free-FLUX run) and await re-generation on Qwen. Old note: FIXING high defects FAILED on free Pollinations (FLUX ignores style/negative control); that ceiling no longer applies with Qwen.",
+  "release_remediation_2026_08_06": {
+    "method": "pod recreate(37vw8a0sc6m65p) → provision(torch2.6+GGUF) → per-panel hinted regen(best-of-N) + noref t2i for hint-resistant + Claude vision verify each → adopt/freeze. post-fix rectangles found unsuitable for organic/line-art regions → solved by noref regen instead.",
+    "fixed": {
+      "1": {
+        "panels": [
+          8,
+          12,
+          15
+        ],
+        "notes": "P8 empty-balloon→none; P12 gold-leak→pure B&W; P15 solid Marley→spectral-glow+cash-boxes (literal translucency = accepted-limit, glow convention)"
+      },
+      "2": {
+        "panels": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          9,
+          12
+        ],
+        "notes": "P1 nightcap/bed; P2/3/4 head-flame only(no handheld vessel); P5 elfin-ears→normal(noref); P9 Fezziwig clean-shaven; P12 two dancers"
+      },
+      "3": {
+        "panels": [
+          6,
+          10,
+          16,
+          17
+        ],
+        "notes": "P6 head attached; P10 correct Bob+Tim; P16 ghost aged(noref); P17 no empty balloons"
+      },
+      "4": {
+        "panels": [
+          5,
+          6,
+          16
+        ],
+        "notes": "P5 blank signs+no balloons(noref r3); P6 corpse fully shrouded; P16 faceless void hood(noref)"
+      }
+    },
+    "verified": "each regenerated panel Read+verified by Claude vision this pass",
+    "accepted_limits": [
+      {
+        "stave": 1,
+        "panel": 15,
+        "note": "Marley opaque with spectral glow aura instead of literal see-through; comic convention"
+      }
+    ],
+    "not_reinspected": "remaining ~71 panels retained from prior passing QC; not re-Read this pass"
+  },
+  "full_regate_2026_08_06": {
+    "method": "5 parallel Claude vision agents, one per stave, each Read all 18 panels vs script scene/text + rubric",
+    "pass": {
+      "s1": "15/18",
+      "s2": "17/18",
+      "s3": "16/18",
+      "s4": "14/18",
+      "s5": "17/18",
+      "total": "79/90 (87.8%)"
+    },
+    "hard_fail_blocking": {
+      "1": [
+        {
+          "panel": 18,
+          "defect": "duplicate Marley (solid + floating ghost)"
+        }
+      ],
+      "2": [
+        {
+          "panel": 6,
+          "defect": "solid grown horsemen instead of faint see-through shadow-boys; town not country lane"
+        }
+      ],
+      "3": [
+        {
+          "panel": 6,
+          "defect": "Tim missing crutch+iron brace; Bob drawn as teenager"
+        },
+        {
+          "panel": 17,
+          "defect": "Present ghost reverts to young/dark, not aged (breaks P16)"
+        },
+        {
+          "panel": 18,
+          "defect": "Present ghost doubled + not aged"
+        }
+      ],
+      "4": [
+        {
+          "panel": 7,
+          "defect": "exposed corpse face under sheet (death-stave hard-fail)"
+        }
+      ],
+      "5": [
+        {
+          "panel": 15,
+          "defect": "Bob rendered as Fred-like dandy = identity collapse"
+        }
+      ]
+    },
+    "waivable": {
+      "4": [
+        {
+          "panel": 14,
+          "defect": "legible SCROOGE carved on tombstone — diegetic/intended name reveal; allow or blank"
+        }
+      ]
+    },
+    "med_nonblocking": {
+      "1": [
+        {
+          "panel": 15,
+          "defect": "Marley muscular+opaque (adopted glow-fix insufficient)"
+        },
+        {
+          "panel": 17,
+          "defect": "Marley muscular+opaque+wrong pose"
+        }
+      ],
+      "5": [
+        {
+          "panel": 11,
+          "defect": "party guests ~1950s hairstyles + off-style softer render (anachronism+style drift)"
+        }
+      ]
+    },
+    "systematic_patterns": [
+      "departing-spirit panels double the figure (S1 P18, S3 P18) → add NEG single-instance + rule",
+      "translucent ghost renders opaque (Marley S1, needs stronger spectral treatment)",
+      "aging continuity fails to persist across panels once established (S3 P16→P17/P18)",
+      "character identity drift on secondary chars (Bob→Fred/teen, Tim props dropped) → lock ref + explicit props each panel"
+    ],
+    "recommendation": "HOLD — 7 hard-fail panels across staves (S1:18, S2:6, S3:6/17/18, S4:7, S5:15) + 1 waivable (S4:14). Prior remediation fixed the 19 originally-flagged but full gate reveals 7 more, several in never-flagged panels. Converge these 7 (needs pod) before publishing to learners."
+  },
+  "gonick_full_pipeline_2026_08_07": {
+    "backend": "GPT Image 2 (gonick style, low quality) + 공유참조 캐스트락",
+    "process": "gen(gonick) → S2 전수 게이트(5 Claude 에이전트, 90패널) → S2.5 수렴(교정힌트 재생성+재검증) → 래칫(R27) → 재조립",
+    "s2_gate": {
+      "s1": "18/18",
+      "s2": "18/18",
+      "s3": "17/18",
+      "s4": "16/18",
+      "s5": "16/18",
+      "total": "85/90 (94.4%)"
+    },
+    "blocking_converged": {
+      "s3_p11": "성인→소년 Tim",
+      "s4_p6": "시신 은폐",
+      "s4_p17": "흰베일→검은후드 팬텀",
+      "s5_p4": "유령환각 제거",
+      "s5_p16": "둥근→thin Scrooge"
+    },
+    "after_converge": "90/90 (전 블로킹 재검증 통과)",
+    "ratchet": "R27(구원패널 유령환각·noref엔티티 드리프트·아동크기)",
+    "verdict": "SHIP 가능 — 전 90패널 하드페일 0, 화풍 균일(Gonick), 크로스스테이브 Scrooge 일관(공유참조)"
+  },
+  "flux2_full_rebuild_2026_08_07": {
+    "goal": "무료 자가호스트로 전권 화풍 통일(사용자 옵션 A)",
+    "backend": "FLUX.2 dev GGUF Q4 + Turbo LoRA, GONICK, ReferenceLatent 다중참조",
+    "s2_gate": {
+      "s1": "15/18",
+      "s2": "13/18",
+      "s3": "12/18",
+      "s4": "6/18",
+      "s5": "9/18",
+      "total": "56/90 (62%)"
+    },
+    "systemic_defects": [
+      "다중참조가 2차캐릭터를 주인공으로 복제/중복",
+      "faceless 팬텀 붕괴(얼굴/눈/인간복제)",
+      "baked 텍스트(말풍선/간판/묘비)",
+      "간헐 컬러누출·Tim과대·유령환각"
+    ],
+    "strengths": [
+      "화풍 통일(seam 없음)",
+      "반투명 최고수준",
+      "무료·자가호스트",
+      "R29 의상 고정 작동"
+    ],
+    "verdict": "실패 — GPT 책(90/90) 대비 절반. 34 블로킹 근본적(재발성). GPT GONICK 책을 최종 채택.",
+    "ratchet": "R30(FLUX.2 다중참조 다인만화 부적합)"
+  }
+}

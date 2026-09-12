@@ -49,7 +49,7 @@ function PageHeader() {
       <h1 className="font-display text-[24px] font-[700] text-[var(--t1)]">
         📚 라이브러리 큐레이션
       </h1>
-      <p className="font-body text-[13px] text-[var(--t3)]">
+      <p className="font-body text-[13px] text-[var(--t2)]">
         LCP v2.0 — 9개 PD/CC 소스에서 책을 큐레이션하고 자동 처리 파이프라인에 추가합니다.
       </p>
     </header>

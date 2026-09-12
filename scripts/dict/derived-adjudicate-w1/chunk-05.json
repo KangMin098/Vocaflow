@@ -1,0 +1,607 @@
+[
+ {
+  "word": "unearth",
+  "meaning_ko": "발굴하다, 밝혀내다",
+  "pos": "verb",
+  "candidates": [
+   "unearthly"
+  ]
+ },
+ {
+  "word": "variety",
+  "meaning_ko": "다양성; 갖가지, 종류",
+  "pos": "noun",
+  "candidates": [
+   "variety meats"
+  ]
+ },
+ {
+  "word": "vegetarian",
+  "meaning_ko": "채식주의자",
+  "pos": "noun",
+  "candidates": [
+   "vegetarianism"
+  ]
+ },
+ {
+  "word": "veteran",
+  "meaning_ko": "베테랑, 참전 용사",
+  "pos": "noun",
+  "candidates": [
+   "veteran car",
+   "veterans day"
+  ]
+ },
+ {
+  "word": "welfare",
+  "meaning_ko": "복지",
+  "pos": "noun",
+  "candidates": [
+   "welfare state"
+  ]
+ },
+ {
+  "word": "airplane",
+  "meaning_ko": "비행기",
+  "pos": "noun",
+  "candidates": [
+   "airplane mode"
+  ]
+ },
+ {
+  "word": "assembly",
+  "meaning_ko": "집회",
+  "pos": "noun",
+  "candidates": [
+   "assembly line",
+   "assembly room"
+  ]
+ },
+ {
+  "word": "comma",
+  "meaning_ko": "쉼표",
+  "pos": "noun",
+  "candidates": [
+   "command",
+   "commandant",
+   "commandeer",
+   "commander",
+   "commandment",
+   "commando"
+  ]
+ },
+ {
+  "word": "mixed",
+  "meaning_ko": "혼합된",
+  "pos": "adjective",
+  "candidates": [
+   "mixed grill",
+   "mixed media",
+   "mixed-race"
+  ]
+ },
+ {
+  "word": "goods",
+  "meaning_ko": "상품, 물품, 재화",
+  "pos": "noun",
+  "candidates": [
+   "goods train"
+  ]
+ },
+ {
+  "word": "gram",
+  "meaning_ko": "그램",
+  "pos": "noun",
+  "candidates": [
+   "gram flour",
+   "grama",
+   "gramercy",
+   "grammar",
+   "grammarian",
+   "gramme",
+   "grammy",
+   "gramophone",
+   "gramps",
+   "grampus",
+   "gramscian"
+  ]
+ },
+ {
+  "word": "liter",
+  "meaning_ko": "리터",
+  "pos": "noun",
+  "candidates": [
+   "literacy",
+   "literal",
+   "literalism",
+   "literalist",
+   "literally",
+   "literary",
+   "literate",
+   "literati",
+   "literature"
+  ]
+ },
+ {
+  "word": "lung",
+  "meaning_ko": "폐",
+  "pos": "noun",
+  "candidates": [
+   "lunge",
+   "lungfish",
+   "lungwort"
+  ]
+ },
+ {
+  "word": "mall",
+  "meaning_ko": "쇼핑몰",
+  "pos": "noun",
+  "candidates": [
+   "mall rat",
+   "mallam",
+   "mallard",
+   "malleable",
+   "mallee",
+   "malleolus",
+   "mallet",
+   "malleus",
+   "mallow"
+  ]
+ },
+ {
+  "word": "overhead",
+  "meaning_ko": "머리 위의; 간접비의",
+  "pos": "adjective",
+  "candidates": [
+   "overheads"
+  ]
+ },
+ {
+  "word": "rack",
+  "meaning_ko": "선반, 진열대, 랙",
+  "pos": "noun",
+  "candidates": [
+   "rack rate",
+   "racket",
+   "racketeer"
+  ]
+ },
+ {
+  "word": "radar",
+  "meaning_ko": "레이더, 전파 탐지기",
+  "pos": "noun",
+  "candidates": [
+   "radar trap"
+  ]
+ },
+ {
+  "word": "scroll",
+  "meaning_ko": "스크롤하다, 화면을 위아래로 움직이다",
+  "pos": "verb",
+  "candidates": [
+   "scroll bar"
+  ]
+ },
+ {
+  "word": "semi",
+  "meaning_ko": "(미) 세미트레일러 트럭; 준결승; (영) 반독립 주택",
+  "pos": "noun",
+  "candidates": [
+   "semi-final",
+   "semi-urban",
+   "semibreve",
+   "semicircle",
+   "semicolon"
+  ]
+ },
+ {
+  "word": "shuttle",
+  "meaning_ko": "왕복 버스·열차, 셔틀; 셔틀콕",
+  "pos": "noun",
+  "candidates": [
+   "shuttlecock"
+  ]
+ },
+ {
+  "word": "slab",
+  "meaning_ko": "(돌·콘크리트의) 두꺼운 평판, 석판",
+  "pos": "noun",
+  "candidates": [
+   "slabber"
+  ]
+ },
+ {
+  "word": "span",
+  "meaning_ko": "(시간의) 기간; (공간의) 폭, 거리 (a span of years, wingspan); (동사) 걸치다, 아우르다",
+  "pos": "noun",
+  "candidates": [
+   "spandau",
+   "spandex",
+   "spandrel",
+   "spangle",
+   "spaniel",
+   "spanish",
+   "spank",
+   "spanker",
+   "spanking",
+   "spanner"
+  ]
+ },
+ {
+  "word": "strand",
+  "meaning_ko": "(실·머리카락의) 가닥, 올; (이야기·논의의) 갈래; (동사) 오도 가도 못하게 하다",
+  "pos": "noun",
+  "candidates": [
+   "stranded"
+  ]
+ },
+ {
+  "word": "thumb",
+  "meaning_ko": "엄지손가락",
+  "pos": "noun",
+  "candidates": [
+   "thumb drive",
+   "thumb piano",
+   "thumbnail",
+   "thumbscrew",
+   "thumbsuck"
+  ]
+ },
+ {
+  "word": "trans",
+  "meaning_ko": "트랜스젠더의, 성전환의",
+  "pos": "adjective",
+  "candidates": [
+   "transact",
+   "transaction",
+   "transaxle",
+   "transceiver",
+   "transcend",
+   "transcribe",
+   "transcript"
+  ]
+ },
+ {
+  "word": "upward",
+  "meaning_ko": "위로 향한; 위쪽으로",
+  "pos": "adjective",
+  "candidates": [
+   "upwardly",
+   "upwards"
+  ]
+ },
+ {
+  "word": "agricultural",
+  "meaning_ko": "농업의",
+  "pos": "adjective",
+  "candidates": [
+   "agriculturalist",
+   "agriculturally"
+  ]
+ },
+ {
+  "word": "aspirin",
+  "meaning_ko": "아스피린",
+  "pos": "noun",
+  "candidates": [
+   "aspiring"
+  ]
+ },
+ {
+  "word": "belly",
+  "meaning_ko": "배",
+  "pos": "noun",
+  "candidates": [
+   "bellybutton"
+  ]
+ },
+ {
+  "word": "burden",
+  "meaning_ko": "짐; 책임; 부담주다",
+  "pos": "noun",
+  "candidates": [
+   "burdensome"
+  ]
+ },
+ {
+  "word": "cabinet",
+  "meaning_ko": "수납장",
+  "pos": "noun",
+  "candidates": [
+   "cabinetmaker"
+  ]
+ },
+ {
+  "word": "calf",
+  "meaning_ko": "송아지",
+  "pos": "noun",
+  "candidates": [
+   "calfskin",
+   "calfskins"
+  ]
+ },
+ {
+  "word": "chamber",
+  "meaning_ko": "방, 공간; (고전·문어) 침실; (의회의) 회의실",
+  "pos": "noun",
+  "candidates": [
+   "chamber music",
+   "chamberlain",
+   "chambermaid"
+  ]
+ },
+ {
+  "word": "classical",
+  "meaning_ko": "고전의, 클래식의",
+  "pos": "adjective",
+  "candidates": [
+   "classically"
+  ]
+ },
+ {
+  "word": "customs",
+  "meaning_ko": "세관, 관세",
+  "pos": "noun",
+  "candidates": [
+   "customs union"
+  ]
+ },
+ {
+  "word": "fascinated",
+  "meaning_ko": "매혹된",
+  "pos": "adjective",
+  "candidates": [
+   "fascinatedly"
+  ]
+ },
+ {
+  "word": "graphics",
+  "meaning_ko": "그래픽",
+  "pos": "noun",
+  "candidates": [
+   "graphics card"
+  ]
+ },
+ {
+  "word": "industrial",
+  "meaning_ko": "산업의",
+  "pos": "adjective",
+  "candidates": [
+   "industrialism",
+   "industrialist",
+   "industrialize",
+   "industrially"
+  ]
+ },
+ {
+  "word": "lent",
+  "meaning_ko": "빌려주다 (lend의 과거·과거분사)",
+  "pos": "verb",
+  "candidates": [
+   "lenten",
+   "lenticular",
+   "lentil",
+   "lento"
+  ]
+ },
+ {
+  "word": "nuclear",
+  "meaning_ko": "핵의",
+  "pos": "adjective",
+  "candidates": [
+   "nuclear power"
+  ]
+ },
+ {
+  "word": "operational",
+  "meaning_ko": "운영의",
+  "pos": "adjective",
+  "candidates": [
+   "operationalise",
+   "operationalizing"
+  ]
+ },
+ {
+  "word": "papa",
+  "meaning_ko": "아빠 — 아버지를 부르는 친근하고 다소 예스러운 호칭",
+  "pos": "noun",
+  "candidates": [
+   "papacy",
+   "papal",
+   "paparazzi",
+   "paparazzo",
+   "papaver",
+   "papaya"
+  ]
+ },
+ {
+  "word": "plasma",
+  "meaning_ko": "혈장 (의학); 플라스마 (물리)",
+  "pos": "noun",
+  "candidates": [
+   "plasma tv",
+   "plasmacytoma"
+  ]
+ },
+ {
+  "word": "prof",
+  "meaning_ko": "교수 (비격식)",
+  "pos": "noun",
+  "candidates": [
+   "profane",
+   "profanely",
+   "profess",
+   "profession",
+   "professor",
+   "proffer",
+   "proficient",
+   "profile",
+   "profit"
+  ]
+ },
+ {
+  "word": "republican",
+  "meaning_ko": "공화주의자, 공화당원",
+  "pos": "noun",
+  "candidates": [
+   "republican party",
+   "republicanism"
+  ]
+ },
+ {
+  "word": "shorts",
+  "meaning_ko": "반바지",
+  "pos": "noun",
+  "candidates": [
+   "shortsighted",
+   "shortstop"
+  ]
+ },
+ {
+  "word": "tonne",
+  "meaning_ko": "톤",
+  "pos": "noun",
+  "candidates": [
+   "tonneau"
+  ]
+ },
+ {
+  "word": "wheat",
+  "meaning_ko": "밀",
+  "pos": "noun",
+  "candidates": [
+   "wheatfield",
+   "wheatmeal",
+   "wheatsheaf"
+  ]
+ },
+ {
+  "word": "wisdom",
+  "meaning_ko": "지혜",
+  "pos": "noun",
+  "candidates": [
+   "wisdom tooth"
+  ]
+ },
+ {
+  "word": "additional",
+  "meaning_ko": "추가의",
+  "pos": "adjective",
+  "candidates": [
+   "additionally"
+  ]
+ },
+ {
+  "word": "chin",
+  "meaning_ko": "턱",
+  "pos": "noun",
+  "candidates": [
+   "china",
+   "china blue",
+   "china-blue",
+   "chinaberry",
+   "chinaware",
+   "chinch",
+   "chinchilla",
+   "chine",
+   "chinese",
+   "chink",
+   "chino",
+   "chinook",
+   "chinquapin",
+   "chintz"
+  ]
+ },
+ {
+  "word": "dairy",
+  "meaning_ko": "유제품; 낙농장",
+  "pos": "noun",
+  "candidates": [
+   "dairy-free",
+   "dairymaid",
+   "dairyman"
+  ]
+ },
+ {
+  "word": "grip",
+  "meaning_ko": "꽉 쥠; 통제력; 손잡이",
+  "pos": "noun",
+  "candidates": [
+   "gripe",
+   "grippe",
+   "gripping",
+   "gripsack"
+  ]
+ },
+ {
+  "word": "knuckle",
+  "meaning_ko": "손가락 관절 — 주먹을 쥐었을 때 도드라지는 손가락 마디",
+  "pos": "noun",
+  "candidates": [
+   "knuckleduster",
+   "knucklehead"
+  ]
+ },
+ {
+  "word": "occupational",
+  "meaning_ko": "직업의",
+  "pos": "adjective",
+  "candidates": [
+   "occupationally"
+  ]
+ },
+ {
+  "word": "shin",
+  "meaning_ko": "정강이, 무릎 아래 다리 앞쪽",
+  "pos": "noun",
+  "candidates": [
+   "shin bone",
+   "shindig",
+   "shindy",
+   "shine",
+   "shiner",
+   "shingle",
+   "shingly",
+   "shinkansen",
+   "shinto",
+   "shiny"
+  ]
+ },
+ {
+  "word": "sinus",
+  "meaning_ko": "부비강, 굴",
+  "pos": "noun",
+  "candidates": [
+   "sinusitis",
+   "sinusoid",
+   "sinusoidal"
+  ]
+ },
+ {
+  "word": "splint",
+  "meaning_ko": "부목 — 다친 부위를 움직이지 않게 고정하는 판",
+  "pos": "noun",
+  "candidates": [
+   "splinter"
+  ]
+ },
+ {
+  "word": "thigh",
+  "meaning_ko": "허벅지",
+  "pos": "noun",
+  "candidates": [
+   "thigh bone"
+  ]
+ },
+ {
+  "word": "waist",
+  "meaning_ko": "허리",
+  "pos": "noun",
+  "candidates": [
+   "waistband",
+   "waistcloth",
+   "waistcoat",
+   "waistline"
+  ]
+ }
+]

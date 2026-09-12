@@ -11,6 +11,7 @@ import type {
   LibraryBookAdminRow,
   SourceCatalog,
 } from '@/lib/library/admin-queries';
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp';
 import { SourceCatalogTab } from '@/components/admin/curation/SourceCatalogTab';
 import { SeedTab } from '@/components/admin/curation/SeedTab';
 import { BulkFetchTab } from '@/components/admin/curation/BulkFetchTab';
@@ -99,6 +100,13 @@ export function AdminCurationClient({
     <div className="flex flex-col gap-6">
       <StatsBar stats={stats} />
 
+      {/* 화면 도움말 — 탭을 옮기면 그 탭의 도움말로 바뀐다 (라벨 문자열로 조회). */}
+      <AdminScreenHelp
+        screen="curation"
+        tab={TABS.find((t) => t.key === tab)?.label}
+        className="-mb-2"
+      />
+
       <TabList tab={tab} onChange={setTab} stats={stats} />
 
       <div role="tabpanel" id={`panel-${tab}`} aria-labelledby={`tab-${tab}`}>
@@ -173,7 +181,7 @@ function StatTile({
 
   return (
     <div
-      className="flex flex-col gap-0.5 rounded-[var(--r-md)] border border-[var(--bd)] px-4 py-3"
+      className="flex flex-col gap-1 rounded-[var(--r-md)] border border-[var(--bd)] px-4 py-3"
       style={{ backgroundColor: c.bg }}
     >
       <span
@@ -234,21 +242,21 @@ function TabList({ tab, onChange, stats }: TabListProps) {
             type="button"
             onClick={() => onChange(key)}
             className={[
-              'inline-flex min-h-[40px] items-center gap-2',
+              'inline-flex min-h-[44px] items-center gap-2',
               'border-b-2 px-3 -mb-px',
               'font-display text-[13px] font-[600]',
               'transition-colors duration-[var(--dur-normal)] ease-[var(--ease)]',
               'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]',
               active
                 ? 'border-[var(--p)] text-[var(--p)]'
-                : 'border-transparent text-[var(--t3)] hover:text-[var(--t1)]',
+                : 'border-transparent text-[var(--t2)] hover:text-[var(--t1)]',
             ].join(' ')}
           >
             <Icon size={14} aria-hidden />
             {label}
             {badge != null && (
               <span
-                className="inline-flex min-w-[18px] items-center justify-center rounded-[var(--r-full)] bg-[var(--bg2)] px-1.5 font-mono text-[10px] font-[700] text-[var(--t2)]"
+                className="inline-flex min-w-[18px] items-center justify-center rounded-[var(--r-full)] bg-[var(--bg2)] px-2 font-mono text-[10px] font-[700] text-[var(--t2)]"
                 aria-label={`${badge}건`}
               >
                 {badge}

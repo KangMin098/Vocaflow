@@ -1,0 +1,558 @@
+[
+ {
+  "word": "sandal",
+  "meaning_ko": "샌들",
+  "pos": "noun",
+  "candidates": [
+   "sandalwood"
+  ]
+ },
+ {
+  "word": "slipper",
+  "meaning_ko": "슬리퍼",
+  "pos": "noun",
+  "candidates": [
+   "slippery"
+  ]
+ },
+ {
+  "word": "slot",
+  "meaning_ko": "(가늘고 긴) 구멍; (일정·목록의) 자리",
+  "pos": "noun",
+  "candidates": [
+   "sloth",
+   "slothful"
+  ]
+ },
+ {
+  "word": "stereo",
+  "meaning_ko": "스테레오, 입체 음향",
+  "pos": "noun",
+  "candidates": [
+   "stereograph",
+   "stereophonic",
+   "stereopticon",
+   "stereoscope",
+   "stereoscopic",
+   "stereotactic",
+   "stereotype"
+  ]
+ },
+ {
+  "word": "teddy",
+  "meaning_ko": "테디 베어; 여성용 속옷",
+  "pos": "noun",
+  "candidates": [
+   "teddy bear"
+  ]
+ },
+ {
+  "word": "unrest",
+  "meaning_ko": "불안, 소요",
+  "pos": "noun",
+  "candidates": [
+   "unrestored",
+   "unrestrained",
+   "unrestricted"
+  ]
+ },
+ {
+  "word": "album",
+  "meaning_ko": "앨범",
+  "pos": "noun",
+  "candidates": [
+   "albumen",
+   "albumin"
+  ]
+ },
+ {
+  "word": "bard",
+  "meaning_ko": "음유시인",
+  "pos": "noun",
+  "candidates": [
+   "barded"
+  ]
+ },
+ {
+  "word": "blaze",
+  "meaning_ko": "활활 타다; 화염",
+  "pos": "verb",
+  "candidates": [
+   "blaze up",
+   "blazer"
+  ]
+ },
+ {
+  "word": "border",
+  "meaning_ko": "국경, 경계",
+  "pos": "noun",
+  "candidates": [
+   "borderline"
+  ]
+ },
+ {
+  "word": "bored",
+  "meaning_ko": "지루해하는",
+  "pos": "adjective",
+  "candidates": [
+   "boredom"
+  ]
+ },
+ {
+  "word": "canto",
+  "meaning_ko": "칸토 — 장편 시를 나누는 큰 단락, 편(篇)",
+  "pos": "noun",
+  "candidates": [
+   "canton",
+   "cantonese",
+   "cantonment",
+   "cantor"
+  ]
+ },
+ {
+  "word": "canvas",
+  "meaning_ko": "(그림 그리는) 캔버스, 화폭",
+  "pos": "noun",
+  "candidates": [
+   "canvass",
+   "canvasser"
+  ]
+ },
+ {
+  "word": "cheque",
+  "meaning_ko": "수표",
+  "pos": "noun",
+  "candidates": [
+   "chequebook",
+   "chequered"
+  ]
+ },
+ {
+  "word": "curtain",
+  "meaning_ko": "커튼",
+  "pos": "noun",
+  "candidates": [
+   "curtain call",
+   "curtain-up"
+  ]
+ },
+ {
+  "word": "diamond",
+  "meaning_ko": "다이아몬드",
+  "pos": "noun",
+  "candidates": [
+   "diamondback"
+  ]
+ },
+ {
+  "word": "eastern",
+  "meaning_ko": "동쪽의",
+  "pos": "adjective",
+  "candidates": [
+   "easternmost"
+  ]
+ },
+ {
+  "word": "electrical",
+  "meaning_ko": "전기의",
+  "pos": "adjective",
+  "candidates": [
+   "electrical storm",
+   "electrically"
+  ]
+ },
+ {
+  "word": "managed",
+  "meaning_ko": "관리된",
+  "pos": "adjective",
+  "candidates": [
+   "managed care"
+  ]
+ },
+ {
+  "word": "midnight",
+  "meaning_ko": "자정",
+  "pos": "noun",
+  "candidates": [
+   "midnight blue"
+  ]
+ },
+ {
+  "word": "passenger",
+  "meaning_ko": "승객",
+  "pos": "noun",
+  "candidates": [
+   "passenger seat"
+  ]
+ },
+ {
+  "word": "petrol",
+  "meaning_ko": "휘발유",
+  "pos": "noun",
+  "candidates": [
+   "petrol blue",
+   "petrol tank",
+   "petrolatum",
+   "petroleum",
+   "petrologist",
+   "petrology"
+  ]
+ },
+ {
+  "word": "pizza",
+  "meaning_ko": "피자",
+  "pos": "noun",
+  "candidates": [
+   "pizzazz"
+  ]
+ },
+ {
+  "word": "praise",
+  "meaning_ko": "칭찬, 찬양",
+  "pos": "noun",
+  "candidates": [
+   "praiseworthy"
+  ]
+ },
+ {
+  "word": "promising",
+  "meaning_ko": "유망한",
+  "pos": "adjective",
+  "candidates": [
+   "promisingly"
+  ]
+ },
+ {
+  "word": "saving",
+  "meaning_ko": "절약",
+  "pos": "noun",
+  "candidates": [
+   "savings bank",
+   "savings rate"
+  ]
+ },
+ {
+  "word": "spotted",
+  "meaning_ko": "점박이의",
+  "pos": "adjective",
+  "candidates": [
+   "spotted dick"
+  ]
+ },
+ {
+  "word": "task",
+  "meaning_ko": "과제, 업무",
+  "pos": "noun",
+  "candidates": [
+   "taskbar",
+   "taskmaster"
+  ]
+ },
+ {
+  "word": "tennis",
+  "meaning_ko": "테니스",
+  "pos": "noun",
+  "candidates": [
+   "tennis shoe"
+  ]
+ },
+ {
+  "word": "webs",
+  "meaning_ko": "거미줄들; (복잡한) 그물망",
+  "pos": "noun",
+  "candidates": [
+   "website"
+  ]
+ },
+ {
+  "word": "wells",
+  "meaning_ko": "우물들; 샘",
+  "pos": "noun",
+  "candidates": [
+   "wellspring"
+  ]
+ },
+ {
+  "word": "youth",
+  "meaning_ko": "젊음",
+  "pos": "noun",
+  "candidates": [
+   "youthful"
+  ]
+ },
+ {
+  "word": "clef",
+  "meaning_ko": "음자리표",
+  "pos": "noun",
+  "candidates": [
+   "cleft"
+  ]
+ },
+ {
+  "word": "conservator",
+  "meaning_ko": "(박물관·미술) 보존 전문가 — 유물·미술품을 보존·복원하는 전문가",
+  "pos": "noun",
+  "candidates": [
+   "conservatory"
+  ]
+ },
+ {
+  "word": "demo",
+  "meaning_ko": "시연, 시범; 시연하다, 시범을 보이다",
+  "pos": "noun",
+  "candidates": [
+   "demob",
+   "democracy",
+   "democrat",
+   "democratic",
+   "demography",
+   "demoiselle",
+   "demolish",
+   "demolition",
+   "demon",
+   "demoniac"
+  ]
+ },
+ {
+  "word": "figurative",
+  "meaning_ko": "비유적인; (미술) 구상의",
+  "pos": "adjective",
+  "candidates": [
+   "figuratively"
+  ]
+ },
+ {
+  "word": "matinee",
+  "meaning_ko": "마티네 (낮 공연)",
+  "pos": "noun",
+  "candidates": [
+   "matinee idol"
+  ]
+ },
+ {
+  "word": "melodic",
+  "meaning_ko": "선율의, 듣기 좋은",
+  "pos": "adjective",
+  "candidates": [
+   "melodica"
+  ]
+ },
+ {
+  "word": "newscast",
+  "meaning_ko": "뉴스 방송",
+  "pos": "noun",
+  "candidates": [
+   "newscaster"
+  ]
+ },
+ {
+  "word": "prop",
+  "meaning_ko": "버팀목, 소품",
+  "pos": "noun",
+  "candidates": [
+   "propaganda",
+   "propagate",
+   "propane",
+   "propel",
+   "propellant",
+   "propeller",
+   "propensity",
+   "proper",
+   "properly",
+   "property",
+   "prophecy",
+   "prophesy",
+   "prophet",
+   "prophetess",
+   "prophetic",
+   "prophetism"
+  ]
+ },
+ {
+  "word": "saga",
+  "meaning_ko": "대하소설, 무용담",
+  "pos": "noun",
+  "candidates": [
+   "sagacious",
+   "sagacity"
+  ]
+ },
+ {
+  "word": "satellite",
+  "meaning_ko": "위성",
+  "pos": "noun",
+  "candidates": [
+   "satellite dish"
+  ]
+ },
+ {
+  "word": "scoop",
+  "meaning_ko": "스쿱, 특종",
+  "pos": "noun",
+  "candidates": [
+   "scooped"
+  ]
+ },
+ {
+  "word": "sequel",
+  "meaning_ko": "속편",
+  "pos": "noun",
+  "candidates": [
+   "sequelae"
+  ]
+ },
+ {
+  "word": "superstar",
+  "meaning_ko": "슈퍼스타",
+  "pos": "noun",
+  "candidates": [
+   "superstardom"
+  ]
+ },
+ {
+  "word": "tableau",
+  "meaning_ko": "한 폭의 그림 같은 인상적인 장면·광경",
+  "pos": "noun",
+  "candidates": [
+   "tableaux"
+  ]
+ },
+ {
+  "word": "tempera",
+  "meaning_ko": "템페라 물감 — 달걀노른자 등 수용성 유화액에 안료를 섞은 그림물감",
+  "pos": "noun",
+  "candidates": [
+   "temperament",
+   "temperamental",
+   "temperance",
+   "temperate",
+   "temperately",
+   "temperature"
+  ]
+ },
+ {
+  "word": "bantam",
+  "meaning_ko": "밴텀 — 몸집이 아주 작은 닭 품종; (비유) 몸집 작은 사람",
+  "pos": "noun",
+  "candidates": [
+   "bantamweight"
+  ]
+ },
+ {
+  "word": "buffalo",
+  "meaning_ko": "물소 — 아프리카·아시아에 사는 뿔이 큰 소과 동물",
+  "pos": "noun",
+  "candidates": [
+   "buffalo wings"
+  ]
+ },
+ {
+  "word": "butterfly",
+  "meaning_ko": "나비",
+  "pos": "noun",
+  "candidates": [
+   "butterflyfish"
+  ]
+ },
+ {
+  "word": "camel",
+  "meaning_ko": "낙타 — 사막에서 짐을 나르는 데 쓰는, 등에 혹이 있는 동물",
+  "pos": "noun",
+  "candidates": [
+   "camelia",
+   "camellia"
+  ]
+ },
+ {
+  "word": "chick",
+  "meaning_ko": "병아리",
+  "pos": "noun",
+  "candidates": [
+   "chick flick",
+   "chick lit",
+   "chickadee",
+   "chicken",
+   "chicken flu",
+   "chicken out",
+   "chickenpox",
+   "chickpea",
+   "chickweed"
+  ]
+ },
+ {
+  "word": "chub",
+  "meaning_ko": "황어",
+  "pos": "noun",
+  "candidates": [
+   "chubbiness",
+   "chubby"
+  ]
+ },
+ {
+  "word": "clam",
+  "meaning_ko": "조개, 대합",
+  "pos": "noun",
+  "candidates": [
+   "clamant",
+   "clamber",
+   "clammy",
+   "clamor",
+   "clamoring",
+   "clamorous",
+   "clamour",
+   "clamp"
+  ]
+ },
+ {
+  "word": "claw",
+  "meaning_ko": "(동물의) 발톱 — 발가락 끝의 굽고 뾰족한 각질",
+  "pos": "noun",
+  "candidates": [
+   "clawback",
+   "clawbeaks"
+  ]
+ },
+ {
+  "word": "cockle",
+  "meaning_ko": "새조개 (하트 모양 껍데기의 식용 조개)",
+  "pos": "noun",
+  "candidates": [
+   "cockleshell"
+  ]
+ },
+ {
+  "word": "conger",
+  "meaning_ko": "붕장어",
+  "pos": "noun",
+  "candidates": [
+   "congeries"
+  ]
+ },
+ {
+  "word": "coop",
+  "meaning_ko": "닭장",
+  "pos": "noun",
+  "candidates": [
+   "cooper",
+   "cooperate",
+   "coopt"
+  ]
+ },
+ {
+  "word": "coot",
+  "meaning_ko": "물닭",
+  "pos": "noun",
+  "candidates": [
+   "cooter",
+   "cootie"
+  ]
+ },
+ {
+  "word": "coral",
+  "meaning_ko": "산호; 산호초; (형용사) 산호색의, 분홍빛 주황의",
+  "pos": "noun",
+  "candidates": [
+   "coral snake"
+  ]
+ }
+]

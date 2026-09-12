@@ -1,0 +1,554 @@
+{
+  "book": {
+    "id": "39035bf2-1fbf-4d1c-a859-5830e8a11a82",
+    "title": "American Indian Stories",
+    "book_v_level": 7
+  },
+  "target_per_chapter": 7,
+  "chapters": [
+    {
+      "chapter_idx": 1,
+      "chapter_title": "Impressions of an Indian Childhood",
+      "word_count": 864,
+      "chapter_v_level": 5,
+      "content": "CHAPTER 1. Impressions of an Indian Childhood\u001ehttps://standardebooks.org/ebooks/zitkala-sa/american-indian-stories/text/impressions-of-an-indian-childhood\n\nCHAPTER 2. My Mother\u001ehttps://standardebooks.org/ebooks/zitkala-sa/american-indian-stories/text/impressions-of-an-indian-childhood#impressions-of-an-indian-childhood-1\n\nA wigwam of weather-stained canvas stood at the base of some irregularly ascending hills. A footpath wound its way gently down the sloping land till it reached the broad river bottom; creeping through the long swamp grasses that bent over it on either side, it came out on the edge of the Missouri.\n\nHere, morning, noon, and evening, my mother came to draw water from the muddy stream for our household use. Always, when my mother started for the river, I stopped my play to run along with her. She was only of medium height. Often she was sad and silent, at which times her full arched lips were compressed into hard and bitter lines, and shadows fell under her black eyes. Then I clung to her hand and begged to know what made the tears fall.\n\n\"Hush; my little daughter must never talk about my tears\"; and smiling through them, she patted my head and said, \"Now let me see how fast you can run today.\" Whereupon I tore away at my highest possible speed, with my long black hair blowing in the breeze.\n\nI was a wild little girl of seven. Loosely clad in a slip of brown buckskin, and light-footed with a pair of soft moccasins on my feet, I was as free as the wind that blew my hair, and no less spirited than a bounding deer. These were my mother's pride⁠--my wild freedom and overflowing spirits. She taught me no fear save that of intruding myself upon others.\n\nHaving gone many paces ahead I stopped, panting for breath, and laughing with glee as my mother watched my every movement. I was not wholly conscious of myself, but was more keenly alive to the fire within. It was as if I were the activity, and my hands and feet were only experiments for my spirit to work upon.\n\nReturning from the river, I tugged beside my mother, with my hand upon the bucket I believed I was carrying. One time, on such a return, I remember a bit of conversation we had. My grownup cousin, Warca-Ziwin (Sunflower), who was then seventeen, always went to the river alone for water for her mother. Their wigwam was not far from ours; and I saw her daily going to and from the river. I admired my cousin greatly. So I said: \"Mother, when I am tall as my cousin Warca-Ziwin, you shall not have to come for water. I will do it for you.\"\n\nWith a strange tremor in her voice which I could not understand, she answered, \"If the paleface does not take away from us the river we drink.\"\n\n\"Mother, who is this bad paleface?\" I asked.\n\n\"My little daughter, he is a sham⁠--a sickly sham! The bronzed Dakota is the only real man.\"\n\nI looked up into my mother's face while she spoke; and seeing her bite her lips, I knew she was unhappy. This aroused revenge in my small soul. Stamping my foot on the earth, I cried aloud, \"I hate the paleface that makes my mother cry!\"\n\nSetting the pail of water on the ground, my mother stooped, and stretching her left hand out on the level with my eyes, she placed her other arm about me; she pointed to the hill where my uncle and my only sister lay buried.\n\n\"There is what the paleface has done! Since then your father too has been buried in a hill nearer the rising sun. We were once very happy. But the paleface has stolen our lands and driven us hither. Having defrauded us of our land, the paleface forced us away.\n\n\"Well, it happened on the day we moved camp that your sister and uncle were both very sick. Many others were ailing, but there seemed to be no help. We traveled many days and nights; not in the grand, happy way that we moved camp when I was a little girl, but we were driven, my child, driven like a herd of buffalo. With every step, your sister, who was not as large as you are now, shrieked with the painful jar until she was hoarse with crying. She grew more and more feverish. Her little hands and cheeks were burning hot. Her little lips were parched and dry, but she would not drink the water I gave her. Then I discovered that her throat was swollen and red. My poor child, how I cried with her because the Great Spirit had forgotten us!\n\n\"At last, when we reached this western country, on the first weary night your sister died. And soon your uncle died also, leaving a widow and an orphan daughter, your cousin Warca-Ziwin. Both your sister and uncle might have been happy with us today, had it not been for the heartless paleface.\"\n\nMy mother was silent the rest of the way to our wigwam. Though I saw no tears in her eyes, I knew that was because I was with her. She seldom wept before me.",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "What did the mother do each morning, noon and evening?",
+          "questionKo": "어머니가 아침·낮·저녁마다 하던 일은?",
+          "options": [
+            {
+              "text": "She went down to the Missouri to draw water for the household.",
+              "textKo": "미주리강으로 내려가 집에서 쓸 물을 길어 왔다."
+            },
+            {
+              "text": "She gathered sweet roots on the hills.",
+              "textKo": "언덕에서 단 뿌리를 캐 왔다."
+            },
+            {
+              "text": "She visited the neighboring wigwams.",
+              "textKo": "이웃 천막들을 찾아다녔다."
+            },
+            {
+              "text": "She worked at her beadwork by the fire.",
+              "textKo": "불가에서 구슬 세공을 했다."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "Here, morning, noon, and evening, my mother came to draw water from the muddy stream for our household use."
+        },
+        {
+          "type": "multiple",
+          "question": "What one fear did the mother teach her daughter?",
+          "questionKo": "어머니가 딸에게 가르친 단 하나의 두려움은?",
+          "options": [
+            {
+              "text": "Fear of the river in flood.",
+              "textKo": "물이 불어난 강에 대한 두려움."
+            },
+            {
+              "text": "Fear of intruding herself upon others.",
+              "textKo": "남에게 폐를 끼치는 것에 대한 두려움."
+            },
+            {
+              "text": "Fear of the tattooed old warriors.",
+              "textKo": "문신한 늙은 전사들에 대한 두려움."
+            },
+            {
+              "text": "Fear of straying beyond the hills.",
+              "textKo": "언덕 너머로 벗어나는 것에 대한 두려움."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "She taught me no fear save that of intruding myself upon others."
+        },
+        {
+          "type": "multiple",
+          "question": "What promise does the seven-year-old make to her mother, and how does the mother answer?",
+          "questionKo": "일곱 살 아이가 어머니에게 한 약속과, 어머니의 대답은?",
+          "options": [
+            {
+              "text": "To learn the legends by heart — her mother says she is too young yet.",
+              "textKo": "전설을 외우겠다고 — 어머니는 아직 어리다고 답한다."
+            },
+            {
+              "text": "Never to cry again — her mother smiles and says nothing.",
+              "textKo": "다시는 울지 않겠다고 — 어머니는 웃기만 한다."
+            },
+            {
+              "text": "To fetch the water herself when she is as tall as her cousin — her mother answers with a tremor, \"If the paleface does not take away from us the river we drink.\"",
+              "textKo": "사촌만큼 크면 자기가 물을 긷겠다고 — 어머니는 떨리는 목소리로 \"백인이 우리가 마시는 강을 빼앗지만 않는다면\" 이라 답한다."
+            },
+            {
+              "text": "To finish her beadwork designs — her mother has little patience with it.",
+              "textKo": "구슬 도안을 끝내겠다고 — 어머니는 그것을 참지 못한다."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "If the paleface does not take away from us the river we drink."
+        },
+        {
+          "type": "multiple",
+          "question": "What does the mother point to on the hill, and what does it mean?",
+          "questionKo": "어머니가 언덕에서 가리킨 것과 그 뜻은?",
+          "options": [
+            {
+              "text": "The old camp they left behind.",
+              "textKo": "두고 온 옛 야영지."
+            },
+            {
+              "text": "The direction the river takes to the west.",
+              "textKo": "강이 서쪽으로 흐르는 방향."
+            },
+            {
+              "text": "The cousin Warca-Ziwin’s wigwam.",
+              "textKo": "사촌 와르차지윈의 천막."
+            },
+            {
+              "text": "The graves of the narrator’s uncle and only sister — she says that is what the paleface has done.",
+              "textKo": "화자의 삼촌과 하나뿐인 언니의 무덤 — 백인이 한 짓이 저것이라고 말한다."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "she pointed to the hill where my uncle and my only sister lay buried"
+        },
+        {
+          "type": "multiple",
+          "question": "How does the mother describe the journey west?",
+          "questionKo": "어머니는 서쪽으로 온 그 여정을 어떻게 묘사하는가?",
+          "options": [
+            {
+              "text": "Not in the grand happy way of moving camp, but driven like a herd of buffalo.",
+              "textKo": "야영지를 옮기던 성대하고 즐거운 방식이 아니라, 들소 떼처럼 몰려 갔다고."
+            },
+            {
+              "text": "As a long but peaceful walk in the old grand way.",
+              "textKo": "옛날처럼 성대하고 평화롭던 긴 걸음이었다고."
+            },
+            {
+              "text": "As a journey they chose in search of better hunting.",
+              "textKo": "더 나은 사냥터를 찾아 스스로 택한 길이었다고."
+            },
+            {
+              "text": "As too long ago for her to remember clearly.",
+              "textKo": "너무 오래되어 또렷이 기억나지 않는다고."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "but we were driven, my child, driven like a herd of buffalo"
+        },
+        {
+          "type": "multiple",
+          "question": "What happened to the narrator’s sister and uncle?",
+          "questionKo": "화자의 언니와 삼촌에게 무슨 일이 있었는가?",
+          "options": [
+            {
+              "text": "They stayed behind at the old camp.",
+              "textKo": "옛 야영지에 남았다."
+            },
+            {
+              "text": "The sister died on the first weary night in the western country, and the uncle died soon after.",
+              "textKo": "언니는 서쪽 땅에 닿은 첫 고단한 밤에, 삼촌은 그 얼마 뒤에 세상을 떠났다."
+            },
+            {
+              "text": "They were taken away by soldiers.",
+              "textKo": "군인들에게 끌려갔다."
+            },
+            {
+              "text": "Both recovered after reaching the river.",
+              "textKo": "강에 닿은 뒤 둘 다 회복했다."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "on the first weary night your sister died. And soon your uncle died also"
+        },
+        {
+          "type": "truefalse",
+          "question": "The narrator says her mother often wept in front of her.",
+          "questionKo": "화자는 어머니가 자기 앞에서 자주 울었다고 말한다.",
+          "options": [
+            {
+              "text": "True",
+              "textKo": "맞다"
+            },
+            {
+              "text": "False",
+              "textKo": "아니다"
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "She seldom wept before me."
+        }
+      ]
+    },
+    {
+      "chapter_idx": 2,
+      "chapter_title": "The Legends",
+      "word_count": 1053,
+      "chapter_v_level": 5,
+      "content": "CHAPTER 3. The Legends\u001ehttps://standardebooks.org/ebooks/zitkala-sa/american-indian-stories/text/impressions-of-an-indian-childhood#impressions-of-an-indian-childhood-2\n\nDuring the summer days my mother built her fire in the shadow of our wigwam.\n\nIn the early morning our simple breakfast was spread upon the grass west of our teepee. At the farthest point of the shade my mother sat beside her fire, toasting a savory piece of dried meat. Near her, I sat upon my feet, eating my dried meat with unleavened bread, and drinking strong black coffee.\n\nThe morning meal was our quiet hour, when we two were entirely alone. At noon, several who chanced to be passing by stopped to rest, and to share our luncheon with us, for they were sure of our hospitality.\n\nMy uncle, whose death my mother ever lamented, was one of our nation's bravest warriors. His name was on the lips of old men when talking of the proud feats of valor; and it was mentioned by younger men, too, in connection with deeds of gallantry. Old women praised him for his kindness toward them; young women held him up as an ideal to their sweethearts. Everyone loved him, and my mother worshiped his memory. Thus it happened that even strangers were sure of welcome in our lodge, if they but asked a favor in my uncle's name.\n\nThough I heard many strange experiences related by these wayfarers, I loved best the evening meal, for that was the time old legends were told. I was always glad when the sun hung low in the west, for then my mother sent me to invite the neighboring old men and women to eat supper with us. Running all the way to the wigwams, I halted shyly at the entrances. Sometimes I stood long moments without saying a word. It was not any fear that made me so dumb when out upon such a happy errand; nor was it that I wished to withhold the invitation, for it was all I could do to observe this very proper silence. But it was a sensing of the atmosphere, to assure myself that I should not hinder other plans. My mother used to say to me, as I was almost bounding away for the old people: \"Wait a moment before you invite anyone. If other plans are being discussed, do not interfere, but go elsewhere.\"\n\nThe old folks knew the meaning of my pauses; and often they coaxed my confidence by asking, \"What do you seek, little granddaughter?\"\n\n\"My mother says you are to come to our teepee this evening,\" I instantly exploded, and breathed the freer afterwards.\n\n\"Yes, yes, gladly, gladly I shall come!\" each replied. Rising at once and carrying their blankets across one shoulder, they flocked leisurely from their various wigwams toward our dwelling.\n\nMy mission done, I ran back, skipping and jumping with delight. All out of breath, I told my mother almost the exact words of the answers to my invitation. Frequently she asked, \"What were they doing when you entered their teepee?\" This taught me to remember all I saw at a single glance. Often I told my mother my impressions without being questioned.\n\nWhile in the neighboring wigwams sometimes an old Indian woman asked me, \"What is your mother doing?\" Unless my mother had cautioned me not to tell, I generally answered her questions without reserve.\n\nAt the arrival of our guests I sat close to my mother, and did not leave her side without first asking her consent. I ate my supper in quiet, listening patiently to the talk of the old people, wishing all the time that they would begin the stories I loved best. At last, when I could not wait any longer, I whispered in my mother's ear, \"Ask them to tell an Iktomi story, mother.\"\n\nSoothing my impatience, my mother said aloud, \"My little daughter is anxious to hear your legends.\" By this time all were through eating, and the evening was fast deepening into twilight.\n\nAs each in turn began to tell a legend, I pillowed my head in my mother's lap; and lying flat upon my back, I watched the stars as they peeped down upon me, one by one. The increasing interest of the tale aroused me, and I sat up eagerly listening to every word. The old women made funny remarks, and laughed so heartily that I could not help joining them.\n\nThe distant howling of a pack of wolves or the hooting of an owl in the river bottom frightened me, and I nestled into my mother's lap. She added some dry sticks to the open fire, and the bright flames leaped up into the faces of the old folks as they sat around in a great circle.\n\nOn such an evening, I remember the glare of the fire shone on a tattooed star upon the brow of the old warrior who was telling a story. I watched him curiously as he made his unconscious gestures. The blue star upon his bronzed forehead was a puzzle to me. Looking about, I saw two parallel lines on the chin of one of the old women. The rest had none. I examined my mother's face, but found no sign there.\n\nAfter the warrior's story was finished, I asked the old woman the meaning of the blue lines on her chin, looking all the while out of the corners of my eyes at the warrior with the star on his forehead. I was a little afraid that he would rebuke me for my boldness.\n\nHere the old woman began: \"Why, my grandchild, they are signs⁠--secret signs I dare not tell you. I shall, however, tell you a wonderful story about a woman who had a cross tattooed upon each of her cheeks.\"\n\nIt was a long story of a woman whose magic power lay hidden behind the marks upon her face. I fell asleep before the story was completed.\n\nEver after that night I felt suspicious of tattooed people. Wherever I saw one I glanced furtively at the mark and round about it, wondering what terrible magic power was covered there.\n\nIt was rarely that such a fearful story as this one was told by the camp fire. Its impression was so acute that the picture still remains vividly clear and pronounced.",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "Why were even strangers sure of a welcome in the family’s lodge?",
+          "questionKo": "낯선 이들조차 그 집에서 환대를 확신할 수 있었던 이유는?",
+          "options": [
+            {
+              "text": "The mother had promised the old people she would feed anyone.",
+              "textKo": "어머니가 노인들에게 누구든 먹이겠다고 약속해서."
+            },
+            {
+              "text": "Their lodge stood on the main footpath.",
+              "textKo": "천막이 큰 오솔길가에 있어서."
+            },
+            {
+              "text": "If they asked a favor in the dead uncle’s name — a warrior everyone loved — they were welcome.",
+              "textKo": "모두가 사랑했던 전사, 세상을 떠난 삼촌의 이름으로 청하면 환대받았기 때문에."
+            },
+            {
+              "text": "They had more food than their neighbours.",
+              "textKo": "이웃보다 먹을 것이 넉넉해서."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "even strangers were sure of welcome in our lodge, if they but asked a favor in my uncle’s name"
+        },
+        {
+          "type": "multiple",
+          "question": "Why did the child pause silently at the entrance when carrying an invitation?",
+          "questionKo": "초대를 전하러 간 아이가 천막 입구에서 말없이 멈춰 선 이유는?",
+          "options": [
+            {
+              "text": "She was shy of the old warriors.",
+              "textKo": "늙은 전사들이 부끄러워서."
+            },
+            {
+              "text": "She had forgotten the words of the invitation.",
+              "textKo": "초대의 말을 잊어버려서."
+            },
+            {
+              "text": "She was out of breath from running.",
+              "textKo": "달려오느라 숨이 차서."
+            },
+            {
+              "text": "She was sensing the atmosphere, to be sure she would not hinder other plans.",
+              "textKo": "다른 계획을 방해하지 않으려 분위기를 살피기 위해서."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "But it was a sensing of the atmosphere, to assure myself that I should not hinder other plans."
+        },
+        {
+          "type": "multiple",
+          "question": "What habit did the mother’s question \"What were they doing when you entered?\" train in the child?",
+          "questionKo": "\"들어갔을 때 그들이 무엇을 하고 있더냐\" 는 어머니의 물음이 아이에게 길러 준 것은?",
+          "options": [
+            {
+              "text": "To remember all she saw at a single glance.",
+              "textKo": "한 번 본 것을 모두 기억하는 것."
+            },
+            {
+              "text": "To repeat conversations word for word.",
+              "textKo": "대화를 한 마디도 빠뜨리지 않고 되풀이하는 것."
+            },
+            {
+              "text": "To keep the neighbours’ business to herself.",
+              "textKo": "이웃의 일을 발설하지 않는 것."
+            },
+            {
+              "text": "To wait before speaking to elders.",
+              "textKo": "어른에게 말하기 전에 기다리는 것."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "This taught me to remember all I saw at a single glance."
+        },
+        {
+          "type": "multiple",
+          "question": "What did the child most look forward to at the evening meal?",
+          "questionKo": "아이가 저녁 식사에서 가장 기다린 것은?",
+          "options": [
+            {
+              "text": "The strong black coffee.",
+              "textKo": "진한 블랙커피."
+            },
+            {
+              "text": "The old legends the guests would tell.",
+              "textKo": "손님들이 들려줄 옛 전설."
+            },
+            {
+              "text": "Being allowed to sit apart from her mother.",
+              "textKo": "어머니와 떨어져 앉아도 되는 것."
+            },
+            {
+              "text": "Watching the wayfarers’ arrival.",
+              "textKo": "나그네들이 도착하는 광경."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "I loved best the evening meal, for that was the time old legends were told"
+        },
+        {
+          "type": "multiple",
+          "question": "What puzzled the child as the old warrior told his story by firelight?",
+          "questionKo": "불빛 아래 늙은 전사가 이야기하는 동안 아이를 궁금하게 한 것은?",
+          "options": [
+            {
+              "text": "Why he never looked at the children.",
+              "textKo": "왜 아이들을 한 번도 보지 않는지."
+            },
+            {
+              "text": "Why the old women laughed at his story.",
+              "textKo": "왜 노파들이 그 이야기에 웃는지."
+            },
+            {
+              "text": "The blue star tattooed upon his forehead.",
+              "textKo": "이마에 새겨진 푸른 별 문신."
+            },
+            {
+              "text": "Why he spoke so softly.",
+              "textKo": "왜 그토록 나직이 말하는지."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "the glare of the fire shone on a tattooed star upon the brow of the old warrior"
+        },
+        {
+          "type": "multiple",
+          "question": "How did the old woman answer the question about the lines on her chin?",
+          "questionKo": "턱의 선에 대한 물음에 노파는 어떻게 답했는가?",
+          "options": [
+            {
+              "text": "She said they were the marks of her clan.",
+              "textKo": "자기 씨족의 표식이라고 했다."
+            },
+            {
+              "text": "She said the child would learn when she was older.",
+              "textKo": "아이가 자라면 알게 되리라 했다."
+            },
+            {
+              "text": "She refused to say anything at all.",
+              "textKo": "아무 말도 하려 하지 않았다."
+            },
+            {
+              "text": "She said they were secret signs she dared not tell — and instead told a story of a woman with crosses on her cheeks.",
+              "textKo": "감히 말할 수 없는 비밀 표식이라 하고, 대신 뺨에 십자가를 새긴 여인의 이야기를 들려주었다."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "they are signs⁠--secret signs I dare not tell you"
+        },
+        {
+          "type": "multiple",
+          "question": "What lasting effect did that night have on the child?",
+          "questionKo": "그날 밤이 아이에게 남긴 오래가는 영향은?",
+          "options": [
+            {
+              "text": "Ever after she felt suspicious of tattooed people, glancing at the mark and wondering what magic power it covered.",
+              "textKo": "그 뒤로 문신한 사람을 볼 때마다 표식을 흘끗거리며 어떤 마력이 숨어 있을까 의심하게 되었다."
+            },
+            {
+              "text": "She refused to go to the neighbouring wigwams again.",
+              "textKo": "다시는 이웃 천막에 가지 않으려 했다."
+            },
+            {
+              "text": "She began to ask for that story every evening.",
+              "textKo": "저녁마다 그 이야기를 청하게 되었다."
+            },
+            {
+              "text": "She stopped falling asleep during the legends.",
+              "textKo": "전설을 듣다 잠드는 일이 없어졌다."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "Ever after that night I felt suspicious of tattooed people."
+        }
+      ]
+    },
+    {
+      "chapter_idx": 3,
+      "chapter_title": "The Beadwork",
+      "word_count": 1279,
+      "chapter_v_level": 7,
+      "content": "CHAPTER 4. The Beadwork\u001ehttps://standardebooks.org/ebooks/zitkala-sa/american-indian-stories/text/impressions-of-an-indian-childhood#impressions-of-an-indian-childhood-3\n\nSoon after breakfast mother sometimes began her beadwork. On a bright, clear day, she pulled out the wooden pegs that pinned the skirt of our wigwam to the ground, and rolled the canvas part way up on its frame of slender poles. Then the cool morning breezes swept freely through our dwelling, now and then wafting the perfume of sweet grasses from newly burnt prairie.\n\nUntying the long tasseled strings that bound a small brown buckskin bag, my mother spread upon a mat beside her bunches of colored beads, just as an artist arranges the paints upon his palette. On a lapboard she smoothed out a double sheet of soft white buckskin; and drawing from a beaded case that hung on the left of her wide belt a long, narrow blade, she trimmed the buckskin into shape. Often she worked upon small moccasins for her small daughter. Then I became intensely interested in her designing. With a proud, beaming face, I watched her work. In imagination, I saw myself walking in a new pair of snugly fitting moccasins. I felt the envious eyes of my playmates upon the pretty red beads decorating my feet.\n\nClose beside my mother I sat on a rug, with a scrap of buckskin in one hand and an awl in the other. This was the beginning of my practical observation lessons in the art of beadwork. From a skein of finely twisted threads of silvery sinews my mother pulled out a single one. With an awl she pierced the buckskin, and skillfully threaded it with the white sinew. Picking up the tiny beads one by one, she strung them with the point of her thread, always twisting it carefully after every stitch.\n\nIt took many trials before I learned how to knot my sinew thread on the point of my finger, as I saw her do. Then the next difficulty was in keeping my thread stiffly twisted, so that I could easily string my beads upon it. My mother required of me original designs for my lessons in beading. At first I frequently ensnared many a sunny hour into working a long design. Soon I learned from self-inflicted punishment to refrain from drawing complex patterns, for I had to finish whatever I began.\n\nAfter some experience I usually drew easy and simple crosses and squares. These were some of the set forms. My original designs were not always symmetrical nor sufficiently characteristic, two faults with which my mother had little patience. The quietness of her oversight made me feel strongly responsible and dependent upon my own judgment. She treated me as a dignified little individual as long as I was on my good behavior; and how humiliated I was when some boldness of mine drew forth a rebuke from her!\n\nIn the choice of colors she left me to my own taste. I was pleased with an outline of yellow upon a background of dark blue, or a combination of red and myrtle-green. There was another of red with a bluish-gray that was more conventionally used. When I became a little familiar with designing and the various pleasing combinations of color, a harder lesson was given me. It was the sewing on, instead of beads, some tinted porcupine quills, moistened and flattened between the nails of the thumb and forefinger. My mother cut off the prickly ends and burned them at once in the centre fire. These sharp points were poisonous, and worked into the flesh wherever they lodged. For this reason, my mother said, I should not do much alone in quills until I was as tall as my cousin Warca-Ziwin.\n\nAlways after these confining lessons I was wild with surplus spirits, and found joyous relief in running loose in the open again. Many a summer afternoon a party of four or five of my playmates roamed over the hills with me. We each carried a light sharpened rod about four feet long, with which we pried up certain sweet roots. When we had eaten all the choice roots we chanced upon, we shouldered our rods and strayed off into patches of a stalky plant under whose yellow blossoms we found little crystal drops of gum. Drop by drop we gathered this nature's rock-candy, until each of us could boast of a lump the size of a small bird's egg. Soon satiated with its woody flavor, we tossed away our gum, to return again to the sweet roots.\n\nI remember well how we used to exchange our necklaces, beaded belts, and sometimes even our moccasins. We pretended to offer them as gifts to one another. We delighted in impersonating our own mothers. We talked of things we had heard them say in their conversations. We imitated their various manners, even to the inflection of their voices. In the lap of the prairie we seated ourselves upon our feet, and leaning our painted cheeks in the palms of our hands, we rested our elbows on our knees, and bent forward as old women were most accustomed to do.\n\nWhile one was telling of some heroic deed recently done by a near relative, the rest of us listened attentively, and exclaimed in undertones, \"Han! han!\" (yes! yes!) whenever the speaker paused for breath, or sometimes for our sympathy. As the discourse became more thrilling, according to our ideas, we raised our voices in these interjections. In these impersonations our parents were led to say only those things that were in common favor.\n\nNo matter how exciting a tale we might be rehearsing, the mere shifting of a cloud shadow in the landscape near by was sufficient to change our impulses; and soon we were all chasing the great shadows that played among the hills. We shouted and whooped in the chase; laughing and calling to one another, we were like little sportive nymphs on that Dakota sea of rolling green.\n\nOn one occasion I forgot the cloud shadow in a strange notion to catch up with my own shadow. Standing straight and still, I began to glide after it, putting out one foot cautiously. When, with the greatest care, I set my foot in advance of myself, my shadow crept onward too. Then again I tried it; this time with the other foot. Still again my shadow escaped me. I began to run; and away flew my shadow, always just a step beyond me. Faster and faster I ran, setting my teeth and clenching my fists, determined to overtake my own fleet shadow. But ever swifter it glided before me, while I was growing breathless and hot. Slackening my speed, I was greatly vexed that my shadow should check its pace also. Daring it to the utmost, as I thought, I sat down upon a rock imbedded in the hillside.\n\nSo! my shadow had the impudence to sit down beside me!\n\nNow my comrades caught up with me, and began to ask why I was running away so fast.\n\n\"Oh, I was chasing my shadow! Didn't you ever do that?\" I inquired, surprised that they should not understand.\n\nThey planted their moccasined feet firmly upon my shadow to stay it, and I arose. Again my shadow slipped away, and moved as often as I did. Then we gave up trying to catch my shadow.\n\nBefore this peculiar experience I have no distinct memory of having recognized any vital bond between myself and my own shadow. I never gave it an afterthought.\n\nReturning our borrowed belts and trinkets, we rambled homeward. That evening, as on other evenings, I went to sleep over my legends.",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "What does the narrator compare her mother’s bunches of coloured beads to?",
+          "questionKo": "화자는 어머니가 펼쳐 놓은 색색의 구슬 뭉치를 무엇에 견주는가?",
+          "options": [
+            {
+              "text": "The stars peeping down at her at night.",
+              "textKo": "밤에 그녀를 내려다보던 별들."
+            },
+            {
+              "text": "An artist arranging the paints upon a palette.",
+              "textKo": "팔레트에 물감을 늘어놓는 화가."
+            },
+            {
+              "text": "Berries laid out to dry in the sun.",
+              "textKo": "햇볕에 말리려 널어 둔 열매."
+            },
+            {
+              "text": "The prairie flowers after a burn.",
+              "textKo": "들불이 지난 뒤의 초원 꽃."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "just as an artist arranges the paints upon his palette"
+        },
+        {
+          "type": "multiple",
+          "question": "What did the child learn from \"self-inflicted punishment\" in her beading lessons?",
+          "questionKo": "구슬 수업에서 아이가 \"스스로 자초한 벌\" 로부터 배운 것은?",
+          "options": [
+            {
+              "text": "To ask her mother before choosing colours.",
+              "textKo": "색을 고르기 전에 어머니에게 묻는 것."
+            },
+            {
+              "text": "To keep the sinew thread wet.",
+              "textKo": "힘줄 실을 젖은 채로 두는 것."
+            },
+            {
+              "text": "To refrain from drawing complex patterns — because she had to finish whatever she began.",
+              "textKo": "복잡한 무늬를 그리지 않는 것 — 시작한 것은 반드시 끝내야 했으므로."
+            },
+            {
+              "text": "To work only in the early morning.",
+              "textKo": "이른 아침에만 작업하는 것."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "Soon I learned from self-inflicted punishment to refrain from drawing complex patterns, for I had to finish whatever I began."
+        },
+        {
+          "type": "multiple",
+          "question": "What effect did the quietness of her mother’s oversight have?",
+          "questionKo": "어머니의 조용한 감독이 낳은 효과는?",
+          "options": [
+            {
+              "text": "It made the child careless, since no one scolded her.",
+              "textKo": "꾸짖는 이가 없어 아이가 무심해졌다."
+            },
+            {
+              "text": "It slowed her progress in designing.",
+              "textKo": "도안 실력이 더디게 늘었다."
+            },
+            {
+              "text": "It kept her from ever attempting original designs.",
+              "textKo": "독창적인 도안을 아예 시도하지 못하게 했다."
+            },
+            {
+              "text": "It made her feel strongly responsible and dependent upon her own judgment.",
+              "textKo": "아이가 책임을 무겁게 느끼고 자기 판단에 기대게 했다."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "The quietness of her oversight made me feel strongly responsible and dependent upon my own judgment."
+        },
+        {
+          "type": "multiple",
+          "question": "Why did the mother burn the cut ends of the porcupine quills at once?",
+          "questionKo": "어머니가 잘라 낸 호저 가시 끝을 곧바로 태운 이유는?",
+          "options": [
+            {
+              "text": "The sharp points were poisonous and worked into the flesh wherever they lodged.",
+              "textKo": "그 날카로운 끝이 독이 있어, 박히면 살 속으로 파고들기 때문에."
+            },
+            {
+              "text": "They spoiled the colour of the beads.",
+              "textKo": "구슬 색을 망치기 때문에."
+            },
+            {
+              "text": "Burning them made them easier to flatten.",
+              "textKo": "태우면 납작하게 펴기 쉬워지기 때문에."
+            },
+            {
+              "text": "It was part of the design custom.",
+              "textKo": "도안의 관습이었기 때문에."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "These sharp points were poisonous, and worked into the flesh wherever they lodged."
+        },
+        {
+          "type": "multiple",
+          "question": "What did the playmates do to imitate their own mothers?",
+          "questionKo": "동무들은 자기 어머니들을 흉내 내려고 무엇을 했는가?",
+          "options": [
+            {
+              "text": "They wore their mothers’ moccasins and belts to the river.",
+              "textKo": "어머니의 모카신과 허리띠를 신고 매고 강으로 갔다."
+            },
+            {
+              "text": "They sat back on their feet, cheeks in palms, elbows on knees, bending forward as the old women did.",
+              "textKo": "발을 접고 앉아 뺨을 손바닥에 괴고 팔꿈치를 무릎에 얹은 채, 노파들처럼 몸을 앞으로 숙였다."
+            },
+            {
+              "text": "They built small wigwams out of grass.",
+              "textKo": "풀로 작은 천막을 지었다."
+            },
+            {
+              "text": "They repeated the legends they had heard the night before.",
+              "textKo": "전날 밤 들은 전설을 되풀이했다."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "we rested our elbows on our knees, and bent forward as old women were most accustomed to do"
+        },
+        {
+          "type": "multiple",
+          "question": "How did the attempt to catch her own shadow end?",
+          "questionKo": "제 그림자를 잡으려던 시도는 어떻게 끝났는가?",
+          "options": [
+            {
+              "text": "The shadow vanished when a cloud passed over.",
+              "textKo": "구름이 지나가자 그림자가 사라졌다."
+            },
+            {
+              "text": "She caught it by standing perfectly still.",
+              "textKo": "완전히 멈춰 서서 붙잡았다."
+            },
+            {
+              "text": "She sat down on a rock — and the shadow had the impudence to sit down beside her.",
+              "textKo": "바위에 앉아 버렸는데, 그림자가 뻔뻔하게도 옆에 나란히 앉았다."
+            },
+            {
+              "text": "Her comrades caught it for her.",
+              "textKo": "동무들이 대신 붙잡아 주었다."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "So! my shadow had the impudence to sit down beside me!"
+        },
+        {
+          "type": "multiple",
+          "question": "What does the narrator say about her relationship to her shadow before that day?",
+          "questionKo": "그날 이전 자기 그림자와의 관계에 대해 화자는 무어라 말하는가?",
+          "options": [
+            {
+              "text": "She had always been afraid of it.",
+              "textKo": "늘 그것을 무서워했다."
+            },
+            {
+              "text": "Her mother had told her it was a spirit.",
+              "textKo": "어머니가 그것이 영이라고 일러 주었다."
+            },
+            {
+              "text": "She had chased it many times before.",
+              "textKo": "전에도 여러 번 쫓아다녔다."
+            },
+            {
+              "text": "She had no distinct memory of recognizing any vital bond between herself and it — she never gave it an afterthought.",
+              "textKo": "자기와 그림자 사이에 어떤 긴밀한 연결이 있다고 여긴 기억이 뚜렷이 없다 — 두 번 생각해 본 적이 없었다."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "I have no distinct memory of having recognized any vital bond between myself and my own shadow."
+        }
+      ]
+    }
+  ]
+}

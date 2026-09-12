@@ -1,19 +1,113 @@
 name: Deploy
 
+# 웹 배포 — Vercel.
+#
+# 왜 새로 썼나 (2026-08-26):
+#   이 파일의 두 job 은 통째로 `echo "TODO Vercel deploy via vercel CLI / vercel-action"` 이었다.
+#   main 에 push 해도 **아무것도 배포되지 않았다.** sitemap 132개·랜딩·계측을 아무리 만들어도
+#   내보내는 경로가 없으면 전부 0 이다. (CLAUDE.md §절대 하지 않을 것 — "TODO·생략·placeholder".)
+#
+# ⚠️ **시크릿이 없으면 조용히 건너뛴다** — 빨간불 대신. `ci.yml` 의 e2e job 과 같은 방식이다.
+#    바꿔 말하면 **시크릿을 넣는 순간부터 main 에 머지될 때마다 프로덕션으로 나간다.**
+#    아직 열 준비가 안 됐다면 시크릿을 넣지 말고, 수동으로만 내보내려면 위 `on:` 에서
+#    `push:` 를 지우고 `workflow_dispatch:` 만 남길 것.
+#    켜려면 Settings → Secrets and variables → Actions 에 넣을 것:
+#      · VERCEL_TOKEN       — Vercel 계정 토큰 (Account Settings → Tokens)
+#      · VERCEL_ORG_ID      — `vercel link` 후 .vercel/project.json 의 orgId
+#      · VERCEL_PROJECT_ID  — 같은 파일의 projectId
+#    그리고 **런타임 환경변수는 Vercel 프로젝트 쪽**에 설정한다(여기가 아니다):
+#      NEXT_PUBLIC_SUPABASE_URL · NEXT_PUBLIC_SUPABASE_ANON_KEY · SUPABASE_SERVICE_ROLE_KEY
+#      · NEXT_PUBLIC_SITE_URL(canonical·OG·sitemap 이 이 값에서 파생된다 — 없으면 코드가
+#        프로덕션 도메인으로 폴백하지만, 프리뷰 배포에서는 반드시 지정할 것)
+#
+# 배포 후 한 번 해야 하는 것(자동화 대상이 아니다 — 사람이 콘솔에서):
+#   · Google Search Console 에 속성 등록 → `sitemap.xml` 제출.
+#     sitemap 을 만들어 두는 것과 검색엔진이 아는 것은 다른 일이다.
+
 on:
   push:
     branches: [main]
   workflow_dispatch:
+
+# 같은 브랜치의 배포가 겹치지 않게 한다 — 뒤엣것이 앞엣것을 취소한다.
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   web:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: echo "TODO Vercel deploy via vercel CLI / vercel-action"
 
-  mobile:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - run: echo "TODO EAS Build via expo/expo-github-action"
+      - name: 시크릿 유무 확인
+        id: guard
+        run: |
+          if [ -n "${{ secrets.VERCEL_TOKEN }}" ] && [ -n "${{ secrets.VERCEL_PROJECT_ID }}" ]; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::배포 건너뜀 — VERCEL_TOKEN / VERCEL_PROJECT_ID 미설정. 이 워크플로 상단 주석에 설정 방법이 있습니다."
+          fi
+
+      - if: steps.guard.outputs.ready == 'true'
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9
+
+      - if: steps.guard.outputs.ready == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      # Vercel CLI 로 빌드한다 — 프로젝트 설정(환경변수·리전)을 그대로 가져오므로
+      # 로컬 `next build` 와 프로덕션이 갈라지지 않는다.
+      - if: steps.guard.outputs.ready == 'true'
+        name: Vercel 환경 가져오기
+        run: npx --yes vercel@latest pull --yes --environment=production --token="${{ secrets.VERCEL_TOKEN }}"
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+      - if: steps.guard.outputs.ready == 'true'
+        name: 빌드
+        run: npx --yes vercel@latest build --prod --token="${{ secrets.VERCEL_TOKEN }}"
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+      - if: steps.guard.outputs.ready == 'true'
+        name: 배포
+        id: deploy
+        run: |
+          url=$(npx --yes vercel@latest deploy --prebuilt --prod --token="${{ secrets.VERCEL_TOKEN }}")
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+          echo "::notice::배포됨 — $url"
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+      # 배포가 "성공" 으로 끝났는데 실제로는 500 이 뜨는 경우를 잡는다.
+      # sitemap 을 고르는 이유: 정적 랜딩과 달리 **DB 를 읽는다** — 런타임 환경변수가
+      # 빠졌으면 여기서 드러난다(랜딩만 보면 통과해 버린다).
+      - if: steps.guard.outputs.ready == 'true'
+        name: 배포 확인 — sitemap 이 실제로 응답하는가
+        run: |
+          url="${{ steps.deploy.outputs.url }}"
+          code=$(curl -s -o /tmp/sitemap.xml -w '%{http_code}' --max-time 30 "$url/sitemap.xml")
+          if [ "$code" != "200" ]; then
+            echo "::error::sitemap.xml 이 $code 를 반환했습니다 — 배포는 됐지만 앱이 살아 있지 않습니다."
+            exit 1
+          fi
+          n=$(grep -c '<loc>' /tmp/sitemap.xml || true)
+          echo "::notice::sitemap URL $n 개"
+          # 콘텐츠 상세가 빠지면 정적 9개만 남는다(anon 권한·1,000행 절단이 원인일 수 있다).
+          if [ "$n" -lt 20 ]; then
+            echo "::error::sitemap 이 $n 개뿐입니다 — 콘텐츠 상세가 빠졌습니다. lib/seo/content-entries.ts 를 보세요."
+            exit 1
+          fi
+
+  # 모바일(apps/mobile)은 아직 **기획 단계**라 배포할 산출물이 없다.
+  # 여기에 TODO 에코를 두면 초록불이 "배포됐다" 로 읽히므로 job 자체를 두지 않는다.
+  # EAS Build 는 앱이 실제로 빌드 가능해질 때 추가한다.

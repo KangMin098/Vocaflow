@@ -1,0 +1,437 @@
+// scripts/csat/build-corpus.mjs
+//
+// **수능 기출 + 평가원 모의평가를 하나의 문항 원장으로 합친다.**
+//
+// 지금까지 이 저장소의 기출 자료는 갈래가 넷이었다 — `questions.json`(수능 발문) ·
+// `answers.json`(수능 정답) · `mock-questions.json`(모평 발문) · `mock-answers.json`(모평 정답).
+// 지문·선지는 어디에도 모여 있지 않고 검사 스크립트마다 `lib-passage.mjs` 로 그때그때 떠 왔다.
+// 유형별 분석을 사람이(=Claude Code 배치가) 문항 단위로 하려면 **한 문항이 한 레코드**여야 한다.
+//
+// ⚠️ **여기서 "전체" 라는 말을 쓰려면 분모를 적어야 한다.** 이 스크립트는 빠진 것을 채우지 않고
+//    빠진 자리를 세어 `corpus-report.json` 에 남긴다 — 문제지가 없는 회차, 정답표가 없는 회차,
+//    지문·선지를 못 뜬 문항. 채운 척하면 뒤의 "독해 실점 0 커버" 주장이 통째로 거짓이 된다.
+//
+// 실행: node scripts/csat/build-corpus.mjs
+// 산출: data/corpus.json · data/corpus-report.json
+
+import fs from 'node:fs'
+import path from 'node:path'
+import { itemBlocks, setBlockFor, passageOf, choicesOf } from './lib-passage.mjs'
+
+const DIR = path.resolve('scripts/csat/data')
+const read = (f) => JSON.parse(fs.readFileSync(path.join(DIR, f), 'utf8'))
+
+const TYPES = new Map(read('classified.json').types.map((t) => [t.id, t]))
+
+const suneung = read('questions.json')
+const suneungKeys = read('answers.json')
+const mock = read('mock-questions.json')
+const mockKeys = read('mock-answers.json')
+
+// 수능 발문에는 유형이 안 붙어 있다 — 분류 산출물에서 물려받는다
+const classified = new Map(
+  read('classified.json').rows.map((r) => [`${r.exam}#${r.no}`, { type: r.type, hit_count: r.hit_count }]),
+)
+
+const keyOf = new Map()
+for (const a of suneungKeys.answers) keyOf.set(`${a.exam}#${a.no}`, a)
+for (const a of mockKeys.answers) keyOf.set(`${a.exam}#${a.no}`, a)
+
+/**
+ * **평가원 공개 정답표에서 받아 온 모의평가 정답**(`mock-answers-kice.json`).
+ *
+ * 사용자 폴더의 `_정답표.pdf` 7개가 실제로는 듣기 대본이었다 — 평가원 게시판의 파일명이
+ * 회차마다 달라(`정답표`·`정답지`·`3교시_영어_정답표`) 이름 규칙으로 받으면 대본이 딸려 온다.
+ * 그 7회차 196문항이 `answer_unknown` 으로 막혀 있었다.
+ *
+ * **이미 있는 것을 덮지 않는다.** 주 파이프라인(`ingest-mock`)이 뽑은 정답이 정본이고,
+ * 이것은 그 구멍만 메운다 — 덮게 두면 손으로 들여온 것이 파이프라인의 퇴행을 가린다.
+ * 검산은 `ingest-kice-keys.mjs` 가 한다(45문항 · 배점 합 100 · 문제지 [3점] 대조).
+ */
+const kicePath = path.join(DIR, 'mock-answers-kice.json')
+let kiceFilled = 0
+if (fs.existsSync(kicePath)) {
+  for (const a of read('mock-answers-kice.json').answers ?? []) {
+    const k = `${a.exam}#${a.no}`
+    if (keyOf.has(k)) continue
+    keyOf.set(k, a)
+    kiceFilled += 1
+  }
+}
+
+/**
+ * **듣기 마지막 번호.** 2015학년도부터 17번이지만 **2014학년도는 22번까지가 듣기다**
+ * (A/B 수준별 시행 회차). 이걸 17로 고정하면 2014 두 회차의 18~22번 듣기 10문항이
+ * '독해' 로 들어와 분석 사정권을 오염시킨다 — 실측으로 걸렸다(지문 길이 5~24자).
+ */
+function listeningEnd(exam) {
+  return exam.startsWith('2014') ? 22 : 17
+}
+
+/** 회차 성격 — 수능인가 모평인가, 몇 학년도 몇 월인가 */
+function examMeta(exam) {
+  if (exam.startsWith('M')) {
+    const yy = exam.slice(1, 3)
+    const mm = exam.slice(3, 5)
+    return { kind: 'mock', year: 2000 + Number(yy), month: Number(mm), label: `20${yy}학년도 ${Number(mm)}월 모의평가` }
+  }
+  const year = Number(exam.slice(0, 4))
+  const form = exam.length > 4 ? exam.slice(4) : null
+  return { kind: 'suneung', year, month: 11, form, label: `${year}학년도 수능${form ? ` ${form}형` : ''}` }
+}
+
+/**
+ * 문항의 영어 지문과 선지.
+ *
+ * 장문 세트(41~45)는 지문이 문항 번호 밑이 아니라 `[41~42]` 머리글 밑에 한 번만 있어서
+ * 세트 블록을 따로 봐야 한다. 그걸 안 하면 장문 10문항의 지문이 전부 빈다.
+ */
+/**
+ * **단 나누기가 실패해 한 글자도 못 뜬 문항**을 손으로 받아 적은 것(`bodies-manual.json`).
+ * `answers-manual.json` 과 같은 취급 — 출처와 검산을 파일 안에 적어 둔다.
+ * **자동 추출이 성공한 지문은 덮지 않는다** — 덮게 두면 손으로 적은 것이 파서 개선을 가린다.
+ */
+// 파일이 없어도 돌아야 한다 — 새 체크아웃이나 다른 세션에서 이 스크립트가 죽으면
+// 코퍼스 재생성이 통째로 막힌다(손으로 적은 것은 **보완**이지 전제가 아니다).
+const manualBody = new Map(
+  (fs.existsSync(path.join(DIR, 'bodies-manual.json')) ? (read('bodies-manual.json').entries ?? []) : []).map(
+    (e) => [`${e.exam}#${e.no}`, e],
+  ),
+)
+
+function bodyOf(exam, no) {
+  const man = manualBody.get(`${exam}#${no}`)
+  const blocks = itemBlocks(exam, no)
+  if (!blocks.length) {
+    return man ? { passage: man.passage ?? null, choices: man.choices ?? null } : { passage: null, choices: null }
+  }
+  // `itemBlocks` 는 후보를 여럿 준다(줄머리 · 줄 가운데 · 세트 머리글). 첫 번째가 늘 옳지는
+  // 않다 — 문항 번호가 옆 단 꼬리에 붙어 첫 후보가 빈손인 경우가 있다. **가장 실한 것**을 쓴다.
+  // ⚠️ **더 긴 쪽을 고르면 안 된다.** 후보 블록에는 옆 문항의 것이 섞여 들어올 수 있고,
+  //    옆 문항 지문이 더 길면 그쪽이 이긴다 — 2026-09-02 에 31번 지문이 32·34번에 복사됐다.
+  //    후보는 `itemBlocks` 가 **확실한 것부터** 준다(줄머리 → 줄 가운데 → 장문 세트 머리글).
+  //    그러니 **앞 후보가 빈손일 때만** 뒤로 넘어간다. "더 나은" 이 아니라 "없을 때" 다.
+  let passage = null
+  let choices = null
+  for (const b of blocks) {
+    if (!passage) passage = passageOf(b) || null
+    if (!choices) choices = choicesOf(b)
+    if (passage && choices) break
+  }
+  const set = setBlockFor(exam, no)
+  if (set && (!passage || passage.length < 200)) {
+    const sp = passageOf(set)
+    if (sp && sp.length > (passage?.length ?? 0)) passage = sp
+  }
+  // 자동 추출이 빈손일 때만 손으로 적은 것을 쓴다
+  if (man && !passage) return { passage: man.passage ?? null, choices: choices ?? man.choices ?? null }
+  return { passage: passage || null, choices }
+}
+
+/** 빈칸이 지문 안에 있어야 하는 유형 — 빈칸 위치가 곧 정답 근거다 */
+const BLANK_TYPES = new Set(['R-BLANK', 'R-BLANK2', 'R-SUMMARY', 'X-BLANK', 'X-BLANK2'])
+
+/**
+ * **선지가 지문 안에 기호로 박히는 유형.** 여기서는 지문에 ①~⑤ 가 있는 것이 정상이다.
+ * 실측(2026-09-02): R-INSERT 52/52 · R-GRAMMAR 30/30 · R-CHART 28/30 · R-IRRELEVANT 26/28.
+ */
+const SYMBOL_CHOICE_TYPES = new Set([
+  'R-INSERT', 'R-ORDER', 'R-IRRELEVANT', 'R-GRAMMAR', 'R-VOCAB', 'R-CHART', 'R-REFER',
+  'X-ORDER', 'X-REFER', 'X-VOCAB',
+])
+
+/**
+ * **지문을 믿어도 되는가.** 넷 중 하나라도 걸리면 드레인이 원문 블록을 함께 싣는다.
+ *
+ *   ① 한글이 남았다 — 발문 꼬리·각주·옆 단이 섞였다
+ *   ② 홀로 선 마침표(` . `) — 옆 단 조각이 문장 사이로 들어왔다
+ *      (실측 2023#34: `it is not that . I that the realities…`)
+ *   ③ 한 글자짜리 낱말이 a·A·I 가 아니다 — 단 자르기가 낱말 가운데를 지났다
+ *      (실측 M2306#31: `computer r artist`)
+ *   ④ 빈칸 유형인데 빈칸 표시가 없다 — 빈칸이 빈 줄로 와서 위치가 사라졌다
+ *      (실측 M2309#34: `may have to order to` — 빈칸과 `in` 이 함께 증발)
+ *
+ * ④가 가장 중요하다. 빈칸추론은 **빈칸 위치가 정답 근거**라, 위치를 모르면 분석이
+ * 성립하지 않는데도 지문은 멀쩡해 보인다. 사람 눈에 안 띄는 실패라 기계가 잡아야 한다.
+ */
+function suspectBody(passage, typeId) {
+  if (!passage) return false
+  if ((passage.match(/[가-힣]/g) ?? []).length >= 4) return true
+  if (/\s\.\s/.test(passage)) return true
+  if (/(?:^|\s)(?![aAI](?:$|\s))[A-Za-z](?=$|\s)/.test(passage)) return true
+  if (BLANK_TYPES.has(typeId) && !passage.includes('______')) return true
+  // ⑤ 지문 안에 **다른 문항의 번호**가 박혀 있다 — 단이 안 갈린 페이지에서 두 문항이 한 줄에
+  //    붙어 같은 블록을 쓰게 된 것이다(실측: M2306 의 `37.        39.` 한 줄 → 37·39 지문 동일).
+  if (/(?:^|\s)\d{1,2}\.\s+[A-Z]/.test(passage)) return true
+  // ⑥ **선지 기호가 지문에 있는데 그럴 유형이 아니다.**
+  //    삽입·순서·어법·어휘·도표·무관은 ①~⑤ 가 본문에 박히는 것이 설계다. 그 밖의 유형에서
+  //    기호가 지문에 있으면 선지 블록이 지문 꼬리에 뭉개진 것이다 — 이때 `choices` 는
+  //    비어 있지 않아서 `body_ok` 가 true 로 남는다(실측 2016#31: 선지 5개가 지문 끝에 붙어
+  //    있었는데 딱지가 안 붙어 원문 블록이 안 실렸다. 서브에이전트가 손으로 복원해야 했다).
+  if (!SYMBOL_CHOICE_TYPES.has(typeId) && /[①②③④⑤]/.test(passage)) return true
+  // ⑨ **지문이 기능어로 끝난다** — `…and` · `…of the` · `…trying to` · `…was so`.
+  //    영어 문단은 기능어로 끝나지 않는다. 끝났다면 그 자리에서 잘린 것이다.
+  //    「마침표가 없다」로 재면 144건이 걸리는데 대부분 쪽번호·각주·서명 줄이라 못 쓴다(오탐 88).
+  //    기능어 목록으로 좁히면 **13건 · 오탐 0** 이다(2026-09-02 전수 확인). 좁은 자가 쓰인다.
+  if (TRUNCATED_TAIL.test(passage.trim())) return true
+  return false
+}
+
+/** 영어 문단이 여기서 끝날 리 없는 낱말들 — 끝났다면 잘린 것이다 */
+const TRUNCATED_TAIL =
+  /\b(?:a|an|the|of|to|in|on|at|for|with|and|or|but|that|which|is|are|was|were|be|been|as|by|from|it|its|their|his|her|this|these|those|not|has|have|had|can|will|would|should|could|may|might|than|then|when|while|because|if|so|such|into|about|over|under|between|through)\s*$/i
+
+/** 순서 배열형 선지 — `(A) － (C) － (B)`. 전각 붙임표(－)와 반각을 다 받는다 */
+const ORDER_CHOICE = /^\(([ABC])\)(?:\s*[-‐-―－]\s*\(([ABC])\)){2}/
+
+/**
+ * **선지가 이 문항의 것이 아니다.**
+ *
+ * `suspectBody` 는 지문만 본다. 그런데 단이 안 갈린 페이지에서는 지문이 아니라 **선지**가
+ * 옆 문항 것으로 바뀐다 — 실측 M2406#40·M2306#40 은 지문이 `null` 인데 선지 다섯 개가
+ * **37번 순서 배열**(`(A) － (C) － (B)` …)이었고, `body_suspect` 는 `false` 였다.
+ * 지문이 없으니 지문 신호가 하나도 안 걸린 것이다. 그 상태로 나가면 분석자는
+ * "요약 유형인데 선지가 순서 배열" 이라는 **말이 안 되는 문항**을 손에 쥔다.
+ *
+ * 딱지를 붙이면 export 가 회차 원문 창을 함께 실어 주고 게이트가 인용 검사를 느슨하게 잡는다.
+ * 즉 **고치는 것이 아니라 모른다고 말하는 것**이다 — 조용히 틀린 것보다 낫다.
+ */
+function suspectChoices(choices, typeId) {
+  const cs = (choices ?? []).map((c) => String(c))
+  if (!cs.length) return false
+  // ⑦ 순서 배열 선지인데 순서 유형이 아니다 (옆 문항 선지가 통째로 넘어왔다)
+  if (!/ORDER/.test(typeId ?? '') && cs.filter((c) => ORDER_CHOICE.test(c)).length >= 3) return true
+  // ⑧ 선지 끝에 발문 조각이 붙어 있다 — 블록 경계가 어긋났다는 뜻
+  if (cs.some((c) => /(?:것은\?|고르시오|하시오)$/.test(c.trim()))) return true
+  return false
+}
+
+/**
+ * **장문 세트(41~45)의 번호별 고정 유형** — 발문을 못 뜬 문항의 대체 규칙.
+ *
+ * 이 저장소는 "번호로 유형을 가르지 않는다" 를 원칙으로 둔다(번호는 해마다 밀린다).
+ * 장문 세트만 예외로 두는 근거는 **실측**이다 — 2019학년도 이후 사정권에서
+ * 41=X-TITLE 22/22 · 42=X-VOCAB 22/22 · 43=X-ORDER **21/22** · 44=X-REFER **21/22** ·
+ * 45=X-FACT 22/22. 어긋난 1건이 바로 이 규칙이 고치려는 그 문항이다(M2406#43·44 —
+ * 개별 발문을 못 떠 세트 머리글 `다음 글을 읽고, 물음에 답하시오.` 가 셋 다에 붙었고
+ * 셋 다 X-FACT 로 배정됐다. 서브에이전트가 raw_block 의 발문을 읽고 잡아냈다).
+ *
+ * **발문이 있는 문항은 건드리지 않는다** — 규칙이 실측을 덮으면 그때부터 이 표가 거짓말을 한다.
+ */
+const LONG_SET_TYPE = { 41: 'X-TITLE', 42: 'X-VOCAB', 43: 'X-ORDER', 44: 'X-REFER', 45: 'X-FACT' }
+const GENERIC_SET_STEM = /^다음\s*글을\s*읽고,?\s*물음에\s*답하시오/
+
+const items = []
+const rows = [
+  ...suneung.questions.map((q) => ({ ...q, ...(classified.get(`${q.exam}#${q.no}`) ?? {}) })),
+  ...mock.rows,
+]
+
+/**
+ * **유형이 안 붙은 문항만** 발문에서 다시 배정한다 — 이미 붙은 것은 절대 건드리지 않는다.
+ *
+ * 모의평가 쪽 유형은 `ingest-mock` 이 붙이는데, 그때 쓴 정규식표가 그 뒤에 넓어져도
+ * 코퍼스는 옛 배정을 그대로 들고 있다(다시 붙이려면 PDF 재추출이 필요하고, 그러면 이미
+ * 발행된 분석의 인용 좌표가 통째로 흔들린다). 그래서 **빈자리만** 지금 표로 메운다.
+ *
+ * 실측 2026-09-02: M2506#27 은 단이 안 갈린 페이지에서 발문이
+ * `…다음 안내문의 / 지 않는 것은?` 두 조각으로 끊겨 좁은 규칙(`안내문의내용과`)에 안 걸렸다.
+ * 넓힌 규칙(`안내문`)은 사정권 전수 55건에서 다른 유형과 한 건도 겹치지 않는다.
+ * 유일한 히트일 때만 붙인다 — 둘 이상이면 그것은 짐작이지 배정이 아니다.
+ */
+const TYPE_RES = read('classified.json').types.map((t) => ({ id: t.id, re: new RegExp(t.match.replace(/^\/|\/$/g, '')) }))
+
+/**
+ * 손으로 받아 적은 유형 배정(`types-manual.json`). 파일이 없어도 돌아야 한다 —
+ * 새 체크아웃에서 이 스크립트가 죽으면 코퍼스 재생성이 통째로 막힌다.
+ * 손으로 적은 것은 **보완**이지 전제가 아니다.
+ */
+const manualType = new Map(
+  (fs.existsSync(path.join(DIR, 'types-manual.json')) ? (read('types-manual.json').entries ?? []) : []).map(
+    (e) => [`${e.exam}#${e.no}`, e],
+  ),
+)
+function rescueType(stem) {
+  const norm = String(stem ?? '').replace(/\s+/g, '')
+  if (!norm) return null
+  const hits = TYPE_RES.filter((t) => t.re.test(norm))
+  return hits.length === 1 ? hits[0].id : null
+}
+
+for (const q of rows) {
+  const meta = examMeta(q.exam)
+  if (!q.type) {
+    // ① 발문에서 기계가 되찾아 본다
+    const r = rescueType(q.stem)
+    if (r) { q.type = r; q.type_rescued = true }
+    // ② 그래도 없으면 손으로 받아 적은 것을 쓴다 — **자동 배정을 덮지 않는다**
+    //    (덮게 두면 손으로 적은 것이 파서 개선을 가린다. `bodies-manual` 과 같은 규칙이다)
+    else {
+      const man = manualType.get(`${q.exam}#${q.no}`)
+      if (man) { q.type = man.type; q.type_manual = true }
+    }
+  }
+  // 발문을 못 떠 세트 머리글만 붙은 장문 문항은 번호로 유형을 되찾는다(위 LONG_SET_TYPE 참조)
+  if (q.no >= 41 && meta.year >= 2019 && GENERIC_SET_STEM.test((q.stem ?? '').trim()) && LONG_SET_TYPE[q.no]) {
+    q.type = LONG_SET_TYPE[q.no]
+  }
+  const key = keyOf.get(`${q.exam}#${q.no}`) ?? null
+  const { passage, choices } = bodyOf(q.exam, q.no)
+  items.push({
+    id: `${q.exam}#${String(q.no).padStart(2, '0')}`,
+    exam: q.exam,
+    exam_label: meta.label,
+    exam_kind: meta.kind,
+    year: meta.year,
+    month: meta.month,
+    no: q.no,
+    // 영역은 **원본을 믿지 않고 번호에서 다시 계산한다.** 수능 추출과 모평 추출이
+    // 서로 다른 규칙을 썼다 — 2014 회차는 41~45 를 '독해' 로, 모평은 '장문' 으로 적어 놓았다.
+    // 규칙이 둘이면 유형별 집계가 회차마다 다른 분모를 쓰게 된다.
+    section: q.no <= listeningEnd(q.exam) ? '듣기' : q.no <= 40 ? '독해' : '장문',
+    type_id: q.type ?? null,
+    type_name: q.type ? (TYPES.get(q.type)?.name ?? null) : null,
+    stem: q.stem,
+    passage,
+    choices,
+    answer: key?.answer ?? null,
+    answers: key?.answers ?? null,
+    points: key?.points ?? null,
+    high_score: q.high_score === true || key?.points === 3,
+    rescued: q.rescued === true,
+    // 지문이 미덥지 않다는 딱지. 파서를 더 깎는 대신 **딱지를 붙여** 드레인이 원문 블록을
+    // 함께 싣게 한다 — 분석하는 쪽이 원문을 볼 수 있으면 파서의 마지막 몇 %는 병목이 아니다.
+    // 신호 넷은 전부 실측에서 나왔다(2026-09-02, 서브에이전트 6종 보고):
+    body_suspect: suspectBody(passage, q.type) || suspectChoices(choices, q.type),
+    // **분석 파이프라인의 사정권.** 듣기는 제외한다 — 사용자 지시(2026-09-02).
+    // 원장에서 빼지 않고 딱지만 붙이는 이유: 회차 배점 합이 100 인지 보는 검사가
+    // 듣기를 포함해야 성립하고, 듣기 대본 9회차가 새로 들어와 있어 나중에 되살릴 수 있다.
+    in_scope: q.no > listeningEnd(q.exam),
+  })
+}
+
+items.sort((a, b) => (a.exam < b.exam ? -1 : a.exam > b.exam ? 1 : a.no - b.no))
+
+// ── A/B형 공통 문항 — 같은 문항을 두 번 세지 않게 표시한다 ───────────
+//
+// 2014학년도는 수준별(A/B형) 시행이라 **두 문제지가 일부 문항을 공유한다.**
+// 실측: `2014A#24 ≡ 2014B#23`(요지) · `2014A#32 ≡ 2014B#29`(도표) — 지문이 문자열까지 같다.
+// 번호가 다르니 원장에서는 서로 다른 문항으로 보이고, 회차 배점 합 100 검사도 **둘 다 필요하다.**
+// 그래서 지우지 않는다. 다만 유형별 통계가 이 둘을 두 번 세면 함정 분포가 그만큼 부풀고,
+// "이 유형 n문항" 이라는 신뢰의 근거가 조용히 거짓이 된다.
+//
+// 표시만 한다 — `same_item_as` 를 **양쪽에** 둔다. 한쪽만 '원본' 으로 정하면 그 선택의 근거가
+// 없고(둘 다 실제로 출제됐다), 소비하는 쪽이 어느 쪽을 남길지 스스로 고를 수 있어야 한다.
+{
+  const norm = (s) => String(s ?? '').replace(/\s+/g, ' ').trim()
+  const byYear = new Map()
+  for (const it of items) {
+    if (!it.in_scope || !it.passage || it.passage.length < 150) continue
+    const k = `${it.year}|${norm(it.passage)}`
+    if (!byYear.has(k)) byYear.set(k, [])
+    byYear.get(k).push(it)
+  }
+  for (const group of byYear.values()) {
+    if (group.length < 2) continue
+    // 같은 회차 안의 중복은 여기 대상이 아니다 — 그것은 파서 결함이고 T13 이 잡는다
+    if (new Set(group.map((it) => it.exam)).size < group.length) continue
+    for (const it of group) it.same_item_as = group.filter((o) => o !== it).map((o) => o.id)
+  }
+}
+
+// ── 커버리지 — 분모를 명시한다 ───────────────────────────────────────
+const byExam = new Map()
+for (const it of items) {
+  const e = byExam.get(it.exam) ?? { exam: it.exam, label: it.exam_label, kind: it.exam_kind, n: 0, typed: 0, keyed: 0, passaged: 0, choiced: 0, points: 0 }
+  e.n += 1
+  if (it.type_id) e.typed += 1
+  if (it.answer) { e.keyed += 1; e.points += it.points ?? 0 }
+  if (it.passage) e.passaged += 1
+  if (it.choices) e.choiced += 1
+  byExam.set(it.exam, e)
+}
+
+const exams = [...byExam.values()].sort((a, b) => (a.exam < b.exam ? -1 : 1))
+const sum = (f) => items.reduce((a, it) => a + (f(it) ? 1 : 0), 0)
+
+// ── 사정권(듣기 전면 제외) 회차별 집계 ───────────────────────────────
+// **우리가 책임지는 것은 독해·장문 배점에서 실점 0** 이다 — 2015학년도 이후 **63점**,
+// 2014학년도 A/B형은 듣기가 22번까지라 **53점**(실측. 예전 주석의 "64~65" 는 근거 없는 수였다).
+// 곧 커버 목표는 "독해 28문항 중 몇 %" 가 아니라 **회차마다 28/28** 이다 — 반올림이 숨을 자리가 없다.
+//
+// ⚠️ 「99점」이라 적지 않는다. 배점 단위가 2·3점이라 99점이라는 점수 자체가 안 나오고
+//    (100 다음이 98이다), 100점은 듣기까지 만점이어야 한다. 듣기는 여기서 다루지 않는다.
+const scopeByExam = new Map()
+for (const it of items) {
+  if (!it.in_scope) continue
+  const e = scopeByExam.get(it.exam) ?? { exam: it.exam, label: it.exam_label, kind: it.exam_kind, n: 0, typed: 0, keyed: 0, passaged: 0, choiced: 0, points: 0 }
+  e.n += 1
+  if (it.type_id) e.typed += 1
+  if (it.answer) { e.keyed += 1; e.points += it.points ?? 0 }
+  if (it.passage) e.passaged += 1
+  if (it.choices) e.choiced += 1
+  scopeByExam.set(it.exam, e)
+}
+const scopeExams = [...scopeByExam.values()].sort((a, b) => (a.exam < b.exam ? -1 : 1))
+
+/**
+ * **듣기는 이 원장이 보고하는 수에서 전부 빠진다** (사용자 지시 2026-09-03 「듣기는 전체에서 제외」).
+ *
+ * 최상위 수치는 **사정권(독해·장문)** 이다. 듣기를 섞은 수는 `paper` 안에만 두고,
+ * 거기 있는 값은 **파서가 샜는지 보는 용도로만** 쓴다 — 화면·문서·달성률 어디에도 올리지 않는다.
+ *
+ * 왜 행 자체를 안 지우나: 듣기 문항 520행은 문제지 파싱의 **자리 표시**다. 지우면
+ * "45문항 중 28문항을 떴다" 를 확인할 길이 없어져 추출이 새도 조용해진다.
+ * 즉 남겨 두되 **세지 않는다.** (행까지 지우는 것은 데이터 삭제라 사용자 확인이 필요하다.)
+ */
+const report = {
+  built_at: new Date().toISOString().slice(0, 10),
+  scope: '독해·장문 — 듣기 전면 제외 (듣기 마지막 번호: 2014학년도 22 · 그 외 17)',
+  exams: exams.length,
+  // 파서 점검 전용 — 듣기를 포함한 문제지 전체. **보고하지 않는다.**
+  paper: {
+    items: items.length,
+    expected: exams.length * 45,
+    typed: sum((it) => it.type_id),
+    keyed: sum((it) => it.answer),
+    passaged: sum((it) => it.passage),
+    choiced: sum((it) => it.choices),
+    listening_items: sum((it) => !it.in_scope),
+  },
+  in_scope: {
+    items: sum((it) => it.in_scope),
+    // 회차마다 독해 문항 수가 다르다 — 2014학년도는 듣기가 22번까지라 독해가 23문항이다.
+    // 여기에 28 을 곱하면 2014 두 회차 때문에 영원히 98.8% 에서 멈춘다(그리고 원인을 못 찾는다).
+    expected: exams.reduce((a, e) => a + (e.exam.startsWith('2014') ? 23 : 28), 0),
+    typed: sum((it) => it.in_scope && it.type_id),
+    keyed: sum((it) => it.in_scope && it.answer),
+    passaged: sum((it) => it.in_scope && it.passage),
+    choiced: sum((it) => it.in_scope && it.choices),
+    body_suspect: sum((it) => it.in_scope && it.body_suspect),
+    // 정답표가 온전한 회차만 배점 합이 의미 있다
+    exams_fully_keyed: scopeExams.filter((e) => e.keyed === e.n).length,
+    // **우리가 책임지는 배점.** 회차마다 다르다 — 2014학년도는 듣기가 22번까지라 독해가 53점이다.
+    // 이 값이 곧 "실점 0" 의 분모다. 100 에서 듣기를 뺀 나머지이지, 총점이 아니다.
+    points_by_exam: Object.fromEntries(scopeExams.filter((e) => e.keyed === e.n).map((e) => [e.exam, e.points])),
+    // 유형 정규식은 듣기 유형에 `L-` 을 붙인다. 사정권 안에 `L-` 이 남아 있으면
+    // 듣기 경계를 잘못 그은 것이다 — 번호 규칙과 유형표가 서로를 감시한다.
+    listening_type_in_scope: items.filter((it) => it.in_scope && it.type_id?.startsWith('L-')).map((it) => it.id),
+    reading_type_out_of_scope: items.filter((it) => !it.in_scope && it.type_id && !it.type_id.startsWith('L-')).map((it) => it.id),
+    by_exam: scopeExams,
+  },
+  by_exam: exams,
+}
+
+fs.writeFileSync(path.join(DIR, 'corpus.json'), JSON.stringify({ report, items }, null, 1))
+fs.writeFileSync(path.join(DIR, 'corpus-report.json'), JSON.stringify(report, null, 1))
+
+const pct = (a, b) => (b ? ((a / b) * 100).toFixed(1) : '0.0')
+const s = report.in_scope
+console.log(`  회차 ${report.exams}${kiceFilled ? ` · 평가원 공개 정답표로 메운 문항 ${kiceFilled}` : ''}`)
+console.log(`  ── 사정권: ${report.scope} ──`)
+console.log(`  문항       ${s.items} (기대 ${s.expected}, ${pct(s.items, s.expected)}%)`)
+console.log(`  유형 배정  ${s.typed} (${pct(s.typed, s.items)}%)`)
+console.log(`  정답·배점  ${s.keyed} (${pct(s.keyed, s.items)}%) · 정답표 온전 회차 ${s.exams_fully_keyed}/${report.exams}`)
+console.log(`  지문       ${s.passaged} (${pct(s.passaged, s.items)}%)`)
+console.log(`  선지 5개   ${s.choiced} (${pct(s.choiced, s.items)}%)`)
+console.log('→ corpus.json · corpus-report.json')

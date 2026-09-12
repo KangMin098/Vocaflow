@@ -1,0 +1,19 @@
+{
+  "why": "단 나누기(column split)가 실패해 지문·선지를 한 글자도 못 뜬 문항을, 저장소 안의 원본 텍스트(columns2/<회차>.txt)에서 손으로 받아 적은 것. 자동 추출분과 섞지 않는다. build-corpus.mjs 는 **passage 가 null 인 문항에만** 이것을 적용한다 — 자동 추출된 지문을 덮어쓰지 않는다.",
+  "entries": [
+    {
+      "exam": "M2506",
+      "no": 36,
+      "source": "scripts/csat/data/columns2/M2506.txt 629~676행 (오른쪽 단). 왼쪽 단 34번 지문이 줄 단위로 끼어 있어 자동 추출이 문항 시작줄('36.')조차 못 찾았다 — 632행이 '④ comprise subjective interpretations of the environment           36.' 로 두 단이 한 줄에 붙어 있다.",
+      "self_check": "받아 적은 (A)(C)(B) 배열이 평가원 정답표(M2506 36번 정답 ①=(A)-(C)-(B))와 일치한다. (A) 끝 'stimulated new plant growth in the following spring' → (C) 첫 'The young shoots' → (C) 끝 'the scrubby growth' → (B) 'succeeded by further woody plants and shrubs' 로 연쇄가 닫힌다.",
+      "passage": "Wildfire is a natural phenomenon in many Australian environments. The intentional setting of fire to manage the landscape was practised by Aboriginal people for millennia. (A) However, the pattern of burning that stockmen introduced was unlike previous regimes. When conditions allowed, they would set fire to the landscape as they moved their animals out for the winter. This functioned to clear woody vegetation and also stimulated new plant growth in the following spring. (B) Although grasses were the first kinds of plants to recolonize the burnt areas they were soon succeeded by further woody plants and shrubs. About the only strategy to prevent such regrowth was further burning ― essentially using fire to control the consequences of using fire. (C) The young shoots were a ready food source for their animals when they returned. However, the practice also tended to reinforce the scrubby growth it was intended to control.",
+      "choices": [
+        "(A) － (C) － (B)",
+        "(B) － (A) － (C)",
+        "(B) － (C) － (A)",
+        "(C) － (A) － (B)",
+        "(C) － (B) － (A)"
+      ]
+    }
+  ]
+}

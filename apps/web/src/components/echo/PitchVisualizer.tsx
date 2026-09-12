@@ -97,10 +97,10 @@ export function PitchVisualizer({ reference, user, height = 160 }: Props) {
   return (
     <section className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4 shadow-[var(--sh-sm)]">
       <header className="mb-2 flex items-center justify-between">
-        <h3 className="font-display text-[11px] font-[700] uppercase tracking-wider text-[var(--t3)]">
+        <h3 className="font-display text-[11px] font-[700] uppercase tracking-wider text-[var(--t2)]">
           피치 비교
         </h3>
-        <div className="flex items-center gap-3 font-body text-[10px] text-[var(--t3)]">
+        <div className="flex items-center gap-3 font-body text-[10px] text-[var(--t2)]">
           <span className="inline-flex items-center gap-1">
             <span aria-hidden className="h-0.5 w-3" style={{ backgroundColor: REF_COLOR }} /> 원어민
           </span>
@@ -116,7 +116,7 @@ export function PitchVisualizer({ reference, user, height = 160 }: Props) {
       </header>
       <canvas ref={canvasRef} style={{ width: '100%', height: `${height}px` }} />
       {regions.length > 0 && (
-        <p className="mt-2 font-body text-[11px] text-[var(--t3)]">
+        <p className="mt-2 font-body text-[11px] text-[var(--t2)]">
           음영 구간에서 억양이 원어민과 달라졌어요 — 그 부분을 다시 들어보고 따라해봐요.
         </p>
       )}

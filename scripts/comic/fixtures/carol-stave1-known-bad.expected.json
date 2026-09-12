@@ -1,0 +1,13 @@
+{
+  "_note": "재난 회귀 픽스처 — 첫 산출(out/carol-runpod, RunPod 4090)에서 실측된 결함 패널과 반드시 잡혀야 할 hard-fail 범주. qc-regress.mjs 가 게이트 verdicts 가 이들을 전부 FAIL 로 잡는지 검증한다. '재설계가 이 재난을 막는다'의 증명 기준.",
+  "expected_fail": {
+    "2": ["baked_text"],
+    "3": ["colour_leak"],
+    "8": ["wrong_or_duplicate_character"],
+    "10": ["no_background"],
+    "12": ["identity_collapse"],
+    "15": ["text_image_mismatch"],
+    "16": ["empty_balloon"],
+    "17": ["wrong_character"]
+  }
+}

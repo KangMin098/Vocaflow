@@ -57,12 +57,12 @@ export function ChapterWordSetsAdminSection({ sets, bookId, bookVLevel }: Props)
           <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">
             챕터 단어장 검수
           </h2>
-          <span className="font-display text-[12px] font-[600] text-[var(--t3)]">
+          <span className="font-display text-[12px] font-[600] text-[var(--t2)]">
             {sets.length}
           </span>
         </div>
         {sets.length > 0 && (
-          <div className="flex items-center gap-3 font-body text-[11px] text-[var(--t3)]">
+          <div className="flex items-center gap-3 font-body text-[11px] text-[var(--t2)]">
             <span>총 {totalWords.toLocaleString()}단어</span>
             <span>·</span>
             <span>평균 {avg}/챕터</span>
@@ -77,13 +77,13 @@ export function ChapterWordSetsAdminSection({ sets, bookId, bookVLevel }: Props)
       </header>
 
       {sets.length === 0 ? (
-        <div className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] p-4 font-body text-[13px] text-[var(--t3)]">
+        <div className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] p-4 font-body text-[13px] text-[var(--t2)]">
           <p>챕터 단어장이 아직 발행되지 않았어요.</p>
           <p className="mt-1.5">
             상단 검수 영역에서 책을 <strong className="text-[var(--t2)]">게시</strong>하면
             챕터 단어장이 자동 생성됩니다 (status=&apos;published&apos; trigger).
           </p>
-          <p className="mt-1.5 font-mono text-[11px] text-[var(--t4)]">
+          <p className="mt-1.5 font-mono text-[11px] text-[var(--t2)]">
             dev: SELECT publish_book_word_sets(&apos;{bookId}&apos;);
           </p>
         </div>
@@ -106,7 +106,7 @@ export function ChapterWordSetsAdminSection({ sets, bookId, bookVLevel }: Props)
           <div className="overflow-x-auto">
             <table className="w-full font-body text-[12px]">
               <thead>
-                <tr className="border-b border-[var(--bd)] font-display text-[10px] font-[700] uppercase tracking-wider text-[var(--t3)]">
+                <tr className="border-b border-[var(--bd)] font-display text-[10px] font-[700] uppercase tracking-wider text-[var(--t2)]">
                   <th className="py-2 pr-3 text-left">챕터</th>
                   <th className="py-2 pr-3 text-left">제목</th>
                   <th className="py-2 pr-3 text-right tabular-nums">단어수</th>
@@ -145,7 +145,7 @@ export function ChapterWordSetsAdminSection({ sets, bookId, bookVLevel }: Props)
                       >
                         {s.wordCount}
                       </td>
-                      <td className="py-2 pr-3 text-[var(--t3)]">{s.cefrLevel ?? '—'}</td>
+                      <td className="py-2 pr-3 text-[var(--t2)]">{s.cefrLevel ?? '—'}</td>
                       <td className="py-2 pr-3">
                         <span className="inline-flex items-center gap-1 text-[var(--success)]">
                           <CheckCircle2 size={11} aria-hidden />
@@ -159,7 +159,7 @@ export function ChapterWordSetsAdminSection({ sets, bookId, bookVLevel }: Props)
             </table>
           </div>
 
-          <p className="mt-3 font-body text-[10px] text-[var(--t3)]">
+          <p className="mt-3 font-body text-[10px] text-[var(--t2)]">
             ※ 행 클릭으로 단어 + 추출 메타 미리보기 · <code className="font-mono">category=&apos;library_book&apos;</code> · 공용 단어장 영역 노출 X
           </p>
         </>

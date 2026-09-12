@@ -10,6 +10,7 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { Scale } from 'lucide-react'
 
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { createClient } from '@/lib/supabase/server'
 
 import { JudgeClient, type BookOption, type ArticleOption } from './JudgeClient'
@@ -45,7 +46,7 @@ export default async function AdminJudgePage() {
   return (
     <div className="mx-auto max-w-4xl space-y-8 p-8">
       <header>
-        <h1 className="inline-flex items-center gap-2.5 font-display text-[28px] font-[800] text-[var(--t1)]">
+        <h1 className="inline-flex items-center gap-3 font-display text-[28px] font-[800] text-[var(--t1)]">
           <Scale size={26} className="text-[#8B5CF6]" aria-hidden="true" /> 추출 판정
         </h1>
         <p className="mt-2 max-w-2xl font-body text-[14px] leading-[1.6] text-[var(--t2)]">
@@ -54,6 +55,8 @@ export default async function AdminJudgePage() {
           골든 라벨로 쌓여 추출 순위·게이트 변경의 회귀 기준이 됩니다.
         </p>
       </header>
+
+      <AdminScreenHelp screen="quality-judge" className="-mt-4" />
 
       {books.length === 0 && articles.length === 0 ? (
         <section className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-10 text-center">
@@ -65,7 +68,7 @@ export default async function AdminJudgePage() {
         <JudgeClient books={books} articles={articles} />
       )}
 
-      <p className="text-center font-body text-[11px] text-[var(--t3)]">
+      <p className="text-center font-body text-[11px] text-[var(--t2)]">
         표본 = in-cap 상위 8 + out-of-cap 경계 8 (셔플) · 판정은 blind — 제출 후에만 시스템 선택이
         공개됩니다 · 저장: extraction_judgments (composite/sort_order 스냅샷 보존)
       </p>

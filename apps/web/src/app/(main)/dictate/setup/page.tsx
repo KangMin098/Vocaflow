@@ -11,7 +11,7 @@ export default function DictationSetupPage() {
   return (
     <Suspense
       fallback={
-        <div className="mx-auto flex max-w-3xl items-center justify-center gap-2 px-4 py-16 font-body text-[14px] text-[var(--t3)]">
+        <div className="mx-auto flex max-w-3xl items-center justify-center gap-2 px-4 py-16 font-body text-[14px] text-[var(--t2)]">
           <Loader2 size={16} className="animate-spin" aria-hidden />
           준비하고 있어요
         </div>

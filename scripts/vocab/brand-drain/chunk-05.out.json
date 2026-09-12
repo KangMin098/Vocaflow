@@ -1,0 +1,28 @@
+{
+  "family": "unique",
+  "seriesLine": "UNIQUE · 고유 계열",
+  "grain": "열림과 연결 — 이 플랫폼만 그릴 수 있는 지도",
+  "lockup": {
+    "kicker": "VOCAFLOW VOCABULARY",
+    "volumeFormat": "VOL. {n}",
+    "titleMaxLines": 4
+  },
+  "coverGrid": {
+    "ratio": "3:4",
+    "plateInset": 8,
+    "scrimStrength": 0.35
+  },
+  "palette": {
+    "ink": "ink",
+    "paper": "paper",
+    "accent": "accent"
+  },
+  "typography": {
+    "display": "english",
+    "body": "body",
+    "numerals": "mono"
+  },
+  "canvasUrl": "https://claude.ai/code/artifact/f2cce3c7-7b5f-4803-82f0-c8489473b615",
+  "designedAt": "2026-09-06T12:15:03.399Z",
+  "designedBy": "claude-design"
+}

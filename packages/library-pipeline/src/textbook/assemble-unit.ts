@@ -1,0 +1,289 @@
+// packages/library-pipeline/src/textbook/assemble-unit.ts
+//
+// **독해 교재 1 단원을 조립한다.** 지문 1 + 문항 N + 어휘 M.
+//
+// ── 왜 이 파일이 필요한가 (실측 2026-08-21) ──────────────────────────
+// 조각은 전부 있었는데 묶는 자리가 없었다:
+//
+//   vocaflow_levels        학년 축 (V0~11 · 초1-2 ~ 수능 1-2등급)      ✅
+//   csat_stage_catalog     지문 + v_level + register + 라이선스        ✅ 173편
+//   csat_dcp_items         순서·삽입 문항 (결정론 생성)                ✅ 1,378
+//   library_article_vocabularies  지문별 어휘                          ✅
+//   ─────────────────────────────────────────────────────────────
+//   "1 단원" 이라는 산출물                                             ❌
+//
+// 산출물이 "기사 1편" 이면 **어디서 끊어 파는지가 없다.** 단원이 판매·진도·완료의 단위다.
+//
+// ── 순수 함수인 이유 ─────────────────────────────────────────────────
+// DB 를 보지 않고 재료를 받는다. 그래야 배치·화면·테스트가 같은 답을 내고,
+// 조립 규칙을 회귀로 못 박을 수 있다. 이 저장소가 반복해 겪은 "경로마다 다른 답" 을 막는다.
+
+/** 수능 순서 문항 — 문단의 문장 순서를 섞어 복원시킨다. */
+// 지문 어수 창의 정본은 `readability.ts` 다 — 여기서 다시 정의하면 자가 두 벌이 된다(§아래).
+import { PASSAGE_WORDS } from './readability'
+
+export type UnitItemType = 'order' | 'insert'
+
+export interface UnitItem {
+  type: UnitItemType
+  paragraph_idx: number
+  payload: Record<string, unknown>
+  answer_key: Record<string, unknown>
+}
+
+export interface UnitVocab {
+  word: string
+  meaning_ko: string | null
+  v_level: number | null
+  /** 지문 안에서 그 낱말이 처음 나온 문장 — 문맥 없이 외우게 하지 않는다. */
+  first_sentence: string | null
+  frequency_in_article: number
+}
+
+export interface UnitPassage {
+  ref_id: string
+  title: string
+  word_count: number
+  v_level: number | null
+  cefr_level: string | null
+  /** ND 라이선스면 본문을 교재에 실을 수 없다 — 조립 자체를 막는다. */
+  display_only: boolean
+}
+
+export interface ReadingUnit {
+  passage: UnitPassage
+  items: UnitItem[]
+  vocabulary: UnitVocab[]
+  /** 학습자가 이 단원에 쓸 시간(분). 지문 읽기 + 문항 + 어휘. */
+  estimated_minutes: number
+}
+
+/** 조립이 막힌 이유. 조용히 빈 단원을 내지 않는다. */
+export interface UnitBlocked {
+  blocked: true
+  reason: string
+}
+
+export interface AssembleOptions {
+  /** 순서 문항 목표 수. 기본 3. */
+  orderCount?: number
+  /** 삽입 문항 목표 수. 기본 2. */
+  insertCount?: number
+  /** 어휘 목표 수. 기본 20. */
+  vocabCount?: number
+  /**
+   * 학습자 밴드. 어휘를 이 밴드 ±1 에서 고른다.
+   *
+   * ⚠️ i+1 (학습원칙 3 · Desirable Difficulty) — 다 아는 낱말만 주면 배울 게 없고,
+   *   전부 모르는 낱말이면 지문을 못 읽는다. 밴드보다 한 칸 위까지만 담는다.
+   */
+  learnerBand?: number
+}
+
+/**
+ * 교재 지문으로 쓸 수 있는 길이 범위.
+ *
+ * ── 근거 (실측 2026-08-21) ───────────────────────────────────────────
+ * 길이 판단 없이 조립했더니 이런 "단원" 이 나왔다:
+ *
+ *     Prague   13,942어 · 127분
+ *     Kyoto     8,638어 ·  82분
+ *
+ * 수능 지문은 130~190어다. 교재 단원 지문도 그 언저리이고, 넉넉히 잡아도 250어를
+ * 넘지 않는다. 127분짜리는 단원이 아니라 책 한 권이다.
+ *
+ * ⚠️ **문항 수확량과 교재 적합성은 반비례한다.** DCP 는 문단 단위로 문항을 만들므로
+ *   긴 글일수록 문항이 많이 나온다(plos 27.5문항/편 · wikivoyage 13.0). 그런데 그런 글은
+ *   지문으로 못 쓴다. 수확량만 보고 소스를 고르면 정확히 틀린 것을 고르게 된다.
+ *
+ * 상한을 넘는 글은 **버리는 게 아니라 발췌해야 한다** — 그건 별도 단계이고,
+ * 여기서는 통째로 실을 수 없다는 것만 말한다.
+ *
+ * ── ⚠️ 2026-09-04: 자가 두 벌이었다 ─────────────────────────────────
+ * 위 120~250 은 2026-08-21 에 "수능 지문이 130~190어이니 넉넉히" 로 **정한** 값이었다.
+ * 그 뒤 2026-09-03 에 출판사가 스스로 인쇄한 어수를 **쟀고**(n=59 · 6시리즈)
+ * `readability.PASSAGE_WORDS = {100, 200}` 이 그 실측에서 나왔다:
+ *
+ *     최소 97 · p10 107 · 중앙 132 · p90 177 · 최대 198
+ *
+ * 그런데 두 상수가 **같은 이름으로 따로 살아 있었다.** 수집기(`space-place-ingest`)는
+ * 패키지 밖에서 `PASSAGE_WORDS`(100~200)를 가져다 쓰고, 조립기는 자기 것(120~250)으로
+ * 판정한다 — **100~119어 글은 수집되지만 조립기가 막는다.** 오류가 안 나서 안 보인다.
+ *
+ * 실측이 있는 쪽으로 합친다. 조립기의 하한 120 은 시중 p25(118)보다 높아 멀쩡한 시중
+ * 규격 지문을 막고 있었고, 상한 250 은 시중 최대(198)보다 넉넉해 못 쓸 글을 통과시켰다.
+ */
+export { PASSAGE_WORDS }
+
+/**
+ * 초·중 밴드(V1~V4 = 초6~중1)에 실을 수 있는 CEFR 상한.
+ *
+ * ── 왜 필요한가 (실측 2026-09-02) ────────────────────────────────────
+ * 조립기가 **어수만** 보고 있었다. 그래서 짧기만 하면 어떤 난이도든 통과했고,
+ * 초·중 창(42~173어)에 든 269편 중 **실제로 그 학년 난이도인 것은 135편(50%)뿐**이었다.
+ * 가장 큰 덩어리가 NASA 사진 설명글 121편인데:
+ *
+ *     FK 15.37 · 문장 26.3어 (중1 교재는 13.9어) · 2022 개정 교육과정 별표 적중 22.4%
+ *
+ * 즉 내용어의 **64%가 그 학년이 배우지 않는 낱말**이다. 100어 남짓이라는 이유로
+ * 초6 자리를 지나가고 있었다.
+ *
+ * ── 왜 CEFR 로 막는가 ────────────────────────────────────────────────
+ * `cefr_level` 은 이미 `UnitPassage` 에 있고(마이그레이션 불필요),
+ * 그 값 자체가 Flesch Reading Ease 에서 나오므로 **이미 가독성 눈금**이다.
+ * 우리 지문 269편에서 두 눈금의 대응을 실측하면 B1 과 B2 사이가 깨끗하게 갈린다:
+ *
+ *     A1 FK중앙 0.7 · A2 3.7 · **B1 6.6** ┃ **B2 12.7** · C1 18.1 · C2 32.4
+ *
+ * 시중 중1 교재가 FK 7.60 · 중3 이 10.67 이므로 **B1 까지가 중등**이고
+ * B2 부터는 중3 상단을 넘는다. V1~V4 는 `V_TO_MARKET_BUCKET` 상 초6~중1 이다.
+ *
+ * ⚠️ **CEFR 이 없는 글은 막지 않는다.** 모르는 것을 어렵다고 판정하면 재저작 지문
+ *   38편(FK 1.9 — 실제로는 쉬운 글)이 통째로 막힌다. 모름은 금지가 아니다.
+ */
+export const SCHOOL_BAND_MAX_CEFR = 'B1'
+const CEFR_ORDER = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'] as const
+/** 초·중으로 보는 V-Level 상한. `V_TO_MARKET_BUCKET` 이 V5 부터 고1 로 매긴다. */
+export const SCHOOL_BAND_MAX_V = 4
+
+function blockedByLevel(passage: UnitPassage, band: number | null): UnitBlocked | null {
+  if (band == null || band > SCHOOL_BAND_MAX_V) return null
+  const cefr = passage.cefr_level
+  if (!cefr) return null // 모름은 금지가 아니다
+  const idx = CEFR_ORDER.indexOf(cefr as (typeof CEFR_ORDER)[number])
+  const max = CEFR_ORDER.indexOf(SCHOOL_BAND_MAX_CEFR)
+  if (idx < 0 || idx <= max) return null
+  return {
+    blocked: true,
+    reason:
+      `${passage.title}: ${cefr} 지문이라 초·중 밴드(V${band})에 실을 수 없다 — ` +
+      `길이는 ${passage.word_count}어로 맞지만 난이도가 ${SCHOOL_BAND_MAX_CEFR} 상한을 넘는다. ` +
+      `시중 중1 교재는 FK 7.6(≈B1)이고 B2 부터는 중3 상단을 넘는다.`,
+  }
+}
+
+/** 지문 읽기 속도(분당 낱말). `analyze-article` 의 200wpm 보다 낮다 — 문항을 풀며 읽는다. */
+export const UNIT_READ_WPM = 120
+/** 문항 1개당 소요(분). 순서·삽입은 문단을 다시 읽어야 해서 짧지 않다. */
+export const MINUTES_PER_ITEM = 2
+/** 어휘 1개당 소요(분). */
+export const MINUTES_PER_VOCAB = 0.25
+
+/**
+ * 단원 하나를 조립한다.
+ *
+ * 재료가 모자라면 **부분 단원을 내지 않고 막는다** — 문항 2개짜리 단원은
+ * 교재로 팔 수 없고, 그런 것이 섞이면 권 전체의 신뢰가 깎인다.
+ */
+export function assembleReadingUnit(
+  passage: UnitPassage,
+  items: ReadonlyArray<UnitItem>,
+  vocabulary: ReadonlyArray<UnitVocab>,
+  options: AssembleOptions = {},
+): ReadingUnit | UnitBlocked {
+  const wantOrder = options.orderCount ?? 3
+  const wantInsert = options.insertCount ?? 2
+  const wantVocab = options.vocabCount ?? 20
+
+  // ND 는 본문을 그대로 실을 수 없다. 문항이 아무리 많아도 교재가 안 된다.
+  if (passage.display_only) {
+    return {
+      blocked: true,
+      reason: `${passage.title}: 라이선스가 본문 게재를 허용하지 않는다(display_only) — 재저작 경로로 보내야 한다.`,
+    }
+  }
+
+  // 길이는 문항보다 먼저 본다 — 13,942어짜리는 문항이 40개여도 단원이 못 된다.
+  const w = passage.word_count
+  if (w < PASSAGE_WORDS.min || w > PASSAGE_WORDS.max) {
+    const how = w > PASSAGE_WORDS.max ? '길다 — 발췌가 필요하다' : '짧다'
+    return {
+      blocked: true,
+      reason:
+        `${passage.title}: 지문 ${w.toLocaleString()}어로 교재 지문 범위` +
+        `(${PASSAGE_WORDS.min}~${PASSAGE_WORDS.max}어) 밖이라 ${how}. ` +
+        `수능 지문은 130~190어다.`,
+    }
+  }
+
+  // 길이가 맞아도 **난이도가 그 학년이 아니면** 그 학년 교재가 아니다.
+  const tooHard = blockedByLevel(passage, options.learnerBand ?? passage.v_level ?? null)
+  if (tooHard) return tooHard
+
+  const orders = items.filter((i) => i.type === 'order')
+  const inserts = items.filter((i) => i.type === 'insert')
+  if (orders.length < wantOrder || inserts.length < wantInsert) {
+    return {
+      blocked: true,
+      reason:
+        `${passage.title}: 문항 부족 — 순서 ${orders.length}/${wantOrder} · 삽입 ${inserts.length}/${wantInsert}. ` +
+        `문단이 4~6문장이어야 DCP 가 문항을 만든다(짧은 문단으로 쓰인 글은 수확량이 0에 가깝다).`,
+    }
+  }
+
+  // 문단이 흩어져야 지문 전체를 읽게 된다 — 같은 문단에서 여러 문항을 뽑으면
+  //   학습자가 그 문단만 붙들고 나머지를 건너뛴다.
+  const spread = (pool: ReadonlyArray<UnitItem>, n: number): UnitItem[] => {
+    const seen = new Set<number>()
+    const picked: UnitItem[] = []
+    for (const it of pool) {
+      if (picked.length >= n) break
+      if (seen.has(it.paragraph_idx)) continue
+      seen.add(it.paragraph_idx)
+      picked.push(it)
+    }
+    // 문단이 모자라면 그때는 중복을 허용한다 — 막는 것보다 낫다.
+    for (const it of pool) {
+      if (picked.length >= n) break
+      if (!picked.includes(it)) picked.push(it)
+    }
+    return picked
+  }
+
+  const chosen = [...spread(orders, wantOrder), ...spread(inserts, wantInsert)]
+
+  const band = options.learnerBand ?? passage.v_level ?? null
+  const vocab = pickVocabulary(vocabulary, wantVocab, band)
+
+  const minutes =
+    Math.ceil(passage.word_count / UNIT_READ_WPM) +
+    chosen.length * MINUTES_PER_ITEM +
+    Math.ceil(vocab.length * MINUTES_PER_VOCAB)
+
+  return {
+    passage,
+    items: chosen,
+    vocabulary: vocab,
+    estimated_minutes: minutes,
+  }
+}
+
+/**
+ * 어휘를 고른다 — **밴드 ±1 우선, 그 안에서 지문 빈도 순**.
+ *
+ * 빈도만으로 고르면 the·of 같은 것이 올라오고, 등급만으로 고르면 지문에 한 번 나온
+ * 어려운 낱말이 올라온다. 둘을 겹쳐야 "이 지문을 읽는 데 필요한 낱말" 이 된다.
+ */
+export function pickVocabulary(
+  pool: ReadonlyArray<UnitVocab>,
+  want: number,
+  band: number | null,
+): UnitVocab[] {
+  // 뜻이 없는 낱말은 교재에 못 싣는다 — 빈칸이 그대로 인쇄된다.
+  const usable = pool.filter((v) => v.meaning_ko && v.meaning_ko.trim().length > 0)
+  if (band == null) {
+    return [...usable].sort((a, b) => b.frequency_in_article - a.frequency_in_article).slice(0, want)
+  }
+  const inBand = usable.filter(
+    (v) => v.v_level != null && v.v_level >= band - 1 && v.v_level <= band + 1,
+  )
+  const rest = usable.filter((v) => !inBand.includes(v))
+  const byFreq = (a: UnitVocab, b: UnitVocab): number =>
+    b.frequency_in_article - a.frequency_in_article
+  return [...inBand.sort(byFreq), ...rest.sort(byFreq)].slice(0, want)
+}
+
+/** 조립 결과가 막힌 것인지. */
+export function isBlocked(u: ReadingUnit | UnitBlocked): u is UnitBlocked {
+  return (u as UnitBlocked).blocked === true
+}

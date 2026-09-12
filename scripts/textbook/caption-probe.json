@@ -1,0 +1,235 @@
+{
+  "measured_at": "2026-08-21T14:36:34.454Z",
+  "counts": {
+    "total": 25843,
+    "A: 정형표지 없음": 6282,
+    "B: A + 동사후보도 없음": 628,
+    "C: A + 캡션 구조": 96
+  },
+  "hits": {
+    "A: 정형표지 없음": [
+      {
+        "src": "nasa",
+        "v": 5,
+        "s": "Cindy Evans, Artemis exploration scientist and geology training lead at NASA’s Johnson Space Center in Houston, preparing for a deep-field deployment to collect meteorites in Antarctica."
+      },
+      {
+        "src": "nasa",
+        "v": 5,
+        "s": "On their 10-day journey, the crew flew by the far side of the Moon, analyzing and photographing geologic features such as impact craters and ancient lava flows."
+      },
+      {
+        "src": "nasa",
+        "v": 5,
+        "s": "The crew relied on the extensive geology training they received on Earth to describe nuances in shapes, textures, and colors — the type of information that reveals the geologic history of an area."
+      },
+      {
+        "src": "nasa",
+        "v": 5,
+        "s": "That effort centers around a core curriculum of geology, lunar, and planetary classroom science as well as a progression of geology-focused field classes."
+      },
+      {
+        "src": "nasa",
+        "v": 5,
+        "s": "Cindy Evans during an Artemis II Lunar Science Team simulation at Johnson Space Center."
+      },
+      {
+        "src": "nasa",
+        "v": 5,
+        "s": "In her 37 years with the agency, Evans contributed to the Space Shuttle Program, Shuttle-Mir Program, and the International Space Station before transitioning to NASA’s Artemis campaign."
+      },
+      {
+        "src": "nasa",
+        "v": 5,
+        "s": "Cindy Evans collects a meteorite from the Davis Ward Icefield during a deep-field deployment to Antarctica."
+      },
+      {
+        "src": "nasa",
+        "v": 5,
+        "s": "Those interdisciplinary experiences taught Evans to embrace flexibility."
+      },
+      {
+        "src": "nasa",
+        "v": 5,
+        "s": "Cindy Evans mentors NASA astronaut Marcos Berríos in observing and describing rock samples during an in-field geology training in Flagstaff, Arizona."
+      },
+      {
+        "src": "nasa",
+        "v": 5,
+        "s": "Evans encourages early-career and aspiring NASA team members to reach out to colleagues in different organizations to build connections."
+      },
+      {
+        "src": "voa",
+        "v": 3,
+        "s": "And now, Words and Their Stories, from VOA Learning English."
+      },
+      {
+        "src": "voa",
+        "v": 3,
+        "s": "And let’s not forget about our personal projects, our interests, and our friendships."
+      }
+    ],
+    "B: A + 동사후보도 없음": [
+      {
+        "src": "voa",
+        "v": 3,
+        "s": "B: Well, first I’ll extend the deadline."
+      },
+      {
+        "src": "voa",
+        "v": 3,
+        "s": "Until next time, I’m Anna Matteo."
+      },
+      {
+        "src": "voa",
+        "v": 4,
+        "s": "I think I see our old co-worker."
+      },
+      {
+        "src": "voa",
+        "v": 4,
+        "s": "Until next time, I’m Anna Matteo."
+      },
+      {
+        "src": "voa",
+        "v": 4,
+        "s": "A: Busy trying to become the new power couple in the office?"
+      },
+      {
+        "src": "voa",
+        "v": 4,
+        "s": "Until next time, I’m Anna Matteo."
+      },
+      {
+        "src": "voa",
+        "v": 4,
+        "s": "an expression of respect, affection, or admiration : -v."
+      },
+      {
+        "src": "voa",
+        "v": 4,
+        "s": "Until next time, I’m Anna Matteo."
+      },
+      {
+        "src": "plos",
+        "v": 6,
+        "s": "Citation: Sigilai AK, Mburu CN, Selim R, Ombati R, Akech D, Karia B, et al."
+      },
+      {
+        "src": "plos",
+        "v": 6,
+        "s": "Copyright: © 2026 Sigilai et al."
+      },
+      {
+        "src": "plos",
+        "v": 6,
+        "s": "Citation: de la Fuente-Nunez C (2024) Mining biology for antibiotic discovery."
+      },
+      {
+        "src": "plos",
+        "v": 6,
+        "s": "Copyright: © 2024 Cesar de la Fuente-Nunez."
+      }
+    ],
+    "C: A + 캡션 구조": [
+      {
+        "src": "nasa",
+        "v": 5,
+        "s": "Cindy Evans, Artemis exploration scientist and geology training lead at NASA’s Johnson Space Center in Houston, preparing for a deep-field deployment to collect meteorites in Antarctica."
+      },
+      {
+        "src": "nasa",
+        "v": 5,
+        "s": "Cindy Evans during an Artemis II Lunar Science Team simulation at Johnson Space Center."
+      },
+      {
+        "src": "wikivoyage",
+        "v": 5,
+        "s": "James Church, Church of Our Lady before Týn among others) and some other interesting historical buildings like the Old Town Hall, and the Convent of St Agnes of Bohemia."
+      },
+      {
+        "src": "wikivoyage",
+        "v": 5,
+        "s": "Bohemian Paradise (Český ráj) protected landscape area - 60 km NE of Prague, E of Mnichovo Hradiště and S of Turnov, great hiking opportunities with many rock towers and rock castles, visit Trosky castle, Kost castle near Sobotka or Valdštejn castle near Turnov."
+      },
+      {
+        "src": "simple_wikipedia",
+        "v": 5,
+        "s": "In 1127 Suger decided to make again and change the great abbey Church of Saint-Denis."
+      },
+      {
+        "src": "simple_wikipedia",
+        "v": 5,
+        "s": "George's Chapel at Windsor Castle; Henry VII's Chapel at Westminster Abbey."
+      },
+      {
+        "src": "simple_wikipedia",
+        "v": 5,
+        "s": "The Cathedrals and Churches of Belgium."
+      },
+      {
+        "src": "voa",
+        "v": 2,
+        "s": "Cathy Bussewitz reported this story for The Associated Press from New York City."
+      },
+      {
+        "src": "wikivoyage",
+        "v": 6,
+        "s": "6 The Magic Carpets of Aladdin."
+      },
+      {
+        "src": "wikivoyage",
+        "v": 6,
+        "s": "33 Walt Disney's Carousel of Progress."
+      },
+      {
+        "src": "wikivoyage",
+        "v": 6,
+        "s": "5 Bay Lake Tower at Disney's Contemporary Resort."
+      },
+      {
+        "src": "wikivoyage",
+        "v": 6,
+        "s": "11 Boulder Ridge Villas at Disney's Wilderness Lodge."
+      }
+    ]
+  },
+  "bySource": [
+    [
+      "nasa",
+      18
+    ],
+    [
+      "wikivoyage",
+      9
+    ],
+    [
+      "simple_wikipedia",
+      38
+    ],
+    [
+      "voa",
+      4
+    ],
+    [
+      "plos",
+      2
+    ],
+    [
+      "wikipedia",
+      20
+    ],
+    [
+      "original",
+      1
+    ],
+    [
+      "usgs",
+      3
+    ],
+    [
+      "noaa",
+      1
+    ]
+  ]
+}

@@ -1,36 +1,50 @@
 // apps/web/src/app/(main)/hub/page.tsx
 //
-// Today (Hub) — forward 진입면 (v06.34 IA · v06.108 메타 통합 · v06.110 오늘의 계획 · v06.199 처방 정본)
+// Today (Hub) — forward 진입면.
 //
-//   ① HubHero              (인사 + Streak + V-Level 배지 + Today CTA)
-//   ② "오늘" 정본 (택1)     — META 확정(Opt A): 아래 우선순위로 단일 표면만 노출(3중화 해소)
-//        · 오늘 수동계획 있음        → TodayPlanCard   (사용자 의지 우선 · Empathetic)
-//        · 진단완료 + 수동계획 없음  → TodayPrescriptionCard (★ prescribe_today 5블록 스마트 기본값)
-//        · 미진단                    → TodayFocus (진단 유도 CTA)
-//   ③ ContinueCard         (이어하기 — 최근 열람 텍스트)
-//   ④ ModuleGrid           (학습 모듈)
-//   ⑤ RecommendedSets      (★ VRL 추천 — recommend_word_sets_for_user RPC)
-//   (최근 학습/회고는 /dashboard 단독 — v06.108 메타 4→2 통합)
+// v06.200 재설계 — 진입면이 답하는 질문을 바꿨다.
+//   이전: "무엇이 있나" (히어로 인사말 + 처방 5블록 나열 + 7개 동일 모듈 카드 + 추천 + 관리)
+//   지금: "무엇을 배우고, 지금 뭘 하지" (단어 지면 + 오늘의 흐름)
 //
-// 설계 원칙:
-//   - "오늘 할 일" 단일 정본(SSoT) — 경쟁하는 3표면 지양(Calm UI · Progressive Disclosure)
-//   - 오늘(forward) 단일 책임 — 회고(backward)는 /dashboard
-//   - Flow State 진입 보조 · SDT 자율성 · Calm UI
+// 왜 바꿨나 — 실측 스크린샷으로 확인한 결함:
+//   ① 히어로 140px 를 매일 같은 인사말 하나에 썼다(정보밀도 0)
+//   ② 처방 5블록이 전부 같은 무게로 나열돼 "지금 뭘" 이 3초에 안 읽혔다
+//   ③ 빈 상태 카드가 페이지 중앙을 히어로급으로 점거했다
+//   ④ 7개 동일 정사각 카드 중 다섯이 "아직 학습 전" — 죽은 정보. 도구는 사이드바가 이미 판다
+//   ⑤ 어휘 학습 플랫폼인데 **화면에 단어가 한 개도 없었다**
+//   ⑥ 추천 단어장이 /wordvault 와 중복, "V-Level 갱신" 관리 기능이 학습 진입면에 있었다
+//   설계 3안 비교와 점수는 재설계 랩(`/hub-lab`)에 남아 있다.
+//
+// **유지한 것 — "오늘" 단일 정본(v06.108 META Opt A)**:
+//   · 오늘 수동계획 있음        → TodayPlanCard 가 정본 (사용자 의지 우선 · Empathetic)
+//   · 진단완료 + 수동계획 없음  → TodayStage 의 오늘의 흐름이 정본 (prescribe_today 5블록)
+//   · 미진단                    → TodayFocus (진단 유도)
+//   경쟁하는 표면을 만들지 않는다. 단어 지면은 "할 일" 표면이 아니라 학습 재료다.
+//
+// 회고(backward)는 /dashboard 단독 — 여기는 forward 만.
 
 import { Screen } from '@/components/ui/ios'
-import { ArcadeEntryCard } from '@/components/home/ArcadeEntryCard'
-import { ContinueCard } from '@/components/home/ContinueCard'
-import { HubHero } from '@/components/home/HubHero'
-import { ModuleGrid } from '@/components/home/ModuleGrid'
+import { kstRoomTime } from '@/components/home/room-tone'
+import { GatewayLead } from '@/components/home/GatewayLead'
 import { TodayFocus } from '@/components/home/TodayFocus'
 import { TodayPlanCard } from '@/components/home/TodayPlanCard'
-import { TodayPrescriptionCard } from '@/components/home/TodayPrescriptionCard'
-import { RecommendedSetsSection } from '@/components/wordvault/hub/RecommendedSetsSection'
+import { NextWordsStrip } from '@/components/home/NextWordsStrip'
+import { TodayReading } from '@/components/home/TodayReading'
+import { TodayStage } from '@/components/home/TodayStage'
 import { fetchStudyPlanItems } from '@/lib/learner/plan-actions'
 import { fetchTodayPrescription } from '@/lib/learner/prescription-actions'
+import { fetchReadingRoom } from '@/lib/learner/reading-room-actions'
+import { fetchGatewayState } from '@/lib/learner/gateway'
+import { fetchTasteWord } from '@/lib/learner/taste-word'
+import {
+  fetchCheckDoneToday,
+  fetchDcpDoneToday,
+  fetchReadDoneToday,
+  fetchTouchedModulesToday,
+} from '@/lib/learner/today-status-query'
 
 export const metadata = {
-  title: 'Today · Vocaflow',
+  title: 'Today',
   description: '오늘의 학습을 시작하세요',
 }
 
@@ -41,54 +55,67 @@ function kstWeekday(): number {
 }
 
 export default async function HubPage() {
-  const [planItems, prescription] = await Promise.all([
+  const [planItems, prescription, room, touchedToday, dcpDoneToday, readDoneToday, checkDoneToday, gateway] =
+    await Promise.all([
     fetchStudyPlanItems(),
     fetchTodayPrescription(),
+    fetchReadingRoom(),
+    // 셸 띠와 **같은 값**을 쓴다 — cache() 라 추가 쿼리는 돌지 않는다.
+    fetchTouchedModulesToday(),
+    fetchDcpDoneToday(),
+    // 읽기·검증은 `by_module` 에 안 남는다 — 안 넘기면 그 두 블록이 영원히 미완료다
+    fetchReadDoneToday(),
+    fetchCheckDoneToday(),
+    fetchGatewayState(),
   ])
 
   const today = kstWeekday()
   const hasTodayPlan = planItems.some((i) => i.weekdays.includes(today))
   const isDiagnosed = prescription?.isDiagnosed ?? false
 
+  // 첫 방문 지면에 세울 단어 — 미진단일 때만 부른다(진단한 사람에게는 무대가 이미 단어를 판다).
+  const tasteWord = !hasTodayPlan && !isDiagnosed ? await fetchTasteWord() : null
+
+  // 시각은 서버에서 정한다 — 클라이언트에서 계산하면 SSR 과 어긋나 지면 색이 한 번 튄다.
+  const time = kstRoomTime()
+
   return (
     <Screen width="wide" background="bg2" padX="md">
       <div className="flex flex-col gap-4 py-6 md:py-8">
-        {/* ① Hero — 인사 + Streak + V-Level 배지 + Today CTA */}
-        <HubHero />
+        {/* 관문 첫 줄 — 돌아온 사람을 알아본다.
+            처음 온 사람·오늘 이미 한 사람에게는 스스로 사라진다(할 말이 없으면 그리지 않는다). */}
+        <GatewayLead state={gateway} />
 
-        {/* ② "오늘" 정본 — 단일 표면만 (META Opt A 우선순위: 수동계획 → 처방 → 진단유도) */}
-        {hasTodayPlan ? (
-          <TodayPlanCard items={planItems} today={today} />
-        ) : isDiagnosed && prescription ? (
-          <TodayPrescriptionCard data={prescription} />
-        ) : (
-          <TodayFocus />
+        {/* 무대 — 좌: 오늘 되찾을 단어(학습 재료) · 우: 오늘의 흐름(처방이 정본일 때만).
+            수동계획이 정본인 날에는 흐름을 넘기지 않는다(표면 이중화 방지). */}
+        <TodayStage
+          room={room}
+          prescription={hasTodayPlan ? null : prescription}
+          time={time}
+          touchedToday={[...touchedToday]}
+          dcpDoneToday={dcpDoneToday}
+          readDoneToday={readDoneToday}
+          checkDoneToday={checkDoneToday}
+        />
+
+        {/* 오늘 읽을 것 — 처방이 고른 실제 글을 제목으로 세운다.
+            흐름의 `Read · 30분` 은 개수와 같은 것이고, 제목·수준·성격이 있어야 고를 수 있다
+            (단어에 대해 v06.200 이 내린 결론을 읽을거리에 적용). */}
+        {!hasTodayPlan && isDiagnosed && prescription && (
+          <TodayReading candidates={prescription.input.candidates} />
         )}
 
-        {/* ③ Continue — 이어하기 */}
-        <section aria-label="이어하기">
-          <h2 className="sr-only">이어하기</h2>
-          <ContinueCard />
-        </section>
+        {/* 뒤이어 — 밀린 단어 한 줄.
+            ⚠️ 순서가 중요하다: 무대(지금 할 일) → 오늘 읽을 것 → 뒤이어(남은 단어).
+            이 띠가 무대 안에 있던 동안에는 **밀린 단어가 오늘 읽을 것보다 위**에 왔다. */}
+        <NextWordsStrip room={room} />
 
-        {/* ④ Module Grid — 학습 모듈 */}
-        <section aria-label="학습 모듈">
-          <h2 className="sr-only">학습 모듈</h2>
-          <ModuleGrid />
-        </section>
+        {/* 오늘 정본 — 수동계획 우선 */}
+        {hasTodayPlan && <TodayPlanCard items={planItems} today={today} />}
 
-        {/* ④-b 아케이드 진입 — 단어 게임 12종 */}
-        <section aria-label="아케이드">
-          <h2 className="sr-only">아케이드</h2>
-          <ArcadeEntryCard />
-        </section>
-
-        {/* ⑤ Recommended Sets — V-Level + Track + Interest 기반 추천 */}
-        <section aria-label="추천 단어장">
-          <h2 className="sr-only">추천 단어장</h2>
-          <RecommendedSetsSection hideUndiagnosedCard />
-        </section>
-        {/* 최근 학습(회고)은 /dashboard 단독 — hub 는 forward(오늘)만 (v06.108 IA 통합) */}
+        {/* 미진단 — **시험이 아니라 지면을 먼저 준다.** 단어 하나를 세우고 진단은 그 아래 제안으로.
+            (근거: 가입→첫 학습 중앙값 55일 실측 + 가치를 게이트 뒤에 두지 말라는 온보딩 연구) */}
+        {!hasTodayPlan && !isDiagnosed && <TodayFocus word={tasteWord} />}
       </div>
     </Screen>
   )

@@ -1,0 +1,637 @@
+{
+  "book": {
+    "id": "3c7c8674-3f7e-4910-a91c-bfea9889f550",
+    "title": "Measure for Measure",
+    "book_v_level": 8
+  },
+  "target_per_chapter": 8,
+  "chapters": [
+    {
+      "chapter_idx": 1,
+      "chapter_title": "Scene I",
+      "word_count": 695,
+      "chapter_v_level": 6,
+      "content": "CHAPTER 1. Scene I\u001fAct I\u001ehttps://standardebooks.org/ebooks/william-shakespeare/measure-for-measure/text/act-1#scene-1-1\n\nAn apartment in the Duke's palace.\n\nEnter Duke, Escalus, Lords and Attendants.\n\nDuke Escalus.\n\nEscalus My lord.\n\nDuke\n\nOf government the properties to unfold,\n\nWould seem in me to affect speech and discourse;\n\nSince I am put to know that your own science\n\nExceeds, in that, the lists of all advice\n\nMy strength can give you: then no more remains,\n\nBut that to your sufficiency⁠--\n\n--as your worth is able,\n\nAnd let them work. The nature of our people,\n\nOur city's institutions, and the terms\n\nFor common justice, you're as pregnant in\n\nAs art and practice hath enriched any\n\nThat we remember. There is our commission,\n\nFrom which we would not have you warp. Call hither,\n\nI say, bid come before us Angelo. Exit an Attendant.\n\nWhat figure of us think you he will bear?\n\nFor you must know, we have with special soul\n\nElected him our absence to supply,\n\nLent him our terror, dress'd him with our love,\n\nAnd given his deputation all the organs\n\nOf our own power: what think you of it?\n\nEscalus\n\nIf any in Vienna be of worth\n\nTo undergo such ample grace and honour,\n\nIt is Lord Angelo.\n\nDuke Look where he comes.\n\nEnter Angelo.\n\nAngelo\n\nAlways obedient to your grace's will,\n\nI come to know your pleasure.\n\nDuke\n\nAngelo,\n\nThere is a kind of character in thy life,\n\nThat to the observer doth thy history\n\nFully unfold. Thyself and thy belongings\n\nAre not thine own so proper as to waste\n\nThyself upon thy virtues, they on thee.\n\nHeaven doth with us as we with torches do,\n\nNot light them for themselves; for if our virtues\n\nDid not go forth of us, 'twere all alike\n\nAs if we had them not. Spirits are not finely touch'd\n\nBut to fine issues, nor Nature never lends\n\nThe smallest scruple of her excellence\n\nBut, like a thrifty goddess, she determines\n\nHerself the glory of a creditor,\n\nBoth thanks and use. But I do bend my speech\n\nTo one that can my part in him advertise;\n\nHold therefore, Angelo:⁠--\n\nIn our remove be thou at full ourself;\n\nMortality and mercy in Vienna\n\nLive in thy tongue and heart: old Escalus,\n\nThough first in question, is thy secondary.\n\nTake thy commission.\n\nAngelo\n\nNow, good my lord,\n\nLet there be some more test made of my metal,\n\nBefore so noble and so great a figure\n\nBe stamp'd upon it.\n\nDuke\n\nNo more evasion:\n\nWe have with a leaven'd and prepared choice\n\nProceeded to you; therefore take your honours.\n\nOur haste from hence is of so quick condition\n\nThat it prefers itself and leaves unquestion'd\n\nMatters of needful value. We shall write to you,\n\nAs time and our concernings shall importune,\n\nHow it goes with us, and do look to know\n\nWhat doth befall you here. So, fare you well;\n\nTo the hopeful execution do I leave you\n\nOf your commissions.\n\nAngelo\n\nYet give leave, my lord,\n\nThat we may bring you something on the way.\n\nDuke\n\nMy haste may not admit it;\n\nNor need you, on mine honour, have to do\n\nWith any scruple; your scope is as mine own,\n\nSo to enforce or qualify the laws\n\nAs to your soul seems good. Give me your hand:\n\nI'll privily away. I love the people,\n\nBut do not like to stage me to their eyes:\n\nThrough it do well, I do not relish well\n\nTheir loud applause and Aves vehement;\n\nNor do I think the man of safe discretion\n\nThat does affect it. Once more, fare you well.\n\nAngelo The heavens give safety to your purposes!\n\nEscalus Lead forth and bring you back in happiness!\n\nDuke I thank you. Fare you well. Exit.\n\nEscalus\n\nI shall desire you, sir, to give me leave\n\nTo have free speech with you; and it concerns me\n\nTo look into the bottom of my place:\n\nA power I have, but of what strength and nature\n\nI am not yet instructed.\n\nAngelo\n\n'Tis so with me. Let us withdraw together,\n\nAnd we may soon our satisfaction have\n\nTouching that point.\n\nEscalus I'll wait upon your honour. Exeunt.",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "Why does the Duke say he need not lecture Escalus on government?",
+          "questionKo": "공작은 왜 에스칼루스에게 통치를 강론할 필요가 없다고 하는가?",
+          "options": [
+            {
+              "text": "Escalus’s own science exceeds all the advice the Duke’s strength can give — the nature of the people, the city’s institutions and the terms for common justice he is as pregnant in as any.",
+              "textKo": "에스칼루스의 학식이 공작이 줄 수 있는 모든 조언을 넘어서므로 — 백성의 성정과 도시의 제도와 통상 재판의 절차에 누구 못지않게 밝으므로."
+            },
+            {
+              "text": "Because there is no time before the Duke must depart.",
+              "textKo": "공작이 떠나기 전에 시간이 없으므로."
+            },
+            {
+              "text": "Because Angelo will instruct Escalus instead.",
+              "textKo": "안젤로가 대신 가르칠 것이므로."
+            },
+            {
+              "text": "Because Escalus has asked not to be advised.",
+              "textKo": "에스칼루스가 조언을 사양했으므로."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "your own science Exceeds, in that, the lists of all advice My strength can give you"
+        },
+        {
+          "type": "multiple",
+          "question": "What has the Duke done in choosing Angelo?",
+          "questionKo": "공작이 안젤로를 택하며 한 일은?",
+          "options": [
+            {
+              "text": "Named him only as an adviser to Escalus.",
+              "textKo": "에스칼루스의 조언자로만 임명했다."
+            },
+            {
+              "text": "Elected him with special soul to supply his absence — lent him his terror, dressed him with his love, and given his deputation all the organs of his own power.",
+              "textKo": "각별한 마음으로 뽑아 제 부재를 대신하게 했다 — 제 위엄을 빌려주고 제 사랑으로 입혔으며, 그 대리직에 제 권력의 모든 기관을 주었다."
+            },
+            {
+              "text": "Given him power over the courts but not the laws.",
+              "textKo": "법정은 맡기되 법은 맡기지 않았다."
+            },
+            {
+              "text": "Made him regent for one month only.",
+              "textKo": "한 달 동안만 섭정으로 삼았다."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "Lent him our terror, dress’d him with our love"
+        },
+        {
+          "type": "multiple",
+          "question": "What does the Duke say about virtues that do not go forth?",
+          "questionKo": "공작은 밖으로 나가지 않는 덕에 대해 무엇이라 하는가?",
+          "options": [
+            {
+              "text": "That private virtue is worth more than public service.",
+              "textKo": "남모르는 덕이 공직보다 값지다고."
+            },
+            {
+              "text": "That virtue kept hidden grows the stronger for it.",
+              "textKo": "감춰 둔 덕은 그만큼 더 강해진다고."
+            },
+            {
+              "text": "Heaven does with us as we with torches — not light them for themselves; if our virtues did not go forth, it were all alike as if we had them not.",
+              "textKo": "하늘은 우리를 횃불 다루듯 한다고 — 횃불을 저 자신을 위해 켜지는 않으며, 우리 덕이 밖으로 나가지 않는다면 없는 것과 마찬가지라고."
+            },
+            {
+              "text": "That no man may judge another’s virtue at all.",
+              "textKo": "누구도 남의 덕을 판단할 수 없다고."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "Heaven doth with us as we with torches do, Not light them for themselves"
+        },
+        {
+          "type": "multiple",
+          "question": "How does the Duke describe Nature’s lending of excellence?",
+          "questionKo": "공작은 자연이 탁월함을 빌려주는 방식을 어떻게 말하는가?",
+          "options": [
+            {
+              "text": "That Nature gives freely and asks nothing in return.",
+              "textKo": "자연은 거저 주고 아무것도 되돌려 받지 않는다고."
+            },
+            {
+              "text": "That Nature lends only to those already great.",
+              "textKo": "이미 위대한 이에게만 빌려준다고."
+            },
+            {
+              "text": "That Nature’s gifts are shared equally among all.",
+              "textKo": "자연의 선물은 모두에게 고르게 나뉜다고."
+            },
+            {
+              "text": "Nature never lends the smallest scruple of her excellence but, like a thrifty goddess, she determines herself the glory of a creditor — both thanks and use.",
+              "textKo": "자연은 제 탁월함을 티끌만큼도 그냥 빌려주지 않고, 알뜰한 여신답게 스스로 채권자의 영광을 정한다고 — 감사와 이자를 함께 받는다고."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "like a thrifty goddess, she determines Herself the glory of a creditor"
+        },
+        {
+          "type": "multiple",
+          "question": "What are the exact terms of Angelo’s commission?",
+          "questionKo": "안젤로가 받은 위임의 정확한 조건은?",
+          "options": [
+            {
+              "text": "In the Duke’s remove he is to be at full the Duke himself — mortality and mercy in Vienna live in his tongue and heart, and old Escalus, though first in question, is his secondary.",
+              "textKo": "공작이 떠난 동안 그가 온전히 공작 자신이 된다 — 빈의 생사여탈과 자비가 그의 혀와 마음에 있으며, 먼저 부름받은 노(老)에스칼루스가 그의 차석이 된다."
+            },
+            {
+              "text": "He and Escalus are to share the power equally.",
+              "textKo": "에스칼루스와 권력을 똑같이 나눈다."
+            },
+            {
+              "text": "He may judge but not pardon, that being reserved to the Duke.",
+              "textKo": "재판은 하되 사면은 공작의 몫이라 할 수 없다."
+            },
+            {
+              "text": "He is to act only on written instructions from Poland.",
+              "textKo": "폴란드에서 오는 문서 지시로만 움직인다."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "Mortality and mercy in Vienna Live in thy tongue and heart"
+        },
+        {
+          "type": "multiple",
+          "question": "How does Angelo first respond to the commission?",
+          "questionKo": "안젤로는 그 위임에 처음 어떻게 반응하는가?",
+          "options": [
+            {
+              "text": "He accepts at once and thanks the Duke warmly.",
+              "textKo": "즉시 받아들이고 공작에게 따뜻이 감사한다."
+            },
+            {
+              "text": "He asks that some more test be made of his metal before so noble and great a figure be stamped upon it.",
+              "textKo": "그토록 고귀하고 큰 형상을 찍기 전에 제 쇠붙이를 좀 더 시험해 달라 청한다."
+            },
+            {
+              "text": "He asks that Escalus be given it instead.",
+              "textKo": "에스칼루스에게 주라 청한다."
+            },
+            {
+              "text": "He asks how long the Duke will be away.",
+              "textKo": "공작이 얼마나 떠나 있을지 묻는다."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "Let there be some more test made of my metal"
+        },
+        {
+          "type": "multiple",
+          "question": "Why does the Duke refuse an escort out of the city?",
+          "questionKo": "공작은 왜 도시 밖까지의 배웅을 거절하는가?",
+          "options": [
+            {
+              "text": "Because he fears an attempt on his life at the gates.",
+              "textKo": "성문에서 목숨을 노릴까 두려워서."
+            },
+            {
+              "text": "Because the road to Poland is already crowded.",
+              "textKo": "폴란드로 가는 길이 이미 붐벼서."
+            },
+            {
+              "text": "He will privily away — he loves the people but does not like to stage himself to their eyes, nor thinks the man of safe discretion that affects loud applause.",
+              "textKo": "남몰래 떠나겠다고 — 백성을 사랑하되 제 모습을 그들 눈앞에 무대처럼 세우기를 좋아하지 않으며, 요란한 갈채를 좇는 자를 분별 있다 여기지 않는다고."
+            },
+            {
+              "text": "Because Angelo must not be seen with him.",
+              "textKo": "안젤로가 그와 함께 보여서는 안 되므로."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "I love the people, But do not like to stage me to their eyes"
+        },
+        {
+          "type": "multiple",
+          "question": "What do Escalus and Angelo agree to do once the Duke has gone?",
+          "questionKo": "공작이 떠난 뒤 에스칼루스와 안젤로가 하기로 하는 일은?",
+          "options": [
+            {
+              "text": "To publish the Duke’s departure through the city.",
+              "textKo": "공작의 출발을 도시에 알리기로."
+            },
+            {
+              "text": "To send after the Duke for further instructions.",
+              "textKo": "공작을 뒤쫓아 추가 지시를 청하기로."
+            },
+            {
+              "text": "To part at once and meet again in a month.",
+              "textKo": "곧바로 헤어져 한 달 뒤 다시 만나기로."
+            },
+            {
+              "text": "To withdraw together — Escalus wants free speech to look into the bottom of his place, having a power of which he is not yet instructed, and Angelo says it is so with him too.",
+              "textKo": "함께 물러나 이야기하기로 — 에스칼루스는 아직 그 성질을 배우지 못한 제 권한의 밑바닥까지 알아보려 터놓고 말하기를 청하고, 안젤로도 자기 사정이 같다고 한다."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "A power I have, but of what strength and nature I am not yet instructed"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 2,
+      "chapter_title": "Scene II",
+      "word_count": 1505,
+      "chapter_v_level": 6,
+      "content": "CHAPTER 2. Scene II\u001fAct I\u001ehttps://standardebooks.org/ebooks/william-shakespeare/measure-for-measure/text/act-1#scene-1-2\n\nA street.\n\nEnter Lucio and two Gentlemen.\n\nLucio If the duke with the other dukes come not to composition with the King of Hungary, why then all the dukes fall upon the king.\n\nFirst Gentleman Heaven grant us its peace, but not the King of Hungary's!\n\nSecond Gentleman Amen.\n\nLucio Thou concludest like the sanctimonious pirate, that went to sea with the Ten Commandments, but scraped one out of the table.\n\nSecond Gentleman\n\"Thou shalt not steal\"?\n\nLucio Ay, that he razed.\n\nFirst Gentleman Why, 'twas a commandment to command the captain and all the rest from their functions: they put forth to steal. There's not a soldier of us all, that, in the thanksgiving before meat, do relish the petition well that prays for peace.\n\nSecond Gentleman I never heard any soldier dislike it.\n\nLucio I believe thee; for I think thou never wast where grace was said.\n\nSecond Gentleman No? a dozen times at least.\n\nFirst Gentleman What, in metre?\n\nLucio In any proportion or in any language.\n\nFirst Gentleman I think, or in any religion.\n\nLucio Ay, why not? Grace is grace, despite of all controversy: as, for example, thou thyself art a wicked villain, despite of all grace.\n\nFirst Gentleman Well, there went but a pair of shears between us.\n\nLucio I grant; as there may between the lists and the velvet. Thou art the list.\n\nFirst Gentleman And thou the velvet: thou art good velvet; thou'rt a three-piled piece, I warrant thee: I had as lief be a list of an English kersey as be piled, as thou art piled, for a French velvet. Do I speak feelingly now?\n\nLucio I think thou dost; and, indeed, with most painful feeling of thy speech: I will, out of thine own confession, learn to begin thy health; but, whilst I live, forget to drink after thee.\n\nFirst Gentleman I think I have done myself wrong, have I not?\n\nSecond Gentleman Yes, that thou hast, whether thou art tainted or free.\n\nLucio Behold, behold, where Madam Mitigation comes! I have purchased as many diseases under her roof as come to⁠--\n\nSecond Gentleman To what, I pray?\n\nLucio Judge.\n\nSecond Gentleman To three thousand dolours a year.\n\nFirst Gentleman Ay, and more.\n\nLucio A French crown more.\n\nFirst Gentleman Thou art always figuring diseases in me; but thou art full of error; I am sound.\n\nLucio Nay, not as one would say, healthy; but so sound as things that are hollow: thy bones are hollow; impiety has made a feast of thee.\n\nEnter Mistress Overdone.\n\nFirst Gentleman How now! which of your hips has the most profound sciatica?\n\nMistress Overdone Well, well; there's one yonder arrested and carried to prison was worth five thousand of you all.\n\nSecond Gentleman Who's that, I pray thee?\n\nMistress Overdone Marry, sir, that's Claudio, Signior Claudio.\n\nFirst Gentleman Claudio to prison? 'tis not so.\n\nMistress Overdone Nay, but I know 'tis so: I saw him arrested, saw him carried away; and, which is more, within these three days his head to be chopped off.\n\nLucio But, after all this fooling, I would not have it so. Art thou sure of this?\n\nMistress Overdone I am too sure of it: and it is for getting Madam Julietta with child.\n\nLucio Believe me, this may be: he promised to meet me two hours since, and he was ever precise in promise-keeping.\n\nSecond Gentleman Besides, you know, it draws something near to the speech we had to such a purpose.\n\nFirst Gentleman But, most of all, agreeing with the proclamation.\n\nLucio Away! let's go learn the truth of it. Exeunt Lucio and Gentlemen.\n\nMistress Overdone Thus, what with the war, what with the sweat, what with the gallows and what with poverty, I am custom-shrunk.\n\nEnter Pompey.\n\nHow now! what's the news with you?\n\nPompey Yonder man is carried to prison.\n\nMistress Overdone Well; what has he done?\n\nPompey A woman.\n\nMistress Overdone But what's his offence?\n\nPompey Groping for trouts in a peculiar river.\n\nMistress Overdone What, is there a maid with child by him?\n\nPompey No, but there's a woman with maid by him. You have not heard of the proclamation, have you?\n\nMistress Overdone What proclamation, man?\n\nPompey All houses in the suburbs of Vienna must be plucked down.\n\nMistress Overdone And what shall become of those in the city?\n\nPompey They shall stand for seed: they had gone down too, but that a wise burgher put in for them.\n\nMistress Overdone But shall all our houses of resort in the suburbs be pulled down?\n\nPompey To the ground, mistress.\n\nMistress Overdone Why, here's a change indeed in the commonwealth! What shall become of me?\n\nPompey Come; fear not you: good counsellors lack no clients: though you change your place, you need not change your trade; I'll be your tapster still. Courage! there will be pity taken on you: you that have worn your eyes almost out in the service, you will be considered.\n\nMistress Overdone What's to do here, Thomas tapster? let's withdraw.\n\nPompey Here comes Signior Claudio, led by the provost to prison; and there's Madam Juliet. Exeunt.\n\nEnter Provost, Claudio, Juliet, and Officers.\n\nClaudio\n\nFellow, why dost thou show me thus to the world?\n\nBear me to prison, where I am committed.\n\nProvost\n\nI do it not in evil disposition,\n\nBut from Lord Angelo by special charge.\n\nClaudio\n\nThus can the demigod Authority\n\nMake us pay down for our offence by weight\n\nThe words of heaven; on whom it will, it will;\n\nOn whom it will not, so; yet still 'tis just.\n\nReenter Lucio and two Gentlemen.\n\nLucio Why, how now, Claudio! whence comes this restraint?\n\nClaudio\n\nFrom too much liberty, my Lucio, liberty:\n\nAs surfeit is the father of much fast,\n\nSo every scope by the immoderate use\n\nTurns to restraint. Our natures do pursue,\n\nLike rats that ravin down their proper bane,\n\nA thirsty evil; and when we drink we die.\n\nLucio If could speak so wisely under an arrest, I would send for certain of my creditors: and yet, to say the truth, I had as lief have the foppery of freedom as the morality of imprisonment. What's thy offence, Claudio?\n\nClaudio What but to speak of would offend again.\n\nLucio What, is't murder?\n\nClaudio No.\n\nLucio Lechery?\n\nClaudio Call it so.\n\nProvost Away, sir! you must go.\n\nClaudio One word, good friend. Lucio, a word with you.\n\nLucio A hundred, if they'll do you any good. Is lechery so look'd after?\n\nClaudio\n\nThus stands it with me: upon a true contract\n\nI got possession of Julietta's bed:\n\nYou know the lady; she is fast my wife,\n\nSave that we do the denunciation lack\n\nOf outward order: this we came not to,\n\nOnly for propagation of a dower\n\nRemaining in the coffer of her friends,\n\nFrom whom we thought it meet to hide our love\n\nTill time had made them for us. But it chances\n\nThe stealth of our most mutual entertainment\n\nWith character too gross is writ on Juliet.\n\nLucio With child, perhaps?\n\nClaudio\n\nUnhappily, even so.\n\nAnd the new deputy now for the duke⁠--\n\nWhether it be the fault and glimpse of newness,\n\nOr whether that the body public be\n\nA horse whereon the governor doth ride,\n\nWho, newly in the seat, that it may know\n\nHe can command, lets it straight feel the spur;\n\nWhether the tyranny be in his place,\n\nOr in his emmence that fills it up,\n\nI stagger in:⁠--but this new governor\n\nAwakes me all the enrolled penalties\n\nWhich have, like unscour'd armour, hung by the wall\n\nSo long that nineteen zodiacs have gone round\n\nAnd none of them been worn; and, for a name,\n\nNow puts the drowsy and neglected act\n\nFreshly on me: 'tis surely for a name.\n\nLucio I warrant it is: and thy head stands so tickle on thy shoulders that a milkmaid, if she be in love, may sigh it off. Send after the duke and appeal to him.\n\nClaudio\n\nI have done so, but he's not to be found.\n\nI prithee, Lucio, do me this kind service:\n\nThis day my sister should the cloister enter\n\nAnd there receive her approbation:\n\nAcquaint her with the danger of my state:\n\nImplore her, in my voice, that she make friends\n\nTo the strict deputy; bid herself assay him:\n\nI have great hope in that; for in her youth\n\nThere is a prone and speechless dialect,\n\nSuch as move men; beside, she hath prosperous art\n\nWhen she will play with reason and discourse,\n\nAnd well she can persuade.\n\nLucio I pray she may; as well for the encouragement of the like, which else would stand under grievous imposition, as for the enjoying of thy life, who I would be sorry should be thus foolishly lost at a game of tick-tack. I'll to her.\n\nClaudio I thank you, good friend Lucio.\n\nLucio Within two hours.\n\nClaudio Come, officer, away! Exeunt.",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "What news does Mistress Overdone bring the gentlemen?",
+          "questionKo": "오버던 부인이 신사들에게 전한 소식은?",
+          "options": [
+            {
+              "text": "That Signior Claudio has been arrested and carried to prison, and within three days his head is to be chopped off.",
+              "textKo": "클라우디오 나리가 체포되어 감옥으로 끌려갔으며, 사흘 안에 목이 잘리리라는 것."
+            },
+            {
+              "text": "That the Duke has returned secretly to Vienna.",
+              "textKo": "공작이 몰래 빈으로 돌아왔다는 것."
+            },
+            {
+              "text": "That war with Hungary has been declared.",
+              "textKo": "헝가리와의 전쟁이 선포되었다는 것."
+            },
+            {
+              "text": "That Lord Angelo has been dismissed from office.",
+              "textKo": "안젤로 경이 파면되었다는 것."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "within these three days his head to be chopped off"
+        },
+        {
+          "type": "multiple",
+          "question": "On whose authority is Claudio led through the streets to prison?",
+          "questionKo": "클라우디오가 거리를 지나 감옥으로 끌려가는 것은 누구의 명에 따른 것인가?",
+          "options": [
+            {
+              "text": "By order of the Duke before he left the city.",
+              "textKo": "공작이 도시를 떠나기 전에 내린 명에 따라."
+            },
+            {
+              "text": "The Provost does it not in evil disposition, but from Lord Angelo by special charge.",
+              "textKo": "간수장이 악의로 하는 것이 아니라, 안젤로 경의 특별한 지시에 따라 하는 것이다."
+            },
+            {
+              "text": "By the sentence of Escalus, sitting in judgment.",
+              "textKo": "재판에 앉은 에스칼루스의 선고에 따라."
+            },
+            {
+              "text": "By the demand of Juliet’s friends.",
+              "textKo": "줄리엣의 친척들의 요구에 따라."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "But from Lord Angelo by special charge"
+        },
+        {
+          "type": "multiple",
+          "question": "How does Claudio describe the workings of Authority?",
+          "questionKo": "클라우디오는 권위가 작동하는 방식을 어떻게 말하는가?",
+          "options": [
+            {
+              "text": "That Authority is always blind and never just.",
+              "textKo": "권위는 언제나 눈멀었고 결코 정당하지 않다고."
+            },
+            {
+              "text": "That Authority may be bought with money.",
+              "textKo": "권위는 돈으로 살 수 있다고."
+            },
+            {
+              "text": "Thus can the demigod Authority make us pay down for our offence by weight the words of heaven — on whom it will, it will; on whom it will not, so; yet still it is just.",
+              "textKo": "반신(半神)인 권위는 하늘의 말씀을 저울에 달아 우리 죄값을 치르게 한다고 — 원하는 자에게는 그리하고 원치 않는 자에게는 그러지 않으며, 그래도 여전히 정당하다고."
+            },
+            {
+              "text": "That Authority belongs to the Duke alone.",
+              "textKo": "권위는 오직 공작의 것이라고."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "Thus can the demigod Authority Make us pay down for our offence by weight"
+        },
+        {
+          "type": "multiple",
+          "question": "How does Claudio explain the cause of his restraint to Lucio?",
+          "questionKo": "클라우디오는 루치오에게 제 구속의 원인을 어떻게 설명하는가?",
+          "options": [
+            {
+              "text": "From the malice of Mistress Overdone.",
+              "textKo": "오버던 부인의 악의에서 왔다고."
+            },
+            {
+              "text": "From a debt he could not pay.",
+              "textKo": "갚지 못한 빚에서 왔다고."
+            },
+            {
+              "text": "From words he spoke against the Duke.",
+              "textKo": "공작을 두고 한 말에서 왔다고."
+            },
+            {
+              "text": "From too much liberty — as surfeit is the father of much fast, so every scope by immoderate use turns to restraint.",
+              "textKo": "지나친 자유에서 왔다고 — 과식이 오랜 굶주림의 아비이듯, 어떤 여지도 지나치게 쓰면 구속으로 바뀐다고."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "From too much liberty, my Lucio, liberty"
+        },
+        {
+          "type": "multiple",
+          "question": "What does Claudio say of his standing with Juliet?",
+          "questionKo": "클라우디오는 줄리엣과의 관계를 어떻게 말하는가?",
+          "options": [
+            {
+              "text": "Upon a true contract she is fast his wife, save that they lack the denunciation of outward order — withheld only to keep a dower in her friends’ coffer.",
+              "textKo": "참된 약정에 따라 그녀는 확실히 제 아내이며, 다만 바깥 절차의 공표가 빠졌을 뿐 — 그것도 그녀 친척의 궤에 있는 지참금 때문에 미룬 것이라고."
+            },
+            {
+              "text": "That they were married in church a year ago.",
+              "textKo": "일 년 전 교회에서 혼인했다고."
+            },
+            {
+              "text": "That he never promised her anything at all.",
+              "textKo": "그녀에게 아무것도 약속한 적이 없다고."
+            },
+            {
+              "text": "That her friends forbade the match outright.",
+              "textKo": "그녀의 친척들이 혼사를 단호히 막았다고."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "she is fast my wife, Save that we do the denunciation lack Of outward order"
+        },
+        {
+          "type": "multiple",
+          "question": "How long had the law under which Claudio is condemned lain unused?",
+          "questionKo": "클라우디오를 단죄한 그 법은 얼마나 오래 쓰이지 않고 있었는가?",
+          "options": [
+            {
+              "text": "Three years, since the Duke’s last proclamation.",
+              "textKo": "공작의 지난 포고 이후 3년."
+            },
+            {
+              "text": "The enrolled penalties had hung by the wall like unscoured armour so long that nineteen zodiacs had gone round and none of them been worn.",
+              "textKo": "등록된 형벌들이 닦지 않은 갑옷처럼 벽에 걸린 채 열아홉 해가 돌도록 하나도 입혀지지 않았다."
+            },
+            {
+              "text": "It was newly made by Angelo that same week.",
+              "textKo": "그 주에 안젤로가 새로 만든 법이다."
+            },
+            {
+              "text": "It had never before been applied to any man.",
+              "textKo": "어느 누구에게도 적용된 적이 없었다."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "So long that nineteen zodiacs have gone round"
+        },
+        {
+          "type": "multiple",
+          "question": "What motive does Claudio guess in the new deputy?",
+          "questionKo": "클라우디오는 새 대리자의 동기를 무엇이라 짐작하는가?",
+          "options": [
+            {
+              "text": "That Angelo has a private grudge against him.",
+              "textKo": "안젤로가 개인적 원한을 품었다고."
+            },
+            {
+              "text": "That the Duke ordered it before leaving.",
+              "textKo": "공작이 떠나며 그리 명했다고."
+            },
+            {
+              "text": "That it is surely for a name — the body public being a horse whereon the governor rides, and one newly in the seat lets it straight feel the spur.",
+              "textKo": "분명 이름을 얻기 위해서라고 — 나라는 통치자가 타는 말이며, 갓 안장에 오른 자는 곧바로 박차를 느끼게 한다고."
+            },
+            {
+              "text": "That Juliet’s friends bribed the deputy.",
+              "textKo": "줄리엣의 친척들이 대리자를 매수했다고."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "’tis surely for a name"
+        },
+        {
+          "type": "multiple",
+          "question": "What service does Claudio ask of Lucio?",
+          "questionKo": "클라우디오가 루치오에게 부탁한 일은?",
+          "options": [
+            {
+              "text": "To bribe the Provost and set him free that night.",
+              "textKo": "간수장을 매수해 그날 밤 풀어 달라는 것."
+            },
+            {
+              "text": "To carry a letter to Juliet’s friends for the dower.",
+              "textKo": "지참금 문제로 줄리엣의 친척에게 편지를 전해 달라는 것."
+            },
+            {
+              "text": "To ride to Poland and fetch the Duke home.",
+              "textKo": "폴란드로 달려가 공작을 모셔 오라는 것."
+            },
+            {
+              "text": "To go to his sister, who enters the cloister that day, acquaint her with his danger and implore her to assay the strict deputy herself — for she can persuade well.",
+              "textKo": "그날 수녀원에 들어가는 누이를 찾아가 제 위태로움을 알리고, 엄격한 대리자를 직접 찾아가 보라 간청해 달라는 것 — 그녀는 설득에 능하므로."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "bid herself assay him: I have great hope in that"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 3,
+      "chapter_title": "Scene III",
+      "word_count": 474,
+      "chapter_v_level": 7,
+      "content": "CHAPTER 3. Scene III\u001fAct I\u001ehttps://standardebooks.org/ebooks/william-shakespeare/measure-for-measure/text/act-1#scene-1-3\n\nA monastery.\n\nEnter Duke and Friar Thomas.\n\nDuke\n\nNo, holy father; throw away that thought;\n\nBelieve not that the dribbling dart of love\n\nCan pierce a complete bosom. Why I desire thee\n\nTo give me secret harbour, hath a purpose\n\nMore grave and wrinkled than the aims and ends\n\nOf burning youth.\n\nFriar Thomas May your grace speak of it?\n\nDuke\n\nMy holy sir, none better knows than you\n\nHow I have ever loved the life removed\n\nAnd held in idle price to haunt assemblies\n\nWhere youth, and cost, and witless bravery keeps.\n\nI have deliver'd to Lord Angelo,\n\nA man of stricture and firm abstinence,\n\nMy absolute power and place here in Vienna,\n\nAnd he supposes me travell'd to Poland;\n\nFor so I have strew'd it in the common ear,\n\nAnd so it is received. Now, pious sir,\n\nYou will demand of me why I do this?\n\nFriar Thomas Gladly, my lord.\n\nDuke\n\nWe have strict statutes and most biting laws,\n\nThe needful bits and curbs to headstrong weeds,\n\nWhich for this nineteen years we have let slip;\n\nEven like an o'ergrown lion in a cave,\n\nThat goes not out to prey. Now, as fond fathers,\n\nHaving bound up the threatening twigs of birch,\n\nOnly to stick it in their children's sight\n\nFor terror, not to use, in time the rod\n\nBecomes more mock'd than fear'd; so our decrees,\n\nDead to infliction, to themselves are dead;\n\nAnd liberty plucks justice by the nose;\n\nThe baby beats the nurse, and quite athwart\n\nGoes all decorum.\n\nFriar Thomas\n\nIt rested in your grace\n\nTo unloose this tied-up justice when you pleased:\n\nAnd it in you more dreadful would have seem'd\n\nThan in Lord Angelo.\n\nDuke\n\nI do fear, too dreadful:\n\nSith 'twas my fault to give the people scope,\n\n'Twould be my tyranny to strike and gall them\n\nFor what I bid them do: for we bid this be done,\n\nWhen evil deeds have their permissive pass\n\nAnd not the punishment. Therefore indeed, my father,\n\nI have on Angelo imposed the office;\n\nWho may, in the ambush of my name, strike home,\n\nAnd yet my nature never in the fight\n\nTo do in slander. And to behold his sway,\n\nI will, as 'twere a brother of your order,\n\nVisit both prince and people: therefore, I prithee,\n\nSupply me with the habit and instruct me\n\nHow I may formally in person bear me\n\nLike a true friar. Moe reasons for this action\n\nAt our more leisure shall I render you;\n\nOnly, this one: Lord Angelo is precise;\n\nStands at a guard with envy; scarce confesses\n\nThat his blood flows, or that his appetite\n\nIs more to bread than stone: hence shall we see,\n\nIf power change purpose, what our seemers be. Exeunt.",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "What does the Duke deny to Friar Thomas at the outset?",
+          "questionKo": "공작이 첫머리에서 토마스 수사에게 부인하는 것은?",
+          "options": [
+            {
+              "text": "That love is his reason — the dribbling dart of love cannot pierce a complete bosom; his purpose is more grave and wrinkled than the aims of burning youth.",
+              "textKo": "사랑이 그 이유라는 것 — 힘없이 날아가는 사랑의 화살은 온전한 가슴을 뚫지 못하며, 그의 뜻은 불타는 젊음의 목표보다 더 무겁고 주름졌다고."
+            },
+            {
+              "text": "That he means to leave Vienna for good.",
+              "textKo": "빈을 영영 떠날 작정이라는 것."
+            },
+            {
+              "text": "That he doubts Angelo’s honesty.",
+              "textKo": "안젤로의 정직함을 의심한다는 것."
+            },
+            {
+              "text": "That he has been ill and needs rest.",
+              "textKo": "병이 나 쉬어야 한다는 것."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "Believe not that the dribbling dart of love Can pierce a complete bosom"
+        },
+        {
+          "type": "multiple",
+          "question": "Where does everyone suppose the Duke has gone?",
+          "questionKo": "사람들은 공작이 어디로 갔다고 여기는가?",
+          "options": [
+            {
+              "text": "To Hungary, to treat with the king.",
+              "textKo": "헝가리로, 왕과 담판하러."
+            },
+            {
+              "text": "To Poland — so he has strewed it in the common ear, and so it is received.",
+              "textKo": "폴란드로 — 그가 그리 소문을 뿌려 놓았고 그렇게 받아들여지고 있다."
+            },
+            {
+              "text": "To Rome, on pilgrimage.",
+              "textKo": "로마로, 순례를 떠나."
+            },
+            {
+              "text": "Nowhere — his departure was never announced.",
+              "textKo": "어디로도 — 그의 출발은 알려진 적이 없다."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "And he supposes me travell’d to Poland"
+        },
+        {
+          "type": "multiple",
+          "question": "How long have Vienna’s strict statutes been let slip?",
+          "questionKo": "빈의 엄격한 법령들은 얼마나 오래 방치되었는가?",
+          "options": [
+            {
+              "text": "Only since the Duke fell ill last winter.",
+              "textKo": "지난겨울 공작이 병든 뒤로만."
+            },
+            {
+              "text": "Since the beginning of the Hungarian war.",
+              "textKo": "헝가리 전쟁이 시작된 이래로."
+            },
+            {
+              "text": "Nineteen years — like an o’ergrown lion in a cave that goes not out to prey.",
+              "textKo": "열아홉 해 — 굴에서 살만 찌고 사냥하러 나가지 않는 사자처럼."
+            },
+            {
+              "text": "They have never been let slip at all.",
+              "textKo": "방치된 적이 아예 없다."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "Which for this nineteen years we have let slip"
+        },
+        {
+          "type": "multiple",
+          "question": "What image does the Duke use for a law that is threatened but never used?",
+          "questionKo": "공작은 으르기만 하고 결코 쓰이지 않는 법을 어떤 심상으로 말하는가?",
+          "options": [
+            {
+              "text": "A sword left in its scabbard until it rusts fast.",
+              "textKo": "녹슬어 붙을 때까지 칼집에 둔 칼."
+            },
+            {
+              "text": "A gate left open because no thief has yet come.",
+              "textKo": "아직 도둑이 없다고 열어 둔 대문."
+            },
+            {
+              "text": "A bell that is rung so often no one hears it.",
+              "textKo": "너무 자주 울려 아무도 듣지 않는 종."
+            },
+            {
+              "text": "Fond fathers who bind up birch twigs only to stick them in their children’s sight for terror, not to use — in time the rod becomes more mocked than feared.",
+              "textKo": "자작나무 회초리를 묶어 겁주려 아이들 눈앞에 꽂아 둘 뿐 쓰지 않는 무른 아비들 — 이윽고 그 매는 두려움보다 조롱을 산다."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "in time the rod Becomes more mock’d than fear’d"
+        },
+        {
+          "type": "multiple",
+          "question": "How does the Duke describe the state of Vienna now?",
+          "questionKo": "공작은 지금 빈의 상태를 어떻게 말하는가?",
+          "options": [
+            {
+              "text": "Liberty plucks justice by the nose; the baby beats the nurse, and quite athwart goes all decorum.",
+              "textKo": "자유가 정의의 코를 잡아당기고, 아기가 유모를 때리며, 모든 예법이 어긋나 버렸다고."
+            },
+            {
+              "text": "That the city is peaceful but poor.",
+              "textKo": "도시가 평화롭되 가난하다고."
+            },
+            {
+              "text": "That the laws are obeyed but hated.",
+              "textKo": "법이 지켜지되 미움받는다고."
+            },
+            {
+              "text": "That crime has ceased since Angelo took office.",
+              "textKo": "안젤로가 취임한 뒤 범죄가 그쳤다고."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "And liberty plucks justice by the nose"
+        },
+        {
+          "type": "multiple",
+          "question": "Why does the Duke not enforce the laws himself?",
+          "questionKo": "공작은 왜 스스로 법을 집행하지 않는가?",
+          "options": [
+            {
+              "text": "Because he lacks the legal power while abroad.",
+              "textKo": "외지에 있는 동안 법적 권한이 없으므로."
+            },
+            {
+              "text": "Since it was his fault to give the people scope, it would be his tyranny to strike them for what he bade them do — Angelo may strike home in the ambush of his name.",
+              "textKo": "백성에게 여지를 준 것이 제 잘못이니, 시키던 일로 그들을 치는 것은 제 폭정이 되므로 — 안젤로가 그의 이름이라는 매복에서 대신 내리칠 수 있다고."
+            },
+            {
+              "text": "Because the senate has forbidden him.",
+              "textKo": "원로원이 금했으므로."
+            },
+            {
+              "text": "Because he is too old to sit in judgment.",
+              "textKo": "재판에 앉기엔 너무 늙었으므로."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "Who may, in the ambush of my name, strike home"
+        },
+        {
+          "type": "multiple",
+          "question": "What does the Duke ask of Friar Thomas?",
+          "questionKo": "공작이 토마스 수사에게 청하는 것은?",
+          "options": [
+            {
+              "text": "A letter of introduction to the Pope.",
+              "textKo": "교황에게 보낼 소개장."
+            },
+            {
+              "text": "That he carry word secretly to Angelo.",
+              "textKo": "안젤로에게 몰래 전갈을 전해 달라는 것."
+            },
+            {
+              "text": "Secret harbour, the habit of his order, and instruction how to bear himself formally like a true friar.",
+              "textKo": "몸 숨길 곳과 그 수도회의 옷, 그리고 참된 수사처럼 격식 있게 처신하는 법을 가르쳐 달라는 것."
+            },
+            {
+              "text": "Absolution before he leaves for Poland.",
+              "textKo": "폴란드로 떠나기 전의 사면."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "Supply me with the habit and instruct me How I may formally in person bear me Like a true friar"
+        },
+        {
+          "type": "multiple",
+          "question": "What is the Duke’s one stated reason concerning Angelo himself?",
+          "questionKo": "공작이 안젤로 자신에 대해 밝힌 한 가지 이유는?",
+          "options": [
+            {
+              "text": "That Angelo is his kinsman and must be advanced.",
+              "textKo": "안젤로가 친척이니 승진시켜야 한다고."
+            },
+            {
+              "text": "That Angelo asked for the office in secret.",
+              "textKo": "안젤로가 은밀히 그 자리를 청했다고."
+            },
+            {
+              "text": "That Angelo alone knows the old statutes.",
+              "textKo": "오직 안젤로만이 옛 법령을 안다고."
+            },
+            {
+              "text": "Angelo is precise, scarce confessing that his blood flows — hence they shall see, if power change purpose, what our seemers be.",
+              "textKo": "안젤로는 지나치게 엄정해 제 피가 흐른다는 것조차 좀처럼 인정하지 않으므로 — 권력이 뜻을 바꾸는지, 겉으로 그런 척하는 자들이 실은 무엇인지 보게 되리라고."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "hence shall we see, If power change purpose, what our seemers be"
+        }
+      ]
+    }
+  ]
+}

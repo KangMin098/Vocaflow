@@ -1,12 +1,13 @@
 // apps/web/tests/e2e/03-admin-curation.spec.ts
 // Admin Curation 회귀 — 단어장 마스터 / 큐레이션 화면 접근
 import { test, expect } from '@playwright/test';
-import { loginAsTestUser } from './utils/auth';
+import { TEST_USER_STATE, ensureAuthState } from './utils/auth';
 
 test.describe('Admin Curation 회귀', () => {
-  test.beforeEach(async ({ page }) => {
-    await loginAsTestUser(page);
+  test.beforeAll(async ({ browser }) => {
+    await ensureAuthState(browser, TEST_USER_STATE)
   });
+  test.use({ storageState: TEST_USER_STATE });
 
   test('단어장 마스터 화면 접근', async ({ page }) => {
     await page.goto('/admin/vocabulary');

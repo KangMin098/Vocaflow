@@ -1,0 +1,538 @@
+{
+  "book": {
+    "id": "e3a6e434-c56b-463e-9238-f7f5216d5f20",
+    "title": "Green Meadow Stories",
+    "book_v_level": 7
+  },
+  "target_per_chapter": 7,
+  "chapters": [
+    {
+      "chapter_idx": 1,
+      "chapter_title": "Happy Jack Drops a Nut",
+      "word_count": 610,
+      "chapter_v_level": 3,
+      "content": "CHAPTER 1. Happy Jack Drops a Nut\u001fHappy Jack\u001ehttps://standardebooks.org/ebooks/thornton-w-burgess/green-meadow-stories/text/happy-jack#happy-jack-chapter-1\n\nSave a little every day,\n\nAnd for the future put away.\n\nHappy Jack\n\nHappy Jack Squirrel sat on the tip of one of the highest branches of a big hickory tree. Happy Jack was up very early that morning. In fact, jolly, round, red Mr. Sun was still in his bed behind the Purple Hills when Happy Jack hopped briskly out of bed. He washed himself thoroughly and was ready for business by the time Mr. Sun began his climb up in the blue, blue sky.\n\nYou see, Happy Jack had found that big hickory tree just loaded with nuts all ripe and ready to gather. He was quite sure that no one else had found that special tree, and he wanted to get all the nuts before anyone else found out about them. So he was all ready and off he raced to the big tree just as soon as it was light enough to see.\n\n\"The nuts that grow in the hickory tree⁠--\n\nThey're all for me! They're all for me!\"\n\nHappy Jack was humming that little song as he rested for a few minutes 'way up in the top of the tree and wondered if his storehouse would hold all these big, fat nuts. Just then he heard a great scolding a little way over in the Green Forest. Happy Jack stopped humming and listened. He knew that voice. It was his cousin's voice⁠--the voice of Chatterer the Red Squirrel. Happy Jack frowned. \"I hope he won't come over this way,\" muttered Happy Jack. He does not love his cousin Chatterer anyway, and then there was the big tree full of hickory nuts! He didn't want Chatterer to find that.\n\nI am afraid that Happy Jack was selfish. There were more nuts than he could possibly eat in one winter, and yet he wasn't willing that his cousin, Chatterer the Red Squirrel, should have a single one. Now Chatterer is short-tempered and a great scold. Someone or something had upset him this morning, and he was scolding as fast as his tongue could go, as he came running right towards the tree in which Happy Jack was sitting. Happy Jack sat perfectly still and watched. He didn't move so much as the tip of his big gray tail. Would Chatterer go past and not see that big tree full of nuts? It looked very much as if he would, for he was so busy scolding that he wasn't paying much attention to other things.\n\nHappy Jack smiled as Chatterer came running under the tree without once looking up. He was so tickled that he started to hug himself and didn't remember that he was holding a big, fat nut in his hands. Of course he dropped it. Where do you think it went? Well, sir, it fell straight down, from the top of that tall tree, and it landed right on the head of Chatterer the Red Squirrel!\n\n\"My stars!\" cried Chatterer, stopping his scolding and his running together, and rubbing his head where the nut had hit him. Then he looked up to see where it had come from. Of course, he looked straight up at Happy Jack.\n\n\"You did that purposely!\" screamed Chatterer, his short temper flaring up.\n\n\"I didn't!\" snapped Happy Jack.\n\n\"You did!\"\n\n\"I didn't!\"\n\nOh, dear, oh, dear, such a sight! two little Squirrels, one in a gray suit and one in a red suit, contradicting each other and calling names! It was such a sad, sad sight, for you know they were cousins.",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "Why was Happy Jack up and working before the sun had risen?",
+          "questionKo": "해피 잭이 해도 뜨기 전에 일어나 일하러 나선 이유는?",
+          "options": [
+            {
+              "text": "He wanted to gather every nut before anyone else found the tree.",
+              "textKo": "남이 그 나무를 찾기 전에 열매를 전부 거두고 싶어서."
+            },
+            {
+              "text": "His storehouse had been robbed during the night.",
+              "textKo": "밤사이 창고를 털렸기 때문에."
+            },
+            {
+              "text": "Chatterer had challenged him to a race.",
+              "textKo": "채터러가 달리기 시합을 걸어서."
+            },
+            {
+              "text": "The Merry Little Breezes had woken him.",
+              "textKo": "유쾌한 산들바람들이 깨워서."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "he wanted to get all the nuts before anyone else found out about them"
+        },
+        {
+          "type": "multiple",
+          "question": "Why does the story call Happy Jack selfish?",
+          "questionKo": "이야기가 해피 잭을 이기적이라 부르는 이유는?",
+          "options": [
+            {
+              "text": "He had taken nuts from Chatterer’s own storehouse.",
+              "textKo": "채터러의 창고에서 열매를 가져왔기 때문에."
+            },
+            {
+              "text": "There were more nuts than he could eat in a winter, yet he would not let his cousin have a single one.",
+              "textKo": "한겨울에 다 못 먹을 만큼 많은데도 사촌에게 하나도 주려 하지 않아서."
+            },
+            {
+              "text": "He refused to help Striped Chipmunk climb the tree.",
+              "textKo": "줄무늬 다람쥐가 나무에 오르는 것을 돕지 않아서."
+            },
+            {
+              "text": "He hid the tree from Old Mother West Wind.",
+              "textKo": "서풍 할머니에게 그 나무를 숨겨서."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "There were more nuts than he could possibly eat in one winter, and yet he wasn’t willing that his cousin … should have a single one."
+        },
+        {
+          "type": "multiple",
+          "question": "What was Chatterer doing as he came running toward the hickory tree?",
+          "questionKo": "채터러가 히코리나무 쪽으로 달려올 때 하고 있던 일은?",
+          "options": [
+            {
+              "text": "Carrying an armful of acorns to his own store.",
+              "textKo": "도토리를 한아름 안고 제 창고로 나르고 있었다."
+            },
+            {
+              "text": "Calling out for Happy Jack by name.",
+              "textKo": "해피 잭의 이름을 부르고 있었다."
+            },
+            {
+              "text": "Scolding as fast as his tongue could go, too busy to look up.",
+              "textKo": "혀가 돌아가는 대로 잔소리를 퍼붓느라 위를 볼 겨를이 없었다."
+            },
+            {
+              "text": "Following the Merry Little Breezes toward the meadow.",
+              "textKo": "유쾌한 산들바람들을 따라 초원으로 가고 있었다."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "he was scolding as fast as his tongue could go"
+        },
+        {
+          "type": "multiple",
+          "question": "How did the nut come to fall on Chatterer’s head?",
+          "questionKo": "열매가 채터러의 머리에 떨어지게 된 경위는?",
+          "options": [
+            {
+              "text": "Happy Jack threw it down to drive him away.",
+              "textKo": "해피 잭이 쫓아내려고 던졌다."
+            },
+            {
+              "text": "Old Mother West Wind shook the branch.",
+              "textKo": "서풍 할머니가 가지를 흔들었다."
+            },
+            {
+              "text": "The branch he sat on snapped under his weight.",
+              "textKo": "앉아 있던 가지가 무게에 부러졌다."
+            },
+            {
+              "text": "Happy Jack was so tickled that he went to hug himself, forgetting the nut in his hands.",
+              "textKo": "해피 잭이 너무 고소해 스스로를 껴안으려다, 손에 든 열매를 잊었다."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "He was so tickled that he started to hug himself and didn’t remember that he was holding a big, fat nut in his hands."
+        },
+        {
+          "type": "multiple",
+          "question": "What does Chatterer accuse Happy Jack of the moment he looks up?",
+          "questionKo": "위를 올려다본 순간 채터러가 해피 잭을 무엇이라 몰아세우는가?",
+          "options": [
+            {
+              "text": "That he dropped the nut on purpose.",
+              "textKo": "일부러 열매를 떨어뜨렸다고."
+            },
+            {
+              "text": "That he has stolen nuts from him before.",
+              "textKo": "전에도 자기 열매를 훔쳤다고."
+            },
+            {
+              "text": "That he was spying on him all morning.",
+              "textKo": "아침 내내 자기를 엿보았다고."
+            },
+            {
+              "text": "That he woke him before sunrise.",
+              "textKo": "해 뜨기 전에 자기를 깨웠다고."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "You did that purposely! screamed Chatterer"
+        },
+        {
+          "type": "blank",
+          "question": "The two cousins are described as \"one in a gray suit and one in a ______ suit.\"",
+          "questionKo": "두 사촌은 \"하나는 회색 옷, 하나는 ______ 옷\" 을 입은 것으로 묘사된다.",
+          "options": [
+            {
+              "text": "brown",
+              "textKo": "갈색"
+            },
+            {
+              "text": "red",
+              "textKo": "빨간"
+            },
+            {
+              "text": "white",
+              "textKo": "흰"
+            },
+            {
+              "text": "black",
+              "textKo": "검은"
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "two little Squirrels, one in a gray suit and one in a red suit"
+        },
+        {
+          "type": "truefalse",
+          "question": "Happy Jack and Chatterer are cousins.",
+          "questionKo": "해피 잭과 채터러는 사촌 사이다.",
+          "options": [
+            {
+              "text": "True",
+              "textKo": "맞다"
+            },
+            {
+              "text": "False",
+              "textKo": "아니다"
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "It was such a sad, sad sight, for you know they were cousins."
+        }
+      ]
+    },
+    {
+      "chapter_idx": 2,
+      "chapter_title": "The Quarrel",
+      "word_count": 575,
+      "chapter_v_level": 5,
+      "content": "CHAPTER 2. The Quarrel\u001fHappy Jack\u001ehttps://standardebooks.org/ebooks/thornton-w-burgess/green-meadow-stories/text/happy-jack#happy-jack-chapter-2\n\nIt's up to you and up to me\n\nTo see how thrifty we can be.\n\nTo do our bit like soldiers true\n\nIt's up to me and up to you.\n\nHappy Jack\n\nTwo angry little people were making a dreadful noise in the Green Forest. It was a beautiful morning, a very beautiful fall morning, but all the beauty of it was being spoiled by the dreadful noise these two little people. You see they were quarreling. Yes, sir, they were quarreling, and it wasn't at all nice to see or nice to hear.\n\nYou know who they were. One was Happy Jack Squirrel, who wears a coat of gray, and the other was Chatterer the Red Squirrel, who always wears a red coat with vest of white. When Happy Jack had dropped that nut from the tiptop of the tall hickory tree and it had landed right on top of Chatterer's head it really had been an accident. All the time Happy Jack had been sitting as still as still could be, hoping that his cousin Chatterer would pass by without looking up and so seeing the big fat nuts in the top of that tree. You see Happy Jack was greedy and wanted all of them himself. Now Chatterer the Red Squirrel has a sharp temper, and also he has sharp eyes. All the time he was scolding Happy Jack and calling him names Chatterer's bright eyes were taking note of all those big, fat hickory-nuts and his mouth began to water. Without wasting any more time he started up the tree to get some.\n\nHappy Jack grew very angry, very angry indeed. He hurried down to meet Chatterer the Red Squirrel and to prevent him climbing the tree.\n\n\"You keep out of this tree; it's mine!\" he shrieked.\n\n\"No such thing! You don't own the tree and I've got just as much right here as you have!\" screamed Chatterer, dodging around to the other side of the tree.\n\n\" 'Tis, too, mine! I found it first!\" shouted Happy Jack. \"You're a thief, so there!\"\n\n\"I'm not!\"\n\n\"You are!\"\n\n\"You're a pig, Happy Jack! You're just a great big pig!\"\n\n\"I'm not a pig! I found these nuts first and I tell you they're mine!\" shrieked Happy Jack, so angry that every time he spoke he jerked his tail. And all the time he was chasing round and round the trunk of the tree trying to prevent Chatterer getting up.\n\nNow Happy Jack is ever so much bigger than his cousin Chatterer but he isn't as spry. So in spite of him Chatterer got past, and like a little red flash was up in the top of the tree where the big, fat nuts were. But he didn't have time to pick even one, for after him came Happy Jack so angry that Chatterer knew that he would fare badly if Happy Jack should catch him. Round and round, over and across, this way and that way, in the top of the tall hickory tree raced Chatterer the Red Squirrel with his cousin, Happy Jack the Gray Squirrel, right at his heels, and calling him everything bad to be thought of. Yes, indeed it was truly dreadful, and Peter Rabbit, who happened along just then, put his hands over his ears so as not to hear such a dreadful quarrel.",
+      "questions": [
+        {
+          "type": "truefalse",
+          "question": "The falling nut really was an accident.",
+          "questionKo": "떨어진 열매는 정말로 사고였다.",
+          "options": [
+            {
+              "text": "True",
+              "textKo": "맞다"
+            },
+            {
+              "text": "False",
+              "textKo": "아니다"
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "it had landed right on top of Chatterer’s head it really had been an accident"
+        },
+        {
+          "type": "multiple",
+          "question": "What had Chatterer’s sharp eyes been doing while he scolded?",
+          "questionKo": "채터러가 잔소리를 퍼붓는 동안 그 밝은 눈이 하고 있던 일은?",
+          "options": [
+            {
+              "text": "Watching for Farmer Brown’s boy on the path.",
+              "textKo": "길에 나타날 농부 브라운의 아들을 살피고 있었다."
+            },
+            {
+              "text": "Looking for the hollow log where he slept.",
+              "textKo": "잠자리인 속 빈 통나무를 찾고 있었다."
+            },
+            {
+              "text": "Taking note of all the big fat hickory-nuts overhead.",
+              "textKo": "머리 위의 크고 통통한 히코리 열매를 죄다 눈여겨보고 있었다."
+            },
+            {
+              "text": "Following Peter Rabbit through the brush.",
+              "textKo": "덤불 사이로 피터 래빗을 뒤쫓고 있었다."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "Chatterer’s bright eyes were taking note of all those big, fat hickory-nuts and his mouth began to water"
+        },
+        {
+          "type": "multiple",
+          "question": "What is each squirrel’s claim in the quarrel?",
+          "questionKo": "다툼에서 두 다람쥐가 각각 내세우는 주장은?",
+          "options": [
+            {
+              "text": "Happy Jack says he planted the tree; Chatterer says he watered it.",
+              "textKo": "해피 잭은 나무를 심었다 하고, 채터러는 물을 주었다 한다."
+            },
+            {
+              "text": "Both claim the tree was given to them by Old Mother West Wind.",
+              "textKo": "둘 다 서풍 할머니가 나무를 주었다고 주장한다."
+            },
+            {
+              "text": "Happy Jack offers to share; Chatterer demands all of it.",
+              "textKo": "해피 잭은 나누자 하고, 채터러는 전부 달라 한다."
+            },
+            {
+              "text": "Happy Jack says the tree is his because he found it first; Chatterer says nobody owns the tree.",
+              "textKo": "해피 잭은 먼저 찾았으니 제 것이라 하고, 채터러는 아무도 그 나무의 임자가 아니라고 한다."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "You don’t own the tree and I’ve got just as much right here as you have!"
+        },
+        {
+          "type": "multiple",
+          "question": "Why can Happy Jack not stop Chatterer from getting up the tree?",
+          "questionKo": "해피 잭이 채터러의 등반을 막지 못한 이유는?",
+          "options": [
+            {
+              "text": "He is much bigger than Chatterer but not as spry.",
+              "textKo": "채터러보다 훨씬 크지만 그만큼 날래지 못해서."
+            },
+            {
+              "text": "He was still up in the treetop when Chatterer started.",
+              "textKo": "채터러가 오를 때 그는 아직 나무 꼭대기에 있어서."
+            },
+            {
+              "text": "Peter Rabbit stood in his way.",
+              "textKo": "피터 래빗이 앞을 막아서."
+            },
+            {
+              "text": "He had hurt his foot dropping down the trunk.",
+              "textKo": "줄기를 내려오다 발을 다쳐서."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "Happy Jack is ever so much bigger than his cousin Chatterer but he isn’t as spry"
+        },
+        {
+          "type": "multiple",
+          "question": "Why does Chatterer fail to pick even one nut after reaching the top?",
+          "questionKo": "채터러가 꼭대기에 오르고도 열매 하나 따지 못한 이유는?",
+          "options": [
+            {
+              "text": "The nuts were still green and would not come loose.",
+              "textKo": "열매가 아직 설익어 떨어지지 않아서."
+            },
+            {
+              "text": "Happy Jack came straight after him, so angry that Chatterer feared being caught.",
+              "textKo": "해피 잭이 곧장 뒤쫓아 왔고, 잡히면 큰일이겠다 싶어서."
+            },
+            {
+              "text": "The branches at the top were too thin to hold him.",
+              "textKo": "꼭대기 가지가 너무 가늘어 그를 못 버텨서."
+            },
+            {
+              "text": "Striped Chipmunk had already taken them all.",
+              "textKo": "줄무늬 다람쥐가 이미 다 가져가서."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "after him came Happy Jack so angry that Chatterer knew that he would fare badly if Happy Jack should catch him"
+        },
+        {
+          "type": "multiple",
+          "question": "How does Peter Rabbit react to the quarrel?",
+          "questionKo": "피터 래빗은 그 다툼에 어떻게 반응하는가?",
+          "options": [
+            {
+              "text": "He calls up to them to stop.",
+              "textKo": "위를 향해 그만두라고 외친다."
+            },
+            {
+              "text": "He runs to fetch Striped Chipmunk.",
+              "textKo": "줄무늬 다람쥐를 부르러 달려간다."
+            },
+            {
+              "text": "He puts his hands over his ears so as not to hear it.",
+              "textKo": "듣지 않으려고 두 손으로 귀를 막는다."
+            },
+            {
+              "text": "He gathers the fallen nuts for himself.",
+              "textKo": "떨어진 열매를 제 것으로 줍는다."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "put his hands over his ears so as not to hear such a dreadful quarrel"
+        },
+        {
+          "type": "multiple",
+          "question": "What does the chapter say the quarrel did to the beautiful fall morning?",
+          "questionKo": "이 장은 그 다툼이 아름다운 가을 아침에 무슨 짓을 했다고 말하는가?",
+          "options": [
+            {
+              "text": "It brought Old Mother West Wind to the forest.",
+              "textKo": "서풍 할머니를 숲으로 불러들였다."
+            },
+            {
+              "text": "It drove every other animal out of the Green Forest.",
+              "textKo": "다른 짐승들을 모두 초록 숲에서 내몰았다."
+            },
+            {
+              "text": "It made the morning pass more quickly.",
+              "textKo": "아침이 더 빨리 지나가게 했다."
+            },
+            {
+              "text": "All the beauty of it was being spoiled by the dreadful noise.",
+              "textKo": "그 지독한 소리가 아침의 아름다움을 온통 망치고 있었다."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "all the beauty of it was being spoiled by the dreadful noise these two little people"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 3,
+      "chapter_title": "Striped Chipmunk Is Kept Very Busy",
+      "word_count": 615,
+      "chapter_v_level": 7,
+      "content": "CHAPTER 3. Striped Chipmunk Is Kept Very Busy\u001fHappy Jack\u001ehttps://standardebooks.org/ebooks/thornton-w-burgess/green-meadow-stories/text/happy-jack#happy-jack-chapter-3\n\nI prefer big acorns but I never refuse little ones.\n\nThey fit in between.\n\nHappy Jack\n\nStriped Chipmunk was sitting just inside a hollow log, studying about how he could fill up his new storehouse for the winter. Striped Chipmunk is very thrifty. He likes to play, and he is one of the merriest of all the little people who live on the Green Meadows or in the Green Forest. He lives right on the edge of both and knows everybody, and everybody knows him. Almost every morning the Merry Little Breezes of Old Mother West Wind hurry over to have a frolic with him the very first thing. But though he dearly loves to play, he never lets play interfere with work. Whatever he does, be it play or work, he does with all his might.\n\n\"I love the sun; I love the rain;\n\nI love to work; I love to play.\n\nWhatever it may bring to me\n\nI love each minute of each day.\"\n\nSo said Striped Chipmunk, as he sat in the hollow log and studied how he could fill that splendid big new storehouse. Pretty soon he pricked up his funny little ears. What was all that noise over in the Green Forest? Striped Chipmunk peeped out of the hollow log. Over in the top of a tall hickory tree a terrible fuss was going on. Striped Chipmunk listened. He heard angry voices, such angry voices! They were the voices of his big cousins, Happy Jack the Gray Squirrel and Chatterer the Red Squirrel.\n\n\"Dear me! Dear me! How those two do quarrel! I must go over and see what it is all about,\" thought Striped Chipmunk.\n\nSo, with a flirt of his funny, little tail, he scampered out of the hollow log and over to the tall hickory tree. He knew all about that tree. Many, many times he had looked up at the big fat nuts in the top of it, watching them grow bigger and fatter, and hoping that when they grew ripe, Old Mother West Wind would find time to shake them down to him. You know Striped Chipmunk is not much of a climber, and so he cannot go up and pick the nuts as do his big cousins, Happy Jack and Chatterer.\n\nWhen he reached the tall hickory tree, what do you think was happening? Why, those big, fat nuts were rattling down to the ground on every side, just as if Old Mother West Wind was shaking the tree as hard as she could. But Old Mother West Wind wasn't there at all. No, sir, there wasn't even one of the Merry Little Breezes up in the treetops. The big fat nuts were rattling down just on account of the dreadful quarrel of Striped Chipmunk's two foolish cousins, Happy Jack and Chatterer.\n\nIt was all because Happy Jack was greedy. Chatterer had climbed the tree, and now Happy Jack, who is bigger but not so spry, was chasing Chatterer round and round and over the treetop, and both were so angry that they didn't once notice that they were knocking down the very nuts over which they were quarreling.\n\nStriped Chipmunk didn't stop to listen to the quarrel. No, sir-ee! He stuffed a big fat nut in each pocket in his cheeks and scampered back to his splendid new storehouse as fast as his little legs would take him. Back and forth, back and forth, scampered Striped Chipmunk, and all the time he was laughing inside and hoping his big cousins would keep right on quarreling.",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "What was Striped Chipmunk doing inside the hollow log?",
+          "questionKo": "줄무늬 다람쥐가 속 빈 통나무 안에서 하고 있던 일은?",
+          "options": [
+            {
+              "text": "Studying how he could fill his new storehouse for the winter.",
+              "textKo": "겨울을 대비해 새 창고를 어떻게 채울지 궁리하고 있었다."
+            },
+            {
+              "text": "Hiding from his two quarrelling cousins.",
+              "textKo": "다투는 두 사촌을 피해 숨어 있었다."
+            },
+            {
+              "text": "Sleeping through the noisy morning.",
+              "textKo": "시끄러운 아침 내내 자고 있었다."
+            },
+            {
+              "text": "Waiting for the Merry Little Breezes to arrive.",
+              "textKo": "유쾌한 산들바람들이 오기를 기다리고 있었다."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "studying about how he could fill up his new storehouse for the winter"
+        },
+        {
+          "type": "multiple",
+          "question": "What does the story say about how Striped Chipmunk balances play and work?",
+          "questionKo": "이 이야기는 줄무늬 다람쥐가 놀이와 일을 어떻게 다루는지 무엇이라 말하는가?",
+          "options": [
+            {
+              "text": "He works only when the Breezes are away.",
+              "textKo": "산들바람이 없을 때만 일한다."
+            },
+            {
+              "text": "He never lets play interfere with work, and does each with all his might.",
+              "textKo": "놀이가 일을 방해하게 두지 않고, 무엇이든 온 힘을 다해 한다."
+            },
+            {
+              "text": "He plays all morning and works at night.",
+              "textKo": "아침 내내 놀고 밤에 일한다."
+            },
+            {
+              "text": "He works only when he sees others working.",
+              "textKo": "남이 일하는 것을 볼 때만 일한다."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "though he dearly loves to play, he never lets play interfere with work"
+        },
+        {
+          "type": "multiple",
+          "question": "Why had Striped Chipmunk only ever hoped that the nuts would be shaken down to him?",
+          "questionKo": "줄무늬 다람쥐가 여태 열매가 흔들려 떨어지기만을 바랐던 이유는?",
+          "options": [
+            {
+              "text": "His cousins had forbidden him to climb the tree.",
+              "textKo": "사촌들이 그 나무에 오르지 못하게 해서."
+            },
+            {
+              "text": "The trunk was too wide for him to reach around.",
+              "textKo": "줄기가 너무 굵어 안을 수 없어서."
+            },
+            {
+              "text": "He is not much of a climber and cannot pick them as his cousins do.",
+              "textKo": "나무를 잘 타지 못해 사촌들처럼 따올 수 없어서."
+            },
+            {
+              "text": "He was saving his strength for building the storehouse.",
+              "textKo": "창고를 지으려 힘을 아끼고 있어서."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "Striped Chipmunk is not much of a climber, and so he cannot go up and pick the nuts as do his big cousins"
+        },
+        {
+          "type": "multiple",
+          "question": "What was actually making the nuts rattle down on every side?",
+          "questionKo": "열매가 사방으로 우수수 떨어지게 만든 실제 원인은?",
+          "options": [
+            {
+              "text": "Old Mother West Wind shaking the tree as hard as she could.",
+              "textKo": "서풍 할머니가 있는 힘껏 나무를 흔들어서."
+            },
+            {
+              "text": "The Merry Little Breezes playing in the treetops.",
+              "textKo": "유쾌한 산들바람들이 나무 꼭대기에서 놀아서."
+            },
+            {
+              "text": "The nuts had simply grown ripe enough to fall.",
+              "textKo": "열매가 저절로 익어 떨어질 때가 되어서."
+            },
+            {
+              "text": "The two cousins chasing each other over the treetop.",
+              "textKo": "두 사촌이 나무 꼭대기를 뛰어다니며 서로 쫓아서."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "The big fat nuts were rattling down just on account of the dreadful quarrel"
+        },
+        {
+          "type": "multiple",
+          "question": "What does Striped Chipmunk do while his cousins quarrel?",
+          "questionKo": "사촌들이 다투는 동안 줄무늬 다람쥐가 한 일은?",
+          "options": [
+            {
+              "text": "He stuffs a nut in each cheek pocket and runs load after load to his storehouse.",
+              "textKo": "양쪽 볼주머니에 열매를 하나씩 채워 창고로 몇 번이고 나른다."
+            },
+            {
+              "text": "He tries to make peace between them.",
+              "textKo": "둘을 화해시키려 애쓴다."
+            },
+            {
+              "text": "He stays to listen to the whole quarrel.",
+              "textKo": "남아서 다툼을 끝까지 듣는다."
+            },
+            {
+              "text": "He calls Peter Rabbit over to watch.",
+              "textKo": "피터 래빗을 불러 구경시킨다."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "He stuffed a big fat nut in each pocket in his cheeks and scampered back to his splendid new storehouse"
+        },
+        {
+          "type": "multiple",
+          "question": "Why is Striped Chipmunk laughing inside as he works?",
+          "questionKo": "줄무늬 다람쥐가 일하면서 속으로 웃는 이유는?",
+          "options": [
+            {
+              "text": "He has found a bigger tree than theirs.",
+              "textKo": "그들 것보다 더 큰 나무를 찾아서."
+            },
+            {
+              "text": "He is hoping his big cousins will keep right on quarreling.",
+              "textKo": "덩치 큰 사촌들이 계속 다투기를 바라고 있어서."
+            },
+            {
+              "text": "The Merry Little Breezes are tickling him.",
+              "textKo": "유쾌한 산들바람들이 간지럽혀서."
+            },
+            {
+              "text": "His storehouse is already full.",
+              "textKo": "창고가 이미 가득 차서."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "all the time he was laughing inside and hoping his big cousins would keep right on quarreling"
+        },
+        {
+          "type": "truefalse",
+          "question": "Striped Chipmunk lives right on the edge of both the Green Meadows and the Green Forest.",
+          "questionKo": "줄무늬 다람쥐는 초록 초원과 초록 숲이 맞닿은 가장자리에 산다.",
+          "options": [
+            {
+              "text": "True",
+              "textKo": "맞다"
+            },
+            {
+              "text": "False",
+              "textKo": "아니다"
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "He lives right on the edge of both and knows everybody"
+        }
+      ]
+    }
+  ]
+}

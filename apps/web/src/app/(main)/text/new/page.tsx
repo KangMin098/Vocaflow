@@ -4,17 +4,17 @@
 
 'use client'
 
-import { ArrowLeft, ArrowRight, BookOpen, FileText, Sparkles } from 'lucide-react'
+import { ArrowLeft, ArrowRight, BookOpen, FileText, RotateCcw, Sparkles, Trash2 } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { useToast } from '@/components/ui/Toast'
 import { useTheme } from '@/hooks/useTheme'
 
 import { InputModeTabs, type InputMode } from '@/components/text-viewer/InputModeTabs'
 import { SampleScripts } from '@/components/text-viewer/SampleScripts'
-import { TextInput } from '@/components/text-viewer/TextInput'
+import { CONTENT_MAX, TextInput } from '@/components/text-viewer/TextInput'
 import { BookChapterInput } from '@/components/text-viewer/BookChapterInput'
 import { saveText } from '@/lib/text-viewer/save-text'
 import {
@@ -22,6 +22,13 @@ import {
   type UserBookChapter,
 } from '@/lib/text-viewer/save-user-book'
 import { ExtractionPanel } from '@/components/text-extract/ExtractionPanel'
+import {
+  clearDraft,
+  hasDraftContent,
+  readDraft,
+  saveDraft,
+  type TextNewDraft,
+} from '@/lib/text-viewer/draft'
 
 const CONTENT_MIN = 50
 const TITLE_MAX = 200
@@ -53,6 +60,60 @@ export default function TextViewerNewPage() {
   const [isSaving, setIsSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
+  // ── 초안 보존 (B3) ──────────────────────────────────────────────
+  //   여기서 나가면 붙여넣은 본문이 통째로 사라지던 화면이었다. 이제 sessionStorage 에
+  //   1초 디바운스로 남기고, 돌아오면 "이어 쓰기 / 버리기" 한 줄로 복구한다.
+  //   복구 배너를 **자동 적용하지 않는** 이유: 새 글을 쓰러 온 사람의 빈 폼을
+  //   말없이 옛 글로 덮는 것이 잃는 것보다 나쁘다. 고르게 한다.
+  const [pendingDraft, setPendingDraft] = useState<TextNewDraft | null>(null)
+  /** 복구 배너에 답하기 전(또는 이미 복구·폐기한 뒤)인지 — 답하기 전에는 덮어쓰지 않는다 */
+  const draftDecidedRef = useRef(false)
+
+  useEffect(() => {
+    const d = readDraft()
+    if (d) setPendingDraft(d)
+    else draftDecidedRef.current = true
+  }, [])
+
+  useEffect(() => {
+    if (!draftDecidedRef.current) return
+    const snapshot = {
+      structure,
+      title,
+      author,
+      text,
+      bookTitle,
+      bookAuthor,
+      chapters,
+    } as const
+    // 빈 폼은 초안으로 남기지 않는다 — 남기면 다음 진입마다 빈 배너가 뜬다.
+    if (!hasDraftContent(snapshot)) {
+      clearDraft()
+      return
+    }
+    const t = window.setTimeout(() => saveDraft(snapshot), 1_000)
+    return () => window.clearTimeout(t)
+  }, [structure, title, author, text, bookTitle, bookAuthor, chapters])
+
+  const restoreDraft = () => {
+    if (!pendingDraft) return
+    setStructure(pendingDraft.structure)
+    setTitle(pendingDraft.title)
+    setAuthor(pendingDraft.author)
+    setText(pendingDraft.text)
+    setBookTitle(pendingDraft.bookTitle)
+    setBookAuthor(pendingDraft.bookAuthor)
+    setChapters(pendingDraft.chapters)
+    draftDecidedRef.current = true
+    setPendingDraft(null)
+  }
+
+  const discardDraft = () => {
+    clearDraft()
+    draftDecidedRef.current = true
+    setPendingDraft(null)
+  }
+
   const trimmedTitle = title.trim()
   const trimmedContent = text.trim()
   const trimmedBookTitle = bookTitle.trim()
@@ -61,11 +122,14 @@ export default function TextViewerNewPage() {
     .filter((c) => c.title || c.content)
 
   // 단일 모드 저장 가능 조건
+  //   상한 검사가 없어서, 브라우저가 잘라낸 본문이 "성공적으로" 저장되던 결함이 있었다
+  //   (v06.35 · TextInput 하드 절단 제거와 한 쌍). 넘치면 저장을 막아 절단을 만들지 않는다.
   const canSaveSingle =
     structure === 'single' &&
     trimmedTitle.length > 0 &&
     trimmedTitle.length <= TITLE_MAX &&
-    trimmedContent.length >= CONTENT_MIN
+    trimmedContent.length >= CONTENT_MIN &&
+    trimmedContent.length <= CONTENT_MAX
 
   // 책 모드 저장 가능 조건 — 책 제목 + 모든 챕터 (제목 + content≥CONTENT_MIN)
   const canSaveBook =
@@ -89,6 +153,9 @@ export default function TextViewerNewPage() {
         author: author.trim() || undefined,
       })
       if (result.ok) {
+        // 저장됐으면 초안은 더 이상 초안이 아니다 — 남기면 다음 진입에 유령 배너가 뜬다.
+        draftDecidedRef.current = false
+        clearDraft()
         toast.success('스크립트가 저장됐어요', { title: '저장 완료' })
         router.push('/text')
       } else {
@@ -102,6 +169,8 @@ export default function TextViewerNewPage() {
         chapters: validChapters,
       })
       if (result.ok) {
+        draftDecidedRef.current = false
+        clearDraft()
         toast.success(
           `${result.count}개 챕터로 "${trimmedBookTitle}" 저장됐어요`,
           { title: '책 저장 완료' },
@@ -132,7 +201,7 @@ export default function TextViewerNewPage() {
         <Link
           href="/text"
           aria-label="스크립트 허브로 돌아가기"
-          className="flex h-9 items-center gap-1.5 rounded-md px-3 font-display text-[12px] font-[600] text-t2 transition-colors duration-normal hover:bg-bg2 hover:text-t1"
+          className="flex min-h-11 items-center gap-2 rounded-md px-3 font-display text-[12px] font-[600] text-t2 transition-colors duration-normal hover:bg-bg2 hover:text-t1"
         >
           <ArrowLeft size={14} aria-hidden="true" />
           <span>허브</span>
@@ -141,7 +210,8 @@ export default function TextViewerNewPage() {
         <button
           onClick={toggleTheme}
           aria-label="테마 전환"
-          className="flex h-9 w-9 items-center justify-center rounded-md text-t2 transition-colors duration-normal hover:bg-bg2 hover:text-t1"
+          // 보이는 크기(36px)는 그대로, 누르는 영역만 44px — /wordvault 헤더가 쓰는 것과 같은 방식.
+          className="flex h-11 w-11 items-center justify-center rounded-md text-t2 transition-colors duration-normal hover:bg-bg2 hover:text-t1"
         >
           {theme === 'light' ? '🌙' : '☀️'}
         </button>
@@ -159,7 +229,7 @@ export default function TextViewerNewPage() {
             </div>
 
             <h2 className="mb-s-3 font-display text-2xl font-extrabold leading-[1.1] tracking-[-0.02em] text-t1 sm:text-3xl">
-              직접 입력한 스크립트을
+              직접 입력한 스크립트를
               <br />
               <span className="text-p">내 라이브러리에 추가</span>합니다
             </h2>
@@ -168,6 +238,39 @@ export default function TextViewerNewPage() {
               제목과 본문을 입력해 보관하세요. 본문 입력 시 다축 VRL 기반 AI 단어 추출이 활성화됩니다.
             </p>
           </div>
+
+          {/* 쓰다 만 글 복구 — 이 화면에서 나가도 본문이 남는다는 유일한 증거다 */}
+          {pendingDraft && (
+            <div
+              role="status"
+              className="mb-s-4 flex flex-col gap-s-3 rounded-xl border border-p/30 bg-p-light px-s-4 py-s-3 sm:flex-row sm:items-center"
+            >
+              <p className="flex-1 break-keep font-body text-sm leading-relaxed text-t1">
+                쓰던 글이 남아 있어요 —{' '}
+                {pendingDraft.structure === 'book'
+                  ? `책 "${pendingDraft.bookTitle || '제목 없음'}" · 챕터 ${pendingDraft.chapters.length}개`
+                  : `"${pendingDraft.title || '제목 없음'}" · ${pendingDraft.text.trim().length}자`}
+              </p>
+              <div className="flex gap-s-2">
+                <button
+                  type="button"
+                  onClick={restoreDraft}
+                  className="inline-flex min-h-11 items-center gap-s-2 rounded-md bg-p px-s-4 font-display text-[13px] font-semibold text-ti transition-colors duration-normal hover:bg-p-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-p focus-visible:ring-offset-2 active:scale-[0.99] disabled:opacity-40"
+                >
+                  <RotateCcw size={14} aria-hidden="true" />
+                  이어 쓰기
+                </button>
+                <button
+                  type="button"
+                  onClick={discardDraft}
+                  className="inline-flex min-h-11 items-center gap-s-2 rounded-md border border-bd bg-bg px-s-4 font-display text-[13px] font-semibold text-t2 transition-colors duration-normal hover:bg-bg2 hover:text-t1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-p focus-visible:ring-offset-2 active:scale-[0.99] disabled:opacity-40"
+                >
+                  <Trash2 size={14} aria-hidden="true" />
+                  버리기
+                </button>
+              </div>
+            </div>
+          )}
 
           <InputModeTabs value={mode} onChange={setMode} />
 
@@ -189,7 +292,7 @@ export default function TextViewerNewPage() {
                     aria-checked={structure === 'single'}
                     onClick={() => setStructure('single')}
                     className={[
-                      'flex items-center justify-center gap-s-2 rounded-lg px-s-3 py-s-2 font-display text-sm font-[600] transition-all duration-normal',
+                      'flex min-h-11 items-center justify-center gap-s-2 rounded-lg px-s-3 py-s-2 font-display text-sm font-[600] transition-all duration-normal',
                       structure === 'single'
                         ? 'bg-bg text-t1 shadow-sm'
                         : 'text-t3 hover:text-t1',
@@ -204,7 +307,7 @@ export default function TextViewerNewPage() {
                     aria-checked={structure === 'book'}
                     onClick={() => setStructure('book')}
                     className={[
-                      'flex items-center justify-center gap-s-2 rounded-lg px-s-3 py-s-2 font-display text-sm font-[600] transition-all duration-normal',
+                      'flex min-h-11 items-center justify-center gap-s-2 rounded-lg px-s-3 py-s-2 font-display text-sm font-[600] transition-all duration-normal',
                       structure === 'book'
                         ? 'bg-bg text-t1 shadow-sm'
                         : 'text-t3 hover:text-t1',
@@ -253,7 +356,7 @@ export default function TextViewerNewPage() {
                       htmlFor="text-author"
                       className="mb-s-2 block font-mono text-[10px] font-semibold uppercase tracking-wider text-t3"
                     >
-                      저자 <span className="text-t4">(선택)</span>
+                      저자 <span className="text-t3">(선택)</span>
                     </label>
                     <input
                       id="text-author"
@@ -273,7 +376,7 @@ export default function TextViewerNewPage() {
                       className="mb-s-2 block font-mono text-[10px] font-semibold uppercase tracking-wider text-t3"
                     >
                       본문 <span className="text-error">*</span>{' '}
-                      <span className="text-t4">최소 {CONTENT_MIN}자</span>
+                      <span className="text-t3">최소 {CONTENT_MIN}자</span>
                     </label>
                     <TextInput value={text} onChange={setText} onClear={() => setText('')} />
                   </div>

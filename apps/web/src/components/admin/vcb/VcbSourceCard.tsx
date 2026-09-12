@@ -71,7 +71,7 @@ export function VcbSourceCard({ source }: Props) {
           </p>
         </div>
         <span
-          className="px-2 py-0.5 text-[11px] rounded-[var(--r-sm)] font-mono whitespace-nowrap"
+          className="px-2 py-1 text-[11px] rounded-[var(--r-sm)] font-mono whitespace-nowrap"
           style={{ background: tierStyle.bg, color: tierStyle.text }}
         >
           {source.license_tier}
@@ -80,19 +80,19 @@ export function VcbSourceCard({ source }: Props) {
 
       <div className="flex gap-2 flex-wrap">
         <span
-          className="px-2 py-0.5 text-[11px] rounded-[var(--r-sm)]"
+          className="px-2 py-1 text-[11px] rounded-[var(--r-sm)]"
           style={{ background: kindStyle.bg, color: kindStyle.text }}
         >
           {KIND_LABELS[source.kind] ?? source.kind}
         </span>
         <span
-          className="px-2 py-0.5 text-[11px] rounded-[var(--r-sm)] font-mono"
+          className="px-2 py-1 text-[11px] rounded-[var(--r-sm)] font-mono"
           style={{ background: 'var(--bg2)', color: 'var(--t3)' }}
         >
           {source.language}
         </span>
         <span
-          className="px-2 py-0.5 text-[11px] rounded-[var(--r-sm)]"
+          className="px-2 py-1 text-[11px] rounded-[var(--r-sm)]"
           style={{ background: 'var(--bg2)', color: 'var(--t3)' }}
         >
           {TIER_LABELS[source.license_tier]}
@@ -121,7 +121,7 @@ export function VcbSourceCard({ source }: Props) {
 
       {storageKey && (
         <div
-          className="flex items-center gap-1.5 text-[11px] font-mono"
+          className="flex items-center gap-2 text-[11px] font-mono"
           style={{ color: 'var(--success)' }}
           title="업로드된 소스 파일"
         >

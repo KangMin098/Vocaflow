@@ -19,7 +19,15 @@ export type ArticleSource =
   | 'wikivoyage' // ACP §18 — B1~B2 여행 가이드 (CC-BY-SA → 발행 허용, reference 밴드 보강)
   | 'usgs' // ACP §18 — B2 지구과학·자연재해 과학 저널리즘 (PD US Gov → 발행 허용, 신규 도메인)
   | 'noaa' // ACP §18 — B2-C1 기후과학 explainer (PD US Gov → 발행 허용, climate 신규 도메인·CSAT 최빈출)
+  | 'futurity' // ACP — B1~B2 대학 연구 기사 (CC-BY 4.0 → 발행·변형 허용). 학술 소재 × 접근형 문체, PLOS(C1-C2)와 VOA(A2-B1) 사이를 메운다
   | 'openstax' // ACP §19 (설계) — C1 학술 교재 모듈 (CNXML · 현행 CC-BY-NC-SA → 게이트 차단, 라이선스 결정 선행)
+  | 'frym' // Frontiers for Young Minds — 8~15세 심사 과학지(CC BY 4.0). 초록이 곷 지문이고 FK 중앙 10.55 로 중당쀰3 칸을 메운다
+  | 'ocean_facts' // NOAA Ocean Service Ocean Facts — 한 물음에 한 편인 PD 설명글. 실측 FK 중앙 11.4 로 중3 이상
+  | 'space_place' // NASA Space Place — 어린이·청소년 우주 설명글(PD · 교재 이용 명시 허용). FK 중앙 6.63 로 초·중 한가운데
+  | 'storyweaver' // 초·중 이야기 지문 (Pratham Books · 책마다 CC — 책 안에서 읽는다). narrative 재고가 0 이라 넣는다
+  | 'frontiers' // Frontiers 성인 학술지 **비-PMC 18종** (CC BY 4.0 · JATS 전문). 교육·언어 칸(배율 0.57 · 부족 1,464편)을 직접 겨눈다. ⚠️ frym 과 다른 소스 — 호스트·본문 형식이 다르다
+  | 'nist' // NIST 뉴스·블로그 (PD 미 연방정부 저작물 · 사이트맵 전수 9,013편). 창 180어 기준 기술·매체 명중률 26.7% = PLOS 의 3.7배. 「기술·매체」 재고의 90%가 PLOS 공학 논문 한 계열이던 것을 푼다
+  | 'original' // ACP §20 — 사실 재저작 (CC0 자체 저작 · 외부 본문 미사용 · compose 게이트 통과 필수)
   | 'manual'
 
 export interface RawArticle {

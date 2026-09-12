@@ -1,87 +1,47 @@
 // apps/web/src/app/(auth)/login/page.tsx
 // 로그인 — Parts Kit + Linear/Vercel 미니멀
-// v4: 이메일/비밀번호 단일. 소셜 버튼은 Supabase provider 전원 미설정
-//     ("provider is not enabled" 실패 + 목업 토스트)이라 제거 — provider 설정 시 git 이력 복원.
+// v5: 복귀 경로·에러 매핑·입력 검증을 lib/auth/* 공유 모듈로 이관 (중복 3벌 제거).
+//     소셜 버튼은 Supabase provider 전원 미설정이라 제거 — provider 설정 시 git 이력 복원.
 
 'use client'
 
 import { AlertCircle, ArrowRight, Lock, Mail } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useState } from 'react'
+import { Suspense, useState } from 'react'
 
 import { Card } from '@/components/ui/Card'
-import { Checkbox } from '@/components/ui/Checkbox'
 import { FormField } from '@/components/ui/FormField'
 import { Input } from '@/components/ui/Input'
+import { blockedReasonCode, isUsableAccount } from '@/lib/auth/account'
+import {
+  DELETED_MESSAGE,
+  SUSPENDED_MESSAGE,
+  mapAuthError,
+  mapCallbackError,
+} from '@/lib/auth/errors'
+import { resolveReturnTo } from '@/lib/auth/redirect'
+import { isValidEmail } from '@/lib/auth/validation'
 import { createClient } from '@/lib/supabase/client'
 
-function isValidEmail(email: string) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-}
-
-// ── Supabase 에러 메시지 → 사용자 친화 한국어 매핑 ──
-function mapAuthError(message: string | undefined | null): string {
-  const msg = (message ?? '').toLowerCase()
-  if (msg.includes('invalid login') || msg.includes('invalid_credentials')) {
-    return '이메일 또는 비밀번호가 일치하지 않습니다'
-  }
-  if (msg.includes('email not confirmed')) {
-    return '이메일 인증이 필요합니다. 받은편지함을 확인하세요'
-  }
-  if (msg.includes('user not found')) {
-    return '등록되지 않은 이메일입니다'
-  }
-  if (msg.includes('too many requests') || msg.includes('rate limit')) {
-    return '너무 많은 요청입니다. 잠시 후 다시 시도해주세요'
-  }
-  return '로그인 중 오류가 발생했습니다. 다시 시도해주세요'
-}
-
-// ── /api/auth/callback ?error=... 코드 → 한국어 메시지 ──
-function mapCallbackError(code: string | null): string | null {
-  switch (code) {
-    case 'oauth_failed':
-      return 'Google 로그인 처리 중 오류가 발생했습니다. 다시 시도해주세요'
-    case 'email_verification_failed':
-      return '이메일 인증에 실패했습니다. 인증 메일을 다시 받으시거나 고객센터에 문의해주세요'
-    case 'link_expired':
-      return '인증 링크가 만료되었습니다. 새 인증 메일을 요청해주세요'
-    case 'invalid_callback':
-      return '잘못된 접근입니다'
-    case 'already_verified':
-      return '이미 인증이 완료된 계정입니다. 로그인해주세요'
-    default:
-      return null
-  }
-}
-
-// ── returnTo 안전 검증 — open redirect 방지 ──
-function safeRedirect(returnTo: string | null): string {
-  if (!returnTo) return '/hub'
-  // 내부 경로만 허용: '/' 로 시작 + '//' (protocol-relative) 차단
-  if (!returnTo.startsWith('/') || returnTo.startsWith('//')) return '/hub'
-  // 외부 URL 패턴 차단 ('/', 'http', '\\' 등)
-  if (returnTo.includes('://') || returnTo.includes('\\')) return '/hub'
-  return returnTo
-}
-
 // ══════════════════════════════════════════════════════════════
-// Page
+// Form — useSearchParams 를 쓰므로 Suspense 안쪽에 둔다
 // ══════════════════════════════════════════════════════════════
-export default function LoginPage() {
+function LoginForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [rememberMe, setRememberMe] = useState(false)
   const [loading, setLoading] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   /** 인증 실패 인라인 배너 메시지 — null 이면 미표시 */
   const [authError, setAuthError] = useState<string | null>(() => {
     // /api/auth/callback 에서 ?error=... 코드로 redirect 됨
+    // 미들웨어가 정지 계정을 되돌려보낼 때도 같은 파라미터를 쓴다
     const code = searchParams.get('error')
+    if (code === 'suspended') return SUSPENDED_MESSAGE
+    if (code === 'deleted') return DELETED_MESSAGE
     return mapCallbackError(code)
   })
 
@@ -105,7 +65,7 @@ export default function LoginPage() {
 
     try {
       const supabase = createClient()
-      const { error } = await supabase.auth.signInWithPassword({
+      const { data, error } = await supabase.auth.signInWithPassword({
         email: email.trim(),
         password,
       })
@@ -115,12 +75,34 @@ export default function LoginPage() {
         return
       }
 
-      // 로그인 성공 → returnTo 안전 검증 후 이동
-      const target = safeRedirect(searchParams.get('returnTo'))
-      router.push(target)
+      // ── 계정 상태 확인 — 정지·해지 계정은 자격증명이 맞아도 들여보내지 않는다 ──
+      // (미들웨어도 매 요청 검사하지만, 여기서 막아야 사용자가 사유를 즉시 본다)
+      if (data.user) {
+        const { data: profile } = await supabase
+          .from('user_profiles')
+          .select('status')
+          .eq('user_id', data.user.id)
+          .maybeSingle()
+
+        const status = (profile as { status?: string | null } | null)?.status
+        if (!isUsableAccount(status)) {
+          await supabase.auth.signOut()
+          setAuthError(blockedReasonCode(status) === 'deleted' ? DELETED_MESSAGE : SUSPENDED_MESSAGE)
+          return
+        }
+      }
+
+      // 로그인 성공 → 복귀 경로 (next·returnTo·redirect 별칭 모두 수용, open redirect 차단)
+      //
+      // ⚠️ `push` 가 아니라 `replace` 다 — 히스토리에서 로그인 화면을 지운다.
+      //    `push` 였을 때는 복귀 직후 **뒤로가기 한 번**이면 `/login?next=…` 가 다시 떴다:
+      //    이미 로그인한 사람에게 로그인 폼이 보이고(미들웨어는 인증 사용자를 인증 화면에서
+      //    내보내지 않는다), 거기서 다시 제출하면 무의미한 재인증이다.
+      //    같은 저장소의 `reset-password/page.tsx` 는 이 자리에서 이미 `replace` 를 쓴다.
+      router.replace(resolveReturnTo(searchParams))
       router.refresh() // Server Component 재실행 (인증 컨텍스트 갱신)
-    } catch {
-      setAuthError(mapAuthError(null))
+    } catch (err) {
+      setAuthError(mapAuthError(err instanceof Error ? err.message : null))
     } finally {
       setLoading(false)
     }
@@ -150,7 +132,9 @@ export default function LoginPage() {
         <div
           role="alert"
           aria-live="assertive"
-          className="mb-s-4 flex items-start gap-s-2 rounded-md border border-error/30 bg-error-light px-s-3 py-s-2.5 font-body text-sm text-error"
+          // Next 의 __next-route-announcer__ 도 role=alert 라 테스트에서 충돌한다 — 고유 훅을 준다
+          data-testid="auth-error"
+          className="mb-s-4 flex items-start gap-s-2 rounded-md border border-error/30 bg-error-light px-s-3 py-s-3 font-body text-sm text-error"
         >
           <AlertCircle size={16} className="mt-px shrink-0" aria-hidden />
           <span>{authError}</span>
@@ -183,7 +167,8 @@ export default function LoginPage() {
           hint={
             <Link
               href="/reset-password"
-              className="font-mono text-[10px] uppercase tracking-[0.1em] text-t3 transition-colors duration-normal hover:text-p"
+              /* 73×13 이었다 — 44px 미만 탭 대상이었다(CLAUDE.md 절대 금지 · 실측 390px). 비밀번호를 잊은 사람이 누르는 유일한 길이다. */
+              className="inline-flex min-h-[44px] items-center font-mono text-[10px] uppercase tracking-[0.1em] text-t3 transition-colors duration-normal hover:text-p"
             >
               비밀번호 찾기
             </Link>
@@ -204,20 +189,11 @@ export default function LoginPage() {
           )}
         </FormField>
 
-        {/* Remember me */}
-        <div className="pt-s-1">
-          <Checkbox
-            label={<span className="font-body text-sm text-t2">30일간 로그인 유지</span>}
-            checked={rememberMe}
-            onChange={(e) => setRememberMe(e.target.checked)}
-          />
-        </div>
-
         {/* CTA */}
         <button
           type="submit"
           disabled={loading}
-          className={`group relative mt-s-2 flex h-12 w-full items-center justify-center gap-s-2 rounded-md bg-p font-display text-sm font-semibold tracking-[-0.005em] text-ti shadow-sm transition-all duration-normal hover:bg-p-hover hover:shadow-md active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60`}
+          className={`group relative mt-s-2 flex h-12 w-full items-center justify-center gap-s-2 rounded-md bg-p font-display text-sm font-semibold tracking-[-0.005em] text-[var(--on-p)] shadow-sm transition-all duration-normal hover:bg-p-hover hover:shadow-md active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60`}
         >
           {loading ? (
             <>
@@ -235,11 +211,38 @@ export default function LoginPage() {
           )}
         </button>
 
-        {/* 푸터 */}
+        {/* 푸터 — 세션은 Supabase refresh token 이 자동 연장한다 (별도 "로그인 유지" 토글 없음) */}
         <p className="pt-s-2 text-center font-mono text-[10px] uppercase tracking-[0.1em] text-t3">
           안전한 인증 · 산업 표준 암호화
         </p>
       </form>
     </Card>
+  )
+}
+
+/** useSearchParams 사용 컴포넌트를 감싸는 로딩 골격 (Suspense fallback). */
+function LoginSkeleton() {
+  return (
+    <Card variant="elevated" padding="lg" className="rounded-xl">
+      <div className="flex h-72 items-center justify-center">
+        <span
+          className="border-current/30 h-5 w-5 animate-spin rounded-full border-2 border-t-current text-t3"
+          role="status"
+          aria-label="로그인 화면 준비 중"
+        />
+      </div>
+    </Card>
+  )
+}
+
+// ══════════════════════════════════════════════════════════════
+// Page
+// ══════════════════════════════════════════════════════════════
+export default function LoginPage() {
+  // useSearchParams 는 Suspense 경계가 없으면 페이지 전체가 CSR 로 이탈한다 (Next 14).
+  return (
+    <Suspense fallback={<LoginSkeleton />}>
+      <LoginForm />
+    </Suspense>
   )
 }

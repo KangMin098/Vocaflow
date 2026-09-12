@@ -1,7 +1,10 @@
 // apps/web/src/lib/dictation/cefr.ts
 // CEFR 레벨 시스템 (A1~C2) + 자동 감지 + 그룹별 추천
+//
+// v07 — recommended.unit(문장/단락/전체) → chunkSize(한 번에 받아쓸 문장 수).
+//   단락·전체는 연속 본문에서만 성립해 단어장·오늘의 받아쓰기에 적용할 수 없었다.
 
-import type { CEFRCode, CEFRGroup, DictationUnit } from './types';
+import type { CEFRCode, CEFRGroup, ChunkSize } from './types';
 
 export interface CEFRLevel {
   code: CEFRCode;
@@ -9,7 +12,7 @@ export interface CEFRLevel {
   description: string;
   group: CEFRGroup;
   recommended: {
-    unit: DictationUnit;
+    chunkSize: ChunkSize;
     speed: number;
     autoRepeat: number;
     hintsAllowed: boolean;
@@ -28,7 +31,7 @@ export const CEFR_LEVELS: CEFRLevel[] = [
     description: '아주 단순한 일상 표현. 한 줄 1회 듣고 받아쓰기',
     group: '초급',
     recommended: {
-      unit: 'sentence',
+      chunkSize: 1,
       speed: 0.75,
       autoRepeat: 3,
       hintsAllowed: true,
@@ -44,7 +47,7 @@ export const CEFR_LEVELS: CEFRLevel[] = [
     description: '간단한 일상 + 자기 소개. 짧은 문장 2-3회 듣기',
     group: '초급',
     recommended: {
-      unit: 'sentence',
+      chunkSize: 1,
       speed: 0.85,
       autoRepeat: 3,
       hintsAllowed: true,
@@ -61,7 +64,7 @@ export const CEFR_LEVELS: CEFRLevel[] = [
     description: '익숙한 주제 의견 표현. 단락 단위 가능',
     group: '중급',
     recommended: {
-      unit: 'paragraph',
+      chunkSize: 2,
       speed: 1.0,
       autoRepeat: 2,
       hintsAllowed: true,
@@ -77,7 +80,7 @@ export const CEFR_LEVELS: CEFRLevel[] = [
     description: '복잡한 주제 + 추상 개념. 빠른 속도 가능',
     group: '중급',
     recommended: {
-      unit: 'paragraph',
+      chunkSize: 2,
       speed: 1.0,
       autoRepeat: 2,
       hintsAllowed: false,
@@ -94,7 +97,7 @@ export const CEFR_LEVELS: CEFRLevel[] = [
     description: '유연성, 축약, 구비 분석. 전체 스크립트 도전',
     group: '고급',
     recommended: {
-      unit: 'whole',
+      chunkSize: 3,
       speed: 1.0,
       autoRepeat: 1,
       hintsAllowed: false,
@@ -110,7 +113,7 @@ export const CEFR_LEVELS: CEFRLevel[] = [
     description: '학술/전문 분야. 빠른 속도 + 미세한 발음 차이',
     group: '고급',
     recommended: {
-      unit: 'whole',
+      chunkSize: 3,
       speed: 1.25,
       autoRepeat: 1,
       hintsAllowed: false,

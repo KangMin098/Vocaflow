@@ -1,0 +1,482 @@
+[
+ {
+  "id": "00297340-f3b1-409f-8ddc-7e24d3e3832f",
+  "book": "Woodland Tales (발췌)",
+  "text": "Do this 4 times. Then multiply the total result by 5. This gives his quicksight number, to be added to his aliveness score. Can you hear like an owl? An owl can find his prey by hearing after dark. His ears are wonderful. Let us try if yours are. Watch-test. First, you must be blindfolded, and in some perfectly quiet place indoors. Now have the Guide hold a man's watch (open if hunting-cased), near your head; if you can hear it at 40 inches, measured on a tapeline, and prove that you do, by telling exactly where it is, in several tries, your hearing number is 40, which is high. If at 20 inches, it is low (20 pts.); if at 60 inches (60 pts.), it is remarkable. Anything over 50 points means you can hear like an owl. In this you go by your best ear.",
+  "verdict": "reject",
+  "genre": "not-selfcontained",
+  "why": "앞 절차를 받는 'Do this'로 시작해 무엇을 4번 하는지 없다"
+ },
+ {
+  "id": "005fd722-6a60-4774-a322-c756c75de57e",
+  "book": "The Antiquarian Magazine & Bibliographer; Vol. 4, July-Dec 1884",
+  "text": "MR. F. DANBY PALMER has just published, in a thin quarto volume, “The History of the Tolhouse at Great Yarmouth,” of which some account, together with an illustration, has been given in these pages (see ante, pp. 1-5). The work has been written by Mr. Palmer in the hope of assisting the effort now being made to preserve an ancient building, for many ages connected with the history of his native town, of events connected with this municipal structure from the thirteenth century to the present time. THE August number of the Century contains the first of a series of three papers by Mr. W. J. Stillman, recording the experiences of a classical expedition undertaken for that magazine. Mr. Stillman’s object was to trace the wanderings of Ulysses, as described in the “Odyssey,” and to identify, as far as it is possible to-day, the localities visited by the Ithacan king. The articles will be illu",
+  "verdict": "reject",
+  "genre": "reference",
+  "why": "서로 무관한 신간·기고 공지를 나열한 서지 소식란"
+ },
+ {
+  "id": "007d3e77-2928-487d-b366-2423c7bdc10b",
+  "book": "Thomas Davis, selections from his prose and poetry",
+  "text": "To us it is very plain that here are too many institutions, and that the efficiency of all suffers materially from their want of connection and arrangement. Some, at least, might be amalgamated with great advantage, or rather all, except the Art Union. That is only a club of purchasers, and any attempt materially to change its nature would peril its funds. Some such plan as the following would accomplish all that is vainly attempted now. Let the Government be pressed to give L2,000 a year, if the public supply L1,000 a year. Let this income go to a new Hibernian Academy--the present Hibernian Academy, Artists' Society, Society of Ancient Art, the Art Schools of the Dublin Society, and the Institute of Irish Architects being merged in it. This merger could be easily secured through the inducements secured by the charter, and by accommodation, salaries, and utility of the new body. The pre",
+  "verdict": "use",
+  "genre": "art",
+  "why": "미술 기관이 너무 많다는 근거로 통합 아카데미안을 제시"
+ },
+ {
+  "id": "0095dac8-6888-4cb5-ad3f-66a28a9f3e8b",
+  "book": "Byzantine Churches in Constantinople: Their History and Architecture",
+  "text": "[Greek: hosous an hathroizoi tis enthade krotous nekrous ho tapheis exelenxei Tornikês, ho tris aristeus ê konstaulos megas, hôsper mimous, beltiste, pithêkous leon. hos, basilikôn apotechtheis haimatôn, 5 pareschen autois prosphyê kai ton tropon. poion gar ouk ên aretês eidos pherôn, hôs ho prepôn hekaston ezêtei chronos? boulêphoros d' oun, kai pro tês hêlikias kai dêmagôgos, kai kritês ên anchinous. 10 kai pros men echthrous taktikên epnei phloga, keraunos ôn aphyktos autois athroois, tê de stratia patrikôs epestatei, phrourôn ta koina, mê klapê to sympheron. kêdous de tychôn eugenous kai kosmiou 15 kai basilikon proslabôn authis genos kai lampron hypodeigma pareis ton bion, keitai monastês eutelês en osteois. hêlie kai gê kai teleutaioi krotoi. penthei de mikrou pan to Rhômaiôn genos, 20 hoson per auton agnooun ou tynchanei. all' ô mone, zôn kai methistôn tas physeis, ei pou ti kai p",
+  "verdict": "reject",
+  "genre": "poetry-drama",
+  "why": "로마자 전사된 그리스어 묘비 운문"
+ },
+ {
+  "id": "00cef63f-86ca-45ad-b697-c86e5c354092",
+  "book": "The Babees' Book: Medieval Manners for the Young: Done into Modern English (발췌)",
+  "text": "And first of all, I think to show how you babies who dwell in households, should ’have yourselves when ye be set at meat, and how when men bid you be merry, you should be ready with lovely, sweet and benign words. In this, aid me, O Mary, Mother Revered; and eke, O lady mine, Facetia, guide thou my pen and show unto me help. For as A is the first of all letters, so art thou mother of all virtue. Have pity, sweet lady, of my lack of wit, and though untaught I speak of demeanour, support my ignorance with thy goodly aid.",
+  "verdict": "reject",
+  "genre": "not-selfcontained",
+  "why": "뒤에 올 예법 본문을 예고하는 기원 서문이다"
+ },
+ {
+  "id": "00df371c-9cbb-4e74-91df-50824be54c7c",
+  "book": "Little Folks (September 1884) (발췌)",
+  "text": "The silence bugle sounds, though no one is supposed to make a noise after the assembly has sounded. The officer of the day comes along, a lieutenant, whose duty it is to look after the cadets that day. \"_Open order! March,\" is his order; \"Rear rank, dress_,\" says the chief captain, and he walks round the two lines, and sees that the cadets are properly dressed. That white lanyard you see round their neck is for holding their keys. A sailor always has a knife at the end of such a lanyard. \"Close order! March,\" and the officer of the day marches them off to their various studies for the morning. Let us go and see where they have gone. Half of them, one watch, have gone down into the large mess-room. They sit round the room at the tables by the ship's side, and prepare work for their naval instructors. In a little while the servants will lay the middle tables for breakfast, but they do not ",
+  "verdict": "narrative",
+  "genre": "travel",
+  "why": "훈련함 후보생의 하루를 현장 안내하듯 따라가는 장면"
+ },
+ {
+  "id": "0120c4e9-60bc-4a2c-8a33-df8ab59bb601",
+  "book": "Plain English",
+  "text": "+260.+ Be careful not to confuse the possessive pronouns with adjectives. Possessive pronouns modify the nouns with which they are used, but they are not adjectives, they are possessive pronouns. My, his, her, its, our, your and their are all possessive pronouns, not adjectives. Also be careful not to confuse nouns in the possessive form with adjectives. +261.+ Sometimes you will find words, which we are accustomed to look upon as adjectives, used alone in the sentence without a noun which they modify. For example, we say, The strong enslave the weak. Here we have used the adjectives strong and weak without any accompanying noun. In sentences like this, these adjectives, being used as nouns, are classed as nouns. Remember, in your analysis of a sentence, that you name every word according to the work which it does in that sentence, so while these adjectives are doing the work of nouns, w",
+  "verdict": "reject",
+  "genre": "fragmentary",
+  "why": "+260+ 식 번호를 단 문법 교재 조항 묶음"
+ },
+ {
+  "id": "0121f389-caa4-4df7-a005-f12e5e9e7746",
+  "book": "Cornish Characters and Strange Events",
+  "text": "\"The blow to him at Calcutta was altogether a very savage one,\" says Mr. S. C. Hall, \"but, like all injustice, it recoiled at length on those who gave it. From the hour that Buckingham was driven from that city (Calcutta), the power of the great Indian monopoly, both commercial and governmental, was doomed. It was by no means his case alone which accomplished that doom. But oppression and vindictiveness, by driving him home, made him for a time the representative there of voices that never entirely slept; whilst the impolicy that had aroused them was persevered in to the last--not ceasing, even after the trade was thrown open, but at length provoking that rebellion which was followed by John Company finally having to make an assignment of his whole estate and effects to John Bull.\" In England Buckingham started the Athenæum, a literary weekly, but did not long retain it in his hand; he w",
+  "verdict": "narrative",
+  "genre": "biography",
+  "why": "버킹엄이 캘커타에서 쫓겨난 뒤의 행로를 인용으로 서술"
+ },
+ {
+  "id": "01891fa9-100c-46a6-9e3c-00ae9a986d58",
+  "book": "Selected Essays of Plutarch, Vol. II.",
+  "text": "VIII. They say that Tiribazus, when arrested by the Persians, drew his scimitar, being a powerful man, and fought for his life; then, when they loudly protested that the arrest was by the king’s orders, at once dropped his point, and held out his hands to be tied. Is not this just what happens in the case before us? Other men make a fight against mischances and thrust all aside, that they may devise ways of escape and evade what is unwelcome to themselves. But the superstitious man listens to nobody, and addresses himself thus: ‘Poor wretch, [Sidenote: F] thy sufferings come from Providence, and by the order of the God.’ So he flings away all hope, gives himself up, flies, obstructs those who try to help him. Many tolerable troubles are made deadly by various superstitions. Midas of old, as we are to believe, dispirited and distressed by certain dreams, was so miserable that he sought a ",
+  "verdict": "use",
+  "genre": "philosophy",
+  "why": "티리바주스 일화로 미신이 자구 노력을 막는다고 논증"
+ },
+ {
+  "id": "0197edad-3bcf-49ee-9b07-61c3459f1ab9",
+  "book": "Boys and Girls Bookshelf; a Practical Plan of Character Building, Volume I (of 1 (발췌)",
+  "text": "On the very day of its birth a baby enters the child's garden of life. In this beautiful place there are weeds as well as flowers, and father and mother must guide the little adventurer so that only the good flowers are developed, while the weeds are held in check and the poisonous plants torn up and destroyed. Earnest parents feel this responsibility very keenly. In \"Fun and Thought for Little Folk\" there is a well-selected collection of jingles, stories, and play exercises for babies up to about three or four years of age. It covers the earliest informal education of a child, from finger-play days to the alphabet period. It helps parents who wish to enjoy their little children and who do not wish such enjoyment to be a mere matter of chance. Trained kindergartners with the modern viewpoint had much to do with this collection. Not only does it delight the little folk, but it is also the",
+  "verdict": "reject",
+  "genre": "not-selfcontained",
+  "why": "이 책 세트의 수록 권을 안내하는 글이라 혼자 못 읽는다"
+ },
+ {
+  "id": "024e736f-deae-430e-bd1a-470e93594d8e",
+  "book": "Modern Essays and Stories",
+  "text": "And so John Burroughs at eighty-five, still chopping the wood for his own fireside, writing, lecturing, giving advice about phases of farm-work, strolling over the ground, still interested in literature, can serenely fold his hands and wait. Indeed, this white-bearded man, in his bark-covered study amidst veiled heights and blurred river scenes, furnishes a wonderful intimate picture which will linger in American literature and in the minds of all who yearn for a more intimate knowledge of nature, unaffectedly told, like the song of the robin of his first love, “a harbinger of spring thoughts carrying with it the fragrance of the first flowers and the improving verdure of the fields.” A Visit with My Teacher 11. Our Unusual Caller A Call on an Interesting Person 12. A Talk with a Tramp In the Office of the Principal 13. The Beggar's Life Visiting My Relatives 14. My Cousin A Visit to Ano",
+  "verdict": "reject",
+  "genre": "fragmentary",
+  "why": "수필 끝에 번호 붙은 목차 목록이 그대로 섞여 있다"
+ },
+ {
+  "id": "027ba186-be7b-4711-9e13-5ebd4b635345",
+  "book": "Entretiens / Interviews / Entrevistas (발췌)",
+  "text": "I see my professional future as an extension of what I do currently: using technology to enhance intercultural exchanges. I hope to associate myself with the right group of people to go beyond Haiti, and advance towards this ideal of one world, one love. The debate will continue forever, as information becomes more conspicuous than the air that we breathe and more fluid than water. These days, one can purchase the video of a film that was released just the week before, and it will not be long before one can watch scenes from one other's private life over the Net without his/her knowledge. What is daunting about the Internet is that so many are willing to do the dirty work for free, as sort of an initiation rite. This mindset will continue to exert increasing pressures on the issues of copyrights and intellectual property.",
+  "verdict": "reject",
+  "genre": "not-selfcontained",
+  "why": "인터뷰 답변이라 '그 논쟁'이 앞 질문을 가리킨다"
+ },
+ {
+  "id": "029a7841-c215-4413-a30c-c9ddf9d0ac3f",
+  "book": "Journal 01, 1837-1846",
+  "text": "Produced by Melissa McDaniel and the Online Distributed Proofreading Team at http://www.pgdp.net (This file was produced from images generously made available by The Internet Archive) Inconsistent hyphenation and spelling in the original document have been preserved. Obvious typographical errors have been corrected. Aside from the use Thoreau himself made of his Journal in writing his more formal works, the first extensive publication of the Journal material began in 1881 with \"Early Spring in Massachusetts.\" This volume consisted of extracts covering the month of March and parts of February and April, arranged according to the days of the month, the entries for the successive years following one another under each day. It was edited by Thoreau's friend Mr. H. G. O. Blake, to whom the Journal was bequeathed by Miss Sophia Thoreau, who died in 1876. It was succeeded in 1884 by a volume en",
+  "verdict": "reject",
+  "genre": "fragmentary",
+  "why": "전자책 제작 크레딧과 판본 서지 주기"
+ },
+ {
+  "id": "029ab53b-3054-4973-8038-0189d985fe6c",
+  "book": "By-ways in Book-land: Short Essays on Literary Subjects",
+  "text": "Ah! the poets have much to answer for. Here is Mr. Longfellow assuring his readers that et caetera, et caetera. Is it any wonder that, in the face of such encouragement, young men go on dreaming, each of the _dimidium suae animae_ whom he is to meet by-and-by, and framing to that end all sorts of beautiful ideals? It may be that the Shes thus dreamed of are 'not impossible'--they may 'arrive;' but it is as well not to be too sanguine. And, above all, it is as well not to draw too extravagant a picture, if only because you may not be worthy of the original when you see it. Corydon is too disposed to expect in Phyllis charms and virtues for which he might find it difficult to show counterparts in himself. If the lady is to be the pattern of beauty and of goodness, ought not the gentleman to bring an equal amount of capital into the matrimonial firm? When Bunthorne has recited his 'wild, we",
+  "verdict": "use",
+  "genre": "essay",
+  "why": "젊은이의 과장된 이상형 기대를 대칭 잣대로 반박하는 수필"
+ },
+ {
+  "id": "029b46de-9e1a-49ea-a81f-08542c3945bd",
+  "book": "Story Hour Readings: Seventh Year (발췌)",
+  "text": "How was Christopher Dock's school different from most pioneer schools of that day? How did he teach good behavior? What inducements were offered for scholarship? You often hear people say that only the \"three R's\" were taught when they went to school. What do they mean? You will be interested to know that the pupils in the early schools studied their reading aloud at the top of their voices. They learned reading by singing \"ab,\" \"ba,\" etc. Later, when geography was taught, the capitals of the states were sung. You will recall that the French explorers Marquette, Joliet, La Salle, and others established missions and trading posts in the Illinois country. It was due to these early explorations that the French got control of a large part of the Northwest Territory.",
+  "verdict": "reject",
+  "genre": "fragmentary",
+  "why": "본문이 아니라 교재의 발문·학습 안내 문항"
+ },
+ {
+  "id": "02f616f0-1cbb-4c5c-b83d-4f4951aac7e3",
+  "book": "The Antiquarian Magazine & Bibliographer; Vol. 4, July-Dec 1884",
+  "text": "THE Mercers’ Chapel, Cheapside, has been reopened, after extensive repairs and alterations; the latter comprise new flooring, new and very handsome carved oak stalls and seats throughout, new choir stalls, prayer desk and pulpit. The fine old screen has been retained, as also all the oak panelling round the walls. The organ, one of Father Smith’s, has been entirely rebuilt and enlarged. The altar piece is not yet finished, but the three large frescoes are in position, the centre and largest panel representing the Ascension of our Lord. The whole of the roof has also been re-decorated, and a sun-light introduced into the lanthorn. THE second volume of “Topography and Natural History of Lofthouse, near Wakefield,” by Mr. George Roberts, of that place, is in the press. In addition to the continuation of the “Natural History and Rural Notes,” it will contain an account of past and present cu",
+  "verdict": "reject",
+  "genre": "reference",
+  "why": "예배당 수리와 간행 예정을 알리는 단신 나열"
+ },
+ {
+  "id": "032c976c-420b-4922-8fb8-063a8a1ca587",
+  "book": "The Babees' Book: Medieval Manners for the Young: Done into Modern English (발췌)",
+  "text": "[Here follows a list of fruits and preserves, which presently becomes a mere dietary, ll. 73-108.] “Take good heed to the wines, red, white, and sweet; look to them every night with a candle, to see that they neither ferment nor leak. Never forget to wash the heads of the pipes with cold water every night; and always carry a gimlet, adze and linen clouts, large and small. If the wine ferment, ye shall know by its singing, so keep at hand a pipe of couleur de rose, that has been spent in drinking and add to the fermentation the dregs of this, and it shall be amended. If sweet wine be sick or pallid, put in a Romney to improve it.”",
+  "verdict": "reject",
+  "genre": "fragmentary",
+  "why": "대괄호 편집자 주로 시작하는 인용 발췌"
+ },
+ {
+  "id": "0394d6ba-582f-4935-bf42-69be45d3d454",
+  "book": "Journeys Through Bookland, Vol. 7 (발췌)",
+  "text": "Keen as are the arrows Of that silver sphere Whose intense lamp narrows In the white dawn clear, Until we hardly see, we feel that it is there. All the earth and air With thy voice is loud, As, when night is bare, From one lonely cloud The moon rains out her beams, and heaven is overflowed. What thou art we know not; What is most like thee? From rainbow clouds there flow not Drops so bright to see. As from thy presence showers a rain of melody. Like a rose embowered In its own green leaves, By warm winds deflowered, Till the scent it gives Makes faint with too much sweet these heavy-winged thieves.",
+  "verdict": "reject",
+  "genre": "poetry-drama",
+  "why": "셸리 '종달새에게' 운문"
+ },
+ {
+  "id": "03b4420c-9575-440c-ab7a-1f21d33bd111",
+  "book": "The International Monthly, Volume 2, No. 4, March, 1851",
+  "text": "Of this stuff was the nature both of the widow and her son. Had the honey of Plato flowed from the tongue of Mrs. Hazeldean, it could not have turned into sweetness the bitter spirit upon which it descended. But Mrs. Hazeldean, though an excellent woman, was rather a bluff, plain-spoken one--and, after all, she had some little feeling for the son of a gentleman, and a decayed fallen gentleman, who, even by Lenny's account, had been assailed without any intelligible provocation; nor could she, with her strong common sense, attach all the importance which Mrs. Fairfield did to the unmannerly impertinence of a few young cubs, which she said truly, \"would soon die away if no notice was taken of it.\" The widow's mind was made up, and Mrs. Hazeldean departed--with much chagrin and some displeasure. Mrs. Fairfield, however, tacitly understood that the request she had made was granted, and early",
+  "verdict": "narrative",
+  "genre": "fiction",
+  "why": "헤이즐딘 부인과 미망인의 방문 장면과 대화"
+ },
+ {
+  "id": "0407f214-acd3-4ff3-a433-ccd34fa1a0ac",
+  "book": "Little Folks (October 1884) (발췌)",
+  "text": "DEAR MR. EDITOR,--My father knows a gentleman who is teaching his dog to read. He prepared some thick pieces of cardboard and printed on each card, in large letters, such words as Bone, Food, Out, &c. He first gave the dog food in a saucer on the card food, and then he placed an empty saucer on a blank card. Van is his name, and he is a black poodle. The next thing he did was to teach Van to bring the cards to him. He brings the card with out on if he wishes to go out. One day he brought the card with food upon it nine times, the card being placed in a different position each time among the other cards. The gentleman hopes to teach him more, for Van quite understands what he has learnt.",
+  "verdict": "narrative",
+  "genre": "essay",
+  "why": "개에게 글자 카드를 가르친 일화를 전하는 독자 편지"
+ },
+ {
+  "id": "0499c74a-c2db-4fa8-8e55-f23f679bf89f",
+  "book": "Plain English",
+  "text": "The study of words and their uses is of great importance to you. Master the few rules necessary and watch your words daily. We are living in an age full of wondrous things and yet many of us have almost as limited a vocabulary as the men of those bygone days, who had never dreamed of the marvels that are commonplace to us. As you use your dictionary watch closely the meaning of the words and choose the words that most aptly express your ideas. Listen to good English spoken as often as you can. Read good English. Mark the difference between good and bad English and gradually you will find yourself using good English naturally and continually. +59.+ We have learned that the words in a sentence are classified according to the work which each word does. The words which assert are called verbs; the words which are the names of things are called nouns. But now we shall see that these words are",
+  "verdict": "reject",
+  "genre": "fragmentary",
+  "why": "+59+ 식 번호를 단 어휘·품사 교재 조항"
+ },
+ {
+  "id": "04cf68f3-aed4-45cd-b453-8b48f8e8464e",
+  "book": "Text book of veterinary medicine, Volume 3 (of 5) (발췌)",
+  "text": "Among emotional causes fear easily heads the list. Bernard states that a horse became epileptic in connection with the terror caused by the giving way of a wooden bridge over which he was passing. Bourgelat and Reynal adduce instances, in cavalry horses when first put under fire. Reynal records the case of another which had his first attack when facing a moving locomotive, and which never again could see an engine in motion without suffering another attack. La Notte mentions the case of a horse attacked when frightened by a sky rocket; Romer, the case of a horse scared by the sudden display of a white sheet in front of him, and Friedberger and Fröhner relate cases of attacks caused by intense rays of light, as in racing toward the declining sun, or the dazzling reflection from the surface of water. Liedesdorf saw it in a dog scared by a locomotive.",
+  "verdict": "reject",
+  "genre": "not-selfcontained",
+  "why": "'정서적 원인 중에는'으로 시작해 앞의 원인 분류가 없다"
+ },
+ {
+  "id": "04f0f20c-5874-41a0-bf02-3e58f0530d88",
+  "book": "Golden Days for Boys and Girls, Vol. XII, Jan. 3, 1891 (발췌)",
+  "text": "If your negative is a thin one, a diffused light is better for printing than the direct rays of the sun. Diffused light is a strong light that is not sunlight. If the negative is exceedingly thin, the light indoors, away from the window, will be sufficient. Satisfactory results cannot of course be achieved with too thin a negative, but this diffused light will give the best print that you can obtain. In examining the print from time to time be sure that you do not open both sides of the printing frame at once, for if you should do this, you will find it impossible to replace the print in exactly the same position, and so it will be spoiled by being printed with double lines.",
+  "verdict": "use",
+  "genre": "science",
+  "why": "얇은 음화에는 직사광 대신 확산광이 나은 이유를 설명"
+ },
+ {
+  "id": "0517432f-ba7e-48d6-ad05-857a6e54807f",
+  "book": "Boys and Girls Bookshelf; a Practical Plan of Character Building, Volume I (of 1 (발췌)",
+  "text": "Out in the green, green orchard Standeth a fine pear tree, The fine pear tree has leaves, too, And what on its branch may be? A beautiful twig. Twig on the branch, Branch on the tree, Tree in the ground. Out in the green, green orchard Standeth a fine pear tree, The fine pear tree has leaves, too. Now what on the twig may be? A beautiful nest. Nest on the twig, Twig on the branch, Branch on the tree, Tree in the ground. Out in the green, green orchard Standeth a fine pear tree; The fine pear tree has leaves, too. Now, what in the nest may be? A beautiful egg. Egg in the nest, Nest on the twig, Twig on the branch, Branch on the tree, Tree in the ground.",
+  "verdict": "reject",
+  "genre": "poetry-drama",
+  "why": "누적 반복 구조의 동요 운문"
+ },
+ {
+  "id": "052142e8-390a-4455-8609-ab1df4c3b307",
+  "book": "Text book of veterinary medicine, Volume 3 (of 5) (발췌)",
+  "text": "The course of goitre is usually slow, extending over years, yet in young dogs it may make a very rapid progress. It will often stand still for a time, and later start a new growth under a fresh access of the cause. Spontaneous disappearance is rare. Prevention. This is especially important in localities in which goitre is enzootic, and embraces careful attention to the general health, the avoidance of overwork, exhaustion, indoor life, lack of exercise, impure air, faulty feeding, starvation, and water from the goitrous soils. Rain water is preferable. Treatment. First remove the various causes, and secure the best hygiene. If a change to a non-goitrous district can be had, avail of it.",
+  "verdict": "reject",
+  "genre": "obsolete-fact",
+  "why": "갑상선종 원인을 실내생활·탁한 공기·토양수로 단정"
+ },
+ {
+  "id": "054e6e6e-1fdf-4084-84ad-f8e582b43be3",
+  "book": "Papers and Proceedings of the Thirty-Fifth General Meeting of the American Library Associa",
+  "text": "\"First steps toward printed indexes are both fragmentary and inadequate. It seems to be time to take the next step in the development of index-making, a step which involves concentration of scattered ideas--a step which should be successful because it means comprehensiveness, thoroughness, uniformity, economy and efficiency. \"The special fields of literature in which printed indexes are most likely to succeed are thought to be as follows, in about the order mentioned: Industrial arts, agriculture, education, social problems. \"It will scarcely be necessary to defend here the alphabetical index as opposed to the classified arrangement. While a classified list of articles has its value in informing specialists what has been published in their respective fields in one particular month, or year, it is almost useless as a book of ready reference in a library--useless even to the technically tr",
+  "verdict": "use",
+  "genre": "essay",
+  "why": "인쇄 색인은 분류식보다 알파벳순이 낫다고 근거를 들어 주장"
+ },
+ {
+  "id": "055c6859-7696-4a1d-b14b-fb7deec9b6e3",
+  "book": "Scouting for Boys (발췌)",
+  "text": "Silver medal with red ribbon: For saving and helping to save life without risk of own life, but where life might have been lost. Silver medal with blue ribbon: Meritorious service, or assisting police at personal risk. These are only granted by the chief scout on special recommendation from the patrol leader or scout master, who should send in a full account of the case when applying. Marks are awarded by scout masters, from their own knowledge or on recommendation of patrol leaders, or as marks for competition. Two marks are given to any scout who brings a recruit whom he has already taught to tie the regulation knots. Such recruit must be in addition to the one who enabled him to qualify for his scout's badge.",
+  "verdict": "reject",
+  "genre": "fragmentary",
+  "why": "훈장 수여 규정 조항 목록"
+ },
+ {
+  "id": "05740fb1-8112-417d-ac13-d27f73451f98",
+  "book": "Sanders' Union Fourth Reader",
+  "text": "I passed the evening with the venerable Joseph Slocum, whose family was among the sufferers, in Wyoming Valley. He related to me all the particulars of the capture and final discovery of his sister Frances, and other incidents connected with the sufferings of his family. His father was a Quaker, and was distinguished for his kindness to the Indians. He remained unharmed at the time of the invasion, and, while the torch was applied to the dwellings of others, his was left untouched. But his son Giles was in the battle. This, doubtless, excited the ire of the Indians, and they resolved on vengeance. 3. Late in the autumn, they were seen prowling about the house, which was situated about one hundred rods from the Wilkesbarre Fort. A neighbor, named Kingsley, had been made prisoner, and his wife and two sons had a welcome home in Mr. Slocum's family. One morning, the boys were grinding a kni",
+  "verdict": "reject",
+  "genre": "bias",
+  "why": "원주민을 '어슬렁대며 복수를 벼르는' 쪽으로만 그린 포로 서사"
+ },
+ {
+  "id": "059880af-087b-49b5-8547-03ff9bb4a07e",
+  "book": "Byzantine Churches in Constantinople: Their History and Architecture",
+  "text": "The Central Church.--The central church is an oblong hall covered by two domes, and terminates in a large apse. It is extremely irregular in plan, and does not lie parallel to either of the churches between which it stands. The domes are separated by a transverse arch. The western dome, though flattened somewhat on the four sides, is approximately circular, and divided into sixteen shallow concave compartments, each pierced by a window. Some of these windows must have been always blocked by the roof of the north church. The eastern dome is a pronounced oval, notwithstanding the attempt to form a square base for it by building a subsidiary arch both on the south and on the north. It is divided into twenty-four concave compartments, twelve of which have windows. The drums of the domes adjoin each other above the transverse arch, so that the central west window of the eastern dome is pierce",
+  "verdict": "use",
+  "genre": "art",
+  "why": "두 돔의 형태 차이를 창·아치 배치로 분석한 건축 기술"
+ },
+ {
+  "id": "05deb7aa-2df9-4bfa-a0cf-8c359c69e9df",
+  "book": "Industries and Inventions of the Shakers: Shaker Music, a Brief History",
+  "text": "All of life it is to serve them, All of joy to feel their power. Rise, my soul, thy friendship deepen With the Christ that calls each hour. These inspirational hymns were not confined to any one individual as in every Society there were many members so gifted. The Christ Spirit could easily find expression, where hearts were dedicated to His Service. Eldress Dorothy Durgin, who was born in Sanbornton, N. H., entered the Society at the age of 8 yrs., after the death of her mother. A lover of children, she was given the care of 24 little girls, while still a young woman. Because of her interest in the youth, she was appointed teacher of the District School, where she taught for six years. Her qualities of leadership were tremendous, so it was only natural that she be appointed to the order of Eldership, at the age of 24 yrs., which position she held for 50 yrs. She was, probably, without p",
+  "verdict": "reject",
+  "genre": "doctrine",
+  "why": "'그리스도의 영이 임한다'는 신앙 명제를 사실로 서술"
+ },
+ {
+  "id": "05ea1f62-1583-4924-afef-59720a3c2c4a",
+  "book": "Jackson's Gymnastics for the Fingers and Wrist",
+  "text": "This gymnastic staff, or walking-stick exercise, however simple it may appear, should, on no account, any single day be omitted. It produces a most surprising effect if carefully and vigorously made; an effect which will be the more remarkable in proportion as the fingers are pressed and stretched far away from one another. By this means all the various muscles, and even the tendons, joints, and ligaments are put into motion, and both fingers and nerves are rendered strong and firm. Besides, no time need be lost; as in performing these exercises you may converse or engage in other occupations. In this manner, also, the 4th finger may have a special training, and become equally strong with the others. This finger is, on physiological grounds, the weakest of all, and after a number of vain attempts at remedying its well-known weakness, some physiologists of note in Germany, have gone so fa",
+  "verdict": "reject",
+  "genre": "obsolete-fact",
+  "why": "손가락 체조가 신경을 튼튼히 한다는 폐기된 생리설"
+ },
+ {
+  "id": "0675eed3-f3b3-41c8-9028-bc5ad812d2f5",
+  "book": "The Old English Herbals",
+  "text": "At Cambridge Turner was intimate with Nicholas Ridley (afterwards the famous Bishop of London), and though it is interesting to know that Ridley instructed him in Greek, it is even more attractive to learn that the future bishop also initiated him into the mysteries of tennis and archery. Turner did well at the university, for he was elected Junior Fellow of his college in 1531 and Joint Treasurer in 1532, and he had a title for Orders in 1537. Throughout his life he was a staunch Protestant and at Cambridge he used to attend the preachings of Hugh Latimer. We do not know how long Turner held his fellowship, possibly till his marriage with Jane, daughter of George Ander, Alderman of Cambridge. He left Cambridge in 1540 and travelled about, preaching in various places. In Wood's Athenæ Oxonienses we read, \"In his rambles he settled for a time in Oxon among several of his countrymen that h",
+  "verdict": "narrative",
+  "genre": "biography",
+  "why": "케임브리지 시절 터너의 행적을 연도별로 따라간 전기"
+ },
+ {
+  "id": "069b2ebb-07db-498b-a051-033bbb6f84cc",
+  "book": "An English Garner: Critical Essays & Literary Fragments",
+  "text": "Gay's brochure attracted the attention of Swift, who thus refers to it in his Journal to Stella, May 14th, 1711: 'Dr. Freind was with me and pulled out a two-penny pamphlet just published called The State of Wit. The author seems to be a Whig, yet he speaks very highly of a paper called the Examiner, and says the supposed author of it is Dr. Swift, but above all he praises the Tatler and Spectator.' The two tracts which follow consist of the Life of Addison, which forms the preface to Addison's collected works, published by Tickell in 1721, and of the Dedicatory Epistle prefixed by Steele to an edition of Addison's Drummer in 1722. To the student of the literary history of those times they are of great interest and importance. Of all Addison's friends, Steele had long been the most intimate of the younger men whom he had taken under his patronage. Tickell was the most loyal and the most ",
+  "verdict": "reject",
+  "genre": "not-selfcontained",
+  "why": "'뒤따르는 두 편'처럼 이 책 편제에 기대는 해제"
+ },
+ {
+  "id": "06a290e6-4c8e-477d-8f39-50fb3f96917a",
+  "book": "Papers and Proceedings of the Thirty-Fifth General Meeting of the American Library Associa",
+  "text": "Leigh Hunt (himself very much an outsider) in a familiar essay makes this friendly observation: \"A business of screws and iron wheels is, or appears to be, a very commonplace matter; but not so the will of the hand that sets them in motion; not so the operations of the mind that directs them what to utter.\" But this mechanic that now nears the public library is coming neither as a pathetic figure in distress, nor as a mysterious or heroic figure beyond our comprehension. He comes as an unpretending man dignified by earnestness of purpose not to discredit an honorable vocation. The best of mutual understanding and feeling, however, will not secure the chief ends of librarianship except so far as they splendidly prepare the way. The recognition of books as tools comes only as the books stand the same practical test that the workman applies to his instruments. The librarian must furnish boo",
+  "verdict": "use",
+  "genre": "social",
+  "why": "'책은 연장'이라는 비유로 노동자 대상 도서관 역할을 논증"
+ },
+ {
+  "id": "06ad0cf5-e9d5-4d6d-8261-7a3491e683a3",
+  "book": "Journeys Through Bookland, Vol. 7 (발췌)",
+  "text": "[12-7] Water is usually spoken of as an emblem of purity, not of truth; but sometimes truth is spoken of as hiding at the bottom of a well. [12-8] The curb is the square box usually built around the mouth of the well to a height of a few feet, to protect the water from dirt. Sometimes three of the sides are carried up to a height of six or eight feet, and a roof is built over the whole, making a little house of the curb. The fourth side is left open, except for two or three feet at the bottom. In these old wells two buckets were often used. They were attached to a rope which ran over a wheel suspended from the roof of the well house. When a bucket was drawn up it was often rested on the low curb in front, while people drank from it.",
+  "verdict": "reject",
+  "genre": "fragmentary",
+  "why": "[12-7] 식 각주 항목 두 개"
+ },
+ {
+  "id": "06de32f1-dadd-41a7-90de-5a476e94dd8b",
+  "book": "Modern Essays and Stories",
+  "text": "But there was a more obvious path of development and one immediately cheaper, and along that path went short-sighted Nineteenth Century Progress, quite heedless of the possibility of ending in a cul-de-sac. The first locomotives, apart from the heavy tradition of their ancestry, were, like all experimental machinery, needlessly clumsy and heavy, and their inventors, being men of insufficient faith, instead of working for lightness and smoothness of motion, took the easier course of placing them upon the tramways that were already in existence--chiefly for the transit of heavy goods over soft roads. And from that followed a very interesting and curious result. These tram-lines very naturally had exactly the width of an ordinary cart, a width prescribed by the strength of one horse. Few people saw in the locomotive anything but a cheap substitute for horseflesh, or found anything incongruo",
+  "verdict": "use",
+  "genre": "essay",
+  "why": "기관차 궤간이 말수레 폭에 갇힌 경로 의존을 논증"
+ },
+ {
+  "id": "073254af-8a16-4c08-ae15-69306440b231",
+  "book": "Papers and Proceedings of the Thirty-Fifth General Meeting of the American Library Associa",
+  "text": "From time to time the students in History I prepare special topics on limited questions. A bibliography must always preface these topics and if it is in any way at fault, either as regards form or material, it must be presented a second time or as many times as is necessary to correct the defects. This course in History I is required of every student in college. Those students who elect other courses based on this become acquainted with still other features of the library and acquire added facility in bibliographical work. Every student, for example, who elects the course in American history has a pamphlet called =Suggestions for the Year's Study, History A, AA=. This pamphlet includes a chart that shows the location in the library of all the sections of American history, each accompanied by the Dewey notation for each section, and also the notation for the sections in political science,",
+  "verdict": "use",
+  "genre": "education",
+  "why": "역사 과제에 서지 작성을 붙여 도서관 이용을 가르치는 방식"
+ },
+ {
+  "id": "07836f1a-6177-4e38-b651-2864048842e0",
+  "book": "Jackson's Gymnastics for the Fingers and Wrist",
+  "text": "It may also be recommended in such cases, to dip the points of the fingers for half a minute into half a glassful of cold water, and let them get dry of themselves, thus cooling by evaporation; or still better, wash the hands with soap and water. To sum up: No student ought to begin to learn or to play the piano, violin, or other musical instrument, or even to engage in any work or occupation requiring a strong and flexible hand, before having set the joints of his fingers and hands in order, by means of preparatory gymnastic exercises; and he ought to continue the same from day to day. Let it ever be borne in mind that much rapid playing affects injuriously the muscles and nerves; while, on the other hand, _slow exercises and studies_ invigorate them. To borrow an illustration from the animal world; take the race-horse, the fleetest animal which we use in this country, whose great task ",
+  "verdict": "reject",
+  "genre": "obsolete-fact",
+  "why": "빠른 연주가 신경을 상하게 한다는 근거 없는 생리 주장"
+ },
+ {
+  "id": "078c4cb5-2042-4322-820d-21c96338a057",
+  "book": "Thomas Davis, selections from his prose and poetry",
+  "text": "Orderliness and hospitality were peculiarly cultivated. Public caravansarais were built for travellers in every district, and we have what would almost be legal evidence of the grant of vast tracts of land for the supply of provisions for these houses of hospitality. The private hospitality of the chiefs was equally marked; nor was it quite rude. Ceremony was united with great freedom of intercourse, age, and learning, and rank, and virtue were respected, and these men, whose cookery was probably as coarse as that of Homer's heroes, had around their board harpers and bards who sang poetry as gallant and fiery, though not so grand, as the Homeric ballad-singers, and flung off a music which Greece never rivalled. Shall a people, pious, hospitable, and brave, faithful observers of family ties, cultivators of learning, music, and poetry, be called less than civilised because mechanical arts ",
+  "verdict": "use",
+  "genre": "history",
+  "why": "환대·학문 관습을 들어 고대 아일랜드 '미개' 규정을 반박"
+ },
+ {
+  "id": "081d1da5-2b8e-452a-9f8f-f4011a123620",
+  "book": "Plain English",
+  "text": "+507.+ The semi-colon indicates a break more complete than that of the comma. The period indicates a complete break in the thought. So the comma indicates a slight break, the semi-colon a greater break in the thought, and the period, the completion of the thought. +508.+ The semi-colon is often used instead of the comma where a longer pause is desired or we wish to indicate a greater break in the thought. For example: \"The wind is chill; But let it whistle as it will, We'll keep our Christmas merry still.\" +509.+ As a rule we separate by semi-colons those parts of the sentences that are already punctuated by commas. For example: After considerable delay, he came back to look for his friends; but, though he looked diligently, he could not find them. +510.+ The semi-colon is used to separate closely connected simple sentences when the conjunction is omitted. The continual repetition of the",
+  "verdict": "reject",
+  "genre": "fragmentary",
+  "why": "+507+ 식 번호를 단 구두점 규칙 조항"
+ },
+ {
+  "id": "089b680d-0117-4547-9537-3237e0135b94",
+  "book": "Papers and Proceedings of the Thirty-Fifth General Meeting of the American Library Associa",
+  "text": "And it was somewhat later than this that the pages of the Century gave space to correspondence in opposition to the establishment of a public library system for the city of New York. For the documentary material dealing with the beginnings of the public library movement, the searcher must delve within the thousand pages of a portly folio volume issued by the British government sixty years ago. If one possesses patience sufficient to read the immense mass of dry evidence compiled by a parliamentary commission and \"presented to both houses of parliament by command of Her Majesty,\" some interesting facts in library history will be found. A young man of twenty-three, then an underling in the service of the British Museum, afterwards an eminent librarian, was one of the principal witnesses. Edward Edwards had the gift of vision. Half a century before public libraries became the people's unive",
+  "verdict": "use",
+  "genre": "history",
+  "why": "공공도서관 운동의 출발을 의회 조사 기록으로 추적"
+ },
+ {
+  "id": "08c8d8a4-4add-4b19-800f-e51b02677fe7",
+  "book": "Cornish Characters and Strange Events",
+  "text": "Henry, from his window, called out that the Lord Chancellor had made an unjust decree. Tillie replied that Henry Rogers might appeal against the decision, but surrender the house he must. Rogers, in reply, fired, and, as the under-sheriff stated, \"burned his wig and singed his face.\" This so frightened Tillie that he withdrew, and sent to Helston for some soldiers; and Captain Sadler, then in charge of the military there, despatched some to his aid. So reinforced, on the morrow Tillie went again to Skewis, and found the door shut, and a hole cut in it, with a gun-barrel protruding. Again the under-sheriff demanded admittance, and for reply the gun was fired, and a bailiff named William Carpenter was mortally wounded. Another gun was then discharged, and Hatch, the under-sheriff's servant, was struck. Anne Rogers, the plaintiff, was in the rear animating the soldiers against the occupants",
+  "verdict": "narrative",
+  "genre": "history",
+  "why": "스큐이스 농성과 발포로 이어진 집행 장면"
+ },
+ {
+  "id": "09a5d702-82bd-4c72-8913-404cb83147f6",
+  "book": "Cornish Characters and Strange Events",
+  "text": "\"The grand jury of Middlesex,\" says Macaulay, \"consisting of gentlemen of note, found a bill of murder against Hill and Mohun. Hill escaped. Mohun was taken. His mother threw herself at King William's feet, but in vain. 'It was a cruel act,' said the King. 'I shall leave it to the law.' \"The trial came on in the Court of the Lord High Steward, and, as Parliament happened to be sitting, the culprit had the advantage of being judged by the whole body of the peerage. There was then no lawyer in the Upper House. It therefore became necessary, for the first time since Buckhurst had pronounced sentence on Essex and Southampton, that a peer who had never made jurisprudence his special study should preside over that grave tribunal. Caermarthen, who, as Lord President, took precedence of all the nobility, was appointed Lord High Steward. A full report of the proceedings has come down to us. No pe",
+  "verdict": "narrative",
+  "genre": "history",
+  "why": "머헌 살인 재판이 상원에서 열린 경위를 매콜리 인용으로 서술"
+ },
+ {
+  "id": "09b39448-289a-408a-bc75-2913abe86fc8",
+  "book": "The treatises of Benvenuto Cellini on goldsmithing and sculpture",
+  "text": "Remember, too, that each time new metal is to be put into the furnace it must be first put up against the doors till it becomes red hot, for if you put it in too soon with the other metal already in, you run the risk of cooling the latter, & so caking it, much as before referred to. Hence the very greatest care must be taken on that point. In Paris have I seen craftsmen cast the most wonderful things imaginable, and also make equally wonderful blunders. And this is due to the fact that technical skill serves you up to a certain point, but in some accident, for instance, you need the deeper knowledge of the principles of the art that leaves technical skill on one side, as I have evidenced to you above. Indeed I may add that I have seen 100,000 lbs. of metal cast at one time with so much ease that I marvelled at it, so great was the technical skill with which it was done; at another time I",
+  "verdict": "use",
+  "genre": "art",
+  "why": "새 금속을 예열해 넣어야 하는 이유를 응고 기제로 설명"
+ },
+ {
+  "id": "0a0adcf5-ed5c-46d0-afba-422016ee57f6",
+  "book": "Story Hour Readings: Seventh Year (발췌)",
+  "text": "Whenever one of the younger scholars succeeded in 20 learning his A, B, C, Christopher Dock would send word to the father of the child to give him a penny, and he would ask his mother to cook two eggs for him as a treat. These were fine rewards for poor children in a new country. There were no clocks or watches in the country. The 25 children came to school one after another, taking their places near the master, who sat writing. They spent their time reading until all were there; but everyone who succeeded in reading his passage without mistake stopped reading and came and sat at the writing table to write. 30 The poor fellow who remained last on the bench was called the Lazy Scholar.",
+  "verdict": "reject",
+  "genre": "fragmentary",
+  "why": "행 번호 20·25·30이 문장 사이에 끼어 문장이 끊긴다"
+ },
+ {
+  "id": "0a157713-758d-4b98-b38d-e336ef999d2b",
+  "book": "Golden Days for Boys and Girls, Vol. XII, Jan. 3, 1891 (발췌)",
+  "text": "There can be no doubt that the number of royal exiles will increase with the passing years. The trend is all one way. Monarchies are giving way to republics all over the world, and once the people have the power in their own hands they will not relinquish it. Revolutions, however, nowadays are peaceful, and kings may thank their stars that they are no longer in danger of losing their heads along with their crowns. Nature has made no marked division between the new year and the old, and there is practically no difference in weather between the last week in December and the first week in January. Perhaps it would be more logical to have the year begin with the vernal equinox, but practically it makes no difference at all. The year begins on the first day of January in all Christian nations except Russia and her dependencies, and it is not likely that any change will be made in future.",
+  "verdict": "use",
+  "genre": "social",
+  "why": "군주정이 공화정으로 바뀌는 추세를 근거와 함께 진단"
+ },
+ {
+  "id": "0a2305bc-a75d-44bb-b22d-27688fcb5e28",
+  "book": "The Old English Herbals",
+  "text": "The ornamental title-page of the Theatrum Botanicum is both interesting and impressive. The two most important figures are those of Adam and Solomon (representing Toil and Wisdom respectively). Solomon is dressed in a long coat with an ermine cape, and he wears Roman sandals. At the four corners of the page are female figures:--Europe driving majestically in a chariot with a pair of horses; Asia clad in short skirts and shoes with curled points and riding a rhinoceros; Africa wearing only a hat, and mounted upon a zebra; and America, also unclothed, carrying a bow and arrow and riding a sheep with surprisingly long ears. Each of these figures is surrounded by specimens of the vegetation of their respective continents. It is curious to find in the dedicatory letter to Charles I. a touch of the old belief that diseases are due to evil spirits:-- \"And I doubt not of your Majesties further c",
+  "verdict": "reject",
+  "genre": "bias",
+  "why": "'아프리카는 벌거벗고 얼룩말을 탄' 식민 도상을 무비판 기술"
+ },
+ {
+  "id": "0a5b237a-ee45-4f52-8fd7-9e86460c3540",
+  "book": "Papers and Proceedings of the Thirty-Fifth General Meeting of the American Library Associa",
+  "text": "The second list is entitled \"The library and social movements; a list of material obtainable free or at small expense.\" It may be had from the A. L. A. Publishing Board for five cents. This list includes material on all sorts of sociological questions, from co-operative stores to workingmen's compensation. From these two lists a good working collection of up-to-date, inexpensive pamphlet material on social problems may be obtained. Among recent organizations, born since these lists were published in 1911, are the Drama League of America, the American Commission on Agricultural Co-operation, the Southern Sociological Congress. All these put out valuable and inexpensive reports and publications. It would be a boon to small, and even large libraries, if the A. L. A. Publishing Board would father a new list including and enlarging the material of the two 1911 lists, and adding the most impor",
+  "verdict": "reject",
+  "genre": "reference",
+  "why": "무료·저가 자료 목록과 가격을 안내하는 서지 안내문"
+ },
+ {
+  "id": "0a9b6b68-64d3-48af-8f34-0690b369d0d0",
+  "book": "By-ways in Book-land: Short Essays on Literary Subjects",
+  "text": "The fact, however, that Shakespeare found historical plays a paying product will not wholly account for the powerfully patriotic strain in which they were composed. It is not only that the long series stretching from 'King John' to 'Henry VIII.' pulses from beginning to end with love of, and pride in, country; it is not only that the poet makes great Englishmen speak greatly--that, placing them in positions in which declarations of patriotism are natural and necessary, he makes those declarations eloquent and thrilling;--it is that he charges all his passages about England and the English with a passion of enthusiasm which can be explained only on the hypothesis that he was throwing his whole heart into the work, and sympathized deeply with the utterances of his creations. There is, for instance, something more than mere appropriateness to the character and the occasion in that marvellou",
+  "verdict": "use",
+  "genre": "art",
+  "why": "셰익스피어 사극의 애국 어조를 흥행 동기로만 설명 못한다고 논증"
+ },
+ {
+  "id": "0abf7b6b-8e1e-4bfc-b759-62b0db1c8bad",
+  "book": "Boy Scouts Handbook (발췌)",
+  "text": "_The BISCUIT is in little loaf form. It is baked a crisp, golden brown. It is eaten with milk or cream, or fruit, or is delicious when eaten as a toast with butter. TRISCUIT is the Shredded Wheat wafer---the ideal food for the camp or the long tramp_. _Building buster boys is bully business--that's the reason we want to help the Boy Scout movement_. The Boy Scout Movement has become almost universal, and wherever organized its leaders are glad, as we are, to acknowledge the debt we all owe to Lieut.-Gen. Sir Robert S. S. Baden-Powell, who has done so much to make the movement of interest to boys of all nations.",
+  "verdict": "reject",
+  "genre": "fragmentary",
+  "why": "시리얼 제품 광고 지면"
+ },
+ {
+  "id": "0b0aa09c-f3f9-44b5-89c7-ba8f54ce7366",
+  "book": "Plain English",
+  "text": "Only two adjectives, this and that change their form when modifying a plural noun. These and those are the plural forms of this and that. So remember always to use this and that with singular nouns and these and those with plural nouns. For example; do not say, These kind of people will never join us. You should say, This kind of people will never join us. Or, _Those sort of flowers grows easily. You should say, That sort of flowers grows easily_. Place your adjectives where there can be no doubt as to what you intend them to modify. Put the adjective with the noun which it modifies. For example; do not say, a fresh bunch of flowers, _a new pair of shoes, a salt barrel of pork, an old box of clothes, a cold cup of water, a new load of hay_. Put the adjective with the noun which it modifies, and say, a bunch of fresh flowers, _a pair of new shoes, a barrel of salt pork, a box of old cloth",
+  "verdict": "reject",
+  "genre": "fragmentary",
+  "why": "this/that 용법 예문을 나열한 교재 조항"
+ },
+ {
+  "id": "0b226663-6b77-4bba-988e-96fdb5400bb4",
+  "book": "Cornish Characters and Strange Events",
+  "text": "The principle of the action of the steam-blast was simple enough. It was to fill the funnel with high-pressure steam, which would act much as the sucker in a pump, exhaust the air and draw up air through the furnace, as the cone of steam escaped out of the funnel. To act thus, the steam must completely fill the chimney, allowing of no down draught. This was what had entirely escaped Trevithick and Stephenson. Up to the discovery of the steam-jet by Gurney, the waste steam, as has been stated, was uselessly dispersed through the chimney. In 1827, Gurney took a steam-carriage he had constructed to Cyfarthfa, at the request of Mr. Crawshay, and while there applied his steam-jet to the blast-furnaces. This gave a great impetus to the manufacture of iron. Stephenson now adopted it, and employed it for his locomotive the Rocket, that ran on the Liverpool and Manchester Railway in October, 1829",
+  "verdict": "use",
+  "genre": "science",
+  "why": "증기 분출이 굴뚝 공기를 빨아 화력을 키우는 원리를 설명"
+ },
+ {
+  "id": "0b52ae11-5e79-4f7d-b48c-a52d94b53185",
+  "book": "Thomas Davis, selections from his prose and poetry",
+  "text": "\"The turbine was invented by M. Fourneyron. Coals being abundant, the steam engine is invented in England; coals being scarce, the water-pressure engine and the turbine are invented in France. It is thus the physical condition of each country directs its mechanical genius. The turbine is a horizontal wheel furnished with curved float-boards, on which the water presses from a cylinder which is suspended over the wheel, and the base of which is divided by curved partitions, that the water may be directed in issuing, so as to produce upon the curved float-boards of the wheel its greatest effect. The best curvature to be given to the fixed partitions and to the float-boards is a delicate problem, but practically it has been completely solved. The construction of the machine is simple, its parts not liable to go out of order; and as the action of the water is by pressure, the force is under t",
+  "verdict": "use",
+  "genre": "science",
+  "why": "석탄 사정이 각국 기계 발명을 갈랐다는 논지와 터빈 구조 설명"
+ },
+ {
+  "id": "0b6df4fb-3766-4a5b-bc9f-4e6479653e87",
+  "book": "What Is Man? and Other Essays",
+  "text": "The weight of the earth is found by comparing a mass of known lead with that of a mass of unknown lead. To find the weight of the earth take the length of a degree on a meridian and multiply by 62 1/2 pounds. A body will go just as far in the first second as the body will go plus the force of gravity and that’s equal to twice what the body will go. Specific gravity is the weight to be compared weight of an equal volume of or that is the weight of a body compared with the weight of an equal volume. The law of fluid pressure divide the different forms of organized bodies by the form of attraction and the number increased will be the form. Inertia is that property of bodies by virtue of which it cannot change its own condition of rest or motion. In other words it is the negative quality of passiveness either in recoverable latency or insipient latescence. If a laugh is fair here, not the st",
+  "verdict": "reject",
+  "genre": "obsolete-fact",
+  "why": "학생 오답을 옮긴 엉터리 물리 정의가 서술문으로 이어진다"
+ },
+ {
+  "id": "0b762554-fe2d-43a4-a9ec-20fdd49f6b66",
+  "book": "Story Hour Readings: Seventh Year (발췌)",
+  "text": "In his hand he held two spears, with shafts of silver and 10 heads of tempered steel, and of an edge so sharp as to wound the wind and cause the blood to flow. Two white-breasted greyhounds bounded before his steed. Broad collars set with rubies were on their necks; and to and fro they 15 sprang, like two sea swallows sporting around him. The blades of reed grass bent not beneath him, so light was his courser's tread, as he journeyed toward the gate of Arthur's palace. The Wide White Hall of Arthur had been built by Rearfort, 20 the architect. Eight and forty were the rafters of its roof. It would hold all Arthur's companions and his nobles, his warriors, his retainers, and his guests.",
+  "verdict": "reject",
+  "genre": "fragmentary",
+  "why": "행 번호 10·15·20이 문장 중간에 박혀 있다"
+ },
+ {
+  "id": "0c11f2bc-9616-4b83-903b-ed8f9940ba86",
+  "book": "Cornish Characters and Strange Events",
+  "text": "\"July 7th.--Early this morning the mafock, or governor, came on board in two canoes, with his retinue. At first his pretensions were very lofty. He insisted on being saluted with a discharge of cannon, and on observing us going to breakfast declared that he expected to be placed at the same table with the captain, and endeavoured to make his words sufficiently impressive by haughty gesticulations. Sitting on the quarter-deck in a chair covered with a flag, his dress consisting of a laced velvet cloak, a red cap, a piece of stuff round his waist, otherwise naked, with an umbrella over his head, though the weather was cold and cloudy, he represented the best caricature I ever saw. He soon became more moderate on being informed that the vessels were not belonging to slave merchants, but to the King of England, and that our object was to trade. In order to give him a proof of our goodwill to",
+  "verdict": "reject",
+  "genre": "bias",
+  "why": "아프리카 관리의 복장을 '최고의 희화'라 조롱하는 항해 기록"
+ },
+ {
+  "id": "0c4a7aff-b494-46d5-92bb-aee1c1e8f882",
+  "book": "Woodland Tales (발췌)",
+  "text": "On the third year if all had the full number of seed, and all the seed grew into plants, there would be enough to go more than twice round the world. No wonder it has spread all over the country. Once upon a time there was a missionary named the Rev. John T. Arum, who set out to preach to the Indians. He had a good heart but a bitter, biting tongue. He had no respect for the laws of the Indians, so they killed him, and buried him in the woods. But out of his grave came a new and wonderful plant, shaped like a pulpit, and right in the middle of it, as usual, was the Reverend Jack hard at it, preaching away.",
+  "verdict": "reject",
+  "genre": "not-selfcontained",
+  "why": "'그것이 퍼졌다'의 지시 대상이 되는 앞 문단이 없다"
+ },
+ {
+  "id": "0c7abc2a-cb3f-40e7-83e1-d01786175c4c",
+  "book": "Entretiens / Interviews / Entrevistas (발췌)",
+  "text": "I am now a founder, officer and member of the board of yourDictionary.com, Inc. and will be retiring from Bucknell this spring at which time I must remove my sites from Bucknell's servers. I think the company will generate resources to allow my work to continue and expand. Indeed, yourDictionary.com has lots of new ideas. We plan to work with the Endangered Language Fund in the US and Britain to raise money for the Foundation's work and publish the results on our site. We will have language chatrooms and bulletin boards. There will be language games designed to entertain and teach fundamentals of linguistics. The Linguistic Fun page will become an on-line journal for short, interesting, yes, even entertaining, pieces on language that are based on sound linguistics by experts from all over the world.",
+  "verdict": "reject",
+  "genre": "not-selfcontained",
+  "why": "'내 사이트·내 작업'이 무엇인지 밝히지 않는 인터뷰 답변"
+ },
+ {
+  "id": "0c918a69-598e-4e1f-8589-0c773575a376",
+  "book": "McGuffey's First Eclectic Reader, Revised Edition (발췌)",
+  "text": "The credit for this revision is almost wholly due to the friends of McGuffey’s Readers,--eminent teachers and scholars, who have contributed suggestions and criticisms gained from their daily work in the schoolroom. [Illustration: Three children, boy seated, boy standing with large top hat, followed by girl adjusting the hat.] Ned is on the box. He has a pen in his hand. A big rat is in the box. Can the dog catch the rat? She will now put it in the cage, and hang the cage up. Then the cat can not catch it. Look at Tom and his dog. The dog has a black spot on his back. Do you think he is a good dog?",
+  "verdict": "reject",
+  "genre": "fragmentary",
+  "why": "초급 독본 낱문장과 삽화 설명, 개정 사사"
+ },
+ {
+  "id": "0cef487c-5265-4c95-938e-dd12cfe5ff04",
+  "book": "Papers and Proceedings of the Thirty-Fifth General Meeting of the American Library Associa",
+  "text": "Can books not teach children to honor their father and mother, and \"that the head and the hoof of the Law, and the haunch and the hump is obey\"? We are told that one of the causes of crime among the children of foreigners is transmitted ambition. \"The father left the homeland because he was not satisfied.... He worked hard and saved money, that the dream of better things might be realized.... The son manifests this innate tendency by a desire to excel, by the longings to rise and be masterful, the ambition to beat the other fellow--these are the motives which impel him to an intensive life that carries him to excess and transgression.\" (Roberts, \"The new immigration,\" p. 325.) It is for us to interest this ambition and turn it into right channels. We may also discover what special interests are uppermost in the minds of those of different nationalities, things they wish their children to",
+  "verdict": "reject",
+  "genre": "bias",
+  "why": "이민자 자녀 범죄를 '유전된 야심'으로 돌리는 민족별 단정"
+ }
+]

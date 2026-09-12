@@ -1,0 +1,874 @@
+[
+ {
+  "exam": "M1906",
+  "no": 1,
+  "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Excuse me, I’m looking for the book The World of Biology. But I can’t find it here."
+   },
+   {
+    "who": "M",
+    "text": "Let me check. [Typing sound] I’m sorry, but that book is currently out of stock."
+   },
+   {
+    "who": "W",
+    "text": "I really need to buy that book. Could you call me when it’s in stock?"
+   }
+  ],
+  "script": "Excuse me, I’m looking for the book The World of Biology. But I can’t find it here. Let me check. [Typing sound] I’m sorry, but that book is currently out of stock. I really need to buy that book. Could you call me when it’s in stock?",
+  "words": 47,
+  "nTurns": 3,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-RESPONSE",
+  "typeGuessAll": [
+   "L-RESPONSE"
+  ]
+ },
+ {
+  "exam": "M1906",
+  "no": 2,
+  "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "?",
+    "text": "[Telephone rings.]"
+   },
+   {
+    "who": "M",
+    "text": "Hello, Dr. Kelly’s office. How may I help you?"
+   },
+   {
+    "who": "W",
+    "text": "I have a severe sunburn on my back. Can I see the doctor today?"
+   },
+   {
+    "who": "M",
+    "text": "Dr. Kelly is busy this morning, but she’s available this afternoon."
+   }
+  ],
+  "script": "[Telephone rings.] Hello, Dr. Kelly’s office. How may I help you? I have a severe sunburn on my back. Can I see the doctor today? Dr. Kelly is busy this morning, but she’s available this afternoon.",
+  "words": 36,
+  "nTurns": 4,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-RESPONSE",
+  "typeGuessAll": [
+   "L-RESPONSE"
+  ]
+ },
+ {
+  "exam": "M1906",
+  "no": 3,
+  "stem": "다음을 듣고, 여자가 하는 말의 목적으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Hello, residents! This is Dana from the management office. Recently, we’ve had many complaints from residents concerning moving. So, we’d like to ask you to follow our guidelines when moving out. First, contact our office to reserve the elevator one week prior to moving. Making a reservation can help prevent any inconvenience to other residents. Second, do not park your moving trucks in front of building entrances. Parking there may cause accidents and block traffic. One more thing. Large items like furniture or electronics must be thrown away in the proper area. Failure to do so will create a messy environment. By following these guidelines, you can help make our community a better place. Thank you for your cooperation."
+   }
+  ],
+  "script": "Hello, residents! This is Dana from the management office. Recently, we’ve had many complaints from residents concerning moving. So, we’d like to ask you to follow our guidelines when moving out. First, contact our office to reserve the elevator one week prior to moving. Making a reservation can help prevent any inconvenience to other residents. Second, do not park your moving trucks in front of building entrances. Parking there may cause accidents and block traffic. One more thing. Large items like furniture or electronics must be thrown away in the proper area. Failure to do so will create a messy environment. By following these guidelines, you can help make our community a better place. Thank you for your cooperation.",
+  "words": 119,
+  "nTurns": 1,
+  "speakers": [
+   "W"
+  ],
+  "isDialogue": false,
+  "typeGuess": "L-PURPOSE",
+  "typeGuessAll": [
+   "L-PURPOSE"
+  ]
+ },
+ {
+  "exam": "M1906",
+  "no": 4,
+  "stem": "대화를 듣고, 남자의 의견으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Vanessa, why haven’t you gone to bed? It’s late."
+   },
+   {
+    "who": "W",
+    "text": "Dad, I wish I could, but I’m so busy preparing for my science presentation."
+   },
+   {
+    "who": "M",
+    "text": "Oh, that’s the group project you mentioned. What’s your role?"
+   },
+   {
+    "who": "W",
+    "text": "I’m the leader."
+   },
+   {
+    "who": "M",
+    "text": "What work are you doing?"
+   },
+   {
+    "who": "W",
+    "text": "I’m collecting data, creating slides, and giving the presentation."
+   },
+   {
+    "who": "M",
+    "text": "You’re doing everything! In a group project, reasonable job distribution is important. What are the others doing?"
+   },
+   {
+    "who": "W",
+    "text": "They’ll give me their opinions."
+   },
+   {
+    "who": "M",
+    "text": "Vanessa, I think you need to share the work reasonably with the other members."
+   },
+   {
+    "who": "W",
+    "text": "I agree. I didn’t realize how hard it would be to do all these jobs alone."
+   },
+   {
+    "who": "M",
+    "text": "Why don’t you divide the work among the group members? That’ll make your presentation a real group project."
+   },
+   {
+    "who": "W",
+    "text": "You’re right. I’ll do that."
+   }
+  ],
+  "script": "Vanessa, why haven’t you gone to bed? It’s late. Dad, I wish I could, but I’m so busy preparing for my science presentation. Oh, that’s the group project you mentioned. What’s your role? I’m the leader. What work are you doing? I’m collecting data, creating slides, and giving the presentation. You’re doing everything! In a group project, reasonable job distribution is important. What are the others doing? They’ll give me their opinions. Vanessa, I think you need to share the work reasonably with the other members. I agree. I didn’t realize how hard it would be to do all these jobs alone. Why don’t you divide the work among the group members? That’ll make your presentation a real group project. You’re right. I’ll do that.",
+  "words": 125,
+  "nTurns": 12,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-OPINION",
+  "typeGuessAll": [
+   "L-OPINION"
+  ]
+ },
+ {
+  "exam": "M1906",
+  "no": 5,
+  "stem": "대화를 듣고, 두 사람의 관계를 가장 잘 나타낸 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Hi, Mr. Conner. Thanks for accepting my interview request."
+   },
+   {
+    "who": "M",
+    "text": "My pleasure, Ms. Leyden."
+   },
+   {
+    "who": "W",
+    "text": "Can you briefly introduce your center for our readers?"
+   },
+   {
+    "who": "M",
+    "text": "Sure. We rescue and treat wild animals that are seriously sick or injured."
+   },
+   {
+    "who": "W",
+    "text": "How do you treat them?"
+   },
+   {
+    "who": "M",
+    "text": "We provide food and medical care until they get healthy enough to return to the wild."
+   },
+   {
+    "who": "W",
+    "text": "You’re making a real difference in the lives of these wild animals. How many animals are you taking care of now?"
+   },
+   {
+    "who": "M",
+    "text": "We have about seventy."
+   },
+   {
+    "who": "W",
+    "text": "That must be a lot of work."
+   },
+   {
+    "who": "M",
+    "text": "It is. That’s why we need support from your readers. Your newspaper article will raise public awareness. Donations to our rescue center will also help."
+   },
+   {
+    "who": "W",
+    "text": "I see. May I take a few pictures for my article?"
+   },
+   {
+    "who": "M",
+    "text": "Sure. Come this way."
+   }
+  ],
+  "script": "Hi, Mr. Conner. Thanks for accepting my interview request. My pleasure, Ms. Leyden. Can you briefly introduce your center for our readers? Sure. We rescue and treat wild animals that are seriously sick or injured. How do you treat them? We provide food and medical care until they get healthy enough to return to the wild. You’re making a real difference in the lives of these wild animals. How many animals are you taking care of now? We have about seventy. That must be a lot of work. It is. That’s why we need support from your readers. Your newspaper article will raise public awareness. Donations to our rescue center will also help. I see. May I take a few pictures for my article? Sure. Come this way.",
+  "words": 128,
+  "nTurns": 12,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-RELATION",
+  "typeGuessAll": [
+   "L-RELATION"
+  ]
+ },
+ {
+  "exam": "M1906",
+  "no": 6,
+  "stem": "대화를 듣고, 그림에서 대화의 내용과 일치하지 않는 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Ms. Moore, this is where you’ll be staying while you’re with us."
+   },
+   {
+    "who": "W",
+    "text": "Wow! This room looks very nice. Can I use the phone on the bedside table?"
+   },
+   {
+    "who": "M",
+    "text": "Sure. Feel free to use it."
+   },
+   {
+    "who": "W",
+    "text": "Good to know. I like the lamp above the bed on the wall. It’ll be useful when I read in bed."
+   },
+   {
+    "who": "M",
+    "text": "I think it will. And I just put the flower-patterned blanket on the bed before you came."
+   },
+   {
+    "who": "W",
+    "text": "It’s very lovely. Oh, look at the mountains in the photo next to the window. They’re beautiful."
+   },
+   {
+    "who": "M",
+    "text": "They’re the mountains behind the town where I grew up."
+   },
+   {
+    "who": "W",
+    "text": "I see. May I use the computer on the desk?"
+   },
+   {
+    "who": "M",
+    "text": "Of course. It’s connected to the Internet."
+   },
+   {
+    "who": "W",
+    "text": "Great. I’m lucky to get this room."
+   }
+  ],
+  "script": "Ms. Moore, this is where you’ll be staying while you’re with us. Wow! This room looks very nice. Can I use the phone on the bedside table? Sure. Feel free to use it. Good to know. I like the lamp above the bed on the wall. It’ll be useful when I read in bed. I think it will. And I just put the flower-patterned blanket on the bed before you came. It’s very lovely. Oh, look at the mountains in the photo next to the window. They’re beautiful. They’re the mountains behind the town where I grew up. I see. May I use the computer on the desk? Of course. It’s connected to the Internet. Great. I’m lucky to get this room.",
+  "words": 122,
+  "nTurns": 10,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-PICTURE",
+  "typeGuessAll": [
+   "L-PICTURE"
+  ]
+ },
+ {
+  "exam": "M1906",
+  "no": 7,
+  "stem": "대화를 듣고, 남자가 할 일로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Tony, the re-opening ceremony of our fitness center is only a week away."
+   },
+   {
+    "who": "M",
+    "text": "Right. All the renovations are finished."
+   },
+   {
+    "who": "W",
+    "text": "Yes. Everything’s been put back including the new workout machines."
+   },
+   {
+    "who": "M",
+    "text": "I saw them. They look good in the new space. Our members will love them."
+   },
+   {
+    "who": "W",
+    "text": "Now we can focus on preparing for the re-opening ceremony."
+   },
+   {
+    "who": "M",
+    "text": "Oh, Michelle. I already prepared some tea and snacks."
+   },
+   {
+    "who": "W",
+    "text": "You did? Why didn’t you ask me to help you?"
+   },
+   {
+    "who": "M",
+    "text": "It was super easy. Thanks, though."
+   },
+   {
+    "who": "W",
+    "text": "Then, we need to order banners. And I think we should send a text message to invite our members to the ceremony."
+   },
+   {
+    "who": "M",
+    "text": "Okay. I’ll send the text message."
+   },
+   {
+    "who": "W",
+    "text": "Perfect. While you’re doing that, I’ll order the banners."
+   }
+  ],
+  "script": "Tony, the re-opening ceremony of our fitness center is only a week away. Right. All the renovations are finished. Yes. Everything’s been put back including the new workout machines. I saw them. They look good in the new space. Our members will love them. Now we can focus on preparing for the re-opening ceremony. Oh, Michelle. I already prepared some tea and snacks. You did? Why didn’t you ask me to help you? It was super easy. Thanks, though. Then, we need to order banners. And I think we should send a text message to invite our members to the ceremony. Okay. I’ll send the text message. Perfect. While you’re doing that, I’ll order the banners.",
+  "words": 116,
+  "nTurns": 11,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-TODO",
+  "typeGuessAll": [
+   "L-TODO"
+  ]
+ },
+ {
+  "exam": "M1906",
+  "no": 8,
+  "stem": "대화를 듣고, 여자가 기숙사에서 나가려는 이유를 고르시오.",
+  "turns": [
+   {
+    "who": "?",
+    "text": "[Cell phone rings.]"
+   },
+   {
+    "who": "M",
+    "text": "Hello?"
+   },
+   {
+    "who": "W",
+    "text": "Hello, Joe. How’s your university life?"
+   },
+   {
+    "who": "M",
+    "text": "It’s awesome, except I spend too much time doing assignments."
+   },
+   {
+    "who": "W",
+    "text": "I know! I didn’t think I’d have to study this much."
+   },
+   {
+    "who": "M",
+    "text": "And I heard you’re living in your school dorm."
+   },
+   {
+    "who": "W",
+    "text": "You know what? I’m moving out of the dormitory."
+   },
+   {
+    "who": "M",
+    "text": "Why? Do you have problems with the facilities?"
+   },
+   {
+    "who": "W",
+    "text": "No, I don’t. The facilities are quite nice. It’s something else completely."
+   },
+   {
+    "who": "M",
+    "text": "Oh, are you having trouble with your roommate?"
+   },
+   {
+    "who": "W",
+    "text": "No. She’s great. She helped me to adjust to university life."
+   },
+   {
+    "who": "M",
+    "text": "Then, I don’t get why you made that decision."
+   },
+   {
+    "who": "W",
+    "text": "Actually, my family recently moved near the university. So I’m going to live with them."
+   },
+   {
+    "who": "M",
+    "text": "Ah, now I understand."
+   }
+  ],
+  "script": "[Cell phone rings.] Hello? Hello, Joe. How’s your university life? It’s awesome, except I spend too much time doing assignments. I know! I didn’t think I’d have to study this much. And I heard you’re living in your school dorm. You know what? I’m moving out of the dormitory. Why? Do you have problems with the facilities? No, I don’t. The facilities are quite nice. It’s something else completely. Oh, are you having trouble with your roommate? No. She’s great. She helped me to adjust to university life. Then, I don’t get why you made that decision. Actually, my family recently moved near the university. So I’m going to live with them. Ah, now I understand.",
+  "words": 116,
+  "nTurns": 14,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-REASON",
+  "typeGuessAll": [
+   "L-REASON"
+  ]
+ },
+ {
+  "exam": "M1906",
+  "no": 9,
+  "stem": "대화를 듣고, 남자가 지불할 금액을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Welcome to the Westview Cinema Festival. How may I help you?"
+   },
+   {
+    "who": "M",
+    "text": "I want to buy some festival passes."
+   },
+   {
+    "who": "W",
+    "text": "We have two different kinds of passes, Regular and Deluxe."
+   },
+   {
+    "who": "M",
+    "text": "What’s the Regular Pass?"
+   },
+   {
+    "who": "W",
+    "text": "With the Regular Pass, you can watch any two movies you want during the festival. It’s $20."
+   },
+   {
+    "who": "M",
+    "text": "What about the Deluxe Pass?"
+   },
+   {
+    "who": "W",
+    "text": "With the Deluxe Pass, you can see any five movies you want. It costs $30."
+   },
+   {
+    "who": "M",
+    "text": "I’ll take three Deluxe Passes."
+   },
+   {
+    "who": "W",
+    "text": "Anything else? You can purchase a program book for $10."
+   },
+   {
+    "who": "M",
+    "text": "Okay. Just give us one. We’ll share it."
+   },
+   {
+    "who": "W",
+    "text": "That’ll be three Deluxe Passes and one program book, right?"
+   },
+   {
+    "who": "M",
+    "text": "Right. Can I use this 10% discount coupon?"
+   },
+   {
+    "who": "W",
+    "text": "I’m sorry. That coupon only applies to purchases over $200."
+   },
+   {
+    "who": "M",
+    "text": "Fine. I’ll pay with my credit card."
+   }
+  ],
+  "script": "Welcome to the Westview Cinema Festival. How may I help you? I want to buy some festival passes. We have two different kinds of passes, Regular and Deluxe. What’s the Regular Pass? With the Regular Pass, you can watch any two movies you want during the festival. It’s $20. What about the Deluxe Pass? With the Deluxe Pass, you can see any five movies you want. It costs $30. I’ll take three Deluxe Passes. Anything else? You can purchase a program book for $10. Okay. Just give us one. We’ll share it. That’ll be three Deluxe Passes and one program book, right? Right. Can I use this 10% discount coupon? I’m sorry. That coupon only applies to purchases over $200. Fine. I’ll pay with my credit card.",
+  "words": 122,
+  "nTurns": 14,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-MONEY",
+  "typeGuessAll": [
+   "L-MONEY"
+  ]
+ },
+ {
+  "exam": "M1906",
+  "no": 10,
+  "stem": "대화를 듣고, 에 Tanzania Volunteer Program 관해 언급되지 않은 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Laura, what are you reading there?"
+   },
+   {
+    "who": "W",
+    "text": "Hi, Allen. It’s a brochure for the Tanzania Volunteer Program. It’s for students."
+   },
+   {
+    "who": "M",
+    "text": "When is the program?"
+   },
+   {
+    "who": "W",
+    "text": "It goes from August 6th to August 20th."
+   },
+   {
+    "who": "M",
+    "text": "What activities will the volunteers do?"
+   },
+   {
+    "who": "W",
+    "text": "There are many activities to choose from. Look here. The participants will assist patients in a hospital, help children in need, or teach English."
+   },
+   {
+    "who": "M",
+    "text": "That sounds like exactly what you’ve been looking for. Oh, the participation fee is $250."
+   },
+   {
+    "who": "W",
+    "text": "Yes. It’s not as expensive as I thought."
+   },
+   {
+    "who": "M",
+    "text": "You’re going to participate, aren’t you?"
+   },
+   {
+    "who": "W",
+    "text": "Yes. I really want to spend my vacation doing something meaningful."
+   },
+   {
+    "who": "M",
+    "text": "You’d better hurry up. The brochure says the deadline for application is June 11th. That’s next Monday."
+   },
+   {
+    "who": "W",
+    "text": "I saw that. I plan to talk about it with my parents tonight."
+   }
+  ],
+  "script": "Laura, what are you reading there? Hi, Allen. It’s a brochure for the Tanzania Volunteer Program. It’s for students. When is the program? It goes from August 6th to August 20th. What activities will the volunteers do? There are many activities to choose from. Look here. The participants will assist patients in a hospital, help children in need, or teach English. That sounds like exactly what you’ve been looking for. Oh, the participation fee is $250. Yes. It’s not as expensive as I thought. You’re going to participate, aren’t you? Yes. I really want to spend my vacation doing something meaningful. You’d better hurry up. The brochure says the deadline for application is June 11th. That’s next Monday. I saw that. I plan to talk about it with my parents tonight.",
+  "words": 130,
+  "nTurns": 12,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-NOTMENTION",
+  "typeGuessAll": [
+   "L-NOTMENTION"
+  ]
+ },
+ {
+  "exam": "M1906",
+  "no": 11,
+  "stem": "에 2018 Youth History Tour 관한 다음 내용을 듣고, 일치하지 않는 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Good morning, students. This is your history teacher, Ms. Spencer. I have an announcement on the 2018 Youth History Tour. This tour aims to promote students’ interest in history. It’s a one-week tour which goes from July 25th to July 31st. During this period, the students who join this tour will visit five cities and explore their various historic sites. A historian will guide the tour and offer in-depth explanations of each location. The participation fee is $170, but traveler’s insurance isn’t included. You’ll need to buy it yourself. I hope that many students will join the tour and have a memorable experience. Please visit my office by this Friday for more information. Thank you."
+   }
+  ],
+  "script": "Good morning, students. This is your history teacher, Ms. Spencer. I have an announcement on the 2018 Youth History Tour. This tour aims to promote students’ interest in history. It’s a one-week tour which goes from July 25th to July 31st. During this period, the students who join this tour will visit five cities and explore their various historic sites. A historian will guide the tour and offer in-depth explanations of each location. The participation fee is $170, but traveler’s insurance isn’t included. You’ll need to buy it yourself. I hope that many students will join the tour and have a memorable experience. Please visit my office by this Friday for more information. Thank you.",
+  "words": 113,
+  "nTurns": 1,
+  "speakers": [
+   "W"
+  ],
+  "isDialogue": false,
+  "typeGuess": "L-ANNOUNCE",
+  "typeGuessAll": [
+   "L-ANNOUNCE"
+  ]
+ },
+ {
+  "exam": "M1906",
+  "no": 12,
+  "stem": "다음 표를 보면서 대화를 듣고, 여자가 주문할 식탁을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Honey, look at this website. There’s a big sale on dining tables."
+   },
+   {
+    "who": "W",
+    "text": "Really? Let’s get one. Ours is old."
+   },
+   {
+    "who": "M",
+    "text": "It is. Which one do you think we should get?"
+   },
+   {
+    "who": "W",
+    "text": "Hmm. I think we need a table for at least four people."
+   },
+   {
+    "who": "M",
+    "text": "Right. We can have visitors and dine together."
+   },
+   {
+    "who": "W",
+    "text": "We should decide our price range."
+   },
+   {
+    "who": "M",
+    "text": "Well, we can’t afford a table over $500."
+   },
+   {
+    "who": "W",
+    "text": "Then, these models are within our budget."
+   },
+   {
+    "who": "M",
+    "text": "I like marble tables. They look more stylish than wood."
+   },
+   {
+    "who": "W",
+    "text": "I agree. Now we have just two options left."
+   },
+   {
+    "who": "M",
+    "text": "Which color shall we choose? How about brown?"
+   },
+   {
+    "who": "W",
+    "text": "Hmm, that won’t match our wallpaper very well."
+   },
+   {
+    "who": "M",
+    "text": "That’s a good point. I didn’t think about that. Let’s buy the other one."
+   },
+   {
+    "who": "W",
+    "text": "Okay. I’ll order it now."
+   }
+  ],
+  "script": "Honey, look at this website. There’s a big sale on dining tables. Really? Let’s get one. Ours is old. It is. Which one do you think we should get? Hmm. I think we need a table for at least four people. Right. We can have visitors and dine together. We should decide our price range. Well, we can’t afford a table over $500. Then, these models are within our budget. I like marble tables. They look more stylish than wood. I agree. Now we have just two options left. Which color shall we choose? How about brown? Hmm, that won’t match our wallpaper very well. That’s a good point. I didn’t think about that. Let’s buy the other one. Okay. I’ll order it now.",
+  "words": 123,
+  "nTurns": 14,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-TABLE",
+  "typeGuessAll": [
+   "L-TABLE"
+  ]
+ },
+ {
+  "exam": "M1906",
+  "no": 13,
+  "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "?",
+    "text": "점[3 ]"
+   },
+   {
+    "who": "W",
+    "text": "Jason, why did your little brother lock himself in his room?"
+   },
+   {
+    "who": "M",
+    "text": "We kind of argued. You know his soccer team lost the final game yesterday, right?"
+   },
+   {
+    "who": "W",
+    "text": "Of course I do. He cried a lot."
+   },
+   {
+    "who": "M",
+    "text": "This morning, I said something that made him mad."
+   },
+   {
+    "who": "W",
+    "text": "What did you say?"
+   },
+   {
+    "who": "M",
+    "text": "I told him that he made too many mistakes in the game."
+   },
+   {
+    "who": "W",
+    "text": "Jason! Why did you say that? You know he feels bad already."
+   },
+   {
+    "who": "M",
+    "text": "I just wanted to motivate him to do better next time."
+   },
+   {
+    "who": "W",
+    "text": "Sweetie, your brother probably needs your support, not criticism."
+   },
+   {
+    "who": "M",
+    "text": "But I thought honest criticism could be helpful, too."
+   },
+   {
+    "who": "W",
+    "text": "Your brother just wants you to stand by him."
+   },
+   {
+    "who": "M",
+    "text": "Well, I guess you’re right. I was too mean. I should’ve comforted him."
+   },
+   {
+    "who": "W",
+    "text": "I agree. Now, you know what you need to do."
+   }
+  ],
+  "script": "점[3 ] Jason, why did your little brother lock himself in his room? We kind of argued. You know his soccer team lost the final game yesterday, right? Of course I do. He cried a lot. This morning, I said something that made him mad. What did you say? I told him that he made too many mistakes in the game. Jason! Why did you say that? You know he feels bad already. I just wanted to motivate him to do better next time. Sweetie, your brother probably needs your support, not criticism. But I thought honest criticism could be helpful, too. Your brother just wants you to stand by him. Well, I guess you’re right. I was too mean. I should’ve comforted him. I agree. Now, you know what you need to do.",
+  "words": 132,
+  "nTurns": 14,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-RESPONSE",
+  "typeGuessAll": [
+   "L-RESPONSE"
+  ]
+ },
+ {
+  "exam": "M1906",
+  "no": 14,
+  "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "?",
+    "text": "점[3 ]"
+   },
+   {
+    "who": "M",
+    "text": "Hi, Olivia. How was your weekend?"
+   },
+   {
+    "who": "W",
+    "text": "Good. Didn’t you have a street singing performance last weekend? How was it?"
+   },
+   {
+    "who": "M",
+    "text": "Oh, it was a disaster."
+   },
+   {
+    "who": "W",
+    "text": "What happened?"
+   },
+   {
+    "who": "M",
+    "text": "At first, it was okay. But as a crowd gathered, my mind went blank and I forgot the lyrics."
+   },
+   {
+    "who": "W",
+    "text": "I’m sorry to hear that. You’ll be fine next time."
+   },
+   {
+    "who": "M",
+    "text": "There won’t be a next time. I’m thinking of giving up on the singing audition next month."
+   },
+   {
+    "who": "W",
+    "text": "Seriously? That audition is such a big chance for you!"
+   },
+   {
+    "who": "M",
+    "text": "But after ruining the street performance, I lost confidence."
+   },
+   {
+    "who": "W",
+    "text": "It was just a one-time failure. I believe you’ll do great in the audition. You have a gift!"
+   },
+   {
+    "who": "M",
+    "text": "What if I get nervous again? I don’t want to repeat the same experience."
+   }
+  ],
+  "script": "점[3 ] Hi, Olivia. How was your weekend? Good. Didn’t you have a street singing performance last weekend? How was it? Oh, it was a disaster. What happened? At first, it was okay. But as a crowd gathered, my mind went blank and I forgot the lyrics. I’m sorry to hear that. You’ll be fine next time. There won’t be a next time. I’m thinking of giving up on the singing audition next month. Seriously? That audition is such a big chance for you! But after ruining the street performance, I lost confidence. It was just a one-time failure. I believe you’ll do great in the audition. You have a gift! What if I get nervous again? I don’t want to repeat the same experience.",
+  "words": 123,
+  "nTurns": 12,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-RESPONSE",
+  "typeGuessAll": [
+   "L-RESPONSE"
+  ]
+ },
+ {
+  "exam": "M1906",
+  "no": 15,
+  "stem": "다음 상황 설명을 듣고, 가 Marcus Judy에게 할 말로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "?",
+    "text": "점[3 ]"
+   },
+   {
+    "who": "W",
+    "text": "Marcus and Judy are friends who are both interested in cooking. One day, Marcus finds a notice about a cooking competition for high school students. He asks Judy to join him as a team and Judy agrees. They begin practicing and focus on developing a new recipe for the competition. Just a week before the competition, Marcus is concerned that they’re too slow when they cook. No matter how good their recipe is, they’ll lose if they can’t finish on time. So Marcus wants to tell Judy that they should put more effort into training themselves to cook faster. In this situation, what would Marcus most likely say to Judy? 16번부터 17번까지는 두 번 들려줍니다."
+   }
+  ],
+  "script": "점[3 ] Marcus and Judy are friends who are both interested in cooking. One day, Marcus finds a notice about a cooking competition for high school students. He asks Judy to join him as a team and Judy agrees. They begin practicing and focus on developing a new recipe for the competition. Just a week before the competition, Marcus is concerned that they’re too slow when they cook. No matter how good their recipe is, they’ll lose if they can’t finish on time. So Marcus wants to tell Judy that they should put more effort into training themselves to cook faster. In this situation, what would Marcus most likely say to Judy? 16번부터 17번까지는 두 번 들려줍니다.",
+  "words": 110,
+  "nTurns": 2,
+  "speakers": [
+   "W"
+  ],
+  "isDialogue": false,
+  "typeGuess": "L-SITUATION",
+  "typeGuessAll": [
+   "L-SITUATION"
+  ]
+ },
+ {
+  "exam": "M1906",
+  "no": 16,
+  "stem": "남자가 하는 말의 주제로 가장 적절한 것은?",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Hello, students. Last class, we learned about famous artists in history. Today, I’ll talk about what a few famous artists regularly did to get inspiration for their creative work. First, let’s take a look at a well-known filmmaker, Ingmar Bergman. He worked at exactly the same time and even ate the same lunch every day. His daily habits were a driving force for his movies. Tchaikovsky, one of the greatest composers, always went for a long walk regardless of the weather. It was essential to his musical creativity. A famous British writer, Agatha Christie, had her own unusual habit, too. She used to sit in a bathtub and eat apples, which helped her to imagine the crimes she would put in her novels. Here’s one more interesting habit. Salvador Dali, a famous painter, used to nap while holding a key in his hand. When he fell asleep, the key would slip from his fingers, waking him up with the clink sound. He captured that moment between dreaming and waking on his canvas. So, what do you do regularly to come up with new ideas?"
+   }
+  ],
+  "fromSet": "16~17",
+  "script": "Hello, students. Last class, we learned about famous artists in history. Today, I’ll talk about what a few famous artists regularly did to get inspiration for their creative work. First, let’s take a look at a well-known filmmaker, Ingmar Bergman. He worked at exactly the same time and even ate the same lunch every day. His daily habits were a driving force for his movies. Tchaikovsky, one of the greatest composers, always went for a long walk regardless of the weather. It was essential to his musical creativity. A famous British writer, Agatha Christie, had her own unusual habit, too. She used to sit in a bathtub and eat apples, which helped her to imagine the crimes she would put in her novels. Here’s one more interesting habit. Salvador Dali, a famous painter, used to nap while holding a key in his hand. When he fell asleep, the key would slip from his fingers, waking him up with the clink sound. He captured that moment between dreaming and waking on his canvas. So, what do you do regularly to come up with new ideas?",
+  "words": 184,
+  "nTurns": 1,
+  "speakers": [
+   "M"
+  ],
+  "isDialogue": false,
+  "typeGuess": "L-SET-TOPIC",
+  "typeGuessAll": [
+   "L-SET-TOPIC"
+  ]
+ },
+ {
+  "exam": "M1906",
+  "no": 17,
+  "stem": "언급된 직업이 아닌 것은?",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Hello, students. Last class, we learned about famous artists in history. Today, I’ll talk about what a few famous artists regularly did to get inspiration for their creative work. First, let’s take a look at a well-known filmmaker, Ingmar Bergman. He worked at exactly the same time and even ate the same lunch every day. His daily habits were a driving force for his movies. Tchaikovsky, one of the greatest composers, always went for a long walk regardless of the weather. It was essential to his musical creativity. A famous British writer, Agatha Christie, had her own unusual habit, too. She used to sit in a bathtub and eat apples, which helped her to imagine the crimes she would put in her novels. Here’s one more interesting habit. Salvador Dali, a famous painter, used to nap while holding a key in his hand. When he fell asleep, the key would slip from his fingers, waking him up with the clink sound. He captured that moment between dreaming and waking on his canvas. So, what do you do regularly to come up with new ideas?"
+   }
+  ],
+  "fromSet": "16~17",
+  "script": "Hello, students. Last class, we learned about famous artists in history. Today, I’ll talk about what a few famous artists regularly did to get inspiration for their creative work. First, let’s take a look at a well-known filmmaker, Ingmar Bergman. He worked at exactly the same time and even ate the same lunch every day. His daily habits were a driving force for his movies. Tchaikovsky, one of the greatest composers, always went for a long walk regardless of the weather. It was essential to his musical creativity. A famous British writer, Agatha Christie, had her own unusual habit, too. She used to sit in a bathtub and eat apples, which helped her to imagine the crimes she would put in her novels. Here’s one more interesting habit. Salvador Dali, a famous painter, used to nap while holding a key in his hand. When he fell asleep, the key would slip from his fingers, waking him up with the clink sound. He captured that moment between dreaming and waking on his canvas. So, what do you do regularly to come up with new ideas?",
+  "words": 184,
+  "nTurns": 1,
+  "speakers": [
+   "M"
+  ],
+  "isDialogue": false,
+  "typeGuess": "L-SET-NOT",
+  "typeGuessAll": [
+   "L-SET-NOT"
+  ]
+ }
+]

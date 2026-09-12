@@ -1,0 +1,7 @@
+-- surface_variants 정밀도 수정 — 하이픈 복합어가 접두사/기능어 세그먼트로 오해소되는 것 차단.
+-- 200권 심층분석: 하이픈 norm 1,175 중 323(393등장)이 re/un/over/like/will 등으로 오해소(틀린 뜻).
+-- 세그먼트가 blocklist(접두사·기능어)면 후보 제외 → 의미 head 또는 정직한 not_found. "틀린 뜻 > not_found" 원칙.
+-- 결과: 오해소 323→7(98% 수정), 1,154 정답 전환, 14 not_found. 검증: re-embodied→embody·over-hot→hot·counter-will→not_found.
+-- 전체 정의는 DB 적용본 기준(20260724130000 위). 핵심 변경 = 하이픈 첫/끝 세그먼트에 blocklist 필터:
+--   case when position('-' in s)>0 and regexp_replace(s,'^.*-','') <> all(ARRAY['re','un','over',...,'no']) then regexp_replace(s,'^.*-','') end,
+--   case when position('-' in s)>0 and regexp_replace(s,'-.*$','') <> all(ARRAY[...]) then regexp_replace(s,'-.*$','') end,

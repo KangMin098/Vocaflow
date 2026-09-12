@@ -1,0 +1,42 @@
+# 2026-08-30 (2차) — 컴포저 판이 발행돼 **중복이 된** 레거시 22권.
+#
+# 1차(retire-2026-08-30.txt)는 "목차도 조직 원리도 없는" 권을 내렸다.
+# 2차는 그 권들의 **대체품이 실제로 서가에 선 뒤** 내리는 목록이다 — 순서를 지켜야
+# 서가에 구멍이 나지 않는다.
+#
+# 대응 (레거시 → 컴포저 판):
+#   topic-<주제>          → cat-topic-<주제>      (목차 10~20 · 총점 0.93~0.97)
+#   curriculum-2022-elem  → cat-curriculum-elem   (목차 36 · 0.92)
+#   curriculum-2022-mid   → cat-curriculum-mid    (이미 발행돼 있었다)
+#   curriculum-2022-high  → cat-curriculum-high   (목차 27 · 0.93)
+#   etymology-core        → cat-etymology-1500    (이미 발행돼 있었다)
+#
+# 되돌리기: node scripts/vocab/retire-sets.mjs --list scripts/vocab/data/retire-2026-08-30b.txt --restore --commit
+
+# 주제별 18권 → cat-topic-*
+topic-travel
+topic-the-natural-world
+topic-notions
+topic-science-and-technology
+topic-animals
+topic-culture
+topic-appearance
+topic-functions
+topic-health
+topic-time-and-space
+topic-homes-and-buildings
+topic-leisure
+topic-people
+topic-politics-and-society
+topic-work-and-business
+topic-sport
+topic-communication
+topic-food-and-drink
+
+# 교육과정 3권 → cat-curriculum-*
+curriculum-2022-elem
+curriculum-2022-mid
+curriculum-2022-high
+
+# 어원 1권 → cat-etymology-1500
+etymology-core

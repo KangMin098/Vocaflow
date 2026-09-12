@@ -9,6 +9,11 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { createClient } from '@/lib/supabase/server'
+import {
+  fetchPlanBooks,
+  fetchPlanCuratedSets,
+  fetchPlanChapterSets,
+} from '@/lib/learner/plan-material-queries'
 
 import {
   activitiesForType,
@@ -309,37 +314,35 @@ export async function fetchAvailableMaterials(): Promise<AvailableMaterials> {
   if (!user) return empty
   const lc = loose(client)
 
-  const [{ data: books }, { data: articles }, { data: sets }, { data: scripts }] = await Promise.all([
-    lc
-      // 브라우즈(/library/books)와 동일 발행 게이트 — 미정합 시 plan 엔 뜨나 enroll_library_book
-      //   의 copyright_safe 가드가 예외를 던져 enroll 실패하던 버그(v06.215).
-      .from('library_books')
-      .select('id, title, author, book_v_level, cover_image_url, chapter_count')
-      .eq('status', 'published')
-      .eq('copyright_safe_in_kr', true)
-      .not('published_at', 'is', null)
-      .order('title')
-      .limit(300),
+  // 내가 등록한 도서 — 챕터 단어장을 여기에 한정하기 위해 먼저 받는다(아래 주석 참조).
+  const { data: myTexts } = await lc
+    .from('texts')
+    .select('id, title, author, text_v_level, source, library_book_id, chapter_idx')
+    .eq('user_id', user.id)
+    .order('created_at', { ascending: false })
+    .limit(300)
+  const scriptRowsRaw = (myTexts ?? []) as ScriptRow[]
+  const enrolledBookIds = [
+    ...new Set(scriptRowsRaw.map((t) => t.library_book_id).filter((v): v is string => !!v)),
+  ]
+
+  const [books, articles, curatedSets, chapterSets] = await Promise.all([
+    // 목록 규칙(상한·분리)은 plan-material-queries.ts 가 단일 출처 —
+    //   인라인으로 두었더니 2026-08-30 에 두 번 조용히 잘렸다(그 파일 상단 참조).
+    fetchPlanBooks<BookRow>(lc),
     lc
       .from('library_articles')
       .select('id, title, author, source, article_v_level, word_count, feed_label')
       .eq('status', 'published')
       .eq('copyright_safe_in_kr', true)
       .order('published_at', { ascending: false, nullsFirst: false })
-      .limit(300),
-    lc
-      .from('shared_word_sets')
-      .select('id, title, slug, category, word_count, cover_emoji, cefr_level, curation_query')
-      .eq('is_published', true)
-      .order('title')
-      .limit(600),
-    lc
-      .from('texts')
-      .select('id, title, author, text_v_level, source, library_book_id, chapter_idx')
-      .eq('user_id', user.id)
-      .order('created_at', { ascending: false })
-      .limit(300),
+      .limit(300)
+      .then((r: { data: unknown }) => r.data ?? []),
+    fetchPlanCuratedSets<SetRow>(lc),
+    fetchPlanChapterSets<SetRow>(lc, enrolledBookIds),
   ])
+  const sets = [...curatedSets, ...chapterSets]
+  const scripts = scriptRowsRaw
 
   // 소속 도서 제목으로 2차 분류(feedLabel) — 내 스크립트('도서에서') + 공용단어장(도서 챕터) 공통.
   const scriptRows = (scripts ?? []) as ScriptRow[]

@@ -47,7 +47,7 @@ export function VcbRunProgress({ status }: { status: RunStatus }) {
           return (
             <li key={p.label} className="flex items-center gap-1">
               <span
-                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-[var(--r-full)] font-display text-xs font-medium whitespace-nowrap"
+                className="inline-flex items-center gap-2 px-3 py-1 rounded-[var(--r-full)] font-display text-xs font-medium whitespace-nowrap"
                 style={{
                   background: done
                     ? 'var(--success-light)'

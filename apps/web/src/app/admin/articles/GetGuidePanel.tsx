@@ -10,7 +10,7 @@
 import { useMemo } from 'react'
 import { ArrowRight, Compass } from 'lucide-react'
 
-import type { ArticleAdminRow, SourceFeedHealth } from '@/lib/articles/types'
+import type { CoverageCounts, SourceFeedHealth } from '@/lib/articles/types'
 import type { LearnerLevel } from '@vocaflow/library-pipeline/curation-spec'
 import {
   computeCoverageGaps,
@@ -36,7 +36,12 @@ const FIT_TONE: Record<LevelFit, { bg: string; fg: string }> = {
 }
 
 interface Props {
-  articles: ArticleAdminRow[]
+  /**
+   * 발행 커버리지 **서버 카운트**. 예전엔 글 목록(`articles`)을 받아 여기서 발행분을 셌는데,
+   * 그 목록이 1,000행에서 잘려 발행 293건이 전부 빠졌다 → 30칸 모두 빈칸 →
+   * "전 영역이 비었다" 는 추천이 나갔다. 빈칸 판정의 근거는 카운트뿐이다.
+   */
+  coverage: CoverageCounts
   feedHealth: SourceFeedHealth[]
   level: LearnerLevel
   onLevel: (l: LearnerLevel) => void
@@ -44,8 +49,8 @@ interface Props {
   onPickSource: (source: string) => void
 }
 
-export function GetGuidePanel({ articles, feedHealth, level, onLevel, onPickSource }: Props) {
-  const gaps = useMemo(() => computeCoverageGaps(articles), [articles])
+export function GetGuidePanel({ coverage, feedHealth, level, onLevel, onPickSource }: Props) {
+  const gaps = useMemo(() => computeCoverageGaps(coverage), [coverage])
   const recs = useMemo(() => recommendSources(gaps, level, feedHealth), [gaps, level, feedHealth])
   const gapByReg = useMemo(() => {
     const m = new Map<string, number>()
@@ -61,7 +66,7 @@ export function GetGuidePanel({ articles, feedHealth, level, onLevel, onPickSour
       <summary className="flex cursor-pointer list-none items-center gap-2 px-4 py-3 font-display text-[13px] font-[700] text-[var(--t1)] marker:hidden">
         <Compass size={15} className="text-[var(--p)]" aria-hidden />
         큐레이션 가이드 — 학습자에게 무엇을 GET 할까
-        <span className="ml-auto font-mono text-[10px] font-[600] text-[var(--t3)]">
+        <span className="ml-auto font-mono text-[10px] font-[600] text-[var(--t2)]">
           빈칸 {gaps.length}칸
         </span>
       </summary>
@@ -69,7 +74,7 @@ export function GetGuidePanel({ articles, feedHealth, level, onLevel, onPickSour
       <div className="flex flex-col gap-4 border-t border-[var(--bd)] p-4">
         {/* 학습자 타깃 레벨 */}
         <div className="flex flex-wrap items-center gap-2">
-          <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">학습자 타깃</span>
+          <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">학습자 타깃</span>
           <div role="radiogroup" aria-label="학습자 레벨" className="flex gap-1">
             {LEVELS.map((lv) => {
               const active = level === lv.key
@@ -81,7 +86,7 @@ export function GetGuidePanel({ articles, feedHealth, level, onLevel, onPickSour
                   aria-checked={active}
                   onClick={() => onLevel(lv.key)}
                   className={[
-                    'inline-flex min-h-[36px] items-center rounded-[var(--r-full)] px-3 font-display text-[11px] font-[600]',
+                    'inline-flex min-h-[44px] items-center rounded-[var(--r-full)] px-3 font-display text-[11px] font-[600]',
                     'transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]',
                     active
                       ? 'bg-[var(--p)] text-[var(--ti)]'
@@ -96,14 +101,14 @@ export function GetGuidePanel({ articles, feedHealth, level, onLevel, onPickSour
         </div>
 
         {/* 부족한 빈칸 요약 (register별) */}
-        <div className="flex flex-wrap items-center gap-1.5">
-          <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">부족한 글</span>
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">부족한 글</span>
           {REGISTERS.map((r) => {
             const n = gapByReg.get(r.key) ?? 0
             return (
               <span
                 key={r.key}
-                className="inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] px-2 py-0.5 font-mono text-[10px]"
+                className="inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] px-2 py-1 font-mono text-[10px]"
                 style={
                   n > 0
                     ? { backgroundColor: 'var(--learn-error-light)', color: 'var(--learn-error)' }
@@ -117,12 +122,12 @@ export function GetGuidePanel({ articles, feedHealth, level, onLevel, onPickSour
         </div>
 
         {/* 추천 소스 */}
-        <div className="flex flex-col gap-1.5">
-          <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">
+        <div className="flex flex-col gap-2">
+          <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">
             추천 GET (빈칸 × 학습자 레벨)
           </span>
           {recs.length === 0 ? (
-            <p className="rounded-[var(--r-sm)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-3 py-4 text-center font-body text-[12px] text-[var(--t3)]">
+            <p className="rounded-[var(--r-sm)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-3 py-4 text-center font-body text-[12px] text-[var(--t2)]">
               이 레벨에 채울 큰 빈칸이 없어요 — 커버리지가 균형 잡혀 있습니다.
             </p>
           ) : (
@@ -144,22 +149,22 @@ function RecCard({
   const regs = Array.from(new Set(rec.filledGaps.map((g) => g.register)))
   const tone = FIT_TONE[rec.fit]
   return (
-    <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2.5">
+    <div className="flex flex-wrap items-center gap-x-3 gap-y-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-3">
       <span className="font-display text-[13px] font-[700] text-[var(--t1)]">{SOURCE_LABEL[rec.source]}</span>
       <span
-        className="rounded-[var(--r-full)] px-2 py-0.5 font-mono text-[9px] font-[700]"
+        className="rounded-[var(--r-full)] px-2 py-1 font-mono text-[9px] font-[700]"
         style={{ backgroundColor: tone.bg, color: tone.fg }}
       >
         {FIT_LABEL[rec.fit]}
       </span>
-      <span className="font-body text-[11px] text-[var(--t3)]">
+      <span className="font-body text-[11px] text-[var(--t2)]">
         {regs.map((r) => REGISTER_LABEL[r] ?? r).join('·')} 빈칸 {rec.filledGaps.length}칸
         {rec.pending > 0 ? ` · 후보 ${rec.pending}건` : ' · 후보 0 (수집 필요)'}
       </span>
       <button
         type="button"
         onClick={() => onPick(rec.source)}
-        className="ml-auto inline-flex min-h-[36px] items-center gap-1 rounded-[var(--r-sm)] bg-[var(--p)] px-3 font-display text-[11px] font-[600] text-[var(--ti)] transition-colors hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+        className="ml-auto inline-flex min-h-[44px] items-center gap-1 rounded-[var(--r-sm)] bg-[var(--p)] px-3 font-display text-[11px] font-[600] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
       >
         이 소스 GET
         <ArrowRight size={12} aria-hidden />

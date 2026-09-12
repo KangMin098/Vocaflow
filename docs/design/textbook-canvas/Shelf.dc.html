@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap">
+  <style>
+    body { margin: 0; background: #F4F0E9; font-family: 'DM Sans', -apple-system, 'Malgun Gothic', system-ui, sans-serif; color: #1A1714; }
+    a { color: #7E5A1B; text-decoration: none; } a:hover { color: #B0843A; }
+    .card { background: #FBFAF6; border-radius: 24px; box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 8px 24px -12px rgba(0,0,0,.08); overflow: hidden; display: flex; flex-direction: column; }
+    .cover { position: relative; aspect-ratio: 5 / 7; background: #FBFAF6; border-bottom: 1px solid #E0DBD0; overflow: hidden; }
+    .spine { position: absolute; inset: 0 auto 0 0; width: 9px; }
+    .top { position: absolute; left: 9px; right: 0; top: 0; height: 58%; padding: 18px 18px 0 18px; box-sizing: border-box; }
+    .band { position: absolute; left: 9px; right: 0; bottom: 0; height: 42%; padding: 0 18px 14px 18px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: flex-end; gap: 10px; }
+    .rul { display: flex; flex-direction: column; gap: 4px; margin-top: 18px; opacity: 0.26; }
+    .rul span { display: block; height: 2.5px; }
+    .no { font-family: Lora, Georgia, serif; font-size: 54px; font-weight: 600; line-height: 0.84; color: #FBFAF6; margin: 0; }
+    .depth { display: flex; align-items: flex-end; gap: 3px; height: 20px; }
+    .depth i { display: block; width: 6px; border-radius: 1px; background: rgba(255,255,255,0.34); }
+    .meta { padding: 18px 20px 20px 20px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+    .title { font-family: Lora, Georgia, serif; font-size: 20px; font-weight: 500; margin: 0; letter-spacing: -0.01em; }
+    .sub { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: rgba(26,23,20,0.62); margin: 0; }
+    .line { font-size: 12.5px; line-height: 1.7; color: rgba(26,23,20,0.74); margin: 0; word-break: keep-all; }
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .chip { display: inline-flex; align-items: center; padding: 4px 9px; border-radius: 9999px; border: 1px solid #E0DBD0; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 10.5px; font-weight: 700; color: rgba(26,23,20,0.74); }
+    .act { display: flex; gap: 8px; margin-top: auto; padding-top: 12px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; height: 44px; border-radius: 9999px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 700; flex: 1; }
+  </style>
+</helmet>
+
+<div style="background: #F4F0E9; padding: 28px 40px 44px 40px; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px; min-height: 100%">
+
+  <!-- 매대 머리 -->
+  <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 24px">
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <p style="margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.2em; color: rgba(26,23,20,0.62)">VOCAFLOW READING · 교재 서가</p>
+      <h1 style="margin: 0; font-family: Lora, Georgia, serif; font-size: 32px; font-weight: 500; letter-spacing: -0.018em">초등부터 수능까지, 일곱 계단</h1>
+      <p style="margin: 0; max-width: 66ch; font-size: 13px; line-height: 1.7; color: rgba(26,23,20,0.74); word-break: keep-all">한 계단은 학년 하나입니다. 지금 학년의 권을 고르고, 어려우면 한 칸 아래로 내려가세요.</p>
+    </div>
+    <div style="display: flex; gap: 8px">
+      <span style="display: inline-flex; align-items: center; height: 40px; padding: 0 16px; border-radius: 9999px; border: 1px solid #E0DBD0; background: #FBFAF6; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12.5px; font-weight: 700">좁혀 찾기</span>
+      <span style="display: inline-flex; align-items: center; height: 40px; padding: 0 16px; border-radius: 9999px; border: 1px solid #E0DBD0; background: #FBFAF6; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12.5px; font-weight: 700">계단 순</span>
+    </div>
+  </div>
+
+  <!-- 계단 레일 -->
+  <div style="display: flex; align-items: center; gap: 6px; padding: 10px 14px; background: #FBFAF6; border-radius: 9999px; box-shadow: 0 1px 2px rgba(0,0,0,.04)">
+    <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11.5px; font-weight: 700; color: rgba(26,23,20,0.62); padding-right: 6px">계단</span>
+    <span style="display: inline-flex; align-items: center; gap: 7px; height: 32px; padding: 0 13px; border-radius: 9999px; background: #F4F0E9; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12px; font-weight: 700"><i style="width: 7px; height: 7px; border-radius: 9999px; background: #735C26; display: block"></i>초등 저학년</span>
+    <span style="display: inline-flex; align-items: center; gap: 7px; height: 32px; padding: 0 13px; border-radius: 9999px; background: #F4F0E9; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12px; font-weight: 700"><i style="width: 7px; height: 7px; border-radius: 9999px; background: #702933; display: block"></i>초등 고학년</span>
+    <span style="display: inline-flex; align-items: center; gap: 7px; height: 32px; padding: 0 13px; border-radius: 9999px; background: #F4F0E9; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12px; font-weight: 700"><i style="width: 7px; height: 7px; border-radius: 9999px; background: #6E2B65; display: block"></i>중학 1-2</span>
+    <span style="display: inline-flex; align-items: center; gap: 7px; height: 32px; padding: 0 13px; border-radius: 9999px; background: #442B6E; color: #FBFAF6; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12px; font-weight: 700"><i style="width: 7px; height: 7px; border-radius: 9999px; background: #FBFAF6; display: block"></i>중학 3</span>
+    <span style="display: inline-flex; align-items: center; gap: 7px; height: 32px; padding: 0 13px; border-radius: 9999px; background: #F4F0E9; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12px; font-weight: 700"><i style="width: 7px; height: 7px; border-radius: 9999px; background: #295170; display: block"></i>고1</span>
+    <span style="display: inline-flex; align-items: center; gap: 7px; height: 32px; padding: 0 13px; border-radius: 9999px; background: #F4F0E9; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12px; font-weight: 700"><i style="width: 7px; height: 7px; border-radius: 9999px; background: #297056; display: block"></i>고2</span>
+    <span style="display: inline-flex; align-items: center; gap: 7px; height: 32px; padding: 0 13px; border-radius: 9999px; background: #F4F0E9; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12px; font-weight: 700"><i style="width: 7px; height: 7px; border-radius: 9999px; background: #0F2540; display: block"></i>고3·수능</span>
+  </div>
+
+  <!-- 매대 격자 -->
+  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px">
+
+    <div class="card">
+      <div class="cover">
+        <span class="spine" style="background: #6E2B65"></span>
+        <div class="top">
+          <p style="margin: 0; font-family: Lora, Georgia, serif; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; color: #6E2B65">READING</p>
+          <div class="rul"><span style="width: 92%; background: #6E2B65"></span><span style="width: 78%; background: #6E2B65"></span><span style="width: 86%; background: #6E2B65"></span><span style="width: 60%; background: #6E2B65"></span></div>
+          <div style="display: inline-flex; margin-top: 20px; padding: 4px 10px; border: 1px solid #E0DBD0; border-radius: 9999px; font-size: 10px; font-weight: 700; color: rgba(26,23,20,0.74)">중학 1-2학년</div>
+        </div>
+        <div class="band" style="background: #6E2B65">
+          <p class="no">2</p>
+          <div class="depth"><i style="height: 5px"></i><i style="height: 7px"></i><i style="height: 10px; background: #FBFAF6"></i><i style="height: 12px"></i><i style="height: 15px"></i><i style="height: 17px"></i><i style="height: 20px"></i></div>
+        </div>
+      </div>
+      <div class="meta">
+        <p class="title">Vocaflow Reading 2</p>
+        <p class="sub">STEP 3 · V3 · 문항 8,412</p>
+        <p class="line">문장이 길어진다. 빈칸이 낱말에서 구로 넓어지는 첫 권.</p>
+        <div class="chips"><span class="chip">유형 6</span><span class="chip">지문 90~152어</span></div>
+        <div class="act">
+          <span class="btn" style="background: #0F2540; color: #FFFFFF">담기</span>
+          <span class="btn" style="border: 1px solid #E0DBD0; color: #1A1714">펼치기</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="box-shadow: 0 2px 4px rgba(0,0,0,.05), 0 16px 40px -16px rgba(68,43,110,.32)">
+      <div class="cover">
+        <span class="spine" style="background: #442B6E"></span>
+        <div class="top">
+          <p style="margin: 0; font-family: Lora, Georgia, serif; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; color: #442B6E">READING</p>
+          <div class="rul"><span style="width: 92%; background: #442B6E"></span><span style="width: 78%; background: #442B6E"></span><span style="width: 86%; background: #442B6E"></span><span style="width: 60%; background: #442B6E"></span></div>
+          <div style="display: inline-flex; margin-top: 20px; padding: 4px 10px; border: 1px solid #E0DBD0; border-radius: 9999px; font-size: 10px; font-weight: 700; color: rgba(26,23,20,0.74)">중학 3학년</div>
+        </div>
+        <div class="band" style="background: #442B6E">
+          <p class="no">3</p>
+          <div class="depth"><i style="height: 5px"></i><i style="height: 7px"></i><i style="height: 10px"></i><i style="height: 12px; background: #FBFAF6"></i><i style="height: 15px"></i><i style="height: 17px"></i><i style="height: 20px"></i></div>
+        </div>
+      </div>
+      <div class="meta">
+        <p class="title">Vocaflow Reading 3</p>
+        <p class="sub">STEP 4 · V4 · 문항 11,267</p>
+        <p class="line">고교 진입 준비. 어법이 들어간다 — 중등 내신의 서술형 축과 겹친다.</p>
+        <div class="chips"><span class="chip">유형 7</span><span class="chip">지문 90~152어</span><span class="chip" style="border-color: #B0843A; color: #7E5A1B">해설 100%</span></div>
+        <div class="act">
+          <span class="btn" style="background: #0F2540; color: #FFFFFF">담기</span>
+          <span class="btn" style="border: 1px solid #E0DBD0; color: #1A1714">펼치기</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="cover">
+        <span class="spine" style="background: #295170"></span>
+        <div class="top">
+          <p style="margin: 0; font-family: Lora, Georgia, serif; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; color: #295170">READING</p>
+          <div class="rul"><span style="width: 92%; background: #295170"></span><span style="width: 78%; background: #295170"></span><span style="width: 86%; background: #295170"></span><span style="width: 60%; background: #295170"></span></div>
+          <div style="display: inline-flex; margin-top: 20px; padding: 4px 10px; border: 1px solid #E0DBD0; border-radius: 9999px; font-size: 10px; font-weight: 700; color: rgba(26,23,20,0.74)">고1</div>
+        </div>
+        <div class="band" style="background: #295170">
+          <p class="no">4</p>
+          <div class="depth"><i style="height: 5px"></i><i style="height: 7px"></i><i style="height: 10px"></i><i style="height: 12px"></i><i style="height: 15px; background: #FBFAF6"></i><i style="height: 17px"></i><i style="height: 20px"></i></div>
+        </div>
+      </div>
+      <div class="meta">
+        <p class="title">Vocaflow Reading 4</p>
+        <p class="sub">STEP 5 · V5 · 문항 9,880</p>
+        <p class="line">학평 대응. 순서·삽입이 여기서 열린다 — 지문이 수능 규격에 든다.</p>
+        <div class="chips"><span class="chip">유형 7</span><span class="chip">지문 90~200어</span></div>
+        <div class="act">
+          <span class="btn" style="background: #0F2540; color: #FFFFFF">담기</span>
+          <span class="btn" style="border: 1px solid #E0DBD0; color: #1A1714">펼치기</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+</x-dc>
+</body>
+</html>

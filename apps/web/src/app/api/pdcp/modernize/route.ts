@@ -1,0 +1,112 @@
+// apps/web/src/app/api/pdcp/modernize/route.ts
+//
+// 현대화 콘솔 트리거 — 그동안 CLI 전용이던 현대화를 이슈별로 콘솔에서 실행. 드레인과 같은 구조
+// (앱이 아니라 파이프라인 CLI 가 무거운 일을 함). dev·admin.
+//   POST { issueId, track }
+//     track='preserve' (작화 보존) → page-modern.mjs(MAX) → page-html.mjs   [CPU·$0]
+//     track='restyle'  (AI 리스타일) → modernize.mjs(qwen @ runpod-4090)     [GPU·COMFY_URL 필요]
+//     track='erase-preview' → modernize.mjs --erase-only                     [GPU 미사용]
+//
+// erase-preview 가 왜 필요한가: 모델 트랙의 유일한 비가역 비용은 GPU 시간인데,
+// 지우기에서 남은 글자를 모델이 **가짜 글자로 재현**한다. 태우기 전에 눈으로 확인해야 한다.
+
+import { NextResponse } from 'next/server'
+import type { SupabaseClient } from '@supabase/supabase-js'
+
+import { requireAdminApi } from '@/lib/auth/require-admin-api'
+import { PD_ACTION_STATES, pdActionAllowed, pdNextStatus, pdStatusLabel } from '@/lib/pd-comic/model'
+import { runPipeline } from '@/lib/pd-comic/pipeline-bridge'
+import { createAdminClient } from '@/lib/supabase/admin'
+
+export const runtime = 'nodejs'
+export const dynamic = 'force-dynamic'
+
+// 모델·환경은 여기 한 곳에만 적는다. CLI 인자와 DB 기록이 갈리면 감사 기록이 거짓이 된다.
+const MODEL = 'qwen-image-edit-2511'
+// edit 워크플로는 RunPod 에만 프로비저닝돼 있다 — Kaggle T4 는 t2i-only 라 쓸 수 없었고(실측), 그래서 Kaggle 경로는 제거했다.
+const ENV = 'runpod-4090'
+
+const tail = (s: string, n = 6) => (s || '').split('\n').filter(Boolean).slice(-n)
+
+export async function POST(request: Request): Promise<NextResponse> {
+  const adminOrError = await requireAdminApi()
+  if (adminOrError instanceof NextResponse) return adminOrError
+  if (process.env.NODE_ENV === 'production') return NextResponse.json({ error: 'dev 전용' }, { status: 404 })
+
+  const body = (await request.json().catch(() => ({}))) as { issueId?: string; track?: string }
+  const issueId = body.issueId
+  const track =
+    body.track === 'restyle' ? 'restyle' : body.track === 'erase-preview' ? 'erase-preview' : 'preserve'
+  if (!issueId) return NextResponse.json({ error: 'issueId 가 필요합니다' }, { status: 400 })
+
+  const client = createAdminClient() as unknown as SupabaseClient
+  const { data: row } = await client.from('pd_comic_issues').select('slug, status, qc').eq('id', issueId).maybeSingle()
+  if (!row) return NextResponse.json({ error: '해당 호가 없습니다' }, { status: 404 })
+  const status = String((row as { status?: string }).status ?? '')
+
+  // 상태 게이트 — 정본(model.ts)이 정한다. 이 게이트가 없어서 취득 직후(acquired) 눌러도
+  // 버튼이 돌았고, 그 호는 산출물 없이 'modernized' 가 돼 큐에서 빠졌다.
+  if (!pdActionAllowed('modernize', status)) {
+    return NextResponse.json(
+      {
+        error: `현대화는 ${[...PD_ACTION_STATES.modernize].join(' · ')} 상태에서만 실행할 수 있습니다 (현재 ${pdStatusLabel(status)})`,
+      },
+      { status: 409 },
+    )
+  }
+
+  const qc = (row?.qc ?? null) as { workDir?: string } | null
+  const wd = typeof qc?.workDir === 'string' ? qc.workDir : null
+  if (!wd) return NextResponse.json({ error: 'work 디렉터리가 없습니다 — 먼저 드레인(취득~OCR)을 완료하세요' }, { status: 400 })
+
+  // 트랙별 실행 스텝 (드레인처럼 CLI spawn)
+  const steps =
+    track === 'erase-preview'
+      ? [{ script: 'modernize.mjs', args: ['--workdir', wd, '--erase-only'], timeoutMs: 300_000 }]
+      : track === 'restyle'
+      ? [{ script: 'modernize.mjs', args: ['--workdir', wd, '--model', MODEL, '--env', ENV, '--limit', '8'], timeoutMs: 600_000 }]
+      : [
+          { script: 'page-modern.mjs', args: ['--workdir', wd, '--level', 'MAX'], timeoutMs: 300_000 },
+          { script: 'page-html.mjs', args: ['--workdir', wd], timeoutMs: 120_000 },
+        ]
+
+  const results: Array<{ script: string; ok: boolean; tail: string[] }> = []
+  for (const s of steps) {
+    const r = await runPipeline(s.script, s.args, { timeoutMs: s.timeoutMs })
+    results.push({ script: s.script, ok: r.ok, tail: tail(r.ok ? r.stdout : r.stderr || r.stdout) })
+    if (!r.ok) {
+      return NextResponse.json({
+        ok: false, track, slug: (row as { slug?: string }).slug ?? null,
+        error: `${s.script} 실패${r.timedOut ? ' (타임아웃)' : ''}`,
+        steps: results,
+      })
+    }
+  }
+
+  // 어떤 트랙·모델로 만들었는지 남긴다 — 없으면 재현도 라이선스 감사도 불가능하다.
+  // 지우기 확인은 산출물이 아니므로 기록하지 않는다(GPU 도 안 쓴다).
+  //
+  // status 는 **정본이 정한 만큼만** 옮긴다. 검수까지 올라간 호를 다시 현대화했다고
+  // 'modernized' 로 덮으면 그 호가 뒤로 끌려 내려간다(재실행은 흔한 일이다).
+  const nextStatus = pdNextStatus('modernize', status) ?? status
+  if (track !== 'erase-preview') {
+    await client
+      .from('pd_comic_issues')
+      .update({
+        ...(nextStatus !== status ? { status: nextStatus } : {}),
+        modernize_track: track,
+        modernize_model: track === 'restyle' ? MODEL : null,
+        modernize_env: track === 'restyle' ? ENV : null,
+      })
+      .eq('id', issueId)
+  }
+
+  return NextResponse.json({
+    ok: true,
+    track,
+    slug: (row as { slug?: string }).slug ?? null,
+    from: status,
+    to: track === 'erase-preview' ? status : nextStatus,
+    steps: results,
+  })
+}

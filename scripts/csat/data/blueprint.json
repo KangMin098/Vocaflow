@@ -1,0 +1,1362 @@
+{
+ "scope": "13개년(2014~2026, 2014=B형) 585문항 실측 파생",
+ "built_from": "blueprint-measured.json",
+ "totals": {
+  "types": 43,
+  "active": 37,
+  "retired": 6,
+  "generator_covered": 18,
+  "generator_gap": 19
+ },
+ "blueprint": [
+  {
+   "type": "L-PURPOSE",
+   "name": "담화 목적",
+   "section": "듣기",
+   "status": "active",
+   "dcp_type": null,
+   "constraints": {
+    "question_nos": [
+     1
+    ],
+    "slot_fixed": true,
+    "per_exam_min": 1,
+    "per_exam_max": 1,
+    "choices": [
+     5
+    ],
+    "choices_in_image": false,
+    "choice_lang": [
+     "ko"
+    ],
+    "passage_words_min": null,
+    "passage_words_max": null,
+    "passage_on_paper": false,
+    "high_score_possible": false,
+    "high_score_rate": 0
+   },
+   "evidence": {
+    "exams": 5,
+    "questions": 5
+   }
+  },
+  {
+   "type": "L-OPINION",
+   "name": "의견",
+   "section": "듣기",
+   "status": "active",
+   "dcp_type": null,
+   "constraints": {
+    "question_nos": [
+     2
+    ],
+    "slot_fixed": true,
+    "per_exam_min": 1,
+    "per_exam_max": 1,
+    "choices": [
+     5
+    ],
+    "choices_in_image": false,
+    "choice_lang": [
+     "ko"
+    ],
+    "passage_words_min": null,
+    "passage_words_max": null,
+    "passage_on_paper": false,
+    "high_score_possible": false,
+    "high_score_rate": 0
+   },
+   "evidence": {
+    "exams": 5,
+    "questions": 5
+   }
+  },
+  {
+   "type": "L-RELATION",
+   "name": "관계",
+   "section": "듣기",
+   "status": "active",
+   "dcp_type": null,
+   "constraints": {
+    "question_nos": [
+     3
+    ],
+    "slot_fixed": true,
+    "per_exam_min": 1,
+    "per_exam_max": 1,
+    "choices": [
+     5
+    ],
+    "choices_in_image": false,
+    "choice_lang": [
+     "ko"
+    ],
+    "passage_words_min": null,
+    "passage_words_max": null,
+    "passage_on_paper": false,
+    "high_score_possible": false,
+    "high_score_rate": 0
+   },
+   "evidence": {
+    "exams": 2,
+    "questions": 2
+   }
+  },
+  {
+   "type": "L-MAIN",
+   "name": "요지",
+   "section": "듣기",
+   "status": "active",
+   "dcp_type": null,
+   "constraints": {
+    "question_nos": [
+     3
+    ],
+    "slot_fixed": true,
+    "per_exam_min": 1,
+    "per_exam_max": 1,
+    "choices": [
+     5
+    ],
+    "choices_in_image": false,
+    "choice_lang": [
+     "ko"
+    ],
+    "passage_words_min": null,
+    "passage_words_max": null,
+    "passage_on_paper": false,
+    "high_score_possible": false,
+    "high_score_rate": 0
+   },
+   "evidence": {
+    "exams": 3,
+    "questions": 3
+   }
+  },
+  {
+   "type": "L-PICTURE",
+   "name": "그림",
+   "section": "듣기",
+   "status": "active",
+   "dcp_type": null,
+   "constraints": {
+    "question_nos": [
+     4
+    ],
+    "slot_fixed": true,
+    "per_exam_min": 1,
+    "per_exam_max": 1,
+    "choices": [
+     0
+    ],
+    "choices_in_image": true,
+    "choice_lang": [],
+    "passage_words_min": null,
+    "passage_words_max": null,
+    "passage_on_paper": false,
+    "high_score_possible": false,
+    "high_score_rate": 0
+   },
+   "evidence": {
+    "exams": 5,
+    "questions": 5
+   }
+  },
+  {
+   "type": "L-TODO",
+   "name": "할 일",
+   "section": "듣기",
+   "status": "active",
+   "dcp_type": null,
+   "constraints": {
+    "question_nos": [
+     5
+    ],
+    "slot_fixed": true,
+    "per_exam_min": 1,
+    "per_exam_max": 1,
+    "choices": [
+     5
+    ],
+    "choices_in_image": false,
+    "choice_lang": [
+     "ko"
+    ],
+    "passage_words_min": null,
+    "passage_words_max": null,
+    "passage_on_paper": false,
+    "high_score_possible": false,
+    "high_score_rate": 0
+   },
+   "evidence": {
+    "exams": 5,
+    "questions": 5
+   }
+  },
+  {
+   "type": "L-MONEY",
+   "name": "지불 금액",
+   "section": "듣기",
+   "status": "active",
+   "dcp_type": null,
+   "constraints": {
+    "question_nos": [
+     6
+    ],
+    "slot_fixed": true,
+    "per_exam_min": 1,
+    "per_exam_max": 1,
+    "choices": [
+     5
+    ],
+    "choices_in_image": false,
+    "choice_lang": [
+     "en"
+    ],
+    "passage_words_min": null,
+    "passage_words_max": null,
+    "passage_on_paper": false,
+    "high_score_possible": true,
+    "high_score_rate": 0.4
+   },
+   "evidence": {
+    "exams": 5,
+    "questions": 5
+   }
+  },
+  {
+   "type": "L-REASON",
+   "name": "이유",
+   "section": "듣기",
+   "status": "active",
+   "dcp_type": null,
+   "constraints": {
+    "question_nos": [
+     7
+    ],
+    "slot_fixed": true,
+    "per_exam_min": 1,
+    "per_exam_max": 1,
+    "choices": [
+     5
+    ],
+    "choices_in_image": false,
+    "choice_lang": [
+     "ko"
+    ],
+    "passage_words_min": 2,
+    "passage_words_max": 3,
+    "passage_on_paper": false,
+    "high_score_possible": false,
+    "high_score_rate": 0
+   },
+   "evidence": {
+    "exams": 5,
+    "questions": 5
+   }
+  },
+  {
+   "type": "L-NOTMENTION",
+   "name": "언급되지 않은 것",
+   "section": "듣기",
+   "status": "active",
+   "dcp_type": null,
+   "constraints": {
+    "question_nos": [
+     8
+    ],
+    "slot_fixed": true,
+    "per_exam_min": 1,
+    "per_exam_max": 1,
+    "choices": [
+     5
+    ],
+    "choices_in_image": false,
+    "choice_lang": [
+     "ko"
+    ],
+    "passage_words_min": 2,
+    "passage_words_max": 3,
+    "passage_on_paper": false,
+    "high_score_possible": false,
+    "high_score_rate": 0
+   },
+   "evidence": {
+    "exams": 5,
+    "questions": 5
+   }
+  },
+  {
+   "type": "L-ANNOUNCE",
+   "name": "담화 내용 불일치",
+   "section": "듣기",
+   "status": "active",
+   "dcp_type": null,
+   "constraints": {
+    "question_nos": [
+     9
+    ],
+    "slot_fixed": true,
+    "per_exam_min": 1,
+    "per_exam_max": 1,
+    "choices": [
+     5
+    ],
+    "choices_in_image": false,
+    "choice_lang": [
+     "ko"
+    ],
+    "passage_words_min": 3,
+    "passage_words_max": 6,
+    "passage_on_paper": false,
+    "high_score_possible": false,
+    "high_score_rate": 0
+   },
+   "evidence": {
+    "exams": 5,
+    "questions": 5
+   }
+  },
+  {
+   "type": "L-TABLE",
+   "name": "표 보고 선택",
+   "section": "듣기",
+   "status": "active",
+   "dcp_type": null,
+   "constraints": {
+    "question_nos": [
+     10
+    ],
+    "slot_fixed": true,
+    "per_exam_min": 1,
+    "per_exam_max": 1,
+    "choices": [
+     5
+    ],
+    "choices_in_image": false,
+    "choice_lang": [
+     "en"
+    ],
+    "passage_words_min": 20,
+    "passage_words_max": 36,
+    "passage_on_paper": false,
+    "high_score_possible": false,
+    "high_score_rate": 0
+   },
+   "evidence": {
+    "exams": 5,
+    "questions": 5
+   }
+  },
+  {
+   "type": "L-RESPONSE",
+   "name": "짧은 응답",
+   "section": "듣기",
+   "status": "active",
+   "dcp_type": null,
+   "constraints": {
+    "question_nos": [
+     11,
+     12,
+     13,
+     14
+    ],
+    "slot_fixed": false,
+    "per_exam_min": 4,
+    "per_exam_max": 4,
+    "choices": [
+     5
+    ],
+    "choices_in_image": false,
+    "choice_lang": [
+     "en"
+    ],
+    "passage_words_min": 37,
+    "passage_words_max": 54,
+    "passage_on_paper": false,
+    "high_score_possible": true,
+    "high_score_rate": 0.45
+   },
+   "evidence": {
+    "exams": 5,
+    "questions": 20
+   }
+  },
+  {
+   "type": "L-SITUATION",
+   "name": "상황 후 할 말",
+   "section": "듣기",
+   "status": "active",
+   "dcp_type": null,
+   "constraints": {
+    "question_nos": [
+     15
+    ],
+    "slot_fixed": true,
+    "per_exam_min": 1,
+    "per_exam_max": 1,
+    "choices": [
+     5
+    ],
+    "choices_in_image": false,
+    "choice_lang": [
+     "en"
+    ],
+    "passage_words_min": 49,
+    "passage_words_max": 57,
+    "passage_on_paper": false,
+    "high_score_possible": true,
+    "high_score_rate": 0.8
+   },
+   "evidence": {
+    "exams": 5,
+    "questions": 5
+   }
+  },
+  {
+   "type": "L-SET-TOPIC",
+   "name": "세트 주제",
+   "section": "듣기",
+   "status": "active",
+   "dcp_type": null,
+   "constraints": {
+    "question_nos": [
+     16
+    ],
+    "slot_fixed": true,
+    "per_exam_min": 1,
+    "per_exam_max": 1,
+    "choices": [
+     5
+    ],
+    "choices_in_image": false,
+    "choice_lang": [
+     "en"
+    ],
+    "passage_words_min": null,
+    "passage_words_max": null,
+    "passage_on_paper": false,
+    "high_score_possible": false,
+    "high_score_rate": 0
+   },
+   "evidence": {
+    "exams": 5,
+    "questions": 5
+   }
+  },
+  {
+   "type": "L-SET-NOT",
+   "name": "세트 불포함",
+   "section": "듣기",
+   "status": "active",
+   "dcp_type": null,
+   "constraints": {
+    "question_nos": [
+     17
+    ],
+    "slot_fixed": true,
+    "per_exam_min": 1,
+    "per_exam_max": 1,
+    "choices": [
+     5
+    ],
+    "choices_in_image": false,
+    "choice_lang": [
+     "en"
+    ],
+    "passage_words_min": null,
+    "passage_words_max": null,
+    "passage_on_paper": false,
+    "high_score_possible": false,
+    "high_score_rate": 0
+   },
+   "evidence": {
+    "exams": 5,
+    "questions": 5
+   }
+  },
+  {
+   "type": "R-PURPOSE",
+   "name": "글의 목적",
+   "section": "독해",
+   "status": "active",
+   "dcp_type": "purpose",
+   "constraints": {
+    "question_nos": [
+     18
+    ],
+    "slot_fixed": true,
+    "per_exam_min": 1,
+    "per_exam_max": 1,
+    "choices": [
+     5
+    ],
+    "choices_in_image": false,
+    "choice_lang": [
+     "ko"
+    ],
+    "passage_words_min": 110,
+    "passage_words_max": 122,
+    "passage_on_paper": true,
+    "high_score_possible": false,
+    "high_score_rate": 0
+   },
+   "evidence": {
+    "exams": 5,
+    "questions": 5
+   }
+  },
+  {
+   "type": "R-MOOD",
+   "name": "심경·분위기",
+   "section": "독해",
+   "status": "active",
+   "dcp_type": "mood",
+   "constraints": {
+    "question_nos": [
+     19
+    ],
+    "slot_fixed": true,
+    "per_exam_min": 1,
+    "per_exam_max": 1,
+    "choices": [
+     5
+    ],
+    "choices_in_image": false,
+    "choice_lang": [
+     "en"
+    ],
+    "passage_words_min": 129,
+    "passage_words_max": 140,
+    "passage_on_paper": true,
+    "high_score_possible": false,
+    "high_score_rate": 0
+   },
+   "evidence": {
+    "exams": 5,
+    "questions": 5
+   }
+  },
+  {
+   "type": "R-CLAIM",
+   "name": "필자 주장",
+   "section": "독해",
+   "status": "active",
+   "dcp_type": "claim",
+   "constraints": {
+    "question_nos": [
+     20
+    ],
+    "slot_fixed": true,
+    "per_exam_min": 1,
+    "per_exam_max": 1,
+    "choices": [
+     5
+    ],
+    "choices_in_image": false,
+    "choice_lang": [
+     "ko"
+    ],
+    "passage_words_min": 128,
+    "passage_words_max": 164,
+    "passage_on_paper": true,
+    "high_score_possible": false,
+    "high_score_rate": 0
+   },
+   "evidence": {
+    "exams": 5,
+    "questions": 5
+   }
+  },
+  {
+   "type": "R-IMPLY",
+   "name": "함축 의미",
+   "section": "독해",
+   "status": "active",
+   "dcp_type": "implication",
+   "constraints": {
+    "question_nos": [
+     21
+    ],
+    "slot_fixed": true,
+    "per_exam_min": 1,
+    "per_exam_max": 1,
+    "choices": [
+     5
+    ],
+    "choices_in_image": false,
+    "choice_lang": [
+     "en"
+    ],
+    "passage_words_min": 191,
+    "passage_words_max": 224,
+    "passage_on_paper": true,
+    "high_score_possible": true,
+    "high_score_rate": 0.8
+   },
+   "evidence": {
+    "exams": 5,
+    "questions": 5
+   }
+  },
+  {
+   "type": "R-GIST",
+   "name": "요지",
+   "section": "독해",
+   "status": "active",
+   "dcp_type": "main_point",
+   "constraints": {
+    "question_nos": [
+     22
+    ],
+    "slot_fixed": true,
+    "per_exam_min": 1,
+    "per_exam_max": 1,
+    "choices": [
+     5
+    ],
+    "choices_in_image": false,
+    "choice_lang": [
+     "ko"
+    ],
+    "passage_words_min": 150,
+    "passage_words_max": 179,
+    "passage_on_paper": true,
+    "high_score_possible": false,
+    "high_score_rate": 0
+   },
+   "evidence": {
+    "exams": 5,
+    "questions": 5
+   }
+  },
+  {
+   "type": "R-TOPIC",
+   "name": "주제",
+   "section": "독해",
+   "status": "active",
+   "dcp_type": "topic",
+   "constraints": {
+    "question_nos": [
+     23
+    ],
+    "slot_fixed": true,
+    "per_exam_min": 1,
+    "per_exam_max": 1,
+    "choices": [
+     5
+    ],
+    "choices_in_image": false,
+    "choice_lang": [
+     "en"
+    ],
+    "passage_words_min": 186,
+    "passage_words_max": 198,
+    "passage_on_paper": true,
+    "high_score_possible": true,
+    "high_score_rate": 0.4
+   },
+   "evidence": {
+    "exams": 5,
+    "questions": 5
+   }
+  },
+  {
+   "type": "R-TITLE",
+   "name": "제목",
+   "section": "독해",
+   "status": "active",
+   "dcp_type": "title",
+   "constraints": {
+    "question_nos": [
+     24
+    ],
+    "slot_fixed": true,
+    "per_exam_min": 1,
+    "per_exam_max": 1,
+    "choices": [
+     5
+    ],
+    "choices_in_image": false,
+    "choice_lang": [
+     "en"
+    ],
+    "passage_words_min": 185,
+    "passage_words_max": 222,
+    "passage_on_paper": true,
+    "high_score_possible": true,
+    "high_score_rate": 0.4
+   },
+   "evidence": {
+    "exams": 5,
+    "questions": 5
+   }
+  },
+  {
+   "type": "R-CHART",
+   "name": "도표",
+   "section": "독해",
+   "status": "active",
+   "dcp_type": null,
+   "constraints": {
+    "question_nos": [
+     25
+    ],
+    "slot_fixed": true,
+    "per_exam_min": 1,
+    "per_exam_max": 1,
+    "choices": [
+     5
+    ],
+    "choices_in_image": false,
+    "choice_lang": [
+     "en"
+    ],
+    "passage_words_min": 136,
+    "passage_words_max": 172,
+    "passage_on_paper": true,
+    "high_score_possible": false,
+    "high_score_rate": 0
+   },
+   "evidence": {
+    "exams": 5,
+    "questions": 5
+   }
+  },
+  {
+   "type": "R-FACT",
+   "name": "내용 일치(글)",
+   "section": "독해",
+   "status": "active",
+   "dcp_type": "content_match",
+   "constraints": {
+    "question_nos": [
+     26
+    ],
+    "slot_fixed": true,
+    "per_exam_min": 1,
+    "per_exam_max": 1,
+    "choices": [
+     5
+    ],
+    "choices_in_image": false,
+    "choice_lang": [
+     "ko"
+    ],
+    "passage_words_min": 130,
+    "passage_words_max": 151,
+    "passage_on_paper": true,
+    "high_score_possible": false,
+    "high_score_rate": 0
+   },
+   "evidence": {
+    "exams": 5,
+    "questions": 5
+   }
+  },
+  {
+   "type": "R-NOTICE",
+   "name": "안내문 일치",
+   "section": "독해",
+   "status": "active",
+   "dcp_type": null,
+   "constraints": {
+    "question_nos": [
+     27,
+     28
+    ],
+    "slot_fixed": false,
+    "per_exam_min": 2,
+    "per_exam_max": 2,
+    "choices": [
+     5
+    ],
+    "choices_in_image": false,
+    "choice_lang": [
+     "ko"
+    ],
+    "passage_words_min": 82,
+    "passage_words_max": 120,
+    "passage_on_paper": true,
+    "high_score_possible": false,
+    "high_score_rate": 0
+   },
+   "evidence": {
+    "exams": 5,
+    "questions": 10
+   }
+  },
+  {
+   "type": "R-GRAMMAR",
+   "name": "어법",
+   "section": "독해",
+   "status": "active",
+   "dcp_type": "grammar_fix",
+   "constraints": {
+    "question_nos": [
+     29
+    ],
+    "slot_fixed": true,
+    "per_exam_min": 1,
+    "per_exam_max": 1,
+    "choices": [
+     5
+    ],
+    "choices_in_image": false,
+    "choice_lang": [
+     "en"
+    ],
+    "passage_words_min": 150,
+    "passage_words_max": 171,
+    "passage_on_paper": true,
+    "high_score_possible": true,
+    "high_score_rate": 0.2
+   },
+   "evidence": {
+    "exams": 5,
+    "questions": 5
+   }
+  },
+  {
+   "type": "R-VOCAB",
+   "name": "어휘(문맥)",
+   "section": "독해",
+   "status": "active",
+   "dcp_type": "vocab_choice",
+   "constraints": {
+    "question_nos": [
+     30
+    ],
+    "slot_fixed": true,
+    "per_exam_min": 1,
+    "per_exam_max": 1,
+    "choices": [
+     5
+    ],
+    "choices_in_image": false,
+    "choice_lang": [
+     "en"
+    ],
+    "passage_words_min": 159,
+    "passage_words_max": 188,
+    "passage_on_paper": true,
+    "high_score_possible": true,
+    "high_score_rate": 0.8
+   },
+   "evidence": {
+    "exams": 5,
+    "questions": 5
+   }
+  },
+  {
+   "type": "R-BLANK",
+   "name": "빈칸 추론",
+   "section": "독해",
+   "status": "active",
+   "dcp_type": "blank",
+   "constraints": {
+    "question_nos": [
+     31,
+     32,
+     33,
+     34
+    ],
+    "slot_fixed": false,
+    "per_exam_min": 4,
+    "per_exam_max": 4,
+    "choices": [
+     5
+    ],
+    "choices_in_image": false,
+    "choice_lang": [
+     "en"
+    ],
+    "passage_words_min": null,
+    "passage_words_max": null,
+    "passage_on_paper": true,
+    "high_score_possible": true,
+    "high_score_rate": 0.5
+   },
+   "evidence": {
+    "exams": 5,
+    "questions": 20
+   }
+  },
+  {
+   "type": "R-IRRELEVANT",
+   "name": "무관한 문장",
+   "section": "독해",
+   "status": "active",
+   "dcp_type": "irrelevant",
+   "constraints": {
+    "question_nos": [
+     35
+    ],
+    "slot_fixed": true,
+    "per_exam_min": 1,
+    "per_exam_max": 1,
+    "choices": [
+     5
+    ],
+    "choices_in_image": false,
+    "choice_lang": [
+     "en"
+    ],
+    "passage_words_min": 133,
+    "passage_words_max": 182,
+    "passage_on_paper": true,
+    "high_score_possible": false,
+    "high_score_rate": 0
+   },
+   "evidence": {
+    "exams": 5,
+    "questions": 5
+   }
+  },
+  {
+   "type": "R-ORDER",
+   "name": "글의 순서",
+   "section": "독해",
+   "status": "active",
+   "dcp_type": "order",
+   "constraints": {
+    "question_nos": [
+     36,
+     37
+    ],
+    "slot_fixed": false,
+    "per_exam_min": 2,
+    "per_exam_max": 2,
+    "choices": [
+     5
+    ],
+    "choices_in_image": false,
+    "choice_lang": [
+     "neutral"
+    ],
+    "passage_words_min": null,
+    "passage_words_max": null,
+    "passage_on_paper": true,
+    "high_score_possible": true,
+    "high_score_rate": 0.5
+   },
+   "evidence": {
+    "exams": 5,
+    "questions": 10
+   }
+  },
+  {
+   "type": "R-INSERT",
+   "name": "문장 삽입",
+   "section": "독해",
+   "status": "active",
+   "dcp_type": "insert",
+   "constraints": {
+    "question_nos": [
+     38,
+     39
+    ],
+    "slot_fixed": false,
+    "per_exam_min": 2,
+    "per_exam_max": 2,
+    "choices": [
+     5
+    ],
+    "choices_in_image": false,
+    "choice_lang": [
+     "en"
+    ],
+    "passage_words_min": null,
+    "passage_words_max": null,
+    "passage_on_paper": true,
+    "high_score_possible": true,
+    "high_score_rate": 0.5
+   },
+   "evidence": {
+    "exams": 5,
+    "questions": 10
+   }
+  },
+  {
+   "type": "R-SUMMARY",
+   "name": "요약문 완성",
+   "section": "독해",
+   "status": "active",
+   "dcp_type": "summary",
+   "constraints": {
+    "question_nos": [
+     40
+    ],
+    "slot_fixed": true,
+    "per_exam_min": 1,
+    "per_exam_max": 1,
+    "choices": [
+     5
+    ],
+    "choices_in_image": false,
+    "choice_lang": [
+     "en",
+     "neutral"
+    ],
+    "passage_words_min": 194,
+    "passage_words_max": 207,
+    "passage_on_paper": true,
+    "high_score_possible": false,
+    "high_score_rate": 0
+   },
+   "evidence": {
+    "exams": 5,
+    "questions": 5
+   }
+  },
+  {
+   "type": "X-TITLE",
+   "name": "장문 제목",
+   "section": "장문",
+   "status": "active",
+   "dcp_type": null,
+   "constraints": {
+    "question_nos": [
+     41
+    ],
+    "slot_fixed": true,
+    "per_exam_min": 1,
+    "per_exam_max": 1,
+    "choices": [
+     5
+    ],
+    "choices_in_image": false,
+    "choice_lang": [
+     "en"
+    ],
+    "passage_words_min": 230,
+    "passage_words_max": 275,
+    "passage_on_paper": true,
+    "high_score_possible": true,
+    "high_score_rate": 0.2
+   },
+   "evidence": {
+    "exams": 5,
+    "questions": 5
+   }
+  },
+  {
+   "type": "X-VOCAB",
+   "name": "장문 어휘",
+   "section": "장문",
+   "status": "active",
+   "dcp_type": null,
+   "constraints": {
+    "question_nos": [
+     42
+    ],
+    "slot_fixed": true,
+    "per_exam_min": 1,
+    "per_exam_max": 1,
+    "choices": [
+     5
+    ],
+    "choices_in_image": false,
+    "choice_lang": [
+     "neutral"
+    ],
+    "passage_words_min": 230,
+    "passage_words_max": 275,
+    "passage_on_paper": true,
+    "high_score_possible": true,
+    "high_score_rate": 0.2
+   },
+   "evidence": {
+    "exams": 5,
+    "questions": 5
+   }
+  },
+  {
+   "type": "X-ORDER",
+   "name": "장문 순서",
+   "section": "장문",
+   "status": "active",
+   "dcp_type": "long_order",
+   "constraints": {
+    "question_nos": [
+     43
+    ],
+    "slot_fixed": true,
+    "per_exam_min": 1,
+    "per_exam_max": 1,
+    "choices": [
+     5
+    ],
+    "choices_in_image": false,
+    "choice_lang": [
+     "neutral"
+    ],
+    "passage_words_min": 334,
+    "passage_words_max": 391,
+    "passage_on_paper": true,
+    "high_score_possible": false,
+    "high_score_rate": 0
+   },
+   "evidence": {
+    "exams": 5,
+    "questions": 5
+   }
+  },
+  {
+   "type": "X-REFER",
+   "name": "장문 지칭",
+   "section": "장문",
+   "status": "active",
+   "dcp_type": "long_reference",
+   "constraints": {
+    "question_nos": [
+     44
+    ],
+    "slot_fixed": true,
+    "per_exam_min": 1,
+    "per_exam_max": 1,
+    "choices": [
+     5
+    ],
+    "choices_in_image": false,
+    "choice_lang": [
+     "neutral"
+    ],
+    "passage_words_min": 334,
+    "passage_words_max": 391,
+    "passage_on_paper": true,
+    "high_score_possible": false,
+    "high_score_rate": 0
+   },
+   "evidence": {
+    "exams": 5,
+    "questions": 5
+   }
+  },
+  {
+   "type": "X-FACT",
+   "name": "장문 내용 일치",
+   "section": "장문",
+   "status": "active",
+   "dcp_type": "long_match",
+   "constraints": {
+    "question_nos": [
+     45
+    ],
+    "slot_fixed": true,
+    "per_exam_min": 1,
+    "per_exam_max": 1,
+    "choices": [
+     5
+    ],
+    "choices_in_image": false,
+    "choice_lang": [
+     "ko"
+    ],
+    "passage_words_min": 334,
+    "passage_words_max": 391,
+    "passage_on_paper": true,
+    "high_score_possible": false,
+    "high_score_rate": 0
+   },
+   "evidence": {
+    "exams": 5,
+    "questions": 5
+   }
+  },
+  {
+   "type": "L-TOPIC",
+   "name": "담화 주제(단독)",
+   "section": "듣기",
+   "status": "retired",
+   "dcp_type": null,
+   "constraints": {
+    "question_nos": [
+     4,
+     5,
+     6
+    ],
+    "slot_fixed": false,
+    "per_exam_min": 1,
+    "per_exam_max": 2,
+    "choices": [
+     5
+    ],
+    "choices_in_image": false,
+    "choice_lang": [
+     "ko"
+    ],
+    "passage_words_min": null,
+    "passage_words_max": null,
+    "passage_on_paper": false,
+    "high_score_possible": false,
+    "high_score_rate": 0
+   },
+   "evidence": {
+    "exams": 2,
+    "questions": 3
+   }
+  },
+  {
+   "type": "L-FAVOR",
+   "name": "부탁한 일",
+   "section": "듣기",
+   "status": "retired",
+   "dcp_type": null,
+   "constraints": {
+    "question_nos": [
+     7,
+     11
+    ],
+    "slot_fixed": false,
+    "per_exam_min": 1,
+    "per_exam_max": 1,
+    "choices": [
+     5
+    ],
+    "choices_in_image": false,
+    "choice_lang": [
+     "en",
+     "ko"
+    ],
+    "passage_words_min": 26,
+    "passage_words_max": 49,
+    "passage_on_paper": false,
+    "high_score_possible": false,
+    "high_score_rate": 0
+   },
+   "evidence": {
+    "exams": 3,
+    "questions": 3
+   }
+  },
+  {
+   "type": "R-REFER",
+   "name": "지칭 추론(단문·폐지)",
+   "section": "독해",
+   "status": "retired",
+   "dcp_type": null,
+   "constraints": {
+    "question_nos": [
+     26,
+     29,
+     30
+    ],
+    "slot_fixed": false,
+    "per_exam_min": 1,
+    "per_exam_max": 1,
+    "choices": [
+     5
+    ],
+    "choices_in_image": false,
+    "choice_lang": [
+     "en"
+    ],
+    "passage_words_min": 145,
+    "passage_words_max": 176,
+    "passage_on_paper": true,
+    "high_score_possible": false,
+    "high_score_rate": 0
+   },
+   "evidence": {
+    "exams": 5,
+    "questions": 5
+   }
+  },
+  {
+   "type": "R-BLANK2",
+   "name": "빈칸 추론(2개·폐지)",
+   "section": "독해",
+   "status": "retired",
+   "dcp_type": null,
+   "constraints": {
+    "question_nos": [
+     34,
+     36,
+     37
+    ],
+    "slot_fixed": false,
+    "per_exam_min": 1,
+    "per_exam_max": 2,
+    "choices": [
+     5
+    ],
+    "choices_in_image": false,
+    "choice_lang": [
+     "en"
+    ],
+    "passage_words_min": 172,
+    "passage_words_max": 172,
+    "passage_on_paper": true,
+    "high_score_possible": true,
+    "high_score_rate": 0.33
+   },
+   "evidence": {
+    "exams": 2,
+    "questions": 3
+   }
+  },
+  {
+   "type": "X-BLANK",
+   "name": "장문 빈칸(1개·폐지)",
+   "section": "장문",
+   "status": "retired",
+   "dcp_type": null,
+   "constraints": {
+    "question_nos": [
+     42
+    ],
+    "slot_fixed": true,
+    "per_exam_min": 1,
+    "per_exam_max": 1,
+    "choices": [
+     5
+    ],
+    "choices_in_image": false,
+    "choice_lang": [
+     "en"
+    ],
+    "passage_words_min": 248,
+    "passage_words_max": 258,
+    "passage_on_paper": true,
+    "high_score_possible": true,
+    "high_score_rate": 0.75
+   },
+   "evidence": {
+    "exams": 4,
+    "questions": 4
+   }
+  },
+  {
+   "type": "X-BLANK2",
+   "name": "장문 빈칸(2개)",
+   "section": "장문",
+   "status": "retired",
+   "dcp_type": null,
+   "constraints": {
+    "question_nos": [
+     42
+    ],
+    "slot_fixed": true,
+    "per_exam_min": 1,
+    "per_exam_max": 1,
+    "choices": [
+     5
+    ],
+    "choices_in_image": false,
+    "choice_lang": [
+     "en"
+    ],
+    "passage_words_min": 241,
+    "passage_words_max": 241,
+    "passage_on_paper": true,
+    "high_score_possible": true,
+    "high_score_rate": 1
+   },
+   "evidence": {
+    "exams": 1,
+    "questions": 1
+   }
+  }
+ ]
+}

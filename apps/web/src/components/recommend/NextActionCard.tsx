@@ -49,7 +49,7 @@ export function NextActionCard({ recommendation, prelude }: NextActionCardProps)
       <Link
         href={href}
         aria-label={recommendation.label}
-        className="inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-[var(--r-md)] bg-gradient-to-br from-[var(--p)] to-[var(--p-dark)] px-5 py-3 font-display text-[14px] font-[700] text-white no-underline shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] ease-[var(--ease-spring)] hover:scale-[1.01] hover:shadow-[var(--sh-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]/40 focus-visible:ring-offset-2 active:scale-[0.99]"
+        className="inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-[var(--r-md)] bg-gradient-to-br from-[var(--p)] to-[var(--p-dark)] px-5 py-3 font-display text-[14px] font-[700] text-[var(--on-p)] no-underline shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] ease-[var(--ease-spring)] hover:scale-[1.01] hover:shadow-[var(--sh-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]/40 focus-visible:ring-offset-2 active:scale-[0.99]"
       >
         <span>시작하기</span>
         <ArrowRight size={16} aria-hidden="true" />

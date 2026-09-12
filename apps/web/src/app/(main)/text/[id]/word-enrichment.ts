@@ -90,5 +90,6 @@ function toWord(displayText: string, ch: ChapterWord): Word {
     pos: ch.pos ?? '',
     status: 'new' as MemoryStatus,
     exampleSentence: ch.exampleSentence ?? '',
+    vLevel: ch.vLevel,
   };
 }

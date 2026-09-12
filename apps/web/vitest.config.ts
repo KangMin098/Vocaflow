@@ -8,7 +8,13 @@ import { resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
+// 레포 루트 → 워크스페이스 순. dotenv 는 이미 설정된 키를 덮지 않으므로 CI 환경변수와 루트가 우선.
+// ⚠️ 루트 .env.local 은 존재하지 않는다 — 실제 키는 apps/web/.env.local 에만 있다.
+// 루트만 읽던 동안 *.integration.test.ts 가 전부 조용히 skip 됐고(2026-08-12 실측:
+// "injected env (0)"), 그 사이 골든 스냅샷이 추출 알고리즘 변경을 못 따라가 낡았다.
+// 통합 테스트는 "돌지 않으면 없는 것" 이므로 skip 은 안전이 아니라 사각지대다.
 dotenvConfig({ path: resolve(__dirname, '../../.env.local') })
+dotenvConfig({ path: resolve(__dirname, './.env.local') })
 
 export default defineConfig({
   // tsconfig 의 "@/*": ["./src/*"] 경로 별칭을 테스트에서도 동일하게 해석

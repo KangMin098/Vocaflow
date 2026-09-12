@@ -1,3 +1,5 @@
+// apps/web/src/app/admin/vocab/runs/[id]/page.tsx
+
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import {
@@ -10,6 +12,7 @@ import {
   Sparkles,
 } from 'lucide-react'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { VcbRunStatusBadge, STATUS_LABELS } from '@/components/admin/vcb/VcbRunStatusBadge'
 import { VcbRunProgress } from '@/components/admin/vcb/VcbRunProgress'
 import { VcbStepTriggerCard } from '@/components/admin/vcb/VcbStepTriggerCard'
@@ -72,7 +75,7 @@ export default async function VcbRunDetailPage({ params }: PageProps) {
         actions={
           <Link
             href="/admin/vocab/runs"
-            className="inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] font-display text-sm border"
+            className="min-h-[44px] inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] font-display text-sm border"
             style={{
               color: 'var(--t2)',
               borderColor: 'var(--bd)',
@@ -85,11 +88,13 @@ export default async function VcbRunDetailPage({ params }: PageProps) {
         }
       />
 
+      <AdminScreenHelp screen="vocab-run-detail" className="mb-6" />
+
       <div className="flex items-center gap-3 mb-8 flex-wrap">
         <VcbRunStatusBadge status={run.status} size="md" />
         {hasIntegrityMismatch && (
           <div
-            className="flex items-center gap-2 px-3 py-1.5 rounded-[var(--r-md)] border text-sm"
+            className="flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] border text-sm"
             style={{
               background: 'var(--warning-light)',
               borderColor: 'var(--warning)',
@@ -333,14 +338,14 @@ export default async function VcbRunDetailPage({ params }: PageProps) {
                         {set.title}
                       </span>
                       <span
-                        className="text-[11px] font-mono px-2 py-0.5 rounded-[var(--r-full)]"
+                        className="text-[11px] font-mono px-2 py-1 rounded-[var(--r-full)]"
                         style={{ background: 'var(--bg3)', color: 'var(--t3)' }}
                       >
                         {set.category}
                       </span>
                       {set.is_published && (
                         <span
-                          className="text-[11px] font-display font-medium px-2 py-0.5 rounded-[var(--r-full)]"
+                          className="text-[11px] font-display font-medium px-2 py-1 rounded-[var(--r-full)]"
                           style={{
                             background: 'var(--success-light)',
                             color: 'var(--success)',
@@ -373,7 +378,7 @@ export default async function VcbRunDetailPage({ params }: PageProps) {
                   <Link
                     href={`/library/vocab#set-${set.set_id}`}
                     target="_blank"
-                    className="inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] border font-display text-sm shrink-0 transition-colors"
+                    className="min-h-[44px] inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] border font-display text-sm shrink-0 transition-colors"
                     style={{
                       borderColor: 'var(--bd)',
                       color: 'var(--p)',

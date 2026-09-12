@@ -1,0 +1,21 @@
+-- csat_dcp_items 를 ref_id 로 찾는 인덱스.
+--
+-- ── 왜 필요한가 (실측 2026-09-06) ──────────────────────────────────
+-- 교재 조판(`loadVolume`)과 문항 드레인이 모두 `ref_id IN (…)` 으로 문항을 읽는데,
+-- ref_id 로 시작하는 인덱스가 하나도 없었다. 유일 인덱스는 (kind, ref_id, type,
+-- paragraph_idx) 로 kind 가 선두라 ref_id 만으로는 못 탄다.
+--
+--   EXPLAIN (V7 · ref_id 100개 · LIMIT 1000)
+--     Seq Scan on csat_dcp_items  656,988행 · buffers 95,790 · 99.3초
+--
+-- 페이지마다 이 값을 치르므로 V7(문항 284,534건) 조판이 statement timeout 으로
+-- 아예 안 만들어졌다 — 목표 지표를 잴 수 없는 상태였다.
+--
+-- (ref_id, id) 로 두는 이유: 조회가 `ORDER BY ref_id, id` 커서 페이징을 쓴다.
+-- 두 열을 함께 담으면 정렬까지 인덱스가 준다.
+--
+-- ⚠️ 원격에는 `CREATE INDEX` (CONCURRENTLY 아님) 로 적용했다 — MCP `apply_migration`
+--    이 트랜잭션 안에서 돌아 CONCURRENTLY 를 못 쓴다. 그동안 이 테이블의 쓰기가 잠긴다.
+--    크기 31MB. 로컬에서 다시 적용할 때도 같은 성질이다.
+CREATE INDEX IF NOT EXISTS idx_dcp_items_ref_id
+  ON public.csat_dcp_items USING btree (ref_id, id);

@@ -1,0 +1,6 @@
+# 집필 청크는 **작업 중간물**이다 — 산출물은 DB(`library_articles`)에 있다.
+# `lexicon.json`·`taken-titles.json` 도 export 가 매번 다시 만든다.
+chunk-*.json
+lexicon.json
+taken-titles.json
+v*/

@@ -25,7 +25,7 @@ const EchoMatchPlayer = dynamic(
     loading: () => (
       <div className="mx-auto flex max-w-3xl flex-col items-center justify-center gap-3 px-6 py-16">
         <Loader2 size={20} className="animate-spin text-[var(--p)]" aria-hidden />
-        <p className="font-body text-[12px] text-[var(--t3)]">따라읽기 모듈 준비 중…</p>
+        <p className="font-body text-[12px] text-[var(--t2)]">따라읽기 모듈 준비 중…</p>
       </div>
     ),
   },

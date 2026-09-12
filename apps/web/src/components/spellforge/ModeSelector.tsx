@@ -50,10 +50,10 @@ export function ModeSelector({ mode, onChange }: ModeSelectorProps) {
             onClick={() => onChange(m.key)}
             role="radio"
             aria-checked={isActive}
-            className={`inline-flex cursor-pointer items-center gap-1.5 rounded-[var(--r-full)] px-3.5 py-1.5 font-display text-[12px] font-[600] transition-all duration-[var(--dur-normal)] ${
+            className={`inline-flex cursor-pointer items-center gap-2 rounded-[var(--r-full)] px-4 py-2 font-display text-[12px] font-[600] transition-all duration-[var(--dur-normal)] ${
               isActive
                 ? 'bg-[var(--bg)] text-[var(--t1)] shadow-[var(--sh-sm)]'
-                : 'bg-transparent text-[var(--t3)] hover:text-[var(--t1)]'
+                : 'bg-transparent text-[var(--t2)] hover:text-[var(--t1)]'
             } `}
           >
             <span className="text-[13px] leading-none" aria-hidden="true">
@@ -61,7 +61,7 @@ export function ModeSelector({ mode, onChange }: ModeSelectorProps) {
             </span>
             <span>{m.label}</span>
             <span
-              className="relative ml-0.5 inline-flex h-3 w-3 cursor-help items-center justify-center rounded-full bg-[var(--bg3)] font-mono text-[8px] font-[700] text-[var(--t3)] hover:bg-[var(--bd)] hover:text-[var(--t1)]"
+              className="relative ml-0.5 inline-flex h-3 w-3 cursor-help items-center justify-center rounded-full bg-[var(--bg3)] font-mono text-[8px] font-[700] text-[var(--t2)] hover:bg-[var(--bd)] hover:text-[var(--t1)]"
               title={m.tooltip}
             >
               i

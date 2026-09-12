@@ -1,0 +1,1206 @@
+[
+  {
+    "id": "fff11297-96b0-46ad-8e4d-7c036ec12ceb",
+    "title": "Winnie-the-Pooh",
+    "author": "A. A. Milne",
+    "year": null,
+    "v_level": 5,
+    "cefr_band": "A2",
+    "cefrj": "A2.2",
+    "words": 22186,
+    "chapters": 10,
+    "minutes": 148,
+    "tags": [
+      "fiction",
+      "fantasy",
+      "children",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "백 에이커 숲의 곰돌이 푸와 친구들의 느긋한 하루하루.",
+    "learning_value": "가장 유명한 영어 동화 — 대화체 입문",
+    "themes": [
+      "우정",
+      "숲",
+      "유년"
+    ],
+    "genre_norm": "동화",
+    "age_band": "7+",
+    "est_cefr": "A2",
+    "est_basis": "짧은 대화와 반복 구문"
+  },
+  {
+    "id": "076e6424-2f35-4b42-b148-809d2ebf5b19",
+    "title": "Love’s Labour’s Lost",
+    "author": "William Shakespeare",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 22644,
+    "chapters": 9,
+    "minutes": 151,
+    "tags": [
+      "drama",
+      "humor",
+      "romance",
+      "classic",
+      "literature"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "학문에 전념하기로 맹세한 네 남자가 사랑 앞에 무너진다.",
+    "learning_value": "말장난이 가장 빽빽한 셰익스피어 희극",
+    "themes": [
+      "맹세",
+      "사랑",
+      "말장난"
+    ],
+    "genre_norm": "희극",
+    "age_band": "15+",
+    "est_cefr": "C1",
+    "est_basis": "언어유희 밀도가 매우 높다"
+  },
+  {
+    "id": "7fae2c65-a2d8-4596-a9fa-a3c99ed84a73",
+    "title": "Much Ado About Nothing",
+    "author": "William Shakespeare",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 22601,
+    "chapters": 17,
+    "minutes": 151,
+    "tags": [
+      "drama",
+      "humor",
+      "romance",
+      "classic",
+      "literature"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "서로 놀리던 베네딕과 베아트리스가 사랑에 빠진다.",
+    "learning_value": "재치 있는 설전 — 회화체 셰익스피어",
+    "themes": [
+      "사랑",
+      "오해",
+      "재치"
+    ],
+    "genre_norm": "희극",
+    "age_band": "14+",
+    "est_cefr": "B2",
+    "est_basis": "산문 대사 비중이 높다"
+  },
+  {
+    "id": "3c7c8674-3f7e-4910-a91c-bfea9889f550",
+    "title": "Measure for Measure",
+    "author": "William Shakespeare",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 23013,
+    "chapters": 16,
+    "minutes": 154,
+    "tags": [
+      "drama",
+      "literature",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "법과 자비, 권력과 정조를 묻는 문제극.",
+    "learning_value": "윤리 논쟁 대사 정독",
+    "themes": [
+      "정의",
+      "위선",
+      "권력"
+    ],
+    "genre_norm": "희곡",
+    "age_band": "16+",
+    "est_cefr": "C1",
+    "est_basis": "법률·윤리 어휘"
+  },
+  {
+    "id": "aadc1e2c-16d4-4872-bef5-5ace00b9910a",
+    "title": "As You Like It",
+    "author": "William Shakespeare",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 23032,
+    "chapters": 19,
+    "minutes": 154,
+    "tags": [
+      "drama",
+      "humor",
+      "romance",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "숲으로 달아난 로절린드가 남장을 하고 사랑을 시험한다.",
+    "learning_value": "전원 희극 — 유명 독백 정독",
+    "themes": [
+      "사랑",
+      "변장",
+      "자연"
+    ],
+    "genre_norm": "희극",
+    "age_band": "14+",
+    "est_cefr": "B2",
+    "est_basis": "운문과 산문 혼용"
+  },
+  {
+    "id": "bd612eca-2f47-4cef-9bc8-eabf60941014",
+    "title": "Edward II",
+    "author": "Christopher Marlowe",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 23446,
+    "chapters": 21,
+    "minutes": 157,
+    "tags": [
+      "drama",
+      "historical",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "총신에게 기운 왕이 몰락하는 말로의 사극.",
+    "learning_value": "셰익스피어 이전 사극 — 무운시 입문",
+    "themes": [
+      "왕권",
+      "총애",
+      "몰락"
+    ],
+    "genre_norm": "사극",
+    "age_band": "16+",
+    "est_cefr": "C1",
+    "est_basis": "초기 무운시"
+  },
+  {
+    "id": "0d41159f-00fc-4634-9512-297fbbfb39a7",
+    "title": "All’s Well That Ends Well",
+    "author": "William Shakespeare",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 24505,
+    "chapters": 23,
+    "minutes": 164,
+    "tags": [
+      "drama",
+      "romance",
+      "literature",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "신분 낮은 헬레나가 원치 않는 남편의 마음을 얻어 낸다.",
+    "learning_value": "문제극의 모호한 결말 읽기",
+    "themes": [
+      "신분",
+      "사랑",
+      "계략"
+    ],
+    "genre_norm": "희곡",
+    "age_band": "15+",
+    "est_cefr": "C1",
+    "est_basis": "문제극 특유의 난해함"
+  },
+  {
+    "id": "fd327956-9998-45ff-91bd-66d7fd96025a",
+    "title": "The Merry Wives of Windsor",
+    "author": "William Shakespeare",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 24852,
+    "chapters": 19,
+    "minutes": 166,
+    "tags": [
+      "drama",
+      "humor",
+      "literature",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "폴스타프가 두 부인에게 골탕 먹는 시민 희극.",
+    "learning_value": "가장 서민적인 셰익스피어 — 구어체",
+    "themes": [
+      "유머",
+      "계략",
+      "시민"
+    ],
+    "genre_norm": "희극",
+    "age_band": "14+",
+    "est_cefr": "B2",
+    "est_basis": "산문 구어체 다수"
+  },
+  {
+    "id": "da5e98f7-cf63-4b62-b35c-cf892293d08d",
+    "title": "The Story of Doctor Dolittle",
+    "author": "Hugh Lofting",
+    "year": null,
+    "v_level": 6,
+    "cefr_band": "B1",
+    "cefrj": "B1.1",
+    "words": 25291,
+    "chapters": 21,
+    "minutes": 169,
+    "tags": [
+      "fiction",
+      "children",
+      "fantasy",
+      "adventure",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "동물의 말을 배운 의사가 아프리카로 떠난다.",
+    "learning_value": "동물 이름 어휘 + 모험 서사",
+    "themes": [
+      "동물",
+      "모험",
+      "친절"
+    ],
+    "genre_norm": "동화",
+    "age_band": "8+",
+    "est_cefr": "B1",
+    "est_basis": "평이한 서사체"
+  },
+  {
+    "id": "bad53629-1808-4159-a5d2-17fbac336cd2",
+    "title": "The House at Pooh Corner",
+    "author": "A. A. Milne",
+    "year": null,
+    "v_level": 6,
+    "cefr_band": "B1",
+    "cefrj": "B1.1",
+    "words": 25692,
+    "chapters": 10,
+    "minutes": 172,
+    "tags": [
+      "fiction",
+      "children",
+      "fantasy",
+      "humor",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "푸 이야기의 후속 — 티거가 등장한다.",
+    "learning_value": "앞권보다 조금 긴 문장으로 이어 읽기",
+    "themes": [
+      "우정",
+      "이별",
+      "성장"
+    ],
+    "genre_norm": "동화",
+    "age_band": "7+",
+    "est_cefr": "B1",
+    "est_basis": "대화체 중심"
+  },
+  {
+    "id": "9250d905-d9da-4d3d-8e9f-1d51ae29a911",
+    "title": "Armageddon 2419 A.D.",
+    "author": "Philip Francis Nowlan",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 25930,
+    "chapters": 12,
+    "minutes": 173,
+    "tags": [
+      "fiction",
+      "science-fiction",
+      "adventure",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "500년을 잠들었다 깨어난 남자가 점령된 미국에서 싸운다.",
+    "learning_value": "초기 펄프 SF 의 액션 문체",
+    "themes": [
+      "미래",
+      "저항",
+      "기술"
+    ],
+    "genre_norm": "공상과학",
+    "age_band": "13+",
+    "est_cefr": "B1",
+    "est_basis": "펄프 액션 문체"
+  },
+  {
+    "id": "228264ab-509f-4ea3-9667-96a239275300",
+    "title": "Henry VI, Part III",
+    "author": "William Shakespeare",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 25927,
+    "chapters": 27,
+    "minutes": 173,
+    "tags": [
+      "drama",
+      "historical",
+      "war",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "장미전쟁이 절정에 이르고 리처드가 부상한다.",
+    "learning_value": "전쟁 사극 — 인물 관계 추적 연습",
+    "themes": [
+      "전쟁",
+      "왕위",
+      "배신"
+    ],
+    "genre_norm": "사극",
+    "age_band": "15+",
+    "est_cefr": "C1",
+    "est_basis": "셰익스피어 운문"
+  },
+  {
+    "id": "33513f83-a573-431c-8f67-90afdf55a0a1",
+    "title": "Nonsense Books",
+    "author": "Edward Lear",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 26383,
+    "chapters": 52,
+    "minutes": 176,
+    "tags": [
+      "poetry",
+      "humor",
+      "children",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "리메릭과 말도 안 되는 그림으로 가득한 넌센스 시집.",
+    "learning_value": "운율 감각 훈련 — 소리내어 읽기",
+    "themes": [
+      "넌센스",
+      "운율",
+      "유머"
+    ],
+    "genre_norm": "운문",
+    "age_band": "9+",
+    "est_cefr": "B1",
+    "est_basis": "리메릭 정형 운율"
+  },
+  {
+    "id": "123508b4-b804-452d-8c70-7d54e263a528",
+    "title": "Philosophical Works",
+    "author": "René Descartes",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 26471,
+    "chapters": 78,
+    "minutes": 177,
+    "tags": [
+      "nonfiction",
+      "philosophy",
+      "academic",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "방법서설과 성찰 — 의심에서 출발한 근대 철학.",
+    "learning_value": "논증 구조 정독 — 철학 영어 입문",
+    "themes": [
+      "이성",
+      "의심",
+      "존재"
+    ],
+    "genre_norm": "철학",
+    "age_band": "17+",
+    "est_cefr": "C1",
+    "est_basis": "번역 논증문"
+  },
+  {
+    "id": "608f08b7-7aeb-4411-9c10-35576122d97a",
+    "title": "Antony and Cleopatra",
+    "author": "William Shakespeare",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 26809,
+    "chapters": 33,
+    "minutes": 179,
+    "tags": [
+      "drama",
+      "historical",
+      "literature",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "제국과 사랑 사이에서 무너지는 안토니우스와 클레오파트라.",
+    "learning_value": "장대한 이미지의 운문 정독",
+    "themes": [
+      "사랑",
+      "제국",
+      "파멸"
+    ],
+    "genre_norm": "비극",
+    "age_band": "16+",
+    "est_cefr": "C1",
+    "est_basis": "이미지 밀도 높은 운문"
+  },
+  {
+    "id": "4d0e9f55-64ce-4c09-819f-37f1d94f274b",
+    "title": "Henry VI, Part II",
+    "author": "William Shakespeare",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 26718,
+    "chapters": 22,
+    "minutes": 179,
+    "tags": [
+      "drama",
+      "historical",
+      "war",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "글로스터의 몰락과 잭 케이드의 반란.",
+    "learning_value": "정치 음모 대사 추적",
+    "themes": [
+      "음모",
+      "반란",
+      "왕권"
+    ],
+    "genre_norm": "사극",
+    "age_band": "15+",
+    "est_cefr": "C1",
+    "est_basis": "셰익스피어 운문"
+  },
+  {
+    "id": "5cd30c72-2c74-43d6-a03f-a9fdc3090765",
+    "title": "The Way of the World",
+    "author": "William Congreve",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 27321,
+    "chapters": 12,
+    "minutes": 183,
+    "tags": [
+      "drama",
+      "satire",
+      "humor",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "왕정복고기 상류사회의 계약과 위선을 그린 풍속 희극.",
+    "learning_value": "재담과 이중 의미 — 고급 회화체",
+    "themes": [
+      "결혼",
+      "재산",
+      "위선"
+    ],
+    "genre_norm": "희극",
+    "age_band": "16+",
+    "est_cefr": "C1",
+    "est_basis": "복잡한 재담"
+  },
+  {
+    "id": "2db5c18d-5594-45cd-94d5-29e7db339e77",
+    "title": "Henry V",
+    "author": "William Shakespeare",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 27550,
+    "chapters": 29,
+    "minutes": 184,
+    "tags": [
+      "drama",
+      "historical",
+      "war",
+      "classic",
+      "literature"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "아쟁쿠르로 향하는 젊은 왕의 원정.",
+    "learning_value": "유명 연설문 정독 — 수사법 학습",
+    "themes": [
+      "전쟁",
+      "지도력",
+      "연설"
+    ],
+    "genre_norm": "사극",
+    "age_band": "15+",
+    "est_cefr": "B2",
+    "est_basis": "연설 수사 중심"
+  },
+  {
+    "id": "58fe9c13-cbfc-4c00-a910-48cb63f5fefe",
+    "title": "Henry IV, Part II",
+    "author": "William Shakespeare",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 27564,
+    "chapters": 21,
+    "minutes": 184,
+    "tags": [
+      "drama",
+      "historical",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "왕자와 폴스타프의 우정이 끝나 가는 과정.",
+    "learning_value": "운문과 술집 구어체의 대비",
+    "themes": [
+      "성장",
+      "우정",
+      "왕위"
+    ],
+    "genre_norm": "사극",
+    "age_band": "15+",
+    "est_cefr": "C1",
+    "est_basis": "운문·구어 혼재"
+  },
+  {
+    "id": "7342926e-3e0c-445c-856e-3ae505d3466f",
+    "title": "King Lear",
+    "author": "William Shakespeare",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 27908,
+    "chapters": 24,
+    "minutes": 187,
+    "tags": [
+      "drama",
+      "literature",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "딸들에게 나라를 나눠 준 노왕이 모든 것을 잃는다.",
+    "learning_value": "셰익스피어 4대 비극 — 가장 어두운 언어",
+    "themes": [
+      "배신",
+      "광기",
+      "가족"
+    ],
+    "genre_norm": "비극",
+    "age_band": "16+",
+    "est_cefr": "C1",
+    "est_basis": "셰익스피어 운문"
+  },
+  {
+    "id": "66b084a0-72a1-414a-98ea-3c27308772fc",
+    "title": "A Christmas Carol",
+    "author": "Charles Dickens",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 28595,
+    "chapters": 5,
+    "minutes": 191,
+    "tags": [
+      "fiction",
+      "fantasy",
+      "classic",
+      "literature"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "구두쇠 스크루지가 세 유령을 만나 바뀐다.",
+    "learning_value": "가장 널리 읽히는 디킨스 — 짧고 구조가 뚜렷",
+    "themes": [
+      "구원",
+      "탐욕",
+      "크리스마스"
+    ],
+    "genre_norm": "환상 소설",
+    "age_band": "11+",
+    "est_cefr": "B2",
+    "est_basis": "디킨스 만연체이나 짧다"
+  },
+  {
+    "id": "224b291c-3c6f-4e8d-8892-25d822d92cc8",
+    "title": "Plays",
+    "author": "Roswitha of Gandersheim",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 28820,
+    "chapters": 53,
+    "minutes": 193,
+    "tags": [
+      "drama",
+      "religion",
+      "historical",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "10세기 수녀 로스비타가 라틴어로 쓴 최초의 여성 극작.",
+    "learning_value": "중세 종교극의 단순한 구조",
+    "themes": [
+      "신앙",
+      "순결",
+      "중세"
+    ],
+    "genre_norm": "희곡",
+    "age_band": "16+",
+    "est_cefr": "B2",
+    "est_basis": "번역 종교극"
+  },
+  {
+    "id": "6c426583-5fb3-415d-a13a-904bd134d53c",
+    "title": "Cymbeline",
+    "author": "William Shakespeare",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 28985,
+    "chapters": 26,
+    "minutes": 194,
+    "tags": [
+      "drama",
+      "romance",
+      "literature",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "모함과 변장을 지나 가족이 재회하는 후기 로맨스극.",
+    "learning_value": "얽힌 줄거리 추적 훈련",
+    "themes": [
+      "모함",
+      "재회",
+      "용서"
+    ],
+    "genre_norm": "희곡",
+    "age_band": "15+",
+    "est_cefr": "C1",
+    "est_basis": "복잡한 플롯과 운문"
+  },
+  {
+    "id": "0a5fc83a-2588-4158-898b-376ba101d8b4",
+    "title": "Coriolanus",
+    "author": "William Shakespeare",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 29451,
+    "chapters": 27,
+    "minutes": 197,
+    "tags": [
+      "drama",
+      "historical",
+      "politics",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "민중을 경멸한 장군이 조국을 등진다.",
+    "learning_value": "정치 연설과 군중 장면 분석",
+    "themes": [
+      "자존",
+      "정치",
+      "추방"
+    ],
+    "genre_norm": "비극",
+    "age_band": "16+",
+    "est_cefr": "C1",
+    "est_basis": "정치 수사 밀도"
+  },
+  {
+    "id": "fa65783d-83f2-4707-a36a-3fca73e7c00f",
+    "title": "Through the Looking-Glass",
+    "author": "Lewis Carroll",
+    "year": null,
+    "v_level": 6,
+    "cefr_band": "B1",
+    "cefrj": "B1.1",
+    "words": 29514,
+    "chapters": 10,
+    "minutes": 197,
+    "tags": [
+      "fiction",
+      "fantasy",
+      "children",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "거울 나라에서 체스판처럼 펼쳐지는 앨리스의 두 번째 모험.",
+    "learning_value": "말장난과 넌센스 시 — 앨리스 후속",
+    "themes": [
+      "환상",
+      "논리",
+      "거울"
+    ],
+    "genre_norm": "환상 동화",
+    "age_band": "9+",
+    "est_cefr": "B1",
+    "est_basis": "말장난 다수"
+  },
+  {
+    "id": "28179095-5a2e-4284-a8c1-22eecca9f96e",
+    "title": "Allan Quatermain Stories",
+    "author": "H. Rider Haggard",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 30210,
+    "chapters": 6,
+    "minutes": 202,
+    "tags": [
+      "short-story",
+      "fiction",
+      "adventure",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "아프리카를 누비는 사냥꾼 쿼터메인의 모험 단편들.",
+    "learning_value": "고전 모험 서사 — 지형·사냥 어휘",
+    "themes": [
+      "모험",
+      "아프리카",
+      "보물"
+    ],
+    "genre_norm": "모험 소설",
+    "age_band": "13+",
+    "est_cefr": "B1",
+    "est_basis": "빅토리아 모험체"
+  },
+  {
+    "id": "282428c2-d520-41a1-b558-ad6d92128ffe",
+    "title": "An Ideal Husband",
+    "author": "Oscar Wilde",
+    "year": null,
+    "v_level": 6,
+    "cefr_band": "B1",
+    "cefrj": "B1.1",
+    "words": 30649,
+    "chapters": 7,
+    "minutes": 205,
+    "tags": [
+      "drama",
+      "satire",
+      "humor",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "과거의 비밀이 폭로되며 흔들리는 정치가의 결혼.",
+    "learning_value": "와일드 경구로 배우는 반전 문장",
+    "themes": [
+      "정치",
+      "비밀",
+      "용서"
+    ],
+    "genre_norm": "희극",
+    "age_band": "15+",
+    "est_cefr": "B2",
+    "est_basis": "경구 중심 대사"
+  },
+  {
+    "id": "29f37272-6c65-46b0-9e43-85b31324358d",
+    "title": "Richard III",
+    "author": "William Shakespeare",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 31165,
+    "chapters": 22,
+    "minutes": 208,
+    "tags": [
+      "drama",
+      "historical",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "왕관을 위해 형제와 조카를 없애는 리처드의 독백극.",
+    "learning_value": "악역 독백의 교과서",
+    "themes": [
+      "야망",
+      "기만",
+      "왕위"
+    ],
+    "genre_norm": "사극",
+    "age_band": "15+",
+    "est_cefr": "C1",
+    "est_basis": "셰익스피어 운문"
+  },
+  {
+    "id": "93a19edd-4e05-4e53-9afa-1fe88ad2d23b",
+    "title": "Short Fiction",
+    "author": "Beatrix Potter",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 31444,
+    "chapters": 19,
+    "minutes": 210,
+    "tags": [
+      "short-story",
+      "fiction",
+      "children",
+      "fable",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "피터 래빗을 비롯한 포터의 동물 단편 모음.",
+    "learning_value": "가장 짧은 고전 — 그림책에서 소설로 넘어가는 다리",
+    "themes": [
+      "동물",
+      "장난",
+      "교훈"
+    ],
+    "genre_norm": "우화",
+    "age_band": "7+",
+    "est_cefr": "B1",
+    "est_basis": "짧은 동물 우화"
+  },
+  {
+    "id": "082505a8-67f8-46dd-b5a5-735e12b34549",
+    "title": "Practical Mysticism",
+    "author": "Evelyn Underhill",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 31522,
+    "chapters": 10,
+    "minutes": 211,
+    "tags": [
+      "nonfiction",
+      "essay",
+      "religion",
+      "philosophy"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "평범한 사람을 위한 신비주의 입문 에세이.",
+    "learning_value": "추상 개념을 설명하는 문장 구조",
+    "themes": [
+      "영성",
+      "명상",
+      "내면"
+    ],
+    "genre_norm": "에세이",
+    "age_band": "17+",
+    "est_cefr": "C1",
+    "est_basis": "추상 개념 설명문"
+  },
+  {
+    "id": "c4394931-79a4-416f-b083-68a2cef5ded8",
+    "title": "The Call of the Wild",
+    "author": "Jack London",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 31890,
+    "chapters": 7,
+    "minutes": 213,
+    "tags": [
+      "fiction",
+      "adventure",
+      "nature",
+      "classic",
+      "literature"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "도둑맞은 개 벅이 알래스카에서 야생을 되찾는다.",
+    "learning_value": "동물 시점 서사 — 짧고 강한 문장",
+    "themes": [
+      "야생",
+      "생존",
+      "본능"
+    ],
+    "genre_norm": "모험 소설",
+    "age_band": "13+",
+    "est_cefr": "B2",
+    "est_basis": "간결한 자연주의 문체"
+  },
+  {
+    "id": "42f3bce4-5cae-4cda-ae40-f1da16d8ad99",
+    "title": "Hamlet",
+    "author": "William Shakespeare",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 32012,
+    "chapters": 20,
+    "minutes": 214,
+    "tags": [
+      "drama",
+      "literature",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "아버지의 유령을 만난 왕자가 복수를 미룬다.",
+    "learning_value": "영문학 최다 인용 텍스트 — 독백 정독",
+    "themes": [
+      "복수",
+      "광기",
+      "죽음"
+    ],
+    "genre_norm": "비극",
+    "age_band": "15+",
+    "est_cefr": "C1",
+    "est_basis": "셰익스피어 운문"
+  },
+  {
+    "id": "39035bf2-1fbf-4d1c-a859-5830e8a11a82",
+    "title": "American Indian Stories",
+    "author": "Zitkála-Šá",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 32291,
+    "chapters": 28,
+    "minutes": 216,
+    "tags": [
+      "short-story",
+      "nonfiction",
+      "travel-culture",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "기숙학교로 보내진 다코타 소녀의 자전적 기록.",
+    "learning_value": "자전 에세이 — 1인칭 회고체",
+    "themes": [
+      "원주민",
+      "교육",
+      "정체성"
+    ],
+    "genre_norm": "자서전",
+    "age_band": "14+",
+    "est_cefr": "B1",
+    "est_basis": "1인칭 회고체"
+  },
+  {
+    "id": "5dc12236-88c4-4bae-a8da-5babf31a7350",
+    "title": "The Time Machine",
+    "author": "H. G. Wells",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 32524,
+    "chapters": 12,
+    "minutes": 217,
+    "tags": [
+      "fiction",
+      "science-fiction",
+      "classic",
+      "literature"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "미래로 간 발명가가 인류의 두 갈래 종말을 목격한다.",
+    "learning_value": "SF 의 원형 — 짧고 구조가 명확",
+    "themes": [
+      "시간",
+      "계급",
+      "진화"
+    ],
+    "genre_norm": "공상과학",
+    "age_band": "13+",
+    "est_cefr": "B2",
+    "est_basis": "빅토리아 SF 서술"
+  },
+  {
+    "id": "c2e53cc1-95fa-431e-a61f-96410d7e0490",
+    "title": "Just So Stories",
+    "author": "Rudyard Kipling",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 33671,
+    "chapters": 12,
+    "minutes": 225,
+    "tags": [
+      "fiction",
+      "short-story",
+      "fable",
+      "children",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "코끼리 코는 왜 길까 — 키플링의 기원 이야기들.",
+    "learning_value": "리듬감 있는 구전체 낭독용",
+    "themes": [
+      "동물",
+      "기원",
+      "유머"
+    ],
+    "genre_norm": "우화",
+    "age_band": "8+",
+    "est_cefr": "B1",
+    "est_basis": "구전 리듬 반복"
+  },
+  {
+    "id": "d6d55054-511a-44b6-b98d-21a5502dfdba",
+    "title": "The Necklace of Princess Fiorimonde",
+    "author": "Mary De Morgan",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 34134,
+    "chapters": 7,
+    "minutes": 228,
+    "tags": [
+      "fiction",
+      "fairy-tale",
+      "short-story",
+      "fantasy",
+      "children"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "마녀 공주의 목걸이에 갇힌 구혼자들.",
+    "learning_value": "빅토리아 창작 동화 — 서술체 익히기",
+    "themes": [
+      "마법",
+      "허영",
+      "구원"
+    ],
+    "genre_norm": "동화",
+    "age_band": "9+",
+    "est_cefr": "B1",
+    "est_basis": "빅토리아 동화체"
+  },
+  {
+    "id": "a2194eee-ba81-408b-99a8-6e250b0f6dbf",
+    "title": "Parnassus on Wheels",
+    "author": "Christopher Morley",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 35670,
+    "chapters": 15,
+    "minutes": 238,
+    "tags": [
+      "fiction",
+      "humor",
+      "adventure",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "이동 서점 마차를 사들인 중년 여성의 일탈.",
+    "learning_value": "따뜻한 1인칭 구어체",
+    "themes": [
+      "책",
+      "자유",
+      "여행"
+    ],
+    "genre_norm": "유머 소설",
+    "age_band": "13+",
+    "est_cefr": "B1",
+    "est_basis": "평이한 1인칭"
+  },
+  {
+    "id": "903960f7-da99-4cf0-85da-fd20d9a6c5c7",
+    "title": "Beyond Thirty",
+    "author": "Edgar Rice Burroughs",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 37983,
+    "chapters": 9,
+    "minutes": 254,
+    "tags": [
+      "fiction",
+      "science-fiction",
+      "adventure",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "200년 뒤 미국인이 야만이 된 유럽을 탐험한다.",
+    "learning_value": "대체역사 SF — 지명 어휘",
+    "themes": [
+      "미래",
+      "탐험",
+      "문명"
+    ],
+    "genre_norm": "공상과학",
+    "age_band": "13+",
+    "est_cefr": "B1",
+    "est_basis": "펄프 모험체"
+  },
+  {
+    "id": "515a9585-efdf-48d7-ac86-a2c8c71ba493",
+    "title": "The Bungalow Mystery",
+    "author": "Carolyn Keene",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 38191,
+    "chapters": 25,
+    "minutes": 255,
+    "tags": [
+      "fiction",
+      "mystery",
+      "detective",
+      "young-adult"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "낸시 드루가 별장에 얽힌 사기를 파헤친다.",
+    "learning_value": "청소년 추리 — 가장 읽기 쉬운 장르물",
+    "themes": [
+      "추리",
+      "용기",
+      "우정"
+    ],
+    "genre_norm": "추리",
+    "age_band": "11+",
+    "est_cefr": "B1",
+    "est_basis": "청소년 추리 평이체"
+  },
+  {
+    "id": "8e299351-da9c-47ab-827d-9badd9084fd4",
+    "title": "Ozma of Oz",
+    "author": "L. Frank Baum",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 38286,
+    "chapters": 21,
+    "minutes": 256,
+    "tags": [
+      "fiction",
+      "fantasy",
+      "children",
+      "adventure",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "도로시가 다시 오즈로 돌아와 오즈마를 만난다.",
+    "learning_value": "오즈 시리즈 — 이어 읽기 좋은 판타지",
+    "themes": [
+      "환상",
+      "모험",
+      "우정"
+    ],
+    "genre_norm": "환상 동화",
+    "age_band": "8+",
+    "est_cefr": "B1",
+    "est_basis": "평이한 동화체"
+  }
+]

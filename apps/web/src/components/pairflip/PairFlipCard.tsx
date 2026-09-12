@@ -120,7 +120,7 @@ export function PairFlipCardView({ card, onClick }: CardProps) {
           {card.type === 'meaning' && card.partOfSpeech && (
             <span
               aria-hidden="true"
-              className="absolute left-2 top-1.5 rounded-[var(--r-sm)] bg-white/70 px-1.5 py-0.5 font-mono text-[9px] font-[700] uppercase tracking-wider"
+              className="absolute left-2 top-1.5 rounded-[var(--r-sm)] bg-white/70 px-2 py-1 font-mono text-[9px] font-[700] uppercase tracking-wider"
               style={{ color: PF_COLORS.textMeaning }}
             >
               {card.partOfSpeech}

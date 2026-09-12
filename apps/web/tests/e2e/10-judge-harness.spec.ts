@@ -4,12 +4,13 @@
 // (테스트 유저의 admin/RPC 접근 편차에 CI 가 깨지지 않도록 — 03-admin-curation 의 graceful 패턴).
 // blind 계약 회귀: 표본 카드에 in-cap/sort_order 가 노출되면 안 됨(제출 전).
 import { test, expect } from '@playwright/test';
-import { loginAsTestUser } from './utils/auth';
+import { TEST_USER_STATE, ensureAuthState } from './utils/auth';
 
 test.describe('추출 판정 하네스 회귀', () => {
-  test.beforeEach(async ({ page }) => {
-    await loginAsTestUser(page);
+  test.beforeAll(async ({ browser }) => {
+    await ensureAuthState(browser, TEST_USER_STATE)
   });
+  test.use({ storageState: TEST_USER_STATE });
 
   test('판정 페이지 렌더 + 소스 선택 + blind 표본', async ({ page }) => {
     await page.goto('/admin/quality/judge');

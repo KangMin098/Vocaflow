@@ -64,7 +64,7 @@ export function PairFlipScoreRing({ accuracy, score, size = 120 }: ScoreRingProp
         <span className="font-display text-[32px] font-[800] tabular-nums leading-none text-[var(--t1)]">
           {accuracy}%
         </span>
-        <span className="mt-0.5 font-body text-[12px] font-[600] text-[var(--t3)]">
+        <span className="mt-0.5 font-body text-[12px] font-[600] text-[var(--t2)]">
           {score.toLocaleString()}점
         </span>
       </div>

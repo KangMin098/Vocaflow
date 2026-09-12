@@ -19,7 +19,7 @@ const RUNTIME_USER = {
 const CHAPTERED_SET_ID = 'bcb61429-6261-4f7e-a7b4-5bd5f5e6a72f';
 
 /** 로그인은 파일당 1회만 (auth rate-limit 회피) — storageState 로 각 테스트에 주입 */
-const STATE_PATH = 'test-results/.auth-runtime-user.json';
+const STATE_PATH = 'playwright-auth/.auth-runtime-user.json';
 
 async function loginRuntimeUser(page: Page) {
   await page.goto('/login', { waitUntil: 'networkidle' });

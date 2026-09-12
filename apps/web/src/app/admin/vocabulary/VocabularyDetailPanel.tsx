@@ -52,7 +52,7 @@ export function VocabularyDetailPanel({ detail, onClose }: VocabularyDetailPanel
             {detail.word}
           </h2>
           {(detail.ipa || detail.ipa_uk || detail.ipa_us) && (
-            <p className="mt-1 font-mono text-[11px] text-[var(--t3)]">
+            <p className="mt-1 font-mono text-[11px] text-[var(--t2)]">
               {detail.ipa_uk && <span>UK {detail.ipa_uk} </span>}
               {detail.ipa_us && <span>US {detail.ipa_us} </span>}
               {!detail.ipa_uk && !detail.ipa_us && detail.ipa && <span>{detail.ipa}</span>}
@@ -63,7 +63,7 @@ export function VocabularyDetailPanel({ detail, onClose }: VocabularyDetailPanel
           type="button"
           onClick={onClose}
           aria-label="Close detail panel (Esc)"
-          className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-[var(--r-sm)] text-[var(--t3)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
+          className={/* 탭 영역 44px — 시각 크기(h-7, 28px)와 다르다 */ "relative after:absolute after:left-1/2 after:top-1/2 after:h-11 after:w-11 after:-translate-x-1/2 after:-translate-y-1/2 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-[var(--r-sm)] text-[var(--t2)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]"}
         >
           <X size={14} aria-hidden />
         </button>
@@ -71,8 +71,8 @@ export function VocabularyDetailPanel({ detail, onClose }: VocabularyDetailPanel
 
       {/* ── Sanity Issues ── */}
       {issues.length > 0 ? (
-        <section aria-label="sanity issues" className="flex flex-col gap-1.5">
-          <h3 className="font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t3)]">
+        <section aria-label="sanity issues" className="flex flex-col gap-2">
+          <h3 className="font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
             Sanity Check ({issues.length})
           </h3>
           {issues.map((iss) => {
@@ -123,7 +123,7 @@ export function VocabularyDetailPanel({ detail, onClose }: VocabularyDetailPanel
           <Empty />
         )}
         {detail.example_en && (
-          <p className="mt-1.5 font-english text-[11px] italic leading-relaxed text-[var(--t3)]">
+          <p className="mt-1.5 font-english text-[11px] italic leading-relaxed text-[var(--t2)]">
             “{detail.example_en}”
           </p>
         )}
@@ -156,7 +156,7 @@ export function VocabularyDetailPanel({ detail, onClose }: VocabularyDetailPanel
         </div>
 
         {detail.classified_by && (
-          <p className="mt-2 font-mono text-[10px] text-[var(--t3)]">
+          <p className="mt-2 font-mono text-[10px] text-[var(--t2)]">
             classified_by:{' '}
             <span className="font-[700] text-[var(--t2)]">{detail.classified_by}</span>
             {detail.claude_classified_at && (
@@ -256,8 +256,8 @@ export function VocabularyDetailPanel({ detail, onClose }: VocabularyDetailPanel
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <section className="flex flex-col gap-1.5 border-t border-[var(--bd)] pt-3">
-      <h3 className="font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t3)]">
+    <section className="flex flex-col gap-2 border-t border-[var(--bd)] pt-3">
+      <h3 className="font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
         {title}
       </h3>
       <div className="flex flex-col gap-1">{children}</div>
@@ -277,8 +277,8 @@ function KvRow({
   multiline?: boolean
 }) {
   return (
-    <div className="grid grid-cols-[110px_minmax(0,1fr)] gap-2 py-0.5">
-      <span className="font-mono text-[10px] text-[var(--t3)]">{k}</span>
+    <div className="grid grid-cols-[110px_minmax(0,1fr)] gap-2 py-1">
+      <span className="font-mono text-[10px] text-[var(--t2)]">{k}</span>
       {v == null || v === '' ? (
         <Empty />
       ) : (
@@ -296,7 +296,7 @@ function KvRow({
 }
 
 function Empty() {
-  return <span className="font-mono text-[10px] italic text-[var(--t4)]">empty</span>
+  return <span className="font-mono text-[10px] italic text-[var(--t2)]">empty</span>
 }
 
 function DimCell({
@@ -318,14 +318,14 @@ function DimCell({
         changed ? 'border-[#8B5CF6]/40 bg-[#8B5CF61A]' : 'border-[var(--bd)] bg-[var(--bg2)]'
       }`}
     >
-      <p className="font-mono text-[9px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]">
+      <p className="font-mono text-[9px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
         {label}
       </p>
       <p className="mt-0.5 font-display text-[16px] font-[800] leading-none text-[var(--t1)]">
-        {current ?? <span className="font-body text-[10px] font-[500] text-[var(--t4)]">—</span>}
+        {current ?? <span className="font-body text-[10px] font-[500] text-[var(--t2)]">—</span>}
       </p>
       {ruleV1 && (
-        <p className="mt-0.5 font-mono text-[9px] text-[var(--t3)]">
+        <p className="mt-0.5 font-mono text-[9px] text-[var(--t2)]">
           rule_v1: {ruleV1}
           {changed && <span className="ml-1 text-[#8B5CF6]">↻</span>}
         </p>
@@ -354,16 +354,16 @@ function JsonbCell({
         changed ? 'border-[#8B5CF6]/40 bg-[#8B5CF61A]' : 'border-[var(--bd)] bg-[var(--bg2)]'
       }`}
     >
-      <p className="font-mono text-[9px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]">
+      <p className="font-mono text-[9px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
         {label}
       </p>
       <p className="mt-0.5 break-all font-mono text-[10px] text-[var(--t1)]">
         {curStr ?? (
-          <span className="font-body text-[10px] font-[500] text-[var(--t4)]">—</span>
+          <span className="font-body text-[10px] font-[500] text-[var(--t2)]">—</span>
         )}
       </p>
       {ruleStr && ruleStr !== curStr && (
-        <p className="mt-0.5 break-all font-mono text-[9px] text-[var(--t3)]">
+        <p className="mt-0.5 break-all font-mono text-[9px] text-[var(--t2)]">
           rule_v1: {ruleStr}
         </p>
       )}
@@ -376,7 +376,7 @@ function JsonPreview({ label, value }: { label: string; value: unknown }) {
     <details className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-2 py-1">
       <summary className="cursor-pointer font-mono text-[10px] text-[var(--t2)]">
         {label}{' '}
-        <span className="text-[var(--t4)]">
+        <span className="text-[var(--t2)]">
           ({Array.isArray(value) ? `array[${value.length}]` : typeof value})
         </span>
       </summary>

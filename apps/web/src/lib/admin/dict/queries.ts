@@ -1,10 +1,19 @@
 // apps/web/src/lib/admin/dict/queries.ts
 // 사전DB 종합 모니터링 콘솔 v3 — 다차원 페치 함수 (Server-side only)
 //
-// 13 fetch + 1 통합 entry (fetchDictSnapshotRaw)
+// 10 fetch + 1 통합 entry (fetchDictSnapshotRaw)
 // 모든 함수 병렬 호출 가능 (Promise.all 조합)
+//
+// **공개 표면은 `fetchDictSnapshotRaw` 하나다.** 개별 fetch 는 이 파일 안에서만 쓰인다.
+// 예전에는 13개가 전부 export 였고 그중 3개(fetchSourceDistribution ·
+// fetchVerifiedAudit · fetchVcbVrlIntegration)는 **어디서도 호출되지 않은 채** 88줄을
+// 차지하고 있었다. export 는 "누군가 쓴다"는 신호라서, 아무도 안 쓰는 export 는
+// 다음 사람이 지우지 못하게 만든다 — 그래서 지웠고, 나머지는 비공개로 내렸다.
+// 새 소비자가 필요하면 그때 하나씩 다시 열되, 호출처와 함께 연다.
 
 import type { SupabaseClient } from '@supabase/supabase-js'
+
+import { pagedSelect } from '@/lib/supabase/paged-select'
 import type {
   DictVolumeData,
   DictCoverageData,
@@ -19,7 +28,7 @@ import type {
 } from './types'
 
 // ─────────────────────────────────────────────────────────────
-// 헬퍼 — count: 'exact', head: true 패턴
+// 헬퍼 — count: 'estimated', head: true 패턴
 // ─────────────────────────────────────────────────────────────
 
 /**
@@ -28,7 +37,7 @@ import type {
 export type { DictCategoricalDistributions } from './types'
 import type { DictCategoricalDistributions } from './types'
 
-export async function fetchCategoricalDistributions(
+async function fetchCategoricalDistributions(
   client: SupabaseClient,
 ): Promise<DictCategoricalDistributions | null> {
   const { data, error } = await client.rpc('dict_categorical_distributions')
@@ -43,7 +52,13 @@ export async function fetchCategoricalDistributions(
 type PgQuery = any
 
 /**
- * `count: 'exact', head: true` 카운트 + 재시도.
+ * `count: 'estimated', head: true` 카운트 + 재시도.
+ *
+ * ⚠️ 예전엔 `exact` 였다. `shared_dictionary` 는 4.9만 행이고, 거기서 `exact` 는
+ *    **8.1초 뒤 null 을 오류 message 없이** 돌려준다(실측 2026-09-06 · 세 모드 비교표는
+ *    `lib/admin/dashboard-stats.ts` 의 `head()` 주석). 그래서 VRL 화면 5개가 훑기에서
+ *    한꺼번에 「네비게이션 실패(타임아웃)」로 잡혔다. 재시도로는 못 고친다 — 느린 게
+ *    아니라 이 크기에서는 되지 않는다.
  *
  * - 250 / 500 / 1000 ms exponential backoff (총 3회 시도)
  * - 모든 시도 실패 시 throw — silent 0 반환 폐지 (직전 버그 원인)
@@ -60,7 +75,7 @@ async function countRows(
     if (backoffs[attempt] && backoffs[attempt]! > 0) {
       await new Promise((r) => setTimeout(r, backoffs[attempt]))
     }
-    let q: PgQuery = client.from(table).select('*', { count: 'exact', head: true })
+    let q: PgQuery = client.from(table).select('*', { count: 'estimated', head: true })
     if (filter) q = filter(q)
     const { count, error } = await q
     if (!error) {
@@ -89,16 +104,19 @@ export const SEGMENT_TAGS_TARGET = 3000
 // 1. fetchDictVolume — total + by primary_pos + by source
 // ─────────────────────────────────────────────────────────────
 
-export async function fetchDictVolume(
+async function fetchDictVolume(
   client: SupabaseClient,
   categorical?: DictCategoricalDistributions | null,
 ): Promise<DictVolumeData> {
-  const [totalRes, cat] = await Promise.all([
-    client.from('shared_dictionary').select('*', { count: 'exact', head: true }),
+  // 이 총계 하나가 0 이 되면 **스냅샷 전체가 0 으로 읽힌다** — 커버리지 비율의 분모이고
+  // 화면 최상단 "N entries" 이기도 하다. 예전에는 여기서 raw 질의 + `?? 0` 이라, 조회가
+  // 실패해도 조용히 "0 entries · 커버리지 0%" 가 떴다(사전은 실제로 4만 행이 넘는다).
+  // 같은 파일의 `countRows` 는 4회 재시도 후 **던진다** — 그 예외를 `_errors` 가 받아
+  // 화면 상단 배너로 올린다. 실패를 0 으로 바꾸지 않고 실패라고 말하는 유일한 경로다.
+  const [total, cat] = await Promise.all([
+    countRows(client, 'shared_dictionary'),
     categorical !== undefined ? Promise.resolve(categorical) : fetchCategoricalDistributions(client),
   ])
-
-  const total = totalRes.count ?? 0
 
   const byPrimaryPos = Object.entries(cat?.by_primary_pos ?? {})
     .map(([pos, count]) => ({ pos, count }))
@@ -115,7 +133,7 @@ export async function fetchDictVolume(
 // 2. fetchDictCoverage — 14 컬럼 채움률
 // ─────────────────────────────────────────────────────────────
 
-export async function fetchDictCoverage(
+async function fetchDictCoverage(
   client: SupabaseClient,
 ): Promise<DictCoverageData> {
   const [
@@ -132,6 +150,7 @@ export async function fetchDictCoverage(
     coll,
     infl,
     note,
+    exKo,
     freq,
     sfi,
     verified,
@@ -163,6 +182,11 @@ export async function fetchDictCoverage(
     countRows(client, 'shared_dictionary', (q) =>
       q.not('korean_learner_note', 'is', null),
     ),
+    // 예문 해석 — jsonb 첫 원소만 본다. 배열 전체를 순회하려면 RPC 가 필요하고,
+    // 그 비용을 들일 만큼 이 지표가 정밀할 필요는 없다(진행 방향만 보면 된다).
+    countRows(client, 'shared_dictionary', (q) =>
+      q.not('meanings_ko->0->>example_ko', 'is', null),
+    ),
     countRows(client, 'shared_dictionary', (q) =>
       q.not('frequency_rank', 'is', null),
     ),
@@ -185,6 +209,7 @@ export async function fetchDictCoverage(
     collocations: asMetric(coll, total),
     inflections: asMetric(infl, total),
     koreanLearnerNote: asMetric(note, total),
+    exampleKo: asMetric(exKo, total),
     frequencyRank: asMetric(freq, total),
     ngslSfi: asMetric(sfi, total),
     verified: asMetric(verified, total),
@@ -195,7 +220,7 @@ export async function fetchDictCoverage(
 // 3. fetchDictLinguistic — inflections by POS / polysemy / IPA UK·US
 // ─────────────────────────────────────────────────────────────
 
-export async function fetchDictLinguistic(
+async function fetchDictLinguistic(
   client: SupabaseClient,
 ): Promise<DictLinguisticData> {
   // inflections by primary_pos — SECURITY DEFINER RPC dict_inflections_by_pos().
@@ -278,7 +303,7 @@ export async function fetchDictLinguistic(
 // 4. fetchDictLearning — 사용자 학습 자산 (audio_url 등 schema-aware)
 // ─────────────────────────────────────────────────────────────
 
-export async function fetchDictLearning(
+async function fetchDictLearning(
   client: SupabaseClient,
   schema: SchemaPresenceData,
 ): Promise<DictLearningData> {
@@ -342,7 +367,7 @@ export async function fetchDictLearning(
 // 5. fetchVrlClassificationStats — v_level 분포 + rule_v1 차이
 // ─────────────────────────────────────────────────────────────
 
-export async function fetchVrlClassificationStats(
+async function fetchVrlClassificationStats(
   client: SupabaseClient,
   categorical?: DictCategoricalDistributions | null,
 ): Promise<VrlClassificationStatsData> {
@@ -356,7 +381,7 @@ export async function fetchVrlClassificationStats(
     categorical !== undefined ? Promise.resolve(categorical) : fetchCategoricalDistributions(client),
     client
       .from('shared_dictionary')
-      .select('*', { count: 'exact', head: true })
+      .select('*', { count: 'estimated', head: true })
       .not('v_level', 'is', null)
       .not('v_level_rule_v1', 'is', null)
       .filter('v_level', 'neq', 'v_level_rule_v1' as unknown as number),
@@ -387,7 +412,9 @@ export async function fetchVrlClassificationStats(
     totalUnclassified: total - classified,
     classifiedRatio: total > 0 ? classified / total : 0,
     byLevel,
-    reclassifiedCount: reclassRes.count ?? 0,
+    // 못 잰 것을 0 으로 두지 않는다 — 아래 emptyVrlClassification 과 같은 계약이다.
+    // (estimated head 질의는 실패해도 count=null 로 조용히 온다.)
+    reclassifiedCount: reclassRes.error ? null : reclassRes.count,
   }
 }
 
@@ -395,21 +422,36 @@ export async function fetchVrlClassificationStats(
 // 6. fetchIntegrityDefects — vrl_data_integrity_concerns
 // ─────────────────────────────────────────────────────────────
 
-export async function fetchIntegrityDefects(
+async function fetchIntegrityDefects(
   client: SupabaseClient,
 ): Promise<IntegrityDefectsData> {
-  const { data, error } = await client
-    .from('vrl_data_integrity_concerns')
-    .select('concern_type, resolved')
-    .limit(5000)
+  // ⚠️ 여기 있던 `.limit(5000)` 은 **1,000행에서 잘렸다** — PostgREST 가 그 위를 안 준다
+  //    (실측 2026-08-30). 받은 행을 세어 화면의 결함 개수로 쓰고 있었으므로, 1,000을
+  //    넘는 순간 **적게 세어진 수가 조용히** 떴다.
+  //    유형별 분해는 전량이 필요하니 끝까지 받고, 총계·미해결은 이 파일이 이미 가진
+  //    정확 카운트(`countRows` — `count: 'estimated', head: true`)로 따로 확인한다.
+  //    둘이 어긋나면 페이지네이션이 깨진 것이라 그 사실을 로그로 남긴다.
+  type Row = { concern_type: string; resolved: boolean }
+  let rows: Row[] = []
+  let error: { message: string } | null = null
+  try {
+    rows = await pagedSelect<Row>(
+      (lo, hi) =>
+        client
+          .from('vrl_data_integrity_concerns')
+          .select('concern_type, resolved')
+          .range(lo, hi),
+      'vrl_data_integrity_concerns',
+    )
+  } catch (e) {
+    error = { message: e instanceof Error ? e.message : String(e) }
+  }
 
   if (error) {
     console.warn('[fetchIntegrityDefects] failed:', error.message)
     return { open: 0, resolved: 0, total: 0, byType: [] }
   }
 
-  type Row = { concern_type: string; resolved: boolean }
-  const rows = (data ?? []) as Row[]
   const open = rows.filter((r) => !r.resolved).length
   const resolved = rows.length - open
 
@@ -435,7 +477,7 @@ export async function fetchIntegrityDefects(
 // 7. fetchFreshness — claude_classified_at / updated_at 추세
 // ─────────────────────────────────────────────────────────────
 
-export async function fetchFreshness(client: SupabaseClient): Promise<FreshnessData> {
+async function fetchFreshness(client: SupabaseClient): Promise<FreshnessData> {
   const now = new Date()
   const days7 = new Date(now.getTime() - 7 * 86400_000).toISOString()
   const days30 = new Date(now.getTime() - 30 * 86400_000).toISOString()
@@ -496,7 +538,7 @@ import {
   isVcbVrlIntegrated,
 } from './schema-presence-static'
 
-export async function fetchSchemaPresence(
+async function fetchSchemaPresence(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _client: SupabaseClient,
 ): Promise<SchemaPresenceData> {
@@ -554,95 +596,7 @@ export async function fetchPolysemy(client: SupabaseClient): Promise<{
 }
 
 // ─────────────────────────────────────────────────────────────
-// 10. fetchSourceDistribution — source 컬럼 분포 (출처별)
-// ─────────────────────────────────────────────────────────────
-
-export async function fetchSourceDistribution(
-  client: SupabaseClient,
-  categorical?: DictCategoricalDistributions | null,
-): Promise<Array<{ source: string; count: number }>> {
-  const cat =
-    categorical !== undefined ? categorical : await fetchCategoricalDistributions(client)
-  return Object.entries(cat?.by_source ?? {})
-    .map(([source, count]) => ({ source, count }))
-    .sort((a, b) => b.count - a.count)
-}
-
-// ─────────────────────────────────────────────────────────────
-// 11. fetchVerifiedAudit — verified=true 비율 (전체 + by v_level)
-// ─────────────────────────────────────────────────────────────
-
-export async function fetchVerifiedAudit(
-  client: SupabaseClient,
-  categorical?: DictCategoricalDistributions | null,
-): Promise<{
-  total: number
-  verified: number
-  verifiedRatio: number
-  byLevel: Array<{ level: number; total: number; verified: number; ratio: number }>
-}> {
-  const [total, verifiedCount, cat] = await Promise.all([
-    countRows(client, 'shared_dictionary'),
-    countRows(client, 'shared_dictionary', (q) => q.eq('verified', true)),
-    categorical !== undefined ? Promise.resolve(categorical) : fetchCategoricalDistributions(client),
-  ])
-
-  // verified_by_v_level RPC 결과 활용 (서버 측 GROUP BY + FILTER 정확)
-  const byLevel = Object.entries(cat?.verified_by_v_level ?? {})
-    .map(([levelStr, v]) => ({
-      level: parseInt(levelStr, 10),
-      total: v.total,
-      verified: v.verified,
-      ratio: v.total > 0 ? v.verified / v.total : 0,
-    }))
-    .sort((a, b) => a.level - b.level)
-
-  return {
-    total,
-    verified: verifiedCount,
-    verifiedRatio: total > 0 ? verifiedCount / total : 0,
-    byLevel,
-  }
-}
-
-// ─────────────────────────────────────────────────────────────
-// 12. fetchVcbVrlIntegration — shared_word_sets schema 결합 정합
-// ─────────────────────────────────────────────────────────────
-
-export async function fetchVcbVrlIntegration(
-  client: SupabaseClient,
-  schema: SchemaPresenceData,
-): Promise<{
-  integrated: boolean
-  totalSets: number
-  /** v_level 정보 보유 set 수 (가능한 경우) */
-  setsWithVLevel: number | null
-}> {
-  const totalSets = await countRows(client, 'shared_word_sets')
-  if (!schema.vcbVrlIntegrated) {
-    return { integrated: false, totalSets, setsWithVLevel: null }
-  }
-  // 통합돼 있으면 — 첫번째 발견 컬럼으로 채움 비율 측정 (heuristic)
-  const VCB_VRL_CANDIDATES = [
-    'target_v_level_range',
-    'target_v_level',
-    'v_level',
-    'target_track_id',
-    'target_domain_id',
-  ] as const
-  const candidate = VCB_VRL_CANDIDATES.find((c: string) =>
-    schema.sharedWordSetsColumns.includes(c),
-  )
-  if (!candidate) return { integrated: true, totalSets, setsWithVLevel: null }
-
-  const setsWithVLevel = await countRows(client, 'shared_word_sets', (q) =>
-    q.not(candidate, 'is', null),
-  )
-  return { integrated: true, totalSets, setsWithVLevel }
-}
-
-// ─────────────────────────────────────────────────────────────
-// 13. fetchDictSnapshotRaw — page entry point 병렬 페치
+// 10. fetchDictSnapshotRaw — page entry point 병렬 페치
 // ─────────────────────────────────────────────────────────────
 
 export interface DictSnapshotRaw {
@@ -673,6 +627,9 @@ function emptyCoverage(): DictCoverageData {
     total: 0,
     meaningKo: m,
     exampleEn: m,
+    // 실제 집계(위 `asMetric(exKo, total)`)에는 있는데 이 폴백에만 빠져 있었다 —
+    // 타입에 필드를 더할 때 안전 기본값 쪽을 같이 고치지 않으면 빌드가 막힌다.
+    exampleKo: m,
     ipa: m,
     cefrLevel: m,
     cefrConfidence: m,
@@ -715,7 +672,9 @@ function emptyVrlClassification(): VrlClassificationStatsData {
     totalUnclassified: 0,
     classifiedRatio: 0,
     byLevel: [],
-    reclassifiedCount: 0,
+    // 이 객체는 **질의가 통째로 실패했을 때**의 대체값이다. 재분류 수는 못 잰 것이지 0 이
+    // 아니다 — 0 으로 두면 점수 감점이 사라져 실패가 만점으로 보인다.
+    reclassifiedCount: null,
   }
 }
 function emptyIntegrity(): IntegrityDefectsData {

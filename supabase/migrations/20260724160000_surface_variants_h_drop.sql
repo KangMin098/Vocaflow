@@ -1,0 +1,4 @@
+-- surface_variants 확대 — Cockney h-탈락 방언 복원(ead→head·elp→help·orrible→horrible).
+-- 새 200권(일반화 테스트)에서 발견된 체계적 패턴. 정밀: 실단어(and·old·ear·art)는 direct 우선, h+w가 사전有일 때만.
+-- 200권 +60 lemma/186 등장. 전체 정의는 DB 적용본 기준(20260724140000 위). 핵심 추가:
+--   case when s !~ '^h' and length(s) >= 3 then 'h'||s end

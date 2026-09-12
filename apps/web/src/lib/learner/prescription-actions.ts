@@ -27,6 +27,14 @@ export interface PrescriptionCandidate {
 export interface TodayPrescription {
   /** V-Level 진단 완료 여부 (분기 게이트 — 미진단이면 hub 는 진단 유도). */
   isDiagnosed: boolean
+  /**
+   * 진단된 V-Level (0~11). 미진단이면 null.
+   *
+   * 이미 `user_profiles.current_v_level` 을 읽어 `isDiagnosed` 를 만들고 **값은 버리고
+   * 있었다.** 셸의 사정권("지금 열린 책 N권")이 이 값 없이는 계산되지 않는데, 같은 컬럼을
+   * 다시 읽으면 모든 라우트에 쿼리가 하나 더 붙는다. 버리지 않고 실어 보낸다 — 추가 쿼리 0.
+   */
+  vLevel: number | null
   /** 학습자 스테이지 'S1'~'Sn'. */
   stage: string
   stageNum: number
@@ -40,6 +48,18 @@ export interface TodayPrescription {
   practiceCount: number
   /** ② 듣기(EchoMatch) 진입용 최근 텍스트(없으면 도서 라이브러리로 폴백). */
   listeningTextId: string | null
+  /**
+   * 처방을 **계산하지 못했는가**. true 면 아래 값들은 계산 결과가 아니라 폴백이다.
+   *
+   * 왜 필요한가: 이 플래그가 없어서 실패가 조용히 정상처럼 보였다. 2026-07-19 에
+   * `csat_item_attempts` 가 삭제되면서 `derive_learner_stage` → `prescribe_today` 가
+   * 모든 학습자에게 실패했는데, 폴백값(stage 'S1' · 0분 · due 0)이 **신규 학습자의 정상
+   * 상태와 똑같아서** 3주 넘게 아무도 몰랐다. 화면은 "오늘 할 게 없다" 고 말했고
+   * 그것이 계산 결과인지 실패인지 구별할 방법이 없었다.
+   *
+   * 폴백 자체는 유지한다(화면이 깨지는 것보다 낫다). 다만 **폴백임을 말한다.**
+   */
+  unavailable: boolean
 }
 
 /** jsonb 블록 배열에서 kind 로 하나 찾기. */
@@ -101,8 +121,16 @@ export async function fetchTodayPrescription(): Promise<TodayPrescription | null
 
   const p = (rpcRes.data ?? null) as { stage?: string; blocks?: unknown; total_minutes?: number } | null
   if (rpcRes.error || !p) {
+    // 실패를 삼키지 않는다. 폴백값(S1 · 0분 · due 0)은 **신규 학습자의 정상 상태와 똑같아서**
+    // 조용히 넘기면 아무도 모른다 — 실제로 csat_item_attempts 삭제로 3주 넘게 그랬다.
+    if (rpcRes.error) {
+      console.error(
+        `[hub] prescribe_today 실패 — 폴백 처방을 반환합니다: ${rpcRes.error.message}`,
+      )
+    }
     return {
       isDiagnosed,
+      vLevel,
       stage: 'S1',
       stageNum: 1,
       totalMinutes: 0,
@@ -111,6 +139,7 @@ export async function fetchTodayPrescription(): Promise<TodayPrescription | null
       practiceActive: false,
       practiceCount: 0,
       listeningTextId,
+      unavailable: true,
     }
   }
 
@@ -126,6 +155,7 @@ export async function fetchTodayPrescription(): Promise<TodayPrescription | null
 
   return {
     isDiagnosed,
+    vLevel,
     stage,
     stageNum,
     totalMinutes: typeof p.total_minutes === 'number' ? p.total_minutes : 0,
@@ -134,5 +164,6 @@ export async function fetchTodayPrescription(): Promise<TodayPrescription | null
     practiceActive: practice?.active === true && practiceCount > 0,
     practiceCount,
     listeningTextId,
+    unavailable: false,
   }
 }

@@ -1,0 +1,260 @@
+[
+  {
+    "adapted_from_id": "3b544ddd-65a4-42a6-b103-c83c0bf588b4",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "How Many Moons Does Each Planet Have? (앞부분 발췌)",
+    "source_feed": "space_place",
+    "source_license": "public_domain",
+    "source_v_level": 5,
+    "source_url": "https://spaceplace.nasa.gov/how-many-moons/en/",
+    "source_text": "You are using an outdated browser. For a faster, safer, and more beautiful web upgrade for free today. Watch this video about other moons in our solar system! Voiceover provided by NASA scientist Dr. Moogega Stricker. Click here to download this video (1920x1080, 56 MB, video/mp4). We on Earth have just one moon, but some planets have dozens of them. Others don’t have any. Which planets have moons, and which don’t? Up first are Mercury and Venus . Neither of them has a moon. Because Mercury is so close to the Sun and its gravity, it wouldn’t be able to hold on to its own moon. Any moon would most likely crash into Mercury or maybe go into orbit around the Sun and eventually get pulled into it.",
+    "teachable_new_words": {
+      "teachable": 9,
+      "outside": 30,
+      "pct": 30
+    },
+    "title": "",
+    "text": ""
+  },
+  {
+    "adapted_from_id": "6e912369-33e0-4910-a02c-66575d4c5a44",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "The Roti Roll",
+    "source_feed": "storyweaver",
+    "source_license": "cc_by",
+    "source_v_level": 5,
+    "source_url": "https://storyweaver.org.in/stories/60812-the-roti-roll",
+    "source_text": "Kamal had a dog. He was called Bhaunkoo. One day, Kamal was feeding Bhaunkoo and he gave him a roti. Down came a monkey and snatched the roti away! He climbed up the wall on the terrace before settling down to eat. A crow saw the roti from the corner of his eye. He swooped down and made off with the roti before the monkey could take a bite. He flew to the pipal tree in the courtyard. There was a peacock perched on the pipal tree. He caught sight of the roti. The crow flew off to save it. Bhaunkoo barked loudly, “Bhaun, Bhaun, Bhaun, Bhaun!” The crow panicked. He cawed, “Kaanv, Kaanv!” As he opened his beak, the roti fell down. It fell in the courtyard. Bhaunkoo snapped it up immediately. The roti was back where it belonged!",
+    "teachable_new_words": {
+      "teachable": 8,
+      "outside": 30,
+      "pct": 26.7
+    },
+    "title": "",
+    "text": ""
+  },
+  {
+    "adapted_from_id": "00ca137c-73e8-464a-8e29-be3d68e6cdd9",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "Rapid Response Seafloor Seismology",
+    "source_feed": "usgs",
+    "source_license": "public_domain",
+    "source_v_level": 5,
+    "source_url": "https://www.usgs.gov/news/featured-story/rapid-response-seafloor-seismology",
+    "source_text": "Offshore Seismic Science\n\n Major marine geohazards, such as earthquakes, submarine landslides, tsunamis, and volcanoes, can threaten lives and critical infrastructure both at sea and on land. For the last several decades, USGS has been studying the historical impact of these hazards, as well as forecasting future risks in the regions where they occur. This includes developing hazard maps and models that help engineers, policymakers, and other decision makers mitigate risks to people and property.\nOne tool in our scientific arsenal is the use of ocean-bottom seismographs. These are a type of seismograph that can be deployed on the seafloor for weeks, months, and even years to record shaking from seismic waves. Placing the instruments offshore helps us more accurately locate and measure the magnitude of underwater and remote earthquakes.\n\n Marine Geohazards\n\n Collection of Micro Ocean-Bottom Seismometers\n\n Scientist looks at micro ocean-bottom seismometer\n\n Micro Ocean-Bottom Seismometers Being Deployed\n\n Close\n\n Meeting a Crucial Need\n\n Traditional ocean-bottom seismographs can weigh many hundreds of pounds and require large research vessels to transport them tens to hundreds of miles out to sea. While those instruments are well-suited for long-term research, they are large, cumbersome, and expensive to deploy. This limits their effectiveness for rapidly responding to earthquakes, volcanic eruptions, and other marine geohazards. Typically, it takes months for them to be shipped to a port, loaded on a ship, and finally deployed—meaning we would miss out on critical first few weeks to months of seismic data. To address the need for more mobile equipment, the USGS partnered with the Ocean Bottom Seismic Instrument Center at the Woods Hole Oceanographic Institution to maintain and operate a fleet of small ocean-bottom seismographs dedicated to rapid-response efforts.\n\n “A magnitude 7.4 earthquake shook Taiwan the morning after we finished an open-water test of the new instruments,” said Dr. Nathan Miller, USGS research geophysicist. “That was a timely reminder that big earthquakes can happen anytime. If we want to record aftershocks offshore, we have to have instruments ready to go.”\n\n Small ocean-bottom seismograph deployed on seafloor\n\n Ocean-bottom Seismographs being deployed in Atlantic Ocean\n\n Small ocean-bottom seismograph deployed on seafloor\n\n Close\n\n Small Ocean-Bottom Seismographs\n\n The new ocean-bottom seismographs record shaking with an accelerometer. Similar to the computer chips that measure motion in smartphones, this finger-nail-sized sensor can measure shaking in any orientation, removing the need for the large, complex, and power-consuming leveling systems used by traditional seafloor instruments. Combining the accelerometer with low-power recording electronics means the new instruments need less battery power, further reducing the size and weight of the instruments.\nThe fleet currently has 10 instruments that measure 24 by 24 inches and weigh about 50 pounds. The instruments can be deployed for about 50 days in water up to ~4 miles deep. By having a fleet of instruments designed for rapid response, we can record events during periods of exceptionally high scientific value, for a fraction of the cost of long-term deployments.\nThe new instruments were successfully tested offshore in Cape Cod, Massachusetts in April 2024. A response plan for providing on-call staff and equipment for rapid deployments offshore California, the Pacific Northwest, Alaska, and the Caribbean is being developed by the USGS and Woods Hole Oceanographic Institution. The goal is to be able to mobilize and deploy the fleet within 2 weeks of marine seismic events.\nThe new fleet represents a significant advancement in rapid response capabilities for marine geohazards research. This next-generation fleet can provide high-value data to the scientific community and help enhance our understanding of seismic and other geohazards.\n\n Media",
+    "teachable_new_words": {
+      "teachable": 26,
+      "outside": 123,
+      "pct": 21.1
+    },
+    "title": "",
+    "text": ""
+  },
+  {
+    "adapted_from_id": "02e11a55-1480-4271-bbe3-e6d0fa2e3968",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "China Builds Test Version of Nuclear Reactor for Navy",
+    "source_feed": "voa",
+    "source_license": "public_domain",
+    "source_v_level": 5,
+    "source_url": "https://learningenglish.voanews.com/a/china-builds-test-version-of-nuclear-reactor-for-navy/7863772.html",
+    "source_text": "China has built a land-based test version of a nuclear reactor for a large warship. The development is the clearest sign yet that Beijing is moving toward producing the country’s first nuclear-powered aircraft carrier. This information comes from a new study of satellite imagery and Chinese government documents provided to the Associated Press.\nWhy is this development important?\nThere has long been talk that China is planning to build a nuclear-powered aircraft carrier. But the recent research by the Middlebury Institute of International Studies in California is the first to confirm the country is working on a nuclear-powered movement system for a carrier-sized surface warship.\nChina’s navy is already the world’s largest in terms of numbers.\nChina's navy has also been developing quickly. Adding nuclear-powered carriers to its fleet would be a major step in realizing its hopes for a force capable of operating around the globe.\nNuclear carriers take longer to build than conventional carriers.\nBut once nuclear carriers are in operation, they are able to stay at sea for much longer because they do not need to refuel. In addition, there is more room on board for fuel and weapons for aircraft. Nuclear carriers are also able to produce more power to run advanced systems.\nRight now, only the United States and France have nuclear-powered carriers. The U.S. has 11 in total, which permits it to keep multiple strike groups deployed around the world at all times, including in the Indo-Pacific area.\nBut the Pentagon is increasingly concerned about China’s modernization of its fleet, including the design and building of new carriers.\nChina currently has three carriers, including the new Type 003 Fujian, which was the first both designed and built by China. Officials have said work is already underway on a fourth ship.\nBut the government has not announced whether that ship will be nuclear or conventionally powered.\nHow did the researchers arrive at their conclusion?\nMiddlebury researchers were at first investigating a mountain site outside the city of Leshan in the southwest Chinese province of Sichuan. They had suspicions that China was building a reactor to produce radioactive materials such as plutonium or tritium for weapons. Instead, the researchers said they determined that China was building a test version of a reactor for a large warship.\nA number of sources, including satellite images, project tenders, employee files, and environmental impact studies, led researchers to their conclusion.\nThe reactor is housed in a new structure built at the site known as Base 909, which is under the control of the Nuclear Power Institute of China.\nDocuments show that China’s 701 Institute, which is responsible for aircraft carrier development, got reactor equipment meant “for installation on a large surface warship.”\nThe project’s “national defense designation” also helped lead to the conclusion the sizeable reactor is a test version for a next-generation aircraft carrier.\nWhat does China say?\nChinese President Xi Jinping has tasked defense officials with building a “first-class” navy and becoming a naval power as part of his plan for the country.\nChina’s most recent white paper on national defense, dated 2019, said the Chinese navy was changing due to strategic requirements. The goal was to speed up “the transition of its tasks from defense on the near seas to protection missions on the far seas.”\nI’m Mario Ritter, Jr.\n\nDavid Rising and Didi Tang reported on this story for the Associated Press. John Russell adapted it for VOA Learning English.\n________________________________________________\nconventional – adj. of traditional design\nadvanced – adj. greatly developed beyond an early stage\ntender – n. an invitation to present an offer or bid (for a project)\ninstall – v. to set up for use or service\ntransition – n. a change or shift from one state or place to another",
+    "teachable_new_words": {
+      "teachable": 40,
+      "outside": 125,
+      "pct": 32
+    },
+    "title": "",
+    "text": ""
+  },
+  {
+    "adapted_from_id": "dddd9244-5e40-4e2d-992b-9cf5d0c585e7",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "James Madison, Father of America’s Constitution",
+    "source_feed": "voa",
+    "source_license": "public_domain",
+    "source_v_level": 4,
+    "source_url": "https://learningenglish.voanews.com/a/james-madison-father-of-america-s-constitution/7986616.html",
+    "source_text": "The men who created America’s Constitution are often called the nation’s “founders.” But only one of those men, James Madison, is widely considered “the father of the Constitution.”\nMadison was elected president of the United States in 1808. He served for two terms. But many Americans remember Madison more for the work he did to strengthen the national government before he served as president.\nMadison was one of the writers of the state constitution in his home state of Virgina in 1776. Later, he proposed a more structured national government after the Revolutionary War. That conflict resulted in the American colonists separating from Britain.\nMadison imagined a three-part American government – one with an executive, a legislature, and an independent Supreme Court. His ideas became the basis for the U.S. Constitution.\nTom Howard has served as an educator at Madison’s home in southern Virginia. He said Madison did not receive as much attention as some of America’s other founding members.\n“He’s not somehow historically as well-known as other…founding statesmen,” Howard said. “But he’s certainly every bit as important…We are not even sure there would be a Constitution had it not been for James Madison,” he added.\nHoward noted how James Madison used his own library to prepare for the nation’s Constitutional Convention. “He went up there and studied for months, and that’s having just a light breakfast and then studying throughout the entire day – before he finally took a break to rest up, to go back at it the next day.”\nHistorians say Madison took very detailed notes during the Constitutional Convention in Philadelphia, Pennsylvania. “He sat behind George Washington taking notes, and trying to determine how the debates were going in discussions that he could prepare for the next day, and how he would influence that.”\nMadison understood his notes were important not only for him. He knew they would also be interesting for historians and other people who wanted to know what happened at the meeting. He included information on speeches and ideas expressed by other delegates.\nAfter a new constitution was created at the convention, the legislatures of each state had to ratify, or vote to approve, the document. Madison and other supporters of the proposed government eventually succeeded in persuading the states to ratify the Constitution.\nHe was then elected to the House of Representatives in the first Congress under the new government. But it was his actions in support of a strong national government and federal laws that earned Madison a place in history as “Father of the Constitution.”\nI’m Bryan Lynn.\nJill Robbins, Steve Ember and Faith Lapidus reported on this story for VOA Learning English. Bryan Lynn adapted the reports.\n_____________________________________________\nfounder – n. someone who establishes an effort or organization\ndetermine – v. to discover the facts or truth about something",
+    "teachable_new_words": {
+      "teachable": 35,
+      "outside": 98,
+      "pct": 35.7
+    },
+    "title": "",
+    "text": ""
+  },
+  {
+    "adapted_from_id": "519c5a6f-de74-4ad5-ba81-29ad5269b04b",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "NASA to Cover 34th SpaceX Resupply Mission Space Station Departure - NASA",
+    "source_feed": "nasa",
+    "source_license": "public_domain",
+    "source_v_level": 5,
+    "source_url": "https://www.nasa.gov/news-release/nasa-to-cover-34th-spacex-resupply-mission-space-station-departure/",
+    "source_text": "2 min read\n\nNASA to Cover 34th SpaceX Resupply Mission Space Station Departure\n\nGerelle Q. Dodson\n\nJun 12, 2026\n MEDIA ADVISORYM26-046\n\nNASA Headquarters\n\nThe SpaceX Dragon cargo spacecraft supporting the company’s 34th commercial resupply services mission for NASA approaches the International Space Station on May 17, 2026, carrying nearly 6,500 pounds of food, supplies, and equipment for the Expedition 74 crew.\n\nCredit: NASA\n\nNASA and its international partners are set to receive scientific research samples and hardware as a SpaceX Dragon spacecraft is scheduled to depart the International Space Station on Tuesday, June 16, for its return to Earth.\n\nWatch NASA’s live undocking coverage beginning at 11:45 a.m. EDT on NASA+, Amazon Prime, and the agency’s YouTube channel. Learn how to watch NASA content through a variety of online platforms, including social media.\n\nThe Dragon spacecraft will undock from the forward port of the station’s Harmony module at about 12:05 p.m., after receiving a command from SpaceX ground controllers. The spacecraft then will fire its thrusters to move safely away from the orbiting complex.\n\nFollowing a June 16 departure, the spacecraft will reenter Earth’s atmosphere on Wednesday, June 17, before splashing down off the coast of California at approximately 5:08 a.m. PDT. NASA will not stream the splashdown but will post updates on its space station blog.\n\nDragon will return to Earth with thousands of pounds of cargo, carrying samples that could shape future space exploration and life on Earth. Research returning includes bioprinted organ and cartilage tissue, data on improving cryogenic fuel storage for future space missions, and DNA‑inspired materials to develop new cancer treatments. The returning hardware includes an ocular imaging device used to monitor crew members’ eye health, an absorbent bed that filters trace contaminants from cabin air, and a separator pump from the waste and hygiene compartment.\n\nLoaded with nearly 6,500 pounds of crew cargo and science experiments, Dragon arrived at the station on May 17 after launching two days earlier on a Falcon 9 rocket from Space Launch Complex 40 at Cape Canaveral Space Force Station in Florida.\n\nFor more than 25 years, people have lived and worked continuously aboard the International Space Station, advancing scientific knowledge and making research breakthroughs not possible on Earth. The space station helps NASA understand and overcome the challenges of human spaceflight, expand commercial opportunities in low Earth orbit, and build on the foundation for long-duration missions to the Moon, as part of the Artemis program, and to Mars.\n\nGet breaking news, images, and features from the space station on Instagram, Facebook, and X.\n\nLearn more about International Space Station research and operations at:\n\nhttps://www.nasa.gov/international-space-station\n\n-end-\n\nJimi Russell\nHeadquarters, Washington\n202-358-1100\njames.j.russell@nasa.gov\n\nLeah Cheshier\nJohnson Space Center, Houston\n281-483-5111\nleah.d.cheshier@nasa.gov\n\nShare\n\nDetails\n\n Last Updated\n\n Jun 12, 2026\n\n Location\n\nNASA Headquarters\n\nRelated Terms\n\nInternational Space Station (ISS)\nHumans in Space\nSpaceX Commercial Resupply",
+    "teachable_new_words": {
+      "teachable": 18,
+      "outside": 111,
+      "pct": 16.2
+    },
+    "title": "",
+    "text": ""
+  }
+]

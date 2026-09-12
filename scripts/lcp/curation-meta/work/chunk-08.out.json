@@ -1,0 +1,945 @@
+[
+  {
+    "id": "a1c269d1-5690-4755-9ec8-9e5306a9c22d",
+    "title": "Germinal",
+    "author": "Émile Zola",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 178194,
+    "chapters": 40,
+    "minutes": 1188,
+    "tags": [
+      "fiction",
+      "politics",
+      "literature",
+      "classic",
+      "adult"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "북프랑스 탄광 파업과 광부 가족의 굶주림.",
+    "learning_value": "자연주의의 대표작 — 노동 어휘가 많다",
+    "themes": [
+      "노동",
+      "파업",
+      "빈곤"
+    ],
+    "genre_norm": "사실주의 소설",
+    "age_band": "17+",
+    "est_cefr": "B2",
+    "est_basis": "번역 자연주의"
+  },
+  {
+    "id": "5ca02862-92e0-47be-9af4-10b035ea4690",
+    "title": "Women in Love",
+    "author": "D. H. Lawrence",
+    "year": null,
+    "v_level": 9,
+    "cefr_band": "B2",
+    "cefrj": "B2.2",
+    "words": 181770,
+    "chapters": 31,
+    "minutes": 1212,
+    "tags": [
+      "fiction",
+      "romance",
+      "literature",
+      "classic",
+      "adult"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "두 자매와 두 남자가 사랑과 파괴 사이를 오간다.",
+    "learning_value": "심리와 관념이 뒤엉킨 대화 — 난도 높음",
+    "themes": [
+      "사랑",
+      "욕망",
+      "파괴"
+    ],
+    "genre_norm": "심리 소설",
+    "age_band": "17+",
+    "est_cefr": "C1",
+    "est_basis": "관념적 대화 밀도"
+  },
+  {
+    "id": "9a7ed1d2-c7b4-40ff-b0b7-79123ef77fa8",
+    "title": "Notre-Dame de Paris",
+    "author": "Victor Hugo",
+    "year": null,
+    "v_level": 9,
+    "cefr_band": "B2",
+    "cefrj": "B2.2",
+    "words": 183513,
+    "chapters": 59,
+    "minutes": 1224,
+    "tags": [
+      "fiction",
+      "historical",
+      "romance",
+      "classic",
+      "literature"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "노트르담의 종지기 콰지모도와 집시 에스메랄다.",
+    "learning_value": "건축·중세 파리 묘사가 길다 — 인내가 필요",
+    "themes": [
+      "운명",
+      "집착",
+      "중세"
+    ],
+    "genre_norm": "역사 소설",
+    "age_band": "15+",
+    "est_cefr": "B2",
+    "est_basis": "번역 만연체"
+  },
+  {
+    "id": "4e5376a7-16e6-4591-ab7f-763b70b862ad",
+    "title": "Great Expectations",
+    "author": "Charles Dickens",
+    "year": null,
+    "v_level": 9,
+    "cefr_band": "B2",
+    "cefrj": "B2.2",
+    "words": 185859,
+    "chapters": 59,
+    "minutes": 1240,
+    "tags": [
+      "fiction",
+      "coming-of-age",
+      "literature",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "정체 모를 후원자 덕에 신사가 된 고아 핍.",
+    "learning_value": "디킨스 입문 — 1인칭이라 따라가기 쉽다",
+    "themes": [
+      "계급",
+      "기대",
+      "성장"
+    ],
+    "genre_norm": "성장 소설",
+    "age_band": "14+",
+    "est_cefr": "B2",
+    "est_basis": "디킨스 1인칭"
+  },
+  {
+    "id": "abb524fd-aced-4dab-b5a0-40bc704936fb",
+    "title": "Short Fiction",
+    "author": "Fritz Leiber",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 187509,
+    "chapters": 59,
+    "minutes": 1251,
+    "tags": [
+      "fiction",
+      "short-story",
+      "science-fiction",
+      "fantasy",
+      "adult"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "검과 마법에서 도시 공포까지 걸친 라이버의 단편들.",
+    "learning_value": "장르가 섞인 단편 — 취향 탐색용",
+    "themes": [
+      "환상",
+      "공포",
+      "도시"
+    ],
+    "genre_norm": "판타지",
+    "age_band": "16+",
+    "est_cefr": "B2",
+    "est_basis": "장르 혼합 단편"
+  },
+  {
+    "id": "7f29429c-7e55-40d0-afb2-c8abdff3ee93",
+    "title": "The Federalist Papers",
+    "author": "Alexander Hamilton",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 190164,
+    "chapters": 85,
+    "minutes": 1268,
+    "tags": [
+      "nonfiction",
+      "essay",
+      "politics",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "미국 헌법 비준을 설득하기 위해 쓴 85편의 논설.",
+    "learning_value": "정치 논설의 표준 — 논증 구조 정독",
+    "themes": [
+      "헌법",
+      "연방",
+      "정치"
+    ],
+    "genre_norm": "정치",
+    "age_band": "17+",
+    "est_cefr": "C1",
+    "est_basis": "18세기 논설 장문"
+  },
+  {
+    "id": "40b74f64-c3bc-4a95-9e52-3b19c9d77ee9",
+    "title": "Leviathan",
+    "author": "Thomas Hobbes",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 205508,
+    "chapters": 47,
+    "minutes": 1371,
+    "tags": [
+      "nonfiction",
+      "philosophy",
+      "politics",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "만인의 만인에 대한 투쟁에서 국가가 생겨나는 논리.",
+    "learning_value": "근대 정치철학의 뿌리 — 정의부터 쌓아 간다",
+    "themes": [
+      "국가",
+      "계약",
+      "자연상태"
+    ],
+    "genre_norm": "정치",
+    "age_band": "17+",
+    "est_cefr": "C2",
+    "est_basis": "17세기 논증 장문"
+  },
+  {
+    "id": "ddde97fa-6653-479d-b0c7-44f6f5730444",
+    "title": "The Mill on the Floss",
+    "author": "George Eliot",
+    "year": null,
+    "v_level": 9,
+    "cefr_band": "B2",
+    "cefrj": "B2.2",
+    "words": 207874,
+    "chapters": 59,
+    "minutes": 1386,
+    "tags": [
+      "fiction",
+      "coming-of-age",
+      "literature",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "강가 물방앗간에서 자란 매기와 오빠의 애증.",
+    "learning_value": "엘리엇 입문 — 유년기 묘사가 따뜻하다",
+    "themes": [
+      "남매",
+      "계급",
+      "강"
+    ],
+    "genre_norm": "성장 소설",
+    "age_band": "16+",
+    "est_cefr": "B2",
+    "est_basis": "엘리엇 서술체"
+  },
+  {
+    "id": "e361a0ba-dde7-4016-afc8-2e616f7da7a4",
+    "title": "The Golden Bowl",
+    "author": "Henry James",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 208012,
+    "chapters": 42,
+    "minutes": 1387,
+    "tags": [
+      "fiction",
+      "literature",
+      "classic",
+      "adult"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "금 간 그릇처럼 어긋난 두 부부의 침묵.",
+    "learning_value": "후기 제임스 — 영어 문장 난도의 극단",
+    "themes": [
+      "결혼",
+      "침묵",
+      "배신"
+    ],
+    "genre_norm": "심리 소설",
+    "age_band": "17+",
+    "est_cefr": "C2",
+    "est_basis": "후기 제임스 만연체"
+  },
+  {
+    "id": "2d00d34f-b0a0-4d37-9daf-59f5954719c1",
+    "title": "Quo Vadis",
+    "author": "Henryk Sienkiewicz",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 209179,
+    "chapters": 73,
+    "minutes": 1395,
+    "tags": [
+      "fiction",
+      "historical",
+      "religion",
+      "classic",
+      "literature"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "네로 치하 로마에서 박해받는 기독교인과 사랑.",
+    "learning_value": "역사 대작 — 장면이 선명하다",
+    "themes": [
+      "로마",
+      "신앙",
+      "박해"
+    ],
+    "genre_norm": "역사 소설",
+    "age_band": "15+",
+    "est_cefr": "B2",
+    "est_basis": "번역 역사 소설"
+  },
+  {
+    "id": "d8225f41-eed5-4521-a21c-09928f5414d1",
+    "title": "An Autobiography",
+    "author": "Theodore Roosevelt",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 212483,
+    "chapters": 15,
+    "minutes": 1417,
+    "tags": [
+      "nonfiction",
+      "biography",
+      "politics",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "대통령이 직접 쓴 사냥과 개혁과 정치의 회고.",
+    "learning_value": "정치 회고록 — 미국사 배경 어휘",
+    "themes": [
+      "정치",
+      "개혁",
+      "회고"
+    ],
+    "genre_norm": "자서전",
+    "age_band": "16+",
+    "est_cefr": "B2",
+    "est_basis": "회고 논설체"
+  },
+  {
+    "id": "d079751b-e8d9-4ea5-89e5-f8e2993049fe",
+    "title": "Shirley",
+    "author": "Charlotte Brontë",
+    "year": null,
+    "v_level": 9,
+    "cefr_band": "B2",
+    "cefrj": "B2.2",
+    "words": 216902,
+    "chapters": 37,
+    "minutes": 1447,
+    "tags": [
+      "fiction",
+      "romance",
+      "historical",
+      "literature",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "러다이트 봉기를 배경으로 한 두 여성의 자립.",
+    "learning_value": "브론테 유일의 사회 소설 — 인물이 많다",
+    "themes": [
+      "산업",
+      "여성",
+      "봉기"
+    ],
+    "genre_norm": "역사 소설",
+    "age_band": "16+",
+    "est_cefr": "B2",
+    "est_basis": "브론테 서술체"
+  },
+  {
+    "id": "ba3267f4-744c-49d5-9dec-2fdb7522190a",
+    "title": "Dialogues",
+    "author": "Seneca",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 227199,
+    "chapters": 170,
+    "minutes": 1515,
+    "tags": [
+      "essay",
+      "nonfiction",
+      "philosophy",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "분노와 짧은 인생에 대해 쓴 스토아 철학자의 산문들.",
+    "learning_value": "편마다 독립 — 짧은 편부터 골라 읽기",
+    "themes": [
+      "스토아",
+      "분노",
+      "시간"
+    ],
+    "genre_norm": "철학",
+    "age_band": "16+",
+    "est_cefr": "B2",
+    "est_basis": "번역 스토아 산문"
+  },
+  {
+    "id": "84a04c2d-d9aa-411c-af6f-a627fc94c20f",
+    "title": "The Three Musketeers",
+    "author": "Alexandre Dumas",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 229457,
+    "chapters": 67,
+    "minutes": 1530,
+    "tags": [
+      "fiction",
+      "adventure",
+      "historical",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "다르타냥이 삼총사와 함께 왕비의 명예를 지킨다.",
+    "learning_value": "가장 재미있는 고전 모험 — 대화가 빠르다",
+    "themes": [
+      "우정",
+      "음모",
+      "검술"
+    ],
+    "genre_norm": "모험 소설",
+    "age_band": "13+",
+    "est_cefr": "B2",
+    "est_basis": "번역 모험체"
+  },
+  {
+    "id": "e65656a2-38a1-4e58-814e-7372f0acac69",
+    "title": "Buddenbrooks",
+    "author": "Thomas Mann",
+    "year": null,
+    "v_level": 9,
+    "cefr_band": "B2",
+    "cefrj": "B2.2",
+    "words": 233703,
+    "chapters": 97,
+    "minutes": 1559,
+    "tags": [
+      "fiction",
+      "literature",
+      "historical",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "4대에 걸친 상인 가문의 쇠락.",
+    "learning_value": "노벨상 수상작 — 세대별로 끊어 읽기 좋다",
+    "themes": [
+      "가문",
+      "쇠락",
+      "상업"
+    ],
+    "genre_norm": "역사 소설",
+    "age_band": "17+",
+    "est_cefr": "B2",
+    "est_basis": "번역 사실주의"
+  },
+  {
+    "id": "1caae460-89ae-428a-a53f-20a1f4b50e79",
+    "title": "Lost Illusions",
+    "author": "Honoré de Balzac",
+    "year": null,
+    "v_level": 9,
+    "cefr_band": "B2",
+    "cefrj": "B2.2",
+    "words": 248473,
+    "chapters": 50,
+    "minutes": 1657,
+    "tags": [
+      "fiction",
+      "literature",
+      "classic",
+      "adult"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "시인을 꿈꾼 지방 청년이 파리 저널리즘에 삼켜진다.",
+    "learning_value": "발자크 대표작 — 언론과 출판 어휘",
+    "themes": [
+      "야심",
+      "언론",
+      "환멸"
+    ],
+    "genre_norm": "사실주의 소설",
+    "age_band": "17+",
+    "est_cefr": "C1",
+    "est_basis": "번역 만연체"
+  },
+  {
+    "id": "cc800bb4-eeac-49d8-a4ab-f65ebe1fc7ab",
+    "title": "Household Tales",
+    "author": "Jacob Grimm",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 285359,
+    "chapters": 203,
+    "minutes": 1903,
+    "tags": [
+      "short-story",
+      "fairy-tale",
+      "children",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "그림 형제가 모은 200여 편의 민담 전집.",
+    "learning_value": "한 편이 짧다 — 원형 서사 구조 학습",
+    "themes": [
+      "민담",
+      "마법",
+      "교훈"
+    ],
+    "genre_norm": "동화",
+    "age_band": "10+",
+    "est_cefr": "B2",
+    "est_basis": "민담 반복 구조"
+  },
+  {
+    "id": "1374500f-cc2f-4459-a6cb-ff270e6c97cb",
+    "title": "The Decameron",
+    "author": "Giovanni Boccaccio",
+    "year": null,
+    "v_level": 9,
+    "cefr_band": "B2",
+    "cefrj": "B2.2",
+    "words": 289945,
+    "chapters": 109,
+    "minutes": 1933,
+    "tags": [
+      "fiction",
+      "short-story",
+      "literature",
+      "classic",
+      "adult"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "페스트를 피한 열 사람이 열흘간 들려주는 백 편의 이야기.",
+    "learning_value": "한 편 단위로 읽는 중세 이야기 — 일부 성적 내용",
+    "themes": [
+      "페스트",
+      "욕망",
+      "기지"
+    ],
+    "genre_norm": "풍자 소설",
+    "age_band": "17+",
+    "est_cefr": "B2",
+    "est_basis": "번역 액자 단편"
+  },
+  {
+    "id": "a49221b1-e1c4-472e-b248-cd8347697ba5",
+    "title": "The Mysteries of Udolpho",
+    "author": "Ann Radcliffe",
+    "year": null,
+    "v_level": 9,
+    "cefr_band": "B2",
+    "cefrj": "B2.2",
+    "words": 292165,
+    "chapters": 57,
+    "minutes": 1948,
+    "tags": [
+      "fiction",
+      "horror",
+      "mystery",
+      "romance",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "이탈리아 고성에 갇힌 에밀리와 초자연의 그림자.",
+    "learning_value": "고딕 소설의 정본 — 풍경 묘사가 매우 길다",
+    "themes": [
+      "고딕",
+      "유폐",
+      "공포"
+    ],
+    "genre_norm": "고딕 소설",
+    "age_band": "16+",
+    "est_cefr": "C1",
+    "est_basis": "장대한 풍경 묘사"
+  },
+  {
+    "id": "4dda5bab-4cc6-4348-b87c-cdbfbc20484e",
+    "title": "Gil Blas",
+    "author": "Alain-René Lesage",
+    "year": null,
+    "v_level": 9,
+    "cefr_band": "B2",
+    "cefrj": "B2.2",
+    "words": 317343,
+    "chapters": 133,
+    "minutes": 2116,
+    "tags": [
+      "fiction",
+      "adventure",
+      "satire",
+      "literature",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "하인에서 대신까지 오르내리는 스페인 악한소설.",
+    "learning_value": "삽화식 구성 — 아무 데서나 끊어 읽어도 된다",
+    "themes": [
+      "출세",
+      "풍자",
+      "편력"
+    ],
+    "genre_norm": "풍자 소설",
+    "age_band": "16+",
+    "est_cefr": "B2",
+    "est_basis": "번역 악한소설"
+  },
+  {
+    "id": "a4855268-c637-4f0a-94bd-910ebd775153",
+    "title": "Le Morte d’Arthur",
+    "author": "Thomas Malory",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 349370,
+    "chapters": 502,
+    "minutes": 2330,
+    "tags": [
+      "fiction",
+      "myth-legend",
+      "adventure",
+      "classic",
+      "literature"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "아서왕과 원탁의 기사, 성배와 몰락의 전설 집대성.",
+    "learning_value": "기사도 문학의 원전 — 고어체 번역",
+    "themes": [
+      "기사",
+      "성배",
+      "배신"
+    ],
+    "genre_norm": "모험 소설",
+    "age_band": "15+",
+    "est_cefr": "C1",
+    "est_basis": "의고체 산문"
+  },
+  {
+    "id": "85a18df2-dc97-4d8e-8420-d4aaaa124ea3",
+    "title": "Dombey and Son",
+    "author": "Charles Dickens",
+    "year": null,
+    "v_level": 9,
+    "cefr_band": "B2",
+    "cefrj": "B2.2",
+    "words": 351400,
+    "chapters": 62,
+    "minutes": 2343,
+    "tags": [
+      "fiction",
+      "literature",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "아들만 바라본 상인 돔비와 버림받은 딸 플로렌스.",
+    "learning_value": "디킨스 중기 대작 — 인물이 매우 많다",
+    "themes": [
+      "가족",
+      "자존",
+      "상업"
+    ],
+    "genre_norm": "사실주의 소설",
+    "age_band": "16+",
+    "est_cefr": "B2",
+    "est_basis": "디킨스 만연체"
+  },
+  {
+    "id": "c2db1c21-f462-4e86-bf2a-d36edcd89808",
+    "title": "Anna Karenina",
+    "author": "Leo Tolstoy",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 353174,
+    "chapters": 239,
+    "minutes": 2355,
+    "tags": [
+      "fiction",
+      "romance",
+      "literature",
+      "classic",
+      "adult"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "불륜을 택한 안나와 땅을 택한 레빈, 두 삶이 엇갈린다.",
+    "learning_value": "19세기 소설의 정점 — 장이 짧아 끊어 읽기 좋다",
+    "themes": [
+      "불륜",
+      "가족",
+      "신앙"
+    ],
+    "genre_norm": "연애 소설",
+    "age_band": "17+",
+    "est_cefr": "B2",
+    "est_basis": "번역 사실주의"
+  },
+  {
+    "id": "1fb12722-2677-4bdf-ab5d-004f6e4005ea",
+    "title": "Bleak House",
+    "author": "Charles Dickens",
+    "year": null,
+    "v_level": 9,
+    "cefr_band": "B2",
+    "cefrj": "B2.2",
+    "words": 354715,
+    "chapters": 67,
+    "minutes": 2365,
+    "tags": [
+      "fiction",
+      "mystery",
+      "satire",
+      "literature",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "끝나지 않는 상속 소송이 사람들을 갉아먹는다.",
+    "learning_value": "1인칭과 3인칭이 교차하는 구조 — 디킨스 최고작",
+    "themes": [
+      "소송",
+      "안개",
+      "비밀"
+    ],
+    "genre_norm": "사실주의 소설",
+    "age_band": "17+",
+    "est_cefr": "C1",
+    "est_basis": "이중 화자 만연체"
+  },
+  {
+    "id": "46ee6f53-c4a4-44e4-aa3e-1a4c31d35b16",
+    "title": "An American Tragedy",
+    "author": "Theodore Dreiser",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 359643,
+    "chapters": 100,
+    "minutes": 2398,
+    "tags": [
+      "fiction",
+      "literature",
+      "classic",
+      "adult"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "출세를 좇던 청년이 살인에 이르는 과정.",
+    "learning_value": "실화 기반 자연주의 — 심리 추적이 집요하다",
+    "themes": [
+      "욕망",
+      "계급",
+      "범죄"
+    ],
+    "genre_norm": "사실주의 소설",
+    "age_band": "17+",
+    "est_cefr": "B2",
+    "est_basis": "자연주의 서술"
+  },
+  {
+    "id": "406dbc3e-d723-4e03-b613-73536c5e8dee",
+    "title": "Introduction to Sociology - 2nd Canadian Edition",
+    "author": "William Little",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 367776,
+    "chapters": 23,
+    "minutes": 2452,
+    "tags": [
+      "nonfiction",
+      "textbook",
+      "academic",
+      "adult"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "사회학의 개념과 이론을 처음부터 정리한 대학 교재.",
+    "learning_value": "학술 교과서 — 정의와 예시가 규칙적이라 읽기 쉽다",
+    "themes": [
+      "사회학",
+      "이론",
+      "교육"
+    ],
+    "genre_norm": "교과서",
+    "age_band": "16+",
+    "est_cefr": "B2",
+    "est_basis": "교과서 정의·예시 구조"
+  },
+  {
+    "id": "6636d829-0120-483d-b7ae-8aea25c10afb",
+    "title": "The Wealth of Nations",
+    "author": "Adam Smith",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 374448,
+    "chapters": 32,
+    "minutes": 2497,
+    "tags": [
+      "nonfiction",
+      "business",
+      "academic",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "분업과 시장이 어떻게 국부를 늘리는지 밝힌 경제학의 출발점.",
+    "learning_value": "경제학 원전 — 사례가 길고 문장이 만연하다",
+    "themes": [
+      "시장",
+      "분업",
+      "정치"
+    ],
+    "genre_norm": "학술",
+    "age_band": "17+",
+    "est_cefr": "C1",
+    "est_basis": "18세기 학술 장문"
+  },
+  {
+    "id": "a099f749-0bab-4f76-a6fe-da98dae9044f",
+    "title": "Don Quixote",
+    "author": "Miguel de Cervantes Saavedra",
+    "year": null,
+    "v_level": 9,
+    "cefr_band": "B2",
+    "cefrj": "B2.2",
+    "words": 405912,
+    "chapters": 127,
+    "minutes": 2707,
+    "tags": [
+      "fiction",
+      "satire",
+      "adventure",
+      "literature",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "기사 소설에 미친 노인이 풍차를 향해 창을 든다.",
+    "learning_value": "근대 소설의 시작 — 삽화식이라 끊어 읽기 좋다",
+    "themes": [
+      "환상",
+      "풍자",
+      "우정"
+    ],
+    "genre_norm": "풍자 소설",
+    "age_band": "15+",
+    "est_cefr": "B2",
+    "est_basis": "번역 삽화식 서술"
+  },
+  {
+    "id": "dfa8b6a3-59f1-46ea-b268-dd8ab1ec1cf0",
+    "title": "Clarissa",
+    "author": "Samuel Richardson",
+    "year": null,
+    "v_level": 9,
+    "cefr_band": "B2",
+    "cefrj": "B2.2",
+    "words": 923126,
+    "chapters": 528,
+    "minutes": 6155,
+    "tags": [
+      "fiction",
+      "letters",
+      "romance",
+      "literature",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "가문에 쫓기던 클라리사가 러브레이스에게 붙잡힌다 — 편지로만 쓰인 대장편.",
+    "learning_value": "영어 최장편 서간체 — 편지 단위로 읽을 것",
+    "themes": [
+      "서간",
+      "가부장",
+      "순결"
+    ],
+    "genre_norm": "연애 소설",
+    "age_band": "17+",
+    "est_cefr": "C1",
+    "est_basis": "18세기 서간체 장문"
+  },
+  {
+    "id": "847e4032-e075-4dd1-8762-b7df17e8fb9d",
+    "title": "The Diary",
+    "author": "Samuel Pepys",
+    "year": null,
+    "v_level": 9,
+    "cefr_band": "B2",
+    "cefrj": "B2.2",
+    "words": 1168699,
+    "chapters": 113,
+    "minutes": 7792,
+    "tags": [
+      "nonfiction",
+      "biography",
+      "historical",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "런던 대화재와 페스트를 겪은 관리의 10년치 일기.",
+    "learning_value": "하루치가 짧다 — 원하는 날짜만 골라 읽어도 된다",
+    "themes": [
+      "일기",
+      "런던",
+      "역사서"
+    ],
+    "genre_norm": "회고",
+    "age_band": "16+",
+    "est_cefr": "C1",
+    "est_basis": "17세기 일기 구어"
+  },
+  {
+    "id": "dbcde946-283b-49ed-8e06-1f2236f167b1",
+    "title": "In Search of Lost Time",
+    "author": "Marcel Proust",
+    "year": null,
+    "v_level": 9,
+    "cefr_band": "B2",
+    "cefrj": "B2.2",
+    "words": 1218799,
+    "chapters": 24,
+    "minutes": 8126,
+    "tags": [
+      "fiction",
+      "literature",
+      "classic",
+      "adult"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "마들렌 한 조각에서 되살아나는 기억의 대장편.",
+    "learning_value": "한 문장이 한 쪽을 넘기도 한다 — 최고 난도",
+    "themes": [
+      "기억",
+      "시간",
+      "예술"
+    ],
+    "genre_norm": "모더니즘 소설",
+    "age_band": "17+",
+    "est_cefr": "C2",
+    "est_basis": "초장문 번역 산문"
+  }
+]

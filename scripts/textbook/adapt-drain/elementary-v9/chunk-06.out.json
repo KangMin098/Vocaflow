@@ -1,0 +1,260 @@
+[
+  {
+    "adapted_from_id": "54750ff4-8a4b-4cab-b7d6-f417d2e19bf0",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 20,
+      "outside_pct_max": 38.6,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "What Is Gravity? (7문단부터 발췌)",
+    "source_feed": "space_place",
+    "source_license": "public_domain",
+    "source_v_level": 6,
+    "source_url": "https://spaceplace.nasa.gov/what-is-gravity/en/",
+    "source_text": "You exert the same gravitational force on Earth that it does on you. But because Earth is so much more massive than you, your force doesn’t really have an effect on our planet. Gravity is what holds the planets in orbit around the sun and what keeps the moon in orbit around Earth. The gravitational pull of the moon pulls the seas towards it, causing the ocean tides. Gravity creates stars and planets by pulling together the material from which they are made. Gravity not only pulls on mass but also on light. Albert Einstein discovered this principle. If you shine a flashlight upwards, the light will grow imperceptibly redder as gravity pulls it. You can't see the change with your eyes, but scientists can measure it.",
+    "teachable_new_words": {
+      "teachable": 4,
+      "outside": 24,
+      "pct": 16.7
+    },
+    "title": "Gravity Pulls on Everything",
+    "text": "Gravity is a pull between objects. The Earth pulls on you, and you pull on the Earth. Your pull is real, but the Earth is enormous. So the Earth does not move, and you stay on the ground. Gravity keeps the Moon circling the Earth. Gravity holds the whole solar system together. The Moon pulls on our oceans as it travels. That pull lifts the water into tides. Astronauts in a spacecraft feel weightless. They are still falling around the Earth. Gravity even builds stars. It gathers dust and gas into a ball. When the ball grows heavy enough, it begins to shine. Gravity pulls on light as well. Scientists measure that tiny change with careful instruments. Gravity on the Moon is weaker, so astronauts hop like kangaroos there."
+  },
+  {
+    "adapted_from_id": "8b0b1898-c409-4d48-8e60-bd9bb9f987c6",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 20,
+      "outside_pct_max": 38.6,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "Wild Cat! Wild Cat!",
+    "source_feed": "storyweaver",
+    "source_license": "cc_by",
+    "source_v_level": 4,
+    "source_url": "https://storyweaver.org.in/stories/21618-wild-cat-wild-cat",
+    "source_text": "Some wild cats have stripes. Like the tiger ! Some wild cats have manes. Like the lion ! Some wild cats have spots. Like the leopard and the leopard cat ! Some wild cats are the best climbers. Like the clouded leopard and the marbled cat ! Some wild cats live high up in the mountains. Like the snow leopard and the Pallas's cat ! Some wild cats live in the desert. Like the desert cat ! Some wild cats have hairy ears. Like the caracal and the lynx ! Some wild cats love to fish. Like the fishing cat ! Some wild cats are the smallest wild cats in the world. Like the rusty-spotted cat ! Some wild cats look like house cats. Like the jungle cat and the golden cat ! But they are all wild cats!",
+    "teachable_new_words": {
+      "teachable": 2,
+      "outside": 13,
+      "pct": 15.4
+    },
+    "title": "So Many Wild Cats",
+    "text": "House cats have many wild cousins. Some wild cats wear stripes, like the tiger. Some grow a thick mane, like the lion. Some are covered in spots, like the leopard. The clouded leopard is the best climber of all. The snow leopard lives high in cold mountains. Its thick fur keeps it warm in the snow. The sand cat lives in the hot desert. The lynx has tufts of hair on its ears. The fishing cat loves to swim and catch fish. The rusty-spotted cat is the smallest wild cat in the world. Every wild cat is a hunter with sharp claws and long whiskers. They stalk their prey at dusk. The jungle cat looks almost like a pet. Yet every one of them is wild."
+  },
+  {
+    "adapted_from_id": "022255f9-58f4-4f1f-84ef-82fb27d22863",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 20,
+      "outside_pct_max": 38.6,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "Northern Spotted Owl Still Fights for Survival",
+    "source_feed": "usgs",
+    "source_license": "public_domain",
+    "source_v_level": 6,
+    "source_url": "https://www.usgs.gov/news/featured-story/northern-spotted-owl-still-fights-survival",
+    "source_text": "You don’t have to drive far into the forests of the Pacific Northwest to hear the distinctive hooting of the invasive barred owl high in the treetops. In fact, you can find them in the neighborhoods of cities like Portland, Oregon, where you might glimpse one perched above on a walk around the block or, you might be surprised when one swoops down to chase you away from its territory. The barred owl is an invasive species in these parts that competes with and threatens the existence of the native northern spotted owl.\nUSGS and partner scientists in recent months published the results of three studies about the current status of the threatened northern spotted owl populations, and the effects of barred owls and barred owl removal on northern spotted owl populations. The combined results show that even while forest management policies and practices maintained northern spotted owl habitat across their range, barred owls pose a very serious threat to remaining populations of northern spotted owl.\nThe northern spotted owl, a federally listed species, is an old-growth forest obligate, which means it is tied to mature forests with large trees. The owl is at the center of controversial forest management issues in the Pacific Northwest because of immediate threats to its existence, which resulted in mandated changes to forestry practices.\nThe barred owl is an apex predator and a fiercely territorial invader from eastern North America. Unlike the northern spotted owl, barred owls can thrive in a wider variety of forest conditions and they aggressively push northern spotted owls out of their established territories. Invasive barred owls will eat anything they can catch, having what is called a “generalist” appetite. Their sheer numbers and generalist appetite threaten not only the northern spotted owl, but other native wildlife throughout the region. The first records of barred owls in the U.S. Pacific Northwest date back to the early 1970s. Barred owls were historically found through most of eastern North America. They spread west during the 1900s and today completely overlap the range of the northern spotted owl.\n\n Media\n\nLong-term monitoring of northern spotted owl reveals trends\nThe following three studies are the most recent long-term analyses produced by, or in partnership with, the Northwest Forest Plan Interagency Monitoring Program. The Northwest Forest Plan governs land use and management of federal forest lands in the Pacific Northwest within the range of the northern spotted owl – roughly 10 million hectares, or almost 25 million acres of forested land within western Oregon and Washington and northern California. The three studies do not include data from the large wildfires that burned through Pacific Northwest old-growth forests since 2017.\nStudy #1: Northern spotted owl in decline\n\nThe first of three studies looked at northern spotted owl population data collected over 26 years across this owls’ geographic range, in the US, and assessed vital rates, such as reproduction and survival, and population trends. “One component of the Northwest Forest Plan required long-term monitoring of northern spotted owl populations,” said Alan Franklin, a research scientist with the U.S. Department of Agriculture’s National Wildlife Research Center with the Animal and Plant Health Inspection Service and lead author of the first study. “Monitoring of northern spotted owls was established as early as 1985. Additional and subsequent studies were alike in that all used similar field methods. This allowed us to complete a meta-analysis of all the different northern spotted owl studies over the years.”\nFranklin and his colleagues found that northern spotted owl populations have experienced significant yearly declines, translating to a 65-85% population decrease on many of the study areas between 1995 and 2017. Barred owl presence on northern spotted owl territories was the primary factor negatively affecting apparent survival, recruitment, and ultimately, rates of population change. Without removal or reduction of barred owl populations, it’s likely northern spotted owls will become locally extinct from portions of their range. The species would possibly linger on as small populations in other areas until those populations are eliminated by catastrophic events, such as wildfire, resulting in its extinction.\nStudy #2: Northern spotted owls are on the move\nThe second study looked at northern spotted owl breeding dispersal, or their movement from one breeding territory to another. The consequences of altered breeding dispersal on northern spotted owls are unknown but could affect population dynamics of this threatened species. Federal and university researchers looked at how barred owls, forest disturbance, and social and individual conditions affect decisions made by individual northern spotted owls to move to a new breeding territory or not.\n\nUsing data collected from 4,118 northern spotted owls in Oregon and Washington from 1990 to 2017, the researchers found the percent of northern spotted owls dispersing from their territories each year has increased by more than 17% in recent times. The increases coincided with a rapid increase in numbers of invasive barred owls as they quickly colonized Pacific Northwest forests and displaced northern spotted owls from their preferred breeding sites. Single spotted owls and those that had also dispersed the previous year were more likely to move. Northern spotted owls were less likely to leave high-quality territories with historically high levels of successful reproduction by spotted owls.\n“Our study further shows that increasing rates of breeding dispersal associated with population declines contribute to population instability and vulnerability of northern spotted owls to extinction,” said Julianna Jenkins, U.S. Forest Service (USFS) wildlife biologist and lead author of the study.\nStudy #3: Barred owl removal works\nThe third study is the barred owl removal experiment, led by David Wiens, USGS research wildlife biologist. Wiens and his colleagues designed a large-scale removal experiment in Washington, Oregon and California to investigate the response of the northern spotted owl to removal of the barred owl. “Invader removal is a common management response, but the use of long-term field experiments to test the effectiveness of removals in benefitting impacted native species is rare,” said Wiens. “This study is the largest field experiment ever conducted on the demographic consequences of invasive competition between predatory birds.”\nThe experiment used data from the long-term Northwest Forest Plan Interagency Monitoring Program (2002-2019), a similar barred owl removal effort on Green Diamond Resource Company lands in northern California (2009-2014), and the Barred Owl Removal Project (2013-2019) to scientifically test the U.S. Fish and Wildlife Service’s (USFWS) plan to recover the northern spotted owl from its status as a Threatened species under the Endangered Species Act. “The USFWS considered multiple approaches to implementing Recovery Action 29 - 'Design and implement large-scale control experiments to assess the effects of barred owl removal on spotted owl site occupancy, reproduction, and survival,' including both non-lethal and lethal removal techniques,” said Robin Bown, USFWS lead for the Barred Owl Project. “The USFWS’s Record of Decision provided the direction for the USGS experimental study.”\nRemoval of barred owls had a strong, positive effect on the survival of northern spotted owls, stopping their long-term population declines. After removals, northern spotted owl population declines stabilized in areas with removals but continued to decrease sharply in areas without removals. “The results of the study showed that long-term survival of northern spotted owls will depend heavily on reducing the negative impacts of barred owls while simultaneously addressing other threats such as habitat loss,” added Wiens.\n\n“The Northwest Forest Plan has protected significant amounts of the northern spotted owl’s nesting and roosting forests. During the first 25 years the plan has been in place, the amount of this forest on federal lands increased by about 3%. This increase occurred despite losses from wildfire, timber harvest and insect or other causes. Preliminary monitoring data show those gains have been lost owing to three recent large wildfire years — 2017, 2018, and 2020. Each of these years burned more than a million acres and in total, over 4 million acres of forest in the owl’s range,” said Paul Anderson, director of the USFS Pacific Northwest Research Station. “For 2021, we have estimated another million acres have been burned in the owl’s range.”\n“Removing one species to save another is a difficult decision and one that the USFWS did not take lightly. These studies and others show that it is very likely the northern spotted owl would go extinct in large portions of its range if the threat from invasive barred owls and management of spotted owl habitat are not addressed simultaneously,” said Bown. “The northern spotted owl is a federally listed threatened species. On behalf of the American people, the Service and other federal agencies have a legal and ethical responsibility to do everything we can, within the confines of our respective authorities and funding, to prevent its extinction and help it recover,” added Paul Henson, State Supervisor of the USFWS Oregon Office.\nThis work was funded by a partnership between the USFWS, USGS, USFS, Bureau of Indian Affairs, and Bureau of Land Management.\nAuthors’ institutions in alphabetical order: BLM, Colorado State University, Green Diamond Resource Company, Hoopa Valley Tribe, McDonald Data Sciences, National Park Service, Oregon State University, Raedeke Associates, Simon Fraser University, University of Florida, USDA-APHIS, USFS, USFWS, USGS, Utah State University, Western Ecosystem Technology (WEST), Inc.",
+    "teachable_new_words": {
+      "teachable": 46,
+      "outside": 236,
+      "pct": 19.5
+    },
+    "title": "",
+    "text": ""
+  },
+  {
+    "adapted_from_id": "02e11a55-1480-4271-bbe3-e6d0fa2e3968",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 20,
+      "outside_pct_max": 38.6,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "China Builds Test Version of Nuclear Reactor for Navy",
+    "source_feed": "voa",
+    "source_license": "public_domain",
+    "source_v_level": 5,
+    "source_url": "https://learningenglish.voanews.com/a/china-builds-test-version-of-nuclear-reactor-for-navy/7863772.html",
+    "source_text": "China has built a land-based test version of a nuclear reactor for a large warship. The development is the clearest sign yet that Beijing is moving toward producing the country’s first nuclear-powered aircraft carrier. This information comes from a new study of satellite imagery and Chinese government documents provided to the Associated Press.\nWhy is this development important?\nThere has long been talk that China is planning to build a nuclear-powered aircraft carrier. But the recent research by the Middlebury Institute of International Studies in California is the first to confirm the country is working on a nuclear-powered movement system for a carrier-sized surface warship.\nChina’s navy is already the world’s largest in terms of numbers.\nChina's navy has also been developing quickly. Adding nuclear-powered carriers to its fleet would be a major step in realizing its hopes for a force capable of operating around the globe.\nNuclear carriers take longer to build than conventional carriers.\nBut once nuclear carriers are in operation, they are able to stay at sea for much longer because they do not need to refuel. In addition, there is more room on board for fuel and weapons for aircraft. Nuclear carriers are also able to produce more power to run advanced systems.\nRight now, only the United States and France have nuclear-powered carriers. The U.S. has 11 in total, which permits it to keep multiple strike groups deployed around the world at all times, including in the Indo-Pacific area.\nBut the Pentagon is increasingly concerned about China’s modernization of its fleet, including the design and building of new carriers.\nChina currently has three carriers, including the new Type 003 Fujian, which was the first both designed and built by China. Officials have said work is already underway on a fourth ship.\nBut the government has not announced whether that ship will be nuclear or conventionally powered.\nHow did the researchers arrive at their conclusion?\nMiddlebury researchers were at first investigating a mountain site outside the city of Leshan in the southwest Chinese province of Sichuan. They had suspicions that China was building a reactor to produce radioactive materials such as plutonium or tritium for weapons. Instead, the researchers said they determined that China was building a test version of a reactor for a large warship.\nA number of sources, including satellite images, project tenders, employee files, and environmental impact studies, led researchers to their conclusion.\nThe reactor is housed in a new structure built at the site known as Base 909, which is under the control of the Nuclear Power Institute of China.\nDocuments show that China’s 701 Institute, which is responsible for aircraft carrier development, got reactor equipment meant “for installation on a large surface warship.”\nThe project’s “national defense designation” also helped lead to the conclusion the sizeable reactor is a test version for a next-generation aircraft carrier.\nWhat does China say?\nChinese President Xi Jinping has tasked defense officials with building a “first-class” navy and becoming a naval power as part of his plan for the country.\nChina’s most recent white paper on national defense, dated 2019, said the Chinese navy was changing due to strategic requirements. The goal was to speed up “the transition of its tasks from defense on the near seas to protection missions on the far seas.”\nI’m Mario Ritter, Jr.\n\nDavid Rising and Didi Tang reported on this story for the Associated Press. John Russell adapted it for VOA Learning English.\n________________________________________________\nconventional – adj. of traditional design\nadvanced – adj. greatly developed beyond an early stage\ntender – n. an invitation to present an offer or bid (for a project)\ninstall – v. to set up for use or service\ntransition – n. a change or shift from one state or place to another",
+    "teachable_new_words": {
+      "teachable": 40,
+      "outside": 125,
+      "pct": 32
+    },
+    "title": "",
+    "text": ""
+  },
+  {
+    "adapted_from_id": "dddd9244-5e40-4e2d-992b-9cf5d0c585e7",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 20,
+      "outside_pct_max": 38.6,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "James Madison, Father of America’s Constitution",
+    "source_feed": "voa",
+    "source_license": "public_domain",
+    "source_v_level": 4,
+    "source_url": "https://learningenglish.voanews.com/a/james-madison-father-of-america-s-constitution/7986616.html",
+    "source_text": "The men who created America’s Constitution are often called the nation’s “founders.” But only one of those men, James Madison, is widely considered “the father of the Constitution.”\nMadison was elected president of the United States in 1808. He served for two terms. But many Americans remember Madison more for the work he did to strengthen the national government before he served as president.\nMadison was one of the writers of the state constitution in his home state of Virgina in 1776. Later, he proposed a more structured national government after the Revolutionary War. That conflict resulted in the American colonists separating from Britain.\nMadison imagined a three-part American government – one with an executive, a legislature, and an independent Supreme Court. His ideas became the basis for the U.S. Constitution.\nTom Howard has served as an educator at Madison’s home in southern Virginia. He said Madison did not receive as much attention as some of America’s other founding members.\n“He’s not somehow historically as well-known as other…founding statesmen,” Howard said. “But he’s certainly every bit as important…We are not even sure there would be a Constitution had it not been for James Madison,” he added.\nHoward noted how James Madison used his own library to prepare for the nation’s Constitutional Convention. “He went up there and studied for months, and that’s having just a light breakfast and then studying throughout the entire day – before he finally took a break to rest up, to go back at it the next day.”\nHistorians say Madison took very detailed notes during the Constitutional Convention in Philadelphia, Pennsylvania. “He sat behind George Washington taking notes, and trying to determine how the debates were going in discussions that he could prepare for the next day, and how he would influence that.”\nMadison understood his notes were important not only for him. He knew they would also be interesting for historians and other people who wanted to know what happened at the meeting. He included information on speeches and ideas expressed by other delegates.\nAfter a new constitution was created at the convention, the legislatures of each state had to ratify, or vote to approve, the document. Madison and other supporters of the proposed government eventually succeeded in persuading the states to ratify the Constitution.\nHe was then elected to the House of Representatives in the first Congress under the new government. But it was his actions in support of a strong national government and federal laws that earned Madison a place in history as “Father of the Constitution.”\nI’m Bryan Lynn.\nJill Robbins, Steve Ember and Faith Lapidus reported on this story for VOA Learning English. Bryan Lynn adapted the reports.\n_____________________________________________\nfounder – n. someone who establishes an effort or organization\ndetermine – v. to discover the facts or truth about something",
+    "teachable_new_words": {
+      "teachable": 35,
+      "outside": 98,
+      "pct": 35.7
+    },
+    "title": "",
+    "text": ""
+  },
+  {
+    "adapted_from_id": "519c5a6f-de74-4ad5-ba81-29ad5269b04b",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 20,
+      "outside_pct_max": 38.6,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "NASA to Cover 34th SpaceX Resupply Mission Space Station Departure - NASA",
+    "source_feed": "nasa",
+    "source_license": "public_domain",
+    "source_v_level": 5,
+    "source_url": "https://www.nasa.gov/news-release/nasa-to-cover-34th-spacex-resupply-mission-space-station-departure/",
+    "source_text": "2 min read\n\nNASA to Cover 34th SpaceX Resupply Mission Space Station Departure\n\nGerelle Q. Dodson\n\nJun 12, 2026\n MEDIA ADVISORYM26-046\n\nNASA Headquarters\n\nThe SpaceX Dragon cargo spacecraft supporting the company’s 34th commercial resupply services mission for NASA approaches the International Space Station on May 17, 2026, carrying nearly 6,500 pounds of food, supplies, and equipment for the Expedition 74 crew.\n\nCredit: NASA\n\nNASA and its international partners are set to receive scientific research samples and hardware as a SpaceX Dragon spacecraft is scheduled to depart the International Space Station on Tuesday, June 16, for its return to Earth.\n\nWatch NASA’s live undocking coverage beginning at 11:45 a.m. EDT on NASA+, Amazon Prime, and the agency’s YouTube channel. Learn how to watch NASA content through a variety of online platforms, including social media.\n\nThe Dragon spacecraft will undock from the forward port of the station’s Harmony module at about 12:05 p.m., after receiving a command from SpaceX ground controllers. The spacecraft then will fire its thrusters to move safely away from the orbiting complex.\n\nFollowing a June 16 departure, the spacecraft will reenter Earth’s atmosphere on Wednesday, June 17, before splashing down off the coast of California at approximately 5:08 a.m. PDT. NASA will not stream the splashdown but will post updates on its space station blog.\n\nDragon will return to Earth with thousands of pounds of cargo, carrying samples that could shape future space exploration and life on Earth. Research returning includes bioprinted organ and cartilage tissue, data on improving cryogenic fuel storage for future space missions, and DNA‑inspired materials to develop new cancer treatments. The returning hardware includes an ocular imaging device used to monitor crew members’ eye health, an absorbent bed that filters trace contaminants from cabin air, and a separator pump from the waste and hygiene compartment.\n\nLoaded with nearly 6,500 pounds of crew cargo and science experiments, Dragon arrived at the station on May 17 after launching two days earlier on a Falcon 9 rocket from Space Launch Complex 40 at Cape Canaveral Space Force Station in Florida.\n\nFor more than 25 years, people have lived and worked continuously aboard the International Space Station, advancing scientific knowledge and making research breakthroughs not possible on Earth. The space station helps NASA understand and overcome the challenges of human spaceflight, expand commercial opportunities in low Earth orbit, and build on the foundation for long-duration missions to the Moon, as part of the Artemis program, and to Mars.\n\nGet breaking news, images, and features from the space station on Instagram, Facebook, and X.\n\nLearn more about International Space Station research and operations at:\n\nhttps://www.nasa.gov/international-space-station\n\n-end-\n\nJimi Russell\nHeadquarters, Washington\n202-358-1100\njames.j.russell@nasa.gov\n\nLeah Cheshier\nJohnson Space Center, Houston\n281-483-5111\nleah.d.cheshier@nasa.gov\n\nShare\n\nDetails\n\n Last Updated\n\n Jun 12, 2026\n\n Location\n\nNASA Headquarters\n\nRelated Terms\n\nInternational Space Station (ISS)\nHumans in Space\nSpaceX Commercial Resupply",
+    "teachable_new_words": {
+      "teachable": 18,
+      "outside": 111,
+      "pct": 16.2
+    },
+    "title": "",
+    "text": ""
+  }
+]

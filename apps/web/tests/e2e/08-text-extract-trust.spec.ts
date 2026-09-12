@@ -17,7 +17,7 @@ const RUNTIME_USER = {
   password: process.env.PLAYWRIGHT_RUNTIME_PASSWORD || 'RuntimeTest1!',
 };
 
-const STATE_PATH = 'test-results/.auth-runtime-user.json';
+const STATE_PATH = 'playwright-auth/.auth-runtime-user.json';
 
 // 난이도 스펙트럼이 넓은 지문 — 'text'(P75) 전략이 상위 단어를 안정적으로 산출.
 //   굴절형(challenged/assumptions/hypotheses/researchers/principles)이 섞여 L2 형태해소 근거도 유발.
@@ -110,7 +110,9 @@ test.describe('추출 신뢰 — /text/new 알아요·몰라요 + 근거 카드'
 
       // ── 4단계: 첫 행 expand → "왜 추천했어요?" 근거 카드 + 기술 breakdown ──
       const firstRow = rows.first();
-      await firstRow.getByRole('button', { name: '평가 상세' }).click();
+      // 라벨은 단어별로 다르다 ("<단어> 추천 근거 펼치기") — v06.35 에서 스크린리더가
+      // 어느 단어의 근거인지 알 수 있도록 단어명을 넣었다.
+      await firstRow.getByRole('button', { name: /추천 근거 (펼치기|접기)/ }).click();
       await expect(firstRow.getByText('왜 추천했어요?')).toBeVisible({ timeout: 5_000 });
       await expect(firstRow.getByText(/스코어 breakdown/)).toBeVisible();
 

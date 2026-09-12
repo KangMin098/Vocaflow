@@ -50,7 +50,7 @@ export function ContinueCard() {
       >
         <span
           aria-hidden
-          className="inline-flex h-10 w-10 items-center justify-center rounded-[var(--r-full)] bg-[var(--p-light)] text-[var(--p)]"
+          className="inline-flex h-10 w-10 items-center justify-center rounded-[var(--r-full)] bg-[var(--p-light)] text-[var(--on-p-tint)]"
         >
           <Sparkles size={18} />
         </span>
@@ -62,7 +62,7 @@ export function ContinueCard() {
             첫 스크립트를 추가하고 학습을 시작해보세요
           </span>
         </div>
-        <span className="mt-1 inline-flex items-center gap-1.5 rounded-[var(--r-md)] bg-[var(--p)] px-4 py-2 font-display text-[13px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] group-hover:bg-[var(--p-hover)]">
+        <span className="mt-1 inline-flex items-center gap-2 rounded-[var(--r-md)] bg-[var(--p)] px-4 py-2 font-display text-[13px] font-[700] text-[var(--on-p)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] group-hover:bg-[var(--p-hover)]">
           <BookPlus size={14} aria-hidden="true" />
           <span>스크립트 추가</span>
         </span>
@@ -91,7 +91,7 @@ export function ContinueCard() {
       </h3>
 
       {/* 메타 — 시간 · 마지막 모듈 */}
-      <div className="mb-5 flex items-center gap-2 font-body text-[12px] text-[var(--t3)]">
+      <div className="mb-5 flex items-center gap-2 font-body text-[12px] text-[var(--t2)]">
         <span>{cc.relativeTime || '최근'}</span>
         <span aria-hidden="true">·</span>
         <span>{moduleLabel}</span>

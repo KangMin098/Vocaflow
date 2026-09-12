@@ -1,7 +1,7 @@
 // apps/web/src/app/api/acp/dev-drain-queue/route.ts
 //
 // ACP dev-only 일괄 처리 — status='queued' 글들을 N개씩 /api/acp/dev-process 로 순차 실행.
-// LCP /api/lcp/dev-drain-queue 미러 (글=단일 섹션). MyLibraryTab 의 "Dev 일괄/큐 처리" 와 동형.
+// 글=단일 섹션. MyLibraryTab 의 "Dev 일괄/큐 처리" 와 동형 (LCP 쪽은 클라이언트 루프라 라우트가 없다).
 //
 // NODE_ENV=production 차단 (배포 환경은 별도 워커 경로).
 

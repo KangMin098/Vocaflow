@@ -20,6 +20,7 @@ interface VocabRow {
 
 interface LbvRow {
   word: string;
+  lemma: string | null;
   base_learning_value: number;
 }
 
@@ -69,7 +70,7 @@ export async function buildWordBlitzPool(
 
   const { data: lbvData } = await client
     .from('library_book_vocabularies')
-    .select('word, base_learning_value')
+    .select('word, lemma, base_learning_value')
     .eq('library_book_id', libraryBookId)
     .eq('chapter_idx', chapterIdx)
     // 노이즈 가드 — 고유명사·contraction·미지 토큰 제외 (게임 후보에 jim/john 출현 방지)
@@ -79,10 +80,18 @@ export async function buildWordBlitzPool(
     .limit(need * 3); // 사용자 단어와 중복 제거 buffer
 
   const lbvRows = (lbvData ?? []) as LbvRow[];
-  const candidateWords = lbvRows
-    .map((r) => r.word)
-    .filter((w) => !userWordSet.has(w.toLowerCase()))
-    .slice(0, need);
+
+  // 후보 키는 표면형(r.word)이 아니라 **lemma** 다. 실측(2026-08-25) 1,591,690행 중
+  // 표면형이 사전에 정확일치하는 것은 71.3% 뿐이고 lemma 는 100% — 표면형으로 찾으면
+  // 나머지 28.7% 가 뜻 없음으로 걸러져 풀이 12개를 못 채운다(게임이 조용히 짧아진다).
+  const seen = new Set<string>();
+  const candidateWords: string[] = [];
+  for (const r of lbvRows) {
+    const lemma = (r.lemma ?? '').toLowerCase();
+    if (!lemma || seen.has(lemma) || userWordSet.has(lemma)) continue;
+    seen.add(lemma);
+    candidateWords.push(lemma);
+  }
 
   if (candidateWords.length === 0) {
     return userWords;
@@ -99,12 +108,12 @@ export async function buildWordBlitzPool(
     dictMap.set(d.word, d.meaning_ko);
   }
 
+  // 뜻이 없는 후보를 **먼저** 거른 뒤 need 만큼 자른다. 순서가 반대면(예전 코드) 자르고 나서
+  // 걸러서 풀이 목표치에 못 미친 채로 게임이 시작됐다 — 버퍼(need*3)를 뽑아 두고 쓰지 못했다.
   const chapterWords: Word[] = candidateWords
-    .map((w) => ({
-      en: w,
-      ko: dictMap.get(w) ?? '(의미 미등록)',
-    }))
-    .filter((w) => w.ko !== '(의미 미등록)'); // 뜻 없는 단어 제외 (게임 불가)
+    .map((w) => ({ en: w, ko: dictMap.get(w) ?? '' }))
+    .filter((w) => w.ko.length > 0)
+    .slice(0, need);
 
   return [...userWords, ...chapterWords].slice(0, TOTAL_POOL_SIZE);
 }

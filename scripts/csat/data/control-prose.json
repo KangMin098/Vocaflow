@@ -1,0 +1,56 @@
+{
+ "what": "평가원 선정을 거치지 않은 영어 설명문 — 지문 선정 가설의 1차 대조군",
+ "source": "library_articles (ACP 파이프라인) · adapted_from_id is null 인 자연 산문만",
+ "caveat": "장르가 수능 지문(인문·사회 학술 에세이)과 완전히 겹치지 않는다. NOAA 기후 해설·OWID 데이터 해설이 주다. 이 차이는 결과 해석에서 통제 변수로 다룬다.",
+ "window": "각 글의 600~1650자 구간에서 잘라 온 뒤, 앞뒤 불완전 문장을 버렸다. 수능 지문 길이(150~190단어)에 맞춘다.",
+ "items": [
+  {
+   "source": "noaa",
+   "text": "Together, these impacts cause atmospheric carbon dioxide levels to rise faster than normal. Even though the 2023-24 El Nino had waned by April, record high air temperatures and drought in all of 2024, similar to those during an El Nino, were likely drivers of the large increase in atmospheric carbon dioxide in 2024. In addition to other factors, large forest fires in both the Amazon and Canada contributed to the 2024 global increase. Carbon dioxide concentrations are rising mostly because of the fossil fuels that people have been burning for energy since the start of the Industrial Revolution. Fossil fuels like coal and oil contain the carbon from millions of years of photosynthesis, the process by which plants remove carbon dioxide from the atmosphere."
+  },
+  {
+   "source": "noaa",
+   "text": "For the 1.5 degree climate threshold, the average time range is defined as the pre-industrial period, or the period of time before the increase in atmospheric greenhouse gases due to human emissions began to significantly influence global temperatures. What years make up this pre-industrial period? It depends. Most history books define the dates of the Industrial Revolution as between the mid-1700s and mid-1800s, but scientific definitions of pre-industrial typically cover some range of decades between 1850 and 1900. Because that is the earliest time period with widespread, consistent surface temperature records. Different research groups use different parts of the broader time range."
+  },
+  {
+   "source": "noaa",
+   "text": "The global average surface temperature is an indicator of the state of Earth's energy balance: how much sunlight it absorbs minus how much heat it radiates back to space. When these amounts are the same, Earth's average surface temperature remains steady. When they are out of balance, Earth cools or warms. Earth's average surface temperature has been rising because human-produced greenhouse gases are causing Earth to absorb more energy than it radiates back to space."
+  },
+  {
+   "source": "noaa",
+   "text": "A comprehensive review of published scientific research by the Intergovernmental Panel on Climate Change concluded that, averaged over the solar cycle, the best estimate of the Sun's brightness change between the pre-industrial period and the present is 0.06 Watts per square meter. That increase could be responsible for about 0.01 degrees Celsius, around 1 percent, of the warming the planet has experienced over the industrial era. Even if the Sun's recent quietness were to turn into a multi-decade stretch of extremely low activity known as a Grand Solar Minimum, it would not overpower the amount of global warming projected for the coming century due to increasing greenhouse gas emissions."
+  },
+  {
+   "source": "noaa",
+   "text": "The main source of ocean heat is sunlight. Additionally, clouds, water vapor, and greenhouse gases emit heat that they have absorbed, and some of that heat energy enters the ocean. Waves, tides, and currents constantly mix the ocean, moving heat from warmer to cooler latitudes and to deeper levels. Heat absorbed by the ocean is moved from one place to another, but it does not disappear. The heat energy eventually re-enters the rest of the Earth system by melting ice shelves, evaporating water, or directly reheating the atmosphere. Thus, heat energy in the ocean can warm the planet for decades after it was absorbed. If the ocean absorbs more heat than it releases over a given time span, its heat content increases. Knowing how much heat energy the ocean absorbs and releases is essential for understanding and modeling global climate."
+  },
+  {
+   "source": "noaa",
+   "text": "Scientists found that virtually no male turtles were hatched in a warming breeding ground for green sea turtles in the Great Barrier Reef. The sex of sea turtles is, in part, determined by the temperature of the egg during incubation. The new study showed that over 99 percent of the sea turtles hatched were females in the much-warmer-than-normal breeding grounds. The shift in environmental dynamics presents an existential threat if temperatures, driven by global warming, rise faster than the turtles can adapt."
+  },
+  {
+   "source": "noaa",
+   "text": "Mary Anning, a paleontologist and fossil collector, was the first to discover a complete skeleton of a Plesiosaurus. As a child, she assisted her father with his fossil collection. Despite her reputation for finding and identifying fossils, the men who dominated the scientific community often did not acknowledge her work. Today, the Natural History Museum in London showcases several of Mary Anning's finds."
+  },
+  {
+   "source": "noaa",
+   "text": "When the sun began to set, it became difficult for Jurado to judge water depth and distinguish between soaked roadways, coastal waterways, and canals. The South Florida Water Management District and other authorities manage about 1,800 miles of canals in Broward County, and the waterways present a hazard under dark, rainy driving conditions. Broward's primary canals are generally about 15 feet deep and 100 feet across. After three hours of slow motion, Jurado made it to Interstate 95 and took the off ramp towards her home. She eventually got home to her family but lost her car to the rising waters."
+  },
+  {
+   "source": "owid",
+   "text": "The total size of the visualization represents the entire 60 million global deaths, and the size of each rectangle, each one a different cause of death, is proportional to its share of the total. Three-quarters of global deaths were caused by non-communicable diseases, which are shown in blue. Heart disease alone accounts for one in three deaths. Cancers are almost one in five. In red, you see that 14 percent died from infectious diseases, led by respiratory infections like pneumonia, the flu, and COVID-19. But malaria, diarrheal diseases, tuberculosis, and HIV still claim millions of lives, despite the fact that the world already knows how to prevent and treat them. In green, you see that 7 percent died from injuries: road accidents, drowning, falls, suicide, and violence."
+  },
+  {
+   "source": "owid",
+   "text": "Beef was, by far, the largest driver, accounting for 41 percent of the total. Cattle need a lot of land for grazing, which means that the growing global demand for beef has led to the expansion of pasture. Beef alone has led to the destruction of more than two UK-sized areas of forest this century. The second-largest driver was oilseeds. This category is dominated by deforestation for soy and palm oil; a lot of forest was lost to these plantations, especially in the first decade. The other large drivers, accounting for 12 percent each, were forest plantations and cereal production. Understanding what has driven deforestation is important, but so is understanding where the forests were lost."
+  },
+  {
+   "source": "noaa",
+   "text": "There is overwhelming evidence that climate change, through ocean warming, changes in oxygen and pH, extreme events, and other human-caused effects, has and will continue to have significant impacts on United States marine ecosystems. Climate change poses substantial risks to ocean-related industries such as fisheries, tourism, recreation, transportation and energy. What we do today, to reduce carbon emissions, mitigate carbon dioxide, and adapt by building more resilient communities and economies, will determine how climate change will impact our ocean and many people, businesses and communities. Additional scientific observations are required to deliver the robust early warnings and to improve longer-term projections."
+  },
+  {
+   "source": "noaa",
+   "text": "In 2015, Patel experienced her first wildfire in California, and it felt apocalyptic. Desperate for protection, she rushed to a hardware store for an N95 mask, only to find a line stretching out the door. Supplies were rationed, just two masks per person. She stretched the use of hers as long as possible, wearing it until the strap finally snapped. The suffocating air triggered memories of her time in New Delhi, where pollution had left her gasping for breath, battling pneumonia and bronchitis."
+  }
+ ]
+}

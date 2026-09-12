@@ -62,12 +62,12 @@ export function InsetRow({
         {(subtitle || (progress && progress.total > 0)) && (
           <div className="flex items-center gap-2">
             {subtitle && (
-              <span className="line-clamp-1 font-body text-[11.5px] text-[var(--t3)]">
+              <span className="line-clamp-1 font-body text-[12px] text-[var(--t2)]">
                 {subtitle}
               </span>
             )}
             {progress && progress.total > 0 && (
-              <span className="shrink-0 rounded-ios-pill bg-[var(--bg2)] px-2 py-0.5 font-mono text-[10px] tabular-nums text-[var(--t2)]">
+              <span className="shrink-0 rounded-ios-pill bg-[var(--bg2)] px-2 py-1 font-mono text-[10px] tabular-nums text-[var(--t2)]">
                 {progress.done}/{progress.total}
                 {progress.unit ?? ''}
               </span>
@@ -108,7 +108,7 @@ export function InsetRow({
 
   const cls = cn(
     /* iOS Settings cell — 최소 44pt 높이 보장 + 16pt edge padding */
-    'group flex min-h-[44px] items-center gap-3 px-4 py-2.5',
+    'group flex min-h-[44px] items-center gap-3 px-4 py-3',
     'transition-colors duration-[var(--dur-ios-fast)]',
     (href || onClick) && 'hover:bg-[var(--bg2)] active:bg-[var(--bg3)]',
     className,

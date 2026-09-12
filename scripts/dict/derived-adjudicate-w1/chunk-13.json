@@ -1,0 +1,572 @@
+[
+ {
+  "word": "hash",
+  "meaning_ko": "잘게 다진 고기 요리; 해시 기호; (구어) 대마초",
+  "pos": "noun",
+  "candidates": [
+   "hash out",
+   "hashemite",
+   "hashish",
+   "hashtag"
+  ]
+ },
+ {
+  "word": "kettle",
+  "meaning_ko": "(물 끓이는) 주전자",
+  "pos": "noun",
+  "candidates": [
+   "kettlebell",
+   "kettledrum"
+  ]
+ },
+ {
+  "word": "latte",
+  "meaning_ko": "라떼 — 에스프레소에 따뜻한 우유와 우유 거품을 더한 커피",
+  "pos": "noun",
+  "candidates": [
+   "latten",
+   "latter",
+   "latterly"
+  ]
+ },
+ {
+  "word": "liquor",
+  "meaning_ko": "독한 술, 증류주 (위스키·보드카 등)",
+  "pos": "noun",
+  "candidates": [
+   "liquor store",
+   "liquorice"
+  ]
+ },
+ {
+  "word": "lite",
+  "meaning_ko": "(식품) 라이트의 — 지방·칼로리·당분을 줄인 (light 의 상업용 표기)",
+  "pos": "adjective",
+  "candidates": [
+   "litem",
+   "liter",
+   "literacy",
+   "literal",
+   "literalism",
+   "literalist",
+   "literally",
+   "literary",
+   "literate",
+   "literati",
+   "literature"
+  ]
+ },
+ {
+  "word": "loin",
+  "meaning_ko": "허리·옆구리살; (복수 loins) 사타구니",
+  "pos": "noun",
+  "candidates": [
+   "loincloth"
+  ]
+ },
+ {
+  "word": "mango",
+  "meaning_ko": "망고",
+  "pos": "noun",
+  "candidates": [
+   "mangold",
+   "mangonel",
+   "mangosteen"
+  ]
+ },
+ {
+  "word": "marmalade",
+  "meaning_ko": "마멀레이드",
+  "pos": "noun",
+  "candidates": [
+   "marmalade cat"
+  ]
+ },
+ {
+  "word": "pancake",
+  "meaning_ko": "팬케이크",
+  "pos": "noun",
+  "candidates": [
+   "pancake day"
+  ]
+ },
+ {
+  "word": "pastry",
+  "meaning_ko": "페이스트리 — 파이·타르트처럼 밀가루 반죽에 유지를 넣어 구운 과자류",
+  "pos": "noun",
+  "candidates": [
+   "pastrycook"
+  ]
+ },
+ {
+  "word": "pumpkin",
+  "meaning_ko": "호박 — 둥글고 노랑·주황색인 열매; 그 식물",
+  "pos": "noun",
+  "candidates": [
+   "pumpkinhead",
+   "pumpkinheaded",
+   "pumpkinseed"
+  ]
+ },
+ {
+  "word": "raki",
+  "meaning_ko": "라키 (튀르키예 술)",
+  "pos": "noun",
+  "candidates": [
+   "rakish",
+   "rakishly"
+  ]
+ },
+ {
+  "word": "sage",
+  "meaning_ko": "현자, 현인 — 지혜롭고 존경받는 스승",
+  "pos": "noun",
+  "candidates": [
+   "sagebrush"
+  ]
+ },
+ {
+  "word": "saucer",
+  "meaning_ko": "받침 접시, 잔 받침",
+  "pos": "noun",
+  "candidates": [
+   "saucerfuls"
+  ]
+ },
+ {
+  "word": "scotch",
+  "meaning_ko": "스카치 위스키",
+  "pos": "noun",
+  "candidates": [
+   "scotched"
+  ]
+ },
+ {
+  "word": "womb",
+  "meaning_ko": "자궁 — 태아가 자라는 기관",
+  "pos": "noun",
+  "candidates": [
+   "wombat"
+  ]
+ },
+ {
+  "word": "alto",
+  "meaning_ko": "알토 (테너보다 높고 소프라노보다 낮은 성부·음역; 여성 저음)",
+  "pos": "noun",
+  "candidates": [
+   "altogether"
+  ]
+ },
+ {
+  "word": "bobby",
+  "meaning_ko": "보비",
+  "pos": "noun",
+  "candidates": [
+   "bobby pin",
+   "bobbysocks"
+  ]
+ },
+ {
+  "word": "chiffon",
+  "meaning_ko": "시폰",
+  "pos": "noun",
+  "candidates": [
+   "chiffonade",
+   "chiffonier"
+  ]
+ },
+ {
+  "word": "flare",
+  "meaning_ko": "섬광, 확 타오르는 불길; (동사) 확 타오르다, (감정·사태가) 격해지다",
+  "pos": "noun",
+  "candidates": [
+   "flare up",
+   "flare-up",
+   "flared"
+  ]
+ },
+ {
+  "word": "freak",
+  "meaning_ko": "괴짜; 기형, 이상한 것; (~광) 열광적인 애호가",
+  "pos": "noun",
+  "candidates": [
+   "freaked"
+  ]
+ },
+ {
+  "word": "occasional",
+  "meaning_ko": "가끔의",
+  "pos": "adjective",
+  "candidates": [
+   "occasionally"
+  ]
+ },
+ {
+  "word": "paddy",
+  "meaning_ko": "벼, 겉겨가 붙은 (도정 전) 쌀",
+  "pos": "noun",
+  "candidates": [
+   "paddy wagon"
+  ]
+ },
+ {
+  "word": "pate",
+  "meaning_ko": "머리 정수리 (옛 표현·익살)",
+  "pos": "noun",
+  "candidates": [
+   "patella",
+   "paten",
+   "patent",
+   "patentee",
+   "patently",
+   "pater",
+   "paternal",
+   "paternally",
+   "paternity"
+  ]
+ },
+ {
+  "word": "scree",
+  "meaning_ko": "(지질) 애추, 너덜 (산비탈에 쌓인 잔돌·자갈)",
+  "pos": "noun",
+  "candidates": [
+   "screech",
+   "screed",
+   "screen",
+   "screen pass",
+   "screen test",
+   "screenager",
+   "screener",
+   "screening",
+   "screenplay",
+   "screenshot",
+   "screentime"
+  ]
+ },
+ {
+  "word": "shanty",
+  "meaning_ko": "판잣집, 허름하게 지은 오두막·임시 가옥",
+  "pos": "noun",
+  "candidates": [
+   "shanty town"
+  ]
+ },
+ {
+  "word": "sloth",
+  "meaning_ko": "나태, 게으름 (7대 죄악의 하나)",
+  "pos": "noun",
+  "candidates": [
+   "slothful"
+  ]
+ },
+ {
+  "word": "soda",
+  "meaning_ko": "탄산음료, 청량음료",
+  "pos": "noun",
+  "candidates": [
+   "soda bread",
+   "sodality"
+  ]
+ },
+ {
+  "word": "taco",
+  "meaning_ko": "타코",
+  "pos": "noun",
+  "candidates": [
+   "taconite"
+  ]
+ },
+ {
+  "word": "toot",
+  "meaning_ko": "빵빵, 짧은 경적·나팔 소리",
+  "pos": "noun",
+  "candidates": [
+   "tooth",
+   "toothache",
+   "toothbrush",
+   "toothless",
+   "toothpaste",
+   "toothpick",
+   "toothsome",
+   "toothy",
+   "tootle",
+   "tootsie"
+  ]
+ },
+ {
+  "word": "tousle",
+  "meaning_ko": "머리를 헝클다",
+  "pos": "verb",
+  "candidates": [
+   "tousled"
+  ]
+ },
+ {
+  "word": "whisky",
+  "meaning_ko": "위스키",
+  "pos": "noun",
+  "candidates": [
+   "whisky mac",
+   "whisky sour"
+  ]
+ },
+ {
+  "word": "cavalry",
+  "meaning_ko": "기병대 — 말을 탄 부대",
+  "pos": "noun",
+  "candidates": [
+   "cavalryman"
+  ]
+ },
+ {
+  "word": "deadlock",
+  "meaning_ko": "교착 상태 — 힘이 팽팽해 한 발도 나아가지 못하는 대치",
+  "pos": "noun",
+  "candidates": [
+   "deadlocked"
+  ]
+ },
+ {
+  "word": "downward",
+  "meaning_ko": "아래쪽의, 하향의",
+  "pos": "adjective",
+  "candidates": [
+   "downwardly",
+   "downwards"
+  ]
+ },
+ {
+  "word": "harmless",
+  "meaning_ko": "해롭지 않은",
+  "pos": "adjective",
+  "candidates": [
+   "harmlessly"
+  ]
+ },
+ {
+  "word": "herein",
+  "meaning_ko": "이 안에, 본 문서에 (격식)",
+  "pos": "adverb",
+  "candidates": [
+   "hereinafter"
+  ]
+ },
+ {
+  "word": "hitch",
+  "meaning_ko": "걸어 매다; (히치하이크로) 얻어 타다; (옷을) 끌어올리다",
+  "pos": "verb",
+  "candidates": [
+   "hitchhike",
+   "hitchhiker",
+   "hitchhiking"
+  ]
+ },
+ {
+  "word": "imperil",
+  "meaning_ko": "위험에 빠뜨리다 (격식)",
+  "pos": "verb",
+  "candidates": [
+   "imperilled"
+  ]
+ },
+ {
+  "word": "phenom",
+  "meaning_ko": "천재, 신예 (미국 구어)",
+  "pos": "noun",
+  "candidates": [
+   "phenomenal",
+   "phenomenon",
+   "phenometer"
+  ]
+ },
+ {
+  "word": "scupper",
+  "meaning_ko": "좌절시키다, 망치다",
+  "pos": "verb",
+  "candidates": [
+   "scuppernong"
+  ]
+ },
+ {
+  "word": "scuttle",
+  "meaning_ko": "종종걸음으로 급히 가다",
+  "pos": "verb",
+  "candidates": [
+   "scuttlebutt"
+  ]
+ },
+ {
+  "word": "unsuccessful",
+  "meaning_ko": "성공하지 못한",
+  "pos": "adjective",
+  "candidates": [
+   "unsuccessfully"
+  ]
+ },
+ {
+  "word": "bale",
+  "meaning_ko": "(건초·목화 등의) 묶음, 꾸러미",
+  "pos": "noun",
+  "candidates": [
+   "baleen",
+   "baleful"
+  ]
+ },
+ {
+  "word": "bamboo",
+  "meaning_ko": "대나무 — 마디가 있고 속이 빈 줄기의 식물",
+  "pos": "noun",
+  "candidates": [
+   "bamboozle"
+  ]
+ },
+ {
+  "word": "barn",
+  "meaning_ko": "헛간",
+  "pos": "noun",
+  "candidates": [
+   "barn owl",
+   "barnacle",
+   "barney",
+   "barnstorm",
+   "barnyard"
+  ]
+ },
+ {
+  "word": "beech",
+  "meaning_ko": "너도밤나무 (매끄러운 회색 줄기를 가진 큰 나무)",
+  "pos": "noun",
+  "candidates": [
+   "beechnuts"
+  ]
+ },
+ {
+  "word": "blight",
+  "meaning_ko": "골칫거리, 해악 — 발전을 가로막고 망치는 것",
+  "pos": "noun",
+  "candidates": [
+   "blighter",
+   "blighty"
+  ]
+ },
+ {
+  "word": "boiling",
+  "meaning_ko": "끓는",
+  "pos": "adjective",
+  "candidates": [
+   "boiling point"
+  ]
+ },
+ {
+  "word": "brook",
+  "meaning_ko": "시내",
+  "pos": "noun",
+  "candidates": [
+   "brookie",
+   "brooklet"
+  ]
+ },
+ {
+  "word": "canyon",
+  "meaning_ko": "협곡",
+  "pos": "noun",
+  "candidates": [
+   "canyoning"
+  ]
+ },
+ {
+  "word": "cedar",
+  "meaning_ko": "삼나무, 시더 — 향이 나는 침엽수",
+  "pos": "noun",
+  "candidates": [
+   "cedarn",
+   "cedarwood"
+  ]
+ },
+ {
+  "word": "gallows",
+  "meaning_ko": "교수대 — 교수형을 집행하기 위해 세운 나무 틀",
+  "pos": "noun",
+  "candidates": [
+   "gallowsbird"
+  ]
+ },
+ {
+  "word": "lunar",
+  "meaning_ko": "달의",
+  "pos": "adjective",
+  "candidates": [
+   "lunar cycle",
+   "lunar day",
+   "lunar month",
+   "lunar year"
+  ]
+ },
+ {
+  "word": "pluto",
+  "meaning_ko": "명왕성",
+  "pos": "noun",
+  "candidates": [
+   "plutocracy",
+   "plutocrat",
+   "pluton",
+   "plutonium"
+  ]
+ },
+ {
+  "word": "saturn",
+  "meaning_ko": "토성",
+  "pos": "noun",
+  "candidates": [
+   "saturnalia",
+   "saturnine"
+  ]
+ },
+ {
+  "word": "solar",
+  "meaning_ko": "태양의; 태양 에너지의",
+  "pos": "adjective",
+  "candidates": [
+   "solar cell",
+   "solar panel",
+   "solar year",
+   "solarium"
+  ]
+ },
+ {
+  "word": "weekday",
+  "meaning_ko": "평일",
+  "pos": "noun",
+  "candidates": [
+   "weekdays"
+  ]
+ },
+ {
+  "word": "clover",
+  "meaning_ko": "클로버",
+  "pos": "noun",
+  "candidates": [
+   "cloverleaf"
+  ]
+ },
+ {
+  "word": "cove",
+  "meaning_ko": "작은 만",
+  "pos": "noun",
+  "candidates": [
+   "coven",
+   "covenant",
+   "cover",
+   "coverage",
+   "coverall",
+   "coverings",
+   "coverlet",
+   "coverlid",
+   "covert",
+   "covertly",
+   "covet",
+   "covetous",
+   "covey"
+  ]
+ }
+]

@@ -1,0 +1,562 @@
+{
+  "book": {
+    "id": "93a19edd-4e05-4e53-9afa-1fe88ad2d23b",
+    "title": "Short Fiction",
+    "book_v_level": 7
+  },
+  "target_per_chapter": 7,
+  "chapters": [
+    {
+      "chapter_idx": 1,
+      "chapter_title": "The Tale of Peter Rabbit",
+      "word_count": 968,
+      "chapter_v_level": 5,
+      "content": "CHAPTER 1. The Tale of Peter Rabbit\u001ehttps://standardebooks.org/ebooks/beatrix-potter/short-fiction/text/the-tale-of-peter-rabbit\n\nOnce upon a time there were four little Rabbits, and their names were Flopsy, Mopsy, Cottontail, and Peter.\n\nThey lived with their Mother in a sandbank, underneath the root of a very big fir-tree.\n\n\"Now my dears,\" said old Mrs. Rabbit one morning, \"you may go into the fields or down the lane, but don't go into Mr. McGregor's garden.\"\n\n\"Your Father had an accident there; he was put in a pie by Mrs. McGregor.\"\n\n\"Now run along, and don't get into mischief. I am going out.\"\n\nThen old Mrs. Rabbit took a basket and her umbrella, and went through the wood to the baker's. She bought a loaf of brown bread and five currant buns.\n\nFlopsy, Mopsy, and Cottontail, who were good little bunnies, went down the lane to gather blackberries;\n\nBut Peter, who was very naughty, ran straight away to Mr. McGregor's garden.\n\nAnd squeezed under the gate!\n\nFirst he ate some lettuces and some French beans; and then he ate some radishes;\n\nAnd then, feeling rather sick, he went to look for some parsley.\n\nBut round the end of a cucumber frame, whom should he meet but Mr. McGregor!\n\nMr. McGregor was on his hands and knees planting out young cabbages, but he jumped up and ran after Peter, waving a rake and calling out, \"Stop thief!\"\n\nPeter was most dreadfully frightened; he rushed all over the garden, for he had forgotten the way back to the gate.\n\nHe lost one of his shoes among the cabbages, and the other shoe amongst the potatoes.\n\nAfter losing them, he ran on four legs and went faster, so that I think he might have got away altogether if he had not unfortunately run into a gooseberry net, and got caught by the large buttons on his jacket. It was a blue jacket with brass buttons, quite new.\n\nPeter gave himself up for lost, and shed big tears; but his sobs were overheard by some friendly sparrows, who flew to him in great excitement, and implored him to exert himself.\n\nMr. McGregor came up with a sieve, which he intended to pop upon the top of Peter; but Peter wriggled out just in time, leaving his jacket behind him.\n\nAnd rushed into the tool-shed, and jumped into a can. It would have been a beautiful thing to hide in, if it had not had so much water in it.\n\nMr. McGregor was quite sure that Peter was somewhere in the tool-shed, perhaps hidden underneath a flowerpot. He began to turn them over carefully, looking under each.\n\nPresently Peter sneezed⁠--\"Kertyschoo!\" Mr. McGregor was after him in no time.\n\nAnd tried to put his foot upon Peter, who jumped out of a window, upsetting three plants. The window was too small for Mr. McGregor, and he was tired of running after Peter. He went back to his work.\n\nPeter sat down to rest; he was out of breath and trembling with fright, and he had not the least idea which way to go. Also he was very damp with sitting in that can.\n\nAfter a time he began to wander about, going lippity⁠--lippity⁠--not very fast, and looking all round.\n\nHe found a door in a wall; but it was locked, and there was no room for a fat little rabbit to squeeze underneath.\n\nAn old mouse was running in and out over the stone doorstep, carrying peas and beans to her family in the wood. Peter asked her the way to the gate, but she had such a large pea in her mouth that she could not answer. She only shook her head at him. Peter began to cry.\n\nThen he tried to find his way straight across the garden, but he became more and more puzzled. Presently, he came to a pond where Mr. McGregor filled his water-cans. A white cat was staring at some goldfish, she sat very, very still, but now and then the tip of her tail twitched as if it were alive. Peter thought it best to go away without speaking to her; he had heard about cats from his cousin, little Benjamin Bunny.\n\nHe went back towards the tool-shed, but suddenly, quite close to him, he heard the noise of a hoe⁠--scr‑r‑ritch, scratch, scratch, scritch. Peter scuttered underneath the bushes. But presently, as nothing happened, he came out, and climbed upon a wheelbarrow and peeped over. The first thing he saw was Mr. McGregor hoeing onions. His back was turned towards Peter, and beyond him was the gate!\n\nPeter got down very quietly off the wheelbarrow; and started running as fast as he could go, along a straight walk behind some black-currant bushes.\n\nMr. McGregor caught sight of him at the corner, but Peter did not care. He slipped underneath the gate, and was safe at last in the wood outside the garden.\n\nMr. McGregor hung up the little jacket and the shoes for a scarecrow to frighten the blackbirds.\n\nPeter never stopped running or looked behind him till he got home to the big fir-tree.\n\nHe was so tired that he flopped down upon the nice soft sand on the floor of the rabbit-hole and shut his eyes. His mother was busy cooking; she wondered what he had done with his clothes. It was the second little jacket and pair of shoes that Peter had lost in a fortnight!\n\nI am sorry to say that Peter was not very well during the evening.\n\nHis mother put him to bed, and made some camomile tea; and she gave a dose of it to Peter!\n\n\"One tablespoonful to be taken at bedtime.\"\n\nBut Flopsy, Mopsy, and Cottontail had bread and milk and blackberries for supper.",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "Why does Mrs. Rabbit forbid the children to go into Mr. McGregor’s garden?",
+          "questionKo": "래빗 부인이 아이들에게 맥그레거 씨네 정원에 가지 말라고 한 이유는?",
+          "options": [
+            {
+              "text": "Their Father had an accident there — he was put in a pie by Mrs. McGregor.",
+              "textKo": "아버지가 거기서 사고를 당했기 때문 — 맥그레거 부인이 파이로 만들어 버렸다."
+            },
+            {
+              "text": "The garden gate is always locked.",
+              "textKo": "정원 문이 늘 잠겨 있기 때문에."
+            },
+            {
+              "text": "Mr. McGregor keeps a white cat there.",
+              "textKo": "맥그레거 씨가 흰 고양이를 두고 있기 때문에."
+            },
+            {
+              "text": "The vegetables would make them ill.",
+              "textKo": "그 채소를 먹으면 배탈이 나기 때문에."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "he was put in a pie by Mrs. McGregor"
+        },
+        {
+          "type": "multiple",
+          "question": "What do Flopsy, Mopsy and Cottontail do instead?",
+          "questionKo": "플롭시·몹시·코튼테일은 대신 무엇을 하는가?",
+          "options": [
+            {
+              "text": "They follow Peter to the garden.",
+              "textKo": "피터를 따라 정원으로 간다."
+            },
+            {
+              "text": "They go down the lane to gather blackberries.",
+              "textKo": "오솔길로 내려가 블랙베리를 딴다."
+            },
+            {
+              "text": "They go to the baker’s with their mother.",
+              "textKo": "어머니와 함께 빵집에 간다."
+            },
+            {
+              "text": "They stay in the sandbank.",
+              "textKo": "모래언덕 굴에 남는다."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "went down the lane to gather blackberries"
+        },
+        {
+          "type": "multiple",
+          "question": "Why does Peter go looking for parsley?",
+          "questionKo": "피터가 파슬리를 찾아 나선 이유는?",
+          "options": [
+            {
+              "text": "His mother had asked him to bring some.",
+              "textKo": "어머니가 가져오라고 해서."
+            },
+            {
+              "text": "He was hiding from Mr. McGregor.",
+              "textKo": "맥그레거 씨를 피해 숨으려고."
+            },
+            {
+              "text": "He had eaten lettuces, French beans and radishes, and was feeling rather sick.",
+              "textKo": "상추와 강낭콩과 무를 먹고 나서 속이 좋지 않았기 때문에."
+            },
+            {
+              "text": "The sparrows told him where to find it.",
+              "textKo": "참새들이 있는 곳을 알려 주어서."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "And then, feeling rather sick, he went to look for some parsley."
+        },
+        {
+          "type": "multiple",
+          "question": "How does Peter come to be caught in the gooseberry net?",
+          "questionKo": "피터가 구스베리 그물에 걸리게 된 경위는?",
+          "options": [
+            {
+              "text": "Mr. McGregor threw the net over him.",
+              "textKo": "맥그레거 씨가 그물을 던져 씌웠다."
+            },
+            {
+              "text": "He climbed into it to hide.",
+              "textKo": "숨으려고 그 안으로 기어들었다."
+            },
+            {
+              "text": "The sparrows led him into it by mistake.",
+              "textKo": "참새들이 실수로 그리로 이끌었다."
+            },
+            {
+              "text": "After losing both shoes he ran on four legs and went faster — but ran into the net and was caught by the large buttons on his jacket.",
+              "textKo": "신발을 둘 다 잃고 네 발로 더 빨리 달리다 그물에 뛰어들었고, 웃옷의 큰 단추가 걸렸다."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "got caught by the large buttons on his jacket"
+        },
+        {
+          "type": "multiple",
+          "question": "What gives Peter away in the tool-shed?",
+          "questionKo": "연장 창고에서 피터의 위치를 들킨 원인은?",
+          "options": [
+            {
+              "text": "He sneezed — \"Kertyschoo!\"",
+              "textKo": "재채기를 했다 — \"케취!\""
+            },
+            {
+              "text": "He knocked over a flowerpot.",
+              "textKo": "화분을 넘어뜨렸다."
+            },
+            {
+              "text": "The water in the can splashed.",
+              "textKo": "물뿌리개의 물이 튀었다."
+            },
+            {
+              "text": "The white cat mewed at him.",
+              "textKo": "흰 고양이가 그를 보고 울었다."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "Presently Peter sneezed⁠--\"Kertyschoo!\""
+        },
+        {
+          "type": "multiple",
+          "question": "Why does Peter decide not to speak to the white cat?",
+          "questionKo": "피터가 흰 고양이에게 말을 걸지 않기로 한 이유는?",
+          "options": [
+            {
+              "text": "She was staring at him already.",
+              "textKo": "이미 그를 노려보고 있었기 때문이다."
+            },
+            {
+              "text": "He had heard about cats from his cousin, little Benjamin Bunny.",
+              "textKo": "사촌 벤저민 버니에게서 고양이 이야기를 들었기 때문이다."
+            },
+            {
+              "text": "His mother had warned him about her.",
+              "textKo": "어머니가 그 고양이를 조심하라 일렀기 때문이다."
+            },
+            {
+              "text": "She was guarding the gate.",
+              "textKo": "그 고양이가 문을 지키고 있었기 때문이다."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "he had heard about cats from his cousin, little Benjamin Bunny"
+        },
+        {
+          "type": "multiple",
+          "question": "What became of Peter’s jacket and shoes?",
+          "questionKo": "피터의 웃옷과 신발은 어떻게 되었는가?",
+          "options": [
+            {
+              "text": "The sparrows carried them home to his mother.",
+              "textKo": "참새들이 어머니에게 물어다 주었다."
+            },
+            {
+              "text": "They were lost in the pond.",
+              "textKo": "연못에서 잃어버렸다."
+            },
+            {
+              "text": "Mr. McGregor hung them up for a scarecrow to frighten the blackbirds.",
+              "textKo": "맥그레거 씨가 검은새를 쫓는 허수아비로 걸어 두었다."
+            },
+            {
+              "text": "Peter recovered them on his way out.",
+              "textKo": "피터가 나오는 길에 되찾았다."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "Mr. McGregor hung up the little jacket and the shoes for a scarecrow"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 2,
+      "chapter_title": "The Tale of Squirrel Nutkin",
+      "word_count": 1230,
+      "chapter_v_level": 6,
+      "content": "CHAPTER 2. The Tale of Squirrel Nutkin\u001ehttps://standardebooks.org/ebooks/beatrix-potter/short-fiction/text/the-tale-of-squirrel-nutkin\n\nThis is a Tale about a tail⁠--a tail that belonged to a little red squirrel, and his name was Nutkin.\n\nHe had a brother called Twinkleberry, and a great many cousins: they lived in a wood at the edge of a lake.\n\nIn the middle of the lake there is an island covered with trees and nut bushes; and amongst those trees stands a hollow oak-tree, which is the house of an owl who is called Old Brown.\n\nOne autumn when the nuts were ripe, and the leaves on the hazel bushes were golden and green⁠--Nutkin and Twinkleberry and all the other little squirrels came out of the wood, and down to the edge of the lake.\n\nThey made little rafts out of twigs, and they paddled away over the water to Owl Island to gather nuts.\n\nEach squirrel had a little sack and a large oar, and spread out his tail for a sail.\n\nThey also took with them an offering of three fat mice as a present for Old Brown, and put them down upon his doorstep.\n\nThen Twinkleberry and the other little squirrels each made a low bow, and said politely⁠--\n\n\"Old Mr. Brown, will you favour us with permission to gather nuts upon your island?\"\n\nBut Nutkin was excessively impertinent in his manners. He bobbed up and down like a little red cherry, singing⁠--\n\n\"Riddle me, riddle me, rot-tot-tote!\n\nA little wee man, in a red red coat!\n\nA staff in his hand, and a stone in his throat;\n\nIf you'll tell me this riddle, I'll give you a groat.\"\n\nNow this riddle is as old as the hills; Mr. Brown paid no attention whatever to Nutkin.\n\nHe shut his eyes obstinately and went to sleep.\n\nThe squirrels filled their little sacks with nuts, and sailed away home in the evening.\n\nBut next morning they all came back again to Owl Island; and Twinkleberry and the others brought a fine fat mole, and laid it on the stone in front of Old Brown's doorway, and said⁠--\n\n\"Mr. Brown, will you favour us with your gracious permission to gather some more nuts?\"\n\nBut Nutkin, who had no respect, began to dance up and down, tickling old Mr. Brown with a nettle and singing⁠--\n\n\"Old Mr. B! Riddle-me-ree!\n\nHitty Pitty within the wall,\n\nHitty Pitty without the wall;\n\nIf you touch Hitty Pitty,\n\nHitty Pitty will bite you!\"\n\nMr. Brown woke up suddenly and carried the mole into his house.\n\nHe shut the door in Nutkin's face. Presently a little thread of blue smoke from a wood fire came up from the top of the tree, and Nutkin peeped through the keyhole and sang⁠--\n\n\"A house full, a hole full!\n\nAnd you cannot gather a bowl-full!\"\n\nThe squirrels searched for nuts all over the island and filled their little sacks.\n\nBut Nutkin gathered oak-apples⁠--yellow and scarlet⁠--and sat upon a beech-stump playing marbles, and watching the door of old Mr. Brown.\n\nOn the third day the squirrels got up very early and went fishing; they caught seven fat minnows as a present for Old Brown.\n\nThey paddled over the lake and landed under a crooked chestnut tree on Owl Island.\n\nTwinkleberry and six other little squirrels each carried a fat minnow; but Nutkin, who had no nice manners, brought no present at all. He ran in front, singing⁠--\n\n\"The man in the wilderness said to me,\n\n\"How many strawberries grow in the sea?\"\n\nI answered him as I thought good⁠--\n\n\"As many red herrings as grow in the wood.\"\n\nBut old Mr. Brown took no interest in riddles⁠--not even when the answer was provided for him.\n\nOn the fourth day the squirrels brought a present of six fat beetles, which were as good as plums in plum-pudding for Old Brown. Each beetle was wrapped up carefully in a dock-leaf, fastened with a pine-needle pin.\n\nBut Nutkin sang as rudely as ever⁠--\n\n\"Old Mr. B! riddle-me-ree\n\nFlour of England, fruit of Spain,\n\nMet together in a shower of rain;\n\nPut in a bag tied round with a string,\n\nIf you'll tell me this riddle, I'll give you a ring!\"\n\nWhich was ridiculous of Nutkin, because he had not got any ring to give to Old Brown.\n\nThe other squirrels hunted up and down the nut bushes; but Nutkin gathered robin's pincushions off a briar bush, and stuck them full of pine-needle pins.\n\nOn the fifth day the squirrels brought a present of wild honey; it was so sweet and sticky that they licked their fingers as they put it down upon the stone. They had stolen it out of a bumble bees' nest on the tippitty top of the hill.\n\nBut Nutkin skipped up and down, singing⁠--\n\n\"Hum-a-bum! buzz! buzz! Hum-a-bum buzz!\n\nAs I went over Tipple-tine\n\nI met a flock of bonny swine;\n\nSome yellow-nacked, some yellow backed!\n\nThey were the very bonniest swine\n\nThat e'er went over Tipple-tine.\"\n\nOld Mr. Brown turned up his eyes in disgust at the impertinence of Nutkin.\n\nBut he ate up the honey!\n\nThe squirrels filled their little sacks with nuts.\n\nBut Nutkin sat upon a big flat rock, and played ninepins with a crab apple and green fir-cones.\n\nOn the sixth day, which was Saturday, the squirrels came again for the last time; they brought a new-laid egg in a little rush basket as a last parting present for Old Brown.\n\nBut Nutkin ran in front laughing, and shouting⁠--\n\n\"Humpty Dumpty lies in the beck,\n\nWith a white counterpane round his neck,\n\nForty doctors and forty wrights,\n\nCannot put Humpty Dumpty to rights!\"\n\nNow old Mr. Brown took an interest in eggs; he opened one eye and shut it again. But still he did not speak.\n\nNutkin became more and more impertinent⁠--\n\n\"Old Mr. B! Old Mr. B!\n\nHickamore, Hackamore, on the King's kitchen door;\n\nAll the King's horses, and all the King's men,\n\nCouldn't drive Hickamore, Hackamore,\n\nOff the King's kitchen door.\"\n\nNutkin danced up and down like a sunbeam; but still Old Brown said nothing at all.\n\nNutkin began again⁠--\n\n\"Arthur O'Bower has broken his band,\n\nHe comes roaring up the land!\n\nThe King of Scots with all his power,\n\nCannot turn Arthur of the Bower!\"\n\nNutkin made a whirring noise to sound like the wind, and he took a running jump right onto the head of Old Brown!⁠ ⁠...\n\nThen all at once there was a flutterment and a scufflement and a loud \"Squeak!\"\n\nThe other squirrels scuttered away into the bushes.\n\nWhen they came back very cautiously, peeping round the tree⁠--there was Old Brown sitting on his doorstep, quite still, with his eyes closed, as if nothing had happened.\n\nBut Nutkin was in his waistcoat pocket!\n\nThis looks like the end of the story; but it isn't.\n\nOld Brown carried Nutkin into his house, and held him up by the tail, intending to skin him; but Nutkin pulled so very hard that his tail broke in two, and he dashed up the staircase and escaped out of the attic window.\n\nAnd to this day, if you meet Nutkin up a tree and ask him a riddle, he will throw sticks at you, and stamp his feet and scold, and shout⁠--\n\n\"Cuck‑cuck‑cuck‑cur‑r‑r‑cuck‑k‑k!\"",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "How do the squirrels cross to Owl Island?",
+          "questionKo": "다람쥐들은 부엉이 섬으로 어떻게 건너가는가?",
+          "options": [
+            {
+              "text": "They swim across at the narrowest point.",
+              "textKo": "가장 좁은 곳에서 헤엄쳐 건넌다."
+            },
+            {
+              "text": "Old Brown carries them over.",
+              "textKo": "올드 브라운이 데려다준다."
+            },
+            {
+              "text": "They jump from stone to stone.",
+              "textKo": "돌을 딛고 뛰어 건넌다."
+            },
+            {
+              "text": "On little rafts of twigs — each with a sack and a large oar, spreading his tail for a sail.",
+              "textKo": "잔가지로 엮은 작은 뗏목을 타고 — 저마다 자루와 큰 노를 들고, 꼬리를 펴 돛으로 삼는다."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "Each squirrel had a little sack and a large oar, and spread out his tail for a sail."
+        },
+        {
+          "type": "multiple",
+          "question": "What do the squirrels bring Old Brown, and what does Nutkin bring?",
+          "questionKo": "다람쥐들이 올드 브라운에게 가져가는 것과, 넛킨이 가져가는 것은?",
+          "options": [
+            {
+              "text": "They bring mice, a mole, minnows, beetles, honey and an egg; on the third day Nutkin brought no present at all.",
+              "textKo": "쥐·두더지·피라미·딱정벌레·꿀·달걀을 가져가지만, 셋째 날 넛킨은 아무 선물도 가져가지 않았다."
+            },
+            {
+              "text": "They all bring nuts; Nutkin brings oak-apples.",
+              "textKo": "모두 도토리를 가져가고, 넛킨은 참나무혹을 가져간다."
+            },
+            {
+              "text": "Nutkin brings the finest present of all.",
+              "textKo": "넛킨이 가장 훌륭한 선물을 가져간다."
+            },
+            {
+              "text": "They bring nothing — Old Brown asks for no gifts.",
+              "textKo": "아무것도 가져가지 않는다 — 올드 브라운이 선물을 요구하지 않는다."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "but Nutkin, who had no nice manners, brought no present at all"
+        },
+        {
+          "type": "multiple",
+          "question": "How does Old Brown respond to Nutkin’s riddles?",
+          "questionKo": "올드 브라운은 넛킨의 수수께끼에 어떻게 반응하는가?",
+          "options": [
+            {
+              "text": "He answers each one correctly.",
+              "textKo": "하나하나 정확히 맞힌다."
+            },
+            {
+              "text": "He pays no attention — shutting his eyes obstinately, or turning up his eyes in disgust, but never answering.",
+              "textKo": "아랑곳하지 않는다 — 고집스레 눈을 감거나 역겨운 듯 눈을 치켜뜰 뿐 결코 답하지 않는다."
+            },
+            {
+              "text": "He asks Nutkin for the answers.",
+              "textKo": "넛킨에게 답을 묻는다."
+            },
+            {
+              "text": "He drives Nutkin off the island at once.",
+              "textKo": "넛킨을 곧바로 섬에서 쫓아낸다."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "Mr. Brown paid no attention whatever to Nutkin."
+        },
+        {
+          "type": "multiple",
+          "question": "What do the other squirrels do while Nutkin plays?",
+          "questionKo": "넛킨이 노는 동안 다른 다람쥐들은 무엇을 하는가?",
+          "options": [
+            {
+              "text": "They try to make Nutkin behave.",
+              "textKo": "넛킨을 얌전히 시키려 애쓴다."
+            },
+            {
+              "text": "They wait on the shore for permission.",
+              "textKo": "허락을 기다리며 물가에 서 있는다."
+            },
+            {
+              "text": "They fill their little sacks with nuts.",
+              "textKo": "작은 자루에 도토리를 채운다."
+            },
+            {
+              "text": "They play ninepins with him.",
+              "textKo": "그와 함께 볼링 놀이를 한다."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "The squirrels filled their little sacks with nuts."
+        },
+        {
+          "type": "multiple",
+          "question": "What is the one present Old Brown takes any interest in?",
+          "questionKo": "올드 브라운이 유일하게 관심을 보인 선물은?",
+          "options": [
+            {
+              "text": "The wild honey — though he ate it up.",
+              "textKo": "야생 꿀 — 다 먹어 치우기는 했지만."
+            },
+            {
+              "text": "The six fat beetles.",
+              "textKo": "살진 딱정벌레 여섯 마리."
+            },
+            {
+              "text": "The seven fat minnows.",
+              "textKo": "살진 피라미 일곱 마리."
+            },
+            {
+              "text": "The new-laid egg — he opened one eye and shut it again.",
+              "textKo": "갓 낳은 달걀 — 한쪽 눈을 떴다가 다시 감았다."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "Now old Mr. Brown took an interest in eggs; he opened one eye and shut it again."
+        },
+        {
+          "type": "multiple",
+          "question": "What finally provokes Old Brown to act?",
+          "questionKo": "결국 올드 브라운이 움직이게 만든 것은?",
+          "options": [
+            {
+              "text": "Nutkin made a whirring noise like the wind and took a running jump right onto his head.",
+              "textKo": "넛킨이 바람 소리를 흉내 내며 그의 머리 위로 뛰어올랐기 때문이다."
+            },
+            {
+              "text": "Nutkin stole the honey.",
+              "textKo": "넛킨이 꿀을 훔쳤기 때문이다."
+            },
+            {
+              "text": "Nutkin peeped through the keyhole.",
+              "textKo": "넛킨이 열쇠 구멍으로 엿보았기 때문이다."
+            },
+            {
+              "text": "Nutkin tickled him with a nettle.",
+              "textKo": "넛킨이 쐐기풀로 간질였기 때문이다."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "he took a running jump right onto the head of Old Brown!"
+        },
+        {
+          "type": "multiple",
+          "question": "How does Nutkin escape, and what does it cost him?",
+          "questionKo": "넛킨은 어떻게 달아나며, 그 대가는 무엇인가?",
+          "options": [
+            {
+              "text": "The other squirrels rescued him.",
+              "textKo": "다른 다람쥐들이 구해 냈다."
+            },
+            {
+              "text": "Old Brown held him up by the tail to skin him; Nutkin pulled so hard that his tail broke in two, and he escaped out of the attic window.",
+              "textKo": "올드 브라운이 가죽을 벗기려 꼬리를 잡아 들자, 넛킨이 하도 세게 당겨 꼬리가 둘로 끊어졌고 다락 창으로 달아났다."
+            },
+            {
+              "text": "He talked his way out with one last riddle.",
+              "textKo": "마지막 수수께끼로 말재간을 부려 빠져나왔다."
+            },
+            {
+              "text": "Old Brown let him go unharmed.",
+              "textKo": "올드 브라운이 다치지 않게 놓아주었다."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "Nutkin pulled so very hard that his tail broke in two"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 3,
+      "chapter_title": "The Tailor of Gloucester",
+      "word_count": 2843,
+      "chapter_v_level": 7,
+      "content": "CHAPTER 3. The Tailor of Gloucester\u001ehttps://standardebooks.org/ebooks/beatrix-potter/short-fiction/text/the-tailor-of-gloucester\n\n\"I'll be at charges for a looking-glass; and entertain a score or two of tailors.\"\n\nRichard III\n\nMy dear Freda,\n\nBecause you are fond of fairytales, and have been ill, I have made you a story all for yourself⁠--a new one that nobody has read before.\n\nAnd the queerest thing about it is⁠--that I heard it in Gloucestershire, and that it is true⁠--at least about the tailor, the waistcoat, and the \"No more twist!\"\n\nIn the time of swords and periwigs and full-skirted coats with flowered lappets⁠--when gentlemen wore ruffles, and gold-laced waistcoats of paduasoy and taffeta⁠--there lived a tailor in Gloucester.\n\nHe sat in the window of a little shop in Westgate Street, cross-legged on a table, from morning till dark.\n\nAll day long while the light lasted he sewed and snippeted, piecing out his satin and pompadour, and lutestring; stuffs had strange names, and were very expensive in the days of the Tailor of Gloucester.\n\nBut although he sewed fine silk for his neighbours, he himself was very, very poor⁠--a little old man in spectacles, with a pinched face, old crooked fingers, and a suit of threadbare clothes.\n\nHe cut his coats without waste, according to his embroidered cloth; they were very small ends and snippets that lay about upon the table⁠--\"Too narrow breadths for nought⁠--except waistcoats for mice,\" said the tailor.\n\nOne bitter cold day near Christmastime the tailor began to make a coat⁠--a coat of cherry-coloured corded silk embroidered with pansies and roses, and a cream coloured satin waistcoat⁠--trimmed with gauze and green worsted chenille⁠--for the Mayor of Gloucester.\n\nThe tailor worked and worked, and he talked to himself. He measured the silk, and turned it round and round, and trimmed it into shape with his shears; the table was all littered with cherry-coloured snippets.\n\n\"No breadth at all, and cut on the cross; it is no breadth at all; tippets for mice and ribbons for mobs! for mice!\" said the Tailor of Gloucester.\n\nWhen the snowflakes came down against the small leaded windowpanes and shut out the light, the tailor had done his day's work; all the silk and satin lay cut out upon the table.\n\nThere were twelve pieces for the coat and four pieces for the waistcoat; and there were pocket flaps and cuffs, and buttons all in order. For the lining of the coat there was fine yellow taffeta; and for the buttonholes of the waistcoat, there was cherry-coloured twist. And everything was ready to sew together in the morning, all measured and sufficient⁠--except that there was wanting just one single skein of cherry-coloured twisted silk.\n\nThe tailor came out of his shop at dark, for he did not sleep there at nights; he fastened the window and locked the door, and took away the key. No one lived there at night but little brown mice, and they run in and out without any keys!\n\nFor behind the wooden wainscots of all the old houses in Gloucester, there are little mouse staircases and secret trapdoors; and the mice run from house to house through those long narrow passages; they can run all over the town without going into the streets.\n\nBut the tailor came out of his shop, and shuffled home through the snow. He lived quite near by in College Court, next the doorway to College Green; and although it was not a big house, the tailor was so poor he only rented the kitchen.\n\nHe lived alone with his cat; it was called Simpkin.\n\nNow all day long while the tailor was out at work, Simpkin kept house by himself; and he also was fond of the mice, though he gave them no satin for coats!\n\n\"Miaw?\" said the cat when the tailor opened the door. \"Miaw?\"\n\nThe tailor replied⁠--\"Simpkin, we shall make our fortune, but I am worn to a ravelling. Take this groat (which is our last fourpence) and Simpkin, take a china pipkin; buy a penn'orth of bread, a penn'orth of milk and a penn'orth of sausages. And oh, Simpkin, with the last penny of our fourpence buy me one penn'orth of cherry-coloured silk. But do not lose the last penny of the fourpence, Simpkin, or I am undone and worn to a thread-paper, for I have no more twist.\"\n\nThen Simpkin again said, \"Miaw?\" and took the groat and the pipkin, and went out into the dark.\n\nThe tailor was very tired and beginning to be ill. He sat down by the hearth and talked to himself about that wonderful coat.\n\n\"I shall make my fortune⁠--to be cut bias⁠--the Mayor of Gloucester is to be married on Christmas Day in the morning, and he hath ordered a coat and an embroidered waistcoat⁠--to be lined with yellow taffeta⁠--and the taffeta sufficeth; there is no more left over in snippets than will serve to make tippets for mice⁠--\"\n\nThen the tailor started; for suddenly, interrupting him, from the dresser at the other side of the kitchen came a number of little noises⁠--\n\nTip tap, tip tap, tip tap tip!\n\n\"Now what can that be?\" said the Tailor of Gloucester, jumping up from his chair. The dresser was covered with crockery and pipkins, willow pattern plates, and teacups and mugs.\n\nThe tailor crossed the kitchen, and stood quite still beside the dresser, listening, and peering through his spectacles. Again from under a teacup, came those funny little noises⁠--\n\nTip tap, tip tap, Tip tap tip!\n\n\"This is very peculiar,\" said the Tailor of Gloucester; and he lifted up the teacup which was upside down.\n\nOut stepped a little live lady mouse, and made a curtsey to the tailor! Then she hopped away down off the dresser, and under the wainscot.\n\nThe tailor sat down again by the fire, warming his poor cold hands, and mumbling to himself⁠--\n\n\"The waistcoat is cut out from peach-coloured satin⁠--tambour stitch and rosebuds in beautiful floss silk. Was I wise to entrust my last fourpence to Simpkin? One-and-twenty buttonholes of cherry-coloured twist!\"\n\nBut all at once, from the dresser, there came other little noises:\n\nTip tap, tip tap, tip tap tip!\n\n\"This is passing extraordinary!\" said the Tailor of Gloucester, and turned over another teacup, which was upside down.\n\nOut stepped a little gentleman mouse, and made a bow to the tailor!\n\nAnd then from all over the dresser came a chorus of little tappings, all sounding together, and answering one another, like watch-beetles in an old worm-eaten window-shutter⁠--\n\nTip tap, tip tap, tip tap tip!\n\nAnd out from under teacups and from under bowls and basins, stepped other and more little mice who hopped away down off the dresser and under the wainscot.\n\nThe tailor sat down, close over the fire, lamenting⁠--\"One-and-twenty buttonholes of cherry-coloured silk! To be finished by noon of Saturday: and this is Tuesday evening. Was it right to let loose those mice, undoubtedly the property of Simpkin? Alack, I am undone, for I have no more twist!\"\n\nThe little mice came out again, and listened to the tailor; they took notice of the pattern of that wonderful coat. They whispered to one another about the taffeta lining, and about little mouse tippets.\n\nAnd then all at once they all ran away together down the passage behind the wainscot, squeaking and calling to one another, as they ran from house to house; and not one mouse was left in the tailor's kitchen when Simpkin came back with the pipkin of milk!\n\nSimpkin opened the door and bounced in, with an angry \"G‑r‑r‑miaw!\" like a cat that is vexed: for he hated the snow, and there was snow in his ears, and snow in his collar at the back of his neck. He put down the loaf and the sausages upon the dresser, and sniffed.\n\n\"Simpkin,\" said the tailor, \"where is my twist?\"\n\nBut Simpkin set down the pipkin of milk upon the dresser, and looked suspiciously at the teacups. He wanted his supper of little fat mouse!\n\n\"Simpkin,\" said the tailor, \"where is my twist?\"\n\nBut Simpkin hid a little parcel privately in the teapot, and spit and growled at the tailor; and if Simpkin had been able to talk, he would have asked: \"Where is my mouse?\"\n\n\"Alack, I am undone!\" said the Tailor of Gloucester, and went sadly to bed.\n\nAll that night long Simpkin hunted and searched through the kitchen, peeping into cupboards and under the wainscot, and into the teapot where he had hidden that twist; but still he found never a mouse!\n\nWhenever the tailor muttered and talked in his sleep, Simpkin said \"Miaw‑ger‑r‑w‑s‑s‑ch!\" and made strange horrid noises, as cats do at night.\n\nFor the poor old tailor was very ill with a fever, tossing and turning in his four-post bed; and still in his dreams he mumbled⁠--\"No more twist! no more twist!\"\n\nAll that day he was ill, and the next day, and the next; and what should become of the cherry-coloured coat? In the tailor's shop in Westgate Street the embroidered silk and satin lay cut out upon the table⁠--one-and-twenty buttonholes⁠--and who should come to sew them, when the window was barred, and the door was fast locked?\n\nBut that does not hinder the little brown mice; they run in and out without any keys through all the old houses in Gloucester!\n\nOut of doors the market folks went trudging through the snow to buy their geese and turkeys, and to bake their Christmas pies; but there would be no Christmas dinner for Simpkin and the poor old Tailor of Gloucester.\n\nThe tailor lay ill for three days and nights; and then it was Christmas Eve, and very late at night. The moon climbed up over the roofs and chimneys, and looked down over the gateway into College Court. There were no lights in the windows, nor any sound in the houses; all the city of Gloucester was fast asleep under the snow.\n\nAnd still Simpkin wanted his mice, and he mewed as he stood beside the four-post bed.\n\nBut it is in the old story that all the beasts can talk, in the night between Christmas Eve and Christmas Day in the morning (though there are very few folk that can hear them, or know what it is that they say).\n\nWhen the Cathedral clock struck twelve there was an answer⁠--like an echo of the chimes⁠--and Simpkin heard it, and came out of the tailor's door, and wandered about in the snow.\n\nFrom all the roofs and gables and old wooden houses in Gloucester came a thousand merry voices singing the old Christmas rhymes⁠--all the old songs that ever I heard of, and some that I don't know, like Whittington's bells.\n\nFirst and loudest the cocks cried out: \"Dame, get up, and bake your pies!\"\n\n\"Oh, dilly, dilly, dilly!\" sighed Simpkin.\n\nAnd now in a garret there were lights and sounds of dancing, and cats came from over the way.\n\n\"Hey, diddle, diddle, the cat and the fiddle! All the cats in Gloucester⁠--except me,\" said Simpkin.\n\nUnder the wooden eaves the starlings and sparrows sang of Christmas pies; the jackdaws woke up in the Cathedral tower; and although it was the middle of the night the throstles and robins sang; the air was quite full of little twittering tunes.\n\nBut it was all rather provoking to poor hungry Simpkin!\n\nParticularly he was vexed with some little shrill voices from behind a wooden lattice. I think that they were bats, because they always have very small voices⁠--especially in a black frost, when they talk in their sleep, like the Tailor of Gloucester.\n\nThey said something mysterious that sounded like⁠--\n\n\"Buzz, quoth the blue fly; hum, quoth the bee;\n\nBuzz and hum they cry, and so do we!\"\n\nand Simpkin went away shaking his ears as if he had a bee in his bonnet.\n\nFrom the tailor's shop in Westgate came a glow of light; and when Simpkin crept up to peep in at the window it was full of candles. There was a snippeting of scissors, and snappeting of thread; and little mouse voices sang loudly and gaily⁠--\n\n\"Four-and-twenty tailors\n\nWent to catch a snail,\n\nThe best man amongst them\n\nDurst not touch her tail,\n\nShe put out her horns\n\nLike a little kyloe cow,\n\nRun, tailors, run! or she'll have you all e'en now!\"\n\nThen without a pause the little mouse voices went on again⁠--\n\n\"Sieve my lady's oatmeal,\n\nGrind my lady's flour,\n\nPut it in a chestnut,\n\nLet it stand an hour⁠--\"\n\n\"Mew! Mew!\" interrupted Simpkin, and he scratched at the door. But the key was under the tailor's pillow, he could not get in.\n\nThe little mice only laughed, and tried another tune⁠--\n\n\"Three little mice sat down to spin,\n\nPussy passed by and she peeped in.\n\nWhat are you at, my fine little men?\n\nMaking coats for gentlemen.\n\nShall I come in and cut off your threads?\n\nOh, no, Miss Pussy, you'd bite off our heads!\"\n\n\"Mew! Mew!\" cried Simpkin. \"Hey diddle dinketty?\" answered the little mice⁠--\n\n\"Hey diddle dinketty, poppetty pet!\n\nThe merchants of London they wear scarlet;\n\nSilk in the collar, and gold in the hem,\n\nSo merrily march the merchantmen!\"\n\nThey clicked their thimbles to mark the time, but none of the songs pleased Simpkin; he sniffed and mewed at the door of the shop.\n\n\"And then I bought\n\nA pipkin and a popkin,\n\nA slipkin and a slopkin,\n\nAll for one farthing⁠--\n\nand upon the kitchen dresser!\" added the rude little mice.\n\n\"Mew! scratch! scratch!\" scuffled Simpkin on the windowsill; while the little mice inside sprang to their feet, and all began to shout at once in little twittering voices: \"No more twist! No more twist!\" And they barred up the window shutters and shut out Simpkin.\n\nBut still through the nicks in the shutters he could hear the click of thimbles, and little mouse voices singing⁠--\n\n\"No more twist! No more twist!\"\n\nSimpkin came away from the shop and went home, considering in his mind. He found the poor old tailor without fever, sleeping peacefully.\n\nThen Simpkin went on tiptoe and took a little parcel of silk out of the teapot, and looked at it in the moonlight; and he felt quite ashamed of his badness compared with those good little mice!\n\nWhen the tailor awoke in the morning, the first thing which he saw upon the patchwork quilt, was a skein of cherry-coloured twisted silk, and beside his bed stood the repentant Simpkin!\n\n\"Alack, I am worn to a ravelling,\" said the Tailor of Gloucester, \"but I have my twist!\"\n\nThe sun was shining on the snow when the tailor got up and dressed, and came out into the street with Simpkin running before him.\n\nThe starlings whistled on the chimney stacks, and the throstles and robins sang⁠--but they sang their own little noises, not the words they had sung in the night.\n\n\"Alack,\" said the tailor, \"I have my twist; but no more strength⁠--nor time⁠--than will serve to make me one single buttonhole; for this is Christmas Day in the Morning! The Mayor of Gloucester shall be married by noon⁠--and where is his cherry-coloured coat?\"\n\nHe unlocked the door of the little shop in Westgate Street, and Simpkin ran in, like a cat that expects something.\n\nBut there was no one there! Not even one little brown mouse!\n\nThe boards were swept clean; the little ends of thread and the little silk snippets were all tidied away, and gone from off the floor.\n\nBut upon the table⁠--oh joy! the tailor gave a shout⁠--there, where he had left plain cuttings of silk⁠--there lay the most beautifullest coat and embroidered satin waistcoat that ever were worn by a Mayor of Gloucester.\n\nThere were roses and pansies upon the facings of the coat; and the waistcoat was worked with poppies and cornflowers.\n\nEverything was finished except just one single cherry-coloured buttonhole, and where that buttonhole was wanting there was pinned a scrap of paper with these words⁠--in little teeny weeny writing⁠--\n\nNo more twist.\n\nAnd from then began the luck of the Tailor of Gloucester; he grew quite stout, and he grew quite rich.\n\nHe made the most wonderful waistcoats for all the rich merchants of Gloucester, and for all the fine gentlemen of the country round.\n\nNever were seen such ruffles, or such embroidered cuffs and lappets! But his buttonholes were the greatest triumph of it all.\n\nThe stitches of those buttonholes were so neat⁠--so neat⁠--I wonder how they could be stitched by an old man in spectacles, with crooked old fingers, and a tailor's thimble.\n\nThe stitches of those buttonholes were so small⁠--so small⁠--they looked as if they had been made by little mice!",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "What is the tailor’s own situation, despite sewing fine silk for his neighbours?",
+          "questionKo": "이웃들에게 고운 비단옷을 지어 주면서도 재단사 자신의 처지는 어떠한가?",
+          "options": [
+            {
+              "text": "He was the richest tailor in Gloucester.",
+              "textKo": "글로스터에서 가장 부유한 재단사였다."
+            },
+            {
+              "text": "He owned the shop and the house above it.",
+              "textKo": "가게와 그 위층 집을 소유하고 있었다."
+            },
+            {
+              "text": "He was very, very poor — a little old man in spectacles with a suit of threadbare clothes, renting only the kitchen.",
+              "textKo": "몹시 가난했다 — 안경 쓴 작은 노인으로 해진 옷을 입고, 부엌 한 칸만 세 들어 살았다."
+            },
+            {
+              "text": "He kept a large household of apprentices.",
+              "textKo": "견습생을 여럿 거느리고 있었다."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "he himself was very, very poor⁠--a little old man in spectacles"
+        },
+        {
+          "type": "multiple",
+          "question": "What is missing when everything for the Mayor’s coat is cut out and ready?",
+          "questionKo": "시장의 코트감을 모두 마름질해 두었을 때 딱 하나 모자란 것은?",
+          "options": [
+            {
+              "text": "The yellow taffeta lining.",
+              "textKo": "노란 호박단 안감."
+            },
+            {
+              "text": "The buttons for the waistcoat.",
+              "textKo": "조끼 단추."
+            },
+            {
+              "text": "The green worsted chenille trim.",
+              "textKo": "초록 셰닐 장식."
+            },
+            {
+              "text": "One single skein of cherry-coloured twisted silk.",
+              "textKo": "체리색 꼰 명주실 한 타래."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "except that there was wanting just one single skein of cherry-coloured twisted silk"
+        },
+        {
+          "type": "multiple",
+          "question": "What does the tailor send Simpkin out to buy with their last fourpence?",
+          "questionKo": "재단사가 마지막 4펜스로 심프킨에게 사 오라고 시킨 것은?",
+          "options": [
+            {
+              "text": "Bread, milk, sausages — and with the last penny, cherry-coloured silk.",
+              "textKo": "빵과 우유와 소시지, 그리고 마지막 1페니로 체리색 명주실."
+            },
+            {
+              "text": "Only the silk — food could wait.",
+              "textKo": "명주실만 — 먹을 것은 나중에."
+            },
+            {
+              "text": "Bread and milk, and a china pipkin.",
+              "textKo": "빵과 우유, 그리고 도기 냄비."
+            },
+            {
+              "text": "Nothing — Simpkin went out on his own.",
+              "textKo": "아무것도 — 심프킨이 제멋대로 나갔다."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "with the last penny of our fourpence buy me one penn’orth of cherry-coloured silk"
+        },
+        {
+          "type": "multiple",
+          "question": "What does the tailor keep finding under the upturned teacups?",
+          "questionKo": "엎어 둔 찻잔 아래에서 재단사가 잇달아 발견한 것은?",
+          "options": [
+            {
+              "text": "The missing skein of silk.",
+              "textKo": "사라진 명주실 타래."
+            },
+            {
+              "text": "Live mice — a lady mouse who curtseyed, then a gentleman mouse who bowed, then many more.",
+              "textKo": "살아 있는 생쥐들 — 인사하는 암쥐, 이어 절하는 수쥐, 그리고 더 많은 쥐들."
+            },
+            {
+              "text": "Snippets of cherry-coloured satin.",
+              "textKo": "체리색 새틴 자투리."
+            },
+            {
+              "text": "Simpkin’s hidden parcel.",
+              "textKo": "심프킨이 숨겨 둔 꾸러미."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "Out stepped a little live lady mouse, and made a curtsey to the tailor!"
+        },
+        {
+          "type": "multiple",
+          "question": "Why does Simpkin refuse to give the tailor his twist?",
+          "questionKo": "심프킨이 재단사에게 명주실을 내주지 않은 이유는?",
+          "options": [
+            {
+              "text": "He had lost it in the snow.",
+              "textKo": "눈 속에서 잃어버려서."
+            },
+            {
+              "text": "The shop had none to sell.",
+              "textKo": "가게에 팔 것이 없어서."
+            },
+            {
+              "text": "The tailor had let the mice loose — Simpkin wanted his supper of little fat mouse, so he hid the parcel in the teapot.",
+              "textKo": "재단사가 생쥐들을 풀어 주었기 때문 — 살진 생쥐로 저녁을 먹고 싶던 심프킨은 꾸러미를 찻주전자에 숨겼다."
+            },
+            {
+              "text": "He had spent the penny on sausages.",
+              "textKo": "그 1페니를 소시지에 써 버려서."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "He wanted his supper of little fat mouse!"
+        },
+        {
+          "type": "multiple",
+          "question": "What changes Simpkin’s mind on Christmas Eve?",
+          "questionKo": "성탄 전야에 심프킨의 마음을 바꾼 것은?",
+          "options": [
+            {
+              "text": "The tailor’s fever frightened him.",
+              "textKo": "재단사의 열병에 겁이 나서."
+            },
+            {
+              "text": "The bats scolded him.",
+              "textKo": "박쥐들이 꾸짖어서."
+            },
+            {
+              "text": "He could not open the teapot.",
+              "textKo": "찻주전자를 열 수 없어서."
+            },
+            {
+              "text": "Peeping into the lit shop, he heard the mice sewing and singing — and felt quite ashamed of his badness compared with those good little mice.",
+              "textKo": "불 밝은 가게를 들여다보다 바느질하며 노래하는 생쥐들을 보고, 착한 그들에 견주어 제 못됨이 부끄러웠다."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "he felt quite ashamed of his badness compared with those good little mice!"
+        },
+        {
+          "type": "multiple",
+          "question": "What did the tailor find on the table on Christmas morning?",
+          "questionKo": "성탄절 아침 재단사가 작업대에서 발견한 것은?",
+          "options": [
+            {
+              "text": "The finished coat and waistcoat — everything done except one cherry-coloured buttonhole, with a scrap of paper reading \"No more twist.\"",
+              "textKo": "완성된 코트와 조끼 — 체리색 단춧구멍 하나만 남기고 다 되어 있었고, \"명주실이 없어요\" 라 적힌 쪽지가 꽂혀 있었다."
+            },
+            {
+              "text": "Only the plain cuttings, exactly as he had left them.",
+              "textKo": "두고 간 그대로의 마름질감뿐."
+            },
+            {
+              "text": "The mice, still at work.",
+              "textKo": "아직 일하고 있는 생쥐들."
+            },
+            {
+              "text": "A skein of cherry-coloured twist and nothing else.",
+              "textKo": "체리색 명주실 한 타래, 그뿐."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "there was pinned a scrap of paper with these words⁠--in little teeny weeny writing⁠--"
+        }
+      ]
+    }
+  ]
+}

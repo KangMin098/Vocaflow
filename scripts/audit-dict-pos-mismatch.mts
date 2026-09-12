@@ -53,12 +53,15 @@ const bookSents: Array<{ word: string; sent: string }> = []
   const ids = (arts ?? []).map((a: any) => a.id)
   let from = 0
   while (true) {
+    // ⚠️ 기사 표에는 `lemma` 가 없다 — 11,011,463행 전부 NULL 이라 마이그레이션
+    //   `20260901040000_lav_drop_dead_columns` 가 걷었다. 전에도 `r.lemma ?? r.word` 는
+    //   항상 word 를 골랐으므로 집계 결과는 같다. (도서 표의 lemma 는 살아 있다 — 위 블록 참조.)
     const { data } = await sb.from('library_article_vocabularies')
-      .select('word, lemma, first_sentence, library_article_id')
+      .select('word, first_sentence, library_article_id')
       .in('library_article_id', ids).not('first_sentence', 'is', null)
       .range(from, from + 999)
     if (!data || data.length === 0) break
-    for (const r of data as any[]) if (r.first_sentence) bookSents.push({ word: (r.lemma ?? r.word).toLowerCase(), sent: r.first_sentence })
+    for (const r of data as any[]) if (r.first_sentence) bookSents.push({ word: (r.word ?? '').toLowerCase(), sent: r.first_sentence })
     if (data.length < 1000) break
     from += 1000
   }

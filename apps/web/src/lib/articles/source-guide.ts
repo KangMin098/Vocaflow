@@ -12,7 +12,7 @@
 import { SOURCE_SPECS } from '@vocaflow/library-pipeline/curation-spec'
 import type { SourceKey, LearnerLevel } from '@vocaflow/library-pipeline/curation-spec'
 
-import type { ArticleAdminRow, SourceFeedHealth } from './types'
+import type { CoverageCounts, SourceFeedHealth } from './types'
 
 export const CEFR_ORDER = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'] as const
 export type Cefr = (typeof CEFR_ORDER)[number]
@@ -44,6 +44,11 @@ export const SOURCE_REGISTERS: Record<SourceKey, ReadonlyArray<string>> = {
   nasa: ['expository', 'news'],
   nih: ['expository', 'news'],
   wikinews: ['news'],
+  // 그림책 서사 — 초·중 창에 narrative 가 **0편**이라 넣은 소스다. 다른 register 는 없다.
+  storyweaver: ['narrative'],
+  space_place: ['expository'],
+  ocean_facts: ['expository'],
+  frym: ['expository'],
   the_conversation: ['argumentative'],
   simple_wikipedia: ['expository', 'reference'],
   owid: ['argumentative'], // T-2 — 데이터 논증문 (CC-BY → 발행 가능 argumentative 보강)
@@ -54,6 +59,12 @@ export const SOURCE_REGISTERS: Record<SourceKey, ReadonlyArray<string>> = {
   wikivoyage: ['reference'], // 여행 목적지 가이드 (CC-BY-SA → 발행 가능 · reference 보강)
   usgs: ['expository'], // 지구과학·자연재해 과학 저널리즘 (PD US Gov → 발행 가능)
   noaa: ['expository'], // 기후과학 explainer (PD US Gov → 발행 가능)
+  // 대학 컨소시엄 연구 기사 (CC BY 4.0 · fe252c99). 추측이 아니라 같은 커밋의 근거다 —
+  // "연구 기사" 이고 논증 지면을 맡은 것은 PLOS 쪽이다. nasa·nih 와 같은 모양.
+  futurity: ['expository', 'news'],
+  // ACP §20 재저작 — register 는 발주(composed_spec)가 정한다. 시사가 기본이지만
+  //   같은 사실 원장에서 설명문·내러티브 판을 뽑을 수 있어 셋을 모두 연다.
+  original: ['news', 'expository', 'narrative'],
 }
 
 const ALL_SOURCES: ReadonlyArray<SourceKey> = [
@@ -97,18 +108,25 @@ export interface CoverageGap {
   cefr: string
 }
 
-/** 발행(published) 기준 register × CEFR 빈칸 — 발행 0 인 셀. */
-export function computeCoverageGaps(articles: ArticleAdminRow[]): CoverageGap[] {
-  const published = new Set<string>()
-  for (const a of articles) {
-    if (a.status === 'published' && a.register && a.cefr_level) {
-      published.add(`${a.register}|${a.cefr_level}`)
-    }
-  }
+/** 커버리지 셀 키 — 서버 카운트(admin-queries)와 매트릭스가 같은 문자열을 써야 한다. */
+export function coverageKey(register: string, cefr: string): string {
+  return `${register}|${cefr}`
+}
+
+/**
+ * 발행(published) 기준 register × CEFR 빈칸 — 발행 0 인 셀.
+ *
+ * 인자가 글 목록이 아니라 **서버 카운트**인 이유: 목록은 1,000행에서 잘리고, 잘린 목록에는
+ * 발행분이 한 건도 안 들어와 30칸이 전부 빈칸이 된다. 그러면 이 함수를 근거로 도는
+ * 소스 추천이 "전 영역이 비었다" 고 말한다 — 실제로는 293건이 발행돼 있었다.
+ */
+export function computeCoverageGaps(coverage: CoverageCounts): CoverageGap[] {
   const gaps: CoverageGap[] = []
   for (const r of REGISTERS) {
     for (const c of CEFR_ORDER) {
-      if (!published.has(`${r.key}|${c}`)) gaps.push({ register: r.key, cefr: c })
+      if ((coverage.cells[coverageKey(r.key, c)] ?? 0) === 0) {
+        gaps.push({ register: r.key, cefr: c })
+      }
     }
   }
   return gaps

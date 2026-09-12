@@ -1,0 +1,315 @@
+[
+ {
+  "word": "shelf life",
+  "meaning_ko": "(가치·유용성이 유지되는) 수명, 유효 기간, (식품의) 유통 기한",
+  "pos": "noun",
+  "cefr_level": "B2",
+  "example_en": "Fresh milk has a very short shelf life."
+ },
+ {
+  "word": "single-celled",
+  "meaning_ko": "단세포의, 세포 하나로 이루어진",
+  "pos": "adjective",
+  "cefr_level": "B2",
+  "example_en": "Amoebas are single-celled organisms."
+ },
+ {
+  "word": "snapped at",
+  "meaning_ko": "(개 등이) 덥석 물려고 달려들었다, (사람에게) 쏘아붙였다 — snap at 의 과거형",
+  "pos": "phrasal_verb",
+  "cefr_level": "B2",
+  "example_en": "The frightened dog snapped at my hand."
+ },
+ {
+  "word": "socially acceptable",
+  "meaning_ko": "사회적으로 용인되는, 사회 통념에 맞는",
+  "pos": "adjective",
+  "cefr_level": "B2",
+  "example_en": "Talking loudly in a library is not socially acceptable."
+ },
+ {
+  "word": "sold out",
+  "meaning_ko": "매진된, 다 팔린",
+  "pos": "adjective",
+  "cefr_level": "B1",
+  "example_en": "Tickets for the concert were sold out in an hour."
+ },
+ {
+  "word": "sound-bite",
+  "meaning_ko": "(방송용으로 따온) 짧고 인상적인 발언 토막",
+  "pos": "noun",
+  "cefr_level": "C1",
+  "example_en": "Politicians prepare a catchy sound-bite for the evening news."
+ },
+ {
+  "word": "spatial organization",
+  "meaning_ko": "공간 배치, 공간 구성",
+  "pos": "noun",
+  "cefr_level": "B2",
+  "example_en": "The spatial organization of a kitchen shapes how people cook in it."
+ },
+ {
+  "word": "spoke out",
+  "meaning_ko": "공개적으로 반대 의견을 밝혔다, 소신을 말했다 — speak out 의 과거형",
+  "pos": "phrasal_verb",
+  "cefr_level": "B2",
+  "example_en": "She spoke out against the new rule at the meeting."
+ },
+ {
+  "word": "square-foot",
+  "meaning_ko": "넓이가 ~제곱피트인 (1제곱피트 ≈ 0.09㎡)",
+  "pos": "adjective",
+  "cefr_level": "B1",
+  "example_en": "They moved into a 900-square-foot apartment."
+ },
+ {
+  "word": "stage fright",
+  "meaning_ko": "무대 공포증, 사람들 앞에 설 때 느끼는 두려움",
+  "pos": "noun",
+  "cefr_level": "B2",
+  "example_en": "He still gets stage fright before every performance."
+ },
+ {
+  "word": "stand in the way",
+  "meaning_ko": "방해가 되다, 가로막다",
+  "pos": "idiom",
+  "cefr_level": "B2",
+  "example_en": "Do not let fear stand in the way of your plans."
+ },
+ {
+  "word": "status quo",
+  "meaning_ko": "현재 상태, 현상(現狀), 기존 질서",
+  "pos": "noun",
+  "cefr_level": "C1",
+  "example_en": "New leaders are expected to challenge the status quo."
+ },
+ {
+  "word": "steepability",
+  "meaning_ko": "(찻잎이) 잘 우러나는 정도, 우려내기 좋은 성질",
+  "pos": "noun",
+  "cefr_level": "C2",
+  "example_en": "The steepability of the leaves decides how quickly the tea brews."
+ },
+ {
+  "word": "sticking out",
+  "meaning_ko": "(밖으로) 튀어나와 있는, 삐져나와 있는 — stick out 의 진행형",
+  "pos": "phrasal_verb",
+  "cefr_level": "B1",
+  "example_en": "A pencil was sticking out of his back pocket."
+ },
+ {
+  "word": "stimulus-driven",
+  "meaning_ko": "자극에 이끌리는, 눈앞의 자극에 그때그때 반응하는",
+  "pos": "adjective",
+  "cefr_level": "C1",
+  "example_en": "Stimulus-driven attention jumps to whatever moves or flashes."
+ },
+ {
+  "word": "superconductors",
+  "meaning_ko": "초전도체(전기 저항이 0인 물질) — superconductor 의 복수형",
+  "pos": "noun",
+  "cefr_level": "C1",
+  "example_en": "Superconductors carry electricity without losing energy."
+ },
+ {
+  "word": "take (n.)",
+  "skip": true
+ },
+ {
+  "word": "take credit for",
+  "meaning_ko": "~을 자기 공으로 돌리다, ~에 대해 칭찬을 받다",
+  "pos": "idiom",
+  "cefr_level": "B2",
+  "example_en": "He tried to take credit for work the whole team had done."
+ },
+ {
+  "word": "take place",
+  "meaning_ko": "(일이) 일어나다, 열리다, 개최되다",
+  "pos": "idiom",
+  "cefr_level": "A2",
+  "example_en": "The school festival will take place next Friday."
+ },
+ {
+  "word": "take-away",
+  "meaning_ko": "(경험·강연에서 얻은) 핵심 교훈, 요점, (영국) 포장 음식",
+  "pos": "noun",
+  "cefr_level": "B2",
+  "example_en": "My main take-away from the lecture was to ask better questions."
+ },
+ {
+  "word": "temporal resolution",
+  "meaning_ko": "시간 해상도(얼마나 자주 관측·기록되는지의 정밀도)",
+  "pos": "noun",
+  "cefr_level": "C1",
+  "example_en": "A satellite with high temporal resolution photographs the same area every day."
+ },
+ {
+  "word": "territoriality",
+  "meaning_ko": "영역 지키기, 세력권 주장, (동물의) 텃세",
+  "pos": "noun",
+  "cefr_level": "C1",
+  "example_en": "Territoriality between departments slows down cooperation."
+ },
+ {
+  "word": "the only year",
+  "skip": true
+ },
+ {
+  "word": "tiebreaking",
+  "meaning_ko": "동점을 깨는, 승부를 가르는",
+  "pos": "adjective",
+  "cefr_level": "B2",
+  "example_en": "She scored the tiebreaking goal in the last minute."
+ },
+ {
+  "word": "time horizon",
+  "meaning_ko": "(계획·효과가 미치는) 시간 범위, 기간",
+  "pos": "noun",
+  "cefr_level": "C1",
+  "example_en": "Investors with a long time horizon can accept short-term losses."
+ },
+ {
+  "word": "took pity on",
+  "meaning_ko": "~을 불쌍히 여겼다 — take pity on 의 과거형",
+  "pos": "idiom",
+  "cefr_level": "B2",
+  "example_en": "She took pity on the stray cat and fed it."
+ },
+ {
+  "word": "tour operators",
+  "meaning_ko": "여행 상품을 기획·운영하는 업체, 여행사 — tour operator 의 복수형",
+  "pos": "noun",
+  "cefr_level": "B2",
+  "example_en": "Local tour operators arrange boat trips to the island."
+ },
+ {
+  "word": "trialability",
+  "meaning_ko": "시험 사용 가능성(새 방법을 작게 시험해 볼 수 있는 정도)",
+  "pos": "noun",
+  "cefr_level": "C2",
+  "example_en": "High trialability makes farmers more willing to try a new seed."
+ },
+ {
+  "word": "twice as long",
+  "meaning_ko": "두 배로 오래, 두 배 길이의",
+  "pos": "idiom",
+  "cefr_level": "B1",
+  "example_en": "The second film was twice as long as the first."
+ },
+ {
+  "word": "under-documented",
+  "meaning_ko": "기록이 충분히 남아 있지 않은, 자료가 부족한",
+  "pos": "adjective",
+  "cefr_level": "C1",
+  "example_en": "Historians are recovering the lives of under-documented workers."
+ },
+ {
+  "word": "unglamorous",
+  "meaning_ko": "화려하지 않은, 볼품없는, 수수한",
+  "pos": "adjective",
+  "cefr_level": "C1",
+  "example_en": "Most scientific work is slow and unglamorous."
+ },
+ {
+  "word": "uninterpreted",
+  "meaning_ko": "해석되지 않은, 가공되지 않은(있는 그대로의)",
+  "pos": "adjective",
+  "cefr_level": "C1",
+  "example_en": "Sensors deliver uninterpreted data that someone must still explain."
+ },
+ {
+  "word": "unsystematic",
+  "meaning_ko": "체계적이지 않은, 산발적인, 두서없는",
+  "pos": "adjective",
+  "cefr_level": "C1",
+  "example_en": "His notes were unsystematic and hard to follow."
+ },
+ {
+  "word": "upside down",
+  "meaning_ko": "거꾸로, 뒤집혀",
+  "pos": "adverb",
+  "cefr_level": "A2",
+  "example_en": "The map was hanging upside down on the wall."
+ },
+ {
+  "word": "utility maximization",
+  "meaning_ko": "효용 극대화(만족을 가장 크게 하려는 행동)",
+  "pos": "noun",
+  "cefr_level": "C1",
+  "example_en": "Standard economics assumes utility maximization by every consumer."
+ },
+ {
+  "word": "venture into",
+  "meaning_ko": "(위험을 무릅쓰고) ~에 들어가 보다, ~에 발을 들이다",
+  "pos": "phrasal_verb",
+  "cefr_level": "B2",
+  "example_en": "Few travelers venture into the desert alone."
+ },
+ {
+  "word": "vicious cycle",
+  "meaning_ko": "악순환",
+  "pos": "noun",
+  "cefr_level": "B2",
+  "example_en": "Skipping sleep to study creates a vicious cycle."
+ },
+ {
+  "word": "video chatting",
+  "meaning_ko": "화상 채팅(하기)",
+  "pos": "noun",
+  "cefr_level": "A2",
+  "example_en": "They keep in touch by video chatting every weekend."
+ },
+ {
+  "word": "visual aspects",
+  "meaning_ko": "시각적인 요소(면), 겉으로 보이는 부분 — visual aspect 의 복수형",
+  "pos": "noun",
+  "cefr_level": "B1",
+  "example_en": "The visual aspects of a dish shape our first impression of it."
+ },
+ {
+  "word": "warmed up",
+  "meaning_ko": "준비 운동을 했다, (음식을) 데웠다, (분위기가) 달아올랐다 — warm up 의 과거형",
+  "pos": "phrasal_verb",
+  "cefr_level": "A2",
+  "example_en": "The runners warmed up before the race began."
+ },
+ {
+  "word": "water-resistant",
+  "meaning_ko": "생활 방수의, 물이 잘 스미지 않는",
+  "pos": "adjective",
+  "cefr_level": "B1",
+  "example_en": "This watch is water-resistant but not fully waterproof."
+ },
+ {
+  "word": "weak ties",
+  "meaning_ko": "약한 유대(자주 만나지 않는 느슨한 인간관계)",
+  "pos": "noun",
+  "cefr_level": "C1",
+  "example_en": "Weak ties often bring news about jobs that close friends never hear about."
+ },
+ {
+  "word": "well-crafted",
+  "meaning_ko": "공들여 잘 만든, 정교하게 쓴",
+  "pos": "adjective",
+  "cefr_level": "B2",
+  "example_en": "A well-crafted essay leads the reader step by step."
+ },
+ {
+  "word": "which was also true for",
+  "skip": true
+ },
+ {
+  "word": "with respect to",
+  "meaning_ko": "~에 관하여, ~와 관련하여",
+  "pos": "idiom",
+  "cefr_level": "B2",
+  "example_en": "The rules differ with respect to age."
+ },
+ {
+  "word": "zoom in on",
+  "meaning_ko": "~을 확대해 보다, ~에 초점을 맞춰 자세히 다루다",
+  "pos": "phrasal_verb",
+  "cefr_level": "B2",
+  "example_en": "The report zooms in on one small farming village."
+ }
+]

@@ -1,0 +1,3642 @@
+{
+  "book": {
+    "id": "350250ca-2e05-4e2e-96d4-051032abf78b",
+    "title": "Fables",
+    "book_v_level": 6
+  },
+  "target_per_chapter": 6,
+  "chapters": [
+    {
+      "chapter_idx": 7,
+      "chapter_title": "The Cat and the Birds",
+      "word_count": 448,
+      "chapter_v_level": 5,
+      "content": "CHAPTER 13. The Cat and the Birds\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-cat-and-the-birds\n\nA Cat heard that the Birds in an aviary were ailing. So he got himself up as a doctor, and, taking with him a set of the instruments proper to his profession, presented himself at the door, and inquired after the health of the Birds. \"We shall do very well,\" they replied, without letting him in, \"when we've seen the last of you.\"\n\nCHAPTER 14. The Spendthrift and the Swallow\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-spendthrift-and-the-swallow\n\nA Spendthrift, who had wasted his fortune, and had nothing left but the clothes in which he stood, saw a Swallow one fine day in early spring. Thinking that summer had come, and that he could now do without his coat, he went and sold it for what it would fetch. A change, however, took place in the weather, and there came a sharp frost which killed the unfortunate Swallow. When the Spendthrift saw its dead body he cried, \"Miserable bird! Thanks to you I am perishing of cold myself.\"\n\nCHAPTER 15. The Old Woman and the Doctor\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-old-woman-and-the-doctor\n\nAn Old Woman became almost totally blind from a disease of the eyes, and, after consulting a Doctor, made an agreement with him in the presence of witnesses that she should pay him a high fee if he cured her, while if he failed he was to receive nothing. The Doctor accordingly prescribed a course of treatment, and every time he paid her a visit he took away with him some article out of the house, until at last, when he visited her for the last time, and the cure was complete, there was nothing left. When the Old Woman saw that the house was empty she refused to pay him his fee; and, after repeated refusals on her part, he sued her before the magistrates for payment of her debt. On being brought into court she was ready with her defence. \"The claimant,\" said she, \"has stated the facts about our agreement correctly. I undertook to pay him a fee if he cured me, and he, on his part, promised to charge nothing if he failed. Now, he says I am cured; but I say that I am blinder than ever, and I can prove what I say. When my eyes were bad I could at any rate see well enough to be aware that my house contained a certain amount of furniture and other things; but now, when according to him I am cured, I am entirely unable to see anything there at all.\"",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "How do the Birds answer the Cat who comes dressed as a doctor?",
+          "questionKo": "의사 차림으로 온 고양이에게 새들은 어떻게 답하는가?",
+          "options": [
+            {
+              "text": "They say they will do very well once they have seen the last of him.",
+              "textKo": "그를 다시 안 보게 되면 아주 잘 지낼 거라고 말한다."
+            },
+            {
+              "text": "They let him in but hide in the highest cage.",
+              "textKo": "들여보내되 가장 높은 새장에 숨는다."
+            },
+            {
+              "text": "They ask him to leave his instruments outside.",
+              "textKo": "도구를 밖에 두고 오라고 한다."
+            },
+            {
+              "text": "They call the shepherd for help.",
+              "textKo": "목동을 부른다."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "We shall do very well, they replied, without letting him in, when we've seen the last of you."
+        },
+        {
+          "type": "multiple",
+          "question": "Why does the Spendthrift blame the Swallow?",
+          "questionKo": "낭비꾼이 제비를 탓하는 이유는?",
+          "options": [
+            {
+              "text": "The Swallow stole the coin he got for his coat.",
+              "textKo": "제비가 외투 판 돈을 훔쳐서."
+            },
+            {
+              "text": "Seeing one Swallow made him think summer had come, so he sold his coat.",
+              "textKo": "제비 한 마리를 보고 여름이 온 줄 알아 외투를 팔았기 때문에."
+            },
+            {
+              "text": "The Swallow had promised him an early summer.",
+              "textKo": "제비가 이른 여름을 약속해서."
+            },
+            {
+              "text": "The Swallow led him to the wrong market.",
+              "textKo": "제비가 엉뚱한 시장으로 이끌어서."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "Thinking that summer had come, and that he could now do without his coat, he went and sold it"
+        },
+        {
+          "type": "multiple",
+          "question": "What clever defence does the Old Woman make in court?",
+          "questionKo": "노파가 법정에서 내놓은 영리한 항변은?",
+          "options": [
+            {
+              "text": "She says the witnesses were bribed by the Doctor.",
+              "textKo": "증인들이 의사에게 매수됐다고 한다."
+            },
+            {
+              "text": "She says the agreement was never written down.",
+              "textKo": "계약이 문서로 남지 않았다고 한다."
+            },
+            {
+              "text": "She says she is blinder than before — she can no longer see any furniture in her house.",
+              "textKo": "전보다 더 안 보인다고 한다 — 집 안 가구가 하나도 안 보인다는 것."
+            },
+            {
+              "text": "She says another doctor cured her first.",
+              "textKo": "다른 의사가 먼저 고쳤다고 한다."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "now, when according to him I am cured, I am entirely unable to see anything there at all"
+        },
+        {
+          "type": "multiple",
+          "question": "What did the Doctor do on each visit to the Old Woman?",
+          "questionKo": "의사는 노파를 방문할 때마다 무엇을 했는가?",
+          "options": [
+            {
+              "text": "Changed the terms of their agreement.",
+              "textKo": "계약 조건을 바꿨다."
+            },
+            {
+              "text": "Brought a new witness with him.",
+              "textKo": "새 증인을 데려왔다."
+            },
+            {
+              "text": "Delayed the treatment to raise his fee.",
+              "textKo": "치료를 미뤄 수임료를 올렸다."
+            },
+            {
+              "text": "Took away some article out of the house.",
+              "textKo": "집 안 물건을 하나씩 가져갔다."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "every time he paid her a visit he took away with him some article out of the house"
+        },
+        {
+          "type": "truefalse",
+          "question": "The Cat brings a set of doctor’s instruments with him to the aviary.",
+          "questionKo": "고양이는 새장에 의사의 도구 한 벌을 챙겨 온다.",
+          "options": [
+            {
+              "text": "True",
+              "textKo": "맞다"
+            },
+            {
+              "text": "False",
+              "textKo": "아니다"
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "taking with him a set of the instruments proper to his profession"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 8,
+      "chapter_title": "The Moon and Her Mother",
+      "word_count": 382,
+      "chapter_v_level": 6,
+      "content": "CHAPTER 16. The Moon and Her Mother\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-moon-and-her-mother\n\nThe Moon once begged her Mother to make her a gown. \"How can I?\" replied she; \"there's no fitting your figure. At one time you're a New Moon, and at another you're a Full Moon; and between whiles you're neither one nor the other.\"\n\nCHAPTER 17. Mercury and the Woodman\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#mercury-and-the-woodman\n\nA Woodman was felling a tree on the bank of a river, when his axe, glancing off the trunk, flew out of his hands and fell into the water. As he stood by the water's edge lamenting his loss, Mercury appeared and asked him the reason for his grief; and on learning what had happened, out of pity for his distress he dived into the river and, bringing up a golden axe, asked him if that was the one he had lost. The Woodman replied that it was not, and Mercury then dived a second time, and, bringing up a silver axe, asked if that was his. \"No, that is not mine either,\" said the Woodman. Once more Mercury dived into the river, and brought up the missing axe. The Woodman was overjoyed at recovering his property, and thanked his benefactor warmly; and the latter was so pleased with his honesty that he made him a present of the other two axes. When the Woodman told the story to his companions, one of these was filled with envy of his good fortune and determined to try his luck for himself. So he went and began to fell a tree at the edge of the river, and presently contrived to let his axe drop into the water. Mercury appeared as before, and, on learning that his axe had fallen in, he dived and brought up a golden axe, as he had done on the previous occasion. Without waiting to be asked whether it was his or not the fellow cried, \"That's mine, that's mine,\" and stretched out his hand eagerly for the prize: but Mercury was so disgusted at his dishonesty that he not only declined to give him the golden axe, but also refused to recover for him the one he had let fall into the stream.",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "Why can the Mother not make the Moon a gown?",
+          "questionKo": "어머니가 달에게 옷을 지어 줄 수 없는 이유는?",
+          "options": [
+            {
+              "text": "The Moon changes shape — new, full, and neither in between.",
+              "textKo": "달은 모양이 변한다 — 초승, 보름, 그 사이엔 이도 저도 아니어서."
+            },
+            {
+              "text": "There is no cloth wide enough in the sky.",
+              "textKo": "하늘에 그만큼 넓은 천이 없어서."
+            },
+            {
+              "text": "The Moon will not stay still to be measured.",
+              "textKo": "달이 가만히 있지 않아 치수를 잴 수 없어서."
+            },
+            {
+              "text": "The Mother has no thread that will not burn.",
+              "textKo": "타지 않는 실이 없어서."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "At one time you’re a New Moon, and at another you’re a Full Moon; and between whiles you’re neither one nor the other."
+        },
+        {
+          "type": "multiple",
+          "question": "Why does Mercury give the first Woodman all three axes?",
+          "questionKo": "머큐리가 첫 번째 나무꾼에게 도끼 세 자루를 다 준 이유는?",
+          "options": [
+            {
+              "text": "The Woodman had cut the tree on Mercury’s own bank.",
+              "textKo": "나무꾼이 머큐리의 강둑에서 나무를 베었기 때문에."
+            },
+            {
+              "text": "He was pleased with the Woodman’s honesty.",
+              "textKo": "나무꾼의 정직함이 마음에 들었기 때문에."
+            },
+            {
+              "text": "The Woodman refused all three at first.",
+              "textKo": "나무꾼이 처음엔 셋 다 거절했기 때문에."
+            },
+            {
+              "text": "The golden and silver axes had no owner.",
+              "textKo": "금도끼와 은도끼에 주인이 없었기 때문에."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "the latter was so pleased with his honesty that he made him a present of the other two axes"
+        },
+        {
+          "type": "multiple",
+          "question": "What does the second Woodman lose, and why?",
+          "questionKo": "두 번째 나무꾼은 무엇을 잃으며, 이유는?",
+          "options": [
+            {
+              "text": "Only the golden axe; Mercury still returns his own.",
+              "textKo": "금도끼만 — 머큐리는 그의 도끼는 돌려준다."
+            },
+            {
+              "text": "Nothing; Mercury never appears to him.",
+              "textKo": "아무것도 — 머큐리가 그에게는 나타나지 않는다."
+            },
+            {
+              "text": "Both the golden axe and his own — Mercury is disgusted by his dishonesty.",
+              "textKo": "금도끼와 자기 도끼 둘 다 — 머큐리가 그의 부정직함에 질려서."
+            },
+            {
+              "text": "His friendship with the first Woodman.",
+              "textKo": "첫 나무꾼과의 우정."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "he not only declined to give him the golden axe, but also refused to recover for him the one he had let fall"
+        },
+        {
+          "type": "multiple",
+          "question": "What mistake does the second Woodman make when the golden axe appears?",
+          "questionKo": "금도끼가 올라왔을 때 두 번째 나무꾼이 저지른 실수는?",
+          "options": [
+            {
+              "text": "He asks for the silver one instead.",
+              "textKo": "대신 은도끼를 달라고 한다."
+            },
+            {
+              "text": "He tries to dive in after it himself.",
+              "textKo": "직접 물에 뛰어들려 한다."
+            },
+            {
+              "text": "He offers to pay Mercury for it.",
+              "textKo": "값을 치르겠다고 한다."
+            },
+            {
+              "text": "He claims it as his own without even waiting to be asked.",
+              "textKo": "묻기도 전에 자기 것이라고 주장한다."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "Without waiting to be asked whether it was his or not the fellow cried, That's mine, that's mine"
+        },
+        {
+          "type": "truefalse",
+          "question": "The second Woodman drops his axe into the river on purpose.",
+          "questionKo": "두 번째 나무꾼은 일부러 도끼를 강에 빠뜨린다.",
+          "options": [
+            {
+              "text": "True",
+              "textKo": "맞다"
+            },
+            {
+              "text": "False",
+              "textKo": "아니다"
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "presently contrived to let his axe drop into the water"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 9,
+      "chapter_title": "The Ass, the Fox, and the Lion",
+      "word_count": 374,
+      "chapter_v_level": 6,
+      "content": "CHAPTER 18. The Ass, the Fox, and the Lion\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-ass-the-fox-and-the-lion\n\nAn Ass and a Fox went into partnership and sallied out to forage for food together. They hadn't gone far before they saw a Lion coming their way, at which they were both dreadfully frightened. But the Fox thought he saw a way of saving his own skin, and went boldly up to the Lion and whispered in his ear, \"I'll manage that you shall get hold of the Ass without the trouble of stalking him, if you'll promise to let me go free.\" The Lion agreed to this, and the Fox then rejoined his companion and contrived before long to lead him by a hidden pit, which some hunter had dug as a trap for wild animals, and into which he fell. When the Lion saw that the Ass was safely caught and couldn't get away, it was to the Fox that he first turned his attention, and he soon finished him off, and then at his leisure proceeded to feast upon the Ass.\n\nCHAPTER 19. The Lion and the Mouse\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-lion-and-the-mouse\n\nA Lion asleep in his lair was waked up by a Mouse running over his face. Losing his temper he seized it with his paw and was about to kill it. The Mouse, terrified, piteously entreated him to spare its life. \"Please let me go,\" it cried, \"and one day I will repay you for your kindness.\" The idea of so insignificant a creature ever being able to do anything for him amused the Lion so much that he laughed aloud, and good-humouredly let it go. But the Mouse's chance came, after all. One day the Lion got entangled in a net which had been spread for game by some hunters, and the Mouse heard and recognised his roars of anger and ran to the spot. Without more ado it set to work to gnaw the ropes with its teeth, and succeeded before long in setting the Lion free. \"There!\" said the Mouse, \"you laughed at me when I promised I would repay you: but now you see, even a Mouse can help a Lion.\"",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "What bargain does the Fox strike with the Lion?",
+          "questionKo": "여우가 사자와 맺은 거래는?",
+          "options": [
+            {
+              "text": "He will lead the Ass into a hidden pit if the Lion lets him go free.",
+              "textKo": "자기를 놓아주면 당나귀를 숨은 구덩이로 이끌겠다는 것."
+            },
+            {
+              "text": "He will hunt for the Lion all winter.",
+              "textKo": "겨울 내내 사자를 위해 사냥하겠다는 것."
+            },
+            {
+              "text": "He will share the Ass equally with the Lion.",
+              "textKo": "당나귀를 사자와 똑같이 나누겠다는 것."
+            },
+            {
+              "text": "He will bring the Lion two asses instead of one.",
+              "textKo": "당나귀 한 마리 대신 두 마리를 데려오겠다는 것."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "I'll manage that you shall get hold of the Ass … if you'll promise to let me go free"
+        },
+        {
+          "type": "multiple",
+          "question": "How does the Lion’s order of eating turn the Fox’s plan against him?",
+          "questionKo": "사자가 먹는 순서는 여우의 계획을 어떻게 뒤집는가?",
+          "options": [
+            {
+              "text": "He eats the Ass first, then lets the Fox go as promised.",
+              "textKo": "당나귀를 먼저 먹고 약속대로 여우를 놓아준다."
+            },
+            {
+              "text": "Once the Ass is trapped and cannot escape, he kills the Fox first and feasts on the Ass at leisure.",
+              "textKo": "당나귀가 갇혀 못 달아나게 되자 여우부터 죽이고 당나귀는 천천히 먹는다."
+            },
+            {
+              "text": "He refuses both and leaves them.",
+              "textKo": "둘 다 마다하고 떠난다."
+            },
+            {
+              "text": "He eats neither until the hunters arrive.",
+              "textKo": "사냥꾼이 올 때까지 둘 다 먹지 않는다."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "it was to the Fox that he first turned his attention, and he soon finished him off"
+        },
+        {
+          "type": "multiple",
+          "question": "Why does the Lion let the Mouse go?",
+          "questionKo": "사자가 쥐를 놓아주는 이유는?",
+          "options": [
+            {
+              "text": "The Mouse had already gnawed his ropes once.",
+              "textKo": "쥐가 이미 한 번 밧줄을 갉아 준 적이 있어서."
+            },
+            {
+              "text": "He was too sleepy to bother.",
+              "textKo": "너무 졸려서 귀찮아서."
+            },
+            {
+              "text": "The idea that so small a creature could ever repay him amused him.",
+              "textKo": "그렇게 작은 것이 은혜를 갚는다는 생각이 우스워서."
+            },
+            {
+              "text": "The Mouse promised to bring him food.",
+              "textKo": "쥐가 먹이를 가져다주겠다고 해서."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "The idea of so insignificant a creature ever being able to do anything for him amused the Lion so much that he laughed aloud"
+        },
+        {
+          "type": "multiple",
+          "question": "How does the Mouse repay the Lion?",
+          "questionKo": "쥐는 사자에게 어떻게 은혜를 갚는가?",
+          "options": [
+            {
+              "text": "It leads the hunters away from his lair.",
+              "textKo": "사냥꾼들을 굴에서 멀리 유인한다."
+            },
+            {
+              "text": "It brings other mice to guard him while he sleeps.",
+              "textKo": "다른 쥐들을 데려와 자는 동안 지킨다."
+            },
+            {
+              "text": "It warns him before he steps into the net.",
+              "textKo": "그물에 걸리기 전에 미리 알려 준다."
+            },
+            {
+              "text": "It recognises his roars and gnaws through the hunters’ net.",
+              "textKo": "그의 포효를 알아듣고 사냥꾼의 그물을 갉아 끊는다."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "it set to work to gnaw the ropes with its teeth, and succeeded before long in setting the Lion free"
+        },
+        {
+          "type": "blank",
+          "question": "The Mouse’s closing line: \"even a ______ can help a Lion.\"",
+          "questionKo": "쥐의 마지막 말: \"______ 도 사자를 도울 수 있다.\"",
+          "options": [
+            {
+              "text": "Mouse",
+              "textKo": "쥐"
+            },
+            {
+              "text": "Fox",
+              "textKo": "여우"
+            },
+            {
+              "text": "Frog",
+              "textKo": "개구리"
+            },
+            {
+              "text": "Bird",
+              "textKo": "새"
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "but now you see, even a Mouse can help a Lion"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 10,
+      "chapter_title": "The Crow and the Pitcher",
+      "word_count": 362,
+      "chapter_v_level": 6,
+      "content": "CHAPTER 20. The Crow and the Pitcher\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-crow-and-the-pitcher\n\nA thirsty Crow found a Pitcher with some water in it, but so little was there that, try as she might, she could not reach it with her beak, and it seemed as though she would die of thirst within sight of the remedy. At last she hit upon a clever plan. She began dropping pebbles into the Pitcher, and with each pebble the water rose a little higher until at last it reached the brim, and the knowing bird was enabled to quench her thirst.\n\nCHAPTER 21. The Boys and the Frogs\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-boys-and-the-frogs\n\nSome mischievous Boys were playing on the edge of a pond, and, catching sight of some Frogs swimming about in the shallow water, they began to amuse themselves by pelting them with stones, and they killed several of them. At last one of the Frogs put his head out of the water and said, \"Oh, stop! stop! I beg of you: what is sport to you is death to us.\"\n\nCHAPTER 22. The North Wind and the Sun\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-north-wind-and-the-sun\n\nA dispute arose between the North Wind and the Sun, each claiming that he was stronger than the other. At last they agreed to try their powers upon a traveller, to see which could soonest strip him of his cloak. The North Wind had the first try; and, gathering up all his force for the attack, he came whirling furiously down upon the man, and caught up his cloak as though he would wrest it from him by one single effort: but the harder he blew, the more closely the man wrapped it round himself. Then came the turn of the Sun. At first he beamed gently upon the traveller, who soon unclasped his cloak and walked on with it hanging loosely about his shoulders: then he shone forth in his full strength, and the man, before he had gone many steps, was glad to throw his cloak right off and complete his journey more lightly clad.",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "How does the thirsty Crow reach the water?",
+          "questionKo": "목마른 까마귀는 물에 어떻게 닿는가?",
+          "options": [
+            {
+              "text": "She tips the pitcher over with her wings.",
+              "textKo": "날개로 항아리를 넘어뜨린다."
+            },
+            {
+              "text": "She drops pebbles in until the water rises to the brim.",
+              "textKo": "조약돌을 떨어뜨려 물이 주둥이까지 차오르게 한다."
+            },
+            {
+              "text": "She breaks the pitcher with her beak.",
+              "textKo": "부리로 항아리를 깬다."
+            },
+            {
+              "text": "She waits for rain to fill it.",
+              "textKo": "비가 차기를 기다린다."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "She began dropping pebbles into the Pitcher, and with each pebble the water rose a little higher"
+        },
+        {
+          "type": "multiple",
+          "question": "What does the Frog say to the boys throwing stones?",
+          "questionKo": "돌을 던지는 소년들에게 개구리가 하는 말은?",
+          "options": [
+            {
+              "text": "That the pond belongs to the frogs.",
+              "textKo": "연못은 개구리들의 것이라고."
+            },
+            {
+              "text": "That he will tell their parents.",
+              "textKo": "부모에게 이르겠다고."
+            },
+            {
+              "text": "That what is sport to them is death to the frogs.",
+              "textKo": "너희에겐 놀이가 우리에겐 죽음이라고."
+            },
+            {
+              "text": "That the stones will sink the shallow water.",
+              "textKo": "돌 때문에 얕은 물이 메워진다고."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "what is sport to you is death to us"
+        },
+        {
+          "type": "multiple",
+          "question": "Why does the North Wind fail to take the traveller’s cloak?",
+          "questionKo": "북풍이 나그네의 외투를 벗기지 못한 이유는?",
+          "options": [
+            {
+              "text": "The traveller had tied it down before setting out.",
+              "textKo": "나그네가 미리 묶어 두어서."
+            },
+            {
+              "text": "The Sun blocked his path with clouds.",
+              "textKo": "해가 구름으로 길을 막아서."
+            },
+            {
+              "text": "The cloak was too heavy to lift.",
+              "textKo": "외투가 너무 무거워서."
+            },
+            {
+              "text": "The harder he blew, the more closely the man wrapped it round himself.",
+              "textKo": "세게 불수록 나그네가 더 단단히 여며서."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "the harder he blew, the more closely the man wrapped it round himself"
+        },
+        {
+          "type": "multiple",
+          "question": "How does the Sun win the contest?",
+          "questionKo": "해는 어떻게 시합에서 이기는가?",
+          "options": [
+            {
+              "text": "He beams gently first, then shines in full strength until the man throws the cloak off.",
+              "textKo": "처음엔 부드럽게 비추다 온 힘으로 내리쬐어 스스로 벗게 한다."
+            },
+            {
+              "text": "He melts the clasp of the cloak.",
+              "textKo": "외투의 걸쇠를 녹인다."
+            },
+            {
+              "text": "He asks the traveller directly.",
+              "textKo": "나그네에게 직접 청한다."
+            },
+            {
+              "text": "He waits until the traveller reaches home.",
+              "textKo": "나그네가 집에 닿을 때까지 기다린다."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "At first he beamed gently upon the traveller … then he shone forth in his full strength"
+        },
+        {
+          "type": "truefalse",
+          "question": "The Crow was in danger of dying of thirst within sight of the water.",
+          "questionKo": "까마귀는 물을 눈앞에 두고 목말라 죽을 처지였다.",
+          "options": [
+            {
+              "text": "True",
+              "textKo": "맞다"
+            },
+            {
+              "text": "False",
+              "textKo": "아니다"
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "it seemed as though she would die of thirst within sight of the remedy"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 11,
+      "chapter_title": "The Mistress and Her Servants",
+      "word_count": 366,
+      "chapter_v_level": 6,
+      "content": "CHAPTER 23. The Mistress and Her Servants\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-mistress-and-her-servants\n\nA Widow, thrifty and industrious, had two servants, whom she kept pretty hard at work. They were not allowed to lie long abed in the mornings, but the old lady had them up and doing as soon as the cock crew. They disliked intensely having to get up at such an hour, especially in wintertime: and they thought that if it were not for the cock waking up their Mistress so horribly early, they could sleep longer. So they caught it and wrung its neck. But they weren't prepared for the consequences. For what happened was that their Mistress, not hearing the cock crow as usual, waked them up earlier than ever, and set them to work in the middle of the night.\n\nCHAPTER 24. The Goods and the Ills\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-goods-and-the-ills\n\nThere was a time in the youth of the world when Goods and Ills entered equally into the concerns of men, so that the Goods did not prevail to make them altogether blessed, nor the Ills to make them wholly miserable. But owing to the foolishness of mankind the Ills multiplied greatly in number and increased in strength, until it seemed as though they would deprive the Goods of all share in human affairs, and banish them from the earth. The latter, therefore, betook themselves to heaven and complained to Jupiter of the treatment they had received, at the same time praying him to grant them protection from the Ills, and to advise them concerning the manner of their intercourse with men. Jupiter granted their request for protection, and decreed that for the future they should not go among men openly in a body, and so be liable to attack from the hostile Ills, but singly and unobserved, and at infrequent and unexpected intervals. Hence it is that the earth is full of Ills, for they come and go as they please and are never far away; while Goods, alas! come one by one only, and have to travel all the way from heaven, so that they are very seldom seen.",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "Why do the servants kill the cock?",
+          "questionKo": "하인들이 수탉을 죽인 이유는?",
+          "options": [
+            {
+              "text": "The cock had been pecking at their food.",
+              "textKo": "수탉이 그들의 음식을 쪼아서."
+            },
+            {
+              "text": "They believe the cock’s crowing is what wakes their Mistress so early.",
+              "textKo": "수탉의 울음이 주인을 그렇게 일찍 깨운다고 믿어서."
+            },
+            {
+              "text": "Their Mistress ordered them to.",
+              "textKo": "주인이 시켜서."
+            },
+            {
+              "text": "They wanted to eat it for supper.",
+              "textKo": "저녁으로 먹으려고."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "if it were not for the cock waking up their Mistress so horribly early, they could sleep longer"
+        },
+        {
+          "type": "multiple",
+          "question": "What is the consequence they had not prepared for?",
+          "questionKo": "그들이 예상하지 못한 결과는?",
+          "options": [
+            {
+              "text": "The Mistress bought two new cocks.",
+              "textKo": "주인이 새 수탉 두 마리를 샀다."
+            },
+            {
+              "text": "They were dismissed from service.",
+              "textKo": "해고당했다."
+            },
+            {
+              "text": "Without the crow to time her, she wakes them even earlier — in the middle of the night.",
+              "textKo": "울음으로 시각을 가늠하지 못한 주인이 더 일찍 — 한밤중에 — 깨운다."
+            },
+            {
+              "text": "The Mistress slept late and blamed them for the lost work.",
+              "textKo": "주인이 늦잠을 자고 밀린 일을 그들 탓으로 돌렸다."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "not hearing the cock crow as usual, waked them up earlier than ever, and set them to work in the middle of the night"
+        },
+        {
+          "type": "multiple",
+          "question": "Why did the Goods go to Jupiter?",
+          "questionKo": "선(善)들이 유피테르를 찾아간 이유는?",
+          "options": [
+            {
+              "text": "To ask that men be made wiser.",
+              "textKo": "사람들을 더 지혜롭게 해 달라고."
+            },
+            {
+              "text": "To ask to be released from the earth altogether.",
+              "textKo": "땅에서 아예 벗어나게 해 달라고."
+            },
+            {
+              "text": "To ask for more of their number to be created.",
+              "textKo": "수를 더 늘려 달라고."
+            },
+            {
+              "text": "To complain of the Ills and ask for protection.",
+              "textKo": "악(惡)들을 고발하고 보호를 청하려고."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "complained to Jupiter of the treatment they had received, at the same time praying him to grant them protection"
+        },
+        {
+          "type": "multiple",
+          "question": "What does Jupiter’s decree explain about the world?",
+          "questionKo": "유피테르의 결정은 세상의 무엇을 설명하는가?",
+          "options": [
+            {
+              "text": "Why Ills are always near while Goods come one by one and rarely.",
+              "textKo": "악은 늘 가까이 있고 선은 하나씩 드물게 오는 이유."
+            },
+            {
+              "text": "Why the seasons change.",
+              "textKo": "계절이 바뀌는 이유."
+            },
+            {
+              "text": "Why men grow foolish as they age.",
+              "textKo": "사람이 나이 들며 어리석어지는 이유."
+            },
+            {
+              "text": "Why prayers are answered only in heaven.",
+              "textKo": "기도가 하늘에서만 응답되는 이유."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "the earth is full of Ills, for they come and go as they please … while Goods, alas! come one by one only"
+        },
+        {
+          "type": "blank",
+          "question": "The Ills grew strong, the story says, owing to the ______ of mankind.",
+          "questionKo": "이야기에 따르면 악이 강해진 것은 인류의 ______ 때문이다.",
+          "options": [
+            {
+              "text": "cruelty",
+              "textKo": "잔인함"
+            },
+            {
+              "text": "foolishness",
+              "textKo": "어리석음"
+            },
+            {
+              "text": "greed",
+              "textKo": "탐욕"
+            },
+            {
+              "text": "pride",
+              "textKo": "교만"
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "owing to the foolishness of mankind the Ills multiplied greatly in number"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 12,
+      "chapter_title": "The Hares and the Frogs",
+      "word_count": 309,
+      "chapter_v_level": 6,
+      "content": "CHAPTER 25. The Hares and the Frogs\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-hares-and-the-frogs\n\nThe Hares once gathered together and lamented the unhappiness of their lot, exposed as they were to dangers on all sides and lacking the strength and the courage to hold their own. Men, dogs, birds and beasts of prey were all their enemies, and killed and devoured them daily: and sooner than endure such persecution any longer, they one and all determined to end their miserable lives. Thus resolved and desperate, they rushed in a body towards a neighbouring pool, intending to drown themselves. On the bank were sitting a number of Frogs, who, when they heard the noise of the Hares as they ran, with one accord leaped into the water and hid themselves in the depths. Then one of the older Hares who was wiser than the rest cried out to his companions, \"Stop, my friends, take heart; don't let us destroy ourselves after all: see, here are creatures who are afraid of us, and who must, therefore, be still more timid than ourselves.\"\n\nCHAPTER 26. The Fox and the Stork\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-fox-and-the-stork\n\nA Fox invited a Stork to dinner, at which the only fare provided was a large flat dish of soup. The Fox lapped it up with great relish, but the Stork with her long bill tried in vain to partake of the savoury broth. Her evident distress caused the sly Fox much amusement. But not long after the Stork invited him in turn, and set before him a pitcher with a long and narrow neck, into which she could get her bill with ease. Thus, while she enjoyed her dinner, the Fox sat by hungry and helpless, for it was impossible for him to reach the tempting contents of the vessel.",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "What stops the Hares from drowning themselves?",
+          "questionKo": "토끼들이 물에 빠져 죽으려던 것을 멈추게 한 것은?",
+          "options": [
+            {
+              "text": "The pool turned out to be too shallow.",
+              "textKo": "연못이 너무 얕았기 때문에."
+            },
+            {
+              "text": "A hunter’s dog drove them back from the bank.",
+              "textKo": "사냥개가 둑에서 그들을 몰아내서."
+            },
+            {
+              "text": "The Frogs, more timid still, leap away from them in fear.",
+              "textKo": "더 겁 많은 개구리들이 그들을 무서워해 달아나서."
+            },
+            {
+              "text": "The oldest Hare fell in first and was saved.",
+              "textKo": "가장 늙은 토끼가 먼저 빠졌다가 구조돼서."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "here are creatures who are afraid of us, and who must, therefore, be still more timid than ourselves"
+        },
+        {
+          "type": "multiple",
+          "question": "Why had the Hares resolved to end their lives?",
+          "questionKo": "토끼들이 목숨을 끊기로 한 이유는?",
+          "options": [
+            {
+              "text": "Their food had failed that winter.",
+              "textKo": "그해 겨울 먹이가 떨어져서."
+            },
+            {
+              "text": "The Frogs had driven them from the pond.",
+              "textKo": "개구리들이 연못에서 그들을 쫓아내서."
+            },
+            {
+              "text": "Their leader had been killed by hunters.",
+              "textKo": "우두머리가 사냥꾼에게 죽어서."
+            },
+            {
+              "text": "Men, dogs, birds and beasts were all their enemies, and they lacked strength and courage.",
+              "textKo": "사람·개·새·짐승이 모두 적인데 힘도 용기도 없어서."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "Men, dogs, birds and beasts of prey were all their enemies … lacking the strength and the courage"
+        },
+        {
+          "type": "multiple",
+          "question": "How does the Fox make the Stork’s dinner impossible to eat?",
+          "questionKo": "여우는 황새가 저녁을 먹지 못하게 어떻게 하는가?",
+          "options": [
+            {
+              "text": "He serves the soup in a large flat dish.",
+              "textKo": "수프를 크고 납작한 접시에 낸다."
+            },
+            {
+              "text": "He eats it all before she arrives.",
+              "textKo": "그녀가 오기 전에 다 먹어 버린다."
+            },
+            {
+              "text": "He serves food she is allergic to.",
+              "textKo": "그녀가 못 먹는 음식을 낸다."
+            },
+            {
+              "text": "He puts the dish on a high shelf.",
+              "textKo": "접시를 높은 선반에 올려 둔다."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "the only fare provided was a large flat dish of soup"
+        },
+        {
+          "type": "multiple",
+          "question": "How does the Stork return the trick?",
+          "questionKo": "황새는 어떻게 되갚는가?",
+          "options": [
+            {
+              "text": "She refuses to invite him at all.",
+              "textKo": "아예 초대하지 않는다."
+            },
+            {
+              "text": "She invites him and serves from a pitcher with a long, narrow neck.",
+              "textKo": "그를 초대해 목이 길고 좁은 항아리에 담아 낸다."
+            },
+            {
+              "text": "She hides the food and pretends there is none.",
+              "textKo": "음식을 감추고 없는 척한다."
+            },
+            {
+              "text": "She eats his share as well as her own.",
+              "textKo": "자기 몫에 그의 몫까지 먹는다."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "set before him a pitcher with a long and narrow neck, into which she could get her bill with ease"
+        },
+        {
+          "type": "truefalse",
+          "question": "The Hares’ rescue comes from realising there are creatures more timid than themselves.",
+          "questionKo": "토끼들을 구한 것은 자기들보다 더 겁 많은 존재가 있다는 깨달음이었다.",
+          "options": [
+            {
+              "text": "True",
+              "textKo": "맞다"
+            },
+            {
+              "text": "False",
+              "textKo": "아니다"
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "Stop, my friends, take heart; don’t let us destroy ourselves after all"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 13,
+      "chapter_title": "The Wolf in Sheep's Clothing",
+      "word_count": 386,
+      "chapter_v_level": 7,
+      "content": "CHAPTER 27. The Wolf in Sheep's Clothing\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-wolf-in-sheep-s-clothing\n\nA Wolf resolved to disguise himself in order that he might prey upon a flock of sheep without fear of detection. So he clothed himself in a sheepskin, and slipped among the sheep when they were out at pasture. He completely deceived the shepherd, and when the flock was penned for the night he was shut in with the rest. But that very night as it happened, the shepherd, requiring a supply of mutton for the table, laid hands on the Wolf in mistake for a Sheep, and killed him with his knife on the spot.\n\nCHAPTER 28. The Stag in the Ox-Stall\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-stag-in-the-ox-stall\n\nA Stag, chased from his lair by the hounds, took refuge in a farmyard, and, entering a stable where a number of oxen were stalled, thrust himself under a pile of hay in a vacant stall, where he lay concealed, all but the tips of his horns. Presently one of the Oxen said to him, \"What has induced you to come in here? Aren't you aware of the risk you are running of being captured by the herdsmen?\" To which he replied, \"Pray let me stay for the present. When night comes I shall easily escape under cover of the dark.\" In the course of the afternoon more than one of the farmhands came in, to attend to the wants of the cattle, but not one of them noticed the presence of the Stag, who accordingly began to congratulate himself on his escape and to express his gratitude to the Oxen. \"We wish you well,\" said the one who had spoken before, \"but you are not out of danger yet. If the master comes, you will certainly be found out, for nothing ever escapes his keen eyes.\" Presently, sure enough, in he came, and made a great to-do about the way the Oxen were kept. \"The beasts are starving,\" he cried; \"here, give them more hay, and put plenty of litter under them.\" As he spoke, he seized an armful himself from the pile where the Stag lay concealed, and at once detected him. Calling his men, he had him seized at once and killed for the table.",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "How does the Wolf’s own disguise destroy him?",
+          "questionKo": "늑대의 변장은 어떻게 그를 파멸시키는가?",
+          "options": [
+            {
+              "text": "The shepherd, needing mutton, kills him by mistake for a sheep.",
+              "textKo": "양고기가 필요한 목동이 그를 양으로 착각해 죽인다."
+            },
+            {
+              "text": "The sheep smell him out and trample him.",
+              "textKo": "양들이 냄새를 맡고 짓밟는다."
+            },
+            {
+              "text": "The sheepskin catches on the pen and traps him.",
+              "textKo": "양가죽이 우리에 걸려 그를 옭아맨다."
+            },
+            {
+              "text": "The dogs tear the skin off and chase him away.",
+              "textKo": "개들이 가죽을 벗겨 내고 쫓아낸다."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "the shepherd, requiring a supply of mutton for the table, laid hands on the Wolf in mistake for a Sheep"
+        },
+        {
+          "type": "multiple",
+          "question": "Where does the Stag hide, and what gives him away?",
+          "questionKo": "사슴은 어디에 숨으며, 무엇이 그를 들키게 하는가?",
+          "options": [
+            {
+              "text": "Behind the stable door; a herdsman closes it.",
+              "textKo": "마구간 문 뒤 — 소치기가 문을 닫는다."
+            },
+            {
+              "text": "Under a pile of hay; the master takes an armful from that very pile.",
+              "textKo": "건초 더미 아래 — 주인이 바로 그 더미에서 한 아름을 집는다."
+            },
+            {
+              "text": "In the hayloft; an ox calls out to him.",
+              "textKo": "건초 다락 — 소가 그를 부른다."
+            },
+            {
+              "text": "In an empty stall; his horns cast a shadow.",
+              "textKo": "빈 칸 — 뿔이 그림자를 드리운다."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "he seized an armful himself from the pile where the Stag lay concealed, and at once detected him"
+        },
+        {
+          "type": "multiple",
+          "question": "What warning do the Oxen give the Stag?",
+          "questionKo": "소들이 사슴에게 준 경고는?",
+          "options": [
+            {
+              "text": "That the farmhands count the cattle each evening.",
+              "textKo": "일꾼들이 저녁마다 가축 수를 센다는 것."
+            },
+            {
+              "text": "That the hounds will follow his scent into the stable.",
+              "textKo": "사냥개들이 냄새를 따라 마구간까지 온다는 것."
+            },
+            {
+              "text": "That nothing escapes the master’s keen eyes.",
+              "textKo": "주인의 매서운 눈은 아무것도 놓치지 않는다는 것."
+            },
+            {
+              "text": "That the hay will be moved before nightfall.",
+              "textKo": "해 지기 전에 건초를 옮긴다는 것."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "If the master comes, you will certainly be found out, for nothing ever escapes his keen eyes"
+        },
+        {
+          "type": "multiple",
+          "question": "Why did the Stag think he was safe before the master arrived?",
+          "questionKo": "주인이 오기 전 사슴이 안전하다고 여긴 이유는?",
+          "options": [
+            {
+              "text": "The Oxen had promised to shield him with their bodies.",
+              "textKo": "소들이 몸으로 가려 주기로 약속해서."
+            },
+            {
+              "text": "The hounds had already given up the chase.",
+              "textKo": "사냥개들이 이미 추격을 포기해서."
+            },
+            {
+              "text": "Night had already fallen.",
+              "textKo": "이미 밤이 되어서."
+            },
+            {
+              "text": "More than one farmhand came in and none noticed him.",
+              "textKo": "일꾼이 여럿 드나들었는데 아무도 알아채지 못해서."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "more than one of the farmhands came in … but not one of them noticed the presence of the Stag"
+        },
+        {
+          "type": "truefalse",
+          "question": "The Wolf completely deceives the shepherd and is shut in with the flock for the night.",
+          "questionKo": "늑대는 목동을 완전히 속이고 밤에 양들과 함께 우리에 갇힌다.",
+          "options": [
+            {
+              "text": "True",
+              "textKo": "맞다"
+            },
+            {
+              "text": "False",
+              "textKo": "아니다"
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "He completely deceived the shepherd, and when the flock was penned for the night he was shut in with the rest."
+        }
+      ]
+    },
+    {
+      "chapter_idx": 14,
+      "chapter_title": "The Milkmaid and Her Pail",
+      "word_count": 304,
+      "chapter_v_level": 5,
+      "content": "CHAPTER 29. The Milkmaid and Her Pail\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-milkmaid-and-her-pail\n\nA farmer's daughter had been out to milk the cows, and was returning to the dairy carrying her pail of milk upon her head. As she walked along, she fell a-musing after this fashion: \"The milk in this pail will provide me with cream, which I will make into butter and take to market to sell. With the money I will buy a number of eggs, and these, when hatched, will produce chickens, and by and by I shall have quite a large poultry-yard. Then I shall sell some of my fowls, and with the money which they will bring in I will buy myself a new gown, which I shall wear when I go to the fair; and all the young fellows will admire it, and come and make love to me, but I shall toss my head and have nothing to say to them.\" Forgetting all about the pail, and suiting the action to the word, she tossed her head. Down went the pail, all the milk was spilled, and all her fine castles in the air vanished in a moment!\n\nCHAPTER 30. The Dolphins, the Whales, and the Sprat\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-dolphins-the-whales-and-the-sprat\n\nThe Dolphins quarrelled with the Whales, and before very long they began fighting with one another. The battle was very fierce, and had lasted some time without any sign of coming to an end, when a Sprat thought that perhaps he could stop it; so he stepped in and tried to persuade them to give up fighting and make friends. But one of the Dolphins said to him contemptuously, \"We would rather go on fighting till we're all killed than be reconciled by a Sprat like you!\"",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "What chain of plans does the Milkmaid build from her pail of milk?",
+          "questionKo": "젖 짜는 소녀가 우유 한 통에서 세우는 계획의 사슬은?",
+          "options": [
+            {
+              "text": "Milk → cream → butter → eggs → chickens → a new gown.",
+              "textKo": "우유 → 크림 → 버터 → 달걀 → 병아리 → 새 옷."
+            },
+            {
+              "text": "Milk → cheese → a cow → a farm of her own.",
+              "textKo": "우유 → 치즈 → 소 → 자기 농장."
+            },
+            {
+              "text": "Milk → market → a horse → a journey to the city.",
+              "textKo": "우유 → 시장 → 말 → 도시 여행."
+            },
+            {
+              "text": "Milk → butter → a shop → a husband.",
+              "textKo": "우유 → 버터 → 가게 → 남편."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "The milk in this pail will provide me with cream, which I will make into butter … buy a number of eggs"
+        },
+        {
+          "type": "multiple",
+          "question": "What exact action spills the milk?",
+          "questionKo": "우유를 쏟게 만든 정확한 동작은?",
+          "options": [
+            {
+              "text": "She trips on a stone in the lane.",
+              "textKo": "길의 돌부리에 걸린다."
+            },
+            {
+              "text": "She tosses her head, acting out her own daydream.",
+              "textKo": "공상 속 동작 그대로 고개를 젖힌다."
+            },
+            {
+              "text": "She turns to greet the young fellows.",
+              "textKo": "청년들에게 인사하려고 돌아선다."
+            },
+            {
+              "text": "She sets the pail down to count her money.",
+              "textKo": "돈을 세려고 통을 내려놓는다."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "suiting the action to the word, she tossed her head. Down went the pail"
+        },
+        {
+          "type": "multiple",
+          "question": "Why do the Dolphins refuse the Sprat’s peacemaking?",
+          "questionKo": "돌고래들이 청어의 중재를 거절하는 이유는?",
+          "options": [
+            {
+              "text": "The Sprat had sided with the Whales earlier.",
+              "textKo": "청어가 앞서 고래 편을 들어서."
+            },
+            {
+              "text": "They had already agreed to a truce with the Whales.",
+              "textKo": "이미 고래와 휴전에 합의해서."
+            },
+            {
+              "text": "They would rather fight until all are killed than be reconciled by so small a fish.",
+              "textKo": "그런 작은 물고기의 중재를 받느니 다 죽을 때까지 싸우겠다는 것."
+            },
+            {
+              "text": "They could not hear him over the noise of battle.",
+              "textKo": "싸움 소리에 그의 말이 들리지 않아서."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "We would rather go on fighting till we're all killed than be reconciled by a Sprat like you!"
+        },
+        {
+          "type": "multiple",
+          "question": "What does the Milkmaid say she will do when the young fellows admire her gown?",
+          "questionKo": "청년들이 자기 옷을 칭찬하면 어쩌겠다고 소녀는 말하는가?",
+          "options": [
+            {
+              "text": "Sell them eggs at a high price.",
+              "textKo": "달걀을 비싸게 팔겠다고."
+            },
+            {
+              "text": "Invite them to the dairy.",
+              "textKo": "젖 짜는 곳으로 초대하겠다고."
+            },
+            {
+              "text": "Ask them to carry her pail.",
+              "textKo": "통을 들어 달라고 하겠다고."
+            },
+            {
+              "text": "Toss her head and have nothing to say to them.",
+              "textKo": "고개를 젖히고 상대하지 않겠다고."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "but I shall toss my head and have nothing to say to them"
+        },
+        {
+          "type": "truefalse",
+          "question": "The Sprat steps in only after the battle has already lasted some time without an end in sight.",
+          "questionKo": "청어는 싸움이 끝날 기미 없이 한참 이어진 뒤에야 나선다.",
+          "options": [
+            {
+              "text": "True",
+              "textKo": "맞다"
+            },
+            {
+              "text": "False",
+              "textKo": "아니다"
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "had lasted some time without any sign of coming to an end, when a Sprat thought that perhaps he could stop it"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 15,
+      "chapter_title": "The Fox and the Monkey",
+      "word_count": 430,
+      "chapter_v_level": 7,
+      "content": "CHAPTER 31. The Fox and the Monkey\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-fox-and-the-monkey\n\nA Fox and a Monkey were on the road together, and fell into a dispute as to which of the two was the better born. They kept it up for some time, till they came to a place where the road passed through a cemetery full of monuments, when the Monkey stopped and looked about him and gave a great sigh. \"Why do you sigh?\" said the Fox. The Monkey pointed to the tombs and replied, \"All the monuments that you see here were put up in honour of my forefathers, who in their day were eminent men.\" The Fox was speechless for a moment, but quickly recovering he said, \"Oh! don't stop at any lie, sir; you're quite safe: I'm sure none of your ancestors will rise up and expose you.\"\n\nCHAPTER 32. The Ass and the Lapdog\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-ass-and-the-lapdog\n\nThere was once a man who had an Ass and a Lapdog. The Ass was housed in the stable with plenty of oats and hay to eat and was as well off as an ass could be. The little Dog was made a great pet of by his master, who fondled him and often let him lie in his lap; and if he went out to dinner, he would bring back a titbit or two to give him when he ran to meet him on his return. The Ass had, it is true, a good deal of work to do, carting or grinding the corn, or carrying the burdens of the farm: and ere long he became very jealous, contrasting his own life of labour with the ease and idleness of the Lapdog. At last one day he broke his halter, and frisking into the house just as his master sat down to dinner, he pranced and capered about, mimicking the frolics of the little favourite, upsetting the table and smashing the crockery with his clumsy efforts. Not content with that, he even tried to jump on his master's lap, as he had so often seen the dog allowed to do. At that the servants, seeing the danger their master was in, belaboured the silly Ass with sticks and cudgels, and drove him back to his stable half dead with his beating. \"Alas!\" he cried, \"all this I have brought on myself. Why could I not be satisfied with my natural and honourable position, without wishing to imitate the ridiculous antics of that useless little Lapdog?\"",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "How does the Monkey try to prove his noble birth?",
+          "questionKo": "원숭이는 자기 가문이 훌륭하다는 것을 어떻게 증명하려 하는가?",
+          "options": [
+            {
+              "text": "He sighs at a cemetery and calls the monuments his forefathers’.",
+              "textKo": "묘지에서 한숨을 쉬며 비석들이 자기 조상의 것이라 한다."
+            },
+            {
+              "text": "He recites the names of his ancestors.",
+              "textKo": "조상들의 이름을 읊는다."
+            },
+            {
+              "text": "He shows a ring he says was his grandfather’s.",
+              "textKo": "할아버지의 것이라는 반지를 보여 준다."
+            },
+            {
+              "text": "He leads the Fox to a ruined palace.",
+              "textKo": "여우를 무너진 궁전으로 데려간다."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "The Monkey pointed to the tombs and replied, All the monuments that you see here were put up in honour of my forefathers"
+        },
+        {
+          "type": "multiple",
+          "question": "How does the Fox turn the Monkey’s boast against him?",
+          "questionKo": "여우는 원숭이의 허풍을 어떻게 되받아치는가?",
+          "options": [
+            {
+              "text": "He reads the names carved on the stones aloud.",
+              "textKo": "비석에 새겨진 이름을 소리 내어 읽는다."
+            },
+            {
+              "text": "He says none of those ancestors will rise up to expose the lie.",
+              "textKo": "그 조상들 중 누구도 일어나 거짓을 밝히지 못할 테니 안심하라고 한다."
+            },
+            {
+              "text": "He claims the same monuments for his own family.",
+              "textKo": "같은 비석을 자기 집안 것이라 주장한다."
+            },
+            {
+              "text": "He fetches the keeper of the cemetery.",
+              "textKo": "묘지기를 데려온다."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "don't stop at any lie, sir; you're quite safe: I'm sure none of your ancestors will rise up and expose you"
+        },
+        {
+          "type": "multiple",
+          "question": "What makes the Ass jealous of the Lapdog?",
+          "questionKo": "당나귀가 애완견을 질투하게 된 이유는?",
+          "options": [
+            {
+              "text": "The Dog was given oats and hay while he got none.",
+              "textKo": "개는 귀리와 건초를 받고 자기는 못 받아서."
+            },
+            {
+              "text": "The Dog was allowed into the stable at night.",
+              "textKo": "개가 밤에 마구간에 들어오게 허락돼서."
+            },
+            {
+              "text": "His own life of labour against the Dog’s ease and idleness.",
+              "textKo": "자기의 고된 노동과 개의 편안한 한가로움이 대비돼서."
+            },
+            {
+              "text": "The master took the Dog to market instead of him.",
+              "textKo": "주인이 자기 대신 개를 시장에 데려가서."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "contrasting his own life of labour with the ease and idleness of the Lapdog"
+        },
+        {
+          "type": "multiple",
+          "question": "What conclusion does the beaten Ass draw?",
+          "questionKo": "매를 맞은 당나귀가 내린 결론은?",
+          "options": [
+            {
+              "text": "That the servants were crueller than his master.",
+              "textKo": "하인들이 주인보다 잔인했다는 것."
+            },
+            {
+              "text": "That he should have waited until the master was alone.",
+              "textKo": "주인이 혼자 있을 때를 기다렸어야 했다는 것."
+            },
+            {
+              "text": "That the Lapdog had set a trap for him.",
+              "textKo": "애완견이 함정을 놓았다는 것."
+            },
+            {
+              "text": "That he brought it on himself by not being satisfied with his own honourable position.",
+              "textKo": "자기 자리에 만족하지 못해 자초한 일이라는 것."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "all this I have brought on myself. Why could I not be satisfied with my natural and honourable position"
+        },
+        {
+          "type": "blank",
+          "question": "The Ass breaks his ______ and frisks into the house just as his master sits down to dinner.",
+          "questionKo": "당나귀는 ______ 를 끊고 주인이 저녁상에 앉는 순간 집 안으로 뛰어든다.",
+          "options": [
+            {
+              "text": "halter",
+              "textKo": "고삐"
+            },
+            {
+              "text": "harness",
+              "textKo": "멍에"
+            },
+            {
+              "text": "stall door",
+              "textKo": "마구간 문"
+            },
+            {
+              "text": "chain",
+              "textKo": "사슬"
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "At last one day he broke his halter, and frisking into the house"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 16,
+      "chapter_title": "The Fir-Tree and the Bramble",
+      "word_count": 336,
+      "chapter_v_level": 7,
+      "content": "CHAPTER 33. The Fir-Tree and the Bramble\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-fir-tree-and-the-bramble\n\nA Fir-tree was boasting to a Bramble, and said, somewhat contemptuously, \"You poor creature, you are of no use whatever. Now, look at me: I am useful for all sorts of things, particularly when men build houses; they can't do without me then.\" But the Bramble replied, \"Ah, that's all very well: but you wait till they come with axes and saws to cut you down, and then you'll wish you were a Bramble and not a Fir.\"\n\nCHAPTER 34. The Frogs' Complaint Against the Sun\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-frogs-complaint-against-the-sun\n\nOnce upon a time the Sun was about to take to himself a wife. The Frogs in terror all raised their voices to the skies, and Jupiter, disturbed by the noise, asked them what they were croaking about. They replied, \"The Sun is bad enough even while he is single, drying up our marshes with his heat as he does. But what will become of us if he marries and begets other Suns?\"\n\nCHAPTER 35. The Dog, the Cock, and the Fox\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-dog-the-cock-and-the-fox\n\nA Dog and a Cock became great friends, and agreed to travel together. At nightfall the Cock flew up into the branches of a tree to roost, while the Dog curled himself up inside the trunk, which was hollow. At break of day the Cock woke up and crew, as usual. A Fox heard, and, wishing to make a breakfast of him, came and stood under the tree and begged him to come down. \"I should so like,\" said he, \"to make the acquaintance of one who has such a beautiful voice.\" The Cock replied, \"Would you just wake my porter who sleeps at the foot of the tree? He'll open the door and let you in.\" The Fox accordingly rapped on the trunk, when out rushed the Dog and tore him in pieces.",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "How does the Bramble answer the Fir-tree’s boast of usefulness?",
+          "questionKo": "전나무의 쓸모 자랑에 가시덤불은 어떻게 답하는가?",
+          "options": [
+            {
+              "text": "It says its thorns protect it from all animals.",
+              "textKo": "가시가 모든 짐승에게서 자기를 지켜 준다고 한다."
+            },
+            {
+              "text": "It says men will come with axes and saws, and then the Fir will wish it were a Bramble.",
+              "textKo": "사람들이 도끼와 톱을 들고 오면 전나무도 가시덤불이었으면 하고 바랄 거라 한다."
+            },
+            {
+              "text": "It says houses fall down but brambles grow back.",
+              "textKo": "집은 무너져도 덤불은 다시 자란다고 한다."
+            },
+            {
+              "text": "It says it feeds more creatures than the Fir does.",
+              "textKo": "전나무보다 더 많은 생물을 먹여 살린다고 한다."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "you wait till they come with axes and saws to cut you down, and then you'll wish you were a Bramble"
+        },
+        {
+          "type": "multiple",
+          "question": "What are the Frogs afraid of when the Sun plans to marry?",
+          "questionKo": "해가 결혼하려 할 때 개구리들이 두려워하는 것은?",
+          "options": [
+            {
+              "text": "That the wedding fires will burn the marshes.",
+              "textKo": "결혼식 불길이 늪을 태울까 봐."
+            },
+            {
+              "text": "That Jupiter will drain the marshes for the feast.",
+              "textKo": "유피테르가 잔치를 위해 늪을 말릴까 봐."
+            },
+            {
+              "text": "That the Sun will beget other Suns.",
+              "textKo": "해가 또 다른 해들을 낳을까 봐."
+            },
+            {
+              "text": "That the Sun will stop rising over their pond.",
+              "textKo": "해가 자기들 연못 위로 안 뜰까 봐."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "But what will become of us if he marries and begets other Suns?"
+        },
+        {
+          "type": "multiple",
+          "question": "How does the Cock defeat the Fox?",
+          "questionKo": "수탉은 여우를 어떻게 물리치는가?",
+          "options": [
+            {
+              "text": "He flies higher into the branches out of reach.",
+              "textKo": "더 높은 가지로 날아올라 닿지 않게 한다."
+            },
+            {
+              "text": "He crows so loudly that the farmer comes running.",
+              "textKo": "크게 울어 농부를 불러온다."
+            },
+            {
+              "text": "He pretends to be ill so the Fox loses interest.",
+              "textKo": "아픈 척해서 여우가 흥미를 잃게 한다."
+            },
+            {
+              "text": "He sends the Fox to wake the \"porter\" — the Dog asleep in the hollow trunk.",
+              "textKo": "\"문지기\" 를 깨우라며 여우를 속이 빈 줄기에 잠든 개에게 보낸다."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "Would you just wake my porter who sleeps at the foot of the tree? He’ll open the door and let you in."
+        },
+        {
+          "type": "multiple",
+          "question": "What excuse does the Fox give for wanting the Cock to come down?",
+          "questionKo": "여우가 수탉에게 내려오라고 하며 대는 구실은?",
+          "options": [
+            {
+              "text": "He says a storm is coming and the tree is unsafe.",
+              "textKo": "폭풍이 오니 나무가 위험하다고 한다."
+            },
+            {
+              "text": "He says the Dog has sent for him.",
+              "textKo": "개가 그를 불렀다고 한다."
+            },
+            {
+              "text": "He says he would like to meet one with such a beautiful voice.",
+              "textKo": "그렇게 아름다운 목소리의 주인을 만나고 싶다고 한다."
+            },
+            {
+              "text": "He says he has food to share below.",
+              "textKo": "아래에 나눠 먹을 먹이가 있다고 한다."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "I should so like to make the acquaintance of one who has such a beautiful voice"
+        },
+        {
+          "type": "truefalse",
+          "question": "The Dog and the Cock sleep in different places — one in the branches, one inside the hollow trunk.",
+          "questionKo": "개와 수탉은 서로 다른 곳에서 잔다 — 하나는 가지 위, 하나는 속 빈 줄기 안.",
+          "options": [
+            {
+              "text": "True",
+              "textKo": "맞다"
+            },
+            {
+              "text": "False",
+              "textKo": "아니다"
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "the Cock flew up into the branches of a tree to roost, while the Dog curled himself up inside the trunk"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 21,
+      "chapter_title": "The Boy and the Snails",
+      "word_count": 362,
+      "chapter_v_level": 6,
+      "content": "CHAPTER 43. The Boy and the Snails\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-boy-and-the-snails\n\nA Farmer's Boy went looking for Snails, and, when he had picked up both his hands full, he set about making a fire at which to roast them; for he meant to eat them. When it got well alight and the Snails began to feel the heat, they gradually withdrew more and more into their shells with the hissing noise they always make when they do so. When the Boy heard it, he said, \"You abandoned creatures, how can you find heart to whistle when your houses are burning?\"\n\nCHAPTER 44. The Apes and the Two Travellers\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-apes-and-the-two-travellers\n\nTwo men were travelling together, one of whom never spoke the truth, whereas the other never told a lie: and they came in the course of their travels to the land of Apes. The King of the Apes, hearing of their arrival, ordered them to be brought before him; and by way of impressing them with his magnificence, he received them sitting on a throne, while the Apes, his subjects, were ranged in long rows on either side of him. When the Travellers came into his presence he asked them what they thought of him as a King. The lying Traveller said, \"Sire, everyone must see that you are a most noble and mighty monarch.\" \"And what do you think of my subjects?\" continued the King. \"They,\" said the Traveller, \"are in every way worthy of their royal master.\" The Ape was so delighted with his answer that he gave him a very handsome present. The other Traveller thought that if his companion was rewarded so splendidly for telling a lie, he himself would certainly receive a still greater reward for telling the truth; so, when the Ape turned to him and said, \"And what, sir, is your opinion?\" he replied, \"I think you are a very fine Ape, and all your subjects are fine Apes too.\" The King of the Apes was so enraged at his reply that he ordered him to be taken away and clawed to death.",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "What does the Boy mistake the Snails’ hissing for?",
+          "questionKo": "소년은 달팽이의 쉿 소리를 무엇으로 착각하는가?",
+          "options": [
+            {
+              "text": "Whistling — as if they were merry while their houses burn.",
+              "textKo": "휘파람 — 집이 타는데도 흥겨워하는 줄 안다."
+            },
+            {
+              "text": "A cry for mercy.",
+              "textKo": "살려 달라는 외침."
+            },
+            {
+              "text": "The fire going out.",
+              "textKo": "불이 꺼지는 소리."
+            },
+            {
+              "text": "The sound of the shells cracking.",
+              "textKo": "껍데기가 갈라지는 소리."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "how can you find heart to whistle when your houses are burning?"
+        },
+        {
+          "type": "multiple",
+          "question": "Why does the lying Traveller receive a handsome present?",
+          "questionKo": "거짓말하는 여행자가 후한 선물을 받은 이유는?",
+          "options": [
+            {
+              "text": "He brought gifts from his own country.",
+              "textKo": "자기 나라에서 선물을 가져와서."
+            },
+            {
+              "text": "He calls the Ape a noble monarch and his subjects worthy of him.",
+              "textKo": "원숭이를 고귀한 군주라 하고 신하들도 그에 걸맞다고 해서."
+            },
+            {
+              "text": "He offered to serve at the Ape’s court.",
+              "textKo": "원숭이의 궁정에서 일하겠다고 해서."
+            },
+            {
+              "text": "He was the first to bow before the throne.",
+              "textKo": "왕좌 앞에 가장 먼저 절해서."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "everyone must see that you are a most noble and mighty monarch"
+        },
+        {
+          "type": "multiple",
+          "question": "What does the truthful Traveller expect, and what actually happens?",
+          "questionKo": "정직한 여행자는 무엇을 기대했고, 실제로는 어떻게 되는가?",
+          "options": [
+            {
+              "text": "He expects nothing; he is set free unharmed.",
+              "textKo": "아무것도 기대하지 않았고, 무사히 풀려난다."
+            },
+            {
+              "text": "He expects to be made a courtier; he is merely dismissed.",
+              "textKo": "신하로 삼아지길 기대했으나 그냥 물러가라 한다."
+            },
+            {
+              "text": "He expects a still greater reward for truth; he is ordered clawed to death.",
+              "textKo": "진실에 더 큰 보상을 기대했으나, 할퀴어 죽이라는 명을 받는다."
+            },
+            {
+              "text": "He expects the Ape to laugh; the Ape weeps instead.",
+              "textKo": "원숭이가 웃을 줄 알았으나 오히려 운다."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "he himself would certainly receive a still greater reward for telling the truth … ordered him to be taken away and clawed to death"
+        },
+        {
+          "type": "multiple",
+          "question": "How did the Ape King try to impress the two Travellers?",
+          "questionKo": "원숭이 왕이 두 여행자에게 위엄을 보이려 한 방식은?",
+          "options": [
+            {
+              "text": "By speaking to them in their own language.",
+              "textKo": "그들의 말로 이야기해서."
+            },
+            {
+              "text": "By showing them his treasure house.",
+              "textKo": "보물창고를 보여 줘서."
+            },
+            {
+              "text": "By ordering a feast in their honour.",
+              "textKo": "그들을 위한 잔치를 열어서."
+            },
+            {
+              "text": "By receiving them on a throne with his subjects ranged in long rows.",
+              "textKo": "왕좌에 앉아 신하들을 길게 늘어세우고 맞아서."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "he received them sitting on a throne, while the Apes, his subjects, were ranged in long rows on either side of him"
+        },
+        {
+          "type": "truefalse",
+          "question": "The truthful Traveller’s answer was literally accurate — he called the King a fine Ape.",
+          "questionKo": "정직한 여행자의 답은 사실 그대로였다 — 그는 왕을 훌륭한 원숭이라 불렀다.",
+          "options": [
+            {
+              "text": "True",
+              "textKo": "맞다"
+            },
+            {
+              "text": "False",
+              "textKo": "아니다"
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "I think you are a very fine Ape, and all your subjects are fine Apes too"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 23,
+      "chapter_title": "The Shepherd's Boy and the Wolf",
+      "word_count": 395,
+      "chapter_v_level": 6,
+      "content": "CHAPTER 46. The Shepherd's Boy and the Wolf\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-shepherd-s-boy-and-the-wolf\n\nA Shepherd's Boy was tending his flock near a village, and thought it would be great fun to hoax the villagers by pretending that a Wolf was attacking the sheep: so he shouted out, \"Wolf! wolf!\" and when the people came running up he laughed at them for their pains. He did this more than once, and every time the villagers found they had been hoaxed, for there was no Wolf at all. At last a Wolf really did come, and the Boy cried, \"Wolf! wolf!\" as loud as he could: but the people were so used to hearing him call that they took no notice of his cries for help. And so the Wolf had it all his own way, and killed off sheep after sheep at his leisure.\n\nCHAPTER 47. The Fox and the Goat\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-fox-and-the-goat\n\nA Fox fell into a well and was unable to get out again. By and by a thirsty Goat came by, and seeing the Fox in the well asked him if the water was good. \"Good?\" said the Fox, \"it's the best water I ever tasted in all my life. Come down and try it yourself.\" The Goat thought of nothing but the prospect of quenching his thirst, and jumped in at once. When he had had enough to drink, he looked about, like the Fox, for some way of getting out, but could find none. Presently the Fox said, \"I have an idea. You stand on your hind legs, and plant your forelegs firmly against the side of the well, and then I'll climb on to your back, and, from there, by stepping on your horns, I can get out. And when I'm out, I'll help you out too.\" The Goat did as he was requested, and the Fox climbed on to his back and so out of the well; and then he coolly walked away. The Goat called loudly after him and reminded him of his promise to help him out: but the Fox merely turned and said, \"If you had as much sense in your head as you have hair in your beard you wouldn't have got into the well without making certain that you could get out again.\"",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "Why do the villagers ignore the Boy when a real Wolf comes?",
+          "questionKo": "진짜 늑대가 왔을 때 마을 사람들이 소년을 무시한 이유는?",
+          "options": [
+            {
+              "text": "They had been hoaxed more than once and were used to his cries.",
+              "textKo": "여러 번 속아 그의 외침에 익숙해져서."
+            },
+            {
+              "text": "They were too far away to hear him.",
+              "textKo": "너무 멀어서 소리가 안 들려서."
+            },
+            {
+              "text": "The shepherd had told them to ignore him.",
+              "textKo": "목자가 무시하라고 일러서."
+            },
+            {
+              "text": "They were busy at the harvest.",
+              "textKo": "수확으로 바빠서."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "the people were so used to hearing him call that they took no notice of his cries for help"
+        },
+        {
+          "type": "multiple",
+          "question": "How does the Fox lure the Goat into the well?",
+          "questionKo": "여우는 염소를 어떻게 우물로 꾀어들이는가?",
+          "options": [
+            {
+              "text": "He pretends to be drowning and calls for help.",
+              "textKo": "빠진 척하며 도와 달라고 한다."
+            },
+            {
+              "text": "He tells the Goat the water is the best he has ever tasted.",
+              "textKo": "물이 평생 마셔 본 중 최고라고 말한다."
+            },
+            {
+              "text": "He says there is food at the bottom.",
+              "textKo": "바닥에 먹을 것이 있다고 한다."
+            },
+            {
+              "text": "He hides so the Goat leans in to look.",
+              "textKo": "몸을 숨겨 염소가 들여다보게 한다."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "Good? said the Fox, it's the best water I ever tasted in all my life. Come down and try it yourself."
+        },
+        {
+          "type": "multiple",
+          "question": "How does the Fox escape the well?",
+          "questionKo": "여우는 우물에서 어떻게 빠져나오는가?",
+          "options": [
+            {
+              "text": "The villagers lower a rope for him.",
+              "textKo": "마을 사람들이 밧줄을 내려 준다."
+            },
+            {
+              "text": "He digs footholds into the wall.",
+              "textKo": "벽에 발디딤을 판다."
+            },
+            {
+              "text": "He climbs the Goat’s back and steps on his horns.",
+              "textKo": "염소의 등에 올라 뿔을 딛고 나간다."
+            },
+            {
+              "text": "He waits for the water to rise and floats up.",
+              "textKo": "물이 차오르기를 기다려 떠오른다."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "I'll climb on to your back, and, from there, by stepping on your horns, I can get out"
+        },
+        {
+          "type": "multiple",
+          "question": "What does the Fox say instead of keeping his promise?",
+          "questionKo": "여우는 약속을 지키는 대신 무슨 말을 하는가?",
+          "options": [
+            {
+              "text": "That he will send help from the village.",
+              "textKo": "마을에서 도움을 보내겠다고."
+            },
+            {
+              "text": "That the well belongs to the Goat now.",
+              "textKo": "이제 우물은 염소 것이라고."
+            },
+            {
+              "text": "That he never promised anything at all.",
+              "textKo": "애초에 약속한 적 없다고."
+            },
+            {
+              "text": "That the Goat should have made sure he could get out before jumping in.",
+              "textKo": "뛰어들기 전에 나올 수 있는지부터 확인했어야 한다고."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "you wouldn't have got into the well without making certain that you could get out again"
+        },
+        {
+          "type": "truefalse",
+          "question": "The Boy first cried \"Wolf!\" because he thought it would be great fun to hoax the villagers.",
+          "questionKo": "소년이 처음 \"늑대다!\" 를 외친 것은 마을 사람들을 속이는 것이 재미있겠다고 여겼기 때문이다.",
+          "options": [
+            {
+              "text": "True",
+              "textKo": "맞다"
+            },
+            {
+              "text": "False",
+              "textKo": "아니다"
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "thought it would be great fun to hoax the villagers"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 26,
+      "chapter_title": "The Farmer and His Sons",
+      "word_count": 364,
+      "chapter_v_level": 7,
+      "content": "CHAPTER 52. The Farmer and His Sons\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-farmer-and-his-sons\n\nA Farmer, being at death's door, and desiring to impart to his Sons a secret of much moment, called them round him and said, \"My sons, I am shortly about to die; I would have you know, therefore, that in my vineyard there lies a hidden treasure. Dig, and you will find it.\" As soon as their father was dead, the Sons took spade and fork and turned up the soil of the vineyard over and over again, in their search for the treasure which they supposed to lie buried there. They found none, however: but the vines, after so thorough a digging, produced a crop such as had never before been seen.\n\nCHAPTER 53. The Dog and the Cook\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-dog-and-the-cook\n\nA rich man once invited a number of his friends and acquaintances to a banquet. His dog thought it would be a good opportunity to invite another Dog, a friend of his; so he went to him and said, \"My master is giving a feast: there'll be a fine spread, so come and dine with me tonight.\" The Dog thus invited came, and when he saw the preparations being made in the kitchen he said to himself, \"My word, I'm in luck: I'll take care to eat enough tonight to last me two or three days.\" At the same time he wagged his tail briskly, by way of showing his friend how delighted he was to have been asked. But just then the Cook caught sight of him, and, in his annoyance at seeing a strange Dog in the kitchen, caught him up by the hind legs and threw him out of the window. He had a nasty fall, and limped away as quickly as he could, howling dismally. Presently some other dogs met him, and said, \"Well, what sort of a dinner did you get?\" To which he replied, \"I had a splendid time: the wine was so good, and I drank so much of it, that I really don't remember how I got out of the house!\"",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "What treasure do the Farmer’s Sons actually find?",
+          "questionKo": "농부의 아들들이 실제로 찾아낸 보물은?",
+          "options": [
+            {
+              "text": "Nothing buried — but the thorough digging gives an unprecedented crop.",
+              "textKo": "묻힌 것은 없었지만, 철저히 판 덕에 전에 없던 수확을 얻는다."
+            },
+            {
+              "text": "A buried chest of coins under the vines.",
+              "textKo": "포도나무 아래 묻힌 동전 궤짝."
+            },
+            {
+              "text": "Their father’s will, hidden in a jar.",
+              "textKo": "항아리에 감춰 둔 아버지의 유언장."
+            },
+            {
+              "text": "A spring of water that saves the vineyard.",
+              "textKo": "포도밭을 살린 샘물."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "They found none, however: but the vines, after so thorough a digging, produced a crop such as had never before been seen."
+        },
+        {
+          "type": "multiple",
+          "question": "Why does the Cook throw the visiting Dog out?",
+          "questionKo": "요리사가 찾아온 개를 내던진 이유는?",
+          "options": [
+            {
+              "text": "The Dog had begun eating from the dishes.",
+              "textKo": "개가 접시에 든 것을 먹기 시작해서."
+            },
+            {
+              "text": "He was annoyed at seeing a strange Dog in the kitchen.",
+              "textKo": "부엌에 낯선 개가 있는 것이 언짢아서."
+            },
+            {
+              "text": "The master had forbidden animals at the feast.",
+              "textKo": "주인이 잔치에 짐승을 금해서."
+            },
+            {
+              "text": "The Dog barked at the guests.",
+              "textKo": "개가 손님들에게 짖어서."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "in his annoyance at seeing a strange Dog in the kitchen, caught him up by the hind legs"
+        },
+        {
+          "type": "multiple",
+          "question": "How does the thrown-out Dog describe his evening to the other dogs?",
+          "questionKo": "내던져진 개는 다른 개들에게 그날 저녁을 어떻게 이야기하는가?",
+          "options": [
+            {
+              "text": "He warns them never to go near that house.",
+              "textKo": "그 집 근처에는 절대 가지 말라고 경고한다."
+            },
+            {
+              "text": "He admits he was thrown out of the window.",
+              "textKo": "창밖으로 던져졌다고 털어놓는다."
+            },
+            {
+              "text": "He says he had a splendid time and drank so much he cannot remember leaving.",
+              "textKo": "아주 즐거웠고 술을 너무 마셔 어떻게 나왔는지 기억이 안 난다고 한다."
+            },
+            {
+              "text": "He says the food was poor and he left early.",
+              "textKo": "음식이 형편없어 일찍 나왔다고 한다."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "I had a splendid time: the wine was so good … I really don't remember how I got out of the house!"
+        },
+        {
+          "type": "multiple",
+          "question": "What did the Farmer tell his Sons before he died?",
+          "questionKo": "농부가 죽기 전 아들들에게 한 말은?",
+          "options": [
+            {
+              "text": "To sell the vineyard and divide the money.",
+              "textKo": "포도밭을 팔아 돈을 나누라고."
+            },
+            {
+              "text": "To plant new vines every spring.",
+              "textKo": "봄마다 새 포도나무를 심으라고."
+            },
+            {
+              "text": "To keep the vineyard secret from their neighbours.",
+              "textKo": "포도밭을 이웃에게 숨기라고."
+            },
+            {
+              "text": "That a hidden treasure lies in the vineyard — dig and they will find it.",
+              "textKo": "포도밭에 보물이 숨겨져 있으니 파면 찾을 것이라고."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "in my vineyard there lies a hidden treasure. Dig, and you will find it."
+        },
+        {
+          "type": "truefalse",
+          "question": "The visiting Dog wagged his tail to show his friend how delighted he was — and that is when the Cook noticed him.",
+          "questionKo": "찾아온 개는 기뻐서 꼬리를 흔들었고, 바로 그때 요리사에게 들켰다.",
+          "options": [
+            {
+              "text": "True",
+              "textKo": "맞다"
+            },
+            {
+              "text": "False",
+              "textKo": "아니다"
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "he wagged his tail briskly … But just then the Cook caught sight of him"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 42,
+      "chapter_title": "The Fox Without a Tail",
+      "word_count": 334,
+      "chapter_v_level": 6,
+      "content": "CHAPTER 83. The Fox Without a Tail\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-fox-without-a-tail\n\nA fox once fell into a trap, and after a struggle managed to get free, but with the loss of his brush. He was then so much ashamed of his appearance that he thought life was not worth living unless he could persuade the other Foxes to part with their tails also, and thus divert attention from his own loss. So he called a meeting of all the Foxes, and advised them to cut off their tails: \"They're ugly things anyhow,\" he said, \"and besides they're heavy, and it's tiresome to be always carrying them about with you.\" But one of the other Foxes said, \"My friend, if you hadn't lost your own tail, you wouldn't be so keen on getting us to cut off ours.\"\n\nCHAPTER 84. The Vain Jackdaw\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-vain-jackdaw\n\nJupiter announced that he intended to appoint a king over the birds, and named a day on which they were to appear before his throne, when he would select the most beautiful of them all to be their ruler. Wishing to look their best on the occasion they repaired to the banks of a stream, where they busied themselves in washing and preening their feathers. The Jackdaw was there along with the rest, and realised that, with his ugly plumage, he would have no chance of being chosen as he was: so he waited till they were all gone, and then picked up the most gaudy of the feathers they had dropped, and fastened them about his own body, with the result that he looked gayer than any of them. When the appointed day came, the birds assembled before Jupiter's throne; and, after passing them in review, he was about to make the Jackdaw king, when all the rest set upon the king-elect, stripped him of his borrowed plumes, and exposed him for the Jackdaw that he was.",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "Why does the tailless Fox urge the others to cut off their tails?",
+          "questionKo": "꼬리 잃은 여우가 다른 여우들에게 꼬리를 자르라고 권한 이유는?",
+          "options": [
+            {
+              "text": "To divert attention from his own loss.",
+              "textKo": "자기가 잃은 것에서 시선을 돌리려고."
+            },
+            {
+              "text": "He believes tails attract hunters’ traps.",
+              "textKo": "꼬리가 사냥꾼의 덫을 부른다고 믿어서."
+            },
+            {
+              "text": "He hopes to be made leader of the Foxes.",
+              "textKo": "여우들의 우두머리가 되고 싶어서."
+            },
+            {
+              "text": "He was told to by the trapper who freed him.",
+              "textKo": "풀어 준 사냥꾼이 시켜서."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "unless he could persuade the other Foxes to part with their tails also, and thus divert attention from his own loss"
+        },
+        {
+          "type": "multiple",
+          "question": "How does another Fox see through the argument?",
+          "questionKo": "다른 여우는 그 주장을 어떻게 꿰뚫어 보는가?",
+          "options": [
+            {
+              "text": "By showing that tails are not heavy at all.",
+              "textKo": "꼬리가 전혀 무겁지 않음을 보여서."
+            },
+            {
+              "text": "By pointing out that he would not be so keen if he had not lost his own.",
+              "textKo": "자기 꼬리를 잃지 않았다면 그렇게 열심이지 않았을 거라고 지적해서."
+            },
+            {
+              "text": "By recalling that he once praised his own tail.",
+              "textKo": "그가 예전에 자기 꼬리를 자랑했음을 상기시켜서."
+            },
+            {
+              "text": "By asking the trapper to confirm the story.",
+              "textKo": "사냥꾼에게 사실을 확인하자고 해서."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "if you hadn't lost your own tail, you wouldn't be so keen on getting us to cut off ours"
+        },
+        {
+          "type": "multiple",
+          "question": "How does the Jackdaw try to win the contest for king of the birds?",
+          "questionKo": "갈까마귀는 새들의 왕이 되는 시합에서 어떻게 이기려 하는가?",
+          "options": [
+            {
+              "text": "He arrives before all the other birds.",
+              "textKo": "다른 새들보다 먼저 도착한다."
+            },
+            {
+              "text": "He asks Jupiter to judge by voice instead of beauty.",
+              "textKo": "아름다움 대신 목소리로 뽑아 달라고 청한다."
+            },
+            {
+              "text": "He waits until the others leave, then fastens their dropped feathers to himself.",
+              "textKo": "다른 새들이 떠나기를 기다렸다 떨어진 깃털을 몸에 붙인다."
+            },
+            {
+              "text": "He washes and preens longer than any other bird.",
+              "textKo": "다른 어떤 새보다 오래 씻고 다듬는다."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "he waited till they were all gone, and then picked up the most gaudy of the feathers they had dropped"
+        },
+        {
+          "type": "multiple",
+          "question": "At what moment is the Jackdaw exposed?",
+          "questionKo": "갈까마귀는 어느 순간 정체가 드러나는가?",
+          "options": [
+            {
+              "text": "While he is still fastening the feathers at the stream.",
+              "textKo": "개울가에서 깃털을 붙이는 도중에."
+            },
+            {
+              "text": "When the wind blows the feathers away in flight.",
+              "textKo": "날다가 바람에 깃털이 날아가서."
+            },
+            {
+              "text": "When Jupiter asks him to sing.",
+              "textKo": "유피테르가 노래를 시켰을 때."
+            },
+            {
+              "text": "When Jupiter is about to make him king, the other birds strip the borrowed plumes.",
+              "textKo": "유피테르가 그를 왕으로 삼으려는 순간, 다른 새들이 빌린 깃털을 뜯어낸다."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "he was about to make the Jackdaw king, when all the rest set upon the king-elect, stripped him of his borrowed plumes"
+        },
+        {
+          "type": "blank",
+          "question": "The Fox escaped the trap but lost his ______.",
+          "questionKo": "여우는 덫에서 빠져나왔지만 ______ 를 잃었다.",
+          "options": [
+            {
+              "text": "brush (tail)",
+              "textKo": "꼬리"
+            },
+            {
+              "text": "ear",
+              "textKo": "귀"
+            },
+            {
+              "text": "foot",
+              "textKo": "발"
+            },
+            {
+              "text": "coat",
+              "textKo": "털가죽"
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "managed to get free, but with the loss of his brush"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 48,
+      "chapter_title": "Mercury and the Tradesmen",
+      "word_count": 301,
+      "chapter_v_level": 5,
+      "content": "CHAPTER 95. Mercury and the Tradesmen\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#mercury-and-the-tradesmen\n\nWhen Jupiter was creating man, he told Mercury to make an infusion of lies, and to add a little of it to the other ingredients which went to the making of the Tradesmen. Mercury did so, and introduced an equal amount into each in turn⁠--the tallow-chandler, and the greengrocer, and the haberdasher, and all, till he came to the horse-dealer, who was last on the list, when, finding that he had a quantity of the infusion still left, he put it all into him. This is why all Tradesmen lie more or less, but they none of them lie like a horse-dealer.\n\nCHAPTER 96. The Mice and the Weasels\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-mice-and-the-weasels\n\nThere was war between the Mice and the Weasels, in which the Mice always got the worst of it, numbers of them being killed and eaten by the Weasels. So they called a council of war, in which an old Mouse got up and said, \"It's no wonder we are always beaten, for we have no generals to plan our battles and direct our movements in the field.\" Acting on his advice, they chose the biggest Mice to be their leaders, and these, in order to be distinguished from the rank and file, provided themselves with helmets bearing large plumes of straw. They then led out the Mice to battle, confident of victory: but they were defeated as usual, and were soon scampering as fast as they could to their holes. All made their way to safety without difficulty except the leaders, who were so hampered by the badges of their rank that they could not get into their holes, and fell easy victims to their pursuers.",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "How does the fable explain why horse-dealers lie most of all?",
+          "questionKo": "이 우화는 말 장수가 가장 많이 거짓말하는 이유를 어떻게 설명하는가?",
+          "options": [
+            {
+              "text": "Jupiter singled them out for punishment.",
+              "textKo": "유피테르가 그들만 벌하려고 정해서."
+            },
+            {
+              "text": "Mercury had a quantity of the lie-infusion left, and put it all into the last one on the list.",
+              "textKo": "머큐리에게 거짓말 물약이 남아, 명단 마지막인 그에게 전부 부어서."
+            },
+            {
+              "text": "They were made last, from the leftover ingredients of all the others.",
+              "textKo": "다른 모든 이들의 남은 재료로 마지막에 만들어져서."
+            },
+            {
+              "text": "Horses cannot speak, so their dealers must speak for them.",
+              "textKo": "말은 말을 못 하니 장수가 대신 말해야 해서."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "finding that he had a quantity of the infusion still left, he put it all into him"
+        },
+        {
+          "type": "multiple",
+          "question": "What did the Mice conclude was the cause of their defeats?",
+          "questionKo": "쥐들이 패배의 원인이라고 결론지은 것은?",
+          "options": [
+            {
+              "text": "Their holes were too far from the battlefield.",
+              "textKo": "굴이 전장에서 너무 멀다는 것."
+            },
+            {
+              "text": "The Weasels were simply stronger.",
+              "textKo": "족제비가 그저 더 강하다는 것."
+            },
+            {
+              "text": "They had no generals to plan battles and direct movements.",
+              "textKo": "전투를 계획하고 지휘할 장군이 없다는 것."
+            },
+            {
+              "text": "They fought only at night.",
+              "textKo": "밤에만 싸운다는 것."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "we have no generals to plan our battles and direct our movements in the field"
+        },
+        {
+          "type": "multiple",
+          "question": "Why do only the Mouse leaders die in the retreat?",
+          "questionKo": "후퇴 때 쥐 지휘관들만 죽는 이유는?",
+          "options": [
+            {
+              "text": "They stayed behind to cover the retreat.",
+              "textKo": "후퇴를 엄호하려 남아서."
+            },
+            {
+              "text": "The Weasels targeted the biggest Mice first.",
+              "textKo": "족제비가 큰 쥐부터 노려서."
+            },
+            {
+              "text": "They ran in the wrong direction.",
+              "textKo": "엉뚱한 방향으로 달려서."
+            },
+            {
+              "text": "Their plumed helmets keep them from getting into their holes.",
+              "textKo": "깃털 장식 투구 때문에 굴로 들어가지 못해서."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "so hampered by the badges of their rank that they could not get into their holes"
+        },
+        {
+          "type": "multiple",
+          "question": "What did the Mouse leaders wear to be distinguished from the rank and file?",
+          "questionKo": "쥐 지휘관들이 병졸과 구별되려고 걸친 것은?",
+          "options": [
+            {
+              "text": "Red ribbons about their necks.",
+              "textKo": "목에 두른 붉은 리본."
+            },
+            {
+              "text": "Cloaks made of leaves.",
+              "textKo": "잎으로 만든 망토."
+            },
+            {
+              "text": "Painted marks on their backs.",
+              "textKo": "등에 칠한 표식."
+            },
+            {
+              "text": "Helmets bearing large plumes of straw.",
+              "textKo": "커다란 짚 깃털을 단 투구."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "provided themselves with helmets bearing large plumes of straw"
+        },
+        {
+          "type": "truefalse",
+          "question": "Mercury put an equal amount of the lie-infusion into every tradesman before reaching the horse-dealer.",
+          "questionKo": "머큐리는 말 장수에 이르기 전까지 모든 상인에게 같은 양의 거짓말 물약을 넣었다.",
+          "options": [
+            {
+              "text": "True",
+              "textKo": "맞다"
+            },
+            {
+              "text": "False",
+              "textKo": "아니다"
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "introduced an equal amount into each in turn"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 50,
+      "chapter_title": "The Ass and the Old Peasant",
+      "word_count": 302,
+      "chapter_v_level": 7,
+      "content": "CHAPTER 99. The Ass and the Old Peasant\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-ass-and-the-old-peasant\n\nAn old Peasant was sitting in a meadow watching his Ass, which was grazing close by, when all of a sudden he caught sight of armed men stealthily approaching. He jumped up in a moment, and begged the Ass to fly with him as fast as he could, \"Or else,\" said he, \"we shall both be captured by the enemy.\" But the Ass just looked round lazily and said, \"And if so, do you think they'll make me carry heavier loads than I have to now?\" \"No,\" said his master. \"Oh, well, then,\" said the Ass, \"I don't mind if they do take me, for I shan't be any worse off.\"\n\nCHAPTER 100. The Ox and the Frog\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-ox-and-the-frog\n\nTwo little Frogs were playing about at the edge of a pool when an Ox came down to the water to drink, and by accident trod on one of them and crushed the life out of him. When the old Frog missed him, she asked his brother where he was. \"He is dead, mother,\" said the little Frog; \"an enormous big creature with four legs came to our pool this morning and trampled him down in the mud.\" \"Enormous, was he? Was he as big as this?\" said the Frog, puffing herself out to look as big as possible. \"Oh! yes, much bigger,\" was the answer. The Frog puffed herself out still more. \"Was he as big as this?\" said she. \"Oh! yes, yes, mother, much bigger,\" said the little Frog. And yet again she puffed and puffed herself out till she was almost as round as a ball. \"As big as⁠ ⁠... ?\" she began⁠--but then she burst.",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "Why does the Ass refuse to run away from the approaching soldiers?",
+          "questionKo": "나귀가 다가오는 병사들에게서 달아나기를 거부하는 이유는?",
+          "options": [
+            {
+              "text": "He expects the enemy will not make him carry heavier loads than he already does.",
+              "textKo": "적이라고 지금보다 더 무거운 짐을 지우지는 않으리라 보아서."
+            },
+            {
+              "text": "He is too old and weak to run at all.",
+              "textKo": "너무 늙고 약해서 아예 달릴 수 없어서."
+            },
+            {
+              "text": "He does not believe the men are really armed.",
+              "textKo": "그 사람들이 정말 무장했다고 믿지 않아서."
+            },
+            {
+              "text": "He wants to warn the other animals in the meadow first.",
+              "textKo": "초원의 다른 동물들에게 먼저 알리고 싶어서."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "do you think they’ll make me carry heavier loads than I have to now?"
+        },
+        {
+          "type": "multiple",
+          "question": "What does the Peasant admit when the Ass asks his question?",
+          "questionKo": "나귀의 물음에 주인이 인정하는 것은?",
+          "options": [
+            {
+              "text": "That he has treated the Ass badly for years.",
+              "textKo": "수년간 나귀를 학대해 왔다는 것."
+            },
+            {
+              "text": "That the enemy would not load him more heavily.",
+              "textKo": "적이라고 더 무겁게 싣지는 않으리라는 것."
+            },
+            {
+              "text": "That he cannot run fast enough himself.",
+              "textKo": "자기도 빨리 달릴 수 없다는 것."
+            },
+            {
+              "text": "That the soldiers are actually his neighbours.",
+              "textKo": "병사들이 사실 이웃이라는 것."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "\"No,\" said his master."
+        },
+        {
+          "type": "multiple",
+          "question": "How does the little Frog describe the creature that killed his brother?",
+          "questionKo": "아기 개구리는 형제를 죽인 짐승을 어떻게 묘사하는가?",
+          "options": [
+            {
+              "text": "A creature that swam across the pool.",
+              "textKo": "연못을 헤엄쳐 건넌 짐승."
+            },
+            {
+              "text": "A creature with wings and a long beak.",
+              "textKo": "날개와 긴 부리가 달린 짐승."
+            },
+            {
+              "text": "An enormous big creature with four legs that trampled him into the mud.",
+              "textKo": "네 다리 달린 거대한 짐승이 진흙에 밟아 뭉갰다고."
+            },
+            {
+              "text": "A hunter who threw a stone at them.",
+              "textKo": "돌을 던진 사냥꾼이라고."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "an enormous big creature with four legs came to our pool this morning and trampled him down in the mud"
+        },
+        {
+          "type": "multiple",
+          "question": "What is the mother Frog trying to do when she puffs herself out again and again?",
+          "questionKo": "어미 개구리가 몸을 거듭 부풀리며 하려는 것은?",
+          "options": [
+            {
+              "text": "To frighten the Ox away from the pool.",
+              "textKo": "소를 연못에서 쫓아내려고."
+            },
+            {
+              "text": "To hide her remaining child under her body.",
+              "textKo": "남은 새끼를 몸 아래 숨기려고."
+            },
+            {
+              "text": "To float on the surface of the water.",
+              "textKo": "수면 위에 뜨려고."
+            },
+            {
+              "text": "To match the size of the creature her son describes.",
+              "textKo": "아들이 말한 짐승의 크기에 맞먹으려고."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "\"Was he as big as this?\" said she."
+        },
+        {
+          "type": "truefalse",
+          "question": "The Ox stepped on the little Frog on purpose.",
+          "questionKo": "소는 일부러 아기 개구리를 밟았다.",
+          "options": [
+            {
+              "text": "True",
+              "textKo": "맞다"
+            },
+            {
+              "text": "False",
+              "textKo": "아니다"
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "by accident trod on one of them and crushed the life out of him"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 71,
+      "chapter_title": "The Hare and the Hound",
+      "word_count": 374,
+      "chapter_v_level": 6,
+      "content": "CHAPTER 140. The Hare and the Hound\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-hare-and-the-hound\n\nA Hound started a Hare from her form, and pursued her for some distance; but as she gradually gained upon him, he gave up the chase. A rustic who had seen the race met the Hound as he was returning, and taunted him with his defeat. \"The little one was too much for you,\" said he. \"Ah, well,\" said the Hound, \"don't forget it's one thing to be running for your dinner, but quite another to be running for your life.\"\n\nCHAPTER 141. The Town Mouse and the Country Mouse\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-town-mouse-and-the-country-mouse\n\nA Town Mouse and a Country Mouse were acquaintances, and the Country Mouse one day invited his friend to come and see him at his home in the fields. The Town Mouse came, and they sat down to a dinner of barleycorns and roots, the latter of which had a distinctly earthy flavour. The fare was not much to the taste of the guest, and presently he broke out with \"My poor dear friend, you live here no better than the ants. Now, you should just see how I fare! My larder is a regular horn of plenty. You must come and stay with me, and I promise you you shall live on the fat of the land.\" So when he returned to town he took the Country Mouse with him, and showed him into a larder containing flour and oatmeal and figs and honey and dates. The Country Mouse had never seen anything like it, and sat down to enjoy the luxuries his friend provided: but before they had well begun, the door of the larder opened and someone came in. The two Mice scampered off and hid themselves in a narrow and exceedingly uncomfortable hole. Presently, when all was quiet, they ventured out again; but someone else came in, and off they scuttled again. This was too much for the visitor. \"Goodbye,\" said he, \"I'm off. You live in the lap of luxury, I can see, but you are surrounded by dangers; whereas at home I can enjoy my simple dinner of roots and corn in peace.\"",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "Why does the Hound give up the chase?",
+          "questionKo": "사냥개가 추격을 포기한 이유는?",
+          "options": [
+            {
+              "text": "The Hare steadily drew ahead of him.",
+              "textKo": "토끼가 점점 앞서 나갔기 때문에."
+            },
+            {
+              "text": "A rustic called him back to his master.",
+              "textKo": "시골 사람이 주인에게로 불러들여서."
+            },
+            {
+              "text": "He lost the Hare’s scent in the grass.",
+              "textKo": "풀밭에서 토끼 냄새를 놓쳐서."
+            },
+            {
+              "text": "He was injured by a stone on the path.",
+              "textKo": "길의 돌에 다쳐서."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "but as she gradually gained upon him, he gave up the chase"
+        },
+        {
+          "type": "multiple",
+          "question": "How does the Hound explain his defeat to the rustic?",
+          "questionKo": "사냥개는 시골 사람에게 자기 패배를 어떻게 설명하는가?",
+          "options": [
+            {
+              "text": "The Hare knew the ground far better than he did.",
+              "textKo": "토끼가 지형을 훨씬 잘 알았다고."
+            },
+            {
+              "text": "Running for your dinner is one thing; running for your life is quite another.",
+              "textKo": "저녁을 위해 달리는 것과 목숨을 위해 달리는 것은 전혀 다르다고."
+            },
+            {
+              "text": "He had already eaten and was too heavy to run.",
+              "textKo": "이미 배불리 먹어 몸이 무거웠다고."
+            },
+            {
+              "text": "He was under orders not to catch her.",
+              "textKo": "잡지 말라는 명을 받았다고."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "it’s one thing to be running for your dinner, but quite another to be running for your life"
+        },
+        {
+          "type": "multiple",
+          "question": "What does the Town Mouse think of the dinner he is served in the fields?",
+          "questionKo": "도시 쥐는 들판에서 대접받은 식사를 어떻게 여기는가?",
+          "options": [
+            {
+              "text": "He praises it as simple but wholesome.",
+              "textKo": "소박하지만 건강한 식사라 칭찬한다."
+            },
+            {
+              "text": "He refuses to touch anything at all.",
+              "textKo": "아예 손도 대지 않는다."
+            },
+            {
+              "text": "He says his friend lives no better than the ants.",
+              "textKo": "친구가 개미보다 나을 것 없이 산다고 말한다."
+            },
+            {
+              "text": "He asks for the recipe for the roots.",
+              "textKo": "뿌리 요리법을 알려 달라 한다."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "you live here no better than the ants"
+        },
+        {
+          "type": "multiple",
+          "question": "What happens each time the two Mice settle down to eat in the town larder?",
+          "questionKo": "도시 식품 창고에서 두 쥐가 먹으려 자리 잡을 때마다 벌어지는 일은?",
+          "options": [
+            {
+              "text": "The food turns out to be spoiled.",
+              "textKo": "음식이 상해 있음이 드러난다."
+            },
+            {
+              "text": "A cat catches one of them by the tail.",
+              "textKo": "고양이가 하나의 꼬리를 붙잡는다."
+            },
+            {
+              "text": "The Town Mouse takes the best share for himself.",
+              "textKo": "도시 쥐가 가장 좋은 몫을 차지한다."
+            },
+            {
+              "text": "Someone comes in and they must scamper into a cramped hole.",
+              "textKo": "누군가 들어와 비좁은 구멍으로 달아나야 한다."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "the door of the larder opened and someone came in"
+        },
+        {
+          "type": "blank",
+          "question": "The Country Mouse leaves because his friend lives in luxury but is surrounded by ______.",
+          "questionKo": "시골 쥐가 떠나는 것은, 친구가 호화롭게 살지만 ______ 에 둘러싸여 있기 때문이다.",
+          "options": [
+            {
+              "text": "dangers",
+              "textKo": "위험"
+            },
+            {
+              "text": "strangers",
+              "textKo": "낯선 이들"
+            },
+            {
+              "text": "noise",
+              "textKo": "소음"
+            },
+            {
+              "text": "debts",
+              "textKo": "빚"
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "you are surrounded by dangers; whereas at home I can enjoy my simple dinner of roots and corn in peace"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 86,
+      "chapter_title": "The Eagle, the Jackdaw, and the Shepherd",
+      "word_count": 346,
+      "chapter_v_level": 7,
+      "content": "CHAPTER 170. The Eagle, the Jackdaw, and the Shepherd\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-eagle-the-jackdaw-and-the-shepherd\n\nOne day a Jackdaw saw an Eagle swoop down on a lamb and carry it off in its talons. \"My word,\" said the Jackdaw, \"I'll do that myself.\" So it flew high up into the air, and then came shooting down with a great whirring of wings on to the back of a big ram. It had no sooner alighted than its claws got caught fast in the wool, and nothing it could do was of any use: there it stuck, flapping away, and only making things worse instead of better. By and by up came the Shepherd. \"Oho,\" he said, \"so that's what you'd be doing, is it?\" And he took the Jackdaw, and clipped its wings and carried it home to his children. It looked so odd that they didn't know what to make of it. \"What sort of bird is it, father?\" they asked. \"It's a Jackdaw,\" he replied, \"and nothing but a Jackdaw: but it wants to be taken for an Eagle.\"\n\nCHAPTER 171. The Wolf and the Boy\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-wolf-and-the-boy\n\nA Wolf, who had just enjoyed a good meal and was in a playful mood, caught sight of a Boy lying flat upon the ground, and, realising that he was trying to hide, and that it was fear of himself that made him do this, he went up to him and said, \"Aha, I've found you, you see; but if you can say three things to me, the truth of which cannot be disputed, I will spare your life.\" The Boy plucked up courage and thought for a moment, and then he said, \"First, it is a pity you saw me; secondly, I was a fool to let myself be seen; and thirdly, we all hate wolves because they are always making unprovoked attacks upon our flocks.\" The Wolf replied, \"Well, what you say is true enough from your point of view; so you may go.\"",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "What goes wrong when the Jackdaw swoops down on the ram?",
+          "questionKo": "갈까마귀가 숫양에게 덮쳐 내렸을 때 잘못된 것은?",
+          "options": [
+            {
+              "text": "The ram runs into the flock and hides him.",
+              "textKo": "숫양이 양 떼로 달려들어 그를 숨긴다."
+            },
+            {
+              "text": "Its claws catch fast in the wool and it cannot get free.",
+              "textKo": "발톱이 양털에 단단히 걸려 빠져나오지 못한다."
+            },
+            {
+              "text": "It misses the ram entirely and hits the ground.",
+              "textKo": "숫양을 완전히 빗맞혀 땅에 떨어진다."
+            },
+            {
+              "text": "The Eagle returns and drives it off.",
+              "textKo": "독수리가 돌아와 쫓아낸다."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "its claws got caught fast in the wool, and nothing it could do was of any use"
+        },
+        {
+          "type": "multiple",
+          "question": "What does the Shepherd do with the captured bird?",
+          "questionKo": "목자는 붙잡은 새를 어떻게 하는가?",
+          "options": [
+            {
+              "text": "He kills it to protect his flock.",
+              "textKo": "양 떼를 지키려 죽인다."
+            },
+            {
+              "text": "He sets it free after a warning.",
+              "textKo": "경고한 뒤 풀어 준다."
+            },
+            {
+              "text": "He clips its wings and carries it home to his children.",
+              "textKo": "날개를 자르고 집으로 가져가 아이들에게 준다."
+            },
+            {
+              "text": "He sells it at the market as an eagle.",
+              "textKo": "독수리라고 속여 시장에 판다."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "he took the Jackdaw, and clipped its wings and carried it home to his children"
+        },
+        {
+          "type": "multiple",
+          "question": "How does the Shepherd answer his children’s question about the strange bird?",
+          "questionKo": "목자는 이상한 새가 무엇이냐는 아이들의 물음에 어떻게 답하는가?",
+          "options": [
+            {
+              "text": "That it is an eagle that has lost its feathers.",
+              "textKo": "깃털을 잃은 독수리라고."
+            },
+            {
+              "text": "That nobody can tell what it is any more.",
+              "textKo": "이제는 아무도 무엇인지 알 수 없다고."
+            },
+            {
+              "text": "That it is a new kind of bird from the mountains.",
+              "textKo": "산에서 온 새로운 종류의 새라고."
+            },
+            {
+              "text": "That it is a jackdaw and nothing but a jackdaw — but it wants to be taken for an eagle.",
+              "textKo": "갈까마귀일 뿐인데, 독수리로 여겨지고 싶어 한다고."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "It’s a Jackdaw, and nothing but a Jackdaw: but it wants to be taken for an Eagle."
+        },
+        {
+          "type": "multiple",
+          "question": "On what condition does the Wolf promise to spare the Boy?",
+          "questionKo": "늑대는 어떤 조건으로 소년을 살려 주겠다고 하는가?",
+          "options": [
+            {
+              "text": "If the Boy can say three things whose truth cannot be disputed.",
+              "textKo": "소년이 반박할 수 없는 진실 세 가지를 말한다면."
+            },
+            {
+              "text": "If the Boy leads him to the flock.",
+              "textKo": "소년이 양 떼로 안내한다면."
+            },
+            {
+              "text": "If the Boy promises never to hunt wolves.",
+              "textKo": "소년이 늑대를 사냥하지 않겠다 약속한다면."
+            },
+            {
+              "text": "If the Boy stays hidden until nightfall.",
+              "textKo": "소년이 밤까지 숨어 있는다면."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "if you can say three things to me, the truth of which cannot be disputed, I will spare your life"
+        },
+        {
+          "type": "multiple",
+          "question": "Which is one of the three things the Boy actually says?",
+          "questionKo": "소년이 실제로 말한 세 가지 중 하나는?",
+          "options": [
+            {
+              "text": "That the Wolf is stronger than any shepherd.",
+              "textKo": "늑대가 어떤 목자보다 강하다는 것."
+            },
+            {
+              "text": "That he was a fool to let himself be seen.",
+              "textKo": "자기가 들킨 것은 어리석은 짓이었다는 것."
+            },
+            {
+              "text": "That he himself has never harmed a wolf.",
+              "textKo": "자신은 늑대를 해친 적이 없다는 것."
+            },
+            {
+              "text": "That the gods protect all young creatures.",
+              "textKo": "신들이 어린 것들을 지킨다는 것."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "secondly, I was a fool to let myself be seen"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 96,
+      "chapter_title": "The Cage-Bird and the Bat",
+      "word_count": 323,
+      "chapter_v_level": 6,
+      "content": "CHAPTER 189. The Cage-Bird and the Bat\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-cage-bird-and-the-bat\n\nA Singing-bird was confined in a cage which hung outside a window, and had a way of singing at night when all other birds were asleep. One night a Bat came and clung to the bars of the cage, and asked the Bird why she was silent by day and sang only at night. \"I have a very good reason for doing so,\" said the Bird: \"it was once when I was singing in the daytime that a fowler was attracted by my voice, and set his nets for me and caught me. Since then I have never sung except by night.\" But the Bat replied, \"It is no use your doing that now when you are a prisoner: if only you had done so before you were caught, you might still have been free.\"\n\nCHAPTER 190. The Ass and His Purchaser\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-ass-and-his-purchaser\n\nA Man who wanted to buy an Ass went to market, and, coming across a likely-looking beast, arranged with the owner that he should be allowed to take him home on trial to see what he was like. When he reached home, he put him into his stable along with the other asses. The newcomer took a look round, and immediately went and chose a place next to the laziest and greediest beast in the stable. When the master saw this he put a halter on him at once, and led him off and handed him over to his owner again. The latter was a good deal surprised to see him back so soon, and said, \"Why, do you mean to say you have tested him already?\" \"I don't want to put him through any more tests,\" replied the other: \"I could see what sort of beast he is from the companion he chose for himself.\"",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "Why does the caged Bird sing only at night?",
+          "questionKo": "새장의 새가 밤에만 노래하는 이유는?",
+          "options": [
+            {
+              "text": "The other birds mock her singing during the day.",
+              "textKo": "낮에는 다른 새들이 그 노래를 비웃어서."
+            },
+            {
+              "text": "Her owner forbids daytime singing.",
+              "textKo": "주인이 낮의 노래를 금해서."
+            },
+            {
+              "text": "Her voice by day once drew a fowler who netted and caught her.",
+              "textKo": "낮에 노래하다 새잡이를 끌어들여 그물에 잡힌 적이 있어서."
+            },
+            {
+              "text": "She can only see the bars clearly at night.",
+              "textKo": "밤에만 창살이 또렷이 보여서."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "it was once when I was singing in the daytime that a fowler was attracted by my voice, and set his nets for me and caught me"
+        },
+        {
+          "type": "multiple",
+          "question": "What is the Bat’s objection to the Bird’s caution?",
+          "questionKo": "박쥐가 새의 조심성에 던지는 반박은?",
+          "options": [
+            {
+              "text": "Bats sing by night too and are never caught.",
+              "textKo": "박쥐도 밤에 노래하지만 결코 잡히지 않는다는 것."
+            },
+            {
+              "text": "Fowlers hunt at night as often as by day.",
+              "textKo": "새잡이는 밤에도 낮만큼 사냥한다는 것."
+            },
+            {
+              "text": "Silence by day will make her owner sell her.",
+              "textKo": "낮의 침묵이 주인을 팔게 만들 거라는 것."
+            },
+            {
+              "text": "The caution is useless now that she is already a prisoner.",
+              "textKo": "이미 갇힌 뒤라 그 조심은 소용없다는 것."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "if only you had done so before you were caught, you might still have been free"
+        },
+        {
+          "type": "multiple",
+          "question": "What arrangement does the buyer make before purchasing the Ass?",
+          "questionKo": "구매자가 나귀를 사기 전 맺은 약속은?",
+          "options": [
+            {
+              "text": "To take him home on trial to see what he is like.",
+              "textKo": "어떤 놈인지 보려고 시험 삼아 집에 데려가기로."
+            },
+            {
+              "text": "To pay half now and half after a month.",
+              "textKo": "절반은 지금, 절반은 한 달 뒤 지불하기로."
+            },
+            {
+              "text": "To have him examined by a veterinarian.",
+              "textKo": "수의사에게 진찰받기로."
+            },
+            {
+              "text": "To exchange him for one of his own asses.",
+              "textKo": "자기 나귀 한 마리와 바꾸기로."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "he should be allowed to take him home on trial to see what he was like"
+        },
+        {
+          "type": "multiple",
+          "question": "What does the new Ass do the moment he is put in the stable?",
+          "questionKo": "새 나귀가 마구간에 들어가자마자 하는 행동은?",
+          "options": [
+            {
+              "text": "He tries to break out through the door.",
+              "textKo": "문을 부수고 나가려 한다."
+            },
+            {
+              "text": "He goes and stands beside the laziest, greediest beast there.",
+              "textKo": "거기서 가장 게으르고 탐욕스러운 놈 곁으로 가 선다."
+            },
+            {
+              "text": "He begins eating everything within reach.",
+              "textKo": "닿는 대로 먹기 시작한다."
+            },
+            {
+              "text": "He lies down and refuses to move.",
+              "textKo": "드러누워 움직이지 않는다."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "immediately went and chose a place next to the laziest and greediest beast in the stable"
+        },
+        {
+          "type": "truefalse",
+          "question": "The buyer needed several more tests before deciding about the Ass.",
+          "questionKo": "구매자는 나귀를 판단하기까지 시험이 몇 번 더 필요했다.",
+          "options": [
+            {
+              "text": "True",
+              "textKo": "맞다"
+            },
+            {
+              "text": "False",
+              "textKo": "아니다"
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "I don’t want to put him through any more tests"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 97,
+      "chapter_title": "The Kid and the Wolf",
+      "word_count": 361,
+      "chapter_v_level": 5,
+      "content": "CHAPTER 191. The Kid and the Wolf\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-kid-and-the-wolf\n\nA Kid strayed from the flock and was chased by a Wolf. When he saw he must be caught he turned round and said to the Wolf, \"I know, sir, that I can't escape being eaten by you: and so, as my life is bound to be short, I pray you let it be as merry as may be. Will you not play me a tune to dance to before I die?\" The Wolf saw no objection to having some music before his dinner: so he took out his pipe and began to play, while the Kid danced before him. Before many minutes were passed the gods who guarded the flock heard the sound and came up to see what was going on. They no sooner clapped eyes on the Wolf than they gave chase and drove him away. As he ran off, he turned and said to the Kid, \"It's what I thoroughly deserve: my trade is the butcher's, and I had no business to turn piper to please you.\"\n\nCHAPTER 192. The Debtor and His Sow\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-debtor-and-his-sow\n\nA Man of Athens fell into debt and was pressed for the money by his creditor; but he had no means of paying at the time, so he begged for delay. But the creditor refused and said he must pay at once. Then the Debtor fetched a Sow⁠--the only one he had⁠--and took her to market to offer her for sale. It happened that his creditor was there too. Presently a buyer came along and asked if the Sow produced good litters. \"Yes,\" said the Debtor, \"very fine ones; and the remarkable thing is that she produces females at the Mysteries and males at the Panathenea.\" (Festivals these were: and the Athenians always sacrifice a sow at one, and a boar at the other; while at the Dionysia they sacrifice a kid.) At that the creditor, who was standing by, put in, \"Don't be surprised, sir; why, still better, at the Dionysia this Sow has kids!\"",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "What does the Kid ask of the Wolf when he sees he cannot escape?",
+          "questionKo": "새끼 염소는 달아날 수 없음을 알고 늑대에게 무엇을 청하는가?",
+          "options": [
+            {
+              "text": "To be eaten quickly and without pain.",
+              "textKo": "고통 없이 빨리 잡아먹어 달라고."
+            },
+            {
+              "text": "To carry a last message to his mother.",
+              "textKo": "어미에게 마지막 말을 전해 달라고."
+            },
+            {
+              "text": "To play a tune so that he may dance before he dies.",
+              "textKo": "죽기 전에 춤출 수 있게 곡을 연주해 달라고."
+            },
+            {
+              "text": "To let him say a prayer to the gods of the flock.",
+              "textKo": "양 떼의 신들에게 기도하게 해 달라고."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "Will you not play me a tune to dance to before I die?"
+        },
+        {
+          "type": "multiple",
+          "question": "How does the Kid’s request end up saving him?",
+          "questionKo": "새끼 염소의 청은 어떻게 그를 살려 내는가?",
+          "options": [
+            {
+              "text": "The Wolf tires himself out playing and falls asleep.",
+              "textKo": "늑대가 연주에 지쳐 잠들어 버린다."
+            },
+            {
+              "text": "The dance carries the Kid slowly back to the flock.",
+              "textKo": "춤을 추며 천천히 양 떼 쪽으로 돌아간다."
+            },
+            {
+              "text": "The Wolf breaks his pipe and gives up in anger.",
+              "textKo": "늑대가 피리를 부러뜨리고 화를 내며 포기한다."
+            },
+            {
+              "text": "The music brings the guardian gods of the flock, who drive the Wolf away.",
+              "textKo": "음악이 양 떼를 지키는 신들을 불러와 늑대를 쫓아낸다."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "the gods who guarded the flock heard the sound and came up to see what was going on"
+        },
+        {
+          "type": "multiple",
+          "question": "What does the Wolf say about himself as he runs off?",
+          "questionKo": "늑대가 달아나며 자신에 대해 하는 말은?",
+          "options": [
+            {
+              "text": "That his trade is the butcher’s and he had no business turning piper.",
+              "textKo": "자기 일은 백정인데 피리쟁이 노릇을 할 게 아니었다는 것."
+            },
+            {
+              "text": "That the gods have always been unfair to wolves.",
+              "textKo": "신들이 늘 늑대에게 불공평했다는 것."
+            },
+            {
+              "text": "That he will return for the Kid another day.",
+              "textKo": "언젠가 다시 새끼 염소를 잡으러 오겠다는 것."
+            },
+            {
+              "text": "That the Kid danced better than any he had seen.",
+              "textKo": "새끼 염소가 본 중 가장 잘 췄다는 것."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "my trade is the butcher’s, and I had no business to turn piper to please you"
+        },
+        {
+          "type": "multiple",
+          "question": "What extraordinary claim does the Debtor make about his Sow at market?",
+          "questionKo": "빚진 사람이 시장에서 자기 암퇘지에 대해 내세우는 놀라운 주장은?",
+          "options": [
+            {
+              "text": "That she has never been ill in her life.",
+              "textKo": "평생 한 번도 병든 적이 없다는 것."
+            },
+            {
+              "text": "That she produces females at the Mysteries and males at the Panathenea.",
+              "textKo": "미스테리아 때는 암컷을, 파나테나이아 때는 수컷을 낳는다는 것."
+            },
+            {
+              "text": "That she was raised on temple grain.",
+              "textKo": "신전의 곡식으로 길러졌다는 것."
+            },
+            {
+              "text": "That she can find truffles better than any dog.",
+              "textKo": "어떤 개보다 송로버섯을 잘 찾는다는 것."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "she produces females at the Mysteries and males at the Panathenea"
+        },
+        {
+          "type": "multiple",
+          "question": "How does the creditor turn the Debtor’s boast against him?",
+          "questionKo": "채권자는 빚진 사람의 허풍을 어떻게 되받아치는가?",
+          "options": [
+            {
+              "text": "By telling the buyer the Sow is already pledged to him.",
+              "textKo": "그 암퇘지가 이미 자기에게 저당 잡혔다고 알려서."
+            },
+            {
+              "text": "By demanding payment loudly in front of the buyer.",
+              "textKo": "구매자 앞에서 큰 소리로 빚을 갚으라 요구해서."
+            },
+            {
+              "text": "By adding that at the Dionysia she even has kids — an absurdity that exposes the lie.",
+              "textKo": "디오니시아 때는 새끼 염소까지 낳는다고 덧붙여, 거짓임을 드러내서."
+            },
+            {
+              "text": "By offering to buy the Sow himself at a lower price.",
+              "textKo": "자기가 더 싼값에 사겠다고 나서서."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "why, still better, at the Dionysia this Sow has kids!"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 106,
+      "chapter_title": "The Ass and the Dog",
+      "word_count": 323,
+      "chapter_v_level": 7,
+      "content": "CHAPTER 207. The Ass and the Dog\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-ass-and-the-dog\n\nAn Ass and a Dog were on their travels together, and, as they went along, they found a sealed packet lying on the ground. The Ass picked it up, broke the seal, and found it contained some writing, which he proceeded to read out aloud to the Dog. As he read on it turned out to be all about grass and barley and hay⁠--in short, all the kinds of fodder that Asses are fond of. The Dog was a good deal bored with listening to all this, till at last his impatience got the better of him, and he cried, \"Just skip a few pages, friend, and see if there isn't something about meat and bones.\" The Ass glanced all through the packet, but found nothing of the sort, and said so. Then the Dog said in disgust, \"Oh, throw it away, do: what's the good of a thing like that?\"\n\nCHAPTER 208. The Ass Carrying the Image\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-ass-carrying-the-image\n\nA certain man put an Image on the back of his Ass to take it to one of the temples of the town. As they went along the road all the people they met uncovered and bowed their heads out of reverence for the Image; but the Ass thought they were doing it out of respect for himself, and began to give himself airs accordingly. At last he became so conceited that he imagined he could do as he liked, and, by way of protest against the load he was carrying, he came to a full stop and flatly declined to proceed any further. His driver, finding him so obstinate, hit him hard and long with his stick, saying the while, \"Oh, you dunder-headed idiot, do you suppose it's come to this, that men pay worship to an Ass?\"",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "What do the Ass and the Dog find on the road?",
+          "questionKo": "나귀와 개가 길에서 발견한 것은?",
+          "options": [
+            {
+              "text": "A sealed packet containing writing.",
+              "textKo": "글이 든 봉인된 꾸러미."
+            },
+            {
+              "text": "A purse of coins.",
+              "textKo": "동전이 든 지갑."
+            },
+            {
+              "text": "A sack of barley left by a farmer.",
+              "textKo": "농부가 두고 간 보리 자루."
+            },
+            {
+              "text": "A signpost pointing to the town.",
+              "textKo": "마을을 가리키는 이정표."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "they found a sealed packet lying on the ground"
+        },
+        {
+          "type": "multiple",
+          "question": "Why does the Dog grow impatient while the Ass reads aloud?",
+          "questionKo": "나귀가 소리 내어 읽는 동안 개가 조바심을 낸 이유는?",
+          "options": [
+            {
+              "text": "The Ass reads far too slowly.",
+              "textKo": "나귀가 너무 느리게 읽어서."
+            },
+            {
+              "text": "Every page is about grass, barley and hay — food for asses.",
+              "textKo": "온통 풀·보리·건초, 곧 나귀의 먹이 이야기뿐이어서."
+            },
+            {
+              "text": "The writing is in a language he cannot follow.",
+              "textKo": "알아들을 수 없는 언어로 쓰여 있어서."
+            },
+            {
+              "text": "He is afraid the owner will return for the packet.",
+              "textKo": "주인이 꾸러미를 찾으러 올까 두려워서."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "it turned out to be all about grass and barley and hay"
+        },
+        {
+          "type": "multiple",
+          "question": "What is the Dog’s verdict on the writing once he learns there is nothing about meat and bones?",
+          "questionKo": "고기와 뼈 이야기가 없음을 안 개가 그 글에 내리는 평가는?",
+          "options": [
+            {
+              "text": "He asks the Ass to read it once more from the start.",
+              "textKo": "처음부터 다시 읽어 달라고 청한다."
+            },
+            {
+              "text": "He decides to carry it to the town for a reward.",
+              "textKo": "보상을 받으려 마을로 가져가기로 한다."
+            },
+            {
+              "text": "He says it should be thrown away — what is the good of such a thing?",
+              "textKo": "버리라고 한다 — 그런 게 무슨 소용이냐고."
+            },
+            {
+              "text": "He admits it may be useful to the Ass at least.",
+              "textKo": "적어도 나귀에게는 쓸모 있겠다고 인정한다."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "Oh, throw it away, do: what’s the good of a thing like that?"
+        },
+        {
+          "type": "multiple",
+          "question": "Why do the people on the road uncover and bow their heads?",
+          "questionKo": "길의 사람들이 모자를 벗고 고개를 숙인 이유는?",
+          "options": [
+            {
+              "text": "Because the driver is a priest of the temple.",
+              "textKo": "몰이꾼이 신전의 사제이기 때문에."
+            },
+            {
+              "text": "To avoid the dust raised by the Ass.",
+              "textKo": "나귀가 일으킨 먼지를 피하려고."
+            },
+            {
+              "text": "Because a festival procession was passing.",
+              "textKo": "축제 행렬이 지나가고 있어서."
+            },
+            {
+              "text": "Out of reverence for the Image the Ass is carrying.",
+              "textKo": "나귀가 진 신상에 대한 경의 때문에."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "all the people they met uncovered and bowed their heads out of reverence for the Image"
+        },
+        {
+          "type": "multiple",
+          "question": "What does the Ass do once he becomes conceited, and how does the driver respond?",
+          "questionKo": "우쭐해진 나귀가 한 일과 몰이꾼의 대응은?",
+          "options": [
+            {
+              "text": "He stops dead and refuses to go on, and the driver beats him hard with his stick.",
+              "textKo": "딱 멈춰 서서 더는 가지 않겠다 버티고, 몰이꾼이 막대기로 세게 때린다."
+            },
+            {
+              "text": "He runs toward the temple, and the driver praises him.",
+              "textKo": "신전으로 달려가고, 몰이꾼이 칭찬한다."
+            },
+            {
+              "text": "He brays at the crowd, and the driver covers the Image.",
+              "textKo": "군중에게 울어 대고, 몰이꾼이 신상을 덮는다."
+            },
+            {
+              "text": "He throws off the Image, and the driver abandons him.",
+              "textKo": "신상을 내던지고, 몰이꾼이 그를 버린다."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "he came to a full stop and flatly declined to proceed any further"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 108,
+      "chapter_title": "The Sheep and the Dog",
+      "word_count": 343,
+      "chapter_v_level": 7,
+      "content": "CHAPTER 211. The Sheep and the Dog\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-sheep-and-the-dog\n\nOnce upon a time the Sheep complained to the shepherd about the difference in his treatment of themselves and his Dog. \"Your conduct,\" said they, \"is very strange and, we think, very unfair. We provide you with wool and lambs and milk and you give us nothing but grass, and even that we have to find for ourselves: but you get nothing at all from the Dog, and yet you feed him with titbits from your own table.\" Their remarks were overheard by the Dog, who spoke up at once and said, \"Yes, and quite right, too: where would you be if it wasn't for me? Thieves would steal you! Wolves would eat you! Indeed, if I didn't keep constant watch over you, you would be too terrified even to graze!\" The Sheep were obliged to acknowledge that he spoke the truth, and never again made a grievance of the regard in which he was held by his master.\n\nCHAPTER 212. The Shepherd and the Wolf\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-shepherd-and-the-wolf\n\nA Shepherd found a Wolf's Cub straying in the pastures, and took him home and reared him along with his dogs. When the Cub grew to his full size, if ever a wolf stole a sheep from the flock, he used to join the dogs in hunting him down. It sometimes happened that the dogs failed to come up with the thief, and, abandoning the pursuit, returned home. The Wolf would on such occasions continue the chase by himself, and when he overtook the culprit, would stop and share the feast with him, and then return to the Shepherd. But if some time passed without a sheep being carried off by the wolves, he would steal one himself and share his plunder with the dogs. The Shepherd's suspicions were aroused, and one day he caught him in the act; and, fastening a rope round his neck, hung him on the nearest tree.",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "What is the Sheep’s complaint to the shepherd?",
+          "questionKo": "양들이 목자에게 하는 불평은?",
+          "options": [
+            {
+              "text": "That the Dog frightens them while they graze.",
+              "textKo": "개가 풀 뜯는 동안 겁을 준다는 것."
+            },
+            {
+              "text": "That they give wool, lambs and milk yet get only grass, while the idle Dog is fed titbits.",
+              "textKo": "털·새끼·젖을 주고도 풀뿐인데, 아무것도 안 주는 개는 좋은 음식을 얻는다는 것."
+            },
+            {
+              "text": "That the pastures are too far from the fold.",
+              "textKo": "초지가 우리에서 너무 멀다는 것."
+            },
+            {
+              "text": "That the shepherd sells their lambs too young.",
+              "textKo": "목자가 새끼를 너무 어릴 때 판다는 것."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "We provide you with wool and lambs and milk and you give us nothing but grass"
+        },
+        {
+          "type": "multiple",
+          "question": "How does the Dog answer the Sheep?",
+          "questionKo": "개는 양들에게 어떻게 답하는가?",
+          "options": [
+            {
+              "text": "That he works harder in the fields than they know.",
+              "textKo": "들에서 그들이 아는 것보다 훨씬 힘들게 일한다고."
+            },
+            {
+              "text": "That the shepherd feeds him only leftovers anyway.",
+              "textKo": "어차피 남은 음식만 얻어먹는다고."
+            },
+            {
+              "text": "That without his constant watch, thieves and wolves would take them.",
+              "textKo": "그가 늘 지키지 않으면 도둑과 늑대에게 당할 것이라고."
+            },
+            {
+              "text": "That he would happily trade places with them.",
+              "textKo": "기꺼이 자리를 바꾸겠다고."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "if I didn’t keep constant watch over you, you would be too terrified even to graze!"
+        },
+        {
+          "type": "truefalse",
+          "question": "The Sheep kept complaining even after hearing the Dog’s answer.",
+          "questionKo": "양들은 개의 대답을 듣고도 계속 불평했다.",
+          "options": [
+            {
+              "text": "True",
+              "textKo": "맞다"
+            },
+            {
+              "text": "False",
+              "textKo": "아니다"
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "never again made a grievance of the regard in which he was held by his master"
+        },
+        {
+          "type": "multiple",
+          "question": "How does the reared Wolf behave when the dogs abandon a pursuit?",
+          "questionKo": "길러진 늑대는 개들이 추격을 그만두었을 때 어떻게 행동하는가?",
+          "options": [
+            {
+              "text": "He returns home with the dogs and says nothing.",
+              "textKo": "개들과 함께 돌아와 아무 말도 하지 않는다."
+            },
+            {
+              "text": "He leads the shepherd to the thief’s den.",
+              "textKo": "목자를 도둑의 굴로 안내한다."
+            },
+            {
+              "text": "He drives the thief away but eats nothing.",
+              "textKo": "도둑을 쫓아내되 아무것도 먹지 않는다."
+            },
+            {
+              "text": "He continues alone, then shares the stolen sheep with the thief before going back.",
+              "textKo": "혼자 뒤쫓아 가 도둑과 훔친 양을 나눠 먹고 돌아온다."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "would stop and share the feast with him, and then return to the Shepherd"
+        },
+        {
+          "type": "multiple",
+          "question": "What finally leads the Shepherd to hang the Wolf?",
+          "questionKo": "결국 목자가 늑대를 매단 계기는?",
+          "options": [
+            {
+              "text": "When no sheep were stolen, the Wolf stole one himself — and was caught in the act.",
+              "textKo": "도둑맞은 양이 없으면 스스로 훔쳤는데, 그 현장을 붙잡혀서."
+            },
+            {
+              "text": "The Wolf attacked one of the dogs.",
+              "textKo": "늑대가 개 한 마리를 공격해서."
+            },
+            {
+              "text": "A neighbour reported seeing him with wolves.",
+              "textKo": "이웃이 늑대 무리와 함께 있는 것을 보았다고 알려서."
+            },
+            {
+              "text": "The Wolf refused to hunt any longer.",
+              "textKo": "늑대가 더는 사냥하지 않으려 해서."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "he would steal one himself and share his plunder with the dogs"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 113,
+      "chapter_title": "The Bat, the Bramble, and the Seagull",
+      "word_count": 350,
+      "chapter_v_level": 7,
+      "content": "CHAPTER 220. The Bat, the Bramble, and the Seagull\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-bat-the-bramble-and-the-seagull\n\nA Bat, a Bramble, and a Seagull went into partnership and determined to go on a trading voyage together. The Bat borrowed a sum of money for his venture; the Bramble laid in a stock of clothes of various kinds; and the Seagull took a quantity of lead: and so they set out. By and by a great storm came on, and their boat with all the cargo went to the bottom, but the three travellers managed to reach land. Ever since then the Seagull flies to and fro over the sea, and every now and then dives below the surface, looking for the lead he's lost; while the Bat is so afraid of meeting his creditors that he hides away by day and only comes out at night to feed; and the Bramble catches hold of the clothes of everyone who passes by, hoping some day to recognise and recover the lost garments.\n\nCHAPTER 221. The Dog and the Wolf\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-dog-and-the-wolf\n\nA Dog was lying in the sun before a farmyard gate when a Wolf pounced upon him and was just going to eat him up; but he begged for his life and said, \"You see how thin I am and what a wretched meal I should make you now: but if you will only wait a few days my master is going to give a feast. All the rich scraps and pickings will fall to me and I shall get nice and fat: then will be the time for you to eat me.\" The Wolf thought this was a very good plan and went away. Some time afterwards he came to the farmyard again, and found the Dog lying out of reach on the stable roof. \"Come down,\" he called, \"and be eaten: you remember our agreement?\" But the Dog said coolly, \"My friend, if ever you catch me lying down by the gate there again, don't you wait for any feast.\"",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "What does each of the three partners contribute to the trading voyage?",
+          "questionKo": "세 동업자가 교역 항해에 각각 내놓은 것은?",
+          "options": [
+            {
+              "text": "Bat — lead; Bramble — money; Seagull — clothes.",
+              "textKo": "박쥐는 납, 가시나무는 돈, 갈매기는 옷."
+            },
+            {
+              "text": "Bat — borrowed money; Bramble — clothes; Seagull — lead.",
+              "textKo": "박쥐는 빌린 돈, 가시나무는 옷, 갈매기는 납."
+            },
+            {
+              "text": "Bat — clothes; Bramble — lead; Seagull — money.",
+              "textKo": "박쥐는 옷, 가시나무는 납, 갈매기는 돈."
+            },
+            {
+              "text": "All three shared the cost of the boat equally.",
+              "textKo": "셋이 배 값을 똑같이 나눠 냈다."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "The Bat borrowed a sum of money for his venture; the Bramble laid in a stock of clothes of various kinds; and the Seagull took a quantity of lead"
+        },
+        {
+          "type": "multiple",
+          "question": "Why does the Bat now hide by day and feed only at night?",
+          "questionKo": "박쥐가 이제 낮에 숨고 밤에만 먹이를 찾는 이유는?",
+          "options": [
+            {
+              "text": "His eyes were damaged in the storm.",
+              "textKo": "폭풍에 눈을 다쳐서."
+            },
+            {
+              "text": "The Seagull drives him off in daylight.",
+              "textKo": "갈매기가 낮에 그를 쫓아내서."
+            },
+            {
+              "text": "He is afraid of meeting his creditors.",
+              "textKo": "채권자와 마주칠까 두려워서."
+            },
+            {
+              "text": "He is searching for the sunken boat.",
+              "textKo": "가라앉은 배를 찾고 있어서."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "the Bat is so afraid of meeting his creditors that he hides away by day"
+        },
+        {
+          "type": "blank",
+          "question": "The Bramble catches hold of the ______ of everyone who passes by.",
+          "questionKo": "가시나무는 지나가는 모든 이의 ______ 을 붙든다.",
+          "options": [
+            {
+              "text": "hands",
+              "textKo": "손"
+            },
+            {
+              "text": "baskets",
+              "textKo": "바구니"
+            },
+            {
+              "text": "hair",
+              "textKo": "머리카락"
+            },
+            {
+              "text": "clothes",
+              "textKo": "옷"
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "the Bramble catches hold of the clothes of everyone who passes by"
+        },
+        {
+          "type": "multiple",
+          "question": "How does the Dog persuade the Wolf to let him go?",
+          "questionKo": "개는 늑대를 어떻게 설득해 풀려나는가?",
+          "options": [
+            {
+              "text": "By arguing he is too thin now and will fatten on the scraps of his master’s coming feast.",
+              "textKo": "지금은 너무 말랐고, 곧 있을 주인의 잔치 부스러기로 살이 오를 거라 해서."
+            },
+            {
+              "text": "By promising to bring the Wolf a lamb instead.",
+              "textKo": "대신 새끼 양을 가져다주겠다고 약속해서."
+            },
+            {
+              "text": "By claiming his master is watching from the gate.",
+              "textKo": "주인이 문에서 보고 있다고 주장해서."
+            },
+            {
+              "text": "By offering to show him the way into the farmyard.",
+              "textKo": "농가 마당으로 드는 길을 알려 주겠다고 해서."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "if you will only wait a few days my master is going to give a feast"
+        },
+        {
+          "type": "multiple",
+          "question": "Where does the Wolf find the Dog when he returns, and what does the Dog say?",
+          "questionKo": "늑대가 다시 왔을 때 개는 어디에 있었고, 무슨 말을 하는가?",
+          "options": [
+            {
+              "text": "Inside the house; he says his master has forbidden him to go out.",
+              "textKo": "집 안에 — 주인이 나가지 못하게 했다고 말한다."
+            },
+            {
+              "text": "On the stable roof, out of reach; he says if he is ever caught by the gate again, the Wolf should not wait for any feast.",
+              "textKo": "손 닿지 않는 마구간 지붕 위 — 다시 문가에 누워 있는 걸 잡거든 잔치 따위 기다리지 말라고 말한다."
+            },
+            {
+              "text": "By the gate as before; he asks for a few more days.",
+              "textKo": "전처럼 문가에 — 며칠만 더 달라고 한다."
+            },
+            {
+              "text": "In the field with the flock; he claims the feast was cancelled.",
+              "textKo": "양 떼와 들에 — 잔치가 취소됐다고 한다."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "found the Dog lying out of reach on the stable roof"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 114,
+      "chapter_title": "The Wasp and the Snake",
+      "word_count": 351,
+      "chapter_v_level": 6,
+      "content": "CHAPTER 222. The Wasp and the Snake\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-wasp-and-the-snake\n\nA Wasp settled on the head of a Snake, and not only stung him several times, but clung obstinately to the head of his victim. Maddened with pain the Snake tried every means he could think of to get rid of the creature, but without success. At last he became desperate, and crying, \"Kill you I will, even at the cost of my own life,\" he laid his head with the Wasp on it under the wheel of a passing wagon, and they both perished together.\n\nCHAPTER 223. The Eagle and the Beetle\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-eagle-and-the-beetle\n\nAn Eagle was chasing a hare, which was running for dear life and was at her wits' end to know where to turn for help. Presently she espied a Beetle, and begged it to aid her. So when the Eagle came up the Beetle warned her not to touch the hare, which was under its protection. But the Eagle never noticed the Beetle because it was so small, seized the hare and ate her up. The Beetle never forgot this, and used to keep an eye on the Eagle's nest, and whenever the Eagle laid an egg it climbed up and rolled it out of the nest and broke it. At last the Eagle got so worried over the loss of her eggs that she went up to Jupiter, who is the special protector of Eagles, and begged him to give her a safe place to nest in: so he let her lay her eggs in his lap. But the Beetle noticed this and made a ball of dirt the size of an Eagle's egg, and flew up and deposited it in Jupiter's lap. When Jupiter saw the dirt, he stood up to shake it out of his robe, and, forgetting about the eggs, he shook them out too, and they were broken just as before. Ever since then, they say, Eagles never lay their eggs at the season when Beetles are about.",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "What does the Snake finally do to rid himself of the Wasp?",
+          "questionKo": "뱀이 결국 말벌을 떼어 내려 한 일은?",
+          "options": [
+            {
+              "text": "He plunges into a river to drown it.",
+              "textKo": "강에 뛰어들어 익사시키려 한다."
+            },
+            {
+              "text": "He rubs his head against a rough stone.",
+              "textKo": "거친 돌에 머리를 문지른다."
+            },
+            {
+              "text": "He lays his head, with the Wasp on it, under a wagon wheel.",
+              "textKo": "말벌이 붙은 머리를 지나가는 수레바퀴 아래에 놓는다."
+            },
+            {
+              "text": "He swallows the Wasp whole.",
+              "textKo": "말벌을 통째로 삼킨다."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "he laid his head with the Wasp on it under the wheel of a passing wagon"
+        },
+        {
+          "type": "truefalse",
+          "question": "The Snake survives his attempt to kill the Wasp.",
+          "questionKo": "뱀은 말벌을 죽이려던 시도에서 살아남는다.",
+          "options": [
+            {
+              "text": "True",
+              "textKo": "맞다"
+            },
+            {
+              "text": "False",
+              "textKo": "아니다"
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "and they both perished together"
+        },
+        {
+          "type": "multiple",
+          "question": "Why does the Eagle ignore the Beetle’s warning?",
+          "questionKo": "독수리가 쇠똥구리의 경고를 무시한 이유는?",
+          "options": [
+            {
+              "text": "The hare had already been promised to her young.",
+              "textKo": "토끼를 이미 새끼들에게 주기로 했기 때문에."
+            },
+            {
+              "text": "Jupiter had given her the right to any prey.",
+              "textKo": "유피테르가 어떤 사냥감이든 잡을 권리를 주었기 때문에."
+            },
+            {
+              "text": "The Beetle spoke too quietly to be heard.",
+              "textKo": "너무 작은 소리로 말해 들리지 않았기 때문에."
+            },
+            {
+              "text": "She never noticed the Beetle at all, it was so small.",
+              "textKo": "너무 작아 아예 알아채지도 못했기 때문에."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "the Eagle never noticed the Beetle because it was so small"
+        },
+        {
+          "type": "multiple",
+          "question": "How does the Beetle take revenge on the Eagle year after year?",
+          "questionKo": "쇠똥구리는 해마다 어떻게 독수리에게 복수하는가?",
+          "options": [
+            {
+              "text": "It watches her nest and rolls out every egg she lays.",
+              "textKo": "둥지를 지켜보다 낳는 알마다 굴려 떨어뜨린다."
+            },
+            {
+              "text": "It stings her whenever she lands.",
+              "textKo": "내려앉을 때마다 쏜다."
+            },
+            {
+              "text": "It leads hunters to her nesting tree.",
+              "textKo": "사냥꾼을 둥지 나무로 이끈다."
+            },
+            {
+              "text": "It eats the hares before she can catch them.",
+              "textKo": "독수리보다 먼저 토끼를 잡아먹는다."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "whenever the Eagle laid an egg it climbed up and rolled it out of the nest and broke it"
+        },
+        {
+          "type": "multiple",
+          "question": "How are the eggs broken even in Jupiter’s lap?",
+          "questionKo": "유피테르의 무릎에서까지 알이 깨진 경위는?",
+          "options": [
+            {
+              "text": "Jupiter falls asleep and rolls over on them.",
+              "textKo": "유피테르가 잠들어 그 위로 몸을 뒤척인다."
+            },
+            {
+              "text": "The Beetle drops a ball of dirt there, and Jupiter stands up to shake it out — spilling the eggs too.",
+              "textKo": "쇠똥구리가 흙덩이를 떨어뜨리자, 유피테르가 털어 내려 일어서면서 알까지 쏟는다."
+            },
+            {
+              "text": "The Beetle bites Jupiter’s hand so he drops them.",
+              "textKo": "쇠똥구리가 손을 물어 떨어뜨리게 한다."
+            },
+            {
+              "text": "A storm sent by another god shakes the heavens.",
+              "textKo": "다른 신이 보낸 폭풍이 하늘을 흔든다."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "he stood up to shake it out of his robe, and, forgetting about the eggs, he shook them out too"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 127,
+      "chapter_title": "The Farmer and His Dogs",
+      "word_count": 364,
+      "chapter_v_level": 7,
+      "content": "CHAPTER 249. The Farmer and His Dogs\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-farmer-and-his-dogs\n\nA Farmer was snowed up in his farmstead by a severe storm, and was unable to go out and procure provisions for himself and his family. So he first killed his sheep and used them for food; then, as the storm still continued, he killed his goats; and, last of all, as the weather showed no signs of improving, he was compelled to kill his oxen and eat them. When his Dogs saw the various animals being killed and eaten in turn, they said to one another, \"We had better get out of this or we shall be the next to go!\"\n\nCHAPTER 250. The Eagle and the Fox\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-eagle-and-the-fox\n\nAn Eagle and a Fox became great friends and determined to live near one another: they thought that the more they saw of each other the better friends they would be. So the Eagle built a nest at the top of a high tree, while the Fox settled in a thicket at the foot of it and produced a litter of cubs. One day the Fox went out foraging for food, and the Eagle, who also wanted food for her young, flew down into the thicket, caught up the Fox's cubs, and carried them up into the tree for a meal for herself and her family. When the Fox came back, and found out what had happened, she was not so much sorry for the loss of her cubs as furious because she couldn't get at the Eagle and pay her out for her treachery. So she sat down not far off and cursed her. But it wasn't long before she had her revenge. Some villagers happened to be sacrificing a goat on a neighbouring altar, and the Eagle flew down and carried off a piece of burning flesh to her nest. There was a strong wind blowing, and the nest caught fire, with the result that her fledglings fell half-roasted to the ground. Then the Fox ran to the spot and devoured them in full sight of the Eagle.",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "In what order does the snowed-up Farmer kill his animals for food?",
+          "questionKo": "눈에 갇힌 농부가 식량으로 짐승을 잡은 순서는?",
+          "options": [
+            {
+              "text": "Oxen, then goats, then sheep.",
+              "textKo": "소 → 염소 → 양."
+            },
+            {
+              "text": "Goats, then oxen, then sheep.",
+              "textKo": "염소 → 소 → 양."
+            },
+            {
+              "text": "Sheep, then goats, then oxen.",
+              "textKo": "양 → 염소 → 소."
+            },
+            {
+              "text": "He killed them all on the same day.",
+              "textKo": "같은 날 모두 잡았다."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "he first killed his sheep … then … he killed his goats; and, last of all … his oxen"
+        },
+        {
+          "type": "multiple",
+          "question": "What conclusion do the Dogs draw from watching the killings?",
+          "questionKo": "개들이 도살을 지켜보며 내린 결론은?",
+          "options": [
+            {
+              "text": "That the storm will end within a day.",
+              "textKo": "폭풍이 하루 안에 그치리라는 것."
+            },
+            {
+              "text": "That the Farmer will spare them for their service.",
+              "textKo": "농부가 공로를 보아 자기들은 살려 두리라는 것."
+            },
+            {
+              "text": "That they should guard the remaining oxen.",
+              "textKo": "남은 소를 지켜야 한다는 것."
+            },
+            {
+              "text": "That they had better leave before their turn comes.",
+              "textKo": "자기들 차례가 오기 전에 떠나는 편이 낫다는 것."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "We had better get out of this or we shall be the next to go!"
+        },
+        {
+          "type": "multiple",
+          "question": "Why do the Eagle and the Fox settle next to one another?",
+          "questionKo": "독수리와 여우가 서로 이웃해 자리 잡은 이유는?",
+          "options": [
+            {
+              "text": "Because they thought the more they saw of each other, the better friends they would be.",
+              "textKo": "자주 볼수록 더 좋은 친구가 되리라 여겨서."
+            },
+            {
+              "text": "To share the food they each caught.",
+              "textKo": "각자 잡은 먹이를 나누려고."
+            },
+            {
+              "text": "Because the tree was the only shelter in the country.",
+              "textKo": "그 나무가 그 지방의 유일한 은신처여서."
+            },
+            {
+              "text": "To protect each other from hunters.",
+              "textKo": "사냥꾼에게서 서로를 지키려고."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "they thought that the more they saw of each other the better friends they would be"
+        },
+        {
+          "type": "multiple",
+          "question": "What angers the Fox most after the Eagle takes her cubs?",
+          "questionKo": "독수리가 새끼를 채간 뒤 여우를 가장 분하게 한 것은?",
+          "options": [
+            {
+              "text": "That the villagers refused to help her.",
+              "textKo": "마을 사람들이 돕기를 거절한 것."
+            },
+            {
+              "text": "That she could not reach the Eagle to pay her out for the treachery.",
+              "textKo": "배신을 갚아 주려 해도 독수리에게 닿을 수 없다는 것."
+            },
+            {
+              "text": "That the Eagle had promised to protect them.",
+              "textKo": "독수리가 새끼들을 지켜 주겠다 약속했던 것."
+            },
+            {
+              "text": "That the other foxes mocked her loss.",
+              "textKo": "다른 여우들이 그 상실을 비웃은 것."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "furious because she couldn’t get at the Eagle and pay her out for her treachery"
+        },
+        {
+          "type": "multiple",
+          "question": "How does the Fox finally get her revenge?",
+          "questionKo": "여우는 마침내 어떻게 복수하는가?",
+          "options": [
+            {
+              "text": "She climbs the tree at night and empties the nest.",
+              "textKo": "밤에 나무를 올라 둥지를 비운다."
+            },
+            {
+              "text": "She leads the villagers to shoot the Eagle.",
+              "textKo": "마을 사람들을 이끌어 독수리를 쏘게 한다."
+            },
+            {
+              "text": "The Eagle carries burning flesh to the nest, it catches fire, and the fallen fledglings are eaten by the Fox.",
+              "textKo": "독수리가 타는 고기를 물어 가 둥지에 불이 붙고, 떨어진 새끼들을 여우가 먹어 치운다."
+            },
+            {
+              "text": "She poisons the goat on the altar.",
+              "textKo": "제단의 염소에 독을 넣는다."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "the nest caught fire, with the result that her fledglings fell half-roasted to the ground"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 129,
+      "chapter_title": "The Fox Who Served a Lion",
+      "word_count": 388,
+      "chapter_v_level": 7,
+      "content": "CHAPTER 253. The Fox Who Served a Lion\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-fox-who-served-a-lion\n\nA Lion had a Fox to attend on him, and whenever they went hunting the Fox found the prey and the Lion fell upon it and killed it, and then they divided it between them in certain proportions. But the Lion always got a very large share, and the Fox a very small one, which didn't please the latter at all; so he determined to set up on his own account. He began by trying to steal a lamb from a flock of sheep: but the shepherd saw him and set his dogs on him. The hunter was now the hunted, and was very soon caught and despatched by the dogs.\n\nCHAPTER 254. The Quack Doctor\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-quack-doctor\n\nA certain man fell sick and took to his bed. He consulted a number of doctors from time to time, and they all, with one exception, told him that his life was in no immediate danger, but that his illness would probably last a considerable time. The one who took a different view of his case, who was also the last to be consulted, bade him prepare for the worst: \"You have not twenty-four hours to live,\" said he, \"and I fear I can do nothing.\" As it turned out, however, he was quite wrong; for at the end of a few days the sick man quitted his bed and took a walk abroad, looking, it is true, as pale as a ghost. In the course of his walk he met the Doctor who had prophesied his death. \"Dear me,\" said the latter, \"how do you do? You are fresh from the other world, no doubt. Pray, how are our departed friends getting on there?\" \"Most comfortably,\" replied the other, \"for they have drunk the water of oblivion, and have forgotten all the troubles of life. By the way, just before I left, the authorities were making arrangements to prosecute all the doctors, because they won't let sick men die in the course of nature, but use their arts to keep them alive. They were going to charge you along with the rest, till I assured them that you were no doctor, but a mere impostor.\"",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "How was the hunting work divided between the Lion and the Fox?",
+          "questionKo": "사자와 여우 사이에서 사냥 일은 어떻게 나뉘어 있었는가?",
+          "options": [
+            {
+              "text": "The Fox found the prey and the Lion fell upon it and killed it.",
+              "textKo": "여우가 사냥감을 찾고, 사자가 덮쳐 죽였다."
+            },
+            {
+              "text": "The Lion tracked the prey and the Fox drove it out.",
+              "textKo": "사자가 자취를 쫓고, 여우가 몰아냈다."
+            },
+            {
+              "text": "They hunted separately and met to share afterwards.",
+              "textKo": "따로 사냥한 뒤 만나 나누었다."
+            },
+            {
+              "text": "The Fox killed small game while the Lion rested.",
+              "textKo": "사자가 쉬는 동안 여우가 작은 짐승을 잡았다."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "the Fox found the prey and the Lion fell upon it and killed it"
+        },
+        {
+          "type": "multiple",
+          "question": "Why does the Fox decide to set up on his own account?",
+          "questionKo": "여우가 독립하기로 결심한 이유는?",
+          "options": [
+            {
+              "text": "The Lion had begun hunting without him.",
+              "textKo": "사자가 그를 빼놓고 사냥하기 시작해서."
+            },
+            {
+              "text": "The Lion always took a very large share and left him a very small one.",
+              "textKo": "사자가 늘 아주 큰 몫을 가지고 자기에겐 아주 작은 몫만 남겨서."
+            },
+            {
+              "text": "He wanted to hunt sheep rather than wild game.",
+              "textKo": "들짐승 대신 양을 사냥하고 싶어서."
+            },
+            {
+              "text": "The shepherd offered him work.",
+              "textKo": "목자가 그에게 일자리를 제안해서."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "the Lion always got a very large share, and the Fox a very small one"
+        },
+        {
+          "type": "multiple",
+          "question": "How does the Fox’s first independent venture end?",
+          "questionKo": "여우의 첫 독립 사업은 어떻게 끝나는가?",
+          "options": [
+            {
+              "text": "He steals the lamb but the Lion takes it from him.",
+              "textKo": "새끼 양을 훔치지만 사자가 빼앗아 간다."
+            },
+            {
+              "text": "He changes his mind and returns to the Lion.",
+              "textKo": "마음을 바꿔 사자에게 돌아간다."
+            },
+            {
+              "text": "The shepherd sets his dogs on him, and the hunter becomes the hunted.",
+              "textKo": "목자가 개들을 풀어, 사냥하던 자가 사냥감이 된다."
+            },
+            {
+              "text": "He escapes with the lamb and never returns.",
+              "textKo": "새끼 양을 물고 달아나 다시는 돌아오지 않는다."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "The hunter was now the hunted, and was very soon caught and despatched by the dogs."
+        },
+        {
+          "type": "multiple",
+          "question": "How did the last doctor’s opinion differ from all the others?",
+          "questionKo": "마지막 의사의 소견이 다른 모든 의사와 달랐던 점은?",
+          "options": [
+            {
+              "text": "He said the illness would last far longer than the rest believed.",
+              "textKo": "병이 다른 이들의 예상보다 훨씬 오래가리라 했다."
+            },
+            {
+              "text": "He refused to give any opinion at all.",
+              "textKo": "아예 소견을 내놓기를 거부했다."
+            },
+            {
+              "text": "He prescribed a cure the others had missed.",
+              "textKo": "다른 이들이 놓친 치료법을 처방했다."
+            },
+            {
+              "text": "He said the man had not twenty-four hours to live.",
+              "textKo": "스물네 시간도 살지 못한다고 했다."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "You have not twenty-four hours to live"
+        },
+        {
+          "type": "multiple",
+          "question": "What does the recovered man tell the Doctor about the world below?",
+          "questionKo": "회복한 사람이 그 의사에게 저승에 대해 하는 말은?",
+          "options": [
+            {
+              "text": "That the authorities there are preparing to prosecute all doctors — but he assured them this one was no doctor, only an impostor.",
+              "textKo": "거기 당국이 모든 의사를 기소하려 하는데, 이 사람은 의사가 아니라 사기꾼일 뿐이라고 자기가 말해 두었다고."
+            },
+            {
+              "text": "That the departed have asked for this Doctor by name.",
+              "textKo": "죽은 이들이 이 의사를 이름 대어 찾는다고."
+            },
+            {
+              "text": "That the water of oblivion has no effect on doctors.",
+              "textKo": "망각의 물이 의사에게는 듣지 않는다고."
+            },
+            {
+              "text": "That he was sent back to warn the living.",
+              "textKo": "산 자들에게 경고하러 돌려보내졌다고."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "I assured them that you were no doctor, but a mere impostor"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 134,
+      "chapter_title": "The Foxes and the River",
+      "word_count": 328,
+      "chapter_v_level": 5,
+      "content": "CHAPTER 263. The Foxes and the River\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-foxes-and-the-river\n\nA number of Foxes assembled on the bank of a river and wanted to drink; but the current was so strong and the water looked so deep and dangerous that they didn't dare to do so, but stood near the edge encouraging one another not to be afraid. At last one of them, to shame the rest, and show how brave he was, said, \"I am not a bit frightened! See, I'll step right into the water!\" He had no sooner done so than the current swept him off his feet. When the others saw him being carried downstream they cried, \"Don't go and leave us! Come back and show us where we too can drink with safety.\" But he replied, \"I'm afraid I can't yet: I want to go to the seaside, and this current will take me there nicely. When I come back I'll show you with pleasure.\"\n\nCHAPTER 264. The Horse and the Stag\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-horse-and-the-stag\n\nThere was once a Horse who used to graze in a meadow which he had all to himself. But one day a Stag came into the meadow, and said he had as good a right to feed there as the Horse, and moreover chose all the best places for himself. The Horse, wishing to be revenged upon his unwelcome visitor, went to a man and asked if he would help him to turn out the Stag. \"Yes,\" said the man, \"I will by all means; but I can only do so if you let me put a bridle in your mouth and mount on your back.\" The Horse agreed to this, and the two together very soon turned the Stag out of the pasture: but when that was done, the Horse found to his dismay that in the man he had got a master for good.",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "Why do the Foxes hesitate at the river’s edge?",
+          "questionKo": "여우들이 강가에서 머뭇거린 이유는?",
+          "options": [
+            {
+              "text": "The water was known to be poisoned.",
+              "textKo": "물에 독이 있다고 알려져 있어서."
+            },
+            {
+              "text": "The current was strong and the water looked deep and dangerous.",
+              "textKo": "물살이 세고 물이 깊고 위험해 보여서."
+            },
+            {
+              "text": "Hounds were hunting on the far bank.",
+              "textKo": "건너편에서 사냥개들이 사냥하고 있어서."
+            },
+            {
+              "text": "They were waiting for the eldest fox to arrive.",
+              "textKo": "가장 나이 든 여우가 오기를 기다려서."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "the current was so strong and the water looked so deep and dangerous that they didn’t dare"
+        },
+        {
+          "type": "multiple",
+          "question": "Why does one Fox step into the water?",
+          "questionKo": "여우 한 마리가 물에 들어선 이유는?",
+          "options": [
+            {
+              "text": "He slipped on the muddy bank by accident.",
+              "textKo": "진흙 둑에서 실수로 미끄러져서."
+            },
+            {
+              "text": "He had crossed this river safely before.",
+              "textKo": "전에 이 강을 안전하게 건넌 적이 있어서."
+            },
+            {
+              "text": "To shame the rest and show how brave he was.",
+              "textKo": "나머지를 부끄럽게 만들고 자신의 용감함을 보이려고."
+            },
+            {
+              "text": "He was pushed by the fox behind him.",
+              "textKo": "뒤의 여우가 밀어서."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "to shame the rest, and show how brave he was"
+        },
+        {
+          "type": "multiple",
+          "question": "How does the swept-away Fox answer the others’ cry for help?",
+          "questionKo": "떠내려가는 여우는 도와 달라는 외침에 어떻게 답하는가?",
+          "options": [
+            {
+              "text": "He admits he was wrong and calls for a branch.",
+              "textKo": "잘못을 인정하고 나뭇가지를 달라고 외친다."
+            },
+            {
+              "text": "He says nothing, being already out of hearing.",
+              "textKo": "이미 소리가 닿지 않아 아무 말도 하지 못한다."
+            },
+            {
+              "text": "He warns them never to enter the water.",
+              "textKo": "결코 물에 들어가지 말라고 경고한다."
+            },
+            {
+              "text": "He pretends he is going to the seaside on purpose and will show them when he returns.",
+              "textKo": "일부러 바닷가에 가는 길이며 돌아와서 알려 주겠다고 둘러댄다."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "I want to go to the seaside, and this current will take me there nicely"
+        },
+        {
+          "type": "multiple",
+          "question": "What price does the man set for helping the Horse drive out the Stag?",
+          "questionKo": "그 사람이 사슴을 몰아내 주는 대가로 요구한 것은?",
+          "options": [
+            {
+              "text": "A bridle in the Horse’s mouth and leave to mount on his back.",
+              "textKo": "말의 입에 재갈을 물리고 등에 올라타는 것."
+            },
+            {
+              "text": "A share of the meadow’s grass each summer.",
+              "textKo": "해마다 여름 초지의 풀 얼마간."
+            },
+            {
+              "text": "The Stag’s antlers once it was killed.",
+              "textKo": "사슴을 잡으면 그 뿔."
+            },
+            {
+              "text": "Nothing — he offered to help for friendship’s sake.",
+              "textKo": "아무것도 — 우정으로 돕겠다고 했다."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "I can only do so if you let me put a bridle in your mouth and mount on your back"
+        },
+        {
+          "type": "multiple",
+          "question": "What does the Horse discover once the Stag is gone?",
+          "questionKo": "사슴이 쫓겨난 뒤 말이 깨닫는 것은?",
+          "options": [
+            {
+              "text": "That the Stag had a right to the meadow after all.",
+              "textKo": "결국 사슴에게도 초지의 권리가 있었다는 것."
+            },
+            {
+              "text": "That in the man he has got a master for good.",
+              "textKo": "그 사람이 이제 영영 자기 주인이 되었다는 것."
+            },
+            {
+              "text": "That the best grass had been trampled in the struggle.",
+              "textKo": "다툼 중에 가장 좋은 풀이 짓밟혔다는 것."
+            },
+            {
+              "text": "That the man intends to sell the meadow.",
+              "textKo": "그 사람이 초지를 팔 작정이라는 것."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "the Horse found to his dismay that in the man he had got a master for good"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 141,
+      "chapter_title": "Prometheus and the Making of Man",
+      "word_count": 327,
+      "chapter_v_level": 7,
+      "content": "CHAPTER 279. Prometheus and the Making of Man\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#prometheus-and-the-making-of-man\n\nAt the bidding of Jupiter, Prometheus set about the creation of Man and the other animals. Jupiter, seeing that Mankind, the only rational creatures, were far outnumbered by the irrational beasts, bade him redress the balance by turning some of the latter into men. Prometheus did as he was bidden, and this is the reason why some people have the forms of men but the souls of beasts.\n\nCHAPTER 280. The Swallow and the Crow\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-swallow-and-the-crow\n\nA Swallow was once boasting to a Crow about her birth. \"I was once a princess,\" said she, \"the daughter of a King of Athens, but my husband used me cruelly, and cut out my tongue for a slight fault. Then, to protect me from further injury, I was turned by Juno into a bird.\" \"You chatter quite enough as it is,\" said the Crow. \"What you would have been like if you hadn't lost your tongue, I can't think.\"\n\nCHAPTER 281. The Hunter and the Horseman\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-hunter-and-the-horseman\n\nA Hunter went out after game, and succeeded in catching a hare, which he was carrying home with him when he met a man on horseback, who said to him, \"You have had some sport I see, sir,\" and offered to buy it. The Hunter readily agreed; but the Horseman had no sooner got the hare in his hands than he set spurs to his horse and went off at full gallop. The Hunter ran after him for some little distance; but it soon dawned upon him that he had been tricked, and he gave up trying to overtake the Horseman, and, to save his face, called after him as loud as he could, \"All right, sir, all right, take your hare: it was meant all along as a present.\"",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "What problem does Jupiter ask Prometheus to correct?",
+          "questionKo": "유피테르가 프로메테우스에게 바로잡으라고 한 문제는?",
+          "options": [
+            {
+              "text": "The animals had been given no voices.",
+              "textKo": "동물들에게 목소리가 주어지지 않은 것."
+            },
+            {
+              "text": "Men had been made stronger than the gods intended.",
+              "textKo": "인간이 신들의 뜻보다 강하게 만들어진 것."
+            },
+            {
+              "text": "Mankind, the only rational creatures, were far outnumbered by the irrational beasts.",
+              "textKo": "유일한 이성적 존재인 인간이 이성 없는 짐승들에게 수적으로 크게 밀린 것."
+            },
+            {
+              "text": "Too many creatures had been made to live in the sea.",
+              "textKo": "너무 많은 피조물이 바다에 살도록 만들어진 것."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "Mankind, the only rational creatures, were far outnumbered by the irrational beasts"
+        },
+        {
+          "type": "multiple",
+          "question": "What does the fable say is the result of Prometheus’s remedy?",
+          "questionKo": "프로메테우스의 처방이 낳은 결과로 이 우화가 말하는 것은?",
+          "options": [
+            {
+              "text": "Some beasts can understand human speech.",
+              "textKo": "어떤 짐승들은 사람의 말을 알아듣는다는 것."
+            },
+            {
+              "text": "Men and beasts are now equal in number.",
+              "textKo": "사람과 짐승의 수가 이제 같아졌다는 것."
+            },
+            {
+              "text": "Jupiter regretted the order at once.",
+              "textKo": "유피테르가 곧 그 명령을 후회했다는 것."
+            },
+            {
+              "text": "Some people have the forms of men but the souls of beasts.",
+              "textKo": "어떤 사람들은 사람의 모습에 짐승의 영혼을 지녔다는 것."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "this is the reason why some people have the forms of men but the souls of beasts"
+        },
+        {
+          "type": "multiple",
+          "question": "What does the Swallow claim about her origin?",
+          "questionKo": "제비가 자기 출신에 대해 주장하는 것은?",
+          "options": [
+            {
+              "text": "That she was once a princess, daughter of a King of Athens, turned into a bird by Juno.",
+              "textKo": "한때 아테네 왕의 딸인 공주였고 유노가 새로 바꾸었다는 것."
+            },
+            {
+              "text": "That she was hatched in the temple of Juno.",
+              "textKo": "유노의 신전에서 부화했다는 것."
+            },
+            {
+              "text": "That she is the last of an ancient line of swallows.",
+              "textKo": "오래된 제비 혈통의 마지막이라는 것."
+            },
+            {
+              "text": "That she learned her song from the Muses.",
+              "textKo": "무사 여신들에게서 노래를 배웠다는 것."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "I was once a princess, said she, the daughter of a King of Athens"
+        },
+        {
+          "type": "multiple",
+          "question": "How does the Crow answer the Swallow’s story of her lost tongue?",
+          "questionKo": "까마귀는 혀를 잃었다는 제비의 이야기에 어떻게 답하는가?",
+          "options": [
+            {
+              "text": "By offering sympathy for her cruel husband.",
+              "textKo": "잔인한 남편에 대해 동정을 표해서."
+            },
+            {
+              "text": "By saying she chatters quite enough as it is.",
+              "textKo": "지금도 충분히 재잘거린다고 말해서."
+            },
+            {
+              "text": "By claiming she too was once human.",
+              "textKo": "자기도 한때 사람이었다고 주장해서."
+            },
+            {
+              "text": "By calling on Juno to restore the tongue.",
+              "textKo": "유노에게 혀를 되돌려 달라 빌어서."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "You chatter quite enough as it is, said the Crow."
+        },
+        {
+          "type": "multiple",
+          "question": "Why does the Hunter shout that the hare was meant as a present?",
+          "questionKo": "사냥꾼이 토끼는 처음부터 선물이었다고 외친 이유는?",
+          "options": [
+            {
+              "text": "He genuinely wanted the Horseman to have it.",
+              "textKo": "진심으로 말 탄 사람이 갖기를 바라서."
+            },
+            {
+              "text": "He hoped the Horseman would come back and pay.",
+              "textKo": "말 탄 사람이 돌아와 값을 치르기를 바라서."
+            },
+            {
+              "text": "He could not catch the thief and wanted to save his face.",
+              "textKo": "도둑을 따라잡을 수 없자 체면을 세우려고."
+            },
+            {
+              "text": "He was afraid of being accused of selling stolen game.",
+              "textKo": "훔친 사냥감을 팔았다고 몰릴까 두려워서."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "he gave up trying to overtake the Horseman, and, to save his face, called after him"
+        }
+      ]
+    }
+  ]
+}

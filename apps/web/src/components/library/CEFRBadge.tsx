@@ -20,7 +20,7 @@ export function CEFRBadge({ level, className = '' }: CEFRBadgeProps) {
   const style = CEFR_STYLES[level]
   return (
     <span
-      className={`inline-flex h-[18px] min-w-[24px] items-center justify-center rounded-[3px] px-[5px] font-display text-[10px] font-[800] tracking-[0.02em] ${className} `}
+      className={`inline-flex h-[18px] min-w-[24px] items-center justify-center rounded-[3px] px-[4px] font-display text-[10px] font-[800] tracking-[0.02em] ${className} `}
       style={{ backgroundColor: style.bg, color: style.text }}
     >
       {level}

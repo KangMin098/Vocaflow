@@ -1,0 +1,967 @@
+{
+ "rows": [
+  {
+   "exam": "2014B",
+   "no": 24,
+   "type": "R-TOPIC",
+   "points": 2,
+   "answer": 5,
+   "top_whole": 4,
+   "top_front": 5
+  },
+  {
+   "exam": "2014B",
+   "no": 25,
+   "type": "R-TITLE",
+   "points": 2,
+   "answer": 1,
+   "top_whole": 2,
+   "top_front": 3
+  },
+  {
+   "exam": "2014B",
+   "no": 31,
+   "type": "R-BLANK",
+   "points": 2,
+   "answer": 1,
+   "top_whole": 3,
+   "top_front": 5
+  },
+  {
+   "exam": "2014B",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 3,
+   "top_whole": 2,
+   "top_front": 4
+  },
+  {
+   "exam": "2014B",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 4,
+   "top_whole": 5,
+   "top_front": 5
+  },
+  {
+   "exam": "2014B",
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 1,
+   "top_whole": 1,
+   "top_front": 1
+  },
+  {
+   "exam": "2014B",
+   "no": 35,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 5,
+   "top_whole": 2,
+   "top_front": 2
+  },
+  {
+   "exam": "2014B",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "answer": 2,
+   "top_whole": 1,
+   "top_front": 1
+  },
+  {
+   "exam": "2015",
+   "no": 19,
+   "type": "R-MOOD",
+   "points": 2,
+   "answer": 1,
+   "top_whole": 1,
+   "top_front": 1
+  },
+  {
+   "exam": "2015",
+   "no": 20,
+   "type": "R-TOPIC",
+   "points": 2,
+   "answer": 3,
+   "top_whole": 3,
+   "top_front": 3
+  },
+  {
+   "exam": "2015",
+   "no": 21,
+   "type": "R-TOPIC",
+   "points": 2,
+   "answer": 3,
+   "top_whole": 2,
+   "top_front": 2
+  },
+  {
+   "exam": "2015",
+   "no": 22,
+   "type": "R-TITLE",
+   "points": 2,
+   "answer": 5,
+   "top_whole": 5,
+   "top_front": 2
+  },
+  {
+   "exam": "2015",
+   "no": 23,
+   "type": "R-TITLE",
+   "points": 2,
+   "answer": 2,
+   "top_whole": 2,
+   "top_front": 2
+  },
+  {
+   "exam": "2015",
+   "no": 31,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 2,
+   "top_whole": 1,
+   "top_front": 1
+  },
+  {
+   "exam": "2015",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 1,
+   "top_whole": 3,
+   "top_front": 1
+  },
+  {
+   "exam": "2015",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 5,
+   "top_whole": 1,
+   "top_front": 4
+  },
+  {
+   "exam": "2016",
+   "no": 19,
+   "type": "R-MOOD",
+   "points": 2,
+   "answer": 1,
+   "top_whole": 1,
+   "top_front": 1
+  },
+  {
+   "exam": "2016",
+   "no": 22,
+   "type": "R-TOPIC",
+   "points": 2,
+   "answer": 5,
+   "top_whole": 5,
+   "top_front": 1
+  },
+  {
+   "exam": "2016",
+   "no": 23,
+   "type": "R-TITLE",
+   "points": 2,
+   "answer": 1,
+   "top_whole": 1,
+   "top_front": 3
+  },
+  {
+   "exam": "2016",
+   "no": 31,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 2,
+   "top_whole": 1,
+   "top_front": 1
+  },
+  {
+   "exam": "2016",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 3,
+   "top_whole": 3,
+   "top_front": 1
+  },
+  {
+   "exam": "2016",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 1,
+   "top_whole": 1,
+   "top_front": 1
+  },
+  {
+   "exam": "2016",
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 4,
+   "top_whole": 5,
+   "top_front": 3
+  },
+  {
+   "exam": "2016",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "answer": 2,
+   "top_whole": 2,
+   "top_front": 1
+  },
+  {
+   "exam": "2017",
+   "no": 19,
+   "type": "R-MOOD",
+   "points": 2,
+   "answer": 5,
+   "top_whole": 1,
+   "top_front": 1
+  },
+  {
+   "exam": "2017",
+   "no": 21,
+   "type": "R-TOPIC",
+   "points": 2,
+   "answer": 5,
+   "top_whole": 2,
+   "top_front": 1
+  },
+  {
+   "exam": "2017",
+   "no": 22,
+   "type": "R-TITLE",
+   "points": 2,
+   "answer": 4,
+   "top_whole": 2,
+   "top_front": 1
+  },
+  {
+   "exam": "2017",
+   "no": 23,
+   "type": "R-TITLE",
+   "points": 2,
+   "answer": 4,
+   "top_whole": 4,
+   "top_front": 4
+  },
+  {
+   "exam": "2017",
+   "no": 31,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 3,
+   "top_whole": 1,
+   "top_front": 1
+  },
+  {
+   "exam": "2017",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 2,
+   "top_whole": 5,
+   "top_front": 5
+  },
+  {
+   "exam": "2017",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 1,
+   "top_whole": 1,
+   "top_front": 2
+  },
+  {
+   "exam": "2017",
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 2,
+   "top_whole": 4,
+   "top_front": 2
+  },
+  {
+   "exam": "2017",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "answer": 3,
+   "top_whole": 1,
+   "top_front": 1
+  },
+  {
+   "exam": "2018",
+   "no": 19,
+   "type": "R-MOOD",
+   "points": 2,
+   "answer": 2,
+   "top_whole": 1,
+   "top_front": 1
+  },
+  {
+   "exam": "2018",
+   "no": 22,
+   "type": "R-TOPIC",
+   "points": 2,
+   "answer": 4,
+   "top_whole": 4,
+   "top_front": 4
+  },
+  {
+   "exam": "2018",
+   "no": 23,
+   "type": "R-TITLE",
+   "points": 2,
+   "answer": 1,
+   "top_whole": 2,
+   "top_front": 5
+  },
+  {
+   "exam": "2018",
+   "no": 31,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 5,
+   "top_whole": 5,
+   "top_front": 5
+  },
+  {
+   "exam": "2018",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 2,
+   "top_whole": 3,
+   "top_front": 3
+  },
+  {
+   "exam": "2018",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 1,
+   "top_whole": 3,
+   "top_front": 5
+  },
+  {
+   "exam": "2018",
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 5,
+   "top_whole": 1,
+   "top_front": 1
+  },
+  {
+   "exam": "2018",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "answer": 2,
+   "top_whole": 1,
+   "top_front": 1
+  },
+  {
+   "exam": "2019",
+   "no": 19,
+   "type": "R-MOOD",
+   "points": 2,
+   "answer": 1,
+   "top_whole": 1,
+   "top_front": 1
+  },
+  {
+   "exam": "2019",
+   "no": 21,
+   "type": "R-IMPLY",
+   "points": 2,
+   "answer": 1,
+   "top_whole": 5,
+   "top_front": 4
+  },
+  {
+   "exam": "2019",
+   "no": 23,
+   "type": "R-TOPIC",
+   "points": 3,
+   "answer": 2,
+   "top_whole": 2,
+   "top_front": 2
+  },
+  {
+   "exam": "2019",
+   "no": 24,
+   "type": "R-TITLE",
+   "points": 2,
+   "answer": 5,
+   "top_whole": 3,
+   "top_front": 2
+  },
+  {
+   "exam": "2019",
+   "no": 31,
+   "type": "R-BLANK",
+   "points": 2,
+   "answer": 1,
+   "top_whole": 1,
+   "top_front": 1
+  },
+  {
+   "exam": "2019",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 2,
+   "answer": 5,
+   "top_whole": 1,
+   "top_front": 2
+  },
+  {
+   "exam": "2019",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 4,
+   "top_whole": 3,
+   "top_front": 2
+  },
+  {
+   "exam": "2019",
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 2,
+   "top_whole": 3,
+   "top_front": 3
+  },
+  {
+   "exam": "2019",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "answer": 1,
+   "top_whole": 1,
+   "top_front": 2
+  },
+  {
+   "exam": "2020",
+   "no": 19,
+   "type": "R-MOOD",
+   "points": 2,
+   "answer": 1,
+   "top_whole": 1,
+   "top_front": 1
+  },
+  {
+   "exam": "2020",
+   "no": 21,
+   "type": "R-IMPLY",
+   "points": 3,
+   "answer": 1,
+   "top_whole": 1,
+   "top_front": 1
+  },
+  {
+   "exam": "2020",
+   "no": 23,
+   "type": "R-TOPIC",
+   "points": 2,
+   "answer": 1,
+   "top_whole": 2,
+   "top_front": 1
+  },
+  {
+   "exam": "2020",
+   "no": 24,
+   "type": "R-TITLE",
+   "points": 2,
+   "answer": 2,
+   "top_whole": 4,
+   "top_front": 4
+  },
+  {
+   "exam": "2020",
+   "no": 31,
+   "type": "R-BLANK",
+   "points": 2,
+   "answer": 2,
+   "top_whole": 1,
+   "top_front": 1
+  },
+  {
+   "exam": "2020",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 2,
+   "answer": 5,
+   "top_whole": 4,
+   "top_front": 5
+  },
+  {
+   "exam": "2020",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 5,
+   "top_whole": 4,
+   "top_front": 4
+  },
+  {
+   "exam": "2020",
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 2,
+   "top_whole": 1,
+   "top_front": 3
+  },
+  {
+   "exam": "2020",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "answer": 1,
+   "top_whole": 1,
+   "top_front": 1
+  },
+  {
+   "exam": "2021",
+   "no": 19,
+   "type": "R-MOOD",
+   "points": 2,
+   "answer": 1,
+   "top_whole": 1,
+   "top_front": 1
+  },
+  {
+   "exam": "2021",
+   "no": 21,
+   "type": "R-IMPLY",
+   "points": 2,
+   "answer": 2,
+   "top_whole": 5,
+   "top_front": 5
+  },
+  {
+   "exam": "2021",
+   "no": 23,
+   "type": "R-TOPIC",
+   "points": 3,
+   "answer": 2,
+   "top_whole": 2,
+   "top_front": 2
+  },
+  {
+   "exam": "2021",
+   "no": 24,
+   "type": "R-TITLE",
+   "points": 2,
+   "answer": 3,
+   "top_whole": 2,
+   "top_front": 2
+  },
+  {
+   "exam": "2021",
+   "no": 31,
+   "type": "R-BLANK",
+   "points": 2,
+   "answer": 2,
+   "top_whole": 1,
+   "top_front": 1
+  },
+  {
+   "exam": "2021",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 2,
+   "answer": 3,
+   "top_whole": 3,
+   "top_front": 4
+  },
+  {
+   "exam": "2021",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 2,
+   "top_whole": 1,
+   "top_front": 1
+  },
+  {
+   "exam": "2021",
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 5,
+   "top_whole": 1,
+   "top_front": 1
+  },
+  {
+   "exam": "2021",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "answer": 3,
+   "top_whole": 1,
+   "top_front": 1
+  },
+  {
+   "exam": "2022",
+   "no": 21,
+   "type": "R-IMPLY",
+   "points": 3,
+   "answer": 1,
+   "top_whole": 1,
+   "top_front": 1
+  },
+  {
+   "exam": "2022",
+   "no": 23,
+   "type": "R-TOPIC",
+   "points": 3,
+   "answer": 1,
+   "top_whole": 1,
+   "top_front": 1
+  },
+  {
+   "exam": "2022",
+   "no": 24,
+   "type": "R-TITLE",
+   "points": 2,
+   "answer": 5,
+   "top_whole": 1,
+   "top_front": 5
+  },
+  {
+   "exam": "2022",
+   "no": 31,
+   "type": "R-BLANK",
+   "points": 2,
+   "answer": 2,
+   "top_whole": 1,
+   "top_front": 1
+  },
+  {
+   "exam": "2022",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 2,
+   "answer": 1,
+   "top_whole": 1,
+   "top_front": 4
+  },
+  {
+   "exam": "2022",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 5,
+   "top_whole": 3,
+   "top_front": 3
+  },
+  {
+   "exam": "2022",
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 2,
+   "top_whole": 1,
+   "top_front": 1
+  },
+  {
+   "exam": "2022",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "answer": 1,
+   "top_whole": 1,
+   "top_front": 1
+  },
+  {
+   "exam": "2023",
+   "no": 21,
+   "type": "R-IMPLY",
+   "points": 3,
+   "answer": 1,
+   "top_whole": 2,
+   "top_front": 1
+  },
+  {
+   "exam": "2023",
+   "no": 23,
+   "type": "R-TOPIC",
+   "points": 3,
+   "answer": 2,
+   "top_whole": 1,
+   "top_front": 5
+  },
+  {
+   "exam": "2023",
+   "no": 24,
+   "type": "R-TITLE",
+   "points": 2,
+   "answer": 5,
+   "top_whole": 5,
+   "top_front": 5
+  },
+  {
+   "exam": "2023",
+   "no": 31,
+   "type": "R-BLANK",
+   "points": 2,
+   "answer": 2,
+   "top_whole": 1,
+   "top_front": 1
+  },
+  {
+   "exam": "2023",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 2,
+   "answer": 2,
+   "top_whole": 2,
+   "top_front": 2
+  },
+  {
+   "exam": "2023",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 1,
+   "top_whole": 2,
+   "top_front": 1
+  },
+  {
+   "exam": "2023",
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 5,
+   "top_whole": 3,
+   "top_front": 3
+  },
+  {
+   "exam": "2023",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "answer": 1,
+   "top_whole": 1,
+   "top_front": 1
+  },
+  {
+   "exam": "2024",
+   "no": 19,
+   "type": "R-MOOD",
+   "points": 2,
+   "answer": 1,
+   "top_whole": 1,
+   "top_front": 1
+  },
+  {
+   "exam": "2024",
+   "no": 21,
+   "type": "R-IMPLY",
+   "points": 3,
+   "answer": 4,
+   "top_whole": 3,
+   "top_front": 3
+  },
+  {
+   "exam": "2024",
+   "no": 23,
+   "type": "R-TOPIC",
+   "points": 2,
+   "answer": 2,
+   "top_whole": 1,
+   "top_front": 1
+  },
+  {
+   "exam": "2024",
+   "no": 24,
+   "type": "R-TITLE",
+   "points": 3,
+   "answer": 5,
+   "top_whole": 5,
+   "top_front": 5
+  },
+  {
+   "exam": "2024",
+   "no": 31,
+   "type": "R-BLANK",
+   "points": 2,
+   "answer": 2,
+   "top_whole": 4,
+   "top_front": 1
+  },
+  {
+   "exam": "2024",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 2,
+   "answer": 2,
+   "top_whole": 2,
+   "top_front": 2
+  },
+  {
+   "exam": "2024",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 5,
+   "top_whole": 1,
+   "top_front": 1
+  },
+  {
+   "exam": "2024",
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 4,
+   "top_whole": 1,
+   "top_front": 5
+  },
+  {
+   "exam": "2025",
+   "no": 21,
+   "type": "R-IMPLY",
+   "points": 3,
+   "answer": 3,
+   "top_whole": 3,
+   "top_front": 2
+  },
+  {
+   "exam": "2025",
+   "no": 23,
+   "type": "R-TOPIC",
+   "points": 2,
+   "answer": 2,
+   "top_whole": 4,
+   "top_front": 4
+  },
+  {
+   "exam": "2025",
+   "no": 24,
+   "type": "R-TITLE",
+   "points": 2,
+   "answer": 5,
+   "top_whole": 3,
+   "top_front": 2
+  },
+  {
+   "exam": "2025",
+   "no": 31,
+   "type": "R-BLANK",
+   "points": 2,
+   "answer": 1,
+   "top_whole": 1,
+   "top_front": 1
+  },
+  {
+   "exam": "2025",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 2,
+   "answer": 2,
+   "top_whole": 5,
+   "top_front": 1
+  },
+  {
+   "exam": "2025",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 2,
+   "top_whole": 1,
+   "top_front": 1
+  },
+  {
+   "exam": "2025",
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 5,
+   "top_whole": 2,
+   "top_front": 2
+  },
+  {
+   "exam": "2026",
+   "no": 19,
+   "type": "R-MOOD",
+   "points": 2,
+   "answer": 1,
+   "top_whole": 1,
+   "top_front": 1
+  },
+  {
+   "exam": "2026",
+   "no": 21,
+   "type": "R-IMPLY",
+   "points": 2,
+   "answer": 2,
+   "top_whole": 5,
+   "top_front": 5
+  },
+  {
+   "exam": "2026",
+   "no": 23,
+   "type": "R-TOPIC",
+   "points": 2,
+   "answer": 3,
+   "top_whole": 5,
+   "top_front": 5
+  },
+  {
+   "exam": "2026",
+   "no": 24,
+   "type": "R-TITLE",
+   "points": 3,
+   "answer": 2,
+   "top_whole": 4,
+   "top_front": 3
+  },
+  {
+   "exam": "2026",
+   "no": 31,
+   "type": "R-BLANK",
+   "points": 2,
+   "answer": 1,
+   "top_whole": 1,
+   "top_front": 1
+  },
+  {
+   "exam": "2026",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 5,
+   "top_whole": 4,
+   "top_front": 1
+  },
+  {
+   "exam": "2026",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 2,
+   "answer": 4,
+   "top_whole": 5,
+   "top_front": 5
+  },
+  {
+   "exam": "2026",
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 3,
+   "top_whole": 2,
+   "top_front": 2
+  }
+ ]
+}

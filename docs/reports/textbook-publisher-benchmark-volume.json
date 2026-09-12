@@ -1,0 +1,454 @@
+{
+  "generatedAt": "2026-09-01T07:33:23.059Z",
+  "scope": "사다리 7권 — 70단원 · 420문항 (인쇄되는 것만 · V1 60 · V2 60 · V3 60 · V4 60 · V5 60 · V6 60 · V7 60)",
+  "itemsMeasured": 420,
+  "baselineRule": "비율 축은 상대의 Wilson 95% 상한을 기준선으로 쓴다 — 상대에게 가장 유리한 해석으로도 이겨야 우위로 친다",
+  "publishers": [
+    {
+      "publisher": "NE능률",
+      "profile": {
+        "docs": 60,
+        "pages": 3486,
+        "series": 14,
+        "schools": [
+          "초등",
+          "고등",
+          "중등",
+          "초등~중등",
+          "중등~고등"
+        ],
+        "roles": {
+          "정답해설": {
+            "docs": 21,
+            "pages": 1580
+          },
+          "본책": {
+            "docs": 9,
+            "pages": 1183
+          },
+          "미리보기": {
+            "docs": 27,
+            "pages": 664
+          },
+          "워크북": {
+            "docs": 1,
+            "pages": 57
+          },
+          "빠른정답": {
+            "docs": 2,
+            "pages": 2
+          }
+        }
+      },
+      "axes": [
+        {
+          "id": "A1",
+          "name": "해설 보유율",
+          "ours": 1,
+          "market": 1,
+          "unit": "%",
+          "why": "해설이 없으면 혼자 공부할 수 없다 — 시장이 교재를 고르는 첫 기준",
+          "index": 1,
+          "ceiling": 1
+        },
+        {
+          "id": "A2",
+          "name": "해설 길이 규격 적합률 (73~479자)",
+          "ours": 0.9857142857142858,
+          "market": 0.65,
+          "unit": "%",
+          "why": "짧으면 근거가 없고 길면 안 읽는다. 시장 p25~p90 구간",
+          "index": 1.516,
+          "ceiling": 1.538
+        },
+        {
+          "id": "A3",
+          "name": "오답 배제 언급률 (선택지 문항)",
+          "ours": 1,
+          "market": 0.5788,
+          "unit": "%",
+          "why": "왜 다른 것이 아닌지까지 써야 해설의 깊이가 된다 — 단답형은 배제할 오답이 없어 모집단에서 뺀다",
+          "index": 1.728,
+          "ceiling": 1.728
+        },
+        {
+          "id": "A4",
+          "name": "원문 인용률",
+          "ours": 1,
+          "market": 0.5004,
+          "unit": "%",
+          "why": "지문에서 근거를 끌어와야 검증 가능한 해설이다",
+          "index": 1.998,
+          "ceiling": 1.998
+        },
+        {
+          "id": "A5",
+          "name": "유형 다양성 (79종 합본)",
+          "ours": 23,
+          "market": 14,
+          "gate": 1,
+          "basis": "79종 합본",
+          "unit": "종",
+          "why": "표준 유형을 다 갖춘 뒤의 폭이 기능 우위다 — 관문을 못 넘으면 폭을 인정하지 않는다",
+          "index": null,
+          "insufficient": "창고 유형 수(25종)를 이 출판사에서 검출된 발문 유형 수와 견줄 수 없다 — 표본이 작을수록 우리가 유리해진다. --volume 에서 권 대 권으로 잰다"
+        },
+        {
+          "id": "A6",
+          "name": "지문 어수 규격 적합률",
+          "ours": 0.8200836820083682,
+          "market": 0.8,
+          "unit": "%",
+          "why": "학년대별 지문 길이가 규격 밖이면 시험지에 못 싣는다",
+          "index": 1.025,
+          "ceiling": 1.25
+        },
+        {
+          "id": "A7",
+          "name": "선택지 수 규격 적합률",
+          "ours": 1,
+          "market": 0.915,
+          "unit": "%",
+          "why": "학교급마다 시장 지배값이 있다 — 어긋나면 그 학년 시험지가 아니다",
+          "index": 1.093,
+          "ceiling": 1.093
+        }
+      ],
+      "axesMeasured": 6,
+      "axesTotal": 7,
+      "gaps": [
+        "유형 축 A5"
+      ],
+      "overallIndex": 1.343,
+      "reachableMax": 1.391,
+      "targetReachable": true
+    },
+    {
+      "publisher": "EBS",
+      "profile": {
+        "docs": 3,
+        "pages": 698,
+        "series": 2,
+        "schools": [
+          "고등"
+        ],
+        "roles": {
+          "본책": {
+            "docs": 3,
+            "pages": 698
+          }
+        }
+      },
+      "axes": [
+        {
+          "id": "A1",
+          "name": "해설 보유율",
+          "ours": 1,
+          "market": 1,
+          "unit": "%",
+          "why": "해설이 없으면 혼자 공부할 수 없다 — 시장이 교재를 고르는 첫 기준",
+          "index": null,
+          "insufficient": "이 코퍼스에 해당 출판사의 정답해설 문서가 0건"
+        },
+        {
+          "id": "A2",
+          "name": "해설 길이 규격 적합률 (75~473자)",
+          "ours": 0.9833333333333333,
+          "market": 0.65,
+          "unit": "%",
+          "why": "짧으면 근거가 없고 길면 안 읽는다. 시장 p25~p90 구간",
+          "index": null,
+          "insufficient": "이 코퍼스에 해당 출판사의 정답해설 문서가 0건"
+        },
+        {
+          "id": "A3",
+          "name": "오답 배제 언급률 (선택지 문항)",
+          "ours": 1,
+          "market": 0.536,
+          "unit": "%",
+          "why": "왜 다른 것이 아닌지까지 써야 해설의 깊이가 된다 — 단답형은 배제할 오답이 없어 모집단에서 뺀다",
+          "index": null,
+          "insufficient": "이 코퍼스에 해당 출판사의 정답해설 문서가 0건"
+        },
+        {
+          "id": "A4",
+          "name": "원문 인용률",
+          "ours": 1,
+          "market": 0.497,
+          "unit": "%",
+          "why": "지문에서 근거를 끌어와야 검증 가능한 해설이다",
+          "index": null,
+          "insufficient": "이 코퍼스에 해당 출판사의 정답해설 문서가 0건"
+        },
+        {
+          "id": "A5",
+          "name": "유형 다양성 (79종 합본)",
+          "ours": 23,
+          "market": 14,
+          "gate": 1,
+          "basis": "79종 합본",
+          "unit": "종",
+          "why": "표준 유형을 다 갖춘 뒤의 폭이 기능 우위다 — 관문을 못 넘으면 폭을 인정하지 않는다",
+          "index": null,
+          "insufficient": "창고 유형 수(25종)를 이 출판사에서 검출된 발문 유형 수와 견줄 수 없다 — 표본이 작을수록 우리가 유리해진다. --volume 에서 권 대 권으로 잰다"
+        },
+        {
+          "id": "A6",
+          "name": "지문 어수 규격 적합률",
+          "ours": 1,
+          "market": 0.8,
+          "unit": "%",
+          "why": "학년대별 지문 길이가 규격 밖이면 시험지에 못 싣는다",
+          "index": 1.25,
+          "ceiling": 1.25
+        },
+        {
+          "id": "A7",
+          "name": "선택지 수 규격 적합률",
+          "ours": 1,
+          "market": 0.869,
+          "unit": "%",
+          "why": "학교급마다 시장 지배값이 있다 — 어긋나면 그 학년 시험지가 아니다",
+          "index": 1.151,
+          "ceiling": 1.151
+        }
+      ],
+      "axesMeasured": 2,
+      "axesTotal": 7,
+      "gaps": [
+        "해설 축 A1~A4",
+        "유형 축 A5"
+      ],
+      "overallIndex": 1.199,
+      "reachableMax": 1.199,
+      "targetReachable": false
+    },
+    {
+      "publisher": "쎄듀",
+      "profile": {
+        "docs": 3,
+        "pages": 564,
+        "series": 2,
+        "schools": [
+          "고등"
+        ],
+        "roles": {
+          "본문": {
+            "docs": 2,
+            "pages": 338
+          },
+          "본책": {
+            "docs": 1,
+            "pages": 226
+          }
+        }
+      },
+      "axes": [
+        {
+          "id": "A1",
+          "name": "해설 보유율",
+          "ours": 1,
+          "market": 1,
+          "unit": "%",
+          "why": "해설이 없으면 혼자 공부할 수 없다 — 시장이 교재를 고르는 첫 기준",
+          "index": null,
+          "insufficient": "이 코퍼스에 해당 출판사의 정답해설 문서가 0건"
+        },
+        {
+          "id": "A2",
+          "name": "해설 길이 규격 적합률 (75~473자)",
+          "ours": 0.9833333333333333,
+          "market": 0.65,
+          "unit": "%",
+          "why": "짧으면 근거가 없고 길면 안 읽는다. 시장 p25~p90 구간",
+          "index": null,
+          "insufficient": "이 코퍼스에 해당 출판사의 정답해설 문서가 0건"
+        },
+        {
+          "id": "A3",
+          "name": "오답 배제 언급률 (선택지 문항)",
+          "ours": 1,
+          "market": 0.536,
+          "unit": "%",
+          "why": "왜 다른 것이 아닌지까지 써야 해설의 깊이가 된다 — 단답형은 배제할 오답이 없어 모집단에서 뺀다",
+          "index": null,
+          "insufficient": "이 코퍼스에 해당 출판사의 정답해설 문서가 0건"
+        },
+        {
+          "id": "A4",
+          "name": "원문 인용률",
+          "ours": 1,
+          "market": 0.497,
+          "unit": "%",
+          "why": "지문에서 근거를 끌어와야 검증 가능한 해설이다",
+          "index": null,
+          "insufficient": "이 코퍼스에 해당 출판사의 정답해설 문서가 0건"
+        },
+        {
+          "id": "A5",
+          "name": "유형 다양성 (79종 합본)",
+          "ours": 23,
+          "market": 7,
+          "gate": 1,
+          "basis": "79종 합본",
+          "unit": "종",
+          "why": "표준 유형을 다 갖춘 뒤의 폭이 기능 우위다 — 관문을 못 넘으면 폭을 인정하지 않는다",
+          "index": null,
+          "insufficient": "창고 유형 수(25종)를 이 출판사에서 검출된 발문 유형 수와 견줄 수 없다 — 표본이 작을수록 우리가 유리해진다. --volume 에서 권 대 권으로 잰다"
+        },
+        {
+          "id": "A6",
+          "name": "지문 어수 규격 적합률",
+          "ours": 1,
+          "market": 0.8,
+          "unit": "%",
+          "why": "학년대별 지문 길이가 규격 밖이면 시험지에 못 싣는다",
+          "index": 1.25,
+          "ceiling": 1.25
+        },
+        {
+          "id": "A7",
+          "name": "선택지 수 규격 적합률",
+          "ours": 1,
+          "market": 0.868,
+          "unit": "%",
+          "why": "학교급마다 시장 지배값이 있다 — 어긋나면 그 학년 시험지가 아니다",
+          "index": 1.152,
+          "ceiling": 1.152
+        }
+      ],
+      "axesMeasured": 2,
+      "axesTotal": 7,
+      "gaps": [
+        "해설 축 A1~A4",
+        "유형 축 A5"
+      ],
+      "overallIndex": 1.2,
+      "reachableMax": 1.2,
+      "targetReachable": true
+    },
+    {
+      "publisher": "수경출판사",
+      "profile": {
+        "docs": 1,
+        "pages": 25,
+        "series": 1,
+        "schools": [
+          "고등"
+        ],
+        "roles": {
+          "미리보기": {
+            "docs": 1,
+            "pages": 25
+          }
+        }
+      },
+      "axes": [
+        {
+          "id": "A1",
+          "name": "해설 보유율",
+          "ours": 1,
+          "market": 1,
+          "unit": "%",
+          "why": "해설이 없으면 혼자 공부할 수 없다 — 시장이 교재를 고르는 첫 기준",
+          "index": null,
+          "insufficient": "이 코퍼스에 해당 출판사의 정답해설 문서가 0건"
+        },
+        {
+          "id": "A2",
+          "name": "해설 길이 규격 적합률 (75~473자)",
+          "ours": 0.9833333333333333,
+          "market": 0.65,
+          "unit": "%",
+          "why": "짧으면 근거가 없고 길면 안 읽는다. 시장 p25~p90 구간",
+          "index": null,
+          "insufficient": "이 코퍼스에 해당 출판사의 정답해설 문서가 0건"
+        },
+        {
+          "id": "A3",
+          "name": "오답 배제 언급률 (선택지 문항)",
+          "ours": 1,
+          "market": 0.536,
+          "unit": "%",
+          "why": "왜 다른 것이 아닌지까지 써야 해설의 깊이가 된다 — 단답형은 배제할 오답이 없어 모집단에서 뺀다",
+          "index": null,
+          "insufficient": "이 코퍼스에 해당 출판사의 정답해설 문서가 0건"
+        },
+        {
+          "id": "A4",
+          "name": "원문 인용률",
+          "ours": 1,
+          "market": 0.497,
+          "unit": "%",
+          "why": "지문에서 근거를 끌어와야 검증 가능한 해설이다",
+          "index": null,
+          "insufficient": "이 코퍼스에 해당 출판사의 정답해설 문서가 0건"
+        },
+        {
+          "id": "A5",
+          "name": "유형 다양성 (79종 합본)",
+          "ours": 0,
+          "market": 0,
+          "gate": null,
+          "basis": "79종 합본",
+          "unit": "종",
+          "why": "표준 유형을 다 갖춘 뒤의 폭이 기능 우위다 — 관문을 못 넘으면 폭을 인정하지 않는다",
+          "index": null,
+          "insufficient": "발문이 잡힌 문서가 없다 (OCR 미도달)"
+        },
+        {
+          "id": "A6",
+          "name": "지문 어수 규격 적합률",
+          "ours": 0,
+          "market": 0.8,
+          "unit": "%",
+          "why": "학년대별 지문 길이가 규격 밖이면 시험지에 못 싣는다",
+          "index": null,
+          "insufficient": "학년당 표본 10 미만 — 지문 규격을 세울 수 없다"
+        },
+        {
+          "id": "A7",
+          "name": "선택지 수 규격 적합률",
+          "ours": 0,
+          "market": 0,
+          "unit": "%",
+          "why": "학교급마다 시장 지배값이 있다 — 어긋나면 그 학년 시험지가 아니다",
+          "index": null
+        }
+      ],
+      "axesMeasured": 0,
+      "axesTotal": 7,
+      "gaps": [
+        "해설 축 A1~A4",
+        "지문 축 A6",
+        "유형 축 A5"
+      ],
+      "overallIndex": null,
+      "reachableMax": null,
+      "targetReachable": null
+    }
+  ],
+  "excluded": [
+    {
+      "publisher": "미상",
+      "docs": 9,
+      "pages": 438,
+      "why": "출판사를 특정할 수 없다 — 이름 있는 경쟁자로 세울 수 없다"
+    },
+    {
+      "publisher": "평가원",
+      "docs": 15,
+      "pages": 15,
+      "why": "출제 기관이지 출판사가 아니다 — 경쟁자가 아니라 규격의 원본으로 쓴다 (해설을 내지 않아 해설 축으로는 견줄 수도 없다)"
+    },
+    {
+      "publisher": "참고자료",
+      "docs": 3,
+      "pages": 3,
+      "why": "교재가 아니다 (3종 3쪽 · 학교급 공통)"
+    }
+  ],
+  "bindingPublisher": "EBS",
+  "bindingIndex": 1.199,
+  "pooledIndex": 1.424
+}

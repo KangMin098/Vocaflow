@@ -8,7 +8,8 @@
 // - books = 구독 공용 단어장 + 스크립트 책 (BookShelfSection 용 VaultBook 변환)
 //
 // 본 훅으로 Hero/VaultBar + BookShelfSection 까지 실 데이터화.
-// CEFRDistribution·LearningDimension·WordPeek 은 여전히 mock.
+// CEFRDistribution·WordPeek 은 여전히 mock.
+// (LearningDimension 은 폐기 — 면 상태는 `useFacetSummary` + `FacetProgressSection` 이 실데이터로 한다.)
 
 'use client'
 
@@ -17,6 +18,7 @@ import { useEffect, useState } from 'react'
 import type { VaultBook } from '@/components/wordvault/hub/BookShelfSection'
 import { getMemoryState, type MemoryState, type ModuleId } from '@/lib/srs'
 import { createClient } from '@/lib/supabase/client'
+import { pagedSelect } from '@/lib/supabase/paged-select'
 
 export interface HubStats {
   total: number
@@ -39,6 +41,20 @@ interface PerBucket {
   risk: number
   new: number
 }
+/** 허브 통계가 쓰는 `vocabularies` 열만. 페이지네이션 헬퍼가 제네릭이라 여기서 형을 준다. */
+interface VocabStatRow {
+  id: string
+  difficulty: number | null
+  stability: number | null
+  last_review_at: string | null
+  next_review_at: string | null
+  module_history: string[] | null
+  review_count: number | null
+  text_id: string | null
+  shared_set_id: string | null
+  created_at: string | null
+}
+
 const emptyBucket = (): PerBucket => ({ stable: 0, shaky: 0, risk: 0, new: 0 })
 
 export function useHubStats(): HubStatsState {
@@ -57,12 +73,28 @@ export function useHubStats(): HubStatsState {
         return
       }
 
-      const { data: rows, error } = await supabase
-        .from('vocabularies')
-        .select(
-          'id, difficulty, stability, last_review_at, next_review_at, module_history, review_count, text_id, shared_set_id, created_at',
+      // ⚠️ 상한을 안 적으면 되는 것이 아니다 — PostgREST 는 **1,000행에서 끊는다**
+      //    (실측 2026-08-30). 여기 수치는 허브 히어로의 총계와 4버킷이라, 잘리면
+      //    학습자가 자기 자산을 적게 본다. 이미 1,945행인 계정이 있다.
+      //    같은 분포를 서버에서 따로 세는 `growth-stats`(상태 띠)와 **행 집합이 달라지면**
+      //    한 화면 안에서 두 수가 어긋난다 — 이 저장소가 이미 겪은 사고다(리본 135 vs Vault 20).
+      let rows: VocabStatRow[] = []
+      let error: { message: string } | null = null
+      try {
+        rows = await pagedSelect<VocabStatRow>(
+          (lo, hi) =>
+            supabase
+              .from('vocabularies')
+              .select(
+                'id, difficulty, stability, last_review_at, next_review_at, module_history, review_count, text_id, shared_set_id, created_at',
+              )
+              .eq('user_id', user.id)
+              .range(lo, hi),
+          'wordvault hub vocabularies',
         )
-        .eq('user_id', user.id)
+      } catch (e) {
+        error = { message: e instanceof Error ? e.message : String(e) }
+      }
 
       if (cancelled) return
       if (error) {
@@ -127,20 +159,18 @@ export function useHubStats(): HubStatsState {
         curation_query: Record<string, unknown> | null
       }> = []
       if (setIds.length > 0) {
-        const withBridge = await supabase
+        // ⚠️ 예외로 스키마를 탐지하지 않는다 — 이전 구현은 category_id 를 먼저 select 하고
+        //    실패하면 legacy 로 폴백했는데, 이 DB 는 브릿지 마이그레이션
+        //    (20260518130000_shared_word_sets_category_bridge.sql)이 미적용이라
+        //    **구독 세트가 있는 모든 사용자의 허브 로드마다 400 이 확정 발생**했다
+        //    (2026-08-09 실측: column shared_word_sets.category_id does not exist).
+        //    한 번은 폴백돼 화면은 멀쩡했지만 왕복 1회 낭비 + 콘솔/모니터링 오염.
+        //    브릿지 적용 시 아래 select 에 category_id 를 되돌리고 실패 폴백을 다시 붙일 것.
+        const legacy = await supabase
           .from('shared_word_sets')
-          .select('id, title, cover_emoji, category, cefr_level, category_id, curation_query')
+          .select('id, title, cover_emoji, category, cefr_level, curation_query')
           .in('id', setIds)
-        if (withBridge.error) {
-          // 컬럼 미존재 — legacy fallback
-          const legacy = await supabase
-            .from('shared_word_sets')
-            .select('id, title, cover_emoji, category, cefr_level, curation_query')
-            .in('id', setIds)
-          setsData = (legacy.data ?? []) as typeof setsData
-        } else {
-          setsData = (withBridge.data ?? []) as unknown as typeof setsData
-        }
+        setsData = (legacy.data ?? []) as typeof setsData
       }
 
       const textsRes =

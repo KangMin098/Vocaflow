@@ -1,0 +1,611 @@
+[
+ {
+  "word": "stationer",
+  "meaning_ko": "문방구 주인",
+  "pos": "noun",
+  "candidates": [
+   "stationery"
+  ]
+ },
+ {
+  "word": "vapour",
+  "meaning_ko": "증기",
+  "pos": "noun",
+  "candidates": [
+   "vapourware"
+  ]
+ },
+ {
+  "word": "whist",
+  "meaning_ko": "휘스트",
+  "pos": "noun",
+  "candidates": [
+   "whistle"
+  ]
+ },
+ {
+  "word": "blitz",
+  "meaning_ko": "전격전, 기습 공습",
+  "pos": "noun",
+  "candidates": [
+   "blitzkrieg"
+  ]
+ },
+ {
+  "word": "buddy",
+  "meaning_ko": "단짝, 친구",
+  "pos": "noun",
+  "candidates": [
+   "buddy movie"
+  ]
+ },
+ {
+  "word": "chuck",
+  "meaning_ko": "내던지다, 휙 던지다(구어)",
+  "pos": "verb",
+  "candidates": [
+   "chuckhole",
+   "chuckle",
+   "chuckwalla"
+  ]
+ },
+ {
+  "word": "chug",
+  "meaning_ko": "칙칙폭폭 소리를 내며 나아가다",
+  "pos": "verb",
+  "candidates": [
+   "chugalug"
+  ]
+ },
+ {
+  "word": "clan",
+  "meaning_ko": "씨족, 가문, 일족",
+  "pos": "noun",
+  "candidates": [
+   "clang",
+   "clangor",
+   "clangorous",
+   "clangour",
+   "clank",
+   "clansman"
+  ]
+ },
+ {
+  "word": "crib",
+  "meaning_ko": "아기 침대, 난간이 있는 어린이용 침대",
+  "pos": "noun",
+  "candidates": [
+   "cribbage",
+   "cribriform"
+  ]
+ },
+ {
+  "word": "diaper",
+  "meaning_ko": "기저귀",
+  "pos": "noun",
+  "candidates": [
+   "diaper rash"
+  ]
+ },
+ {
+  "word": "grad",
+  "meaning_ko": "졸업생",
+  "pos": "noun",
+  "candidates": [
+   "gradation",
+   "grade",
+   "gradient",
+   "gradual",
+   "gradualism",
+   "gradually",
+   "graduand",
+   "graduate",
+   "graduation"
+  ]
+ },
+ {
+  "word": "grandma",
+  "meaning_ko": "할머니",
+  "pos": "noun",
+  "candidates": [
+   "grandmama",
+   "grandmamma"
+  ]
+ },
+ {
+  "word": "loll",
+  "meaning_ko": "기대 늘어지다; (혀·머리가) 축 늘어지다",
+  "pos": "verb",
+  "candidates": [
+   "lollipop",
+   "lollo",
+   "lollop",
+   "lolly"
+  ]
+ },
+ {
+  "word": "prom",
+  "meaning_ko": "(미국) 프롬 — 고등학교·대학에서 여는 공식 무도회",
+  "pos": "noun",
+  "candidates": [
+   "promenade",
+   "promenader",
+   "prominence",
+   "prominent",
+   "promise",
+   "promising",
+   "promissory",
+   "promontory",
+   "promote",
+   "promoter",
+   "promotion",
+   "prompt"
+  ]
+ },
+ {
+  "word": "schoolchild",
+  "meaning_ko": "학생",
+  "pos": "noun",
+  "candidates": [
+   "schoolchildren"
+  ]
+ },
+ {
+  "word": "threaten",
+  "meaning_ko": "위협하다",
+  "pos": "verb",
+  "candidates": [
+   "threateningly",
+   "threatenings"
+  ]
+ },
+ {
+  "word": "winding",
+  "meaning_ko": "구불구불한",
+  "pos": "adjective",
+  "candidates": [
+   "winding sheet"
+  ]
+ },
+ {
+  "word": "amber",
+  "meaning_ko": "호박 (나무 진이 굳어 만들어진 누런 보석)",
+  "pos": "noun",
+  "candidates": [
+   "ambergris"
+  ]
+ },
+ {
+  "word": "badge",
+  "meaning_ko": "배지, 휘장",
+  "pos": "noun",
+  "candidates": [
+   "badger"
+  ]
+ },
+ {
+  "word": "brow",
+  "meaning_ko": "이마; 눈썹",
+  "pos": "noun",
+  "candidates": [
+   "browbeat",
+   "brown",
+   "brown rice",
+   "brownfield",
+   "brownie",
+   "brownish",
+   "brownstone",
+   "browse",
+   "browser"
+  ]
+ },
+ {
+  "word": "cloak",
+  "meaning_ko": "망토 — 어깨에 걸치는 소매 없는 긴 겉옷",
+  "pos": "noun",
+  "candidates": [
+   "cloakroom"
+  ]
+ },
+ {
+  "word": "debit",
+  "meaning_ko": "출금액, 계좌에서 빠져나간 돈",
+  "pos": "noun",
+  "candidates": [
+   "debit card"
+  ]
+ },
+ {
+  "word": "detective",
+  "meaning_ko": "탐정",
+  "pos": "noun",
+  "candidates": [
+   "detective story",
+   "detective work"
+  ]
+ },
+ {
+  "word": "dime",
+  "meaning_ko": "(미국) 10센트 동전",
+  "pos": "noun",
+  "candidates": [
+   "dime novel",
+   "dimension",
+   "dimer",
+   "dimeric",
+   "dimerize",
+   "dimethyl"
+  ]
+ },
+ {
+  "word": "franc",
+  "meaning_ko": "프랑",
+  "pos": "noun",
+  "candidates": [
+   "franchise",
+   "franciscan",
+   "francium",
+   "francophone"
+  ]
+ },
+ {
+  "word": "guild",
+  "meaning_ko": "길드 (중세 유럽의 장인·상인 동업조합)",
+  "pos": "noun",
+  "candidates": [
+   "guilder"
+  ]
+ },
+ {
+  "word": "ransom",
+  "meaning_ko": "몸값, 인질 석방금",
+  "pos": "noun",
+  "candidates": [
+   "ransomware"
+  ]
+ },
+ {
+  "word": "seasonal",
+  "meaning_ko": "계절적인",
+  "pos": "adjective",
+  "candidates": [
+   "seasonality",
+   "seasonally"
+  ]
+ },
+ {
+  "word": "slump",
+  "meaning_ko": "급락하다; 주저앉다",
+  "pos": "verb",
+  "candidates": [
+   "slumped"
+  ]
+ },
+ {
+  "word": "spac",
+  "meaning_ko": "SPAC (기업인수목적회사, 특수목적인수회사)",
+  "pos": "noun",
+  "candidates": [
+   "space",
+   "space bar",
+   "space-time",
+   "spacecraft",
+   "spaceman",
+   "spaceport",
+   "spaceship",
+   "spacesuit",
+   "spacetime",
+   "spacewalk",
+   "spacewoman",
+   "spacey",
+   "spacious"
+  ]
+ },
+ {
+  "word": "temp",
+  "meaning_ko": "임시 직원",
+  "pos": "noun",
+  "candidates": [
+   "tempeh",
+   "temper",
+   "tempera",
+   "temperance",
+   "temperate",
+   "tempered",
+   "tempest",
+   "templar",
+   "template",
+   "temple",
+   "tempo",
+   "temporal",
+   "temporalis",
+   "temporally",
+   "temporalty"
+  ]
+ },
+ {
+  "word": "upsell",
+  "meaning_ko": "상위 상품을 권하다, 추가 판매하다",
+  "pos": "verb",
+  "candidates": [
+   "upselling"
+  ]
+ },
+ {
+  "word": "cuff",
+  "meaning_ko": "소맷동, 소맷부리 — 손목을 감싸는 소매 끝",
+  "pos": "noun",
+  "candidates": [
+   "cufflink"
+  ]
+ },
+ {
+  "word": "freckle",
+  "meaning_ko": "주근깨",
+  "pos": "noun",
+  "candidates": [
+   "freckled"
+  ]
+ },
+ {
+  "word": "golden",
+  "meaning_ko": "황금의; 절호의",
+  "pos": "adjective",
+  "candidates": [
+   "golden age",
+   "golden eagle",
+   "golden goal",
+   "golden oldie",
+   "golden rule",
+   "goldeneye",
+   "goldenrod"
+  ]
+ },
+ {
+  "word": "hairpin",
+  "meaning_ko": "머리핀",
+  "pos": "noun",
+  "candidates": [
+   "hairpin bend"
+  ]
+ },
+ {
+  "word": "hazel",
+  "meaning_ko": "개암나무; 개암(열매)",
+  "pos": "noun",
+  "candidates": [
+   "hazelnut"
+  ]
+ },
+ {
+  "word": "hunch",
+  "meaning_ko": "예감, 직감; (hunch over) 등을 구부리고 웅크리다",
+  "pos": "noun",
+  "candidates": [
+   "hunchback",
+   "hunchbacked"
+  ]
+ },
+ {
+  "word": "jade",
+  "meaning_ko": "옥, 비취 — 단단하고 광택 있는 녹색 보석",
+  "pos": "noun",
+  "candidates": [
+   "jaded",
+   "jadeite"
+  ]
+ },
+ {
+  "word": "lens",
+  "meaning_ko": "(광학) 렌즈",
+  "pos": "noun",
+  "candidates": [
+   "lense"
+  ]
+ },
+ {
+  "word": "lime",
+  "meaning_ko": "라임 (감귤류); 석회; 보리수",
+  "pos": "noun",
+  "candidates": [
+   "lime-green",
+   "limeade",
+   "limed",
+   "limekiln",
+   "limelight",
+   "limerance",
+   "limerick",
+   "limestone"
+  ]
+ },
+ {
+  "word": "olive",
+  "meaning_ko": "올리브",
+  "pos": "noun",
+  "candidates": [
+   "olive oil"
+  ]
+ },
+ {
+  "word": "perm",
+  "meaning_ko": "파마, 펌",
+  "pos": "noun",
+  "candidates": [
+   "permafrost",
+   "permanence",
+   "permanent",
+   "permatan",
+   "permeable",
+   "permeate",
+   "permission",
+   "permissive",
+   "permit",
+   "permutate"
+  ]
+ },
+ {
+  "word": "razor",
+  "meaning_ko": "면도기·면도날",
+  "pos": "noun",
+  "candidates": [
+   "razor shell",
+   "razor-sharp",
+   "razorbill"
+  ]
+ },
+ {
+  "word": "retro",
+  "meaning_ko": "복고풍의, 레트로한 (옛 양식을 차용한)",
+  "pos": "adjective",
+  "candidates": [
+   "retroactive",
+   "retrofit",
+   "retrograde",
+   "retrogress",
+   "retrospect",
+   "retrovirus"
+  ]
+ },
+ {
+  "word": "almond",
+  "meaning_ko": "아몬드 — 아몬드나무 열매 속 씨앗",
+  "pos": "noun",
+  "candidates": [
+   "almond milk"
+  ]
+ },
+ {
+  "word": "basil",
+  "meaning_ko": "바질",
+  "pos": "noun",
+  "candidates": [
+   "basilar",
+   "basileus",
+   "basilica",
+   "basilican",
+   "basilisk"
+  ]
+ },
+ {
+  "word": "brandy",
+  "meaning_ko": "브랜디",
+  "pos": "noun",
+  "candidates": [
+   "brandy snap"
+  ]
+ },
+ {
+  "word": "brie",
+  "meaning_ko": "브리 치즈",
+  "pos": "noun",
+  "candidates": [
+   "brief",
+   "briefcase",
+   "briefed",
+   "briefly",
+   "briefness",
+   "briefs"
+  ]
+ },
+ {
+  "word": "broth",
+  "meaning_ko": "묽은 수프",
+  "pos": "noun",
+  "candidates": [
+   "brothel",
+   "brother",
+   "brotherhood",
+   "brotherly"
+  ]
+ },
+ {
+  "word": "buffet",
+  "meaning_ko": "뷔페",
+  "pos": "noun",
+  "candidates": [
+   "buffet car",
+   "buffeted"
+  ]
+ },
+ {
+  "word": "chili",
+  "meaning_ko": "고추, 칠리 — 맵고 알싸한 고추 열매",
+  "pos": "noun",
+  "candidates": [
+   "chili dog"
+  ]
+ },
+ {
+  "word": "clove",
+  "meaning_ko": "정향, 클로브; (마늘) 한 쪽",
+  "pos": "noun",
+  "candidates": [
+   "cloven",
+   "cloven hoof",
+   "clover",
+   "cloverleaf"
+  ]
+ },
+ {
+  "word": "cocktail",
+  "meaning_ko": "칵테일, 혼합주",
+  "pos": "noun",
+  "candidates": [
+   "cocktail stick"
+  ]
+ },
+ {
+  "word": "coconut",
+  "meaning_ko": "코코넛, 야자열매",
+  "pos": "noun",
+  "candidates": [
+   "coconut milk"
+  ]
+ },
+ {
+  "word": "commis",
+  "meaning_ko": "코미",
+  "pos": "noun",
+  "candidates": [
+   "commiserate",
+   "commissar",
+   "commissariat",
+   "commissary",
+   "commission",
+   "commissioner"
+  ]
+ },
+ {
+  "word": "custard",
+  "meaning_ko": "커스터드",
+  "pos": "noun",
+  "candidates": [
+   "custard apple"
+  ]
+ },
+ {
+  "word": "dessert",
+  "meaning_ko": "후식",
+  "pos": "noun",
+  "candidates": [
+   "dessertspoon"
+  ]
+ },
+ {
+  "word": "dill",
+  "meaning_ko": "딜 — 가는 잎과 작은 노란 꽃을 가진 미나리과 향신 식물",
+  "pos": "noun",
+  "candidates": [
+   "dilly",
+   "dillydally"
+  ]
+ },
+ {
+  "word": "fillet",
+  "meaning_ko": "필레, 저민 고기·생선 살",
+  "pos": "noun",
+  "candidates": [
+   "fillete"
+  ]
+ }
+]

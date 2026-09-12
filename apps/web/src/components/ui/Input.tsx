@@ -161,7 +161,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                 onClick={() => setShowPassword((p) => !p)}
                 aria-label={showPassword ? "비밀번호 숨기기" : "비밀번호 보기"}
                 className={cn(
-                  "w-7 h-7 rounded-md",
+                  // 28×28 이었다 — 44px 미만 탭 대상이었다(CLAUDE.md 절대 금지 · 실측 390px). 아이콘 전용이라 가로도 확보해야 한다.
+                  "w-11 h-11 rounded-md",
                   "flex items-center justify-center",
                   "text-t3 hover:text-t1 hover:bg-bg3",
                   "transition-colors duration-normal",

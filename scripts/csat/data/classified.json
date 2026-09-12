@@ -1,0 +1,9110 @@
+{
+ "scope": {
+  "primary": "13개년(2014=B형)",
+  "out_of_scope": [
+   "2014A"
+  ]
+ },
+ "scoped": {
+  "n": 585,
+  "ok": 585,
+  "un": 0,
+  "mu": 0
+ },
+ "all": {
+  "n": 630,
+  "ok": 630,
+  "un": 0,
+  "mu": 0
+ },
+ "types": [
+  {
+   "id": "L-PURPOSE",
+   "name": "담화 목적",
+   "sec": "듣기",
+   "match": "/하는말의목적으로/"
+  },
+  {
+   "id": "L-OPINION",
+   "name": "의견",
+   "sec": "듣기",
+   "match": "/의견으로가장적절한/"
+  },
+  {
+   "id": "L-MAIN",
+   "name": "요지",
+   "sec": "듣기",
+   "match": "/하는말의요지로/"
+  },
+  {
+   "id": "L-TOPIC",
+   "name": "담화 주제(단독)",
+   "sec": "듣기",
+   "match": "/하는말의주제로가장적절한것을고르시오/"
+  },
+  {
+   "id": "L-RELATION",
+   "name": "관계",
+   "sec": "듣기",
+   "match": "/두사람의관계를/"
+  },
+  {
+   "id": "L-PICTURE",
+   "name": "그림",
+   "sec": "듣기",
+   "match": "/그림에서(대화의내용과일치하지않는|.*위치를)/"
+  },
+  {
+   "id": "L-TODO",
+   "name": "할 일",
+   "sec": "듣기",
+   "match": "/할일로가장적절한/"
+  },
+  {
+   "id": "L-FAVOR",
+   "name": "부탁한 일",
+   "sec": "듣기",
+   "match": "/부탁한일로가장적절한/"
+  },
+  {
+   "id": "L-MONEY",
+   "name": "지불 금액",
+   "sec": "듣기",
+   "match": "/지불할금액을/"
+  },
+  {
+   "id": "L-REASON",
+   "name": "이유",
+   "sec": "듣기",
+   "match": "/이유(로가장적절한|를고르시오)/"
+  },
+  {
+   "id": "L-NOTMENTION",
+   "name": "언급되지 않은 것",
+   "sec": "듣기",
+   "match": "/언급(되지|하지)않은것을고르시오/"
+  },
+  {
+   "id": "L-MENTIONED",
+   "name": "언급한 것 고르기",
+   "sec": "듣기",
+   "match": "/언급한[^,]*(을|를)고르시오/"
+  },
+  {
+   "id": "L-TABLE",
+   "name": "표 보고 선택",
+   "sec": "듣기",
+   "match": "/표를보면서대화를듣고/"
+  },
+  {
+   "id": "L-ANNOUNCE",
+   "name": "담화 내용 불일치",
+   "sec": "듣기",
+   "match": "/다음내용을듣고,일치하지않는/"
+  },
+  {
+   "id": "L-RESPONSE",
+   "name": "짧은 응답",
+   "sec": "듣기",
+   "match": "/마지막말에대한.*응답으로/"
+  },
+  {
+   "id": "L-SITUATION",
+   "name": "상황 후 할 말",
+   "sec": "듣기",
+   "match": "/상황설명을듣고/"
+  },
+  {
+   "id": "L-SET-TOPIC",
+   "name": "세트 주제",
+   "sec": "듣기",
+   "match": "/하는말의주제로가장적절한것은\\?/"
+  },
+  {
+   "id": "L-SET-NOT",
+   "name": "세트 불포함",
+   "sec": "듣기",
+   "match": "/^언급된.*아닌것은\\?/"
+  },
+  {
+   "id": "R-PURPOSE",
+   "name": "글의 목적",
+   "sec": "독해",
+   "match": "/다음글의목적으로/"
+  },
+  {
+   "id": "R-MOOD",
+   "name": "심경·분위기",
+   "sec": "독해",
+   "match": "/(심경|분위기)(의)?(변화)?(으)?로가장적절한/"
+  },
+  {
+   "id": "R-CLAIM",
+   "name": "필자 주장",
+   "sec": "독해",
+   "match": "/필자가주장하는바로/"
+  },
+  {
+   "id": "R-IMPLY",
+   "name": "함축 의미",
+   "sec": "독해",
+   "match": "/밑줄친.*(의미하는바로|뜻하는바로)/"
+  },
+  {
+   "id": "R-GIST",
+   "name": "요지",
+   "sec": "독해",
+   "match": "/다음글의요지로/"
+  },
+  {
+   "id": "R-TOPIC",
+   "name": "주제",
+   "sec": "독해",
+   "match": "/다음글의주제로/"
+  },
+  {
+   "id": "R-TITLE",
+   "name": "제목",
+   "sec": "독해",
+   "match": "/다음글의제목으로/"
+  },
+  {
+   "id": "R-CHART",
+   "name": "도표",
+   "sec": "독해",
+   "match": "/다음(도표|표)의내용과/"
+  },
+  {
+   "id": "R-NOTICE",
+   "name": "안내문 일치",
+   "sec": "독해",
+   "match": "/(안내문|Notice의내용과)/"
+  },
+  {
+   "id": "R-FACT",
+   "name": "내용 일치(글)",
+   "sec": "독해",
+   "match": "/관한다음글의내용과/"
+  },
+  {
+   "id": "R-GRAMMAR",
+   "name": "어법",
+   "sec": "독해",
+   "match": "/어법상틀린/"
+  },
+  {
+   "id": "R-VOCAB",
+   "name": "어휘(문맥)",
+   "sec": "독해",
+   "match": "/^(?!.*밑줄친\\(a\\)).*(문맥상낱말의쓰임이적절하지않은|네모안에서문맥에맞는낱말)/"
+  },
+  {
+   "id": "R-BLANK",
+   "name": "빈칸 추론",
+   "sec": "독해",
+   "match": "/^(?!.*요약)(?!.*(윗글|위글)의빈칸).*빈칸에들어갈(말|것)로가장적절한/"
+  },
+  {
+   "id": "R-REFER",
+   "name": "지칭 추론(단문·폐지)",
+   "sec": "독해",
+   "match": "/^(?!.*밑줄친\\(a\\)).*가리키는대상이나머지넷과다른/"
+  },
+  {
+   "id": "R-BLANK2",
+   "name": "빈칸 추론(2개·폐지)",
+   "sec": "독해",
+   "match": "/^(?!.*요약)(?!.*윗글)(?!.*위글).*빈칸\\(A\\),?\\(B\\)에들어갈말로/"
+  },
+  {
+   "id": "R-IRRELEVANT",
+   "name": "무관한 문장",
+   "sec": "독해",
+   "match": "/전체흐름과관계없는문장/"
+  },
+  {
+   "id": "R-ORDER",
+   "name": "글의 순서",
+   "sec": "독해",
+   "match": "/이어질글의순서로/"
+  },
+  {
+   "id": "R-INSERT",
+   "name": "문장 삽입",
+   "sec": "독해",
+   "match": "/주어진문장이들어가기에/"
+  },
+  {
+   "id": "R-SUMMARY",
+   "name": "요약문 완성",
+   "sec": "독해",
+   "match": "/한문장으로요약하고자/"
+  },
+  {
+   "id": "X-TITLE",
+   "name": "장문 제목",
+   "sec": "장문",
+   "match": "/(윗글|위글)의제목으로/"
+  },
+  {
+   "id": "X-VOCAB",
+   "name": "장문 어휘",
+   "sec": "장문",
+   "match": "/밑줄친\\(a\\).*(낱말의)?쓰임이적절하지않은/"
+  },
+  {
+   "id": "X-BLANK2",
+   "name": "장문 빈칸(2개)",
+   "sec": "장문",
+   "match": "/(윗글|위글)의빈칸\\(A\\),?\\(B\\)에들어갈말로/"
+  },
+  {
+   "id": "X-ORDER",
+   "name": "장문 순서",
+   "sec": "장문",
+   "match": "/주어진글\\(A\\)에이어질내용을순서에맞게/"
+  },
+  {
+   "id": "X-REFER",
+   "name": "장문 지칭",
+   "sec": "장문",
+   "match": "/밑줄친\\(a\\).*가리키는대상이나머지넷과다른/"
+  },
+  {
+   "id": "X-BLANK",
+   "name": "장문 빈칸(1개·폐지)",
+   "sec": "장문",
+   "match": "/(윗글|위글)의빈칸에들어갈(말|것)로가장적절한/"
+  },
+  {
+   "id": "X-FACT",
+   "name": "장문 내용 일치",
+   "sec": "장문",
+   "match": "/(윗글|위글)(에관한|의).*(내용과일치하지않는|내용으로적절하지않은)/"
+  }
+ ],
+ "rows": [
+  {
+   "exam": "2014B",
+   "no": 1,
+   "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2014B",
+   "no": 2,
+   "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2014B",
+   "no": 3,
+   "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2014B",
+   "no": 4,
+   "stem": "다음을 듣고, 남자가 하는 말의 목적으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-PURPOSE",
+   "hit_count": 1,
+   "hits": [
+    "L-PURPOSE"
+   ]
+  },
+  {
+   "exam": "2014B",
+   "no": 5,
+   "stem": "다음을 듣고, 여자가 하는 말의 주제로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-TOPIC",
+   "hit_count": 1,
+   "hits": [
+    "L-TOPIC"
+   ]
+  },
+  {
+   "exam": "2014B",
+   "no": 6,
+   "stem": "대화를 듣고, 두 사람이 하는 말의 주제로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-TOPIC",
+   "hit_count": 1,
+   "hits": [
+    "L-TOPIC"
+   ]
+  },
+  {
+   "exam": "2014B",
+   "no": 7,
+   "stem": "대화를 듣고, 여자의 의견으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-OPINION",
+   "hit_count": 1,
+   "hits": [
+    "L-OPINION"
+   ]
+  },
+  {
+   "exam": "2014B",
+   "no": 8,
+   "stem": "대화를 듣고, 그림에서 대화의 내용과 일치하지 않는 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-PICTURE",
+   "hit_count": 1,
+   "hits": [
+    "L-PICTURE"
+   ]
+  },
+  {
+   "exam": "2014B",
+   "no": 9,
+   "stem": "대화를 듣고, 두 사람의 관계를 가장 잘 나타낸 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RELATION",
+   "hit_count": 1,
+   "hits": [
+    "L-RELATION"
+   ]
+  },
+  {
+   "exam": "2014B",
+   "no": 10,
+   "stem": "대화를 듣고, 여자가 남자를 위해 할 일로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-TODO",
+   "hit_count": 1,
+   "hits": [
+    "L-TODO"
+   ]
+  },
+  {
+   "exam": "2014B",
+   "no": 11,
+   "stem": "대화를 듣고, 여자가 남자에게 부탁한 일로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-FAVOR",
+   "hit_count": 1,
+   "hits": [
+    "L-FAVOR"
+   ]
+  },
+  {
+   "exam": "2014B",
+   "no": 12,
+   "stem": "대화를 듣고, 남자가 head chef에 지원하지 못하는 이유를 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-REASON",
+   "hit_count": 1,
+   "hits": [
+    "L-REASON"
+   ]
+  },
+  {
+   "exam": "2014B",
+   "no": 13,
+   "stem": "대화를 듣고, 예술 작품을 이해하는 데 도움이 되는 것으로 두 사람이 언급하지 않은 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-NOTMENTION",
+   "hit_count": 1,
+   "hits": [
+    "L-NOTMENTION"
+   ]
+  },
+  {
+   "exam": "2014B",
+   "no": 14,
+   "stem": "대화를 듣고, 여자가 지불할 금액을 고르시오.",
+   "high_score": true,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-MONEY",
+   "hit_count": 1,
+   "hits": [
+    "L-MONEY"
+   ]
+  },
+  {
+   "exam": "2014B",
+   "no": 15,
+   "stem": "Amazing Art Lovers에 관한 다음 내용을 듣고, 일치하지 않는 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-ANNOUNCE",
+   "hit_count": 1,
+   "hits": [
+    "L-ANNOUNCE"
+   ]
+  },
+  {
+   "exam": "2014B",
+   "no": 16,
+   "stem": "sausage tree에 관한 다음 내용을 듣고, 일치하지 않는 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-ANNOUNCE",
+   "hit_count": 1,
+   "hits": [
+    "L-ANNOUNCE"
+   ]
+  },
+  {
+   "exam": "2014B",
+   "no": 17,
+   "stem": "다음 표를 보면서 대화를 듣고, 두 사람이 선택한 제품을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-TABLE",
+   "hit_count": 1,
+   "hits": [
+    "L-TABLE"
+   ]
+  },
+  {
+   "exam": "2014B",
+   "no": 18,
+   "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2014B",
+   "no": 19,
+   "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": true,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2014B",
+   "no": 20,
+   "stem": "다음 상황 설명을 듣고, Paul이 Jennifer에게 할 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-SITUATION",
+   "hit_count": 1,
+   "hits": [
+    "L-SITUATION"
+   ]
+  },
+  {
+   "exam": "2014B",
+   "no": 21,
+   "stem": "남자가 하는 말의 주제로 가장 적절한 것은?",
+   "high_score": true,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-SET-TOPIC",
+   "hit_count": 1,
+   "hits": [
+    "L-SET-TOPIC"
+   ]
+  },
+  {
+   "exam": "2014B",
+   "no": 22,
+   "stem": "언급된 동물이 아닌 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-SET-NOT",
+   "hit_count": 1,
+   "hits": [
+    "L-SET-NOT"
+   ]
+  },
+  {
+   "exam": "2014B",
+   "no": 23,
+   "stem": "다음 글의 요지로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-GIST",
+   "hit_count": 1,
+   "hits": [
+    "R-GIST"
+   ]
+  },
+  {
+   "exam": "2014B",
+   "no": 24,
+   "stem": "다음 글의 주제로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-TOPIC",
+   "hit_count": 1,
+   "hits": [
+    "R-TOPIC"
+   ]
+  },
+  {
+   "exam": "2014B",
+   "no": 25,
+   "stem": "다음 글의 제목으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-TITLE",
+   "hit_count": 1,
+   "hits": [
+    "R-TITLE"
+   ]
+  },
+  {
+   "exam": "2014B",
+   "no": 26,
+   "stem": "밑줄 친 부분이 가리키는 대상이 나머지 넷과 다른 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-REFER",
+   "hit_count": 1,
+   "hits": [
+    "R-REFER"
+   ]
+  },
+  {
+   "exam": "2014B",
+   "no": 27,
+   "stem": "다음 글의 밑줄 친 부분 중, 어법상 틀린 것은?",
+   "high_score": true,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-GRAMMAR",
+   "hit_count": 1,
+   "hits": [
+    "R-GRAMMAR"
+   ]
+  },
+  {
+   "exam": "2014B",
+   "no": 28,
+   "stem": "다음 글의 밑줄 친 부분 중, 문맥상 낱말의 쓰임이 적절하지 않은 것은?",
+   "high_score": true,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-VOCAB",
+   "hit_count": 1,
+   "hits": [
+    "R-VOCAB"
+   ]
+  },
+  {
+   "exam": "2014B",
+   "no": 29,
+   "stem": "다음 도표의 내용과 일치하지 않는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-CHART",
+   "hit_count": 1,
+   "hits": [
+    "R-CHART"
+   ]
+  },
+  {
+   "exam": "2014B",
+   "no": 30,
+   "stem": "Fourier에 관한 다음 글의 내용과 일치하지 않는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-FACT",
+   "hit_count": 1,
+   "hits": [
+    "R-FACT"
+   ]
+  },
+  {
+   "exam": "2014B",
+   "no": 31,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2014B",
+   "no": 32,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2014B",
+   "no": 33,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2014B",
+   "no": 34,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2014B",
+   "no": 35,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2014B",
+   "no": 36,
+   "stem": "다음 글의 빈칸 (A), (B)에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK2",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK2"
+   ]
+  },
+  {
+   "exam": "2014B",
+   "no": 37,
+   "stem": "다음 글의 빈칸 (A), (B)에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK2",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK2"
+   ]
+  },
+  {
+   "exam": "2014B",
+   "no": 38,
+   "stem": "주어진 글 다음에 이어질 글의 순서로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-ORDER",
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
+  },
+  {
+   "exam": "2014B",
+   "no": 39,
+   "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-INSERT",
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
+  },
+  {
+   "exam": "2014B",
+   "no": 40,
+   "stem": "다음 글의 내용을 한 문장으로 요약하고자 한다. 빈칸 (A)와 (B)에 들어갈 말로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-SUMMARY",
+   "hit_count": 1,
+   "hits": [
+    "R-SUMMARY"
+   ]
+  },
+  {
+   "exam": "2014B",
+   "no": 41,
+   "stem": "위 글의 제목으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-TITLE",
+   "hit_count": 1,
+   "hits": [
+    "X-TITLE"
+   ]
+  },
+  {
+   "exam": "2014B",
+   "no": 42,
+   "stem": "위 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "X-BLANK"
+   ]
+  },
+  {
+   "exam": "2014B",
+   "no": 43,
+   "stem": "주어진 글 (A)에 이어질 내용을 순서에 맞게 배열한 것으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-ORDER",
+   "hit_count": 1,
+   "hits": [
+    "X-ORDER"
+   ]
+  },
+  {
+   "exam": "2014B",
+   "no": 44,
+   "stem": "밑줄 친 (a)∼(e) 중에서 가리키는 대상이 나머지 넷과 다른 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-REFER",
+   "hit_count": 1,
+   "hits": [
+    "X-REFER"
+   ]
+  },
+  {
+   "exam": "2014B",
+   "no": 45,
+   "stem": "위 글의 grandpa에 관한 내용과 일치하지 않는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-FACT",
+   "hit_count": 1,
+   "hits": [
+    "X-FACT"
+   ]
+  },
+  {
+   "exam": "2014A",
+   "no": 1,
+   "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오. ① It’s time to go to bed. ② Let’s not buy this apartment. ③ Sleep is better than medicine. ④ The neighbors are really noisy. ⑤ This new house has enough rooms.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": true,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2014A",
+   "no": 2,
+   "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오. ① Right. We need to get a new fridge. ② Oh! Then I’ll go buy some right now. ③ Sure. Let me show you how to cook them. ④ Wow! This sandwich tastes really good. ⑤ Yeah. This is a good place for a picnic.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": true,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2014A",
+   "no": 3,
+   "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오. [3점] ① No. You don’t have to pay the late fee. ② Right. I’ll pay now and get the book later. ③ It’s my turn. So you have to wait until I’m done. ④ Okay. I’ll put your name on it, so you’ll be the next. ⑤ Why not? Wait here and I’ll go find the book for you.",
+   "high_score": true,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": true,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2014A",
+   "no": 4,
+   "stem": "대화를 듣고, 그림에서 Eva’s Bakery의 위치를 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-PICTURE",
+   "hit_count": 1,
+   "hits": [
+    "L-PICTURE"
+   ]
+  },
+  {
+   "exam": "2014A",
+   "no": 5,
+   "stem": "다음을 듣고, 남자가 하는 말의 목적으로 가장 적절한 것을 고르시오. ① 주차 관리 요원을 모집하려고 ② 요가 센터 개장을 홍보하려고 ③ 주차장 확장 공사를 안내하려고 ④ 체육 시설 안전 점검을 촉구하려고 ⑤ 새로운 요가 프로그램을 소개하려고",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": true,
+   "type": "L-PURPOSE",
+   "hit_count": 1,
+   "hits": [
+    "L-PURPOSE"
+   ]
+  },
+  {
+   "exam": "2014A",
+   "no": 6,
+   "stem": "다음을 듣고, 여자가 하는 말의 주제로 가장 적절한 것을 고르시오. ① 배낚시 전 확인해야 할 안전 장비 ② 배낚시를 즐기는 다양한 방법 ③ 선상 화재의 주된 원인 ④ 연령에 따른 구명조끼의 종류 ⑤ 배낚시 도구의 효과적인 관리 요령",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": true,
+   "type": "L-TOPIC",
+   "hit_count": 1,
+   "hits": [
+    "L-TOPIC"
+   ]
+  },
+  {
+   "exam": "2014A",
+   "no": 7,
+   "stem": "대화를 듣고, 두 사람이 하는 말의 주제로 가장 적절한 것을 고르시오. ① 컴퓨터 구매 시 고려 사항 ② 컴퓨터 보안 프로그램의 필요성 ③ 컴퓨터 내부 먼지 제거의 중요성 ④ 컴퓨터 전용 청소 도구의 사용법 ⑤ 컴퓨터 사용 시간과 건강 간의 관계",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": true,
+   "type": "L-TOPIC",
+   "hit_count": 1,
+   "hits": [
+    "L-TOPIC"
+   ]
+  },
+  {
+   "exam": "2014A",
+   "no": 8,
+   "stem": "대화를 듣고, 여자의 의견으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-OPINION",
+   "hit_count": 1,
+   "hits": [
+    "L-OPINION"
+   ]
+  },
+  {
+   "exam": "2014A",
+   "no": 9,
+   "stem": "대화를 듣고, 그림에서 대화의 내용과 일치하지 않는 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-PICTURE",
+   "hit_count": 1,
+   "hits": [
+    "L-PICTURE"
+   ]
+  },
+  {
+   "exam": "2014A",
+   "no": 10,
+   "stem": "대화를 듣고, 두 사람의 관계를 가장 잘 나타낸 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RELATION",
+   "hit_count": 1,
+   "hits": [
+    "L-RELATION"
+   ]
+  },
+  {
+   "exam": "2014A",
+   "no": 11,
+   "stem": "대화를 듣고, 여자가 남자를 위해 할 일로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-TODO",
+   "hit_count": 1,
+   "hits": [
+    "L-TODO"
+   ]
+  },
+  {
+   "exam": "2014A",
+   "no": 12,
+   "stem": "대화를 듣고, 여자가 남자에게 부탁한 일로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-FAVOR",
+   "hit_count": 1,
+   "hits": [
+    "L-FAVOR"
+   ]
+  },
+  {
+   "exam": "2014A",
+   "no": 13,
+   "stem": "대화를 듣고, 남자가 언급한 계약서상의 오류를 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-MENTIONED",
+   "hit_count": 1,
+   "hits": [
+    "L-MENTIONED"
+   ]
+  },
+  {
+   "exam": "2014A",
+   "no": 14,
+   "stem": "대화를 듣고, 남자가 head chef에 지원하지 못하는 이유를 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-REASON",
+   "hit_count": 1,
+   "hits": [
+    "L-REASON"
+   ]
+  },
+  {
+   "exam": "2014A",
+   "no": 15,
+   "stem": "대화를 듣고, 여자가 지불할 금액을 고르시오.",
+   "high_score": true,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-MONEY",
+   "hit_count": 1,
+   "hits": [
+    "L-MONEY"
+   ]
+  },
+  {
+   "exam": "2014A",
+   "no": 16,
+   "stem": "Amazing Art Lovers에 관한 다음 내용을 듣고, 일치하지 않는 것을 고르시오. ① 43년의 역사를 가진 동아리이다. ② 지난 10년 동안 지역 사회에서 자원 봉사를 해 왔다. ③ 일주일 전에, 공장 벽에 그림을 그려 달라고 요청받았다. ④ 전공에 관계없이 신입 회원을 찾고 있다. ⑤ 전화번호가 웹사이트에 게시되어 있다.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": true,
+   "type": "L-ANNOUNCE",
+   "hit_count": 1,
+   "hits": [
+    "L-ANNOUNCE"
+   ]
+  },
+  {
+   "exam": "2014A",
+   "no": 17,
+   "stem": "다음 표를 보면서 대화를 듣고, 두 사람이 선택한 제품을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-TABLE",
+   "hit_count": 1,
+   "hits": [
+    "L-TABLE"
+   ]
+  },
+  {
+   "exam": "2014A",
+   "no": 18,
+   "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오. Woman:",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": true,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2014A",
+   "no": 19,
+   "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오. [3점] Man:",
+   "high_score": true,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": true,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2014A",
+   "no": 20,
+   "stem": "다음 상황 설명을 듣고, Paul이 Jennifer에게 할 말로 가장 적절한 것을 고르시오. Paul:",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": true,
+   "type": "L-SITUATION",
+   "hit_count": 1,
+   "hits": [
+    "L-SITUATION"
+   ]
+  },
+  {
+   "exam": "2014A",
+   "no": 21,
+   "stem": "여자가 하는 말의 목적으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-PURPOSE",
+   "hit_count": 1,
+   "hits": [
+    "L-PURPOSE"
+   ]
+  },
+  {
+   "exam": "2014A",
+   "no": 22,
+   "stem": "언급된 물건이 아닌 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-SET-NOT",
+   "hit_count": 1,
+   "hits": [
+    "L-SET-NOT"
+   ]
+  },
+  {
+   "exam": "2014A",
+   "no": 23,
+   "stem": "다음 글의 목적으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-PURPOSE",
+   "hit_count": 1,
+   "hits": [
+    "R-PURPOSE"
+   ]
+  },
+  {
+   "exam": "2014A",
+   "no": 24,
+   "stem": "다음 글의 요지로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-GIST",
+   "hit_count": 1,
+   "hits": [
+    "R-GIST"
+   ]
+  },
+  {
+   "exam": "2014A",
+   "no": 25,
+   "stem": "다음 글의 주제로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-TOPIC",
+   "hit_count": 1,
+   "hits": [
+    "R-TOPIC"
+   ]
+  },
+  {
+   "exam": "2014A",
+   "no": 26,
+   "stem": "다음 글의 제목으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-TITLE",
+   "hit_count": 1,
+   "hits": [
+    "R-TITLE"
+   ]
+  },
+  {
+   "exam": "2014A",
+   "no": 27,
+   "stem": "다음 글의 밑줄 친 부분 중, 어법상 틀린 것은?",
+   "high_score": true,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-GRAMMAR",
+   "hit_count": 1,
+   "hits": [
+    "R-GRAMMAR"
+   ]
+  },
+  {
+   "exam": "2014A",
+   "no": 28,
+   "stem": "(A), (B), (C)의 각 네모 안에서 문맥에 맞는 낱말로 가장 적절한 것은?",
+   "high_score": true,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-VOCAB",
+   "hit_count": 1,
+   "hits": [
+    "R-VOCAB"
+   ]
+  },
+  {
+   "exam": "2014A",
+   "no": 29,
+   "stem": "Modern Pottery Museum에 관한 다음 안내문의 내용과 일치하는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-NOTICE",
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
+  },
+  {
+   "exam": "2014A",
+   "no": 30,
+   "stem": "Nature Foundation 회원의 혜택에 관한 다음 안내문의 내용과 일치하지 않는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-NOTICE",
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
+  },
+  {
+   "exam": "2014A",
+   "no": 31,
+   "stem": "Harmony Youth Orchestra Auditions에 관한 다음 안내문의 내용과 일치하지 않는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-NOTICE",
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
+  },
+  {
+   "exam": "2014A",
+   "no": 32,
+   "stem": "다음 도표의 내용과 일치하지 않는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-CHART",
+   "hit_count": 1,
+   "hits": [
+    "R-CHART"
+   ]
+  },
+  {
+   "exam": "2014A",
+   "no": 33,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2014A",
+   "no": 34,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2014A",
+   "no": 35,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2014A",
+   "no": 36,
+   "stem": "다음 글의 빈칸 (A), (B)에 들어갈 말로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-BLANK2",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK2"
+   ]
+  },
+  {
+   "exam": "2014A",
+   "no": 37,
+   "stem": "주어진 글 다음에 이어질 글의 순서로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-ORDER",
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
+  },
+  {
+   "exam": "2014A",
+   "no": 38,
+   "stem": "다음 글에서 전체 흐름과 관계 없는 문장은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-IRRELEVANT",
+   "hit_count": 1,
+   "hits": [
+    "R-IRRELEVANT"
+   ]
+  },
+  {
+   "exam": "2014A",
+   "no": 39,
+   "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳은?",
+   "high_score": true,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-INSERT",
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
+  },
+  {
+   "exam": "2014A",
+   "no": 40,
+   "stem": "다음 글에 드러난 필자의 심경으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-MOOD",
+   "hit_count": 1,
+   "hits": [
+    "R-MOOD"
+   ]
+  },
+  {
+   "exam": "2014A",
+   "no": 41,
+   "stem": "위 글의 제목으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-TITLE",
+   "hit_count": 1,
+   "hits": [
+    "X-TITLE"
+   ]
+  },
+  {
+   "exam": "2014A",
+   "no": 42,
+   "stem": "위 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+   "high_score": true,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "X-BLANK"
+   ]
+  },
+  {
+   "exam": "2014A",
+   "no": 43,
+   "stem": "주어진 글 (A)에 이어질 내용을 순서에 맞게 배열한 것으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-ORDER",
+   "hit_count": 1,
+   "hits": [
+    "X-ORDER"
+   ]
+  },
+  {
+   "exam": "2014A",
+   "no": 44,
+   "stem": "밑줄 친 (a)～(e) 중에서 가리키는 대상이 나머지 넷과 다른 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-REFER",
+   "hit_count": 1,
+   "hits": [
+    "X-REFER"
+   ]
+  },
+  {
+   "exam": "2014A",
+   "no": 45,
+   "stem": "위 글의 grandmother에 관한 내용과 일치하지 않는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-FACT",
+   "hit_count": 1,
+   "hits": [
+    "X-FACT"
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 1,
+   "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 2,
+   "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 3,
+   "stem": "다음을 듣고, 남자가 하는 말의 목적으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-PURPOSE",
+   "hit_count": 1,
+   "hits": [
+    "L-PURPOSE"
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 4,
+   "stem": "대화를 듣고, 두 사람이 하는 말의 주제로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-TOPIC",
+   "hit_count": 1,
+   "hits": [
+    "L-TOPIC"
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 5,
+   "stem": "대화를 듣고, 두 사람의 관계를 가장 잘 나타낸 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RELATION",
+   "hit_count": 1,
+   "hits": [
+    "L-RELATION"
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 6,
+   "stem": "대화를 듣고, 그림에서 대화의 내용과 일치하지 않는 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-PICTURE",
+   "hit_count": 1,
+   "hits": [
+    "L-PICTURE"
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 7,
+   "stem": "대화를 듣고, 남자가 여자에게 부탁한 일로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-FAVOR",
+   "hit_count": 1,
+   "hits": [
+    "L-FAVOR"
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 8,
+   "stem": "대화를 듣고, 남자가 야구 경기를 보러 갈 수 없는 이유를 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-REASON",
+   "hit_count": 1,
+   "hits": [
+    "L-REASON"
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 9,
+   "stem": "대화를 듣고, 여자가 지불할 금액을 고르시오.",
+   "high_score": true,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-MONEY",
+   "hit_count": 1,
+   "hits": [
+    "L-MONEY"
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 10,
+   "stem": "대화를 듣고, 미용실에 관해 두 사람이 언급하지 않은 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-NOTMENTION",
+   "hit_count": 1,
+   "hits": [
+    "L-NOTMENTION"
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 11,
+   "stem": "science essay contest에 관한 다음 내용을 듣고, 일치하지 않는 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-ANNOUNCE",
+   "hit_count": 1,
+   "hits": [
+    "L-ANNOUNCE"
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 12,
+   "stem": "다음 표를 보면서 대화를 듣고, 두 사람이 선택할 패키지 상품을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-TABLE",
+   "hit_count": 1,
+   "hits": [
+    "L-TABLE"
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 13,
+   "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": true,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 14,
+   "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 15,
+   "stem": "다음 상황 설명을 듣고, Peter가 Sandra에게 할 말로 가장 적절한 것을 고르시오.",
+   "high_score": true,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-SITUATION",
+   "hit_count": 1,
+   "hits": [
+    "L-SITUATION"
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 16,
+   "stem": "여자가 하는 말의 주제로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-SET-TOPIC",
+   "hit_count": 1,
+   "hits": [
+    "L-SET-TOPIC"
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 17,
+   "stem": "언급된 물건이 아닌 것은?",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-SET-NOT",
+   "hit_count": 1,
+   "hits": [
+    "L-SET-NOT"
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 18,
+   "stem": "다음 글의 요지로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-GIST",
+   "hit_count": 1,
+   "hits": [
+    "R-GIST"
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 19,
+   "stem": "다음 글에 드러난 ‘I’의 심경으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-MOOD",
+   "hit_count": 1,
+   "hits": [
+    "R-MOOD"
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 20,
+   "stem": "다음 글의 주제로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-TOPIC",
+   "hit_count": 1,
+   "hits": [
+    "R-TOPIC"
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 21,
+   "stem": "다음 글의 주제로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-TOPIC",
+   "hit_count": 1,
+   "hits": [
+    "R-TOPIC"
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 22,
+   "stem": "다음 글의 제목으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-TITLE",
+   "hit_count": 1,
+   "hits": [
+    "R-TITLE"
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 23,
+   "stem": "다음 글의 제목으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-TITLE",
+   "hit_count": 1,
+   "hits": [
+    "R-TITLE"
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 24,
+   "stem": "Georg Dionysius Ehret에 관한 다음 글의 내용과 일치하지 않는",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": true,
+   "type": "R-FACT",
+   "hit_count": 1,
+   "hits": [
+    "R-FACT"
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 25,
+   "stem": "다음 도표의 내용과 일치하지 않는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-CHART",
+   "hit_count": 1,
+   "hits": [
+    "R-CHART"
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 26,
+   "stem": "Short Film Festival에 관한 다음 안내문의 내용과 일치하는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-NOTICE",
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 27,
+   "stem": "After-School Program에 관한 다음 안내문의 내용과 일치하지 않는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-NOTICE",
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 28,
+   "stem": "다음 글의 밑줄 친 부분 중, 어법상 틀린 것은?",
+   "high_score": true,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-GRAMMAR",
+   "hit_count": 1,
+   "hits": [
+    "R-GRAMMAR"
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 29,
+   "stem": "밑줄 친 부분이 가리키는 대상이 나머지 넷과 다른 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-REFER",
+   "hit_count": 1,
+   "hits": [
+    "R-REFER"
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 30,
+   "stem": "(A), (B), (C)의 각 네모 안에서 문맥에 맞는 낱말로 가장 적절한 것은?",
+   "high_score": true,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-VOCAB",
+   "hit_count": 1,
+   "hits": [
+    "R-VOCAB"
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 31,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 32,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 33,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 34,
+   "stem": "다음 글의 빈칸 (A), (B)에 들어갈 말로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-BLANK2",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK2"
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 35,
+   "stem": "다음 글에서 전체 흐름과 관계 없는 문장은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-IRRELEVANT",
+   "hit_count": 1,
+   "hits": [
+    "R-IRRELEVANT"
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 36,
+   "stem": "주어진 글 다음에 이어질 글의 순서로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-ORDER",
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 37,
+   "stem": "주어진 글 다음에 이어질 글의 순서로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-ORDER",
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 38,
+   "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-INSERT",
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 39,
+   "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-INSERT",
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 40,
+   "stem": "다음 글의 내용을 한 문장으로 요약하고자 한다. 빈칸 (A)와 (B)에 들어갈 말로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-SUMMARY",
+   "hit_count": 1,
+   "hits": [
+    "R-SUMMARY"
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 41,
+   "stem": "위 글의 제목으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-TITLE",
+   "hit_count": 1,
+   "hits": [
+    "X-TITLE"
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 42,
+   "stem": "위 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+   "high_score": true,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "X-BLANK"
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 43,
+   "stem": "주어진 글 (A)에 이어질 내용을 순서에 맞게 배열한 것으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-ORDER",
+   "hit_count": 1,
+   "hits": [
+    "X-ORDER"
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 44,
+   "stem": "밑줄 친 (a)～(e) 중에서 가리키는 대상이 나머지 넷과 다른 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-REFER",
+   "hit_count": 1,
+   "hits": [
+    "X-REFER"
+   ]
+  },
+  {
+   "exam": "2015",
+   "no": 45,
+   "stem": "위 글의 Jeremy에 관한 내용과 일치하지 않는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-FACT",
+   "hit_count": 1,
+   "hits": [
+    "X-FACT"
+   ]
+  },
+  {
+   "exam": "2016",
+   "no": 1,
+   "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2016",
+   "no": 2,
+   "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2016",
+   "no": 3,
+   "stem": "다음을 듣고, 여자가 하는 말의 목적으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-PURPOSE",
+   "hit_count": 1,
+   "hits": [
+    "L-PURPOSE"
+   ]
+  },
+  {
+   "exam": "2016",
+   "no": 4,
+   "stem": "대화를 듣고, 남자의 의견으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-OPINION",
+   "hit_count": 1,
+   "hits": [
+    "L-OPINION"
+   ]
+  },
+  {
+   "exam": "2016",
+   "no": 5,
+   "stem": "대화를 듣고, 두 사람의 관계를 가장 잘 나타낸 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RELATION",
+   "hit_count": 1,
+   "hits": [
+    "L-RELATION"
+   ]
+  },
+  {
+   "exam": "2016",
+   "no": 6,
+   "stem": "대화를 듣고, 그림에서 대화의 내용과 일치하지 않는 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-PICTURE",
+   "hit_count": 1,
+   "hits": [
+    "L-PICTURE"
+   ]
+  },
+  {
+   "exam": "2016",
+   "no": 7,
+   "stem": "대화를 듣고, 여자가 할 일로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-TODO",
+   "hit_count": 1,
+   "hits": [
+    "L-TODO"
+   ]
+  },
+  {
+   "exam": "2016",
+   "no": 8,
+   "stem": "대화를 듣고, 남자가 팀 회식에 참석할 수 없는 이유를 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-REASON",
+   "hit_count": 1,
+   "hits": [
+    "L-REASON"
+   ]
+  },
+  {
+   "exam": "2016",
+   "no": 9,
+   "stem": "대화를 듣고, 여자가 지불할 금액을 고르시오.",
+   "high_score": true,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-MONEY",
+   "hit_count": 1,
+   "hits": [
+    "L-MONEY"
+   ]
+  },
+  {
+   "exam": "2016",
+   "no": 10,
+   "stem": "대화를 듣고, Young Inventors Challenge에 관해 두 사람이 언급하지 않은 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-NOTMENTION",
+   "hit_count": 1,
+   "hits": [
+    "L-NOTMENTION"
+   ]
+  },
+  {
+   "exam": "2016",
+   "no": 11,
+   "stem": "Sunnyvale Community Closet에 관한 다음 내용을 듣고, 일치하지 않는 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-ANNOUNCE",
+   "hit_count": 1,
+   "hits": [
+    "L-ANNOUNCE"
+   ]
+  },
+  {
+   "exam": "2016",
+   "no": 12,
+   "stem": "다음 표를 보면서 대화를 듣고, 여자가 보러 가기로 선택한 아파트를 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-TABLE",
+   "hit_count": 1,
+   "hits": [
+    "L-TABLE"
+   ]
+  },
+  {
+   "exam": "2016",
+   "no": 13,
+   "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2016",
+   "no": 14,
+   "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": true,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2016",
+   "no": 15,
+   "stem": "다음 상황 설명을 듣고, David가 Jane에게 할 말로 가장 적절한 것을 고르시오.",
+   "high_score": true,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-SITUATION",
+   "hit_count": 1,
+   "hits": [
+    "L-SITUATION"
+   ]
+  },
+  {
+   "exam": "2016",
+   "no": 16,
+   "stem": "남자가 하는 말의 주제로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-SET-TOPIC",
+   "hit_count": 1,
+   "hits": [
+    "L-SET-TOPIC"
+   ]
+  },
+  {
+   "exam": "2016",
+   "no": 17,
+   "stem": "언급된 곤충이 아닌 것은?",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-SET-NOT",
+   "hit_count": 1,
+   "hits": [
+    "L-SET-NOT"
+   ]
+  },
+  {
+   "exam": "2016",
+   "no": 18,
+   "stem": "다음 글의 목적으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-PURPOSE",
+   "hit_count": 1,
+   "hits": [
+    "R-PURPOSE"
+   ]
+  },
+  {
+   "exam": "2016",
+   "no": 19,
+   "stem": "다음 글에 드러난 ‘I’의 심경으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-MOOD",
+   "hit_count": 1,
+   "hits": [
+    "R-MOOD"
+   ]
+  },
+  {
+   "exam": "2016",
+   "no": 20,
+   "stem": "다음 글에서 필자가 주장하는 바로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-CLAIM",
+   "hit_count": 1,
+   "hits": [
+    "R-CLAIM"
+   ]
+  },
+  {
+   "exam": "2016",
+   "no": 21,
+   "stem": "다음 글의 요지로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-GIST",
+   "hit_count": 1,
+   "hits": [
+    "R-GIST"
+   ]
+  },
+  {
+   "exam": "2016",
+   "no": 22,
+   "stem": "다음 글의 주제로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-TOPIC",
+   "hit_count": 1,
+   "hits": [
+    "R-TOPIC"
+   ]
+  },
+  {
+   "exam": "2016",
+   "no": 23,
+   "stem": "다음 글의 제목으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-TITLE",
+   "hit_count": 1,
+   "hits": [
+    "R-TITLE"
+   ]
+  },
+  {
+   "exam": "2016",
+   "no": 24,
+   "stem": "다음 도표의 내용과 일치하지 않는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-CHART",
+   "hit_count": 1,
+   "hits": [
+    "R-CHART"
+   ]
+  },
+  {
+   "exam": "2016",
+   "no": 25,
+   "stem": "Protogenes에 관한 다음 글의 내용과 일치하지 않는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-FACT",
+   "hit_count": 1,
+   "hits": [
+    "R-FACT"
+   ]
+  },
+  {
+   "exam": "2016",
+   "no": 26,
+   "stem": "2015 Annual Teen Programmers Conference에 관한 다음 안내문의 내용과 일치하는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-NOTICE",
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
+  },
+  {
+   "exam": "2016",
+   "no": 27,
+   "stem": "Virginia Art Show 2015에 관한 다음 안내문의 내용과 일치하지 않는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-NOTICE",
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
+  },
+  {
+   "exam": "2016",
+   "no": 28,
+   "stem": "다음 글의 밑줄 친 부분 중, 어법상 틀린 것은?",
+   "high_score": true,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-GRAMMAR",
+   "hit_count": 1,
+   "hits": [
+    "R-GRAMMAR"
+   ]
+  },
+  {
+   "exam": "2016",
+   "no": 29,
+   "stem": "(A), (B), (C)의 각 네모 안에서 문맥에 맞는 낱말로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-VOCAB",
+   "hit_count": 1,
+   "hits": [
+    "R-VOCAB"
+   ]
+  },
+  {
+   "exam": "2016",
+   "no": 30,
+   "stem": "밑줄 친 he[his]가 가리키는 대상이 나머지 넷과 다른 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-REFER",
+   "hit_count": 1,
+   "hits": [
+    "R-REFER"
+   ]
+  },
+  {
+   "exam": "2016",
+   "no": 31,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2016",
+   "no": 32,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2016",
+   "no": 33,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2016",
+   "no": 34,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2016",
+   "no": 35,
+   "stem": "주어진 글 다음에 이어질 글의 순서로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-ORDER",
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
+  },
+  {
+   "exam": "2016",
+   "no": 36,
+   "stem": "주어진 글 다음에 이어질 글의 순서로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-ORDER",
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
+  },
+  {
+   "exam": "2016",
+   "no": 37,
+   "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-INSERT",
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
+  },
+  {
+   "exam": "2016",
+   "no": 38,
+   "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-INSERT",
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
+  },
+  {
+   "exam": "2016",
+   "no": 39,
+   "stem": "다음 글에서 전체 흐름과 관계 없는 문장은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-IRRELEVANT",
+   "hit_count": 1,
+   "hits": [
+    "R-IRRELEVANT"
+   ]
+  },
+  {
+   "exam": "2016",
+   "no": 40,
+   "stem": "다음 글의 내용을 한 문장으로 요약하고자 한다. 빈칸 (A)와 (B)에 들어갈 말로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-SUMMARY",
+   "hit_count": 1,
+   "hits": [
+    "R-SUMMARY"
+   ]
+  },
+  {
+   "exam": "2016",
+   "no": 41,
+   "stem": "윗글의 제목으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-TITLE",
+   "hit_count": 1,
+   "hits": [
+    "X-TITLE"
+   ]
+  },
+  {
+   "exam": "2016",
+   "no": 42,
+   "stem": "윗글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+   "high_score": true,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "X-BLANK"
+   ]
+  },
+  {
+   "exam": "2016",
+   "no": 43,
+   "stem": "주어진 글 (A)에 이어질 내용을 순서에 맞게 배열한 것으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-ORDER",
+   "hit_count": 1,
+   "hits": [
+    "X-ORDER"
+   ]
+  },
+  {
+   "exam": "2016",
+   "no": 44,
+   "stem": "밑줄 친 (a)∼(e) 중에서 가리키는 대상이 나머지 넷과 다른 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-REFER",
+   "hit_count": 1,
+   "hits": [
+    "X-REFER"
+   ]
+  },
+  {
+   "exam": "2016",
+   "no": 45,
+   "stem": "윗글의 Hannah에 관한 내용과 일치하지 않는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-FACT",
+   "hit_count": 1,
+   "hits": [
+    "X-FACT"
+   ]
+  },
+  {
+   "exam": "2017",
+   "no": 1,
+   "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2017",
+   "no": 2,
+   "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2017",
+   "no": 3,
+   "stem": "다음을 듣고, 여자가 하는 말의 목적으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-PURPOSE",
+   "hit_count": 1,
+   "hits": [
+    "L-PURPOSE"
+   ]
+  },
+  {
+   "exam": "2017",
+   "no": 4,
+   "stem": "대화를 듣고, 남자의 의견으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-OPINION",
+   "hit_count": 1,
+   "hits": [
+    "L-OPINION"
+   ]
+  },
+  {
+   "exam": "2017",
+   "no": 5,
+   "stem": "대화를 듣고, 두 사람의 관계를 가장 잘 나타낸 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RELATION",
+   "hit_count": 1,
+   "hits": [
+    "L-RELATION"
+   ]
+  },
+  {
+   "exam": "2017",
+   "no": 6,
+   "stem": "대화를 듣고, 그림에서 대화의 내용과 일치하지 않는 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-PICTURE",
+   "hit_count": 1,
+   "hits": [
+    "L-PICTURE"
+   ]
+  },
+  {
+   "exam": "2017",
+   "no": 7,
+   "stem": "대화를 듣고, 여자가 할 일로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-TODO",
+   "hit_count": 1,
+   "hits": [
+    "L-TODO"
+   ]
+  },
+  {
+   "exam": "2017",
+   "no": 8,
+   "stem": "대화를 듣고, 여자가 하이킹을 할 수 없는 이유를 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-REASON",
+   "hit_count": 1,
+   "hits": [
+    "L-REASON"
+   ]
+  },
+  {
+   "exam": "2017",
+   "no": 9,
+   "stem": "대화를 듣고, 남자가 지불할 금액을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-MONEY",
+   "hit_count": 1,
+   "hits": [
+    "L-MONEY"
+   ]
+  },
+  {
+   "exam": "2017",
+   "no": 10,
+   "stem": "대화를 듣고, World Furniture Expo에 관해 언급되지 않은 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-NOTMENTION",
+   "hit_count": 1,
+   "hits": [
+    "L-NOTMENTION"
+   ]
+  },
+  {
+   "exam": "2017",
+   "no": 11,
+   "stem": "Creative Minds Science Club에 관한 다음 내용을 듣고, 일치하지 않는 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-ANNOUNCE",
+   "hit_count": 1,
+   "hits": [
+    "L-ANNOUNCE"
+   ]
+  },
+  {
+   "exam": "2017",
+   "no": 12,
+   "stem": "다음 표를 보면서 대화를 듣고, 여자가 구매할 램프를 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-TABLE",
+   "hit_count": 1,
+   "hits": [
+    "L-TABLE"
+   ]
+  },
+  {
+   "exam": "2017",
+   "no": 13,
+   "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": true,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2017",
+   "no": 14,
+   "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": true,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2017",
+   "no": 15,
+   "stem": "다음 상황 설명을 듣고, Brian이 Sarah에게 할 말로 가장 적절한 것을 고르시오.",
+   "high_score": true,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-SITUATION",
+   "hit_count": 1,
+   "hits": [
+    "L-SITUATION"
+   ]
+  },
+  {
+   "exam": "2017",
+   "no": 16,
+   "stem": "남자가 하는 말의 주제로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-SET-TOPIC",
+   "hit_count": 1,
+   "hits": [
+    "L-SET-TOPIC"
+   ]
+  },
+  {
+   "exam": "2017",
+   "no": 17,
+   "stem": "언급된 동물이 아닌 것은?",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-SET-NOT",
+   "hit_count": 1,
+   "hits": [
+    "L-SET-NOT"
+   ]
+  },
+  {
+   "exam": "2017",
+   "no": 18,
+   "stem": "다음 글의 목적으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-PURPOSE",
+   "hit_count": 1,
+   "hits": [
+    "R-PURPOSE"
+   ]
+  },
+  {
+   "exam": "2017",
+   "no": 19,
+   "stem": "다음 글에 드러난 Breaden의 심경 변화로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-MOOD",
+   "hit_count": 1,
+   "hits": [
+    "R-MOOD"
+   ]
+  },
+  {
+   "exam": "2017",
+   "no": 20,
+   "stem": "다음 글의 요지로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-GIST",
+   "hit_count": 1,
+   "hits": [
+    "R-GIST"
+   ]
+  },
+  {
+   "exam": "2017",
+   "no": 21,
+   "stem": "다음 글의 주제로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-TOPIC",
+   "hit_count": 1,
+   "hits": [
+    "R-TOPIC"
+   ]
+  },
+  {
+   "exam": "2017",
+   "no": 22,
+   "stem": "다음 글의 제목으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-TITLE",
+   "hit_count": 1,
+   "hits": [
+    "R-TITLE"
+   ]
+  },
+  {
+   "exam": "2017",
+   "no": 23,
+   "stem": "다음 글의 제목으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-TITLE",
+   "hit_count": 1,
+   "hits": [
+    "R-TITLE"
+   ]
+  },
+  {
+   "exam": "2017",
+   "no": 24,
+   "stem": "다음 도표의 내용과 일치하지 않는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-CHART",
+   "hit_count": 1,
+   "hits": [
+    "R-CHART"
+   ]
+  },
+  {
+   "exam": "2017",
+   "no": 25,
+   "stem": "Miloš Forman에 관한 다음 글의 내용과 일치하지 않는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-FACT",
+   "hit_count": 1,
+   "hits": [
+    "R-FACT"
+   ]
+  },
+  {
+   "exam": "2017",
+   "no": 26,
+   "stem": "Fremont Art College’s 7th Annual Art Exhibition에 관한 다음 안내문의 내용과 일치하지 않는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-NOTICE",
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
+  },
+  {
+   "exam": "2017",
+   "no": 27,
+   "stem": "Fall Festival at Forest Botanic Gardens에 관한 다음 안내문의 내용과 일치하는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-NOTICE",
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
+  },
+  {
+   "exam": "2017",
+   "no": 28,
+   "stem": "다음 글의 밑줄 친 부분 중, 어법상 틀린 것은?",
+   "high_score": true,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-GRAMMAR",
+   "hit_count": 1,
+   "hits": [
+    "R-GRAMMAR"
+   ]
+  },
+  {
+   "exam": "2017",
+   "no": 29,
+   "stem": "(A), (B), (C)의 각 네모 안에서 문맥에 맞는 낱말로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-VOCAB",
+   "hit_count": 1,
+   "hits": [
+    "R-VOCAB"
+   ]
+  },
+  {
+   "exam": "2017",
+   "no": 30,
+   "stem": "밑줄 친 he[his]가 가리키는 대상이 나머지 넷과 다른 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-REFER",
+   "hit_count": 1,
+   "hits": [
+    "R-REFER"
+   ]
+  },
+  {
+   "exam": "2017",
+   "no": 31,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2017",
+   "no": 32,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2017",
+   "no": 33,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2017",
+   "no": 34,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2017",
+   "no": 35,
+   "stem": "다음 글에서 전체 흐름과 관계 없는 문장은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-IRRELEVANT",
+   "hit_count": 1,
+   "hits": [
+    "R-IRRELEVANT"
+   ]
+  },
+  {
+   "exam": "2017",
+   "no": 36,
+   "stem": "주어진 글 다음에 이어질 글의 순서로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-ORDER",
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
+  },
+  {
+   "exam": "2017",
+   "no": 37,
+   "stem": "주어진 글 다음에 이어질 글의 순서로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-ORDER",
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
+  },
+  {
+   "exam": "2017",
+   "no": 38,
+   "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-INSERT",
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
+  },
+  {
+   "exam": "2017",
+   "no": 39,
+   "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-INSERT",
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
+  },
+  {
+   "exam": "2017",
+   "no": 40,
+   "stem": "다음 글의 내용을 한 문장으로 요약하고자 한다. 빈칸 (A), (B)에 들어갈 말로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-SUMMARY",
+   "hit_count": 1,
+   "hits": [
+    "R-SUMMARY"
+   ]
+  },
+  {
+   "exam": "2017",
+   "no": 41,
+   "stem": "윗글의 제목으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-TITLE",
+   "hit_count": 1,
+   "hits": [
+    "X-TITLE"
+   ]
+  },
+  {
+   "exam": "2017",
+   "no": 42,
+   "stem": "윗글의 빈칸 (A), (B)에 들어갈 말로 가장 적절한 것은?",
+   "high_score": true,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-BLANK2",
+   "hit_count": 1,
+   "hits": [
+    "X-BLANK2"
+   ]
+  },
+  {
+   "exam": "2017",
+   "no": 43,
+   "stem": "주어진 글 (A)에 이어질 내용을 순서에 맞게 배열한 것으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-ORDER",
+   "hit_count": 1,
+   "hits": [
+    "X-ORDER"
+   ]
+  },
+  {
+   "exam": "2017",
+   "no": 44,
+   "stem": "밑줄 친 (a)∼(e) 중에서 가리키는 대상이 나머지 넷과 다른 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-REFER",
+   "hit_count": 1,
+   "hits": [
+    "X-REFER"
+   ]
+  },
+  {
+   "exam": "2017",
+   "no": 45,
+   "stem": "윗글의 내용으로 적절하지 않은 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-FACT",
+   "hit_count": 1,
+   "hits": [
+    "X-FACT"
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 1,
+   "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 2,
+   "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 3,
+   "stem": "다음을 듣고, 여자가 하는 말의 목적으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-PURPOSE",
+   "hit_count": 1,
+   "hits": [
+    "L-PURPOSE"
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 4,
+   "stem": "대화를 듣고, 남자의 의견으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-OPINION",
+   "hit_count": 1,
+   "hits": [
+    "L-OPINION"
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 5,
+   "stem": "대화를 듣고, 두 사람의 관계를 가장 잘 나타낸 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RELATION",
+   "hit_count": 1,
+   "hits": [
+    "L-RELATION"
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 6,
+   "stem": "대화를 듣고, 그림에서 대화의 내용과 일치하지 않는 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-PICTURE",
+   "hit_count": 1,
+   "hits": [
+    "L-PICTURE"
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 7,
+   "stem": "대화를 듣고, 남자가 할 일로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-TODO",
+   "hit_count": 1,
+   "hits": [
+    "L-TODO"
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 8,
+   "stem": "대화를 듣고, 여자가 영화를 보고 있는 이유를 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-REASON",
+   "hit_count": 1,
+   "hits": [
+    "L-REASON"
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 9,
+   "stem": "대화를 듣고, 남자가 지불할 금액을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-MONEY",
+   "hit_count": 1,
+   "hits": [
+    "L-MONEY"
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 10,
+   "stem": "대화를 듣고, Winter Discovery Camp에 관해 언급되지 않은 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-NOTMENTION",
+   "hit_count": 1,
+   "hits": [
+    "L-NOTMENTION"
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 11,
+   "stem": "Global Design Conference에 관한 다음 내용을 듣고, 일치하지 않는 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-ANNOUNCE",
+   "hit_count": 1,
+   "hits": [
+    "L-ANNOUNCE"
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 12,
+   "stem": "다음 표를 보면서 대화를 듣고, 여자가 구입할 재킷을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-TABLE",
+   "hit_count": 1,
+   "hits": [
+    "L-TABLE"
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 13,
+   "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": true,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 14,
+   "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": true,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 15,
+   "stem": "다음 상황 설명을 듣고, David가 Julia에게 할 말로 가장 적절한 것을 고르시오.",
+   "high_score": true,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-SITUATION",
+   "hit_count": 1,
+   "hits": [
+    "L-SITUATION"
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 16,
+   "stem": "남자가 하는 말의 주제로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-SET-TOPIC",
+   "hit_count": 1,
+   "hits": [
+    "L-SET-TOPIC"
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 17,
+   "stem": "언급된 나라가 아닌 것은?",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-SET-NOT",
+   "hit_count": 1,
+   "hits": [
+    "L-SET-NOT"
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 18,
+   "stem": "다음 글의 목적으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-PURPOSE",
+   "hit_count": 1,
+   "hits": [
+    "R-PURPOSE"
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 19,
+   "stem": "다음 글에 드러난 ‘I’의 심경 변화로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-MOOD",
+   "hit_count": 1,
+   "hits": [
+    "R-MOOD"
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 20,
+   "stem": "다음 글에서 필자가 주장하는 바로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-CLAIM",
+   "hit_count": 1,
+   "hits": [
+    "R-CLAIM"
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 21,
+   "stem": "다음 글의 요지로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-GIST",
+   "hit_count": 1,
+   "hits": [
+    "R-GIST"
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 22,
+   "stem": "다음 글의 주제로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-TOPIC",
+   "hit_count": 1,
+   "hits": [
+    "R-TOPIC"
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 23,
+   "stem": "다음 글의 제목으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-TITLE",
+   "hit_count": 1,
+   "hits": [
+    "R-TITLE"
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 24,
+   "stem": "다음 도표의 내용과 일치하지 않는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-CHART",
+   "hit_count": 1,
+   "hits": [
+    "R-CHART"
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 25,
+   "stem": "Jim Marshall에 관한 다음 글의 내용과 일치하지 않는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-FACT",
+   "hit_count": 1,
+   "hits": [
+    "R-FACT"
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 26,
+   "stem": "2018 CVL Volleyball Camp에 관한 다음 안내문의 내용과 일치하지 않는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-NOTICE",
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 27,
+   "stem": "Eugene Community Charity Fun Hike에 관한 다음 안내문의 내용과 일치하는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-NOTICE",
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 28,
+   "stem": "다음 글의 밑줄 친 부분 중, 어법상 틀린 것은?",
+   "high_score": true,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-GRAMMAR",
+   "hit_count": 1,
+   "hits": [
+    "R-GRAMMAR"
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 29,
+   "stem": "다음 글의 밑줄 친 부분 중, 문맥상 낱말의 쓰임이 적절하지 않은",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": true,
+   "type": "R-VOCAB",
+   "hit_count": 1,
+   "hits": [
+    "R-VOCAB"
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 30,
+   "stem": "밑줄 친 부분이 가리키는 대상이 나머지 넷과 다른 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-REFER",
+   "hit_count": 1,
+   "hits": [
+    "R-REFER"
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 31,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 32,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 33,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 34,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 35,
+   "stem": "다음 글에서 전체 흐름과 관계 없는 문장은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-IRRELEVANT",
+   "hit_count": 1,
+   "hits": [
+    "R-IRRELEVANT"
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 36,
+   "stem": "주어진 글 다음에 이어질 글의 순서로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-ORDER",
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 37,
+   "stem": "주어진 글 다음에 이어질 글의 순서로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-ORDER",
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 38,
+   "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-INSERT",
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 39,
+   "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-INSERT",
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 40,
+   "stem": "다음 글의 내용을 한 문장으로 요약하고자 한다. 빈칸 (A), (B)에 들어갈 말로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-SUMMARY",
+   "hit_count": 1,
+   "hits": [
+    "R-SUMMARY"
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 41,
+   "stem": "윗글의 제목으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-TITLE",
+   "hit_count": 1,
+   "hits": [
+    "X-TITLE"
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 42,
+   "stem": "윗글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+   "high_score": true,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "X-BLANK"
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 43,
+   "stem": "주어진 글 (A)에 이어질 내용을 순서에 맞게 배열한 것으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-ORDER",
+   "hit_count": 1,
+   "hits": [
+    "X-ORDER"
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 44,
+   "stem": "밑줄 친 (a)∼(e) 중에서 가리키는 대상이 나머지 넷과 다른 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-REFER",
+   "hit_count": 1,
+   "hits": [
+    "X-REFER"
+   ]
+  },
+  {
+   "exam": "2018",
+   "no": 45,
+   "stem": "윗글에 관한 내용으로 적절하지 않은 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-FACT",
+   "hit_count": 1,
+   "hits": [
+    "X-FACT"
+   ]
+  },
+  {
+   "exam": "2019",
+   "no": 1,
+   "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2019",
+   "no": 2,
+   "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2019",
+   "no": 3,
+   "stem": "다음을 듣고, 남자가 하는 말의 목적으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-PURPOSE",
+   "hit_count": 1,
+   "hits": [
+    "L-PURPOSE"
+   ]
+  },
+  {
+   "exam": "2019",
+   "no": 4,
+   "stem": "대화를 듣고, 여자의 의견으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-OPINION",
+   "hit_count": 1,
+   "hits": [
+    "L-OPINION"
+   ]
+  },
+  {
+   "exam": "2019",
+   "no": 5,
+   "stem": "대화를 듣고, 두 사람의 관계를 가장 잘 나타낸 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RELATION",
+   "hit_count": 1,
+   "hits": [
+    "L-RELATION"
+   ]
+  },
+  {
+   "exam": "2019",
+   "no": 6,
+   "stem": "대화를 듣고, 그림에서 대화의 내용과 일치하지 않는 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-PICTURE",
+   "hit_count": 1,
+   "hits": [
+    "L-PICTURE"
+   ]
+  },
+  {
+   "exam": "2019",
+   "no": 7,
+   "stem": "대화를 듣고, 남자가 여자에게 부탁한 일로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-FAVOR",
+   "hit_count": 1,
+   "hits": [
+    "L-FAVOR"
+   ]
+  },
+  {
+   "exam": "2019",
+   "no": 8,
+   "stem": "대화를 듣고, 여자가 드론 비행 대회에 참가할 수 없는 이유를 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-REASON",
+   "hit_count": 1,
+   "hits": [
+    "L-REASON"
+   ]
+  },
+  {
+   "exam": "2019",
+   "no": 9,
+   "stem": "대화를 듣고, 남자가 지불할 금액을 고르시오.",
+   "high_score": true,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-MONEY",
+   "hit_count": 1,
+   "hits": [
+    "L-MONEY"
+   ]
+  },
+  {
+   "exam": "2019",
+   "no": 10,
+   "stem": "대화를 듣고, International Fireworks Festival에 관해 언급되지 않은 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-NOTMENTION",
+   "hit_count": 1,
+   "hits": [
+    "L-NOTMENTION"
+   ]
+  },
+  {
+   "exam": "2019",
+   "no": 11,
+   "stem": "2018 Upcycling Workshop에 관한 다음 내용을 듣고, 일치하지 않는 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-ANNOUNCE",
+   "hit_count": 1,
+   "hits": [
+    "L-ANNOUNCE"
+   ]
+  },
+  {
+   "exam": "2019",
+   "no": 12,
+   "stem": "다음 표를 보면서 대화를 듣고, 여자가 구매할 도마를 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-TABLE",
+   "hit_count": 1,
+   "hits": [
+    "L-TABLE"
+   ]
+  },
+  {
+   "exam": "2019",
+   "no": 13,
+   "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": true,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2019",
+   "no": 14,
+   "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2019",
+   "no": 15,
+   "stem": "다음 상황 설명을 듣고, Steve가 Cathy에게 할 말로 가장 적절한 것을 고르시오.",
+   "high_score": true,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-SITUATION",
+   "hit_count": 1,
+   "hits": [
+    "L-SITUATION"
+   ]
+  },
+  {
+   "exam": "2019",
+   "no": 16,
+   "stem": "여자가 하는 말의 주제로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-SET-TOPIC",
+   "hit_count": 1,
+   "hits": [
+    "L-SET-TOPIC"
+   ]
+  },
+  {
+   "exam": "2019",
+   "no": 17,
+   "stem": "언급된 음식이 아닌 것은?",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-SET-NOT",
+   "hit_count": 1,
+   "hits": [
+    "L-SET-NOT"
+   ]
+  },
+  {
+   "exam": "2019",
+   "no": 18,
+   "stem": "다음 글의 목적으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-PURPOSE",
+   "hit_count": 1,
+   "hits": [
+    "R-PURPOSE"
+   ]
+  },
+  {
+   "exam": "2019",
+   "no": 19,
+   "stem": "다음 글에 드러난 Dave의 심경 변화로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-MOOD",
+   "hit_count": 1,
+   "hits": [
+    "R-MOOD"
+   ]
+  },
+  {
+   "exam": "2019",
+   "no": 20,
+   "stem": "다음 글에서 필자가 주장하는 바로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-CLAIM",
+   "hit_count": 1,
+   "hits": [
+    "R-CLAIM"
+   ]
+  },
+  {
+   "exam": "2019",
+   "no": 21,
+   "stem": "밑줄 친 refining ignorance가 다음 글에서 의미하는 바로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-IMPLY",
+   "hit_count": 1,
+   "hits": [
+    "R-IMPLY"
+   ]
+  },
+  {
+   "exam": "2019",
+   "no": 22,
+   "stem": "다음 글의 요지로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-GIST",
+   "hit_count": 1,
+   "hits": [
+    "R-GIST"
+   ]
+  },
+  {
+   "exam": "2019",
+   "no": 23,
+   "stem": "다음 글의 주제로 가장 적절한 것은?",
+   "high_score": true,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-TOPIC",
+   "hit_count": 1,
+   "hits": [
+    "R-TOPIC"
+   ]
+  },
+  {
+   "exam": "2019",
+   "no": 24,
+   "stem": "다음 글의 제목으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-TITLE",
+   "hit_count": 1,
+   "hits": [
+    "R-TITLE"
+   ]
+  },
+  {
+   "exam": "2019",
+   "no": 25,
+   "stem": "다음 표의 내용과 일치하지 않는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-CHART",
+   "hit_count": 1,
+   "hits": [
+    "R-CHART"
+   ]
+  },
+  {
+   "exam": "2019",
+   "no": 26,
+   "stem": "Marjorie Kinnan Rawlings에 관한 다음 글의 내용과 일치 하지 않는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-FACT",
+   "hit_count": 1,
+   "hits": [
+    "R-FACT"
+   ]
+  },
+  {
+   "exam": "2019",
+   "no": 27,
+   "stem": "Flying Eagle Zipline Ride에 관한 다음 안내문의 내용과 일치하지 않는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-NOTICE",
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
+  },
+  {
+   "exam": "2019",
+   "no": 28,
+   "stem": "Wireless Charging Pad 사용에 관한 다음 안내문의 내용과 일치하는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-NOTICE",
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
+  },
+  {
+   "exam": "2019",
+   "no": 29,
+   "stem": "다음 글의 밑줄 친 부분 중, 어법상 틀린 것은?",
+   "high_score": true,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-GRAMMAR",
+   "hit_count": 1,
+   "hits": [
+    "R-GRAMMAR"
+   ]
+  },
+  {
+   "exam": "2019",
+   "no": 30,
+   "stem": "다음 글의 밑줄 친 부분 중, 문맥상 낱말의 쓰임이 적절하지 않은",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": true,
+   "type": "R-VOCAB",
+   "hit_count": 1,
+   "hits": [
+    "R-VOCAB"
+   ]
+  },
+  {
+   "exam": "2019",
+   "no": 31,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2019",
+   "no": 32,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2019",
+   "no": 33,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2019",
+   "no": 34,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2019",
+   "no": 35,
+   "stem": "다음 글에서 전체 흐름과 관계 없는 문장은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-IRRELEVANT",
+   "hit_count": 1,
+   "hits": [
+    "R-IRRELEVANT"
+   ]
+  },
+  {
+   "exam": "2019",
+   "no": 36,
+   "stem": "주어진 글 다음에 이어질 글의 순서로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-ORDER",
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
+  },
+  {
+   "exam": "2019",
+   "no": 37,
+   "stem": "주어진 글 다음에 이어질 글의 순서로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-ORDER",
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
+  },
+  {
+   "exam": "2019",
+   "no": 38,
+   "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-INSERT",
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
+  },
+  {
+   "exam": "2019",
+   "no": 39,
+   "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-INSERT",
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
+  },
+  {
+   "exam": "2019",
+   "no": 40,
+   "stem": "다음 글의 내용을 한 문장으로 요약하고자 한다. 빈칸 (A), (B)에 들어갈 말로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-SUMMARY",
+   "hit_count": 1,
+   "hits": [
+    "R-SUMMARY"
+   ]
+  },
+  {
+   "exam": "2019",
+   "no": 41,
+   "stem": "윗글의 제목으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-TITLE",
+   "hit_count": 1,
+   "hits": [
+    "X-TITLE"
+   ]
+  },
+  {
+   "exam": "2019",
+   "no": 42,
+   "stem": "밑줄 친 (a)～(e) 중에서 문맥상 낱말의 쓰임이 적절하지 않은 것은?",
+   "high_score": true,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-VOCAB",
+   "hit_count": 1,
+   "hits": [
+    "X-VOCAB"
+   ]
+  },
+  {
+   "exam": "2019",
+   "no": 43,
+   "stem": "주어진 글 (A)에 이어질 내용을 순서에 맞게 배열한 것으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-ORDER",
+   "hit_count": 1,
+   "hits": [
+    "X-ORDER"
+   ]
+  },
+  {
+   "exam": "2019",
+   "no": 44,
+   "stem": "밑줄 친 (a)～(e) 중에서 가리키는 대상이 나머지 넷과 다른 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-REFER",
+   "hit_count": 1,
+   "hits": [
+    "X-REFER"
+   ]
+  },
+  {
+   "exam": "2019",
+   "no": 45,
+   "stem": "윗글에 관한 내용으로 적절하지 않은 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-FACT",
+   "hit_count": 1,
+   "hits": [
+    "X-FACT"
+   ]
+  },
+  {
+   "exam": "2020",
+   "no": 1,
+   "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2020",
+   "no": 2,
+   "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2020",
+   "no": 3,
+   "stem": "다음을 듣고, 남자가 하는 말의 목적으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-PURPOSE",
+   "hit_count": 1,
+   "hits": [
+    "L-PURPOSE"
+   ]
+  },
+  {
+   "exam": "2020",
+   "no": 4,
+   "stem": "대화를 듣고, 여자의 의견으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-OPINION",
+   "hit_count": 1,
+   "hits": [
+    "L-OPINION"
+   ]
+  },
+  {
+   "exam": "2020",
+   "no": 5,
+   "stem": "대화를 듣고, 두 사람의 관계를 가장 잘 나타낸 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RELATION",
+   "hit_count": 1,
+   "hits": [
+    "L-RELATION"
+   ]
+  },
+  {
+   "exam": "2020",
+   "no": 6,
+   "stem": "대화를 듣고, 그림에서 대화의 내용과 일치하지 않는 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-PICTURE",
+   "hit_count": 1,
+   "hits": [
+    "L-PICTURE"
+   ]
+  },
+  {
+   "exam": "2020",
+   "no": 7,
+   "stem": "대화를 듣고, 여자가 할 일로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-TODO",
+   "hit_count": 1,
+   "hits": [
+    "L-TODO"
+   ]
+  },
+  {
+   "exam": "2020",
+   "no": 8,
+   "stem": "대화를 듣고, 남자가 요리 대회 참가를 포기한 이유를 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-REASON",
+   "hit_count": 1,
+   "hits": [
+    "L-REASON"
+   ]
+  },
+  {
+   "exam": "2020",
+   "no": 9,
+   "stem": "대화를 듣고, 여자가 지불할 금액을 고르시오.",
+   "high_score": true,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-MONEY",
+   "hit_count": 1,
+   "hits": [
+    "L-MONEY"
+   ]
+  },
+  {
+   "exam": "2020",
+   "no": 10,
+   "stem": "대화를 듣고, Ten Year Class Reunion Party에 관해 언급되지 않은 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-NOTMENTION",
+   "hit_count": 1,
+   "hits": [
+    "L-NOTMENTION"
+   ]
+  },
+  {
+   "exam": "2020",
+   "no": 11,
+   "stem": "Green Ocean 영화 시사회에 관한 다음 내용을 듣고, 일치 하지 않는 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-ANNOUNCE",
+   "hit_count": 1,
+   "hits": [
+    "L-ANNOUNCE"
+   ]
+  },
+  {
+   "exam": "2020",
+   "no": 12,
+   "stem": "다음 표를 보면서 대화를 듣고, 두 사람이 예약할 항공편을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-TABLE",
+   "hit_count": 1,
+   "hits": [
+    "L-TABLE"
+   ]
+  },
+  {
+   "exam": "2020",
+   "no": 13,
+   "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2020",
+   "no": 14,
+   "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": true,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2020",
+   "no": 15,
+   "stem": "다음 상황 설명을 듣고, Brian의 어머니가 Brian에게 할 말로 가장 적절한 것을 고르시오.",
+   "high_score": true,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-SITUATION",
+   "hit_count": 1,
+   "hits": [
+    "L-SITUATION"
+   ]
+  },
+  {
+   "exam": "2020",
+   "no": 16,
+   "stem": "남자가 하는 말의 주제로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-SET-TOPIC",
+   "hit_count": 1,
+   "hits": [
+    "L-SET-TOPIC"
+   ]
+  },
+  {
+   "exam": "2020",
+   "no": 17,
+   "stem": "언급된 동물이 아닌 것은?",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-SET-NOT",
+   "hit_count": 1,
+   "hits": [
+    "L-SET-NOT"
+   ]
+  },
+  {
+   "exam": "2020",
+   "no": 18,
+   "stem": "다음 글의 목적으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-PURPOSE",
+   "hit_count": 1,
+   "hits": [
+    "R-PURPOSE"
+   ]
+  },
+  {
+   "exam": "2020",
+   "no": 19,
+   "stem": "다음 글에 드러난 Jonas의 심경 변화로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-MOOD",
+   "hit_count": 1,
+   "hits": [
+    "R-MOOD"
+   ]
+  },
+  {
+   "exam": "2020",
+   "no": 20,
+   "stem": "다음 글에서 필자가 주장하는 바로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-CLAIM",
+   "hit_count": 1,
+   "hits": [
+    "R-CLAIM"
+   ]
+  },
+  {
+   "exam": "2020",
+   "no": 21,
+   "stem": "밑줄 친 playing intellectual air guitar가 다음 글에서 의미 하는 바로 가장 적절한 것은?",
+   "high_score": true,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-IMPLY",
+   "hit_count": 1,
+   "hits": [
+    "R-IMPLY"
+   ]
+  },
+  {
+   "exam": "2020",
+   "no": 22,
+   "stem": "다음 글의 요지로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-GIST",
+   "hit_count": 1,
+   "hits": [
+    "R-GIST"
+   ]
+  },
+  {
+   "exam": "2020",
+   "no": 23,
+   "stem": "다음 글의 주제로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-TOPIC",
+   "hit_count": 1,
+   "hits": [
+    "R-TOPIC"
+   ]
+  },
+  {
+   "exam": "2020",
+   "no": 24,
+   "stem": "다음 글의 제목으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-TITLE",
+   "hit_count": 1,
+   "hits": [
+    "R-TITLE"
+   ]
+  },
+  {
+   "exam": "2020",
+   "no": 25,
+   "stem": "다음 도표의 내용과 일치하지 않는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-CHART",
+   "hit_count": 1,
+   "hits": [
+    "R-CHART"
+   ]
+  },
+  {
+   "exam": "2020",
+   "no": 26,
+   "stem": "The Nuer에 관한 다음 글의 내용과 일치하지 않는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-FACT",
+   "hit_count": 1,
+   "hits": [
+    "R-FACT"
+   ]
+  },
+  {
+   "exam": "2020",
+   "no": 27,
+   "stem": "Green Tea Packaging Design Competition에 관한 다음 안내문의 내용과 일치하지 않는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-NOTICE",
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
+  },
+  {
+   "exam": "2020",
+   "no": 28,
+   "stem": "2019 Badminton Challenge for Charity에 관한 다음 안내문의 내용과 일치하는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-NOTICE",
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
+  },
+  {
+   "exam": "2020",
+   "no": 29,
+   "stem": "다음 글의 밑줄 친 부분 중, 어법상 틀린 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-GRAMMAR",
+   "hit_count": 1,
+   "hits": [
+    "R-GRAMMAR"
+   ]
+  },
+  {
+   "exam": "2020",
+   "no": 30,
+   "stem": "다음 글의 밑줄 친 부분 중, 문맥상 낱말의 쓰임이 적절하지 않은 것은?",
+   "high_score": true,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-VOCAB",
+   "hit_count": 1,
+   "hits": [
+    "R-VOCAB"
+   ]
+  },
+  {
+   "exam": "2020",
+   "no": 31,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2020",
+   "no": 32,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2020",
+   "no": 33,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2020",
+   "no": 34,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2020",
+   "no": 35,
+   "stem": "다음 글에서 전체 흐름과 관계 없는 문장은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-IRRELEVANT",
+   "hit_count": 1,
+   "hits": [
+    "R-IRRELEVANT"
+   ]
+  },
+  {
+   "exam": "2020",
+   "no": 36,
+   "stem": "주어진 글 다음에 이어질 글의 순서로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-ORDER",
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
+  },
+  {
+   "exam": "2020",
+   "no": 37,
+   "stem": "주어진 글 다음에 이어질 글의 순서로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-ORDER",
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
+  },
+  {
+   "exam": "2020",
+   "no": 38,
+   "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-INSERT",
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
+  },
+  {
+   "exam": "2020",
+   "no": 39,
+   "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-INSERT",
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
+  },
+  {
+   "exam": "2020",
+   "no": 40,
+   "stem": "다음 글의 내용을 한 문장으로 요약하고자 한다. 빈칸 (A), (B)에 들어갈 말로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-SUMMARY",
+   "hit_count": 1,
+   "hits": [
+    "R-SUMMARY"
+   ]
+  },
+  {
+   "exam": "2020",
+   "no": 41,
+   "stem": "윗글의 제목으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-TITLE",
+   "hit_count": 1,
+   "hits": [
+    "X-TITLE"
+   ]
+  },
+  {
+   "exam": "2020",
+   "no": 42,
+   "stem": "밑줄 친 (a)～(e) 중에서 문맥상 낱말의 쓰임이 적절하지 않은 것은?",
+   "high_score": true,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-VOCAB",
+   "hit_count": 1,
+   "hits": [
+    "X-VOCAB"
+   ]
+  },
+  {
+   "exam": "2020",
+   "no": 43,
+   "stem": "주어진 글 (A)에 이어질 내용을 순서에 맞게 배열한 것으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-ORDER",
+   "hit_count": 1,
+   "hits": [
+    "X-ORDER"
+   ]
+  },
+  {
+   "exam": "2020",
+   "no": 44,
+   "stem": "밑줄 친 (a)～(e) 중에서 가리키는 대상이 나머지 넷과 다른 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-REFER",
+   "hit_count": 1,
+   "hits": [
+    "X-REFER"
+   ]
+  },
+  {
+   "exam": "2020",
+   "no": 45,
+   "stem": "윗글에 관한 내용으로 적절하지 않은 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-FACT",
+   "hit_count": 1,
+   "hits": [
+    "X-FACT"
+   ]
+  },
+  {
+   "exam": "2021",
+   "no": 1,
+   "stem": "다음을 듣고, 남자가 하는 말의 목적으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-PURPOSE",
+   "hit_count": 1,
+   "hits": [
+    "L-PURPOSE"
+   ]
+  },
+  {
+   "exam": "2021",
+   "no": 2,
+   "stem": "대화를 듣고, 여자의 의견으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-OPINION",
+   "hit_count": 1,
+   "hits": [
+    "L-OPINION"
+   ]
+  },
+  {
+   "exam": "2021",
+   "no": 3,
+   "stem": "대화를 듣고, 두 사람의 관계를 가장 잘 나타낸 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RELATION",
+   "hit_count": 1,
+   "hits": [
+    "L-RELATION"
+   ]
+  },
+  {
+   "exam": "2021",
+   "no": 4,
+   "stem": "대화를 듣고, 그림에서 대화의 내용과 일치하지 않는 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-PICTURE",
+   "hit_count": 1,
+   "hits": [
+    "L-PICTURE"
+   ]
+  },
+  {
+   "exam": "2021",
+   "no": 5,
+   "stem": "대화를 듣고, 남자가 여자를 위해 할 일로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-TODO",
+   "hit_count": 1,
+   "hits": [
+    "L-TODO"
+   ]
+  },
+  {
+   "exam": "2021",
+   "no": 6,
+   "stem": "대화를 듣고, 여자가 지불할 금액을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-MONEY",
+   "hit_count": 1,
+   "hits": [
+    "L-MONEY"
+   ]
+  },
+  {
+   "exam": "2021",
+   "no": 7,
+   "stem": "대화를 듣고, 남자가 텐트를 반품하려는 이유를 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-REASON",
+   "hit_count": 1,
+   "hits": [
+    "L-REASON"
+   ]
+  },
+  {
+   "exam": "2021",
+   "no": 8,
+   "stem": "대화를 듣고, Bradford Museum of Failure에 관해 언급되지 않은 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-NOTMENTION",
+   "hit_count": 1,
+   "hits": [
+    "L-NOTMENTION"
+   ]
+  },
+  {
+   "exam": "2021",
+   "no": 9,
+   "stem": "National Baking Competition에 관한 다음 내용을 듣고, 일치하지 않는 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-ANNOUNCE",
+   "hit_count": 1,
+   "hits": [
+    "L-ANNOUNCE"
+   ]
+  },
+  {
+   "exam": "2021",
+   "no": 10,
+   "stem": "다음 표를 보면서 대화를 듣고, 여자가 주문할 재사용 빨대 세트를 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-TABLE",
+   "hit_count": 1,
+   "hits": [
+    "L-TABLE"
+   ]
+  },
+  {
+   "exam": "2021",
+   "no": 11,
+   "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2021",
+   "no": 12,
+   "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2021",
+   "no": 13,
+   "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": true,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2021",
+   "no": 14,
+   "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": true,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2021",
+   "no": 15,
+   "stem": "다음 상황 설명을 듣고, Ben이 Stacy에게 할 말로 가장 적절한 것을 고르시오.",
+   "high_score": true,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-SITUATION",
+   "hit_count": 1,
+   "hits": [
+    "L-SITUATION"
+   ]
+  },
+  {
+   "exam": "2021",
+   "no": 16,
+   "stem": "남자가 하는 말의 주제로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-SET-TOPIC",
+   "hit_count": 1,
+   "hits": [
+    "L-SET-TOPIC"
+   ]
+  },
+  {
+   "exam": "2021",
+   "no": 17,
+   "stem": "언급된 색깔이 아닌 것은?",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-SET-NOT",
+   "hit_count": 1,
+   "hits": [
+    "L-SET-NOT"
+   ]
+  },
+  {
+   "exam": "2021",
+   "no": 18,
+   "stem": "다음 글의 목적으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-PURPOSE",
+   "hit_count": 1,
+   "hits": [
+    "R-PURPOSE"
+   ]
+  },
+  {
+   "exam": "2021",
+   "no": 19,
+   "stem": "다음 글에 드러난 ‘I’의 심경 변화로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-MOOD",
+   "hit_count": 1,
+   "hits": [
+    "R-MOOD"
+   ]
+  },
+  {
+   "exam": "2021",
+   "no": 20,
+   "stem": "다음 글에서 필자가 주장하는 바로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-CLAIM",
+   "hit_count": 1,
+   "hits": [
+    "R-CLAIM"
+   ]
+  },
+  {
+   "exam": "2021",
+   "no": 21,
+   "stem": "밑줄 친 the role of the ‘lion’s historians’가 다음 글에서 의미 하는 바로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-IMPLY",
+   "hit_count": 1,
+   "hits": [
+    "R-IMPLY"
+   ]
+  },
+  {
+   "exam": "2021",
+   "no": 22,
+   "stem": "다음 글의 요지로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-GIST",
+   "hit_count": 1,
+   "hits": [
+    "R-GIST"
+   ]
+  },
+  {
+   "exam": "2021",
+   "no": 23,
+   "stem": "다음 글의 주제로 가장 적절한 것은?",
+   "high_score": true,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-TOPIC",
+   "hit_count": 1,
+   "hits": [
+    "R-TOPIC"
+   ]
+  },
+  {
+   "exam": "2021",
+   "no": 24,
+   "stem": "다음 글의 제목으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-TITLE",
+   "hit_count": 1,
+   "hits": [
+    "R-TITLE"
+   ]
+  },
+  {
+   "exam": "2021",
+   "no": 25,
+   "stem": "다음 도표의 내용과 일치하지 않는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-CHART",
+   "hit_count": 1,
+   "hits": [
+    "R-CHART"
+   ]
+  },
+  {
+   "exam": "2021",
+   "no": 26,
+   "stem": "Frank Hyneman Knight에 관한 다음 글의 내용과 일치하지 않는",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": true,
+   "type": "R-FACT",
+   "hit_count": 1,
+   "hits": [
+    "R-FACT"
+   ]
+  },
+  {
+   "exam": "2021",
+   "no": 27,
+   "stem": "City of Sittka Public Bike Sharing Service에 관한 다음 안내문의 내용과 일치하지 않는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-NOTICE",
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
+  },
+  {
+   "exam": "2021",
+   "no": 28,
+   "stem": "Jason’s Photography Class에 관한 다음 안내문의 내용과 일치하는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-NOTICE",
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
+  },
+  {
+   "exam": "2021",
+   "no": 29,
+   "stem": "다음 글의 밑줄 친 부분 중, 어법상 틀린 것은?",
+   "high_score": true,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-GRAMMAR",
+   "hit_count": 1,
+   "hits": [
+    "R-GRAMMAR"
+   ]
+  },
+  {
+   "exam": "2021",
+   "no": 30,
+   "stem": "다음 글의 밑줄 친 부분 중, 문맥상 낱말의 쓰임이 적절하지 않은",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": true,
+   "type": "R-VOCAB",
+   "hit_count": 1,
+   "hits": [
+    "R-VOCAB"
+   ]
+  },
+  {
+   "exam": "2021",
+   "no": 31,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2021",
+   "no": 32,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2021",
+   "no": 33,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2021",
+   "no": 34,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2021",
+   "no": 35,
+   "stem": "다음 글에서 전체 흐름과 관계 없는 문장은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-IRRELEVANT",
+   "hit_count": 1,
+   "hits": [
+    "R-IRRELEVANT"
+   ]
+  },
+  {
+   "exam": "2021",
+   "no": 36,
+   "stem": "주어진 글 다음에 이어질 글의 순서로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-ORDER",
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
+  },
+  {
+   "exam": "2021",
+   "no": 37,
+   "stem": "주어진 글 다음에 이어질 글의 순서로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-ORDER",
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
+  },
+  {
+   "exam": "2021",
+   "no": 38,
+   "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-INSERT",
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
+  },
+  {
+   "exam": "2021",
+   "no": 39,
+   "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-INSERT",
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
+  },
+  {
+   "exam": "2021",
+   "no": 40,
+   "stem": "다음 글의 내용을 한 문장으로 요약하고자 한다. 빈칸 (A), (B)에 들어갈 말로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-SUMMARY",
+   "hit_count": 1,
+   "hits": [
+    "R-SUMMARY"
+   ]
+  },
+  {
+   "exam": "2021",
+   "no": 41,
+   "stem": "윗글의 제목으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-TITLE",
+   "hit_count": 1,
+   "hits": [
+    "X-TITLE"
+   ]
+  },
+  {
+   "exam": "2021",
+   "no": 42,
+   "stem": "밑줄 친 (a)～(e) 중에서 문맥상 낱말의 쓰임이 적절하지 않은 것은?",
+   "high_score": true,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-VOCAB",
+   "hit_count": 1,
+   "hits": [
+    "X-VOCAB"
+   ]
+  },
+  {
+   "exam": "2021",
+   "no": 43,
+   "stem": "주어진 글 (A)에 이어질 내용을 순서에 맞게 배열한 것으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-ORDER",
+   "hit_count": 1,
+   "hits": [
+    "X-ORDER"
+   ]
+  },
+  {
+   "exam": "2021",
+   "no": 44,
+   "stem": "밑줄 친 (a)～(e) 중에서 가리키는 대상이 나머지 넷과 다른 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-REFER",
+   "hit_count": 1,
+   "hits": [
+    "X-REFER"
+   ]
+  },
+  {
+   "exam": "2021",
+   "no": 45,
+   "stem": "윗글에 관한 내용으로 적절하지 않은 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-FACT",
+   "hit_count": 1,
+   "hits": [
+    "X-FACT"
+   ]
+  },
+  {
+   "exam": "2022",
+   "no": 1,
+   "stem": "다음을 듣고, 여자가 하는 말의 목적으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-PURPOSE",
+   "hit_count": 1,
+   "hits": [
+    "L-PURPOSE"
+   ]
+  },
+  {
+   "exam": "2022",
+   "no": 2,
+   "stem": "대화를 듣고, 남자의 의견으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-OPINION",
+   "hit_count": 1,
+   "hits": [
+    "L-OPINION"
+   ]
+  },
+  {
+   "exam": "2022",
+   "no": 3,
+   "stem": "대화를 듣고, 두 사람의 관계를 가장 잘 나타낸 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RELATION",
+   "hit_count": 1,
+   "hits": [
+    "L-RELATION"
+   ]
+  },
+  {
+   "exam": "2022",
+   "no": 4,
+   "stem": "대화를 듣고, 그림에서 대화의 내용과 일치하지 않는 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-PICTURE",
+   "hit_count": 1,
+   "hits": [
+    "L-PICTURE"
+   ]
+  },
+  {
+   "exam": "2022",
+   "no": 5,
+   "stem": "대화를 듣고, 남자가 할 일로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-TODO",
+   "hit_count": 1,
+   "hits": [
+    "L-TODO"
+   ]
+  },
+  {
+   "exam": "2022",
+   "no": 6,
+   "stem": "대화를 듣고, 여자가 지불할 금액을 고르시오.",
+   "high_score": true,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-MONEY",
+   "hit_count": 1,
+   "hits": [
+    "L-MONEY"
+   ]
+  },
+  {
+   "exam": "2022",
+   "no": 7,
+   "stem": "대화를 듣고, 남자가 탁구 연습을 할 수 없는 이유를 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-REASON",
+   "hit_count": 1,
+   "hits": [
+    "L-REASON"
+   ]
+  },
+  {
+   "exam": "2022",
+   "no": 8,
+   "stem": "대화를 듣고, Little Readers’ Class에 관해 언급되지 않은 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-NOTMENTION",
+   "hit_count": 1,
+   "hits": [
+    "L-NOTMENTION"
+   ]
+  },
+  {
+   "exam": "2022",
+   "no": 9,
+   "stem": "2021 Family Science Festival에 관한 다음 내용을 듣고, 일치하지 않는 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-ANNOUNCE",
+   "hit_count": 1,
+   "hits": [
+    "L-ANNOUNCE"
+   ]
+  },
+  {
+   "exam": "2022",
+   "no": 10,
+   "stem": "다음 표를 보면서 대화를 듣고, 두 사람이 예약할 스터디 룸을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-TABLE",
+   "hit_count": 1,
+   "hits": [
+    "L-TABLE"
+   ]
+  },
+  {
+   "exam": "2022",
+   "no": 11,
+   "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2022",
+   "no": 12,
+   "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2022",
+   "no": 13,
+   "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": true,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2022",
+   "no": 14,
+   "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2022",
+   "no": 15,
+   "stem": "다음 상황 설명을 듣고, Jason이 Sarah에게 할 말로 가장 적절한 것을 고르시오.",
+   "high_score": true,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-SITUATION",
+   "hit_count": 1,
+   "hits": [
+    "L-SITUATION"
+   ]
+  },
+  {
+   "exam": "2022",
+   "no": 16,
+   "stem": "남자가 하는 말의 주제로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-SET-TOPIC",
+   "hit_count": 1,
+   "hits": [
+    "L-SET-TOPIC"
+   ]
+  },
+  {
+   "exam": "2022",
+   "no": 17,
+   "stem": "언급된 예술 분야가 아닌 것은?",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-SET-NOT",
+   "hit_count": 1,
+   "hits": [
+    "L-SET-NOT"
+   ]
+  },
+  {
+   "exam": "2022",
+   "no": 18,
+   "stem": "다음 글의 목적으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-PURPOSE",
+   "hit_count": 1,
+   "hits": [
+    "R-PURPOSE"
+   ]
+  },
+  {
+   "exam": "2022",
+   "no": 19,
+   "stem": "다음 글에 나타난 Evelyn의 심경 변화로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-MOOD",
+   "hit_count": 1,
+   "hits": [
+    "R-MOOD"
+   ]
+  },
+  {
+   "exam": "2022",
+   "no": 20,
+   "stem": "다음 글에서 필자가 주장하는 바로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-CLAIM",
+   "hit_count": 1,
+   "hits": [
+    "R-CLAIM"
+   ]
+  },
+  {
+   "exam": "2022",
+   "no": 21,
+   "stem": "밑줄 친 whether to make ready for the morning commute or not이 다음 글에서 의미하는 바로 가장 적절한 것은?",
+   "high_score": true,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-IMPLY",
+   "hit_count": 1,
+   "hits": [
+    "R-IMPLY"
+   ]
+  },
+  {
+   "exam": "2022",
+   "no": 22,
+   "stem": "다음 글의 요지로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-GIST",
+   "hit_count": 1,
+   "hits": [
+    "R-GIST"
+   ]
+  },
+  {
+   "exam": "2022",
+   "no": 23,
+   "stem": "다음 글의 주제로 가장 적절한 것은?",
+   "high_score": true,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-TOPIC",
+   "hit_count": 1,
+   "hits": [
+    "R-TOPIC"
+   ]
+  },
+  {
+   "exam": "2022",
+   "no": 24,
+   "stem": "다음 글의 제목으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-TITLE",
+   "hit_count": 1,
+   "hits": [
+    "R-TITLE"
+   ]
+  },
+  {
+   "exam": "2022",
+   "no": 25,
+   "stem": "다음 도표의 내용과 일치하지 않는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-CHART",
+   "hit_count": 1,
+   "hits": [
+    "R-CHART"
+   ]
+  },
+  {
+   "exam": "2022",
+   "no": 26,
+   "stem": "Donato Bramante에 관한 다음 글의 내용과 일치하지 않는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-FACT",
+   "hit_count": 1,
+   "hits": [
+    "R-FACT"
+   ]
+  },
+  {
+   "exam": "2022",
+   "no": 27,
+   "stem": "Cornhill No Paper Cup Challenge에 관한 다음 안내문의 내용과 일치하지 않는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-NOTICE",
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
+  },
+  {
+   "exam": "2022",
+   "no": 28,
+   "stem": "Goldbeach SeaWorld Sleepovers에 관한 다음 안내문의 내용과 일치하는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-NOTICE",
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
+  },
+  {
+   "exam": "2022",
+   "no": 29,
+   "stem": "다음 글의 밑줄 친 부분 중, 어법상 틀린 것은?",
+   "high_score": true,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-GRAMMAR",
+   "hit_count": 1,
+   "hits": [
+    "R-GRAMMAR"
+   ]
+  },
+  {
+   "exam": "2022",
+   "no": 30,
+   "stem": "다음 글의 밑줄 친 부분 중, 문맥상 낱말의 쓰임이 적절하지 않은",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": true,
+   "type": "R-VOCAB",
+   "hit_count": 1,
+   "hits": [
+    "R-VOCAB"
+   ]
+  },
+  {
+   "exam": "2022",
+   "no": 31,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2022",
+   "no": 32,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2022",
+   "no": 33,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2022",
+   "no": 34,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2022",
+   "no": 35,
+   "stem": "다음 글에서 전체 흐름과 관계 없는 문장은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-IRRELEVANT",
+   "hit_count": 1,
+   "hits": [
+    "R-IRRELEVANT"
+   ]
+  },
+  {
+   "exam": "2022",
+   "no": 36,
+   "stem": "주어진 글 다음에 이어질 글의 순서로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-ORDER",
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
+  },
+  {
+   "exam": "2022",
+   "no": 37,
+   "stem": "주어진 글 다음에 이어질 글의 순서로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-ORDER",
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
+  },
+  {
+   "exam": "2022",
+   "no": 38,
+   "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-INSERT",
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
+  },
+  {
+   "exam": "2022",
+   "no": 39,
+   "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-INSERT",
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
+  },
+  {
+   "exam": "2022",
+   "no": 40,
+   "stem": "다음 글의 내용을 한 문장으로 요약하고자 한다. 빈칸 (A), (B)에 들어갈 말로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-SUMMARY",
+   "hit_count": 1,
+   "hits": [
+    "R-SUMMARY"
+   ]
+  },
+  {
+   "exam": "2022",
+   "no": 41,
+   "stem": "윗글의 제목으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-TITLE",
+   "hit_count": 1,
+   "hits": [
+    "X-TITLE"
+   ]
+  },
+  {
+   "exam": "2022",
+   "no": 42,
+   "stem": "밑줄 친 (a)～(e) 중에서 문맥상 낱말의 쓰임이 적절하지 않은 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-VOCAB",
+   "hit_count": 1,
+   "hits": [
+    "X-VOCAB"
+   ]
+  },
+  {
+   "exam": "2022",
+   "no": 43,
+   "stem": "주어진 글 (A)에 이어질 내용을 순서에 맞게 배열한 것으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-ORDER",
+   "hit_count": 1,
+   "hits": [
+    "X-ORDER"
+   ]
+  },
+  {
+   "exam": "2022",
+   "no": 44,
+   "stem": "밑줄 친 (a)～(e) 중에서 가리키는 대상이 나머지 넷과 다른 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-REFER",
+   "hit_count": 1,
+   "hits": [
+    "X-REFER"
+   ]
+  },
+  {
+   "exam": "2022",
+   "no": 45,
+   "stem": "윗글에 관한 내용으로 적절하지 않은 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-FACT",
+   "hit_count": 1,
+   "hits": [
+    "X-FACT"
+   ]
+  },
+  {
+   "exam": "2023",
+   "no": 1,
+   "stem": "다음을 듣고, 남자가 하는 말의 목적으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-PURPOSE",
+   "hit_count": 1,
+   "hits": [
+    "L-PURPOSE"
+   ]
+  },
+  {
+   "exam": "2023",
+   "no": 2,
+   "stem": "대화를 듣고, 여자의 의견으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-OPINION",
+   "hit_count": 1,
+   "hits": [
+    "L-OPINION"
+   ]
+  },
+  {
+   "exam": "2023",
+   "no": 3,
+   "stem": "대화를 듣고, 두 사람의 관계를 가장 잘 나타낸 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RELATION",
+   "hit_count": 1,
+   "hits": [
+    "L-RELATION"
+   ]
+  },
+  {
+   "exam": "2023",
+   "no": 4,
+   "stem": "대화를 듣고, 그림에서 대화의 내용과 일치하지 않는 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-PICTURE",
+   "hit_count": 1,
+   "hits": [
+    "L-PICTURE"
+   ]
+  },
+  {
+   "exam": "2023",
+   "no": 5,
+   "stem": "대화를 듣고, 남자가 할 일로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-TODO",
+   "hit_count": 1,
+   "hits": [
+    "L-TODO"
+   ]
+  },
+  {
+   "exam": "2023",
+   "no": 6,
+   "stem": "대화를 듣고, 여자가 지불할 금액을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-MONEY",
+   "hit_count": 1,
+   "hits": [
+    "L-MONEY"
+   ]
+  },
+  {
+   "exam": "2023",
+   "no": 7,
+   "stem": "대화를 듣고, 남자가 K-Trend Festival에 갈 수 없는 이유를 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-REASON",
+   "hit_count": 1,
+   "hits": [
+    "L-REASON"
+   ]
+  },
+  {
+   "exam": "2023",
+   "no": 8,
+   "stem": "대화를 듣고, 졸업 사진 촬영에 관해 언급되지 않은 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-NOTMENTION",
+   "hit_count": 1,
+   "hits": [
+    "L-NOTMENTION"
+   ]
+  },
+  {
+   "exam": "2023",
+   "no": 9,
+   "stem": "Greenville Houseplant Expo에 관한 다음 내용을 듣고, 일치하지 않는 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-ANNOUNCE",
+   "hit_count": 1,
+   "hits": [
+    "L-ANNOUNCE"
+   ]
+  },
+  {
+   "exam": "2023",
+   "no": 10,
+   "stem": "다음 표를 보면서 대화를 듣고, 여자가 구매할 첼로 케이스를 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-TABLE",
+   "hit_count": 1,
+   "hits": [
+    "L-TABLE"
+   ]
+  },
+  {
+   "exam": "2023",
+   "no": 11,
+   "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2023",
+   "no": 12,
+   "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2023",
+   "no": 13,
+   "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": true,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2023",
+   "no": 14,
+   "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": true,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2023",
+   "no": 15,
+   "stem": "다음 상황 설명을 듣고, Katie가 Jacob에게 할 말로 가장 적절한 것을 고르시오.",
+   "high_score": true,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-SITUATION",
+   "hit_count": 1,
+   "hits": [
+    "L-SITUATION"
+   ]
+  },
+  {
+   "exam": "2023",
+   "no": 16,
+   "stem": "여자가 하는 말의 주제로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-SET-TOPIC",
+   "hit_count": 1,
+   "hits": [
+    "L-SET-TOPIC"
+   ]
+  },
+  {
+   "exam": "2023",
+   "no": 17,
+   "stem": "언급된 금속이 아닌 것은?",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-SET-NOT",
+   "hit_count": 1,
+   "hits": [
+    "L-SET-NOT"
+   ]
+  },
+  {
+   "exam": "2023",
+   "no": 18,
+   "stem": "다음 글의 목적으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-PURPOSE",
+   "hit_count": 1,
+   "hits": [
+    "R-PURPOSE"
+   ]
+  },
+  {
+   "exam": "2023",
+   "no": 19,
+   "stem": "다음 글에 드러난 Jamie의 심경 변화로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-MOOD",
+   "hit_count": 1,
+   "hits": [
+    "R-MOOD"
+   ]
+  },
+  {
+   "exam": "2023",
+   "no": 20,
+   "stem": "다음 글에서 필자가 주장하는 바로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-CLAIM",
+   "hit_count": 1,
+   "hits": [
+    "R-CLAIM"
+   ]
+  },
+  {
+   "exam": "2023",
+   "no": 21,
+   "stem": "밑줄 친 make oneself public to oneself가 다음 글에서 의미 하는 바로 가장 적절한 것은?",
+   "high_score": true,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-IMPLY",
+   "hit_count": 1,
+   "hits": [
+    "R-IMPLY"
+   ]
+  },
+  {
+   "exam": "2023",
+   "no": 22,
+   "stem": "다음 글의 요지로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-GIST",
+   "hit_count": 1,
+   "hits": [
+    "R-GIST"
+   ]
+  },
+  {
+   "exam": "2023",
+   "no": 23,
+   "stem": "다음 글의 주제로 가장 적절한 것은?",
+   "high_score": true,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-TOPIC",
+   "hit_count": 1,
+   "hits": [
+    "R-TOPIC"
+   ]
+  },
+  {
+   "exam": "2023",
+   "no": 24,
+   "stem": "다음 글의 제목으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-TITLE",
+   "hit_count": 1,
+   "hits": [
+    "R-TITLE"
+   ]
+  },
+  {
+   "exam": "2023",
+   "no": 25,
+   "stem": "다음 도표의 내용과 일치하지 않는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-CHART",
+   "hit_count": 1,
+   "hits": [
+    "R-CHART"
+   ]
+  },
+  {
+   "exam": "2023",
+   "no": 26,
+   "stem": "Niklas Luhmann에 관한 다음 글의 내용과 일치하지 않는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-FACT",
+   "hit_count": 1,
+   "hits": [
+    "R-FACT"
+   ]
+  },
+  {
+   "exam": "2023",
+   "no": 27,
+   "stem": "다음 Renovation Notice의 내용과 일치하지 않는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-NOTICE",
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
+  },
+  {
+   "exam": "2023",
+   "no": 28,
+   "stem": "2022 Valestown Recycles Poster Contest에 관한 다음 안내문의 내용과 일치하는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-NOTICE",
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
+  },
+  {
+   "exam": "2023",
+   "no": 29,
+   "stem": "다음 글의 밑줄 친 부분 중, 어법상 틀린 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-GRAMMAR",
+   "hit_count": 1,
+   "hits": [
+    "R-GRAMMAR"
+   ]
+  },
+  {
+   "exam": "2023",
+   "no": 30,
+   "stem": "다음 글의 밑줄 친 부분 중, 문맥상 낱말의 쓰임이 적절하지 않은 것은?",
+   "high_score": true,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-VOCAB",
+   "hit_count": 1,
+   "hits": [
+    "R-VOCAB"
+   ]
+  },
+  {
+   "exam": "2023",
+   "no": 31,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2023",
+   "no": 32,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2023",
+   "no": 33,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2023",
+   "no": 34,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2023",
+   "no": 35,
+   "stem": "다음 글에서 전체 흐름과 관계 없는 문장은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-IRRELEVANT",
+   "hit_count": 1,
+   "hits": [
+    "R-IRRELEVANT"
+   ]
+  },
+  {
+   "exam": "2023",
+   "no": 36,
+   "stem": "주어진 글 다음에 이어질 글의 순서로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-ORDER",
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
+  },
+  {
+   "exam": "2023",
+   "no": 37,
+   "stem": "주어진 글 다음에 이어질 글의 순서로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-ORDER",
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
+  },
+  {
+   "exam": "2023",
+   "no": 38,
+   "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-INSERT",
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
+  },
+  {
+   "exam": "2023",
+   "no": 39,
+   "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-INSERT",
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
+  },
+  {
+   "exam": "2023",
+   "no": 40,
+   "stem": "다음 글의 내용을 한 문장으로 요약하고자 한다. 빈칸 (A), (B)에 들어갈 말로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-SUMMARY",
+   "hit_count": 1,
+   "hits": [
+    "R-SUMMARY"
+   ]
+  },
+  {
+   "exam": "2023",
+   "no": 41,
+   "stem": "윗글의 제목으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-TITLE",
+   "hit_count": 1,
+   "hits": [
+    "X-TITLE"
+   ]
+  },
+  {
+   "exam": "2023",
+   "no": 42,
+   "stem": "밑줄 친 (a)～(e) 중에서 문맥상 낱말의 쓰임이 적절하지 않은 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-VOCAB",
+   "hit_count": 1,
+   "hits": [
+    "X-VOCAB"
+   ]
+  },
+  {
+   "exam": "2023",
+   "no": 43,
+   "stem": "주어진 글 (A)에 이어질 내용을 순서에 맞게 배열한 것으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-ORDER",
+   "hit_count": 1,
+   "hits": [
+    "X-ORDER"
+   ]
+  },
+  {
+   "exam": "2023",
+   "no": 44,
+   "stem": "밑줄 친 (a)～(e) 중에서 가리키는 대상이 나머지 넷과 다른 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-REFER",
+   "hit_count": 1,
+   "hits": [
+    "X-REFER"
+   ]
+  },
+  {
+   "exam": "2023",
+   "no": 45,
+   "stem": "윗글에 관한 내용으로 적절하지 않은 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-FACT",
+   "hit_count": 1,
+   "hits": [
+    "X-FACT"
+   ]
+  },
+  {
+   "exam": "2024",
+   "no": 1,
+   "stem": "다음을 듣고, 여자가 하는 말의 목적으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-PURPOSE",
+   "hit_count": 1,
+   "hits": [
+    "L-PURPOSE"
+   ]
+  },
+  {
+   "exam": "2024",
+   "no": 2,
+   "stem": "대화를 듣고, 남자의 의견으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-OPINION",
+   "hit_count": 1,
+   "hits": [
+    "L-OPINION"
+   ]
+  },
+  {
+   "exam": "2024",
+   "no": 3,
+   "stem": "다음을 듣고, 여자가 하는 말의 요지로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-MAIN",
+   "hit_count": 1,
+   "hits": [
+    "L-MAIN"
+   ]
+  },
+  {
+   "exam": "2024",
+   "no": 4,
+   "stem": "대화를 듣고, 그림에서 대화의 내용과 일치하지 않는 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-PICTURE",
+   "hit_count": 1,
+   "hits": [
+    "L-PICTURE"
+   ]
+  },
+  {
+   "exam": "2024",
+   "no": 5,
+   "stem": "대화를 듣고, 여자가 할 일로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-TODO",
+   "hit_count": 1,
+   "hits": [
+    "L-TODO"
+   ]
+  },
+  {
+   "exam": "2024",
+   "no": 6,
+   "stem": "대화를 듣고, 남자가 지불할 금액을 고르시오.",
+   "high_score": true,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-MONEY",
+   "hit_count": 1,
+   "hits": [
+    "L-MONEY"
+   ]
+  },
+  {
+   "exam": "2024",
+   "no": 7,
+   "stem": "대화를 듣고, 여자가 산책을 할 수 없는 이유를 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-REASON",
+   "hit_count": 1,
+   "hits": [
+    "L-REASON"
+   ]
+  },
+  {
+   "exam": "2024",
+   "no": 8,
+   "stem": "대화를 듣고, 남자가 예약할 연극 공연에 관해 언급되지 않은 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-NOTMENTION",
+   "hit_count": 1,
+   "hits": [
+    "L-NOTMENTION"
+   ]
+  },
+  {
+   "exam": "2024",
+   "no": 9,
+   "stem": "Golden Palette Walking Tour에 관한 다음 내용을 듣고, 일치하지 않는 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-ANNOUNCE",
+   "hit_count": 1,
+   "hits": [
+    "L-ANNOUNCE"
+   ]
+  },
+  {
+   "exam": "2024",
+   "no": 10,
+   "stem": "다음 표를 보면서 대화를 듣고, 남자가 주문할 접이식 카트를 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-TABLE",
+   "hit_count": 1,
+   "hits": [
+    "L-TABLE"
+   ]
+  },
+  {
+   "exam": "2024",
+   "no": 11,
+   "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2024",
+   "no": 12,
+   "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2024",
+   "no": 13,
+   "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": true,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2024",
+   "no": 14,
+   "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2024",
+   "no": 15,
+   "stem": "다음 상황 설명을 듣고, Jake가 Yuna에게 할 말로 가장 적절한 것을 고르시오.",
+   "high_score": true,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-SITUATION",
+   "hit_count": 1,
+   "hits": [
+    "L-SITUATION"
+   ]
+  },
+  {
+   "exam": "2024",
+   "no": 16,
+   "stem": "여자가 하는 말의 주제로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-SET-TOPIC",
+   "hit_count": 1,
+   "hits": [
+    "L-SET-TOPIC"
+   ]
+  },
+  {
+   "exam": "2024",
+   "no": 17,
+   "stem": "언급된 나라가 아닌 것은?",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-SET-NOT",
+   "hit_count": 1,
+   "hits": [
+    "L-SET-NOT"
+   ]
+  },
+  {
+   "exam": "2024",
+   "no": 18,
+   "stem": "다음 글의 목적으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-PURPOSE",
+   "hit_count": 1,
+   "hits": [
+    "R-PURPOSE"
+   ]
+  },
+  {
+   "exam": "2024",
+   "no": 19,
+   "stem": "다음 글에 드러난 David의 심경 변화로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-MOOD",
+   "hit_count": 1,
+   "hits": [
+    "R-MOOD"
+   ]
+  },
+  {
+   "exam": "2024",
+   "no": 20,
+   "stem": "다음 글에서 필자가 주장하는 바로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-CLAIM",
+   "hit_count": 1,
+   "hits": [
+    "R-CLAIM"
+   ]
+  },
+  {
+   "exam": "2024",
+   "no": 21,
+   "stem": "밑줄 친 a nonstick frying pan이 다음 글에서 의미하는 바로 가장 적절한 것은?",
+   "high_score": true,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-IMPLY",
+   "hit_count": 1,
+   "hits": [
+    "R-IMPLY"
+   ]
+  },
+  {
+   "exam": "2024",
+   "no": 22,
+   "stem": "다음 글의 요지로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-GIST",
+   "hit_count": 1,
+   "hits": [
+    "R-GIST"
+   ]
+  },
+  {
+   "exam": "2024",
+   "no": 23,
+   "stem": "다음 글의 주제로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-TOPIC",
+   "hit_count": 1,
+   "hits": [
+    "R-TOPIC"
+   ]
+  },
+  {
+   "exam": "2024",
+   "no": 24,
+   "stem": "다음 글의 제목으로 가장 적절한 것은?",
+   "high_score": true,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-TITLE",
+   "hit_count": 1,
+   "hits": [
+    "R-TITLE"
+   ]
+  },
+  {
+   "exam": "2024",
+   "no": 25,
+   "stem": "다음 도표의 내용과 일치하지 않는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-CHART",
+   "hit_count": 1,
+   "hits": [
+    "R-CHART"
+   ]
+  },
+  {
+   "exam": "2024",
+   "no": 26,
+   "stem": "Charles H. Townes에 관한 다음 글의 내용과 일치하지 않는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-FACT",
+   "hit_count": 1,
+   "hits": [
+    "R-FACT"
+   ]
+  },
+  {
+   "exam": "2024",
+   "no": 27,
+   "stem": "Turtle Island Boat Tour에 관한 다음 안내문의 내용과 일치하지 않는",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": true,
+   "type": "R-NOTICE",
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
+  },
+  {
+   "exam": "2024",
+   "no": 28,
+   "stem": "2023 Eastland High School Video Clip Contest에 관한 다음 안내문의 내용과 일치하는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-NOTICE",
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
+  },
+  {
+   "exam": "2024",
+   "no": 29,
+   "stem": "다음 글의 밑줄 친 부분 중, 어법상 틀린 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-GRAMMAR",
+   "hit_count": 1,
+   "hits": [
+    "R-GRAMMAR"
+   ]
+  },
+  {
+   "exam": "2024",
+   "no": 30,
+   "stem": "다음 글의 밑줄 친 부분 중, 문맥상 낱말의 쓰임이 적절하지 않은 것은?",
+   "high_score": true,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-VOCAB",
+   "hit_count": 1,
+   "hits": [
+    "R-VOCAB"
+   ]
+  },
+  {
+   "exam": "2024",
+   "no": 31,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2024",
+   "no": 32,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2024",
+   "no": 33,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2024",
+   "no": 34,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2024",
+   "no": 35,
+   "stem": "다음 글에서 전체 흐름과 관계 없는 문장은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-IRRELEVANT",
+   "hit_count": 1,
+   "hits": [
+    "R-IRRELEVANT"
+   ]
+  },
+  {
+   "exam": "2024",
+   "no": 36,
+   "stem": "주어진 글 다음에 이어질 글의 순서로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-ORDER",
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
+  },
+  {
+   "exam": "2024",
+   "no": 37,
+   "stem": "주어진 글 다음에 이어질 글의 순서로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-ORDER",
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
+  },
+  {
+   "exam": "2024",
+   "no": 38,
+   "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-INSERT",
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
+  },
+  {
+   "exam": "2024",
+   "no": 39,
+   "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-INSERT",
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
+  },
+  {
+   "exam": "2024",
+   "no": 40,
+   "stem": "다음 글의 내용을 한 문장으로 요약하고자 한다. 빈칸 (A), (B)에 들어갈 말로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-SUMMARY",
+   "hit_count": 1,
+   "hits": [
+    "R-SUMMARY"
+   ]
+  },
+  {
+   "exam": "2024",
+   "no": 41,
+   "stem": "윗글의 제목으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-TITLE",
+   "hit_count": 1,
+   "hits": [
+    "X-TITLE"
+   ]
+  },
+  {
+   "exam": "2024",
+   "no": 42,
+   "stem": "밑줄 친 (a)～(e) 중에서 문맥상 낱말의 쓰임이 적절하지 않은 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-VOCAB",
+   "hit_count": 1,
+   "hits": [
+    "X-VOCAB"
+   ]
+  },
+  {
+   "exam": "2024",
+   "no": 43,
+   "stem": "주어진 글 (A)에 이어질 내용을 순서에 맞게 배열한 것으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-ORDER",
+   "hit_count": 1,
+   "hits": [
+    "X-ORDER"
+   ]
+  },
+  {
+   "exam": "2024",
+   "no": 44,
+   "stem": "밑줄 친 (a)～(e) 중에서 가리키는 대상이 나머지 넷과 다른 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-REFER",
+   "hit_count": 1,
+   "hits": [
+    "X-REFER"
+   ]
+  },
+  {
+   "exam": "2024",
+   "no": 45,
+   "stem": "윗글에 관한 내용으로 적절하지 않은 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-FACT",
+   "hit_count": 1,
+   "hits": [
+    "X-FACT"
+   ]
+  },
+  {
+   "exam": "2025",
+   "no": 1,
+   "stem": "다음을 듣고, 여자가 하는 말의 목적으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-PURPOSE",
+   "hit_count": 1,
+   "hits": [
+    "L-PURPOSE"
+   ]
+  },
+  {
+   "exam": "2025",
+   "no": 2,
+   "stem": "대화를 듣고, 남자의 의견으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-OPINION",
+   "hit_count": 1,
+   "hits": [
+    "L-OPINION"
+   ]
+  },
+  {
+   "exam": "2025",
+   "no": 3,
+   "stem": "다음을 듣고, 여자가 하는 말의 요지로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-MAIN",
+   "hit_count": 1,
+   "hits": [
+    "L-MAIN"
+   ]
+  },
+  {
+   "exam": "2025",
+   "no": 4,
+   "stem": "대화를 듣고, 그림에서 대화의 내용과 일치하지 않는 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-PICTURE",
+   "hit_count": 1,
+   "hits": [
+    "L-PICTURE"
+   ]
+  },
+  {
+   "exam": "2025",
+   "no": 5,
+   "stem": "대화를 듣고, 남자가 할 일로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-TODO",
+   "hit_count": 1,
+   "hits": [
+    "L-TODO"
+   ]
+  },
+  {
+   "exam": "2025",
+   "no": 6,
+   "stem": "대화를 듣고, 여자가 지불할 금액을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-MONEY",
+   "hit_count": 1,
+   "hits": [
+    "L-MONEY"
+   ]
+  },
+  {
+   "exam": "2025",
+   "no": 7,
+   "stem": "대화를 듣고, 남자가 Streamline Broadcasting Workshop에 갈 수 없는 이유를 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-REASON",
+   "hit_count": 1,
+   "hits": [
+    "L-REASON"
+   ]
+  },
+  {
+   "exam": "2025",
+   "no": 8,
+   "stem": "대화를 듣고, Outstanding Octopuses 행사에 관해 언급되지 않은 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-NOTMENTION",
+   "hit_count": 1,
+   "hits": [
+    "L-NOTMENTION"
+   ]
+  },
+  {
+   "exam": "2025",
+   "no": 9,
+   "stem": "2024 Grand Butterfly Circus에 관한 다음 내용을 듣고, 일치 하지 않는 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-ANNOUNCE",
+   "hit_count": 1,
+   "hits": [
+    "L-ANNOUNCE"
+   ]
+  },
+  {
+   "exam": "2025",
+   "no": 10,
+   "stem": "다음 표를 보면서 대화를 듣고, 여자가 구입할 식물 씨앗 키트를 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-TABLE",
+   "hit_count": 1,
+   "hits": [
+    "L-TABLE"
+   ]
+  },
+  {
+   "exam": "2025",
+   "no": 11,
+   "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": true,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2025",
+   "no": 12,
+   "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2025",
+   "no": 13,
+   "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2025",
+   "no": 14,
+   "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": true,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2025",
+   "no": 15,
+   "stem": "다음 상황 설명을 듣고, Sophia가 Jack에게 할 말로 가장 적절한 것을 고르시오.",
+   "high_score": true,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-SITUATION",
+   "hit_count": 1,
+   "hits": [
+    "L-SITUATION"
+   ]
+  },
+  {
+   "exam": "2025",
+   "no": 16,
+   "stem": "여자가 하는 말의 주제로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-SET-TOPIC",
+   "hit_count": 1,
+   "hits": [
+    "L-SET-TOPIC"
+   ]
+  },
+  {
+   "exam": "2025",
+   "no": 17,
+   "stem": "언급된 음식이 아닌 것은?",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-SET-NOT",
+   "hit_count": 1,
+   "hits": [
+    "L-SET-NOT"
+   ]
+  },
+  {
+   "exam": "2025",
+   "no": 18,
+   "stem": "다음 글의 목적으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-PURPOSE",
+   "hit_count": 1,
+   "hits": [
+    "R-PURPOSE"
+   ]
+  },
+  {
+   "exam": "2025",
+   "no": 19,
+   "stem": "다음 글에 드러난 Peter의 심경 변화로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-MOOD",
+   "hit_count": 1,
+   "hits": [
+    "R-MOOD"
+   ]
+  },
+  {
+   "exam": "2025",
+   "no": 20,
+   "stem": "다음 글에서 필자가 주장하는 바로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-CLAIM",
+   "hit_count": 1,
+   "hits": [
+    "R-CLAIM"
+   ]
+  },
+  {
+   "exam": "2025",
+   "no": 21,
+   "stem": "밑줄 친 hunting the shadow, not the substance가 다음 글에서 의미하는 바로 가장 적절한 것은?",
+   "high_score": true,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-IMPLY",
+   "hit_count": 1,
+   "hits": [
+    "R-IMPLY"
+   ]
+  },
+  {
+   "exam": "2025",
+   "no": 22,
+   "stem": "다음 글의 요지로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-GIST",
+   "hit_count": 1,
+   "hits": [
+    "R-GIST"
+   ]
+  },
+  {
+   "exam": "2025",
+   "no": 23,
+   "stem": "다음 글의 주제로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-TOPIC",
+   "hit_count": 1,
+   "hits": [
+    "R-TOPIC"
+   ]
+  },
+  {
+   "exam": "2025",
+   "no": 24,
+   "stem": "다음 글의 제목으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-TITLE",
+   "hit_count": 1,
+   "hits": [
+    "R-TITLE"
+   ]
+  },
+  {
+   "exam": "2025",
+   "no": 25,
+   "stem": "다음 도표의 내용과 일치하지 않는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-CHART",
+   "hit_count": 1,
+   "hits": [
+    "R-CHART"
+   ]
+  },
+  {
+   "exam": "2025",
+   "no": 26,
+   "stem": "Dick Enberg에 관한 다음 글의 내용과 일치하지 않는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-FACT",
+   "hit_count": 1,
+   "hits": [
+    "R-FACT"
+   ]
+  },
+  {
+   "exam": "2025",
+   "no": 27,
+   "stem": "Adenville City Pass Card에 관한 다음 안내문의 내용과 일치하지 않는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-NOTICE",
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
+  },
+  {
+   "exam": "2025",
+   "no": 28,
+   "stem": "Luckwood Snow Festival에 관한 다음 안내문의 내용과 일치하는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-NOTICE",
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
+  },
+  {
+   "exam": "2025",
+   "no": 29,
+   "stem": "다음 글의 밑줄 친 부분 중, 어법상 틀린 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-GRAMMAR",
+   "hit_count": 1,
+   "hits": [
+    "R-GRAMMAR"
+   ]
+  },
+  {
+   "exam": "2025",
+   "no": 30,
+   "stem": "다음 글의 밑줄 친 부분 중, 문맥상 낱말의 쓰임이 적절하지 않은 것은?",
+   "high_score": true,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-VOCAB",
+   "hit_count": 1,
+   "hits": [
+    "R-VOCAB"
+   ]
+  },
+  {
+   "exam": "2025",
+   "no": 31,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2025",
+   "no": 32,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2025",
+   "no": 33,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2025",
+   "no": 34,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2025",
+   "no": 35,
+   "stem": "다음 글에서 전체 흐름과 관계 없는 문장은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-IRRELEVANT",
+   "hit_count": 1,
+   "hits": [
+    "R-IRRELEVANT"
+   ]
+  },
+  {
+   "exam": "2025",
+   "no": 36,
+   "stem": "주어진 글 다음에 이어질 글의 순서로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-ORDER",
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
+  },
+  {
+   "exam": "2025",
+   "no": 37,
+   "stem": "주어진 글 다음에 이어질 글의 순서로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-ORDER",
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
+  },
+  {
+   "exam": "2025",
+   "no": 38,
+   "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-INSERT",
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
+  },
+  {
+   "exam": "2025",
+   "no": 39,
+   "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-INSERT",
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
+  },
+  {
+   "exam": "2025",
+   "no": 40,
+   "stem": "다음 글의 내용을 한 문장으로 요약하고자 한다. 빈칸 (A), (B)에 들어갈 말로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-SUMMARY",
+   "hit_count": 1,
+   "hits": [
+    "R-SUMMARY"
+   ]
+  },
+  {
+   "exam": "2025",
+   "no": 41,
+   "stem": "윗글의 제목으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-TITLE",
+   "hit_count": 1,
+   "hits": [
+    "X-TITLE"
+   ]
+  },
+  {
+   "exam": "2025",
+   "no": 42,
+   "stem": "밑줄 친 (a)～(e) 중에서 문맥상 낱말의 쓰임이 적절하지 않은 것은?",
+   "high_score": true,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-VOCAB",
+   "hit_count": 1,
+   "hits": [
+    "X-VOCAB"
+   ]
+  },
+  {
+   "exam": "2025",
+   "no": 43,
+   "stem": "주어진 글 (A)에 이어질 내용을 순서에 맞게 배열한 것으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-ORDER",
+   "hit_count": 1,
+   "hits": [
+    "X-ORDER"
+   ]
+  },
+  {
+   "exam": "2025",
+   "no": 44,
+   "stem": "밑줄 친 (a)～(e) 중에서 가리키는 대상이 나머지 넷과 다른 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-REFER",
+   "hit_count": 1,
+   "hits": [
+    "X-REFER"
+   ]
+  },
+  {
+   "exam": "2025",
+   "no": 45,
+   "stem": "윗글에 관한 내용으로 적절하지 않은 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-FACT",
+   "hit_count": 1,
+   "hits": [
+    "X-FACT"
+   ]
+  },
+  {
+   "exam": "2026",
+   "no": 1,
+   "stem": "다음을 듣고, 남자가 하는 말의 목적으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-PURPOSE",
+   "hit_count": 1,
+   "hits": [
+    "L-PURPOSE"
+   ]
+  },
+  {
+   "exam": "2026",
+   "no": 2,
+   "stem": "대화를 듣고, 여자의 의견으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-OPINION",
+   "hit_count": 1,
+   "hits": [
+    "L-OPINION"
+   ]
+  },
+  {
+   "exam": "2026",
+   "no": 3,
+   "stem": "다음을 듣고, 남자가 하는 말의 요지로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-MAIN",
+   "hit_count": 1,
+   "hits": [
+    "L-MAIN"
+   ]
+  },
+  {
+   "exam": "2026",
+   "no": 4,
+   "stem": "대화를 듣고, 그림에서 대화의 내용과 일치하지 않는 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-PICTURE",
+   "hit_count": 1,
+   "hits": [
+    "L-PICTURE"
+   ]
+  },
+  {
+   "exam": "2026",
+   "no": 5,
+   "stem": "대화를 듣고, 여자가 할 일로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-TODO",
+   "hit_count": 1,
+   "hits": [
+    "L-TODO"
+   ]
+  },
+  {
+   "exam": "2026",
+   "no": 6,
+   "stem": "대화를 듣고, 남자가 지불할 금액을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-MONEY",
+   "hit_count": 1,
+   "hits": [
+    "L-MONEY"
+   ]
+  },
+  {
+   "exam": "2026",
+   "no": 7,
+   "stem": "대화를 듣고, 여자가 Morning Tea Club에 참석할 수 없는 이유를 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-REASON",
+   "hit_count": 1,
+   "hits": [
+    "L-REASON"
+   ]
+  },
+  {
+   "exam": "2026",
+   "no": 8,
+   "stem": "대화를 듣고, Autumn Treasure Hunt 행사에 관해 언급되지 않은 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-NOTMENTION",
+   "hit_count": 1,
+   "hits": [
+    "L-NOTMENTION"
+   ]
+  },
+  {
+   "exam": "2026",
+   "no": 9,
+   "stem": "2025 Court Visit Program에 관한 다음 내용을 듣고, 일치하지 않는 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-ANNOUNCE",
+   "hit_count": 1,
+   "hits": [
+    "L-ANNOUNCE"
+   ]
+  },
+  {
+   "exam": "2026",
+   "no": 10,
+   "stem": "다음 표를 보면서 대화를 듣고, 남자가 구입할 버터나이프 세트를 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-TABLE",
+   "hit_count": 1,
+   "hits": [
+    "L-TABLE"
+   ]
+  },
+  {
+   "exam": "2026",
+   "no": 11,
+   "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2026",
+   "no": 12,
+   "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": true,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2026",
+   "no": 13,
+   "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": true,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2026",
+   "no": 14,
+   "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+   "high_score": true,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-RESPONSE",
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
+  },
+  {
+   "exam": "2026",
+   "no": 15,
+   "stem": "다음 상황 설명을 듣고, Olivia가 Andy에게 할 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-SITUATION",
+   "hit_count": 1,
+   "hits": [
+    "L-SITUATION"
+   ]
+  },
+  {
+   "exam": "2026",
+   "no": 16,
+   "stem": "여자가 하는 말의 주제로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-SET-TOPIC",
+   "hit_count": 1,
+   "hits": [
+    "L-SET-TOPIC"
+   ]
+  },
+  {
+   "exam": "2026",
+   "no": 17,
+   "stem": "언급된 식물이 아닌 것은?",
+   "high_score": false,
+   "section": "듣기",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "L-SET-NOT",
+   "hit_count": 1,
+   "hits": [
+    "L-SET-NOT"
+   ]
+  },
+  {
+   "exam": "2026",
+   "no": 18,
+   "stem": "다음 글의 목적으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-PURPOSE",
+   "hit_count": 1,
+   "hits": [
+    "R-PURPOSE"
+   ]
+  },
+  {
+   "exam": "2026",
+   "no": 19,
+   "stem": "다음 글에 드러난 Sophie의 심경 변화로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-MOOD",
+   "hit_count": 1,
+   "hits": [
+    "R-MOOD"
+   ]
+  },
+  {
+   "exam": "2026",
+   "no": 20,
+   "stem": "다음 글에서 필자가 주장하는 바로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-CLAIM",
+   "hit_count": 1,
+   "hits": [
+    "R-CLAIM"
+   ]
+  },
+  {
+   "exam": "2026",
+   "no": 21,
+   "stem": "밑줄 친 made a lot of work less sticky가 다음 글에서 의미하는 바로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-IMPLY",
+   "hit_count": 1,
+   "hits": [
+    "R-IMPLY"
+   ]
+  },
+  {
+   "exam": "2026",
+   "no": 22,
+   "stem": "다음 글의 요지로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-GIST",
+   "hit_count": 1,
+   "hits": [
+    "R-GIST"
+   ]
+  },
+  {
+   "exam": "2026",
+   "no": 23,
+   "stem": "다음 글의 주제로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-TOPIC",
+   "hit_count": 1,
+   "hits": [
+    "R-TOPIC"
+   ]
+  },
+  {
+   "exam": "2026",
+   "no": 24,
+   "stem": "다음 글의 제목으로 가장 적절한 것은?",
+   "high_score": true,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-TITLE",
+   "hit_count": 1,
+   "hits": [
+    "R-TITLE"
+   ]
+  },
+  {
+   "exam": "2026",
+   "no": 25,
+   "stem": "다음 도표의 내용과 일치하지 않는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-CHART",
+   "hit_count": 1,
+   "hits": [
+    "R-CHART"
+   ]
+  },
+  {
+   "exam": "2026",
+   "no": 26,
+   "stem": "Max Kleiber에 관한 다음 글의 내용과 일치하지 않는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-FACT",
+   "hit_count": 1,
+   "hits": [
+    "R-FACT"
+   ]
+  },
+  {
+   "exam": "2026",
+   "no": 27,
+   "stem": "School Bell Sound Contest에 관한 다음 안내문의 내용과 일치하지 않는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-NOTICE",
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
+  },
+  {
+   "exam": "2026",
+   "no": 28,
+   "stem": "Fun Bowling Season Pass에 관한 다음 안내문의 내용과 일치하는 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-NOTICE",
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
+  },
+  {
+   "exam": "2026",
+   "no": 29,
+   "stem": "다음 글의 밑줄 친 부분 중, 어법상 틀린 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-GRAMMAR",
+   "hit_count": 1,
+   "hits": [
+    "R-GRAMMAR"
+   ]
+  },
+  {
+   "exam": "2026",
+   "no": 30,
+   "stem": "다음 글의 밑줄 친 부분 중, 문맥상 낱말의 쓰임이 적절하지 않은 것은?",
+   "high_score": true,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-VOCAB",
+   "hit_count": 1,
+   "hits": [
+    "R-VOCAB"
+   ]
+  },
+  {
+   "exam": "2026",
+   "no": 31,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2026",
+   "no": 32,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2026",
+   "no": 33,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2026",
+   "no": 34,
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
+  },
+  {
+   "exam": "2026",
+   "no": 35,
+   "stem": "다음 글에서 전체 흐름과 관계 없는 문장은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-IRRELEVANT",
+   "hit_count": 1,
+   "hits": [
+    "R-IRRELEVANT"
+   ]
+  },
+  {
+   "exam": "2026",
+   "no": 36,
+   "stem": "주어진 글 다음에 이어질 글의 순서로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-ORDER",
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
+  },
+  {
+   "exam": "2026",
+   "no": 37,
+   "stem": "주어진 글 다음에 이어질 글의 순서로 가장 적절한 것을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-ORDER",
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
+  },
+  {
+   "exam": "2026",
+   "no": 38,
+   "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-INSERT",
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
+  },
+  {
+   "exam": "2026",
+   "no": 39,
+   "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+   "high_score": false,
+   "section": "독해",
+   "from_block": true,
+   "stem_truncated": false,
+   "type": "R-INSERT",
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
+  },
+  {
+   "exam": "2026",
+   "no": 40,
+   "stem": "다음 글의 내용을 한 문장으로 요약하고자 한다. 빈칸 (A), (B)에 들어갈 말로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-SUMMARY",
+   "hit_count": 1,
+   "hits": [
+    "R-SUMMARY"
+   ]
+  },
+  {
+   "exam": "2026",
+   "no": 41,
+   "stem": "윗글의 제목으로 가장 적절한 것은?",
+   "high_score": true,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-TITLE",
+   "hit_count": 1,
+   "hits": [
+    "X-TITLE"
+   ]
+  },
+  {
+   "exam": "2026",
+   "no": 42,
+   "stem": "밑줄 친 (a)～(e) 중에서 문맥상 낱말의 쓰임이 적절하지 않은 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-VOCAB",
+   "hit_count": 1,
+   "hits": [
+    "X-VOCAB"
+   ]
+  },
+  {
+   "exam": "2026",
+   "no": 43,
+   "stem": "주어진 글 (A)에 이어질 내용을 순서에 맞게 배열한 것으로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-ORDER",
+   "hit_count": 1,
+   "hits": [
+    "X-ORDER"
+   ]
+  },
+  {
+   "exam": "2026",
+   "no": 44,
+   "stem": "밑줄 친 (a)～(e) 중에서 가리키는 대상이 나머지 넷과 다른 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-REFER",
+   "hit_count": 1,
+   "hits": [
+    "X-REFER"
+   ]
+  },
+  {
+   "exam": "2026",
+   "no": 45,
+   "stem": "윗글에 관한 내용으로 적절하지 않은 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "X-FACT",
+   "hit_count": 1,
+   "hits": [
+    "X-FACT"
+   ]
+  }
+ ],
+ "unassigned_rows": [],
+ "multi_rows": []
+}

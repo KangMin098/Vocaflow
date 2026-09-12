@@ -8,7 +8,9 @@ import { Users, GraduationCap, Clock3 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { requireAdmin } from '@/lib/auth/require-admin'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { fetchVrlUsers, type VrlUsersData } from '@/lib/admin/vrl/queries'
+import { VrlEmptyNotice, VrlUnreadableNotice } from '../_components/VrlStateNotice'
 
 export const metadata = {
   title: 'VRL Users — Vocaflow Admin',
@@ -26,6 +28,7 @@ export default async function VrlUsersPage() {
         title="VRL User Levels"
         description="user_profiles.current_v_level + meta JSONB 기반. 진단 완료/source/last_active 추적."
       />
+      <AdminScreenHelp screen="vrl-users" className="-mt-4" />
       <Suspense fallback={<Fallback />}>
         <Content />
       </Suspense>
@@ -51,6 +54,28 @@ function UsersView({ data }: { data: VrlUsersData }) {
   const diagPct = data.total > 0 ? Math.round((data.diagnosticDone / data.total) * 100) : 0
   const maxLevelCount = Math.max(1, ...data.byLevel)
 
+  // 조회 실패를 "사용자 0명 · 빈 막대 12칸" 으로 그리지 않는다 — 그 화면은 진단이 한 번도
+  // 안 돌았다는 뜻으로 읽히고, 관리자는 진단 시드부터 다시 뒤진다.
+  if (data.error) {
+    return (
+      <VrlUnreadableNotice
+        subject="사용자 V-Level"
+        detail={data.error}
+        hint="user_profiles / user_level_snapshots 조회 권한(RLS)을 먼저 본다."
+        nextStep={{ href: '/admin/vrl/diagnostic', label: '진단 화면으로' }}
+      />
+    )
+  }
+  if (data.total === 0) {
+    return (
+      <VrlEmptyNotice
+        icon={Users}
+        title="레벨이 매겨진 사용자가 없습니다"
+        body="진단을 마친 사용자부터 V-Level 이 생깁니다. 진단 테스트가 활성인지, 문항이 채워졌는지 먼저 봅니다."
+        nextStep={{ href: '/admin/vrl/diagnostic', label: '진단 테스트 확인' }}
+      />
+    )
+  }
   return (
     <div className="flex flex-col gap-4">
       {/* KPI */}
@@ -84,7 +109,7 @@ function UsersView({ data }: { data: VrlUsersData }) {
         <h3 className="mb-3 font-display text-[13px] font-[700] text-[var(--t1)]">
           V-Level 분포 (전체 {data.total} users)
         </h3>
-        <div className="grid grid-cols-12 gap-1.5">
+        <div className="grid grid-cols-12 gap-2">
           {data.byLevel.map((n, i) => {
             const h = Math.round((n / maxLevelCount) * 60) + 4
             return (
@@ -99,7 +124,7 @@ function UsersView({ data }: { data: VrlUsersData }) {
                 <span className="font-mono text-[10px] font-[700] text-[var(--t2)]">
                   L{i}
                 </span>
-                <span className="font-mono text-[9px] text-[var(--t3)]">{n}</span>
+                <span className="font-mono text-[9px] text-[var(--t2)]">{n}</span>
               </div>
             )
           })}
@@ -110,7 +135,7 @@ function UsersView({ data }: { data: VrlUsersData }) {
       <section className="overflow-x-auto rounded-[var(--r-xl)] border border-[var(--bd)] bg-[var(--bg)] shadow-[var(--sh-sm)]">
         <table className="w-full min-w-[900px] border-collapse text-left">
           <thead>
-            <tr className="border-b border-[var(--bd)] font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]">
+            <tr className="border-b border-[var(--bd)] font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
               <th className="px-3 py-2">user_id</th>
               <th className="px-3 py-2">segment</th>
               <th className="px-3 py-2 text-center">V-Level</th>
@@ -134,7 +159,7 @@ function UsersView({ data }: { data: VrlUsersData }) {
                   key={u.userId}
                   className="border-b border-[var(--bd)] font-body text-[12px] hover:bg-[var(--bg2)]"
                 >
-                  <td className="px-3 py-2 font-mono text-[10px] text-[var(--t3)]">
+                  <td className="px-3 py-2 font-mono text-[10px] text-[var(--t2)]">
                     {u.userId.slice(0, 8)}…
                   </td>
                   <td className="px-3 py-2 text-[var(--t2)]">{u.segment ?? '—'}</td>
@@ -148,7 +173,7 @@ function UsersView({ data }: { data: VrlUsersData }) {
                   </td>
                   <td className="px-3 py-2">
                     <span
-                      className="rounded-full px-2 py-0.5 font-display text-[10px] font-[700]"
+                      className="rounded-full px-2 py-1 font-display text-[10px] font-[700]"
                       style={{ backgroundColor: sb.bg, color: sb.color }}
                     >
                       {sb.label}
@@ -157,7 +182,7 @@ function UsersView({ data }: { data: VrlUsersData }) {
                   <td className="px-3 py-2 text-right font-mono text-[11px] text-[var(--t2)]">
                     {u.confidence != null ? u.confidence.toFixed(2) : '—'}
                   </td>
-                  <td className="px-3 py-2 text-[11px] text-[var(--t3)]">
+                  <td className="px-3 py-2 text-[11px] text-[var(--t2)]">
                     {u.learningGoal ?? '—'}
                   </td>
                   <td className="px-3 py-2 text-right font-mono text-[11px] text-[var(--t2)]">
@@ -172,10 +197,10 @@ function UsersView({ data }: { data: VrlUsersData }) {
                         ✓ {u.diagnosticCompletedAt.slice(0, 10)}
                       </span>
                     ) : (
-                      <span className="font-mono text-[10px] text-[var(--t4)]">—</span>
+                      <span className="font-mono text-[10px] text-[var(--t2)]">—</span>
                     )}
                   </td>
-                  <td className="px-3 py-2 font-mono text-[10px] text-[var(--t3)]">
+                  <td className="px-3 py-2 font-mono text-[10px] text-[var(--t2)]">
                     {u.lastActiveAt ? u.lastActiveAt.slice(0, 10) : '—'}
                   </td>
                 </tr>
@@ -210,7 +235,7 @@ function Stat({
         <Icon size={18} strokeWidth={1.75} aria-hidden />
       </span>
       <div className="min-w-0">
-        <p className="font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--t3)]">
+        <p className="font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
           {label}
         </p>
         <p

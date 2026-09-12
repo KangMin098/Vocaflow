@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap">
+  <style>
+    body { margin: 0; font-family: "DM Sans", sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #7E5A1B; } a:hover { color: #1A1714; }
+    .kicker { font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: .18em; text-transform: uppercase; }
+    .num { font-family: "JetBrains Mono", monospace; font-variant-numeric: tabular-nums; }
+    .serif { font-family: "Lora", serif; }
+  </style>
+</helmet>
+<div style="width: 560px; height: 640px; background: #FBFAF6; padding: 32px; box-sizing: border-box; display: flex; flex-direction: column; gap: 22px;">
+  <div>
+    <p class="kicker" style="margin: 0; color: rgba(26, 23, 20, 0.62);">Vocaflow Vocabulary</p>
+    <h1 class="serif" style="margin: 6px 0 0; font-size: 30px; line-height: 1.2; font-weight: 600; color: #1A1714;">격자와 활자</h1>
+  </div>
+
+  <div>
+    <p class="kicker" style="margin: 0 0 10px; color: #1A1714;">표지 격자 3:4</p>
+    <div style="position: relative; width: 240px; height: 320px; border: 1px solid #E0DBD0; background: #F4F0E9;">
+      <div style="position: absolute; left: 0; top: 0; bottom: 0; width: 7px; background: #0F2540;"></div>
+      <div style="position: absolute; left: 7px; right: 15px; top: 14px; height: 1px; background: #E0DBD0;"></div>
+      <div style="position: absolute; left: 20px; right: 15px; top: 40px; height: 86px; background: #FBFAF6;"></div>
+      <div style="position: absolute; left: 20px; right: 15px; bottom: 46px; height: 54px; border: 1px dashed #E0DBD0;"></div>
+      <div style="position: absolute; left: 7px; right: 0; bottom: 32px; height: 1px; background: #E0DBD0;"></div>
+      <span class="num" style="position: absolute; right: 8px; bottom: 10px; font-size: 10px; color: rgba(26, 23, 20, 0.62);">480 × 640</span>
+    </div>
+    <p style="margin: 10px 0 0; font-size: 12px; line-height: 1.6; color: rgba(26, 23, 20, 0.62);">
+      바깥 여백 26 / 30 · 도판 안쪽 여백 8% · 도판 위 글자를 덮는 정도 0.35
+    </p>
+  </div>
+
+  <div>
+    <p class="kicker" style="margin: 0 0 8px; color: #1A1714;">활자</p>
+    <div style="display: flex; flex-direction: column; border-top: 1px solid #E0DBD0;">
+      <div style="display: grid; grid-template-columns: 68px 108px minmax(0, 1fr); gap: 12px; padding: 9px 0; border-bottom: 1px solid #E0DBD0;">
+        <span style="font-size: 12px; color: #1A1714;">제목</span>
+        <span class="num" style="font-size: 11.5px; color: rgba(26, 23, 20, 0.62);">34 / 1.18 · 600</span>
+        <span style="font-size: 11.5px; color: rgba(26, 23, 20, 0.62); font-family: "Lora", serif;">Lora</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 68px 108px minmax(0, 1fr); gap: 12px; padding: 9px 0; border-bottom: 1px solid #E0DBD0;">
+        <span style="font-size: 12px; color: #1A1714;">계열 줄</span>
+        <span class="num" style="font-size: 11.5px; color: rgba(26, 23, 20, 0.62);">10 / .18em · 대문자</span>
+        <span style="font-size: 11.5px; color: rgba(26, 23, 20, 0.62); font-family: "JetBrains Mono", monospace;">JetBrains Mono</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 68px 108px minmax(0, 1fr); gap: 12px; padding: 9px 0; border-bottom: 1px solid #E0DBD0;">
+        <span style="font-size: 12px; color: #1A1714;">결</span>
+        <span class="num" style="font-size: 11.5px; color: rgba(26, 23, 20, 0.62);">13 / 1.6</span>
+        <span style="font-size: 11.5px; color: rgba(26, 23, 20, 0.62); font-family: "DM Sans", sans-serif;">DM Sans</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 68px 108px minmax(0, 1fr); gap: 12px; padding: 9px 0; border-bottom: 1px solid #E0DBD0;">
+        <span style="font-size: 12px; color: #1A1714;">권 번호</span>
+        <span class="num" style="font-size: 11.5px; color: rgba(26, 23, 20, 0.62);">11 · tabular</span>
+        <span style="font-size: 11.5px; color: rgba(26, 23, 20, 0.62); font-family: "JetBrains Mono", monospace;">JetBrains Mono</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 68px 108px minmax(0, 1fr); gap: 12px; padding: 9px 0; border-bottom: 1px solid #E0DBD0;">
+        <span style="font-size: 12px; color: #1A1714;">사다리</span>
+        <span class="num" style="font-size: 11.5px; color: rgba(26, 23, 20, 0.62);">11 · tabular</span>
+        <span style="font-size: 11.5px; color: rgba(26, 23, 20, 0.62); font-family: "JetBrains Mono", monospace;">JetBrains Mono</span>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

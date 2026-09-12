@@ -1,0 +1,637 @@
+{
+  "book": {
+    "id": "37e67ddb-9b24-4121-a85b-9bdf4e357cf2",
+    "title": "Macbeth",
+    "book_v_level": 8
+  },
+  "target_per_chapter": 8,
+  "chapters": [
+    {
+      "chapter_idx": 1,
+      "chapter_title": "Scene I",
+      "word_count": 644,
+      "chapter_v_level": 7,
+      "content": "CHAPTER 1. Scene I\u001fAct I\u001ehttps://standardebooks.org/ebooks/william-shakespeare/macbeth/text/act-1#scene-1-1\n\nA desert place.\n\nThunder and lightning. Enter three Witches.\n\nFirst Witch\n\nWhen shall we three meet again\n\nIn thunder, lightning, or in rain?\n\nSecond Witch\n\nWhen the hurlyburly's done,\n\nWhen the battle's lost and won.\n\nThird Witch That will be ere the set of sun.\n\nFirst Witch Where the place?\n\nSecond Witch Upon the heath.\n\nThird Witch There to meet with Macbeth.\n\nFirst Witch I come, Graymalkin!\n\nSecond Witch Paddock calls.\n\nThird Witch Anon.\n\nAll\n\nFair is foul, and foul is fair:\n\nHover through the fog and filthy air. Exeunt.\n\nCHAPTER 2. Scene II\u001fAct I\u001ehttps://standardebooks.org/ebooks/william-shakespeare/macbeth/text/act-1#scene-1-2\n\nA camp near Forres.\n\nAlarum within. Enter Duncan, Malcolm, Donalbain, Lennox, with Attendants, meeting a bleeding Sergeant.\n\nDuncan\n\nWhat bloody man is that? He can report,\n\nAs seemeth by his plight, of the revolt\n\nThe newest state.\n\nMalcolm\n\nThis is the sergeant\n\nWho like a good and hardy soldier fought\n\n'Gainst my captivity. Hail, brave friend!\n\nSay to the king the knowledge of the broil\n\nAs thou didst leave it.\n\nSergeant\n\nDoubtful it stood;\n\nAs two spent swimmers, that do cling together\n\nAnd choke their art. The merciless Macdonwald⁠--\n\nWorthy to be a rebel, for to that\n\nThe multiplying villainies of nature\n\nDo swarm upon him⁠--from the western isles\n\nOf kerns and gallowglasses is supplied;\n\nAnd fortune, on his damned quarrel smiling,\n\nShow'd like a rebel's whore: but all's too weak:\n\nFor brave Macbeth⁠--well he deserves that name⁠--\n\nDisdaining fortune, with his brandish'd steel,\n\nWhich smoked with bloody execution,\n\nLike valour's minion carved out his passage\n\nTill he faced the slave;\n\nWhich ne'er shook hands, nor bade farewell to him,\n\nTill he unseam'd him from the nave to the chaps,\n\nAnd fix'd his head upon our battlements.\n\nDuncan O valiant cousin! worthy gentleman!\n\nSergeant\n\nAs whence the sun 'gins his reflection\n\nShipwrecking storms and direful thunders break,\n\nSo from that spring whence comfort seem'd to come\n\nDiscomfort swells. Mark, king of Scotland, mark:\n\nNo sooner justice had with valour arm'd\n\nCompell'd these skipping kerns to trust their heels,\n\nBut the Norweyan lord surveying vantage,\n\nWith furbish'd arms and new supplies of men\n\nBegan a fresh assault.\n\nDuncan\n\nDismay'd not this\n\nOur captains, Macbeth and Banquo?\n\nSergeant\n\nYes;\n\nAs sparrows eagles, or the hare the lion.\n\nIf I say sooth, I must report they were\n\nAs cannons overcharged with double cracks, so they\n\nDoubly redoubled strokes upon the foe:\n\nExcept they meant to bathe in reeking wounds,\n\nOr memorize another Golgotha,\n\nI cannot tell.\n\nBut I am faint, my gashes cry for help.\n\nDuncan\n\nSo well thy words become thee as thy wounds;\n\nThey smack of honour both. Go get him surgeons. Exit Sergeant, attended.\n\nWho comes here?\n\nEnter Ross.\n\nMalcolm The worthy thane of Ross.\n\nLennox\n\nWhat a haste looks through his eyes! So should he look\n\nThat seems to speak things strange.\n\nRoss God save the king!\n\nDuncan Whence camest thou, worthy thane?\n\nRoss\n\nFrom Fife, great king;\n\nWhere the Norweyan banners flout the sky\n\nAnd fan our people cold. Norway himself,\n\nWith terrible numbers,\n\nAssisted by that most disloyal traitor\n\nThe thane of Cawdor, began a dismal conflict;\n\nTill that Bellona's bridegroom, lapp'd in proof,\n\nConfronted him with self-comparisons,\n\nPoint against point rebellious, arm 'gainst arm,\n\nCurbing his lavish spirit: and, to conclude,\n\nThe victory fell on us.\n\nDuncan Great happiness!\n\nRoss\n\nThat now\n\nSweno, the Norways' king, craves composition;\n\nNor would we deign him burial of his men\n\nTill he disbursed at Saint Colme's inch\n\nTen thousand dollars to our general use.\n\nDuncan\n\nNo more that thane of Cawdor shall deceive\n\nOur bosom interest: go pronounce his present death,\n\nAnd with his former title greet Macbeth.\n\nRoss I'll see it done.\n\nDuncan What he hath lost noble Macbeth hath won. Exeunt.",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "When do the three Witches agree to meet again?",
+          "questionKo": "세 마녀는 언제 다시 만나기로 하는가?",
+          "options": [
+            {
+              "text": "When the hurlyburly’s done, when the battle’s lost and won — before the set of sun, upon the heath, to meet with Macbeth.",
+              "textKo": "소란이 끝나고 싸움이 지고 이겼을 때 — 해가 지기 전에, 황야에서, 맥베스를 만나려고."
+            },
+            {
+              "text": "At midnight in the king’s palace at Forres.",
+              "textKo": "한밤중 포레스의 왕궁에서."
+            },
+            {
+              "text": "After the Norwegian king has been buried.",
+              "textKo": "노르웨이 왕이 묻힌 뒤에."
+            },
+            {
+              "text": "On the ninth night, when the moon is full.",
+              "textKo": "아홉째 밤, 보름달이 뜰 때."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "When the hurlyburly’s done, When the battle’s lost and won."
+        },
+        {
+          "type": "multiple",
+          "question": "What line do the Witches speak together before departing?",
+          "questionKo": "마녀들이 떠나기 전 함께 읊는 구절은?",
+          "options": [
+            {
+              "text": "\"Double, double toil and trouble.\"",
+              "textKo": "\"이중 이중 수고와 재앙.\""
+            },
+            {
+              "text": "\"Fair is foul, and foul is fair: hover through the fog and filthy air.\"",
+              "textKo": "\"고운 것이 더럽고 더러운 것이 곱다 — 안개와 더러운 공기를 뚫고 떠다니자.\""
+            },
+            {
+              "text": "\"Something wicked this way comes.\"",
+              "textKo": "\"무언가 사악한 것이 이리로 온다.\""
+            },
+            {
+              "text": "\"By the pricking of my thumbs.\"",
+              "textKo": "\"내 엄지가 쑤시는 것으로 보아.\""
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "Fair is foul, and foul is fair"
+        },
+        {
+          "type": "multiple",
+          "question": "How does the bleeding Sergeant describe the battle at its start?",
+          "questionKo": "피 흘리는 병사는 싸움의 초반을 어떻게 묘사하는가?",
+          "options": [
+            {
+              "text": "The rebels fled at the first charge.",
+              "textKo": "반란군이 첫 돌격에 달아났다고."
+            },
+            {
+              "text": "The king’s army was outnumbered ten to one.",
+              "textKo": "왕의 군대가 열 배로 열세였다고."
+            },
+            {
+              "text": "Doubtful it stood — as two spent swimmers that cling together and choke their art.",
+              "textKo": "승패를 알 수 없었다고 — 기진한 두 헤엄꾼이 서로 붙들어 제 재주를 막는 것 같았다고."
+            },
+            {
+              "text": "It was over before the sun rose.",
+              "textKo": "해가 뜨기도 전에 끝났다고."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "As two spent swimmers, that do cling together And choke their art"
+        },
+        {
+          "type": "multiple",
+          "question": "What does the Sergeant report Macbeth did to Macdonwald?",
+          "questionKo": "병사는 맥베스가 맥도널드에게 무엇을 했다고 전하는가?",
+          "options": [
+            {
+              "text": "He took him prisoner and brought him to the king.",
+              "textKo": "사로잡아 왕에게 데려왔다고."
+            },
+            {
+              "text": "He drove him into the sea with the western isles men.",
+              "textKo": "서쪽 섬 사람들과 함께 바다로 몰아냈다고."
+            },
+            {
+              "text": "He spared him on condition of surrender.",
+              "textKo": "항복을 조건으로 살려 주었다고."
+            },
+            {
+              "text": "He carved his passage till he faced the slave, unseamed him from the nave to the chaps, and fixed his head upon the battlements.",
+              "textKo": "길을 베어 나아가 그 종놈과 마주하자 배꼽에서 턱까지 갈라 놓고, 그 머리를 성벽에 꽂았다고."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "Till he unseam’d him from the nave to the chaps, And fix’d his head upon our battlements"
+        },
+        {
+          "type": "multiple",
+          "question": "How did Macbeth and Banquo react to the fresh Norwegian assault?",
+          "questionKo": "노르웨이군의 새 공격에 맥베스와 뱅쿠오는 어떻게 반응했는가?",
+          "options": [
+            {
+              "text": "They were dismayed as sparrows dismay eagles or the hare the lion — that is, not at all; they redoubled strokes like cannons overcharged.",
+              "textKo": "독수리가 참새에게, 사자가 토끼에게 겁먹는 만큼 — 곧 전혀 겁먹지 않고, 과충전된 대포처럼 갑절로 내리쳤다."
+            },
+            {
+              "text": "They withdrew to await reinforcements.",
+              "textKo": "지원군을 기다리며 물러났다."
+            },
+            {
+              "text": "Banquo fled and Macbeth fought on alone.",
+              "textKo": "뱅쿠오는 달아나고 맥베스 홀로 싸웠다."
+            },
+            {
+              "text": "They were both wounded and carried off.",
+              "textKo": "둘 다 부상해 실려 나갔다."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "As sparrows eagles, or the hare the lion"
+        },
+        {
+          "type": "multiple",
+          "question": "What news does Ross bring from Fife?",
+          "questionKo": "로스가 파이프에서 가져온 소식은?",
+          "options": [
+            {
+              "text": "That Fife has revolted against Duncan.",
+              "textKo": "파이프가 던컨에게 반기를 들었다는 것."
+            },
+            {
+              "text": "Norway himself, assisted by the disloyal thane of Cawdor, began a dismal conflict — and the victory fell on Scotland.",
+              "textKo": "노르웨이 왕이 불충한 코더 영주의 도움을 받아 참혹한 싸움을 걸었으나, 승리는 스코틀랜드에 돌아갔다는 것."
+            },
+            {
+              "text": "That Macdonwald has escaped to the western isles.",
+              "textKo": "맥도널드가 서쪽 섬으로 달아났다는 것."
+            },
+            {
+              "text": "That Malcolm has been taken captive.",
+              "textKo": "맬컴이 사로잡혔다는 것."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "Norway himself, With terrible numbers, Assisted by that most disloyal traitor The thane of Cawdor"
+        },
+        {
+          "type": "multiple",
+          "question": "What terms does Sweno, king of Norway, have to meet?",
+          "questionKo": "노르웨이 왕 스웨노가 치러야 할 조건은?",
+          "options": [
+            {
+              "text": "He must give up the thane of Cawdor alive.",
+              "textKo": "코더 영주를 산 채로 넘겨야 한다."
+            },
+            {
+              "text": "He must surrender Fife to Duncan.",
+              "textKo": "파이프를 던컨에게 넘겨야 한다."
+            },
+            {
+              "text": "He craves composition, but is not deigned burial of his men until he disburses ten thousand dollars at Saint Colme’s inch.",
+              "textKo": "강화를 청하나, 세인트 콤스 섬에서 1만 달러를 낼 때까지 전사자 매장조차 허락받지 못한다."
+            },
+            {
+              "text": "He must send his son as a hostage.",
+              "textKo": "아들을 인질로 보내야 한다."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "Till he disbursed at Saint Colme’s inch Ten thousand dollars to our general use"
+        },
+        {
+          "type": "multiple",
+          "question": "What order does Duncan give at the end of the scene?",
+          "questionKo": "장면 끝에서 던컨이 내리는 명령은?",
+          "options": [
+            {
+              "text": "Send Macbeth to pursue the Norwegian army.",
+              "textKo": "맥베스를 보내 노르웨이군을 추격하라는 것."
+            },
+            {
+              "text": "Summon the witches of the heath for questioning.",
+              "textKo": "황야의 마녀들을 불러 심문하라는 것."
+            },
+            {
+              "text": "Name Banquo thane of Cawdor.",
+              "textKo": "뱅쿠오를 코더 영주로 삼으라는 것."
+            },
+            {
+              "text": "Pronounce the present death of the thane of Cawdor, and greet Macbeth with his former title.",
+              "textKo": "코더 영주에게 즉시 사형을 선고하고, 그 옛 작위로 맥베스를 맞으라는 것."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "go pronounce his present death, And with his former title greet Macbeth"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 2,
+      "chapter_title": "Scene III",
+      "word_count": 1259,
+      "chapter_v_level": 6,
+      "content": "CHAPTER 3. Scene III\u001fAct I\u001ehttps://standardebooks.org/ebooks/william-shakespeare/macbeth/text/act-1#scene-1-3\n\nA heath near Forres.\n\nThunder. Enter the three Witches.\n\nFirst Witch Where hast thou been, sister?\n\nSecond Witch Killing swine.\n\nThird Witch Sister, where thou?\n\nFirst Witch\n\nA sailor's wife had chestnuts in her lap,\n\nAnd munch'd, and munch'd, and munch'd:⁠--\"Give me,\" quoth I:\n\n\"Aroint thee, witch!\" the rump-fed ronyon cries.\n\nHer husband's to Aleppo gone, master o' the Tiger:\n\nBut in a sieve I'll thither sail,\n\nAnd, like a rat without a tail,\n\nI'll do, I'll do, and I'll do.\n\nSecond Witch I'll give thee a wind.\n\nFirst Witch Thou'rt kind.\n\nThird Witch And I another.\n\nFirst Witch\n\nI myself have all the other,\n\nAnd the very ports they blow,\n\nAll the quarters that they know\n\nI' the shipman's card.\n\nI will drain him dry as hay:\n\nSleep shall neither night nor day\n\nHang upon his pent-house lid;\n\nHe shall live a man forbid:\n\nWeary sennights nine times nine\n\nShall he dwindle, peak and pine:\n\nThough his bark cannot be lost,\n\nYet it shall be tempest-tost.\n\nLook what I have.\n\nSecond Witch Show me, show me.\n\nFirst Witch\n\nHere I have a pilot's thumb,\n\nWreck'd as homeward he did come. Drum within.\n\nThird Witch\n\nA drum, a drum!\n\nMacbeth doth come.\n\nAll\n\nThe weird sisters, hand in hand,\n\nPosters of the sea and land,\n\nThus do go about, about:\n\nThrice to thine and thrice to mine\n\nAnd thrice again, to make up nine.\n\nPeace! the charm's wound up.\n\nEnter Macbeth and Banquo.\n\nMacbeth So foul and fair a day I have not seen.\n\nBanquo\n\nHow far is't call'd to Forres? What are these\n\nSo wither'd and so wild in their attire,\n\nThat look not like the inhabitants o' the earth,\n\nAnd yet are on't? Live you? or are you aught\n\nThat man may question? You seem to understand me,\n\nBy each at once her choppy finger laying\n\nUpon her skinny lips: you should be women,\n\nAnd yet your beards forbid me to interpret\n\nThat you are so.\n\nMacbeth Speak, if you can: what are you?\n\nFirst Witch All hail, Macbeth! hail to thee, thane of Glamis!\n\nSecond Witch All hail, Macbeth, hail to thee, thane of Cawdor!\n\nThird Witch All hail, Macbeth, thou shalt be king hereafter!\n\nBanquo\n\nGood sir, why do you start; and seem to fear\n\nThings that do sound so fair? I' the name of truth,\n\nAre ye fantastical, or that indeed\n\nWhich outwardly ye show? My noble partner\n\nYou greet with present grace and great prediction\n\nOf noble having and of royal hope,\n\nThat he seems rapt withal: to me you speak not.\n\nIf you can look into the seeds of time,\n\nAnd say which grain will grow and which will not,\n\nSpeak then to me, who neither beg nor fear\n\nYour favours nor your hate.\n\nFirst Witch Hail!\n\nSecond Witch Hail!\n\nThird Witch Hail!\n\nFirst Witch Lesser than Macbeth, and greater.\n\nSecond Witch Not so happy, yet much happier.\n\nThird Witch\n\nThou shalt get kings, though thou be none:\n\nSo all hail, Macbeth and Banquo!\n\nFirst Witch Banquo and Macbeth, all hail!\n\nMacbeth\n\nStay, you imperfect speakers, tell me more:\n\nBy Sinel's death I know I am thane of Glamis;\n\nBut how of Cawdor? the thane of Cawdor lives,\n\nA prosperous gentleman; and to be king\n\nStands not within the prospect of belief,\n\nNo more than to be Cawdor. Say from whence\n\nYou owe this strange intelligence? or why\n\nUpon this blasted heath you stop our way\n\nWith such prophetic greeting? Speak, I charge you. Witches vanish.\n\nBanquo\n\nThe earth hath bubbles, as the water has,\n\nAnd these are of them. Whither are they vanish'd?\n\nMacbeth\n\nInto the air; and what seem'd corporal melted\n\nAs breath into the wind. Would they had stay'd!\n\nBanquo\n\nWere such things here as we do speak about?\n\nOr have we eaten on the insane root\n\nThat takes the reason prisoner?\n\nMacbeth Your children shall be kings.\n\nBanquo You shall be king.\n\nMacbeth And thane of Cawdor too: went it not so?\n\nBanquo To the selfsame tune and words. Who's here?\n\nEnter Ross and Angus.\n\nRoss\n\nThe king hath happily received, Macbeth,\n\nThe news of thy success; and when he reads\n\nThy personal venture in the rebels' fight,\n\nHis wonders and his praises do contend\n\nWhich should be thine or his: silenced with that,\n\nIn viewing o'er the rest o' the selfsame day,\n\nHe finds thee in the stout Norweyan ranks,\n\nNothing afeard of what thyself didst make,\n\nStrange images of death. As thick as hail\n\nCame post with post; and every one did bear\n\nThy praises in his kingdom's great defence,\n\nAnd pour'd them down before him.\n\nAngus\n\nWe are sent\n\nTo give thee from our royal master thanks;\n\nOnly to herald thee into his sight,\n\nNot pay thee.\n\nRoss\n\nAnd, for an earnest of a greater honour,\n\nHe bade me, from him, call thee thane of Cawdor:\n\nIn which addition, hail, most worthy thane!\n\nFor it is thine.\n\nBanquo What, can the devil speak true?\n\nMacbeth\n\nThe thane of Cawdor lives: why do you dress me\n\nIn borrow'd robes?\n\nAngus\n\nWho was the thane lives yet;\n\nBut under heavy judgment bears that life\n\nWhich he deserves to lose. Whether he was combined\n\nWith those of Norway, or did line the rebel\n\nWith hidden help and vantage, or that with both\n\nHe labour'd in his country's wreck, I know not;\n\nBut treasons capital, confess'd and proved,\n\nHave overthrown him.\n\nMacbeth\n\nAside. Glamis, and thane of Cawdor!\n\nThe greatest is behind. To Ross and Angus. Thanks for your pains.\n\nTo Banquo. Do you not hope your children shall be kings,\n\nWhen those that gave the thane of Cawdor to me\n\nPromised no less to them?\n\nBanquo\n\nThat trusted home\n\nMight yet enkindle you unto the crown,\n\nBesides the thane of Cawdor. But 'tis strange:\n\nAnd oftentimes, to win us to our harm,\n\nThe instruments of darkness tell us truths,\n\nWin us with honest trifles, to betray's\n\nIn deepest consequence.\n\nCousins, a word, I pray you.\n\nMacbeth\n\nAside. Two truths are told,\n\nAs happy prologues to the swelling act\n\nOf the imperial theme.⁠--I thank you, gentlemen.\n\nAside. This supernatural soliciting\n\nCannot be ill, cannot be good: if ill,\n\nWhy hath it given me earnest of success,\n\nCommencing in a truth? I am thane of Cawdor:\n\nIf good, why do I yield to that suggestion\n\nWhose horrid image doth unfix my hair\n\nAnd make my seated heart knock at my ribs,\n\nAgainst the use of nature? Present fears\n\nAre less than horrible imaginings:\n\nMy thought, whose murder yet is but fantastical,\n\nShakes so my single state of man that function\n\nIs smother'd in surmise, and nothing is\n\nBut what is not.\n\nBanquo Look, how our partner's rapt.\n\nMacbeth\n\nAside. If chance will have me king, why, chance may crown me,\n\nWithout my stir.\n\nBanquo\n\nNew honours come upon him,\n\nLike our strange garments, cleave not to their mould\n\nBut with the aid of use.\n\nMacbeth\n\nAside. Come what come may,\n\nTime and the hour runs through the roughest day.\n\nBanquo Worthy Macbeth, we stay upon your leisure.\n\nMacbeth\n\nGive me your favour: my dull brain was wrought\n\nWith things forgotten. Kind gentlemen, your pains\n\nAre register'd where every day I turn\n\nThe leaf to read them. Let us toward the king.\n\nThink upon what hath chanced, and, at more time,\n\nThe interim having weigh'd it, let us speak\n\nOur free hearts each to other.\n\nBanquo Very gladly.\n\nMacbeth Till then, enough. Come, friends. Exeunt.",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "What are Macbeth’s first words on entering, and why do they echo the Witches?",
+          "questionKo": "맥베스가 등장하며 처음 하는 말은 무엇이고, 왜 마녀들의 말과 겹치는가?",
+          "options": [
+            {
+              "text": "\"So foul and fair a day I have not seen\" — it echoes their \"Fair is foul, and foul is fair,\" though he has not heard them say it.",
+              "textKo": "\"이토록 더럽고도 고운 날은 본 적이 없다\" — 마녀들의 \"고운 것이 더럽고 더러운 것이 곱다\" 와 겹치나, 그는 그 말을 들은 적이 없다."
+            },
+            {
+              "text": "\"How far is’t call’d to Forres?\" — the same question the Witches asked.",
+              "textKo": "\"포레스까지 얼마나 되는가\" — 마녀들이 물은 것과 같은 물음이다."
+            },
+            {
+              "text": "\"Speak, if you can: what are you?\" — repeating their greeting.",
+              "textKo": "\"말할 수 있거든 말하라, 너희는 무엇이냐\" — 그들의 인사를 되풀이한 것이다."
+            },
+            {
+              "text": "\"The charm’s wound up\" — completing their spell.",
+              "textKo": "\"주문이 다 감겼다\" — 그들의 주문을 마무리한 것이다."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "So foul and fair a day I have not seen."
+        },
+        {
+          "type": "multiple",
+          "question": "What detail makes Banquo doubt the three are women?",
+          "questionKo": "뱅쿠오가 그 셋을 여자로 보기 어려워한 근거는?",
+          "options": [
+            {
+              "text": "They speak in a language he does not know.",
+              "textKo": "모르는 말로 이야기한다는 것."
+            },
+            {
+              "text": "They should be women, and yet their beards forbid him to interpret that they are so.",
+              "textKo": "여자여야 마땅한데, 수염이 있어 그렇다고 해석할 수 없다는 것."
+            },
+            {
+              "text": "They cast no shadow on the heath.",
+              "textKo": "황야에 그림자를 드리우지 않는다는 것."
+            },
+            {
+              "text": "They are dressed in soldiers’ armour.",
+              "textKo": "병사의 갑옷을 입고 있다는 것."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "you should be women, And yet your beards forbid me to interpret That you are so"
+        },
+        {
+          "type": "multiple",
+          "question": "What three greetings do the Witches give Macbeth?",
+          "questionKo": "마녀들이 맥베스에게 건네는 세 인사는?",
+          "options": [
+            {
+              "text": "Thane of Cawdor, Prince of Cumberland, and king.",
+              "textKo": "코더 영주, 컴벌랜드 공, 그리고 왕."
+            },
+            {
+              "text": "Thane of Glamis, king of Scotland, and king of Norway.",
+              "textKo": "글라미스 영주, 스코틀랜드 왕, 그리고 노르웨이 왕."
+            },
+            {
+              "text": "Thane of Glamis, thane of Cawdor, and \"thou shalt be king hereafter\".",
+              "textKo": "글라미스 영주, 코더 영주, 그리고 \"장차 왕이 되리라\"."
+            },
+            {
+              "text": "Soldier, traitor, and king.",
+              "textKo": "병사, 반역자, 그리고 왕."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "All hail, Macbeth, thou shalt be king hereafter!"
+        },
+        {
+          "type": "multiple",
+          "question": "What do the Witches prophesy to Banquo?",
+          "questionKo": "마녀들이 뱅쿠오에게 하는 예언은?",
+          "options": [
+            {
+              "text": "That he shall be thane of Cawdor after Macbeth.",
+              "textKo": "맥베스 다음으로 코더 영주가 되리라고."
+            },
+            {
+              "text": "That he shall die before the year is out.",
+              "textKo": "해가 다 가기 전에 죽으리라고."
+            },
+            {
+              "text": "Nothing at all — they vanish before answering him.",
+              "textKo": "아무것도 — 답하기 전에 사라진다."
+            },
+            {
+              "text": "Lesser than Macbeth and greater; not so happy, yet much happier — he shall get kings, though he be none.",
+              "textKo": "맥베스보다 작으면서 크고, 그만큼 행복하지 않으면서 훨씬 행복하다고 — 왕이 되지는 않으나 왕들을 낳으리라고."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "Thou shalt get kings, though thou be none"
+        },
+        {
+          "type": "multiple",
+          "question": "Why does Macbeth call the Cawdor prophecy impossible when he hears it?",
+          "questionKo": "맥베스는 왜 코더 예언을 들은 순간 불가능하다 하는가?",
+          "options": [
+            {
+              "text": "The thane of Cawdor lives, a prosperous gentleman — so being Cawdor is no more within belief than being king.",
+              "textKo": "코더 영주가 멀쩡히 살아 있는 유복한 신사이므로 — 코더가 되는 일은 왕이 되는 일만큼이나 믿을 수 없다고."
+            },
+            {
+              "text": "Because he has already refused the title once.",
+              "textKo": "이미 한 번 그 작위를 사양했기 때문에."
+            },
+            {
+              "text": "Because the king has promised it to Banquo.",
+              "textKo": "왕이 그것을 뱅쿠오에게 약속했기 때문에."
+            },
+            {
+              "text": "Because Glamis and Cawdor cannot be held together.",
+              "textKo": "글라미스와 코더를 겸할 수 없기 때문에."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "the thane of Cawdor lives, A prosperous gentleman"
+        },
+        {
+          "type": "multiple",
+          "question": "What warning does Banquo draw from the prophecy proving true?",
+          "questionKo": "예언이 맞아떨어지자 뱅쿠오가 끌어내는 경고는?",
+          "options": [
+            {
+              "text": "That they must tell the king at once.",
+              "textKo": "당장 왕에게 알려야 한다고."
+            },
+            {
+              "text": "Oftentimes, to win us to our harm, the instruments of darkness tell us truths — winning us with honest trifles, to betray us in deepest consequence.",
+              "textKo": "어둠의 도구들은 우리를 해로 이끌려고 종종 진실을 말한다고 — 사소한 정직으로 마음을 사서 가장 중대한 대목에서 배반한다고."
+            },
+            {
+              "text": "That the witches were merely village fortune-tellers.",
+              "textKo": "마녀들은 그저 시골 점쟁이였다고."
+            },
+            {
+              "text": "That Macbeth should claim the crown without delay.",
+              "textKo": "맥베스가 지체 없이 왕관을 차지해야 한다고."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "The instruments of darkness tell us truths, Win us with honest trifles, to betray’s In deepest consequence"
+        },
+        {
+          "type": "multiple",
+          "question": "What does Macbeth admit about the thought he cannot name?",
+          "questionKo": "맥베스는 입에 담지 못하는 그 생각에 대해 무엇을 인정하는가?",
+          "options": [
+            {
+              "text": "That he has already spoken of it to Banquo.",
+              "textKo": "이미 뱅쿠오에게 말했다고."
+            },
+            {
+              "text": "That the witches put it into his head just now.",
+              "textKo": "마녀들이 방금 머리에 심어 준 것이라고."
+            },
+            {
+              "text": "Its horrid image unfixes his hair and makes his seated heart knock at his ribs — present fears are less than horrible imaginings.",
+              "textKo": "그 끔찍한 상이 머리카락을 곤두세우고 자리 잡은 심장이 갈비뼈를 두드리게 한다고 — 눈앞의 두려움이 끔찍한 상상보다 덜하다고."
+            },
+            {
+              "text": "That it no longer troubles him at all.",
+              "textKo": "이제 조금도 괴롭지 않다고."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "Present fears Are less than horrible imaginings"
+        },
+        {
+          "type": "multiple",
+          "question": "What does Macbeth settle on in his last aside of the scene?",
+          "questionKo": "장면 마지막 방백에서 맥베스가 이르는 결론은?",
+          "options": [
+            {
+              "text": "That he will kill Duncan that very night.",
+              "textKo": "바로 그날 밤 던컨을 죽이겠다고."
+            },
+            {
+              "text": "That he will tell his wife nothing of the prophecy.",
+              "textKo": "예언을 아내에게 말하지 않겠다고."
+            },
+            {
+              "text": "That he will seek the witches out again alone.",
+              "textKo": "홀로 마녀들을 다시 찾겠다고."
+            },
+            {
+              "text": "If chance will have him king, chance may crown him without his stir — come what come may, time and the hour runs through the roughest day.",
+              "textKo": "운이 그를 왕으로 삼겠다면 그가 나서지 않아도 운이 씌워 주리라고 — 무슨 일이 오든, 시간과 시각은 가장 험한 날도 지나간다고."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "If chance will have me king, why, chance may crown me, Without my stir"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 3,
+      "chapter_title": "Scene IV",
+      "word_count": 514,
+      "chapter_v_level": 7,
+      "content": "CHAPTER 4. Scene IV\u001fAct I\u001ehttps://standardebooks.org/ebooks/william-shakespeare/macbeth/text/act-1#scene-1-4\n\nForres. The palace.\n\nFlourish. Enter Duncan, Malcolm, Donalbain, Lennox, and Attendants.\n\nDuncan\n\nIs execution done on Cawdor? Are not\n\nThose in commission yet return'd?\n\nMalcolm\n\nMy liege,\n\nThey are not yet come back. But I have spoke\n\nWith one that saw him die: who did report\n\nThat very frankly he confess'd his treasons,\n\nImplored your highness' pardon and set forth\n\nA deep repentance: nothing in his life\n\nBecame him like the leaving it; he died\n\nAs one that had been studied in his death\n\nTo throw away the dearest thing he owed,\n\nAs 'twere a careless trifle.\n\nDuncan\n\nThere's no art\n\nTo find the mind's construction in the face:\n\nHe was a gentleman on whom I built\n\nAn absolute trust.\n\nEnter Macbeth, Banquo, Ross, and Angus.\n\nO worthiest cousin!\n\nThe sin of my ingratitude even now\n\nWas heavy on me: thou art so far before\n\nThat swiftest wing of recompense is slow\n\nTo overtake thee. Would thou hadst less deserved,\n\nThat the proportion both of thanks and payment\n\nMight have been mine! only I have left to say,\n\nMore is thy due than more than all can pay.\n\nMacbeth\n\nThe service and the loyalty I owe,\n\nIn doing it, pays itself. Your highness' part\n\nIs to receive our duties; and our duties\n\nAre to your throne and state children and servants,\n\nWhich do but what they should, by doing every thing\n\nSafe toward your love and honour.\n\nDuncan\n\nWelcome hither:\n\nI have begun to plant thee, and will labour\n\nTo make thee full of growing. Noble Banquo,\n\nThat hast no less deserved, nor must be known\n\nNo less to have done so, let me enfold thee\n\nAnd hold thee to my heart.\n\nBanquo\n\nThere if I grow,\n\nThe harvest is your own.\n\nDuncan\n\nMy plenteous joys,\n\nWanton in fulness, seek to hide themselves\n\nIn drops of sorrow. Sons, kinsmen, thanes,\n\nAnd you whose places are the nearest, know\n\nWe will establish our estate upon\n\nOur eldest, Malcolm, whom we name hereafter\n\nThe Prince of Cumberland; which honour must\n\nNot unaccompanied invest him only,\n\nBut signs of nobleness, like stars, shall shine\n\nOn all deservers. From hence to Inverness,\n\nAnd bind us further to you.\n\nMacbeth\n\nThe rest is labour, which is not used for you:\n\nI'll be myself the harbinger and make joyful\n\nThe hearing of my wife with your approach;\n\nSo humbly take my leave.\n\nDuncan My worthy Cawdor!\n\nMacbeth\n\nAside. The Prince of Cumberland! that is a step\n\nOn which I must fall down, or else o'erleap,\n\nFor in my way it lies. Stars, hide your fires;\n\nLet not light see my black and deep desires:\n\nThe eye wink at the hand; yet let that be,\n\nWhich the eye fears, when it is done, to see. Exit.\n\nDuncan\n\nTrue, worthy Banquo; he is full so valiant,\n\nAnd in his commendations I am fed;\n\nIt is a banquet to me. Let's after him,\n\nWhose care is gone before to bid us welcome:\n\nIt is a peerless kinsman. Flourish. Exeunt.",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "How did the thane of Cawdor meet his death, by Malcolm’s report?",
+          "questionKo": "맬컴의 보고에 따르면 코더 영주는 어떻게 죽음을 맞았는가?",
+          "options": [
+            {
+              "text": "He very frankly confessed his treasons and set forth a deep repentance — nothing in his life became him like the leaving it.",
+              "textKo": "반역을 숨김없이 자백하고 깊이 뉘우쳤다고 — 그가 살면서 한 어떤 일도 목숨을 놓는 그 일만큼 어울리지 않았다고."
+            },
+            {
+              "text": "He denied everything to the last.",
+              "textKo": "끝까지 모든 것을 부인했다고."
+            },
+            {
+              "text": "He escaped before the sentence was carried out.",
+              "textKo": "형이 집행되기 전에 달아났다고."
+            },
+            {
+              "text": "He was killed in the battle, not executed.",
+              "textKo": "처형이 아니라 전투에서 죽었다고."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "nothing in his life Became him like the leaving it"
+        },
+        {
+          "type": "multiple",
+          "question": "What lesson does Duncan draw from Cawdor’s betrayal?",
+          "questionKo": "던컨이 코더의 배신에서 끌어내는 교훈은?",
+          "options": [
+            {
+              "text": "That thanes should never be trusted with armies.",
+              "textKo": "영주에게 군대를 맡겨서는 안 된다고."
+            },
+            {
+              "text": "There’s no art to find the mind’s construction in the face — he was a gentleman on whom Duncan built an absolute trust.",
+              "textKo": "얼굴에서 마음의 짜임을 읽어 내는 기술은 없다고 — 그는 던컨이 절대적 신뢰를 쌓았던 신사였다고."
+            },
+            {
+              "text": "That treason always shows itself in the eyes.",
+              "textKo": "반역은 언제나 눈에 드러난다고."
+            },
+            {
+              "text": "That he should have executed him sooner.",
+              "textKo": "더 일찍 처형했어야 했다고."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "There’s no art To find the mind’s construction in the face"
+        },
+        {
+          "type": "multiple",
+          "question": "How does Duncan express that he cannot repay Macbeth?",
+          "questionKo": "던컨은 맥베스에게 보답할 수 없음을 어떻게 표현하는가?",
+          "options": [
+            {
+              "text": "By granting him the crown of Scotland.",
+              "textKo": "스코틀랜드 왕관을 내림으로써."
+            },
+            {
+              "text": "By offering him the lands of Norway.",
+              "textKo": "노르웨이의 영지를 내줌으로써."
+            },
+            {
+              "text": "Macbeth is so far before that the swiftest wing of recompense is slow to overtake him — more is his due than more than all can pay.",
+              "textKo": "맥베스가 너무 앞서 있어 가장 빠른 보답의 날개도 따라잡기 더디다고 — 그가 받아야 할 몫은 모든 것을 다 주고도 넘는다고."
+            },
+            {
+              "text": "By saying the debt will be paid by Malcolm.",
+              "textKo": "그 빚은 맬컴이 갚으리라 말함으로써."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "thou art so far before That swiftest wing of recompense is slow To overtake thee"
+        },
+        {
+          "type": "multiple",
+          "question": "How does Macbeth answer the king’s thanks?",
+          "questionKo": "맥베스는 왕의 치하에 어떻게 답하는가?",
+          "options": [
+            {
+              "text": "That he asks only for the thaneship of Fife.",
+              "textKo": "파이프의 영주 자리만을 청한다고."
+            },
+            {
+              "text": "That he would rather the honour went to Banquo.",
+              "textKo": "그 영예는 뱅쿠오에게 가는 편이 낫다고."
+            },
+            {
+              "text": "That he will accept no reward until Norway is beaten.",
+              "textKo": "노르웨이를 꺾기 전에는 어떤 상도 받지 않겠다고."
+            },
+            {
+              "text": "The service and loyalty he owes pays itself in the doing; their duties are children and servants to the throne, doing only what they should.",
+              "textKo": "자기가 진 봉사와 충성은 행하는 것으로 이미 값을 치른다고 — 신하의 의무는 왕좌의 자식이자 종이라 마땅한 일을 할 뿐이라고."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "The service and the loyalty I owe, In doing it, pays itself"
+        },
+        {
+          "type": "multiple",
+          "question": "What image does Duncan use for both Macbeth and Banquo?",
+          "questionKo": "던컨은 맥베스와 뱅쿠오 모두에게 어떤 심상을 쓰는가?",
+          "options": [
+            {
+              "text": "Planting and growing — he has begun to plant Macbeth and will labour to make him full of growing; Banquo answers that the harvest is the king’s own.",
+              "textKo": "심고 기르는 심상 — 맥베스를 심기 시작했으니 무성히 자라게 하겠다 하고, 뱅쿠오는 그 수확이 왕의 것이라 답한다."
+            },
+            {
+              "text": "Stars that fall from a winter sky.",
+              "textKo": "겨울 하늘에서 떨어지는 별들."
+            },
+            {
+              "text": "Two swords forged from the same steel.",
+              "textKo": "같은 강철로 벼린 두 자루 칼."
+            },
+            {
+              "text": "Rivers running into a single sea.",
+              "textKo": "한 바다로 흘러드는 강들."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "I have begun to plant thee, and will labour To make thee full of growing"
+        },
+        {
+          "type": "multiple",
+          "question": "What succession does Duncan announce?",
+          "questionKo": "던컨이 선포하는 계승은?",
+          "options": [
+            {
+              "text": "He names Macbeth his heir for his service.",
+              "textKo": "공로를 보아 맥베스를 후계자로 삼는다."
+            },
+            {
+              "text": "He establishes his estate upon his eldest, Malcolm, whom he names Prince of Cumberland.",
+              "textKo": "맏아들 맬컴에게 나라를 세우고, 그를 컴벌랜드 공으로 이름한다."
+            },
+            {
+              "text": "He leaves the succession to the thanes to decide.",
+              "textKo": "계승을 영주들의 결정에 맡긴다."
+            },
+            {
+              "text": "He names Donalbain, his younger son.",
+              "textKo": "작은아들 도널베인을 지명한다."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "We will establish our estate upon Our eldest, Malcolm, whom we name hereafter The Prince of Cumberland"
+        },
+        {
+          "type": "multiple",
+          "question": "Where does the court go next, and what does Macbeth offer to do?",
+          "questionKo": "궁정은 다음에 어디로 가며, 맥베스는 무엇을 하겠다고 하는가?",
+          "options": [
+            {
+              "text": "To Fife — Macbeth will secure it against Norway.",
+              "textKo": "파이프로 — 맥베스가 노르웨이에 대비해 지키겠다고 한다."
+            },
+            {
+              "text": "To Forres — Macbeth will prepare the coronation.",
+              "textKo": "포레스로 — 맥베스가 대관식을 준비하겠다고 한다."
+            },
+            {
+              "text": "To Inverness — Macbeth will be the harbinger himself and make joyful his wife’s hearing of the king’s approach.",
+              "textKo": "인버네스로 — 맥베스가 스스로 선발대가 되어 왕의 행차 소식으로 아내를 기쁘게 하겠다고 한다."
+            },
+            {
+              "text": "To Saint Colme’s inch — Macbeth will collect the ransom.",
+              "textKo": "세인트 콤스 섬으로 — 맥베스가 배상금을 걷겠다고 한다."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "From hence to Inverness, And bind us further to you."
+        },
+        {
+          "type": "multiple",
+          "question": "What does Macbeth say aside about the Prince of Cumberland?",
+          "questionKo": "컴벌랜드 공에 대해 맥베스가 방백으로 하는 말은?",
+          "options": [
+            {
+              "text": "That Malcolm will make a worthy king.",
+              "textKo": "맬컴이 훌륭한 왕이 되리라고."
+            },
+            {
+              "text": "That the witches must have been wrong.",
+              "textKo": "마녀들이 틀렸음이 분명하다고."
+            },
+            {
+              "text": "That he will serve Malcolm as he served Duncan.",
+              "textKo": "던컨을 섬긴 대로 맬컴을 섬기겠다고."
+            },
+            {
+              "text": "It is a step on which he must fall down, or else o’erleap, for in his way it lies — and he bids the stars hide their fires from his black and deep desires.",
+              "textKo": "그 앞에서 넘어지든 뛰어넘든 해야 할 계단이라고, 제 길에 놓여 있으므로 — 그리고 별들에게 제 검고 깊은 욕망을 비추지 말라 청한다."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "Stars, hide your fires; Let not light see my black and deep desires"
+        }
+      ]
+    }
+  ]
+}

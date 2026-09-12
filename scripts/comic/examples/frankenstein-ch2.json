@@ -1,0 +1,545 @@
+{
+  "book": {
+    "id": "shelley-frankenstein-ch2",
+    "title": "Frankenstein · Chapter 2 — The Seed of an Obsession",
+    "author": "Mary Shelley, Frankenstein (1818), Chapter 2",
+    "source": "gutenberg",
+    "ref": "84",
+    "total_words": 75000
+  },
+  "adaptation": {
+    "style": "gonick",
+    "panel_count": 15,
+    "default_tier": "teen",
+    "tiers": [
+      "child",
+      "teen",
+      "adult"
+    ],
+    "target_v_level": 10,
+    "source_span": [
+      0,
+      12679
+    ],
+    "original_words": 2204,
+    "art_shared_across_tiers": true,
+    "seed": 84
+  },
+  "cast": [
+    {
+      "id": "victor",
+      "name": "Victor",
+      "role": "youth protagonist",
+      "variant": "youth",
+      "canonical": "a studious teenage boy with untidy dark hair, round glasses and intense eyes",
+      "anchor": "a teenage boy with round glasses and intense studious eyes",
+      "seed_role": 84
+    },
+    {
+      "id": "elizabeth",
+      "name": "Elizabeth",
+      "role": "youth",
+      "variant": "youth",
+      "canonical": "a gentle teenage girl with bright fair GOLDEN hair in a long braid, serene and poetic",
+      "anchor": "bright fair golden hair in a long braid",
+      "seed_role": 84
+    },
+    {
+      "id": "clerval",
+      "name": "Clerval",
+      "role": "youth friend",
+      "variant": "youth",
+      "canonical": "a lively teenage boy in a small black top hat, waving a wooden toy sword, bright and adventurous",
+      "anchor": "a small top hat and a wooden toy sword",
+      "seed_role": 84
+    },
+    {
+      "id": "alphonse",
+      "name": "Alphonse",
+      "role": "father",
+      "canonical": "a tall slender dignified gentleman with a neat trimmed grey beard, no glasses, in a long dark coat",
+      "anchor": "a neat grey beard and a long dark coat (dignified, slender)",
+      "seed_role": 84,
+      "variant": "middle-aged"
+    }
+  ],
+  "panels": [
+    {
+      "n": 1,
+      "wide": true,
+      "cap_zone": "top",
+      "beat_offset": [
+        0,
+        845
+      ],
+      "scene": "two teenagers on an Alpine terrace: a fair braided girl gazing dreamily at the mountains, a bespectacled boy peering intently at a flower he is dissecting",
+      "composition": "wide two-shot, contrasting poses",
+      "characters": [
+        "elizabeth",
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "VICTOR AND <b>ELIZABETH</b> GROW UP INSEPARABLE &mdash; YET OPPOSITE. SHE LOVES THE BEAUTY OF THINGS; HE BURNS TO KNOW THEIR CAUSES.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "While my companion contemplated with a serious and satisfied spirit the magnificent appearances of things, I delighted in investigating their causes.",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "n": 2,
+      "wide": false,
+      "cap_zone": "tr",
+      "beat_offset": [
+        845,
+        1690
+      ],
+      "scene": "the fair braided girl reading poetry beneath towering Swiss peaks, lost in wonder",
+      "composition": "medium, poetic",
+      "characters": [
+        "elizabeth"
+      ],
+      "text": {
+        "teen": {
+          "narration": "ELIZABETH FOLLOWS THE POETS AND THE GLORY OF THE MOUNTAINS.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "She busied herself with following the aerial creations of the poets",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            },
+            {
+              "speaker": "",
+              "text": "in the majestic and wondrous scenes which surrounded our Swiss home",
+              "pos": "tr",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "n": 3,
+      "wide": false,
+      "cap_zone": "tl",
+      "beat_offset": [
+        1690,
+        2535
+      ],
+      "scene": "the bespectacled boy hunched over books and specimens by candlelight, hungry-eyed",
+      "composition": "medium, intense study",
+      "characters": [
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "BUT VICTOR WANTS TO UNLOCK EVERYTHING &mdash; THE HIDDEN LAWS OF NATURE.",
+          "bubbles": [
+            {
+              "speaker": "victor",
+              "text": "The world was to me a secret which I desired to divine.",
+              "pos": "tr",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "VICTOR / SHELLEY 1818"
+            },
+            {
+              "speaker": "",
+              "text": "Curiosity, earnest research to learn the hidden laws of nature, gladness akin to rapture, as they were unfolded to me, are among the earliest sensations I can remember.",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "n": 4,
+      "wide": false,
+      "cap_zone": "top",
+      "beat_offset": [
+        2535,
+        3380
+      ],
+      "scene": "a spirited teenage boy in a small top hat brandishing a wooden sword, striking a heroic knightly pose",
+      "composition": "medium, dynamic heroic",
+      "characters": [
+        "clerval"
+      ],
+      "text": {
+        "teen": {
+          "narration": "THEIR DEAREST FRIEND <b>CLERVAL</b> LIVES FOR ADVENTURE AND ROMANCE.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "He loved enterprise, hardship, and even danger for its own sake. He was deeply read in books of chivalry and romance.",
+              "pos": "tr",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            },
+            {
+              "speaker": "",
+              "text": "He composed heroic songs and began to write many a tale of enchantment and knightly adventure.",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "n": 5,
+      "wide": true,
+      "cap_zone": "top",
+      "beat_offset": [
+        3380,
+        4225
+      ],
+      "scene": "three costumed children acting out a play of King Arthur's knights in a garden, wooden swords and paper crowns",
+      "composition": "wide, playful theatrical",
+      "characters": [
+        "clerval",
+        "victor",
+        "elizabeth"
+      ],
+      "text": {
+        "teen": {
+          "narration": "HE MAKES THEM ACT OUT HEROIC PLAYS OF KNIGHTS AND ROUND TABLES.",
+          "bubbles": [
+            {
+              "speaker": "clerval",
+              "text": "TO THE ROUND TABLE!",
+              "pos": "bl",
+              "kind": "shout"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "n": 6,
+      "wide": false,
+      "cap_zone": "tr",
+      "beat_offset": [
+        4225,
+        5070
+      ],
+      "scene": "the bespectacled boy staring up at a starry sky, yearning, tiny beneath the vast heavens",
+      "composition": "medium, yearning upward",
+      "characters": [
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "VICTOR CARES NOTHING FOR LANGUAGES OR POLITICS &mdash; ONLY THE DEEPEST SECRETS.",
+          "bubbles": [
+            {
+              "speaker": "victor",
+              "text": "It was the secrets of heaven and earth that I desired to learn; and whether it was the outward substance of things or the inner spirit of nature and the mysterious soul of man that occupied me",
+              "pos": "tl",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "VICTOR / SHELLEY 1818"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "n": 7,
+      "wide": false,
+      "cap_zone": "tl",
+      "beat_offset": [
+        5070,
+        5915
+      ],
+      "scene": "the fair braided girl glowing warmly in a cosy lamplit home, a gentle calming presence",
+      "composition": "medium, warm glow",
+      "characters": [
+        "elizabeth"
+      ],
+      "text": {
+        "teen": {
+          "narration": "ELIZABETH IS THE GENTLE LIGHT THAT SOFTENS THEM BOTH.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "The saintly soul of Elizabeth shone like a shrine-dedicated lamp in our peaceful home.",
+              "pos": "tr",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "n": 8,
+      "wide": false,
+      "cap_zone": "top",
+      "beat_offset": [
+        5915,
+        6760
+      ],
+      "scene": "a shadowy foreboding image of a small mountain stream swelling into a destroying torrent, sweeping away tiny happy figures",
+      "composition": "medium, symbolic dark",
+      "characters": [],
+      "text": {
+        "teen": {
+          "narration": "YET VICTOR LOOKS BACK AND SEES WHERE IT ALL BEGAN &mdash; A SMALL SOURCE THAT WOULD BECOME A FLOOD.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "when I would account to myself for the birth of that passion which afterwards ruled my destiny I find it arise, like a mountain river, from ignoble and almost forgotten sources; but, swelling as it proceeded, it became the torrent which, in its course, has swept away all my hopes and joys.",
+              "pos": "tc",
+              "kind": "whisper",
+              "verbatim": true,
+              "by": "VICTOR / SHELLEY 1818"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "n": 9,
+      "wide": false,
+      "cap_zone": "tr",
+      "beat_offset": [
+        6760,
+        7605
+      ],
+      "scene": "a rainy inn room; the bespectacled boy, age thirteen, pulling a dusty old volume from a shelf, transfixed",
+      "composition": "medium, discovery moment",
+      "characters": [
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "AT THIRTEEN, TRAPPED BY RAIN AT AN INN, HE FINDS AN OLD BOOK OF <b>MAGIC AND ALCHEMY</b>.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "In this house I chanced to find a volume of the works of Cornelius Agrippa.",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "n": 10,
+      "wide": false,
+      "cap_zone": "top",
+      "beat_offset": [
+        7605,
+        8450
+      ],
+      "scene": "the boy's face lit with dawning wonder, glowing pages open before him, ideas sparking around his head",
+      "composition": "medium, illumination",
+      "characters": [
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "IT LIGHTS A FIRE IN HIM.",
+          "bubbles": [
+            {
+              "speaker": "victor",
+              "text": "A new light seemed to dawn upon my mind, and bounding with joy, I communicated my discovery to my father.",
+              "pos": "tr",
+              "kind": "shout",
+              "verbatim": true,
+              "by": "VICTOR / SHELLEY 1818"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "n": 11,
+      "wide": false,
+      "cap_zone": "tr",
+      "beat_offset": [
+        8450,
+        9295
+      ],
+      "scene": "the slender bearded father glancing dismissively at the boy's old book, waving it off",
+      "composition": "medium two-shot, dismissive",
+      "characters": [
+        "alphonse",
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "BUT HIS FATHER WAVES IT AWAY WITH ONE CARELESS LINE &mdash; NEVER EXPLAINING WHY.",
+          "bubbles": [
+            {
+              "speaker": "alphonse",
+              "text": "Ah! Cornelius Agrippa! My dear Victor, do not waste your time upon this; it is sad trash.",
+              "pos": "tl",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "ALPHONSE / SHELLEY 1818"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "n": 12,
+      "wide": false,
+      "cap_zone": "tl",
+      "beat_offset": [
+        9295,
+        10140
+      ],
+      "scene": "the boy secretly surrounded by towering old alchemy books, dreaming of gold and eternal life",
+      "composition": "medium, obsessive study",
+      "characters": [
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "SO HE READS ON IN SECRET &mdash; CHASING THE <b>ELIXIR OF LIFE</b> ITSELF.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "the search of the philosopher's stone and the elixir of life",
+              "pos": "tr",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            },
+            {
+              "speaker": "victor",
+              "text": "WHAT GLORY, TO BANISH DEATH!",
+              "pos": "bl",
+              "kind": "thought"
+            },
+            {
+              "speaker": "",
+              "text": "what glory would attend the discovery if I could banish disease from the human frame and render man invulnerable to any but a violent death",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "n": 13,
+      "wide": true,
+      "cap_zone": "top",
+      "beat_offset": [
+        10140,
+        10985
+      ],
+      "scene": "a violent night thunderstorm; a bolt of lightning splitting a great old oak tree into ribbons before the house",
+      "composition": "wide dramatic storm, lightning strike",
+      "characters": [],
+      "text": {
+        "teen": {
+          "narration": "THEN, AT FIFTEEN, A STORM SHOWS HIM A GREATER POWER.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "I beheld a stream of fire issue from an old and beautiful oak... nothing remained but a blasted stump.",
+              "pos": "tc",
+              "kind": "shout",
+              "verbatim": true,
+              "by": "VICTOR / SHELLEY 1818"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "n": 14,
+      "wide": false,
+      "cap_zone": "tr",
+      "beat_offset": [
+        10985,
+        11830
+      ],
+      "scene": "a learned visitor gesturing at a charged apparatus, explaining electricity to the fascinated bespectacled boy",
+      "composition": "medium two-shot, revelation",
+      "characters": [
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "A LEARNED GUEST EXPLAINS <b>ELECTRICITY AND GALVANISM</b> &mdash; AND ALCHEMY SUDDENLY SEEMS WORTHLESS.",
+          "bubbles": [
+            {
+              "speaker": "victor",
+              "text": "ALL THAT HAD ENGAGED ME GREW DESPICABLE.",
+              "pos": "tl",
+              "kind": "speech"
+            },
+            {
+              "speaker": "",
+              "text": "All that he said threw greatly into the shade Cornelius Agrippa, Albertus Magnus, and Paracelsus, the lords of my imagination",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "n": 15,
+      "wide": true,
+      "cap_zone": "top",
+      "beat_offset": [
+        11830,
+        12679
+      ],
+      "scene": "the bespectacled boy turning calmly to mathematics, while a dark storm looms unseen in the stars above him",
+      "composition": "wide, false calm with looming dread",
+      "characters": [
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "HE TURNS TO SAFE MATHEMATICS &mdash; A BRIEF ESCAPE. BUT FATE HAS ALREADY DECIDED.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "Destiny was too potent, and her immutable laws had decreed my utter and terrible destruction.",
+              "pos": "tc",
+              "kind": "whisper",
+              "verbatim": true,
+              "by": "VICTOR / SHELLEY 1818"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

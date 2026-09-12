@@ -9,8 +9,8 @@
 
 'use client'
 
-import { useState } from 'react'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { useState, useTransition } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
 import {
   BarChart3,
   BookOpen,
@@ -33,8 +33,23 @@ import {
   Send,
 } from 'lucide-react'
 
-import type { ArticleAdminRow, ArticleStats, SourceFeedHealth } from '@/lib/articles/types'
+import type {
+  ArticleAdminRow,
+  ArticleStats,
+  ArticleStatusCounts,
+  CoverageCounts,
+  SourceFeedHealth,
+} from '@/lib/articles/types'
+import {
+  ARTICLE_LIST_PAGE_SIZE,
+  articleConsoleQuery,
+  defaultStatusFilter,
+  type ArticleConsoleView,
+  type ArticleStage,
+  type ArticleStatusFilter,
+} from '@/lib/articles/console-view'
 import type { LearnerLevel } from '@vocaflow/library-pipeline/curation-spec'
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { SOURCE_LABEL } from '@/lib/articles/source-guide'
 import { CoverageMatrix } from './CoverageMatrix'
 import { SourceFeedList } from './SourceFeedList'
@@ -43,14 +58,24 @@ import { SourceGetView } from './SourceGetView'
 import { CuratedArticlesTab } from './CuratedArticlesTab'
 import { BulkArticlesTab } from './BulkArticlesTab'
 
-type Stage = 'coverage' | 'get' | 'review' | 'publish'
+type Stage = ArticleStage
 type SourceKey =
   | 'voa' | 'nasa' | 'nih' | 'simple_wikipedia' | 'the_conversation' | 'wikinews' | 'owid' | 'factbook' | 'elife' | 'wikipedia' | 'plos' | 'wikivoyage' | 'usgs' | 'noaa'
 type StatTone = 'neutral' | 'success' | 'warning' | 'info' | 'danger'
 
 interface Props {
+  /** URL 이 정의한 현재 화면 (단계 · 상태 필터 · 소스 · 페이지). */
+  view: ArticleConsoleView
+  /** 목록 **한 페이지** — 커버리지·소스 GET 단계에서는 빈 배열이다(행을 안 읽는다). */
   articles: ArticleAdminRow[]
+  /** 지금 목록 조건(상태 + 소스)의 서버 카운트 — 페이지네이션 분모. */
+  /** `null` = 서버 카운트를 못 셌다 — 페이저가 「?」로 적고 길은 막지 않는다. */
+  listTotal: number | null
+  /** 상태별 서버 카운트 — 타일 · 상태 칩 · 페이지 분모의 유일한 출처. */
+  counts: ArticleStatusCounts
   stats: ArticleStats
+  /** 발행 커버리지 30칸 서버 카운트. */
+  coverage: CoverageCounts
   feedHealth: SourceFeedHealth[]
 }
 
@@ -60,7 +85,15 @@ const STAGES: Array<{ key: Stage; label: string; Icon: typeof LayoutGrid }> = [
   { key: 'review', label: '검수', Icon: SearchCheck },
   { key: 'publish', label: '발행', Icon: Send },
 ]
-const STAGE_KEYS: Stage[] = STAGES.map((s) => s.key)
+
+// 화면도움말 탭 키 — 탭 버튼이 단계 번호 배지를 품고 있어 화면에 보이는 문자열은 '1커버리지' 형태다.
+//   lib/admin/help/articles.ts 의 tabs 키와 문자열이 정확히 같아야 조회된다.
+const HELP_TAB: Record<Stage, string> = {
+  coverage: '1커버리지',
+  get: '2소스 GET',
+  review: '3검수',
+  publish: '4발행',
+}
 
 // 소스별 탭 — 라벨은 정본 SOURCE_LABEL(source-guide) 단일출처에서만(중복 정의·드리프트 금지).
 //   여기선 key + Icon 만 정의 → 커버리지(SourceFeedList)와 동일 라벨 보장.
@@ -82,20 +115,37 @@ const SOURCE_OPTIONS: Array<{ key: SourceKey; Icon: typeof Radio }> = [
 ]
 const SOURCE_KEYS: SourceKey[] = SOURCE_OPTIONS.map((s) => s.key)
 
-export function CurationConsole({ articles, stats, feedHealth }: Props) {
+export function CurationConsole({
+  view,
+  articles,
+  listTotal,
+  counts,
+  stats,
+  coverage,
+  feedHealth,
+}: Props) {
   const router = useRouter()
   const pathname = usePathname()
-  const searchParams = useSearchParams()
-  // stage 를 URL(?stage=)로 동기화 — 프리뷰 검수 후 복귀 시 stage 유지(제자리 복귀).
-  const stageParam = searchParams.get('stage') as Stage | null
-  const stage: Stage = stageParam && STAGE_KEYS.includes(stageParam) ? stageParam : 'coverage'
-  const setStage = (s: Stage): void => {
-    const params = new URLSearchParams(searchParams.toString())
-    if (s === 'coverage') params.delete('stage')
-    else params.set('stage', s)
-    const qs = params.toString()
-    router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false })
+  // 단계·필터·페이지가 전부 URL(?stage=&status=&src=&page=)에 있다 — 서버가 그 조건으로
+  //   목록을 잘라 오기 때문이다. 프리뷰 검수 후 복귀 시 보던 자리가 그대로 열린다.
+  const stage: Stage = view.stage
+  const [navPending, startNav] = useTransition()
+
+  const go = (next: ArticleConsoleView): void => {
+    const qs = articleConsoleQuery(next)
+    startNav(() => {
+      router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false })
+    })
   }
+  // 단계를 바꾸면 상태 칩과 페이지는 그 단계의 기본값으로 되돌린다 —
+  //   검수(ready)에서 발행 탭으로 넘어갔는데 ready 필터가 따라오면 빈 표만 보인다.
+  const setStage = (s: Stage): void =>
+    go({ stage: s, status: defaultStatusFilter(s), source: view.source, page: 0 })
+  const setStatusFilter = (f: ArticleStatusFilter): void =>
+    go({ ...view, status: f, page: 0 })
+  const setSource = (src: string | null): void => go({ ...view, source: src, page: 0 })
+  const setPage = (p: number): void => go({ ...view, page: Math.max(0, p) })
+
   const [getSource, setGetSource] = useState<SourceKey>('voa')
 
   const refetchAll = (): void => {
@@ -115,11 +165,13 @@ export function CurationConsole({ articles, stats, feedHealth }: Props) {
     <div className="flex flex-col gap-6">
       <StageTabs stage={stage} onChange={setStage} />
 
+      <AdminScreenHelp screen="articles" tab={HELP_TAB[stage]} className="-mt-2" />
+
       <div role="tabpanel" id={`curation-panel-${stage}`} aria-labelledby={`curation-tab-${stage}`}>
         {stage === 'coverage' && (
           <div className="flex flex-col gap-6">
             <StatsBar stats={stats} />
-            <CoverageMatrix articles={articles} onCellClick={() => setStage('get')} />
+            <CoverageMatrix coverage={coverage} onCellClick={() => setStage('get')} />
             <SourceFeedList feedHealth={feedHealth} onPickSource={jumpToGet} />
           </div>
         )}
@@ -128,26 +180,27 @@ export function CurationConsole({ articles, stats, feedHealth }: Props) {
             source={getSource}
             onSource={setGetSource}
             onEnqueued={goReview}
-            articles={articles}
+            coverage={coverage}
             feedHealth={feedHealth}
           />
         )}
-        {stage === 'review' && (
+        {(stage === 'review' || stage === 'publish') && (
           <CuratedArticlesTab
             articles={articles}
+            counts={counts}
+            filter={view.status}
+            onFilter={setStatusFilter}
+            source={view.source}
+            onSource={setSource}
+            page={view.page}
+            pageSize={ARTICLE_LIST_PAGE_SIZE}
+            totalForFilter={listTotal}
+            onPage={setPage}
+            navPending={navPending}
             onChanged={refetchAll}
-            initialFilter="ready"
-            showGate
-            heading="🔍 검수 큐"
-            backStage="review"
-          />
-        )}
-        {stage === 'publish' && (
-          <CuratedArticlesTab
-            articles={articles}
-            onChanged={refetchAll}
-            initialFilter="published"
-            backStage="publish"
+            showGate={stage === 'review'}
+            heading={stage === 'review' ? '🔍 검수 큐' : '📂 Curated Articles'}
+            backStage={stage}
           />
         )}
       </div>
@@ -178,7 +231,7 @@ function StageTabs({ stage, onChange }: { stage: Stage; onChange: (s: Stage) => 
               'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]',
               active
                 ? 'border-[var(--p)] text-[var(--p)]'
-                : 'border-transparent text-[var(--t3)] hover:text-[var(--t1)]',
+                : 'border-transparent text-[var(--t2)] hover:text-[var(--t1)]',
             ].join(' ')}
           >
             <span
@@ -203,7 +256,8 @@ function StageTabs({ stage, onChange }: { stage: Stage; onChange: (s: Stage) => 
 // ── Stats bar (커버리지 stage) ────────────────────
 
 function StatsBar({ stats }: { stats: ArticleStats }) {
-  const items: Array<{ label: string; value: number; tone: StatTone }> = [
+  // `value: null` = 못 셌다. 0 으로 적으면 "글이 없다" 로 읽힌다 — 정반대의 결론이다.
+  const items: Array<{ label: string; value: number | null; tone: StatTone }> = [
     { label: '전체', value: stats.total, tone: 'neutral' },
     { label: '게시됨', value: stats.published, tone: 'success' },
     { label: '검토 대기', value: stats.ready, tone: 'warning' },
@@ -224,14 +278,18 @@ function StatsBar({ stats }: { stats: ArticleStats }) {
         return (
           <div
             key={it.label}
-            className="flex flex-col gap-0.5 rounded-[var(--r-md)] border border-[var(--bd)] px-4 py-3"
+            className="flex flex-col gap-1 rounded-[var(--r-md)] border border-[var(--bd)] px-4 py-3"
             style={{ backgroundColor: c.bg }}
           >
             <span className="font-mono text-[10px] uppercase tracking-wider" style={{ color: c.text }}>
               {it.label}
             </span>
-            <span className="font-display text-[24px] font-[700] tabular-nums" style={{ color: c.value }}>
-              {it.value}
+            <span
+              className="font-display text-[24px] font-[700] tabular-nums"
+              style={{ color: c.value }}
+              title={it.value == null ? '못 셌다 — 0건이라는 뜻이 아니다' : undefined}
+            >
+              {it.value == null ? '—' : it.value.toLocaleString()}
             </span>
           </div>
         )
@@ -246,13 +304,13 @@ function SourceGetStage({
   source,
   onSource,
   onEnqueued,
-  articles,
+  coverage,
   feedHealth,
 }: {
   source: SourceKey
   onSource: (s: SourceKey) => void
   onEnqueued: () => void
-  articles: ArticleAdminRow[]
+  coverage: CoverageCounts
   feedHealth: SourceFeedHealth[]
 }) {
   const [mode, setMode] = useState<'source' | 'bulk'>('source')
@@ -267,7 +325,7 @@ function SourceGetStage({
   return (
     <div className="flex flex-col gap-4">
       <GetGuidePanel
-        articles={articles}
+        coverage={coverage}
         feedHealth={feedHealth}
         level={level}
         onLevel={setLevel}
@@ -315,7 +373,7 @@ function ModeButton({
       aria-selected={active}
       onClick={onClick}
       className={[
-        'inline-flex min-h-[40px] items-center gap-2 rounded-[var(--r-sm)] px-3',
+        'inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-sm)] px-3',
         'font-display text-[12px] font-[600]',
         'transition-colors duration-[var(--dur-normal)] ease-[var(--ease)]',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]',
@@ -357,13 +415,13 @@ function SourceTabs({
             aria-selected={active}
             onClick={() => onChange(key)}
             className={[
-              'inline-flex min-h-[40px] items-center gap-1.5 -mb-px border-b-2 px-3',
+              'inline-flex min-h-[44px] items-center gap-2 -mb-px border-b-2 px-3',
               'font-display text-[12px] font-[600]',
               'transition-colors duration-[var(--dur-normal)] ease-[var(--ease)]',
               'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]',
               active
                 ? 'border-[var(--p)] text-[var(--p)]'
-                : 'border-transparent text-[var(--t3)] hover:text-[var(--t1)]',
+                : 'border-transparent text-[var(--t2)] hover:text-[var(--t1)]',
             ].join(' ')}
           >
             <Icon size={13} aria-hidden />

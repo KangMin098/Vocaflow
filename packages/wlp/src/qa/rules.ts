@@ -350,13 +350,23 @@ export function checkR7Profanity(
       : []),
   ]
 
-  const lowerDenylist = denylist.map((w) => w.toLowerCase())
+  // 대문자를 포함한 항목은 **고유 표기**(시험·브랜드명)이므로 대소문자를 구분해 맞춘다.
+  //
+  // 왜 (실측 2026-08-17): 호출부가 브랜드 목록과 금칙어 목록을 합쳐 이 규칙에 넘기는데,
+  // 브랜드 목록에 시험명 `SAT` 가 있다. 전부 소문자로 내려 비교하던 동안 `sit` 의 과거형
+  // **`sat` 가 브랜드로 오인돼** 멀쩡한 항목이 R7(reject)로 거부됐다 — 게다가 사유는
+  // "profanity detected" 로 표시돼 원인을 찾기 어려웠다.
+  // 금칙어는 전부 소문자로 등재돼 있으므로 이 구분이 욕설 탐지를 약화시키지 않는다.
+  const caseSensitive = denylist.filter((w) => /[A-Z]/.test(w))
+  const caseInsensitive = denylist.filter((w) => !/[A-Z]/.test(w)).map((w) => w.toLowerCase())
 
   for (const { value, field } of texts) {
     const lower = value.toLowerCase()
-    for (const bad of lowerDenylist) {
+    for (const bad of [...caseSensitive, ...caseInsensitive]) {
+      const isCased = /[A-Z]/.test(bad)
+      const haystack = isCased ? value : lower
       const pattern = new RegExp(`\\b${escapeRegex(bad)}\\b`)
-      if (pattern.test(lower)) {
+      if (pattern.test(haystack)) {
         flags.push({
           code: 'R7',
           severity: 'reject',

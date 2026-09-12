@@ -69,7 +69,7 @@ export function DefectCard({ defect }: DefectCardProps) {
       style={{ borderLeftColor: sev.border }}
     >
       {/* ── 헤더 ── */}
-      <header className="flex items-start gap-2.5">
+      <header className="flex items-start gap-3">
         <span
           className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-[var(--r-sm)]"
           style={{ backgroundColor: sev.bg, color: sev.dot }}
@@ -78,14 +78,14 @@ export function DefectCard({ defect }: DefectCardProps) {
           <SevIcon size={14} strokeWidth={2} />
         </span>
         <div className="min-w-0 flex-1">
-          <div className="flex flex-wrap items-center gap-1.5">
+          <div className="flex flex-wrap items-center gap-2">
             <span
-              className="inline-flex rounded-full px-1.5 py-0.5 font-display text-[9px] font-[800] text-white"
+              className="inline-flex rounded-full px-2 py-1 font-display text-[9px] font-[800] text-white"
               style={{ backgroundColor: PRIORITY_COLOR[defect.priority] }}
             >
               {defect.priority}
             </span>
-            <span className="font-mono text-[10px] text-[var(--t3)]">{defect.id}</span>
+            <span className="font-mono text-[10px] text-[var(--t2)]">{defect.id}</span>
           </div>
           <h3 className="mt-0.5 font-display text-[13px] font-[700] leading-snug text-[var(--t1)]">
             {defect.title}
@@ -103,15 +103,15 @@ export function DefectCard({ defect }: DefectCardProps) {
       {/* ── metrics ── */}
       {defect.metrics && (
         <div
-          className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-2.5"
+          className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-3"
           aria-label="defect metric"
         >
           <div className="flex items-baseline justify-between gap-2">
-            <p className="font-mono text-[9px] font-[700] uppercase tracking-[0.08em] text-[var(--t3)]">
+            <p className="font-mono text-[9px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
               current vs target
             </p>
             {defect.metrics.target != null && (
-              <p className="font-mono text-[10px] text-[var(--t3)]">
+              <p className="font-mono text-[10px] text-[var(--t2)]">
                 → {defect.metrics.target}
                 {defect.metrics.unit}
               </p>
@@ -122,7 +122,7 @@ export function DefectCard({ defect }: DefectCardProps) {
             style={{ color: sev.dot }}
           >
             {defect.metrics.current}
-            <span className="ml-0.5 font-body text-[10px] font-[500] text-[var(--t3)]">
+            <span className="ml-0.5 font-body text-[10px] font-[500] text-[var(--t2)]">
               {defect.metrics.unit}
             </span>
           </p>
@@ -130,16 +130,16 @@ export function DefectCard({ defect }: DefectCardProps) {
       )}
 
       {/* ── evidence ── */}
-      <p className="font-mono text-[10px] leading-snug text-[var(--t3)]">
+      <p className="font-mono text-[10px] leading-snug text-[var(--t2)]">
         {defect.evidence}
       </p>
 
       {/* ── affects + pipelines ── */}
-      <div className="flex flex-wrap gap-1.5">
+      <div className="flex flex-wrap gap-2">
         {defect.impactsOn.map((r) => (
           <span
             key={r}
-            className="inline-flex h-5 items-center justify-center rounded-[var(--r-sm)] px-1.5 font-mono text-[9px] font-[800] text-white"
+            className="inline-flex h-5 items-center justify-center rounded-[var(--r-sm)] px-2 font-mono text-[9px] font-[800] text-white"
             style={{ backgroundColor: RESP_COLOR[r] }}
             title={`Affects ${r}`}
           >
@@ -147,7 +147,7 @@ export function DefectCard({ defect }: DefectCardProps) {
           </span>
         ))}
         {defect.pipelines && defect.pipelines.length > 0 && (
-          <span className="inline-flex items-center gap-1 rounded-full border border-[var(--bd)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[9px] text-[var(--t3)]">
+          <span className="inline-flex items-center gap-1 rounded-full border border-[var(--bd)] bg-[var(--bg2)] px-2 py-1 font-mono text-[9px] text-[var(--t2)]">
             pipelines: {defect.pipelines.join(' · ')}
           </span>
         )}
@@ -156,14 +156,14 @@ export function DefectCard({ defect }: DefectCardProps) {
       {/* ── improvement ── */}
       {defect.improvement && (
         <section
-          className="rounded-[var(--r-md)] border-l-[2px] p-2.5"
+          className="rounded-[var(--r-md)] border-l-[2px] p-3"
           style={{
             borderLeftColor: PRIORITY_COLOR[defect.priority],
             backgroundColor: sev.bg,
           }}
           aria-label="improvement plan"
         >
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-2">
             <Workflow
               size={12}
               strokeWidth={2}
@@ -175,7 +175,7 @@ export function DefectCard({ defect }: DefectCardProps) {
             </h4>
             {defect.improvement.backlogId && (
               <span
-                className="ml-1 rounded-full bg-[var(--bg)] px-1.5 py-0.5 font-mono text-[9px] font-[700]"
+                className="ml-1 rounded-full bg-[var(--bg)] px-2 py-1 font-mono text-[9px] font-[700]"
                 style={{ color: PRIORITY_COLOR[defect.priority] }}
               >
                 {defect.improvement.backlogId}
@@ -185,10 +185,10 @@ export function DefectCard({ defect }: DefectCardProps) {
           <p className="mt-1 font-body text-[11px] font-[600] leading-snug text-[var(--t1)]">
             {defect.improvement.action}
           </p>
-          <dl className="mt-1 grid grid-cols-[auto_1fr] gap-x-2 gap-y-0.5 font-body text-[10px] text-[var(--t2)]">
-            <dt className="font-mono text-[var(--t3)]">cost</dt>
+          <dl className="mt-1 grid grid-cols-[auto_1fr] gap-x-2 gap-y-1 font-body text-[10px] text-[var(--t2)]">
+            <dt className="font-mono text-[var(--t2)]">cost</dt>
             <dd>{defect.improvement.cost}</dd>
-            <dt className="font-mono text-[var(--t3)]">effect</dt>
+            <dt className="font-mono text-[var(--t2)]">effect</dt>
             <dd>{defect.improvement.effect}</dd>
           </dl>
         </section>

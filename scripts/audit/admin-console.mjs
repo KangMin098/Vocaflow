@@ -1,0 +1,921 @@
+// scripts/audit/admin-console.mjs
+//
+// Admin 콘솔 전수 감사 — READ ONLY. 정적 분석만 하고 아무것도 고치지 않는다.
+//
+// 왜 스크립트인가: "빈틈이 없다" 는 눈으로 훑어서 말할 수 없다. 화면 49개 × 축 8개는
+// 사람이 세면 매번 다른 수가 나오고, 고친 뒤에 줄었는지도 알 수 없다. 그래서 **같은 입력에
+// 같은 수**를 내는 자를 먼저 만든다. 이 파일이 그 자다.
+//
+// 축(axis) 8개 — 각 화면마다 O/X:
+//   header   화면 제목(AdminPageHeader 또는 h1)이 있는가
+//   help     화면도움말(AdminScreenHelp)이 배선됐는가
+//   back     상위로 돌아가는 화면 안의 링크가 있는가 (깊이 2 이상만 해당)
+//   nav      메뉴(사이드바·2차 내비)에서 도달 가능한가 (동적 라우트는 부모 목록에서 링크되면 통과)
+//   loading  로딩 경계가 있는가 (자기 디렉터리 또는 admin 안 조상)
+//   error    에러 경계가 있는가 (같은 규칙)
+//   guard    서버 가드(requireAdmin)가 RSC 진입점에 있는가 (미들웨어와 2층)
+//   nomock   하드코딩된 가짜 수치를 실측인 척 그리지 않는가
+//
+// 전역 검사:
+//   deadLinks   코드 안의 /admin/... 링크 중 존재하지 않는 라우트를 가리키는 것
+//   helpKeys    HELP_REGISTRY 키 ↔ 실제 라우트 슬러그 대조 (양방향 고아)
+//   apiGuards   /api/**/route.ts 의 가드 종류 (JSON 401 vs RSC redirect vs 없음)
+//   reach       사이드바에서 **몇 번 눌러야** 닿는가 (O/X 가 아니라 거리 — 묻힌 화면 탐지)
+//
+// 실행:  node scripts/audit/admin-console.mjs [--json] [--fail-under=<점수>]
+
+import { readdirSync, readFileSync, existsSync, statSync } from 'node:fs'
+import { join, relative, dirname, resolve, sep } from 'node:path'
+import { fileURLToPath } from 'node:url'
+
+const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..')
+const WEB_SRC = join(ROOT, 'apps', 'web', 'src')
+const ADMIN_APP = join(WEB_SRC, 'app', 'admin')
+const API_APP = join(WEB_SRC, 'app', 'api')
+
+const args = process.argv.slice(2)
+const AS_JSON = args.includes('--json')
+const failUnder = Number(
+  (args.find((a) => a.startsWith('--fail-under=')) ?? '').split('=')[1] ?? NaN,
+)
+
+// ── 파일 유틸 ────────────────────────────────────────────────────────────────
+function walk(dir, out = []) {
+  if (!existsSync(dir)) return out
+  for (const name of readdirSync(dir)) {
+    const p = join(dir, name)
+    const st = statSync(p)
+    if (st.isDirectory()) walk(p, out)
+    else out.push(p)
+  }
+  return out
+}
+
+const readCache = new Map()
+function read(p) {
+  if (!readCache.has(p)) {
+    try {
+      readCache.set(p, readFileSync(p, 'utf8'))
+    } catch {
+      readCache.set(p, '')
+    }
+  }
+  return readCache.get(p)
+}
+
+function rel(p) {
+  return relative(ROOT, p).split(sep).join('/')
+}
+
+// ── 라우트 열거 ──────────────────────────────────────────────────────────────
+/** app 디렉터리 경로 → 라우트 경로 (route group `(x)` 제거) */
+function dirToRoute(dir) {
+  const r = relative(join(WEB_SRC, 'app'), dir).split(sep).filter(Boolean)
+  const segs = r.filter((s) => !(s.startsWith('(') && s.endsWith(')')))
+  return '/' + segs.join('/')
+}
+
+const adminPages = walk(ADMIN_APP)
+  .filter((p) => p.endsWith(`${sep}page.tsx`))
+  .map((p) => ({ file: p, dir: dirname(p), route: dirToRoute(dirname(p)) }))
+  .sort((a, b) => a.route.localeCompare(b.route))
+
+const ROUTE_SET = new Set(adminPages.map((p) => p.route))
+
+// ── 임포트 그래프 (화면이 실제로 그리는 파일 전부) ───────────────────────────
+function resolveImport(spec, fromFile) {
+  let base = null
+  if (spec.startsWith('@/')) base = join(WEB_SRC, spec.slice(2))
+  else if (spec.startsWith('./') || spec.startsWith('../')) base = resolve(dirname(fromFile), spec)
+  else return null // node_modules · workspace 패키지는 화면 표면이 아니다
+  for (const cand of [
+    base,
+    `${base}.tsx`,
+    `${base}.ts`,
+    join(base, 'index.tsx'),
+    join(base, 'index.ts'),
+  ]) {
+    if (existsSync(cand) && statSync(cand).isFile()) return cand
+  }
+  return null
+}
+
+const IMPORT_RE = /(?:from\s+|import\s+)['"]([^'"]+)['"]/g
+
+/** page.tsx 에서 시작해 지역 임포트를 depth 까지 따라간 파일 집합 */
+function surfaceFiles(entry, maxDepth = 4) {
+  const seen = new Set([entry])
+  let frontier = [entry]
+  for (let d = 0; d < maxDepth; d++) {
+    const next = []
+    for (const f of frontier) {
+      const src = read(f)
+      for (const m of src.matchAll(IMPORT_RE)) {
+        const r = resolveImport(m[1], f)
+        if (r && !seen.has(r)) {
+          seen.add(r)
+          next.push(r)
+        }
+      }
+    }
+    if (next.length === 0) break
+    frontier = next
+  }
+  return [...seen]
+}
+
+// ── 메뉴에서 도달 가능한 라우트 집합 ─────────────────────────────────────────
+// 사이드바만 보면 2차 내비(VcbSectionNav · FactoryRail · 파이프라인 안 탭)가 빠진다.
+// 그래서 admin 화면 + admin 컴포넌트 전체에서 /admin 링크를 긁는다.
+const NAV_SOURCES = [
+  ...walk(join(WEB_SRC, 'components', 'admin')),
+  ...walk(ADMIN_APP),
+].filter((p) => p.endsWith('.tsx') || p.endsWith('.ts'))
+
+const HREF_RE = /['"`](\/admin(?:\/[A-Za-z0-9\-_\[\]\.$\{\}\/]*)?)['"`]/g
+
+/** 링크 문자열 → 라우트 (템플릿 리터럴의 ${...} 는 동적 세그먼트로 본다) */
+function normalizeHref(h) {
+  return h
+    .replace(/\$\{[^}]*\}/g, ':p')
+    .replace(/\[[^\]]+\]/g, ':p')
+    .replace(/\/+$/, '')
+    .split('?')[0]
+}
+
+function routePattern(route) {
+  return route.replace(/\[[^\]]+\]/g, ':p')
+}
+
+/**
+ * 링크가 이 라우트에 도달하는가 — 세그먼트 수가 같고, 라우트의 동적 칸(:p)은 무엇이든 받는다.
+ * 문자열을 그대로 비교하면 `/admin/curation/preview/<uuid>` 같은 정상 링크가
+ * "죽은 링크" 로 잘못 잡힌다. 자가 틀리면 이 감사 전체가 틀린다.
+ */
+function linkMatchesRoute(href, route) {
+  const a = href.split('/').filter(Boolean)
+  const b = routePattern(route).split('/').filter(Boolean)
+  if (a.length !== b.length) return false
+  return b.every((seg, i) => seg === ':p' || seg === a[i])
+}
+
+function resolvesToSomeRoute(href) {
+  return [...ROUTE_SET].some((r) => linkMatchesRoute(href, r))
+}
+
+const linkedHrefs = new Map() // normalized href -> [file:line]
+for (const f of NAV_SOURCES) {
+  const src = read(f)
+  const lines = src.split('\n')
+  lines.forEach((line, i) => {
+    for (const m of line.matchAll(HREF_RE)) {
+      const key = normalizeHref(m[1])
+      if (!key.startsWith('/admin')) continue
+      if (!linkedHrefs.has(key)) linkedHrefs.set(key, [])
+      linkedHrefs.get(key).push(`${rel(f)}:${i + 1}`)
+    }
+  })
+}
+
+// 링크가 자기 자신인 경우(그 화면 안에서 자기 href)를 빼고 센다
+function inboundLinks(route) {
+  const hits = [...linkedHrefs.entries()]
+    .filter(([href]) => linkMatchesRoute(href, route))
+    .flatMap(([, at]) => at)
+  const own = adminPages.find((p) => p.route === route)
+  const ownDir = own ? rel(own.dir) + '/' : null
+  return hits.filter((h) => !(ownDir && h.startsWith(ownDir)))
+}
+
+// ── 도움말 레지스트리 ────────────────────────────────────────────────────────
+const helpDir = join(WEB_SRC, 'lib', 'admin', 'help')
+const helpFiles = existsSync(helpDir)
+  ? readdirSync(helpDir).filter((f) => f.endsWith('.ts') && f !== 'types.ts' && f !== 'index.ts')
+  : []
+
+// 레지스트리 키 → { 정의 파일, 탭 라벨 목록 }
+// 키는 화면이 `<AdminScreenHelp screen="키" />` 로 조회하는 문자열이고,
+// 탭 키는 **화면에 보이는 라벨 그대로**다 — 라벨을 바꾸면 도움말이 조용히 사라진다.
+const helpEntries = new Map()
+/** 레지스트리 키가 아니라 엔트리 **안쪽 속성** 이름 — 2칸 들여쓰기로 잡히면 오탐이 된다. */
+const HELP_RESERVED = new Set(['screen', 'tabs', 'title'])
+for (const hf of helpFiles) {
+  const src = read(join(helpDir, hf))
+  const tops = [...src.matchAll(/^ {2}'?([A-Za-z0-9\-_\/]+)'?:\s*\{/gm)]
+  tops.forEach((m, idx) => {
+    if (HELP_RESERVED.has(m[1])) return
+    const start = m.index
+    const end = idx + 1 < tops.length ? tops[idx + 1].index : src.length
+    const block = src.slice(start, end)
+    const tabsMatch = block.match(/tabs:\s*\{([\s\S]*)$/)
+    const tabs = []
+    if (tabsMatch) {
+      for (const t of tabsMatch[1].matchAll(/^ {4}'([^']+)':\s*\{/gm)) tabs.push(t[1])
+    }
+    helpEntries.set(m[1], { file: `apps/web/src/lib/admin/help/${hf}`, tabs })
+  })
+  // 별칭 형태 — `'vocab-runs': RUNS_ENTRY,` 처럼 **다른 엔트리를 가리키는** 키.
+  // 인라인 객체만 보면 이런 키가 통째로 안 보여서, 멀쩡한 화면이 "도움말 없음" 으로 찍혔다.
+  for (const m of src.matchAll(/^ {2}'?([A-Za-z0-9\-_\/]+)'?:\s*([A-Za-z_$][\w$]*)\s*,/gm)) {
+    if (HELP_RESERVED.has(m[1]) || helpEntries.has(m[1])) continue
+    // 별칭이 가리키는 상수의 탭 목록은 알 수 없다 — 탭 검사는 원본 키에서 이미 한다.
+    helpEntries.set(m[1], { file: `apps/web/src/lib/admin/help/${hf}`, tabs: [], alias: m[2] })
+  }
+}
+const helpScreens = new Set(helpEntries.keys())
+
+// ── 목업 탐지 ────────────────────────────────────────────────────────────────
+// "숫자 리터럴이 UI 로 흘러가는가" 를 본다. 상수 배열에 value/count/label 이 함께 있으면 후보.
+// ⚠️ 처음엔 `[0-9]` 로 시작하는 값을 전부 잡았는데, 그러면 **0 이 걸린다** — 빈 상태
+//    초기화(`updatedCount: 0`)와 누산기 시드(`total: 0, published: 0`)와 null 기본값이
+//    전부 "가짜 수치" 로 찍혔다(실측: 오탐 4건 / 진짜 0건). 하드코딩된 0 은 거짓말이 아니다.
+//    거짓말은 `value: '348'` 처럼 **재지 않고 적은 0 아닌 수**다. 그래서 1~9 로 시작하는
+//    값만 본다. 목업 화면들의 수치(348 · 1,247 · ₩1.84M · 64%)는 전부 여기 걸린다.
+const MOCK_HINT = /(?:value|count|total|delta|dau|mau|revenue)\s*:\s*['"]?[1-9][0-9,.%]*['"]?/i
+function looksMock(files) {
+  const hits = []
+  for (const f of files) {
+    if (!f.startsWith(ADMIN_APP) && !f.includes(`${sep}components${sep}admin${sep}`)) continue
+    const lines = read(f).split('\n')
+    lines.forEach((line, i) => {
+      if (MOCK_HINT.test(line) && !/props|param|\bdata\b|row\.|stats\./i.test(line)) {
+        hits.push(`${rel(f)}:${i + 1}`)
+      }
+    })
+  }
+  return hits
+}
+
+// ── 화면별 판정 ──────────────────────────────────────────────────────────────
+function hasFileInAncestors(startDir, name) {
+  let d = startDir
+  while (d.startsWith(ADMIN_APP)) {
+    if (existsSync(join(d, name))) return rel(join(d, name))
+    if (d === ADMIN_APP) break
+    d = dirname(d)
+  }
+  return null
+}
+
+function parentRoute(route) {
+  const parts = route.split('/').filter(Boolean)
+  for (let i = parts.length - 1; i > 1; i--) {
+    const cand = '/' + parts.slice(0, i).join('/')
+    if (ROUTE_SET.has(cand)) return cand
+  }
+  return route === '/admin' ? null : '/admin'
+}
+
+/** 이 화면 위에 실제로 얹히는 layout.tsx 들 — 사용자가 보는 화면의 일부다. */
+function ancestorLayouts(startDir) {
+  const out = []
+  let d = startDir
+  while (d.startsWith(ADMIN_APP)) {
+    const lay = join(d, 'layout.tsx')
+    if (existsSync(lay)) out.push(lay)
+    if (d === ADMIN_APP) break
+    d = dirname(d)
+  }
+  return out
+}
+
+/**
+ * **오직 다른 곳으로 보내기만 하는 화면** — `redirect()` 한 줄이 전부다.
+ *
+ * 그리는 것이 없으니 제목도 도움말도 있을 수 없다. 그런데도 축을 물으면 X 가 붙고,
+ * 그 X 를 없애려고 **없는 화면에 도움말을 다는** 잘못된 수리를 하게 된다(실제로
+ * `help/vocab.ts` 에 아무도 안 부르는 별칭이 그렇게 남아 있었다).
+ * 런타임이 아니라 소스로 판별한다 — 이 저장소는 리다이렉트 껍데기에 반환형 `never` 를 쓴다
+ * (e2e 의 `adminRedirectOnlyRoutes()` 가 같은 근거를 쓴다).
+ */
+function isRedirectOnly(pageFile) {
+  const src = read(pageFile)
+  return src.includes('redirect(') && src.includes('): never')
+}
+
+const rows = []
+for (const p of adminPages) {
+  // 레이아웃을 빼면 2차 내비(VcbSectionNav · FactoryRail)가 안 보여서
+  // 「나갈 길이 없다」 는 오답이 나온다. 화면은 page + 그 위에 얹힌 layout 전부다.
+  const files = [
+    ...new Set([
+      ...surfaceFiles(p.file),
+      ...ancestorLayouts(p.dir).flatMap((l) => surfaceFiles(l)),
+    ]),
+  ]
+  const blob = files.map((f) => read(f)).join('\n')
+  const pageSrc = read(p.file)
+
+  const depth = p.route.split('/').filter(Boolean).length // /admin = 1
+  const parent = parentRoute(p.route)
+  const parentPat = parent ? routePattern(parent) : null
+
+  // back — 재는 것은 "부모 링크" 가 아니라 **탈출 경로가 있는가** 다.
+  //   부모 링크만 세면 탭 내비로 형제 화면을 오가는 구간(VCB 처럼 섹션 루트가 redirect 인 곳)이
+  //   억울하게 X 가 되고, 반대로 부모 링크 하나만 있고 갈 곳이 없는 화면이 O 가 된다.
+  // 통과 조건: ① 1차 화면(사이드바가 늘 보인다) ② 조상 라우트로 가는 링크가 있다
+  //           ③ 같은 부모 아래 형제 2개 이상으로 가는 섹션 내비가 있다
+  const ancestors = []
+  {
+    const parts = p.route.split('/').filter(Boolean)
+    for (let i = parts.length - 1; i >= 1; i--) {
+      const cand = '/' + parts.slice(0, i).join('/')
+      if (ROUTE_SET.has(cand)) ancestors.push(cand)
+    }
+  }
+  const surfaceHrefs = new Set()
+  for (const f of files) {
+    if (!f.startsWith(ADMIN_APP) && !f.includes(`${sep}components${sep}admin${sep}`)) continue
+    for (const m of read(f).matchAll(HREF_RE)) surfaceHrefs.add(normalizeHref(m[1]))
+  }
+  const linksToAncestor = ancestors.some((a) =>
+    [...surfaceHrefs].some((h) => linkMatchesRoute(h, a)),
+  )
+  const siblings = [...ROUTE_SET].filter(
+    (r) => r !== p.route && parent && parentRoute(r) === parent,
+  )
+  const siblingLinks = siblings.filter((s) =>
+    [...surfaceHrefs].some((h) => linkMatchesRoute(h, s)),
+  ).length
+  const backLink = depth <= 2 || linksToAncestor || siblingLinks >= 2
+
+  const isDynamic = p.route.includes('[')
+  const inbound = inboundLinks(p.route)
+
+  const mock = looksMock(files)
+
+  // 이 화면이 조회하는 도움말 키 — 계약은 문자열이다.
+  //
+  // ⚠️ 예전에는 `screenKeys[0]` **하나만** 봤다. 그런데 blob 은 page + 임포트 + 레이아웃을
+  //    이어 붙인 것이라, 첫 번째로 걸리는 `screen="..."` 이 **다른 파일의 것**일 수 있다.
+  //    그래서 도움말이 멀쩡한 화면이 X 로 찍혔다. 화면이 부르는 키는 **전부** 검사한다.
+  const screenKeys = [
+    ...new Set([...blob.matchAll(/screen=["']([A-Za-z0-9\-_\/]+)["']/g)].map((m) => m[1])),
+  ]
+  // 대표 키는 page 파일 자신의 것을 우선한다(리포트 가독성용).
+  const ownKeys = [...pageSrc.matchAll(/screen=["']([A-Za-z0-9\-_\/]+)["']/g)].map((m) => m[1])
+  const helpKey = ownKeys[0] ?? screenKeys[0] ?? null
+  const missingKeys = screenKeys.filter((k) => !helpEntries.has(k))
+  // 탭 도움말 정합 — 레지스트리의 탭 라벨이 화면 소스에 실제 문자열로 존재하는가.
+  const tabMisses = screenKeys.flatMap((k) => {
+    const e = helpEntries.get(k)
+    if (!e) return []
+    return e.tabs
+      .filter(
+        (label) =>
+          !blob.includes(`'${label}'`) &&
+          !blob.includes(`"${label}"`) &&
+          !blob.includes(`>${label}<`),
+      )
+      .map((label) => `${k}:${label}`)
+  })
+
+  const redirectOnly = isRedirectOnly(p.file)
+
+  rows.push({
+    route: p.route,
+    file: rel(p.file),
+    depth,
+    redirectOnly,
+    // `<h1` 뒤에는 공백·줄바꿈·`>` 가 온다. `[ >]` 로만 보다가 줄바꿈이 따라오는 멀쩡한
+    // `<h1\n  className=...>` 를 "제목 없음" 으로 찍었다 — 자가 틀린 세 번째 자리다.
+    header: redirectOnly || /AdminPageHeader|<h1[\s>]/.test(blob),
+    help:
+      redirectOnly ||
+      (screenKeys.length > 0 && missingKeys.length === 0 && tabMisses.length === 0),
+    helpKey,
+    screenKeys,
+    helpKeyMissing: missingKeys.length > 0,
+    missingKeys,
+    tabMisses,
+    back: backLink,
+    nav: p.route === '/admin' ? true : inbound.length > 0,
+    inbound: inbound.slice(0, 3),
+    loading: hasFileInAncestors(p.dir, 'loading.tsx'),
+    error: hasFileInAncestors(p.dir, 'error.tsx'),
+    guard: /requireAdmin\s*\(/.test(pageSrc) || !!hasLayoutGuard(p.dir),
+    clientOnly: /^'use client'/m.test(pageSrc),
+    nomock: mock.length === 0,
+    mockHits: mock.slice(0, 5),
+    isDynamic,
+    files: files.length,
+  })
+}
+
+function hasLayoutGuard(startDir) {
+  let d = startDir
+  while (d.startsWith(ADMIN_APP)) {
+    const lay = join(d, 'layout.tsx')
+    if (existsSync(lay) && /requireAdmin\s*\(/.test(read(lay))) return rel(lay)
+    if (d === ADMIN_APP) break
+    d = dirname(d)
+  }
+  return null
+}
+
+// ── 전역: 죽은 링크 ──────────────────────────────────────────────────────────
+const allSrc = walk(WEB_SRC).filter((p) => p.endsWith('.tsx') || p.endsWith('.ts'))
+const routePatterns = new Set([...ROUTE_SET].map(routePattern))
+const deadLinks = []
+for (const f of allSrc) {
+  const lines = read(f).split('\n')
+  // 블록 주석(`/* … */` · JSX 의 `{/* … */}`) **안쪽 줄**은 줄 첫 글자만 봐서는 못 가른다 —
+  // 여러 줄짜리 설명의 둘째 줄은 한글로 시작한다. 그래서 상태를 들고 훑는다.
+  let inBlock = false
+  lines.forEach((line, i) => {
+    const wasInBlock = inBlock
+    const opens = (line.match(/\/\*/g) ?? []).length
+    const closes = (line.match(/\*\//g) ?? []).length
+    if (opens > closes) inBlock = true
+    else if (closes > opens) inBlock = false
+    if (wasInBlock) return
+    // ⚠️ **주석은 링크가 아니다** (2026-09-06 정밀도 수정).
+    //   다른 세션이 `/admin/textbook` 을 지우고 진짜 죽은 링크를 이미 고친 뒤였는데,
+    //   이 자가 **5건을 죽은 링크로 잡았다 — 전부 주석 안의 산문**이었다:
+    //   "TBP 콘솔(`/admin/textbook`)에 있던 「평가 요소 15」를 여기로 옮긴 것이다".
+    //   그건 이력 서술이고, 오히려 **지워지면 안 되는 기록**이다. 그걸 고치라고 하면
+    //   "왜 옮겼는지" 를 지우는 잘못된 수리를 부른다.
+    //   (진짜 죽은 도움말 링크는 `app/admin/__tests__/help-links.test.ts` 가 따로 잠근다.)
+    const t = line.trim()
+    if (t.startsWith('//') || t.startsWith('*') || t.startsWith('/*')) return
+    for (const m of line.matchAll(HREF_RE)) {
+      const key = normalizeHref(m[1])
+      if (!key.startsWith('/admin')) continue
+      if (resolvesToSomeRoute(key)) continue
+      if (key.includes('...')) continue // 주석·문서 안의 자리표시자
+      deadLinks.push({ href: key, at: `${rel(f)}:${i + 1}` })
+    }
+  })
+}
+
+// ── 전역: 도움말 키 계약 ─────────────────────────────────────────────────────
+// 계약은 "라우트 슬러그" 가 아니라 화면이 실제로 넘기는 `screen="..."` 문자열이다.
+const usedHelpKeys = new Set(rows.flatMap((r) => r.screenKeys ?? []))
+const helpOrphans = [...helpScreens].filter((k) => !usedHelpKeys.has(k)) // 정의됐으나 아무 화면도 안 씀
+const screensWithoutHelp = rows
+  .filter((r) => !r.helpKey && !r.redirectOnly)
+  .map((r) => r.route)
+const helpKeyMissing = rows.filter((r) => r.helpKeyMissing).map((r) => `${r.route} → ${r.missingKeys.join(", ")}`)
+const tabMismatches = rows
+  .filter((r) => r.tabMisses.length)
+  .map((r) => `${r.route} [${r.helpKey}] → ${r.tabMisses.join(' / ')}`)
+
+// ── 전역: 정의되지 않은 CSS 변수 ────────────────────────────────────────────
+//
+// 왜 이걸 재는가: `var(--ok)` 처럼 없는 토큰을 쓰면 **오류가 나지 않는다.** 그 선언만
+// 조용히 무시돼 색이 부모에서 상속되고, 그 화면만 다크 테마에 대응하지 못한다.
+// 즉 눈으로 보지 않으면 영원히 안 잡히는 결함이라 자가 대신 잡아야 한다.
+const TOKEN_SOURCES = [
+  join(WEB_SRC, 'app', 'globals.css'),
+  join(ROOT, 'packages', 'design-tokens', 'src', 'tokens.css'),
+]
+const definedTokens = new Set()
+for (const f of TOKEN_SOURCES) {
+  if (!existsSync(f)) continue
+  for (const m of read(f).matchAll(/(--[A-Za-z0-9-]+)\s*:/g)) definedTokens.add(m[1])
+}
+// Tailwind 설정에서 선언한 것도 정의로 친다
+const twCfg = ['tailwind.config.ts', 'tailwind.config.js'].map((n) =>
+  join(ROOT, 'apps', 'web', n),
+)
+for (const f of twCfg) {
+  if (!existsSync(f)) continue
+  for (const m of read(f).matchAll(/(--[A-Za-z0-9-]+)/g)) definedTokens.add(m[1])
+}
+
+const undefinedTokens = []
+if (definedTokens.size > 0) {
+  const scanned = [
+    ...walk(ADMIN_APP),
+    ...walk(join(WEB_SRC, 'components', 'admin')),
+  ].filter((p) => p.endsWith('.tsx') || p.endsWith('.ts'))
+  for (const f of scanned) {
+    const lines = read(f).split('\n')
+    lines.forEach((line, i) => {
+      for (const m of line.matchAll(/var\((--[A-Za-z0-9-]+)(\s*,)?/g)) {
+        // `var(--cefr-${level}-bg)` 처럼 템플릿 리터럴로 조립되는 토큰은 접두만 잡힌다 —
+        // 실제 이름은 런타임에 완성되므로 여기서는 판정할 수 없다. 오탐을 내느니 건너뛴다.
+        if (m[1].endsWith('-')) continue
+        // `var(--x, fallback)` 은 없어도 fallback 이 그려진다 — 렌더 결함이 아니라 관례 문제라
+        // 이 축(“색이 아예 안 나온다”)에서는 세지 않는다.
+        if (m[2]) continue
+        if (!definedTokens.has(m[1])) {
+          undefinedTokens.push({ token: m[1], at: `${rel(f)}:${i + 1}` })
+        }
+      }
+    })
+  }
+}
+
+// ── 전역: 조회 실패를 0/빈값으로 뭉개는 자리 ────────────────────────────────
+// `count ?? 0` 은 이 저장소가 실측으로 금지한 안티패턴이다 — head 요청은 **없는 테이블에도**
+// count=null 을 준다. `if (err) return []` 도 같은 부류로, 장애를 "데이터 없음" 으로 바꾼다.
+const swallowHits = []
+{
+  const scanned = [
+    ...walk(ADMIN_APP),
+    ...walk(join(WEB_SRC, 'components', 'admin')),
+    ...walk(join(WEB_SRC, 'lib', 'admin')),
+  ].filter((p) => p.endsWith('.tsx') || p.endsWith('.ts'))
+  for (const f of scanned) {
+    if (f.includes('__tests__')) continue
+    const src = read(f)
+    /** 이 파일이 DB 를 직접 부르는가 — 「질의 경계」인지의 판정. 아래 count??0 에서 쓴다. */
+    const queriesDb = /\.from\(|\.rpc\(/.test(src)
+    const lines = src.split('\n')
+    lines.forEach((line, i) => {
+      // 주석 줄은 세지 않는다 — 이 안티패턴을 **금지한다고 적은 주석**이 위반으로 잡혔다.
+      const t = line.trim()
+      if (t.startsWith('//') || t.startsWith('*') || t.startsWith('/*')) return
+      // 도움말 본문처럼 **문자열 안에서 이 패턴을 인용하는** 줄도 뺀다 — 관리자에게
+      // "이런 짓을 하지 마라" 고 설명하는 문장이 위반으로 잡히면 자가 스스로를 문다.
+      if (/['"`][^'"`]*count\s*\?\?\s*0/.test(line)) return
+      if (/\bcount\s*\?\?\s*0/.test(line)) {
+        // `arr[0]?.count ?? 0` 은 DB 응답이 아니라 **배열이 비었을 때의 기본값**이다.
+        // 없는 행을 0 으로 두는 것은 거짓말이 아니라 정의다.
+        if (/\]\s*\?\.\s*count\s*\?\?\s*0|\)\s*\?\.\s*count\s*\?\?\s*0/.test(line)) return
+        // **질의를 하지 않는 파일은 이 경계가 아니다** (2026-09-06 정밀도 수정).
+        //   이 결함이 사는 자리는 "DB 응답의 null 이 아무도 보기 전에 0 이 되는 곳" 이다.
+        //   렌더 컴포넌트가 받는 값은 이미 뷰모델이고 거기까지 null 은 살아서 왔다 —
+        //   그 뒤의 `?? 0` 은 색 농도의 **분모**·**정렬 키**·합계 같은 산술이지 주장이 아니다.
+        //   실측: `AuthorClient.tsx` 3건이 전부 그랬다(농도 분모 · 정렬 키 · `unmeasured`
+        //   를 따로 세는 합계). 오탐만 내는 자는 안 잡는 자보다 나쁘다.
+        //   ⚠️ 무디게 만드는 것이 아님을 확인하고 넣었다 — 이 자가 지금까지 잡은 **진짜**
+        //   위반(`admin/layout.tsx` 신고 수 · `dashboard-stats.ts` · `dict/queries.ts`)은
+        //   전부 `.from(`/`.rpc(` 를 가진 파일에 있었고, 완화 뒤에도 그대로 잡힌다.
+        if (!queriesDb) return
+        swallowHits.push({ kind: 'count??0', at: `${rel(f)}:${i + 1}` })
+      }
+      if (/if\s*\(\s*\w*[eE]rr\w*\s*(\|\||\)\s*)/.test(line) && /return\s*\[\]/.test(line)) {
+        swallowHits.push({ kind: 'err→[]', at: `${rel(f)}:${i + 1}` })
+      }
+    })
+  }
+}
+
+// ── 전역: 파일 첫 줄 경로 주석 ───────────────────────────────────────────────
+//
+// CLAUDE.md 「항상 지킬 것」의 한 줄인데 **아무도 재지 않고 있었다.** 재 봤더니
+// VCB 하위(`components/admin/vcb/**` · `app/admin/vocab/**`)가 통째로 빠져 있었다 —
+// 규칙이 있어도 자가 없으면 한 구역이 통째로 새는 것을 아무도 모른다.
+//
+// 왜 필요한가: 이 저장소는 파일 조각이 diff·청크·에이전트 출력으로 자주 떠다닌다.
+// 첫 줄이 경로면 그 조각이 어디 것인지 **맥락 없이도** 안다.
+// ── 전역: 프로세스 단계에 완료 신호가 있는가 ─────────────────────────────────
+//
+// 「전체 프로세스/단계가 최적합한가」를 재는 자리다. 화면도움말의 `steps` 는 관리자가
+// **"다음에 뭘 눌러야 하나"** 를 판단하는 근거인데, 각 단계에 `done`(완료 신호)이 없으면
+// **언제 넘어가야 하는지를 말해 주지 않는다.** 그러면 관리자는 다음 단계로 넘어갈지
+// 기다릴지를 추측하게 되고, 파이프라인은 거기서 멈추거나 두 번 돈다.
+//
+// 실측 2026-09-06: 단계 109개 중 **22개(20%)** 에 완료 신호가 없었다.
+// ⚠️ 첫 판은 227개 중 70개라고 셌는데 **틀렸다** — `fields`·`cautions` 의
+//    `{ label, detail }` 까지 단계로 센 것이다. `steps: [` 블록의 대괄호 균형을 맞춰
+//    그 안쪽만 세도록 고쳤다. 자가 틀리면 없는 일을 고치게 된다.
+const stepsWithoutDone = []
+{
+  const helpDirPath = join(WEB_SRC, 'lib', 'admin', 'help')
+  const files = existsSync(helpDirPath)
+    ? readdirSync(helpDirPath).filter(
+        (f) => f.endsWith('.ts') && f !== 'types.ts' && f !== 'index.ts',
+      )
+    : []
+  for (const f of files) {
+    const src = read(join(helpDirPath, f))
+    for (const s of src.matchAll(/steps:\s*\[/g)) {
+      let i = s.index + s[0].length
+      let depth = 1
+      while (i < src.length && depth > 0) {
+        const ch = src[i]
+        if (ch === '[') depth += 1
+        else if (ch === ']') depth -= 1
+        i += 1
+      }
+      const block = src.slice(s.index + s[0].length, i - 1)
+      for (const m of block.matchAll(
+        /\{\s*\n\s*title:\s*(['"`])([\s\S]*?)\1,([\s\S]*?)\n\s{8,10}\},/g,
+      )) {
+        if (!/\n\s*done:/.test(m[3])) stepsWithoutDone.push(`${f} 「${m[2]}」`)
+      }
+    }
+  }
+}
+
+// ── 전역: 도움말이 없는 버튼을 누르라고 하는가 ───────────────────────────────
+//
+// CLAUDE.md 는 "도움말이 낡으면 잘못된 조작을 유발한다 — 코드보다 위험하다" 고 적는다.
+// 탭 라벨 변경은 위 `tabMismatches` 가 잡는데, **버튼 이름 변경은 아무도 안 본다** —
+// 도움말이 「출처 정책」을 누르라고 하는데 화면에는 「출처」만 있으면, 관리자는 없는 것을
+// 찾다가 다른 것을 누른다.
+//
+// ⚠️ **인용된 문자열을 다 세면 안 된다.** 처음에 「…」 전부를 UI 라벨로 봤더니 159개 중
+//    60개가 "못 찾음" 으로 나왔는데, 그중 대부분이 「답이 왜 이것인가」·「판다」 같은
+//    **개념 인용**이었다(이 저장소는 「」 를 두 용도로 쓴다). 그래서 **누르라는 지시**가
+//    붙은 것만 센다 — 그건 UI 요소를 지목한 것이 분명하다.
+// ⚠️ 분모가 작다(실측 8개). 넓은 커버리지가 아니라 **이름 변경 한 종류**를 막는 자다.
+const helpGhostButtons = []
+{
+  const helpDirPath2 = join(WEB_SRC, 'lib', 'admin', 'help')
+  const uiFiles = [
+    ...walk(ADMIN_APP),
+    ...walk(join(WEB_SRC, 'components', 'admin')),
+  ].filter((p) => p.endsWith('.tsx') && !p.includes('__tests__'))
+  const uiText = uiFiles.map((p) => read(p)).join('\n')
+  const CLICK_RE =
+    /[「“"]([^」“”"\n]{2,30})[」”"]\s*(?:를|을|으로|로)?\s*(?:누르|눌러|클릭|펼친|편다|연다|열면|들어간)/g
+  const helpFilesForBtn = existsSync(helpDirPath2)
+    ? readdirSync(helpDirPath2).filter(
+        (f) => f.endsWith('.ts') && f !== 'types.ts' && f !== 'index.ts',
+      )
+    : []
+  for (const f of helpFilesForBtn) {
+    for (const m of read(join(helpDirPath2, f)).matchAll(CLICK_RE)) {
+      const label = m[1].trim()
+      if (label && !uiText.includes(label)) helpGhostButtons.push(`${f}: 「${label}」`)
+    }
+  }
+}
+
+const pathCommentMisses = []
+{
+  const scanned = [
+    ...walk(ADMIN_APP),
+    ...walk(join(WEB_SRC, 'components', 'admin')),
+    ...walk(join(WEB_SRC, 'lib', 'admin')),
+  ].filter((p) => (p.endsWith('.ts') || p.endsWith('.tsx')) && !p.includes('__tests__'))
+  for (const f of scanned) {
+    const want = `// ${rel(f)}`
+    const first = read(f).split('\n')[0].trimEnd()
+    // ⚠️ **완전일치를 요구하면 안 된다.** 경로 뒤에 라우트를 덧붙인 판이 있고
+    //   (`// …/page.tsx — /admin/pd-comics/reader/[issueId]`) 그건 규칙 위반이 아니라
+    //   **더 친절한** 주석이다. 처음에 완전일치로 재서 그 파일에 경로 주석을 하나 더 얹는
+    //   잘못된 수리를 했다(2026-09-06, 되돌림). 자가 요구하는 것은 "첫 줄이 이 파일의
+    //   경로로 시작하는가" 지 "정확히 그것뿐인가" 가 아니다.
+    if (!first.startsWith(want)) pathCommentMisses.push({ at: rel(f), first: first.slice(0, 50) })
+  }
+}
+
+// ── 전역: 이동 깊이 — 사이드바에서 몇 번 눌러야 닿는가 ───────────────────────
+//
+// `nav` 축은 "메뉴에서 닿는가" 를 O/X 로만 본다. 그러면 **묻힌 화면**이 안 보인다 —
+// 닿기는 닿는데 네 번 눌러야 하는 화면과, 사이드바에 바로 있는 화면이 똑같이 O 다.
+// 「전체 이동 / 전체 프로세스가 최적합한가」를 재려면 O/X 가 아니라 **거리**가 필요하다.
+//
+// 사이드바에 늘 보이는 링크를 깊이 0 으로 두고, 각 화면이 **실제로 그리는 파일 전부**
+// (`surfaceFiles` — 임포트를 따라간다)에서 나온 /admin 링크를 간선으로 삼아 너비 우선.
+//
+// ⚠️ 라우트 디렉터리의 직계 파일만 보면 안 된다. VCB 는 섹션 내비를 공유 컴포넌트
+//   (`components/admin/vcb/VcbSectionNav.tsx`)에 두고, 대시보드는 링크를
+//   `lib/admin/dashboard-stats.ts` 에서 만든다. 직계만 보는 판으로 재 봤더니
+//   **멀쩡한 화면 9개가 「도달 불가」로 잡혔고 전량 오탐이었다**(2026-09-06 실측).
+const reach = { depth: new Map(), unreachable: [], maxDepth: 0 }
+{
+  const outHrefs = new Map() // route -> 그 화면이 내보내는 라우트들
+  for (const p of adminPages) {
+    const files = [
+      ...surfaceFiles(p.file),
+      ...ancestorLayouts(p.dir).flatMap((l) => surfaceFiles(l)),
+    ]
+    const targets = new Set()
+    for (const f of [...new Set(files)]) {
+      for (const m of read(f).matchAll(HREF_RE)) {
+        const href = normalizeHref(m[1])
+        if (!href.startsWith('/admin')) continue
+        for (const r of ROUTE_SET) if (r !== p.route && linkMatchesRoute(href, r)) targets.add(r)
+      }
+    }
+    outHrefs.set(p.route, [...targets])
+  }
+
+  // 사이드바 = 깊이 0. 어느 화면에서나 보이므로 클릭 한 번이면 닿는다.
+  const sidebarFile = join(WEB_SRC, 'components', 'admin', 'AdminSidebar.tsx')
+  let frontier = []
+  if (existsSync(sidebarFile)) {
+    for (const m of read(sidebarFile).matchAll(HREF_RE)) {
+      const href = normalizeHref(m[1])
+      for (const r of ROUTE_SET) {
+        if (linkMatchesRoute(href, r) && !reach.depth.has(r)) {
+          reach.depth.set(r, 0)
+          frontier.push(r)
+        }
+      }
+    }
+  }
+  if (!reach.depth.has('/admin') && ROUTE_SET.has('/admin')) {
+    reach.depth.set('/admin', 0)
+    frontier.push('/admin')
+  }
+  while (frontier.length) {
+    const next = []
+    for (const r of frontier) {
+      for (const t of outHrefs.get(r) ?? []) {
+        if (reach.depth.has(t)) continue
+        reach.depth.set(t, reach.depth.get(r) + 1)
+        next.push(t)
+      }
+    }
+    frontier = next
+  }
+  for (const r of ROUTE_SET) {
+    if (!reach.depth.has(r)) reach.unreachable.push(r)
+    else reach.maxDepth = Math.max(reach.maxDepth, reach.depth.get(r))
+  }
+  reach.unreachable.sort()
+}
+
+// ── 여기 있던 검사를 뺀 이유 (2026-09-05) ────────────────────────────────────
+//
+// 런타임 스윕이 `/admin/csat/evidence` 의 **390px 가로 스크롤 412px** 를 잡았고, 원인은
+// 화면 루트의 `mx-auto` 였다(부모가 `flex flex-col` 이면 가로 auto 마진이 stretch 를 무효로
+// 만들어 상자가 내용 크기로 부푼다). 그래서 같은 모양을 정적으로 잡으려 했는데 — **18건을
+// 잡았고 전부 오탐이었다.** 진짜 문제는 "flex-col 의 **직계** 자식일 때" 만 생기는데,
+// layout 과 page 가 파일로 갈라져 있어 그 관계를 소스만으로는 알 수 없다.
+// 안 잡는 자보다 나쁜 것이 **오탐만 내는 자**다 — 멀쩡한 화면 18개를 고장으로 지목하면
+// 다음 사람이 자 전체를 안 믿는다. 런타임 속성은 런타임이 잰다:
+// `tests/e2e/30-admin-sweep.spec.ts` 의 390px 축이 실제로 페이지를 밀어 보고 판정한다.
+// (그 스펙이 CI 에서 영원히 skip 되던 게이트도 같은 날 고쳤다.)
+
+// ── 전역: API 가드 ───────────────────────────────────────────────────────────
+// ⚠️ 예전 판은 admin 가드만 찾고 나머지를 전부 「없음」에 넣었다. 그러면 학습자 라우트와
+//   의도적으로 공개인 라우트가 같은 칸에 쌓여 **영원히 6** 이 되고, 그 수는 아무도 안 본다.
+//   상시로 0 이 아닌 검사는 새 위반을 숨긴다 — 진짜 구멍이 7번째로 들어와도 안 보인다.
+//   그래서 갈래를 늘리고, 가드가 없는 라우트는 **왜 없는지 선언**하게 한다:
+//     `// @auth public — <이유>`      아무나 불러도 되는 경로 (공개 진단 · 콘텐츠 정보 등)
+//     `// @auth delegated — <어디로>` 인증이 호출하는 쪽에 있는 경로 (server action 재사용 등)
+//   선언 없이 가드가 없으면 그때만 위반이다.
+const AUTH_DECL_RE = /\/\/\s*@auth\s+(public|delegated)\b/
+const apiRoutes = walk(API_APP).filter((p) => p.endsWith(`${sep}route.ts`))
+const apiGuard = { json: [], rscRedirect: [], token: [], user: [], declared: [], none: [] }
+for (const f of apiRoutes) {
+  const src = read(f)
+  const name = rel(f).replace('apps/web/src/app/api/', '').replace('/route.ts', '')
+  const decl = src.match(AUTH_DECL_RE)
+  // 학습자 인증 — `auth.getUser()` 로 확인하고 사용자가 없으면 401/403 을 돌려주는가.
+  // 둘 다 있어야 한다. getUser 만 부르고 그냥 진행하면 가드가 아니다.
+  const userGuard =
+    /auth\.getUser\s*\(/.test(src) && /status:\s*40[13]/.test(src) && /!\s*user\b/.test(src)
+  if (/requireAdminApi\s*\(/.test(src)) apiGuard.json.push(name)
+  else if (/\brequireAdmin\s*\(/.test(src)) apiGuard.rscRedirect.push(name)
+  else if (/INTERNAL_TOKEN|X-[A-Z]+-Token/.test(src)) apiGuard.token.push(name)
+  else if (userGuard) apiGuard.user.push(name)
+  else if (decl) apiGuard.declared.push(`${name} (${decl[1]})`)
+  else apiGuard.none.push(name)
+}
+
+// ── 점수 ─────────────────────────────────────────────────────────────────────
+const AXES = ['header', 'help', 'back', 'nav', 'loading', 'error', 'guard', 'nomock']
+function axisPass(r, a) {
+  if (a === 'loading' || a === 'error') return !!r[a]
+  return !!r[a]
+}
+const perAxis = Object.fromEntries(
+  AXES.map((a) => [a, rows.filter((r) => axisPass(r, a)).length]),
+)
+const cells = rows.length * AXES.length
+const passed = AXES.reduce((s, a) => s + perAxis[a], 0)
+const score = cells ? (passed / cells) * 100 : 0
+
+const report = {
+  generatedAt: new Date().toISOString(),
+  screens: rows.length,
+  axes: AXES,
+  perAxis,
+  score: Number(score.toFixed(1)),
+  passed,
+  cells,
+  undefinedTokens,
+  swallowHits,
+  deadLinks,
+  helpOrphans,
+  screensWithoutHelp,
+  helpKeyMissing,
+  tabMismatches,
+  stepsWithoutDone,
+  reach: {
+    unreachable: reach.unreachable,
+    maxDepth: reach.maxDepth,
+    depth: Object.fromEntries([...reach.depth].sort()),
+  },
+  apiGuard: {
+    total: apiRoutes.length,
+    json: apiGuard.json.length,
+    rscRedirect: apiGuard.rscRedirect,
+    token: apiGuard.token,
+    none: apiGuard.none,
+  },
+  rows,
+}
+
+if (AS_JSON) {
+  console.log(JSON.stringify(report, null, 2))
+} else {
+  const pad = (s, n) => String(s).padEnd(n)
+  console.log(`\nAdmin 콘솔 감사 — 화면 ${rows.length}개 × 축 ${AXES.length}개`)
+  console.log(`점수 ${report.score}%  (${passed}/${cells} 칸 통과)\n`)
+  console.log(
+    pad('ROUTE', 44) + AXES.map((a) => pad(a.slice(0, 7), 8)).join(''),
+  )
+  for (const r of rows) {
+    console.log(
+      pad(r.route, 44) + AXES.map((a) => pad(axisPass(r, a) ? 'O' : 'X', 8)).join(''),
+    )
+  }
+  console.log('\n축별 통과:')
+  for (const a of AXES) console.log(`  ${pad(a, 10)} ${perAxis[a]}/${rows.length}`)
+  console.log(`\n죽은 /admin 링크: ${deadLinks.length}`)
+  for (const d of deadLinks.slice(0, 20)) console.log(`  ${d.href}  ← ${d.at}`)
+  console.log(`\n도움말 — 정의됐으나 아무 화면도 안 쓰는 키: ${helpOrphans.length}`)
+  if (helpOrphans.length) console.log(`  ${helpOrphans.join(', ')}`)
+  console.log(`도움말 — 화면이 부르는데 항목이 없는 키: ${helpKeyMissing.length}`)
+  if (helpKeyMissing.length) console.log(`  ${helpKeyMissing.join('\n  ')}`)
+  console.log(`도움말 — 배선 자체가 없는 화면: ${screensWithoutHelp.length}`)
+  if (screensWithoutHelp.length) console.log(`  ${screensWithoutHelp.join(', ')}`)
+  console.log(`도움말 — 탭 라벨이 화면과 어긋난 곳: ${tabMismatches.length}`)
+  if (tabMismatches.length) console.log(`  ${tabMismatches.join('\n  ')}`)
+  const mocky = rows.filter((r) => !r.nomock)
+  console.log(`\n목업 의심 화면: ${mocky.length}`)
+  for (const r of mocky) console.log(`  ${r.route}  ← ${r.mockHits.join(', ')}`)
+
+  console.log(`\n정의되지 않은 CSS 변수: ${undefinedTokens.length}`)
+  const byToken = {}
+  for (const u of undefinedTokens) (byToken[u.token] ??= []).push(u.at)
+  for (const [t, at] of Object.entries(byToken))
+    console.log(`  ${t}  ${at.length}곳  (예: ${at[0]})`)
+
+  console.log(`\n도움말이 누르라는데 화면에 없는 라벨: ${helpGhostButtons.length}`)
+  for (const t of helpGhostButtons.slice(0, 10)) console.log(`  ${t}`)
+
+  console.log(`\n완료 신호(done)가 없는 프로세스 단계: ${stepsWithoutDone.length}`)
+  for (const t of stepsWithoutDone.slice(0, 12)) console.log(`  ${t}`)
+
+  console.log(`\n첫 줄 경로 주석이 없는 파일: ${pathCommentMisses.length}`)
+  for (const m of pathCommentMisses.slice(0, 12)) console.log(`  ${m.at}  ← ${m.first}`)
+  if (pathCommentMisses.length > 12) console.log(`  … 외 ${pathCommentMisses.length - 12}개`)
+
+  const depthBuckets = new Map()
+  for (const [r, d] of reach.depth) {
+    if (!depthBuckets.has(d)) depthBuckets.set(d, [])
+    depthBuckets.get(d).push(r)
+  }
+  console.log(`\n이동 깊이 — 도달 불가 ${reach.unreachable.length} · 최대 ${reach.maxDepth}번`)
+  for (const d of [...depthBuckets.keys()].sort((a, b) => a - b)) {
+    const list = depthBuckets.get(d).sort()
+    console.log(`  ${d}번: ${list.length}개${d >= 3 ? `  ${list.join(', ')}` : ''}`)
+  }
+  if (reach.unreachable.length) console.log(`  도달 불가: ${reach.unreachable.join(', ')}`)
+
+  console.log(`\n조회 실패를 0/빈값으로 뭉개는 자리: ${swallowHits.length}`)
+  for (const s of swallowHits.slice(0, 15)) console.log(`  [${s.kind}] ${s.at}`)
+  console.log(
+    `\nAPI 가드 — 총 ${apiRoutes.length} · admin JSON 401 ${apiGuard.json.length} · RSC redirect ${apiGuard.rscRedirect.length} · 토큰 ${apiGuard.token.length} · 학습자 401 ${apiGuard.user.length} · 선언된 예외 ${apiGuard.declared.length} · **미선언 무가드 ${apiGuard.none.length}**`,
+  )
+  if (apiGuard.rscRedirect.length) console.log(`  redirect: ${apiGuard.rscRedirect.join(', ')}`)
+  if (apiGuard.declared.length) console.log(`  선언된 예외: ${apiGuard.declared.join(', ')}`)
+  if (apiGuard.none.length) console.log(`  미선언 무가드: ${apiGuard.none.join(', ')}`)
+  console.log('')
+}
+
+if (!Number.isNaN(failUnder) && score < failUnder) {
+  console.error(`FAIL — 점수 ${score.toFixed(1)}% < 기준 ${failUnder}%`)
+  process.exit(1)
+}
+
+// 도달 불가는 **점수와 별개로** 막는다. 8축 어디에도 안 잡히는 종류의 결함이고
+// (화면은 멀쩡히 렌더된다) 링크 하나가 사라지면 조용히 생긴다.
+if (!Number.isNaN(failUnder) && reach.unreachable.length > 0) {
+  console.error(`FAIL — 메뉴에서 도달 못 하는 화면 ${reach.unreachable.length}개: ${reach.unreachable.join(', ')}`)
+  process.exit(1)
+}
+
+// 도움말이 없는 버튼을 누르라고 하는 것. 관리자는 없는 것을 찾다가 다른 것을 누른다.
+if (!Number.isNaN(failUnder) && helpGhostButtons.length > 0) {
+  console.error(
+    `FAIL — 도움말이 누르라는데 화면에 없는 라벨 ${helpGhostButtons.length}개: ` +
+      helpGhostButtons.join(' · ') +
+      '\n       라벨을 바꿨으면 같은 커밋에서 도움말도 고친다(CLAUDE.md §3).',
+  )
+  process.exit(1)
+}
+
+// 완료 신호 없는 단계. 화면은 멀쩡히 뜨고 8축도 전부 통과하는데, 관리자는 **언제 다음으로
+// 넘어가야 하는지**를 알 수 없다 — 그래서 점수와 별개로 막는다.
+if (!Number.isNaN(failUnder) && stepsWithoutDone.length > 0) {
+  console.error(
+    `FAIL — 완료 신호가 없는 프로세스 단계 ${stepsWithoutDone.length}개: ` +
+      stepsWithoutDone.slice(0, 5).join(' · ') +
+      (stepsWithoutDone.length > 5 ? ' …' : '') +
+      '\n       HelpStep.done 에 "이 단계가 끝났는지 무엇으로 아는가" 를 적는다.',
+  )
+  process.exit(1)
+}
+
+// 가드도 없고 왜 없는지 선언도 없는 API 라우트. 「공개인가 잊었는가」를 코드가 말하게 하는
+// 것이 요점이다 — 사람이 매번 다시 판단하면 언젠가 틀린다.
+if (!Number.isNaN(failUnder) && apiGuard.none.length > 0) {
+  console.error(
+    `FAIL — 가드도 선언도 없는 API 라우트 ${apiGuard.none.length}개: ${apiGuard.none.join(', ')}\n` +
+      `       공개가 맞다면 route.ts 머리에 \`// @auth public — <이유>\` 를,\n` +
+      `       인증이 한 겹 안에 있다면 \`// @auth delegated — <어디로>\` 를 적는다.`,
+  )
+  process.exit(1)
+}

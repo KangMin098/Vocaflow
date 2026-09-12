@@ -1,0 +1,94 @@
+{
+  "builtAt": "2026-08-30T02:22:48.264Z",
+  "corpus": 6562,
+  "types": {
+    "R-GIST": {
+      "windows": 19107,
+      "articles": 5348
+    },
+    "R-PURPOSE": {
+      "windows": 1263,
+      "articles": 587
+    },
+    "R-MOOD": {
+      "windows": 1014,
+      "articles": 480
+    },
+    "R-TOPIC": {
+      "windows": 19472,
+      "articles": 5228
+    },
+    "R-CLAIM": {
+      "windows": 8230,
+      "articles": 3162
+    },
+    "R-IMPLY": {
+      "windows": 4755,
+      "articles": 2245
+    },
+    "R-TITLE": {
+      "windows": 23764,
+      "articles": 5722
+    },
+    "R-CHART": {
+      "windows": 9139,
+      "articles": 3276
+    },
+    "R-FACT": {
+      "windows": 3298,
+      "articles": 1469
+    },
+    "R-NOTICE": {
+      "windows": 8246,
+      "articles": 2891
+    },
+    "R-GRAMMAR": {
+      "windows": 12103,
+      "articles": 4219
+    },
+    "R-VOCAB": {
+      "windows": 12140,
+      "articles": 4165
+    },
+    "R-BLANK": {
+      "windows": 16887,
+      "articles": 4931
+    },
+    "R-ORDER": {
+      "windows": 15590,
+      "articles": 4881
+    },
+    "R-IRRELEVANT": {
+      "windows": 22671,
+      "articles": 5239
+    },
+    "R-INSERT": {
+      "windows": 11059,
+      "articles": 4148
+    },
+    "R-SUMMARY": {
+      "windows": 10217,
+      "articles": 4202
+    }
+  },
+  "articlesWithAnyWindow": 6053,
+  "totalWindows": 198955,
+  "distinctSlots": 27477,
+  "distinctByType": {
+    "R-BLANK": 3937,
+    "R-ORDER": 1445,
+    "R-SUMMARY": 389,
+    "R-MOOD": 325,
+    "R-CHART": 3916,
+    "R-PURPOSE": 591,
+    "R-GRAMMAR": 856,
+    "R-CLAIM": 2213,
+    "R-TITLE": 5080,
+    "R-TOPIC": 2473,
+    "R-VOCAB": 3155,
+    "R-IMPLY": 41,
+    "R-GIST": 2677,
+    "R-INSERT": 216,
+    "R-FACT": 163
+  }
+}

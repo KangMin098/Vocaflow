@@ -20,6 +20,7 @@
 | 8 | **Dictation** | L6 완성 | Free Recall + Production | `/dictate`, `/dictate/setup`, `/dictate/session`, `/dictate/results` | ✅ MVP (v06.7) |
 | 9 | **Dashboard** | L7 회고 | 메타인지 | `/dashboard` | ✅ 설계 완료 |
 | 10 | **EchoMatch** ★v06.33 | L4c 청각생성 | Shadow Reading | `/text/[id]/echo` | ✅ v06.33 PoC (4 한계) |
+| 11 | **Comic Reader** ★CCP | L0~L2 입력/프리뷰 | Dual Coding 정독 프리뷰 | `/text/[id]/comic` | ✅ P1 (리더 실 · 발행 시 노출) |
 | (베타) | **Pirate Quest** | — | 단어 모험 | `/play/pirate-quest` | 베타 (R3F) |
 
 ---
@@ -45,6 +46,134 @@
 저장 helper: [`lib/text-viewer/save-user-book.ts`](../apps/web/src/lib/text-viewer/save-user-book.ts) — UUID 생성 + N row 일괄 INSERT + 부분 실패 rollback.
 
 집계: [`useTexts.ts`](../apps/web/src/hooks/useTexts.ts) `aggregateUserBookChapters` — 그룹 → 1 LibraryText 카드 (category="내 책").
+
+### v06.37 — TextFit (지문 적합도 판정)
+
+`/text/new` 에서 **추출 패널보다 위**에 붙는다. 순서에 의미가 있다 — 추출은 "무엇을 배울까" 고
+TextFit 은 "이 글이 지금 나에게 맞나" 라서 뒤가 앞선다.
+
+| | |
+|---|---|
+| 엔진 | [`lib/textfit/coverage.ts`](../apps/web/src/lib/textfit/coverage.ts) — 순수 계산(DB·시계 접근 0, `now` 주입) |
+| 데이터 | [`lib/textfit/queries.ts`](../apps/web/src/lib/textfit/queries.ts) — **기존 테이블만 읽음. 새 테이블·쓰기 0** |
+| 화면 | [`components/textfit/TextFitVerdict.tsx`](../apps/web/src/components/textfit/TextFitVerdict.tsx) |
+| 회귀 | 엔진 34 + 렌더 11 |
+
+**판정 신호 3중** (강한 순 — 앞이 뒤를 이긴다):
+
+| 근거 | 출처 | 가중치 |
+|---|---|---|
+| 자기보고 known | `word_familiarity.verdict` | 1.0 |
+| 학습 중 | `vocabularies` FSRS | **R(t) = exp(ln 0.9 × t / S)** |
+| 자기보고 unknown | `word_familiarity.verdict` | 0.0 |
+| 레벨 추정 | `user_profiles.current_v_level` ≥ 사전 `v_level` | 0.85 (보수값) |
+
+FSRS 가 자기보고 unknown 을 이긴다 — 그 뒤로 학습을 시작했다는 뜻이라 최신 사실이 FSRS 쪽이다.
+
+**대역** — 임계는 `csat_stage_gates` 값을 그대로 쓴다(코드에 다시 적지 않는다):
+
+| 대역 | coverage | 지원 단계 | 학습자에게 |
+|---|---|---|---|
+| flow | ≥ 0.98 | S1 | 사전 없이 읽힘 — 다독 |
+| growth | 0.95~0.98 | S2 | **i+1 최적 구간** |
+| study | 0.90~0.95 | S3 | 정독 — 논증 지문 |
+| hard | 0.85~0.90 | S4 | 문항 훈련용 |
+| overload | < 0.85 | — | 읽기가 아니라 해독이 된다 |
+
+**이 모듈만의 성질** — 커버리지가 **시간에 따라 내려간다**. 같은 지문·같은 학습자라도 복습을 미루면
+R(t) 가 감쇠해 커버리지가 떨어지고, 화면은 14일 뒤 위치를 고스트 마커로 함께 그린다.
+Lexile·ATOS 는 글만 재고 LingQ 의 known-word 카운트는 이진값이라 이 성질을 가진 도구가 없다.
+
+**정직성 장치** — 레벨 추정에 기댄 질량만큼 하한/상한을 벌리고 `confidence` 를 깎는다.
+`confidence < 0.85` 면 단일 숫자 대신 범위를 표시한다(있지도 않은 정밀도를 주장하지 않는다).
+
+### v06.38 — 공개 레벨 프로파일 (`/fit`)
+
+같은 엔진의 **익명 모드**. 개인 기억이 없으므로 학년(V-Level) 기준으로 잰다 —
+교사에게는 이쪽이 열화판이 아니라 정확한 모드다("내가 아는가" 가 아니라 "우리 반에 맞나").
+
+| | |
+|---|---|
+| 엔진 | [`lib/textfit/profile.ts`](../apps/web/src/lib/textfit/profile.ts) · [`inflect.ts`](../apps/web/src/lib/textfit/inflect.ts) — 순수 |
+| 데이터 | [`lib/textfit/public-queries.ts`](../apps/web/src/lib/textfit/public-queries.ts) — **anon 권한만** (`shared_words`·`lexicon_clean`) |
+| 화면 | [`LevelProfilePanel`](../apps/web/src/components/textfit/LevelProfilePanel.tsx) · [`PublicFitClient`](../apps/web/src/components/textfit/PublicFitClient.tsx) |
+| 라우트 | `(marketing)/fit` — 학습자 표면 아님 |
+
+**출력**: 지문 하나 → V3~V10 **8개 학년의 커버리지 곡선** + 적정 레벨 + 가장 어려운 단어(V-Level 동반).
+`textVLevel` 은 `extract_vocabulary_for_user_v2` 와 **같은 통계**(percentile_disc 0.75)를 쓴다 —
+다르면 같은 지문을 두고 추출 화면과 공개 화면이 서로 다른 난도를 말한다.
+
+**RLS 를 우회하지 않는다** — `shared_dictionary` 는 authenticated 전용이고 `service_role` 은
+"requireAdmin 뒤에서만" 이 규약이라 둘 다 후보가 아니었다. anon 이 읽는 `shared_words`(20,776 표제어)로 푼다.
+
+**사각지대 공개** — 실측 적중 91.5%(내용어 토큰). 레벨 미상 8.4% 는 각 줄의 하한~상한 띠로 표시하고,
+적정 레벨은 낙관 상한이 아니라 **중앙 추정**으로 판정한다.
+
+**굴절 처리** — `inflect.ts` 가 후보만 만들고 판정은 DB 가 한다(오탐 유출 경로 없음).
+⚠️ `-ly/-ily` 만 어간 4자 하한이 있다 — 이 규칙의 과생성은 실재하는 다른 단어를 만든다
+(apply→app · only→on · family→fam · reply→rep).
+
+### v06.39 — 결과 공유 링크
+
+[`lib/textfit/share.ts`](../apps/web/src/lib/textfit/share.ts) — 결과를 URL 에 담는다. **서버 저장 0 · 테이블 0.**
+
+| 담는 것 | 담지 않는 것 |
+|---|---|
+| 레벨별 커버리지 8개(‰) · 적정 레벨 · textVLevel · 토큰 수 · 불확실 폭 · resolvedShare · 낱말 최대 16개 | **지문 본문** · 근거 분해(breakdown) · 개인정보 |
+
+⚠️ **지문 미포함은 최적화가 아니라 설계 제약이다** — 붙여넣는 것은 대체로 검정교과서·모의고사이고,
+저장·유통하면 우리가 복제·배포 주체가 된다. 낱말 목록은 표현을 재현하지 않는다(문장·순서가 사라진다).
+회귀가 "공백 포함 문자열이 페이로드에 없을 것"으로 이 계약을 강제한다.
+
+**디코더 계약** — 어떤 입력에도 throw 하지 않는다(공유 링크는 외부가 손댈 수 있는 유일한 입력).
+버전·길이·형식·값 범위 + **단조성**(레벨↑ 인데 커버리지↓ 면 위조)을 검사하고 실패하면 `null`.
+
+**서명하지 않는다** — 위조 가능하다는 사실을 화면이 "공유받은 결과"로 밝히고, 받은 사람이
+자기 지문으로 다시 돌릴 수 있게 한다. 서명은 키 관리를 부르는데 얻는 것은 자랑 방지뿐이다.
+
+**동적 OG** — `generateMetadata` 가 같은 디코더를 써서 미리보기 제목을 결과로 바꾼다
+(`이 지문은 고2 · 수능 기본 수준`). 공유 링크는 `robots: noindex`.
+
+⚠️ `resolvedShare`(내용어 분모)와 불확실 폭(러닝워드 분모)은 **분모가 달라 서로 파생 불가**다 —
+역산하려다 틀렸고, 지금은 둘 다 명시적으로 싣는다.
+
+### v06.40 — `/fit` 분석 경로 (DB 를 경로에서 뺐다)
+
+| | |
+|---|---|
+| API | [`app/api/fit/route.ts`](../apps/web/src/app/api/fit/route.ts) — 공개 화면의 **유일한** 분석 경로 |
+| 맵 | [`lib/textfit/level-map.ts`](../apps/web/src/lib/textfit/level-map.ts) — 프로세스당 1회 적재 · TTL 30분 |
+| 한도 | [`lib/textfit/rate-limit.ts`](../apps/web/src/lib/textfit/rate-limit.ts) — 토큰 버킷(용량 20 · 초당 0.5 · IP별) |
+
+**왜 옮겼나**: 원래 브라우저가 Supabase 를 직접 쳤다. 지문 하나에 왕복 30회 이상이 나갔고,
+그 경로에 서버가 없어 **한도를 놓을 자리조차 없었다**. 맵 전체가 200 KB 라 담을 수 있었다.
+
+| | 이전(브라우저 직행) | 지금(서버 + 메모리 맵) |
+|---|---|---|
+| 지문당 DB 왕복 | 30+ | **0~1** (잔여 실재어 확인만) |
+| 응답 | — | 콜드 2.7s · **웜 41ms** |
+| e2e 5건 | 54s | **14.7s** |
+| 레이트리밋 | 불가(경로에 없음) | IP별 토큰 버킷 |
+
+⚠️ **맵은 "전체 어휘" 가 아니라 "공개적으로 읽을 수 있는 어휘" 다.** 정책
+`read words of published` 가 도서·아티클 파생을 **원본 발행 + `copyright_safe_in_kr`** 로 제한한다.
+관리자 시점 81,409행/21,503 표제어 → anon **59,203행/18,271 표제어**(정책 전문 재현으로 대조).
+차이는 결함이 아니라 저작권 게이트다.
+
+⚠️ **적재 루프 두 가지 함정** (둘 다 실측으로 물림):
+- 서버가 페이지를 1,000으로 깎는다 → 요청 크기로 종료 판정하면 **맵이 조용히 1,000개로 잘린다**.
+  받은 개수만큼 커서를 옮긴다.
+- 깊은 OFFSET 은 느리고 경계에서 어긋난다 → `id > 마지막id` 키셋 페이지네이션.
+
+⚠️ 레이트리밋은 **프로세스 메모리**다. 인스턴스가 여러 개면 한도도 그만큼 곱해진다.
+목적이 "실수·스크립트 한 대" 차단이라 지금 수준엔 충분하고, Redis 는 트래픽이 붙은 뒤에 넣는다.
+
+**적용 완료** — `textfit_resolve_levels` RPC
+(`supabase/migrations/20260826102758_textfit_resolve_levels.sql`).
+⚠️ 2026-08-30 이전 이 자리는 "승인 대기 · 미적용" 이라 적고 있었다 — 적용된 뒤에도 문서가 안 따라와서,
+읽는 사람이 **멀쩡한 기능을 폴백 상태로** 오해하게 만들고 있었다.
+없을 때는 정확 일치 폴백으로 내려가 굴절형이 미지어로 남는다 → 커버리지를 **낮게** 잡는 방향이며,
+화면 근거 패널이 그 사실을 밝힌다.
 
 ### 컴포넌트 (`components/textviewer/`)
 - `TextCard.tsx` — 3-way 카드 (도서 library_book / 사용자 책 user_book_group / 단일 텍스트)
@@ -82,8 +211,13 @@
 - `InsightPanel.tsx` (북마크·기억 상태)
 - `KeyboardHints.tsx`
 
-### Sidebar (v06.32)
-`components/wordvault/WordSetSidebar.tsx` — lg breakpoint 이상 320px 고정 · focus mode 시 자동 숨김.
+### 소스 내비 (2026-08-30 정정)
+`components/wordvault/ScriptsChipNav.tsx` — 전체 + 구독 단어장(보라) + 스크립트(인디고) 칩 행.
+도서 컨텍스트(`?book=&chapter=`)로 들어오면 대신 `BrowseSourceBar.tsx` 가 챕터 셀렉터를 그린다.
+
+⚠️ 이 자리는 `components/wordvault/WordSetSidebar.tsx`(320px 고정 사이드바)를 가리키고 있었는데
+**그런 파일은 저장소에 없다** — 만들어진 적이 없거나 이름이 바뀐 뒤 문서가 안 따라왔다.
+없는 파일을 가리키는 문서는 "구현돼 있다" 는 말과 같다.
 
 ---
 
@@ -119,6 +253,7 @@ R < 0.70              → risk     #EF4444 (빨강)
 - `WordVaultHub.tsx` — 6 Section 조립 + 주간 목표 fetch · max-w 5xl
 - `VaultIdentity.tsx` ★v06.35 — Section 1 Mastery Hero (큰 숫자 + V-Level 메타 칩 + 4 bucket 가로 비교 막대 + 단일 CTA + 주간 목표)
 - `VocabularyLevelMap.tsx` ★v06.35 — Section 2 단어 수준 지도 (V0-V11 분포 + i+1 zone 강조 + 트랙별 수준)
+- `FacetProgressSection.tsx` ★2026-08-15 — Section 3 **면(facet) 상태** — 가장 뒤처진 면 하나를 처방으로 + 6면 내역(접힘). `/api/wordvault/facets` 실데이터. 폐기된 `LearningDimensionSection`(임포터 0 · 목업 63/47/27 · 모듈명 4개 하드코딩으로 아케이드 19종 비가시)의 자리
 - `ResourcePortfolio.tsx` ★v06.35 — Section 3 학습 자산 (도서/스크립트/공용 단어장 3-col grid)
 - `RecommendedBooks.tsx` ★v06.35 — Section 4 i+1 권장 도서 4권 (`scoreBook` + `judgeIPlusOne`)
 - `NextStepList.tsx` ★v06.35 — Section 5 단어장 추천 (`recommend_word_sets_for_user`)
@@ -133,7 +268,6 @@ R < 0.70              → risk     #EF4444 (빨강)
 - `BookShelfSection.tsx` — 5 Book Type 카드 (v06.20) · `VaultBook` 타입은 AssetGrid 가 재사용
 - `CEFRDistribution.tsx` — 6단계 horizontal bar (v06.19)
 - `FindAndMore.tsx` — 인라인 검색 진입 (AssetGrid 검색바로 흡수)
-- `LearningDimensionSection.tsx` — module_history 3그룹
 - `MemoryDecayDistribution.tsx` — 4색 stacked bar + Bucket 카드 (VaultIdentity 가 통합)
 - `TrendIndicator.tsx` — week-over-week 추세 (FlowStripe 가 통합)
 - `WordPeekStrip.tsx` — 데스크톱 최근 단어 5개 chip
@@ -164,6 +298,23 @@ R < 0.70              → risk     #EF4444 (빨강)
 ### 라우트
 - `/flashcard` — Hub (Continue · Queue · 정확도 · 시작 설정)
 - `/flashcard/play` — 세션 (SM-2 SRS · 4단계 평가: Again/Hard/Good/Easy)
+
+### 이탈 저장 — 완주하지 않아도 평가는 남는다 (2026-09-05)
+
+flush 는 원래 `isComplete` 에만 걸려 있었다. ✕ · Esc · 뒤로가기 · 사이드바 · 탭 닫기로 나가면
+그때까지의 평가가 `sessionStorage` 에 갇혀 있다가 탭이 닫히면 사라졌다. 지금은:
+
+| 층 | 파일 | 하는 일 |
+|---|---|---|
+| 큐 | `lib/srs/session-storage.ts` | `localStorage`(탭 수명보다 오래) · 옛 `sessionStorage` 큐 1회 이관 |
+| 서버 | `lib/srs/flush-actions.ts` | `(vocabulary_id, attempted_at)` **멱등** — 재전송해도 D/S 이중 누적 없음 |
+| 문 | `app/api/srs/flush/route.ts` | `sendBeacon` / `fetch(keepalive)` 가 들어오는 HTTP 창구(로직은 server action 재사용) |
+| 훅 | `hooks/useSrsFlushOnLeave.ts` | 진입(지난 큐 정리) · 숨김(`visibilitychange`) · 언마운트/`pagehide` |
+
+배선된 세션 4곳: `FlashcardSession` · `wordvault/StudyMode`(study·review) · `SpellForge` ·
+`PairFlipGameScreen`. 새 세션 모듈은 이 훅 한 줄을 부르면 된다 — 저장을 "나가는 길" 마다
+붙이지 말 것(길은 다섯 갈래고 언제든 늘어난다).
+회귀: `lib/srs/__tests__/flush-durability.test.ts`(6).
 
 ### FSRS 한국 학습자 파라미터
 | | FSRS 표준 | Vocaflow 초기값 | 근거 |
@@ -285,7 +436,9 @@ R < 0.70              → risk     #EF4444 (빨강)
 스크립트 맥락 4지선다. Recognition + Transfer — 텍스트 단위 의미 통합 검증.
 
 ### 라우트
-- `/scriptquiz` — Hub (실 카탈로그 도서·챕터 grid · 한영 토글) — server `page.tsx` fetch `list_book_chapter_quiz_catalog` → client `ScriptQuizHub`
+- `/scriptquiz` — **확인 대기열** (v08.6 재설계) — server `page.tsx` → `lib/scriptquiz/queue.ts`(카탈로그 × `texts.status` × `scores`) → client `ScriptQuizQueue`.
+  **읽은 챕터만** 내준다: 이전 `ScriptQuizHub`(삭제)는 카탈로그 129챕터를 전부 나열해 **미열람 41챕터의 줄거리를 스포일러**했다.
+  구성 = 다음 한 걸음 1개(읽은 지 가장 오래된 미확인 챕터 · 간격 인출) + 책 카드(기본 접힘, 펼치면 읽은 챕터 칩) + 한영 토글
 - `/scriptquiz/play` — 3-screen flow · `?book=&ch=` 큐레이션 공유 챕터 퀴즈(`select_book_chapter_quiz`) · `?text=` 개인 퀴즈(`quiz_questions`) · 미지정 시 MOCK
 
 ### 문제 출처 (v06.114)
@@ -325,42 +478,84 @@ const QUIZ_GENERATION_PROMPT = `
 
 ---
 
-## 8. Dictation (L6 완성 · v06.7)
+## 8. Dictation (L6 완성 · v07 — 학습 자산 연결)
 
 ### 목적
 스크립트 단위 다중 채널 재생산 (음운+의미+문법+철자). Free Recall + Production — 학습의 정점.
+**v07 부터 문장 안의 "내 단어"(타깃)를 인출 대상으로 삼아 받아쓰기가 곧 그 단어의 복습이 된다.**
 
 ### 라우트
-- `/dictate` — Hub (CEFR 자동 감지 · 리소스 선택)
-- `/dictate/setup` — Setup (단위/갯수/순서/채점/속도/힌트)
-- `/dictate/session` — 세션 (TTS · 단어별 채점 · 4단계 힌트 · Focus Mode)
-- `/dictate/results` — 결과 (Hero 정확도 · 오류 패턴 분석 · 오답 단어)
+- `/dictate` — Hub (오늘의 받아쓰기 CTA · 자료 3탭 · 약점 · 최근). **서버 컴포넌트** —
+  조회는 `lib/dictation/hub-query.ts` 가 서버에서 한 벌로 하고 화면은 props 만 받는다.
+  2026-09-06 전까지 페이지 전체가 `'use client'` 라 브라우저 데이터 요청이 **15건**이었다
+  (학습자 화면 중 최다) → **0건**. 이어하기의 `localStorage` 확인만 클라이언트에 남고,
+  갱신은 `router.refresh()`. 조회 실패는 `failed` 로 내려 「못 불러왔어요 + 다시 시도」를 그린다.
+  ⚠️ 읽기 4종은 `lib/dictation/reads.ts` 에 있다 — `persist.ts` 는 쓰기 경로 때문에 파일 전체가
+  `'use client'` 라 서버에서 꺼내면 함수가 아니라 클라이언트 참조가 온다.
+- `/dictate/setup?text=|set=|custom=1` — Setup (미리보기 3지표 + 분량/문항수/순서/채점/듣기)
+- `/dictate/session?sessionId=` — 세션 (TTS · 단어별 채점 · 4단계 힌트 · Focus Mode)
+- `/dictate/results?sessionId=` — 결과 (**DB 조회** · 복습 반영 단어 · 청취 폭 · 반복된 태그)
+
+### 자료 4소스 (v07)
+| 소스 | 스코프 | 문장 출처 | 타깃 단어 |
+|---|---|---|---|
+| 도서 챕터 | `?text=`(library_book_id 有) | `get_chapter_content` RPC (content_chunks) | 그 챕터 vocabularies |
+| 내 스크립트 | `?text=` | `texts.content` | text_id 로 묶인 vocabularies |
+| 공용 단어장 | `?set=`(+`?chapter=`) | `shared_words.source_sentence` → `example_en` | 그 단어 자체 |
+| 오늘의 받아쓰기 | 기본값 | 복습 임박 예문 3 + 재도전 1 + 읽던 자료 1 | 복습 임박 단어 |
+| 붙여넣기 | `?custom=1` | sessionStorage (자료로 저장 안 함) | 내 vocabularies 중 등장하는 것 |
+
+### 난이도 적응 — 청취 폭 i+1 (v07)
+문항을 **고르는 단계**에만 적응을 넣는다. 순서는 건드리지 않는다 — 도서 챕터를 길이순으로
+재정렬하면 이야기가 무너진다.
+
+| 함수 (`source.ts`) | 규칙 |
+|---|---|
+| `spanBand(span)` | 상한 `span×1.5`(i+1, ≤34) · 하한 `span×0.6`(≥4). 기록 없으면 `4~14` |
+| `pickBySpan(items, count, band)` | 길이대 안 우선 → 부족분은 길이대에서 가까운 순. **원본 순서로 복원** |
+
+`count='전체'` 거나 오늘의 받아쓰기(이미 이유별로 골라 온 목록)면 적용하지 않는다.
+setup 미리보기는 **실제 조립과 같은 규칙**으로 계산한다(예상과 실제가 다르면 화면이 거짓말이 된다).
+단위 테스트: `lib/dictation/__tests__/adaptation.test.ts` 22건(적응 + FSRS 등급 + 오류 태그).
 
 ### 설정
-- 단위 3종: 문장 / 단락 / 전체 (Dictogloss)
-- 채점 2종: Smart / Strict
-- CEFR A1~C2 자동 감지 (v06.22 수동 선택 제거)
-- 순서: 순차 / 랜덤 (v06.22 difficulty-first 제거)
+- **한 번에 받아쓸 분량 1·2·3문장** (v07 — 기존 '단위 문장/단락/전체' 대체. 단락·전체는
+  연속 본문에서만 성립해 단어장·오늘에는 적용 불가였다). 단어장·오늘은 1문장 고정.
+- 채점 2종: Smart / Strict · 순서: 순차 / 섞기
+- CEFR A1~C2 자동 감지 (v06.22 수동 선택 제거) → 분량·속도·반복·힌트 추천값 자동 적용
 
-### 인프라 (`lib/dictation/`, 8 파일)
-- `types.ts` — Config · Session · Item · WordResult · ErrorPattern
-- `cefr.ts` — A1~C2 + 그룹별 자동 감지
-- `text-splitter.ts` — 약어 처리 + 문장/단락/전체 분리
+### 인프라 (`lib/dictation/`, 11 파일)
+- `types.ts` — Config(chunkSize) · Session · Item(targetWords·maxHintLevel·replayCount) · WordResult
+- `source.ts` — **자료 해석 단일 출처**. 4소스 → `DictationSentence[]` + 타깃 단어 부착
+- `daily.ts` — 오늘의 받아쓰기 조립 (due 3 / retry 1 / fresh 1 · 오늘 받아쓴 문장 제외)
+- `catalog.ts` — 허브 자료 목록 (내 도서 · 스크립트 · 구독 단어장)
+- `targets.ts` — 타깃 적중 판정 → FSRS 1~4 (힌트 4단계 사용 시 Again)
+- `error-tags.ts` — 누적 가능한 오류 태그 9종 + 처방 문구
+- `persist.ts` — 세션/문항 적재 · 완주(scores + FSRS flush) · 통계 RPC 3종 read
+- `cefr.ts` — A1~C2 + 그룹별 추천(chunkSize)
+- `text-splitter.ts` — 약어 처리 + 문장 분리
 - `scoring.ts` — Levenshtein + Word alignment + Smart/Strict
-- `analyzer.ts` — 6개 패턴 (-ed·관사·복수·동음이의·스펠·단어선택)
+- `analyzer.ts` — 세션 내 설명용 패턴 6종 (누적은 error-tags 가 담당)
 - `audio-control.ts` — Web Speech API + autoRepeat + 무음 간격
-- `hint.ts` — 4단계 (-5/-3/-10/-25)
-- `storage.ts` — localStorage + 시드 (A2/B1/B2 3종)
+- `neural-voice.ts` — **v07** Piper WASM(en_US-amy-medium · EchoMatch 자산 재사용). 영어 음성이
+  없는 기기의 무음 해소. 문장 LRU 캐시 + 다음 문항 선합성. **자동 다운로드 안 함**(17MB 명시 후 1회 동의)
+- `hint.ts` — 4단계
+- `storage.ts` — **진행 중 세션 런타임 캐시만** (기록 원본은 DB)
 
 ### Hooks
-- `useAudioControl.ts` — TTS 재생/반복/정지
-- `useDictationSession.ts` — 세션 상태 머신 (sessionStorage)
+- `useAudioControl.ts` — 엔진 2종(기기 음성 / 내려받은 음성)을 한 표면 뒤에. 합성 실패 시 즉시 폴백
+- `useDictationSession.ts` — 문항 진행 + 채점 + 적재 3시점 (`createDictationSession` 포함)
 
 ### 컴포넌트 (`components/dictation/`)
-- `DictationHubClient.tsx` (Hub: ModuleHero + Smart Suggestion + 리소스 + 최근 세션)
-- `DictationSetupClient.tsx`
-- `DictationSessionClient.tsx`
-- `DictationResultsClient.tsx`
+- `DictationHubClient.tsx` — 오늘의 받아쓰기 카드 + 이어하기 + 최근 세션
+- `SourcePicker.tsx` — 도서/스크립트/단어장 3탭 + 붙여넣기
+- `WeaknessPanel.tsx` — 최근 2주 오류 태그 Top3 + 처방 + 예시
+- `DictationSetupClient.tsx` · `DictationSessionClient.tsx` · `DictationResultsClient.tsx`
+
+### 영속화 (v07)
+`dictation_sessions` / `dictation_attempts` (RLS) · 완주 시 `scores`(module='dictation') +
+`vocabularies`/`learning_records`(FSRS). `learning_records` INSERT 트리거가 `daily_activity`
+를 갱신하므로 streak 도 자동. 상세: [DB_SCHEMA.md](./DB_SCHEMA.md)
 
 ### 키보드
 - Space (재생/정지) / 1-5 (속도) / F (Focus) / Tab / Enter / Esc
@@ -373,27 +568,87 @@ const QUIZ_GENERATION_PROMPT = `
 
 ---
 
-## 9. Dashboard (L7 회고)
+## 9. Growth / Dashboard (L7 회고)
 
-### 목적
-학습 통계 시각화 + 다음 제안. 메타인지 활성화.
+### 목적 (v06.201 재정의)
+"내 기억은 **얼마나 오래 버티나**, 이번 주에 무엇을 **되찾았나**".
+개수(노력의 양)가 아니라 지속 시간(학습의 질)을 회고의 축으로 둔다.
+forward(오늘 할 일·조치)는 `/hub` 와 셸 나침반 띠 소관 — 이 화면은 backward 만.
 
 ### 라우트
-- `/dashboard` — page.tsx ('use client') + layout.tsx (metadata server)
+- `/dashboard` — page.tsx (RSC) + layout.tsx
+
+### 데이터 (`lib/learner/`)
+- `growth-math.ts` — **순수**. `RUNGS`(지속 5칸) · `rungFor` · `computeStreak` ·
+  `formatDuration` · `median` + DTO(`Ladder`·`RescuedWords`·`TraceDay`·`Reach`).
+  ⚠️ `server-only`/`react.cache` 금지 — 클라이언트 컴포넌트와 vitest 가 함께 쓴다
+- `memory-horizon.ts` — 조회(`fetchMemoryHorizon`). `vocabularies.stability` +
+  `learning_records` + `shared_dictionary.frequency_rank`
+- `growth-stats.ts` — 셸 공용(기억 4상태 · 28일 · streak 단일 정의)
 
 ### 컴포넌트 (`components/dashboard/`)
-- `StatCard.tsx` — KPI 카드 (5 variant: today/streak/total/accuracy/inline)
-- `WeeklyHeatmap.tsx` — 28일 sparkline + Streak 배지 (v06.22 재설계 · 300px → 120px)
-- `ModuleAccuracyRing.tsx` — 모듈별 도넛 링 4개
-- `ScoreTrendChart.tsx` — 7일 라인 차트
-- `RecentActivity.tsx` — 컴팩트 칩 행 (v06.21 재설계 · ~300px → ~70px)
+- `DurabilityLadder.tsx` — **히어로**. 지속 중앙값 + 5칸 사다리(하루/사흘/한 주/한 달/계절)
+- `RescuedWords.tsx` — 이번 주 다시 만나 맞힌 단어 (실물 단어 5개)
+- `ActivityTrace.tsx` — 28일 흐름(**리뷰 건수** 기준) + 요일 리듬. **분(minutes) 안 그림**
+- `LexicalReach.tsx` — 빈도 밴드 분포 (커버리지 %로 환산하지 않음)
+- `ManageSection.tsx` — 진단·계획·리포트 3카드 (`/manage` 흡수)
+- `RecentActivity.tsx` — 컴팩트 칩 행 (연속 run 접기 `딕테 ×5`)
+- `StatCard.tsx` · `ModuleAccuracyRing.tsx` · `ScoreTrendChart.tsx` — 현재 미사용(다른 화면용)
 
-### 4영역 레이아웃
-1. Header — "📊 학습 현황"
-2. StatCard ×4 — 오늘 학습 / 연속 일수 / 총 단어 / 정확도
-3. WeeklyHeatmap (28일)
-4. AccuracyRing + ScoreTrend 좌우 분할
-5. RecentActivity
+### 레이아웃
+1. Header — 날짜 + 이름 (인사·오늘 진행 없음)
+2. DurabilityLadder (히어로)
+3. RescuedWords + ActivityTrace 2열
+4. LexicalReach
+5. ManageSection
+6. RecentActivity
+
+### 제거된 것
+- `WeeklyHeatmap.tsx` — `total_minutes>0` 을 학습일로 판정해 8일 연속 학습을 "28일 중 1일"로
+  그렸다. `ActivityTrace` 로 대체(파일은 남아 있으나 이 화면에서 미사용)
+- `MemoryStatus`(기억 4상태) — ADR 0006 D2 대로 셸 나침반 띠가 소유. 조치 표면 이중화 해소
+
+---
+
+## 전역 셸 — 나침반 띠 (v06.34)
+
+`(main)/layout.tsx` 최상단의 **유일한 상태 표면**. 학습 세션(풀스크린)에서는 통째로 사라진다.
+
+### 왜 다시 만들었나 (실측 2026-09-05 · dev 1280×900 · 계정 lexicon-test)
+
+이전 `StatusRibbon` 을 학습자 라우트 9곳에서 순회 계측한 결과:
+
+| | 이전 | 지금 |
+|---|---|---|
+| 띠 높이 | 69px (뷰포트 6.2%) | **60px** |
+| 담긴 항목 | 칩 1개 (`새 단어 8`) | 위치 · 계단 · 다음 걸음 문장 · CTA · 펼침 |
+| 라우트별 변화 | **9/9 텍스트 동일** | 표면마다 다름 (LIBRARY · VAULT · GROWTH · TODAY) |
+| 답하는 질문 | 0.5 / 6 | **6 / 6** |
+
+게다가 이전 띠의 "전부 0이면 격려 문장" 규칙이 `fresh=8` 때문에 켜지지 않아, 격려도 상태도
+아닌 **고아 숫자 하나**였다 — 가장 방향이 필요한 미진단 학습자에게 가장 적게 말하고 있었다.
+
+### 두 층
+
+| 층 | 무엇 | 파일 |
+|---|---|---|
+| 상시 (60px) | Q1 위치 · Q2 계단 점 · Q3 지금 한 걸음 + CTA 1개 + 연속일 | `components/layout/CompassRibbon.tsx` |
+| 펼침 | Q4 사정권 · Q5 7일 예보 · Q6 지난 7일 · 기억 칩 2종 | `components/layout/WayfinderPanel.tsx` · `MemorySparkline.tsx` |
+
+여섯을 한 줄에 다 그리지 않는 이유는 철학 ② Progressive Disclosure + 학습원칙 ⑥(작업기억 ~4항목).
+
+### 데이터 — 왕복 수는 이전과 같다
+
+| 값 | 출처 | 추가 쿼리 |
+|---|---|---|
+| 오늘 5블록 · V-Level | `fetchTodayPrescription` (`cache()`) — `current_v_level` 을 읽고도 버리던 것을 실어 보낸다 | 0 |
+| 기억 4상태 · 28일 · 연속일 · **7일 예보** | `fetchGrowthStats` (`cache()`) — 예보는 이미 읽던 `vocabularies` 행을 7번 더 접은 것 | 0 |
+| 사정권(발행 도서 레벨 분포) | `library-reach.ts` 프로세스 TTL 캐시 10분 (사용자 무관 전역값) | 대부분 0 |
+
+- 순수/조회 분리: `wayfinder.ts` ↔ `wayfinder-query.ts` · `reach-math.ts` ↔ `library-reach.ts`
+  (클라이언트가 `server-only` 모듈에서 값을 import 하면 앱 전체가 500 — CONVENTIONS 참조)
+- 계측 2종: `wayfinder_opened` · `wayfinder_cta_clicked` (속성은 국면 열거형 + 개수뿐)
+- 회귀 40 — `lib/learner/__tests__/wayfinder.test.ts` 24 · `components/layout/__tests__/compass-ribbon.test.tsx` 16
 
 ---
 
@@ -447,13 +702,272 @@ Shadow Reading — 원어민 발화 따라하기. 음운+발화 쌍둥이.
 
 ---
 
+## 11. Comic Reader (CCP · L0~L2 입력/프리뷰)
+
+### 목적
+도서를 만화(그림+정본 대사)로 읽는 **동기부여 프리뷰 정독**. Dual Coding(그림+언어) + Emotional Encoding(서사). 읽기 전 schema 형성 → 본문/ScriptQuiz/Dictation 유입 (소비 time-sink 아닌 방향성 있는 진입).
+
+### 라우트
+- `/text/[id]/comic` — ModePills input 그룹 "만화" 진입 (라이브러리 도서 + 발행 만화 존재 시). 없으면 EmptyState.
+- `/comics` — **만화 단일 메뉴**(사이드바 Scripts 그룹 최상위 · `/library` 하위 탭 아님). redirect → `/comics/adapted`. 메뉴 안에서 **출처**로 나뉜다(ComicsTabs):
+  - **Adapted `/comics/adapted`** — 도서 각색(CCP). 우리가 가진 원서를 모델로 각색. 카탈로그 + 이어서 보기(`comic_read_progress`). 등록 도서면 리더 직행, 미등록이면 상세로.
+  - **Restored `/comics/restored`** — 원본 복원(PDCP). 저작권 만료 만화 원본을 수집·복원. 호 단위 독립 콘텐츠(원작이 만화 자체).
+- `/comics/adapted/[bookId]` — 만화 상세. **미등록·비로그인도 프리뷰 3컷 열람**(아트만 — 정본 대사/vocab 은 리더 자산) + 포맷 선택. 시작 시 `enroll_library_book`(멱등) 후 리더 직행.
+  - 명명: 기술(AI/스캔)이 아니라 **원작에 무슨 일이 있었는지**로 지은 과거분사 쌍 — 기술이 바뀌어도 이름이 낡지 않는다.
+
+### 발견 (v07 CCP × Library — `docs/CCP_LIBRARY_INTEGRATION.md`)
+만화는 **별도 콘텐츠가 아니라 같은 책(Work)의 다른 표현형(Expression)** — 데이터는 `library_books` 앵커, 탐색 UI 만 독립 코너화.
+- **메뉴**: 사이드바 Scripts 그룹의 `Comics`(최상위). 2026-08-09 사용자 결정으로 LibraryTabs 4번째 탭에서 승격 — `/library` 탭은 3탭(도서/스크립트/공용 단어장)으로 복귀. 만화 액센트 = gold `--active`.
+- **포맷 facet**: 장르 축과 직교. `BookFilterBar` "포맷" 구획(만화/원어민 음성) + QuickPick "만화로" + `BookGridCard` 배지(아이콘+sr-only).
+- **선택**: `NetflixDetailSheet` 도서 상세에 gold 보조 CTA(만화로 읽기 / 만화 미리보기) + 만화 상세의 `ComicFormatChoice`(만화/원문/듣기 3카드, **권장 1개만** "지금 추천").
+- **처방**: `lib/comic/prescribe.ts` — 이어보기 > 복습 > 난이도 > 미진단 순. 적정 난이도(ideal)에선 **본문을 권장**(만화는 스캐폴드).
+- **조회 단일 출처**: `lib/comic/catalog.ts` (`fetchComicCatalog` / `fetchComicPreview` / `comicBookIdsOf`) — 도서 히어로 · 만화 탭 · 만화 상세 공유. `list_comic_catalog`(P1) 우선 + 구 RPC 폴백 2단.
+- **분리 회계**: 만화 완주는 챕터 완료(`texts.status`)를 만들지 않음 — `comic_read_progress` 만 갱신(seductive details 방어).
+
+### 리더 (`components/comic/ComicReader.tsx`)
+- **Calm UI**: 앱 토큰 재스킨 · 2D 페이지 전환 + `prefers-reduced-motion` 즉시 컷 (아티팩트 3D 쇼케이스와 분리).
+- **대사 non-cover**: 아트는 contain(온전) · 대사는 아래 대사존 (캐릭터 안 가림).
+- **Desirable Difficulty**: verbatim(정본) 버블 blur→tap-reveal **기본**(회상 유도).
+- **Context-Dependent vocab**: `target_vocab`(verbatim 버블 정합) 칩 → 단어 팝오버. 원문/퀴즈와 단어 일치.
+- **Journey**: 마지막 = 본문 읽기 / 퀴즈 CTA. 폭죽/트로피 없음(차분한 "잘 읽었어요").
+
+### 데이터 (발행 게이트 DEFINER RPC)
+- `select_book_comic(book, chapter)` — published 만화만. 리더 RSC(`comic/page.tsx`)가 texts→library_book 분기 후 호출, 실패/미발행 EmptyState degrade.
+- 생성/발행은 Admin `/admin/comic`(CCP). 상세: `scripts/comic/docs/COMIC_PIPELINE_DESIGN.md`.
+
+### Phase
+- P1: 리더 실 구현 + 안전 degrade. P2: blur→reveal 자가판정→`learning_records`(FSRS) + 이해 micro-check. P3: 진도(module_history 'comic') + FloatingSparkle 유입.
+
+---
+
+## 아케이드 스위트 — Game Lab (게임 19종 · v08.3)
+
+### 목적
+9모듈이 커버하지 않는 인지 채널(문맥 추론 · 철자 규칙 귀납 · 의미망 · 형태론 · 청각)을
+검증된 인디 게임 원형으로 훈련. 모듈이 아니라 **모듈 위에 얹히는 놀이 표면**.
+
+### 라우트
+- `(main)/arcade` — 허브 (Sidebar Practice 그룹 등재 · `/hub` ArcadeEntryCard)
+- `(app)/play/<slug>` — 게임 본체 19종 (풀스크린 · SessionFrame 자동 주입)
+
+### 카탈로그 SSoT — `lib/game/catalog.tsx`
+게임 정의(이름 · 태그라인 · 인지계층 · 무드 4색 · 라인 마크 · `source` · `minWords` · `closeHref`)의 유일한 출처.
+`GameMark`(gamekit) · `SESSION_META`(SessionFrame) · 진입 카드 문구 · 아케이드 그리드가 전부 여기서 파생된다.
+**게임을 추가할 때 손대는 곳은 카탈로그 1곳 + `/play/<slug>/page.tsx` + `ArcadeGameId`/`ModuleId` enum.**
+
+### 계열(family) — 같은 인지 루프는 한 장으로 접는다
+실측 대조 결과 **`wordblitz`·`daily-blitz`·`word-economy`·`ghost-race` 4종(1,604줄)이 완전히 같은 루프**였다 —
+`target.ko` 프롬프트 → 4지선다 en 타일 → `o.en === target.en`. 다른 건 게임이 아니라 위에 얹은 메타(타이머·데일리·경제·경쟁)뿐.
+
+지우지 않는 이유: 학습적으로 같아도 **동기 장치로는 다르고**, 같은 문답 위에 모드를 얹는 구조는 Gimkit이 검증했다.
+진짜 문제는 존재가 아니라 **19장을 동급 카드로 평평하게 깔아 "또 같은 거네"로 읽힌 것** → 허브에서 계열 1장으로 접는다.
+
+- `GAME_FAMILIES` (계열 정의) + `GameEntry.family` / `modeLabel` / `modeNote` / `modeOrder`
+- `hubSections()` → 섹션별 `HubItem[]`(`{kind:'game'}` | `{kind:'family', modes}`). `countHubGames()` 로 배지 산출
+- 계열은 **쪼개지지 않는다** — 멤버 다수가 속한 섹션으로 통째 이동(blitz = mine). 소수파 모드는 칩 설명에 명시(데일리 = 내장 뱅크)
+- 계열 카드는 `<a>` 가 아니다(중첩 앵커 금지) — 카드는 컨테이너, **모드 칩 하나하나가 플레이 링크**
+- 멤버가 1개면 접지 않는다. 게임 코드는 무변경 — 접기는 순수 표시 계층
+
+**유지한 약한 중복** — `letter-forge`(글자 제공) → `wordsmith-vigil`(무단서 타이핑)는 Desirable Difficulty 계단,
+`connections`(선택 분류) ↔ `lexicon-estate`(공간 배치)는 입력 방식이 달라 학습 경험이 구분된다.
+
+### 데이터 소스 (`source`) — 옛 1차 분류축, 지금은 죽어 있다
+| source | 수 | 의미 |
+|---|---|---|
+| `mine` | 19 | 내 단어로 플레이 → FSRS 갱신 (`minWords` 1~8) |
+| `bank` | 0 | 내장 뱅크 전용 — v07.8 에서 전 게임이 학습자 단어를 쓰게 되며 소멸 |
+
+v07.8 이후 19종 전부가 `mine` 이라 이 축으로는 아무것도 갈리지 않는다(허브 분류축이
+학습 동사 = `HUB_TRACKS` 로 교체된 이유). 필드 자체는 `pickDailyGame`·타입 호환을 위해 남아 있다.
+
+### 스코프 3단 (`lib/game/use-word-scope.ts`)
+1. **explicit** — `?set=` / `?text=` (+`?chapter=`) → `fetchScopedWords`. 단어 부족 시 `NotEnoughWords` 안내(몰래 바꿔치지 않음).
+2. **mine** — 스코프 없음 + `minWords>0` → `fetchDueGameWords`(due 우선 cap 40). **아케이드 기본값.**
+3. **demo** — ①②로 최소 단어 미달 → 게임 내장 맛보기 풀. 브레드크럼에 "맛보기 단어"로 명시(기록되지 않는 플레이를 오인시키지 않음).
+
+**훅으로 뽑은 이유** — 스캐폴드(17종)와 독립 3D `/play/wordblitz` 가 스코프 로직을 각자 복제하고 있었다.
+카탈로그가 `source:'mine'` 이라 광고하는데 실제로는 내 단어를 안 쓰는 불일치가 실제로 발생했으므로,
+두 경로가 같은 훅을 쓰게 강제한다. 브레드크럼 매핑은 `lib/game/scope-resource.ts`.
+
+### 세션 기록 (`lib/game/use-session-recorder.ts`)
+정/오답 집계 → `scores` 적재 + 아케이드 XP·스트릭 적립. **언마운트에서도 flush**(1회 가드).
+게임 내부 종료 버튼뿐 아니라 세션 셸 X·Esc·브라우저 뒤로까지 덮는다 —
+예전엔 `onExit` 에만 걸려 있어 X 로 나가면 `learning_records` 만 남고 `scores`·XP 는 통째로 유실됐다.
+
+### 허브 IA — Game Lab (v08.3)
+① **Lab Status**(스트릭·랭크·오늘의 할당량·앰비언트) → ② **Lab Index**(구역 목차) →
+③ **Today's Experiment** 1종(KST 날짜 시드 결정론 회전) → ④ **Bay 01/02/03**.
+근거: choice overload(선택지 과다 = 마비) vs SDT 자율성 → "추천 하나 + 전부 열람".
+19장이 한 화면에 깔리므로 목차(Lab Index)가 앞에 선다.
+
+**연구소 은유 · 영문 구조 라벨** — 이 화면이 실제로 하는 일은 19개의 서로 다른 실험 장치 중
+오늘 어느 것을 돌릴지 고르게 하는 것이다. "아케이드(오락실)" 은 각 게임이 왜 다른 판돈 구조
+(시계·거리·자본·박)를 갖는지 말할 자리를 주지 못했다. 구역(Bay) · 실험 코드(`RC-01`) ·
+프로토콜(브리핑) · 시운전(Trial Run) 이 그 자리를 만든다.
+**구조 라벨만 영문**이고 설명 문장은 한국어다 — 대상 독자(한국 고등학생~성인)에게
+설명까지 영어로 주면 비용만 는다.
+
+- `HUB_TRACKS[].code` = 구역 접두(`RC`/`SY`/`IN`) → 카드 코드는 표시 순번에서 파생(`labCode`)
+- 카드 = `.arc-slot`(컨테이너) > `<a class="arc-card">` + `<button class="arc-brief">` **형제**
+  (중첩 인터랙티브 금지 · e2e 가 `.arc-grid a[href^="/play/"]` 수로 도달 가능 게임 수를 못박는다)
+
+### Protocol 브리핑 — `lib/game/brief/` + `components/game/brief/*`
+게임을 고르는 근거가 이름·색·태그라인뿐이라 선택이 사실상 찍기였다. 카드 우상단 `(?)` 가
+**보드 그림 3장 + 눌러서 통과하는 Trial Run** 을 연다.
+
+- `GAME_BRIEFS` — 게임당 `objective` · `board` · `figures[3]` · `trial` · `facts`. 문구는 전부
+  각 게임 소스 헤더의 계약에서 끌어왔고, 추측한 수치 대신 게임이 정의한 단위(3랩·20틱·4회랑)로 말한다.
+- **아키타입 5개** `pick` / `group` / `assemble` / `judge` / `type` — 19종의 표면은 다 달라도
+  학습자의 손동작은 다섯으로 수렴한다. 하나의 렌더러(`BriefBoard`)가 `figure`(정적 삽화)와
+  `trial`(실제 클릭) 두 모드로 쓰인다 — 설명에서 본 그림과 눌러 보는 그림이 같아야 배운 것이 이어진다.
+- 스크린샷을 쓰지 않는 이유: 게임이 바뀌면 조용히 거짓이 되고, 스크린리더·대비·터치 타겟을 통제할 수 없다.
+- 계열은 탭으로 4모드 전환(`GameBriefModal entries[]`). `Launch` 는 허브가 계산한 **스코프 포함 URL**.
+- 모달 금지 규칙(CLAUDE.md)과의 관계: 금지 대상은 **세션 중** 인출을 끊는 오버레이다.
+  이 다이얼로그는 세션 진입 **전** 국면에만 열린다.
+
+#### v08.4 — 전수 평가 → 표현력 확장 → 19종 재설계
+
+읽기 전용 평가자 5명이 소스 대조로 채점한 결과 **평균 9.6/20**(결함 132건), 축별로
+identity 2.32 · motion 2.32 · **decisive 1.11** · truth 2.05 · surface 1.79. 다섯 평가자가
+독립적으로 같은 결론에 도달했다 — **계열 안에서 브리핑이 구별되지 않는다.** 19종 중 11종이
+`pick` + 1스텝 "뜻 고르기"라서 trial 을 서로 바꿔 끼워도 통과했다(그건 19종 공통 동작이므로
+그 게임을 아무것도 구별해 주지 못한다).
+
+원인은 문안이 아니라 **데이터 모델**이었다. 게이지가 하나뿐이라 판돈의 절반이 지워지고,
+프롬프트가 판 전체에 고정이라 국면 전환을 말로만 알리고, 판돈 2택을 정답 타일과 같은 격자에
+섞어야 했고, 타이핑 표면이 없어 세 게임(`wordsmith-vigil` · `ghost-race` 아웃코스 ·
+`silent-rule` 봉인)의 손동작을 **거짓으로 적을 수밖에 없었다**(motion 0점).
+
+| 확장 프리미티브 | 여는 것 | 채택 |
+|---|---|--:|
+| `hud: BriefGauge[]` + `pips` + `value` | 압력이 둘 이상인 게임 · 셀 수 있는 예산(촛불 3·목숨 3·기회 4) | 게이지 48개 · 핍 14종 |
+| `BriefSurface`(스텝·프레임별 `prompt`/`doc`/`headword`/`hud`) | "D 를 누르면 화면이 바뀐다" 같은 국면 전환 | 19종 |
+| `board.choices` 결정 스트립(격자 **밖**) | 판돈 2택 — 답이 아니라 결정임을 형태로 구별 · `lines` 로 손익 수치 대비 | 18종 |
+| `token.at: [row, col]` 좌표 격자 | 위치 자체가 결정(cascade "가장 낮은 장/돌 옆/뭉친 장" · lexicon-estate 도면 인접) | 2종 |
+| `token.effect` 비용 타일 | 대가를 내고 정보를 사는 타일 — 누르면 게이지가 실제로 깎이고 **오답이 아니라 지출**로 처리 | 7종 |
+| `kind:'type'` + `step.type` 타이핑 | 후보 없이 칸 수만 보고 철자를 치는 게임 | 3종 |
+
+결과: trial 스텝 평균 **1.1 → 2.7**. 1스텝 재인만 시키는 게임 0.
+
+- 파일을 계열별로 나눴다(`brief/{recall,stake,assemble,rule,special}.ts` + `types.ts` + `index.ts`).
+  한 파일에 19종을 몰면 **옆 게임의 브리핑이 보이지 않아 서로 베낀 튜토리얼이 된다** — 실제 원인.
+- 무결성은 `__tests__/brief.test.ts` **33개**가 강제 — `want`/`focus` 참조 무결성(누를 수 있는 것
+  = 토큰 + 결정 카드), 슬롯 수 = 정답 길이, ok 고아 검출, 비용 타일의 `want` 금지, 좌표 충돌,
+  핍 `left ≤ total`. 오타 하나가 "영원히 통과 못 하는 튜토리얼"을 만들기 때문에 눈으로는 안 잡힌다.
+- **최적합 계약 4개**(같은 파일)가 회귀를 막는다 — ① 1스텝 재인 금지 ② 판돈이 화면에 보임
+  ③ 두 게임의 트라이얼 서명이 겹치면 실패 ④ objective 가 19종 공통 서술이면 실패.
+  ③은 계열을 가로지르는 충돌(`daily-blitz` ↔ `word-economy`)을 실제로 잡았고, 확인해 보니
+  구별은 실재했다 — 전자는 선택지를 **보기 전에** 걸고 후자는 체결에 **성공한 뒤에만** 열린다.
+  서명이 결정의 위치를 담지 않아 생긴 오탐이라 서명에 그 차원을 넣었다.
+- `tests/e2e/15-arcade-brief.spec.ts` — **19종 전수**를 브리핑 데이터로 구동한다(`want` 를
+  순서대로 누르고 타이핑 스텝은 실제 입력). 데이터와 화면이 어긋나면 즉시 실패한다.
+  단위 테스트가 잡지 못하는 것 — 렌더러가 그 프리미티브를 실제로 그리는지, 판정이 결정 카드·
+  타이핑·비용 타일을 받는지 — 은 눌러 봐야만 안다. 22/22 통과(1.7분).
+  타일 셀렉터는 `data-id` — cascade 는 같은 정답이 세 자리에 깔려 텍스트로 구별이 불가능하다.
+
+### 리텐션 메타
+`lib/game/arcade-meta.ts` — localStorage 스트릭(하루 유예) · XP/레벨(√곡선) · 데일리 목표 30XP.
+`ArcadeMetaStrip` 노출(v08.3 라벨: Streak · Rank · Daily quota · Ambient).
+
+### 배경음악
+### v07.8 — 19종 전수 재설계 (감사 → 재설계 → 적대적 반증 → 강화)
+
+게임별 병렬 에이전트로 4라운드를 돌렸다. 루브릭 10축 평균 **23.1 → 34.8 / 50**.
+
+**1R 감사** — 재미 이전에 **제품 유효성** 결함이 나왔다. 게임 7종 이상이 영어를 한 글자도
+몰라도 이길 수 있었고(정답이 화면에 인쇄돼 있었다) 그 결과가 FSRS 로 "학습했다"고 기록됐다.
+축 평균 tensionCurve 1.42 · decisions 1.47 · streakHook 1.79 · learningIntegrity 1.95.
+
+**2R 적대적 반증** — 재설계 결과를 점수 재측정이 아니라 **싸게 이기는 방법 찾기**로 검증했다.
+익스플로잇 **42건**, 구현자 주장 중 **불성립 27건**. 전부 코드 근거 + 시뮬 수치 동반
+(예: word-economy 의 "지분 상시 매입"이 7개 정답률 밴드 전부에서 자산 2~3배).
+
+**3R 강화** — 수정 후 같은 시뮬로 재계산해 숫자로 확인: 지분 자산비 2.25~2.95 → 0.62~1.28 ·
+정답률 0.5~0.7 학습자 파산률 83% → 17% · ghost-race 리빌 후 4문항 내 재출제율 100% → 2% ·
+word-orrery 소거 확정 문항 16.67% → 0%.
+
+⚠️ **분류축 교체** — 19종이 전부 학습자 단어를 쓰게 되면서 `source`(mine/bank) 축이 죽었다.
+그대로 두면 "큐레이션 세계" 섹션이 비고, `pickDailyGame` 이 빈 후보로 크래시한다
+(`from[NaN]` → undefined → 단어 6개 미만 학습자의 `/arcade` 사망). 새 축은 **학습 동사**
+(L계층 진행과 같은 순서): `빠르게 떠올리기(6)` · `직접 만들어 내기(6)` · `읽고 추론하기(7)`.
+`HUB_TRACKS` + `trackOf()` 로 카탈로그에 명시 — layer 문자열 파싱 금지(오분류가 조용히 생긴다).
+
+**FSRS 무결성 (중앙 · `lib/game/record-result.ts`)** — 가장 큰 남은 결함은 재미가 아니라
+학습 스케줄 오염이었다. 게임마다 판단하게 두면 19가지 기준이 생기므로 중앙에서 막는다:
+- `assisted: true` → 카드 미갱신. 정답을 이미 보여준 뒤의 입력은 인출이 아니다.
+- **같은 카드 10분 재채점 금지.** FSRS 는 독립 인출 1회를 전제하는데 실측상 ghost-race 는
+  레이스당 36회 채점, word-economy 는 방치만으로 90초에 lapse 7회였다.
+- 스캐폴드 계약 `onCorrect(word, { assisted })` — 기존 호출은 그대로 동작.
+- ⚠️ 게임이 `onCorrect/onWrong` 을 **아예 안 부르는 쪽으로 도망가면 안 된다**. letter-forge 가
+  그랬고 결과는 "합리적 플레이어일수록 모르는 단어를 FSRS 에서 지운다"였다.
+
+**minWords 와 자료 크기** — 강화로 요구 단어가 올라가면 도서 챕터가 게임을 못 연다
+(`useGameWordScope` 는 explicit 스코프 미달 시 NotEnoughWords 로 **차단**한다).
+DB 실측 653세트: ≥24단어 371(57%) · ≥20 414 · ≥16 448 · ≥12 487 · ≥8 554(85%) · 최소 1.
+게임은 **풀 크기의 함수로 스케일 다운**해야 한다(cascade 가 goal·장수·시간 곡선을 전부
+함수화해 5단어 챕터도 성립시킨 것이 모범). 카탈로그 `minWords` 는 라우트 실값과 반드시 일치.
+
+**회귀 스펙** — `07-arcade-games`(19종 마운트+첫 입력+콘솔에러 0 · 준비 마커는 **조작 가능한
+요소**로 잡을 것) · `13-arcade-integrity`(자료 연계 — A 라벨 · **A3 실제 단어 노출** ·
+B 허브 팬아웃 · C 스크립트 진입).
+⚠️ A3 가 필요한 이유: 라벨만 맞고 실제 문제는 내장 콘텐츠인 경우를 A 가 못 잡는다
+(morpheme-rules 가 그랬고 `onCorrect/onWrong` 의 99.7% 가 silent skip 됐다).
+
+---
+
+**v07.7 — 측정으로 선곡 + 마디 정렬 루프.** 요구는 "웅장하면서 긴장감과 긴박감, 빠른 템포".
+v07.6 의 Scott Buckley 세트가 이를 못 맞춘 이유는 **측정 가능했다**: 후보 118곡
+(Buckley 72 + Nakarada 46)을 재보니 Buckley 라이브러리 대부분이 `pulse`(자기상관 피크 선명도)
+≈ 1.0 — 박이 노이즈와 구별되지 않는 앰비언트였다. 제목이 아무리 장엄해도 몰아치지 않는다.
+
+측정 축: `bpm`(온셋 포락선 자기상관) · `onset/s`(초당 어택 = **긴박**) · `pulse`(박 선명도 = 추진) ·
+`low%`(150Hz 이하 온셋 에너지 = 타격) · `full%`(RMS 가 피크 60% 이상인 시간 비율 = **웅장**) ·
+`tension`(2~6kHz 시간 변동 = 트레몰로·스타카토·불협).
+**Alexander Nakarada**(creatorchords.com · CC-BY 4.0)가 전 축에서 크게 앞서 19슬롯 중 16을 가져갔다.
+전 곡 **129~161 BPM**, 19종 고유 트랙(재사용 0), 총 33.3 MB.
+
+루프는 **마디 정수배**로 자른다 — `loopLen = bars × 4 × 60/bpm`, 크로스페이드도 1마디.
+그래야 꼬리(start+loopLen)와 머리(start)의 **박 위상이 같아져** 크로스페이드가 박 위에 얹힌다.
+임의 길이로 자르면 겹박(플램)이 나 추진력이 뭉개진다. 길이는 템포에 따라 109.5~110.6초(59~74마디).
+정규화 -16 LUFS / TP -1.5 dBTP → VBR MP3(-q:a 5) 44.1kHz 스테레오.
+
+⚠️ 루프를 다시 구울 때 **크로스페이드가 조용히 사라지는 경로가 둘** 있다. 둘 다 파일은 HTTP 200 이고
+재생도 되는데 딱 1마디 짧고 루프마다 클릭이 난다:
+① 한 입력을 `asplit=3` 으로 쪼개 `atrim` 셋을 물리면 `acrossfade` 가 빈 스트림을 받는다 →
+head/tail/body 를 각각 별도 `-i` 로 열 것.
+② `-t X` 로 뜬 조각이 MP3 프레임 경계 때문에 X 보다 살짝 짧으면 `acrossfade=d=X` 가 성립하지 않는다 →
+`X+0.4`초를 떠서 필터 안에서 `atrim` 으로 정확히 자를 것.
+빌드 스크립트에 출력 길이 == loopLen 단언을 두고, 회귀는 `tests/e2e/12-arcade-audio.spec.ts` 가 잡는다.
+
+트랙은 카탈로그 `GameEntry.music`(`public/audio/games/<slug>.mp3`). 크레딧은 같은 폴더 `CREDITS.txt`
++ `/arcade` 푸터 표기(CC-BY 4.0 은 표기 의무 — 두 아티스트 모두 명시).
+선호는 `lib/game/music-pref.ts` 단일 키(`vocaflow-arcade-music`) — **허브 토글**(`ArcadeMetaStrip`)과 **게임 내 버튼**(`GameMusic`)이 공유.
+**기본 ON**(v07.6 사용자 결정 — 단어 게임에 음악이 중요). 이전 기본 OFF 는 Calm UI 근거였지만 결과가
+무음이었다(토글 전에는 트랙을 내려받지도 않음). 자동재생 정책은 `play()` 거부 시
+다음 제스처(`pointerdown`/`keydown`)에 시작하는 방식으로 처리 — 타이핑 전용 게임 때문에 `keydown` 이 필수.
+미결정 상태에선 게임 내 버튼이 "배경음악" 라벨을 펼쳐 지금 나는 소리의 출처와 끄는 길을 알린다.
+`readMusicPref()` 는 미설정을 `null` 로 유지하고, 실제 on/off 판단은 `readMusicOn()`(= `?? DEFAULT_MUSIC_ON`)을 쓴다
+— 명시적 OFF 를 기본값 변경이 덮어쓰지 않게 하기 위해서.
+
+**효과음(v07.6)** — Kenney "Interface Sounds"(CC0) → **Mixkit 실녹음**. FFT 실측상 기존 6종은 전부 모노 ·
+8 kHz 이상 에너지 0~0.6% · `correct`/`complete` 는 스펙트럴 평탄도 0.0000 인 대역제한 합성음이었다.
+교체본은 스테레오 실녹음(벨 · 나무 타격 · 반짝임 · 타자기 타건 · 실제 동전 · 금관 합주 · 총 494 KB).
+`useSfx` API·`SFX_SRC` 확장자 매핑 불변 → 게임 코드 변경 0. 오답이 버저가 아니라 나무 타격인 것은
+Empathetic Feedback(오답에 비난조 금지).
+
+⚠️ `.gk-root > :not(...)` / `.wbz-root > :not(...)` 같은 자식 일괄 규칙에 **반드시 `:not(.gk-music-btn)` 을 넣을 것** —
+빠뜨리면 명시도에 밀려 `position: fixed` 가 죽고 버튼이 흐름에 박힌다(v07.4 이전 전 게임 증상).
+gamekit 을 쓰지 않는 게임(WordBlitz · Pirate's Bounty)은 `GameKitStyles` 를 함께 렌더해야 버튼 스타일이 적용된다.
+
+---
+
 ## 베타 — Pirate Quest
 
 ### 목적
-단어 모험 3D 게임 (R3F · @react-three/fiber + drei).
+단어 모험 3D 게임 (R3F · @react-three/fiber + drei). 아케이드 카탈로그 `source: bank` · `beta`.
 
 ### 라우트
-- `/play/pirate-quest` — 풀스크린 (사이드바 X · SessionFrame ✓)
+- `/play/pirate-quest` — 풀스크린 (사이드바 X · SessionFrame ✓ · 복귀 `/arcade`)
 
 ### 컴포넌트 (`components/pirate-quest/`)
 - `PirateQuestGame.tsx` / `PirateQuestUI.tsx` / `PirateQuestUI.css`

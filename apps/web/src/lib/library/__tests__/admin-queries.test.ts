@@ -98,6 +98,12 @@ describe('admin-queries — pure helpers', () => {
       lemma_bound: 1958,
       lemma_unbound: 69,
       lemma_coverage_pct: '96.6',
+      // v06.35 해석률 계열 — 미매핑 69 중 62개는 고어/외국어/인명으로 설명되고 7개만 진짜 공백.
+      noise_count: 41,
+      resolved_other_count: 21,
+      unresolved_count: 7,
+      resolved_pct: '99.7',
+      learnable_coverage_pct: '98.6',
       word_set_count: 12,
     }
     expect(_catalog.composite_score).toBeGreaterThan(0)

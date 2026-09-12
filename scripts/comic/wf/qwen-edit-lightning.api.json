@@ -1,0 +1,15 @@
+{
+  "_note": "Qwen-Image-Edit-2511 GGUF Q5_K_M + Lightning 8-step EDIT workflow (참조 시트 → 패널). RunPod 4090/ComfyUI 또는 Kaggle T4. gen-comfy.mjs --wf-edit 로 구동 — 타이틀 PROMPT/NEG/SIZE/REFIMAGE 가 패널별 주입(프롬프트=.prompt 필드, 사이즈, 참조 LoadImage). 모델 프로비저닝: scripts/comic/runpod/provision.sh. Kaggle phaseC 그래프로 실증됨.",
+  "1": { "class_type": "UnetLoaderGGUF", "inputs": { "unet_name": "qwen-image-edit-2511-Q5_K_M.gguf" }, "_meta": { "title": "unet" } },
+  "11": { "class_type": "LoraLoaderModelOnly", "inputs": { "lora_name": "Qwen-Image-Edit-2509-Lightning-8steps-V1.0-bf16.safetensors", "strength_model": 1.0, "model": ["1", 0] }, "_meta": { "title": "lightning" } },
+  "7": { "class_type": "ModelSamplingAuraFlow", "inputs": { "shift": 3.0, "model": ["11", 0] }, "_meta": { "title": "shift" } },
+  "2": { "class_type": "CLIPLoaderGGUF", "inputs": { "clip_name": "qwen2.5-vl-7b-it-q4_k_m.gguf", "type": "qwen_image" }, "_meta": { "title": "clip" } },
+  "3": { "class_type": "VAELoader", "inputs": { "vae_name": "qwen_image_vae.safetensors" }, "_meta": { "title": "vae" } },
+  "12": { "class_type": "LoadImage", "inputs": { "image": "sheet.png" }, "_meta": { "title": "REFIMAGE" } },
+  "4": { "class_type": "TextEncodeQwenImageEditPlus", "inputs": { "clip": ["2", 0], "prompt": "", "vae": ["3", 0], "image1": ["12", 0] }, "_meta": { "title": "PROMPT" } },
+  "5": { "class_type": "TextEncodeQwenImageEditPlus", "inputs": { "clip": ["2", 0], "prompt": "", "vae": ["3", 0], "image1": ["12", 0] }, "_meta": { "title": "NEG" } },
+  "6": { "class_type": "EmptySD3LatentImage", "inputs": { "width": 704, "height": 939, "batch_size": 1 }, "_meta": { "title": "SIZE" } },
+  "8": { "class_type": "KSampler", "inputs": { "seed": 46, "steps": 8, "cfg": 1.0, "sampler_name": "euler", "scheduler": "simple", "denoise": 1, "model": ["7", 0], "positive": ["4", 0], "negative": ["5", 0], "latent_image": ["6", 0] }, "_meta": { "title": "sampler" } },
+  "9": { "class_type": "VAEDecode", "inputs": { "samples": ["8", 0], "vae": ["3", 0] }, "_meta": { "title": "decode" } },
+  "10": { "class_type": "SaveImage", "inputs": { "images": ["9", 0], "filename_prefix": "panel" }, "_meta": { "title": "save" } }
+}

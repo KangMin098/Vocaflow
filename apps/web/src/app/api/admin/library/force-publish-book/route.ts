@@ -9,12 +9,12 @@
 //   사용자 화면에선 footer 영역의 작은 에러로 표시돼 "게시 무반응" 처럼 보였다.
 //
 // 해결: 다른 admin write route (delete-seed-catalog, fetch-seed-batch 등) 와 동일하게
-//   requireAdmin 가드 + service_role client 패턴.
+//   requireAdminApi 가드 + service_role client 패턴.
 
 import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 
-import { requireAdmin } from '@/lib/auth/require-admin'
+import { requireAdminApi } from '@/lib/auth/require-admin-api'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -24,7 +24,8 @@ interface Body {
 }
 
 export async function POST(request: Request): Promise<NextResponse> {
-  await requireAdmin('/admin/curation')
+  const admin = await requireAdminApi()
+  if (admin instanceof NextResponse) return admin
 
   let body: Body
   try {
@@ -51,7 +52,7 @@ export async function POST(request: Request): Promise<NextResponse> {
   // service_role 은 is_admin_or_curator() 의 auth.uid() 검사를 통과 못 함.
   // RPC SECURITY DEFINER 의 가드를 우회하려면 RPC 를 호출하지 말고 동등 로직 직접 실행.
   //   - copyright_safe_in_kr 검증 + status='published' UPDATE.
-  //   - admin_force_publish_book 의 가드는 requireAdmin (RSC) 으로 이미 통과한 상태.
+  //   - admin_force_publish_book 의 가드는 requireAdminApi 으로 이미 통과한 상태.
   const { data: book, error: fetchErr } = await client
     .from('library_books')
     .select('id, copyright_safe_in_kr, status')

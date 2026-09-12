@@ -1,0 +1,874 @@
+[
+ {
+  "exam": "M1909",
+  "no": 1,
+  "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Honey, are you making curtains? I didn’t know you could make them."
+   },
+   {
+    "who": "W",
+    "text": "I learned how to make curtains in my craft class at the community center."
+   },
+   {
+    "who": "M",
+    "text": "That’s great. Where did you get the materials?"
+   }
+  ],
+  "script": "Honey, are you making curtains? I didn’t know you could make them. I learned how to make curtains in my craft class at the community center. That’s great. Where did you get the materials?",
+  "words": 34,
+  "nTurns": 3,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-RESPONSE",
+  "typeGuessAll": [
+   "L-RESPONSE"
+  ]
+ },
+ {
+  "exam": "M1909",
+  "no": 2,
+  "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "James, how’s your group’s practice going for the school choir competition?"
+   },
+   {
+    "who": "M",
+    "text": "Well, it’s not easy to find a place to practice, Ms. Williams. Can we use your music room?"
+   },
+   {
+    "who": "W",
+    "text": "Yes, you can. Just don’t make a mess. Last time, it was messy after students used it."
+   }
+  ],
+  "script": "James, how’s your group’s practice going for the school choir competition? Well, it’s not easy to find a place to practice, Ms. Williams. Can we use your music room? Yes, you can. Just don’t make a mess. Last time, it was messy after students used it.",
+  "words": 46,
+  "nTurns": 3,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-RESPONSE",
+  "typeGuessAll": [
+   "L-RESPONSE"
+  ]
+ },
+ {
+  "exam": "M1909",
+  "no": 3,
+  "stem": "다음을 듣고, 남자가 하는 말의 목적으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Okay, class. We’re done with today’s lesson. But before you go, I’d like to tell you about the art exam next week. For the exam, I’ll show you 20 pieces of artwork you’ve previously studied in this course. You’ll be required to identify and write the artist and title of each work. You’ll have one minute for each artwork, and it’ll be shown only once. To study for the exam, review the list of artwork on the handout I gave you last week. The exam will start at 11:30 a.m. next Thursday. Please keep in mind this information about the exam as you prepare."
+   }
+  ],
+  "script": "Okay, class. We’re done with today’s lesson. But before you go, I’d like to tell you about the art exam next week. For the exam, I’ll show you 20 pieces of artwork you’ve previously studied in this course. You’ll be required to identify and write the artist and title of each work. You’ll have one minute for each artwork, and it’ll be shown only once. To study for the exam, review the list of artwork on the handout I gave you last week. The exam will start at 11:30 a.m. next Thursday. Please keep in mind this information about the exam as you prepare.",
+  "words": 103,
+  "nTurns": 1,
+  "speakers": [
+   "M"
+  ],
+  "isDialogue": false,
+  "typeGuess": "L-PURPOSE",
+  "typeGuessAll": [
+   "L-PURPOSE"
+  ]
+ },
+ {
+  "exam": "M1909",
+  "no": 4,
+  "stem": "대화를 듣고, 두 사람이 하는 말의 주제로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Honey, Jonathan looks bored with his toys. I think he needs some new ones."
+   },
+   {
+    "who": "W",
+    "text": "I agree. He’s five, but his toys are for younger children."
+   },
+   {
+    "who": "M",
+    "text": "Why don’t we try a toy rental service instead of buying toys?"
+   },
+   {
+    "who": "W",
+    "text": "How does it work?"
+   },
+   {
+    "who": "M",
+    "text": "You pay a small monthly fee and take any toys you want. Then, you return them later."
+   },
+   {
+    "who": "W",
+    "text": "Sounds good. That way, we could get Jonathan various new toys without paying much."
+   },
+   {
+    "who": "M",
+    "text": "Besides, renting toys saves space in our house since we won’t store his old toys anymore."
+   },
+   {
+    "who": "W",
+    "text": "Wonderful. I guess it’s also good for the environment."
+   },
+   {
+    "who": "M",
+    "text": "What do you mean?"
+   },
+   {
+    "who": "W",
+    "text": "We could reduce waste by sharing one toy with other families instead of every family buying the same one."
+   },
+   {
+    "who": "M",
+    "text": "Good point."
+   },
+   {
+    "who": "W",
+    "text": "Using this service seems like a good option. Let’s try it."
+   }
+  ],
+  "script": "Honey, Jonathan looks bored with his toys. I think he needs some new ones. I agree. He’s five, but his toys are for younger children. Why don’t we try a toy rental service instead of buying toys? How does it work? You pay a small monthly fee and take any toys you want. Then, you return them later. Sounds good. That way, we could get Jonathan various new toys without paying much. Besides, renting toys saves space in our house since we won’t store his old toys anymore. Wonderful. I guess it’s also good for the environment. What do you mean? We could reduce waste by sharing one toy with other families instead of every family buying the same one. Good point. Using this service seems like a good option. Let’s try it.",
+  "words": 133,
+  "nTurns": 12,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-TOPIC",
+  "typeGuessAll": [
+   "L-TOPIC"
+  ]
+ },
+ {
+  "exam": "M1909",
+  "no": 5,
+  "stem": "대화를 듣고, 두 사람의 관계를 가장 잘 나타낸 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Mr. Brown, how do you like our auditorium?"
+   },
+   {
+    "who": "M",
+    "text": "It’s great for my first solo concert, Ms. Anderson."
+   },
+   {
+    "who": "W",
+    "text": "Good. My staff and I have worked hard to make everything perfect. Is there anything to adjust?"
+   },
+   {
+    "who": "M",
+    "text": "Well, I’d like the piano closer to the audience. Then, it’ll feel like I’m interacting with them more."
+   },
+   {
+    "who": "W",
+    "text": "No problem. How about the lights?"
+   },
+   {
+    "who": "M",
+    "text": "They’re perfect, not too bright or dark."
+   },
+   {
+    "who": "W",
+    "text": "Great. Anything else?"
+   },
+   {
+    "who": "M",
+    "text": "I played this piano before you came in. I think I need some time to get familiar with it before the rehearsal."
+   },
+   {
+    "who": "W",
+    "text": "I understand. I’ve been managing this auditorium for ten years and I’ve seen other musicians have the same issue."
+   },
+   {
+    "who": "M",
+    "text": "So, can I practice with the piano tomorrow morning?"
+   },
+   {
+    "who": "W",
+    "text": "Yes. I’ll tell my staff to open the auditorium from 9 a.m."
+   },
+   {
+    "who": "M",
+    "text": "Thank you."
+   }
+  ],
+  "script": "Mr. Brown, how do you like our auditorium? It’s great for my first solo concert, Ms. Anderson. Good. My staff and I have worked hard to make everything perfect. Is there anything to adjust? Well, I’d like the piano closer to the audience. Then, it’ll feel like I’m interacting with them more. No problem. How about the lights? They’re perfect, not too bright or dark. Great. Anything else? I played this piano before you came in. I think I need some time to get familiar with it before the rehearsal. I understand. I’ve been managing this auditorium for ten years and I’ve seen other musicians have the same issue. So, can I practice with the piano tomorrow morning? Yes. I’ll tell my staff to open the auditorium from 9 a.m. Thank you.",
+  "words": 132,
+  "nTurns": 12,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-RELATION",
+  "typeGuessAll": [
+   "L-RELATION"
+  ]
+ },
+ {
+  "exam": "M1909",
+  "no": 6,
+  "stem": "대화를 듣고, 그림에서 대화의 내용과 일치하지 않는 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Lisa, is that you and your dad in the picture?"
+   },
+   {
+    "who": "W",
+    "text": "Yes. We went to a lakeside cabin last weekend. My dad loves fishing."
+   },
+   {
+    "who": "M",
+    "text": "Your dad is under a parasol. Was it sunny?"
+   },
+   {
+    "who": "W",
+    "text": "It was. And he wanted to stay out of the sun."
+   },
+   {
+    "who": "M",
+    "text": "There’s a round bucket next to the radio."
+   },
+   {
+    "who": "W",
+    "text": "Yeah. My dad brought it to put fish in."
+   },
+   {
+    "who": "M",
+    "text": "I see. [Pause] You have a badminton racket in your hand."
+   },
+   {
+    "who": "W",
+    "text": "I was waiting for my mom to play with me. She was taking this picture at that moment."
+   },
+   {
+    "who": "M",
+    "text": "Oh, I like the chimney on the roof of the cabin."
+   },
+   {
+    "who": "W",
+    "text": "So do I. What about the two chairs in front of the tree?"
+   },
+   {
+    "who": "M",
+    "text": "They look comfortable."
+   },
+   {
+    "who": "W",
+    "text": "They were great for watching the sun set."
+   },
+   {
+    "who": "M",
+    "text": "Looks like you had a great time."
+   }
+  ],
+  "script": "Lisa, is that you and your dad in the picture? Yes. We went to a lakeside cabin last weekend. My dad loves fishing. Your dad is under a parasol. Was it sunny? It was. And he wanted to stay out of the sun. There’s a round bucket next to the radio. Yeah. My dad brought it to put fish in. I see. [Pause] You have a badminton racket in your hand. I was waiting for my mom to play with me. She was taking this picture at that moment. Oh, I like the chimney on the roof of the cabin. So do I. What about the two chairs in front of the tree? They look comfortable. They were great for watching the sun set. Looks like you had a great time.",
+  "words": 131,
+  "nTurns": 13,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-PICTURE",
+  "typeGuessAll": [
+   "L-PICTURE"
+  ]
+ },
+ {
+  "exam": "M1909",
+  "no": 7,
+  "stem": "대화를 듣고, 여자가 할 일로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "?",
+    "text": "[Cell phone rings.]"
+   },
+   {
+    "who": "M",
+    "text": "Tammy, what’s up?"
+   },
+   {
+    "who": "W",
+    "text": "Hi, Billy. How’s the semester going?"
+   },
+   {
+    "who": "M",
+    "text": "I’m so busy preparing for the play."
+   },
+   {
+    "who": "W",
+    "text": "That’s right. You’re producing a play for the autumn festival. How’s it going?"
+   },
+   {
+    "who": "M",
+    "text": "Pretty well. The first performance is in three weeks."
+   },
+   {
+    "who": "W",
+    "text": "Great. Is everything ready?"
+   },
+   {
+    "who": "M",
+    "text": "Not yet. We’re still making the stage background. Students from the school art club are helping us."
+   },
+   {
+    "who": "W",
+    "text": "I see. Anything I can help with? I can put up posters."
+   },
+   {
+    "who": "M",
+    "text": "Thank you. But we’ve already put them up."
+   },
+   {
+    "who": "W",
+    "text": "I wish I could help with something."
+   },
+   {
+    "who": "M",
+    "text": "Well, we need someone to do the make-up for the actors. Didn’t you take a course on that before?"
+   },
+   {
+    "who": "W",
+    "text": "Yes, I did. [Pause] Okay, I’ll do the make-up for the actors."
+   },
+   {
+    "who": "M",
+    "text": "Thanks. I appreciate it."
+   }
+  ],
+  "script": "[Cell phone rings.] Tammy, what’s up? Hi, Billy. How’s the semester going? I’m so busy preparing for the play. That’s right. You’re producing a play for the autumn festival. How’s it going? Pretty well. The first performance is in three weeks. Great. Is everything ready? Not yet. We’re still making the stage background. Students from the school art club are helping us. I see. Anything I can help with? I can put up posters. Thank you. But we’ve already put them up. I wish I could help with something. Well, we need someone to do the make-up for the actors. Didn’t you take a course on that before? Yes, I did. [Pause] Okay, I’ll do the make-up for the actors. Thanks. I appreciate it.",
+  "words": 124,
+  "nTurns": 14,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-TODO",
+  "typeGuessAll": [
+   "L-TODO"
+  ]
+ },
+ {
+  "exam": "M1909",
+  "no": 8,
+  "stem": "대화를 듣고, 남자가 농구경기에 출전하지 않는 이유를 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Jason, I heard you play on a local amateur basketball team."
+   },
+   {
+    "who": "M",
+    "text": "Yes. In fact, we’re playing against Logan City this Saturday."
+   },
+   {
+    "who": "W",
+    "text": "How exciting! Can I come and watch the game?"
+   },
+   {
+    "who": "M",
+    "text": "You could, but I’m not playing this time."
+   },
+   {
+    "who": "W",
+    "text": "Why? Are you sick? I heard you took the day off yesterday to go to the hospital."
+   },
+   {
+    "who": "M",
+    "text": "No, I’m fine. I had a regular medical check-up."
+   },
+   {
+    "who": "W",
+    "text": "I see. Then, is it because of the sales report you were assigned last week?"
+   },
+   {
+    "who": "M",
+    "text": "I already finished it. Actually, I’m flying to Los Angeles tonight."
+   },
+   {
+    "who": "W",
+    "text": "Los Angeles? Do you have a business trip?"
+   },
+   {
+    "who": "M",
+    "text": "No. I’m attending my father’s retirement party. All my family will be there."
+   },
+   {
+    "who": "W",
+    "text": "Okay. Then, I’ll see you play some other time."
+   }
+  ],
+  "script": "Jason, I heard you play on a local amateur basketball team. Yes. In fact, we’re playing against Logan City this Saturday. How exciting! Can I come and watch the game? You could, but I’m not playing this time. Why? Are you sick? I heard you took the day off yesterday to go to the hospital. No, I’m fine. I had a regular medical check-up. I see. Then, is it because of the sales report you were assigned last week? I already finished it. Actually, I’m flying to Los Angeles tonight. Los Angeles? Do you have a business trip? No. I’m attending my father’s retirement party. All my family will be there. Okay. Then, I’ll see you play some other time.",
+  "words": 120,
+  "nTurns": 11,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-REASON",
+  "typeGuessAll": [
+   "L-REASON"
+  ]
+ },
+ {
+  "exam": "M1909",
+  "no": 9,
+  "stem": "대화를 듣고, 여자가 지불할 금액을 고르시오. [3점]",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Welcome to Lakewood Furniture Depot."
+   },
+   {
+    "who": "W",
+    "text": "Hi. I’m looking for some bedroom furniture."
+   },
+   {
+    "who": "M",
+    "text": "Wonderful. Everything in our bedroom section is on sale now."
+   },
+   {
+    "who": "W",
+    "text": "Oh, good. How much is this rocking chair? It looks comfortable."
+   },
+   {
+    "who": "M",
+    "text": "It was $200, but now it’s only $100."
+   },
+   {
+    "who": "W",
+    "text": "Alright. I’ll buy one. I also need a bedside table."
+   },
+   {
+    "who": "M",
+    "text": "How about this one? It has lots of storage space."
+   },
+   {
+    "who": "W",
+    "text": "Great. My husband and I love reading in bed, and it would be a convenient place for our books. How much is it?"
+   },
+   {
+    "who": "M",
+    "text": "It’s $40. But if you buy two, you’ll get a 50% discount on the second one."
+   },
+   {
+    "who": "W",
+    "text": "So I’d get the second one at half price?"
+   },
+   {
+    "who": "M",
+    "text": "Exactly."
+   },
+   {
+    "who": "W",
+    "text": "Then, I’ll get two."
+   },
+   {
+    "who": "M",
+    "text": "Terrific. One rocking chair and two bedside tables. How will you pay?"
+   },
+   {
+    "who": "W",
+    "text": "By credit card."
+   }
+  ],
+  "script": "Welcome to Lakewood Furniture Depot. Hi. I’m looking for some bedroom furniture. Wonderful. Everything in our bedroom section is on sale now. Oh, good. How much is this rocking chair? It looks comfortable. It was $200, but now it’s only $100. Alright. I’ll buy one. I also need a bedside table. How about this one? It has lots of storage space. Great. My husband and I love reading in bed, and it would be a convenient place for our books. How much is it? It’s $40. But if you buy two, you’ll get a 50% discount on the second one. So I’d get the second one at half price? Exactly. Then, I’ll get two. Terrific. One rocking chair and two bedside tables. How will you pay? By credit card.",
+  "words": 125,
+  "nTurns": 14,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-MONEY",
+  "typeGuessAll": [
+   "L-MONEY"
+  ]
+ },
+ {
+  "exam": "M1909",
+  "no": 10,
+  "stem": "대화를 듣고, Middleton Public Hearing에 관해 언급되지 않은 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Mark, will you be going to the Middleton Public Hearing? I know you’re interested in what’s going on in our city."
+   },
+   {
+    "who": "M",
+    "text": "The Middleton Public Hearing?"
+   },
+   {
+    "who": "W",
+    "text": "Yes. The city holds it whenever there’s an issue affecting residents."
+   },
+   {
+    "who": "M",
+    "text": "Oh, good. What’s going to be discussed?"
+   },
+   {
+    "who": "W",
+    "text": "The topic this time is the declining air quality in our city."
+   },
+   {
+    "who": "M",
+    "text": "I’ve been worried about that. I’m glad the city is paying attention. When will it be held?"
+   },
+   {
+    "who": "W",
+    "text": "It’ll be held at 2 p.m. on Tuesday, October 2nd. Do you think you can make it?"
+   },
+   {
+    "who": "M",
+    "text": "I’m free that day. Where will it take place?"
+   },
+   {
+    "who": "W",
+    "text": "At City Hall."
+   },
+   {
+    "who": "M",
+    "text": "Okay. Will there be an opportunity to ask questions?"
+   },
+   {
+    "who": "W",
+    "text": "Of course. There’s always time for questions and answers."
+   },
+   {
+    "who": "M",
+    "text": "Great. I’ll be there."
+   }
+  ],
+  "script": "Mark, will you be going to the Middleton Public Hearing? I know you’re interested in what’s going on in our city. The Middleton Public Hearing? Yes. The city holds it whenever there’s an issue affecting residents. Oh, good. What’s going to be discussed? The topic this time is the declining air quality in our city. I’ve been worried about that. I’m glad the city is paying attention. When will it be held? It’ll be held at 2 p.m. on Tuesday, October 2nd. Do you think you can make it? I’m free that day. Where will it take place? At City Hall. Okay. Will there be an opportunity to ask questions? Of course. There’s always time for questions and answers. Great. I’ll be there.",
+  "words": 123,
+  "nTurns": 12,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-NOTMENTION",
+  "typeGuessAll": [
+   "L-NOTMENTION"
+  ]
+ },
+ {
+  "exam": "M1909",
+  "no": 11,
+  "stem": "Megan’s Bites에 관한 다음 내용을 듣고, 일치하지 않는 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Are you tired of always eating the same cookies from the supermarket? Then, it’s time to visit Megan’s Bites, a store famous for their handmade cookies. They use a recipe that the owner’s grandmother created. Thanks to this recipe, Megan’s Bites makes cookies which are crispy on the outside and soft on the inside. They’re so delicious that you won’t be able to stop eating them. In fact, Megan’s Bites was selected as the best cookie store by Dessert Magazine in 2017. Their first store is located in Boston. But their cookies are so popular that last month they opened their second store, which is in New York. Why don’t you go and try their cookies yourself? You won’t regret it."
+   }
+  ],
+  "script": "Are you tired of always eating the same cookies from the supermarket? Then, it’s time to visit Megan’s Bites, a store famous for their handmade cookies. They use a recipe that the owner’s grandmother created. Thanks to this recipe, Megan’s Bites makes cookies which are crispy on the outside and soft on the inside. They’re so delicious that you won’t be able to stop eating them. In fact, Megan’s Bites was selected as the best cookie store by Dessert Magazine in 2017. Their first store is located in Boston. But their cookies are so popular that last month they opened their second store, which is in New York. Why don’t you go and try their cookies yourself? You won’t regret it.",
+  "words": 120,
+  "nTurns": 1,
+  "speakers": [
+   "M"
+  ],
+  "isDialogue": false,
+  "typeGuess": "L-ANNOUNCE",
+  "typeGuessAll": [
+   "L-ANNOUNCE"
+  ]
+ },
+ {
+  "exam": "M1909",
+  "no": 12,
+  "stem": "다음 표를 보면서 대화를 듣고, 여자가 주문할 노트북 컴퓨터 배낭을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Tony, can you help me buy a backpack for my laptop?"
+   },
+   {
+    "who": "M",
+    "text": "Sure. Let’s use this app. [Smartphone typing sound] Here are the five best selling models. What size do you want?"
+   },
+   {
+    "who": "W",
+    "text": "I want a backpack that’s bigger than 17 inches."
+   },
+   {
+    "who": "M",
+    "text": "Okay. What’s your budget?"
+   },
+   {
+    "who": "W",
+    "text": "Well, I don’t want to spend more than $60."
+   },
+   {
+    "who": "M",
+    "text": "Alright. You can also choose the number of inner pockets. How many do you want?"
+   },
+   {
+    "who": "W",
+    "text": "I’ll need at least five to put all my stuff in. [Pause] Oh, these backpacks come with a promotional gift."
+   },
+   {
+    "who": "M",
+    "text": "Yeah. There are two options. Which one do you prefer?"
+   },
+   {
+    "who": "W",
+    "text": "Hmm... I already have several USB sticks, so I want the other one."
+   },
+   {
+    "who": "M",
+    "text": "Then, it’s decided."
+   },
+   {
+    "who": "W",
+    "text": "Yes. I’ll order it."
+   }
+  ],
+  "script": "Tony, can you help me buy a backpack for my laptop? Sure. Let’s use this app. [Smartphone typing sound] Here are the five best selling models. What size do you want? I want a backpack that’s bigger than 17 inches. Okay. What’s your budget? Well, I don’t want to spend more than $60. Alright. You can also choose the number of inner pockets. How many do you want? I’ll need at least five to put all my stuff in. [Pause] Oh, these backpacks come with a promotional gift. Yeah. There are two options. Which one do you prefer? Hmm... I already have several USB sticks, so I want the other one. Then, it’s decided. Yes. I’ll order it.",
+  "words": 116,
+  "nTurns": 11,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-TABLE",
+  "typeGuessAll": [
+   "L-TABLE"
+  ]
+ },
+ {
+  "exam": "M1909",
+  "no": 13,
+  "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "?",
+    "text": "[3점] [Door knocks.]"
+   },
+   {
+    "who": "M",
+    "text": "Come in."
+   },
+   {
+    "who": "W",
+    "text": "Hello, Mr. O’Grady. Can I ask a question about the student science contest?"
+   },
+   {
+    "who": "M",
+    "text": "You mean the Creative Inventions Contest, Ms. Kane?"
+   },
+   {
+    "who": "W",
+    "text": "Yes. How many winners will we have?"
+   },
+   {
+    "who": "M",
+    "text": "Three. We’ll select a winner from each grade."
+   },
+   {
+    "who": "W",
+    "text": "Well, I think it’s better to choose the best three inventions from all participants."
+   },
+   {
+    "who": "M",
+    "text": "Really? But that would be unfair to first-graders."
+   },
+   {
+    "who": "W",
+    "text": "Why do you think so?"
+   },
+   {
+    "who": "M",
+    "text": "The second- and third-graders have taken more science courses and therefore have more knowledge."
+   },
+   {
+    "who": "W",
+    "text": "I see your point. I guess that knowledge helps them generate ideas for inventions."
+   },
+   {
+    "who": "M",
+    "text": "Plus, older students have know-how from previous contests."
+   },
+   {
+    "who": "W",
+    "text": "That’s true. Some third-graders in my class did tell me they’ll enter the contest again this year."
+   },
+   {
+    "who": "M",
+    "text": "Exactly. That’s why it’s better to have a winner from each grade."
+   }
+  ],
+  "script": "[3점] [Door knocks.] Come in. Hello, Mr. O’Grady. Can I ask a question about the student science contest? You mean the Creative Inventions Contest, Ms. Kane? Yes. How many winners will we have? Three. We’ll select a winner from each grade. Well, I think it’s better to choose the best three inventions from all participants. Really? But that would be unfair to first-graders. Why do you think so? The second- and third-graders have taken more science courses and therefore have more knowledge. I see your point. I guess that knowledge helps them generate ideas for inventions. Plus, older students have know-how from previous contests. That’s true. Some third-graders in my class did tell me they’ll enter the contest again this year. Exactly. That’s why it’s better to have a winner from each grade.",
+  "words": 132,
+  "nTurns": 14,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-RESPONSE",
+  "typeGuessAll": [
+   "L-RESPONSE"
+  ]
+ },
+ {
+  "exam": "M1909",
+  "no": 14,
+  "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Marcus, are you taking a summer course?"
+   },
+   {
+    "who": "M",
+    "text": "Yes, Mom. I’m going to take an online course."
+   },
+   {
+    "who": "W",
+    "text": "Why online?"
+   },
+   {
+    "who": "M",
+    "text": "You know I’m not a morning person. And most offline summer courses are in the morning."
+   },
+   {
+    "who": "W",
+    "text": "Well, if you go to school and take a class in the morning, you’ll get the most out of your day."
+   },
+   {
+    "who": "M",
+    "text": "But I prefer online because I can have class when I study best."
+   },
+   {
+    "who": "W",
+    "text": "Remember when you took an online class last summer? You had difficulty managing your time."
+   },
+   {
+    "who": "M",
+    "text": "You’re right. I also didn’t focus on my studies because I was distracted by my computer."
+   },
+   {
+    "who": "W",
+    "text": "I hope you make a better decision this time."
+   },
+   {
+    "who": "M",
+    "text": "Yes. I guess attending an offline class would be good for me."
+   },
+   {
+    "who": "W",
+    "text": "I think so, too."
+   },
+   {
+    "who": "M",
+    "text": "My only concern is that I won’t wake up on time."
+   },
+   {
+    "who": "W",
+    "text": "Don’t worry. I can help you with that."
+   }
+  ],
+  "script": "Marcus, are you taking a summer course? Yes, Mom. I’m going to take an online course. Why online? You know I’m not a morning person. And most offline summer courses are in the morning. Well, if you go to school and take a class in the morning, you’ll get the most out of your day. But I prefer online because I can have class when I study best. Remember when you took an online class last summer? You had difficulty managing your time. You’re right. I also didn’t focus on my studies because I was distracted by my computer. I hope you make a better decision this time. Yes. I guess attending an offline class would be good for me. I think so, too. My only concern is that I won’t wake up on time. Don’t worry. I can help you with that.",
+  "words": 143,
+  "nTurns": 13,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-RESPONSE",
+  "typeGuessAll": [
+   "L-RESPONSE"
+  ]
+ },
+ {
+  "exam": "M1909",
+  "no": 15,
+  "stem": "다음 상황 설명을 듣고, Brian이 Ms. Clark에게 할 말로 가장 적절한 것을",
+  "turns": [
+   {
+    "who": "?",
+    "text": "고르시오. [3점]"
+   },
+   {
+    "who": "M",
+    "text": "Ms. Clark started coaching the school cheerleading team last semester. She’s very dedicated to helping students, so she even worked on weekends. When the team entered the regional cheerleading competition, Ms. Clark taught them several advanced techniques to impress the judges. However, some members made mistakes while performing these difficult techniques. And they lost the competition. Now, Ms. Clark feels down because she blames herself for teaching techniques that were too difficult for the students. But the team members think they’ve improved a lot thanks to her coaching. So, Brian, the team leader, wants to tell Ms. Clark that the team members appreciate the time and effort she’s given them. In this situation, what would Brian most likely say to Ms. Clark? 16번부터 17번까지는 두 번 들려줍니다."
+   }
+  ],
+  "script": "고르시오. [3점] Ms. Clark started coaching the school cheerleading team last semester. She’s very dedicated to helping students, so she even worked on weekends. When the team entered the regional cheerleading competition, Ms. Clark taught them several advanced techniques to impress the judges. However, some members made mistakes while performing these difficult techniques. And they lost the competition. Now, Ms. Clark feels down because she blames herself for teaching techniques that were too difficult for the students. But the team members think they’ve improved a lot thanks to her coaching. So, Brian, the team leader, wants to tell Ms. Clark that the team members appreciate the time and effort she’s given them. In this situation, what would Brian most likely say to Ms. Clark? 16번부터 17번까지는 두 번 들려줍니다.",
+  "words": 122,
+  "nTurns": 2,
+  "speakers": [
+   "M"
+  ],
+  "isDialogue": false,
+  "typeGuess": "L-SITUATION",
+  "typeGuessAll": [
+   "L-SITUATION"
+  ]
+ },
+ {
+  "exam": "M1909",
+  "no": 16,
+  "stem": "여자가 하는 말의 주제로 가장 적절한 것은?",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Welcome to the Farrington Wellness Center. I’m Dr. Hannah Dawson. As you know, sleep is affected by many factors. According to research, one such factor is food. Some foods are good for sleep. For example, bananas are loaded with magnesium, a mineral that promotes sleep by helping relax your muscles. Another good food is milk. Dairy products help the body make a hormone that helps regulate sleep. On the other hand, there are many foods to avoid, especially before bed. Don’t order French fries late at night because fatty foods take long to digest, which harms the quality of your sleep. Also, put away candies before bed. Sugary foods can keep you awake because they increase your blood sugar. So if you’re having problems sleeping, take a look at your diet because good sleep depends on what you eat. Now, I’ll present some information from studies I’ve conducted on this topic."
+   }
+  ],
+  "fromSet": "16~17",
+  "script": "Welcome to the Farrington Wellness Center. I’m Dr. Hannah Dawson. As you know, sleep is affected by many factors. According to research, one such factor is food. Some foods are good for sleep. For example, bananas are loaded with magnesium, a mineral that promotes sleep by helping relax your muscles. Another good food is milk. Dairy products help the body make a hormone that helps regulate sleep. On the other hand, there are many foods to avoid, especially before bed. Don’t order French fries late at night because fatty foods take long to digest, which harms the quality of your sleep. Also, put away candies before bed. Sugary foods can keep you awake because they increase your blood sugar. So if you’re having problems sleeping, take a look at your diet because good sleep depends on what you eat. Now, I’ll present some information from studies I’ve conducted on this topic.",
+  "words": 151,
+  "nTurns": 1,
+  "speakers": [
+   "W"
+  ],
+  "isDialogue": false,
+  "typeGuess": "L-SET-TOPIC",
+  "typeGuessAll": [
+   "L-SET-TOPIC"
+  ]
+ },
+ {
+  "exam": "M1909",
+  "no": 17,
+  "stem": "언급된 음식이 아닌 것은?",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Welcome to the Farrington Wellness Center. I’m Dr. Hannah Dawson. As you know, sleep is affected by many factors. According to research, one such factor is food. Some foods are good for sleep. For example, bananas are loaded with magnesium, a mineral that promotes sleep by helping relax your muscles. Another good food is milk. Dairy products help the body make a hormone that helps regulate sleep. On the other hand, there are many foods to avoid, especially before bed. Don’t order French fries late at night because fatty foods take long to digest, which harms the quality of your sleep. Also, put away candies before bed. Sugary foods can keep you awake because they increase your blood sugar. So if you’re having problems sleeping, take a look at your diet because good sleep depends on what you eat. Now, I’ll present some information from studies I’ve conducted on this topic."
+   }
+  ],
+  "fromSet": "16~17",
+  "script": "Welcome to the Farrington Wellness Center. I’m Dr. Hannah Dawson. As you know, sleep is affected by many factors. According to research, one such factor is food. Some foods are good for sleep. For example, bananas are loaded with magnesium, a mineral that promotes sleep by helping relax your muscles. Another good food is milk. Dairy products help the body make a hormone that helps regulate sleep. On the other hand, there are many foods to avoid, especially before bed. Don’t order French fries late at night because fatty foods take long to digest, which harms the quality of your sleep. Also, put away candies before bed. Sugary foods can keep you awake because they increase your blood sugar. So if you’re having problems sleeping, take a look at your diet because good sleep depends on what you eat. Now, I’ll present some information from studies I’ve conducted on this topic.",
+  "words": 151,
+  "nTurns": 1,
+  "speakers": [
+   "W"
+  ],
+  "isDialogue": false,
+  "typeGuess": "L-SET-NOT",
+  "typeGuessAll": [
+   "L-SET-NOT"
+  ]
+ }
+]

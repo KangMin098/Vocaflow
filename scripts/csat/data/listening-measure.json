@@ -1,0 +1,2211 @@
+{
+ "perNo": {
+  "1": {
+   "type": "L-PURPOSE",
+   "n": 16,
+   "words": 94,
+   "turns": 1
+  },
+  "2": {
+   "type": "L-OPINION",
+   "n": 16,
+   "words": 123,
+   "turns": 10
+  },
+  "3": {
+   "type": "L-RELATION",
+   "n": 16,
+   "words": 128,
+   "turns": 10
+  },
+  "4": {
+   "type": "L-PICTURE",
+   "n": 16,
+   "words": 133,
+   "turns": 12
+  },
+  "5": {
+   "type": "L-TODO",
+   "n": 16,
+   "words": 132,
+   "turns": 12
+  },
+  "6": {
+   "type": "L-MONEY",
+   "n": 16,
+   "words": 135,
+   "turns": 12
+  },
+  "7": {
+   "type": "L-REASON",
+   "n": 16,
+   "words": 125,
+   "turns": 12
+  },
+  "8": {
+   "type": "L-NOTMENTION",
+   "n": 16,
+   "words": 126,
+   "turns": 13
+  },
+  "9": {
+   "type": "L-ANNOUNCE",
+   "n": 16,
+   "words": 122,
+   "turns": 2
+  },
+  "10": {
+   "type": "L-TABLE",
+   "n": 16,
+   "words": 132,
+   "turns": 12
+  },
+  "11": {
+   "type": "L-RESPONSE",
+   "n": 16,
+   "words": 53,
+   "turns": 3
+  },
+  "12": {
+   "type": "L-RESPONSE",
+   "n": 16,
+   "words": 54,
+   "turns": 4
+  },
+  "13": {
+   "type": "L-RESPONSE",
+   "n": 16,
+   "words": 132,
+   "turns": 13
+  },
+  "14": {
+   "type": "L-RESPONSE",
+   "n": 16,
+   "words": 132,
+   "turns": 12
+  },
+  "15": {
+   "type": "L-SITUATION",
+   "n": 16,
+   "words": 122,
+   "turns": 2
+  },
+  "16": {
+   "type": "L-SET-TOPIC",
+   "n": 16,
+   "words": 164,
+   "turns": 1
+  },
+  "17": {
+   "type": "L-SET-NOT",
+   "n": 16,
+   "words": 164,
+   "turns": 1
+  }
+ },
+ "lisPerExam": 2066.6875,
+ "order": {
+  "n": 20,
+  "mono": 16,
+  "pairs": 59,
+  "conc": 54,
+  "rows": [
+   {
+    "exam": "2023",
+    "no": 8,
+    "stem": "대화를 듣고, 졸업 사진 촬영에 관해 언급되지 않은 것을 고르시오.",
+    "turns": [
+     {
+      "who": "?",
+      "text": "[Telephone rings.]"
+     },
+     {
+      "who": "W",
+      "text": "Hello, Jennifer Porter speaking."
+     },
+     {
+      "who": "M",
+      "text": "Hi, Ms. Porter. This is Steve Jackson from Lifetime Photo Studio."
+     },
+     {
+      "who": "W",
+      "text": "Oh, how are you?"
+     },
+     {
+      "who": "M",
+      "text": "Good. I’m scheduled to shoot your school’s graduation photos on Wednesday, November 23rd. So, I’m calling to confirm the details."
+     },
+     {
+      "who": "W",
+      "text": "Sure. As we previously discussed, the place will be Lily Pond Park."
+     },
+     {
+      "who": "M",
+      "text": "Okay. Could you tell me the exact number of students taking part in the photo session?"
+     },
+     {
+      "who": "W",
+      "text": "Let me check. [Pause] Well, it’ll be 180 students."
+     },
+     {
+      "who": "M",
+      "text": "I see. The same as you said before."
+     },
+     {
+      "who": "W",
+      "text": "That’s right. How long will it take to shoot the photos?"
+     },
+     {
+      "who": "M",
+      "text": "It’ll take almost three hours. We should finish by noon."
+     },
+     {
+      "who": "W",
+      "text": "Great. Is there any other information you need?"
+     },
+     {
+      "who": "M",
+      "text": "No, I’m all set. Bye."
+     }
+    ],
+    "script": "[Telephone rings.] Hello, Jennifer Porter speaking. Hi, Ms. Porter. This is Steve Jackson from Lifetime Photo Studio. Oh, how are you? Good. I’m scheduled to shoot your school’s graduation photos on Wednesday, November 23rd. So, I’m calling to confirm the details. Sure. As we previously discussed, the place will be Lily Pond Park. Okay. Could you tell me the exact number of students taking part in the photo session? Let me check. [Pause] Well, it’ll be 180 students. I see. The same as you said before. That’s right. How long will it take to shoot the photos? It’ll take almost three hours. We should finish by noon. Great. Is there any other information you need? No, I’m all set. Bye.",
+    "words": 119,
+    "nTurns": 13,
+    "speakers": [
+     "W",
+     "M"
+    ],
+    "isDialogue": true,
+    "typeGuess": "L-NOTMENTION",
+    "typeGuessAll": [
+     "L-NOTMENTION"
+    ],
+    "type": "L-NOTMENTION",
+    "ok": false,
+    "why": "선택지 없음"
+   },
+   {
+    "exam": "2023",
+    "no": 9,
+    "stem": "Greenville Houseplant Expo에 관한 다음 내용을 듣고, 일치하지 않는 것을 고르시오.",
+    "turns": [
+     {
+      "who": "W",
+      "text": "Hello, listeners. I’m Melinda Jones from the organizing committee of the Greenville Houseplant Expo. I’m here to announce that the expo will run for three days starting on March 17th, 2023. Just on the opening day, there’ll be a lecture on plant care methods. This lecture will be given by Dr. Evans, host of the TV show Plants Love You. Most importantly, you can buy a variety of plants, including rare species, exhibited in the expo. Due to its popularity, you’d better get your tickets early. Tickets are available through online purchase only. If you’re a plant lover, come to the expo, which will take place at the Emerald Convention Center, and refresh your houseplant collection."
+     }
+    ],
+    "script": "Hello, listeners. I’m Melinda Jones from the organizing committee of the Greenville Houseplant Expo. I’m here to announce that the expo will run for three days starting on March 17th, 2023. Just on the opening day, there’ll be a lecture on plant care methods. This lecture will be given by Dr. Evans, host of the TV show Plants Love You. Most importantly, you can buy a variety of plants, including rare species, exhibited in the expo. Due to its popularity, you’d better get your tickets early. Tickets are available through online purchase only. If you’re a plant lover, come to the expo, which will take place at the Emerald Convention Center, and refresh your houseplant collection.",
+    "words": 115,
+    "nTurns": 1,
+    "speakers": [
+     "W"
+    ],
+    "isDialogue": false,
+    "typeGuess": "L-ANNOUNCE",
+    "typeGuessAll": [
+     "L-ANNOUNCE"
+    ],
+    "type": "L-ANNOUNCE",
+    "ok": false,
+    "why": "선택지 없음"
+   },
+   {
+    "exam": "2023",
+    "no": 10,
+    "stem": "다음 표를 보면서 대화를 듣고, 여자가 구매할 첼로 케이스를 고르시오.",
+    "turns": [
+     {
+      "who": "M",
+      "text": "Welcome to Uptown Music Shop. How can I help you?"
+     },
+     {
+      "who": "W",
+      "text": "Hi, I’m looking for a hard cello case."
+     },
+     {
+      "who": "M",
+      "text": "All right. Here’s our catalog. These are the ones we have in stock. How much are you willing to spend?"
+     },
+     {
+      "who": "W",
+      "text": "I can spend up to $200."
+     },
+     {
+      "who": "M",
+      "text": "Okay. How about the interior material? Do you have a preference?"
+     },
+     {
+      "who": "W",
+      "text": "Well, I don’t want the velvet one. It seems difficult to take care of."
+     },
+     {
+      "who": "M",
+      "text": "Right. Then how about the length?"
+     },
+     {
+      "who": "W",
+      "text": "I have a full-size cello, so I want a case that’s at least 50 inches long."
+     },
+     {
+      "who": "M",
+      "text": "Now you have two options left. Do you need wheels on your case?"
+     },
+     {
+      "who": "W",
+      "text": "No, I don’t need them. I won’t carry it around a lot."
+     },
+     {
+      "who": "M",
+      "text": "Then this is the one for you."
+     },
+     {
+      "who": "W",
+      "text": "Thank you. I’ll take it."
+     }
+    ],
+    "script": "Welcome to Uptown Music Shop. How can I help you? Hi, I’m looking for a hard cello case. All right. Here’s our catalog. These are the ones we have in stock. How much are you willing to spend? I can spend up to $200. Okay. How about the interior material? Do you have a preference? Well, I don’t want the velvet one. It seems difficult to take care of. Right. Then how about the length? I have a full-size cello, so I want a case that’s at least 50 inches long. Now you have two options left. Do you need wheels on your case? No, I don’t need them. I won’t carry it around a lot. Then this is the one for you. Thank you. I’ll take it.",
+    "words": 126,
+    "nTurns": 12,
+    "speakers": [
+     "M",
+     "W"
+    ],
+    "isDialogue": true,
+    "typeGuess": "L-TABLE",
+    "typeGuessAll": [
+     "L-TABLE"
+    ],
+    "type": "L-TABLE",
+    "ok": false,
+    "why": "선택지 없음"
+   },
+   {
+    "exam": "2023",
+    "no": 17,
+    "type": "L-SET-NOT",
+    "ok": true,
+    "pos": [
+     31,
+     65,
+     96,
+     124,
+     null
+    ],
+    "pairs": 3,
+    "conc": 3,
+    "mono": true
+   },
+   {
+    "exam": "2017",
+    "no": 10,
+    "type": "L-NOTMENTION",
+    "ok": false,
+    "why": "닻 0개"
+   },
+   {
+    "exam": "2017",
+    "no": 11,
+    "type": "L-ANNOUNCE",
+    "ok": false,
+    "why": "닻 0개"
+   },
+   {
+    "exam": "2017",
+    "no": 12,
+    "type": "L-TABLE",
+    "ok": false,
+    "why": "닻 0개"
+   },
+   {
+    "exam": "2017",
+    "no": 17,
+    "type": "L-SET-NOT",
+    "ok": true,
+    "pos": [
+     49,
+     80,
+     109,
+     null,
+     146
+    ],
+    "pairs": 3,
+    "conc": 3,
+    "mono": true
+   },
+   {
+    "exam": "2018",
+    "no": 10,
+    "type": "L-NOTMENTION",
+    "ok": false,
+    "why": "닻 0개"
+   },
+   {
+    "exam": "2018",
+    "no": 11,
+    "type": "L-ANNOUNCE",
+    "ok": true,
+    "pos": [
+     34,
+     null,
+     64,
+     84,
+     null
+    ],
+    "pairs": 2,
+    "conc": 2,
+    "mono": true
+   },
+   {
+    "exam": "2018",
+    "no": 12,
+    "type": "L-TABLE",
+    "ok": false,
+    "why": "닻 2개"
+   },
+   {
+    "exam": "2018",
+    "no": 17,
+    "type": "L-SET-NOT",
+    "ok": true,
+    "pos": [
+     41,
+     67,
+     93,
+     119,
+     null
+    ],
+    "pairs": 3,
+    "conc": 3,
+    "mono": true
+   },
+   {
+    "exam": "2019",
+    "no": 10,
+    "type": "L-NOTMENTION",
+    "ok": false,
+    "why": "닻 0개"
+   },
+   {
+    "exam": "2019",
+    "no": 11,
+    "type": "L-ANNOUNCE",
+    "ok": false,
+    "why": "닻 0개"
+   },
+   {
+    "exam": "2019",
+    "no": 12,
+    "type": "L-TABLE",
+    "ok": true,
+    "pos": [
+     34,
+     34,
+     36,
+     36,
+     null
+    ],
+    "pairs": 3,
+    "conc": 3,
+    "mono": true
+   },
+   {
+    "exam": "2019",
+    "no": 17,
+    "type": "L-SET-NOT",
+    "ok": true,
+    "pos": [
+     23,
+     60,
+     97,
+     130,
+     null
+    ],
+    "pairs": 3,
+    "conc": 3,
+    "mono": true
+   },
+   {
+    "exam": "2020",
+    "no": 10,
+    "type": "L-NOTMENTION",
+    "ok": false,
+    "why": "닻 0개"
+   },
+   {
+    "exam": "2020",
+    "no": 11,
+    "type": "L-ANNOUNCE",
+    "ok": false,
+    "why": "닻 2개"
+   },
+   {
+    "exam": "2020",
+    "no": 12,
+    "type": "L-TABLE",
+    "ok": true,
+    "pos": [
+     95,
+     115,
+     95,
+     95,
+     118
+    ],
+    "pairs": 4,
+    "conc": 3,
+    "mono": false
+   },
+   {
+    "exam": "2020",
+    "no": 17,
+    "type": "L-SET-NOT",
+    "ok": true,
+    "pos": [
+     23,
+     52,
+     null,
+     93,
+     121
+    ],
+    "pairs": 3,
+    "conc": 3,
+    "mono": true
+   },
+   {
+    "exam": "2021",
+    "no": 8,
+    "stem": "대화를 듣고, Bradford Museum of Failure에 관해 언급되지 않은 것을 고르시오.",
+    "turns": [
+     {
+      "who": "M",
+      "text": "Hey, Kelly. Have you been to the Bradford Museum of Failure?"
+     },
+     {
+      "who": "W",
+      "text": "I’ve never even heard of it."
+     },
+     {
+      "who": "M",
+      "text": "Well, I went there yesterday and it was amazing."
+     },
+     {
+      "who": "W",
+      "text": "What does the museum exhibit?"
+     },
+     {
+      "who": "M",
+      "text": "It exhibits numerous failed products from the world’s best-known companies."
+     },
+     {
+      "who": "W",
+      "text": "Interesting. That makes me curious about the purpose of founding the museum."
+     },
+     {
+      "who": "M",
+      "text": "It was founded to deliver the message that we need to admit our failures to truly succeed."
+     },
+     {
+      "who": "W",
+      "text": "That’s quite a message, and it makes a lot of sense. Did it just open?"
+     },
+     {
+      "who": "M",
+      "text": "No, it opened in 2001."
+     },
+     {
+      "who": "W",
+      "text": "How come I’ve never heard of it?"
+     },
+     {
+      "who": "M",
+      "text": "I guess many people don’t know about it. But visiting the museum was an eye-opening experience."
+     },
+     {
+      "who": "W",
+      "text": "Where is it?"
+     },
+     {
+      "who": "M",
+      "text": "It’s located in Greenfalls, Hillside."
+     },
+     {
+      "who": "W",
+      "text": "That’s not too far from here. I’ll be sure to visit it."
+     }
+    ],
+    "script": "Hey, Kelly. Have you been to the Bradford Museum of Failure? I’ve never even heard of it. Well, I went there yesterday and it was amazing. What does the museum exhibit? It exhibits numerous failed products from the world’s best-known companies. Interesting. That makes me curious about the purpose of founding the museum. It was founded to deliver the message that we need to admit our failures to truly succeed. That’s quite a message, and it makes a lot of sense. Did it just open? No, it opened in 2001. How come I’ve never heard of it? I guess many people don’t know about it. But visiting the museum was an eye-opening experience. Where is it? It’s located in Greenfalls, Hillside. That’s not too far from here. I’ll be sure to visit it.",
+    "words": 132,
+    "nTurns": 14,
+    "speakers": [
+     "M",
+     "W"
+    ],
+    "isDialogue": true,
+    "typeGuess": "L-NOTMENTION",
+    "typeGuessAll": [
+     "L-NOTMENTION"
+    ],
+    "type": "L-NOTMENTION",
+    "ok": false,
+    "why": "선택지 없음"
+   },
+   {
+    "exam": "2021",
+    "no": 9,
+    "stem": "National Baking Competition에 관한 다음 내용을 듣고, 일치하지 않는 것을 고르시오.",
+    "turns": [
+     {
+      "who": "W",
+      "text": "Hello, listeners. I’m Carla Jones from the National Baking Association. I’m glad to announce that we’re hosting the National Baking Competition on December 20th. It’s an annual event aimed to discover people with a talent and passion for baking. This year, the theme of the competition is “healthy desserts.” We had the most applicants in the history of this competition, and only 10 participants will advance to the final round. The top three will win the grand prize of $10,000 each, and the recipes of the winners will appear in our magazine. You can enjoy watching the entire competition from home. It’ll be broadcast live on our website starting from 9 a.m. If you’re a food lover, you won’t want to miss watching this event."
+     }
+    ],
+    "script": "Hello, listeners. I’m Carla Jones from the National Baking Association. I’m glad to announce that we’re hosting the National Baking Competition on December 20th. It’s an annual event aimed to discover people with a talent and passion for baking. This year, the theme of the competition is “healthy desserts.” We had the most applicants in the history of this competition, and only 10 participants will advance to the final round. The top three will win the grand prize of $10,000 each, and the recipes of the winners will appear in our magazine. You can enjoy watching the entire competition from home. It’ll be broadcast live on our website starting from 9 a.m. If you’re a food lover, you won’t want to miss watching this event.",
+    "words": 123,
+    "nTurns": 1,
+    "speakers": [
+     "W"
+    ],
+    "isDialogue": false,
+    "typeGuess": "L-ANNOUNCE",
+    "typeGuessAll": [
+     "L-ANNOUNCE"
+    ],
+    "type": "L-ANNOUNCE",
+    "ok": false,
+    "why": "선택지 없음"
+   },
+   {
+    "exam": "2021",
+    "no": 10,
+    "stem": "다음 표를 보면서 대화를 듣고, 여자가 주문할 재사용 빨대 세트를 고르시오.",
+    "turns": [
+     {
+      "who": "M",
+      "text": "Hi, Nicole. What are you doing?"
+     },
+     {
+      "who": "W",
+      "text": "Hi, Jack. I’m trying to buy a reusable straw set on the Internet. Do you want to see?"
+     },
+     {
+      "who": "M",
+      "text": "Sure. [Pause] These bamboo ones seem good. They’re made from natural materials."
+     },
+     {
+      "who": "W",
+      "text": "That’s true, but I’m worried they may not dry quickly."
+     },
+     {
+      "who": "M",
+      "text": "Okay. Then let’s look at straws made from other materials. How much are you willing to spend on a set of straws?"
+     },
+     {
+      "who": "W",
+      "text": "I don’t want to spend more than $10."
+     },
+     {
+      "who": "M",
+      "text": "That’s reasonable. How about length?"
+     },
+     {
+      "who": "W",
+      "text": "To use with my tumbler, eight or nine inches should be perfect."
+     },
+     {
+      "who": "M",
+      "text": "Then you’re down to these two. A carrying case would be very useful when going out."
+     },
+     {
+      "who": "W",
+      "text": "Good point. I’ll take your recommendation and order this set now."
+     }
+    ],
+    "script": "Hi, Nicole. What are you doing? Hi, Jack. I’m trying to buy a reusable straw set on the Internet. Do you want to see? Sure. [Pause] These bamboo ones seem good. They’re made from natural materials. That’s true, but I’m worried they may not dry quickly. Okay. Then let’s look at straws made from other materials. How much are you willing to spend on a set of straws? I don’t want to spend more than $10. That’s reasonable. How about length? To use with my tumbler, eight or nine inches should be perfect. Then you’re down to these two. A carrying case would be very useful when going out. Good point. I’ll take your recommendation and order this set now.",
+    "words": 119,
+    "nTurns": 10,
+    "speakers": [
+     "M",
+     "W"
+    ],
+    "isDialogue": true,
+    "typeGuess": "L-TABLE",
+    "typeGuessAll": [
+     "L-TABLE"
+    ],
+    "type": "L-TABLE",
+    "ok": false,
+    "why": "선택지 없음"
+   },
+   {
+    "exam": "2021",
+    "no": 17,
+    "type": "L-SET-NOT",
+    "ok": true,
+    "pos": [
+     31,
+     67,
+     91,
+     124,
+     null
+    ],
+    "pairs": 3,
+    "conc": 3,
+    "mono": true
+   },
+   {
+    "exam": "2022",
+    "no": 8,
+    "stem": "대화를 듣고, Little Readers’ Class에 관해 언급되지 않은 것을 고르시오.",
+    "turns": [
+     {
+      "who": "M",
+      "text": "Christine, I heard your daughter Jennifer loves reading. Unfortunately, my daughter doesn’t."
+     },
+     {
+      "who": "W",
+      "text": "Actually, Jennifer didn’t enjoy reading until she took the Little Readers’ Class. It provides various fun reading activities."
+     },
+     {
+      "who": "M",
+      "text": "Really? It might be good for my daughter, too. Where’s it held?"
+     },
+     {
+      "who": "W",
+      "text": "It’s held at the Stonefield Library. I have a picture of the flyer somewhere in my phone. [Pause] Here."
+     },
+     {
+      "who": "M",
+      "text": "Oh. The class is from 4 p.m. to 5 p.m. every Monday."
+     },
+     {
+      "who": "W",
+      "text": "Is that time okay for her?"
+     },
+     {
+      "who": "M",
+      "text": "Yeah, she’s free on Monday afternoons."
+     },
+     {
+      "who": "W",
+      "text": "Great. The class is for children ages seven to nine. Your daughter is eight years old, right?"
+     },
+     {
+      "who": "M",
+      "text": "Yes, she can take it. So, to register, I should send an email to the address on the flyer."
+     },
+     {
+      "who": "W",
+      "text": "That’s right. I hope the class gets your daughter into reading."
+     }
+    ],
+    "script": "Christine, I heard your daughter Jennifer loves reading. Unfortunately, my daughter doesn’t. Actually, Jennifer didn’t enjoy reading until she took the Little Readers’ Class. It provides various fun reading activities. Really? It might be good for my daughter, too. Where’s it held? It’s held at the Stonefield Library. I have a picture of the flyer somewhere in my phone. [Pause] Here. Oh. The class is from 4 p.m. to 5 p.m. every Monday. Is that time okay for her? Yeah, she’s free on Monday afternoons. Great. The class is for children ages seven to nine. Your daughter is eight years old, right? Yes, she can take it. So, to register, I should send an email to the address on the flyer. That’s right. I hope the class gets your daughter into reading.",
+    "words": 132,
+    "nTurns": 10,
+    "speakers": [
+     "M",
+     "W"
+    ],
+    "isDialogue": true,
+    "typeGuess": "L-NOTMENTION",
+    "typeGuessAll": [
+     "L-NOTMENTION"
+    ],
+    "type": "L-NOTMENTION",
+    "ok": false,
+    "why": "선택지 없음"
+   },
+   {
+    "exam": "2022",
+    "no": 9,
+    "type": "L-ANNOUNCE",
+    "ok": false,
+    "why": "닻 2개"
+   },
+   {
+    "exam": "2022",
+    "no": 10,
+    "stem": "다음 표를 보면서 대화를 듣고, 두 사람이 예약할 스터디 룸을 고르시오.",
+    "turns": [
+     {
+      "who": "M",
+      "text": "Megan, did you reserve a study room for our group project meeting tomorrow?"
+     },
+     {
+      "who": "W",
+      "text": "I’m looking at a website to book a room. Let’s book it together."
+     },
+     {
+      "who": "M",
+      "text": "Sure. [Pause] Oh, only these rooms are available."
+     },
+     {
+      "who": "W",
+      "text": "Yeah. Hmm, this one is too small for us."
+     },
+     {
+      "who": "M",
+      "text": "Right. We need a room big enough to accommodate six of us."
+     },
+     {
+      "who": "W",
+      "text": "Okay. Now, let’s look at the times. We all agreed to meet after 1 p.m., right?"
+     },
+     {
+      "who": "M",
+      "text": "Yes. Then let’s skip this one."
+     },
+     {
+      "who": "W",
+      "text": "How much can we spend on the study room?"
+     },
+     {
+      "who": "M",
+      "text": "Since we’re meeting for two hours, I don’t think we can spend more than $20 per hour. It’s beyond our budget."
+     },
+     {
+      "who": "W",
+      "text": "Then, there are two options left. Should we choose a study room with a projector?"
+     },
+     {
+      "who": "M",
+      "text": "Absolutely. We’ll need it to practice for our presentation."
+     },
+     {
+      "who": "W",
+      "text": "Then let’s reserve this one."
+     }
+    ],
+    "script": "Megan, did you reserve a study room for our group project meeting tomorrow? I’m looking at a website to book a room. Let’s book it together. Sure. [Pause] Oh, only these rooms are available. Yeah. Hmm, this one is too small for us. Right. We need a room big enough to accommodate six of us. Okay. Now, let’s look at the times. We all agreed to meet after 1 p.m., right? Yes. Then let’s skip this one. How much can we spend on the study room? Since we’re meeting for two hours, I don’t think we can spend more than $20 per hour. It’s beyond our budget. Then, there are two options left. Should we choose a study room with a projector? Absolutely. We’ll need it to practice for our presentation. Then let’s reserve this one.",
+    "words": 135,
+    "nTurns": 12,
+    "speakers": [
+     "M",
+     "W"
+    ],
+    "isDialogue": true,
+    "typeGuess": "L-TABLE",
+    "typeGuessAll": [
+     "L-TABLE"
+    ],
+    "type": "L-TABLE",
+    "ok": false,
+    "why": "선택지 없음"
+   },
+   {
+    "exam": "2022",
+    "no": 17,
+    "type": "L-SET-NOT",
+    "ok": true,
+    "pos": [
+     32,
+     58,
+     86,
+     119,
+     null
+    ],
+    "pairs": 3,
+    "conc": 3,
+    "mono": true
+   },
+   {
+    "exam": "M1906",
+    "no": 10,
+    "stem": "대화를 듣고, 에 Tanzania Volunteer Program 관해 언급되지 않은 것을 고르시오.",
+    "turns": [
+     {
+      "who": "M",
+      "text": "Laura, what are you reading there?"
+     },
+     {
+      "who": "W",
+      "text": "Hi, Allen. It’s a brochure for the Tanzania Volunteer Program. It’s for students."
+     },
+     {
+      "who": "M",
+      "text": "When is the program?"
+     },
+     {
+      "who": "W",
+      "text": "It goes from August 6th to August 20th."
+     },
+     {
+      "who": "M",
+      "text": "What activities will the volunteers do?"
+     },
+     {
+      "who": "W",
+      "text": "There are many activities to choose from. Look here. The participants will assist patients in a hospital, help children in need, or teach English."
+     },
+     {
+      "who": "M",
+      "text": "That sounds like exactly what you’ve been looking for. Oh, the participation fee is $250."
+     },
+     {
+      "who": "W",
+      "text": "Yes. It’s not as expensive as I thought."
+     },
+     {
+      "who": "M",
+      "text": "You’re going to participate, aren’t you?"
+     },
+     {
+      "who": "W",
+      "text": "Yes. I really want to spend my vacation doing something meaningful."
+     },
+     {
+      "who": "M",
+      "text": "You’d better hurry up. The brochure says the deadline for application is June 11th. That’s next Monday."
+     },
+     {
+      "who": "W",
+      "text": "I saw that. I plan to talk about it with my parents tonight."
+     }
+    ],
+    "script": "Laura, what are you reading there? Hi, Allen. It’s a brochure for the Tanzania Volunteer Program. It’s for students. When is the program? It goes from August 6th to August 20th. What activities will the volunteers do? There are many activities to choose from. Look here. The participants will assist patients in a hospital, help children in need, or teach English. That sounds like exactly what you’ve been looking for. Oh, the participation fee is $250. Yes. It’s not as expensive as I thought. You’re going to participate, aren’t you? Yes. I really want to spend my vacation doing something meaningful. You’d better hurry up. The brochure says the deadline for application is June 11th. That’s next Monday. I saw that. I plan to talk about it with my parents tonight.",
+    "words": 130,
+    "nTurns": 12,
+    "speakers": [
+     "M",
+     "W"
+    ],
+    "isDialogue": true,
+    "typeGuess": "L-NOTMENTION",
+    "typeGuessAll": [
+     "L-NOTMENTION"
+    ],
+    "type": "L-NOTMENTION",
+    "ok": false,
+    "why": "선택지 없음"
+   },
+   {
+    "exam": "M1906",
+    "no": 11,
+    "stem": "에 2018 Youth History Tour 관한 다음 내용을 듣고, 일치하지 않는 것을 고르시오.",
+    "turns": [
+     {
+      "who": "W",
+      "text": "Good morning, students. This is your history teacher, Ms. Spencer. I have an announcement on the 2018 Youth History Tour. This tour aims to promote students’ interest in history. It’s a one-week tour which goes from July 25th to July 31st. During this period, the students who join this tour will visit five cities and explore their various historic sites. A historian will guide the tour and offer in-depth explanations of each location. The participation fee is $170, but traveler’s insurance isn’t included. You’ll need to buy it yourself. I hope that many students will join the tour and have a memorable experience. Please visit my office by this Friday for more information. Thank you."
+     }
+    ],
+    "script": "Good morning, students. This is your history teacher, Ms. Spencer. I have an announcement on the 2018 Youth History Tour. This tour aims to promote students’ interest in history. It’s a one-week tour which goes from July 25th to July 31st. During this period, the students who join this tour will visit five cities and explore their various historic sites. A historian will guide the tour and offer in-depth explanations of each location. The participation fee is $170, but traveler’s insurance isn’t included. You’ll need to buy it yourself. I hope that many students will join the tour and have a memorable experience. Please visit my office by this Friday for more information. Thank you.",
+    "words": 113,
+    "nTurns": 1,
+    "speakers": [
+     "W"
+    ],
+    "isDialogue": false,
+    "typeGuess": "L-ANNOUNCE",
+    "typeGuessAll": [
+     "L-ANNOUNCE"
+    ],
+    "type": "L-ANNOUNCE",
+    "ok": false,
+    "why": "선택지 없음"
+   },
+   {
+    "exam": "M1906",
+    "no": 12,
+    "stem": "다음 표를 보면서 대화를 듣고, 여자가 주문할 식탁을 고르시오.",
+    "turns": [
+     {
+      "who": "M",
+      "text": "Honey, look at this website. There’s a big sale on dining tables."
+     },
+     {
+      "who": "W",
+      "text": "Really? Let’s get one. Ours is old."
+     },
+     {
+      "who": "M",
+      "text": "It is. Which one do you think we should get?"
+     },
+     {
+      "who": "W",
+      "text": "Hmm. I think we need a table for at least four people."
+     },
+     {
+      "who": "M",
+      "text": "Right. We can have visitors and dine together."
+     },
+     {
+      "who": "W",
+      "text": "We should decide our price range."
+     },
+     {
+      "who": "M",
+      "text": "Well, we can’t afford a table over $500."
+     },
+     {
+      "who": "W",
+      "text": "Then, these models are within our budget."
+     },
+     {
+      "who": "M",
+      "text": "I like marble tables. They look more stylish than wood."
+     },
+     {
+      "who": "W",
+      "text": "I agree. Now we have just two options left."
+     },
+     {
+      "who": "M",
+      "text": "Which color shall we choose? How about brown?"
+     },
+     {
+      "who": "W",
+      "text": "Hmm, that won’t match our wallpaper very well."
+     },
+     {
+      "who": "M",
+      "text": "That’s a good point. I didn’t think about that. Let’s buy the other one."
+     },
+     {
+      "who": "W",
+      "text": "Okay. I’ll order it now."
+     }
+    ],
+    "script": "Honey, look at this website. There’s a big sale on dining tables. Really? Let’s get one. Ours is old. It is. Which one do you think we should get? Hmm. I think we need a table for at least four people. Right. We can have visitors and dine together. We should decide our price range. Well, we can’t afford a table over $500. Then, these models are within our budget. I like marble tables. They look more stylish than wood. I agree. Now we have just two options left. Which color shall we choose? How about brown? Hmm, that won’t match our wallpaper very well. That’s a good point. I didn’t think about that. Let’s buy the other one. Okay. I’ll order it now.",
+    "words": 123,
+    "nTurns": 14,
+    "speakers": [
+     "M",
+     "W"
+    ],
+    "isDialogue": true,
+    "typeGuess": "L-TABLE",
+    "typeGuessAll": [
+     "L-TABLE"
+    ],
+    "type": "L-TABLE",
+    "ok": false,
+    "why": "선택지 없음"
+   },
+   {
+    "exam": "M1906",
+    "no": 17,
+    "stem": "언급된 직업이 아닌 것은?",
+    "turns": [
+     {
+      "who": "M",
+      "text": "Hello, students. Last class, we learned about famous artists in history. Today, I’ll talk about what a few famous artists regularly did to get inspiration for their creative work. First, let’s take a look at a well-known filmmaker, Ingmar Bergman. He worked at exactly the same time and even ate the same lunch every day. His daily habits were a driving force for his movies. Tchaikovsky, one of the greatest composers, always went for a long walk regardless of the weather. It was essential to his musical creativity. A famous British writer, Agatha Christie, had her own unusual habit, too. She used to sit in a bathtub and eat apples, which helped her to imagine the crimes she would put in her novels. Here’s one more interesting habit. Salvador Dali, a famous painter, used to nap while holding a key in his hand. When he fell asleep, the key would slip from his fingers, waking him up with the clink sound. He captured that moment between dreaming and waking on his canvas. So, what do you do regularly to come up with new ideas?"
+     }
+    ],
+    "fromSet": "16~17",
+    "script": "Hello, students. Last class, we learned about famous artists in history. Today, I’ll talk about what a few famous artists regularly did to get inspiration for their creative work. First, let’s take a look at a well-known filmmaker, Ingmar Bergman. He worked at exactly the same time and even ate the same lunch every day. His daily habits were a driving force for his movies. Tchaikovsky, one of the greatest composers, always went for a long walk regardless of the weather. It was essential to his musical creativity. A famous British writer, Agatha Christie, had her own unusual habit, too. She used to sit in a bathtub and eat apples, which helped her to imagine the crimes she would put in her novels. Here’s one more interesting habit. Salvador Dali, a famous painter, used to nap while holding a key in his hand. When he fell asleep, the key would slip from his fingers, waking him up with the clink sound. He captured that moment between dreaming and waking on his canvas. So, what do you do regularly to come up with new ideas?",
+    "words": 184,
+    "nTurns": 1,
+    "speakers": [
+     "M"
+    ],
+    "isDialogue": false,
+    "typeGuess": "L-SET-NOT",
+    "typeGuessAll": [
+     "L-SET-NOT"
+    ],
+    "type": "L-SET-NOT",
+    "ok": false,
+    "why": "선택지 없음"
+   },
+   {
+    "exam": "M1909",
+    "no": 10,
+    "stem": "대화를 듣고, Middleton Public Hearing에 관해 언급되지 않은 것을 고르시오.",
+    "turns": [
+     {
+      "who": "W",
+      "text": "Mark, will you be going to the Middleton Public Hearing? I know you’re interested in what’s going on in our city."
+     },
+     {
+      "who": "M",
+      "text": "The Middleton Public Hearing?"
+     },
+     {
+      "who": "W",
+      "text": "Yes. The city holds it whenever there’s an issue affecting residents."
+     },
+     {
+      "who": "M",
+      "text": "Oh, good. What’s going to be discussed?"
+     },
+     {
+      "who": "W",
+      "text": "The topic this time is the declining air quality in our city."
+     },
+     {
+      "who": "M",
+      "text": "I’ve been worried about that. I’m glad the city is paying attention. When will it be held?"
+     },
+     {
+      "who": "W",
+      "text": "It’ll be held at 2 p.m. on Tuesday, October 2nd. Do you think you can make it?"
+     },
+     {
+      "who": "M",
+      "text": "I’m free that day. Where will it take place?"
+     },
+     {
+      "who": "W",
+      "text": "At City Hall."
+     },
+     {
+      "who": "M",
+      "text": "Okay. Will there be an opportunity to ask questions?"
+     },
+     {
+      "who": "W",
+      "text": "Of course. There’s always time for questions and answers."
+     },
+     {
+      "who": "M",
+      "text": "Great. I’ll be there."
+     }
+    ],
+    "script": "Mark, will you be going to the Middleton Public Hearing? I know you’re interested in what’s going on in our city. The Middleton Public Hearing? Yes. The city holds it whenever there’s an issue affecting residents. Oh, good. What’s going to be discussed? The topic this time is the declining air quality in our city. I’ve been worried about that. I’m glad the city is paying attention. When will it be held? It’ll be held at 2 p.m. on Tuesday, October 2nd. Do you think you can make it? I’m free that day. Where will it take place? At City Hall. Okay. Will there be an opportunity to ask questions? Of course. There’s always time for questions and answers. Great. I’ll be there.",
+    "words": 123,
+    "nTurns": 12,
+    "speakers": [
+     "W",
+     "M"
+    ],
+    "isDialogue": true,
+    "typeGuess": "L-NOTMENTION",
+    "typeGuessAll": [
+     "L-NOTMENTION"
+    ],
+    "type": "L-NOTMENTION",
+    "ok": false,
+    "why": "선택지 없음"
+   },
+   {
+    "exam": "M1909",
+    "no": 11,
+    "stem": "Megan’s Bites에 관한 다음 내용을 듣고, 일치하지 않는 것을 고르시오.",
+    "turns": [
+     {
+      "who": "M",
+      "text": "Are you tired of always eating the same cookies from the supermarket? Then, it’s time to visit Megan’s Bites, a store famous for their handmade cookies. They use a recipe that the owner’s grandmother created. Thanks to this recipe, Megan’s Bites makes cookies which are crispy on the outside and soft on the inside. They’re so delicious that you won’t be able to stop eating them. In fact, Megan’s Bites was selected as the best cookie store by Dessert Magazine in 2017. Their first store is located in Boston. But their cookies are so popular that last month they opened their second store, which is in New York. Why don’t you go and try their cookies yourself? You won’t regret it."
+     }
+    ],
+    "script": "Are you tired of always eating the same cookies from the supermarket? Then, it’s time to visit Megan’s Bites, a store famous for their handmade cookies. They use a recipe that the owner’s grandmother created. Thanks to this recipe, Megan’s Bites makes cookies which are crispy on the outside and soft on the inside. They’re so delicious that you won’t be able to stop eating them. In fact, Megan’s Bites was selected as the best cookie store by Dessert Magazine in 2017. Their first store is located in Boston. But their cookies are so popular that last month they opened their second store, which is in New York. Why don’t you go and try their cookies yourself? You won’t regret it.",
+    "words": 120,
+    "nTurns": 1,
+    "speakers": [
+     "M"
+    ],
+    "isDialogue": false,
+    "typeGuess": "L-ANNOUNCE",
+    "typeGuessAll": [
+     "L-ANNOUNCE"
+    ],
+    "type": "L-ANNOUNCE",
+    "ok": false,
+    "why": "선택지 없음"
+   },
+   {
+    "exam": "M1909",
+    "no": 12,
+    "stem": "다음 표를 보면서 대화를 듣고, 여자가 주문할 노트북 컴퓨터 배낭을 고르시오.",
+    "turns": [
+     {
+      "who": "W",
+      "text": "Tony, can you help me buy a backpack for my laptop?"
+     },
+     {
+      "who": "M",
+      "text": "Sure. Let’s use this app. [Smartphone typing sound] Here are the five best selling models. What size do you want?"
+     },
+     {
+      "who": "W",
+      "text": "I want a backpack that’s bigger than 17 inches."
+     },
+     {
+      "who": "M",
+      "text": "Okay. What’s your budget?"
+     },
+     {
+      "who": "W",
+      "text": "Well, I don’t want to spend more than $60."
+     },
+     {
+      "who": "M",
+      "text": "Alright. You can also choose the number of inner pockets. How many do you want?"
+     },
+     {
+      "who": "W",
+      "text": "I’ll need at least five to put all my stuff in. [Pause] Oh, these backpacks come with a promotional gift."
+     },
+     {
+      "who": "M",
+      "text": "Yeah. There are two options. Which one do you prefer?"
+     },
+     {
+      "who": "W",
+      "text": "Hmm... I already have several USB sticks, so I want the other one."
+     },
+     {
+      "who": "M",
+      "text": "Then, it’s decided."
+     },
+     {
+      "who": "W",
+      "text": "Yes. I’ll order it."
+     }
+    ],
+    "script": "Tony, can you help me buy a backpack for my laptop? Sure. Let’s use this app. [Smartphone typing sound] Here are the five best selling models. What size do you want? I want a backpack that’s bigger than 17 inches. Okay. What’s your budget? Well, I don’t want to spend more than $60. Alright. You can also choose the number of inner pockets. How many do you want? I’ll need at least five to put all my stuff in. [Pause] Oh, these backpacks come with a promotional gift. Yeah. There are two options. Which one do you prefer? Hmm... I already have several USB sticks, so I want the other one. Then, it’s decided. Yes. I’ll order it.",
+    "words": 116,
+    "nTurns": 11,
+    "speakers": [
+     "W",
+     "M"
+    ],
+    "isDialogue": true,
+    "typeGuess": "L-TABLE",
+    "typeGuessAll": [
+     "L-TABLE"
+    ],
+    "type": "L-TABLE",
+    "ok": false,
+    "why": "선택지 없음"
+   },
+   {
+    "exam": "M1909",
+    "no": 17,
+    "stem": "언급된 음식이 아닌 것은?",
+    "turns": [
+     {
+      "who": "W",
+      "text": "Welcome to the Farrington Wellness Center. I’m Dr. Hannah Dawson. As you know, sleep is affected by many factors. According to research, one such factor is food. Some foods are good for sleep. For example, bananas are loaded with magnesium, a mineral that promotes sleep by helping relax your muscles. Another good food is milk. Dairy products help the body make a hormone that helps regulate sleep. On the other hand, there are many foods to avoid, especially before bed. Don’t order French fries late at night because fatty foods take long to digest, which harms the quality of your sleep. Also, put away candies before bed. Sugary foods can keep you awake because they increase your blood sugar. So if you’re having problems sleeping, take a look at your diet because good sleep depends on what you eat. Now, I’ll present some information from studies I’ve conducted on this topic."
+     }
+    ],
+    "fromSet": "16~17",
+    "script": "Welcome to the Farrington Wellness Center. I’m Dr. Hannah Dawson. As you know, sleep is affected by many factors. According to research, one such factor is food. Some foods are good for sleep. For example, bananas are loaded with magnesium, a mineral that promotes sleep by helping relax your muscles. Another good food is milk. Dairy products help the body make a hormone that helps regulate sleep. On the other hand, there are many foods to avoid, especially before bed. Don’t order French fries late at night because fatty foods take long to digest, which harms the quality of your sleep. Also, put away candies before bed. Sugary foods can keep you awake because they increase your blood sugar. So if you’re having problems sleeping, take a look at your diet because good sleep depends on what you eat. Now, I’ll present some information from studies I’ve conducted on this topic.",
+    "words": 151,
+    "nTurns": 1,
+    "speakers": [
+     "W"
+    ],
+    "isDialogue": false,
+    "typeGuess": "L-SET-NOT",
+    "typeGuessAll": [
+     "L-SET-NOT"
+    ],
+    "type": "L-SET-NOT",
+    "ok": false,
+    "why": "선택지 없음"
+   },
+   {
+    "exam": "M2109",
+    "no": 8,
+    "stem": "대화를 듣고, Run with Your Dog 행사에 관해 언급되지 않은 것을 고르시오.",
+    "turns": [
+     {
+      "who": "W",
+      "text": "Hey, Lucas. What are you doing?"
+     },
+     {
+      "who": "M",
+      "text": "Hi, Erica. I’m reading an email about a charity event called Run with Your Dog."
+     },
+     {
+      "who": "W",
+      "text": "I’ve never heard about that before. What is it for?"
+     },
+     {
+      "who": "M",
+      "text": "This event is to raise money for animal shelters in the neighborhood."
+     },
+     {
+      "who": "W",
+      "text": "That sounds like a really good cause. Are you going to sign up?"
+     },
+     {
+      "who": "M",
+      "text": "Yes. Are you interested?"
+     },
+     {
+      "who": "W",
+      "text": "Maybe. When is it?"
+     },
+     {
+      "who": "M",
+      "text": "It’s on Saturday, September 19th. The event will run from 7 a.m. to 10 a.m."
+     },
+     {
+      "who": "W",
+      "text": "That’s good. I’m free, then. Where will it be held?"
+     },
+     {
+      "who": "M",
+      "text": "It’ll take place at Magic River Park."
+     },
+     {
+      "who": "W",
+      "text": "Oh, I often walk my dog there. Is there a participation fee?"
+     },
+     {
+      "who": "M",
+      "text": "Yes. It’s $5. If you would like to join, I’ll send you the link to the website, which provides more detailed information."
+     },
+     {
+      "who": "W",
+      "text": "Yes, please. I want to participate in the event, too."
+     },
+     {
+      "who": "M",
+      "text": "Good. I expect to see you there."
+     }
+    ],
+    "script": "Hey, Lucas. What are you doing? Hi, Erica. I’m reading an email about a charity event called Run with Your Dog. I’ve never heard about that before. What is it for? This event is to raise money for animal shelters in the neighborhood. That sounds like a really good cause. Are you going to sign up? Yes. Are you interested? Maybe. When is it? It’s on Saturday, September 19th. The event will run from 7 a.m. to 10 a.m. That’s good. I’m free, then. Where will it be held? It’ll take place at Magic River Park. Oh, I often walk my dog there. Is there a participation fee? Yes. It’s $5. If you would like to join, I’ll send you the link to the website, which provides more detailed information. Yes, please. I want to participate in the event, too. Good. I expect to see you there.",
+    "words": 146,
+    "nTurns": 14,
+    "speakers": [
+     "W",
+     "M"
+    ],
+    "isDialogue": true,
+    "typeGuess": "L-NOTMENTION",
+    "typeGuessAll": [
+     "L-NOTMENTION"
+    ],
+    "type": "L-NOTMENTION",
+    "ok": false,
+    "why": "선택지 없음"
+   },
+   {
+    "exam": "M2109",
+    "no": 9,
+    "stem": "Bluemont Salt Mine의 특별 행사에 관한 다음 내용을 듣고, 일치하지 않는 것을",
+    "turns": [
+     {
+      "who": "?",
+      "text": "고르시오."
+     },
+     {
+      "who": "M",
+      "text": "Hello, listeners. I’m Bernard Reed from Bluemont Salt Mine. I’m pleased to announce that we’re having a special event from October 10th to October 16th. It’s to celebrate the 500th anniversary of the salt mine’s opening. During this event, visitors will be allowed to enter the deepest part of our mine. Also, you’ll have the chance to dress up in our traditional miner’s clothes. Feel free to take pictures to remember your visit. But that’s not all. There will be a 50% discount on the admission fee for all visitors. Last but not least, we’re giving away a gift to all visitors. It’s a badge with the Bluemont logo on it. For more information, please visit our website."
+     }
+    ],
+    "script": "고르시오. Hello, listeners. I’m Bernard Reed from Bluemont Salt Mine. I’m pleased to announce that we’re having a special event from October 10th to October 16th. It’s to celebrate the 500th anniversary of the salt mine’s opening. During this event, visitors will be allowed to enter the deepest part of our mine. Also, you’ll have the chance to dress up in our traditional miner’s clothes. Feel free to take pictures to remember your visit. But that’s not all. There will be a 50% discount on the admission fee for all visitors. Last but not least, we’re giving away a gift to all visitors. It’s a badge with the Bluemont logo on it. For more information, please visit our website.",
+    "words": 117,
+    "nTurns": 2,
+    "speakers": [
+     "M"
+    ],
+    "isDialogue": false,
+    "typeGuess": "L-ANNOUNCE",
+    "typeGuessAll": [
+     "L-ANNOUNCE"
+    ],
+    "type": "L-ANNOUNCE",
+    "ok": false,
+    "why": "선택지 없음"
+   },
+   {
+    "exam": "M2109",
+    "no": 10,
+    "stem": "다음 표를 보면서 대화를 듣고, 두 사람이 주문할 크레용 세트를 고르시오.",
+    "turns": [
+     {
+      "who": "W",
+      "text": "Honey, what should we get for our granddaughter, Emily, for her birthday?"
+     },
+     {
+      "who": "M",
+      "text": "Well, I’ve been looking up crayon sets on the Internet. Do you want to see?"
+     },
+     {
+      "who": "W",
+      "text": "Sure. [Pause] How many crayons do you think are enough?"
+     },
+     {
+      "who": "M",
+      "text": "I think 48 crayons are too many for a six year old."
+     },
+     {
+      "who": "W",
+      "text": "I agree. But I also want to spend more than $10 on our granddaughter’s present."
+     },
+     {
+      "who": "M",
+      "text": "Definitely. Do you think she needs washable ones?"
+     },
+     {
+      "who": "W",
+      "text": "Yes. That way Emily can wash off crayon marks if she gets them on her hands."
+     },
+     {
+      "who": "M",
+      "text": "I see. Look. Each set comes with a free gift."
+     },
+     {
+      "who": "W",
+      "text": "Oh, that’s right. Which one is better for her, a sharpener or a coloring book?"
+     },
+     {
+      "who": "M",
+      "text": "I think the coloring book is better because she likes to collect all kinds of coloring books."
+     },
+     {
+      "who": "W",
+      "text": "Right. I really think she’s going to love our present."
+     },
+     {
+      "who": "M",
+      "text": "Then, it’s settled. Let’s order this one."
+     }
+    ],
+    "script": "Honey, what should we get for our granddaughter, Emily, for her birthday? Well, I’ve been looking up crayon sets on the Internet. Do you want to see? Sure. [Pause] How many crayons do you think are enough? I think 48 crayons are too many for a six year old. I agree. But I also want to spend more than $10 on our granddaughter’s present. Definitely. Do you think she needs washable ones? Yes. That way Emily can wash off crayon marks if she gets them on her hands. I see. Look. Each set comes with a free gift. Oh, that’s right. Which one is better for her, a sharpener or a coloring book? I think the coloring book is better because she likes to collect all kinds of coloring books. Right. I really think she’s going to love our present. Then, it’s settled. Let’s order this one.",
+    "words": 145,
+    "nTurns": 12,
+    "speakers": [
+     "W",
+     "M"
+    ],
+    "isDialogue": true,
+    "typeGuess": "L-TABLE",
+    "typeGuessAll": [
+     "L-TABLE"
+    ],
+    "type": "L-TABLE",
+    "ok": false,
+    "why": "선택지 없음"
+   },
+   {
+    "exam": "M2109",
+    "no": 17,
+    "type": "L-SET-NOT",
+    "ok": true,
+    "pos": [
+     25,
+     67,
+     100,
+     61,
+     null
+    ],
+    "pairs": 3,
+    "conc": 2,
+    "mono": false
+   },
+   {
+    "exam": "M2206",
+    "no": 8,
+    "type": "L-NOTMENTION",
+    "ok": false,
+    "why": "닻 0개"
+   },
+   {
+    "exam": "M2206",
+    "no": 9,
+    "type": "L-ANNOUNCE",
+    "ok": true,
+    "pos": [
+     null,
+     14,
+     91,
+     null,
+     94
+    ],
+    "pairs": 2,
+    "conc": 2,
+    "mono": true
+   },
+   {
+    "exam": "M2206",
+    "no": 10,
+    "type": "L-TABLE",
+    "ok": true,
+    "pos": [
+     34,
+     80,
+     null,
+     null,
+     80
+    ],
+    "pairs": 2,
+    "conc": 2,
+    "mono": true
+   },
+   {
+    "exam": "M2206",
+    "no": 17,
+    "type": "L-SET-NOT",
+    "ok": true,
+    "pos": [
+     38,
+     68,
+     null,
+     100,
+     125
+    ],
+    "pairs": 3,
+    "conc": 3,
+    "mono": true
+   },
+   {
+    "exam": "M2209",
+    "no": 8,
+    "stem": "대화를 듣고, Digital Publishing Workshop에 관해 언급되지 않은 것을 고르시오.",
+    "turns": [
+     {
+      "who": "?",
+      "text": "[Cell phone rings.]"
+     },
+     {
+      "who": "M",
+      "text": "Hey, Charlotte. What’s up?"
+     },
+     {
+      "who": "W",
+      "text": "Hi, Chris. I’m looking at information about an online course called Digital Publishing Workshop. How about taking it with me?"
+     },
+     {
+      "who": "M",
+      "text": "Sounds interesting. Tell me more."
+     },
+     {
+      "who": "W",
+      "text": "The purpose of the workshop is to provide guidelines for publishing digital magazines and e­books. What do you think?"
+     },
+     {
+      "who": "M",
+      "text": "Actually, I’ve been dreaming about publishing my own e­books. But, is it okay if I don’t have any experience?"
+     },
+     {
+      "who": "W",
+      "text": "Of course. It’s targeted at college students who’re just starting out."
+     },
+     {
+      "who": "M",
+      "text": "Great. Then when is the workshop?"
+     },
+     {
+      "who": "W",
+      "text": "It’s held for three days from October 27th to 29th."
+     },
+     {
+      "who": "M",
+      "text": "Excellent. Midterm exams will be over by then. Do we need to register?"
+     },
+     {
+      "who": "W",
+      "text": "Yes. We can do it online. There’s a link to the registration page on our library’s website."
+     },
+     {
+      "who": "M",
+      "text": "Okay. Let’s sign up."
+     }
+    ],
+    "script": "[Cell phone rings.] Hey, Charlotte. What’s up? Hi, Chris. I’m looking at information about an online course called Digital Publishing Workshop. How about taking it with me? Sounds interesting. Tell me more. The purpose of the workshop is to provide guidelines for publishing digital magazines and e­books. What do you think? Actually, I’ve been dreaming about publishing my own e­books. But, is it okay if I don’t have any experience? Of course. It’s targeted at college students who’re just starting out. Great. Then when is the workshop? It’s held for three days from October 27th to 29th. Excellent. Midterm exams will be over by then. Do we need to register? Yes. We can do it online. There’s a link to the registration page on our library’s website. Okay. Let’s sign up.",
+    "words": 133,
+    "nTurns": 12,
+    "speakers": [
+     "M",
+     "W"
+    ],
+    "isDialogue": true,
+    "typeGuess": "L-NOTMENTION",
+    "typeGuessAll": [
+     "L-NOTMENTION"
+    ],
+    "type": "L-NOTMENTION",
+    "ok": false,
+    "why": "선택지 없음"
+   },
+   {
+    "exam": "M2209",
+    "no": 9,
+    "stem": "2021 Playground in the Park에 관한 다음 내용을 듣고, 일치하지 않는 것을 고르시오.",
+    "turns": [
+     {
+      "who": "W",
+      "text": "Hello, listeners. Would you like your kids to have a good time in a park away from smartphones and video games? Then there’s an exciting event for all of you. Our radio station is hosting the 2021 Playground in the Park. This event will be on Saturday, September 25th from 10 a.m. to 3 p.m. at the Queens Quarter Park. There are five play zones, including giant seesaws, tree houses, and elephant­shaped slides. Hurry and sign up now because only up to 60 kids can participate in this event. There’ll be food trucks, so you can buy a variety of foods at the event site. This is an outdoor event, so the event will be rescheduled if it rains. Visit our website for more information."
+     }
+    ],
+    "script": "Hello, listeners. Would you like your kids to have a good time in a park away from smartphones and video games? Then there’s an exciting event for all of you. Our radio station is hosting the 2021 Playground in the Park. This event will be on Saturday, September 25th from 10 a.m. to 3 p.m. at the Queens Quarter Park. There are five play zones, including giant seesaws, tree houses, and elephant­shaped slides. Hurry and sign up now because only up to 60 kids can participate in this event. There’ll be food trucks, so you can buy a variety of foods at the event site. This is an outdoor event, so the event will be rescheduled if it rains. Visit our website for more information.",
+    "words": 124,
+    "nTurns": 1,
+    "speakers": [
+     "W"
+    ],
+    "isDialogue": false,
+    "typeGuess": "L-ANNOUNCE",
+    "typeGuessAll": [
+     "L-ANNOUNCE"
+    ],
+    "type": "L-ANNOUNCE",
+    "ok": false,
+    "why": "선택지 없음"
+   },
+   {
+    "exam": "M2209",
+    "no": 10,
+    "stem": "다음 표를 보면서 대화를 듣고, 여자가 구매할 블루투스 이어폰을 고르시오.",
+    "turns": [
+     {
+      "who": "M",
+      "text": "Welcome to Aiden’s Electronics. What can I do for you?"
+     },
+     {
+      "who": "W",
+      "text": "Hi. I’m looking for bluetooth earphones."
+     },
+     {
+      "who": "M",
+      "text": "Okay. These are the five models we carry. Do you have any particular brand in mind?"
+     },
+     {
+      "who": "W",
+      "text": "No, but I want earphones with a battery that lasts at least three hours. It takes me more than two hours to go to work."
+     },
+     {
+      "who": "M",
+      "text": "All right. Are you interested in wireless charging?"
+     },
+     {
+      "who": "W",
+      "text": "Yes. It’d be nice to charge my earphones without connecting to a charging cable."
+     },
+     {
+      "who": "M",
+      "text": "Got it. What about the price?"
+     },
+     {
+      "who": "W",
+      "text": "I definitely don’t want to spend more than $100."
+     },
+     {
+      "who": "M",
+      "text": "No problem. Then you are down to these two. This model comes with a silicone case cover, and that one comes with a leather case cover."
+     },
+     {
+      "who": "W",
+      "text": "Well, I don’t like the feel of the silicone. It feels weird."
+     },
+     {
+      "who": "M",
+      "text": "Then, this is the model for you."
+     },
+     {
+      "who": "W",
+      "text": "Perfect. I’ll take it."
+     }
+    ],
+    "script": "Welcome to Aiden’s Electronics. What can I do for you? Hi. I’m looking for bluetooth earphones. Okay. These are the five models we carry. Do you have any particular brand in mind? No, but I want earphones with a battery that lasts at least three hours. It takes me more than two hours to go to work. All right. Are you interested in wireless charging? Yes. It’d be nice to charge my earphones without connecting to a charging cable. Got it. What about the price? I definitely don’t want to spend more than $100. No problem. Then you are down to these two. This model comes with a silicone case cover, and that one comes with a leather case cover. Well, I don’t like the feel of the silicone. It feels weird. Then, this is the model for you. Perfect. I’ll take it.",
+    "words": 142,
+    "nTurns": 12,
+    "speakers": [
+     "M",
+     "W"
+    ],
+    "isDialogue": true,
+    "typeGuess": "L-TABLE",
+    "typeGuessAll": [
+     "L-TABLE"
+    ],
+    "type": "L-TABLE",
+    "ok": false,
+    "why": "선택지 없음"
+   },
+   {
+    "exam": "M2209",
+    "no": 17,
+    "type": "L-SET-NOT",
+    "ok": true,
+    "pos": [
+     36,
+     68,
+     93,
+     null,
+     114
+    ],
+    "pairs": 3,
+    "conc": 3,
+    "mono": true
+   },
+   {
+    "exam": "M2306",
+    "no": 8,
+    "stem": "대화를 듣고, 2022 Technology Fair에 관해 언급되지 않은 것을 고르시오.",
+    "turns": [
+     {
+      "who": "M",
+      "text": "Rosa, did you find anything interesting on the community board?"
+     },
+     {
+      "who": "W",
+      "text": "Hey, James. Look. The 2022 Technology Fair is going on right now."
+     },
+     {
+      "who": "M",
+      "text": "Let me see. It says the theme of this fair is “AI and the Fourth Industrial Revolution.”"
+     },
+     {
+      "who": "W",
+      "text": "Yeah, AI technology is the topic for our group presentation."
+     },
+     {
+      "who": "M",
+      "text": "Right. I bet we could get a lot of useful information there. Hmm, do you see where it’s taking place?"
+     },
+     {
+      "who": "W",
+      "text": "Yes, look here. It’s being held at the civic center downtown. It’s within walking distance from here."
+     },
+     {
+      "who": "M",
+      "text": "Perfect. And the admission fee is $10 for students. Should we go?"
+     },
+     {
+      "who": "W",
+      "text": "Definitely. How about going next weekend?"
+     },
+     {
+      "who": "M",
+      "text": "No, we have to go this weekend. The fair ends on June 15th."
+     },
+     {
+      "who": "W",
+      "text": "Okay. Let’s look into getting tickets."
+     }
+    ],
+    "script": "Rosa, did you find anything interesting on the community board? Hey, James. Look. The 2022 Technology Fair is going on right now. Let me see. It says the theme of this fair is “AI and the Fourth Industrial Revolution.” Yeah, AI technology is the topic for our group presentation. Right. I bet we could get a lot of useful information there. Hmm, do you see where it’s taking place? Yes, look here. It’s being held at the civic center downtown. It’s within walking distance from here. Perfect. And the admission fee is $10 for students. Should we go? Definitely. How about going next weekend? No, we have to go this weekend. The fair ends on June 15th. Okay. Let’s look into getting tickets.",
+    "words": 121,
+    "nTurns": 10,
+    "speakers": [
+     "M",
+     "W"
+    ],
+    "isDialogue": true,
+    "typeGuess": "L-NOTMENTION",
+    "typeGuessAll": [
+     "L-NOTMENTION"
+    ],
+    "type": "L-NOTMENTION",
+    "ok": false,
+    "why": "선택지 없음"
+   },
+   {
+    "exam": "M2306",
+    "no": 9,
+    "stem": "Junior Money Smart Course에 관한 다음 내용을 듣고, 일치하지 않는 것을 고르시오.",
+    "turns": [
+     {
+      "who": "W",
+      "text": "Hello, parents. Do you want your children to learn how to be smart with their money? Then, sign them up for the Junior Money Smart Course. The instructor of this course is an economics professor, who will teach your children basic accounting principles and money management skills. This course is only for high school students. It’ll be held at the Shellburne Community Center from Monday to Friday in the afternoon. Registration can be done on our website starting from August 1st. Please note that on-site registration is not available. Everyone who signs up will receive a planner as a gift. Set your children on the right path for their financial security. For more information, visit our website, www.juniormoneysmart.com."
+     }
+    ],
+    "script": "Hello, parents. Do you want your children to learn how to be smart with their money? Then, sign them up for the Junior Money Smart Course. The instructor of this course is an economics professor, who will teach your children basic accounting principles and money management skills. This course is only for high school students. It’ll be held at the Shellburne Community Center from Monday to Friday in the afternoon. Registration can be done on our website starting from August 1st. Please note that on-site registration is not available. Everyone who signs up will receive a planner as a gift. Set your children on the right path for their financial security. For more information, visit our website, www.juniormoneysmart.com.",
+    "words": 120,
+    "nTurns": 1,
+    "speakers": [
+     "W"
+    ],
+    "isDialogue": false,
+    "typeGuess": "L-ANNOUNCE",
+    "typeGuessAll": [
+     "L-ANNOUNCE"
+    ],
+    "type": "L-ANNOUNCE",
+    "ok": false,
+    "why": "선택지 없음"
+   },
+   {
+    "exam": "M2306",
+    "no": 10,
+    "stem": "다음 표를 보면서 대화를 듣고, 여자가 구입할 책상용 태블릿 거치대를 고르시오.",
+    "turns": [
+     {
+      "who": "M",
+      "text": "Emily, what are you shopping for on your computer?"
+     },
+     {
+      "who": "W",
+      "text": "I’m looking at these tablet stands for desks. Can you help me choose one?"
+     },
+     {
+      "who": "M",
+      "text": "Sure. Let me take a look. [Pause] Hmm, these five models all look pretty good. How much do you want to spend?"
+     },
+     {
+      "who": "W",
+      "text": "I’d like to keep it under $20."
+     },
+     {
+      "who": "M",
+      "text": "Okay. Oh, it seems they come in three different materials. Do you have any preference?"
+     },
+     {
+      "who": "W",
+      "text": "Well, I don’t like the texture of wood. The other materials are fine, though."
+     },
+     {
+      "who": "M",
+      "text": "I see. And I think you should consider a foldable model because it’s easier to carry around."
+     },
+     {
+      "who": "W",
+      "text": "But I’ll mainly use it at home, so I don’t need a foldable one. Plus, it seems less stable."
+     },
+     {
+      "who": "M",
+      "text": "Then there are two options left. Which one do you like?"
+     },
+     {
+      "who": "W",
+      "text": "This silver one looks fancier."
+     },
+     {
+      "who": "M",
+      "text": "I agree."
+     },
+     {
+      "who": "W",
+      "text": "Okay. I’ll buy this one then. Thanks for your help."
+     }
+    ],
+    "script": "Emily, what are you shopping for on your computer? I’m looking at these tablet stands for desks. Can you help me choose one? Sure. Let me take a look. [Pause] Hmm, these five models all look pretty good. How much do you want to spend? I’d like to keep it under $20. Okay. Oh, it seems they come in three different materials. Do you have any preference? Well, I don’t like the texture of wood. The other materials are fine, though. I see. And I think you should consider a foldable model because it’s easier to carry around. But I’ll mainly use it at home, so I don’t need a foldable one. Plus, it seems less stable. Then there are two options left. Which one do you like? This silver one looks fancier. I agree. Okay. I’ll buy this one then. Thanks for your help.",
+    "words": 144,
+    "nTurns": 12,
+    "speakers": [
+     "M",
+     "W"
+    ],
+    "isDialogue": true,
+    "typeGuess": "L-TABLE",
+    "typeGuessAll": [
+     "L-TABLE"
+    ],
+    "type": "L-TABLE",
+    "ok": false,
+    "why": "선택지 없음"
+   },
+   {
+    "exam": "M2306",
+    "no": 17,
+    "type": "L-SET-NOT",
+    "ok": true,
+    "pos": [
+     41,
+     69,
+     101,
+     null,
+     128
+    ],
+    "pairs": 3,
+    "conc": 3,
+    "mono": true
+   },
+   {
+    "exam": "M2309",
+    "no": 8,
+    "stem": "대화를 듣고, Kint Chocolate Museum에 관해 언급되지 않은 것을 고르시오.",
+    "turns": [
+     {
+      "who": "M",
+      "text": "Ms. Brown. Have you decided where you’re taking the students on the school trip next month?"
+     },
+     {
+      "who": "W",
+      "text": "Yes, Principal Thompson. We’re going to the Kint Chocolate Museum."
+     },
+     {
+      "who": "M",
+      "text": "Oh, I’ve heard about that museum. It’s located in the center of Queen’s City, right?"
+     },
+     {
+      "who": "W",
+      "text": "That’s right. We’re going to leave at 9 a.m. from the school because the museum opens at 10 a.m."
+     },
+     {
+      "who": "M",
+      "text": "I didn’t know it takes an hour to get there."
+     },
+     {
+      "who": "W",
+      "text": "It doesn’t. But we wanted to make sure that we arrive early."
+     },
+     {
+      "who": "M",
+      "text": "Well planned! How about the admission fee?"
+     },
+     {
+      "who": "W",
+      "text": "Each entry ticket costs $12 and includes a chocolate-tasting event."
+     },
+     {
+      "who": "M",
+      "text": "The students will love it. I’m sure they’ll want to buy some chocolates."
+     },
+     {
+      "who": "W",
+      "text": "Absolutely. The museum is famous for its gift shop, and it has various chocolate-related items."
+     },
+     {
+      "who": "M",
+      "text": "Sounds great!"
+     }
+    ],
+    "script": "Ms. Brown. Have you decided where you’re taking the students on the school trip next month? Yes, Principal Thompson. We’re going to the Kint Chocolate Museum. Oh, I’ve heard about that museum. It’s located in the center of Queen’s City, right? That’s right. We’re going to leave at 9 a.m. from the school because the museum opens at 10 a.m. I didn’t know it takes an hour to get there. It doesn’t. But we wanted to make sure that we arrive early. Well planned! How about the admission fee? Each entry ticket costs $12 and includes a chocolate-tasting event. The students will love it. I’m sure they’ll want to buy some chocolates. Absolutely. The museum is famous for its gift shop, and it has various chocolate-related items. Sounds great!",
+    "words": 128,
+    "nTurns": 11,
+    "speakers": [
+     "M",
+     "W"
+    ],
+    "isDialogue": true,
+    "typeGuess": "L-NOTMENTION",
+    "typeGuessAll": [
+     "L-NOTMENTION"
+    ],
+    "type": "L-NOTMENTION",
+    "ok": false,
+    "why": "선택지 없음"
+   },
+   {
+    "exam": "M2309",
+    "no": 9,
+    "stem": "Endangered Animals Photo Exhibition에 관한 다음 내용을 듣고, 일치하지 않는",
+    "turns": [
+     {
+      "who": "?",
+      "text": "것을 고르시오."
+     },
+     {
+      "who": "W",
+      "text": "Hello, listeners. If you’re interested in wildlife photography, don’t miss the Endangered Animals Photo Exhibition at the Kenton Cultural Center. It starts on December 2nd, and continues for three weeks. Wildlife photographer, Richard Burrow, has taken pictures of many endangered species around the world. The exhibition displays 100 pictures of endangered animals, including birds and fish. Under the photographs, there are explanations for why the animals in the photos are in danger of extinction. Admission will be $20, and all the profits from the exhibition will be donated to an animal-protection center. At the end of the exhibition hall, posters of the endangered animals will be for sale at $5 each. For more information, please visit the website, www.kentonculturalcenter.com."
+     }
+    ],
+    "script": "것을 고르시오. Hello, listeners. If you’re interested in wildlife photography, don’t miss the Endangered Animals Photo Exhibition at the Kenton Cultural Center. It starts on December 2nd, and continues for three weeks. Wildlife photographer, Richard Burrow, has taken pictures of many endangered species around the world. The exhibition displays 100 pictures of endangered animals, including birds and fish. Under the photographs, there are explanations for why the animals in the photos are in danger of extinction. Admission will be $20, and all the profits from the exhibition will be donated to an animal-protection center. At the end of the exhibition hall, posters of the endangered animals will be for sale at $5 each. For more information, please visit the website, www.kentonculturalcenter.com.",
+    "words": 118,
+    "nTurns": 2,
+    "speakers": [
+     "W"
+    ],
+    "isDialogue": false,
+    "typeGuess": "L-ANNOUNCE",
+    "typeGuessAll": [
+     "L-ANNOUNCE"
+    ],
+    "type": "L-ANNOUNCE",
+    "ok": false,
+    "why": "선택지 없음"
+   },
+   {
+    "exam": "M2309",
+    "no": 10,
+    "stem": "다음 표를 보면서 대화를 듣고, 두 사람이 주문할 기내 휴대용 가방을 고르시오.",
+    "turns": [
+     {
+      "who": "W",
+      "text": "Honey. Could you come here and help me buy a carry-on bag for Sarah?"
+     },
+     {
+      "who": "M",
+      "text": "Of course. She’s old enough to have her own carry-on bag for our family trip next month."
+     },
+     {
+      "who": "W",
+      "text": "Right. Look at this website. There are five models to choose from."
+     },
+     {
+      "who": "M",
+      "text": "Hmm... How much should we spend?"
+     },
+     {
+      "who": "W",
+      "text": "Let’s not spend more than $100."
+     },
+     {
+      "who": "M",
+      "text": "That sounds reasonable. What about the size? How tall should it be?"
+     },
+     {
+      "who": "W",
+      "text": "The one that’s 14 inches in height isn’t big enough. She always likes to bring lots of toys and books with her."
+     },
+     {
+      "who": "M",
+      "text": "Okay. Do you think she’d like the black one?"
+     },
+     {
+      "who": "W",
+      "text": "No. She doesn’t like the color black. So, there are only two options left."
+     },
+     {
+      "who": "M",
+      "text": "I don’t think the fabric one is practical. It’ll easily get dirty."
+     },
+     {
+      "who": "W",
+      "text": "I agree. Let’s order the other one."
+     }
+    ],
+    "script": "Honey. Could you come here and help me buy a carry-on bag for Sarah? Of course. She’s old enough to have her own carry-on bag for our family trip next month. Right. Look at this website. There are five models to choose from. Hmm... How much should we spend? Let’s not spend more than $100. That sounds reasonable. What about the size? How tall should it be? The one that’s 14 inches in height isn’t big enough. She always likes to bring lots of toys and books with her. Okay. Do you think she’d like the black one? No. She doesn’t like the color black. So, there are only two options left. I don’t think the fabric one is practical. It’ll easily get dirty. I agree. Let’s order the other one.",
+    "words": 129,
+    "nTurns": 11,
+    "speakers": [
+     "W",
+     "M"
+    ],
+    "isDialogue": true,
+    "typeGuess": "L-TABLE",
+    "typeGuessAll": [
+     "L-TABLE"
+    ],
+    "type": "L-TABLE",
+    "ok": false,
+    "why": "선택지 없음"
+   },
+   {
+    "exam": "M2309",
+    "no": 17,
+    "type": "L-SET-NOT",
+    "ok": true,
+    "pos": [
+     7,
+     7,
+     127,
+     7,
+     126
+    ],
+    "pairs": 4,
+    "conc": 3,
+    "mono": false
+   },
+   {
+    "exam": "M2406",
+    "no": 8,
+    "type": "L-NOTMENTION",
+    "ok": false,
+    "why": "닻 0개"
+   },
+   {
+    "exam": "M2406",
+    "no": 9,
+    "stem": "Found 211에 관한 다음 내용을 듣고, 일치하지 않는 것을 고르시오.",
+    "turns": [
+     {
+      "who": "W",
+      "text": "Attention, H-rail train passengers. We would like to introduce a new website called Found 211 to help you find your lost items. Found 211 provides information about items you’ve lost on H-rail trains. To use Found 211, you first have to be a member of the website. Then, you need to post the details of your lost items to the website. If your lost items are found, Found 211 will inform you by a text message. In addition, foreign language services are provided in various languages, including French, Spanish and Chinese. You can also use Found 211 through our mobile application. We hope you have a pleasant trip to your destination. Thank you."
+     }
+    ],
+    "script": "Attention, H-rail train passengers. We would like to introduce a new website called Found 211 to help you find your lost items. Found 211 provides information about items you’ve lost on H-rail trains. To use Found 211, you first have to be a member of the website. Then, you need to post the details of your lost items to the website. If your lost items are found, Found 211 will inform you by a text message. In addition, foreign language services are provided in various languages, including French, Spanish and Chinese. You can also use Found 211 through our mobile application. We hope you have a pleasant trip to your destination. Thank you.",
+    "words": 108,
+    "nTurns": 1,
+    "speakers": [
+     "W"
+    ],
+    "isDialogue": false,
+    "typeGuess": "L-ANNOUNCE",
+    "typeGuessAll": [
+     "L-ANNOUNCE"
+    ],
+    "type": "L-ANNOUNCE",
+    "ok": false,
+    "why": "선택지 없음"
+   },
+   {
+    "exam": "M2406",
+    "no": 10,
+    "stem": "다음 표를 보면서 대화를 듣고, 여자가 구매할 쿠키 커터 세트를 고르시오.",
+    "turns": [
+     {
+      "who": "M",
+      "text": "Ellie, what are you looking at on your tablet PC?"
+     },
+     {
+      "who": "W",
+      "text": "I’m looking for a set of new cookie cutters. Can you help me pick a new set out from among these five?"
+     },
+     {
+      "who": "M",
+      "text": "Sure. There are many shapes to choose from. Do you have one in mind?"
+     },
+     {
+      "who": "W",
+      "text": "The star-shaped cutters look cool."
+     },
+     {
+      "who": "M",
+      "text": "They do, but I’ve heard it’s difficult to take the dough out of them."
+     },
+     {
+      "who": "W",
+      "text": "Really? Then, I don’t want to get the star-shaped ones."
+     },
+     {
+      "who": "M",
+      "text": "That makes sense. How much do you want to spend?"
+     },
+     {
+      "who": "W",
+      "text": "I’d like to spend less than $20."
+     },
+     {
+      "who": "M",
+      "text": "I see. Which material do you prefer?"
+     },
+     {
+      "who": "W",
+      "text": "I’ve been using metal cutters. But I want to use a different kind this time."
+     },
+     {
+      "who": "M",
+      "text": "Okay, then you have two options left."
+     },
+     {
+      "who": "W",
+      "text": "Yellow is my favorite color, so I’ll buy the yellow set."
+     }
+    ],
+    "script": "Ellie, what are you looking at on your tablet PC? I’m looking for a set of new cookie cutters. Can you help me pick a new set out from among these five? Sure. There are many shapes to choose from. Do you have one in mind? The star-shaped cutters look cool. They do, but I’ve heard it’s difficult to take the dough out of them. Really? Then, I don’t want to get the star-shaped ones. That makes sense. How much do you want to spend? I’d like to spend less than $20. I see. Which material do you prefer? I’ve been using metal cutters. But I want to use a different kind this time. Okay, then you have two options left. Yellow is my favorite color, so I’ll buy the yellow set.",
+    "words": 131,
+    "nTurns": 12,
+    "speakers": [
+     "M",
+     "W"
+    ],
+    "isDialogue": true,
+    "typeGuess": "L-TABLE",
+    "typeGuessAll": [
+     "L-TABLE"
+    ],
+    "type": "L-TABLE",
+    "ok": false,
+    "why": "선택지 없음"
+   },
+   {
+    "exam": "M2406",
+    "no": 17,
+    "type": "L-SET-NOT",
+    "ok": true,
+    "pos": [
+     38,
+     null,
+     70,
+     106,
+     143
+    ],
+    "pairs": 3,
+    "conc": 3,
+    "mono": true
+   },
+   {
+    "exam": "M2409",
+    "no": 8,
+    "stem": "대화를 듣고, Raven Elliott의 책 사인회에 관해 언급되지 않은 것을 고르시오.",
+    "turns": [
+     {
+      "who": "?",
+      "text": "[Cell phone rings.]"
+     },
+     {
+      "who": "W",
+      "text": "What’s up, James?"
+     },
+     {
+      "who": "M",
+      "text": "Hey, Amanda. What are you doing this Friday?"
+     },
+     {
+      "who": "W",
+      "text": "Not much. Why?"
+     },
+     {
+      "who": "M",
+      "text": "Raven Elliott’s book signing event is on Friday."
+     },
+     {
+      "who": "W",
+      "text": "Really? That’s November 3rd, right?"
+     },
+     {
+      "who": "M",
+      "text": "That’s right. The event will be held at Pineway bookstore. You know, she released her new novel."
+     },
+     {
+      "who": "W",
+      "text": "Yes, I know. I heard it’s really good. What time does the event start?"
+     },
+     {
+      "who": "M",
+      "text": "It starts at 7 p.m. Do you want to go?"
+     },
+     {
+      "who": "W",
+      "text": "Definitely! Do we need to sign up?"
+     },
+     {
+      "who": "M",
+      "text": "Yeah, I just did it. I’ll send you the link to the form. You should fill it out and submit it soon."
+     },
+     {
+      "who": "W",
+      "text": "Thanks. I’ll do it today."
+     },
+     {
+      "who": "M",
+      "text": "You’d better hurry! It’s limited to only 100 people."
+     },
+     {
+      "who": "W",
+      "text": "Got it."
+     }
+    ],
+    "script": "[Cell phone rings.] What’s up, James? Hey, Amanda. What are you doing this Friday? Not much. Why? Raven Elliott’s book signing event is on Friday. Really? That’s November 3rd, right? That’s right. The event will be held at Pineway bookstore. You know, she released her new novel. Yes, I know. I heard it’s really good. What time does the event start? It starts at 7 p.m. Do you want to go? Definitely! Do we need to sign up? Yeah, I just did it. I’ll send you the link to the form. You should fill it out and submit it soon. Thanks. I’ll do it today. You’d better hurry! It’s limited to only 100 people. Got it.",
+    "words": 115,
+    "nTurns": 14,
+    "speakers": [
+     "W",
+     "M"
+    ],
+    "isDialogue": true,
+    "typeGuess": "L-NOTMENTION",
+    "typeGuessAll": [
+     "L-NOTMENTION"
+    ],
+    "type": "L-NOTMENTION",
+    "ok": false,
+    "why": "선택지 없음"
+   },
+   {
+    "exam": "M2409",
+    "no": 9,
+    "type": "L-ANNOUNCE",
+    "ok": false,
+    "why": "닻 2개"
+   },
+   {
+    "exam": "M2409",
+    "no": 10,
+    "type": "L-TABLE",
+    "ok": true,
+    "pos": [
+     82,
+     41,
+     null,
+     63,
+     7
+    ],
+    "pairs": 3,
+    "conc": 1,
+    "mono": false
+   },
+   {
+    "exam": "M2409",
+    "no": 17,
+    "type": "L-SET-NOT",
+    "ok": true,
+    "pos": [
+     60,
+     84,
+     107,
+     null,
+     116
+    ],
+    "pairs": 3,
+    "conc": 3,
+    "mono": true
+   }
+  ]
+ }
+}

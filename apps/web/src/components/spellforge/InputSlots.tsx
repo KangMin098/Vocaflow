@@ -24,7 +24,7 @@ export function InputSlots({
   return (
     <div
       onClick={onClick}
-      className={`flex min-h-[60px] flex-wrap justify-center gap-1.5 ${isSuccess ? 'animate-[success-glow_500ms_ease]' : ''} `}
+      className={`flex min-h-[60px] flex-wrap justify-center gap-2 ${isSuccess ? 'animate-[success-glow_500ms_ease]' : ''} `}
     >
       {chars.map((char, idx) => {
         const isSpace = char === ' '

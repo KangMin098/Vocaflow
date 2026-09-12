@@ -1,0 +1,260 @@
+[
+  {
+    "adapted_from_id": "4530bc90-6e04-4a95-a9f8-b5688031244d",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "Make a Pinwheel Galaxy Pinwheel (3문단부터 발췌)",
+    "source_feed": "space_place",
+    "source_license": "public_domain",
+    "source_v_level": 4,
+    "source_url": "https://spaceplace.nasa.gov/pinwheel-galaxy/en/",
+    "source_text": "You can find it in the constellation Ursa Major, or the \"Big Dipper,\" in the Northern Hemisphere. With a nice, dark sky, you can see it with binoculars or a small telescope. For those of us who can't see it in the night sky, we can have the next best thing: a Pinwheel Galaxy pinwheel ! Make sure the pipe cleaner isn't secured so tightly that it doesn't let the paper move. If the paper flaps are hitting the stick, flatten out the pinwheel on a table. Then carefully open each point from the front. This will let air in to move the pinwheel. The The Hubble Space Telescope was launched in 1990. It orbits Earth and takes amazing pictures of stars, planets, and other galaxies. \" clicked=\"0\"> Hubble Space Telescope took this picture of M101 in visible light , the same waves that we can see with our eyes. The yellow core is made of old stars. The brown dust swirls are places where new stars can form.",
+    "teachable_new_words": {
+      "teachable": 8,
+      "outside": 34,
+      "pct": 23.5
+    },
+    "title": "A Galaxy Called the Pinwheel",
+    "text": "Look north on a dark night. Find the seven bright stars of the Big Dipper. A galaxy hides near those stars. People call it the Pinwheel Galaxy. Your eyes alone cannot see this galaxy. Binoculars or a small telescope can. A space telescope took a clear picture of it. The middle of the galaxy glows yellow. Those yellow stars are old stars. Brown dust curls around the middle in long arms. New stars are born inside that dust. The galaxy really does look like a pinwheel. You can make a paper pinwheel and see why."
+  },
+  {
+    "adapted_from_id": "79b5cf54-8343-4cf2-8ced-0d89f695427f",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "Lost and Found",
+    "source_feed": "storyweaver",
+    "source_license": "cc_by",
+    "source_v_level": 4,
+    "source_url": "https://storyweaver.org.in/stories/356-lost-and-found",
+    "source_text": "Not here, not there. Where have you gone? Not on the sofa. Not under the cot. Not in the box. Not under my sister's frock. Not under the pillow. Not in my bag. Sob, sob, where have you gone? I have looked in every room, l have looked under every book. I have looked under the chair, I have looked under the stool. Where have you gone? Soon granny came back from her walk. \"Look what I found in the park.\" \"It can sway, it can bounce. It can spin, it can dangle. Ha-ha, hee-hee,\" said Granny with a giggle. Oh Granny! Thank you so much! You have found my dear yo-yo! \"Yo-yo? What a funny name! What a funny toy! I want to play with it, It gives me so much joy!\" Giggle, giggle, giggling away, Granny played, with my little toy. For the rest of the day!",
+    "teachable_new_words": {
+      "teachable": 7,
+      "outside": 22,
+      "pct": 31.8
+    },
+    "title": "",
+    "text": ""
+  },
+  {
+    "adapted_from_id": "010b0f22-ac22-4a64-8db9-dbaa7b3b9bfe",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "Alaska Earthquake Rattles Florida’s Groundwater Plumbing",
+    "source_feed": "usgs",
+    "source_license": "public_domain",
+    "source_v_level": 5,
+    "source_url": "https://www.usgs.gov/news/science-snippet/alaska-earthquake-rattles-floridas-groundwater-plumbing",
+    "source_text": "More than 3,500 miles from the Kodiak Earthquake’s epicenter, water levels at the USGS groundwater well near Madison, Florida, spiked by about two inches, while levels at the USGS groundwater well near Fort Lauderdale, Florida, dropped by an inch and a half. Both recovered to their previous levels within an hour.\n\nHydrogeologic responses to earthquakes have been known for decades, and have occurred both close to, and thousands of miles from earthquake epicenters. Water wells have become turbid, dry or begun flowing, discharge of springs and ground water to streams has increased and new springs have formed, and well and surface-water quality have become degraded as a result of earthquakes.\nThis is not even the first time a major Alaska earthquake caused groundwater effects far from its original epicenter. Water-level fluctuations caused by the 1964 magnitude 8.5 Alaska earthquake were recorded in 716 wells in the United States; the earthquake also was registered on water-level recorders in many other countries.\n\nWhat Happens?\nOne common type of observed ground-water response is an instantaneous water-level offset, or step, which may be either an increase or a decrease and may occur near or far from the epicenter. Recovery to the pre-earthquake water level can be so rapid that no change will be detected if the water level is measured infrequently, or it may take as long as days or months.\nThe other common type of ground-water response is a water-level oscillation, which may occur during many earthquakes, but is rarely recorded because they do not last long enough for many groundwater monitoring systems to record them. In the few cases where oscillations have been recorded, they resemble long-period seismograms.\nThe change in water level can be small, measured in inches, or dramatic, measured in feet. However, the changes rarely exceed a couple of feet change.\n\nSo Why Does This Happen?\nFor the changes seen near Madison and Ft. Lauderdale, they are likely oscillations caused by the seismic waves. Think of it as the ripples in a glass of water on a table when a truck drives by outside.\nOther causes for groundwater effects from earthquakes include the compaction of the overlying rock layer like what happens during liquefaction. That compaction can lead to temporary spikes in groundwater levels. Meanwhile drops in groundwater levels can be caused by the escape of gas from the rock layers. In a fractured rock environment, changes in groundwater levels can be caused by the unclogging, widening, or narrowing of a fracture, or the creation of new fractures.\nUSGS monitors groundwater levels all over the country through its Groundwater Watch network. These wells are located in rural, suburban, and urban areas, and are monitored regularly. Some are even provide real-time data.\nIn addition, USGS continues to study the effects of seismic activity throughout the United States.\nRead more:\nEarthquakes—Rattling the Earth’s Plumbing System\nUSGS Groundwater Data for Florida\nUSGS Earthquake Hazards Program\nUSGS Groundwater Information",
+    "teachable_new_words": {
+      "teachable": 20,
+      "outside": 97,
+      "pct": 20.6
+    },
+    "title": "An Earthquake Moves Water Far Away",
+    "text": "A strong earthquake shook the ground in Alaska. Deep under Florida something moved too. Florida lies far across the country. Scientists watch the water inside wells there. In one well the water rose two inches. In another well the water fell. Both wells went back to normal within an hour. How can this happen so far away? An earthquake sends waves through the rock. The waves squeeze the rock and then let go. Water in the cracks moves when the rock moves. A well is like a long thin cup of water. Even a small push makes that water jump."
+  },
+  {
+    "adapted_from_id": "060df744-687c-4160-8ca2-08dd27057ca4",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "Germany Aims to Increase Educational Choices for Its Youth",
+    "source_feed": "voa",
+    "source_license": "public_domain",
+    "source_v_level": 4,
+    "source_url": "https://learningenglish.voanews.com/a/germany-aims-to-increase-educational-choices-for-its-youth/7546334.html",
+    "source_text": "Many European countries have programs that help place students in careers at a young age.\nIn Germany, some students move into education programs at the age of 10. The goal is to prepare them for a lifelong job. They continue their education but also take classes that will help them learn about their job. By the age of 16, those students are placed into work experience programs called apprenticeships.\nThe system helps keep unemployment among young people low. Groups in the U.S. have expressed interest in the system. They are concerned that the American university system does not prepare young people to enter the workforce.\nSome activists and writers such as Ryan Craig say, “many of the best jobs (the U.S.) has to offer don’t require a college education.” But in Germany, young people are starting to push back against the vocational track system that has been in place in one form or another for hundreds of years.\nCareer training\nIn the German state of North Rhine-Westphalia, students like Neriman Raim are learning more about jobs before getting on a career track.\nRaim is 16 years old. She now believes she wants to work with children. But at first, she thought she wanted to work in an office. She did an internship two years ago at an architecture office, but she found that she did not enjoy the work. Then, she was placed at a school and worked with children in kindergarten. She discovered that she did not like working with young children. “I could see what a day is like with kids,” she said.\nThe next school year, she spent three weeks working with older children, helping them finish assignments after school. She felt good about that experience. When she finishes school later this year, she will move into a one-year program that will help her decide if teaching will be the right job for her.\nThe program is called “no graduation without connection.” Students like Raim get help with resumes and job applications. They receive direction starting in ninth grade. By 10th grade, they can get work experience one day per week for the whole school year.\nSonja Gryzik is a teacher at Raim’s school, which is called Ursula Kuhr. “You don’t learn about a job in school,” she said. “You have to experience it.”\nA history of vocational training\nWhile the German system keeps youth unemployment low, critics have said for years that it does not work well for low-income students and immigrants. They say students from those families are pushed into vocational studies and not helped to move on to higher education. In addition, some say that recent immigrants are not told how to get into the training programs.\nAnother criticism of vocational training is that during the COVID-19 pandemic, most of those classes shut down. At the same time, university classes continued by video and students did not lose too much.\nStudies in Germany show that problems with vocational training have led more students to university educations. However, up to 28 percent of students do not finish their studies. The number is up to 50 percent for students in humanities and sciences.\nEducation reform\nPeople involved in education policy in Germany are concerned about the high failure rate. So, they are aiming to reform the vocational training system. Raim’s program is one of the new ones, where students have more choices when deciding on a career, and more chances for exploration before entering a career studies program.\nBernhard Meyer is a teacher at Raim’s school who manages the new program for 11 towns in northwestern Germany. “We have every type of possibility,” he said, noting that students have more choices than just “apprenticeship or university.”\nStudents in Raim’s program can complete their general education and also start a career they feel good about. It is unusual for students in higher-level academic high schools called gymnasiums to bypass university studies, but it does happen.\nTim Becker, 20, is one of those students. He took a university entrance exam at his high school in Cologne. But instead of starting his studies, he is doing an information technology apprenticeship. Becker said his parents were “uneasy” about his choice. They expected him to go on to higher education. But in school, he said he liked hands-on work more than academic theory.\n“I am just not that guy that likes to sit all day in any lectures at some university,” Becker said. He added that some of his old classmates left their universities to start internships.\nThe students at Ursula Kuhr and their parents attend meetings several times per year. As they learn more, parents feel better about the career choices of their children. Mile Glisic is 15. He is working at a hardware store and considering an apprenticeship in sales. He said his parents had questions about his career ideas, “but I know that they were very happy with it.”\nRaim’s mother said she loved the idea that her daughter would teach in a grade school. And Raim said the teachers help their students gain confidence. “They don’t want anyone to finish school and have nothing.”\nOther European countries are struggling with the same questions. Camilla Hutters is head of the National Center for Vocational Education, a research organization in Denmark. She said the country has a shortage of workers in fields that offer vocational training to young people.\nThat only became a problem starting after the 1990s. That is when Denmark scored poorly on an international education ranking list and more students started thinking about college. But now, Danish students as young as six are being shown different jobs so they can start thinking about a career path.\nHutters said programs are starting to make practical learning part of school in the early grades and continuing it through college. Danish leaders are asking universities to work with businesses.\nCollege degrees are still the goal for many Danish students and their parents, “so there is a little bit of mixed tendency…in Denmark,” Hutters said.\nMore young people in Denmark might take the path of Becker in Germany. He earns over $1,300 per month during his information technology internship and will be ready for a job as soon as September.\nBecker said it is nice to be able to get paid to learn, unlike some of his friends who are at a university. He said, “You don’t need to sit all day in university and go to work in the evening to pay your bills.”\nI’m Dan Friedell. And I’m Jill Robbins.\n\nDan Friedell adapted this story for Learning English based on a report by Frieda Klotz for the Hechinger Report. This story was produced by The Hechinger Report, a nonprofit, nonpartisan news outlet focused on education.\n____________________________________________________\n\ncareer –n. the path that a person takes of the course of their work life or their profession\napprenticeship –n. a period when a trainee works with an established tradesperson to get experience in a trade\ntrack –n. a path often related to jobs in which a person follows that narrowly prepares them for the work ahead\ninternship –n. a training period at an established organization in which a young person works for little or no money in exchange for job experience\nresume –n. a short document that outlines the work experience of a person applying for a job\nconfidence –n. the feeling that you can do something the right way\npractical –adj. something that is related to real-life problems and is not theoretical or political\ntendency –n. the likely direction of thought or movement\n\nWe want to hear from you. At what age do students explore careers where you live? Do you think the system works well?",
+    "teachable_new_words": {
+      "teachable": 50,
+      "outside": 173,
+      "pct": 28.9
+    },
+    "title": "",
+    "text": ""
+  },
+  {
+    "adapted_from_id": "ff20f244-96b6-4168-80da-8f4eea6dcf35",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "How Physical Therapists Can Prevent Future Health Problems",
+    "source_feed": "voa",
+    "source_license": "public_domain",
+    "source_v_level": 4,
+    "source_url": "https://learningenglish.voanews.com/a/how-physical-therapists-can-prevent-future-health-problems/7921334.html",
+    "source_text": "Many of us might only seek out physical therapists if we are recovering from accidental injuries or surgery. However, medical experts say these specialists can also help prevent many health problems if they are seen on a regular basis.\nOne leader in the industry, Sharon Dunn, even calls physical therapists “the best-kept secret in health care.” Dunn is the past president of the American Physical Therapy Association (APTA).\nShe recently told The Associated Press she thinks people need to look at physical therapists in a new way – as health practitioners who can help identify possible medical issues before they appear.\nOther health experts share this opinion. They include Roger Herr, the current president of the APTA, and Gammon Earhart of Washington University in St. Louis. They both shared Dunn’s prevention message in separate discussions with the AP.\nFollow the example of dental care\nEarhart urges people to think about physical therapists just as they do dentists. “Even if you’re not having any problem, you go in and have everything checked out.” She noted that such examinations could help find and deal with problems early.\nFor example, an exam could include a patient’s health history and current health – things like physical activity, sleep, nutrition, and so on. This could be followed by a look at how a person is moving. Exams might uncover things like postural issues or unusual body movements.\nHerr is a big supporter of yearly wellness visits. He told the AP he believes physical therapists can be helpful for all kinds of people – the young, athletes, or anyone who wants to be as “independent as possible.”\nThink prevention\nIn the United States, you can now visit a physical therapist in all 50 states without needing permission from a doctor or surgeon.\nHowever, a yearly exam might not be covered by a person’s health insurance. This could prevent some from seeking out care.\nEarhart estimated such a visit in areas across the U.S. Midwest might cost around $150. Herr suggested a cost of $200-$300 in more costly areas. But both experts said that in the long run, such exams might save money and can add healthy years.\n“I think if people understood more that the way they move might be setting them up for a problem down the line, they’d be much more inclined to see a physical therapist,” Earhart said.\nThe hips for ballet — or not\nWe are all built differently. So, it might be useful to examine children early to see what sports or activities might be good for them. Physical therapists can carry out such early exams.\nEarhart said, “If we screened kids as they were choosing sports and said this sport is probably not the right kind of stress for the way you are put together, it could save a lot pain and problems down the line.” She added about children, “Maybe they don’t have the hips for ballet.”\nDistance runners could also think this way. Some are built to avoid injuries despite running many kilometers while others are not. Exams by physical therapists could help identify future problems.\nFear of falling and issues with weight\nAnother area where physical therapists can help is with fall prevention. Falling – and the fear of falling – can be major issues, especially for the aging population.\n“You want to show people they can get back up if they fall,” Herr said. “And once they know they can do it, it gives them confidence and it can help reduce the fear of falling.\"\nHe added, “One of the risks of falling is that people don’t do anything, so you don’t move and therefore you become more out of shape...”\nHerr said one example could be to introduce exercises involving “floor to stand” movements. These can help improve flexibility, strength, balance, coordination, and planning.\n“It sounds simple getting up from a lying position on the floor to stand,” Herr said. “But it’s a great exercise for all age groups.”\nEarhart estimated about half of physical therapy patients seek help to deal with issues related to being overweight. “The more weight somebody is carrying the higher the loads are on their joints,” she said.\nHerr said he had watched extremely overweight patients successfully lose large amounts of weight. He noted that some of these individuals are motivated for a specific reason. But for others, it is not always that clear and easy.\n“I have seen people change based on a milestone, like having a kid and they really want to be a good parent,” Herr said. “They want to be a fit parent, and the same thing with a grandparent. So that motivates people to engage because of a lifestyle change.”\nI’m John Russell. And I’m Jill Robbins.\nStephen Wade reported on this story for the Associated Press. John Russell adapted it for VOA Learning English.\n____________________________________________________\nphysical therapy – n. a kind of treatment that helps how your body performs movements\npostural – adj. of or relating to the position or bearing of the body\ninsurance – n. an agreement in which you pay a company to cover necessary medical costs\ninclined – adj. likely to do something\nscreen – v. to find possible medical conditions by doing a test\nconfidence – n. the feeling or belief that someone or some group is good or able to succeed at something\ncoordination – n. the ability to use different parts of the body in a smooth and controlled manner\nmotivate – n. a to cause to behave in a certain way\nmilestone – n. an important development or event",
+    "teachable_new_words": {
+      "teachable": 52,
+      "outside": 136,
+      "pct": 38.2
+    },
+    "title": "",
+    "text": ""
+  },
+  {
+    "adapted_from_id": "538fe449-d6f6-4999-a5a9-99f2630f5ac1",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "NASA Robotic Tech Demo Will Advance Prototype Gamma-Ray Detectors - NASA Science",
+    "source_feed": "nasa",
+    "source_license": "public_domain",
+    "source_v_level": 5,
+    "source_url": "https://science.nasa.gov/missions/tech-demonstration/nasa-robotic-tech-demo-will-advance-prototype-gamma-ray-detectors/",
+    "source_text": "4 min read\n\nNASA Robotic Tech Demo Will Advance Prototype Gamma-Ray Detectors\n\nJeanette Kazmierczak\n\nJun 11, 2026\n Article\n\nA new type of gamma-ray sensor developed by NASA, called AstroPix, will take part in a robotic arm demonstration on the agency’s upcoming Fly Foundational Robots mission, set to launch in late 2027.\n\nGamma rays are the highest-energy form of light. Scientists observe them coming from events like lightning in Earth’s atmosphere, powerful solar flares from our Sun, and cosmic collisions in distant galaxies. The sensors on the AstroPix technology demonstration are designed to measure gamma rays between 20,000 and 700,000 electron volts. For comparison, visible light’s energy falls between 2 and 3 electron volts.\n\nCurrent NASA missions, including the Fermi Gamma-ray Space Telescope and Neil Gehrels Swift Observatory, also observe gamma rays, including those with even higher energies.\n\nBut for energies between 500,000 to 1 million electron volts, existing detectors are less sensitive. This range is where many powerful explosions called gamma-ray bursts shine the brightest. It’s also where astronomers expect to see the strongest glow from the most massive and distant active galaxies powered by black holes. By stacking AstroPix detectors in future missions, scientists could bridge this gap and improve observations of these cosmic objects to better understand the processes that create and drive them.\n\n“The Fly Foundational Robots spacecraft is also a technology demonstration, so the projects were a good fit for each other,” said Dan Violette, an AstroPix team member and post-doctoral fellow at NASA’s Goddard Space Flight Center in Greenbelt, Maryland. “We need to thoroughly test AstroPix’s performance before we can use the sensors in future science missions. We’ve flown comparable technologies on a scientific balloon mission, and the current prototype eventually will be part of a sounding rocket payload. Many of those flight opportunities only reach near space, though. It’s not often that technology demonstrations like ours can find a ride into orbit.”\n\nEach AstroPix chip has four silicon pixel gamma-ray detectors. Each of these detectors incorporates 1,225 pixels. AstroPix detectors, which are developed by NASA’s Goddard Space Flight Center in Greenbelt, Md., function similarly to the sensors in cellphone cameras except they are sensitive to gamma-ray light.\nImage courtesy of Argonne National Laboratory\n\nEach AstroPix chip contains four silicon pixel gamma-ray detectors, and each detector incorporates 1,225 pixels. The chips function similarly to the sensors in cell phone cameras.\n\nThe AstroPix Satellite Technology dEmonstration Payload, also known as A-STEP, will be hosted within the Fly Foundational Robots mission’s Orbital Replacement Unit, a movable module built by Rocket Lab Robotics. Rocket Lab Robotics also will provide a robotic arm that will pick up and reposition the unit during flight and perform in-orbit operations as part of a robotic servicing demonstration. The A-STEP payload will collect its data following the repositioning. Astro Digital will provide the spacecraft.\n\nThe Orbital Replacement Unit was designed to support power and data interfaces for a payload, but the original plan called for the robotic arm to reposition the module without one. As mission development progressed, however, the Fly Foundational Robots team identified an opportunity to further maximize the mission’s value by integrating an additional technology demonstration that could fit within the 11.8-inch (30-centimeter) cube.\n\n“The unit already had the volume, power, and data needed to support the AstroPix team’s design,” said Bo Naasz, senior technical lead, In-space Servicing, Assembly, and Manufacturing in the Space Technology Mission Directorate at NASA Headquarters in Washington. “One of our major goals with Fly Foundational Robots is to demonstrate robotic changeout of payloads in orbit, enabling upgrades or improvements to satellites and space instruments at a fraction of the cost of a full mission. Allowing AstroPix to complete its own technology demonstration in orbit is a bonus.”\n\nNASA’s Fly Foundational Robots mission will be hosted aboard a spacecraft provided by Astro Digital of Littleton, Colo., as shown in this artist’s concept. The robotic arm, provided by Motiv Space Systems in Pasadena, Calif., will perform a technology demonstration in orbit, including picking up and moving a small box containing the agency’s AstroPix gamma-ray sensors.\nRocket Lab Robotics\n\nThe AstroPix team is working to deliver their hardware this September, and it will be integrated into the Fly Foundational Robots payload before final integration onto the spacecraft. The Orbital Replacement Unit will hold the chips and all the associated electronics needed to provide power, and collect and transmit data during flight.\n\nNASA’s Fly Foundational Robots mission is funded through the Space Technology Mission Directorate’s ISAM portfolio, managed at NASA Goddard. Rocket Lab Robotics will supply the mission’s robotic arm system through a NASA Small Business Innovation Research Phase III award. Astro Digital will host the orbital flight test of the arm through NASA’s Flight Opportunities program, managed at NASA’s Armstrong Flight Research Center in Edwards, California. The development of AstroPix was supported by NASA’s Astrophysics Division in the Science Mission Directorate at NASA Headquarters, through the agency’s Astrophysics Research and Analysis Program, and funded through the Nancy Grace Roman Technology Fellowship.\n\nTo learn more, visit:\n\nhttps://go.nasa.gov/3R28tWE\n\nBy Jeanette Kazmierczak\nGoddard Space Flight Center, Greenbelt, Md.\n\n Facebook logo\n\n @NASAUniverse\n\n @NASAUniverse\n\n Instagram logo\n\n @NASAUniverse\n\nShare\n\nDetails\n\n Last Updated\n\n Jun 12, 2026\n\nRelated Terms\n\nTechnology Demonstration\nAstrophysics\nGamma Rays\nGoddard Space Flight Center\nRobotics\nThe Universe",
+    "teachable_new_words": {
+      "teachable": 30,
+      "outside": 171,
+      "pct": 17.5
+    },
+    "title": "",
+    "text": ""
+  }
+]

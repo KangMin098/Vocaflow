@@ -38,11 +38,11 @@ const STATUS_STYLE: Record<RunStatus, { color: string; bg: string; border: strin
 
 export function VcbRunStatusBadge({ status, size = 'md' }: Props) {
   const s = STATUS_STYLE[status]
-  const sizeClass = size === 'sm' ? 'text-[11px] px-2 py-0.5' : 'text-xs px-3 py-1'
+  const sizeClass = size === 'sm' ? 'text-[11px] px-2 py-1' : 'text-xs px-3 py-1'
 
   return (
     <span
-      className={`inline-flex items-center gap-1.5 rounded-[var(--r-full)] font-display font-medium leading-none whitespace-nowrap border ${sizeClass}`}
+      className={`inline-flex items-center gap-2 rounded-[var(--r-full)] font-display font-medium leading-none whitespace-nowrap border ${sizeClass}`}
       style={{ color: s.color, backgroundColor: s.bg, borderColor: s.border }}
     >
       <span

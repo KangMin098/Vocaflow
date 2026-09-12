@@ -67,7 +67,7 @@ export function MemoryLabel({ srs, className }: { srs?: SrsCard; className?: str
 
   return (
     <span
-      className={cn('inline-flex items-center gap-1.5 text-xs', className)}
+      className={cn('inline-flex items-center gap-2 text-xs', className)}
       style={{ color: config.cssVar }}
     >
       <span

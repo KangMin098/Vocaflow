@@ -1,0 +1,1957 @@
+{
+  "chunk": 0,
+  "generatedAt": "2026-08-30T10:09:23.331Z",
+  "instruction": "examples_ko 를 examples 와 **같은 길이**로 채운다. 한 문장에 한 줄. 직역이 아니라 학습자가 읽을 자연스러운 한국어로 쓰되, 표제어의 그 뜻(sense_ko)이 문장에서 어떻게 쓰였는지 드러나게 옮긴다. 빈 문자열을 넣지 않는다 — 넣으면 import 가 건너뛰고 그 자리는 영영 구멍으로 남는다.",
+  "items": [
+    {
+      "target": "top",
+      "word": "aid",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "원조, 도움",
+      "examples": [
+        "International aid quickly arrived to help the earthquake victims."
+      ],
+      "examples_ko": [
+        "지진 피해자들을 돕기 위해 국제 원조가 신속히 도착했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "aide",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "보좌관, 측근",
+      "examples": [
+        "A senior aide briefed the president on the urgent security matter."
+      ],
+      "examples_ko": [
+        "고위 보좌관이 대통령에게 그 긴급한 안보 사안을 보고했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "aids",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "돕다, 거들다, 원조하다",
+      "examples": [
+        "A good dictionary aids students who are learning to write essays."
+      ],
+      "examples_ko": [
+        "좋은 사전은 글쓰기를 배우는 학생들에게 도움이 된다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "aileron",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "보조 날개, 에일러론",
+      "examples": [
+        "The pilot adjusted the aileron to keep the aircraft level during the strong crosswind."
+      ],
+      "examples_ko": [
+        "조종사는 강한 측풍 속에서 기체를 수평으로 유지하려고 보조 날개를 조정했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "aim",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "목표하다; 겨누다",
+      "examples": [
+        "We aim to finish the project by the end of May."
+      ],
+      "examples_ko": [
+        "우리는 5월 말까지 그 사업을 끝내는 것을 목표로 한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "air",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "공기, 대기",
+      "examples": [
+        "The mountain air was cool and fresh early in the morning."
+      ],
+      "examples_ko": [
+        "이른 아침 산 공기는 서늘하고 상쾌했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "air conditioning",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "냉방, 에어컨 설비",
+      "examples": [
+        "This car has air conditioning."
+      ],
+      "examples_ko": [
+        "이 차에는 에어컨이 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "air terminal",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "공항 터미널",
+      "examples": [
+        "We waited in the air terminal for two hours before boarding."
+      ],
+      "examples_ko": [
+        "우리는 탑승하기 전에 공항 터미널에서 두 시간을 기다렸다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "air-conditioned",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "냉방되는, 에어컨이 가동되는",
+      "examples": [
+        "The bus was air-conditioned, so the long trip was quite comfortable."
+      ],
+      "examples_ko": [
+        "그 버스는 냉방이 되어서 긴 여정이 꽤 편안했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "airbase",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "공군 기지",
+      "examples": [
+        "Fighter jets took off from the airbase at dawn."
+      ],
+      "examples_ko": [
+        "전투기들이 동틀 무렵 공군 기지에서 이륙했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "airborne",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "비행 중인, 이륙해 떠 있는",
+      "examples": [
+        "The plane was airborne within minutes of receiving clearance from the tower."
+      ],
+      "examples_ko": [
+        "그 비행기는 관제탑의 허가를 받은 지 몇 분 만에 떠올랐다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "aircraft",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "항공기",
+      "examples": [
+        "The military aircraft circled the airport before landing safely on the runway."
+      ],
+      "examples_ko": [
+        "그 군용기는 공항 상공을 돌다가 활주로에 무사히 착륙했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "aircrew",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "항공기 승무원, 비행 승무원",
+      "examples": [
+        "The aircrew prepared the cabin before passengers began boarding."
+      ],
+      "examples_ko": [
+        "승무원들은 승객이 탑승하기 전에 객실을 준비했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "airdrome",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "비행장(미국식)",
+      "examples": [
+        "The small airdrome had just one runway."
+      ],
+      "examples_ko": [
+        "그 작은 비행장에는 활주로가 하나뿐이었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "airfare",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "항공 요금, 비행기 삯",
+      "examples": [
+        "The airfare to Tokyo has nearly doubled since last summer."
+      ],
+      "examples_ko": [
+        "도쿄행 항공료는 지난여름 이후 거의 두 배가 되었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "airfield",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "비행장, 활주로",
+      "examples": [
+        "The small airfield was used mainly by private pilots."
+      ],
+      "examples_ko": [
+        "그 작은 비행장은 주로 개인 비행사들이 썼다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "airing",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "환기, 통풍",
+      "examples": [
+        "The episode received its first airing on national television last night."
+      ],
+      "examples_ko": [
+        "그 회차는 어젯밤 전국 방송에서 처음 전파를 탔다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "airline",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "항공사",
+      "examples": [
+        "The airline offers direct flights to over fifty destinations worldwide."
+      ],
+      "examples_ko": [
+        "그 항공사는 전 세계 오십여 곳에 직항편을 운항한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "airliner",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "여객기, 정기 항공기",
+      "examples": [
+        "A jumbo airliner climbed steeply into the bright morning sky."
+      ],
+      "examples_ko": [
+        "점보 여객기 한 대가 환한 아침 하늘로 가파르게 올라갔다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "airplane",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "비행기",
+      "examples": [
+        "The airplane took off smoothly despite the strong evening winds."
+      ],
+      "examples_ko": [
+        "저녁 바람이 거셌는데도 그 비행기는 매끄럽게 이륙했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "airport",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "공항",
+      "examples": [
+        "We arrived at the airport an hour early."
+      ],
+      "examples_ko": [
+        "우리는 한 시간 일찍 공항에 도착했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "airship",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "비행선, 비행기구",
+      "examples": [
+        "A huge airship floated silently above the stadium."
+      ],
+      "examples_ko": [
+        "거대한 비행선 한 척이 경기장 위를 소리 없이 떠갔다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "airside",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "공항 통제 구역, 비행 안전 구역",
+      "examples": [
+        "You can shop at the duty-free stores once you are airside."
+      ],
+      "examples_ko": [
+        "출국 심사를 지나 통제 구역에 들어서면 면세점에서 쇼핑할 수 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "airspace",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "영공, 공역",
+      "examples": [
+        "The fighter jet violated foreign airspace and was quickly intercepted."
+      ],
+      "examples_ko": [
+        "그 전투기는 다른 나라 영공을 침범했다가 곧바로 요격당했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "airspeed",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "비행 속도, 대기 속도",
+      "examples": [
+        "The pilot reduced airspeed before beginning the descent."
+      ],
+      "examples_ko": [
+        "조종사는 하강을 시작하기 전에 비행 속도를 줄였다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "airstrip",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "활주로, 작은 비행장",
+      "examples": [
+        "The small plane landed on a grassy airstrip in the jungle."
+      ],
+      "examples_ko": [
+        "그 작은 비행기는 정글 속 풀로 덮인 활주로에 내려앉았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "airways",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "기도(공기 통로)",
+      "examples": [
+        "Smoke can seriously irritate the airways."
+      ],
+      "examples_ko": [
+        "연기는 기도를 심하게 자극할 수 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "airworthiness",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "내공성, 비행 적합성",
+      "examples": [
+        "Engineers inspect every component to certify the aircraft's airworthiness before each flight."
+      ],
+      "examples_ko": [
+        "기술자들은 매 비행 전에 모든 부품을 점검해 그 항공기의 비행 적합성을 인증한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "airworthy",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "비행에 적합한, 운항 가능한",
+      "examples": [
+        "The mechanic refused to sign off until the old biplane was fully airworthy."
+      ],
+      "examples_ko": [
+        "그 정비사는 낡은 복엽기가 완전히 비행에 적합해지기 전까지 승인 서명을 거부했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "aisle",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(좌석·진열대 사이의) 통로, 복도",
+      "examples": [
+        "You'll find the cereal in the third aisle on your left."
+      ],
+      "examples_ko": [
+        "시리얼은 왼쪽 세 번째 통로에 있습니다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "alarm",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "경보, 알람",
+      "examples": [
+        "The fire alarm rang loudly throughout the entire building."
+      ],
+      "examples_ko": [
+        "화재경보가 건물 전체에 요란하게 울렸다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "alarm call",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "모닝콜, 깨우는 전화",
+      "examples": [
+        "I asked the hotel for an alarm call at six in the morning."
+      ],
+      "examples_ko": [
+        "나는 호텔에 아침 여섯 시 모닝콜을 부탁했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "alarmed",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "놀란, 두려워하는",
+      "examples": [
+        "She looked alarmed when she heard the strange noise outside."
+      ],
+      "examples_ko": [
+        "밖에서 이상한 소리가 나자 그녀는 겁먹은 표정을 지었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "albatross",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "신천옹, 알바트로스",
+      "examples": [
+        "A huge albatross glided over the waves without flapping its wings."
+      ],
+      "examples_ko": [
+        "거대한 알바트로스 한 마리가 날갯짓도 하지 않고 파도 위를 미끄러지듯 날았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "album",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "앨범",
+      "examples": [
+        "Her new album reached the top of the charts."
+      ],
+      "examples_ko": [
+        "그녀의 새 앨범이 차트 정상에 올랐다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "alcohol",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "알코올",
+      "examples": [
+        "He has stopped drinking alcohol for health reasons."
+      ],
+      "examples_ko": [
+        "그는 건강 때문에 술을 끊었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "alcoholic",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "알코올의, 술의",
+      "examples": [
+        "The bar offers a wide range of alcoholic and non-alcoholic drinks."
+      ],
+      "examples_ko": [
+        "그 바는 술이 든 음료와 무알코올 음료를 두루 갖추고 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "alcoholism",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "알코올 중독, 알코올 의존증",
+      "examples": [
+        "He sought treatment for alcoholism after years of struggle."
+      ],
+      "examples_ko": [
+        "그는 여러 해 힘들어한 끝에 알코올 의존증 치료를 받기로 했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "alcopop",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "과일 향 알코올 음료, 저알콜 칵테일",
+      "examples": [
+        "The shop stopped selling sweet alcopop to teenagers."
+      ],
+      "examples_ko": [
+        "그 가게는 십 대에게 달콤한 저알콜 음료를 파는 것을 그만두었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "alcove",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "벽감, 우묵한 공간",
+      "examples": [
+        "A small statue stood in the alcove at the end of the hallway."
+      ],
+      "examples_ko": [
+        "복도 끝 벽감에 작은 조각상이 하나 서 있었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "ale",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "에일, 영국식 맥주",
+      "examples": [
+        "He ordered a pint of ale at the village pub."
+      ],
+      "examples_ko": [
+        "그는 마을 술집에서 에일 한 파인트를 주문했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "alert",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "경보, 경계 태세",
+      "examples": [
+        "Officials issued a flood alert for several towns along the river."
+      ],
+      "examples_ko": [
+        "당국은 강을 따라 늘어선 여러 마을에 홍수 경보를 내렸다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "alexia",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "실독증, 글을 못 읽는 증상",
+      "examples": [
+        "Alexia left him unable to read familiar words."
+      ],
+      "examples_ko": [
+        "실독증 때문에 그는 낯익은 낱말조차 읽지 못하게 되었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "algae",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "조류, 해조",
+      "examples": [
+        "Green algae covered the surface of the pond."
+      ],
+      "examples_ko": [
+        "초록빛 조류가 연못 수면을 뒤덮고 있었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "algebra",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "대수학",
+      "examples": [
+        "Students learn basic algebra in middle school mathematics."
+      ],
+      "examples_ko": [
+        "학생들은 중학교 수학에서 기초 대수학을 배운다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "algorithm",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "알고리즘, 연산 절차",
+      "examples": [
+        "The search algorithm ranks results based on relevance and user history."
+      ],
+      "examples_ko": [
+        "그 검색 알고리즘은 관련성과 이용 기록을 바탕으로 결과의 순위를 매긴다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "alias",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "가명, 별명, 별칭",
+      "examples": [
+        "The hacker operated online under the alias 'Shadow'."
+      ],
+      "examples_ko": [
+        "그 해커는 온라인에서 '섀도'라는 가명으로 활동했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "alien",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "외계인, 우주인",
+      "examples": [
+        "The movie features an alien who crashes on Earth and befriends a child."
+      ],
+      "examples_ko": [
+        "그 영화에는 지구에 불시착해 한 아이와 친구가 되는 외계인이 나온다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "alight",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(차·말에서) 내리다",
+      "examples": [
+        "Passengers should alight from the train on the left side."
+      ],
+      "examples_ko": [
+        "승객은 열차 왼쪽으로 내려야 합니다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "alike",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "비슷한, 같은 (they look alike)",
+      "examples": [
+        "The twin sisters looked so alike that even their teachers got confused."
+      ],
+      "examples_ko": [
+        "그 쌍둥이 자매는 너무 닮아서 선생님들도 헷갈려 했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "alive",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "살아 있는",
+      "examples": [
+        "Her grandfather is still alive at 95."
+      ],
+      "examples_ko": [
+        "그녀의 할아버지는 아흔다섯인데도 아직 살아 계신다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "all-day",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "온종일의, 하루 종일의",
+      "examples": [
+        "The cafe near the station serves an all-day breakfast until closing time."
+      ],
+      "examples_ko": [
+        "역 근처 그 카페는 문 닫을 때까지 온종일 아침 메뉴를 내놓는다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "all-inclusive",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "모두 포함된, 일체 포함의",
+      "examples": [
+        "They booked an all-inclusive holiday with every meal paid for."
+      ],
+      "examples_ko": [
+        "그들은 식사가 모두 포함된 일체형 휴가 상품을 예약했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "all-you-can-eat",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "무제한 뷔페식의, 양껏 먹을 수 있는",
+      "examples": [
+        "We had lunch at an all-you-can-eat place near the market."
+      ],
+      "examples_ko": [
+        "우리는 시장 근처의 무한 리필 식당에서 점심을 먹었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "allege",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "증거 없이 무언가를 사실이라고 주장하다 (보통 잘못된 일)",
+      "examples": [
+        "The report alleges that several officials accepted bribes."
+      ],
+      "examples_ko": [
+        "그 보고서는 여러 공직자가 뇌물을 받았다고 주장한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "allegiance",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "충성",
+      "examples": [
+        "The soldiers swore allegiance to the new king."
+      ],
+      "examples_ko": [
+        "병사들은 새 왕에게 충성을 맹세했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "allegorical",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "우화적인, 풍유의",
+      "examples": [
+        "The novel is an allegorical tale about the dangers of unchecked political power."
+      ],
+      "examples_ko": [
+        "그 소설은 견제받지 않는 정치권력의 위험을 그린 우화적인 이야기다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "allegory",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "우화, 풍유",
+      "examples": [
+        "The novel is an allegory of the struggle between good and evil."
+      ],
+      "examples_ko": [
+        "그 소설은 선과 악의 싸움을 그린 우화다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "allele",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "대립유전자, 알릴",
+      "examples": [
+        "Each parent contributes one allele for eye color to the child."
+      ],
+      "examples_ko": [
+        "부모는 각각 눈 색깔에 관한 대립유전자를 하나씩 아이에게 물려준다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "allergic",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "알레르기가 있는, 알레르기 반응을 일으키는",
+      "examples": [
+        "My son is allergic to peanuts, so we read every label carefully."
+      ],
+      "examples_ko": [
+        "우리 아들은 땅콩 알레르기가 있어서 우리는 성분표를 하나하나 읽는다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "allergy",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "알레르기",
+      "examples": [
+        "He has a severe allergy to peanuts."
+      ],
+      "examples_ko": [
+        "그는 땅콩에 심한 알레르기가 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "alley",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "골목, 좁은 길",
+      "examples": [
+        "The cat darted down a narrow alley behind the restaurant."
+      ],
+      "examples_ko": [
+        "그 고양이는 식당 뒤 좁은 골목으로 쏜살같이 달아났다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "alliance",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "동맹",
+      "examples": [
+        "The two countries formed a military alliance against the threat."
+      ],
+      "examples_ko": [
+        "두 나라는 그 위협에 맞서 군사 동맹을 맺었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "allied",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "동맹의",
+      "examples": [
+        "The allied nations worked together to defeat the common enemy."
+      ],
+      "examples_ko": [
+        "동맹국들은 공동의 적을 물리치려고 힘을 합쳤다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "alliteration",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "두운법, 첫소리 반복",
+      "examples": [
+        "The poem makes heavy use of alliteration for musical effect."
+      ],
+      "examples_ko": [
+        "그 시는 음악적인 효과를 내려고 두운을 많이 쓴다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "allocate",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "특정 목적이나 사람에게 자원을 나누어 배정하다",
+      "examples": [
+        "The government will allocate more funds to public education next year."
+      ],
+      "examples_ko": [
+        "정부는 내년에 공교육에 더 많은 예산을 배정할 것이다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "allotment",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "할당, 배정",
+      "examples": [
+        "Each department received its annual allotment of funds at the start of the year."
+      ],
+      "examples_ko": [
+        "각 부서는 연초에 그해 몫의 예산을 배정받았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "allow",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "허락하다",
+      "examples": [
+        "My parents don't allow me to stay out late."
+      ],
+      "examples_ko": [
+        "우리 부모님은 내가 늦게까지 밖에 있는 것을 허락하지 않으신다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "allowance",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "용돈, 수당",
+      "examples": [
+        "Her parents gave her a weekly allowance to teach her how to manage money responsibly."
+      ],
+      "examples_ko": [
+        "그녀의 부모는 돈을 알뜰히 다루는 법을 가르치려고 주마다 용돈을 주었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "allude",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "암시하다, 넌지시 언급하다",
+      "examples": [
+        "He did not allude to his recent illness in the speech."
+      ],
+      "examples_ko": [
+        "그는 연설에서 최근 앓았던 병을 넌지시라도 언급하지 않았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "allure",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "매력, 매혹",
+      "examples": [
+        "The island has a quiet allure that draws visitors back year after year."
+      ],
+      "examples_ko": [
+        "그 섬에는 해마다 방문객을 다시 불러들이는 조용한 매력이 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "allusion",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "암시",
+      "examples": [
+        "The poem contains a subtle allusion to a Greek myth."
+      ],
+      "examples_ko": [
+        "그 시에는 그리스 신화를 은근히 가리키는 대목이 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "ally",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "동맹국, 협력자",
+      "examples": [
+        "The two nations allied to defeat their common enemy."
+      ],
+      "examples_ko": [
+        "두 나라는 공동의 적을 물리치려고 동맹을 맺었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "allyship",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "연대, 지지자 역할",
+      "examples": [
+        "True allyship means standing up for others."
+      ],
+      "examples_ko": [
+        "진정한 연대란 다른 사람을 위해 나서 주는 것이다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "almond",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "아몬드 — 아몬드나무 열매 속 씨앗",
+      "examples": [
+        "She sprinkled a handful of toasted almond slices over the salad."
+      ],
+      "examples_ko": [
+        "그녀는 샐러드 위에 구운 아몬드 슬라이스를 한 줌 뿌렸다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "almond milk",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "아몬드 우유, 아몬드 밀크",
+      "examples": [
+        "She puts almond milk in her coffee instead of cream."
+      ],
+      "examples_ko": [
+        "그녀는 커피에 크림 대신 아몬드 우유를 넣는다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "almost",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "거의, 하마터면",
+      "examples": [
+        "It's almost midnight, so let's go to bed."
+      ],
+      "examples_ko": [
+        "거의 자정이니 이제 자러 가자."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "almshouse",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "양로원, 자선 빈민원",
+      "examples": [
+        "The medieval almshouse still stands beside the church."
+      ],
+      "examples_ko": [
+        "그 중세 자선 빈민원은 교회 옆에 아직도 서 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "aloe",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "알로에 — 두툼한 잎에서 즙을 얻는 다육식물",
+      "examples": [
+        "She rubbed aloe on her sunburned shoulders."
+      ],
+      "examples_ko": [
+        "그녀는 햇볕에 탄 어깨에 알로에를 발랐다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "alone",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "혼자의, 홀로 있는",
+      "examples": [
+        "He felt alone in the new city until he joined a hiking club."
+      ],
+      "examples_ko": [
+        "그는 등산 동호회에 들기 전까지 낯선 도시에서 외롭다고 느꼈다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "along",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "~을 따라",
+      "examples": [
+        "We walked along the beach at sunset."
+      ],
+      "examples_ko": [
+        "우리는 해 질 녘에 해변을 따라 걸었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "alongside",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "~의 옆에 나란히",
+      "examples": [
+        "The new museum stands alongside the old library."
+      ],
+      "examples_ko": [
+        "그 새 박물관은 옛 도서관과 나란히 서 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "aloud",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "소리 내어, 큰 소리로",
+      "examples": [
+        "Please read the passage aloud."
+      ],
+      "examples_ko": [
+        "그 구절을 소리 내어 읽어 주세요."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "alphabet",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "알파벳, 자모",
+      "examples": [
+        "Children learn the alphabet before they can read words."
+      ],
+      "examples_ko": [
+        "아이들은 낱말을 읽기 전에 먼저 알파벳을 배운다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "alpr",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "자동 번호판 인식, ALPR",
+      "examples": [
+        "The car park uses alpr to read number plates."
+      ],
+      "examples_ko": [
+        "그 주차장은 번호판을 읽는 데 자동 번호판 인식을 쓴다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "already",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "이미, 벌써",
+      "examples": [
+        "I have already finished my homework."
+      ],
+      "examples_ko": [
+        "나는 숙제를 이미 끝냈다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "alright",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "괜찮은, 무사한",
+      "examples": [
+        "Don't worry, everything will be alright in the morning."
+      ],
+      "examples_ko": [
+        "걱정하지 마, 아침이면 다 괜찮아질 거야."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "also",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "또한, ~도",
+      "examples": [
+        "She speaks French and also Spanish."
+      ],
+      "examples_ko": [
+        "그녀는 프랑스어를 하고 스페인어도 한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "altar",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "제단, 성단",
+      "examples": [
+        "The priest placed candles on the altar before the service."
+      ],
+      "examples_ko": [
+        "사제는 예배 전에 제단 위에 초를 놓았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "altarpiece",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "제단화, 제단 장식",
+      "examples": [
+        "The medieval altarpiece depicts scenes from the life of Saint Francis."
+      ],
+      "examples_ko": [
+        "그 중세 제단화는 성 프란치스코의 생애 장면들을 담고 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "alter",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "바꾸다, 변경하다",
+      "examples": [
+        "She altered her dress to make it fit better."
+      ],
+      "examples_ko": [
+        "그녀는 몸에 더 맞도록 원피스를 고쳤다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "alternate",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "번갈아 하는, 교대의",
+      "examples": [
+        "Classes are held on alternate days throughout the summer term."
+      ],
+      "examples_ko": [
+        "여름 학기 내내 수업은 하루걸러 열린다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "alternative",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "대안",
+      "examples": [
+        "Solar power is a clean alternative to traditional fossil fuel energy."
+      ],
+      "examples_ko": [
+        "태양광은 전통적인 화석 연료를 대신할 깨끗한 대안이다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "alternatively",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "그렇지 않으면, 또는",
+      "examples": [
+        "We could take the train, or alternatively we could rent a car."
+      ],
+      "examples_ko": [
+        "기차를 타도 되고, 아니면 차를 빌려도 된다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "alternator",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "교류 발전기, 알터네이터",
+      "examples": [
+        "The mechanic said the car wouldn't start because the alternator had failed."
+      ],
+      "examples_ko": [
+        "정비사는 교류 발전기가 고장 나서 차에 시동이 걸리지 않는다고 말했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "although",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "비록 ~일지라도",
+      "examples": [
+        "Although it was raining, we went for a walk."
+      ],
+      "examples_ko": [
+        "비가 오고 있었지만 우리는 산책을 나갔다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "altimeter",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "고도계",
+      "examples": [
+        "The pilot glanced at the altimeter to confirm their cruising height."
+      ],
+      "examples_ko": [
+        "조종사는 순항 고도를 확인하려고 고도계를 힐끗 보았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "altitude",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "고도, 해발 높이",
+      "examples": [
+        "The plane reached a cruising altitude of 35,000 feet."
+      ],
+      "examples_ko": [
+        "그 비행기는 3만 5천 피트의 순항 고도에 이르렀다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "altogether",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "완전히, 전적으로",
+      "examples": [
+        "There were ten people altogether at the party."
+      ],
+      "examples_ko": [
+        "그 파티에는 모두 열 사람이 있었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "altruism",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "이타주의, 이타심",
+      "examples": [
+        "His donation was an act of pure altruism."
+      ],
+      "examples_ko": [
+        "그의 기부는 순수한 이타심에서 나온 행동이었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "aluminium",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "알루미늄",
+      "examples": [
+        "The bike frame is made of lightweight aluminium."
+      ],
+      "examples_ko": [
+        "그 자전거 프레임은 가벼운 알루미늄으로 만들어졌다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "always",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "항상, 언제나",
+      "examples": [
+        "She always smiles when she sees me."
+      ],
+      "examples_ko": [
+        "그녀는 나를 보면 언제나 웃는다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "amateur",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "아마추어, 비전문가",
+      "examples": [
+        "Although he is just an amateur photographer, his pictures are stunning."
+      ],
+      "examples_ko": [
+        "그는 아마추어 사진가일 뿐이지만 그의 사진은 뛰어나다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "amaze",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "놀라게 하다, 깜짝 놀라게 하다",
+      "examples": [
+        "His magic tricks never fail to amaze the young audience."
+      ],
+      "examples_ko": [
+        "그의 마술은 어린 관객을 놀라게 하는 법이 없다는 적이 없다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "amazed",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "놀란, 깜짝 놀란",
+      "examples": [
+        "I was amazed by the beautiful view from the mountain top."
+      ],
+      "examples_ko": [
+        "나는 산꼭대기에서 내려다본 아름다운 풍경에 감탄했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "amazing",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "놀라운, 굉장한",
+      "examples": [
+        "The view from the mountain was amazing."
+      ],
+      "examples_ko": [
+        "그 산에서 내려다본 경치는 놀라웠다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "ambassador",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "대사, 사절",
+      "examples": [
+        "The ambassador met with the prime minister yesterday morning."
+      ],
+      "examples_ko": [
+        "그 대사는 어제 아침 총리를 만났다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "ambience",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "어떤 장소가 풍기는 특유의 분위기나 느낌",
+      "examples": [
+        "The restaurant has a relaxed ambience perfect for a romantic dinner."
+      ],
+      "examples_ko": [
+        "그 식당은 낭만적인 저녁 식사에 꼭 맞는 편안한 분위기를 지니고 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "ambiguity",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "모호함",
+      "examples": [
+        "There is some ambiguity in the wording of the contract."
+      ],
+      "examples_ko": [
+        "그 계약서의 표현에는 모호한 데가 좀 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "ambiguous",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "애매한, 모호한",
+      "examples": [
+        "His ambiguous response left everyone wondering what he really meant."
+      ],
+      "examples_ko": [
+        "그의 애매한 대답에 모두가 그가 정말 무슨 뜻으로 말했는지 궁금해했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "ambition",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "야망",
+      "examples": [
+        "Her lifelong ambition was to become a famous concert pianist."
+      ],
+      "examples_ko": [
+        "그녀의 평생 꿈은 유명한 연주회 피아니스트가 되는 것이었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "ambitious",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "야심 찬",
+      "examples": [
+        "She is an ambitious young lawyer aiming for partnership."
+      ],
+      "examples_ko": [
+        "그녀는 파트너 변호사 자리를 노리는 야심 찬 젊은 변호사다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "ambitiously",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "야심차게, 의욕적으로",
+      "examples": [
+        "The young architect ambitiously redesigned the entire city block in her proposal."
+      ],
+      "examples_ko": [
+        "그 젊은 건축가는 제안서에서 그 구역 전체를 의욕적으로 새로 설계했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "ambivalent",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "같은 사람·일에 대해 좋아하면서 동시에 싫어하는 등 상반된 감정을 가지는",
+      "examples": [
+        "She felt ambivalent about moving abroad for the new job."
+      ],
+      "examples_ko": [
+        "그녀는 새 일자리 때문에 외국으로 가는 일을 두고 마음이 반반이었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "ambulance",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "구급차, 앰뷸런스",
+      "examples": [
+        "Please call an ambulance — he has stopped breathing."
+      ],
+      "examples_ko": [
+        "구급차를 불러 주세요 — 그가 숨을 쉬지 않아요."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "ambulate",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(의학) 걷다, 보행하다",
+      "examples": [
+        "After surgery, patients are encouraged to ambulate as soon as possible."
+      ],
+      "examples_ko": [
+        "수술 뒤에는 환자들이 되도록 빨리 걷도록 권장된다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "ameliorate",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "개선하다, 호전시키다",
+      "examples": [
+        "New policies were introduced to ameliorate working conditions."
+      ],
+      "examples_ko": [
+        "노동 조건을 개선하려고 새 정책이 도입되었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "amelioration",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "개선, 호전 — 더 나아지게 함(나아진 상태)",
+      "examples": [
+        "The new policy led to a significant amelioration of working conditions in the factory."
+      ],
+      "examples_ko": [
+        "그 새 정책으로 공장의 노동 조건이 크게 나아졌다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "amend",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "법률·문서를 공식적으로 수정하다",
+      "examples": [
+        "Congress voted to amend the law to protect consumers."
+      ],
+      "examples_ko": [
+        "의회는 소비자를 보호하기 위해 그 법을 개정하기로 표결했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "american sign language",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "미국 수화",
+      "examples": [
+        "She is learning american sign language so she can talk with her cousin."
+      ],
+      "examples_ko": [
+        "그녀는 사촌과 이야기하려고 미국 수화를 배우고 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "amiable",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "상냥한, 붙임성 있는",
+      "examples": [
+        "Our new neighbour is an amiable man who greets everyone with a smile."
+      ],
+      "examples_ko": [
+        "새로 이사 온 이웃은 누구에게나 웃으며 인사하는 붙임성 있는 사람이다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "amid",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "~의 한가운데에, ~사이에",
+      "examples": [
+        "The festival continued amid heavy rain."
+      ],
+      "examples_ko": [
+        "그 축제는 폭우 속에서도 계속되었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "amino",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "화학에서 아미노기(-NH₂)를 포함하는 화합물에 관한",
+      "examples": [
+        "Proteins are made up of long chains of amino acids."
+      ],
+      "examples_ko": [
+        "단백질은 아미노산이 길게 이어진 사슬로 이루어진다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "ammeter",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "전류계, 암미터",
+      "examples": [
+        "The ammeter measured the current in the circuit."
+      ],
+      "examples_ko": [
+        "전류계가 회로에 흐르는 전류를 재었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "amnesia",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "기억상실증, 건망증",
+      "examples": [
+        "After the accident, she suffered from temporary amnesia and could not recognize her family."
+      ],
+      "examples_ko": [
+        "그 사고 뒤 그녀는 일시적인 기억상실을 겪어 가족도 알아보지 못했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "amnesty",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "사면",
+      "examples": [
+        "The government granted amnesty to political prisoners."
+      ],
+      "examples_ko": [
+        "정부는 정치범들에게 사면을 베풀었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "among",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(셋 이상) 사이에, 중에서",
+      "examples": [
+        "She found her keys among the papers on the desk."
+      ],
+      "examples_ko": [
+        "그녀는 책상 위 서류 더미 사이에서 열쇠를 찾아냈다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "amoral",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "도덕관념이 없는, 무도덕의",
+      "examples": [
+        "The villain in the novel is portrayed as a coldly amoral businessman."
+      ],
+      "examples_ko": [
+        "그 소설의 악당은 도덕관념이라고는 없는 냉혹한 사업가로 그려진다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "amorphous",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "형태가 없는, 무정형의",
+      "examples": [
+        "The organization remained an amorphous group with no clear leader."
+      ],
+      "examples_ko": [
+        "그 조직은 뚜렷한 지도자도 없이 형태가 잡히지 않은 모임으로 남아 있었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "amount",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "양, 액수",
+      "examples": [
+        "A large amount of money was stolen."
+      ],
+      "examples_ko": [
+        "많은 액수의 돈이 도난당했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "amp",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "앰프, 증폭기",
+      "examples": [
+        "The electrician warned that the circuit could not handle more than fifteen amps."
+      ],
+      "examples_ko": [
+        "전기 기사는 그 회로가 15암페어를 넘기면 감당하지 못한다고 경고했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "amperage",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "전류량, 암페어 수",
+      "examples": [
+        "The thick cable can carry a high amperage."
+      ],
+      "examples_ko": [
+        "그 굵은 케이블은 높은 전류를 흘려보낼 수 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "amphibian",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "양서류 (개구리처럼 물과 뭍에서 모두 사는 동물)",
+      "examples": [
+        "Frogs are the most familiar example of an amphibian found in garden ponds."
+      ],
+      "examples_ko": [
+        "개구리는 정원 연못에서 볼 수 있는 가장 친숙한 양서류다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "amphitheatre",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "원형극장",
+      "examples": [
+        "The ancient amphitheatre could hold thousands of spectators."
+      ],
+      "examples_ko": [
+        "그 고대 원형극장은 수천 명의 관객을 수용할 수 있었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "amplifier",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "증폭기, 앰프 (약한 전기 신호를 세게 만드는 장치·회로)",
+      "examples": [
+        "He plugged his guitar into the amplifier and started to play."
+      ],
+      "examples_ko": [
+        "그는 기타를 앰프에 꽂고 연주를 시작했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "amplitude",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(물리) 진폭",
+      "examples": [
+        "The signal's amplitude doubled after the new antenna was installed."
+      ],
+      "examples_ko": [
+        "새 안테나를 단 뒤 그 신호의 진폭이 두 배가 되었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "amputate",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "절단하다, 수술로 자르다",
+      "examples": [
+        "Surgeons had to amputate his leg below the knee after the accident."
+      ],
+      "examples_ko": [
+        "그 사고 뒤 외과의들은 그의 다리를 무릎 아래에서 잘라 내야 했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "amputation",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "절단, 절단 수술",
+      "examples": [
+        "The injury was so severe that amputation became the only option."
+      ],
+      "examples_ko": [
+        "부상이 워낙 심해서 절단 말고는 다른 방법이 없었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "amuse",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "즐겁게 하다",
+      "examples": [
+        "The children love to amuse themselves with simple toys."
+      ],
+      "examples_ko": [
+        "그 아이들은 단순한 장난감을 갖고 스스로 재미있게 노는 것을 좋아한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "amusement park",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "놀이공원",
+      "examples": [
+        "We spent the whole day at the amusement park beside the sea."
+      ],
+      "examples_ko": [
+        "우리는 바닷가 놀이공원에서 하루를 온전히 보냈다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "amusing",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "재미있는, 즐거운",
+      "examples": [
+        "The story he told was very amusing."
+      ],
+      "examples_ko": [
+        "그가 들려준 이야기는 아주 재미있었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "anachronism",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "시대착오 — 시대에 맞지 않게 잘못 놓인 것",
+      "examples": [
+        "A wristwatch in a Roman epic is an obvious anachronism."
+      ],
+      "examples_ko": [
+        "로마 시대를 그린 대작에 손목시계가 나온다면 그것은 뻔한 시대착오다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "anachronistic",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "시대착오적인, 구식인",
+      "examples": [
+        "His views on marriage seem anachronistic in today's society."
+      ],
+      "examples_ko": [
+        "결혼에 관한 그의 생각은 오늘날 사회에서 시대에 뒤떨어져 보인다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "anaemia",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "빈혈",
+      "examples": [
+        "A poor diet can lead to anaemia and tiredness."
+      ],
+      "examples_ko": [
+        "부실한 식사는 빈혈과 피로로 이어질 수 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "anaerobic",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "무산소의, 혐기성의",
+      "examples": [
+        "Sprinting is an anaerobic form of exercise."
+      ],
+      "examples_ko": [
+        "단거리 전력 질주는 무산소 운동에 해당한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "anaesthesia",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "마취, 무감각",
+      "examples": [
+        "The surgeon waited for the anaesthesia to take effect."
+      ],
+      "examples_ko": [
+        "외과의는 마취가 듣기를 기다렸다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "anaesthetic",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "마취제",
+      "examples": [
+        "The dentist gave her a local anaesthetic before the procedure."
+      ],
+      "examples_ko": [
+        "치과 의사는 치료에 앞서 그녀에게 국소 마취제를 놓았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "anal",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "해부학적으로 항문에 관련된",
+      "examples": [
+        "He's so anal about keeping his desk perfectly organized."
+      ],
+      "examples_ko": [
+        "그는 책상을 완벽하게 정리해 두는 데 지나칠 만큼 깐깐하다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "analogue",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "아날로그의",
+      "examples": [
+        "My father still prefers an analogue watch with two hands and no screen."
+      ],
+      "examples_ko": [
+        "우리 아버지는 아직도 화면 없이 바늘 두 개가 달린 아날로그 시계를 더 좋아하신다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "analogy",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "유추",
+      "examples": [
+        "He drew an analogy between the heart and a pump."
+      ],
+      "examples_ko": [
+        "그는 심장을 펌프에 빗대어 설명했다."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,758 @@
+{
+ "2014B#24": {
+  "answerLabel": "B",
+  "points": 2,
+  "order": [
+   0,
+   4,
+   2,
+   3,
+   1
+  ],
+  "type": "R-TOPIC"
+ },
+ "2014B#25": {
+  "answerLabel": "A",
+  "points": 2,
+  "order": [
+   0,
+   4,
+   2,
+   1,
+   3
+  ],
+  "type": "R-TITLE"
+ },
+ "2014B#40": {
+  "answerLabel": "D",
+  "points": 2,
+  "order": [
+   3,
+   2,
+   4,
+   1,
+   0
+  ],
+  "type": "R-SUMMARY"
+ },
+ "2014A#25": {
+  "answerLabel": "C",
+  "points": 2,
+  "order": [
+   0,
+   2,
+   4,
+   3,
+   1
+  ],
+  "type": "R-TOPIC"
+ },
+ "2014A#26": {
+  "answerLabel": "C",
+  "points": 2,
+  "order": [
+   2,
+   4,
+   1,
+   0,
+   3
+  ],
+  "type": "R-TITLE"
+ },
+ "2015#20": {
+  "answerLabel": "D",
+  "points": 2,
+  "order": [
+   4,
+   1,
+   0,
+   2,
+   3
+  ],
+  "type": "R-TOPIC"
+ },
+ "2015#21": {
+  "answerLabel": "D",
+  "points": 2,
+  "order": [
+   4,
+   0,
+   3,
+   2,
+   1
+  ],
+  "type": "R-TOPIC"
+ },
+ "2015#22": {
+  "answerLabel": "E",
+  "points": 2,
+  "order": [
+   1,
+   3,
+   0,
+   2,
+   4
+  ],
+  "type": "R-TITLE"
+ },
+ "2015#23": {
+  "answerLabel": "E",
+  "points": 2,
+  "order": [
+   0,
+   4,
+   2,
+   3,
+   1
+  ],
+  "type": "R-TITLE"
+ },
+ "2015#40": {
+  "answerLabel": "B",
+  "points": 2,
+  "order": [
+   1,
+   0,
+   2,
+   4,
+   3
+  ],
+  "type": "R-SUMMARY"
+ },
+ "2016#22": {
+  "answerLabel": "C",
+  "points": 2,
+  "order": [
+   2,
+   3,
+   4,
+   0,
+   1
+  ],
+  "type": "R-TOPIC"
+ },
+ "2016#23": {
+  "answerLabel": "D",
+  "points": 2,
+  "order": [
+   2,
+   1,
+   3,
+   0,
+   4
+  ],
+  "type": "R-TITLE"
+ },
+ "2016#40": {
+  "answerLabel": "D",
+  "points": 2,
+  "order": [
+   2,
+   3,
+   4,
+   1,
+   0
+  ],
+  "type": "R-SUMMARY"
+ },
+ "2017#21": {
+  "answerLabel": "D",
+  "points": 2,
+  "order": [
+   2,
+   3,
+   0,
+   4,
+   1
+  ],
+  "type": "R-TOPIC"
+ },
+ "2017#22": {
+  "answerLabel": "C",
+  "points": 2,
+  "order": [
+   0,
+   2,
+   3,
+   1,
+   4
+  ],
+  "type": "R-TITLE"
+ },
+ "2017#23": {
+  "answerLabel": "B",
+  "points": 2,
+  "order": [
+   2,
+   3,
+   0,
+   4,
+   1
+  ],
+  "type": "R-TITLE"
+ },
+ "2017#40": {
+  "answerLabel": "D",
+  "points": 2,
+  "order": [
+   1,
+   0,
+   4,
+   2,
+   3
+  ],
+  "type": "R-SUMMARY"
+ },
+ "2018#22": {
+  "answerLabel": "C",
+  "points": 2,
+  "order": [
+   0,
+   4,
+   3,
+   2,
+   1
+  ],
+  "type": "R-TOPIC"
+ },
+ "2018#23": {
+  "answerLabel": "B",
+  "points": 2,
+  "order": [
+   3,
+   0,
+   1,
+   2,
+   4
+  ],
+  "type": "R-TITLE"
+ },
+ "2018#40": {
+  "answerLabel": "E",
+  "points": 2,
+  "order": [
+   2,
+   0,
+   4,
+   3,
+   1
+  ],
+  "type": "R-SUMMARY"
+ },
+ "2019#21": {
+  "answerLabel": "B",
+  "points": 2,
+  "order": [
+   4,
+   0,
+   1,
+   3,
+   2
+  ],
+  "type": "R-IMPLY"
+ },
+ "2019#23": {
+  "answerLabel": "A",
+  "points": 3,
+  "order": [
+   1,
+   3,
+   4,
+   0,
+   2
+  ],
+  "type": "R-TOPIC"
+ },
+ "2019#24": {
+  "answerLabel": "E",
+  "points": 2,
+  "order": [
+   2,
+   1,
+   3,
+   0,
+   4
+  ],
+  "type": "R-TITLE"
+ },
+ "2019#40": {
+  "answerLabel": "D",
+  "points": 2,
+  "order": [
+   4,
+   2,
+   1,
+   0,
+   3
+  ],
+  "type": "R-SUMMARY"
+ },
+ "2020#21": {
+  "answerLabel": "E",
+  "points": 3,
+  "order": [
+   1,
+   4,
+   2,
+   3,
+   0
+  ],
+  "type": "R-IMPLY"
+ },
+ "2020#23": {
+  "answerLabel": "E",
+  "points": 2,
+  "order": [
+   1,
+   2,
+   4,
+   3,
+   0
+  ],
+  "type": "R-TOPIC"
+ },
+ "2020#24": {
+  "answerLabel": "B",
+  "points": 2,
+  "order": [
+   0,
+   1,
+   2,
+   4,
+   3
+  ],
+  "type": "R-TITLE"
+ },
+ "2020#40": {
+  "answerLabel": "D",
+  "points": 2,
+  "order": [
+   3,
+   4,
+   1,
+   0,
+   2
+  ],
+  "type": "R-SUMMARY"
+ },
+ "2021#21": {
+  "answerLabel": "A",
+  "points": 2,
+  "order": [
+   1,
+   4,
+   2,
+   0,
+   3
+  ],
+  "type": "R-IMPLY"
+ },
+ "2021#23": {
+  "answerLabel": "C",
+  "points": 3,
+  "order": [
+   2,
+   4,
+   1,
+   0,
+   3
+  ],
+  "type": "R-TOPIC"
+ },
+ "2021#24": {
+  "answerLabel": "C",
+  "points": 2,
+  "order": [
+   3,
+   0,
+   2,
+   4,
+   1
+  ],
+  "type": "R-TITLE"
+ },
+ "2021#40": {
+  "answerLabel": "B",
+  "points": 2,
+  "order": [
+   4,
+   2,
+   3,
+   1,
+   0
+  ],
+  "type": "R-SUMMARY"
+ },
+ "2022#21": {
+  "answerLabel": "E",
+  "points": 3,
+  "order": [
+   3,
+   1,
+   4,
+   2,
+   0
+  ],
+  "type": "R-IMPLY"
+ },
+ "2022#23": {
+  "answerLabel": "B",
+  "points": 3,
+  "order": [
+   3,
+   0,
+   4,
+   2,
+   1
+  ],
+  "type": "R-TOPIC"
+ },
+ "2022#24": {
+  "answerLabel": "B",
+  "points": 2,
+  "order": [
+   1,
+   4,
+   0,
+   2,
+   3
+  ],
+  "type": "R-TITLE"
+ },
+ "2023#21": {
+  "answerLabel": "B",
+  "points": 3,
+  "order": [
+   2,
+   0,
+   1,
+   4,
+   3
+  ],
+  "type": "R-IMPLY"
+ },
+ "2023#23": {
+  "answerLabel": "C",
+  "points": 3,
+  "order": [
+   2,
+   0,
+   1,
+   4,
+   3
+  ],
+  "type": "R-TOPIC"
+ },
+ "2023#24": {
+  "answerLabel": "C",
+  "points": 2,
+  "order": [
+   0,
+   2,
+   4,
+   3,
+   1
+  ],
+  "type": "R-TITLE"
+ },
+ "2023#40": {
+  "answerLabel": "E",
+  "points": 2,
+  "order": [
+   3,
+   2,
+   1,
+   4,
+   0
+  ],
+  "type": "R-SUMMARY"
+ },
+ "2024#21": {
+  "answerLabel": "A",
+  "points": 3,
+  "order": [
+   3,
+   4,
+   2,
+   0,
+   1
+  ],
+  "type": "R-IMPLY"
+ },
+ "2024#23": {
+  "answerLabel": "E",
+  "points": 2,
+  "order": [
+   3,
+   4,
+   2,
+   0,
+   1
+  ],
+  "type": "R-TOPIC"
+ },
+ "2024#24": {
+  "answerLabel": "A",
+  "points": 3,
+  "order": [
+   4,
+   2,
+   1,
+   0,
+   3
+  ],
+  "type": "R-TITLE"
+ },
+ "2024#40": {
+  "answerLabel": "C",
+  "points": 2,
+  "order": [
+   2,
+   4,
+   0,
+   1,
+   3
+  ],
+  "type": "R-SUMMARY"
+ },
+ "2025#21": {
+  "answerLabel": "C",
+  "points": 3,
+  "order": [
+   4,
+   0,
+   2,
+   1,
+   3
+  ],
+  "type": "R-IMPLY"
+ },
+ "2025#23": {
+  "answerLabel": "C",
+  "points": 2,
+  "order": [
+   3,
+   0,
+   1,
+   2,
+   4
+  ],
+  "type": "R-TOPIC"
+ },
+ "2025#24": {
+  "answerLabel": "A",
+  "points": 2,
+  "order": [
+   4,
+   0,
+   3,
+   2,
+   1
+  ],
+  "type": "R-TITLE"
+ },
+ "2025#40": {
+  "answerLabel": "E",
+  "points": 2,
+  "order": [
+   3,
+   4,
+   1,
+   2,
+   0
+  ],
+  "type": "R-SUMMARY"
+ },
+ "2026#21": {
+  "answerLabel": "E",
+  "points": 2,
+  "order": [
+   2,
+   4,
+   0,
+   3,
+   1
+  ],
+  "type": "R-IMPLY"
+ },
+ "2026#23": {
+  "answerLabel": "A",
+  "points": 2,
+  "order": [
+   2,
+   0,
+   4,
+   3,
+   1
+  ],
+  "type": "R-TOPIC"
+ },
+ "2026#24": {
+  "answerLabel": "A",
+  "points": 3,
+  "order": [
+   1,
+   0,
+   2,
+   3,
+   4
+  ],
+  "type": "R-TITLE"
+ },
+ "2026#40": {
+  "answerLabel": "A",
+  "points": 2,
+  "order": [
+   2,
+   1,
+   4,
+   0,
+   3
+  ],
+  "type": "R-SUMMARY"
+ },
+ "M2606#21": {
+  "answerLabel": "D",
+  "points": 3,
+  "order": [
+   0,
+   3,
+   1,
+   2,
+   4
+  ],
+  "type": "R-IMPLY"
+ },
+ "M2606#23": {
+  "answerLabel": "D",
+  "points": 2,
+  "order": [
+   1,
+   3,
+   0,
+   2,
+   4
+  ],
+  "type": "R-TOPIC"
+ },
+ "M2606#24": {
+  "answerLabel": "A",
+  "points": 2,
+  "order": [
+   1,
+   3,
+   4,
+   0,
+   2
+  ],
+  "type": "R-TITLE"
+ },
+ "M2606#40": {
+  "answerLabel": "E",
+  "points": 2,
+  "order": [
+   3,
+   0,
+   2,
+   4,
+   1
+  ],
+  "type": "R-SUMMARY"
+ },
+ "M2609#21": {
+  "answerLabel": "E",
+  "points": 3,
+  "order": [
+   1,
+   4,
+   3,
+   0,
+   2
+  ],
+  "type": "R-IMPLY"
+ },
+ "M2609#23": {
+  "answerLabel": "D",
+  "points": 2,
+  "order": [
+   1,
+   3,
+   4,
+   0,
+   2
+  ],
+  "type": "R-TOPIC"
+ },
+ "M2609#24": {
+  "answerLabel": "D",
+  "points": 3,
+  "order": [
+   4,
+   1,
+   3,
+   2,
+   0
+  ],
+  "type": "R-TITLE"
+ },
+ "M2609#40": {
+  "answerLabel": "D",
+  "points": 2,
+  "order": [
+   1,
+   0,
+   2,
+   3,
+   4
+  ],
+  "type": "R-SUMMARY"
+ },
+ "M2706#21": {
+  "answerLabel": "C",
+  "points": 3,
+  "order": [
+   3,
+   0,
+   1,
+   4,
+   2
+  ],
+  "type": "R-IMPLY"
+ },
+ "M2706#23": {
+  "answerLabel": "B",
+  "points": 2,
+  "order": [
+   0,
+   1,
+   3,
+   4,
+   2
+  ],
+  "type": "R-TOPIC"
+ },
+ "M2706#24": {
+  "answerLabel": "A",
+  "points": 2,
+  "order": [
+   1,
+   0,
+   2,
+   3,
+   4
+  ],
+  "type": "R-TITLE"
+ },
+ "M2706#40": {
+  "answerLabel": "D",
+  "points": 2,
+  "order": [
+   1,
+   2,
+   0,
+   4,
+   3
+  ],
+  "type": "R-SUMMARY"
+ }
+}

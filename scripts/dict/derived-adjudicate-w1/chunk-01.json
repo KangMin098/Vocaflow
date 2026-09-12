@@ -1,0 +1,587 @@
+[
+ {
+  "word": "burnt",
+  "meaning_ko": "타버린, 탄",
+  "pos": "adjective",
+  "candidates": [
+   "burnt ochre",
+   "burnt umber"
+  ]
+ },
+ {
+  "word": "cardio",
+  "meaning_ko": "유산소 운동",
+  "pos": "noun",
+  "candidates": [
+   "cardiogram",
+   "cardiograph",
+   "cardiologist",
+   "cardiology"
+  ]
+ },
+ {
+  "word": "couch",
+  "meaning_ko": "소파",
+  "pos": "noun",
+  "candidates": [
+   "couchant",
+   "coucher",
+   "couchette"
+  ]
+ },
+ {
+  "word": "cramp",
+  "meaning_ko": "경련, 쥐 — 뜻대로 안 되는 고통스러운 근육 수축",
+  "pos": "noun",
+  "candidates": [
+   "cramped",
+   "crampon"
+  ]
+ },
+ {
+  "word": "dopamine",
+  "meaning_ko": "도파민 (신경전달물질)",
+  "pos": "noun",
+  "candidates": [
+   "dopaminergic"
+  ]
+ },
+ {
+  "word": "gastric",
+  "meaning_ko": "위의, 위장의",
+  "pos": "adjective",
+  "candidates": [
+   "gastric flu"
+  ]
+ },
+ {
+  "word": "glow",
+  "meaning_ko": "은은히 빛나다, 발그레해지다",
+  "pos": "verb",
+  "candidates": [
+   "glow-worm",
+   "glower",
+   "glowing",
+   "glowworm"
+  ]
+ },
+ {
+  "word": "hypochondriac",
+  "meaning_ko": "건강염려증 환자",
+  "pos": "noun",
+  "candidates": [
+   "hypochondriacal"
+  ]
+ },
+ {
+  "word": "kleptomania",
+  "meaning_ko": "도벽, 절도 충동 (정신의학)",
+  "pos": "noun",
+  "candidates": [
+   "kleptomaniac"
+  ]
+ },
+ {
+  "word": "medic",
+  "meaning_ko": "의무병; 의대생, 의사 (구어)",
+  "pos": "noun",
+  "candidates": [
+   "medica",
+   "medicaid",
+   "medical",
+   "medically",
+   "medicament",
+   "medicare",
+   "medicate",
+   "medication",
+   "medicinal",
+   "medicine",
+   "medico"
+  ]
+ },
+ {
+  "word": "paralympic",
+  "meaning_ko": "패럴림픽의",
+  "pos": "adjective",
+  "candidates": [
+   "paralympics"
+  ]
+ },
+ {
+  "word": "paranoia",
+  "meaning_ko": "피해망상; 과도한 불안",
+  "pos": "noun",
+  "candidates": [
+   "paranoiac"
+  ]
+ },
+ {
+  "word": "pill",
+  "meaning_ko": "알약",
+  "pos": "noun",
+  "candidates": [
+   "pillage",
+   "pillar",
+   "pillbox",
+   "pilling",
+   "pillion",
+   "pillock",
+   "pillory",
+   "pillow",
+   "pillowcase"
+  ]
+ },
+ {
+  "word": "prep",
+  "meaning_ko": "준비하다, 사전 준비를 하다",
+  "pos": "verb",
+  "candidates": [
+   "prepaid",
+   "prepare",
+   "preparedly",
+   "prepartum",
+   "preprints"
+  ]
+ },
+ {
+  "word": "pyromania",
+  "meaning_ko": "방화광, 방화벽",
+  "pos": "noun",
+  "candidates": [
+   "pyromaniac"
+  ]
+ },
+ {
+  "word": "regimen",
+  "meaning_ko": "섭생법, 요법",
+  "pos": "noun",
+  "candidates": [
+   "regiment",
+   "regimental"
+  ]
+ },
+ {
+  "word": "scald",
+  "meaning_ko": "(끓는 물·증기에) 데다, 화상을 입히다",
+  "pos": "verb",
+  "candidates": [
+   "scaldings"
+  ]
+ },
+ {
+  "word": "strength",
+  "meaning_ko": "힘",
+  "pos": "noun",
+  "candidates": [
+   "strengthen"
+  ]
+ },
+ {
+  "word": "display",
+  "meaning_ko": "전시, 표시; 디스플레이",
+  "pos": "noun",
+  "candidates": [
+   "display bin"
+  ]
+ },
+ {
+  "word": "excited",
+  "meaning_ko": "신난",
+  "pos": "adjective",
+  "candidates": [
+   "excitedly"
+  ]
+ },
+ {
+  "word": "host",
+  "meaning_ko": "주인",
+  "pos": "noun",
+  "candidates": [
+   "hosta",
+   "hostage",
+   "hostel",
+   "hostelry",
+   "hostess",
+   "hostile",
+   "hostility"
+  ]
+ },
+ {
+  "word": "network",
+  "meaning_ko": "네트워크, 망",
+  "pos": "noun",
+  "candidates": [
+   "networking"
+  ]
+ },
+ {
+  "word": "reward",
+  "meaning_ko": "보상, 보상하다",
+  "pos": "noun",
+  "candidates": [
+   "rewarding"
+  ]
+ },
+ {
+  "word": "scientific",
+  "meaning_ko": "과학의",
+  "pos": "adjective",
+  "candidates": [
+   "scientifically"
+  ]
+ },
+ {
+  "word": "thrive",
+  "meaning_ko": "번창하다",
+  "pos": "verb",
+  "candidates": [
+   "thrive on"
+  ]
+ },
+ {
+  "word": "award",
+  "meaning_ko": "상",
+  "pos": "noun",
+  "candidates": [
+   "awarders"
+  ]
+ },
+ {
+  "word": "determined",
+  "meaning_ko": "단호한",
+  "pos": "adjective",
+  "candidates": [
+   "determinedly"
+  ]
+ },
+ {
+  "word": "dislike",
+  "meaning_ko": "싫어하다",
+  "pos": "verb",
+  "candidates": [
+   "disliked"
+  ]
+ },
+ {
+  "word": "trait",
+  "meaning_ko": "특성, 특질",
+  "pos": "noun",
+  "candidates": [
+   "traitor",
+   "traitorous",
+   "traitress"
+  ]
+ },
+ {
+  "word": "hint",
+  "meaning_ko": "힌트; 암시하다; 기미",
+  "pos": "noun",
+  "candidates": [
+   "hinterland"
+  ]
+ },
+ {
+  "word": "judgement",
+  "meaning_ko": "판단",
+  "pos": "noun",
+  "candidates": [
+   "judgement call",
+   "judgemental"
+  ]
+ },
+ {
+  "word": "lure",
+  "meaning_ko": "유혹하다, 꾀어내다",
+  "pos": "verb",
+  "candidates": [
+   "lurex"
+  ]
+ },
+ {
+  "word": "overturn",
+  "meaning_ko": "뒤집다, 전복시키다; 뒤집히다",
+  "pos": "verb",
+  "candidates": [
+   "overturned"
+  ]
+ },
+ {
+  "word": "potty",
+  "meaning_ko": "유아용 변기",
+  "pos": "noun",
+  "candidates": [
+   "potty-train"
+  ]
+ },
+ {
+  "word": "premise",
+  "meaning_ko": "전제; 건물 부지",
+  "pos": "noun",
+  "candidates": [
+   "premises"
+  ]
+ },
+ {
+  "word": "affair",
+  "meaning_ko": "일; 불륜; 업무",
+  "pos": "noun",
+  "candidates": [
+   "affaire",
+   "affaires"
+  ]
+ },
+ {
+  "word": "afternoon",
+  "meaning_ko": "오후",
+  "pos": "noun",
+  "candidates": [
+   "afternoon tea",
+   "afternoons"
+  ]
+ },
+ {
+  "word": "again",
+  "meaning_ko": "다시",
+  "pos": "adverb",
+  "candidates": [
+   "against"
+  ]
+ },
+ {
+  "word": "always",
+  "meaning_ko": "항상",
+  "pos": "adverb",
+  "candidates": [
+   "always-on"
+  ]
+ },
+ {
+  "word": "amount",
+  "meaning_ko": "양, 액수",
+  "pos": "noun",
+  "candidates": [
+   "amount to"
+  ]
+ },
+ {
+  "word": "apartment",
+  "meaning_ko": "아파트",
+  "pos": "noun",
+  "candidates": [
+   "apartment block",
+   "apartment hotel"
+  ]
+ },
+ {
+  "word": "apple",
+  "meaning_ko": "사과",
+  "pos": "noun",
+  "candidates": [
+   "apple pie",
+   "applejack",
+   "applet"
+  ]
+ },
+ {
+  "word": "article",
+  "meaning_ko": "(신문·잡지) 기사, 글",
+  "pos": "noun",
+  "candidates": [
+   "articled"
+  ]
+ },
+ {
+  "word": "banana",
+  "meaning_ko": "바나나",
+  "pos": "noun",
+  "candidates": [
+   "banana skin",
+   "banana split"
+  ]
+ },
+ {
+  "word": "basic",
+  "meaning_ko": "기본적인, 기초적인",
+  "pos": "adjective",
+  "candidates": [
+   "basically"
+  ]
+ },
+ {
+  "word": "bath",
+  "meaning_ko": "목욕",
+  "pos": "noun",
+  "candidates": [
+   "bathe",
+   "bather",
+   "bathetic",
+   "bathhouse",
+   "bathing",
+   "bathos",
+   "bathrobe",
+   "bathroom",
+   "bathtub",
+   "bathyal",
+   "bathyscaph"
+  ]
+ },
+ {
+  "word": "battery",
+  "meaning_ko": "건전지, 배터리",
+  "pos": "noun",
+  "candidates": [
+   "battery farm"
+  ]
+ },
+ {
+  "word": "beach",
+  "meaning_ko": "해변",
+  "pos": "noun",
+  "candidates": [
+   "beach buggy",
+   "beachfront",
+   "beachhead"
+  ]
+ },
+ {
+  "word": "beautiful",
+  "meaning_ko": "아름다운",
+  "pos": "adjective",
+  "candidates": [
+   "beautifully"
+  ]
+ },
+ {
+  "word": "before",
+  "meaning_ko": "이전에, 전에 (시간)",
+  "pos": "adverb",
+  "candidates": [
+   "beforehand",
+   "beforetime"
+  ]
+ },
+ {
+  "word": "bell",
+  "meaning_ko": "종",
+  "pos": "noun",
+  "candidates": [
+   "belladonna",
+   "bellboy",
+   "belle",
+   "belleek",
+   "bellflower",
+   "bellhop",
+   "bellicose",
+   "bellman",
+   "bellow",
+   "bellpull",
+   "bellringer",
+   "bellwether",
+   "belly"
+  ]
+ },
+ {
+  "word": "statutory",
+  "meaning_ko": "법정의, 법령에 의한",
+  "pos": "adjective",
+  "candidates": [
+   "statutory rape"
+  ]
+ },
+ {
+  "word": "sway",
+  "meaning_ko": "흔들리다; 좌우하다",
+  "pos": "verb",
+  "candidates": [
+   "swayings"
+  ]
+ },
+ {
+  "word": "underpin",
+  "meaning_ko": "(이론·주장을) 뒷받침하다, 근거가 되다",
+  "pos": "verb",
+  "candidates": [
+   "underpinning"
+  ]
+ },
+ {
+  "word": "born",
+  "meaning_ko": "태어나다",
+  "pos": "verb",
+  "candidates": [
+   "born-again",
+   "borne"
+  ]
+ },
+ {
+  "word": "brand",
+  "meaning_ko": "상표; 낙인찍다",
+  "pos": "noun",
+  "candidates": [
+   "brand-new",
+   "brandade",
+   "branding",
+   "brandish",
+   "brandy",
+   "brandy snap"
+  ]
+ },
+ {
+  "word": "bread",
+  "meaning_ko": "빵",
+  "pos": "noun",
+  "candidates": [
+   "bread roll",
+   "breadcrumb",
+   "breadcrumbs",
+   "breadfruit",
+   "breadline",
+   "breadstick",
+   "breadth",
+   "breadwinner"
+  ]
+ },
+ {
+  "word": "breast",
+  "meaning_ko": "가슴; 유방; 가슴살",
+  "pos": "noun",
+  "candidates": [
+   "breastbone",
+   "breastfed",
+   "breastfeed",
+   "breastmilk",
+   "breastpin",
+   "breastplate",
+   "breaststroke",
+   "breastwork"
+  ]
+ },
+ {
+  "word": "buck",
+  "meaning_ko": "달러",
+  "pos": "noun",
+  "candidates": [
+   "buckaroo",
+   "buckboard",
+   "bucket",
+   "bucketful",
+   "buckeye",
+   "buckle",
+   "bucko",
+   "buckram",
+   "buckshee",
+   "buckshot",
+   "buckskin",
+   "buckwheat",
+   "buckyball"
+  ]
+ },
+ {
+  "word": "cable",
+  "meaning_ko": "케이블; 전보; 케이블TV; 전보치다",
+  "pos": "noun",
+  "candidates": [
+   "cable car"
+  ]
+ }
+]

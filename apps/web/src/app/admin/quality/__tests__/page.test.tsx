@@ -61,6 +61,21 @@ const ROWS = [
     dims: { articles: 46 },
     measured_at: '2026-07-05 18:10:00+00',
   },
+  // M7 (2026-08-14) — 발행세트 SSoT 드리프트. dims.drifted 로 어느 책인지 바로 보여야 한다.
+  {
+    stage: 'publish',
+    metric: 'published_set_ssot_drift_books',
+    value: '4',
+    dims: { books_checked: 12, drifted: { Fables: 13, 'A Christmas Carol': 16 } },
+    measured_at: '2026-07-05 18:10:00+00',
+  },
+  {
+    stage: 'publish',
+    metric: 'published_set_ssot_drift_words',
+    value: '73',
+    dims: { books_checked: 12, drifted: { Fables: 13, 'A Christmas Carol': 16 } },
+    measured_at: '2026-07-05 18:10:00+00',
+  },
   // 직전 스냅샷 (07-04) — ready 편중 비율만 변화(46.67→55.56)
   {
     stage: 'analyze',
@@ -129,6 +144,24 @@ describe('AdminQualityPage', () => {
     expect(html).toContain('분석')
     expect(html).toContain('발행')
     expect(html).toContain('수집 2회 보관')
+  })
+
+  it('SSoT 드리프트를 한글 라벨과 어느 책인지(dims.drifted)까지 렌더한다', async () => {
+    fetchMock.mockResolvedValue({ data: ROWS, error: null })
+    const html = renderToString(await AdminQualityPage()).replaceAll('<!-- -->', '')
+
+    // 라벨이 없으면 metric 원문(published_set_ssot_drift_books)이 그대로 노출된다
+    expect(html).toContain('발행세트 SSoT 드리프트 (도서)')
+    expect(html).toContain('발행세트 SSoT 드리프트 (단어)')
+    expect(html).not.toContain('published_set_ssot_drift')
+
+    // 값은 정수 그대로 (_pct 가 아니므로 % 를 붙이지 않는다)
+    expect(html).toContain('>4<')
+    expect(html).toContain('>73<')
+
+    // "몇 권" 만으로는 조치할 수 없다 — 어느 책인지가 같은 카드에 있어야 한다
+    expect(html).toContain('drifted')
+    expect(html).toContain('Fables')
   })
 
   it('데이터 없음 → 빈 상태 안내를 렌더한다', async () => {

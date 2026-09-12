@@ -1,0 +1,177 @@
+// apps/web/src/app/admin/__tests__/page.test.tsx
+//
+// /admin 대시보드 렌더 검증.
+// 이 화면은 v06.35 에서 목업 상수(총 사용자 1,247 …)를 걷어내고 실측 집계로 바꿨다.
+// 회귀 위험이 "숫자가 다시 상수로 굳는 것" 이므로, 픽스처를 바꾸면 화면 숫자도 바뀌는지를 고정한다.
+// (실 DB 연결은 lib/admin/__tests__/dashboard-stats.integration.test.ts 가 담당.)
+
+import { renderToString } from 'react-dom/server'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+
+import type { DashboardStats } from '@/lib/admin/dashboard-stats'
+
+const statsMock = vi.fn<[], Promise<DashboardStats>>()
+
+vi.mock('@/lib/auth/require-admin', () => ({
+  requireAdmin: async () => ({ id: 'admin-uuid', email: 'admin@test', role: 'admin' as const }),
+}))
+
+vi.mock('@/lib/supabase/admin', () => ({
+  createAdminClient: () => ({}),
+}))
+
+vi.mock('@/lib/admin/dashboard-stats', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('@/lib/admin/dashboard-stats')>()
+  return { ...actual, getAdminDashboardStats: () => statsMock() }
+})
+
+// 교사 퍼널 격차 — 이 화면이 나중에 붙인 두 번째 조회원이다.
+// ⚠️ 막지 않으면 `createClient()` 가 `cookies()` 를 부르고, 요청 스코프 밖이라
+//    **다섯 검사 전부**가 렌더 전에 죽는다. 이 스펙은 "숫자가 상수로 굳지 않는가" 를
+//    보는 자리이므로 조회는 픽스처로 고정한다(실 DB 는 integration 스펙 소관).
+//    `null` 로 둔다 — 화면이 "못 불러왔다" 를 그리는 쪽도 함께 지나간다.
+vi.mock('@/lib/admin/teacher-funnel', () => ({
+  fetchTeacherFunnelGaps: async () => null,
+}))
+
+import AdminDashboardPage from '../page'
+
+/** 2026-08-12 실측값을 축약한 픽스처 — reportsOpen 만 null(테이블 없음). */
+const STATS: DashboardStats = {
+  books: { published: 12, ready: 304, inFlight: 0, failed: 83, seeds: 1843 },
+  articles: { published: 160, ready: 2, inFlight: 0, failed: 0, seeds: 7 },
+  comics: { published: 1, draft: 0 },
+  pdComics: { published: 1, review: 4, inFlight: 1, failed: 0 },
+  jobs: { pending: 1, running: 0, awaitingMapping: 0, failed: 0 },
+  vcb: { pending: 0, exported: 0, enriched: 2000, flagged: 0, failed: 0 },
+  vrl: { openConcerns: 0, classified: 45682 },
+  words: { dict: 45682, pending: 0, judgments: 16, chapterQuiz: 1019 },
+  learners: { total: 3, activeToday: 1 },
+  texts: 275,
+  qualityLastMeasuredAt: '2026-08-10T18:25:00.015026+00:00',
+  reportsOpen: null,
+  recentUnread: [],
+  qualityUnread: false,
+  recent: [
+    {
+      at: '2026-08-12T10:00:00+00:00',
+      kind: 'LCP',
+      accent: 'var(--p)',
+      title: 'Dead Souls',
+      detail: '검수 대기',
+      href: '/admin/curation/preview/04fda0cd-99b3-40ed-993c-704fdc023565',
+    },
+    {
+      at: '2026-08-11T09:00:00+00:00',
+      kind: '드레인 큐',
+      accent: 'var(--success)',
+      title: 'LibriVox 챕터 매핑',
+      detail: '대기',
+      href: '/admin/curation',
+    },
+  ],
+}
+
+function render(stats: DashboardStats) {
+  statsMock.mockResolvedValue(stats)
+  // SSR 텍스트 경계 주석(<!-- -->)이 문자열 어서션을 끊으므로 제거 후 검사
+  return AdminDashboardPage().then((el) => renderToString(el).replaceAll('<!-- -->', ''))
+}
+
+describe('AdminDashboardPage', () => {
+  beforeEach(() => {
+    statsMock.mockReset()
+  })
+
+  it('KPI 를 집계 결과에서 계산한다 (상수 아님)', async () => {
+    const html = await render(STATS)
+
+    // 공개 = 12 + 160 + 1 + 1
+    expect(html).toContain('174')
+    // 검수 대기 = 304 + 2 + 4
+    expect(html).toContain('310')
+    // 실패 = 83 + 0 + 0 + 0 + 0
+    expect(html).toContain('83')
+    // 오늘 학습자 / 가입자
+    expect(html).toContain('오늘 학습자')
+    expect(html).toContain('가입 3명')
+
+    // 목업 시절의 상수가 남아 있지 않다
+    expect(html).not.toContain('1,247')
+    expect(html).not.toContain('GPT-4o-mini')
+    expect(html).not.toContain('The Great Gatsby')
+  })
+
+  it('파이프라인 8개 큐와 실측 칩을 렌더한다', async () => {
+    const html = await render(STATS)
+
+    expect(html).toContain('LCP · 도서 큐레이션')
+    expect(html).toContain('ACP · 짧은 글')
+    expect(html).toContain('드레인 큐 · Claude Code')
+    expect(html).toContain('VCB · 단어장 파이프라인')
+    expect(html).toContain('VRL · 어휘 레벨')
+    expect(html).toContain('CCP · 도서 만화')
+    expect(html).toContain('PDCP · 퍼블릭도메인 만화')
+    expect(html).toContain('Pending Words')
+    expect(html).toContain('8개 큐')
+
+    // 천단위 구분 포맷
+    expect(html).toContain('1,843')
+    expect(html).toContain('45,682')
+  })
+
+  it('DB 를 읽지 않는 화면에 목업 태그를, reports 부재는 "테이블 없음" 으로 표시한다', async () => {
+    const html = await render(STATS)
+
+    expect(html).toContain('목업')
+    expect(html).toContain('reports 테이블 없음')
+    expect(html).toContain('결제 테이블 없음')
+    // 미구현을 "0건" 으로 뭉개지 않는다
+    expect(html).not.toContain('미처리 0건')
+  })
+
+  it('조회 실패(null)는 0 이 아니라 —', async () => {
+    const html = await render({
+      ...STATS,
+      books: { published: null, ready: null, inFlight: null, failed: null, seeds: null },
+    })
+    expect(html).toContain('—')
+  })
+
+  it('최근 변경이 없으면 빈 상태를 안내한다', async () => {
+    const html = await render({ ...STATS, recent: [] })
+    expect(html).toContain('최근 변경된 파이프라인 항목이 없습니다')
+  })
+
+  // ── 「못 읽음」과 「없음」은 다른 말이다 ──────────────────────────────────
+  // 「최근 변경」은 다섯 출처를 합쳐 만든다. 하나가 실패하면 그 파이프라인의 변경이
+  // 통째로 빠지는데, 예전에는 화면이 그 사실을 **한 글자도** 말하지 않았다
+  // (`safeList` 가 오류를 빈 배열로 바꿨다). 짧아진 목록은 "조용한 하루" 처럼 보인다.
+  it('일부 출처를 못 읽으면 어느 것인지 말하고, 빠졌다는 사실을 알린다', async () => {
+    const html = await render({ ...STATS, recentUnread: ['ACP', 'PDCP'] })
+    expect(html).toContain('ACP · PDCP')
+    expect(html).toContain('못 읽었습니다')
+    expect(html).toContain('변경이 없는 것과 다릅니다')
+  })
+
+  it('전부 못 읽어 목록이 비면 "변경이 없다" 고 말하지 않는다', async () => {
+    const html = await render({
+      ...STATS,
+      recent: [],
+      recentUnread: ['LCP', 'ACP', '큐레이션 작업', 'PDCP', 'VCB'],
+    })
+    expect(html).not.toContain('최근 변경된 파이프라인 항목이 없습니다')
+    expect(html).toContain('읽을 수 있었던 출처에는 최근 변경이 없습니다')
+  })
+
+  // 품질 수집 시각도 같은 세 갈래다 — 값 있음 · 한 번도 안 쟀음 · **못 읽음**.
+  // 셋째를 둘째로 적으면 관리자는 "수집을 켜야겠다" 는 엉뚱한 조치를 한다.
+  it('품질 수집 시각을 못 읽은 것과 이력이 없는 것을 가른다', async () => {
+    const missing = await render({ ...STATS, qualityLastMeasuredAt: null })
+    expect(missing).toContain('수집 이력 없음')
+
+    const unread = await render({ ...STATS, qualityLastMeasuredAt: null, qualityUnread: true })
+    expect(unread).toContain('수집 시각을 못 읽음')
+    expect(unread).not.toContain('수집 이력 없음')
+  })
+})

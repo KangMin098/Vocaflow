@@ -1,0 +1,131 @@
+{
+ "n": 9,
+ "mean": 2,
+ "hit": 4,
+ "locked": 0,
+ "lockedRight": 0,
+ "dist": [
+  5,
+  0,
+  0,
+  0,
+  2,
+  2
+ ],
+ "rows": [
+  {
+   "id": "2015#38",
+   "ans": 3,
+   "ok": [],
+   "n": 0,
+   "hit": false,
+   "an": [
+    "this happen by"
+   ]
+  },
+  {
+   "id": "2015#39",
+   "ans": 2,
+   "ok": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "n": 5,
+   "hit": true,
+   "an": [
+    "those fake extroverts",
+    "They"
+   ]
+  },
+  {
+   "id": "2016#37",
+   "ans": 5,
+   "ok": [
+    2,
+    3,
+    4,
+    5
+   ],
+   "n": 4,
+   "hit": true,
+   "an": [
+    "these dogs were"
+   ]
+  },
+  {
+   "id": "2018#39",
+   "ans": 4,
+   "ok": [],
+   "n": 0,
+   "hit": false,
+   "an": [
+    "such contamination may",
+    "It"
+   ]
+  },
+  {
+   "id": "2020#39",
+   "ans": 3,
+   "ok": [],
+   "n": 0,
+   "hit": false,
+   "an": [
+    "this problem"
+   ]
+  },
+  {
+   "id": "2023#38",
+   "ans": 5,
+   "ok": [],
+   "n": 0,
+   "hit": false,
+   "an": [
+    "such a feeling"
+   ]
+  },
+  {
+   "id": "2023#39",
+   "ans": 4,
+   "ok": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "n": 5,
+   "hit": true,
+   "an": [
+    "It"
+   ]
+  },
+  {
+   "id": "2024#38",
+   "ans": 3,
+   "ok": [],
+   "n": 0,
+   "hit": false,
+   "an": [
+    "such as identification"
+   ]
+  },
+  {
+   "id": "2026#38",
+   "ans": 5,
+   "ok": [
+    2,
+    3,
+    4,
+    5
+   ],
+   "n": 4,
+   "hit": true,
+   "an": [
+    "these internal narratives"
+   ]
+  }
+ ]
+}

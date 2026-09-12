@@ -1,0 +1,260 @@
+[
+  {
+    "adapted_from_id": "0197edad-3bcf-49ee-9b07-61c3459f1ab9",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "Boys and Girls Bookshelf; a Practical Plan of Character Building, Volume I (of 1 (발췌)",
+    "source_feed": "gutenberg",
+    "source_license": "public_domain",
+    "source_v_level": 4,
+    "source_url": "https://www.gutenberg.org/ebooks/25359",
+    "source_text": "On the very day of its birth a baby enters the child's garden of life. In this beautiful place there are weeds as well as flowers, and father and mother must guide the little adventurer so that only the good flowers are developed, while the weeds are held in check and the poisonous plants torn up and destroyed. Earnest parents feel this responsibility very keenly. In \"Fun and Thought for Little Folk\" there is a well-selected collection of jingles, stories, and play exercises for babies up to about three or four years of age. It covers the earliest informal education of a child, from finger-play days to the alphabet period. It helps parents who wish to enjoy their little children and who do not wish such enjoyment to be a mere matter of chance. Trained kindergartners with the modern viewpoint had much to do with this collection. Not only does it delight the little folk, but it is also the first material for child-training.",
+    "teachable_new_words": {
+      "teachable": 10,
+      "outside": 31,
+      "pct": 32.3
+    },
+    "title": "",
+    "text": ""
+  },
+  {
+    "adapted_from_id": "0517432f-ba7e-48d6-ad05-857a6e54807f",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "Boys and Girls Bookshelf; a Practical Plan of Character Building, Volume I (of 1 (발췌)",
+    "source_feed": "gutenberg",
+    "source_license": "public_domain",
+    "source_v_level": 5,
+    "source_url": "https://www.gutenberg.org/ebooks/25359",
+    "source_text": "Out in the green, green orchard Standeth a fine pear tree, The fine pear tree has leaves, too, And what on its branch may be? A beautiful twig. Twig on the branch, Branch on the tree, Tree in the ground. Out in the green, green orchard Standeth a fine pear tree, The fine pear tree has leaves, too. Now what on the twig may be? A beautiful nest. Nest on the twig, Twig on the branch, Branch on the tree, Tree in the ground. Out in the green, green orchard Standeth a fine pear tree; The fine pear tree has leaves, too. Now, what in the nest may be? A beautiful egg. Egg in the nest, Nest on the twig, Twig on the branch, Branch on the tree, Tree in the ground.",
+    "teachable_new_words": {
+      "teachable": 2,
+      "outside": 7,
+      "pct": 28.6
+    },
+    "title": "",
+    "text": ""
+  },
+  {
+    "adapted_from_id": "10fc4af0-27ed-40ea-afb1-08c71217cfe5",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "Mansfield Park (발췌)",
+    "source_feed": "gutenberg",
+    "source_license": "public_domain",
+    "source_v_level": 4,
+    "source_url": "https://www.gutenberg.org/ebooks/141",
+    "source_text": "There was, indeed, so deep a blush over Fanny’s face at that moment as might warrant strong suspicion in a predisposed mind. “Excellent creature! I will not tease you. Everything shall take its course. But, dear Fanny, you must allow that you were not so absolutely unprepared to have the question asked as your cousin fancies. It is not possible but that you must have had some thoughts on the subject, some surmises as to what might be. You must have seen that he was trying to please you by every attention in his power. Was not he devoted to you at the ball? And then before the ball, the necklace! Oh! you received it just as it was meant. You were as conscious as heart could desire. I remember it perfectly.”",
+    "teachable_new_words": {
+      "teachable": 8,
+      "outside": 24,
+      "pct": 33.3
+    },
+    "title": "",
+    "text": ""
+  },
+  {
+    "adapted_from_id": "01ecd7f7-aa78-43ae-b7f7-de16b4e0a916",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "A Book of Myths (발췌)",
+    "source_feed": "gutenberg",
+    "source_license": "public_domain",
+    "source_v_level": 5,
+    "source_url": "https://www.gutenberg.org/ebooks/22693",
+    "source_text": "As a martyr walks to death, so did she walk. And when the yellow light fell upon the form of him who lay there, still she gazed steadily. And, lo, before her she saw the form of him who had ever been the ideal of her dreams. Love himself, incarnate Love, perfect in beauty and in all else was he whom her sisters had told her was a monster--he, of whom the oracle had said that neither gods nor men could resist him. For a moment of perfect happiness she gazed upon his beauty. Then he turned in his sleep, and smiled, and stretched out his arms to find the one of his love. And Psyche started, and, starting, shook the lamp; and from it fell a drop of burning oil on the white shoulder of Eros. At once he awoke, and with piteous, pitying eyes looked in those of Psyche. And when he spoke, his words were like daggers that pierced deep into her soul. He told her all that had been, all that might have been. Had she only had faith and patience to wait, an immortal life should have been hers.",
+    "teachable_new_words": {
+      "teachable": 12,
+      "outside": 36,
+      "pct": 33.3
+    },
+    "title": "",
+    "text": ""
+  },
+  {
+    "adapted_from_id": "b8f40496-3e60-4c1a-9b83-1aae0b548334",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "Private Lander Carrying NASA Experiments Lands on the Moon",
+    "source_feed": "voa",
+    "source_license": "public_domain",
+    "source_v_level": 4,
+    "source_url": "https://learningenglish.voanews.com/a/private-lander-carrying-nasa-experiments-lands-on-the-moon/7998600.html",
+    "source_text": "A private spacecraft carrying several science experiments has successfully landed on the moon.\nThe lander, called Blue Ghost, was built by the American company Firefly Aerospace. The spacecraft touched down March 2 on the part of the moon’s near side called Mare Crisium. The near side of the moon is the side facing Earth.\nOfficials at Firefly’s Mission Control center near Austin, Texas, confirmed the successful landing. The chief engineer for the Blue Ghost mission, Will Coogan, announced to excited workers: “We’re on the moon.”\nThe officials said the spacecraft landed in the right position and was operating normally. The successful touchdown makes Firefly the first private company to land a spacecraft on the moon without crashing or having a major problem.\nOnly five countries can claim successful moon landings: Russia, the United States, China, India and Japan.\nBlue Ghost is named after a rare kind of firefly found in the U.S. The four-legged lander is two meters tall and 3.5 meters wide. It launched in mid-January from Florida, carrying 10 experiments for the American space agency NASA.\nIn a statement, NASA said the 10 experiments are designed to operate on the surface of the moon for one lunar day, which is about 14 Earth days. The Associated Press reported that NASA paid $101 million for the spacecraft and $44 million for the equipment it carried.\nIt was the third mission under NASA’s Commercial Lunar Payload Services (CLPS) program. The program aims to turn over the country’s major space missions to private companies to reduce costs. Several other companies are part of the program.\nAnother lander, called Athena, is set to attempt a moon landing on March 6. That four-meter-tall spacecraft was built and operated by Houston-based Intuitive Machines. It will land on another part of the moon, about 160 kilometers from the lunar south pole.\nA third lander from private Japanese company ispace will attempt a moon landing in about three months. The lander, called Resilience, shared its rocket ride with Blue Ghost. But it took a longer path to the moon. The company is also attempting to land on the moon for the second time. Its first lander crashed in 2023.\nNASA has said it aims to have two private landers launch to the moon each year, realizing some missions will fail. The space agency’s top science officer is Nicky Fox. She told the AP the latest launches “open up a whole new way for us to get more science to space and to the moon.\"\nIn the past, NASA’s successful moon landings involving astronauts cost billions of dollars. But Firefly chief Jason Kim said the private companies now building and launching spacecraft have a limited budget and the spacecraft operate robotically.\nKim said everything went just as planned with Blue Ghost’s landing. “We got some moon dust on our boots,\" he added.\nI’m Bryan Lynn.\nThe Associated Press, Agence France-Presse and NASA reported on this story. Bryan Lynn adapted the reports for VOA Learning English.\n___________________________________________________\nmission – n. (space exploration) the flight of a spacecraft to its target along with tasks expected to be carried out\nboot – v. a strong shoe that covers the foot and part of the leg",
+    "teachable_new_words": {
+      "teachable": 21,
+      "outside": 89,
+      "pct": 23.6
+    },
+    "title": "A Private Lander on the Moon",
+    "text": "A spacecraft named Blue Ghost has landed on the Moon. A private company built the spacecraft, not a government. The lander carried science experiments for NASA. It touched down on the near side of the Moon. The near side is the side facing Earth. The landing spot is a wide plain of old lava. Craters ring that lava plain on every side. Engineers watched from a control room in Texas. Their screens showed the spacecraft upright and working. We are on the Moon, the chief engineer told them. Only five countries had managed a soft landing before. This was the first success by a company. A robotic arm will scoop the grey lunar regolith."
+  },
+  {
+    "adapted_from_id": "6b8a5f7b-262b-4936-bbdd-c27c97fb1d64",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "‘Kitchen-Table’ Is a Type of Politics",
+    "source_feed": "voa",
+    "source_license": "public_domain",
+    "source_v_level": 4,
+    "source_url": "https://learningenglish.voanews.com/a/what-are-kitchen-table-politics-/7953635.html",
+    "source_text": "And now, Words and Their Stories, from VOA Learning English.\nOn this program we explore words and expressions in the English language. We give examples and notes on usage.\nToday we talk about different kinds of politics.\nWe start with kitchen-table politics. The kitchen is often considered the hub, or center, of the home. It is where we gather to not only share a meal but to talk about the events of the day. We often discuss issues of importance with our family and friends around the dining room table.\nSo, kitchen-table issues are those that affect individuals and their families daily. A family might discuss these issues at the kitchen table during mealtimes.\nRising gas and food prices are two good examples of kitchen-table politics. These issues affect decisions we make day to day. They are sometimes also called dinner-table politics. Or we could describe them as bread-and-butter issues.\nMerriam Webster dictionary defines bread-and-butter issues as “being as basic as the earning of one's livelihood.” The online Cambridge Dictionary defines a bread-and-butter issue as “a subject or problem that relates directly to most people's needs and interests.”\nFor example, affordable food prices and availability of good healthcare are the kinds of bread-and-butter political issues that people vote on.\nThe noun bread and butter means a way of making a living. For example, for a creative writer, her ideas are her bread and butter.\nSo, bread-and-butter political issues deal with our ability to provide for the needs of ourselves and our families.\nNext, let’s talk about green politics. These political issues deal with caring for the natural environment. Green politics can cover ideas such as environmental sustainability, recycling, and threats to wildlife. The natural world is central to green politics.\nIdentity politics is more personal. This term means that a person’s political views are formed by their experiences and understanding of themselves. Things like gender, age, social and economic position, and religious belief can inform identity politics.\nFinally, we come to gotcha politics. This type of politics is centered on damaging opponents through public accusations of wrongdoing or misbehavior. Gotcha politics often involves investigation into the private lives, past and present, of politicians in search of negative information.\nIn gotcha politics, “Gotcha” is short for “I got you,” meaning, “I caught you!”\nAnd that's the end of this Words and Their Stories.\nUntil next time, I’m Anna Matteo.\nAnna Matteo wrote this story for VOA Learning English.\n______________________________________________________\ndine -v. to eat dinner\ndinner -n. the main meal of the day\nbasic -adj. of, relating to, or forming the base or essence\nlivelihood -n. means of support\naffordable -adj. having a cost that is not too high\nsustainability -n. of, relating to, or being a method of harvesting or using a resource so that the resource is not depleted or permanently damaged\nrecycling -n. to process (something, such as liquid body waste, glass, or cans) in order to regain material for human use\ngender -n. the behavioral, cultural, or psychological traits typically associated with one sex\nnegative -adj. not positive or helpful",
+    "teachable_new_words": {
+      "teachable": 37,
+      "outside": 102,
+      "pct": 36.3
+    },
+    "title": "",
+    "text": ""
+  }
+]

@@ -1,0 +1,152 @@
+// scripts/compose/feed-fitness.mjs
+//
+// ACP §20 — **피드별 학습 적합도.** 어떤 피드가 한국 학습자용 지문을 실제로 물어오는가.
+//
+// ── 왜 필요한가 ─────────────────────────────────────────────────────
+// 수집은 잘 돌지만(하루 300~800 후보) 취재 가능 사건이 전부 사망·사고·정치 쟁점이라
+// 학습 지문으로 한 편도 못 썼다. 즉 **피드가 뉴스 홈·탑스토리 중심이라 학습 부적합 비율이
+// 구조적으로 높다.** 그런데 후보 테이블에 `feed_id` 가 없어 "어느 피드가 문제인가" 를
+// 귀속할 수 없다 — 그래서 피드를 직접 열어 그 자리에서 분류한다.
+//
+// 분류는 제목 기반 규칙이라 정밀하지 않다. **순위를 매기는 용도**이지 개별 판정용이 아니다.
+// 규칙은 아래 한곳에만 있고, 바꾸면 모든 측정이 같이 바뀐다.
+//
+// 실행: pnpm dlx tsx scripts/compose/feed-fitness.mjs [--all]
+//   --all 을 주면 비활성 피드도 잰다(후보 피드를 견줄 때).
+//   --url <주소> 를 주면 등록하지 않은 주소를 잰다(반복 가능).
+
+import fs from 'node:fs'
+import path from 'node:path'
+
+for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
+  const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/)
+  if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, '')
+}
+
+const { createClient } = await import('@supabase/supabase-js')
+const { COMPOSE_USER_AGENT, classifyTopic, parseSectionPage } =
+  await import('@vocaflow/library-pipeline')
+
+const db = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY,
+  { auth: { persistSession: false } },
+)
+
+const get = async (url, ms = 15000) => {
+  const c = new AbortController()
+  const t = setTimeout(() => c.abort(), ms)
+  try {
+    const r = await fetch(url, { headers: { 'User-Agent': COMPOSE_USER_AGENT }, signal: c.signal, redirect: 'follow' })
+    return { ok: r.ok, status: r.status, text: r.ok ? await r.text() : '' }
+  } catch (e) {
+    return { ok: false, status: 0, text: '', err: String(e.name || e) }
+  } finally {
+    clearTimeout(t)
+  }
+}
+
+// ⚠️ RSS 만 세면 **섹션 페이지 피드가 0건으로 잡히고 합계에서 조용히 빠진다.**
+//   수집기는 RSS 실패 시 섹션 파서로 넘어가는데 이 계측기가 안 따라가면, 화면의 적합률이
+//   실제로 걷는 것과 달라진다 — 계측기가 새 경로를 못 보면 합계가 거짓말한다.
+function titles(xml, url) {
+  const rss = titlesFromRss(xml)
+  if (rss.length) return rss
+  return parseSectionPage(xml, url).map((i) => i.title)
+}
+
+function titlesFromRss(xml) {
+  const blocks = xml.match(/<(item|entry)[\s>][\s\S]*?<\/\1>/gi) ?? []
+  const out = []
+  for (const b of blocks) {
+    const m = b.match(/<title(?:\s[^>]*)?>\s*(?:<!\[CDATA\[([\s\S]*?)\]\]>|([\s\S]*?))\s*<\/title>/i)
+    const t = (m?.[1] ?? m?.[2] ?? '').trim()
+    if (t) out.push(t)
+  }
+  return out
+}
+
+// `--url <주소>` 는 **아직 등록하지 않은 주소**를 잰다(여러 번 반복 가능).
+//   등록해 두고 끄기를 반복하면 피드 표가 지저분해지고, 무엇을 왜 껐는지 흐려진다.
+//   먼저 재고 나서 올린다.
+const urlArgs = process.argv.filter((_, i) => process.argv[i - 1] === '--url')
+let feeds
+if (urlArgs.length) {
+  feeds = urlArgs.map((u) => ({
+    source_key: '(미등록)',
+    url: u,
+    label: u.split('/').pop(),
+    enabled: false,
+  }))
+} else {
+  let q = db.from('article_compose_feeds').select('source_key,url,label,enabled').order('source_key')
+  if (!process.argv.includes('--all')) q = q.eq('enabled', true)
+  const { data, error } = await q
+  if (error) throw new Error('피드 조회 실패: ' + error.message)
+  feeds = data
+}
+
+const rows = []
+for (const f of feeds ?? []) {
+  const r = await get(f.url)
+  if (!r.ok) {
+    // ⚠ upct 를 빼면 아래 표에서 undefined.toFixed 로 **보고 전체가 죽는다.**
+    //   피드 하나가 안 열리는 것은 그 피드의 문제이지 측정의 문제가 아니다 — 행으로 남긴다.
+    rows.push({ ...f, n: 0, fit: 0, unfit: 0, pct: null, upct: null, note: 'HTTP' + (r.err || r.status) })
+    continue
+  }
+  const ts = titles(r.text, f.url)
+  let fit = 0
+  let unfit = 0
+  for (const t of ts) {
+    const c = classifyTopic(t)
+    if (c === 'fit') fit++
+    else if (c === 'unfit') unfit++
+  }
+  rows.push({
+    ...f,
+    n: ts.length,
+    fit,
+    unfit,
+    pct: ts.length ? (100 * fit) / ts.length : null,
+    upct: ts.length ? (100 * unfit) / ts.length : null,
+    note: '',
+  })
+}
+
+rows.sort((a, b) => (b.pct ?? -1) - (a.pct ?? -1))
+
+console.log('피드별 학습 적합도 (제목 기반 · 순위용)\n')
+console.log(
+  ['소스'.padEnd(15), '피드'.padEnd(26), '항목', ' 적합%', '부적합%', ''].join(' '),
+)
+for (const r of rows) {
+  console.log(
+    [
+      r.source_key.padEnd(15),
+      String(r.label).slice(0, 26).padEnd(26),
+      String(r.n).padStart(4),
+      (r.pct == null ? '  -' : r.pct.toFixed(1)).padStart(6),
+      (r.upct == null ? '  -' : r.upct.toFixed(1)).padStart(7),
+      r.enabled ? '' : ' (비활성)',
+      r.note,
+    ].join(' '),
+  )
+}
+
+// `--url` 로 재는 동안에는 활성 피드가 하나도 없다 — 0 으로 나누면 NaN 이 찍힌다.
+//   없는 것을 0.0% 로 보고하지 않는다는 규칙은 여기에도 적용된다.
+const on = rows.filter((r) => r.enabled && r.n > 0)
+const totN = on.reduce((s, r) => s + r.n, 0)
+const totFit = on.reduce((s, r) => s + r.fit, 0)
+const totUnfit = on.reduce((s, r) => s + r.unfit, 0)
+console.log(
+  totN
+    ? `\n활성 합계 ${totN}항목 · 적합 ${((100 * totFit) / totN).toFixed(1)}% · 부적합 ${((100 * totUnfit) / totN).toFixed(1)}%`
+    : '\n활성 피드에서 잰 항목이 없다 (--url 측정이거나 전부 비어 있다).',
+)
+const dead = on.filter((r) => (r.pct ?? 0) < 10)
+if (dead.length) {
+  console.log(`\n적합 10% 미만 피드 ${dead.length}개 — 학습 지문을 거의 물어오지 못한다:`)
+  for (const d of dead) console.log(`  · ${d.source_key} / ${d.label} (${d.pct.toFixed(1)}%)`)
+}

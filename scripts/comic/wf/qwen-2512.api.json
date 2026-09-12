@@ -1,0 +1,13 @@
+{
+  "_note": "Qwen-Image-2512 GGUF Q4 t2i. TE/VAE reuse existing volume files. Nodes titled PROMPT/NEG/SIZE + KSampler(7)/Save(9) match zimage-test injection.",
+  "1": { "class_type": "UnetLoaderGGUF", "inputs": { "unet_name": "Qwen-Image-2512-Q4_K_M.gguf" }, "_meta": { "title": "unet" } },
+  "2": { "class_type": "CLIPLoaderGGUF", "inputs": { "clip_name": "qwen2.5-vl-7b-it-q4_k_m.gguf", "type": "qwen_image" }, "_meta": { "title": "clip" } },
+  "3": { "class_type": "VAELoader", "inputs": { "vae_name": "qwen_image_vae.safetensors" }, "_meta": { "title": "vae" } },
+  "4": { "class_type": "CLIPTextEncode", "inputs": { "text": "", "clip": ["2", 0] }, "_meta": { "title": "PROMPT" } },
+  "5": { "class_type": "CLIPTextEncode", "inputs": { "text": "", "clip": ["2", 0] }, "_meta": { "title": "NEG" } },
+  "6": { "class_type": "EmptySD3LatentImage", "inputs": { "width": 832, "height": 1216, "batch_size": 1 }, "_meta": { "title": "SIZE" } },
+  "8": { "class_type": "ModelSamplingAuraFlow", "inputs": { "shift": 3.1, "model": ["1", 0] }, "_meta": { "title": "shift" } },
+  "7": { "class_type": "KSampler", "inputs": { "seed": 42, "steps": 20, "cfg": 2.5, "sampler_name": "euler", "scheduler": "simple", "denoise": 1, "model": ["8", 0], "positive": ["4", 0], "negative": ["5", 0], "latent_image": ["6", 0] }, "_meta": { "title": "sampler" } },
+  "10": { "class_type": "VAEDecode", "inputs": { "samples": ["7", 0], "vae": ["3", 0] }, "_meta": { "title": "decode" } },
+  "9": { "class_type": "SaveImage", "inputs": { "images": ["10", 0], "filename_prefix": "q25" }, "_meta": { "title": "save" } }
+}

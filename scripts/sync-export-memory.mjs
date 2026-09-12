@@ -94,6 +94,22 @@ function syncMemory() {
   }
   console.log(`[sync-memory] source: ${memDir}`)
 
+  // 멀티 PC 안전 가드: 이 머신 memory 의 mirror 대상 파일이 기존 mirror 의 50% 미만이면
+  //   = 다른 PC 에서 생성된 mirror. mirror/prune/README/CONTEXT 전부 skip — 상대 PC mirror 파괴 방지.
+  //   (authoritative 머신: srcMatch≈existing → 정상 동작. fresh/foreign 머신: 완전 no-op.)
+  {
+    const srcMatch = fs.readdirSync(memDir).filter((n) => /^(project_|feedback_|reference_).*\.md$/.test(n)).length
+    let existingMirror = 0
+    for (const cat of ['project', 'feedback', 'reference']) {
+      const d = path.join(AI_CONTEXT_DIR, cat)
+      if (fs.existsSync(d)) existingMirror += fs.readdirSync(d).filter((f) => f.endsWith('.md')).length
+    }
+    if (existingMirror > 0 && srcMatch < existingMirror * 0.5) {
+      console.log(`[sync-memory] 이 머신 대상(${srcMatch}) < 기존 mirror(${existingMirror})×0.5 — 다른 PC mirror 로 판단, 전체 skip.`)
+      return { mirrored: 0, removed: 0, skipped: true }
+    }
+  }
+
   const entries = fs.readdirSync(memDir, { withFileTypes: true })
   const targetByName = new Map() // mirror dst path → category
   let mirrored = 0
@@ -264,6 +280,6 @@ console.log(
   `[sync-memory] mirrored=${memResult.mirrored} removed=${memResult.removed} (${Date.now() - t0}ms)`,
 )
 
-if (REFRESH_CONTEXT) {
+if (REFRESH_CONTEXT && !memResult.skipped) {
   refreshContextAutoBlocks()
 }

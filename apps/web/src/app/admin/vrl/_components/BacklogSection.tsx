@@ -59,7 +59,7 @@ export function BacklogSection() {
     <section aria-label="Improvement Backlog" className="flex flex-col gap-4">
       {/* ── 섹션 헤더 ── */}
       <header className="flex flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-3">
           <span
             className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)]"
             style={{ backgroundColor: '#8B5CF61A', color: '#8B5CF6' }}
@@ -71,24 +71,24 @@ export function BacklogSection() {
             <h2 className="font-display text-[18px] font-[800] leading-tight text-[var(--t1)]">
               Improvement Backlog
             </h2>
-            <p className="font-body text-[12px] text-[var(--t3)]">
+            <p className="font-body text-[12px] text-[var(--t2)]">
               남은 {summary.total} · P0 {summary.byPriority.P0} · P1 {summary.byPriority.P1} ·
               P2 {summary.byPriority.P2} · P3 {summary.byPriority.P3} · 완료 {summary.done}
             </p>
           </div>
         </div>
-        <div className="flex items-center gap-2 font-mono text-[10px] text-[var(--t3)]">
+        <div className="flex items-center gap-2 font-mono text-[10px] text-[var(--t2)]">
           <span>affects:</span>
-          <span className="rounded-[var(--r-sm)] bg-[var(--bg2)] px-1.5 py-0.5">
+          <span className="rounded-[var(--r-sm)] bg-[var(--bg2)] px-2 py-1">
             R1 <strong className="text-[var(--p)]">{summary.byResponsibility.R1}</strong>
           </span>
-          <span className="rounded-[var(--r-sm)] bg-[var(--bg2)] px-1.5 py-0.5">
+          <span className="rounded-[var(--r-sm)] bg-[var(--bg2)] px-2 py-1">
             R2 <strong className="text-[var(--success)]">{summary.byResponsibility.R2}</strong>
           </span>
-          <span className="rounded-[var(--r-sm)] bg-[var(--bg2)] px-1.5 py-0.5 ring-1 ring-[var(--error)]">
-            R3 <strong className="text-[var(--error)]">{summary.byResponsibility.R3}</strong>
+          <span className="rounded-[var(--r-sm)] bg-[var(--bg2)] px-2 py-1 ring-1 ring-[var(--error)]">
+            R3 <strong className="text-[var(--error-ink)]">{summary.byResponsibility.R3}</strong>
           </span>
-          <span className="rounded-[var(--r-sm)] bg-[var(--bg2)] px-1.5 py-0.5">
+          <span className="rounded-[var(--r-sm)] bg-[var(--bg2)] px-2 py-1">
             R4 <strong className="text-[var(--active)]">{summary.byResponsibility.R4}</strong>
           </span>
         </div>
@@ -105,11 +105,11 @@ export function BacklogSection() {
               <Target
                 size={14}
                 strokeWidth={2}
-                className="mt-0.5 shrink-0 text-[var(--error)]"
+                className="mt-0.5 shrink-0 text-[var(--error-ink)]"
                 aria-hidden
               />
               <div>
-                <p className="font-mono text-[9px] font-[700] uppercase tracking-[0.06em] text-[var(--error)]">
+                <p className="font-mono text-[9px] font-[700] uppercase tracking-[0.06em] text-[var(--error-ink)]">
                   본질 페인
                 </p>
                 <p className="mt-0.5 font-display text-[12px] font-[700] text-[var(--t1)]">
@@ -156,10 +156,10 @@ export function BacklogSection() {
           <section
             key={g.priority}
             aria-label={`${g.priority} items`}
-            className="flex flex-col gap-2.5"
+            className="flex flex-col gap-3"
           >
             <header
-              className="flex items-center gap-2 rounded-[var(--r-md)] px-3 py-1.5"
+              className="flex items-center gap-2 rounded-[var(--r-md)] px-3 py-2"
               style={{ backgroundColor: g.bg }}
             >
               <GIcon size={13} strokeWidth={2} style={{ color: g.color }} aria-hidden />
@@ -170,13 +170,13 @@ export function BacklogSection() {
                 {g.label}
               </h3>
               <span
-                className="ml-auto rounded-full bg-[var(--bg)] px-2 py-0.5 font-mono text-[10px] font-[700]"
+                className="ml-auto rounded-full bg-[var(--bg)] px-2 py-1 font-mono text-[10px] font-[700]"
                 style={{ color: g.color }}
               >
                 {items.length}
               </span>
             </header>
-            <div className="grid grid-cols-1 gap-2.5 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
               {items.map((it) => (
                 <BacklogItemCard key={it.id} item={it} />
               ))}
@@ -187,8 +187,8 @@ export function BacklogSection() {
 
       {/* ── 완료 그룹 ── */}
       {summary.done > 0 && (
-        <section aria-label="완료 items" className="flex flex-col gap-2.5">
-          <header className="flex items-center gap-2 rounded-[var(--r-md)] bg-[var(--success-light)] px-3 py-1.5">
+        <section aria-label="완료 items" className="flex flex-col gap-3">
+          <header className="flex items-center gap-2 rounded-[var(--r-md)] bg-[var(--success-light)] px-3 py-2">
             <CheckCircle2
               size={13}
               strokeWidth={2}
@@ -198,11 +198,11 @@ export function BacklogSection() {
             <h3 className="font-display text-[12px] font-[700] text-[var(--success)]">
               완료 — 실측으로 종결 확인
             </h3>
-            <span className="ml-auto rounded-full bg-[var(--bg)] px-2 py-0.5 font-mono text-[10px] font-[700] text-[var(--success)]">
+            <span className="ml-auto rounded-full bg-[var(--bg)] px-2 py-1 font-mono text-[10px] font-[700] text-[var(--success)]">
               {summary.done}
             </span>
           </header>
-          <div className="grid grid-cols-1 gap-2.5 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
             {BACKLOG_ITEMS.filter((it) => it.status === 'done').map((it) => (
               <BacklogItemCard key={it.id} item={it} />
             ))}

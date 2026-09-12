@@ -1,9 +1,23 @@
 // apps/web/src/components/wordvault/hooks/useSpeech.ts
-// Web Speech API 래퍼
+// Web Speech API 래퍼 — 단어·예문 읽어 주기 + 흘려듣기 큐의 재생 엔진.
+//
+// 이 훅이 오디오 단어장(D26)의 **전달 경로 그 자체**다 (녹음 자산 0 · 브라우저 TTS 확정).
+// 그래서 "대충 재생되면 된다" 로 둘 수 없고, 아래 두 가지를 반드시 처리한다.
+//
+//   ① 영어 음성 고르기 — `utter.lang='en-US'` 만 주면 브라우저는 **설치된 아무 음성**으로
+//      읽을 수 있다. 한국어 시스템에서 영단어를 한국어 음성이 읽으면 발음 학습에는
+//      침묵보다 나쁘다. 그래서 en 음성을 직접 찾아 물린다.
+//      (`getVoices()` 는 첫 호출에 빈 배열을 주는 브라우저가 있어 `voiceschanged` 를 함께 듣는다.)
+//
+//   ② 끝나지 않는 재생 막기 — 실패해도 `onEnd` 를 반드시 부른다. 부르지 않으면
+//      `useListenQueue` 가 다음 단어로 넘어가지 못해 **흘려듣기가 그 자리에 멈춘다**
+//      (미지원 브라우저·음성 없음·합성 오류 전부 같은 증상이고, 화면에는 아무 표시도 없다).
 
 'use client'
 
-import { useCallback } from 'react'
+import { useCallback, useEffect, useState } from 'react'
+
+import { nextVoice, pickEnglishVoice } from '@/lib/speech/voice-pick'
 
 export interface SpeakOptions {
   rate?: number
@@ -11,23 +25,91 @@ export interface SpeakOptions {
   onEnd?: () => void
 }
 
-export function useSpeech() {
-  const speak = useCallback((text: string, options: SpeakOptions = {}) => {
-    if (typeof window === 'undefined') return
-    if (!('speechSynthesis' in window)) return
+// 음성 고르기·유지 규칙은 `lib/speech/voice-pick` 이 소유한다 — 듣기 게임과 같은 판단을 쓴다.
+export { pickEnglishVoice, nextVoice } from '@/lib/speech/voice-pick'
 
-    window.speechSynthesis.cancel()
+/**
+ * 완료 통지를 건다 — 정상 종료든 오류든 **정확히 한 번**.
+ *
+ * 흘려듣기 큐는 `onEnd` 로만 다음 단어로 넘어간다. 오류에서 부르지 않으면 그 자리에 멈추고,
+ * 두 번 부르면 단어 하나를 건너뛴다. 둘 다 화면에 아무 표시가 없어 알아채기 어렵다.
+ */
+export function attachCompletion(
+  utter: Pick<SpeechSynthesisUtterance, 'onend' | 'onerror'>,
+  done: () => void
+): void {
+  let settled = false
+  const finish = () => {
+    if (settled) return
+    settled = true
+    done()
+  }
+  utter.onend = finish as SpeechSynthesisUtterance['onend']
+  utter.onerror = finish as unknown as SpeechSynthesisUtterance['onerror']
+}
 
-    const utter = new SpeechSynthesisUtterance(text)
-    utter.lang = options.lang ?? 'en-US'
-    utter.rate = options.rate ?? 1.0
+export interface UseSpeechReturn {
+  speak: (text: string, options?: SpeakOptions) => void
+  cancel: () => void
+  pause: () => void
+  resume: () => void
+  /** 이 브라우저가 음성 합성을 지원하는가 */
+  supported: boolean
+  /**
+   * **영어 음성이 실제로 설치돼 있는가.** false 면 재생은 되더라도 영어를 영어로 읽지
+   * 않을 수 있다 — 듣기 중심 화면은 이 값으로 안내를 띄우라고 노출한다.
+   */
+  englishVoice: boolean
+}
 
-    if (options.onEnd) {
-      utter.onend = options.onEnd
-    }
+export function useSpeech(): UseSpeechReturn {
+  const [voice, setVoice] = useState<SpeechSynthesisVoice | null>(null)
+  const [supported, setSupported] = useState(false)
 
-    window.speechSynthesis.speak(utter)
+  useEffect(() => {
+    if (typeof window === 'undefined' || !('speechSynthesis' in window)) return
+    setSupported(true)
+
+    // `voiceschanged` 는 여러 번 온다 — 매번 새로 고르면 억양이 도중에 바뀐다(`nextVoice` 주석).
+    const sync = () => setVoice((cur) => nextVoice(cur, window.speechSynthesis.getVoices()))
+    sync() // 이미 로드돼 있으면 여기서 끝난다
+    window.speechSynthesis.addEventListener('voiceschanged', sync)
+    return () => window.speechSynthesis.removeEventListener('voiceschanged', sync)
   }, [])
+
+  const speak = useCallback(
+    (text: string, options: SpeakOptions = {}) => {
+      const done = options.onEnd
+      if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
+        // 큐가 멈추지 않도록 즉시 완료로 넘긴다 — 조용히 return 하면 그 자리에서 멈춘다.
+        done?.()
+        return
+      }
+
+      window.speechSynthesis.cancel()
+
+      const utter = new SpeechSynthesisUtterance(text)
+      utter.lang = options.lang ?? 'en-US'
+      utter.rate = options.rate ?? 1.0
+      // 음성 목록이 아직 안 왔으면 그때 다시 찾아본다(첫 재생이 로드 완료보다 빠를 수 있다).
+      const v =
+        voice ??
+        (pickEnglishVoice(window.speechSynthesis.getVoices()) as SpeechSynthesisVoice | null)
+      if (v) {
+        utter.voice = v
+        // `lang` 을 음성에 맞춘다. 호출자가 명시하지 않았는데 `lang='en-US'` 와 en-GB 음성을
+        // 함께 물리면 둘이 모순이고, 어느 쪽이 이기는지는 브라우저마다 다르다.
+        if (!options.lang) utter.lang = v.lang
+      }
+
+      // 합성 오류·중단도 완료로 취급한다. 재생이 안 된 것과 큐가 멈추는 것은 다른 문제이고,
+      // 뒤엣것이 훨씬 나쁘다(학습자는 왜 멈췄는지 알 방법이 없다).
+      if (done) attachCompletion(utter, done)
+
+      window.speechSynthesis.speak(utter)
+    },
+    [voice]
+  )
 
   const cancel = useCallback(() => {
     if (typeof window === 'undefined') return
@@ -47,5 +129,5 @@ export function useSpeech() {
     window.speechSynthesis.resume()
   }, [])
 
-  return { speak, cancel, pause, resume }
+  return { speak, cancel, pause, resume, supported, englishVoice: voice !== null }
 }

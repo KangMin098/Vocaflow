@@ -35,10 +35,30 @@ For each pending file, check the matching enriched file:
 - `pending-NNofMM.jsonl` ↔ `enriched-NNofMM.jsonl`
 - `pending.jsonl` ↔ `enriched.jsonl` (single-chunk job)
 
-Build the **work list**:
-- Include chunks that match `--chunks` filter (if given)
-- **Skip** chunks whose enriched file already exists, UNLESS `--force`
-- Also skip chunks with a live `.running.json` marker (something already running)
+Build the **work list** by claiming chunks with the shared tool — do NOT hand-roll
+this. The workspace is shared by concurrent sessions and file-based drains have no
+`SKIP LOCKED` equivalent (measured 2026-08-26: two `pending_words` subagents found
+another session's judgment already written into their chunk):
+
+```bash
+node scripts/lib/claim-chunks.mjs --dir exports/vcb-jobs \
+     --in "${JOB_SLUG}-pending*.jsonl" --done 'pending:enriched' \
+     --max <wave-size> [--force]
+```
+
+Spawn **only** what prints as `CLAIM`. `SKIP … 남이-잡음` means another session is on
+it; `SKIP … 이미-완료` means the enriched file already exists. A claim older than 30
+minutes is treated as dead and reclaimed (`STALE`) — sessions do get killed mid-wave.
+
+Release when the wave ends, **including failed chunks** (a stale claim blocks that
+chunk for 30 minutes):
+
+```bash
+node scripts/lib/claim-chunks.mjs --release <chunk paths>
+```
+
+⚠️ The old `.running.json` marker is gone. It was named here but never implemented,
+and "live" was never defined — so it protected nothing.
 
 Report the discovery summary:
 ```
@@ -149,8 +169,9 @@ Print the report as your final user-facing output. Do not exit silently.
   results from all, then report
 - Subagent OS-level errors (file IO, network) surface as `FAIL` with the error
   text — re-run that single chunk with `--chunks <NN> --force`
-- A wave that times out (rare): the next wave still proceeds; the timed-out
-  chunk's marker may need manual cleanup (`*.running.json`)
+- A wave that times out (rare): the next wave still proceeds. Release the timed-out
+  chunk's claim (`--release`) or wait 30 minutes for the automatic reclaim —
+  do not delete `.claim` files by hand while other sessions may be running
 
 ## Anti-patterns (do not do these)
 

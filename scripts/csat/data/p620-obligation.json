@@ -1,0 +1,504 @@
+{
+ "target": [
+  {
+   "exam": "2014B",
+   "no": 23,
+   "type": "R-GIST",
+   "nSent": 5,
+   "nOblig": 1,
+   "has": true,
+   "sample": "So don’t be afraid to say no. Try to catch yourself in the moment and "
+  },
+  {
+   "exam": "2014A",
+   "no": 24,
+   "type": "R-GIST",
+   "nSent": 5,
+   "nOblig": 1,
+   "has": true,
+   "sample": "So don’t be afraid to say no. Try to catch yourself in the moment and "
+  },
+  {
+   "exam": "2015",
+   "no": 18,
+   "type": "R-GIST",
+   "nSent": 8,
+   "nOblig": 0,
+   "has": false,
+   "sample": null
+  },
+  {
+   "exam": "2016",
+   "no": 20,
+   "type": "R-CLAIM",
+   "nSent": 6,
+   "nOblig": 3,
+   "has": true,
+   "sample": "Being assertive does not have to mean being disagreeable."
+  },
+  {
+   "exam": "2016",
+   "no": 21,
+   "type": "R-GIST",
+   "nSent": 4,
+   "nOblig": 0,
+   "has": false,
+   "sample": null
+  },
+  {
+   "exam": "2017",
+   "no": 20,
+   "type": "R-GIST",
+   "nSent": 6,
+   "nOblig": 0,
+   "has": false,
+   "sample": null
+  },
+  {
+   "exam": "2018",
+   "no": 20,
+   "type": "R-CLAIM",
+   "nSent": 10,
+   "nOblig": 4,
+   "has": true,
+   "sample": "To become a better leader, you have to step out of your comfort zone."
+  },
+  {
+   "exam": "2018",
+   "no": 21,
+   "type": "R-GIST",
+   "nSent": 10,
+   "nOblig": 1,
+   "has": true,
+   "sample": "You have to be equally skilled at both. * delegat"
+  },
+  {
+   "exam": "2019",
+   "no": 20,
+   "type": "R-CLAIM",
+   "nSent": 6,
+   "nOblig": 2,
+   "has": true,
+   "sample": "However, we need to be cautious about thinking of war and the image of"
+  },
+  {
+   "exam": "2019",
+   "no": 22,
+   "type": "R-GIST",
+   "nSent": 5,
+   "nOblig": 0,
+   "has": false,
+   "sample": null
+  },
+  {
+   "exam": "2020",
+   "no": 20,
+   "type": "R-CLAIM",
+   "nSent": 6,
+   "nOblig": 1,
+   "has": true,
+   "sample": "The thing is this: You have to give yourself permission to improvise, "
+  },
+  {
+   "exam": "2020",
+   "no": 22,
+   "type": "R-GIST",
+   "nSent": 7,
+   "nOblig": 0,
+   "has": false,
+   "sample": null
+  },
+  {
+   "exam": "2021",
+   "no": 20,
+   "type": "R-CLAIM",
+   "nSent": 7,
+   "nOblig": 1,
+   "has": true,
+   "sample": "It’s clear that we should concentrate our own expertise on those domai"
+  },
+  {
+   "exam": "2021",
+   "no": 22,
+   "type": "R-GIST",
+   "nSent": 7,
+   "nOblig": 0,
+   "has": false,
+   "sample": null
+  },
+  {
+   "exam": "2022",
+   "no": 20,
+   "type": "R-CLAIM",
+   "nSent": 7,
+   "nOblig": 2,
+   "has": true,
+   "sample": "A social media program is not merely the fulfillment of a vague need t"
+  },
+  {
+   "exam": "2022",
+   "no": 22,
+   "type": "R-GIST",
+   "nSent": 6,
+   "nOblig": 2,
+   "has": true,
+   "sample": "Some environmental contaminants are difficult to avoid (the breathing "
+  },
+  {
+   "exam": "2023",
+   "no": 20,
+   "type": "R-CLAIM",
+   "nSent": 7,
+   "nOblig": 0,
+   "has": false,
+   "sample": null
+  },
+  {
+   "exam": "2023",
+   "no": 22,
+   "type": "R-GIST",
+   "nSent": 6,
+   "nOblig": 0,
+   "has": false,
+   "sample": null
+  },
+  {
+   "exam": "2024",
+   "no": 20,
+   "type": "R-CLAIM",
+   "nSent": 7,
+   "nOblig": 3,
+   "has": true,
+   "sample": "Certainly, this is a step in the right direction, but those behaviors "
+  },
+  {
+   "exam": "2024",
+   "no": 22,
+   "type": "R-GIST",
+   "nSent": 6,
+   "nOblig": 0,
+   "has": false,
+   "sample": null
+  },
+  {
+   "exam": "2025",
+   "no": 20,
+   "type": "R-CLAIM",
+   "nSent": 6,
+   "nOblig": 0,
+   "has": false,
+   "sample": null
+  },
+  {
+   "exam": "2025",
+   "no": 22,
+   "type": "R-GIST",
+   "nSent": 6,
+   "nOblig": 1,
+   "has": true,
+   "sample": "He also should be able to take the perspective of the other group memb"
+  },
+  {
+   "exam": "2026",
+   "no": 20,
+   "type": "R-CLAIM",
+   "nSent": 5,
+   "nOblig": 1,
+   "has": true,
+   "sample": "Their remarkable works, including influences on modern language develo"
+  },
+  {
+   "exam": "2026",
+   "no": 22,
+   "type": "R-GIST",
+   "nSent": 10,
+   "nOblig": 4,
+   "has": true,
+   "sample": "It is a useful way to understand the dynamic nature of sport businesse"
+  }
+ ],
+ "control": [
+  {
+   "exam": "2014B",
+   "no": 24,
+   "type": "R-TOPIC",
+   "nSent": 7,
+   "nOblig": 1,
+   "has": true,
+   "sample": "In order to successfully release himself from the control of his paren"
+  },
+  {
+   "exam": "2014B",
+   "no": 25,
+   "type": "R-TITLE",
+   "nSent": 7,
+   "nOblig": 0,
+   "has": false,
+   "sample": null
+  },
+  {
+   "exam": "2014A",
+   "no": 25,
+   "type": "R-TOPIC",
+   "nSent": 8,
+   "nOblig": 0,
+   "has": false,
+   "sample": null
+  },
+  {
+   "exam": "2014A",
+   "no": 26,
+   "type": "R-TITLE",
+   "nSent": 8,
+   "nOblig": 2,
+   "has": true,
+   "sample": "Common sense tells us that we should avoid tigers, bears, and other la"
+  },
+  {
+   "exam": "2015",
+   "no": 20,
+   "type": "R-TOPIC",
+   "nSent": 6,
+   "nOblig": 1,
+   "has": true,
+   "sample": "For example, within the philosophical disciplines, logic must be learn"
+  },
+  {
+   "exam": "2015",
+   "no": 21,
+   "type": "R-TOPIC",
+   "nSent": 6,
+   "nOblig": 0,
+   "has": false,
+   "sample": null
+  },
+  {
+   "exam": "2015",
+   "no": 22,
+   "type": "R-TITLE",
+   "nSent": 6,
+   "nOblig": 1,
+   "has": true,
+   "sample": "their own moral principles and on the practical implications of those "
+  },
+  {
+   "exam": "2015",
+   "no": 23,
+   "type": "R-TITLE",
+   "nSent": 6,
+   "nOblig": 2,
+   "has": true,
+   "sample": "actions you’re taking should be the natural next step."
+  },
+  {
+   "exam": "2016",
+   "no": 22,
+   "type": "R-TOPIC",
+   "nSent": 9,
+   "nOblig": 0,
+   "has": false,
+   "sample": null
+  },
+  {
+   "exam": "2016",
+   "no": 23,
+   "type": "R-TITLE",
+   "nSent": 6,
+   "nOblig": 0,
+   "has": false,
+   "sample": null
+  },
+  {
+   "exam": "2017",
+   "no": 21,
+   "type": "R-TOPIC",
+   "nSent": 5,
+   "nOblig": 0,
+   "has": false,
+   "sample": null
+  },
+  {
+   "exam": "2017",
+   "no": 22,
+   "type": "R-TITLE",
+   "nSent": 7,
+   "nOblig": 0,
+   "has": false,
+   "sample": null
+  },
+  {
+   "exam": "2017",
+   "no": 23,
+   "type": "R-TITLE",
+   "nSent": 5,
+   "nOblig": 0,
+   "has": false,
+   "sample": null
+  },
+  {
+   "exam": "2018",
+   "no": 22,
+   "type": "R-TOPIC",
+   "nSent": 7,
+   "nOblig": 0,
+   "has": false,
+   "sample": null
+  },
+  {
+   "exam": "2018",
+   "no": 23,
+   "type": "R-TITLE",
+   "nSent": 5,
+   "nOblig": 1,
+   "has": true,
+   "sample": "Individual authors and photographers have rights to their intellectual"
+  },
+  {
+   "exam": "2019",
+   "no": 23,
+   "type": "R-TOPIC",
+   "nSent": 6,
+   "nOblig": 0,
+   "has": false,
+   "sample": null
+  },
+  {
+   "exam": "2019",
+   "no": 24,
+   "type": "R-TITLE",
+   "nSent": 9,
+   "nOblig": 0,
+   "has": false,
+   "sample": null
+  },
+  {
+   "exam": "2020",
+   "no": 23,
+   "type": "R-TOPIC",
+   "nSent": 10,
+   "nOblig": 0,
+   "has": false,
+   "sample": null
+  },
+  {
+   "exam": "2020",
+   "no": 24,
+   "type": "R-TITLE",
+   "nSent": 6,
+   "nOblig": 0,
+   "has": false,
+   "sample": null
+  },
+  {
+   "exam": "2021",
+   "no": 23,
+   "type": "R-TOPIC",
+   "nSent": 6,
+   "nOblig": 1,
+   "has": true,
+   "sample": "We require people to do repeated operations with the extreme precision"
+  },
+  {
+   "exam": "2021",
+   "no": 24,
+   "type": "R-TITLE",
+   "nSent": 10,
+   "nOblig": 0,
+   "has": false,
+   "sample": null
+  },
+  {
+   "exam": "2022",
+   "no": 23,
+   "type": "R-TOPIC",
+   "nSent": 7,
+   "nOblig": 0,
+   "has": false,
+   "sample": null
+  },
+  {
+   "exam": "2022",
+   "no": 24,
+   "type": "R-TITLE",
+   "nSent": 8,
+   "nOblig": 1,
+   "has": true,
+   "sample": "“But all repairing must be done by hand."
+  },
+  {
+   "exam": "2023",
+   "no": 23,
+   "type": "R-TOPIC",
+   "nSent": 7,
+   "nOblig": 1,
+   "has": true,
+   "sample": "Disclosure does not interfere with, and should even promote, the auton"
+  },
+  {
+   "exam": "2023",
+   "no": 24,
+   "type": "R-TITLE",
+   "nSent": 9,
+   "nOblig": 3,
+   "has": true,
+   "sample": "Cells that help your hand muscles reach out to an object need to know "
+  },
+  {
+   "exam": "2024",
+   "no": 23,
+   "type": "R-TOPIC",
+   "nSent": 6,
+   "nOblig": 0,
+   "has": false,
+   "sample": null
+  },
+  {
+   "exam": "2024",
+   "no": 24,
+   "type": "R-TITLE",
+   "nSent": 10,
+   "nOblig": 0,
+   "has": false,
+   "sample": null
+  },
+  {
+   "exam": "2025",
+   "no": 23,
+   "type": "R-TOPIC",
+   "nSent": 6,
+   "nOblig": 0,
+   "has": false,
+   "sample": null
+  },
+  {
+   "exam": "2025",
+   "no": 24,
+   "type": "R-TITLE",
+   "nSent": 6,
+   "nOblig": 0,
+   "has": false,
+   "sample": null
+  },
+  {
+   "exam": "2026",
+   "no": 23,
+   "type": "R-TOPIC",
+   "nSent": 8,
+   "nOblig": 1,
+   "has": true,
+   "sample": "But transit has to exist when you need it (span), and it needs to be c"
+  },
+  {
+   "exam": "2026",
+   "no": 24,
+   "type": "R-TITLE",
+   "nSent": 7,
+   "nOblig": 1,
+   "has": true,
+   "sample": "This is something that planners and stakeholders will need to balance "
+  }
+ ],
+ "tHas": 14,
+ "cHas": 12,
+ "p": 0.18039388245001042
+}

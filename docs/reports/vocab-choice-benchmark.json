@@ -1,0 +1,248 @@
+{
+  "$schema": "vocab-choice-benchmark/1",
+  "generatedAt": "2026-09-06T12:41:20.057Z",
+  "catalog": {
+    "sets": 55,
+    "words": 27075
+  },
+  "market": {
+    "booksMeasured": 4,
+    "meanSignalsPerBook": 8.5,
+    "rates": {
+      "colophon": 1,
+      "isbn": 1,
+      "toc": 1,
+      "studyPlan": 1,
+      "preface": 0.25,
+      "dayPacing": 1,
+      "reviewTest": 1,
+      "seriesGuide": 0.75,
+      "targetGrade": 1,
+      "extras": 0.5,
+      "proofread": 0
+    }
+  },
+  "catalogSignals": {
+    "meanSignalsPerSet": 10.945,
+    "rates": {
+      "colophon": 1,
+      "isbn": 1,
+      "toc": 0.964,
+      "studyPlan": 1,
+      "preface": 1,
+      "dayPacing": 1,
+      "reviewTest": 1,
+      "seriesGuide": 1,
+      "targetGrade": 1,
+      "extras": 0.982,
+      "proofread": 1
+    },
+    "index": 1.288
+  },
+  "renderedSignals": {
+    "sheets": 7,
+    "meanSignalsPerSheet": 11,
+    "rates": {
+      "colophon": 1,
+      "isbn": 1,
+      "toc": 1,
+      "studyPlan": 1,
+      "preface": 1,
+      "dayPacing": 1,
+      "reviewTest": 1,
+      "seriesGuide": 1,
+      "targetGrade": 1,
+      "extras": 1,
+      "proofread": 1
+    },
+    "perSheet": [
+      {
+        "title": "VOCAFLOW VOCABULARY 5 ❧ 수능 필수 2,000 1,828 단어",
+        "path": "carousel-sheet",
+        "found": [
+          "colophon",
+          "isbn",
+          "toc",
+          "studyPlan",
+          "preface",
+          "dayPacing",
+          "reviewTest",
+          "seriesGuide",
+          "targetGrade",
+          "extras",
+          "proofread"
+        ],
+        "missing": []
+      },
+      {
+        "title": "VOCAFLOW VOCABULARY ❧ 어원으로 익히는 1,500 1,500 단어",
+        "path": "carousel-sheet",
+        "found": [
+          "colophon",
+          "isbn",
+          "toc",
+          "studyPlan",
+          "preface",
+          "dayPacing",
+          "reviewTest",
+          "seriesGuide",
+          "targetGrade",
+          "extras",
+          "proofread"
+        ],
+        "missing": []
+      },
+      {
+        "title": "VOCAFLOW VOCABULARY 1 ❧ 빈출 어휘 2,000 1,622 단어",
+        "path": "carousel-sheet",
+        "found": [
+          "colophon",
+          "isbn",
+          "toc",
+          "studyPlan",
+          "preface",
+          "dayPacing",
+          "reviewTest",
+          "seriesGuide",
+          "targetGrade",
+          "extras",
+          "proofread"
+        ],
+        "missing": []
+      },
+      {
+        "title": "VOCAFLOW VOCABULARY 4 ❧ 레벨 중급 (V4-V7) 800 단어",
+        "path": "carousel-sheet",
+        "found": [
+          "colophon",
+          "isbn",
+          "toc",
+          "studyPlan",
+          "preface",
+          "dayPacing",
+          "reviewTest",
+          "seriesGuide",
+          "targetGrade",
+          "extras",
+          "proofread"
+        ],
+        "missing": []
+      },
+      {
+        "title": "VOCAFLOW VOCABULARY 4 ❧ 레벨 입문 (V1-V3) 400 단어",
+        "path": "carousel-sheet",
+        "found": [
+          "colophon",
+          "isbn",
+          "toc",
+          "studyPlan",
+          "preface",
+          "dayPacing",
+          "reviewTest",
+          "seriesGuide",
+          "targetGrade",
+          "extras",
+          "proofread"
+        ],
+        "missing": []
+      },
+      {
+        "title": "VOCAFLOW VOCABULARY 6 ❧ 학술 어휘 NAWL 605 단어",
+        "path": "carousel-sheet",
+        "found": [
+          "colophon",
+          "isbn",
+          "toc",
+          "studyPlan",
+          "preface",
+          "dayPacing",
+          "reviewTest",
+          "seriesGuide",
+          "targetGrade",
+          "extras",
+          "proofread"
+        ],
+        "missing": []
+      },
+      {
+        "title": "VOCAFLOW VOCABULARY 5 ❧ 수능 필수 2,000 1,828 단어",
+        "path": "carousel-sheet",
+        "found": [
+          "colophon",
+          "isbn",
+          "toc",
+          "studyPlan",
+          "preface",
+          "dayPacing",
+          "reviewTest",
+          "seriesGuide",
+          "targetGrade",
+          "extras",
+          "proofread"
+        ],
+        "missing": []
+      }
+    ]
+  },
+  "basis": "rendered",
+  "ours": {
+    "meanSignalsPerSet": 11,
+    "rates": {
+      "colophon": 1,
+      "isbn": 1,
+      "toc": 1,
+      "studyPlan": 1,
+      "preface": 1,
+      "dayPacing": 1,
+      "reviewTest": 1,
+      "seriesGuide": 1,
+      "targetGrade": 1,
+      "extras": 1,
+      "proofread": 1
+    }
+  },
+  "beyondMarket": [
+    {
+      "id": "C1",
+      "name": "진도 반영 학습 플랜",
+      "ours": 1,
+      "why": "구독 뒤 미리보기가 \"남은 N단어 · 약 D일 더\" 로 다시 계산한다. 지면의 \"30일 완성\" 은 인쇄 시점에 고정돼 학습자가 어디까지 왔는지 모른다"
+    },
+    {
+      "id": "C2",
+      "name": "표제어 난이도 실측 공개",
+      "ours": 1,
+      "why": "판권면이 \"대상 수준 V8 (V3~V11 · 500낱말 실측)\" 처럼 **세어 본 값**을 싣는다. 지면은 대상 학년을 선언할 뿐 표제어를 세어 말하지 않는다"
+    },
+    {
+      "id": "C3",
+      "name": "계단 근거 공개",
+      "ours": 1,
+      "why": "\"왜 이 권이 5단인가\" 에 저작·실측·추정 중 무엇인지 판권면이 밝힌다. 근거를 밝히는 지면 단어장을 표본에서 보지 못했다"
+    }
+  ],
+  "catalogLevelBeyond": [
+    "개인 맞춤 추천 — 진단 V-Level·트랙 기반으로 권을 골라 **이유와 함께** 보여 준다 (`recommend_word_sets_for_user`). 권별 비율이 아니라 화면 전체의 성질이라 지수에 넣지 않는다."
+  ],
+  "choiceIndex": 1.294,
+  "perSignalRatio": {
+    "colophon": 1,
+    "isbn": 1,
+    "toc": 1,
+    "studyPlan": 1,
+    "preface": 4,
+    "dayPacing": 1,
+    "reviewTest": 1,
+    "seriesGuide": 1.333,
+    "targetGrade": 1,
+    "extras": 2,
+    "proofread": null
+  },
+  "weakest": [
+    "colophon",
+    "isbn",
+    "toc",
+    "studyPlan",
+    "dayPacing"
+  ]
+}

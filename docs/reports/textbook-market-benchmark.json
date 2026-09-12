@@ -1,0 +1,434 @@
+{
+  "generatedAt": "2026-08-30T12:49:22.698Z",
+  "specGeneratedAt": "2026-08-29T23:29:12.309Z",
+  "corpus": {
+    "corpus": "시중 영어 교재 79종 (저장소 밖 store)",
+    "documentsMeasured": 79,
+    "pagesMeasured": 5214,
+    "charsMeasured": 14712945,
+    "rule": "집계 통계와 업계 공통 발문형만 담는다. 지문·해설 원문은 담지 않는다.",
+    "stemRule": "서로 다른 시리즈 2곳 이상에서 같은 형태로 쓰인 발문만 표준형으로 본다"
+  },
+  "itemsMeasured": 140739,
+  "axes": [
+    {
+      "id": "A1",
+      "name": "해설 보유율",
+      "ours": 0.9995594682355282,
+      "market": 1,
+      "unit": "%",
+      "why": "해설이 없으면 혼자 공부할 수 없다 — 시장이 교재를 고르는 첫 기준",
+      "index": 1
+    },
+    {
+      "id": "A2",
+      "name": "해설 길이 규격 적합률 (75~473자)",
+      "ours": 0.9978816721994356,
+      "market": 0.65,
+      "unit": "%",
+      "why": "짧으면 근거가 없고 길면 안 읽는다. 시장 p25~p90 구간",
+      "index": 1.535
+    },
+    {
+      "id": "A3",
+      "name": "오답 배제 언급률 (선택지 문항)",
+      "ours": 0.9983290384925109,
+      "market": 0.536,
+      "unit": "%",
+      "why": "왜 다른 것이 아닌지까지 써야 해설의 깊이가 된다 — 단답형은 배제할 오답이 없어 모집단에서 뺀다",
+      "index": 1.863
+    },
+    {
+      "id": "A4",
+      "name": "원문 인용률",
+      "ours": 0.9976968516530776,
+      "market": 0.497,
+      "unit": "%",
+      "why": "지문에서 근거를 끌어와야 검증 가능한 해설이다",
+      "index": 2.007
+    },
+    {
+      "id": "A5",
+      "name": "유형 다양성 (표준 대비)",
+      "ours": 25,
+      "market": 14,
+      "gate": 1,
+      "unit": "종",
+      "why": "표준 유형을 다 갖춘 뒤의 폭이 기능 우위다 — 관문을 못 넘으면 폭을 인정하지 않는다",
+      "index": 1.786
+    },
+    {
+      "id": "A6",
+      "name": "지문 어수 규격 적합률",
+      "ours": 0.9156285823461979,
+      "market": 0.8,
+      "unit": "%",
+      "why": "학년대별 지문 길이가 규격 밖이면 시험지에 못 싣는다",
+      "index": 1.145
+    },
+    {
+      "id": "A7",
+      "name": "선택지 수 규격 적합률",
+      "ours": 1,
+      "market": 0.861,
+      "unit": "%",
+      "why": "학교급마다 시장 지배값이 있다 — 어긋나면 그 학년 시험지가 아니다",
+      "index": 1.161
+    }
+  ],
+  "overallIndex": 1.452,
+  "overallNote": null,
+  "detail": {
+    "explanationsByType": [
+      {
+        "type": "blank_word",
+        "items": 48824,
+        "explained": 48824,
+        "pct": 100
+      },
+      {
+        "type": "unit_vocab",
+        "items": 28998,
+        "explained": 28998,
+        "pct": 100
+      },
+      {
+        "type": "grammar_fix",
+        "items": 28383,
+        "explained": 28383,
+        "pct": 100
+      },
+      {
+        "type": "word_order",
+        "items": 9660,
+        "explained": 9660,
+        "pct": 100
+      },
+      {
+        "type": "vocab_choice",
+        "items": 9529,
+        "explained": 9529,
+        "pct": 100
+      },
+      {
+        "type": "unit_grammar",
+        "items": 7790,
+        "explained": 7790,
+        "pct": 100
+      },
+      {
+        "type": "grammar_choice",
+        "items": 2824,
+        "explained": 2824,
+        "pct": 100
+      },
+      {
+        "type": "insert",
+        "items": 1748,
+        "explained": 1717,
+        "pct": 98.2
+      },
+      {
+        "type": "order",
+        "items": 1532,
+        "explained": 1501,
+        "pct": 98
+      },
+      {
+        "type": "irrelevant",
+        "items": 920,
+        "explained": 920,
+        "pct": 100
+      },
+      {
+        "type": "topic",
+        "items": 89,
+        "explained": 89,
+        "pct": 100
+      },
+      {
+        "type": "blank",
+        "items": 69,
+        "explained": 69,
+        "pct": 100
+      },
+      {
+        "type": "mood",
+        "items": 45,
+        "explained": 45,
+        "pct": 100
+      },
+      {
+        "type": "main_point",
+        "items": 39,
+        "explained": 39,
+        "pct": 100
+      },
+      {
+        "type": "long_reference",
+        "items": 39,
+        "explained": 39,
+        "pct": 100
+      },
+      {
+        "type": "long_vocab",
+        "items": 32,
+        "explained": 32,
+        "pct": 100
+      },
+      {
+        "type": "long_match",
+        "items": 32,
+        "explained": 32,
+        "pct": 100
+      },
+      {
+        "type": "long_order",
+        "items": 32,
+        "explained": 32,
+        "pct": 100
+      },
+      {
+        "type": "title",
+        "items": 32,
+        "explained": 32,
+        "pct": 100
+      },
+      {
+        "type": "long_title",
+        "items": 32,
+        "explained": 32,
+        "pct": 100
+      },
+      {
+        "type": "implication",
+        "items": 26,
+        "explained": 26,
+        "pct": 100
+      },
+      {
+        "type": "content_match",
+        "items": 16,
+        "explained": 16,
+        "pct": 100
+      },
+      {
+        "type": "purpose",
+        "items": 16,
+        "explained": 16,
+        "pct": 100
+      },
+      {
+        "type": "summary",
+        "items": 16,
+        "explained": 16,
+        "pct": 100
+      },
+      {
+        "type": "claim",
+        "items": 16,
+        "explained": 16,
+        "pct": 100
+      }
+    ],
+    "wrongOptionScope": {
+      "withOptions": 49672,
+      "shortAnswer": 91005,
+      "note": "단답형은 배제할 오답이 없어 A3 모집단에서 뺀다"
+    },
+    "passageSpecByBucket": {
+      "고2": {
+        "in": 28752,
+        "total": 30628,
+        "p10": 43,
+        "p90": 188
+      },
+      "고1": {
+        "in": 14241,
+        "total": 15582,
+        "p10": 47,
+        "p90": 242
+      },
+      "초6": {
+        "in": 985,
+        "total": 1096,
+        "p10": 44,
+        "p90": 125
+      },
+      "중1": {
+        "in": 3946,
+        "total": 5034,
+        "p10": 46,
+        "p90": 152
+      }
+    },
+    "choiceCountByType": {
+      "vocab_choice": {
+        "ok": 9529,
+        "total": 9529,
+        "want": 5,
+        "seen": {
+          "5": 9529
+        }
+      },
+      "unit_vocab": {
+        "ok": 28998,
+        "total": 28998,
+        "want": 5,
+        "seen": {
+          "5": 28998
+        }
+      },
+      "unit_grammar": {
+        "ok": 7790,
+        "total": 7790,
+        "want": 5,
+        "seen": {
+          "5": 7790
+        }
+      },
+      "grammar_choice": {
+        "ok": 2824,
+        "total": 2824,
+        "want": 5,
+        "seen": {
+          "5": 2824
+        }
+      },
+      "implication": {
+        "ok": 26,
+        "total": 26,
+        "want": 5,
+        "seen": {
+          "5": 26
+        }
+      },
+      "content_match": {
+        "ok": 16,
+        "total": 16,
+        "want": 5,
+        "seen": {
+          "5": 16
+        }
+      },
+      "main_point": {
+        "ok": 39,
+        "total": 39,
+        "want": 5,
+        "seen": {
+          "5": 39
+        }
+      },
+      "topic": {
+        "ok": 89,
+        "total": 89,
+        "want": 5,
+        "seen": {
+          "5": 89
+        }
+      },
+      "purpose": {
+        "ok": 16,
+        "total": 16,
+        "want": 5,
+        "seen": {
+          "5": 16
+        }
+      },
+      "mood": {
+        "ok": 45,
+        "total": 45,
+        "want": 5,
+        "seen": {
+          "5": 45
+        }
+      },
+      "blank": {
+        "ok": 69,
+        "total": 69,
+        "want": 5,
+        "seen": {
+          "5": 69
+        }
+      },
+      "long_vocab": {
+        "ok": 32,
+        "total": 32,
+        "want": 5,
+        "seen": {
+          "5": 32
+        }
+      },
+      "long_match": {
+        "ok": 32,
+        "total": 32,
+        "want": 5,
+        "seen": {
+          "5": 32
+        }
+      },
+      "long_order": {
+        "ok": 32,
+        "total": 32,
+        "want": 5,
+        "seen": {
+          "5": 32
+        }
+      },
+      "long_reference": {
+        "ok": 39,
+        "total": 39,
+        "want": 5,
+        "seen": {
+          "5": 39
+        }
+      },
+      "summary": {
+        "ok": 16,
+        "total": 16,
+        "want": 5,
+        "seen": {
+          "5": 16
+        }
+      },
+      "title": {
+        "ok": 32,
+        "total": 32,
+        "want": 5,
+        "seen": {
+          "5": 32
+        }
+      },
+      "long_title": {
+        "ok": 32,
+        "total": 32,
+        "want": 5,
+        "seen": {
+          "5": 32
+        }
+      },
+      "claim": {
+        "ok": 16,
+        "total": 16,
+        "want": 5,
+        "seen": {
+          "5": 16
+        }
+      }
+    },
+    "typesBeyondMarket": [
+      "blank_word",
+      "grammar_choice",
+      "implication",
+      "insert",
+      "long_match",
+      "long_order",
+      "long_title",
+      "long_vocab",
+      "unit_grammar",
+      "unit_vocab",
+      "word_order"
+    ],
+    "marketTypesMissing": []
+  }
+}

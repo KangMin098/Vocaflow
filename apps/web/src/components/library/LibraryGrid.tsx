@@ -16,11 +16,13 @@ import { useRouter } from 'next/navigation'
 import { Check, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react'
 
 import { bookCover } from '@/lib/library/book-cover'
+import { coverFitFor } from '@/lib/library/cover-fit'
 import { GradientBookCover } from '@/components/library/shared/GradientBookCover'
 import { judgeIPlusOne } from '@/lib/library/i-plus-one'
 import { unenrollBook } from '@/lib/library/enroll'
 import { createClient } from '@/lib/supabase/client'
 import { NetflixDetailSheet, type DetailVariant } from '@/components/library/shared/NetflixDetailSheet'
+import { ShelfEmptyState } from '@/components/library/shared/ShelfEmptyState'
 import { toBookDetailVariant } from '@/lib/library/book-detail-variant'
 import type { EnrollmentState, PublishedBook } from '@/lib/library/published-book'
 
@@ -31,6 +33,12 @@ interface LibraryGridProps {
   books: PublishedBook[]
   /** 학습자 현재 V레벨 — i+1 적합도 배지 판정 (0 = 미진단 → 배지 미표시) */
   userVLevel?: number
+  /**
+   * 카탈로그 **조회 자체가 실패**했는가 — 빈 목록의 두 원인을 가른다.
+   * 실패를 "아직 없어요" 로 적으면 재고 312권이 그대로인데 화면이 0을 말하고,
+   * 오류 로그도 화면 신호도 없어 아무도 못 잡는다.
+   */
+  loadError?: boolean
 }
 
 // iOS native easing — Apple HIG interactive curves.
@@ -68,7 +76,7 @@ function cardTransform(offset: number) {
   }
 }
 
-export function LibraryGrid({ books, userVLevel = 0 }: LibraryGridProps) {
+export function LibraryGrid({ books, userVLevel = 0, loadError = false }: LibraryGridProps) {
   const router = useRouter()
   const [active, setActive] = useState(0)
   const [detail, setDetail] = useState<DetailVariant | null>(null)
@@ -125,8 +133,21 @@ export function LibraryGrid({ books, userVLevel = 0 }: LibraryGridProps) {
     [last],
   )
 
-  // 키보드 네비
+  /**
+   * 키보드 네비 — **무대에 포커스가 있을 때만.**
+   *
+   * ⚠️ 예전에는 `window` 에 걸고 대상을 보지 않은 채 `preventDefault()` 했다. 그래서
+   *    같은 화면의 「제목·저자 검색」에 오타를 내고 ← 로 캐럿을 옮기려 하면 캐럿은
+   *    그대로이고 **추천 캐러셀이 옆으로 넘어갔다**(실측 2026-09-05). 이 화면은 캐러셀이
+   *    항상 떠 있어 검색·필터를 쓰는 내내 재현됐다.
+   *
+   *    리스너를 무대에 붙이면 "누구의 화살표인가" 가 DOM 으로 정해진다 — 입력창 목록을
+   *    손으로 예외 처리할 필요가 없다(그 목록은 컨트롤이 늘 때마다 낡는다).
+   *    같은 저장소의 리더는 예외 목록 방식이고, 그쪽은 화면에 입력이 없어 성립한다.
+   */
   useEffect(() => {
+    const stage = stageRef.current
+    if (!stage) return
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'ArrowLeft') {
         e.preventDefault()
@@ -136,8 +157,8 @@ export function LibraryGrid({ books, userVLevel = 0 }: LibraryGridProps) {
         next()
       }
     }
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
+    stage.addEventListener('keydown', onKey)
+    return () => stage.removeEventListener('keydown', onKey)
   }, [prev, next])
 
   // 터치 swipe (50px 임계값)
@@ -156,25 +177,35 @@ export function LibraryGrid({ books, userVLevel = 0 }: LibraryGridProps) {
   }
 
   if (books.length === 0) {
-    return (
-      <div
-        role="status"
-        className="flex flex-col items-center justify-center gap-3 rounded-[var(--r-lg)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] py-20 text-center"
-      >
-        <div className="select-none text-4xl" aria-hidden>
-          📚
-        </div>
-        <h3 className="font-display text-[15px] font-[700] text-[var(--t1)]">
-          아직 게시된 도서가 없어요
-        </h3>
-      </div>
+    // 「없다」와 「못 읽었다」를 가른다 — 재고가 그대로인데 0을 말하면 거짓말이다.
+    //   다음 걸음은 `/library/scripts` 로 보낸다. 도서 서가가 비었다면 그 축이 비었다는
+    //   뜻이고, 짧은 글은 별도 파이프라인(ACP)이라 재고가 남아 있을 가능성이 높다.
+    return loadError ? (
+      <ShelfEmptyState
+        tone="error"
+        title="지금 도서 목록을 불러오지 못했어요"
+        body="서가가 빈 게 아니라 목록을 읽는 데 실패했어요. 잠시 뒤 다시 시도하거나, 그동안 짧은 글로 읽어 보세요."
+        onAction={() => router.refresh()}
+        actionLabel="다시 시도"
+        ctaHref="/library/scripts"
+        ctaLabel="짧은 글 보러 가기"
+      />
+    ) : (
+      <ShelfEmptyState
+        title="아직 게시된 도서가 없어요"
+        body="큐레이션이 끝난 원서부터 차례로 올라와요. 그동안 짧은 영어 글로 읽는 감을 유지하거나, 3분 진단으로 내 수준을 먼저 정해 둘 수 있어요."
+        ctaHref="/library/scripts"
+        ctaLabel="짧은 글 보러 가기"
+      />
     )
   }
 
   const activeBook = books[active]!
 
   return (
-    <div role="list" className="flex flex-col items-center gap-6">
+    // role="list" 였으나 자식이 listitem 이 아니라 무대·탭리스트·버튼이라
+    // aria-required-children(critical) 위반이었다(2026-08-09 axe). 목록이 아니므로 role 제거.
+    <div className="flex flex-col items-center gap-6">
       {/* Stage — 3D perspective + 좌우 화살표 */}
       <div className="relative w-full">
         {/* Soft floor gradient (책 아래 ambient) */}
@@ -185,7 +216,23 @@ export function LibraryGrid({ books, userVLevel = 0 }: LibraryGridProps) {
 
         <div
           ref={stageRef}
-          className="relative mx-auto flex h-[460px] w-full max-w-[1280px] items-center justify-center"
+          // role="list" 는 listitem 의 **직접 부모**여야 한다. 예전엔 바깥 래퍼에 붙어 있어
+          // 사이에 무대·탭리스트가 끼면서 aria-required-children/parent 가 동시에 깨졌다(2026-08-09 axe).
+          role="list"
+          // 무대 자체가 포커스를 받는다 — 화살표 리스너가 여기 붙어 있으므로(위 useEffect),
+          // 이것이 없으면 카드 안으로 Tab 해 들어가기 전에는 ←/→ 가 아예 안 먹는다.
+          tabIndex={0}
+          aria-label={`추천 도서 ${books.length}권 — 좌우 화살표 키로 넘겨요`}
+          // overflow-clip: 3D 무대의 옆 카드들은 absolute + transform 이라 컨테이너를
+          //   벗어난다. 클립이 없으면 **문서가 통째로 옆으로 밀린다** — 390px 모바일에서
+          //   scrollWidth 773px(넘침 383px) 실측(2026-08-13 a11y 스윕).
+          //
+          //   ⚠️ x축만 클립하던 동안 **세로로는 계속 새어 나왔다.** 옆 카드(opacity 0.6~0.96)가
+          //   무대 아래 격자 위에 겹쳐 **유령 카드**로 보였다(실측 2026-08-15 화면 캡처).
+          //   서가가 어수선해 보이던 주범이다. 두 축 모두 클립하되, 세로 그림자가 잘리지
+          //   않도록 `overflow-clip-margin` 으로 여유를 준다 — 스크롤 컨테이너는 만들지 않는다.
+          //   (clip-margin 은 주지 않는다 — 24px 를 줬더니 모바일에서 가로 넘침 8px 이 다시 생겼다.)
+          className="relative mx-auto flex h-[460px] w-full max-w-[1280px] items-center justify-center overflow-clip rounded-[var(--r-lg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           style={{ perspective: '1800px', perspectiveOrigin: '50% 55%' }}
           onTouchStart={onTouchStart}
           onTouchEnd={onTouchEnd}
@@ -251,16 +298,21 @@ export function LibraryGrid({ books, userVLevel = 0 }: LibraryGridProps) {
           {activeBook.title}
         </h2>
         {activeBook.author && (
-          <p className="font-body text-[13px] text-[var(--t3)]">{activeBook.author}</p>
+          <p className="font-body text-[13px] text-[var(--t2)]">{activeBook.author}</p>
         )}
-        <div className="mt-1 flex flex-wrap items-center justify-center gap-2 font-mono text-[11px] text-[var(--t3)]">
+        <div className="mt-1 flex flex-wrap items-center justify-center gap-2 font-mono text-[11px] text-[var(--t2)]">
           {(activeBook.cefr_band ?? activeBook.cefr_level) && (
-            <span className="rounded-[var(--r-sm)] bg-[var(--bg3)] px-2 py-0.5 font-display text-[10px] font-[700] text-[var(--t2)]">
+            <span className="rounded-[var(--r-sm)] bg-[var(--bg3)] px-2 py-1 font-display text-[10px] font-[700] text-[var(--t2)]">
               {activeBook.cefr_band ?? activeBook.cefr_level}
             </span>
           )}
           {activeBook.book_v_level != null && (
-            <span className="rounded-[var(--r-sm)] bg-[#FBBF24]/15 px-2 py-0.5 font-display text-[10px] font-[700] text-[#92400E]">
+            // 하드코딩 앰버(#92400E on #FBBF24/15)는 다크에서 1.87:1 이었다(2026-08-09 axe).
+            // 면=tint 토큰 · 글자=ink 토큰으로 분리하면 양 테마 모두 AA.
+            <span
+              className="rounded-[var(--r-sm)] px-2 py-1 font-display text-[10px] font-[700]"
+              style={{ background: 'var(--ios-yellow-tint)', color: 'var(--ios-yellow-ink)' }}
+            >
               V{activeBook.book_v_level}
             </span>
           )}
@@ -269,7 +321,7 @@ export function LibraryGrid({ books, userVLevel = 0 }: LibraryGridProps) {
             <span>·  {Math.round(activeBook.reading_minutes / 60)}h</span>
           )}
           {activeBook.word_set_count != null && activeBook.word_set_count > 0 && (
-            <span className="inline-flex items-center gap-0.5 text-[#8B5CF6]">
+            <span className="inline-flex items-center gap-1 text-[var(--p-dark)]">
               ·  <Sparkles size={9} aria-hidden />
               {activeBook.word_set_count}개 단어장
             </span>
@@ -282,7 +334,7 @@ export function LibraryGrid({ books, userVLevel = 0 }: LibraryGridProps) {
           if (!fit) return null
           return (
             <span
-              className="mt-1.5 inline-flex items-center gap-1.5 rounded-[var(--r-full)] border px-2.5 py-1 font-display text-[11px] font-[700]"
+              className="mt-1.5 inline-flex items-center gap-2 rounded-[var(--r-full)] border px-3 py-1 font-display text-[11px] font-[700]"
               style={{ color: fit.color, borderColor: fit.color }}
               title={`V${userVLevel} 학습자가 이 책 단어의 ${fit.coverage}% 를 이미 알아요`}
               aria-label={`나에게 ${fit.label}, 아는 단어 ${fit.coverage}퍼센트`}
@@ -293,7 +345,7 @@ export function LibraryGrid({ books, userVLevel = 0 }: LibraryGridProps) {
                 style={{ backgroundColor: fit.color }}
               />
               나에게 {fit.label}
-              <span className="font-mono font-[600] opacity-70">{fit.coverage}%</span>
+              <span className="font-mono font-[600]">{fit.coverage}%</span>
             </span>
           )
         })()}
@@ -311,17 +363,17 @@ export function LibraryGrid({ books, userVLevel = 0 }: LibraryGridProps) {
                   : '미리보기 · 상세'
           const bg =
             state === 'in_progress'
-              ? 'bg-[var(--p)] text-white'
+              ? 'bg-[var(--p)] text-[var(--on-p)]'
               : state === 'completed'
                 ? 'bg-[var(--success)] text-white'
                 : state === 'enrolled'
-                  ? 'bg-[var(--p)] text-white'
+                  ? 'bg-[var(--p)] text-[var(--on-p)]'
                   : 'bg-[var(--t1)] text-[var(--bg)]'
           return (
             <button
               type="button"
               onClick={() => openDetail(activeBook)}
-              className={`mt-3 inline-flex items-center gap-1.5 rounded-[var(--r-md)] px-5 py-2.5 font-display text-[13px] font-[700] shadow-[var(--sh-sm)] transition-all hover:scale-[1.03] active:scale-[0.97] ${bg}`}
+              className={`mt-3 inline-flex min-h-11 items-center gap-2 rounded-[var(--r-md)] px-5 py-3 font-display text-[13px] font-[700] shadow-[var(--sh-sm)] transition-all hover:scale-[1.03] active:scale-[0.97] ${bg}`}
             >
               {label}
             </button>
@@ -329,8 +381,17 @@ export function LibraryGrid({ books, userVLevel = 0 }: LibraryGridProps) {
         })()}
       </div>
 
-      {/* Dot indicator */}
-      <div role="tablist" aria-label="도서 선택" className="flex items-center gap-2">
+      {/* Dot indicator
+          점 하나가 44px 히트영역(아래 주석)이라 **권수만큼 폭이 자란다** — 20권이면 512px 이고
+          390px 화면에서 가운데 정렬이라 양옆으로 61px 씩 삐져나가 문서를 넓혔다
+          (실측: `/library`·`/library/books` 모바일 가로 넘침 61px 의 원인. 3D 무대가 아니었다 —
+           무대는 이미 `overflow-x-clip` 으로 잘리고 있었고, 잘린 요소는 문서를 넓히지 못한다).
+          가로 스크롤로 가둔다: 점은 다 살리고(권수를 숨기지 않는다) 화면만 안 밀린다. */}
+      <div
+        role="tablist"
+        aria-label="도서 선택"
+        className="flex max-w-full items-center gap-2 overflow-x-auto px-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      >
         {books.map((b, idx) => (
           <button
             key={b.id}
@@ -339,12 +400,22 @@ export function LibraryGrid({ books, userVLevel = 0 }: LibraryGridProps) {
             aria-selected={idx === active}
             aria-label={`${idx + 1} / ${books.length}: ${b.title}`}
             onClick={() => goTo(idx)}
-            className={`h-1.5 rounded-full transition-all duration-[${CAROUSEL_DURATION}ms] ${
-              idx === active
-                ? 'w-6 bg-[var(--t1)]'
-                : 'w-1.5 bg-[var(--t3)]/40 hover:bg-[var(--t3)]'
-            }`}
-          />
+            // 점은 시각적으로 작아야 하지만 손가락 타겟은 44px 이어야 한다(CLAUDE.md 절대 금지 항목).
+            // 버튼을 44px 히트영역으로 두고 안쪽 span 만 점으로 그린다.
+            // `shrink-0` 는 필수다 — 줄을 `overflow-x-auto` 로 가둔 뒤 flex 기본 축소(shrink:1)가
+            // 점 버튼을 44px 아래로 눌렀다(실측 13종 위반 · a11y 스윕이 잡았다). 줄이 줄어드는
+            // 대신 **스크롤되어야** 44px 하한과 가로 넘침 0 을 동시에 지킨다.
+            className="group flex h-11 w-11 shrink-0 items-center justify-center"
+          >
+            <span
+              aria-hidden
+              className={`h-1.5 rounded-full transition-all duration-[${CAROUSEL_DURATION}ms] ${
+                idx === active
+                  ? 'w-6 bg-[var(--t1)]'
+                  : 'w-1.5 bg-[var(--t3)]/40 group-hover:bg-[var(--t3)]'
+              }`}
+            />
+          </button>
         ))}
       </div>
 
@@ -380,6 +451,7 @@ function CarouselBook({
     coverTo: book.cover_to,
   })
   const coverImageUrl = book.cover_image_url ?? null
+  const coverFit = coverFitFor(book)
 
   const inner = (
     <div
@@ -397,13 +469,25 @@ function CarouselBook({
     >
       {coverImageUrl ? (
         <>
-          {/* 실 표지 — portrait 카드에 object-cover (letterbox 없음) */}
+          {/* 실 표지 — 세로 표지는 object-cover. 그림책 표지는 가로 삽화 크롭이라
+              cover 로 채우면 좌우 64% 가 잘려(실측) contain + 블러 배경으로 간다.
+              판정은 `cover-fit.ts` 가 소유 — 카드마다 다시 정하면 두 화면이 갈린다. */}
+          {coverFit.blurBackdrop && (
+            <Image
+              src={coverImageUrl}
+              alt=""
+              aria-hidden
+              fill
+              sizes="270px"
+              className="scale-110 object-cover blur-xl saturate-150"
+            />
+          )}
           <Image
             src={coverImageUrl}
             alt={`${book.title} 표지`}
             fill
             sizes="270px"
-            className="object-cover"
+            className={`relative ${coverFit.objectFit}`}
           />
           {/* 상하 엣지 vignette — 칩/진행바 가독성 (중앙 표지는 선명 유지) */}
           <div
@@ -416,7 +500,7 @@ function CarouselBook({
       ) : (
         <>
           {/* 그라디언트 표지 — 클로스바운드 클래식 풍 (실 표지엔 제목 박혀있어 미표시) */}
-          <GradientBookCover title={book.title} author={book.author} />
+          <GradientBookCover title={book.title} author={book.author} textTone={cover.textTone} />
           {/* 상단 sheen + grain (그라디언트 표지) */}
           <div aria-hidden className="book-cover-sheen absolute inset-0" />
           <div aria-hidden className="book-cover-grain absolute inset-0" />
@@ -430,23 +514,23 @@ function CarouselBook({
       {/* CEFR + V-Level 상단 우측 */}
       <div className="absolute right-3.5 top-3.5 flex flex-col items-end gap-1">
         {(book.cefr_band ?? book.cefr_level) && (
-          <span className="inline-flex items-center rounded-[3px] bg-white/95 px-2 py-0.5 font-mono text-[10.5px] font-[700] tracking-tight text-[var(--t1)] shadow-[0_2px_4px_rgba(0,0,0,0.18)]">
+          <span className="inline-flex items-center rounded-[3px] bg-[var(--chip-cover-bg)] px-2 py-1 font-mono text-[10.5px] font-[700] tracking-tight text-[var(--chip-cover-ink)] shadow-[0_2px_4px_rgba(0,0,0,0.18)]">
             {book.cefr_band ?? book.cefr_level}
           </span>
         )}
         {book.book_v_level != null && (
-          <span className="inline-flex items-center rounded-[3px] bg-black/60 px-2 py-0.5 font-mono text-[10.5px] font-[700] tracking-tight text-white backdrop-blur-sm">
+          <span className="inline-flex items-center rounded-[3px] bg-black/60 px-2 py-1 font-mono text-[10.5px] font-[700] tracking-tight text-white backdrop-blur-sm">
             V{book.book_v_level}
           </span>
         )}
       </div>
 
       {/* v06.34 — 좌상단: enrollment + 단어장 indicator 스택 (위→아래) */}
-      <div className="absolute left-3 top-3 flex flex-col gap-1.5">
+      <div className="absolute left-3 top-3 flex flex-col gap-2">
         {/* 학습 상태 배지 — 가장 가시성 높은 위치 */}
         {book.enrollment_state === 'completed' && (
           <span
-            className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--success)] px-2 py-0.5 font-display text-[10px] font-[700] text-white shadow-[0_2px_6px_rgba(0,0,0,0.25)]"
+            className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--success)] px-2 py-1 font-display text-[10px] font-[700] text-white shadow-[0_2px_6px_rgba(0,0,0,0.25)]"
             title="완독한 도서"
             aria-label="완독한 도서"
           >
@@ -455,7 +539,7 @@ function CarouselBook({
         )}
         {book.enrollment_state === 'in_progress' && (
           <span
-            className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--p)] px-2 py-0.5 font-display text-[10px] font-[700] text-white shadow-[0_2px_6px_rgba(0,0,0,0.25)]"
+            className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--p)] px-2 py-1 font-display text-[10px] font-[700] text-white shadow-[0_2px_6px_rgba(0,0,0,0.25)]"
             title={`학습 중 · ${book.progress_pct ?? 0}% 진행`}
             aria-label={`학습 중 ${book.progress_pct ?? 0}퍼센트 진행`}
           >
@@ -464,7 +548,7 @@ function CarouselBook({
         )}
         {book.enrollment_state === 'enrolled' && (
           <span
-            className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-white/95 px-2 py-0.5 font-display text-[10px] font-[700] text-[var(--p)] shadow-[0_2px_6px_rgba(0,0,0,0.18)]"
+            className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--chip-cover-bg)] px-2 py-1 font-display text-[10px] font-[700] text-[var(--chip-cover-brand)] shadow-[0_2px_6px_rgba(0,0,0,0.18)]"
             title="라이브러리에 추가됨 — 학습 시작 대기"
             aria-label="라이브러리에 추가됨"
           >
@@ -508,6 +592,14 @@ function CarouselBook({
           ? 'focus-visible:ring-4 focus-visible:ring-[var(--p)]/40 focus-visible:ring-offset-4'
           : 'focus-visible:ring-2 focus-visible:ring-[var(--p)]/40'
       }`}
+      // ⚠️ **가운데가 아닌 카드는 탭 순서에서 뺀다** (ARIA APG Carousel).
+      //    원근 축소 때문에 옆 카드는 실측 8~38px 이라, 탭으로 거기 멈추면 학습자는
+      //    "보이지도 않는 8px 짜리" 에 포커스를 받는다. APG 는 회전 목록에서
+      //    **보이지 않는 슬라이드를 접근성 트리와 탭 순서에서 빼고**, 이동은 좌우 화살표와
+      //    점 인디케이터(둘 다 44px)가 맡게 하라고 정한다 — 여기 이미 둘 다 있다.
+      //    마우스 클릭은 그대로 된다(회전 편의). 실측 2026-08-25.
+      tabIndex={isActive ? undefined : -1}
+      aria-hidden={isActive ? undefined : true}
       aria-label={isActive ? `${book.title} 상세 보기` : `${book.title} 으로 이동`}
     >
       {inner}

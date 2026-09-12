@@ -37,17 +37,20 @@ interface ToneStyle {
 }
 
 // 다크 정합 — neutral/gray 캡슐은 캔버스(--bg2 = 다크 순흑)와 겹침 방지 위해 --bg3 사용.
+// ⚠️ 글자색은 tint 위 AA(4.5:1) 를 넘겨야 한다. iOS 원색(--ios-green 등)을 같은 계열 tint 위에
+//    글자로 얹으면 2.0~3.5:1 로 전부 미달이었다(2026-08-09 axe 실측) → *-ink 토큰으로 교체.
+//    neutral/gray 라벨도 --t3(0.38 알파)는 어떤 배경에서도 4.5 를 못 넘겨(최대 2.4) --t2 로 올림.
 const TONE_STYLES: Record<CapsuleTone, ToneStyle> = {
-  neutral: { bg: 'var(--bg3)', label: 'var(--t3)', value: 'var(--t1)' },
-  brand: { bg: 'var(--p-light)', label: 'var(--p)', value: 'var(--p)' },
-  red: { bg: 'var(--ios-red-tint)', label: 'var(--ios-red)', value: 'var(--ios-red)' },
-  orange: { bg: 'var(--ios-orange-tint)', label: 'var(--ios-orange)', value: 'var(--ios-orange)' },
-  yellow: { bg: 'var(--ios-yellow-tint)', label: '#92400E', value: '#92400E' },
-  green: { bg: 'var(--ios-green-tint)', label: 'var(--ios-green)', value: 'var(--ios-green)' },
-  blue: { bg: 'var(--ios-blue-tint)', label: 'var(--ios-blue)', value: 'var(--ios-blue)' },
-  purple: { bg: 'var(--ios-purple-tint)', label: 'var(--ios-purple)', value: 'var(--ios-purple)' },
-  pink: { bg: 'var(--ios-pink-tint)', label: 'var(--ios-pink)', value: 'var(--ios-pink)' },
-  gray: { bg: 'var(--bg3)', label: 'var(--t3)', value: 'var(--t2)' },
+  neutral: { bg: 'var(--bg3)', label: 'var(--t2)', value: 'var(--t1)' },
+  brand: { bg: 'var(--p-light)', label: 'var(--on-p-tint)', value: 'var(--on-p-tint)' },
+  red: { bg: 'var(--ios-red-tint)', label: 'var(--ios-red-ink)', value: 'var(--ios-red-ink)' },
+  orange: { bg: 'var(--ios-orange-tint)', label: 'var(--ios-orange-ink)', value: 'var(--ios-orange-ink)' },
+  yellow: { bg: 'var(--ios-yellow-tint)', label: 'var(--ios-yellow-ink)', value: 'var(--ios-yellow-ink)' },
+  green: { bg: 'var(--ios-green-tint)', label: 'var(--ios-green-ink)', value: 'var(--ios-green-ink)' },
+  blue: { bg: 'var(--ios-blue-tint)', label: 'var(--ios-blue-ink)', value: 'var(--ios-blue-ink)' },
+  purple: { bg: 'var(--ios-purple-tint)', label: 'var(--ios-purple-ink)', value: 'var(--ios-purple-ink)' },
+  pink: { bg: 'var(--ios-pink-tint)', label: 'var(--ios-pink-ink)', value: 'var(--ios-pink-ink)' },
+  gray: { bg: 'var(--bg3)', label: 'var(--t2)', value: 'var(--t2)' },
 }
 
 export function Capsule({
@@ -59,7 +62,7 @@ export function Capsule({
   className,
 }: CapsuleProps) {
   const t = TONE_STYLES[tone]
-  const padClass = size === 'sm' ? 'px-2 py-0.5 text-[10.5px]' : 'px-3 py-1 text-[12.5px]'
+  const padClass = size === 'sm' ? 'px-2 py-1 text-[11px]' : 'px-3 py-1 text-[13px]'
 
   if (children) {
     return (
@@ -79,7 +82,7 @@ export function Capsule({
   return (
     <span
       className={cn(
-        'inline-flex items-baseline gap-1.5 rounded-ios-pill',
+        'inline-flex items-baseline gap-2 rounded-ios-pill',
         padClass,
         className,
       )}
@@ -87,8 +90,9 @@ export function Capsule({
     >
       {label && (
         <span
-          className="font-mono text-[9.5px] font-[700] uppercase tracking-[0.14em]"
-          style={{ color: t.label, opacity: 0.85 }}
+          // opacity 0.85 를 덧씌우면 색 토큰이 확보한 대비가 다시 깎인다(이중 감광) → 제거.
+          className="font-mono text-[10px] font-[700] uppercase tracking-[0.14em]"
+          style={{ color: t.label }}
         >
           {label}
         </span>

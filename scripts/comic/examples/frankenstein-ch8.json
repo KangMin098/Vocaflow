@@ -1,0 +1,817 @@
+{
+  "book": {
+    "id": "shelley-frankenstein-ch8",
+    "title": "Frankenstein · Chapter 8 — The Trial of Justine",
+    "author": "Mary Shelley, Frankenstein (1831), Chapter 8",
+    "source": "file",
+    "ref": "scratchpad-foreign/frank4/pg84.raw.txt",
+    "total_words": 75000
+  },
+  "adaptation": {
+    "style": "gonick",
+    "panel_count": 16,
+    "default_tier": "teen",
+    "tiers": [
+      "child",
+      "teen",
+      "adult"
+    ],
+    "target_v_level": 10,
+    "art_maturity": "mature",
+    "source_span": [
+      0,
+      17275
+    ],
+    "original_words": 3091,
+    "art_shared_across_tiers": true,
+    "seed": 84
+  },
+  "cast": [
+    {
+      "id": "victor",
+      "name": "Victor",
+      "role": "protagonist — brilliant, obsessive, guilt-ridden, sickly",
+      "canonical": "a lean, slightly hunched young man with untidy dark hair, round glasses, dark shadowed feverish eyes, wearing a stained lab apron",
+      "anchor": "round glasses, a stained lab apron and dark shadowed eyes",
+      "seed_role": 84
+    },
+    {
+      "id": "elizabeth",
+      "name": "Elizabeth",
+      "role": "cousin & beloved — gentle, devoted, the family's moral heart",
+      "canonical": "a gentle graceful young woman with bright fair golden hair in a long braid under a white bonnet, an oval locket at her throat and a shoulder shawl",
+      "anchor": "bright fair golden hair, a white bonnet, an oval locket and a shawl",
+      "seed_role": 12
+    },
+    {
+      "id": "justine",
+      "name": "Justine",
+      "role": "servant girl — sweet, devoted, tragically wronged",
+      "canonical": "a slight sweet-faced young servant girl in a white servant's cap and a plain apron-dress, hands gently clasped, anxious gentle face",
+      "anchor": "a white servant's cap and clasped hands",
+      "seed_role": 33
+    },
+    {
+      "id": "alphonse",
+      "name": "Alphonse",
+      "role": "father — wise, loving patriarch and magistrate",
+      "canonical": "a tall stooped elderly gentleman, balding grey hair, a long white beard, leaning on a walking cane, in a long coat",
+      "anchor": "a long white beard and a walking cane (elderly, stooped)",
+      "seed_role": 20
+    }
+  ],
+  "panels": [
+    {
+      "n": 1,
+      "wide": true,
+      "cap_zone": "top",
+      "scene": "a solemn crowded 18th-century courtroom, the bespectacled dark-haired young man seated among his family in the gallery, rigid with hidden torment, shadowed eyes fixed on the empty dock",
+      "composition": "wide establishing courtroom, focus on the anguished young man",
+      "characters": [
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "THE FAMILY IS SUMMONED TO COURT. VICTOR ALONE KNOWS THE TRUTH.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "During the whole of this wretched mockery of justice I suffered living torture.",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "It was to be decided whether the result of my curiosity and lawless devices would cause the death of two of my fellow beings",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "My own agitation and anguish was extreme during the whole trial",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        0,
+        1080
+      ]
+    },
+    {
+      "n": 2,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "a calm young servant woman in a plain white servant's cap and mourning dress standing in the prisoner's dock, composed and quietly beautiful, thousands of unseen eyes upon her",
+      "composition": "close on Justine in the dock, dignified",
+      "characters": [
+        "justine"
+      ],
+      "text": {
+        "teen": {
+          "narration": "JUSTINE STANDS ACCUSED OF LITTLE WILLIAM'S MURDER.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "The appearance of Justine was calm. She was dressed in mourning",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "she appeared confident in innocence and did not tremble",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "her countenance, always engaging, was rendered, by the solemnity of her feelings, exquisitely beautiful",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        1080,
+        2159
+      ]
+    },
+    {
+      "n": 3,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "a close view of the servant woman in the white cap in the dock, a single tear dimming her eye as she catches sight of the family, a look of sorrowful affection",
+      "composition": "close, a silent tear of recognition",
+      "characters": [
+        "justine"
+      ],
+      "text": {
+        "teen": {
+          "narration": "SHE FINDS THEIR FACES IN THE CROWD.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "A tear seemed to dim her eye when she saw us, but she quickly recovered herself",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "a look of sorrowful affection seemed to attest her utter guiltlessness",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        2159,
+        3239
+      ]
+    },
+    {
+      "n": 4,
+      "wide": true,
+      "cap_zone": "top",
+      "scene": "a coarse market-woman on the witness stand pointing an accusing finger, the judges leaning in gravely, gaslight and dark wood, the servant woman small in the dock beyond",
+      "composition": "wide, hostile testimony mounting",
+      "characters": [
+        "justine"
+      ],
+      "text": {
+        "teen": {
+          "narration": "STRANGE FACTS PILE UP AGAINST HER.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "Several strange facts combined against her, which might have staggered anyone who had not such proof of her innocence as I had.",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "She had been out the whole of the night on which the murder had been committed",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        3239,
+        4319
+      ]
+    },
+    {
+      "n": 5,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "a golden-haired young woman with a long braid under a white bonnet and an oval locket, standing faltering as a small painted miniature is held up as evidence, the court stirring in horror",
+      "composition": "close, the damning locket revealed",
+      "characters": [
+        "elizabeth"
+      ],
+      "text": {
+        "teen": {
+          "narration": "THE LOCKET FROM WILLIAM'S NECK IS PRODUCED — FOUND ON JUSTINE.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "a murmur of horror and indignation filled the court",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "Justine was called on for her defence.",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "an hour before the child had been missed, she had placed round his neck",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        4319,
+        5398
+      ]
+    },
+    {
+      "n": 6,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "the servant woman in the white cap in the dock, gathering her courage, speaking in a steady but trembling voice, hand pressed to her heart, sorrow and dignity",
+      "composition": "close, her plain honest defence",
+      "characters": [
+        "justine"
+      ],
+      "text": {
+        "teen": {
+          "narration": "JUSTINE SPEAKS IN HER OWN DEFENCE.",
+          "bubbles": [
+            {
+              "speaker": "JUSTINE",
+              "text": "God knows... how entirely I am innocent.",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "JUSTINE",
+              "text": "I rest my innocence on a plain and simple explanation of the facts which have been adduced against me",
+              "pos": "bl",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "JUSTINE",
+              "text": "But I do not pretend that my protestations should acquit me",
+              "pos": "br",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        5398,
+        6478
+      ]
+    },
+    {
+      "n": 7,
+      "wide": true,
+      "cap_zone": "top",
+      "scene": "a moonlit night vignette of a lonely barn outside the shut gates of Geneva, a small cloaked figure of the servant woman sheltering, searching for a lost child, cold and afraid",
+      "composition": "wide, the innocent explanation of her lost night",
+      "characters": [
+        "justine"
+      ],
+      "text": {
+        "teen": {
+          "narration": "SHE HAD SPENT THAT NIGHT LOST, SEARCHING FOR WILLIAM.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "she was forced to remain several hours of the night in a barn belonging to a cottage",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "JUSTINE",
+              "text": "Concerning the picture she could give no account.",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "JUSTINE",
+              "text": "I believe that I have no enemy on earth, and none surely would have been so wicked as to destroy me wantonly",
+              "pos": "bl",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "She was alarmed by this account and passed several hours in looking for him",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        6478,
+        7558
+      ]
+    },
+    {
+      "n": 8,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "the golden-haired young woman with the braided bonnet and oval locket rising impassioned to address the court, one hand raised, earnest and brave, faces turned toward her",
+      "composition": "close, Elizabeth's brave appeal",
+      "characters": [
+        "elizabeth"
+      ],
+      "text": {
+        "teen": {
+          "narration": "ELIZABETH RISES TO SPEAK FOR HER FRIEND.",
+          "bubbles": [
+            {
+              "speaker": "ELIZABETH",
+              "text": "when I see a fellow creature about to perish through the cowardice of her pretended friends, I wish to be allowed to speak",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "ELIZABETH",
+              "text": "I believe and rely on her perfect innocence",
+              "pos": "bl",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "ELIZABETH",
+              "text": "During all that period she appeared to me the most amiable and benevolent of human creatures",
+              "pos": "br",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "ELIZABETH",
+              "text": "She had no temptation for such an action",
+              "pos": "tr",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        7558,
+        8638
+      ]
+    },
+    {
+      "n": 9,
+      "wide": true,
+      "cap_zone": "top",
+      "scene": "a hostile courtroom crowd, faces twisted with indignation and contempt, fists and murmurs turned against the small servant woman weeping in the dock",
+      "composition": "wide, the mob turns crueller",
+      "characters": [
+        "justine"
+      ],
+      "text": {
+        "teen": {
+          "narration": "BUT THE CROWD ONLY HARDENS AGAINST HER.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "the public indignation was turned with renewed violence, charging her with the blackest ingratitude",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "She herself wept as Elizabeth spoke, but she did not answer",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "but it was excited by her generous interference",
+              "pos": "tr",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        8638,
+        9717
+      ]
+    },
+    {
+      "n": 10,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "the bespectacled dark-haired young man stumbling out through the heavy courtroom doors into a stone corridor, clutching his chest in agony, shadowed eyes wild with guilt",
+      "composition": "close, Victor flees in torment",
+      "characters": [
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "VICTOR CANNOT BEAR IT — HE FLEES.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "I rushed out of the court in agony.",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "the fangs of remorse tore my bosom and would not forgo their hold",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "The tortures of the accused did not equal mine; she was sustained by innocence",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "I passed a night of unmingled wretchedness",
+              "pos": "tr",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        9717,
+        10797
+      ]
+    },
+    {
+      "n": 11,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "a close view of a judge's hand emptying a ballot urn onto a table, every ballot stone black, grim finality, a clerk recording the verdict",
+      "composition": "close, the black ballots of condemnation",
+      "characters": [],
+      "text": {
+        "teen": {
+          "narration": "THE VERDICT.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "The ballots had been thrown; they were all black, and Justine was condemned.",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "OFFICER",
+              "text": "Justine had already confessed her guilt",
+              "pos": "br",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "OFFICER",
+              "text": "none of our judges like to condemn a criminal upon circumstantial evidence, be it ever so decisive",
+              "pos": "bl",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        10797,
+        11877
+      ]
+    },
+    {
+      "n": 12,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "the golden-haired young woman with the braided bonnet at home by a dark window, stricken and disillusioned, hands clasped, grief and lost faith on her face",
+      "composition": "close, Elizabeth's faith shaken",
+      "characters": [
+        "elizabeth"
+      ],
+      "text": {
+        "teen": {
+          "narration": "THE FALSE CONFESSION BREAKS ELIZABETH'S HEART.",
+          "bubbles": [
+            {
+              "speaker": "ELIZABETH",
+              "text": "How shall I ever again believe in human goodness?",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "ELIZABETH",
+              "text": "Justine, whom I loved and esteemed as my sister, how could she put on those smiles of innocence only to betray?",
+              "pos": "bl",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "ELIZABETH",
+              "text": "Her mild eyes seemed incapable of any severity or guile, and yet she has committed a murder",
+              "pos": "br",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        11877,
+        12956
+      ]
+    },
+    {
+      "n": 13,
+      "wide": true,
+      "cap_zone": "top",
+      "scene": "a gloomy stone prison cell, the manacled servant woman in the white cap on a bed of straw throwing herself weeping at the feet of the golden-haired young woman with the braided bonnet, both grieving",
+      "composition": "wide two-figure, the prison reunion",
+      "characters": [
+        "justine",
+        "elizabeth"
+      ],
+      "text": {
+        "teen": {
+          "narration": "IN THE CONDEMNED CELL, ELIZABETH AND VICTOR VISIT HER.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "her hands were manacled, and her head rested on her knees",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "she threw herself at the feet of Elizabeth, weeping bitterly",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "ELIZABETH",
+              "text": "Why did you rob me of my last consolation? I relied on your innocence",
+              "pos": "bl",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "JUSTINE",
+              "text": "I do not fear to die... God raises my weakness and gives me courage to endure the worst",
+              "pos": "tr",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        12956,
+        14036
+      ]
+    },
+    {
+      "n": 14,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "a close view of the manacled servant woman in the white cap confessing through tears to the golden-haired young woman, anguish and shame, a dark priest's shadow looming on the cell wall behind her",
+      "composition": "close, the coerced-lie confession",
+      "characters": [
+        "justine",
+        "elizabeth"
+      ],
+      "text": {
+        "teen": {
+          "narration": "JUSTINE CONFESSES THE TERRIBLE TRUTH — SHE LIED TO BE ABSOLVED.",
+          "bubbles": [
+            {
+              "speaker": "JUSTINE",
+              "text": "I did confess, but I confessed a lie. I confessed, that I might obtain absolution",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "JUSTINE",
+              "text": "my confessor has besieged me; he threatened and menaced",
+              "pos": "bl",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "JUSTINE",
+              "text": "he threatened excommunication and hell fire in my last moments if I continued obdurate",
+              "pos": "br",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "JUSTINE",
+              "text": "In an evil hour I subscribed to a lie; and now only am I truly miserable",
+              "pos": "tr",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        14036,
+        15116
+      ]
+    },
+    {
+      "n": 15,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "the bespectacled dark-haired young man withdrawn into a shadowed corner of the cell, teeth gritted, fists clenched, silent unbearable guilt consuming him",
+      "composition": "close, the true murderer's silent hell",
+      "characters": [
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "IN THE CORNER, THE TRUE MURDERER SUFFERS IN SILENCE.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "I, the true murderer, felt the never-dying worm alive in my bosom",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "I bore a hell within me which nothing could extinguish.",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "Anguish and despair had penetrated into the core of my heart",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        15116,
+        16195
+      ]
+    },
+    {
+      "n": 16,
+      "wide": true,
+      "cap_zone": "top",
+      "scene": "grey dawn over a bleak scaffold on a hill, birds scattering, the golden-haired young woman weeping below, a heavy stillness of grief and injustice",
+      "composition": "wide, the mournful morning of the execution",
+      "characters": [
+        "elizabeth"
+      ],
+      "text": {
+        "teen": {
+          "narration": "JUSTINE FORGIVES, AND DIES.",
+          "bubbles": [
+            {
+              "speaker": "JUSTINE",
+              "text": "Farewell, sweet lady, dearest Elizabeth, my beloved and only friend",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "JUSTINE",
+              "text": "Live, and be happy, and make others so.",
+              "pos": "tr",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "And on the morrow Justine died.",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            },
+            {
+              "speaker": "",
+              "text": "She perished on the scaffold as a murderess!",
+              "pos": "tr",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1831"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        16195,
+        17275
+      ]
+    }
+  ]
+}

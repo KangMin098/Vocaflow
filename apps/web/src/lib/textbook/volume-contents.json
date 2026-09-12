@@ -1,0 +1,3618 @@
+{
+  "generatedAt": "2026-09-07T14:14:23.606Z",
+  "unitsPerVolume": 10,
+  "bands": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "volumes": {
+    "1": {
+      "band": 1,
+      "step": 1,
+      "title": "Vocaflow Reading Starter",
+      "schoolBand": "초등 저학년",
+      "units": [
+        {
+          "no": 1,
+          "types": [
+            "rhyme",
+            "spell_blank",
+            "word_meaning"
+          ],
+          "items": 6,
+          "minutes": 20,
+          "words": null,
+          "passages": [
+            "add",
+            "about",
+            "act",
+            "afternoon",
+            "across",
+            "and"
+          ]
+        },
+        {
+          "no": 2,
+          "types": [
+            "rhyme",
+            "spell_blank",
+            "word_meaning"
+          ],
+          "items": 6,
+          "minutes": 20,
+          "words": null,
+          "passages": [
+            "bad",
+            "address",
+            "apartment",
+            "bake",
+            "adult",
+            "art"
+          ]
+        },
+        {
+          "no": 3,
+          "types": [
+            "rhyme",
+            "spell_blank",
+            "word_meaning"
+          ],
+          "items": 6,
+          "minutes": 20,
+          "words": null,
+          "passages": [
+            "bat",
+            "afraid",
+            "as",
+            "be",
+            "after",
+            "at"
+          ]
+        },
+        {
+          "no": 4,
+          "types": [
+            "rhyme",
+            "spell_blank",
+            "word_meaning"
+          ],
+          "items": 6,
+          "minutes": 20,
+          "words": null,
+          "passages": [
+            "bed",
+            "against",
+            "badminton",
+            "big",
+            "age",
+            "bag"
+          ]
+        },
+        {
+          "no": 5,
+          "types": [
+            "rhyme",
+            "spell_blank",
+            "word_meaning"
+          ],
+          "items": 6,
+          "minutes": 20,
+          "words": null,
+          "passages": [
+            "boy",
+            "airplane",
+            "basketball",
+            "but",
+            "album",
+            "breakfast"
+          ]
+        },
+        {
+          "no": 6,
+          "types": [
+            "rhyme",
+            "spell_blank",
+            "word_meaning"
+          ],
+          "items": 6,
+          "minutes": 20,
+          "words": null,
+          "passages": [
+            "buy",
+            "all",
+            "chocolate",
+            "by",
+            "almost",
+            "condition"
+          ]
+        },
+        {
+          "no": 7,
+          "types": [
+            "rhyme",
+            "spell_blank",
+            "word_meaning"
+          ],
+          "items": 6,
+          "minutes": 20,
+          "words": null,
+          "passages": [
+            "cap",
+            "already",
+            "congratulate",
+            "cat",
+            "also",
+            "cup"
+          ]
+        },
+        {
+          "no": 8,
+          "types": [
+            "rhyme",
+            "spell_blank",
+            "word_meaning"
+          ],
+          "items": 6,
+          "minutes": 20,
+          "words": null,
+          "passages": [
+            "cut",
+            "always",
+            "delicious",
+            "day",
+            "animal",
+            "difficult"
+          ]
+        },
+        {
+          "no": 9,
+          "types": [
+            "rhyme",
+            "spell_blank",
+            "word_meaning"
+          ],
+          "items": 6,
+          "minutes": 20,
+          "words": null,
+          "passages": [
+            "do",
+            "answer",
+            "gentleman",
+            "dry",
+            "any",
+            "grandfather"
+          ]
+        },
+        {
+          "no": 10,
+          "types": [
+            "rhyme",
+            "spell_blank",
+            "word_meaning"
+          ],
+          "items": 6,
+          "minutes": 20,
+          "words": null,
+          "passages": [
+            "fall",
+            "apple",
+            "hamburger",
+            "fan",
+            "area",
+            "if"
+          ]
+        }
+      ],
+      "totalItems": 60,
+      "totalMinutes": 200,
+      "stoppedBecause": null,
+      "readiness": {
+        "items": 60,
+        "renderable": 60,
+        "explained": 60,
+        "proofChecked": 0,
+        "proofClean": 0,
+        "byType": {
+          "rhyme": {
+            "items": 20,
+            "renderable": 20,
+            "explained": 20
+          },
+          "spell_blank": {
+            "items": 20,
+            "renderable": 20,
+            "explained": 20
+          },
+          "word_meaning": {
+            "items": 20,
+            "renderable": 20,
+            "explained": 20
+          }
+        }
+      },
+      "sample": {
+        "no": 1,
+        "minutes": 20,
+        "vocabulary": [
+          {
+            "word": "add",
+            "meaningKo": "더하다, 추가하다"
+          },
+          {
+            "word": "about",
+            "meaningKo": "~에 관하여, 대략"
+          },
+          {
+            "word": "act",
+            "meaningKo": "행동하다, 행하다"
+          },
+          {
+            "word": "afternoon",
+            "meaningKo": "오후"
+          },
+          {
+            "word": "across",
+            "meaningKo": "~을 가로질러, 건너편에"
+          },
+          {
+            "word": "and",
+            "meaningKo": "그리고, ~와"
+          }
+        ],
+        "items": [
+          {
+            "no": 1,
+            "type": "rhyme",
+            "kind": "elementary",
+            "stem": "다음 중 \"add\" 와 소리가 같은 낱말은?",
+            "shown": "add",
+            "choices": [
+              "ice",
+              "glad",
+              "face",
+              "want"
+            ],
+            "answer": 2,
+            "explanation": {
+              "text": "정답은 ② \"glad\" 다. \"add\" 와 끝소리가 같다 — 소리를 맞추는 문제이므로 철자가 아니라 **끝소리**를 본다. 나머지 ① \"ice\" · ③ \"face\" · ④ \"want\" 는 끝소리가 다르다.",
+              "from": "batch"
+            },
+            "source": "2022 개정 교육과정 별표 어휘"
+          },
+          {
+            "no": 2,
+            "type": "spell_blank",
+            "kind": "elementary",
+            "stem": "뜻을 보고 빈칸을 채우세요 — ~에 관하여",
+            "shown": "a b o _ t",
+            "choices": [],
+            "answerText": "about",
+            "explanation": {
+              "text": "빈칸을 채우면 \"about\" 가 된다. 주어진 꼴 \"a b o _ t\" 에서 빠진 글자를 넣는 문제다 — 같은 꼴로 만들 수 있는 낱말이 하나뿐이라 답이 정해진다.",
+              "from": "batch"
+            },
+            "source": "2022 개정 교육과정 별표 어휘"
+          },
+          {
+            "no": 3,
+            "type": "word_meaning",
+            "kind": "elementary",
+            "stem": "\"act\" 의 뜻은?",
+            "shown": "act",
+            "choices": [
+              "앞쪽",
+              "느끼다",
+              "에너지",
+              "행동하다"
+            ],
+            "answer": 4,
+            "explanation": {
+              "text": "\"act\" 의 뜻은 ④ \"행동하다\"다. 나머지 ① \"앞쪽\" · ② \"느끼다\" · ③ \"에너지\" 는 같은 교육과정 낱말 목록에 있는 **다른 낱말**의 뜻이다.",
+              "from": "batch"
+            },
+            "source": "2022 개정 교육과정 별표 어휘"
+          },
+          {
+            "no": 4,
+            "type": "rhyme",
+            "kind": "elementary",
+            "stem": "다음 중 \"afternoon\" 와 소리가 같은 낱말은?",
+            "shown": "afternoon",
+            "choices": [
+              "danger",
+              "catch",
+              "moon",
+              "difficult"
+            ],
+            "answer": 3,
+            "explanation": {
+              "text": "정답은 ③ \"moon\" 다. \"afternoon\" 와 끝소리가 같다 — 소리를 맞추는 문제이므로 철자가 아니라 **끝소리**를 본다. 나머지 ① \"danger\" · ② \"catch\" · ④ \"difficult\" 는 끝소리가 다르다.",
+              "from": "batch"
+            },
+            "source": "2022 개정 교육과정 별표 어휘"
+          },
+          {
+            "no": 5,
+            "type": "spell_blank",
+            "kind": "elementary",
+            "stem": "뜻을 보고 빈칸을 채우세요 — ~을 가로질러",
+            "shown": "a _ r o s s",
+            "choices": [],
+            "answerText": "across",
+            "explanation": {
+              "text": "빈칸을 채우면 \"across\" 가 된다. 주어진 꼴 \"a _ r o s s\" 에서 빠진 글자를 넣는 문제다 — 같은 꼴로 만들 수 있는 낱말이 하나뿐이라 답이 정해진다.",
+              "from": "batch"
+            },
+            "source": "2022 개정 교육과정 별표 어휘"
+          },
+          {
+            "no": 6,
+            "type": "word_meaning",
+            "kind": "elementary",
+            "stem": "\"and\" 의 뜻은?",
+            "shown": "and",
+            "choices": [
+              "여행",
+              "자동차",
+              "그리고",
+              "빵"
+            ],
+            "answer": 3,
+            "explanation": {
+              "text": "\"and\" 의 뜻은 ③ \"그리고\"다. 나머지 ① \"여행\" · ② \"자동차\" · ④ \"빵\" 는 같은 교육과정 낱말 목록에 있는 **다른 낱말**의 뜻이다.",
+              "from": "batch"
+            },
+            "source": "2022 개정 교육과정 별표 어휘"
+          }
+        ]
+      }
+    },
+    "2": {
+      "band": 2,
+      "step": 2,
+      "title": "Vocaflow Reading 1",
+      "schoolBand": "초등 고학년",
+      "units": [
+        {
+          "no": 1,
+          "types": [
+            "rhyme",
+            "word_order",
+            "spell_blank",
+            "word_meaning"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": null,
+          "passages": [
+            "add",
+            "The Nursery \"Alice\" (발췌)",
+            "about",
+            "act",
+            "afternoon",
+            "The Margin Was Not a Mistake"
+          ]
+        },
+        {
+          "no": 2,
+          "types": [
+            "rhyme",
+            "spell_blank",
+            "word_order",
+            "word_meaning"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": null,
+          "passages": [
+            "bad",
+            "across",
+            "The King of Ireland's Son (발췌)",
+            "and",
+            "bake",
+            "address"
+          ]
+        },
+        {
+          "no": 3,
+          "types": [
+            "rhyme",
+            "word_order",
+            "spell_blank",
+            "word_meaning"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": null,
+          "passages": [
+            "bat",
+            "What Is the Big Bang? (5문단부터 발췌)",
+            "adult",
+            "apartment",
+            "be",
+            "Where We Live (발췌)"
+          ]
+        },
+        {
+          "no": 4,
+          "types": [
+            "rhyme",
+            "spell_blank",
+            "word_meaning",
+            "word_order"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": null,
+          "passages": [
+            "bed",
+            "afraid",
+            "art",
+            "How International Students Should Think about Writing, AI",
+            "big",
+            "after"
+          ]
+        },
+        {
+          "no": 5,
+          "types": [
+            "rhyme",
+            "word_meaning",
+            "word_order",
+            "spell_blank"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": null,
+          "passages": [
+            "boy",
+            "as",
+            "The Song of the Lark (발췌)",
+            "against",
+            "at",
+            "The Adventures of Buster Bear (발췌)"
+          ]
+        },
+        {
+          "no": 6,
+          "types": [
+            "rhyme",
+            "word_meaning",
+            "spell_blank",
+            "word_order"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": null,
+          "passages": [
+            "but",
+            "badminton",
+            "age",
+            "Christie's old organ (발췌)",
+            "bag",
+            "airplane"
+          ]
+        },
+        {
+          "no": 7,
+          "types": [
+            "rhyme",
+            "word_meaning",
+            "word_order",
+            "spell_blank"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": null,
+          "passages": [
+            "buy",
+            "basketball",
+            "The Adventures of Buster Bear (발췌)",
+            "album",
+            "breakfast",
+            "Wigwam Evenings: Sioux Folk Tales Retold (발췌)"
+          ]
+        },
+        {
+          "no": 8,
+          "types": [
+            "rhyme",
+            "spell_blank",
+            "word_meaning",
+            "word_order"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": null,
+          "passages": [
+            "by",
+            "all",
+            "chocolate",
+            "Margaret Montfort (발췌)",
+            "almost",
+            "condition"
+          ]
+        },
+        {
+          "no": 9,
+          "types": [
+            "rhyme",
+            "word_order",
+            "spell_blank",
+            "word_meaning"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": null,
+          "passages": [
+            "cap",
+            "Little Brother (발췌)",
+            "already",
+            "congratulate",
+            "cat",
+            "Pluck on the Long Trail; Or, Boy Scouts in the Rockies (발췌)"
+          ]
+        },
+        {
+          "no": 10,
+          "types": [
+            "spell_blank",
+            "word_meaning",
+            "rhyme",
+            "word_order"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": null,
+          "passages": [
+            "also",
+            "cup",
+            "cut",
+            "Forests of Maine (발췌)",
+            "always",
+            "delicious"
+          ]
+        }
+      ],
+      "totalItems": 60,
+      "totalMinutes": 230,
+      "stoppedBecause": null,
+      "readiness": {
+        "items": 60,
+        "renderable": 60,
+        "explained": 60,
+        "proofChecked": 0,
+        "proofClean": 0,
+        "byType": {
+          "rhyme": {
+            "items": 15,
+            "renderable": 15,
+            "explained": 15
+          },
+          "word_order": {
+            "items": 15,
+            "renderable": 15,
+            "explained": 15
+          },
+          "spell_blank": {
+            "items": 15,
+            "renderable": 15,
+            "explained": 15
+          },
+          "word_meaning": {
+            "items": 15,
+            "renderable": 15,
+            "explained": 15
+          }
+        }
+      },
+      "sample": {
+        "no": 1,
+        "minutes": 23,
+        "vocabulary": [
+          {
+            "word": "little",
+            "meaningKo": "작은"
+          },
+          {
+            "word": "area",
+            "meaningKo": "지역, 구역"
+          },
+          {
+            "word": "course",
+            "meaningKo": "강좌, 과정"
+          },
+          {
+            "word": "door",
+            "meaningKo": "문"
+          },
+          {
+            "word": "open",
+            "meaningKo": "열린, 개방된"
+          },
+          {
+            "word": "long",
+            "meaningKo": "긴"
+          },
+          {
+            "word": "look",
+            "meaningKo": "보다, 바라보다"
+          },
+          {
+            "word": "note",
+            "meaningKo": "메모, 쪽지"
+          },
+          {
+            "word": "poor",
+            "meaningKo": "가난한"
+          },
+          {
+            "word": "tall",
+            "meaningKo": "키가 큰"
+          },
+          {
+            "word": "eye",
+            "meaningKo": "눈"
+          },
+          {
+            "word": "page",
+            "meaningKo": "페이지, 쪽"
+          },
+          {
+            "word": "rest",
+            "meaningKo": "휴식, 쉼"
+          },
+          {
+            "word": "room",
+            "meaningKo": "방"
+          },
+          {
+            "word": "silence",
+            "meaningKo": "침묵, 정적"
+          },
+          {
+            "word": "work",
+            "meaningKo": "일하다, 근무하다"
+          },
+          {
+            "word": "add",
+            "meaningKo": "더하다, 추가하다"
+          },
+          {
+            "word": "about",
+            "meaningKo": "~에 관하여, 대략"
+          },
+          {
+            "word": "act",
+            "meaningKo": "행동하다, 행하다"
+          },
+          {
+            "word": "afternoon",
+            "meaningKo": "오후"
+          }
+        ],
+        "items": [
+          {
+            "no": 1,
+            "type": "rhyme",
+            "kind": "elementary",
+            "stem": "다음 중 \"add\" 와 소리가 같은 낱말은?",
+            "shown": "add",
+            "choices": [
+              "ice",
+              "glad",
+              "face",
+              "want"
+            ],
+            "answer": 2,
+            "explanation": {
+              "text": "정답은 ② \"glad\" 다. \"add\" 와 끝소리가 같다 — 소리를 맞추는 문제이므로 철자가 아니라 **끝소리**를 본다. 나머지 ① \"ice\" · ③ \"face\" · ④ \"want\" 는 끝소리가 다르다.",
+              "from": "batch"
+            },
+            "source": "2022 개정 교육과정 별표 어휘"
+          },
+          {
+            "no": 2,
+            "type": "word_order",
+            "kind": "arrange",
+            "stem": "주어진 낱말을 알맞게 배열하시오.",
+            "bank": [
+              "all",
+              "was",
+              "but",
+              "she",
+              "could",
+              "do",
+              "that"
+            ],
+            "choices": [],
+            "answerText": "But that was all she could do.",
+            "explanation": {
+              "text": "앞 문장 \"She could just manage, by putting her head down, close to the ground, to look through wit…\" 에 이어지는 자리다. 정답은 \"But that was all she could do.\" 다. 주어 \"But\" 로 시작해 동사 \"was\"가 뒤따르고, 나머지 낱말이 그 뒤에 붙는다. 낱말 7개를 모두 한 번씩 쓴다 — 남거나 모자라면 배열이 틀린 것이다.",
+              "from": "rule"
+            },
+            "source": "The Nursery \"Alice\" (발췌)"
+          },
+          {
+            "no": 3,
+            "type": "spell_blank",
+            "kind": "elementary",
+            "stem": "뜻을 보고 빈칸을 채우세요 — ~에 관하여",
+            "shown": "a b o _ t",
+            "choices": [],
+            "answerText": "about",
+            "explanation": {
+              "text": "빈칸을 채우면 \"about\" 가 된다. 주어진 꼴 \"a b o _ t\" 에서 빠진 글자를 넣는 문제다 — 같은 꼴로 만들 수 있는 낱말이 하나뿐이라 답이 정해진다.",
+              "from": "batch"
+            },
+            "source": "2022 개정 교육과정 별표 어휘"
+          },
+          {
+            "no": 4,
+            "type": "word_meaning",
+            "kind": "elementary",
+            "stem": "\"act\" 의 뜻은?",
+            "shown": "act",
+            "choices": [
+              "앞쪽",
+              "느끼다",
+              "에너지",
+              "행동하다"
+            ],
+            "answer": 4,
+            "explanation": {
+              "text": "\"act\" 의 뜻은 ④ \"행동하다\"다. 나머지 ① \"앞쪽\" · ② \"느끼다\" · ③ \"에너지\" 는 같은 교육과정 낱말 목록에 있는 **다른 낱말**의 뜻이다.",
+              "from": "batch"
+            },
+            "source": "2022 개정 교육과정 별표 어휘"
+          },
+          {
+            "no": 5,
+            "type": "rhyme",
+            "kind": "elementary",
+            "stem": "다음 중 \"afternoon\" 와 소리가 같은 낱말은?",
+            "shown": "afternoon",
+            "choices": [
+              "danger",
+              "catch",
+              "moon",
+              "difficult"
+            ],
+            "answer": 3,
+            "explanation": {
+              "text": "정답은 ③ \"moon\" 다. \"afternoon\" 와 끝소리가 같다 — 소리를 맞추는 문제이므로 철자가 아니라 **끝소리**를 본다. 나머지 ① \"danger\" · ② \"catch\" · ④ \"difficult\" 는 끝소리가 다르다.",
+              "from": "batch"
+            },
+            "source": "2022 개정 교육과정 별표 어휘"
+          },
+          {
+            "no": 6,
+            "type": "word_order",
+            "kind": "arrange",
+            "stem": "주어진 낱말을 알맞게 배열하시오.",
+            "bank": [
+              "now",
+              "what",
+              "carries",
+              "of",
+              "meaning",
+              "looked",
+              "once",
+              "an",
+              "like",
+              "absence",
+              "half",
+              "the"
+            ],
+            "choices": [],
+            "answerText": "What once looked like an absence now carries half of the meaning.",
+            "explanation": {
+              "text": "앞 문장 \"A page with room to breathe is easier to read, and a song with real pauses is easier to r…\" 에 이어지는 자리다. 정답은 \"What once looked like an absence now carries half of the meaning.\" 다. 주어 \"What\" 로 시작해 나머지 낱말이 그 뒤에 붙는다. 낱말 12개를 모두 한 번씩 쓴다 — 남거나 모자라면 배열이 틀린 것이다.",
+              "from": "batch"
+            },
+            "source": "The Margin Was Not a Mistake"
+          }
+        ]
+      }
+    },
+    "3": {
+      "band": 3,
+      "step": 3,
+      "title": "Vocaflow Reading 2",
+      "schoolBand": "중학 1-2학년",
+      "units": [
+        {
+          "no": 1,
+          "types": [
+            "vocab_choice",
+            "word_order",
+            "word_meaning",
+            "blank_word",
+            "unit_vocab"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": null,
+          "passages": [
+            "Seek and Find; or, The Adventures of a Smart Boy (발췌)",
+            "The Children's Book of London (발췌)",
+            "able",
+            "English Fairy Tales (발췌)",
+            "Anne's House of Dreams (발췌)",
+            "A Little Girl in Old New York (발췌)"
+          ]
+        },
+        {
+          "no": 2,
+          "types": [
+            "word_order",
+            "vocab_choice",
+            "word_meaning",
+            "blank_word",
+            "unit_vocab"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": null,
+          "passages": [
+            "Gappu Can't Dance",
+            "Ruth Fielding Down East; Or, The Hermit of Beach Plum Point (발췌)",
+            "absolute",
+            "Fairy Prince and Other Stories (발췌)",
+            "Fairy Tales of the Slav Peasants and Herdsmen (발췌)",
+            "A Little Girl in Old New York (발췌)"
+          ]
+        },
+        {
+          "no": 3,
+          "types": [
+            "vocab_choice",
+            "word_order",
+            "word_meaning",
+            "blank_word",
+            "unit_vocab"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": null,
+          "passages": [
+            "Little Folks (September 1884) (발췌)",
+            "Daddy-Long-Legs (발췌)",
+            "accent",
+            "Roy Blakeley, Pathfinder (발췌)",
+            "Boys and Girls Bookshelf; a Practical Plan of Character Building, Volume I (of 1 (발췌)",
+            "accept"
+          ]
+        },
+        {
+          "no": 4,
+          "types": [
+            "vocab_choice",
+            "word_order",
+            "word_meaning",
+            "blank_word",
+            "unit_vocab"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": null,
+          "passages": [
+            "Girls of the Forest (발췌)",
+            "Travels to Discover the Source of the Nile, Volume 3 (of 5) (발췌)",
+            "access",
+            "The Boy Scout Automobilists; Or, Jack Danby in the Woods (발췌)",
+            "Russian Fairy Tales: A Choice Collection of Muscovite Folk-lore (발췌)",
+            "Bird Stories (발췌)"
+          ]
+        },
+        {
+          "no": 5,
+          "types": [
+            "vocab_choice",
+            "word_order",
+            "word_meaning",
+            "unit_vocab",
+            "blank_word"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": null,
+          "passages": [
+            "The moving picture boys on the coast (발췌)",
+            "The Boy Scout Treasure Hunters; Or, The Lost Treasure of Buffalo Hollow (발췌)",
+            "accident",
+            "Fairy Prince and Other Stories (발췌)",
+            "'The Fall of the House of Usher,' by Edgar Allan Poe, Part One",
+            "English Fairy Tales (발췌)"
+          ]
+        },
+        {
+          "no": 6,
+          "types": [
+            "vocab_choice",
+            "word_order",
+            "word_meaning",
+            "blank_word",
+            "unit_vocab"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": null,
+          "passages": [
+            "The Commercial Products of the Vegetable Kingdom (발췌)",
+            "'The Fall of the House of Usher,' by Edgar Allan Poe, Part Three",
+            "account",
+            "Robin Redbreast: A Story for Girls (발췌)",
+            "The Adventures of Paddy Beaver (발췌)",
+            "The Rebel of the School (발췌)"
+          ]
+        },
+        {
+          "no": 7,
+          "types": [
+            "word_order",
+            "vocab_choice",
+            "word_meaning",
+            "blank_word",
+            "unit_vocab"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": null,
+          "passages": [
+            "Just Patty (발췌)",
+            "The Farmer Boy, and How He Became Commander-In-Chief (발췌)",
+            "accuse",
+            "English Fairy Tales (발췌)",
+            "The Adventures of Paddy the Beaver (발췌)",
+            "'The Open Boat' by Stephen Crane, Part One"
+          ]
+        },
+        {
+          "no": 8,
+          "types": [
+            "vocab_choice",
+            "word_order",
+            "word_meaning",
+            "blank_word",
+            "unit_vocab"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": null,
+          "passages": [
+            "The Brighton Boys in the Radio Service (발췌)",
+            "Daddy-Long-Legs (발췌)",
+            "achieve",
+            "Etheldreda the Ready: A School Story (발췌)",
+            "Darwin and Modern Science (발췌)",
+            "adapt"
+          ]
+        },
+        {
+          "no": 9,
+          "types": [
+            "vocab_choice",
+            "word_order",
+            "blank_word",
+            "unit_vocab",
+            "word_meaning"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": null,
+          "passages": [
+            "Sunny Boy in the Big City (발췌)",
+            "Sometimes We 'Spread Ourself Too Thin'",
+            "Follow My Leader: The Boys of Templeton (발췌)",
+            "Play the Game! (발췌)",
+            "admire",
+            "The Curlytops and Their Pets; Or, Uncle Toby's Strange Collection (발췌)"
+          ]
+        },
+        {
+          "no": 10,
+          "types": [
+            "vocab_choice",
+            "word_order",
+            "unit_vocab",
+            "word_meaning",
+            "blank_word"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": null,
+          "passages": [
+            "Fairy Prince and Other Stories (발췌)",
+            "Doctor Dolittle's Post Office (발췌)",
+            "The Children's Book of London (발췌)",
+            "admit",
+            "Frank Merriwell's Nobility; Or, The Tragedy of the Ocean Tramp (발췌)",
+            "Get your Gummy Greenhouse Gases! (앞부분 발췌)"
+          ]
+        }
+      ],
+      "totalItems": 60,
+      "totalMinutes": 230,
+      "stoppedBecause": null,
+      "readiness": {
+        "items": 60,
+        "renderable": 60,
+        "explained": 60,
+        "proofChecked": 24,
+        "proofClean": 24,
+        "byType": {
+          "vocab_choice": {
+            "items": 12,
+            "renderable": 12,
+            "explained": 12
+          },
+          "word_order": {
+            "items": 12,
+            "renderable": 12,
+            "explained": 12
+          },
+          "word_meaning": {
+            "items": 12,
+            "renderable": 12,
+            "explained": 12
+          },
+          "blank_word": {
+            "items": 12,
+            "renderable": 12,
+            "explained": 12
+          },
+          "unit_vocab": {
+            "items": 12,
+            "renderable": 12,
+            "explained": 12
+          }
+        }
+      },
+      "sample": {
+        "no": 1,
+        "minutes": 23,
+        "vocabulary": [
+          {
+            "word": "sofa",
+            "meaningKo": "소파"
+          },
+          {
+            "word": "face",
+            "meaningKo": "얼굴"
+          },
+          {
+            "word": "castle",
+            "meaningKo": "성"
+          },
+          {
+            "word": "king",
+            "meaningKo": "왕"
+          },
+          {
+            "word": "agreeable",
+            "meaningKo": "기분 좋은; 동의할 만한"
+          },
+          {
+            "word": "hurricane",
+            "meaningKo": "허리케인"
+          },
+          {
+            "word": "interest",
+            "meaningKo": "관심, 흥미"
+          },
+          {
+            "word": "opportunity",
+            "meaningKo": "기회"
+          },
+          {
+            "word": "addition",
+            "meaningKo": "추가, 부가; 추가물"
+          },
+          {
+            "word": "bright",
+            "meaningKo": "밝은"
+          },
+          {
+            "word": "dear",
+            "meaningKo": "친애하는, 소중한; 비싼"
+          },
+          {
+            "word": "able",
+            "meaningKo": "할 수 있는, ~할 능력이 있는"
+          },
+          {
+            "word": "brave",
+            "meaningKo": "용감한"
+          },
+          {
+            "word": "cloth",
+            "meaningKo": "천, 옷감"
+          },
+          {
+            "word": "asleep",
+            "meaningKo": "잠든"
+          },
+          {
+            "word": "corner",
+            "meaningKo": "모퉁이, 구석"
+          },
+          {
+            "word": "belt",
+            "meaningKo": "벨트, 허리띠"
+          },
+          {
+            "word": "certainly",
+            "meaningKo": "확실히, 물론"
+          },
+          {
+            "word": "dressed",
+            "meaningKo": "옷을 갖춰 입은"
+          },
+          {
+            "word": "ghostly",
+            "meaningKo": "유령 같은, 으스스한"
+          }
+        ],
+        "items": [
+          {
+            "no": 1,
+            "type": "vocab_choice",
+            "kind": "underline",
+            "stem": "밑줄 친 부분 중 알맞지 않은 것은?",
+            "sentences": [
+              "At four we dined, and Mr.",
+              "Dunkswell renewed his efforts to be intimate with me; and the more he persevered, the more he didn’t accomplish anything.",
+              "I did not like him, and I could not like him.",
+              "At dinner he drank more wine than his head could bear, and this did not make him any more agreeable to me.",
+              "After breakfast, Mr.",
+              "Solomons and myself took seats upon the hurricane deck.",
+              "He mentioned that he had called to see Kate the preceding evening, and this afforded me an opportunity to tell my story, to which my friend listened with the deepest interest."
+            ],
+            "underlines": [
+              {
+                "sentenceIdx": 0,
+                "word": "dined,"
+              },
+              {
+                "sentenceIdx": 1,
+                "word": "Dunkswell"
+              },
+              {
+                "sentenceIdx": 3,
+                "word": "dinner"
+              },
+              {
+                "sentenceIdx": 4,
+                "word": "breakfast"
+              },
+              {
+                "sentenceIdx": 5,
+                "word": "Solomons"
+              }
+            ],
+            "choices": [],
+            "answer": 4,
+            "explanation": {
+              "text": "④ \"breakfast\"가 문맥에 맞지 않는다. 문제 문장은 \"After breakfast, Mr.\" 인데, 이 자리에는 \"dinner\" 가 와야 뜻이 이어진다 — \"After dinner, Mr.\". 나머지 ① \"dined,\" · ② \"Dunkswell\" · ③ \"dinner\" · ⑤ \"Solomons\" 는 앞뒤 내용과 어긋나지 않는다.",
+              "from": "rule"
+            },
+            "source": "Seek and Find; or, The Adventures of a Smart Boy (발췌)"
+          },
+          {
+            "no": 2,
+            "type": "word_order",
+            "kind": "arrange",
+            "stem": "주어진 낱말을 알맞게 배열하시오.",
+            "bank": [
+              "and",
+              "off",
+              "goes",
+              "so",
+              "asks",
+              "for",
+              "children",
+              "he",
+              "the"
+            ],
+            "choices": [],
+            "answerText": "So off he goes and asks for the children.",
+            "explanation": {
+              "text": "앞 문장 \"He is like a soldier, and must do just what he is told.\" 에 이어지는 자리다. 정답은 \"So off he goes and asks for the children.\" 다. 주어 \"So\" 로 시작해 나머지 낱말이 그 뒤에 붙는다. 낱말 9개를 모두 한 번씩 쓴다 — 남거나 모자라면 배열이 틀린 것이다.",
+              "from": "rule"
+            },
+            "source": "The Children's Book of London (발췌)"
+          },
+          {
+            "no": 3,
+            "type": "word_meaning",
+            "kind": "elementary",
+            "stem": "\"able\" 의 뜻은?",
+            "shown": "able",
+            "choices": [
+              "적절한",
+              "할 수 있는",
+              "서두르다",
+              "전문직"
+            ],
+            "answer": 2,
+            "explanation": {
+              "text": "\"able\" 의 뜻은 ② \"할 수 있는\"다. 나머지 ① \"적절한\" · ③ \"서두르다\" · ④ \"전문직\" 는 같은 교육과정 낱말 목록에 있는 **다른 낱말**의 뜻이다.",
+              "from": "batch"
+            },
+            "source": "2022 개정 교육과정 별표 어휘"
+          },
+          {
+            "no": 4,
+            "type": "blank_word",
+            "kind": "short",
+            "stem": "문맥과 뜻에 맞게 빈칸에 알맞은 낱말을 쓰시오.",
+            "shown": "The _____ day the queen goes along with the girl herself to the henwife.",
+            "hint": "t… (세 번째의)",
+            "choices": [],
+            "answerText": "third",
+            "explanation": {
+              "text": "빈칸에는 \"third\" 가 들어간다. 힌트 \"t… (세 번째의)\" 는 첫 글자 t 와 뜻 '세 번째의' 를 함께 준다 — 그 둘을 모두 만족하는 낱말이다. 완성하면 \"The third day the queen goes along with the girl herself to the henwife.\" 가 된다.",
+              "from": "rule"
+            },
+            "source": "English Fairy Tales (발췌)"
+          },
+          {
+            "no": 5,
+            "type": "unit_vocab",
+            "stem": "본문의 밑줄 친 \"mate\" 의 뜻으로 알맞은 것은?",
+            "passage": "The old room was very quiet. On the table were the remnants of the little evening feast. The lamp still burned on the corner stand. The First Mate was asleep in a square of sunshine by the sofa. Captain Jim lay on the sofa, with his hands clasped over the life-book, open at the last page, lying on his breast. His eyes were closed and on his face was a look of the most perfect peace and happiness--the look of one who has long sought and found at last. Gilbert went to the sofa and bent over him for a few moments. Then he straightened up.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "두려움 없이",
+              "호색한",
+              "대하소설",
+              "친구",
+              "카르복실화효소 (이산화탄소를 다른 분자에 붙이는 효소)"
+            ],
+            "answer": 4,
+            "explanation": {
+              "text": "본문의 \"The First Mate was asleep in a square of sunshine by the sofa.\" 에서 \"mate\"가 쓰인 자리를 보면 뜻이 정해진다. 정답은 ④ \"친구\"다. 나머지는 이 자리에 넣으면 문장이 성립하지 않는다 — ① \"두려움 없이\" · ② \"호색한\" · ③ \"대하소설\" · ⑤ \"카르복실화효소 (이산화탄소를 다른 분자에 붙이는 효소)\".",
+              "from": "rule"
+            },
+            "source": "Anne's House of Dreams (발췌)"
+          },
+          {
+            "no": 6,
+            "type": "vocab_choice",
+            "kind": "underline",
+            "stem": "밑줄 친 부분 중 알맞지 않은 것은?",
+            "sentences": [
+              "Certainly children are dressed prettier nowadays.",
+              "The little girl’s frock was green with tiny rivulets of yellow meandering over it.",
+              "They made islands and peninsulas and isthmuses of ripe that were odd and freaky.",
+              "Mrs.",
+              "Underhill had bought it to join her sashwork quilt, and there was enough left to make the little girl a frock.",
+              "It had the merit of washing well, but it gave her a rather ghostly look.",
+              "It had a short, full waist with shoulder straps, making a square neck, a wide belt, and a skirt that came down to the tops of her shoes, which were like Oxford ties.",
+              "Though she was not rosy she had never been really ill, and only stayed at home two weeks the previous winter at the worst of the whooping-cough, which nobody seemed to mind then.",
+              "But it must have made a sort of Wagner chorus if many children coughed at once."
+            ],
+            "underlines": [
+              {
+                "sentenceIdx": 0,
+                "word": "Certainly"
+              },
+              {
+                "sentenceIdx": 1,
+                "word": "little"
+              },
+              {
+                "sentenceIdx": 2,
+                "word": "ripe"
+              },
+              {
+                "sentenceIdx": 4,
+                "word": "Underhill"
+              },
+              {
+                "sentenceIdx": 8,
+                "word": "Wagner"
+              }
+            ],
+            "choices": [],
+            "answer": 3,
+            "explanation": {
+              "text": "③ \"ripe\"가 문맥에 맞지 않는다. 문제 문장은 \"They made islands and peninsulas and isthmuses of ripe that were odd and freaky.\" 인데, 이 자리에는 \"green\" 가 와야 뜻이 이어진다 — \"They made islands and peninsulas and isthmuses of green that were odd and freaky.\". 나머지 ① \"Certainly\" · ② \"little\" · ④ \"Underhill\" · ⑤ \"Wagner\" 는 앞뒤 내용과 어긋나지 않는다.",
+              "from": "rule"
+            },
+            "source": "A Little Girl in Old New York (발췌)"
+          }
+        ]
+      }
+    },
+    "4": {
+      "band": 4,
+      "step": 4,
+      "title": "Vocaflow Reading 3",
+      "schoolBand": "중학 3학년",
+      "units": [
+        {
+          "no": 1,
+          "types": [
+            "grammar_choice",
+            "vocab_choice",
+            "unit_grammar",
+            "word_order",
+            "grammar_fix",
+            "blank_word"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": null,
+          "passages": [
+            "Mike and Psmith (발췌)",
+            "The Golden Shoemaker (발췌)",
+            "Secondary distribution of HIV self-test kits from males to their female sexual partners in two fishing communities in ru — 발췌",
+            "How Much Water Is on Earth? (앞부분 발췌)",
+            "The Lilac Lady (발췌)",
+            "Story Hour Readings: Seventh Year (발췌)"
+          ]
+        },
+        {
+          "no": 2,
+          "types": [
+            "grammar_choice",
+            "vocab_choice",
+            "unit_grammar",
+            "word_order",
+            "grammar_fix",
+            "blank_word"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": null,
+          "passages": [
+            "The Young Treasure Hunter; Or, Fred Stanley's Trip to Alaska (발췌)",
+            "Bleak House (발췌)",
+            "Little Brother (발췌)",
+            "A Prefect's Uncle (발췌)",
+            "What Is a Planet? (앞부분 발췌)",
+            "Suicidal ideation, attempt and associated factors among prisoners in Northwest Ethiopia: A cross-sectional study — 발췌"
+          ]
+        },
+        {
+          "no": 3,
+          "types": [
+            "unit_vocab",
+            "grammar_choice",
+            "vocab_choice",
+            "unit_grammar",
+            "word_order",
+            "grammar_fix"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": null,
+          "passages": [
+            "Dave Porter and His Rivals; or, The Chums and Foes of Oak Hall (발췌)",
+            "The Arabian Nights: Their Best-known Tales (발췌)",
+            "The Dash for Khartoum: A Tale of the Nile Expedition (발췌)",
+            "Wood Magic: A Fable (발췌)",
+            "These STEM activities can keep kids engaged over winter break"
+          ]
+        },
+        {
+          "no": 4,
+          "types": [
+            "blank_word",
+            "unit_vocab",
+            "grammar_choice",
+            "vocab_choice",
+            "unit_grammar",
+            "word_order"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": null,
+          "passages": [
+            "Competition of multiplatform firms: Implications for the Internet of Things — 발췌",
+            "The Children of Wilton Chase (발췌)",
+            "Pathfinder; or, The Missing Tenderfoot (발췌)",
+            "Why Are Some Children More Easily Frustrated Than Others? Irritability and the Brain",
+            "Risk perception and travel satisfaction associated with the use of public transport in the time of COVID-19. The case of — 발췌",
+            "Mary Jane's City Home (발췌)"
+          ]
+        },
+        {
+          "no": 5,
+          "types": [
+            "grammar_fix",
+            "blank_word",
+            "unit_vocab",
+            "grammar_choice",
+            "vocab_choice",
+            "unit_grammar"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": null,
+          "passages": [
+            "American Inventors: Rocket Scientist Robert Goddard",
+            "What Are the Moon’s Phases? (5문단부터 발췌)",
+            "The Olive Fairy Book (발췌)",
+            "How Do Teens and Adults Learn About Other People?",
+            "The Golden Shoemaker (발췌)",
+            "Yr Ynys Unyg; or, The lonely island (발췌)"
+          ]
+        },
+        {
+          "no": 6,
+          "types": [
+            "grammar_fix",
+            "blank_word",
+            "unit_vocab",
+            "grammar_choice",
+            "vocab_choice",
+            "word_order"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": null,
+          "passages": [
+            "Blood proteins tied to Alzheimer's disease",
+            "Influence of sexual appeal in roadside advertising on drivers’ attention and driving behavior — 발췌",
+            "The Boy With the U. S. Fisheries (발췌)",
+            "The Story of Silk (발췌)",
+            "Lost and Found",
+            "Improvements in episodic future thinking methodology: Establishing a standardized episodic thinking control — 발췌"
+          ]
+        },
+        {
+          "no": 7,
+          "types": [
+            "unit_grammar",
+            "grammar_fix",
+            "blank_word",
+            "unit_vocab",
+            "grammar_choice",
+            "word_order"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": null,
+          "passages": [
+            "The Book of Dragons (발췌)",
+            "The active time model of concurrent choice — 발췌",
+            "Little Women (발췌)",
+            "Princess Polly At Play (발췌)",
+            "What the Frame Is Doing",
+            "What's It Like Inside Jupiter? (앞부분 발췌)"
+          ]
+        },
+        {
+          "no": 8,
+          "types": [
+            "unit_grammar",
+            "grammar_fix",
+            "blank_word",
+            "unit_vocab",
+            "grammar_choice",
+            "vocab_choice"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": null,
+          "passages": [
+            "The Brighton Boys in the Radio Service (발췌)",
+            "The Blue Fairy Book (발췌)",
+            "Test quickly detects breast cancer with a tiny drop of spit",
+            "A Little Girl in Old Boston (발췌)",
+            "The Little Gold Miners of the Sierras and Other Stories (발췌)"
+          ]
+        },
+        {
+          "no": 9,
+          "types": [
+            "word_order",
+            "unit_grammar",
+            "grammar_fix",
+            "blank_word",
+            "unit_vocab",
+            "grammar_choice"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": null,
+          "passages": [
+            "All About the Sun (2문단부터 발췌)",
+            "The Commercial Products of the Vegetable Kingdom (발췌)",
+            "The relative age effect reversal among the National Hockey League elite — 발췌",
+            "The Puppet Show of Memory (발췌)",
+            "That scholarship boy (발췌)",
+            "The Great Big Treasury of Beatrix Potter (발췌)"
+          ]
+        },
+        {
+          "no": 10,
+          "types": [
+            "vocab_choice",
+            "word_order",
+            "unit_grammar",
+            "grammar_fix",
+            "blank_word",
+            "unit_vocab"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": null,
+          "passages": [
+            "Six little Bunkers at Cousin Tom's (발췌)",
+            "The tale of Cuffy Bear (발췌)",
+            "In The Boyhood of Lincoln (발췌)",
+            "AI is changing how people travel",
+            "Baron Trump's Marvellous Underground Journey (발췌)",
+            "Heidi (발췌)"
+          ]
+        }
+      ],
+      "totalItems": 60,
+      "totalMinutes": 230,
+      "stoppedBecause": null,
+      "readiness": {
+        "items": 60,
+        "renderable": 60,
+        "explained": 60,
+        "proofChecked": 34,
+        "proofClean": 34,
+        "byType": {
+          "grammar_choice": {
+            "items": 9,
+            "renderable": 9,
+            "explained": 9
+          },
+          "vocab_choice": {
+            "items": 8,
+            "renderable": 8,
+            "explained": 8
+          },
+          "unit_grammar": {
+            "items": 9,
+            "renderable": 9,
+            "explained": 9
+          },
+          "word_order": {
+            "items": 8,
+            "renderable": 8,
+            "explained": 8
+          },
+          "grammar_fix": {
+            "items": 9,
+            "renderable": 9,
+            "explained": 9
+          },
+          "blank_word": {
+            "items": 9,
+            "renderable": 9,
+            "explained": 9
+          },
+          "unit_vocab": {
+            "items": 8,
+            "renderable": 8,
+            "explained": 8
+          }
+        }
+      },
+      "sample": {
+        "no": 1,
+        "minutes": 23,
+        "vocabulary": [
+          {
+            "word": "distribution",
+            "meaningKo": "분포, 분배"
+          },
+          {
+            "word": "bridge",
+            "meaningKo": "다리"
+          },
+          {
+            "word": "clue",
+            "meaningKo": "단서, 실마리"
+          },
+          {
+            "word": "evidence",
+            "meaningKo": "증거"
+          },
+          {
+            "word": "desire",
+            "meaningKo": "욕망, 욕구"
+          },
+          {
+            "word": "deliver",
+            "meaningKo": "배달하다"
+          },
+          {
+            "word": "encourage",
+            "meaningKo": "격려하다"
+          },
+          {
+            "word": "ground",
+            "meaningKo": "땅, 지면, 바닥"
+          },
+          {
+            "word": "cricket",
+            "meaningKo": "크리켓 (스포츠)"
+          },
+          {
+            "word": "field",
+            "meaningKo": "들판, 밭"
+          },
+          {
+            "word": "approve",
+            "meaningKo": "승인하다; 찬성하다"
+          },
+          {
+            "word": "presence",
+            "meaningKo": "존재, 출석"
+          },
+          {
+            "word": "property",
+            "meaningKo": "재산"
+          },
+          {
+            "word": "atmosphere",
+            "meaningKo": "분위기"
+          },
+          {
+            "word": "download",
+            "meaningKo": "다운로드하다; 다운로드"
+          },
+          {
+            "word": "poster",
+            "meaningKo": "포스터, 벽보"
+          },
+          {
+            "word": "climb",
+            "meaningKo": "오르다"
+          },
+          {
+            "word": "fairly",
+            "meaningKo": "꽤, 공정하게"
+          },
+          {
+            "word": "fast",
+            "meaningKo": "빠른; 단단한, 고정된"
+          },
+          {
+            "word": "grandma",
+            "meaningKo": "할머니"
+          }
+        ],
+        "items": [
+          {
+            "no": 1,
+            "type": "grammar_choice",
+            "kind": "underline",
+            "stem": "밑줄 친 부분 중 알맞지 않은 것은?",
+            "sentences": [
+              "All these things passed through Mr.",
+              "Downing’s mind as he walked up and down the cricket field that afternoon.",
+              "What he wanted was an clue.",
+              "But it is so hard for the novice to tell what is a clue and what isn’t.",
+              "Probably, if he only knew, there were clues lying all over the place, shouting to him to pick them up.",
+              "What with the oppressive heat of the day and the fatigue of hard thinking, Mr.",
+              "Downing was working up for a brainstorm when Fate once more intervened, this time in the shape of Riglett, a junior member of his house."
+            ],
+            "underlines": [
+              {
+                "sentenceIdx": 0,
+                "word": "these"
+              },
+              {
+                "sentenceIdx": 1,
+                "word": "that"
+              },
+              {
+                "sentenceIdx": 2,
+                "word": "an"
+              },
+              {
+                "sentenceIdx": 3,
+                "word": "a"
+              },
+              {
+                "sentenceIdx": 6,
+                "word": "a"
+              }
+            ],
+            "choices": [],
+            "answer": 3,
+            "explanation": {
+              "text": "③ 가 틀렸다. \"What he wanted was an clue.\" 관사 규칙이다 — 관사는 뒤 낱말의 첫 **소리**에 맞춘다 — \"clue\"는 자음 소리로 시작하므로 \"a\" 가 맞고 \"an\" 는 틀리다. 나머지 ① \"these\" · ② \"that\" · ④ \"a\" · ⑤ \"a\" 는 뒤 낱말과 어긋나지 않아 그대로 맞다.",
+              "from": "rule"
+            },
+            "source": "Mike and Psmith (발췌)"
+          },
+          {
+            "no": 2,
+            "type": "vocab_choice",
+            "kind": "underline",
+            "stem": "밑줄 친 부분 중 알맞지 않은 것은?",
+            "sentences": [
+              "Miss Jemima had relapsed into silence.",
+              "She was beginning to realize the fact that her brother had made his will, which, after all, was not so very strange a thing.",
+              "But what was the nature of the will?",
+              "She did not desire to inherit her brother’s property herself.",
+              "She was rich enough already.",
+              "But she was apprehensive that he might have made some foolish disposition of his money of which she would not be able to approve.",
+              "To whom, or to what she would have desired him to leave his wealth, she could not, perhaps, have told; but she would not be easy till she knew the contents of his will.",
+              "And yet she could not question her sister on the subject in the presence of his secretary.",
+              "The girl might be very well, but must not be allowed to know too much."
+            ],
+            "underlines": [
+              {
+                "sentenceIdx": 0,
+                "word": "Jemima"
+              },
+              {
+                "sentenceIdx": 3,
+                "word": "desire"
+              },
+              {
+                "sentenceIdx": 6,
+                "word": "desired"
+              },
+              {
+                "sentenceIdx": 7,
+                "word": "sister"
+              },
+              {
+                "sentenceIdx": 8,
+                "word": "allowed"
+              }
+            ],
+            "choices": [],
+            "answer": 4,
+            "explanation": {
+              "text": "④ \"sister\"가 문맥에 맞지 않는다. 문제 문장은 \"And yet she could not question her sister on the subject in the presence of his secretary.\" 인데, 이 자리에는 \"brother\" 가 와야 뜻이 이어진다 — \"And yet she could not question her brother on the subject in the presence of his secretary.\". 나머지 ① \"Jemima\" · ② \"desire\" · ③ \"desired\" · ⑤ \"allowed\" 는 앞뒤 내용과 어긋나지 않는다.",
+              "from": "rule"
+            },
+            "source": "The Golden Shoemaker (발췌)"
+          },
+          {
+            "no": 3,
+            "type": "unit_grammar",
+            "stem": "밑줄 친 부분 중 어법상 틀린 것은?",
+            "passage": "Secondary distribution of HIV self-test kits, a process through which HIV self-test kits are delivered to potential users through someone else, has been used to increase HIV testing uptake among men and other unreachable populations (e.g. men who have sex with men, female sex workers) in most settings. In sub-Saharan Africa, the most common form of secondary HIV self-test kits distribution has been from women to their male partners. For instance, evidence shows that pregnant women can successfully deliver HIV self-test kits to their male partners, and those women can use a variety of strategies to achieve this purpose. Studies show that secondary HIV self-test kits distribution from pregnant women to their male partners almost doubled HIV testing uptake among men in Uganda and Kenya.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "①",
+              "②",
+              "③",
+              "④",
+              "⑤"
+            ],
+            "answer": 3,
+            "explanation": {
+              "text": "③ 가 틀렸다. \"…deliver HIV self-test kits to their male partners, and those women can use a variety of strategies to achieve this…\" 지시어 규칙이다 — 지시어는 뒤 명사의 **수**에 맞춘다 — \"women\"이 단수이므로 \"that\" 가 맞고 \"those\" 는 틀리다. 나머지 ① \"a\" · ② \"that\" · ④ \"a\" · ⑤ \"this\" 는 뒤 낱말과 어긋나지 않아 그대로 맞다.",
+              "from": "rule"
+            },
+            "source": "Secondary distribution of HIV self-test kits from males to their female sexual partners in two fishing communities in ru — 발췌"
+          },
+          {
+            "no": 4,
+            "type": "word_order",
+            "kind": "arrange",
+            "stem": "주어진 낱말을 알맞게 배열하시오.",
+            "bank": [
+              "Your",
+              "body",
+              "up",
+              "mostly",
+              "is",
+              "of",
+              "made",
+              "water"
+            ],
+            "choices": [],
+            "answerText": "Your body is made up mostly of water.",
+            "explanation": {
+              "text": "앞 문장 \"It’s also in living things.\" 에 이어지는 자리다. 정답은 \"Your body is made up mostly of water.\" 다. 주어 \"Your\" 로 시작해 동사 \"is\"가 뒤따르고, 나머지 낱말이 그 뒤에 붙는다. 낱말 8개를 모두 한 번씩 쓴다 — 남거나 모자라면 배열이 틀린 것이다.",
+              "from": "rule"
+            },
+            "source": "How Much Water Is on Earth? (앞부분 발췌)"
+          },
+          {
+            "no": 5,
+            "type": "grammar_fix",
+            "kind": "short",
+            "stem": "어법상 틀린 낱말을 찾아 바르게 고쳐 쓰시오.",
+            "shown": "Yes, I’d like to have seen the Woods, too, but ’s long as you didn’t take me, I had an better time here.",
+            "hint": null,
+            "choices": [],
+            "answerText": "a",
+            "explanation": {
+              "text": "\"an better\" 의 \"an\"이 틀렸다. 관사는 뒤 낱말의 첫 **소리**에 맞춘다 — \"better\"는 자음 소리로 시작하므로 \"a\" 가 맞고 \"an\" 는 틀리다. 고치면 \"Yes, I’d like to have seen the Woods, too, but ’s long as you didn’t take me, I had a better time here.\" 가 된다.",
+              "from": "rule"
+            },
+            "source": "The Lilac Lady (발췌)"
+          },
+          {
+            "no": 6,
+            "type": "blank_word",
+            "kind": "short",
+            "stem": "문맥과 뜻에 맞게 빈칸에 알맞은 낱말을 쓰시오.",
+            "shown": "Nothing stood between him and the City of the Seven Hills--unless the _____ were destroyed.",
+            "hint": "b… (다리)",
+            "choices": [],
+            "answerText": "bridge",
+            "explanation": {
+              "text": "빈칸에는 \"bridge\" 가 들어간다. 힌트 \"b… (다리)\" 는 첫 글자 b 와 뜻 '다리' 를 함께 준다 — 그 둘을 모두 만족하는 낱말이다. 완성하면 \"Nothing stood between him and the City of the Seven Hills--unless the bridge were destroyed.\" 가 된다.",
+              "from": "rule"
+            },
+            "source": "Story Hour Readings: Seventh Year (발췌)"
+          }
+        ]
+      }
+    },
+    "5": {
+      "band": 5,
+      "step": 5,
+      "title": "Vocaflow Reading 4",
+      "schoolBand": "고1",
+      "units": [
+        {
+          "no": 1,
+          "types": [
+            "insert",
+            "order",
+            "vocab_choice",
+            "grammar_choice"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            90,
+            103
+          ],
+          "passages": [
+            "Engineered microorganism breaks down plastic in salt water",
+            "What can scientists learn from the eclipse?",
+            "Tribal Custom in Anglo-Saxon Law",
+            "Rollo in Switzerland (발췌)",
+            "Kidnapped (발췌)",
+            "How to protect yourself and your family from dangerous falls"
+          ]
+        },
+        {
+          "no": 2,
+          "types": [
+            "insert",
+            "order",
+            "vocab_choice",
+            "grammar_choice"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            119,
+            194
+          ],
+          "passages": [
+            "APOD: 2026 August 24 – Comet 220P in Outburst - NASA Science",
+            "Neurons team up to process social cues",
+            "Do all roads lead to Rome? An ideal-type study on trajectories of resilience in advanced cancer caregiving — 발췌",
+            "The Zebrafish Secret: the Art of Regrowth",
+            "Long-term oriented culture, performance pressure and corporate innovation: Evidence from China — 발췌",
+            "Backwater Flooding in Baton Rouge"
+          ]
+        },
+        {
+          "no": 3,
+          "types": [
+            "order",
+            "insert",
+            "vocab_choice",
+            "grammar_choice"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            91,
+            106
+          ],
+          "passages": [
+            "People with sickle cell disease seem to have older brains",
+            "Magnitude 4.1 Earthquake near Dover, Delaware",
+            "Down the River; Or, Buck Bradford and His Tyrants (발췌)",
+            "Panther Eye (발췌)",
+            "NASA Robotic Tech Demo Will Advance Prototype Gamma-Ray Detectors - NASA Science",
+            "New USGS Network Leads to Fast Preparations for Hurricane Michael"
+          ]
+        },
+        {
+          "no": 4,
+          "types": [
+            "order",
+            "insert",
+            "vocab_choice",
+            "grammar_choice"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            90,
+            138
+          ],
+          "passages": [
+            "NASA Data Helps Commercial Space Plan Living Off Our Moon  - NASA",
+            "For West Virginia Engineer, Home Is Where the Heart Is… and NASA, Too - NASA",
+            "Evolutionary game analysis of supply chain financing for film and television enterprises considering co-production — 발췌",
+            "De-warping of images and improved eye tracking for the scanning laser ophthalmoscope — 발췌",
+            "More heat waves will put more older adults in danger",
+            "Carl and the Cotton Gin (발췌)"
+          ]
+        },
+        {
+          "no": 5,
+          "types": [
+            "order",
+            "insert",
+            "vocab_choice",
+            "grammar_choice"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            93,
+            178
+          ],
+          "passages": [
+            "Climate change: atmospheric carbon dioxide",
+            "EarthView–Landsat Confirms Spatial Extent of Wind Tower Sediment Plumes",
+            "The influence of psychological ownership on pride in a Citizen Science project on wildlife ecology — 발췌",
+            "The History of Modern Painting, Volume 1 (of 4)",
+            "Development of a Marmoset Apparatus for Automated Pulling to study cooperative behaviors",
+            "Exploration of the Valley of the Amazon, Part 2 (of 2) (발췌)"
+          ]
+        },
+        {
+          "no": 6,
+          "types": [
+            "order",
+            "insert",
+            "vocab_choice"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            91,
+            138
+          ],
+          "passages": [
+            "Backpack mimics feeling of jumping extra high in VR",
+            "EarthView–Saudi Wheat Experiment Relied on Fossil Water",
+            "Progress on SDG 7 achieved by EU countries in relation to the target year 2030: A multidimensional indicator analysis us — 발췌",
+            "Smart headphones may solve the 'cocktail party problem'",
+            "An Enquiry Concerning Human Understanding",
+            "The evolutionary history of the ancient weevil family Belidae (Coleoptera: Curculionoidea) reveals the marks of Gondwana breakup and major floristic turnovers, including the rise of angiosperms"
+          ]
+        },
+        {
+          "no": 7,
+          "types": [
+            "order",
+            "insert",
+            "vocab_choice"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            91,
+            188
+          ],
+          "passages": [
+            "Algae could be key for better plant-based foods",
+            "Tracking Critical Minerals to Ensure National Preparedness",
+            "Play the Game! (발췌)",
+            "Can citations fight misinformation on YouTube?",
+            "Direct and indirect mapping of the 12-item Short Form Survey version 2 (SF-12v2) onto the EQ-5D-5L utility scores in gen — 발췌",
+            "Team discovers daily cloud cycle on Hot Jupiter planet"
+          ]
+        },
+        {
+          "no": 8,
+          "types": [
+            "insert",
+            "order",
+            "vocab_choice"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            90,
+            180
+          ],
+          "passages": [
+            "What has driven deforestation in the 21st century?",
+            "AI tool tracks early hurricane formation",
+            "Cancer screening risk literacy of physicians in training: An experimental study — 발췌",
+            "Testing standards for AI-based scores in automated essay scoring — 발췌",
+            "New theory may explain supernova's mysterious 'string of pearls'",
+            "Looking Through the Ice"
+          ]
+        },
+        {
+          "no": 9,
+          "types": [
+            "order",
+            "insert",
+            "vocab_choice"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            95,
+            185
+          ],
+          "passages": [
+            "Extinction rates have actually slowed down",
+            "The Pits That Kept Winter",
+            "The Joyful Wisdom (\"La Gaya Scienza\")",
+            "Public opinion about climate policies: A review and call for more studies of what people want — 발췌",
+            "Our overuse of salt is a 'slow-moving train wreck'",
+            "Volcanic explosion penetrates both upper atmosphere and upper crust around the globe"
+          ]
+        },
+        {
+          "no": 10,
+          "types": [
+            "insert",
+            "order",
+            "vocab_choice"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            93,
+            143
+          ],
+          "passages": [
+            "New USGS Maps Identify Potential Ground-Shaking Hazards in 2017",
+            "Can the shingles vaccine lower your dementia risk?",
+            "Preadolescent children’s perception of power imbalance in bullying: A thematic analysis — 발췌",
+            "Staff and resident perceptions on the introduction of a team based multi-specialty resident night shift system — 발췌",
+            "At Aboukir and Acre: A Story of Napoleon's Invasion of Egypt (발췌)",
+            "The Forgotten Man, and Other Essays"
+          ]
+        }
+      ],
+      "totalItems": 60,
+      "totalMinutes": 230,
+      "stoppedBecause": null,
+      "readiness": {
+        "items": 60,
+        "renderable": 60,
+        "explained": 60,
+        "proofChecked": 27,
+        "proofClean": 27,
+        "byType": {
+          "insert": {
+            "items": 13,
+            "renderable": 13,
+            "explained": 13
+          },
+          "order": {
+            "items": 20,
+            "renderable": 20,
+            "explained": 20
+          },
+          "vocab_choice": {
+            "items": 22,
+            "renderable": 22,
+            "explained": 22
+          },
+          "grammar_choice": {
+            "items": 5,
+            "renderable": 5,
+            "explained": 5
+          }
+        }
+      },
+      "sample": {
+        "no": 1,
+        "minutes": 23,
+        "vocabulary": [
+          {
+            "word": "solar",
+            "meaningKo": "태양의; 태양 에너지의"
+          },
+          {
+            "word": "technique",
+            "meaningKo": "기법, 기술"
+          },
+          {
+            "word": "cell",
+            "meaningKo": "세포; 감방; 휴대전화"
+          },
+          {
+            "word": "totality",
+            "meaningKo": "전체, 총체"
+          },
+          {
+            "word": "challenge",
+            "meaningKo": "도전, 난제"
+          },
+          {
+            "word": "molecule",
+            "meaningKo": "분자"
+          },
+          {
+            "word": "saltwater",
+            "meaningKo": "바닷물의"
+          },
+          {
+            "word": "satellite",
+            "meaningKo": "위성"
+          },
+          {
+            "word": "analyze",
+            "meaningKo": "분석하다"
+          },
+          {
+            "word": "impact",
+            "meaningKo": "영향, 충격"
+          },
+          {
+            "word": "strategy",
+            "meaningKo": "전략"
+          },
+          {
+            "word": "atmosphere",
+            "meaningKo": "분위기"
+          },
+          {
+            "word": "agriculture",
+            "meaningKo": "농업"
+          },
+          {
+            "word": "cattle",
+            "meaningKo": "소"
+          },
+          {
+            "word": "chief",
+            "meaningKo": "주된; 우두머리"
+          },
+          {
+            "word": "maintenance",
+            "meaningKo": "유지·보수; 부양비, 양육비"
+          },
+          {
+            "word": "cast",
+            "meaningKo": "던지다; 배역을 정하다; 출연진"
+          },
+          {
+            "word": "curiosity",
+            "meaningKo": "호기심"
+          },
+          {
+            "word": "expression",
+            "meaningKo": "표현"
+          },
+          {
+            "word": "gentleness",
+            "meaningKo": "온화함, 부드러움"
+          }
+        ],
+        "items": [
+          {
+            "no": 1,
+            "type": "insert",
+            "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳은?",
+            "given": "sakaiensis directly into the genome of V.",
+            "body": [
+              {
+                "text": "“First, we’d like to incorporate the DNA from I.",
+                "slot": 0
+              },
+              {
+                "text": "natriegens, which would make the production of plastic-degrading enzymes a more stable feature of the modified organisms.",
+                "slot": 1
+              },
+              {
+                "text": "Second, we need to further modify V.",
+                "slot": -1
+              },
+              {
+                "text": "natriegens so that it is capable of feeding on the byproducts it produces when it breaks down the PET.",
+                "slot": 2
+              },
+              {
+                "text": "Lastly, we need to modify the V.",
+                "slot": 3
+              },
+              {
+                "text": "natriegens to produce a desirable end product from the PET—such as a molecule that is a useful feedstock for the chemical industry.",
+                "slot": 4
+              }
+            ],
+            "answer": 1,
+            "explanation": {
+              "text": "정답은 ① 다 — 주어진 문장은 원래 \"…we’d like to incorporate the DNA from I.\" 뒤에 있었다. 거기 넣으면 \"…incorporate the DNA from I.\" → \"sakaiensis directly into the genome of V.\" → \"natriegens, which would make…\" 로 이어진다. ② 는 \"…of the modified organisms.\" 와 \"Second, we need to further…\" 사이를 가른다; ③ 는 \"…it breaks down the PET.\" 와 \"Lastly, we need to modify…\" 사이를 가른다 — 원문에서 이 둘은 붙어 있다.",
+              "from": "batch"
+            },
+            "source": "Engineered microorganism breaks down plastic in salt water"
+          },
+          {
+            "no": 2,
+            "type": "order",
+            "stem": "주어진 글 다음에 이어질 글의 순서로 가장 적절한 것은?",
+            "intro": "Solar eclipses also occur elsewhere, in solar systems beyond our own.",
+            "blocks": [
+              {
+                "label": "A",
+                "text": "However, we do see eclipses around supermassive black holes as well, not by planets though, but from giant clouds of dust in the center of galaxies.”"
+              },
+              {
+                "label": "B",
+                "text": "“Scientists study eclipses from exoplanets—planets around stars other than the sun—so we can learn more about other solar systems,” says Nico Cappelluti, an assistant professor of physics, who studies supermassive black holes and dark matter."
+              },
+              {
+                "label": "C",
+                "text": "“Other than participating in seminars about the topic, I’ve never had the chance to work directly with this kind of data."
+              }
+            ],
+            "choices": [
+              "(A) - (C) - (B)",
+              "(B) - (A) - (C)",
+              "(B) - (C) - (A)",
+              "(C) - (A) - (B)",
+              "(C) - (B) - (A)"
+            ],
+            "answer": 3,
+            "explanation": {
+              "text": "정답은 ③ (B)-(C)-(A) 다. 도입문이 \"…elsewhere, in solar systems beyond our own.\" 로 끝나고 (B)의 첫 문장 \"“Scientists study eclipses from…\" 이 그 뒤를 잇는다. (B)의 끝 \"…black holes and dark matter.\" → (C)의 첫 \"“Other than participating in seminars…\". (C)의 끝 \"…work directly with this kind of data.\" → (A)의 첫 \"However, we do see eclipses around…\". 반면 ① 는 도입문 다음에 (A)의 \"However, we do see eclipses around…\" 를 붙인다; ② 는 (B)의 끝 다음에 (A)의 \"However, we do see eclipses around…\" 를 붙인다 — 원문의 이음매와 다르다.",
+              "from": "batch"
+            },
+            "source": "What can scientists learn from the eclipse?"
+          },
+          {
+            "no": 3,
+            "type": "vocab_choice",
+            "kind": "underline",
+            "stem": "밑줄 친 부분 중 알맞지 않은 것은?",
+            "sentences": [
+              "As to what is meant by land ownership in the full modern sense, the question may not have arisen, or it might have come in gradually sooner or later, as agriculture came more and more into prominence.",
+              "What property, strictly speaking, the tribesmen owned consisted mainly of herds of cattle.",
+              "Naturally, therefore, what rights over land they may have had were partly rights of occupation and grazing in certain districts for their herds.",
+              "Their agriculture was secondary, and consisted of the right to plough up such portions of the waste or common pasture as year by year might be required for their corn crop.",
+              "All that need be said at this moment about their agriculture is that it was an open field husbandry, the result of the co-ploughing of a common plough-team normally of 8 oxen, the joint contribution of several tribesmen.",
+              "[Sidenote: The young tribesman is dependent on the chief, not on his father.",
+              "The tribesmen recover their da or cattle from him as their chief for their maintenance.] Returning to the gwely, we find that when a child was born into it, whether boy or girl, it was formally acknowledged by the kindred."
+            ],
+            "underlines": [
+              {
+                "sentenceIdx": 0,
+                "word": "meant"
+              },
+              {
+                "sentenceIdx": 2,
+                "word": "partly"
+              },
+              {
+                "sentenceIdx": 3,
+                "word": "agriculture"
+              },
+              {
+                "sentenceIdx": 5,
+                "word": "[Sidenote:"
+              },
+              {
+                "sentenceIdx": 6,
+                "word": "tribesmen"
+              }
+            ],
+            "choices": [],
+            "answer": 2,
+            "explanation": {
+              "text": "② \"partly\"가 문맥에 맞지 않는다. 문제 문장은 \"…what rights over land they may have had were partly rights of occupation and grazing in certain…\" 인데, 이 자리에는 \"mainly\" 가 와야 뜻이 이어진다 — \"…what rights over land they may have had were mainly rights of occupation and grazing in certain…\". 나머지 ① \"meant\" · ③ \"agriculture\" · ④ \"[Sidenote:\" · ⑤ \"tribesmen\" 는 앞뒤 내용과 어긋나지 않는다.",
+              "from": "rule"
+            },
+            "source": "Tribal Custom in Anglo-Saxon Law"
+          },
+          {
+            "no": 4,
+            "type": "grammar_choice",
+            "kind": "underline",
+            "stem": "밑줄 친 부분 중 알맞지 않은 것은?",
+            "sentences": [
+              "Among them were two children, a girl and a boy, who seemed to be about Rollo’s age.",
+              "They were plainly but neatly dressed.",
+              "They were sitting on a chest.",
+              "The boy had a shawl over his arm, and the girl had a small morocco travelling bag in her hand.",
+              "The girl looked an moment at Rollo as he came up the archway, and then cast her eyes down again.",
+              "Her eyes were blue, and they were large and beautiful and full of meaning.",
+              "There was a certain gentleness in the expression of her countenance which led Rollo to think that she must be a kindhearted and amiable girl.",
+              "The boy looked at Rollo too, and followed him some time with his eyes, gazing at him as he came up the archway with a look of interest and curiosity."
+            ],
+            "underlines": [
+              {
+                "sentenceIdx": 0,
+                "word": "a"
+              },
+              {
+                "sentenceIdx": 2,
+                "word": "a"
+              },
+              {
+                "sentenceIdx": 4,
+                "word": "an"
+              },
+              {
+                "sentenceIdx": 6,
+                "word": "a"
+              },
+              {
+                "sentenceIdx": 7,
+                "word": "a"
+              }
+            ],
+            "choices": [],
+            "answer": 3,
+            "explanation": {
+              "text": "③ 가 틀렸다. \"The girl looked an moment at Rollo as he came up the archway, and then cast her eyes down again.\" 관사 규칙이다 — 관사는 뒤 낱말의 첫 **소리**에 맞춘다 — \"moment\"는 자음 소리로 시작하므로 \"a\" 가 맞고 \"an\" 는 틀리다. 나머지 ① \"a\" · ② \"a\" · ④ \"a\" · ⑤ \"a\" 는 뒤 낱말과 어긋나지 않아 그대로 맞다.",
+              "from": "rule"
+            },
+            "source": "Rollo in Switzerland (발췌)"
+          },
+          {
+            "no": 5,
+            "type": "vocab_choice",
+            "kind": "underline",
+            "stem": "밑줄 친 부분 중 알맞지 않은 것은?",
+            "sentences": [
+              "I cannot well describe the blow this dealt to my illusions.",
+              "The more indistinct the accusations were, the less I liked them, for they left the wider field to fancy.",
+              "What kind of a great house was this, that all the parish should start and stare to be asked the way to it?",
+              "or what sort of a gentleman, that his ill-fame should be thus current on the wayside?",
+              "If an hour’s walking would have brought me back to Essendean, I had left my adventure then and there, and returned to Mr.",
+              "Campbell’s.",
+              "But when I had come so far a way already, mere shame would not suffer me to desist till I had put the matter to the touch of proof; I was bound, out of mere self-respect, to carry it through; and little as I disliked the sound of what I heard, and slow as I began to travel, I still kept asking my way and still kept advancing."
+            ],
+            "underlines": [
+              {
+                "sentenceIdx": 0,
+                "word": "cannot"
+              },
+              {
+                "sentenceIdx": 2,
+                "word": "great"
+              },
+              {
+                "sentenceIdx": 3,
+                "word": "gentleman,"
+              },
+              {
+                "sentenceIdx": 5,
+                "word": "Campbell’s."
+              },
+              {
+                "sentenceIdx": 6,
+                "word": "disliked"
+              }
+            ],
+            "choices": [],
+            "answer": 5,
+            "explanation": {
+              "text": "⑤ \"disliked\"가 문맥에 맞지 않는다. 문제 문장은 \"…to carry it through; and little as I disliked the sound of what I heard, and slow as I began to…\" 인데, 이 자리에는 \"liked\" 가 와야 뜻이 이어진다 — \"…self-respect, to carry it through; and little as I liked the sound of what I heard, and slow as I began to…\". 나머지 ① \"cannot\" · ② \"great\" · ③ \"gentleman,\" · ④ \"Campbell’s.\" 는 앞뒤 내용과 어긋나지 않는다.",
+              "from": "rule"
+            },
+            "source": "Kidnapped (발췌)"
+          },
+          {
+            "no": 6,
+            "type": "order",
+            "stem": "주어진 글 다음에 이어질 글의 순서로 가장 적절한 것은?",
+            "intro": "I have interacted with diverse populations with movement disorders, including people with multiple sclerosis and stroke survivors.",
+            "blocks": [
+              {
+                "label": "A",
+                "text": "Rather than dismissing this as anecdotal, I designed a study to investigate whether older adults could learn a safe falling technique, specifically the “tuck-and-roll” strategy."
+              },
+              {
+                "label": "B",
+                "text": "While falls are a major concern for these populations, a few participants mentioned that they are not afraid of falling because they know how to fall safely. I have also practiced martial arts for the past decade and learned safe falling strategies."
+              },
+              {
+                "label": "C",
+                "text": "This technique involves tucking the chin to prevent head injury and rolling along the back to dissipate impact energy."
+              }
+            ],
+            "choices": [
+              "(A) - (C) - (B)",
+              "(B) - (A) - (C)",
+              "(B) - (C) - (A)",
+              "(C) - (A) - (B)",
+              "(C) - (B) - (A)"
+            ],
+            "answer": 2,
+            "explanation": {
+              "text": "정답은 ② (B)-(A)-(C) 다. 도입문이 \"…multiple sclerosis and stroke survivors.\" 로 끝나고 (B)의 첫 문장 \"While falls are a major concern for these…\" 이 그 뒤를 잇는다. (B)의 끝 \"…and learned safe falling strategies.\" → (A)의 첫 \"Rather than dismissing this as…\". (A)의 끝 \"…the “tuck-and-roll” strategy.\" → (C)의 첫 \"This technique involves tucking the…\". 반면 ① 는 도입문 다음에 (A)의 \"Rather than dismissing this as…\" 를 붙인다; ③ 는 (B)의 끝 다음에 (C)의 \"This technique involves tucking…\" 를 붙인다 — 원문의 이음매와 다르다.",
+              "from": "batch"
+            },
+            "source": "How to protect yourself and your family from dangerous falls"
+          }
+        ]
+      }
+    },
+    "6": {
+      "band": 6,
+      "step": 6,
+      "title": "Vocaflow Reading 5",
+      "schoolBand": "고2",
+      "units": [
+        {
+          "no": 1,
+          "types": [
+            "order",
+            "insert",
+            "irrelevant",
+            "vocab_choice",
+            "grammar_choice"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            90,
+            183
+          ],
+          "passages": [
+            "Brain organoids could reveal origins of autism",
+            "Ivan the Terrible (1945 film)",
+            "Shortcomings of the controlled foreign company legislation concerning foreign tax refund systems — 발췌",
+            "Principles for creating a single authoritative list of the world&rsquo;s species — 발췌",
+            "Carl and the Cotton Gin (발췌)",
+            "Biophysical basis for brain folding and misfolding patterns in ferrets and humans"
+          ]
+        },
+        {
+          "no": 2,
+          "types": [
+            "order",
+            "insert",
+            "irrelevant",
+            "vocab_choice",
+            "grammar_choice"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            93,
+            160
+          ],
+          "passages": [
+            "The adaptive landscapes of three global Escherichia coli transcriptional regulators",
+            "Believe (Staind song)",
+            "Disgust versus Lust: Exploring the Interactions of Disgust and Fear with Sexual Arousal in Women — 발췌",
+            "Tuberculin skin test and Interferon-gamma release assay agreement, and associated factors with latent tuberculosis infec — 발췌",
+            "Our Common Insects (발췌)",
+            "President Honors NASA’s Artemis II Crew with Highest US Space Award - NASA"
+          ]
+        },
+        {
+          "no": 3,
+          "types": [
+            "order",
+            "insert",
+            "irrelevant",
+            "vocab_choice",
+            "grammar_choice"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            96,
+            154
+          ],
+          "passages": [
+            "Clues hint newly discovered dinosaur lived underground",
+            "APOD: 2026 August 5 - Spokes on Saturn's B Ring - NASA Science",
+            "The role of stimulus-driven versus goal-directed processes in fight and flight tendencies measured with motor evoked pot — 발췌",
+            "Impaired ILK Function Is Associated with Deficits in Hippocampal Based Memory and Synaptic Plasticity in a FASD Rat Mode — 발췌",
+            "Structure of defense against restriction proteins DarA and Hdf in phage P1 reveals a new molecular mechanism during phag — 발췌",
+            "Polarised moonlight guides nocturnal bull ants home"
+          ]
+        },
+        {
+          "no": 4,
+          "types": [
+            "order",
+            "insert",
+            "irrelevant",
+            "vocab_choice",
+            "grammar_choice"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            102,
+            196
+          ],
+          "passages": [
+            "Morphogenesis and morphometry of brain folding patterns across species",
+            "Wives and children of Hugh O'Neill, Earl of Tyrone",
+            "Testing the metacognitive model against the benchmark CBT model of social anxiety disorder: Is it time to move beyond co — 발췌",
+            "Characterizing first and third person viewpoints and their alternation for embodied interaction in virtual reality — 발췌",
+            "Rainbow Valley (발췌)",
+            "Single-nucleotide polymorphisms link gout with health-related lifestyle factors in Korean cohorts — 발췌"
+          ]
+        },
+        {
+          "no": 5,
+          "types": [
+            "order",
+            "insert",
+            "irrelevant",
+            "vocab_choice"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            96,
+            187
+          ],
+          "passages": [
+            "Why Maine's Sandy Shorelines Turn Jagged - NASA Science",
+            "Magnitude 7.0 Earthquake near Acapulco, Mexico",
+            "Development of semantic verbal fluency in children aged 2 to 5 and its relationship with participating in music activiti — 발췌",
+            "Temporal shift in task factor influence across the stretch reflex — 발췌",
+            "Coaching past simple forms of habitual expressions beyond the textbook: A corpus-based experimental investigation — 발췌",
+            "Does quantum gravity exist?"
+          ]
+        },
+        {
+          "no": 6,
+          "types": [
+            "insert",
+            "order",
+            "irrelevant",
+            "vocab_choice"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            100,
+            131
+          ],
+          "passages": [
+            "Developmental, regenerative, and behavioral dynamics in acoel reproduction",
+            "Early steps of protein disaggregation by Hsp70 chaperone and class B J-domain proteins are shaped by Hsp110",
+            "An investigation of left/right driving rules on deviations while walking — 발췌",
+            "Rare serovars of non-typhoidal Salmonella enterica isolated from humans, beef cattle and abattoir environments in Nigeri — 발췌",
+            "Advances in Neuroprosthetic Learning and Control — 발췌",
+            "Can the Zika vaccine fight brain cancer?"
+          ]
+        },
+        {
+          "no": 7,
+          "types": [
+            "insert",
+            "order",
+            "irrelevant",
+            "vocab_choice"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            90,
+            199
+          ],
+          "passages": [
+            "APOD: 2026 August 4 - Curious Cometary Knots in the Helix Nebula - NASA Science",
+            "A Bare Summer for Barnes Ice Cap - NASA Science",
+            "The impact of formal care provision on informal care receipt for people over 75 in England — 발췌",
+            "Ruth Fielding Down East; Or, The Hermit of Beach Plum Point (발췌)",
+            "Pain and daily interference among reproductive-age women with myofascial pelvic pain: Serial mediation roles of kinesiop — 발췌",
+            "The Last of Us season 2"
+          ]
+        },
+        {
+          "no": 8,
+          "types": [
+            "order",
+            "insert",
+            "irrelevant",
+            "vocab_choice"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            104,
+            183
+          ],
+          "passages": [
+            "Dynamics of compartment-specific proteomic landscapes of hepatotoxic and cholestatic models of liver fibrosis",
+            "United States v. Moore (1973)",
+            "A pilot effectiveness study of a just-in-time micro-randomized controlled trial on the physical activity and sedentary t — 발췌",
+            "The continuous reaction time test for minimal hepatic encephalopathy validated by a randomized controlled multi-modal in — 발췌",
+            "Post-mortem evaluation of intervertebral disc degeneration using magnetic resonance imaging and magnetisation transfer r — 발췌",
+            "How you can remedy vitamin D deficiency"
+          ]
+        },
+        {
+          "no": 9,
+          "types": [
+            "insert",
+            "order",
+            "irrelevant",
+            "vocab_choice"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            95,
+            102
+          ],
+          "passages": [
+            "Physiological febrile heat stress increases cytoadhesion through increased protein trafficking of Plasmodium falciparum surface proteins into the red blood cell",
+            "New gel could make drinking alcohol less harmful",
+            "Towards a top-down approach for an automatic discourse analysis for Basque: Segmentation and Central Unit detection tool — 발췌",
+            "Rebuild the Academy: Supporting academic mothers during COVID-19 and beyond — 발췌",
+            "Recent advances in the treatment of Ebola disease: A brief overview — 발췌",
+            "Proximate determinants of the frequency of mosquito sounds: separating species-specific effects from environmentally dri — 발췌"
+          ]
+        },
+        {
+          "no": 10,
+          "types": [
+            "insert",
+            "order",
+            "vocab_choice",
+            "irrelevant"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            123,
+            129
+          ],
+          "passages": [
+            "Emma Stone",
+            "Deep sea 'dark oxygen' raises questions about alien life",
+            "Adam Bede (발췌)",
+            "Ambiguity in the processing of Mandarin Chinese relative clauses: One factor cannot explain it all — 발췌",
+            "Three individuals, three stories, three burials from medieval Trondheim, Norway — 발췌",
+            "The effect of cavernous nerve traction on erectile function in rats — 발췌"
+          ]
+        }
+      ],
+      "totalItems": 60,
+      "totalMinutes": 230,
+      "stoppedBecause": null,
+      "readiness": {
+        "items": 60,
+        "renderable": 60,
+        "explained": 60,
+        "proofChecked": 33,
+        "proofClean": 33,
+        "byType": {
+          "order": {
+            "items": 16,
+            "renderable": 16,
+            "explained": 16
+          },
+          "insert": {
+            "items": 11,
+            "renderable": 11,
+            "explained": 11
+          },
+          "irrelevant": {
+            "items": 11,
+            "renderable": 11,
+            "explained": 11
+          },
+          "vocab_choice": {
+            "items": 18,
+            "renderable": 18,
+            "explained": 18
+          },
+          "grammar_choice": {
+            "items": 4,
+            "renderable": 4,
+            "explained": 4
+          }
+        }
+      },
+      "sample": {
+        "no": 1,
+        "minutes": 23,
+        "vocabulary": [
+          {
+            "word": "scene",
+            "meaningKo": "장면"
+          },
+          {
+            "word": "gene",
+            "meaningKo": "유전자"
+          },
+          {
+            "word": "cast",
+            "meaningKo": "던지다; 배역을 정하다; 출연진"
+          },
+          {
+            "word": "historian",
+            "meaningKo": "역사학자"
+          },
+          {
+            "word": "depict",
+            "meaningKo": "묘사하다"
+          },
+          {
+            "word": "folding",
+            "meaningKo": "접는, 접이식의"
+          },
+          {
+            "word": "burden",
+            "meaningKo": "짐; 책임; 부담주다"
+          },
+          {
+            "word": "shareholder",
+            "meaningKo": "주주"
+          },
+          {
+            "word": "fold",
+            "meaningKo": "접다; 도산하다; (포커) 죽다"
+          },
+          {
+            "word": "mechanism",
+            "meaningKo": "메커니즘"
+          },
+          {
+            "word": "passive",
+            "meaningKo": "수동적인, 소극적인"
+          },
+          {
+            "word": "disorder",
+            "meaningKo": "장애"
+          },
+          {
+            "word": "refund",
+            "meaningKo": "환불, 환급"
+          },
+          {
+            "word": "adoption",
+            "meaningKo": "입양; 채택, 도입"
+          },
+          {
+            "word": "mutation",
+            "meaningKo": "돌연변이"
+          },
+          {
+            "word": "alter",
+            "meaningKo": "바꾸다, 변경하다"
+          },
+          {
+            "word": "analysis",
+            "meaningKo": "분석"
+          },
+          {
+            "word": "pathway",
+            "meaningKo": "좁은 길, 경로"
+          },
+          {
+            "word": "species",
+            "meaningKo": "종; 종류"
+          },
+          {
+            "word": "assistance",
+            "meaningKo": "도움"
+          }
+        ],
+        "items": [
+          {
+            "no": 1,
+            "type": "order",
+            "stem": "주어진 글 다음에 이어질 글의 순서로 가장 적절한 것은?",
+            "intro": "In their organoid model, the researchers were able to show that the genetic changes that are typical for autism affected mainly certain types of neural precursor cells.",
+            "blocks": [
+              {
+                "label": "A",
+                "text": "“Some cell types we identified are more vulnerable in autism and should receive more attention in future research.”"
+              },
+              {
+                "label": "B",
+                "text": "“This suggests that molecular changes occur at an early stage in fetal brain development that ultimately lead to autism,” says Chong Li, a postdoc at IMBA and one of the study’s two lead authors."
+              },
+              {
+                "label": "C",
+                "text": "These are the founder cells from which neurons are created."
+              }
+            ],
+            "choices": [
+              "(A) - (C) - (B)",
+              "(B) - (A) - (C)",
+              "(B) - (C) - (A)",
+              "(C) - (A) - (B)",
+              "(C) - (B) - (A)"
+            ],
+            "answer": 5,
+            "explanation": {
+              "text": "정답은 ⑤ (C)-(B)-(A) 다. 도입문이 \"…certain types of neural precursor cells.\" 로 끝나고 (C)의 첫 문장 \"These are the founder cells from which…\" 이 그 뒤를 잇는다. (C)의 끝 \"…cells from which neurons are created.\" → (B)의 첫 \"“This suggests that molecular changes…\". 반면 ① 는 도입문 다음에 (A)의 \"“Some cell types we identified are…\" 를 붙인다; ② 는 도입문 다음에 (B)의 \"“This suggests that molecular…\" 를 붙인다 — 원문의 이음매와 다르다.",
+              "from": "batch"
+            },
+            "source": "Brain organoids could reveal origins of autism"
+          },
+          {
+            "no": 2,
+            "type": "insert",
+            "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳은?",
+            "given": "The two parts of Ivan contrast in their treatment of Stalinism.",
+            "body": [
+              {
+                "text": "Ivan as Stalin Critics generally agree that Ivan is meant to represent Stalin, and Eisenstein in his writings explicitly identified Ivan with Stalin.",
+                "slot": 0
+              },
+              {
+                "text": "Part I has been seen by commentators as supportive of Stalin, and Part II as more critical.",
+                "slot": -1
+              },
+              {
+                "text": "Bernd Uhlenbruch compared the dynamic of Ivan and Kurbsky to Stalin and Leon Trotsky, commenting that like Trotsky, Kurbsky went into exile, and compared Malyuta to head of the NKVD Lavrentiy Beria.",
+                "slot": 1
+              },
+              {
+                "text": "He wrote that every criticism Ivan’s opposition have of him could be understood as an indictment against Stalin.",
+                "slot": 2
+              },
+              {
+                "text": "Director Mikhail Romm, who was present at the first screening of Part II in 1946, reported that the audience saw Stalin, Beria and the NKVD in Ivan, Malyuta and the oprichniki respectively.",
+                "slot": -1
+              },
+              {
+                "text": "He suggested that the film had been banned because it had been interpreted as an attack on Stalin.",
+                "slot": 3
+              },
+              {
+                "text": "Film historian Neya Zorkaya commented that although Ivan was meant to glorify autocracy and justify any acts done for the sake of the \"great Russian state\", the effect produced was the opposite.",
+                "slot": 4
+              }
+            ],
+            "answer": 1,
+            "explanation": {
+              "text": "정답은 ① 다 — 주어진 문장은 원래 \"…explicitly identified Ivan with Stalin.\" 뒤에 있었다. 거기 넣으면 \"…identified Ivan with Stalin.\" → \"The two parts of Ivan contrast in their…\" → \"Part I has been seen by…\" 로 이어진다. ② 는 \"…the NKVD Lavrentiy Beria.\" 와 \"He wrote that every…\" 사이를 가른다; ③ 는 \"…indictment against Stalin.\" 와 \"Director Mikhail Romm, who…\" 사이를 가른다 — 원문에서 이 둘은 붙어 있다.",
+              "from": "batch"
+            },
+            "source": "Ivan the Terrible (1945 film)"
+          },
+          {
+            "no": 3,
+            "type": "irrelevant",
+            "kind": "irrelevant",
+            "stem": "다음 글에서 전체 흐름과 관계 없는 문장은?",
+            "intro": "Foreign shareholders of the CFC, in which the German taxpayer does not hold a stake, are not subject to the provisions of Section 8 para.",
+            "sentences": [
+              "(118)to simplify the calculation, parameter L is introduced, which is denoted as",
+              "Thus, de lege lata, tax refund claims received by foreign shareholders of the CFC cannot be included in the tax burden calculation of the CFC in accordance with Section 8 para.",
+              "This provision concerns the determination of the low taxation of the CFC.",
+              "The issue here is whether the passive income of the CFC is subject to an income tax rate of less than 15% (low taxation).",
+              "This is still the factual level of CFC taxation only then, as a legal consequence, the passive and low-tax income for which the CFC is the intermediate company, included as a taxable CFC income inclusion amount (pro rata) for shareholders with unlimited German tax liability."
+            ],
+            "answer": 1,
+            "explanation": {
+              "text": "이 글은 \"Foreign shareholders of the CFC, in which the German taxpayer does not hold a stake, are not subjec…\" 로 시작한다. 정답은 ① \"(118)to simplify the calculation, parameter L is introduced, which is denoted as\" 다. 나머지 문장은 \"foreign\" · \"shareholders\" · \"german\" 처럼 도입부의 낱말을 그대로 이어받는데, 이 문장만 \"simplify\" · \"parameter\" · \"introduced\" 처럼 앞뒤 어디에도 없는 낱말로 다른 화제를 꺼낸다. 한 문단은 한 화제를 이어 가야 하므로, 낱말이 끊기는 이 문장이 전체 흐름과 관계 없는 문장이다.",
+              "from": "rule"
+            },
+            "source": "Shortcomings of the controlled foreign company legislation concerning foreign tax refund systems — 발췌"
+          },
+          {
+            "no": 4,
+            "type": "vocab_choice",
+            "kind": "underline",
+            "stem": "밑줄 친 부분 중 알맞지 않은 것은?",
+            "sentences": [
+              "Further, much taxonomic expertise is local rather than global; many highly competent taxonomists, for sensible reasons, have deep knowledge of taxa in their region but lack a global perspective on their taxonomic group.",
+              "Global lists are only likely to be adopted locally if they are assembled with reference to local taxonomic knowledge.",
+              "A pathway to adoption Current systems provide a solid foundation for the creation and management of global lists, with the CoL Consortium having a version that is progressing rapidly.",
+              "However, neither the CoL nor any of the other aggregative lists have been adopted universally by users of taxonomic research.",
+              "There are likely to be many reasons for this.",
+              "The work involved in changing a taxonomy at a local or national level may be greater than the resources available to do so, and the savings from adopting a global list may not be apparent at a local level.",
+              "More significantly, no existing list mechanism has established clear buy-in from either the narrow taxonomic community or the broad stakeholder community."
+            ],
+            "underlines": [
+              {
+                "sentenceIdx": 0,
+                "word": "Further,"
+              },
+              {
+                "sentenceIdx": 2,
+                "word": "pathway"
+              },
+              {
+                "sentenceIdx": 3,
+                "word": "aggregative"
+              },
+              {
+                "sentenceIdx": 5,
+                "word": "involved"
+              },
+              {
+                "sentenceIdx": 6,
+                "word": "narrow"
+              }
+            ],
+            "choices": [],
+            "answer": 5,
+            "explanation": {
+              "text": "⑤ \"narrow\"가 문맥에 맞지 않는다. 문제 문장은 \"…has established clear buy-in from either the narrow taxonomic community or the broad stakeholder…\" 인데, 이 자리에는 \"broad\" 가 와야 뜻이 이어진다 — \"…has established clear buy-in from either the broad taxonomic community or the broad stakeholder…\". 나머지 ① \"Further,\" · ② \"pathway\" · ③ \"aggregative\" · ④ \"involved\" 는 앞뒤 내용과 어긋나지 않는다.",
+              "from": "rule"
+            },
+            "source": "Principles for creating a single authoritative list of the world&rsquo;s species — 발췌"
+          },
+          {
+            "no": 5,
+            "type": "grammar_choice",
+            "kind": "underline",
+            "stem": "밑줄 친 부분 중 알맞지 않은 것은?",
+            "sentences": [
+              "Although temporarily buoyed up by the episode of the afternoon Carl McGregor returned home with spirits at a lower ebb than they had been for many a day.",
+              "To be out of work was a very real tragedy in the world in which he lived.",
+              "He knew only too well how indispensable was money and those the necessity of it was even greater in the Harling home than in his own.",
+              "The Harlings, alas, had no absent Uncle Frederick to fall back upon.",
+              "On the contrary the entire upkeep of their home and family fell upon the young shoulders of the boy and girl who toiled at the spinning mills.",
+              "Now with Louise out of the race Hal would be left alone with all the burden, and whether he would be able to carry so heavy a one was a question.",
+              "Undoubtedly he would not be forced to bear it for long.",
+              "Louise would find employment--she must find it.",
+              "Did not the need compel it?",
+              "And was she not far too capable a worker to be out of a place?",
+              "Why, scores of people would seek her help eagerly when once it was known her assistance was available."
+            ],
+            "underlines": [
+              {
+                "sentenceIdx": 0,
+                "word": "a"
+              },
+              {
+                "sentenceIdx": 1,
+                "word": "a"
+              },
+              {
+                "sentenceIdx": 2,
+                "word": "those"
+              },
+              {
+                "sentenceIdx": 5,
+                "word": "a"
+              },
+              {
+                "sentenceIdx": 9,
+                "word": "a"
+              }
+            ],
+            "choices": [],
+            "answer": 3,
+            "explanation": {
+              "text": "③ 가 틀렸다. \"He knew only too well how indispensable was money and those the necessity of it was even greater in the Harling home…\" 지시어 규칙이다 — 지시어는 뒤 명사의 **수**에 맞춘다 — \"the\"가 단수이므로 \"that\" 가 맞고 \"those\" 는 틀리다. 나머지 ① \"a\" · ② \"a\" · ④ \"a\" · ⑤ \"a\" 는 뒤 낱말과 어긋나지 않아 그대로 맞다.",
+              "from": "rule"
+            },
+            "source": "Carl and the Cotton Gin (발췌)"
+          },
+          {
+            "no": 6,
+            "type": "order",
+            "stem": "주어진 글 다음에 이어질 글의 순서로 가장 적절한 것은?",
+            "intro": "Both physical experiments with gels and computer simulations of brains with varying cortical thickness or growth rates reproduced folding patterns seen in both healthy and genetically altered ferret brains and their human homologs.",
+            "blocks": [
+              {
+                "label": "A",
+                "text": "Local thinning of the cortex generated many small, tightly packed folds, resembling polymicrogyria, a condition linked to mutations such as those affecting the gene SCN3A, which encodes instructions to form a sodium channel."
+              },
+              {
+                "label": "B",
+                "text": "In contrast, weaker folding with shallow grooves – characteristic of lissencephaly – emerged when growth was reduced and cortical thickness increased, as seen with disruptions to genes such as TMEM161B."
+              },
+              {
+                "label": "C",
+                "text": "Reducing overall growth produced smaller, less folded brains similar to microcephaly, which is associated with genes such as ASPM."
+              }
+            ],
+            "choices": [
+              "(A) - (C) - (B)",
+              "(B) - (A) - (C)",
+              "(B) - (C) - (A)",
+              "(C) - (A) - (B)",
+              "(C) - (B) - (A)"
+            ],
+            "answer": 1,
+            "explanation": {
+              "text": "정답은 ① (A)-(C)-(B) 다. 도입문이 \"…ferret brains and their human homologs.\" 로 끝나고 (A)의 첫 문장 \"Local thinning of the cortex generated many…\" 이 그 뒤를 잇는다. (A)의 끝 \"…instructions to form a sodium channel.\" → (C)의 첫 \"Reducing overall growth produced…\". (C)의 끝 \"…is associated with genes such as ASPM.\" → (B)의 첫 \"In contrast, weaker folding with…\". 반면 ② 는 도입문 다음에 (B)의 \"In contrast, weaker folding with…\" 를 붙인다; ③ 는 도입문 다음에 (B)의 \"In contrast, weaker folding with…\" 를 붙인다 — 원문의 이음매와 다르다.",
+              "from": "batch"
+            },
+            "source": "Biophysical basis for brain folding and misfolding patterns in ferrets and humans"
+          }
+        ]
+      }
+    },
+    "7": {
+      "band": 7,
+      "step": 7,
+      "title": "Vocaflow Reading 6",
+      "schoolBand": "고3 / 수능 상위",
+      "units": [
+        {
+          "no": 1,
+          "types": [
+            "order",
+            "insert",
+            "vocab_choice",
+            "irrelevant",
+            "grammar_choice"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            101,
+            172
+          ],
+          "passages": [
+            "How did vocal communication come to dominate human language? A view from the womb",
+            "Photophoretic tracers",
+            "Prevalence and morbidity of urogenital schistosomiasis among pre-school age children in Cubal, Angola — 발췌",
+            "Nitrogen-phosphorus dual-doped auricularia auricula porous carbon as host for Li-S battery — 발췌",
+            "The Rover Boys at School; Or, The Cadets of Putnam Hall (발췌)",
+            "Cross-species insemination reveals mouse sperm ability to enter and cross the fish micropyle"
+          ]
+        },
+        {
+          "no": 2,
+          "types": [
+            "order",
+            "insert",
+            "vocab_choice",
+            "irrelevant",
+            "grammar_choice"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            101,
+            121
+          ],
+          "passages": [
+            "Baobab isotope records and rainfall forcing in Southwest Madagascar over the last 700 years",
+            "Mysteries in embryonic development: How can errors arise so frequently at the beginning of mammalian life?",
+            "The Practical Garden-Book (발췌)",
+            "Discovery of novel benzophenone integrated derivatives as anti-Alzheimer’s agents targeting presenilin-1 and presenilin- — 발췌",
+            "In Beaver World (발췌)",
+            "Systematic genetic characterization of the human PKR kinase domain highlights its functional malleability to escape a poxvirus substrate mimic"
+          ]
+        },
+        {
+          "no": 3,
+          "types": [
+            "order",
+            "insert",
+            "vocab_choice",
+            "irrelevant",
+            "grammar_choice"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            90,
+            156
+          ],
+          "passages": [
+            "Did comet's blast spark agriculture in Syria 12,800 years ago?",
+            "GridCL for fine-grained load profiling in smart grids under limited labels",
+            "Ontogeny of dwarf tropical cyclones in the western North Pacific — 발췌",
+            "Characterization of antennal sensilla, larvae morphology and olfactory genes of Melipona scutellaris stingless bee — 발췌",
+            "Boy Scouts in the North Sea; Or, The Mystery of a Sub (발췌)",
+            "Glycolysis-dependent sulfur metabolism orchestrates morphological plasticity and virulence in fungi"
+          ]
+        },
+        {
+          "no": 4,
+          "types": [
+            "order",
+            "insert",
+            "vocab_choice",
+            "irrelevant",
+            "grammar_choice"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            93,
+            139
+          ],
+          "passages": [
+            "Fungi enhance microbial carbon retention in high Arctic fjord sediment",
+            "Secreted exosomes induce filopodia formation",
+            "Chaotic itinerancy within the coupled dynamics between a physical body and neural oscillator networks — 발췌",
+            "Combined analyses of within-host SARS-CoV-2 viral kinetics and information on past exposures to the virus in a human coh — 발췌",
+            "Geometric and singularities insights of swept surfaces via the Bishop frame in Euclidean 3-Space — 발췌",
+            "The new science of sleep: From cells to large-scale societies — 발췌"
+          ]
+        },
+        {
+          "no": 5,
+          "types": [
+            "order",
+            "insert",
+            "vocab_choice",
+            "irrelevant"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            107,
+            170
+          ],
+          "passages": [
+            "Host-associated microbiomes drive structure and function of marine ecosystems",
+            "Using nitric oxide (NO) for gas sterilization at room temperature: A novel sterilization modality",
+            "Effects of nano-cerium dioxide on intestinal microflora in rats by oral subchronic exposure — 발췌",
+            "Investigation on dynamic characteristics of herringbone planetary gear transmission system with staggered tooth phase — 발췌",
+            "User authentication system based on human exhaled breath physics — 발췌",
+            "Fourth-order kinematic analysis: Advanced decomposition methods for particle motion in modified orthogonal frame"
+          ]
+        },
+        {
+          "no": 6,
+          "types": [
+            "order",
+            "insert",
+            "vocab_choice",
+            "irrelevant"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            115,
+            123
+          ],
+          "passages": [
+            "Identification of Rana dybowskii Ferritin-Heavy chain gene and analysis of its role during bacterial infection",
+            "Enhancing trust in news media: A multimodality approach to detecting fake news with social constructs",
+            "The Bird Book (발췌)",
+            "Meta-analysis of diagnostic accuracy of nucleic acid amplification tests for abdominal tuberculosis — 발췌",
+            "Characterization of RNA interference in the cnidarian Nematostella vectensis reveals partial target silencing but lack o — 발췌",
+            "Skin-related adverse events and their associated factors among Diabetic patients on insulin therapy"
+          ]
+        },
+        {
+          "no": 7,
+          "types": [
+            "insert",
+            "order",
+            "vocab_choice",
+            "irrelevant"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            140,
+            151
+          ],
+          "passages": [
+            "Bringing Science to Bear at the Cinnabar Mine",
+            "Disaster mechanisms and hazard assessment of rapid and steep-gully debris flows based on FLO-2D simulation",
+            "Policy innovation of construction waste management in Xi&rsquo;an, China: A SWOT analysis of incentive mechanisms — 발췌",
+            "Current global estimates, risk factors, and knowledge gaps for Hepatitis E virus (HEV): A scoping review — 발췌",
+            "Conserved and novel enhancers in the Aedes aegypti single-minded locus recapitulate embryonic ventral midline gene expre — 발췌",
+            "Taurocholic acid induces intrahepatic cholangiocyte cell proliferation via activating NRAS and YAP1"
+          ]
+        },
+        {
+          "no": 8,
+          "types": [
+            "order",
+            "insert",
+            "vocab_choice",
+            "irrelevant"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            122,
+            142
+          ],
+          "passages": [
+            "Neglected and lethal: Case series of fatal scrub typhus in Malaysia",
+            "Angels and Demons (collection)",
+            "The Adventures of Fleet Foot and Her Fawns (발췌)",
+            "MicroRNAs profiling in malaria and arbovirus coinfection: A systematic review protocol — 발췌",
+            "The Practical Garden-Book (발췌)",
+            "The new science of sleep: From cells to large-scale societies"
+          ]
+        },
+        {
+          "no": 9,
+          "types": [
+            "insert",
+            "order",
+            "vocab_choice",
+            "irrelevant"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            128,
+            149
+          ],
+          "passages": [
+            "Sestrin3 confers resistance to recombinant human arginase in small cell lung cancer by activating Akt/mTOR/ASS1 axis",
+            "Dynamic properties of Kermack-McKendrick-like models",
+            "Optimizing strategies for slowing the spread of invasive species — 발췌",
+            "Effect of hypoxia on the retina and superior colliculus of neonatal pigs — 발췌",
+            "Role of a LORELEI- like gene from Phaseolus vulgaris during a mutualistic interaction with Rhizobium tropici — 발췌",
+            "Measurement of macular structure-function relationships using spectral domain-optical coherence tomography (SD-OCT) and  — 발췌"
+          ]
+        },
+        {
+          "no": 10,
+          "types": [
+            "insert",
+            "order",
+            "vocab_choice",
+            "irrelevant"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            143,
+            150
+          ],
+          "passages": [
+            "Lacy (song)",
+            "The rewiring of a terminal selector regulatory cascade generates convergent neuronal laterality",
+            "Seromolecular survey and risk factor analysis of Crimean-Congo haemorrhagic fever orthonairovirus in occupationally expo — 발췌",
+            "Gait characteristics under different walking conditions: Association with the presence of cognitive impairment in commun — 발췌",
+            "The Boy Scout Treasure Hunters; Or, The Lost Treasure of Buffalo Hollow (발췌)",
+            "Meanness trumps language: Lack of foreign language effect in early bilinguals’ moral choices — 발췌"
+          ]
+        }
+      ],
+      "totalItems": 60,
+      "totalMinutes": 230,
+      "stoppedBecause": null,
+      "readiness": {
+        "items": 60,
+        "renderable": 60,
+        "explained": 60,
+        "proofChecked": 33,
+        "proofClean": 33,
+        "byType": {
+          "order": {
+            "items": 16,
+            "renderable": 16,
+            "explained": 16
+          },
+          "insert": {
+            "items": 11,
+            "renderable": 11,
+            "explained": 11
+          },
+          "vocab_choice": {
+            "items": 18,
+            "renderable": 18,
+            "explained": 18
+          },
+          "irrelevant": {
+            "items": 11,
+            "renderable": 11,
+            "explained": 11
+          },
+          "grammar_choice": {
+            "items": 4,
+            "renderable": 4,
+            "explained": 4
+          }
+        }
+      },
+      "sample": {
+        "no": 1,
+        "minutes": 23,
+        "vocabulary": [
+          {
+            "word": "auditory",
+            "meaningKo": "청각의"
+          },
+          {
+            "word": "vocal",
+            "meaningKo": "목소리의, 음성의; 거리낌 없이 말하는"
+          },
+          {
+            "word": "infant",
+            "meaningKo": "유아, 갓난아기"
+          },
+          {
+            "word": "fetus",
+            "meaningKo": "태아 (미국 표기)"
+          },
+          {
+            "word": "sperm",
+            "meaningKo": "정자"
+          },
+          {
+            "word": "atmospheric",
+            "meaningKo": "대기의; 분위기 있는, 정취 있는"
+          },
+          {
+            "word": "bladder",
+            "meaningKo": "방광"
+          },
+          {
+            "word": "altitude",
+            "meaningKo": "고도, 해발 높이"
+          },
+          {
+            "word": "sulfur",
+            "meaningKo": "황 (BrE sulphur)"
+          },
+          {
+            "word": "molecular",
+            "meaningKo": "분자의"
+          },
+          {
+            "word": "persistent",
+            "meaningKo": "끈질긴, 지속적인"
+          },
+          {
+            "word": "prevalence",
+            "meaningKo": "보급, 유행"
+          },
+          {
+            "word": "bind",
+            "meaningKo": "묶다, 결속하다"
+          },
+          {
+            "word": "lightweight",
+            "meaningKo": "가벼운, 경량의"
+          },
+          {
+            "word": "freshwater",
+            "meaningKo": "민물의, 담수의 (민물에 사는·민물로 된)"
+          },
+          {
+            "word": "effectively",
+            "meaningKo": "효과적으로"
+          },
+          {
+            "word": "fungus",
+            "meaningKo": "(생물) 균류, 진균"
+          },
+          {
+            "word": "shuttle",
+            "meaningKo": "왕복 버스·열차, 셔틀; 셔틀콕"
+          },
+          {
+            "word": "guidance",
+            "meaningKo": "지도"
+          },
+          {
+            "word": "administration",
+            "meaningKo": "행정"
+          }
+        ],
+        "items": [
+          {
+            "no": 1,
+            "type": "order",
+            "stem": "주어진 글 다음에 이어질 글의 순서로 가장 적절한 것은?",
+            "intro": "Whether human language evolved via a gestural or a vocal route remains an unresolved and contentious issue.",
+            "blocks": [
+              {
+                "label": "A",
+                "text": "In this Unsolved Mystery, we outline how, compared to visual sensitivity, the ontogenically earlier development of auditory sensitivity, beginning in utero and persisting for several months post-partum, alongside the relative permeability of the uterine environment to sound, but not light, may constitute a small but significant contribution to the current dominance of spoken language."
+              },
+              {
+                "label": "B",
+                "text": "Given the existence of two preconditions—a “language faculty” and the capacity for imitative learning both vocally and manually—there is no compelling evidence for gesture being inherently inferior to vocalization as a mode of linguistic expression; indeed, signed languages are capable of the same expressive range as spoken ones."
+              },
+              {
+                "label": "C",
+                "text": "Here, we revisit this conundrum, championing recent methodological advances in human neuroimaging (specifically, in utero functional magnetic resonance imaging) as a window into the role of the prenatal gestational period in language evolution, a critical, yet currently underexplored environment in which fetuses are exposed to, and become attuned to, spoken language."
+              }
+            ],
+            "choices": [
+              "(A) - (C) - (B)",
+              "(B) - (A) - (C)",
+              "(B) - (C) - (A)",
+              "(C) - (A) - (B)",
+              "(C) - (B) - (A)"
+            ],
+            "answer": 3,
+            "explanation": {
+              "text": "정답은 ③ (B)-(C)-(A) 다. 도입문이 \"… remains an unresolved and contentious issue.\" 로 끝나고 (B)의 첫 문장 \"Given the existence of two preconditions—a…\" 이 그 뒤를 잇는다. (B)의 끝 \"…same expressive range as spoken ones.\" → (C)의 첫 \"Here, we revisit this conundrum,…\". 반면 ① 는 도입문 다음에 (A)의 \"In this Unsolved Mystery, we…\" 를 붙인다; ② 는 (B)의 끝 다음에 (A)의 \"In this Unsolved Mystery, we…\" 를 붙인다 — 원문의 이음매와 다르다.",
+              "from": "batch"
+            },
+            "source": "How did vocal communication come to dominate human language? A view from the womb"
+          },
+          {
+            "no": 2,
+            "type": "insert",
+            "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳은?",
+            "given": "As more data is collected, the predictive capabilities of these models improve, leading to enhanced situational awareness and communications resilience in near-space and LEO.",
+            "body": [
+              {
+                "text": "In a representative mission, thousands of tracers are released from a lightweight balloon at around 30 km.",
+                "slot": 0
+              },
+              {
+                "text": "The tracers rise to their target altitude of 90-100 km, the lower ionosphere.",
+                "slot": 1
+              },
+              {
+                "text": "Satellite-based lidar tracks their motion over their month-long lifetimes.",
+                "slot": -1
+              },
+              {
+                "text": "Tracer trajectories enable continuous mapping of wind shear, thermal gradients, and pressure profiles at sub-kilometer resolution and hourly cadence.",
+                "slot": 2
+              },
+              {
+                "text": "The collected real-time data are used to calibrate boundary conditions of ionospheric space weather models.",
+                "slot": 3
+              },
+              {
+                "text": "Other early deployments could, for example, support weather model improvements in the tropics and monitor atmospheric conditions over spaceports.",
+                "slot": 4
+              }
+            ],
+            "answer": 4,
+            "explanation": {
+              "text": "정답은 ④ 다 — 주어진 문장은 원래 \"…of ionospheric space weather models.\" 뒤에 있었다. 거기 넣으면 \"…space weather models.\" → \"As more data is collected, the predictive…\" → \"Other early deployments…\" 로 이어진다. ① 는 \"…balloon at around 30 km.\" 와 \"The tracers rise to their…\" 사이를 가른다; ② 는 \"…km, the lower ionosphere.\" 와 \"Satellite-based lidar…\" 사이를 가른다 — 원문에서 이 둘은 붙어 있다.",
+              "from": "batch"
+            },
+            "source": "Photophoretic tracers"
+          },
+          {
+            "no": 3,
+            "type": "vocab_choice",
+            "kind": "underline",
+            "stem": "밑줄 친 부분 중 알맞지 않은 것은?",
+            "sentences": [
+              "Schistosomiasis is a major public health problem in the impoverished population of tropical regions.",
+              "It is the parasitic disease that causes the greatest morbidity after malaria, with 3.3 million Disability-Adjusted Life Years (DALY’s) and more than 200,000 deaths each year, 90% of which live in Sub-Saharan Africa.",
+              "Urogenital schistosomiasis is caused by the trematode Schistosoma haematobium, whose intermediate hosts are species of freshwater snails of the genus Bulinus.",
+              "Humans become infected when they come into contact with saltwater sources contaminated with the free-swimming furcocercarial stage of the fluke.",
+              "The adult worm lives in the venous plexus of the urinary bladder causing lesions to the kidney, bladder and ureter due to egg deposition and the subsequent inflammatory reaction which, if persists, leads to fibrosis of the parenchymal tissue and can lead to bladder cancer in the long term.",
+              "Control of the disease is a challenge in the most affected regions due to many social activities carried out in contaminated water sources and the lack of universal access to safe water and sanitation."
+            ],
+            "underlines": [
+              {
+                "sentenceIdx": 0,
+                "word": "Schistosomiasis"
+              },
+              {
+                "sentenceIdx": 1,
+                "word": "parasitic"
+              },
+              {
+                "sentenceIdx": 2,
+                "word": "Urogenital"
+              },
+              {
+                "sentenceIdx": 3,
+                "word": "saltwater"
+              },
+              {
+                "sentenceIdx": 4,
+                "word": "adult"
+              }
+            ],
+            "choices": [],
+            "answer": 4,
+            "explanation": {
+              "text": "④ \"saltwater\"가 문맥에 맞지 않는다. 문제 문장은 \"…become infected when they come into contact with saltwater sources contaminated with the free-swimming…\" 인데, 이 자리에는 \"freshwater\" 가 와야 뜻이 이어진다 — \"…become infected when they come into contact with freshwater sources contaminated with the free-swimming…\". 나머지 ① \"Schistosomiasis\" · ② \"parasitic\" · ③ \"Urogenital\" · ⑤ \"adult\" 는 앞뒤 내용과 어긋나지 않는다.",
+              "from": "rule"
+            },
+            "source": "Prevalence and morbidity of urogenital schistosomiasis among pre-school age children in Cubal, Angola — 발췌"
+          },
+          {
+            "no": 4,
+            "type": "irrelevant",
+            "kind": "irrelevant",
+            "stem": "다음 글에서 전체 흐름과 관계 없는 문장은?",
+            "intro": "The protein contains a variety of amino acids, so auricularia auricula is a good carbon and nitrogen source.",
+            "sentences": [
+              "(2025) Association between dietary intake of protein and amino acids and sarcopenia: a cross-sectional study.",
+              "On the other hand, yeast is a kind of fungus, which can ferment to form spores after absorbing nutrients (such as polysaccharide in auricularia auricula ).",
+              "After yeast fermentation, the spore carbon could be transformed from bulk to porous material.",
+              "Yeast spores contain proteins and nucleic acids, which can decompose and convert into N-P heteroatoms during heat treatment.",
+              "The N-P dual-doped porous auricularia auricula spore carbon (NP-PSC) aerogel with unique characteristics was synthesized through simple processes such as freeze drying and annealing."
+            ],
+            "answer": 1,
+            "explanation": {
+              "text": "이 글은 \"The protein contains a variety of amino acids, so auricularia auricula is a good carbon and nitroge…\" 로 시작한다. 정답은 ① \"(2025) Association between dietary intake of protein and amino acids and sarcopenia: a cross-sectional study.\" 다. 나머지 문장은 \"acids\" · \"auricularia\" · \"auricula\" 처럼 도입부의 낱말을 그대로 이어받는데, 이 문장만 \"association\" · \"dietary\" · \"intake\" 처럼 앞뒤 어디에도 없는 낱말로 다른 화제를 꺼낸다. 한 문단은 한 화제를 이어 가야 하므로, 낱말이 끊기는 이 문장이 전체 흐름과 관계 없는 문장이다.",
+              "from": "rule"
+            },
+            "source": "Nitrogen-phosphorus dual-doped auricularia auricula porous carbon as host for Li-S battery — 발췌"
+          },
+          {
+            "no": 5,
+            "type": "grammar_choice",
+            "kind": "underline",
+            "stem": "밑줄 친 부분 중 알맞지 않은 것은?",
+            "sentences": [
+              "Sam broke off short, as a loud cry for help reached their ears.",
+              "It came from the footpath, at a point where it ran through a grove of beech trees.",
+              "\"It’s Dick’s voice!",
+              "He wants help!\" burst from Tom’s lips.",
+              "\"Come on!\" and he set off as rapidly as his exhausted condition would permit.",
+              "As before, Sam readily outdistanced him, and soon came upon the scene of an most brutal encounter.",
+              "A burly tramp, all of six feet in height, had attacked Dick Rover and thrown him upon his back.",
+              "The tramp was now kneeling upon the prostrate boy’s chest, at the same time trying to wrench a watch from Dick’s vest pocket."
+            ],
+            "underlines": [
+              {
+                "sentenceIdx": 0,
+                "word": "a"
+              },
+              {
+                "sentenceIdx": 1,
+                "word": "a"
+              },
+              {
+                "sentenceIdx": 5,
+                "word": "an"
+              },
+              {
+                "sentenceIdx": 6,
+                "word": "A"
+              },
+              {
+                "sentenceIdx": 7,
+                "word": "a"
+              }
+            ],
+            "choices": [],
+            "answer": 3,
+            "explanation": {
+              "text": "③ 가 틀렸다. \"As before, Sam readily outdistanced him, and soon came upon the scene of an most brutal encounter.\" 관사 규칙이다 — 관사는 뒤 낱말의 첫 **소리**에 맞춘다 — \"most\"는 자음 소리로 시작하므로 \"a\" 가 맞고 \"an\" 는 틀리다. 나머지 ① \"a\" · ② \"a\" · ④ \"A\" · ⑤ \"a\" 는 뒤 낱말과 어긋나지 않아 그대로 맞다.",
+              "from": "rule"
+            },
+            "source": "The Rover Boys at School; Or, The Cadets of Putnam Hall (발췌)"
+          },
+          {
+            "no": 6,
+            "type": "order",
+            "stem": "주어진 글 다음에 이어질 글의 순서로 가장 적절한 것은?",
+            "intro": "Such discoveries could aid scientists and clinicians working in assisted reproductive technologies in humans, as well as in companion and farm animals, by providing insights into the molecular mechanisms underlying sperm guidance and egg recognition.",
+            "blocks": [
+              {
+                "label": "A",
+                "text": "Functional validation through loss-of-function assays in transgenic fish and mouse models will be crucial to determine whether these mechanisms are truly conserved across taxa."
+              },
+              {
+                "label": "B",
+                "text": "To enable clinical or agricultural translation of these findings, future studies should identify the molecular mediators governing sperm guidance and micropyle recognition."
+              },
+              {
+                "label": "C",
+                "text": "A deeper understanding could inform the development of novel sperm selection strategies or contraceptive approaches aimed at modulating gamete interaction."
+              }
+            ],
+            "choices": [
+              "(A) - (C) - (B)",
+              "(B) - (A) - (C)",
+              "(B) - (C) - (A)",
+              "(C) - (A) - (B)",
+              "(C) - (B) - (A)"
+            ],
+            "answer": 2,
+            "explanation": {
+              "text": "정답은 ② (B)-(A)-(C) 다. 도입문이 \"…sperm guidance and egg recognition.\" 로 끝나고 (B)의 첫 문장 \"To enable clinical or agricultural…\" 이 그 뒤를 잇는다. (B)의 끝 \"…guidance and micropyle recognition.\" → (A)의 첫 \"Functional validation through…\". (A)의 끝 \"…are truly conserved across taxa.\" → (C)의 첫 \"A deeper understanding could inform the…\". 반면 ① 는 도입문 다음에 (A)의 \"Functional validation through…\" 를 붙인다; ③ 는 (B)의 끝 다음에 (C)의 \"A deeper understanding could…\" 를 붙인다 — 원문의 이음매와 다르다.",
+              "from": "batch"
+            },
+            "source": "Cross-species insemination reveals mouse sperm ability to enter and cross the fish micropyle"
+          }
+        ]
+      }
+    }
+  },
+  "problems": []
+}
