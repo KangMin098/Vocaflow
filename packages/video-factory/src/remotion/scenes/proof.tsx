@@ -23,7 +23,7 @@ export const Coverage: React.FC<{ scene: CoverageScene; accent: AccentKey; durat
   accent,
   duration,
 }) => {
-  const { scale, frame } = useFormat()
+  const { scale, prose, frame } = useFormat()
   const e = enterExit(frame, duration)
 
   // 낱말이 **차례로** 칠해진다. 한 번에 다 칠하면 "이미 그렇게 그려진 그림" 으로 보이고,
@@ -40,8 +40,9 @@ export const Coverage: React.FC<{ scene: CoverageScene; accent: AccentKey; durat
       <div
         style={{
           fontFamily: FONT.english,
-          fontSize: Math.round(40 * scale),
-          lineHeight: 1.75,
+          // 긴 글이라 `prose` 를 쓴다 — `scale` 을 쓰면 세로에서 14줄이 되어 넘친다.
+          fontSize: Math.round(40 * prose),
+          lineHeight: 1.7,
           color: SURFACE.inkFaint,
         }}
       >
@@ -227,7 +228,7 @@ export const Item: React.FC<{ scene: ItemScene; accent: AccentKey; duration: num
   accent,
   duration,
 }) => {
-  const { scale, frame } = useFormat()
+  const { scale, prose, frame } = useFormat()
   const e = enterExit(frame, duration)
   // 정답은 **끝에서** 드러난다 — 먼저 보여 주면 문제가 아니라 광고가 된다.
   const revealAt = Math.max(20, duration - 30)
@@ -256,7 +257,7 @@ export const Item: React.FC<{ scene: ItemScene; accent: AccentKey; duration: num
       <div
         style={{
           fontFamily: /[가-힣]/.test(prompt) ? FONT.body : FONT.english,
-          fontSize: Math.round(38 * scale),
+          fontSize: Math.round(38 * prose),
           lineHeight: 1.5,
           color: SURFACE.ink,
           ...KO,
@@ -278,7 +279,7 @@ export const Item: React.FC<{ scene: ItemScene; accent: AccentKey; duration: num
                   opacity: ce.opacity,
                   transform: transform(ce),
                   fontFamily: /[가-힣]/.test(c) ? FONT.body : FONT.english,
-                  fontSize: Math.round(30 * scale),
+                  fontSize: Math.round(30 * prose),
                   lineHeight: 1.6,
                   color: mark ? SURFACE.ink : SURFACE.inkMuted,
                   borderLeft: `${Math.round(4 * scale)}px solid ${mark ? ACCENT[accent] : 'transparent'}`,
@@ -297,7 +298,7 @@ export const Item: React.FC<{ scene: ItemScene; accent: AccentKey; duration: num
           style={{
             marginTop: Math.round(28 * scale),
             fontFamily: FONT.english,
-            fontSize: Math.round(34 * scale),
+            fontSize: Math.round(34 * prose),
             color: revealed ? ACCENT[accent] : 'transparent',
             borderBottom: `${Math.round(3 * scale)}px solid ${SURFACE.border}`,
             display: 'inline-block',

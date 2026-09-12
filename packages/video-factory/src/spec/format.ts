@@ -50,7 +50,11 @@ export const FORMATS: Record<FormatId, FormatDef> = {
 
 export const FORMAT_IDS = ['wide', 'vertical', 'square'] as const satisfies readonly FormatId[]
 
-/** 세로/정사각은 한 줄에 들어가는 글자가 적다 — 폰트 배율을 규격이 정한다. */
+/**
+ * **짧은 글**(제목·수치·한 줄 문구)의 배율.
+ *
+ * 세로는 화면이 좁아 같은 글자가 작아 보이므로 키운다.
+ */
 export function typeScale(format: FormatId): number {
   switch (format) {
     case 'wide':
@@ -59,5 +63,24 @@ export function typeScale(format: FormatId): number {
       return 1.28
     case 'square':
       return 1.1
+  }
+}
+
+/**
+ * **긴 글**(지문·문항 보기)의 배율 — `typeScale` 과 **반대 방향**이다.
+ *
+ * 왜 갈랐나 (실측 2026-09-13, 세로 스틸):
+ *   커버리지 지문에 `typeScale` 1.28 을 곱했더니 61낱말이 **14줄**이 되어 본문 영역을 넘쳤고,
+ *   가운데 정렬이라 위아래로 흘러 **좌상단 브랜드 표기와 겹쳤다.** 오류는 나지 않는다.
+ *   짧은 글은 좁은 화면에서 키워야 읽히지만, **긴 글은 줄 수가 문제**라 반대로 줄여야 한다.
+ */
+export function proseScale(format: FormatId): number {
+  switch (format) {
+    case 'wide':
+      return 1
+    case 'vertical':
+      return 0.76
+    case 'square':
+      return 0.84
   }
 }

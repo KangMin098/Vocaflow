@@ -8,6 +8,7 @@
 import React from 'react'
 
 import type { AccentKey, LadderScene, ShelfScene, StatScene } from '../../spec/types'
+import { shelfBookWidth, shelfGap } from '../../spec/layout'
 import { ACCENT, FONT, SURFACE } from '../../theme/palette'
 import { enterExit, progress, spread, transform } from '../motion'
 import { KO, useFormat } from '../Frame'
@@ -187,8 +188,18 @@ export const Shelf: React.FC<{ scene: ShelfScene; accent: AccentKey; duration: n
   accent,
   duration,
 }) => {
-  const { scale, frame } = useFormat()
+  const { format, scale, frame } = useFormat()
   const color = ACCENT[accent]
+
+  /**
+   * 책등 폭을 **가용 폭에서 계산한다.**
+   *
+   * 고정 폭(118)을 쓰면 권 수 × 폭이 화면보다 커지는 규격에서 책이 안전 여백을 넘어간다
+   * (실측 2026-09-13 정사각: 7권 × 150px = 1,047px > 가용 904px — 책이 화면 끝에 닿았다).
+   * 권 수는 시리즈마다 다르고 앞으로 늘 수 있으므로, 규격에 맞춰 줄이는 쪽이 맞다.
+   */
+  const gap = shelfGap(format)
+  const bookWidth = shelfBookWidth(format, scene.volumes.length)
 
   return (
     // 책 묶음과 선반을 **같은 폭**으로 묶어 가운데 세운다.
@@ -200,7 +211,7 @@ export const Shelf: React.FC<{ scene: ShelfScene; accent: AccentKey; duration: n
         style={{
           display: 'flex',
           alignItems: 'flex-end',
-          gap: Math.round(18 * scale),
+          gap,
           minHeight: Math.round(300 * scale),
         }}
       >
@@ -215,7 +226,7 @@ export const Shelf: React.FC<{ scene: ShelfScene; accent: AccentKey; duration: n
               style={{
                 opacity: e.opacity * (pending ? 0.4 : 1),
                 transform: `translateY(${e.y * 2}px)`,
-                width: Math.round(118 * scale),
+                width: bookWidth,
                 height: h,
                 backgroundColor: pending ? SURFACE.edge : color,
                 border: pending ? `${Math.round(2 * scale)}px dashed ${SURFACE.border}` : 'none',

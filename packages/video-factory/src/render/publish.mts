@@ -39,7 +39,9 @@ if (!URL_ || !KEY) {
       'anon 키로는 버킷에 쓸 수 없다.',
   )
 }
-const db = createClient(URL_, KEY, { auth: { persistSession: false } })
+// 좁혀진 값을 따로 잡아 둔다 — 함수 본문 안에서는 모듈 스코프의 좁힘이 유지되지 않는다.
+const SUPABASE_URL: string = URL_
+const db = createClient(SUPABASE_URL, KEY, { auth: { persistSession: false } })
 
 const MIME: Record<string, string> = {
   '.mp4': 'video/mp4',
@@ -121,7 +123,7 @@ async function main(): Promise<void> {
     sent++
   }
 
-  const baseUrl = `${URL_.replace(/\/$/, '')}/storage/v1/object/public/${BUCKET}`
+  const baseUrl = `${SUPABASE_URL.replace(/\/$/, '')}/storage/v1/object/public/${BUCKET}`
   const manifest = JSON.parse(fs.readFileSync(MANIFEST, 'utf8')) as { baseUrl: string | null }
   manifest.baseUrl = baseUrl
   fs.writeFileSync(MANIFEST, JSON.stringify(manifest, null, 2) + '\n', 'utf8')

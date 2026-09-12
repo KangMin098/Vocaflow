@@ -17,7 +17,8 @@ import { buildSpecs, countByKind } from '../catalog/build'
 import { loadBundle } from '../catalog/bundle'
 import { sceneFrames, validateAll } from '../spec/validate'
 import { captionFrames, CPS, MAX_CAPTION_SEC, MIN_CAPTION_SEC } from '../spec/timing'
-import { FPS, FORMAT_IDS } from '../spec/format'
+import { FPS, FORMAT_IDS, proseScale, typeScale } from '../spec/format'
+import { shelfTotalWidth, usableWidth } from '../spec/layout'
 import { ACCENT, retention, decayColor, DECAY } from '../theme/palette'
 import { spread } from '../remotion/motion'
 import { VIDEO_MOTION } from '../spec/timing'
@@ -192,5 +193,49 @@ describe('목록이 컷 안에 다 들어온다 — 조용히 삼켜지는 항�
     const long = spread(9, 10, 600)
     expect(short).toBeLessThan(long) // 짧은 컷에서는 눌린다
     expect(spread(9, 10, 60) + VIDEO_MOTION.enterFrames).toBeLessThanOrEqual(60 * 0.3 + VIDEO_MOTION.enterFrames)
+  })
+})
+
+describe('규격마다 안전 여백을 넘지 않는다', () => {
+  // 실측 2026-09-13 — 눈으로 보기 전에는 몰랐던 것 둘:
+  //   · 정사각 서가에서 7권이 **화면 끝에 닿았다**(고정 폭 × 권 수 > 가용 폭)
+  //   · 세로에서 커버리지 지문이 위로 넘쳐 **브랜드 표기와 겹쳤다**
+  // 둘 다 오류가 나지 않는다. 산술로 확인할 수 있는 것은 산술로 잠근다.
+
+  it('서가의 책 묶음이 가용 폭 안에 들어온다 — 권 수가 늘어도', () => {
+    const over: string[] = []
+    for (const format of FORMAT_IDS) {
+      for (let count = 1; count <= 12; count++) {
+        const total = shelfTotalWidth(format, count)
+        const avail = usableWidth(format)
+        // 하한(52*scale)에 걸리는 아주 많은 권 수는 예외 — 그건 폭이 아니라 담은 양의 문제다.
+        if (count <= 8 && total > avail) over.push(`${format} ${count}권: ${total} > ${avail}`)
+      }
+    }
+    expect(over).toEqual([])
+  })
+
+  it('실제 시리즈 권 수에서도 들어온다', () => {
+    const over: string[] = []
+    for (const spec of specs) {
+      for (const scene of spec.scenes) {
+        if (scene.kind !== 'shelf') continue
+        for (const format of spec.formats) {
+          const total = shelfTotalWidth(format, scene.volumes.length)
+          const avail = usableWidth(format)
+          if (total > avail) over.push(`${spec.id} ${format}: ${total} > ${avail}`)
+        }
+      }
+    }
+    expect(over).toEqual([])
+  })
+
+  it('긴 글 배율은 짧은 글 배율과 **반대 방향**이다 (세로에서 1 미만)', () => {
+    // 좁은 화면에서 제목은 키워야 읽히고, 긴 글은 줄여야 줄 수가 감당된다.
+    expect(typeScale('vertical')).toBeGreaterThan(1)
+    expect(proseScale('vertical')).toBeLessThan(1)
+    expect(proseScale('square')).toBeLessThan(1)
+    expect(proseScale('wide')).toBe(1)
+    expect(typeScale('wide')).toBe(1)
   })
 })

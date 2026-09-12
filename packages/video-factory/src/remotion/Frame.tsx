@@ -14,7 +14,7 @@
 import React from 'react'
 import { AbsoluteFill, useCurrentFrame, useVideoConfig } from 'remotion'
 
-import { FORMATS, typeScale, type FormatId } from '../spec/format'
+import { FORMATS, proseScale, typeScale, type FormatId } from '../spec/format'
 import type { AccentKey } from '../spec/types'
 import { ACCENT, FONT, SURFACE } from '../theme/palette'
 
@@ -93,6 +93,9 @@ export const Frame: React.FC<FrameProps> = ({
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
+          // 마지막 방어선 — 본문이 넘쳐도 브랜드 표기와 자막 위로 흐르지 않는다
+          // (실측 2026-09-13: 세로에서 지문이 위로 넘쳐 "VOCAFLOW" 와 겹쳤다).
+          overflow: 'hidden',
         }}
       >
         {children}
@@ -168,11 +171,19 @@ export const Title: React.FC<{
  */
 export const FormatContext = React.createContext<FormatId>('wide')
 
-export function useFormat(): { format: FormatId; scale: number; frame: number; fps: number } {
+export function useFormat(): {
+  format: FormatId
+  /** 짧은 글(제목·수치)의 배율 */
+  scale: number
+  /** 긴 글(지문·보기)의 배율 — 세로에서는 1보다 **작다**(`proseScale` 주석 참조) */
+  prose: number
+  frame: number
+  fps: number
+} {
   const format = React.useContext(FormatContext)
   const frame = useCurrentFrame()
   const { fps } = useVideoConfig()
-  return { format, scale: typeScale(format), frame, fps }
+  return { format, scale: typeScale(format), prose: proseScale(format), frame, fps }
 }
 
 /** 한글이 들어 있는가 — 서체를 가르는 유일한 기준. */
