@@ -10,6 +10,7 @@ import {
   looksPlural,
   pickSpread,
   standardArticle,
+  candidateAt,
 } from './grammar-choice'
 
 /**
@@ -142,5 +143,24 @@ describe('어법 문항', () => {
     const picked = pickSpread([0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 5)
     expect(picked).toEqual([0, 2, 5, 7, 9])
     expect(pickSpread([1, 2, 3], 5)).toEqual([1, 2, 3])
+  })
+})
+/**
+ * **절을 끊는 부호가 붙은 낱말은 후보가 아니다.**
+ *
+ * ⚠️ 앞 줄의 「순수한 낱말만」 검사는 **끝의 구두점을 막지 못한다** — 양쪽이 그 부호를 똑같이
+ * 떼어 내므로 `"Analogously,"` 는 통과한다. 어휘 쪽에서 같은 자국을 고친 뒤 저장분을
+ * 재생성해 보니 이 유형에서만 남았다(실측 2026-09-13 · 「만들었는데 자에 또 걸림 7건」).
+ */
+describe('밑줄 후보 — 붙은 부호', () => {
+  it('쉼표·세미콜론·콜론이 붙은 낱말은 후보가 아니다', () => {
+    for (const t of ['this,', 'these;', 'a:']) {
+      expect(candidateAt([t, 'books'], 0, 0), t).toBeNull()
+    }
+  })
+
+  it('부호가 없으면 그대로 후보다 — 더한 규칙이 뺀 규칙이 되지 않게', () => {
+    // 관사 규칙: 표준형과 맞을 때만 후보가 된다.
+    expect(candidateAt(['a', 'book'], 0, 0)).not.toBeNull()
   })
 })

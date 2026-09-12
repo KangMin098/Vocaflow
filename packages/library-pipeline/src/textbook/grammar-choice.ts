@@ -145,7 +145,16 @@ export function candidateAt(
   const token = tokens[ti]!
   const w = bare(token)
   // 붙은 부호가 있으면 자리 표시가 지저분해진다 — 순수한 낱말만.
+  //
+  // ⚠️ **이 검사는 끝의 구두점을 막지 못한다**(실측 2026-09-13). 양쪽이 그 부호를 똑같이
+  //   떼어 내므로 `"Analogously,"` 는 `Analogously === Analogously` 로 **통과한다** —
+  //   막히는 것은 가운데 낀 비문자(괄호·대시)뿐이다. 그래서 절을 끊는 부호가 붙은 낱말이
+  //   밑줄이 됐고, 어휘 쪽에서 같은 자국을 고친 뒤 재생성해 보니 이 유형에서만 남았다
+  //   (「만들었는데 자에 또 걸림 7건」 — `regen-underlines.mjs` 가 세서 알려 줬다).
   if (token.replace(/[.,;:!?]+$/, '') !== token.replace(/[^A-Za-z']/g, '')) return null
+  // 절을 끊는 부호가 붙은 낱말은 **바꿔 넣어 볼 자리가 아니다** — 문장부사이거나 절 경계다.
+  //   (마침표는 따로 막지 않는다: 어법 후보는 바로 뒤 낱말을 보므로 문장 끝은 이미 빠진다.)
+  if (/[,;:]$/.test(token)) return null
   const next = tokens[ti + 1]
   if (!next) return null
 

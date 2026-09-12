@@ -95,9 +95,16 @@ export const PRODUCTION_STAGES: readonly ProductionStage[] = [
       role:
         '사실에서 수능형 주제글을 새로 쓴다(`csat_korean` — 130~190어 · 주제문→근거→함의). ' +
         '**지문 재고가 얇은 밴드를 겨냥해서** 쓴다 — 지금은 V3~V4 다.',
-      scripts: null,
+      // ⚠️ **「드레인 없음」이라고 적혀 있었다 — 있는데 없다고 적은 것이다**(실측 2026-09-13).
+      //   `write-drain-export.mjs` 가 스스로 「집필 드레인 ①/③」이라 적고 있고, 보조 셋
+      //   (`-verify`·`-yield`·`-tailwords`)에 밴드별 작업 디렉터리 18개가 쌓여 있다.
+      //   없다고 적으면 다음 사람이 같은 것을 다시 만든다.
+      scripts: {
+        exportScript: 'scripts/textbook/write-drain-export.mjs',
+        importScript: 'scripts/textbook/write-drain-import.mjs',
+      },
       storage: 'article_compose_candidates → 게이트 6종 → library_articles',
-      progress: '드레인 없음. 지금까지 2편만 있고 둘 다 목표 레벨을 못 맞췄다.',
+      progress: '드레인은 있다. 쓰기 전에 write-drain-verify 로 어느 계단에 떨어질지 먼저 잰다 — 이름을 모르면 적중이 5~6할에 머문다.',
     },
   },
   {
@@ -120,7 +127,12 @@ export const PRODUCTION_STAGES: readonly ProductionStage[] = [
       role:
         '결정론으로 못 만드는 **생성형 11유형**을 쓴다 — 요지·주제·제목·주장·목적·심경·함의·빈칸(4문항)·요약. ' +
         '이 유형들은 오답의 매력도가 난이도를 만들기 때문에 **오답 4개를 함께 써야** 한다.',
-      scripts: null,
+      // ⚠️ 여기도 「드레인 없음」이었다 — `item-drain-export.mjs` 가 스스로 「문항 제작 드레인 ①/③ —
+      //   생성형 유형」이라 적고 있고 유형×밴드 작업 디렉터리가 30개가 넘는다(실측 2026-09-13).
+      scripts: {
+        exportScript: 'scripts/textbook/item-drain-export.mjs',
+        importScript: 'scripts/textbook/item-drain-import.mjs',
+      },
       storage: 'csat_dcp_items — 유형 추가 시 `type` CHECK 확장 필요(마이그레이션 · 승인)',
       progress:
         '2026-08-30 실측 25유형 17,206문항. 생성형도 비어 있지 않다 — ' +
@@ -236,16 +248,37 @@ export const PRODUCTION_STAGES: readonly ProductionStage[] = [
   {
     order: 7,
     label: '내부 검수',
-    purpose: '인쇄 전 마지막 확인. 사람이 본다.',
-    state: 'done',
+    purpose: '인쇄 전 마지막 확인. 서로 다른 눈 셋이 각자 읽는다.',
+    // ⚠️ **`done` 이라고 적혀 있었다 — 가장 위험한 방향의 거짓이었다**(실측 2026-09-13).
+    //   나머지 단계의 오류는 「있는 것을 없다고 적음」이라 일을 중복시킬 뿐이지만, 여기는
+    //   **「없는 것을 done 이라 적음」**이었다: 학습자가 받는 조판본 19권 · 지면 1,860문항의
+    //   3인 검수가 **0건**인데 이 표는 초록이었다(`publish-gate.ts` 머리 주석의 실측).
+    //   그 사이 조판기는 이미 반대로 움직이고 있었다 — `judgePublish` 가 3인 미달을
+    //   차단으로 잡아 `process.exit(1)` 한다. 표와 파이프라인이 정반대였다.
+    state: 'partial',
     ours: [
       "status='ready' → 사람이 검수 → 'published'",
       'csat_stage_catalog 가 published 만 노출',
       'render-volume.mjs — 한 권을 실제로 조판해 사람이 눈으로 볼 수 있게 한다',
+      'csat_item_reviews (20260912210000) — 교재 문항 3인 페르소나 검수. unique(item_id, persona) 가 「서로 다른 3인」을 DB 로 강제한다',
+      'publish-gate.ts — 판정을 집행한다. 3인 미달이면 조판물도 조판 기록도 만들지 않는다',
     ],
-    gap: null,
-    worker: 'human',
-    claude: null,
+    gap:
+      '**지면 문항 1,860개 중 3인 검수를 받은 것이 극소수다.** 표가 생긴 것이 2026-09-12 이고, ' +
+      '그 전까지 이 단계는 「사람이 ready 를 보고 published 로 올린다」 한 줄이었다 — 문항 하나하나를 ' +
+      '읽은 기록은 어디에도 없었다. 지금은 자리가 있고 게이트가 그것을 요구하므로, 남은 것은 드레인을 도는 일이다.',
+    // 페르소나 셋을 연기하는 것이 Claude Code 몫이다 — 사람이 최종 발행을 정하는 것과 별개다.
+    worker: 'claude',
+    claude: {
+      role: '출제자·오답분석가·현장강사가 각자 문항을 읽고 pass/revise/fail 을 낸다. 셋이 다 pass 해야 그 문항이 지면에 설 수 있다',
+      scripts: {
+        exportScript: 'scripts/textbook/item-review-drain-export.mjs',
+        importScript: 'scripts/textbook/item-review-drain-import.mjs',
+      },
+      storage: 'csat_item_reviews — 페르소나마다 한 행. 마이그레이션 20260912210000',
+      progress:
+        'V5(reading) 지면 120문항 기준 — 3인 통과 4 · 3인이 봤는데 미통과 5(고칠 몫) · 남은 읽을 몫 111 (실측 2026-09-13)',
+    },
   },
   {
     order: 8,

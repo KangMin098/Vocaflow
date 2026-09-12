@@ -170,7 +170,12 @@ describe('PRODUCTION_STAGES', () => {
     //   "없는 단계가 없다" 는 "다 됐다" 가 아니다.
     const report = measureStages()
     expect(report.missingStages).toEqual([])
-    expect(report.partial).toBe(5) // 집필 · 문항제작 · 교정 · 해답해설 · 평가개정
-    expect(report.done).toBe(3) // 기획 · 원고검토 · 내부검수
+    // ⚠️ **2026-09-13: 내부 검수가 `done` → `partial` 로 내려왔다.**
+    //   그 칸은 「없는 것을 done 이라 적은」 유일한 자리였다 — 학습자가 받는 조판본 19권 ·
+    //   지면 1,860문항의 3인 검수가 **0건**인데 표는 초록이었다. 그 사이 조판기는 이미
+    //   반대로 움직이고 있었다(`judgePublish` 가 3인 미달을 차단으로 잡아 exit 1).
+    //   표와 파이프라인이 정반대인 채로 이 회귀가 **옛 수를 지키고 있었다.**
+    expect(report.partial).toBe(6) // 집필 · 문항제작 · 교정 · 해답해설 · **내부검수** · 평가개정
+    expect(report.done).toBe(2) // 기획 · 원고검토
   })
 })
