@@ -1469,6 +1469,48 @@ anon 세션으로 실측 검증: 미발행 호 0건 노출.
 `passage`·`choices`·`raw_block` 를 뺀 것)만 본다. 분석·유형 리포트는 `status='published'` 만 열린다.
 검수 기록은 정책이 없어 service_role 전용이다.
 
+## 교재 문항 3인 검수 — `csat_item_reviews` ([20260912210000](../supabase/migrations/20260912210000_csat_item_reviews.sql))
+
+**검증이 거꾸로 걸려 있었다** (DB 실측 2026-09-12):
+
+| 대상 | 3인 검수 | 학습자에게 가는가 |
+|---|--:|---|
+| `csat_item_analyses` 2,234건 | `csat_analysis_reviews` **6,702행**(정확히 ×3) | 아니오 — 분석물이다 |
+| 조판된 19권 · 지면 **1,860문항** | **0행** | **예 — 손에 쥐는 책이다** |
+
+0행이었던 이유는 담을 표가 없어서다. 그런데 ⑦ 검수 화면의 「L2 3인 페르소나」 눈금은 기출 쪽
+수를 세고 있어서 그 구멍이 **초록으로 가려졌다** — 눈금이 있는데 다른 것을 세는 것은 눈금이
+없는 것보다 나쁘다.
+
+| 열 | 무엇 |
+|---|---|
+| `item_id` | `csat_dcp_items(id)` FK · ON DELETE CASCADE |
+| `persona` | CHECK `setter` / `analyst` / `tutor` — 기출 쪽과 같은 셋 |
+| `verdict` | CHECK `pass` / `revise` / `fail` |
+| `findings` | jsonb `[]` — **빈 배열 = 봤는데 깨끗하다. 행이 없음 = 아직 안 봤다** |
+| `checked` | jsonb `[]` — 무엇을 봤는가. 없으면 pass 가 무엇에 대한 pass 인지 알 수 없다 |
+| `unique (item_id, persona)` | **이 제약이 표의 존재 이유다** — 같은 눈이 세 번 봐도 3인이 안 된다 |
+
+인덱스 2: `(item_id)` · `(verdict, item_id)`(조판기 질의 모양 그대로 — 실측 0.1ms).
+RLS 켜고 **정책 없음** — 기출 검수표와 같다(서버만 읽고 쓴다).
+
+### 왜 jsonb 가 아니라 표인가
+
+이 저장소는 jsonb 에 키를 더해 마이그레이션을 피하는 관행이 있다(`answer_key.explanation_ko`).
+검수는 그렇게 두지 않았다 — 두 가지를 DB 가 해 줘야 한다: ① `unique (item_id, persona)` 가
+「서로 다른 3인」을 강제한다(jsonb 배열로는 코드만이 막고, 코드는 실수한다) ② `csat_dcp_items`
+가 65만 행이고 PostgREST 집계가 꺼져 있어(`PGRST123`) jsonb 스캔 경로는 조판마다 돈다.
+
+### 적용 직후 실측
+
+제약 시험 2종(직접 INSERT): 같은 페르소나 2회 → `unique_violation` 차단 · 정의 밖 페르소나 →
+`check_violation` 차단. 첫 드레인 배치(V5 reading 8문항 · 24행): **3문항만 3인 통과**,
+5문항이 막혔다 — 지문에 원문 라벨(`Explanation:`)이 인쇄된 것 · 소제목이 본문에 붙은 것 ·
+`U.S.` 의 마침표로 문장이 쪼개진 것. **전부 기계 게이트가 통과시킨 문항이다.**
+
+발행 게이트(`packages/library-pipeline/src/textbook/publish-gate.ts`)가 이 표를 차단 조건으로
+읽는다 — 표 조회가 실패하면 **0 이 아니라 「못 잼」**이다(0 으로 뭉개면 전 권이 거짓 차단된다).
+
 ## 🔴 user_profiles 권한 상승 차단 ([20260814150000](../supabase/migrations/20260814150000_user_profiles_privilege_escalation_guard.sql))
 
 **실측한 결함** (2026-08-14, anon key 만으로 재현). RLS 정책 `"own data"` 가
