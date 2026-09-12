@@ -89,6 +89,14 @@ export type ShelfStatus =
   | 'unmeasured'
 
 export interface ShelfVolume {
+  /**
+   * 이 권이 **어느 시리즈**인가.
+   *
+   * ⚠️ 링크를 만드는 컴포넌트가 이 값을 쓴다. 없던 동안 주소가 step 하나였고
+   *   (`/library/textbooks/5`) 어휘 5단과 독해 5단이 **같은 주소**였다 — 그래서 어휘·구문
+   *   시리즈는 단이 정의되고 재고가 찼는데도 학습자에게 도달하지 않았다(2026-09-12).
+   */
+  seriesId: string
   step: number
   /** 권 제목 — `SERIES_SPINE` 이 소유한다. 화면에서 짓지 않는다. */
   title: string
@@ -139,6 +147,8 @@ export interface ShelfVolume {
 export type SourceCounts = Record<string, number>
 
 export interface Shelf {
+  /** 이 서가가 어느 시리즈인가. */
+  seriesId: string
   brand: string
   volumes: ShelfVolume[]
   /** 지금 펼칠 수 있는 권 수 */
@@ -230,10 +240,18 @@ export function buildShelf(
    * (=구버전 RPC) 권마다 `explainedCount: null` 이고 화면은 그 줄을 내지 않는다.
    */
   explainedByTypeLevel: Readonly<Record<string, number>> | null = null,
+  /**
+   * 이 서가가 어느 시리즈인가. 권마다 실려 **링크를 만드는 컴포넌트**가 쓴다.
+   *
+   * 기본값은 독해다 — 옛 호출부가 인자 없이 부르고, 그쪽이 기대하는 것은 발행 중인 서가다.
+   * ⚠️ 사다리(spine)와 **짝이 맞아야 한다.** 어긋나면 어휘 사다리를 그리고 독해 주소를 건다.
+   */
+  seriesId = 'reading',
 ): Shelf {
   const fill = measureSeriesFill(inventory, spine)
 
   const volumes: ShelfVolume[] = fill.rungs.map((r) => ({
+    seriesId,
     step: r.rung.step,
     title: r.rung.volumeTitle,
     schoolBand: r.rung.schoolBand,
@@ -268,6 +286,7 @@ export function buildShelf(
   }))
 
   return {
+    seriesId,
     brand: fill.brand,
     volumes,
     readyCount: volumes.filter((v) => v.status === 'ready').length,

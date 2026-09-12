@@ -21,7 +21,10 @@ import path from 'node:path'
 import { describe, expect, it } from 'vitest'
 
 const SRC = path.resolve(__dirname, '../../..')
-const VOLUME_PAGE = path.join(SRC, 'app', '(main)', 'library', 'textbooks', '[step]', 'page.tsx')
+// ⚠️ 권 상세가 `[step]` → `[series]/[step]` 으로 옮겨졌다(2026-09-12 · 주소에 시리즈가
+//   없어서 어휘·구문이 학습자에게 도달하지 않았다). 옛 자리는 308 리다이렉트 껍데기라
+//   그대로 두면 이 검사가 **빈 파일을 읽고 통과**한다.
+const VOLUME_PAGE = path.join(SRC, 'app', '(main)', 'library', 'textbooks', '[series]', '[step]', 'page.tsx')
 const DCP_ACTIONS = path.join(SRC, 'lib', 'learner', 'dcp-actions.ts')
 
 /**

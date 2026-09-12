@@ -13,6 +13,9 @@ import { revalidatePath } from 'next/cache'
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 
+// 시리즈 정본 — 자유 문자열을 그대로 넣으면 담김이 어느 서가에도 안 보이는 행으로 남는다.
+import { SERIES_CATALOG } from '@vocaflow/library-pipeline/textbook-series-catalog'
+
 import { createClient } from '@/lib/supabase/server'
 
 export interface ToggleResult {
@@ -41,22 +44,38 @@ async function userClient() {
   return { lc: client as unknown as SupabaseClient, userId: user?.id ?? null }
 }
 
-export async function addTextbook(step: number): Promise<ToggleResult> {
+/**
+ * 담는다 — **어느 시리즈의** 그 단인가.
+ *
+ * ⚠️ `series` 가 없던 동안 PK 가 `(user_id, step)` 이라 **어휘 5단과 독해 5단이 같은 행**이었다.
+ *   어휘 권을 담으면 독해를 담은 것으로 기록되고, 하나를 빼면 둘이 같이 빠졌다
+ *   (마이그레이션 `20260912221500`). 기본값은 독해다 — 옛 호출부가 그것을 기대한다.
+ *
+ * ⚠️ **카탈로그에 없는 시리즈는 거절한다.** 자유 문자열을 그대로 넣으면 담김이 어느 서가에도
+ *   안 보이는 행으로 남는다(조판기에서 같은 모양의 사고를 고쳤다 — `volume-target.ts`).
+ */
+export async function addTextbook(step: number, series = 'reading'): Promise<ToggleResult> {
   if (!Number.isInteger(step) || step < 1) return { ok: false, error: '잘못된 교재입니다.' }
+  if (!SERIES_CATALOG.some((s) => s.id === series)) {
+    return { ok: false, error: '잘못된 교재입니다.' }
+  }
   const { lc, userId } = await userClient()
   if (!userId) return { ok: false, error: '로그인이 필요해요.' }
 
   const { error } = await lc
     .from('user_textbook_selections')
-    .upsert({ user_id: userId, step }, { onConflict: 'user_id,step' })
+    .upsert({ user_id: userId, series, step }, { onConflict: 'user_id,series,step' })
 
   if (error) return { ok: false, error: '지금은 담을 수 없어요. 잠시 뒤 다시 시도해 주세요.' }
   revalidateShelf()
   return { ok: true }
 }
 
-export async function removeTextbook(step: number): Promise<ToggleResult> {
+export async function removeTextbook(step: number, series = 'reading'): Promise<ToggleResult> {
   if (!Number.isInteger(step) || step < 1) return { ok: false, error: '잘못된 교재입니다.' }
+  if (!SERIES_CATALOG.some((s) => s.id === series)) {
+    return { ok: false, error: '잘못된 교재입니다.' }
+  }
   const { lc, userId } = await userClient()
   if (!userId) return { ok: false, error: '로그인이 필요해요.' }
 
@@ -64,6 +83,8 @@ export async function removeTextbook(step: number): Promise<ToggleResult> {
     .from('user_textbook_selections')
     .delete()
     .eq('user_id', userId)
+    // ⚠️ 시리즈를 안 걸면 **다른 시리즈의 같은 단까지 빠진다.**
+    .eq('series', series)
     .eq('step', step)
 
   if (error) return { ok: false, error: '지금은 뺄 수 없어요. 잠시 뒤 다시 시도해 주세요.' }

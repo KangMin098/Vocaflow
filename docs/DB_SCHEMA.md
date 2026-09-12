@@ -1476,6 +1476,21 @@ anon 세션으로 실측 검증: 미발행 호 0건 노출.
 `passage`·`choices`·`raw_block` 를 뺀 것)만 본다. 분석·유형 리포트는 `status='published'` 만 열린다.
 검수 기록은 정책이 없어 service_role 전용이다.
 
+## 담은 교재가 시리즈를 구별한다 — `user_textbook_selections.series` ([20260912221500](../supabase/migrations/20260912221500_user_textbook_selections_series.sql))
+
+PK 가 `(user_id, step)` 이던 동안 **어휘 5단과 독해 5단이 같은 행**이었다 — 어휘 권을 담으면
+독해를 담은 것으로 기록되고, 하나를 빼면 둘이 같이 빠졌다. 시리즈 셋이 정의됐는데(각 6~7단,
+재고 찼음) 어휘·구문이 **학습자에게 도달하지 않은** 이유의 절반이 이 주소 체계다(나머지 절반은
+라우트 `/library/textbooks/[step]`).
+
+| 열 | 무엇 |
+|---|---|
+| `series` | 시리즈 id · `not null default 'reading'` — 이 열이 생기기 전 담긴 책은 **전부 독해였다**(실측 2행) |
+| PK | `(user_id, series, step)` — 전 `(user_id, step)` |
+
+적용 직후 실측: 기존 2행 보존(reading/3 · reading/4) · 같은 step 을 시리즈 둘로 넣으면 **두 행**
+(전에는 하나) · 같은 (시리즈, 단)은 여전히 `unique_violation` 으로 막힘.
+
 ## 교재 문항 3인 검수 — `csat_item_reviews` ([20260912210000](../supabase/migrations/20260912210000_csat_item_reviews.sql))
 
 **검증이 거꾸로 걸려 있었다** (DB 실측 2026-09-12):

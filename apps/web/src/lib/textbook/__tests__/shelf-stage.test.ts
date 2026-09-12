@@ -15,6 +15,7 @@ import type { ShelfVolume } from '../shelf'
 
 function vol(step: number, schoolBand: string): ShelfVolume {
   return {
+    seriesId: 'reading',
     step,
     title: `권 ${step}`,
     schoolBand,

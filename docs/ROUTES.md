@@ -61,7 +61,9 @@
 | `/library/scripts` | `(main)/library/scripts/page.tsx` | redirect → `/library/books` (v06.34) |
 | `/library/scripts/[bookId]` | `(main)/library/scripts/[bookId]/page.tsx` | redirect → `/library/books/[bookId]` |
 | `/library/textbooks` | `(main)/library/textbooks/page.tsx` | 교재 서가 — 7계단 진열 + 3축 필터(학령·수준·유형) + 담기 |
-| `/library/textbooks/[step]` | `(main)/library/textbooks/[step]/page.tsx` | 교재 한 권 상세 (수록 구성 · 분량 상한 · 담기) |
+| `/library/textbooks/[series]/[step]` | `(main)/library/textbooks/[series]/[step]/page.tsx` | 교재 한 권 상세 (수록 구성 · 분량 상한 · 담기). **주소에 시리즈가 들어간다**(2026-09-12) — 없던 동안 어휘 5단과 독해 5단이 같은 주소라 어휘·구문이 학습자에게 도달하지 않았다 |
+| `/library/textbooks/[series]/[step]/practice` | `(main)/.../practice/page.tsx` | 그 권의 문항 풀기 |
+| ~~`/library/textbooks/[step]`~~ | `next.config.mjs` redirects | **308 → `/reading/[step]`.** 파일로 두면 Next 가 부팅을 거부한다(`different slug names for the same dynamic path`) |
 
 ### 내 자산
 

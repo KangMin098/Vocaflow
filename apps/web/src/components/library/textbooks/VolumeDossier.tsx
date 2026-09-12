@@ -426,7 +426,7 @@ export function NeighborCard({
 
   return (
     <Link
-      href={`/library/textbooks/${v.step}`}
+      href={`/library/textbooks/${v.seriesId}/${v.step}`}
       className="group flex items-center gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3 no-underline transition-colors hover:border-[var(--p)] hover:bg-[var(--bg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
     >
       <span className="w-11 shrink-0">

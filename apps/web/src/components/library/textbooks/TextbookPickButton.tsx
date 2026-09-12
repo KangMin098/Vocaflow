@@ -19,12 +19,15 @@ import { addTextbook, removeTextbook } from '@/lib/textbook/my-shelf-actions'
 
 export function TextbookPickButton({
   step,
+  seriesId = 'reading',
   title,
   picked,
   signedIn = true,
   size = 'md',
 }: {
   step: number
+  /** 어느 시리즈의 그 단인가. 없으면 독해 — 담김 표의 PK 가 (user, series, step) 다. */
+  seriesId?: string
   /** 스크린리더 문장에 쓴다 — 서가에 버튼이 일곱 개라 "담기" 만으로는 어느 권인지 모른다. */
   title: string
   picked: boolean
@@ -40,7 +43,9 @@ export function TextbookPickButton({
   function toggle() {
     setError(null)
     startTransition(async () => {
-      const r = isPicked ? await removeTextbook(step) : await addTextbook(step)
+      const r = isPicked
+        ? await removeTextbook(step, seriesId)
+        : await addTextbook(step, seriesId)
       if (r.ok) setIsPicked(!isPicked)
       else setError(r.error ?? '지금은 처리할 수 없어요.')
     })

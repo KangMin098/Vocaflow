@@ -192,6 +192,43 @@ function assertDistDirFree(distDir) {
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  /**
+   * **옛 교재 주소를 살린다.**
+   *
+   * ── 왜 여기인가 (실측 2026-09-12) ─────────────────────────────────
+   * 권의 주소가 `step` 하나였다가 `(series, step)` 으로 바뀌었다 — 주소에 시리즈가 없어서
+   * 어휘·구문 시리즈가 **학습자에게 도달하지 않았다**(단이 정의되고 재고도 찼는데).
+   *
+   * 처음에는 옛 경로(`[step]/page.tsx`)를 리다이렉트 껍데기로 남겼는데, Next 가 **부팅을
+   * 거부했다**: `You cannot use different slug names for the same dynamic path
+   * ('series' !== 'step')`. 같은 자리에 이름이 다른 동적 조각을 둘 수 없다.
+   * ⚠️ 그때 타입체크와 학습자 회귀 353개가 **전부 통과했다** — 앱은 뜨지도 않는데.
+   *   라우팅은 돌려 봐야 안다.
+   *
+   * 그래서 파일이 아니라 설정으로 보낸다. 지우면 북마크·공유 링크·검색 색인이 404 가 되는데,
+   * 그 링크들은 **화면보다 오래 산다**.
+   *
+   * · 숫자만 잡는다(`(\\d+)`) — `/library/textbooks/vocab/5` 같은 새 주소를 건드리지 않는다.
+   * · `permanent: true`(308) — 이 주소는 돌아오지 않는다. 검색 엔진이 색인을 옮기고
+   *   브라우저가 다음부터 곧장 새 주소로 간다.
+   * · 독해로 보낸다 — 이 주소가 가리킬 수 있었던 것은 독해뿐이다(매대 함수가 독해 사다리만
+   *   읽었으므로 다른 시리즈는 학습자 화면에 존재한 적이 없다). 추측이 아니라 사실이다.
+   */
+  async redirects() {
+    return [
+      {
+        source: '/library/textbooks/:step(\\d+)',
+        destination: '/library/textbooks/reading/:step',
+        permanent: true,
+      },
+      {
+        // 이 주소는 **로그인 복귀 경로**로도 쓰였다 — 404 면 「로그인했더니 아무것도 없다」가 된다.
+        source: '/library/textbooks/:step(\\d+)/practice',
+        destination: '/library/textbooks/reading/:step/practice',
+        permanent: true,
+      },
+    ]
+  },
   // v06.92 — 프로덕션 빌드 복구: SWC minifier 가 @mintplex-labs/piper-tts-web
   // (onnxruntime-web 번들, EchoMatch)을 parse 못해 `next build` 가
   // "failed to parse input file: Syntax Error" 로 실패. Terser minifier 로 폴백.

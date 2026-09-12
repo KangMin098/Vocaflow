@@ -37,7 +37,18 @@ export interface MySelection {
   available: boolean
 }
 
-export async function fetchMyTextbooks(): Promise<MySelection> {
+/**
+ * 그 **시리즈의** 담김만 읽는다.
+ *
+ * ── 왜 시리즈로 좁히나 (2026-09-12) ─────────────────────────────────
+ * 표의 PK 가 `(user_id, step)` 이던 동안 **어휘 5단과 독해 5단이 같은 행**이었다 —
+ * 어휘 권을 담으면 독해를 담은 것으로 기록되고, 하나를 빼면 둘이 같이 빠졌다
+ * (마이그레이션 `20260912221500` 이 `series` 를 더하고 PK 를 `(user_id, series, step)` 로 바꿨다).
+ *
+ * 반환 모양(`steps: number[]`)은 그대로 둔다 — 매대 한 화면은 **자기 시리즈의 담김만**
+ * 보면 되고, 그래야 `pickedVolumes(shelf, steps)` 같은 순수 함수가 안 바뀐다.
+ */
+export async function fetchMyTextbooks(seriesId = 'reading'): Promise<MySelection> {
   const client = await createClient()
   const {
     data: { user },
@@ -50,6 +61,7 @@ export async function fetchMyTextbooks(): Promise<MySelection> {
     .from('user_textbook_selections')
     .select('step')
     .eq('user_id', user.id)
+    .eq('series', seriesId)
     .order('step', { ascending: true })
 
   // 테이블 부재·권한 오류를 빈 목록으로 뭉개지 않는다.

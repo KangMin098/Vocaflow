@@ -15,6 +15,7 @@ import type { Shelf, ShelfVolume } from '../shelf'
 
 function vol(step: number, over: Partial<ShelfVolume> = {}): ShelfVolume {
   return {
+    seriesId: 'reading',
     step,
     title: `권 ${step}`,
     schoolBand: '중1',
@@ -33,6 +34,7 @@ function vol(step: number, over: Partial<ShelfVolume> = {}): ShelfVolume {
 }
 
 const SHELF: Shelf = {
+  seriesId: 'reading',
   brand: 'Vocaflow',
   volumes: [vol(1), vol(2), vol(3), vol(4)],
   readyCount: 4,
@@ -104,7 +106,7 @@ describe('매대 (0권일 때 대신 진열할 권)', () => {
   })
 
   it('서가가 비면 매대도 빈다 (없는 것을 지어내지 않는다)', () => {
-    const empty: Shelf = { brand: 'V', volumes: [], readyCount: 0, hasUnmeasured: false }
+    const empty: Shelf = { seriesId: 'reading', brand: 'V', volumes: [], readyCount: 0, hasUnmeasured: false }
     expect(previewVolumes(empty, [])).toEqual([])
   })
 })

@@ -23,7 +23,17 @@ import { useEffect, useState } from 'react'
 
 type Result = 'idle' | 'copied' | 'shared' | 'failed'
 
-export function ShareVolumeButton({ step, title }: { step: number; title: string }) {
+export function ShareVolumeButton({
+  step,
+  title,
+  // ⚠️ 공유 링크는 **화면보다 오래 산다**(남의 메신저·북마크). 시리즈가 빠지면 어휘 권을
+  //   공유했는데 받는 사람은 독해 권을 연다(2026-09-12 주소 체계 변경).
+  seriesId = 'reading',
+}: {
+  step: number
+  title: string
+  seriesId?: string
+}) {
   const [result, setResult] = useState<Result>('idle')
 
   // 결과 표시는 잠깐만 — 계속 남아 있으면 다음에 눌렀을 때 이번 결과인지 알 수 없다.
@@ -35,7 +45,7 @@ export function ShareVolumeButton({ step, title }: { step: number; title: string
 
   async function onShare() {
     // 절대 URL 은 **브라우저에서** 만든다 — 서버에서 만들면 배포 도메인을 하드코딩하게 된다.
-    const url = `${window.location.origin}/library/textbooks/${step}`
+    const url = `${window.location.origin}/library/textbooks/${seriesId}/${step}`
 
     // ① 기기가 공유 시트를 주면 그걸 쓴다(모바일에서 가장 자연스럽다).
     if (typeof navigator !== 'undefined' && navigator.share) {

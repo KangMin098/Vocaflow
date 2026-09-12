@@ -22,6 +22,7 @@ import {
 
 function vol(over: Partial<ShelfVolume>): ShelfVolume {
   return {
+    seriesId: 'reading',
     step: 1,
     title: '제목',
     schoolBand: '중1',

@@ -1,4 +1,4 @@
-// apps/web/src/app/(main)/library/textbooks/[step]/page.tsx
+// apps/web/src/app/(main)/library/textbooks/[series]/[step]/page.tsx
 //
 // 교재 한 권의 **상세** — 서점에서 책을 집어 펼쳐 보는 자리.
 //
@@ -34,6 +34,8 @@ import Link from 'next/link'
 import { ArrowLeft, ArrowRight, BookOpen } from 'lucide-react'
 
 import { buildDossier } from '@vocaflow/library-pipeline'
+// 시리즈 정본 — 주소의 `series` 가 실제로 있는 시리즈인지 여기서 판정한다.
+import { SERIES_CATALOG } from '@vocaflow/library-pipeline/textbook-series-catalog'
 
 import { Screen } from '@/components/ui/ios'
 import { TextbookPickButton } from '@/components/library/textbooks/TextbookPickButton'
@@ -88,12 +90,13 @@ function notFoundMeta(): Metadata {
 export async function generateMetadata({
   params,
 }: {
-  params: { step: string }
+  params: { series: string; step: string }
 }): Promise<Metadata> {
   const step = Number(params.step)
   if (!Number.isInteger(step)) return notFoundMeta()
+  if (!SERIES_CATALOG.some((x) => x.id === params.series)) return notFoundMeta()
 
-  const shelf = await fetchTextbookShelf()
+  const shelf = await fetchTextbookShelf(params.series)
   const v = shelf.volumes.find((x) => x.step === step)
   if (!v) return notFoundMeta()
 
@@ -103,16 +106,30 @@ export async function generateMetadata({
   // 그 문장은 화면보다 오래 남는다(캐시·인덱스). 레이아웃이 접미사를 붙이므로 여기서 안 붙인다.
   const count = v.status === 'unmeasured' ? '' : ` 문항 ${v.itemCount.toLocaleString()}개.`
   return {
-    title: `${v.title} — ${v.schoolBand} 독해 교재`,
-    description: `${v.schoolBand} 대상. 수록 유형 ${types}.${count}`,
+    // ⚠️ 「독해 교재」로 **하드코딩돼 있었다** — 어휘·구문 권에도 그렇게 찍히면 검색 결과와
+    //   공유 카드에 틀린 장르가 박힌다(그건 화면보다 오래 남는다). 권 제목에 이미 브랜드가
+    //   들어 있으므로(`Vocaflow Vocab Advanced`) 장르 낱말을 덧붙이지 않는다.
+    title: `${v.title} — ${v.schoolBand} 교재`,
+    // 시리즈가 답하는 물음은 카탈로그가 소유한다 — 화면이 짓지 않는다.
+    description: `${v.schoolBand} 대상. ${SERIES_CATALOG.find((x) => x.id === params.series)?.question ?? ''} 수록 유형 ${types}.${count}`,
   }
 }
 
-export default async function TextbookVolumePage({ params }: { params: { step: string } }) {
+export default async function TextbookVolumePage({
+  params,
+}: {
+  params: { series: string; step: string }
+}) {
   const step = Number(params.step)
   if (!Number.isInteger(step)) notFound()
+  // ⚠️ **카탈로그에 없는 시리즈는 404 다.** 조용히 독해로 떨어지면 「어휘 권을 열었는데
+  //   독해가 보인다」가 된다 — 조판기·매대에서 같은 모양의 사고를 고쳤다.
+  if (!SERIES_CATALOG.some((x) => x.id === params.series)) notFound()
 
-  const [shelf, mine] = await Promise.all([fetchTextbookShelf(), fetchMyTextbooks()])
+  const [shelf, mine] = await Promise.all([
+    fetchTextbookShelf(params.series),
+    fetchMyTextbooks(params.series),
+  ])
   const v = shelf.volumes.find((x) => x.step === step)
   if (!v) notFound()
 
@@ -159,7 +176,7 @@ export default async function TextbookVolumePage({ params }: { params: { step: s
 
         <VolumeHero volume={v} dossier={dossier} brand={shelf.brand}>
           <Link
-            href={`/library/textbooks/${v.step}/practice`}
+            href={`/library/textbooks/${v.seriesId}/${v.step}/practice`}
             className="group inline-flex min-h-[48px] w-fit items-center gap-2 rounded-ios-pill bg-[var(--p)] px-5 font-display text-[14px] font-[700] text-[var(--on-p)] no-underline motion-safe:transition-all motion-safe:hover:brightness-110 motion-safe:active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
           >
             <ArrowRight size={15} aria-hidden />
@@ -169,6 +186,7 @@ export default async function TextbookVolumePage({ params }: { params: { step: s
           {mine.available && (
             <TextbookPickButton
               step={v.step}
+              seriesId={v.seriesId}
               title={v.title}
               picked={mine.steps.includes(v.step)}
               signedIn={mine.signedIn}
@@ -176,7 +194,7 @@ export default async function TextbookVolumePage({ params }: { params: { step: s
           )}
           {/* 공유는 **로그인과 무관하게** 낸다 — 교사가 학생에게 보내는 경로이고,
               서가는 비로그인에도 열려 있어 받은 쪽이 바로 열 수 있다. */}
-          <ShareVolumeButton step={v.step} title={v.title} />
+          <ShareVolumeButton step={v.step} seriesId={v.seriesId} title={v.title} />
         </VolumeHero>
 
         <VolumePreface dossier={dossier} />

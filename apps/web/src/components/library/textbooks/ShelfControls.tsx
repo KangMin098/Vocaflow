@@ -176,7 +176,7 @@ export function VolumeAction({ volume: v }: { volume: ShelfVolume }) {
   if (v.status === 'ready') {
     return (
       <Link
-        href={`/library/textbooks/${v.step}`}
+        href={`/library/textbooks/${v.seriesId}/${v.step}`}
         aria-label={`${v.title} 펼쳐 보기`}
         className="inline-flex min-h-[44px] items-center gap-2 whitespace-nowrap rounded-ios-pill bg-[var(--p)] px-4 font-display text-[12px] font-[700] text-[var(--on-p)] no-underline motion-safe:transition-all motion-safe:hover:brightness-110 motion-safe:active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
       >
@@ -275,6 +275,7 @@ export function VolumeCard({
         {canPick && (
           <TextbookPickButton
             step={v.step}
+            seriesId={v.seriesId}
             title={v.title}
             picked={picked}
             signedIn={signedIn}

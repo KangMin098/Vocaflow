@@ -463,6 +463,7 @@ function VolumeRow({
           {canPick && (
             <TextbookPickButton
               step={v.step}
+              seriesId={v.seriesId}
               title={v.title}
               picked={picked}
               signedIn={signedIn}

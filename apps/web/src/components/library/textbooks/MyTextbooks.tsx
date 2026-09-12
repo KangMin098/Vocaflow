@@ -111,7 +111,7 @@ export function MyTextbooks({ shelf, mine }: { shelf: Shelf; mine: MySelection }
             </span>
             <span className="min-w-0 flex-1">
               <Link
-                href={`/library/textbooks/${v.step}`}
+                href={`/library/textbooks/${v.seriesId}/${v.step}`}
                 className="font-editorial text-[17px] font-[500] text-[var(--t1)] no-underline hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
               >
                 {v.title}
@@ -130,7 +130,7 @@ export function MyTextbooks({ shelf, mine }: { shelf: Shelf; mine: MySelection }
                 </span>
               ))}
             </span>
-            <TextbookPickButton step={v.step} title={v.title} picked size="sm" />
+            <TextbookPickButton step={v.step} seriesId={v.seriesId} title={v.title} picked size="sm" />
           </li>
         ))}
       </ol>
@@ -138,7 +138,7 @@ export function MyTextbooks({ shelf, mine }: { shelf: Shelf; mine: MySelection }
       {/* 다음 계단 — 없으면(마지막 권까지 담았으면) 내지 않는다. 빈 제안을 파는 것보다 침묵이 낫다. */}
       {up && (
         <Link
-          href={`/library/textbooks/${up.step}`}
+          href={`/library/textbooks/${up.seriesId}/${up.step}`}
           className="group mt-4 flex items-center gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3 no-underline transition-colors hover:border-[var(--p)] hover:bg-[var(--bg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
           <span
@@ -194,7 +194,7 @@ function PreviewCard({ volume: v }: { volume: ShelfVolume }) {
       </p>
       <h3 className="font-editorial text-[16px] font-[500] leading-snug text-[var(--t1)]">
         <Link
-          href={`/library/textbooks/${v.step}`}
+          href={`/library/textbooks/${v.seriesId}/${v.step}`}
           className="text-[var(--t1)] no-underline hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
           {v.title}
@@ -214,7 +214,7 @@ function PreviewCard({ volume: v }: { volume: ShelfVolume }) {
         문항 {v.itemCount.toLocaleString()} · 최대 {v.maxUnits}단원
       </p>
       <span className="mt-auto pt-1">
-        <TextbookPickButton step={v.step} title={v.title} picked={false} size="sm" />
+        <TextbookPickButton step={v.step} seriesId={v.seriesId} title={v.title} picked={false} size="sm" />
       </span>
     </article>
   )

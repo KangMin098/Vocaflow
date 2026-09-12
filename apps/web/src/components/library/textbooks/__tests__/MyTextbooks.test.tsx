@@ -17,6 +17,7 @@ import { MyTextbooks } from '../MyTextbooks'
 
 function vol(step: number, title: string): ShelfVolume {
   return {
+    seriesId: 'reading',
     step,
     title,
     schoolBand: '중1',
@@ -35,6 +36,7 @@ function vol(step: number, title: string): ShelfVolume {
 }
 
 const SHELF: Shelf = {
+  seriesId: 'reading',
   brand: 'Vocaflow',
   volumes: [vol(1, '첫 권'), vol(2, '둘째 권'), vol(3, '셋째 권')],
   readyCount: 3,
@@ -75,7 +77,7 @@ describe('담은 것을 관리한다', () => {
 
   it('권마다 상세로 가는 길이 있다 (보이는데 못 여는 목록 금지)', () => {
     const html = renderToString(<MyTextbooks shelf={SHELF} mine={{ steps: [2], available: true, signedIn: true }} />)
-    expect(html).toContain('/library/textbooks/2')
+    expect(html).toContain('/library/textbooks/reading/2')
   })
 
   it('서가에서 사라진 계단은 조용히 빠진다 (없는 권을 이름 없이 그리지 않는다)', () => {
@@ -102,7 +104,7 @@ describe('없는 진도를 그리지 않고, 아는 것만 말한다', () => {
   it('담은 것 중 가장 높은 권 다음의, 아직 안 담은 권을 제안한다', () => {
     const html = renderToString(<MyTextbooks shelf={SHELF} mine={{ steps: [1], available: true, signedIn: true }} />)
     expect(html).toContain('다음 계단')
-    expect(html).toContain('/library/textbooks/2')
+    expect(html).toContain('/library/textbooks/reading/2')
   })
 
   it('마지막 권까지 담았으면 제안을 내지 않는다 (빈 제안을 팔지 않는다)', () => {

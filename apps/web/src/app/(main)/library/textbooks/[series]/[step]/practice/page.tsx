@@ -1,4 +1,4 @@
-// apps/web/src/app/(main)/library/textbooks/[step]/practice/page.tsx
+// apps/web/src/app/(main)/library/textbooks/[series]/[step]/practice/page.tsx
 //
 // 교재 한 권의 **문항을 실제로 푸는 자리.**
 //
@@ -21,27 +21,34 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { ArrowLeft } from 'lucide-react'
 
-import { SERIES_SPINE } from '@vocaflow/library-pipeline'
 
 import { DcpPlayer } from '@/components/practice/DcpPlayer'
 import { RETURN_PARAM } from '@/lib/auth/redirect'
 import { Screen } from '@/components/ui/ios'
 import { fetchTextbookPracticeItems } from '@/lib/learner/dcp-actions'
+// 시리즈 정본 — 연습도 그 시리즈의 계단을 본다.
+import { SERIES_CATALOG } from '@vocaflow/library-pipeline/textbook-series-catalog'
 
 /** 한 번에 내주는 문항 수. 한 단원이 4문항이라 두 단원 분량으로 잡는다. */
 const ITEM_LIMIT = 8
 
-function rungOf(step: number) {
-  return SERIES_SPINE.find((r) => r.step === step) ?? null
+/**
+ * 그 **시리즈의** 계단. 전에는 SERIES_SPINE(독해)만 봤다 — 어휘 6단·구문 6단은
+ * 이 함수에서 늘 null 이 되어 연습 화면이 404 였다.
+ */
+function rungOf(seriesId: string, step: number) {
+  const def = SERIES_CATALOG.find((x) => x.id === seriesId)
+  if (!def) return null
+  return def.rungs.find((r) => r.step === step) ?? null
 }
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ step: string }>
+  params: Promise<{ series: string; step: string }>
 }): Promise<Metadata> {
-  const { step } = await params
-  const rung = rungOf(Number(step))
+  const { series, step } = await params
+  const rung = rungOf(series, Number(step))
   // 권마다 다른 제목을 준다 — 같은 제목이 여럿이면 탭·북마크·공유 카드에서 구별되지 않는다.
   return rung
     ? { title: `${rung.volumeTitle} 연습 · Vocaflow`, description: `${rung.schoolBand} 계단의 순서·삽입 문항을 풀어요` }
@@ -51,11 +58,11 @@ export async function generateMetadata({
 export default async function TextbookPracticePage({
   params,
 }: {
-  params: Promise<{ step: string }>
+  params: Promise<{ series: string; step: string }>
 }) {
-  const { step: raw } = await params
+  const { series, step: raw } = await params
   const step = Number(raw)
-  const rung = rungOf(step)
+  const rung = rungOf(series, step)
   if (!rung) notFound()
 
   // 한 계단이 여러 V-Level 을 덮을 수 있다 — 첫 밴드를 쓴다(권의 대표 난이도).
@@ -64,14 +71,14 @@ export default async function TextbookPracticePage({
 
   // 로그인 뒤 **여기로 돌아온다.** 복귀 경로가 없으면 로그인하고 나서 다시 길을 찾아야 하고,
   // 그 지점에서 사람이 빠져나간다(`library/scripts` 가 이미 쓰는 규약을 그대로 따른다).
-  const loginHref = `/login?${RETURN_PARAM}=${encodeURIComponent(`/library/textbooks/${step}/practice`)}`
+  const loginHref = `/login?${RETURN_PARAM}=${encodeURIComponent(`/library/textbooks/${series}/${step}/practice`)}`
 
   return (
     <Screen width="compact" background="bg2" padX="md">
       <div className="flex flex-col gap-4 py-6 md:py-8">
         <header className="flex flex-col gap-1">
           <Link
-            href={`/library/textbooks/${step}`}
+            href={`/library/textbooks/${series}/${step}`}
             className="inline-flex w-fit items-center gap-1 font-display text-[12px] font-[700] text-[var(--t2)] no-underline transition-colors hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           >
             <ArrowLeft size={13} strokeWidth={2} aria-hidden />
