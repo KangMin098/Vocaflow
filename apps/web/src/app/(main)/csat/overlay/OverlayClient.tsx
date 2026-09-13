@@ -84,7 +84,16 @@ type Status =
   | { kind: 'ready'; payload: Payload }
   | { kind: 'error'; message: string }
 
-export default function OverlayClient({ catalog }: { catalog: { built: string; exams: string[] } }) {
+export default function OverlayClient({
+  catalog,
+  initialExam,
+  initialNo,
+}: {
+  catalog: { built: string; exams: string[] }
+  /** 링크 모드에서 넘어온 겨냥 — 파일을 열면 그 문항을 바로 펼친다 */
+  initialExam: string | null
+  initialNo: number | null
+}) {
   const [status, setStatus] = useState<Status>({ kind: 'idle' })
   const [page, setPage] = useState(1)
   const [openNo, setOpenNo] = useState<number | null>(null)
@@ -163,12 +172,22 @@ export default function OverlayClient({ catalog }: { catalog: { built: string; e
         const data = new Uint8Array(await file.arrayBuffer())
         const doc = await pdfjs.getDocument({ data }).promise
         docRef.current = doc as unknown as typeof docRef.current
-        setStatus({ kind: 'ready', payload: json as Payload })
+        const loaded = json as Payload
+        // 링크 모드에서 온 겨냥이 이 회차의 것이면 그 문항을 바로 펼친다 —
+        // 30번을 보려고 왔는데 1쪽부터 다시 찾게 하면 두 번 일하는 것이다.
+        if (initialExam && initialExam === loaded.exam_id && initialNo) {
+          const aim = loaded.anchors.items.find((a) => a.no === initialNo)
+          if (aim) {
+            setPage(aim.p)
+            setOpenNo(initialNo)
+          }
+        }
+        setStatus({ kind: 'ready', payload: loaded })
       } catch (e) {
         setStatus({ kind: 'error', message: e instanceof Error ? e.message : '파일을 열지 못했어요.' })
       }
     },
-    [reset],
+    [reset, initialExam, initialNo],
   )
 
   // 쪽을 그린다. 표시 폭에 맞춰 배율을 잡고, 실제 캔버스 크기를 상자 기준으로 남긴다.

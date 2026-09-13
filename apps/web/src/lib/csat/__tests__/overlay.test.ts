@@ -71,3 +71,49 @@ describe('PDF 좌표 → 화면 %', () => {
     expect(pct({ x: 88, y: 0, w: 0, h: 0 }).left).toBeCloseTo(10.45, 1)
   })
 })
+
+// ── 링크 모드 — 「그 문항이 있는 쪽부터 열기」 ────────────────────────
+//
+// cross-origin iframe 은 안을 읽을 수 없지만 **여는 순간의 쪽**은 정할 수 있다.
+// 그 쪽 번호가 앵커에서 나오므로, 여기가 틀리면 학습자는 엉뚱한 쪽을 보고 시작한다.
+import { kiceSourceOf, pdfFragment, KICE_ARCHIVE_URL } from '@/lib/csat/kice-source'
+import { anchorMetaOf, pageOfItem } from '@/lib/csat/overlay'
+
+describe('링크 모드', () => {
+  it('문항 번호로 쪽을 찾는다', () => {
+    // 2026 30번(어휘)은 5쪽이다 — 좌표 실측값
+    expect(pageOfItem('2026', 30)).toBe(5)
+    expect(pageOfItem('2026', 18)).toBe(2)
+  })
+
+  it('없는 회차·없는 번호는 null — 화면은 1쪽부터 연다', () => {
+    expect(pageOfItem('2026', 99)).toBeNull()
+    expect(pageOfItem('없는회차', 30)).toBeNull()
+  })
+
+  it('형이 둘 든 회차는 앞 절반만 우리 기준이라고 말할 수 있다', () => {
+    const m = anchorMetaOf('2026')
+    expect(m).not.toBeNull()
+    expect(m!.formPages).toBe(8)
+    expect(m!.totalPages).toBe(16)
+  })
+
+  it('직접 링크가 있는 회차는 파일 URL, 없는 회차는 목록 URL + 이유', () => {
+    const y2026 = kiceSourceOf('2026')
+    expect(y2026.paperUrl).toMatch(/^https:\/\/www\.suneung\.re\.kr\/boardCnts\/fileDown\.do\?fileSeq=[0-9a-f]{32}$/)
+    expect(y2026.reason).toBeNull()
+
+    const mock = kiceSourceOf('M2506')
+    expect(mock.paperUrl).toBeNull()
+    expect(mock.reason).toBeTruthy() // 왜 없는지 화면이 말할 수 있어야 한다
+    expect(mock.listUrl).toMatch(/^https:\/\/www\.suneung\.re\.kr\//)
+
+    const old = kiceSourceOf('2019')
+    expect(old.paperUrl).toBeNull()
+    expect(old.listUrl).toBe(KICE_ARCHIVE_URL)
+  })
+
+  it('쪽 조각은 뷰어가 읽는 형태다', () => {
+    expect(pdfFragment(5)).toBe('#page=5&zoom=page-width')
+  })
+})

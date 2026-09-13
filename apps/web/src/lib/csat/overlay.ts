@@ -85,6 +85,23 @@ function readAnchors(examId: string): ExamAnchors | null {
   return JSON.parse(fs.readFileSync(p, 'utf8')) as ExamAnchors
 }
 
+/**
+ * **그 문항이 몇 쪽에 있나** — 「링크로 열기」가 이 값으로 뷰어를 그 쪽부터 열게 한다.
+ *
+ * 좌표를 뽑아 둔 덕에 알 수 있는 것이다(앵커 없이는 회차 전체를 처음부터 넘겨야 한다).
+ * 회차나 문항을 모르면 null — 화면은 그때 1쪽부터 연다.
+ */
+export function pageOfItem(examId: string, no: number): number | null {
+  const a = readAnchors(examId)
+  return a?.items.find((i) => i.no === no)?.p ?? null
+}
+
+/** 그 회차 좌표의 요약 — 「이 문제지는 앞 8쪽만 우리 기준」을 화면이 말할 수 있게 */
+export function anchorMetaOf(examId: string): { formPages: number; totalPages: number; sha256: string } | null {
+  const a = readAnchors(examId)
+  return a ? { formPages: a.form_pages, totalPages: a.total_pages, sha256: a.sha256 } : null
+}
+
 /** 오버레이 한 벌이 화면에 내보내는 문항 한 줄 */
 export interface OverlayItem {
   item_id: string
