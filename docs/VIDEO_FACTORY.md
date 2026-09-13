@@ -212,7 +212,9 @@ video render-all → video package → video publish → (manifest 커밋) → �
 | 자리 | 무엇 |
 |---|---|
 | **`/admin/video`** | **운영 콘솔(VFP)** — 밀린 것·유실·재생 실적. 탭 3. [ADMIN_CONSOLE.md](./ADMIN_CONSOLE.md) |
+| **`/video/[id]`** | **편별 페이지 62개** — 자막 전문 서버 렌더 + `VideoObject` JSON-LD. 색인 가능 면 1 → **63** |
 | `/video` | 영상 서가 — 종류별 전체 목록 (공개) |
+| `/about` | 소개 영상 + 장점 3편 (그 전까지 처음부터 끝까지 산문이었다) |
 | `/library/textbooks/[series]` | 그 시리즈 영상 한 편 (`ShelfScreen`, 420px 카드) |
 | 마케팅 헤더 · 랜딩 푸터 | `/video` 링크 |
 

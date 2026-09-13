@@ -20,6 +20,7 @@ import type { MetadataRoute } from 'next'
 import { requiresAuth } from '@/lib/auth/protected-routes'
 import { absoluteUrl } from '@/lib/seo/site'
 import { fetchContentEntries } from '@/lib/seo/content-entries'
+import { allVideoIds } from '@/lib/video/catalog'
 
 interface Entry {
   path: string
@@ -39,6 +40,7 @@ const ENTRIES: Entry[] = [
   { path: '/fit', changeFrequency: 'monthly', priority: 0.9 },
   { path: '/pricing', changeFrequency: 'monthly', priority: 0.8 },
   { path: '/about', changeFrequency: 'monthly', priority: 0.7 },
+  { path: '/video', changeFrequency: 'monthly', priority: 0.7 },
   { path: '/library/books', changeFrequency: 'weekly', priority: 0.6 },
   { path: '/library/vocab', changeFrequency: 'weekly', priority: 0.6 },
   // ACP 공개 짧은 글(Dispatches) — 빠져 있었다.
@@ -94,9 +96,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: e.priority,
     }))
 
+  // 영상 편별 페이지 — **DB 를 안 읽는다.** manifest(커밋됨)에서 바로 나온다.
+  //
+  //   왜 여기 넣나: 62편이 `/video` 한 주소를 나눠 쓰면 검색이 읽을 것이 제목 62줄뿐이다.
+  //   편별 페이지에는 자막 전문이 서버 렌더로 깔려 있어 「빈칸 추론이 뭐죠」 같은 검색이 닿는다.
+  const videoEntries = allVideoIds().map((id) => ({
+    url: absoluteUrl(`/video/${id}`),
+    lastModified,
+    changeFrequency: 'monthly' as const,
+    priority: 0.5,
+  }))
+
   // 콘텐츠가 없거나 DB 를 못 읽어도 정적 목록은 그대로 나간다.
   const content = await fetchContentEntries()
-  const seen = new Set(staticEntries.map((e) => e.url))
+  const seen = new Set([...staticEntries, ...videoEntries].map((e) => e.url))
 
   const contentEntries = content
     .filter((c) => !requiresAuth(c.path))
@@ -112,5 +125,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       return true
     })
 
-  return [...staticEntries, ...contentEntries]
+  return [...staticEntries, ...videoEntries, ...contentEntries]
 }

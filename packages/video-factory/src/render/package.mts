@@ -63,6 +63,18 @@ export interface ManifestEntry {
   /** 초. 규격이 달라도 길이는 같다. */
   seconds: number
   captions: string
+  /**
+   * 컷별 자막 전문. **왜 manifest 에 싣나:**
+   *   편별 페이지가 이걸 **서버 렌더 HTML** 로 내야 검색이 읽을 것이 생긴다(I6).
+   *   버킷의 .vtt 를 매 요청마다 가져오면 지연이 붙고, 크롤러는 그 요청을 안 기다린다.
+   *   62편 × 여덟 줄이라 파일이 커지지 않는다.
+   */
+  transcript: string[]
+  /**
+   * 화면에 나온 수치와 그 출처. 설명란에도 들어가지만 여기 따로 싣는 이유는
+   * **낡음 판정**이다 — 지금 DB 값과 비교하면 "이 영상이 말하는 수가 얼마나 묵었나" 가 나온다.
+   */
+  evidence: { label: string; value: string; source: string }[]
   formats: Partial<Record<FormatId, ManifestFormat>>
 }
 
@@ -137,6 +149,9 @@ function main(): void {
       subtitle: spec.subtitle,
       seconds,
       captions: `${spec.id}.vtt`,
+      // 자막이 비어 있는 컷은 넣지 않는다 — 여는·닫는 컷은 큰 글씨가 자막을 대신한다.
+      transcript: spec.scenes.map((sc) => sc.caption.trim()).filter((c) => c.length > 0),
+      evidence: spec.evidence.map((e) => ({ ...e })),
       formats,
     })
   }

@@ -20,6 +20,9 @@ import {
 } from 'lucide-react'
 import Link from 'next/link'
 
+import { ComponentVideo } from '@/components/video/ComponentVideo'
+import { introVideo, videosByKind } from '@/lib/video/catalog'
+
 interface Principle {
   ko: string
   en: string
@@ -135,6 +138,8 @@ export const metadata = {
 }
 
 export default function AboutPage() {
+  const benefitVideos = videosByKind().benefit
+
   return (
     <div className="bg-[var(--bg)]">
       {/* ── Hero ── */}
@@ -158,8 +163,46 @@ export default function AboutPage() {
             Vocaflow는 학습 과학과 디자인을 도구로, 단어를 외우는 게 아니라 <strong className="font-[600] text-[var(--t1)]">머리에 남도록</strong>{' '}
             돕습니다. 차분하게, 단단하게, 오래.
           </p>
+
+          {/*
+            **이 페이지는 처음부터 끝까지 산문이었다.** 소개 화면에서 가장 빨리 전달되는 것은
+            글이 아니라 **실제로 하는 일을 보여 주는 25초**다(교사는 3분 안에 판단한다 — 렌즈 6).
+            발행 전이면 `ComponentVideo` 가 아무것도 안 그린다.
+          */}
+          <div className="mx-auto mt-10 max-w-2xl text-left">
+            <ComponentVideo video={introVideo()} />
+          </div>
         </div>
       </section>
+
+      {/* ── 이 제품이 다른 점 3 — 각 편이 그 주장을 화면에서 증명한다 ── */}
+      {benefitVideos.length > 0 && (
+        <section className="border-b border-[var(--bd)] bg-[var(--bg)]">
+          <div className="mx-auto max-w-6xl px-6 py-16 md:py-20">
+            <h2 className="font-display text-[28px] font-[800] tracking-tight text-[var(--t1)] md:text-[34px]">
+              다른 점 세 가지
+            </h2>
+            <p className="mt-2 break-keep font-body text-[15px] text-[var(--t2)]">
+              각 영상은 그 주장을 <strong>화면에서 증명</strong>합니다 — 근거와 출처가 함께 나옵니다.
+            </p>
+            <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
+              {benefitVideos.map((v) => (
+                <article key={v.id}>
+                  <ComponentVideo video={v} />
+                  <h3 className="mt-2 break-keep font-display text-[15px] font-[700]">
+                    <Link
+                      href={`/video/${v.id}`}
+                      className="text-[var(--t1)] underline-offset-4 hover:underline"
+                    >
+                      {v.title}
+                    </Link>
+                  </h3>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ── 디자인 철학 4 ── */}
       <section className="border-b border-[var(--bd)] bg-[var(--bg2)]">

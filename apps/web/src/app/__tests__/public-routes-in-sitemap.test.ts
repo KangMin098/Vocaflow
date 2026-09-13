@@ -86,7 +86,13 @@ describe('공개 동적 라우트 ↔ sitemap', () => {
     // 실제 경로 생성기(`lib/seo/content-entries.ts`)가 어떤 접두사를 쓰는지 소스에서 읽는다 —
     // DB 없이도 "유형을 덮는가" 는 판정할 수 있다.
     const { readFileSync } = await import('node:fs')
-    const gen = readFileSync(join(process.cwd(), 'src', 'lib', 'seo', 'content-entries.ts'), 'utf8')
+    // **경로를 만드는 곳이 둘이다** — DB 콘텐츠는 `content-entries.ts`, 영상 편별 페이지는
+    // `sitemap.ts` 가 manifest(커밋됨)에서 직접 만든다(DB 를 안 읽으므로 거기 둘 이유가 없다).
+    // 2026-09-13 이전에는 한 곳만 읽어서, 멀쩡히 색인되는 유형을 "안 덮는다" 로 세었다.
+    const gen = [
+      readFileSync(join(process.cwd(), 'src', 'lib', 'seo', 'content-entries.ts'), 'utf8'),
+      readFileSync(join(process.cwd(), 'src', 'app', 'sitemap.ts'), 'utf8'),
+    ].join('\n')
 
     const uncovered = prefixes.filter((p) => {
       if (requiresAuth(p.replace(/\/$/, ''))) return false // 보호 경로는 애초에 색인 대상이 아니다

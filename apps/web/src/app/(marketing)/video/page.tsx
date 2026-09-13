@@ -65,8 +65,17 @@ export default function VideoIndexPage() {
               {byKind[kind].map((video) => (
                 <article key={video.id}>
                   <ComponentVideo video={video} />
-                  <h3 className="mt-2 break-keep text-[15px] font-semibold text-[var(--t1)]">
-                    {video.title}
+                  {/*
+                    제목이 **편별 페이지로 가는 링크**다. 그 페이지에 자막 전문이 서버 렌더로
+                    깔려 있어 검색이 읽을 것이 있다 — 목록만 있으면 62편이 URL 하나를 나눠 쓴다.
+                  */}
+                  <h3 className="mt-2 break-keep text-[15px] font-semibold">
+                    <Link
+                      href={`/video/${video.id}`}
+                      className="text-[var(--t1)] underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
+                    >
+                      {video.title}
+                    </Link>
                   </h3>
                 </article>
               ))}

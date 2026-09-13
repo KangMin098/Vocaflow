@@ -1,5 +1,5 @@
 {
-  "builtAt": "2026-09-13T00:43:48.683Z",
+  "builtAt": "2026-09-13T01:17:52.576Z",
   "baseUrl": "https://jajenrevcbmrpaliomxv.supabase.co/storage/v1/object/public/video",
   "videos": [
     {
@@ -9,6 +9,36 @@
       "subtitle": "글의 난이도가 아니라, 내가 아는 비율을 잽니다.",
       "seconds": 24.73,
       "captions": "intro-platform.vtt",
+      "transcript": [
+        "같은 글도 읽는 사람마다 난이도가 다릅니다.",
+        "초등 고학년 기준 67% — 모르는 낱말 19개",
+        "학술 · 원서 기준 100% — 모르는 낱말 0개",
+        "그 숫자는 고정이 아닙니다 — 복습을 미루면 내려갑니다.",
+        "재는 데 쓰는 자료는 전부 실측입니다.",
+        "내 지문으로 바로 재 보세요. — 무료 · 로그인 없이"
+      ],
+      "evidence": [
+        {
+          "label": "사전 표제어",
+          "value": "49,244",
+          "source": "shared_dictionary 2026-09-12 실측"
+        },
+        {
+          "label": "발행 도서",
+          "value": "312",
+          "source": "library_books(published) 2026-09-12 실측"
+        },
+        {
+          "label": "문항",
+          "value": "879,830",
+          "source": "csat_dcp_items 2026-09-12 실측"
+        },
+        {
+          "label": "챕터 퀴즈",
+          "value": "2,453",
+          "source": "library_chapter_quiz 2026-09-12 실측"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/intro-platform.mp4",
@@ -40,6 +70,19 @@
       "subtitle": "글의 난이도가 아니라 \"내가 아는 비율\"을 잽니다. 같은 글도 사람마다 다른 숫자가 나와요.",
       "seconds": 20.03,
       "captions": "benefit-coverage.vtt",
+      "transcript": [
+        "내 기준 커버리지",
+        "글의 난이도가 아니라 \"내가 아는 비율\"을 잽니다. 같은 글도 사람마다 다른 숫자가 나와요.",
+        "초등 고학년 기준 67% — 모르는 낱말 19개",
+        "직접 확인해 보세요. — 지문 하나면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "내 기준 커버리지",
+          "value": "근거",
+          "source": "근거 · Hu & Nation (2000) 읽기 이해 임계 98/95%"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/benefit-coverage.mp4",
@@ -71,6 +114,19 @@
       "subtitle": "복습을 미루면 커버리지가 내려갑니다. 2주 뒤 이 글이 얼마나 어려워지는지 미리 보여줘요.",
       "seconds": 19.83,
       "captions": "benefit-decay.vtt",
+      "transcript": [
+        "숫자가 시간에 따라 변합니다",
+        "복습을 미루면 커버리지가 내려갑니다. 2주 뒤 이 글이 얼마나 어려워지는지 미리 보여줘요.",
+        "2주 뒤 이 글이 얼마나 어려워지는지 미리 봅니다.",
+        "직접 확인해 보세요. — 지문 하나면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "숫자가 시간에 따라 변합니다",
+          "value": "근거",
+          "source": "근거 · FSRS 기억 안정도 R(t) = exp(ln 0.9 · t / S)"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/benefit-decay.mp4",
@@ -102,6 +158,18 @@
       "subtitle": "막연히 단어를 외우는 대신, 이 글이 편하게 읽히는 최소 단어 수를 계산해 줍니다.",
       "seconds": 13.4,
       "captions": "benefit-minimum.vtt",
+      "transcript": [
+        "\"몇 개만 하면 되는지\"",
+        "막연히 단어를 외우는 대신, 이 글이 편하게 읽히는 최소 단어 수를 계산해 줍니다.",
+        "직접 확인해 보세요. — 지문 하나면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "\"몇 개만 하면 되는지\"",
+          "value": "근거",
+          "source": "근거 · 출현 빈도 기여도 순 최소 집합"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/benefit-minimum.mp4",
@@ -133,6 +201,19 @@
       "subtitle": "소리부터 수능까지, 한 사다리로 이어집니다.",
       "seconds": 14.77,
       "captions": "curriculum-ladder.vtt",
+      "transcript": [
+        "어디서 시작해서 어디까지 가는지 먼저 보여 드립니다.",
+        "학령 7단 — 각 단이 쓰는 문항이 다릅니다.",
+        "재고가 찬 단 6/7",
+        "내 단부터 시작하세요. — 진단 3분"
+      ],
+      "evidence": [
+        {
+          "label": "사다리 전체 문항",
+          "value": "316,674",
+          "source": "textbook_shelf_inventory() 2026-09-12 실측"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/curriculum-ladder.mp4",
@@ -164,6 +245,24 @@
       "subtitle": "글 전체의 논지를 잡는가",
       "seconds": 12.33,
       "captions": "series-reading.vtt",
+      "transcript": [
+        "글 전체의 논지를 잡는가",
+        "7권이 학령을 계단으로 잇습니다.",
+        "찍을 수 있는 권 6/7",
+        "지금 서가에 있습니다. — 시리즈 보기"
+      ],
+      "evidence": [
+        {
+          "label": "Vocaflow Reading 재고",
+          "value": "316,674",
+          "source": "textbook_shelf_inventory() 2026-09-12 실측"
+        },
+        {
+          "label": "시장 경쟁 시리즈",
+          "value": "16",
+          "source": "교재 코퍼스 실측 · 리딩튜터 주니어 · 빠른독해 바른독해 · 달곰한 Literacy"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/series-reading.mp4",
@@ -195,6 +294,24 @@
       "subtitle": "문맥에서 낱말을 고르고 쓰는가",
       "seconds": 11.97,
       "captions": "series-vocab.vtt",
+      "transcript": [
+        "문맥에서 낱말을 고르고 쓰는가",
+        "6권이 학령을 계단으로 잇습니다.",
+        "찍을 수 있는 권 6/6",
+        "곧 나옵니다. — 시리즈 보기"
+      ],
+      "evidence": [
+        {
+          "label": "Vocaflow Vocab 재고",
+          "value": "411,607",
+          "source": "textbook_shelf_inventory() 2026-09-12 실측"
+        },
+        {
+          "label": "시장 경쟁 시리즈",
+          "value": "3",
+          "source": "교재 코퍼스 실측 · 능률VOCA · TED 어휘"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/series-vocab.mp4",
@@ -226,6 +343,24 @@
       "subtitle": "문장 구조와 어법을 다루는가",
       "seconds": 11.97,
       "captions": "series-syntax.vtt",
+      "transcript": [
+        "문장 구조와 어법을 다루는가",
+        "6권이 학령을 계단으로 잇습니다.",
+        "찍을 수 있는 권 6/6",
+        "곧 나옵니다. — 시리즈 보기"
+      ],
+      "evidence": [
+        {
+          "label": "Vocaflow Syntax 재고",
+          "value": "238,474",
+          "source": "textbook_shelf_inventory() 2026-09-12 실측"
+        },
+        {
+          "label": "시장 경쟁 시리즈",
+          "value": "2",
+          "source": "교재 코퍼스 실측 · 천일문 · 빠른독해 바른독해 - 구문독해"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/series-syntax.mp4",
@@ -257,6 +392,19 @@
       "subtitle": "지운 자리에 무엇이 있었는지 되살립니다. 글의 논리가 한 줄로 꿰여야 풀립니다.",
       "seconds": 16.77,
       "captions": "type-blank.vtt",
+      "transcript": [
+        "지운 자리에 무엇이 있었는지 되살립니다. 글의 논리가 한 줄로 꿰여야 풀립니다.",
+        "실제 문항입니다.",
+        "이 유형 재고 464문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "빈칸 추론 재고",
+          "value": "464",
+          "source": "textbook_shelf_inventory() 2026-09-12 실측"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/type-blank.mp4",
@@ -288,6 +436,19 @@
       "subtitle": "문장의 빈칸에 낱말을 직접 씁니다. 힌트가 붙어 있어 고르기보다 한 단계 어렵습니다.",
       "seconds": 18.07,
       "captions": "type-blank-word.vtt",
+      "transcript": [
+        "문장의 빈칸에 낱말을 직접 씁니다. 힌트가 붙어 있어 고르기보다 한 단계 어렵습니다.",
+        "실제 문항입니다.",
+        "이 유형 재고 224,147문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "빈칸 낱말 재고",
+          "value": "224,147",
+          "source": "textbook_shelf_inventory() 2026-09-12 실측"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/type-blank-word.mp4",
@@ -319,6 +480,19 @@
       "subtitle": "필자가 독자에게 시키려는 바를 고릅니다. 요지보다 한 걸음 더 나간 자리예요.",
       "seconds": 16.23,
       "captions": "type-claim.vtt",
+      "transcript": [
+        "필자가 독자에게 시키려는 바를 고릅니다. 요지보다 한 걸음 더 나간 자리예요.",
+        "실제 문항입니다.",
+        "이 유형 재고 47문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "주장 재고",
+          "value": "47",
+          "source": "textbook_shelf_inventory() 2026-09-12 실측"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/type-claim.mp4",
@@ -350,6 +524,19 @@
       "subtitle": "글과 어긋나는 선택지를 찾습니다. 비슷해 보이는 문장에서 한 군데가 다릅니다.",
       "seconds": 16.9,
       "captions": "type-content-match.vtt",
+      "transcript": [
+        "글과 어긋나는 선택지를 찾습니다. 비슷해 보이는 문장에서 한 군데가 다릅니다.",
+        "실제 문항입니다.",
+        "이 유형 재고 162문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "내용 일치 재고",
+          "value": "162",
+          "source": "textbook_shelf_inventory() 2026-09-12 실측"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/type-content-match.mp4",
@@ -381,6 +568,19 @@
       "subtitle": "문장에서 어법이 틀린 곳을 고릅니다. 중등 내신의 서술형과 같은 축입니다.",
       "seconds": 17.5,
       "captions": "type-grammar-choice.vtt",
+      "transcript": [
+        "문장에서 어법이 틀린 곳을 고릅니다. 중등 내신의 서술형과 같은 축입니다.",
+        "실제 문항입니다.",
+        "이 유형 재고 17,623문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "어법 재고",
+          "value": "17,623",
+          "source": "textbook_shelf_inventory() 2026-09-12 실측"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/type-grammar-choice.mp4",
@@ -412,6 +612,19 @@
       "subtitle": "어법이 틀린 곳을 찾아 바르게 고쳐 씁니다. 같은 규칙을 고르는 대신 쓰게 합니다.",
       "seconds": 17.5,
       "captions": "type-grammar-fix.vtt",
+      "transcript": [
+        "어법이 틀린 곳을 찾아 바르게 고쳐 씁니다. 같은 규칙을 고르는 대신 쓰게 합니다.",
+        "실제 문항입니다.",
+        "이 유형 재고 137,860문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "어법 고쳐쓰기 재고",
+          "value": "137,860",
+          "source": "textbook_shelf_inventory() 2026-09-12 실측"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/type-grammar-fix.mp4",
@@ -443,6 +656,19 @@
       "subtitle": "밑줄 친 말이 이 글에서 무슨 뜻인지 고릅니다. 사전 뜻이 아니라 이 글에서의 뜻이에요.",
       "seconds": 17.1,
       "captions": "type-implication.vtt",
+      "transcript": [
+        "밑줄 친 말이 이 글에서 무슨 뜻인지 고릅니다. 사전 뜻이 아니라 이 글에서의 뜻이에요.",
+        "실제 문항입니다.",
+        "이 유형 재고 39문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "함축 의미 재고",
+          "value": "39",
+          "source": "textbook_shelf_inventory() 2026-09-12 실측"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/type-implication.mp4",
@@ -474,6 +700,19 @@
       "subtitle": "빠진 문장이 들어갈 자리를 찾습니다. 앞뒤 흐름을 동시에 봐야 합니다.",
       "seconds": 16.67,
       "captions": "type-insert.vtt",
+      "transcript": [
+        "빠진 문장이 들어갈 자리를 찾습니다. 앞뒤 흐름을 동시에 봐야 합니다.",
+        "실제 문항입니다.",
+        "이 유형 재고 121,923문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "문장 삽입 재고",
+          "value": "121,923",
+          "source": "textbook_shelf_inventory() 2026-09-12 실측"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/type-insert.mp4",
@@ -505,6 +744,19 @@
       "subtitle": "글 전체의 논지에서 벗어난 문장을 찾습니다. 부분이 아니라 전체를 봐야 하는 첫 유형이에요.",
       "seconds": 19.33,
       "captions": "type-irrelevant.vtt",
+      "transcript": [
+        "글 전체의 논지에서 벗어난 문장을 찾습니다. 부분이 아니라 전체를 봐야 하는 첫 유형이에요.",
+        "실제 문항 (영상용으로 줄임)",
+        "이 유형 재고 15,618문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "흐름 무관 재고",
+          "value": "15,618",
+          "source": "textbook_shelf_inventory() 2026-09-12 실측"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/type-irrelevant.mp4",
@@ -536,6 +788,19 @@
       "subtitle": "긴 글의 내용과 어긋나는 선택지를 찾습니다. 앞뒤가 멀리 떨어져 있어 기억이 필요합니다.",
       "seconds": 17.23,
       "captions": "type-long-match.vtt",
+      "transcript": [
+        "긴 글의 내용과 어긋나는 선택지를 찾습니다. 앞뒤가 멀리 떨어져 있어 기억이 필요합니다.",
+        "실제 문항입니다.",
+        "이 유형 재고 32문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "장문 · 내용 일치 재고",
+          "value": "32",
+          "source": "textbook_shelf_inventory() 2026-09-12 실측"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/type-long-match.mp4",
@@ -567,6 +832,19 @@
       "subtitle": "긴 이야기의 토막을 원래 순서로 되돌립니다. 인물과 시간의 실을 놓치면 안 됩니다.",
       "seconds": 16.5,
       "captions": "type-long-order.vtt",
+      "transcript": [
+        "긴 이야기의 토막을 원래 순서로 되돌립니다. 인물과 시간의 실을 놓치면 안 됩니다.",
+        "실제 문항입니다.",
+        "이 유형 재고 32문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "장문 · 순서 재고",
+          "value": "32",
+          "source": "textbook_shelf_inventory() 2026-09-12 실측"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/type-long-order.mp4",
@@ -598,6 +876,19 @@
       "subtitle": "밑줄 친 다섯 말 중 가리키는 사람이 다른 하나를 찾습니다. 대명사를 따라가는 연습이에요.",
       "seconds": 17.07,
       "captions": "type-long-reference.vtt",
+      "transcript": [
+        "밑줄 친 다섯 말 중 가리키는 사람이 다른 하나를 찾습니다. 대명사를 따라가는 연습이에요.",
+        "실제 문항입니다.",
+        "이 유형 재고 49문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "장문 · 지칭 재고",
+          "value": "49",
+          "source": "textbook_shelf_inventory() 2026-09-12 실측"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/type-long-reference.mp4",
@@ -629,6 +920,19 @@
       "subtitle": "긴 글을 끝까지 읽고 제목을 고릅니다. 중간에 끊으면 엉뚱한 데를 고르게 됩니다.",
       "seconds": 17.1,
       "captions": "type-long-title.vtt",
+      "transcript": [
+        "긴 글을 끝까지 읽고 제목을 고릅니다. 중간에 끊으면 엉뚱한 데를 고르게 됩니다.",
+        "실제 문항입니다.",
+        "이 유형 재고 32문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "장문 · 제목 재고",
+          "value": "32",
+          "source": "textbook_shelf_inventory() 2026-09-12 실측"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/type-long-title.mp4",
@@ -660,6 +964,19 @@
       "subtitle": "긴 글 안에서 문맥에 안 맞는 낱말을 찾습니다. 다섯 곳 중 한 곳만 어긋납니다.",
       "seconds": 16.53,
       "captions": "type-long-vocab.vtt",
+      "transcript": [
+        "긴 글 안에서 문맥에 안 맞는 낱말을 찾습니다. 다섯 곳 중 한 곳만 어긋납니다.",
+        "실제 문항입니다.",
+        "이 유형 재고 32문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "장문 · 어휘 재고",
+          "value": "32",
+          "source": "textbook_shelf_inventory() 2026-09-12 실측"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/type-long-vocab.mp4",
@@ -691,6 +1008,19 @@
       "subtitle": "필자가 하고 싶은 말을 고릅니다. 글에 나온 사실이 아니라 그 사실로 말하려는 것입니다.",
       "seconds": 16.77,
       "captions": "type-main-point.vtt",
+      "transcript": [
+        "필자가 하고 싶은 말을 고릅니다. 글에 나온 사실이 아니라 그 사실로 말하려는 것입니다.",
+        "실제 문항입니다.",
+        "이 유형 재고 89문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "요지 재고",
+          "value": "89",
+          "source": "textbook_shelf_inventory() 2026-09-12 실측"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/type-main-point.mp4",
@@ -722,6 +1052,19 @@
       "subtitle": "인물의 마음이 어떻게 움직였는지 고릅니다. 사건이 아니라 낱말의 결을 따라갑니다.",
       "seconds": 16.77,
       "captions": "type-mood.vtt",
+      "transcript": [
+        "인물의 마음이 어떻게 움직였는지 고릅니다. 사건이 아니라 낱말의 결을 따라갑니다.",
+        "실제 문항입니다.",
+        "이 유형 재고 77문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "심경·분위기 재고",
+          "value": "77",
+          "source": "textbook_shelf_inventory() 2026-09-12 실측"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/type-mood.mp4",
@@ -753,6 +1096,19 @@
       "subtitle": "토막 난 글을 원래 순서로 되돌립니다. 문장 사이의 연결을 봐야 풀려요.",
       "seconds": 18,
       "captions": "type-order.vtt",
+      "transcript": [
+        "토막 난 글을 원래 순서로 되돌립니다. 문장 사이의 연결을 봐야 풀려요.",
+        "실제 문항 (영상용으로 줄임)",
+        "이 유형 재고 88,539문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "글 순서 재고",
+          "value": "88,539",
+          "source": "textbook_shelf_inventory() 2026-09-12 실측"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/type-order.mp4",
@@ -784,6 +1140,19 @@
       "subtitle": "이 글을 왜 썼는지 고릅니다. 안내·요청·항의처럼 글이 하는 일을 봅니다.",
       "seconds": 16.1,
       "captions": "type-purpose.vtt",
+      "transcript": [
+        "이 글을 왜 썼는지 고릅니다. 안내·요청·항의처럼 글이 하는 일을 봅니다.",
+        "실제 문항입니다.",
+        "이 유형 재고 69문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "글의 목적 재고",
+          "value": "69",
+          "source": "textbook_shelf_inventory() 2026-09-12 실측"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/type-purpose.mp4",
@@ -815,6 +1184,17 @@
       "subtitle": "같은 소리로 끝나는 낱말을 찾아요. 읽기 전 단계의 소리 감각을 잡습니다.",
       "seconds": 11.3,
       "captions": "type-rhyme.vtt",
+      "transcript": [
+        "같은 소리로 끝나는 낱말을 찾아요. 읽기 전 단계의 소리 감각을 잡습니다.",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "소리·운율 재고",
+          "value": "0",
+          "source": "textbook_shelf_inventory() 2026-09-12 실측"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/type-rhyme.mp4",
@@ -846,6 +1226,17 @@
       "subtitle": "빠진 철자를 채웁니다. 눈으로 아는 낱말을 손으로도 쓸 수 있게 만듭니다.",
       "seconds": 11.43,
       "captions": "type-spell-blank.vtt",
+      "transcript": [
+        "빠진 철자를 채웁니다. 눈으로 아는 낱말을 손으로도 쓸 수 있게 만듭니다.",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "철자 완성 재고",
+          "value": "0",
+          "source": "textbook_shelf_inventory() 2026-09-12 실측"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/type-spell-blank.mp4",
@@ -877,6 +1268,19 @@
       "subtitle": "글을 한 문장으로 줄인 뒤 빈칸 둘을 채웁니다. 읽기와 쓰기를 한 번에 씁니다.",
       "seconds": 16.4,
       "captions": "type-summary.vtt",
+      "transcript": [
+        "글을 한 문장으로 줄인 뒤 빈칸 둘을 채웁니다. 읽기와 쓰기를 한 번에 씁니다.",
+        "실제 문항입니다.",
+        "이 유형 재고 68문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "요약문 완성 재고",
+          "value": "68",
+          "source": "textbook_shelf_inventory() 2026-09-12 실측"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/type-summary.mp4",
@@ -908,6 +1312,19 @@
       "subtitle": "글 전체를 한 마디로 덮는 말을 고릅니다. 주제보다 좁으면 안 되고 넓어도 안 됩니다.",
       "seconds": 17.3,
       "captions": "type-title.vtt",
+      "transcript": [
+        "글 전체를 한 마디로 덮는 말을 고릅니다. 주제보다 좁으면 안 되고 넓어도 안 됩니다.",
+        "실제 문항입니다.",
+        "이 유형 재고 361문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "제목 재고",
+          "value": "361",
+          "source": "textbook_shelf_inventory() 2026-09-12 실측"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/type-title.mp4",
@@ -939,6 +1356,19 @@
       "subtitle": "글이 무엇에 관한 글인지 한 줄로 고릅니다. 소재와 주제를 가르는 연습이에요.",
       "seconds": 16.53,
       "captions": "type-topic.vtt",
+      "transcript": [
+        "글이 무엇에 관한 글인지 한 줄로 고릅니다. 소재와 주제를 가르는 연습이에요.",
+        "실제 문항입니다.",
+        "이 유형 재고 366문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "주제 재고",
+          "value": "366",
+          "source": "textbook_shelf_inventory() 2026-09-12 실측"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/type-topic.mp4",
@@ -970,6 +1400,19 @@
       "subtitle": "밑줄 친 곳 중 어법이 맞는(틀린) 것을 고릅니다. 학교 객관식과 같은 형식이에요.",
       "seconds": 18.37,
       "captions": "type-unit-grammar.vtt",
+      "transcript": [
+        "밑줄 친 곳 중 어법이 맞는(틀린) 것을 고릅니다. 학교 객관식과 같은 형식이에요.",
+        "실제 문항입니다.",
+        "이 유형 재고 34,921문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "단원 문법 재고",
+          "value": "34,921",
+          "source": "textbook_shelf_inventory() 2026-09-12 실측"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/type-unit-grammar.mp4",
@@ -1001,6 +1444,19 @@
       "subtitle": "지문에 나온 낱말을 보기에서 고릅니다. 글을 읽고 나서 뜻을 확인하는 자리예요.",
       "seconds": 17.37,
       "captions": "type-unit-vocab.vtt",
+      "transcript": [
+        "지문에 나온 낱말을 보기에서 고릅니다. 글을 읽고 나서 뜻을 확인하는 자리예요.",
+        "실제 문항입니다.",
+        "이 유형 재고 133,184문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "본문 어휘 재고",
+          "value": "133,184",
+          "source": "textbook_shelf_inventory() 2026-09-12 실측"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/type-unit-vocab.mp4",
@@ -1032,6 +1488,19 @@
       "subtitle": "글 안에서 어울리지 않는 낱말을 찾습니다. 뜻을 외운 것만으로는 풀리지 않아요.",
       "seconds": 18.23,
       "captions": "type-vocab-choice.vtt",
+      "transcript": [
+        "글 안에서 어울리지 않는 낱말을 찾습니다. 뜻을 외운 것만으로는 풀리지 않아요.",
+        "실제 문항 (영상용으로 줄임)",
+        "이 유형 재고 55,237문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "어휘 추론 재고",
+          "value": "55,237",
+          "source": "textbook_shelf_inventory() 2026-09-12 실측"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/type-vocab-choice.mp4",
@@ -1063,6 +1532,17 @@
       "subtitle": "낱말과 뜻을 잇습니다. 지문이 없어 처음 배우는 학년도 바로 할 수 있어요.",
       "seconds": 11.3,
       "captions": "type-word-meaning.vtt",
+      "transcript": [
+        "낱말과 뜻을 잇습니다. 지문이 없어 처음 배우는 학년도 바로 할 수 있어요.",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "낱말 뜻 재고",
+          "value": "0",
+          "source": "textbook_shelf_inventory() 2026-09-12 실측"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/type-word-meaning.mp4",
@@ -1094,6 +1574,19 @@
       "subtitle": "흩어진 낱말을 문장으로 세웁니다. 정답이 원문이라 헷갈릴 여지가 없어요.",
       "seconds": 17.2,
       "captions": "type-word-order.vtt",
+      "transcript": [
+        "흩어진 낱말을 문장으로 세웁니다. 정답이 원문이라 헷갈릴 여지가 없어요.",
+        "실제 문항입니다.",
+        "이 유형 재고 48,854문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "영작 배열 재고",
+          "value": "48,854",
+          "source": "textbook_shelf_inventory() 2026-09-12 실측"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/type-word-order.mp4",
@@ -1125,6 +1618,18 @@
       "subtitle": "뜻과 단어를 짝지어 떠올려요",
       "seconds": 9.6,
       "captions": "module-flashcard.vtt",
+      "transcript": [
+        "뜻과 단어를 짝지어 떠올려요",
+        "훈련하는 면 Recognize",
+        "한 판 해 보세요. — 내 단어만 있으면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "Flashcard",
+          "value": "Recognize",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/module-flashcard.mp4",
@@ -1156,6 +1661,18 @@
       "subtitle": "뒤집어 짝을 맞춰요",
       "seconds": 8.87,
       "captions": "module-pairflip.vtt",
+      "transcript": [
+        "뒤집어 짝을 맞춰요",
+        "훈련하는 면 Recognize",
+        "한 판 해 보세요. — 내 단어만 있으면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "PairFlip",
+          "value": "Recognize",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/module-pairflip.mp4",
@@ -1187,6 +1704,18 @@
       "subtitle": "후보 없이 철자를 직접 써요",
       "seconds": 8.97,
       "captions": "module-spellforge.vtt",
+      "transcript": [
+        "후보 없이 철자를 직접 써요",
+        "훈련하는 면 Spell",
+        "한 판 해 보세요. — 내 단어만 있으면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "SpellForge",
+          "value": "Spell",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/module-spellforge.mp4",
@@ -1218,6 +1747,18 @@
       "subtitle": "소리를 따라 하고 억양을 맞춰요",
       "seconds": 9.6,
       "captions": "module-echo.vtt",
+      "transcript": [
+        "소리를 따라 하고 억양을 맞춰요",
+        "훈련하는 면 Sound",
+        "한 판 해 보세요. — 본문을 고르면 바로 시작"
+      ],
+      "evidence": [
+        {
+          "label": "Echo",
+          "value": "Sound",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/module-echo.mp4",
@@ -1249,6 +1790,18 @@
       "subtitle": "본문을 소리 내어 따라 읽어요",
       "seconds": 9.17,
       "captions": "module-shadow.vtt",
+      "transcript": [
+        "본문을 소리 내어 따라 읽어요",
+        "훈련하는 면 Sound",
+        "한 판 해 보세요. — 본문을 고르면 바로 시작"
+      ],
+      "evidence": [
+        {
+          "label": "Shadow",
+          "value": "Sound",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/module-shadow.mp4",
@@ -1280,6 +1833,18 @@
       "subtitle": "본문을 이해했는지 확인해요",
       "seconds": 8.97,
       "captions": "module-scriptquiz.vtt",
+      "transcript": [
+        "본문을 이해했는지 확인해요",
+        "훈련하는 면 Use",
+        "한 판 해 보세요. — 본문을 고르면 바로 시작"
+      ],
+      "evidence": [
+        {
+          "label": "ScriptQuiz",
+          "value": "Use",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/module-scriptquiz.mp4",
@@ -1311,6 +1876,18 @@
       "subtitle": "들으면서 받아써요",
       "seconds": 9.37,
       "captions": "module-dictation.vtt",
+      "transcript": [
+        "들으면서 받아써요",
+        "훈련하는 면 Sound · Spell · Use",
+        "한 판 해 보세요. — 본문을 고르면 바로 시작"
+      ],
+      "evidence": [
+        {
+          "label": "Dictation",
+          "value": "Sound · Spell · Use",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/module-dictation.mp4",
@@ -1342,6 +1919,18 @@
       "subtitle": "단어와 뜻을 이어 지우는 낙하 보드",
       "seconds": 10.63,
       "captions": "module-cascade.vtt",
+      "transcript": [
+        "단어와 뜻을 이어 지우는 낙하 보드",
+        "훈련하는 면 Recognize · Fluency",
+        "한 판 해 보세요. — 내 단어만 있으면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "Cascade",
+          "value": "Recognize · Fluency",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/module-cascade.mp4",
@@ -1373,6 +1962,18 @@
       "subtitle": "3랩 추격전 — 인·아웃 라인을 걸어라",
       "seconds": 10.47,
       "captions": "module-ghost-race.vtt",
+      "transcript": [
+        "3랩 추격전 — 인·아웃 라인을 걸어라",
+        "훈련하는 면 Recognize · Spell",
+        "한 판 해 보세요. — 내 단어만 있으면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "Ghost Race",
+          "value": "Recognize · Spell",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/module-ghost-race.mp4",
@@ -1404,6 +2005,18 @@
       "subtitle": "코인을 벌어 파워업에 전략 투자",
       "seconds": 9.83,
       "captions": "module-word-economy.vtt",
+      "transcript": [
+        "코인을 벌어 파워업에 전략 투자",
+        "훈련하는 면 Recognize",
+        "한 판 해 보세요. — 내 단어만 있으면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "Word Economy",
+          "value": "Recognize",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/module-word-economy.mp4",
@@ -1435,6 +2048,18 @@
       "subtitle": "발음을 듣고 케이던스가 다하기 전에 뜻을 고르라",
       "seconds": 11.63,
       "captions": "module-wordfall-cadence.vtt",
+      "transcript": [
+        "발음을 듣고 케이던스가 다하기 전에 뜻을 고르라",
+        "훈련하는 면 Recognize · Fluency",
+        "한 판 해 보세요. — 내 단어만 있으면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "Wordfall Cadence",
+          "value": "Recognize · Fluency",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/module-wordfall-cadence.mp4",
@@ -1466,6 +2091,18 @@
       "subtitle": "흩어진 글자로 철자를 벼려내다",
       "seconds": 9.17,
       "captions": "module-letter-forge.vtt",
+      "transcript": [
+        "흩어진 글자로 철자를 벼려내다",
+        "훈련하는 면 Spell",
+        "한 판 해 보세요. — 내 단어만 있으면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "Letter Forge",
+          "value": "Spell",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/module-letter-forge.mp4",
@@ -1497,6 +2134,18 @@
       "subtitle": "뜻을 든 정령을 영단어 타이핑으로 흩어라",
       "seconds": 9.83,
       "captions": "module-wordsmith-vigil.vtt",
+      "transcript": [
+        "뜻을 든 정령을 영단어 타이핑으로 흩어라",
+        "훈련하는 면 Spell",
+        "한 판 해 보세요. — 내 단어만 있으면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "Wordsmith's Vigil",
+          "value": "Spell",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/module-wordsmith-vigil.mp4",
@@ -1528,6 +2177,18 @@
       "subtitle": "같은 어족의 형태를 알아보고 합쳐 수집하라",
       "seconds": 10.1,
       "captions": "module-morphmerge.vtt",
+      "transcript": [
+        "같은 어족의 형태를 알아보고 합쳐 수집하라",
+        "훈련하는 면 Build",
+        "한 판 해 보세요. — 내 단어만 있으면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "Morphmerge",
+          "value": "Build",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/module-morphmerge.mp4",
@@ -1559,6 +2220,18 @@
       "subtitle": "매일 새로운 10단어 · 스트릭",
       "seconds": 10.13,
       "captions": "module-daily-blitz.vtt",
+      "transcript": [
+        "매일 새로운 10단어 · 스트릭",
+        "훈련하는 면 Recognize · Fluency",
+        "한 판 해 보세요. — 내 단어만 있으면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "Daily Blitz",
+          "value": "Recognize · Fluency",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/module-daily-blitz.mp4",
@@ -1590,6 +2263,18 @@
       "subtitle": "뜻만 보고 숨은 규칙을 잇다",
       "seconds": 9.5,
       "captions": "module-connections.vtt",
+      "transcript": [
+        "뜻만 보고 숨은 규칙을 잇다",
+        "훈련하는 면 Recognize",
+        "한 판 해 보세요. — 내 단어만 있으면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "Connections",
+          "value": "Recognize",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/module-connections.mp4",
@@ -1621,6 +2306,18 @@
       "subtitle": "뜻을 주지 않는다 — 문맥으로 룬을 해독",
       "seconds": 10.67,
       "captions": "module-glyph-tongue.vtt",
+      "transcript": [
+        "뜻을 주지 않는다 — 문맥으로 룬을 해독",
+        "훈련하는 면 Build · Recognize",
+        "한 판 해 보세요. — 내 단어만 있으면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "The Glyph Tongue",
+          "value": "Build · Recognize",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/module-glyph-tongue.mp4",
@@ -1652,6 +2349,18 @@
       "subtitle": "단어의 여권을 심사해 위조를 적발하라",
       "seconds": 9.7,
       "captions": "module-word-customs.vtt",
+      "transcript": [
+        "단어의 여권을 심사해 위조를 적발하라",
+        "훈련하는 면 Use",
+        "한 판 해 보세요. — 내 단어만 있으면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "Word Customs",
+          "value": "Use",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/module-word-customs.mp4",
@@ -1683,6 +2392,18 @@
       "subtitle": "형태소를 조립하면 그 뜻이 세계를 바꾼다",
       "seconds": 10.33,
       "captions": "module-morpheme-rules.vtt",
+      "transcript": [
+        "형태소를 조립하면 그 뜻이 세계를 바꾼다",
+        "훈련하는 면 Build",
+        "한 판 해 보세요. — 내 단어만 있으면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "Morpheme Rules",
+          "value": "Build",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/module-morpheme-rules.mp4",
@@ -1714,6 +2435,18 @@
       "subtitle": "설명 없이 철자 규칙을 스스로 귀납하라",
       "seconds": 10.6,
       "captions": "module-silent-rule.vtt",
+      "transcript": [
+        "설명 없이 철자 규칙을 스스로 귀납하라",
+        "훈련하는 면 Spell · Build",
+        "한 판 해 보세요. — 내 단어만 있으면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "The Silent Rule",
+          "value": "Spell · Build",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/module-silent-rule.mp4",
@@ -1745,6 +2478,18 @@
       "subtitle": "어원·품사 시너지로 배수를 폭발시켜라",
       "seconds": 10.5,
       "captions": "module-lexicon-hands.vtt",
+      "transcript": [
+        "어원·품사 시너지로 배수를 폭발시켜라",
+        "훈련하는 면 Recognize",
+        "한 판 해 보세요. — 내 단어만 있으면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "Lexicon Hands",
+          "value": "Recognize",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/module-lexicon-hands.mp4",
@@ -1776,6 +2521,18 @@
       "subtitle": "현장 단서를 수확해 사건을 재구성하라",
       "seconds": 10.3,
       "captions": "module-lexicon-detective.vtt",
+      "transcript": [
+        "현장 단서를 수확해 사건을 재구성하라",
+        "훈련하는 면 Recognize",
+        "한 판 해 보세요. — 내 단어만 있으면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "Lexicon Detective",
+          "value": "Recognize",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/module-lexicon-detective.mp4",
@@ -1807,6 +2564,18 @@
       "subtitle": "단어-방을 배치해 의미장 저택을 짓다",
       "seconds": 10.3,
       "captions": "module-lexicon-estate.vtt",
+      "transcript": [
+        "단어-방을 배치해 의미장 저택을 짓다",
+        "훈련하는 면 Recognize",
+        "한 판 해 보세요. — 내 단어만 있으면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "Lexicon Estate",
+          "value": "Recognize",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/module-lexicon-estate.mp4",
@@ -1838,6 +2607,18 @@
       "subtitle": "행성을 탐사해 앎으로 핵의 봉인을 연다",
       "seconds": 10.43,
       "captions": "module-word-orrery.vtt",
+      "transcript": [
+        "행성을 탐사해 앎으로 핵의 봉인을 연다",
+        "훈련하는 면 Recognize",
+        "한 판 해 보세요. — 내 단어만 있으면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "The Word Orrery",
+          "value": "Recognize",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/module-word-orrery.mp4",
@@ -1869,6 +2650,18 @@
       "subtitle": "시계가 없다 — 목숨 3개로 어디까지 버티는가",
       "seconds": 11.47,
       "captions": "module-wordblitz.vtt",
+      "transcript": [
+        "시계가 없다 — 목숨 3개로 어디까지 버티는가",
+        "훈련하는 면 Recognize · Fluency",
+        "한 판 해 보세요. — 내 단어만 있으면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "WordBlitz",
+          "value": "Recognize · Fluency",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/module-wordblitz.mp4",
@@ -1900,6 +2693,18 @@
       "subtitle": "해변에서 보물 단어를 찾는 3D 모험",
       "seconds": 10.33,
       "captions": "module-pirate-quest.vtt",
+      "transcript": [
+        "해변에서 보물 단어를 찾는 3D 모험",
+        "훈련하는 면 Recognize",
+        "한 판 해 보세요. — 내 단어만 있으면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "Pirate's Bounty",
+          "value": "Recognize",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
       "formats": {
         "wide": {
           "file": "wide/module-pirate-quest.mp4",

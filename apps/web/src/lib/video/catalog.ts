@@ -30,6 +30,12 @@ export interface VideoFile {
   height: number
 }
 
+export interface VideoEvidence {
+  label: string
+  value: string
+  source: string
+}
+
 export interface VideoEntry {
   id: string
   kind: VideoKind
@@ -37,6 +43,10 @@ export interface VideoEntry {
   subtitle: string
   seconds: number
   captions: string
+  /** 컷별 자막 전문 — 편별 페이지가 **서버 렌더 HTML** 로 낸다(I6). */
+  transcript: string[]
+  /** 화면에 나온 수치와 출처. 근거 없는 수치를 페이지에 싣지 않기 위해 함께 나른다. */
+  evidence: VideoEvidence[]
   formats: Partial<Record<VideoFormat, VideoFile>>
 }
 
@@ -70,6 +80,8 @@ export interface ResolvedVideo {
   captions: string
   width: number
   height: number
+  transcript: string[]
+  evidence: VideoEvidence[]
 }
 
 /** id 로 찾는다. 없거나 그 규격을 안 찍었으면 `null`. */
@@ -93,7 +105,14 @@ export function videoById(id: string, format: VideoFormat = 'wide'): ResolvedVid
     captions,
     width: f.width,
     height: f.height,
+    transcript: entry.transcript ?? [],
+    evidence: entry.evidence ?? [],
   }
+}
+
+/** 편별 페이지가 쓰는 목록 — `generateStaticParams` 용. */
+export function allVideoIds(): string[] {
+  return manifest.videos.map((v) => v.id)
 }
 
 /* ── 구성요소 → 영상 id ───────────────────────────────────────── */
