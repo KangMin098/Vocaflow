@@ -686,6 +686,7 @@ export async function loadVolume(
     countPassageWords,
     judgeSource,
     isComposable,
+    isPrintableUnderlineWord,
     tallyEligibility,
     GRADE_LABEL,
   } = await import('@vocaflow/library-pipeline')
@@ -925,6 +926,22 @@ export async function loadVolume(
     const a = byId.get(r.ref_id)
     if (!a) continue
     if (STRICT && !isComposable(verdictByRef.get(r.ref_id)?.grade ?? 'unknown')) continue
+    // ── 밑줄이 낱말이 아닌 문항은 지면에 올리지 않는다 ──────────────────
+    //
+    // ⚠️ 조판기는 저장된 `word` 를 **글자 그대로** 밑줄친다(`<u>${w}</u>`). 그래서
+    //   `Happen?` · `Earthquakes—Rattling` · `worry.` 같은 토큰이 밑줄째 인쇄된다.
+    //   규칙을 고쳐 V5 를 다시 만들었지만(5,042 → 509), 남은 509개는 **그 문단에서
+    //   새 규칙으로 밑줄 다섯을 못 만드는** 것들이라 재생성으로는 안 없어진다.
+    //   억지로 고치는 대신 **풀에서 뺀다** — 재고는 넉넉하고, 지면이 깨끗한 쪽이 낫다.
+    //
+    //   같은 자를 학습자 경로도 쓴다(`itemHygieneReject` 의 `badUnderline`). 이 저장소는
+    //   「조판물은 깨끗한데 학습자가 받는 것은 아니었다」를 이미 한 번 비싸게 겪었다.
+    if (
+      Array.isArray(r.payload?.underlines) &&
+      r.payload.underlines.some((u) => !isPrintableUnderlineWord(String(u?.word ?? '')))
+    ) {
+      continue
+    }
     const p = cleanPayload(r.payload ?? {})
     // ── 생성형 유형은 지문이 통째로 payload 에 있다 ──────────────────
     // ⚠️ 이걸 안 넣으면 **문항을 만들어도 책에 안 실린다.** 실제로 그랬다 —

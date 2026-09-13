@@ -96,3 +96,44 @@ describe('밑줄 낱말을 재는 자도 한 벌뿐이다', () => {
     expect(src, '어법이 옛 두 갈래 비교로 되돌아갔다').not.toContain("replace(/[.,;:!?]+$/, '')")
   })
 })
+
+/**
+ * **통째로 덮지 않으려면 실제로 읽어야 한다.**
+ *
+ * 루트 CLAUDE.md 가 못 박은 규칙이다 — "jsonb 컬럼에 키를 더하면 마이그레이션이 필요 없다.
+ * 통째로 덮지 말고 기존 값을 읽어 키 하나만 더한다 — **덮으면 정답 키가 날아간다**."
+ *
+ * 2026-09-13 에 `regen-underlines.mjs` 가 그 규칙을 어겼다. 주석에는 「기존 키를 읽어 필요한
+ * 것만 바꾼다」고 적혀 있었는데 **조회에 `answer_key` 가 없었다** — `{...undefined ?? {}}` 가
+ * 빈 객체가 되어 통째 덮기가 됐고, 어법 **91문항의 `original`·`rule` 이 날아갔다**
+ * (어휘는 생성기가 둘 다 다시 넣어 무사했다. 그래서 어휘만 보면 멀쩡해 보였다).
+ *
+ * 사고가 눈에 띈 경로도 적어 둔다: 해설 재충전이 `쓸 수 있음 0 · 못 씀 91` 을 찍었다.
+ * **해설 작성기가 정답 키의 온전함을 검사하는 유일한 자였다.**
+ */
+describe('jsonb 를 덮어쓰지 않는다 — 주석이 아니라 코드로', () => {
+  const src = read('scripts/textbook/regen-underlines.mjs')
+
+  it('쓰기 전에 기존 정답 키를 **조회한다**', () => {
+    expect(src).toContain("select('id, answer_key')")
+    // 읽은 것을 펼쳐 써야 의미가 있다 — 읽고도 안 쓰면 같은 사고다.
+    expect(src).toContain('keyById.get(item.id)')
+  })
+
+  it('키를 못 받은 문항은 **쓰지 않고 멈춘다** — 빈 객체로 덮는 것이 이번 사고였다', () => {
+    expect(src).toMatch(/keyById\.size !== work\.length/)
+    expect(src).toContain('중단한다')
+  })
+
+  it('두 유형 다 `original` 을 다시 채운다 — 어법만 빠뜨린 것이 사고의 절반이었다', () => {
+    expect(src).toContain('nextKey.original = built.original')
+    expect(src).toContain('nextKey.rule = built.rule')
+    // 어휘에만 채우던 옛 줄이 되살아나면 잡는다.
+    expect(src).not.toMatch(/if \(item\.type === 'vocab_choice'\) nextKey\.original/)
+  })
+
+  it('반쪽 키도 대상으로 잡는다 — 밑줄이 깨끗해지면 밑줄 자로는 다시 안 잡힌다', () => {
+    expect(src).toContain('hasHalfKey')
+    expect(src).toContain("original:answer_key->original")
+  })
+})

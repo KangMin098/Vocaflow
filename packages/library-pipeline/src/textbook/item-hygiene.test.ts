@@ -111,3 +111,39 @@ describe('isTooShortForPractice', () => {
     expect(isTooShortForPractice(90, { presented: ['one', 'two'] })).toBe(true)
   })
 })
+
+/**
+ * **밑줄이 낱말이 아닌 문항은 내보내지 않는다.**
+ *
+ * 생성 규칙은 2026-09-13 에 고쳤지만, 그 규칙으로 **다시 만들 수 없는** 문단이 있다
+ * (V5 재생성 뒤 509문항이 그랬다 — 4,533개는 고쳐졌다). 고칠 수 없는 것은 안 내보낸다.
+ * 조판 풀(`volume-pool.mjs`)도 같은 자를 쓴다 — 한쪽만 걸면 이 저장소가 이미 겪은
+ * 「조판물은 깨끗한데 학습자가 받는 것은 아니었다」가 거울상으로 되풀이된다.
+ */
+describe('밑줄 위생', () => {
+  const withWords = (...words: string[]) => ({
+    payload: {
+      sentences: ['The coastal region provides a steady supply of fresh water.'],
+      underlines: words.map((word, i) => ({ word, sentenceIdx: 0, label: String(i + 1) })),
+    },
+  })
+
+  it('부호·마크업이 붙은 밑줄은 반려한다', () => {
+    for (const w of ['Happen?', 'Earthquakes—Rattling', 'worry.', 'Analogously,', '[Sidenote:']) {
+      expect(itemHygieneReject(withWords('coastal', w)), w).toBe('badUnderline')
+    }
+  })
+
+  it('순수한 낱말만 있으면 통과한다 — 더한 규칙이 뺀 규칙이 되지 않게', () => {
+    expect(itemHygieneReject(withWords('coastal', 'provides', "don't"))).toBeNull()
+  })
+
+  it('밑줄이 없는 유형은 이 자의 대상이 아니다', () => {
+    expect(itemHygieneReject({ payload: { passage: 'The probe launched last spring.' } })).toBeNull()
+  })
+
+  it('밑줄 배열이 망가져 있어도 죽지 않는다 — 세다가 죽으면 전량이 막힌다', () => {
+    expect(() => itemHygieneReject({ payload: { underlines: [null, {}, 7] } })).not.toThrow()
+    expect(itemHygieneReject({ payload: { underlines: [null] } })).toBe('badUnderline')
+  })
+})

@@ -91,6 +91,22 @@ const isBadWord = (w) => !isPrintableUnderlineWord(String(w))
 const hasBadUnderline = (payload) =>
   (payload?.underlines ?? []).some((u) => isBadWord(u?.word ?? ''))
 
+/**
+ * 정답 키가 **반쪽인가** — 해설 작성기가 요구하는 `original` 이 없는 문항.
+ *
+ * ⚠️ 이 갈래는 **내가 낸 사고를 스스로 줍기 위해** 있다(실측 2026-09-13). 아래 ③의 주석은
+ *   「기존 키를 읽어 필요한 것만 바꾼다」라고 적어 놓고 **정작 `answer_key` 를 조회에서
+ *   빼먹었다.** 그래서 `{...undefined ?? {}}` 가 빈 객체가 되어 통째 덮기가 됐고, 어법
+ *   **91문항의 `original`·`rule` 이 날아갔다**(어휘는 생성기가 둘 다 다시 넣어 무사했다).
+ *   루트 CLAUDE.md 가 「덮으면 정답 키가 날아간다」고 못 박은 바로 그 자리다.
+ *
+ *   그 문항들은 밑줄이 이미 깨끗해서 **밑줄 자로는 다시 안 잡힌다.** 그래서 대상 조건을
+ *   둘로 둔다 — 밑줄이 더럽거나, **키가 반쪽이거나**. 재생성은 결정론이라 같은 문단에서
+ *   같은 문항이 나오고, 그때 키가 온전히 다시 채워진다.
+ */
+const hasHalfKey = (type, original) =>
+  (type === 'vocab_choice' || type === 'grammar_choice') && !String(original ?? '').trim()
+
 // ── ① 고칠 문항을 고른다 ────────────────────────────────────────────
 //
 // ⚠️ **`payload` 를 통째로 받으면 죽는다.** 첫 판이 그랬다(실측 2026-09-13:
@@ -105,7 +121,9 @@ const targets = []
   for (;;) {
     let q = db
       .from('csat_dcp_items')
-      .select('id, type, ref_id, paragraph_idx, underlines:payload->underlines')
+      // ⚠️ `payload` 는 통째로 받지 않는다(위 주석). 다만 **`answer_key` 의 `original` 한 칸**은
+      //   받는다 — 키가 반쪽인 문항을 찾는 데 필요하고, 문자열 한 개라 전송량이 늘지 않는다.
+      .select('id, type, ref_id, paragraph_idx, underlines:payload->underlines, original:answer_key->original')
       .eq('kind', 'article')
       .eq('v_level', BAND)
       .in('type', ['vocab_choice', 'grammar_choice'])
@@ -116,8 +134,16 @@ const targets = []
     if (error) throw new Error('문항 조회 실패: ' + error.message)
     if (!data?.length) break
     for (const r of data) {
-      if ((r.underlines ?? []).some((u) => isBadWord(u?.word ?? ''))) {
-        targets.push({ id: r.id, type: r.type, ref_id: r.ref_id, paragraph_idx: r.paragraph_idx })
+      const badUnderline = (r.underlines ?? []).some((u) => isBadWord(u?.word ?? ''))
+      const halfKey = hasHalfKey(r.type, r.original)
+      if (badUnderline || halfKey) {
+        targets.push({
+          id: r.id,
+          type: r.type,
+          ref_id: r.ref_id,
+          paragraph_idx: r.paragraph_idx,
+          why: badUnderline ? 'underline' : 'key',
+        })
       }
     }
     cursor = data[data.length - 1].id
@@ -127,10 +153,29 @@ const targets = []
 }
 const work = LIMIT ? targets.slice(0, LIMIT) : targets
 const articleIds = [...new Set(work.map((r) => r.ref_id).filter(Boolean))]
-console.log(`  고칠 문항 ${work.length} · 읽어야 할 원글 ${articleIds.length}`)
+const byWhy = { underline: 0, key: 0 }
+for (const r of work) byWhy[r.why] += 1
+console.log(
+  `  고칠 문항 ${work.length} (밑줄 ${byWhy.underline} · 반쪽 키 ${byWhy.key}) · 읽어야 할 원글 ${articleIds.length}`,
+)
 if (!work.length) {
-  console.log('\n고칠 것이 없다 — 이 밴드의 밑줄은 이미 새 규칙을 통과한다.')
+  console.log('\n고칠 것이 없다 — 이 밴드의 밑줄과 정답 키가 모두 온전하다.')
   process.exit(0)
+}
+
+// ── ①-b 고칠 문항의 **정답 키만** 받아 둔다 ─────────────────────────
+// 통째로 덮지 않으려면 **실제로 읽어야 한다.** 고를 때는 `original` 한 칸만 받았고(전송량),
+// 쓸 때는 키 전체가 필요하다 — 대상이 정해진 뒤이므로 이때는 받아도 무겁지 않다.
+const keyById = new Map()
+for (let i = 0; i < work.length; i += 200) {
+  const ids = work.slice(i, i + 200).map((r) => r.id)
+  const { data, error } = await db.from('csat_dcp_items').select('id, answer_key').in('id', ids)
+  if (error) throw new Error('정답 키 조회 실패: ' + error.message)
+  for (const r of data ?? []) keyById.set(r.id, r.answer_key ?? {})
+}
+if (keyById.size !== work.length) {
+  // 한 건이라도 못 받았으면 **쓰지 않는다** — 못 받은 것을 빈 객체로 덮으면 그게 이번 사고다.
+  throw new Error(`정답 키를 ${work.length} 중 ${keyById.size} 만 받았다 — 덮어쓰기 위험, 중단한다`)
 }
 
 // ── ② 사전 ──────────────────────────────────────────────────────────
@@ -207,10 +252,18 @@ for (let i = 0; i < articleIds.length; i += ARTICLE_PAGE) {
         stillBad++
         continue
       }
-      // `answer_key` 를 통째로 덮지 않는다 — 기존 키를 읽어 필요한 것만 바꾼다.
-      const nextKey = { ...(item.answer_key ?? {}) }
+      // `answer_key` 를 통째로 덮지 않는다 — **기존 키를 실제로 읽어** 필요한 것만 바꾼다.
+      //
+      // ⚠️ 여기가 2026-09-13 에 사고가 난 자리다. 주석은 이렇게 적혀 있었는데 조회에
+      //   `answer_key` 가 없어 `item.answer_key` 가 늘 `undefined` 였고, 결과는 통째 덮기였다.
+      //   **주석이 코드를 지켜 주지 않는다** — 아래 `keyById` 가 실제로 읽은 것이어야 한다.
+      const nextKey = { ...(keyById.get(item.id) ?? {}) }
       nextKey.position = built.answer
-      if (item.type === 'vocab_choice') nextKey.original = built.original
+      // 두 유형 다 「원래 형태」를 키에 남긴다 — 해설 작성기가 그것 없이는 한 줄도 못 쓴다
+      //   (`explainVocabChoice`·`explainUnderlinedGrammar` 둘 다 `original` 이 없으면 null).
+      nextKey.original = built.original
+      // 어법은 **어느 규칙으로 틀렸는지**도 해설의 근거다(관사인지 지시사인지).
+      if (item.type === 'grammar_choice' && built.rule) nextKey.rule = built.rule
       // 문항이 바뀌었으므로 옛 해설은 **틀린 글**이다. 지우고 explain-fill 이 다시 쓰게 한다.
       delete nextKey.explanation_ko
       delete nextKey.explanation_writer

@@ -37,6 +37,7 @@ import {
   stripSectionLabels,
   stripSpaceBeforePunct,
 } from './csat-format'
+import { isPrintableUnderlineWord } from './vocab-choice'
 
 /**
  * 철회·취하된 논문인가 — **제목으로만 알 수 있다.**
@@ -122,6 +123,8 @@ export type HygieneReject =
   | 'residue'
   | 'nonProse'
   | 'cutFragment'
+  /** 밑줄이 낱말이 아니다 — 부호·마크업째 밑줄이 쳐진다. */
+  | 'badUnderline'
 
 /**
  * **학습자에게 내보내도 되는 문항인가.** 조판의 게이트와 같은 판정을 쓴다.
@@ -139,6 +142,19 @@ export function itemHygieneReject(input: {
   const title = String(input.refTitle ?? '')
   if (isRetractedTitle(title)) return 'retracted'
   if (hasSensitiveTopic(title)) return 'sensitive'
+
+  // ── 밑줄이 낱말인가 ────────────────────────────────────────────────
+  // 화면도 인쇄물도 저장된 `word` 를 **글자 그대로** 밑줄친다(`<u>{m.word}</u>`).
+  // 그래서 `Happen?` · `worry.` 같은 토큰은 부호까지 밑줄에 들어간다. 생성 규칙은
+  // 고쳤지만(2026-09-13) 그 규칙으로 **다시 만들 수 없는** 문항이 V5 에만 509개 남는다 —
+  // 고칠 수 없는 것은 **안 내보낸다**. 조판 풀도 같은 자를 쓴다(`volume-pool.mjs`).
+  const underlines = (input.payload as { underlines?: unknown } | null | undefined)?.underlines
+  if (Array.isArray(underlines)) {
+    for (const u of underlines) {
+      const w = String((u as { word?: unknown } | null)?.word ?? '')
+      if (!isPrintableUnderlineWord(w)) return 'badUnderline'
+    }
+  }
 
   const text = passageTextOf(input.payload)
   if (!text) return null
