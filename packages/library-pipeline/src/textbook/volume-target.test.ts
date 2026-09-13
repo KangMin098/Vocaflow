@@ -15,6 +15,7 @@ import { describe, expect, it } from 'vitest'
 
 import { SERIES_CATALOG } from './series-catalog'
 import { formatVolumeTarget, resolveVolumeTarget } from './volume-target'
+import type { SeriesDef } from './series-catalog'
 
 const HERE = dirname(fileURLToPath(import.meta.url))
 const RENDERER = join(HERE, '..', '..', '..', '..', 'scripts', 'textbook', 'render-volume.mjs')
@@ -96,5 +97,68 @@ describe('조판기가 기본값으로 때우지 않는다', () => {
     const write = src.indexOf('fs.writeFileSync(path.resolve(OUT)')
     expect(check).toBeGreaterThan(-1)
     expect(check).toBeLessThan(write)
+  })
+})
+
+/**
+ * **단행본 — 1단짜리 시리즈다. 구조는 이미 그것을 표현한다.**
+ *
+ * ── 시중 실측 2026-09-13 ────────────────────────────────────────────
+ * 코퍼스(`textbook-corpus/manifest.json` · 문서 94편 · 출판사 6곳)를 훑었다:
+ *
+ *   기출 제외 **75편이 전부 시리즈 소속** — 시리즈가 안 붙은 문서 **0편**
+ *   스키마도 출판사 → 시리즈 → 권(`volume`) → 역할(본책·정답해설·워크북…)이라
+ *   **단행본이라는 개념 자체가 없다**
+ *
+ * 그래서 단행본 상품을 **정의하지 않는다** — 근거가 없는 단을 만들면 화면이
+ * 「낼 수 있다」고 말한 뒤 조판이 빈 권을 낸다(`series-catalog.ts` 머리말의 경고).
+ *
+ * 대신 **구조가 그것을 막지 않는다는 것**을 여기서 못 박는다. 근거가 생기는 날
+ * 1단짜리 `SeriesDef` 를 더하면 그대로 돈다 — 코드를 고칠 필요가 없다.
+ */
+describe('단행본 — 1단 시리즈', () => {
+  const solo: SeriesDef = {
+    id: 'solo' as SeriesDef['id'],
+    brand: 'Vocaflow Blank Drill',
+    question: '빈칸 한 유형만 30일로 끝내는가',
+    marketSeries: 0,
+    marketExamples: [],
+    rungs: [
+      {
+        step: 5,
+        vLevels: [5],
+        schoolBand: '고1',
+        volumeTitle: 'Vocaflow Blank Drill',
+        types: ['blank_word'],
+        rationale: '한 유형만 깊게 — 시리즈가 아니라 한 권으로 끝낸다',
+      },
+    ],
+    accent: '#2E7D5A',
+    status: 'draft',
+    nextStep: '시장 근거가 생기면 카탈로그에 올린다',
+  }
+
+  it('단이 하나여도 그 밴드를 찾는다', () => {
+    const t = resolveVolumeTarget('solo', 5, [solo])
+    expect(t.ok).toBe(true)
+    if (t.ok) {
+      expect(t.series.brand).toBe('Vocaflow Blank Drill')
+      expect(t.rung.types).toEqual(['blank_word'])
+    }
+  })
+
+  it('그 단 밖은 **거절하고 갈 수 있는 단을 알려 준다** — 기본값으로 때우지 않는다', () => {
+    const t = resolveVolumeTarget('solo', 7, [solo])
+    expect(t.ok).toBe(false)
+    if (!t.ok) {
+      expect(t.reason).toContain('Blank Drill')
+      expect(t.validBands).toEqual([5])
+    }
+  })
+
+  it('없는 시리즈는 이름을 대며 거절한다', () => {
+    const t = resolveVolumeTarget('nope', 5, [solo])
+    expect(t.ok).toBe(false)
+    if (!t.ok) expect(t.validSeries).toEqual(['solo'])
   })
 })
