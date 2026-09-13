@@ -33,6 +33,7 @@ const CLEAN: PublishGateInput = {
   band: 5,
   items: 60,
   units: 10,
+  seriesId: 'reading',
   explained: 60,
   failedChecks: [],
   answerBiased: false,
@@ -308,4 +309,43 @@ describe('countTriPersonaPassed', () => {
     expect(countTriPersonaPassed(bad).passed).toBe(0)
   })
 
+})
+
+/**
+ * **시리즈가 셋이 된 순간 안내 명령이 다른 책을 겨냥하게 됐다.**
+ *
+ * 2026-09-13 에 어휘·구문 시리즈가 **처음으로 조합됐다**(`Vocaflow Vocab Advanced` ·
+ * `Vocaflow Syntax Advanced` — 각각 60문항 10단원). 그러자 게이트의 안내 명령이
+ * `--series` 를 한 번도 안 넘긴다는 것이 실제 사고가 됐다 — 드레인의 기본값은 `reading`
+ * 이라, 어휘 권이 막힌 화면을 보고 그 명령을 그대로 돌리면 **독해 문항을 뽑는다.**
+ *
+ * `--volume` 이 20으로 박혀 있던 것과 같은 계열이다. 그때는 단원 수가, 이번에는 시리즈가.
+ */
+describe('안내 명령이 그 권을 겨냥한다', () => {
+  const src = readFileSync(RENDERER, 'utf8')
+
+  it('막힌 항목의 명령이 모두 그 시리즈를 담는다', () => {
+    const v = judgePublish({
+      ...CLEAN,
+      seriesId: 'vocab',
+      items: 0,
+      explained: 0,
+      failedChecks: ['유형 배합'],
+      reviewedItems: 0,
+    })
+    const fixes = v.blocked.map((f) => f.fix).filter(Boolean) as string[]
+    expect(fixes.length).toBeGreaterThan(0)
+    for (const fix of fixes) {
+      expect(fix, `시리즈를 안 담은 명령: ${fix}`).toContain('--series vocab')
+    }
+  })
+
+  it('해설 명령도 시리즈를 담는다 — 배치 드레인이 다른 책을 뽑으면 안 된다', () => {
+    const v = judgePublish({ ...CLEAN, seriesId: 'syntax', explained: 0 })
+    expect(v.blocked[0]?.fix).toContain('--series syntax')
+  })
+
+  it('조판기가 실제 시리즈를 게이트에 넘긴다 — 박아 두면 다른 책을 겨냥한다', () => {
+    expect(src).toContain('seriesId: SERIES')
+  })
 })

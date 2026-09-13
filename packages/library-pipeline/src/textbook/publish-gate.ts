@@ -66,6 +66,18 @@ export interface PublishGateInput {
    *   그래서 **기본값을 두지 않는다** — 때우면 다시 갈린다. 부르는 쪽이 실제 값을 넘긴다.
    */
   units: number
+  /**
+   * **어느 시리즈의 권인가.** 푸는 명령에 그대로 들어간다.
+   *
+   * ⚠️ 여기가 없던 동안 안내 명령이 `--series` 를 **한 번도 안 넘겼다**(실측 2026-09-13).
+   *   드레인의 기본값은 `reading` 이라, 어휘 권이 막힌 화면을 보고 그 명령을 그대로
+   *   돌리면 **독해 문항을 뽑는다** — 뽑은 몫을 다 채워도 막힌 권은 그대로다.
+   *   `--volume` 이 20으로 박혀 있던 것과 **같은 계열**의 드리프트이고, 시리즈가 셋이 된
+   *   2026-09-13 에 실제로 성립하는 사고가 됐다(어휘·구문이 처음으로 조합됐다).
+   *
+   *   기본값을 두지 않는다 — 때우면 다시 갈린다.
+   */
+  seriesId: string
   /** 그중 해설이 붙은 수. */
   explained: number
   /** 자동 검수에서 떨어진 항목 이름 — `scoreVolume().auto` 의 `label`. */
@@ -171,7 +183,7 @@ export function judgePublish(input: PublishGateInput): PublishGateVerdict {
       severity: 'block',
       label: '문항 0',
       detail: '인쇄할 문항이 없다 — 조합기가 한 단원도 못 만들었다',
-      fix: `pnpm dlx tsx scripts/textbook/store-new-types.mjs --band ${input.band} --commit`,
+      fix: `pnpm dlx tsx scripts/textbook/store-new-types.mjs --series ${input.seriesId} --band ${input.band} --commit`,
     })
   }
 
@@ -190,7 +202,7 @@ export function judgePublish(input: PublishGateInput): PublishGateVerdict {
       //   순서를 명령에 담는다 — 규칙으로 안 되는 것만 배치로 간다.
       fix:
         `pnpm dlx tsx scripts/textbook/explain-fill.mjs --commit --type <유형> ` +
-        `→ 남은 것만 explain-drain-export.mjs --band ${input.band} --volume ${input.units} --size 12`,
+        `→ 남은 것만 explain-drain-export.mjs --series ${input.seriesId} --band ${input.band} --volume ${input.units} --size 12`,
     })
   }
 
@@ -200,7 +212,7 @@ export function judgePublish(input: PublishGateInput): PublishGateVerdict {
       severity: 'block',
       label: '자동 검수 미통과',
       detail: `떨어진 항목 ${input.failedChecks.length}개 — ${input.failedChecks.join(' · ')}`,
-      fix: `pnpm dlx tsx scripts/textbook/build-volume.mjs --band ${input.band} --units ${input.units}`,
+      fix: `pnpm dlx tsx scripts/textbook/build-volume.mjs --series ${input.seriesId} --band ${input.band} --units ${input.units}`,
     })
   }
 
@@ -218,7 +230,7 @@ export function judgePublish(input: PublishGateInput): PublishGateVerdict {
       detail:
         `${input.reviewedItems}/${input.items} — ` +
         `${input.items - input.reviewedItems}문항이 페르소나 3인 통과를 못 받았다`,
-      fix: `pnpm dlx tsx scripts/textbook/item-review-drain-export.mjs --band ${input.band} --volume ${input.units}`,
+      fix: `pnpm dlx tsx scripts/textbook/item-review-drain-export.mjs --series ${input.seriesId} --band ${input.band} --volume ${input.units}`,
     })
   }
 

@@ -148,7 +148,7 @@ export const SERIES_CATALOG: readonly SeriesDef[] = [
     rungs: VOCAB_RUNGS,
     accent: '#8B5CF6',
     status: 'draft',
-    nextStep: '조판을 한 번도 안 돌렸다 — 단은 정의됐고 재고도 찼다',
+    nextStep: '조판은 돌아간다 — 60문항 10단원이 조합되고 게이트가 3인 검수 하나로만 막는다 (실측 2026-09-13)',
   },
   {
     id: 'syntax',
@@ -159,7 +159,7 @@ export const SERIES_CATALOG: readonly SeriesDef[] = [
     rungs: SYNTAX_RUNGS,
     accent: '#B5803A',
     status: 'draft',
-    nextStep: '조판을 한 번도 안 돌렸다 — 단은 정의됐고 재고도 찼다',
+    nextStep: '조판은 돌아간다 — 60문항 10단원이 조합되고 게이트가 3인 검수 하나로만 막는다 (실측 2026-09-13)',
   },
 ] as const
 

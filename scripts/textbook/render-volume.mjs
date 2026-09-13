@@ -650,6 +650,9 @@ const gate = judgePublish({
   // **실제로 찍은 단원 수를 넘긴다** — 게이트의 안내 명령이 이 값을 쓴다.
   //   박아 두면 게이트가 다른 책을 겨냥하게 시킨다(publish-gate.ts 의 units 주석).
   units: UNITS,
+  // **어느 시리즈인가** — 게이트의 안내 명령이 이 값을 쓴다. 안 넘기면 어휘 권이 막힌
+  //   화면을 보고 독해 문항을 뽑게 된다(publish-gate.ts 의 seriesId 주석).
+  seriesId: SERIES,
   items: answerRows.length,
   explained: byBatch + byRule,
   failedChecks: card.auto.filter((c) => !c.pass).map((c) => c.label),
