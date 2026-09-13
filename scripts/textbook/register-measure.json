@@ -1,5 +1,5 @@
 {
-  "measured_at": "2026-09-13T07:54:51.970Z",
+  "measured_at": "2026-09-13T08:46:36.058Z",
   "marker_groups": {
     "contrast": [
       "however",
@@ -79,7 +79,7 @@
   "threshold_from_csat_median": 5.33,
   "csat_presence_rate": 0.588,
   "csat_markers_per_passage": 1.06,
-  "declared_overlap": 0.408,
+  "declared_overlap": 0.293,
   "per_source_declared": [
     {
       "source": "elife",
@@ -92,6 +92,18 @@
       "p75": 8.13,
       "p90": 10.25,
       "passRatio": 0.54
+    },
+    {
+      "source": "europe_pmc",
+      "declared": "argumentative",
+      "label": "europe_pmc|argumentative",
+      "n": 100,
+      "p10": 0,
+      "p25": 3.16,
+      "median": 7.17,
+      "p75": 11.45,
+      "p90": 16.12,
+      "passRatio": 0.63
     },
     {
       "source": "factbook",
@@ -148,10 +160,10 @@
       "n": 100,
       "p10": 0,
       "p25": 0,
-      "median": 0,
-      "p75": 7.32,
-      "p90": 12.69,
-      "passRatio": 0.37
+      "median": 3.16,
+      "p75": 8.08,
+      "p90": 10.59,
+      "passRatio": 0.44
     },
     {
       "source": "nasa",
@@ -348,27 +360,27 @@
   ],
   "declared_argumentative": {
     "label": "선언 argumentative",
-    "n": 36,
-    "p10": 1.11,
-    "p25": 2,
-    "median": 3.69,
-    "p75": 5.44,
-    "p90": 8.03
+    "n": 136,
+    "p10": 0,
+    "p25": 2.79,
+    "median": 5.9,
+    "p75": 10.59,
+    "p90": 14.39
   },
   "declared_expository": {
     "label": "선언 expository",
     "n": 928,
     "p10": 0,
     "p25": 0,
-    "median": 2.8,
-    "p75": 6.54,
-    "p90": 9.25
+    "median": 2.92,
+    "p75": 6.56,
+    "p90": 9.17
   },
-  "declared_separation_median": 0.89,
+  "declared_separation_median": 2.98,
   "sample_per_source": 100,
   "sampling": "spread",
   "sample_windows": 5,
-  "scanned": 1220,
+  "scanned": 1320,
   "projection": [
     {
       "source": "plos",
@@ -380,11 +392,11 @@
     },
     {
       "source": "gutenberg",
-      "rows": 12733,
+      "rows": 23608,
       "declared": "expository",
       "sample_n": 100,
-      "pass_ratio": 0.37,
-      "measured_supply_est": 4711
+      "pass_ratio": 0.44,
+      "measured_supply_est": 10388
     },
     {
       "source": "frontiers",
@@ -393,6 +405,14 @@
       "sample_n": 100,
       "pass_ratio": 0.72,
       "measured_supply_est": 1410
+    },
+    {
+      "source": "europe_pmc",
+      "rows": 1299,
+      "declared": "argumentative",
+      "sample_n": 100,
+      "pass_ratio": 0.63,
+      "measured_supply_est": 818
     },
     {
       "source": "futurity",
@@ -523,6 +543,6 @@
       "measured_supply_est": 0
     }
   ],
-  "measured_supply_total": 29396,
-  "declared_argumentative_rows": 1542
+  "measured_supply_total": 35891,
+  "declared_argumentative_rows": 2841
 }
