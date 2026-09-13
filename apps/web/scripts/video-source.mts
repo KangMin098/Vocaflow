@@ -21,7 +21,15 @@ import { DIFFERENTIATORS } from '../src/lib/marketing/differentiators'
 import { buildHeroDemo, HERO_PASSAGE } from '../src/lib/marketing/hero-demo'
 import { TYPE_GUIDE } from '../src/lib/textbook/type-guide'
 import { activities } from '../src/lib/framework/registry'
-import { FACETS } from '../src/lib/framework/axes'
+import { FACETS, FACET_ORDER, SPINE, STAGES, STAGE_ORDER } from '../src/lib/framework/axes'
+import {
+  ACCURACY_HOLD_BELOW,
+  ACCURACY_TARGET,
+  DAILY_BLOCKS,
+  ENCOUNTERS_FLOOR,
+  HITS_TO_PASS,
+  NEW_FACETS_PER_SESSION,
+} from '../src/lib/framework/flow'
 import { SERIES_CATALOG } from '@vocaflow/library-pipeline/textbook-series-catalog'
 import { SERIES_SPINE } from '@vocaflow/library-pipeline/textbook-series'
 
@@ -313,8 +321,40 @@ async function main(): Promise<void> {
     facetLabels: Object.fromEntries(
       Object.entries(FACETS)
         .sort(([a], [b]) => a.localeCompare(b))
-        .map(([id, f]) => [id, { name: f.name, says: f.says }]),
+        .map(([id, f]) => [
+          id,
+          // `kind`·`retrieval` 도 함께 넘긴다 — 「학습방법」 영상이 **무엇으로 통과를 재는지**를
+          // 말해야 하는데, 그것 없이는 "면" 이 그냥 이름 여섯 개로 보인다.
+          { name: f.name, says: f.says, kind: f.kind, retrieval: f.retrieval },
+        ]),
     ),
+    // ── 학습방법·권장안 영상의 원료 ──────────────────────────────────
+    //
+    // 이 둘은 사용자가 이름을 댄 구성요소인데 영상이 **한 편도 없었다**(실측 2026-09-13).
+    // 없던 이유는 규칙이 아니라 **원료**였다 — 공장은 번들에 있는 것만 만들 수 있고,
+    // 번들에 단계·임계값이 없었다.
+    //
+    // 여기 나가는 수는 전부 `lib/framework/` 의 상수 그대로다. 영상용으로 고쳐 적지 않는다 —
+    // 고쳐 적는 순간 화면과 영상이 다른 말을 하고, 그걸 알아챌 방법이 없다.
+    stages: STAGE_ORDER.map((id) => ({
+      id,
+      code: STAGES[id].code,
+      name: STAGES[id].name,
+      says: STAGES[id].says,
+      by: STAGES[id].by,
+    })),
+    facetOrder: [...FACET_ORDER],
+    // ⚠️ `spine` 이라 부르지 않는다 — 번들에는 이미 **교재 계단**(`spine: BundleSpineRung[]`)이 있다.
+    //   같은 이름을 쓰면 한쪽이 다른 쪽을 덮고, 덮인 쪽은 타입이 맞아서 조용히 사라진다.
+    spineFacets: [...SPINE],
+    flow: {
+      accuracyTarget: ACCURACY_TARGET,
+      accuracyHoldBelow: ACCURACY_HOLD_BELOW,
+      hitsToPass: HITS_TO_PASS,
+      encountersFloor: ENCOUNTERS_FLOOR,
+      newFacetsPerSession: NEW_FACETS_PER_SESSION,
+      dailyBlocks: { ...DAILY_BLOCKS },
+    },
     activities: activities().map((a) => ({
       id: a.id,
       name: a.name,

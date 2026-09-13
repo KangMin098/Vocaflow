@@ -160,7 +160,19 @@ export type PublicEvent =
   | {
       name: 'video_started'
       props: {
-        kind: 'intro' | 'benefit' | 'curriculum' | 'series' | 'type' | 'module'
+        // 영상 종류 — `lib/video/catalog.ts` 의 `KIND_LABEL` 과 같은 목록이어야 한다.
+        //   이 파일은 일부러 아무것도 import 하지 않는다(분석 계약이 홀로 서야 하므로).
+        //   그래서 회귀 `video-kind-contract.test.ts` 가 두 목록을 맞대 본다 — 손으로 맞추다
+        //   빠뜨리면 그 종류의 재생이 **조용히 버려진다**(수신부가 실패해도 204를 준다).
+        kind:
+          | 'intro'
+          | 'benefit'
+          | 'curriculum'
+          | 'series'
+          | 'type'
+          | 'module'
+          | 'method'
+          | 'advice'
         format: 'wide' | 'vertical' | 'square'
         /** 영상 길이(초). 짧은 것이 더 끝까지 보이는지 보려면 필요하다 */
         seconds: number
@@ -181,7 +193,19 @@ export type PublicEvent =
   | {
       name: 'video_completed'
       props: {
-        kind: 'intro' | 'benefit' | 'curriculum' | 'series' | 'type' | 'module'
+        // 영상 종류 — `lib/video/catalog.ts` 의 `KIND_LABEL` 과 같은 목록이어야 한다.
+        //   이 파일은 일부러 아무것도 import 하지 않는다(분석 계약이 홀로 서야 하므로).
+        //   그래서 회귀 `video-kind-contract.test.ts` 가 두 목록을 맞대 본다 — 손으로 맞추다
+        //   빠뜨리면 그 종류의 재생이 **조용히 버려진다**(수신부가 실패해도 204를 준다).
+        kind:
+          | 'intro'
+          | 'benefit'
+          | 'curriculum'
+          | 'series'
+          | 'type'
+          | 'module'
+          | 'method'
+          | 'advice'
         format: 'wide' | 'vertical' | 'square'
         seconds: number
         /**

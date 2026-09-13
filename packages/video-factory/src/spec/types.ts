@@ -164,6 +164,35 @@ export interface ClosingScene extends SceneBase {
   url: string
 }
 
+export interface ProgressionStep {
+  /** 짧은 안정 코드 — `S0`·`S3`. 좁은 자리에서 이름 대신 쓴다. */
+  code: string
+  /** 정식명 — 영문 한 단어 */
+  name: string
+  /** 이 자리에 왔다는 것을 학습자에게 알리는 한국어 한 줄 */
+  says: string
+  /**
+   * 이 자리로 **올려 주는 것**. 없으면(첫 자리) null —
+   * 첫 자리는 노출뿐이라 통과 조건이 없다. 빈 문자열로 접지 않는다.
+   */
+  by: string | null
+  /** 지금 서 있는 자리로 강조할지. 총론에서는 아무 데도 강조하지 않는다. */
+  now?: boolean
+}
+
+/**
+ * **나아가는 차례** — 단어 하나가 거치는 자리들.
+ *
+ * `ladder`(교재 계단)와 **다른 물건**이다. 계단은 재고가 쌓이는 양을 막대로 말하고,
+ * 여기는 **순서와 조건**을 말한다 — 막대가 없다. 프레임워크 정본이 둘을 직교로 못 박았는데
+ * (`axes.ts`: "Stage 는 학습자 등급이 아니라 단어별 상태"), 한 컴포넌트로 그리면
+ * 재고 막대가 단계에 붙어 "3단계가 4단계보다 많다" 는 없는 말을 만든다.
+ */
+export interface ProgressionScene extends SceneBase {
+  kind: 'progression'
+  steps: ProgressionStep[]
+}
+
 export type SceneSpec =
   | HookScene
   | CoverageScene
@@ -173,6 +202,7 @@ export type SceneSpec =
   | ItemScene
   | StatScene
   | StatementScene
+  | ProgressionScene
   | ClosingScene
 
 export type SceneKind = SceneSpec['kind']
@@ -192,6 +222,10 @@ export type VideoKind =
   | 'type'
   /** 학습 모듈 1개 */
   | 'module'
+  /** 학습방법 — 면 하나, 또는 5단계 총론 */
+  | 'method'
+  /** 권장안 — 한 자리에서 다음으로 무엇을 권하는가 */
+  | 'advice'
 
 export interface VideoSpec {
   /** 파일명이자 컴포지션 id. `<kind>-<slug>`. */

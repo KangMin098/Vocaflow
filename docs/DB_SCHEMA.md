@@ -1074,6 +1074,7 @@ set id 만 알면 구독됐다. **화면 게이트는 노출 경계의 증거가
 ## 최근 마이그레이션 (20개)
 
 ```
+20260913120000  video_jobs                                 ← 영상 공장 큐(편당 1행) + 단계 전진 RPC 2 (아래 참조)
 20260913013946  csat_exams_paper_form                      ← 인쇄 형(홀수/짝수/단일). `form`(수준별 A/B)과 다른 축
 20260913000100  video_bucket                               ← 공개 Storage 버킷 `video` + 정책 3 (아래 참조)
 20260912235900  funnel_events_video                        ← 영상 관측 2종을 허용목록에 (없으면 조용히 버려진다)
@@ -1111,6 +1112,34 @@ v06.35: `collect_quality_metrics()` 에 **M7 SSoT 드리프트** 추가 ([202608
 비용: 도서당 추출 1회 — 발행 12권 기준 수집 전체가 9행/즉시 → **11행/21.9초**로 늘어난다(야간 03:10).
 ⚠️ 드리프트 서브쿼리는 **temp table 로 1회만** 평가할 것 — CTE 로 두면 outer 참조 수만큼 재실행돼
 19초가 37.9초가 된다(`EXPLAIN ANALYZE` 로 SubPlan 2개 확인).
+
+### 영상 공장 큐 — `video_jobs` (2026-09-13)
+
+영상 **73편**을 찍어 발행하는 동안 그 과정이 **어디에도 남지 않았다.** 진행은 오직 「파일의
+존재」로만 표현됐고(mp4 가 있으면 찍은 것), 그래서 실패는 콘솔에 한 줄 찍히고 사라졌으며
+「언제 찍었나」의 근거가 없었다. `book_quiz_jobs`·큐레이션 잡은 전부 이걸 갖는다.
+
+| | |
+|---|---|
+| 테이블 | `video_jobs` — **편당 한 행**. 자연키 `video_id` UNIQUE · admin RLS · `set_updated_at` 트리거 |
+| 단계 | `queued → voiced → rendered → packaged → published` (+ `failed`) |
+| 진척 | `scenes` · `voice_clips` · `formats_rendered` · `seconds` · `bytes` · `thumb` · `captions` — **못 잰 것은 null**(0 으로 뭉개면 「없다」는 거짓이 된다) |
+| 이력 | `voiced_at` · `rendered_at` · `packaged_at` · `published_at` |
+| RPC | `video_job_advance(video_id, kind, stage, metrics, error)` → service_role · `video_jobs_overview()` → service_role·authenticated |
+
+**왜 편당 한 행인가** — 단계는 여섯인데 관리자가 묻는 것은 「이 편이 어디까지 왔나」 하나다.
+단계마다 행을 만들면 73×6=438행을 훑어야 그 답이 나온다.
+
+**왜 UPDATE 가 아니라 RPC 인가** — 단계는 **앞으로만** 간다. 그냥 UPDATE 를 허용하면 늦게 끝난
+단계가 먼저 끝난 단계를 덮어 뒤로 돌린다(렌더를 두 번 돌리면 실제로 그렇게 된다). 순서를 RPC
+안에서 한 번만 정의하고, 낮은 단계로 가는 호출은 **조용히 무시**한다 — 그래서 전 단계가 재실행 안전이다.
+
+⚠️ `kind` CHECK 는 `packages/video-factory/src/spec/types.ts` 의 `VideoKind` 와 **같은 목록이어야**
+한다. 적용 직전에 `method`·`advice` 를 넣었는데, 안 넣었으면 그 11편의 등재가 CHECK 위반으로 죽는다.
+
+⚠️ 쓰는 쪽(`packages/video-factory/src/jobs/client.ts`)은 **8초 타임아웃 + 첫 실패 시 그 실행 동안
+기록 끄기 + 예외 안 던지기**를 지킨다. 기록은 본 작업의 곁가지인데, 곁가지가 본 작업을 인질로
+잡은 적이 있다(실측: DB 가 응답하지 않는 동안 `enqueue` 가 62번 타임아웃을 기다려 10분을 넘겼다).
 
 ### DB 헬스 수집층 — `db_health_metrics` (2026-09-06)
 

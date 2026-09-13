@@ -42,3 +42,17 @@ export function usableWidth(format: FormatId): number {
   const def = FORMATS[format]
   return def.width - def.safe.left - def.safe.right
 }
+
+/**
+ * **글줄 하나가 길어질 수 있는 최대 폭.**
+ *
+ * 가로(1920)에서 가용 폭을 다 쓰면 한 줄이 1,700px 가 되어 눈이 줄 끝에서 다음 줄 머리를
+ * 못 찾는다. 반대로 줄을 짧게 두고 **왼쪽에 붙여** 두면 오른쪽 3분의 2가 빈 채로 남아
+ * 미완성으로 읽힌다(실측 2026-09-13: 「나아가는 차례」 첫 스틸에서 그랬다).
+ *
+ * 그래서 폭을 재는 자를 따로 둔다 — 값을 정하고 **가운데로 모은다.**
+ * 세로·정사각은 가용 폭이 이미 그 안이라 그대로 쓴다.
+ */
+export function proseColumnWidth(format: FormatId): number {
+  return Math.min(usableWidth(format), format === 'wide' ? 1180 : usableWidth(format))
+}

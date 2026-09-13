@@ -35,6 +35,8 @@ const KIND_CHIP: Record<VideoSpec['kind'], string> = {
   series: '시리즈',
   type: '문항 유형',
   module: '학습 활동',
+  method: '학습 방법',
+  advice: '권장안',
 }
 
 export const Thumbnail: React.FC<ThumbnailProps> = ({ spec, brand }) => {

@@ -15,6 +15,7 @@ import type { VoiceManifest } from '../voice/timing'
 import { Frame, FormatContext } from './Frame'
 import { Coverage, Decay, Item } from './scenes/proof'
 import { Ladder, Shelf, Stat } from './scenes/data'
+import { Progression } from './scenes/progression'
 import { Closing, Hook, Statement } from './scenes/text'
 
 export type VideoCompositionProps = {
@@ -64,6 +65,8 @@ function SceneBody({
       return <Stat scene={scene} accent={accent} duration={duration} />
     case 'ladder':
       return <Ladder scene={scene} accent={accent} duration={duration} />
+    case 'progression':
+      return <Progression scene={scene} accent={accent} duration={duration} />
     case 'shelf':
       return <Shelf scene={scene} accent={accent} duration={duration} />
   }

@@ -24,8 +24,16 @@ import type {
 } from '../spec/types'
 import { sec } from '../spec/timing'
 import { FORMAT_IDS } from '../spec/format'
-import type { SourceBundle, BundleSeries, BundleHero } from './bundle'
-import { VIDEO_IDS, activityVideoId, benefitVideoId, seriesVideoId, typeVideoId } from './ids'
+import type { SourceBundle, BundleSeries, BundleHero, BundleStage } from './bundle'
+import {
+  VIDEO_IDS,
+  activityVideoId,
+  adviceVideoId,
+  benefitVideoId,
+  methodVideoId,
+  seriesVideoId,
+  typeVideoId,
+} from './ids'
 
 /* ── 표기 ─────────────────────────────────────────────────────── */
 
@@ -503,6 +511,286 @@ function activitySpecs(b: SourceBundle): VideoSpec[] {
   })
 }
 
+/* ── 7. 학습방법 ──────────────────────────────────────────────── */
+//
+// 사용자가 이름을 댄 구성요소인데 **한 편도 없었다**(실측 2026-09-13: 종류가
+// intro·benefit·curriculum·series·type·module 여섯뿐이었다). 원료가 없어서였다 —
+// 번들에 단계와 면의 성질이 안 들어 있었고, 공장은 번들에 있는 것만 만든다.
+//
+// 두 규칙이다:
+//   · **총론 1편** — 단어 하나가 거치는 5자리. 여기서만 「나아가는 차례」 컷을 쓴다.
+//   · **면별 N편** — 각 면이 무엇이고, 무엇으로 통과를 재고, 어느 자리로 올려 주는가.
+//
+// 면의 개수를 세어 적지 않는다. `FACETS` 에 면을 하나 더하면 영상이 한 편 는다.
+
+/** 면 하나가 올려 주는 자리. spine 이 아닌 면은 자리를 올리지 않는다 — null. */
+function stageRaisedBy(b: SourceBundle, facetId: string): BundleStage | null {
+  return b.stages.find((s) => s.by === facetId) ?? null
+}
+
+function methodStagesSpec(b: SourceBundle): VideoSpec {
+  const steps = b.stages.map((s) => ({
+    code: s.code,
+    name: s.name,
+    says: s.says,
+    // 「무엇이 올려 주는가」는 면의 **인출 형식**으로 말한다 — 면 이름만 적으면
+    // 학습자에겐 낱말 하나가 더 늘 뿐이다.
+    by: s.by ? (b.facetLabels[s.by]?.retrieval ?? b.facetLabels[s.by]?.name ?? null) : null,
+  }))
+
+  return {
+    id: VIDEO_IDS.methodStages,
+    kind: 'method',
+    audience: 'learner',
+    title: '단어 하나가 거치는 다섯 자리',
+    subtitle: '외웠다/못 외웠다 둘로 나누지 않습니다 — 어디까지 왔는지를 봅니다',
+    accent: 'brand',
+    scenes: [
+      {
+        kind: 'hook',
+        caption: '«외웠다» 와 «못 외웠다» 사이에 자리가 셋 더 있습니다',
+        line: '어디까지 왔나',
+        sub: '단어는 아는/모르는 둘이 아닙니다',
+        frames: sec(2.8),
+      },
+      {
+        kind: 'progression',
+        caption: b.stages.map((s) => s.name).join(' → '),
+        steps,
+        frames: sec(6.4),
+      },
+      {
+        kind: 'stat',
+        caption: `한 번에 새로 들이는 면 ${b.flow.newFacetsPerSession}개 · 하루 ${b.flow.dailyBlocks.target}블록`,
+        stats: [
+          {
+            value: String(b.flow.newFacetsPerSession),
+            label: '한 세션에 새로 들이는 면',
+            // 출처를 파일까지 적는다 — 광고에 쓰는 화면이라 근거 없는 수치를 두지 않는다.
+            source: 'lib/framework/flow.ts NEW_FACETS_PER_SESSION',
+          },
+          {
+            value: String(b.flow.dailyBlocks.target),
+            label: '하루 목표 블록',
+            source: 'lib/framework/flow.ts DAILY_BLOCKS.target',
+          },
+          {
+            value: String(b.flow.hitsToPass),
+            label: '한 면을 통과로 보는 최소 성공',
+            source: 'lib/framework/flow.ts HITS_TO_PASS',
+          },
+        ],
+        frames: sec(3.8),
+      },
+      closing('지금 어디까지 왔는지 보여 드릴게요.', '내 단어로 확인', 'vocaflow.app/hub'),
+    ],
+    evidence: b.stages.map((s) => ({
+      label: s.code,
+      value: s.name,
+      source: 'lib/framework/axes.ts STAGES (단계 정본)',
+    })),
+    formats: [...FORMAT_IDS],
+  }
+}
+
+function methodFacetSpecs(b: SourceBundle): VideoSpec[] {
+  const out: VideoSpec[] = []
+  for (const facetId of b.facetOrder) {
+    const f = b.facetLabels[facetId]
+    if (!f) continue
+    const raises = stageRaisedBy(b, facetId)
+    // 이 면을 훈련하는 활동 — 번들의 활동 목록에서 **찾는다**. 적어 두지 않는다.
+    const trains = b.activities.filter((a) => a.facets.includes(facetId))
+
+    const scenes: SceneSpec[] = [
+      {
+        kind: 'hook',
+        caption: f.says,
+        line: f.name,
+        sub: f.says,
+        frames: sec(2.6),
+      },
+      {
+        kind: 'statement',
+        caption: `이 면은 «${f.retrieval}» 으로 잽니다`,
+        title: '무엇으로 재나',
+        body: f.retrieval,
+        basis:
+          f.kind === 'spine'
+            ? '이 면의 통과가 단계를 정의한다 (spine)'
+            : '단계를 정의하지 않고 폭을 넓힌다 (cross)',
+        frames: sec(4),
+      },
+    ]
+
+    // 훈련하는 활동이 하나도 없으면 그 컷을 **빼고**, 없는 활동을 지어내지 않는다.
+    if (trains.length > 0) {
+      scenes.push({
+        kind: 'stat',
+        caption: `이 면을 훈련하는 활동 ${trains.length}개`,
+        stats: trains.slice(0, 3).map((a) => ({
+          value: a.name,
+          label: a.says.length > 42 ? a.says.slice(0, 41) + '…' : a.says,
+          source: 'lib/framework/registry.ts (활동 정본)',
+        })),
+        frames: sec(3.6),
+      })
+    }
+
+    if (raises) {
+      scenes.push({
+        kind: 'progression',
+        caption: `통과하면 ${raises.name} — ${raises.says}`,
+        steps: b.stages.map((s) => ({
+          code: s.code,
+          name: s.name,
+          says: s.says,
+          by: s.by ? (b.facetLabels[s.by]?.name ?? null) : null,
+          now: s.id === raises.id,
+        })),
+        frames: sec(5),
+      })
+    }
+
+    scenes.push(
+      closing(
+        '이 면부터 해 볼까요.',
+        trains[0] ? `${trains[0].name} 로 시작` : '내 단어로 시작',
+        trains[0]?.route ? `vocaflow.app${trains[0].route.replace('[id]', '…')}` : 'vocaflow.app/hub',
+      ),
+    )
+
+    out.push({
+      id: methodVideoId(facetId),
+      kind: 'method',
+      audience: 'learner',
+      title: `${f.name} — ${f.says}`.length > 42 ? f.name : `${f.name} — ${f.says}`,
+      subtitle: f.says.length > 90 ? f.says.slice(0, 89) + '…' : f.says,
+      accent: FACET_ACCENT[facetId] ?? 'brand',
+      scenes,
+      evidence: [
+        { label: f.name, value: f.retrieval, source: 'lib/framework/axes.ts FACETS (면 정본)' },
+        ...(raises
+          ? [
+              {
+                label: '올려 주는 자리',
+                value: `${raises.code} ${raises.name}`,
+                source: 'lib/framework/axes.ts STAGE_BY_FACET',
+              },
+            ]
+          : []),
+      ],
+      formats: [...FORMAT_IDS],
+    })
+  }
+  return out
+}
+
+/* ── 8. 권장안 ────────────────────────────────────────────────── */
+//
+// **여기 나오는 임계값은 전부 `lib/framework/flow.ts` 의 상수 그대로다.** 영상용으로 고쳐
+// 적으면 화면과 영상이 다른 말을 하게 되고, 그걸 알아챌 방법이 없다.
+//
+// 한 자리에서 다음 자리로 갈 때 무엇을 권하고, **무엇이면 아직 안 권하는지**를 말한다.
+// 후자가 중요하다 — 시중 광고는 "이것만 하면 됩니다" 로 끝나는데, 우리 처방의 값은
+// **아직 아니라고 말할 줄 아는 것**에 있다(`flow.ts`: 막지 않고 권한다 · 후퇴는 조용히).
+
+function adviceSpecs(b: SourceBundle): VideoSpec[] {
+  const out: VideoSpec[] = []
+  for (let i = 0; i < b.stages.length - 1; i++) {
+    const from = b.stages[i]!
+    const to = b.stages[i + 1]!
+    // 다음 자리로 올려 주는 면. 없으면 그 이동은 영상으로 만들 수 없다 — **건너뛴다.**
+    const facetId = to.by
+    if (!facetId) continue
+    const f = b.facetLabels[facetId]
+    if (!f) continue
+    const trains = b.activities.filter((a) => a.facets.includes(facetId))
+
+    const scenes: SceneSpec[] = [
+      {
+        kind: 'hook',
+        caption: `«${from.says}» 다음에 무엇을 할까요`,
+        line: `${from.name} → ${to.name}`,
+        sub: from.says,
+        frames: sec(2.8),
+      },
+      {
+        kind: 'progression',
+        caption: `지금 ${from.name} — 다음은 ${to.name}`,
+        steps: b.stages.map((s) => ({
+          code: s.code,
+          name: s.name,
+          says: s.says,
+          by: s.by ? (b.facetLabels[s.by]?.name ?? null) : null,
+          now: s.id === from.id,
+        })),
+        frames: sec(4.8),
+      },
+      {
+        kind: 'statement',
+        caption: `권하는 것 — ${f.name}`,
+        title: `${f.name} 을 권합니다`,
+        body: f.says,
+        basis: `${f.retrieval} 으로 잽니다`,
+        frames: sec(4),
+      },
+      {
+        // **안 권하는 조건.** 이 컷이 이 영상의 값이다.
+        kind: 'stat',
+        caption: `아직 안 권하는 때 — 정답률 ${pct(b.flow.accuracyHoldBelow)} 미만 · 만남 ${b.flow.encountersFloor}회 미만`,
+        stats: [
+          {
+            value: pct(b.flow.accuracyHoldBelow),
+            label: '앞 면이 이 아래면 다음을 얹지 않습니다',
+            source: 'lib/framework/flow.ts ACCURACY_HOLD_BELOW',
+          },
+          {
+            value: `${b.flow.encountersFloor}회`,
+            label: '만남이 이보다 적으면 읽기를 먼저 권합니다',
+            source: 'lib/framework/flow.ts ENCOUNTERS_FLOOR',
+          },
+          {
+            value: pct(b.flow.accuracyTarget),
+            label: '난이도를 맞추는 목표 정답률',
+            source: 'lib/framework/flow.ts ACCURACY_TARGET',
+          },
+        ],
+        frames: sec(4.2),
+      },
+      closing(
+        '막지 않고 권합니다.',
+        trains[0] ? `${trains[0].name} 로 한 걸음` : '내 단어로 한 걸음',
+        trains[0]?.route ? `vocaflow.app${trains[0].route.replace('[id]', '…')}` : 'vocaflow.app/hub',
+      ),
+    ]
+
+    out.push({
+      id: adviceVideoId(from.id),
+      kind: 'advice',
+      audience: 'learner',
+      title: `${from.name} 다음 한 걸음`,
+      subtitle: `${from.says} — 그다음은 ${f.name} 입니다`,
+      accent: FACET_ACCENT[facetId] ?? 'brand',
+      scenes,
+      evidence: [
+        {
+          label: '다음 면',
+          value: f.name,
+          source: 'lib/framework/axes.ts SPINE (단계를 정의하는 면)',
+        },
+        {
+          label: '보류 임계',
+          value: `정답률 ${pct(b.flow.accuracyHoldBelow)} · 만남 ${b.flow.encountersFloor}회`,
+          source: 'lib/framework/flow.ts (처방 임계 정본)',
+        },
+      ],
+      formats: [...FORMAT_IDS],
+    })
+  }
+  return out
+}
+
 /* ── 조립 ─────────────────────────────────────────────────────── */
 
 export function buildSpecs(b: SourceBundle): VideoSpec[] {
@@ -513,6 +801,9 @@ export function buildSpecs(b: SourceBundle): VideoSpec[] {
     ...b.series.map((s) => seriesSpec(b, s)),
     ...typeSpecs(b),
     ...activitySpecs(b),
+    methodStagesSpec(b),
+    ...methodFacetSpecs(b),
+    ...adviceSpecs(b),
   ]
 }
 

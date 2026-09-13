@@ -14,7 +14,19 @@
 export const VIDEO_IDS = {
   intro: 'intro-platform',
   curriculum: 'curriculum-ladder',
+  /** 학습방법 총론 — 단어 하나가 거치는 5단계 */
+  methodStages: 'method-stages',
 } as const
+
+/** 학습방법 — 면 하나를 설명한다(`method-spell`). */
+export function methodVideoId(facetId: string): string {
+  return `method-${facetId}`
+}
+
+/** 권장안 — 한 단계에서 다음 단계로 무엇을 권하는가(`advice-recognized`). */
+export function adviceVideoId(fromStageId: string): string {
+  return `advice-${fromStageId}`
+}
 
 /** 문항 유형 코드는 밑줄(`word_order`), 영상 id 는 하이픈(`type-word-order`). */
 export function typeVideoId(typeCode: string): string {

@@ -52,6 +52,35 @@ describe('덮는 범위 — 플랫폼이 자라면 설계도도 자란다', () =
     expect(byKind.curriculum).toBe(1)
   })
 
+  it('학습방법 = 총론 1 + 면마다 1', () => {
+    expect(byKind.method).toBe(1 + bundle.facetOrder.length)
+  })
+
+  it('권장안 = 다음 자리로 올려 주는 면이 있는 이동마다 1', () => {
+    // Fluent 에는 다음이 없고, 첫 자리(Met)는 노출뿐이라 올려 주는 면이 없다 —
+    // 그래서 「자리 수 - 1」 이 아니라 **조건을 세어** 비교한다. 상수를 적으면
+    // 단계가 늘 때 이 테스트가 틀린 이유로 깨진다.
+    const movable = b_stageTransitions()
+    expect(byKind.advice).toBe(movable)
+    expect(movable).toBeGreaterThan(0)
+  })
+
+  function b_stageTransitions(): number {
+    let n = 0
+    for (let i = 0; i < bundle.stages.length - 1; i++) {
+      if (bundle.stages[i + 1]?.by) n++
+    }
+    return n
+  }
+
+  it('**사용자가 이름 댄 구성요소가 전부 있다** — 학습방법·권장안이 한동안 0 이었다', () => {
+    // 2026-09-13 실측: 종류가 여섯뿐이라 「학습방법」·「권장안」 영상이 한 편도 없었다.
+    // 규칙이 아니라 **원료**가 없어서였다(번들에 단계·임계값이 안 들어 있었다).
+    for (const kind of ['intro', 'curriculum', 'series', 'type', 'method', 'advice'] as const) {
+      expect(byKind[kind] ?? 0, `${kind} 종류가 0편이다`).toBeGreaterThan(0)
+    }
+  })
+
   it('모든 설계도가 세 규격을 낸다 — 학습자 화면·쇼츠·피드 광고', () => {
     for (const s of specs) expect([...s.formats].sort()).toEqual([...FORMAT_IDS].sort())
   })
@@ -82,6 +111,46 @@ describe('품질 게이트', () => {
 
   it('강조색은 토큰 키만 쓴다 (원시 hex 금지)', () => {
     for (const s of specs) expect(Object.keys(ACCENT)).toContain(s.accent)
+  })
+
+  it('「나아가는 차례」 컷의 수치가 전부 프레임워크 정본에서 온다', () => {
+    const names = new Set(bundle.stages.map((s) => s.name))
+    const codes = new Set(bundle.stages.map((s) => s.code))
+    for (const s of specs) {
+      for (const scene of s.scenes) {
+        if (scene.kind !== 'progression') continue
+        // 자리를 **전부** 그린다 — 몇 개만 그리면 "여기가 끝" 으로 읽힌다.
+        expect(scene.steps.length, s.id).toBe(bundle.stages.length)
+        for (const step of scene.steps) {
+          expect(names.has(step.name), `${s.id}: 없는 자리 ${step.name}`).toBe(true)
+          expect(codes.has(step.code), `${s.id}: 없는 코드 ${step.code}`).toBe(true)
+          // `by` 는 **빈 문자열이 아니라 null** 이어야 한다 — 빈 줄을 그리면
+          // "조건이 있는데 안 적혔다" 로 읽힌다.
+          expect(step.by === null || step.by.length > 0, `${s.id}: 빈 조건 줄`).toBe(true)
+        }
+        // 「지금 여기」는 **한 자리 이하**다. 둘이면 어디 서 있는지 화면이 두 번 말한다.
+        expect(scene.steps.filter((x) => x.now).length, s.id).toBeLessThanOrEqual(1)
+      }
+    }
+  })
+
+  it('권장안이 말하는 임계값이 `flow` 실값과 같다 — 영상용으로 고쳐 적지 않는다', () => {
+    const pct = (x: number) => `${Math.round(x * 100)}%`
+    for (const s of specs.filter((x) => x.kind === 'advice')) {
+      const numbers = s.scenes
+        .filter((sc): sc is Extract<typeof sc, { kind: 'stat' }> => sc.kind === 'stat')
+        .flatMap((sc) => sc.stats.map((st) => st.value))
+      expect(numbers, s.id).toContain(pct(bundle.flow.accuracyHoldBelow))
+      expect(numbers, s.id).toContain(pct(bundle.flow.accuracyTarget))
+      expect(numbers, s.id).toContain(`${bundle.flow.encountersFloor}회`)
+      // 출처가 파일까지 적혀 있어야 한다 — 「어디서 온 수인가」에 답할 수 있어야 광고에 쓴다.
+      for (const sc of s.scenes) {
+        if (sc.kind !== 'stat') continue
+        for (const st of sc.stats) {
+          expect(st.source, `${s.id}: 출처 없는 수치 ${st.value}`).toMatch(/lib\/framework\//)
+        }
+      }
+    }
   })
 
   it('닫는 컷 = 다음 한 걸음이 모든 영상에 있다', () => {

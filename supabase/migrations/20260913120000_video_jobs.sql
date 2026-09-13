@@ -26,8 +26,13 @@ CREATE TABLE IF NOT EXISTS video_jobs (
   -- 공장이 짓는 id. `@vocaflow/video-factory/ids` 가 정본이라 여기서 형식을 강제하지 않는다
   -- (강제하면 규칙이 두 곳이 된다 — 이 저장소가 반복해서 겪은 드리프트).
   video_id text NOT NULL,
+  -- 종류는 `spec/types.ts` 의 `VideoKind` 와 같은 목록이어야 한다.
+  -- (`method`·`advice` 는 2026-09-13 에 학습방법·권장안 규칙을 더하며 생겼다 —
+  --  여기 빠지면 그 편들의 큐 등록이 CHECK 위반으로 죽는다.)
   kind text NOT NULL
-    CHECK (kind IN ('intro', 'benefit', 'curriculum', 'series', 'type', 'module')),
+    CHECK (kind IN (
+      'intro', 'benefit', 'curriculum', 'series', 'type', 'module', 'method', 'advice'
+    )),
 
   -- **어디까지 왔나.** 뒤로 가지 않는다(되돌리려면 `video_job_reset`).
   --   queued    — 설계도는 있는데 아직 아무것도 안 했다

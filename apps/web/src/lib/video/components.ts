@@ -20,16 +20,19 @@ import { SERIES_CATALOG } from '@vocaflow/library-pipeline/textbook-series-catal
 import {
   VIDEO_IDS,
   activityVideoId,
+  adviceVideoId,
   benefitVideoId,
+  methodVideoId,
   seriesVideoId,
   typeVideoId,
 } from '@vocaflow/video-factory/ids'
 
+import { FACETS, FACET_ORDER, STAGES, STAGE_ORDER } from '@/lib/framework/axes'
 import { activities } from '@/lib/framework/registry'
 import { DIFFERENTIATORS } from '@/lib/marketing/differentiators'
 import { TYPE_GUIDE } from '@/lib/textbook/type-guide'
 
-import { KIND_LABEL, type VideoKind } from './catalog'
+import { KIND_LABEL, KIND_ORDER, type VideoKind } from './catalog'
 
 /** 장점 영상의 슬러그 — 공장(`build.ts`)의 `BENEFIT_SLUG` 와 같은 순서여야 한다. */
 const BENEFIT_SLUG = ['coverage', 'decay', 'minimum'] as const
@@ -102,15 +105,49 @@ export function platformComponents(): PlatformComponent[] {
     })
   }
 
+  // 학습방법 — 5단계 총론 한 편 + 면마다 한 편.
+  out.push({
+    id: VIDEO_IDS.methodStages,
+    kind: 'method',
+    name: '단어 하나가 거치는 다섯 자리',
+    source: 'lib/framework/axes.ts STAGES',
+  })
+  for (const id of FACET_ORDER) {
+    out.push({
+      id: methodVideoId(id),
+      kind: 'method',
+      name: FACETS[id].name,
+      source: 'lib/framework/axes.ts FACETS',
+    })
+  }
+
+  // 권장안 — 자리 하나에서 **다음 자리**로 가는 이동마다 한 편.
+  // 마지막 자리(Fluent)에는 다음이 없으므로 편수는 자리 수보다 하나 적다.
+  for (let i = 0; i < STAGE_ORDER.length - 1; i++) {
+    const from = STAGE_ORDER[i]!
+    const to = STAGE_ORDER[i + 1]!
+    // 공장은 「올려 주는 면이 없는 이동」을 건너뛴다 — 분모도 같은 규칙을 써야
+    // 영원히 안 채워지는 빈칸이 생기지 않는다.
+    if (!STAGES[to].by) continue
+    out.push({
+      id: adviceVideoId(from),
+      kind: 'advice',
+      name: `${STAGES[from].name} 다음 한 걸음`,
+      source: 'lib/framework/flow.ts (처방 임계) + axes.ts SPINE',
+    })
+  }
+
   return out
 }
 
-/** 종류별 구성요소 수 — 화면의 분모. */
+/**
+ * 종류별 구성요소 수 — 화면의 분모.
+ *
+ * ⚠️ 0 여섯 개를 손으로 적고 캐스트하던 것을 `KIND_LABEL` 파생으로 바꿨다. 캐스트는
+ *   빠진 키를 가리는데, 빠진 키는 **NaN 으로 조용히 번진다**(`undefined + 1`).
+ */
 export function componentCountByKind(): Record<VideoKind, number> {
-  const out = { intro: 0, benefit: 0, curriculum: 0, series: 0, type: 0, module: 0 } as Record<
-    VideoKind,
-    number
-  >
+  const out = Object.fromEntries(KIND_ORDER.map((k) => [k, 0])) as Record<VideoKind, number>
   for (const c of platformComponents()) out[c.kind] += 1
   return out
 }

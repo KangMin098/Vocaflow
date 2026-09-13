@@ -99,6 +99,32 @@ export interface BundleActivity {
 export interface BundleFacet {
   name: string
   says: string
+  /** spine = 이 면의 통과가 단계를 정의한다 · cross = 폭을 넓힐 뿐 단계를 정의하지 않는다 */
+  kind: 'spine' | 'cross'
+  /** 이 면이 보장하는 인출 형식 — 「무엇으로 통과를 재는가」 */
+  retrieval: string
+}
+
+/** 단어 하나가 거치는 단계. `by` 는 이 단계로 올려 주는 면(met 은 노출뿐이라 없다). */
+export interface BundleStage {
+  id: string
+  code: string
+  name: string
+  says: string
+  by: string | null
+}
+
+/**
+ * 처방이 쓰는 임계값 — **전부 `lib/framework/flow.ts` 의 상수 그대로**다.
+ * 영상용으로 고쳐 적으면 화면과 영상이 다른 말을 하게 되고, 그걸 알아챌 방법이 없다.
+ */
+export interface BundleFlow {
+  accuracyTarget: number
+  accuracyHoldBelow: number
+  hitsToPass: number
+  encountersFloor: number
+  newFacetsPerSession: number
+  dailyBlocks: { min: number; target: number; max: number }
 }
 
 export interface SourceBundle {
@@ -113,6 +139,14 @@ export interface SourceBundle {
   spine: BundleSpineRung[]
   facetLabels: Record<string, BundleFacet>
   activities: BundleActivity[]
+  /** 학습방법 영상의 원료 — 단계 5개 */
+  stages: BundleStage[]
+  /** 면을 보여 주는 순서 */
+  facetOrder: string[]
+  /** 단계를 정의하는 면(순서가 곧 깊이). 위 `spine`(교재 계단)과 **다른 것**이다. */
+  spineFacets: string[]
+  /** 권장안 영상의 원료 — 처방 임계값 */
+  flow: BundleFlow
 }
 
 const HERE = path.dirname(fileURLToPath(import.meta.url))

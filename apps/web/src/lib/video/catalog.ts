@@ -19,7 +19,15 @@ import {
 
 import manifestJson from './manifest.json'
 
-export type VideoKind = 'intro' | 'benefit' | 'curriculum' | 'series' | 'type' | 'module'
+export type VideoKind =
+  | 'intro'
+  | 'benefit'
+  | 'curriculum'
+  | 'series'
+  | 'type'
+  | 'module'
+  | 'method'
+  | 'advice'
 export type VideoFormat = 'wide' | 'vertical' | 'square'
 
 export interface VideoFile {
@@ -141,23 +149,12 @@ export function activityVideo(activityId: string, format: VideoFormat = 'wide'):
   return videoById(activityVideoId(activityId), format)
 }
 
-/** 목록 화면용 — 종류로 묶어서 돌려준다. */
-export function videosByKind(): Record<VideoKind, ResolvedVideo[]> {
-  const out = {
-    intro: [],
-    benefit: [],
-    curriculum: [],
-    series: [],
-    type: [],
-    module: [],
-  } as Record<VideoKind, ResolvedVideo[]>
-  for (const v of manifest.videos) {
-    const resolved = videoById(v.id, 'wide')
-    if (resolved) out[v.kind].push(resolved)
-  }
-  return out
-}
-
+/**
+ * 종류의 이름 — **이 표가 종류 목록의 정본이다.**
+ *
+ * `Record<VideoKind, string>` 이라 종류를 하나 더하면 여기가 컴파일 오류로 먼저 걸린다.
+ * 아래 `KIND_ORDER` 와 `videosByKind` 는 이 표에서 파생되므로 따로 손볼 것이 없다.
+ */
 export const KIND_LABEL: Record<VideoKind, string> = {
   intro: '플랫폼 소개',
   benefit: '이 제품이 다른 점',
@@ -165,4 +162,31 @@ export const KIND_LABEL: Record<VideoKind, string> = {
   series: '브랜드 시리즈',
   type: '문항 유형',
   module: '학습 활동',
+  method: '학습 방법',
+  advice: '권장안',
+}
+
+/** 종류 전부. 화면이 "빈 종류" 도 그릴 수 있게 목록으로 내준다. */
+export const KIND_ORDER = Object.keys(KIND_LABEL) as VideoKind[]
+
+/**
+ * 목록 화면용 — 종류로 묶어서 돌려준다.
+ *
+ * ⚠️ 예전에는 빈 배열 여섯 개를 **손으로 적고** `as Record<VideoKind, …>` 로 캐스트했다.
+ *   캐스트가 빠진 키를 가려서 타입체크는 통과하는데, 새 종류의 영상이 들어오면
+ *   `out[v.kind]` 가 undefined 라 **화면이 죽는다**(실측 2026-09-13에 `method`·`advice` 를
+ *   더하며 발견). 그래서 이제 `KIND_LABEL` 에서 만든다 — 손으로 적을 곳이 없다.
+ */
+export function videosByKind(): Record<VideoKind, ResolvedVideo[]> {
+  const out = Object.fromEntries(KIND_ORDER.map((k) => [k, [] as ResolvedVideo[]])) as Record<
+    VideoKind,
+    ResolvedVideo[]
+  >
+  for (const v of manifest.videos) {
+    const resolved = videoById(v.id, 'wide')
+    // manifest 는 파일이라 이 코드보다 **새로울 수도, 낡을 수도** 있다 — 모르는 종류가
+    // 오면 버리고 넘어간다. 여기서 죽으면 영상 목록 전체가 안 뜬다.
+    if (resolved && out[v.kind]) out[v.kind].push(resolved)
+  }
+  return out
 }
