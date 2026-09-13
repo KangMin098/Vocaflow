@@ -134,7 +134,8 @@ const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABA
 // 2문항이 조용히 어긋났다 — 해설을 다 채웠는데도 책은 78/80 으로 나왔다.
 // 기본은 **켬**. `--no-market-mix` 로만 끈다 — 왜 기본이 켬인지는 `volume-pool.mjs` 참조.
 const MARKET_MIX = !process.argv.includes('--no-market-mix')
-const { units, stoppedBecause, articles: byId, pool, mix, verdictByRef } = await loadVolume(db, {
+const { units, stoppedBecause, articles: byId, pool, mix, verdictByRef, seriesTypes } =
+  await loadVolume(db, {
   band: BAND,
   seriesId: SERIES,
   unitCount: UNITS,
@@ -834,11 +835,25 @@ if (proof.defective) {
 //   (실측 2026-09-06: 17개 중 blank·claim·order… 전부) 결함처럼 보이지만 그 책의 정의다.
 //   시리즈가 유형을 좁힌 경우에는 **좁혔다는 사실만** 말한다 — 좁힌 로그는 volume-pool 이 찍는다.
 if (closedTypes.length && SERIES === 'reading') {
-  const share = closedTypes.reduce((s, t) => s + (marketTarget[t] ?? 0), 0)
-  console.log(
-    `  ⚠️ 재고가 0 이라 **목표에서 빠진 유형** ${closedTypes.length}개 — ${closedTypes.join(' · ')}` +
-      ` (시장 기준 ${(share * 100).toFixed(1)}%). 왼쪽 수치는 그만큼 후하다.`,
-  )
+  // **두 원인을 한 문장으로 말하면 안 된다** — 고칠 곳이 다르다.
+  //   · 등뼈가 안 선언한 유형 → `series.ts` 의 그 계단 types 를 고친다(재고는 이미 있다)
+  //   · 등뼈는 선언했는데 pool 에 없는 유형 → 문항을 만든다(집필·생성)
+  const declared = seriesTypes ? new Set(seriesTypes) : null
+  const outOfSpine = declared ? closedTypes.filter((t) => !declared.has(t)) : []
+  const noStock = closedTypes.filter((t) => !outOfSpine.includes(t))
+  const shareOf = (ts) => (ts.reduce((s, t) => s + (marketTarget[t] ?? 0), 0) * 100).toFixed(1)
+  if (outOfSpine.length) {
+    console.log(
+      `  ⚠️ **등뼈가 안 선언한 유형** ${outOfSpine.length}개 — ${outOfSpine.join(' · ')}` +
+        ` (시장 기준 ${shareOf(outOfSpine)}%). **재고 탓이 아니다** — series.ts 의 이 계단 types 를 고친다.`,
+    )
+  }
+  if (noStock.length) {
+    console.log(
+      `  ⚠️ 재고가 0 이라 **목표에서 빠진 유형** ${noStock.length}개 — ${noStock.join(' · ')}` +
+        ` (시장 기준 ${shareOf(noStock)}%). 왼쪽 수치는 그만큼 후하다.`,
+    )
+  }
 }
 // **떨어진 항목은 이름을 말한다.** "8/9" 만 찍으면 무엇이 걸렸는지 알 수 없어
 // 사람이 HTML 을 열어 눈으로 찾아야 한다 — 그러면 대개 안 찾는다.

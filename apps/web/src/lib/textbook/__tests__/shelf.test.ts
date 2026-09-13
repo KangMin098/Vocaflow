@@ -199,11 +199,14 @@ describe('해설 수록 수 — 분모와 같은 조합에서만 센다', () => 
       [key('grammar_choice', 5)]: 20,
       [key('order', 5)]: 30,
       [key('insert', 5)]: 40,
-      // step 5 는 irrelevant 를 쓰지 않는다 — 이 1000 이 새면 그게 1283% 버그다.
-      [key('irrelevant', 5)]: 1000,
+      // step 5 는 unit_vocab 을 쓰지 않는다 — 이 1000 이 새면 그게 1283% 버그다.
+      // ⚠️ 표지가 원래 `irrelevant` 였는데 **5단이 그 유형을 쓰게 됐다**(2026-09-13, 시중
+      //    고등 실측 1.58%). 「안 쓰는 유형」 표지는 시장이 그 학교급에서 **0쪽**으로 잰
+      //    것이어야 안 흔들린다 — `unit_vocab` 은 고등 densityPerPage 가 0 이다.
+      [key('unit_vocab', 5)]: 1000,
     })
     const step5 = shelf.volumes.find((v) => v.step === 5)!
-    expect(step5.types).not.toContain('irrelevant')
+    expect(step5.types).not.toContain('unit_vocab')
     expect(step5.explainedCount).toBe(100)
   })
 
@@ -213,10 +216,13 @@ describe('해설 수록 수 — 분모와 같은 조합에서만 센다', () => 
       [key('grammar_choice', 5)]: 100,
       [key('order', 5)]: 100,
       [key('insert', 5)]: 100,
-      [key('irrelevant', 5)]: 100,
+      [key('unit_vocab', 5)]: 100,
     })
     const step5 = shelf.volumes.find((v) => v.step === 5)!
-    expect(step5.itemCount).toBe(400)
+    // 재고 픽스처는 다섯 유형 × 100 이고 5단은 그중 `unit_vocab` 만 안 쓴다 —
+    // 그래서 분모 500(⚠️ 2026-09-13 등뼈 확장 전에는 `irrelevant` 도 빠져 400 이었다),
+    // 분자는 5단이 쓰는 네 유형의 해설만 더해 400 이다. **지키려는 것은 비율 ≤ 1 이다.**
+    expect(step5.itemCount).toBe(500)
     expect(step5.explainedCount).toBe(400)
     expect(step5.explainedCount! / step5.itemCount).toBeLessThanOrEqual(1)
   })

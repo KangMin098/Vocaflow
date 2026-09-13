@@ -1308,5 +1308,13 @@ export async function loadVolume(
     //   두 몫은 **다음에 할 일이 다르다**(생성 vs 판정). 그래서 부르는 쪽이 가를 수 있게
     //   판정을 함께 낸다.
     verdictByRef,
+    // ⚠️ **「재고가 0」과 「등뼈가 안 선언했다」는 처방이 정반대다** (실측 2026-09-13).
+    //   위에서 pool 을 등뼈 유형으로 **먼저 좁히므로**, 등뼈 밖의 유형은 재고가 아무리
+    //   많아도 pool 에 없다. 그걸 「재고 0」으로 찍으면 관리자는 문항을 만들러 간다 —
+    //   실제로 고칠 것은 `series.ts` 의 목록 한 줄이다.
+    //   실측 V2: 「재고 0」이라 적은 8유형이 DB 에 blank_word 1,737 · unit_vocab 1,684 ·
+    //   blank 134 · topic 80 · title 46 · content_match 28 · irrelevant 27 · long_reference 3.
+    //   **하나도 0 이 아니었다.** 부르는 쪽이 가를 수 있게 선언 목록을 함께 낸다.
+    seriesTypes: seriesRung?.types ?? null,
   }
 }

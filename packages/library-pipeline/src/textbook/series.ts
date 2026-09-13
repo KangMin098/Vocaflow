@@ -49,6 +49,25 @@ export type SeriesItemType =
   | 'grammar_fix'
   | 'unit_vocab'
   | 'unit_grammar'
+  // ── 시중이 실제로 내는 독해 유형 11종 (실측 2026-09-13) ──────────────
+  //
+  // ⚠️ **이 열한 개가 union 에 없어서 사다리가 시중을 못 따라가고 있었다.** 조판 로그가
+  //   「재고가 0 이라 목표에서 빠진 유형」이라 찍었는데 **재고는 0 이 아니었다** —
+  //   V2 만 봐도 blank_word 1,737 · unit_vocab 1,684 · blank 134 · topic 80 · title 46 ·
+  //   content_match 28 · irrelevant 27 · long_reference 3 이 DB 에 있었다. 조판기가 풀을
+  //   **계단 선언 유형으로 먼저 좁히기 때문에** 선언 밖의 유형이 「재고 0」으로 읽혔던 것이다.
+  //   그래서 처방이 거꾸로 안내됐다(문항을 더 만들라 → 실제로는 이 목록을 고칠 일).
+  | 'title'
+  | 'topic'
+  | 'blank'
+  | 'content_match'
+  | 'main_point'
+  | 'purpose'
+  | 'mood'
+  | 'summary'
+  | 'claim'
+  | 'implication'
+  | 'long_reference'
 
 /**
  * 유형 이름표 — 리포트·화면이 함께 쓴다.
@@ -72,6 +91,19 @@ export const SERIES_TYPE_LABEL_KO: Record<SeriesItemType, string> = {
   grammar_fix: '어법 고쳐쓰기',
   unit_vocab: '본문 어휘',
   unit_grammar: '단원 문법',
+  // 이름표는 `item-drain-export.mjs` 의 유형 정본과 **글자 그대로 같아야 한다** —
+  // 두 이름이 갈리면 리포트와 청크가 다른 유형을 말하게 된다.
+  title: '제목',
+  topic: '주제',
+  blank: '빈칸 추론',
+  content_match: '내용 일치',
+  main_point: '요지',
+  purpose: '글의 목적',
+  mood: '심경·분위기',
+  summary: '요약문 완성',
+  claim: '필자의 주장',
+  implication: '밑줄 함의 추론',
+  long_reference: '장문 지칭',
 }
 
 export interface SeriesRung {
@@ -103,6 +135,27 @@ export const SERIES_BRAND = 'Vocaflow Reading' as const
  * 시장의 사다리가 5~7단인 것을 따랐고(관측), **단계 경계는 우리가 정하지 않았다** —
  * `vocaflow_levels` 의 학령 구분을 그대로 쓴다. V0(유치원)은 읽기 교재의 대상이 아니라
  * 빼고, V8+(성인)은 학령 사다리 밖이라 뺀다.
+ *
+ * ── 유형 목록은 **시중 79종 실측에서 나온다** (2026-09-13) ───────────
+ * 처음에는 손으로 적었고, 그래서 **시중이 가장 많이 내는 유형을 우리가 안 내고 있었다**:
+ *
+ *   초등 871쪽   1위 `title` 5.17% · 2위 `blank` 4.71%   ← 둘 다 선언에 없었다
+ *   고등 2,467쪽 1위 `blank` 3.89% · 3위 `grammar_fix` 2.43% · 5위 `title` 2.19%  ← 전부 없었다
+ *
+ * 그 결과 조판이 시장 전체 기준 **V2 16.8% · V7 30.1%** 짜리 권을 내고 있었다. 재고가
+ * 없어서가 아니다 — 조판기가 풀을 이 목록으로 먼저 좁히므로, 여기 없으면 DB 에 수천 개가
+ * 있어도 안 실린다.
+ *
+ * 그래서 이제 **규칙으로 정한다**: 그 학교급 `market-spec.json` 의 쪽 등장률이
+ * **2‰ 이상**인 유형을 담는다(`rungMix` 의 `RUNG_TYPE_FLOOR_PER_MILLE` 과 같은 바닥선).
+ * 바닥선 아래는 담지 않는다 — 중등 `order` 0.09% 처럼 한두 쪽에서만 보인 것을 담으면
+ * 그 계단이 영영 못 채우는 칸이 생긴다. 회귀 `series.test.ts` 가 이 규칙을 잠근다.
+ *
+ * ⚠️ **더하기만 했고 빼지 않았다.** 바닥선 아래로 내려간 기존 선언(중등 `blank_word`·
+ * `grammar_choice`)도 그대로 둔다 — 이미 재고가 딸린 실제 공급이고, 빼면 만든 것을 버린다.
+ *
+ * ⚠️ **1단만 규칙 밖이다.** 시중 초등 코퍼스는 3~6학년 교재이고 1단(V1)은 **지문이 없는**
+ * 계단이다(사전 낱말 하나가 문항 하나). 지문 기반 유형을 얹으면 잴 지문이 없어 전량 걸린다.
  */
 export const SERIES_SPINE: readonly SeriesRung[] = [
   {
@@ -112,26 +165,58 @@ export const SERIES_SPINE: readonly SeriesRung[] = [
     volumeTitle: `${SERIES_BRAND} Starter`,
     types: ['rhyme', 'word_meaning', 'spell_blank'],
     rationale:
-      '소리·낱말 단위. **지문이 없다.** 순서·삽입은 수능 지문 길이를 전제하므로 여기 넣으면 안 된다.',
+      '소리·낱말 단위. **지문이 없다.** 순서·삽입은 수능 지문 길이를 전제하므로 여기 넣으면 안 되고, ' +
+      '제목·빈칸처럼 지문을 통째로 묻는 유형도 잴 지문이 없어 못 낸다 — 시장 규칙의 유일한 예외다.',
   },
   {
     step: 2,
     vLevels: [2],
     schoolBand: '초등 고학년',
     volumeTitle: `${SERIES_BRAND} 1`,
-    types: ['rhyme', 'word_meaning', 'spell_blank', 'word_order'],
-    rationale: '낱말에서 문장으로. 영작 배열이 첫 문장 단위 과제다 — 정답이 원문이라 확정된다.',
+    types: [
+      'rhyme',
+      'word_meaning',
+      'spell_blank',
+      'word_order',
+      // 시중 초등 상위 — title 5.17% · blank 4.71% · topic 3.21% · irrelevant 1.72%
+      'title',
+      'blank',
+      'topic',
+      'irrelevant',
+      'blank_word',
+      'content_match',
+      'unit_vocab',
+      'long_reference',
+    ],
+    rationale:
+      '낱말에서 글로. 영작 배열이 첫 문장 단위 과제고, **여기서 지문을 통째로 묻는 유형이 열린다** — ' +
+      '시중 초등 교재가 가장 많이 내는 것이 제목(5.17%)과 빈칸(4.71%)이다. 순서·삽입은 시중 초등에 ' +
+      '**한 쪽도 없어서**(0%) 넣지 않는다.',
   },
   {
     step: 3,
     vLevels: [3],
     schoolBand: '중학 1-2학년',
     volumeTitle: `${SERIES_BRAND} 2`,
-    types: ['word_meaning', 'word_order', 'vocab_choice', 'unit_vocab', 'blank_word'],
+    types: [
+      'word_meaning',
+      'word_order',
+      'vocab_choice',
+      'unit_vocab',
+      'blank_word',
+      // 시중 중등 상위 — unit_vocab 1.99% · word_order 1.99% · title 1.61% · topic 1.61%
+      'title',
+      'topic',
+      'blank',
+      'content_match',
+      'grammar_fix',
+      'insert',
+      'irrelevant',
+    ],
     rationale:
-      '문장에서 짧은 글로. 어휘 문항이 처음 들어간다(지문 안에서 모순을 찾는 과제). ' +
-      '중등 내신의 **본문 어휘 뜻**과 **빈칸에 낱말 쓰기**도 여기서 열린다 — 둘 다 지문 한 문단이면 되고, ' +
-      '학교 시험의 실제 출제 비중이 가장 큰 자리다.',
+      '문장에서 짧은 글로. 어휘 문항이 처음 들어가고 중등 내신의 **본문 어휘**와 **빈칸 낱말**이 여기서 열린다. ' +
+      '시중 중등은 제목·주제를 초등만큼 내므로(각 1.61%) 여기서도 함께 낸다. ' +
+      '순서(0.09%)는 바닥선 아래라 5단으로 미룬다 — 삽입(0.28%)만 여기서 연다.',
   },
   {
     step: 4,
@@ -146,36 +231,109 @@ export const SERIES_SPINE: readonly SeriesRung[] = [
       'blank_word',
       'unit_grammar',
       'grammar_fix',
+      'title',
+      'topic',
+      'blank',
+      'content_match',
+      'insert',
+      'irrelevant',
     ],
     rationale:
-      '고교 진입 준비. 어법이 들어간다 — 중등 내신의 서술형 축과 겹친다. ' +
-      '**단원 문법**(객관식)과 **어법 틀린 것 고쳐 쓰기**(단답)가 여기서 함께 열리는 이유는, ' +
-      '같은 규칙을 묻되 하나는 고르게 하고 하나는 쓰게 하기 때문이다 — 학교 시험이 실제로 그렇게 낸다.',
+      '고교 진입 준비. **단원 문법**(객관식)과 **어법 고쳐 쓰기**(단답)가 함께 열린다 — ' +
+      '같은 규칙을 묻되 하나는 고르게 하고 하나는 쓰게 하기 때문이고, 학교 시험이 실제로 그렇게 낸다. ' +
+      '유형 구성은 3단과 같은 중등 실측을 쓰되 어법 축이 더해진 자리다.',
   },
   {
     step: 5,
     vLevels: [5],
     schoolBand: '고1',
     volumeTitle: `${SERIES_BRAND} 4`,
-    types: ['vocab_choice', 'grammar_choice', 'order', 'insert'],
-    rationale: '학평 대응. **순서·삽입이 여기서 열린다** — 지문이 수능 규격(90~200어)에 든다.',
+    types: [
+      'blank',
+      'vocab_choice',
+      'grammar_fix',
+      'order',
+      'title',
+      'topic',
+      'content_match',
+      'irrelevant',
+      'insert',
+      'purpose',
+      'mood',
+      'summary',
+      'main_point',
+      'claim',
+      'implication',
+      'long_reference',
+      'word_order',
+      'grammar_choice',
+      'blank_word',
+    ],
+    rationale:
+      '학평 대응. **순서가 여기서 열리고**(시중 고등 2.23%, 중등은 0.09%로 바닥선 아래) ' +
+      '빈칸이 1위(3.89%)가 된다. 고1 학력평가는 유형 구성이 이미 수능과 같으므로 ' +
+      '**고등 세 계단은 같은 유형을 쓴다** — 갈리는 것은 지문 레벨이다.',
   },
   {
     step: 6,
     vLevels: [6],
     schoolBand: '고2',
     volumeTitle: `${SERIES_BRAND} 5`,
-    types: ['vocab_choice', 'grammar_choice', 'order', 'insert', 'irrelevant'],
-    rationale: '흐름 무관이 더해진다. 글 전체의 논지를 봐야 풀리는 첫 유형이다.',
+    types: [
+      'blank',
+      'vocab_choice',
+      'grammar_fix',
+      'order',
+      'title',
+      'topic',
+      'content_match',
+      'irrelevant',
+      'insert',
+      'purpose',
+      'mood',
+      'summary',
+      'main_point',
+      'claim',
+      'implication',
+      'long_reference',
+      'word_order',
+      'grammar_choice',
+      'blank_word',
+    ],
+    rationale:
+      '고2 심화. ' +
+      '유형은 5단과 같다 — **시중 실측이 고1/고2/고3 을 가르지 않는다**(코퍼스가 「고등」 한 칸이다). ' +
+      '전에는 여기서 흐름 무관이 더해진다고 적었는데, 실측은 그 유형을 고등 전체에서 1.58%로 고르게 낸다. ' +
+      '계단을 가르는 것은 지문 레벨이다.',
   },
   {
     step: 7,
     vLevels: [7],
     schoolBand: '고3 / 수능 상위',
     volumeTitle: `${SERIES_BRAND} 6`,
-    types: ['vocab_choice', 'grammar_choice', 'order', 'insert', 'irrelevant'],
+    types: [
+      'blank',
+      'vocab_choice',
+      'grammar_fix',
+      'order',
+      'title',
+      'topic',
+      'content_match',
+      'irrelevant',
+      'insert',
+      'purpose',
+      'mood',
+      'summary',
+      'main_point',
+      'claim',
+      'implication',
+      'long_reference',
+      'word_order',
+      'grammar_choice',
+      'blank_word',
+    ],
     rationale:
-      '수능 대응. 유형은 6단과 같고 **지문 레벨이 다르다** — 시장의 최상단도 같은 구조다(리딩튜터 수능PLUS).',
+      '수능 대응. 유형은 5·6단과 같고 **지문 레벨이 다르다** — 시장의 최상단도 같은 구조다(리딩튜터 수능PLUS).',
   },
 ] as const
 

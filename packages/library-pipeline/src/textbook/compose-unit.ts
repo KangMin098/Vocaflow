@@ -87,7 +87,23 @@ export interface ComposeResult {
     outOfRung: number
   }
   /** 시장 비중을 못 지키고 양보한 횟수. targetShare 를 줬을 때만 0 이 아니다. */
-  mixRelaxed: { repeatedType: number; overQuota: number }
+  mixRelaxed: {
+    repeatedType: number
+    overQuota: number
+    /**
+     * **권 안에서 같은 원글을 다시 쓴 횟수.**
+     *
+     * 자동 검수가 「한 권에서 같은 글을 되풀이 읽히지 않는다」를 규칙으로 선언하는데
+     * 조합기에는 그 규칙이 **없었다** — 단원 안 중복(`refsInUnit`)만 막고 권 단위는
+     * 「덜 쓰인 글을 먼저」라는 **선호**였다(실측 2026-09-13). 선호는 재고가 깊을 때만
+     * 규칙처럼 보인다. V6 의 생성형 재고가 원글 기준 `long_reference` 4편 · `implication` 9 ·
+     * `claim` 10 이라, 권이 시중만큼 요구하기 시작하자 바로 되풀이가 나왔다.
+     *
+     * 이제 앞 세 단계가 이 제약을 지키고 **마지막 수단으로만** 되풀이하며, 그 수를 남긴다 —
+     * 조용히 되풀이하면 그 권이 왜 검수에 걸렸는지 아무 데도 안 남는다.
+     */
+    repeatedRef: number
+  }
 }
 
 /**
@@ -490,7 +506,9 @@ export function composeUnits(
     : null
 
   // 시장 비중을 지키지 못하고 양보한 횟수 — 조용히 넘어가지 않는다.
-  const mixRelaxed = { repeatedType: 0, overQuota: 0 }
+  const mixRelaxed = { repeatedType: 0, overQuota: 0, repeatedRef: 0 }
+  /** 이 **권**이 이미 쓴 원글. 단원 단위(refsInUnit)와 다른 자다. */
+  const refsInVolume = new Set<string>()
 
   const used = new Set<string>()
   // ⚠️ **초등 3종은 한 권 안에서 같은 낱말을 다시 묻지 않는다.**
@@ -595,7 +613,11 @@ export function composeUnits(
         }
         return seen.size
       }
-      const takeOne = (allowRepeatType: boolean, ignoreQuota: boolean): boolean => {
+      const takeOne = (
+        allowRepeatType: boolean,
+        ignoreQuota: boolean,
+        allowRepeatRef = false,
+      ): boolean => {
         // **가장 제약된 유형부터** — 남은 몫 ÷ 아직 안 쓴 글. 작은 풀이 자기 글을 먼저
         // 확보하게 한다. 몫 크기는 동점 처리로 남겨 "뒤 단원에 한 유형이 몰리지 않는다"
         // 는 원래 의도도 지킨다.
@@ -645,6 +667,7 @@ export function composeUnits(
               (it) =>
                 !used.has(it.id) &&
                 !refsInUnit.has(it.ref_id) &&
+                (allowRepeatRef || !refsInVolume.has(it.ref_id)) &&
                 !(ELEMENTARY_ITEM_TYPES.has(it.type) && usedElementaryRefs.has(it.ref_id)),
             ),
           )
@@ -662,6 +685,9 @@ export function composeUnits(
         if (takeOne(false, false)) continue
         if (takeOne(true, false)) { mixRelaxed.repeatedType += 1; continue }
         if (takeOne(true, true)) { mixRelaxed.overQuota += 1; continue }
+        // 마지막 수단 — 여기까지 왔다는 것은 그 밴드의 원글이 바닥났다는 뜻이다.
+        // 되풀이하되 조용히 하지 않는다.
+        if (takeOne(true, true, true)) { mixRelaxed.repeatedRef += 1; continue }
         break
       }
       if (picked.length < perUnit) {
@@ -720,7 +746,10 @@ export function composeUnits(
     for (const it of picked) used.add(it.id)
     // 이 단원이 쓴 글을 권 집계에 더한다. `refsInUnit` 이 단원 안 중복을 이미 막으므로
     //   단원 단위로 한 번씩만 오른다 — 다음 단원은 이 값을 보고 덜 쓰인 글을 먼저 고른다.
-    for (const ref of refsInUnit) refUseCount.set(ref, (refUseCount.get(ref) ?? 0) + 1)
+    for (const ref of refsInUnit) {
+      refUseCount.set(ref, (refUseCount.get(ref) ?? 0) + 1)
+      refsInVolume.add(ref)
+    }
 
     // ③ 이 단원이 쓴 글들의 어휘만 모은다 — 안 읽은 글의 낱말을 외우게 하지 않는다.
     //

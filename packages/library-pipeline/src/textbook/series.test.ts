@@ -4,7 +4,14 @@
 // 눈금이 둘이면 반드시 갈린다 — 이 저장소가 이미 여러 번 겪은 사고다.
 
 import { describe, expect, it } from 'vitest'
-import { SERIES_BRAND, SERIES_SPINE, measureSeriesFill, type Inventory } from './series'
+import {
+  SERIES_BRAND,
+  SERIES_SPINE,
+  SERIES_TYPE_LABEL_KO,
+  measureSeriesFill,
+  type Inventory,
+} from './series'
+import marketSpec from './market-spec.json'
 import { SCHOOL_TYPES } from './school-types'
 
 describe('SERIES_SPINE', () => {
@@ -100,5 +107,62 @@ describe('measureSeriesFill', () => {
     const fill = measureSeriesFill([])
     expect(fill.brokenSteps).toEqual([1, 2, 3, 4, 5, 6, 7])
     expect(fill.rungs.every((r) => r.total === 0)).toBe(true)
+  })
+})
+
+// ── 등뼈가 시장에서 멀어지지 않게 잠근다 (2026-09-13) ────────────────
+//
+// ⚠️ **이 회귀가 없어서 등뼈가 조용히 시중과 갈렸다.** 시중 초등 1·2위(`title` 5.17% ·
+//    `blank` 4.71%)와 고등 1·3위(`blank` 3.89% · `grammar_fix` 2.43%)를 우리가 **한 권도
+//    안 내고 있었는데** 어떤 검사도 걸지 않았다. 조판 로그는 그것을 「재고가 0」이라 적었고
+//    (재고는 0 이 아니었다 — V2 만 blank_word 1,737 · unit_vocab 1,684) 그래서 처방까지
+//    거꾸로 안내됐다.
+//
+// 규칙: 그 학교급 쪽 등장률이 **2‰ 이상**인 유형은 그 계단이 반드시 선언한다.
+// 바닥선은 `rungMix` 의 `RUNG_TYPE_FLOOR_PER_MILLE` 과 같은 값이다.
+describe('등뼈는 시중 실측에서 나온다', () => {
+  /** 계단 → 시중 코퍼스의 학교급 칸. */
+  const bucketOf = (schoolBand: string) =>
+    schoolBand.startsWith('초등') ? '초등' : schoolBand.startsWith('중학') ? '중등' : '고등'
+  const FLOOR = 0.002
+
+  it('그 학교급이 2‰ 이상 내는 유형을 계단이 빠짐없이 선언한다', () => {
+    for (const rung of SERIES_SPINE) {
+      // 1단만 예외다 — **지문이 없는 계단**이라 지문을 묻는 유형을 얹을 수 없다.
+      // (시중 초등 코퍼스는 3~6학년 교재다.)
+      if (rung.step === 1) continue
+      const density = (
+        marketSpec.typeDensity.bySchool as Record<string, { densityPerPage: Record<string, number> }>
+      )[bucketOf(rung.schoolBand)]!.densityPerPage
+      const want = Object.entries(density)
+        .filter(([, n]) => n >= FLOOR)
+        .map(([t]) => t)
+      const missing = want.filter((t) => !(rung.types as readonly string[]).includes(t))
+      expect(missing, `${rung.step}단(${rung.schoolBand}) 이 시중 유형을 빠뜨렸다`).toEqual([])
+    }
+  })
+
+  it('바닥선 아래 유형을 새로 들이지 않는다 — 영영 못 채우는 칸이 생긴다', () => {
+    // ⚠️ 이미 재고가 딸린 기존 선언은 그대로 둔다(빼면 만든 것을 버린다). 그래서 검사는
+    //    **저장소가 실제로 만드는 유형**만 본다 — 시중 표에 있는데 바닥선 아래인 것.
+    const kept = new Set(['blank_word', 'grammar_choice', 'word_meaning', 'unit_vocab', 'unit_grammar'])
+    for (const rung of SERIES_SPINE) {
+      if (rung.step === 1) continue
+      const density = (
+        marketSpec.typeDensity.bySchool as Record<string, { densityPerPage: Record<string, number> }>
+      )[bucketOf(rung.schoolBand)]!.densityPerPage
+      const belowFloor = rung.types.filter(
+        (t) => density[t] != null && density[t]! < FLOOR && !kept.has(t),
+      )
+      expect(belowFloor, `${rung.step}단 이 바닥선 아래 유형을 들였다`).toEqual([])
+    }
+  })
+
+  it('모든 유형이 이름표를 갖는다 — union 만 늘리면 리포트에 undefined 가 찍힌다', () => {
+    for (const rung of SERIES_SPINE) {
+      for (const t of rung.types) {
+        expect(SERIES_TYPE_LABEL_KO[t], `${t} 이름표`).toBeTruthy()
+      }
+    }
   })
 })
