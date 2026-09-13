@@ -38,12 +38,14 @@
     "@vocaflow/types": "workspace:*",
     "@vocaflow/ui-shared": "workspace:*",
     "@vocaflow/vcb-curate-core": "workspace:*",
+    "@vocaflow/video-factory": "workspace:*",
     "@vocaflow/wlp": "workspace:*",
     "clsx": "^2.1.1",
     "dynamic-time-warping-ts": "^1.0.0",
     "lucide-react": "^1.11.0",
     "next": "14.2.35",
     "openai": "^6.34.0",
+    "pdfjs-dist": "^6.3.289",
     "pitchfinder": "^2.3.4",
     "posthog-js": "^1.417.1",
     "qrcode-generator": "2.0.4",
@@ -56,8 +58,7 @@
     "tailwind-merge": "^3.5.0",
     "three": "^0.184.0",
     "ts-fsrs": "^5.2.3",
-    "zustand": "^5.0.12",
-    "@vocaflow/video-factory": "workspace:*"
+    "zustand": "^5.0.12"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.12.1",

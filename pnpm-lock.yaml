@@ -138,6 +138,9 @@ importers:
       openai:
         specifier: ^6.34.0
         version: 6.34.0(ws@8.21.0)(zod@4.5.4)
+      pdfjs-dist:
+        specifier: ^6.3.289
+        version: 6.3.289
       pitchfinder:
         specifier: ^2.3.4
         version: 2.3.4

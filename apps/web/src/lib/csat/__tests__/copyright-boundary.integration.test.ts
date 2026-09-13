@@ -13,6 +13,9 @@
 //
 // SERVICE_ROLE_KEY / ANON_KEY 없으면 자동 skip (CI).
 
+import fs from 'node:fs'
+import path from 'node:path'
+
 import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 
@@ -122,5 +125,83 @@ describe.skipIf(skip)('기출 원문 저작권 경계 (실 DB)', () => {
     expect(after?.measured_ability, `학습자 UPDATE 가 통했다 (error=${error?.message ?? 'none'})`).not.toBe(
       '학습자가 고쳐 쓴 값',
     )
+  })
+})
+
+// ── 오버레이 앵커 — **경계 밖에 새 문을 내지 않았는지** ──────────────────
+//
+// 위 검사들은 `csat_items` 와 `csat_items_public` 만 본다. 그런데 2026-09-13 에 **새 저장소**가
+// 생겼다 — `lib/csat/anchor-data/*.json`(평가원 문제지 위에 상자를 그릴 좌표). 그 파일들은
+// 위 검사의 사정권 **밖**이라, 누군가 거기에 지문 조각을 담기 시작하면 **테스트는 계속 초록인데
+// 경계는 옮겨간다.** 이 파일 주석이 경고하는 바로 그 실패 모드다
+// ("이 테스트가 지키는 것은 «다 가려라» 가 아니라 **선이 옮겨 다니지 않는 것**이다").
+//
+// 그래서 규칙을 코드로 고정한다: **앵커에는 숫자와 식별자만 있다.**
+//   허용되는 문자열 값은 `exam_id`(회차 id)와 `sha256`(16진수 64자) 둘뿐이고,
+//   나머지는 전부 숫자여야 한다. 문장·낱말이 들어오는 즉시 실패한다.
+//
+// DB 가 필요 없으므로 **CI 에서도 돈다**(위 블록은 키가 없으면 skip 된다).
+describe('오버레이 앵커 데이터는 좌표만 담는다', () => {
+  const dir = path.resolve(process.cwd(), 'src/lib/csat/anchor-data')
+
+  it('앵커 폴더가 있고 색인이 회차를 가리킨다 — 없으면 아래 단언이 아무것도 안 지킨다', () => {
+    expect(fs.existsSync(dir), `${dir} 가 없다 (build-anchor-data.mjs --commit)`).toBe(true)
+    const idx = JSON.parse(fs.readFileSync(path.join(dir, 'index.json'), 'utf8'))
+    expect(Array.isArray(idx.exams)).toBe(true)
+    expect(idx.exams.length, '색인이 비어 있다').toBeGreaterThan(0)
+  })
+
+  it('문자열 값은 exam_id 와 sha256 뿐 — 지문·선지 글자가 한 자도 없다', () => {
+    const bad: string[] = []
+    for (const f of fs.readdirSync(dir).filter((f) => f.endsWith('.json') && f !== 'index.json')) {
+      const walk = (v: unknown, key: string) => {
+        if (typeof v === 'number') return
+        if (typeof v === 'string') {
+          if (key === 'exam_id' || key === 'sha256') return
+          bad.push(`${f}: ${key} = "${v.slice(0, 40)}"`)
+          return
+        }
+        if (Array.isArray(v)) {
+          v.forEach((x) => walk(x, key))
+          return
+        }
+        if (v && typeof v === 'object') {
+          for (const k of Object.keys(v as Record<string, unknown>)) walk((v as Record<string, unknown>)[k], k)
+          return
+        }
+        bad.push(`${f}: ${key} 가 숫자도 문자열도 객체도 아니다`)
+      }
+      const j = JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8'))
+      walk(j, 'root')
+      expect(/^[0-9a-f]{64}$/.test(j.sha256), `${f}: sha256 형식이 아니다`).toBe(true)
+    }
+    expect(bad, `앵커에 좌표가 아닌 문자열이 있다 — 경계가 옮겨갔다:\n  ${bad.slice(0, 6).join('\n  ')}`).toHaveLength(0)
+  })
+
+  it('한 해시가 두 회차를 가리키지 않는다 — 회차 판정이 동전 던지기가 된다', () => {
+    // 실측: M2009 의 문제지 PDF 가 M2106 것과 sha256 까지 같다(원본 중복). 빌드가 양쪽 다
+    // 떨어뜨리는데, 그 가드가 사라지면 학습자가 떨어뜨린 파일의 회차를 틀리게 답한다.
+    const idx = JSON.parse(fs.readFileSync(path.join(dir, 'index.json'), 'utf8'))
+    const hashes = idx.exams.map((e: { sha256: string }) => e.sha256)
+    expect(new Set(hashes).size, '색인에 같은 해시가 둘 있다').toBe(hashes.length)
+  })
+
+  it('오버레이 화면·로더는 passage·choices 를 입에 올리지 않는다', () => {
+    // 컬럼 이름이 코드에 **나타나지도 않아야** 한다. 나타나면 언젠가 select 에 들어간다.
+    for (const rel of [
+      'src/lib/csat/overlay.ts',
+      'src/app/api/csat/overlay/route.ts',
+      'src/app/(main)/csat/overlay/OverlayClient.tsx',
+    ]) {
+      const src = fs.readFileSync(path.resolve(process.cwd(), rel), 'utf8')
+      // 주석에서 「담지 않는다」고 설명하는 것은 허용한다 — 코드 줄에만 없어야 한다.
+      const codeLines = src
+        .split('\n')
+        .filter((l) => !/^\s*(\/\/|\*|\/\*)/.test(l))
+        .join('\n')
+      for (const forbidden of ['passage', 'raw_block']) {
+        expect(codeLines.includes(forbidden), `${rel} 코드 줄에 ${forbidden} 가 있다`).toBe(false)
+      }
+    }
   })
 })

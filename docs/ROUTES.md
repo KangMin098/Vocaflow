@@ -105,6 +105,20 @@
 | **Practice — 연습 단일 진입면** (v06.201) | `(main)/practice` | — | — | 사이드바 PRACTICE 5형제(Flashcard·WordBlitz·PairFlip·SpellForge·Game Lab) → 2개로 통폐합. **면(facet)으로 고른다** — `FACETS` 6개 카드 + 가장 무른 면 강조. 도구 = 모듈 4 + Game Lab 게임 17(`lib/learner/practice-map.ts` 가 `GAME_CATALOG.layer` 에서 파생) + 활성 시 `Syntax`. 게임 링크는 `from=/practice` 필수(없으면 종료가 `/arcade` 로 튕김) |
 | **DCP 구문 연습** (CTP ⑥) | — | `(main)/practice/dcp` | — | hub 처방 ④ + **`/practice` Use 면**(v06.201 — 그전엔 처방이 유일 진입). order(순서 배열)/insert(위치 삽입) · `grade_dcp_item` 서버 채점 · 오답 error_cause 1-tap |
 
+#### 평가원 기출 분석 (`(main)/csat/*` · 보호 라우트)
+
+**문항 원문을 싣지 않는다.** 지문·선지는 평가원 저작물이고 `csat_items` 의 RLS 가
+`USING (false)` 로 막는다 — 나가는 것은 우리가 쓴 분석과 그 안의 짧은 인용까지다
+(경계 회귀: `lib/csat/__tests__/copyright-boundary.integration.test.ts`).
+
+| 라우트 | 파일 | 설명 |
+|---|---|---|
+| `/csat` | `(main)/csat/page.tsx` | 유형 허브 26종. 출제 비중 + 실패 지점만 — 진도 게이지를 두지 않는다. 분석 없는 유형도 숨기지 않는다(숨기면 「시험에 안 나온다」로 읽힌다) |
+| `/csat/[typeId]` | `(main)/csat/[typeId]/page.tsx` | 유형 하나 — 절차·되풀이 함정·실패 모드 |
+| `/csat/item/[slug]` | `(main)/csat/item/[slug]/page.tsx` | 문항 한 개 해설. 순서가 설계다 — ①답이 왜 이것인가 → ②나머지가 왜 아닌가 → ③다시 풀 때. 오답부터 보이면 자책이 앞선다 |
+| `/csat/plan` | `(main)/csat/plan/page.tsx` | 한 회차 주파 계획 — 18~45번 줄 순서 |
+| **`/csat/overlay`** (2026-09-13) | `(main)/csat/overlay/page.tsx` + `OverlayClient.tsx` (로더 `lib/csat/overlay.ts` · 좌표 `lib/csat/anchor-data/*.json`) | **평가원 문제지에 해설을 얹는다.** 학습자가 받은 PDF 를 떨어뜨리면 `crypto.subtle` 이 그 자리에서 SHA-256 → 서버로 가는 것은 **해시 64자뿐** → 그 회차 좌표와 분석이 돌아온다. PDF.js 가 **브라우저 메모리에서** 렌더하고 그 위에 상자를 얹는다. ⚠️ 원본을 서버에 올리지 않고(프록시 = 우리가 전송하는 것), **「해설 얹힌 PDF 내려받기」를 두지 않는다**(변형 복제물이 된다). 좌표 29회차 · 사정권 문항마다 ①~⑤ 5개(실측 840/840) |
+
 #### 아케이드 19종 (`(app)/play/<slug>`)
 
 `source` = 학습자에게 보이는 1차 분류축 — "이 게임이 내 단어를 쓰는가".
@@ -233,13 +247,19 @@
 
 ---
 
-## API Routes (27)
+## API Routes (28)
 
 ### `/api/auth/*` (1)
 
 | 경로 | 파일 |
 |---|---|
 | `POST /api/auth/callback` | `api/auth/callback/route.ts` (Supabase OAuth) |
+
+### `/api/csat/*` (1 · 2026-09-13 신설)
+
+| 라우트 | 설명 |
+|---|---|
+| `GET · POST /api/csat/overlay` | 오버레이 한 벌. POST 본문에 **SHA-256 64자만** 받아 회차를 찾고 좌표 + 분석을 돌려준다. **평가원 문제지는 이 경로로 오지 않는다** — 브라우저가 그 자리에서 해시한다. GET 아니라 POST 인 이유: 해시가 URL 에 남으면 접속 기록·리퍼러에 「어느 회차를 열었는지」가 따라다닌다. 화면과 같은 문턱(401) — 분석이 새지 않는 것은 이 검사가 아니라 RLS 가 지킨다 |
 
 ### `/api/srs/*` (1)
 

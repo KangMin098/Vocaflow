@@ -117,7 +117,7 @@ export async function extractAnchors(pdfPath) {
  * 문항 번호는 단마다 **같은 x** 에서 시작한다(실측 2026: 88 과 437). 그래서 후보 x 의 최빈값
  * 두 개가 두 단의 왼쪽 여백이고, 그 사이가 단 경계다.
  */
-function columnsOf(pages) {
+export function columnsOf(pages) {
   const count = new Map()
   for (const p of pages) for (const i of p.items) {
     const k = Math.round(i.x)
@@ -149,7 +149,7 @@ function columnsOf(pages) {
  *    ①은 「28번 뒤에 `30.` 이 본문으로 나오는」 경우를 막지만 문제지 30개에 그런 예가 없다.
  *    남겨 두되 **검증된 척하지 않는다** — 지우려면 그 판단만 하면 된다.
  */
-function realItems(pages, cols, tol = 4) {
+export function realItems(pages, cols, tol = 4) {
   const all = []
   for (const p of pages) for (const i of p.items) {
     const col = i.x < cols.gutter ? 0 : 1
@@ -171,7 +171,7 @@ function realItems(pages, cols, tol = 4) {
  * 기호를 문항에 붙인다 — 같은 쪽·같은 단에서 **그 기호 위에 있는 가장 가까운 문항**.
  * 주인을 못 찾은 기호(고아)는 세어서 돌려준다 — 0이 아니면 단 판정이 틀린 것이다.
  */
-function assign(pages, cols, items) {
+export function assignMarks(pages, cols, items) {
   const key = (i) => `${i.page}|${i.col}|${i.no}`
   const owner = new Map(items.map((i) => [key(i), []]))
   const orphans = []
@@ -189,7 +189,7 @@ function assign(pages, cols, items) {
  * 대칭이면 앞 절반이 첫 형이다 — 실측 2026: 16쪽이 1~8 / 9~16 으로 쪽마다 개수까지 같았다.
  * 어느 쪽이 홀수형인지는 `scripts/csat/data/answers.json` 의 `form_used` 와 1쪽 표기가 정한다.
  */
-function firstForm(pages) {
+export function firstFormPages(pages) {
   const n = pages.length
   if (n % 2 || n < 16) return pages
   const half = n / 2
@@ -200,10 +200,10 @@ function firstForm(pages) {
 
 /** 한 문제지의 앵커 품질 — 사정권(18~45)에서 기호 5개가 붙은 문항이 몇인가 */
 export function grade(extracted) {
-  const pages = firstForm(extracted.data)
+  const pages = firstFormPages(extracted.data)
   const cols = columnsOf(pages)
   const items = realItems(pages, cols)
-  const { owner, orphans } = assign(pages, cols, items)
+  const { owner, orphans } = assignMarks(pages, cols, items)
   const reading = [...owner].filter(([k]) => Number(k.split('|')[2]) >= 18)
   const five = reading.filter(([, v]) => v.length === 5)
   return {
