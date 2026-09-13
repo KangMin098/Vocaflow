@@ -349,6 +349,46 @@ describe('원문 적격 화면', () => {
     }
   })
 
+  // ── 원천 생존율 ─────────────────────────────────────────────────
+  // 다른 표는 「몇 편 있는가」를 센다. 그런데 **편수는 공급이 아니다** — 실측 2026-09-13:
+  // 같은 밴드·같은 규격인데 PLOS/Europe PMC 초록은 게이트 통과 5.6%, Gutenberg 산문은 100%.
+  // 이 표가 없으면 「9만 편 있다」를 근거로 없는 공급을 세게 된다.
+  it('안 쟀으면 원천 생존율 표를 아예 안 보인다 — 0% 로 칠하면 거짓말이 된다', () => {
+    // ⚠️ 이것이 이 표의 가장 중요한 성질이다. 스캔을 한 번도 안 돌린 상태에서 0% 를 칠하면
+    //    화면이 「모든 원천이 못 쓴다」고 말한다. 그래서 `measuredAt` 이 비면 `null` 이다.
+    if (panel.sourceYield) return
+    expect(html).not.toContain('원천 생존율')
+  })
+
+  it('원천 생존율을 보이면 언제 잰 값인지와 표본 수를 함께 말한다', () => {
+    const y = panel.sourceYield
+    if (!y) return
+    expect(html).toContain('원천 생존율')
+    expect(html).toContain('source-yield-scan.mjs')
+    // 표본 수 없이 비율만 보이면 5편 본 칸의 80% 와 40편 본 칸의 80% 가 같아 보인다.
+    expect(html).toContain('표본')
+    expect(y.perCell).toBeGreaterThan(0)
+    expect(y.measuredAt).not.toBe('')
+  })
+
+  it('생존율과 쓸 수 있는 편수의 산술이 맞는다', () => {
+    const y = panel.sourceYield
+    if (!y) return
+    for (const r of y.rows) {
+      expect(r.sampled).toBeGreaterThan(0)
+      expect(r.sampled).toBeLessThanOrEqual(r.articles)
+      expect(r.ok).toBeLessThanOrEqual(r.sampled)
+      // 통과율은 표본에서 나온다 — 재고에서 나오면 안 된다.
+      expect(r.yieldPct).toBeCloseTo((r.ok / r.sampled) * 100, 1)
+      // 쓸 수 있는 편수는 재고 × 통과율의 추정이다.
+      expect(r.usableEstimate).toBe(Math.round(r.articles * (r.ok / r.sampled)))
+      expect(r.usableEstimate).toBeLessThanOrEqual(r.articles)
+      // 사인 합계가 표본과 어긋나면 표가 무언가를 숨기고 있다.
+      expect(Object.values(r.reasons).reduce((n, v) => n + v, 0)).toBe(r.sampled)
+    }
+    expect(y.totalUsable).toBeLessThanOrEqual(y.totalStock)
+  })
+
   it('언제 잰 값인지와 다시 재는 명령을 함께 보인다', () => {
     expect(html).toContain('에 잰 값')
     expect(html).toContain('source-eligibility-scan.mjs')

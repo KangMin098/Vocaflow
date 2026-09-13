@@ -35,6 +35,7 @@ import defectSnapshot from './extraction-defect-snapshot.json'
 import typeSnapshot from './type-inventory-snapshot.json'
 import fillPlanSnapshot from './item-fill-plan.json'
 import drainAuditSnapshot from './item-drain-audit-snapshot.json'
+import sourceYieldSnapshot from './source-yield-snapshot.json'
 import snapshot from './source-eligibility-snapshot.json'
 
 /** 스냅샷 한 칸의 집계 — 스캔이 찍은 모양 그대로. */
@@ -173,6 +174,21 @@ export interface SourceEligibilityPanel {
    */
   drainAudit: DrainAuditPanel | null
   /**
+   * **원천이 지면에 닿는 비율** — 「원문 선택의 기준」의 바닥.
+   *
+   * ⚠️ 재고를 **편수로만 세면 없는 공급을 있다고 세게 된다.** 실측 2026-09-13: 집필 배치
+   * 다섯이 독립으로 같은 것을 보고했다 — 같은 밴드·같은 규격인데 원천이 다르면 생존율이
+   * 스무 배 갈린다. PLOS/Europe PMC 초록은 게이트 통과 **5.6%**, Gutenberg 고전 산문은
+   * **100%** 였다. 사인은 둘뿐이다: **논문 서식**(`Citation:`·`Funding:`·`Objective To …`)과
+   * **어수 상한 초과**(학술 초록은 190어에 몰려 있고 V7 상한은 178어).
+   *
+   * 그래서 「9만 편 있다」는 상위 밴드 독해에 대해 참이 아니다. 어느 원천을 더 수확할지,
+   * 어느 밴드에 어느 원천을 붙일지가 이 표에서 갈린다.
+   *
+   * `measuredAt` 이 비어 있으면 **아직 안 쟀다** — 0 으로 뭉개지 않는다.
+   */
+  sourceYield: SourceYieldPanel | null
+  /**
    * **본문이 글이 아닌 것** — 적격 판정이 통과시킨 뒤에도 남는 결함.
    *
    * 일곱 축은 「이 원문을 써도 되는가」를 묻고, 그 질문은 **본문이 온전하다는 것을 전제**한다.
@@ -277,6 +293,31 @@ export interface DrainAuditPanel {
   passageBlocked: number
   reasons: { reason: string; count: number }[]
   byDir: { dir: string; blocked: number; filled: number; rationaleOnly: number }[]
+}
+
+/** 원천 한 곳이 한 학년에서 실제로 지문이 되는 비율. */
+export interface SourceYieldRow {
+  source: string
+  vLevel: number
+  /** 그 칸의 재고 전량 — 표본이 아니라 실제 편수다. */
+  articles: number
+  sampled: number
+  ok: number
+  yieldPct: number
+  /** 재고 × 통과율 — **실제로 쓸 수 있는 편수의 추정**. 편수만 보면 과대평가한다. */
+  usableEstimate: number
+  reasons: Record<string, number>
+}
+
+export interface SourceYieldPanel {
+  measuredAt: string
+  ageDays: number
+  /** 어느 유형의 창으로 쟀는가 — 유형마다 창이 달라 한 표가 전부를 답하지는 않는다. */
+  type: string
+  perCell: number
+  totalStock: number
+  totalUsable: number
+  rows: SourceYieldRow[]
 }
 
 /** 발췌 경로의 진행 — 뽑혔는가, 분석됐는가, 조판 풀에 들어왔는가. */
@@ -462,6 +503,29 @@ export function buildSourceEligibilityPanel(now: Date = new Date()): SourceEligi
         totalItems: t.totalItems ?? 0,
         bands: t.bands,
         totalVolumes: t.bands.reduce((n, b) => n + b.volumes, 0),
+      }
+    })(),
+    sourceYield: (() => {
+      const y = sourceYieldSnapshot as unknown as {
+        measuredAt?: string
+        type?: string
+        perCell?: number
+        totalStock?: number
+        totalUsable?: number
+        rows?: SourceYieldRow[]
+      }
+      // ⚠️ **안 잰 것과 0 은 다르다.** 스캔을 한 번도 안 돌렸으면 `measuredAt` 이 비어 있고,
+      //   그때는 표를 아예 안 보인다 — 0% 로 칠하면 「모든 원천이 못 쓴다」고 말하게 된다.
+      if (!y?.measuredAt || !y.rows?.length) return null
+      const measured = new Date(y.measuredAt)
+      return {
+        measuredAt: y.measuredAt,
+        ageDays: Math.max(0, Math.floor((now.getTime() - measured.getTime()) / 86_400_000)),
+        type: y.type ?? '',
+        perCell: y.perCell ?? 0,
+        totalStock: y.totalStock ?? 0,
+        totalUsable: y.totalUsable ?? 0,
+        rows: y.rows,
       }
     })(),
     drainAudit: (() => {

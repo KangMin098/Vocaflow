@@ -11,6 +11,7 @@ import type {
   TypeInventoryPanel,
   FillPlanPanel,
   DrainAuditPanel,
+  SourceYieldPanel,
   GradeRow,
   SourceEligibilityPanel,
 } from '@/lib/textbook/source-eligibility-view'
@@ -160,6 +161,7 @@ export function SourceEligibilityClient({ panel }: { panel: SourceEligibilityPan
       {panel.typeInventory ? <TypeInventoryTable inv={panel.typeInventory} /> : null}
       {panel.fillPlan ? <FillPlanTable plan={panel.fillPlan} /> : null}
       {panel.drainAudit ? <DrainAuditTable audit={panel.drainAudit} /> : null}
+      {panel.sourceYield ? <SourceYieldTable yieldPanel={panel.sourceYield} /> : null}
       <DefectTable defects={panel.defects} />
     </div>
   )
@@ -675,6 +677,107 @@ function FillPlanTable({ plan }: { plan: FillPlanPanel }) {
  * 산더미로 읽혀 아무도 손대지 않는다. 그중 142는 **한국어 해설 한 줄**이면 살아나고
  * (선택지·정답은 이미 검증됐다), 173은 지문이 문제라 집필로 못 고친다. 비용이 100배 다르다.
  */
+/**
+ * **원천이 지면에 닿는 비율 — 「원문 선택의 기준」의 바닥.**
+ *
+ * ⚠️ 이 화면의 다른 표들은 「몇 편 있는가」를 센다. 그런데 **편수는 공급이 아니다.**
+ * 실측 2026-09-13: 집필 배치 다섯이 독립으로 같은 것을 보고했다 — 같은 밴드·같은 규격인데
+ * 원천이 다르면 생존율이 스무 배 갈린다(PLOS/Europe PMC 초록 **5.6%** vs Gutenberg 산문 **100%**).
+ * 그래서 「9만 편 있다」가 상위 밴드 독해에 대해서는 참이 아니다.
+ *
+ * 표가 답하는 질문은 하나다 — **어느 원천을 더 수확할 것인가.**
+ */
+function SourceYieldTable({ yieldPanel }: { yieldPanel: SourceYieldPanel }) {
+  const pct = yieldPanel.totalStock
+    ? ((yieldPanel.totalUsable / yieldPanel.totalStock) * 100).toFixed(1)
+    : '0.0'
+  // 재고가 큰 칸부터 — 작은 칸의 100% 는 결정을 안 바꾼다.
+  const rows = [...yieldPanel.rows].sort((a, b) => b.articles - a.articles).slice(0, 24)
+  return (
+    <section aria-label="원천 생존율" className="flex flex-col gap-2">
+      <div className="flex flex-wrap items-baseline gap-2">
+        <h2 className="font-display text-[15px] font-[700] text-[var(--t1)]">원천 생존율</h2>
+        <span className="font-body text-[12px] text-[var(--t2)]">
+          원천 한 곳이 실제로 <b>지문이 되는 비율</b> — 편수는 공급이 아니다
+        </span>
+        <span className="ml-auto font-body text-[11px] text-[var(--t3)]">
+          {yieldPanel.measuredAt.slice(0, 10)} 에 잰 값 ·{' '}
+          {yieldPanel.ageDays === 0 ? '오늘' : `${yieldPanel.ageDays}일 전`} · 유형{' '}
+          <code>{yieldPanel.type}</code> 창 · 칸당 표본 {yieldPanel.perCell}
+        </span>
+      </div>
+
+      <p className="font-body text-[12px] text-[var(--t2)]">
+        재고 <b className="tabular-nums text-[var(--t1)]">{yieldPanel.totalStock.toLocaleString()}</b>편 중{' '}
+        <b className="tabular-nums" style={{ color: 'var(--success-ink)' }}>
+          약 {yieldPanel.totalUsable.toLocaleString()}편
+        </b>
+        ({pct}%)만 지문이 된다. 나머지는 재고에 있어도 지면에 못 온다 — 어느 원천을 더 수확할지가
+        여기서 갈린다.
+      </p>
+
+      <div className="overflow-x-auto">
+        <table className="w-full min-w-[720px] border-collapse font-body text-[13px]">
+          <thead>
+            <tr className="border-b border-[var(--bd)] text-left text-[12px] text-[var(--t2)]">
+              <th className="py-2 pr-3 font-[600]">원천</th>
+              <th className="py-2 pr-3 font-[600]">V</th>
+              <th className="py-2 pr-3 text-right font-[600]">재고</th>
+              <th className="py-2 pr-3 text-right font-[600]">표본</th>
+              <th className="py-2 pr-3 text-right font-[600]">지문이 되는 비율</th>
+              <th className="py-2 pr-3 text-right font-[600]">쓸 수 있는 편수</th>
+              <th className="py-2 font-[600]">주된 사인</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((r) => {
+              const worst = Object.entries(r.reasons)
+                .filter(([k]) => k !== 'ok')
+                .sort((a, b) => b[1] - a[1])[0]
+              return (
+                <tr key={`${r.source}-${r.vLevel}`} className="border-b border-[var(--bd)]/50">
+                  <td className="py-2 pr-3 font-mono text-[12px] text-[var(--t2)]">{r.source}</td>
+                  <td className="py-2 pr-3 font-[700] tabular-nums text-[var(--t1)]">V{r.vLevel}</td>
+                  <td className="py-2 pr-3 text-right tabular-nums text-[var(--t2)]">
+                    {r.articles.toLocaleString()}
+                  </td>
+                  <td className="py-2 pr-3 text-right tabular-nums text-[var(--t3)]">{r.sampled}</td>
+                  <td
+                    className="py-2 pr-3 text-right font-[700] tabular-nums"
+                    style={{
+                      color:
+                        r.yieldPct >= 70
+                          ? 'var(--success-ink)'
+                          : r.yieldPct >= 30
+                            ? 'var(--t1)'
+                            : 'var(--error-ink)',
+                    }}
+                  >
+                    {r.yieldPct}%
+                  </td>
+                  <td className="py-2 pr-3 text-right tabular-nums text-[var(--t1)]">
+                    {r.usableEstimate.toLocaleString()}
+                  </td>
+                  <td className="py-2 text-[12px] text-[var(--t3)]">
+                    {worst && worst[1] > 0 ? `${worst[0]} ${worst[1]}` : '—'}
+                  </td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
+      </div>
+
+      <p className="font-body text-[11px] text-[var(--t3)]">
+        갱신: <code>pnpm dlx tsx scripts/textbook/source-yield-scan.mjs</code> (읽기만 하므로 재실행 안전).
+        <b>표본이다</b> — 칸마다 최대 {yieldPanel.perCell}편을 보고, 표본을 결정론으로 골라 어제 값과
+        비교할 수 있게 한다. 규격은 뽑기와 같은 자(<code>itemWordSpec</code> ·{' '}
+        <code>isPrintablePassage</code>)를 그대로 부른다 — 사본을 두면 이 표가 뽑기와 다른 말을 한다.
+      </p>
+    </section>
+  )
+}
+
 function DrainAuditTable({ audit }: { audit: DrainAuditPanel }) {
   const pct = audit.filled ? ((audit.blocked / audit.filled) * 100).toFixed(1) : '0.0'
   return (
