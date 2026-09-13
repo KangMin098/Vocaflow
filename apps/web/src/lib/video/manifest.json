@@ -1,5 +1,1928 @@
 {
-  "builtAt": "1970-01-01T00:00:00.000Z",
-  "baseUrl": null,
-  "videos": []
+  "builtAt": "2026-09-13T00:43:48.683Z",
+  "baseUrl": "https://jajenrevcbmrpaliomxv.supabase.co/storage/v1/object/public/video",
+  "videos": [
+    {
+      "id": "intro-platform",
+      "kind": "intro",
+      "title": "Vocaflow",
+      "subtitle": "글의 난이도가 아니라, 내가 아는 비율을 잽니다.",
+      "seconds": 24.73,
+      "captions": "intro-platform.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/intro-platform.mp4",
+          "poster": "wide/intro-platform.jpg",
+          "bytes": 2660407,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/intro-platform.mp4",
+          "poster": "vertical/intro-platform.jpg",
+          "bytes": 2627807,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/intro-platform.mp4",
+          "poster": "square/intro-platform.jpg",
+          "bytes": 2613870,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "benefit-coverage",
+      "kind": "benefit",
+      "title": "내 기준 커버리지",
+      "subtitle": "글의 난이도가 아니라 \"내가 아는 비율\"을 잽니다. 같은 글도 사람마다 다른 숫자가 나와요.",
+      "seconds": 20.03,
+      "captions": "benefit-coverage.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/benefit-coverage.mp4",
+          "poster": "wide/benefit-coverage.jpg",
+          "bytes": 1608019,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/benefit-coverage.mp4",
+          "poster": "vertical/benefit-coverage.jpg",
+          "bytes": 1557857,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/benefit-coverage.mp4",
+          "poster": "square/benefit-coverage.jpg",
+          "bytes": 1559997,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "benefit-decay",
+      "kind": "benefit",
+      "title": "숫자가 시간에 따라 변합니다",
+      "subtitle": "복습을 미루면 커버리지가 내려갑니다. 2주 뒤 이 글이 얼마나 어려워지는지 미리 보여줘요.",
+      "seconds": 19.83,
+      "captions": "benefit-decay.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/benefit-decay.mp4",
+          "poster": "wide/benefit-decay.jpg",
+          "bytes": 1248153,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/benefit-decay.mp4",
+          "poster": "vertical/benefit-decay.jpg",
+          "bytes": 1364319,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/benefit-decay.mp4",
+          "poster": "square/benefit-decay.jpg",
+          "bytes": 1271056,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "benefit-minimum",
+      "kind": "benefit",
+      "title": "\"몇 개만 하면 되는지\"",
+      "subtitle": "막연히 단어를 외우는 대신, 이 글이 편하게 읽히는 최소 단어 수를 계산해 줍니다.",
+      "seconds": 13.4,
+      "captions": "benefit-minimum.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/benefit-minimum.mp4",
+          "poster": "wide/benefit-minimum.jpg",
+          "bytes": 810910,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/benefit-minimum.mp4",
+          "poster": "vertical/benefit-minimum.jpg",
+          "bytes": 891287,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/benefit-minimum.mp4",
+          "poster": "square/benefit-minimum.jpg",
+          "bytes": 835065,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "curriculum-ladder",
+      "kind": "curriculum",
+      "title": "7단 커리큘럼",
+      "subtitle": "소리부터 수능까지, 한 사다리로 이어집니다.",
+      "seconds": 14.77,
+      "captions": "curriculum-ladder.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/curriculum-ladder.mp4",
+          "poster": "wide/curriculum-ladder.jpg",
+          "bytes": 1037768,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/curriculum-ladder.mp4",
+          "poster": "vertical/curriculum-ladder.jpg",
+          "bytes": 1113519,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/curriculum-ladder.mp4",
+          "poster": "square/curriculum-ladder.jpg",
+          "bytes": 1050806,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "series-reading",
+      "kind": "series",
+      "title": "Vocaflow Reading",
+      "subtitle": "글 전체의 논지를 잡는가",
+      "seconds": 12.33,
+      "captions": "series-reading.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/series-reading.mp4",
+          "poster": "wide/series-reading.jpg",
+          "bytes": 901239,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/series-reading.mp4",
+          "poster": "vertical/series-reading.jpg",
+          "bytes": 1008564,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/series-reading.mp4",
+          "poster": "square/series-reading.jpg",
+          "bytes": 923379,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "series-vocab",
+      "kind": "series",
+      "title": "Vocaflow Vocab",
+      "subtitle": "문맥에서 낱말을 고르고 쓰는가",
+      "seconds": 11.97,
+      "captions": "series-vocab.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/series-vocab.mp4",
+          "poster": "wide/series-vocab.jpg",
+          "bytes": 870523,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/series-vocab.mp4",
+          "poster": "vertical/series-vocab.jpg",
+          "bytes": 957105,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/series-vocab.mp4",
+          "poster": "square/series-vocab.jpg",
+          "bytes": 889232,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "series-syntax",
+      "kind": "series",
+      "title": "Vocaflow Syntax",
+      "subtitle": "문장 구조와 어법을 다루는가",
+      "seconds": 11.97,
+      "captions": "series-syntax.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/series-syntax.mp4",
+          "poster": "wide/series-syntax.jpg",
+          "bytes": 872955,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/series-syntax.mp4",
+          "poster": "vertical/series-syntax.jpg",
+          "bytes": 948658,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/series-syntax.mp4",
+          "poster": "square/series-syntax.jpg",
+          "bytes": 898562,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-blank",
+      "kind": "type",
+      "title": "빈칸 추론",
+      "subtitle": "지운 자리에 무엇이 있었는지 되살립니다. 글의 논리가 한 줄로 꿰여야 풀립니다.",
+      "seconds": 16.77,
+      "captions": "type-blank.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/type-blank.mp4",
+          "poster": "wide/type-blank.jpg",
+          "bytes": 1171889,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-blank.mp4",
+          "poster": "vertical/type-blank.jpg",
+          "bytes": 1204576,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-blank.mp4",
+          "poster": "square/type-blank.jpg",
+          "bytes": 1137895,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-blank-word",
+      "kind": "type",
+      "title": "빈칸 낱말",
+      "subtitle": "문장의 빈칸에 낱말을 직접 씁니다. 힌트가 붙어 있어 고르기보다 한 단계 어렵습니다.",
+      "seconds": 18.07,
+      "captions": "type-blank-word.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/type-blank-word.mp4",
+          "poster": "wide/type-blank-word.jpg",
+          "bytes": 1289190,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-blank-word.mp4",
+          "poster": "vertical/type-blank-word.jpg",
+          "bytes": 1364074,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-blank-word.mp4",
+          "poster": "square/type-blank-word.jpg",
+          "bytes": 1282407,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-claim",
+      "kind": "type",
+      "title": "주장",
+      "subtitle": "필자가 독자에게 시키려는 바를 고릅니다. 요지보다 한 걸음 더 나간 자리예요.",
+      "seconds": 16.23,
+      "captions": "type-claim.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/type-claim.mp4",
+          "poster": "wide/type-claim.jpg",
+          "bytes": 1174884,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-claim.mp4",
+          "poster": "vertical/type-claim.jpg",
+          "bytes": 1212366,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-claim.mp4",
+          "poster": "square/type-claim.jpg",
+          "bytes": 1155494,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-content-match",
+      "kind": "type",
+      "title": "내용 일치",
+      "subtitle": "글과 어긋나는 선택지를 찾습니다. 비슷해 보이는 문장에서 한 군데가 다릅니다.",
+      "seconds": 16.9,
+      "captions": "type-content-match.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/type-content-match.mp4",
+          "poster": "wide/type-content-match.jpg",
+          "bytes": 1227745,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-content-match.mp4",
+          "poster": "vertical/type-content-match.jpg",
+          "bytes": 1265297,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-content-match.mp4",
+          "poster": "square/type-content-match.jpg",
+          "bytes": 1248207,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-grammar-choice",
+      "kind": "type",
+      "title": "어법",
+      "subtitle": "문장에서 어법이 틀린 곳을 고릅니다. 중등 내신의 서술형과 같은 축입니다.",
+      "seconds": 17.5,
+      "captions": "type-grammar-choice.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/type-grammar-choice.mp4",
+          "poster": "wide/type-grammar-choice.jpg",
+          "bytes": 1103932,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-grammar-choice.mp4",
+          "poster": "vertical/type-grammar-choice.jpg",
+          "bytes": 1184651,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-grammar-choice.mp4",
+          "poster": "square/type-grammar-choice.jpg",
+          "bytes": 1118808,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-grammar-fix",
+      "kind": "type",
+      "title": "어법 고쳐쓰기",
+      "subtitle": "어법이 틀린 곳을 찾아 바르게 고쳐 씁니다. 같은 규칙을 고르는 대신 쓰게 합니다.",
+      "seconds": 17.5,
+      "captions": "type-grammar-fix.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/type-grammar-fix.mp4",
+          "poster": "wide/type-grammar-fix.jpg",
+          "bytes": 1283339,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-grammar-fix.mp4",
+          "poster": "vertical/type-grammar-fix.jpg",
+          "bytes": 1352368,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-grammar-fix.mp4",
+          "poster": "square/type-grammar-fix.jpg",
+          "bytes": 1265932,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-implication",
+      "kind": "type",
+      "title": "함축 의미",
+      "subtitle": "밑줄 친 말이 이 글에서 무슨 뜻인지 고릅니다. 사전 뜻이 아니라 이 글에서의 뜻이에요.",
+      "seconds": 17.1,
+      "captions": "type-implication.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/type-implication.mp4",
+          "poster": "wide/type-implication.jpg",
+          "bytes": 1214741,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-implication.mp4",
+          "poster": "vertical/type-implication.jpg",
+          "bytes": 1258699,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-implication.mp4",
+          "poster": "square/type-implication.jpg",
+          "bytes": 1190542,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-insert",
+      "kind": "type",
+      "title": "문장 삽입",
+      "subtitle": "빠진 문장이 들어갈 자리를 찾습니다. 앞뒤 흐름을 동시에 봐야 합니다.",
+      "seconds": 16.67,
+      "captions": "type-insert.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/type-insert.mp4",
+          "poster": "wide/type-insert.jpg",
+          "bytes": 1207702,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-insert.mp4",
+          "poster": "vertical/type-insert.jpg",
+          "bytes": 1271650,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-insert.mp4",
+          "poster": "square/type-insert.jpg",
+          "bytes": 1196571,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-irrelevant",
+      "kind": "type",
+      "title": "흐름 무관",
+      "subtitle": "글 전체의 논지에서 벗어난 문장을 찾습니다. 부분이 아니라 전체를 봐야 하는 첫 유형이에요.",
+      "seconds": 19.33,
+      "captions": "type-irrelevant.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/type-irrelevant.mp4",
+          "poster": "wide/type-irrelevant.jpg",
+          "bytes": 1559193,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-irrelevant.mp4",
+          "poster": "vertical/type-irrelevant.jpg",
+          "bytes": 1571084,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-irrelevant.mp4",
+          "poster": "square/type-irrelevant.jpg",
+          "bytes": 1522465,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-long-match",
+      "kind": "type",
+      "title": "장문 · 내용 일치",
+      "subtitle": "긴 글의 내용과 어긋나는 선택지를 찾습니다. 앞뒤가 멀리 떨어져 있어 기억이 필요합니다.",
+      "seconds": 17.23,
+      "captions": "type-long-match.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/type-long-match.mp4",
+          "poster": "wide/type-long-match.jpg",
+          "bytes": 1350157,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-long-match.mp4",
+          "poster": "vertical/type-long-match.jpg",
+          "bytes": 1363484,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-long-match.mp4",
+          "poster": "square/type-long-match.jpg",
+          "bytes": 1344276,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-long-order",
+      "kind": "type",
+      "title": "장문 · 순서",
+      "subtitle": "긴 이야기의 토막을 원래 순서로 되돌립니다. 인물과 시간의 실을 놓치면 안 됩니다.",
+      "seconds": 16.5,
+      "captions": "type-long-order.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/type-long-order.mp4",
+          "poster": "wide/type-long-order.jpg",
+          "bytes": 1128764,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-long-order.mp4",
+          "poster": "vertical/type-long-order.jpg",
+          "bytes": 1193216,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-long-order.mp4",
+          "poster": "square/type-long-order.jpg",
+          "bytes": 1135327,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-long-reference",
+      "kind": "type",
+      "title": "장문 · 지칭",
+      "subtitle": "밑줄 친 다섯 말 중 가리키는 사람이 다른 하나를 찾습니다. 대명사를 따라가는 연습이에요.",
+      "seconds": 17.07,
+      "captions": "type-long-reference.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/type-long-reference.mp4",
+          "poster": "wide/type-long-reference.jpg",
+          "bytes": 1181086,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-long-reference.mp4",
+          "poster": "vertical/type-long-reference.jpg",
+          "bytes": 1234808,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-long-reference.mp4",
+          "poster": "square/type-long-reference.jpg",
+          "bytes": 1175238,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-long-title",
+      "kind": "type",
+      "title": "장문 · 제목",
+      "subtitle": "긴 글을 끝까지 읽고 제목을 고릅니다. 중간에 끊으면 엉뚱한 데를 고르게 됩니다.",
+      "seconds": 17.1,
+      "captions": "type-long-title.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/type-long-title.mp4",
+          "poster": "wide/type-long-title.jpg",
+          "bytes": 1252403,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-long-title.mp4",
+          "poster": "vertical/type-long-title.jpg",
+          "bytes": 1256073,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-long-title.mp4",
+          "poster": "square/type-long-title.jpg",
+          "bytes": 1236627,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-long-vocab",
+      "kind": "type",
+      "title": "장문 · 어휘",
+      "subtitle": "긴 글 안에서 문맥에 안 맞는 낱말을 찾습니다. 다섯 곳 중 한 곳만 어긋납니다.",
+      "seconds": 16.53,
+      "captions": "type-long-vocab.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/type-long-vocab.mp4",
+          "poster": "wide/type-long-vocab.jpg",
+          "bytes": 1216875,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-long-vocab.mp4",
+          "poster": "vertical/type-long-vocab.jpg",
+          "bytes": 1240913,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-long-vocab.mp4",
+          "poster": "square/type-long-vocab.jpg",
+          "bytes": 1217841,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-main-point",
+      "kind": "type",
+      "title": "요지",
+      "subtitle": "필자가 하고 싶은 말을 고릅니다. 글에 나온 사실이 아니라 그 사실로 말하려는 것입니다.",
+      "seconds": 16.77,
+      "captions": "type-main-point.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/type-main-point.mp4",
+          "poster": "wide/type-main-point.jpg",
+          "bytes": 1311162,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-main-point.mp4",
+          "poster": "vertical/type-main-point.jpg",
+          "bytes": 1270263,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-main-point.mp4",
+          "poster": "square/type-main-point.jpg",
+          "bytes": 1220975,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-mood",
+      "kind": "type",
+      "title": "심경·분위기",
+      "subtitle": "인물의 마음이 어떻게 움직였는지 고릅니다. 사건이 아니라 낱말의 결을 따라갑니다.",
+      "seconds": 16.77,
+      "captions": "type-mood.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/type-mood.mp4",
+          "poster": "wide/type-mood.jpg",
+          "bytes": 1145809,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-mood.mp4",
+          "poster": "vertical/type-mood.jpg",
+          "bytes": 1209216,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-mood.mp4",
+          "poster": "square/type-mood.jpg",
+          "bytes": 1153519,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-order",
+      "kind": "type",
+      "title": "글 순서",
+      "subtitle": "토막 난 글을 원래 순서로 되돌립니다. 문장 사이의 연결을 봐야 풀려요.",
+      "seconds": 18,
+      "captions": "type-order.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/type-order.mp4",
+          "poster": "wide/type-order.jpg",
+          "bytes": 1306676,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-order.mp4",
+          "poster": "vertical/type-order.jpg",
+          "bytes": 1336707,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-order.mp4",
+          "poster": "square/type-order.jpg",
+          "bytes": 1285482,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-purpose",
+      "kind": "type",
+      "title": "글의 목적",
+      "subtitle": "이 글을 왜 썼는지 고릅니다. 안내·요청·항의처럼 글이 하는 일을 봅니다.",
+      "seconds": 16.1,
+      "captions": "type-purpose.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/type-purpose.mp4",
+          "poster": "wide/type-purpose.jpg",
+          "bytes": 1168600,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-purpose.mp4",
+          "poster": "vertical/type-purpose.jpg",
+          "bytes": 1212087,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-purpose.mp4",
+          "poster": "square/type-purpose.jpg",
+          "bytes": 1152072,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-rhyme",
+      "kind": "type",
+      "title": "소리·운율",
+      "subtitle": "같은 소리로 끝나는 낱말을 찾아요. 읽기 전 단계의 소리 감각을 잡습니다.",
+      "seconds": 11.3,
+      "captions": "type-rhyme.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/type-rhyme.mp4",
+          "poster": "wide/type-rhyme.jpg",
+          "bytes": 657691,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-rhyme.mp4",
+          "poster": "vertical/type-rhyme.jpg",
+          "bytes": 700941,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-rhyme.mp4",
+          "poster": "square/type-rhyme.jpg",
+          "bytes": 655646,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-spell-blank",
+      "kind": "type",
+      "title": "철자 완성",
+      "subtitle": "빠진 철자를 채웁니다. 눈으로 아는 낱말을 손으로도 쓸 수 있게 만듭니다.",
+      "seconds": 11.43,
+      "captions": "type-spell-blank.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/type-spell-blank.mp4",
+          "poster": "wide/type-spell-blank.jpg",
+          "bytes": 672716,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-spell-blank.mp4",
+          "poster": "vertical/type-spell-blank.jpg",
+          "bytes": 710257,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-spell-blank.mp4",
+          "poster": "square/type-spell-blank.jpg",
+          "bytes": 658220,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-summary",
+      "kind": "type",
+      "title": "요약문 완성",
+      "subtitle": "글을 한 문장으로 줄인 뒤 빈칸 둘을 채웁니다. 읽기와 쓰기를 한 번에 씁니다.",
+      "seconds": 16.4,
+      "captions": "type-summary.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/type-summary.mp4",
+          "poster": "wide/type-summary.jpg",
+          "bytes": 1156908,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-summary.mp4",
+          "poster": "vertical/type-summary.jpg",
+          "bytes": 1198608,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-summary.mp4",
+          "poster": "square/type-summary.jpg",
+          "bytes": 1159475,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-title",
+      "kind": "type",
+      "title": "제목",
+      "subtitle": "글 전체를 한 마디로 덮는 말을 고릅니다. 주제보다 좁으면 안 되고 넓어도 안 됩니다.",
+      "seconds": 17.3,
+      "captions": "type-title.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/type-title.mp4",
+          "poster": "wide/type-title.jpg",
+          "bytes": 1202513,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-title.mp4",
+          "poster": "vertical/type-title.jpg",
+          "bytes": 1222427,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-title.mp4",
+          "poster": "square/type-title.jpg",
+          "bytes": 1163314,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-topic",
+      "kind": "type",
+      "title": "주제",
+      "subtitle": "글이 무엇에 관한 글인지 한 줄로 고릅니다. 소재와 주제를 가르는 연습이에요.",
+      "seconds": 16.53,
+      "captions": "type-topic.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/type-topic.mp4",
+          "poster": "wide/type-topic.jpg",
+          "bytes": 1156187,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-topic.mp4",
+          "poster": "vertical/type-topic.jpg",
+          "bytes": 1171680,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-topic.mp4",
+          "poster": "square/type-topic.jpg",
+          "bytes": 1129998,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-unit-grammar",
+      "kind": "type",
+      "title": "단원 문법",
+      "subtitle": "밑줄 친 곳 중 어법이 맞는(틀린) 것을 고릅니다. 학교 객관식과 같은 형식이에요.",
+      "seconds": 18.37,
+      "captions": "type-unit-grammar.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/type-unit-grammar.mp4",
+          "poster": "wide/type-unit-grammar.jpg",
+          "bytes": 1268821,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-unit-grammar.mp4",
+          "poster": "vertical/type-unit-grammar.jpg",
+          "bytes": 1337078,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-unit-grammar.mp4",
+          "poster": "square/type-unit-grammar.jpg",
+          "bytes": 1266194,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-unit-vocab",
+      "kind": "type",
+      "title": "본문 어휘",
+      "subtitle": "지문에 나온 낱말을 보기에서 고릅니다. 글을 읽고 나서 뜻을 확인하는 자리예요.",
+      "seconds": 17.37,
+      "captions": "type-unit-vocab.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/type-unit-vocab.mp4",
+          "poster": "wide/type-unit-vocab.jpg",
+          "bytes": 1275559,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-unit-vocab.mp4",
+          "poster": "vertical/type-unit-vocab.jpg",
+          "bytes": 1311164,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-unit-vocab.mp4",
+          "poster": "square/type-unit-vocab.jpg",
+          "bytes": 1243087,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-vocab-choice",
+      "kind": "type",
+      "title": "어휘 추론",
+      "subtitle": "글 안에서 어울리지 않는 낱말을 찾습니다. 뜻을 외운 것만으로는 풀리지 않아요.",
+      "seconds": 18.23,
+      "captions": "type-vocab-choice.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/type-vocab-choice.mp4",
+          "poster": "wide/type-vocab-choice.jpg",
+          "bytes": 1387427,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-vocab-choice.mp4",
+          "poster": "vertical/type-vocab-choice.jpg",
+          "bytes": 1425088,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-vocab-choice.mp4",
+          "poster": "square/type-vocab-choice.jpg",
+          "bytes": 1378750,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-word-meaning",
+      "kind": "type",
+      "title": "낱말 뜻",
+      "subtitle": "낱말과 뜻을 잇습니다. 지문이 없어 처음 배우는 학년도 바로 할 수 있어요.",
+      "seconds": 11.3,
+      "captions": "type-word-meaning.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/type-word-meaning.mp4",
+          "poster": "wide/type-word-meaning.jpg",
+          "bytes": 659356,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-word-meaning.mp4",
+          "poster": "vertical/type-word-meaning.jpg",
+          "bytes": 696266,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-word-meaning.mp4",
+          "poster": "square/type-word-meaning.jpg",
+          "bytes": 637645,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-word-order",
+      "kind": "type",
+      "title": "영작 배열",
+      "subtitle": "흩어진 낱말을 문장으로 세웁니다. 정답이 원문이라 헷갈릴 여지가 없어요.",
+      "seconds": 17.2,
+      "captions": "type-word-order.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/type-word-order.mp4",
+          "poster": "wide/type-word-order.jpg",
+          "bytes": 1204090,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-word-order.mp4",
+          "poster": "vertical/type-word-order.jpg",
+          "bytes": 1278406,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-word-order.mp4",
+          "poster": "square/type-word-order.jpg",
+          "bytes": 1216569,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-flashcard",
+      "kind": "module",
+      "title": "Flashcard",
+      "subtitle": "뜻과 단어를 짝지어 떠올려요",
+      "seconds": 9.6,
+      "captions": "module-flashcard.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/module-flashcard.mp4",
+          "poster": "wide/module-flashcard.jpg",
+          "bytes": 625497,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-flashcard.mp4",
+          "poster": "vertical/module-flashcard.jpg",
+          "bytes": 690208,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-flashcard.mp4",
+          "poster": "square/module-flashcard.jpg",
+          "bytes": 641285,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-pairflip",
+      "kind": "module",
+      "title": "PairFlip",
+      "subtitle": "뒤집어 짝을 맞춰요",
+      "seconds": 8.87,
+      "captions": "module-pairflip.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/module-pairflip.mp4",
+          "poster": "wide/module-pairflip.jpg",
+          "bytes": 576608,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-pairflip.mp4",
+          "poster": "vertical/module-pairflip.jpg",
+          "bytes": 644262,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-pairflip.mp4",
+          "poster": "square/module-pairflip.jpg",
+          "bytes": 598342,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-spellforge",
+      "kind": "module",
+      "title": "SpellForge",
+      "subtitle": "후보 없이 철자를 직접 써요",
+      "seconds": 8.97,
+      "captions": "module-spellforge.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/module-spellforge.mp4",
+          "poster": "wide/module-spellforge.jpg",
+          "bytes": 586422,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-spellforge.mp4",
+          "poster": "vertical/module-spellforge.jpg",
+          "bytes": 631442,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-spellforge.mp4",
+          "poster": "square/module-spellforge.jpg",
+          "bytes": 593425,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-echo",
+      "kind": "module",
+      "title": "Echo",
+      "subtitle": "소리를 따라 하고 억양을 맞춰요",
+      "seconds": 9.6,
+      "captions": "module-echo.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/module-echo.mp4",
+          "poster": "wide/module-echo.jpg",
+          "bytes": 595711,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-echo.mp4",
+          "poster": "vertical/module-echo.jpg",
+          "bytes": 646517,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-echo.mp4",
+          "poster": "square/module-echo.jpg",
+          "bytes": 617477,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-shadow",
+      "kind": "module",
+      "title": "Shadow",
+      "subtitle": "본문을 소리 내어 따라 읽어요",
+      "seconds": 9.17,
+      "captions": "module-shadow.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/module-shadow.mp4",
+          "poster": "wide/module-shadow.jpg",
+          "bytes": 581237,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-shadow.mp4",
+          "poster": "vertical/module-shadow.jpg",
+          "bytes": 615931,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-shadow.mp4",
+          "poster": "square/module-shadow.jpg",
+          "bytes": 594137,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-scriptquiz",
+      "kind": "module",
+      "title": "ScriptQuiz",
+      "subtitle": "본문을 이해했는지 확인해요",
+      "seconds": 8.97,
+      "captions": "module-scriptquiz.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/module-scriptquiz.mp4",
+          "poster": "wide/module-scriptquiz.jpg",
+          "bytes": 589573,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-scriptquiz.mp4",
+          "poster": "vertical/module-scriptquiz.jpg",
+          "bytes": 639073,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-scriptquiz.mp4",
+          "poster": "square/module-scriptquiz.jpg",
+          "bytes": 592609,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-dictation",
+      "kind": "module",
+      "title": "Dictation",
+      "subtitle": "들으면서 받아써요",
+      "seconds": 9.37,
+      "captions": "module-dictation.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/module-dictation.mp4",
+          "poster": "wide/module-dictation.jpg",
+          "bytes": 678928,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-dictation.mp4",
+          "poster": "vertical/module-dictation.jpg",
+          "bytes": 768441,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-dictation.mp4",
+          "poster": "square/module-dictation.jpg",
+          "bytes": 703029,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-cascade",
+      "kind": "module",
+      "title": "Cascade",
+      "subtitle": "단어와 뜻을 이어 지우는 낙하 보드",
+      "seconds": 10.63,
+      "captions": "module-cascade.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/module-cascade.mp4",
+          "poster": "wide/module-cascade.jpg",
+          "bytes": 736811,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-cascade.mp4",
+          "poster": "vertical/module-cascade.jpg",
+          "bytes": 804718,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-cascade.mp4",
+          "poster": "square/module-cascade.jpg",
+          "bytes": 751995,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-ghost-race",
+      "kind": "module",
+      "title": "Ghost Race",
+      "subtitle": "3랩 추격전 — 인·아웃 라인을 걸어라",
+      "seconds": 10.47,
+      "captions": "module-ghost-race.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/module-ghost-race.mp4",
+          "poster": "wide/module-ghost-race.jpg",
+          "bytes": 728641,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-ghost-race.mp4",
+          "poster": "vertical/module-ghost-race.jpg",
+          "bytes": 814186,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-ghost-race.mp4",
+          "poster": "square/module-ghost-race.jpg",
+          "bytes": 741428,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-word-economy",
+      "kind": "module",
+      "title": "Word Economy",
+      "subtitle": "코인을 벌어 파워업에 전략 투자",
+      "seconds": 9.83,
+      "captions": "module-word-economy.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/module-word-economy.mp4",
+          "poster": "wide/module-word-economy.jpg",
+          "bytes": 650419,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-word-economy.mp4",
+          "poster": "vertical/module-word-economy.jpg",
+          "bytes": 729199,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-word-economy.mp4",
+          "poster": "square/module-word-economy.jpg",
+          "bytes": 671365,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-wordfall-cadence",
+      "kind": "module",
+      "title": "Wordfall Cadence",
+      "subtitle": "발음을 듣고 케이던스가 다하기 전에 뜻을 고르라",
+      "seconds": 11.63,
+      "captions": "module-wordfall-cadence.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/module-wordfall-cadence.mp4",
+          "poster": "wide/module-wordfall-cadence.jpg",
+          "bytes": 816284,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-wordfall-cadence.mp4",
+          "poster": "vertical/module-wordfall-cadence.jpg",
+          "bytes": 906231,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-wordfall-cadence.mp4",
+          "poster": "square/module-wordfall-cadence.jpg",
+          "bytes": 820138,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-letter-forge",
+      "kind": "module",
+      "title": "Letter Forge",
+      "subtitle": "흩어진 글자로 철자를 벼려내다",
+      "seconds": 9.17,
+      "captions": "module-letter-forge.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/module-letter-forge.mp4",
+          "poster": "wide/module-letter-forge.jpg",
+          "bytes": 600444,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-letter-forge.mp4",
+          "poster": "vertical/module-letter-forge.jpg",
+          "bytes": 641206,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-letter-forge.mp4",
+          "poster": "square/module-letter-forge.jpg",
+          "bytes": 603594,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-wordsmith-vigil",
+      "kind": "module",
+      "title": "Wordsmith's Vigil",
+      "subtitle": "뜻을 든 정령을 영단어 타이핑으로 흩어라",
+      "seconds": 9.83,
+      "captions": "module-wordsmith-vigil.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/module-wordsmith-vigil.mp4",
+          "poster": "wide/module-wordsmith-vigil.jpg",
+          "bytes": 655588,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-wordsmith-vigil.mp4",
+          "poster": "vertical/module-wordsmith-vigil.jpg",
+          "bytes": 715926,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-wordsmith-vigil.mp4",
+          "poster": "square/module-wordsmith-vigil.jpg",
+          "bytes": 670018,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-morphmerge",
+      "kind": "module",
+      "title": "Morphmerge",
+      "subtitle": "같은 어족의 형태를 알아보고 합쳐 수집하라",
+      "seconds": 10.1,
+      "captions": "module-morphmerge.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/module-morphmerge.mp4",
+          "poster": "wide/module-morphmerge.jpg",
+          "bytes": 655014,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-morphmerge.mp4",
+          "poster": "vertical/module-morphmerge.jpg",
+          "bytes": 715490,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-morphmerge.mp4",
+          "poster": "square/module-morphmerge.jpg",
+          "bytes": 662382,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-daily-blitz",
+      "kind": "module",
+      "title": "Daily Blitz",
+      "subtitle": "매일 새로운 10단어 · 스트릭",
+      "seconds": 10.13,
+      "captions": "module-daily-blitz.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/module-daily-blitz.mp4",
+          "poster": "wide/module-daily-blitz.jpg",
+          "bytes": 713011,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-daily-blitz.mp4",
+          "poster": "vertical/module-daily-blitz.jpg",
+          "bytes": 790292,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-daily-blitz.mp4",
+          "poster": "square/module-daily-blitz.jpg",
+          "bytes": 726790,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-connections",
+      "kind": "module",
+      "title": "Connections",
+      "subtitle": "뜻만 보고 숨은 규칙을 잇다",
+      "seconds": 9.5,
+      "captions": "module-connections.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/module-connections.mp4",
+          "poster": "wide/module-connections.jpg",
+          "bytes": 625415,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-connections.mp4",
+          "poster": "vertical/module-connections.jpg",
+          "bytes": 695445,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-connections.mp4",
+          "poster": "square/module-connections.jpg",
+          "bytes": 640969,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-glyph-tongue",
+      "kind": "module",
+      "title": "The Glyph Tongue",
+      "subtitle": "뜻을 주지 않는다 — 문맥으로 룬을 해독",
+      "seconds": 10.67,
+      "captions": "module-glyph-tongue.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/module-glyph-tongue.mp4",
+          "poster": "wide/module-glyph-tongue.jpg",
+          "bytes": 759453,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-glyph-tongue.mp4",
+          "poster": "vertical/module-glyph-tongue.jpg",
+          "bytes": 835003,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-glyph-tongue.mp4",
+          "poster": "square/module-glyph-tongue.jpg",
+          "bytes": 774725,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-word-customs",
+      "kind": "module",
+      "title": "Word Customs",
+      "subtitle": "단어의 여권을 심사해 위조를 적발하라",
+      "seconds": 9.7,
+      "captions": "module-word-customs.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/module-word-customs.mp4",
+          "poster": "wide/module-word-customs.jpg",
+          "bytes": 636297,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-word-customs.mp4",
+          "poster": "vertical/module-word-customs.jpg",
+          "bytes": 684844,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-word-customs.mp4",
+          "poster": "square/module-word-customs.jpg",
+          "bytes": 640469,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-morpheme-rules",
+      "kind": "module",
+      "title": "Morpheme Rules",
+      "subtitle": "형태소를 조립하면 그 뜻이 세계를 바꾼다",
+      "seconds": 10.33,
+      "captions": "module-morpheme-rules.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/module-morpheme-rules.mp4",
+          "poster": "wide/module-morpheme-rules.jpg",
+          "bytes": 677251,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-morpheme-rules.mp4",
+          "poster": "vertical/module-morpheme-rules.jpg",
+          "bytes": 728341,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-morpheme-rules.mp4",
+          "poster": "square/module-morpheme-rules.jpg",
+          "bytes": 675016,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-silent-rule",
+      "kind": "module",
+      "title": "The Silent Rule",
+      "subtitle": "설명 없이 철자 규칙을 스스로 귀납하라",
+      "seconds": 10.6,
+      "captions": "module-silent-rule.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/module-silent-rule.mp4",
+          "poster": "wide/module-silent-rule.jpg",
+          "bytes": 722143,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-silent-rule.mp4",
+          "poster": "vertical/module-silent-rule.jpg",
+          "bytes": 798341,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-silent-rule.mp4",
+          "poster": "square/module-silent-rule.jpg",
+          "bytes": 727453,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-lexicon-hands",
+      "kind": "module",
+      "title": "Lexicon Hands",
+      "subtitle": "어원·품사 시너지로 배수를 폭발시켜라",
+      "seconds": 10.5,
+      "captions": "module-lexicon-hands.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/module-lexicon-hands.mp4",
+          "poster": "wide/module-lexicon-hands.jpg",
+          "bytes": 682458,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-lexicon-hands.mp4",
+          "poster": "vertical/module-lexicon-hands.jpg",
+          "bytes": 763895,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-lexicon-hands.mp4",
+          "poster": "square/module-lexicon-hands.jpg",
+          "bytes": 703533,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-lexicon-detective",
+      "kind": "module",
+      "title": "Lexicon Detective",
+      "subtitle": "현장 단서를 수확해 사건을 재구성하라",
+      "seconds": 10.3,
+      "captions": "module-lexicon-detective.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/module-lexicon-detective.mp4",
+          "poster": "wide/module-lexicon-detective.jpg",
+          "bytes": 695448,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-lexicon-detective.mp4",
+          "poster": "vertical/module-lexicon-detective.jpg",
+          "bytes": 770191,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-lexicon-detective.mp4",
+          "poster": "square/module-lexicon-detective.jpg",
+          "bytes": 714743,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-lexicon-estate",
+      "kind": "module",
+      "title": "Lexicon Estate",
+      "subtitle": "단어-방을 배치해 의미장 저택을 짓다",
+      "seconds": 10.3,
+      "captions": "module-lexicon-estate.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/module-lexicon-estate.mp4",
+          "poster": "wide/module-lexicon-estate.jpg",
+          "bytes": 680623,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-lexicon-estate.mp4",
+          "poster": "vertical/module-lexicon-estate.jpg",
+          "bytes": 751488,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-lexicon-estate.mp4",
+          "poster": "square/module-lexicon-estate.jpg",
+          "bytes": 693805,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-word-orrery",
+      "kind": "module",
+      "title": "The Word Orrery",
+      "subtitle": "행성을 탐사해 앎으로 핵의 봉인을 연다",
+      "seconds": 10.43,
+      "captions": "module-word-orrery.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/module-word-orrery.mp4",
+          "poster": "wide/module-word-orrery.jpg",
+          "bytes": 689654,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-word-orrery.mp4",
+          "poster": "vertical/module-word-orrery.jpg",
+          "bytes": 765597,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-word-orrery.mp4",
+          "poster": "square/module-word-orrery.jpg",
+          "bytes": 712962,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-wordblitz",
+      "kind": "module",
+      "title": "WordBlitz",
+      "subtitle": "시계가 없다 — 목숨 3개로 어디까지 버티는가",
+      "seconds": 11.47,
+      "captions": "module-wordblitz.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/module-wordblitz.mp4",
+          "poster": "wide/module-wordblitz.jpg",
+          "bytes": 777474,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-wordblitz.mp4",
+          "poster": "vertical/module-wordblitz.jpg",
+          "bytes": 842367,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-wordblitz.mp4",
+          "poster": "square/module-wordblitz.jpg",
+          "bytes": 776234,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-pirate-quest",
+      "kind": "module",
+      "title": "Pirate's Bounty",
+      "subtitle": "해변에서 보물 단어를 찾는 3D 모험",
+      "seconds": 10.33,
+      "captions": "module-pirate-quest.vtt",
+      "formats": {
+        "wide": {
+          "file": "wide/module-pirate-quest.mp4",
+          "poster": "wide/module-pirate-quest.jpg",
+          "bytes": 677670,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-pirate-quest.mp4",
+          "poster": "vertical/module-pirate-quest.jpg",
+          "bytes": 754867,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-pirate-quest.mp4",
+          "poster": "square/module-pirate-quest.jpg",
+          "bytes": 696482,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    }
+  ]
 }

@@ -202,6 +202,20 @@ video render-all → video package → video publish → (manifest 커밋) → �
 `components/video/ComponentVideo.tsx` 한 곳이 모든 자리를 그린다 —
 **자동재생 없음 · 반복 없음 · `preload="none"` · 자막 기본 켜짐 · 재생 버튼 64px**.
 
+### 발행 실적 (2026-09-13)
+
+| | |
+|---|---|
+| 설계도 | **62편** · 규격 3 = **186 컴포지션** · 총 **14분** |
+| 렌더 | **186/186 성공 · 실패 0** · 175.8MB · 편당 25~45초 |
+| 음성 | 62편 결번 0 (Edge TTS · 낱말 타임스탬프로 컷 길이 실측) |
+| 썸네일 | 62장 (1280×720) |
+| 발행 | **558개 파일** → `video` 버킷. 공개 URL 200 확인(mp4·jpg·vtt 전부 올바른 MIME) |
+| baseUrl | `…/storage/v1/object/public/video` |
+
+`out/` 과 `dist-media/` 는 커밋하지 않는다. 커밋되는 것은 **manifest 한 장**뿐이고,
+그게 화면이 보는 전부다.
+
 ### 발행 전에는 아무것도 안 그린다
 
 `manifest.baseUrl` 이 `null` 이면 모든 조회가 `null` 을 돌려주고 컴포넌트가 **아무것도 렌더하지 않는다.**
