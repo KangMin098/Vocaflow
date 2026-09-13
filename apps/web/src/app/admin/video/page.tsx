@@ -13,12 +13,13 @@
 //   ② 발행했다고 적혔는데 파일이 없는 것은 무엇인가 (= 화면에서 깨지는 것)
 //   ③ 어떤 영상이 실제로 보이고 있는가 (= 더 만들 것을 정하는 근거)
 //   ④ 영상에 박힌 수가 지금과 얼마나 다른가 (= 다시 찍을지 정하는 근거)
+//   ⑤ 어느 편이 어느 단계에 있고 **무엇이 실패했는가** (= 큐. 파일이 아니라 기록이 말한다)
 
 import type { Metadata } from 'next'
 
 import { requireAdmin } from '@/lib/auth/require-admin'
 import { createAdminClient } from '@/lib/supabase/admin'
-import { evidenceDrift, loadVideoConsole } from '@/lib/admin/video-console'
+import { evidenceDrift, loadJobQueue, loadVideoConsole } from '@/lib/admin/video-console'
 
 import { VideoConsoleClient } from './VideoConsoleClient'
 
@@ -30,7 +31,11 @@ export default async function AdminVideoPage() {
   await requireAdmin('/admin/video')
 
   const db = createAdminClient()
-  const [console_, drift] = await Promise.all([loadVideoConsole(db), evidenceDrift(db)])
+  const [console_, drift, queue] = await Promise.all([
+    loadVideoConsole(db),
+    evidenceDrift(db),
+    loadJobQueue(db),
+  ])
 
-  return <VideoConsoleClient data={console_} drift={drift} />
+  return <VideoConsoleClient data={console_} drift={drift} queue={queue} />
 }

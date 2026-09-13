@@ -309,3 +309,92 @@ export async function evidenceDrift(db: AdminClient): Promise<EvidenceDrift[]> {
   // 많이 달라진 것부터 — 임계값을 두지 않고 크기순으로 낸다.
   return out.sort((a, b) => Math.abs(b.ratio) - Math.abs(a.ratio))
 }
+
+/* ────────────────────────── 큐 (video_jobs) ────────────────────────── */
+//
+// **파일이 아니라 기록이 말하는 진행.**
+//
+// 위쪽(`compareVideoState`)은 manifest 와 파일을 비교해 **추론**한다 — 그건 "지금 어떤 상태인가"
+// 는 답해도 **"어떻게 여기 왔는가"** 는 못 답한다. 실패가 있었는지, 언제 찍었는지, 지금 밀린
+// 것이 큐에 올라 있는지는 기록이 있어야 안다.
+//
+// 마이그레이션 전이면 **패널이 통째로 안 뜬다**(null). 빈 표를 그리면 "큐가 비었다" 로 읽히는데
+// 그건 거짓이다 — 큐가 없는 것과 큐가 빈 것은 다르다.
+
+/** 단계 — SQL 의 CHECK 와 같은 목록이어야 한다. */
+export const JOB_STAGES = [
+  'failed',
+  'queued',
+  'voiced',
+  'rendered',
+  'packaged',
+  'published',
+] as const
+export type JobStage = (typeof JOB_STAGES)[number]
+
+export const JOB_STAGE_KO: Record<JobStage, string> = {
+  failed: '실패',
+  queued: '대기',
+  voiced: '음성',
+  rendered: '렌더',
+  packaged: '포장',
+  published: '발행',
+}
+
+export interface JobRow {
+  video_id: string
+  kind: string
+  stage: JobStage
+  stage_before_fail: string | null
+  error: string | null
+  note: string | null
+  seconds: number | null
+  formats_rendered: number | null
+  updated_at: string
+  published_at: string | null
+}
+
+export interface JobQueue {
+  /** 단계별 편수 — 순서는 `JOB_STAGES`. 0 인 단계도 자리를 지킨다(빠지면 사라진 걸로 읽힌다). */
+  counts: Record<JobStage, number>
+  /** 실패한 편 — 가장 먼저 봐야 하는 것. */
+  failed: JobRow[]
+  /** 아직 발행 안 된 편(대기·음성·렌더·포장). 무엇이 밀렸는가. */
+  inFlight: JobRow[]
+  /** 마지막으로 움직인 때 — "지금 돌고 있나" 의 근거. */
+  lastMovedAt: string | null
+  total: number
+}
+
+/**
+ * 큐를 읽는다. **표가 없으면 `null`** — 그 경우 화면은 패널을 안 그린다.
+ *
+ * 0 과 없음을 가르는 것이 이 함수의 요점이다. 빈 배열을 돌려주면 화면이 "큐가 비었다" 로
+ * 그리는데, 마이그레이션 전에는 그게 사실이 아니다.
+ */
+export async function loadJobQueue(db: AdminClient): Promise<JobQueue | null> {
+  const { data, error } = await db
+    .from('video_jobs')
+    .select(
+      'video_id, kind, stage, stage_before_fail, error, note, seconds, formats_rendered, updated_at, published_at',
+    )
+    .order('updated_at', { ascending: false })
+    .limit(500)
+
+  // 42P01 = 표 없음 → 마이그레이션 전. 그 외 오류도 같게 다룬다(빈 표를 그리지 않는다).
+  if (error || !data) return null
+
+  const rows = data as JobRow[]
+  const counts = Object.fromEntries(JOB_STAGES.map((s) => [s, 0])) as Record<JobStage, number>
+  for (const r of rows) {
+    if (r.stage in counts) counts[r.stage] += 1
+  }
+
+  return {
+    counts,
+    failed: rows.filter((r) => r.stage === 'failed'),
+    inFlight: rows.filter((r) => r.stage !== 'published' && r.stage !== 'failed'),
+    lastMovedAt: rows[0]?.updated_at ?? null,
+    total: rows.length,
+  }
+}

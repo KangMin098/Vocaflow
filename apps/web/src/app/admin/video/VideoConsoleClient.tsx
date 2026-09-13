@@ -16,7 +16,14 @@ import { AlertTriangle, Clapperboard, Copy, Check } from 'lucide-react'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { KIND_LABEL, type VideoKind } from '@/lib/video/catalog'
-import type { EvidenceDrift, VideoConsole, VideoRow } from '@/lib/admin/video-console'
+import {
+  JOB_STAGES,
+  JOB_STAGE_KO,
+  type EvidenceDrift,
+  type JobQueue,
+  type VideoConsole,
+  type VideoRow,
+} from '@/lib/admin/video-console'
 
 const ORDER: VideoKind[] = ['intro', 'benefit', 'curriculum', 'series', 'type', 'module']
 
@@ -95,9 +102,12 @@ function CommandBlock({ title, lines }: { title: string; lines: string[] }) {
 export function VideoConsoleClient({
   data,
   drift,
+  queue,
 }: {
   data: VideoConsole
   drift: EvidenceDrift[]
+  /** 마이그레이션 전이면 null — 그때는 패널을 아예 안 그린다(빈 표는 "큐가 비었다" 로 읽힌다). */
+  queue: JobQueue | null
 }) {
   const [tab, setTab] = useState<Tab>('현황')
 
@@ -158,6 +168,72 @@ export function VideoConsoleClient({
 
       {tab === '현황' && (
         <section>
+          {/*
+            ── 큐 ──
+            아래 신호들은 manifest 와 파일을 비교해 **추론**한 것이다. 그건 "지금 어떤 상태인가"
+            는 답해도 **"어떻게 여기 왔는가"** 는 못 답한다 — 실패가 있었는지, 언제 찍었는지.
+            큐가 없으면(마이그레이션 전) 이 칸이 통째로 안 뜬다.
+          */}
+          {queue && (
+            <div className="mb-5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)]">
+              <p className="flex flex-wrap items-baseline gap-x-3 border-b border-[var(--bd)] px-4 py-2">
+                <span className="font-body text-[13px] font-[700] text-[var(--t1)]">큐</span>
+                <span className="font-mono text-[11px] text-[var(--t3)]">
+                  {queue.total}편
+                  {queue.lastMovedAt
+                    ? ` · 마지막 움직임 ${new Date(queue.lastMovedAt).toLocaleString('ko-KR')}`
+                    : ''}
+                </span>
+              </p>
+              <ul className="flex flex-wrap gap-x-6 gap-y-1 px-4 py-3">
+                {JOB_STAGES.map((st) => (
+                  <li key={st} className="font-mono text-[12px] tabular-nums">
+                    {/* 0 인 단계도 자리를 지킨다 — 빠지면 그 단계가 사라진 걸로 읽힌다. */}
+                    <span
+                      className={
+                        st === 'failed' && queue.counts[st] > 0
+                          ? 'text-[var(--error)]'
+                          : 'text-[var(--t3)]'
+                      }
+                    >
+                      {JOB_STAGE_KO[st]}
+                    </span>{' '}
+                    <span
+                      className={
+                        st === 'failed' && queue.counts[st] > 0
+                          ? 'font-[700] text-[var(--error)]'
+                          : 'text-[var(--t1)]'
+                      }
+                    >
+                      {queue.counts[st]}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+
+              {queue.failed.length > 0 && (
+                <ul className="divide-y divide-[var(--bd)] border-t border-[var(--bd)]">
+                  {queue.failed.map((j) => (
+                    <li key={j.video_id} className="px-4 py-2 font-body text-[13px]">
+                      <span className="mr-2 font-mono text-[11px] text-[var(--error)]">● 실패</span>
+                      <span className="text-[var(--t1)]">{j.video_id}</span>
+                      {j.stage_before_fail && (
+                        <span className="ml-2 font-mono text-[11px] text-[var(--t3)]">
+                          {JOB_STAGE_KO[j.stage_before_fail as keyof typeof JOB_STAGE_KO] ??
+                            j.stage_before_fail}
+                          에서 멈춤
+                        </span>
+                      )}
+                      {j.error && (
+                        <span className="ml-2 break-keep text-[var(--t2)]">— {j.error}</span>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          )}
+
           <div className="mb-5 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
             <Signal
               label="구성요소"
