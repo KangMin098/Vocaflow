@@ -29,6 +29,33 @@ import { platformComponents, type PlatformComponent } from '@/lib/video/componen
 import { VIDEO_BUILT_AT, type VideoFormat, type VideoKind } from '@/lib/video/catalog'
 import manifestJson from '@/lib/video/manifest.json'
 
+// 화면과 함께 쓰는 모양·상수는 `video-console-shape.ts` 에 있다 — 이 파일은 `server-only` 라
+// 화면이 직접 들여오면 빌드가 죽는다. 여기서는 다시 내보내 **서버 쪽 호출부의 import 경로는
+// 그대로 유지**한다(화면은 shape 쪽에서 직접 가져간다).
+import { JOB_STAGES } from './video-console-shape'
+import type {
+  EvidenceDrift,
+  JobQueue,
+  JobRow,
+  JobStage,
+  VideoConsole,
+  VideoIssue,
+  VideoRow,
+  VideoViews,
+} from './video-console-shape'
+
+export { JOB_STAGES, JOB_STAGE_KO } from './video-console-shape'
+export type {
+  EvidenceDrift,
+  JobQueue,
+  JobRow,
+  JobStage,
+  VideoConsole,
+  VideoIssue,
+  VideoRow,
+  VideoViews,
+} from './video-console-shape'
+
 type AdminClient = SupabaseClient
 
 const BUCKET = 'video'
@@ -49,53 +76,6 @@ interface Manifest {
   videos: ManifestEntry[]
 }
 const manifest = manifestJson as unknown as Manifest
-
-/** 한 구성요소의 상태 — 화면 표의 한 행. */
-export interface VideoRow {
-  id: string
-  kind: VideoKind
-  /** 구성요소 이름(영상 제목이 아니라). */
-  name: string
-  source: string
-  /** manifest 에 있는가. */
-  published: boolean
-  seconds: number | null
-  /** 규격별로 **실제 파일이 스토리지에 있는가**. 못 읽었으면 null. */
-  live: Record<VideoFormat, boolean> | null
-  /** 썸네일·자막이 실제로 올라가 있는가. */
-  thumb: boolean | null
-  captions: boolean | null
-  /** 총 바이트(발행된 규격 합). */
-  bytes: number | null
-}
-
-export type VideoIssue =
-  /** 구성요소는 있는데 영상이 없다 */
-  | { kind: 'missing'; id: string; name: string }
-  /** manifest 에 있는데 구성요소가 없다 */
-  | { kind: 'orphan'; id: string }
-  /** manifest 에 있는데 파일이 없다 — 화면에서 깨진다 */
-  | { kind: 'lost'; id: string; what: string }
-
-export interface VideoViews {
-  /** 종류별 재생 시작. 못 읽었으면 null. */
-  started: Record<string, number> | null
-  completed: Record<string, number> | null
-  /** 영상 id 별 재생 시작 — 계측에 id 가 실리기 시작한 뒤부터 쌓인다. */
-  byId: Record<string, number> | null
-}
-
-export interface VideoConsole {
-  /** manifest 를 만든 시각 — "이 화면이 말하는 발행본은 언제 것인가". */
-  builtAt: string
-  /** 발행 기준 URL. null 이면 화면에 영상이 **한 편도 안 뜬다**. */
-  baseUrl: string | null
-  rows: VideoRow[]
-  issues: VideoIssue[]
-  views: VideoViews
-  /** 스토리지를 못 읽었으면 이유 — 화면이 "0개" 대신 이 문장을 띄운다. */
-  storageError: string | null
-}
 
 /** 스토리지에 실제로 있는 객체 이름 집합. 못 읽으면 null. */
 async function liveObjects(db: AdminClient): Promise<{ names: Set<string> | null; error: string | null }> {
@@ -225,17 +205,6 @@ export async function loadVideoConsole(db: AdminClient): Promise<VideoConsole> {
 // ⚠️ **임계값을 지어내지 않는다.** "20% 넘으면 경고" 같은 수를 근거 없이 정하면 그건
 //   목표가 아니라 짐작이다(이 저장소가 반복해서 경계하는 것). 대신 실제 차이를 크기순으로 낸다.
 
-export interface EvidenceDrift {
-  id: string
-  title: string
-  label: string
-  /** 영상에 박힌 값. */
-  published: number
-  /** 지금 값. 못 재면 null — 그런 항목은 목록에 넣지 않는다. */
-  now: number
-  /** (now - published) / published. 음수면 줄어든 것. */
-  ratio: number
-}
 
 /** 숫자 문자열(쉼표 포함)만 수로 바꾼다. `3/7` 같은 비율 표기는 대상이 아니다. */
 function asNumber(v: string): number | null {
@@ -320,51 +289,6 @@ export async function evidenceDrift(db: AdminClient): Promise<EvidenceDrift[]> {
 //
 // 마이그레이션 전이면 **패널이 통째로 안 뜬다**(null). 빈 표를 그리면 "큐가 비었다" 로 읽히는데
 // 그건 거짓이다 — 큐가 없는 것과 큐가 빈 것은 다르다.
-
-/** 단계 — SQL 의 CHECK 와 같은 목록이어야 한다. */
-export const JOB_STAGES = [
-  'failed',
-  'queued',
-  'voiced',
-  'rendered',
-  'packaged',
-  'published',
-] as const
-export type JobStage = (typeof JOB_STAGES)[number]
-
-export const JOB_STAGE_KO: Record<JobStage, string> = {
-  failed: '실패',
-  queued: '대기',
-  voiced: '음성',
-  rendered: '렌더',
-  packaged: '포장',
-  published: '발행',
-}
-
-export interface JobRow {
-  video_id: string
-  kind: string
-  stage: JobStage
-  stage_before_fail: string | null
-  error: string | null
-  note: string | null
-  seconds: number | null
-  formats_rendered: number | null
-  updated_at: string
-  published_at: string | null
-}
-
-export interface JobQueue {
-  /** 단계별 편수 — 순서는 `JOB_STAGES`. 0 인 단계도 자리를 지킨다(빠지면 사라진 걸로 읽힌다). */
-  counts: Record<JobStage, number>
-  /** 실패한 편 — 가장 먼저 봐야 하는 것. */
-  failed: JobRow[]
-  /** 아직 발행 안 된 편(대기·음성·렌더·포장). 무엇이 밀렸는가. */
-  inFlight: JobRow[]
-  /** 마지막으로 움직인 때 — "지금 돌고 있나" 의 근거. */
-  lastMovedAt: string | null
-  total: number
-}
 
 /**
  * 큐를 읽는다. **표가 없으면 `null`** — 그 경우 화면은 패널을 안 그린다.

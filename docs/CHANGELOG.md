@@ -9,6 +9,10 @@
 ---
 ## Unreleased (v06.34 → next)
 
+### 빌드를 죽인 것은 상수 두 개였다 (2026-09-13)
+
+`/admin/video` 화면부(`use client`)가 `lib/admin/video-console.ts`(`server-only`)에서 `JOB_STAGES`·`JOB_STAGE_KO` 를 **값으로** 읽어 `next build` 가 "You are importing a component that needs server-only" 로 죽었다. 타입만 가져가던 import 에 상수 둘이 나중에 얹힌 것 — 타입은 지워지지만 값은 안 지워진다. 경계 파일 `lib/admin/video-console-shape.ts` 로 화면이 쓰는 모양·상수(`VideoConsole`·`VideoRow`·`VideoIssue`·`VideoViews`·`EvidenceDrift`·`JobRow`·`JobQueue`·`JOB_STAGES`·`JOB_STAGE_KO`)를 옮기고 조회 모듈이 다시 내보낸다(서버 호출부 import 경로는 그대로). 곁가지로 같은 파일의 JSX 이스케이프 lint 오류 2건도 걸려 있었다 — 빌드 219쪽 생성까지 통과 · 회귀 10 · `CONVENTIONS.md` 에 재발 기록
+
 ### 3인 검수가 막은 163문항은 163개의 문제가 아니었다 (2026-09-13)
 
 DB 가 한 시간 만에 돌아와 처음으로 쟀다 — 지면 문항 **172**를 3인이 봤고 **전원 pass 는 9(5.2%)** 다.

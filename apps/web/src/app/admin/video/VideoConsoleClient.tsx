@@ -23,7 +23,7 @@ import {
   type JobQueue,
   type VideoConsole,
   type VideoRow,
-} from '@/lib/admin/video-console'
+} from '@/lib/admin/video-console-shape'
 
 const ORDER: VideoKind[] = ['intro', 'benefit', 'curriculum', 'series', 'type', 'module']
 
@@ -422,7 +422,7 @@ export function VideoConsoleClient({
         <section>
           <p className="mb-5 break-keep font-body text-[13px] leading-relaxed text-[var(--t2)]">
             영상은 <strong>찍은 날의 스냅샷</strong>입니다. DB 는 계속 자라므로 화면에 박힌 수는
-            반드시 묵습니다 — 그래서 "틀렸다" 가 아니라 <strong>얼마나 달라졌는지</strong>만
+            반드시 묵습니다 — 그래서 &quot;틀렸다&quot; 가 아니라 <strong>얼마나 달라졌는지</strong>만
             보여 줍니다. 다시 찍을지는 사람이 정합니다.
             <br />
             <span className="text-[var(--t3)]">

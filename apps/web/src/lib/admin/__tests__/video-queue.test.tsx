@@ -12,7 +12,7 @@ import { renderToString } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
 
 import { VideoConsoleClient } from '@/app/admin/video/VideoConsoleClient'
-import { JOB_STAGES, type JobQueue, type VideoConsole } from '../video-console'
+import { JOB_STAGES, type JobQueue, type VideoConsole } from '../video-console-shape'
 
 const emptyConsole: VideoConsole = {
   builtAt: new Date().toISOString(),

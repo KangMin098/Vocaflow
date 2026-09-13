@@ -428,6 +428,11 @@ dev 서버는 **앱 전체가 500** 이 된다 — 고친 화면뿐 아니라 `/
 - 그래서 순수/조회 분리는 테스트 편의가 아니라 **런타임 계약**이다:
   `reach-math` ↔ `library-reach` · `today-status` ↔ `today-status-query` ·
   `wayfinder` ↔ `wayfinder-query` · `growth-math` ↔ `growth-stats`.
+- ⚠️ **같은 사고가 2026-09-13 에 재발했다** — `/admin/video` 화면부가 `video-console.ts`(server-only)에서
+  `JOB_STAGES`·`JOB_STAGE_KO` 를 **값으로** 읽어 `next build` 가 죽었다. 타입만 쓰던 import 에
+  상수 두 개가 나중에 얹히면서 넘어간 것이라, **처음부터 경계 파일을 두는 편이 안전하다**:
+  화면과 서버가 함께 아는 모양·상수는 `*-shape.ts` 에 두고 조회 모듈이 다시 내보낸다
+  (`video-console-shape` ↔ `video-console`).
 - ⚠️ **파일을 지운 뒤 dev 서버가 이상하면 재시작한다.** 위 사고 뒤 `.next` 웹팩 캐시가
   삭제된 모듈을 계속 참조해 클라이언트 청크가 404 로 남았다. SSR HTML 은 멀쩡히 오는데
   **하이드레이션만 죽어서**, 로그인 폼이 JS 없는 GET 으로 제출되며 조용히 `/login?` 으로
