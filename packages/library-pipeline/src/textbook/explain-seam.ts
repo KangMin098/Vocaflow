@@ -302,9 +302,33 @@ export function explainOrderSeam(item: CsatOrderItem): ItemExplanation | null {
   //   그렇다고 전부 이어 붙이면 안 된다 — `assemble` 은 `closing` **전체**를 예산으로
   //   미리 떼어 두므로, 길어지면 **해설이 통째로 null 이 된다**(있던 해설이 사라진다).
   //   그래서 여기서 담을 만큼만 정한다: 근거 있는 것부터, 규격(473자) 안에서.
+  // ── 같은 말을 두 번 적지 않는다 ────────────────────────────────────
+  //
+  // ⚠️ 3회차 검수 지적(2026-09-13): ②와 ③에 **글자 그대로 같은 문장**이 적혔다.
+  //   덩어리가 셋이라 서로 다른 답지가 **같은 자리에서 같은 덩어리**를 붙이는 일이 잦다
+  //   (첫 블록이 같으면 첫 갈림도 같다). 그러면 ③을 고른 학생은 ②와의 차이를 끝내 못 얻는다.
+  //   앞판은 `slice(0, 2)` 로 둘만 적어서 이 중복이 **가려져 있었다** — 넷을 다 적으니 드러났다.
+  //
+  // 같은 문장이면 번호를 **묶는다**: `②③ 는 도입문 다음에 …`.
+  const merge = (lines: string[]): string[] => {
+    const byBody = new Map<string, string[]>()
+    for (const line of lines) {
+      const m = line.match(/^([①②③④⑤])\s*(는|은)?\s*(.*)$/s)
+      if (!m) {
+        byBody.set(line, [])
+        continue
+      }
+      const body = m[3]!
+      byBody.set(body, [...(byBody.get(body) ?? []), m[1]!])
+    }
+    return [...byBody.entries()].map(([body, nums]) =>
+      nums.length ? `${nums.join('')} 는 ${body}` : body,
+    )
+  }
+
   const lead = [...must].join(' ').replace(/\s+/g, ' ').trim()
   const picked: string[] = []
-  for (const w of [...reasoned, ...bare]) {
+  for (const w of merge([...reasoned, ...bare])) {
     const candidate = `반면 ${[...picked, w].join('; ')}.`
     if (lead.length + 1 + candidate.length > EXPLANATION_CHARS.max) break
     picked.push(w)

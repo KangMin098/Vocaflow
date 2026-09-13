@@ -190,3 +190,37 @@ describe('되받이 제약 — 정답과 어긋나면 버린다', () => {
     expect(e.ko.length).toBeLessThanOrEqual(EXPLANATION_CHARS.max)
   })
 })
+
+/**
+ * **같은 말을 두 번 적지 않는다.**
+ *
+ * 3회차 검수 지적(2026-09-13): ②와 ③에 **글자 그대로 같은 문장**이 적혔다.
+ * 덩어리가 셋이라 서로 다른 답지가 같은 자리에서 같은 덩어리를 붙이는 일이 잦고,
+ * 그러면 ③을 고른 학생은 ②와의 차이를 끝내 못 얻는다.
+ *
+ * ⚠️ 앞판은 `slice(0, 2)` 로 둘만 적어 이 중복이 **가려져 있었다** — 넷을 다 적으니 드러났다.
+ * 오답을 더 많이 다루는 것이 중복을 만든 것이 아니라, **있던 중복을 보이게 했다.**
+ */
+describe('오답 배제 — 같은 문장을 묶는다', () => {
+  const item = toCsatOrder(SOURCE, SOURCE.map((_, i) => i))!
+
+  it('같은 이음매를 만드는 답지는 번호를 묶어 한 번만 적는다', () => {
+    const e = explainOrderSeam(item)!
+    // 「… 를 붙인다」 문장이 글자 그대로 두 번 나오면 안 된다.
+    const bodies = e.ko.split(';').map((x) => x.replace(/[①②③④⑤]/g, '').trim())
+    const seen = new Set<string>()
+    for (const b of bodies) {
+      if (!b.includes('붙인다')) continue
+      expect(seen.has(b), `같은 배제 문장이 두 번 적혔다: ${b}`).toBe(false)
+      seen.add(b)
+    }
+  })
+
+  it('묶은 번호가 둘 다 남는다 — 하나를 버리지 않는다', () => {
+    const e = explainOrderSeam(item)!
+    for (const n of ['①', '②', '③', '④', '⑤']) {
+      // 정답 번호는 앞머리에, 오답 번호는 배제 절에 — 어느 쪽이든 한 번은 나와야 한다.
+      expect(e.ko.includes(n), `${n} 이 해설에서 통째로 빠졌다`).toBe(true)
+    }
+  })
+})
