@@ -49,8 +49,15 @@ export const V_TO_MARKET_BUCKET: Record<number, string> = {
   9: '고3',
 }
 
-/** 표본이 얇아 이웃에서 빌려 온 버킷 — 화면에 그대로 밝힌다. */
-const BORROWED: Record<string, string> = {
+/**
+ * 표본이 얇아 이웃에서 빌려 온 버킷 — **화면에 그대로 밝힌다.**
+ *
+ * ⚠️ **밝히는 자리가 하나여야 한다.** 2026-09-13 에 발행 게이트가 유형 폭을 재면서
+ *   이 사실을 안 밝혀, V1(초등 **저**학년)을 **초6 교재**와 견주고 「미달」이라고만 적었다.
+ *   그 문구를 그대로 읽으면 관리자는 일곱 살 교재의 유형을 초6 실측으로 넓히러 간다.
+ *   그래서 내보낸다 — 빌린 사실을 아는 곳이 여기뿐이면 다음 화면도 같은 실수를 한다.
+ */
+export const MARKET_BUCKET_BORROWED: Record<string, string> = {
   초6: '초등 표본(초6)',
   중1: '중등 표본(중1-2)',
 }
@@ -121,7 +128,7 @@ export function buildLevelChart(volumes: readonly LevelChartVolume[]): LevelChar
       itemCount: v.itemCount,
       ready: v.status === 'ready',
       bucket,
-      borrowedFrom: bucket ? (BORROWED[bucket] ?? null) : null,
+      borrowedFrom: bucket ? (MARKET_BUCKET_BORROWED[bucket] ?? null) : null,
       words,
     }
   })

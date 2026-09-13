@@ -424,7 +424,27 @@ async function loadElementaryPool(db, band) {
     }))
     .filter((x) => /^[a-z]{2,12}$/.test(x.word) && x.meaningKo)
 
-  const dictionary = new Set(pool.map((x) => x.word))
+  // ── 철자 완성의 분모는 **사전 전체**다 ────────────────────────────
+  //
+  // ⚠️ 여기가 `pool`(교육과정 별표 낱말)이던 동안 `buildSpellBlank` 의 「답이 하나인지
+  //   사전으로 확인한다」가 **별표 안에서만** 참이었다. 생성기 주석은 처음부터 사전 전체를
+  //   분모로 적고 있었으므로 계약이 깨져 있었던 것이다.
+  //
+  //   그 결과 지면에 **거짓 해설**이 실렸다 — 「같은 꼴로 만들 수 있는 낱말이 하나뿐이라
+  //   답이 정해진다」. 실측 2026-09-13: 별표 기준으로 낼 수 있는 706문항 중 **275(39%)**가
+  //   영어 사전에는 답이 여럿이었다. `a _ e` 는 ace·age·ale·ane·ape·are·awe·axe·aye 로
+  //   **아홉 개**다. 뜻 힌트가 있어 학습자는 풀 수 있지만, 해설이 확인하지 않은 것을 단정한다
+  //   (이 저장소가 38,522문항에서 이미 고친 결함과 같은 계열이다).
+  //
+  //   분모를 넓히면 수율이 준다 — 실측 706 → **528(75%)** · V2·V3 1,095 → 912(83%).
+  //   한 권이 쓰는 철자 완성은 20문항이라 넉넉하다. **거짓 해설보다 적은 재고가 낫다.**
+  const dictWords = await fetchAllKeyset(db, 'shared_dictionary', 'word', 'word', 1000)
+  const dictionary = new Set(
+    dictWords
+      .map((r) => String(r.word ?? '').toLowerCase())
+      // `countMatching` 은 같은 길이만 후보로 삼는다 — 그 밖은 담아도 안 쓰인다.
+      .filter((w) => /^[a-z]{3,8}$/.test(w)),
+  )
   // 낱말 → 뜻. 단원 어휘를 만들 때 되쓴다(사전을 두 번 읽지 않는다).
   const meanings = new Map(pool.map((x) => [x.word, x.meaningKo]))
   const items = []

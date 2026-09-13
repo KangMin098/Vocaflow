@@ -150,7 +150,12 @@ export function buildRhyme(prompt: ElementaryWord, pool: readonly ElementaryWord
 
   return {
     kind: 'rhyme',
-    promptKo: `다음 중 "${prompt.word}" 와 소리가 같은 낱말은?`,
+    // ⚠️ **「소리가 같은」이 아니라 「끝소리가 같은」이다.** 정답 `glad` 는 `add` 와
+    //   소리가 같지 않다 — 각운이 같을 뿐이다. 발문이 동음이의어를 묻는 것처럼 읽혔고,
+    //   **해설(`explainElementary`)은 처음부터 「끝소리가 같다」고 적고 있었다** — 발문과
+    //   해설이 서로 다른 말을 했다(실측 2026-09-13 · V1 지면 20문항 전부).
+    //   초등 저학년 독자에게 「소리가 같다」는 말은 `sea`/`see` 를 뜻한다.
+    promptKo: `다음 중 "${prompt.word}" 와 끝소리가 같은 낱말은?`,
     stem: prompt.word,
     choices: ordered.map((t, i) => ({ label: LABELS[i]!, text: t })),
     answer: ordered.indexOf(answerWord.word) + 1,

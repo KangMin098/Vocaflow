@@ -25,7 +25,7 @@ import {
   type PublishGateInput,
 } from './publish-gate'
 import { SERIES_SPINE } from './series'
-import { MARKET_TYPE_MEDIAN, marketTypeMedianOfBand } from './type-spread'
+import { MARKET_TYPE_MEDIAN, marketTypeMedianOfBand, marketTypeSampleOfBand } from './type-spread'
 
 const HERE = dirname(fileURLToPath(import.meta.url))
 const RENDERER = join(HERE, '..', '..', '..', '..', 'scripts', 'textbook', 'render-volume.mjs')
@@ -47,6 +47,7 @@ const CLEAN: PublishGateInput = {
   // 고1 권이 시중 중앙값(9종)을 넘긴 상태. 유형 폭 축은 여기서만 흐트러뜨린다.
   printedTypes: ['blank', 'order', 'insert', 'title', 'topic', 'mood', 'summary', 'claim', 'purpose'],
   marketTypeMedian: 9,
+  marketTypeSample: null,
 }
 
 describe('judgePublish — 차단', () => {
@@ -385,6 +386,31 @@ describe('judgePublish — 유형 폭', () => {
 
   it('중앙값과 같으면 경고하지 않는다 — 우위의 경계는 「이상」이다', () => {
     expect(judgePublish(CLEAN).warned.some((x) => x.label === '유형 폭 미달')).toBe(false)
+  })
+
+  it('빌려 온 기준선이면 그 사실을 같은 줄에 적는다 — 수만 적으면 잘못된 일로 보낸다', () => {
+    const v = judgePublish({
+      ...CLEAN,
+      printedTypes: ['rhyme', 'word_meaning', 'spell_blank'],
+      marketTypeMedian: 4,
+      marketTypeSample: '초등 표본(초6)',
+    })
+    const f = v.warned.find((x) => x.label === '유형 폭 미달')
+    expect(f?.detail).toContain('빌렸다')
+    expect(f?.detail).toContain('초6')
+  })
+
+  it('빌리지 않은 기준선에는 그 말을 붙이지 않는다 — 없는 단서를 만들지 않는다', () => {
+    const v = judgePublish({ ...CLEAN, printedTypes: ['blank'], marketTypeSample: null })
+    expect(v.warned.find((x) => x.label === '유형 폭 미달')?.detail).not.toContain('빌렸다')
+  })
+
+  it('초등 두 밴드의 기준선은 빌려 온 것이다 — 코퍼스에 저학년 표본이 없다', () => {
+    expect(marketTypeSampleOfBand(1)).toContain('초6')
+    expect(marketTypeSampleOfBand(2)).toContain('초6')
+    // 고등은 제 표본이 있다 — 없는 단서를 붙이면 그것도 거짓이다.
+    expect(marketTypeSampleOfBand(5)).toBeNull()
+    expect(marketTypeSampleOfBand(7)).toBeNull()
   })
 
   it('중복은 종 수로 센다 — 같은 유형 아홉 개는 한 종이다', () => {

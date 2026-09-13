@@ -4,6 +4,10 @@
 // 운율은 소리가 같은 보기가 하나뿐이어야 하고, 뜻은 겹치면 안 되고,
 // 철자 완성은 그 꼴에 맞는 낱말이 사전에 하나뿐이어야 한다.
 
+import { readFileSync } from 'node:fs'
+import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
+
 import { describe, expect, it } from 'vitest'
 import {
   buildRhyme,
@@ -15,6 +19,9 @@ import {
   pickDeterministic,
   type ElementaryWord,
 } from './elementary'
+import { explainElementary } from './explain-items'
+
+const POOL = join(dirname(fileURLToPath(import.meta.url)), '..', '..', '..', '..', 'scripts', 'textbook', 'volume-pool.mjs')
 
 const w = (
   word: string,
@@ -175,5 +182,62 @@ describe('결정론 고르기', () => {
     const items = pool.slice(0, 6)
     expect(pickDeterministic(items, 3, 'x')).toEqual(pickDeterministic(items, 3, 'x'))
     expect(pickDeterministic(items, 3, 'x')).not.toEqual(pickDeterministic(items, 3, 'y'))
+  })
+})
+
+/**
+ * **발문과 해설이 서로 다른 말을 하고 있었다** (실측 2026-09-13 · V1 지면 20문항 전부).
+ *
+ * 발문은 「"add" 와 **소리가 같은** 낱말은?」인데 정답은 `glad` 다 — 소리가 같지 않고
+ * 각운이 같을 뿐이다. 해설은 처음부터 「끝소리가 같다」고 적고 있었다. 초등 저학년
+ * 독자에게 「소리가 같다」는 `sea`/`see` 를 뜻한다.
+ */
+describe('운율 발문 — 해설과 같은 말을 한다', () => {
+  const built = buildRhyme(pool[0]!, pool)
+
+  it('발문이 「끝소리」를 묻는다 — 「소리가 같은」은 동음이의어를 뜻한다', () => {
+    expect(built?.promptKo).toContain('끝소리가 같은')
+  })
+
+  it('발문과 해설이 같은 낱말을 쓴다 — 둘이 갈리면 학습자가 다른 문제를 푼다', () => {
+    const ex = explainElementary(
+      'rhyme',
+      built!.stem,
+      built!.choices,
+      built!.answer,
+      built!.answerText,
+    )
+    expect(ex?.ko).toContain('끝소리')
+    // 해설이 「끝소리」를 말하는 한 발문도 그래야 한다 — 한쪽만 고치면 여기서 걸린다.
+    expect(built!.promptKo.includes('끝소리')).toBe(ex!.ko.includes('끝소리'))
+  })
+})
+
+/**
+ * **생성기의 계약을 부르는 쪽이 지키는지 본다** (실측 2026-09-13).
+ *
+ * `buildSpellBlank` 는 「사전 47,591 낱말 중 그 꼴에 맞는 것이 하나일 때만 낸다」고 적어
+ * 두었는데, 조판기는 **교육과정 별표 808낱말**을 넘기고 있었다. 그래서 유일성 판정이
+ * 별표 안에서만 참이었고, 지면에는 「같은 꼴로 만들 수 있는 낱말이 하나뿐」이라는
+ * **거짓 해설**이 실렸다 — 별표 기준 706문항 중 **275(39%)**가 영어 사전에는 답이 여럿이다
+ * (`a _ e` → ace·age·ale·ane·ape·are·awe·axe·aye).
+ *
+ * ⚠️ 순수 함수만 검사하면 이 결함은 **영원히 안 잡힌다** — 생성기는 받은 사전 안에서
+ *   정확했다. 틀린 것은 **무엇을 넘겼는가**였다. 그래서 부르는 쪽 소스를 본다.
+ */
+describe('철자 완성의 분모는 사전 전체다', () => {
+  const src = readFileSync(POOL, 'utf8')
+
+  it('별표 낱말이 아니라 사전에서 분모를 만든다', () => {
+    // 별표 풀로 만든 Set 을 그대로 넘기면 계약이 깨진다.
+    expect(src).not.toContain('const dictionary = new Set(pool.map((x) => x.word))')
+    expect(src).toContain("fetchAllKeyset(db, 'shared_dictionary', 'word'")
+  })
+
+  it('넘기는 것이 그 사전이다 — 다른 Set 을 만들어 두고 안 쓰면 소용없다', () => {
+    const made = src.indexOf('const dictionary = new Set(')
+    const used = src.indexOf('buildSpellBlank(w, dictionary)')
+    expect(made).toBeGreaterThan(-1)
+    expect(used).toBeGreaterThan(made)
   })
 })

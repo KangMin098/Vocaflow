@@ -78,6 +78,7 @@ const {
   gateRecord,
   // 유형 폭의 시중 기준선 — 눈금을 여기서 새로 만들지 않는다(`type-spread.ts` 주석).
   marketTypeMedianOfBand,
+  marketTypeSampleOfBand,
   // 사전에서 즉석 생성되는 초등 3종 — DB 행이 없어 검수 표에 담을 수 없다.
   ELEMENTARY_ITEM_TYPES,
   // 어느 권을 찍는가 — **카탈로그가 정의한 것만 찍는다**(`volume-target.ts` 머리 주석).
@@ -685,6 +686,8 @@ const gate = judgePublish({
   printedTypes: printedItems.map((i) => i.type),
   // 시중 기준선. 없는 학교급이면 null 이 와서 「못 잼」으로 적힌다 — 0 으로 뭉개지 않는다.
   marketTypeMedian: marketTypeMedianOfBand(BAND),
+  // 기준선을 이웃에서 빌렸으면 그 사실도 함께 — 수만 적으면 잘못된 일로 보낸다.
+  marketTypeSample: marketTypeSampleOfBand(BAND),
 })
 if (gate.findings.length || gate.unmeasured.length) {
   console.log(`\n발행 게이트 — ${gate.pass ? '통과' : '차단'}`)

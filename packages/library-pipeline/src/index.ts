@@ -1042,6 +1042,7 @@ export {
   MARKET_TYPE_MEDIAN,
   diagnoseMissingTypes,
   marketTypeMedianOfBand,
+  marketTypeSampleOfBand,
   measureSpread,
   measureVolumeSpread,
   schoolOfBucket,

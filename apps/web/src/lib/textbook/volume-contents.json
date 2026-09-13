@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-13T13:15:27.872Z",
+  "generatedAt": "2026-09-13T14:32:04.604Z",
   "unitsPerVolume": 10,
   "bands": [
     1,
@@ -33,7 +33,7 @@
             "act",
             "afternoon",
             "across",
-            "and"
+            "age"
           ]
         },
         {
@@ -47,12 +47,12 @@
           "minutes": 20,
           "words": null,
           "passages": [
-            "bad",
+            "ago",
             "address",
-            "apartment",
-            "bake",
+            "all",
+            "back",
             "adult",
-            "art"
+            "and"
           ]
         },
         {
@@ -66,12 +66,12 @@
           "minutes": 20,
           "words": null,
           "passages": [
-            "bat",
+            "bad",
             "afraid",
-            "as",
-            "be",
+            "any",
+            "bake",
             "after",
-            "at"
+            "apartment"
           ]
         },
         {
@@ -85,12 +85,12 @@
           "minutes": 20,
           "words": null,
           "passages": [
-            "bed",
+            "ball",
             "against",
-            "badminton",
-            "big",
-            "age",
-            "bag"
+            "arm",
+            "bank",
+            "airplane",
+            "art"
           ]
         },
         {
@@ -104,12 +104,12 @@
           "minutes": 20,
           "words": null,
           "passages": [
-            "boy",
-            "airplane",
-            "basketball",
-            "but",
+            "bat",
             "album",
-            "breakfast"
+            "as",
+            "be",
+            "almost",
+            "ask"
           ]
         },
         {
@@ -123,12 +123,12 @@
           "minutes": 20,
           "words": null,
           "passages": [
-            "buy",
-            "all",
-            "chocolate",
-            "by",
-            "almost",
-            "condition"
+            "bear",
+            "already",
+            "at",
+            "bed",
+            "also",
+            "badminton"
           ]
         },
         {
@@ -142,12 +142,12 @@
           "minutes": 20,
           "words": null,
           "passages": [
-            "cap",
-            "already",
-            "congratulate",
-            "cat",
-            "also",
-            "cup"
+            "bee",
+            "always",
+            "bag",
+            "big",
+            "animal",
+            "basketball"
           ]
         },
         {
@@ -161,12 +161,12 @@
           "minutes": 20,
           "words": null,
           "passages": [
-            "cut",
-            "always",
-            "delicious",
-            "day",
-            "animal",
-            "difficult"
+            "bike",
+            "answer",
+            "bath",
+            "bird",
+            "apple",
+            "belt"
           ]
         },
         {
@@ -180,12 +180,12 @@
           "minutes": 20,
           "words": null,
           "passages": [
-            "do",
-            "answer",
-            "gentleman",
-            "dry",
-            "any",
-            "grandfather"
+            "boat",
+            "area",
+            "both",
+            "bone",
+            "aunt",
+            "breakfast"
           ]
         },
         {
@@ -199,12 +199,12 @@
           "minutes": 20,
           "words": null,
           "passages": [
-            "fall",
-            "apple",
-            "hamburger",
-            "fan",
-            "area",
-            "if"
+            "box",
+            "autumn",
+            "brush",
+            "boy",
+            "baby",
+            "chocolate"
           ]
         }
       ],
@@ -260,8 +260,8 @@
             "meaningKo": "~을 가로질러, 건너편에"
           },
           {
-            "word": "and",
-            "meaningKo": "그리고, ~와"
+            "word": "age",
+            "meaningKo": "나이, 연령"
           }
         ],
         "items": [
@@ -269,7 +269,7 @@
             "no": 1,
             "type": "rhyme",
             "kind": "elementary",
-            "stem": "다음 중 \"add\" 와 소리가 같은 낱말은?",
+            "stem": "다음 중 \"add\" 와 끝소리가 같은 낱말은?",
             "shown": "add",
             "choices": [
               "ice",
@@ -289,11 +289,11 @@
             "type": "spell_blank",
             "kind": "elementary",
             "stem": "뜻을 보고 빈칸을 채우세요 — ~에 관하여",
-            "shown": "a b o _ t",
+            "shown": "a _ o u t",
             "choices": [],
             "answerText": "about",
             "explanation": {
-              "text": "빈칸을 채우면 \"about\" 가 된다. 주어진 꼴 \"a b o _ t\" 에서 빠진 글자를 넣는 문제다 — 같은 꼴로 만들 수 있는 낱말이 하나뿐이라 답이 정해진다.",
+              "text": "빈칸을 채우면 \"about\" 가 된다. 주어진 꼴 \"a _ o u t\" 에서 빠진 글자를 넣는 문제다 — 같은 꼴로 만들 수 있는 낱말이 하나뿐이라 답이 정해진다.",
               "from": "batch"
             },
             "source": "2022 개정 교육과정 별표 어휘"
@@ -321,7 +321,7 @@
             "no": 4,
             "type": "rhyme",
             "kind": "elementary",
-            "stem": "다음 중 \"afternoon\" 와 소리가 같은 낱말은?",
+            "stem": "다음 중 \"afternoon\" 와 끝소리가 같은 낱말은?",
             "shown": "afternoon",
             "choices": [
               "danger",
@@ -354,17 +354,17 @@
             "no": 6,
             "type": "word_meaning",
             "kind": "elementary",
-            "stem": "\"and\" 의 뜻은?",
-            "shown": "and",
+            "stem": "\"age\" 의 뜻은?",
+            "shown": "age",
             "choices": [
-              "여행",
-              "자동차",
-              "그리고",
-              "빵"
+              "나이",
+              "주말",
+              "노래하다",
+              "선로"
             ],
-            "answer": 3,
+            "answer": 1,
             "explanation": {
-              "text": "\"and\" 의 뜻은 ③ \"그리고\"다. 나머지 ① \"여행\" · ② \"자동차\" · ④ \"빵\" 는 같은 교육과정 낱말 목록에 있는 **다른 낱말**의 뜻이다.",
+              "text": "\"age\" 의 뜻은 ① \"나이\"다. 나머지 ② \"주말\" · ③ \"노래하다\" · ④ \"선로\" 는 같은 교육과정 낱말 목록에 있는 **다른 낱말**의 뜻이다.",
               "from": "batch"
             },
             "source": "2022 개정 교육과정 별표 어휘"
@@ -461,7 +461,7 @@
             "topic",
             "blank",
             "title",
-            "rhyme"
+            "spell_blank"
           ],
           "items": 6,
           "minutes": 23,
@@ -475,7 +475,7 @@
             "Grateful People Are Happy and Healthy—But Why?",
             "Following Feathers: Adventures with Bird Experts",
             "The Crofton Boys (발췌)",
-            "bad"
+            "about"
           ]
         },
         {
@@ -507,59 +507,34 @@
           "no": 6,
           "types": [
             "word_order",
-            "spell_blank",
             "word_meaning",
             "blank_word",
             "irrelevant",
-            "content_match"
-          ],
-          "items": 6,
-          "minutes": 23,
-          "words": [
-            116,
-            116
-          ],
-          "passages": [
-            "The Adventures of Buster Bear (발췌)",
-            "about",
-            "act",
-            "The Story of Young Abraham Lincoln (발췌)",
-            "How International Students Should Think about Writing, AI",
-            "Mansfield Park (발췌)"
-          ]
-        },
-        {
-          "no": 7,
-          "types": [
-            "unit_vocab",
-            "word_order",
-            "spell_blank",
-            "word_meaning",
-            "blank_word",
+            "content_match",
             "blank"
           ],
           "items": 6,
           "minutes": 23,
           "words": [
             110,
-            110
+            116
           ],
           "passages": [
-            "A Little Princess (발췌)",
-            "Little Brother (발췌)",
-            "across",
-            "and",
-            "Heidi (발췌)",
+            "The Adventures of Buster Bear (발췌)",
+            "act",
+            "The Story of Young Abraham Lincoln (발췌)",
+            "How International Students Should Think about Writing, AI",
+            "Mansfield Park (발췌)",
             "Bunty and Bubbly"
           ]
         },
         {
-          "no": 8,
+          "no": 7,
           "types": [
             "rhyme",
             "unit_vocab",
-            "word_order",
             "spell_blank",
+            "word_order",
             "word_meaning",
             "blank_word"
           ],
@@ -567,11 +542,33 @@
           "minutes": 23,
           "words": null,
           "passages": [
-            "bake",
+            "ago",
+            "A Little Princess (발췌)",
+            "across",
+            "Little Brother (발췌)",
+            "age",
+            "Heidi (발췌)"
+          ]
+        },
+        {
+          "no": 8,
+          "types": [
+            "rhyme",
+            "unit_vocab",
+            "spell_blank",
+            "word_order",
+            "word_meaning",
+            "blank_word"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": null,
+          "passages": [
+            "back",
             "Aunt Madge's Story (발췌)",
-            "The tale of Grumpy Weasel (발췌)",
             "address",
-            "apartment",
+            "The tale of Grumpy Weasel (발췌)",
+            "all",
             "English Fairy Tales (발췌)"
           ]
         },
@@ -580,8 +577,8 @@
           "types": [
             "rhyme",
             "unit_vocab",
-            "word_order",
             "spell_blank",
+            "word_order",
             "word_meaning",
             "blank_word"
           ],
@@ -589,11 +586,11 @@
           "minutes": 23,
           "words": null,
           "passages": [
-            "bat",
+            "bad",
             "A Little Girl of Long Ago; Or, Hannah Ann (발췌)",
-            "The Curlytops and Their Pets; Or, Uncle Toby's Strange Collection (발췌)",
             "adult",
-            "art",
+            "The Curlytops and Their Pets; Or, Uncle Toby's Strange Collection (발췌)",
+            "and",
             "The Water-Babies: A Fairy Tale for a Land-Baby (발췌)"
           ]
         },
@@ -602,8 +599,8 @@
           "types": [
             "rhyme",
             "unit_vocab",
-            "word_order",
             "spell_blank",
+            "word_order",
             "word_meaning",
             "blank_word"
           ],
@@ -611,11 +608,11 @@
           "minutes": 23,
           "words": null,
           "passages": [
-            "be",
+            "bake",
             "A Little Maid of Ticonderoga (발췌)",
-            "Little Mr. Thimblefinger and His Queer Country (발췌)",
             "afraid",
-            "as",
+            "Little Mr. Thimblefinger and His Queer Country (발췌)",
+            "any",
             "Travels to Discover the Source of the Nile, Volume 3 (of 5) (발췌)"
           ]
         }
@@ -665,17 +662,17 @@
             "renderable": 5,
             "explained": 5
           },
+          "spell_blank": {
+            "items": 5,
+            "renderable": 5,
+            "explained": 5
+          },
           "blank_word": {
             "items": 6,
             "renderable": 6,
             "explained": 6
           },
           "word_order": {
-            "items": 5,
-            "renderable": 5,
-            "explained": 5
-          },
-          "spell_blank": {
             "items": 5,
             "renderable": 5,
             "explained": 5
@@ -881,7 +878,7 @@
             "no": 6,
             "type": "rhyme",
             "kind": "elementary",
-            "stem": "다음 중 \"add\" 와 소리가 같은 낱말은?",
+            "stem": "다음 중 \"add\" 와 끝소리가 같은 낱말은?",
             "shown": "add",
             "choices": [
               "ice",

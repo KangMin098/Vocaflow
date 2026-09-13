@@ -40,7 +40,7 @@
 //
 // 순수 함수다 — DB 도 파일도 안 읽는다. 부르는 쪽이 스냅샷과 규격을 넣어 준다.
 
-import { V_TO_MARKET_BUCKET } from './level-chart'
+import { MARKET_BUCKET_BORROWED, V_TO_MARKET_BUCKET } from './level-chart'
 import marketSpec from './market-spec.json'
 
 /** 시중 권당 유형 수 기준선의 학교급 — `market-spec.json` 의 `typeCoverage.perDocument.bySchool` 키. */
@@ -128,6 +128,24 @@ export function marketTypeMedianOfBand(band: number): number | null {
   const school = schoolOfBucket(V_TO_MARKET_BUCKET[band] ?? null)
   if (!school) return null
   return MARKET_TYPE_MEDIAN[school] ?? null
+}
+
+/**
+ * **그 기준선이 어느 표본에서 왔나.** 빌려 온 버킷이면 그 사실을, 아니면 `null`.
+ *
+ * ── 왜 수만으로는 부족한가 (실측 2026-09-13) ──────────────────────────
+ * 발행 게이트가 V1 을 「지면 3종 / 시중 권당 중앙 4종 — 미달」로 적었다. 그런데 V1 은
+ * **초등 저학년**이고 그 기준선은 `V_TO_MARKET_BUCKET` 이 초6 에서 **빌려 온** 값이다
+ * (`MARKET_BUCKET_BORROWED` — 코퍼스에 초등 저학년 표본이 없다).
+ *
+ * 그 문구를 그대로 읽으면 관리자는 **일곱 살 교재의 유형 구성을 초6 실측으로 넓히러 간다.**
+ * 빌린 사실은 이 저장소가 이미 레벨 차트에서 밝히기로 한 것인데(`borrowedFrom`),
+ * 게이트만 그것을 몰랐다. **자가 아니라 자의 출처를 함께 말한다.**
+ */
+export function marketTypeSampleOfBand(band: number): string | null {
+  const bucket = V_TO_MARKET_BUCKET[band] ?? null
+  if (!bucket) return null
+  return MARKET_BUCKET_BORROWED[bucket] ?? null
 }
 
 /**

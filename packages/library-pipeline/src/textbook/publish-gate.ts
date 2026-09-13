@@ -142,6 +142,16 @@ export interface PublishGateInput {
    *   거짓 초록이 된다. 이 저장소가 이미 겪은 함정이다.
    */
   marketTypeMedian: number | null
+  /**
+   * **그 기준선이 어느 표본에서 왔나** — 이웃에서 빌려 왔으면 그 사실, 아니면 `null`
+   * (`marketTypeSampleOfBand`).
+   *
+   * ⚠️ **수만 적으면 관리자를 잘못된 일로 보낸다.** V1(초등 저학년)의 기준선은 코퍼스에
+   *   저학년 표본이 없어 **초6 에서 빌려 온** 값이다. 「지면 3종 / 시중 4종 — 미달」만
+   *   읽으면 일곱 살 교재의 유형을 초6 실측으로 넓히러 간다. 이 저장소는 레벨 차트에서
+   *   이미 빌린 사실을 밝히기로 했는데(`borrowedFrom`) 게이트만 그것을 몰랐다.
+   */
+  marketTypeSample: string | null
 }
 
 export interface PublishGateVerdict {
@@ -305,8 +315,10 @@ export function judgePublish(input: PublishGateInput): PublishGateVerdict {
         severity: 'warn',
         label: '유형 폭 미달',
         detail:
-          `지면 ${printed}종 / 시중 권당 중앙 ${input.marketTypeMedian}종 — ` +
-          '문항이 나쁜 것이 아니라 **얇은 책**이다. 발행을 막지 않는다',
+          `지면 ${printed}종 / 시중 권당 중앙 ${input.marketTypeMedian}종` +
+          // 빌려 온 기준선이면 **그 사실이 수와 같은 줄에 있어야 한다** — 다음 줄로 밀면 안 읽힌다.
+          (input.marketTypeSample ? ` (기준선은 ${input.marketTypeSample}에서 빌렸다)` : '') +
+          ' — 문항이 나쁜 것이 아니라 **얇은 책**이다. 발행을 막지 않는다',
         // 「없는 유형」의 사유가 셋이라 명령 하나로 못 끝낸다 — 먼저 사유를 본다.
         //   `diagnoseMissingTypes` 가 창고·자·제약·비중을 갈라 준다(`type-spread.ts`).
         fix: `pnpm dlx tsx scripts/textbook/type-spread.mjs`,
