@@ -28,6 +28,8 @@ import {
   type VolumeContents,
 } from '@/lib/textbook/volume-contents'
 import { TYPE_GUIDE } from '@/lib/textbook/type-guide'
+import { ComponentVideo } from '@/components/video/ComponentVideo'
+import { typeVideo } from '@/lib/video/catalog'
 
 /**
  * 펼쳐 두는 분량 — **모양을 보여 줄 만큼만**이고 그 이상은 접는다.
@@ -245,14 +247,17 @@ export function VolumeToc({
 // ══════════════════════════════════════════════════════════════════════
 
 /** 이 단원이 시키는 일 — 유형에서 유도한다. 목표를 손으로 적으면 권마다 어긋난다. */
-function objectivesOf(items: readonly PreviewChoiceItem[]): { label: string; says: string }[] {
+function objectivesOf(
+  items: readonly PreviewChoiceItem[],
+): { code: string; label: string; says: string }[] {
   const seen = new Set<string>()
-  const out: { label: string; says: string }[] = []
+  // 유형 **코드**를 함께 나른다 — 영상을 찾으려면 라벨이 아니라 코드가 필요하다.
+  const out: { code: string; label: string; says: string }[] = []
   for (const it of items) {
     if (seen.has(it.type)) continue
     seen.add(it.type)
     const g = TYPE_GUIDE[it.type]
-    out.push({ label: g?.label ?? it.type, says: g?.says ?? '' })
+    out.push({ code: it.type, label: g?.label ?? it.type, says: g?.says ?? '' })
   }
   return out
 }
@@ -512,6 +517,19 @@ export function VolumePreview({ contents: c }: { contents: VolumeContents }) {
           ))}
         </ul>
       </div>
+
+      {/*
+        **이 유형이 무엇을 시키는지 12초로 보여 준다.**
+
+        목록에 유형이 여럿이면 **첫 유형 하나만** 건다 — 한 단원 미리보기에 플레이어를 셋씩
+        깔면 그 구역이 영상 서가가 된다(이 화면의 요점은 문항이 어떻게 생겼는가다).
+        발행 전이거나 그 유형 영상이 없으면 아무것도 안 그린다.
+      */}
+      {objectives[0] && (
+        <div className="mt-5 max-w-[420px]">
+          <ComponentVideo video={typeVideo(objectives[0].code)} />
+        </div>
+      )}
 
       {/* 앞 두 문항은 펼쳐 둔다 — 문항이 **어떻게 생겼는지**가 이 구역의 요점이다.
           나머지는 접는다: 한 단원 전체가 3,265px 라 이 아래가 통째로 묻혔다(실측 2026-09-07). */}

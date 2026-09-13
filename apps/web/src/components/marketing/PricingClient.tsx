@@ -29,6 +29,8 @@
 import { Check, Heart, Mail, Sparkles, Users } from 'lucide-react'
 import Link from 'next/link'
 
+import { ComponentVideo } from '@/components/video/ComponentVideo'
+import { curriculumVideo, videosByKind } from '@/lib/video/catalog'
 import { DIFFERENTIATORS } from '@/lib/marketing/differentiators'
 import type { TrustSignal } from '@/lib/marketing/trust-signals'
 
@@ -97,6 +99,9 @@ const FAQS: readonly FAQ[] = [
  *   낡거나 0 인 숫자를 공개 화면에 거는 것보다 안 보여주는 편이 낫다.
  */
 export function PricingClient({ signals }: { signals: TrustSignal[] | null }) {
+  const curriculum = curriculumVideo()
+  const seriesVideos = videosByKind().series
+
   return (
     <div className="bg-[var(--bg)]">
       {/* ── Hero ── */}
@@ -325,6 +330,56 @@ export function PricingClient({ signals }: { signals: TrustSignal[] | null }) {
           </ul>
         </div>
       </section>
+
+      {/*
+        ── 무엇이 들어 있나 ──
+
+        요금 화면의 질문은 "얼마인가" 다음에 곧바로 **"무엇을 사는가"** 다. 그 답이 여기까지
+        전부 산문이었다 — 시리즈 이름과 학년 계단은 보여 줘야 잡힌다.
+        커리큘럼 한 편 + 시리즈 세 편. 발행 전이면 이 절이 통째로 안 그려진다.
+      */}
+      {(curriculum || seriesVideos.length > 0) && (
+        <section aria-label="무엇이 들어 있나" className="border-t border-[var(--bd)] bg-[var(--bg2)]">
+          <div className="mx-auto max-w-6xl px-6 py-16">
+            <header className="mb-8 max-w-2xl">
+              <p className="font-mono text-[11px] font-[700] uppercase tracking-[0.10em] text-[var(--p)]">
+                What&apos;s inside
+              </p>
+              <h2 className="mt-2 break-keep font-display text-[26px] font-[800] tracking-tight text-[var(--t1)]">
+                무엇이 들어 있는지 60초로 봅니다
+              </h2>
+              <p className="mt-3 break-keep font-body text-[14px] leading-[1.7] text-[var(--t2)]">
+                학년을 잇는 7단 계단과 시리즈 셋. 화면에 나오는 재고 수치는 모두 실측이고
+                출처가 함께 나옵니다.
+              </p>
+            </header>
+
+            {curriculum && (
+              <div className="mb-8 max-w-2xl">
+                <ComponentVideo video={curriculum} />
+              </div>
+            )}
+
+            {seriesVideos.length > 0 && (
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+                {seriesVideos.map((v) => (
+                  <article key={v.id}>
+                    <ComponentVideo video={v} />
+                    <h3 className="mt-2 break-keep font-display text-[14px] font-[700]">
+                      <Link
+                        href={`/video/${v.id}`}
+                        className="text-[var(--t1)] underline-offset-4 hover:underline"
+                      >
+                        {v.title}
+                      </Link>
+                    </h3>
+                  </article>
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+      )}
 
       {/* ── FAQ ── */}
       <section className="border-t border-[var(--bd)] bg-[var(--bg)]">

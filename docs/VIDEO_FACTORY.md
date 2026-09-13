@@ -214,7 +214,10 @@ video render-all → video package → video publish → (manifest 커밋) → �
 | **`/admin/video`** | **운영 콘솔(VFP)** — 밀린 것·유실·재생 실적. 탭 3. [ADMIN_CONSOLE.md](./ADMIN_CONSOLE.md) |
 | **`/video/[id]`** | **편별 페이지 62개** — 자막 전문 서버 렌더 + `VideoObject` JSON-LD. 색인 가능 면 1 → **63** |
 | `/video` | 영상 서가 — 종류별 전체 목록 (공개) |
-| `/about` | 소개 영상 + 장점 3편 (그 전까지 처음부터 끝까지 산문이었다) |
+| `/about` | 소개 1편 + 장점 3편 (그 전까지 처음부터 끝까지 산문이었다) |
+| `/pricing` | 커리큘럼 1편 + 시리즈 3편 — "얼마인가" 다음 질문이 **"무엇을 사는가"** 다 |
+| `/library/textbooks/[series]/[step]` | 그 단원의 **첫 유형** 영상 한 편. 유형 28편이 닿는 자리 |
+| `/` (랜딩) | **영상을 넣지 않는다** — 첫 화면의 자리는 작동하는 증명(CoverageHero)이고 영상은 말하기다(I1). 헤더·푸터 링크로만 잇는다 |
 | `/library/textbooks/[series]` | 그 시리즈 영상 한 편 (`ShelfScreen`, 420px 카드) |
 | 마케팅 헤더 · 랜딩 푸터 | `/video` 링크 |
 

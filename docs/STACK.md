@@ -186,12 +186,14 @@ Word Learning Pipeline.
 
 ### `@vocaflow/video-factory` (2026-09-12 신설)
 
-플랫폼 구성요소 → 영상. 설계도 47편 × 규격 3 = 컴포지션 141개가 **데이터에서 생성**된다.
+플랫폼 구성요소 → 영상. 설계도 **62편** × 규격 3 = 컴포지션 **186개**가 **데이터에서 생성**된다.
+(2026-09-13 실측 — 유형 설명 15종을 채우자 코드 수정 0줄로 47 → 62편이 됐다.)
 
 | 패키지 | 버전 | 쓰임 |
 |---|---|---|
 | `remotion` + `@remotion/cli` · `bundler` · `renderer` | 4.0.524 | React 컴포넌트 → mp4. **4인 이상 법인은 유료** (좌석당 월 \$25 또는 렌더당 \$0.01) |
 | `@andresaya/edge-tts` | 1.8.0 | 한국어 나레이션 + **낱말 경계 타임스탬프** (키 불필요·무료) |
+| `@supabase/supabase-js` | 2.104.1 | 발행(공개 버킷 업로드) |
 
 `@vocaflow/design-tokens` 를 그대로 import 한다 — 영상과 제품이 같은 색·서체를 쓴다.
 상세: [VIDEO_FACTORY.md](./VIDEO_FACTORY.md)
