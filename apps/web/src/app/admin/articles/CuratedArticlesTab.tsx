@@ -79,8 +79,20 @@ interface Props {
 
 const PROCESSABLE = new Set<string>(['queued', 'ingesting', 'normalizing', 'analyzing', 'curating', 'ready', 'failed'])
 
-/** 소스 필터 드롭다운 — 라벨 정본은 source-guide 하나뿐이다(중복 정의 금지). */
-const SOURCE_FILTER_OPTIONS = Object.keys(SOURCE_LABEL).sort()
+/**
+ * 소스 필터 드롭다운 — 라벨 정본은 source-guide 하나뿐이다(중복 정의 금지).
+ *
+ * ⚠️ **이 목록이 곧 "관리할 수 있는 소스" 다.** 여기 없는 소스는 URL 에 `?src=` 를 손으로
+ * 적어야만 걸러지고, 화면에서는 존재하지 않는 것과 같다. 2026-09-13 까지 이 맵이 GET 탭이
+ * 있는 소스 15개만 들고 있어 재고의 43.3%(47,165편 · 최대 소스 `gutenberg` 포함)가
+ * 그 상태였다 — 그래서 `SOURCE_LABEL` 을 DB `library_articles_source_check` 전체로 폈다.
+ *
+ * 이름으로 정렬한다 — 사람이 읽는 것은 라벨이고, 키(`the_conversation`)로 정렬하면
+ * 목록에 보이는 순서와 어긋난다.
+ */
+const SOURCE_FILTER_OPTIONS = Object.keys(SOURCE_LABEL).sort((a, b) =>
+  (SOURCE_LABEL[a] ?? a).localeCompare(SOURCE_LABEL[b] ?? b, 'ko'),
+)
 
 interface DrainState {
   running: boolean

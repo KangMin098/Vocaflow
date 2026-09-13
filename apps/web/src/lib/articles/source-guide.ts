@@ -86,6 +86,22 @@ const ALL_SOURCES: ReadonlyArray<SourceKey> = [
   'noaa',
 ]
 
+/**
+ * **`library_articles.source` 가 가질 수 있는 모든 값의 이름.**
+ *
+ * ⚠️ **「GET 탭이 있는 소스」와 같은 목록이 아니다.** 예전에는 같았고, 그래서 관리 화면이
+ * 재고의 절반을 **부를 이름이 없어 숨겼다** — 검수·발행의 소스 드롭다운이 이 맵의 키로만
+ * 만들어지기 때문이다. 실측 2026-09-13: 재고 108,953편 중 **47,165편(43.3%)** 이 여기
+ * 이름이 없는 소스였고(`gutenberg` 40,519 · `futurity` 2,885 · `frontiers` 1,961 ·
+ * `original` 1,429 · `frym` 153 · `storyweaver` 136 · `space_place` 59 · `nist` 23),
+ * 그중 최대 소스인 `gutenberg` 는 **관리 화면 어디에서도 고를 수 없었다.**
+ *
+ * 수집 경로가 없는 소스(`gutenberg` 는 도서에서 잘라 온 것, `original` 은 자체 재저작)도
+ * 적재된 뒤에는 검수·발행·삭제를 똑같이 받는다. **들어올 수 있으면 이름이 있어야 한다.**
+ *
+ * 정본은 DB 의 `library_articles_source_check` 다 — 거기 없는 값은 애초에 안 들어온다.
+ * 회귀 `apps/web/src/lib/articles/__tests__/source-key-parity.test.ts` 가 둘을 맞춘다.
+ */
 export const SOURCE_LABEL: Record<string, string> = {
   voa: 'VOA',
   nasa: 'NASA',
@@ -102,6 +118,23 @@ export const SOURCE_LABEL: Record<string, string> = {
   wikivoyage: 'Wikivoyage',
   usgs: 'USGS',
   noaa: 'NOAA Climate.gov',
+  // ── GET 탭이 없는 소스 — 그래도 재고에 있고 관리 대상이다 ──
+  gutenberg: 'Project Gutenberg',
+  futurity: 'Futurity',
+  frontiers: 'Frontiers',
+  frym: 'Frontiers for Young Minds',
+  nist: 'NIST',
+  storyweaver: 'StoryWeaver',
+  space_place: 'NASA Space Place',
+  ocean_facts: 'NOAA Ocean Facts',
+  worldbank: 'World Bank',
+  original: '자체 재저작',
+  // ── 아직 DB CHECK 가 안 받는 것 — 타입에 있으면 이름도 있어야 한다 ──
+  openstax: 'OpenStax',
+  // ── 초기 ACP 수집기 — 지금 재고 0 이지만 CHECK 가 여전히 받는다 ──
+  cdc: 'CDC',
+  medlineplus: 'MedlinePlus',
+  manual: '수동 등록',
 }
 
 // ── 커버리지 빈칸 ────────────────────────────────

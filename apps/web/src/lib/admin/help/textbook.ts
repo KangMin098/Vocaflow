@@ -83,6 +83,13 @@ export const TBP_HELP: HelpRegistry = {
             '이 스캔은 **고치지 않는다** — 어디에 몇 편 있는지만 센다. `==` 는 수식에도 나오고 `Media` 는 본문 낱말로도 나오므로, 무엇을 지울지는 소스별 추출기를 고칠 때 사람이 정한다.',
         },
         {
+          label: '원문 자체는 여기서 관리하지 않는다',
+          detail:
+            '이 화면은 **판정 결과만** 읽는다. 원문 한 편을 열어 보고·고치고·보관·삭제하는 곳은 **ACP 콘솔**(`/admin/articles` · 사이드바 「짧은 글」)이다 — 「소스 GET」 탭이 수집(소스별 프로필·정책·후보·라이브 RSS), 「검수」·「발행」 탭이 적재된 원문 목록, `/admin/articles/preview/<id>` 가 한 편이다. ' +
+            '표의 **원천 이름을 누르면** 그 원천의 원문 목록이 상태 전체로 열린다. ' +
+            '⚠️ **「소스 GET」 탭은 재고 전체를 덮지 않는다** — 탭은 RSS·API 로 수집하는 14개 소스뿐이고, 최대 소스 `gutenberg`(40,519편)·`frontiers`·`nist` 는 별도 수확기(`scripts/csat/harvest-*.mjs` · `scripts/textbook/harvest-gutenberg-kid.mjs`)가 넣는다. 그 소스들은 **「검수」·「발행」 탭에서만** 다룬다.',
+        },
+        {
           label: '조판 가능',
           detail:
             '`그대로 사용` + `발췌해 사용` 두 등급의 합. **이 둘만이다** — 나머지 넷은 “지금은 쓸 수 없다” 는 뜻이고, 조판에 넣으면 근거 없이 고른 것이 된다. 등급을 하나 더 허용하려면 `COMPOSABLE_GRADES` 를 고쳐야 하고, 회귀가 그 변경을 잡는다.',
@@ -235,6 +242,7 @@ export const TBP_HELP: HelpRegistry = {
       },
       seeAlso: [
         { label: '교재 공장 — 공정 현황판', href: '/admin/csat' },
+        { label: '원문 관리 (ACP 콘솔)', href: '/admin/articles' },
         { label: '원문 재고 실측 리포트', doc: 'docs/reports/kid-source-plan-20260904.md' },
         { label: '게시 게이트 규칙', doc: 'scripts/csat/gate-rules.mjs' },
       ],

@@ -465,6 +465,37 @@ describe('원문 적격 화면', () => {
   })
 })
 
+// ── 판정과 원본을 잇는 길 ─────────────────────────────────────────
+// 2026-09-13 실측: 이 화면은 원천 이름을 스물한 번 부르면서 **링크가 0개**였다. 그래서
+// "PLOS 가 13.3% 밖에 안 된다" 를 읽은 관리자가 그 원문을 열어 보려면 사이드바에서 **다른
+// 이름의 메뉴**(「짧은 글 · ACP」)를 찾아 들어가 필터를 손으로 맞춰야 했다. 판정과 원본이
+// 갈라져 있으면 판정만 읽고 끝난다 — 그래서 길이 있는지를 잠근다.
+/** 렌더된 HTML 에서 ACP 콘솔로 가는 href 만 뽑는다(엔티티는 되돌린다). */
+function articleHrefs(): string[] {
+  return html
+    .split('href="')
+    .slice(1)
+    .map((chunk) => chunk.slice(0, chunk.indexOf('"')))
+    .filter((h) => h.includes('/admin/articles'))
+    .map((h) => h.split('&amp;').join('&'))
+}
+
+describe('원문으로 가는 길', () => {
+  it('원천 이름이 그 원천의 원문 목록으로 간다', () => {
+    expect(
+      articleHrefs().length,
+      '원천 링크가 하나도 없다 — 판정만 있고 원본으로 가는 길이 없다',
+    ).toBeGreaterThan(0)
+  })
+
+  it('상태를 전체로 열어 둔다 — 기본값(ready)이면 보관·실패가 조용히 빠진다', () => {
+    for (const h of articleHrefs()) {
+      expect(h, `상태 필터가 없는 링크: ${h}`).toContain('status=all')
+      expect(h, `소스 필터가 없는 링크: ${h}`).toContain('src=')
+    }
+  })
+})
+
 describe('도움말 계약', () => {
   const entry = HELP_REGISTRY['csat-sources']
 
@@ -507,6 +538,13 @@ describe('도움말 계약', () => {
     expect(scan).toContain(
       "const JSON_OUT = NO_WRITE ? null : arg('json') ?? (ONLY_BAND ? null : SNAPSHOT_PATH)"
     )
+  })
+
+  it('원문 자체를 어디서 관리하는지 말한다', () => {
+    // 이 줄이 없으면 관리자는 이 화면에 조작이 없다는 것만 알고, **어디에 있는지는 모른다.**
+    const json = JSON.stringify(entry!.screen)
+    expect(json).toContain('/admin/articles')
+    expect(entry!.screen.seeAlso?.some((r) => 'href' in r && r.href === '/admin/articles')).toBe(true)
   })
 
   it('도움말과 화면이 --json 경로를 손으로 적으라고 시키지 않는다', () => {

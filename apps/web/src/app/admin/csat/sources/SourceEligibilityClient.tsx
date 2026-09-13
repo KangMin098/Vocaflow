@@ -1,7 +1,16 @@
 // apps/web/src/app/admin/csat/sources/SourceEligibilityClient.tsx
 // 원문 적격 — 교재에 실을 수 있는 원문인가를 일곱 축으로 판정한 결과. 조작은 없다(판정은 스캔).
+//
+// ── 왜 원천 이름이 링크인가 (2026-09-13) ────────────────────────────
+// 이 화면은 원천 이름을 스물한 번 부르면서 **그 원천의 원문을 어디서 보는지 한 번도 말하지
+// 않았다.** 링크가 0개였다. 그래서 "PLOS 가 13.3% 밖에 안 된다" 를 읽은 관리자가 그 다음에
+// 할 일(그 원문을 열어 보는 것)을 하려면 사이드바에서 **다른 이름의 메뉴**(「짧은 글 · ACP」)를
+// 찾아 들어가 필터를 손으로 맞춰야 했다. 판정과 원본이 두 화면으로 갈라져 있으면 판정만 읽고
+// 끝난다.
 
 'use client'
+
+import Link from 'next/link'
 
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import type {
@@ -27,6 +36,25 @@ const GRADE_TONE: Record<string, string> = {
   unjudged: 'var(--warning-ink)',
   unknown: 'var(--warning-ink)',
   blocked: 'var(--error-ink)',
+}
+
+/**
+ * 원천 이름 → **그 원천의 원문 목록.**
+ *
+ * `status=all` 을 명시하는 이유: 검수 단계의 기본 상태 필터는 `ready` 라, 안 적으면
+ * 보관·실패·처리 중인 것이 조용히 빠진다. 여기서 보낸 사람은 "이 원천이 지금 어떤가" 를
+ * 보러 가는 것이므로 전체가 맞다(`lib/articles/console-view.ts` 의 `defaultStatusFilter`).
+ */
+function SourceLink({ source, children }: { source: string; children: React.ReactNode }) {
+  return (
+    <Link
+      href={`/admin/articles?stage=review&status=all&src=${encodeURIComponent(source)}`}
+      title={`${source} 원문 목록 열기`}
+      className="inline-flex min-h-[44px] items-center text-[var(--t2)] underline decoration-dotted underline-offset-2 transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:text-[#8B5CF6] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8B5CF6] active:text-[#8B5CF6]"
+    >
+      {children}
+    </Link>
+  )
 }
 
 export function SourceEligibilityClient({ panel }: { panel: SourceEligibilityPanel }) {
@@ -471,9 +499,11 @@ function BlockedSources({ rows }: { rows: { source: string; count: number }[] })
         {rows.slice(0, 12).map((r) => (
           <li
             key={r.source}
-            className="rounded-[var(--r-sm)] border border-[var(--bd)] px-3 py-1.5 font-body text-[12px] text-[var(--t2)]"
+            className="rounded-[var(--r-sm)] border border-[var(--bd)] px-3 font-body text-[12px] text-[var(--t2)]"
           >
-            {r.source} <b className="tabular-nums text-[var(--t1)]">{r.count.toLocaleString()}</b>
+            <SourceLink source={r.source}>
+              {r.source} <b className="ml-1 tabular-nums text-[var(--t1)]">{r.count.toLocaleString()}</b>
+            </SourceLink>
           </li>
         ))}
       </ul>
@@ -736,7 +766,9 @@ function SourceYieldTable({ yieldPanel }: { yieldPanel: SourceYieldPanel }) {
                 .sort((a, b) => b[1] - a[1])[0]
               return (
                 <tr key={`${r.source}-${r.vLevel}`} className="border-b border-[var(--bd)]/50">
-                  <td className="py-2 pr-3 font-mono text-[12px] text-[var(--t2)]">{r.source}</td>
+                  <td className="pr-3 font-mono text-[12px]">
+                    <SourceLink source={r.source}>{r.source}</SourceLink>
+                  </td>
                   <td className="py-2 pr-3 font-[700] tabular-nums text-[var(--t1)]">V{r.vLevel}</td>
                   <td className="py-2 pr-3 text-right tabular-nums text-[var(--t2)]">
                     {r.articles.toLocaleString()}
@@ -890,7 +922,11 @@ function DefectTable({ defects }: { defects: DefectPanel }) {
                   {r.why}
                   {r.concentrated && r.topSource ? (
                     <span className="mt-1 block text-[var(--warning-ink)]">
-                      ⚠ 사실상 <b>{r.topSource.source}</b> 하나의 문제다 —{' '}
+                      ⚠ 사실상{' '}
+                      <b>
+                        <SourceLink source={r.topSource.source}>{r.topSource.source}</SourceLink>
+                      </b>{' '}
+                      하나의 문제다 —{' '}
                       {/* ⚠️ 한 표현식으로 만든다 — 표현식과 리터럴을 붙여 쓰면 서버 렌더가
                           사이에 주석 마커를 넣어 `99.7%` 가 문자열로 남지 않는다. */}
                       <span className="tabular-nums">

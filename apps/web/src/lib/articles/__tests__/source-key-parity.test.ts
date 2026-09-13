@@ -68,6 +68,35 @@ describe('기사 소스 — 정본과 사본이 같은 목록을 든다', () => 
     )
   })
 
+  it('재고에 들어올 수 있는 모든 소스에 **이름**이 있다', () => {
+    // ⚠️ **이름이 없으면 관리 화면에서 사라진다.** 검수·발행의 소스 드롭다운은
+    //   `SOURCE_LABEL` 의 키로만 만들어지므로, 이름 없는 소스는 URL 에 `?src=` 를 손으로
+    //   적어야만 걸러진다. 실측 2026-09-13: 이 맵이 「GET 탭이 있는 소스」 15개만 들고 있어
+    //   재고 108,953편 중 **47,165편(43.3%)** 이 그 상태였고, 최대 소스 `gutenberg`(40,519편)는
+    //   관리 화면 어디에서도 고를 수 없었다.
+    //
+    //   분모는 `ArticleSource` 다 — DB `library_articles_source_check` 와 같은 목록이어야 하고,
+    //   그쪽이 정본이다(테스트는 DB 를 못 보므로 타입을 대리로 쓴다).
+    const SOURCES = unionMembers(
+      readFileSync(path.join(PKG, 'types-article.ts'), 'utf8'),
+      'ArticleSource',
+    )
+    expect(SOURCES.length, 'ArticleSource 를 못 읽었다 — 이 가드가 아무것도 안 지킨다').toBeGreaterThan(20)
+
+    // SOURCE_LABEL 블록만 떼어 읽는다 — 같은 파일의 SOURCE_REGISTERS 도 들여쓰기 2칸에
+    // 같은 키를 갖고 있어, 파일 전체에서 긁으면 **라벨이 없어도 통과**한다(가드 자기무력화).
+    const block = GUIDE.slice(GUIDE.indexOf('export const SOURCE_LABEL'))
+    const body = block.slice(0, block.indexOf('\n}'))
+    expect(body.length, 'SOURCE_LABEL 블록을 못 잘랐다').toBeGreaterThan(100)
+    const labelled = [...body.matchAll(/^ {2}([a-z0-9_]+):/gm)].map((m) => m[1])
+    const missing = SOURCES.filter((k) => !labelled.includes(k))
+    expect(
+      missing,
+      `이름 없는 소스: ${missing.join(', ')} — apps/web/src/lib/articles/source-guide.ts 의 ` +
+        `SOURCE_LABEL 에 더할 것 (없으면 그 소스의 원문은 관리 화면에서 못 고른다)`,
+    ).toEqual([])
+  })
+
   it('모든 소스가 어떤 register 를 다루는지 적혀 있다', () => {
     // `SOURCE_REGISTERS` 는 `Record<SourceKey, …>` 라 빠지면 tsc 가 잡지만,
     // **무엇을 채워야 하는지**는 여기서 이름으로 말해 준다.
