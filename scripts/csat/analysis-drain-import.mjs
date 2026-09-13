@@ -92,6 +92,24 @@ for (const f of files) {
   }
 }
 
+// ── 한 문항이 청크 여러 개에 있으면 **마지막 것만 올린다** ────────────
+//
+// `--redo` 로 다시 뽑은 문항은 옛 `.out.json`(원장으로 남긴다)과 새 `chunk-redo-<날짜>-…` 에
+// **둘 다** 들어 있다. 그대로 두면 한 번 적재할 때마다 그 문항이 두 행씩 늘고, 매 실행마다
+// 또 늘어난다 — 실측 2026-09-13: 11문항이 실행당 22행을 만들었다.
+//
+// 파일 이름 정렬이 곧 시간 순서다: `chunk-R-VOCAB-…`(대문자) < `chunk-redo-20260913-…`(소문자)이고,
+// 다시 뽑은 날짜가 뒤면 그것이 또 뒤로 온다. 그래서 **나중 파일이 이긴다.**
+// `reviewsOf` 는 `set` 이라 이미 나중 것이 남는다 — 분석만 맞춰 준다.
+{
+  const lastOf = new Map()
+  for (const a of analyses) lastOf.set(a.item_id, a)
+  const superseded = analyses.length - lastOf.size
+  analyses.length = 0
+  analyses.push(...lastOf.values())
+  if (superseded) console.log(`  옛 청크에 겹쳐 있어 건너뛴 분석 ${superseded} (나중 청크가 이긴다)`)
+}
+
 console.log(`\n  파일 ${files.length} · 적재 대상 ${analyses.length} · 건너뜀 ${skipped.length} · 유형 리포트 ${typeReports.size}`)
 for (const s of skipped.slice(0, 10)) console.log(`    · ${s}`)
 if (skipped.length > 10) console.log(`    · … 외 ${skipped.length - 10}건`)
@@ -140,7 +158,32 @@ for (const a of analyses) {
   //    보강 드레인은 그 둘을 **그대로 두고** `choice_analysis` 에 「왜 이것이 정답인가」를 더한다.
   //    두 필드만 보면 "같다" 로 판정해 새 버전을 안 만들고, **더한 서술이 통째로 버려진다.**
   //    학습자에게 가는 것이 이 필드이므로 조용히 사라지면 알 길이 없다.
-  const shape = (x) => JSON.stringify([x.measured_ability, x.design_intent, x.answer_locus, x.choice_analysis, x.solve_procedure])
+  //
+  // ⚠️ **그냥 `JSON.stringify` 로 비교하면 안 된다 — jsonb 가 키 순서를 바꿔 저장한다.**
+  //    `answer_locus`·`choice_analysis`·`solve_procedure` 는 jsonb 이고, Postgres 는 객체 키를
+  //    (길이 → 바이트) 순으로 정렬해 보관한다. 그래서 파일에서 읽은 객체와 DB 에서 읽어 온
+  //    객체는 **내용이 같아도 문자열이 다르다** → `same` 이 영원히 false 가 된다.
+  //
+  //    실측 2026-09-13: 그래서 「재실행 안전 · 내용이 같으면 새 버전을 안 만든다」가 한 번도
+  //    지켜지지 않았다. 전량 적재 한 번이 **802행**을 더했고(버전 분포 v1 802 · v2 802 로
+  //    전량 재적재가 두 번 찍혀 있었다), 2,234행이 3,047행이 됐다. 데이터가 사라지는 사고는
+  //    아니지만 적재를 돌릴 때마다 원장이 불고, 무엇보다 **문서가 거짓을 말하고 있었다.**
+  //
+  //    그래서 키를 정렬해 비교한다(깊이 전체). 배열 순서는 뜻이 있으므로 **건드리지 않는다** —
+  //    선지 ①~⑤ 와 절차 단계는 순서가 내용이다.
+  const canon = (v) => {
+    if (Array.isArray(v)) return v.map(canon)
+    if (v && typeof v === 'object') {
+      const out = {}
+      for (const k of Object.keys(v).sort()) out[k] = canon(v[k])
+      return out
+    }
+    return v
+  }
+  const shape = (x) =>
+    JSON.stringify(
+      canon([x.measured_ability, x.design_intent, x.answer_locus, x.choice_analysis, x.solve_procedure]),
+    )
   const same = last && shape(last) === shape(a)
   let aid = last?.id
 
