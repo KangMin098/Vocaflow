@@ -3,6 +3,8 @@
 // 표본은 **DB 에 실제로 들어 있는 모양**을 그대로 옮겼다(2026-08-30 실측 payload).
 // 지어낸 모양으로 통과시키면 적재할 때 전부 null 로 떨어진다.
 
+import { readFileSync } from 'node:fs'
+
 import { describe, expect, it } from 'vitest'
 import {
   EXPLANATION_CHARS,
@@ -106,6 +108,37 @@ describe('explainUnderlinedGrammar', () => {
     expect(e).not.toBeNull()
     expect(e!.ko).toContain('지시어')
     expect(e!.ko).toContain('that')
+  })
+
+  // ── 왜 이 회귀가 생겼나 (실측 2026-09-13) ─────────────────────────
+  // `headNounAfter` 가 `sentence.split(/s+/)` 였다 — 백슬래시 하나가 빠져 **리터럴 s 로**
+  // 쪼갰다. 그 결과 머리 명사가 `"aretypicallyorganizedloo"` 로 나오고, 뭉개진 토큰이
+  // 단수로 판정돼 해설이 「단수이므로 These 가 맞다」는 자기모순을 적었다.
+  //
+  // ⚠️ **위 두 검사가 그것을 통과시켰다.** 「지시어」와 「that」이 들어 있는지만 봤고,
+  //   「수식어를 명사라고 지목하지 않는다」는 *없어야 할 낱말*만 봐서 **토큰이 통째로
+  //   뭉개졌을 때 오히려 조용히 통과**한다(없는 낱말은 당연히 안 들어 있다).
+  //   그래서 여기서는 **지목한 낱말이 그 문장에 실제로 있는 낱말인지**를 본다.
+  it('머리 명사로 지목한 낱말이 그 문장에 실제로 있는 낱말이다', () => {
+    const sentence =
+      'This collectives are typically organized loosely within state and national networks that provide training.'
+    const e = explainUnderlinedGrammar(
+      {
+        sentences: [sentence],
+        underlines: [
+          { word: 'This', label: '①', tokenIdx: 0, sentenceIdx: 0 },
+          { word: 'that', label: '②', tokenIdx: 11, sentenceIdx: 0 },
+        ],
+      },
+      { rule: 'demonstrative', original: 'These', position: 1 },
+    )
+    expect(e).not.toBeNull()
+    const named = /"([^"]+)"\s*가 (?:복수|단수)이므로/.exec(e!.ko)
+    expect(named, `머리 명사를 지목하지 않았다: ${e!.ko}`).not.toBeNull()
+    const tokens = sentence.split(/\s+/).map((t) => t.replace(/[^A-Za-z'-]/g, '').toLowerCase())
+    expect(tokens, `지문에 없는 낱말을 지목했다: ${named![1]}`).toContain(named![1]!.toLowerCase())
+    // 복수 명사를 단수라고 부르지 않는다 — 뭉개진 토큰은 대개 단수로 판정된다.
+    expect(e!.ko).toContain('복수이므로')
   })
 
   it('수식어를 명사라고 지목하지 않는다 — 사실이 틀린 해설은 없느니만 못하다', () => {
@@ -347,5 +380,98 @@ describe('explainElementary — 초등 저학년 3종', () => {
 
   it('정답 낱말이 없으면 쓰지 않는다', () => {
     expect(explainElementary('rhyme', 'cat', CH, 1, '')).toBeNull()
+  })
+})
+
+// ── 왜 이 회귀가 생겼나 (실측 2026-09-13) ───────────────────────────
+// 3인 검수가 막은 지면 문항 163개의 사유 947건을 계열로 접으니 **해설이 1위(17.0% · 117문항)**
+// 였고, 그 안에서 되풀이되는 지적이 하나였다:
+//
+//   "해설이 「나머지 ① meant · ③ agriculture … 는 앞뒤 내용과 어긋나지 않는다」 한 줄로
+//    뭉개, 왜 나머지가 아닌지를 하나도 짚지 않는다."
+//   "① 이 낱말조차 아니라는 사실을 짚지 못한다."
+//
+// 그 문장은 생성기가 **확인할 수 없는 의미 판정**이었다. DB 실측으로 어휘 20,903 ·
+// 어법 17,619 = **38,522문항**이 그 단정을 싣고 있었다. 기존 29종은 이것을 못 잡았다 —
+// 「나머지」가 들어 있는지만 봤지 **무엇을 주장하는지**는 안 봤기 때문이다.
+//
+// ⚠️ 이 파일의 다른 해설(explainBlankWord)은 이미 「없는 것을 지어내지 않는다」를 지키고
+//   있었다. 같은 파일에서 한 곳만 원칙이 깨져 있었고, 그것을 회귀가 아니라 사람이 찾았다.
+describe('해설은 확인하지 않은 것을 단정하지 않는다', () => {
+  /** 되살아나면 안 되는 문장들 — 전부 생성기가 확인할 수 없는 의미 판정이다. */
+  const FORBIDDEN = [
+    '앞뒤 내용과 어긋나지 않는다',
+    '뒤 낱말과 어긋나지 않아 그대로 맞다',
+  ]
+
+  const vocabPayload = {
+    sentences: [
+      'Cities that raise parking fees see traffic fall.',
+      'The same study found that lower fees raise traffic again.',
+      'A third city cut fees and watched congestion raise sharply.',
+    ],
+    underlines: [
+      { word: 'raise', label: '①', sentenceIdx: 0 },
+      { word: 'lower', label: '②', sentenceIdx: 1 },
+      { word: 'raise', label: '③', sentenceIdx: 2 },
+    ],
+  }
+
+  it('어휘 해설이 나머지를 「맞다」고 판정하지 않는다', () => {
+    const e = explainVocabChoice(vocabPayload, { original: 'fall', position: 3 })
+    expect(e).not.toBeNull()
+    for (const f of FORBIDDEN) expect(e!.ko).not.toContain(f)
+    expect(e!.ko).toContain('지문 그대로다')
+  })
+
+  it('어법 해설도 나머지를 「맞다」고 판정하지 않는다', () => {
+    const e = explainUnderlinedGrammar(
+      {
+        sentences: ['A viewer facing an new image has no order to follow.'],
+        underlines: [{ word: 'an', label: '①', tokenIdx: 3, sentenceIdx: 0 }, { word: 'a', label: '②', tokenIdx: 0, sentenceIdx: 0 }],
+      },
+      { answer: 1, original: 'a' },
+    )
+    expect(e).not.toBeNull()
+    for (const f of FORBIDDEN) expect(e!.ko).not.toContain(f)
+    expect(e!.ko).toContain('지문 그대로다')
+  })
+
+  // 이 유형의 근거는 「원래 낱말이 다른 자리에 그대로 남아 있다」는 것이다
+  // (vocab-choice.ts — 바꿀 낱말은 글 안에 두 번 이상 나와야 한다).
+  it('원래 낱말이 다른 문장에 남아 있으면 그 자리를 찾아 보여 준다', () => {
+    const e = explainVocabChoice(vocabPayload, { original: 'raise', position: 2 })
+    expect(e).not.toBeNull()
+    expect(e!.ko).toContain('그대로 남아 있다')
+  })
+
+  // ⚠️ 못 찾은 것을 「있다」로 적는 것이 바로 이 파일이 고친 결함이다.
+  it('다른 자리에 없으면 그 문장을 아예 언급하지 않는다', () => {
+    const e = explainVocabChoice(vocabPayload, { original: 'plummet', position: 2 })
+    expect(e).not.toBeNull()
+    expect(e!.ko).not.toContain('그대로 남아 있다')
+  })
+
+  // 굴절형을 원형이라고 말하지 않는다 — 이 유형은 굴절형을 일부러 안 건드린다.
+  it('부분 일치로 굴절형을 잡지 않는다', () => {
+    const e = explainVocabChoice(
+      {
+        sentences: ['Fees raised traffic.', 'Nothing else here.'],
+        underlines: [{ word: 'cut', label: '①', sentenceIdx: 0 }, { word: 'x', label: '②', sentenceIdx: 1 }],
+      },
+      { original: 'raise', position: 1 },
+    )
+    expect(e!.ko).not.toContain('그대로 남아 있다')
+  })
+
+  // 소스 자기무력화 가드 — 문장을 지우고 검사만 남기면 이 회귀가 아무것도 안 지킨다.
+  it('금지 문장이 소스에서 실제로 사라졌다', () => {
+    const src = readFileSync(new URL('./explain-items.ts', import.meta.url), 'utf8')
+    // 주석에는 남아 있어도 된다(왜 고쳤는지의 근거다). 템플릿 리터럴 안에 있으면 안 된다.
+    const code = src
+      .split(/\r?\n/)
+      .filter((l) => !l.trimStart().startsWith('//') && !l.trimStart().startsWith('*'))
+      .join('\n')
+    for (const f of FORBIDDEN) expect(code, f).not.toContain(f)
   })
 })

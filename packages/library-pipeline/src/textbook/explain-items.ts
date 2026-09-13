@@ -115,6 +115,32 @@ function bare(token: string): string {
   return token.replace(/^[^A-Za-z']+|[^A-Za-z']+$/g, '')
 }
 
+/**
+ * 그 낱말이 **답이 아닌 다른 문장에** 그대로 남아 있는가 — 남아 있으면 그 자리가 근거다.
+ *
+ * ⚠️ 이것은 `vocab-choice.ts` 의 설계(바꿀 낱말은 글 안에 두 번 이상 나와야 한다)를
+ *   **확인**하는 함수이지 가정하는 함수가 아니다. 확인이 안 되면 `null` 이고, 그때 해설은
+ *   그 문장을 아예 언급하지 않는다 — 없는 근거를 「있다」고 적는 것이 이 파일이 고친 결함이다.
+ *
+ * 토큰을 통째로 견준다(`bare` 로 구두점을 벗긴 뒤 정확히 일치). 부분 일치를 허용하면
+ * `increase` 가 `increased` 를 잡아 **굴절형을 원형이라고 말하게 된다** — 이 유형은
+ * 굴절형을 일부러 안 건드리므로(그쪽 머리말 참조) 그 구별이 사실 판정에 그대로 걸린다.
+ */
+function sentenceStillHolding(
+  sentences: readonly string[],
+  word: string,
+  skipIdx: number,
+): number | null {
+  const target = bare(word).toLowerCase()
+  if (!target) return null
+  for (let i = 0; i < sentences.length; i += 1) {
+    if (i === skipIdx) continue
+    const s = sentences[i] ?? ''
+    if (s.split(/\s+/).some((t) => bare(t).toLowerCase() === target)) return i
+  }
+  return null
+}
+
 /** 밑줄 낱말 바로 뒤 낱말 — 관사 판정의 근거가 되는 자리다(관사는 **바로 뒤 소리**를 본다). */
 function wordAfter(sentence: string, target: string, tokenIdx?: number): string {
   const tokens = sentence.split(/\s+/)
@@ -143,7 +169,14 @@ const looksModifier = looksModifierShared
  * 이름을 대지 않는다**(빈 문자열 → 낱말을 지목하지 않는 문장으로 떨어진다).
  */
 function headNounAfter(sentence: string, target: string, tokenIdx?: number): string {
-  const tokens = sentence.split(/s+/)
+  // ⚠️ 여기가 `/s+/` 로 적혀 있었다 — 백슬래시 하나가 빠져 **리터럴 s 로 쪼개고 있었다**
+  //   (실측 2026-09-13: "This collectives are typically organized loosely…" 에서 머리 명사가
+  //   `"aretypicallyorganizedloo"` 로 나왔고, 그 뭉개진 토큰이 단수로 판정돼 해설이
+  //   「단수이므로 These 가 맞다」는 **자기모순**을 적었다). 저장된 옛 해설은 `"collectives"가
+  //   복수이므로` 로 멀쩡했으므로 **이 고장은 적재 이후에 들어왔다** — 즉 지금 상태로 재생성하면
+  //   17,619문항이 그 쓰레기를 받는다. 타입도 테스트도 이것을 못 봤다: 두 정규식 다 유효하고
+  //   결과는 빈 문자열이 아니라 **그럴듯한 문자열**이라 게이트를 그냥 지난다.
+  const tokens = sentence.split(/\s+/)
   let start: number
   if (typeof tokenIdx === 'number' && tokens[tokenIdx] != null) start = tokenIdx + 1
   else {
@@ -266,13 +299,19 @@ export function explainUnderlinedGrammar(payload: Json, answerKey: Json): ItemEx
     parts.push(`"${wrong}" 자리에는 "${correct}" 가 와야 한다.`)
   }
 
-  // 나머지 밑줄은 왜 맞는가 — 같은 규칙을 반대로 적용해 보인다.
+  // ⚠️ **확인하지 않은 것을 단정하지 않는다.** 여기 있던 「나머지 …는 뒤 낱말과 어긋나지 않아
+  //   그대로 맞다」는 생성기가 확인할 수 없는 판정이었다. 규칙을 반대로 적용해 본 적이 없고,
+  //   실제로 3인 검수가 그 거짓을 잡았다(실측 2026-09-13: 「②의 that 은 명사절 접속사여서
+  //   이 문항이 표방한 축으로는 애초에 틀릴 수 없는 자리다」 — 맞는 것이 아니라 **해당 없는** 자리다).
+  //
+  //   대신 확인되는 것만 적는다: 바꾼 자리는 하나이고(`answer_key.original` 이 그 증거),
+  //   나머지 밑줄은 지문에서 가져온 그대로다.
   const others = underlines
     .map((o, i) => ({ ...o, i, label: str(o.label) || LABELS[i] || `${i + 1}` }))
     .filter((o) => o.i !== idx && str(o.word))
   if (others.length) {
     parts.push(
-      `나머지 ${others.map((o) => `${o.label} "${str(o.word)}"`).join(' · ')} 는 뒤 낱말과 어긋나지 않아 그대로 맞다.`,
+      `나머지 ${others.map((o) => `${o.label} "${str(o.word)}"`).join(' · ')} 는 지문 그대로다 — 바꾼 자리는 ${label} 하나다.`,
     )
   }
   return finish(parts.join(' '), 'underlined_grammar')
@@ -308,12 +347,29 @@ export function explainVocabChoice(payload: Json, answerKey: Json): ItemExplanat
   } else {
     parts.push(`이 자리에는 "${original}" 가 와야 뜻이 이어진다.`)
   }
+  // ⚠️⚠️ **확인하지 않은 것을 단정하지 않는다.** 여기 있던 「나머지 …는 앞뒤 내용과 어긋나지
+  //   않는다」는 생성기가 확인할 수 없는 **의미 판정**이었고, 3인 검수가 그 거짓을 실제로 잡았다
+  //   (실측 2026-09-13: 「① Indep 은 선지가 될 수 없다 — 낱말이 아니라 변수 약칭이다」 ·
+  //   「①과 ④가 같은 이유로 틀린다 — 둘 다 중립어라 반의어를 넣어 볼 자리가 아니다」).
+  //   바로 아래 `explainBlankWord` 는 이미 「없는 것을 지어내지 않는다」를 지키고 있었다 —
+  //   **같은 파일에서 한 곳만 원칙이 깨져 있었다.**
+  //
+  //   대신 확인되는 것을 적는다. 이 유형은 `vocab-choice.ts` 가 **한 자리만** 반대말로 바꾸고,
+  //   바꿀 낱말은 글 안에 **두 번 이상** 나와야 한다 — 그래서 원래 낱말이 다른 문장에 그대로
+  //   남고, **그 불일치가 학습자가 찾을 근거**다. 그 자리를 실제로 찾아 보여 준다.
   const others = underlines
     .map((o, i) => ({ label: str(o.label) || LABELS[i] || `${i + 1}`, word: str(o.word), i }))
     .filter((o) => o.i !== idx && o.word)
   if (others.length) {
     parts.push(
-      `나머지 ${others.map((o) => `${o.label} "${o.word}"`).join(' · ')} 는 앞뒤 내용과 어긋나지 않는다.`,
+      `나머지 ${others.map((o) => `${o.label} "${o.word}"`).join(' · ')} 는 지문 그대로다 — 바꾼 자리는 ${label} 하나다.`,
+    )
+  }
+  // 찾지 못하면 아무 말도 하지 않는다 — 못 찾은 것을 「있다」로 적지 않는다.
+  const keptAt = sentenceStillHolding(sentences, original, Number(u.sentenceIdx))
+  if (keptAt != null) {
+    parts.push(
+      `원래 낱말 "${original}" 는 ${keptAt + 1}번째 문장에 그대로 남아 있다 — "${quoteAround(sentences[keptAt] ?? '', original, 90)}".`,
     )
   }
   return finish(parts.join(' '), 'vocab_choice')
