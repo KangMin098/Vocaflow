@@ -8,6 +8,7 @@
 //   pnpm video render <id> [--format]  한 편 찍기
 //   pnpm video render-all [--kind …]   전부 찍기
 //   pnpm video thumbs [<id|kind> …]    YouTube 썸네일 (영상이 아니라 1프레임)
+//   pnpm video stale                   발행본 ↔ 설계도 어긋남 (렌더 안 함)
 //
 // ⚠️ **종료코드를 믿지 않는다.** 실측 2026-09-12 — 다른 세션의 dev 서버가 3000 을 잡고 있어
 //   Remotion 이 그 앱을 자기 번들로 착각했는데, 오류를 찍고도 **exit 0** 으로 끝났다.
@@ -287,6 +288,70 @@ async function cmdThumbs(): Promise<number> {
   return failed === 0 ? 0 : 1
 }
 
+/**
+ * **발행된 것과 지금 설계도가 어긋나는가.**
+ *
+ * 이 공장의 마지막 구멍이다. `out/` 은 커밋하지 않으므로 저장소에 남는 것은 manifest 한 장인데,
+ * 설계도의 문구나 컷 길이를 고쳐도 **이미 올라간 mp4 는 옛 내용을 말한다.** 그리고 아무도
+ * 안 알려 준다 — 화면은 멀쩡히 뜨고, 영상만 거짓말을 한다.
+ *
+ * 셋을 가른다:
+ *   · **없어진 편** — manifest 에 있는데 설계도에 없다. 화면이 죽은 링크를 그린다
+ *   · **안 올린 편** — 설계도에 있는데 manifest 에 없다. 새로 만든 영상이 화면에 안 뜬다
+ *   · **낡은 편** — 제목·부제가 다르거나 길이가 어긋난다(문구를 고치면 길이가 바뀐다)
+ *
+ * 재고 수치가 달라진 것은 **낡음으로 세지 않는다** — 영상은 찍은 날의 스냅샷이고,
+ * 화면에도 출처와 날짜가 함께 박혀 있다. DB 가 자랄 때마다 186편을 다시 찍을 수는 없다.
+ */
+function cmdStale(): number {
+  const specs = specsWithVoice()
+  const manifestPathAbs = path.resolve(PKG, '../../apps/web/src/lib/video/manifest.json')
+  if (!fs.existsSync(manifestPathAbs)) {
+    console.log('manifest 가 없다 — 아직 한 번도 포장하지 않았다 (pnpm video package)')
+    return 1
+  }
+  const manifest = JSON.parse(fs.readFileSync(manifestPathAbs, 'utf8')) as {
+    baseUrl: string | null
+    videos: { id: string; title: string; subtitle: string; seconds: number }[]
+  }
+  const byId = new Map(manifest.videos.map((v) => [v.id, v]))
+  const specIds = new Set(specs.map((s) => s.id))
+
+  const orphan = manifest.videos.filter((v) => !specIds.has(v.id)).map((v) => v.id)
+  const unpublished = specs.filter((s) => !byId.has(s.id)).map((s) => s.id)
+  const stale: string[] = []
+  for (const spec of specs) {
+    const v = byId.get(spec.id)
+    if (!v) continue
+    const seconds = Number((specDuration(spec) / FPS).toFixed(2))
+    if (v.title !== spec.title) stale.push(`${spec.id}: 제목 «${v.title}» → «${spec.title}»`)
+    else if (v.subtitle !== spec.subtitle) stale.push(`${spec.id}: 부제가 바뀌었다`)
+    // 0.1초는 반올림 오차 — 문구를 고치면 음성 길이가 그보다 훨씬 크게 바뀐다.
+    else if (Math.abs(v.seconds - seconds) > 0.1) {
+      stale.push(`${spec.id}: 길이 ${v.seconds}초 → ${seconds}초 (문구가 바뀌었다)`)
+    }
+  }
+
+  for (const id of orphan) console.log(`없어진 편  ${id} — manifest 에 있는데 설계도에 없다`)
+  for (const id of unpublished) console.log(`안 올린 편 ${id} — 찍고 올려야 화면에 뜬다`)
+  for (const line of stale) console.log(`낡은 편   ${line}`)
+
+  const bad = orphan.length + unpublished.length + stale.length
+  if (bad === 0) {
+    console.log(
+      `OK 발행본과 설계도가 일치한다 — ${manifest.videos.length}편` +
+        (manifest.baseUrl ? '' : ' (아직 baseUrl 없음 — 화면에는 안 뜬다)'),
+    )
+    return 0
+  }
+  console.log(
+    `\n없어진 ${orphan.length} · 안 올린 ${unpublished.length} · 낡은 ${stale.length}\n` +
+      '  고치는 법:  pnpm video voice && pnpm video render-all && pnpm video thumbs && ' +
+      'pnpm --filter @vocaflow/video-factory package && … publish',
+  )
+  return 1
+}
+
 async function main(): Promise<void> {
   switch (cmd) {
     case 'list':
@@ -304,6 +369,9 @@ async function main(): Promise<void> {
     case 'render-all':
       process.exitCode = await cmdRender(true)
       break
+    case 'stale':
+      process.exitCode = cmdStale()
+      break
     case 'thumbs':
       process.exitCode = await cmdThumbs()
       break
@@ -316,6 +384,7 @@ async function main(): Promise<void> {
           'pnpm video render <id> [--format wide|vertical|square]',
           'pnpm video render-all [--format …]',
           'pnpm video thumbs [<id|kind> …]     YouTube 썸네일 1280×720 (--force 로 다시)',
+          'pnpm video stale                    발행본이 설계도와 어긋나는지',
         ].join('\n'),
       )
       process.exitCode = 1
