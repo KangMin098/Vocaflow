@@ -51,6 +51,24 @@ export const CSAT_BACKING: Record<SeriesItemType, readonly string[]> = {
   grammar_fix: [],
   unit_vocab: [],
   unit_grammar: [],
+  // ── 시중이 실제로 내는 독해 11종 (2026-09-13 에 `SeriesItemType` 에 들어왔다) ──────
+  //
+  // ⚠️ **매핑을 여기서 짐작하지 않는다.** 정본은 `scripts/csat/build-blueprint.mjs` 의
+  //   `DCP_MAP`(평가원 유형 → 우리 유형)이고, 아래는 그것을 뒤집은 것이다. 두 곳이 갈리면
+  //   화면이 「이 문항의 기출 근거」를 틀리게 가리키는데, 그것은 조용히 틀린다.
+  //
+  // ⚠️ `long_reference` 만 `X-`(장문) 계열이다 — 장문은 지문 길이가 달라 별도 유형이다.
+  title: ['R-TITLE'],
+  topic: ['R-TOPIC'],
+  blank: ['R-BLANK'],
+  content_match: ['R-FACT'],
+  main_point: ['R-GIST'],
+  purpose: ['R-PURPOSE'],
+  mood: ['R-MOOD'],
+  summary: ['R-SUMMARY'],
+  claim: ['R-CLAIM'],
+  implication: ['R-IMPLY'],
+  long_reference: ['X-REFER'],
 }
 
 /** 그 평가원 유형 하나의 준비 상태. */

@@ -77,6 +77,10 @@ export const SOURCE_GUIDE: Record<SourceKey, SourceGuide> & Record<string, Sourc
     label: '논문',
     says: '오픈액세스 학술지(PLOS). 학술 영어의 문장 구조를 그대로 만납니다.',
   },
+  europe_pmc: {
+    label: '논문',
+    says: '오픈액세스 학술지(Europe PMC). 생명과학·의학 논문의 논증 구조를 만납니다.',
+  },
   elife: {
     label: '논문',
     says: '오픈액세스 학술지(eLife). 학술 영어의 문장 구조를 그대로 만납니다.',

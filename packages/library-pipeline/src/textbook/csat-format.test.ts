@@ -226,3 +226,47 @@ describe('hasArticleChrome — 기사 껍데기', () => {
     expect(hasArticleChrome(text)).toBe(false)
   })
 })
+
+// ── 왜 이 검사가 생겼나 (실측 2026-09-13) ───────────────────────────
+// `splitIntoThree` 가 `sizes[(seed + k) % 3]` 로 튜플을 짚고 있었다. tsc 는 그것을
+// 「undefined 일 수 있다」로 잡아 **브랜치의 typecheck 를 깨 둔 채**였고, 잡은 이유도 맞았다 —
+// 내보낸 함수라 음수 seed 가 오면 JS 의 % 가 음수를 내고 튜플 밖을 짚는다.
+// 지금 부르는 곳(hash)은 늘 0 이상이라 겉으로는 멀쩡했다. 고치면서 **결과가 안 바뀌는 것**을
+// 함께 잠근다 — 이 함수는 멱등이 계약이라 조용히 배치가 달라지면 옛 문항과 새 문항이 갈린다.
+describe('splitIntoThree — 남는 문장을 얹는 자리', () => {
+  it('세 덩어리 합이 늘 n 이다', () => {
+    for (let n = 3; n <= 30; n += 1) {
+      for (let seed = 0; seed < 7; seed += 1) {
+        const r = splitIntoThree(n, seed)!
+        expect(r.reduce((a, b) => a + b, 0), `n=${n} seed=${seed}`).toBe(n)
+      }
+    }
+  })
+
+  it('3문장 미만은 null — 덩어리가 안 나온다', () => {
+    expect(splitIntoThree(2)).toBeNull()
+    expect(splitIntoThree(0)).toBeNull()
+  })
+
+  it('seed 가 0 이상이면 접기 전과 같은 배치다 — 멱등이 계약이다', () => {
+    for (let n = 3; n <= 30; n += 1) {
+      for (let seed = 0; seed < 20; seed += 1) {
+        const base = Math.floor(n / 3)
+        const want: [number, number, number] = [base, base, base]
+        for (let k = 0; k < n % 3; k += 1) want[(seed + k) % 3] += 1
+        expect(splitIntoThree(n, seed), `n=${n} seed=${seed}`).toEqual(want)
+      }
+    }
+  })
+
+  // ⚠️ 이것이 tsc 가 잡은 그 자리다 — 고치기 전에는 튜플 밖을 짚어 덩어리가 NaN 이 됐다.
+  it('음수 seed 도 튜플 안에 갇힌다 — 합이 깨지지 않는다', () => {
+    for (const seed of [-1, -2, -3, -7, -100]) {
+      for (let n = 3; n <= 12; n += 1) {
+        const r = splitIntoThree(n, seed)!
+        expect(r.every((x) => Number.isInteger(x) && x >= 0), `seed=${seed} n=${n}`).toBe(true)
+        expect(r.reduce((a, b) => a + b, 0)).toBe(n)
+      }
+    }
+  })
+})

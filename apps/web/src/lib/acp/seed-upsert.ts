@@ -35,6 +35,9 @@ export type SeedSource =
   | 'ocean_facts'
   | 'space_place'
   | 'storyweaver'
+  // 2026-09-13 — 세 번째. 정본에 `europe_pmc` 가 들어왔는데 여기가 또 안 따라왔다.
+  //    같은 테스트가 또 잡았고, 잡힌 채로 40분 넘게 브랜치에 남아 있었다.
+  | 'europe_pmc'
 
 interface ArticleScore {
   total: number
