@@ -1001,14 +1001,38 @@ export async function loadVolume(
 
   /** 위생 판정으로 뺀 문항을 사유별로 센다 — 조용히 사라지면 재고가 줄어든 줄 안다. */
   const hygieneRejects = {}
+  /**
+   * **유형별로도 센다** — 합계만으로는 한 유형이 통째로 사라진 것을 못 본다.
+   *
+   * ⚠️ 실측 2026-09-13: 사다리가 V5 에 선언한 19유형 중 **6종**(blank · blank_word ·
+   *   implication · mood · summary · topic)이 풀에 **0건**이었다. 그런데 로그는
+   *   「위생 판정으로 뺀 문항 25,527」 한 줄뿐이라, 그 6종이 ① 창고에 없어서 0 인지
+   *   ② 여기서 전량 떨어져 0 인지 **가릴 방법이 없었다.** 둘은 다음에 할 일이 정반대다
+   *   (드레인을 돌린다 vs 자를 본다). 그래서 사유를 유형과 함께 적는다.
+   *
+   * 두 「조용한 continue」도 함께 센다 — `원글없음`(밴드 밖 원글)과 `적격미달`
+   * (내용 판정이 `isComposable` 을 못 넘긴 원글)은 사유를 아무 데도 안 남기고 있었다.
+   */
+  const lostByType = {}
+  const lose = (type, why) => {
+    const m = (lostByType[type] ??= {})
+    m[why] = (m[why] ?? 0) + 1
+  }
   const pool = []
   for (const r of itemRows) {
     const a = byId.get(r.ref_id)
-    if (!a) continue
-    if (STRICT && !isComposable(verdictByRef.get(r.ref_id)?.grade ?? 'unknown')) continue
+    if (!a) {
+      lose(r.type, '원글없음')
+      continue
+    }
+    if (STRICT && !isComposable(verdictByRef.get(r.ref_id)?.grade ?? 'unknown')) {
+      lose(r.type, '적격미달')
+      continue
+    }
     // 3인 검수가 떨어뜨린 문항 — 같은 것을 다시 읽히지 않는다(위 주석 참조).
     if (rejectedItems.has(r.id)) {
       hygieneRejects.reviewRejected = (hygieneRejects.reviewRejected ?? 0) + 1
+      lose(r.type, 'reviewRejected')
       continue
     }
     // ── 밑줄이 낱말이 아닌 문항은 지면에 올리지 않는다 ──────────────────
@@ -1026,6 +1050,7 @@ export async function loadVolume(
       r.payload.underlines.some((u) => !isPrintableUnderlineWord(String(u?.word ?? '')))
     ) {
       hygieneRejects.badUnderline = (hygieneRejects.badUnderline ?? 0) + 1
+      lose(r.type, 'badUnderline')
       continue
     }
     const p = cleanPayload(r.payload ?? {})
@@ -1046,6 +1071,7 @@ export async function loadVolume(
     const reject = itemHygieneReject({ payload: p, refTitle: a.title, answerKey: r.answer_key })
     if (reject) {
       hygieneRejects[reject] = (hygieneRejects[reject] ?? 0) + 1
+      lose(r.type, reject)
       continue
     }
     // ── 생성형 유형은 지문이 통째로 payload 에 있다 ──────────────────
@@ -1173,6 +1199,21 @@ export async function loadVolume(
         .map(([k, v]) => `${k} ${v.toLocaleString()}`)
       console.log(`위생 판정으로 뺀 문항 ${total.toLocaleString()} — ${parts.join(' · ')}`)
     }
+    // ⚠️ **합계는 「한 유형이 통째로 사라진 것」을 못 보여 준다.** 위 한 줄만 있던 동안
+    //   V5 의 6유형이 풀 0 이었는데 아무 데도 그 사실이 안 남았다. 창고에 있었는데
+    //   여기서 다 떨어진 유형은 **자를 의심할 자리**이므로 따로 찍는다.
+    const inPool = new Set(pool.map((it) => it.type))
+    const wiped = Object.entries(lostByType)
+      .filter(([t]) => !inPool.has(t))
+      .map(([t, why]) => {
+        const n = Object.values(why).reduce((x, v) => x + v, 0)
+        const top = Object.entries(why).sort((x, y) => y[1] - x[1])[0]
+        return `${t} ${n.toLocaleString()}(${top[0]})`
+      })
+      .sort()
+    if (wiped.length) {
+      console.log(`  ⚠ 재고가 있었는데 **전량** 떨어진 유형 ${wiped.length}종 — ${wiped.join(' · ')}`)
+    }
   }
   const seriesRung = seriesRungOf(seriesId, band)
   if (seriesRung) {
@@ -1284,7 +1325,7 @@ export async function loadVolume(
   // `marketMix` 를 켜면 유형 구성을 시장 밀도에 맞춘다(`rungMix`).
   // 기본은 꺼져 있다 — 이미 완성된 권이 조용히 달라지면 안 된다.
   // 3) 예행과 **같은 옵션**으로 다시 조합한다 — 문항은 같고 낱말 목록만 채워진다.
-  const { units, stoppedBecause, rejected } = composeUnits(pool, vocabByRef, composeOpts)
+  const { units, stoppedBecause, rejected, typeTrace } = composeUnits(pool, vocabByRef, composeOpts)
   timer.mark('본 조합 (composeUnits · CPU)')
   const itemIds = new Set(units.flatMap((u) => u.items.map((i) => i.id)))
   timer.done(`V${band} 조판`)
@@ -1295,6 +1336,7 @@ export async function loadVolume(
     units,
     stoppedBecause,
     rejected,
+    typeTrace,
     mix,
     pool,
     articles: byId,

@@ -7,15 +7,20 @@
 // 출판사별로는 「못 잼」으로 빠진다(OCR 이 발문을 못 잡은 출판사가 3곳이다).
 // 그래서 이 축은 리포트에서 늘 `—` 였고, **아무도 권당 유형 폭을 보지 않았다.**
 //
-// 그 사이에 벌어진 일을 조판 스냅샷에서 그대로 셌다:
-//
-//     사다리 선언      V5 19종 · V6 19종 · V7 19종
-//     지면 실측        V5  4종 · V6  5종 · V7  5종
-//     시중 고등 권당    중앙 9종 (30종 실측)
-//
-// **선언과 지면이 4배 넘게 벌어져 있었다.** 목차에는 19종이 적혀 있고 책에는 4종이 실린다.
 // 이것은 재고 부족과 다른 결함이다 — `type-gap.mjs` 는 창고에 무엇이 모자란지를 재고,
 // 이 자는 **창고에 있는데도 지면에 안 실린 것**을 잰다. 둘 다 필요하다.
+//
+// ── 이 자가 실제로 찾아낸 것 (2026-09-13) ────────────────────────────
+// 스냅샷을 사다리와 같은 시점으로 다시 굽고 재니, 선언 19종에 지면 13종이었고
+// **여섯 유형이 일곱 권 어디에도 한 문항도 없었다.** 그 여섯을 유형별로 추적하자
+// (`diagnoseMissingTypes`) 원인이 재고가 아니라 **판정자 둘의 오탐**이었다:
+//
+//     badSplit  선지가 소문자로 여는 유형을 전량 반려 (빈칸·주제·심경·요약·함의)
+//     residue   빈칸 표시 `_____` 를 사전 보일러플레이트로 오인 (blank_word 19,870)
+//
+// 고치고 나서 V5 지면 유형 **13 → 18종** · 풀 20,111 → 36,520문항.
+// **좋아 보이던 수치(13종·시중 9 대비 1.44배) 뒤에 결함이 숨어 있었다** — 그래서 이 자는
+// 「몇 종인가」로 끝내지 않고 **빠진 유형의 이름과 사유**까지 낸다.
 //
 // ⚠️⚠️ **「선언」과 「지면」은 서로 다른 시점에서 온다 — 이것을 안 밝히면 인과가 뒤집힌다.**
 //   선언은 **지금 코드**(`SERIES_SPINE`)에서, 지면은 **조판 스냅샷**에서 읽는다. 스냅샷이
@@ -149,6 +154,84 @@ export function measureSkew(
   const d = Date.parse(declaredAt)
   if (Number.isNaN(p) || Number.isNaN(d)) return null
   return { printedAt, declaredAt, stale: p < d }
+}
+
+// ── 왜 그 유형이 0 인가 ──────────────────────────────────────────────
+//
+// 위 `absent` 는 **무엇이** 없는지만 말한다. 그것만으로는 다음에 할 일이 안 정해진다 —
+// 실측 2026-09-13 에 일곱 권 어디에도 안 실린 유형이 6종이었는데, 그 6종의 처방이 서로
+// 정반대였다. 창고가 빈 유형은 드레인을 돌려야 하고, 자에 걸린 유형은 자를 봐야 하고,
+// 몫까지 받고도 안 뽑힌 유형은 조합기의 제약(같은 원글 금지)에 밀린 것이라 재고를
+// 아무리 늘려도 안 바뀐다. **뭉뚱그리면 세 번 중 두 번은 헛일을 한다.**
+
+/** 그 유형이 어디서 끊겼나. */
+export type MissingCause =
+  /** 조합기에 한 건도 안 들어왔다 — 창고가 비었거나 등뼈가 그 유형을 안 선언했다. */
+  | 'noStock'
+  /** 들어왔지만 규격에서 전량 떨어졌다 — **자를 먼저 의심한다.** */
+  | 'ruledOut'
+  /** 규격은 통과했는데 한 개도 안 뽑혔다 — 몫·원글 제약에 밀렸다. */
+  | 'notPicked'
+  /** 몫이 0 이다 — 시장이 그 학년 교재에 안 싣는 유형이라 **일부러** 안 실었다. */
+  | 'noQuota'
+
+/** `TypeTrace` 를 구조로만 받는다 — 이 파일은 조합기에 의존하지 않는다. */
+export interface TypeTraceLike {
+  pool: number
+  fit: number
+  printed: number
+  rejected: Record<string, number>
+  /** 배정된 몫. 몫을 안 쓴 조합이면 `null`·생략 — **0 과 다르다.** */
+  quota?: number | null
+}
+
+export interface MissingTypeDiagnosis {
+  type: string
+  cause: MissingCause
+  /** 분자/분모를 그대로 적는다 — 백분율만 적으면 「전량」과 「대부분」이 같아 보인다. */
+  detail: string
+}
+
+/**
+ * 지면에 하나도 안 실린 유형을 사유별로 가른다.
+ *
+ * ⚠️ **실린 유형은 여기 안 나온다.** 한 개라도 실렸으면 「없다」가 아니다 —
+ *   모자란 것은 유형 폭이 아니라 비중의 문제이고, 그것은 `mixRelaxed` 가 잰다.
+ */
+export function diagnoseMissingTypes(
+  trace: Readonly<Record<string, TypeTraceLike>>,
+): MissingTypeDiagnosis[] {
+  const out: MissingTypeDiagnosis[] = []
+  for (const [type, t] of Object.entries(trace)) {
+    if (t.printed > 0) continue
+    // ⚠️ **몫 0 을 결함으로 적지 않는다.** 시장 비중이 바닥선 아래면 그 학년 교재에
+    //   안 싣는 유형이라 조합기가 **일부러** 뺀 것이다 — 고등의 `blank_word` 가 그렇다
+    //   (시중 쪽당 0.002 · 규격 통과 15,933건인데 몫 0). 이것을 결함으로 적으면
+    //   관리자는 있지도 않은 구멍을 메우러 간다.
+    if (t.quota === 0) {
+      out.push({
+        type,
+        cause: 'noQuota',
+        detail: `풀 ${t.pool} · 규격 통과 ${t.fit} — 시장 비중이 0 이라 일부러 안 실었다`,
+      })
+      continue
+    }
+    if (t.pool === 0) {
+      out.push({ type, cause: 'noStock', detail: '풀 0건 — 창고에 없거나 등뼈 밖이다' })
+      continue
+    }
+    if (t.fit === 0) {
+      const top = Object.entries(t.rejected).sort((a, b) => b[1] - a[1])[0]
+      out.push({
+        type,
+        cause: 'ruledOut',
+        detail: `풀 ${t.pool} → 규격 통과 0${top ? ` · 최다 사유 ${top[0]} ${top[1]}` : ''}`,
+      })
+      continue
+    }
+    out.push({ type, cause: 'notPicked', detail: `규격 통과 ${t.fit}건인데 지면 0` })
+  }
+  return out.sort((a, b) => a.type.localeCompare(b.type))
 }
 
 export interface SpreadReport {

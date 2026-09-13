@@ -3,7 +3,13 @@ import { describe, expect, it } from 'vitest'
 
 import { V_TO_MARKET_BUCKET } from './level-chart'
 import { SERIES_SPINE } from './series'
-import { measureSkew, measureSpread, measureVolumeSpread, schoolOfBucket } from './type-spread'
+import {
+  diagnoseMissingTypes,
+  measureSkew,
+  measureSpread,
+  measureVolumeSpread,
+  schoolOfBucket,
+} from './type-spread'
 
 /** 시중 실측(`market-spec.json` typeCoverage.perDocument.bySchool.*.median · 2026-09-01). */
 const MARKET = { 초등: 4, 중등: 4, 고등: 9 } as const
@@ -177,5 +183,49 @@ describe('measureSkew — 두 입력의 시각이 어긋났는가', () => {
   it('시각을 안 주면 skew 는 null', () => {
     const r = measureSpread([], MARKET)
     expect(r.skew).toBeNull()
+  })
+})
+
+/**
+ * **「없다」를 네 갈래로 가른다** — 처방이 서로 정반대이기 때문이다.
+ *
+ * 실측 2026-09-13 에 일곱 권 어디에도 안 실린 유형이 여섯이었는데, 원인은 한 가지가
+ * 아니었다. 다섯은 **자가 전량 걸렀고**(고칠 곳은 판정자), 하나는 **시장 비중이 0** 이라
+ * 조합기가 일부러 뺀 것이었다(고칠 것이 없다). 뭉뚱그려 「재고를 채우라」고 안내하면
+ * 관리자는 있지도 않은 구멍을 메우러 간다.
+ */
+describe('diagnoseMissingTypes — 왜 0 인지까지 말한다', () => {
+  const t = (x: Record<string, unknown>) => ({
+    pool: 0,
+    fit: 0,
+    printed: 0,
+    rejected: {},
+    ...x,
+  })
+
+  it('실린 유형은 보고하지 않는다', () => {
+    expect(diagnoseMissingTypes({ title: t({ pool: 9, fit: 9, printed: 3 }) })).toEqual([])
+  })
+
+  it('풀이 0 이면 창고나 등뼈 — 드레인을 돌릴 자리다', () => {
+    const [d] = diagnoseMissingTypes({ mood: t({}) })
+    expect(d?.cause).toBe('noStock')
+  })
+
+  it('풀은 있는데 규격 통과가 0 이면 **자를 먼저 의심한다** — 최다 사유를 함께 낸다', () => {
+    const [d] = diagnoseMissingTypes({ blank: t({ pool: 78, rejected: { badSplit: 78 } }) })
+    expect(d?.cause).toBe('ruledOut')
+    expect(d?.detail).toContain('78')
+    expect(d?.detail).toContain('badSplit')
+  })
+
+  it('몫이 0 이면 결함이 아니다 — 시장이 그 학년에 안 싣는 유형이다', () => {
+    const [d] = diagnoseMissingTypes({ blank_word: t({ pool: 16237, fit: 15933, quota: 0 }) })
+    expect(d?.cause).toBe('noQuota')
+  })
+
+  it('몫이 **없는**(null) 것과 몫이 0 인 것을 가른다 — 뭉개면 정상이 결함으로 보인다', () => {
+    const [d] = diagnoseMissingTypes({ blank_word: t({ pool: 16237, fit: 15933, quota: null }) })
+    expect(d?.cause).toBe('notPicked')
   })
 })

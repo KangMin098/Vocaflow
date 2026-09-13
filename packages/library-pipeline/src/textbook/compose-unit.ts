@@ -67,10 +67,56 @@ export interface Unit {
   sources: string[]
 }
 
+/**
+ * 한 유형이 **지면까지 가는 길**에서 어디까지 왔는가.
+ *
+ * ── 왜 유형별로 세야 하는가 (실측 2026-09-13) ────────────────────────
+ * 아래 `rejected` 는 사유별 **합계**만 낸다. 그래서 한 유형이 통째로 떨어져도
+ * 「tooShort 4,152」로만 보이고 **어느 유형이 0 이 됐는지 아무 데도 안 남는다.**
+ *
+ * 조판 스냅샷을 다시 구워 재 보니 실제로 그렇게 되어 있었다 — 사다리가 선언하고
+ * 몫까지 받은 유형 **6종**(blank · blank_word · implication · mood · summary · topic)이
+ * **일곱 권 어디에도 한 문항도 안 실렸다.** `blank` 는 시중 고등 교재에서 가장 흔한
+ * 유형(쪽당 3.89%)이고 몫도 60문항 중 8칸인데 지면은 0 이었다.
+ *
+ * 그 침묵이 결함보다 나빴다 — 「유형 폭 13종」이라는 좋아 보이는 수치 뒤에서,
+ * **고칠 수 있는 것과 고칠 수 없는 것이 구별되지 않았다.** 재고가 없어 0 인 유형과
+ * 재고는 있는데 자에 걸려 0 인 유형은 다음에 할 일이 정반대다.
+ *
+ * ⚠️ **`pool` 이 0 이면 `rejected` 도 0 이다 — 그것은 「깨끗하다」가 아니라 「없다」다.**
+ *   두 수를 함께 봐야 가른다: `pool > 0 && fit === 0` 이면 자가 다 걸렀고,
+ *   `pool === 0` 이면 창고(또는 등뼈 선언)가 비었다.
+ */
+export interface TypeTrace {
+  /** 조합기에 들어온 문항 수. */
+  pool: number
+  /** 규격을 통과해 **고를 수 있었던** 수. */
+  fit: number
+  /** 실제로 지면에 실린 수. */
+  printed: number
+  /** 사유별로 떨어진 수 — `rejected` 의 키와 같다. 0 인 사유는 담지 않는다. */
+  rejected: Record<string, number>
+  /**
+   * 이 권에서 그 유형에 **배정된 몫**. `targetShare` 를 안 주면 null(= 몫 개념이 없다).
+   *
+   * ⚠️ **`0` 과 `null` 을 가른다.** 몫 0 은 「시장이 그 학년 교재에 안 싣는 유형」이라
+   *   **일부러** 안 실은 것이고(예: 고등의 `blank_word` — 시중 쪽당 0.002 로 바닥선),
+   *   null 은 몫을 안 쓴 조합이다. 둘을 뭉개면 정상 동작이 결함으로 보고된다.
+   */
+  quota: number | null
+}
+
 export interface ComposeResult {
   units: Unit[]
   /** 왜 더 못 만들었는지. 조용히 짧은 권을 내지 않는다. */
   stoppedBecause: string | null
+  /**
+   * 유형별 경로 — **풀 → 규격 통과 → 지면**. 위 `TypeTrace` 참조.
+   *
+   * 풀에 한 번이라도 나타난 유형과 `allowedTypes` 가 선언한 유형을 모두 담는다 —
+   * 선언했는데 풀에 아예 없는 유형이야말로 가장 먼저 보여야 할 것이다.
+   */
+  typeTrace: Record<string, TypeTrace>
   /** 규격 밖이라 쓰지 않은 문항 수 — 유형별. */
   rejected: {
     tooShort: number
@@ -389,23 +435,32 @@ export function composeUnits(
   let sensitive = 0
   let apparatus = 0
   let outOfRung = 0
+  // 유형별 사유 — 합계만으로는 **어느 유형이 0 이 됐는지** 알 수 없다(`TypeTrace` 참조).
+  // 합계 변수는 그대로 둔다: 이 맵은 더 적을 뿐 기존 수를 바꾸지 않는다.
+  const traceRejected = new Map<string, Record<string, number>>()
+  const drop = (type: string, reason: string): false => {
+    const r = traceRejected.get(type) ?? {}
+    r[reason] = (r[reason] ?? 0) + 1
+    traceRejected.set(type, r)
+    return false
+  }
   // 사다리 단수가 쓰는 유형만 남긴다. 주지 않으면 전 유형 허용(예전 동작).
   const allowed = allowedSet
   const fit = pool.filter((p) => {
     if (allowed && !allowed.has(p.type)) {
       outOfRung++
-      return false
+      return drop(p.type, 'outOfRung')
     }
     // 유형이 창을 정하고 **학년이 그것을 좁힌다** — 장문은 300어가 정상이고, 짧은 지문의
     // 자로 재면 전량 걸린다. 밴드를 안 넘기면 중1 권이 고3 창을 쓴다(`itemWordSpec` 주석).
     const spec = itemWordSpec(p.type, options.band)
     if (p.passage_words < spec.min) {
       tooShort++
-      return false
+      return drop(p.type, 'tooShort')
     }
     if (p.passage_words > spec.max) {
       tooLong++
-      return false
+      return drop(p.type, 'tooLong')
     }
     // 수능 인쇄 형식으로 바꿀 수 없는 것은 여기서 뺀다 — 조합한 뒤에 발견하면
     //   단원에 "변환 불가" 자리가 생기고, 그건 교재로 나갈 수 없다.
@@ -417,18 +472,18 @@ export function composeUnits(
       (p.body_sentences < CSAT_INSERT_BODY.min || p.body_sentences > CSAT_INSERT_BODY.max)
     ) {
       wrongFormat++
-      return false
+      return drop(p.type, 'wrongFormat')
     }
     if (p.type === 'order' && p.body_sentences < 4) {
       wrongFormat++
-      return false
+      return drop(p.type, 'wrongFormat')
     }
     // 학술 인용 잔해(`[]`·`[12]`)가 있으면 교재에 인쇄될 수 없다.
     //   실측 758개 중 64개(8.4%) — 전부 PLOS 논문이었다.
     //   초등 3종은 사전에서 나와 논문 잔해가 있을 수 없다 — 검사 대상이 아니다.
     if (!ELEMENTARY_ITEM_TYPES.has(p.type) && hasCitationResidue(p.passage_text)) {
       residue++
-      return false
+      return drop(p.type, 'residue')
     }
     // 기사 껍데기("Abstract" · "Methods" 같은 절 이름, 바이라인, 저작권 줄)가 남은 지문은
     // 교재에 실을 수 없다. 판정은 `hasArticleChrome()` 하나이고 드레인 적재기도 그걸 쓴다.
@@ -440,14 +495,14 @@ export function composeUnits(
     //   지우지 않고 **고르는 자리에서 막는다** — 재고는 남기고 인쇄만 거른다.
     if (!ELEMENTARY_ITEM_TYPES.has(p.type) && hasArticleChrome(p.passage_text)) {
       chrome++
-      return false
+      return drop(p.type, 'chrome')
     }
     // 괄호 짝이 안 맞으면 인용 안에서 **잘려 나온 조각**이다 — `hasUnbalancedParens` 참조.
     //   교정기를 배선하고 나서야 보였다(실측 2026-08-31 V7 1건). 잡티가 아니라 잘린 글이라
     //   정규화로 덮지 않고 여기서 막는다. 재고 손실 0.7%(544/76,000).
     if (!ELEMENTARY_ITEM_TYPES.has(p.type) && hasUnbalancedParens(p.passage_text)) {
       cutFragment++
-      return false
+      return drop(p.type, 'cutFragment')
     }
     // 학교 교재 지면에 올릴 수 없는 소재 — `hasSensitiveTopic` 참조.
     //   ⚠️ 여기는 **지문 조각**만 본다. 낱말이 원글의 다른 곳에 있으면 못 잡으므로
@@ -455,7 +510,7 @@ export function composeUnits(
     //   조합기는 드레인이 만든 문항도 받고, 풀은 조판만 지킨다.
     if (!ELEMENTARY_ITEM_TYPES.has(p.type) && hasSensitiveTopic(p.passage_text)) {
       sensitive++
-      return false
+      return drop(p.type, 'sensitive')
     }
     // 논문 서식 — `Citation: Ma Z, Wu P, … PLoS One 21(3)` · `Funding:` · `Objective To …`
     //
@@ -465,7 +520,7 @@ export function composeUnits(
     //   정책대로 지우지 않고 **고르는 자리에서** 막는다(위 껍데기 주석과 같은 이유).
     if (!ELEMENTARY_ITEM_TYPES.has(p.type) && hasAcademicApparatus(p.passage_text)) {
       apparatus++
-      return false
+      return drop(p.type, 'apparatus')
     }
     return true
   })
@@ -501,7 +556,9 @@ export function composeUnits(
         for (const [t, v] of Object.entries(options.targetShare!)) {
           if ((pools.get(t)?.length ?? 0) > 0) live[t] = v
         }
-        return { pools, quota: largestRemainder(live, wantUnits * perUnit) }
+        const quota = largestRemainder(live, wantUnits * perUnit)
+        // 몫은 아래에서 깎이므로 **처음 값을 따로 남긴다** — 경로 보고가 읽는다.
+        return { pools, quota, initial: { ...quota } }
       })()
     : null
 
@@ -807,9 +864,21 @@ export function composeUnits(
   if (!stoppedBecause && units.length < wantUnits) {
     stoppedBecause = `${units.length}단원만 만들었다.`
   }
+  // ── 유형별 경로 ──────────────────────────────────────────────────
+  // 선언한 유형은 풀에 한 건도 없어도 행을 만든다 — **없다는 사실이 가장 먼저 보여야 한다.**
+  const typeTrace: Record<string, TypeTrace> = {}
+  const touch = (t: string): TypeTrace =>
+    (typeTrace[t] ??= { pool: 0, fit: 0, printed: 0, rejected: {}, quota: byShare ? (byShare.initial[t] ?? 0) : null })
+  for (const t of options.allowedTypes ?? []) touch(t)
+  for (const p of pool) touch(p.type).pool += 1
+  for (const p of fit) touch(p.type).fit += 1
+  for (const u of units) for (const it of u.items) touch(it.type).printed += 1
+  for (const [t, why] of traceRejected) touch(t).rejected = why
+
   return {
     units,
     stoppedBecause,
+    typeTrace,
     rejected: { tooShort, tooLong, wrongFormat, residue, chrome, cutFragment, sensitive, apparatus, outOfRung },
     mixRelaxed,
   }

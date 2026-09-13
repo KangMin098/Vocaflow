@@ -82,6 +82,64 @@ export const PASSAGE_KEYS = [
 /** 문장 배열로 담기는 키. */
 export const PASSAGE_ARRAY_KEYS = ['sentences', 'presented', 'remaining', 'choices'] as const
 
+/**
+ * **문장 분할 자국을 볼 수 있는 배열 키** — `choices` 가 빠진다.
+ *
+ * ── 왜 빼는가 (실측 2026-09-13) ─────────────────────────────────────
+ * `hasBadSentenceSplit` 의 ①번 자국은 「조각이 소문자로 열린다」인데, **선지는 원래
+ * 소문자로 여는 것이 정상인 유형이 있다.** 빈칸·요지·주제·제목·심경·함의·요약의 선지는
+ * 문장을 완성하는 **구(句)** 다:
+ *
+ *     "have refused to share their own maps with outsiders"
+ *     "the number of cars in each order"
+ *
+ * 이 자를 선지에 대는 순간 그 유형이 **통째로** 떨어진다. 실제로 그랬다 —
+ * V5 조판에서 `blank` 78 · `topic` 23 · `mood` 25 · `summary` 22 · `implication` 14 ·
+ * `long_vocab` 16 이 **전량** `badSplit` 으로 빠져 지면 유형이 6종 줄었다.
+ * 드레인이 손으로 만든 가장 비싼 재고가 그 6종이었다.
+ *
+ * ⚠️ **자가 틀렸지 재고가 틀린 것이 아니었다.** 이 판정자가 잡으려는 것은 「마침표 하나만
+ *   보는 정규식이 문장을 잘못 자른 자국」인데, **선지는 애초에 문장 분할로 만들어지지
+ *   않는다.** 사람이(드레인이) 쓴 것이다. 그러니 여기서 볼 것이 없다.
+ *
+ * 선지 자체의 결함은 다른 자들이 본다 — `hasChoiceCollision`(선지 충돌) ·
+ * `hasBlockLengthLeak`(길이 누설) · 정답 쏠림 검정.
+ */
+export const SPLIT_CHECK_ARRAY_KEYS = ['sentences', 'presented', 'remaining'] as const
+
+/**
+ * **문항이 스스로 찍은 빈칸 자리.** 잔해가 아니라 문항의 장치다.
+ *
+ * ── 왜 따로 떼어 내는가 (실측 2026-09-13) ────────────────────────────
+ * `isPrintablePassage` 의 `NON_PROSE` 는 밑줄 4개 이상(`_{4,}`)을 비산문으로 본다.
+ * 그 규칙이 겨눈 것은 사전 보일러플레이트의 **가로줄**이다:
+ *
+ *     _____________________________________________________ stimulate – v.
+ *
+ * 그런데 우리 문항의 빈칸 표시도 밑줄이다 — `blank_word` 는 `_____`(5개),
+ * `blank` 은 `____`(4개). 그래서 **가장 큰 재고 유형이 통째로 걸렸다**:
+ * V5 조판에서 `blank_word` **19,870문항**이 전량 `residue` 로 빠졌다(전체 224,148).
+ *
+ * 두 가지를 가르는 것은 **길이**다. 저장소 실측:
+ *
+ *     문항 payload   4개 505 · 5개 224,148 · 11개 1 · **12~43개 0** · 44~55개 18
+ *     원글 본문      4개부터 이어지고 20개 이상이 대부분(진짜 가로줄)
+ *
+ * 문항 쪽은 12~43 이 **완전히 비어 있다.** 그 빈 구간 안에서 자른다.
+ *
+ * ⚠️ **원글 쪽은 이어져 있으므로 `NON_PROSE` 자체는 건드리지 않는다.** 원글 본문을 재는
+ *   경로(생성기·드레인 뽑기)는 지금 그대로 4개부터 막아야 한다 — 거기서는 밑줄이
+ *   문항의 장치가 아니라 남의 서식이다. **문항을 재는 자리에서만** 이 표시를 지운다.
+ * ⚠️ 긴 가로줄이 문항 지문에 섞여 들어오면 **여전히 걸린다** — 여기서 지우는 것은
+ *   15개까지다. 사전 보일러플레이트의 다른 반쪽(`– v.` 꼴)도 그대로 남는다.
+ */
+/*
+ * ⚠️ **앞뒤 경계를 안 박으면 긴 가로줄도 지워진다.** `_{4,15}` 만 쓰면 48개짜리 줄을
+ *   15+15+15+3 으로 **나눠서** 전부 먹는다 — 회귀가 잡았다. 밑줄이 더 이어지지 않는
+ *   자리에서만 표시로 인정한다.
+ */
+export const BLANK_MARKER = /(?<!_)_{4,15}(?!_)/g
+
 /** payload 전체를 정제한 사본으로 바꾼다. 저장은 건드리지 않는다. */
 export function cleanItemPayload<T extends Record<string, unknown>>(raw: T): T {
   if (!raw || typeof raw !== 'object') return raw
@@ -152,7 +210,9 @@ export function hasBadSentenceSplit(payload: Record<string, unknown> | null | un
     const v = payload[k]
     if (typeof v === 'string') chunks.push(v)
   }
-  for (const k of PASSAGE_ARRAY_KEYS) {
+  // ⚠️ **선지는 안 본다** — `SPLIT_CHECK_ARRAY_KEYS` 주석 참조. 선지는 문장 분할로
+  //   만들어지지 않으므로 여기서 볼 자국이 없고, 대면 그 유형이 통째로 떨어진다.
+  for (const k of SPLIT_CHECK_ARRAY_KEYS) {
     const v = payload[k]
     if (!Array.isArray(v)) continue
     for (const x of v) if (typeof x === 'string') chunks.push(x)
@@ -444,7 +504,9 @@ export function itemHygieneReject(input: {
   if (hasOverlongSentence(input.payload)) return 'longSentence'
   if (hasAmbiguousUnderline(input.payload)) return 'ambiguousUnderline'
 
-  const text = passageTextOf(input.payload)
+  // **빈칸 표시를 지우고 잰다** — 문항이 스스로 찍은 자리이지 남의 서식이 아니다
+  // (`BLANK_MARKER` 주석: 이것이 없던 동안 `blank_word` 19,870문항이 전량 걸렸다).
+  const text = passageTextOf(input.payload).replace(BLANK_MARKER, ' ')
   if (!text) return null
   if (hasSensitiveTopic(text)) return 'sensitive'
   if (hasArticleChrome(text)) return 'chrome'

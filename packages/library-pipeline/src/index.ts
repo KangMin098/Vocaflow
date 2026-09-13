@@ -452,7 +452,7 @@ export {
   composeUnits,
   roundRobinByRef,
 } from './textbook/compose-unit'
-export type { ComposeOptions, ComposeResult, PoolItem, Unit } from './textbook/compose-unit'
+export type { ComposeOptions, ComposeResult, PoolItem, TypeTrace, Unit } from './textbook/compose-unit'
 export {
   MINUTES_PER_ITEM,
   MINUTES_PER_VOCAB,
@@ -1038,10 +1038,12 @@ export {
 export type { HarvestCursor, HarvestRegistryEntry } from './ingest-article/harvest-cursor'
 
 // 유형 폭 — 사다리가 선언한 유형 대 지면에 실린 유형(`scripts/textbook/type-spread.mjs`).
-export { measureSpread, measureVolumeSpread, schoolOfBucket } from './textbook/type-spread'
+export { diagnoseMissingTypes, measureSpread, measureVolumeSpread, schoolOfBucket } from './textbook/type-spread'
 export type {
   MarketPerSchoolMedian,
   MarketSchool,
+  MissingCause,
+  MissingTypeDiagnosis,
   SpreadReport,
   SpreadState,
   VolumeSpreadInput,

@@ -528,3 +528,90 @@ describe('초장문', () => {
     expect(MAX_SENTENCE_WORDS).toBe(50)
   })
 })
+
+/**
+ * **자가 틀렸지 재고가 틀린 것이 아니었다** (실측 2026-09-13).
+ *
+ * 위 「약어 절단」 판정자와 `NON_PROSE` 가 **지문이 아닌 텍스트**에 대어져, 조판에서
+ * 유형 일곱 종이 통째로 사라졌다. 둘 다 규칙이 넓었던 것이지 문항이 나빴던 것이 아니다.
+ *
+ *   V5 실측 — 선지가 소문자로 여는 유형이 전량 `badSplit`:
+ *     blank 78 · topic 23 · mood 25 · summary 22 · implication 14 · long_vocab 16
+ *   V5 실측 — 빈칸 표시(`_____`)가 전량 `residue`:
+ *     blank_word 19,870 (창고 전체로는 224,148)
+ *
+ * 이 두 묶음은 **되돌아오면 안 되는 자리**다. 자를 넓힌 만큼 오탐도 함께 잠근다 —
+ * 아래 「여전히 막는다」 검사가 그 몫이다.
+ */
+describe('자가 지문이 아닌 것을 재고 있었다', () => {
+  it('선지가 소문자로 열어도 막지 않는다 — 빈칸·주제·제목 선지는 원래 구(句)다', () => {
+    expect(
+      itemHygieneReject({
+        payload: {
+          passage: 'Indigenous communities, like the Navajo, ____.',
+          choices: [
+            'have refused to share their own maps with outsiders',
+            'already run their own satellite programs alone',
+            'have long had almost no support for using such data',
+            'prefer paper maps to any image taken from space',
+            'were the first partners in the Landsat program',
+          ],
+        },
+      }),
+    ).toBeNull()
+  })
+
+  it('선지가 약어로 끝나도 막지 않는다 — 선지는 문장 분할로 만들어지지 않는다', () => {
+    expect(
+      itemHygieneReject({
+        payload: {
+          passage: 'The survey ran for three years before the results were published.',
+          choices: ['a study run by the U.S.', 'a plan drawn up by Li et al.'],
+        },
+      }),
+    ).toBeNull()
+  })
+
+  it('지문 쪽 절단은 **여전히 막는다** — 선지를 빼는 것이 판정자를 끄는 것이 되면 안 된다', () => {
+    expect(
+      itemHygieneReject({
+        payload: {
+          sentences: ['The survey covered the U.S.'],
+          choices: ['one clean choice', 'another clean choice'],
+        },
+      }),
+    ).toBe('badSplit')
+  })
+
+  it('문항이 찍은 빈칸 표시는 잔해가 아니다 — `_____` 4~15개', () => {
+    expect(
+      itemHygieneReject({
+        payload: {
+          stem: 'Fleas can cause pets to _____ itchy, especially on their lower back.',
+          context: 'Veterinarians describe the signs that owners notice first at home.',
+        },
+      }),
+    ).toBeNull()
+    expect(
+      itemHygieneReject({
+        payload: { passage: 'The biggest differences between them are ____ in daily service.' },
+      }),
+    ).toBeNull()
+  })
+
+  it('사전 보일러플레이트의 긴 가로줄은 **여전히 막는다** — 16개 이상', () => {
+    expect(
+      itemHygieneReject({
+        payload: { passage: `A calm opening sentence. ${'_'.repeat(48)} stimulate – v.` },
+      }),
+    ).toBe('residue')
+  })
+
+  it('빈칸 표시를 지운다고 다른 잔해까지 지워지지 않는다', () => {
+    expect(
+      itemHygieneReject({
+        payload: { passage: 'The result was confirmed later _____ by another team [12].' },
+      }),
+    ).toBe('residue')
+  })
+})
