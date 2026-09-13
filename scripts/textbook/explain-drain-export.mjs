@@ -95,7 +95,13 @@ if (VOLUME_UNITS) {
       .eq('kind', 'article')
       .eq('v_level', BAND)
       .in('type', ['order', 'insert'])
-      .is('answer_key->>explanation_ko', null)
+      // 해설이 없는 것 **또는** 이음매 해설이 깔린 것 — 뒤엣것은 배치가 올려칠 몫이다
+      // (위 `upgradeable` 주석 참조). 배치가 쓴 것은 `explanation_writer` 가 없어 안 걸린다.
+      .or(
+        'answer_key->>explanation_ko.is.null,' +
+          'answer_key->>explanation_writer.eq.order_seam,' +
+          'answer_key->>explanation_writer.eq.insert_seam',
+      )
       .order('id')
       .limit(500)
     if (cursor) q = q.gt('id', cursor)
@@ -115,7 +121,20 @@ let unprintable = 0
 
 for (const r of rows) {
   // 이미 배치가 쓴 것은 건너뛴다 — 재실행 안전.
-  if (r.answer_key?.explanation_ko) {
+  //
+  // ⚠️ **이음매 해설은 예외다** (실측 2026-09-13). 이 파일 머리말과 `explain-seam.ts`
+  //   머리말이 둘 다 「나중에 배치 해설이 오면 그쪽이 이긴다」고 적어 두었는데,
+  //   **코드는 해설이 있으면 무조건 건너뛰고 있었다.** 그래서 이음매 해설이 깔린 뒤로는
+  //   배치 몫이 영원히 0 이 된다.
+  //
+  //   이음매 해설은 「왜 그렇게 이어지는가」를 말하지 않는다 — 그 파일이 스스로 그렇게
+  //   적었고, 3인 검수 1·2회차가 순서 유형 **전량**에 같은 지적을 했다. 규칙이 지문에서
+  //   근거를 읽어 낸 것은 **5.7%** 뿐이다(실측 273/4,795). 나머지는 배치가 써야 한다.
+  //
+  //   ⚠️ **배치가 쓴 것은 여전히 안 건드린다** — 배치에는 `explanation_writer` 가 없다.
+  const writer = r.answer_key?.explanation_writer ?? null
+  const upgradeable = writer === 'order_seam' || writer === 'insert_seam'
+  if (r.answer_key?.explanation_ko && !upgradeable) {
     already++
     continue
   }

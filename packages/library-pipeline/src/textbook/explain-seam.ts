@@ -102,16 +102,50 @@ function assemble(
 interface Anaphor {
   /** 해설에 그대로 인용할 표지(`These maps` · `The blaze`). */
   marker: string
-  /** 되받는 낱말. 다른 덩어리에 있으면 순서가 확정된다. */
-  noun: string
+  /** 되받는 낱말. 다른 덩어리에 있으면 순서가 확정된다. 대명사면 `null`(이름으로 찾는다). */
+  noun: string | null
 }
 
 export function opensWithAnaphor(sentence: string): Anaphor | null {
   const s = String(sentence ?? '').replace(/\s+/g, ' ').trim()
   const m = s.match(/^(This|That|These|Those|The)\s+([A-Za-z][A-Za-z'-]{2,})/)
-  if (!m) return null
-  return { marker: `${m[1]} ${m[2]}`, noun: m[2]! }
+  if (m) return { marker: `${m[1]} ${m[2]}`, noun: m[2]! }
+  // 대명사로 여는 덩어리 — 받는 **이름**을 다른 덩어리에서 찾을 수 있으면 근거가 된다.
+  //   실측 2026-09-13: 지시사·정관사만 보던 동안 근거가 붙은 순서 문항이 **5.2%** 뿐이었다.
+  //   표본을 보니 `He's trying to…` 로 여는 덩어리가 흔했고, 받는 이름(`Matt`)이
+  //   다른 덩어리에 **그대로 인쇄돼 있었다** — 지문만 보고 확인되는 근거를 버리고 있었다.
+  const pro = s.match(/^(He|She|They|His|Her|Their)\b/)
+  if (pro) return { marker: pro[1]!, noun: null }
+  return null
 }
+
+/**
+ * 그 글이 내놓는 **이름**들 — 문장 첫머리가 아닌 대문자 낱말.
+ *
+ * ⚠️ 문장 첫 낱말은 빼야 한다(대문자인 것이 이름이라서가 아니라 문장이 시작해서다).
+ *   흔한 기능어도 뺀다 — `The`·`But` 이 문장 중간에 오는 일이 있다.
+ */
+export function properNamesIn(text: string): string[] {
+  const out = new Set<string>()
+  for (const sentence of String(text ?? '').split(/(?<=[.!?])\s+/)) {
+    const tokens = sentence.trim().split(/\s+/)
+    for (let i = 1; i < tokens.length; i += 1) {
+      const t = tokens[i]!.replace(/[^A-Za-z'-]/g, '')
+      if (t.length < 3 || !/^[A-Z][a-z'-]+$/.test(t)) continue
+      if (NOT_A_NAME.has(t.toLowerCase())) continue
+      out.add(t)
+    }
+  }
+  return [...out]
+}
+
+/** 대문자로 시작해도 이름이 아닌 것 — 요일·달·흔한 문두어. */
+const NOT_A_NAME = new Set([
+  'the', 'but', 'and', 'for', 'yet', 'however', 'therefore', 'meanwhile', 'instead',
+  'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday',
+  'january', 'february', 'march', 'april', 'june', 'july', 'august',
+  'september', 'october', 'november', 'december', 'english',
+])
 
 /** 그 글이 이 낱말을 내놓았는가 — 단수·복수를 함께 본다(`maps` 는 `map` 도 받는다). */
 export function mentionsNoun(text: string, noun: string): boolean {
@@ -136,6 +170,8 @@ interface OrderConstraint {
   marker: string
   /** 그 낱말을 처음 내놓는 자리. `null` 이면 도입문이다. */
   after: 'A' | 'B' | 'C' | null
+  /** 대명사가 이름을 받는 경우인가 — 해설 문구가 달라진다. */
+  byName: boolean
 }
 
 /**
@@ -151,17 +187,27 @@ export function readOrderConstraints(item: CsatOrderItem): OrderConstraint[] {
     if (!first) continue
     const a = opensWithAnaphor(first)
     if (!a) continue
-    // 자기 덩어리 안에서 이미 내놓았으면 앞을 볼 필요가 없다.
-    const ownRest = b.sentences.slice(1).join(' ')
-    if (mentionsNoun(ownRest, a.noun)) continue
+    const own = b.sentences.join(' ')
     const sources: ('A' | 'B' | 'C' | null)[] = []
-    if (mentionsNoun(item.intro, a.noun)) sources.push(null)
-    for (const other of item.blocks) {
-      if (other.label === b.label) continue
-      if (mentionsNoun(other.sentences.join(' '), a.noun)) sources.push(other.label)
+    if (a.noun) {
+      // 자기 덩어리 안에서 이미 내놓았으면 앞을 볼 필요가 없다.
+      if (mentionsNoun(b.sentences.slice(1).join(' '), a.noun)) continue
+      if (mentionsNoun(item.intro, a.noun)) sources.push(null)
+      for (const other of item.blocks) {
+        if (other.label === b.label) continue
+        if (mentionsNoun(other.sentences.join(' '), a.noun)) sources.push(other.label)
+      }
+    } else {
+      // 대명사 — **이름이 자기 안에 있으면** 앞을 볼 필요가 없다(그 덩어리가 내놓는다).
+      if (properNamesIn(own).length) continue
+      if (properNamesIn(item.intro).length) sources.push(null)
+      for (const other of item.blocks) {
+        if (other.label === b.label) continue
+        if (properNamesIn(other.sentences.join(' ')).length) sources.push(other.label)
+      }
     }
     if (sources.length !== 1) continue
-    out.push({ label: b.label, marker: a.marker, after: sources[0]! })
+    out.push({ label: b.label, marker: a.marker, after: sources[0]!, byName: a.noun === null })
   }
   return out
 }
@@ -213,7 +259,9 @@ export function explainOrderSeam(item: CsatOrderItem): ItemExplanation | null {
   for (const c of constraints) {
     if (c.after === null) continue
     optional.unshift(
-      `(${c.label})는 "${c.marker}" 로 시작하므로 그 말을 처음 내놓는 (${c.after}) 뒤에 온다.`,
+      c.byName
+        ? `(${c.label})는 "${c.marker}" 로 시작하므로 그 사람의 이름을 내놓는 (${c.after}) 뒤에 온다.`
+        : `(${c.label})는 "${c.marker}" 로 시작하므로 그 말을 처음 내놓는 (${c.after}) 뒤에 온다.`,
     )
   }
 
@@ -235,7 +283,7 @@ export function explainOrderSeam(item: CsatOrderItem): ItemExplanation | null {
     if (bad && bad.after) {
       reasoned.push(
         `${CIRCLED[idx]} 는 (${bad.label})를 (${bad.after})보다 앞에 두는데, ` +
-          `(${bad.label})는 "${bad.marker}" 로 열려 가리킬 것이 아직 없다`,
+          `(${bad.label})는 "${bad.marker}" 로 열려 ${bad.byName ? '가리킬 사람이' : '가리킬 것이'} 아직 없다`,
       )
       continue
     }
