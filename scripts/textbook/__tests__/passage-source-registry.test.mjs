@@ -105,12 +105,15 @@ describe('판정 — 라우팅이 법을 넘지 않는다', () => {
 
   it('모든 후보가 등급을 하나씩 받는다 — 빠진 것이 없다', () => {
     expect(verdict.rows.length).toBe(registry.candidates.length)
-    const sum = ['A', 'B', 'C', 'D', 'E'].reduce((n, g) => n + (verdict.tally[g] ?? 0), 0)
+    // ⚠️ 등급을 더할 때 **여기도 더해야 한다.** F 를 만들고 이 줄을 잊어 121 이 107 로 나왔다
+    //   (2026-09-13) — 검사가 스스로 잡았다. 등급 목록을 한 곳에서 읽는다.
+    const GRADES = ['A', 'B', 'C', 'F', 'D', 'E']
+    const sum = GRADES.reduce((n, g) => n + (verdict.tally[g] ?? 0), 0)
     expect(sum).toBe(registry.candidates.length)
   })
 
   it('상류 합은 소스가 공표한 총량만 더한다 — 1페이지 하한을 섞지 않는다', () => {
-    for (const g of ['A', 'B', 'C', 'D', 'E']) {
+    for (const g of ['A', 'B', 'C', 'F', 'D', 'E']) {
       const declared = verdict.rows
         .filter((r) => r.grade === g && r.upstreamKind === 'total')
         .reduce((n, r) => n + r.upstream, 0)
@@ -201,5 +204,88 @@ describe('Europe PMC 는 색인이 아니라 1급 소스로 분류돼 있다', (
       withTotal.map((r) => r.id),
       'RSS 한 페이지 분량만 남으면 「공급선이 있다」가 참이어도 재고는 안 는다',
     ).not.toEqual([])
+  })
+})
+
+describe('권리는 두 축이다 — ND 와 © 를 같은 칸에 담지 않는다', () => {
+  it('모든 후보가 재배포 축을 선언한다', () => {
+    const ok = new Set(Object.keys(registry.redistributeClaim))
+    for (const c of registry.candidates) {
+      expect(ok, `${c.id} 의 redistributeClaim '${c.redistributeClaim}' 가 표에 없다`).toContain(
+        c.redistributeClaim,
+      )
+      expect(c.redistributeWhy, `${c.id} 에 판정 이유가 없다`).toBeTruthy()
+    }
+  })
+
+  it('파생이 허용되면 재배포도 허용된다 — 더 강한 권리가 열려 있다', () => {
+    for (const c of registry.candidates) {
+      if (c.derivClaim === 'yes') expect(c.redistributeClaim, c.id).toBe('yes')
+    }
+  })
+
+  it('© 로 주장된 소스는 본문 저장 대상이 아니다 (F 등급)', () => {
+    // 「CC 아님」을 CC 로 읽어 Aeon·SEP 이 재배포 허용으로 넘어간 적이 있다(2026-09-13).
+    for (const id of ['aeon', 'sep', 'smithsonian_mag', 'big_think', 'jstor_daily', 'nautilus']) {
+      const c = registry.candidates.find((x) => x.id === id)
+      expect(c.redistributeClaim, `${id} 가 재배포 허용으로 넘어갔다`).toBe('no')
+    }
+  })
+
+  it('CC BY-ND 계열은 원문 확보 대상이다 (C 등급)', () => {
+    for (const id of ['the_conversation', 'knowable', 'quanta', 'mongabay', 'undark']) {
+      const c = registry.candidates.find((x) => x.id === id)
+      expect(c.derivClaim, `${id} 의 파생 판정`).toBe('no')
+      expect(c.redistributeClaim, `${id} 의 재배포 판정 — ND 는 verbatim 재배포가 된다`).toBe('yes')
+    }
+  })
+
+  it('F 등급은 하나도 개방·비개방 파이프라인으로 가지 않는다', () => {
+    for (const r of verdict.rows.filter((x) => x.grade === 'F')) {
+      expect(r.route, `${r.id} 가 F 인데 라우팅이 ${r.route}`).toBe('link-only')
+    }
+  })
+
+  it('C 등급은 전부 재배포 가능이다 — 본문을 담아도 되는 칸이다', () => {
+    for (const r of verdict.rows.filter((x) => x.grade === 'C')) {
+      expect(r.redistributeClaim, `${r.id} 가 C 인데 재배포 ${r.redistributeClaim}`).toBe('yes')
+      expect(r.derivClaim, `${r.id} 가 C 인데 파생 ${r.derivClaim}`).toBe('no')
+    }
+  })
+
+  it('C 와 F 를 합치면 예전 C 등급이 된다 — 쪼갰을 뿐 잃지 않았다', () => {
+    expect((verdict.tally.C ?? 0) + (verdict.tally.F ?? 0)).toBe(24)
+  })
+})
+
+describe('register 측정 — 선언과 나란히 기록돼 있다', () => {
+  const m = read('scripts/textbook/register-measure.json')
+
+  it('눈금이 기출에서 나왔다 — 짐작한 상수가 아니다', () => {
+    expect(m.baseline_csat.n, '기출 표본이 없다').toBeGreaterThan(500)
+    expect(m.threshold_from_csat_median).toBe(m.baseline_csat.median)
+    expect(m.threshold_from_csat_median, '임계값이 0 이면 모든 소스가 통과한다').toBeGreaterThan(0)
+  })
+
+  it('선언이 측정을 갈라 주지 않는다는 사실이 기록돼 있다', () => {
+    // 이 수치가 사라지면 다음 사람이 register 를 측정값으로 읽는다.
+    expect(m.declared_overlap).toBeTypeOf('number')
+    expect(m.declared_argumentative.n).toBeGreaterThan(0)
+    expect(m.declared_expository.n).toBeGreaterThan(0)
+  })
+
+  it('측정 공급 추정은 변형 가능 행만 센다', () => {
+    // ND 본문의 표지 밀도가 높아도 문항이 되지 않는다 — 넣으면 거짓이 된다.
+    const tc = m.projection.find((r) => r.source === 'the_conversation')
+    if (tc) expect(tc.rows, 'display_only 인 the_conversation 행이 공급량에 들어왔다').toBe(0)
+  })
+
+  it('측정 공급이 소스별 추정의 합과 같다', () => {
+    const sum = m.projection.reduce((n, r) => n + r.measured_supply_est, 0)
+    expect(m.measured_supply_total).toBe(sum)
+  })
+
+  it('측정이 선언보다 크다는 것이 이 사이클의 발견이다', () => {
+    expect(m.measured_supply_total).toBeGreaterThan(m.declared_argumentative_rows)
   })
 })

@@ -1,0 +1,514 @@
+{
+  "measured_at": "2026-09-13T05:17:27.309Z",
+  "marker_groups": {
+    "contrast": [
+      "however",
+      "nevertheless",
+      "nonetheless",
+      "in contrast",
+      "by contrast",
+      "on the contrary",
+      "conversely",
+      "whereas",
+      "on the other hand",
+      "rather than",
+      "instead"
+    ],
+    "concessive": [
+      "although",
+      "though",
+      "even though",
+      "despite",
+      "in spite of",
+      "admittedly",
+      "granted that",
+      "while it is true"
+    ],
+    "causal": [
+      "therefore",
+      "thus",
+      "hence",
+      "consequently",
+      "as a result",
+      "accordingly",
+      "it follows that",
+      "because of this",
+      "for this reason"
+    ],
+    "stance": [
+      "argue",
+      "argues",
+      "argued",
+      "claim",
+      "claims",
+      "claimed",
+      "contend",
+      "contends",
+      "assert",
+      "asserts",
+      "maintain that",
+      "posit",
+      "propose",
+      "proposes"
+    ],
+    "evaluative": [
+      "arguably",
+      "crucially",
+      "importantly",
+      "notably",
+      "must be",
+      "should be",
+      "cannot be",
+      "ought to",
+      "it is clear that",
+      "far from",
+      "misleading",
+      "mistaken"
+    ]
+  },
+  "note": "담화 표지 밀도(1,000어당). 논증의 형태를 재며 질을 재지 않는다 — 후보 선별용이고 최종 판정은 사람·LLM 몫.",
+  "baseline_csat": {
+    "label": "평가원 기출 지문",
+    "n": 796,
+    "p10": 0,
+    "p25": 0,
+    "median": 5.33,
+    "p75": 8.55,
+    "p90": 14.05
+  },
+  "threshold_from_csat_median": 5.33,
+  "csat_presence_rate": 0.588,
+  "csat_markers_per_passage": 1.06,
+  "declared_overlap": 0.379,
+  "per_source_declared": [
+    {
+      "source": "elife",
+      "declared": "expository",
+      "label": "elife|expository",
+      "n": 60,
+      "p10": 0,
+      "p25": 2.81,
+      "median": 6.23,
+      "p75": 8.42,
+      "p90": 10.81,
+      "passRatio": 0.533
+    },
+    {
+      "source": "factbook",
+      "declared": "reference",
+      "label": "factbook|reference",
+      "n": 4,
+      "p10": 0,
+      "p25": 0,
+      "median": 1.73,
+      "p75": 5.05,
+      "p90": 7.94,
+      "passRatio": 0.25
+    },
+    {
+      "source": "frontiers",
+      "declared": "expository",
+      "label": "frontiers|expository",
+      "n": 60,
+      "p10": 2.42,
+      "p25": 4.35,
+      "median": 6.64,
+      "p75": 8.79,
+      "p90": 14.54,
+      "passRatio": 0.7
+    },
+    {
+      "source": "frym",
+      "declared": "expository",
+      "label": "frym|expository",
+      "n": 60,
+      "p10": 0,
+      "p25": 0,
+      "median": 0,
+      "p75": 7.04,
+      "p90": 10.49,
+      "passRatio": 0.383
+    },
+    {
+      "source": "futurity",
+      "declared": "expository",
+      "label": "futurity|expository",
+      "n": 60,
+      "p10": 0,
+      "p25": 1.45,
+      "median": 2.5,
+      "p75": 4.33,
+      "p90": 5.84,
+      "passRatio": 0.167
+    },
+    {
+      "source": "gutenberg",
+      "declared": "expository",
+      "label": "gutenberg|expository",
+      "n": 60,
+      "p10": 0,
+      "p25": 0,
+      "median": 2.76,
+      "p75": 8.55,
+      "p90": 14.83,
+      "passRatio": 0.433
+    },
+    {
+      "source": "nasa",
+      "declared": "expository",
+      "label": "nasa|expository",
+      "n": 60,
+      "p10": 0,
+      "p25": 0,
+      "median": 0,
+      "p75": 2.4,
+      "p90": 3.5,
+      "passRatio": 0
+    },
+    {
+      "source": "nist",
+      "declared": "expository",
+      "label": "nist|expository",
+      "n": 10,
+      "p10": 0,
+      "p25": 0,
+      "median": 1.36,
+      "p75": 3.5,
+      "p90": 4.11,
+      "passRatio": 0.1
+    },
+    {
+      "source": "noaa",
+      "declared": "expository",
+      "label": "noaa|expository",
+      "n": 50,
+      "p10": 0,
+      "p25": 1.06,
+      "median": 2.08,
+      "p75": 3.13,
+      "p90": 4.85,
+      "passRatio": 0.06
+    },
+    {
+      "source": "original",
+      "declared": "news",
+      "label": "original|news",
+      "n": 60,
+      "p10": 0,
+      "p25": 0,
+      "median": 3.02,
+      "p75": 5.83,
+      "p90": 11.21,
+      "passRatio": 0.35
+    },
+    {
+      "source": "owid",
+      "declared": "argumentative",
+      "label": "owid|argumentative",
+      "n": 9,
+      "p10": 1,
+      "p25": 1.01,
+      "median": 1.96,
+      "p75": 2.22,
+      "p90": 4.43,
+      "passRatio": 0
+    },
+    {
+      "source": "plos",
+      "declared": "expository",
+      "label": "plos|expository",
+      "n": 60,
+      "p10": 2.86,
+      "p25": 3.69,
+      "median": 8.16,
+      "p75": 10.05,
+      "p90": 15.43,
+      "passRatio": 0.717
+    },
+    {
+      "source": "simple_wikipedia",
+      "declared": "expository",
+      "label": "simple_wikipedia|expository",
+      "n": 55,
+      "p10": 0,
+      "p25": 0,
+      "median": 0,
+      "p75": 3.3,
+      "p90": 7.05,
+      "passRatio": 0.164
+    },
+    {
+      "source": "space_place",
+      "declared": "expository",
+      "label": "space_place|expository",
+      "n": 37,
+      "p10": 0,
+      "p25": 0,
+      "median": 0,
+      "p75": 0,
+      "p90": 9.02,
+      "passRatio": 0.216
+    },
+    {
+      "source": "storyweaver",
+      "declared": "narrative",
+      "label": "storyweaver|narrative",
+      "n": 58,
+      "p10": 0,
+      "p25": 0,
+      "median": 0,
+      "p75": 0,
+      "p90": 0,
+      "passRatio": 0.069
+    },
+    {
+      "source": "the_conversation",
+      "declared": "argumentative",
+      "label": "the_conversation|argumentative",
+      "n": 60,
+      "p10": 1.14,
+      "p25": 2.11,
+      "median": 4.21,
+      "p75": 6.41,
+      "p90": 9.12,
+      "passRatio": 0.333
+    },
+    {
+      "source": "usgs",
+      "declared": "expository",
+      "label": "usgs|expository",
+      "n": 60,
+      "p10": 0,
+      "p25": 0,
+      "median": 0,
+      "p75": 3.1,
+      "p90": 5.34,
+      "passRatio": 0.117
+    },
+    {
+      "source": "voa",
+      "declared": "expository",
+      "label": "voa|expository",
+      "n": 27,
+      "p10": 0,
+      "p25": 0,
+      "median": 1.96,
+      "p75": 2.52,
+      "p90": 3.86,
+      "passRatio": 0
+    },
+    {
+      "source": "voa",
+      "declared": "narrative",
+      "label": "voa|narrative",
+      "n": 2,
+      "p10": 0.19,
+      "p25": 0.48,
+      "median": 0.96,
+      "p75": 1.45,
+      "p90": 1.74,
+      "passRatio": 0
+    },
+    {
+      "source": "voa",
+      "declared": "news",
+      "label": "voa|news",
+      "n": 31,
+      "p10": 0,
+      "p25": 0,
+      "median": 0.98,
+      "p75": 3.01,
+      "p90": 3.96,
+      "passRatio": 0.032
+    },
+    {
+      "source": "wikipedia",
+      "declared": "expository",
+      "label": "wikipedia|expository",
+      "n": 59,
+      "p10": 0,
+      "p25": 1.05,
+      "median": 3.12,
+      "p75": 5.14,
+      "p90": 8.5,
+      "passRatio": 0.237
+    }
+  ],
+  "declared_argumentative": {
+    "label": "선언 argumentative",
+    "n": 69,
+    "p10": 1.03,
+    "p25": 1.96,
+    "median": 3.77,
+    "p75": 5.92,
+    "p90": 8.67
+  },
+  "declared_expository": {
+    "label": "선언 expository",
+    "n": 718,
+    "p10": 0,
+    "p25": 0,
+    "median": 2.65,
+    "p75": 6.36,
+    "p90": 9.47
+  },
+  "declared_separation_median": 1.12,
+  "sample_per_source": 60,
+  "scanned": 942,
+  "projection": [
+    {
+      "source": "plos",
+      "rows": 22272,
+      "declared": "expository",
+      "sample_n": 60,
+      "pass_ratio": 0.717,
+      "measured_supply_est": 15969
+    },
+    {
+      "source": "gutenberg",
+      "rows": 11353,
+      "declared": "expository",
+      "sample_n": 60,
+      "pass_ratio": 0.433,
+      "measured_supply_est": 4916
+    },
+    {
+      "source": "frontiers",
+      "rows": 1958,
+      "declared": "expository",
+      "sample_n": 60,
+      "pass_ratio": 0.7,
+      "measured_supply_est": 1371
+    },
+    {
+      "source": "futurity",
+      "rows": 2847,
+      "declared": "expository",
+      "sample_n": 60,
+      "pass_ratio": 0.167,
+      "measured_supply_est": 475
+    },
+    {
+      "source": "original",
+      "rows": 541,
+      "declared": "news",
+      "sample_n": 60,
+      "pass_ratio": 0.35,
+      "measured_supply_est": 189
+    },
+    {
+      "source": "voa",
+      "rows": 10632,
+      "declared": "expository/narrative/news",
+      "sample_n": 60,
+      "pass_ratio": 0.017,
+      "measured_supply_est": 176
+    },
+    {
+      "source": "elife",
+      "rows": 295,
+      "declared": "expository",
+      "sample_n": 60,
+      "pass_ratio": 0.533,
+      "measured_supply_est": 157
+    },
+    {
+      "source": "usgs",
+      "rows": 548,
+      "declared": "expository",
+      "sample_n": 60,
+      "pass_ratio": 0.117,
+      "measured_supply_est": 64
+    },
+    {
+      "source": "frym",
+      "rows": 118,
+      "declared": "expository",
+      "sample_n": 60,
+      "pass_ratio": 0.383,
+      "measured_supply_est": 45
+    },
+    {
+      "source": "wikipedia",
+      "rows": 59,
+      "declared": "expository",
+      "sample_n": 59,
+      "pass_ratio": 0.237,
+      "measured_supply_est": 14
+    },
+    {
+      "source": "simple_wikipedia",
+      "rows": 55,
+      "declared": "expository",
+      "sample_n": 55,
+      "pass_ratio": 0.164,
+      "measured_supply_est": 9
+    },
+    {
+      "source": "storyweaver",
+      "rows": 116,
+      "declared": "narrative",
+      "sample_n": 58,
+      "pass_ratio": 0.069,
+      "measured_supply_est": 8
+    },
+    {
+      "source": "space_place",
+      "rows": 31,
+      "declared": "expository",
+      "sample_n": 37,
+      "pass_ratio": 0.216,
+      "measured_supply_est": 7
+    },
+    {
+      "source": "noaa",
+      "rows": 48,
+      "declared": "expository",
+      "sample_n": 50,
+      "pass_ratio": 0.06,
+      "measured_supply_est": 3
+    },
+    {
+      "source": "factbook",
+      "rows": 4,
+      "declared": "reference",
+      "sample_n": 4,
+      "pass_ratio": 0.25,
+      "measured_supply_est": 1
+    },
+    {
+      "source": "nist",
+      "rows": 10,
+      "declared": "expository",
+      "sample_n": 10,
+      "pass_ratio": 0.1,
+      "measured_supply_est": 1
+    },
+    {
+      "source": "nasa",
+      "rows": 203,
+      "declared": "expository",
+      "sample_n": 60,
+      "pass_ratio": 0,
+      "measured_supply_est": 0
+    },
+    {
+      "source": "the_conversation",
+      "rows": 0,
+      "declared": "argumentative",
+      "sample_n": 60,
+      "pass_ratio": 0.333,
+      "measured_supply_est": 0
+    },
+    {
+      "source": "owid",
+      "rows": 9,
+      "declared": "argumentative",
+      "sample_n": 9,
+      "pass_ratio": 0,
+      "measured_supply_est": 0
+    }
+  ],
+  "measured_supply_total": 23405,
+  "declared_argumentative_rows": 1485
+}
