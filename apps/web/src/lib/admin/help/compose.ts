@@ -17,6 +17,21 @@ export const COMPOSE_HELP: HelpRegistry = {
       summary:
         '여러 매체가 각각 취재한 같은 사건에서 사실만 뽑아, 학습 유형에 맞는 지문을 새로 쓴다. 남의 본문을 가져오는 것이 아니라 사실을 근거로 우리가 쓰는 것이라 산출물의 저작권은 우리에게 있다.',
       when: '커버리지 매트릭스에 빈 칸이 있고, 그 칸을 외부 소스로는 채울 수 없을 때. 특히 진입 밴드(A1–A2)와 사람·직업 주제는 재사용 가능한 외부 소스가 아예 없다.',
+      diagrams: [
+        {
+          kind: 'flow',
+          caption: '사실만 받아 우리가 쓴다 — 원문은 어디에도 안 남는다',
+          nodes: [
+            { label: '①② 증인·피드', actor: 'user', says: '1차원 + 교차원. 계통이 같으면 독립은 1이다' },
+            { label: '③ 사건', actor: 'auto', says: '독립 2계통 · 발생 48시간 뒤에 익는다' },
+            { label: '④ 원장', actor: 'user', says: '사실 카드 + 그 소스에서 몇 번째였나' },
+            { label: '⑤ 작성', actor: 'claude', says: '사실만 보고 새로 쓴다. 본문은 안 넣는다' },
+            { label: '⑥ 가공', actor: 'script', says: '활동 파생 — 대부분 다시 만들어도 공짜다' },
+            { label: '⑦ 발행', actor: 'user', says: '통과는 조건이지 이유가 아니다. 되돌릴 수 없다' },
+          ],
+          loop: '실패한 발주는 저절로 안 움직인다 — ⑤ 작성에서 사람이 재시도·삭제를 고른다.',
+        },
+      ],
       steps: [
         {
           title: '유형 고르기',
@@ -73,6 +88,20 @@ export const COMPOSE_HELP: HelpRegistry = {
       소스: {
         summary:
           '어떤 출처를 사실의 증인으로 쓸 수 있는지, 그리고 학습 유형별로 지금 발주가 가능한지를 본다.',
+        diagrams: [
+          {
+            kind: 'keys',
+            caption: '증인 자격 — 무엇이 독립 출처로 세어지나',
+            nodes: [
+              { label: '1차', says: '기관이 스스로 발표한 것. 보도가 이것을 인용한다' },
+              { label: '교차', says: '사건을 독립 취재해 전한 보도' },
+              { label: '배경', says: '맥락만 준다 — 독립 출처로 안 센다' },
+              { label: '취재 계통', says: '통신사 원고를 받아 쓰면 발행사가 달라도 1' },
+              { label: '승인', says: '운영자가 약관을 봤다는 기록. 시스템 판정이 아니다' },
+              { label: '발주 가능', says: '1차와 교차가 둘 다 있는 주제가 하나라도 있다' },
+            ],
+          },
+        ],
         fields: [
           {
             label: '등급',
@@ -104,6 +133,23 @@ export const COMPOSE_HELP: HelpRegistry = {
       피드: {
         summary:
           '발행사를 고르면 시스템이 그 발행사의 피드를 찾아 실제로 열어 본 뒤 목록으로 준다. 주소를 직접 찾아올 필요가 없다.',
+        diagrams: [
+          {
+            kind: 'flow',
+            caption: '피드 한 줄이 서기까지',
+            nodes: [
+              { label: '발행사 고르기', actor: 'user', says: '주소를 직접 찾지 않는다 — 홈에서 읽어 온다' },
+              { label: '열어 본다', actor: 'script', says: 'robots 보고 실제로 열어 항목이 있는 것만' },
+              { label: '섹션 재기', actor: 'script', says: '이름만 보고 고르면 같은 신문 안에서 17배 갈린다' },
+              { label: '꺼진 채 추가', actor: 'user', says: '추가만으로는 수집이 시작되지 않는다' },
+              { label: '활성 전환', actor: 'user', says: '켠 피드만 다음 수집에 들어간다' },
+            ],
+            branch: [
+              { when: '403 거절', then: '브라우저인 척 다시 시도하지 않는다 — 그 피드를 끈다' },
+              { when: '404 없음', then: '주소가 바뀐 것이다 — 발행사에서 다시 찾는다' },
+            ],
+          },
+        ],
         steps: [
           {
             title: '발행사 고르고 찾기',
@@ -172,6 +218,20 @@ export const COMPOSE_HELP: HelpRegistry = {
       발견: {
         summary:
           '등록된 피드를 훑어 같은 사건을 다룬 보도를 묶고, 취재할 만한 것을 고른다. 이 단계는 기사 본문을 읽지 않는다.',
+        diagrams: [
+          {
+            kind: 'flow',
+            caption: '사건이 익는 데 48시간 — 그래서 매일 돌린다',
+            nodes: [
+              { label: '수집', actor: 'script', says: '피드와 robots 만 — 기사 본문은 안 읽는다' },
+              { label: '묶기', actor: 'auto', says: '제목 기준이라 독립 계통이 실제보다 크게 나온다' },
+              { label: '보류 48h', actor: 'auto', says: '저장해 둔다 — 이틀 뒤 저절로 대상이 된다' },
+              { label: '사람이 고르기', actor: 'user', says: '읽고 싶어 할 사건인가는 기계가 모른다' },
+              { label: '취재 시작', actor: 'script', says: '본문을 읽는다 — 여기서 전재가 걸러진다' },
+            ],
+            loop: '하루 거르면 그날의 조밀한 묶음이 피드에서 내려가 영영 못 쓴다.',
+          },
+        ],
         steps: [
           {
             title: '수집 실행',
@@ -235,6 +295,19 @@ export const COMPOSE_HELP: HelpRegistry = {
       원장: {
         summary:
           '사건에 대한 사실을 카드로 적고, 각 사실이 어느 소스의 몇 번째 자리에서 나왔는지 기록한다. 원문 표현과의 연결을 끊는 방화벽이다.',
+        diagrams: [
+          {
+            kind: 'keys',
+            caption: '카드 한 장이 갖출 것 — 복원할 수 없는 칸이 있다',
+            nodes: [
+              { label: '우리 말로', says: '원문 문장을 복사하면 표현 검사에서 걸린다' },
+              { label: '종류', says: '사건 · 수치 · 발언 · 배경' },
+              { label: '등장 순서', says: '그 기사에서 몇 번째였나. 비우면 복원 못 한다' },
+              { label: '확인 2계통', says: '그 묶음의 소스만 고를 수 있다' },
+              { label: '발언 카드', says: '공개 석상 발언만. 독점 인터뷰는 못 쓴다' },
+            ],
+          },
+        ],
         steps: [
           {
             title: '사실 카드 작성',
@@ -270,6 +343,24 @@ export const COMPOSE_HELP: HelpRegistry = {
       작성: {
         summary:
           '학습 유형과 목표 레벨을 골라 발주를 만들고, Claude Code 배치로 큐를 비운다. 화면에는 작성 버튼이 없다.',
+        diagrams: [
+          {
+            kind: 'flow',
+            caption: '화면에 작성 버튼이 없는 이유 — 큐는 Claude Code 가 비운다',
+            nodes: [
+              { label: '발주', actor: 'user', says: '유형 × 목표 레벨. 밴드 밖은 보정 없이 거부' },
+              { label: '잡기', actor: 'claude', says: '세션 이름으로 잡는다 — 같은 발주를 두 번 안 쓴다' },
+              { label: '집필', actor: 'claude', says: '학습 순서로 쓴다. 원 기사 순서를 따르면 막힌다' },
+              { label: '처리', actor: 'script', says: '출처 표기를 본문에 박고 어휘·난이도를 낸다' },
+              { label: '게이트', actor: 'script', says: '판정을 본문 해시와 함께 저장한다' },
+              { label: '마감', actor: 'script', says: '실패면 사유를 남긴다 — 다음이 같은 벽을 피하게' },
+            ],
+            branch: [
+              { when: '시도 3회 이상', then: '재시도 말고 ④ 원장의 사실 수부터 본다 — 같은 벽이다' },
+            ],
+            loop: '재실행 안전 — 같은 (묶음 × 유형 × 레벨) 발주는 하나뿐이다.',
+          },
+        ],
         fields: [
           {
             label: '학습 유형',
@@ -407,6 +498,18 @@ export const COMPOSE_HELP: HelpRegistry = {
       가공: {
         summary:
           '지문 하나에서 학습 활동을 파생시킨다. 대부분은 문자열 처리라 몇 번을 다시 만들어도 비용이 들지 않는다. 칸에 적힌 것은 계획이 아니라 지금 있는 것이다 — 구문 문항 수·어휘 수·단어장 발행 여부가 그대로 보인다. 만드는 것은 scripts/compose/drain-activities.mjs 이고, 이 화면은 만들지 않는다.',
+        diagrams: [
+          {
+            kind: 'keys',
+            caption: '다시 만들어도 되는 것과 돈이 드는 것',
+            nodes: [
+              { label: '무료 재생성', says: '읽기·단어장·빈칸·철자·순서·삽입·받아쓰기' },
+              { label: '유료 호출', says: '이해 문항 · 토론 질문 둘뿐이다' },
+              { label: '음성', says: '우리 저작이라 붙는다 — 받아쓰기가 여기서 열린다' },
+              { label: '구문 연습', says: '여기서 안 만든다 — 두 곳에서 만들면 두 벌이 갈린다' },
+            ],
+          },
+        ],
         fields: [
           {
             label: '재생성 무료',
@@ -432,6 +535,21 @@ export const COMPOSE_HELP: HelpRegistry = {
       발행: {
         summary:
           '게이트 판정과 본문을 함께 보고 사람이 발행을 결정한다. 게이트 통과는 발행 조건이지 발행 이유가 아니다.',
+        diagrams: [
+          {
+            kind: 'flow',
+            caption: '통과는 조건이지 이유가 아니다',
+            nodes: [
+              { label: '게이트 6종', actor: 'script', says: 'critical 0 이어야 한다. 경고는 사람이 읽는다' },
+              { label: '교육적 적합성', actor: 'user', says: '레벨 · 읽어도 되는 사건인가 · 사실 정확성' },
+              { label: '발행', actor: 'user', says: '되돌릴 수 없다. 단어세트가 함께 카탈로그로 나간다' },
+            ],
+            branch: [
+              { when: '미확인', then: '대기가 60편을 넘었다 — 앞의 것을 줄이면 다음 열람에서 확인된다' },
+              { when: '낡은 판정', then: '판정 뒤 본문을 고쳤다 — 게이트를 다시 돌린다' },
+            ],
+          },
+        ],
         steps: [
           {
             title: '게이트 확인',

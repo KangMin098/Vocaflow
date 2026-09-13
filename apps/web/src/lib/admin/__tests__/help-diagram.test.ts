@@ -159,3 +159,52 @@ describe('열었을 때 먼저 오는 것이 산문 벽이 아니다', () => {
     expect(fold).toBeGreaterThan(fig)
   })
 })
+
+// ── 왜 전역으로도 재는가 (실측 2026-09-13) ──────────────────────────
+// 위 검사는 `FACTORY` 11 화면만 본다. 교재 공장 밖에 도식을 붙이기 시작하자(재저작 8곳)
+// **그 도식들은 어떤 한도도 안 받았다** — 라벨이 길어지든 칸이 여덟 개가 되든 아무도 안 막는다.
+// 한도는 390px 화면에서 나온 것이라 화면이 어디든 똑같이 적용된다.
+describe('도식이 붙은 화면은 어디든 같은 한도를 받는다', () => {
+  const withDiagrams = Object.entries(HELP_REGISTRY).filter(
+    ([, e]) => allDiagrams(e as ScreenHelpEntry).length > 0,
+  ) as [string, ScreenHelpEntry][]
+
+  it('교재 공장 밖에도 도식이 있다 — 없으면 이 검사가 아무것도 안 지킨다', () => {
+    const outside = withDiagrams.filter(([k]) => !(FACTORY as readonly string[]).includes(k))
+    expect(outside.length).toBeGreaterThan(0)
+  })
+
+  it('칸 이름 20자 · 칸 설명 48자', () => {
+    const over = withDiagrams.flatMap(([k, e]) =>
+      allDiagrams(e).flatMap((d) =>
+        d.nodes.flatMap((n) => [
+          ...(n.label.length > 20 ? [`${k}: 라벨 ${n.label.length}자 「${n.label}」`] : []),
+          ...((n.says?.length ?? 0) > 48 ? [`${k}: says ${n.says!.length}자 「${n.says}」`] : []),
+        ]),
+      ),
+    )
+    expect(over).toEqual([])
+  })
+
+  it('한 도식의 칸은 6개 이내다', () => {
+    const tooMany = withDiagrams.flatMap(([k, e]) =>
+      allDiagrams(e)
+        .filter((d) => d.nodes.length > 6)
+        .map((d) => `${k}: ${d.caption} (${d.nodes.length}칸)`),
+    )
+    expect(tooMany).toEqual([])
+  })
+
+  it('caption 은 화면 안에서, 칸 이름은 도식 안에서 겹치지 않는다 — 렌더가 key 로 쓴다', () => {
+    const dup: string[] = []
+    for (const [k, e] of withDiagrams) {
+      const caps = allDiagrams(e).map((d) => d.caption)
+      if (new Set(caps).size !== caps.length) dup.push(`${k}: caption 겹침`)
+      for (const d of allDiagrams(e)) {
+        const labels = d.nodes.map((n) => n.label)
+        if (new Set(labels).size !== labels.length) dup.push(`${k} / ${d.caption}: 칸 이름 겹침`)
+      }
+    }
+    expect(dup).toEqual([])
+  })
+})
