@@ -32,6 +32,7 @@ const RENDERER = join(HERE, '..', '..', '..', '..', 'scripts', 'textbook', 'rend
 const CLEAN: PublishGateInput = {
   band: 5,
   items: 60,
+  units: 10,
   explained: 60,
   failedChecks: [],
   answerBiased: false,
@@ -142,6 +143,15 @@ describe('조판기가 판정을 집행한다', () => {
 
   it('판정을 부른다', () => {
     expect(src).toContain('judgePublish')
+  })
+
+  /**
+   * 게이트가 안내하는 드레인 명령은 **이 권을 찍을 때 쓴 단원 수**를 써야 한다.
+   * 2026-09-13 까지 세 명령이 단원 수 20 을 박아 안내했는데 조판기 기본값은 10(시중 중앙값)이라,
+   * 시킨 대로 돌리면 **120문항짜리 다른 책**을 겨냥했다 — 다 채워도 60문항의 구멍은 안 메워진다.
+   */
+  it('실제로 찍은 단원 수를 게이트에 넘긴다 — 박아 두면 다른 책을 겨냥한다', () => {
+    expect(src).toContain('units: UNITS')
   })
 
   it('차단이면 조판물을 쓰기 전에 실행을 끊는다', () => {

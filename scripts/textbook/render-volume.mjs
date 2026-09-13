@@ -621,6 +621,9 @@ let reviewSettled = null
 
 const gate = judgePublish({
   band: BAND,
+  // **실제로 찍은 단원 수를 넘긴다** — 게이트의 안내 명령이 이 값을 쓴다.
+  //   박아 두면 게이트가 다른 책을 겨냥하게 시킨다(publish-gate.ts 의 units 주석).
+  units: UNITS,
   items: answerRows.length,
   explained: byBatch + byRule,
   failedChecks: card.auto.filter((c) => !c.pass).map((c) => c.label),
@@ -638,6 +641,47 @@ if (gate.findings.length || gate.unmeasured.length) {
 if (!gate.pass && !ALLOW_DEFECTS) {
   // ⚠️ **쓰기 전에 끊는다.** 뒤에서 끊으면 결함 있는 HTML 이 디스크에 남아, 다음 사람이
   //   그 파일을 열어 「조판됐다」고 읽는다. 조판 기록도 남기지 않는다.
+  //
+  // ── 다만 **검수 실측 한 칸은 남긴다** (2026-09-13) ─────────────────
+  // 「조판했다」와 「검수가 어디까지 갔나」는 다른 사실이다. 앞의 것을 안 남기는 것은
+  // 옳지만, 그 때문에 뒤의 것까지 사라지면 **막힌 권이 화면에서 통째로 안 보인다** —
+  // 진척을 알아야 하는 것이 바로 그 권인데. 그래서 이미 있는 행의
+  // `colophon.review.personaReview` **한 칸만** 갱신한다:
+  //   · `render_count`·`out_path`·`rendered_at` 은 **건드리지 않는다** — 조판을 주장하지 않는다.
+  //   · 행이 없으면 아무것도 만들지 않는다 — 없는 조판을 지어내지 않는다.
+  if (reviewedItems != null) {
+    const { data: row } = await db
+      .from('textbook_volume_renders')
+      .select('colophon')
+      .eq('series', SERIES)
+      .eq('band', BAND)
+      .maybeSingle()
+    if (row) {
+      const prevColophon = row.colophon ?? {}
+      const { error: patchErr } = await db
+        .from('textbook_volume_renders')
+        .update({
+          colophon: {
+            ...prevColophon,
+            review: {
+              ...(prevColophon.review ?? {}),
+              personaReview: {
+                quorum: REVIEW_PERSONA_QUORUM,
+                items: printedItems.length,
+                passed: reviewedItems,
+                settled: reviewSettled,
+              },
+            },
+          },
+        })
+        .eq('series', SERIES)
+        .eq('band', BAND)
+      if (patchErr) console.error(`⚠️  검수 실측 기록 실패 — ${patchErr.message}`)
+      else console.log(`검수 실측만 기록했다 — 3인 통과 ${reviewedItems}/${printedItems.length} (조판 주장 없음)`)
+    } else {
+      console.log('검수 실측을 남길 조판 행이 없다 — 이 권은 아직 한 번도 조판된 적이 없다.')
+    }
+  }
   console.log(
     `\n⛔ 조판하지 않았다 — 위 차단 ${gate.blocked.length}건을 푼 뒤 다시 돌린다.` +
       `\n   그래도 내야 하면 --allow-defects (조판 기록에 forced 로 남는다).`,

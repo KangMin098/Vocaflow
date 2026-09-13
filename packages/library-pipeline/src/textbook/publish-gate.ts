@@ -54,6 +54,18 @@ export interface PublishGateInput {
   band: number
   /** 인쇄될 문항 수. */
   items: number
+  /**
+   * **이 권을 찍을 때 쓴 단원 수.** 푸는 명령에 그대로 들어간다.
+   *
+   * ⚠️ 여기가 없던 동안 세 명령이 `20` 을 **박아** 안내했다(실측 2026-09-13). 조판기의
+   *   기본값은 시중 실측 중앙값 **10**(`MARKET_UNITS_PER_BOOK.median`)이라, 게이트가
+   *   시킨 대로 드레인을 돌리면 **120문항짜리 다른 책**을 겨냥한다 — 뽑은 몫을 다 채워도
+   *   찍히는 60문항의 구멍은 안 메워진다. 드레인 자신이 「조판할 때 쓸 값과 같아야
+   *   겨냥한 책과 실린 책이 같다」고 경고해 둔 바로 그 드리프트다.
+   *
+   *   그래서 **기본값을 두지 않는다** — 때우면 다시 갈린다. 부르는 쪽이 실제 값을 넘긴다.
+   */
+  units: number
   /** 그중 해설이 붙은 수. */
   explained: number
   /** 자동 검수에서 떨어진 항목 이름 — `scoreVolume().auto` 의 `label`. */
@@ -178,7 +190,7 @@ export function judgePublish(input: PublishGateInput): PublishGateVerdict {
       //   순서를 명령에 담는다 — 규칙으로 안 되는 것만 배치로 간다.
       fix:
         `pnpm dlx tsx scripts/textbook/explain-fill.mjs --commit --type <유형> ` +
-        `→ 남은 것만 explain-drain-export.mjs --band ${input.band} --volume 20 --size 12`,
+        `→ 남은 것만 explain-drain-export.mjs --band ${input.band} --volume ${input.units} --size 12`,
     })
   }
 
@@ -188,7 +200,7 @@ export function judgePublish(input: PublishGateInput): PublishGateVerdict {
       severity: 'block',
       label: '자동 검수 미통과',
       detail: `떨어진 항목 ${input.failedChecks.length}개 — ${input.failedChecks.join(' · ')}`,
-      fix: `pnpm dlx tsx scripts/textbook/build-volume.mjs --band ${input.band} --units 20`,
+      fix: `pnpm dlx tsx scripts/textbook/build-volume.mjs --band ${input.band} --units ${input.units}`,
     })
   }
 
@@ -206,7 +218,7 @@ export function judgePublish(input: PublishGateInput): PublishGateVerdict {
       detail:
         `${input.reviewedItems}/${input.items} — ` +
         `${input.items - input.reviewedItems}문항이 페르소나 3인 통과를 못 받았다`,
-      fix: `pnpm dlx tsx scripts/textbook/item-review-drain-export.mjs --band ${input.band} --volume 20`,
+      fix: `pnpm dlx tsx scripts/textbook/item-review-drain-export.mjs --band ${input.band} --volume ${input.units}`,
     })
   }
 
