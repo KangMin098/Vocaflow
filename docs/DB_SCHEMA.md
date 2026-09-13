@@ -1036,6 +1036,7 @@ set id 만 알면 구독됐다. **화면 게이트는 노출 경계의 증거가
 ## 최근 마이그레이션 (20개)
 
 ```
+20260913013946  csat_exams_paper_form                      ← 인쇄 형(홀수/짝수/단일). `form`(수준별 A/B)과 다른 축
 20260913000100  video_bucket                               ← 공개 Storage 버킷 `video` + 정책 3 (아래 참조)
 20260912235900  funnel_events_video                        ← 영상 관측 2종을 허용목록에 (없으면 조용히 버려진다)
 20260906093000  grade_dcp_item_explain_on_correct          ← 정답일 때도 해설을 돌려준다
@@ -1467,14 +1468,14 @@ anon 세션으로 실측 검증: 미발행 호 0건 노출.
 
 원장 6표 + 검수 게이트 2종 + 커버리지 RPC 1.
 
-| 테이블 | 무엇 | 행(2026-09-02) |
+| 테이블 | 무엇 | 행(2026-09-13) |
 |---|---|---|
 | `csat_types` | 문항 유형(정본은 `scripts/csat/classify-types.mjs`) | 44 (사정권 26) |
-| `csat_exams` | 회차. `listening_end` 로 듣기 경계를 회차마다 갖는다 | 30 |
-| `csat_items` | 문항. `in_scope` = 듣기 아님. `passage` 는 평가원 저작물 | 1,350 (사정권 830) |
-| `csat_item_analyses` | 문항 분석. 덮지 않고 `version` 을 올린다 | 60 published |
-| `csat_analysis_reviews` | 3인 검수. `unique(analysis_id, persona)` | 180 |
-| `csat_type_reports` | 유형별 분석 결과 | 1 |
+| `csat_exams` | 회차. `listening_end` 로 듣기 경계를 회차마다 갖는다. **`paper_form`**(홀수/짝수/단일)은 `form`(2014 수준별 A/B)과 **다른 축** — `choices` 순서·`answer` 번호가 형마다 다르므로 선지를 자리로 가리키는 화면이 대조해야 한다(마이그레이션 `20260913013946`) | 30 (홀수 7 · 짝수 6 · 단일 16 · M2009 무효로 없음) |
+| `csat_items` | 문항. `in_scope` = 듣기 아님. `passage` 는 평가원 저작물(RLS `USING (false)` + `csat_items_public` 뷰) | 802 (전부 사정권 · 듣기 500행은 2026-09-03 지시로 제외) |
+| `csat_item_analyses` | 문항 분석. 덮지 않고 `version` 을 올린다. ⚠️ 적재의 중복 판정이 2026-09-13 까지 jsonb 키 순서 때문에 늘 「다르다」로 나와 전량 적재마다 802행이 늘었다 — 행 수에 그 자국이 있다 | 3,069 published (802문항 · 최대 v5) |
+| `csat_analysis_reviews` | 3인 검수. `unique(analysis_id, persona)` | 9,207 |
+| `csat_type_reports` | 유형별 분석 결과 | 26 |
 
 ### 검수 3인을 스키마가 강제한다
 
