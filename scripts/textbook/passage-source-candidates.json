@@ -75,7 +75,7 @@
       "derivClaim": "mixed",
       "band": "C1-C2",
       "register": "argumentative",
-      "note": "단행본 챕터 도입부가 목표. 책별 라이선스가 달라 편당 판정 없이 대량 적재하면 ND 가 섞인다"
+      "note": "단행본 챕터 도입부가 목표. 전 구간 균등 표본 1,500건 실측(2026-09-13): 변형 가능(BY·BY-SA·CC0) 33.6% → **그러나 영어는 51.1% 뿐**이라 「변형 가능 × 영어」는 22.7%(전체 환산 약 28,983권). 단위도 book 81.5% · chapter 8.1% 라 대부분 OAPEN 의 PDF 를 장으로 쪼개야 지문이 된다. 인문·사회 register 는 Europe PMC 로 대체되지 않으므로 가치는 남는다 — 다만 획득 비용이 가장 높다"
     },
     {
       "rank": 3,
@@ -1608,16 +1608,16 @@
     {
       "rank": 88,
       "id": "europe_pmc",
-      "label": "Europe PMC — 색인",
+      "label": "Europe PMC — CC BY 전문 XML (라이선스 필터가 질의 파라미터)",
       "est": 0,
-      "kind": "index",
-      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=OPEN_ACCESS:y&format=json&pageSize=1",
+      "kind": "api",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=OPEN_ACCESS%3Ay%20AND%20IN_EPMC%3Ay%20AND%20LICENSE%3A%22cc%20by%22%20AND%20LANG%3A%22eng%22%20AND%20PUB_TYPE%3A%22review%22&format=json&pageSize=1",
       "totalPath": "hitCount",
-      "licenseClaim": "메타데이터 개방 · 본문은 원 저널",
-      "derivClaim": "mixed",
-      "band": "C2",
-      "register": "expository",
-      "note": "탐색용. PMC 중복"
+      "licenseClaim": "CC BY 4.0 (질의에서 LICENSE:\"cc by\" 로 고정 — 혼재가 들어올 수 없다)",
+      "derivClaim": "yes",
+      "band": "C1-C2",
+      "register": "argumentative",
+      "note": "사용자 표는 「원문 아님」으로 0점을 줬으나 실측은 반대다(2026-09-13). CC BY × 영어 × 전문보유 5,218,944편 · 그중 PUB_TYPE:\"review\" 618,178편. 서론 발췌 규격 수확률 97.5%(표본 40편, scripts/textbook/epmc-yield-probe.mjs) → 약 602,724편 지문 후보. 소재도 생의학 전용이 아니다 — Frontiers in Psychology 4,951 · language/learning 6,319 · social/cultural 3,575 · climate/environment 3,183 · education 2,583 (전부 CC BY 영어 review 실측). DOAB 와 달리 PDF 장 분할이 필요 없다"
     },
     {
       "rank": 88,

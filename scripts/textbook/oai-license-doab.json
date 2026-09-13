@@ -1,6 +1,6 @@
 {
   "source": "doab",
-  "measured_at": "2026-09-13T03:47:48.980Z",
+  "measured_at": "2026-09-13T04:21:28.843Z",
   "sampling": "spread",
   "sample_size": 1500,
   "complete_list_size": 127677,
@@ -22,5 +22,41 @@
   "open": 504,
   "closed": 840,
   "none": 156,
-  "projected_open": 42899
+  "projected_open": 42899,
+  "open_en": 340,
+  "open_en_chapter": 17,
+  "projected_open_en": 28940,
+  "lang_tally": {
+    "eng": 767,
+    "ita": 50,
+    "fre": 164,
+    "(없음)": 162,
+    "ger": 178,
+    "slv": 5,
+    "por": 31,
+    "spa": 69,
+    "slo": 1,
+    "english[eng]": 1,
+    "pol": 42,
+    "rus": 5,
+    "tur": 3,
+    "swe": 1,
+    "nor": 2,
+    "cze": 2,
+    "dut": 5,
+    "lit": 1,
+    "espagnol": 1,
+    "gre": 1,
+    "fin": 3,
+    "cat": 2,
+    "ukr": 1,
+    "nob": 1,
+    "chi": 1,
+    "afr": 1
+  },
+  "unit_tally": {
+    "book": 1223,
+    "chapter": 121,
+    "(없음)": 156
+  }
 }

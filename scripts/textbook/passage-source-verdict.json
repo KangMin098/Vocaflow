@@ -1,17 +1,17 @@
 {
-  "measured_at": "2026-09-13T03:43:57.304Z",
-  "verdict_at": "2026-09-13T03:51:07.319Z",
+  "measured_at": "2026-09-13T04:32:05.732Z",
+  "verdict_at": "2026-09-13T04:33:01.375Z",
   "tally": {
-    "A": 30,
+    "A": 32,
     "B": 10,
     "C": 24,
     "D": 25,
-    "E": 32
+    "E": 30
   },
   "upstream_by_grade": {
-    "A": 11302392,
+    "A": 11920587,
     "B": 8347234,
-    "E": 198261616
+    "E": 190157896
   },
   "rows": [
     {
@@ -20,7 +20,7 @@
       "label": "English Wikipedia — FA/GA",
       "rank": 7,
       "est": 1000,
-      "upstream": 7239051,
+      "upstream": 7239062,
       "upstreamKind": "total",
       "verdict": "api",
       "route": "open",
@@ -60,7 +60,7 @@
       "label": "Wikisource — 고전",
       "rank": 74,
       "est": 50,
-      "upstream": 1129176,
+      "upstream": 1129178,
       "upstreamKind": "total",
       "verdict": "api",
       "route": "open",
@@ -71,6 +71,24 @@
       "licenseHits": [],
       "licensePageHits": [],
       "note": "Gutenberg 중복"
+    },
+    {
+      "grade": "A",
+      "id": "europe_pmc",
+      "label": "Europe PMC — CC BY 전문 XML (라이선스 필터가 질의 파라미터)",
+      "rank": 88,
+      "est": 0,
+      "upstream": 618182,
+      "upstreamKind": "total",
+      "verdict": "api",
+      "route": "open",
+      "wired": null,
+      "register": "argumentative",
+      "band": "C1-C2",
+      "licenseClaim": "CC BY 4.0 (질의에서 LICENSE:\"cc by\" 로 고정 — 혼재가 들어올 수 없다)",
+      "licenseHits": [],
+      "licensePageHits": [],
+      "note": "사용자 표는 「원문 아님」으로 0점을 줬으나 실측은 반대다(2026-09-13). CC BY × 영어 × 전문보유 5,218,944편 · 그중 PUB_TYPE:\"review\" 618,178편. 서론 발췌 규격 수확률 97.5%(표본 40편, scripts/textbook/epmc-yield-probe.mjs) → 약 602,724편 지문 후보. 소재도 생의학 전용이 아니다 — Frontiers in Psychology 4,951 · language/learning 6,319 · social/cultural 3,575 · climate/environment 3,183 · education 2,583 (전부 CC BY 영어 review 실측). DOAB 와 달리 PDF 장 분할이 필요 없다"
     },
     {
       "grade": "A",
@@ -318,7 +336,7 @@
       "label": "Wikivoyage — 여행 안내",
       "rank": 87,
       "est": 0,
-      "upstream": 38,
+      "upstream": 32,
       "upstreamKind": "page",
       "verdict": "rss",
       "route": "open",
@@ -488,6 +506,24 @@
     },
     {
       "grade": "A",
+      "id": "gutenberg",
+      "label": "Project Gutenberg — 근대 에세이·과학",
+      "rank": 23,
+      "est": 500,
+      "upstream": 10,
+      "upstreamKind": "page",
+      "verdict": "rss",
+      "route": "open",
+      "wired": "gutenberg",
+      "register": "expository",
+      "band": "C1-C2",
+      "licenseClaim": "PD (미국 기준)",
+      "licenseHits": [],
+      "licensePageHits": [],
+      "note": null
+    },
+    {
+      "grade": "A",
       "id": "nasa",
       "label": "NASA — 현상→원인→의미",
       "rank": 43,
@@ -544,19 +580,21 @@
     },
     {
       "grade": "A",
-      "id": "gutenberg",
-      "label": "Project Gutenberg — 근대 에세이·과학",
-      "rank": 23,
-      "est": 500,
+      "id": "scientific_reports",
+      "label": "Scientific Reports — 서론",
+      "rank": 18,
+      "est": 200,
       "upstream": 8,
       "upstreamKind": "page",
       "verdict": "rss",
       "route": "open",
-      "wired": "gutenberg",
+      "wired": null,
       "register": "expository",
-      "band": "C1-C2",
-      "licenseClaim": "PD (미국 기준)",
-      "licenseHits": [],
+      "band": "C2",
+      "licenseClaim": "CC BY 4.0",
+      "licenseHits": [
+        "\"All rights reserved\""
+      ],
       "licensePageHits": [],
       "note": null
     },
@@ -1713,7 +1751,7 @@
       "label": "Internet Archive — 색인",
       "rank": 88,
       "est": 0,
-      "upstream": 52115712,
+      "upstream": 52244306,
       "upstreamKind": "total",
       "verdict": "index",
       "route": "per-item",
@@ -1731,7 +1769,7 @@
       "label": "DOAJ — OA 저널 색인",
       "rank": 88,
       "est": 0,
-      "upstream": 13597032,
+      "upstream": 13597046,
       "upstreamKind": "total",
       "verdict": "index",
       "route": "per-item",
@@ -1742,24 +1780,6 @@
       "licenseHits": [],
       "licensePageHits": [],
       "note": "탐색용 — 라이선스별 필터링 가치가 크다"
-    },
-    {
-      "grade": "E",
-      "id": "europe_pmc",
-      "label": "Europe PMC — 색인",
-      "rank": 88,
-      "est": 0,
-      "upstream": 8232328,
-      "upstreamKind": "total",
-      "verdict": "index",
-      "route": "per-item",
-      "wired": null,
-      "register": "expository",
-      "band": "C2",
-      "licenseClaim": "메타데이터 개방 · 본문은 원 저널",
-      "licenseHits": [],
-      "licensePageHits": [],
-      "note": "탐색용. PMC 중복"
     },
     {
       "grade": "E",
@@ -1940,24 +1960,6 @@
       "licenseHits": [],
       "licensePageHits": [],
       "note": "HTTP 403 — UA 위장 대신 뺀다"
-    },
-    {
-      "grade": "E",
-      "id": "scientific_reports",
-      "label": "Scientific Reports — 서론",
-      "rank": 18,
-      "est": 200,
-      "upstream": 0,
-      "upstreamKind": "page",
-      "verdict": "dead",
-      "route": "open",
-      "wired": null,
-      "register": "expository",
-      "band": "C2",
-      "licenseClaim": "CC BY 4.0",
-      "licenseHits": [],
-      "licensePageHits": [],
-      "note": "피드 주소가 HTML 을 돌려준다 — 주소가 틀렸다"
     },
     {
       "grade": "E",

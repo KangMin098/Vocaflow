@@ -136,3 +136,70 @@ describe('라이선스 표본 — 모르는 것을 가능으로 접지 않는다
     expect(tally.projected_open).toBe(expected)
   })
 })
+
+describe('DOAB 표본 — 언어·단위 축을 빼고 세지 않는다', () => {
+  const tally = read('scripts/textbook/oai-license-doab.json')
+
+  it('언어와 단위를 같이 센다 — 라이선스만 세면 수치가 과대해진다', () => {
+    // Cycle 1 은 「변형 가능 42,899권」이라 적었는데 그것은 영어 축을 빼고 센 수였다.
+    // 실제 영어 비율은 51.1% 였다. 축이 사라지면 같은 과대추정이 다시 들어온다.
+    expect(tally.lang_tally, '언어 집계가 없다').toBeTruthy()
+    expect(tally.unit_tally, '단위(book/chapter) 집계가 없다').toBeTruthy()
+    expect(tally.open_en, '변형 가능 × 영어 수가 없다').toBeTypeOf('number')
+  })
+
+  it('변형 가능 × 영어는 변형 가능 전체보다 클 수 없다', () => {
+    expect(tally.open_en).toBeLessThanOrEqual(tally.open)
+    expect(tally.open_en_chapter).toBeLessThanOrEqual(tally.open_en)
+  })
+})
+
+describe('Europe PMC 수확률 — 규격 창을 자기가 정하지 않는다', () => {
+  const y = read('scripts/textbook/epmc-yield.json')
+
+  it('창은 조판 정본(compose-unit)의 값이다', async () => {
+    const { CSAT_ITEM_WORDS, CSAT_LONG_ITEM_WORDS } = await import(
+      '../../../packages/library-pipeline/src/textbook/compose-unit.ts'
+    )
+    // 프로브가 자기 숫자를 적기 시작하면 화면·조판과 다른 답을 하는 날이 온다.
+    expect(y.windows.short).toEqual({ min: CSAT_ITEM_WORDS.min, max: CSAT_ITEM_WORDS.max })
+    expect(y.windows.long).toEqual({ min: CSAT_LONG_ITEM_WORDS.min, max: CSAT_LONG_ITEM_WORDS.max })
+  })
+
+  it('라이선스가 질의에 박혀 있다 — 혼재가 들어올 수 없다', () => {
+    expect(y.query).toMatch(/LICENSE:"cc by"/)
+    expect(y.query).toMatch(/LANG:"eng"/)
+  })
+
+  it('수확률은 표본 안에서 계산된다 — 표본보다 큰 적중은 없다', () => {
+    expect(y.fit_either).toBeLessThanOrEqual(y.sample_size)
+    expect(y.fit_short).toBeLessThanOrEqual(y.sample_size)
+    expect(y.fit_long).toBeLessThanOrEqual(y.sample_size)
+  })
+
+  it('환산 지문 수는 상류 × 수확률이지 실측이 아니다', () => {
+    expect(y.projected_passages).toBe(Math.round((y.hit_count * y.fit_either) / y.sample_size))
+  })
+})
+
+describe('Europe PMC 는 색인이 아니라 1급 소스로 분류돼 있다', () => {
+  it('사용자 표의 「원문 아님」 판정을 실측이 뒤집은 것을 지킨다', () => {
+    const c = registry.candidates.find((x) => x.id === 'europe_pmc')
+    // index 로 되돌아가면 A 등급에서 빠지고, 논증문 공급선이 다시 페이지 분량 3곳으로 줄어든다.
+    expect(c.kind, 'europe_pmc 가 index 로 되돌아갔다').toBe('api')
+    expect(c.derivClaim).toBe('yes')
+    expect(c.register).toBe('argumentative')
+    const row = verdict.rows.find((r) => r.id === 'europe_pmc')
+    expect(row.grade).toBe('A')
+  })
+
+  it('A 등급 논증문 공급선 중 총량이 공표된 곳이 최소 하나 있다', () => {
+    const withTotal = verdict.rows.filter(
+      (r) => r.grade === 'A' && r.register === 'argumentative' && r.upstreamKind === 'total',
+    )
+    expect(
+      withTotal.map((r) => r.id),
+      'RSS 한 페이지 분량만 남으면 「공급선이 있다」가 참이어도 재고는 안 는다',
+    ).not.toEqual([])
+  })
+})

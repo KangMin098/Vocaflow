@@ -136,6 +136,10 @@ if (sampling === 'spread') {
 
 // ── 2) 레코드별 판정 ────────────────────────────────────────────────
 const tally = {}
+const langTally = {}
+const unitTally = {}
+let openEn = 0
+let openEnChapter = 0
 let open = 0
 let closed = 0
 let none = 0
@@ -148,6 +152,16 @@ for (const body of bodies) {
       ...rec.matchAll(/<dcterms:license[^>]*>([^<]+)</g),
     ].map((m) => m[1])
     const { label, open: isOpen } = classify(uris)
+    // **언어와 단위를 같이 센다.** 라이선스만 세면 42,899권이 나오는데 그중 상당수가
+    //   영어가 아니고(DOAB 는 다국어다 — 표본에 이탈리아어 장이 그대로 들어 있었다),
+    //   단위도 book/chapter 가 섞여 있다. 교재 지문이 되는 것은 **영어 × 장(chapter)** 이다.
+    const lang = (rec.match(/<dc:language[^>]*>([^<]+)</)?.[1] ?? '(없음)').trim().toLowerCase()
+    const unit = (rec.match(/<oaire:resourceType[^>]*>([^<]+)</)?.[1] ?? '(없음)').trim().toLowerCase()
+    langTally[lang] = (langTally[lang] ?? 0) + 1
+    unitTally[unit] = (unitTally[unit] ?? 0) + 1
+    const english = /^(eng|en|english)$/.test(lang)
+    if (isOpen && english) openEn++
+    if (isOpen && english && unit === 'chapter') openEnChapter++
     tally[label] = (tally[label] ?? 0) + 1
     total++
     if (isOpen) open++
@@ -167,6 +181,14 @@ console.log('─'.repeat(56))
 console.log(`변형 가능 (BY · BY-SA · CC0)  ${String(open).padStart(5)}  ${pct(open)}`)
 console.log(`변형 불가 (ND · NC · 기타)    ${String(closed).padStart(5)}  ${pct(closed)}`)
 console.log(`표기 없음 (가능으로 세지 않음) ${String(none).padStart(5)}  ${pct(none)}`)
+console.log('\n언어 상위 6')
+for (const [k, v] of Object.entries(langTally).sort((a, b) => b[1] - a[1]).slice(0, 6))
+  console.log(`${String(v).padStart(5)} ${pct(v).padStart(6)}  ${k}`)
+console.log('단위')
+for (const [k, v] of Object.entries(unitTally).sort((a, b) => b[1] - a[1]).slice(0, 6))
+  console.log(`${String(v).padStart(5)} ${pct(v).padStart(6)}  ${k}`)
+console.log(`\n변형 가능 × 영어            ${String(openEn).padStart(5)}  ${pct(openEn)}`)
+console.log(`변형 가능 × 영어 × 장(chapter) ${String(openEnChapter).padStart(5)}  ${pct(openEnChapter)}`)
 if (completeListSize)
   console.log(
     `\n→ 전체 환산 변형 가능 약 ${Math.round((completeListSize * open) / total).toLocaleString()}건 ` +
@@ -188,6 +210,11 @@ if (outPath) {
         closed,
         none,
         projected_open: completeListSize ? Math.round((completeListSize * open) / total) : null,
+        open_en: openEn,
+        open_en_chapter: openEnChapter,
+        projected_open_en: completeListSize ? Math.round((completeListSize * openEn) / total) : null,
+        lang_tally: langTally,
+        unit_tally: unitTally,
       },
       null,
       2,

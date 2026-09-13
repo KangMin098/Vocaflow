@@ -1,16 +1,16 @@
 {
-  "measured_at": "2026-09-13T03:43:57.304Z",
+  "measured_at": "2026-09-13T04:32:05.732Z",
   "spec_version": 1,
   "tally": {
-    "rss": 43,
+    "rss": 44,
     "oai": 3,
-    "api": 10,
+    "api": 11,
     "html": 25,
     "blocked": 19,
     "excluded": 2,
-    "dead": 7,
+    "dead": 6,
     "list": 8,
-    "index": 4
+    "index": 3
   },
   "results": [
     {
@@ -229,7 +229,7 @@
       "register": "expository",
       "note": "배선됨. ready+published 59편 — 상류는 큰데 수확이 거의 없다",
       "verdict": "api",
-      "total": 7239051,
+      "total": 7239062,
       "sample": [],
       "licenseHits": [],
       "licensePage": null
@@ -632,13 +632,19 @@
       "derivClaim": "yes",
       "band": "C2",
       "register": "expository",
-      "note": "피드 주소가 HTML 을 돌려준다 — 주소가 틀렸다",
-      "verdict": "dead",
-      "items": 0,
-      "bytes": 3036,
-      "ctype": "text/html; charset=utf-8",
-      "sample": [],
-      "licenseHits": [],
+      "note": null,
+      "verdict": "rss",
+      "items": 8,
+      "bytes": 14896,
+      "ctype": "application/rss+xml; charset=utf-8",
+      "sample": [
+        "Interactive effects of coffee husk biochar and NPSB rates on food barley (<i>Hordeum vulgare</i> L.) yield under limed and unlimed acidic soils",
+        "Unveiling the long history of bilateral food trade",
+        "Maternal mental health in times of health service disruption: factors associated with postpartum depressive symptoms in Thailand"
+      ],
+      "licenseHits": [
+        "\"All rights reserved\""
+      ],
       "licensePage": null
     },
     {
@@ -764,13 +770,13 @@
       "register": "expository",
       "note": null,
       "verdict": "rss",
-      "items": 8,
-      "bytes": 2199,
+      "items": 10,
+      "bytes": 2609,
       "ctype": "application/rss+xml",
       "sample": [
         "Malice in Kulturland by Horace Wyatt",
-        "Drift and mastery : by Walter Lippmann",
-        "Valiant dust by Katharine Fullerton Gerould"
+        "Goldsmith's essays by Oliver Goldsmith",
+        "Drift and mastery : by Walter Lippmann"
       ],
       "licenseHits": [],
       "via": "curl",
@@ -1883,6 +1889,8 @@
       "total": 413,
       "sample": [],
       "licenseHits": [],
+      "via": "curl",
+      "nodeError": "fetch failed ECONNRESET",
       "licensePage": null
     },
     {
@@ -2020,7 +2028,7 @@
       "note": "항목 0건",
       "verdict": "dead",
       "items": 0,
-      "bytes": 4524,
+      "bytes": 4541,
       "ctype": "text/xml",
       "sample": [],
       "licenseHits": [],
@@ -2143,7 +2151,7 @@
       "register": "expository",
       "note": "Gutenberg 중복",
       "verdict": "api",
-      "total": 1129176,
+      "total": 1129178,
       "sample": [],
       "licenseHits": [],
       "licensePage": null
@@ -2364,12 +2372,12 @@
       "note": null,
       "verdict": "rss",
       "items": 25,
-      "bytes": 16975,
+      "bytes": 16939,
       "ctype": "application/rss+xml; charset=UTF-8",
       "sample": [
-        "Yemen’s Houthis seize strategic Mayun Island in Red Sea",
-        "‘We started to plummet’: Turbulence rocks Turkish Airlines flight",
-        "Iraq seizes drone-launching platform used for targeting Saudi oil pipeline"
+        "Wildfire rages on Croatia’s Dalmatian Coast island of Brac",
+        "One dead, more than 30 missing after Vanuatu ferry sinks, PM’s office says",
+        "Yemen’s Houthis seize strategic Mayun Island in Red Sea"
       ],
       "licenseHits": [],
       "licensePage": null
@@ -2406,7 +2414,7 @@
       "note": null,
       "verdict": "list",
       "items": 24,
-      "bytes": 67586,
+      "bytes": 67571,
       "ctype": "text/html; charset=UTF-8",
       "licenseHits": [],
       "licensePage": null
@@ -2481,13 +2489,13 @@
       "register": "reference",
       "note": null,
       "verdict": "rss",
-      "items": 38,
-      "bytes": 403417,
+      "items": 32,
+      "bytes": 397361,
       "ctype": "application/xml; charset=UTF-8",
       "sample": [
-        "Talk:Nauru",
-        "Bamboi",
-        "Talk:Nauru"
+        "User:Bagaswepe/Visited",
+        "Mahjong",
+        "Kulai"
       ],
       "licenseHits": [],
       "licensePage": null
@@ -2506,7 +2514,7 @@
       "register": "expository",
       "note": "탐색용 — 라이선스별 필터링 가치가 크다",
       "verdict": "index",
-      "total": 13597032,
+      "total": 13597046,
       "sample": [],
       "licenseHits": [],
       "licensePage": null
@@ -2514,18 +2522,18 @@
     {
       "rank": 88,
       "id": "europe_pmc",
-      "label": "Europe PMC — 색인",
+      "label": "Europe PMC — CC BY 전문 XML (라이선스 필터가 질의 파라미터)",
       "est": 0,
-      "kind": "index",
-      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=OPEN_ACCESS:y&format=json&pageSize=1",
+      "kind": "api",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=OPEN_ACCESS%3Ay%20AND%20IN_EPMC%3Ay%20AND%20LICENSE%3A%22cc%20by%22%20AND%20LANG%3A%22eng%22%20AND%20PUB_TYPE%3A%22review%22&format=json&pageSize=1",
       "wired": null,
-      "licenseClaim": "메타데이터 개방 · 본문은 원 저널",
-      "derivClaim": "mixed",
-      "band": "C2",
-      "register": "expository",
-      "note": "탐색용. PMC 중복",
-      "verdict": "index",
-      "total": 8232328,
+      "licenseClaim": "CC BY 4.0 (질의에서 LICENSE:\"cc by\" 로 고정 — 혼재가 들어올 수 없다)",
+      "derivClaim": "yes",
+      "band": "C1-C2",
+      "register": "argumentative",
+      "note": "사용자 표는 「원문 아님」으로 0점을 줬으나 실측은 반대다(2026-09-13). CC BY × 영어 × 전문보유 5,218,944편 · 그중 PUB_TYPE:\"review\" 618,178편. 서론 발췌 규격 수확률 97.5%(표본 40편, scripts/textbook/epmc-yield-probe.mjs) → 약 602,724편 지문 후보. 소재도 생의학 전용이 아니다 — Frontiers in Psychology 4,951 · language/learning 6,319 · social/cultural 3,575 · climate/environment 3,183 · education 2,583 (전부 CC BY 영어 review 실측). DOAB 와 달리 PDF 장 분할이 필요 없다",
+      "verdict": "api",
+      "total": 618182,
       "sample": [],
       "licenseHits": [],
       "licensePage": null
@@ -2560,7 +2568,7 @@
       "register": "expository",
       "note": "탐색용 — PDCP 만화가 이미 쓰는 경로",
       "verdict": "index",
-      "total": 52115712,
+      "total": 52244306,
       "sample": [],
       "licenseHits": [],
       "licensePage": null

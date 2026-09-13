@@ -10,11 +10,11 @@
 
 | 등급 | 뜻 | 소스 | 상류 합 (총량 공표분만) | 그중 배선됨 |
 |---|---|---:|---:|---:|
-| A | 즉시 착수 — 열거 ⭕ 변형 ⭕ | 30 | 11,302,392 | 20 |
+| A | 즉시 착수 — 열거 ⭕ 변형 ⭕ | 32 | 11,920,587 | 20 |
 | B | 편당 라이선스 필터가 먼저 | 10 | 8,347,234 | 0 |
 | C | 비개방 파이프라인 (표시 전용) | 24 | 0 | 1 |
 | D | 열거 수단 개발 필요 (피드 없음) | 25 | 0 | 0 |
-| E | 지금은 불가 (차단·죽음·제외·색인) | 32 | 198,261,616 | 2 |
+| E | 지금은 불가 (차단·죽음·제외·색인) | 30 | 190,157,896 | 2 |
 
 ## 핵심 발견 — 사용자 표와 어긋나는 곳
 
@@ -22,41 +22,58 @@
    `display_only` → 문항 생성기가 통째로 건너뛴다. 실측 2026-08-21 에 논증문 신규 46편이
    전부 이 이유로 문항 0이 됐다. **원문은 확보하되(비개방 파이프라인) 문항 공급선으로 세지 않는다.**
 
-2. **논증문 구멍은 A 등급으로 안 메워진다.** A 등급 30 곳 중 register 가 argumentative 인 것은
-   **grist · owid · hss_communications** 뿐이다.
-   현재 DB 의 변형 가능 논증문은 **1,485편 · 소스 2곳**(plos 1,476 · owid 9)이고, A 등급을 다 붙여도
-   이 축은 거의 늘지 않는다 — 늘어나는 것은 설명문이다.
+2. **표가 0점을 준 Europe PMC 가 실제로는 최대 공급선이다.** 표는 「색인·집계용, 원문 아님」으로
+   뺐지만 실측은 반대다(2026-09-13):
+   - `LICENSE:"cc by" AND LANG:"eng" AND IN_EPMC:y` → **5,218,944편** · 그중 `PUB_TYPE:"review"` **618,178편**
+   - **라이선스 필터가 질의 파라미터**다 — DOAB 처럼 편당 판정을 만들 필요가 없다
+   - 본문이 PDF 가 아니라 `/{PMCID}/fullTextXML` 로 바로 나온다 (표본 40편 전부 200)
+   - 서론 발췌 **규격 수확률 97.5%**(짧은 지문 95.0% · 장문 82.5%) → 약 **602,724편 지문 후보**
+   - 생의학 전용도 아니다: Frontiers in Psychology **4,951** · language/learning **6,319** ·
+     social/cultural **3,575** · climate/environment **3,183** · education **2,583**
+     (전부 CC BY 영어 review 실측) — 수능 최빈출 소재가 실재한다
+   측정 근거 `scripts/textbook/epmc-yield-probe.mjs` · `scripts/textbook/epmc-yield.json`
 
-3. **가장 큰 지렛대는 B 등급의 DOAB 다.** 127,677권 중 전 구간 균등 표본 1,500건 실측에서
-   **CC BY·BY-SA·CC0 가 33.6%** → 전체 환산 약 **42,899권**(`scripts/textbook/oai-license-tally.mjs`).
-   장르가 학술 단행본이라 논증문이고 밴드가 C1–C2 다. 다만 **편당 라이선스 필터가 먼저** 필요하다 —
-   ND·NC 가 56.0%, 표기 없음이 10.4% 로 같이 섞여 있어 통째로 적재하면 위법이 조용히 들어온다.
+3. **DOAB 수치를 정정한다.** Cycle 1 에서 「변형 가능 42,899권」이라 적었는데 그것은 **언어 축을
+   빼고 센 수**다. 전 구간 균등 표본 1,500건 실측:
+   변형 가능 33.6% · **영어는 51.1% 뿐** → 「변형 가능 × 영어」 **22.7%(약 28,983권)** ·
+   단위는 book **81.5%** / chapter 8.1% → 대부분 **OAPEN 의 PDF 를 장으로 쪼개야** 지문이 된다.
+   그래도 가치는 남는다 — **인문·사회 단행본은 Europe PMC 로 대체되지 않는다.** 다만 획득 비용이 가장 높다.
 
-4. **설명문 상류는 이미 남아돈다.** MDPI 2,035,254(CC BY) · PMC OA 8,219,033 · Wikipedia 7,239,051.
+4. **논증문 A 등급 공급선이 3곳 → 4곳이 됐고, 상류가 38어에서 618,182편이 됐다.**
+   기존 셋(grist 20 · owid 10 · hss_communications 8)은 전부 RSS 한 페이지 분량이 상류의 전부였다.
+   현재 DB 의 변형 가능 논증문은 **1,485편 · 소스 2곳**(plos 1,476 · owid 9)이다.
+
+5. **설명문 상류는 이미 남아돈다.** MDPI 2,035,254(CC BY) · PMC OA 8,219,033 · Wikipedia 7,239,062.
    즉 이 작업의 병목은 **수량이 아니라 장르와 라이선스**다.
 
-5. **표가 0점을 준 StoryWeaver 는 이 저장소가 의도적으로 붙인 것이다** — 초·중 창 154편의 register 를
+6. **표가 0점을 준 StoryWeaver 는 이 저장소가 의도적으로 붙인 것이다** — 초·중 창 154편의 register 를
    세니 narrative 0 이었고, 편수로는 해결되지 않는 결핍이었다(2026-09-02). 다만 오늘 실측에서
    목록 페이지가 JS 껍데기(링크 0)라 **맨 GET 으로는 열거되지 않는다**.
 
-6. **배선됐는데 흐르지 않는 곳이 있다.** frontiers 1,961편이 전부 `queued`(ready 0) · voa `queued` 10,397편 ·
-   worldbank·cdc·nih·wikinews 는 배선만 있고 적재 0편. **새 소스를 붙이기 전에 이 적체가 먼저다** —
-   상류를 늘려도 큐가 막혀 있으면 교재 재고는 그대로다.
+7. **적체가 새 소스보다 먼저였다 — 그리고 막힌 게 아니라 아무도 안 돌린 것이었다.**
+   큐 47,486편이 전부 **본문은 있고 분석만 없는** 상태였다(`article_v_level`·`register`·`word_count` null).
+   `ANTHROPIC_API_KEY` 없이도 degraded 모드로 돈다(CEFR 신뢰도 0.732 → 0.725). 처리량 **약 1.2초/편**.
+   VOA 를 4갈래로 드레인해 `ready` **230 → 3,607편**(+3,377)을 올렸고, 그 전부가 얇던 밴드로 들어갔다:
+   V4 **+2,116** · V3 **+688** · V2 **+405** · V5 +491. 새 소스 0개로 얻은 재고다.
 
-7. **죽은 것으로 적을 뻔한 것들.** 이 프로브는 처음에 배선된 소스 9곳을 「죽음」으로 냈다. 원인은 소스가
+8. **죽은 것으로 적을 뻔한 것들.** 이 프로브는 처음에 배선된 소스 9곳을 「죽음」으로 냈다. 원인은 소스가
    아니라 ① 내가 짐작한 주소 ② 이 머신의 node TLS(gutenberg.org 는 curl 200 · node ECONNRESET)였다.
    지금은 배선표의 주소를 쓰고 curl 로 한 번 더 묻는다. **실측 도구가 틀리면 근거가 통째로 거짓이 된다.**
+   같은 종류의 실수를 서론 파서에서도 했다 — 중첩 `<sec>` 를 비탐욕 정규식으로 잡아 Introduction 이
+   있는 논문을 「없음」으로 셌고(깊이 세기로 교체), `<sec>` 이 아예 없는 문서 15% 를 버렸다(본문 앞머리로
+   보정). 두 수정으로 수확률이 82.5% → **97.5%** 가 됐다 — 소스가 좋아진 것이 아니라 **내 자가 나아졌다**.
 
-8. **진짜로 못 쓰는 것.** Wikinews 는 최근 30일 항목 **0건**(사실상 정지) · Census 보도자료 피드는
+9. **진짜로 못 쓰는 것.** Wikinews 는 최근 30일 항목 **0건**(사실상 정지) · Census 보도자료 피드는
    `<link/>`·`<guid/>` 가 전부 비어 기사 주소가 없다 · OpenStax·StoryWeaver·CK-12 는 JS 껍데기다.
 
 ## A — 즉시 착수
 
 | 등급 | 소스 | 실측 상류 | 센 것 | 열거 | 파이프라인 | register | 밴드 | 라이선스 주장 | 근거(실측) |
 |---|---|---:|---|---|---|---|---|---|---|
-| A | ● wikipedia | 7,239,051 | 총량 | api | 개방 파이프라인 (문항 변형 가능) | expository | B2-C1 | CC BY-SA 4.0 | — |
+| A | ● wikipedia | 7,239,062 | 총량 | api | 개방 파이프라인 (문항 변형 가능) | expository | B2-C1 | CC BY-SA 4.0 | — |
 | A | mdpi | 2,035,254 | 총량 | oai | 개방 파이프라인 (문항 변형 가능) | expository | C1-C2 | CC BY 4.0 | CC BY · 약관:CC BY |
-| A | wikisource | 1,129,176 | 총량 | api | 개방 파이프라인 (문항 변형 가능) | expository | C1-C2 | PD 본문 + CC BY-SA 편집분 | — |
+| A | wikisource | 1,129,178 | 총량 | api | 개방 파이프라인 (문항 변형 가능) | expository | C1-C2 | PD 본문 + CC BY-SA 편집분 | — |
+| A | europe_pmc | 618,182 | 총량 | api | 개방 파이프라인 (문항 변형 가능) | argumentative | C1-C2 | CC BY 4.0 (질의에서 LICENSE:"cc by" 로 고정 — 혼재가 들어올 수 없다) | — |
 | A | ● plos | 415,856 | 총량 | api | 개방 파이프라인 (문항 변형 가능) | expository | C1-C2 | CC BY 4.0 | — |
 | A | ● simple_wikipedia | 284,979 | 총량 | api | 개방 파이프라인 (문항 변형 가능) | expository | A2-B1 | CC BY-SA 4.0 | — |
 | A | wikibooks | 98,724 | 총량 | api | 개방 파이프라인 (문항 변형 가능) | expository | B1-C1 | CC BY-SA 4.0 | — |
@@ -70,7 +87,7 @@
 | A | ● factbook | 50 | 1페이지(하한) | list | 개방 파이프라인 (문항 변형 가능) | reference | B1-B2 | PD (미 연방정부) | — |
 | A | ● noaa | 45 | 1페이지(하한) | list | 개방 파이프라인 (문항 변형 가능) | expository | B2-C1 | PD (미 연방정부) | — |
 | A | ● nist | 40 | 1페이지(하한) | rss | 개방 파이프라인 (문항 변형 가능) | expository | B2-C1 | PD (미 연방정부) | — |
-| A | ● wikivoyage | 38 | 1페이지(하한) | rss | 개방 파이프라인 (문항 변형 가능) | reference | B1-B2 | CC BY-SA 4.0 | — |
+| A | ● wikivoyage | 32 | 1페이지(하한) | rss | 개방 파이프라인 (문항 변형 가능) | reference | B1-B2 | CC BY-SA 4.0 | — |
 | A | ● space_place | 24 | 1페이지(하한) | list | 개방 파이프라인 (문항 변형 가능) | expository | A2-B1 | PD (미 연방정부) | — |
 | A | nps | 21 | 1페이지(하한) | list | 개방 파이프라인 (문항 변형 가능) | expository | B1-B2 | PD (미 연방정부) | "All rights reserved" |
 | A | ● frontiers | 20 | 1페이지(하한) | rss | 개방 파이프라인 (문항 변형 가능) | expository | C1-C2 | CC BY 4.0 | — |
@@ -79,10 +96,11 @@
 | A | global_voices | 15 | 1페이지(하한) | rss | 개방 파이프라인 (문항 변형 가능) | expository | B2 | CC BY 3.0 | CC BY-SA · CC BY · "public domain" 문구 · 약관:CC BY |
 | A | standard_ebooks | 15 | 1페이지(하한) | rss | 개방 파이프라인 (문항 변형 가능) | expository | C1-C2 | PD 본문 + CC0 편집분 | "public domain" 문구 |
 | A | ● futurity | 10 | 1페이지(하한) | rss | 개방 파이프라인 (문항 변형 가능) | expository | B2-C1 | CC BY 4.0 | 약관:"All rights reserved" |
+| A | ● gutenberg | 10 | 1페이지(하한) | rss | 개방 파이프라인 (문항 변형 가능) | expository | C1-C2 | PD (미국 기준) | — |
 | A | ● nasa | 10 | 1페이지(하한) | rss | 개방 파이프라인 (문항 변형 가능) | expository | B1-C1 | PD (미 연방정부) | — |
 | A | ● owid | 10 | 1페이지(하한) | rss | 개방 파이프라인 (문항 변형 가능) | argumentative | B2-C1 | CC BY 4.0 | — |
 | A | nature_comms | 8 | 1페이지(하한) | rss | 개방 파이프라인 (문항 변형 가능) | expository | C2 | CC BY 4.0 | "All rights reserved" |
-| A | ● gutenberg | 8 | 1페이지(하한) | rss | 개방 파이프라인 (문항 변형 가능) | expository | C1-C2 | PD (미국 기준) | — |
+| A | scientific_reports | 8 | 1페이지(하한) | rss | 개방 파이프라인 (문항 변형 가능) | expository | C2 | CC BY 4.0 | "All rights reserved" |
 | A | hss_communications | 8 | 1페이지(하한) | rss | 개방 파이프라인 (문항 변형 가능) | argumentative | C1-C2 | CC BY 4.0 | "All rights reserved" |
 
 ## B — 편당 라이선스 판정이 먼저
@@ -164,9 +182,8 @@
 | 등급 | 소스 | 실측 상류 | 센 것 | 열거 | 파이프라인 | register | 밴드 | 라이선스 주장 | 근거(실측) |
 |---|---|---:|---|---|---|---|---|---|---|
 | E | openalex | 124,316,544 | 총량 | index | 개방 파이프라인 + 편당 라이선스 필터 | expository | C2 | 메타데이터 CC0 | — |
-| E | internet_archive | 52,115,712 | 총량 | index | 개방 파이프라인 + 편당 라이선스 필터 | expository | C1-C2 | 항목별 | — |
-| E | doaj | 13,597,032 | 총량 | index | 개방 파이프라인 + 편당 라이선스 필터 | expository | C2 | 논문별 CC 표기 | — |
-| E | europe_pmc | 8,232,328 | 총량 | index | 개방 파이프라인 + 편당 라이선스 필터 | expository | C2 | 메타데이터 개방 · 본문은 원 저널 | — |
+| E | internet_archive | 52,244,306 | 총량 | index | 개방 파이프라인 + 편당 라이선스 필터 | expository | C1-C2 | 항목별 | — |
+| E | doaj | 13,597,046 | 총량 | index | 개방 파이프라인 + 편당 라이선스 필터 | expository | C2 | 논문별 CC 표기 | — |
 | E | ck12 | 3 | 1페이지(하한) | dead | 비개방 파이프라인 (표시 전용 · 문항 0) | expository | B1-B2 | CC BY-NC 3.0 | — |
 | E | oxford_academic_oa | 0 | 1페이지(하한) | blocked | 개방 파이프라인 + 편당 라이선스 필터 | argumentative | C1-C2 | CC BY / CC BY-NC-ND 혼재 | — |
 | E | stanford_news | 0 | 1페이지(하한) | blocked | 비개방 파이프라인 (표시 전용 · 문항 0) | expository | B2-C1 | © 전부 유보 추정 | — |
@@ -177,7 +194,6 @@
 | E | arxiv | 0 | 1페이지(하한) | excluded | 비개방 파이프라인 (표시 전용 · 문항 0) | expository | C2 | 저자 선택(대부분 비CC arXiv 라이선스) | — |
 | E | obp | 0 | 1페이지(하한) | blocked | 개방 파이프라인 + 편당 라이선스 필터 | argumentative | C1-C2 | CC BY / CC BY-NC 혼재 | — |
 | E | mit_press_oa | 0 | 1페이지(하한) | blocked | 개방 파이프라인 + 편당 라이선스 필터 | argumentative | C1-C2 | CC BY-NC-ND 다수 | — |
-| E | scientific_reports | 0 | 1페이지(하한) | dead | 개방 파이프라인 (문항 변형 가능) | expository | C2 | CC BY 4.0 | — |
 | E | cogent_oa | 0 | 1페이지(하한) | blocked | 개방 파이프라인 (문항 변형 가능) | expository | C1-C2 | CC BY | — |
 | E | osf_preprints | 0 | 1페이지(하한) | dead | 개방 파이프라인 + 편당 라이선스 필터 | expository | C1-C2 | 저자 선택 (CC BY 다수 · 미지정도 있음) | — |
 | E | ssrn | 0 | 1페이지(하한) | blocked | 비개방 파이프라인 (표시 전용 · 문항 0) | expository | C1-C2 | 저자 유보 다수 (© ) | — |
