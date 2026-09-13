@@ -186,6 +186,11 @@ for (const b of snap.bands) {
     })
     .sort((a, b2) => b2.shortItems - a.shortItems)
   const d = short.filter((t) => t.drain)
+  // ⚠️ **다 채운 밴드는 「채울 몫」이 아니다.** 목표에 닿은 밴드를 빈 줄로 남겨 두면
+  //   할 일 목록에 다 끝난 칸이 섞여, 화면을 훑는 사람이 그 줄에서 무엇을 해야 하는지
+  //   찾게 된다. 지금 몇 권인지는 위의 재고표가 이미 말한다 — 여기는 **남은 일만** 센다.
+  //   (실측 2026-09-13: V3·V4 가 목표 5권에 닿자 회귀가 이 자리를 잡아냈다.)
+  if (!short.length) continue
   bands.push({
     vLevel: b.vLevel,
     volumes: b.volumes,
