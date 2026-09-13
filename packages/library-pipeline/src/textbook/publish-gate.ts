@@ -105,6 +105,43 @@ export interface PublishGateInput {
    *   표가 생기고 나서야 이 축은 차단이 된다 — 근거가 생기는 순간 게이트가 조여진다.
    */
   reviewedItems: number | null
+  /**
+   * 그 권에 실리지만 **검수 표에 담을 수 없는** 문항 수.
+   *
+   * ── 왜 이 칸이 필요한가 (실측 2026-09-13) ────────────────────────────
+   * 초등 3종(`rhyme`·`word_meaning`·`spell_blank`)은 **사전에서 즉석 생성된다** —
+   * `csat_dcp_items` 에 행이 없다(`ref_id` 가 NOT NULL 이라 저장할 수 없다).
+   * `csat_item_reviews.item_id` 는 그 행을 가리키므로 **검수 기록을 붙일 대상 자체가 없다.**
+   *
+   * 이 칸이 없던 동안 게이트는 그 권을 「**표가 없다**(csat_item_reviews)」로 적었다.
+   * 표는 있다 — 담을 문항이 없는 것이다. 두 말은 다음에 할 일이 다르다(마이그레이션을
+   * 기다린다 vs 검수 경로를 새로 만든다). 실측으로 **V1 10단원 전부 · V2 8단원 · V3 5단원**이
+   * 그 상태였고, 그동안 「곧 풀릴 인프라 문제」처럼 보였다.
+   *
+   * ⚠️ **이것은 통과가 아니라 「못 잼」이다.** 검수를 면제받은 것이 아니라 **아직 검수할
+   *   방법이 없는** 문항이다. 0 으로 뭉개면 그 구멍이 영영 안 보인다.
+   */
+  unreviewableItems: number
+  /**
+   * **그 권 지면에 실제로 실린 유형** — 중복 포함으로 넣어도 된다(종 수로 센다).
+   *
+   * ── 왜 이 축이 게이트에 있어야 하는가 (실측 2026-09-13) ──────────────
+   * 플랫폼의 약속이 「시중 모든 유형보다 우위」인데, 그것을 **조판 시점에 확인하는 자리가
+   * 없었다.** `type-spread.mjs` 는 리포트일 뿐이라 사람이 돌려야 보이고, 안 돌리면
+   * 지면 4종짜리 고등 권(시중 중앙 9종)이 조용히 나간다 — 실제로 그런 권이 나갔다.
+   *
+   * ⚠️ **기본값을 두지 않는다.** 빈 배열을 기본값으로 두면 「유형 0종」이 되어 전 권이
+   *   경고를 받고, 그 경고는 곧 무시된다. `units`·`seriesId` 와 같은 이유다.
+   */
+  printedTypes: readonly string[]
+  /**
+   * 같은 학교급 시중 교재의 **권당** 유형 수 중앙값
+   * (`market-spec.json` 의 `typeCoverage.perDocument.bySchool[*].median` — 초등 4 · 중등 4 · 고등 9).
+   *
+   * ⚠️ **없으면 `null`** — 0 이 아니다. 0 으로 넘기면 「지면이 무엇이든 우위」가 되어
+   *   거짓 초록이 된다. 이 저장소가 이미 겪은 함정이다.
+   */
+  marketTypeMedian: number | null
 }
 
 export interface PublishGateVerdict {
@@ -221,17 +258,60 @@ export function judgePublish(input: PublishGateInput): PublishGateVerdict {
   // 기출 쪽과 같은 규약을 쓴다: **서로 다른 페르소나 3인 이상이 pass** 해야 한 문항이
   // 검수를 받은 것이다(`analysis-drain-import.mjs` 가 3인 미달을 적재에서 거부한다).
   // 한 사람이 세 번 본 것은 다각이 아니라 같은 눈이 세 번 본 것이다.
-  if (input.reviewedItems == null) {
+  //
+  // ⚠️ **검수할 수 있는 문항만 분모로 삼는다.** 사전에서 즉석 생성되는 초등 3종은 검수 표에
+  //   담을 행 자체가 없다(`unreviewableItems` 주석). 그것을 분모에 두면 그 권은 **영영**
+  //   차단되고, 차단 사유가 「검수를 안 했다」로 적혀 실제 구멍(검수 경로가 없다)을 가린다.
+  const reviewable = Math.max(0, input.items - Math.max(0, input.unreviewableItems))
+  if (input.unreviewableItems > 0) {
+    unmeasured.push(
+      `3인 검수 — ${input.unreviewableItems}문항은 검수 표에 담을 수 없다` +
+        '(사전에서 즉석 생성되어 문항 행이 없다 — 면제가 아니라 경로가 없는 것이다)',
+    )
+  }
+  //
+  // ⚠️ **검수할 것이 없는 권에는 「표가 없다」를 적지 않는다.** 그 권은 표의 유무와 무관하고,
+  //   두 줄이 함께 찍히면 앞줄의 진짜 사유(경로가 없다)가 뒷줄에 덮인다 — 실측 V1 이 그랬다.
+  if (input.reviewedItems == null && reviewable > 0) {
     unmeasured.push('3인 검수 — 교재 문항 검수 기록을 담을 표가 없다(csat_item_reviews)')
-  } else if (input.items > 0 && input.reviewedItems < input.items) {
+  } else if (input.reviewedItems != null && reviewable > 0 && input.reviewedItems < reviewable) {
     findings.push({
       severity: 'block',
       label: '3인 검수 미완',
       detail:
-        `${input.reviewedItems}/${input.items} — ` +
-        `${input.items - input.reviewedItems}문항이 페르소나 3인 통과를 못 받았다`,
+        `${input.reviewedItems}/${reviewable} — ` +
+        `${reviewable - input.reviewedItems}문항이 페르소나 3인 통과를 못 받았다`,
       fix: `pnpm dlx tsx scripts/textbook/item-review-drain-export.mjs --series ${input.seriesId} --band ${input.band} --volume ${input.units}`,
     })
+  }
+
+  // ── 유형 폭 — 시중 권당 중앙값과 견준다 ────────────────────────────
+  //
+  // ⚠️ **경고다.** 근거의 절반(시중 중앙값)이 코퍼스 OCR 에서 오는데 발문을 못 읽은
+  //   출판사가 3곳 있다 — 자에 오탐이 있는 축은 발행을 막지 않는다(이 파일 머리말의 규칙).
+  //   나머지 절반(지면 유형 수)은 그 권의 실측이라 정확하다.
+  //
+  // ⚠️ **못 잰 것은 통과가 아니다.** 시중 기준선이 없는 학교급은 「못 잼」으로 적는다.
+  //
+  // ⚠️ **`0` 도 「못 잼」이다.** 시중 교재가 유형을 0종 싣는다는 뜻일 수 없으므로 그 값은
+  //   기준선이 아니라 **못 읽은 것**이다. 통과로 세면 무엇을 실어도 우위가 된다.
+  //   `measureVolumeSpread` 도 `market > 0` 일 때만 지수를 낸다 — 자를 둘로 가르지 않는다.
+  if (input.marketTypeMedian == null || input.marketTypeMedian <= 0) {
+    unmeasured.push('유형 폭 — 이 학교급의 시중 권당 유형 수 기준선이 코퍼스에 없다')
+  } else {
+    const printed = new Set(input.printedTypes).size
+    if (printed < input.marketTypeMedian) {
+      findings.push({
+        severity: 'warn',
+        label: '유형 폭 미달',
+        detail:
+          `지면 ${printed}종 / 시중 권당 중앙 ${input.marketTypeMedian}종 — ` +
+          '문항이 나쁜 것이 아니라 **얇은 책**이다. 발행을 막지 않는다',
+        // 「없는 유형」의 사유가 셋이라 명령 하나로 못 끝낸다 — 먼저 사유를 본다.
+        //   `diagnoseMissingTypes` 가 창고·자·제약·비중을 갈라 준다(`type-spread.ts`).
+        fix: `pnpm dlx tsx scripts/textbook/type-spread.mjs`,
+      })
+    }
   }
 
   // ── 정답 쏠림 — 문턱이 관행이라 경고다 ──────────────────────────────

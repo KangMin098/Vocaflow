@@ -76,6 +76,10 @@ const {
   REVIEW_PERSONA_QUORUM,
   formatGate,
   gateRecord,
+  // 유형 폭의 시중 기준선 — 눈금을 여기서 새로 만들지 않는다(`type-spread.ts` 주석).
+  marketTypeMedianOfBand,
+  // 사전에서 즉석 생성되는 초등 3종 — DB 행이 없어 검수 표에 담을 수 없다.
+  ELEMENTARY_ITEM_TYPES,
   // 어느 권을 찍는가 — **카탈로그가 정의한 것만 찍는다**(`volume-target.ts` 머리 주석).
   resolveVolumeTarget,
   formatVolumeTarget,
@@ -621,8 +625,21 @@ const byRule = answerRows.filter((a) => a.explanation?.from === 'rule').length
 let reviewedItems = null
 /** 3인이 **보기는 한** 문항 수 — 「덜 봤나, 봤는데 막혔나」를 가른다. */
 let reviewSettled = null
+/**
+ * **검수 표에 담을 수 없는 문항 수.** 초등 3종은 사전에서 즉석 생성되어 `csat_dcp_items` 에
+ * 행이 없다 — `csat_item_reviews.item_id` 가 가리킬 대상이 없다(`publish-gate.ts` 주석).
+ *
+ * ⚠️ **판정을 여기서 새로 만들지 않는다.** `ELEMENTARY_ITEM_TYPES` 가 정본이고 풀을 만드는
+ *   쪽도 같은 집합을 쓴다. 여기서 `id` 모양(`elem:`)으로 가르면 자가 둘이 된다.
+ */
+const unreviewableItems = printedItems.filter((it) => ELEMENTARY_ITEM_TYPES.has(it.type)).length
 {
-  const ids = printedItems.map((it) => it.id).filter(Boolean)
+  // ⚠️ 사전 유형의 `id`(`elem:rhyme:apple`)를 uuid 열에 넣으면 조회가 22P02 로 **실패**한다.
+  //   그러면 `reviewedItems` 가 null 로 남아 게이트가 「표가 없다」고 적는다 — 표는 있다.
+  const ids = printedItems
+    .filter((it) => !ELEMENTARY_ITEM_TYPES.has(it.type))
+    .map((it) => it.id)
+    .filter(Boolean)
   if (ids.length) {
     // ⚠️ **`verdict` 로 거르지 않고 받는다.** pass 만 받으면 「셋이 봤는데 통과가 아닌 문항」과
     //   「아직 셋이 안 본 문항」이 똑같이 0 으로 보인다 — 둘은 할 일이 정반대다(전자는 고치고,
@@ -662,6 +679,12 @@ const gate = judgePublish({
   proofChecked: proof ? proof.passages : null,
   proofDefective: proof ? proof.defective : null,
   reviewedItems,
+  // 검수 표에 담을 수 없는 문항 — **면제가 아니라 경로가 없는 것**이라 「못 잼」으로 적힌다.
+  unreviewableItems,
+  // **이 권이 실제로 실은 유형** — 선언이 아니라 지면이다. 종 수는 게이트가 센다.
+  printedTypes: printedItems.map((i) => i.type),
+  // 시중 기준선. 없는 학교급이면 null 이 와서 「못 잼」으로 적힌다 — 0 으로 뭉개지 않는다.
+  marketTypeMedian: marketTypeMedianOfBand(BAND),
 })
 if (gate.findings.length || gate.unmeasured.length) {
   console.log(`\n발행 게이트 — ${gate.pass ? '통과' : '차단'}`)

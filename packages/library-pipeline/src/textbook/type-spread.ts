@@ -40,6 +40,9 @@
 //
 // 순수 함수다 — DB 도 파일도 안 읽는다. 부르는 쪽이 스냅샷과 규격을 넣어 준다.
 
+import { V_TO_MARKET_BUCKET } from './level-chart'
+import marketSpec from './market-spec.json'
+
 /** 시중 권당 유형 수 기준선의 학교급 — `market-spec.json` 의 `typeCoverage.perDocument.bySchool` 키. */
 export type MarketSchool = '초등' | '중등' | '고등'
 
@@ -100,6 +103,32 @@ export interface VolumeSpreadInput {
 
 /** 시중 권당 유형 수 — `market-spec.json` 의 `typeCoverage.perDocument.bySchool[*].median`. */
 export type MarketPerSchoolMedian = Partial<Record<MarketSchool, number>>
+
+/**
+ * **규격에서 그대로 읽은 기준선** — 초등 4 · 중등 4 · 고등 9 (코퍼스 46권 실측).
+ *
+ * ⚠️ **판정 함수들은 여전히 이 값을 인자로 받는다.** 여기서 자를 굳히지 않는 이유는
+ *   회귀가 다른 기준선으로도 검사할 수 있어야 하기 때문이다. 이 상수는 **부르는 쪽이
+ *   같은 값을 두 번 적지 않게** 하는 편의일 뿐이고, 정본은 `market-spec.json` 이다.
+ */
+export const MARKET_TYPE_MEDIAN: MarketPerSchoolMedian = Object.fromEntries(
+  Object.entries(marketSpec.typeCoverage?.perDocument?.bySchool ?? {}).map(([k, v]) => [
+    k,
+    (v as { median?: number }).median,
+  ]),
+) as MarketPerSchoolMedian
+
+/**
+ * 밴드의 시중 기준선. **없으면 `null` — 0 이 아니다.**
+ *
+ * 눈금은 `V_TO_MARKET_BUCKET`(정본) → `schoolOfBucket` 을 거친다. 여기서 밴드를 직접
+ * 학교급으로 나누면 눈금이 둘이 되고, 그 갈림은 두 리포트가 다른 학년을 말할 때 드러난다.
+ */
+export function marketTypeMedianOfBand(band: number): number | null {
+  const school = schoolOfBucket(V_TO_MARKET_BUCKET[band] ?? null)
+  if (!school) return null
+  return MARKET_TYPE_MEDIAN[school] ?? null
+}
 
 /**
  * 한 권을 잰다.
