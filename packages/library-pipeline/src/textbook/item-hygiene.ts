@@ -119,7 +119,7 @@ export function passageTextOf(payload: Record<string, unknown> | null | undefine
  * **약어 마침표에서 문장이 잘렸는가.**
  *
  * ── 3인 검수가 드러낸 것 (실측 2026-09-13) ──────────────────────────
- * 문장 분할이 `(?<=[.!?])s+` 하나로 되어 있어 약어의 마침표를 문장 끝으로 읽는다.
+ * 문장 분할이 마침표 하나만 보는 정규식이라 약어의 마침표를 문장 끝으로 읽는다.
  * 검수에서 나온 실제 자국:
  *
  *     "From June 12 to July 3, the U.S." / "Geological Survey and…"
@@ -143,11 +143,22 @@ export function passageTextOf(payload: Record<string, unknown> | null | undefine
  */
 export function hasBadSentenceSplit(payload: Record<string, unknown> | null | undefined): boolean {
   if (!payload) return false
+  // ⚠️ **문자열 칸도 본다.** 처음엔 배열 칸만 봤는데, 삽입 문항의 〈보기〉는
+  //   `insert_sentence` 라는 **문자열**이라 검사를 통째로 빠져나갔다 — 2회차 검수가
+  //   `…National Jewish Health and the U.S.` 로 잘린 〈보기〉를 찾아내 알려 줬다.
+  //   판정자를 새로 걸고도 같은 자국이 남은 이유가 이것이었다.
+  const chunks: string[] = []
+  for (const k of PASSAGE_KEYS) {
+    const v = payload[k]
+    if (typeof v === 'string') chunks.push(v)
+  }
   for (const k of PASSAGE_ARRAY_KEYS) {
     const v = payload[k]
     if (!Array.isArray(v)) continue
-    for (const raw of v) {
-      if (typeof raw !== 'string') continue
+    for (const x of v) if (typeof x === 'string') chunks.push(x)
+  }
+  {
+    for (const raw of chunks) {
       const s = raw.trim()
       if (!s) continue
       // ① 조각의 **뒤쪽** — 문장이 소문자로 열린다. 가장 확실한 자국이다.
@@ -165,6 +176,71 @@ export function hasBadSentenceSplit(payload: Record<string, unknown> | null | un
   return false
 }
 
+/**
+ * **부호 짝이 정답을 흘리는가** — 순서·삽입 문항에만 해당한다.
+ *
+ * ── 3인 검수가 찾아낸 누설 경로 (실측 2026-09-13, 2회차) ────────────
+ * 순서 문항은 덩어리 (A)(B)(C) 를 재배열하게 한다. 그런데 여는 따옴표가 한 덩어리에만,
+ * 닫는 따옴표가 다른 덩어리에만 있으면 **부호만 맞춰도 순서가 정해진다.**
+ *
+ *     (C) `“Dams are supposed to be maintained.`   ← 여는 따옴표만
+ *     (A) `…more information.”`                    ← 닫는 따옴표만
+ *     → (C) 가 처음, (A) 가 끝 → 선지 다섯 중 하나만 남는다
+ *
+ * 괄호 판도 나왔다 — 도입문이 `(Wilmot scientists…` 로 열고 (C) 가 `…plan.)` 로 닫는다.
+ * 둘 다 **영어를 한 글자도 안 읽고 정답이 나온다.** 문항이 어려운 것이 아니라 없는 것이다.
+ *
+ * ⚠️ **문장 단위로 본다.** 전체를 이으면 짝이 맞아 버려 안 걸린다(위 두 사례 모두 그렇다).
+ * ⚠️ **순서·삽입의 덩어리 배열에만 적용한다.** 평범한 지문(`sentences`)에서는 인용이
+ *   여러 문장에 걸치는 것이 정상이라, 같은 자를 대면 멀쩡한 글이 통째로 걸린다.
+ */
+export function hasPunctuationLeak(payload: Record<string, unknown> | null | undefined): boolean {
+  if (!payload) return false
+  for (const k of ['presented', 'remaining'] as const) {
+    const v = payload[k]
+    if (!Array.isArray(v)) continue
+    for (const raw of v) {
+      if (typeof raw !== 'string') continue
+      const n = (re: RegExp) => (raw.match(re) ?? []).length
+      if (n(/\(/g) !== n(/\)/g)) return true
+      if (n(/“/g) !== n(/”/g)) return true
+      if (n(/\[/g) !== n(/\]/g)) return true
+    }
+  }
+  return false
+}
+
+/**
+ * **밑줄이 어디에 그어지는지 확정되는가.**
+ *
+ * 3인 검수 실측(2026-09-13, 2회차): 밑줄 낱말이 **제 문장 안에 두 번** 나오는 문항이 있었다
+ * (`Measurement error in text-based measures In general, …` 의 `Measurement`).
+ * 조판기와 화면은 **첫 자리**에 긋는데, 출제 의도가 어느 쪽인지 알 수 없다 —
+ * 학습자가 보는 밑줄과 정답이 가리키는 낱말이 다를 수 있다.
+ *
+ * 앞서 부분문자열 충돌을 낱말 경계로 고쳤지만(`un②necessary`), **같은 낱말이 두 번**
+ * 나오는 것은 경계로 풀리지 않는다 — 그건 문항 자체가 모호한 것이다.
+ */
+export function hasAmbiguousUnderline(payload: Record<string, unknown> | null | undefined): boolean {
+  const underlines = (payload as { underlines?: unknown } | null | undefined)?.underlines
+  const sentences = (payload as { sentences?: unknown } | null | undefined)?.sentences
+  if (!Array.isArray(underlines) || !Array.isArray(sentences)) return false
+  for (const u of underlines) {
+    const word = String((u as { word?: unknown } | null)?.word ?? '')
+    const si = Number((u as { sentenceIdx?: unknown } | null)?.sentenceIdx)
+    if (!word || !Number.isInteger(si)) continue
+    const sentence = sentences[si]
+    if (typeof sentence !== 'string') continue
+    // 낱말 경계로 센다 — 부분문자열은 애초에 밑줄 자리가 아니다.
+    const re = new RegExp(
+      `(?:^|[^A-Za-z])${word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?![A-Za-z])`,
+      'g',
+    )
+    if ((sentence.match(re) ?? []).length > 1) return true
+  }
+  return false
+}
+
 /** 왜 못 내보내는지 — 세어서 남기려고 이름을 붙인다. 통과면 `null`. */
 export type HygieneReject =
   | 'retracted'
@@ -177,6 +253,10 @@ export type HygieneReject =
   | 'badUnderline'
   /** 약어 마침표에서 문장이 잘렸다 — 지문이 조각으로 인쇄된다. */
   | 'badSplit'
+  /** 부호 짝이 덩어리 순서를 알려 준다 — 영어를 안 읽고 풀린다. */
+  | 'punctuationLeak'
+  /** 밑줄 낱말이 제 문장에 두 번 나온다 — 어디에 긋는지 확정되지 않는다. */
+  | 'ambiguousUnderline'
 
 /**
  * **학습자에게 내보내도 되는 문항인가.** 조판의 게이트와 같은 판정을 쓴다.
@@ -209,6 +289,8 @@ export function itemHygieneReject(input: {
   }
 
   if (hasBadSentenceSplit(input.payload)) return 'badSplit'
+  if (hasPunctuationLeak(input.payload)) return 'punctuationLeak'
+  if (hasAmbiguousUnderline(input.payload)) return 'ambiguousUnderline'
 
   const text = passageTextOf(input.payload)
   if (!text) return null

@@ -198,3 +198,108 @@ describe('약어 절단 위생', () => {
     expect(itemHygieneReject({ payload: { sentences: [] } })).toBeNull()
   })
 })
+
+/**
+ * **부호 짝이 정답을 흘리면 문항이 아니다.**
+ *
+ * 3인 검수 2회차 실측(2026-09-13): 여는 따옴표가 한 덩어리에만, 닫는 따옴표가 다른
+ * 덩어리에만 있어 **영어를 한 글자도 안 읽고 순서가 정해지는** 문항이 나왔다.
+ * 괄호 판도 있었다. 전체를 이으면 짝이 맞아 버려 안 걸린다 — 그래서 **덩어리마다** 본다.
+ */
+describe('부호 누설 위생', () => {
+  it('덩어리에 여는 부호만 있으면 순서가 새어 나간다', () => {
+    expect(
+      itemHygieneReject({
+        payload: { presented: ['“Dams are supposed to be maintained.', 'He asked for more information.”'] },
+      }),
+    ).toBe('punctuationLeak')
+    expect(
+      itemHygieneReject({ payload: { presented: ['(Wilmot scientists ran the trial.', 'They finished.)'] } }),
+    ).toBe('punctuationLeak')
+  })
+
+  it('덩어리 안에서 짝이 맞으면 통과한다', () => {
+    expect(
+      itemHygieneReject({
+        payload: { presented: ['She said “it works” on the first try.', 'The team agreed with her.'] },
+      }),
+    ).toBeNull()
+  })
+
+  /** ⚠️ 평범한 지문에서는 인용이 여러 문장에 걸치는 것이 정상이다 — 같은 자를 대면 안 된다. */
+  it('순서·삽입이 아닌 지문에는 이 자를 대지 않는다', () => {
+    expect(
+      itemHygieneReject({
+        payload: { sentences: ['He began, “The river rose fast.', 'It did not stop for days.”'] },
+      }),
+    ).toBeNull()
+  })
+})
+
+/**
+ * **밑줄이 제 문장에 두 번 나오면 어디에 긋는지 확정되지 않는다.**
+ *
+ * 조판기와 화면은 첫 자리에 긋는데, 출제 의도가 어느 쪽인지 알 수 없다.
+ * 앞서 부분문자열 충돌은 낱말 경계로 고쳤지만, **같은 낱말이 두 번**인 것은
+ * 경계로 풀리지 않는다 — 문항 자체가 모호한 것이다.
+ */
+describe('밑줄 자리 모호', () => {
+  const item = (sentence: string, word: string) => ({
+    payload: { sentences: [sentence], underlines: [{ word, sentenceIdx: 0, label: '①' }] },
+  })
+
+  it('같은 낱말이 제 문장에 두 번이면 반려한다', () => {
+    expect(item('Measurement error affects measurement quality.', 'measurement')).toBeTruthy()
+    expect(
+      itemHygieneReject(item('The wayfinding app improves wayfinding for drivers.', 'wayfinding')),
+    ).toBe('ambiguousUnderline')
+  })
+
+  it('한 번만 나오면 통과한다', () => {
+    expect(itemHygieneReject(item('The coastal region supplies fresh water.', 'coastal'))).toBeNull()
+  })
+
+  it('부분문자열은 두 번으로 세지 않는다 — 거기는 애초에 밑줄 자리가 아니다', () => {
+    expect(
+      itemHygieneReject(item('That was unnecessary but the necessary work went on.', 'necessary')),
+    ).toBeNull()
+  })
+})
+
+/**
+ * **문자열 칸도 봐야 한다** — 2회차 검수가 찾은 판정자의 구멍.
+ *
+ * 처음엔 배열 칸(`sentences`·`presented`)만 봤는데, 삽입 문항의 〈보기〉는
+ * `insert_sentence` 라는 **문자열**이라 검사를 통째로 빠져나갔다.
+ * 그래서 판정자를 새로 걸고도 `…National Jewish Health and the U.S.` 로 잘린
+ * 〈보기〉가 그대로 남아 있었다 — 검수가 그것을 찾아 알려 줬다.
+ */
+describe('약어 절단 — 문자열 칸', () => {
+  it('삽입 문항의 〈보기〉가 약어에서 잘린 것을 잡는다', () => {
+    expect(
+      itemHygieneReject({
+        payload: {
+          insert_sentence: 'Groups such as National Jewish Health and the U.S.',
+          remaining: ['The agencies met last spring.', 'They agreed on a plan.'],
+        },
+      }),
+    ).toBe('badSplit')
+  })
+
+  it('도입문이 소문자로 열리는 것도 잡는다', () => {
+    expect(
+      itemHygieneReject({ payload: { intro: 'constructed a timeline of the evolution.' } }),
+    ).toBe('badSplit')
+  })
+
+  it('멀쩡한 〈보기〉는 통과한다', () => {
+    expect(
+      itemHygieneReject({
+        payload: {
+          insert_sentence: 'The agencies agreed on a joint plan that spring.',
+          remaining: ['They met in March.', 'The work began soon after.'],
+        },
+      }),
+    ).toBeNull()
+  })
+})
