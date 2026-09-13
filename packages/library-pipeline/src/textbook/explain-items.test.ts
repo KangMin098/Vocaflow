@@ -475,3 +475,56 @@ describe('해설은 확인하지 않은 것을 단정하지 않는다', () => {
     for (const f of FORBIDDEN) expect(code, f).not.toContain(f)
   })
 })
+
+// ── 왜 이 회귀가 생겼나 (실측 2026-09-13) ───────────────────────────
+// 해설 10만 건을 다시 쓰고 **표본을 눈으로 읽다가** 나왔다:
+//
+//   ④ 가 틀렸다. "Importantly, remyelinated lesions lacked GPR17 immunoreactivity,…"
+//   관사 규칙이다 — "model"은 자음 소리로 시작하므로 "a" 가 맞고 "an" 는 틀리다.
+//
+// **인용문에 model 이 없다.** quoteAround 가 초점을 indexOf(부분 문자열)로 찾아서,
+// 관사 "an" 이 Import**an**tly 의 5번째 자리에 걸렸다. 창이 문장 첫머리에 잡히고
+// 정작 틀린 자리는 창 밖으로 밀려난다. 어법 두 유형(52,544건)의 밑줄은 전부
+// a·an·this·that 같은 짧은 낱말이라 **구조적으로 이 함정 위에 있었다.**
+//
+// ⚠️ 스크립트의 자체 점검은 「인용 100%」라고 찍었다 — 인용이 **있는지**만 보고
+//   그 인용이 **틀린 자리를 담고 있는지**는 안 봤기 때문이다.
+describe('인용은 틀린 자리를 담는다', () => {
+  const sentence =
+    'Importantly, remyelinated lesions lacked GPR17 immunoreactivity, and the researchers therefore built an model of oligodendrocyte maturation across regions.'
+
+  it('짧은 기능어가 남의 낱말 속에 걸리지 않는다', () => {
+    const e = explainUnderlinedGrammar(
+      {
+        sentences: [sentence],
+        underlines: [
+          { word: 'an', label: '①', tokenIdx: 11, sentenceIdx: 0 },
+          { word: 'the', label: '②', tokenIdx: 7, sentenceIdx: 0 },
+        ],
+      },
+      { rule: 'article', original: 'a', position: 1 },
+    )
+    expect(e).not.toBeNull()
+    // 규칙이 지목한 뒤 낱말이 인용문 안에 있어야 학습자가 확인할 수 있다.
+    const named = /"([^"]+)"[^"]*?(?:모음|자음) 소리로/.exec(e!.ko)
+    expect(named, e!.ko).not.toBeNull()
+    const m = /"([^"]*…[^"]*)"/.exec(e!.ko)
+    // ⚠️ 못 찾으면 ko 전체로 물러서지 않는다 — 규칙 문장에도 그 낱말이 있어 **허수 통과**한다.
+    expect(m, `인용을 못 찾았다: ${e!.ko}`).not.toBeNull()
+    const quoted = m![1]!
+    expect(quoted, `인용에 "${named![1]}" 가 없다: ${quoted}`).toContain(named![1]!)
+  })
+
+  it('틀린 낱말 자체도 인용 안에 있다', () => {
+    const e = explainUnderlinedGrammar(
+      {
+        sentences: [sentence],
+        underlines: [{ word: 'an', label: '①', tokenIdx: 11, sentenceIdx: 0 }, { word: 'the', label: '②', tokenIdx: 7, sentenceIdx: 0 }],
+      },
+      { rule: 'article', original: 'a', position: 1 },
+    )
+    const quoted = /"([^"]*…[^"]*)"/.exec(e!.ko)?.[1] ?? ""
+    expect(quoted, `인용이 잘리지 않았다: ${e!.ko}`).not.toBe("")
+    expect(quoted).toMatch(/\ban\b/)
+  })
+})

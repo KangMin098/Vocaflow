@@ -71,10 +71,32 @@ function quote(sentence: string, limit = 150): string {
  * 앞에서부터 자르면 정작 보여 줘야 할 자리가 잘려 나간다 — 어휘 교체 해설에서
  * 바뀐 낱말이 안 보이면 해설이 아무것도 말하지 않는 것과 같다(테스트가 이걸 잡았다).
  */
+/**
+ * 초점 낱말의 자리 — **낱말 단위로** 찾는다. 없으면 `-1`.
+ *
+ * ⚠️ 여기가 `indexOf` 였다 — 부분 문자열이라 짧은 기능어가 남의 낱말 속에 걸렸다
+ *   (실측 2026-09-13: 관사 `an` 이 `Import**an**tly` 의 5번째 자리에 걸려, 인용 창이
+ *   문장 첫머리에 잡히고 **정작 틀린 자리는 창 밖으로 밀려났다**. 해설은
+ *   「"model"은 자음 소리로 시작하므로」라고 적는데 인용문에 model 이 없다).
+ *   어법 두 유형의 밑줄은 전부 `a`·`an`·`this`·`that` 같은 짧은 낱말이라
+ *   **구조적으로 이 함정 위에 있었다.**
+ */
+function wordIndex(haystack: string, needle: string): number {
+  if (!needle) return -1
+  const esc = needle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  // 앞뒤가 글자·아포스트로피가 아니어야 한 낱말이다(`\b` 는 `'` 를 경계로 봐서 못 쓴다).
+  const m = new RegExp(`(^|[^A-Za-z'])(${esc})(?![A-Za-z'])`, 'i').exec(haystack)
+  return m ? m.index + m[1]!.length : -1
+}
+
 function quoteAround(sentence: string, focus: string, limit = 130): string {
   const s = sentence.replace(/\s+/g, ' ').trim()
   if (s.length <= limit) return s
-  const at = focus ? s.toLowerCase().indexOf(focus.toLowerCase()) : -1
+  // 낱말로 못 찾으면 부분 문자열로 물러선다 — 굴절형·복합어가 그렇게만 잡힌다.
+  const at = focus ? (() => {
+    const w = wordIndex(s, focus)
+    return w >= 0 ? w : s.toLowerCase().indexOf(focus.toLowerCase())
+  })() : -1
   if (at < 0) return quote(s, limit)
   const half = Math.floor((limit - focus.length) / 2)
   let start = Math.max(0, at - half)
