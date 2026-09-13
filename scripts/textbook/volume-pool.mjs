@@ -1041,7 +1041,9 @@ export async function loadVolume(
     //   이번에는 조판 쪽이 빠져 있었다. 거울상으로 되풀이된 셈이다.
     //
     // **정제한 사본으로 판정한다** — 절 이름·라벨을 떼고도 남는 결함만 센다.
-    const reject = itemHygieneReject({ payload: p, refTitle: a.title })
+    // `answer_key` 를 함께 넘긴다 — 순서 문항의 **덩어리 길이 누설**은 정답 배열을 알아야 잰다
+    //   (`hasBlockLengthLeak`: 정답의 첫 덩어리가 유일하게 가장 길면 문장만 세어도 풀린다).
+    const reject = itemHygieneReject({ payload: p, refTitle: a.title, answerKey: r.answer_key })
     if (reject) {
       hygieneRejects[reject] = (hygieneRejects[reject] ?? 0) + 1
       continue

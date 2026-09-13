@@ -197,6 +197,20 @@ const ARTICLE_CHROME = [
   //   진짜 APOD 머리말이었다. `Image 1Image 2` 는 그 뒤에 붙는 이미지 나열이다.
   /\bAstronomy Picture of the Day\b/,
   /\bImage \d+Image \d+/,
+  // USGS 연재 홍보 블록 — 기사 **끝**에 붙어 온다:
+  //   `Hungry for some science, but you don't have time for a full-course research plate?
+  //    Then check out USGS Science Snippets, our snack-sized science series.`
+  //
+  // ⚠️ 해설 배치가 찾았다(실측 2026-09-13). 한 문항은 **그 홍보문이 「넣을 문장」 자체**였다 —
+  //   산불 지문인데 정답 자리가 홍보 질문 뒤라서, 영어를 안 읽고 `…?` → `Then…` 만 보고 풀린다.
+  //   다른 문항은 그 두 문장이 ④⑤ 자리를 달고 있어 **5지 중 2지가 통째로 버려진다.**
+  //   V5 실측 31문항(안내 링크까지 33). 적지만 **지면 29문항 중 둘**에 들어왔다.
+  /\bScience Snippets\b/i,
+  /\bHungry for some science\b/i,
+  /\bsnack-sized science\b/i,
+  // 기관 안내 링크·연락처 — 글이 아니라 웹페이지의 꼬리다.
+  /\b(?:Visit|Learn more about) the USGS\b/i,
+  /\b\d{3}-\d{3}-\d{4}\b/,
 ]
 
 /** 기사 껍데기 자국이 있는가. */
@@ -602,7 +616,9 @@ export function toCsatOrder(
   const rest = original.slice(1)
 
   // 세 덩어리로 나눈다 — 앞쪽 덩어리가 더 길게(4→1,1,1 / 5→2,1,1 / 6→2,2,1).
-  const sizes = splitIntoThree(rest.length)
+  // 남는 문장을 얹을 자리도 **지문에서** 정한다 — 라벨 회전과 다른 씨앗을 써서
+  // 둘이 함께 움직이지 않게 한다(같이 움직이면 또 하나의 규칙성이 생긴다).
+  const sizes = splitIntoThree(rest.length, hash(rest.join('')) % 3)
   if (!sizes) return null
   const chunks: string[][] = []
   let at = 0
@@ -681,11 +697,29 @@ export const ORDER_PERMS: ReadonlyArray<ReadonlyArray<'A' | 'B' | 'C'>> = [
 ]
 
 /** n 문장을 세 덩어리로. 앞쪽이 더 길다 — 논지 전개상 도입 뒤가 두껍다. */
-export function splitIntoThree(n: number): [number, number, number] | null {
+export function splitIntoThree(
+  n: number,
+  /** 남는 문장을 어느 덩어리부터 얹을지 — 결정론 해시에서 온다. */
+  seed = 0,
+): [number, number, number] | null {
   if (n < 3) return null
   const base = Math.floor(n / 3)
   const extra = n % 3
-  return [base + (extra > 0 ? 1 : 0), base + (extra > 1 ? 1 : 0), base]
+  const sizes: [number, number, number] = [base, base, base]
+  // ⚠️ **남는 문장을 늘 앞에서부터 얹으면 정답이 문장 수로 드러난다** (실측 2026-09-13).
+  //   `[2,1,1]` 이면 **가장 긴 덩어리가 언제나 정답의 첫 자리**다 — 라벨을 섞어도
+  //   `chunks[0]` 이 정답 배열의 첫 자리라는 사실은 안 바뀐다. 학습자는 문장만 세면 된다.
+  //
+  //   V5 실측: 문장 5개 **1,306문항**이 그렇게 완전히 새고(`[2,1,1]`),
+  //   6개 **973문항**은 짧은 덩어리로 시작하는 선지 둘이 자동 탈락한다(`[2,2,1]`).
+  //   4개 2,516문항만 깨끗했다(`[1,1,1]`). **합쳐 48%.**
+  //
+  //   해설 배치를 돌리던 검수자가 「가장 긴 덩어리 = 첫 자리로 찍을 수 있고 세 문항 모두
+  //   그 추측이 맞았다」고 보고해 찾았다 — 문항 셋을 읽고 구조를 짚은 것이다.
+  //
+  //   얹는 자리를 돌린다. 멱등은 유지된다 — seed 가 지문에서 나오므로 같은 지문은 늘 같다.
+  for (let k = 0; k < extra; k += 1) sizes[(seed + k) % 3] += 1
+  return sizes
 }
 
 /** 결정론 해시 — 같은 지문이면 늘 같은 문항이 나와야 한다(멱등). */

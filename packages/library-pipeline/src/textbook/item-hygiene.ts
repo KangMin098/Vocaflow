@@ -247,6 +247,51 @@ export function hasAmbiguousUnderline(payload: Record<string, unknown> | null | 
   return false
 }
 
+/**
+ * **덩어리 길이가 정답의 첫 자리를 알려 주는가.**
+ *
+ * 순서 문항의 덩어리는 원문을 셋으로 자른 것이고, **정답 배열의 첫 자리는 언제나
+ * 첫 조각**이다(라벨은 섞여도 그 사실은 안 바뀐다). 그런데 자를 때 남는 문장을 앞에서부터
+ * 얹으면 첫 조각이 늘 가장 길어진다 — **학습자는 문장만 세면 된다.**
+ *
+ * V5 실측(2026-09-13): 문장 5개 **1,306문항** 완전 누설 · 6개 **973문항** 부분 누설
+ * (짧은 덩어리로 시작하는 선지 둘이 자동 탈락) · 4개 2,516문항만 깨끗. **합쳐 48%.**
+ *
+ * 생성기는 고쳤다(`splitIntoThree` 가 얹는 자리를 돌린다). 그러나 **이미 저장된 문항은
+ * 그대로**라, 지면에 오르지 않게 여기서 거른다.
+ *
+ * ⚠️ 새 규칙으로 만든 문항까지 막지 않으려면 **길이로 재면 안 된다**(문장 5개라고 다
+ *   새는 것이 아니다). 실제 덩어리를 재서, **정답의 첫 덩어리가 유일하게 가장 길 때만** 막는다.
+ */
+export function hasBlockLengthLeak(
+  payload: Record<string, unknown> | null | undefined,
+  answerKey: Record<string, unknown> | null | undefined,
+): boolean {
+  const presented = payload?.presented
+  const sourceOrder = answerKey?.source_order
+  if (!Array.isArray(presented) || !Array.isArray(sourceOrder)) return false
+  const n = presented.length
+  if (n < 4 || n !== sourceOrder.length) return false
+  // 원문 복원 — `toCsatOrder` 와 같은 규칙이다.
+  const original: unknown[] = new Array(n)
+  for (let k = 0; k < n; k += 1) original[Number(sourceOrder[k])] = presented[k]
+  if (original.some((x) => x === undefined)) return false
+  const sizes = blockSizesOf(original.length - 1)
+  if (!sizes) return false
+  const [first, ...others] = sizes
+  return others.every((x) => x < first!)
+}
+
+/**
+ * 저장된 문항의 덩어리 크기 — **옛 규칙**(남는 문장을 앞에서부터)으로 잰다.
+ * 지금 저장돼 있는 것이 그 규칙으로 만들어졌기 때문이다.
+ */
+function blockSizesOf(rest: number): [number, number, number] | null {
+  if (rest < 3) return null
+  const base = Math.floor(rest / 3)
+  const extra = rest % 3
+  return [base + (extra > 0 ? 1 : 0), base + (extra > 1 ? 1 : 0), base]
+}
 /** 왜 못 내보내는지 — 세어서 남기려고 이름을 붙인다. 통과면 `null`. */
 export type HygieneReject =
   | 'retracted'
@@ -263,6 +308,8 @@ export type HygieneReject =
   | 'punctuationLeak'
   /** 밑줄 낱말이 제 문장에 두 번 나온다 — 어디에 긋는지 확정되지 않는다. */
   | 'ambiguousUnderline'
+  /** 덩어리 길이가 정답의 첫 자리를 알려 준다 — 문장만 세면 풀린다. */
+  | 'blockLengthLeak'
 
 /**
  * **학습자에게 내보내도 되는 문항인가.** 조판의 게이트와 같은 판정을 쓴다.
@@ -276,6 +323,8 @@ export type HygieneReject =
 export function itemHygieneReject(input: {
   payload: Record<string, unknown> | null | undefined
   refTitle?: string | null
+  /** 순서 문항의 덩어리 누설을 재려면 필요하다 — 없으면 그 검사만 건너뛴다. */
+  answerKey?: Record<string, unknown> | null
 }): HygieneReject | null {
   const title = String(input.refTitle ?? '')
   if (isRetractedTitle(title)) return 'retracted'
@@ -296,6 +345,7 @@ export function itemHygieneReject(input: {
 
   if (hasBadSentenceSplit(input.payload)) return 'badSplit'
   if (hasPunctuationLeak(input.payload)) return 'punctuationLeak'
+  if (hasBlockLengthLeak(input.payload, input.answerKey)) return 'blockLengthLeak'
   if (hasAmbiguousUnderline(input.payload)) return 'ambiguousUnderline'
 
   const text = passageTextOf(input.payload)

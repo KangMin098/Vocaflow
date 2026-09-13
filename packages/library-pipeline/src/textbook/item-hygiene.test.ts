@@ -338,3 +338,81 @@ describe('밑줄 자리 — tokenIdx 가 있으면 확정이다', () => {
     ).toBe('ambiguousUnderline')
   })
 })
+
+/**
+ * **덩어리 길이가 정답의 첫 자리를 알려 주면 문항이 아니다.**
+ *
+ * 순서 문항의 정답 배열 첫 자리는 언제나 원문의 첫 조각이다(라벨은 섞여도 그건 안 바뀐다).
+ * 자를 때 남는 문장을 앞에서부터 얹으면 첫 조각이 늘 가장 길어져 — **문장만 세면 풀린다.**
+ * V5 실측: 문장 5개 1,306문항 완전 누설 · 6개 973문항 부분 누설 · 합쳐 48%.
+ */
+describe('덩어리 길이 누설', () => {
+  /** 문장 5개 → rest 4 → 옛 규칙으로 [2,1,1]. 첫 덩어리가 유일하게 길다. */
+  it('첫 덩어리가 유일하게 가장 길면 반려한다', () => {
+    expect(
+      itemHygieneReject({
+        payload: { presented: ['Sentence number 0 runs on for a while.', 'Sentence number 1 runs on for a while.', 'Sentence number 2 runs on for a while.', 'Sentence number 3 runs on for a while.', 'Sentence number 4 runs on for a while.'] },
+        answerKey: { source_order: [0, 1, 2, 3, 4] },
+      }),
+    ).toBe('blockLengthLeak')
+  })
+
+  it('셋이 같은 길이면 새지 않는다 — 문장 4개', () => {
+    expect(
+      itemHygieneReject({
+        payload: { presented: ['Sentence number 0 runs on for a while.', 'Sentence number 1 runs on for a while.', 'Sentence number 2 runs on for a while.', 'Sentence number 3 runs on for a while.'] },
+        answerKey: { source_order: [0, 1, 2, 3] },
+      }),
+    ).toBeNull()
+  })
+
+  it('가장 긴 덩어리가 둘이면 첫 자리가 확정되지 않는다 — 문장 6개', () => {
+    // rest 5 → [2,2,1]. 첫 덩어리가 **유일하게** 길지는 않다.
+    expect(
+      itemHygieneReject({
+        payload: { presented: ['Sentence number 0 runs on for a while.', 'Sentence number 1 runs on for a while.', 'Sentence number 2 runs on for a while.', 'Sentence number 3 runs on for a while.', 'Sentence number 4 runs on for a while.', 'Sentence number 5 runs on for a while.'] },
+        answerKey: { source_order: [0, 1, 2, 3, 4, 5] },
+      }),
+    ).toBeNull()
+  })
+
+  /** ⚠️ 정답 배열을 모르면 **이 검사만** 건너뛴다 — 다른 검사는 그대로 돈다. */
+  it('정답 키가 없으면 이 검사는 건너뛴다', () => {
+    expect(
+      itemHygieneReject({ payload: { presented: ['Sentence number 0 runs on for a while.', 'Sentence number 1 runs on for a while.', 'Sentence number 2 runs on for a while.', 'Sentence number 3 runs on for a while.', 'Sentence number 4 runs on for a while.'] } }),
+    ).toBeNull()
+  })
+})
+
+/**
+ * **웹페이지 꼬리는 글이 아니다.**
+ *
+ * 해설 배치가 찾았다 — 한 문항은 USGS 연재 홍보문이 **「넣을 문장」 자체**였다.
+ * 산불 지문인데 정답 자리가 홍보 질문 뒤라, 영어를 안 읽고 `…?` → `Then…` 만 보고 풀린다.
+ */
+describe('웹페이지 꼬리', () => {
+  it('연재 홍보 블록을 잡는다', () => {
+    expect(
+      itemHygieneReject({
+        payload: { sentences: ['Then check out USGS Science Snippets, our snack-sized science series.'] },
+      }),
+    ).toBe('chrome')
+  })
+
+  it('안내 링크와 전화번호를 잡는다', () => {
+    expect(
+      itemHygieneReject({ payload: { sentences: ['Visit the USGS event page for more information.'] } }),
+    ).toBe('chrome')
+    expect(
+      itemHygieneReject({ payload: { sentences: ['Call the office at 303-273-8500 for details.'] } }),
+    ).toBe('chrome')
+  })
+
+  it('평범한 과학 글은 막지 않는다', () => {
+    expect(
+      itemHygieneReject({
+        payload: { sentences: ['The survey mapped the fault line across three counties.'] },
+      }),
+    ).toBeNull()
+  })
+})
