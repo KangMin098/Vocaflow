@@ -169,7 +169,16 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
             </section>
           ) : null}
 
-          <p className="mt-8 text-xs leading-relaxed text-[var(--t3)]">
+          {/* 「곁에 두고 읽는다」의 «곁» 을 같은 화면으로 옮기는 길 — 이 화면이 원문을 싣지
+              않는다는 사실이 바로 이 링크의 이유다. 막다른 안내로 끝내지 않는다(D4). */}
+          <Link
+            href="/csat/overlay"
+            className="mt-8 inline-flex min-h-[44px] items-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] px-4 text-sm text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] hover:bg-[var(--sf-2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)] motion-reduce:transition-none"
+          >
+            문제지에 이 해설 얹어 보기 →
+          </Link>
+
+          <p className="mt-6 text-xs leading-relaxed text-[var(--t3)]">
             문항 원문(지문·선지)은 싣지 않습니다. 저작권은 한국교육과정평가원에 있고, 여기 있는 것은
             그 문항을 분석해 우리가 쓴 해설입니다. 원문은 평가원 공개자료에서 함께 보세요.
           </p>

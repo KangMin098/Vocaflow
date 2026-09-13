@@ -71,7 +71,24 @@ function clean(url) {
  * 한쪽만 와일드카드로 보면 `/play/${slug}` 가 `/play/cascade` 같은 **정적 형제**로
  * 풀리는 것을 놓쳐 멀쩡한 링크를 죽은 링크로 부른다(첫 판이 그랬다).
  */
-function resolveLink(url, routes) {
+/**
+ * `strictTemplate` — **템플릿 자리가 정적 형제를 보증하지 못하게 한다.**
+ *
+ * 실측 2026-09-13: `/csat/overlay` 를 새로 만들고 진입 링크를 하나도 안 달았는데 이 감사는
+ * 「고아 0」이라 답했다. 원인은 허브의 `/csat/${'${c.type_id}'}` 링크 하나다 — `<seg>` 가
+ * 무엇이든 받으므로 `/csat/overlay` 까지 「링크됨」으로 세어졌다. 즉 **동적 형제가 있는
+ * 디렉터리에 새 정적 화면을 놓으면 영원히 고아로 안 잡힌다.** 실제로 그 구멍으로 빠졌다.
+ *
+ * ⚠️ **죽은 링크 판정에는 쓰지 않는다.** `/play/${'${slug}'}` 는 정적 19개를 가리키고
+ *    동적 형제가 없어서, 엄격 판정으로 죽은 링크를 세면 멀쩡한 링크가 죽었다고 찍힌다
+ *    (실측: 그렇게 했더니 오탐 1건). 판정 둘의 답이 달라야 맞는 자리다 —
+ *    죽은 링크는 "닿는 곳이 있나", 고아는 "이 화면을 가리킨 것이 있나" 를 묻는다.
+ *
+ * ⚠️ 세그먼트가 **통째로** `<seg>` 일 때만 조인다. `<seg>-feed` 처럼 정적 부분이 섞인 자리를
+ *    함께 조이면 `/api/admin/articles/${'${source}'}-feed` 가 가리키는 실재 라우트 14개가
+ *    오탐으로 쏟아진다(실측).
+ */
+function resolveLink(url, routes, strictTemplate = false) {
   const parts = clean(url).replace(/\/$/, '').split('/')
   const hits = []
   for (const r of routes) {
@@ -90,6 +107,12 @@ function resolveLink(url, routes) {
         break
       }
       if (b.startsWith('[')) continue // 동적 세그먼트 — 무엇이든 받는다
+      // 통째로 템플릿인 자리는, 엄격 판정에서 **동적 세그먼트만** 받는다(위 주석 참조)
+      if (a === '<seg>' && strictTemplate) {
+        if (b.startsWith('[')) continue
+        ok = false
+        break
+      }
       if (a.includes('<seg>')) continue // 템플릿 자리 — 정적 형제 중 하나로 풀린다
       if (a !== b) {
         ok = false
@@ -313,10 +336,25 @@ for (const f of files) {
   const rel = path.relative(ROOT, f).replace(/\\/g, '/')
   const lines = fs.readFileSync(f, 'utf8').split('\n')
   const selfRoute = selfRouteOf(rel)
+  // JSX 주석 블록 안인가 — 파일마다 새로 센다
+  let inJsxComment = false
   lines.forEach((line, i) => {
     // 주석 줄은 코드가 아니다 — 설명문의 예시 URL(`/play/...` · `/ebooks/...`)을
     // 죽은 링크로 세면 감사 결과가 잡음으로 덮인다.
     const t = line.trim()
+    // ⚠️ **`{/* … */}` 도 주석이다.** 여러 줄에 걸치는데 이어지는 줄이 `*` 로 시작하지 않아
+    //    아래 세 검사에 안 걸리고, **주석 속 산문에 적힌 경로가 「목적지」로 세어진다.**
+    //    실측 2026-09-13: `/csat/overlay` 를 고아로 잡는 수정을 검증하려는데, 바로 그 화면을
+    //    설명하는 내 JSX 주석이 그 경로를 보증해 변이 검사가 통과해 버렸다 —
+    //    계측기를 고치는 중에 계측기가 또 속인 것이다.
+    if (inJsxComment) {
+      if (t.includes('*/')) inJsxComment = false
+      return
+    }
+    if (t.startsWith('{/*')) {
+      if (!t.includes('*/')) inJsxComment = true
+      return
+    }
     if (t.startsWith('//') || t.startsWith('*') || t.startsWith('/*')) return
     LINK_RE.lastIndex = 0
     let m
@@ -334,9 +372,10 @@ for (const f of files) {
         continue
       }
       if (ASSET.test(c)) continue
-      const hits = resolveLink(c, pageRoutes)
-      if (hits.length) for (const h of hits) { if (h !== selfRoute) linkedPages.add(h) }
-      else dead.push({ file: rel, line: i + 1, url, kind: 'page' })
+      // 닿는 곳이 하나도 없으면 죽은 링크 — 여기는 **느슨한** 판정이다.
+      if (!resolveLink(c, pageRoutes).length) dead.push({ file: rel, line: i + 1, url, kind: 'page' })
+      // 「이 화면을 가리킨 것이 있나」는 **엄격한** 판정이다(§resolveLink strictTemplate).
+      for (const h of resolveLink(c, pageRoutes, true)) { if (h !== selfRoute) linkedPages.add(h) }
     }
     // ── 2층 (고아 판정 전용) ──
     if (!CATALOG_FILES.includes(rel) && !PROSE_DIRS.some((d) => rel.startsWith(d))) {

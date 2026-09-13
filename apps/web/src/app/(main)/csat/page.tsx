@@ -37,13 +37,26 @@ export default async function CsatHubPage() {
         ) : null}
 
         {/* 유형을 낱개로 읽는 것과 번호 순서로 늘어놓는 것은 다른 물건이다 —
-            시험장에서 만나는 것은 유형 목록이 아니라 18번부터 45번까지의 줄이다. */}
-        <Link
-          href="/csat/plan"
-          className="mt-4 inline-flex min-h-[44px] items-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] px-4 text-sm text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] hover:bg-[var(--sf-2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)] motion-reduce:transition-none"
-        >
-          한 회차 주파 계획 보기 →
-        </Link>
+            시험장에서 만나는 것은 유형 목록이 아니라 18번부터 45번까지의 줄이다.
+
+            ⚠️ 오버레이 링크가 **여기 있어야 한다.** 2026-09-13 에 `/csat/overlay` 를 만들고
+               진입 링크를 안 달아, 주소를 직접 쳐야만 닿는 화면이 됐다. 도달성 감사
+               (`scripts/audit/learner-linkgraph.mjs`)도 못 잡았다 — 이 화면의
+               `/csat/${'${c.type_id}'}` 링크가 정적 형제까지 「링크됨」으로 보증했기 때문이다. */}
+        <div className="mt-4 flex flex-wrap gap-2">
+          <Link
+            href="/csat/plan"
+            className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] px-4 text-sm text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] hover:bg-[var(--sf-2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)] motion-reduce:transition-none"
+          >
+            한 회차 주파 계획 보기 →
+          </Link>
+          <Link
+            href="/csat/overlay"
+            className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] px-4 text-sm text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] hover:bg-[var(--sf-2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)] motion-reduce:transition-none"
+          >
+            문제지에 해설 얹기 →
+          </Link>
+        </div>
       </header>
 
       {error ? (
