@@ -1,15 +1,15 @@
 {
-  "computedAt": "2026-09-13T09:55:03.670Z",
+  "computedAt": "2026-09-13T11:17:33.597Z",
   "targetVolumes": 5,
   "itemsPerChunk": 8,
   "inventoryMeasuredAt": "2026-09-13T09:53:34.304Z",
   "totalItems": 419,
   "totalChunks": 67,
-  "readyChunks": 49,
+  "readyChunks": 36,
   "unfinishedItems": 0,
   "unfinishedFiles": 0,
-  "staleItems": 49,
-  "checkedItems": 364,
+  "staleItems": 22,
+  "checkedItems": 290,
   "bands": [
     {
       "vLevel": 2,
@@ -17,11 +17,11 @@
       "bindingType": "title",
       "drainItems": 120,
       "drainChunks": 17,
-      "readyChunks": 3,
+      "readyChunks": 15,
       "unfinishedItems": 0,
       "unfinishedFiles": 0,
       "staleItems": 3,
-      "checkedItems": 24,
+      "checkedItems": 120,
       "types": [
         {
           "type": "title",
@@ -33,11 +33,12 @@
           "shortItems": 94,
           "drain": true,
           "chunks": 12,
-          "readyChunks": 0,
+          "readyChunks": 13,
           "unfinishedItems": 0,
           "unfinishedFiles": 0,
           "staleItems": 0,
-          "checkedItems": 0
+          "checkedItems": 96,
+          "dirtyChunks": 0
         },
         {
           "type": "irrelevant",
@@ -53,7 +54,8 @@
           "unfinishedItems": 0,
           "unfinishedFiles": 0,
           "staleItems": 0,
-          "checkedItems": 0
+          "checkedItems": 0,
+          "dirtyChunks": 0
         },
         {
           "type": "topic",
@@ -65,11 +67,12 @@
           "shortItems": 12,
           "drain": true,
           "chunks": 2,
-          "readyChunks": 16,
+          "readyChunks": 14,
           "unfinishedItems": 0,
           "unfinishedFiles": 0,
-          "staleItems": 1,
-          "checkedItems": 16
+          "staleItems": 3,
+          "checkedItems": 16,
+          "dirtyChunks": 0
         },
         {
           "type": "long_reference",
@@ -85,7 +88,8 @@
           "unfinishedItems": 0,
           "unfinishedFiles": 0,
           "staleItems": 0,
-          "checkedItems": 0
+          "checkedItems": 0,
+          "dirtyChunks": 0
         },
         {
           "type": "blank",
@@ -97,11 +101,12 @@
           "shortItems": 2,
           "drain": true,
           "chunks": 1,
-          "readyChunks": 10,
+          "readyChunks": 9,
           "unfinishedItems": 0,
           "unfinishedFiles": 0,
-          "staleItems": 2,
-          "checkedItems": 8
+          "staleItems": 0,
+          "checkedItems": 8,
+          "dirtyChunks": 0
         }
       ]
     },
@@ -111,11 +116,11 @@
       "bindingType": "claim",
       "drainItems": 11,
       "drainChunks": 3,
-      "readyChunks": 2,
+      "readyChunks": 1,
       "unfinishedItems": 0,
       "unfinishedFiles": 0,
       "staleItems": 0,
-      "checkedItems": 10,
+      "checkedItems": 8,
       "types": [
         {
           "type": "claim",
@@ -127,11 +132,12 @@
           "shortItems": 5,
           "drain": true,
           "chunks": 1,
-          "readyChunks": 0,
+          "readyChunks": 1,
           "unfinishedItems": 0,
           "unfinishedFiles": 0,
           "staleItems": 0,
-          "checkedItems": 0
+          "checkedItems": 8,
+          "dirtyChunks": 0
         },
         {
           "type": "implication",
@@ -143,11 +149,12 @@
           "shortItems": 4,
           "drain": true,
           "chunks": 1,
-          "readyChunks": 1,
+          "readyChunks": 0,
           "unfinishedItems": 0,
           "unfinishedFiles": 0,
           "staleItems": 0,
-          "checkedItems": 8
+          "checkedItems": 0,
+          "dirtyChunks": 0
         },
         {
           "type": "mood",
@@ -159,11 +166,12 @@
           "shortItems": 2,
           "drain": true,
           "chunks": 1,
-          "readyChunks": 1,
+          "readyChunks": 0,
           "unfinishedItems": 0,
           "unfinishedFiles": 0,
           "staleItems": 0,
-          "checkedItems": 2
+          "checkedItems": 0,
+          "dirtyChunks": 0
         }
       ]
     },
@@ -173,11 +181,11 @@
       "bindingType": "long_reference",
       "drainItems": 156,
       "drainChunks": 24,
-      "readyChunks": 24,
+      "readyChunks": 12,
       "unfinishedItems": 0,
       "unfinishedFiles": 0,
       "staleItems": 0,
-      "checkedItems": 180,
+      "checkedItems": 98,
       "types": [
         {
           "type": "blank",
@@ -189,11 +197,12 @@
           "shortItems": 38,
           "drain": true,
           "chunks": 5,
-          "readyChunks": 1392,
+          "readyChunks": 1083,
           "unfinishedItems": 0,
           "unfinishedFiles": 0,
           "staleItems": 0,
-          "checkedItems": 40
+          "checkedItems": 40,
+          "dirtyChunks": 0
         },
         {
           "type": "topic",
@@ -205,11 +214,12 @@
           "shortItems": 21,
           "drain": true,
           "chunks": 3,
-          "readyChunks": 1397,
+          "readyChunks": 1168,
           "unfinishedItems": 0,
           "unfinishedFiles": 0,
           "staleItems": 0,
-          "checkedItems": 24
+          "checkedItems": 24,
+          "dirtyChunks": 0
         },
         {
           "type": "content_match",
@@ -221,11 +231,12 @@
           "shortItems": 20,
           "drain": true,
           "chunks": 3,
-          "readyChunks": 3,
+          "readyChunks": 0,
           "unfinishedItems": 0,
           "unfinishedFiles": 0,
           "staleItems": 0,
-          "checkedItems": 24
+          "checkedItems": 0,
+          "dirtyChunks": 0
         },
         {
           "type": "title",
@@ -237,11 +248,12 @@
           "shortItems": 18,
           "drain": true,
           "chunks": 3,
-          "readyChunks": 1397,
+          "readyChunks": 1180,
           "unfinishedItems": 0,
           "unfinishedFiles": 0,
           "staleItems": 0,
-          "checkedItems": 24
+          "checkedItems": 24,
+          "dirtyChunks": 0
         },
         {
           "type": "summary",
@@ -253,11 +265,12 @@
           "shortItems": 15,
           "drain": true,
           "chunks": 2,
-          "readyChunks": 2,
+          "readyChunks": 0,
           "unfinishedItems": 0,
           "unfinishedFiles": 0,
           "staleItems": 0,
-          "checkedItems": 16
+          "checkedItems": 0,
+          "dirtyChunks": 0
         },
         {
           "type": "purpose",
@@ -269,11 +282,12 @@
           "shortItems": 14,
           "drain": true,
           "chunks": 2,
-          "readyChunks": 2,
+          "readyChunks": 0,
           "unfinishedItems": 0,
           "unfinishedFiles": 0,
           "staleItems": 0,
-          "checkedItems": 16
+          "checkedItems": 0,
+          "dirtyChunks": 0
         },
         {
           "type": "long_reference",
@@ -285,11 +299,12 @@
           "shortItems": 11,
           "drain": true,
           "chunks": 2,
-          "readyChunks": 3,
+          "readyChunks": 0,
           "unfinishedItems": 0,
           "unfinishedFiles": 0,
           "staleItems": 0,
-          "checkedItems": 6
+          "checkedItems": 0,
+          "dirtyChunks": 0
         },
         {
           "type": "main_point",
@@ -301,11 +316,12 @@
           "shortItems": 7,
           "drain": true,
           "chunks": 1,
-          "readyChunks": 1120,
+          "readyChunks": 888,
           "unfinishedItems": 0,
           "unfinishedFiles": 0,
           "staleItems": 0,
-          "checkedItems": 10
+          "checkedItems": 10,
+          "dirtyChunks": 0
         },
         {
           "type": "implication",
@@ -317,11 +333,12 @@
           "shortItems": 6,
           "drain": true,
           "chunks": 1,
-          "readyChunks": 1,
+          "readyChunks": 0,
           "unfinishedItems": 0,
           "unfinishedFiles": 0,
           "staleItems": 0,
-          "checkedItems": 8
+          "checkedItems": 0,
+          "dirtyChunks": 0
         },
         {
           "type": "claim",
@@ -333,11 +350,12 @@
           "shortItems": 5,
           "drain": true,
           "chunks": 1,
-          "readyChunks": 1,
+          "readyChunks": 0,
           "unfinishedItems": 0,
           "unfinishedFiles": 0,
           "staleItems": 0,
-          "checkedItems": 8
+          "checkedItems": 0,
+          "dirtyChunks": 0
         },
         {
           "type": "mood",
@@ -349,11 +367,12 @@
           "shortItems": 1,
           "drain": true,
           "chunks": 1,
-          "readyChunks": 1,
+          "readyChunks": 0,
           "unfinishedItems": 0,
           "unfinishedFiles": 0,
           "staleItems": 0,
-          "checkedItems": 4
+          "checkedItems": 0,
+          "dirtyChunks": 0
         }
       ]
     },
@@ -363,11 +382,11 @@
       "bindingType": "mood",
       "drainItems": 132,
       "drainChunks": 23,
-      "readyChunks": 20,
+      "readyChunks": 8,
       "unfinishedItems": 0,
       "unfinishedFiles": 0,
-      "staleItems": 46,
-      "checkedItems": 150,
+      "staleItems": 19,
+      "checkedItems": 64,
       "types": [
         {
           "type": "title",
@@ -379,11 +398,12 @@
           "shortItems": 19,
           "drain": true,
           "chunks": 3,
-          "readyChunks": 311,
+          "readyChunks": 91,
           "unfinishedItems": 0,
           "unfinishedFiles": 0,
-          "staleItems": 10,
-          "checkedItems": 24
+          "staleItems": 7,
+          "checkedItems": 24,
+          "dirtyChunks": 1
         },
         {
           "type": "content_match",
@@ -395,11 +415,12 @@
           "shortItems": 17,
           "drain": true,
           "chunks": 3,
-          "readyChunks": 3,
+          "readyChunks": 0,
           "unfinishedItems": 0,
           "unfinishedFiles": 0,
           "staleItems": 0,
-          "checkedItems": 24
+          "checkedItems": 0,
+          "dirtyChunks": 0
         },
         {
           "type": "mood",
@@ -411,11 +432,12 @@
           "shortItems": 17,
           "drain": true,
           "chunks": 3,
-          "readyChunks": 0,
+          "readyChunks": 3,
           "unfinishedItems": 0,
           "unfinishedFiles": 0,
           "staleItems": 0,
-          "checkedItems": 0
+          "checkedItems": 24,
+          "dirtyChunks": 0
         },
         {
           "type": "topic",
@@ -427,11 +449,12 @@
           "shortItems": 16,
           "drain": true,
           "chunks": 2,
-          "readyChunks": 6,
+          "readyChunks": 0,
           "unfinishedItems": 0,
           "unfinishedFiles": 0,
-          "staleItems": 17,
-          "checkedItems": 20
+          "staleItems": 0,
+          "checkedItems": 0,
+          "dirtyChunks": 0
         },
         {
           "type": "blank",
@@ -443,11 +466,12 @@
           "shortItems": 14,
           "drain": true,
           "chunks": 2,
-          "readyChunks": 296,
+          "readyChunks": 49,
           "unfinishedItems": 0,
           "unfinishedFiles": 0,
           "staleItems": 12,
-          "checkedItems": 16
+          "checkedItems": 16,
+          "dirtyChunks": 2
         },
         {
           "type": "implication",
@@ -459,11 +483,12 @@
           "shortItems": 12,
           "drain": true,
           "chunks": 2,
-          "readyChunks": 2,
+          "readyChunks": 0,
           "unfinishedItems": 0,
           "unfinishedFiles": 0,
           "staleItems": 0,
-          "checkedItems": 16
+          "checkedItems": 0,
+          "dirtyChunks": 0
         },
         {
           "type": "long_reference",
@@ -475,11 +500,12 @@
           "shortItems": 12,
           "drain": true,
           "chunks": 2,
-          "readyChunks": 3,
+          "readyChunks": 0,
           "unfinishedItems": 0,
           "unfinishedFiles": 0,
           "staleItems": 0,
-          "checkedItems": 2
+          "checkedItems": 0,
+          "dirtyChunks": 0
         },
         {
           "type": "purpose",
@@ -491,11 +517,12 @@
           "shortItems": 10,
           "drain": true,
           "chunks": 2,
-          "readyChunks": 2,
+          "readyChunks": 0,
           "unfinishedItems": 0,
           "unfinishedFiles": 0,
           "staleItems": 0,
-          "checkedItems": 16
+          "checkedItems": 0,
+          "dirtyChunks": 0
         },
         {
           "type": "summary",
@@ -507,11 +534,12 @@
           "shortItems": 10,
           "drain": true,
           "chunks": 2,
-          "readyChunks": 2,
+          "readyChunks": 0,
           "unfinishedItems": 0,
           "unfinishedFiles": 0,
           "staleItems": 0,
-          "checkedItems": 16
+          "checkedItems": 0,
+          "dirtyChunks": 0
         },
         {
           "type": "claim",
@@ -523,11 +551,12 @@
           "shortItems": 4,
           "drain": true,
           "chunks": 1,
-          "readyChunks": 1,
+          "readyChunks": 0,
           "unfinishedItems": 0,
           "unfinishedFiles": 0,
           "staleItems": 0,
-          "checkedItems": 8
+          "checkedItems": 0,
+          "dirtyChunks": 0
         },
         {
           "type": "main_point",
@@ -539,11 +568,12 @@
           "shortItems": 1,
           "drain": true,
           "chunks": 1,
-          "readyChunks": 195,
+          "readyChunks": 0,
           "unfinishedItems": 0,
           "unfinishedFiles": 0,
-          "staleItems": 7,
-          "checkedItems": 8
+          "staleItems": 0,
+          "checkedItems": 0,
+          "dirtyChunks": 0
         }
       ]
     }
