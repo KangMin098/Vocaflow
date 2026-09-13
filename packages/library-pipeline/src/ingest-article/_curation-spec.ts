@@ -44,6 +44,10 @@ export type SourceKey =
   // ACP §20 — 사실 재저작. 외부 본문을 가져오지 않으므로 수집 대상이 아니지만,
   // 발행 후에는 다른 소스와 같은 자리(정책·트랙·표시)에 서야 하므로 SourceKey 를 갖는다.
   // ⚠ SOURCE_RANKINGS_BY_LEVEL 에는 넣지 않는다 — 대량 GET 화면의 선택지가 아니다.
+  // Europe PMC — CC BY 전문 XML. **라이선스가 질의 파라미터**라 혼재가 들어오지 않는다.
+  //   실측 2026-09-13: CC BY×영어×전문보유 5,218,944편 · review 618,178편 · 서론 수확률 97.5%.
+  //   변형 가능 논증문 공급선이 사실상 PLOS 하나였던 것을 푼다.
+  | 'europe_pmc'
   | 'original'
 
 export interface FeedSpec {
@@ -401,6 +405,17 @@ export const SOURCE_DEFAULT_SPEC: Record<SourceKey, FeedSpec> = {
     maxItems: 24,         // 목록 한 쪽의 상한과 맞춘다
   },
   // PLOS: CC-BY 오픈 학술 논문(C1-C2), S4 킬러급. solr API list.
+  europe_pmc: {
+    recencyDays: 3650,     // 연구 — stale 관대 (오래된 리뷰도 지문이 된다)
+    minDescriptionLen: 100,
+    minTitleLen: 20,
+    sourceWeight: 0.75,    // C1~C2 학술
+    levelBonus: -0.10,     // C2 (매우 어려움)
+    idealDescLen: 300,
+    // 철회·정정은 교재에 실을 수 없다 — 제목 축에서 먼저 떨어뜨린다.
+    noiseKeywords: ['correction', 'retraction', 'erratum', 'withdrawn'],
+    maxItems: 20,
+  },
   plos: {
     recencyDays: 3650,     // 연구 — stale 관대
     minDescriptionLen: 100,
@@ -883,6 +898,29 @@ export const SOURCE_SPECS: Record<SourceKey, SourceSpec> = {
     ],
   },
   // PLOS: CC-BY 오픈 학술 논문, C1-C2 심화(S4 킬러급). abstract+본문 산문(methods/refs 스트립).
+  // Europe PMC — **라이선스가 질의 파라미터인 유일한 공급선.**
+  //   `LICENSE:"cc by" AND LANG:"eng" AND IN_EPMC:y` 로 서버가 걸러 주므로 DOAB 처럼
+  //   편당 판정을 만들 필요가 없고, 본문도 /{PMCID}/fullTextXML 로 바로 나온다.
+  //   실측 2026-09-13: CC BY×영어×전문보유 5,218,944편 · review 618,178편 · 수확률 97.5%.
+  //   피드가 소재축으로 갈려 있다 — 하나로 두면 생의학이 전부 차지한다(모집단이 그렇다).
+  europe_pmc: {
+    targetLevels: ['advanced'],
+    targetCefr: { min: 'C1', max: 'C2' },
+    maxItemsPerBatch: 20,
+    minScore: 0.40,
+    bulkPriority: 3,        // 변형 가능 논증 공급선 — PLOS 단일 의존을 푸는 자리
+    license: 'CC-BY-4.0',
+    attributionRequired: true,
+    topicDomain: ['science', 'psychology', 'education', 'environment', 'society', 'medicine'],
+    styleGuide: 'CC BY 리뷰 논문 서론 (주장 + 근거 + 반론) · 기출 논증문과 구조가 가장 가깝다',
+    preferredFeedMix: [
+      { feedId: 'review', weight: 0.36 },
+      { feedId: 'psychology', weight: 0.20 },   // 수능 최빈출 소재
+      { feedId: 'education', weight: 0.18 },
+      { feedId: 'society', weight: 0.14 },
+      { feedId: 'environment', weight: 0.12 },
+    ],
+  },
   plos: {
     targetLevels: ['advanced'],
     targetCefr: { min: 'C1', max: 'C2' },
@@ -1057,6 +1095,10 @@ export const FEED_REGISTER: Record<string, string> = {
 
 /** source → register 기본값 (feed override 없을 때). */
 export const SOURCE_REGISTER_DEFAULT: Record<string, string> = {
+  // ⚠️ **선언값이다.** register 는 본문을 보지 않는다 — 실제 논증 밀도는
+  //   `textbook/register-signal.ts` 가 재고, 기출 중앙 5.33/1,000어 를 눈금으로 쓴다.
+  //   리뷰 논문은 주장·근거·반론 구조라 기본값을 argumentative 로 둔다.
+  europe_pmc: 'argumentative',
   voa: 'news',
   nasa: 'expository',
   nih: 'expository',
@@ -1299,6 +1341,7 @@ export const SOURCE_POLICIES: Record<SourceKey, SourcePolicy> = {
   elife: getSourcePolicy('elife'),
   wikipedia: getSourcePolicy('wikipedia'),
   futurity: getSourcePolicy('futurity'),
+  europe_pmc: getSourcePolicy('europe_pmc'),
   plos: getSourcePolicy('plos'),
   wikivoyage: getSourcePolicy('wikivoyage'),
   usgs: getSourcePolicy('usgs'),

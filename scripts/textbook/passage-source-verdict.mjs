@@ -130,6 +130,8 @@ const rows = probe.results.map((r) => ({
   feedBody: CLAIM.get(r.id)?.feedBody ?? 'unknown',
   redistributeWhy: CLAIM.get(r.id)?.redistributeWhy ?? null,
   licenseClaim: CLAIM.get(r.id)?.licenseClaim ?? r.licenseClaim,
+  // 배선 여부도 레지스트리가 정본이다 — 프로브 스냅샷은 배선 전에 찍혔을 수 있다.
+  wired: CLAIM.get(r.id)?.wired ?? r.wired,
   grade: grade({
     ...r,
     derivClaim: CLAIM.get(r.id)?.derivClaim ?? r.derivClaim,

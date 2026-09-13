@@ -1,6 +1,6 @@
 {
   "measured_at": "2026-09-13T04:32:05.732Z",
-  "verdict_at": "2026-09-13T05:51:16.941Z",
+  "verdict_at": "2026-09-13T08:15:17.655Z",
   "tally": {
     "A": 32,
     "B": 10,
@@ -102,7 +102,7 @@
       "upstreamKind": "total",
       "verdict": "api",
       "route": "open",
-      "wired": null,
+      "wired": "europe_pmc",
       "register": "argumentative",
       "band": "C1-C2",
       "licenseClaim": "CC BY 4.0 (질의에서 LICENSE:\"cc by\" 로 고정 — 혼재가 들어올 수 없다)",

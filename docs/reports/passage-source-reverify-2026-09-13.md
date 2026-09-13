@@ -10,7 +10,7 @@
 
 | 등급 | 뜻 | 소스 | 상류 합 (총량 공표분만) | 그중 배선됨 |
 |---|---|---:|---:|---:|
-| A | 즉시 착수 — 열거 ⭕ 변형 ⭕ | 32 | 11,920,587 | 20 |
+| A | 즉시 착수 — 열거 ⭕ 변형 ⭕ | 32 | 11,920,587 | 21 |
 | B | 편당 라이선스 필터가 먼저 | 10 | 8,347,234 | 0 |
 | C | 비개방 파이프라인 — 원문 확보 ⭕ 문항 0 | 1 | 0 | 1 |
 | N | **비상업 전용(NC)·미확인** — 유료 플랫폼 사용 불가 | 9 | 0 | 0 |
@@ -118,7 +118,7 @@
 | A | ● wikipedia | 7,239,062 | 총량 | api | 개방 파이프라인 (문항 변형 가능) | yes | yes | yes | unknown | expository | B2-C1 | CC BY-SA 4.0 | — |
 | A | mdpi | 2,035,254 | 총량 | oai | 개방 파이프라인 (문항 변형 가능) | yes | yes | yes | unknown | expository | C1-C2 | CC BY 4.0 | CC BY · 약관:CC BY |
 | A | wikisource | 1,129,178 | 총량 | api | 개방 파이프라인 (문항 변형 가능) | yes | yes | yes | unknown | expository | C1-C2 | PD 본문 + CC BY-SA 편집분 | — |
-| A | europe_pmc | 618,182 | 총량 | api | 개방 파이프라인 (문항 변형 가능) | yes | yes | yes | unknown | argumentative | C1-C2 | CC BY 4.0 (질의에서 LICENSE:"cc by" 로 고정 — 혼재가 들어올 수 없다) | — |
+| A | ● europe_pmc | 618,182 | 총량 | api | 개방 파이프라인 (문항 변형 가능) | yes | yes | yes | unknown | argumentative | C1-C2 | CC BY 4.0 (질의에서 LICENSE:"cc by" 로 고정 — 혼재가 들어올 수 없다) | — |
 | A | ● plos | 415,856 | 총량 | api | 개방 파이프라인 (문항 변형 가능) | yes | yes | yes | unknown | expository | C1-C2 | CC BY 4.0 | — |
 | A | ● simple_wikipedia | 284,979 | 총량 | api | 개방 파이프라인 (문항 변형 가능) | yes | yes | yes | unknown | expository | A2-B1 | CC BY-SA 4.0 | — |
 | A | wikibooks | 98,724 | 총량 | api | 개방 파이프라인 (문항 변형 가능) | yes | yes | yes | unknown | expository | B1-C1 | CC BY-SA 4.0 | — |

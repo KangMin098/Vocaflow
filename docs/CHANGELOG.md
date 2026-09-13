@@ -9,6 +9,37 @@
 ---
 ## Unreleased (v06.34 → next)
 
+### Europe PMC 적재 개시 — 논증문 공급선이 PLOS 하나에서 둘로 (2026-09-13, migration `add_europe_pmc_article_source`)
+
+사용자 승인 후 `library_articles_source_check` 를 27 → **28종**으로 넓혔다(넓히는 변경이라 기존
+행은 전부 통과). 그리고 **실제로 담기까지** 갔다 — 배선만 하고 적재하지 않으면 `futurity` 가
+2026-08-21~08-30 사이에 겪은 일(어댑터는 있는데 제약이 없어 INSERT 전량 거절)의 거울상이 된다.
+
+**배선** `_curation-spec.ts` 네 곳(FEED_SPECS · SOURCE_SPECS · SOURCE_POLICIES ·
+SOURCE_REGISTER_DEFAULT) — 타입이 exhaustive Record 라 세 곳을 빠뜨리자 컴파일이 멈췄다.
+정책층 실측 확인: `derivation: 'full'` · `licenseClass: 'cc_by'` — the_conversation 의 ND 와 달리
+문항 변형이 된다.
+
+**적재 실적**(피드별 60편 상한 · 기출 중앙 5.33/1,000어 대비):
+
+| 피드 | 담음 | 기출 중앙 이상 | 표지 중앙 |
+|---|---:|---:|---:|
+| review | 60 | 32/60 | 6.41 |
+| psychology | 60 | 36/60 | 7.38 |
+| education | 60 | 39/60 | 7.25 |
+
+DB 실측 — 담긴 행 전부 `license_class='cc_by'` · `display_only=false` ·
+`copyright_safe_in_kr=true`. **피드 간 중복 제거도 작동한다**(education 에서 "이미 있음 3" —
+같은 논문이 review 에도 있었다. 열쇠가 `europe_pmc:PMC…` 로 하나라 잡힌다).
+
+**기존 회귀가 내 누락을 잡았다.** `harvest-cursor-contract.test.ts` 가 「등록부에 없는 목록기」로
+실패했다 — 518,715편을 `cursorMark` 로 깊이 캐면서 커서를 안 두면 매 실행 **같은 앞머리**만 보고
+나머지를 영영 안 본다(FrYM 이 겪은 일). `HARVEST_CURSOR_REGISTRY` 에 피드별 커서를 등록했다.
+
+새 파일 `scripts/textbook/epmc-ingest.mjs`(관문 네 겹째 — 규격·자립성·중복 · dry-run 기본 ·
+재실행 안전). 라이브러리 전체 회귀 **2,083종 통과**.
+
+
 ### 재고를 두 배로 — 새 소스 0개로 ready 38,381 → 73,880편 (2026-09-13)
 
 신규 소스 적재는 `library_articles_source_check` 마이그레이션 승인에 묶여 있다. 그 사이에 **승인이

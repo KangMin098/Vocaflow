@@ -130,6 +130,15 @@ export interface HarvestRegistryEntry {
 }
 
 export const HARVEST_CURSOR_REGISTRY: Record<string, HarvestRegistryEntry> = {
+  europe_pmc: {
+    deepPaged: true,
+    // `cursorMark` 로 깊이 캔다 — review 피드 하나가 518,715편이다. 커서가 없으면 매 실행
+    //   **같은 앞머리**만 보고 '이미 있음' 으로 세며 나머지를 영영 안 본다(FrYM 이 겪은 일).
+    //   피드마다 따로 둔다: 소재축으로 갈라 둔 5개 피드의 진행이 서로를 덮으면 안 된다.
+    // ⚠️ `seen` 이 토큰보다 중요하다 — 같은 논문이 여러 피드에 걸쳐 나온다(psychology 의
+    //   글이 review 에도 있다). 토큰만 믿으면 피드를 옮길 때 중복을 다시 받는다.
+    cursorFile: 'scripts/textbook/data/europe-pmc-<feed>-cursor.json',
+  },
   frym: {
     deepPaged: true,
     cursorFile: 'scripts/textbook/data/frym-<feed>-cursor.json',

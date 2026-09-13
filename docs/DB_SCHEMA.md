@@ -63,6 +63,44 @@ RLS 켜고 **정책 없음 = service_role 전용**. 인덱스 `idx_qdc_rotation(
 기억한다. `drift IS NULL AND failed_reason IS NOT NULL` = 그 책은 30초 안에 못 쟀다는 뜻이다 —
 **빈칸으로 두지 않는다**(조용한 실패 금지). 지표는 이번 밤 표본이 아니라 이 표 **전체**에서 낸다.
 
+### 📰 `library_articles.source` 에 `europe_pmc` (2026-09-13, migration `add_europe_pmc_article_source`)
+
+**왜 넓혔나.** 변형 가능(ND·NC 아님) 논증문 재고가 소스 2곳 · 1,485편이었고 사실상 PLOS 하나였다.
+논증문을 늘리려는 시도는 두 번 **라이선스**에서 막혔다 — The Conversation 은 CC BY-ND 라
+`display_only` 로 들어가 문항이 0개였고(2026-08-21, 신규 46편 전량), Aeon·Quanta·Knowable 도 ND/NC 였다.
+
+Europe PMC 가 다른 점은 편수가 아니라 **필터의 위치**다:
+
+```
+LICENSE:"cc by" AND LANG:"eng" AND IN_EPMC:y   → 서버가 걸러 준다
+```
+
+DOAB 는 책마다 라이선스가 달라(변형 가능 33.6% · ND·NC 56.0% · 표기 없음 10.4%) 편당 판정을
+따로 만들어야 하고, 그 판정이 한 번 느슨해지면 **오류 없이** 위법 교재가 나온다. 여기서는 질의에
+박혀 있어 혼재가 애초에 들어오지 않는다. 본문도 PDF 가 아니라 `/{PMCID}/fullTextXML` 로 바로 나온다.
+
+| 축 | 실측 2026-09-13 |
+|---|---|
+| CC BY × 영어 × 전문 보유 | 5,218,944편 |
+| 그중 `PUB_TYPE:"review"` | 618,178편 (중복 발행처 제외 후 518,715) |
+| 서론 발췌 규격 수확률 | **97.5%** (표본 40편 · `scripts/textbook/epmc-yield-probe.mjs`) |
+| 소재 폭 | Frontiers in Psychology 4,951 · language/learning 6,319 · social/cultural 3,575 · climate/environment 3,183 · education 2,583 |
+
+**넓히는 변경이라 기존 27개 값은 그대로 두고 하나만 더했다** — 기존 행은 전부 통과한다.
+
+⚠️ **라이선스 관문이 네 겹이다.** 질의 · 목록(`epmcLicenseAllowed`) · 적재기(본문 XML 의 값을 다시
+보고 **더 제한적인 쪽** 채택) · 적재 스크립트(규격·중복). 질의는 사람이 고칠 수 있고 고쳐도 오류가
+나지 않으므로 한 겹으로 두지 않는다. 회귀가 `feed.filter` 에 `LICENSE:`/`LANG:` 유입도 막는다.
+
+⚠️ **PLOS·Frontiers 와 겹친다.** 둘은 이미 배선돼 있고 Europe PMC 안에도 있는데, 열쇠 접두어가
+달라(`plos:…` vs `europe_pmc:PMC…`) `source_id` 중복 검사로는 안 잡힌다. 목록기가
+`NOT PUBLISHER:` 로 질의에서 뺀다(618,178 → 518,715 실측 확인).
+
+어댑터 `packages/library-pipeline/src/ingest-article/europe-pmc.ts` ·
+적재 `scripts/textbook/epmc-ingest.mjs` ·
+커서 `scripts/textbook/data/europe-pmc-<feed>-cursor.json`(`HARVEST_CURSOR_REGISTRY` 등록됨) ·
+회귀 21종.
+
 ### ⏱ 마이그레이션 파일명은 **UTC** 로 붙인다 (2026-09-06)
 
 MCP `apply_migration` 은 버전을 **UTC 시각**으로 매긴다. 한국 시각으로 파일명을 지으면
@@ -646,7 +684,7 @@ CardBack·WordLookupPopover 가 그린다. 카드가 어떤 예문을 고를지 
 | `library_chapters_master` | 1,296 | 1.4 MB | chapter 정본 — `content_hash` ref content_chunks · paragraph_offsets · sentence_offsets · word_count · `group_label` · `source_href`(원본 챕터 deep-link, SE TOC 매핑 · NULL→도서 TOC fallback) · `chapter_v_level`(챕터별 어휘 V-level p75·V11 제외 · 1,295/1,296 · book_v_level 편차 노출 · migration `20260709145433`) |
 | `content_chunks` | 1,174 | 13 MB | SHA-256 dedup 본문 저장 — PK=hash only · TOAST 대형 |
 | `library_book_vocabularies` | 96,636 | 39 MB | chapter별 사전계산 단어 (v06.34 VACUUM FULL 후 233→39 MB) · **v06.35** 진단 4컬럼 `resolved_via` / `resolved_lang` / `resolved_word` / `noise_kind` (`lemma IS NULL` 행에 `lookup_word_meaning` 해석 결과 기록 — `lemma` 자체는 불변) + 부분 인덱스 `idx_lbv_unbound_book WHERE lemma IS NULL` |
-| `library_articles` | 4 | 104 kB | ACP — 짧은 글 · `license_class` / `register` / `lexical_noise` / `display_only` (ACP §18 게이트 · BEFORE INSERT/UPDATE 트리거 `acp_apply_license_gate` 자동 도출 · `trg_la_require_audio` = VOA 발행 시 `audio_url` 필수 게이트, 듣기 정체성 · `source` CHECK 19종 — 2026-08-30 마이그레이션 `20260830020000` 이 `futurity` 추가(어댑터는 2026-08-21 부터 있었는데 제약만 빠져 INSERT 가 전량 거절되고 있었다)) |
+| `library_articles` | 4 | 104 kB | ACP — 짧은 글 · `license_class` / `register` / `lexical_noise` / `display_only` (ACP §18 게이트 · BEFORE INSERT/UPDATE 트리거 `acp_apply_license_gate` 자동 도출 · `trg_la_require_audio` = VOA 발행 시 `audio_url` 필수 게이트, 듣기 정체성 · `source` CHECK **28종** — 2026-08-30 마이그레이션 `20260830020000` 이 `futurity` 추가(어댑터는 2026-08-21 부터 있었는데 제약만 빠져 INSERT 가 전량 거절되고 있었다) · 2026-09-13 `add_europe_pmc_article_source` 가 `europe_pmc` 추가) |
 | `library_article_vocabularies` | 11,011,463 | **1,717 MB** | article 단어 — **DB 최대 테이블**(전체 7.6 GB 의 절반). 19,384편 × 편당 568행. **원문에서 재현 가능한 캐시다** — `content` 에 `normalizePunctuation`→`reflowSoftHyphens`→`extractBookLemmas`→`computeLearningValue`(전부 순수 동기 함수·LLM 0)를 돌리면 낱말·빈도·`first_sentence` 가 **비트 단위로 일치**(6편 2,565행 대조·불일치 0 · 편당 46.5 ms · 실측 2026-09-01). 고유 정보 0 → 보관 범위는 비용 문제이지 데이터 손실 문제가 아니다.<br>**v06.35** 마이그레이션 `20260901040000` 이 죽은 컬럼 3개 제거 → 4,249→3,850 MB(−399 MB): `id`(uuid 대리키 · `idx_scan=0` 인 399 MB PK 인덱스 · 참조 FK 0) · `lemma`(11,011,463행 **전량 NULL** · FK+부분인덱스 동반 제거 · RPC 3종의 `COALESCE(lav.lemma, lav.word)` 정리) · `created_at`(읽는 코드 0 · 기사에 `vrl_calculated_at` 있음). **PK 없음** — 실제 키 `UNIQUE (library_article_id, word)`(6,410,326 scans)가 대신한다(승격 시 650 MB 재빌드라 안 함 · 논리복제 대상 아님). 남은 컬럼 6: `library_article_id` · `word` · `frequency_in_article` · `first_sentence` · `base_learning_value` · `context_pos`.<br>**v06.35 정리 완료** — 문장 사본 **9,200,000행**을 비웠다(보유율 96.61%→16.03%). `first_sentence` 는 평균 188 B 의 **무압축** 사본이었고(2 KB 미만이라 TOAST 압축이 안 걸린다) 한 기사 안에서 평균 4.48번 중복됐다. 남긴 것은 발행 글의 전 행 + 사전 채굴이 문맥을 쓰는 낱말(`prune_article_vocab_sentences` · 마이그레이션 `20260901060000`). `VACUUM FULL ANALYZE` 뒤 **4,341 → 1,717 MB**(heap 1,238 · idx 479). **세션 전체 4,249 → 1,717 MB(−59.6%)이고 동작 변화는 0이다**(RPC 두 개의 출력 해시가 시작 시점과 동일).<br>⚠️ `library_book_vocabularies.lemma` 는 **94.8% 채워진 살아있는 컬럼**이다 — 혼동 금지 |
 | `library_seed_catalog` | 1,843 | 4 MB | seed 후보 — `imported_book_id` FK ON DELETE SET NULL (소스 GET 복귀 핵심) · curation_meta JSONB |
 | `library_source_catalogs` | 11 | 80 kB | 9 소스 (gutenberg / standard_ebooks / wikibooks / wikisource / librivox / openstax / open_library / hathitrust / simple_wikipedia) + manual + voa_learning · composite_score · S/A/B/C/M tier |

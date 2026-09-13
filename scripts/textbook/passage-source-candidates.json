@@ -44,7 +44,8 @@
     "frym",
     "frontiers",
     "worldbank",
-    "nist"
+    "nist",
+    "europe_pmc"
   ],
   "candidates": [
     {
@@ -2207,12 +2208,13 @@
       "derivClaim": "yes",
       "band": "C1-C2",
       "register": "argumentative",
-      "note": "사용자 표는 「원문 아님」으로 0점을 줬으나 실측은 반대다(2026-09-13). CC BY × 영어 × 전문보유 5,218,944편 · 그중 PUB_TYPE:\"review\" 618,178편. 서론 발췌 규격 수확률 97.5%(표본 40편, scripts/textbook/epmc-yield-probe.mjs) → 약 602,724편 지문 후보. 소재도 생의학 전용이 아니다 — Frontiers in Psychology 4,951 · language/learning 6,319 · social/cultural 3,575 · climate/environment 3,183 · education 2,583 (전부 CC BY 영어 review 실측). DOAB 와 달리 PDF 장 분할이 필요 없다",
+      "note": "배선됨 2026-09-13(마이그레이션 add_europe_pmc_article_source). 사용자 표는 「원문 아님」으로 0점을 줬으나 실측은 반대다(2026-09-13). CC BY × 영어 × 전문보유 5,218,944편 · 그중 PUB_TYPE:\"review\" 618,178편. 서론 발췌 규격 수확률 97.5%(표본 40편, scripts/textbook/epmc-yield-probe.mjs) → 약 602,724편 지문 후보. 소재도 생의학 전용이 아니다 — Frontiers in Psychology 4,951 · language/learning 6,319 · social/cultural 3,575 · climate/environment 3,183 · education 2,583 (전부 CC BY 영어 review 실측). DOAB 와 달리 PDF 장 분할이 필요 없다",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
       "commercialClaim": "yes",
       "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
-      "feedBody": "unknown"
+      "feedBody": "unknown",
+      "wired": "europe_pmc"
     },
     {
       "rank": 88,
