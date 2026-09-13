@@ -1036,3 +1036,14 @@ export {
   markSeen,
 } from './ingest-article/harvest-cursor'
 export type { HarvestCursor, HarvestRegistryEntry } from './ingest-article/harvest-cursor'
+
+// 유형 폭 — 사다리가 선언한 유형 대 지면에 실린 유형(`scripts/textbook/type-spread.mjs`).
+export { measureSpread, measureVolumeSpread, schoolOfBucket } from './textbook/type-spread'
+export type {
+  MarketPerSchoolMedian,
+  MarketSchool,
+  SpreadReport,
+  SpreadState,
+  VolumeSpreadInput,
+  VolumeTypeSpread,
+} from './textbook/type-spread'
