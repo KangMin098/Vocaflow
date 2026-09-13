@@ -99,14 +99,16 @@ describe('explainInsertSeam', () => {
   it('원래 자리를 앞뒤 문장으로 보인다', () => {
     const e = explainInsertSeam(item)
     expect(e).not.toBeNull()
-    expect(e!.ko).toContain('원래')
+    expect(e!.ko).toContain('정답은')
     expect(e!.hasCitation).toBe(true)
   })
 
   it('오답 자리가 무엇을 갈라놓는지 보인다', () => {
     const e = explainInsertSeam(item)!
     expect(e.hasWrongOption).toBe(true)
-    expect(e.ko).toContain('원문에서 이 둘은 붙어 있다')
+    // ⚠️ 순서 쪽과 같은 이유로 순환 문구를 뺐다 — 학습자는 원문을 못 본다.
+    expect(e.ko, '학습자가 볼 수 없는 것을 근거로 들었다').not.toContain('원문에서 이 둘은 붙어 있다')
+    expect(e.ko).toContain('사이를 가른다')
   })
 
   it('시장 규격 길이 안에 든다', () => {

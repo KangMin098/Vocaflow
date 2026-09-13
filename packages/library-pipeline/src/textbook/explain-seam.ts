@@ -349,27 +349,47 @@ export function explainInsertSeam(item: CsatInsertItem): ItemExplanation | null 
   if (!before) return null
 
   const must: string[] = []
-  must.push(`정답은 ${CIRCLED[item.answer - 1]} 다 — 주어진 문장은 원래 "${tail(before, 45)}" 뒤에 있었다.`)
+  must.push(`정답은 ${CIRCLED[item.answer - 1]} 다.`)
+
   const optional: string[] = []
+  // ── 지문에서 읽어 낸 근거 ──────────────────────────────────────────
+  //
+  // ⚠️ 앞판은 `주어진 문장은 원래 "…" 뒤에 있었다` 로 시작했다. **참이지만**(원문이 정답 키다)
+  //   학습자는 원문을 못 본다 — 순서 쪽에서 고친 것과 **같은 순환 논증**이 삽입에는
+  //   그대로 남아 있었다(3회차 검수 실측: 삽입 12문항 중 7건).
+  //
+  //   주어진 문장이 되받이로 열면 그 말이 **바로 앞 문장에** 있는지 지문에서 확인된다.
+  const anchor = opensWithAnaphor(item.sentence)
+  if (anchor?.noun && mentionsNoun(before, anchor.noun)) {
+    optional.push(
+      `주어진 문장이 "${anchor.marker}" 로 시작하는데 그 말이 바로 앞 "${tail(before, 32)}" 에 있다.`,
+    )
+  }
   if (after) {
     optional.push(`거기 넣으면 "${tail(before, 30)}" → "${head(item.sentence, 45)}" → "${head(after, 30)}" 로 이어진다.`)
   } else {
     optional.push(`글의 마지막 자리이므로 "${head(item.sentence, 45)}" 가 끝을 맺는다.`)
   }
 
-  // 오답 자리 둘만 — 그 자리가 원래 붙어 있던 두 문장을 갈라놓는다는 사실을 보인다.
+  // ── 오답 배제 ─────────────────────────────────────────────────────
+  // 그 자리가 **무엇과 무엇 사이를 가르는지** 보인다. 원문을 근거로 들지 않는다.
+  // 자리가 다섯이므로 **넷을 다** 적되, 같은 말이면 묶고 규격 안에서 담을 만큼만 담는다.
   const wrong: string[] = []
   for (const [idx, slot] of item.slots.entries()) {
     if (idx === item.answer - 1) continue
     const b = item.body[slot - 1]
     const a = item.body[slot]
     if (!b || !a) continue
-    wrong.push(`${CIRCLED[idx]} 는 "${tail(b, 28)}" 와 "${head(a, 28)}" 사이를 가른다`)
+    wrong.push(`${CIRCLED[idx]} 는 "${tail(b, 26)}" 와 "${head(a, 26)}" 사이를 가른다`)
   }
-  // 오답 배제는 맨 끝에 오되 자리는 먼저 확보한다 — 위 order 와 같은 이유.
-  const closing = wrong.length
-    ? [`${wrong.slice(0, 2).join('; ')} — 원문에서 이 둘은 붙어 있다.`]
-    : []
+  const lead = must.join(' ').replace(/\s+/g, ' ').trim()
+  const picked: string[] = []
+  for (const w of wrong) {
+    const candidate = `${[...picked, w].join('; ')}.`
+    if (lead.length + 1 + candidate.length > EXPLANATION_CHARS.max) break
+    picked.push(w)
+  }
+  const closing = picked.length ? [`${picked.join('; ')}.`] : []
   return assemble(must, optional, closing, 'insert_seam')
 }
 

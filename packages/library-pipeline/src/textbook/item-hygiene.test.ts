@@ -439,3 +439,50 @@ describe('문장 경계 소실', () => {
     ).toBeNull()
   })
 })
+
+/**
+ * **다섯 선지가 서로 다른 낱말이어야 한다.**
+ *
+ * 3회차 검수 실측: 어휘 문항 7개 중 **4개**에서 밑줄 둘이 같은 낱말이었다
+ * (`experienced`×2 · `robot`/`robots` · `romantic`×2). 5지선다가 3~4지가 된다.
+ * 또 한 문항은 정답이 `rarely → often` 인데 **선지 ②가 `Often`** 이었다.
+ *
+ * DB 실측(V5 10,612): 낱말 중복 1,265(12%) · 정답 낱말이 선지로 1,143(11%).
+ */
+describe('선지 충돌', () => {
+  const item = (words: string[], original?: string) => ({
+    payload: {
+      sentences: ['The coastal region provides a steady supply of fresh water.'],
+      underlines: words.map((word, i) => ({ word, sentenceIdx: 0, label: String(i + 1) })),
+    },
+    ...(original ? { answerKey: { original } } : {}),
+  })
+
+  it('같은 낱말이 두 선지에 있으면 반려한다', () => {
+    expect(itemHygieneReject(item(['experienced', 'coastal', 'experienced', 'supply', 'fresh']))).toBe(
+      'choiceCollision',
+    )
+  })
+
+  it('굴절형도 같은 낱말로 본다 — 학생 눈에는 한 낱말이다', () => {
+    expect(itemHygieneReject(item(['robot', 'coastal', 'robots', 'supply', 'fresh']))).toBe(
+      'choiceCollision',
+    )
+  })
+
+  it('정답의 원래 낱말이 다른 선지로 인쇄되면 반려한다', () => {
+    expect(itemHygieneReject(item(['rarely', 'Often', 'coastal', 'supply', 'fresh'], 'often'))).toBe(
+      'choiceCollision',
+    )
+  })
+
+  it('다섯이 서로 다르면 통과한다 — 더한 규칙이 뺀 규칙이 되지 않게', () => {
+    expect(
+      itemHygieneReject(item(['coastal', 'steady', 'supply', 'region', 'water'], 'plentiful')),
+    ).toBeNull()
+  })
+
+  it('밑줄이 하나뿐이면 충돌이 없다', () => {
+    expect(itemHygieneReject(item(['coastal']))).toBeNull()
+  })
+})

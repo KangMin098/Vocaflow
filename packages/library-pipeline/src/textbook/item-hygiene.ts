@@ -297,6 +297,50 @@ function blockSizesOf(rest: number): [number, number, number] | null {
   const extra = rest % 3
   return [base + (extra > 0 ? 1 : 0), base + (extra > 1 ? 1 : 0), base]
 }
+/**
+ * **다섯 선지가 서로 다른 낱말인가, 그리고 정답이 선지에 인쇄돼 있지 않은가.**
+ *
+ * ── 3인 검수 3회차 실측 (2026-09-13) ────────────────────────────────
+ * 어휘 문항 7개 중 **4개**에서 밑줄 둘이 같은 낱말이었다 — `experienced`×2 ·
+ * `robot`/`robots` · `romantic`×2. 5지선다가 **3~4지**가 된다. 학생은 지문을 읽기 전에
+ * 선지를 줄인다.
+ *
+ * 또 한 문항은 정답이 `rarely → often` 인데 **선지 ②가 `Often`** 이었다. 고칠 말이
+ * 선지에 박혀 있어, ①을 고른 학생과 ②를 고른 학생의 사고가 구분되지 않는다.
+ *
+ * DB 실측(V5 `vocab_choice` 10,612): 낱말 중복 **1,265(12%)** ·
+ * 정답 낱말이 다른 선지로 인쇄 **1,143(11%)**.
+ *
+ * ⚠️ 굴절형도 같은 낱말로 본다(`robot`/`robots`) — 학생 눈에는 한 낱말이다.
+ */
+export function hasChoiceCollision(
+  payload: Record<string, unknown> | null | undefined,
+  answerKey: Record<string, unknown> | null | undefined,
+): boolean {
+  const underlines = (payload as { underlines?: unknown } | null | undefined)?.underlines
+  if (!Array.isArray(underlines) || underlines.length < 2) return false
+  // ⚠️ **어법 문항은 대상이 아니다.** 관사·지시사는 **설계상** 같은 낱말이 여러 선지에 온다
+  //   (`a … a … an`). 그것이 이 유형이 묻는 것이라 중복이 결함이 아니다 —
+  //   어휘 문항에서만 「선지가 서로 다른 낱말」이 요건이다.
+  //   어법 밑줄은 자리(`tokenIdx`)를 저장하므로 그것으로 가른다.
+  if (underlines.some((u) => Number.isInteger(Number((u as { tokenIdx?: unknown } | null)?.tokenIdx)))) {
+    return false
+  }
+  const stem = (w: unknown): string => {
+    const x = String(w ?? '').toLowerCase().replace(/[^a-z]/g, '')
+    if (x.length < 4) return x
+    if (x.endsWith('ies')) return `${x.slice(0, -3)}y`
+    if (x.endsWith('es')) return x.slice(0, -2)
+    if (x.endsWith('s')) return x.slice(0, -1)
+    return x
+  }
+  const words = underlines.map((u) => stem((u as { word?: unknown } | null)?.word)).filter(Boolean)
+  if (new Set(words).size < words.length) return true
+  // 정답의 **원래 낱말**이 다른 선지로 인쇄돼 있으면 근거가 샌다.
+  const original = stem((answerKey as { original?: unknown } | null | undefined)?.original)
+  if (original && words.includes(original)) return true
+  return false
+}
 /** 왜 못 내보내는지 — 세어서 남기려고 이름을 붙인다. 통과면 `null`. */
 export type HygieneReject =
   | 'retracted'
@@ -315,6 +359,8 @@ export type HygieneReject =
   | 'ambiguousUnderline'
   /** 덩어리 길이가 정답의 첫 자리를 알려 준다 — 문장만 세면 풀린다. */
   | 'blockLengthLeak'
+  /** 선지 둘이 같은 낱말이거나, 정답 낱말이 선지에 인쇄돼 있다. */
+  | 'choiceCollision'
 
 /**
  * **학습자에게 내보내도 되는 문항인가.** 조판의 게이트와 같은 판정을 쓴다.
@@ -351,6 +397,7 @@ export function itemHygieneReject(input: {
   if (hasBadSentenceSplit(input.payload)) return 'badSplit'
   if (hasPunctuationLeak(input.payload)) return 'punctuationLeak'
   if (hasBlockLengthLeak(input.payload, input.answerKey)) return 'blockLengthLeak'
+  if (hasChoiceCollision(input.payload, input.answerKey)) return 'choiceCollision'
   if (hasAmbiguousUnderline(input.payload)) return 'ambiguousUnderline'
 
   const text = passageTextOf(input.payload)
