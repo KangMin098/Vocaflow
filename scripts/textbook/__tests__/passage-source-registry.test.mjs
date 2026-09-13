@@ -286,6 +286,15 @@ describe('register 측정 — 선언과 나란히 기록돼 있다', () => {
     expect(m.measured_supply_total).toBe(sum)
   })
 
+  it('표본을 앞에서만 뜨지 않는다 — 재고가 늘면 앞쪽 표본은 구성이 바뀐다', () => {
+    // 실측 2026-09-13: plos 드레인 직후 같은 소스의 통과율이 72% → 53% 로 흔들렸다.
+    // order('id').limit(N) 은 id 앞쪽 N 행이라 모집단이 바뀌면 표본도 바뀐다.
+    // DOAB 표본에서 이미 고친 함정을 여기서 반복했다 — 방식을 기록해 되돌아오지 못하게 한다.
+    expect(m.sampling, '앞쪽 연속 표본으로 되돌아갔다').toBe('spread')
+    expect(m.sample_windows).toBeGreaterThan(1)
+    expect(m.scanned, '표본이 너무 작으면 통과율이 흔들린다').toBeGreaterThan(500)
+  })
+
   it('측정이 선언보다 크다는 것이 이 사이클의 발견이다', () => {
     expect(m.measured_supply_total).toBeGreaterThan(m.declared_argumentative_rows)
   })

@@ -1,5 +1,5 @@
 {
-  "measured_at": "2026-09-13T05:17:27.309Z",
+  "measured_at": "2026-09-13T07:54:51.970Z",
   "marker_groups": {
     "contrast": [
       "however",
@@ -79,19 +79,19 @@
   "threshold_from_csat_median": 5.33,
   "csat_presence_rate": 0.588,
   "csat_markers_per_passage": 1.06,
-  "declared_overlap": 0.379,
+  "declared_overlap": 0.408,
   "per_source_declared": [
     {
       "source": "elife",
       "declared": "expository",
       "label": "elife|expository",
-      "n": 60,
+      "n": 100,
       "p10": 0,
-      "p25": 2.81,
-      "median": 6.23,
-      "p75": 8.42,
-      "p90": 10.81,
-      "passRatio": 0.533
+      "p25": 2.82,
+      "median": 5.52,
+      "p75": 8.13,
+      "p90": 10.25,
+      "passRatio": 0.54
     },
     {
       "source": "factbook",
@@ -109,61 +109,61 @@
       "source": "frontiers",
       "declared": "expository",
       "label": "frontiers|expository",
-      "n": 60,
-      "p10": 2.42,
-      "p25": 4.35,
-      "median": 6.64,
-      "p75": 8.79,
-      "p90": 14.54,
-      "passRatio": 0.7
+      "n": 100,
+      "p10": 2.41,
+      "p25": 4.66,
+      "median": 7.61,
+      "p75": 9.73,
+      "p90": 13.6,
+      "passRatio": 0.72
     },
     {
       "source": "frym",
       "declared": "expository",
       "label": "frym|expository",
-      "n": 60,
+      "n": 100,
       "p10": 0,
       "p25": 0,
       "median": 0,
-      "p75": 7.04,
-      "p90": 10.49,
-      "passRatio": 0.383
+      "p75": 6.85,
+      "p90": 8.05,
+      "passRatio": 0.35
     },
     {
       "source": "futurity",
       "declared": "expository",
       "label": "futurity|expository",
-      "n": 60,
+      "n": 100,
       "p10": 0,
-      "p25": 1.45,
-      "median": 2.5,
-      "p75": 4.33,
-      "p90": 5.84,
-      "passRatio": 0.167
+      "p25": 1.1,
+      "median": 2.49,
+      "p75": 4.63,
+      "p90": 6.76,
+      "passRatio": 0.24
     },
     {
       "source": "gutenberg",
       "declared": "expository",
       "label": "gutenberg|expository",
-      "n": 60,
+      "n": 100,
       "p10": 0,
       "p25": 0,
-      "median": 2.76,
-      "p75": 8.55,
-      "p90": 14.83,
-      "passRatio": 0.433
+      "median": 0,
+      "p75": 7.32,
+      "p90": 12.69,
+      "passRatio": 0.37
     },
     {
       "source": "nasa",
       "declared": "expository",
       "label": "nasa|expository",
-      "n": 60,
+      "n": 100,
       "p10": 0,
       "p25": 0,
       "median": 0,
-      "p75": 2.4,
-      "p90": 3.5,
-      "passRatio": 0
+      "p75": 2.2,
+      "p90": 4.13,
+      "passRatio": 0.06
     },
     {
       "source": "nist",
@@ -181,25 +181,25 @@
       "source": "noaa",
       "declared": "expository",
       "label": "noaa|expository",
-      "n": 50,
+      "n": 20,
       "p10": 0,
-      "p25": 1.06,
-      "median": 2.08,
-      "p75": 3.13,
-      "p90": 4.85,
-      "passRatio": 0.06
+      "p25": 2.06,
+      "median": 2.58,
+      "p75": 4.4,
+      "p90": 5.65,
+      "passRatio": 0.1
     },
     {
       "source": "original",
       "declared": "news",
       "label": "original|news",
-      "n": 60,
+      "n": 100,
       "p10": 0,
       "p25": 0,
-      "median": 3.02,
-      "p75": 5.83,
-      "p90": 11.21,
-      "passRatio": 0.35
+      "median": 4.71,
+      "p75": 6,
+      "p90": 11.57,
+      "passRatio": 0.4
     },
     {
       "source": "owid",
@@ -215,97 +215,109 @@
     },
     {
       "source": "plos",
+      "declared": "argumentative",
+      "label": "plos|argumentative",
+      "n": 7,
+      "p10": 3.05,
+      "p25": 4.29,
+      "median": 8.01,
+      "p75": 8.43,
+      "p90": 10.4,
+      "passRatio": 0.571
+    },
+    {
+      "source": "plos",
       "declared": "expository",
       "label": "plos|expository",
-      "n": 60,
-      "p10": 2.86,
-      "p25": 3.69,
-      "median": 8.16,
-      "p75": 10.05,
-      "p90": 15.43,
-      "passRatio": 0.717
+      "n": 93,
+      "p10": 1.12,
+      "p25": 3.12,
+      "median": 5.18,
+      "p75": 7.64,
+      "p90": 10.05,
+      "passRatio": 0.473
     },
     {
       "source": "simple_wikipedia",
       "declared": "expository",
       "label": "simple_wikipedia|expository",
-      "n": 55,
+      "n": 20,
       "p10": 0,
       "p25": 0,
       "median": 0,
-      "p75": 3.3,
-      "p90": 7.05,
-      "passRatio": 0.164
+      "p75": 2.2,
+      "p90": 3,
+      "passRatio": 0.05
     },
     {
       "source": "space_place",
       "declared": "expository",
       "label": "space_place|expository",
-      "n": 37,
+      "n": 20,
       "p10": 0,
       "p25": 0,
       "median": 0,
-      "p75": 0,
-      "p90": 9.02,
-      "passRatio": 0.216
+      "p75": 6.34,
+      "p90": 9.72,
+      "passRatio": 0.3
     },
     {
       "source": "storyweaver",
       "declared": "narrative",
       "label": "storyweaver|narrative",
-      "n": 58,
+      "n": 97,
       "p10": 0,
       "p25": 0,
       "median": 0,
       "p75": 0,
       "p90": 0,
-      "passRatio": 0.069
+      "passRatio": 0.041
     },
     {
       "source": "the_conversation",
       "declared": "argumentative",
       "label": "the_conversation|argumentative",
-      "n": 60,
-      "p10": 1.14,
-      "p25": 2.11,
-      "median": 4.21,
-      "p75": 6.41,
-      "p90": 9.12,
-      "passRatio": 0.333
+      "n": 20,
+      "p10": 1.62,
+      "p25": 2.1,
+      "median": 3.97,
+      "p75": 5.26,
+      "p90": 6.49,
+      "passRatio": 0.25
     },
     {
       "source": "usgs",
       "declared": "expository",
       "label": "usgs|expository",
-      "n": 60,
+      "n": 100,
       "p10": 0,
       "p25": 0,
-      "median": 0,
-      "p75": 3.1,
-      "p90": 5.34,
-      "passRatio": 0.117
+      "median": 2.08,
+      "p75": 3.4,
+      "p90": 5.63,
+      "passRatio": 0.12
     },
     {
       "source": "voa",
       "declared": "expository",
       "label": "voa|expository",
-      "n": 27,
+      "n": 45,
       "p10": 0,
       "p25": 0,
-      "median": 1.96,
-      "p75": 2.52,
-      "p90": 3.86,
+      "median": 1.27,
+      "p75": 2.42,
+      "p90": 4.46,
       "passRatio": 0
     },
     {
       "source": "voa",
       "declared": "narrative",
       "label": "voa|narrative",
-      "n": 2,
-      "p10": 0.19,
-      "p25": 0.48,
-      "median": 0.96,
-      "p75": 1.45,
+      "n": 4,
+      "p10": 0,
+      "p25": 0,
+      "median": 0.66,
+      "p75": 1.47,
       "p90": 1.74,
       "passRatio": 0
     },
@@ -313,159 +325,169 @@
       "source": "voa",
       "declared": "news",
       "label": "voa|news",
-      "n": 31,
+      "n": 51,
       "p10": 0,
       "p25": 0,
-      "median": 0.98,
-      "p75": 3.01,
-      "p90": 3.96,
-      "passRatio": 0.032
+      "median": 1.12,
+      "p75": 2.96,
+      "p90": 4.28,
+      "passRatio": 0.078
     },
     {
       "source": "wikipedia",
       "declared": "expository",
       "label": "wikipedia|expository",
-      "n": 59,
+      "n": 20,
       "p10": 0,
-      "p25": 1.05,
-      "median": 3.12,
-      "p75": 5.14,
-      "p90": 8.5,
-      "passRatio": 0.237
+      "p25": 1,
+      "median": 2.04,
+      "p75": 4.21,
+      "p90": 7.09,
+      "passRatio": 0.2
     }
   ],
   "declared_argumentative": {
     "label": "선언 argumentative",
-    "n": 69,
-    "p10": 1.03,
-    "p25": 1.96,
-    "median": 3.77,
-    "p75": 5.92,
-    "p90": 8.67
+    "n": 36,
+    "p10": 1.11,
+    "p25": 2,
+    "median": 3.69,
+    "p75": 5.44,
+    "p90": 8.03
   },
   "declared_expository": {
     "label": "선언 expository",
-    "n": 718,
+    "n": 928,
     "p10": 0,
     "p25": 0,
-    "median": 2.65,
-    "p75": 6.36,
-    "p90": 9.47
+    "median": 2.8,
+    "p75": 6.54,
+    "p90": 9.25
   },
-  "declared_separation_median": 1.12,
-  "sample_per_source": 60,
-  "scanned": 942,
+  "declared_separation_median": 0.89,
+  "sample_per_source": 100,
+  "sampling": "spread",
+  "sample_windows": 5,
+  "scanned": 1220,
   "projection": [
     {
       "source": "plos",
-      "rows": 22272,
-      "declared": "expository",
-      "sample_n": 60,
-      "pass_ratio": 0.717,
-      "measured_supply_est": 15969
+      "rows": 45095,
+      "declared": "argumentative/expository",
+      "sample_n": 100,
+      "pass_ratio": 0.48,
+      "measured_supply_est": 21639
     },
     {
       "source": "gutenberg",
-      "rows": 11353,
+      "rows": 12733,
       "declared": "expository",
-      "sample_n": 60,
-      "pass_ratio": 0.433,
-      "measured_supply_est": 4916
+      "sample_n": 100,
+      "pass_ratio": 0.37,
+      "measured_supply_est": 4711
     },
     {
       "source": "frontiers",
       "rows": 1958,
       "declared": "expository",
-      "sample_n": 60,
-      "pass_ratio": 0.7,
-      "measured_supply_est": 1371
+      "sample_n": 100,
+      "pass_ratio": 0.72,
+      "measured_supply_est": 1410
     },
     {
       "source": "futurity",
       "rows": 2847,
       "declared": "expository",
-      "sample_n": 60,
-      "pass_ratio": 0.167,
-      "measured_supply_est": 475
-    },
-    {
-      "source": "original",
-      "rows": 541,
-      "declared": "news",
-      "sample_n": 60,
-      "pass_ratio": 0.35,
-      "measured_supply_est": 189
+      "sample_n": 100,
+      "pass_ratio": 0.24,
+      "measured_supply_est": 683
     },
     {
       "source": "voa",
       "rows": 10632,
       "declared": "expository/narrative/news",
-      "sample_n": 60,
-      "pass_ratio": 0.017,
-      "measured_supply_est": 176
+      "sample_n": 100,
+      "pass_ratio": 0.04,
+      "measured_supply_est": 423
+    },
+    {
+      "source": "original",
+      "rows": 541,
+      "declared": "news",
+      "sample_n": 100,
+      "pass_ratio": 0.4,
+      "measured_supply_est": 216
     },
     {
       "source": "elife",
       "rows": 295,
       "declared": "expository",
-      "sample_n": 60,
-      "pass_ratio": 0.533,
-      "measured_supply_est": 157
+      "sample_n": 100,
+      "pass_ratio": 0.54,
+      "measured_supply_est": 159
     },
     {
       "source": "usgs",
       "rows": 548,
       "declared": "expository",
-      "sample_n": 60,
-      "pass_ratio": 0.117,
-      "measured_supply_est": 64
+      "sample_n": 100,
+      "pass_ratio": 0.12,
+      "measured_supply_est": 66
     },
     {
       "source": "frym",
       "rows": 118,
       "declared": "expository",
-      "sample_n": 60,
-      "pass_ratio": 0.383,
-      "measured_supply_est": 45
+      "sample_n": 100,
+      "pass_ratio": 0.35,
+      "measured_supply_est": 41
+    },
+    {
+      "source": "nasa",
+      "rows": 203,
+      "declared": "expository",
+      "sample_n": 100,
+      "pass_ratio": 0.06,
+      "measured_supply_est": 12
     },
     {
       "source": "wikipedia",
       "rows": 59,
       "declared": "expository",
-      "sample_n": 59,
-      "pass_ratio": 0.237,
-      "measured_supply_est": 14
-    },
-    {
-      "source": "simple_wikipedia",
-      "rows": 55,
-      "declared": "expository",
-      "sample_n": 55,
-      "pass_ratio": 0.164,
-      "measured_supply_est": 9
-    },
-    {
-      "source": "storyweaver",
-      "rows": 116,
-      "declared": "narrative",
-      "sample_n": 58,
-      "pass_ratio": 0.069,
-      "measured_supply_est": 8
+      "sample_n": 20,
+      "pass_ratio": 0.2,
+      "measured_supply_est": 12
     },
     {
       "source": "space_place",
       "rows": 31,
       "declared": "expository",
-      "sample_n": 37,
-      "pass_ratio": 0.216,
-      "measured_supply_est": 7
+      "sample_n": 20,
+      "pass_ratio": 0.3,
+      "measured_supply_est": 9
     },
     {
       "source": "noaa",
       "rows": 48,
       "declared": "expository",
-      "sample_n": 50,
-      "pass_ratio": 0.06,
+      "sample_n": 20,
+      "pass_ratio": 0.1,
+      "measured_supply_est": 5
+    },
+    {
+      "source": "storyweaver",
+      "rows": 116,
+      "declared": "narrative",
+      "sample_n": 97,
+      "pass_ratio": 0.041,
+      "measured_supply_est": 5
+    },
+    {
+      "source": "simple_wikipedia",
+      "rows": 55,
+      "declared": "expository",
+      "sample_n": 20,
+      "pass_ratio": 0.05,
       "measured_supply_est": 3
     },
     {
@@ -485,19 +507,11 @@
       "measured_supply_est": 1
     },
     {
-      "source": "nasa",
-      "rows": 203,
-      "declared": "expository",
-      "sample_n": 60,
-      "pass_ratio": 0,
-      "measured_supply_est": 0
-    },
-    {
       "source": "the_conversation",
       "rows": 0,
       "declared": "argumentative",
-      "sample_n": 60,
-      "pass_ratio": 0.333,
+      "sample_n": 20,
+      "pass_ratio": 0.25,
       "measured_supply_est": 0
     },
     {
@@ -509,6 +523,6 @@
       "measured_supply_est": 0
     }
   ],
-  "measured_supply_total": 23405,
-  "declared_argumentative_rows": 1485
+  "measured_supply_total": 29396,
+  "declared_argumentative_rows": 1542
 }

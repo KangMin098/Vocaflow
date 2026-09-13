@@ -154,16 +154,44 @@ const groups = new Map() // `${source}|${register}` → number[]
 const perSource = new Map()
 let scanned = 0
 
-for (const source of SOURCES) {
-  const { data, error } = await db
+/**
+ * **표본을 앞에서만 뜨지 않는다.** `order('id').limit(N)` 은 **id 앞쪽 N 행**이다 —
+ * 재고가 늘면 구성이 바뀌어 같은 소스의 통과율이 흔들린다(실측 2026-09-13: plos 드레인
+ * 직후 72% → 53%). DOAB 표본에서 이미 같은 함정을 고쳤는데 여기서 반복했다.
+ * 그래서 **행 수를 먼저 세고 구간을 고르게 갈라** 창을 여러 개 뜬다.
+ */
+const SAMPLE_WINDOWS = 5
+async function sampleRows(source) {
+  const { count } = await db
     .from('library_articles')
-    .select('id, source, register, content')
+    .select('id', { count: 'exact', head: true })
     .eq('source', source)
     .in('status', ['ready', 'published'])
     .not('content', 'is', null)
-    .order('id')
-    .limit(PER_SOURCE)
-  if (error) throw new Error(`${source} 읽기 실패: ${error.message}`)
+  const total = count ?? 0
+  if (total === 0) return []
+  const per = Math.max(1, Math.floor(PER_SOURCE / SAMPLE_WINDOWS))
+  const out = []
+  for (let w = 0; w < SAMPLE_WINDOWS; w++) {
+    const offset = Math.min(Math.floor((total * w) / SAMPLE_WINDOWS), Math.max(0, total - per))
+    const { data, error } = await db
+      .from('library_articles')
+      .select('id, source, register, content')
+      .eq('source', source)
+      .in('status', ['ready', 'published'])
+      .not('content', 'is', null)
+      .order('id')
+      .range(offset, offset + per - 1)
+    if (error) throw new Error(`${source} 표본 실패(offset ${offset}): ${error.message}`)
+    out.push(...(data ?? []))
+    if (total <= PER_SOURCE) break // 전수보다 작으면 한 창으로 끝난다
+  }
+  return out
+}
+
+for (const source of SOURCES) {
+  const data = await sampleRows(source)
+  {
   for (const r of data ?? []) {
     // 앞 6,000자만 본다 — 논문 전체를 재면 참고문헌·방법 절이 밀도를 눌러 버린다.
     const m = measureRegister((r.content ?? '').slice(0, 6000))
@@ -175,9 +203,10 @@ for (const source of SOURCES) {
     if (!perSource.has(r.source)) perSource.set(r.source, [])
     perSource.get(r.source).push(m.density)
   }
+  }
 }
 
-console.log(`\n── 재고 (소스별 최대 ${PER_SOURCE}편 · 실측 ${scanned}편) ──────────────`)
+console.log(`\n── 재고 (소스별 최대 ${PER_SOURCE}편 · 구간 ${SAMPLE_WINDOWS}등분 균등 표본 · 실측 ${scanned}편) ──`)
 console.log(`목표 대역 하한 = 기출 중앙값 = ${THRESHOLD}\n`)
 console.log('소스            선언 register    n   중앙   p75  기출 중앙 이상')
 const rows = []
@@ -321,6 +350,8 @@ if (outPath) {
         declared_expository: e,
         declared_separation_median: sep,
         sample_per_source: PER_SOURCE,
+        sampling: 'spread',
+        sample_windows: SAMPLE_WINDOWS,
         scanned,
         projection,
         measured_supply_total: measuredTotal,
