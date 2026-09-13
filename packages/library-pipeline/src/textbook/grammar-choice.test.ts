@@ -164,3 +164,37 @@ describe('밑줄 후보 — 붙은 부호', () => {
     expect(candidateAt(['a', 'book'], 0, 0)).not.toBeNull()
   })
 })
+
+/**
+ * **`that` 은 지시사가 아닐 때가 많다.**
+ *
+ * 3인 검수 실측(2026-09-13): `…said that the deep-seated treachery…` 의 `that` 을
+ * 지시사로 판정해 문항을 만들었고, 해설이 **「the 가 단수이므로 that 이 맞다」** 고 적었다.
+ * 관사를 명사로 취급한 **없는 규칙**이다 — 학습자는 정답을 맞히고도 틀린 것을 배운다.
+ *
+ * 원인은 `looksPlural('the')` 가 「단수」를 내주는 것이었다(–s 로 안 끝나므로).
+ * 그 함수가 틀린 게 아니라 **명사가 아닌 것에 물어본 것**이 틀렸다.
+ */
+describe('지시사 — 뒤가 명사구여야 한다', () => {
+  it('명사절 접속사 `that` 은 후보가 아니다', () => {
+    // 검수에서 나온 그 꼴.
+    expect(candidateAt(['that', 'the', 'treachery'], 0, 0)).toBeNull()
+    expect(candidateAt(['that', 'he', 'left'], 0, 0)).toBeNull()
+    expect(candidateAt(['that', 'was', 'enough'], 0, 0)).toBeNull()
+    expect(candidateAt(['that', 'in', 'winter'], 0, 0)).toBeNull()
+  })
+
+  it('진짜 지시사는 그대로 후보다 — 더한 규칙이 뺀 규칙이 되지 않게', () => {
+    const c = candidateAt(['that', 'panel'], 0, 0)
+    expect(c).not.toBeNull()
+    expect(c!.rule).toBe('demonstrative')
+    expect(c!.broken).toBe('those')
+    const p = candidateAt(['these', 'panels'], 0, 0)
+    expect(p).not.toBeNull()
+    expect(p!.broken).toBe('this')
+  })
+
+  it('관사 규칙은 이 검사의 대상이 아니다 — 관사는 뒤 낱말의 첫 글자만 본다', () => {
+    expect(candidateAt(['a', 'panel'], 0, 0)).not.toBeNull()
+  })
+})

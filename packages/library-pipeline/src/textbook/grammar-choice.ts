@@ -96,6 +96,31 @@ const S_ENDING_SINGULAR = new Set([
   'diabetes',
 ])
 
+/**
+ * **명사구의 머리가 될 수 없는 낱말** — 지시사 판정에서 뒤 낱말을 거르는 자.
+ *
+ * 목록에 든 것은 전부 닫힌 부류(한정사·대명사·전치사·조동사·접속사)다. 열린 부류를
+ * 적는 목록이 아니므로 **자라지 않는다** — 새 명사가 생겨도 여기 더할 것이 없다.
+ */
+const NOT_A_NOUN_HEAD = new Set([
+  // 한정사·수식 한정
+  'the', 'a', 'an', 'this', 'that', 'these', 'those',
+  'my', 'your', 'his', 'her', 'its', 'our', 'their',
+  'some', 'any', 'all', 'each', 'every', 'no', 'both', 'either', 'neither',
+  'much', 'many', 'more', 'most', 'few', 'fewer', 'less', 'least', 'several',
+  // 대명사
+  'i', 'you', 'he', 'she', 'it', 'we', 'they', 'me', 'him', 'us', 'them',
+  'who', 'whom', 'whose', 'which', 'what', 'there', 'here',
+  // 조동사·계사 — 뒤가 절이라는 가장 흔한 신호다
+  'is', 'are', 'was', 'were', 'be', 'been', 'being',
+  'has', 'have', 'had', 'do', 'does', 'did',
+  'will', 'would', 'can', 'could', 'shall', 'should', 'may', 'might', 'must',
+  // 전치사·접속사
+  'of', 'in', 'on', 'at', 'to', 'for', 'with', 'by', 'from', 'as', 'than',
+  'and', 'or', 'but', 'if', 'because', 'while', 'when', 'where', 'though',
+  'not', 'so', 'such', 'very', 'too', 'just', 'only',
+])
+
 /** 낱말을 소문자 알파벳으로. */
 function bare(token: string): string {
   return token.toLowerCase().replace(/[^a-z']/g, '')
@@ -175,6 +200,16 @@ export function candidateAt(
 
   const pair = DEMONSTRATIVE_PAIR[w]
   if (pair) {
+    // ⚠️ **`that` 은 지시사가 아닐 때가 많다** (3인 검수 실측 2026-09-13).
+    //   `…said that the deep-seated…` 의 `that` 은 **명사절 접속사**인데 여기서
+    //   지시사로 판정했다. 뒤 낱말이 `the` 라 `looksPlural('the')` 가 「단수」를 내주고
+    //   (–s 로 안 끝나므로) 그대로 통과한 것이다. 그 결과 해설이
+    //   **「the 가 단수이므로 that 이 맞다」** 고 적었다 — 관사를 명사로 취급한 **없는 규칙**이다.
+    //   학습자는 정답을 맞히고도 틀린 것을 배운다. 문항이 틀린 것보다 나쁘다.
+    //
+    //   지시사는 **명사구의 머리** 앞에 온다. 뒤가 한정사·대명사·전치사·조동사면
+    //   명사구가 아니므로 그 자리는 지시사가 아니다 — 건드리지 않는다.
+    if (NOT_A_NOUN_HEAD.has(bare(next))) return null
     const plural = looksPlural(next)
     if (plural === null) return null
     // 원문이 이미 어긋나 보이면 건너뛴다 — 바꾸면 오히려 고쳐진다.

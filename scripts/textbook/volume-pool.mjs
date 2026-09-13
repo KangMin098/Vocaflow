@@ -922,6 +922,59 @@ export async function loadVolume(
       : `${gateLine}  ⚠️ [강제 꺼짐 — VOCAFLOW_SOURCE_STRICT=0 · 판정 못 받은 원문이 실린다]`,
   )
 
+  // ── 3인 검수에서 떨어진 문항은 다시 올리지 않는다 ────────────────────
+  //
+  // **실제 출판사가 하는 일이다.** 감수에서 반려된 원고는 다음 판에 그대로 다시 오르지
+  // 않는다. 이것이 없으면 조판할 때마다 같은 결함 문항이 다시 뽑히고, 검수는 **같은 것을
+  // 무한히 다시 읽는다** — 그러면 3인 검수가 진척이 아니라 제자리걸음이 된다.
+  //
+  // 실측 2026-09-13(V5 첫 판): 검수한 60문항 중 **3인 통과 5 · 떨어진 것 55.**
+  // 지적의 대부분은 고칠 수 있는 흠이 아니라 **원문이 그렇게 생긴 것**이다(웹페이지 홍보문,
+  // 링크 목록, 선행사가 원문에만 있는 글). 고치는 것이 아니라 **바꾸는 것**이 맞고,
+  // 재고가 11만이라 바꾸는 비용은 사실상 0이다.
+  //
+  // 빼는 기준 둘 — 어느 쪽도 「아직 덜 봤다」와 섞이지 않는다:
+  //   · **fail 이 하나라도 있다** — 한 눈이라도 「못 낸다」고 한 것은 근거가 있는 판정이다.
+  //   · **셋이 다 봤는데 셋이 통과시키지 못했다** — 정족수를 채우고도 못 넘은 것이다.
+  // 한 사람만 보고 `revise` 를 준 것은 **빼지 않는다**. 아직 판정이 안 선 것이라,
+  // 빼면 「덜 본 것」을 「떨어진 것」으로 세게 된다.
+  const rejectedItems = new Set()
+  {
+    const byItem = new Map()
+    let cursor = null
+    for (;;) {
+      let q = db
+        .from('csat_item_reviews')
+        .select('item_id, persona, verdict')
+        .order('item_id')
+        .limit(1000)
+      if (cursor) q = q.gt('item_id', cursor)
+      const { data, error } = await q
+      if (error) {
+        // ⚠️ **못 읽었으면 조용히 넘어가지 않는다.** 빈 집합으로 두면 떨어진 문항이
+        //   전부 되살아나는데, 화면에는 아무 표시도 안 남는다.
+        console.log(`  ⚠ 검수 기록을 못 읽었다(${error.message}) — 떨어진 문항을 못 뺀다`)
+        break
+      }
+      if (!data?.length) break
+      for (const r of data) {
+        if (!byItem.has(r.item_id)) byItem.set(r.item_id, { personas: new Set(), passes: new Set(), fails: 0 })
+        const e = byItem.get(r.item_id)
+        e.personas.add(r.persona)
+        if (r.verdict === 'pass') e.passes.add(r.persona)
+        if (r.verdict === 'fail') e.fails += 1
+      }
+      cursor = data[data.length - 1].item_id
+      if (data.length < 1000) break
+    }
+    for (const [id, e] of byItem) {
+      if (e.fails > 0 || (e.personas.size >= 3 && e.passes.size < 3)) rejectedItems.add(id)
+    }
+    if (rejectedItems.size) {
+      console.log(`  검수에서 떨어진 문항 ${rejectedItems.size.toLocaleString()}개를 후보에서 뺀다`)
+    }
+  }
+
   /** 위생 판정으로 뺀 문항을 사유별로 센다 — 조용히 사라지면 재고가 줄어든 줄 안다. */
   const hygieneRejects = {}
   const pool = []
@@ -929,6 +982,11 @@ export async function loadVolume(
     const a = byId.get(r.ref_id)
     if (!a) continue
     if (STRICT && !isComposable(verdictByRef.get(r.ref_id)?.grade ?? 'unknown')) continue
+    // 3인 검수가 떨어뜨린 문항 — 같은 것을 다시 읽히지 않는다(위 주석 참조).
+    if (rejectedItems.has(r.id)) {
+      hygieneRejects.reviewRejected = (hygieneRejects.reviewRejected ?? 0) + 1
+      continue
+    }
     // ── 밑줄이 낱말이 아닌 문항은 지면에 올리지 않는다 ──────────────────
     //
     // ⚠️ 조판기는 저장된 `word` 를 **글자 그대로** 밑줄친다(`<u>${w}</u>`). 그래서
