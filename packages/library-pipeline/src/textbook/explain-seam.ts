@@ -85,6 +85,99 @@ function assemble(
 }
 
 /**
+ * 덩어리가 여는 **되받이 표지** — 앞에 무엇이 와야 하는지를 **지문만으로** 말해 준다.
+ *
+ * ── 왜 생겼나 (3인 검수 1·2회차 실측 2026-09-13) ────────────────────
+ * 오답 배제가 예외 없이 `— 원문의 이음매와 다르다` 로 끝났다. 그 진술은 **참이지만**
+ * (원문이 정답 키다) 학습자는 원문을 못 본다 — 검수자 셋이 독립적으로 「순환 논증」이라
+ * 적었고, 순서 유형이 **전량** 그 지적을 받았다.
+ *
+ * 참인데 쓸모없는 근거를 **검증 가능한 근거**로 바꾼다: `These maps` 로 여는 덩어리는
+ * `maps` 를 처음 내놓는 덩어리 뒤에 와야 하고, 그것은 지문을 보면 확인된다.
+ *
+ * ⚠️ **지시사·정관사만 본다.** 연결어(`However`·`Therefore`)는 앞에 무엇이 오는지를
+ *   낱말로 가리키지 않아 지문만으로 검증할 수 없다 — 그걸 근거로 쓰면 또 추론이 된다.
+ *   대명사(`He`·`They`)도 받는 이름을 특정할 수 없으면 쓰지 않는다.
+ */
+interface Anaphor {
+  /** 해설에 그대로 인용할 표지(`These maps` · `The blaze`). */
+  marker: string
+  /** 되받는 낱말. 다른 덩어리에 있으면 순서가 확정된다. */
+  noun: string
+}
+
+export function opensWithAnaphor(sentence: string): Anaphor | null {
+  const s = String(sentence ?? '').replace(/\s+/g, ' ').trim()
+  const m = s.match(/^(This|That|These|Those|The)\s+([A-Za-z][A-Za-z'-]{2,})/)
+  if (!m) return null
+  return { marker: `${m[1]} ${m[2]}`, noun: m[2]! }
+}
+
+/** 그 글이 이 낱말을 내놓았는가 — 단수·복수를 함께 본다(`maps` 는 `map` 도 받는다). */
+export function mentionsNoun(text: string, noun: string): boolean {
+  const w = String(noun ?? '').toLowerCase().replace(/[^a-z'-]/g, '')
+  if (w.length < 3) return false
+  const forms = new Set([w])
+  if (w.endsWith('ies')) forms.add(`${w.slice(0, -3)}y`)
+  if (w.endsWith('es')) forms.add(w.slice(0, -2))
+  if (w.endsWith('s')) forms.add(w.slice(0, -1))
+  else forms.add(`${w}s`)
+  const body = String(text ?? '').toLowerCase()
+  for (const f of forms) {
+    const esc = f.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+    if (new RegExp(`(^|[^a-z])${esc}([^a-z]|$)`).test(body)) return true
+  }
+  return false
+}
+
+/** 「(X)는 (Y) 뒤에 와야 한다」 — 지문에서 읽어 낸 순서 제약. */
+interface OrderConstraint {
+  label: 'A' | 'B' | 'C'
+  marker: string
+  /** 그 낱말을 처음 내놓는 자리. `null` 이면 도입문이다. */
+  after: 'A' | 'B' | 'C' | null
+}
+
+/**
+ * 되받이 표지로 순서 제약을 읽어 낸다.
+ *
+ * ⚠️ **내놓는 자리가 하나일 때만 쓴다.** 여러 덩어리가 같은 낱말을 쓰면 어느 쪽을
+ *   받는지 알 수 없고, 그때 하나를 고르면 그것이 추론이다. 모르면 **안 쓴다**.
+ */
+export function readOrderConstraints(item: CsatOrderItem): OrderConstraint[] {
+  const out: OrderConstraint[] = []
+  for (const b of item.blocks) {
+    const first = b.sentences[0]
+    if (!first) continue
+    const a = opensWithAnaphor(first)
+    if (!a) continue
+    // 자기 덩어리 안에서 이미 내놓았으면 앞을 볼 필요가 없다.
+    const ownRest = b.sentences.slice(1).join(' ')
+    if (mentionsNoun(ownRest, a.noun)) continue
+    const sources: ('A' | 'B' | 'C' | null)[] = []
+    if (mentionsNoun(item.intro, a.noun)) sources.push(null)
+    for (const other of item.blocks) {
+      if (other.label === b.label) continue
+      if (mentionsNoun(other.sentences.join(' '), a.noun)) sources.push(other.label)
+    }
+    if (sources.length !== 1) continue
+    out.push({ label: b.label, marker: a.marker, after: sources[0]! })
+  }
+  return out
+}
+
+/** 그 답지가 제약을 어기는가 — 어기면 어긴 제약을 돌려준다. */
+function violated(choice: ReadonlyArray<'A' | 'B' | 'C'>, cs: OrderConstraint[]): OrderConstraint | null {
+  for (const c of cs) {
+    if (c.after === null) continue // 도입문은 늘 맨 앞이라 어길 수 없다
+    const at = choice.indexOf(c.label)
+    const src = choice.indexOf(c.after)
+    if (at < 0 || src < 0) continue
+    if (at < src) return c
+  }
+  return null
+}
+/**
  * 순서 문항 — 정답이 만드는 이음매를 인용하고, 오답이 만드는 첫 어긋난 이음매를 보인다.
  *
  * 오답은 **첫 번째로 갈라지는 자리**만 짚는다. 다섯 답지의 이음매를 다 적으면
@@ -110,10 +203,42 @@ export function explainOrderSeam(item: CsatOrderItem): ItemExplanation | null {
     optional.push(`(${answer[i]})의 끝 "${tail(left[left.length - 1]!, 40)}" → (${answer[i + 1]})의 첫 "${head(right[0]!, 40)}".`)
   }
 
-  // 오답 — 첫 갈림만. 실제로 그 답지가 만드는 이음매를 보여 준다(참인 진술이다).
-  const wrong: string[] = []
+  // ── 정답 쪽 근거 — **지문에서 읽어 낸 것** ────────────────────────
+  // 되받이 표지가 있으면 그것이 왜 그 순서인지를 지문만으로 말해 준다.
+  //
+  // ⚠️ **정답이 어기는 제약은 버린다.** 원문 순서가 정답 키이므로, 우리가 읽어 낸 제약이
+  //   정답과 어긋나면 **틀린 것은 원문이 아니라 우리 읽기다**(같은 낱말이 우연히 겹쳤거나,
+  //   `The …` 가 되받이가 아니라 총칭이었거나). 그대로 두면 해설이 정답을 반박한다.
+  const constraints = readOrderConstraints(item).filter((c) => !violated(answer, [c]))
+  for (const c of constraints) {
+    if (c.after === null) continue
+    optional.unshift(
+      `(${c.label})는 "${c.marker}" 로 시작하므로 그 말을 처음 내놓는 (${c.after}) 뒤에 온다.`,
+    )
+  }
+
+  // ── 오답 배제 ─────────────────────────────────────────────────────
+  //
+  // ⚠️ **`원문의 이음매와 다르다` 를 쓰지 않는다** (3인 검수 1·2회차). 그 진술은 참이지만
+  //   (원문이 정답 키다) 학습자는 원문을 못 본다 — 순서 유형이 **전량** 「순환 논증」으로
+  //   지적받았다. 근거로 쓸 수 있는 것은 **지문 안에 있는 것**뿐이다.
+  //
+  // 그래서 두 갈래로 적는다:
+  //   · 되받이 제약을 **어기는** 답지 → 어긴 이유를 낱말로 짚는다(검증 가능하다)
+  //   · 제약을 못 읽은 답지 → 그 답지가 만드는 이음매만 **사실로** 보인다.
+  //     이유를 못 대면 **안 대는 것**이 지어내는 것보다 낫다.
+  const reasoned: string[] = []
+  const bare: string[] = []
   for (const [idx, choice] of item.choices.entries()) {
     if (idx === item.answer - 1) continue
+    const bad = violated(choice, constraints)
+    if (bad && bad.after) {
+      reasoned.push(
+        `${CIRCLED[idx]} 는 (${bad.label})를 (${bad.after})보다 앞에 두는데, ` +
+          `(${bad.label})는 "${bad.marker}" 로 열려 가리킬 것이 아직 없다`,
+      )
+      continue
+    }
     const at = choice.findIndex((l, i) => l !== answer[i])
     if (at < 0) continue
     const leftLabel = at === 0 ? null : choice[at - 1]!
@@ -121,12 +246,22 @@ export function explainOrderSeam(item: CsatOrderItem): ItemExplanation | null {
     const right = byLabel.get(choice[at]!)
     if (!right?.length) continue
     const leftText = left?.length ? `(${leftLabel})의 끝` : '도입문'
-    wrong.push(`${CIRCLED[idx]} 는 ${leftText} 다음에 (${choice[at]})의 "${head(right[0]!, 35)}" 를 붙인다`)
+    bare.push(`${CIRCLED[idx]} 는 ${leftText} 다음에 (${choice[at]})의 "${head(right[0]!, 35)}" 를 붙인다`)
   }
-  // 오답 배제는 맨 끝에 오되 자리는 먼저 확보한다.
-  const closing = wrong.length
-    ? [`반면 ${wrong.slice(0, 2).join('; ')} — 원문의 이음매와 다르다.`]
-    : []
+  // **근거 있는 것을 먼저** 넣고, **예산 안에서 들어갈 만큼** 담는다.
+  //
+  // ⚠️ 앞판은 `slice(0, 2)` 로 둘만 넣었고 검수가 「넷 중 둘만 다룬다」고 지적했다.
+  //   그렇다고 전부 이어 붙이면 안 된다 — `assemble` 은 `closing` **전체**를 예산으로
+  //   미리 떼어 두므로, 길어지면 **해설이 통째로 null 이 된다**(있던 해설이 사라진다).
+  //   그래서 여기서 담을 만큼만 정한다: 근거 있는 것부터, 규격(473자) 안에서.
+  const lead = [...must].join(' ').replace(/\s+/g, ' ').trim()
+  const picked: string[] = []
+  for (const w of [...reasoned, ...bare]) {
+    const candidate = `반면 ${[...picked, w].join('; ')}.`
+    if (lead.length + 1 + candidate.length > EXPLANATION_CHARS.max) break
+    picked.push(w)
+  }
+  const closing = picked.length ? [`반면 ${picked.join('; ')}.`] : []
   return assemble(must, optional, closing, 'order_seam')
 }
 

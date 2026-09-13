@@ -3,7 +3,7 @@
 import { describe, expect, it } from 'vitest'
 import { toCsatInsert, toCsatOrder } from './csat-format'
 import { EXPLANATION_CHARS } from './explain-items'
-import { explainInsertSeam, explainOrderSeam, explainShortInsertSeam } from './explain-seam'
+import { explainInsertSeam, explainOrderSeam, explainShortInsertSeam, readOrderConstraints } from './explain-seam'
 
 // 원문 8문장. `toCsatOrder` 는 도입문 1 + (A)(B)(C) 로 가른다.
 const SOURCE = [
@@ -28,10 +28,56 @@ describe('explainOrderSeam', () => {
     expect(e!.ko).toMatch(/\(A\)|\(B\)|\(C\)/)
   })
 
-  it('오답이 만드는 이음매를 함께 보인다 — 지어낸 이유가 아니라 인용이다', () => {
+  /**
+   * ⚠️ **여기는 앞판을 뒤집은 자리다.** 앞판은 오답 배제가 `원문의 이음매와 다르다` 로
+   * 끝나기를 요구했다. 그 진술은 **참이지만**(원문이 정답 키다) **학습자는 원문을 못 본다** —
+   * 3인 검수 1·2회차에서 순서 유형이 **전량** 「순환 논증」으로 지적받았다.
+   *
+   * 근거로 쓸 수 있는 것은 지문 안에 있는 것뿐이다. 이유를 못 대면 **안 대는 것**이
+   * 지어내는 것보다 낫다 — 그래서 이음매 인용은 남기되, 원문을 근거로 들지 않는다.
+   */
+  it('오답이 만드는 이음매를 보이되, **원문을 근거로 들지 않는다**', () => {
     const e = explainOrderSeam(item)!
     expect(e.hasWrongOption).toBe(true)
-    expect(e.ko).toContain('원문의 이음매와 다르다')
+    expect(e.ko).toContain('반면')
+    expect(e.ko, '학습자가 볼 수 없는 것을 근거로 들었다').not.toContain('원문의 이음매와 다르다')
+  })
+
+  /**
+   * **지문에서 읽어 낸 근거**는 쓴다 — `These maps` 로 여는 덩어리는 `maps` 를 처음
+   * 내놓는 덩어리 뒤에 와야 하고, 그것은 지문만 보고 확인된다.
+   */
+  it('되받이 표지가 있으면 그것을 근거로 든다', () => {
+    const withAnaphor = {
+      kind: 'order' as const,
+      intro: 'A survey team walked the ridge before the rains came.',
+      blocks: [
+        { label: 'A' as const, sentences: ['They drew maps of every stream along the slope.'] },
+        { label: 'B' as const, sentences: ['These maps later guided the repair crews.'] },
+        { label: 'C' as const, sentences: ['The repair work finished before winter.'] },
+      ],
+      choices: [
+        ['A', 'C', 'B'],
+        ['B', 'A', 'C'],
+        ['B', 'C', 'A'],
+        ['C', 'A', 'B'],
+        ['C', 'B', 'A'],
+      ] as Array<Array<'A' | 'B' | 'C'>>,
+      answer: 1,
+    }
+    const e = explainOrderSeam(withAnaphor)
+    expect(e).not.toBeNull()
+    // 정답 쪽 근거 — 지문만 보고 확인된다.
+    expect(e!.ko).toContain('These maps')
+    // 오답 배제도 그 낱말로 짚는다 — (B)를 (A)보다 앞에 두는 답지들.
+    expect(e!.ko).toMatch(/가리킬 것이 아직 없다/)
+  })
+
+  it('되받이가 없으면 이유를 지어내지 않는다 — 이음매만 사실로 보인다', () => {
+    const e = explainOrderSeam(item)!
+    // 이 픽스처에는 읽어 낼 되받이가 없다. 그래도 해설은 나오고, 근거를 지어내지 않는다.
+    expect(e.ko).not.toContain('가리킬 것이 아직 없다')
+    expect(e.ko).toContain('반면')
   })
 
   it('시장 규격 길이 안에 든다', () => {
@@ -91,5 +137,56 @@ describe('explainShortInsertSeam', () => {
   it('인용 잔해가 있으면 쓰지 않는다 — 인쇄 규격만 우회하고 안전장치는 그대로다', () => {
     const dirty = ['[] trained the model using a sample set.', ...remaining]
     expect(explainShortInsertSeam(dirty, short[1]!, 2)).toBeNull()
+  })
+})
+
+/**
+ * **정답이 어기는 제약은 버린다.**
+ *
+ * 원문 순서가 정답 키이므로, 읽어 낸 제약이 정답과 어긋나면 틀린 것은 **우리 읽기**다
+ * (같은 낱말이 우연히 겹쳤거나, `The …` 가 되받이가 아니라 총칭이었거나).
+ * 그대로 두면 **해설이 정답을 반박한다** — 해설이 없느니만 못하다.
+ */
+describe('되받이 제약 — 정답과 어긋나면 버린다', () => {
+  const item = {
+    kind: 'order' as const,
+    intro: 'A survey team walked the ridge before the rains came.',
+    blocks: [
+      { label: 'A' as const, sentences: ['They drew maps of every stream along the slope.'] },
+      { label: 'B' as const, sentences: ['These maps later guided the repair crews.'] },
+      { label: 'C' as const, sentences: ['The repair work finished before winter.'] },
+    ],
+    choices: [
+      ['A', 'C', 'B'],
+      ['B', 'A', 'C'],
+      ['B', 'C', 'A'],
+      ['C', 'A', 'B'],
+      ['C', 'B', 'A'],
+    ] as Array<Array<'A' | 'B' | 'C'>>,
+    answer: 1,
+  }
+
+  it('읽어 낸 제약 자체는 둘이다', () => {
+    const cs = readOrderConstraints(item)
+    expect(cs.map((c) => `${c.label}<-${c.after}`).sort()).toEqual(['B<-A', 'C<-B'])
+  })
+
+  it('정답 (A)-(C)-(B) 는 「C 는 B 뒤」를 어기므로 그 제약은 해설에 안 쓴다', () => {
+    const e = explainOrderSeam(item)!
+    expect(e.ko).toContain('These maps') // 정답과 맞는 제약은 쓴다
+    expect(e.ko, '해설이 정답을 반박한다').not.toContain('(C)는 "The repair" 로 시작하므로')
+  })
+
+  it('근거 있는 오답을 먼저 적고, 근거 없는 것은 이음매만 보인다', () => {
+    const e = explainOrderSeam(item)!
+    const reasonedAt = e.ko.indexOf('가리킬 것이 아직 없다')
+    const bareAt = e.ko.indexOf('를 붙인다')
+    expect(reasonedAt).toBeGreaterThan(-1)
+    expect(bareAt).toBeGreaterThan(reasonedAt)
+  })
+
+  it('시장 규격 길이를 넘지 않는다 — 오답 넷을 다 적어도', () => {
+    const e = explainOrderSeam(item)!
+    expect(e.ko.length).toBeLessThanOrEqual(EXPLANATION_CHARS.max)
   })
 })
