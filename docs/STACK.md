@@ -221,6 +221,22 @@ Word Learning Pipeline.
 
 ---
 
+## 루트 개발 도구 (파이프라인 전용 · `package.json` devDependencies)
+
+앱이 아니라 `scripts/` 가 쓰는 것들. 여기 적는 기준은 **없으면 파이프라인이 안 도는가** 다.
+
+| 패키지 | 버전 | 쓰는 곳 | 왜 이것인가 |
+|---|---|---|---|
+| `tsx` | 4.x | `pnpm dlx tsx scripts/…` | TS 스크립트 실행 |
+| `better-sqlite3` | — | 교재 코퍼스 | 시중 교재 SQLite 읽기 |
+| `jimp` · `xlsx` · `franc` | — | 만화·교재·언어 판별 | |
+| **`pdfjs-dist`** | **^6.3.289** | `scripts/csat/pdf-anchors.mjs` | **평가원 문제지에서 문항 번호·선지 기호의 좌표를 뽑는다.** 오버레이를 그리는 쪽도 브라우저의 PDF.js 라 **뽑는 쪽과 그리는 쪽이 같은 라이브러리여야** 좌표계가 어긋나지 않는다. Node 에서는 `pdfjs-dist/legacy/build/pdf.mjs` 를 쓴다(기본 빌드는 브라우저 전용 API 를 건드린다) |
+
+⚠️ 좌표 추출에 Poppler·mupdf 를 쓰지 않는 이유가 위 칸의 「같은 라이브러리」다. 이 머신의
+`pdftotext` 는 **Xpdf 4.00** 이라 `-bbox` 옵션이 아예 없다(실측 2026-09-13) — 텍스트 전용이다.
+
+---
+
 ## 루트 스크립트 (package.json)
 
 ```bash
