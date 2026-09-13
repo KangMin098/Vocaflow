@@ -62,7 +62,11 @@
       "wired": "the_conversation",
       "note": "배선됨. ND 라 display_only — 지문 70편이 있어도 문항 0. 비개방 파이프라인의 대표 사례",
       "redistributeClaim": "yes",
-      "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)"
+      "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "full",
+      "feedBodyWhy": "실측 2026-09-13 — content 1,395어"
     },
     {
       "rank": 2,
@@ -79,7 +83,10 @@
       "register": "argumentative",
       "note": "단행본 챕터 도입부가 목표. 전 구간 균등 표본 1,500건 실측(2026-09-13): 변형 가능(BY·BY-SA·CC0) 33.6% → **그러나 영어는 51.1% 뿐**이라 「변형 가능 × 영어」는 22.7%(전체 환산 약 28,983권). 단위도 book 81.5% · chapter 8.1% 라 대부분 OAPEN 의 PDF 를 장으로 쪼개야 지문이 된다. 인문·사회 register 는 Europe PMC 로 대체되지 않으므로 가치는 남는다 — 다만 획득 비용이 가장 높다",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "unknown"
     },
     {
       "rank": 3,
@@ -96,7 +103,10 @@
       "register": "expository",
       "note": "PLOS·Frontiers·BMC 를 이미 포함한다 — 중복 제거 없이 세면 재고를 두 번 센다",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "unknown"
     },
     {
       "rank": 4,
@@ -111,7 +121,10 @@
       "register": "argumentative",
       "note": "DOAB 와 약 30% 중복(사용자 표 주석). #4 묶음 대표",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "unknown"
     },
     {
       "rank": 4,
@@ -126,7 +139,10 @@
       "register": "argumentative",
       "note": "#4 묶음 — est 는 springer 행에 합산",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "unknown"
     },
     {
       "rank": 4,
@@ -141,7 +157,10 @@
       "register": "argumentative",
       "note": "#4 묶음",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "unknown"
     },
     {
       "rank": 5,
@@ -156,7 +175,10 @@
       "register": "argumentative",
       "note": "DOAB 중복 높음(사용자 표 주석 \"동일\")",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "unknown",
+      "commercialWhy": "라이선스 주장에서 상업 조건을 읽지 못했다 — 쓰지 않는다",
+      "feedBody": "unknown"
     },
     {
       "rank": 5,
@@ -171,7 +193,10 @@
       "register": "argumentative",
       "note": "DOAB 중복",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "unknown",
+      "commercialWhy": "라이선스 주장에서 상업 조건을 읽지 못했다 — 쓰지 않는다",
+      "feedBody": "unknown"
     },
     {
       "rank": 6,
@@ -189,7 +214,10 @@
       "wired": "plos",
       "note": "배선됨. 현재 변형 가능 논증문 1,476편이 전부 여기서 나온다 — 단일 공급선",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 7,
@@ -206,7 +234,10 @@
       "wired": "wikipedia",
       "note": "배선됨. ready+published 59편 — 상류는 큰데 수확이 거의 없다",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 8,
@@ -223,7 +254,10 @@
       "register": "expository",
       "note": "변형 가능 CC BY 대량 공급 후보. 약탈적 출판 논란 — 내용 판정 게이트 필요",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 9,
@@ -239,7 +273,11 @@
       "register": "expository",
       "note": "#9 묶음 — 대부분 ND. Futurity 가 이 구멍의 CC BY 대체재",
       "redistributeClaim": "yes",
-      "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)"
+      "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "full",
+      "feedBodyWhy": "실측 2026-09-13 — content:encoded 1,175어"
     },
     {
       "rank": 9,
@@ -254,7 +292,10 @@
       "register": "expository",
       "note": "#9 묶음",
       "redistributeClaim": "no",
-      "redistributeWhy": "© · 전부유보 계열 — 본문 저장 불가"
+      "redistributeWhy": "© · 전부유보 계열 — 본문 저장 불가",
+      "commercialClaim": "no",
+      "commercialWhy": "재배포 자체가 불가 — 상업 여부를 따질 자리가 아니다",
+      "feedBody": "unknown"
     },
     {
       "rank": 9,
@@ -269,7 +310,10 @@
       "register": "expository",
       "note": "#9 묶음",
       "redistributeClaim": "no",
-      "redistributeWhy": "© · 전부유보 계열 — 본문 저장 불가"
+      "redistributeWhy": "© · 전부유보 계열 — 본문 저장 불가",
+      "commercialClaim": "no",
+      "commercialWhy": "재배포 자체가 불가 — 상업 여부를 따질 자리가 아니다",
+      "feedBody": "unknown"
     },
     {
       "rank": 10,
@@ -285,7 +329,10 @@
       "wired": "frontiers",
       "note": "배선됨 — 그런데 DB 1,961편 전부 queued(ready 0). 처리 큐가 막혀 있다",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 11,
@@ -300,7 +347,10 @@
       "register": "argumentative",
       "note": "Ubiquity 플랫폼 — OAI 가능성. #11 묶음",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 11,
@@ -315,7 +365,10 @@
       "register": "argumentative",
       "note": "#11 묶음",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 11,
@@ -330,7 +383,10 @@
       "register": "argumentative",
       "note": "#11 묶음",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "unknown",
+      "commercialWhy": "라이선스 주장에서 상업 조건을 읽지 못했다 — 쓰지 않는다",
+      "feedBody": "unknown"
     },
     {
       "rank": 12,
@@ -345,7 +401,10 @@
       "register": "argumentative",
       "note": "#12 묶음",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "unknown"
     },
     {
       "rank": 12,
@@ -360,7 +419,10 @@
       "register": "argumentative",
       "note": "#12 묶음",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 12,
@@ -375,7 +437,10 @@
       "register": "argumentative",
       "note": "#12 묶음",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "unknown",
+      "commercialWhy": "라이선스 주장에서 상업 조건을 읽지 못했다 — 쓰지 않는다",
+      "feedBody": "unknown"
     },
     {
       "rank": 13,
@@ -390,7 +455,10 @@
       "register": "expository",
       "note": "#13 묶음 — NC 가 섞이면 상업 교재에 못 쓴다",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "unknown"
     },
     {
       "rank": 13,
@@ -405,7 +473,10 @@
       "register": "expository",
       "note": "#13 묶음 — Pressbooks 플랫폼(기존 ingestFromPressbooks 경로 재사용 가능)",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 13,
@@ -420,7 +491,10 @@
       "register": "expository",
       "note": "#13 묶음 — 집계 디렉터리 성격이 강하다",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "unknown",
+      "commercialWhy": "라이선스 주장에서 상업 조건을 읽지 못했다 — 쓰지 않는다",
+      "feedBody": "unknown"
     },
     {
       "rank": 14,
@@ -435,7 +509,10 @@
       "register": "expository",
       "note": "두드리지 않는다. v06.69 마이그레이션 20260614240000 이 플랫폼 전체에서 삭제했고 library_articles_source_check 가 재삽입을 막는다. 정찰 기록 docs/reports/source-probe/arxiv.md",
       "redistributeClaim": "no",
-      "redistributeWhy": "플랫폼에서 삭제된 소스 — 대상 아님"
+      "redistributeWhy": "플랫폼에서 삭제된 소스 — 대상 아님",
+      "commercialClaim": "no",
+      "commercialWhy": "재배포 자체가 불가 — 상업 여부를 따질 자리가 아니다",
+      "feedBody": "unknown"
     },
     {
       "rank": 15,
@@ -450,7 +527,10 @@
       "register": "argumentative",
       "note": "400+권 주장. DOAB 로도 색인된다",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "unknown"
     },
     {
       "rank": 16,
@@ -465,7 +545,10 @@
       "register": "argumentative",
       "note": "ND 비중 확인 필요 — ND 면 the_conversation 과 같은 운명",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "unknown"
     },
     {
       "rank": 17,
@@ -480,7 +563,10 @@
       "register": "argumentative",
       "note": "소재는 최적합(인지과학=수능 최빈출)이지만 ND 비중이 관건",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "unknown"
     },
     {
       "rank": 18,
@@ -495,7 +581,10 @@
       "register": "expository",
       "note": "C2 상한 — 고3 최상위 밴드 전용",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 18,
@@ -510,7 +599,10 @@
       "register": "expository",
       "note": "#18 묶음",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 19,
@@ -525,7 +617,10 @@
       "register": "argumentative",
       "note": "소재 적합도는 최상급이나 라이선스가 관문",
       "redistributeClaim": "no",
-      "redistributeWhy": "© · 전부유보 계열 — 본문 저장 불가"
+      "redistributeWhy": "© · 전부유보 계열 — 본문 저장 불가",
+      "commercialClaim": "no",
+      "commercialWhy": "재배포 자체가 불가 — 상업 여부를 따질 자리가 아니다",
+      "feedBody": "unknown"
     },
     {
       "rank": 20,
@@ -542,7 +637,10 @@
       "wired": "futurity",
       "note": "배선됨 — ready 2,781편. 현재 최대 변형 가능 재고",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 21,
@@ -557,7 +655,10 @@
       "register": "expository",
       "note": "RSS 주소가 HTML(3KB 껍데기)을 돌려준다. PMC 가 이미 BMC 를 포함하므로 중복 — 별도 배선 가치 낮음",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 21,
@@ -572,7 +673,10 @@
       "register": "expository",
       "note": "#21 묶음",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 22,
@@ -590,7 +694,10 @@
       "totalPath": "total",
       "accept": "application/vnd.elife.article-list+json; version=1",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 23,
@@ -606,7 +713,10 @@
       "wired": "gutenberg",
       "note": "배선됨 — ready 11,363편. 문체 노후가 감점 요인",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 24,
@@ -622,7 +732,10 @@
       "register": "expository",
       "note": "심리=수능 최빈출 소재. 라이선스 미지정 항목 배제 필요",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 24,
@@ -637,7 +750,10 @@
       "register": "expository",
       "note": "#24 묶음 — 대부분 재배포 불가",
       "redistributeClaim": "no",
-      "redistributeWhy": "저자 유보 다수 — 본문 반출 금지"
+      "redistributeWhy": "저자 유보 다수 — 본문 반출 금지",
+      "commercialClaim": "no",
+      "commercialWhy": "재배포 자체가 불가 — 상업 여부를 따질 자리가 아니다",
+      "feedBody": "unknown"
     },
     {
       "rank": 25,
@@ -654,7 +770,10 @@
       "wired": "simple_wikipedia",
       "note": "배선됨 — ready 30편. 고1 전용 밴드. 열쇠 3갈래 문제 미해결",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 26,
@@ -670,7 +789,10 @@
       "wired": null,
       "note": "JS 앱 껍데기(12KB, 같은 호스트 링크 0) — 맨 GET 으로 열거 불가. 어댑터 openstax.ts 는 개별 책 주소를 받는 구조",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 27,
@@ -685,7 +807,10 @@
       "register": "expository",
       "note": "#26~28 묶음 — 대부분 Pressbooks·PDF 로 호스팅",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "unknown",
+      "commercialWhy": "라이선스 주장에서 상업 조건을 읽지 못했다 — 쓰지 않는다",
+      "feedBody": "unknown"
     },
     {
       "rank": 28,
@@ -700,7 +825,10 @@
       "register": "expository",
       "note": "기존 ingestFromPressbooks 경로 재사용 가능",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "unknown",
+      "commercialWhy": "라이선스 주장에서 상업 조건을 읽지 못했다 — 쓰지 않는다",
+      "feedBody": "unknown"
     },
     {
       "rank": 29,
@@ -715,7 +843,10 @@
       "register": "argumentative",
       "note": "소재·문체 적합도 높음 · 라이선스가 관문",
       "redistributeClaim": "no",
-      "redistributeWhy": "© · 전부유보 계열 — 본문 저장 불가"
+      "redistributeWhy": "© · 전부유보 계열 — 본문 저장 불가",
+      "commercialClaim": "no",
+      "commercialWhy": "재배포 자체가 불가 — 상업 여부를 따질 자리가 아니다",
+      "feedBody": "unknown"
     },
     {
       "rank": 30,
@@ -731,7 +862,10 @@
       "wired": "voa",
       "note": "배선됨(VOA_FEEDS as-it-is) — queued 10,397편 적체",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 31,
@@ -747,7 +881,10 @@
       "register": "argumentative",
       "note": "기출 출처 유형과 가장 닮았으나 라이선스가 닫혀 있다. 과거 오기록 재발 방지 대상",
       "redistributeClaim": "no",
-      "redistributeWhy": "협약 후 재게시(250단어 비평 인용) — CC 가 아니다. 2026-08-19 에 이 저장소가 cc 로 잘못 적은 적 있다"
+      "redistributeWhy": "협약 후 재게시(250단어 비평 인용) — CC 가 아니다. 2026-08-19 에 이 저장소가 cc 로 잘못 적은 적 있다",
+      "commercialClaim": "no",
+      "commercialWhy": "재배포 자체가 불가 — 상업 여부를 따질 자리가 아니다",
+      "feedBody": "unknown"
     },
     {
       "rank": 32,
@@ -763,7 +900,10 @@
       "register": "argumentative",
       "note": "철학 빈칸 소재. 전문용어 가공 부담 큼",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "unknown",
+      "commercialWhy": "라이선스 주장에서 상업 조건을 읽지 못했다 — 쓰지 않는다",
+      "feedBody": "unknown"
     },
     {
       "rank": 32,
@@ -778,7 +918,10 @@
       "register": "argumentative",
       "note": "#32 묶음",
       "redistributeClaim": "yes",
-      "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)"
+      "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "unknown"
     },
     {
       "rank": 33,
@@ -793,7 +936,10 @@
       "register": "argumentative",
       "note": "#33 묶음 (Open Humanities Press 동반)",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "unknown"
     },
     {
       "rank": 33,
@@ -808,7 +954,10 @@
       "register": "argumentative",
       "note": "#33 묶음",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "unknown",
+      "commercialWhy": "라이선스 주장에서 상업 조건을 읽지 못했다 — 쓰지 않는다",
+      "feedBody": "unknown"
     },
     {
       "rank": 35,
@@ -823,7 +972,10 @@
       "register": "expository",
       "note": "고1 전용. 로그인 장벽 확인 필요",
       "redistributeClaim": "no",
-      "redistributeWhy": "가입 필요 · 자료별 약관 — 본문 반출 금지로 본다"
+      "redistributeWhy": "가입 필요 · 자료별 약관 — 본문 반출 금지로 본다",
+      "commercialClaim": "no",
+      "commercialWhy": "재배포 자체가 불가 — 상업 여부를 따질 자리가 아니다",
+      "feedBody": "unknown"
     },
     {
       "rank": 35,
@@ -838,7 +990,10 @@
       "register": "expository",
       "note": "#35 묶음",
       "redistributeClaim": "no",
-      "redistributeWhy": "가입 필요 · © — 본문 반출 금지"
+      "redistributeWhy": "가입 필요 · © — 본문 반출 금지",
+      "commercialClaim": "no",
+      "commercialWhy": "재배포 자체가 불가 — 상업 여부를 따질 자리가 아니다",
+      "feedBody": "unknown"
     },
     {
       "rank": 36,
@@ -853,7 +1008,10 @@
       "register": "argumentative",
       "note": "논증 밀도 높음 · 라이선스 닫힘",
       "redistributeClaim": "no",
-      "redistributeWhy": "© · 전부유보 계열 — 본문 저장 불가"
+      "redistributeWhy": "© · 전부유보 계열 — 본문 저장 불가",
+      "commercialClaim": "no",
+      "commercialWhy": "재배포 자체가 불가 — 상업 여부를 따질 자리가 아니다",
+      "feedBody": "unknown"
     },
     {
       "rank": 37,
@@ -868,7 +1026,10 @@
       "register": "argumentative",
       "note": "소재 적합 · 라이선스 닫힘",
       "redistributeClaim": "no",
-      "redistributeWhy": "© · 전부유보 계열 — 본문 저장 불가"
+      "redistributeWhy": "© · 전부유보 계열 — 본문 저장 불가",
+      "commercialClaim": "no",
+      "commercialWhy": "재배포 자체가 불가 — 상업 여부를 따질 자리가 아니다",
+      "feedBody": "unknown"
     },
     {
       "rank": 38,
@@ -885,7 +1046,10 @@
       "wired": "worldbank",
       "note": "배선됨 — 적재 0편(CHECK 는 허용). 열쇠 규약은 이미 정본화돼 있다",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 39,
@@ -901,7 +1065,10 @@
       "register": "argumentative",
       "note": "도표 문항 원자료로 가치 큼",
       "redistributeClaim": "yes",
-      "redistributeWhy": "출처 표시 시 재사용 허용 주장 — 상업 파생만 확인 필요"
+      "redistributeWhy": "출처 표시 시 재사용 허용 주장 — 상업 파생만 확인 필요",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "unknown"
     },
     {
       "rank": 40,
@@ -916,7 +1083,10 @@
       "register": "argumentative",
       "note": "",
       "redistributeClaim": "no",
-      "redistributeWhy": "© · 전부유보 계열 — 본문 저장 불가"
+      "redistributeWhy": "© · 전부유보 계열 — 본문 저장 불가",
+      "commercialClaim": "no",
+      "commercialWhy": "재배포 자체가 불가 — 상업 여부를 따질 자리가 아니다",
+      "feedBody": "unknown"
     },
     {
       "rank": 41,
@@ -931,7 +1101,11 @@
       "register": "argumentative",
       "note": "",
       "redistributeClaim": "yes",
-      "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)"
+      "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "none",
+      "feedBodyWhy": "실측 2026-09-13 — summary 39어"
     },
     {
       "rank": 42,
@@ -946,7 +1120,10 @@
       "register": "argumentative",
       "note": "철학 개념 논증 품질 최상 · 라이선스 닫힘",
       "redistributeClaim": "no",
-      "redistributeWhy": "© Metaphysics Research Lab — CC 가 아니다. 품질은 최상이나 본문 저장 불가"
+      "redistributeWhy": "© Metaphysics Research Lab — CC 가 아니다. 품질은 최상이나 본문 저장 불가",
+      "commercialClaim": "no",
+      "commercialWhy": "재배포 자체가 불가 — 상업 여부를 따질 자리가 아니다",
+      "feedBody": "unknown"
     },
     {
       "rank": 43,
@@ -962,7 +1139,10 @@
       "wired": "nasa",
       "note": "배선됨(NASA_FEEDS news) — ready+published 221편",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 44,
@@ -977,7 +1157,10 @@
       "register": "expository",
       "note": "",
       "redistributeClaim": "yes",
-      "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)"
+      "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "unknown"
     },
     {
       "rank": 45,
@@ -992,7 +1175,10 @@
       "register": "expository",
       "note": "",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 46,
@@ -1008,7 +1194,10 @@
       "register": "expository",
       "note": "변형 가능 CC BY · 고1 병용 가능 — 저평가된 후보일 수 있다",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 47,
@@ -1023,7 +1212,10 @@
       "register": "argumentative",
       "note": "",
       "redistributeClaim": "no",
-      "redistributeWhy": "© · 전부유보 계열 — 본문 저장 불가"
+      "redistributeWhy": "© · 전부유보 계열 — 본문 저장 불가",
+      "commercialClaim": "no",
+      "commercialWhy": "재배포 자체가 불가 — 상업 여부를 따질 자리가 아니다",
+      "feedBody": "unknown"
     },
     {
       "rank": 48,
@@ -1038,7 +1230,11 @@
       "register": "argumentative",
       "note": "",
       "redistributeClaim": "yes",
-      "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)"
+      "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "full",
+      "feedBodyWhy": "실측 2026-09-13 — content:encoded 1,583어"
     },
     {
       "rank": 49,
@@ -1053,7 +1249,10 @@
       "register": "argumentative",
       "note": "심리=수능 최빈출 소재",
       "redistributeClaim": "no",
-      "redistributeWhy": "© · 전부유보 계열 — 본문 저장 불가"
+      "redistributeWhy": "© · 전부유보 계열 — 본문 저장 불가",
+      "commercialClaim": "no",
+      "commercialWhy": "재배포 자체가 불가 — 상업 여부를 따질 자리가 아니다",
+      "feedBody": "unknown"
     },
     {
       "rank": 50,
@@ -1068,7 +1267,10 @@
       "register": "expository",
       "note": "JS 앱 껍데기 — 맨 GET 으로 열거 불가. 게다가 CC BY-NC 로 상업 교재 불가",
       "redistributeClaim": "yes",
-      "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)"
+      "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "unknown"
     },
     {
       "rank": 51,
@@ -1083,7 +1285,10 @@
       "register": "expository",
       "note": "NC — 상업 교재 불가",
       "redistributeClaim": "yes",
-      "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)"
+      "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "unknown"
     },
     {
       "rank": 52,
@@ -1098,7 +1303,10 @@
       "register": "argumentative",
       "note": "2026-08-21 정찰에서 ND 확인됨 — 붙여도 문항 0",
       "redistributeClaim": "yes",
-      "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)"
+      "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 53,
@@ -1113,7 +1321,11 @@
       "register": "argumentative",
       "note": "2026-08-21 정찰에서 NC+ND 확인됨",
       "redistributeClaim": "yes",
-      "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)"
+      "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "none",
+      "feedBodyWhy": "실측 2026-09-13 — content:encoded 63어"
     },
     {
       "rank": 54,
@@ -1128,7 +1340,10 @@
       "register": "expository",
       "note": "#54 묶음",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "unknown"
     },
     {
       "rank": 54,
@@ -1143,7 +1358,10 @@
       "register": "argumentative",
       "note": "인문·사회 CC BY — 변형 가능 논증문 후보로 저평가돼 있다",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 55,
@@ -1158,7 +1376,10 @@
       "register": "expository",
       "note": "#55 묶음",
       "redistributeClaim": "yes",
-      "redistributeWhy": "UN 저작물 — 재배포 허용, 상업 파생 제한"
+      "redistributeWhy": "UN 저작물 — 재배포 허용, 상업 파생 제한",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "unknown"
     },
     {
       "rank": 55,
@@ -1173,7 +1394,10 @@
       "register": "argumentative",
       "note": "#55 묶음 — CC BY-SA 면 변형 가능",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 55,
@@ -1188,7 +1412,10 @@
       "register": "expository",
       "note": "#55 묶음",
       "redistributeClaim": "yes",
-      "redistributeWhy": "UN 저작물 — 재배포 허용, 상업 파생 제한"
+      "redistributeWhy": "UN 저작물 — 재배포 허용, 상업 파생 제한",
+      "commercialClaim": "unknown",
+      "commercialWhy": "라이선스 주장에서 상업 조건을 읽지 못했다 — 쓰지 않는다",
+      "feedBody": "unknown"
     },
     {
       "rank": 56,
@@ -1203,7 +1430,10 @@
       "register": "expository",
       "note": "PD 변형 가능 — 저평가된 후보",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 57,
@@ -1218,7 +1448,11 @@
       "register": "expository",
       "note": "",
       "redistributeClaim": "yes",
-      "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)"
+      "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)",
+      "commercialClaim": "unknown",
+      "commercialWhy": "CC BY-ND 로 주장되지만 발행사 약관 페이지(use-our-content / republish)에서 CC 링크를 찾지 못했다 (실측 2026-09-13) — 확인 전에는 쓰지 않는다",
+      "feedBody": "summary",
+      "feedBodyWhy": "실측 2026-09-13 — content:encoded 261어"
     },
     {
       "rank": 58,
@@ -1233,7 +1467,11 @@
       "register": "argumentative",
       "note": "NC",
       "redistributeClaim": "yes",
-      "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)"
+      "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "full",
+      "feedBodyWhy": "실측 2026-09-13 — content:encoded 3,564어"
     },
     {
       "rank": 59,
@@ -1248,7 +1486,10 @@
       "register": "argumentative",
       "note": "",
       "redistributeClaim": "no",
-      "redistributeWhy": "© · 전부유보 계열 — 본문 저장 불가"
+      "redistributeWhy": "© · 전부유보 계열 — 본문 저장 불가",
+      "commercialClaim": "no",
+      "commercialWhy": "재배포 자체가 불가 — 상업 여부를 따질 자리가 아니다",
+      "feedBody": "unknown"
     },
     {
       "rank": 60,
@@ -1263,7 +1504,10 @@
       "register": "argumentative",
       "note": "",
       "redistributeClaim": "no",
-      "redistributeWhy": "© · 전부유보 계열 — 본문 저장 불가"
+      "redistributeWhy": "© · 전부유보 계열 — 본문 저장 불가",
+      "commercialClaim": "no",
+      "commercialWhy": "재배포 자체가 불가 — 상업 여부를 따질 자리가 아니다",
+      "feedBody": "unknown"
     },
     {
       "rank": 61,
@@ -1279,7 +1523,10 @@
       "wired": "owid",
       "note": "배선됨 — ready+published 9편. 변형 가능 논증문 두 번째 공급선",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 62,
@@ -1294,7 +1541,11 @@
       "register": "argumentative",
       "note": "#62 묶음",
       "redistributeClaim": "yes",
-      "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)"
+      "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)",
+      "commercialClaim": "unknown",
+      "commercialWhy": "CC BY-ND 로 주장되지만 발행사 약관 페이지(use-our-content / republish)에서 CC 링크를 찾지 못했다 (실측 2026-09-13) — 확인 전에는 쓰지 않는다",
+      "feedBody": "none",
+      "feedBodyWhy": "실측 2026-09-13 — description 51어"
     },
     {
       "rank": 62,
@@ -1309,7 +1560,10 @@
       "register": "argumentative",
       "note": "#62 묶음",
       "redistributeClaim": "no",
-      "redistributeWhy": "© · 전부유보 계열 — 본문 저장 불가"
+      "redistributeWhy": "© · 전부유보 계열 — 본문 저장 불가",
+      "commercialClaim": "no",
+      "commercialWhy": "재배포 자체가 불가 — 상업 여부를 따질 자리가 아니다",
+      "feedBody": "unknown"
     },
     {
       "rank": 63,
@@ -1324,7 +1578,10 @@
       "register": "argumentative",
       "note": "NC",
       "redistributeClaim": "yes",
-      "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)"
+      "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "unknown"
     },
     {
       "rank": 64,
@@ -1341,7 +1598,10 @@
       "wired": "frym",
       "note": "배선됨 — ready 119편. 고1 밴드 핵심 공급선",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 65,
@@ -1356,7 +1616,10 @@
       "register": "expository",
       "note": "",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 66,
@@ -1372,7 +1635,10 @@
       "register": "expository",
       "note": "미심사 원고 — 내용 판정 부담",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "unknown"
     },
     {
       "rank": 67,
@@ -1388,7 +1654,10 @@
       "wired": "nih",
       "note": "배선됨(nih medlineplus) — 적재 0편. 고2 수준 PD 설명문",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 68,
@@ -1404,7 +1673,10 @@
       "wired": "nist",
       "note": "배선됨 — queued 23편",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 68,
@@ -1419,7 +1691,10 @@
       "register": "expository",
       "note": "#68 묶음",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 68,
@@ -1434,7 +1709,10 @@
       "register": "expository",
       "note": "#68 묶음",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 69,
@@ -1449,7 +1727,10 @@
       "register": "argumentative",
       "note": "",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 70,
@@ -1465,7 +1746,10 @@
       "wired": "cdc",
       "note": "CHECK 허용값에 있으나 적재 0편",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 70,
@@ -1480,7 +1764,10 @@
       "register": "expository",
       "note": "피드에 <link/>·<guid/> 가 비어 있다(실측 2026-09-13: item 10개 전부) — 기사 주소가 없어 수확 불가. BLS 는 별도 확인 필요",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 71,
@@ -1495,7 +1782,10 @@
       "register": "expository",
       "note": "",
       "redistributeClaim": "yes",
-      "redistributeWhy": "미 연방기관 저작물 — 재배포 자유, 파생 여부만 확인 필요"
+      "redistributeWhy": "미 연방기관 저작물 — 재배포 자유, 파생 여부만 확인 필요",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 72,
@@ -1510,7 +1800,10 @@
       "register": "argumentative",
       "note": "#72 묶음 — CC BY 면 변형 가능. 저평가 후보",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 72,
@@ -1525,7 +1818,11 @@
       "register": "argumentative",
       "note": "#72 묶음",
       "redistributeClaim": "yes",
-      "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)"
+      "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "none",
+      "feedBodyWhy": "실측 2026-09-13 — content:encoded 77어"
     },
     {
       "rank": 73,
@@ -1540,7 +1837,10 @@
       "register": "expository",
       "note": "#73 묶음",
       "redistributeClaim": "yes",
-      "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)"
+      "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "unknown"
     },
     {
       "rank": 73,
@@ -1555,7 +1855,10 @@
       "register": "expository",
       "note": "#73 묶음 — 갱신 정체 확인 필요",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 74,
@@ -1571,7 +1874,10 @@
       "register": "expository",
       "note": "Gutenberg 중복",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 75,
@@ -1587,7 +1893,10 @@
       "wired": "noaa",
       "note": "배선됨(NOAA_FEEDS understanding-climate) — HTML 목록이 열거 단위다. ready+published 50편",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 76,
@@ -1602,7 +1911,10 @@
       "register": "expository",
       "note": "Gutenberg 중복이지만 본문 품질이 더 높다(교정판)",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 77,
@@ -1618,7 +1930,10 @@
       "wired": "usgs",
       "note": "배선됨(USGS_FEEDS featured) — HTML 목록이 열거 단위. ready+published 558편",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 78,
@@ -1634,7 +1949,10 @@
       "register": "expository",
       "note": "Wikijunior 하위가 초·중 밴드 후보",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 79,
@@ -1649,7 +1967,10 @@
       "register": "expository",
       "note": "NC",
       "redistributeClaim": "yes",
-      "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)"
+      "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "unknown"
     },
     {
       "rank": 80,
@@ -1664,7 +1985,10 @@
       "register": "argumentative",
       "note": "Gutenberg 로 대체 가능",
       "redistributeClaim": "yes",
-      "redistributeWhy": "본문은 PD(고전) — 사이트 편집분만 ©. 본문만 취한다"
+      "redistributeWhy": "본문은 PD(고전) — 사이트 편집분만 ©. 본문만 취한다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 81,
@@ -1679,7 +2003,11 @@
       "register": "argumentative",
       "note": "",
       "redistributeClaim": "yes",
-      "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)"
+      "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "full",
+      "feedBodyWhy": "실측 2026-09-13 — content:encoded 5,366어"
     },
     {
       "rank": 82,
@@ -1694,7 +2022,10 @@
       "register": "expository",
       "note": "갱신 정체 확인 필요",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 83,
@@ -1710,7 +2041,10 @@
       "register": "expository",
       "note": "#83 묶음",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 83,
@@ -1726,7 +2060,10 @@
       "wired": "wikinews",
       "note": "배선됨(WIKINEWS_FEEDS) — 적재 0편",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 84,
@@ -1741,7 +2078,10 @@
       "register": "expository",
       "note": "",
       "redistributeClaim": "no",
-      "redistributeWhy": "© · 전부유보 계열 — 본문 저장 불가"
+      "redistributeWhy": "© · 전부유보 계열 — 본문 저장 불가",
+      "commercialClaim": "no",
+      "commercialWhy": "재배포 자체가 불가 — 상업 여부를 따질 자리가 아니다",
+      "feedBody": "unknown"
     },
     {
       "rank": 85,
@@ -1756,7 +2096,10 @@
       "register": "argumentative",
       "note": "번역 문체 노후",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 86,
@@ -1772,7 +2115,10 @@
       "wired": "space_place",
       "note": "배선됨(SPACE_PLACE_FEEDS) — ready 37편. 중등 밴드",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 87,
@@ -1788,7 +2134,10 @@
       "wired": "storyweaver",
       "note": "JS 앱 껍데기(8KB, 링크 0) — 맨 GET 으로 열거 불가. 사용자 표는 0% 로 적었으나 이 저장소는 2026-09-02 에 의도적으로 붙였다(초·중 창 154편의 register 가 narrative 0 이었다). 재검증 쟁점",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 87,
@@ -1804,7 +2153,10 @@
       "wired": "wikivoyage",
       "note": "배선됨 — archived 8편. 구조 없음으로 사실상 은퇴",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 87,
@@ -1820,7 +2172,10 @@
       "wired": "factbook",
       "note": "배선됨 — published 4편. reference register 보강용",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 87,
@@ -1835,7 +2190,10 @@
       "register": "poetry",
       "note": "시는 어수·문단 규격을 만족할 수 없다(itemWordSpec 90~400어 산문 전제). 두드리지 않는다",
       "redistributeClaim": "no",
-      "redistributeWhy": "© · 시는 규격 미달 — 대상 아님"
+      "redistributeWhy": "© · 시는 규격 미달 — 대상 아님",
+      "commercialClaim": "no",
+      "commercialWhy": "재배포 자체가 불가 — 상업 여부를 따질 자리가 아니다",
+      "feedBody": "unknown"
     },
     {
       "rank": 88,
@@ -1851,7 +2209,10 @@
       "register": "argumentative",
       "note": "사용자 표는 「원문 아님」으로 0점을 줬으나 실측은 반대다(2026-09-13). CC BY × 영어 × 전문보유 5,218,944편 · 그중 PUB_TYPE:\"review\" 618,178편. 서론 발췌 규격 수확률 97.5%(표본 40편, scripts/textbook/epmc-yield-probe.mjs) → 약 602,724편 지문 후보. 소재도 생의학 전용이 아니다 — Frontiers in Psychology 4,951 · language/learning 6,319 · social/cultural 3,575 · climate/environment 3,183 · education 2,583 (전부 CC BY 영어 review 실측). DOAB 와 달리 PDF 장 분할이 필요 없다",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 88,
@@ -1867,7 +2228,10 @@
       "register": "expository",
       "note": "탐색용 — 라이선스별 필터링 가치가 크다",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "unknown",
+      "commercialWhy": "라이선스 주장에서 상업 조건을 읽지 못했다 — 쓰지 않는다",
+      "feedBody": "unknown"
     },
     {
       "rank": 88,
@@ -1883,7 +2247,10 @@
       "register": "expository",
       "note": "탐색용 — CC BY 만 골라내는 필터로 쓸 수 있다",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown"
     },
     {
       "rank": 88,
@@ -1898,7 +2265,10 @@
       "register": "expository",
       "note": "탐색용",
       "redistributeClaim": "no",
-      "redistributeWhy": "본문 접근 제한"
+      "redistributeWhy": "본문 접근 제한",
+      "commercialClaim": "no",
+      "commercialWhy": "재배포 자체가 불가 — 상업 여부를 따질 자리가 아니다",
+      "feedBody": "unknown"
     },
     {
       "rank": 88,
@@ -1914,12 +2284,26 @@
       "register": "expository",
       "note": "탐색용 — PDCP 만화가 이미 쓰는 경로",
       "redistributeClaim": "yes",
-      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다"
+      "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "unknown",
+      "commercialWhy": "라이선스 주장에서 상업 조건을 읽지 못했다 — 쓰지 않는다",
+      "feedBody": "unknown"
     }
   ],
   "redistributeClaim": {
     "yes": "verbatim 재배포 허용 (CC 계열 — ND·NC 포함, 출처 표시 조건) → 원문 본문 확보 가능",
     "no": "© 전부 유보 · 가입/협약 필요 → **본문 저장 불가**. 제목·URL·출처만",
     "unknown": "확인 전 — 본문을 담지 않는다(모르는 것을 허용으로 접지 않는다)"
+  },
+  "commercialClaim": {
+    "yes": "상업적 이용 가능 (PD · CC0 · CC BY · CC BY-SA · CC BY-ND)",
+    "no": "비상업 전용 (NC 계열) — 유료 플랫폼에서는 표시조차 불가. 별도 협의 없이는 쓰지 않는다",
+    "unknown": "확인 전 — 쓰지 않는다"
+  },
+  "feedBody": {
+    "full": "RSS 항목에 전문이 실린다 (≥300어) — 스크래핑 없이 확보 가능",
+    "summary": "요약만 실린다 (80~299어) — 지문으로 쓰기엔 짧다",
+    "none": "본문이 없다 (<80어) — 사이트별 본문 추출기 필요",
+    "unknown": "재지 않았다"
   }
 }

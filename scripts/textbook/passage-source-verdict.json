@@ -1,10 +1,11 @@
 {
   "measured_at": "2026-09-13T04:32:05.732Z",
-  "verdict_at": "2026-09-13T05:21:34.456Z",
+  "verdict_at": "2026-09-13T05:51:16.941Z",
   "tally": {
     "A": 32,
     "B": 10,
-    "C": 10,
+    "C": 1,
+    "N": 9,
     "F": 14,
     "D": 25,
     "E": 30
@@ -32,6 +33,9 @@
       "derivClaim": "yes",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "배선됨. ready+published 59편 — 상류는 큰데 수확이 거의 없다"
@@ -53,6 +57,9 @@
       "derivClaim": "yes",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [
         "CC BY"
       ],
@@ -78,6 +85,9 @@
       "derivClaim": "yes",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "Gutenberg 중복"
@@ -99,6 +109,9 @@
       "derivClaim": "yes",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "사용자 표는 「원문 아님」으로 0점을 줬으나 실측은 반대다(2026-09-13). CC BY × 영어 × 전문보유 5,218,944편 · 그중 PUB_TYPE:\"review\" 618,178편. 서론 발췌 규격 수확률 97.5%(표본 40편, scripts/textbook/epmc-yield-probe.mjs) → 약 602,724편 지문 후보. 소재도 생의학 전용이 아니다 — Frontiers in Psychology 4,951 · language/learning 6,319 · social/cultural 3,575 · climate/environment 3,183 · education 2,583 (전부 CC BY 영어 review 실측). DOAB 와 달리 PDF 장 분할이 필요 없다"
@@ -120,6 +133,9 @@
       "derivClaim": "yes",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "배선됨. 현재 변형 가능 논증문 1,476편이 전부 여기서 나온다 — 단일 공급선"
@@ -141,6 +157,9 @@
       "derivClaim": "yes",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "배선됨 — ready 30편. 고1 전용 밴드. 열쇠 3갈래 문제 미해결"
@@ -162,6 +181,9 @@
       "derivClaim": "yes",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "Wikijunior 하위가 초·중 밴드 후보"
@@ -183,6 +205,9 @@
       "derivClaim": "yes",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [
         "CC BY-NC-ND",
         "CC BY-NC",
@@ -208,6 +233,9 @@
       "derivClaim": "yes",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "#83 묶음"
@@ -229,6 +257,9 @@
       "derivClaim": "yes",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [
         "CC BY"
       ],
@@ -252,6 +283,9 @@
       "derivClaim": "yes",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "배선됨 — ready 119편. 고1 밴드 핵심 공급선"
@@ -273,6 +307,9 @@
       "derivClaim": "yes",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": null
@@ -294,6 +331,9 @@
       "derivClaim": "yes",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": null
@@ -315,6 +355,9 @@
       "derivClaim": "yes",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": null
@@ -336,6 +379,9 @@
       "derivClaim": "yes",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": null
@@ -357,6 +403,9 @@
       "derivClaim": "yes",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": null
@@ -378,6 +427,9 @@
       "derivClaim": "yes",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": null
@@ -399,6 +451,9 @@
       "derivClaim": "yes",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": null
@@ -420,6 +475,9 @@
       "derivClaim": "yes",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": null
@@ -441,6 +499,9 @@
       "derivClaim": "yes",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [
         "\"All rights reserved\""
       ],
@@ -464,6 +525,9 @@
       "derivClaim": "yes",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": null
@@ -485,6 +549,9 @@
       "derivClaim": "yes",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": null
@@ -506,6 +573,9 @@
       "derivClaim": "yes",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": null
@@ -527,6 +597,9 @@
       "derivClaim": "yes",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [
         "CC BY-SA",
         "CC BY",
@@ -554,6 +627,9 @@
       "derivClaim": "yes",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [
         "\"public domain\" 문구"
       ],
@@ -577,6 +653,9 @@
       "derivClaim": "yes",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [
         "\"All rights reserved\""
@@ -600,6 +679,9 @@
       "derivClaim": "yes",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": null
@@ -621,6 +703,9 @@
       "derivClaim": "yes",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": null
@@ -642,6 +727,9 @@
       "derivClaim": "yes",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": null
@@ -663,6 +751,9 @@
       "derivClaim": "yes",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [
         "\"All rights reserved\""
       ],
@@ -686,6 +777,9 @@
       "derivClaim": "yes",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [
         "\"All rights reserved\""
       ],
@@ -709,6 +803,9 @@
       "derivClaim": "yes",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [
         "\"All rights reserved\""
       ],
@@ -732,6 +829,9 @@
       "derivClaim": "mixed",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "PLOS·Frontiers·BMC 를 이미 포함한다 — 중복 제거 없이 세면 재고를 두 번 센다"
@@ -753,6 +853,9 @@
       "derivClaim": "mixed",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "unknown",
       "licenseHits": [
         "CC BY-NC-ND",
         "CC BY-NC-SA",
@@ -781,6 +884,9 @@
       "derivClaim": "mixed",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "미심사 원고 — 내용 판정 부담"
@@ -802,6 +908,9 @@
       "derivClaim": "mixed",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": null
@@ -823,6 +932,9 @@
       "derivClaim": "unknown",
       "redistributeClaim": "yes",
       "redistributeWhy": "출처 표시 시 재사용 허용 주장 — 상업 파생만 확인 필요",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": null
@@ -844,6 +956,9 @@
       "derivClaim": "mixed",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": null
@@ -865,6 +980,9 @@
       "derivClaim": "mixed",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "unknown",
+      "commercialWhy": "라이선스 주장에서 상업 조건을 읽지 못했다 — 쓰지 않는다",
+      "feedBody": "unknown",
       "licenseHits": [
         "\"All rights reserved\""
       ],
@@ -888,6 +1006,9 @@
       "derivClaim": "unknown",
       "redistributeClaim": "yes",
       "redistributeWhy": "UN 저작물 — 재배포 허용, 상업 파생 제한",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": null
@@ -909,6 +1030,9 @@
       "derivClaim": "mixed",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "#12 묶음"
@@ -930,6 +1054,9 @@
       "derivClaim": "mixed",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "unknown",
+      "commercialWhy": "라이선스 주장에서 상업 조건을 읽지 못했다 — 쓰지 않는다",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "#11 묶음"
@@ -951,6 +1078,9 @@
       "derivClaim": "no",
       "redistributeClaim": "yes",
       "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "full",
       "licenseHits": [
         "CC BY-NC",
         "CC BY-SA"
@@ -961,7 +1091,7 @@
       "note": null
     },
     {
-      "grade": "C",
+      "grade": "N",
       "id": "mit_news",
       "label": "MIT News — 대학 뉴스룸",
       "rank": 9,
@@ -969,7 +1099,7 @@
       "upstream": 50,
       "upstreamKind": "page",
       "verdict": "rss",
-      "route": "display",
+      "route": "noncommercial",
       "wired": null,
       "register": "expository",
       "band": "B2-C1",
@@ -977,12 +1107,15 @@
       "derivClaim": "no",
       "redistributeClaim": "yes",
       "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "full",
       "licenseHits": [],
       "licensePageHits": [],
       "note": null
     },
     {
-      "grade": "C",
+      "grade": "N",
       "id": "mongabay",
       "label": "Mongabay — 환경 설명",
       "rank": 57,
@@ -990,7 +1123,7 @@
       "upstream": 32,
       "upstreamKind": "page",
       "verdict": "rss",
-      "route": "display",
+      "route": "noncommercial",
       "wired": null,
       "register": "expository",
       "band": "B2-C1",
@@ -998,12 +1131,15 @@
       "derivClaim": "no",
       "redistributeClaim": "yes",
       "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)",
+      "commercialClaim": "unknown",
+      "commercialWhy": "CC BY-ND 로 주장되지만 발행사 약관 페이지(use-our-content / republish)에서 CC 링크를 찾지 못했다 (실측 2026-09-13) — 확인 전에는 쓰지 않는다",
+      "feedBody": "summary",
       "licenseHits": [],
       "licensePageHits": [],
       "note": null
     },
     {
-      "grade": "C",
+      "grade": "N",
       "id": "nieman_lab",
       "label": "Nieman Lab — 미디어 논증",
       "rank": 58,
@@ -1011,7 +1147,7 @@
       "upstream": 30,
       "upstreamKind": "page",
       "verdict": "rss",
-      "route": "display",
+      "route": "noncommercial",
       "wired": null,
       "register": "argumentative",
       "band": "C1",
@@ -1019,6 +1155,9 @@
       "derivClaim": "no",
       "redistributeClaim": "yes",
       "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "full",
       "licenseHits": [
         "CC BY-NC-SA",
         "\"public domain\" 문구"
@@ -1027,7 +1166,7 @@
       "note": null
     },
     {
-      "grade": "C",
+      "grade": "N",
       "id": "rand",
       "label": "RAND Commentary",
       "rank": 41,
@@ -1035,7 +1174,7 @@
       "upstream": 20,
       "upstreamKind": "page",
       "verdict": "rss",
-      "route": "display",
+      "route": "noncommercial",
       "wired": null,
       "register": "argumentative",
       "band": "C1",
@@ -1043,12 +1182,15 @@
       "derivClaim": "no",
       "redistributeClaim": "yes",
       "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "none",
       "licenseHits": [],
       "licensePageHits": [],
       "note": null
     },
     {
-      "grade": "C",
+      "grade": "N",
       "id": "propublica",
       "label": "ProPublica — 탐사보도 배경 단락",
       "rank": 81,
@@ -1056,7 +1198,7 @@
       "upstream": 20,
       "upstreamKind": "page",
       "verdict": "rss",
-      "route": "display",
+      "route": "noncommercial",
       "wired": null,
       "register": "argumentative",
       "band": "C1",
@@ -1064,12 +1206,15 @@
       "derivClaim": "no",
       "redistributeClaim": "yes",
       "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "full",
       "licenseHits": [],
       "licensePageHits": [],
       "note": null
     },
     {
-      "grade": "C",
+      "grade": "N",
       "id": "undark",
       "label": "Undark — 교양 에세이",
       "rank": 62,
@@ -1077,7 +1222,7 @@
       "upstream": 10,
       "upstreamKind": "page",
       "verdict": "rss",
-      "route": "display",
+      "route": "noncommercial",
       "wired": null,
       "register": "argumentative",
       "band": "C1",
@@ -1085,12 +1230,15 @@
       "derivClaim": "no",
       "redistributeClaim": "yes",
       "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)",
+      "commercialClaim": "unknown",
+      "commercialWhy": "CC BY-ND 로 주장되지만 발행사 약관 페이지(use-our-content / republish)에서 CC 링크를 찾지 못했다 (실측 2026-09-13) — 확인 전에는 쓰지 않는다",
+      "feedBody": "none",
       "licenseHits": [],
       "licensePageHits": [],
       "note": null
     },
     {
-      "grade": "C",
+      "grade": "N",
       "id": "inside_climate_news",
       "label": "Inside Climate News",
       "rank": 72,
@@ -1098,7 +1246,7 @@
       "upstream": 10,
       "upstreamKind": "page",
       "verdict": "rss",
-      "route": "display",
+      "route": "noncommercial",
       "wired": null,
       "register": "argumentative",
       "band": "C1",
@@ -1106,12 +1254,15 @@
       "derivClaim": "no",
       "redistributeClaim": "yes",
       "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "none",
       "licenseHits": [],
       "licensePageHits": [],
       "note": null
     },
     {
-      "grade": "C",
+      "grade": "N",
       "id": "ideas_ted",
       "label": "Ideas.TED.com — 교양 에세이",
       "rank": 48,
@@ -1119,7 +1270,7 @@
       "upstream": 7,
       "upstreamKind": "page",
       "verdict": "rss",
-      "route": "display",
+      "route": "noncommercial",
       "wired": null,
       "register": "argumentative",
       "band": "B2-C1",
@@ -1127,6 +1278,9 @@
       "derivClaim": "no",
       "redistributeClaim": "yes",
       "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "full",
       "licenseHits": [
         "\"All rights reserved\""
       ],
@@ -1134,7 +1288,7 @@
       "note": null
     },
     {
-      "grade": "C",
+      "grade": "N",
       "id": "quanta",
       "label": "Quanta Magazine — 과학 논증",
       "rank": 53,
@@ -1142,7 +1296,7 @@
       "upstream": 5,
       "upstreamKind": "page",
       "verdict": "rss",
-      "route": "display",
+      "route": "noncommercial",
       "wired": null,
       "register": "argumentative",
       "band": "C1",
@@ -1150,6 +1304,9 @@
       "derivClaim": "no",
       "redistributeClaim": "yes",
       "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "none",
       "licenseHits": [],
       "licensePageHits": [],
       "note": null
@@ -1171,6 +1328,9 @@
       "derivClaim": "no",
       "redistributeClaim": "no",
       "redistributeWhy": "© Metaphysics Research Lab — CC 가 아니다. 품질은 최상이나 본문 저장 불가",
+      "commercialClaim": "no",
+      "commercialWhy": "재배포 자체가 불가 — 상업 여부를 따질 자리가 아니다",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": null
@@ -1192,6 +1352,9 @@
       "derivClaim": "no",
       "redistributeClaim": "no",
       "redistributeWhy": "© · 전부유보 계열 — 본문 저장 불가",
+      "commercialClaim": "no",
+      "commercialWhy": "재배포 자체가 불가 — 상업 여부를 따질 자리가 아니다",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": null
@@ -1213,6 +1376,9 @@
       "derivClaim": "no",
       "redistributeClaim": "no",
       "redistributeWhy": "© · 전부유보 계열 — 본문 저장 불가",
+      "commercialClaim": "no",
+      "commercialWhy": "재배포 자체가 불가 — 상업 여부를 따질 자리가 아니다",
+      "feedBody": "unknown",
       "licenseHits": [
         "\"All rights reserved\""
       ],
@@ -1236,6 +1402,9 @@
       "derivClaim": "no",
       "redistributeClaim": "no",
       "redistributeWhy": "© · 전부유보 계열 — 본문 저장 불가",
+      "commercialClaim": "no",
+      "commercialWhy": "재배포 자체가 불가 — 상업 여부를 따질 자리가 아니다",
+      "feedBody": "unknown",
       "licenseHits": [
         "CC BY-ND"
       ],
@@ -1259,6 +1428,9 @@
       "derivClaim": "no",
       "redistributeClaim": "no",
       "redistributeWhy": "© · 전부유보 계열 — 본문 저장 불가",
+      "commercialClaim": "no",
+      "commercialWhy": "재배포 자체가 불가 — 상업 여부를 따질 자리가 아니다",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": null
@@ -1280,6 +1452,9 @@
       "derivClaim": "no",
       "redistributeClaim": "no",
       "redistributeWhy": "협약 후 재게시(250단어 비평 인용) — CC 가 아니다. 2026-08-19 에 이 저장소가 cc 로 잘못 적은 적 있다",
+      "commercialClaim": "no",
+      "commercialWhy": "재배포 자체가 불가 — 상업 여부를 따질 자리가 아니다",
+      "feedBody": "unknown",
       "licenseHits": [
         "\"All rights reserved\""
       ],
@@ -1303,6 +1478,9 @@
       "derivClaim": "no",
       "redistributeClaim": "no",
       "redistributeWhy": "© · 전부유보 계열 — 본문 저장 불가",
+      "commercialClaim": "no",
+      "commercialWhy": "재배포 자체가 불가 — 상업 여부를 따질 자리가 아니다",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "#62 묶음"
@@ -1324,6 +1502,9 @@
       "derivClaim": "no",
       "redistributeClaim": "no",
       "redistributeWhy": "© · 전부유보 계열 — 본문 저장 불가",
+      "commercialClaim": "no",
+      "commercialWhy": "재배포 자체가 불가 — 상업 여부를 따질 자리가 아니다",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": null
@@ -1345,6 +1526,9 @@
       "derivClaim": "no",
       "redistributeClaim": "no",
       "redistributeWhy": "© · 전부유보 계열 — 본문 저장 불가",
+      "commercialClaim": "no",
+      "commercialWhy": "재배포 자체가 불가 — 상업 여부를 따질 자리가 아니다",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": null
@@ -1366,6 +1550,9 @@
       "derivClaim": "no",
       "redistributeClaim": "no",
       "redistributeWhy": "© · 전부유보 계열 — 본문 저장 불가",
+      "commercialClaim": "no",
+      "commercialWhy": "재배포 자체가 불가 — 상업 여부를 따질 자리가 아니다",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": null
@@ -1387,6 +1574,9 @@
       "derivClaim": "no",
       "redistributeClaim": "no",
       "redistributeWhy": "© · 전부유보 계열 — 본문 저장 불가",
+      "commercialClaim": "no",
+      "commercialWhy": "재배포 자체가 불가 — 상업 여부를 따질 자리가 아니다",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": null
@@ -1408,6 +1598,9 @@
       "derivClaim": "no",
       "redistributeClaim": "no",
       "redistributeWhy": "© · 전부유보 계열 — 본문 저장 불가",
+      "commercialClaim": "no",
+      "commercialWhy": "재배포 자체가 불가 — 상업 여부를 따질 자리가 아니다",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": ""
@@ -1429,6 +1622,9 @@
       "derivClaim": "no",
       "redistributeClaim": "no",
       "redistributeWhy": "© · 전부유보 계열 — 본문 저장 불가",
+      "commercialClaim": "no",
+      "commercialWhy": "재배포 자체가 불가 — 상업 여부를 따질 자리가 아니다",
+      "feedBody": "unknown",
       "licenseHits": [
         "\"All rights reserved\""
       ],
@@ -1452,6 +1648,9 @@
       "derivClaim": "no",
       "redistributeClaim": "no",
       "redistributeWhy": "© · 전부유보 계열 — 본문 저장 불가",
+      "commercialClaim": "no",
+      "commercialWhy": "재배포 자체가 불가 — 상업 여부를 따질 자리가 아니다",
+      "feedBody": "unknown",
       "licenseHits": [
         "\"All rights reserved\""
       ],
@@ -1475,6 +1674,9 @@
       "derivClaim": "mixed",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "피드 알림 없음 — 페이지는 살아 있다"
@@ -1496,6 +1698,9 @@
       "derivClaim": "mixed",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "피드 알림 없음 — 페이지는 살아 있다"
@@ -1517,6 +1722,9 @@
       "derivClaim": "mixed",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "unknown",
+      "commercialWhy": "라이선스 주장에서 상업 조건을 읽지 못했다 — 쓰지 않는다",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "피드 알림 없음 — 페이지는 살아 있다"
@@ -1538,6 +1746,9 @@
       "derivClaim": "mixed",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "unknown",
+      "commercialWhy": "라이선스 주장에서 상업 조건을 읽지 못했다 — 쓰지 않는다",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "피드 알림 없음 — 페이지는 살아 있다"
@@ -1559,6 +1770,9 @@
       "derivClaim": "mixed",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "unknown",
       "licenseHits": [
         "\"All rights reserved\""
       ],
@@ -1582,6 +1796,9 @@
       "derivClaim": "mixed",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "unknown",
+      "commercialWhy": "라이선스 주장에서 상업 조건을 읽지 못했다 — 쓰지 않는다",
+      "feedBody": "unknown",
       "licenseHits": [
         "CC BY-NC-SA"
       ],
@@ -1605,6 +1822,9 @@
       "derivClaim": "mixed",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "피드 알림 없음 — 페이지는 살아 있다"
@@ -1626,6 +1846,9 @@
       "derivClaim": "yes",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "피드 알림 없음 — 페이지는 살아 있다"
@@ -1647,6 +1870,9 @@
       "derivClaim": "mixed",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "unknown",
+      "commercialWhy": "라이선스 주장에서 상업 조건을 읽지 못했다 — 쓰지 않는다",
+      "feedBody": "unknown",
       "licenseHits": [
         "CC BY"
       ],
@@ -1662,7 +1888,7 @@
       "upstream": 0,
       "upstreamKind": "page",
       "verdict": "html",
-      "route": "display",
+      "route": "noncommercial",
       "wired": null,
       "register": "argumentative",
       "band": "C2",
@@ -1670,6 +1896,9 @@
       "derivClaim": "no",
       "redistributeClaim": "yes",
       "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "피드 알림 없음 — 페이지는 살아 있다"
@@ -1691,6 +1920,9 @@
       "derivClaim": "mixed",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "unknown",
+      "commercialWhy": "라이선스 주장에서 상업 조건을 읽지 못했다 — 쓰지 않는다",
+      "feedBody": "unknown",
       "licenseHits": [
         "CC BY"
       ],
@@ -1714,6 +1946,9 @@
       "derivClaim": "mixed",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "unknown",
       "licenseHits": [
         "CC BY-NC-ND",
         "CC BY-NC-SA"
@@ -1738,6 +1973,9 @@
       "derivClaim": "unknown",
       "redistributeClaim": "no",
       "redistributeWhy": "가입 필요 · 자료별 약관 — 본문 반출 금지로 본다",
+      "commercialClaim": "no",
+      "commercialWhy": "재배포 자체가 불가 — 상업 여부를 따질 자리가 아니다",
+      "feedBody": "unknown",
       "licenseHits": [
         "\"All rights reserved\""
       ],
@@ -1761,6 +1999,9 @@
       "derivClaim": "no",
       "redistributeClaim": "no",
       "redistributeWhy": "가입 필요 · © — 본문 반출 금지",
+      "commercialClaim": "no",
+      "commercialWhy": "재배포 자체가 불가 — 상업 여부를 따질 자리가 아니다",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "피드 알림 없음 — 페이지는 살아 있다"
@@ -1774,7 +2015,7 @@
       "upstream": 0,
       "upstreamKind": "page",
       "verdict": "html",
-      "route": "display",
+      "route": "noncommercial",
       "wired": null,
       "register": "expository",
       "band": "B1-B2",
@@ -1782,6 +2023,9 @@
       "derivClaim": "no",
       "redistributeClaim": "yes",
       "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "피드 알림 없음 — 페이지는 살아 있다"
@@ -1803,6 +2047,9 @@
       "derivClaim": "unknown",
       "redistributeClaim": "yes",
       "redistributeWhy": "UN 저작물 — 재배포 허용, 상업 파생 제한",
+      "commercialClaim": "unknown",
+      "commercialWhy": "라이선스 주장에서 상업 조건을 읽지 못했다 — 쓰지 않는다",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "피드 알림 없음 — 페이지는 살아 있다"
@@ -1824,6 +2071,9 @@
       "derivClaim": "yes",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "피드 알림 없음 — 페이지는 살아 있다"
@@ -1837,7 +2087,7 @@
       "upstream": 0,
       "upstreamKind": "page",
       "verdict": "html",
-      "route": "display",
+      "route": "noncommercial",
       "wired": null,
       "register": "argumentative",
       "band": "C1-C2",
@@ -1845,6 +2095,9 @@
       "derivClaim": "no",
       "redistributeClaim": "yes",
       "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "unknown",
       "licenseHits": [
         "\"All rights reserved\""
       ],
@@ -1868,6 +2121,9 @@
       "derivClaim": "yes",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "피드 알림 없음 — 페이지는 살아 있다"
@@ -1889,6 +2145,9 @@
       "derivClaim": "yes",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "피드 알림 없음 — 페이지는 살아 있다"
@@ -1910,6 +2169,9 @@
       "derivClaim": "unknown",
       "redistributeClaim": "yes",
       "redistributeWhy": "미 연방기관 저작물 — 재배포 자유, 파생 여부만 확인 필요",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "피드 알림 없음 — 페이지는 살아 있다"
@@ -1923,7 +2185,7 @@
       "upstream": 0,
       "upstreamKind": "page",
       "verdict": "html",
-      "route": "display",
+      "route": "noncommercial",
       "wired": null,
       "register": "expository",
       "band": "C2",
@@ -1931,6 +2193,9 @@
       "derivClaim": "no",
       "redistributeClaim": "yes",
       "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "unknown",
       "licenseHits": [
         "CC BY-NC-SA",
         "CC BY"
@@ -1947,7 +2212,7 @@
       "upstream": 0,
       "upstreamKind": "page",
       "verdict": "html",
-      "route": "display",
+      "route": "noncommercial",
       "wired": null,
       "register": "expository",
       "band": "B2",
@@ -1955,6 +2220,9 @@
       "derivClaim": "no",
       "redistributeClaim": "yes",
       "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "피드 알림 없음 — 페이지는 살아 있다"
@@ -1976,6 +2244,9 @@
       "derivClaim": "mixed",
       "redistributeClaim": "yes",
       "redistributeWhy": "본문은 PD(고전) — 사이트 편집분만 ©. 본문만 취한다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "피드 알림 없음 — 페이지는 살아 있다"
@@ -1997,6 +2268,9 @@
       "derivClaim": "yes",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "피드 알림 없음 — 페이지는 살아 있다"
@@ -2018,6 +2292,9 @@
       "derivClaim": "mixed",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "탐색용 — CC BY 만 골라내는 필터로 쓸 수 있다"
@@ -2039,6 +2316,9 @@
       "derivClaim": "mixed",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "unknown",
+      "commercialWhy": "라이선스 주장에서 상업 조건을 읽지 못했다 — 쓰지 않는다",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "탐색용 — PDCP 만화가 이미 쓰는 경로"
@@ -2060,6 +2340,9 @@
       "derivClaim": "mixed",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "unknown",
+      "commercialWhy": "라이선스 주장에서 상업 조건을 읽지 못했다 — 쓰지 않는다",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "탐색용 — 라이선스별 필터링 가치가 크다"
@@ -2073,7 +2356,7 @@
       "upstream": 3,
       "upstreamKind": "page",
       "verdict": "dead",
-      "route": "display",
+      "route": "noncommercial",
       "wired": null,
       "register": "expository",
       "band": "B1-B2",
@@ -2081,6 +2364,9 @@
       "derivClaim": "no",
       "redistributeClaim": "yes",
       "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "같은 호스트 링크 3개 — 목록으로 보기 어렵다"
@@ -2102,6 +2388,9 @@
       "derivClaim": "mixed",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "HTTP 403 — UA 위장 대신 뺀다"
@@ -2123,6 +2412,9 @@
       "derivClaim": "no",
       "redistributeClaim": "no",
       "redistributeWhy": "© · 전부유보 계열 — 본문 저장 불가",
+      "commercialClaim": "no",
+      "commercialWhy": "재배포 자체가 불가 — 상업 여부를 따질 자리가 아니다",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "HTTP 403 — UA 위장 대신 뺀다"
@@ -2144,6 +2436,9 @@
       "derivClaim": "yes",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "HTTP 403 — UA 위장 대신 뺀다"
@@ -2165,6 +2460,9 @@
       "derivClaim": "yes",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "HTTP 403 — UA 위장 대신 뺀다"
@@ -2186,6 +2484,9 @@
       "derivClaim": "yes",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "HTTP 403 — UA 위장 대신 뺀다"
@@ -2207,6 +2508,9 @@
       "derivClaim": "mixed",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "HTTP 403 — UA 위장 대신 뺀다"
@@ -2228,6 +2532,9 @@
       "derivClaim": "no",
       "redistributeClaim": "no",
       "redistributeWhy": "플랫폼에서 삭제된 소스 — 대상 아님",
+      "commercialClaim": "no",
+      "commercialWhy": "재배포 자체가 불가 — 상업 여부를 따질 자리가 아니다",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "두드리지 않는다. v06.69 마이그레이션 20260614240000 이 플랫폼 전체에서 삭제했고 library_articles_source_check 가 재삽입을 막는다. 정찰 기록 docs/reports/source-probe/arxiv.md"
@@ -2249,6 +2556,9 @@
       "derivClaim": "mixed",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "HTTP 429 — UA 위장 대신 뺀다"
@@ -2270,6 +2580,9 @@
       "derivClaim": "mixed",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "HTTP 403 — UA 위장 대신 뺀다"
@@ -2291,6 +2604,9 @@
       "derivClaim": "yes",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "HTTP 403 — UA 위장 대신 뺀다"
@@ -2312,6 +2628,9 @@
       "derivClaim": "mixed",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "JSON 아님"
@@ -2333,6 +2652,9 @@
       "derivClaim": "no",
       "redistributeClaim": "no",
       "redistributeWhy": "저자 유보 다수 — 본문 반출 금지",
+      "commercialClaim": "no",
+      "commercialWhy": "재배포 자체가 불가 — 상업 여부를 따질 자리가 아니다",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "HTTP 403 — UA 위장 대신 뺀다"
@@ -2354,6 +2676,9 @@
       "derivClaim": "yes",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "같은 호스트 링크 0개 — 목록으로 보기 어렵다"
@@ -2375,6 +2700,9 @@
       "derivClaim": "mixed",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "unknown",
+      "commercialWhy": "라이선스 주장에서 상업 조건을 읽지 못했다 — 쓰지 않는다",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "HTTP 403 — UA 위장 대신 뺀다"
@@ -2396,6 +2724,9 @@
       "derivClaim": "mixed",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "unknown",
+      "commercialWhy": "라이선스 주장에서 상업 조건을 읽지 못했다 — 쓰지 않는다",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "HTTP 403"
@@ -2409,7 +2740,7 @@
       "upstream": 0,
       "upstreamKind": "page",
       "verdict": "blocked",
-      "route": "display",
+      "route": "noncommercial",
       "wired": null,
       "register": "expository",
       "band": "C1",
@@ -2417,6 +2748,9 @@
       "derivClaim": "no",
       "redistributeClaim": "yes",
       "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)",
+      "commercialClaim": "no",
+      "commercialWhy": "NC(비상업) 계열 — 유료 플랫폼에서는 표시조차 불가",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "HTTP 403 — UA 위장 대신 뺀다"
@@ -2438,6 +2772,9 @@
       "derivClaim": "no",
       "redistributeClaim": "yes",
       "redistributeWhy": "CC 라이선스 식별자 있음 — 출처 표시 시 verbatim 재배포 허용(파생만 불가)",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "HTTP 403"
@@ -2459,6 +2796,9 @@
       "derivClaim": "yes",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "HTTP 403"
@@ -2480,6 +2820,9 @@
       "derivClaim": "mixed",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "HTTP 403"
@@ -2501,6 +2844,9 @@
       "derivClaim": "yes",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "항목 0건"
@@ -2522,6 +2868,9 @@
       "derivClaim": "yes",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "HTTP 403 — UA 위장 대신 뺀다"
@@ -2543,6 +2892,9 @@
       "derivClaim": "yes",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "HTTP 403 — UA 위장 대신 뺀다"
@@ -2564,6 +2916,9 @@
       "derivClaim": "yes",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "항목 0건"
@@ -2585,6 +2940,9 @@
       "derivClaim": "no",
       "redistributeClaim": "no",
       "redistributeWhy": "© · 시는 규격 미달 — 대상 아님",
+      "commercialClaim": "no",
+      "commercialWhy": "재배포 자체가 불가 — 상업 여부를 따질 자리가 아니다",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "시는 어수·문단 규격을 만족할 수 없다(itemWordSpec 90~400어 산문 전제). 두드리지 않는다"
@@ -2606,6 +2964,9 @@
       "derivClaim": "yes",
       "redistributeClaim": "yes",
       "redistributeWhy": "파생이 허용되므로 재배포도 허용된다",
+      "commercialClaim": "yes",
+      "commercialWhy": "NC 조건이 없는 CC·PD — 상업적 이용 가능",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "같은 호스트 링크 0개 — 목록으로 보기 어렵다"
@@ -2627,6 +2988,9 @@
       "derivClaim": "no",
       "redistributeClaim": "no",
       "redistributeWhy": "본문 접근 제한",
+      "commercialClaim": "no",
+      "commercialWhy": "재배포 자체가 불가 — 상업 여부를 따질 자리가 아니다",
+      "feedBody": "unknown",
       "licenseHits": [],
       "licensePageHits": [],
       "note": "HTTP 403"

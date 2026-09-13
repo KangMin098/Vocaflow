@@ -107,13 +107,13 @@ describe('판정 — 라우팅이 법을 넘지 않는다', () => {
     expect(verdict.rows.length).toBe(registry.candidates.length)
     // ⚠️ 등급을 더할 때 **여기도 더해야 한다.** F 를 만들고 이 줄을 잊어 121 이 107 로 나왔다
     //   (2026-09-13) — 검사가 스스로 잡았다. 등급 목록을 한 곳에서 읽는다.
-    const GRADES = ['A', 'B', 'C', 'F', 'D', 'E']
+    const GRADES = ['A', 'B', 'C', 'N', 'F', 'D', 'E']
     const sum = GRADES.reduce((n, g) => n + (verdict.tally[g] ?? 0), 0)
     expect(sum).toBe(registry.candidates.length)
   })
 
   it('상류 합은 소스가 공표한 총량만 더한다 — 1페이지 하한을 섞지 않는다', () => {
-    for (const g of ['A', 'B', 'C', 'F', 'D', 'E']) {
+    for (const g of ['A', 'B', 'C', 'N', 'F', 'D', 'E']) {
       const declared = verdict.rows
         .filter((r) => r.grade === g && r.upstreamKind === 'total')
         .reduce((n, r) => n + r.upstream, 0)
@@ -253,8 +253,9 @@ describe('권리는 두 축이다 — ND 와 © 를 같은 칸에 담지 않는�
     }
   })
 
-  it('C 와 F 를 합치면 예전 C 등급이 된다 — 쪼갰을 뿐 잃지 않았다', () => {
-    expect((verdict.tally.C ?? 0) + (verdict.tally.F ?? 0)).toBe(24)
+  it('C·N·F 를 합치면 예전 C 등급이 된다 — 쪼갰을 뿐 잃지 않았다', () => {
+    // 한 칸 → 두 칸(C/F) → 세 칸(C/N/F). 합이 24 를 벗어나면 어딘가에서 흘렸다는 뜻이다.
+    expect((verdict.tally.C ?? 0) + (verdict.tally.N ?? 0) + (verdict.tally.F ?? 0)).toBe(24)
   })
 })
 
@@ -287,5 +288,65 @@ describe('register 측정 — 선언과 나란히 기록돼 있다', () => {
 
   it('측정이 선언보다 크다는 것이 이 사이클의 발견이다', () => {
     expect(m.measured_supply_total).toBeGreaterThan(m.declared_argumentative_rows)
+  })
+})
+
+describe('상업 축 — NC 는 ND 와 다르다', () => {
+  it('모든 후보가 상업 축과 피드 본문 축을 선언한다', () => {
+    const okC = new Set(Object.keys(registry.commercialClaim))
+    const okF = new Set(Object.keys(registry.feedBody))
+    for (const c of registry.candidates) {
+      expect(okC, `${c.id} 의 commercialClaim '${c.commercialClaim}'`).toContain(c.commercialClaim)
+      expect(okF, `${c.id} 의 feedBody '${c.feedBody}'`).toContain(c.feedBody)
+      expect(c.commercialWhy, `${c.id} 에 상업 판정 이유가 없다`).toBeTruthy()
+    }
+  })
+
+  it('NC 로 주장된 소스는 절대 비개방 파이프라인(C)으로 가지 않는다', () => {
+    // 실측 2026-09-13: RSS 에 전문을 싣는 4곳이 전부 NC 였다. 축이 없으면 그대로 배선된다.
+    for (const id of ['propublica', 'nieman_lab', 'ideas_ted', 'mit_news', 'quanta', 'rand']) {
+      const c = registry.candidates.find((x) => x.id === id)
+      expect(c.commercialClaim, `${id} 가 상업 이용 가능으로 넘어갔다`).toBe('no')
+      const row = verdict.rows.find((r) => r.id === id)
+      expect(row.route, `${id} 의 라우팅`).not.toBe('display')
+      expect(row.grade, `${id} 의 등급`).not.toBe('C')
+    }
+  })
+
+  it('C 등급은 전부 상업 이용 가능이다 — 담아도 되는 칸이다', () => {
+    for (const r of verdict.rows.filter((x) => x.grade === 'C')) {
+      expect(r.commercialClaim, `${r.id} 가 C 인데 상업 ${r.commercialClaim}`).toBe('yes')
+      expect(r.redistributeClaim).toBe('yes')
+      expect(r.derivClaim).toBe('no')
+    }
+  })
+
+  it('발행사 약관에서 확인 못 한 곳은 unknown 으로 남는다', () => {
+    // mongabay·undark 는 CC BY-ND 로 주장되지만 자기 약관 페이지에 CC 링크가 없었다.
+    // 주장만으로 배선하면 Aeon 을 'cc' 로 적었던 2026-08-19 과 같은 일이 된다.
+    for (const id of ['mongabay', 'undark']) {
+      const c = registry.candidates.find((x) => x.id === id)
+      expect(c.commercialClaim, `${id} 가 확인 없이 통과했다`).toBe('unknown')
+      expect(c.commercialWhy).toMatch(/찾지 못했다|확인/)
+    }
+  })
+
+  it('피드 본문 실측이 기록돼 있다 — 다시 두드리지 않도록', () => {
+    const full = registry.candidates.filter((c) => c.feedBody === 'full').map((c) => c.id)
+    expect(full).toContain('the_conversation')
+    expect(full).toContain('propublica')
+    for (const c of registry.candidates) {
+      if (c.feedBody !== 'unknown') expect(c.feedBodyWhy, `${c.id} 에 실측 근거가 없다`).toBeTruthy()
+    }
+  })
+
+  it('비개방 파이프라인에 새로 붙일 수 있는 소스가 몇 곳인지 기록돼 있다', () => {
+    // 이 사이클의 결론: C 등급은 the_conversation 하나이고 이미 배선돼 있다.
+    // 즉 **새로 붙일 수 있는 소스가 없다.** 이 수치가 바뀌면 결론도 다시 써야 한다.
+    const addable = verdict.rows.filter((r) => r.grade === 'C' && !r.wired)
+    expect(
+      addable.map((r) => r.id),
+      '비개방 파이프라인에 붙일 수 있는 새 소스가 생겼다 — 리포트의 결론을 다시 써야 한다',
+    ).toEqual([])
   })
 })

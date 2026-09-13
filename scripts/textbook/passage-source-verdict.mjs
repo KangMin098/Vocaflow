@@ -69,17 +69,24 @@ const NEEDS_PARSER = new Set(['html'])
  * 이 둘이 `derivClaim: 'no'` 한 칸에 38곳이 섞여 있었고(재배포 가능 18 · 불가 20),
  * 그 상태로 「비개방 파이프라인」을 만들면 **© 본문을 DB 에 담는 코드**를 짜게 된다.
  */
-function routeOf(derive, redistribute) {
+function routeOf(derive, redistribute, commercial) {
   if (derive === 'yes') return 'open'
   if (derive === 'mixed') return 'per-item'
   if (derive === 'unknown') return 'verify'
   // derive === 'no'
-  if (redistribute === 'yes') return 'display'
-  return 'link-only'
+  if (redistribute !== 'yes') return 'link-only'
+  // **세 번째 축 — NC 는 ND 와 다르다.** ND 는 상업적 재배포가 되고(변형만 막힌다) NC 는
+  //   상업적 이용 자체를 막아 **표시조차** 안 된다. 이 플랫폼은 유료 결제를 향하고 있으므로
+  //   NC 는 비개방 파이프라인에도 들어갈 수 없다. 실측 2026-09-13: RSS 에 전문을 싣는 4곳
+  //   (propublica · nieman_lab · ideas_ted · mit_news)이 전부 NC 였다 — 이 축이 없으면
+  //   그 넷을 「원문 확보 가능」으로 읽고 배선하게 된다.
+  if (commercial === 'yes') return 'display'
+  return 'noncommercial'
 }
 const ROUTE_LABEL = {
   open: '개방 파이프라인 (문항 변형 가능)',
   display: '비개방 파이프라인 (원문 확보 ⭕ · 문항 0)',
+  noncommercial: '비상업 전용 · 라이선스 미확인 — 유료 플랫폼에서는 쓰지 않는다',
   'link-only': '본문 저장 불가 — 제목·URL·출처만',
   'per-item': '개방 파이프라인 + 편당 라이선스 필터',
   verify: '라이선스 확인 후 결정',
@@ -87,12 +94,13 @@ const ROUTE_LABEL = {
 
 function grade(r) {
   if (!ENUMERABLE.has(r.verdict)) return NEEDS_PARSER.has(r.verdict) ? 'D' : 'E'
-  const route = routeOf(r.derivClaim, r.redistributeClaim)
+  const route = routeOf(r.derivClaim, r.redistributeClaim, r.commercialClaim)
   if (route === 'open') return 'A'
   if (route === 'per-item') return 'B'
   if (route === 'display') return 'C'
   // **F 는 C 의 일부가 아니다.** 여기 있는 소스는 원문을 담을 수 없다 — 소재 참고용
   //   메타데이터(제목·URL·출처)만 남긴다. C 와 섞으면 담아도 되는 것으로 읽힌다.
+  if (route === 'noncommercial') return 'N'
   if (route === 'link-only') return 'F'
   return 'B'
 }
@@ -117,19 +125,28 @@ const rows = probe.results.map((r) => ({
   // 주장 3종은 레지스트리가 정본이다 — 프로브가 옛 값을 들고 있어도 여기서 맞춰진다.
   derivClaim: CLAIM.get(r.id)?.derivClaim ?? r.derivClaim,
   redistributeClaim: CLAIM.get(r.id)?.redistributeClaim ?? 'unknown',
+  commercialClaim: CLAIM.get(r.id)?.commercialClaim ?? 'unknown',
+  commercialWhy: CLAIM.get(r.id)?.commercialWhy ?? null,
+  feedBody: CLAIM.get(r.id)?.feedBody ?? 'unknown',
   redistributeWhy: CLAIM.get(r.id)?.redistributeWhy ?? null,
   licenseClaim: CLAIM.get(r.id)?.licenseClaim ?? r.licenseClaim,
-  grade: grade({ ...r, derivClaim: CLAIM.get(r.id)?.derivClaim ?? r.derivClaim, redistributeClaim: CLAIM.get(r.id)?.redistributeClaim ?? 'unknown' }),
+  grade: grade({
+    ...r,
+    derivClaim: CLAIM.get(r.id)?.derivClaim ?? r.derivClaim,
+    redistributeClaim: CLAIM.get(r.id)?.redistributeClaim ?? 'unknown',
+    commercialClaim: CLAIM.get(r.id)?.commercialClaim ?? 'unknown',
+  }),
   route: routeOf(
     CLAIM.get(r.id)?.derivClaim ?? r.derivClaim,
     CLAIM.get(r.id)?.redistributeClaim ?? 'unknown',
+    CLAIM.get(r.id)?.commercialClaim ?? 'unknown',
   ),
   enumerable: ENUMERABLE.has(r.verdict),
   upstream: upstream(r),
   upstreamKind: upstreamKind(r),
 }))
 
-const GRADE_ORDER = { A: 0, B: 1, C: 2, F: 3, D: 4, E: 5 }
+const GRADE_ORDER = { A: 0, B: 1, C: 2, N: 3, F: 4, D: 5, E: 6 }
 rows.sort(
   (a, b) =>
     GRADE_ORDER[a.grade] - GRADE_ORDER[b.grade] ||
@@ -150,7 +167,7 @@ for (const r of rows)
 const wiredIn = (g) => rows.filter((r) => r.grade === g && r.wired).length
 
 console.log('등급     소스  상류 합        그중 이미 배선')
-for (const g of ['A', 'B', 'C', 'F', 'D', 'E']) {
+for (const g of ['A', 'B', 'C', 'N', 'F', 'D', 'E']) {
   console.log(
     `${g}  ${String(tally[g] ?? 0).padStart(8)}  ${(upstreamBy[g] ?? 0).toLocaleString().padStart(14)}  ${String(wiredIn(g)).padStart(8)}`,
   )
@@ -194,6 +211,9 @@ fs.writeFileSync(
         derivClaim: r.derivClaim,
         redistributeClaim: r.redistributeClaim,
         redistributeWhy: r.redistributeWhy,
+        commercialClaim: r.commercialClaim,
+        commercialWhy: r.commercialWhy,
+        feedBody: r.feedBody,
         licenseHits: r.licenseHits ?? [],
         licensePageHits: r.licensePage?.hits ?? [],
         note: r.note,
@@ -210,11 +230,11 @@ if (mdOut) {
   const esc = (s) => String(s ?? '').replace(/\|/g, '\\|')
   const table = (list) =>
     [
-      '| 등급 | 소스 | 실측 상류 | 센 것 | 열거 | 파이프라인 | 파생 | 재배포 | register | 밴드 | 라이선스 주장 | 근거(실측) |',
-      '|---|---|---:|---|---|---|---|---|---|---|---|---|',
+      '| 등급 | 소스 | 실측 상류 | 센 것 | 열거 | 파이프라인 | 파생 | 재배포 | 상업 | 피드 본문 | register | 밴드 | 라이선스 주장 | 근거(실측) |',
+      '|---|---|---:|---|---|---|---|---|---|---|---|---|---|---|',
       ...list.map(
         (r) =>
-          `| ${r.grade} | ${r.wired ? '● ' : ''}${esc(r.id)} | ${r.upstream.toLocaleString()} | ${r.upstreamKind === 'total' ? '총량' : '1페이지(하한)'} | ${r.verdict} | ${ROUTE_LABEL[r.route]} | ${r.derivClaim} | ${r.redistributeClaim} | ${r.register} | ${r.band} | ${esc(r.licenseClaim)} | ${esc([...(r.licenseHits ?? []), ...(r.licensePage?.hits ?? []).map((h) => `약관:${h}`)].join(' · ') || '—')} |`,
+          `| ${r.grade} | ${r.wired ? '● ' : ''}${esc(r.id)} | ${r.upstream.toLocaleString()} | ${r.upstreamKind === 'total' ? '총량' : '1페이지(하한)'} | ${r.verdict} | ${ROUTE_LABEL[r.route]} | ${r.derivClaim} | ${r.redistributeClaim} | ${r.commercialClaim} | ${r.feedBody} | ${r.register} | ${r.band} | ${esc(r.licenseClaim)} | ${esc([...(r.licenseHits ?? []), ...(r.licensePage?.hits ?? []).map((h) => `약관:${h}`)].join(' · ') || '—')} |`,
       ),
     ].join('\n')
 
@@ -233,6 +253,7 @@ if (mdOut) {
 | A | 즉시 착수 — 열거 ⭕ 변형 ⭕ | ${tally.A ?? 0} | ${(upstreamBy.A ?? 0).toLocaleString()} | ${wiredIn('A')} |
 | B | 편당 라이선스 필터가 먼저 | ${tally.B ?? 0} | ${(upstreamBy.B ?? 0).toLocaleString()} | ${wiredIn('B')} |
 | C | 비개방 파이프라인 — 원문 확보 ⭕ 문항 0 | ${tally.C ?? 0} | ${(upstreamBy.C ?? 0).toLocaleString()} | ${wiredIn('C')} |
+| N | **비상업 전용(NC)·미확인** — 유료 플랫폼 사용 불가 | ${tally.N ?? 0} | ${(upstreamBy.N ?? 0).toLocaleString()} | ${wiredIn('N')} |
 | F | **본문 저장 불가** — 제목·URL·출처만 | ${tally.F ?? 0} | ${(upstreamBy.F ?? 0).toLocaleString()} | ${wiredIn('F')} |
 | D | 열거 수단 개발 필요 (피드 없음) | ${tally.D ?? 0} | ${(upstreamBy.D ?? 0).toLocaleString()} | ${wiredIn('D')} |
 | E | 지금은 불가 (차단·죽음·제외·색인) | ${tally.E ?? 0} | ${(upstreamBy.E ?? 0).toLocaleString()} | ${wiredIn('E')} |
@@ -258,6 +279,28 @@ if (mdOut) {
 
    ⚠️ 이 자는 논증의 **형태**를 재며 **질**을 재지 않는다. 후보 선별용이고 최종 판정은 사람·LLM 몫이다.
 
+0-2. **「pd 외 별도 파이프라인」에 새로 붙일 수 있는 소스가 없다 — 그것이 이 사이클의 답이다.**
+   비개방(원문 확보 O · 문항 0) 파이프라인은 이미 있고 실제로 소비된다 —
+   \`lib/articles/source-map.ts\` 가 \`derivation=display_only\` 를 **\`read_nd\` 학습 경로**로 보내고,
+   \`/library/scripts/[bookId]\` 에 ND 25편이 라이선스 표기와 함께 살아 있다. 문제는 공급이었다:
+
+   | 축 | 실측 |
+   |---|---|
+   | 재배포 가능(ND·NC) | 18곳 |
+   | 그중 **상업 이용 가능** | **2곳** (the_conversation · knowable) |
+   | 그중 열거 가능 + 미배선 | **0곳** |
+
+   **NC 는 ND 와 다르다.** ND 는 상업적 재배포가 되고(변형만 막힌다) NC 는 상업적 이용 자체를
+   막아 **표시조차** 안 된다. 이 플랫폼은 유료 결제를 향하므로 NC 는 비개방 파이프라인에도
+   들어갈 수 없다. 그런데 실측해 보니 **RSS 에 전문을 싣는 4곳이 전부 NC** 였다 —
+   propublica 5,366어 · nieman_lab 3,564 · ideas_ted 1,583 · mit_news 1,175.
+   축을 쪼개지 않았다면 그 넷을 그대로 배선했을 것이다.
+   나머지는 RSS 에 본문이 없다(quanta 63어 · undark 51 · rand 39 · inside_climate 77).
+   mongabay·undark 는 CC BY-ND 로 주장되지만 **자기 약관 페이지에서 CC 링크를 찾지 못했다** —
+   Aeon 을 'cc' 로 적었던 2026-08-19 과 같은 일을 반복하지 않으려고 \`unknown\` 으로 남긴다.
+
+   → 남은 길은 코드가 아니다: **발행사에 직접 라이선스를 확인**하거나, ND 가 확인된 뒤
+     사이트별 본문 추출기를 만드는 것. 어댑터를 9개 짜는 일은 필요하지 않았다.
 1. **표 1위가 이 플랫폼에서는 문항 0이다.** The Conversation(채택추정 6,000)은 CC BY-ND →
    \`display_only\` → 문항 생성기가 통째로 건너뛴다. 실측 2026-08-21 에 논증문 신규 46편이
    전부 이 이유로 문항 0이 됐다. **원문은 확보하되(비개방 파이프라인) 문항 공급선으로 세지 않는다.**
@@ -321,6 +364,15 @@ ${table(rows.filter((r) => r.grade === 'B'))}
 CC BY-ND·NC 계열. **원문을 그대로 실을 수 있고**(출처 표시) 문항 변형만 못 한다.
 
 ${table(rows.filter((r) => r.grade === 'C'))}
+
+## N — 비상업 전용(NC) · 라이선스 미확인
+
+ND 는 상업적 재배포가 되지만 **NC 는 상업적 이용 자체를 막는다** — 파생이 아니라 표시조차 안 된다.
+이 플랫폼은 유료 결제를 향하므로 비개방 파이프라인에도 넣을 수 없다.
+⚠️ 실측 2026-09-13: RSS 에 **전문을 싣는 4곳이 전부 여기 있다**(propublica 5,366어 ·
+nieman_lab 3,564 · ideas_ted 1,583 · mit_news 1,175). 축이 없었다면 그대로 배선했을 것이다.
+
+${table(rows.filter((r) => r.grade === 'N'))}
 
 ## F — 본문 저장 불가 (제목·URL·출처만)
 
