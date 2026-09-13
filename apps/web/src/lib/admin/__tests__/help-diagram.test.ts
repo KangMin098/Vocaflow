@@ -56,6 +56,19 @@ describe('교재 공장 화면마다 도식이 있다', () => {
     const covered = FACTORY.filter((k) => (entry(k).screen.diagrams?.length ?? 0) > 0)
     expect(covered).toHaveLength(FACTORY.length)
   })
+
+  // ── 왜 탭까지 재는가 (실측 2026-09-13) ──────────────────────────────
+  // 화면 단위는 11/11 이 덮였는데 **탭 50개 중 도식이 있는 것은 0개**였다.
+  // 탭은 화면이 아니라서 위 검사에 안 걸리는데, 관리자가 실제로 머무는 자리는 탭이다
+  // (`csat-evidence` 는 네 탭이 각각 다른 일을 한다). 그래서 같은 규칙을 탭에도 건다.
+  it('탭이 있는 교재 공장 화면은 탭마다 도식이 있다', () => {
+    const bare = FACTORY.flatMap((k) =>
+      Object.entries(entry(k).tabs ?? {})
+        .filter(([, help]) => (help.diagrams?.length ?? 0) === 0)
+        .map(([tab]) => `${k} / ${tab}`),
+    )
+    expect(bare).toEqual([])
+  })
 })
 
 describe('도식이 산문으로 되돌아가지 않는다', () => {
