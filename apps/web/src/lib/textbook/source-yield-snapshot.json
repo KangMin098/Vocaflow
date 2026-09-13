@@ -1,8 +1,1692 @@
 {
-  "measuredAt": "",
+  "measuredAt": "2026-09-13T11:58:04.660Z",
   "type": "topic",
-  "perCell": 0,
-  "totalStock": 0,
-  "totalUsable": 0,
-  "rows": []
+  "perCell": 30,
+  "totalStock": 87094,
+  "totalUsable": 49391,
+  "rows": [
+    {
+      "source": "gutenberg",
+      "vLevel": 5,
+      "articles": 7508,
+      "sampled": 30,
+      "ok": 30,
+      "yieldPct": 100,
+      "usableEstimate": 7508,
+      "reasons": {
+        "ok": 30,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "gutenberg",
+      "vLevel": 6,
+      "articles": 7965,
+      "sampled": 30,
+      "ok": 28,
+      "yieldPct": 93.3,
+      "usableEstimate": 7434,
+      "reasons": {
+        "ok": 28,
+        "no_window": 1,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 1,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "voa",
+      "vLevel": 4,
+      "articles": 6090,
+      "sampled": 30,
+      "ok": 28,
+      "yieldPct": 93.3,
+      "usableEstimate": 5684,
+      "reasons": {
+        "ok": 28,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 2,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "plos",
+      "vLevel": 6,
+      "articles": 32082,
+      "sampled": 30,
+      "ok": 4,
+      "yieldPct": 13.3,
+      "usableEstimate": 4278,
+      "reasons": {
+        "ok": 4,
+        "no_window": 0,
+        "apparatus": 12,
+        "chrome": 0,
+        "other": 14,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "plos",
+      "vLevel": 5,
+      "articles": 4995,
+      "sampled": 30,
+      "ok": 19,
+      "yieldPct": 63.3,
+      "usableEstimate": 3164,
+      "reasons": {
+        "ok": 19,
+        "no_window": 0,
+        "apparatus": 2,
+        "chrome": 0,
+        "other": 9,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "gutenberg",
+      "vLevel": 4,
+      "articles": 2723,
+      "sampled": 30,
+      "ok": 26,
+      "yieldPct": 86.7,
+      "usableEstimate": 2360,
+      "reasons": {
+        "ok": 26,
+        "no_window": 4,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "gutenberg",
+      "vLevel": 7,
+      "articles": 2333,
+      "sampled": 30,
+      "ok": 29,
+      "yieldPct": 96.7,
+      "usableEstimate": 2255,
+      "reasons": {
+        "ok": 29,
+        "no_window": 1,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "plos",
+      "vLevel": 7,
+      "articles": 7422,
+      "sampled": 30,
+      "ok": 9,
+      "yieldPct": 30,
+      "usableEstimate": 2227,
+      "reasons": {
+        "ok": 9,
+        "no_window": 0,
+        "apparatus": 11,
+        "chrome": 0,
+        "other": 10,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "voa",
+      "vLevel": 3,
+      "articles": 1941,
+      "sampled": 30,
+      "ok": 29,
+      "yieldPct": 96.7,
+      "usableEstimate": 1876,
+      "reasons": {
+        "ok": 29,
+        "no_window": 0,
+        "apparatus": 1,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "futurity",
+      "vLevel": 5,
+      "articles": 1865,
+      "sampled": 30,
+      "ok": 29,
+      "yieldPct": 96.7,
+      "usableEstimate": 1803,
+      "reasons": {
+        "ok": 29,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 1,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "frontiers",
+      "vLevel": 6,
+      "articles": 1388,
+      "sampled": 30,
+      "ok": 30,
+      "yieldPct": 100,
+      "usableEstimate": 1388,
+      "reasons": {
+        "ok": 30,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "voa",
+      "vLevel": 5,
+      "articles": 1382,
+      "sampled": 30,
+      "ok": 30,
+      "yieldPct": 100,
+      "usableEstimate": 1382,
+      "reasons": {
+        "ok": 30,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "gutenberg",
+      "vLevel": 3,
+      "articles": 1336,
+      "sampled": 30,
+      "ok": 27,
+      "yieldPct": 90,
+      "usableEstimate": 1202,
+      "reasons": {
+        "ok": 27,
+        "no_window": 3,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "voa",
+      "vLevel": 2,
+      "articles": 1150,
+      "sampled": 30,
+      "ok": 29,
+      "yieldPct": 96.7,
+      "usableEstimate": 1112,
+      "reasons": {
+        "ok": 29,
+        "no_window": 1,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "gutenberg",
+      "vLevel": 2,
+      "articles": 1238,
+      "sampled": 30,
+      "ok": 26,
+      "yieldPct": 86.7,
+      "usableEstimate": 1073,
+      "reasons": {
+        "ok": 26,
+        "no_window": 4,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "futurity",
+      "vLevel": 6,
+      "articles": 727,
+      "sampled": 30,
+      "ok": 30,
+      "yieldPct": 100,
+      "usableEstimate": 727,
+      "reasons": {
+        "ok": 30,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "frontiers",
+      "vLevel": 5,
+      "articles": 542,
+      "sampled": 30,
+      "ok": 30,
+      "yieldPct": 100,
+      "usableEstimate": 542,
+      "reasons": {
+        "ok": 30,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "europe_pmc",
+      "vLevel": 6,
+      "articles": 772,
+      "sampled": 30,
+      "ok": 17,
+      "yieldPct": 56.7,
+      "usableEstimate": 437,
+      "reasons": {
+        "ok": 17,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 13,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "usgs",
+      "vLevel": 5,
+      "articles": 383,
+      "sampled": 30,
+      "ok": 29,
+      "yieldPct": 96.7,
+      "usableEstimate": 370,
+      "reasons": {
+        "ok": 29,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 1,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "gutenberg",
+      "vLevel": 8,
+      "articles": 243,
+      "sampled": 30,
+      "ok": 29,
+      "yieldPct": 96.7,
+      "usableEstimate": 235,
+      "reasons": {
+        "ok": 29,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 1,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "futurity",
+      "vLevel": 4,
+      "articles": 214,
+      "sampled": 30,
+      "ok": 29,
+      "yieldPct": 96.7,
+      "usableEstimate": 207,
+      "reasons": {
+        "ok": 29,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 1,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "plos",
+      "vLevel": 4,
+      "articles": 202,
+      "sampled": 30,
+      "ok": 30,
+      "yieldPct": 100,
+      "usableEstimate": 202,
+      "reasons": {
+        "ok": 30,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "europe_pmc",
+      "vLevel": 7,
+      "articles": 301,
+      "sampled": 30,
+      "ok": 16,
+      "yieldPct": 53.3,
+      "usableEstimate": 161,
+      "reasons": {
+        "ok": 16,
+        "no_window": 1,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 13,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "original",
+      "vLevel": 2,
+      "articles": 160,
+      "sampled": 30,
+      "ok": 30,
+      "yieldPct": 100,
+      "usableEstimate": 160,
+      "reasons": {
+        "ok": 30,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "elife",
+      "vLevel": 5,
+      "articles": 151,
+      "sampled": 30,
+      "ok": 30,
+      "yieldPct": 100,
+      "usableEstimate": 151,
+      "reasons": {
+        "ok": 30,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "original",
+      "vLevel": 3,
+      "articles": 151,
+      "sampled": 30,
+      "ok": 30,
+      "yieldPct": 100,
+      "usableEstimate": 151,
+      "reasons": {
+        "ok": 30,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "original",
+      "vLevel": 4,
+      "articles": 144,
+      "sampled": 30,
+      "ok": 30,
+      "yieldPct": 100,
+      "usableEstimate": 144,
+      "reasons": {
+        "ok": 30,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "elife",
+      "vLevel": 6,
+      "articles": 128,
+      "sampled": 30,
+      "ok": 30,
+      "yieldPct": 100,
+      "usableEstimate": 128,
+      "reasons": {
+        "ok": 30,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "usgs",
+      "vLevel": 6,
+      "articles": 122,
+      "sampled": 30,
+      "ok": 30,
+      "yieldPct": 100,
+      "usableEstimate": 122,
+      "reasons": {
+        "ok": 30,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "gutenberg",
+      "vLevel": 1,
+      "articles": 156,
+      "sampled": 30,
+      "ok": 22,
+      "yieldPct": 73.3,
+      "usableEstimate": 114,
+      "reasons": {
+        "ok": 22,
+        "no_window": 8,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "plos",
+      "vLevel": 8,
+      "articles": 144,
+      "sampled": 30,
+      "ok": 21,
+      "yieldPct": 70,
+      "usableEstimate": 101,
+      "reasons": {
+        "ok": 21,
+        "no_window": 0,
+        "apparatus": 3,
+        "chrome": 0,
+        "other": 6,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "original",
+      "vLevel": 5,
+      "articles": 79,
+      "sampled": 30,
+      "ok": 30,
+      "yieldPct": 100,
+      "usableEstimate": 79,
+      "reasons": {
+        "ok": 30,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "frym",
+      "vLevel": 4,
+      "articles": 70,
+      "sampled": 30,
+      "ok": 30,
+      "yieldPct": 100,
+      "usableEstimate": 70,
+      "reasons": {
+        "ok": 30,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "wikipedia",
+      "vLevel": 6,
+      "articles": 40,
+      "sampled": 30,
+      "ok": 29,
+      "yieldPct": 96.7,
+      "usableEstimate": 39,
+      "reasons": {
+        "ok": 29,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 1,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "europe_pmc",
+      "vLevel": 5,
+      "articles": 167,
+      "sampled": 30,
+      "ok": 7,
+      "yieldPct": 23.3,
+      "usableEstimate": 39,
+      "reasons": {
+        "ok": 7,
+        "no_window": 3,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 20,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "usgs",
+      "vLevel": 4,
+      "articles": 42,
+      "sampled": 30,
+      "ok": 27,
+      "yieldPct": 90,
+      "usableEstimate": 38,
+      "reasons": {
+        "ok": 27,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 3,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "noaa",
+      "vLevel": 5,
+      "articles": 39,
+      "sampled": 30,
+      "ok": 29,
+      "yieldPct": 96.7,
+      "usableEstimate": 38,
+      "reasons": {
+        "ok": 29,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 1,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "frontiers",
+      "vLevel": 7,
+      "articles": 26,
+      "sampled": 26,
+      "ok": 26,
+      "yieldPct": 100,
+      "usableEstimate": 26,
+      "reasons": {
+        "ok": 26,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "europe_pmc",
+      "vLevel": 8,
+      "articles": 51,
+      "sampled": 30,
+      "ok": 15,
+      "yieldPct": 50,
+      "usableEstimate": 26,
+      "reasons": {
+        "ok": 15,
+        "no_window": 4,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 11,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "frym",
+      "vLevel": 5,
+      "articles": 22,
+      "sampled": 22,
+      "ok": 22,
+      "yieldPct": 100,
+      "usableEstimate": 22,
+      "reasons": {
+        "ok": 22,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "storyweaver",
+      "vLevel": 2,
+      "articles": 40,
+      "sampled": 30,
+      "ok": 16,
+      "yieldPct": 53.3,
+      "usableEstimate": 21,
+      "reasons": {
+        "ok": 16,
+        "no_window": 14,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "futurity",
+      "vLevel": 7,
+      "articles": 22,
+      "sampled": 22,
+      "ok": 21,
+      "yieldPct": 95.5,
+      "usableEstimate": 21,
+      "reasons": {
+        "ok": 21,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 1,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "voa",
+      "vLevel": 6,
+      "articles": 25,
+      "sampled": 25,
+      "ok": 19,
+      "yieldPct": 76,
+      "usableEstimate": 19,
+      "reasons": {
+        "ok": 19,
+        "no_window": 5,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 1,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "simple_wikipedia",
+      "vLevel": 4,
+      "articles": 19,
+      "sampled": 19,
+      "ok": 18,
+      "yieldPct": 94.7,
+      "usableEstimate": 18,
+      "reasons": {
+        "ok": 18,
+        "no_window": 1,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "gutenberg",
+      "vLevel": 9,
+      "articles": 18,
+      "sampled": 18,
+      "ok": 18,
+      "yieldPct": 100,
+      "usableEstimate": 18,
+      "reasons": {
+        "ok": 18,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "simple_wikipedia",
+      "vLevel": 5,
+      "articles": 16,
+      "sampled": 16,
+      "ok": 16,
+      "yieldPct": 100,
+      "usableEstimate": 16,
+      "reasons": {
+        "ok": 16,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "frym",
+      "vLevel": 2,
+      "articles": 15,
+      "sampled": 15,
+      "ok": 15,
+      "yieldPct": 100,
+      "usableEstimate": 15,
+      "reasons": {
+        "ok": 15,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "storyweaver",
+      "vLevel": 3,
+      "articles": 20,
+      "sampled": 20,
+      "ok": 12,
+      "yieldPct": 60,
+      "usableEstimate": 12,
+      "reasons": {
+        "ok": 12,
+        "no_window": 8,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "wikipedia",
+      "vLevel": 5,
+      "articles": 14,
+      "sampled": 14,
+      "ok": 11,
+      "yieldPct": 78.6,
+      "usableEstimate": 11,
+      "reasons": {
+        "ok": 11,
+        "no_window": 0,
+        "apparatus": 3,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "storyweaver",
+      "vLevel": 4,
+      "articles": 18,
+      "sampled": 18,
+      "ok": 11,
+      "yieldPct": 61.1,
+      "usableEstimate": 11,
+      "reasons": {
+        "ok": 11,
+        "no_window": 7,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "simple_wikipedia",
+      "vLevel": 2,
+      "articles": 9,
+      "sampled": 9,
+      "ok": 9,
+      "yieldPct": 100,
+      "usableEstimate": 9,
+      "reasons": {
+        "ok": 9,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "frym",
+      "vLevel": 3,
+      "articles": 9,
+      "sampled": 9,
+      "ok": 9,
+      "yieldPct": 100,
+      "usableEstimate": 9,
+      "reasons": {
+        "ok": 9,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "simple_wikipedia",
+      "vLevel": 3,
+      "articles": 8,
+      "sampled": 8,
+      "ok": 8,
+      "yieldPct": 100,
+      "usableEstimate": 8,
+      "reasons": {
+        "ok": 8,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "elife",
+      "vLevel": 4,
+      "articles": 8,
+      "sampled": 8,
+      "ok": 8,
+      "yieldPct": 100,
+      "usableEstimate": 8,
+      "reasons": {
+        "ok": 8,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "space_place",
+      "vLevel": 4,
+      "articles": 12,
+      "sampled": 12,
+      "ok": 7,
+      "yieldPct": 58.3,
+      "usableEstimate": 7,
+      "reasons": {
+        "ok": 7,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 5,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "owid",
+      "vLevel": 5,
+      "articles": 7,
+      "sampled": 7,
+      "ok": 7,
+      "yieldPct": 100,
+      "usableEstimate": 7,
+      "reasons": {
+        "ok": 7,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "elife",
+      "vLevel": 7,
+      "articles": 7,
+      "sampled": 7,
+      "ok": 7,
+      "yieldPct": 100,
+      "usableEstimate": 7,
+      "reasons": {
+        "ok": 7,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "storyweaver",
+      "vLevel": 5,
+      "articles": 14,
+      "sampled": 14,
+      "ok": 5,
+      "yieldPct": 35.7,
+      "usableEstimate": 5,
+      "reasons": {
+        "ok": 5,
+        "no_window": 9,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "nasa",
+      "vLevel": 6,
+      "articles": 80,
+      "sampled": 30,
+      "ok": 2,
+      "yieldPct": 6.7,
+      "usableEstimate": 5,
+      "reasons": {
+        "ok": 2,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 28,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "noaa",
+      "vLevel": 6,
+      "articles": 6,
+      "sampled": 6,
+      "ok": 5,
+      "yieldPct": 83.3,
+      "usableEstimate": 5,
+      "reasons": {
+        "ok": 5,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 1,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "nist",
+      "vLevel": 5,
+      "articles": 5,
+      "sampled": 5,
+      "ok": 5,
+      "yieldPct": 100,
+      "usableEstimate": 5,
+      "reasons": {
+        "ok": 5,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "storyweaver",
+      "vLevel": 1,
+      "articles": 15,
+      "sampled": 15,
+      "ok": 5,
+      "yieldPct": 33.3,
+      "usableEstimate": 5,
+      "reasons": {
+        "ok": 5,
+        "no_window": 10,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "nasa",
+      "vLevel": 5,
+      "articles": 106,
+      "sampled": 30,
+      "ok": 1,
+      "yieldPct": 3.3,
+      "usableEstimate": 4,
+      "reasons": {
+        "ok": 1,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 29,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "plos",
+      "vLevel": 9,
+      "articles": 4,
+      "sampled": 4,
+      "ok": 4,
+      "yieldPct": 100,
+      "usableEstimate": 4,
+      "reasons": {
+        "ok": 4,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "space_place",
+      "vLevel": 5,
+      "articles": 10,
+      "sampled": 10,
+      "ok": 4,
+      "yieldPct": 40,
+      "usableEstimate": 4,
+      "reasons": {
+        "ok": 4,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 6,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "original",
+      "vLevel": 6,
+      "articles": 4,
+      "sampled": 4,
+      "ok": 4,
+      "yieldPct": 100,
+      "usableEstimate": 4,
+      "reasons": {
+        "ok": 4,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "nist",
+      "vLevel": 6,
+      "articles": 4,
+      "sampled": 4,
+      "ok": 4,
+      "yieldPct": 100,
+      "usableEstimate": 4,
+      "reasons": {
+        "ok": 4,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "space_place",
+      "vLevel": 2,
+      "articles": 4,
+      "sampled": 4,
+      "ok": 4,
+      "yieldPct": 100,
+      "usableEstimate": 4,
+      "reasons": {
+        "ok": 4,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "voa",
+      "vLevel": 1,
+      "articles": 9,
+      "sampled": 9,
+      "ok": 3,
+      "yieldPct": 33.3,
+      "usableEstimate": 3,
+      "reasons": {
+        "ok": 3,
+        "no_window": 6,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "noaa",
+      "vLevel": 4,
+      "articles": 3,
+      "sampled": 3,
+      "ok": 3,
+      "yieldPct": 100,
+      "usableEstimate": 3,
+      "reasons": {
+        "ok": 3,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "wikipedia",
+      "vLevel": 7,
+      "articles": 4,
+      "sampled": 4,
+      "ok": 3,
+      "yieldPct": 75,
+      "usableEstimate": 3,
+      "reasons": {
+        "ok": 3,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 1,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "nasa",
+      "vLevel": 4,
+      "articles": 8,
+      "sampled": 8,
+      "ok": 3,
+      "yieldPct": 37.5,
+      "usableEstimate": 3,
+      "reasons": {
+        "ok": 3,
+        "no_window": 1,
+        "apparatus": 0,
+        "chrome": 4,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "simple_wikipedia",
+      "vLevel": 6,
+      "articles": 3,
+      "sampled": 3,
+      "ok": 3,
+      "yieldPct": 100,
+      "usableEstimate": 3,
+      "reasons": {
+        "ok": 3,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "space_place",
+      "vLevel": 3,
+      "articles": 3,
+      "sampled": 3,
+      "ok": 3,
+      "yieldPct": 100,
+      "usableEstimate": 3,
+      "reasons": {
+        "ok": 3,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "original",
+      "vLevel": 7,
+      "articles": 3,
+      "sampled": 3,
+      "ok": 3,
+      "yieldPct": 100,
+      "usableEstimate": 3,
+      "reasons": {
+        "ok": 3,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "storyweaver",
+      "vLevel": 6,
+      "articles": 5,
+      "sampled": 5,
+      "ok": 2,
+      "yieldPct": 40,
+      "usableEstimate": 2,
+      "reasons": {
+        "ok": 2,
+        "no_window": 3,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "plos",
+      "vLevel": 3,
+      "articles": 2,
+      "sampled": 2,
+      "ok": 2,
+      "yieldPct": 100,
+      "usableEstimate": 2,
+      "reasons": {
+        "ok": 2,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "futurity",
+      "vLevel": 3,
+      "articles": 2,
+      "sampled": 2,
+      "ok": 2,
+      "yieldPct": 100,
+      "usableEstimate": 2,
+      "reasons": {
+        "ok": 2,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "europe_pmc",
+      "vLevel": 4,
+      "articles": 2,
+      "sampled": 2,
+      "ok": 2,
+      "yieldPct": 100,
+      "usableEstimate": 2,
+      "reasons": {
+        "ok": 2,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "plos",
+      "vLevel": 2,
+      "articles": 2,
+      "sampled": 2,
+      "ok": 2,
+      "yieldPct": 100,
+      "usableEstimate": 2,
+      "reasons": {
+        "ok": 2,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "space_place",
+      "vLevel": 6,
+      "articles": 2,
+      "sampled": 2,
+      "ok": 2,
+      "yieldPct": 100,
+      "usableEstimate": 2,
+      "reasons": {
+        "ok": 2,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "factbook",
+      "vLevel": 6,
+      "articles": 2,
+      "sampled": 2,
+      "ok": 2,
+      "yieldPct": 100,
+      "usableEstimate": 2,
+      "reasons": {
+        "ok": 2,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "futurity",
+      "vLevel": 2,
+      "articles": 2,
+      "sampled": 2,
+      "ok": 2,
+      "yieldPct": 100,
+      "usableEstimate": 2,
+      "reasons": {
+        "ok": 2,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "owid",
+      "vLevel": 4,
+      "articles": 2,
+      "sampled": 2,
+      "ok": 2,
+      "yieldPct": 100,
+      "usableEstimate": 2,
+      "reasons": {
+        "ok": 2,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "nist",
+      "vLevel": 4,
+      "articles": 1,
+      "sampled": 1,
+      "ok": 1,
+      "yieldPct": 100,
+      "usableEstimate": 1,
+      "reasons": {
+        "ok": 1,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "voa",
+      "vLevel": 7,
+      "articles": 5,
+      "sampled": 5,
+      "ok": 1,
+      "yieldPct": 20,
+      "usableEstimate": 1,
+      "reasons": {
+        "ok": 1,
+        "no_window": 4,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "storyweaver",
+      "vLevel": 8,
+      "articles": 2,
+      "sampled": 2,
+      "ok": 1,
+      "yieldPct": 50,
+      "usableEstimate": 1,
+      "reasons": {
+        "ok": 1,
+        "no_window": 1,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "wikipedia",
+      "vLevel": 4,
+      "articles": 1,
+      "sampled": 1,
+      "ok": 1,
+      "yieldPct": 100,
+      "usableEstimate": 1,
+      "reasons": {
+        "ok": 1,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "nasa",
+      "vLevel": 1,
+      "articles": 1,
+      "sampled": 1,
+      "ok": 1,
+      "yieldPct": 100,
+      "usableEstimate": 1,
+      "reasons": {
+        "ok": 1,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "factbook",
+      "vLevel": 7,
+      "articles": 1,
+      "sampled": 1,
+      "ok": 1,
+      "yieldPct": 100,
+      "usableEstimate": 1,
+      "reasons": {
+        "ok": 1,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "usgs",
+      "vLevel": 7,
+      "articles": 1,
+      "sampled": 1,
+      "ok": 1,
+      "yieldPct": 100,
+      "usableEstimate": 1,
+      "reasons": {
+        "ok": 1,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "frym",
+      "vLevel": 6,
+      "articles": 1,
+      "sampled": 1,
+      "ok": 1,
+      "yieldPct": 100,
+      "usableEstimate": 1,
+      "reasons": {
+        "ok": 1,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "factbook",
+      "vLevel": 5,
+      "articles": 1,
+      "sampled": 1,
+      "ok": 1,
+      "yieldPct": 100,
+      "usableEstimate": 1,
+      "reasons": {
+        "ok": 1,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "frym",
+      "vLevel": 1,
+      "articles": 1,
+      "sampled": 1,
+      "ok": 1,
+      "yieldPct": 100,
+      "usableEstimate": 1,
+      "reasons": {
+        "ok": 1,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "nasa",
+      "vLevel": 2,
+      "articles": 2,
+      "sampled": 2,
+      "ok": 1,
+      "yieldPct": 50,
+      "usableEstimate": 1,
+      "reasons": {
+        "ok": 1,
+        "no_window": 1,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "nasa",
+      "vLevel": 7,
+      "articles": 5,
+      "sampled": 5,
+      "ok": 0,
+      "yieldPct": 0,
+      "usableEstimate": 0,
+      "reasons": {
+        "ok": 0,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 5,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "storyweaver",
+      "vLevel": 7,
+      "articles": 2,
+      "sampled": 2,
+      "ok": 0,
+      "yieldPct": 0,
+      "usableEstimate": 0,
+      "reasons": {
+        "ok": 0,
+        "no_window": 2,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "nasa",
+      "vLevel": 9,
+      "articles": 1,
+      "sampled": 1,
+      "ok": 0,
+      "yieldPct": 0,
+      "usableEstimate": 0,
+      "reasons": {
+        "ok": 0,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 1,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "europe_pmc",
+      "vLevel": 9,
+      "articles": 2,
+      "sampled": 2,
+      "ok": 0,
+      "yieldPct": 0,
+      "usableEstimate": 0,
+      "reasons": {
+        "ok": 0,
+        "no_window": 1,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 1,
+        "body_none": 0
+      }
+    }
+  ]
 }
