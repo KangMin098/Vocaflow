@@ -86,7 +86,9 @@ function CommandBlock({ title, lines }: { title: string; lines: string[] }) {
               window.setTimeout(() => setCopied(false), 1500)
             })
           }}
-          className="inline-flex min-h-[32px] items-center gap-1 rounded-[var(--r-sm)] px-2 font-body text-[12px] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg3)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]"
+          // 44px — 손가락이 닿는 최소 크기(CLAUDE.md). 32px 로 두고 있었다.
+          // 글자를 키우는 대신 **여백으로** 넓힌다 — 머리글 줄 높이를 흩뜨리지 않는다.
+          className="-my-1 inline-flex min-h-[44px] min-w-[44px] items-center justify-center gap-1 rounded-[var(--r-sm)] px-2 font-body text-[12px] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg3)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]"
         >
           {copied ? <Check size={13} aria-hidden /> : <Copy size={13} aria-hidden />}
           {copied ? '복사됨' : '복사'}

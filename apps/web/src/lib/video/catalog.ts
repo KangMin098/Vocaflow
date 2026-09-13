@@ -150,23 +150,32 @@ export function activityVideo(activityId: string, format: VideoFormat = 'wide'):
 }
 
 /**
- * 종류의 이름 — **이 표가 종류 목록의 정본이다.**
+ * 종류의 이름 — **이 표가 종류 목록이자 순서의 정본이다.**
  *
  * `Record<VideoKind, string>` 이라 종류를 하나 더하면 여기가 컴파일 오류로 먼저 걸린다.
- * 아래 `KIND_ORDER` 와 `videosByKind` 는 이 표에서 파생되므로 따로 손볼 것이 없다.
+ * `KIND_ORDER`·`videosByKind`·`/video` 목록이 전부 이 표에서 파생되므로 따로 손볼 곳이 없다.
+ *
+ * **키 순서가 곧 화면 순서다** — 처음 온 사람이 읽는 순서:
+ *   무엇인가(intro) → 왜 다른가(benefit) → 어떻게 배우나(method) → 무엇을 권하나(advice)
+ *   → 무엇으로(curriculum · series · type · module)
  */
 export const KIND_LABEL: Record<VideoKind, string> = {
   intro: '플랫폼 소개',
   benefit: '이 제품이 다른 점',
+  method: '학습 방법',
+  advice: '권장안',
   curriculum: '커리큘럼',
   series: '브랜드 시리즈',
   type: '문항 유형',
   module: '학습 활동',
-  method: '학습 방법',
-  advice: '권장안',
 }
 
-/** 종류 전부. 화면이 "빈 종류" 도 그릴 수 있게 목록으로 내준다. */
+/**
+ * 종류 전부 — **화면 순서 그대로.**
+ *
+ * ⚠️ `/video` 가 이 목록을 손으로 다시 적고 있었다. 종류를 둘 더했더니 화면은 멀쩡히 뜨면서
+ *   **11편이 조용히 사라졌다**(73편 중 62편만 그려짐). 목록은 한 곳에만 있어야 한다.
+ */
 export const KIND_ORDER = Object.keys(KIND_LABEL) as VideoKind[]
 
 /**

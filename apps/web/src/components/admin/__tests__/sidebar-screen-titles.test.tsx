@@ -131,6 +131,23 @@ const H1_TAG_RE = /<h1[\s>]/g
  *   그 상태로 「이름 못 알아봄 33」이 나왔는데 그중 대부분은 **어긋난 게 아니라 안 읽힌 것**이었다.
  *   읽지 못한 것을 위반으로 세면 회귀가 잡는 수가 사실이 아니게 된다.
  */
+/**
+ * **`<AdminPageHeader title="…">` 의 제목도 읽는다.**
+ *
+ * Admin 화면 상당수가 제목을 직접 `<h1>` 으로 적지 않고 이 공용 머리글에 넘긴다. 그런데 그
+ * 컴포넌트의 h1 본문은 `{title}` — JSX 표현식이라 아래 `titlesIn` 이 공백으로 지운다.
+ * 그래서 **화면에는 이름이 멀쩡히 떠 있는데** 판정은 「못 알아봄」이 됐다
+ * (실측 2026-09-13 `/admin/video`). 검사가 자기 주장을 못 재고 있던 자리다.
+ *
+ * 문자열 리터럴만 읽는다 — 표현식으로 넘기는 제목은 여전히 정적으로 못 읽고, 그건 맞다.
+ */
+const HEADER_TITLE_RE = /<AdminPageHeader\b[^>]*?\stitle="([^"]+)"/g
+
+function headerTitles(src: string): string[] {
+  // `[^>]` 는 줄바꿈도 먹으므로 속성이 여러 줄에 걸쳐도 맞는다.
+  return [...stripComments(src).matchAll(HEADER_TITLE_RE)].map((m) => m[1]!)
+}
+
 function titlesIn(src: string, tag: 'h1' | 'h2'): string[] {
   const re = new RegExp(`<${tag}\\b[^>]*>([\\s\\S]*?)</${tag}>`, 'g')
   const out: string[] = []
@@ -213,8 +230,9 @@ for (const item of ITEMS) {
     // ⚠️ 「같은 이름 주장」 검사에는 **자기 파일의 h1 만** 넣는다. layout 의 h1 은 그 구역
     //   전체가 공유하는 것이라(교재 공장의 「교재 공장」), 넣으면 아홉 화면이 서로
     //   충돌하는 것으로 잡힌다 — 설계대로 동작하는 것을 위반이라 부르는 셈이다.
-    if (own.includes(f)) h1Titles.push(...h1)
-    allTitles.push(...h1, ...titlesIn(src, 'h2'))
+    const header = headerTitles(src)
+    if (own.includes(f)) h1Titles.push(...h1, ...header)
+    allTitles.push(...h1, ...header, ...titlesIn(src, 'h2'))
   }
   SCREENS.push({
     href: item.href,
@@ -250,8 +268,23 @@ const KNOWN_MISMATCH: Record<string, string> = {
   '/admin/comic': '「Comic Pipeline」 — 영문 제목. tag 「CCP」가 다리',
   '/admin/pd-comics': '제목이 JSX 표현식 + h2 에도 라벨 낱말이 없다. tag 「PDCP」가 다리',
   '/admin/vrl/automation': '「VRL Automation Dashboard」 — 영문 제목. 부모가 VRL 이라 맥락은 선다',
-  '/admin/users': '화면 제목이 「사용자 관리」가 아니라 표 제목들이다',
-  '/admin/reports': '메뉴는 「신고/문의」, 화면은 「신고 처리」 계열 — 낱말이 안 겹친다',
+
+  // ── 아래 일곱은 2026-09-13에 **새로 보이게 된 것**이지 새로 생긴 것이 아니다. ──
+  //
+  // 그날 이 검사가 `<AdminPageHeader title="…">` 를 읽게 되기 전까지, 이 화면들은 제목을
+  // 하나도 못 읽혀 **「판정 불가」**로 세어졌다(10건 → 0건). 즉 검사가 자기 주장을 못 재는
+  // 동안 **실제 어긋남이 그 뒤에 숨어 있었다.** 반대로 `/admin/users`·`/admin/reports` 는
+  // 어긋난 게 아니라 안 읽혔던 것이라 목록에서 지웠다.
+  //
+  // 고치지 않고 적어 두는 이유: 제목을 바꾸는 것은 그 파이프라인의 편집 결정이고,
+  // 영상 작업 중에 남의 화면 이름을 조용히 갈아 끼우면 그쪽 세션이 근거 없이 바뀐 것을 본다.
+  '/admin/vocabulary': '메뉴 「단어장 마스터」 vs 화면 「사전 DB 직접 관리」 — 같은 곳인데 낱말이 하나도 안 겹친다',
+  '/admin/vrl/taxonomy': '「VRL Taxonomy」 — 영문 제목. 부모가 VRL 이라 맥락은 선다',
+  '/admin/vrl/diagnostic': '「VRL Diagnostic System」 — 영문 제목',
+  '/admin/vrl/users': '「VRL User Levels」 — 영문 제목',
+  '/admin/vrl/concerns': '「VRL Concerns」 — 영문 제목',
+  '/admin/vrl/snapshots': '「VRL Level Snapshots」 — 영문 제목',
+  '/admin/pending-words': '「Pending Words」 — 영문 제목. 메뉴는 「대기 단어」',
 }
 
 describe('메뉴 이름 ↔ 화면 제목', () => {

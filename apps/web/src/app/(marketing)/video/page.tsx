@@ -13,15 +13,16 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 import { ComponentVideo } from '@/components/video/ComponentVideo'
-import { KIND_LABEL, VIDEO_PUBLISHED, videosByKind, type VideoKind } from '@/lib/video/catalog'
+import { KIND_LABEL, KIND_ORDER, VIDEO_PUBLISHED, videosByKind } from '@/lib/video/catalog'
 
 export const metadata: Metadata = {
   title: '영상으로 보기',
-  description: '플랫폼 소개·커리큘럼·시리즈·문항 유형·학습 활동을 짧은 영상으로 봅니다.',
+  description: '플랫폼 소개·학습 방법·권장안·커리큘럼·시리즈·문항 유형·학습 활동을 짧은 영상으로 봅니다.',
 }
 
-/** 목록 순서 — 처음 온 사람이 읽는 순서다(무엇인가 → 왜 → 어떻게 → 무엇으로). */
-const ORDER: VideoKind[] = ['intro', 'benefit', 'curriculum', 'series', 'type', 'module']
+// 목록 순서는 `KIND_LABEL` 의 키 순서다 — 여기서 다시 적지 않는다.
+// 손으로 적었더니 종류를 둘 더한 날 **11편이 조용히 사라졌다**(화면은 멀쩡히 떴다).
+const ORDER = KIND_ORDER
 
 export default function VideoIndexPage() {
   const byKind = videosByKind()

@@ -15,9 +15,10 @@ import { describe, expect, it } from 'vitest'
 
 import VideoIndexPage from '@/app/(marketing)/video/page'
 import manifest from '../manifest.json'
-import { VIDEO_PUBLISHED } from '../catalog'
+import { KIND_LABEL, KIND_ORDER, VIDEO_PUBLISHED, videosByKind } from '../catalog'
 
 const html = renderToString(<VideoIndexPage />)
+const byKind = videosByKind()
 
 describe('/video 가 실제로 그려진다', () => {
   it('발행 상태다', () => {
@@ -30,17 +31,25 @@ describe('/video 가 실제로 그려진다', () => {
     expect(new Set(posters).size).toBe(manifest.videos.length)
   })
 
-  it('종류 여섯이 전부 절로 나온다 — 목록 순서에서 빠지면 그 종류는 영영 안 보인다', () => {
-    for (const label of [
-      '플랫폼 소개',
-      '이 제품이 다른 점',
-      '커리큘럼',
-      '브랜드 시리즈',
-      '문항 유형',
-      '학습 활동',
-    ]) {
-      expect(html, label).toContain(label)
+  it('**모든** 종류가 절로 나온다 — 목록 순서에서 빠지면 그 종류는 영영 안 보인다', () => {
+    // ⚠️ 여기에 이름을 **손으로 적지 않는다.** 예전에는 여섯 개를 적어 뒀는데, 종류를 둘
+    //   더한 날 이 검사는 초록인 채로 `/video` 에서 **11편이 조용히 사라졌다**
+    //   (화면은 멀쩡히 떴다 — 카드 수를 세는 위 검사만 잡았다).
+    //   `KIND_LABEL` 에서 돌면 새 종류가 자동으로 이 검사의 대상이 된다.
+    for (const kind of KIND_ORDER) {
+      const videos = byKind[kind]
+      // 그 종류의 영상이 아직 없으면 절도 없는 것이 맞다 — 빈 절을 그리면 약속만 남는다.
+      if (videos.length === 0) continue
+      expect(html, `${kind} (${KIND_LABEL[kind]}) 절이 안 그려졌다`).toContain(KIND_LABEL[kind])
     }
+  })
+
+  it('절의 순서가 `KIND_LABEL` 의 키 순서와 같다 — 순서도 한 곳에서만 정한다', () => {
+    const shown = KIND_ORDER.filter((k) => byKind[k].length > 0).map((k) => KIND_LABEL[k])
+    const positions = shown.map((label) => html.indexOf(label))
+    expect(positions.every((p) => p >= 0)).toBe(true)
+    // 나온 자리가 오름차순이어야 정본 순서대로 그려진 것이다.
+    expect([...positions].sort((a, b) => a - b)).toEqual(positions)
   })
 
   it('빈 상태 문구가 남아 있지 않다', () => {
