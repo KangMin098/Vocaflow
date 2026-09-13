@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest'
 
 import { V_TO_MARKET_BUCKET } from './level-chart'
 import { SERIES_SPINE } from './series'
-import { measureSpread, measureVolumeSpread, schoolOfBucket } from './type-spread'
+import { measureSkew, measureSpread, measureVolumeSpread, schoolOfBucket } from './type-spread'
 
 /** 시중 실측(`market-spec.json` typeCoverage.perDocument.bySchool.*.median · 2026-09-01). */
 const MARKET = { 초등: 4, 중등: 4, 고등: 9 } as const
@@ -135,5 +135,47 @@ describe('measureSpread — 사다리 전체', () => {
   it('평균 지수는 견줄 수 있었던 권만으로 낸다', () => {
     const r = measureSpread(volumes, MARKET)
     expect(r.meanIndex).toBeCloseTo((3 / 4 + 2 / 9) / 2, 6)
+  })
+})
+
+// ── 왜 시차 검사가 생겼나 (실측 2026-09-13) ─────────────────────────
+// 이 자의 첫 판이 「사다리가 19종을 선언해 놓고 지면에 4종만 실린다」고 답했고, 그 답으로
+// 리포트와 CHANGELOG 를 썼다. 그런데 스냅샷 시점(09-07)의 사다리를 git 에서 꺼내 보니
+// 선언이 **4종**이었다 — 지면과 정확히 같았다. 19 는 그날 17:26 커밋이 넓힌 값이다.
+// **조합기를 범인으로 지목했는데 결백했다.** 그 오독을 다시 못 하게 여기서 잠근다.
+describe('measureSkew — 두 입력의 시각이 어긋났는가', () => {
+  it('스냅샷이 사다리보다 낡으면 stale', () => {
+    const r = measureSkew('2026-09-07T14:14:23Z', '2026-09-13T08:26:00Z')
+    expect(r?.stale).toBe(true)
+  })
+
+  it('스냅샷이 사다리보다 새로우면 stale 이 아니다 — 그때의 차이는 진짜 결함이다', () => {
+    const r = measureSkew('2026-09-14T00:00:00Z', '2026-09-13T08:26:00Z')
+    expect(r?.stale).toBe(false)
+  })
+
+  it('같은 시각이면 stale 이 아니다', () => {
+    expect(measureSkew('2026-09-13T08:26:00Z', '2026-09-13T08:26:00Z')?.stale).toBe(false)
+  })
+
+  // ⚠️ 못 잰 것을 false 로 뭉개면 시차가 조용히 숨는다 — 그러면 첫 판의 오독이 되풀이된다.
+  it('한쪽이 없거나 못 읽는 값이면 null — false 로 뭉개지 않는다', () => {
+    expect(measureSkew(null, '2026-09-13T08:26:00Z')).toBeNull()
+    expect(measureSkew('2026-09-07T14:14:23Z', undefined)).toBeNull()
+    expect(measureSkew('어제', '2026-09-13T08:26:00Z')).toBeNull()
+    expect(measureSkew('2026-09-07T14:14:23Z', '내일')).toBeNull()
+  })
+
+  it('measureSpread 가 시각을 받으면 보고서에 함께 낸다', () => {
+    const vols = [{ band: 5, schoolBand: '고1', marketBucket: '고1', declaredTypes: ['blank', 'order'], printedTypes: ['order'] }]
+    const r = measureSpread(vols, MARKET, { printedAt: '2026-09-07T14:14:23Z', declaredAt: '2026-09-13T08:26:00Z' })
+    expect(r.skew?.stale).toBe(true)
+    // 결손 자체는 그대로 낸다 — 시차는 **읽는 법**을 바꾸지 판정을 지우지 않는다.
+    expect(r.absentEverywhere).toEqual(['blank'])
+  })
+
+  it('시각을 안 주면 skew 는 null', () => {
+    const r = measureSpread([], MARKET)
+    expect(r.skew).toBeNull()
   })
 })

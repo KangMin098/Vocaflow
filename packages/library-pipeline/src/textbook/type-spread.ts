@@ -17,6 +17,15 @@
 // 이것은 재고 부족과 다른 결함이다 — `type-gap.mjs` 는 창고에 무엇이 모자란지를 재고,
 // 이 자는 **창고에 있는데도 지면에 안 실린 것**을 잰다. 둘 다 필요하다.
 //
+// ⚠️⚠️ **「선언」과 「지면」은 서로 다른 시점에서 온다 — 이것을 안 밝히면 인과가 뒤집힌다.**
+//   선언은 **지금 코드**(`SERIES_SPINE`)에서, 지면은 **조판 스냅샷**에서 읽는다. 스냅샷이
+//   사다리보다 낡으면 그 차이는 결함이 아니라 **시차**다.
+//
+//   2026-09-13 에 실제로 그렇게 틀렸다. 「사다리가 19종을 선언해 놓고 지면에 4종만 실린다」고
+//   적었는데, 스냅샷 시점(09-07)의 사다리를 git 에서 꺼내 보니 선언이 **4종**이었다 —
+//   지면과 정확히 같았다. 19 는 그날 17:26 커밋이 넓힌 값이다. **조합기는 결백했고**
+//   낡은 것은 스냅샷이었다. 그래서 이 자는 두 시각을 받아 `skew` 로 그 사실을 함께 낸다.
+//
 // ── 왜 「선언 대비」와 「시중 대비」를 함께 내는가 ────────────────────
 // 하나만 내면 둘 다 틀리게 읽힌다. 선언 대비만 보면 사다리를 얇게 선언해 놓고 100% 가 되고,
 // 시중 대비만 보면 사다리가 약속한 것을 안 지킨 사실이 안 보인다. 둘을 나란히 둔다.
@@ -116,6 +125,32 @@ export function measureVolumeSpread(
   }
 }
 
+/** 두 입력의 시각이 어긋났는가. **어긋난 채로 읽으면 조합기를 범인으로 지목하게 된다.** */
+export interface SpreadSkew {
+  /** 조판 스냅샷을 구운 시각. */
+  printedAt: string
+  /** 사다리(`SERIES_SPINE`)가 마지막으로 바뀐 시각. */
+  declaredAt: string
+  /** 스냅샷이 사다리보다 낡았다 — 선언·지면 차이를 결함으로 읽으면 안 된다. */
+  stale: boolean
+}
+
+/**
+ * 스냅샷이 사다리보다 낡았는가.
+ *
+ * ⚠️ 파싱 못 하는 값은 `null` 이다 — `false`(안 낡았다)로 뭉개면 시차가 조용히 숨는다.
+ */
+export function measureSkew(
+  printedAt?: string | null,
+  declaredAt?: string | null,
+): SpreadSkew | null {
+  if (!printedAt || !declaredAt) return null
+  const p = Date.parse(printedAt)
+  const d = Date.parse(declaredAt)
+  if (Number.isNaN(p) || Number.isNaN(d)) return null
+  return { printedAt, declaredAt, stale: p < d }
+}
+
 export interface SpreadReport {
   volumes: VolumeTypeSpread[]
   /** 시중 중앙값 이상인 권 수 / 견줄 수 있었던 권 수. */
@@ -126,11 +161,14 @@ export interface SpreadReport {
   absentEverywhere: string[]
   /** 견줄 수 있었던 권들의 지수 평균. 하나도 못 재면 null. */
   meanIndex: number | null
+  /** 두 입력의 시각. 안 주면 null — **못 쟀다는 뜻이지 안 어긋났다는 뜻이 아니다.** */
+  skew: SpreadSkew | null
 }
 
 export function measureSpread(
   volumes: readonly VolumeSpreadInput[],
   marketMedian: MarketPerSchoolMedian,
+  at: { printedAt?: string | null; declaredAt?: string | null } = {},
 ): SpreadReport {
   const rows = volumes.map((v) => measureVolumeSpread(v, marketMedian))
   const scored = rows.filter((r) => r.index != null)
@@ -147,5 +185,6 @@ export function measureSpread(
     unmeasured: rows.filter((r) => r.state === 'unmeasured').length,
     absentEverywhere: [...declaredAll].filter((t) => !printedAll.has(t)).sort(),
     meanIndex: scored.length === 0 ? null : scored.reduce((a, r) => a + r.index!, 0) / scored.length,
+    skew: measureSkew(at.printedAt, at.declaredAt),
   }
 }
