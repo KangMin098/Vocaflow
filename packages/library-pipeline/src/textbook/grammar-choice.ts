@@ -153,6 +153,69 @@ export function looksPlural(noun: string): boolean | null {
   return false
 }
 
+/** 형태로 보아 수식어인가 — 분사·형용사·부사 어미와 하이픈 복합어. */
+export function looksModifier(word: string): boolean {
+  return /-/.test(word) || /(?:ed|ing|ous|ful|ive|al|ic|able|ible|ly)$/i.test(word)
+}
+
+/**
+ * **지시어 뒤가 「지시어 + 명사」로 확정되는가.**
+ *
+ * ── 왜 머리 명사를 「찾지」 않고 「확정되는지」를 묻나 (실측 2026-09-13) ──
+ * 영어에서 형용사와 명사는 **형태로 안 갈린다** — `late`·`big`·`class` 는 둘 다 될 수 있다.
+ * 그래서 `these late hour` 를 스캔하면 `late` 가 먼저 잡히고, 그것을 명사로 여긴 해설이
+ * **「late 가 단수이므로」** 라는 없는 규칙을 적었다.
+ *
+ * 추측을 개선하는 대신 **추측이 필요한 자리를 만들지 않는다**: 지시어 바로 뒤가 수를
+ * 가를 수 있는 낱말이고, **그 다음이 내용어가 아닐 때만** 후보로 삼는다.
+ *
+ *     these panels were shipped   → `panels` 뒤가 `were`(기능어) → 확정. 후보다.
+ *     these late hour             → `late` 뒤가 `hour`(내용어)  → 둘 중 무엇이 머리인지
+ *                                    모른다 → **안 만든다.**
+ *     These class members         → `class` 뒤가 `members`     → 같은 이유로 안 만든다.
+ *
+ * 잃는 것은 수식어가 낀 명사구뿐이고, 얻는 것은 **틀린 근거를 인쇄하지 않는 것**이다.
+ * 어법 재고는 이미 충분하다(V5 4,330문항).
+ */
+function isUnambiguousNounHead(tokens: ReadonlyArray<string>, headIdx: number): boolean {
+  const after = tokens[headIdx + 1]
+  if (after === undefined) return true // 문장 끝 — 뒤에 다툴 것이 없다
+  const w = bare(after)
+  if (!w) return true // 구두점뿐
+  // 기능어가 따라오면 앞 낱말이 머리다. 내용어가 따라오면 어느 쪽이 머리인지 모른다.
+  return NOT_A_NOUN_HEAD.has(w)
+}
+
+/**
+ * 지시어가 실제로 받는 **머리 명사**를 찾는다. 못 찾으면 빈 문자열.
+ *
+ * ── 왜 바로 뒤 낱말로는 안 되나 (3인 검수 실측 2026-09-13, 2회차) ────
+ * `even at these late hour` 로 문항이 만들어졌고, 해설이 **「late 가 단수이므로」** 라고
+ * 적었다. `late` 는 형용사라 수가 없고, `these` 를 막는 것은 핵어 **hour** 다.
+ * 해설 전체에 `hour` 가 한 번도 안 나온다 — 학습자는 정답을 맞히고도 **없는 규칙**을 배운다.
+ *
+ * ⚠️ **해설 작성기는 이미 이 교훈을 갖고 있었다**(`explain-items.headNounAfter` —
+ *   「바로 뒤 낱말을 그냥 쓰면 `those AI-focused data centers` 에서 형용사를 명사라고
+ *   부르게 된다」). 생성기만 못 받았다. 오늘 세 번째 「자가 둘」이라 **여기를 정본으로 두고**
+ *   해설 쪽이 이것을 부른다.
+ *
+ * 수식어는 건너뛰고, 한정사·조동사가 나오면 그 자리는 명사구가 아니다(빈 문자열).
+ * 3칸 안에 못 찾으면 판정하지 않는다 — 억지로 지목하면 틀린 근거를 만든다.
+ */
+export function headNounAt(tokens: ReadonlyArray<string>, from: number): string {
+  for (let k = from; k < Math.min(tokens.length, from + 3); k += 1) {
+    const w = bare(tokens[k] ?? '')
+    if (!w) continue
+    // 명사구의 머리가 될 수 없는 낱말이 먼저 나오면 애초에 명사구가 아니다.
+    if (NOT_A_NOUN_HEAD.has(w)) return ''
+    if (looksModifier(w)) continue
+    // 수를 형태로 못 가르는 낱말은 근거로 못 쓴다 — 건너뛰고 다음을 본다.
+    if (looksPlural(w) === null) continue
+    return w
+  }
+  return ''
+}
+
 export interface Candidate {
   sentenceIdx: number
   tokenIdx: number
@@ -210,6 +273,11 @@ export function candidateAt(
     //   지시사는 **명사구의 머리** 앞에 온다. 뒤가 한정사·대명사·전치사·조동사면
     //   명사구가 아니므로 그 자리는 지시사가 아니다 — 건드리지 않는다.
     if (NOT_A_NOUN_HEAD.has(bare(next))) return null
+    // ⚠️ **머리가 확정될 때만 만든다** — `these late hour` 에서 `late` 를 명사로 여긴
+    //   해설이 「late 가 단수이므로」라는 없는 규칙을 적었다. 형용사와 명사는 형태로
+    //   안 갈리므로, 추측을 개선하는 대신 **추측이 필요한 자리를 만들지 않는다**
+    //   (`isUnambiguousNounHead` 머리 주석).
+    if (!isUnambiguousNounHead(tokens, ti + 1)) return null
     const plural = looksPlural(next)
     if (plural === null) return null
     // 원문이 이미 어긋나 보이면 건너뛴다 — 바꾸면 오히려 고쳐진다.

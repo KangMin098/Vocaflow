@@ -25,7 +25,7 @@
 // (3) 75자 이상이 되도록 쓴다. 473자를 넘으면 인용을 줄인다 — 길면 안 읽는다.
 
 import { hasFinalConsonant } from './explain'
-import { looksPlural, standardArticle } from './grammar-choice'
+import { headNounAt, looksModifier as looksModifierShared, looksPlural, standardArticle } from './grammar-choice'
 
 /** 시장 규격 — `market-spec.json` 의 `explanation.lengthChars` p25/p90 실측값. */
 export const EXPLANATION_CHARS = { min: 75, max: 473 } as const
@@ -126,9 +126,13 @@ function wordAfter(sentence: string, target: string, tokenIdx?: number): string 
 }
 
 /** 수식어로 보이는 낱말 — 이걸 명사라고 지목하면 해설이 사실과 어긋난다. */
-function looksModifier(word: string): boolean {
-  return /-/.test(word) || /(?:ed|ing|ous|ful|ive|al|ic|able|ible)$/i.test(word)
-}
+/**
+ * ⚠️ **자를 여기 베껴 적지 않는다.** 수식어 판정과 머리 명사 찾기는 생성기
+ * (`grammar-choice`)가 정본이다 — 2026-09-13 에 생성기가 바로 뒤 낱말로 판정해
+ * `these late hour` 문항을 만들고, 이 파일은 머리 명사를 제대로 찾아 **둘이 갈렸다.**
+ * 해설만 옳아도 문항이 틀리면 소용이 없다.
+ */
+const looksModifier = looksModifierShared
 
 /**
  * 지시어가 받는 **머리 명사**를 찾는다.
@@ -139,7 +143,7 @@ function looksModifier(word: string): boolean {
  * 이름을 대지 않는다**(빈 문자열 → 낱말을 지목하지 않는 문장으로 떨어진다).
  */
 function headNounAfter(sentence: string, target: string, tokenIdx?: number): string {
-  const tokens = sentence.split(/\s+/)
+  const tokens = sentence.split(/s+/)
   let start: number
   if (typeof tokenIdx === 'number' && tokens[tokenIdx] != null) start = tokenIdx + 1
   else {
@@ -147,14 +151,8 @@ function headNounAfter(sentence: string, target: string, tokenIdx?: number): str
     if (i < 0) return ''
     start = i + 1
   }
-  for (let k = start; k < Math.min(tokens.length, start + 3); k += 1) {
-    const w = bare(tokens[k] ?? '')
-    if (!w) continue
-    if (looksModifier(w)) continue
-    if (looksPlural(w) === null) continue   // 판정 못 하는 낱말은 근거로 못 쓴다
-    return w
-  }
-  return ''
+  // **생성기와 같은 함수를 부른다** — 문항을 만든 근거와 해설의 근거가 같아야 한다.
+  return headNounAt(tokens, start)
 }
 
 /** 1-based 라벨 번호 → 0-based 배열 첨자. 저장 형식이 라벨 번호라 여기서 한 번만 바꾼다. */

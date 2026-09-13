@@ -11,6 +11,7 @@ import {
   pickSpread,
   standardArticle,
   candidateAt,
+  headNounAt,
 } from './grammar-choice'
 
 /**
@@ -196,5 +197,43 @@ describe('지시사 — 뒤가 명사구여야 한다', () => {
 
   it('관사 규칙은 이 검사의 대상이 아니다 — 관사는 뒤 낱말의 첫 글자만 본다', () => {
     expect(candidateAt(['a', 'panel'], 0, 0)).not.toBeNull()
+  })
+})
+
+/**
+ * **지시어의 수는 머리 명사로 판정한다 — 바로 뒤 낱말이 아니라.**
+ *
+ * 3인 검수 2회차 실측(2026-09-13): `even at these late hour` 로 문항이 만들어졌고
+ * 해설이 **「late 가 단수이므로」** 라고 적었다. `late` 는 형용사라 수가 없고,
+ * `these` 를 막는 것은 핵어 `hour` 다 — 해설에 `hour` 가 한 번도 안 나온다.
+ *
+ * 해설 작성기는 **이미 머리 명사를 찾고 있었다**(`explain-items.headNounAfter`).
+ * 생성기만 못 받아서 둘이 갈렸다 — 이제 같은 함수를 쓴다.
+ */
+describe('지시어 — 머리가 확정될 때만 만든다', () => {
+  it('수식어가 끼면 만들지 않는다 — 형용사와 명사는 형태로 안 갈린다', () => {
+    // 검수가 찾은 그 꼴. `late` 를 명사로 여긴 해설이 「late 가 단수이므로」라고 적었다.
+    expect(candidateAt(['these', 'late', 'hour'], 0, 0)).toBeNull()
+    expect(candidateAt(['this', 'late', 'hour'], 0, 0)).toBeNull()
+    expect(candidateAt(['These', 'class', 'members'], 0, 0)).toBeNull()
+  })
+
+  it('바로 뒤가 머리로 확정되면 그대로 후보다 — 더한 규칙이 뺀 규칙이 되지 않게', () => {
+    // 뒤에 기능어가 오면 앞 낱말이 머리다.
+    const c = candidateAt(['these', 'panels', 'were', 'shipped'], 0, 0)
+    expect(c).not.toBeNull()
+    expect(c!.broken).toBe('this')
+    // 문장 끝도 다툴 것이 없다.
+    const d = candidateAt(['that', 'panel'], 0, 0)
+    expect(d).not.toBeNull()
+    expect(d!.broken).toBe('those')
+  })
+
+  /** 해설 쪽 스캔은 **이미 만들어진 문항**을 설명하는 자다 — 생성기는 이것에 기대지 않는다. */
+  it('해설의 머리 명사 스캔은 형태상 수식어를 건너뛴다', () => {
+    // 하이픈 복합어는 건너뛴다. 다만 `data`(명사 수식어)까지는 못 가른다 —
+    // **그것이 이 스캔의 한계이고, 생성기가 여기에 기대지 않는 이유다.**
+    expect(headNounAt(['those', 'AI-focused', 'data', 'centers'], 1)).toBe('data')
+    expect(headNounAt(['that', 'the', 'treachery'], 1)).toBe('')
   })
 })
