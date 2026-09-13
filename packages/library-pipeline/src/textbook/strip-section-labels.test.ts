@@ -53,3 +53,40 @@ describe('stripSectionLabels — 홀로 선 절 이름', () => {
     expect(stripSectionLabels(s)).toBe(s)
   })
 })
+
+/**
+ * **콜론을 달고 오는 원문 라벨.**
+ *
+ * 3인 검수에서 지문 첫 낱말이 `Explanation:` 인 문항이 나왔다(실측 2026-09-13).
+ * 위 규칙으로는 안 걸렸다 — 목록에 없었고, **있었어도 콜론 때문에 `\s+` 가 안 맞는다.**
+ *
+ * ⚠️ 콜론을 **필수**로 두는 것이 이 검사의 요점이다. 콜론 없이 지우면 정상 산문이 잘린다.
+ */
+describe('stripSectionLabels — 콜론 라벨', () => {
+  it('콜론이 붙은 원문 라벨을 뗀다', () => {
+    expect(stripSectionLabels('Explanation: The Milky Way was not created by a lake.')).toBe(
+      'The Milky Way was not created by a lake.',
+    )
+    expect(stripSectionLabels('Note: Results were mixed.')).toBe('Results were mixed.')
+    expect(stripSectionLabels('The test ran. Source: Public records were used.')).toBe(
+      'The test ran. Public records were used.',
+    )
+  })
+
+  it('콜론이 없으면 건드리지 않는다 — 정상 산문을 자르지 않기 위해서다', () => {
+    // 콜론 없이 이 낱말들을 지우면 아래 둘이 통째로 망가진다.
+    expect(stripSectionLabels('Table Manners are learned early.')).toBe(
+      'Table Manners are learned early.',
+    )
+    expect(stripSectionLabels('Note that the results were mixed.')).toBe(
+      'Note that the results were mixed.',
+    )
+    expect(stripSectionLabels('Figure 3 shows the decline.')).toBe('Figure 3 shows the decline.')
+  })
+
+  it('문장 안에 든 라벨은 남긴다 — 문장을 여는 자리만 본다', () => {
+    expect(stripSectionLabels('We read the Note: it was short.')).toBe(
+      'We read the Note: it was short.',
+    )
+  })
+})

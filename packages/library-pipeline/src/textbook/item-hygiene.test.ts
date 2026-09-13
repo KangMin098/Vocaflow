@@ -147,3 +147,54 @@ describe('밑줄 위생', () => {
     expect(itemHygieneReject({ payload: { underlines: [null] } })).toBe('badUnderline')
   })
 })
+
+/**
+ * **약어 마침표에서 잘린 지문은 내보내지 않는다.**
+ *
+ * 3인 검수가 같은 자국을 네 갈래로 찾아냈다(실측 2026-09-13) — `U.S.` 는 이미 알려져
+ * 있었는데 학명(`genome of V.`) · `Li et al.` · 시각(`at 8 a.m.`)에서 **재발**했다.
+ * 선지가 그 조각 가운데 놓이면 학습자는 고를 수 없는 자리를 받는다.
+ */
+describe('약어 절단 위생', () => {
+  const sents = (...s: string[]) => ({ payload: { sentences: s } })
+
+  it('소문자로 열리는 문장은 조각의 뒤쪽이다', () => {
+    expect(itemHygieneReject(sents('The probe launched.', 'constructed a timeline.'))).toBe('badSplit')
+  })
+
+  it('홀로 선 한 글자 약어로 끝나면 조각의 앞쪽이다', () => {
+    expect(itemHygieneReject(sents('They inserted it into the genome of V.'))).toBe('badSplit')
+  })
+
+  it('점을 여러 개 쓰는 약어도 잡는다 — 한 글자 규칙으로는 안 잡힌다', () => {
+    // `U.S.` 는 마지막 글자 앞이 공백이 아니라 마침표라 앞 규칙을 빠져나간다.
+    expect(itemHygieneReject(sents('The survey covered the U.S.'))).toBe('badSplit')
+    expect(itemHygieneReject(sents('The reading was taken at 8 a.m.'))).toBe('badSplit')
+  })
+
+  it('흔한 축약으로 끝나도 잡는다', () => {
+    expect(itemHygieneReject(sents('The work follows Li et al.'))).toBe('badSplit')
+  })
+
+  it('멀쩡한 지문은 통과한다 — 더한 규칙이 뺀 규칙이 되지 않게', () => {
+    expect(
+      itemHygieneReject(
+        sents(
+          'The coastal region provides a steady supply of fresh water.',
+          'Farmers depend on it during the dry season.',
+        ),
+      ),
+    ).toBeNull()
+  })
+
+  it('문장 안의 약어는 건드리지 않는다 — 끝에 있을 때만 조각이다', () => {
+    expect(
+      itemHygieneReject(sents('The U.S. government published the report last spring.')),
+    ).toBeNull()
+  })
+
+  it('배열이 아니거나 비어 있으면 대상이 아니다', () => {
+    expect(itemHygieneReject({ payload: { passage: 'A single clean sentence here.' } })).toBeNull()
+    expect(itemHygieneReject({ payload: { sentences: [] } })).toBeNull()
+  })
+})

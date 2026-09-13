@@ -38,6 +38,26 @@ import { TYPE_GUIDE } from '@/lib/textbook/type-guide'
 const TOC_OPEN = 4
 const PREVIEW_OPEN = 2
 
+/**
+ * 낱말 경계를 지켜 찾는다 — 부분문자열에 밑줄이 걸리지 않게.
+ *
+ * 3인 검수 실측(2026-09-13): `necessary` 를 찾다가 같은 문장 앞의 `unnecessary` 안쪽이
+ * 잡혀 `un②necessary` 로 그려졌다. 학습자에게는 **가리킬 곳이 없는 문항**이 된다.
+ * 앞뒤가 영문자가 아니어야 그 자리로 인정한다(구두점·공백·글머리는 경계다).
+ */
+function wordIndexOf(haystack: string, needle: string): number {
+  if (!needle) return -1
+  let from = 0
+  for (;;) {
+    const at = haystack.indexOf(needle, from)
+    if (at < 0) return -1
+    const before = at === 0 ? '' : haystack[at - 1]!
+    const after = haystack[at + needle.length] ?? ''
+    if (!/[A-Za-z]/.test(before) && !/[A-Za-z]/.test(after)) return at
+    from = at + 1
+  }
+}
+
 const CIRCLED = ['①', '②', '③', '④', '⑤'] as const
 
 function typeLabel(t: string): string {
@@ -302,7 +322,10 @@ function PreviewItem({ item: it }: { item: PreviewChoiceItem }) {
             let rest = sentence
             const parts: React.ReactNode[] = []
             for (const m of marks) {
-              const at = rest.indexOf(m.word)
+              // ⚠️ **낱말 경계로 찾는다.** `indexOf` 로 두면 첫 **부분문자열**이 걸린다 —
+              //   3인 검수 실측(2026-09-13): `necessary` 를 찾다가 앞의 `unnecessary` 안쪽이
+              //   잡혀 `un②necessary` 로 그려졌다. 조판기도 같은 자국을 갖고 있었다.
+              const at = m.word ? wordIndexOf(rest, m.word) : -1
               if (at < 0 || !m.word) continue
               const idx = (it.underlines ?? []).indexOf(m)
               parts.push(rest.slice(0, at))

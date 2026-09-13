@@ -115,6 +115,56 @@ export function passageTextOf(payload: Record<string, unknown> | null | undefine
   return text.trim()
 }
 
+/**
+ * **약어 마침표에서 문장이 잘렸는가.**
+ *
+ * ── 3인 검수가 드러낸 것 (실측 2026-09-13) ──────────────────────────
+ * 문장 분할이 `(?<=[.!?])s+` 하나로 되어 있어 약어의 마침표를 문장 끝으로 읽는다.
+ * 검수에서 나온 실제 자국:
+ *
+ *     "From June 12 to July 3, the U.S." / "Geological Survey and…"
+ *     "…with information from fossils, Li et al." / "constructed a timeline…"
+ *     "At 8 a." / "m., thermometer, 70°…"
+ *     "…directly into the genome of V." / "natriegens cells…"
+ *
+ * 선지가 그 조각 **가운데**에 놓이면 학습자는 고를 수 없는 자리를 받는다.
+ * `U.S.` 는 이미 알려진 자국이었는데 **같은 원인이 학명·`et al.`·시각으로 재발했다** —
+ * 분할기가 20곳에 복사돼 있어 한 곳을 고쳐도 나머지가 남는다.
+ *
+ * ⚠️ **여기서 고치지 않고 거른다.** 분할기를 바꾸면 저장된 문항의 지문이 달라지고
+ *   (전 밴드 25,672문항) 그건 재생성 결정이지 판정의 일이 아니다. 판정은 「이 문항을
+ *   지금 내보내도 되는가」에만 답한다.
+ *
+ * 자국은 둘이다 — 조각의 **뒤쪽**은 소문자로 시작하고, **앞쪽**은 약어로 끝난다.
+ * 둘 다 보는 이유는 지문 첫 문장이 조각의 앞쪽일 수 있기 때문이다.
+ *
+ * DB 실측(V5): 소문자로 시작하는 문장을 가진 문항 **3,391개**
+ *   (unit_vocab 1,520 · vocab_choice 963 · unit_grammar 459 · grammar_choice 376 · irrelevant 73).
+ */
+export function hasBadSentenceSplit(payload: Record<string, unknown> | null | undefined): boolean {
+  if (!payload) return false
+  for (const k of PASSAGE_ARRAY_KEYS) {
+    const v = payload[k]
+    if (!Array.isArray(v)) continue
+    for (const raw of v) {
+      if (typeof raw !== 'string') continue
+      const s = raw.trim()
+      if (!s) continue
+      // ① 조각의 **뒤쪽** — 문장이 소문자로 열린다. 가장 확실한 자국이다.
+      if (/^[a-z]/.test(s)) return true
+      // ② 조각의 **앞쪽** — 홀로 선 한 글자 약어로 끝난다(`…genome of V.` · `…fossils, Li V.`).
+      //    앞이 공백이거나 여는 괄호여야 한다 — 문장 끝의 평범한 낱말을 막지 않기 위해서다.
+      if (/(?:^|[\s(])[A-Z]\.$/.test(s)) return true
+      // ③ 점을 여러 개 쓰는 약어로 끝난다(`the U.S.` · `at 8 a.m.`).
+      //    ②로는 안 잡힌다 — 마지막 글자 앞이 공백이 아니라 **마침표**이기 때문이다.
+      if (/(?:[A-Za-z]\.){2,}$/.test(s)) return true
+      // ④ 흔한 축약 — 뒤에 본문이 이어져야 할 자리에서 끊겼다.
+      if (/(?:^|\s)(?:et al|vs|etc|Dr|Mr|Mrs|Ms|Prof|Fig|No|Inc|Ltd|St)\.$/i.test(s)) return true
+    }
+  }
+  return false
+}
+
 /** 왜 못 내보내는지 — 세어서 남기려고 이름을 붙인다. 통과면 `null`. */
 export type HygieneReject =
   | 'retracted'
@@ -125,6 +175,8 @@ export type HygieneReject =
   | 'cutFragment'
   /** 밑줄이 낱말이 아니다 — 부호·마크업째 밑줄이 쳐진다. */
   | 'badUnderline'
+  /** 약어 마침표에서 문장이 잘렸다 — 지문이 조각으로 인쇄된다. */
+  | 'badSplit'
 
 /**
  * **학습자에게 내보내도 되는 문항인가.** 조판의 게이트와 같은 판정을 쓴다.
@@ -155,6 +207,8 @@ export function itemHygieneReject(input: {
       if (!isPrintableUnderlineWord(w)) return 'badUnderline'
     }
   }
+
+  if (hasBadSentenceSplit(input.payload)) return 'badSplit'
 
   const text = passageTextOf(input.payload)
   if (!text) return null

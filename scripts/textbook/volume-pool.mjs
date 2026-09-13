@@ -687,6 +687,7 @@ export async function loadVolume(
     judgeSource,
     isComposable,
     isPrintableUnderlineWord,
+    itemHygieneReject,
     tallyEligibility,
     GRADE_LABEL,
   } = await import('@vocaflow/library-pipeline')
@@ -921,6 +922,8 @@ export async function loadVolume(
       : `${gateLine}  ⚠️ [강제 꺼짐 — VOCAFLOW_SOURCE_STRICT=0 · 판정 못 받은 원문이 실린다]`,
   )
 
+  /** 위생 판정으로 뺀 문항을 사유별로 센다 — 조용히 사라지면 재고가 줄어든 줄 안다. */
+  const hygieneRejects = {}
   const pool = []
   for (const r of itemRows) {
     const a = byId.get(r.ref_id)
@@ -940,9 +943,27 @@ export async function loadVolume(
       Array.isArray(r.payload?.underlines) &&
       r.payload.underlines.some((u) => !isPrintableUnderlineWord(String(u?.word ?? '')))
     ) {
+      hygieneRejects.badUnderline = (hygieneRejects.badUnderline ?? 0) + 1
       continue
     }
     const p = cleanPayload(r.payload ?? {})
+    // ── 학습자 경로와 **같은 위생 판정**을 건다 ────────────────────────
+    //
+    // ⚠️ 조합기는 지금껏 **원글 제목**만 걸렀다(철회·소재·라이선스). 문항 자체의 지문은
+    //   아무도 안 봤다. 3인 검수가 그 구멍을 드러냈다(실측 2026-09-13, 첫 청크 8문항):
+    //     · `[Sidenote: The young tribesman…` — 여는 대괄호가 안 닫힌 원문 방주.
+    //       **`hasUnbalancedParens` 가 이미 잡는 것**인데 조합 경로에 안 걸려 있었다.
+    //     · 논문의 변수 정의표가 문장부호 없이 이어 붙은 지문(`Indep The number of …`).
+    //   `item-hygiene.ts` 머리 주석이 적어 둔 목표가 바로 이것이다 —
+    //   **「두 경로가 같은 함수를 부르게 하는 것」.** 그때는 학습자 쪽이 빠져 있었고,
+    //   이번에는 조판 쪽이 빠져 있었다. 거울상으로 되풀이된 셈이다.
+    //
+    // **정제한 사본으로 판정한다** — 절 이름·라벨을 떼고도 남는 결함만 센다.
+    const reject = itemHygieneReject({ payload: p, refTitle: a.title })
+    if (reject) {
+      hygieneRejects[reject] = (hygieneRejects[reject] ?? 0) + 1
+      continue
+    }
     // ── 생성형 유형은 지문이 통째로 payload 에 있다 ──────────────────
     // ⚠️ 이걸 안 넣으면 **문항을 만들어도 책에 안 실린다.** 실제로 그랬다 —
     //   생성형 64문항을 넣고도 조합기가 못 봐서 권은 그대로였다.
@@ -1058,6 +1079,17 @@ export async function loadVolume(
   // **단의 유형 구성이 곧 그 책의 정체다.** 안 좁히면 밴드가 가진 모든 유형이 섞여 들어와
   // 어휘 권을 찍어도 독해 문항이 실린다 — 카탈로그가 「어휘 6권을 찍으면 된다」고 말하는데
   // 나오는 것은 독해 권이 되는, 화면과 산출물이 갈리는 사고다.
+  // ⚠️ **빠진 것을 반드시 찍는다.** 조용히 거르면 재고가 원래 그만큼이었던 줄 안다 —
+  //   이 저장소가 「받음 0」을 고장으로 오해한 적이 여러 번 있다.
+  {
+    const total = Object.values(hygieneRejects).reduce((n, v) => n + v, 0)
+    if (total) {
+      const parts = Object.entries(hygieneRejects)
+        .sort((x, y) => y[1] - x[1])
+        .map(([k, v]) => `${k} ${v.toLocaleString()}`)
+      console.log(`위생 판정으로 뺀 문항 ${total.toLocaleString()} — ${parts.join(' · ')}`)
+    }
+  }
   const seriesRung = seriesRungOf(seriesId, band)
   if (seriesRung) {
     const allow = new Set(seriesRung.types)

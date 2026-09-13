@@ -47,3 +47,45 @@ describe('학교 교재에 못 싣는 소재', () => {
     expect(isPrintablePassage('A clean sentence that nevertheless discusses abortion access.')).toBe(false)
   })
 })
+
+/**
+ * **시대적 인종·민족 비하 표현.**
+ *
+ * 3인 검수가 인쇄 직전에 잡았다(실측 2026-09-13) — V5 지면 문항의 마지막 문장이
+ * `the deep-seated treachery in the oriental mind` 였다. 독자가 한국 고등학생인 교재다.
+ * 이 밴드의 재고는 공개 도메인 **고전**에서 오므로 시대의 차별 표현이 본문에 그대로 있고,
+ * **형식 검사로는 영원히 안 걸린다** — 문장은 완벽하게 멀쩡하게 읽힌다.
+ */
+describe('hasSensitiveTopic — 인종·민족 비하', () => {
+  it('검수가 실제로 잡아낸 그 문장을 막는다', () => {
+    expect(
+      hasSensitiveTopic('He wrote of the deep-seated treachery in the oriental mind.'),
+    ).toBe(true)
+  })
+
+  it('고전에 흔한 비하 표현을 막는다', () => {
+    for (const s of [
+      'The negroes worked the fields from dawn.',
+      'They called the islanders savages.',
+      'The savage tribes had no written law.',
+      'Missionaries were sent to the heathen.',
+    ]) {
+      expect(hasSensitiveTopic(s), s).toBe(true)
+    }
+  })
+
+  /**
+   * ⚠️ **낱말 하나로 막지 않는다.** `savage` 가 형용사면 비하가 아니다 —
+   * 여기서 넓게 잡으면 멀쩡한 지문이 통째로 날아간다.
+   */
+  it('형용사로 쓰인 것은 막지 않는다 — 넓은 자가 재고를 죽인다', () => {
+    expect(hasSensitiveTopic('A savage storm tore through the harbour.')).toBe(false)
+    expect(hasSensitiveTopic('The competition was savage but fair.')).toBe(false)
+  })
+
+  it('지리·언어를 가리키는 평범한 말은 막지 않는다', () => {
+    expect(hasSensitiveTopic('The Oriental Institute published the tablets.')).toBe(true)
+    // ↑ 기관명이라도 막힌다. 지문 하나를 잃는 비용 < 비하 표현을 인쇄하는 비용.
+    expect(hasSensitiveTopic('East Asian trade routes expanded in the period.')).toBe(false)
+  })
+})

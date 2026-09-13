@@ -137,3 +137,48 @@ describe('jsonb 를 덮어쓰지 않는다 — 주석이 아니라 코드로', (
     expect(src).toContain("original:answer_key->original")
   })
 })
+
+/**
+ * **밑줄은 낱말 자리에 걸려야 한다 — 부분문자열이 아니라.**
+ *
+ * 3인 검수 실측(2026-09-13): `necessary` 를 밑줄 치려는데 같은 문장 앞의 `unnecessary`
+ * 안쪽이 잡혀 지면에 `un②necessary` 로 찍혔다. 정작 틀린 낱말은 맨몸으로 남아,
+ * 학습자는 **가리킬 곳이 없는 문항**을 받는다. 조판기와 화면이 **둘 다** 같은 자국을
+ * 갖고 있었다(`String.replace(w, …)` · `indexOf(m.word)`).
+ */
+describe('밑줄은 낱말 경계에 건다', () => {
+  it('조판기가 경계 없는 치환으로 되돌아가지 않는다', () => {
+    const src = read('scripts/textbook/render-volume.mjs')
+    expect(src, '조판기가 첫 부분문자열에 밑줄을 친다').not.toMatch(
+      /out\.replace\(w, `<u>/,
+    )
+    expect(src).toContain('[^A-Za-z]')
+  })
+
+  it('화면이 경계 없는 탐색으로 되돌아가지 않는다', () => {
+    const src = read('apps/web/src/components/library/textbooks/VolumeContents.tsx')
+    expect(src).toContain('wordIndexOf')
+    expect(src, '화면이 첫 부분문자열에 밑줄을 친다').not.toMatch(/const at = rest\.indexOf\(m\.word\)/)
+  })
+
+  /** 규칙 자체가 맞는지 — 경계 판정을 여기서 직접 돌려 본다. */
+  it('앞뒤가 영문자면 그 자리가 아니다', () => {
+    const boundary = (hay: string, needle: string) => {
+      let from = 0
+      for (;;) {
+        const at = hay.indexOf(needle, from)
+        if (at < 0) return -1
+        const b = at === 0 ? '' : hay[at - 1]!
+        const a = hay[at + needle.length] ?? ''
+        if (!/[A-Za-z]/.test(b) && !/[A-Za-z]/.test(a)) return at
+        from = at + 1
+      }
+    }
+    const s = 'unnecessary and anxiety-provoking biopsies led to necessary treatment'
+    expect(boundary(s, 'necessary')).toBe(s.indexOf('necessary treatment'))
+    // 하이픈·마침표는 경계다 — 정상적인 자리를 막지 않는다.
+    expect(boundary('anxiety-provoking tests.', 'provoking')).toBe(8)
+    expect(boundary('It ended there.', 'there')).toBe(9)
+    expect(boundary('no match here', 'absent')).toBe(-1)
+  })
+})

@@ -351,8 +351,14 @@ function renderSchool(item, no) {
       for (const [ui, u] of p.underlines.entries()) {
         if (Number(u?.sentenceIdx) !== si) continue
         const w = esc(String(u?.word ?? ''))
-        if (!w || !out.includes(w)) continue
-        out = out.replace(w, `<u>${CIRCLED[ui] ?? ''}${w}</u>`)
+        if (!w) continue
+        // ⚠️ **낱말 경계로 찾는다.** 그냥 `replace(w, …)` 로 두면 **첫 부분문자열**이 걸린다 —
+        //   3인 검수 실측(2026-09-13): `necessary` 를 밑줄 치려는데 같은 문장 앞의
+        //   `unnecessary` 안쪽이 잡혀 지면에 `un②necessary` 로 찍히고, 정작 틀린 낱말은
+        //   맨몸으로 남았다. 학습자는 가리킬 곳이 없는 문항을 받는다.
+        const re = new RegExp(`(^|[^A-Za-z])(${w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})(?![A-Za-z])`)
+        if (!re.test(out)) continue
+        out = out.replace(re, `$1<u>${CIRCLED[ui] ?? ''}$2</u>`)
       }
       return out
     }).join(' ')

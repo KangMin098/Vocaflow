@@ -236,6 +236,43 @@ const SECTION_LABEL_RE = new RegExp(
   'g',
 )
 
+/**
+ * **콜론을 달고 오는 원문 라벨** — 위 목록과 따로 두는 이유가 있다.
+ *
+ * 3인 검수에서 지문 첫 낱말이 `Explanation:` 인 문항이 나왔다(실측 2026-09-13 ·
+ * `Explanation: The Milky Way was not created by an evaporating lake.`). 위 규칙으로는
+ * 안 걸린다 — `Explanation` 이 목록에 없었고, **있었어도 콜론 때문에 `\s+` 가 안 맞는다.**
+ *
+ * ⚠️ **콜론을 필수로 둔다.** 콜론 없이 이 낱말들을 지우면 정상 산문이 잘린다 —
+ *   `Table Manners are learned early` 의 `Table`, `Note that the results…` 의 `Note` 가
+ *   그렇다. 콜론이 붙은 꼴은 거의 전부 원문 편집 잔해다.
+ *
+ * DB 실측(2026-09-13 · 4~7단): 알려진 라벨+콜론 **214문항**(V5 101 · V6 86 · V7 19 · V4 8).
+ *   「대문자로 시작하고 콜론이 오는 것」으로 넓게 잡으면 V5 만 1,391인데, 거기에는
+ *   정상 산문과 대화체가 섞인다 — **넓은 자를 쓰지 않는 이유다.**
+ */
+const COLON_LABELS = [
+  'Explanation',
+  'Explanations',
+  'Note',
+  'Notes',
+  'Example',
+  'Answer',
+  'Question',
+  'Solution',
+  'Caption',
+  'Figure',
+  'Table',
+  'Source',
+  'Credit',
+  'Credits',
+]
+
+const COLON_LABEL_RE = new RegExp(
+  `(^|[.!?]\\s+)(?:${COLON_LABELS.join('|')})\\s*:\\s+(?=[A-Z])`,
+  'g',
+)
+
 /** 홀로 선 절 이름을 떼어 낸다. 지문 자체는 그대로 남는다. */
 export function stripSectionLabels(text: string): string {
   const s = String(text ?? '')
@@ -243,7 +280,8 @@ export function stripSectionLabels(text: string): string {
   // 연달아 붙은 경우가 있다 — "Abstract Background The importance…".
   let out = s
   for (let i = 0; i < 3; i += 1) {
-    const next = out.replace(SECTION_LABEL_RE, '$1')
+    // 콜론을 달고 오는 라벨도 같은 자리에서 뗀다 — 규칙은 위 `COLON_LABELS` 주석 참조.
+    const next = out.replace(SECTION_LABEL_RE, '$1').replace(COLON_LABEL_RE, '$1')
     if (next === out) break
     out = next
   }
@@ -408,6 +446,26 @@ const SENSITIVE_TOPIC = [
   /\bsuicide\b|\bself-harm\b/i,
   /\bsexual intercourse\b|\bpornograph|\bsex work\b|\bsexually explicit\b/i,
   /\billicit drugs?\b|\bdrug abuse\b|\bsubstance abuse\b|\bheroin\b|\bcocaine\b|\bmethamphetamine\b/i,
+  // ── 시대적 인종·민족 비하 표현 ─────────────────────────────────────
+  //
+  // ⚠️ **3인 검수가 인쇄 직전에 잡았다** (실측 2026-09-13). V5 지면 문항 하나의 마지막
+  //   문장이 `the deep-seated treachery in the oriental mind` 였다 — 독자가 한국
+  //   고등학생인 교재다. 이 자리가 없던 이유는 소재 목록이 **주제 넷**(낙태·자살·성·마약)만
+  //   보고 있어서인데, 이 밴드의 재고는 공개 도메인 **고전**에서 오므로 시대의 차별
+  //   표현이 본문에 그대로 들어 있다. 형식 검사로는 영원히 안 걸린다.
+  //
+  // DB 실측(4~7단): oriental 111 · negro 28 · savages 142 · 기타 15 — 전체의 0.3% 미만이라
+  //   거르는 비용이 사실상 없다. **인쇄되는 쪽의 비용이 비교할 수 없이 크다.**
+  //
+  // ⚠️ 낱말 하나로 막지 않는 것이 있다: `savage` 는 형용사로 쓰이면(`a savage storm`)
+  //   비하가 아니다. 그래서 **사람을 가리키는 꼴**만 막는다 — 복수형, 또는 한정사·
+  //   집단명사가 붙은 꼴.
+  /\borientals?\b|\boriental (mind|race|people|character|despotism)\b/i,
+  /\bnegro(es)?\b|\bmulattoe?s?\b|\bhalf-breeds?\b|\bcoolies?\b|\bredskins?\b/i,
+  // `savage` 는 **복수형(사람)** 이거나 **사람을 가리키는 명사 앞**일 때만 막는다.
+  //   한정사만 보면 `a savage storm` 이 걸린다 — 형용사 용법까지 막으면 멀쩡한 지문을 잃는다.
+  /\bsavages\b|\bsavage (?:tribes?|races?|peoples?|nations?|hordes?)\b/i,
+  /\bheathens?\b|\bthe yellow peril\b|\bprimitive races?\b|\buncivilized (?:races?|peoples?|tribes?)\b/i,
 ]
 
 /** 학교 교재 지면에 올릴 수 없는 소재인가. */
