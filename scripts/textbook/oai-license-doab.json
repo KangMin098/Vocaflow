@@ -1,0 +1,26 @@
+{
+  "source": "doab",
+  "measured_at": "2026-09-13T03:47:48.980Z",
+  "sampling": "spread",
+  "sample_size": 1500,
+  "complete_list_size": 127677,
+  "tally": {
+    "CC BY-NC-SA": 37,
+    "CC BY": 454,
+    "기타(https://www.openedition.org/12554)": 49,
+    "(표기 없음)": 156,
+    "기타(open access)": 120,
+    "CC BY-NC-ND": 499,
+    "CC BY-SA": 50,
+    "기타(http://press.anu.edu.au/about/conditions-use)": 10,
+    "CC BY-ND": 12,
+    "기타(https://www.openedition.org/6540?lang=en)": 35,
+    "CC BY-NC": 67,
+    "기타(http://www.rand.org/pubs/permissions.html)": 10,
+    "기타(http://www.adelaide.edu.au/legals/copyright.html)": 1
+  },
+  "open": 504,
+  "closed": 840,
+  "none": 156,
+  "projected_open": 42899
+}

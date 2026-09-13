@@ -9,6 +9,36 @@
 ---
 ## Unreleased (v06.34 → next)
 
+### 교재 원문 소스 재검증 — 1위 소스가 이 플랫폼에서는 문항 0이었다 (2026-09-13)
+
+사용자 채택추정 표 86행을 후보 **121항목**으로 쪼개 전수 실측했다. 표는 편수로 순위를 매겼는데,
+이 플랫폼의 상한은 편수가 아니라 **열거 × 변형 × 적합**의 곱이다 — 1위 The Conversation(6,000편 추정)은
+CC BY-ND 라 `display_only` 로 들어가 문항이 **0개** 나온다(2026-08-21 에 이미 46편이 그렇게 됐다).
+
+판정 결과 **A 30 · B 10 · C 24 · D 25 · E 32**. 가장 큰 지렛대는 표 2위 DOAB 인데, 127,677권 중
+전 구간 균등 표본 1,500건에서 **CC BY·BY-SA·CC0 가 33.6%**(전체 환산 약 42,899권)이고 ND·NC 가 56.0% ·
+표기 없음 10.4% 로 섞여 있다 — **편당 라이선스 필터 없이는 통째로 적재할 수 없다.**
+반대로 설명문 상류는 남아돈다(MDPI 2,035,254 CC BY · PMC OA 8,219,033 · Wikipedia 7,239,051):
+병목은 수량이 아니라 **장르와 라이선스**다. 현재 변형 가능 논증문은 **1,485편 · 소스 2곳**(plos·owid)이고
+A 등급을 다 붙여도 argumentative 는 grist·owid·hss_communications 셋뿐이라 이 축이 거의 안 는다.
+
+**측정 도구가 먼저 틀렸던 것 둘** — 첫 실행은 배선된 소스 9곳을 「죽음」으로 냈다. 원인은 소스가 아니라
+① 짐작한 주소(배선표의 주소를 쓰도록 고침) ② 이 머신의 node TLS(gutenberg.org 는 curl 200 · node
+ECONNRESET → curl 대체 경로 추가)였다. 또 `--id` 부분 실행이 121항목 스냅샷을 4항목으로 덮어써
+`--out` 없이는 쓰지 않도록 막았다(`source-eligibility-scan.mjs` 의 `--band` 와 같은 함정).
+
+진짜로 못 쓰는 것도 갈렸다 — Wikinews 최근 30일 항목 **0건** · Census 보도자료 피드는 `<link/>`가 전부
+비어 기사 주소가 없다 · OpenStax·StoryWeaver·CK-12 는 JS 껍데기라 맨 GET 으로 열거되지 않는다.
+그리고 **새 소스보다 적체가 먼저다**: frontiers 1,961편 전부 `queued`(ready 0) · voa `queued` 10,397편 ·
+worldbank·cdc·nih·wikinews 는 배선만 있고 적재 0편.
+
+새 파일 `scripts/textbook/passage-source-candidates.json`(후보 정본) ·
+`passage-source-probe.mjs`(전수 프로브, 읽기 전용) · `passage-source-verdict.mjs`(판정·리포트) ·
+`oai-license-tally.mjs`(OAI 저장소 라이선스 표본 — 앞쪽 쏠림 대신 전 구간 균등) ·
+리포트 [passage-source-reverify-2026-09-13.md](./reports/passage-source-reverify-2026-09-13.md) ·
+회귀 14종(변이 2종 — ND 의 개방 라우팅 · 부분 스냅샷 — 둘 다 잡히는 것 확인).
+
+
 ### 문장 수만 세면 순서 문항의 정답이 나왔다 — 48% (2026-09-13)
 
 해설 배치를 돌리던 중 검수자가 「가장 긴 덩어리 = 첫 자리로 찍을 수 있고, 세 문항 모두
