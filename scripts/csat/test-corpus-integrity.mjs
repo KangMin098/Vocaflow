@@ -225,6 +225,69 @@ ok(
   '`report.items`/`report.typed` 는 듣기를 포함한다 — 최상위에 두면 반드시 보고된다',
 )
 
+// T16 **①~⑤ 를 가리켜 답하는 유형은 지문에 기호 다섯 개가 다 있어야 한다.**
+//
+// 2026-09-13 에 겪은 실패를 잠근다. `passageOf` 가 유형을 모른 채 줄머리 `①` 을 선지 블록
+// 머리로 오인해 지문을 **거기서 끊었다** — M1809#30(지칭)은 958자 중 106자만 남았고, 그런
+// 문항이 11개였다. 잘린 조각은 영어이고 한글도 없고 기능어로 끝나지도 않아 T9 의 절대 길이
+// (120자)도, `suspectBody` 아홉 신호도 통과했다. 그 지문으로 분석이 쓰였고 인용 대조 게이트는
+// **같은 잘린 지문**을 대조했으므로 함께 통과했다.
+//
+// 그래서 절대 길이가 아니라 **구조**를 본다: 이 유형들은 다섯 기호가 본문에 박히는 것이 설계라,
+// 하나라도 없으면 끊긴 것이다. 「지문이 길다」로는 못 잡고 이것으로는 잡힌다.
+//
+// ⚠️ **장문(X-*)과 순서(R-ORDER)는 대상이 아니다** — 표시 기호가 다르다. 장문 42·44 는
+//    `(a)`~`(e)` 를, 순서는 `(A)(B)(C)` 를 쓰고 ①~⑤ 는 진짜 선지 블록이다(실측: 장문 49문항
+//    전부 지문에 ①~⑤ 가 0개). 여기에 장문을 넣으면 선지 블록을 지문으로 끌어들이게 된다.
+{
+  const INLINE = new Set(['R-REFER', 'R-VOCAB', 'R-GRAMMAR', 'R-IRRELEVANT', 'R-INSERT', 'R-CHART'])
+  const MARKS = ['①', '②', '③', '④', '⑤']
+  const missing = []
+  for (const it of inScope) {
+    if (!INLINE.has(it.type_id) || !it.passage) continue
+    const n = MARKS.filter((m) => it.passage.includes(m)).length
+    if (n < 5) missing.push(`${it.id}(${it.type_id}·기호${n}·${it.passage.length}자)`)
+  }
+  ok(
+    'T16 인라인 기호 유형의 지문에 ①~⑤ 가 다 있다',
+    missing.length === 0,
+    `끊긴 지문 ${missing.length}: ${missing.slice(0, 8).join(' ')}`,
+  )
+}
+
+// T17 **그 번호치고 지문이 너무 짧으면 딱지가 붙어 있어야 한다.**
+//
+// T16 이 못 보는 나머지 — 단 나누기가 실패해 듣기와 독해가 한 줄에 붙은 페이지에서는 유형과
+// 무관하게 지문이 토막난다(실측: M2506#18·19·20 이 75~116자, 그 번호 중앙값은 643~844자).
+// 고치는 것은 파서가 아니라 추출이므로 여기서는 **모른다고 말하고 있는지**만 본다 —
+// 딱지가 붙으면 드레인이 원문 블록을 함께 싣고, 안 붙으면 분석자가 토막을 전문으로 믿는다.
+//
+// 임계 0.5 는 실측으로 고른 값이다(적중 6·오탐 0 · 0.6 은 온전한 지문 2건이 붙는다).
+{
+  const lens = new Map()
+  for (const it of inScope) {
+    if (!it.passage) continue
+    if (!lens.has(it.no)) lens.set(it.no, [])
+    lens.get(it.no).push(it.passage.length)
+  }
+  const unflagged = []
+  for (const it of inScope) {
+    if (!it.passage) continue
+    const a = lens.get(it.no)
+    if (!a || a.length < 4) continue
+    const sorted = [...a].sort((x, y) => x - y)
+    const m = sorted[Math.floor(sorted.length / 2)]
+    if (it.passage.length < m * 0.5 && !it.body_suspect) {
+      unflagged.push(`${it.id}(${it.passage.length}/${m})`)
+    }
+  }
+  ok(
+    'T17 번호 중앙값의 절반 미만 지문에 body_suspect 가 붙어 있다',
+    unflagged.length === 0,
+    `딱지 없는 토막 ${unflagged.length}: ${unflagged.slice(0, 8).join(' ')}`,
+  )
+}
+
 console.log('── 기출 원장 무결성 ──')
 for (const w of warns) console.log(`  ⚠ ${w}`)
 for (const f of fails) console.log(`  ✗ ${f}`)

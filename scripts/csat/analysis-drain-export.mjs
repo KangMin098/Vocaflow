@@ -19,6 +19,8 @@
 //   node scripts/csat/analysis-drain-export.mjs --type R-BLANK  (한 유형만)
 //   node scripts/csat/analysis-drain-export.mjs --size 10       (청크당 문항 수, 기본 12)
 //   node scripts/csat/analysis-drain-export.mjs --limit 5       (청크 수 상한)
+//   node scripts/csat/analysis-drain-export.mjs --redo 2026#30,M1809#30
+//                                                              (끝난 문항을 강제로 다시 뽑는다)
 
 import fs from 'node:fs'
 import path from 'node:path'
@@ -36,6 +38,30 @@ fs.mkdirSync(WORK, { recursive: true })
 const SIZE = Number(arg('size', 12))
 const LIMIT = arg('limit') ? Number(arg('limit')) : Infinity
 const ONLY_TYPE = arg('type')
+
+/**
+ * **이미 끝난 문항을 일부러 다시 뽑는다** — `--redo 2026#30,M1809#30`.
+ *
+ * 왜 필요한가: 분석이 옳은지는 **분석을 쓸 때 본 지문이 옳았는지**에 달려 있다. 파서를 고쳐
+ * 지문이 바뀌면 그 지문으로 쓰인 분석은 근거가 달라진다 — 그런데 3인 검수가 붙어 있으니
+ * 평상시 export 는 영원히 다시 뽑지 않는다(그것이 재실행 안전의 대가다).
+ *
+ * 실측 2026-09-13: `lib-passage` 의 ①~⑤ 오인 절단을 고쳐 **11문항**의 지문이 3~9배로 늘었다
+ * (M1809#30 은 106자 → 958자). 그 11개의 분석은 **지문의 9할을 못 본 채** 쓰였고,
+ * 인용 대조 게이트도 잘린 지문을 대조했으므로 함께 통과해 있었다.
+ *
+ * 안전한 이유 둘:
+ *   ① 청크 이름에 `redo-<날짜>` 가 들어가 **기존 `.out.json` 을 덮지 않는다**(옛 원장 보존).
+ *   ② import 는 덮지 않고 **버전을 올려 새 행**으로 넣고, 학습자 화면은 최신 버전을 읽는다
+ *      (`lib/csat/learner.ts` — `order('version', desc)`). 그래서 되돌릴 수 있다.
+ */
+const REDO = new Set(
+  String(arg('redo', '') ?? '')
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean),
+)
+const REDO_TAG = new Date().toISOString().slice(0, 10).replace(/-/g, '')
 
 const corpus = JSON.parse(fs.readFileSync(path.join(DIR, 'corpus.json'), 'utf8'))
 
@@ -57,6 +83,17 @@ for (const f of fs.readdirSync(WORK).filter((f) => f.endsWith('.out.json'))) {
     if (a.item_id && personas.size >= 3) done.add(a.item_id)
     else if (a.item_id) partial += 1
   }
+}
+
+// **다시 뽑을 문항은 완료에서 뺀다.** 옛 out 파일은 지우지 않는다 — 원장이고, 새 청크는
+// 이름이 달라 덮지 않는다. 목록에 없는 id 를 줬으면 조용히 넘기지 않고 말해 준다.
+if (REDO.size) {
+  const known = new Set(corpus.items.filter((it) => it.in_scope).map((it) => it.id))
+  const unknown = [...REDO].filter((id) => !known.has(id))
+  if (unknown.length) throw new Error(`--redo 에 사정권에 없는 문항이 있다: ${unknown.join(', ')}`)
+  const notDone = [...REDO].filter((id) => !done.has(id))
+  for (const id of REDO) done.delete(id)
+  console.log(`  다시 뽑을 문항 ${REDO.size} (그중 애초에 미완이던 것 ${notDone.length}) · 청크 태그 redo-${REDO_TAG}`)
 }
 
 // ── 남은 몫 ──────────────────────────────────────────────────────────
@@ -193,7 +230,10 @@ outer: for (const [typeId, arr] of types) {
     // `chunk-01` 이 어제와 다른 문항을 담는다. 그러면 `chunk-01.out.json` 이
     // 다른 문항의 원장을 덮어쓴다 — 재실행 안전이 정반대로 뒤집힌다.
     // 첫 문항 id 로 이름을 지으면 같은 몫은 늘 같은 이름, 다른 몫은 늘 다른 이름이다.
-    const name = `chunk-${typeId}-${slice[0].id.replace('#', '-')}.json`
+    // 다시 뽑는 몫은 이름에 `redo-<날짜>` 를 끼워 **옛 `.out.json` 을 덮지 않는다.**
+    // 같은 문항을 두 번째로 다시 뽑는 날이 와도 날짜가 달라 또 겹치지 않는다.
+    const redoMark = REDO.has(slice[0].id) ? `redo-${REDO_TAG}-` : ''
+    const name = `chunk-${redoMark}${typeId}-${slice[0].id.replace('#', '-')}.json`
     const payload = {
       chunk: n,
       // 청크는 뽑힌 시점의 코퍼스를 담는다. 파서를 고치면 코퍼스가 바뀌므로 **작업 중이던

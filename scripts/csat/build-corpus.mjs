@@ -16,7 +16,7 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
-import { itemBlocks, setBlockFor, passageOf, choicesOf } from './lib-passage.mjs'
+import { itemBlocks, setBlockFor, passageOf, choicesOf, INLINE_SYMBOL_TYPES } from './lib-passage.mjs'
 
 const DIR = path.resolve('scripts/csat/data')
 const read = (f) => JSON.parse(fs.readFileSync(path.join(DIR, f), 'utf8'))
@@ -99,7 +99,11 @@ const manualBody = new Map(
   ),
 )
 
-function bodyOf(exam, no) {
+function bodyOf(exam, no, typeId) {
+  // ①~⑤ 를 가리켜 답하는 유형은 **기호가 지문 안에 있는 것이 설계**다. 유형을 넘기지 않으면
+  // `passageOf` 가 줄머리 ① 을 선지 블록 머리로 오인해 지문을 거기서 끊는다
+  // (실측 2026-09-13: 27문항 · 최악 M1809#30 은 958자 중 106자만 남았다 — `INLINE_SYMBOL_TYPES` 주석).
+  const symbolsInline = INLINE_SYMBOL_TYPES.has(typeId)
   const man = manualBody.get(`${exam}#${no}`)
   const blocks = itemBlocks(exam, no)
   if (!blocks.length) {
@@ -114,13 +118,13 @@ function bodyOf(exam, no) {
   let passage = null
   let choices = null
   for (const b of blocks) {
-    if (!passage) passage = passageOf(b) || null
+    if (!passage) passage = passageOf(b, { symbolsInline }) || null
     if (!choices) choices = choicesOf(b)
     if (passage && choices) break
   }
   const set = setBlockFor(exam, no)
   if (set && (!passage || passage.length < 200)) {
-    const sp = passageOf(set)
+    const sp = passageOf(set, { symbolsInline })
     if (sp && sp.length > (passage?.length ?? 0)) passage = sp
   }
   // 자동 추출이 빈손일 때만 손으로 적은 것을 쓴다
@@ -276,7 +280,7 @@ for (const q of rows) {
     q.type = LONG_SET_TYPE[q.no]
   }
   const key = keyOf.get(`${q.exam}#${q.no}`) ?? null
-  const { passage, choices } = bodyOf(q.exam, q.no)
+  const { passage, choices } = bodyOf(q.exam, q.no, q.type)
   items.push({
     id: `${q.exam}#${String(q.no).padStart(2, '0')}`,
     exam: q.exam,
@@ -311,6 +315,46 @@ for (const q of rows) {
 }
 
 items.sort((a, b) => (a.exam < b.exam ? -1 : a.exam > b.exam ? 1 : a.no - b.no))
+
+// ── ⑩ **그 번호치고 지문이 너무 짧다** ───────────────────────────────
+//
+// `suspectBody` 의 아홉 신호는 모두 **지문 안에 남은 흔적**을 본다(한글·홀로 선 마침표·
+// 낱글자·기호·기능어 꼬리). 그래서 **깨끗하게 잘린 조각은 하나도 걸지 못한다** — 잘린 자리가
+// 문장 경계였으면 영어이고 한글도 없고 기능어로 끝나지도 않는다.
+//
+// 실측 2026-09-13: 그렇게 조용히 통과한 문항이 **17개**였다. 최악은 M1809#30 — 지칭추론
+// 지문이 958자인데 **106자**만 남았고 `body_ok = true` 였다. 그 상태로 분석이 쓰이고,
+// 인용 대조 게이트도 잘린 지문을 대조하므로 함께 통과했다. 사람도 기계도 못 보는 실패였다.
+//
+// 같은 번호는 조판 지면이 같아 지문 길이가 비슷하다. 그래서 **번호별 중앙값**이 분모가 된다
+// (유형별이 아니다 — 같은 유형이 회차마다 다른 번호에 오고, 번호가 지면을 정한다).
+//
+// 임계 0.5 — 실측으로 고른 값이다: 0.5 는 **6건 적중·오탐 0**, 0.6 은 오탐 2건이 붙는다
+// (2014A#29 안내문 561자 · 2014A#40 심경 731자 — 둘 다 온전히 끝나는 지문이다).
+// 넓히면 멀쩡한 지문에 딱지가 붙고, 딱지가 흔해지면 아무도 안 본다.
+{
+  const lens = new Map()
+  for (const it of items) {
+    if (!it.in_scope || !it.passage) continue
+    if (!lens.has(it.no)) lens.set(it.no, [])
+    lens.get(it.no).push(it.passage.length)
+  }
+  const median = new Map()
+  for (const [no, a] of lens) {
+    a.sort((x, y) => x - y)
+    median.set(no, a[Math.floor(a.length / 2)])
+  }
+  for (const it of items) {
+    if (!it.in_scope || !it.passage) continue
+    const m = median.get(it.no)
+    // 같은 번호가 한 문항뿐이면 중앙값이 자기 자신이라 판정이 성립하지 않는다
+    if (!m || lens.get(it.no).length < 4) continue
+    if (it.passage.length < m * 0.5) {
+      it.body_suspect = true
+      it.body_short_for_no = { len: it.passage.length, median_for_no: m }
+    }
+  }
+}
 
 // ── A/B형 공통 문항 — 같은 문항을 두 번 세지 않게 표시한다 ───────────
 //
