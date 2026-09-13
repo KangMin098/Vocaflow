@@ -16,11 +16,11 @@ import { AlertTriangle, Clapperboard, Copy, Check } from 'lucide-react'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { KIND_LABEL, type VideoKind } from '@/lib/video/catalog'
-import type { VideoConsole, VideoRow } from '@/lib/admin/video-console'
+import type { EvidenceDrift, VideoConsole, VideoRow } from '@/lib/admin/video-console'
 
 const ORDER: VideoKind[] = ['intro', 'benefit', 'curriculum', 'series', 'type', 'module']
 
-const TABS = ['현황', '구성요소', '내보내기'] as const
+const TABS = ['현황', '구성요소', '수치 낡음', '내보내기'] as const
 type Tab = (typeof TABS)[number]
 
 function pct(n: number, d: number): string {
@@ -92,7 +92,13 @@ function CommandBlock({ title, lines }: { title: string; lines: string[] }) {
   )
 }
 
-export function VideoConsoleClient({ data }: { data: VideoConsole }) {
+export function VideoConsoleClient({
+  data,
+  drift,
+}: {
+  data: VideoConsole
+  drift: EvidenceDrift[]
+}) {
   const [tab, setTab] = useState<Tab>('현황')
 
   const stat = useMemo(() => {
@@ -336,6 +342,69 @@ export function VideoConsoleClient({ data }: { data: VideoConsole }) {
         </section>
       )}
 
+      {tab === '수치 낡음' && (
+        <section>
+          <p className="mb-5 break-keep font-body text-[13px] leading-relaxed text-[var(--t2)]">
+            영상은 <strong>찍은 날의 스냅샷</strong>입니다. DB 는 계속 자라므로 화면에 박힌 수는
+            반드시 묵습니다 — 그래서 "틀렸다" 가 아니라 <strong>얼마나 달라졌는지</strong>만
+            보여 줍니다. 다시 찍을지는 사람이 정합니다.
+            <br />
+            <span className="text-[var(--t3)]">
+              임계값을 두지 않았습니다 — 근거 없이 정한 경계는 판단을 대신해 주지 않습니다.
+              많이 달라진 것부터 나옵니다.
+            </span>
+          </p>
+
+          {drift.length === 0 ? (
+            <p className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-3 font-body text-[13px] text-[var(--t2)]">
+              발행본의 수치가 지금 값과 같습니다. 다시 찍을 이유가 없습니다.
+            </p>
+          ) : (
+            <div className="overflow-x-auto rounded-[var(--r-md)] border border-[var(--bd)]">
+              <table className="w-full border-collapse font-body text-[13px]">
+                <thead>
+                  <tr className="bg-[var(--bg2)] text-left text-[var(--t3)]">
+                    <th className="px-3 py-2 font-[600]">영상</th>
+                    <th className="px-3 py-2 font-[600]">수치</th>
+                    <th className="px-3 py-2 font-[600]">박힌 값</th>
+                    <th className="px-3 py-2 font-[600]">지금</th>
+                    <th className="px-3 py-2 font-[600]">차이</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {drift.map((d) => (
+                    <tr key={`${d.id}-${d.label}`} className="border-t border-[var(--bd)]">
+                      <td className="px-3 py-2">
+                        <span className="text-[var(--t1)]">{d.title}</span>
+                        <span className="ml-2 font-mono text-[11px] text-[var(--t3)]">{d.id}</span>
+                      </td>
+                      <td className="px-3 py-2 text-[var(--t2)]">{d.label}</td>
+                      <td className="px-3 py-2 font-mono text-[12px] tabular-nums text-[var(--t3)]">
+                        {d.published.toLocaleString('ko-KR')}
+                      </td>
+                      <td className="px-3 py-2 font-mono text-[12px] tabular-nums text-[var(--t1)]">
+                        {d.now.toLocaleString('ko-KR')}
+                      </td>
+                      <td className="px-3 py-2 font-mono text-[12px] tabular-nums">
+                        {/* 색만으로 말하지 않는다 — 부호를 함께 낸다. */}
+                        <span
+                          className={
+                            d.ratio > 0 ? 'text-[var(--success)]' : 'text-[var(--warning)]'
+                          }
+                        >
+                          {d.ratio > 0 ? '▲ +' : '▼ '}
+                          {Math.round(d.ratio * 100)}%
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </section>
+      )}
+
       {tab === '내보내기' && (
         <section className="flex flex-col gap-4">
           <p className="font-body text-[13px] leading-relaxed text-[var(--t2)]">
@@ -376,10 +445,23 @@ export function VideoConsoleClient({ data }: { data: VideoConsole }) {
             lines={['pnpm video stale', 'pnpm video list']}
           />
 
+          {/*
+            **여기부터는 기계가 못 한다.** 채널 개설과 업로드는 그 계정의 주인만 할 수 있다.
+            할 수 없는 일을 버튼으로 만들어 두면 눌러 보고 나서야 안 된다는 걸 알게 된다.
+          */}
           <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
             <p className="mb-2 font-body text-[13px] font-[700] text-[var(--t1)]">
-              YouTube 업로드
+              YouTube 업로드 — 사람이 해야 하는 단계
             </p>
+            <ol className="mb-3 flex list-decimal flex-col gap-1 pl-5 font-body text-[13px] leading-relaxed text-[var(--t2)]">
+              <li>채널 개설 (계정 주인만 가능)</li>
+              <li>
+                <code className="font-mono text-[12px]">dist-media/youtube.json</code> 의 편마다
+                본편(가로) 업로드 → 제목·설명·태그 붙여넣기
+              </li>
+              <li>자막(.vtt)과 썸네일(1280×720) 첨부 — 자동 자막보다 정확합니다</li>
+              <li>세로(Shorts)는 같은 편을 Shorts 로 따로 올립니다</li>
+            </ol>
             <p className="font-body text-[13px] leading-relaxed text-[var(--t2)]">
               포장 단계가 <code className="font-mono text-[12px]">dist-media/youtube.json</code> 에
               편당 제목·설명·태그·자막·썸네일과 본편(가로)·Shorts(세로) 경로를 적어 둡니다.

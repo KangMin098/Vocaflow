@@ -35,6 +35,7 @@ const BUCKET = 'video'
 const FORMATS: VideoFormat[] = ['wide', 'vertical', 'square']
 
 export interface ManifestEntry {
+  evidence?: { label: string; value: string; source: string }[]
   id: string
   kind: VideoKind
   title: string
@@ -214,4 +215,97 @@ export async function loadVideoConsole(db: AdminClient): Promise<VideoConsole> {
     views,
     storageError,
   }
+}
+
+/* ────────────────────────── 수치 낡음 ────────────────────────── */
+//
+// **영상은 찍은 날의 스냅샷이다.** DB 는 계속 자라므로 화면에 박힌 수는 반드시 묵는다.
+// 그래서 "틀렸다" 고 하지 않고 **얼마나 달라졌는지**를 보여 준다 — 다시 찍을지는 사람이 정한다.
+//
+// ⚠️ **임계값을 지어내지 않는다.** "20% 넘으면 경고" 같은 수를 근거 없이 정하면 그건
+//   목표가 아니라 짐작이다(이 저장소가 반복해서 경계하는 것). 대신 실제 차이를 크기순으로 낸다.
+
+export interface EvidenceDrift {
+  id: string
+  title: string
+  label: string
+  /** 영상에 박힌 값. */
+  published: number
+  /** 지금 값. 못 재면 null — 그런 항목은 목록에 넣지 않는다. */
+  now: number
+  /** (now - published) / published. 음수면 줄어든 것. */
+  ratio: number
+}
+
+/** 숫자 문자열(쉼표 포함)만 수로 바꾼다. `3/7` 같은 비율 표기는 대상이 아니다. */
+function asNumber(v: string): number | null {
+  if (!/^[0-9][0-9,]*$/.test(v.trim())) return null
+  const n = Number(v.replace(/,/g, ''))
+  return Number.isFinite(n) ? n : null
+}
+
+/**
+ * 발행된 근거와 **지금 DB** 를 맞대 본다.
+ *
+ * 다시 세는 것은 영상이 실제로 인용한 것들이다 — 플랫폼 4종과 유형별 재고.
+ * 못 재는 근거(논문·계산식 등)는 그냥 건너뛴다. 억지로 0 으로 만들지 않는다.
+ */
+export async function evidenceDrift(db: AdminClient): Promise<EvidenceDrift[]> {
+  const now = new Map<string, number>()
+
+  const count = async (table: string, eq?: [string, string]): Promise<void> => {
+    let q = db.from(table).select('*', { count: 'exact', head: true })
+    if (eq) q = q.eq(eq[0], eq[1])
+    const { count: n, error } = await q
+    if (!error && typeof n === 'number') now.set(table, n)
+  }
+  await Promise.all([
+    count('shared_dictionary'),
+    count('csat_dcp_items'),
+    count('library_chapter_quiz'),
+    count('library_books', ['status', 'published']),
+  ])
+
+  // 유형별 재고 — 영상 28편이 각자 자기 유형의 수를 인용한다.
+  const { data: inv } = await db.rpc('textbook_shelf_inventory')
+  const typeStock = new Map<string, number>()
+  if (Array.isArray(inv)) {
+    for (const r of inv as { item_type: string; item_count: number }[]) {
+      typeStock.set(r.item_type, (typeStock.get(r.item_type) ?? 0) + r.item_count)
+    }
+  }
+
+  /** 근거 라벨·출처에서 "지금 값" 을 찾는다. 못 찾으면 null — 건너뛴다. */
+  const lookup = (videoId: string, source: string): number | null => {
+    if (source.includes('shared_dictionary')) return now.get('shared_dictionary') ?? null
+    if (source.includes('csat_dcp_items')) return now.get('csat_dcp_items') ?? null
+    if (source.includes('library_chapter_quiz')) return now.get('library_chapter_quiz') ?? null
+    if (source.includes('library_books')) return now.get('library_books') ?? null
+    if (source.includes('textbook_shelf_inventory') && videoId.startsWith('type-')) {
+      // `type-long-reference` → `long_reference`
+      const code = videoId.slice('type-'.length).replace(/-/g, '_')
+      return typeStock.get(code) ?? null
+    }
+    return null
+  }
+
+  const out: EvidenceDrift[] = []
+  for (const v of manifest.videos) {
+    for (const e of v.evidence ?? []) {
+      const published = asNumber(e.value)
+      if (published === null || published === 0) continue
+      const current = lookup(v.id, e.source)
+      if (current === null || current === published) continue
+      out.push({
+        id: v.id,
+        title: v.title,
+        label: e.label,
+        published,
+        now: current,
+        ratio: (current - published) / published,
+      })
+    }
+  }
+  // 많이 달라진 것부터 — 임계값을 두지 않고 크기순으로 낸다.
+  return out.sort((a, b) => Math.abs(b.ratio) - Math.abs(a.ratio))
 }
