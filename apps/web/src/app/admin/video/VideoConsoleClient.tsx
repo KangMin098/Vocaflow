@@ -490,11 +490,12 @@ export function VideoConsoleClient({
           </p>
 
           <CommandBlock
-            title="① 원료 → ⑥ 발행 (전량)"
+            title="① 원료 → ⑦ 발행 (전량)"
             lines={[
               'pnpm video:source',
               'pnpm video voice',
               'pnpm video render-all',
+              'pnpm video loudness --fix',
               'pnpm video thumbs',
               'pnpm --filter @vocaflow/video-factory package',
               'pnpm --filter @vocaflow/video-factory publish',
@@ -509,6 +510,7 @@ export function VideoConsoleClient({
                 'pnpm video:source',
                 `pnpm video voice ${missing.map((m) => m.id).join(' ')}`,
                 `pnpm video render ${missing.map((m) => m.id).join(' ')}`,
+                'pnpm video loudness --fix',
                 `pnpm video thumbs ${missing.map((m) => m.id).join(' ')}`,
                 'pnpm --filter @vocaflow/video-factory package',
                 'pnpm --filter @vocaflow/video-factory publish',
@@ -518,7 +520,7 @@ export function VideoConsoleClient({
 
           <CommandBlock
             title="③ 어긋남만 확인 (렌더 안 함)"
-            lines={['pnpm video stale', 'pnpm video list']}
+            lines={['pnpm video stale', 'pnpm video list', 'pnpm video loudness']}
           />
 
           {/*

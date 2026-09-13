@@ -9,6 +9,7 @@
 //   pnpm video render <id> [--format]  한 편 찍기
 //   pnpm video render-all [--kind …]   전부 찍기
 //   pnpm video thumbs [<id|kind> …]    YouTube 썸네일 (영상이 아니라 1프레임)
+//   pnpm video loudness [--fix]        음량이 YouTube 규격(-14 LUFS) 안인지 (--fix 로 맞춤)
 //   pnpm video stale                   발행본 ↔ 설계도 어긋남 (렌더 안 함)
 //
 // ⚠️ **종료코드를 믿지 않는다.** 실측 2026-09-12 — 다른 세션의 dev 서버가 3000 을 잡고 있어
@@ -32,6 +33,15 @@ import { applyVoiceTiming, loadVoiceManifest, synthesizeSpec } from '../voice/ed
 import { specDuration } from '../remotion/VideoComposition'
 import { ensureWorkFiles, writeVoiceIndex } from './ensure'
 import { advance, enqueueAll, overview } from '../jobs/client'
+import { allRendered, measure, normalize, shortName } from './loudness-run.mjs'
+import {
+  offsetFromTarget,
+  report as loudnessReport,
+  TARGET_LUFS,
+  TOLERANCE_LU,
+  withinSpec,
+  type Loudness,
+} from './loudness'
 import type { VideoSpec } from '../spec/types'
 
 const HERE = path.dirname(fileURLToPath(import.meta.url))
@@ -321,6 +331,75 @@ async function cmdThumbs(): Promise<number> {
 }
 
 /**
+ * **음량이 YouTube 규격 안인가** — 이 공장에서 유일하게 "시중" 과 **같은 자**로 잴 수 있는 축.
+ *
+ * 나머지 품질 축(카피·구성·색)은 경쟁사 파이프라인을 관측할 수 없어 비교 자체가 성립하지 않는다.
+ * 음량만은 YouTube 가 규격을 공개했고, **큰 소리는 줄이지만 작은 소리는 키워 주지 않는다** —
+ * 목표보다 조용하면 같은 피드에서 실제로 작게 재생된다.
+ *
+ * 재실행 안전: 이미 규격 안인 편은 건드리지 않는다(다시 인코딩하면 세대손실만 쌓인다).
+ */
+function cmdLoudness(): number {
+  const files = allRendered()
+  if (files.length === 0) {
+    console.log('잰 것이 없다 — 먼저 `pnpm video render-all` 을 돌린다')
+    return 1
+  }
+  const fix = has('fix')
+  const results: Loudness[] = []
+  let fixed = 0
+  let unfixable = 0
+
+  for (const file of files) {
+    let l = measure(file)
+    if (fix && withinSpec(l) === false) {
+      const r = normalize(file)
+      if (r) {
+        l = r.after
+        fixed++
+        console.log(
+          `맞춤 ${shortName(file).padEnd(34)} ${String(r.before.integrated).padStart(6)} → ` +
+            `${String(r.after.integrated).padStart(6)} LUFS`,
+        )
+      } else {
+        unfixable++
+        console.log(`FAIL ${shortName(file)} — 정규화가 파일을 못 만들었다`)
+      }
+    }
+    results.push(l)
+  }
+
+  const r = loudnessReport(results)
+  for (const l of results) {
+    const v = withinSpec(l)
+    if (v === true) continue
+    const mark = v === null ? '못 잼 ' : '벗어남'
+    const off = offsetFromTarget(l)
+    console.log(
+      `${mark} ${shortName(l.file).padEnd(34)} ${String(l.integrated).padStart(6)} LUFS` +
+        (off === null ? '' : ` (목표 ${TARGET_LUFS} 대비 ${off > 0 ? '+' : ''}${off} LU)`) +
+        `  TP ${String(l.truePeak)} dBTP`,
+    )
+  }
+
+  console.log(
+    `\n잰 편 ${r.measured} · 규격 안 ${r.pass} · 벗어남 ${r.fail}` +
+      (r.unknown ? ` · 못 잼 ${r.unknown}` : '') +
+      (fixed ? ` · 맞춤 ${fixed}` : '') +
+      (unfixable ? ` · 못 맞춤 ${unfixable}` : ''),
+  )
+  console.log(
+    `목표 ${TARGET_LUFS} LUFS ±${TOLERANCE_LU} · 편차(최대-최소) ` +
+      `${r.spreadLu === null ? '?' : r.spreadLu} LU` +
+      (r.worst ? ` · 가장 먼 편 ${shortName(r.worst.file)} ${r.worst.integrated}` : ''),
+  )
+  if (r.fail > 0 && !fix) {
+    console.log('  맞추려면  pnpm video loudness --fix  (그다음 package → publish)')
+  }
+  return r.fail === 0 && r.unknown === 0 ? 0 : 1
+}
+
+/**
  * **발행된 것과 지금 설계도가 어긋나는가.**
  *
  * 이 공장의 마지막 구멍이다. `out/` 은 커밋하지 않으므로 저장소에 남는 것은 manifest 한 장인데,
@@ -407,6 +486,9 @@ async function main(): Promise<void> {
     case 'stale':
       process.exitCode = cmdStale()
       break
+    case 'loudness':
+      process.exitCode = cmdLoudness()
+      break
     case 'thumbs':
       process.exitCode = await cmdThumbs()
       break
@@ -420,6 +502,7 @@ async function main(): Promise<void> {
           'pnpm video render-all [--format …]',
           'pnpm video thumbs [<id|kind> …]     YouTube 썸네일 1280×720 (--force 로 다시)',
           'pnpm video enqueue                  설계도를 큐에 올린다 (재실행 안전)',
+          'pnpm video loudness [--fix]         음량이 YouTube 규격(-14 LUFS) 안인지',
           'pnpm video stale                    발행본이 설계도와 어긋나는지',
         ].join('\n'),
       )

@@ -14,7 +14,7 @@ export const VFP_HELP: HelpRegistry = {
     title: '영상 공장 (VFP)',
     screen: {
       summary:
-        '플랫폼 구성요소(소개·장점·커리큘럼·시리즈·문항 유형·학습 활동)마다 PR 영상 한 편을 찍어 공개 버킷에 올리는 파이프라인의 관측 화면. 영상 목록이 코드에 적혀 있지 않다 — 구성요소가 늘면 찍어야 할 영상도 자동으로 는다. 이 화면은 그 차이를 본다.',
+        '플랫폼 구성요소(소개·장점·커리큘럼·시리즈·문항 유형·학습 활동·학습 방법·권장안)마다 PR 영상 한 편을 찍어 공개 버킷에 올리는 파이프라인의 관측 화면. 영상 목록이 코드에 적혀 있지 않다 — 구성요소가 늘면 찍어야 할 영상도 자동으로 는다. 이 화면은 그 차이를 본다.',
       when: '플랫폼에 시리즈·유형·활동을 추가한 뒤, 또는 학습자 화면에서 영상이 안 보인다는 말이 나왔을 때.',
       steps: [
         {
@@ -83,23 +83,32 @@ export const VFP_HELP: HelpRegistry = {
             done: '**덮어쓴다**(건너뛰지 않는다). 밀린 것만 돌리려면 id 를 붙인다.',
           },
           {
-            title: '④ 썸네일',
+            title: '④ 음량',
+            detail:
+              '`pnpm video loudness --fix` — YouTube 규격(-14 LUFS · 트루 피크 -1 dBTP)으로 맞춘다. ' +
+              '**포장보다 먼저** 돌려야 한다 — 포장이 manifest 에 바이트 수를 적는데, 뒤에 고치면 그 수가 틀어진다.',
+            done:
+              '**재실행 안전** — 이미 규격 안인 편은 건드리지 않는다(다시 인코딩하면 세대손실만 쌓인다). ' +
+              '「규격 안 N · 벗어남 0 · 편차 0 LU」가 나와야 끝난 것이다.',
+          },
+          {
+            title: '⑤ 썸네일',
             detail: '`pnpm video thumbs` — YouTube 목록용 1280×720. 영상이 아니라 1프레임이라 빠르다.',
             done: '**재실행 안전** — 이미 있으면 건너뛴다.',
           },
           {
-            title: '⑤ 포장',
+            title: '⑥ 포장',
             detail:
               '`pnpm --filter @vocaflow/video-factory package` — 포스터·WebVTT 자막·설명글·manifest·youtube.json.',
             done: '**재실행 안전** — 이미 있는 포스터는 건너뛴다.',
           },
           {
-            title: '⑥ 발행',
+            title: '⑦ 발행',
             detail: '`pnpm --filter @vocaflow/video-factory publish` — 공개 버킷 업로드.',
             done: '**재실행 안전** — 같은 크기로 올라간 파일은 건너뛴다.',
           },
           {
-            title: '⑦ manifest 커밋',
+            title: '⑧ manifest 커밋',
             detail:
               '`apps/web/src/lib/video/manifest.json` 을 커밋해 배포한다. 화면이 보는 것은 버킷이 아니라 이 파일이다.',
             done: '이 화면 상단의 붉은 경고가 사라지고 `/video` 에 카드가 뜬다.',
