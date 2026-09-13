@@ -314,7 +314,15 @@ describe('조판 풀이 법적 축을 건다', () => {
   it('조회 컬럼에 라이선스 두 열이 실려 있다 — 안 받아 오면 판정이 늘 통과다', () => {
     // 열 이름이 select 문자열 안에 있는지만 본다. 문자열 전체를 대조하면 열이 늘 때마다
     // 깨지는데, 그 깨짐은 결함을 안 알려 준다 — **없어지면 안 되는 것**만 잠근다.
-    expect(POOL).toMatch(/'id, title, source, article_v_level, display_only, license_class, copyright_safe_in_kr'/)
+    //
+    // ⚠️ 2026-09-13: **주석은 이렇게 적혀 있었는데 코드는 문자열 전체를 대조하고 있었다.**
+    //   난이도 열(`cefr_level`)을 하나 더하자 곧바로 깨졌다 — 결함이 아니라 열이 는 것인데.
+    //   주석이 말하는 대로 고쳤다.
+    const select = POOL.match(/'id, title, source[^']*'/)?.[0] ?? ''
+    expect(select, '원글 조회 select 문을 못 찾았다').not.toBe('')
+    for (const col of ['license_class', 'copyright_safe_in_kr', 'display_only', 'article_v_level']) {
+      expect(select, `${col} 을 안 받아 오면 그 판정이 늘 통과가 된다`).toContain(col)
+    }
   })
 
   it('허용 라이선스 목록이 판정 정본과 같다 — 두 벌이 되면 갈린다', () => {

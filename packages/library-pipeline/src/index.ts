@@ -458,6 +458,8 @@ export {
   MINUTES_PER_VOCAB,
   UNIT_READ_WPM,
   assembleReadingUnit,
+  cefrFitsBand,
+  HIGH_BAND_MAX_CEFR,
   isBlocked,
   pickVocabulary,
 } from './textbook/assemble-unit'

@@ -271,9 +271,14 @@ function structureItem(item, no) {
         kind: 'underline',
         stem: stem || '밑줄 친 부분 중 알맞지 않은 것은?',
         sentences,
+        // ⚠️ **자리(`tokenIdx`)를 함께 싣는다.** 없으면 화면이 낱말로 찾을 수밖에 없고,
+        //   `a panel and a switch` 에서 **첫 `a`** 에 밑줄이 간다 — 출제 의도가 두 번째일
+        //   수 있는데 알 길이 없다(실측 2026-09-13: 어법 4,330문항 중 2,180개가 그런 자리다).
+        //   어법 밑줄은 이미 자리를 저장하고 있었고, 스냅샷만 그것을 버리고 있었다.
         underlines: p.underlines.map((u) => ({
           sentenceIdx: Number(u?.sentenceIdx ?? -1),
           word: String(u?.word ?? ''),
+          ...(Number.isInteger(Number(u?.tokenIdx)) ? { tokenIdx: Number(u.tokenIdx) } : {}),
         })),
         choices: [],
         answer,

@@ -50,7 +50,11 @@ export interface PreviewChoiceItem {
   /** 밑줄형 — 본문 문장들. */
   sentences?: string[]
   /** 밑줄형 — 어느 문장의 어느 구절에 번호를 다는가. */
-  underlines?: { sentenceIdx: number; word: string }[]
+  /**
+   * 밑줄. `tokenIdx` 는 **있을 때만** 온다 — 어법은 자리를 저장하고 어휘는 안 한다.
+   * 있으면 자리로 긋는다(같은 낱말이 여러 번 나와도 확정된다).
+   */
+  underlines?: { sentenceIdx: number; word: string; tokenIdx?: number }[]
   /** 배열형 — 흩어진 낱말 더미. */
   bank?: string[]
   /** 순서 유형 — 주어진 글. */

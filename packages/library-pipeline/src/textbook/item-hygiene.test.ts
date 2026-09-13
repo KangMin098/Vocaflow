@@ -303,3 +303,38 @@ describe('약어 절단 — 문자열 칸', () => {
     ).toBeNull()
   })
 })
+
+/**
+ * **자리를 아는 밑줄은 모호하지 않다.**
+ *
+ * 어법 밑줄은 `tokenIdx` 를 저장한다. 관사·지시사는 한 문장에 여러 번 나오는 것이
+ * 정상이라, 낱말로만 세면 멀쩡한 재고가 통째로 걸린다 —
+ * 실측 2026-09-13: 이 갈래가 없던 동안 어법 **4,330문항 중 2,180개(50%)** 가 걸렸다.
+ * 고칠 곳은 재고가 아니라 **자리를 안 쓰던 조판기**였다.
+ */
+describe('밑줄 자리 — tokenIdx 가 있으면 확정이다', () => {
+  it('자리를 아는 어법 밑줄은 같은 낱말이 여러 번 나와도 통과한다', () => {
+    expect(
+      itemHygieneReject({
+        payload: {
+          sentences: ['They bought a panel and a switch for the shed.'],
+          underlines: [
+            { word: 'a', sentenceIdx: 0, tokenIdx: 2, label: '①' },
+            { word: 'a', sentenceIdx: 0, tokenIdx: 5, label: '②' },
+          ],
+        },
+      }),
+    ).toBeNull()
+  })
+
+  it('자리를 모르는 어휘 밑줄은 여전히 모호로 잡는다', () => {
+    expect(
+      itemHygieneReject({
+        payload: {
+          sentences: ['The wayfinding app improves wayfinding for drivers.'],
+          underlines: [{ word: 'wayfinding', sentenceIdx: 0, label: '①' }],
+        },
+      }),
+    ).toBe('ambiguousUnderline')
+  })
+})

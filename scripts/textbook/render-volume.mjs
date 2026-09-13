@@ -347,6 +347,25 @@ function renderSchool(item, no) {
     if (!Number.isInteger(answer) || answer < 1 || answer > p.underlines.length) return null
     // 밑줄 자리에 번호를 붙여 인쇄한다 — 안 붙이면 발문이 가리키는 곳이 없다.
     const marked = sentences.map((sentence, si) => {
+      // ── 자리를 아는 문항은 자리로 긋는다 ────────────────────────────
+      // 어법 밑줄은 `tokenIdx` 를 저장한다(`GrammarUnderline`). 그런데 여기가 문자열로
+      // 찾는 바람에 `a panel and a switch` 에서 **첫 `a`** 에 밑줄이 갔다 — 출제 의도가
+      // 두 번째일 수 있는데 알 길이 없다. 실측 2026-09-13: 어법 4,330문항 중 **2,180개**가
+      // 그런 자리다(관사·지시사는 한 문장에 여러 번 나오는 것이 정상이다).
+      // 자리를 아는데 문자열로 찾는 것은 알면서 버리는 것이다.
+      const byToken = p.underlines
+        .map((u, ui) => ({ u, ui }))
+        .filter(({ u }) => Number(u?.sentenceIdx) === si && Number.isInteger(Number(u?.tokenIdx)))
+      if (byToken.length) {
+        const tokens = sentence.split(/\s+/)
+        for (const { u, ui } of byToken) {
+          const ti = Number(u.tokenIdx)
+          if (ti < 0 || ti >= tokens.length) continue
+          tokens[ti] = `<u>${CIRCLED[ui] ?? ''}${esc(tokens[ti])}</u>`
+        }
+        // 이미 `<u>` 를 넣었으므로 통째로 다시 이스케이프하지 않는다 — 토큰마다 했다.
+        return tokens.map((t) => (t.includes('<u>') ? t : esc(t))).join(' ')
+      }
       let out = esc(sentence)
       for (const [ui, u] of p.underlines.entries()) {
         if (Number(u?.sentenceIdx) !== si) continue

@@ -687,6 +687,7 @@ export async function loadVolume(
     judgeSource,
     isComposable,
     isPrintableUnderlineWord,
+    cefrFitsBand,
     itemHygieneReject,
     tallyEligibility,
     GRADE_LABEL,
@@ -711,7 +712,7 @@ export async function loadVolume(
     //   `csat_fit->gate->>...` 넷을 더했더니 V4(856편) 조판이 **statement timeout 으로 죽었다.**
     //   밴드 전체를 훑으면서 jsonb 를 행마다 detoast 하기 때문이다. 판정에 필요한 열은
     //   **문항이 붙은 원글에만** 따로 받는다(아래 `적격 판정` 절) — 그쪽은 pk `IN` 이라 싸다.
-    'id, title, source, article_v_level, display_only, license_class, copyright_safe_in_kr',
+    'id, title, source, article_v_level, display_only, license_class, copyright_safe_in_kr, cefr_level',
     'id',
     1000,
     (q) => q.in('status', ['ready', 'published']).eq('article_v_level', band),
@@ -738,9 +739,32 @@ export async function loadVolume(
   //   막는 순간 재고가 10%로 줄어 권이 아예 안 나온다. 그 몫은 드레인이 먼저 채워야 한다.
   //   지금 격차는 `/admin/textbook/sources` 가 편수로 보인다.
   const legalBlocked = (arts ?? []).filter((a) => !isLegallyUsable(a))
+  // ── 난이도 상한 ────────────────────────────────────────────────────
+  //
+  // ⚠️ CEFR 상한이 **V4(중등)까지만** 걸려 있었고 고등 밴드에는 아예 없었다. 그래서
+  //   학술 논문이 그대로 고1 교재로 흘러들었다 — V5 실측 **C1 12,397문항(48%)** ·
+  //   PLOS 출처 13,881문항(54%). 3인 검수 2회차에서 현장강사 페르소나가 되풀이해
+  //   「고1 지문이 아니다」로 반려했고, 115문항 중 3인 통과는 **5건**이었다.
+  //   근거와 한계는 `assemble-unit.HIGH_BAND_MAX_CEFR` 머리 주석 참조
+  //   (시중 고등 교재는 아직 실측이 없어 **잠정 상한**이다).
+  const levelBlocked = (arts ?? []).filter((a) => !cefrFitsBand(a.cefr_level, band))
   const all = (arts ?? []).filter(
-    (a) => isLegallyUsable(a) && !isRetractedTitle(a.title) && !hasSensitiveTopic(a.title),
+    (a) =>
+      isLegallyUsable(a) &&
+      !isRetractedTitle(a.title) &&
+      !hasSensitiveTopic(a.title) &&
+      cefrFitsBand(a.cefr_level, band),
   )
+  if (levelBlocked.length) {
+    const byLevel = {}
+    for (const a of levelBlocked) byLevel[a.cefr_level ?? '?'] = (byLevel[a.cefr_level ?? '?'] ?? 0) + 1
+    const parts = Object.entries(byLevel)
+      .sort()
+      .map(([k, n]) => `${k} ${n.toLocaleString()}`)
+    console.log(
+      `  ⚠ 학년 밖 난이도 원글 ${levelBlocked.length.toLocaleString()}편을 뺐다 (${parts.join(' · ')})`,
+    )
+  }
   if (legalBlocked.length) {
     console.log(
       `  ⚠ 법적으로 실을 수 없는 원글 ${legalBlocked.length.toLocaleString()}편을 뺐다` +

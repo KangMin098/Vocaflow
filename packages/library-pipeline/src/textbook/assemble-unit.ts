@@ -142,7 +142,48 @@ export { PASSAGE_WORDS }
  *   38편(FK 1.9 — 실제로는 쉬운 글)이 통째로 막힌다. 모름은 금지가 아니다.
  */
 export const SCHOOL_BAND_MAX_CEFR = 'B1'
+
+/**
+ * **고등 밴드(V5+)의 난이도 상한.**
+ *
+ * ── 왜 생겼나 (3인 검수 실측 2026-09-13) ────────────────────────────
+ * CEFR 상한이 **V4 까지만** 걸려 있었다. V5(고1) 이상에는 아예 없어서 학술 논문이
+ * 그대로 고1 교재로 흘러들었다 — V5 재고 실측:
+ *
+ *     C1 **12,397문항(48%)** · B2 10,676 · B1 2,545 · A2 97 · C2 9
+ *     출처로 보면 PLOS 논문이 13,881문항으로 **54%**
+ *
+ * 3인 검수 2회차에서 현장강사 페르소나가 되풀이해 같은 말을 했다 —
+ * 「수문학 논문 서론 · 마케팅 학술지 · 류머티즘 약물감시 … 고1 지문이 아니다」.
+ * 115문항을 읽혀 3인 통과가 **5건**이었고, 그 대부분이 난이도 사유였다.
+ *
+ * ── 이 값의 근거가 어디까지인가 (정직하게) ──────────────────────────
+ * **시중 코퍼스에 고등 밴드가 없다.** `passage-ruler.json` 의 실측은 중3(FK 8.09)까지이고
+ * 고1 교재는 한 편도 안 재었다. 그래서 이 상한의 근거는 **「C1 은 고1 지문이 아니다」까지**이지
+ * 「B2 가 정확히 맞다」가 아니다. 근거로 쓴 것 셋:
+ *
+ *   · 우리 지문 269편의 CEFR↔FK 대응 — B1 6.6 · **B2 12.7** · **C1 18.1**(위 표)
+ *   · 시중 실측 중3 FK 8.09 · 중1~중3 중앙 7.14 (`docs/reports/passage-ruler.json`)
+ *   · C1(FK 18)은 대학·학술 산문 구간이다
+ *
+ * 시중 고등 교재를 실측하면 이 값을 다시 정해야 한다 — 그때까지는 **잠정**이다.
+ * 상한을 올리는 쪽이 재고는 두 배가 되지만, 지금 막고 있는 것이 바로 그 재고다.
+ */
+export const HIGH_BAND_MAX_CEFR = 'B2'
+
 const CEFR_ORDER = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'] as const
+
+/**
+ * 이 밴드에 실을 수 있는 난이도인가. **CEFR 이 없으면 막지 않는다** — 모름은 금지가 아니다
+ * (재저작 지문 38편이 CEFR 없이 FK 1.9 다. 모르는 것을 어렵다고 판정하면 통째로 막힌다).
+ */
+export function cefrFitsBand(cefr: string | null | undefined, band: number | null): boolean {
+  if (!cefr || band == null) return true
+  const idx = CEFR_ORDER.indexOf(cefr as (typeof CEFR_ORDER)[number])
+  if (idx < 0) return true
+  const cap = band <= SCHOOL_BAND_MAX_V ? SCHOOL_BAND_MAX_CEFR : HIGH_BAND_MAX_CEFR
+  return idx <= CEFR_ORDER.indexOf(cap)
+}
 /** 초·중으로 보는 V-Level 상한. `V_TO_MARKET_BUCKET` 이 V5 부터 고1 로 매긴다. */
 export const SCHOOL_BAND_MAX_V = 4
 

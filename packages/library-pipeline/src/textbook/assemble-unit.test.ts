@@ -6,6 +6,8 @@
 import { describe, expect, it } from 'vitest'
 
 import {
+  cefrFitsBand,
+  HIGH_BAND_MAX_CEFR,
   PASSAGE_WORDS,
   assembleReadingUnit,
   isBlocked,
@@ -160,5 +162,44 @@ describe('pickVocabulary', () => {
   it('밴드가 없으면 빈도만 본다 — 조용히 빈 목록을 내지 않는다', () => {
     const picked = pickVocabulary(vocab(5, { v_level: null }), 3, null)
     expect(picked).toHaveLength(3)
+  })
+})
+
+/**
+ * **고등 밴드에도 난이도 상한이 있어야 한다.**
+ *
+ * 상한이 V4 까지만 걸려 있어 학술 논문이 그대로 고1 교재로 흘러들었다 —
+ * V5 실측 C1 **12,397문항(48%)** · PLOS 출처 13,881문항(54%).
+ * 3인 검수 2회차에서 현장강사가 되풀이해 「고1 지문이 아니다」로 반려했고,
+ * 115문항 중 3인 통과는 5건이었다.
+ *
+ * ⚠️ 이 상한은 **잠정**이다 — 시중 코퍼스에 고등 밴드가 없다(실측은 중3 FK 8.09까지).
+ * 근거는 「C1 은 고1 지문이 아니다」까지이지 「B2 가 정확히 맞다」가 아니다.
+ */
+describe('cefrFitsBand', () => {
+  it('중등은 B1 까지 — 기존 규칙 그대로', () => {
+    expect(cefrFitsBand('B1', 3)).toBe(true)
+    expect(cefrFitsBand('B2', 3)).toBe(false)
+    expect(cefrFitsBand('C1', 4)).toBe(false)
+  })
+
+  it('고등은 B2 까지 — C1 학술 산문을 막는다', () => {
+    expect(cefrFitsBand('B2', 5)).toBe(true)
+    expect(cefrFitsBand('B1', 5)).toBe(true)
+    expect(cefrFitsBand('C1', 5)).toBe(false)
+    expect(cefrFitsBand('C2', 7)).toBe(false)
+  })
+
+  /** ⚠️ **모름은 금지가 아니다** — 재저작 지문 38편이 CEFR 없이 FK 1.9 다. */
+  it('CEFR 이 없으면 막지 않는다', () => {
+    expect(cefrFitsBand(null, 5)).toBe(true)
+    expect(cefrFitsBand(undefined, 5)).toBe(true)
+    expect(cefrFitsBand('', 5)).toBe(true)
+    // 모르는 등급 문자열도 막지 않는다 — 판정 못 하는 것을 금지로 바꾸지 않는다.
+    expect(cefrFitsBand('X9', 5)).toBe(true)
+  })
+
+  it('상한 값이 잠정이라는 것을 코드가 말한다', () => {
+    expect(HIGH_BAND_MAX_CEFR).toBe('B2')
   })
 })

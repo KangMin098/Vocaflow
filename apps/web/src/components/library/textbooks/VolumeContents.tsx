@@ -319,6 +319,30 @@ function PreviewItem({ item: it }: { item: PreviewChoiceItem }) {
         <p className="mt-3 rounded-[var(--r-md)] border-l-[3px] border-[var(--p)] bg-[var(--bg2)] px-4 py-3 font-english text-[14.5px] leading-[1.9] text-[var(--t1)]">
           {it.sentences.map((sentence, si) => {
             const marks = (it.underlines ?? []).filter((u) => u.sentenceIdx === si)
+            // 자리를 아는 밑줄은 **자리로** 긋는다 — `a panel and a switch` 에서 낱말로
+            // 찾으면 첫 `a` 에 밑줄이 간다(출제 의도가 두 번째일 수 있는데 알 길이 없다).
+            // 조판기도 같은 규칙을 쓴다(`render-volume.mjs`).
+            const byToken = marks.filter((m) => Number.isInteger(m.tokenIdx))
+            if (byToken.length) {
+              const tokens = sentence.split(/\s+/)
+              return (
+                <span key={si}>
+                  {tokens.map((tok, ti) => {
+                    const m = byToken.find((x) => x.tokenIdx === ti)
+                    if (!m) return `${tok} `
+                    const idx = (it.underlines ?? []).indexOf(m)
+                    return (
+                      <span key={`${si}-${ti}`}>
+                        <u className="font-[600] decoration-[var(--p)] underline-offset-4">
+                          <span className="font-display text-[var(--p)]">{CIRCLED[idx] ?? ''}</span>
+                          {tok}
+                        </u>{' '}
+                      </span>
+                    )
+                  })}
+                </span>
+              )
+            }
             let rest = sentence
             const parts: React.ReactNode[] = []
             for (const m of marks) {

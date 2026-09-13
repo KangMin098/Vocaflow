@@ -228,6 +228,12 @@ export function hasAmbiguousUnderline(payload: Record<string, unknown> | null | 
   for (const u of underlines) {
     const word = String((u as { word?: unknown } | null)?.word ?? '')
     const si = Number((u as { sentenceIdx?: unknown } | null)?.sentenceIdx)
+    // ⚠️ **자리를 아는 밑줄은 모호하지 않다.** 어법 밑줄은 `tokenIdx` 를 저장하므로
+    //   같은 낱말이 여러 번 나와도 어디에 긋는지 확정된다 — 관사·지시사는 한 문장에
+    //   여러 번 나오는 것이 정상이다. 이 갈래가 없던 동안 이 자는 어법 4,330문항 중
+    //   **2,180개(50%)** 를 「모호」로 걸었다. 자를 넓게 잡아 멀쩡한 재고를 죽인 것이고,
+    //   고칠 곳은 재고가 아니라 **자리를 안 쓰던 조판기**였다(`render-volume.mjs`).
+    if (Number.isInteger(Number((u as { tokenIdx?: unknown } | null)?.tokenIdx))) continue
     if (!word || !Number.isInteger(si)) continue
     const sentence = sentences[si]
     if (typeof sentence !== 'string') continue
