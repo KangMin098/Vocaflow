@@ -341,6 +341,47 @@ export function hasChoiceCollision(
   if (original && words.includes(original)) return true
   return false
 }
+/** 한 문장에 담을 수 있는 낱말 수의 상한 — 넘으면 그 학년이 첫 문장에서 멈춘다. */
+export const MAX_SENTENCE_WORDS = 50
+
+/**
+ * **한 문장이 학년 밖으로 길지 않은가.**
+ *
+ * ── 왜 CEFR 로는 못 거르나 (실측 2026-09-13) ────────────────────────
+ * 고등 밴드에 CEFR 상한(B2)을 걸었는데도 3인 검수 3회차가 학술 산문을 계속 잡아냈다.
+ * 확인해 보니 **그 문항들이 전부 `B2` 로 태그돼 있었다** — PLOS·eLife 논문까지.
+ * `cefr_level` 은 Flesch 가독성에서 나오고, 그 자는 **문장·음절 길이**만 본다.
+ * 방법론 절은 문장이 짧아 B2 를 받는다. 라벨이 틀린 것이 아니라 **다른 것을 재는 자**다.
+ *
+ * 검수자들이 실제로 짚은 것은 **초장문**이었다 — 48낱말 도입문(주어와 동사 사이 40낱말),
+ * 57낱말·삽입절 3개, 306자 첫 문장. 「고1은 첫 문장에서 멈춘다」가 되풀이된 표현이다.
+ *
+ * 문턱의 근거:
+ *   · 우리 V5 실측 — 문장 중앙값 **20낱말** · p95 **40**
+ *   · 시중 실측 — 중3 문장 중앙값 **15.3**낱말 · 중1~중3 **13.1** (`passage-ruler.json`)
+ *   · 50낱말은 우리 코퍼스의 95백분위 위이고 시중 중3의 세 배가 넘는다
+ *
+ * 실측 V5 25,724문항 중 **2,312(9%)** 가 50낱말 넘는 문장을 갖고 있다.
+ *
+ * ⚠️ 지문 **전체** 길이는 이미 `itemWordSpec` 이 잰다. 여기서 보는 것은 **한 문장**이다 —
+ *   90~200어 창 안에 들어도 그 안에 57낱말짜리 한 문장이 있으면 학년이 못 읽는다.
+ */
+export function hasOverlongSentence(payload: Record<string, unknown> | null | undefined): boolean {
+  if (!payload) return false
+  for (const k of PASSAGE_ARRAY_KEYS) {
+    const v = payload[k]
+    if (!Array.isArray(v)) continue
+    for (const x of v) {
+      if (typeof x !== 'string') continue
+      if (x.trim().split(/\s+/).length > MAX_SENTENCE_WORDS) return true
+    }
+  }
+  for (const k of ['intro', 'insert_sentence'] as const) {
+    const v = payload[k]
+    if (typeof v === 'string' && v.trim().split(/\s+/).length > MAX_SENTENCE_WORDS) return true
+  }
+  return false
+}
 /** 왜 못 내보내는지 — 세어서 남기려고 이름을 붙인다. 통과면 `null`. */
 export type HygieneReject =
   | 'retracted'
@@ -361,6 +402,8 @@ export type HygieneReject =
   | 'blockLengthLeak'
   /** 선지 둘이 같은 낱말이거나, 정답 낱말이 선지에 인쇄돼 있다. */
   | 'choiceCollision'
+  /** 한 문장이 학년 밖으로 길다 — 첫 문장에서 멈춘다. */
+  | 'longSentence'
 
 /**
  * **학습자에게 내보내도 되는 문항인가.** 조판의 게이트와 같은 판정을 쓴다.
@@ -398,6 +441,7 @@ export function itemHygieneReject(input: {
   if (hasPunctuationLeak(input.payload)) return 'punctuationLeak'
   if (hasBlockLengthLeak(input.payload, input.answerKey)) return 'blockLengthLeak'
   if (hasChoiceCollision(input.payload, input.answerKey)) return 'choiceCollision'
+  if (hasOverlongSentence(input.payload)) return 'longSentence'
   if (hasAmbiguousUnderline(input.payload)) return 'ambiguousUnderline'
 
   const text = passageTextOf(input.payload)

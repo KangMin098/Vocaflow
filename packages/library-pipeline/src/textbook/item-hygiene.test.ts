@@ -13,7 +13,14 @@
 // 조판물은 깨끗한데 학습자가 받는 것은 아니었다.
 import { describe, expect, it } from 'vitest'
 
-import { cleanItemPayload, isRetractedTitle, isTooShortForPractice, itemHygieneReject, passageTextOf } from './item-hygiene'
+import {
+  cleanItemPayload,
+  isRetractedTitle,
+  isTooShortForPractice,
+  itemHygieneReject,
+  MAX_SENTENCE_WORDS,
+  passageTextOf,
+} from './item-hygiene'
 
 const ok = { payload: { passage: 'Photosynthesis converts light into chemical energy in leaves.' } }
 
@@ -484,5 +491,40 @@ describe('선지 충돌', () => {
 
   it('밑줄이 하나뿐이면 충돌이 없다', () => {
     expect(itemHygieneReject(item(['coastal']))).toBeNull()
+  })
+})
+
+/**
+ * **CEFR 로는 학술 산문을 못 거른다 — 문장 길이로 거른다.**
+ *
+ * 고등 밴드에 B2 상한을 걸고도 3회차 검수가 학술 산문을 계속 잡아냈다.
+ * 확인해 보니 그 문항들이 **전부 `B2` 로 태그**돼 있었다(PLOS·eLife 논문까지) —
+ * `cefr_level` 은 Flesch 가독성에서 오고 방법론 절은 문장이 짧아 B2 를 받는다.
+ * 검수자들이 실제로 짚은 것은 **초장문**이었다(48낱말 도입문 · 57낱말 · 306자).
+ */
+describe('초장문', () => {
+  const words = (n: number) => Array.from({ length: n }, (_, i) => `word${i}`).join(' ')
+
+  it('50낱말을 넘는 문장이 있으면 반려한다', () => {
+    expect(itemHygieneReject({ payload: { sentences: [`The ${words(55)}.`] } })).toBe('longSentence')
+  })
+
+  it('도입문·〈보기〉도 본다 — 배열이 아니라 문자열 칸이다', () => {
+    expect(itemHygieneReject({ payload: { intro: `The ${words(55)}.` } })).toBe('longSentence')
+    expect(itemHygieneReject({ payload: { insert_sentence: `The ${words(55)}.` } })).toBe(
+      'longSentence',
+    )
+  })
+
+  it('보통 길이는 통과한다 — 우리 중앙값이 20낱말이다', () => {
+    expect(
+      itemHygieneReject({
+        payload: { sentences: ['The coastal region provides a steady supply of fresh water each spring.'] },
+      }),
+    ).toBeNull()
+  })
+
+  it('상한이 코드에 적혀 있다 — 근거는 머리 주석', () => {
+    expect(MAX_SENTENCE_WORDS).toBe(50)
   })
 })
