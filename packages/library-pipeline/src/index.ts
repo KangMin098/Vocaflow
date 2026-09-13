@@ -1047,3 +1047,7 @@ export type {
   VolumeSpreadInput,
   VolumeTypeSpread,
 } from './textbook/type-spread'
+
+// 3인 검수 차단 사유의 계열 (`scripts/textbook/review-causes.mjs`).
+export { CAUSE_LABEL, REVIEW_CAUSES, classifyCause, tallyCauses } from './textbook/review-cause'
+export type { CauseReport, CauseTally, CauseVerdict, FindingRow, ReviewCause } from './textbook/review-cause'
