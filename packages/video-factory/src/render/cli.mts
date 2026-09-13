@@ -2,7 +2,8 @@
 //
 // **공장 조작반.**
 //
-//   pnpm video list                    설계도 목록과 길이
+//   pnpm video enqueue                 설계도를 큐에 올린다 (재실행 안전)
+//   pnpm video list                    설계도 목록과 길이 · 큐 현황
 //   pnpm video check                   설계도 품질 검사만 (렌더 안 함)
 //   pnpm video voice [<id|kind> …]     Edge TTS 로 나레이션 굽기 (재실행 안전)
 //   pnpm video render <id> [--format]  한 편 찍기
@@ -30,6 +31,7 @@ import { FPS, FORMATS, type FormatId } from '../spec/format'
 import { applyVoiceTiming, loadVoiceManifest, synthesizeSpec } from '../voice/edge-tts'
 import { specDuration } from '../remotion/VideoComposition'
 import { ensureWorkFiles, writeVoiceIndex } from './ensure'
+import { advance, enqueueAll, overview } from '../jobs/client'
 import type { VideoSpec } from '../spec/types'
 
 const HERE = path.dirname(fileURLToPath(import.meta.url))
@@ -133,6 +135,19 @@ async function cmdList(): Promise<void> {
         .map(([k, n]) => `${k} ${n}`)
         .join(' · '),
   )
+
+  // 큐 — 파일이 아니라 **기록**이 말하는 진행. 못 읽으면 조용히 뺀다(마이그레이션 전).
+  const q = await overview()
+  if (q && q.length > 0) {
+    console.log('큐   ' + q.map((r) => `${r.stage} ${r.n}`).join(' · '))
+  }
+}
+
+/** 설계도 전부를 큐에 올린다 — 이게 「안 만든 편」의 분모가 된다. */
+async function cmdEnqueue(): Promise<void> {
+  const specs = select(buildSpecs(loadBundle()), positionals())
+  const r = await enqueueAll(specs)
+  console.log(`큐에 올림 ${r.ok}` + (r.skipped ? ` · 못 올림 ${r.skipped}` : ''))
 }
 
 function cmdCheck(): number {
@@ -157,6 +172,16 @@ async function cmdVoice(): Promise<void> {
     made += r.made
     skipped += r.skipped
     const missing = spec.scenes.length - Object.keys(r.manifest).length
+    // 구운 컷이 하나도 없으면 실패로 남긴다 — 콘솔에만 찍고 사라지면 아무도 모른다.
+    if (Object.keys(r.manifest).length === 0) {
+      await advance(spec.id, spec.kind, 'failed', { scenes: spec.scenes.length }, '나레이션을 한 컷도 못 구웠다')
+    } else {
+      await advance(spec.id, spec.kind, 'voiced', {
+        scenes: spec.scenes.length,
+        voice_clips: Object.keys(r.manifest).length,
+        note: missing > 0 ? `못 구운 컷 ${missing}` : undefined,
+      })
+    }
     console.log(
       `${spec.id.padEnd(28)} 새로 ${String(r.made).padStart(2)} · 건너뜀 ${String(r.skipped).padStart(2)}` +
         (missing > 0 ? `  ⚠ 못 구운 컷 ${missing}` : ''),
@@ -218,11 +243,17 @@ async function cmdRender(all: boolean): Promise<number> {
   let ok = 0
   let failed = 0
   for (const spec of specs) {
+    // 편 단위로 모아서 한 번 기록한다 — 규격마다 쓰면 한 편에 세 번 쓴다.
+    let made = 0
+    let bytes = 0
+    let lastError: string | null = null
     for (const format of spec.formats) {
       if (only && format !== only) continue
       const t0 = Date.now()
       try {
         const r = await renderOne(serveUrl, spec, format, port)
+        made++
+        bytes += r.bytes
         ok++
         console.log(
           `OK   ${spec.id}--${format}  ${(r.bytes / 1024 / 1024).toFixed(2)}MB  ` +
@@ -277,6 +308,7 @@ async function cmdThumbs(): Promise<number> {
       })
       // 종료코드가 아니라 파일로 확인한다 — 이 저장소에서 이미 겪은 함정.
       if (!fs.existsSync(out) || fs.statSync(out).size === 0) throw new Error('파일이 비었다')
+      await advance(spec.id, spec.kind, 'rendered', { thumb: true })
       made++
     } catch (err) {
       failed++
@@ -369,6 +401,9 @@ async function main(): Promise<void> {
     case 'render-all':
       process.exitCode = await cmdRender(true)
       break
+    case 'enqueue':
+      await cmdEnqueue()
+      break
     case 'stale':
       process.exitCode = cmdStale()
       break
@@ -384,6 +419,7 @@ async function main(): Promise<void> {
           'pnpm video render <id> [--format wide|vertical|square]',
           'pnpm video render-all [--format …]',
           'pnpm video thumbs [<id|kind> …]     YouTube 썸네일 1280×720 (--force 로 다시)',
+          'pnpm video enqueue                  설계도를 큐에 올린다 (재실행 안전)',
           'pnpm video stale                    발행본이 설계도와 어긋나는지',
         ].join('\n'),
       )

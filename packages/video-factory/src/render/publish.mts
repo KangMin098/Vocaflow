@@ -15,6 +15,8 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { createClient } from '@supabase/supabase-js'
 
+import { advance } from '../jobs/client'
+
 const HERE = path.dirname(fileURLToPath(import.meta.url))
 const PKG = path.resolve(HERE, '../..')
 const REPO = path.resolve(PKG, '../..')
@@ -121,6 +123,19 @@ async function main(): Promise<void> {
       continue
     }
     sent++
+  }
+
+  // 큐에 마지막 단계를 남긴다 — 파일이 아니라 **기록**이 진행을 말해야 파이프라인이다.
+  //
+  // 실패가 하나라도 있으면 올리지 않는다. 「발행됨」은 **전부 올라갔다**는 뜻이어야 하고,
+  // 절반만 올라간 편을 published 로 적으면 화면에서 깨진 채 "정상" 으로 보인다.
+  const current = JSON.parse(fs.readFileSync(MANIFEST, 'utf8')) as {
+    videos: { id: string; kind: string }[]
+  }
+  if (failed === 0) {
+    for (const v of current.videos) await advance(v.id, v.kind, 'published')
+  } else {
+    console.log(`  (실패 ${failed}건이라 published 로 올리지 않는다 — 다시 돌리면 올라간다)`)
   }
 
   const baseUrl = `${SUPABASE_URL.replace(/\/$/, '')}/storage/v1/object/public/${BUCKET}`

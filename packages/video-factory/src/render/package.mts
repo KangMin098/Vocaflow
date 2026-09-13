@@ -23,6 +23,7 @@ import { applyVoiceTiming } from '../voice/timing'
 import { loadVoiceManifest } from '../voice/edge-tts'
 import { specDuration } from '../remotion/VideoComposition'
 import { posterFrame, toDescription, toWebVtt } from './captions'
+import { advance } from '../jobs/client'
 
 const HERE = path.dirname(fileURLToPath(import.meta.url))
 const PKG = path.resolve(HERE, '../..')
@@ -94,7 +95,7 @@ function ffmpeg(args: string[]): void {
   })
 }
 
-function main(): void {
+async function main(): Promise<void> {
   const specs = buildSpecs(loadBundle()).map((s) => applyVoiceTiming(s, loadVoiceManifest(s.id)))
   fs.mkdirSync(DIST, { recursive: true })
 
@@ -194,6 +195,16 @@ function main(): void {
   fs.mkdirSync(path.dirname(MANIFEST), { recursive: true })
   fs.writeFileSync(MANIFEST, JSON.stringify(manifest, null, 2) + '\n', 'utf8')
 
+  // 큐에 단계를 남긴다 — 파일이 아니라 기록이 진행을 말해야 파이프라인이다.
+  for (const v of videos) {
+    await advance(v.id, v.kind, 'packaged', {
+      seconds: v.seconds,
+      bytes: Object.values(v.formats).reduce((n, f) => n + (f?.bytes ?? 0), 0),
+      captions: v.transcript.length > 0,
+      thumb: fs.existsSync(path.join(DIST, 'thumb', `${v.id}.jpg`)),
+    })
+  }
+
   console.log(`OK manifest ${videos.length}편 · 포스터 새로 ${posters}장` +
     (missing > 0 ? ` · 아직 안 찍은 규격 ${missing}개` : ''))
   console.log(`   ${path.relative(process.cwd(), MANIFEST)}`)
@@ -208,4 +219,4 @@ function main(): void {
   }
 }
 
-main()
+await main()
