@@ -47,6 +47,8 @@ const SHOW_FIXABLE = process.argv.includes('--fixable')
  * 해설이나 선택지로 고칠 수 있는 것은 건드리지 않는다.
  */
 const PRUNE = process.argv.includes('--prune')
+/** 옮긴 청크를 한 줄씩 찍지 않는다 — 수천 개가 되면 목록이 보고를 덮는다. */
+const quiet = process.argv.includes('--quiet')
 
 const { checkDrainItem } = await import('@vocaflow/library-pipeline')
 
@@ -176,7 +178,19 @@ if (PRUNE) {
         continue
       }
       if (!Array.isArray(rows) || !rows.length) continue
-      if (!rows.every((r) => deadPassage(r, type, band))) continue
+      const deadCount = rows.filter((r) => deadPassage(r, type, band)).length
+      const written = fs.existsSync(path.join(p, f.replace('.json', '.out.json')))
+      // **이미 채운 청크는 전량이 죽었을 때만 옮긴다** — 사람이 쓴 것을 버리지 않는다.
+      //   (전량이 죽었으면 그 파일에는 애초에 실릴 문항이 하나도 없다.)
+      //
+      // **안 채운 청크는 절반을 넘기면 옮긴다.** 실측 2026-09-13: 안 채운 청크 6,869개 중
+      //   **2,939개가 절반 넘게 죽어 있었고**, 집필 배치 셋이 독립으로 같은 것을 보고했다 —
+      //   `main_point-v7` 8월분 생존 12.5% · `topic-v7` 8월분 10% · `blank-v6` 67.5% ·
+      //   `title/topic-v6` 54%. 반면 **9월 수출분은 100%** 다(지금 export 는
+      //   `isPrintablePassage` 를 건다). 즉 그 몫은 **다시 뽑는 편이 확실히 싸고**,
+      //   같은 원글은 중복 판정이 DB 를 보므로 새 지문으로 그대로 다시 나온다.
+      const limit = written ? rows.length : Math.floor(rows.length / 2) + 1
+      if (deadCount < limit) continue
       const stale = path.join(p, '_stale')
       fs.mkdirSync(stale, { recursive: true })
       for (const name of [f, f.replace('.json', '.out.json')]) {
@@ -185,7 +199,12 @@ if (PRUNE) {
       }
       movedChunks += 1
       movedItems += rows.length
-      console.log(`    옮김  ${d}/${f}  (${rows.length}편 전부 지문이 죽었다)`)
+      if (!quiet) {
+        console.log(
+          `    옮김  ${d}/${f}  (${rows.length}편 중 ${deadCount}편 지문이 죽었다` +
+            `${written ? ' · 이미 채운 청크' : ''})`,
+        )
+      }
     }
   }
   console.log(

@@ -113,6 +113,17 @@ function usableItems(dir, chunkFile, type, band) {
   return { total: rows.length, stale }
 }
 
+/**
+ * 청크 하나에서 **죽은 칸이 이 비율을 넘으면 「지금 시작 가능」으로 세지 않는다.**
+ *
+ * 실측 2026-09-13 이 이 문턱을 정했다 — 안 채운 청크 6,869개 중 죽은 비율별 분포:
+ *   50~99% **2,939개** · 25~49% 2,683개 · 1~24% 695개 · 0% **552개**
+ * 그리고 집필 배치들이 독립으로 같은 것을 보고했다:
+ *   `main_point-v7` 8월분 **12.5%** 생존 · `topic-v7` 8월분 **10%** · 9월분 **100%**
+ * 4분의 1까지는 집필 중에 흡수되지만 그 위는 몫을 잘못 잡게 만든다.
+ */
+const CLEAN_MAX_STALE = 0.25
+
 function freeSlots(type, band, wantChunks) {
   const dir = path.join(DRAIN_DIR, `${type}-v${band}`)
   if (!fs.existsSync(dir))
@@ -125,17 +136,30 @@ function freeSlots(type, band, wantChunks) {
   let staleItems = 0
   let checkedItems = 0
   let inspected = 0
+  /** 뽑혀 있으나 죽은 칸이 너무 많아 세지 않은 청크 — 다시 뽑아야 하는 몫이다. */
+  let dirtyChunks = 0
   for (const f of chunks) {
     const out = path.join(dir, f.replace('.json', '.out.json'))
     if (!fs.existsSync(out)) {
-      untouchedChunks += 1
-      // 집필자는 번호가 작은 것부터 고른다 — 실제로 쓸 만큼만 열어 본다.
+      // ⚠️ **「안 채운 청크」와 「쓸 만한 청크」는 다르다** (실측 2026-09-13).
+      //   안 채운 청크 6,869개의 문항칸 57,253 중 **23,200(40.5%)이 이미 죽어 있다** —
+      //   청크는 게이트보다 오래 살고, 8/31 수출분은 그 뒤에 넓어진 논문 서식·어수 검사에
+      //   걸린다. 깨끗한 청크는 **552개뿐**이다.
+      //   그래서 집필자가 아무 청크나 집으면 노력의 40%를 잃는다. 실제로 그렇게 됐다:
+      //   V6 집필 배치가 48편 중 22편(45.8%)을 지문 단계에서 버렸고, 사유는 전부 논문 서식이었다.
+      //   **살아 있는 칸이 4분의 3 미만인 청크는 「지금 시작 가능」으로 세지 않는다** —
+      //   그 몫은 다시 뽑는 편이 싸다(지금 export 는 `isPrintablePassage` 를 걸어 100% 깨끗하다).
       if (inspected < wantChunks) {
         const u = usableItems(dir, f, type, band)
         staleItems += u.stale
         checkedItems += u.total
         inspected += 1
+        if (u.total > 0 && u.stale / u.total > CLEAN_MAX_STALE) {
+          dirtyChunks += 1
+          continue
+        }
       }
+      untouchedChunks += 1
       continue
     }
     let rows
@@ -156,7 +180,7 @@ function freeSlots(type, band, wantChunks) {
       unfinishedFiles += 1
     }
   }
-  return { untouchedChunks, unfinishedItems, unfinishedFiles, staleItems, checkedItems }
+  return { untouchedChunks, unfinishedItems, unfinishedFiles, staleItems, checkedItems, dirtyChunks }
 }
 
 const bands = []
@@ -169,7 +193,7 @@ for (const b of snap.bands) {
       const chunks = drain ? Math.ceil(items / ITEMS_PER_CHUNK) : 0
       const slots = drain
         ? freeSlots(t.type, b.vLevel, chunks)
-        : { untouchedChunks: 0, unfinishedItems: 0, unfinishedFiles: 0, staleItems: 0, checkedItems: 0 }
+        : { untouchedChunks: 0, unfinishedItems: 0, unfinishedFiles: 0, staleItems: 0, checkedItems: 0, dirtyChunks: 0 }
       return {
         ...t,
         shortItems: items,
@@ -182,6 +206,8 @@ for (const b of snap.bands) {
         /** 쓸 청크를 실제로 열어 보니 **지금 규격으로는 못 쓰는** 문항. */
         staleItems: slots.staleItems,
         checkedItems: slots.checkedItems,
+        /** 뽑혀 있으나 죽은 칸이 4분의 1을 넘어 세지 않은 청크. */
+        dirtyChunks: slots.dirtyChunks,
       }
     })
     .sort((a, b2) => b2.shortItems - a.shortItems)
