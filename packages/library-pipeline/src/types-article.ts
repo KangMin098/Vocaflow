@@ -27,6 +27,7 @@ export type ArticleSource =
   | 'storyweaver' // 초·중 이야기 지문 (Pratham Books · 책마다 CC — 책 안에서 읽는다). narrative 재고가 0 이라 넣는다
   | 'frontiers' // Frontiers 성인 학술지 **비-PMC 18종** (CC BY 4.0 · JATS 전문). 교육·언어 칸(배율 0.57 · 부족 1,464편)을 직접 겨눈다. ⚠️ frym 과 다른 소스 — 호스트·본문 형식이 다르다
   | 'nist' // NIST 뉴스·블로그 (PD 미 연방정부 저작물 · 사이트맵 전수 9,013편). 창 180어 기준 기술·매체 명중률 26.7% = PLOS 의 3.7배. 「기술·매체」 재고의 90%가 PLOS 공학 논문 한 계열이던 것을 푼다
+  | 'europe_pmc' // Europe PMC — CC BY 전문 XML. **라이선스가 질의 파라미터**라 혼재가 들어오지 않는다(CC BY×영어 5,218,944 · review 618,178 · 서론 수확률 97.5%). ⚠️ 타입에 있어도 아직 DB 에 못 들어간다 — `library_articles_source_check` 마이그레이션 승인 대기(openstax 도 같은 상태다)
   | 'original' // ACP §20 — 사실 재저작 (CC0 자체 저작 · 외부 본문 미사용 · compose 게이트 통과 필수)
   | 'manual'
 

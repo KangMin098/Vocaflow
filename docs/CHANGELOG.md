@@ -9,6 +9,39 @@
 ---
 ## Unreleased (v06.34 → next)
 
+### Europe PMC 어댑터 — 라이선스 관문을 세 겹으로 두고, VOA 큐를 전량 비웠다 (2026-09-13)
+
+**VOA 드레인 완료.** 4갈래(`--shard i/4`)로 전량 처리해 `ready` **230 → 10,445편**(+10,215).
+드레인 전 얇던 칸(V2 1,512 · V3 1,560 · V4 3,116)으로 그대로 들어갔다 — **새 소스 0개로 얻은 재고**다.
+frontiers 1,961편(CC BY · C1–C2)도 3갈래로 이어 돌리는 중.
+
+**Europe PMC 어댑터** `packages/library-pipeline/src/ingest-article/europe-pmc.ts` —
+피드 5종(review · psychology · education · environment · society)으로 소재 균형을 배선에 새겼다.
+실측 상류(중복 발행처 제외 후): review **518,715** · education 6,920 · psychology 4,951 ·
+society 4,142 · environment 2,692.
+
+설계에서 중요한 것 넷:
+- **라이선스 관문 세 겹** — 질의(`LICENSE:"cc by"`) · 목록(`epmcLicenseAllowed`) · 적재(세 번째 확인).
+  질의는 사람이 고칠 수 있고 고쳐도 오류가 나지 않는다. 목록·본문의 라이선스가 다르면
+  **더 제한적인 쪽**으로 판정한다 — 느슨한 쪽을 고르면 그 선택이 그대로 위법이 된다.
+- **라이선스·언어를 피드가 건드릴 수 없다.** 회귀가 `feed.filter` 에 `LICENSE:`/`LANG:` 이
+  들어오는 것을 막는다 — 들어오면 「필터가 질의에 있다」는 보장이 사라진다.
+- **중복은 목록기에서 막는다.** PLOS·Frontiers 는 이미 배선돼 있고 Europe PMC 안에도 있는데,
+  열쇠 접두어가 달라(`plos:…` vs `europe_pmc:PMC…`) `source_id` 중복 검사로는 안 잡힌다.
+  `NOT PUBLISHER:` 로 질의에서 뺀다(review 618,178 → 518,715 로 실측 확인).
+- **열쇠는 PMCID.** DOI 가 없는 항목이 있어 DOI 로는 전수를 덮지 못한다.
+
+**검증** — 목록기는 5개 피드 전부 실측 통과(커서·라이선스 관문 포함). 서론 파서는 실제 전문 XML
+(PMC13539362)로 확인: 최상위 절 13개(중첩 파싱 동작) · 서론 3문단 251어 · 인용번호·엔티티 제거 확인.
+⚠️ 적재기의 **네트워크 경로는 이 머신에서 재현하지 못했다** — node fetch 가 ebi.ac.uk 에
+간헐적 ConnectTimeout 을 낸다(curl 은 200. memory `reference-node-tls-alpn-blocked` 와 같은 증상).
+파싱은 위와 같이 실제 XML 로 증명했고, 네트워크는 curl 로 따로 확인했다.
+회귀 21종(`europe-pmc.test.ts`) — 전부 네트워크를 타지 않는다.
+
+`ArticleSource` 에 `europe_pmc` 추가. ⚠️ **타입에 있어도 아직 DB 에 못 들어간다** —
+`library_articles_source_check` 마이그레이션 승인 대기(`openstax` 도 같은 상태다).
+
+
 ### 표가 0점 준 소스가 최대 공급선이었다 · 큐는 막힌 게 아니라 안 돌린 것이었다 (2026-09-13)
 
 **Europe PMC.** 사용자 표는 「색인·집계용, 원문 아님」으로 0점을 줬다. 실측은 반대다 —
