@@ -4,7 +4,8 @@
 // 멀쩡한 문장의 첫 낱말이 사라지고, 그건 조판물에서 눈에 안 띈다.
 import { describe, expect, it } from 'vitest'
 
-import { stripSectionLabels } from './csat-format'
+import { stripSectionLabels, stripSpaceBeforePunct } from './csat-format'
+import { cleanPassageText } from './item-hygiene'
 
 describe('stripSectionLabels — 홀로 선 절 이름', () => {
   it('글 머리에 붙은 절 이름을 뗀다', () => {
@@ -88,5 +89,26 @@ describe('stripSectionLabels — 콜론 라벨', () => {
     expect(stripSectionLabels('We read the Note: it was short.')).toBe(
       'We read the Note: it was short.',
     )
+  })
+})
+
+/**
+ * **하이픈 양옆의 공백은 잡티가 아니라 누설이다.**
+ *
+ * 해설 배치 실측(2026-09-13): 지문의 다른 네 곳이 `non-serious` 인데 **정답 자리만
+ * `non - trivial`** 이었다 — 손댄 낱말이 조판 모양으로 표시돼, 영어를 한 자도 안 읽고
+ * 그 선지가 짚인다. V5 실측 424문항. 지우면 되는 것이라 **거르지 않고 고친다.**
+ */
+describe('하이픈 공백', () => {
+  it('낱말 사이 하이픈의 공백을 붙인다', () => {
+    expect(cleanPassageText('a non - trivial result')).toBe('a non-trivial result')
+    expect(cleanPassageText('Genesis -related discoveries')).toBe('Genesis-related discoveries')
+    expect(cleanPassageText('well- known author')).toBe('well-known author')
+  })
+
+  it('낱말이 아닌 자리는 건드리지 않는다', () => {
+    // 줄표는 낱말 사이 하이픈이 아니다.
+    expect(cleanPassageText('The plan — a bold one — failed.')).toBe('The plan — a bold one — failed.')
+    expect(cleanPassageText('already-joined words stay')).toBe('already-joined words stay')
   })
 })

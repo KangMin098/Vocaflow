@@ -416,3 +416,26 @@ describe('웹페이지 꼬리', () => {
     ).toBeNull()
   })
 })
+
+/**
+ * **반대 방향의 절단** — 문장 경계가 사라져 두 문장이 한 덩어리로 붙은 것.
+ *
+ * 해설 배치 실측(2026-09-13): `…this century.Most deforestation for oilseeds…`.
+ * 삽입 문항에서는 **자리 하나가 선지에서 사라진다** — 고를 수 없는 경계가 생긴다.
+ * V5 실측 91문항. 붙은 것을 떼려면 문장 배열을 다시 만들어야 하므로 거른다.
+ */
+describe('문장 경계 소실', () => {
+  it('마침표 뒤 공백이 없으면 잡는다', () => {
+    expect(
+      itemHygieneReject({
+        payload: { sentences: ['Forests shrank this century.Most of it was for oilseeds.'] },
+      }),
+    ).toBe('badSplit')
+  })
+
+  it('약어는 잡지 않는다 — 그건 다른 갈래다', () => {
+    expect(
+      itemHygieneReject({ payload: { sentences: ['The U.S. team published the map last spring.'] } }),
+    ).toBeNull()
+  })
+})

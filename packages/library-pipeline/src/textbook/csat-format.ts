@@ -392,6 +392,16 @@ export function stripSpaceBeforePunct(text: string): string {
     .replace(/\s+([,;:!?])/g, '$1')
     .replace(/\s+\.(?![.…])/g, '.')
     .replace(/([,;:])\s*\1+/g, '$1')
+    // 하이픈 양옆에 낀 공백 — `Genesis -related` · `non - trivial`.
+    //
+    // ⚠️ **이것도 정답을 흘린다** (해설 배치 실측 2026-09-13). 한 문항은 지문의 다른 네 곳이
+    //   `non-serious` 인데 **정답 자리만 `non - trivial`** 이었다 — 손댄 낱말이 조판 모양으로
+    //   표시돼, 영어를 한 자도 안 읽고 그 선지가 짚인다. 잡티가 아니라 누설이다.
+    //   V5 실측 424문항. 지우면 되는 것이라 **거르지 않고 고친다.**
+    //
+    // 앞뒤가 모두 낱말일 때만 붙인다 — 줄표(`—`)나 뺄셈은 건드리지 않는다.
+    .replace(/([A-Za-z])\s+-\s*([A-Za-z])/g, '$1-$2')
+    .replace(/([A-Za-z])-\s+([A-Za-z])/g, '$1-$2')
 }
 
 /**

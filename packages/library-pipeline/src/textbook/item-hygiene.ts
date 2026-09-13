@@ -171,6 +171,11 @@ export function hasBadSentenceSplit(payload: Record<string, unknown> | null | un
       if (/(?:[A-Za-z]\.){2,}$/.test(s)) return true
       // ④ 흔한 축약 — 뒤에 본문이 이어져야 할 자리에서 끊겼다.
       if (/(?:^|\s)(?:et al|vs|etc|Dr|Mr|Mrs|Ms|Prof|Fig|No|Inc|Ltd|St)\.$/i.test(s)) return true
+      // ⑤ **반대 방향의 절단** — 문장 경계가 통째로 사라져 두 문장이 한 덩어리로 붙었다.
+      //   `…this century.Most deforestation for oilseeds…` (해설 배치 실측 2026-09-13).
+      //   삽입 문항에서는 **자리 하나가 선지에서 사라진다** — 고를 수 없는 경계가 생긴다.
+      //   V5 실측 91문항. 붙은 것을 떼려면 문장 배열을 다시 만들어야 하므로 **거른다**.
+      if (/[a-z]\.[A-Z]/.test(s)) return true
     }
   }
   return false
