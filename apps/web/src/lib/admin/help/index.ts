@@ -25,6 +25,7 @@ import { QUALITY_HELP } from './quality'
 import { TBP_HELP } from './textbook'
 import { TCP_HELP } from './topic-corpus'
 import { VCB_HELP } from './vocab'
+import { VFP_HELP } from './video'
 import { VRL_HELP } from './vrl'
 
 export const HELP_REGISTRY: HelpRegistry = {
@@ -36,6 +37,7 @@ export const HELP_REGISTRY: HelpRegistry = {
   ...PDCP_HELP,
   ...VCB_HELP,
   ...VRL_HELP,
+  ...VFP_HELP,
   ...QUALITY_HELP,
   ...TBP_HELP,
   ...TCP_HELP,

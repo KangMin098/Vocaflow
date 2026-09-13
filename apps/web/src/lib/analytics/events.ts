@@ -164,6 +164,15 @@ export type PublicEvent =
         format: 'wide' | 'vertical' | 'square'
         /** 영상 길이(초). 짧은 것이 더 끝까지 보이는지 보려면 필요하다 */
         seconds: number
+        /**
+         * 영상 id — `manifest.json` 의 닫힌 목록. 목록 밖이면 `'other'`.
+         *
+         * 자유 문자열 금지 계약의 예외가 아니다 — `screen_viewed.screen` 과 같은 모양이다
+         * (우리가 지은 슬러그 · 레지스트리에 실재 · 사용자 입력이 한 글자도 안 섞인다).
+         * 이게 없으면 **어떤 영상이 먹히는지 영원히 모른다** — 종류별 합계만으로는
+         * 62편 중 무엇을 더 만들지 못 정한다.
+         */
+        videoId: string
       }
     }
   /**
@@ -175,6 +184,15 @@ export type PublicEvent =
         kind: 'intro' | 'benefit' | 'curriculum' | 'series' | 'type' | 'module'
         format: 'wide' | 'vertical' | 'square'
         seconds: number
+        /**
+         * 영상 id — `manifest.json` 의 닫힌 목록. 목록 밖이면 `'other'`.
+         *
+         * 자유 문자열 금지 계약의 예외가 아니다 — `screen_viewed.screen` 과 같은 모양이다
+         * (우리가 지은 슬러그 · 레지스트리에 실재 · 사용자 입력이 한 글자도 안 섞인다).
+         * 이게 없으면 **어떤 영상이 먹히는지 영원히 모른다** — 종류별 합계만으로는
+         * 62편 중 무엇을 더 만들지 못 정한다.
+         */
+        videoId: string
       }
     }
 

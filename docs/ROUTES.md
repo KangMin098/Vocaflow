@@ -155,6 +155,11 @@
 
 ## admin/* 관리자 콘솔
 
+> 2026-09-13 추가: **`/admin/video`** — 영상 공장(VFP) 콘솔. 탭 3(현황·구성요소·내보내기).
+> 실행 버튼이 없는 유일한 파이프라인 콘솔이다(렌더가 서버에서 돌 수 없어 명령을 건넨다).
+> 새 테이블 없음 — manifest · `storage.objects` · `funnel_events` 로 답한다.
+> 상세 [ADMIN_CONSOLE.md](./ADMIN_CONSOLE.md) · [VIDEO_FACTORY.md](./VIDEO_FACTORY.md)
+
 ### 메타 / 운영
 
 | 경로 | 파일 | 비고 |

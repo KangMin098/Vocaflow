@@ -7,6 +7,7 @@ import {
   AlertTriangle,
   ArrowLeft,
   BarChart3,
+  Clapperboard,
   BookImage,
   BookMarked,
   Brain,
@@ -237,6 +238,8 @@ function buildNavGroups(reportsBadge: number | null): NavGroup[] {
       items: [
         { href: '/admin/users', label: '사용자', Icon: Users },
         { href: '/admin/analytics', label: '플랫폼 분석', Icon: BarChart3 },
+        // VFP — 플랫폼 구성요소 → PR 영상. 콘텐츠 공급이 아니라 **대외 홍보**라 운영에 둔다.
+        { href: '/admin/video', label: '영상 공장', tag: 'VFP', Icon: Clapperboard },
         {
           href: '/admin/reports',
           label: '신고/문의',

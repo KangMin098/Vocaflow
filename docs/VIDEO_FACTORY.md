@@ -211,6 +211,7 @@ video render-all → video package → video publish → (manifest 커밋) → �
 
 | 자리 | 무엇 |
 |---|---|
+| **`/admin/video`** | **운영 콘솔(VFP)** — 밀린 것·유실·재생 실적. 탭 3. [ADMIN_CONSOLE.md](./ADMIN_CONSOLE.md) |
 | `/video` | 영상 서가 — 종류별 전체 목록 (공개) |
 | `/library/textbooks/[series]` | 그 시리즈 영상 한 편 (`ShelfScreen`, 420px 카드) |
 | 마케팅 헤더 · 랜딩 푸터 | `/video` 링크 |

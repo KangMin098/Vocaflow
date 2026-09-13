@@ -56,7 +56,12 @@ export function ComponentVideo({ video, maxWidth, className }: ComponentVideoPro
     startedRef.current = true
     track({
       name: 'video_started',
-      props: { kind: video.kind, format: video.format, seconds: Math.round(video.seconds) },
+      props: {
+        kind: video.kind,
+        format: video.format,
+        seconds: Math.round(video.seconds),
+        videoId: video.id,
+      },
     })
   }, [video])
 
@@ -64,7 +69,12 @@ export function ComponentVideo({ video, maxWidth, className }: ComponentVideoPro
     if (!video) return
     track({
       name: 'video_completed',
-      props: { kind: video.kind, format: video.format, seconds: Math.round(video.seconds) },
+      props: {
+        kind: video.kind,
+        format: video.format,
+        seconds: Math.round(video.seconds),
+        videoId: video.id,
+      },
     })
   }, [video])
 
