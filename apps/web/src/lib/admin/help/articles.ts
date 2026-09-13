@@ -15,6 +15,20 @@ export const ACP_HELP: HelpRegistry = {
       summary:
         '외부 14개 소스에서 짧은 글을 후보로 모아 분석·검수한 뒤 학습자에게 발행하는 콘솔. 책(LCP)과는 큐도 테이블도 분리돼 있다.',
       when: '커버리지에 GAP 이 생겼을 때 · 검토 대기나 실패 카운트가 0 이 아닐 때.',
+      diagrams: [
+        {
+          kind: 'flow',
+          caption: '빈 칸을 보고 가서 채워 오는 고리',
+          nodes: [
+            { label: '① 커버리지', actor: 'auto', says: '글 유형 5 × CEFR 6 중 어디가 0건인가' },
+            { label: '② 소스 GET', actor: 'user', says: '그 칸을 채울 소스를 골라 후보를 모은다' },
+            { label: '처리', actor: 'script', says: 'CEFR·어휘 추출 — 여기서 유형이 정해진다' },
+            { label: '③ 검수', actor: 'user', says: '게이트와 본문을 함께 보고 게시를 정한다' },
+            { label: '④ 발행', actor: 'user', says: '학습자에게 나간다. 회수는 여기서 한다' },
+          ],
+          loop: '발행된 것만 ① 의 빈 칸을 메운다 — 큐에 쌓아 둔 것은 안 세어진다.',
+        },
+      ],
       steps: [
         {
           title: '후보 모으기',
@@ -66,6 +80,18 @@ export const ACP_HELP: HelpRegistry = {
       '1커버리지': {
         summary:
           '발행된 글이 글 유형 5종 × CEFR 6단계 중 어디를 비우고 있는지 보고, 그 칸을 채우러 갈 소스를 정하는 자리.',
+        diagrams: [
+          {
+            kind: 'keys',
+            caption: '칸 하나가 무엇을 말하는가',
+            nodes: [
+              { label: 'GAP(빗금)', says: '그 조합의 발행 글이 0건 — 대기·처리 중은 안 센다' },
+              { label: '미분류 N', says: '유형이나 CEFR 이 비어 매트릭스에 못 들어간 글' },
+              { label: 'score 막대', says: '학습 친화도 0~1. 0.70 이상 초록 · 0.40 미만 빨강' },
+              { label: '셀 클릭', says: '소스 GET 으로 넘어가기만 한다 — 값은 안 채워진다' },
+            ],
+          },
+        ],
         fields: [
           {
             label: 'GAP(빗금)',
@@ -95,6 +121,18 @@ export const ACP_HELP: HelpRegistry = {
       },
       '2소스 GET': {
         summary: '외부 소스에서 후보를 모아 처리 큐에 넣는다 — 글이 파이프라인에 들어오는 유일한 입구.',
+        diagrams: [
+          {
+            kind: 'flow',
+            caption: '글이 파이프라인에 들어오는 유일한 입구',
+            nodes: [
+              { label: '타깃 고르기', actor: 'user', says: '소스 순서와 적합도 배지가 다시 칠해진다' },
+              { label: '모드 고르기', actor: 'user', says: '둘은 같은 큐로 모인다 — 되돌릴 필요 없다' },
+              { label: '후보 채우기', actor: 'script', says: '외부 서버에 실제 요청이 나간다' },
+              { label: '큐에 추가', actor: 'user', says: '검수 탭에 「큐 처리」 버튼이 나타난다' },
+            ],
+          },
+        ],
         steps: [
           {
             title: '학습자 타깃 고르기',
@@ -198,6 +236,18 @@ export const ACP_HELP: HelpRegistry = {
       },
       '3검수': {
         summary: '분석이 끝난 글을 게이트와 함께 훑고 게시 여부를 정하는 단계.',
+        diagrams: [
+          {
+            kind: 'keys',
+            caption: '여기서 누르는 것이 각각 무엇을 되돌리는가',
+            nodes: [
+              { label: '게이트 n/m', says: '빨강이어도 「게시」는 눌린다 — 막는 것은 DB 다' },
+              { label: '지금 처리·재분석', says: '같은 동작. 기존 CEFR·어휘 결과를 덮어쓴다' },
+              { label: '게시', says: '학습자에게 나간다 — ④ 발행에서 회수할 수 있다' },
+              { label: '보관', says: '목록 기본 필터에서 빠질 뿐 본문·어휘는 남는다' },
+            ],
+          },
+        ],
         fields: [
           {
             label: '게이트 n/m',
@@ -228,6 +278,17 @@ export const ACP_HELP: HelpRegistry = {
       },
       '4발행': {
         summary: '이미 게시된 글 목록 — 잘못 나간 글을 회수하고 발행 결과를 확인하는 자리.',
+        diagrams: [
+          {
+            kind: 'keys',
+            caption: '나간 글을 보는 자리 — 여기 수는 다른 탭과 분모가 다르다',
+            nodes: [
+              { label: '발행 열', says: '「—」 면 한 번도 게시된 적이 없는 글이다' },
+              { label: '검토대기', says: '아직 안 나간 것. ① 커버리지는 이것을 안 센다' },
+              { label: '상태 칩', says: '같은 목록에 필터만 갈아 끼운다' },
+            ],
+          },
+        ],
         fields: [
           {
             label: '검토대기',
