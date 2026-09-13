@@ -334,11 +334,31 @@ describe.skipIf(skip)('생산 라인 네 화면 (실 DB)', () => {
     }
   })
 
-  it('검수 L2 통과율이 100%를 넘지 않는다 — 넘으면 행을 센 것이다', async () => {
+  /**
+   * L2 통과율이 100%를 넘으면 **행을 센 것**이다(같은 눈이 세 번 본 것을 3인으로 세면 그렇게 된다).
+   *
+   * ⚠️ 2026-09-13: 원래 여기에 `expect(l2.passed).not.toBeNull()` 이 있었다. 그때 L2 는
+   *   `csat_coverage()` 를 읽었고 그 표에는 늘 행이 있어서 **언제나 숫자가 나왔다** — 그런데
+   *   그 표는 **기출 분석**이지 교재가 아니다. 학습자가 받는 교재 문항의 3인 검수가 0건인
+   *   동안에도 이 눈금은 숫자를 냈고, 그래서 구멍이 초록으로 가려졌다.
+   *
+   *   이제 L2 는 조판 기록에 남은 실측을 읽는다. 아직 그 눈금이 붙기 전에 찍힌 권만 있으면
+   *   **null 이 정직한 답**이다 — 0 도 아니고 기출 수도 아니다. 「못 잼」을 금지하면
+   *   화면은 다시 아무 수나 끌어다 대게 된다.
+   */
+  it('검수 L2 는 **교재** 문항을 세고, 통과율이 100%를 넘지 않는다', async () => {
     const { loadReviewView } = await import('../factory-line-views')
     const l2 = (await loadReviewView()).layers[1]!
-    expect(l2.passed).not.toBeNull()
-    expect(l2.passed!).toBeLessThanOrEqual(l2.total!)
+    if (l2.passed == null) {
+      // 못 쟀으면 왜 못 쟀는지가 있어야 한다 — 빈칸은 「0건」으로 읽힌다.
+      expect(l2.total).toBeNull()
+      expect(l2.unmeasuredReason).toBeTruthy()
+    } else {
+      expect(l2.total).not.toBeNull()
+      expect(l2.passed).toBeLessThanOrEqual(l2.total!)
+    }
+    // 어느 쪽이든 **기출 쪽 명령을 가리키면 안 된다** — 이 층이 교재를 본다는 증거다.
+    expect(l2.cmd).toContain('item-review-drain')
   })
 
   it('조판 화면은 옛 행의 없는 항목을 0 이 아니라 null 로 둔다', async () => {

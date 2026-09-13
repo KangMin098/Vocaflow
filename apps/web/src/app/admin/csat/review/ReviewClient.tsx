@@ -78,6 +78,7 @@ export function ReviewClient({ layers, volumes, loadError }: ReviewView) {
                 <th className="py-2 pr-3 font-[500]">자동 검사</th>
                 <th className="py-2 pr-3 font-[500]">정답 쏠림 (χ² · V)</th>
                 <th className="py-2 pr-3 font-[500]">교정</th>
+                <th className="py-2 pr-3 font-[500]">3인 검수</th>
                 <th className="py-2 font-[500]">지문 규격</th>
               </tr>
             </thead>
@@ -118,12 +119,37 @@ export function ReviewClient({ layers, volumes, loadError }: ReviewView) {
                       </span>
                     )}
                   </td>
+                  {/* 3인 검수 — **조판기가 잰 값을 그대로 읽는다.** 여기서 다시 세면 분모가
+                      달라진다(어느 문항이 그 권에 실렸는지는 조판기만 안다).
+                      「덜 봤다」와 「봤는데 막혔다」를 가른다 — 할 일이 정반대다. */}
+                  <td className="py-2 pr-3 font-mono tabular-nums">
+                    {v.personaReview == null ? (
+                      <span className="text-[#8A8278]">기록 없음</span>
+                    ) : (
+                      <>
+                        <span
+                          style={{
+                            color:
+                              v.personaReview.passed >= v.personaReview.items ? '#2E7D5A' : '#B5803A',
+                          }}
+                        >
+                          {v.personaReview.passed}/{v.personaReview.items}
+                        </span>
+                        {v.personaReview.settled != null &&
+                        v.personaReview.settled > v.personaReview.passed ? (
+                          <span className="ml-1 break-keep text-[10.5px] text-[#9C3A30]">
+                            {v.personaReview.settled - v.personaReview.passed}건 막힘
+                          </span>
+                        ) : null}
+                      </>
+                    )}
+                  </td>
                   <td className="break-keep py-2 text-[var(--t3)]">{v.passageSpec ?? '기록 없음'}</td>
                 </tr>
               ))}
               {!volumes.length ? (
                 <tr>
-                  <td colSpan={6} className="py-4 text-center text-[var(--t3)]">
+                  <td colSpan={7} className="py-4 text-center text-[var(--t3)]">
                     조판된 권이 없다 — 검수할 원고가 아직 없다는 뜻이다
                   </td>
                 </tr>

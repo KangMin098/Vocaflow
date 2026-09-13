@@ -300,6 +300,8 @@ export const REVIEW_REAL: ReviewView = {
       failedChecks: ['지문 규격'],
       answerBias: { chi2: 3.2, cramersV: 0.04, biased: false },
       proofread: { passages: 20, defective: 0 },
+      // 쟀고, 셋이 봤지만 통과가 아닌 문항이 있다 — 「덜 봤다」와 구별돼야 한다.
+      personaReview: { quorum: 3, items: 60, passed: 41, settled: 47 },
       passageSpec: '90~200어',
     },
     {
@@ -311,6 +313,8 @@ export const REVIEW_REAL: ReviewView = {
       failedChecks: [],
       answerBias: null,
       proofread: null,
+      // 옛 조판 기록 — 이 눈금이 붙기 전에 찍힌 권이다. 0 이 아니라 못 잼이다.
+      personaReview: null,
       passageSpec: null,
     },
   ],

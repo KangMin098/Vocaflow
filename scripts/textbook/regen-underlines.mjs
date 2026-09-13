@@ -60,7 +60,9 @@ const COMMIT = process.argv.includes('--commit')
 const ARTICLE_PAGE = 150
 
 const { createClient } = await import('@supabase/supabase-js')
-const { buildVocabChoice, buildGrammarChoice } = await import('@vocaflow/library-pipeline')
+const { buildVocabChoice, buildGrammarChoice, isPrintableUnderlineWord } = await import(
+  '@vocaflow/library-pipeline'
+)
 
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, {
   auth: { persistSession: false },
@@ -78,13 +80,24 @@ const sents = (p) =>
     .map((s) => s.trim())
     .filter(Boolean)
 
-/** 새 규칙이 거절하는 밑줄인가 — 대상 고르기와 검증에 **같은 자**를 쓴다. */
-const isBadWord = (w) => /[,;:]$/.test(String(w)) || /[[\]()]/.test(String(w))
+/**
+ * 새 규칙이 거절하는 밑줄인가 — 대상 고르기와 검증에 **같은 자**를 쓴다.
+ *
+ * ⚠️ 자를 여기에 **베껴 적지 않는다**(2026-09-13 2차에 그렇게 했다가 어긋났다). 생성기가
+ *   쓰는 것과 같은 함수를 불러 쓴다 — 한쪽만 넓히면 「고쳤는데 대상에 안 잡히는 문항」이
+ *   생기고, 그건 전수로 세어 보기 전까지 안 보인다.
+ */
+const isBadWord = (w) => !isPrintableUnderlineWord(String(w))
 const hasBadUnderline = (payload) =>
   (payload?.underlines ?? []).some((u) => isBadWord(u?.word ?? ''))
 
 // ── ① 고칠 문항을 고른다 ────────────────────────────────────────────
-// 밴드 전량을 훑지 않는다 — 밑줄이 걸린 유형만, 그리고 payload 를 받아 자로 잰다.
+//
+// ⚠️ **`payload` 를 통째로 받으면 죽는다.** 첫 판이 그랬다(실측 2026-09-13:
+//   `canceling statement due to statement timeout`). V5 의 이 두 유형만 14,942문항이고,
+//   `payload.sentences` 가 덩치의 대부분이다 — 그런데 **판정에 필요한 것은 `underlines` 뿐**이다.
+//   jsonb 경로만 골라 받으면 전송량이 한 자릿수로 줄고, `answer_key` 는 고칠 것이 정해진
+//   뒤에 그것만 받는다.
 console.log(`V${BAND} — 고칠 문항을 고른다`)
 const targets = []
 {
@@ -92,19 +105,23 @@ const targets = []
   for (;;) {
     let q = db
       .from('csat_dcp_items')
-      .select('id, type, ref_id, paragraph_idx, payload, answer_key')
+      .select('id, type, ref_id, paragraph_idx, underlines:payload->underlines')
       .eq('kind', 'article')
       .eq('v_level', BAND)
       .in('type', ['vocab_choice', 'grammar_choice'])
       .order('id')
-      .limit(500)
+      .limit(200)
     if (cursor) q = q.gt('id', cursor)
     const { data, error } = await q
     if (error) throw new Error('문항 조회 실패: ' + error.message)
     if (!data?.length) break
-    for (const r of data) if (hasBadUnderline(r.payload)) targets.push(r)
+    for (const r of data) {
+      if ((r.underlines ?? []).some((u) => isBadWord(u?.word ?? ''))) {
+        targets.push({ id: r.id, type: r.type, ref_id: r.ref_id, paragraph_idx: r.paragraph_idx })
+      }
+    }
     cursor = data[data.length - 1].id
-    if (data.length < 500) break
+    if (data.length < 200) break
     if (LIMIT && targets.length >= LIMIT) break
   }
 }

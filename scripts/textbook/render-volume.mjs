@@ -72,6 +72,8 @@ const {
   // 발행 게이트 — **판정을 집행한다.** 이 셋이 붙기 전에는 검수를 돌려 찍기만 하고
   // 결함 있는 권을 그대로 냈다(`publish-gate.ts` 머리 주석).
   judgePublish,
+  countTriPersonaPassed,
+  REVIEW_PERSONA_QUORUM,
   formatGate,
   gateRecord,
   // 어느 권을 찍는가 — **카탈로그가 정의한 것만 찍는다**(`volume-target.ts` 머리 주석).
@@ -591,23 +593,28 @@ const byRule = answerRows.filter((a) => a.explanation?.from === 'rule').length
 // 그때는 **0 이 아니라 `null`** 이다 — 「검수 0건」과 「아직 아무도 안 쟀다」는 다른 말이고,
 // 0 으로 적으면 게이트가 전 권을 차단해 「고장」처럼 보인다.
 let reviewedItems = null
+/** 3인이 **보기는 한** 문항 수 — 「덜 봤나, 봤는데 막혔나」를 가른다. */
+let reviewSettled = null
 {
   const ids = printedItems.map((it) => it.id).filter(Boolean)
   if (ids.length) {
+    // ⚠️ **`verdict` 로 거르지 않고 받는다.** pass 만 받으면 「셋이 봤는데 통과가 아닌 문항」과
+    //   「아직 셋이 안 본 문항」이 똑같이 0 으로 보인다 — 둘은 할 일이 정반대다(전자는 고치고,
+    //   후자는 검수를 돌린다). 가르는 일은 `countTriPersonaPassed` 가 한다.
     const { data, error } = await db
       .from('csat_item_reviews')
-      .select('item_id, persona')
-      .eq('verdict', 'pass')
+      .select('item_id, persona, verdict')
       .in('item_id', ids)
     if (!error) {
       // **서로 다른 페르소나**를 센다 — 같은 눈이 세 번 본 것은 다각이 아니다
       // (기출 드레인의 적재 규약과 같다).
-      const byItem = new Map()
-      for (const r of data ?? []) {
-        if (!byItem.has(r.item_id)) byItem.set(r.item_id, new Set())
-        byItem.get(r.item_id).add(r.persona)
-      }
-      reviewedItems = [...byItem.values()].filter((s) => s.size >= 3).length
+      //
+      // ⚠️ 세는 법을 여기 적지 않는다. 같은 규칙이 여러 곳에 박혀 있었고 **화면은 그중
+      //   어느 것도 안 쓰고 기출 표를 세고 있었다**(실측 2026-09-13). 정본은
+      //   `countTriPersonaPassed` 하나다 — 웹앱도 같은 함수를 부른다.
+      const counted = countTriPersonaPassed(data ?? [])
+      reviewedItems = counted.passed
+      reviewSettled = counted.settled
     }
   }
 }
@@ -830,6 +837,21 @@ const record = {
           }
         : null,
       proofread: { passages: proof.passages, defective: proof.defective, byRule: proof.byRule },
+      // ⚠️ **게이트가 잰 그 수를 그대로 남긴다 — 화면이 다시 세지 않게.**
+      //   이 자리가 없던 동안 ⑦ 검수 화면의 「L2 3인 페르소나」 눈금은 `csat_coverage()` 를
+      //   읽었는데 그건 **기출 분석**을 센다. 그래서 교재 문항 3인 검수가 0건인 채로
+      //   화면은 초록이었다(실측 2026-09-13 · `publish-gate.ts` 머리 주석의 그 사고).
+      //   권마다 인쇄된 문항이 무엇인지는 조판기만 알므로, **재는 곳도 여기 하나여야 한다.**
+      //   못 쟀으면 `null` — 0 이 아니다.
+      personaReview:
+        reviewedItems == null
+          ? null
+          : {
+              quorum: REVIEW_PERSONA_QUORUM,
+              items: printedItems.length,
+              passed: reviewedItems,
+              settled: reviewSettled,
+            },
       // ⚠️ **우회로 나온 권을 통과와 같은 모양으로 적으면 나중에 구별이 안 된다.**
       //   `forced: true` 인 권은 「검수를 받은 권」이 아니다 — 화면이 그것을 말할 수 있어야 한다.
       gate: gateRecord(gate, ALLOW_DEFECTS),

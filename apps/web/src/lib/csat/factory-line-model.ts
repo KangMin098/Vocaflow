@@ -156,6 +156,19 @@ export interface ReviewVolumeRow {
   answerBias: { chi2: number; cramersV: number; biased: boolean } | null
   proofread: { passages: number; defective: number } | null
   passageSpec: string | null
+  /**
+   * 그 권에 실린 문항의 **3인 페르소나 검수** — 조판기가 잰 값 그대로.
+   *
+   * ⚠️ **화면이 다시 세지 않는다.** 어느 문항이 그 권에 실렸는지는 조판기만 안다.
+   *   여기서 다시 세려 하면 분모가 달라져 「책은 하나인데 자가 둘」이 된다 —
+   *   이 저장소가 유형 배합에서 이미 겪은 사고다.
+   *
+   * `settled` 는 셋이 **보기는 한** 문항 수다. `passed` 와 갈라 두는 이유는 할 일이
+   * 정반대이기 때문이다 — 덜 봤으면 검수를 돌리고, 봤는데 막혔으면 문항을 고친다.
+   *
+   * 옛 조판 기록에는 없다 → **null**(못 잼). 0 과 다르다.
+   */
+  personaReview: { quorum: number; items: number; passed: number; settled: number | null } | null
 }
 
 export interface ReviewView {

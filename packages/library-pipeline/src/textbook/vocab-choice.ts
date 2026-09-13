@@ -109,16 +109,27 @@ function normalize(token: string): string {
  * DB 실측(V5 `vocab_choice` 10,612문항 · 밑줄 53,060): 쉼표로 끝남 **5,389** ·
  * 마침표로 끝남 260 · 마크업 61 → **4,436문항(42%)** 이 그런 밑줄을 하나 이상 갖는다.
  *
- * ⚠️ **문장 끝 낱말을 막지 않는다.** 마침표가 붙었다는 것만으로 거절하면 문장 마지막 낱말이
- *   전부 후보에서 빠진다 — 그건 정상적인 자리다. 막는 것은 **쉼표·세미콜론·콜론**(문장부사와
- *   절 경계가 거기 있다)과 **괄호·대괄호**(마크업), 그리고 **문장 중간의 대문자**(고유명사)다.
+ * ── 예외 목록을 늘리지 않고 **자를 하나로 바꿨다** (실측 2026-09-13 · 2차) ────────────
+ * 처음엔 막을 것을 하나씩 적었다(쉼표·세미콜론·콜론·괄호). 그 규칙으로 300문항을 다시 만든
+ * 뒤 V5 를 전수로 세어 보니 **남은 자국이 목록 밖에 또 있었다**:
+ *
+ *     쉼표류 5,501 · 따옴표 260 · 마침표 264 · 숫자 123 · 괄호 93 · 물음표·느낌표 84 · 줄표 42
+ *     (V5 `vocab_choice` 밑줄 53,060 중 6,616 = 12.5% · 문항으로는 4,920/10,612)
+ *
+ * `Happen?` · `Earthquakes—Rattling` · `Campbell’s` 같은 것이다. 목록을 늘려도 다음 자국이
+ * 또 나온다 — **저장되는 것이 원본 토큰 그대로**(`word: p.token`)이고 조판기 둘 다 그것을
+ * **글자 그대로 밑줄치기** 때문이다(`render-volume.mjs` 의 `<u>${w}</u>` ·
+ * `VolumeContents.tsx` 의 `<u>{m.word}</u>`). 그래서 막을 것을 세는 대신 **인쇄해도 되는
+ * 것**을 정한다: 글자와 아포스트로피뿐.
+ *
+ * ⚠️ **앞 판의 판단을 뒤집는다.** 앞 판은 「문장 끝 낱말을 막지 않는다 — 그건 정상적인
+ *   자리다」라고 적었다. 자리로서는 맞지만 **인쇄물이 틀린다** — `worry.` 가 마침표까지
+ *   밑줄에 들어간다. 자리를 살리려면 저장할 때 부호를 떼야 하는데, 그러면 조판기의
+ *   부분 문자열 찾기(`indexOf`)가 다른 자리를 짚을 여지가 생긴다. 잃는 것은 문장마다
+ *   마지막 낱말 하나(후보의 약 5%)이고, 얻는 것은 **인쇄본에 이견이 없는 것**이다.
  */
-function hasClauseMarker(token: string): boolean {
-  // 낱말 뒤에 절을 끊는 부호가 붙었다 — 문장부사이거나 절 경계다.
-  if (/[,;:]$/.test(token)) return true
-  // 원본 책·논문의 마크업 조각.
-  if (/[[\]()]/.test(token)) return true
-  return false
+export function isPrintableUnderlineWord(word: string): boolean {
+  return /^[A-Za-z][A-Za-z']*$/.test(word)
 }
 
 /**
@@ -131,7 +142,7 @@ function hasClauseMarker(token: string): boolean {
  * 반대말 보유를 동시에 만족시켜야 해서 검사가 취약해진다 — 규칙이 아니라 픽스처를 재게 된다.
  */
 export function isCandidateToken(token: string, isSentenceStart = false): boolean {
-  if (hasClauseMarker(token)) return false
+  if (!isPrintableUnderlineWord(token)) return false
   // 문장 중간의 대문자는 고유명사다 — 반대말로 바꿀 수 없다(William → ?).
   if (!isSentenceStart && /^[A-Z]/.test(token)) return false
   const w = normalize(token)

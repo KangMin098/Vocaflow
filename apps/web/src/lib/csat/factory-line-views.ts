@@ -171,18 +171,20 @@ type Colophon = {
     passageSpec?: string | null
     answerBias?: { chi2: number; cramersV: number; biased: boolean } | null
     proofread?: { passages: number; defective: number } | null
+    /** 조판기가 잰 3인 페르소나 검수(`render-volume.mjs`). 옛 행에는 없다. */
+    personaReview?: { quorum: number; items: number; passed: number; settled: number | null } | null
   }
 }
 
 export async function loadReviewView(): Promise<ReviewView> {
   const db = createAdminClient() as unknown as SupabaseClient
-  const [renders, coverage] = await Promise.all([
-    db
-      .from('textbook_volume_renders')
-      .select('band, volume_title, items, auto_passed, auto_total, failed_checks, colophon')
-      .order('band'),
-    db.rpc('csat_coverage'),
-  ])
+  // ⚠️ 기출 커버리지 RPC(csat_coverage)를 더 이상 부르지 않는다 — 이 화면은 **교재** 검수를
+  //   말하는 자리이고, 그 RPC 는 기출 분석을 센다. 부르는 것만으로 「그 수가 여기 쓰인다」는
+  //   오해가 생긴다(실측 2026-09-13: 실제로 L2 가 그것을 세고 있었다).
+  const renders = await db
+    .from('textbook_volume_renders')
+    .select('band, volume_title, items, auto_passed, auto_total, failed_checks, colophon')
+    .order('band')
 
   const rows = (renders.data ?? []) as {
     band: number
@@ -206,9 +208,9 @@ export async function loadReviewView(): Promise<ReviewView> {
     answerBias: r.colophon?.review?.answerBias ?? null,
     proofread: r.colophon?.review?.proofread ?? null,
     passageSpec: r.colophon?.review?.passageSpec ?? null,
+    personaReview: r.colophon?.review?.personaReview ?? null,
   }))
 
-  const cov = (coverage.data ?? []) as { in_scope_items: number; published: number }[]
   const rendersFailed = renders.error != null
 
   const layers: ReviewLayer[] = [
@@ -221,15 +223,34 @@ export async function loadReviewView(): Promise<ReviewView> {
       unmeasuredReason: rendersFailed ? `조판 기록 조회 실패: ${renders.error?.message}` : null,
       cmd: 'node scripts/csat/analysis-drain-validate.mjs',
     },
-    {
-      id: 'L2',
-      name: '3인 페르소나',
-      looksAt: '출제자 · 오답분석가 · 현장강사가 각자 읽고 전원 pass 를 줬는가 (DB 트리거가 강제)',
-      passed: coverage.error ? null : cov.reduce((n, r) => n + r.published, 0),
-      total: coverage.error ? null : cov.reduce((n, r) => n + r.in_scope_items, 0),
-      unmeasuredReason: coverage.error ? `커버리지 RPC 실패: ${coverage.error.message}` : null,
-      cmd: 'node scripts/csat/analysis-drain-import.mjs --commit',
-    },
+    // ── L2 는 **교재 문항**을 센다 ─────────────────────────────────────
+    //
+    // ⚠️ 이 층은 오래 **다른 표**를 세고 있었다(실측 2026-09-13). `csat_coverage()` 는
+    //   `csat_item_analyses` — 학습자에게 가지 않는 **기출 분석**이다. 그 쪽은 3인 검수를
+    //   6,702행 받았고, 학습자가 실제로 받는 교재 문항은 **0건**이었다. 그런데 이 눈금은
+    //   기출 수를 읽어 초록이었다 — 그래서 교재 쪽 구멍을 아무도 못 봤다
+    //   (`publish-gate.ts` 머리 주석이 기록한 그 사고다).
+    //
+    // 세는 곳은 조판기 하나다. 화면은 **그 권이 조판될 때 잰 값**을 읽을 뿐 다시 세지
+    // 않는다 — 어느 문항이 그 권에 실렸는지는 조판기만 알기 때문이다.
+    (() => {
+      const measured = volumes.filter((v) => v.personaReview != null)
+      const anyRender = volumes.length > 0
+      return {
+        id: 'L2' as const,
+        name: '3인 페르소나',
+        looksAt:
+          '출제자 · 오답분석가 · 현장강사가 각자 읽고 전원 pass 를 줬는가 — **교재 문항** 기준(기출 분석이 아니다)',
+        passed: measured.length ? measured.reduce((n, v) => n + (v.personaReview?.passed ?? 0), 0) : null,
+        total: measured.length ? measured.reduce((n, v) => n + (v.personaReview?.items ?? 0), 0) : null,
+        unmeasuredReason: measured.length
+          ? null
+          : anyRender
+            ? '조판 기록에 검수 실측이 없다 — 이 눈금이 붙기 전에 찍힌 권이다. 다시 조판하면 채워진다'
+            : '조판된 권이 없다',
+        cmd: 'npx tsx --tsconfig apps/web/tsconfig.json scripts/textbook/item-review-drain-export.mjs --band 5',
+      }
+    })(),
     {
       id: 'L3',
       name: '교차 대조',

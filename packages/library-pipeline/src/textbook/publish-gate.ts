@@ -93,6 +93,55 @@ export interface PublishGateVerdict {
   pass: boolean
 }
 
+/** 한 문항을 통과시키는 데 필요한 **서로 다른** 눈의 수. */
+export const REVIEW_PERSONA_QUORUM = 3
+
+/** `csat_item_reviews` 한 행 — 세는 데 필요한 것만. */
+export interface ItemReviewRow {
+  item_id: string
+  persona: string
+  verdict?: string | null
+}
+
+/**
+ * **「서로 다른 3인이 통과시킨 문항」을 세는 자 — 정본은 여기 하나다.**
+ *
+ * ── 왜 순수 함수로 올렸나 (실측 2026-09-13) ──────────────────────────
+ * 같은 규칙이 세 곳에 각각 박혀 있었고, **화면은 그중 어느 것도 안 썼다.** ⑦ 검수 화면의
+ * 「L2 3인 페르소나」 눈금은 `csat_coverage()` 를 읽는데 그건 **기출 분석**(`csat_item_analyses`)을
+ * 센다 — 학습자가 손에 쥐는 교재 문항이 아니다. 그래서 위 `reviewedItems` 주석이 적어 둔
+ * 사고(기출 6,702행 vs 교재 0건)를 **화면이 초록으로 덮고 있었다.**
+ *
+ * 조판 게이트는 `.mjs` 스크립트 안에서 셌기 때문에 웹앱이 같은 규칙을 부를 방법이 아예
+ * 없었다. 이 모듈은 DB 를 안 읽는 순수 모듈이라 양쪽이 함께 쓸 수 있다.
+ *
+ * ⚠️ **같은 눈이 세 번 본 것은 다각이 아니다.** 그래서 행이 아니라 **페르소나 집합**을 센다
+ *   (DB 도 `unique(item_id, persona)` 로 같은 것을 강제한다 — 마이그레이션 20260912210000).
+ *
+ * @param rows 문항 id 로 좁혀 받은 검수 행. **전수를 받지 않는다** — 이 저장소는
+ *             필터 없는 전수 조회가 조용히 잘리는 것을 여러 번 겪었다.
+ */
+export function countTriPersonaPassed(rows: readonly ItemReviewRow[]): {
+  /** 서로 다른 3인이 `pass` 를 준 문항 수. */
+  passed: number
+  /** 3인이 **보기는 한** 문항 수(판정과 무관) — 「덜 봤나, 봤는데 막혔나」를 가른다. */
+  settled: number
+} {
+  const passers = new Map<string, Set<string>>()
+  const seen = new Map<string, Set<string>>()
+  for (const r of rows) {
+    if (!r?.item_id || !r?.persona) continue
+    if (!seen.has(r.item_id)) seen.set(r.item_id, new Set())
+    seen.get(r.item_id)!.add(r.persona)
+    if (r.verdict !== 'pass') continue
+    if (!passers.has(r.item_id)) passers.set(r.item_id, new Set())
+    passers.get(r.item_id)!.add(r.persona)
+  }
+  const atQuorum = (m: Map<string, Set<string>>) =>
+    [...m.values()].filter((s) => s.size >= REVIEW_PERSONA_QUORUM).length
+  return { passed: atQuorum(passers), settled: atQuorum(seen) }
+}
+
 /**
  * 한 권을 발행해도 되는지 판정한다.
  *

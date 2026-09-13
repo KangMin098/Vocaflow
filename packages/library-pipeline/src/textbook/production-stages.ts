@@ -276,8 +276,12 @@ export const PRODUCTION_STAGES: readonly ProductionStage[] = [
         importScript: 'scripts/textbook/item-review-drain-import.mjs',
       },
       storage: 'csat_item_reviews — 페르소나마다 한 행. 마이그레이션 20260912210000',
+      // ⚠️ **여기에 진척 수를 적지 않는다.** 적어 뒀더니 같은 사실이 세 곳에서 서로 다른 수가
+      //   됐다(실측 2026-09-13: 이 표 4 · 화면 도움말 3 · 청크 파일 1 — 어느 것도 서로를 안 봤다).
+      //   2026-09-13 부터 조판기가 잰 값이 조판 기록(`colophon.review.personaReview`)에 남고
+      //   ⑦ 검수 화면이 그것을 권마다 보여 준다. 세는 자는 `countTriPersonaPassed` 하나다.
       progress:
-        'V5(reading) 지면 120문항 기준 — 3인 통과 4 · 3인이 봤는데 미통과 5(고칠 몫) · 남은 읽을 몫 111 (실측 2026-09-13)',
+        '진척은 ⑦ 검수 화면의 「조판된 권별 검수 기록」에서 본다 — 권마다 통과/지면 문항과 「봤는데 막힌 수」가 조판 시점 실측으로 찍힌다',
     },
   },
   {

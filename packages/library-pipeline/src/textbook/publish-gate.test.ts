@@ -16,7 +16,14 @@ import { fileURLToPath } from 'node:url'
 
 import { describe, expect, it } from 'vitest'
 
-import { formatGate, gateRecord, judgePublish, type PublishGateInput } from './publish-gate'
+import {
+  countTriPersonaPassed,
+  formatGate,
+  gateRecord,
+  judgePublish,
+  REVIEW_PERSONA_QUORUM,
+  type PublishGateInput,
+} from './publish-gate'
 
 const HERE = dirname(fileURLToPath(import.meta.url))
 const RENDERER = join(HERE, '..', '..', '..', '..', 'scripts', 'textbook', 'render-volume.mjs')
@@ -196,13 +203,32 @@ describe('조판기가 페르소나를 「서로 다른 3인」으로 센다', (
 
   it('검수 기록을 읽는다', () => {
     expect(src).toContain('csat_item_reviews')
-    expect(src).toContain("eq('verdict', 'pass')")
   })
 
-  it('같은 페르소나를 여러 번 세지 않는다 — Set 으로 모은다', () => {
-    // 배열 길이로 세면 한 사람이 세 번 본 것이 「3인 검수」가 된다.
-    expect(src).toMatch(/new Set\(\)/)
-    expect(src).toMatch(/\.size >= 3/)
+  /**
+   * 2026-09-13: 원래는 `.eq('verdict', 'pass')` 로 걸러 받았고, 이 회귀가 그것을 잠갔다.
+   * 그러면 **「셋이 봤는데 통과가 아닌 문항」과 「아직 셋이 안 본 문항」이 똑같이 0** 으로
+   * 보인다 — 할 일이 정반대인데(전자는 고치고 후자는 검수를 돌린다) 화면에 같게 나온다.
+   * 이제 판정을 함께 받아 `countTriPersonaPassed` 가 `passed`/`settled` 로 가른다.
+   */
+  it('판정으로 거르지 않고 받아 온다 — 「덜 봤나 막혔나」를 가르려면 둘 다 필요하다', () => {
+    expect(src).toContain("select('item_id, persona, verdict')")
+    expect(src, 'pass 만 받으면 막힌 문항이 안 본 문항처럼 보인다').not.toContain(
+      "eq('verdict', 'pass')",
+    )
+    // 잰 것을 기록에 남겨야 화면이 다시 세지 않는다.
+    expect(src).toContain('personaReview')
+  })
+
+  /**
+   * 2026-09-13: 이 단언은 원래 **조판기 안의 사본**(`new Set()` + `.size >= 3`)을 잠갔다.
+   * 그 사본이 있는 한 웹앱은 같은 규칙을 부를 방법이 없어서, 화면은 기출 표를 세고 있었다.
+   * 규칙이 순수 함수로 올라갔으므로 **잠글 것도 그쪽으로 옮긴다** — 사본을 잠그면
+   * 사본이 남는다.
+   */
+  it('세는 법을 자기 안에 두지 않고 정본 함수를 부른다', () => {
+    expect(src).toContain('countTriPersonaPassed')
+    expect(src, '조판기에 옛 사본이 되살아났다').not.toMatch(/\.size >= 3/)
   })
 
   it('표가 없으면 0 이 아니라 null 을 넘긴다', () => {
@@ -210,4 +236,66 @@ describe('조판기가 페르소나를 「서로 다른 3인」으로 센다', (
     // error 가 있으면 대입하지 않는다 — `if (!error)` 안에서만 센다.
     expect(src).toContain('if (!error)')
   })
+})
+
+/**
+ * **「서로 다른 3인이 통과시켰다」를 세는 자는 한 벌뿐이다.**
+ *
+ * 이 규칙은 세 곳에 각각 박혀 있었고, **화면은 그중 어느 것도 안 썼다** — ⑦ 검수 화면의
+ * 「L2 3인 페르소나」 눈금은 `csat_coverage()`(기출 분석)를 세고 있어서, 교재 문항 쪽
+ * 구멍을 초록으로 덮고 있었다(실측 2026-09-13).
+ */
+describe('countTriPersonaPassed', () => {
+  const row = (item_id: string, persona: string, verdict = 'pass') => ({ item_id, persona, verdict })
+
+  it('정족수는 셋이다', () => {
+    expect(REVIEW_PERSONA_QUORUM).toBe(3)
+  })
+
+  it('서로 다른 셋이 통과시키면 센다', () => {
+    const r = countTriPersonaPassed([
+      row('a', 'setter'),
+      row('a', 'analyst'),
+      row('a', 'tutor'),
+    ])
+    expect(r.passed).toBe(1)
+    expect(r.settled).toBe(1)
+  })
+
+  it('**같은 눈이 세 번 본 것은 다각이 아니다** — 행이 아니라 페르소나를 센다', () => {
+    // 행으로 세면 3 이 되어 통과한다. DB 도 unique(item_id, persona) 로 막지만,
+    // 자가 행을 세고 있으면 그 제약이 사라지는 날 조용히 통과가 된다.
+    const r = countTriPersonaPassed([
+      row('a', 'setter'),
+      row('a', 'setter'),
+      row('a', 'setter'),
+    ])
+    expect(r.passed).toBe(0)
+  })
+
+  it('셋이 보기는 했지만 통과가 아니면 `passed` 에 안 든다 — 「덜 봤나 막혔나」를 가른다', () => {
+    const r = countTriPersonaPassed([
+      row('a', 'setter', 'pass'),
+      row('a', 'analyst', 'revise'),
+      row('a', 'tutor', 'fail'),
+    ])
+    expect(r.passed).toBe(0)
+    expect(r.settled).toBe(1)
+  })
+
+  it('둘만 본 문항은 어느 쪽에도 안 든다', () => {
+    const r = countTriPersonaPassed([row('a', 'setter'), row('a', 'analyst')])
+    expect(r).toEqual({ passed: 0, settled: 0 })
+  })
+
+  it('빈 입력은 0 이다 — 못 쟀다는 뜻의 null 은 부르는 쪽이 만든다', () => {
+    expect(countTriPersonaPassed([])).toEqual({ passed: 0, settled: 0 })
+  })
+
+  it('망가진 행은 조용히 건너뛴다 — 세다가 죽으면 권 전체가 못 나간다', () => {
+    const bad = [{ item_id: '', persona: 'setter' }, { item_id: 'a', persona: '' }] as never
+    expect(() => countTriPersonaPassed(bad)).not.toThrow()
+    expect(countTriPersonaPassed(bad).passed).toBe(0)
+  })
+
 })

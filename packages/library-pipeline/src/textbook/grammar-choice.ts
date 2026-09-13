@@ -30,6 +30,7 @@
 
 import { CSAT_ITEM_WORDS } from './compose-unit'
 import { isPrintablePassage, selectPassageWindow } from './csat-format'
+import { isPrintableUnderlineWord } from './vocab-choice'
 
 /** 우리가 만들 수 있는 어법 교체. */
 export type GrammarRule =
@@ -151,10 +152,10 @@ export function candidateAt(
   //   막히는 것은 가운데 낀 비문자(괄호·대시)뿐이다. 그래서 절을 끊는 부호가 붙은 낱말이
   //   밑줄이 됐고, 어휘 쪽에서 같은 자국을 고친 뒤 재생성해 보니 이 유형에서만 남았다
   //   (「만들었는데 자에 또 걸림 7건」 — `regen-underlines.mjs` 가 세서 알려 줬다).
-  if (token.replace(/[.,;:!?]+$/, '') !== token.replace(/[^A-Za-z']/g, '')) return null
-  // 절을 끊는 부호가 붙은 낱말은 **바꿔 넣어 볼 자리가 아니다** — 문장부사이거나 절 경계다.
-  //   (마침표는 따로 막지 않는다: 어법 후보는 바로 뒤 낱말을 보므로 문장 끝은 이미 빠진다.)
-  if (/[,;:]$/.test(token)) return null
+  //   2026-09-13(2차): 위의 두 갈래 비교와 쉼표 검사를 **어휘 쪽과 같은 자 하나로** 바꿨다.
+  //   여기서는 잃는 것이 없다 — 어법 후보는 바로 뒤 낱말을 보므로 문장 끝은 이미 빠지고,
+  //   자가 둘이면 한쪽만 고쳐져 또 갈린다(`isPrintableUnderlineWord` 가 정본이다).
+  if (!isPrintableUnderlineWord(token)) return null
   const next = tokens[ti + 1]
   if (!next) return null
 

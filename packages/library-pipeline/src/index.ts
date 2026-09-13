@@ -733,6 +733,7 @@ export type {
 // 어휘 — 문맥에 맞지 않는 낱말 (수능 30번)
 export {
   buildVocabChoice,
+  isPrintableUnderlineWord,
   countWord,
   MIN_CHAIN_OCCURRENCES,
   spread,
@@ -977,7 +978,13 @@ export type { ApparatusKey, ApparatusSpec } from './textbook/apparatus'
 // ── 발행 게이트 — 조판기가 자기 판정을 집행한다 ───────────────────────────────
 // 판정만 하는 순수 함수다. 우회(`--allow-defects`)는 부르는 쪽의 일이다 —
 // 근거와 차단/경고를 가른 이유는 `textbook/publish-gate.ts` 머리 주석.
-export { judgePublish, formatGate, gateRecord } from './textbook/publish-gate'
+export {
+  judgePublish,
+  formatGate,
+  gateRecord,
+  countTriPersonaPassed,
+  REVIEW_PERSONA_QUORUM,
+} from './textbook/publish-gate'
 
 // ── 어느 권을 찍는가 — 카탈로그가 정의한 것만 ─────────────────────────────────
 // 기본값으로 때우면 나오는 책과 남는 기록이 갈린다. 근거는 .

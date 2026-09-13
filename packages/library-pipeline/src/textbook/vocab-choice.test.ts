@@ -202,9 +202,34 @@ describe('밑줄 후보', () => {
     expect(isCandidateToken('Maturity', true)).toBe(true)
   })
 
-  it('문장 끝 낱말을 막지 않는다 — 마침표만으로는 거절하지 않는다', () => {
-    // 마침표까지 막으면 문장 마지막 낱말이 전부 후보에서 빠진다.
-    expect(isCandidateToken('breath.', false)).toBe(true)
+  /**
+   * ⚠️ **여기는 앞 판을 뒤집은 자리다.** 앞 판의 회귀는 `isCandidateToken('breath.')` 가
+   * **참**이기를 요구했다 — 「마침표까지 막으면 문장 마지막 낱말이 전부 후보에서 빠진다」는
+   * 이유였고, 자리에 관해서는 옳다.
+   *
+   * 뒤집은 근거는 **인쇄물**이다. 저장되는 것은 원본 토큰 그대로이고(`word: p.token`),
+   * 조판기 둘 다 그 문자열을 글자 그대로 밑줄친다 — `render-volume.mjs` 의 `<u>${w}</u>` 와
+   * `VolumeContents.tsx` 의 `<u>{m.word}</u>`. 그래서 `breath.` 는 **마침표까지 밑줄에
+   * 들어간 채 인쇄된다.** 자리가 정상인 것과 인쇄가 정상인 것은 다른 문제였다.
+   *
+   * 부호만 떼어 저장하는 길도 있었지만 조판기가 부분 문자열로 찾으므로(`indexOf`)
+   * 짧아진 낱말이 다른 자리를 짚을 여지가 생긴다. 잃는 것은 문장마다 마지막 낱말 하나다.
+   */
+  it('마침표가 붙은 낱말도 후보가 아니다 — 마침표까지 밑줄에 들어가 인쇄된다', () => {
+    expect(isCandidateToken('breath.', false)).toBe(false)
+    expect(isCandidateToken('worry.', false)).toBe(false)
+    // 낱말 자체는 멀쩡하다 — 막는 것은 **붙은 부호**이지 낱말이 아니다.
+    expect(isCandidateToken('breath', false)).toBe(true)
+  })
+
+  /**
+   * 목록을 늘리는 대신 자를 하나로 바꾼 뒤, **목록 밖에 있던 것들**이 실제로 막히는지.
+   * 전부 V5 실측에서 나온 꼴이다(따옴표 260 · 마침표 264 · 숫자 123 · 물음표 84 · 줄표 42).
+   */
+  it('물음표·줄표·따옴표·숫자가 붙은 낱말은 후보가 아니다', () => {
+    for (const t of ['Happen?', 'Earthquakes—Rattling', 'Stop!', '“quoted', 'chapter12', "Campbell’s"]) {
+      expect(isCandidateToken(t, true), t).toBe(false)
+    }
   })
 
   it('평범한 내용어는 그대로 후보다', () => {

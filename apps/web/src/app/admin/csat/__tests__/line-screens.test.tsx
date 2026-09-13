@@ -189,6 +189,8 @@ const review: ReviewView = {
       failedChecks: ['지문 규격'],
       answerBias: { chi2: 3.2, cramersV: 0.04, biased: false },
       proofread: { passages: 20, defective: 0 },
+      // 쟀고, 셋이 봤지만 통과가 아닌 문항이 있다 — 「덜 봤다」와 구별돼야 한다.
+      personaReview: { quorum: 3, items: 60, passed: 41, settled: 47 },
       passageSpec: '90~200어',
     },
     {
@@ -200,6 +202,8 @@ const review: ReviewView = {
       failedChecks: [],
       answerBias: null,
       proofread: null,
+      // 옛 조판 기록 — 이 눈금이 붙기 전에 찍힌 권이다. 0 이 아니라 못 잼이다.
+      personaReview: null,
       passageSpec: null,
     },
   ],
@@ -228,6 +232,38 @@ describe('ReviewClient', () => {
   it('조판된 권이 없으면 검수할 원고가 없다고 말한다', () => {
     const html = text(renderToString(<ReviewClient {...review} volumes={[]} />))
     expect(html).toContain('검수할 원고가 아직 없다')
+  })
+
+  /**
+   * **3인 검수는 「덜 봤다」와 「봤는데 막혔다」를 갈라야 한다** — 할 일이 정반대다.
+   *
+   * 이 칸이 붙기 전, ⑦ 화면의 L2 눈금은 `csat_coverage()`(기출 분석)를 세고 있었다.
+   * 기출은 3인 검수 6,702행을 받았고 학습자가 실제로 받는 교재 문항은 0건이었는데,
+   * 화면은 기출 수를 읽어 초록이었다(실측 2026-09-13).
+   */
+  it('권마다 3인 검수를 분자/분모로 내고, 막힌 수를 따로 적는다', () => {
+    const html = text(renderToString(<ReviewClient {...review} />))
+    // 41/60 통과 · 47이 판정까지 갔으므로 6건이 「봤는데 막힘」이다.
+    expect(html).toContain('41/60')
+    expect(html).toContain('6건 막힘')
+  })
+
+  it('검수 실측이 없는 권은 0 이 아니라 「기록 없음」이다', () => {
+    const only = { ...review, volumes: review.volumes.filter((v) => v.personaReview == null) }
+    const html = text(renderToString(<ReviewClient {...only} />))
+    expect(html).toContain('기록 없음')
+    // 0/60 으로 적으면 「검수가 전부 떨어졌다」로 읽힌다 — 아직 안 쟀다는 뜻인데.
+    expect(html).not.toContain('0/60')
+  })
+
+  it('셋이 본 것과 통과가 같으면 막힌 수를 적지 않는다 — 없는 지적을 만들지 않는다', () => {
+    const done = {
+      ...review,
+      volumes: [{ ...review.volumes[0]!, personaReview: { quorum: 3, items: 60, passed: 60, settled: 60 } }],
+    }
+    const html = text(renderToString(<ReviewClient {...done} />))
+    expect(html).toContain('60/60')
+    expect(html).not.toContain('막힘')
   })
 })
 
@@ -331,8 +367,28 @@ describe('공정별 드레인 절차가 있어야 할 곳에만 있다', () => {
     expect(HELP_REGISTRY[key]?.screen.drain, `${key} 에 drain 이 없다`).toBeTruthy()
   })
 
-  it.each(DETERMINISTIC)('%s 에는 드레인 절차가 없다 — 결정적 공정이다', (key) => {
-    expect(HELP_REGISTRY[key]?.screen.drain, `${key} 는 LLM 몫이 아닌데 drain 이 붙었다`).toBeUndefined()
+  /**
+   * ⚠️ **이 검사는 6일 동안 빨간불이었다** (실측 2026-09-13에 발견).
+   *
+   * 「결정적 공정에는 drain 이 **없어야 한다**」로 적혀 있었는데, 2026-09-07 에 ④ 소재로
+   * 수확 절차(World Bank·Frontiers·NIST)가 들어오면서 깨졌다(`173b4535`). 목록은 09-05 판
+   * 그대로였다 — **코드가 늘었는데 분류가 안 따라온 것**이고, 그동안 아무도 이 빨간불을
+   * 치우지 않았다.
+   *
+   * 그래서 규칙을 **뜻대로** 고친다. 위 주석이 말하는 해는 「drain 이 있다」가 아니라
+   * 「**Claude Code 배치를 돌리면 된다는 오해**」다. 수확 절차는 터미널 명령뿐이고 청크를
+   * 내보내 채워 넣는 단계가 없으므로 그 오해를 만들지 않는다 — 지우면 실제로 쓰이는
+   * 절차만 잃는다.
+   *
+   * 결정적 공정의 drain 은 **절차는 적어도 되지만 배치 몫을 주장하면 안 된다.**
+   */
+  it.each(DETERMINISTIC)('%s 의 절차는 Claude Code 배치를 주장하지 않는다', (key) => {
+    const drain = HELP_REGISTRY[key]?.screen.drain
+    if (!drain) return // 절차 자체가 없는 것도 정상이다(③ 설계 · ⑧ 조판)
+    const said = JSON.stringify(drain)
+    for (const claim of ['-drain-export', '-drain-import', '.out.json', '청크']) {
+      expect(said, `${key} 가 결정적 공정인데 배치 몫(${claim})을 주장한다`).not.toContain(claim)
+    }
   })
 
   it('현황판의 드레인 지도가 공정 8칸을 모두 언급한다 — 빠지면 그 칸은 아무도 안 본다', () => {
