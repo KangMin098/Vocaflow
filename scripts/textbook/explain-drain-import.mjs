@@ -101,7 +101,16 @@ for (let i = 0; i < ready.length; i += 50) {
     if (!prev) throw new Error(`문항을 찾을 수 없다: ${b.id}`)
     const { error: e } = await db
       .from('csat_dcp_items')
-      .update({ answer_key: { ...prev, explanation_ko: b.text } })
+      // ⚠️ **누가 썼는지 함께 적는다** (2026-09-14). 이것이 없던 동안 배치가 쓴 해설이
+      //   앞서 규칙이 남긴 `explanation_writer`(order_seam · insert_seam)를 **그대로 달고
+      //   있었다.** 결과가 둘이다:
+      //     ① export 의 업그레이드 판정이 그 값을 보므로 **같은 문항이 영원히 다시 뽑힌다**
+      //        (실측: 6건을 적재한 직후 export 가 같은 6건을 다시 내놓았다).
+      //     ② 기록이 거짓을 말한다 — 배치가 쓴 글에 규칙 이름이 붙어 있으면, 판별력 7.1%
+      //        라는 규칙 해설의 평판이 배치 해설에도 그대로 씌워진다.
+      //   `csat_item_reviews.reviewed_digest` 와 같은 계열의 결함이다 — **기록이 자기가
+      //   무엇인지 말하지 않으면 다음 단계가 그것을 잘못 읽는다.**
+      .update({ answer_key: { ...prev, explanation_ko: b.text, explanation_writer: 'batch' } })
       .eq('id', b.id)
     if (e) throw new Error(`적재 실패 ${b.id}: ${e.message}`)
     written++

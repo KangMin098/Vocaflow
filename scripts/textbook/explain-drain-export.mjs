@@ -179,7 +179,31 @@ for (const r of rows) {
 
 fs.mkdirSync(DIR, { recursive: true })
 // 이전 청크를 남겨 두면 다음 드레인이 낡은 것을 다시 읽는다.
-for (const f of fs.readdirSync(DIR)) if (/^chunk-\d+\.json$/.test(f)) fs.unlinkSync(path.join(DIR, f))
+// ── 앞 회차를 **한 벌로** 치운다 ────────────────────────────────────
+//
+// ⚠️ 여기가 `chunk-NN.json` 만 지우고 `chunk-NN.out.json` 을 남겼다. 새 export 는 **같은 번호에
+//   다른 문항**을 담으므로, 남은 out 이 이번 적재에 섞여 들어간다. 실측 2026-09-14: 6문항을
+//   뽑아 채웠는데 적재기가 「청크 3개 · 해설 25건」을 봤다 — 어제(09-13) 청크 둘이 그대로
+//   있었다. 그대로 --commit 했으면 **어제 판의 해설 19건이 오늘 문항 위에 덮였을 것**이다.
+//   검수 드레인이 같은 자국을 갖고 있었고 같은 규칙으로 고쳤다(item-review-drain-export).
+//
+// ⚠️ **지우지 않고 옮긴다.** 이 드레인에는 적재 표식이 없어서 남은 out 이 이미 적재된 것인지
+//   아직 안 넣은 몫인지 구별할 수 없다. 지우면 안 넣은 몫이 조용히 사라진다 —
+//   `_stale-<날짜>/` 로 옮기고 **수를 찍는다.**
+let movedStale = 0
+{
+  const stamp = new Date().toISOString().slice(0, 10).replace(/-/g, '')
+  const attic = path.join(DIR, `_stale-${stamp}`)
+  for (const f of fs.readdirSync(DIR)) {
+    if (/^chunk-\d+\.json$/.test(f)) {
+      fs.unlinkSync(path.join(DIR, f))
+    } else if (/^chunk-\d+\.out\.json$/.test(f)) {
+      fs.mkdirSync(attic, { recursive: true })
+      fs.renameSync(path.join(DIR, f), path.join(attic, f))
+      movedStale += 1
+    }
+  }
+}
 
 const chunks = []
 for (let i = 0; i < tasks.length; i += SIZE) {
@@ -190,6 +214,11 @@ for (let i = 0; i < tasks.length; i += SIZE) {
 }
 
 console.log(`V${BAND} — 문항 ${rows.length}`)
+if (movedStale) {
+  console.log(
+    `  앞 회차 .out.json 옮김           ${movedStale}개  ← _stale-*/ 로 치웠다. 안 넣은 몫이면 거기서 꺼내 쓴다`,
+  )
+}
 console.log(`  이미 해설 있음(결정론 또는 배치)  ${already}`)
 console.log(`  수능 형식 변환 실패              ${unprintable}`)
 console.log(`  **배치가 쓸 몫                  ${tasks.length}**  → 청크 ${chunks.length}개 (${SIZE}개씩)`)
