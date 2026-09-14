@@ -14,6 +14,21 @@ export const LCP_HELP: HelpRegistry = {
       summary:
         'PD/CC 소스에서 책을 끌어와 큐 → 로직 처리 → 검수 → 게시까지 밀어 넣는 콘솔. 탭은 "어디서 가져오나"로 나뉘고, 가져온 뒤는 전부 Curated Books 에서 추적한다.',
       when: '새 도서를 카탈로그에 넣을 때, 또는 처리가 멈춘 도서의 상태를 확인할 때.',
+      diagrams: [
+        {
+          kind: 'flow',
+          caption: '책 한 권이 매대에 서기까지',
+          nodes: [
+            { label: '① 소스 고르기', actor: 'user', says: '무엇을 주는 소스인가 — 6축 평가로 견준다' },
+            { label: '② 후보 긁기', actor: 'script', says: '목록 API 는 제목·표지·저자까지만 준다' },
+            { label: '③ 큐', actor: 'user', says: '쓸 행만 넣는다 — 여기부터 Curated Books 가 쫓는다' },
+            { label: '④ 처리', actor: 'script', says: '본문 추출 · 레벨 · 단어장이 여기서 붙는다' },
+            { label: '⑤ 검수', actor: 'user', says: '기계가 못 보는 것 — 읽어도 되는 책인가' },
+            { label: '⑥ 게시', actor: 'user', says: '학습자 서가에 선다' },
+          ],
+          loop: '④ 가 멈춘 책은 큐에 그대로 남는다 — 상태 배지로 어디서 멈췄는지 본다.',
+        },
+      ],
       steps: [
         {
           title: '후보 확보',
@@ -71,6 +86,19 @@ export const LCP_HELP: HelpRegistry = {
       'Curated Books': {
         summary:
           '큐에 들어온 도서를 상태별로 추적하고, 처리·검수·게시·후처리 큐 적재를 실제로 누르는 곳.',
+        diagrams: [
+          {
+            kind: 'keys',
+            caption: '열 하나가 무엇이 끝났다는 뜻인가',
+            nodes: [
+              { label: '추출 열', says: '본문을 떼어 왔다 — 비면 소스에서 못 읽은 것이다' },
+              { label: '단어장 열', says: '어휘가 뽑혔다. 게시되면 공용 카탈로그로 나간다' },
+              { label: 'TS · TB 배지', says: '그 소스가 본문·표지를 실제로 줬는가' },
+              { label: '큐 처리 (dev)', says: 'dev 전용 — 프로덕션에서는 403 이다' },
+              { label: '후처리 큐 3종', says: '스크립트 퀴즈 · 레벨 검토 · 어휘 감사' },
+            ],
+          },
+        ],
         fields: [
           {
             label: '작업 순서 스테퍼',
@@ -178,6 +206,21 @@ export const LCP_HELP: HelpRegistry = {
         summary:
           '소스 API 를 직접 호출해 후보 도서를 library_seed_catalog 로 긁어오고, 그중 쓸 것만 골라 큐에 넣는 곳.',
         when: '카탈로그가 비었거나, 특정 난이도·연령대 책을 새로 늘려야 할 때.',
+        diagrams: [
+          {
+            kind: 'flow',
+            caption: '목록 API 가 안 주는 것을 채워 넣는 순서',
+            nodes: [
+              { label: 'GET batch', actor: 'script', says: '외부 서버에 실제 요청 — 신규·중복 수가 뜬다' },
+              { label: '메타 보강', actor: 'script', says: '줄거리·주제·분량은 개별 도서 페이지에만 있다' },
+              { label: '큐레이션 정보', actor: 'claude', says: '유형·연령·V-Level·줄거리는 소스가 안 준다' },
+              { label: 'enqueue', actor: 'user', says: '쓸 행만 — 이후 추적은 Curated Books' },
+            ],
+            branch: [
+              { when: '배치보다 적게 들어온다', then: '그 카테고리에 실제로 있는 수가 적은 것이다 — 고장이 아니다' },
+            ],
+          },
+        ],
         steps: [
           {
             title: 'GET batch',
@@ -239,6 +282,19 @@ export const LCP_HELP: HelpRegistry = {
       '소스 카탈로그': {
         summary:
           '어디서 가져올지 고르기 전에 소스 자체를 비교하는 곳. 카드를 누르면 그 소스의 입력 탭으로 넘어간다.',
+        diagrams: [
+          {
+            kind: 'keys',
+            caption: '소스를 견주는 6축 — 종합 점수는 이것의 요약이다',
+            nodes: [
+              { label: '텍스트 · 메타', says: '본문을 주는가 · 줄거리·주제까지 주는가' },
+              { label: 'API · 규모', says: '긁을 수 있는가 · 얼마나 많은가' },
+              { label: '학습 · 라이선스', says: '학습에 맞는가 · 실어도 되는가' },
+              { label: 'SE 정리 필터', says: 'Standard Ebooks 판이 있는 Gutenberg 행을 가른다' },
+              { label: 'LibriVox 부재', says: '낭독은 GET 대상이 아니다 — 검수 화면에서 잇는다' },
+            ],
+          },
+        ],
         fields: [
           {
             label: '평가 점수 6축',
@@ -266,6 +322,17 @@ export const LCP_HELP: HelpRegistry = {
         summary:
           '패키지에 박아 둔 고전 추천 목록 — 카탈로그 GET 없이 바로 큐에 넣을 수 있는 지름길.',
         when: '카탈로그가 비어 있거나, 검증된 고전부터 빠르게 채우고 싶을 때.',
+        diagrams: [
+          {
+            kind: 'keys',
+            caption: '카탈로그 GET 을 건너뛰는 지름길 — 대신 포기하는 것',
+            nodes: [
+              { label: '패키지에 박힌 목록', says: '검증된 고전이라 소스 조회 없이 바로 큐에 넣는다' },
+              { label: '난이도 값', says: 'ingest 전 추정치 — 처리 후 실측 V-Level 로 갈린다' },
+              { label: '카탈로그를 안 거친다', says: '6축 비교도 중복 검사도 지나친다' },
+            ],
+          },
+        ],
         fields: [
           {
             label: '선택',
