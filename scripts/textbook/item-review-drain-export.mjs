@@ -97,8 +97,39 @@ const passed = new Set()
 const settled = new Set()
 /** 낡거나 판을 모르는 판정이 붙어 있어 **다시 뽑는** 문항. 수를 찍는다 — 조용히 늘면 안 된다. */
 const reopened = new Set()
-/** 그 문항의 지금 판. 검수 행의 `reviewed_digest` 와 대조할 상대다. */
-const nowDigest = new Map(printed.map((p) => [p.id, reviewDigest(p.payload, p.answer_key)]))
+/**
+ * 그 문항의 지금 판. 검수 행의 `reviewed_digest` 와 대조할 상대다.
+ *
+ * ⚠️⚠️ **저장된 행에서 찍는다 — 풀에서 찍으면 안 된다.** `loadVolume` 은 지면용으로 문장을
+ *   다듬어서 돌려준다(`volume-pool.mjs` 의 `normalizeQuotes(stripSpaceBeforePunct(…))`).
+ *   그 사본으로 판을 찍으면 **DB 의 판과 영원히 어긋나고**, 게이트·계기는 그 문항을 늘
+ *   「다른 판」으로 읽어 **고쳐도 안 풀리는 문제가 그대로 되살아난다.**
+ *
+ *   실측 2026-09-14(첫 바퀴에서 바로 드러났다): 6문항 중 1건이 어긋났고, 차이는 지문
+ *   869번째 글자의 아포스트로피 하나였다 — 청크 `will-o’-the-wisp` · DB `will-o'-the-wisp`.
+ *   길이도 1069 로 같아 눈으로는 보이지 않는다.
+ *
+ *   판이 가리켜야 하는 것은 **저장된 문항**이다. 다듬기는 저장된 글에서 결정론으로 나오므로,
+ *   저장된 글이 그대로면 지면도 그대로다.
+ */
+const rawById = new Map()
+{
+  const ids = printed.map((p) => p.id)
+  for (let i = 0; i < ids.length; i += 200) {
+    const { data, error } = await db
+      .from('csat_dcp_items')
+      .select('id, payload, answer_key')
+      .in('id', ids.slice(i, i + 200))
+    if (error) throw new Error('원본 문항 조회 실패: ' + error.message)
+    for (const r of data ?? []) rawById.set(r.id, r)
+  }
+}
+/** 저장된 행이 없으면 판을 찍지 않는다 — 짐작한 판을 적으면 그 판정이 영원히 「지금 판」이 된다. */
+const digestOf = (id) => {
+  const raw = rawById.get(id)
+  return raw ? reviewDigest(raw.payload, raw.answer_key) : null
+}
+const nowDigest = new Map(printed.map((p) => [p.id, digestOf(p.id)]).filter(([, d]) => d))
 {
   const ids = printed.map((p) => p.id)
   for (let i = 0; i < ids.length; i += 200) {
@@ -179,7 +210,7 @@ for (const r of printed) {
     // **그때 읽은 판.** 적재가 이 값을 검수 행에 그대로 적고, 게이트는 지금 판과 같은 판정만
     // 센다. 이것이 없던 동안 해설을 고쳐도 옛 fail 이 안 풀렸다 — 실측 2026-09-14, 후보에서
     // 빠진 163문항 중 123(75%)이 판정 시점과 해설이 달랐다. 정본은 `reviewDigest()` 하나다.
-    reviewed_digest: reviewDigest(r.payload, r.answer_key),
+    reviewed_digest: digestOf(r.id),
     explanation_ko: r.answer_key?.explanation_ko ?? r.answer_key?.rationale_ko ?? '',
     reviews: BLANK_REVIEWS.map((b) => ({ ...b, findings: [], checked: [] })),
   }
@@ -224,8 +255,27 @@ for (const r of printed) {
 }
 
 fs.mkdirSync(DIR, { recursive: true })
-// 앞 청크를 남겨 두면 다음 드레인이 낡은 것을 다시 읽는다.
-for (const f of fs.readdirSync(DIR)) if (/^chunk-\d+\.json$/.test(f)) fs.unlinkSync(path.join(DIR, f))
+// ── 앞 회차를 **한 벌로** 치운다 ────────────────────────────────────
+//
+// ⚠️ 여기가 `chunk-NN.json` 만 지우고 있었다. 그러면 앞 회차의 `chunk-NN.out.json` 과
+//   `.imported` 표식이 남는데, 새 export 는 **같은 번호에 다른 문항**을 담는다(실측
+//   2026-09-14: chunk-01·02 의 옛 out 이 새 청크와 문항이 전혀 달랐다). 결과가 둘이다:
+//     ① 새로 채운 `.out.json` 이 **옛 표식 때문에 조용히 건너뛰어진다** — 실제로 당했다.
+//     ② 표식 없는 옛 out 이 남아 있으면 **다른 회차의 문항이 이번 적재에 섞인다.**
+//   해설 드레인이 같은 계열의 사고를 겪고 표식을 넣었는데(그쪽 `.gitignore` 주석 참조),
+//   표식만으로는 「같은 번호 · 다른 내용」을 못 막는다. 회차를 새로 열면 **한 벌을 치운다.**
+//
+// ⚠️ 치운 수를 찍는다 — 조용히 지우면 채워 놓고 안 넣은 몫이 사라진 것을 아무도 모른다.
+let cleared = 0
+let clearedUnimported = 0
+for (const f of fs.readdirSync(DIR)) {
+  if (!/^chunk-\d+\.(json|out\.json|out\.json\.imported)$/.test(f)) continue
+  if (/^chunk-\d+\.out\.json$/.test(f) && !fs.existsSync(path.join(DIR, `${f}.imported`))) {
+    clearedUnimported += 1
+  }
+  fs.unlinkSync(path.join(DIR, f))
+  cleared += 1
+}
 
 const chunks = []
 for (let i = 0; i < tasks.length; i += SIZE) {
@@ -236,6 +286,12 @@ for (let i = 0; i < tasks.length; i += SIZE) {
 }
 
 console.log(`V${BAND}(${SERIES}) — 실릴 문항 ${printed.length} (단원 ${VOLUME_UNITS})`)
+if (cleared) {
+  console.log(
+    `  앞 회차 청크 치움              ${cleared}개` +
+      (clearedUnimported ? `  ⚠️ 그중 **적재 안 된 채운 청크 ${clearedUnimported}개**` : ''),
+  )
+}
 console.log(`  이미 3인이 통과시킴            ${already}`)
 console.log(`  3인이 봤는데 미통과            ${toFix}${toFix ? '  ← 재검수가 아니라 고칠 몫' : ''}`)
 // 낡거나 판을 모르는 판정을 안 세어 **다시 열린** 문항. 조용히 늘면 안 되므로 늘 찍는다.
