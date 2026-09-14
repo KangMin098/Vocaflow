@@ -67,6 +67,8 @@ const rows = []
 const skipped = []
 let items = 0
 let itemsWith3Pass = 0
+/** 판 기록이 없는 검수 행 — 판 열이 생기기(2026-09-14) 전에 뽑힌 청크다. */
+let noDigest = 0
 
 for (const f of outFiles) {
   let parsed
@@ -112,12 +114,22 @@ for (const f of outFiles) {
       }
       seen.add(persona)
       if (verdict === 'pass') passes++
+      // ── 그때 읽은 판 ─────────────────────────────────────────────────
+      // ⚠️ **여기서 DB 의 지금 판을 다시 계산해 넣으면 안 된다.** 그러면 검수자가 안 읽은
+      //   판을 「읽었다」고 적는 것이 된다 — 이 열이 막으려는 거짓 그 자체다. 청크에 없으면
+      //   `null`(모른다)로 남기고 **그 수를 아래에서 반드시 찍는다.**
+      const digest =
+        typeof t.reviewed_digest === 'string' && /^[0-9a-f]{64}$/.test(t.reviewed_digest)
+          ? t.reviewed_digest
+          : null
+      if (!digest) noDigest++
       rows.push({
         item_id: t.id,
         persona,
         verdict,
         findings: Array.isArray(r.findings) ? r.findings : [],
         checked,
+        reviewed_digest: digest,
       })
     }
     if (passes >= 3) itemsWith3Pass++
@@ -127,6 +139,11 @@ for (const f of outFiles) {
 console.log(`${path.relative(process.cwd(), DIR)} — 청크 ${outFiles.length}개 · 문항 ${items}`)
 console.log(`  적재할 검수 행            ${rows.length}`)
 console.log(`  3인 통과에 닿은 문항       ${itemsWith3Pass} / ${items}`)
+// ⚠️ 판을 모르는 행은 게이트가 통과로도 차단으로도 세지 않는다 — 조판을 못 넘긴다.
+//   이 수가 0 이 아니면 그 청크는 판 열이 생기기 전에 뽑힌 것이고, 다시 뽑아야 한다.
+console.log(
+  `  판 기록 없음(모름)         ${noDigest}${noDigest ? '  ← 게이트가 안 센다. export 를 다시 돌려 새 청크로 받는다' : ''}`,
+)
 console.log(`  **건너뛴 것              ${skipped.length}**`)
 // 건너뛴 이유를 다 찍는다 — 수만 찍으면 무엇을 고쳐야 하는지 모른다.
 for (const s of skipped.slice(0, 30)) console.log(`    · ${s}`)

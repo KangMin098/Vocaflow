@@ -1061,3 +1061,18 @@ export type {
 // 3인 검수 차단 사유의 계열 (`scripts/textbook/review-causes.mjs`).
 export { CAUSE_LABEL, REVIEW_CAUSES, classifyCause, tallyCauses } from './textbook/review-cause'
 export type { CauseReport, CauseTally, CauseVerdict, FindingRow, ReviewCause } from './textbook/review-cause'
+
+// 검수 판 — 그 판정이 어느 문항을 보고 내려진 것인가(`textbook/review-digest.ts`).
+export {
+  REVIEW_DIGEST_LENGTH,
+  canonicalJson,
+  freshnessOf,
+  reviewDigest,
+  tallyFreshReviews,
+} from './textbook/review-digest'
+export type {
+  CurrentDigests,
+  DigestedReviewRow,
+  FreshReviewTally,
+  ReviewFreshness,
+} from './textbook/review-digest'

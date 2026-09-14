@@ -58,7 +58,7 @@ const { createClient } = await import('@supabase/supabase-js')
 //   순서가 왜 그것인지 확인할 방법이 없다. 삽입도 같다(자리 ①~⑤ 가 `slots` 로 정해진다:
 //   `gap_count` 7 인데 선지는 5 다).
 //   **해설 드레인과 같은 함수**를 쓴다 — 따로 형식기를 두면 검수한 것과 인쇄되는 것이 갈린다.
-const { toCsatOrder, toCsatInsert } = await import('@vocaflow/library-pipeline')
+const { toCsatOrder, toCsatInsert, reviewDigest, freshnessOf } = await import('@vocaflow/library-pipeline')
 
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, {
   auth: { persistSession: false },
@@ -95,12 +95,16 @@ if (!printed.length) {
 // ⚠️ **서로 다른 페르소나를 센다.** 행 수로 세면 같은 눈이 세 번 본 것이 「3인 검수」가 된다.
 const passed = new Set()
 const settled = new Set()
+/** 낡거나 판을 모르는 판정이 붙어 있어 **다시 뽑는** 문항. 수를 찍는다 — 조용히 늘면 안 된다. */
+const reopened = new Set()
+/** 그 문항의 지금 판. 검수 행의 `reviewed_digest` 와 대조할 상대다. */
+const nowDigest = new Map(printed.map((p) => [p.id, reviewDigest(p.payload, p.answer_key)]))
 {
   const ids = printed.map((p) => p.id)
   for (let i = 0; i < ids.length; i += 200) {
     const { data, error } = await db
       .from('csat_item_reviews')
-      .select('item_id, persona, verdict')
+      .select('item_id, persona, verdict, reviewed_digest')
       .in('item_id', ids.slice(i, i + 200))
     // 표가 없거나 조회가 실패하면 **「전부 미완」으로 뭉개지 않는다** — 그러면 이미 본 것을
     // 다시 내보내 같은 일을 두 번 하게 된다. 실패는 실패라고 말하고 멈춘다.
@@ -108,6 +112,19 @@ const settled = new Set()
     const seen = new Map()
     const ok = new Map()
     for (const r of data ?? []) {
+      // ── 낡은 판정으로 문항을 빼지 않는다 (2026-09-14) ──────────────────
+      // ⚠️ 이것이 없던 동안 **고쳐도 영원히 안 풀렸다.** 해설을 고쳐 38,522문항을 다시
+      //   썼는데도 그때 내려진 `fail` 이 남아 문항이 ②「고칠 몫」으로 빠졌다 — 실측
+      //   후보에서 빠진 163문항 중 **123(75%)이 판정 시점과 해설이 달랐다.** 후보 풀은
+      //   품질이 오르는 동안 단조롭게 줄고, 통과율이 구조적으로 회복될 수 없었다.
+      //
+      //   판이 다르거나(**stale**) 모르면(**unknown**) 그 판정은 **지금 문항에 대한 것이
+      //   아니다.** 세지 않고 다시 뽑는다 — 문항이 검수 큐로 돌아갈 뿐이라 안전하다
+      //   (조판은 여전히 「3인 pass」를 요구한다).
+      if (freshnessOf(r, nowDigest) !== 'current') {
+        reopened.add(r.item_id)
+        continue
+      }
       if (!seen.has(r.item_id)) seen.set(r.item_id, new Set())
       seen.get(r.item_id).add(r.persona)
       if (r.verdict === 'pass') {
@@ -159,6 +176,10 @@ for (const r of printed) {
     id: r.id,
     type: r.type,
     v_level: r.v_level ?? BAND,
+    // **그때 읽은 판.** 적재가 이 값을 검수 행에 그대로 적고, 게이트는 지금 판과 같은 판정만
+    // 센다. 이것이 없던 동안 해설을 고쳐도 옛 fail 이 안 풀렸다 — 실측 2026-09-14, 후보에서
+    // 빠진 163문항 중 123(75%)이 판정 시점과 해설이 달랐다. 정본은 `reviewDigest()` 하나다.
+    reviewed_digest: reviewDigest(r.payload, r.answer_key),
     explanation_ko: r.answer_key?.explanation_ko ?? r.answer_key?.rationale_ko ?? '',
     reviews: BLANK_REVIEWS.map((b) => ({ ...b, findings: [], checked: [] })),
   }
@@ -217,6 +238,10 @@ for (let i = 0; i < tasks.length; i += SIZE) {
 console.log(`V${BAND}(${SERIES}) — 실릴 문항 ${printed.length} (단원 ${VOLUME_UNITS})`)
 console.log(`  이미 3인이 통과시킴            ${already}`)
 console.log(`  3인이 봤는데 미통과            ${toFix}${toFix ? '  ← 재검수가 아니라 고칠 몫' : ''}`)
+// 낡거나 판을 모르는 판정을 안 세어 **다시 열린** 문항. 조용히 늘면 안 되므로 늘 찍는다.
+console.log(
+  `  판이 달라 다시 연 문항          ${reopened.size}${reopened.size ? '  ← 그 판정은 지금 문항에 대한 것이 아니다' : ''}`,
+)
 console.log(`  해설이 없어 아직 검수 못 함      ${noExplanation}${noExplanation ? '  ← 해설 드레인이 먼저다' : ''}`)
 console.log(`  수능 형식 변환 실패            ${unprintable}`)
 console.log(`  **3인이 읽을 몫               ${tasks.length}**  → 청크 ${chunks.length}개 (${SIZE}개씩)`)
