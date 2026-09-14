@@ -51,7 +51,7 @@ const VOLUME_UNITS = arg('volume') ? Number(arg('volume')) : null
 const DIR = path.resolve(arg('dir') ?? `scripts/textbook/explain-drain/v${BAND}`)
 
 const { createClient } = await import('@supabase/supabase-js')
-const { toCsatOrder, toCsatInsert, explainOrder, explainInsert } = await import('@vocaflow/library-pipeline')
+const { toCsatOrder, toCsatInsert, explainOrder, explainInsert, properNounsIn } = await import('@vocaflow/library-pipeline')
 
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, {
   auth: { persistSession: false },
@@ -118,6 +118,8 @@ const CIRCLED = ['①', '②', '③', '④', '⑤']
 const tasks = []
 let already = 0
 let unprintable = 0
+/** 밑줄 자체가 깨져 **해설로는 못 푸는** 문항 — 생성기가 다시 만들어야 한다. */
+let regenerate = 0
 
 for (const r of rows) {
   // 이미 배치가 쓴 것은 건너뛴다 — 재실행 안전.
@@ -175,6 +177,30 @@ for (const r of rows) {
     if (!sentences.length || underlines.length < 2 || !Number.isInteger(pos) || !r.answer_key?.original) {
       unprintable++
       continue
+    }
+    // ── 해설로 풀 것과 다시 만들 것을 가른다 (2026-09-14) ──────────────
+    //
+    // ⚠️ **깨진 밑줄에 좋은 해설을 붙이면 깨진 문항이 완성된 것처럼 보인다.**
+    //   3인 검수가 막은 실제 문항이 이 몫의 첫 줄에 있었다 — 밑줄 ① November · ② Thomas ·
+    //   ③ Maria 로 고유명사가 셋이라 지문을 읽기 전에 후보가 둘로 좁혀지는 문항이다.
+    //   그런 문항은 해설이 아니라 **생성기가 다시 만들어야** 풀린다(`vocab-choice.ts` 를
+    //   2026-09-14 에 고쳤고 `staleSignature` 가 밑줄 낱말을 대조해 잡는다).
+    //
+    //   같은 이유로 **같은 낱말이 두 번 밑줄**인 것도 뺀다 — ①과 ③이 같은 낱말이면
+    //   「밑줄 중 문맥에 맞지 않는 것」이라는 물음 자체가 성립하지 않는다.
+    //
+    //   ⚠️ 버리는 것이 아니라 **따로 센다.** 수를 안 찍으면 「해설 몫이 줄었다」가
+    //   품질이 좋아진 것으로 읽힌다.
+    {
+      const bare = (t) => String(t ?? '').replace(/^[^A-Za-z']+|[^A-Za-z']+$/g, '')
+      const proper = properNounsIn(sentences)
+      const words = underlines.map((u) => bare(u?.word).toLowerCase())
+      const hasProper = words.some((w) => w && proper.has(w))
+      const hasDup = new Set(words.filter(Boolean)).size !== words.filter(Boolean).length
+      if (hasProper || hasDup) {
+        regenerate++
+        continue
+      }
     }
     tasks.push({
       id: r.id,
@@ -274,6 +300,13 @@ if (movedStale) {
   )
 }
 console.log(`  이미 해설 있음(결정론 또는 배치)  ${already}`)
+// 밑줄이 깨진 문항 — **해설로는 못 푼다.** 수를 찍지 않으면 「해설 몫이 줄었다」가
+// 품질이 좋아진 것으로 읽힌다.
+if (regenerate) {
+  console.log(
+    `  밑줄이 깨져 다시 만들 몫          ${regenerate}  ← 해설이 아니라 생성기가 풀 문제다(고유명사·중복 밑줄)`,
+  )
+}
 console.log(`  수능 형식 변환 실패              ${unprintable}`)
 console.log(`  **배치가 쓸 몫                  ${tasks.length}**  → 청크 ${chunks.length}개 (${SIZE}개씩)`)
 console.log(`\n  ${path.relative(process.cwd(), DIR)}/chunk-NN.json`)
