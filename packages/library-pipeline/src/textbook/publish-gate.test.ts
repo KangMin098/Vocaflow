@@ -240,10 +240,15 @@ describe('조판기가 페르소나를 「서로 다른 3인」으로 센다', (
    * 이제 판정을 함께 받아 `countTriPersonaPassed` 가 `passed`/`settled` 로 가른다.
    */
   it('판정으로 거르지 않고 받아 온다 — 「덜 봤나 막혔나」를 가르려면 둘 다 필요하다', () => {
-    expect(src).toContain("select('item_id, persona, verdict')")
+    expect(src).toContain("select('item_id, persona, verdict, reviewed_digest')")
     expect(src, 'pass 만 받으면 막힌 문항이 안 본 문항처럼 보인다').not.toContain(
       "eq('verdict', 'pass')",
     )
+    // ⚠️ **판(版)을 함께 받아야 한다** (2026-09-14). 이것이 빠지면 낡은 판정을 지금 판정으로
+    //   세고, 해설을 고쳐 38,522문항을 다시 써도 통과율이 안 움직인다 — 실제로 그랬다.
+    //   세는 것도 `countTriPersonaPassed` 가 아니라 판을 보는 `tallyFreshReviews` 여야 한다.
+    expect(src).toContain('tallyFreshReviews')
+    expect(src).toContain('reviewDigest(')
     // 잰 것을 기록에 남겨야 화면이 다시 세지 않는다.
     expect(src).toContain('personaReview')
   })

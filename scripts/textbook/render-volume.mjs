@@ -73,6 +73,9 @@ const {
   // 결함 있는 권을 그대로 냈다(`publish-gate.ts` 머리 주석).
   judgePublish,
   countTriPersonaPassed,
+  // 판(版)을 대조해 **지금 판 판정만** 센다 — 낡은 판정이 영원히 막는 것을 끊는다.
+  reviewDigest,
+  tallyFreshReviews,
   REVIEW_PERSONA_QUORUM,
   formatGate,
   gateRecord,
@@ -626,6 +629,10 @@ const byRule = answerRows.filter((a) => a.explanation?.from === 'rule').length
 let reviewedItems = null
 /** 3인이 **보기는 한** 문항 수 — 「덜 봤나, 봤는데 막혔나」를 가른다. */
 let reviewSettled = null
+/** 다른 판을 보고 내려져 안 센 판정 수. */
+let reviewStale = 0
+/** 어느 판인지 기록이 없어 안 센 판정 수. */
+let reviewUnknown = 0
 /**
  * **검수 표에 담을 수 없는 문항 수.** 초등 3종은 사전에서 즉석 생성되어 `csat_dcp_items` 에
  * 행이 없다 — `csat_item_reviews.item_id` 가 가리킬 대상이 없다(`publish-gate.ts` 주석).
@@ -645,9 +652,12 @@ const unreviewableItems = printedItems.filter((it) => ELEMENTARY_ITEM_TYPES.has(
     // ⚠️ **`verdict` 로 거르지 않고 받는다.** pass 만 받으면 「셋이 봤는데 통과가 아닌 문항」과
     //   「아직 셋이 안 본 문항」이 똑같이 0 으로 보인다 — 둘은 할 일이 정반대다(전자는 고치고,
     //   후자는 검수를 돌린다). 가르는 일은 `countTriPersonaPassed` 가 한다.
+    // ⚠️ **판(版)을 함께 받는다.** 이것이 없으면 낡은 판정을 지금 판정으로 센다 —
+    //   해설을 고쳐 38,522문항을 다시 썼는데도 통과율이 안 움직인 원인이다
+    //   (실측 2026-09-14: 후보에서 빠진 163문항 중 123이 판정 시점과 해설이 달랐다).
     const { data, error } = await db
       .from('csat_item_reviews')
-      .select('item_id, persona, verdict')
+      .select('item_id, persona, verdict, reviewed_digest')
       .in('item_id', ids)
     if (!error) {
       // **서로 다른 페르소나**를 센다 — 같은 눈이 세 번 본 것은 다각이 아니다
@@ -655,12 +665,30 @@ const unreviewableItems = printedItems.filter((it) => ELEMENTARY_ITEM_TYPES.has(
       //
       // ⚠️ 세는 법을 여기 적지 않는다. 같은 규칙이 여러 곳에 박혀 있었고 **화면은 그중
       //   어느 것도 안 쓰고 기출 표를 세고 있었다**(실측 2026-09-13). 정본은
-      //   `countTriPersonaPassed` 하나다 — 웹앱도 같은 함수를 부른다.
-      const counted = countTriPersonaPassed(data ?? [])
+      //   `tallyFreshReviews` 하나다 — 드레인 export 도 같은 `reviewDigest` 를 쓴다.
+      //
+      // ⚠️ **지금 판으로 내려진 판정만 센다.** 낡은 판정은 통과로도 차단으로도 안 센다 —
+      //   통과로 세면 안 읽은 것을 읽었다고 하는 것이고, 차단으로 세면 고쳐도 안 풀린다.
+      const current = new Map(
+        printedItems
+          .filter((it) => !ELEMENTARY_ITEM_TYPES.has(it.type))
+          .map((it) => [it.id, reviewDigest(it.payload, it.answer_key)]),
+      )
+      const counted = tallyFreshReviews(data ?? [], current, REVIEW_PERSONA_QUORUM)
       reviewedItems = counted.passed
       reviewSettled = counted.settled
+      reviewStale = counted.stale
+      reviewUnknown = counted.unknown
     }
   }
+}
+// ⚠️ **조용히 넘기지 않는다.** 낡은·판 미상 판정이 있으면 그 문항은 「아직 안 본 것」으로
+//   되돌아간 것이고, 관리자가 그 사실을 알아야 재검수를 돌린다.
+if (reviewStale || reviewUnknown) {
+  console.log(
+    `검수 판(版) — 낡은 판정 ${reviewStale}문항 · 판 미상 ${reviewUnknown}문항 ` +
+      '(둘 다 통과로도 차단으로도 안 셌다 — 재검수 대상이다)',
+  )
 }
 
 const gate = judgePublish({

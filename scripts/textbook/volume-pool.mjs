@@ -707,6 +707,9 @@ export async function loadVolume(
     judgeSource,
     isComposable,
     isPrintableUnderlineWord,
+    // 검수 판정의 판(版) — 지금 판 판정만 세려면 둘 다 필요하다.
+    reviewDigest,
+    freshnessOf,
     cefrFitsBand,
     itemHygieneReject,
     tallyEligibility,
@@ -982,14 +985,28 @@ export async function loadVolume(
   //   · **셋이 다 봤는데 셋이 통과시키지 못했다** — 정족수를 채우고도 못 넘은 것이다.
   // 한 사람만 보고 `revise` 를 준 것은 **빼지 않는다**. 아직 판정이 안 선 것이라,
   // 빼면 「덜 본 것」을 「떨어진 것」으로 세게 된다.
+  //
+  // ⚠️⚠️ **지금 판으로 내려진 판정만 뺀다** (2026-09-14). 판을 안 보던 동안 이 집합은
+  //   **단조롭게 커지기만 했다** — 생성기를 고쳐 문항을 다시 써도 옛 `fail` 이 그대로 남아
+  //   그 문항은 영원히 후보에 못 돌아왔다. 실측: 빠진 163문항 중 **123(75%)**이 판정 시점과
+  //   해설이 달랐고, 그중 다수는 같은 날 지워진 문장을 보고 내린 판정이었다.
+  //   **없는 것을 근거로 막고 있었다.**
+  //
+  //   낡거나 판을 모르는 판정은 여기서 **안 뺀다.** 그렇다고 그 문항이 검수를 면제받는 것은
+  //   아니다 — 발행 게이트가 「3인 검수 미완」으로 막는다. 즉 안 본 것이 인쇄될 길은 없고,
+  //   다만 **다시 볼 기회**가 생긴다. 판정을 지우지도 않는다(사람이 읽고 내린 기록이다).
   const rejectedItems = new Set()
   {
+    /** 문항 → 지금 판. 정본은 `reviewDigest` 하나다(드레인 export·조판 게이트가 같이 쓴다). */
+    const nowDigest = new Map(itemRows.map((r) => [r.id, reviewDigest(r.payload, r.answer_key)]))
+    let staleSkipped = 0
+    let unknownSkipped = 0
     const byItem = new Map()
     let cursor = null
     for (;;) {
       let q = db
         .from('csat_item_reviews')
-        .select('item_id, persona, verdict')
+        .select('item_id, persona, verdict, reviewed_digest')
         .order('item_id')
         .limit(1000)
       if (cursor) q = q.gt('item_id', cursor)
@@ -1002,6 +1019,17 @@ export async function loadVolume(
       }
       if (!data?.length) break
       for (const r of data) {
+        // 이 권이 안 쓰는 문항의 판정은 셀 필요가 없다 — 판을 모르는 것과 구별해 넘긴다.
+        if (!nowDigest.has(r.item_id)) continue
+        const f = freshnessOf(r, nowDigest)
+        if (f === 'stale') {
+          staleSkipped += 1
+          continue
+        }
+        if (f === 'unknown') {
+          unknownSkipped += 1
+          continue
+        }
         if (!byItem.has(r.item_id)) byItem.set(r.item_id, { personas: new Set(), passes: new Set(), fails: 0 })
         const e = byItem.get(r.item_id)
         e.personas.add(r.persona)
@@ -1016,6 +1044,14 @@ export async function loadVolume(
     }
     if (rejectedItems.size) {
       console.log(`  검수에서 떨어진 문항 ${rejectedItems.size.toLocaleString()}개를 후보에서 뺀다`)
+    }
+    // ⚠️ **조용히 되살리지 않는다.** 안 뺀 판정이 있으면 그 수를 찍는다 — 안 찍으면
+    //   「검수가 통과시켰다」와 「판이 달라 안 셌다」가 화면에서 같아 보인다.
+    if (staleSkipped || unknownSkipped) {
+      console.log(
+        `  판이 달라 안 센 판정 ${staleSkipped.toLocaleString()}건 · ` +
+          `판 미상 ${unknownSkipped.toLocaleString()}건 — 그 문항은 후보로 돌아갔다(재검수 대상)`,
+      )
     }
   }
 
