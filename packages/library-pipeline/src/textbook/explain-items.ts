@@ -356,15 +356,27 @@ export function explainUnderlinedGrammar(payload: Json, answerKey: Json): ItemEx
   //   실제로 3인 검수가 그 거짓을 잡았다(실측 2026-09-13: 「②의 that 은 명사절 접속사여서
   //   이 문항이 표방한 축으로는 애초에 틀릴 수 없는 자리다」 — 맞는 것이 아니라 **해당 없는** 자리다).
   //
-  //   대신 확인되는 것만 적는다: 바꾼 자리는 하나이고(`answer_key.original` 이 그 증거),
-  //   나머지 밑줄은 지문에서 가져온 그대로다.
+  //   ⚠️⚠️ **그런데 그 「확인되는 것」이 제작 정보였다** (3인 검수 실측 2026-09-14).
+  //     「나머지 …는 **지문 그대로다** — **바꾼 자리는 ① 하나다**」는 학습자가 쓸 수 없는 말이다.
+  //     그에게는 「원문」이 없다 — 받은 것은 이 지문뿐이다. 게다가 이걸 인쇄하면 이 유형을
+  //     **「바뀐 낱말 하나 찾기」로 푸는 법**을 가르친다. 아래 어휘 유형과 같은 자국이고,
+  //     같은 날 여러 검수자가 각자 독립으로 짚었다.
+  //
+  //     대신 밑줄이 **몇 번째 문장**에 있는지를 적는다 — payload 가 그대로 말해 주는 값이고
+  //     (`sentenceIdx`), 학습자가 그 자리로 가서 스스로 견줄 수 있다.
   const others = underlines
     .map((o, i) => ({ ...o, i, label: str(o.label) || LABELS[i] || `${i + 1}` }))
     .filter((o) => o.i !== idx && str(o.word))
   if (others.length) {
-    parts.push(
-      `나머지 ${others.map((o) => `${o.label} "${str(o.word)}"`).join(' · ')} 는 지문 그대로다 — 바꾼 자리는 ${label} 하나다.`,
-    )
+    const where = others
+      .map((o) => {
+        const at = Number(o.sentenceIdx)
+        return Number.isInteger(at) && sentences[at]
+          ? `${o.label} "${str(o.word)}"(${at + 1}문장)`
+          : `${o.label} "${str(o.word)}"`
+      })
+      .join(' · ')
+    parts.push(`나머지 ${where} 의 자리는 각각 그 문장에서 확인할 수 있다 — 이 유형은 규칙에 어긋나는 자리가 하나뿐이다.`)
   }
   return finish(parts.join(' '), 'underlined_grammar')
 }
@@ -412,10 +424,28 @@ export function explainVocabChoice(payload: Json, answerKey: Json): ItemExplanat
   const others = underlines
     .map((o, i) => ({ label: str(o.label) || LABELS[i] || `${i + 1}`, word: str(o.word), i }))
     .filter((o) => o.i !== idx && o.word)
+  //   ⚠️⚠️ **제작 정보를 지면에 싣지 않는다** (3인 검수 실측 2026-09-14).
+  //     여기 있던 「나머지 …는 **지문 그대로다** — **바꾼 자리는 ② 하나다**」를 여러 청크의
+  //     검수자가 **각자 독립으로** 짚었다: 「해설이 setter 만 아는 지식으로 오답을 정당화한다」
+  //     「이걸 인쇄하면 학습자가 이 유형 전체를 **바뀐 낱말 하나 찾기**로 푸는 법을 배운다」.
+  //
+  //     학습자에게는 「원문」이라는 것이 없다 — 그가 받는 것은 이 지문뿐이다. 그러니
+  //     「지문 그대로다」는 **쓸 수 없는 말**이고, 「바꾼 자리는 하나다」는 앞 문장이 이미
+  //     말한 정답을 제작 관점으로 되풀이한 것이다.
+  //
+  //     대신 **확인되는 것**을 적는다 — 각 밑줄이 **몇 번째 문장**에 있는지는 payload 가
+  //     그대로 말해 준다(`sentenceIdx`). 학습자는 그 자리로 가서 스스로 견줄 수 있다.
+  //     「어긋나는 자리가 하나뿐」은 이 **유형의 규칙**이지 이 문항에 대한 의미 판정이 아니다.
   if (others.length) {
-    parts.push(
-      `나머지 ${others.map((o) => `${o.label} "${o.word}"`).join(' · ')} 는 지문 그대로다 — 바꾼 자리는 ${label} 하나다.`,
-    )
+    const where = others
+      .map((o) => {
+        const at = Number(underlines[o.i]?.sentenceIdx)
+        return Number.isInteger(at) && sentences[at]
+          ? `${o.label} "${o.word}"(${at + 1}문장)`
+          : `${o.label} "${o.word}"`
+      })
+      .join(' · ')
+    parts.push(`나머지 ${where} 의 자리는 각각 그 문장에서 확인할 수 있다 — 이 유형은 문맥과 어긋나는 자리가 하나뿐이다.`)
   }
   // 찾지 못하면 아무 말도 하지 않는다 — 못 찾은 것을 「있다」로 적지 않는다.
   const keptAt = sentenceStillHolding(sentences, original, Number(u.sentenceIdx))

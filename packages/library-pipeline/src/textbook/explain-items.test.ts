@@ -162,7 +162,9 @@ describe('explainUnderlinedGrammar', () => {
   it('나머지 밑줄은 라벨과 낱말을 짝지어 보인다', () => {
     const e = explainUnderlinedGrammar(payload, { answer: 4, original: 'a' })!
     // 라벨 3개면 낱말도 3개가 붙어야 한다 — 낱말만 중복 제거하면 수가 어긋난다.
-    expect(e.ko).toMatch(/① "a" · ② "a" · ③ "a"/)
+    // ⚠️ 낱말 뒤의 자리 표시`(N문장)`는 붙어도 되고 없어도 된다(문장을 못 찾으면 생략한다).
+    //   여기서 잠그는 것은 **짝의 수와 차례**이지 꾸밈이 아니다.
+    expect(e.ko).toMatch(/① "a"[^·]*· ② "a"[^·]*· ③ "a"/)
   })
 
   it('원래 형태가 없으면 쓰지 않는다', () => {
@@ -403,6 +405,10 @@ describe('해설은 확인하지 않은 것을 단정하지 않는다', () => {
   const FORBIDDEN = [
     '앞뒤 내용과 어긋나지 않는다',
     '뒤 낱말과 어긋나지 않아 그대로 맞다',
+    // ⚠️ 제작 정보 — 학습자에게는 「원문」이 없다. 인쇄하면 이 유형을 「바뀐 낱말 하나 찾기」로
+    //   푸는 법을 가르친다(3인 검수가 여러 청크에서 각자 독립으로 짚었다).
+    '지문 그대로다',
+    '바꾼 자리는',
   ]
 
   const vocabPayload = {
@@ -422,7 +428,8 @@ describe('해설은 확인하지 않은 것을 단정하지 않는다', () => {
     const e = explainVocabChoice(vocabPayload, { original: 'fall', position: 3 })
     expect(e).not.toBeNull()
     for (const f of FORBIDDEN) expect(e!.ko).not.toContain(f)
-    expect(e!.ko).toContain('지문 그대로다')
+    // 제작 정보 대신 **확인되는 자리**를 적는다 — 학습자가 그 문장으로 가서 견줄 수 있다.
+    expect(e!.ko).toContain('문장) 의 자리는')
   })
 
   it('어법 해설도 나머지를 「맞다」고 판정하지 않는다', () => {
@@ -435,7 +442,8 @@ describe('해설은 확인하지 않은 것을 단정하지 않는다', () => {
     )
     expect(e).not.toBeNull()
     for (const f of FORBIDDEN) expect(e!.ko).not.toContain(f)
-    expect(e!.ko).toContain('지문 그대로다')
+    // 제작 정보 대신 **확인되는 자리**를 적는다 — 학습자가 그 문장으로 가서 견줄 수 있다.
+    expect(e!.ko).toContain('문장) 의 자리는')
   })
 
   // 이 유형의 근거는 「원래 낱말이 다른 자리에 그대로 남아 있다」는 것이다
