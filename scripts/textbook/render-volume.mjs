@@ -292,6 +292,8 @@ function pickExplanation(item, deterministic) {
 /** 생성형 유형 — 지문 하나 + 5지선다. 유형이 열이어도 인쇄 모양은 하나다. */
 /** 발문이 밑줄을 가리키는데 지문에서 못 찾은 문항 수 — 조용히 넘기면 빈 지면이 나간다. */
 let missingUnderline = 0
+/** 지칭 추론에서 인쇄를 건너뛴 사유별 수 — 조용히 빠지면 권이 왜 짧은지 모른다. */
+const longRefSkipped = { noClause: 0, outOfOrder: 0 }
 
 const EXTRA_STEM_FALLBACK = '다음 글에 대한 물음에 답하시오.'
 
@@ -563,26 +565,46 @@ function renderLongReference(item, no) {
   const answer = Number(item.answer_key?.answer)
   if (!Number.isInteger(answer) || answer < 1 || answer > REFERENCE_MARKS.length) return null
 
-  // 지문에서 **나오는 차례대로** 찍는다 — 뒤에서부터 찾으면 같은 절이 두 번 걸린다.
-  let rest = String(p.passage ?? '')
-  if (!rest) return null
+  const passage = String(p.passage ?? '')
+  if (!passage) return null
   // ⚠️ **따옴표 모양 때문에 못 찾는 것을 「없다」고 읽지 않는다.** 저장된 지문에는 57건 전부
   //   다섯 절이 그대로 있다(실측). 풀이 지문만 정제하므로(`normalizeQuotes`) 절 안의
-  //   아포스트로피 한 글자가 달라져 `indexOf` 가 빗나간다 — 실제로 그래서 한 문항이
-  //   통째로 빠졌다. 정규화는 한 글자 → 한 글자라 자리표가 안 어긋난다(위 밑줄 주석과 같다).
+  //   아포스트로피 한 글자가 달라져 `indexOf` 가 빗나간다. 정규화는 한 글자 → 한 글자라
+  //   자리표가 안 어긋난다(위 밑줄 주석과 같다).
   const flat = (s) => s.replace(/[‘’]/g, "'").replace(/[“”]/g, '"')
+  const flatPassage = flat(passage)
+  // **각 절을 따로 찾는다.** 앞 절 뒤에서만 찾으면 차례가 어긋난 문항에서 뒤 절을
+  //   「없다」고 잘못 읽는다 — 그러면 원인이 「절이 없다」로 보고되어 엉뚱한 곳을 고치게 된다.
+  const at = choices.map((c) =>
+    passage.includes(c) ? passage.indexOf(c) : flatPassage.indexOf(flat(c)),
+  )
+  if (at.some((i) => i < 0)) {
+    longRefSkipped.noClause += 1
+    return null
+  }
+  // ⚠️⚠️ **자리표는 나오는 차례여야 한다** — 수능 지칭은 늘 (a) 가 먼저 나온 밑줄이다.
+  //   실측 2026-09-14: 57건 중 **11건**이 선지 차례와 지문 차례가 어긋난다
+  //   (예: 자리 109 < 363 < 1264 < 1642 < **1595** — (e) 가 (d) 보다 앞에 있다).
+  //
+  //   **여기서 다시 매길 수 없다.** `answer_key.rationale_ko` 가 「(a)의 He는 Ivo다 …
+  //   (c)는 …」처럼 그 자리표를 그대로 쓰기 때문에, 렌더러가 순서를 고치면 해설이 딴 곳을
+  //   가리킨다. 고칠 곳은 **만드는 쪽**이다. 그때까지 이 문항들은 인쇄하지 않는다 —
+  //   (d) 뒤에 (c) 가 나오는 지면은 학습자가 읽을 수 없다.
+  if (at.some((v, i) => i > 0 && v <= at[i - 1])) {
+    longRefSkipped.outOfOrder += 1
+    return null
+  }
   let marked = ''
+  let cursor = 0
   for (let i = 0; i < choices.length; i += 1) {
-    const clause = choices[i]
-    const at = rest.includes(clause) ? rest.indexOf(clause) : flat(rest).indexOf(flat(clause))
-    // 못 찾으면 인쇄하지 않는다 — 위 주석 참조.
-    if (at < 0) return null
+    const start = at[i]
+    const end = start + choices[i].length
     // **인쇄는 지문의 원래 글자로** 한다 — 저장된 절을 그대로 찍으면 한 문장 안에서
     //   따옴표 모양이 갈린다(정제된 주변 글과 저장된 절이 섞인다).
-    marked += `${esc(rest.slice(0, at))}${REFERENCE_MARKS[i]} <u>${esc(rest.slice(at, at + clause.length))}</u>`
-    rest = rest.slice(at + clause.length)
+    marked += `${esc(passage.slice(cursor, start))}${REFERENCE_MARKS[i]} <u>${esc(passage.slice(start, end))}</u>`
+    cursor = end
   }
-  marked += esc(rest)
+  marked += esc(passage.slice(cursor))
 
   return {
     html: `
@@ -764,6 +786,12 @@ const unreviewableItems = printedItems.filter((it) => ELEMENTARY_ITEM_TYPES.has(
 }
 // ⚠️ **조용히 넘기지 않는다.** 낡은·판 미상 판정이 있으면 그 문항은 「아직 안 본 것」으로
 //   되돌아간 것이고, 관리자가 그 사실을 알아야 재검수를 돌린다.
+if (longRefSkipped.noClause || longRefSkipped.outOfOrder) {
+  console.log(
+    `⚠ 지칭 추론에서 뺀 문항 — 절을 못 찾음 ${longRefSkipped.noClause} · ` +
+      `자리표 차례가 지문과 어긋남 ${longRefSkipped.outOfOrder}(만드는 쪽을 고쳐야 한다)`,
+  )
+}
 if (missingUnderline) {
   console.log(
     `⚠ 밑줄을 못 찾은 문항 ${missingUnderline} — 발문은 「밑줄 친 …」인데 지면에 밑줄이 없다`,

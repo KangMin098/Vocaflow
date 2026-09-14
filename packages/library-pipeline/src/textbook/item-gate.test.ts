@@ -222,3 +222,70 @@ describe('배치 길이 편향', () => {
     expect(bias.worst).toBeCloseTo(0.5)
   })
 })
+
+/**
+ * **자리표가 나오는 차례여야 한다** (실측 2026-09-14).
+ *
+ * 이 검사가 없던 동안 `long_reference` **57건 중 11건**이 차례가 어긋난 채 적재됐다
+ * (예: 자리 109 < 363 < 1264 < 1642 < **1595** — (e) 가 (d) 앞에 있다). 관문은
+ * 「구절이 전부 지문에 있는가」만 봤는데, **있는 것과 차례대로 있는 것은 다르다.**
+ *
+ * 수능 지칭은 늘 (a) 가 먼저 나온 밑줄이고 `rationale_ko` 가 그 자리표를 그대로 쓰므로
+ * 조판기가 다시 매길 수도 없다 — 매기는 순간 해설이 딴 곳을 가리킨다.
+ */
+describe('지칭 추론 — 자리표는 지문에 나오는 차례여야 한다', () => {
+  const para = [
+    'Tomas emptied a tin of seed onto the bench in the shed.',
+    'He warned Tomas in a rough voice that the seed was too old.',
+    'Then he covered the tray with cloth and waited for a week.',
+    'Later he wrote the date beside the mark on the ledge.',
+    'At last he knocked the cloth onto the floor in his haste.',
+    'In the end he agreed to leave the weak ones where they were.',
+  ].join(' ')
+  const inOrder = [
+    'He warned Tomas in a rough voice',
+    'he covered the tray with cloth',
+    'he wrote the date beside the mark',
+    'he knocked the cloth onto the floor',
+    'he agreed to leave the weak ones',
+  ]
+  const row = (choices: string[]) => ({
+    article_id: '11111111-2222-3333-4444-555555555555',
+    source_title: 'Seeds on the Ledge',
+    choices,
+    answer: 1,
+    // 장문은 문단이 넷이어야 한다 — 그 조건은 이 검사와 별개다.
+    passage: [para, para, para, para].join('\n\n'),
+    rationale_ko:
+      '(a)의 He는 Ivo다 — "He warned Tomas in a rough voice" 에서 목적어가 Tomas이므로 주어는 Ivo일 수밖에 없다. 나머지 넷은 모두 Tomas이며 앞 절의 주어를 그대로 받는다.',
+  })
+
+  it('차례대로면 이 검사에 안 걸린다', () => {
+    const v = checkDrainItem(row(inOrder), 'long_reference', 5)
+    expect(v.reason ?? '').not.toContain('자리표')
+  })
+
+  it('두 자리가 바뀌면 막고, 어느 자리인지 말한다', () => {
+    const swapped = [...inOrder]
+    ;[swapped[3], swapped[4]] = [swapped[4]!, swapped[3]!]
+    const v = checkDrainItem(row(swapped), 'long_reference', 5)
+    expect(v.ok).toBe(false)
+    expect(v.reason).toContain('(e)')
+    expect(v.reason).toContain('(d)')
+  })
+
+  it('첫 자리가 뒤로 가도 막는다', () => {
+    const moved = [inOrder[1]!, inOrder[0]!, ...inOrder.slice(2)]
+    const v = checkDrainItem(row(moved), 'long_reference', 5)
+    expect(v.ok).toBe(false)
+    expect(v.reason).toContain('자리표')
+  })
+
+  // ⚠️ 이 검사가 다른 유형까지 막으면 재고가 통째로 사라진다.
+  it('다른 장문 유형은 이 검사를 받지 않는다', () => {
+    const swapped = [...inOrder]
+    ;[swapped[3], swapped[4]] = [swapped[4]!, swapped[3]!]
+    const v = checkDrainItem(row(swapped), 'long_match', 5)
+    expect(v.reason ?? '').not.toContain('자리표')
+  })
+})

@@ -147,6 +147,22 @@ export function checkDrainItem(r: DrainItemRow, type: string, band: number): Ite
     return no('순서 유형인데 (B)(C)(D) 세 토막이 아닌 선택지가 있다 — 형식이 단서가 된다')
   if (type === 'long_reference' && choices.some((c) => !passage.includes(c)))
     return no('지칭 유형인데 지문에 그대로 없는 구절이 있다 — 학습자가 찾을 수 없다')
+  // ⚠️⚠️ **자리표는 나오는 차례여야 한다.** 수능 지칭은 늘 (a) 가 먼저 나온 밑줄이고,
+  //   `answer_key.rationale_ko` 가 그 자리표를 그대로 쓴다(「(a)의 He는 Ivo다 … (c)는 …」).
+  //   차례가 어긋나면 조판기가 다시 매길 수도 없다 — 매기는 순간 해설이 딴 곳을 가리킨다.
+  //
+  //   이 검사가 없던 동안 **57건 중 11건**이 어긋난 채 적재됐다(실측 2026-09-14 ·
+  //   예: 자리 109 < 363 < 1264 < 1642 < **1595** 로 (e) 가 (d) 앞에 있다). 구절이 전부
+  //   지문에 있는지만 봤기 때문이다 — 있는 것과 **차례대로 있는 것**은 다르다.
+  if (type === 'long_reference') {
+    const at = choices.map((c) => passage.indexOf(c))
+    const bad = at.findIndex((v, i) => i > 0 && v <= at[i - 1]!)
+    if (bad > 0) {
+      return no(
+        `지칭 유형인데 자리표 차례가 지문과 어긋난다 — (${'abcde'[bad]}) 가 (${'abcde'[bad - 1]}) 보다 앞에 나온다`,
+      )
+    }
+  }
   if (type === 'long_vocab' && choices.some((c) => !passage.includes(c)))
     return no('어휘 유형인데 지문에 그대로 없는 구절이 있다 — passage_edited 를 안 냈거나 구절을 다듬었다')
   if (type === 'long_vocab' && !String(choices[answer - 1] ?? '').includes(String(r.swapped?.to ?? ' ')))
