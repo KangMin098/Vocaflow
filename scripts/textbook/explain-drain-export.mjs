@@ -131,13 +131,67 @@ for (const r of rows) {
   //   적었고, 3인 검수 1·2회차가 순서 유형 **전량**에 같은 지적을 했다. 규칙이 지문에서
   //   근거를 읽어 낸 것은 **5.7%** 뿐이다(실측 273/4,795). 나머지는 배치가 써야 한다.
   //
-  //   ⚠️ **배치가 쓴 것은 여전히 안 건드린다** — 배치에는 `explanation_writer` 가 없다.
+  //   ⚠️ **배치가 쓴 것은 여전히 안 건드린다** — 적재가 `explanation_writer: 'batch'` 를 적는다
+  //     (2026-09-14. 그전에는 안 적어서 같은 문항이 영원히 다시 뽑혔다).
+  //
+  // ── 밑줄 두 유형도 연다 (2026-09-14) ────────────────────────────────
+  //
+  // ⚠️ **근거는 표본이 아니라 템플릿의 성질이다.** `explainVocabChoice` 와
+  //   `explainUnderlinedGrammar` 의 오답 절은 위치만 낸다 —
+  //   「나머지 ① "religious"(1문장) · ② "story"(7문장) … 의 자리는 각각 그 문장에서
+  //   확인할 수 있다」. 즉 **오답별 이유가 구조상 0개**이고, 이것은 100% 참이다.
+  //   시중 해설 규격은 오답 배제 언급률 **53.6%** 다(`market-spec.json`).
+  //
+  //   해설을 고친 뒤 내려진 3인 검수 8건이 그 한계를 그대로 지목했다(tutor 5 · setter 1 ·
+  //   analyst 1). 그중 하나는 「확인할 수 있다」가 **검증되지 않은 주장**임을 실례로 보였다 —
+  //   "① 의 경우 그 1문장 안에 확인할 단서가 없다". 문구를 세 번 바꿨지만
+  //   (「어긋나지 않는다」 → 「지문 그대로다」 → 「확인할 수 있다」) 그때마다 같은 지적이 왔다.
+  //   **말을 고쳐서 될 일이 아니라 쓰는 주체를 바꿀 일**이다 — 순서·삽입과 같은 결론이다.
+  //
+  //   ⚠️ order·insert 는 판별력 5.7% 라는 **비율**이 근거였고 여기는 **구조**가 근거다.
+  //     되돌리려면 이 두 값을 빼면 된다. 그때 근거로 쓸 수 있는 반증은 하나다 —
+  //     결정론 해설이 오답별 이유를 실제로 담게 되는 것.
   const writer = r.answer_key?.explanation_writer ?? null
-  const upgradeable = writer === 'order_seam' || writer === 'insert_seam'
+  const upgradeable =
+    writer === 'order_seam' ||
+    writer === 'insert_seam' ||
+    writer === 'vocab_choice' ||
+    writer === 'underlined_grammar'
   if (r.answer_key?.explanation_ko && !upgradeable) {
     already++
     continue
   }
+  // ── 밑줄 유형은 변환이 필요 없다 — payload 가 곧 지면이다 ──────────
+  //
+  // ⚠️ 이 갈래가 없던 동안 `upgradeable` 을 열어도 **아무 일도 안 일어났다**(실측
+  //   2026-09-14: 「이미 해설 있음」이 24 → 19 로 줄었는데 「배치가 쓸 몫」은 0 그대로였다).
+  //   아래 `toCsatOrder`/`toCsatInsert` 가 밑줄 유형을 못 만들어 전부 `unprintable` 로
+  //   떨어졌기 때문이다. **문을 열었으면 길도 놓아야 한다.**
+  if (r.type === 'vocab_choice' || r.type === 'grammar_choice' || r.type === 'unit_grammar') {
+    const sentences = Array.isArray(r.payload?.sentences) ? r.payload.sentences.map(String) : []
+    const underlines = Array.isArray(r.payload?.underlines) ? r.payload.underlines : []
+    const pos = Number(r.answer_key?.position ?? r.answer_key?.answer)
+    // 자리표·원래 낱말이 없으면 검수자가 정답을 확인할 수 없다 — 지어내게 하지 않는다.
+    if (!sentences.length || underlines.length < 2 || !Number.isInteger(pos) || !r.answer_key?.original) {
+      unprintable++
+      continue
+    }
+    tasks.push({
+      id: r.id,
+      type: r.type,
+      answer: `${CIRCLED[pos - 1] ?? pos} "${String(underlines[pos - 1]?.word ?? '')}"`,
+      original: String(r.answer_key.original),
+      sentences,
+      underlines: underlines.map((u, i) => ({
+        label: String(u?.label ?? CIRCLED[i] ?? i + 1),
+        word: String(u?.word ?? ''),
+        sentence: Number.isInteger(Number(u?.sentenceIdx)) ? Number(u.sentenceIdx) + 1 : null,
+      })),
+      explanation_ko: '',
+    })
+    continue
+  }
+
   const isOrder = r.type === 'order'
   const item = isOrder
     ? toCsatOrder(r.payload?.presented ?? [], r.answer_key?.source_order ?? [])
