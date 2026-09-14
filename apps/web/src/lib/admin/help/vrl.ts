@@ -19,6 +19,22 @@ export const VRL_HELP: HelpRegistry = {
       summary:
         'shared_dictionary 가 4개 파이프라인(R1 라이브러리 추출 · R2 스크립트 추출 · R3 단어장 발행 · R4 사용자 학습)을 얼마나 지탱하는지 9차원으로 점수화한 읽기 전용 모니터.',
       when: '재분류·백필·마이그레이션을 시작하기 전에 "무엇부터 고칠지" 고를 때. 여기서 값을 고치지는 못한다.',
+      diagrams: [
+        {
+          kind: 'flow',
+          caption: '읽는 순서 — 여기서 값을 고치지는 못한다',
+          nodes: [
+            { label: 'Overall', actor: 'auto', says: '4 책임 점수 한 장 — 어디가 깎였나' },
+            { label: 'R1-R4', actor: 'auto', says: '왜 깎였나 + 되돌릴 단일 액션' },
+            { label: 'Defects', actor: 'script', says: '15개 규칙을 열 때마다 다시 돌린다' },
+            { label: 'Impact', actor: 'auto', says: '결함 × 책임 교차 — 이번 판의 본질 페인' },
+            { label: 'Backlog', actor: 'user', says: '고칠 순서를 P0~P3 로 잡는다' },
+          ],
+          branch: [
+            { when: '값을 고치려면', then: '재분류·백필·마이그레이션으로 나간다 — 이 화면은 읽기만 한다' },
+          ],
+        },
+      ],
       steps: [
         {
           title: '병목 책임 고르기',
@@ -79,6 +95,17 @@ export const VRL_HELP: HelpRegistry = {
       Overall: {
         summary:
           '전체 점수 한 장 — 4 책임 점수와 가중치가 큰 3개 차원(Pipeline Fitness · VRL Classification · Schema Evolution)만 추린 요약.',
+        diagrams: [
+          {
+            kind: 'keys',
+            caption: '점수 한 장을 읽는 법',
+            nodes: [
+              { label: 'R1~R4', says: '라이브러리 추출 · 스크립트 추출 · 단어장 발행 · 사용자 학습' },
+              { label: '붉은 링 칩', says: '그 책임이 이번 판에서 가장 깎인 자리' },
+              { label: '아래 3개 막대', says: '가중치가 큰 차원 셋만 — 나머지는 9 Dims 에' },
+            ],
+          },
+        ],
         fields: [
           {
             label: 'R1 / R2 / R3 / R4',
@@ -99,6 +126,17 @@ export const VRL_HELP: HelpRegistry = {
       'R1-R4': {
         summary:
           '각 책임 점수가 어떤 요인에서 깎였는지와, 그걸 되돌릴 단일 액션을 카드 한 장에 묶어 놓은 곳.',
+        diagrams: [
+          {
+            kind: 'keys',
+            caption: '카드 한 장 = 깎인 이유 + 되돌릴 한 수',
+            nodes: [
+              { label: 'Factors (n)', says: '그 점수를 깎은 요인 수' },
+              { label: 'Affected Defects', says: '그 요인에 걸린 결함들' },
+              { label: 'Primary Action', says: '**되돌릴 단일 액션** — 이것부터 한다' },
+            ],
+          },
+        ],
         fields: [
           {
             label: 'Factors (n)',
@@ -126,6 +164,17 @@ export const VRL_HELP: HelpRegistry = {
       },
       '9 Dims': {
         summary: '9개 품질 차원 점수 — 가중치가 큰 것부터 왼쪽 위에 놓인다.',
+        diagrams: [
+          {
+            kind: 'keys',
+            caption: '자리가 곧 중요도다 — 왼쪽 위부터 읽는다',
+            nodes: [
+              { label: '가중치 순', says: '큰 것이 왼쪽 위 — 아래로 갈수록 덜 급하다' },
+              { label: '카드의 w', says: '그 차원이 종합에 얼마나 실리는가' },
+              { label: '🔴 🟡 🟢', says: '색만으로 읽지 않는다 — 수치를 함께 본다' },
+            ],
+          },
+        ],
         fields: [
           {
             label: '카드의 w',
@@ -141,6 +190,18 @@ export const VRL_HELP: HelpRegistry = {
       },
       Defects: {
         summary: '15개 탐지 규칙을 페이지를 열 때마다 다시 돌린 결과. P0/P1/P2 로 묶여 나온다.',
+        diagrams: [
+          {
+            kind: 'keys',
+            caption: '이 표는 저장된 값이 아니라 **방금 돌린 결과**다',
+            nodes: [
+              { label: '15개 규칙', says: '페이지를 열 때마다 다시 돈다 — 새로고침하면 바뀐다' },
+              { label: 'P0 / P1 / P2', says: '급한 정도. 순서가 곧 고칠 차례다' },
+              { label: 'current / target', says: '지금 값과 가야 할 값' },
+              { label: 'affects 칩', says: '그 결함이 어느 책임을 깎는가' },
+            ],
+          },
+        ],
         fields: [
           {
             label: 'P0 / P1 / P2',
@@ -163,6 +224,17 @@ export const VRL_HELP: HelpRegistry = {
       Impact: {
         summary:
           '결함 × 4책임 교차표 — 점이 가장 많이 찍힌 컬럼이 이번 판의 본질 페인이다.',
+        diagrams: [
+          {
+            kind: 'keys',
+            caption: '점이 가장 많이 찍힌 컬럼이 이번 판의 본질이다',
+            nodes: [
+              { label: '테두리 쳐진 컬럼', says: '본질 페인 — 여기부터 고치면 여러 결함이 함께 풀린다' },
+              { label: '점 색', says: '그 칸의 급한 정도' },
+              { label: '본질 페인 띠', says: '교차표가 지목한 것을 한 줄로 되풀이한다' },
+            ],
+          },
+        ],
         fields: [
           {
             label: '테두리가 쳐진 컬럼',
@@ -200,6 +272,18 @@ export const VRL_HELP: HelpRegistry = {
       'Dist/Rounds': {
         summary:
           '6개 분포 차트 + rule_v1 → v_level 재분류 라운드 기록. 분포는 실측, 라운드 카드는 기록이다.',
+        diagrams: [
+          {
+            kind: 'keys',
+            caption: '분포는 **실측**이고 라운드 카드는 **기록**이다 — 섞어 읽지 않는다',
+            nodes: [
+              { label: '6개 분포 차트', says: '지금 DB 를 센 값' },
+              { label: '라운드 카드', says: '그때 그렇게 재분류했다는 기록 — 지금 값이 아니다' },
+              { label: 'current vs rule_v1', says: '재분류 전후를 나란히 둔 것' },
+              { label: 'retention %', says: '재분류에서 값이 그대로 남은 비율' },
+            ],
+          },
+        ],
         fields: [
           {
             label: 'V-Level (current) vs rule_v1',
@@ -227,6 +311,18 @@ export const VRL_HELP: HelpRegistry = {
       },
       Backlog: {
         summary: '개선 항목을 P0~P3 로 묶은 목록 + 즉시 쓸 수 있는 5개 액션.',
+        diagrams: [
+          {
+            kind: 'keys',
+            caption: '고칠 순서 — 「본질 페인」과 「Best ROI」는 다른 것을 가리킨다',
+            nodes: [
+              { label: 'P0~P3', says: '급한 정도로 묶은 목록' },
+              { label: '본질 페인', says: '가장 많이 깎는 자리' },
+              { label: 'Best ROI', says: '적은 품으로 가장 많이 되돌리는 자리' },
+              { label: '즉시 액션 5', says: '지금 바로 누를 수 있는 것들' },
+            ],
+          },
+        ],
         fields: [
           {
             label: '본질 페인 / Best ROI',
@@ -259,6 +355,17 @@ export const VRL_HELP: HelpRegistry = {
       summary:
         'V-Level 12 · Track 6 · Domain 8 · Skill 5 의 정의를 읽기만 하는 화면. 단어에 붙은 축 값이 무슨 뜻인지 여기서 확인한다.',
       when: '분류 값을 해석하거나 진단·단어장에 쓸 id 를 확인할 때. 사이드바에 없다 — /admin/vrl/taxonomy 로 직접 들어간다.',
+      diagrams: [
+        {
+          kind: 'keys',
+          caption: '읽기만 하는 정의표 — 사이드바에 없다',
+          nodes: [
+            { label: '4 축', says: 'V-Level 12 · Track 6 · Domain 8 · Skill 5' },
+            { label: '무엇에 쓰나', says: '단어에 붙은 축 값의 뜻 · 진단·단어장에 쓸 id' },
+            { label: '들어가는 길', says: '/admin/vrl/taxonomy 로 직접 연다' },
+          ],
+        },
+      ],
       cautions: [
         '읽기 전용이다. vocaflow_levels / tracks / domains / skills 는 마이그레이션으로만 바뀐다.',
         '탭 옆 배지가 0 이면 "비었다"가 아니라 조회 실패일 수 있다 — 이 화면의 조회는 에러를 무시하고 빈 배열을 넘긴다. 헤더에 적힌 12·6·8·5 와 어긋나면 권한/RLS 를 확인해라.',
