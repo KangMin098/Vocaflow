@@ -14,12 +14,20 @@
 //   ③ 어떤 영상이 실제로 보이고 있는가 (= 더 만들 것을 정하는 근거)
 //   ④ 영상에 박힌 수가 지금과 얼마나 다른가 (= 다시 찍을지 정하는 근거)
 //   ⑤ 어느 편이 어느 단계에 있고 **무엇이 실패했는가** (= 큐. 파일이 아니라 기록이 말한다)
+//   ⑥ 다음에 무엇을 찍어야 하는가 (= **기획**. 설계도 규칙이 아직 없는 후보까지 센다)
+//   ⑦ 찍은 것이 규격 안인가 (= **평가**. 외부에 공개된 규격이 있는 축만 판정한다)
 
 import type { Metadata } from 'next'
 
 import { requireAdmin } from '@/lib/auth/require-admin'
 import { createAdminClient } from '@/lib/supabase/admin'
-import { evidenceDrift, loadJobQueue, loadVideoConsole } from '@/lib/admin/video-console'
+import {
+  evidenceDrift,
+  loadEvaluation,
+  loadJobQueue,
+  loadPlan,
+  loadVideoConsole,
+} from '@/lib/admin/video-console'
 
 import { VideoConsoleClient } from './VideoConsoleClient'
 
@@ -31,11 +39,21 @@ export default async function AdminVideoPage() {
   await requireAdmin('/admin/video')
 
   const db = createAdminClient()
-  const [console_, drift, queue] = await Promise.all([
+  const [console_, drift, queue, evaluation, plan] = await Promise.all([
     loadVideoConsole(db),
     evidenceDrift(db),
     loadJobQueue(db),
+    loadEvaluation(db),
+    loadPlan(db),
   ])
 
-  return <VideoConsoleClient data={console_} drift={drift} queue={queue} />
+  return (
+    <VideoConsoleClient
+      data={console_}
+      drift={drift}
+      queue={queue}
+      evaluation={evaluation}
+      plan={plan}
+    />
+  )
 }

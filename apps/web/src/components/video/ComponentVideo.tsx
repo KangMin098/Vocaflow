@@ -100,7 +100,14 @@ export function ComponentVideo({ video, maxWidth, className }: ComponentVideoPro
             onEnded={onEnded}
             className="h-full w-full"
           >
-            <track kind="captions" srcLang="ko" label="한국어" src={video.captions} default />
+            {/*
+              ⚠️ **`default` 를 걸지 않는다.** 우리 영상에는 자막이 **화면에 구워져 있다**
+                (소리 끈 채로 피드에서 보는 사람에게 닿아야 해서). 거기에 브라우저 자막까지
+                기본으로 켜면 같은 글이 아래쪽 같은 자리에 **두 번** 그려진다.
+                트랙 자체는 남긴다 — 켜고 싶은 사람이 켤 수 있고, YouTube 업로드와
+                크롤러가 이 파일을 읽는다. 글로 읽을 것은 편별 페이지의 자막 전문이 서버 렌더로 낸다.
+            */}
+            <track kind="captions" srcLang="ko" label="한국어" src={video.captions} />
           </video>
         ) : (
           <button

@@ -162,6 +162,45 @@ export async function enqueueAll(specs: VideoSpec[]): Promise<{ ok: number; skip
   return { ok, skipped }
 }
 
+/**
+ * **평가 결과를 남긴다.** 단계(`stage`)는 건드리지 않는다 —
+ * 평가는 제작의 단계가 아니라 그 위의 판정이고, 섞으면 "평가에서 떨어졌다" 가
+ * "아직 안 찍었다" 로 읽힌다.
+ *
+ * 기록이 본 작업을 인질로 잡지 않는 규칙은 `advance()` 와 같다 — 예외를 던지지 않는다.
+ */
+export async function recordEvaluation(
+  videoId: string,
+  pass: number,
+  fail: number,
+  unknown: number,
+  axes: unknown,
+): Promise<boolean> {
+  if (disabled) return false
+  const c = db()
+  if (!c) {
+    shutOff('SUPABASE_SERVICE_ROLE_KEY 가 없다')
+    return false
+  }
+  try {
+    const { error } = await c.rpc('video_job_evaluate', {
+      p_video_id: videoId,
+      p_pass: pass,
+      p_fail: fail,
+      p_unknown: unknown,
+      p_axes: axes,
+    })
+    if (error) {
+      shutOff(`video_job_evaluate 를 못 불렀다 (${error.code ?? error.message})`)
+      return false
+    }
+    return true
+  } catch (err) {
+    shutOff(`큐에 못 닿았다 (${(err as Error).name})`)
+    return false
+  }
+}
+
 /** 큐 요약 — CLI 가 한 줄로 보여 준다. 못 읽으면 null. */
 export async function overview(): Promise<{ stage: string; n: number }[] | null> {
   if (disabled) return null

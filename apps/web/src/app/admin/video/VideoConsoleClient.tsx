@@ -15,19 +15,25 @@ import { AlertTriangle, Clapperboard, Copy, Check } from 'lucide-react'
 
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
-import { KIND_LABEL, type VideoKind } from '@/lib/video/catalog'
+import { KIND_LABEL, KIND_ORDER } from '@/lib/video/catalog'
 import {
   JOB_STAGES,
   JOB_STAGE_KO,
+  type EvalSummary,
   type EvidenceDrift,
   type JobQueue,
+  type PlanBoard,
   type VideoConsole,
   type VideoRow,
 } from '@/lib/admin/video-console-shape'
 
-const ORDER: VideoKind[] = ['intro', 'benefit', 'curriculum', 'series', 'type', 'module']
+// 종류 순서는 `KIND_LABEL` 의 키 순서다 — **여기서 다시 적지 않는다.**
+// 손으로 적었더니 종류를 둘 더한 날 `/video` 에서 11편이 조용히 사라졌고, 이 화면의
+// 구성요소 탭도 같은 목록을 따로 갖고 있어 같은 방식으로 새 종류를 빠뜨리고 있었다.
+const ORDER = KIND_ORDER
 
-const TABS = ['현황', '구성요소', '수치 낡음', '내보내기'] as const
+// 순서는 파이프라인 순서다 — 기획 → (제작) → 평가. 「현황」이 제작 관측이다.
+const TABS = ['현황', '기획', '평가', '구성요소', '수치 낡음', '내보내기'] as const
 type Tab = (typeof TABS)[number]
 
 function pct(n: number, d: number): string {
@@ -105,11 +111,16 @@ export function VideoConsoleClient({
   data,
   drift,
   queue,
+  evaluation,
+  plan,
 }: {
   data: VideoConsole
   drift: EvidenceDrift[]
   /** 마이그레이션 전이면 null — 그때는 패널을 아예 안 그린다(빈 표는 "큐가 비었다" 로 읽힌다). */
   queue: JobQueue | null
+  /** 평가 열이 아직 없으면 null — 같은 이유로 통째로 안 그린다. */
+  evaluation: EvalSummary | null
+  plan: PlanBoard
 }) {
   const [tab, setTab] = useState<Tab>('현황')
 
@@ -325,6 +336,188 @@ export function VideoConsoleClient({
         </section>
       )}
 
+      {/*
+        ── 기획 ──
+        「밀린 것」과 다르다. 공장은 번들에 있는 것을 전부 설계도로 만들므로 「안 만든 편」은
+        정상 상태에서 늘 0 이고 화면은 "다 했다" 고 말한다. 그런데 **설계도 규칙이 아직 없는
+        후보**가 남아 있다 — 없는 것이 목록에 안 보이면 영원히 안 만들어진다.
+      */}
+      {tab === '기획' && (
+        <section>
+          <div className="mb-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
+            <Signal label="주소 가능한 자리" value={String(plan.addressable)} />
+            <Signal label="설계도 있음" value={String(plan.covered)} />
+            <Signal
+              label="다음에 찍을 것"
+              value={String(plan.next.length)}
+              warn={plan.next.length > 0}
+            />
+            <Signal
+              label="덮개"
+              value={plan.coverage === null ? '—' : `${Math.round(plan.coverage * 100)}%`}
+              sub="막힌 자리는 분모에서 뺀다"
+            />
+          </div>
+
+          {plan.next.length === 0 ? (
+            <p className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-3 font-body text-[13px] text-[var(--t2)]">
+              주소 가능한 자리가 전부 설계도로 있습니다. 새 구성요소가 생기면 여기 뜹니다.
+            </p>
+          ) : (
+            <div className="overflow-x-auto rounded-[var(--r-md)] border border-[var(--bd)]">
+              <table className="w-full min-w-[640px] border-collapse">
+                <caption className="border-b border-[var(--bd)] px-4 py-2 text-left font-body text-[12px] text-[var(--t3)]">
+                  재고 큰 순 — 보여 줄 것이 많은 자리를 먼저 찍습니다. 재생 수로 정하는 것이
+                  맞지만 <strong>지금 재생은 0</strong> 이라 없는 신호로 순위를 매기지 않습니다.
+                </caption>
+                <thead>
+                  <tr className="border-b border-[var(--bd)] bg-[var(--bg2)] text-left font-body text-[11px] text-[var(--t3)]">
+                    <th className="px-4 py-2 font-[600]">구성요소</th>
+                    <th className="px-4 py-2 font-[600]">종류</th>
+                    <th className="px-4 py-2 text-right font-[600]">재고</th>
+                    <th className="px-4 py-2 font-[600]">무엇을 센 수인가</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {plan.next.map((r) => (
+                    <tr key={r.id} className="border-b border-[var(--bd)] last:border-0">
+                      <td className="break-keep px-4 py-2 font-body text-[13px] text-[var(--t1)]">
+                        {r.name}
+                        <span className="ml-2 font-mono text-[11px] text-[var(--t3)]">{r.id}</span>
+                      </td>
+                      <td className="px-4 py-2 font-mono text-[12px] text-[var(--t2)]">{r.kind}</td>
+                      <td className="px-4 py-2 text-right font-mono text-[12px] tabular-nums text-[var(--t1)]">
+                        {/* null 은 **못 잼**이지 0 이 아니다. */}
+                        {r.backing === null ? '못 잼' : r.backing.toLocaleString('ko-KR')}
+                      </td>
+                      <td className="break-keep px-4 py-2 font-body text-[12px] text-[var(--t3)]">
+                        {r.backingLabel}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+
+          {plan.blocked.length > 0 && (
+            <div className="mt-5 rounded-[var(--r-md)] border border-[var(--bdw)] bg-[var(--warning-light)] px-4 py-3">
+              <p className="font-body text-[13px] font-[700] text-[var(--warning-ink)]">
+                지금 찍으면 안 되는 자리 {plan.blocked.length}
+              </p>
+              <ul className="mt-2 space-y-1">
+                {plan.blocked.map((r) => (
+                  <li key={r.id} className="break-keep font-body text-[12px] text-[var(--warning-ink)]">
+                    <span className="font-mono">{r.id}</span> · {r.name}
+                    <span className="block pl-4 text-[var(--t2)]">— {r.blockedWhy}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </section>
+      )}
+
+      {/*
+        ── 평가 ──
+        외부에 **공개된 규격**이 있는 축만 합격/불합격을 매긴다. 없는 축(첫 컷 길이 등)은
+        재기만 한다 — 숫자를 지어 놓으면 그게 다음 사람에게 근거처럼 보인다.
+      */}
+      {tab === '평가' && (
+        <section>
+          {!evaluation ? (
+            <p className="break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-3 font-body text-[13px] text-[var(--t2)]">
+              평가 기록이 아직 없습니다 — <code className="font-mono">video_jobs</code> 의 평가 열
+              마이그레이션 전입니다. <strong>빈 표를 그리지 않는 이유</strong>: 「전부 통과」로
+              읽히는데 사실은 판정 자체가 없습니다.
+            </p>
+          ) : (
+            <>
+              <div className="mb-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
+                <Signal
+                  label="평가한 편"
+                  value={`${evaluation.evaluated} / ${evaluation.total}`}
+                  sub={
+                    evaluation.lastAt
+                      ? new Date(evaluation.lastAt).toLocaleString('ko-KR')
+                      : '아직 안 돌림'
+                  }
+                  warn={evaluation.evaluated < evaluation.total}
+                />
+                <Signal label="전부 통과" value={String(evaluation.clean)} />
+                <Signal
+                  label="어긋남 있음"
+                  value={String(evaluation.failing)}
+                  warn={evaluation.failing > 0}
+                />
+                <Signal
+                  label="못 잰 축 있음"
+                  value={String(evaluation.incomplete)}
+                  sub="합격으로 세지 않음"
+                  warn={evaluation.incomplete > 0}
+                />
+              </div>
+
+              {evaluation.evaluated === 0 ? (
+                <p className="break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-3 font-body text-[13px] text-[var(--t2)]">
+                  아직 한 편도 평가하지 않았습니다. 내보내기 탭의{' '}
+                  <code className="font-mono">pnpm video evaluate</code> 를 돌리세요.
+                </p>
+              ) : evaluation.rows.length === 0 ? (
+                <p className="break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-3 font-body text-[13px] text-[var(--t2)]">
+                  규격을 어긴 편이 없습니다. 판정하는 축은 전부 외부에 공개된 규격을 근거로
+                  씁니다 — YouTube 라우드니스·Shorts 길이·Netflix 자막 규격.
+                </p>
+              ) : (
+                <ul className="space-y-3">
+                  {evaluation.rows.map((r) => (
+                    <li
+                      key={r.video_id}
+                      className="rounded-[var(--r-md)] border border-[var(--bde)] bg-[var(--bg)]"
+                    >
+                      <p className="flex flex-wrap items-baseline gap-x-3 border-b border-[var(--bd)] px-4 py-2">
+                        <span className="font-body text-[13px] font-[700] text-[var(--t1)]">
+                          {r.video_id}
+                        </span>
+                        <span className="font-mono text-[11px] text-[var(--t3)]">
+                          {r.kind} · 통과 {r.eval_pass ?? 0} · 어긋남 {r.eval_fail ?? 0}
+                          {(r.eval_unknown ?? 0) > 0 ? ` · 못 잼 ${r.eval_unknown}` : ''}
+                        </span>
+                      </p>
+                      <ul className="space-y-2 px-4 py-3">
+                        {(r.eval_axes ?? [])
+                          .filter((a) => a.verdict === 'fail' || a.verdict === 'unknown')
+                          .map((a) => (
+                            <li key={a.id} className="break-keep font-body text-[12px]">
+                              {/* 기호 + 글자 — 색만으로 말하지 않는다(색약 대응). */}
+                              <span className="font-mono text-[var(--t2)]">
+                                {a.verdict === 'fail' ? '✗ 어긋남' : '? 못 잼'}
+                              </span>{' '}
+                              <span className="text-[var(--t1)]">{a.label}</span>{' '}
+                              <span className="text-[var(--t2)]">{a.value}</span>
+                              {a.limit && (
+                                <span className="text-[var(--t3)]"> · 규격 {a.limit}</span>
+                              )}
+                              {a.offenders.length > 0 && (
+                                <span className="block pl-5 font-mono text-[11px] text-[var(--t3)]">
+                                  {a.offenders.slice(0, 6).join(' · ')}
+                                  {a.offenders.length > 6
+                                    ? ` 외 ${a.offenders.length - 6}건`
+                                    : ''}
+                                </span>
+                              )}
+                            </li>
+                          ))}
+                      </ul>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </>
+          )}
+        </section>
+      )}
+
       {tab === '구성요소' && (
         <section>
           {ORDER.map((kind) => {
@@ -492,8 +685,9 @@ export function VideoConsoleClient({
           </p>
 
           <CommandBlock
-            title="① 원료 → ⑦ 발행 (전량)"
+            title="⓪ 기획 → ⑧ 평가 (전량)"
             lines={[
+              'pnpm video plan',
               'pnpm video:source',
               'pnpm video voice',
               'pnpm video render-all',
@@ -501,6 +695,7 @@ export function VideoConsoleClient({
               'pnpm video thumbs',
               'pnpm --filter @vocaflow/video-factory package',
               'pnpm --filter @vocaflow/video-factory publish',
+              'pnpm video evaluate',
               '# 그리고 apps/web/src/lib/video/manifest.json 을 커밋해야 화면에 뜬다',
             ]}
           />
@@ -522,7 +717,13 @@ export function VideoConsoleClient({
 
           <CommandBlock
             title="③ 어긋남만 확인 (렌더 안 함)"
-            lines={['pnpm video stale', 'pnpm video list', 'pnpm video loudness']}
+            lines={[
+              'pnpm video plan',
+              'pnpm video evaluate --full',
+              'pnpm video stale',
+              'pnpm video list',
+              'pnpm video loudness',
+            ]}
           />
 
           {/*

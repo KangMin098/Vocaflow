@@ -25,6 +25,10 @@ import 'server-only'
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 
+import { SERIES_CATALOG } from '@vocaflow/library-pipeline/textbook-series-catalog'
+import { SERIES_SPINE } from '@vocaflow/library-pipeline/textbook-series'
+import { volumeVideoId } from '@vocaflow/video-factory/ids'
+
 import { platformComponents, type PlatformComponent } from '@/lib/video/components'
 import { VIDEO_BUILT_AT, type VideoFormat, type VideoKind } from '@/lib/video/catalog'
 import manifestJson from '@/lib/video/manifest.json'
@@ -34,10 +38,14 @@ import manifestJson from '@/lib/video/manifest.json'
 // 그대로 유지**한다(화면은 shape 쪽에서 직접 가져간다).
 import { JOB_STAGES } from './video-console-shape'
 import type {
+  EvalRow,
+  EvalSummary,
   EvidenceDrift,
   JobQueue,
   JobRow,
   JobStage,
+  PlanBoard,
+  PlanRow,
   VideoConsole,
   VideoIssue,
   VideoRow,
@@ -46,8 +54,13 @@ import type {
 
 export { JOB_STAGES, JOB_STAGE_KO } from './video-console-shape'
 export type {
+  EvalAxis,
+  EvalRow,
+  EvalSummary,
   EvidenceDrift,
   JobQueue,
+  PlanBoard,
+  PlanRow,
   JobRow,
   JobStage,
   VideoConsole,
@@ -320,5 +333,117 @@ export async function loadJobQueue(db: AdminClient): Promise<JobQueue | null> {
     inFlight: rows.filter((r) => r.stage !== 'published' && r.stage !== 'failed'),
     lastMovedAt: rows[0]?.updated_at ?? null,
     total: rows.length,
+  }
+}
+
+/* ── 평가 — 파이프라인 3단계 중 마지막 ──────────────────────────── */
+
+/**
+ * **찍은 것이 규격 안인가.** 판정은 로컬에서 `pnpm video evaluate` 가 하고,
+ * 그 결과가 `video_jobs` 에 남는다. 여기서는 **읽기만** 한다.
+ *
+ * ⚠️ 「안 잰 편」과 「재서 통과한 편」을 **가른다.** 뭉치면 아직 평가를 안 돌린 상태가
+ *   "다 통과" 로 보이고, 그건 이 저장소가 반복해서 겪은 거짓 안심의 모양이다.
+ *
+ * 못 읽으면 `null` — 마이그레이션 전이면 화면이 이 칸을 통째로 안 그린다.
+ */
+export async function loadEvaluation(db: AdminClient): Promise<EvalSummary | null> {
+  const { data, error } = await db
+    .from('video_jobs')
+    .select('video_id, kind, eval_at, eval_pass, eval_fail, eval_unknown, eval_axes')
+    .order('eval_fail', { ascending: false, nullsFirst: false })
+    .limit(500)
+
+  // 42703 = 열 없음 · 42P01 = 표 없음 → 마이그레이션 전. 빈 표를 그리지 않는다.
+  if (error || !data) return null
+
+  const rows = data as EvalRow[]
+  const done = rows.filter((r) => r.eval_at !== null)
+  const lastAt = done.reduce<string | null>(
+    (a, r) => (r.eval_at && (!a || r.eval_at > a) ? r.eval_at : a),
+    null,
+  )
+  return {
+    total: rows.length,
+    evaluated: done.length,
+    clean: done.filter((r) => (r.eval_fail ?? 0) === 0 && (r.eval_unknown ?? 0) === 0).length,
+    failing: done.filter((r) => (r.eval_fail ?? 0) > 0).length,
+    incomplete: done.filter((r) => (r.eval_fail ?? 0) === 0 && (r.eval_unknown ?? 0) > 0).length,
+    lastAt,
+    // 고칠 것만 나른다 — 통과한 73편을 화면에 늘어놓아도 결정이 안 바뀐다.
+    rows: done.filter((r) => (r.eval_fail ?? 0) > 0),
+  }
+}
+
+/* ── 기획 — 파이프라인 3단계 중 첫째 ────────────────────────────── */
+
+/**
+ * **다음에 무엇을 찍을 것인가.**
+ *
+ * 「안 만든 편」과 다르다. 공장은 번들에 있는 것을 전부 설계도로 만들므로 정상 상태에서
+ * 「안 만든 편」은 늘 0 이고, 화면은 "다 했다" 고 말한다. 그런데 **설계도 규칙이 아예 없는
+ * 후보**가 남아 있다 — 교재 **권별**이 그랬다. 없는 것이 목록에 안 보이면 영원히 안 만들어진다.
+ *
+ * ⚠️ 공장의 `catalog/plan.ts` 와 **같은 판단을 두 곳에서 한다.** 공장은 그날 뽑은 번들을 보고,
+ *   여기는 커밋된 원천 + **DB 실측**을 본다(번들은 커밋하지 않으므로 운영에는 없다).
+ *   `lib/video/components.ts` 가 같은 이유로 이미 그렇게 하고 있다.
+ *
+ * 재고를 못 읽으면 `null` 로 나른다 — **0 으로 뭉개면 멀쩡한 권이 「빈 서가」로 막힌다.**
+ */
+export async function loadPlan(db: AdminClient): Promise<PlanBoard> {
+  const covered = platformComponents()
+  const coveredIds = new Set(covered.map((c) => c.id))
+
+  // 권별 재고 — 카탈로그 화면과 **같은 RPC**를 쓴다. 다른 수를 말하면 둘 중 하나가 거짓이다.
+  const { data: invRows } = await db.rpc('textbook_shelf_inventory')
+  type InvRow = { item_type: string; v_level: number; item_count: number }
+  const inventory = (invRows as InvRow[] | null) ?? null
+  const stockOf = (types: readonly string[], vLevels: readonly number[]): number | null => {
+    if (!inventory) return null
+    return inventory
+      .filter((r) => types.includes(r.item_type) && vLevels.includes(r.v_level))
+      .reduce((sum, r) => sum + r.item_count, 0)
+  }
+
+  const next: PlanRow[] = []
+  const blocked: PlanRow[] = []
+  for (const series of SERIES_CATALOG) {
+    for (const rung of SERIES_SPINE) {
+      const id = volumeVideoId(series.id, rung.step)
+      if (coveredIds.has(id)) continue
+      const backing = stockOf(rung.types, rung.vLevels)
+      const row: PlanRow = {
+        id,
+        kind: 'volume',
+        name: `${series.brand} ${rung.volumeTitle}`,
+        state: backing === 0 ? 'blocked' : 'candidate',
+        backing,
+        backingLabel: '이 권의 문항',
+        blockedWhy:
+          backing === 0
+            ? '이 권에 문항이 0개다 — 지금 찍으면 빈 서가를 광고하게 된다'
+            : null,
+      }
+      ;(backing === 0 ? blocked : next).push(row)
+    }
+  }
+
+  // 재고 큰 순. **못 센 것(null)은 맨 뒤** — 0 과 같은 자리에 두면 「없다」로 읽힌다.
+  next.sort((a, b) => {
+    if (a.backing === null && b.backing === null) return a.name.localeCompare(b.name)
+    if (a.backing === null) return 1
+    if (b.backing === null) return -1
+    return b.backing - a.backing
+  })
+
+  const addressable = covered.length + next.length + blocked.length
+  const denom = covered.length + next.length
+  return {
+    addressable,
+    covered: covered.length,
+    next,
+    blocked,
+    // 막힌 자리는 분모에서 뺀다 — 만들 수 없는 것 때문에 영영 100%가 안 되면 그 수로 결정을 못 한다.
+    coverage: denom === 0 ? null : covered.length / denom,
   }
 }

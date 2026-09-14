@@ -104,6 +104,78 @@ export interface JobRow {
   published_at: string | null
 }
 
+/* ── 평가 (파이프라인 3단계 중 마지막) ──────────────────────────── */
+
+/**
+ * 축 하나의 판정. 정본은 `packages/video-factory/src/spec/evaluate.ts` 이고
+ * 여기 있는 것은 DB(`video_jobs.eval_axes`)에 담긴 그 결과의 **모양**이다.
+ */
+export interface EvalAxis {
+  id: string
+  label: string
+  /**
+   * `measured` = **규격이 없어 판정하지 않는 축.** 값만 남긴다.
+   * `unknown` = 잴 수 없었다 — 합격도 불합격도 아니다.
+   */
+  verdict: 'pass' | 'fail' | 'unknown' | 'measured'
+  value: string
+  limit: string | null
+  source: string | null
+  offenders: string[]
+}
+
+export interface EvalRow {
+  video_id: string
+  kind: string
+  eval_at: string | null
+  eval_pass: number | null
+  eval_fail: number | null
+  eval_unknown: number | null
+  eval_axes: EvalAxis[] | null
+}
+
+export interface EvalSummary {
+  total: number
+  /** 평가를 **돌린** 편. 이 수가 작으면 아래 수치는 전체를 말하지 않는다. */
+  evaluated: number
+  /** 어긋남 0 · 못 잰 축 0 */
+  clean: number
+  failing: number
+  /** 어긋남은 없지만 **못 잰 축이 있는** 편 — 합격으로 세지 않는다. */
+  incomplete: number
+  lastAt: string | null
+  /** 어긋난 편만. 무엇을 고칠지가 이 목록이다. */
+  rows: EvalRow[]
+}
+
+/* ── 기획 (파이프라인 3단계 중 첫째) ────────────────────────────── */
+
+export type PlanState = 'covered' | 'candidate' | 'blocked'
+
+export interface PlanRow {
+  id: string
+  kind: string
+  name: string
+  state: PlanState
+  /** 이 자리 뒤에 있는 재고. **못 셌으면 null** — 0 과 구분한다. */
+  backing: number | null
+  backingLabel: string
+  /** `blocked` 일 때만. 지금 만들면 안 되는 이유. */
+  blockedWhy: string | null
+}
+
+export interface PlanBoard {
+  /** 주소 가능한 자리 전부 */
+  addressable: number
+  covered: number
+  /** 만들 수 있고 만들어야 하는 자리 — 재고 큰 순 */
+  next: PlanRow[]
+  /** 지금 만들면 안 되는 자리 — 사유와 함께 */
+  blocked: PlanRow[]
+  /** 덮개. **막힌 자리는 분모에서 뺀다** — 만들 수 없는 것 때문에 영영 100%가 안 되면 결정을 못 한다. */
+  coverage: number | null
+}
+
 export interface JobQueue {
   /** 단계별 편수 — 순서는 `JOB_STAGES`. 0 인 단계도 자리를 지킨다(빠지면 사라진 걸로 읽힌다). */
   counts: Record<JobStage, number>

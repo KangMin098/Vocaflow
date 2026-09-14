@@ -9,6 +9,8 @@
 //   pnpm video render <id> [--format]  한 편 찍기
 //   pnpm video render-all [--kind …]   전부 찍기
 //   pnpm video thumbs [<id|kind> …]    YouTube 썸네일 (영상이 아니라 1프레임)
+//   pnpm video plan                    **기획** — 다음에 무엇을 찍을 것인가 (재고 근거)
+//   pnpm video evaluate [<id|kind> …]  **평가** — 찍은 것이 규격 안인가 (--full 로 축 전부)
 //   pnpm video loudness [--fix]        음량이 YouTube 규격(-14 LUFS) 안인지 (--fix 로 맞춤)
 //   pnpm video stale                   발행본 ↔ 설계도 어긋남 (렌더 안 함)
 //
@@ -26,18 +28,28 @@ import { bundle } from '@remotion/bundler'
 import { renderMedia, renderStill, selectComposition } from '@remotion/renderer'
 
 import { buildSpecs, countByKind } from '../catalog/build'
+import { backlog, planItems, summarizePlan } from '../catalog/plan'
+import {
+  evaluateVideo,
+  SOURCES,
+  summarize,
+  type LoudnessInput,
+  type Scorecard,
+} from '../spec/evaluate'
+import { cuesOf } from './captions'
 import { loadBundle } from '../catalog/bundle'
 import { validateAll } from '../spec/validate'
 import { FPS, FORMATS, type FormatId } from '../spec/format'
 import { applyVoiceTiming, loadVoiceManifest, synthesizeSpec } from '../voice/edge-tts'
 import { specDuration } from '../remotion/VideoComposition'
 import { ensureWorkFiles, writeVoiceIndex } from './ensure'
-import { advance, enqueueAll, overview } from '../jobs/client'
+import { advance, enqueueAll, overview, recordEvaluation } from '../jobs/client'
 import { allRendered, measure, normalize, shortName } from './loudness-run.mjs'
 import {
   offsetFromTarget,
   report as loudnessReport,
   TARGET_LUFS,
+  TARGET_TP,
   TOLERANCE_LU,
   withinSpec,
   type Loudness,
@@ -78,6 +90,9 @@ async function freePort(from = 4333, tries = 40): Promise<number> {
   }
   throw new Error(`${from}부터 ${tries}개를 봤는데 빈 포트가 없다`)
 }
+
+/** 재고를 한국어 자리표기로 — 여섯 자리 수를 붙여 쓰면 자릿수를 눈으로 못 센다. */
+const ko = new Intl.NumberFormat('ko-KR')
 
 const args = process.argv.slice(2)
 const cmd = args[0] ?? 'list'
@@ -331,6 +346,128 @@ async function cmdThumbs(): Promise<number> {
 }
 
 /**
+ * **기획 — 다음에 무엇을 찍을 것인가.**
+ *
+ * 「밀린 것」과 다르다. 공장은 번들에 있는 것을 전부 설계도로 만들므로 정상 상태에서
+ * 「안 만든 편」은 늘 0 이고, 화면은 "다 했다" 고 말한다. 그런데 **설계도로 표현조차 못 하는
+ * 후보**가 남아 있다(교재 권별이 그랬다) — 없는 것이 목록에 안 보이면 영원히 안 만들어진다.
+ */
+function cmdPlan(): number {
+  const b = loadBundle()
+  const existing = new Set(buildSpecs(b).map((s) => s.id))
+  const items = planItems(b, existing)
+  const bl = backlog(items)
+  const sum = summarizePlan(bl)
+
+  const line = (i: (typeof items)[number]) =>
+    `${i.kind.padEnd(11)} ${i.id.padEnd(24)} ` +
+    `${(i.backing === null ? '—' : ko.format(i.backing)).padStart(9)} ${i.backingLabel.padEnd(18)} ${i.name}`
+
+  if (bl.next.length > 0) {
+    console.log('다음에 찍을 것 — 재고 큰 순\n')
+    for (const i of bl.next) console.log('  ' + line(i))
+  } else {
+    console.log('다음에 찍을 것 없음 — 주소 가능한 자리가 전부 설계도로 있다')
+  }
+
+  if (bl.blocked.length > 0) {
+    console.log('\n지금 찍으면 안 되는 것')
+    for (const i of bl.blocked) {
+      console.log(`  ${line(i)}\n      └ ${i.blockedWhy}`)
+    }
+  }
+
+  console.log(
+    `\n주소 가능한 자리 ${sum.addressable} · 설계도 있음 ${sum.covered} · 다음 ${sum.next}` +
+      (sum.blocked ? ` · 막힘 ${sum.blocked}` : ''),
+  )
+  console.log(
+    `덮개 ${sum.coverage === null ? '—' : `${Math.round(sum.coverage * 100)}%` }` +
+      `  (막힌 자리는 분모에서 뺀다 — 만들 수 없는 것 때문에 영영 100%가 안 되면 그 수로 결정을 못 한다)`,
+  )
+  // 할 일이 남아 있다고 종료코드를 1 로 만들지 않는다 — 기획은 **관측**이지 게이트가 아니다.
+  return 0
+}
+
+/**
+ * **평가 — 찍은 것이 규격 안인가.**
+ *
+ * 외부에 공개된 규격이 있는 축만 합격/불합격을 매긴다. 없는 축은 재기만 한다
+ * (첫 컷 길이가 그렇다 — "3초" 같은 수를 지어내면 그게 다음 사람에게 근거로 보인다).
+ */
+async function cmdEvaluate(): Promise<number> {
+  const specs = select(specsWithVoice(), positionals())
+  const full = has('full')
+
+  // 음량은 파일을 읽어야 나온다. **한 번만 훑고** id 로 찾아 쓴다 — 편마다 다시 재면 3배 걸린다.
+  const loudByFile = new Map<string, ReturnType<typeof measure>>()
+  if (!has('no-audio')) {
+    for (const f of allRendered()) loudByFile.set(shortName(f), measure(f))
+  }
+
+  const cards: Scorecard[] = []
+  for (const spec of specs) {
+    const loudness: Record<string, LoudnessInput> = {}
+    for (const format of spec.formats) {
+      const l = loudByFile.get(`${format}/${spec.id}.mp4`)
+      loudness[format] = {
+        integrated: l?.integrated ?? null,
+        truePeak: l?.truePeak ?? null,
+        targetLufs: TARGET_LUFS,
+        targetTp: TARGET_TP,
+        toleranceLu: TOLERANCE_LU,
+      }
+    }
+    cards.push(
+      evaluateVideo({ spec, cues: cuesOf(spec, loadVoiceManifest(spec.id)), loudness }),
+    )
+  }
+
+  for (const c of cards) {
+    const bad = c.axes.filter((a) => a.verdict === 'fail')
+    const unk = c.axes.filter((a) => a.verdict === 'unknown')
+    if (!full && bad.length === 0 && unk.length === 0) continue
+    console.log(
+      `${c.videoId.padEnd(24)} ${c.kind.padEnd(11)} 통과 ${c.pass} · 어긋남 ${c.fail}` +
+        (c.unknown ? ` · 못 잼 ${c.unknown}` : ''),
+    )
+    for (const a of full ? c.axes : [...bad, ...unk]) {
+      const mark = a.verdict === 'pass' ? '✓' : a.verdict === 'fail' ? '✗' : a.verdict === 'unknown' ? '?' : '·'
+      console.log(
+        `   ${mark} ${a.label.padEnd(16)} ${a.value}` +
+          (a.limit ? `  [규격 ${a.limit}]` : '  [규격 없음 — 재기만]'),
+      )
+      for (const o of a.offenders.slice(0, 4)) console.log(`       └ ${o}`)
+      if (a.offenders.length > 4) console.log(`       └ 외 ${a.offenders.length - 4}건`)
+    }
+  }
+
+  // 평가 결과를 **큐에 남긴다** — 터미널에만 찍고 사라지면 다음 사람은 판정이 있었는지도 모른다.
+  // 못 남겨도 평가 자체는 끝난다(기록은 곁가지다).
+  let recorded = 0
+  if (!has('no-record')) {
+    for (const c of cards) {
+      if (await recordEvaluation(c.videoId, c.pass, c.fail, c.unknown, c.axes)) recorded++
+    }
+  }
+
+  const s = summarize(cards)
+  console.log(
+    `\n편 ${s.videos} · 전부 통과 ${s.clean} · 어긋남 있음 ${s.failing}` +
+      (s.incomplete ? ` · 못 잰 축 있음 ${s.incomplete}` : ''),
+  )
+  if (recorded > 0) console.log(`큐에 기록 ${recorded}편`)
+  const byAxis = Object.entries(s.failsByAxis).sort((a, b) => b[1] - a[1])
+  if (byAxis.length > 0) {
+    console.log('축별 어긋남  ' + byAxis.map(([k, n]) => `${k} ${n}`).join(' · '))
+  }
+  // 출처(근거)를 함께 낸다 — 이 수가 어디서 왔는지 화면 밖에서도 답할 수 있어야 한다.
+  console.log('\n규격 출처')
+  for (const [k, v] of Object.entries(SOURCES)) console.log(`  ${k.padEnd(8)} ${v}`)
+  return s.failing === 0 ? 0 : 1
+}
+
+/**
  * **음량이 YouTube 규격 안인가** — 이 공장에서 유일하게 "시중" 과 **같은 자**로 잴 수 있는 축.
  *
  * 나머지 품질 축(카피·구성·색)은 경쟁사 파이프라인을 관측할 수 없어 비교 자체가 성립하지 않는다.
@@ -486,6 +623,12 @@ async function main(): Promise<void> {
     case 'stale':
       process.exitCode = cmdStale()
       break
+    case 'plan':
+      process.exitCode = cmdPlan()
+      break
+    case 'evaluate':
+      process.exitCode = await cmdEvaluate()
+      break
     case 'loudness':
       process.exitCode = cmdLoudness()
       break
@@ -502,6 +645,8 @@ async function main(): Promise<void> {
           'pnpm video render-all [--format …]',
           'pnpm video thumbs [<id|kind> …]     YouTube 썸네일 1280×720 (--force 로 다시)',
           'pnpm video enqueue                  설계도를 큐에 올린다 (재실행 안전)',
+          'pnpm video plan                     기획 — 다음에 무엇을 찍을 것인가',
+          'pnpm video evaluate [<id|kind>]     평가 — 규격 대비 (--full 로 축 전부)',
           'pnpm video loudness [--fix]         음량이 YouTube 규격(-14 LUFS) 안인지',
           'pnpm video stale                    발행본이 설계도와 어긋나는지',
         ].join('\n'),

@@ -28,6 +28,17 @@ export function adviceVideoId(fromStageId: string): string {
   return `advice-${fromStageId}`
 }
 
+/**
+ * 교재 **권별** — 시리즈의 한 계단(`volume-reading-4`).
+ *
+ * ⚠️ 아직 이 id 를 **만드는 규칙이 없다.** 그래도 여기 있는 이유는 기획(`catalog/plan.ts`)이
+ *   「설계도로 표현조차 못 하는 후보」를 화면에 올려야 하기 때문이다 — 없는 것이 목록에
+ *   안 보이면 영원히 안 만들어진다.
+ */
+export function volumeVideoId(seriesId: string, step: number): string {
+  return `volume-${seriesId}-${step}`
+}
+
 /** 문항 유형 코드는 밑줄(`word_order`), 영상 id 는 하이픈(`type-word-order`). */
 export function typeVideoId(typeCode: string): string {
   return `type-${typeCode.replace(/_/g, '-')}`

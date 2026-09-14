@@ -11,9 +11,11 @@
 // 낱말 단위 눈금(`VoiceClip.words`)이 있으면 그것도 쓸 수 있다.
 
 import { FPS } from '../spec/format'
+import { CPS } from '../spec/timing'
 import { sceneFrames } from '../spec/validate'
 import type { VideoSpec } from '../spec/types'
 import type { VoiceManifest } from '../voice/timing'
+import { splitCaption, type Cue } from './cue'
 
 function stamp(seconds: number): string {
   const h = Math.floor(seconds / 3600)
@@ -25,23 +27,38 @@ function stamp(seconds: number): string {
 }
 
 /**
- * 컷 하나 = 자막 한 건.
+ * 이 편의 자막 큐 전부 — **평가(`spec/evaluate.ts`)가 재는 것과 같은 값**이다.
  *
- * 낱말 단위로 쪼개지 않는 이유: 한국어 자막을 낱말 단위로 깜빡이면 읽기가 **더** 어렵다.
- * Netflix 규격도 한 건을 문장 단위로 두고 노출 시간으로 읽기 속도를 맞춘다.
+ * ⚠️ 예전에는 **컷 하나 = 큐 하나**였고, 주석에 "낱말 단위로 쪼개면 읽기가 더 어렵다" 고
+ *   적혀 있었다. 그 말 자체는 맞지만 결론이 틀렸다 — 쪼개지 않는 것과 **7초 넘게 한 건을
+ *   띄워 두는 것**은 다른 문제다. 컷 길이는 나레이션 실측이 정하므로 말이 길면 큐도 길어졌고,
+ *   실측 2026-09-13 에 **269컷 중 15컷이 7초를 넘었다**(최대 8.1초).
+ *   Netflix 규격의 상한이고, 넘으면 시청자가 다 읽고 같은 글을 다시 읽기 시작한다.
+ *
+ *   그래서 **문장 단위는 유지하되, 상한을 넘는 큐만 낱말 경계에서 나눈다.**
+ *   나누는 자리는 Edge TTS 의 낱말 눈금이 정한다 — 말이 실제로 끊기는 자리다.
  */
-export function toWebVtt(spec: VideoSpec, voice: VoiceManifest | null): string {
-  const lines: string[] = ['WEBVTT', '']
+export function cuesOf(spec: VideoSpec, voice: VoiceManifest | null): Cue[] {
+  const out: Cue[] = []
   let at = 0
   spec.scenes.forEach((scene, i) => {
-    const frames = voice?.[String(i)]?.frames ?? sceneFrames(scene, spec.audience)
+    const clip = voice?.[String(i)]
+    const frames = clip?.frames ?? sceneFrames(scene, spec.audience)
     const start = at / FPS
-    const end = (at + frames) / FPS
+    const sec = frames / FPS
     at += frames
     if (scene.caption.trim() === '') return
+    out.push(...splitCaption(scene.caption, start, sec, CPS[spec.audience], clip?.words))
+  })
+  return out
+}
+
+export function toWebVtt(spec: VideoSpec, voice: VoiceManifest | null): string {
+  const lines: string[] = ['WEBVTT', '']
+  cuesOf(spec, voice).forEach((c, i) => {
     lines.push(`${i + 1}`)
-    lines.push(`${stamp(start)} --> ${stamp(end)}`)
-    lines.push(scene.caption)
+    lines.push(`${stamp(c.start)} --> ${stamp(c.end)}`)
+    lines.push(c.text)
     lines.push('')
   })
   return lines.join('\n')
