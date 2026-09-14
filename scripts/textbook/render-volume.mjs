@@ -290,6 +290,9 @@ function pickExplanation(item, deterministic) {
 
 /** 문항 하나를 수능 인쇄 형식으로. 못 바꾸면 null. */
 /** 생성형 유형 — 지문 하나 + 5지선다. 유형이 열이어도 인쇄 모양은 하나다. */
+/** 발문이 밑줄을 가리키는데 지문에서 못 찾은 문항 수 — 조용히 넘기면 빈 지면이 나간다. */
+let missingUnderline = 0
+
 const EXTRA_STEM_FALLBACK = '다음 글에 대한 물음에 답하시오.'
 
 function renderExtra(item, no) {
@@ -302,7 +305,22 @@ function renderExtra(item, no) {
   let passage = esc(String(p.passage ?? ''))
   if (p.underline) {
     const u = esc(String(p.underline))
-    if (passage.includes(u)) passage = passage.replace(u, `<u>${u}</u>`)
+    // ⚠️⚠️ **따옴표 모양이 달라 밑줄이 조용히 사라졌다** (3인 검수 실측 2026-09-14).
+    //   저장된 지문에서는 66/66 이 그대로 맞는다. 그런데 풀이 지문만 정제하고
+    //   (`normalizeQuotes` — `harm's` → `harm’s`) **`underline` 은 안 건드린다.**
+    //   그래서 `includes` 가 빗나가고, 조판기는 **아무 말 없이 넘어갔다** — 발문은
+    //   「밑줄 친 부분이…」인데 지면에 밑줄이 없다. 밑줄 있는 66문항 중 5건이 그 자리다.
+    //
+    //   따옴표 정규화는 **한 글자 → 한 글자**라 자리표가 어긋나지 않는다. 그래서 찾을 때만
+    //   양쪽을 같은 모양으로 펴고, **인쇄는 지문의 원래 글자로** 한다.
+    const flat = (s) => s.replace(/[‘’]/g, "'").replace(/[“”]/g, '"')
+    const at = passage.includes(u) ? passage.indexOf(u) : flat(passage).indexOf(flat(u))
+    if (at >= 0) {
+      passage = `${passage.slice(0, at)}<u>${passage.slice(at, at + u.length)}</u>${passage.slice(at + u.length)}`
+    } else {
+      // **조용히 넘어가지 않는다.** 못 찾으면 발문이 가리키는 곳이 없는 문항이다.
+      missingUnderline += 1
+    }
   }
   return {
     html: `
@@ -518,9 +536,71 @@ function renderIrrelevant(item, no) {
   }
 }
 
+/** 지칭 추론의 자리표. 수능 표기 그대로 (a)~(e) 다. */
+const REFERENCE_MARKS = ['(a)', '(b)', '(c)', '(d)', '(e)']
+
+/**
+ * **지칭 추론(장문 43~45의 지칭) — 자리표를 지문 안에 찍는다.**
+ *
+ * ── 왜 따로 필요한가 (3인 검수 실측 2026-09-14) ──────────────────────
+ * 이 유형은 `renderExtra` 로 흘러가고 있었다. 그런데 `renderExtra` 는 **낱말 하나**
+ * (`payload.underline`)만 밑줄 치는데, 이 유형의 `underline` 은 **57건 전부 `null`** 이다.
+ * 표시할 것이 지문 여러 곳에 흩어진 **절 다섯 개**(`payload.choices`)이기 때문이다.
+ *
+ * 그래서 지면에 이렇게 나갔다 — 발문은 「밑줄 친 **(a)~(e)** 중에서 가리키는 대상이
+ * 나머지 넷과 다른 것은?」인데 지문에는 **표시가 하나도 없고**, 선지는 절 다섯 개를
+ * ①~⑤ 로 나열할 뿐이다. **학습자가 어디를 보라는 것인지 알 수 없다.**
+ * 형식 검사로는 영원히 안 걸린다 — 인쇄 가능한 문자열이고 선지도 다섯 개다.
+ *
+ * ⚠️ **한 절이라도 지문에서 못 찾으면 인쇄하지 않는다**(`null`). 넷만 표시된 문항은
+ *   「가리키는 대상이 나머지 넷과 다른 것」을 물을 수 없다 — 반쯤 맞는 지면보다 빠진
+ *   지면이 낫다. 빠진 수는 부르는 쪽이 「조판 가능」으로 센다.
+ */
+function renderLongReference(item, no) {
+  const p = item.payload ?? {}
+  const choices = Array.isArray(p.choices) ? p.choices.map((c) => String(c)) : []
+  if (choices.length !== REFERENCE_MARKS.length) return null
+  const answer = Number(item.answer_key?.answer)
+  if (!Number.isInteger(answer) || answer < 1 || answer > REFERENCE_MARKS.length) return null
+
+  // 지문에서 **나오는 차례대로** 찍는다 — 뒤에서부터 찾으면 같은 절이 두 번 걸린다.
+  let rest = String(p.passage ?? '')
+  if (!rest) return null
+  // ⚠️ **따옴표 모양 때문에 못 찾는 것을 「없다」고 읽지 않는다.** 저장된 지문에는 57건 전부
+  //   다섯 절이 그대로 있다(실측). 풀이 지문만 정제하므로(`normalizeQuotes`) 절 안의
+  //   아포스트로피 한 글자가 달라져 `indexOf` 가 빗나간다 — 실제로 그래서 한 문항이
+  //   통째로 빠졌다. 정규화는 한 글자 → 한 글자라 자리표가 안 어긋난다(위 밑줄 주석과 같다).
+  const flat = (s) => s.replace(/[‘’]/g, "'").replace(/[“”]/g, '"')
+  let marked = ''
+  for (let i = 0; i < choices.length; i += 1) {
+    const clause = choices[i]
+    const at = rest.includes(clause) ? rest.indexOf(clause) : flat(rest).indexOf(flat(clause))
+    // 못 찾으면 인쇄하지 않는다 — 위 주석 참조.
+    if (at < 0) return null
+    // **인쇄는 지문의 원래 글자로** 한다 — 저장된 절을 그대로 찍으면 한 문장 안에서
+    //   따옴표 모양이 갈린다(정제된 주변 글과 저장된 절이 섞인다).
+    marked += `${esc(rest.slice(0, at))}${REFERENCE_MARKS[i]} <u>${esc(rest.slice(at, at + clause.length))}</u>`
+    rest = rest.slice(at + clause.length)
+  }
+  marked += esc(rest)
+
+  return {
+    html: `
+<div class="q">
+  <p class="stem"><b>${no}.</b> ${esc(String(p.stem_ko ?? '밑줄 친 (a)~(e) 중에서 가리키는 대상이 나머지 넷과 다른 것은?'))}</p>
+  <div class="passage">${marked}</div>
+  <ol class="choices">${REFERENCE_MARKS.map((m) => `<li>${m}</li>`).join('')}</ol>
+</div>`,
+    answer,
+    explanation: pickExplanation(item, explainItem(item.type, item.payload, item.answer_key)),
+    source: item.ref_title,
+  }
+}
+
 function renderItem(item, no) {
   // ⚠️ **생성형을 여기서 안 받으면 조합기가 넣어도 인쇄가 안 된다.** 재료·조합·조판 셋이
   //   다 열려야 학습자에게 닿는다 — 하나만 막혀도 문항은 DB 에만 남는다.
+  if (item.type === 'long_reference') return renderLongReference(item, no)
   if (ELEMENTARY_TYPES.has(item.type)) return renderElementary(item, no)
   if (SCHOOL_TYPES.has(item.type)) return renderSchool(item, no)
   if (item.type === 'irrelevant') return renderIrrelevant(item, no)
@@ -684,6 +764,11 @@ const unreviewableItems = printedItems.filter((it) => ELEMENTARY_ITEM_TYPES.has(
 }
 // ⚠️ **조용히 넘기지 않는다.** 낡은·판 미상 판정이 있으면 그 문항은 「아직 안 본 것」으로
 //   되돌아간 것이고, 관리자가 그 사실을 알아야 재검수를 돌린다.
+if (missingUnderline) {
+  console.log(
+    `⚠ 밑줄을 못 찾은 문항 ${missingUnderline} — 발문은 「밑줄 친 …」인데 지면에 밑줄이 없다`,
+  )
+}
 if (reviewStale || reviewUnknown) {
   console.log(
     `검수 판(版) — 낡은 판정 ${reviewStale}문항 · 판 미상 ${reviewUnknown}문항 ` +
