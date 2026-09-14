@@ -12,6 +12,21 @@ const RUNS_ENTRY: ScreenHelpEntry = {
     summary:
       '공용 단어장 하나를 만드는 실행 단위(run)를 만들고, 각 run 이 8단계 중 어디서 멈춰 있는지 본다.',
     when: '새 공용 단어장을 시작할 때, 또는 진행 중인 run 을 이어서 처리할 때.',
+    diagrams: [
+      {
+        kind: 'flow',
+        caption: 'run 하나가 8단계 중 어디서 멈췄나',
+        nodes: [
+          { label: '시드 확보', actor: 'user', says: '파일에서 뽑거나 AI 로 만든다 — 경로가 둘이다' },
+          { label: '사전 매칭', actor: 'script', says: 'Step 4 — 사전에 있는 것부터 붙인다' },
+          { label: 'AI 보강', actor: 'claude', says: 'Step 5 — 사전에 없는 것을 채운다' },
+          { label: 'QA 게이트', actor: 'script', says: 'Step 6 — 여기서 플래그가 붙는다' },
+          { label: '큐레이션', actor: 'user', says: 'Step 7 — 사람이 고른다' },
+          { label: '발행', actor: 'user', says: 'Step 8 — 공용 카탈로그로 나간다' },
+        ],
+        loop: '카드는 run 이 그 상태에 닿아야 나타난다 — 안 보이면 앞 단계가 안 끝난 것이다.',
+      },
+    ],
     fields: [
       {
         label: '시중 단어장 대비 (종합)',
@@ -114,6 +129,17 @@ export const VCB_HELP: HelpRegistry = {
       summary:
         '단어장 유형(blueprint)을 하나 골라 실 사전·코퍼스로 조립해 보고, 7지표 채점을 통과하면 공용 세트로 발행한다. 8단계 run 과 달리 보강(LLM)을 거치지 않고 이미 있는 사전 데이터만 조합한다.',
       when: '새 공용 단어장을 만들 때. 사전에 없는 단어를 새로 채워 넣어야 하면 여기가 아니라 Runs 로 간다.',
+      diagrams: [
+        {
+          kind: 'keys',
+          caption: 'Runs 와 무엇이 다른가 — 사전에 없는 낱말을 못 만든다',
+          nodes: [
+            { label: '조립해 본다', says: '유형 하나를 실 사전·코퍼스로 맞춰 본다' },
+            { label: '7지표 채점', says: '통과해야 공용 세트가 된다' },
+            { label: 'Runs 로 가야 할 때', says: '사전에 없는 낱말을 새로 채워야 하면 여기가 아니다' },
+          ],
+        },
+      ],
       steps: [
         {
           title: '유형 고르기',
@@ -246,6 +272,23 @@ export const VCB_HELP: HelpRegistry = {
       summary:
         'run 하나를 시드 확보부터 발행까지 순서대로 진행시키는 작업대. 단계 카드는 run 상태에 도달해야 나타난다.',
       when: 'run 을 만든 직후부터 발행까지 계속. 어느 단계인지 모르겠으면 상단 진행 막대의 "다음 할 일"을 본다.',
+      diagrams: [
+        {
+          kind: 'flow',
+          caption: 'AI 보강(Step 5)은 화면이 아니라 Claude Code 가 돈다',
+          nodes: [
+            { label: 'Export 실행', actor: 'user', says: '보강할 몫을 청크로 뽑는다' },
+            { label: 'job-slug 확인', actor: 'user', says: '다음 명령에 그대로 들어간다' },
+            { label: '/vcb-batch-enrich', actor: 'claude', says: '청크를 병렬로 채운다' },
+            { label: 'chunk 상태', actor: 'auto', says: '화면에서 몇 개가 찼는지 본다' },
+            { label: 'DB import', actor: 'user', says: '적재해야 다음 단계 카드가 열린다' },
+          ],
+          branch: [
+            { when: '단계 카드가 안 보인다', then: 'run 이 그 상태에 아직 안 닿았다 — 앞 단계를 먼저 본다' },
+            { when: '무결성 미스매치 배지', then: '화면 수와 DB 가 어긋났다 — 적재를 다시 확인한다' },
+          ],
+        },
+      ],
       steps: [
         {
           title: '시드 확보',
@@ -367,6 +410,18 @@ export const VCB_HELP: HelpRegistry = {
       summary:
         'AI 로 시드 단어 목록을 만들어 검토한 뒤 run 에 적재한다 — 소스 파일이 없을 때 쓰는 경로.',
       when: 'run 상태가 생성됨 또는 수집 중 일 때. 업로드한 파일에서 뽑을 거면 이 화면 대신 run 상세의 방식 A 를 쓴다.',
+      diagrams: [
+        {
+          kind: 'keys',
+          caption: '소스 파일이 없을 때 쓰는 경로 — 있으면 여기가 아니다',
+          nodes: [
+            { label: 'AI 로 목록 생성', says: '시드 낱말을 만든다' },
+            { label: '검토', says: '거부한 낱말은 적재에서 빠진다' },
+            { label: 'run 에 적재', says: '상태가 생성됨·수집 중일 때만 쓸 수 있다' },
+            { label: '파일이 있으면', says: 'run 상세의 방식 A 추출로 간다' },
+          ],
+        },
+      ],
       steps: [
         {
           title: 'Spec 생성',
@@ -454,6 +509,16 @@ export const VCB_HELP: HelpRegistry = {
       summary:
         '시드가 어디서 왔는지 대는 출처 등록부. 방식 A 추출은 여기에 파일까지 올린 소스에서만 가능하다.',
       when: '파일에서 단어를 뽑아 run 을 만들기 전, 또는 발행물의 출처 표기를 확인할 때.',
+      diagrams: [
+        {
+          kind: 'keys',
+          caption: '출처 등록부 — 발행물의 근거가 여기서 나온다',
+          nodes: [
+            { label: '시드가 어디서 왔나', says: '발행 표기가 이 등록부를 읽는다' },
+            { label: '파일까지 올린 소스', says: '**방식 A 추출은 그때만** 가능하다' },
+          ],
+        },
+      ],
       fields: [
         {
           label: 'T1 / T2 / T3',
@@ -516,6 +581,21 @@ export const VCB_HELP: HelpRegistry = {
       summary:
         'VCB 로 발행돼 학습자에게 실제로 보이는 공용 단어장 목록. 생산자 두 종류를 함께 싣는다 — 8-step run 산출물과 단어장 Studio(유형 카탈로그) 산출물.',
       when: '발행이 제대로 반영됐는지 확인할 때, 또는 어떤 run·어떤 유형에서 나온 단어장인지 되짚을 때.',
+      diagrams: [
+        {
+          kind: 'flow',
+          caption: '표지를 각인하는 길 — 토큰에서 만들고 캔버스에서 확정한다',
+          nodes: [
+            { label: 'export', actor: 'script', says: '그릴 몫을 뽑는다' },
+            { label: '아트보드', actor: 'script', says: '디자인 토큰에서 만든다 — 색을 여기서 정하지 않는다' },
+            { label: 'Claude Design', actor: 'user', says: '캔버스에서 확정' },
+            { label: 'import', actor: 'script', says: '발행물에 각인된다' },
+          ],
+          branch: [
+            { when: '캐시 N 불일치', then: '발행물과 캐시가 어긋났다 — 각인을 다시 넣는다' },
+          ],
+        },
+      ],
       fields: [
         {
           label: 'run / Studio 태그',
