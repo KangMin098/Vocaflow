@@ -193,6 +193,18 @@ export const OPS_HELP: HelpRegistry = {
         '사전이 끝내 해석하지 못한 lemma 가 쌓이는 큐 — 사전에 무엇을 더 넣어야 하는지 알려 주는 목록. **출처가 둘이고 성격이 다르다**: 학습자 추출 실패(`user_id` 있음)와 주제 코퍼스 적재(`context_snippet` 이 `corpus:<소스>`, `user_id` NULL).',
       when:
         '사전 보강 대상을 고를 때. 항목은 관리자가 만드는 게 아니라 자동 적재된다 — 큐가 비어 있는 건 정상 상태다.',
+      diagrams: [
+        {
+          kind: 'keys',
+          caption: '이 큐가 말하는 것은 「단어가 나쁘다」가 아니라 「사전이 모른다」',
+          nodes: [
+            { label: '쌓이는 것', says: '사전이 끝내 해석 못 한 lemma — 사전의 구멍 목록이다' },
+            { label: '5버튼', says: '되돌리기 · 검토 · AI · 추가 · 거절' },
+            { label: 'KPI 기준이 다르다', says: '카드마다 분모가 달라 그대로 더할 수 없다' },
+            { label: '카드의 —', says: '0 이 아니라 **못 쟀음**이다' },
+          ],
+        },
+      ],
       fields: [
         {
           label: '분류 / 조치 — 먼저 볼 것',
@@ -492,6 +504,30 @@ export const OPS_HELP: HelpRegistry = {
       summary:
         '세 층이 한 화면에 있다. 맨 위 «지금» 은 15초마다 DB 를 직접 읽고, «경보» 는 Claude Code 의 /db-health-audit 이 남긴 판정을 줄 세우고, 조치 버튼은 허용 목록 7종만 실제로 실행한다. 그 밖의 SQL(VACUUM FULL·DROP INDEX)은 복사만 된다.',
       when: '장애 의심 순간(느려짐·타임아웃·연결 실패)에 제일 먼저. 그리고 마이그레이션을 여럿 적용한 다음 — 스키마가 하루 6개꼴로 바뀌므로 바뀐 뒤가 특히 위험하다.',
+      diagrams: [
+        {
+          kind: 'flow',
+          caption: '맨 윗줄부터 — 어디서 멈출지가 층마다 다르다',
+          nodes: [
+            { label: '«지금» 15초', actor: 'auto', says: 'DB 를 직접 읽는다. 장애면 여기서 끝낸다' },
+            { label: '«경보»', actor: 'claude', says: '/db-health-audit 가 남긴 것 — 급하지 않은 것' },
+            { label: '조치 고르기', actor: 'user', says: 'safe 4 는 바로 · guarded 3 은 사유 필수' },
+            { label: '감사 로그', actor: 'auto', says: '실패해도 남는다 — 결과값으로 적는다' },
+          ],
+          branch: [
+            { when: 'VACUUM FULL · DROP INDEX', then: '여기서 실행하지 않는다 — SQL 만 복사해 사람이 판단한다' },
+          ],
+        },
+        {
+          kind: 'keys',
+          caption: '수치를 믿기 전에 볼 것',
+          nodes: [
+            { label: '임계값 출처', says: '전부 pg_settings 실측 — 손으로 박은 값이 아니다' },
+            { label: 'N초 전 값', says: '15초 폴링이라 화면 수는 늘 조금 과거다' },
+            { label: '용량', says: '분기 진단이 날짜와 함께 기록한다 — 여기 수는 그때의 것' },
+          ],
+        },
+      ],
       steps: [
         {
           title: '맨 윗줄 한 줄만 먼저 본다',

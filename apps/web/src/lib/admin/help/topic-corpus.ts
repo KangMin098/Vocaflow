@@ -14,6 +14,21 @@ export const TCP_HELP: HelpRegistry = {
       summary:
         '주제가 붙은 외부 글을 훑어 "어떤 단어가 어떤 주제에서 두드러지는가" 를 관측하고, 그 결과를 사전 주제 분류로 승격하는 곳. 원문은 저장하지 않는다 — 라이선스(TED = CC BY-NC-ND)상 보관이 불가해서, 토큰화는 메모리에서 끝내고 카운트만 남긴다.',
       when: '사전 주제 분류를 넓히고 싶을 때, 또는 특정 주제의 어휘 갭을 찾고 싶을 때.',
+      diagrams: [
+        {
+          kind: 'flow',
+          caption: '관측한 것을 규칙으로 올리기까지 — 되돌릴 수 없는 칸이 하나 있다',
+          nodes: [
+            { label: '주제 큐 적재', actor: 'script', says: '주제가 붙은 외부 글을 모은다' },
+            { label: '드레인', actor: 'claude', says: '어떤 낱말이 어떤 주제에서 두드러지나' },
+            { label: '승격 미리보기', actor: 'user', says: '**필수 선행** — 건너뛸 수 없다' },
+            { label: '승격 적용', actor: 'user', says: '확인을 한 번 더 묻는다' },
+          ],
+          branch: [
+            { when: '미수집', then: '그 주제에 아직 글이 없다 — 드레인이 아니라 적재가 먼저다' },
+          ],
+        },
+      ],
       steps: [
         {
           title: '주제 큐에 적재',

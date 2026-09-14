@@ -13,6 +13,18 @@ export const QUALITY_HELP: HelpRegistry = {
       summary:
         '파이프라인 단계별 품질 수치를 하루 한 번 찍어 두고 추이로 보는 화면 — 값을 고치는 곳이 아니라 어제와 오늘을 비교하는 곳이다.',
       when: '추출·발행·사전 쪽을 손댄 뒤 지표가 어느 방향으로 움직였는지 확인할 때. 그 전에 스냅샷이 최소 2회는 쌓여 있어야 비교가 된다.',
+      diagrams: [
+        {
+          kind: 'keys',
+          caption: '여기 수는 고치는 값이 아니라 **어제와 견주는 값**이다',
+          nodes: [
+            { label: '지금 수집', says: 'cron 을 앞당기지 않는다 — 스냅샷 1건을 더 쌓는다' },
+            { label: '스파크라인', says: '2회째부터 그려진다. ▲▼ 는 직전 스냅샷과의 차이' },
+            { label: '_pct 지표', says: '%p 로 읽는다 — 퍼센트의 차이가 아니다' },
+            { label: 'stage 배지 gate', says: '이것만 별도 nightly 가 적재한다(KST 03:25)' },
+          ],
+        },
+      ],
       fields: [
         {
           label: '지금 수집',
@@ -69,6 +81,22 @@ export const QUALITY_HELP: HelpRegistry = {
       summary:
         '학습자에게 나갈 산출물이 맞는 단어·뜻·레벨로 뽑혔는지 결정론 불변식으로 검사한다. 전역 현황을 위에서 보고, 게시할 콘텐츠 하나를 아래에서 따로 찍어 본다.',
       when: '큐레이션이 ready 로 끝난 콘텐츠를 게시하기 직전, 또는 추출·사전 로직을 바꾼 뒤 전역 영향을 확인할 때.',
+      diagrams: [
+        {
+          kind: 'flow',
+          caption: '전역에서 좁혀 들어간다 — 한 건씩 보는 화면이 아니다',
+          nodes: [
+            { label: '전역 배너', actor: 'auto', says: '먼저 본다 — 어디가 무너졌는지' },
+            { label: '콘텐츠 하나', actor: 'user', says: '골라서 실행한다' },
+            { label: 'FAIL 상세', actor: 'user', says: '어느 불변식이 왜 깨졌나' },
+            { label: '고치고 재실행', actor: 'user', says: '판정은 실행할 때 다시 난다' },
+          ],
+          branch: [
+            { when: 'critical FAIL', then: '발행이 막힌다 — WARN 과 다른 층이다' },
+            { when: 'I7 노이즈 register', then: '구 단어장 예외 — 고장이 아니다' },
+          ],
+        },
+      ],
       steps: [
         {
           title: '전역 배너부터',
@@ -148,6 +176,17 @@ export const QUALITY_HELP: HelpRegistry = {
       summary:
         '시스템이 고른 단어와 탈락 직전 후보를 출처를 가린 채 섞어 보여 주고, 관리자의 선택을 골든 라벨로 쌓는다 — 추출 순위·게이트를 바꿀 때의 회귀 기준이 여기서 만들어진다.',
       when: '추출 순위나 게이트 규칙을 손대기 전후로 기준선을 쌓을 때. 대상은 발행된 도서·아티클뿐이고, 도서는 챕터가 1개 이상이어야 목록에 뜬다.',
+      diagrams: [
+        {
+          kind: 'keys',
+          caption: '출처를 가리는 이유 — 기준선을 만들려는 화면이다',
+          nodes: [
+            { label: '섞어 보여 준다', says: '고른 단어와 탈락 직전 후보를 출처 없이' },
+            { label: '관리자의 선택', says: '골든 라벨이 된다 — 규칙을 고치기 전 기준선' },
+            { label: '대상', says: '발행된 도서·아티클뿐이다' },
+          ],
+        },
+      ],
       steps: [
         {
           title: '소스와 모드 먼저',
