@@ -502,3 +502,37 @@ describe('검수할 수 없는 문항 — 통과가 아니라 「못 잼」', ()
     expect(judgePublish(CLEAN).unmeasured.join(' ')).not.toContain('담을 수 없다')
   })
 })
+
+/**
+ * **발문이 통째로 빠진 채 인쇄되고 있었다** (3인 검수 실측 2026-09-14).
+ *
+ * 검수자가 「`vocab_choice`·`grammar_choice` 만 `stem_ko` 가 없다 — 렌더러가 넣어 주지
+ * 않으면 인쇄물에 문두가 통째로 빠진다」고 짚었고, **확인해 보니 빠지고 있었다.**
+ * `renderSchool` 이 `p.prompt_ko ?? p.stem_ko ?? ''` 로 떨어져 빈 문자열을 찍었다 —
+ * 지면에는 **번호만 있고 물음이 없다.**
+ *
+ * DB 실측: `vocab_choice` 55,238 · `word_order` 48,855 · `grammar_choice` 17,623
+ * = **121,716문항**. 형식 검사로는 영원히 안 걸린다 — 빈 문자열도 인쇄 가능한 문자열이다.
+ */
+describe('학교 유형 발문 — 빈 채로 인쇄하지 않는다', () => {
+  const src = readFileSync(RENDERER, 'utf8')
+
+  it('발문이 없는 세 유형에 기본 발문을 둔다', () => {
+    expect(src).toContain('SCHOOL_STEM_FALLBACK')
+    for (const t of ['vocab_choice', 'grammar_choice', 'word_order']) {
+      // ⚠️ 정규식을 템플릿 리터럴 안에 쓰면 `\s` 가 문자 `s` 로 먹힌다 — 실제로 한 번 당했다.
+      //   단순 문자열로 본다.
+      expect(src, `${t} 의 기본 발문이 없다`).toContain(`${t}: '`)
+    }
+  })
+
+  it('그 기본 발문을 실제로 쓴다 — 상수만 두고 안 쓰면 소용없다', () => {
+    expect(src).toContain('SCHOOL_STEM_FALLBACK[item.type]')
+  })
+
+  // ⚠️ 조용히 넘어가던 것이 이 결함이 12만 건까지 자란 이유다.
+  it('그래도 비면 수를 찍는다', () => {
+    expect(src).toContain('missingStem')
+    expect(src).toContain('발문이 빈 문항')
+  })
+})

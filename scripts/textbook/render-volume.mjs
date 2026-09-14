@@ -292,6 +292,8 @@ function pickExplanation(item, deterministic) {
 /** 생성형 유형 — 지문 하나 + 5지선다. 유형이 열이어도 인쇄 모양은 하나다. */
 /** 발문이 밑줄을 가리키는데 지문에서 못 찾은 문항 수 — 조용히 넘기면 빈 지면이 나간다. */
 let missingUnderline = 0
+/** 발문이 빈 채로 조판된 문항 — 유형별. 번호만 있고 물음이 없는 지면이 된다. */
+const missingStem = {}
 /** 지칭 추론에서 인쇄를 건너뛴 사유별 수 — 조용히 빠지면 권이 왜 짧은지 모른다. */
 const longRefSkipped = { noClause: 0, outOfOrder: 0 }
 
@@ -344,11 +346,35 @@ function renderExtra(item, no) {
  * `renderExtra` 는 `choices.length === 5` 를 요구한다. 이 유형들은 선택지가 4개이거나
  * 아예 없어서 **전부 null 로 떨어졌다** — 13,351문항이 인쇄되지 않던 이유다.
  */
+/**
+ * **발문이 payload 에 없는 유형의 기본 발문.**
+ *
+ * ── 왜 필요한가 (3인 검수 실측 2026-09-14) ───────────────────────────
+ * 검수자가 「이 두 유형만 `stem_ko` 가 없다 — 렌더러가 넣어 주지 않으면 인쇄물에 문두가
+ * 통째로 빠진다」고 짚었다. **확인해 보니 빠지고 있었다.** `renderSchool` 이
+ * `p.prompt_ko ?? p.stem_ko ?? ''` 로 떨어져 빈 문자열을 찍었다 — 지면에는
+ * **번호만 있고 물음이 없다.**
+ *
+ * DB 실측: `vocab_choice` **55,238** · `word_order` **48,855** · `grammar_choice` **17,623**
+ * = **121,716문항**이 발문 없이 인쇄되는 상태였다(나머지 네 학교 유형은 `prompt_ko` 를 갖는다).
+ *
+ * ⚠️ **저장을 고치지 않고 조판에서 채운다.** 발문은 유형이 정하는 상수라 문항마다 다를
+ *   이유가 없다 — 12만 행을 쓰는 대신 여기 한 줄이면 된다. 문구는 수능 표기를 따른다.
+ */
+const SCHOOL_STEM_FALLBACK = {
+  vocab_choice: '다음 글의 밑줄 친 부분 중, 문맥상 낱말의 쓰임이 적절하지 않은 것은?',
+  grammar_choice: '다음 글의 밑줄 친 부분 중, 어법상 틀린 것은?',
+  word_order: '주어진 낱말을 모두 배열하여 문장을 완성하시오.',
+}
+
 function renderSchool(item, no) {
   const p = item.payload ?? {}
   const ak = item.answer_key ?? {}
   const sentences = Array.isArray(p.sentences) ? p.sentences.map(String) : []
-  const stem = String(p.prompt_ko ?? p.stem_ko ?? '')
+  // ⚠️ **빈 발문을 그대로 찍지 않는다** — 위 `SCHOOL_STEM_FALLBACK` 주석 참조.
+  const stem = String(p.prompt_ko ?? p.stem_ko ?? SCHOOL_STEM_FALLBACK[item.type] ?? '')
+  // **비어 있으면 조용히 넘기지 않는다** — 번호만 찍힌 문항이 12만 건 나간 이유가 침묵이었다.
+  if (!stem.trim()) missingStem[item.type] = (missingStem[item.type] ?? 0) + 1
 
   // ── 4지선다: 본문 어휘 뜻 · 단원 문법 ──
   if (Array.isArray(p.choices) && p.choices.length >= 3 && p.choices.length <= 5) {
@@ -791,6 +817,10 @@ if (longRefSkipped.noClause || longRefSkipped.outOfOrder) {
     `⚠ 지칭 추론에서 뺀 문항 — 절을 못 찾음 ${longRefSkipped.noClause} · ` +
       `자리표 차례가 지문과 어긋남 ${longRefSkipped.outOfOrder}(만드는 쪽을 고쳐야 한다)`,
   )
+}
+if (Object.keys(missingStem).length) {
+  const parts = Object.entries(missingStem).map(([t, n]) => t + ' ' + n).join(' · ')
+  console.log(`⚠ 발문이 빈 문항 — ${parts} (번호만 찍히고 물음이 없다)`)
 }
 if (missingUnderline) {
   console.log(
