@@ -586,10 +586,63 @@ describe('trimExplanation — 낱말도 인용도 가운데서 끊지 않는다'
     expect(out).toContain('Libya')
   })
 
-  it('따옴표가 없으면 줄임표만 붙인다', () => {
+  // ⚠️ 문장 끝에서 자를 수 있으면 **완결된 문장**으로 끝난다 — 줄임표를 안 붙인다.
+  it('따옴표가 없으면 따옴표를 만들지 않는다', () => {
     const noQuote = '정답은 5번이다. '.repeat(40)
     const out = trimExplanation(noQuote, 120)
-    expect(out.endsWith('…')).toBe(true)
+    // ⚠️ 문장 끝에서 자를 수 있으면 **완결된 문장**으로 끝난다 — 줄임표를 안 붙인다.
+    //   줄임표는 문장 가운데서 자를 수밖에 없을 때의 표시다.
     expect(out).not.toContain('"')
+    expect(out.length).toBeLessThanOrEqual(120)
+    expect(out.endsWith('다.')).toBe(true)
+  })
+})
+
+/**
+ * **「따옴표 짝이 맞다」와 「말이 끝났다」는 다르다** (실측 2026-09-14).
+ *
+ * 낱말 경계 자르기만 넣고 55,238건을 다시 썼더니 **6,177건**이 이렇게 끝났다:
+ *
+ *     … 원래 낱말 "global" 는 2번째 문장에 그대로 남아 있다 —…
+ *
+ * 이음표에서 끊겨 **인용을 약속해 놓고 아무것도 안 준다.** 따옴표는 짝이 맞아 앞 검사를
+ * 통과했다. 해설의 각 부분이 완결된 문장이므로 마지막 완결 문장까지만 실으면 깨끗하다.
+ */
+describe('trimExplanation — 약속만 남기고 끊지 않는다', () => {
+  const PROMISE =
+    '정답은 ⑤ 다. 문제 문장은 "The tide rose twice that night and the boats pulled hard at their lines." 인데, 이 자리에는 "fell" 가 와야 뜻이 이어진다. 나머지 ① "Economic"(1문장) · ③ "study"(5문장) 의 자리는 각각 그 문장에서 확인할 수 있다. 원래 낱말 "global" 는 2번째 문장에 그대로 남아 있다 — "…a global market for seed that had not existed before…".'
+
+  it('이음표만 남기고 끊지 않는다', () => {
+    for (const max of [160, 200, 240, 260]) {
+      const out = trimExplanation(PROMISE, max)
+      expect(out.replace(/…"?$/, '').trimEnd(), `max=${max} · ${out}`).not.toMatch(/[—–:,·-]$/)
+    }
+  })
+
+  it('문장 끝에서 자를 수 있으면 그렇게 한다 — 완결된 문장으로 끝난다', () => {
+    // 원문이 282자라 상한을 그보다 낮춰야 실제로 잘린다.
+    const out = trimExplanation(PROMISE, 240)
+    expect(out.endsWith('다.'), out).toBe(true)
+  })
+
+  it('상한은 여전히 지킨다', () => {
+    for (const max of [160, 200, 240, 260]) {
+      expect(trimExplanation(PROMISE, max).length, `max=${max}`).toBeLessThanOrEqual(max)
+    }
+  })
+
+  it('따옴표 짝은 여전히 맞는다', () => {
+    for (const max of [160, 200, 240, 260]) {
+      const out = trimExplanation(PROMISE, max)
+      expect((out.match(/"/g) ?? []).length % 2, `max=${max} · ${out}`).toBe(0)
+    }
+  })
+
+  // ⚠️ 문장 끝이 너무 앞이면 그쪽으로 되돌리지 않는다 — 해설이 최소 길이 아래로 떨어진다.
+  it('첫 문장이 상한의 60% 아래면 낱말 경계로 물러선다', () => {
+    const oneLong = `정답은 ⑤ 다. ${'the tide rose twice that night '.repeat(30)}`
+    const out = trimExplanation(oneLong, 400)
+    expect(out.length).toBeGreaterThan(240)
+    expect(out.endsWith('…')).toBe(true)
   })
 })

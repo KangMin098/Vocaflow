@@ -256,13 +256,30 @@ function arr(v: unknown): unknown[] {
  */
 export function trimExplanation(text: string, max: number): string {
   if (text.length <= max) return text
+  const floor = Math.floor(max * 0.6)
+  const room = text.slice(0, max)
+
+  // ── ① **문장 끝에서 자른다.** 끝나는 문장이 잘린 약속보다 낫다. ─────────
+  //
+  // ⚠️ 낱말 경계만으로는 모자랐다(실측 2026-09-14, 다시 쓴 55,238건 중 **6,177건**):
+  //
+  //     … 원래 낱말 "global" 는 2번째 문장에 그대로 남아 있다 —…
+  //
+  //   이음표에서 끊겨 **인용을 약속해 놓고 아무것도 안 준다.** 따옴표는 짝이 맞으니
+  //   앞 판의 검사도 통과한다 — 「짝이 맞다」와 「말이 끝났다」는 다른 것이다.
+  //   이 해설의 각 부분은 완결된 문장이므로, 마지막 완결 문장까지만 실으면 깨끗하다.
+  const whole = room.match(/^[\s\S]*[.!?]["”']?(?=\s)/)
+  if (whole && whole[0].trimEnd().length >= floor) return whole[0].trimEnd()
+
+  // ── ② 문장 끝이 너무 앞이면 낱말 경계에서 자른다 ─────────────────────
   // 닫는 따옴표까지 들어갈 자리를 남긴다 — 잘라 놓고 상한을 넘기면 회귀가 잡는다.
   let cut = text.slice(0, max - 2)
   // ⚠️ 낱말 가운데서 자르지 않는다. 다만 공백이 너무 앞에 있으면(인용이 통째로 길 때)
   //   되돌리지 않는다 — 해설이 최소 길이 아래로 떨어지는 편이 더 나쁘다.
   const sp = cut.lastIndexOf(' ')
-  if (sp > 0 && sp >= Math.floor(max * 0.6)) cut = cut.slice(0, sp)
-  cut = cut.trimEnd()
+  if (sp > 0 && sp >= floor) cut = cut.slice(0, sp)
+  // **약속만 남은 이음표를 떼어 낸다** — `… 남아 있다 —…` 처럼 끝나면 안 준 것을 준다고 한 꼴이다.
+  cut = cut.trimEnd().replace(/[\s—–:,·-]+$/, '')
   // 따옴표가 홀수면 인용이 열린 채로 끝난 것이다 — 줄임표를 넣고 닫는다.
   const openQuote = (cut.match(/"/g)?.length ?? 0) % 2 === 1
   return openQuote ? `${cut}…"` : `${cut}…`
