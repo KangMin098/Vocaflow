@@ -646,3 +646,51 @@ describe('trimExplanation — 약속만 남기고 끊지 않는다', () => {
     expect(out.endsWith('…')).toBe(true)
   })
 })
+
+/**
+ * **조사를 템플릿에 박지 않는다** (3인 검수 실측 2026-09-14).
+ *
+ * `josa()` 헬퍼가 있는데도 여러 자리가 `가`·`는`·`를` 를 그대로 박고 있었다. 지면에
+ * `"spring" 는` · `"rising" 가` · `"their necks" 를` 가 인쇄됐고, 한 검수자가
+ * **10건 중 6건이 틀렸다**고 셌다. 영어 낱말은 한국어 끝소리로 받침을 판정한다.
+ */
+describe('해설의 조사 — 앞말 받침을 본다', () => {
+  const payload = {
+    sentences: [
+      'The spring rains came early that year and the river rose.',
+      'By April the spring was over and the fields were dry.',
+      'Farmers watched the autumn sky for the first clouds.',
+    ],
+    underlines: [
+      { word: 'autumn', label: '①', sentenceIdx: 0 },
+      { word: 'spring', label: '②', sentenceIdx: 1 },
+      { word: 'autumn', label: '③', sentenceIdx: 2 },
+    ],
+  }
+
+  it('받침 있는 낱말 뒤에 `는`·`가` 를 붙이지 않는다', () => {
+    const e = explainVocabChoice(payload, { original: 'spring', position: 1 })
+    expect(e).not.toBeNull()
+    // spring 스프링 → 받침 있음 → `은`/`이`
+    expect(e!.ko, e!.ko).not.toContain('"spring" 는')
+    expect(e!.ko, e!.ko).not.toContain('"spring" 가')
+  })
+
+  it('받침을 실제로 가려 쓴다 — 같은 문장에서 둘이 갈린다', () => {
+    // study 스터디(받침 없음) vs system 시스템(받침 있음)
+    const e = explainUnderlinedGrammar(
+      {
+        sentences: ['A viewer facing an new image has no order to follow.'],
+        underlines: [
+          { word: 'an', label: '①', tokenIdx: 3, sentenceIdx: 0 },
+          { word: 'a', label: '②', tokenIdx: 0, sentenceIdx: 0 },
+        ],
+      },
+      { answer: 1, original: 'a' },
+    )
+    expect(e).not.toBeNull()
+    // `a` 는 받침이 없으니 `가`, `an` 은 받침(ㄴ)이 있으니 `은`.
+    expect(e!.ko).toContain('"a"가')
+    expect(e!.ko).toContain('"an"은')
+  })
+})

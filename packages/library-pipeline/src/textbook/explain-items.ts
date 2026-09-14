@@ -58,6 +58,16 @@ const EUN_NEUN = ['은', '는'] as const
 const I_GA = ['이', '가'] as const
 /** 서술격 조사 — `"이른" 다` 가 아니라 `"이른" 이다` 여야 한다. */
 const I_DA = ['이다', '다'] as const
+/**
+ * ⚠️ **조사를 템플릿에 박지 않는다** (3인 검수 실측 2026-09-14).
+ *
+ * `josa()` 헬퍼가 있는데도 여러 자리가 `가`·`는`·`를` 를 그대로 박고 있었다. 그래서
+ * 지면에 `"spring" 는`·`"rising" 가`·`"their necks" 를` 가 인쇄됐다 — 한 검수자가
+ * **10건 중 6건이 틀렸다**고 셌다. 영어 낱말은 한국어 끝소리로 받침을 판정해야 한다
+ * (`hasFinalConsonant` — spring 스프링 → 받침 있음 → `은`).
+ */
+const EUL_REUL = ['을', '를'] as const
+const WA_GWA = ['과', '와'] as const
 
 /** 인용이 길면 앞뒤를 잘라 규격 안에 넣는다. 잘랐다는 것을 말줄임으로 보인다. */
 function quote(sentence: string, limit = 150): string {
@@ -113,15 +123,15 @@ const RULE_KO: Record<string, { name: string; why: (wrong: string, right: string
     name: '관사',
     why: (wrong, right, next) =>
       next
-        ? `관사는 뒤 낱말의 첫 **소리**에 맞춘다 — "${next}"${josa(next, EUN_NEUN)} ${/^[aeiou]/i.test(next) ? '모음' : '자음'} 소리로 시작하므로 "${right}" 가 맞고 "${wrong}" 는 틀리다.`
-        : `관사는 뒤 낱말의 첫 소리에 맞춘다 — 여기서는 "${right}" 가 맞고 "${wrong}" 는 틀리다.`,
+        ? `관사는 뒤 낱말의 첫 **소리**에 맞춘다 — "${next}"${josa(next, EUN_NEUN)} ${/^[aeiou]/i.test(next) ? '모음' : '자음'} 소리로 시작하므로 "${right}"${josa(right, I_GA)} 맞고 "${wrong}"${josa(wrong, EUN_NEUN)} 틀리다.`
+        : `관사는 뒤 낱말의 첫 소리에 맞춘다 — 여기서는 "${right}"${josa(right, I_GA)} 맞고 "${wrong}"${josa(wrong, EUN_NEUN)} 틀리다.`,
   },
   demonstrative: {
     name: '지시어',
     why: (wrong, right, next) =>
       next
-        ? `지시어는 뒤 명사의 **수**에 맞춘다 — "${next}"${josa(next, I_GA)} ${looksPlural(next) ? '복수' : '단수'}이므로 "${right}" 가 맞고 "${wrong}" 는 틀리다.`
-        : `지시어는 뒤 명사의 수에 맞춘다 — 여기서는 "${right}" 가 맞고 "${wrong}" 는 틀리다.`,
+        ? `지시어는 뒤 명사의 **수**에 맞춘다 — "${next}"${josa(next, I_GA)} ${looksPlural(next) ? '복수' : '단수'}이므로 "${right}"${josa(right, I_GA)} 맞고 "${wrong}"${josa(wrong, EUN_NEUN)} 틀리다.`
+        : `지시어는 뒤 명사의 수에 맞춘다 — 여기서는 "${right}"${josa(right, I_GA)} 맞고 "${wrong}"${josa(wrong, EUN_NEUN)} 틀리다.`,
   },
 }
 
@@ -365,7 +375,7 @@ export function explainUnderlinedGrammar(payload: Json, answerKey: Json): ItemEx
   if (spec) {
     parts.push(`${spec.name} 규칙이다 — ${spec.why(wrong, correct, next)}`)
   } else {
-    parts.push(`"${wrong}" 자리에는 "${correct}" 가 와야 한다.`)
+    parts.push(`"${wrong}" 자리에는 "${correct}"${josa(correct, I_GA)} 와야 한다.`)
   }
 
   // ⚠️ **확인하지 않은 것을 단정하지 않는다.** 여기 있던 「나머지 …는 뒤 낱말과 어긋나지 않아
@@ -424,9 +434,9 @@ export function explainVocabChoice(payload: Json, answerKey: Json): ItemExplanat
   parts.push(`${label} "${wrong}"${josa(wrong, I_GA)} 문맥에 맞지 않는다.`)
   if (sentence) parts.push(`문제 문장은 "${quoteAround(sentence, wrong, 110)}" 인데,`)
   if (fixed && fixed !== sentence) {
-    parts.push(`이 자리에는 "${original}" 가 와야 뜻이 이어진다 — "${quoteAround(fixed, original, 110)}".`)
+    parts.push(`이 자리에는 "${original}"${josa(original, I_GA)} 와야 뜻이 이어진다 — "${quoteAround(fixed, original, 110)}".`)
   } else {
-    parts.push(`이 자리에는 "${original}" 가 와야 뜻이 이어진다.`)
+    parts.push(`이 자리에는 "${original}"${josa(original, I_GA)} 와야 뜻이 이어진다.`)
   }
   // ⚠️⚠️ **확인하지 않은 것을 단정하지 않는다.** 여기 있던 「나머지 …는 앞뒤 내용과 어긋나지
   //   않는다」는 생성기가 확인할 수 없는 **의미 판정**이었고, 3인 검수가 그 거짓을 실제로 잡았다
@@ -468,7 +478,7 @@ export function explainVocabChoice(payload: Json, answerKey: Json): ItemExplanat
   const keptAt = sentenceStillHolding(sentences, original, Number(u.sentenceIdx))
   if (keptAt != null) {
     parts.push(
-      `원래 낱말 "${original}" 는 ${keptAt + 1}번째 문장에 그대로 남아 있다 — "${quoteAround(sentences[keptAt] ?? '', original, 90)}".`,
+      `원래 낱말 "${original}"${josa(original, EUN_NEUN)} ${keptAt + 1}번째 문장에 그대로 남아 있다 — "${quoteAround(sentences[keptAt] ?? '', original, 90)}".`,
     )
   }
   return finish(parts.join(' '), 'vocab_choice')
@@ -490,7 +500,7 @@ export function explainBlankWord(payload: Json, answerKey: Json): ItemExplanatio
   parts.push(`빈칸에는 "${answer}" ${josa(answer, I_GA)} 들어간다.`)
   const m = hint.match(/^(.+?)…\s*\((.+)\)$/)
   if (m) {
-    parts.push(`힌트 "${hint}" 는 첫 글자 ${m[1]} 와 뜻 '${m[2]}' 를 함께 준다 — 그 둘을 모두 만족하는 낱말이다.`)
+    parts.push(`힌트 "${hint}"${josa(hint, EUN_NEUN)} 첫 글자 ${m[1]}${josa(m[1] ?? '', WA_GWA)} 뜻 '${m[2]}'${josa(m[2] ?? '', EUL_REUL)} 함께 준다 — 그 둘을 모두 만족하는 낱말이다.`)
   } else if (hint) {
     parts.push(`힌트는 "${hint}" 다.`)
   }
@@ -680,7 +690,7 @@ export function explainElementary(
       )
     }
   } else {
-    parts.push(`빈칸을 채우면 "${answerText}" 가 된다.`)
+    parts.push(`빈칸을 채우면 "${answerText}"${josa(answerText, I_GA)} 된다.`)
     parts.push(`주어진 꼴 "${stem}" 에서 빠진 글자를 넣는 문제다 — 같은 꼴로 만들 수 있는 낱말이 하나뿐이라 답이 정해진다.`)
   }
   return finish(parts.join(' '), `elementary_${kind}`)
