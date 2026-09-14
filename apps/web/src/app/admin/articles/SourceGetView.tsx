@@ -7,7 +7,7 @@
 
 'use client'
 
-import { BarChart3, BookOpen, CloudSun, Dna, FlaskConical, Globe, Library, MapPin, Megaphone, Microscope, Mountain, Newspaper, Rocket, Volume2, VolumeX } from 'lucide-react'
+import { BarChart3, BookOpen, CloudSun, Dna, FlaskConical, Globe, GraduationCap, Library, MapPin, Megaphone, Microscope, Mountain, Newspaper, Rocket, Volume2, VolumeX } from 'lucide-react'
 
 import type { SourceFeedHealth } from '@/lib/articles/types'
 import type { SourceKey, LearnerLevel } from '@vocaflow/library-pipeline/curation-spec'
@@ -29,6 +29,9 @@ const NASA_FEEDS = [
   { id: 'apod', label: 'Astronomy Picture of the Day' },
   { id: 'iotd', label: 'Image of the Day' },
 ]
+// ⚠️ 정본은 패키지의 `FUTURITY_FEEDS` 다 — id 가 어긋나면 라우트가 400 을 돌려준다.
+//   지금은 전체 피드 하나뿐이라 사본을 둔다(NASA·NIH 와 같은 모양).
+const FUTURITY_FEEDS_UI = [{ id: 'all', label: '대학 연구 기사 (전체)' }]
 const NIH_FEEDS = [
   { id: 'medlineplus', label: "MedlinePlus What's New (안정)" },
   { id: 'directors-blog', label: "Director's Blog" },
@@ -309,6 +312,20 @@ function SourceGetBody({ source, onEnqueued }: { source: SourceKey; onEnqueued: 
           urlPattern={/^https?:\/\/(?:www\.)?usgs\.gov\/news\//}
           urlHostHint="www.usgs.gov/news/ 도메인"
           urlPlaceholder="https://www.usgs.gov/news/featured-story/hurricane-season-arrives"
+          onEnqueued={onEnqueued}
+        />
+      )
+    case 'futurity':
+      return (
+        <RssFeedTab
+          source="futurity"
+          heading="🎓 Futurity"
+          subtitle="CC-BY 4.0 · B1~B2 대학 연구 기사 · 발행·변형 허용 · 출처 표시 의무"
+          feeds={FUTURITY_FEEDS_UI}
+          emptyIcon={GraduationCap}
+          urlPattern={/^https?:\/\/(?:www\.)?futurity\.org\//}
+          urlHostHint="futurity.org 도메인"
+          urlPlaceholder="https://www.futurity.org/sleep-memory-brain-3012345/"
           onEnqueued={onEnqueued}
         />
       )

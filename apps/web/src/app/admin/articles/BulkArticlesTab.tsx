@@ -291,12 +291,14 @@ interface GlobalFilters {
 type Preset = 'basic' | 'all' | 'advanced'
 const PRESET_SOURCES: Record<Preset, SourceKey[]> = {
   basic: ['voa', 'nasa', 'nih'],
-  all: ['voa', 'nasa', 'nih', 'simple_wikipedia', 'wikinews', 'the_conversation', 'owid', 'factbook', 'elife', 'wikipedia', 'plos', 'wikivoyage', 'usgs', 'noaa'],
+  // ⚠️ 「전체」는 GET 탭과 같은 목록이어야 한다 — futurity 가 빠져 있어 2,885편이 쌓이는 동안
+  //   「전체」를 눌러도 안 돌았다(2026-09-14).
+  all: ['voa', 'nasa', 'nih', 'simple_wikipedia', 'wikinews', 'the_conversation', 'owid', 'factbook', 'elife', 'wikipedia', 'plos', 'wikivoyage', 'usgs', 'noaa', 'futurity'],
   advanced: ['the_conversation', 'owid', 'elife', 'plos', 'wikipedia', 'simple_wikipedia', 'usgs', 'noaa'],
 }
 const PRESET_LABEL: Record<Preset, string> = {
   basic: '기본 (VOA + NASA + NIH)',
-  all: '전체 (14 소스)',
+  all: '전체 (15 소스)',
   advanced: '고급 (논증 · 과학 · 백과)',
 }
 

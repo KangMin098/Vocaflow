@@ -16,7 +16,7 @@
 //
 // ⚠️ 두 목록은 소스로 읽는다. 손으로 적으면 이 테스트가 세 번째 사본이 된다.
 
-import { readFileSync } from 'node:fs'
+import { readdirSync, readFileSync } from 'node:fs'
 import path from 'node:path'
 
 import { describe, expect, it } from 'vitest'
@@ -41,6 +41,14 @@ const CANON = unionMembers(
 )
 const COPY = unionMembers(readFileSync(path.join(APP, 'lib', 'acp', 'seed-upsert.ts'), 'utf8'), 'SeedSource')
 const GUIDE = readFileSync(path.join(APP, 'lib', 'articles', 'source-guide.ts'), 'utf8')
+
+/** 소스 GET 탭 목록 — source-guide 의 GET_TAB_SOURCES(정본)를 소스로 읽는다. */
+function tabSources(): string[] {
+  const at = GUIDE.indexOf('export const GET_TAB_SOURCES')
+  const body = GUIDE.slice(at, GUIDE.indexOf('\n]', at))
+  return [...body.matchAll(/^  '([a-z0-9_]+)',/gm)].map((m) => m[1])
+}
+
 
 describe('기사 소스 — 정본과 사본이 같은 목록을 든다', () => {
   it('두 유니언을 실제로 읽었다', () => {
@@ -94,6 +102,48 @@ describe('기사 소스 — 정본과 사본이 같은 목록을 든다', () => 
       missing,
       `이름 없는 소스: ${missing.join(', ')} — apps/web/src/lib/articles/source-guide.ts 의 ` +
         `SOURCE_LABEL 에 더할 것 (없으면 그 소스의 원문은 관리 화면에서 못 고른다)`,
+    ).toEqual([])
+  })
+
+  // ── GET 탭이 실제로 열리는가 ──────────────────────────────────────
+  // 2026-09-14 실측: `futurity` 는 피드 라우트도 SOURCE_SPECS 도 2026-08-21 부터 있었는데
+  //   `SOURCE_OPTIONS` 에만 빠져 있어 재고 2,885편이 쌓이는 동안 화면에서 부를 수 없었다.
+  //   타입은 이것을 못 잡는다 — 배열에서 빠진 것은 타입 오류가 아니다.
+  it('피드 라우트와 GET 탭이 1:1 이다', () => {
+    const feedRoutes = readdirSync(path.join(APP, 'app', 'api', 'admin', 'articles'))
+      .filter((d) => d.endsWith('-feed'))
+      .map((d) => d.replace(/-feed$/, ''))
+    expect(feedRoutes.length, '피드 라우트를 못 읽었다').toBeGreaterThan(10)
+
+    const tabs = tabSources()
+    expect(tabs.length, 'GET_TAB_SOURCES 를 못 읽었다').toBeGreaterThan(10)
+
+    const noTab = feedRoutes.filter((f) => !tabs.includes(f))
+    expect(
+      noTab,
+      `피드 라우트는 있는데 GET 탭이 없다: ${noTab.join(', ')} — source-guide 의 ` +
+        `GET_TAB_SOURCES 에 더할 것 (없으면 화면에서 그 소스를 부를 수 없다)`,
+    ).toEqual([])
+
+    const noRoute = tabs.filter((t) => !feedRoutes.includes(t))
+    expect(
+      noRoute,
+      `GET 탭은 있는데 피드 라우트가 없다: ${noRoute.join(', ')}`,
+    ).toEqual([])
+  })
+
+  it('탭이 있는 소스는 전부 GET 화면의 case 를 갖는다', () => {
+    // ⚠️ SourceGetBody 의 switch 에는 default 가 없다 — case 가 없으면 undefined 를 돌려주고
+    //   손잡이만 열린 **빈 패널**이 뜬다. 오류도 경고도 없이 조용하다.
+    const view = readFileSync(path.join(APP, 'app', 'admin', 'articles', 'SourceGetView.tsx'), 'utf8')
+    const cases = [...view.matchAll(/case '([a-z0-9_]+)':/g)].map((m) => m[1])
+    expect(cases.length, 'SourceGetBody 의 case 를 못 읽었다').toBeGreaterThan(10)
+
+    const missing = tabSources().filter((t) => !cases.includes(t))
+    expect(
+      missing,
+      `탭은 있는데 GET 화면이 없다: ${missing.join(', ')} — SourceGetView 의 ` +
+        `SourceGetBody 에 case 를 더할 것 (없으면 빈 패널이 뜬다)`,
     ).toEqual([])
   })
 

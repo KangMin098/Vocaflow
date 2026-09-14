@@ -87,7 +87,7 @@ export const TBP_HELP: HelpRegistry = {
           detail:
             '이 화면은 **판정 결과만** 읽는다. 원문 한 편을 열어 보고·고치고·보관·삭제하는 곳은 **ACP 콘솔**(`/admin/articles` · 사이드바 「짧은 글」)이다 — 「소스 GET」 탭이 수집(소스별 프로필·정책·후보·라이브 RSS), 「검수」·「발행」 탭이 적재된 원문 목록, `/admin/articles/preview/<id>` 가 한 편이다. ' +
             '표의 **원천 이름을 누르면** 그 원천의 원문 목록이 상태 전체로 열린다. ' +
-            '⚠️ **「소스 GET」 탭은 재고 전체를 덮지 않는다** — 탭은 RSS·API 로 수집하는 14개 소스뿐이고, 최대 소스 `gutenberg`(40,519편)·`frontiers`·`nist` 는 별도 수확기(`scripts/csat/harvest-*.mjs` · `scripts/textbook/harvest-gutenberg-kid.mjs`)가 넣는다. 그 소스들은 **「검수」·「발행」 탭에서만** 다룬다.',
+            '⚠️ **「소스 GET」 탭은 재고 전체를 덮지 않는다** — 탭은 RSS·API 로 수집하는 15개 소스뿐이고, 최대 소스 `gutenberg`(40,519편)·`frontiers`·`nist` 는 별도 수확기(`scripts/csat/harvest-*.mjs` · `scripts/textbook/harvest-gutenberg-kid.mjs`)가 넣는다. 그 소스들은 **「검수」·「발행」 탭에서만** 다룬다.',
         },
         {
           label: '조판 가능',

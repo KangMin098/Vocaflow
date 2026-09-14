@@ -9,6 +9,29 @@
 ---
 ## Unreleased (v06.34 → next)
 
+### 소스 하나가 3주 동안 화면에 없었던 이유는 목록이 세 벌이라서다 (2026-09-14)
+
+`futurity` 는 피드 라우트(`/api/admin/articles/futurity-feed`)도 `SOURCE_SPECS` 도 `SourceKey` 도
+2026-08-21 커밋 `fe252c99` 부터 갖추고 있었다. 그런데 **화면에서 부를 수 없었다** — 소스 GET
+탭 목록에 없었기 때문이다. 그 사이 재고가 **2,885편** 쌓였다. 피드 라우트 15개 중 탭이 없던
+유일한 하나다.
+
+⚠️ **한 줄 추가로 끝나지 않았다.** 탭 목록이 **세 벌**이었다 — `CurationConsole` 의 지역
+`SourceKey`(14) · `RssFeedTab` 의 prop 타입(13) · `SOURCE_OPTIONS`(14). 한 곳에만 더하면
+나머지 둘이 tsc 로 막는다. 그리고 `SourceGetBody` 의 switch 에는 `default` 가 없어, 탭만 더하면
+**오류 없이 빈 패널**이 뜬다.
+
+- 정본을 하나로 — `GET_TAB_SOURCES` (`source-guide.ts`, 라벨 정본과 같은 자리).
+  `SOURCE_ICON` 을 `Record<GetTabSource, …>` 로 두어 **정본에 더하고 아이콘을 안 채우면
+  컴파일이 깨진다**(변이로 확인 — `Property 'frym' is missing`). 사본 둘 삭제
+- `futurity` 탭 + `SourceGetBody` case + 대량 GET 「전체」 preset(14 → 15).
+  「전체」가 전체가 아니었던 것도 같이 고쳤다
+- 회귀 2종 — 「피드 라우트와 GET 탭이 1:1」 · 「탭이 있는 소스는 전부 GET 화면의 case 를 갖는다」.
+  변이로 확인(탭 제거 · case 제거 각각 정확히 그 검사가 잡는다)
+- 도움말 「외부 14개 소스」 → 15 (`articles.ts` · `textbook.ts`).
+  ⚠️ `/admin/library`·`/admin` 의 「14 소스」는 **고치지 않았다** — 그쪽은
+  `scripts/acp/collect-daily.mjs` 를 가리키고 실측 14개가 맞다(거기엔 futurity 가 있고 factbook 이 없다)
+
 ### 고쳐도 안 풀리던 판정 — 검수에 판(版)을 적는다 (2026-09-14)
 
 마이그레이션 `20260914120000_csat_item_reviews_digest` — `reviewed_digest` 열 + CHECK + 인덱스.

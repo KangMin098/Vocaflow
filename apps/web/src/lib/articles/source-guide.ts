@@ -84,6 +84,8 @@ const ALL_SOURCES: ReadonlyArray<SourceKey> = [
   'wikivoyage',
   'usgs',
   'noaa',
+  // 빈 칸 추천의 대상 — GET 탭이 생긴 소스는 여기에도 있어야 「이 칸을 채울 소스」로 뽑힌다.
+  'futurity',
 ]
 
 /**
@@ -136,6 +138,39 @@ export const SOURCE_LABEL: Record<string, string> = {
   medlineplus: 'MedlinePlus',
   manual: '수동 등록',
 }
+
+/**
+ * **소스 GET 탭이 있는 소스 — 이 배열 하나가 정본이다.**
+ *
+ * 조건은 하나: 라이브 피드 라우트 `/api/admin/articles/<key>-feed` 가 있을 것.
+ * `gutenberg`·`frontiers`·`nist` 처럼 별도 수확기가 넣는 소스는 여기 없다 — 검수·발행에서만 다룬다.
+ *
+ * ⚠️ **예전에는 이 목록이 세 군데 있었다** — `CurationConsole` 의 지역 `SourceKey`,
+ * `RssFeedTab` 의 prop 타입, 그리고 `SOURCE_OPTIONS`. 그래서 2026-08-21 에 피드 라우트와
+ * `SOURCE_SPECS` 까지 갖춘 `futurity` 가 **셋 중 어디에도 안 들어가** 재고 2,885편이 쌓이는
+ * 동안 화면에서 부를 수 없었고, 한 곳에만 더하면 tsc 가 나머지 둘로 막았다(2026-09-14).
+ * 지금은 여기 한 줄이면 탭·아이콘·피드 폼이 함께 열린다.
+ */
+export const GET_TAB_SOURCES = [
+  'voa',
+  'nasa',
+  'nih',
+  'simple_wikipedia',
+  'the_conversation',
+  'wikinews',
+  'owid',
+  'factbook',
+  'elife',
+  'wikipedia',
+  'plos',
+  'wikivoyage',
+  'usgs',
+  'noaa',
+  'futurity',
+] as const satisfies ReadonlyArray<SourceKey>
+
+/** GET 탭이 있는 소스 — 탭·아이콘·피드 폼이 전부 이 타입을 쓴다. */
+export type GetTabSource = (typeof GET_TAB_SOURCES)[number]
 
 // ── 커버리지 빈칸 ────────────────────────────────
 

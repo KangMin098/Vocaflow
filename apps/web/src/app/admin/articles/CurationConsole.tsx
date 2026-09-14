@@ -15,6 +15,7 @@ import {
   BarChart3,
   BookOpen,
   CloudSun,
+  GraduationCap,
   Dna,
   Download,
   FlaskConical,
@@ -50,7 +51,7 @@ import {
 } from '@/lib/articles/console-view'
 import type { LearnerLevel } from '@vocaflow/library-pipeline/curation-spec'
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
-import { SOURCE_LABEL } from '@/lib/articles/source-guide'
+import { GET_TAB_SOURCES, SOURCE_LABEL, type GetTabSource } from '@/lib/articles/source-guide'
 import { CoverageMatrix } from './CoverageMatrix'
 import { SourceFeedList } from './SourceFeedList'
 import { GetGuidePanel } from './GetGuidePanel'
@@ -59,8 +60,8 @@ import { CuratedArticlesTab } from './CuratedArticlesTab'
 import { BulkArticlesTab } from './BulkArticlesTab'
 
 type Stage = ArticleStage
-type SourceKey =
-  | 'voa' | 'nasa' | 'nih' | 'simple_wikipedia' | 'the_conversation' | 'wikinews' | 'owid' | 'factbook' | 'elife' | 'wikipedia' | 'plos' | 'wikivoyage' | 'usgs' | 'noaa'
+// SourceKey 사본은 2026-09-14 에 지웠다 — 정본은 source-guide 의 GET_TAB_SOURCES 하나뿐이다.
+type SourceKey = GetTabSource
 type StatTone = 'neutral' | 'success' | 'warning' | 'info' | 'danger'
 
 interface Props {
@@ -97,23 +98,31 @@ const HELP_TAB: Record<Stage, string> = {
 
 // 소스별 탭 — 라벨은 정본 SOURCE_LABEL(source-guide) 단일출처에서만(중복 정의·드리프트 금지).
 //   여기선 key + Icon 만 정의 → 커버리지(SourceFeedList)와 동일 라벨 보장.
-const SOURCE_OPTIONS: Array<{ key: SourceKey; Icon: typeof Radio }> = [
-  { key: 'voa', Icon: Radio },
-  { key: 'nasa', Icon: Rocket },
-  { key: 'nih', Icon: FlaskConical },
-  { key: 'simple_wikipedia', Icon: BookOpen },
-  { key: 'the_conversation', Icon: Megaphone },
-  { key: 'wikinews', Icon: Newspaper },
-  { key: 'owid', Icon: BarChart3 },
-  { key: 'factbook', Icon: Globe },
-  { key: 'elife', Icon: Microscope },
-  { key: 'wikipedia', Icon: Library },
-  { key: 'plos', Icon: Dna },
-  { key: 'wikivoyage', Icon: MapPin },
-  { key: 'usgs', Icon: Mountain },
-  { key: 'noaa', Icon: CloudSun },
-]
-const SOURCE_KEYS: SourceKey[] = SOURCE_OPTIONS.map((s) => s.key)
+/**
+ * 탭 아이콘 — `Record<GetTabSource, …>` 라 **정본에 소스를 더하고 여기를 안 채우면 tsc 가 막는다.**
+ * 예전에는 이 자리가 배열이라 빠뜨려도 아무도 몰랐다(§GET_TAB_SOURCES 머리말).
+ */
+const SOURCE_ICON: Record<GetTabSource, typeof Radio> = {
+  voa: Radio,
+  nasa: Rocket,
+  nih: FlaskConical,
+  simple_wikipedia: BookOpen,
+  the_conversation: Megaphone,
+  wikinews: Newspaper,
+  owid: BarChart3,
+  factbook: Globe,
+  elife: Microscope,
+  wikipedia: Library,
+  plos: Dna,
+  wikivoyage: MapPin,
+  usgs: Mountain,
+  noaa: CloudSun,
+  futurity: GraduationCap,
+}
+
+// 탭 순서 = 정본 배열의 순서. 라벨은 SOURCE_LABEL 이 정본이다(중복 정의·드리프트 금지).
+const SOURCE_OPTIONS = GET_TAB_SOURCES.map((key) => ({ key, Icon: SOURCE_ICON[key] }))
+const SOURCE_KEYS: readonly SourceKey[] = GET_TAB_SOURCES
 
 export function CurationConsole({
   view,
