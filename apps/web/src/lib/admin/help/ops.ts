@@ -14,6 +14,20 @@ export const OPS_HELP: HelpRegistry = {
     screen: {
       summary:
         '8개 파이프라인 큐에 지금 무엇이 쌓여 있는지를 한 장으로 보는 관문. 화면의 모든 수치는 열 때마다 DB 를 다시 센 값이다(캐시 없음).',
+      diagrams: [
+        {
+          kind: 'flow',
+          caption: '여기서 고르는 순서 — 실패가 언제나 먼저다',
+          nodes: [
+            { label: '실패', actor: 'user', says: '멈춘 것부터 본다 — 쌓인 것보다 급하다' },
+            { label: '드레인 큐', actor: 'claude', says: 'Claude Code 가 비우는 몫' },
+            { label: '검수 대기', actor: 'user', says: '사람이 발행으로 넘기는 몫' },
+          ],
+          branch: [
+            { when: 'KPI 4개', then: '파이프라인을 가로질러 합산한 값이다 — 한 파이프라인 수와 안 맞는 것이 정상이다' },
+          ],
+        },
+      ],
       steps: [
         {
           title: '실패부터 본다',
@@ -107,6 +121,17 @@ export const OPS_HELP: HelpRegistry = {
         'shared_dictionary 를 단어 단위로 열어 다차원 분류(V-Level · CEFR · Track · Domain · Skill)가 서로 어긋나지 않는지 확인하는 읽기 전용 검토대.',
       when:
         'VCB·VRL 작업 결과가 실제 사전 row 에 어떻게 들어갔는지 확인할 때, 또는 특정 단어의 분류 근거(claude_reasoning · rule_v1 대비 변화)를 찾을 때.',
+      diagrams: [
+        {
+          kind: 'keys',
+          caption: '분류 구멍을 훑는 두 갈래 — 뜻이 다르다',
+          nodes: [
+            { label: 'V-Level NULL', says: 'VRL 분류가 아직 안 붙은 단어 — 누락을 훑는다' },
+            { label: '✗ unverified', says: 'false 뿐 아니라 **NULL(미기록)도 함께** 잡는다' },
+            { label: '다차원', says: '다섯 축(V-Level·CEFR·Track·Domain·Skill)이 어긋나는지' },
+          ],
+        },
+      ],
       fields: [
         {
           label: '검색창',

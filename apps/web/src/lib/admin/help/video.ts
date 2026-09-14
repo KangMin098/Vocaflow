@@ -16,6 +16,18 @@ export const VFP_HELP: HelpRegistry = {
       summary:
         '플랫폼 구성요소(소개·장점·커리큘럼·시리즈·문항 유형·학습 활동·학습 방법·권장안)마다 PR 영상 한 편을 찍어 공개 버킷에 올리는 파이프라인의 관측 화면. 영상 목록이 코드에 적혀 있지 않다 — 구성요소가 늘면 찍어야 할 영상도 자동으로 는다. 이 화면은 그 차이를 본다.',
       when: '플랫폼에 시리즈·유형·활동을 추가한 뒤, 또는 학습자 화면에서 영상이 안 보인다는 말이 나왔을 때.',
+      diagrams: [
+        {
+          kind: 'flow',
+          caption: '명령을 화면이 주고 실행은 밖에서 한다',
+          nodes: [
+            { label: '현황', actor: 'auto', says: '밀린 것이 몇 편인지 센다' },
+            { label: '내보내기', actor: 'user', says: '돌릴 명령을 그대로 가져간다' },
+            { label: 'CLI 실행', actor: 'user', says: '화면은 렌더를 돌리지 않는다' },
+            { label: 'manifest 커밋', actor: 'user', says: '커밋해야 「파일 살아 있음」이 선다' },
+          ],
+        },
+      ],
       steps: [
         {
           title: '현황에서 밀린 것을 센다',

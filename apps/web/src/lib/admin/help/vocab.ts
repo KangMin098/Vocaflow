@@ -695,6 +695,17 @@ export const VCB_HELP: HelpRegistry = {
       summary:
         '보강된 단어를 하나씩 승인·거절·수정해 발행 대상을 확정하는 곳.',
       when: 'QA 게이트를 돌린 뒤(run 상태 QA 검증 중 또는 큐레이션 중). run 상세의 큐레이션 시작 으로 들어온다.',
+      diagrams: [
+        {
+          kind: 'flow',
+          caption: '플래그부터 — 미검토를 먼저 훑지 않는다',
+          nodes: [
+            { label: '플래그 처리', actor: 'user', says: 'QA 가 짚은 것부터. 수가 적고 위험이 크다' },
+            { label: '나머지 미검토', actor: 'user', says: '승인 · 거절 · 수정' },
+            { label: 'run 상세로', actor: 'user', says: '발행은 그쪽에서 누른다 — 여기서 안 끝난다' },
+          ],
+        },
+      ],
       steps: [
         {
           title: '플래그부터 처리',

@@ -314,6 +314,18 @@ export const ACP_HELP: HelpRegistry = {
     screen: {
       summary: '글 한 건의 본문·발행 게이트·오디오·추출 단어를 한 화면에서 확인하고 게시 여부를 정한다.',
       when: '검수·발행 목록에서 제목이나 “검수”를 눌렀을 때. 상단 “글 목록으로”는 들어온 단계로 되돌아간다.',
+      diagrams: [
+        {
+          kind: 'flow',
+          caption: '한 건을 열었을 때 보는 순서',
+          nodes: [
+            { label: '게이트', actor: 'auto', says: '막는 것이 있는지 먼저' },
+            { label: '본문', actor: 'user', says: '비어 있으면 아직 분석 전이다 — 「지금 처리」' },
+            { label: '오디오 · 어휘', actor: 'user', says: '연결과 추출이 걸렸는가' },
+            { label: '게시 결정', actor: 'user', says: '게이트 통과는 조건이지 이유가 아니다' },
+          ],
+        },
+      ],
       steps: [
         {
           title: '게이트 읽기',

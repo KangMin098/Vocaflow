@@ -126,6 +126,18 @@ export const CCP_HELP: HelpRegistry = {
       summary: '도서 한 권의 컷과 QC 를 보고 게시·보완·보관·삭제를 결정하는 화면.',
       when:
         '드레인 적재가 끝나 컷이 들어온 뒤. 컷이 0개면 스타일 지정 말고 할 수 있는 게 없다. 큐 대기·생성 중 단계에서는 5초마다 자동 갱신된다.',
+      diagrams: [
+        {
+          kind: 'flow',
+          caption: '스타일을 먼저 정한다 — 생성 뒤에 바꾸면 늦다',
+          nodes: [
+            { label: '스타일 지정', actor: 'user', says: '드레인 plan 이 이 값으로 프롬프트를 꺼내 간다' },
+            { label: 'QC 카드', actor: 'auto', says: '컷이 규격을 넘었는가' },
+            { label: '컷 · 대사 훑기', actor: 'user', says: '사람이 읽는다' },
+            { label: '게시 · 보완 · 보관', actor: 'user', says: '넷 중 하나를 고른다' },
+          ],
+        },
+      ],
       steps: [
         {
           title: '스타일을 먼저 지정',

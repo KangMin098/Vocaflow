@@ -465,6 +465,18 @@ export const LCP_HELP: HelpRegistry = {
       summary:
         '게시 전에 사람이 확인하는 마지막 관문 — 본문·삽화·낭독·추출 단어·챕터 단어장·챕터 퀴즈를 한 페이지에서 본다.',
       when: 'Curated Books 에서 검토 대기(또는 게시됨) 도서의 상세 모달 → 「📖 본문 검수」로 들어온다.',
+      diagrams: [
+        {
+          kind: 'flow',
+          caption: '게시 전 마지막 관문 — 여섯 가지를 사람이 본다',
+          nodes: [
+            { label: '본문', actor: 'user', says: '인쇄 잔해·잘린 문장이 없는가' },
+            { label: '삽화 · 낭독', actor: 'user', says: '연결이 실제로 걸렸는가' },
+            { label: '추출 단어', actor: 'user', says: '학습자가 받을 어휘가 맞는가' },
+            { label: '챕터 단어장', actor: 'user', says: '발행되면 공용 카탈로그로 나간다' },
+          ],
+        },
+      ],
       steps: [
         {
           title: '본문 훑기',
