@@ -238,11 +238,41 @@ function arr(v: unknown): unknown[] {
   return Array.isArray(v) ? v : []
 }
 
+/**
+ * 상한을 넘는 해설을 자른다 — **낱말 가운데도, 인용 가운데도 아니게.**
+ *
+ * ── 3인 검수가 찾아낸 것 (실측 2026-09-14) ──────────────────────────
+ * 여기가 `slice(0, max - 1)` 하나였다. 글자 수로만 자르니 지면에 이런 것이 실렸다:
+ *
+ *     … 문장에 그대로 남아 있다 — "…after initially denying any Libyan respo…
+ *
+ * `responsibility` 가 **낱말 가운데서** 잘렸고 여는 따옴표가 **닫히지 않았다.**
+ * DB 실측: 해설 506,279건 중 **17,467건**이 인용을 연 채로 끝나고, 따옴표 수가 홀수인
+ * 것이 **18,211건**이다. 전부 `vocab_choice` 작성기 — 그 유형이 원문을 인용하기 때문이다.
+ *
+ * ⚠️ **인용을 버리지 않고 닫는다.** 버리면 시중 기준선(원문 인용률 49.7%)에서 멀어지고,
+ *   학습자가 자기 오답을 지문에서 확인하는 장치가 사라진다. 닫으면 둘 다 지킨다.
+ * ⚠️ **낱말 경계를 먼저 찾는다** — 따옴표만 닫으면 `respo…"` 가 되어 더 이상해진다.
+ */
+export function trimExplanation(text: string, max: number): string {
+  if (text.length <= max) return text
+  // 닫는 따옴표까지 들어갈 자리를 남긴다 — 잘라 놓고 상한을 넘기면 회귀가 잡는다.
+  let cut = text.slice(0, max - 2)
+  // ⚠️ 낱말 가운데서 자르지 않는다. 다만 공백이 너무 앞에 있으면(인용이 통째로 길 때)
+  //   되돌리지 않는다 — 해설이 최소 길이 아래로 떨어지는 편이 더 나쁘다.
+  const sp = cut.lastIndexOf(' ')
+  if (sp > 0 && sp >= Math.floor(max * 0.6)) cut = cut.slice(0, sp)
+  cut = cut.trimEnd()
+  // 따옴표가 홀수면 인용이 열린 채로 끝난 것이다 — 줄임표를 넣고 닫는다.
+  const openQuote = (cut.match(/"/g)?.length ?? 0) % 2 === 1
+  return openQuote ? `${cut}…"` : `${cut}…`
+}
+
 function finish(ko: string, writer: string): ItemExplanation | null {
   const text = ko.replace(/\s+/g, ' ').trim()
   if (text.length < EXPLANATION_CHARS.min) return null
   return {
-    ko: text.length > EXPLANATION_CHARS.max ? `${text.slice(0, EXPLANATION_CHARS.max - 1).trimEnd()}…` : text,
+    ko: trimExplanation(text, EXPLANATION_CHARS.max),
     hasWrongOption: /오답|나머지|적절하지 않|틀린 이유|[①②③④⑤]/.test(text),
     hasCitation: /[A-Za-z]{4,}[^가-힣]{0,3}[A-Za-z]{4,}/.test(text),
     writer,

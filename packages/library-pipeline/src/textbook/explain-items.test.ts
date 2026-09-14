@@ -8,6 +8,7 @@ import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
 import {
   EXPLANATION_CHARS,
+  trimExplanation,
   explainBlankWord,
   explainElementary,
   explainGrammarFix,
@@ -526,5 +527,61 @@ describe('인용은 틀린 자리를 담는다', () => {
     const quoted = /"([^"]*…[^"]*)"/.exec(e!.ko)?.[1] ?? ""
     expect(quoted, `인용이 잘리지 않았다: ${e!.ko}`).not.toBe("")
     expect(quoted).toMatch(/\ban\b/)
+  })
+})
+
+/**
+ * **글자 수로만 자르면 낱말과 인용이 가운데서 끊긴다** (3인 검수 실측 2026-09-14).
+ *
+ * 지면에 실리던 것:
+ *     … 문장에 그대로 남아 있다 — "…after initially denying any Libyan respo…
+ *
+ * `responsibility` 가 낱말 가운데서 잘렸고 여는 따옴표가 닫히지 않았다. DB 실측 —
+ * 해설 506,279건 중 **17,467건**이 인용을 연 채로 끝났고 따옴표 홀수가 **18,211건**이었다.
+ * 서로 다른 청크의 검수자 둘이 독립으로 같은 자국을 짚었다(`respo…` · `hav…`).
+ */
+describe('trimExplanation — 낱말도 인용도 가운데서 끊지 않는다', () => {
+  const LONG =
+    '정답은 5번이다. 원래 낱말 "responsibility" 는 네 번째 문장에 그대로 남아 있다 — "Libya agreed to pay compensation to the families of the victims after initially denying any Libyan responsibility for the bombing".'
+
+  it('상한 안이면 손대지 않는다 — 멀쩡한 해설에 줄임표를 붙이지 않는다', () => {
+    expect(trimExplanation(LONG, 500)).toBe(LONG)
+    expect(trimExplanation(LONG, 500)).not.toContain('…')
+  })
+
+  it('상한을 넘지 않는다 — 닫는 따옴표까지 세고 자른다', () => {
+    for (const max of [120, 150, 180, 200, 240]) {
+      expect(trimExplanation(LONG, max).length, `max=${max}`).toBeLessThanOrEqual(max)
+    }
+  })
+
+  it('낱말 가운데서 끊지 않는다 — 마지막 토큰이 원문에 통째로 있다', () => {
+    for (const max of [120, 150, 180, 200, 240]) {
+      const out = trimExplanation(LONG, max)
+      const last = out.replace(/[…"]+$/, '').trimEnd().split(' ').pop() ?? ''
+      expect(LONG, `max=${max} · 잘린 조각 "${last}"`).toContain(last)
+    }
+  })
+
+  it('인용을 연 채로 끝내지 않는다 — 따옴표 수가 늘 짝수다', () => {
+    for (const max of [120, 150, 180, 200, 240]) {
+      const out = trimExplanation(LONG, max)
+      expect((out.match(/"/g) ?? []).length % 2, `max=${max} · ${out}`).toBe(0)
+    }
+  })
+
+  // ⚠️ 인용을 **버리지** 않는다 — 시중 원문 인용률 49.7% 가 기준선이고, 학습자가 자기
+  //   오답을 지문에서 확인하는 장치다. 닫아서 지킨다.
+  it('인용을 통째로 버리지 않는다 — 닫아서 남긴다', () => {
+    const out = trimExplanation(LONG, 200)
+    expect(out).toContain('"')
+    expect(out).toContain('Libya')
+  })
+
+  it('따옴표가 없으면 줄임표만 붙인다', () => {
+    const noQuote = '정답은 5번이다. '.repeat(40)
+    const out = trimExplanation(noQuote, 120)
+    expect(out.endsWith('…')).toBe(true)
+    expect(out).not.toContain('"')
   })
 })
