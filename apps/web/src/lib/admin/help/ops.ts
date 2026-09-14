@@ -530,6 +530,19 @@ export const OPS_HELP: HelpRegistry = {
             '전부 이 DB 의 실측 설정이다. 연결 70/85% 는 max_connections 60 기준, 최장 쿼리 60/110초는 statement_timeout 120초의 절반과 사정권, idle-in-tx 5분은 조치 「idle-in-tx 일괄 종료」가 쓰는 기준과 같은 값이다(두 곳이 갈리면 화면을 못 믿는다). DB 용량에는 임계값을 두지 않았다 — 디스크 상한을 모르는 채 그은 선은 짐작이다.',
         },
         {
+          label: '용량이 걱정될 때 — 어디를 보고 무엇이 이미 있나',
+          detail:
+            '이 화면은 용량에 선을 안 긋지만, 어디가 큰지는 정해져 있다. 2026-09-14 실측으로 DB 14 GB 중 library_article_vocabularies 가 9,293 MB(66%)이고, 그 행의 98.6% 는 ready(미발행) 기사 몫이다. ' +
+            '**행을 지우면 안 된다** — 조판(volume-pool.mjs)이 그 표에서 낱말과 빈도를 받는다. 대신 first_sentence 컬럼만 비우는 도구가 이미 있다: node scripts/acp/prune-vocab-sentences.mjs (예행은 인자 없이, 실행은 --commit). ' +
+            '삭제가 아니라 캐시 축출이라 library_articles.content 에서 편당 46.5ms 에 되살아나고, 재실행 안전하다. 남기는 것은 발행 글의 전 행 + 사전에서 안 풀리는 4자 이상 낱말이다.',
+        },
+        {
+          label: '비운 뒤에 heap 이 안 줄어 보이는 이유',
+          detail:
+            'UPDATE 는 죽은 튜플을 남기므로 비우기만 하면 표가 오히려 커진다(실측: 200만 행 비운 직후 7,379 → 7,519 MB). 되찾으려면 VACUUM 이 필요한데, 이 DB 의 statement_timeout 은 2분이라 그냥 VACUUM 은 인덱스 정리 도중 취소된다. ' +
+            'VACUUM (INDEX_CLEANUP OFF, TRUNCATE OFF) 는 2분 안에 끝나고 heap 공간을 재사용 가능하게 만든다 — 긴 작업 중간에는 이쪽을 쓴다. 실제 반환(파일 축소)은 VACUUM FULL 뿐이고 그것은 ACCESS EXCLUSIVE 락이라 이 화면에 없다.',
+        },
+        {
           label: '조치 등급 — 안전 / 사유 필요 / 없음',
           detail:
             '안전: 통계 갱신 · 낡은 통계 일괄 갱신 · 쿼리 취소 · 잡 재개. 사유 필요: 세션 종료 · idle-in-tx 일괄 종료 · 잡 정지. 화면에 아예 없는 것: VACUUM FULL(표를 통째로 잠근다) · DROP INDEX(되돌리는 데 재생성 시간이 든다) · ALTER SYSTEM · 마이그레이션. 허용 목록은 DB 함수 본문에 박혀 있어 화면에서 늘릴 수 없다.',
