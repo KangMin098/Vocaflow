@@ -95,6 +95,43 @@ function normalize(token: string): string {
 }
 
 /**
+ * 앞뒤 부호만 떼고 **대소문자는 그대로** 둔다.
+ *
+ * 고유명사 판정은 대문자가 근거라 `normalize`(소문자로 내린다)를 쓸 수 없다.
+ */
+function bareWord(token: string): string {
+  return token.replace(/^[^A-Za-z']+|[^A-Za-z']+$/g, '')
+}
+
+/**
+ * 그 지문 **안의 증거**로만 가려낸 고유명사(소문자 꼴).
+ *
+ * ⚠️ 짐작하지 않는다 — 사전도 품사 태거도 안 쓴다. 근거는 둘뿐이다:
+ *   ① 같은 낱말이 문장 **중간**에도 대문자로 나온다(`told Haglid that`).
+ *   ② 낱말이 통째로 대문자다(`HARRY` · `STANILAND` — 실측 1.3%).
+ *
+ * ⚠️ **이것은 하한이다.** 문장 첫머리에 한 번만 나오는 이름(`Maria was more to be pitied…`)은
+ *   이 증거로 못 잡는다. 잡히는 것만 잡고, 못 잡는 것을 잡았다고 적지 않는다.
+ *
+ * 내보내는 이유는 회귀 때문이다 — 문단 픽스처로 이 규칙을 재면 밑줄이 어느 자리에 걸리느냐에
+ * 따라 검사가 통과해 버려서 **규칙이 아니라 운을 재게 된다**(실측 2026-09-14: 변이를 넣어도
+ * 픽스처가 그 자리를 안 골라 안 잡혔다).
+ */
+export function properNounsIn(sentences: readonly string[]): Set<string> {
+  const out = new Set<string>()
+  for (const s of sentences) {
+    const toks = s.split(/\s+/)
+    for (let ti = 0; ti < toks.length; ti++) {
+      const w = bareWord(toks[ti]!)
+      if (!w) continue
+      if (/^[A-Z]{2,}$/.test(w)) out.add(w.toLowerCase())
+      else if (ti > 0 && /^[A-Z][a-z']+$/.test(w)) out.add(w.toLowerCase())
+    }
+  }
+  return out
+}
+
+/**
  * **붙은 부호가 자리를 말해 준다** — 그 자리는 바꿔 넣어 볼 곳이 아니다.
  *
  * ── 왜 (3인 검수 + DB 실측 2026-09-12) ──────────────────────────────
@@ -182,14 +219,27 @@ export function buildVocabChoice(
   // ⚠️ 처음엔 문장마다 첫 내용어만 후보로 잡았다. 그랬더니 바꿀 낱말이 문장 중간에 있는
   //   흔한 경우가 통째로 빠졌다(실측 fixture 의 `expensive` 가 그랬다). 후보는 넓게 잡고,
   //   **밑줄을 고를 때** 한 문장에 하나씩만 걸어 촘촘해지지 않게 한다.
+  // ⚠️ **문장 첫머리 예외가 고유명사를 들여보내고 있었다** (실측 2026-09-14).
+  //   `isCandidateToken` 은 문장 **중간**의 대문자만 막는데, 지문은 이름으로 문장을 자주
+  //   시작한다 — `November was the black month…` · `Maria was more to be pitied…`.
+  //   그렇게 들어온 밑줄은 **문맥 적합성을 따질 대상이 아니라서** 학습자가 읽기 전에
+  //   후보에서 지운다. 3인 검수가 그것을 잡았다("밑줄 다섯 중 셋이 고유명사라 실질 2지선다").
+  //   증거 기반 실측(표본 6,000): 고유명사 밑줄 1개 이상 **17.3%** · 3개 이상 0.8%.
+  //
+  //   짐작하지 않는다 — **그 지문 안의 증거**로만 판정한다:
+  //     ① 같은 낱말이 문장 **중간**에도 대문자로 나온다 → 고유명사다(November · Haglid).
+  //     ② 낱말이 통째로 대문자다 → 이름표다(HARRY · STANILAND · 실측 1.3%).
+  //   문장 첫머리에 한 번만 나오는 이름(Maria)은 이 증거로 못 잡는다 — **하한이다.**
+  const properNouns = properNounsIn(sentences)
+
   const all: { sentenceIdx: number; tokenIdx: number; token: string }[] = []
   for (let si = 0; si < sentences.length; si++) {
     const tokens = sentences[si]!.split(/\s+/)
     for (let ti = 0; ti < tokens.length; ti++) {
       // 문장 첫 낱말은 대문자가 정상이다 — 고유명사 규칙에서 빼 준다.
-      if (isCandidateToken(tokens[ti]!, ti === 0)) {
-        all.push({ sentenceIdx: si, tokenIdx: ti, token: tokens[ti]! })
-      }
+      if (!isCandidateToken(tokens[ti]!, ti === 0)) continue
+      if (properNouns.has(normalize(tokens[ti]!))) continue
+      all.push({ sentenceIdx: si, tokenIdx: ti, token: tokens[ti]! })
     }
   }
 
@@ -233,11 +283,40 @@ export function buildVocabChoice(
   const seed = hash(sentences.join(' '))
   const need = VOCAB_UNDERLINES - 1
 
+  /**
+   * 문장마다 밑줄 후보 하나 — **낱말이 겹치지 않게** 고른다.
+   *
+   * ⚠️ 여기가 `all.find((x) => x.sentenceIdx === si)`(그 문장의 첫 후보)였다. 그런데 바꿀
+   *   낱말은 **글에 두 번 이상 나와야 한다**는 것이 이 유형의 설계라, 같은 낱말이 여러 문장의
+   *   첫 후보가 되는 일이 흔했다. 결과는 **같은 낱말이 두 번·세 번 밑줄**이다:
+   *
+   *     ["parabens", "parabens", "moreover", "identical", "parabens"]
+   *     ["Clarissa", "charged", "Haglid", "freedom", "Haglid"]
+   *
+   *   그러면 「밑줄 친 것 중 문맥에 맞지 않는 것」이라는 물음 자체가 성립하지 않는다 —
+   *   ①과 ③이 같은 낱말이면 학습자는 둘을 가릴 수 없고, 해설도 `① "Haglid" · ③ "Haglid"` 로
+   *   찍힌다. 실측(표본 6,000): **10.1%**.
+   *
+   *   문장 순서대로 훑으며 **아직 안 쓴 낱말**만 집는다(결정론 — 같은 지문이면 늘 같다).
+   */
+  const uniquePool = (() => {
+    const taken = new Set<string>()
+    const out: (typeof all[number] | null)[] = []
+    for (let si = 0; si < sentences.length; si++) {
+      const pick = all.find((x) => x.sentenceIdx === si && !taken.has(normalize(x.token))) ?? null
+      if (pick) taken.add(normalize(pick.token))
+      out.push(pick)
+    }
+    return out
+  })()
+
   /** 이 낱말을 바꾸면 나올 수 있는 정답 번호들. */
-  const ranksFor = (c: { sentenceIdx: number }): number[] => {
-    const pool = sentences
-      .map((_, si) => (si === c.sentenceIdx ? null : all.find((x) => x.sentenceIdx === si) ?? null))
+  const ranksFor = (c: { sentenceIdx: number; token: string }): number[] => {
+    const pool = uniquePool
+      .map((p, si) => (si === c.sentenceIdx ? null : p))
       .filter((x): x is NonNullable<typeof x> => x !== null)
+      // 정답 자리와 같은 낱말은 오답 자리에 두지 않는다.
+      .filter((x) => normalize(x.token) !== normalize(c.token))
     const nBefore = pool.filter((d) => d.sentenceIdx < c.sentenceIdx).length
     const nAfter = pool.filter((d) => d.sentenceIdx > c.sentenceIdx).length
     const out: number[] = []
@@ -257,9 +336,12 @@ export function buildVocabChoice(
   const forRank = byRank.get(rank)!
   const chosen = forRank[seed % forRank.length]!
 
-  const decoyPool = sentences
-    .map((_, si) => (si === chosen.sentenceIdx ? null : all.find((c) => c.sentenceIdx === si) ?? null))
+  // `ranksFor` 와 **같은 풀**을 쓴다 — 다르면 번호를 고를 때 셌던 자리와 실제로 놓는 자리가
+  // 어긋나 `picked.length !== VOCAB_UNDERLINES` 로 조용히 버려진다.
+  const decoyPool = uniquePool
+    .map((p, si) => (si === chosen.sentenceIdx ? null : p))
     .filter((x): x is NonNullable<typeof x> => x !== null)
+    .filter((x) => normalize(x.token) !== normalize(chosen.token))
   const decoysBefore = decoyPool.filter((d) => d.sentenceIdx < chosen.sentenceIdx)
   const decoysAfter = decoyPool.filter((d) => d.sentenceIdx > chosen.sentenceIdx)
 

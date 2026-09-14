@@ -10,6 +10,7 @@ import {
   spread,
   VOCAB_UNDERLINES,
   isCandidateToken,
+  properNounsIn,
   type VocabLexicon,
 } from './vocab-choice'
 
@@ -241,5 +242,106 @@ describe('밑줄 후보', () => {
   it('기능어와 짧은 낱말은 여전히 빠진다', () => {
     expect(isCandidateToken('however', false)).toBe(false)
     expect(isCandidateToken('cat', false)).toBe(false)
+  })
+})
+
+// ── 왜 이 회귀가 생겼나 (3인 검수 + DB 실측 2026-09-14) ─────────────
+// 검수가 한 문항을 이렇게 막았다: "밑줄 다섯 중 셋(① November · ② Thomas · ③ Maria)이
+// 고유명사다. 문맥 적합성을 따질 대상이 아니므로 지문을 읽기 전에 후보가 ④⑤ 둘로 좁혀진다."
+// 표본 6,000문항을 **증거 기반**(같은 낱말이 문장 중간에도 대문자)으로 세니:
+//
+//   고유명사 밑줄 1개 이상  17.3%   ·  전부 대문자 낱말 1.3%
+//   같은 낱말 두 번 밑줄    10.1%   ← ["parabens","parabens","moreover","identical","parabens"]
+//
+// 기존 20종이 둘 다 못 잡았다 — 밑줄이 **몇 개인지**는 봤어도 **무엇인지**는 안 봤다.
+describe('밑줄은 문맥 판단이 되는 자리여야 한다', () => {
+  const words = (item: { underlines: { word: string }[] }) =>
+    item.underlines.map((u) => u.word.replace(/^[^A-Za-z']+|[^A-Za-z']+$/g, ''))
+
+  // 문장마다 첫 내용어가 같은 낱말이라, 고치기 전에는 그것이 여러 자리에 밑줄로 걸렸다.
+  const repeated = long([
+    'Parabens appear in expensive shampoos sold across the northern districts.',
+    'Parabens also raise the expensive testing costs that families pay each week.',
+    'Regulators call the expensive programme a temporary measure for now.',
+    'Parabens remain the single most studied group in that whole category.',
+    'Officials expect another review of the programme before the winter season.',
+  ])
+
+  // 이름이 문장 **중간**에도 대문자로 나온다 — 그것이 고유명사라는 증거다.
+  const named = long([
+    'Haglid argued that expensive permits delay every single building project.',
+    'The council told Haglid that the expensive review would continue anyway.',
+    'Neighbours describe the expensive process as slow and hard to follow.',
+    'Regional grants cover roughly a third of the reported installation costs.',
+    'Officials expect another review of the programme before the winter season.',
+  ])
+
+  it('같은 낱말을 두 번 밑줄 치지 않는다', () => {
+    const item = buildVocabChoice(repeated, lex)
+    expect(item, '문항이 안 만들어지면 이 검사는 아무것도 안 지킨다').not.toBeNull()
+    const w = words(item!).map((x) => x.toLowerCase())
+    expect(new Set(w).size, `밑줄이 겹친다 — ${JSON.stringify(words(item!))}`).toBe(w.length)
+  })
+
+  it('문장 중간에도 대문자로 나오는 낱말은 밑줄에 없다', () => {
+    const item = buildVocabChoice(named, lex)
+    expect(item, '문항이 안 만들어지면 이 검사는 아무것도 안 지킨다').not.toBeNull()
+    const midCap = new Set<string>()
+    for (const sent of item!.sentences) {
+      const toks = sent.split(/s+/)
+      for (let i = 1; i < toks.length; i += 1) {
+        const t = toks[i]!.replace(/^[^A-Za-z']+|[^A-Za-z']+$/g, '')
+        if (/^[A-Z][a-z']+$/.test(t) || /^[A-Z]{2,}$/.test(t)) midCap.add(t.toLowerCase())
+      }
+    }
+    const bad = words(item!).filter((w) => midCap.has(w.toLowerCase()))
+    expect(bad, '고유명사가 밑줄에 있다').toEqual([])
+  })
+
+  // HARRY · STANILAND 처럼 이름표로 쓰인 대문자 낱말.
+  const shouty = long([
+    'HARRY told the council that expensive permits delay every single project.',
+    'The office said HARRY had filed the expensive paperwork twice already.',
+    'Neighbours describe the expensive process as slow and hard to follow.',
+    'Regional grants cover roughly a third of the reported installation costs.',
+    'Officials expect another review of the programme before the winter season.',
+  ])
+
+  it('통째로 대문자인 낱말은 밑줄에 없다 — 이름표지 어휘가 아니다', () => {
+    const item = buildVocabChoice(shouty, lex)
+    expect(item).not.toBeNull()
+    const bad = words(item!).filter((w) => /^[A-Z]{2,}$/.test(w))
+    expect(bad, '전부 대문자 낱말이 밑줄에 있다').toEqual([])
+  })
+
+  it('고유명사를 걸러도 원래 만들던 문항은 그대로 만든다', () => {
+    const item = buildVocabChoice(sentences, lex)
+    expect(item).not.toBeNull()
+    expect(item!.underlines).toHaveLength(VOCAB_UNDERLINES)
+  })
+})
+
+describe('properNounsIn — 지문 안의 증거로만 가린다', () => {
+  it('문장 중간의 대문자는 고유명사다', () => {
+    expect([...properNounsIn(['The council told Haglid that the review continues.'])]).toContain('haglid')
+  })
+
+  it('문장 첫머리의 대문자만으로는 고유명사라고 하지 않는다', () => {
+    // Something · Because 처럼 평범한 낱말도 문장 첫머리에서는 대문자다.
+    expect([...properNounsIn(['Something forces me to keep on speaking.'])]).toEqual([])
+  })
+
+  it('통째로 대문자면 자리와 무관하게 고유명사다', () => {
+    expect([...properNounsIn(['HARRY filed the paperwork twice already.'])]).toContain('harry')
+    expect([...properNounsIn(['The office said STANILAND had left.'])]).toContain('staniland')
+  })
+
+  it('붙은 부호를 떼고 본다 — "Haglid," 도 같은 낱말이다', () => {
+    expect([...properNounsIn(['The council told Haglid, who left, that it continues.'])]).toContain('haglid')
+  })
+
+  // ⚠️ 못 잡는 것을 잡았다고 적지 않는다 — 이 한계가 문서와 같아야 한다.
+  it('문장 첫머리에 한 번만 나오는 이름은 못 잡는다 — 하한이라고 적어 둔 그대로다', () => {
+    expect([...properNounsIn(['Maria was more to be pitied than others.'])]).toEqual([])
   })
 })
