@@ -451,6 +451,11 @@ DB 실측 2026-09-13: `library_articles` **108,953편 / 21소스**. 그중 이�
 - 화면도움말에 「원문 자체는 여기서 관리하지 않는다」 + seeAlso 추가. ⚠️ **「소스 GET」 탭은
   재고 전체를 덮지 않는다** — 탭은 RSS·API 14소스뿐이고 `gutenberg`·`frontiers`·`nist` 는
   별도 수확기가 넣는다는 사실을 함께 적었다
+- ⚠️ 뒤늦게 드러난 것 — 그 링크가 `orphan-query-params` 회귀에 걸렸다. `?src=` 를 읽는 쪽
+  (`console-view.ts`)이 `readParam(params, 'src')` 로 **키를 변수로** 넘겨 탐지기가 못 본 것이다.
+  더 엄격한 짝 `route-query-params`(목적지 모듈 그래프까지 추적)는 처음부터 통과했고, 거기 있던
+  `QUERY_KEYS` 패턴이 느슨한 쪽에만 빠져 있었다 — 둘이 같은 것을 보게 맞췄다(2026-09-14).
+  변이로 확인: 진짜 고아(`?nosuchparam=`)는 여전히 잡힌다
 - 회귀 3종 — 링크 존재 · `status=all` 강제 · 「타입에 있는 모든 소스에 이름이 있다」
   (`SOURCE_LABEL` 블록만 떼어 읽는다. 파일 전체에서 긁으면 같은 들여쓰기의 `SOURCE_REGISTERS`
   키가 걸려 **라벨이 없어도 통과**한다)

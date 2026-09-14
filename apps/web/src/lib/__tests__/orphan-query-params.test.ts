@@ -107,6 +107,24 @@ function readParams(): Set<string> {
     )) {
       out.add(m[1]!)
     }
+    // ④ 키 목록 상수 — `QUERY_KEYS = ['stage', 'status', 'src', 'page']`
+    //
+    // ⚠️ **이게 없으면 「읽는 코드가 한 줄로 안 보이는」 정상 구현을 고아로 신고한다.**
+    //    실측 2026-09-14: `/admin/articles?src=` 가 걸렸는데, 읽는 쪽
+    //    (`lib/articles/console-view.ts`)은 `readParam(params, 'src')` 로 **키를 변수로** 넘긴다
+    //    — 쓰는 쪽과 읽는 쪽이 `QUERY_KEYS` 한 벌을 보게 만든 설계라서 그렇다.
+    //    리터럴 `'src'` 가 `.get(` 옆에 없으니 ①~③ 가 못 본다.
+    //    (`stage`·`status`·`page` 는 저장소 **다른 화면**에 같은 이름이 있어 우연히 통과했다
+    //     — 즉 이 구멍은 이름이 겹치지 않는 순간에만 드러난다.)
+    //
+    //    느슨하게 푸는 것이 아니다. **짝 파일 `route-query-params.test.ts` 에는 이 패턴이
+    //    처음부터 있었고**(거기 §오탐 ② `RETURN_PARAM_ALIASES`), 그쪽은 목적지 라우트의
+    //    모듈 그래프까지 따라가 실제로 읽는지 확인한다. 둘이 같은 것을 보게 맞춘다.
+    for (const m of src.matchAll(
+      /(?:ALIASES|PARAM_KEYS|QUERY_KEYS)\s*(?::[^=]*)?=\s*\[([^\]]*)\]/g,
+    )) {
+      for (const k of m[1]!.matchAll(/['"]([a-zA-Z_][a-zA-Z0-9_]*)['"]/g)) out.add(k[1]!)
+    }
   }
   return out
 }
