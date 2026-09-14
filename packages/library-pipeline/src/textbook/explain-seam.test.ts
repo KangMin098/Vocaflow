@@ -3,7 +3,7 @@
 import { describe, expect, it } from 'vitest'
 import { toCsatInsert, toCsatOrder } from './csat-format'
 import { EXPLANATION_CHARS } from './explain-items'
-import { explainInsertSeam, explainOrderSeam, explainShortInsertSeam, readOrderConstraints } from './explain-seam'
+import { assemble, explainInsertSeam, explainOrderSeam, explainShortInsertSeam, readOrderConstraints } from './explain-seam'
 
 // 원문 8문장. `toCsatOrder` 는 도입문 1 + (A)(B)(C) 로 가른다.
 const SOURCE = [
@@ -224,5 +224,91 @@ describe('오답 배제 — 같은 문장을 묶는다', () => {
       // 정답 번호는 앞머리에, 오답 번호는 배제 절에 — 어느 쪽이든 한 번은 나와야 한다.
       expect(e.ko.includes(n), `${n} 이 해설에서 통째로 빠졌다`).toBe(true)
     }
+  })
+})
+
+/**
+ * **상한을 재는 회귀는 있었는데 표본이 경계에 못 닿았다** (실측 2026-09-14).
+ *
+ * `assemble` 이 마지막 `join([body, ...closing])` 의 **이음매 한 칸**을 예산에서 빼먹어
+ * 상한 473 인 해설이 정확히 **474자**로 나갔다. DB 실측 `order_seam` **3,292건**이 전부
+ * 474자였는데 기존 회귀 셋은 전부 초록이었다 — 짧은 표본은 예산을 다 쓰지 않아
+ * **경계를 한 번도 안 밟았기** 때문이다.
+ *
+ * ⚠️ 한 글자짜리 결함은 **표본 하나로는 못 잡는다.** 어느 길이가 경계에 닿을지 모르므로
+ *   길이를 훑는다. 이 검사가 실제로 이빨이 있는지는 변이(이음매 한 칸을 다시 빼기)로
+ *   확인했다 — 훑기 없이는 안 잡히고, 훑으면 잡힌다.
+ */
+describe('explainOrderSeam — 길이를 훑어 경계를 밟는다', () => {
+  const filler = 'the survey team walked the ridge and marked every stream along the slope'
+
+  /** 문장 길이를 조금씩 늘려 가며 예산 경계를 지나가게 한다. */
+  const itemOfWidth = (pad: number) => {
+    const tail = pad > 0 ? ` ${filler.slice(0, pad)}` : ''
+    return toCsatOrder(
+      [
+        `Milestones once told travellers how far they still had to go${tail}.`,
+        `The people who ruled the roads wanted one fixed way to measure a route${tail}.`,
+        `A letter or a load could then be charged by the same rule everywhere${tail}.`,
+        `As a result the stones did more than count${tail}.`,
+        `They turned a rough path into a road with a shape${tail}.`,
+        `That road could be named and mended and compared with other roads${tail}.`,
+        `Later signs of metal and paint took over that work${tail}.`,
+        `Every sign beside a road today is a quiet copy of those first stones${tail}.`,
+      ],
+      [0, 1, 2, 3, 4, 5, 6, 7],
+    )
+  }
+
+  it('어느 길이에서도 상한을 넘지 않는다', () => {
+    const over: string[] = []
+    for (let pad = 0; pad <= filler.length; pad += 1) {
+      const item = itemOfWidth(pad)
+      if (!item) continue
+      const e = explainOrderSeam(item)
+      // 못 쓰면 null 이다 — 그것도 규격을 지키는 방법이다.
+      if (e && e.ko.length > EXPLANATION_CHARS.max) over.push(`pad=${pad} · ${e.ko.length}자`)
+    }
+    expect(over, `상한을 넘긴 길이: ${over.join(' / ')}`).toEqual([])
+  })
+})
+
+/**
+ * **예산 산술을 직접 잰다** (실측 2026-09-14).
+ *
+ * `assemble` 이 마지막 `join([body, ...closing])` 의 **이음매 한 칸**을 예산에서 빼먹어
+ * 상한 473 인 해설이 정확히 **474자**로 나갔다 — DB `order_seam` **3,292건**.
+ *
+ * ⚠️ **지문 표본으로는 못 잡는다.** 넘치는 것은 `body.length + reserved` 가 상한과
+ *   **정확히 같을 때**뿐인데, 문장 길이를 73가지로 훑어도 최대 468자였다(변이 검사로
+ *   확인 — 훑기로는 안 잡히고 이 검사로는 잡힌다). 그래서 경계를 **직접 만든다.**
+ */
+describe('assemble — 이음매 한 칸까지 예산에 넣는다', () => {
+  /** `body + ' ' + closing` 이 상한과 정확히 같아지도록 길이를 맞춘다. */
+  // ⚠️ **닫는 말의 길이를 가정하지 않고 잰다.** 처음엔 `closingLen` 으로 계산했다가
+  //   실제 길이와 1 이 어긋나 경계를 못 밟았고, 변이 검사가 그것을 잡아 줬다.
+  const exact = (closingLen: number) => {
+    const closing = [`반면 ${'나'.repeat(Math.max(0, closingLen - 4))}.`]
+    // `body + ' ' + closing` 이 상한과 **정확히 같아지는** 길이 — 이음매를 안 세면 여기서 +1.
+    const bodyLen = EXPLANATION_CHARS.max - closing[0]!.length
+    return { lead: ['가'.repeat(bodyLen)], closing, closingActual: closing[0]!.length }
+  }
+
+  it('경계에서 상한을 넘지 않는다 — 한 글자가 넘치던 자리다', () => {
+    const over: string[] = []
+    for (let closingLen = 20; closingLen <= 60; closingLen += 1) {
+      // body 를 「상한 − closing」 에 정확히 맞춘다: 이음매를 안 세면 여기서 +1 이 된다.
+      const { lead, closing } = exact(closingLen)
+      const e = assemble(lead, [], closing, 'test')
+      if (e && e.ko.length > EXPLANATION_CHARS.max) over.push(`closing=${closingLen} · ${e.ko.length}자`)
+    }
+    expect(over, `상한을 넘긴 경우: ${over.join(' / ')}`).toEqual([])
+  })
+
+  it('상한 안이면 오답 배제를 버리지 않는다 — 예산을 아끼려고 내용을 잃지 않는다', () => {
+    // 경계가 아니라 **넉넉한** 경우다 — 예산이 남는데 오답 배제를 버리면 안 된다.
+    const e = assemble(['가'.repeat(100)], [], ['반면 ②③ 는 다른 자리를 붙인다.'], 'test')
+    expect(e).not.toBeNull()
+    expect(e!.ko).toContain('반면')
   })
 })

@@ -57,7 +57,12 @@ function head(sentence: string, limit = 60): string {
  * 실제로 그랬다(회귀가 잡았다). 중간 이음매는 있으면 좋고 없어도 되는 것이라
  * 예산이 남을 때만 넣는다.
  */
-function assemble(
+/**
+ * ⚠️ **회귀를 위해 내보낸다.** 이 함수의 결함은 **예산 산술 한 글자**였고,
+ *   지문 표본으로는 경계()를 우연히 밟아야만 드러난다 —
+ *   실측으로 표본 73가지를 훑어도 최대 468자였다(상한 473). 산술을 직접 재는 수밖에 없다.
+ */
+export function assemble(
   lead: string[],
   optional: string[],
   closing: string[],
@@ -66,7 +71,12 @@ function assemble(
   const join = (xs: string[]) => xs.filter(Boolean).join(' ').replace(/\s+/g, ' ').trim()
   // 오답 배제(closing)는 맨 끝에 오지만 **자리를 먼저 떼어 둔다** — 그러지 않으면
   // 중간 이음매가 예산을 다 쓰고 오답 배제가 잘려 나간다(회귀가 잡았다).
-  const reserved = join(closing).length
+  // ⚠️ **이음매 한 칸까지 센다.** 마지막 `join([body, ...closing])` 이 둘 사이에 공백을
+  //   넣는데 예산에선 그 한 글자를 안 셌다 — 그래서 상한 473 인 해설이 정확히 **474자**로
+  //   나왔다(DB 실측 2026-09-14: `order_seam` **3,292건**이 전부 474자였다).
+  //   한 글자라 눈에 안 띄지만, 상한을 재는 회귀가 있는 한 언젠가 빨간불이 된다.
+  const joinedClosing = join(closing)
+  const reserved = joinedClosing ? joinedClosing.length + 1 : 0
   let body = join(lead)
   if (body.length + reserved > EXPLANATION_CHARS.max) return null
   for (const opt of optional) {
