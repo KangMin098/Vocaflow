@@ -196,6 +196,23 @@ const ARTICLE_CHROME = [
   //   오탐은 0 이다 — 학술 소스가 없는 V2~V4 에서 걸린 6편을 눈으로 확인했더니 전부
   //   진짜 APOD 머리말이었다. `Image 1Image 2` 는 그 뒤에 붙는 이미지 나열이다.
   /\bAstronomy Picture of the Day\b/,
+  // ── 3인 검수 3회차가 짚은 셋 (실측 2026-09-14) ────────────────────
+  //   위 규칙 어디에도 안 걸리던 것들이고, 표본을 눈으로 확인해 **오탐 0** 을 봤다.
+  //
+  // ① 출판 플랫폼 껍데기 — `HomeForests & Deforestation … By Hannah Ritchie August 3, 2026
+  //    Browse past versions Cite this articleReuse our work freely`. 실측 13문항.
+  /\bCite this article\b|\bReuse our work\b|\bBrowse past versions\b/i,
+  // ② **지면에 없는 그림을 가리킨다** — `In the chart below` · `This image shows…`.
+  //    학습자는 그 그림을 볼 수 없으므로 그 문장은 아무것도 안 가리킨다. 실측 11문항.
+  /\bIn the (?:chart|image|figure|graph|map|table) (?:below|above)\b/i,
+  // ③ **각주 번호가 본문에 박혔다** — `…an important communication skill.1 Proficient use…`.
+  //    ⚠️ 처음엔 `[a-z]\.\d\s` 로 쟀다가 물러섰다: 표본 6건 중 4건이 오탐이었다
+  //      (`lambda.1 se` 변수명 · `No.1 glass` · `doi…kph.3` · `SDG 6.a.1`). 뒤에 **다음
+  //      문장이 대문자로 시작할 때만** 각주다 — 그렇게 조이니 74문항에 표본 5건 전부 진짜였다.
+  /[a-z]\.\d{1,2}\s+[A-Z]/,
+  // ④ 학술서의 절 번호 — `§ 16. _The judgement of taste…` · `described in § 3.2.1`.
+  //    교재 지문에 절 번호가 남으면 학습자가 참조할 곳이 없다. 실측 61문항.
+  /§\s*\d/,
   /\bImage \d+Image \d+/,
   // USGS 연재 홍보 블록 — 기사 **끝**에 붙어 온다:
   //   `Hungry for some science, but you don't have time for a full-course research plate?
@@ -341,6 +358,30 @@ export function dropRepeatedTail(text: string): string {
  *   똑같이** 걸어야 한다. 한쪽만 바꾸면 `implication`(밑줄 구절)·`long_vocab`(바뀐 낱말)이
  *   지문에서 자기 구절을 못 찾아 문항이 성립하지 않는다.
  */
+/**
+ * **원본 서식 표기를 지면 글자로 옮긴다** — 구텐베르크의 `--` 와 `_강조_`.
+ *
+ * ── 3인 검수 3회차가 짚은 것 (실측 2026-09-14) ──────────────────────
+ * 검수자 셋이 각자 같은 자국을 냈다:
+ *
+ *     `Larry understands--he's holding back Red Hannigan!`   ← 대시가 아니라 하이픈 둘
+ *     `Reason must _possess a formative faculty._`           ← 마크다운 이탤릭 표기
+ *     `synthetic--that is to say`
+ *
+ * DB 실측 — `--` **4,389문항** · `_강조_` **1,565문항**. 인쇄하면 그대로 나간다.
+ *
+ * ⚠️ **버리지 않고 옮긴다.** 이것은 결함 있는 글이 아니라 **다른 표기법**이다 —
+ *   막으면 구텐베르크 재고가 통째로 날아간다. 위 `stripSectionLabels` 와 같은 판단이다.
+ * ⚠️ 짝이 맞는 밑줄만 벗긴다(`_낱말…낱말_`). 영어 산문에 홀 밑줄은 거의 없고, 짝을
+ *   요구하면 변수명(`blank_word`) 같은 것을 건드리지 않는다.
+ */
+export function normalizeSourceMarkup(text: string): string {
+  return String(text ?? '')
+    // 낱말 사이의 이중 하이픈만 — 목록의 `--` 구분선은 건드리지 않는다.
+    .replace(/([A-Za-z,;])--([A-Za-z])/g, '$1—$2')
+    .replace(/_([A-Za-z][^_\n]{1,120}[A-Za-z.,!?])_/g, '$1')
+}
+
 export function normalizeQuotes(text: string): string {
   // ⚠️ **곧은 아포스트로피만 바꾼다.** 처음에 큰따옴표까지 한쪽으로 모았더니
   //   `”quote”` 가 되어 오히려 틀린 조판이 됐다(여는 따옴표가 사라진다). 여는/닫는

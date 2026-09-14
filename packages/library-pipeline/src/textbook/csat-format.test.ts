@@ -10,6 +10,7 @@ import {
   CSAT_INSERT_BODY_SENTENCES,
   hasCitationResidue,
   isPrintablePassage,
+  normalizeSourceMarkup,
   ORDER_PERMS,
   splitIntoThree,
   toCsatInsert,
@@ -268,5 +269,66 @@ describe('splitIntoThree — 남는 문장을 얹는 자리', () => {
         expect(r.reduce((a, b) => a + b, 0)).toBe(n)
       }
     }
+  })
+})
+
+/**
+ * **원본 서식과 플랫폼 껍데기** (3인 검수 3회차 실측 2026-09-14).
+ *
+ * 검수자 셋이 각자 같은 자국을 냈다. 둘로 갈라 다뤘다 —
+ * **표기법은 옮기고**(재고를 안 버린다) **껍데기는 막는다**(지면에 올 수 없다).
+ */
+describe('구텐베르크 표기를 지면 글자로 옮긴다', () => {
+  it('낱말 사이 이중 하이픈을 줄표로 옮긴다 — 실측 4,389문항', () => {
+    expect(normalizeSourceMarkup("Larry understands--he's holding back Red Hannigan!")).toContain('understands—he')
+    expect(normalizeSourceMarkup('synthetic--that is to say')).toContain('synthetic—that')
+  })
+
+  it('짝이 맞는 밑줄 강조를 벗긴다 — 실측 1,565문항', () => {
+    expect(normalizeSourceMarkup('Reason must _possess a formative faculty._')).toBe(
+      'Reason must possess a formative faculty.',
+    )
+  })
+
+  // ⚠️ 옮기는 자가 **버리는 자**가 되면 구텐베르크 재고가 통째로 날아간다.
+  it('멀쩡한 글은 그대로 둔다', () => {
+    const plain = 'The tide rose twice that night and the boats pulled hard at their lines.'
+    expect(normalizeSourceMarkup(plain)).toBe(plain)
+  })
+
+  it('홀로 선 밑줄·목록 구분선은 건드리지 않는다', () => {
+    expect(normalizeSourceMarkup('the blank_word column')).toBe('the blank_word column')
+    expect(normalizeSourceMarkup('-- item one')).toBe('-- item one')
+  })
+})
+
+describe('플랫폼 껍데기와 절 번호는 막는다', () => {
+  it('출판 플랫폼 껍데기를 잡는다 — 실측 13문항', () => {
+    expect(hasArticleChrome('By Hannah Ritchie August 3, 2026 Browse past versions Cite this article')).toBe(true)
+    expect(hasArticleChrome('Reuse our work freely under a licence.')).toBe(true)
+  })
+
+  it('지면에 없는 그림을 가리키면 잡는다 — 실측 11문항', () => {
+    expect(hasArticleChrome('In the chart below you can see the trend for each country.')).toBe(true)
+  })
+
+  it('본문에 박힌 각주 번호를 잡는다 — 실측 74문항', () => {
+    expect(hasArticleChrome('an important communication skill.1 Proficient use of silence helps.')).toBe(true)
+  })
+
+  // ⚠️ 처음 자(`[a-z]\.\d\s`)는 표본 6건 중 4건이 오탐이었다 — 뒤가 대문자일 때만 각주다.
+  it('각주가 아닌 숫자는 안 잡는다 — 앞판이 여기서 물러섰다', () => {
+    expect(hasArticleChrome('within one standard error of this minimum (lambda.1 se).')).toBe(false)
+    expect(hasArticleChrome('Cells were grown on No.1 glass coverslips and fixed.')).toBe(false)
+    expect(hasArticleChrome('The indicators for SDG 6 (6.a.1 and 6.b.1) provide an entry point.')).toBe(false)
+  })
+
+  it('학술서 절 번호를 잡는다 — 실측 61문항', () => {
+    expect(hasArticleChrome('§ 16. The judgement of taste, by which an object is declared.')).toBe(true)
+    expect(hasArticleChrome('described in § 3.2.1 results in a multivariate Gaussian')).toBe(true)
+  })
+
+  it('멀쩡한 지문은 통과한다', () => {
+    expect(hasArticleChrome('The tide rose twice that night and the boats pulled hard.')).toBe(false)
   })
 })

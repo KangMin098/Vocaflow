@@ -738,6 +738,8 @@ export {
   isPrintableUnderlineWord,
   countWord,
   MIN_CHAIN_OCCURRENCES,
+  // 그 지문 안의 증거로만 가려낸 고유명사 — 해설 드레인이 「해설로 풀 것」을 가를 때 쓴다.
+  properNounsIn,
   spread,
   VOCAB_UNDERLINES,
 } from './textbook/vocab-choice'
@@ -959,6 +961,7 @@ export {
   hasSensitiveTopic,
   hasUnbalancedParens,
   normalizeQuotes,
+  normalizeSourceMarkup,
   pairStraightQuotes,
   stripSectionLabels,
   stripSpaceBeforePunct,
