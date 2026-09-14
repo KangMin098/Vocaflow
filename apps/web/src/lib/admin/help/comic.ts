@@ -176,6 +176,19 @@ export const CCP_HELP: HelpRegistry = {
       summary: '이 도서의 컷 생성이 어디까지 갔고 왜 발행이 막혔는지 보는 읽기 전용 화면.',
       when:
         '큐에 적재한 뒤. 본 생성의 실행 기록은 generate-comic.mjs 의 적재(insert --commit)가 남기므로, 컷을 뽑는 동안에는 비어 있다가 적재 순간 한꺼번에 채워진다.',
+      diagrams: [
+        {
+          kind: 'keys',
+          caption: '읽기 전용 — 왜 발행이 막혔는지만 말한다',
+          nodes: [
+            { label: '진행 바', says: '적재된 컷 / 전체. 실패가 있으면 앰버로 바뀐다' },
+            { label: '컷 pass율', says: 'qc.failed 에 들어간 컷만 fail 로 센다' },
+            { label: '자기발전 반복', says: '폐루프가 컷을 다시 뽑은 횟수' },
+            { label: '비용 0', says: '자가호스트 실행은 대개 기록되지 않는다 — 공짜라는 뜻이 아니다' },
+            { label: '평가 이력', says: '가장 최근 실행분만 · 최대 40건' },
+          ],
+        },
+      ],
       fields: [
         { label: '진행 바', detail: '적재된 컷 / 전체 컷. 실패 컷이 있으면 막대가 앰버로 바뀐다.' },
         { label: '자기발전 반복', detail: 'pages.json 의 run.iterations — 폐루프가 컷을 다시 뽑은 횟수. 스크립트가 넘기지 않으면 0으로 남는다.' },

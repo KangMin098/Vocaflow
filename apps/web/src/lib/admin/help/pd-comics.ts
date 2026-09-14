@@ -18,6 +18,21 @@ export const PDCP_HELP: HelpRegistry = {
         '옛 스캔 만화를 호(issue) 단위로 받아 복원·컷분할·대사추출까지 밀어 올리고, PD 근거를 확정해야만 발행되는 큐.',
       when:
         'AI 생성 만화(/admin/comic)와 테이블·화면·발행 게이트가 전부 분리돼 있다. 원본 스캔이 실재하는 옛 만화만 여기서 다룬다.',
+      diagrams: [
+        {
+          kind: 'flow',
+          caption: '스캔 한 호가 발행되기까지 — 마지막 칸만 사람이 막는다',
+          nodes: [
+            { label: '① 큐에 담기', actor: 'user', says: '담아도 아직 안 받는다 — 무엇을 받을지만 정한다' },
+            { label: '② 취득', actor: 'script', says: '원본을 실제로 내려받는다' },
+            { label: '③ 복원 · 컷분할', actor: 'script', says: '프로파일에 따라 화질과 컷 경계를 잡는다' },
+            { label: '④ 대사 추출', actor: 'script', says: 'OCR — 여기까지가 자동 단계다' },
+            { label: '⑤ PD 근거', actor: 'user', says: '**발행을 막는 유일한 관문**이다' },
+            { label: '⑥ 발행', actor: 'user', says: '학습자 서가에 선다' },
+          ],
+          loop: '②~④ 에서 멈춘 호는 큐에 남는다 — 「큐 · 드레인」에서 되살린다.',
+        },
+      ],
       steps: [
         {
           title: '소스에서 담기',
@@ -74,6 +89,19 @@ export const PDCP_HELP: HelpRegistry = {
     tabs: {
       '소스 · 대량 적재': {
         summary: '어느 사이트에서 어떤 호를 가져올지 고르고 큐에 넣는 곳 — 담아도 아직 받지는 않는다.',
+        diagrams: [
+          {
+            kind: 'keys',
+            caption: '담기 전에 확인하는 것 — 여기서는 아직 안 받는다',
+            nodes: [
+              { label: '범위', says: '전체 / Fawcett / Ace — 컬렉션으로 고른다' },
+              { label: '계획 보기', says: '**DB 를 바꾸지 않는다** — 무엇이 담길지만 본다' },
+              { label: 'PD 3단계', says: '확정 · 확인 필요 · 위험' },
+              { label: '발행 상한', says: '담는 수가 아니라 낼 수 있는 수다' },
+              { label: '신규 전체 선택', says: '이미 큐에 있는 호는 체크박스가 잠긴다' },
+            ],
+          },
+        ],
         steps: [
           {
             title: '원본 전체를 한 번에 (대량 소스 GET)',
@@ -153,6 +181,21 @@ export const PDCP_HELP: HelpRegistry = {
 
       '큐 · 드레인': {
         summary: '큐에 담긴 호를 자동 단계(취득 → 대사 추출)까지 밀어 올리고, 멈춘 호를 되살리는 곳.',
+        diagrams: [
+          {
+            kind: 'flow',
+            caption: '멈춘 호를 되살리는 순서 — 큰 호는 화면에서 돌리지 않는다',
+            nodes: [
+              { label: '계획 먼저', actor: 'user', says: 'dry-run — 다음 단계가 무엇인지 본다' },
+              { label: '화면에서 실행', actor: 'user', says: '작은 호만. 브라우저가 기다려야 한다' },
+              { label: '큰 호는 CLI', actor: 'script', says: 'pipeline.mjs — 화면은 시간을 못 버틴다' },
+              { label: '컷을 DB 로', actor: 'script', says: '여기까지 와야 학습자 경로에 닿는다' },
+            ],
+            branch: [
+              { when: '실패 N건 카드', then: '이 호 재시도 · 전체 재시도가 갈린다 — 원인 호부터 좁힌다' },
+            ],
+          },
+        ],
         fields: [
           {
             label: '드레인 실행 (N건 대기)',
@@ -244,6 +287,20 @@ export const PDCP_HELP: HelpRegistry = {
           '발행을 막고 있는 **유일한 관문**을 통과시키는 곳 — 저작권 갱신 기록을 확인하고 근거를 기록한다.',
         when:
           '드레인이 끝나 검수 단계까지 올라온 뒤. 근거가 없으면 컷·대사가 아무리 완성돼도 DB 게이트가 발행을 거부한다.',
+        diagrams: [
+          {
+            kind: 'flow',
+            caption: '발행을 막는 유일한 관문 — 근거는 시리즈 단위로 기록한다',
+            nodes: [
+              { label: '갱신 편 연도', actor: 'user', says: '시리즈를 펼쳐 확인한다' },
+              { label: 'CCE 조회', actor: 'user', says: 'Catalog of Copyright Entries' },
+              { label: '근거 기록', actor: 'user', says: '보호기간 만료 · 갱신 기록 없음 둘 중 하나' },
+            ],
+            branch: [
+              { when: '기록은 시리즈 단위', then: '한 번 적으면 그 시리즈 N호에 함께 적용된다 — 적용 대상 수를 보고 누른다' },
+            ],
+          },
+        ],
         steps: [
           {
             title: '시리즈를 펼쳐 갱신 편 연도를 확인',
@@ -297,6 +354,19 @@ export const PDCP_HELP: HelpRegistry = {
       '테스트 · 모니터': {
         summary: '호별로 지금 무엇이 어떻게 처리됐는지 들여다보고, 한 호만 골라 한 단계씩 돌려 보는 곳.',
         when: '드레인이 실패해 원인 호를 좁힐 때, 또는 현대화 산출물을 원작과 비교해 판정할 때.',
+        diagrams: [
+          {
+            kind: 'keys',
+            caption: '한 호만 골라 한 단계씩 — 원인을 좁히는 화면이다',
+            nodes: [
+              { label: '다음 단계 미리보기', says: 'dry-run — 무엇이 돌지 먼저 본다' },
+              { label: '능력표', says: '대량 / OCR / 간격 — 이 환경이 무엇을 할 수 있나' },
+              { label: '복원 프로파일', says: '화질과 컷 경계를 정하는 값' },
+              { label: '브라우저 보조 취득', says: '자동 취득이 막힌 소스의 우회로' },
+              { label: '유형·시리즈 분포', says: '무엇이 치우쳤는지 — 다음에 무엇을 담을지의 근거' },
+            ],
+          },
+        ],
         fields: [
           { label: '● LIVE', detail: '4초마다 큐를 다시 읽는다. 이 탭에 있을 때만 돌고, 정지로 끄면 수동 새로고침만 한다.' },
           {
@@ -416,6 +486,16 @@ export const PDCP_HELP: HelpRegistry = {
       '도구': {
         summary: '드레인이 계속 실패할 때 제일 먼저 열 곳 — CLI 환경 점검(pipeline.mjs --doctor) 출력을 그대로 보여준다.',
         when: '탭을 열면 자동으로 한 번 점검이 돈다. 도구를 설치·설정한 뒤 다시 누른다.',
+        diagrams: [
+          {
+            kind: 'keys',
+            caption: '드레인이 계속 실패하면 제일 먼저 여는 곳',
+            nodes: [
+              { label: '--doctor 출력', says: 'CLI 환경 점검 결과를 그대로 보여 준다' },
+              { label: '읽기 전용', says: '여기서는 아무것도 고치지 않는다' },
+            ],
+          },
+        ],
         fields: [
           {
             label: 'ffmpegBin',
