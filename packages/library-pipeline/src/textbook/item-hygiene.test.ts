@@ -615,3 +615,62 @@ describe('자가 지문이 아닌 것을 재고 있었다', () => {
     ).toBe('residue')
   })
 })
+
+/**
+ * **각주 약물에서 잘린 조각** (3인 검수 3회차 실측 2026-09-14).
+ *
+ * 검수자 둘이 각자 같은 지문을 짚었다 — 19세기 학술서의 각주 약물(`(vi. 13)` · `RC xxi. 149 f.`)
+ * 마다 끊겨 「문장」이 아닌 조각이 지면에 올랐다. 위 ①~⑤ 는 하나도 못 잡는다: 소문자로
+ * 열지도, 한 글자 약어로 끝나지도 않기 때문이다.
+ *
+ * DB 실측 — 이런 조각을 가진 문항 **11,321건**. 가장 흔한 조각은 전부 진짜 잘림이다:
+ * `Mr.`(1,057) · `No.`(617) · `5.`(616) · `Mrs.`(571) · `.`(284) · `Fig 1.`(178).
+ */
+describe('각주·번호 매김에서 잘린 조각', () => {
+  const sents = (...s: string[]) => ({ payload: { sentences: s } })
+
+  it('글자가 하나도 없는 조각은 문장이 아니다', () => {
+    expect(itemHygieneReject(sents('The tide rose twice that night.', '.'))).toBe('badSplit')
+    expect(itemHygieneReject(sents('The tide rose twice that night.', '5.'))).toBe('badSplit')
+  })
+
+  it('여는 괄호 안의 약어에서 끊긴 조각을 잡는다', () => {
+    expect(
+      itemHygieneReject(sents('The religious interdictions mentioned by Cæsar (vi.')),
+    ).toBe('badSplit')
+  })
+
+  it('번호 매김의 뒤쪽만 남은 조각을 잡는다', () => {
+    expect(itemHygieneReject(sents('13) may be regarded as tabus, while the spoils remained.'))).toBe(
+      'badSplit',
+    )
+  })
+
+  it('숫자로 끝나는 짧은 라벨을 잡는다', () => {
+    expect(itemHygieneReject(sents('The chart shows the trend clearly.', 'Fig 1.'))).toBe('badSplit')
+    expect(itemHygieneReject(sents('The chart shows the trend clearly.', 'RC xxii.'))).toBe('badSplit')
+  })
+
+  // ⚠️ 더한 규칙이 뺀 규칙이 되지 않게 — 멀쩡한 짧은 문장을 막으면 재고가 통째로 사라진다.
+  it('숫자로 끝나는 멀쩡한 짧은 문장은 통과한다', () => {
+    expect(
+      itemHygieneReject(sents('The boy was only 21.', 'He had never left the village before.')),
+    ).toBeNull()
+  })
+
+  it('숫자로 여는 멀쩡한 문장은 통과한다', () => {
+    expect(
+      itemHygieneReject(
+        sents('2024 saw the first harvest in a decade.', 'The farmers had waited a long time.'),
+      ),
+    ).toBeNull()
+  })
+
+  it('괄호가 제대로 닫힌 인용은 통과한다', () => {
+    expect(
+      itemHygieneReject(
+        sents('The ruling (see chapter four) changed the outcome for everyone involved.'),
+      ),
+    ).toBeNull()
+  })
+})

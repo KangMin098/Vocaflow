@@ -236,6 +236,33 @@ export function hasBadSentenceSplit(payload: Record<string, unknown> | null | un
       //   삽입 문항에서는 **자리 하나가 선지에서 사라진다** — 고를 수 없는 경계가 생긴다.
       //   V5 실측 91문항. 붙은 것을 떼려면 문장 배열을 다시 만들어야 하므로 **거른다**.
       if (/[a-z]\.[A-Z]/.test(s)) return true
+      // ── 아래 넷은 3인 검수 3회차가 찾은 것 (실측 2026-09-14) ───────────
+      //   검수자 둘이 각자 같은 지문을 짚었다 — 각주 약물에서 문장이 잘려 「문장」이
+      //   아닌 조각이 지면에 오른다:
+      //     "The religious interdictions mentioned by Cæsar (vi."
+      //     "13) may be regarded as tabus, while the spoils … (vi."
+      //     "RC xxii."   "27 f."   "149 f.)."
+      //   위 ①~⑤ 는 이 꼴을 하나도 못 잡는다 — 소문자로 열지도, 한 글자 약어로 끝나지도
+      //   않기 때문이다. DB 실측: 이런 조각을 가진 문항이 **11,321** 건이고 가장 흔한 것이
+      //   `Mr.`(1,057) · `No.`(617) · `5.`(616) · `Mrs.`(571) · `.`(284) 다.
+      //
+      // ⑥ **글자가 하나도 없는 조각** — `.` · `5.` · `(3)`. 문장일 수 없다.
+      if (!/[A-Za-z]/.test(s)) return true
+      // ⑦ 번호 매김이 끊겨 **뒤쪽만 남은** 조각 — `13) may be regarded as tabus…`
+      //    `2024 saw the…` 처럼 숫자로 여는 멀쩡한 문장과 가르려고 괄호·마침표를 요구한다.
+      if (/^\d+[).]\s/.test(s)) return true
+      // ⑧ **여는 괄호 안의 약어**에서 끊겼다 — `… mentioned by Cæsar (vi.`
+      if (/\((?:[ivxlcdm]+|cf|pp?|ff?|no|fig|vol|ch)\.$/i.test(s)) return true
+      // ⑨ 숫자+마침표로 끝나는 **짧은 라벨** — `Fig 1.` · `RC xxii.` · `27 f.`
+      //    ⚠️ `He was 21.` 같은 멀쩡한 짧은 문장을 막지 않으려고 **소문자 세 글자 연속**이
+      //      없을 때만 본다(`was` 가 있으면 문장이고, `Fig` 는 아니다).
+      if (s.length <= 15 && /\d\.$/.test(s) && !/[a-z]{3}/.test(s)) return true
+      // ⑩ **짧은 인용 표기** — `RC xxii.` · `27 f.` · `149 f.).`
+      //    ⑨ 로는 안 잡힌다: 로마 숫자로 끝나면 숫자가 아니고, `xxii` 는 소문자 세 글자가
+      //    이어져 ⑨ 의 안전장치에 오히려 걸러진다. 꼴 자체를 본다 —
+      //    「짧은 머리(약칭·숫자) + 로마숫자/f./p.」 는 문장이 아니라 출처 표기다.
+      //    `He was 21.` 은 둘째 토큰이 `was` 라 이 꼴에 안 맞는다.
+      if (s.length <= 15 && /^[A-Za-z0-9]{1,5}\s+[ivxlcdmfp]+\.?\)?\.$/i.test(s)) return true
     }
   }
   return false
