@@ -411,6 +411,16 @@ export {
   passageTextOf,
   type HygieneReject,
 } from './textbook/item-hygiene'
+// 이 지문이 이 유형을 떠받치는가 — 드레인(뽑기)과 조판이 **같은 자**를 쓰게 한다.
+export {
+  bearsPurpose,
+  bearsType,
+  hasTypeFitRule,
+  SECOND_PERSON_FLOOR,
+  TYPE_FIT_REASON_KO,
+  type TypeFit,
+  type TypeFitReason,
+} from './textbook/type-fit'
 export { UNIT_MINUTES, MARKET_UNITS_PER_BOOK, scoreVolume } from './textbook/scorecard'
 // 출판사별 우위 지수의 산술 — 벤치마크 스크립트가 이 한 벌을 쓴다(사본 금지).
 export {
@@ -1084,6 +1094,28 @@ export type {
 // 발췌가 이야기 경계를 넘었는지(`textbook/story-seam.ts`). 해설 드레인에서 나온 결함 —
 // 선집을 고정 길이 창으로 자르면 한 지문에 두 이야기가 담긴다.
 export { storySeam } from './textbook/story-seam'
+export {
+  DEFECT_RULES,
+  allDefects,
+  firstDefect,
+  isUsablePassage,
+} from './textbook/extraction-defect'
+export type { Defect, DefectId, DefectRule } from './textbook/extraction-defect'
+export {
+  bandFreedom,
+  freedomIndex,
+  mixFreedom,
+  soloFreedom,
+  soloReport,
+} from './textbook/freedom'
+export type {
+  BandFreedom,
+  FreedomCell,
+  FreedomIndex,
+  MixVerdict,
+  SoloReport,
+  SoloVerdict,
+} from './textbook/freedom'
 
 // PD 장문을 비중복 발췌 조각으로(`textbook/excerpt-chunks.ts`).
 // `scripts/textbook/harvest-gutenberg-kid.mjs` 안에 있던 것 — 시험을 붙일 수 없는 자리라

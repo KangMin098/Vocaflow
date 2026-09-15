@@ -247,9 +247,15 @@ const arts = await fetchAllPaged(db, (q) =>
 //   있었는데, 그래서 **조판은 고쳐 인쇄할 글을 뽑기가 먼저 버리고 있었다**(실측 2026-09-15:
 //   `plos` V6 의 37.3%가 참조 표시 하나 때문에 후보에서 빠졌다 — 추정 12,033편).
 //   인쇄되는 판과 뽑는 판이 다르면 재고가 조용히 샌다.
-const { itemWordSpec, isPrintablePassage, normalizeSourceMarkup, buildPassage } = await import(
-  '@vocaflow/library-pipeline'
-)
+// ⚠️ **추출 결함 지문은 아예 고르지 않는다** (2026-09-15).
+//   결함 규칙 일곱은 `extraction-defect-scan.mjs` 안에만 있었고 그 스캔은 세기만 했다 —
+//   "고치지 않는다. 어디에 몇 편 있는지만 센다". 세는 것은 옳지만 **아무도 안 쓰는 것**이
+//   문제였다: 전수 실측 2026-09-15 에 ready/published 87,626편 중 4,876편(5.6%)이
+//   결함인데, 이 뽑기는 그 판정을 한 번도 묻지 않아 결함 지문 위에 문항이 얹혔다.
+//   스캔 머리말이 예고한 그대로다 — "그대로 두면 학생이 읽는 지문에 그 문자열이 인쇄된다."
+//   규칙은 패키지(`extraction-defect.ts`)로 올려 정본을 하나로 뒀고 시험 17종이 붙어 있다.
+const { itemWordSpec, isPrintablePassage, normalizeSourceMarkup, buildPassage, firstDefect } =
+  await import('@vocaflow/library-pipeline')
 
 // **집필 몫의 창은 조립 기준과 같아야 한다.**
 //
@@ -338,10 +344,27 @@ function passageOf(a) {
   return isPrintablePassage(text) ? text : null
 }
 const passages = new Map()
+/**
+ * **결함으로 뺀 글** — 규칙별로 몇 편인지 남긴다.
+ *
+ * ⚠️ 판정은 **실제로 실릴 지문**에 건다(원글 전체가 아니라 `passageOf` 가 자른 창).
+ *   원글로 재면 14,420어짜리 글의 저 끝에 있는 공유 버튼 한 줄 때문에 멀쩡한 창까지
+ *   버린다 — 그건 재고를 이유 없이 깎는 것이다. 인쇄되는 것만 판정한다.
+ */
+const defectOut = new Map()
 for (const a of withBody) {
   const p = passageOf(a)
-  if (p) passages.set(a.id, p)
+  if (!p) continue
+  const d = firstDefect(p)
+  if (d) {
+    const hit = defectOut.get(d.id) ?? { label: d.label, count: 0, evidence: d.evidence }
+    hit.count += 1
+    defectOut.set(d.id, hit)
+    continue
+  }
+  passages.set(a.id, p)
 }
+const defectSkipped = [...defectOut.values()].reduce((n, r) => n + r.count, 0)
 
 // ── 순서 문항(43번)은 **뒤섞어 제시해야** 문항이 된다 ────────────────────
 //
@@ -407,8 +430,11 @@ function longFields(a) {
     correct_order: s.correctOrder,
   }
 }
-const outOfWindow = withBody.filter((a) => !passages.has(a.id))
+// ⚠️ **결함으로 뺀 것을 「못 자름」에 섞지 않는다.** `passages` 에 없는 이유가 이제 둘이라
+//   (창 밖 · 추출 결함) 뭉뚱그리면 화면이 "문장이 모자란 글" 이라고 거짓을 말한다.
+//   둘은 고치는 방법이 다르다 — 앞은 창을, 뒤는 추출기를 고쳐야 한다.
 const usable = withBody.filter((a) => passages.has(a.id))
+const outOfWindow = withBody.length - usable.length - defectSkipped
 
 // 이미 이 유형이 붙은 글은 건너뛴다 — 재실행 안전.
 const itemRows = (
@@ -651,10 +677,18 @@ console.log(`  본문 있는 원글 ${withBody.length}편`)
 console.log(
   IS_LONG
     ? `  그중 장문 규격(문단 ${LONG_PARAGRAPHS}개 · ${LONG_WORDS.min}~${LONG_WORDS.max}어)에 드는 것 ${usable.length}편 · ` +
-        `**규격 밖 ${outOfWindow.length}편**  ← 문단 수가 다르거나 길이가 안 맞는 글`
+        `**규격 밖 ${outOfWindow}편**  ← 문단 수가 다르거나 길이가 안 맞는 글`
     : `  그중 창(${PASSAGE_WINDOW.min}~${PASSAGE_WINDOW.max}어 · V${BAND} 시중 규격 교차)으로 자를 수 있는 것 ${usable.length}편 · ` +
-        `**못 자름 ${outOfWindow.length}편**  ← 문장이 모자라거나 인쇄 불가 자국이 있는 글`,
+        `**못 자름 ${outOfWindow}편**  ← 문장이 모자라거나 인쇄 불가 자국이 있는 글`,
 )
+// **건너뛴 수를 반드시 출력한다**(CLAUDE.md §🤖). 조용히 빼면 다음 사람이 재고가 준 이유를
+// 모르고, 추출기를 고쳐야 한다는 신호도 사라진다.
+if (defectSkipped) {
+  console.log(`  **추출 결함으로 뺀 것 ${defectSkipped}편**  ← 지문으로 못 쓰는 상태(추출기를 고쳐야 는다)`)
+  for (const [id, r] of [...defectOut.entries()].sort((a, b) => b[1].count - a[1].count)) {
+    console.log(`      ${String(r.count).padStart(5)}편  ${id} · ${r.label}   예) ${r.evidence}`)
+  }
+}
 console.log(`  이미 이 유형이 붙은 것 ${existing.size}편` + (pending.size ? ` · 이미 청크에 나가 있는 것 ${pending.size}편` : ''))
 console.log(`  **배치가 쓸 몫 ${tasks.length}편**  → 청크 ${chunks.length}개 (${SIZE}편씩)`)
 console.log(`\n  ${path.relative(process.cwd(), DIR)}/chunk-NN.json`)

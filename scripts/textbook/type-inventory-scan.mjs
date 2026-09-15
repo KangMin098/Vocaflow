@@ -238,9 +238,21 @@ const bands = BANDS.map((v) => {
     (worst, t) => (worst == null || t.volumes < worst.volumes ? t : worst),
     /** @type {null | (typeof types)[number]} */ (null),
   )
+  // ⚠️ **배합 밖 유형의 재고가 스냅샷에서 사라지고 있었다** (실측 2026-09-15).
+  //   위 `types` 는 `rungMix` 의 **목표 배합**을 훑으므로, 배합에 없는 유형은 재고가 있어도
+  //   한 줄도 안 남는다. 그래서 V3 의 `main_point` 16문항 · `purpose` 16 · `summary` 16 이
+  //   스냅샷에는 아예 없고, 그것을 읽는 쪽은 **0 으로 오해한다**(자유도 화면이 그랬다).
+  //   "배합에 없다" 와 "재고가 없다" 는 전혀 다른 말이다 — 앞은 이 권이 안 쓰는 것이고
+  //   뒤는 만들어야 하는 것이다. 배합과 무관한 **실재고**를 따로 싣는다.
+  const stock = [...cell.entries()]
+    .filter(([k]) => k.startsWith(`${v}|`))
+    .map(([k, c]) => ({ type: k.slice(String(v).length + 1), items: c.items, articles: c.refs.size }))
+    .sort((a, b) => b.items - a.items)
+
   return {
     vLevel: v,
     types,
+    stock,
     missingTypes: types.filter((t) => t.items === 0).map((t) => t.type),
     missingShare: +types
       .filter((t) => t.items === 0)

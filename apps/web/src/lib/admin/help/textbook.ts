@@ -218,6 +218,7 @@ export const TBP_HELP: HelpRegistry = {
               '적격 원문이 아무리 늘어도 **생성형 유형이 비면 권수는 0 이다.** 무엇을 얼마나 써야 하는지는 「채울 몫」 표가 세고, 그 몫을 채우는 절차가 이것이다. ' +
               '① `pnpm dlx tsx scripts/textbook/item-fill-plan.mjs --export-cmds` 로 몫과 뽑을 명령을 낸다(**읽기만 한다 — 재실행 안전**, DB 도 안 본다). ' +
               '② 모자란 칸만 `scripts/textbook/item-drain-export.mjs --type <유형> --band <학년> --need <문항수>` 로 뽑는다 — **이미 그 유형이 붙은 지문은 건너뛰므로 재실행 안전**이고, 읽기만 한다. ⚠️ `--need` 를 빼면 기본 한 자리 작업량만 나간다. ' +
+              '⚠️ **2026-09-15 부터 추출 결함 지문은 뽑히지 않는다.** 규칙 일곱(HTML 속성 혼입 · 위키 마크업 · 브라우저 안내 · 문단 중복 · 수식 소실 · 이야기 경계 · 공유 버튼)이 오래 스캔 안에만 있어 **세기만 하고 아무도 안 썼고**, 그래서 결함 지문 위에 문항이 얹혔다. 이제 뽑기가 같은 규칙을 부르고, 뺀 편수를 규칙별 근거와 함께 출력한다(V7 빈칸 실측 14편). 판정은 **실제로 실릴 창**에 걸므로 원글 저 끝의 잡티 때문에 멀쩡한 창을 잃지 않는다. 뺀 수가 크면 그 원천의 추출기를 고쳐야 한다는 신호다. ' +
               '③ **Claude Code 가 `chunk-NN.json` 을 읽고 `chunk-NN.out.json` 으로 채운다.** 집필 규격의 정본은 `scripts/textbook/item-drain-brief.md` 한 벌이다 — 규칙을 새로 짜지 말 것(손으로 짠 검사기가 없는 규칙을 만들어 멀쩡한 요약 문항 넷을 헛되이 다시 쓰게 한 일이 있다). **이미 `.out.json` 이 있는 청크는 건너뛴다 — 재실행 안전.** ' +
               '④ `pnpm dlx tsx scripts/textbook/item-selfcheck.mjs --file <청크>.out.json --type <유형> --band <학년>` — 적재 관문(`item-gate.ts`)과 **같은 함수**를 부르므로 여기서 통과하면 적재에서도 통과한다. **DB 를 안 타고 아무것도 안 쓴다 — 재실행 안전.** ' +
               '⑤ `pnpm dlx tsx scripts/textbook/item-drain-import.mjs --dir scripts/textbook/item-drain/<유형>-v<학년> --commit` — 유일키가 `(kind, ref_id, type, paragraph_idx)` 라 **이미 있으면 건너뛴다 — 재실행 안전.** ⚠️ `--commit` 없이 먼저 돌려 건너뛴 수와 이유를 본다. ' +

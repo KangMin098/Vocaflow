@@ -10,9 +10,11 @@
 // 조작 버튼은 여전히 없다. 교재 생성은 사전·재고 전체를 훑는 일이라 웹 요청 시간 안에 안 끝난다.
 // 대신 **각 공정이 다음에 돌릴 명령을 그대로 들고 있다** — 그것이 이 화면이 파이프라인인 방식이다.
 
+import { FreedomPanel } from '@/components/admin/textbook/FreedomPanel'
 import { TextbookProductionPanel } from '@/components/admin/textbook/TextbookProductionPanel'
 import { requireAdmin } from '@/lib/auth/require-admin'
 import { loadFactoryLine } from '@/lib/csat/factory'
+import { buildFreedomView } from '@/lib/textbook/freedom-view'
 import { measureProduction } from '@/lib/textbook/production-stages'
 import { fetchTextbookShelf } from '@/lib/textbook/shelf-query'
 
@@ -29,6 +31,12 @@ export default async function AdminCsatPage() {
   return (
     <div className="flex flex-col gap-4">
       <FactoryLineClient stages={line.stages} loadError={line.loadError} />
+      {/* ⚠️ **자유도가 제작 단계보다 위에 있다.** 아래 패널은 밴드마다 60문항 **한 권**을
+          재고 전 밴드 초록을 띄우는데, 실측(2026-09-15)으로 V2·V7 은 겹치지 않는 권을
+          하나밖에 못 낸다. 한 권만 보는 잣대는 그 사실을 구조적으로 못 본다 — 먼저 읽히는
+          자리에 "한 권은 된다" 를 두면 관리자가 거기서 멈춘다. 스냅샷을 읽을 뿐이라
+          DB 왕복이 없다(위 두 조회와 경쟁하지 않는다). */}
+      <FreedomPanel view={buildFreedomView()} />
       {/* 공정 8칸은 **우리 화면·큐**의 상태다. 그 아래 이 패널은 **권마다** 어디까지 왔고
           지금 누구 차례인가를 말한다 — 축이 다르므로 한 화면에 둘 다 있어야 한다. */}
       <TextbookProductionPanel report={measureProduction(shelf.volumes)} />
