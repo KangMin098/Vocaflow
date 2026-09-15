@@ -68,6 +68,10 @@ logs/
 # Playwright e2e — 매 실행마다 재생성, 산출물만 baseline-*.json 으로 docs 에 보존
 apps/web/playwright-report/
 apps/web/test-results/
+
+# 지문 지도 접근성 하네스 — 빌드 CSS 를 통째로 담아 254KB 이고 빌드마다 낡는다.
+# `pnpm --filter web test:e2e:map-a11y` 가 굽고 나서 잰다(스펙은 없으면 skip 하며 명령을 말한다).
+apps/web/tests/fixtures/csat-map-harness.html
 # a11y 스윕 리포트 — test-results/ 는 실행 시작 때 통째로 지워져(동시 세션이면 남의 실행이
 # 내 리포트를 지운다) 별도 디렉터리에 남긴다.
 apps/web/a11y-report/

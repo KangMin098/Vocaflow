@@ -37,6 +37,35 @@
 - 회귀 2종 추가 — 「지문 만들기가 조판과 같은 정제를 쓴다」와 「정제가 창 선택보다 먼저다」.
   파이프라인 1,374 전부 통과.
 
+### 접근성을 «주장» 에서 «실측» 으로 바꿨다 — 서버 없이 재는 법 (2026-09-15)
+
+지금까지 지도의 접근성 주장(44px · 색 말고도 말한다)은 전부 **마크업 문자열 매칭**이었다.
+실제 렌더에서 대비가 맞는지, 부모가 칩을 줄이지 않는지는 잰 적이 없다. 그런데 런타임 검증은
+로그인이 필요하고, 로그인은 dev 서버가 Supabase 에 붙어야 되는데 이 머신은 **Node 의 TLS 가
+막혀 있다**(TCP 23ms · curl 401 · `node fetch` = `UND_ERR_CONNECT_TIMEOUT`) — **세 사이클 연속** 실패.
+
+그래서 전제를 바꿨다: **이 컴포넌트의 접근성은 DB 와 아무 상관이 없다.** 마크업과 CSS 에만
+달렸다. 컴포넌트만 담은 정적 HTML 을 굽고 그것을 연다 — 로그인·네트워크·DB 가 전부 필요 없다.
+
+| 측정 (실제 렌더) | 결과 |
+|---|---|
+| axe WCAG2 A/AA · 라이트 | **위반 0** |
+| axe WCAG2 A/AA · 다크 | **위반 0** |
+| 390px 가로 넘침 | **0px** |
+| 터치 타깃 (getBoundingClientRect) | **전부 ≥44px** |
+
+⚠️ **굽는 단계가 따로 있는 이유**: Playwright 는 import 하는 TSX 를 **자기 JSX 런타임**으로 바꾼다.
+`react-dom/server` 가 «Objects are not valid as a React child» 로 죽고, `createElement` 로 바꿔도
+컴포넌트 **안쪽** JSX 에서 같은 일이 난다. 그래서 렌더는 `scripts/build-map-harness.mts` 가 하고
+스펙은 결과 파일만 읽는다. (루트 tsconfig 가 `jsx: preserve` 라 tsx/esbuild 가 classic 으로 떨어져
+`React is not defined` 가 나는 것도 여기서 `scripts/tsconfig.harness.json` 으로 막는다.)
+
+`pnpm --filter web test:e2e:map-a11y` 한 명령으로 굽고 잰다. 하네스는 빌드 CSS 를 통째로 담아
+254KB 이고 빌드마다 낡으므로 **커밋하지 않는다**(스펙이 없으면 skip 하며 명령을 말한다).
+
+이것이 `42-csat-item-map` 을 대신하지는 않는다 — 서버가 실제로 골격을 내려주는가, 진짜 클릭이
+상태를 바꾸는가는 로그인이 살아날 때 그쪽이 본다.
+
 ### 근거 문장이 학습자의 문제지 «그 자리» 에 칠해진다 (2026-09-15)
 
 사용자 요청의 마지막 축 — 「평가원 기출 원문 open 하여 분석자료와 원문이 유기적으로 결합」.
