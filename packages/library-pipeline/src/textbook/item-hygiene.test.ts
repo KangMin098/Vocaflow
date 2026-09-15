@@ -721,3 +721,33 @@ describe('유형이 지문에 얹히는가', () => {
     expect(itemHygieneReject({ ...letterWithChrome, type: 'purpose' })).toBe('chrome')
   })
 })
+
+/**
+ * **배열 문항의 재고에도 같은 자를 댄다.**
+ *
+ * `word-order.ts` 의 두 검사는 앞으로 만들 문항만 막는다. 재고 실측(2026-09-15):
+ * 부사가 옮겨지는 것 **4,133건** · 대문자가 첫 자리를 흘리는 것 **3,182건** —
+ * 둘 다 지금도 조판 대상이었다.
+ */
+describe('배열 뭉치가 정답을 하나로 확정하는가', () => {
+  it('옮길 수 있는 부사가 있으면 인쇄하지 않는다', () => {
+    const payload = { bank: ['borrowed', 'horse', 'therefore', 'a', 'he', 'from', 'Wilkins'] }
+    expect(itemHygieneReject({ payload, type: 'word_order' })).toBe('ambiguousOrder')
+  })
+
+  it('대문자 기능어가 남아 있으면 인쇄하지 않는다', () => {
+    const payload = { bank: ['builders', 'Their', 'rebuilt', 'wall', 'northern', 'the'] }
+    expect(itemHygieneReject({ payload, type: 'word_order' })).toBe('caseLeak')
+  })
+
+  it('고유명사의 대문자는 정상이다', () => {
+    const payload = { bank: ['builders', 'Prague', 'rebuilt', 'wall', 'northern', 'the'] }
+    expect(itemHygieneReject({ payload, type: 'word_order' })).toBeNull()
+  })
+
+  // ⚠️ `not only … but also` 의 `also` 는 붙박이다 — 막으면 멀쩡한 재고를 버린다.
+  it('`but also` 는 막지 않는다', () => {
+    const payload = { bank: ['found', 'it', 'harbours', 'but', 'also', 'along', 'shores', 'they'] }
+    expect(itemHygieneReject({ payload, type: 'word_order' })).toBeNull()
+  })
+})

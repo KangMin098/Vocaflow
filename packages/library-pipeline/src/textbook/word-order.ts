@@ -44,6 +44,57 @@ export interface WordOrderItem {
 /** 문장 안에 부호가 섞이면 그 부호가 자리를 알려 준다 — 그런 문장은 쓰지 않는다. */
 const INTERNAL_PUNCT = /[,;:—–"“”'‘’()[\]{}]/
 
+/**
+ * **자리를 옮겨도 말이 되는 부사 — 이것이 있으면 정답이 하나가 아니다.**
+ *
+ * ── 왜 이 검사가 생겼나 (실측 2026-09-15) ────────────────────────────
+ * 3인 검수 청크 둘이 각자 짚었다. chunk-00 의 실물:
+ *
+ *     정답  `He therefore borrowed a horse from Mr. Wilkins.`
+ *     대안  `Therefore he borrowed a horse from Mr. Wilkins.`   ← 같은 낱말, 같은 뜻
+ *
+ * 위의 「같은 낱말이 두 번」 검사는 **낱말의 중복**만 본다. 어순 대안은 안 본다.
+ * 게다가 바로 아래 「첫 글자 대문자를 내린다」가 **그 대안을 가능하게 만든다** —
+ * `He`·`Therefore` 가 둘 다 소문자가 되어 어느 쪽이 첫 낱말인지 표시가 사라진다.
+ * 답을 흘리지 않으려던 조치가 **답을 둘로 만든 것**이다.
+ *
+ * 재고 실측: 48,855건 중 **4,133건(8.5%)**. 버리는 것이 아니라 **채점이 갈리던 것**이다.
+ *
+ * ⚠️ **부정 부사는 넣지 않는다** — `never`·`rarely`·`seldom` 은 앞으로 내면 도치가 필요하고
+ *   (`Rarely do we hear…`) 낱말이 하나 늘어난다. 같은 뭉치로 만들 수 없으므로 대안이 아니다.
+ * ⚠️ **`always` 도 뺀다** — `Always he arrived late.` 는 시적 어순이지 평범한 대안이 아니다.
+ * ⚠️ **`also` 는 `but` 이 없을 때만 센다** — `not only … but also` 의 `also` 는 붙박이다
+ *   (표본에서 실제로 걸렸다: `…in the environment but also during infection`).
+ */
+const MOVABLE_ADVERB = new Set([
+  'therefore', 'thus', 'however', 'moreover', 'furthermore', 'consequently',
+  'nevertheless', 'nonetheless', 'meanwhile', 'instead', 'finally', 'then',
+  'now', 'today', 'yesterday', 'later', 'soon', 'recently', 'suddenly',
+  'perhaps', 'often', 'usually', 'sometimes', 'frequently', 'occasionally',
+  'generally', 'normally', 'certainly', 'probably', 'clearly', 'obviously',
+])
+
+/**
+ * **닫힌 부류의 기능어 — 사전을 묻지 않고 첫 글자를 내린다.**
+ *
+ * ⚠️ 첫 글자 내리기를 `isCommonWord` 에만 맡겼더니 **3,182건(6.5%)** 이 대문자를 그대로
+ *   달고 지면에 나갔다(`Their`·`These`·`Such`). 사전에 없는 기능어가 있었던 것이다 —
+ *   3인 검수 chunk-01 이 `Their` 로 짚었다. 뭉치에 대문자 낱말이 하나면 **첫 자리가
+ *   공짜로 정해진다.**
+ *
+ * 고유명사를 망가뜨리지 않으려고 사전을 묻는 설계는 옳다. 다만 **기능어는 고유명사일 수
+ * 없으므로** 사전을 물을 이유가 없다 — 물어서 얻는 것이 없고 못 찾으면 잃기만 한다.
+ */
+const FUNCTION_WORD = new Set([
+  'the', 'a', 'an',
+  'this', 'that', 'these', 'those', 'such', 'some', 'many', 'most', 'both', 'each', 'every',
+  'other', 'another', 'all', 'any', 'no', 'one',
+  'i', 'you', 'he', 'she', 'it', 'we', 'they', 'there',
+  'my', 'your', 'his', 'her', 'its', 'our', 'their',
+  'if', 'when', 'while', 'although', 'though', 'because', 'as', 'since', 'unless', 'after', 'before',
+  'in', 'on', 'at', 'for', 'with', 'by', 'from', 'to', 'of', 'about', 'over', 'under', 'between',
+])
+
 /** 끝 부호 — 배열 문제에서는 떼고 주고, 정답에는 붙여 둔다. */
 const TERMINAL = /[.!?]+$/
 
@@ -77,11 +128,21 @@ export function buildWordOrder(
     seen.add(k)
   }
 
-  // 첫 낱말의 대문자를 흘리지 않는다 — 흔한 낱말일 때만 내린다.
+  // ── 자리를 옮겨도 말이 되는 부사가 있으면 정답이 하나가 아니다 ──────
+  // ⚠️ **바로 아래 대문자 내리기보다 먼저 본다.** 순서를 바꾸면 안 된다 —
+  //   대문자를 내린 뒤에야 대안이 성립하므로, 이 검사가 뒤로 가면 「아직 대문자가 있으니
+  //   대안이 없다」고 잘못 판단하기 쉽다. 여기서는 낱말만 보면 된다.
+  const lower = tokens.map((t) => t.toLowerCase())
+  const hasBut = lower.includes('but')
+  if (lower.some((w) => MOVABLE_ADVERB.has(w) || (w === 'also' && !hasBut))) return null
+
+  // 첫 낱말의 대문자를 흘리지 않는다 — 기능어는 사전을 묻지 않고, 나머지는 흔한 낱말일 때만.
   const first = tokens[0]!
   const lowered = first.charAt(0).toLowerCase() + first.slice(1)
   const bank = [...tokens]
-  if (/^[A-Z]/.test(first) && isCommonWord(lowered)) bank[0] = lowered
+  if (/^[A-Z]/.test(first) && (FUNCTION_WORD.has(lowered.toLowerCase()) || isCommonWord(lowered))) {
+    bank[0] = lowered
+  }
 
   const shuffled = deterministicShuffle(bank, answer)
   // 섞은 결과가 원문 그대로면 문제가 안 된다.
@@ -110,4 +171,30 @@ function hash(s: string): number {
     h = Math.imul(h, 16777619)
   }
   return h >>> 0
+}
+
+/**
+ * **이미 저장된 뭉치에도 같은 자를 댄다 — 생성기만 고치면 재고는 그대로 인쇄된다.**
+ *
+ * 위 두 검사는 **앞으로 만들 문항**만 막는다. 그런데 재고에 이미
+ * 「부사가 옮겨지는 것」 4,133건 · 「대문자가 첫 자리를 흘리는 것」 3,182건이 있고
+ * 그것들은 지금도 조판 대상이다. 그래서 조판 게이트(`item-hygiene.ts`)가 부를 수 있게
+ * 같은 집합으로 판정자를 내준다 — **목록을 두 벌 두면 반드시 갈린다.**
+ */
+export function bankHasMovableAdverb(bank: ReadonlyArray<string>): boolean {
+  const lower = bank.map((w) => String(w ?? '').toLowerCase())
+  const hasBut = lower.includes('but')
+  return lower.some((w) => MOVABLE_ADVERB.has(w) || (w === 'also' && !hasBut))
+}
+
+/**
+ * 뭉치에 **대문자로 시작하는 기능어**가 남아 있는가 — 있으면 첫 자리가 공짜로 정해진다.
+ *
+ * ⚠️ 고유명사는 대문자가 정상이므로 세지 않는다. 기능어만 본다.
+ */
+export function bankLeaksFirstWord(bank: ReadonlyArray<string>): boolean {
+  return bank.some((w) => {
+    const s = String(w ?? '')
+    return /^[A-Z]/.test(s) && FUNCTION_WORD.has(s.toLowerCase())
+  })
 }

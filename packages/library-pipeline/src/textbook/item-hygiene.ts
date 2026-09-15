@@ -34,6 +34,7 @@ import {
 } from './csat-format'
 import { bearsType } from './type-fit'
 import { isPrintableUnderlineWord } from './vocab-choice'
+import { bankHasMovableAdverb, bankLeaksFirstWord } from './word-order'
 
 /**
  * 철회·취하된 논문인가 — **제목으로만 알 수 있다.**
@@ -485,6 +486,10 @@ export type HygieneReject =
   | 'longSentence'
   /** 지문이 그 유형을 못 떠받친다 — 소설에 「글의 목적」을 묻는 따위. */
   | 'typeMisfit'
+  /** 배열 정답이 하나가 아니다 — 자리를 옮겨도 되는 부사가 뭉치에 있다. */
+  | 'ambiguousOrder'
+  /** 뭉치의 대문자 기능어가 첫 자리를 알려 준다. */
+  | 'caseLeak'
 
 /**
  * **학습자에게 내보내도 되는 문항인가.** 조판의 게이트와 같은 판정을 쓴다.
@@ -519,6 +524,19 @@ export function itemHygieneReject(input: {
   if (input.type) {
     const fit = bearsType(String(input.type), passageTextOf(input.payload))
     if (fit.judged && !fit.ok) return 'typeMisfit'
+  }
+
+  // ── 배열 문항의 정답이 하나인가 ───────────────────────────────────
+  // ⚠️ **생성기만 고치면 재고는 그대로 인쇄된다.** `word-order.ts` 가 앞으로 만들 것을
+  //   막아도, 이미 저장된 4,133건(부사)·3,182건(대문자)은 지금도 조판 대상이다.
+  //   판정은 그쪽 집합을 그대로 쓴다 — 목록을 두 벌 두면 반드시 갈린다.
+  {
+    const bank = input.payload?.bank
+    if (Array.isArray(bank) && bank.length) {
+      const words = bank.map((w) => String(w ?? ''))
+      if (bankHasMovableAdverb(words)) return 'ambiguousOrder'
+      if (bankLeaksFirstWord(words)) return 'caseLeak'
+    }
   }
 
   // ── 밑줄이 낱말인가 ────────────────────────────────────────────────

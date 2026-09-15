@@ -74,3 +74,69 @@ describe('영작 배열 문항', () => {
     expect(deterministicShuffle(items, 'x')).not.toEqual(deterministicShuffle(items, 'y'))
   })
 })
+
+/**
+ * **정답이 둘이면 채점이 갈린다.**
+ *
+ * 3인 검수 청크 둘이 각자 짚었다(chunk-00 · chunk-01). 실물은 chunk-00 의 것이다 —
+ * 같은 낱말 뭉치로 `He therefore borrowed …` 와 `Therefore he borrowed …` 가 둘 다 선다.
+ * 재고 실측 48,855건 중 4,133건(8.5%).
+ */
+describe('자리를 옮겨도 되는 부사는 정답을 둘로 만든다', () => {
+  const common = new Set(['he', 'they', 'we', 'the', 'a', 'their', 'she', 'it'])
+  const isCommon = (w: string) => common.has(w.toLowerCase())
+
+  it('검수가 짚은 실물을 막는다', () => {
+    expect(buildWordOrder('He therefore borrowed a horse from Wilkins.', null, isCommon)).toBeNull()
+  })
+
+  it.each([
+    'therefore', 'thus', 'however', 'instead', 'finally', 'then',
+    'now', 'often', 'usually', 'sometimes', 'perhaps', 'suddenly',
+  ])('`%s` 가 든 문장은 만들지 않는다', (adv) => {
+    expect(buildWordOrder(`They ${adv} rebuilt the northern harbour wall.`, null, isCommon)).toBeNull()
+  })
+
+  // ⚠️ **부정 부사는 대안이 아니다** — 앞으로 내면 도치가 필요해 낱말이 하나 는다
+  //   (`Rarely do we hear…`). 같은 뭉치로 만들 수 없으므로 막을 이유가 없다.
+  it.each(['rarely', 'seldom', 'never', 'always'])('`%s` 는 막지 않는다 — 도치가 필요하다', (adv) => {
+    expect(buildWordOrder(`They ${adv} rebuilt the northern harbour wall.`, null, isCommon)).not.toBeNull()
+  })
+
+  // ⚠️ `not only … but also` 의 `also` 는 붙박이다(표본에서 실제로 걸렸다).
+  it('`but also` 의 `also` 는 막지 않는다', () => {
+    expect(
+      buildWordOrder('They found it in harbours but also along northern shores.', null, isCommon),
+    ).not.toBeNull()
+    // `but` 이 없으면 옮길 수 있으므로 막는다.
+    expect(buildWordOrder('They also rebuilt the northern harbour wall.', null, isCommon)).toBeNull()
+  })
+})
+
+/**
+ * **뭉치에 대문자 낱말이 하나면 첫 자리가 공짜로 정해진다.**
+ *
+ * 첫 글자 내리기를 사전(`isCommonWord`)에만 맡겨서 **3,182건(6.5%)** 이 `Their`·`These`·`Such`
+ * 를 대문자로 달고 나갔다(3인 검수 chunk-01 이 `Their` 로 짚었다). 기능어는 고유명사일 수
+ * 없으므로 사전을 물을 이유가 없다.
+ */
+describe('기능어는 사전을 묻지 않고 내린다', () => {
+  // 사전이 이 낱말들을 모른다고 가정한다 — 실제로 그랬다.
+  const emptyDict = () => false
+
+  it.each(['Their', 'These', 'Such', 'Another', 'Every', 'While', 'Between'])(
+    '`%s` 로 시작해도 대문자가 남지 않는다',
+    (word) => {
+      const item = buildWordOrder(`${word} builders rebuilt the northern harbour wall.`, null, emptyDict)
+      expect(item).not.toBeNull()
+      expect(item!.bank.filter((w) => /^[A-Z]/.test(w)), item!.bank.join(' ')).toEqual([])
+    },
+  )
+
+  // ⚠️ **고유명사는 그대로 둔다** — 내리면 낱말이 망가진다.
+  it('고유명사는 대문자를 지킨다', () => {
+    const item = buildWordOrder('Prague builders rebuilt the northern harbour wall.', null, emptyDict)
+    expect(item).not.toBeNull()
+    expect(item!.bank).toContain('Prague')
+  })
+})
