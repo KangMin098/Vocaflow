@@ -38,6 +38,7 @@ const ROUTES = [
   { path: '/csat/X-BLANK2', label: '유형(최소)' },
   { path: '/csat/item/M2309-42', label: '문항' },
   { path: '/csat/plan', label: '계획' },
+  { path: '/csat/drill', label: '훈련' },
 ]
 
 export interface SurfaceMetric {

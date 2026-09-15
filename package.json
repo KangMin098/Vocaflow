@@ -18,6 +18,8 @@
     "docs:db-stats:check": "node scripts/docs/gen-db-stats.mjs --check",
     "csat:atlas": "node scripts/csat/build-trap-atlas.mjs --write",
     "csat:atlas:check": "node scripts/csat/build-trap-atlas.mjs --check",
+    "csat:drill": "node scripts/csat/build-trap-drill.mjs --write",
+    "csat:drill:check": "node scripts/csat/build-trap-drill.mjs --check",
     "db:types": "npx supabase gen types typescript --linked > packages/types/src/database.ts",
     "db:push": "npx supabase db push",
     "db:diff": "npx supabase db diff --use-migra",

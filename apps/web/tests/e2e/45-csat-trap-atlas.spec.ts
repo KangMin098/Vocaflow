@@ -428,6 +428,103 @@ test.describe('기출 분석 — 허브·유형·계획', () => {
     }
   });
 
+  // ── 훈련 화면 ───────────────────────────────────────────────────────
+  // 이 화면이 무너지는 방식은 「안 돌아간다」가 아니라 **「돌아가는데 아무것도 안 잰다」**다:
+  // 답을 골라도 채점이 안 되거나, 정답이 보기에 없거나, 서버·클라이언트 보기 순서가 어긋나거나.
+  test.describe('훈련 화면 — 인출이 실제로 일어나는가', () => {
+    test('여덟 문제가 있고 보기가 넷이며 답을 고르면 채점된다', async ({ page }) => {
+      const errors: string[] = [];
+      page.on('console', (m) => {
+        if (m.type() === 'error') errors.push(m.text());
+      });
+
+      await page.setViewportSize(FOLD);
+      await page.goto('/csat/drill', { waitUntil: 'networkidle', timeout: 60_000 });
+
+      await expect(page.getByRole('heading', { level: 1, name: '오답 감별 훈련' })).toBeVisible();
+      // 문제 한 장이 보이고 보기가 넷이다.
+      await expect(page.locator('article')).toBeVisible();
+      const options = page.locator('ul.grid button');
+      await expect(options).toHaveCount(4);
+
+      // **아무것도 안 고른 상태에서 정답이 드러나 있으면 안 된다.**
+      expect(await page.locator('text=잡는 법').count(), '고르기 전에 답이 보인다').toBe(0);
+
+      await options.first().click();
+      // 채점 결과가 뜬다 — 맞든 틀리든 `role="status"` 한 덩어리.
+      await expect(page.locator('[role="status"]')).toBeVisible();
+      // 고른 뒤에는 보기가 잠긴다 — 답을 바꿔 가며 찍으면 인출이 아니다.
+      expect(await page.locator('ul.grid button:not([disabled])').count(), '고른 뒤에도 보기를 누를 수 있다').toBe(
+        0,
+      );
+      await expect(page.getByRole('button', { name: /다음|결과 보기/ })).toBeVisible();
+
+      expect(
+        errors.filter(
+          (e) =>
+            !/favicon|ResizeObserver|Download the React DevTools/i.test(e) &&
+            !/fast ?refresh|hot-reloader|hot update|webpack-internal/i.test(e),
+        ),
+        '콘솔 에러',
+      ).toEqual([]);
+    });
+
+    test('여덟 개를 끝까지 풀면 결과와 다음 걸음이 나온다', async ({ page }) => {
+      await page.setViewportSize(FOLD);
+      await page.goto('/csat/drill', { waitUntil: 'networkidle', timeout: 60_000 });
+
+      for (let i = 0; i < 8; i++) {
+        await page.locator('ul.grid button').first().click();
+        await page.getByRole('button', { name: /다음|결과 보기/ }).click();
+      }
+
+      // 결과 — 숫자를 말하고, **기록이 아직 안 남는다는 사실**도 말해야 한다(거짓 약속 금지).
+      await expect(page.getByText(/8개 중 \d개를 맞혔어요/)).toBeVisible();
+      await expect(page.getByText(/아직 이 결과는 저장되지 않아요/)).toBeVisible();
+      // 막다른 화면을 만들지 않는다(D5).
+      await expect(page.getByRole('link', { name: /여덟 개 더/ })).toBeVisible();
+    });
+
+    test('허브에서 훈련으로 가는 문이 있다', async ({ page }) => {
+      // 도달할 수 없는 화면은 없는 화면이다 — `/csat/overlay` 가 이미 그렇게 묻혔다.
+      await page.goto('/csat', { waitUntil: 'networkidle', timeout: 45_000 });
+      const link = page.getByRole('link', { name: /오답 감별 훈련/ });
+      await expect(link).toBeVisible();
+      await link.click();
+      await page.waitForURL(/\/csat\/drill/, { timeout: 30_000 });
+    });
+
+    test('훈련 화면도 390px 에서 밀리지 않고 44px 를 지킨다', async ({ page }) => {
+      await page.setViewportSize({ width: 390, height: 844 });
+      await page.goto('/csat/drill', { waitUntil: 'networkidle', timeout: 60_000 });
+      const overflow = await page.evaluate(
+        () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      );
+      expect(overflow, `390px 에서 가로로 ${overflow}px 밀린다`).toBeLessThanOrEqual(1);
+      const offenders = await page.evaluate(scanTapTargets, {
+        min: TAP_MIN,
+        minTextWidth: TAP_MIN_TEXT_WIDTH,
+      });
+      expect(offenders.map(describeOffender), '터치 타깃 규칙 위반').toEqual([]);
+    });
+
+    for (const theme of ['light', 'dark'] as const) {
+      test(`훈련 화면 ${theme} axe WCAG2 A/AA 위반 0`, async ({ page }) => {
+        await page.setViewportSize(FOLD);
+        await page.goto('/csat/drill', { waitUntil: 'networkidle', timeout: 60_000 });
+        await page.evaluate((t) => {
+          document.documentElement.setAttribute('data-theme', t);
+          localStorage.setItem('vocaflow-theme', t);
+        }, theme);
+        await page.waitForTimeout(500);
+        // 답을 고른 뒤(정답/오답 피드백이 뜬 상태)도 함께 본다 — 그때만 나오는 색이 있다.
+        await page.locator('ul.grid button').first().click();
+        await page.waitForTimeout(400);
+        expect(await axeViolations(page), `${theme} axe 위반`).toEqual([]);
+      });
+    }
+  });
+
   test.describe('axe — 라이트·다크', () => {
     for (const theme of ['light', 'dark'] as const) {
       test(`${theme} 테마 WCAG2 A/AA 위반 0`, async ({ page }) => {

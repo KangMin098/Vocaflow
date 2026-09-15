@@ -211,6 +211,37 @@ export type PublicEvent =
       }
     }
   /**
+   * 오답 감별 훈련에서 한 문제를 답했다 — **인출이 실제로 일어나는가.**
+   *
+   * 허브·유형 화면은 「읽고 납득하는」 물건이라 학습자가 무엇을 **기억하는지** 알 수 없다.
+   * 이 이벤트가 그 제품 전체에서 처음으로 그것을 잰다(원칙 1 Active Recall).
+   * `seq` 가 1~2 에서 멈추면 훈련이 어렵거나 지루한 것이고, 8까지 가면 세트 크기가 맞는 것이다.
+   *
+   * ⚠️ 함정 이름은 **보내지 않는다.** 32개짜리 닫힌 목록이라 보낼 수는 있지만, 이 이벤트로
+   *    답하려는 질문은 「어느 함정인가」가 아니라 「인출이 일어나는가」다. 함정별 성적은
+   *    기록이 DB 에 남게 된 뒤에 그 표가 답한다.
+   */
+  | {
+      name: 'csat_drill_answered'
+      props: {
+        /** 이 세트에서 몇 번째 문제인가 (1-기반) */
+        seq: number
+        correct: boolean
+        /** 보기 수 — 넷이 기본. 달라지면 난이도가 달라진 것이다 */
+        options: number
+      }
+    }
+  /**
+   * 한 세트를 끝냈다 — **완료율의 분자**.
+   *
+   * `csat_drill_answered` 의 seq 분포와 함께 보면 어디서 그만두는지가 보인다.
+   * `weak` 는 두 번 보고 두 번 다 놓친 수법의 수다(한 번 틀린 것은 약점이라 부르지 않는다).
+   */
+  | {
+      name: 'csat_drill_finished'
+      props: { total: number; correct: number; weak: number; seconds: number }
+    }
+  /**
    * 한 회차 계획의 **읽기 속도**를 바꿨다 — 「이 계획이 내 것이 됐는가」의 유일한 신호.
    *
    * 이 화면은 두 숫자(합계·쓸 수 있는 시간)만 적던 자리였다. 띠와 배율을 넣은 이유는
@@ -360,6 +391,8 @@ const EVENT_REGISTRY: Record<PublicEventName, true> = {
   csat_evidence_opened: true,
   csat_atlas_scoped: true,
   csat_plan_speed_set: true,
+  csat_drill_answered: true,
+  csat_drill_finished: true,
   csat_trap_opened: true,
   csat_overlay_loaded: true,
   csat_overlay_located: true,

@@ -56,6 +56,14 @@ export default async function CsatHubPage() {
       <ModePicker />
 
       <nav className="mt-6 flex flex-wrap gap-2" aria-label="기출로 하는 다른 일">
+        {/* **훈련이 첫 자리에 온다.** 지도를 읽는 것만으로는 인출이 일어나지 않는다
+            (원칙 1) — 여기가 「읽었다」에서 「알아본다」로 넘어가는 유일한 문이다. */}
+        <Link
+          href="/csat/drill"
+          className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] border border-[var(--p)] bg-[var(--p)] px-4 text-sm text-[var(--on-p)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
+        >
+          오답 감별 훈련 8문항 →
+        </Link>
         <Link
           href="/csat/plan"
           className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] px-4 text-sm text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] hover:bg-[var(--sf-2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)] motion-reduce:transition-none"
