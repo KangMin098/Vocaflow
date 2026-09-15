@@ -126,6 +126,31 @@ export type PublicEvent =
       props: { phase: 'undiagnosed' | 'ready' | 'moving' | 'complete'; done: number }
     }
   /**
+   * 문제지 PDF 를 떨어뜨렸다 — **오버레이 경로가 실제로 쓰이는가.**
+   *
+   * 이 화면의 값어치 전체가 «학습자가 자기 문제지를 연다» 는 전제 위에 있는데, 그 전제는
+   * 지금까지 **한 번도 확인된 적이 없다.** 진입은 `screen_viewed`(csat-overlay)가 세지만
+   * 「들어와서 파일까지 떨어뜨렸는가」는 어떤 표에도 흔적이 남지 않는다 — 파일이 서버로
+   * 오지 않는 것이 이 설계의 요점이기 때문이다(해시 64자만 간다).
+   *
+   * 이 수가 진입 대비 0 에 가까우면 **오버레이는 죽은 길**이고, 업로드 없이 보는 지문 지도가
+   * 유일한 경로다. 그건 설계를 바꿀 근거가 된다(§D — 공급이 아니라 수요 쪽에서).
+   *
+   * `known` 은 그 해시로 회차를 알아봤는가다. 거짓이 많으면 앵커가 덮는 회차가 모자란 것이다.
+   */
+  | { name: 'csat_overlay_loaded'; props: { known: boolean } }
+  /**
+   * 문제지 위에서 **근거 문장의 자리를 찾았는가** — 2026-09-15 에 넣은 PDF 텍스트 매칭이
+   * 실제 문제지에서 작동하는지의 **유일한 관측**.
+   *
+   * 우리 손에는 좌표가 없고(문제지는 우리 것이 아니다) 학습자의 브라우저가 스스로 찾는다.
+   * 그러므로 **우리는 그것이 되는지 알 방법이 이 이벤트밖에 없다.** 스캔본처럼 텍스트 레이어가
+   * 없는 문제지에서는 조용히 실패하도록 만들어 두었으므로(화면은 멀쩡히 돈다) 더욱 그렇다.
+   *
+   * 문항 하나를 펼칠 때 한 번만 보낸다 — 쪽을 넘나들며 같은 문항을 다시 그려도 세지 않는다.
+   */
+  | { name: 'csat_overlay_located'; props: { found: boolean } }
+  /**
    * 기출 해설에서 근거 하나를 열었다 — **「클릭/클릭/클릭」이 실제로 일어나는가.**
    *
    * 이 화면의 전제는 «근거를 눌러 가며 지문 위에서 풀이를 재구성한다» 인데, 그 전제가
@@ -271,6 +296,8 @@ const EVENT_REGISTRY: Record<PublicEventName, true> = {
   wayfinder_opened: true,
   wayfinder_cta_clicked: true,
   csat_evidence_opened: true,
+  csat_overlay_loaded: true,
+  csat_overlay_located: true,
   screen_viewed: true,
   video_started: true,
   video_completed: true,

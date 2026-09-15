@@ -18,6 +18,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
+import { track } from '@/lib/analytics/client'
 import { locateQuote, type HighlightBox, type PdfTextItem } from '@/lib/csat/pdf-text-locate'
 
 interface AnchorBox {
@@ -109,6 +110,8 @@ export default function OverlayClient({
   const docRef = useRef<{ getPage: (n: number) => Promise<unknown>; destroy?: () => Promise<void> } | null>(null)
   /** 렌더는 겹치면 캔버스가 찢어진다 — 마지막 요청만 살린다 */
   const renderSeq = useRef(0)
+  /** 근거 자리를 이미 센 문항. 쪽을 넘나들며 같은 문항을 다시 세지 않는다. */
+  const locatedFor = useRef<string | null>(null)
 
   const payload = status.kind === 'ready' ? status.payload : null
   const formPages = payload?.anchors.form_pages ?? 0
@@ -161,6 +164,9 @@ export default function OverlayClient({
           setStatus({ kind: 'error', message: json?.error ?? '분석을 불러오지 못했어요.' })
           return
         }
+        // **파일을 떨어뜨렸다** — 이 화면의 값어치 전체가 딛고 선 전제인데 지금까지 한 번도
+        // 확인된 적이 없었다(파일이 서버로 안 오는 것이 설계의 요점이라 어떤 표에도 흔적이 없다).
+        track({ name: 'csat_overlay_loaded', props: { known: json.known === true } })
         if (!json.known) {
           setStatus({ kind: 'unknown', exams: json.exams ?? [] })
           return
@@ -261,7 +267,14 @@ export default function OverlayClient({
         const items = (content.items as PdfTextItem[]).filter(
           (t) => typeof t?.str === 'string' && Array.isArray(t?.transform),
         )
-        setQuoteBoxes(locateQuote(items, quote))
+        const boxes = locateQuote(items, quote)
+        setQuoteBoxes(boxes)
+        // 문항 하나에 **한 번만** 센다 — 쪽을 넘나들며 같은 문항을 다시 그려도 세지 않는다.
+        // 이 수가 우리가 PDF 텍스트 매칭의 성패를 아는 **유일한 길**이다(좌표는 우리에게 없다).
+        if (open && locatedFor.current !== open.item_id) {
+          locatedFor.current = open.item_id
+          track({ name: 'csat_overlay_located', props: { found: boxes.length > 0 } })
+        }
       } catch {
         // 텍스트 레이어가 없는 문제지(스캔본)도 있다. 그 경우 조용히 안 칠한다 —
         // 이 기능이 없어도 나머지 상자는 그대로 쓸모 있다.
