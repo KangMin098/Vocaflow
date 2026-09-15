@@ -1271,9 +1271,37 @@ DB 통합 검사 3파일은 네트워크 단절로 이번 회차 미확인(앞 �
 회전 표본이라 정상).
 
 ⚠️ **아직 용량은 줄지 않았다. 오히려 늘었다** — 표 9,293 → **9,870 MB**, DB 14,269 → **14,987 MB**.
-UPDATE 가 죽은 튜플을 남기기 때문이고, 실제 반환은 `VACUUM FULL` 만 한다. 그런데 이 DB 의
-statement_timeout 이 **2분**이라 9.9 GB 표를 못 쓰고, 늘릴 `ALTER ROLE` 은 이 세션 권한에서 거부됐다.
-**남은 한 걸음은 사람이 돌려야 한다** (Supabase SQL Editor):
+UPDATE 가 죽은 튜플을 남기기 때문이고, 실제 반환은 `VACUUM FULL` 만 한다.
+
+> **⚠️ 위 문단의 진단은 틀렸다 — 2026-09-16 실측으로 정정한다.**
+>
+> 여기 「이 DB 의 statement_timeout 이 **2분**이라 9.9 GB 표를 못 쓰고, 늘릴 `ALTER ROLE` 은
+> 거부됐다」고 적었었다. **둘 다 사실이 아니다.**
+>
+> · `pg_roles.rolconfig` 를 보면 `postgres` 역할에 statement_timeout 이 **없다**
+>   (있는 것은 `anon` 3s · `authenticated`/`authenticator` 8s). 2분은 **MCP 경로가 세션에
+>   거는 값**이지 DB 설정이 아니다 — 그래서 `ALTER ROLE` 은 애초에 필요 없었다.
+> · 한 호출 안에서 `set statement_timeout = '30min'` 이 **그대로 먹는다**(실측).
+> · `VACUUM` 은 이 경로로 **실제로 돈다**(작은 표에 실행해 확인). 단 **문장이 둘 이상이면
+>   통째로 트랜잭션에 감싸여** `CONCURRENTLY` 계열이 `25001` 로 거부된다 — 즉
+>   「SET 먼저, 그다음 REINDEX」를 한 호출로 보내는 방식은 못 쓴다.
+>
+> **회수량도 절반 이하였다.** `pgstattuple_approx` 로 힙 빈 공간 **1,796 MB(23.7%)** ·
+> 죽은 튜플 0.19%(autovacuum 이 2026-09-15 에 이미 돌았다), 유일한 색인
+> (`..._library_article_id_word_key`, 2,390 MB)은 leaf 밀도 **56.2%** · 단편화 44.1%.
+> 그러므로 `VACUUM FULL` 의 실제 회수는 **약 2.7 GB**(힙 1.8 + 색인 0.9)이고
+> DB 는 15.0 → **약 12.3 GB** 다 — 이 문단이 은연중에 기대하던 「9,870 → 5,600 MB」가 아니다.
+>
+> **그리고 힙 몫 1,796 MB 는 버리는 공간이 아니다.** ACP 가 이 표를 계속 채우므로
+> (33.9M 행) 그 자리는 다시 쓰인다 — `VACUUM FULL` 의 힙 몫은 공간을 버는 게 아니라
+> **시간을 버는** 것이다. 되돌아오지 않는 것은 색인 쪽 ~0.9 GB 뿐이고, 그것은
+> `REINDEX INDEX CONCURRENTLY` 로 **락 없이** 회수된다.
+>
+> 절차상의 자리도 정해져 있다 — `/db-remediate` §3 「공간 회수」는 *"따로 묻는다. 락을 잡고,
+> 표가 다시 커질 예정이면 회수해도 곧 같은 크기가 된다"* 이고, `CONCURRENTLY` 는 같은 표에서
+> **`_pending_*.sql` 로 남기고 사람이 psql 로 돌린다**. Supabase SQL Editor 는 자체 시간
+> 제한이 있어 이 크기에서는 중간에 끊긴다.
+
 ```
 VACUUM FULL ANALYZE public.library_article_vocabularies;
 ```
