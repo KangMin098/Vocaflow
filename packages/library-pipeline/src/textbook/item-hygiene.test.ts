@@ -882,3 +882,43 @@ describe('지칭 문항이 지면에 설 수 있는가', () => {
     expect(itemHygieneReject({ payload: { passage }, type: 'topic' })).toBeNull()
   })
 })
+
+/**
+ * **문장처럼 열리지 않는 조각** — 해설 전수 재작성의 표본이 알려 줬다(2026-09-16).
+ *
+ * `irrelevant` 15,618건을 다시 쓰다가 **정답 문장**이 이런 것을 보았다:
+ *
+ *     `# 130-052-301) and PBS, and were processed using Chromium Controller …`
+ *     `(2021) highlight how this problem arises in a wide variety of …`
+ *
+ * 기존 자국 열은 이 꼴을 하나도 못 잡는다. 실측(표본 1,200): 새 규칙에 걸리는 것 841건,
+ * 그중 **이미 다른 사유로 빠지는 것 462건**을 빼면 **새로 빠지는 것 517건(43%)**.
+ * 새로 빠지는 것만 골라 열을 읽었더니 **10/10 이 조각**이었다 — 참고문헌 꼬리 ·
+ * 수식/표 번호 · 인터뷰 화자표 · 카탈로그 번호.
+ */
+describe('문장처럼 열리지 않는 조각', () => {
+  const sents = (...s: string[]) => ({ payload: { sentences: s } })
+
+  it.each([
+    ['참고문헌 꼬리', '(2008) Minority HIV-1 drug resistance mutations are present in naive populations.'],
+    ['수식 번호', '(11) Finally, the results on the PPML coefficients are more accurate than the OLS ones.'],
+    ['표 번호 · 공백 없음', '(12)This adjustment allows for a higher rating for players who play many games.'],
+    ['인터뷰 화자표', '(Father 4) Following the discharge, relationships in their social network had changed.'],
+    ['카탈로그 번호', '# M3029S, NEB Luna Probe One-Step Mix with UDG), SARS-CoV-2 Neo Assay Kit was used.'],
+    ['백분율 이어짐', '% inhibition was then calculated by using the formula as mentioned in equation 1.'],
+  ])('%s 는 문장이 아니다', (_label, frag) => {
+    expect(itemHygieneReject(sents('The coastal region provides a steady supply of water.', frag))).toBe(
+      'badSplit',
+    )
+  })
+
+  // ⚠️ **괄호 하나를 통째로 막지 않는다** — 문장 전체가 괄호 안인 것은 정상이다.
+  //   막으면 멀쩡한 지문이 통째로 떨어진다(이 저장소가 두 번 겪은 일이다).
+  it.each([
+    ['문장 전체가 괄호', '(The figures for 2019 were revised after the survey closed.)'],
+    ['숫자로 여는 문장', '2024 saw the highest rainfall recorded in the northern valley.'],
+    ['평범한 문장', 'The coastal region provides a steady supply of fresh water each year.'],
+  ])('%s 는 그대로 통과한다', (_label, s) => {
+    expect(itemHygieneReject(sents('Farmers depend on it during the dry season.', s))).toBeNull()
+  })
+})

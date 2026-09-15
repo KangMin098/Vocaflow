@@ -256,6 +256,23 @@ export function hasBadSentenceSplit(payload: Record<string, unknown> | null | un
       //    「짧은 머리(약칭·숫자) + 로마숫자/f./p.」 는 문장이 아니라 출처 표기다.
       //    `He was 21.` 은 둘째 토큰이 `was` 라 이 꼴에 안 맞는다.
       if (s.length <= 15 && /^[A-Za-z0-9]{1,5}\s+[ivxlcdmfp]+\.?\)?\.$/i.test(s)) return true
+      // ── 아래 둘은 해설 전수 재작성의 표본이 알려 줬다 (실측 2026-09-16) ─
+      //   `irrelevant` 15,618건을 다시 쓰다가 **정답 문장**이 이런 것을 보았다:
+      //     `# 130-052-301) and PBS, and were processed using Chromium Controller …`
+      //     `(2021) highlight how this problem arises in a wide variety of …`
+      //   위 ①~⑩ 은 이 꼴을 하나도 못 잡는다 — 소문자로 열지 않고(①), 글자가 있고(⑥),
+      //   숫자로 시작하지도 않는다(⑦ 은 `13)` 처럼 **숫자가 먼저**여야 한다).
+      //
+      // ⑪ **라벨로 연 조각** — 짧은 괄호 뒤에 본문이 이어진다. 수식 번호 `(11)` ·
+      //    표 번호 `(1) Comparison of …` · 참고문헌 꼬리 `(2008) Minority HIV-1 …` ·
+      //    인터뷰 화자표 `(Father 4) Following the discharge …` 가 전부 이 꼴이다.
+      //    ⚠️ **괄호 하나를 통째로 막지 않는다.** `(See figure 2.)` 처럼 문장 전체가
+      //      괄호 안인 것은 정상이라, **괄호가 닫힌 뒤 본문이 이어질 때만** 본다.
+      //      실측 표본 1,200건 중 괄호로 여는 것 1,928 자리 가운데 이 꼴이 1,893 이었다.
+      if (/^\([^)]{1,12}\)\s*\S/.test(s)) return true
+      // ⑫ **산문이 시작할 수 없는 기호로 연 조각** — 카탈로그 번호 `# M3029S` ·
+      //    `% inhibition was then calculated …` 처럼 앞이 잘려 나간 자리다.
+      if (/^[#%&*+=/\\|@]/.test(s)) return true
     }
   }
   return false
