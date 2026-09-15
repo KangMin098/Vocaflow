@@ -83,6 +83,64 @@ export function SourceEligibilityClient({
 
       <FreshnessBar panel={panel} />
 
+      {/* ⚠️ **KPI 가 「다음 한 걸음」보다 먼저다.** 무엇을 할지는 지금 어떤지를 안 뒤에 읽힌다 —
+          예전에는 처방이 먼저 나오고 분모가 그 아래 있어, 접힌 위에서 「얼마나 나쁜가」가 안 보였다. */}
+      <section aria-label="요약" className="grid grid-cols-2 gap-3 md:grid-cols-4">
+        <Stat
+          label="조판 가능"
+          value={t.composable.toLocaleString()}
+          sub={`전체 ${t.total.toLocaleString()}편의 ${t.composablePct}%`}
+          warn={t.composablePct < 100}
+          ratio={t.composable / t.total}
+        />
+        <Stat
+          label="지금 조판이 받으면 안 되는 편수"
+          value={(t.total - t.composable).toLocaleString()}
+          sub="판정을 통과하지 못한 원문"
+          warn={t.total - t.composable > 0}
+          ratio={(t.total - t.composable) / t.total}
+        />
+        <Stat
+          label="되돌릴 수 없는 부적격"
+          value={((t.byBlockedAxis.legal ?? 0) + (t.byBlockedAxis.safety ?? 0)).toLocaleString()}
+          sub="라이선스 · 철회 · 민감 소재"
+          warn={(t.byBlockedAxis.legal ?? 0) + (t.byBlockedAxis.safety ?? 0) > 0}
+          ratio={((t.byBlockedAxis.legal ?? 0) + (t.byBlockedAxis.safety ?? 0)) / t.total}
+        />
+        {/*
+          문항이 붙었다는 것은 **그 원문에서 이미 지문이 잘려 나왔다**는 뜻이다.
+          그 편수와 조판 가능 편수의 차이가 곧 "판정 없이 만들어진 문항" 의 분모다 —
+          숨기면 화면이 좋아 보이지만 그게 이 화면이 막으려는 바로 그것이다.
+        */}
+        <Stat
+          label="문항이 붙은 원문"
+          value={
+            panel.articlesWithItems == null ? '못 잼' : panel.articlesWithItems.toLocaleString()
+          }
+          sub={
+            panel.articlesWithItems == null
+              ? '옛 스냅샷 — 다시 재야 한다'
+              : `그중 판정 통과 ${t.composable.toLocaleString()}`
+          }
+          warn={panel.articlesWithItems != null && panel.articlesWithItems > t.composable}
+          ratio={panel.articlesWithItems == null ? undefined : panel.articlesWithItems / t.total}
+        />
+      </section>
+      <p className="font-body text-[12px] text-[var(--t3)]">
+        판정 규격 <span className="font-mono">v{panel.specVersion}</span> · 훑는 데{' '}
+        {panel.scanSeconds}초
+        {panel.articlesWithItems != null && panel.articlesWithItems > t.composable ? (
+          <>
+            {' · '}
+            <b className="text-[var(--warning-ink)]">
+              {(panel.articlesWithItems - t.composable).toLocaleString()}편은 문항이 이미 있는데
+              원문이 판정을 통과하지 못한다
+            </b>
+          </>
+        ) : null}
+      </p>
+
+
       {panel.topBlocker ? (
         <section
           aria-label="다음 한 걸음"
@@ -139,58 +197,11 @@ export function SourceEligibilityClient({
         </section>
       ) : null}
 
-      <section aria-label="요약" className="grid grid-cols-2 gap-3 md:grid-cols-4">
-        <Stat
-          label="조판 가능"
-          value={t.composable.toLocaleString()}
-          sub={`전체 ${t.total.toLocaleString()}편의 ${t.composablePct}%`}
-          warn={t.composablePct < 100}
-        />
-        <Stat
-          label="지금 조판이 받으면 안 되는 편수"
-          value={(t.total - t.composable).toLocaleString()}
-          sub="판정을 통과하지 못한 원문"
-          warn={t.total - t.composable > 0}
-        />
-        <Stat
-          label="되돌릴 수 없는 부적격"
-          value={((t.byBlockedAxis.legal ?? 0) + (t.byBlockedAxis.safety ?? 0)).toLocaleString()}
-          sub="라이선스 · 철회 · 민감 소재"
-          warn={(t.byBlockedAxis.legal ?? 0) + (t.byBlockedAxis.safety ?? 0) > 0}
-        />
-        {/*
-          문항이 붙었다는 것은 **그 원문에서 이미 지문이 잘려 나왔다**는 뜻이다.
-          그 편수와 조판 가능 편수의 차이가 곧 "판정 없이 만들어진 문항" 의 분모다 —
-          숨기면 화면이 좋아 보이지만 그게 이 화면이 막으려는 바로 그것이다.
-        */}
-        <Stat
-          label="문항이 붙은 원문"
-          value={
-            panel.articlesWithItems == null ? '못 잼' : panel.articlesWithItems.toLocaleString()
-          }
-          sub={
-            panel.articlesWithItems == null
-              ? '옛 스냅샷 — 다시 재야 한다'
-              : `그중 판정 통과 ${t.composable.toLocaleString()}`
-          }
-          warn={panel.articlesWithItems != null && panel.articlesWithItems > t.composable}
-        />
-      </section>
-      <p className="font-body text-[12px] text-[var(--t3)]">
-        판정 규격 <span className="font-mono">v{panel.specVersion}</span> · 훑는 데{' '}
-        {panel.scanSeconds}초
-        {panel.articlesWithItems != null && panel.articlesWithItems > t.composable ? (
-          <>
-            {' · '}
-            <b className="text-[var(--warning-ink)]">
-              {(panel.articlesWithItems - t.composable).toLocaleString()}편은 문항이 이미 있는데
-              원문이 판정을 통과하지 못한다
-            </b>
-          </>
-        ) : null}
-      </p>
 
       <AxisTable axes={panel.axes} />
+      {/* 소스별 재고 — 판정(위)과 달리 「언제 몇 편 받았나」를 본다. 스냅샷이 따로다. */}
+      <SourceInventoryTable panel={inventory} />
+
       <RequirementTable panel={panel} />
       <GradeTable grades={panel.grades} total={t.total} />
       <BandTable bands={panel.bands} />
@@ -198,9 +209,6 @@ export function SourceEligibilityClient({
       {panel.typeInventory ? <TypeInventoryTable inv={panel.typeInventory} /> : null}
       {panel.fillPlan ? <FillPlanTable plan={panel.fillPlan} /> : null}
       {panel.drainAudit ? <DrainAuditTable audit={panel.drainAudit} /> : null}
-      {/* 소스별 재고 — 판정(위)과 달리 「언제 몇 편 받았나」를 본다. 스냅샷이 따로다. */}
-      <SourceInventoryTable panel={inventory} />
-
       {panel.sourceYield ? <SourceYieldTable yieldPanel={panel.sourceYield} /> : null}
       <DefectTable defects={panel.defects} />
     </div>
@@ -971,16 +979,27 @@ function DefectTable({ defects }: { defects: DefectPanel }) {
   )
 }
 
+/**
+ * KPI 한 칸.
+ *
+ * ⚠️ **비율 바는 장식이 아니다.** 「30,508」만 보면 많은지 적은지 모른다 — 분모가 87,626 이라는
+ *   사실은 `sub` 줄 글자에만 있었고, 넉 장을 나란히 두면 그 글자들이 서로 안 비교된다.
+ *   바는 **같은 분모 위의 네 값**을 한눈에 견주게 한다. 색만으로 말하지 않으므로
+ *   숫자·글자는 그대로 둔다(색맹 대응).
+ */
 function Stat({
   label,
   value,
   sub,
   warn,
+  ratio,
 }: {
   label: string
   value: string
   sub?: string
   warn?: boolean
+  /** 0~1. 전체(분모) 대비 이 값의 몫. `undefined` 면 바를 그리지 않는다(못 잰 칸). */
+  ratio?: number
 }) {
   return (
     <div className="flex flex-col gap-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-3">
@@ -988,6 +1007,20 @@ function Stat({
       <span className="font-display text-[20px] font-[800] tabular-nums text-[var(--t1)]">
         {value}
       </span>
+      {ratio != null ? (
+        <span
+          aria-hidden
+          className="block h-[4px] overflow-hidden rounded-[var(--r-full)] bg-[var(--bg2)]"
+        >
+          <i
+            className="block h-full rounded-[var(--r-full)]"
+            style={{
+              width: `${Math.max(1, Math.min(100, ratio * 100))}%`,
+              background: warn ? 'var(--warning-ink)' : 'var(--success-ink)',
+            }}
+          />
+        </span>
+      ) : null}
       {sub ? (
         <span
           className="font-body text-[11px]"
