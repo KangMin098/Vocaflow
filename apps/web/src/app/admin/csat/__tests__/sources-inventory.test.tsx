@@ -25,6 +25,7 @@ import { renderToString } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
 
 import { buildSourceEligibilityPanel } from '@/lib/textbook/source-eligibility-view'
+import { buildSourceInventoryPanel } from '@/lib/textbook/source-inventory-view'
 
 import { SourceEligibilityClient } from '../sources/SourceEligibilityClient'
 
@@ -39,7 +40,7 @@ const baseline: Baseline = JSON.parse(
   readFileSync(resolve(__dirname, 'sources-inventory-baseline.json'), 'utf8'),
 )
 
-const html = renderToString(<SourceEligibilityClient panel={buildSourceEligibilityPanel()} />)
+const html = renderToString(<SourceEligibilityClient panel={buildSourceEligibilityPanel()} inventory={buildSourceInventoryPanel()} />)
 /** 태그를 걷어낸 화면 텍스트 — 어디에 있든 「있다」로 센다(배치는 재설계의 자유다). */
 const text = html
   .replace(/<[^>]*>/g, ' ')

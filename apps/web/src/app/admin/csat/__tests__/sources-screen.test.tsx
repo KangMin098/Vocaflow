@@ -17,11 +17,12 @@ import { describe, expect, it } from 'vitest'
 
 import { HELP_REGISTRY } from '@/lib/admin/help'
 import { buildSourceEligibilityPanel } from '@/lib/textbook/source-eligibility-view'
+import { buildSourceInventoryPanel } from '@/lib/textbook/source-inventory-view'
 
 import { SourceEligibilityClient } from '../sources/SourceEligibilityClient'
 
 const panel = buildSourceEligibilityPanel(new Date('2026-09-06T12:00:00Z'))
-const html = renderToString(<SourceEligibilityClient panel={panel} />)
+const html = renderToString(<SourceEligibilityClient panel={panel} inventory={buildSourceInventoryPanel()} />)
 
 describe('buildSourceEligibilityPanel', () => {
   it('스냅샷 합계가 등급 합과 맞는다 — 어긋나면 밴드 인자와 함께 만든 스냅샷이다', () => {

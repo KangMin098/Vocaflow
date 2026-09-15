@@ -1,0 +1,185 @@
+// apps/web/src/app/admin/csat/sources/SourceInventoryTable.tsx
+//
+// **소스별 원문 관리 — 「언제 몇 편 받았고 지금 어떤 상태인가」.**
+//
+// ── 왜 이 표가 필요했나 (2026-09-16) ────────────────────────────────
+// 이 화면은 원천 이름을 스물한 번 부르면서 **판정 결과만** 말했다. 「그 원천에서 언제
+// 마지막으로 받았나 · 지금 몇 편이 검토 대기인가」는 어디에도 없었다. 그래서 관리자가
+// 「PLOS 가 13.3%」를 읽고도 다음에 무엇을 할지 정할 수 없었다.
+//
+// ── 조작 버튼을 두지 않는다 ─────────────────────────────────────────
+// 수집·판정은 전부 웹 요청 시간 안에 안 끝난다(적격 스캔 76~200초 · 재분석 편당 수 초).
+// 그래서 **명령을 복사해 가는 것**만 낸다 — 이 화면의 다른 절들과 같은 규칙이다.
+//
+// ⚠️ 「조판 가능/탈락」 수는 여기 없다. 그것의 정본은 적격 스냅샷이고 이 표는 **판정을
+//   받았는가**까지만 센다. 사본을 두면 같은 화면의 두 표가 다른 답을 하는 날이 온다.
+
+'use client'
+
+import { useState } from 'react'
+import Link from 'next/link'
+
+import type { SourceInventoryPanel, SourceInventoryRow } from '@/lib/textbook/source-inventory-view'
+
+/** 상태 세 칸의 색 — Memory Decay 4색을 그대로 쓴다(새 색을 만들지 않는다). */
+const BAR = {
+  ready: 'var(--warning-ink)',
+  published: 'var(--success-ink)',
+  other: 'var(--t3)',
+}
+
+export function SourceInventoryTable({ panel }: { panel: SourceInventoryPanel }) {
+  const [open, setOpen] = useState<string | null>(null)
+  const max = Math.max(1, ...panel.rows.map((r) => r.total))
+
+  return (
+    <section aria-label="소스별 원문 관리" className="flex flex-col gap-2">
+      <div className="flex flex-wrap items-baseline gap-2">
+        <h2 className="font-display text-[15px] font-[700] text-[var(--t1)]">소스별 원문</h2>
+        <span className="font-body text-[12px] text-[var(--t2)]">
+          언제 몇 편 받았고 지금 어떤 상태인가 — <b>판정 결과가 아니라 재고</b>
+        </span>
+        <span className="ml-auto font-body text-[11px] text-[var(--t3)]">
+          {panel.measuredAt.slice(0, 10)} 에 잰 값 ·{' '}
+          {panel.ageDays === 0 ? '오늘' : `${panel.ageDays}일 전`} ·{' '}
+          {panel.scanned.toLocaleString()}편 훑음 · {panel.elapsedSeconds}초
+        </span>
+      </div>
+
+      <p className="font-body text-[12px] text-[var(--t2)]">
+        갱신: <code>{panel.refreshCommand}</code> (본문을 안 받으므로 <b>9초</b> · 읽기만 하므로
+        재실행 안전). 원천 이름을 누르면 그 원천의 원문 목록으로, 행을 누르면 다음 할 일이 펼쳐진다.
+      </p>
+
+      <div className="overflow-x-auto">
+        <table className="w-full min-w-[860px] border-collapse font-body text-[13px]">
+          <thead>
+            <tr className="border-b border-[var(--bd)] text-left text-[12px] text-[var(--t2)]">
+              <th className="py-2 pr-3 font-[600]">원천</th>
+              <th className="py-2 pr-3 text-right font-[600]">수집 편수</th>
+              <th className="py-2 pr-3 font-[600]">상태 분포</th>
+              <th className="py-2 pr-3 text-right font-[600]">판정 받음</th>
+              <th className="py-2 pr-3 text-right font-[600]">학령 붙음</th>
+              <th className="py-2 pr-3 font-[600]">탈락 사유 상위</th>
+              <th className="py-2 font-[600]">마지막 GET</th>
+            </tr>
+          </thead>
+          <tbody>
+            {panel.rows.map((r) => (
+              <Row
+                key={r.source}
+                row={r}
+                max={max}
+                open={open === r.source}
+                onToggle={() => setOpen(open === r.source ? null : r.source)}
+              />
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <p className="font-body text-[11px] text-[var(--t3)]">
+        「판정 받음」은 <code>csat_fit.gate.verdict</code> 가 붙은 편수다 — <b>조판 가능과 다르다</b>
+        (그 수는 위 「등급 분포」가 정본). 「마지막 GET」은 <code>created_at</code> 의 최댓값이다 —{' '}
+        <code>source_fetched_at</code> 열이 있지만 수집기가 안 채워 PLOS 45,096편이 전부 비어 있다.
+      </p>
+    </section>
+  )
+}
+
+function Row({
+  row,
+  max,
+  open,
+  onToggle,
+}: {
+  row: SourceInventoryRow
+  max: number
+  open: boolean
+  onToggle: () => void
+}) {
+  const w = (n: number) => `${(n / row.total) * 100}%`
+  return (
+    <>
+      <tr className="border-b border-[var(--bd)]/50 align-middle">
+        <td className="pr-3 font-mono text-[12px]">
+          <Link
+            href={`/admin/articles?stage=review&status=all&src=${encodeURIComponent(row.source)}`}
+            title={`${row.label} 원문 목록 열기`}
+            className="inline-flex min-h-[44px] items-center text-[var(--t2)] underline decoration-dotted underline-offset-2 transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:text-[#8B5CF6] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8B5CF6] active:text-[#8B5CF6]"
+          >
+            {row.source}
+          </Link>
+        </td>
+        <td className="py-2 pr-3 text-right font-[700] tabular-nums text-[var(--t1)]">
+          {row.total.toLocaleString()}
+          <span
+            aria-hidden
+            className="ml-2 inline-block h-[6px] rounded-[var(--r-full)] bg-[var(--bd)] align-middle"
+            style={{ width: `${Math.max(2, (row.total / max) * 56)}px` }}
+          />
+        </td>
+        <td className="py-2 pr-3">
+          {/* 색만으로 말하지 않는다 — 숫자를 옆에 둔다(색맹 대응). */}
+          <span className="flex h-[10px] w-[120px] overflow-hidden rounded-[var(--r-sm)] bg-[var(--bg2)]">
+            <i style={{ width: w(row.ready), background: BAR.ready }} />
+            <i style={{ width: w(row.published), background: BAR.published }} />
+            <i style={{ width: w(row.other), background: BAR.other }} />
+          </span>
+          <span className="mt-0.5 block font-mono text-[10px] text-[var(--t3)]">
+            대기 {row.ready.toLocaleString()} · 발행 {row.published.toLocaleString()} · 그 외{' '}
+            {row.other.toLocaleString()}
+          </span>
+        </td>
+        <td className="py-2 pr-3 text-right tabular-nums">
+          <span style={{ color: row.judged === 0 ? 'var(--error-ink)' : 'var(--t1)' }}>
+            {row.judged.toLocaleString()}
+          </span>
+          <span className="ml-1 font-mono text-[10px] text-[var(--t3)]">{row.judgedPct}%</span>
+        </td>
+        <td className="py-2 pr-3 text-right tabular-nums text-[var(--t2)]">
+          {row.levelled.toLocaleString()}
+          <span className="ml-1 font-mono text-[10px] text-[var(--t3)]">{row.levelledPct}%</span>
+        </td>
+        <td className="py-2 pr-3 text-[11px] text-[var(--t3)]">
+          {row.topBlocked.length
+            ? row.topBlocked.map((b) => `${b.reason} ${b.count.toLocaleString()}`).join(' · ')
+            : row.legalBlocked
+              ? `법적 ${row.legalBlocked.toLocaleString()}`
+              : '—'}
+        </td>
+        <td className="py-2">
+          <button
+            type="button"
+            onClick={onToggle}
+            aria-expanded={open}
+            className="inline-flex min-h-[44px] items-center gap-1 font-mono text-[11px] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:text-[#8B5CF6] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8B5CF6]"
+          >
+            {row.lastGet ? row.lastGet.slice(0, 10) : '—'}
+            {row.staleDays != null && row.staleDays > 7 ? (
+              <span style={{ color: 'var(--warning-ink)' }}>· {row.staleDays}일</span>
+            ) : null}
+            <span aria-hidden>{open ? '▾' : '▸'}</span>
+          </button>
+        </td>
+      </tr>
+      {open ? (
+        <tr className="border-b border-[var(--bd)]">
+          <td colSpan={7} className="bg-[var(--bg2)] px-3 py-3">
+            <p className="font-body text-[12px] text-[var(--t1)]">
+              <b>다음 할 일</b> — {row.nextWhy}
+            </p>
+            <p className="mt-1 font-body text-[12px] text-[var(--t2)]">
+              <code>{row.nextCommand}</code>
+            </p>
+            <p className="mt-1 font-mono text-[10px] text-[var(--t3)]">
+              상태 전체: {row.byStatus.map((s) => `${s.status} ${s.count.toLocaleString()}`).join(' · ')}
+              {row.rawPurpose ? ` · 미절단 원본 ${row.rawPurpose.toLocaleString()}` : ''}
+              {row.legalBlocked ? ` · 되돌릴 수 없는 법적 탈락 ${row.legalBlocked.toLocaleString()}` : ''}
+            </p>
+          </td>
+        </tr>
+      ) : null}
+    </>
+  )
+}

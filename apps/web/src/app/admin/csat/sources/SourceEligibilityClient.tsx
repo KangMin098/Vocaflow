@@ -13,6 +13,9 @@
 import Link from 'next/link'
 
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
+import type { SourceInventoryPanel } from '@/lib/textbook/source-inventory-view'
+
+import { SourceInventoryTable } from './SourceInventoryTable'
 import type {
   AxisRow,
   BandRow,
@@ -57,7 +60,13 @@ function SourceLink({ source, children }: { source: string; children: React.Reac
   )
 }
 
-export function SourceEligibilityClient({ panel }: { panel: SourceEligibilityPanel }) {
+export function SourceEligibilityClient({
+  panel,
+  inventory,
+}: {
+  panel: SourceEligibilityPanel
+  inventory: SourceInventoryPanel
+}) {
   const t = panel.total
   return (
     <div className="flex flex-col gap-6">
@@ -189,6 +198,9 @@ export function SourceEligibilityClient({ panel }: { panel: SourceEligibilityPan
       {panel.typeInventory ? <TypeInventoryTable inv={panel.typeInventory} /> : null}
       {panel.fillPlan ? <FillPlanTable plan={panel.fillPlan} /> : null}
       {panel.drainAudit ? <DrainAuditTable audit={panel.drainAudit} /> : null}
+      {/* 소스별 재고 — 판정(위)과 달리 「언제 몇 편 받았나」를 본다. 스냅샷이 따로다. */}
+      <SourceInventoryTable panel={inventory} />
+
       {panel.sourceYield ? <SourceYieldTable yieldPanel={panel.sourceYield} /> : null}
       <DefectTable defects={panel.defects} />
     </div>

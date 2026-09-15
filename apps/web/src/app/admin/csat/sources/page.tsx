@@ -7,6 +7,7 @@
 
 import { requireAdmin } from '@/lib/auth/require-admin'
 import { buildSourceEligibilityPanel } from '@/lib/textbook/source-eligibility-view'
+import { buildSourceInventoryPanel } from '@/lib/textbook/source-inventory-view'
 
 import { SourceEligibilityClient } from './SourceEligibilityClient'
 
@@ -17,6 +18,8 @@ export default async function AdminCsatSourcesPage() {
 
   // 스냅샷을 읽어 화면 모양으로 만든다 — DB 를 치지 않는다(그 이유는 view 모듈 머리말).
   const panel = buildSourceEligibilityPanel()
+  // 소스별 재고는 **다른 스냅샷**이다 — 본문을 안 받아 9초면 다시 찍히므로 훨씬 자주 갱신된다.
+  const inventory = buildSourceInventoryPanel()
 
-  return <SourceEligibilityClient panel={panel} />
+  return <SourceEligibilityClient panel={panel} inventory={inventory} />
 }
