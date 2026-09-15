@@ -79,9 +79,9 @@ describe('히트맵 농도', () => {
   })
 })
 
-describe('7단계', () => {
-  it('번호가 1~7 로 빠짐없이 이어진다', () => {
-    expect(CSAT_STEPS.map((s) => s.no)).toEqual([1, 2, 3, 4, 5, 6, 7])
+describe('단계 — 있는 문을 없다고 말하지 않는다', () => {
+  it('번호가 1부터 빠짐없이 이어진다', () => {
+    expect(CSAT_STEPS.map((s) => s.no)).toEqual(CSAT_STEPS.map((_, i) => i + 1))
   })
 
   it('모든 단계에 학습자의 동사가 있다 — 없으면 그 화면은 문서다', () => {
@@ -91,45 +91,67 @@ describe('7단계', () => {
     }
   })
 
-  it('안 지은 단계는 링크를 걸지 않는다 — 빈 화면으로 보내지 않는다', () => {
+  it('안 지은 단계만 링크가 없다', () => {
     for (const s of CSAT_STEPS) {
       if (s.state === 'later') expect(s.href, `${s.no}`).toBeNull()
       else expect(s.href, `${s.no}`).toBeTruthy()
     }
   })
 
-  it('지금 열린 단계는 다섯 — ⑥⑦ 은 Phase 4 로 미뤘다', () => {
-    expect(readySteps().map((s) => s.no)).toEqual([1, 2, 3, 4, 5])
+  /**
+   * ⚠️ **이 검사가 실제 결함을 잡으라고 있다.** 첫 판 레일은 브리프의 7단계를 실제 화면을
+   *   안 보고 옮겨서, `/csat/drill` 이 있는데도 「훈련 — 아직 열리지 않음」이라 적었고
+   *   `/csat/plan` 은 통째로 빠뜨렸다(실측 2026-09-16). 레일은 「어디로 갈까」에 답하는
+   *   줄인데 **있는 문을 없다고 말한 것**이다.
+   *   그래서 이름을 맞춰 보는 대신 **파일 시스템에 그 라우트가 있는지** 본다.
+   */
+  it('열린 단계의 href 는 전부 실재하는 라우트다', async () => {
+    const fs = await import('node:fs')
+    const path = await import('node:path')
+    const root = path.resolve(__dirname, '../../../app/(main)')
+    for (const s of readySteps()) {
+      const dir = path.join(root, s.href!.replace(/^\//, ''))
+      const ok = fs.existsSync(path.join(dir, 'page.tsx'))
+      expect(ok, `${s.no} ${s.label} → ${s.href} 에 page.tsx 가 없다`).toBe(true)
+    }
   })
 
-  it('⑤ 단권화는 ③ 패턴 화면 안에 산다', () => {
-    const five = CSAT_STEPS.find((s) => s.no === 5)!
-    const three = CSAT_STEPS.find((s) => s.no === 3)!
-    expect(five.href).toBe(three.href)
+  /** 반대 방향 — 있는 화면을 레일이 빠뜨리지 않았는가. 드릴다운·도구는 뺀다. */
+  it('입구가 될 만한 라우트를 레일이 빠뜨리지 않았다', async () => {
+    const fs = await import('node:fs')
+    const path = await import('node:path')
+    const root = path.resolve(__dirname, '../../../app/(main)/csat')
+    /** 레일에 안 넣기로 한 것 — 이유는 `steps.ts` 목록 주석에 적혀 있다. */
+    const NOT_A_STEP = new Set(['item', 'overlay'])
+    const dirs = fs
+      .readdirSync(root, { withFileTypes: true })
+      .filter((d) => d.isDirectory() && !d.name.startsWith('[') && !d.name.startsWith('_'))
+      .map((d) => d.name)
+      .filter((n) => !NOT_A_STEP.has(n) && n !== '__tests__')
+
+    const linked = new Set(CSAT_STEPS.map((s) => s.href).filter(Boolean) as string[])
+    for (const d of dirs) {
+      expect(linked.has(`/csat/${d}`), `/csat/${d} 가 레일에 없다`).toBe(true)
+    }
   })
 })
 
 describe('현재 위치 판정', () => {
-  it('하위 경로도 그 단계로 센다 — 문항 상세에서 인디케이터가 꺼지지 않는다', () => {
-    expect(stepFor('/csat/item')?.no).toBe(2)
-    expect(stepFor('/csat/item/2024-suneung-34')?.no).toBe(2)
+  it('허브는 정확히 일치할 때만 ① 이다 — 두 칸이 동시에 켜지지 않는다', () => {
+    expect(stepFor('/csat')?.no).toBe(1)
+    expect(stepFor('/csat/map')?.no).toBe(2)
   })
 
-  it('③ 과 ⑤ 가 같은 경로일 때 ③ 이 이긴다 — 두 칸이 동시에 켜지지 않는다', () => {
-    expect(stepFor('/csat/patterns')?.no).toBe(3)
+  it('하위 경로도 그 단계로 센다', () => {
+    expect(stepFor('/csat/map/2024')?.no).toBe(2)
   })
 
-  it('허브는 어느 단계도 아니다', () => {
-    expect(stepFor('/csat')).toBeNull()
-  })
-
-  it('가장 구체적인 경로가 이긴다', () => {
-    expect(stepFor('/csat/map')?.no).toBe(1)
-    expect(stepFor('/csat/predict')?.no).toBe(4)
+  it('드릴다운 목적지는 어느 단계도 아니다 — 레일이 켜지지 않는다', () => {
+    expect(stepFor('/csat/item/2024-34')).toBeNull()
+    expect(stepFor('/csat/overlay')).toBeNull()
   })
 
   it('모르는 경로는 null', () => {
-    expect(stepFor('/csat/overlay')).toBeNull()
     expect(stepFor('/dashboard')).toBeNull()
   })
 })

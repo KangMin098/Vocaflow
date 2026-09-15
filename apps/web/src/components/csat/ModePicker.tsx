@@ -17,8 +17,14 @@ import Link from 'next/link'
 
 import { CSAT_STEPS } from '@/lib/csat/steps'
 
-/** 허브에 세울 네 모드 — 단계 번호로 고른다. ⑤ 는 ③ 안에 사니 문을 따로 두지 않는다. */
-const MODE_STEPS = [1, 2, 3, 4] as const
+/**
+ * 허브에 세울 네 모드 — **① 다음의 네 문**이다.
+ *
+ * ⚠️ ① 은 넣지 않는다. 이 컴포넌트가 사는 곳이 곧 `/csat`(① 지도)이라 자기 자신으로 가는
+ *   카드가 된다. 처음엔 `[1,2,3,4]` 로 두었다가 그 자기 링크를 만들 뻔했다.
+ * ⚠️ ⑦(내 기록)은 `href` 가 없으므로 아래 필터가 자동으로 뺀다 — 여기서 또 세지 않는다.
+ */
+const MODE_STEPS = [2, 3, 4, 5] as const
 
 export function ModePicker() {
   const modes = MODE_STEPS.map((no) => CSAT_STEPS.find((s) => s.no === no)).filter(
