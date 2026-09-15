@@ -25,7 +25,9 @@ export default function AdminCsatLayout({ children }: { children: React.ReactNod
       <h1 className="w-fit">
         <Link
           href="/admin/csat"
-          className="font-display text-[22px] font-[800] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:text-[#8B5CF6] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8B5CF6]"
+          // 높이 28px 였다 — 교재 공장 여덟 화면 전부에서 44px 미만 터치타깃이었다(실측 2026-09-16).
+          // 글자 크기를 키우지 않고 **누를 수 있는 넓이**만 준다.
+          className="inline-flex min-h-[44px] items-center font-display text-[22px] font-[800] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:text-[var(--admin)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--admin)]"
         >
           교재 공장
         </Link>

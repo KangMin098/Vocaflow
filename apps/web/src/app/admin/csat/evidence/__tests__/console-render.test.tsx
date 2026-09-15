@@ -25,7 +25,7 @@ import {
   coverageOf,
   keysOf,
   pivot,
-  trapHeadOf,
+  axisContext,
   type AxisContext,
   type EvidenceExam,
   type EvidenceItem,
@@ -102,7 +102,7 @@ const ITEMS: EvidenceItem[] = [
   }),
 ]
 
-const CTX: AxisContext = { exams: EXAMS, types: TYPES, trapHead: trapHeadOf(ITEMS) }
+const CTX: AxisContext = axisContext(ITEMS, EXAMS, TYPES)
 
 const PROPS = {
   items: ITEMS,
@@ -259,5 +259,115 @@ describe('빈 상태와 실패를 삼키지 않는다', () => {
     const html = text(renderToString(<EvidenceConsole {...PROPS} />))
     expect(html).toContain('/api/admin/csat/guide?format=md')
     expect(html).toContain('format=json')
+  })
+})
+
+// ── 축 패널 — 피벗이 구조상 말할 수 없는 것 ────────────────────────────
+//
+// 축마다 전용 「화면」을 만들면 축을 겹칠 수 없게 되어 탭 시절로 되돌아간다. 그렇다고 전부
+// 피벗 하나로 밀면 세 가지가 빠진다 — 계열 아래 **어떤 라벨이 묶였나** · 결함을 **어느 순서로
+// 고치나** · 유형 리포트의 **문항 줄에 없는 두 칸**. 그래서 피벗은 늘 있고 그 위에 패널이 붙는다.
+
+describe('함정 축 — 라벨이 아니라 계열이다', () => {
+  it('라벨 513종을 행으로 세우지 않는다 — 계열로 접어 축에 올린다', () => {
+    // 표본의 세 라벨은 서로 안 겹치므로 계열도 셋이다. 요점은 **축이 계열 키를 쓴다**는 것.
+    const keys = bucketsOf('trap', CTX).map((b) => b.key)
+    for (const f of CTX.trap.families) expect(keys).toContain(f.key)
+    // 라벨이 하나도 없는 문항이 들어와도 축에서 사라지지 않아야 한다
+    expect(keys).toContain('__notrap__')
+  })
+
+  it('계열 축에서도 총합은 모집단과 같다', () => {
+    const p = pivot(ITEMS, 'trap', 'exam', 'items', CTX)
+    expect(p.grand).toBe(ITEMS.length)
+  })
+
+  it('원 라벨을 접어 두지 않고 함께 보여 준다 — 병합이 휴리스틱이라 사람이 확인해야 한다', () => {
+    const html = text(renderToString(<EvidenceConsole {...PROPS} initialRow="trap" />))
+    expect(html).toContain('함정 계열 —')
+    expect(html).toContain('과잉')
+    for (const label of ['어휘 함정', '반대 진술', '무관']) expect(html).toContain(label)
+  })
+
+  it('라벨 → 계열 대조표 없이 접는 시늉을 하지 않는다', () => {
+    // ctx 를 안 주면 라벨 그대로 돌려준다 — 틀린 묶음보다 안 묶은 게 낫다.
+    const it3 = ITEMS.find((i) => i.id === 'c') as EvidenceItem
+    expect(keysOf(it3, 'trap')).toEqual(['반대 진술', '무관'])
+  })
+})
+
+describe('결함 축 — 몇 개인가가 아니라 어느 순서로 고치나', () => {
+  it('막는 공정이 이른 것부터 세운다', () => {
+    const html = text(renderToString(<EvidenceConsole {...PROPS} initialRow="defect" />))
+    expect(html).toContain('고치는 순서 —')
+    // 배점 모순(①커버리지)이 리포트 작업 로그(학습자 배포)보다 먼저 나와야 한다
+    expect(html.indexOf('배점 모순')).toBeLessThan(html.indexOf('리포트 작업 로그'))
+  })
+
+  it('결함마다 **다음 한 걸음**을 적는다 — 라벨은 무엇을 돌릴지 말하지 않는다', () => {
+    const html = text(renderToString(<EvidenceConsole {...PROPS} initialRow="defect" />))
+    expect(html).toContain('locus-refold')
+    expect(html).toContain('--redo')
+  })
+
+  it('결함 칩과 순서 패널을 동시에 그리지 않는다 — 같은 말이 두 번이다', () => {
+    const withPanel = text(renderToString(<EvidenceConsole {...PROPS} initialRow="defect" />))
+    const noPanel = text(renderToString(<EvidenceConsole {...PROPS} initialRow="exam" initialCol="type" />))
+    expect(withPanel).toContain('고치는 순서 —')
+    expect(noPanel).not.toContain('고치는 순서 —')
+    // 패널이 없을 때는 칩이 그 자리를 대신한다 — 어느 축에서도 결함으로 들어갈 길은 남는다
+    expect(noPanel).toContain('결함 없음')
+  })
+})
+
+describe('유형 축 — 문항 수로는 안 보이는 두 칸', () => {
+  it('리포트 계수 불일치와 학습자 배포 막힘을 유형마다 적는다', () => {
+    const html = text(renderToString(<EvidenceConsole {...PROPS} initialRow="type" />))
+    expect(html).toContain('유형 리포트 —')
+    // R-BLANK 는 리포트 n=3 인데 실제 2 라 어긋나고, 작업 로그(청크)가 섞여 배포가 막힌다
+    expect(html).toContain('계수 3 ≠ 실제 2')
+    expect(html).toContain('청크')
+  })
+
+  it('패널이 없는 축에서는 빈 상자를 두지 않는다', () => {
+    const html = text(renderToString(<EvidenceConsole {...PROPS} initialRow="steps" initialCol="vocab" />))
+    // 패널 제목으로 본다 — 「유형 리포트」 넉 자는 결함 칩의 설명에도 나오므로 오탐이 난다
+    for (const gone of ['함정 계열 —', '고치는 순서 —', '유형 리포트 —']) expect(html).not.toContain(gone)
+  })
+})
+
+describe('커버리지 한 줄 — 누를 수 없는 숫자를 두지 않는다', () => {
+  it('「채움」을 첫 줄에서 뺐다 — 아무 행동으로도 이어지지 않는 수였다', () => {
+    const html = text(renderToString(<EvidenceConsole {...PROPS} />))
+    expect(html).not.toContain('채움')
+  })
+
+  it('분모(문항·필드·셀)와 못 쓰는 칸이 전부 버튼이다', () => {
+    const html = renderToString(<EvidenceConsole {...PROPS} />)
+    const head = html.slice(0, html.indexOf('막힌 문항'))
+    // 첫 줄에 남은 숫자가 버튼 밖에 있으면 추적할 수 없는 숫자가 된다
+    expect(head).toContain('필드')
+    expect(head).toContain('셀')
+    expect(head).toContain('쓸 수 없는 칸')
+    expect((head.match(/<button/g) ?? []).length).toBeGreaterThanOrEqual(4)
+  })
+
+  it('필드 목록을 펴면 어느 필드가 몇 칸을 막는지와 **누가 읽는지**가 함께 나온다', () => {
+    // 펼침은 클라이언트 상태라 서버 렌더에는 안 보인다 — 계산 쪽 계약만 잠근다.
+    const cov = coverageOf(ITEMS)
+    const body = cov.byField.find((f) => f.key === 'body')
+    expect(body?.bad).toBe(1)
+    expect(body?.stage).toContain('④소재')
+    expect(cov.byField.every((f) => f.bad >= 0)).toBe(true)
+    // 못 쓰는 칸의 합은 필드별 합과 같아야 한다 — 한 곳에서만 세면 두 수가 갈라진다
+    expect(cov.byField.reduce((s, f) => s + f.bad, 0)).toBe(cov.cells - cov.fill)
+  })
+})
+
+describe('피벗 키보드 — 칸 810개를 탭 정지점으로 두지 않는다', () => {
+  it('방향키 규칙을 화면에 눈에 보이게 적는다', () => {
+    const html = text(renderToString(<EvidenceConsole {...PROPS} />))
+    expect(html).toContain('방향키')
+    expect(html).toContain('Enter')
   })
 })

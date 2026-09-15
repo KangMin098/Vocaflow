@@ -41,7 +41,7 @@ import {
   labelOf,
   MEASURES,
   pivot,
-  trapHeadOf,
+  axisContext,
   type AxisContext,
   type AxisId,
   type DefectCode,
@@ -50,6 +50,8 @@ import {
   type Filter,
   type Measure,
 } from '@/lib/csat/evidence-fold'
+
+import { EvidenceAxisPanel, hasAxisPanel } from './EvidenceAxisPanel'
 
 // ── 공통 클래스 ─────────────────────────────────────────────────────────
 
@@ -94,27 +96,82 @@ function CoverageLine({
   items,
   all,
   onPick,
+  onAll,
+  showDefectChips,
 }: {
   items: EvidenceItem[]
   all: EvidenceItem[]
   onPick: (defect: DefectCode | 'blocked' | 'clean') => void
+  /** 조건을 전부 지운다 — 분모(문항 수)를 누르면 전량으로 돌아간다. */
+  onAll: () => void
+  /**
+   * 결함 칩을 여기 그릴까.
+   *
+   * 결함 축을 골랐으면 아래 「고치는 순서」 패널이 칩이 말하는 것을 **전부 담고** 순서·원인·
+   * 다음 걸음까지 더한다. 둘 다 그리면 같은 말이 두 번이라 첫 화면의 밀도만 깎인다.
+   */
+  showDefectChips: boolean
 }) {
   const cov = useMemo(() => coverageOf(items), [items])
+  const [fields, setFields] = useState(false)
   const scoped = items.length !== all.length
   const ok = cov.blockedItems === 0
 
   return (
     <div className="rounded-lg border border-[var(--bd)] bg-[var(--bg)] px-4 py-3">
+      {/* **「채움 12,558」을 여기서 뺐다.** 아무 행동으로도 이어지지 않는 수였다 — 멀쩡한 칸은
+          고칠 것이 없다는 뜻이라 관리자는 못 쓰는 칸만 본다. 분모(문항 × 필드)와 함께 아래
+          펼침으로 내렸고, 거기서는 **어느 필드가 몇 칸을 막는지 · 그 칸을 누가 읽는지**가 나온다. */}
       <p className="text-[13px] leading-relaxed text-[var(--t2)]">
-        <span className="tabular-nums text-[var(--t1)]">{nf.format(cov.items)}</span>문항 ×{' '}
-        <span className="tabular-nums text-[var(--t1)]">{cov.fields}</span>필드 ={' '}
-        <span className="tabular-nums text-[var(--t1)]">{nf.format(cov.cells)}</span>셀 — 채움{' '}
-        <span className="tabular-nums">{nf.format(cov.fill)}</span> · 비움{' '}
-        <span className="tabular-nums">{nf.format(cov.empty)}</span> · 미통과{' '}
-        <span className="tabular-nums">{nf.format(cov.fail)}</span> · 모순{' '}
-        <span className="tabular-nums font-semibold text-[var(--error-ink)]">{nf.format(cov.conflict)}</span>
+        <button
+          type="button"
+          onClick={onAll}
+          title="조건을 전부 지우고 전량으로 돌아간다"
+          className={`${LINKNUM} text-[var(--t1)]`}
+        >
+          {nf.format(cov.items)}
+        </button>
+        문항 ×{' '}
+        <button type="button" onClick={() => setFields((v) => !v)} aria-expanded={fields} className={LINKNUM}>
+          {cov.fields}필드
+        </button>{' '}
+        ={' '}
+        <button type="button" onClick={() => setFields((v) => !v)} aria-expanded={fields} className={LINKNUM}>
+          {nf.format(cov.cells)}셀
+        </button>{' '}
+        중 쓸 수 없는 칸{' '}
+        <button
+          type="button"
+          onClick={() => onPick('blocked')}
+          disabled={cov.cells - cov.fill === 0}
+          className={`${LINKNUM} font-semibold text-[var(--error-ink)] disabled:cursor-default disabled:text-[var(--success-ink)]`}
+        >
+          {nf.format(cov.cells - cov.fill)}
+        </button>
         {scoped ? <span className="text-[var(--t3)]"> · 필터 적용 중</span> : null}
       </p>
+
+      {fields ? (
+        <ul className="mt-2 grid gap-x-4 gap-y-0.5 text-xs sm:grid-cols-2">
+          {cov.byField.map((f) => (
+            <li key={f.key} className="flex items-baseline gap-2 border-b border-[var(--bd)] py-0.5 last:border-0">
+              <span className={f.bad ? 'text-[var(--t1)]' : 'text-[var(--t3)]'}>{f.label}</span>
+              <span className="flex-1 truncate text-[var(--t3)]">{f.stage}</span>
+              {f.bad ? (
+                <button
+                  type="button"
+                  onClick={() => (f.defect ? onPick(f.defect) : onPick('blocked'))}
+                  className={`${LINKNUM} text-[var(--error-ink)]`}
+                >
+                  {nf.format(f.bad)}
+                </button>
+              ) : (
+                <span className="tabular-nums text-[var(--t3)]">0</span>
+              )}
+            </li>
+          ))}
+        </ul>
+      ) : null}
 
       <p className="mt-1.5 font-display text-[19px] font-[750] leading-tight text-[var(--t1)]">
         {ok ? (
@@ -132,6 +189,7 @@ function CoverageLine({
         )}
       </p>
 
+      {showDefectChips ? (
       <div className="mt-2 flex flex-wrap items-center gap-x-1.5 gap-y-1 text-xs">
         {cov.byDefect.map(({ code, items: n }) => {
           const d = defectDef(code)
@@ -167,6 +225,7 @@ function CoverageLine({
           </span>
         </button>
       </div>
+      ) : null}
     </div>
   )
 }
@@ -233,6 +292,11 @@ function PivotGrid({
       ArrowDown: [1, 0],
       ArrowLeft: [0, -1],
       ArrowRight: [0, 1],
+      // 축이 서른 칸이면 방향키만으로는 끝까지 가는 데 서른 번이 든다.
+      Home: [0, -9999],
+      End: [0, 9999],
+      PageUp: [-9999, 0],
+      PageDown: [9999, 0],
     }
     const d = map[e.key]
     if (d) {
@@ -245,16 +309,27 @@ function PivotGrid({
   const colAxisLabel = axisDef(colAxis).label
 
   return (
-    <div className="overflow-x-auto">
+    <>
+      {/* **키보드 안내를 눈에 보이게 적는다.** 칸이 최대 810개라 표 전체를 한 정지점으로 두고
+          안에서 방향키로 도는데(로빙 탭인덱스), 그 규칙은 화면에 쓰여 있지 않으면 아무도
+          모른다 — `<caption class="sr-only">` 은 스크린리더에만 들린다. */}
+      <p className="mb-1.5 text-xs text-[var(--t3)]">
+        {axisDef(rowAxis).label} × {axisDef(colAxis).label} — 표 안에서 <kbd>방향키</kbd>로 칸을 옮기고{' '}
+        <kbd>Enter</kbd> 로 그 칸만 남긴다 (<kbd>Home</kbd>/<kbd>End</kbd> 는 행의 끝)
+      </p>
+      {/* **세로도 가둔다.** 함정 축은 계열이 280개라(라벨 513을 접은 것) 가두지 않으면 표 하나가
+          페이지를 수백 줄로 늘려 아래 문항 목록이 화면 밖으로 밀린다. 행을 **버리지는 않는다**
+          (B3 누락 0) — 머리행·머리열·합계열이 붙박여 있어 스크롤해도 좌표를 잃지 않는다. */}
+      <div className="max-h-[62vh] overflow-auto">
       <table className="w-full border-collapse text-[13px]" onKeyDown={onKey}>
         <caption className="sr-only">
           {rowAxisLabel} × {colAxisLabel} 교차표. 방향키로 칸을 옮기고 Enter 로 그 칸의 문항만 남긴다.
         </caption>
-        <thead>
+        <thead className="sticky top-0 z-20 bg-[var(--bg)]">
           <tr>
             <th
               scope="col"
-              className="sticky left-0 z-10 bg-[var(--bg)] px-2 py-1.5 text-left text-xs font-medium text-[var(--t3)]"
+              className="sticky left-0 z-30 bg-[var(--bg)] px-2 py-1.5 text-left text-xs font-medium text-[var(--t3)]"
             >
               {rowAxisLabel} ＼ {colAxisLabel}
             </th>
@@ -331,7 +406,7 @@ function PivotGrid({
             )
           })}
         </tbody>
-        <tfoot>
+        <tfoot className="sticky bottom-0 z-20 bg-[var(--bg)]">
           <tr className="border-t-2 border-[var(--bd)]">
             <th scope="row" className="sticky left-0 z-10 bg-[var(--bg)] px-2 py-1.5 text-left text-xs text-[var(--t2)]">
               합계
@@ -361,7 +436,8 @@ function PivotGrid({
           </tr>
         </tfoot>
       </table>
-    </div>
+      </div>
+    </>
   )
 }
 
@@ -634,7 +710,7 @@ export function EvidenceConsole({
   const [open, setOpen] = useState<string | null>(null)
 
   const ctx = useMemo<AxisContext>(
-    () => ({ exams, types, trapHead: trapHeadOf(items) }),
+    () => axisContext(items, exams, types),
     [exams, types, items],
   )
 
@@ -716,7 +792,13 @@ export function EvidenceConsole({
         </div>
       ) : null}
 
-      <CoverageLine items={shown} all={items} onPick={pickDefect} />
+      <CoverageLine
+        items={shown}
+        all={items}
+        onPick={pickDefect}
+        onAll={() => setFilter({})}
+        showDefectChips={rowAxis !== 'defect' && colAxis !== 'defect'}
+      />
 
       <div className="flex flex-wrap items-center gap-2 rounded-lg border border-[var(--bd)] bg-[var(--bg)] px-3 py-2">
         <label className="flex items-center gap-1.5 text-xs text-[var(--t3)]">
@@ -771,6 +853,13 @@ export function EvidenceConsole({
           </div>
         ) : null}
       </div>
+
+      {/* 축이 고른 것에 따라 하나 붙는다 — 피벗이 **구조상 말할 수 없는 것**만 담는다.
+          없는 축에서는 아예 안 그린다(빈 상자를 두지 않는다). */}
+      <EvidenceAxisPanel axis={rowAxis} items={shown} ctx={ctx} filter={filter} onToggle={toggle} />
+      {colAxis !== rowAxis && hasAxisPanel(colAxis) ? (
+        <EvidenceAxisPanel axis={colAxis} items={shown} ctx={ctx} filter={filter} onToggle={toggle} />
+      ) : null}
 
       <section className="rounded-lg border border-[var(--bd)] bg-[var(--bg)] p-3">
         <PivotGrid

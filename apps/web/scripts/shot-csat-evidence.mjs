@@ -69,12 +69,29 @@ for (const route of routes) {
     const seen = await page.evaluate(() => ({
       title: document.querySelector('h2')?.textContent ?? '',
       head: document.body.innerText.slice(0, 260).replace(/\s+/g, ' '),
-      tapTooSmall: Array.from(document.querySelectorAll('button, a, select, [role="button"]')).filter((el) => {
-        const r = el.getBoundingClientRect()
-        // 표 안의 칸은 밀도를 위해 작게 둔다 — 방향키로 도는 격자라 손가락 대상이 아니다.
-        if (el.closest('table')) return false
-        return r.width > 0 && (r.height < 44 || r.width < 44)
-      }).length,
+      tapTooSmall: (() => {
+        const out = []
+        for (const el of Array.from(document.querySelectorAll('button, a, select, [role="button"]'))) {
+          const r = el.getBoundingClientRect()
+          if (r.width === 0) continue
+          if (r.height >= 44 && r.width >= 44) continue
+          // 표 안의 칸은 밀도를 위해 작게 둔다 — 방향키로 도는 격자라 손가락 대상이 아니다.
+          if (el.closest('table')) continue
+          // **WCAG 2.5.8 인라인 예외** — 문장 속에 박힌 대상은 크기를 line-height 가 정한다.
+          //   「802문항 × 17필드 = 13,634셀 중 쓸 수 없는 칸 1,004」처럼 숫자마다 버튼인 줄이
+          //   그렇다. 이걸 44px 로 키우면 문장이 버튼 더미로 깨진다.
+          //   판정은 눈대중이 아니라 **형제에 글자가 있는가**로 한다 — 그래야 예외가 번지지 않는다.
+          const parent = el.parentElement
+          const inSentence =
+            parent &&
+            Array.from(parent.childNodes).some(
+              (n) => n.nodeType === 3 && (n.textContent || '').trim().length > 0,
+            )
+          if (inSentence) continue
+          out.push(`${el.tagName.toLowerCase()} "${(el.textContent || '').trim().slice(0, 18)}" ${Math.round(r.height)}x${Math.round(r.width)}`)
+        }
+        return out
+      })(),
     }))
 
     const name = `${route.replace(/[^A-Za-z0-9]+/g, '_').replace(/^_|_$/g, '')}-${vp.name}.png`
@@ -96,7 +113,7 @@ for (const route of routes) {
         `  HTTP ${res?.status()} · 제목 "${seen.title}"`,
         `  가로: doc ${overflow.docWidth} / scroll ${overflow.scrollWidth}${hOver ? '  ← 넘침' : '  ok'}`,
         overflow.offenders.length ? `  넘친 요소: ${overflow.offenders.join(' | ')}` : null,
-        `  44px 미만 터치타깃(표 밖): ${seen.tapTooSmall}`,
+        `  44px 미만 터치타깃(표 밖 · 문장 속 제외): ${seen.tapTooSmall.length}${seen.tapTooSmall.length ? " — " + seen.tapTooSmall.join(" | ") : ""}`,
         `  axe(wcag2a/aa) 위반: ${axe.violations.length}${
           axe.violations.length ? ' — ' + axe.violations.map((v) => `${v.id}×${v.nodes.length}`).join(', ') : ''
         }`,
@@ -126,7 +143,11 @@ for (const route of routes) {
   const lines = []
 
   if (!cellName) {
-    lines.push('  누를 수 있는 칸이 없다 — 데이터가 안 왔거나 피벗이 비었다')
+    // 「칸이 없다」로 끝내면 화면 결함인지 적재 실패인지 알 수 없다 — 화면이 띄운 이유를 그대로 옮긴다.
+    const why = await page
+      .evaluate(() => (document.body.innerText.match(/불러오지 못했다[^\n]*/) || [])[0] ?? null)
+      .catch(() => null)
+    lines.push(`  누를 수 있는 칸이 없다 — ${why ?? '적재는 됐는데 피벗이 비었다(화면 결함)'}`)
     bad += 1
   } else {
     await cell.click()

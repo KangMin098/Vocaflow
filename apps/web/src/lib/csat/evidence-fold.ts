@@ -21,7 +21,9 @@
 // ⚠️ **평가원 지문 원문은 이 파일에 들어오지 않는다.** 인용이 지문에 실제로 있는지는 서버가
 //    판정해 `EvidenceItem.quoteLocated` 불리언 하나로 넘긴다. 원문은 서버 밖으로 안 나간다.
 
-import { detectAnalystMeta } from './guide-fold'
+import { detectAnalystMeta, foldTrapFamilies, type TrapFamily } from './guide-fold'
+
+export type { TrapFamily } from './guide-fold'
 
 // ── 결함 ────────────────────────────────────────────────────────────────
 
@@ -42,6 +44,15 @@ export interface DefectDef {
   blocks: string
   /** 라벨이 말하지 않는 것: 무엇이 어긋났나. */
   why: string
+  /**
+   * 이 결함이 막는 **가장 이른 공정**의 번호(①~⑧, 학습자 쪽은 9).
+   *
+   * 고치는 순서가 여기서 나온다 — 이른 공정을 막는 결함일수록 그 뒤 판단 전부를 오염시킨다.
+   * 배점이 어긋나면 커버리지 숫자가 틀리고, 틀린 커버리지 위에서 고른 다음 드레인은 헛일이다.
+   */
+  stageOrd: number
+  /** 이걸 고치려면 무엇을 돌리나. 라벨이 말하지 않는 「다음 한 걸음」. */
+  fix: string
 }
 
 export const DEFECTS: readonly DefectDef[] = [
@@ -50,36 +61,48 @@ export const DEFECTS: readonly DefectDef[] = [
     label: '지문 잘림',
     blocks: '④소재 · ⑥해설',
     why: '단 나누기가 깨져 지문 일부만 적재됐다. 그 위에 선 분석은 안 잘린 부분만 보고 쓴 것이다',
+    stageOrd: 4,
+    fix: '추출기를 고쳐 코퍼스를 다시 만든 뒤, 지문이 바뀐 문항을 `analysis-drain-export.mjs --redo` 로 지목해 다시 분석한다',
   },
   {
     code: 'quote',
     label: '인용 미정착',
     blocks: '⑥해설(오버레이 좌표)',
     why: '분석이 근거로 든 문장을 지문에서 찾을 수 없다 — 좌표를 못 찍어 해설이 문장을 가리키지 못한다',
+    stageOrd: 6,
+    fix: '**지문이 새로 뽑히면 그 지문으로 쓰인 분석의 인용이 죽는다** — 실측 2026-09-16: 40건 중 36이 지문이 온전한 문항이다(추출기를 고친 직후 11 → 40 으로 늘었다). 그 문항들은 `analysis-drain-export.mjs --redo` 로 다시 분석한다',
   },
   {
     code: 'scoring',
     label: '배점 모순',
     blocks: '①커버리지',
     why: '3점 표시와 실제 배점이 어긋난다 — 사정권 배점 합이 틀어진다',
+    stageOrd: 1,
+    fix: '원본 문제지에서 그 문항의 배점을 확인하고 `corpus-sync.mjs` 로 다시 맞춘다. 한 문항이라도 커버리지 전체가 틀어진다',
   },
   {
     code: 'answerKey',
     label: '복수 정답',
     blocks: '채점',
     why: '정답이 둘 이상인데 단일 정답 칸으로 채점된다',
+    stageOrd: 9,
+    fix: '평가원 정답표에서 복수 정답이 맞는지 확인한다. 맞으면 채점이 두 답을 다 받아야 한다',
   },
   {
     code: 'reportText',
     label: '리포트 작업 로그',
     blocks: '학습자 배포',
     why: '유형 리포트의 학습자 노출 서술에 분석자끼리 쓴 말이 남아 있다 — 그대로 학습자 화면에 나간다',
+    stageOrd: 9,
+    fix: '`locus-refold` 드레인. ⚠️ `--commit` 이 `answer_locus_pattern` 을 덮어쓰고 재실행 안전하지 않다 — 백업 파일을 확인하고 한 번만 올린다',
   },
   {
     code: 'reportCount',
     label: '리포트 계수 불일치',
     blocks: '①커버리지 · ③설계',
     why: '유형 리포트가 적은 분석 문항 수가 그 유형의 실제 문항 수와 다르다',
+    stageOrd: 1,
+    fix: '리포트의 `n_analyzed` 를 그 유형의 실제 문항 수로 맞춘다. 어긋난 채로는 「어느 유형이 덜 됐나」를 이 화면이 못 말한다',
   },
 ] as const
 
@@ -291,6 +314,14 @@ export interface Coverage {
   blockedItems: number
   /** 결함별 문항 수. 많은 것 먼저. */
   byDefect: { code: DefectCode; items: number }[]
+  /**
+   * 필드별 칸 상태.
+   *
+   * 맨 윗줄에 「채움 12,558」을 적어 두었더니 **아무 행동으로도 이어지지 않았다** — 어느 필드가
+   * 멀쩡한지는 고칠 것이 없다는 뜻이고, 관리자는 못 쓰는 칸만 본다. 그래서 윗줄에서 빼고
+   * 여기로 내렸다(펴면 어느 필드가 몇 칸을 막는지, 그 칸을 **누가 읽는지**가 함께 나온다).
+   */
+  byField: { key: string; label: string; stage: string; defect: DefectCode | null; bad: number }[]
 }
 
 export function coverageOf(items: readonly EvidenceItem[]): Coverage {
@@ -299,15 +330,19 @@ export function coverageOf(items: readonly EvidenceItem[]): Coverage {
   let fail = 0
   let conflict = 0
   const byDefect = new Map<DefectCode, number>()
+  const badPerField = new Map<string, number>()
   let blocked = 0
 
   for (const it of items) {
     for (const f of FIELDS) {
       const s = cellState(it, f)
       if (s === 'fill') fill += 1
-      else if (s === 'empty') empty += 1
-      else if (s === 'fail') fail += 1
-      else conflict += 1
+      else {
+        badPerField.set(f.key, (badPerField.get(f.key) ?? 0) + 1)
+        if (s === 'empty') empty += 1
+        else if (s === 'fail') fail += 1
+        else conflict += 1
+      }
     }
     if (it.defects.length) blocked += 1
     for (const d of it.defects) byDefect.set(d, (byDefect.get(d) ?? 0) + 1)
@@ -325,6 +360,13 @@ export function coverageOf(items: readonly EvidenceItem[]): Coverage {
     byDefect: DEFECTS.map((d) => ({ code: d.code, items: byDefect.get(d.code) ?? 0 })).sort(
       (a, b) => b.items - a.items,
     ),
+    byField: FIELDS.map((f) => ({
+      key: f.key,
+      label: f.label,
+      stage: f.stage,
+      defect: f.defect,
+      bad: badPerField.get(f.key) ?? 0,
+    })).sort((a, b) => b.bad - a.bad),
   }
 }
 
@@ -367,10 +409,45 @@ export function axisDef(id: AxisId): AxisDef {
   return a
 }
 
-/** 함정 축에 세로로 세울 라벨 수. 나머지는 **버리지 않고** 한 칸으로 접는다(B3). */
-export const TRAP_HEAD = 24
-export const TRAP_REST = '__rest__'
+/**
+ * 함정 축의 「함정이 안 달린 문항」 칸.
+ *
+ * 실측으로는 802문항 전부가 오답 선지에 라벨을 달고 있어 비어 있지만, **칸 자체를 없애면
+ * 나중에 라벨 없는 문항이 하나 들어왔을 때 축에서 조용히 사라진다**(B3 누락 0).
+ */
+export const TRAP_NONE = '__notrap__'
 export const NO_DEFECT = '__clean__'
+
+/**
+ * **함정 축은 라벨이 아니라 계열이다.**
+ *
+ * 오답 선지에 달린 라벨은 문항 단위로 **513종**이다(실측 2026-09-16 · 오답 슬롯 3,208개).
+ * 그것을 그대로 행으로 세우면 표가 513줄이 되어 훑을 수 없고, 상위 N개만 남기면 나머지가
+ * 「그 밖」 한 칸으로 뭉개져 **가장 많은 정보가 가장 안 보이는 칸**에 들어간다.
+ *
+ * 그래서 축은 `foldTrapFamilies` 가 접은 **계열**로 세우고, 라벨은 축 패널의 트리에서 편다.
+ * 접는 규칙은 유형 리포트의 함정을 접을 때와 같은 함수다 — 두 곳이 다른 규칙을 쓰면 같은
+ * 함정이 화면마다 다른 이름을 갖는다.
+ *
+ * ⚠️ 이 병합은 **라벨 문자열 휴리스틱**이지 의미 판정이 아니다. 그래서 트리가 계열 아래에
+ *    원 라벨을 언제나 함께 보여 준다 — 확정 분류는 사람이 한다.
+ */
+export interface TrapAxis {
+  families: TrapFamily[]
+  /** 원 라벨 → 그 라벨이 들어간 계열 대표 라벨. */
+  familyOf: Map<string, string>
+}
+
+export function foldItemTraps(items: readonly EvidenceItem[]): TrapAxis {
+  const count = new Map<string, number>()
+  for (const it of items) for (const t of it.traps) count.set(t, (count.get(t) ?? 0) + 1)
+
+  const families = foldTrapFamilies([...count.entries()].map(([trap, n]) => ({ trap, count: n })))
+
+  const familyOf = new Map<string, string>()
+  for (const f of families) for (const l of f.labels) familyOf.set(l, f.key)
+  return { families, familyOf }
+}
 
 /** 예측 정답률 구간 — 경계는 배점 구분(2점 평균 .745 · 3점 평균 .503)에서 왔다. */
 function predBand(p: number): { key: string; label: string } {
@@ -380,8 +457,12 @@ function predBand(p: number): { key: string; label: string } {
   return { key: 'p3', label: '80%~' }
 }
 
-/** 한 문항이 그 축에서 들어가는 칸들. 빈 배열을 돌려주지 않는다 — 누락 0(B3). */
-export function keysOf(item: EvidenceItem, axis: AxisId): string[] {
+/**
+ * 한 문항이 그 축에서 들어가는 칸들. 빈 배열을 돌려주지 않는다 — 누락 0(B3).
+ *
+ * 함정 축만 `ctx` 가 필요하다(라벨 → 계열 대조). 다른 축은 문항 한 줄로 결정된다.
+ */
+export function keysOf(item: EvidenceItem, axis: AxisId, ctx?: AxisContext): string[] {
   switch (axis) {
     case 'exam':
       return [item.examId]
@@ -395,8 +476,13 @@ export function keysOf(item: EvidenceItem, axis: AxisId): string[] {
       return [String(item.vocab)]
     case 'band':
       return [`${item.points}:${predBand(item.predicted).key}`]
-    case 'trap':
-      return item.traps.length ? item.traps : [TRAP_REST]
+    case 'trap': {
+      if (!item.traps.length) return [TRAP_NONE]
+      const fam = ctx?.trap.familyOf
+      // 대조표가 없으면 라벨 그대로 — 계열을 **지어내지 않는다**(틀린 묶음보다 안 묶은 게 낫다).
+      if (!fam) return [...new Set(item.traps)]
+      return [...new Set(item.traps.map((t) => fam.get(t) ?? t))]
+    }
     case 'defect':
       return item.defects.length ? item.defects : [NO_DEFECT]
     default:
@@ -407,18 +493,20 @@ export function keysOf(item: EvidenceItem, axis: AxisId): string[] {
 export interface AxisContext {
   exams: readonly EvidenceExam[]
   types: readonly EvidenceType[]
-  /** 함정 축에서 앞에 세울 라벨 — 전체 집합 기준으로 한 번 정해 필터가 바뀌어도 자리가 안 흔들린다. */
-  trapHead: readonly string[]
+  /**
+   * 함정 계열 — **전체 집합 기준으로 한 번** 접는다. 필터가 바뀔 때마다 다시 접으면
+   * 조건을 좁혔을 뿐인데 행의 이름과 자리가 바뀌어, 좁히기 전후를 견줄 수 없게 된다.
+   */
+  trap: TrapAxis
 }
 
-/** 전체 문항에서 함정 축의 머리 라벨을 고른다 — 문항 수 내림차순. */
-export function trapHeadOf(items: readonly EvidenceItem[], n = TRAP_HEAD): string[] {
-  const count = new Map<string, number>()
-  for (const it of items) for (const t of it.traps) count.set(t, (count.get(t) ?? 0) + 1)
-  return [...count.entries()]
-    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], 'ko'))
-    .slice(0, n)
-    .map(([k]) => k)
+/** 화면이 넘겨받는 문항 전량으로 축 문맥을 만든다. */
+export function axisContext(
+  items: readonly EvidenceItem[],
+  exams: readonly EvidenceExam[],
+  types: readonly EvidenceType[],
+): AxisContext {
+  return { exams, types, trap: foldItemTraps(items) }
 }
 
 /**
@@ -462,8 +550,12 @@ export function bucketsOf(axis: AxisId, ctx: AxisContext): Bucket[] {
     }
     case 'trap':
       return [
-        ...ctx.trapHead.map((t) => ({ key: t, label: t })),
-        { key: TRAP_REST, label: '그 밖 · 함정 없음', short: '그 밖' },
+        ...ctx.trap.families.map((f) => ({
+          key: f.key,
+          label: f.labels.length > 1 ? `${f.key} 외 ${f.labels.length - 1}` : f.key,
+          short: f.key,
+        })),
+        { key: TRAP_NONE, label: '함정 라벨 없음', short: '없음' },
       ]
     case 'defect':
       return [
@@ -550,8 +642,8 @@ export function pivot(
   const known = { row: new Set(rows.map((b) => b.key)), col: new Set(cols.map((b) => b.key)) }
 
   for (const it of items) {
-    const rk = keysOf(it, rowAxis).map((k) => (known.row.has(k) ? k : fallbackKey(rowAxis)))
-    const ck = keysOf(it, colAxis).map((k) => (known.col.has(k) ? k : fallbackKey(colAxis)))
+    const rk = keysOf(it, rowAxis, ctx).map((k) => (known.row.has(k) ? k : fallbackKey(rowAxis)))
+    const ck = keysOf(it, colAxis, ctx).map((k) => (known.col.has(k) ? k : fallbackKey(colAxis)))
     for (const r of new Set(rk)) {
       let m = grouped.get(r)
       if (!m) grouped.set(r, (m = new Map()))
@@ -614,7 +706,7 @@ export function pivot(
 
 /** 축 목록에 없는 값이 오면 버리지 않고 여기로 모은다 — 누락 0(B3). */
 function fallbackKey(axis: AxisId): string {
-  if (axis === 'trap') return TRAP_REST
+  if (axis === 'trap') return TRAP_NONE
   if (axis === 'defect') return NO_DEFECT
   return '—'
 }
@@ -630,7 +722,7 @@ export function applyFilter(items: readonly EvidenceItem[], filter: Filter, ctx:
   return items.filter((it) =>
     entries.every(([axis, want]) => {
       const known = new Set(bucketsOf(axis, ctx).map((b) => b.key))
-      const keys = keysOf(it, axis).map((k) => (known.has(k) ? k : fallbackKey(axis)))
+      const keys = keysOf(it, axis, ctx).map((k) => (known.has(k) ? k : fallbackKey(axis)))
       return keys.some((k) => want.includes(k))
     }),
   )
