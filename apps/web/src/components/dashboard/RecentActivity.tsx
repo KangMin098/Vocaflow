@@ -40,16 +40,19 @@ import type {
 // `packages/types` 의 module_id 는 25종인데 DB enum 은 28종이라(2026-08-13 실측) 타입이
 // 실제 값을 다 담지 못한다 — 실데이터가 쓰는 `'pirate-quest'`(하이픈)는 타입에 아예 없다.
 // 타입 재생성(`pnpm db:types`)이 근본 해결이고, 그 전까지는 문자열 키로 정직하게 둔다.
+// v07 「주묵 판면」 — 원색(보라 #8B5CF6 · 핑크 #EC4899 · 시안 #06B6D4)을 지면 팔레트로.
+// 보라는 `/admin` 전용 액센트라 학습자 화면에 있으면 두 제품이 섞여 보이고,
+// 형광 핑크·시안은 크림 지면 위에서 혼자 튄다. 단계 구분은 유지하되 같은 종이 위 색으로.
 const MODULE_COLOR: Record<string, string> = {
-  textviewer: '#8B5CF6', // purple (스크립트)
-  workspace: '#8B5CF6',
-  wordvault: '#0F2540', // deep ink (단어) — v07: 떠돌이 indigo 제거, 지면 팔레트로
-  flashcard: '#EC4899', // pink (익히기)
-  spellforge: '#EC4899',
-  wordblitz: '#EC4899',
-  pairflip: '#EC4899',
+  textviewer: 'var(--learn-fresh)', // dusty blue (스크립트)
+  workspace: 'var(--learn-fresh)',
+  wordvault: 'var(--p)', // deep ink (단어) — v07: 떠돌이 indigo 제거, 지면 팔레트로
+  flashcard: 'var(--ju)', // 주묵 (익히기 — 표식을 남기는 단계)
+  spellforge: 'var(--ju)',
+  wordblitz: 'var(--ju)',
+  pairflip: 'var(--ju)',
   scriptquiz: 'var(--memory-shaky)', // amber (정복)
-  dictation: '#06B6D4', // cyan (완성)
+  dictation: 'var(--learn-progress)', // muted teal (완성)
   // 실데이터가 쓰는 라벨은 하이픈 쪽이다 — 언더스코어는 enum 에만 있고 전 테이블 0행.
   'pirate-quest': 'var(--memory-stable)',
 }

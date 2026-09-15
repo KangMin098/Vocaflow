@@ -332,7 +332,7 @@ export default function SettingsPage() {
           icon={Palette}
           title="외형"
           description="시각 환경을 당신에게 맞춥니다."
-          accent="#8B5CF6"
+          accent="var(--learn-fresh)"
         >
           <Row
             label="테마"

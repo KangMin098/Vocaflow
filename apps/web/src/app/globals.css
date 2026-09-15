@@ -27,18 +27,26 @@
        하단 고정 UI 는 이 값을 쓰면 안 된다(빈 자리만큼 떠 보인다). */
     --tabbar-h: calc(56px + env(safe-area-inset-bottom, 0px));
 
-    /* 학습 단계 (뇌과학 기반) */
-    --learn-fresh:          #3B82F6;
-    --learn-fresh-light:    #EFF6FF;
-    --learn-progress:       #06B6D4;
-    --learn-progress-light: #ECFEFF;
-    --learn-known:          #10B981;
-    --learn-known-light:    #ECFDF5;
-    --learn-mastered:       #8B5CF6;
-    --learn-mastered-ink:   #7C3AED;  /* 종이 위 글자 5.46 — 원색은 4.05 로 미달 */
-    --learn-mastered-light: #F5F3FF;
-    --learn-review:         #F59E0B;
-    --learn-review-light:   #FFFBEB;
+    /* 학습 단계 (뇌과학 기반) — v07 「주묵 판면」에서 지면 톤으로 재조율
+       ⚠️ **여기가 의뢰서가 말한 「연보라 포인트」였다.** 00-inventory §0-1 은 학습자 표면에
+          `violet-*`·`purple-*` 클래스가 0회라는 이유로 그 진단을 "틀렸다" 고 적었는데,
+          **클래스 이름만 세고 토큰은 안 봤다.** 보라는 `--learn-mastered #8B5CF6`(violet-500)로
+          살아 있었고 학습자 표면 30곳에서 쓰였다 — 그중 둘은 파랑→보라 **그라데이션**이다
+          (`wordvault/ListenPanel` · `StudyMode`). AI-보라 그라데이션은 vocaflow-design §2 가
+          이름 대어 금지한 것이기도 하다. 의뢰인의 눈이 맞았고 내 계수 방법이 틀렸다.
+       단계 구분은 유지하되(면·점·막대로 계속 쓰인다) 전부 지면 팔레트로 옮긴다.
+       "정복(mastered)" 은 **가장 깊은 잉크** 로 — 다 익힌 낱말은 완전히 스며든 글자다. */
+    --learn-fresh:          #50697F;  /* dusty blue — 처음 만남 */
+    --learn-fresh-light:    #E1E8EF;
+    --learn-progress:       #2F6E6B;  /* muted teal — 익히는 중 */
+    --learn-progress-light: #E0EBEA;
+    --learn-known:          #2E7D5A;  /* muted forest — 안다 (= --memory-stable) */
+    --learn-known-light:    #E1EFE6;
+    --learn-mastered:       #0F2540;  /* deep ink — 정복 (= --p) */
+    --learn-mastered-ink:   #0F2540;  /* 종이 위 12.54:1 */
+    --learn-mastered-light: #E3E8EE;
+    --learn-review:         #B5803A;  /* deeper warm amber — 복습 때 (= --memory-shaky) */
+    --learn-review-light:   #F2E8D2;
     /* v07 「주묵 판면」 — **오답을 빨강에서 뺀다.**
        빨강은 이제 주묵(`--ju`)이 브랜드 표식으로 독점한다. 같은 화면에 붉은색이 둘이면
        "앱이 남긴 표식" 과 "내가 틀렸다는 낙인" 이 구별되지 않는다.
@@ -56,13 +64,13 @@
     --learn-review-ink:     #7A5200;  /* on --bg2 6.09:1 */
     --learn-error-ink:      #57504A;  /* v07 — 오답 중립 흑연. on --bg2 6.97:1 */
 
-    /* CEFR 난이도 (긍정 기반) */
-    --level-a:       #10B981;
-    --level-a-light: #ECFDF5;
-    --level-b:       #3B82F6;
-    --level-b-light: #EFF6FF;
-    --level-c:       #8B5CF6;
-    --level-c-light: #F5F3FF;
+    /* CEFR 난이도 (긍정 기반) — v07 지면 톤. 보라(#8B5CF6)는 위 §학습 단계 주석 참조. */
+    --level-a:       #2E7D5A;
+    --level-a-light: #E1EFE6;
+    --level-b:       #50697F;
+    --level-b-light: #E1E8EF;
+    --level-c:       #0F2540;
+    --level-c-light: #E3E8EE;
 
     /* 보강 토큰 */
     --bg-strong: #E4E4E7;
@@ -164,17 +172,18 @@
   }
 
   [data-theme="dark"] {
-    --learn-fresh:          #60A5FA;
-    --learn-fresh-light:    #1E2D44;
-    --learn-progress:       #22D3EE;
-    --learn-progress-light: #0A1F26;
-    --learn-known:          #34D399;
-    --learn-known-light:    #0A1F18;
-    --learn-mastered:       #A78BFA;
-    --learn-mastered-ink:   #A78BFA;  /* 다크는 원색이 어두운 지면 위에서 이미 AA */
-    --learn-mastered-light: #1E1B30;
-    --learn-review:         #FBBF24;
-    --learn-review-light:   #1F1610;
+    /* v07 — 라이트와 같은 계열을 다크에서 밝은 쪽으로 뒤집는다(어두운 지면 위 대비 확보). */
+    --learn-fresh:          #8AA8C0;
+    --learn-fresh-light:    #1B242C;
+    --learn-progress:       #6FB0AC;
+    --learn-progress-light: #14211F;
+    --learn-known:          #5BA47D;
+    --learn-known-light:    #14241C;
+    --learn-mastered:       #6B9BD1;  /* deep ink 의 다크 짝 (= 다크 --p) */
+    --learn-mastered-ink:   #A9C8E8;
+    --learn-mastered-light: #18232F;
+    --learn-review:         #CEA254;
+    --learn-review-light:   #241E12;
     --learn-error:          #A9A096;
     --learn-error-light:    #2A241E;
 
@@ -188,12 +197,12 @@
     --memory-risk-ink:   #E0796C;
     --memory-new-ink:    #ADA69B;
 
-    --level-a:       #34D399;
-    --level-a-light: #0A1F18;
-    --level-b:       #60A5FA;
-    --level-b-light: #1E2D44;
-    --level-c:       #A78BFA;
-    --level-c-light: #1E1B30;
+    --level-a:       #5BA47D;
+    --level-a-light: #14241C;
+    --level-b:       #8AA8C0;
+    --level-b-light: #1B242C;
+    --level-c:       #6B9BD1;
+    --level-c-light: #18232F;
 
     --bg-strong: #3F3F46;
     --bd-strong: #3F3F46;

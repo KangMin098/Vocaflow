@@ -224,7 +224,9 @@ export function ListenPanel({
               className="h-full rounded-[2px] shadow-[0_0_8px_rgba(59,130,246,0.3)] transition-all duration-normal"
               style={{
                 width: `${queueLength > 0 ? ((currentIndex + 1) / queueLength) * 100 : 0}%`,
-                background: 'linear-gradient(90deg, var(--learn-fresh), var(--learn-mastered))',
+                // v07 — 파랑→보라 그라데이션을 걷어냈다. AI 생성 UI 의 표식이고(vocaflow-design §2 가
+                //  이름 대어 금지), 진행 막대는 **한 색이 차오르는 것**이 더 정직하다.
+                background: 'var(--learn-mastered)',
               }}
             />
           </div>
