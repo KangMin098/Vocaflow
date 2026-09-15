@@ -196,6 +196,9 @@ function FreshnessBar({ panel }: { panel: SourceEligibilityPanel }) {
 
 /** 일곱 축 — **자의 출처를 함께 보인다.** "왜 이 원문을 골랐나" 에 답하는 자리다. */
 function AxisTable({ axes }: { axes: AxisRow[] }) {
+  // 막대의 분모 — **가장 큰 축**이다. 전체 재고로 나누면 일곱 줄이 전부 실선이 되어
+  // 서로 안 견줘진다(내용 판정 48,811 vs 학령 분석 16).
+  const maxBlocked = Math.max(1, ...axes.map((a) => a.blocked ?? 0))
   return (
     <section aria-label="판정 기준" className="flex flex-col gap-2">
       <h2 className="font-display text-[15px] font-[700] text-[var(--t1)]">판정 기준 — 일곱 축</h2>
@@ -203,6 +206,15 @@ function AxisTable({ axes }: { axes: AxisRow[] }) {
         순서가 곧 판정 순서다. <b>되돌릴 수 없는 축을 먼저</b> 본다 — 그래야 “고치면 되는 문제” 와
         “고칠 수 없는 문제” 가 사유에 섞이지 않는다. 임계값은 전부 실측에서 나온 값이고, 그 출처를
         함께 적는다.
+      </p>
+      <p className="flex flex-wrap items-center gap-x-4 gap-y-1 font-body text-[11px] text-[var(--t3)]">
+        <span>
+          <span aria-hidden className="font-mono">🔒</span> <b style={{ color: 'var(--error-ink)' }}>되돌릴 수 없는 축</b> — 빼는 것이 유일한 처방
+        </span>
+        <span>
+          <span aria-hidden className="font-mono">↺</span> 되돌릴 수 있는 축 — 그 축의 드레인을 돌린다
+        </span>
+        <span>막대는 <b>가장 큰 축 대비</b> 탈락 수다</span>
       </p>
       <div className="overflow-x-auto">
         <table className="w-full min-w-[720px] border-collapse font-body text-[13px]">
@@ -216,22 +228,60 @@ function AxisTable({ axes }: { axes: AxisRow[] }) {
             </tr>
           </thead>
           <tbody>
-            {axes.map((a) => (
-              <tr key={a.id} className="border-b border-[var(--bd)] align-top">
-                <td className="py-2 pr-3 font-[700] text-[var(--t1)]">{a.label}</td>
-                <td className="py-2 pr-3 text-[var(--t2)]">{a.question}</td>
-                <td className="py-2 pr-3 text-[11px] text-[var(--t3)]">{a.source}</td>
-                <td className="py-2 pr-3 text-right tabular-nums text-[var(--t1)]">
-                  {a.blocked ? a.blocked.toLocaleString() : '—'}
-                </td>
-                <td
-                  className="py-2 text-[12px]"
-                  style={{ color: a.recoverable ? 'var(--t2)' : 'var(--error-ink)' }}
-                >
-                  {a.recoverable ? '가능' : '불가 — 영영 못 쓴다'}
-                </td>
-              </tr>
-            ))}
+            {/*
+              ⚠️ **되돌릴 수 없는 축을 눈으로 갈라 놓는다.** 일곱 줄이 같은 톤이면
+              「고치면 되는 문제」와 「고칠 수 없는 문제」가 섞여 읽힌다 — 이 표 머리말이
+              그러지 말라고 적고 있는데 정작 표가 그러고 있었다. 왼쪽 띠 + 자물쇠 기호로
+              가르되 **색만으로 말하지 않는다**(맨 오른쪽 글자가 그대로 남아 있다).
+            */}
+            {axes.map((a) => {
+              const bar = maxBlocked > 0 ? ((a.blocked ?? 0) / maxBlocked) * 100 : 0
+              return (
+                <tr key={a.id} className="border-b border-[var(--bd)] align-top">
+                  <td
+                    className="py-2 pr-3 font-[700] text-[var(--t1)]"
+                    style={{
+                      borderLeft: `3px solid ${a.recoverable ? 'var(--bd)' : 'var(--error-ink)'}`,
+                      paddingLeft: '8px',
+                    }}
+                  >
+                    <span aria-hidden className="mr-1 font-mono text-[10px] text-[var(--t3)]">
+                      {a.recoverable ? '↺' : '🔒'}
+                    </span>
+                    {a.label}
+                  </td>
+                  <td className="py-2 pr-3 text-[var(--t2)]">{a.question}</td>
+                  <td className="py-2 pr-3">
+                    {/* 자의 출처는 **코드 칩**이다 — 산문이 아니라 「어느 파일·어느 상수」다. */}
+                    <code className="inline-block rounded-[var(--r-sm)] bg-[var(--bg2)] px-1.5 py-0.5 font-mono text-[10px] leading-[1.4] text-[var(--t3)] [overflow-wrap:anywhere]">
+                      {a.source}
+                    </code>
+                  </td>
+                  <td className="py-2 pr-3 text-right tabular-nums text-[var(--t1)]">
+                    {a.blocked ? a.blocked.toLocaleString() : '—'}
+                    {/* 가로 막대 — 일곱 축의 탈락 수가 서로 견줘진다(가장 큰 축이 100%). */}
+                    <span
+                      aria-hidden
+                      className="mt-1 block h-[4px] overflow-hidden rounded-[var(--r-full)] bg-[var(--bg2)]"
+                    >
+                      <i
+                        className="block h-full rounded-[var(--r-full)]"
+                        style={{
+                          width: `${bar}%`,
+                          background: a.recoverable ? 'var(--warning-ink)' : 'var(--error-ink)',
+                        }}
+                      />
+                    </span>
+                  </td>
+                  <td
+                    className="py-2 text-[12px]"
+                    style={{ color: a.recoverable ? 'var(--t2)' : 'var(--error-ink)' }}
+                  >
+                    {a.recoverable ? '가능' : '불가 — 영영 못 쓴다'}
+                  </td>
+                </tr>
+              )
+            })}
           </tbody>
         </table>
       </div>
