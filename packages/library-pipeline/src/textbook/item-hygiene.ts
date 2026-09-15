@@ -32,6 +32,7 @@ import {
   hasUnbalancedParens,
   isPrintablePassage,
 } from './csat-format'
+import { bearsType } from './type-fit'
 import { isPrintableUnderlineWord } from './vocab-choice'
 
 /**
@@ -482,6 +483,8 @@ export type HygieneReject =
   | 'choiceCollision'
   /** 한 문장이 학년 밖으로 길다 — 첫 문장에서 멈춘다. */
   | 'longSentence'
+  /** 지문이 그 유형을 못 떠받친다 — 소설에 「글의 목적」을 묻는 따위. */
+  | 'typeMisfit'
 
 /**
  * **학습자에게 내보내도 되는 문항인가.** 조판의 게이트와 같은 판정을 쓴다.
@@ -497,10 +500,26 @@ export function itemHygieneReject(input: {
   refTitle?: string | null
   /** 순서 문항의 덩어리 누설을 재려면 필요하다 — 없으면 그 검사만 건너뛴다. */
   answerKey?: Record<string, unknown> | null
+  /**
+   * 문항 유형 — **유형↔지문 적합**을 재려면 필요하다(`type-fit.ts`).
+   *
+   * ⚠️ 없으면 그 검사만 건너뛴다. 규칙이 있는 유형은 지금 `purpose` 하나뿐이고,
+   *   나머지는 넘겨도 미판정으로 통과한다 — **부르는 쪽이 안 넘기면 안 재는 것**이다.
+   */
+  type?: string | null
 }): HygieneReject | null {
   const title = String(input.refTitle ?? '')
   if (isRetractedTitle(title)) return 'retracted'
   if (hasSensitiveTopic(title)) return 'sensitive'
+
+  // ── 이 지문이 이 유형을 떠받치는가 ────────────────────────────────
+  // 3인 검수 두 청크가 각자 짚었다 — `purpose` 문항이 **전부 3인칭 서술 소설**이었다.
+  // 재고 전체로 세니 86건 중 인사말도 요청 행위도 있는 것이 **0건**이다. 선지를 고쳐
+  // 살릴 수 있는 결함이 아니라 **지문이 유형을 못 떠받치는** 것이라 여기서 막는다.
+  if (input.type) {
+    const fit = bearsType(String(input.type), passageTextOf(input.payload))
+    if (fit.judged && !fit.ok) return 'typeMisfit'
+  }
 
   // ── 밑줄이 낱말인가 ────────────────────────────────────────────────
   // 화면도 인쇄물도 저장된 `word` 를 **글자 그대로** 밑줄친다(`<u>{m.word}</u>`).

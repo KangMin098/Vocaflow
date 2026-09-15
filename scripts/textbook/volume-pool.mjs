@@ -1125,7 +1125,14 @@ export async function loadVolume(
     // **정제한 사본으로 판정한다** — 절 이름·라벨을 떼고도 남는 결함만 센다.
     // `answer_key` 를 함께 넘긴다 — 순서 문항의 **덩어리 길이 누설**은 정답 배열을 알아야 잰다
     //   (`hasBlockLengthLeak`: 정답의 첫 덩어리가 유일하게 가장 길면 문장만 세어도 풀린다).
-    const reject = itemHygieneReject({ payload: p, refTitle: a.title, answerKey: r.answer_key })
+    // `type` 을 함께 넘긴다 — **유형↔지문 적합**(`type-fit.ts`)은 유형을 알아야 잰다.
+    //   안 넘기면 그 검사만 조용히 건너뛰고, 소설에 「글의 목적」을 묻는 문항이 그대로 인쇄된다.
+    const reject = itemHygieneReject({
+      payload: p,
+      refTitle: a.title,
+      answerKey: r.answer_key,
+      type: r.type,
+    })
     if (reject) {
       hygieneRejects[reject] = (hygieneRejects[reject] ?? 0) + 1
       lose(r.type, reject)

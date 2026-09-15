@@ -53,8 +53,11 @@ const TYPES = {
     stem: '다음 글의 목적으로 가장 적절한 것은?',
     choiceLang: 'ko',
     guide:
-      '선택지는 한국어 한 문장(“~하려고”)이다. 정답은 글 전체가 향하는 하나의 목적이어야 하고, ' +
-      '오답은 **글에 실제로 나오는 소재를 쓰되 목적이 아닌 것**으로 만든다(배경 설명·부수 효과·반대 방향).',
+      '선택지는 한국어 한 문장(“~하려고”)이다. 정답은 **필자가 독자에게 시키려는 행위**이지 ' +
+      '글의 주제가 아니다. 오답은 **글에 실제로 나오는 소재를 쓰되 목적이 아닌 것**으로 ' +
+      '만든다(배경 설명·부수 효과·반대 방향). ' +
+      '⚠️ **부르는 사람과 받는 사람이 없는 글에는 목적이 없다** — 소설·설명문·논문이 오면 ' +
+      '이 유형을 만들지 말고 건너뛴다(정답이 장면 요약이 되어 주제 문항과 구별되지 않는다).',
   },
   mood: {
     number: '19',
@@ -254,8 +257,17 @@ const arts = await fetchAllPaged(db, (q) =>
 //   결함인데, 이 뽑기는 그 판정을 한 번도 묻지 않아 결함 지문 위에 문항이 얹혔다.
 //   스캔 머리말이 예고한 그대로다 — "그대로 두면 학생이 읽는 지문에 그 문자열이 인쇄된다."
 //   규칙은 패키지(`extraction-defect.ts`)로 올려 정본을 하나로 뒀고 시험 17종이 붙어 있다.
-const { itemWordSpec, isPrintablePassage, normalizeSourceMarkup, buildPassage, firstDefect } =
-  await import('@vocaflow/library-pipeline')
+const {
+  itemWordSpec,
+  isPrintablePassage,
+  normalizeSourceMarkup,
+  buildPassage,
+  firstDefect,
+  // 유형↔지문 적합 — 조판(`item-hygiene.ts`)이 쓰는 그 자를 뽑기도 쓴다(사본 금지).
+  bearsType,
+  hasTypeFitRule,
+  TYPE_FIT_REASON_KO,
+} = await import('@vocaflow/library-pipeline')
 
 // **집필 몫의 창은 조립 기준과 같아야 한다.**
 //
@@ -433,8 +445,42 @@ function longFields(a) {
 // ⚠️ **결함으로 뺀 것을 「못 자름」에 섞지 않는다.** `passages` 에 없는 이유가 이제 둘이라
 //   (창 밖 · 추출 결함) 뭉뚱그리면 화면이 "문장이 모자란 글" 이라고 거짓을 말한다.
 //   둘은 고치는 방법이 다르다 — 앞은 창을, 뒤는 추출기를 고쳐야 한다.
-const usable = withBody.filter((a) => passages.has(a.id))
-const outOfWindow = withBody.length - usable.length - defectSkipped
+const bodied = withBody.filter((a) => passages.has(a.id))
+const outOfWindow = withBody.length - bodied.length - defectSkipped
+
+// ── 이 지문이 이 유형을 떠받치는가 ──────────────────────────────────
+// ⚠️ **차례가 아니라 거름이다.** `--narrative-first` 는 「인물이 있어야 서는 유형」을 위해
+//   차례만 바꿨다(버리지 않는다). 그런데 반대 방향의 결함은 차례로는 못 고친다 —
+//   서사에 「글의 목적」을 물으면 **아무리 잘 써도** 정답이 장면 요약이 된다.
+//
+// 실측 2026-09-15: 저장된 `purpose` 86건 중 인사말도 요청 행위도 있는 것이 **0건**.
+//   3인 검수 두 청크가 각자 같은 것을 짚었고, 이 저장소의 설계문서가 이미 적어 둔 규칙이다
+//   (`CSAT_TYPE_BLUEPRINTS.md` §R-PURPOSE: "설명문에는 목적이 없다").
+//   판정의 정본은 `packages/library-pipeline/src/textbook/type-fit.ts` — 조판과 같은 자다.
+const fitDrop = new Map()
+const usable = hasTypeFitRule(TYPE)
+  ? bodied.filter((a) => {
+      const fit = bearsType(TYPE, passages.get(a.id) ?? '')
+      if (fit.ok) return true
+      fitDrop.set(fit.reason, (fitDrop.get(fit.reason) ?? 0) + 1)
+      return false
+    })
+  : bodied
+/** 적합으로 뺀 것을 세어 찍는다 — 순서가 있는 보고라 아래 집계 자리에서 부른다. */
+function reportTypeFit() {
+  if (!fitDrop.size) return
+  const total = [...fitDrop.values()].reduce((a, b) => a + b, 0)
+  console.log(`  **유형이 안 얹혀 뺀 것 ${total}편**  ← 지문이 이 유형을 못 떠받친다(지문을 골라도 안 는다)`)
+  for (const [reason, n] of [...fitDrop].sort((a, b) => b[1] - a[1])) {
+    console.log(`      ${String(n).padStart(5)}편  ${TYPE_FIT_REASON_KO[reason] ?? reason}`)
+  }
+  if (usable.length === 0) {
+    console.log(
+      '      → 남은 후보가 0 이다. **거르기로는 해결되지 않는다 — 이 유형은 원문을 써야 한다**\n' +
+        '        (편지·이메일·공지문. 재고 10.7만 편 중 편지 꼴은 7편뿐이었다.)',
+    )
+  }
+}
 
 // 이미 이 유형이 붙은 글은 건너뛴다 — 재실행 안전.
 const itemRows = (
@@ -676,9 +722,9 @@ console.log(`${spec.label}(${spec.number}번) · V${BAND}`)
 console.log(`  본문 있는 원글 ${withBody.length}편`)
 console.log(
   IS_LONG
-    ? `  그중 장문 규격(문단 ${LONG_PARAGRAPHS}개 · ${LONG_WORDS.min}~${LONG_WORDS.max}어)에 드는 것 ${usable.length}편 · ` +
+    ? `  그중 장문 규격(문단 ${LONG_PARAGRAPHS}개 · ${LONG_WORDS.min}~${LONG_WORDS.max}어)에 드는 것 ${bodied.length}편 · ` +
         `**규격 밖 ${outOfWindow}편**  ← 문단 수가 다르거나 길이가 안 맞는 글`
-    : `  그중 창(${PASSAGE_WINDOW.min}~${PASSAGE_WINDOW.max}어 · V${BAND} 시중 규격 교차)으로 자를 수 있는 것 ${usable.length}편 · ` +
+    : `  그중 창(${PASSAGE_WINDOW.min}~${PASSAGE_WINDOW.max}어 · V${BAND} 시중 규격 교차)으로 자를 수 있는 것 ${bodied.length}편 · ` +
         `**못 자름 ${outOfWindow}편**  ← 문장이 모자라거나 인쇄 불가 자국이 있는 글`,
 )
 // **건너뛴 수를 반드시 출력한다**(CLAUDE.md §🤖). 조용히 빼면 다음 사람이 재고가 준 이유를
@@ -689,6 +735,7 @@ if (defectSkipped) {
     console.log(`      ${String(r.count).padStart(5)}편  ${id} · ${r.label}   예) ${r.evidence}`)
   }
 }
+reportTypeFit()
 console.log(`  이미 이 유형이 붙은 것 ${existing.size}편` + (pending.size ? ` · 이미 청크에 나가 있는 것 ${pending.size}편` : ''))
 console.log(`  **배치가 쓸 몫 ${tasks.length}편**  → 청크 ${chunks.length}개 (${SIZE}편씩)`)
 console.log(`\n  ${path.relative(process.cwd(), DIR)}/chunk-NN.json`)

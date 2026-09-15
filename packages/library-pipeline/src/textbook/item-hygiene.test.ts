@@ -674,3 +674,50 @@ describe('각주·번호 매김에서 잘린 조각', () => {
     ).toBeNull()
   })
 })
+
+/**
+ * **유형↔지문 적합** — 소설에 「글의 목적」을 묻는 문항을 인쇄하지 않는다.
+ *
+ * 3인 검수 두 청크가 각자 짚었고(reading-v5 chunk-04 · chunk-05, purpose 3/3 이 서사),
+ * 재고 전체는 86건 중 통과 **0** 이었다. 자세한 실측은 `type-fit.ts` 머리에 있다.
+ */
+describe('유형이 지문에 얹히는가', () => {
+  const narrative = {
+    payload: {
+      passage:
+        'After awhile the mowers came, and the grass fell in swathes behind them. Bevis watched from the gate until the sun went down behind the elms.',
+    },
+  }
+
+  it('서사에 붙은 목적 문항을 막는다', () => {
+    expect(itemHygieneReject({ ...narrative, type: 'purpose' })).toBe('typeMisfit')
+  })
+
+  // ⚠️ **막는 것이 목적이 아니다.** 규칙이 넓어져 편지까지 막으면 18번을 영영 못 만든다.
+  it('편지는 그대로 통과한다', () => {
+    const letter = {
+      payload: {
+        passage:
+          'Dear Mr. Harding,\n\nThe school bus has been arriving nearly fifteen minutes late for two months. I am writing to ask that the morning schedule be reviewed before the winter term begins.',
+      },
+    }
+    expect(itemHygieneReject({ ...letter, type: 'purpose' })).toBeNull()
+  })
+
+  // ⚠️ 유형을 안 넘기면 **재지 않는다** — 다른 검사까지 조용히 죽이면 안 된다.
+  it('유형이 없으면 이 검사만 건너뛴다', () => {
+    expect(itemHygieneReject(narrative)).toBeNull()
+    expect(itemHygieneReject({ ...narrative, type: 'topic' })).toBeNull()
+  })
+
+  // ⚠️ 규칙이 **다른 검사를 가려서는 안 된다** — 유형이 맞아도 민감 소재는 여전히 막힌다.
+  it('적합해도 다른 사유는 그대로 막는다', () => {
+    const letterWithChrome = {
+      payload: {
+        passage:
+          'Dear Ms. Alvarez,\n\nCredits: NASA. I am writing to ask whether you could kindly send your revised timetable.',
+      },
+    }
+    expect(itemHygieneReject({ ...letterWithChrome, type: 'purpose' })).toBe('chrome')
+  })
+})
