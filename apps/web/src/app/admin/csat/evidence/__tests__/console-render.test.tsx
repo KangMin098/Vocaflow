@@ -1,139 +1,263 @@
 // apps/web/src/app/admin/csat/evidence/__tests__/console-render.test.tsx
 //
-// 기출 분석 콘솔 렌더 스모크 + **「독해 실점 0」 판정이 화면에서 뒤집히지 않는지** 본다.
+// **기출 원천 판의 약속 셋을 잠근다.**
 //
-// 이 화면의 유일한 주장은 "이 회차를 지금 풀면 독해에서 실점이 나오나" 하나다. 그 판정이 백분율
-// 반올림으로 흐려지면(96%를 「가능」으로 그리면) 관리자가 덜 된 회차를 끝난 것으로 본다.
-// 그래서 빈 상태·부분 상태·완료 상태를 다 그려 보고, 「가능」이 언제 켜지는지 고정한다.
+// ① **축을 겹칠 수 있다** — 탭도, 세로로 세운 렌즈 목록도 없다. 행 축·열 축 드롭다운 둘이
+//    전부이고, 두 축을 동시에 고를 수 있다. (여기 있던 탭 4장이 같은 802문항을 축 하나씩
+//    잘라 놓은 표였고, 그래서 두 축을 겹칠 자리가 구조적으로 없었다.)
+// ② **어느 조합에서도 총합이 모집단과 같다** — 피벗이 문항을 흘리거나 두 번 세면 이 화면의
+//    모든 숫자가 근거로서의 자격을 잃는다. 8×8 = 64 조합을 전부 돌려 확인한다.
+// ③ **막힌 문항이 첫 줄에 있다** — 「채워졌다」와 「쓸 수 있다」는 다르다. 서술은 802/802 가
+//    채워져 있지만 그중 다수가 하류 공정으로 못 나간다. 옛 눈금 넉 장은 앞의 사실만 세고
+//    뒤의 사실을 한 자리도 세지 않아, 초록 넉 장을 띄운 채 막혀 있었다.
+//
+// ⚠️ 옛 회귀는 탭 **라벨 문자열**(`'가이드 원천'` 등)의 존재를 단언했다. 그 단언이 지키려던
+//    것은 라벨이 아니라 **능력**이다 — 산출물을 꺼낼 수 있는가, 빈 서술을 볼 수 있는가.
+//    그래서 단언을 능력 쪽으로 옮겨 적었다(내보내기 링크 · 결함 목록 · 문항 목록).
 
 import { renderToString } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
 
-import type { CsatCoverageRow, CsatTypeRow } from '@/lib/csat/client'
+import {
+  AXES,
+  applyFilter,
+  bucketsOf,
+  coverageOf,
+  keysOf,
+  pivot,
+  trapHeadOf,
+  type AxisContext,
+  type EvidenceExam,
+  type EvidenceItem,
+  type EvidenceType,
+} from '@/lib/csat/evidence-fold'
 
-import { CsatConsoleClient } from '../CsatConsoleClient'
+import { EvidenceConsole } from '../EvidenceConsole'
 
-const EMPTY = {
-  coverage: [] as CsatCoverageRow[],
-  types: [] as CsatTypeRow[],
-  totals: { exams: 0, inScopeItems: 0, analyzed: 0, published: 0, exams99: 0, answerUnknown: 0, reviews: 0 },
+// ── 표본 ────────────────────────────────────────────────────────────────
+
+const EXAMS: EvidenceExam[] = [
+  { id: '2026', label: '2026학년도 수능', kind: 'suneung', year: 2026, month: 11, items: 3 },
+  { id: 'M2606', label: '2026학년도 6월 모의평가', kind: 'mock', year: 2026, month: 6, items: 1 },
+  // **문항이 0인 회차** — 옛 콘솔은 이런 회차를 행째로 잃었다(`csat_coverage()` 가 INNER JOIN).
+  { id: 'M2009', label: '2020학년도 9월 모의평가', kind: 'mock', year: 2020, month: 9, items: 0 },
+]
+
+const TYPES: EvidenceType[] = [
+  { id: 'R-BLANK', name: '빈칸 추론', status: 'active', items: 2, reportN: 3, analystMeta: ['청크'] },
+  { id: 'R-ORDER', name: '글의 순서', status: 'active', items: 2, reportN: 2, analystMeta: [] },
+]
+
+function item(over: Partial<EvidenceItem> & Pick<EvidenceItem, 'id'>): EvidenceItem {
+  return {
+    examId: '2026',
+    examLabel: '2026학년도 수능',
+    year: 2026,
+    kind: 'suneung',
+    no: 31,
+    typeId: 'R-BLANK',
+    typeName: '빈칸 추론',
+    points: 2,
+    highScore: false,
+    answer: 3,
+    answerCount: 1,
+    steps: 5,
+    vocab: 4,
+    traps: ['어휘 함정'],
+    predicted: 0.5,
+    timeSec: 110,
+    whyLen: 300,
+    rejected: 4,
+    distractors: 4,
+    bodyOk: true,
+    quoteLocated: true,
+    reviewed3: true,
+    defects: [],
+    ...over,
+  }
+}
+
+const ITEMS: EvidenceItem[] = [
+  // 깨끗한 것
+  item({ id: 'a', no: 31 }),
+  // 지문이 잘린 것 + 인용을 못 찾은 것 (실측에서 둘은 늘 함께 온다)
+  item({ id: 'b', no: 32, bodyOk: false, quoteLocated: false, defects: ['body', 'quote'] }),
+  // 유형 리포트가 오염된 것 — 문항 자체는 멀쩡한데 배포가 막힌다
+  item({ id: 'c', no: 33, points: 3, highScore: true, defects: ['reportText'], traps: ['반대 진술', '무관'] }),
+  // 다른 회차 · 다른 유형 · 함정 라벨 없음
+  item({
+    id: 'd',
+    examId: 'M2606',
+    examLabel: '2026학년도 6월 모의평가',
+    year: 2026,
+    kind: 'mock',
+    no: 37,
+    typeId: 'R-ORDER',
+    typeName: '글의 순서',
+    steps: 6,
+    vocab: 5,
+    traps: [],
+    predicted: 0.85,
+    defects: [],
+  }),
+]
+
+const CTX: AxisContext = { exams: EXAMS, types: TYPES, trapHead: trapHeadOf(ITEMS) }
+
+const PROPS = {
+  items: ITEMS,
+  exams: EXAMS,
+  types: TYPES,
+  generatedAt: '2026-09-16 00:00:00Z',
   loadError: null,
+  initialFilter: {},
+  initialRow: 'defect' as const,
+  initialCol: 'type' as const,
+  initialMeasure: 'items' as const,
 }
 
-const partial: CsatCoverageRow = {
-  exam_id: '2026',
-  label: '2026학년도 수능',
-  kind: 'suneung',
-  in_scope_items: 28,
-  analyzed: 27,
-  published: 27,
-  scope_points: 63,
-  covered_points: 61,
-  covers_99: false,
-}
-
-const complete: CsatCoverageRow = {
-  ...partial,
-  exam_id: 'M2706',
-  label: '2027학년도 6월 모의평가',
-  kind: 'mock',
-  analyzed: 28,
-  published: 28,
-  covered_points: 63,
-  covers_99: true,
-}
-
-const type: CsatTypeRow = {
-  type_id: 'R-BLANK',
-  name: '빈칸 추론',
-  section: '독해',
-  status: 'active',
-  items: 117,
-  published: 12,
-  has_report: true,
-  report_n: 12,
-}
-
-// React 의 서버 렌더는 인접한 텍스트 조각 사이에 `<!-- -->` 를 넣는다
-// (`63<!-- -->/<!-- -->63<!-- -->점`). 화면에 보이는 글자로 검사하려면 그것부터 걷어내야 한다.
 const text = (html: string) => html.replace(/<!--[\s\S]*?-->/g, '')
 
-/** 표 본문(`<tbody>`)만 — 상단 통계 라벨에 '가능' 이 들어 있어 오탐이 난다 */
-const tbody = (html: string) => text(html).split('<tbody>')[1]?.split('</tbody>')[0] ?? ''
+// ── ① 축을 겹칠 수 있다 ─────────────────────────────────────────────────
 
-describe('CsatConsoleClient', () => {
-  it('데이터가 하나도 없어도 그려지고, 다음에 할 일을 말한다', () => {
-    const html = renderToString(<CsatConsoleClient {...EMPTY} />)
-    expect(text(html)).toContain('기출 분석')
-    expect(text(html)).toContain('corpus-sync.mjs')
+describe('구조 — 탭이 아니라 축이다', () => {
+  it('탭도 세로 렌즈 목록도 없다 — 행·열 축 선택자만 있다', () => {
+    const html = text(renderToString(<EvidenceConsole {...PROPS} />))
+    for (const gone of ['회차 커버리지', '유형별 진행', '문항 분석', '가이드 원천']) {
+      expect(html, `탭 「${gone}」이 되돌아왔다 — 축을 겹칠 수 없는 구조로 되돌아간 것이다`).not.toContain(gone)
+    }
+    expect(html).toContain('<select')
+    // 축 여덟이 **행에도 열에도** 올 수 있어야 64 조합이 나온다
+    expect(html.match(/<select/g)?.length ?? 0).toBeGreaterThanOrEqual(3)
+    for (const a of AXES) expect(html).toContain(a.label)
   })
 
-  it('불러오기 실패를 삼키지 않는다', () => {
-    const html = renderToString(<CsatConsoleClient {...EMPTY} loadError="csat_coverage: not found" />)
-    expect(html).toContain('csat_coverage: not found')
-  })
-
-  it('배점을 백분율이 아니라 두 수로 적는다 — 반올림이 숨을 자리를 없앤다', () => {
-    const html = renderToString(
-      <CsatConsoleClient {...EMPTY} coverage={[partial]} totals={{ ...EMPTY.totals, exams: 1 }} />,
-    )
-    expect(text(html)).toContain('61/63점')
-  })
-
-  it('배점을 전부 덮지 못하면 「가능」이 아니다 (27/28문항 · 61/63점)', () => {
-    const html = renderToString(
-      <CsatConsoleClient {...EMPTY} coverage={[partial]} totals={{ ...EMPTY.totals, exams: 1 }} />,
-    )
-    expect(tbody(html)).toContain('미달')
-    expect(tbody(html)).not.toContain('가능')
-  })
-
-  it('배점을 전부 덮으면 「가능」이 켜진다', () => {
-    const html = renderToString(
-      <CsatConsoleClient {...EMPTY} coverage={[complete]} totals={{ ...EMPTY.totals, exams: 1, exams99: 1 }} />,
-    )
-    expect(tbody(html)).toContain('가능')
-    expect(text(html)).toContain('63/63점')
-  })
-
-  it('유형 표에 남은 몫과 유형 리포트 유무가 보인다', () => {
-    const html = renderToString(<CsatConsoleClient {...EMPTY} types={[type]} />)
-    // 기본 탭은 회차 커버리지라 유형 표는 아직 안 보인다 — 탭 라벨만 확인한다
-    expect(html).toContain('유형별 진행')
-  })
-
-  it('정답 미상 문항 수를 숨기지 않는다 — 원본이 없어서 못 쓰는 것이다', () => {
-    const html = renderToString(
-      <CsatConsoleClient {...EMPTY} totals={{ ...EMPTY.totals, answerUnknown: 196 }} />,
-    )
-    expect(html).toContain('196')
-    expect(html).toContain('정답 미상')
-  })
-
-  // **화면이 「99점」이라고 말하면 안 된다.** 두 번 틀린 말이라 되돌아오면 곤란하다:
-  //   ① 배점 단위가 2·3점이라 99점이라는 점수 자체가 안 나온다 — 100 다음은 98이다
-  //   ② 100점은 듣기까지 만점이어야 한다. 이 파이프라인은 듣기를 다루지 않는다
-  // 문자열 하나짜리 검사지만, 이 화면의 유일한 주장이 그 라벨에 걸려 있다.
-  it('「99점」이라고 말하지 않는다 — 듣기를 뺀 우리 몫만 말한다', () => {
+  it('두 축을 동시에 고른 상태로 열 수 있다 — 링크로 넘기는 근거', () => {
     const html = text(
-      renderToString(<CsatConsoleClient {...EMPTY} coverage={[partial, complete]} totals={{ ...EMPTY.totals, exams: 2 }} />),
+      renderToString(
+        <EvidenceConsole {...PROPS} initialFilter={{ year: ['2026'], type: ['R-BLANK'] }} initialRow="trap" initialCol="year" />,
+      ),
     )
-    expect(html, '화면에 「99점」이 되돌아왔다').not.toContain('99점')
-    expect(html).toContain('독해 실점 0')
+    expect(html).toContain('빈칸 추론')
+    expect(html).toContain('2026학년도')
+  })
+})
+
+// ── ② 합산 무결성 ───────────────────────────────────────────────────────
+
+describe('합산 무결성 — 어느 조합에서도 총합이 모집단과 같다', () => {
+  it('8 × 8 = 64 조합 전부에서 총합 = 문항 수', () => {
+    for (const r of AXES) {
+      for (const c of AXES) {
+        const p = pivot(ITEMS, r.id, c.id, 'items', CTX)
+        expect(p.grand, `${r.id} × ${c.id} 의 총합이 모집단과 다르다`).toBe(ITEMS.length)
+      }
+    }
   })
 
-  // 이 콘솔의 마지막 자리는 「가이드 원천」이다 — 분석이 끝난 뒤 **무엇이 나왔는지**를 꺼내는 곳.
-  // 탭이 사라지면 파이프라인은 여전히 돌지만 산출물을 꺼낼 길이 없어져, 화면이 다시
-  // "진행률만 세는 판" 으로 되돌아간다.
-  it('「가이드 원천」 탭이 있다 — 산출물을 꺼내는 유일한 자리다', () => {
-    const html = text(renderToString(<CsatConsoleClient {...EMPTY} />))
-    expect(html).toContain('가이드 원천')
+  it('단일 축에서는 칸 합도 문항 수와 같다 — 흘리지도 두 번 세지도 않는다', () => {
+    for (const r of AXES.filter((a) => !a.multi)) {
+      for (const c of AXES.filter((a) => !a.multi)) {
+        const p = pivot(ITEMS, r.id, c.id, 'items', CTX)
+        expect(p.cellSum, `${r.id} × ${c.id} 에서 문항이 새거나 겹쳤다`).toBe(ITEMS.length)
+      }
+    }
   })
 
-  // 회차·유형 집계는 「802문항이 다 통과했다」까지만 말한다. 한 문항의 오답 배제가 둘만
-  // 적혀 있어도 그 회차의 「덮은 배점」은 가득 찬 것으로 나온다 — 그 자리를 보는 탭이다.
-  it('「문항 분석」 탭이 있다 — 통과했어도 비어 있는 서술을 보는 자리다', () => {
-    const html = text(renderToString(<CsatConsoleClient {...EMPTY} />))
-    expect(html).toContain('문항 분석')
+  it('다중 축(함정·결함)은 칸 합이 더 크고, 그 사실을 화면이 말한다', () => {
+    const p = pivot(ITEMS, 'trap', 'type', 'items', CTX)
+    expect(p.multi).toBe(true)
+    expect(p.cellSum).toBeGreaterThan(p.grand)
+    const html = text(renderToString(<EvidenceConsole {...PROPS} initialRow="trap" />))
+    expect(html, '칸 합과 총합이 다른데 화면이 총합만 적으면 「합이 안 맞는다」로 읽힌다').toContain('칸 합')
+  })
+
+  it('어느 축에서도 칸에 못 들어가는 문항이 없다 — 누락 0', () => {
+    for (const a of AXES) {
+      const known = new Set(bucketsOf(a.id, CTX).map((b) => b.key))
+      for (const it of ITEMS) {
+        const keys = keysOf(it, a.id)
+        expect(keys.length, `${a.id}: ${it.id} 이(가) 어느 칸에도 안 들어간다`).toBeGreaterThan(0)
+        // 목록에 없는 키는 「그 밖」 칸으로 접히므로, 축 자체에 접을 칸이 있어야 한다
+        if (!keys.every((k) => known.has(k))) {
+          expect(a.multi || known.has('—'), `${a.id}: 접을 칸이 없다`).toBeTruthy()
+        }
+      }
+    }
+  })
+
+  it('문항이 0인 회차도 행으로 남는다 — 옛 콘솔은 이것을 잃고 「29/29 완료」라고 적었다', () => {
+    const rows = bucketsOf('exam', CTX)
+    expect(rows).toHaveLength(EXAMS.length)
+    expect(rows.map((r) => r.key)).toContain('M2009')
+  })
+})
+
+// ── ③ 막힌 문항이 첫 줄에 있다 ──────────────────────────────────────────
+
+describe('커버리지 한 줄 — 「내보내도 되나」에 먼저 답한다', () => {
+  it('막힌 문항 수가 첫 줄에 있고 그 수가 결함 문항 수와 맞는다', () => {
+    const cov = coverageOf(ITEMS)
+    expect(cov.blockedItems).toBe(2)
+    const html = text(renderToString(<EvidenceConsole {...PROPS} />))
+    expect(html).toContain('막힌 문항')
+    expect(html).toContain('내보낼 수 없다')
+  })
+
+  it('결함이 없으면 「내보낼 수 있다」로 뒤집힌다', () => {
+    const clean = ITEMS.filter((i) => i.defects.length === 0)
+    const html = text(renderToString(<EvidenceConsole {...PROPS} items={clean} />))
+    expect(html).toContain('내보낼 수 있다')
+    expect(html).not.toContain('내보낼 수 없다')
+  })
+
+  it('카드형 눈금을 되돌리지 않는다 — 옛 넉 장은 전부 「이상 없음」만 말했다', () => {
+    const html = text(renderToString(<EvidenceConsole {...PROPS} />))
+    for (const gone of ['검수 기록', '정답 미상', '표시 중']) {
+      expect(html, `옛 눈금 「${gone}」이 되돌아왔다`).not.toContain(gone)
+    }
+  })
+
+  it('결함마다 **막는 하류 공정**을 함께 적는다 — 왜 고쳐야 하는지가 거기 있다', () => {
+    const html = text(renderToString(<EvidenceConsole {...PROPS} />))
+    expect(html).toContain('지문 잘림')
+    expect(html).toContain('④소재')
+    expect(html).toContain('학습자 배포')
+  })
+})
+
+// ── 필터 ────────────────────────────────────────────────────────────────
+
+describe('교차 필터 — 한 축에서 건 조건이 다른 축에 남는다', () => {
+  it('축끼리는 AND, 같은 축 안은 OR', () => {
+    expect(applyFilter(ITEMS, { type: ['R-BLANK'] }, CTX)).toHaveLength(3)
+    expect(applyFilter(ITEMS, { type: ['R-BLANK', 'R-ORDER'] }, CTX)).toHaveLength(4)
+    expect(applyFilter(ITEMS, { type: ['R-BLANK'], defect: ['body'] }, CTX)).toHaveLength(1)
+    expect(applyFilter(ITEMS, { type: ['R-ORDER'], defect: ['body'] }, CTX)).toHaveLength(0)
+  })
+
+  it('결함 없음 칸으로도 거를 수 있다', () => {
+    expect(applyFilter(ITEMS, { defect: ['__clean__'] }, CTX)).toHaveLength(2)
+  })
+})
+
+// ── 빈 상태 · 실패 ──────────────────────────────────────────────────────
+
+describe('빈 상태와 실패를 삼키지 않는다', () => {
+  it('문항이 하나도 없어도 그려지고 다음에 할 일을 말한다', () => {
+    const html = text(renderToString(<EvidenceConsole {...PROPS} items={[]} exams={[]} types={[]} />))
+    expect(html).toContain('기출 원천')
+    expect(html).toContain('문항이 없다')
+  })
+
+  it('불러오기 실패를 그대로 적는다', () => {
+    const html = renderToString(<EvidenceConsole {...PROPS} loadError="csat_items: not found" />)
+    expect(html).toContain('csat_items: not found')
+  })
+
+  it('산출물을 꺼내는 자리가 남아 있다 — 없으면 파이프라인이 진행률만 세는 판으로 되돌아간다', () => {
+    const html = text(renderToString(<EvidenceConsole {...PROPS} />))
+    expect(html).toContain('/api/admin/csat/guide?format=md')
+    expect(html).toContain('format=json')
   })
 })

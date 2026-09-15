@@ -14,8 +14,8 @@ import 'server-only'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { createCsatClient, selectAllPages } from './client'
+import { detectTypeReportMeta } from './evidence-fold'
 import {
-  detectAnalystMeta,
   foldTrapFamilies,
   type CsatGuideExam,
   type CsatGuideSource,
@@ -294,7 +294,15 @@ export async function loadCsatGuideSource(): Promise<{ source: CsatGuideSource |
         n_analyzed: rep?.n_analyzed ?? 0,
         time_budget_sec: rep?.time_budget_sec ?? null,
         answer_locus_pattern: rep?.answer_locus_pattern ?? null,
-        analyst_meta: detectAnalystMeta(rep?.answer_locus_pattern ?? null),
+        // ⚠️ **한 필드만 재면 안 된다.** 오래 `answer_locus_pattern` 만 보고 「13/26 배포 가능」이라
+        //    적었는데, 학습자 화면(`/csat/[typeId]`)은 세 필드를 그린다 — 근거 서술 · 상위 6개
+        //    미끄러지는 자리 · 풀이 절차. 셋을 다 보면 **10/26** 이다(실측 2026-09-15).
+        //    나머지 둘의 오염이 「배포 가능」 초록 뒤에 숨어 있었다.
+        analyst_meta: detectTypeReportMeta({
+          answer_locus_pattern: rep?.answer_locus_pattern ?? null,
+          failure_modes: (rep?.failure_modes ?? []) as string[],
+          procedure_steps: (rep?.procedure_steps ?? []) as { step?: string }[],
+        }),
         procedure: (rep?.procedure_steps ?? []) as GuideProcedureStep[],
         traps_raw: rawTraps.length,
         trap_families: foldTrapFamilies(rawTraps),

@@ -639,10 +639,13 @@ export function AdminSidebar({ reportsBadge = null }: AdminSidebarProps = {}) {
                                 {child.group ? (
                                   // 머리글은 자기 `<li>` 다 — `<ul>` 바로 아래에 `<div>`/`<p>` 를 두면
                                   // 마크업이 깨진다(브라우저가 위치를 고쳐 레일이 어긋난다).
-                                  <li
-                                    role="presentation"
-                                    className="mb-1 mt-2.5 px-1.5 font-display text-[11px] font-[700] tracking-[0.06em] text-[var(--t2)] first:mt-0.5"
-                                  >
+                                  //
+                                  // ⚠️ 여기 `role="presentation"` 이 붙어 있었고 **모든 admin 화면에서
+                                  //    axe `list` 위반 1건**을 냈다(실측 2026-09-16 · wcag2a). 그 역할은
+                                  //    listitem 의미를 지우는데, 그러면 `<ul>` 이 목록 아닌 자식을 갖게 된다.
+                                  //    머리글은 실제로 이 목록의 한 칸이므로 역할을 지우지 않는다 —
+                                  //    스크린리더가 「묶음 이름」을 한 항목으로 읽는 것이 사실에 맞다.
+                                  <li className="mb-1 mt-2.5 px-1.5 font-display text-[11px] font-[700] tracking-[0.06em] text-[var(--t2)] first:mt-0.5">
                                     {child.group}
                                   </li>
                                 ) : null}
