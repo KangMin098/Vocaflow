@@ -65,6 +65,67 @@ function drainTypes() {
 }
 const DRAIN = drainTypes()
 
+/**
+ * **유형별 집필 수율** — 뽑아 준 지문 중 실제로 문항이 된 비율.
+ *
+ * ⚠️ 몫만큼만 뽑으면 **모자란다.** 실측 2026-09-15(채운 청크 기준 · 뽑아 준 지문 1,762):
+ *   `claim` **35.7%** · `mood` 51.9% · `purpose` 73.2% · `topic` 78.2% ·
+ *   `blank` 92.6% · `content_match` 97.4% · 장문 4종 100%.
+ *   즉 주장 5문항이 필요하면 **14편쯤 뽑아야** 한다.
+ *
+ *   낮은 수율의 원인은 지문 품질이 아니다 — 집필 배치 둘이 독립으로 확인했다.
+ *   `claim` 은 지문 16/16 이 게이트를 통과했는데도 11편이 **「당위가 없는 글」**이라 빠졌고,
+ *   `mood` 는 24/24 가 통과했는데 14편이 **정서 변화가 없어** 빠졌다. 뽑기에 유형-갈래
+ *   판정이 없다는 뜻이다.
+ *   ⚠️ **그 판정을 규칙으로 만들지는 않았다.** 사람 판정 라벨(claim 16 · mood 24)로
+ *   당위구문·정서어 밀도를 재 봤더니 정확도가 기저(「전부 뺀다」)보다 6~13pp 나을 뿐이었고
+ *   문턱도 같은 데이터에서 고른 것이라 과적합이다. **못 가르는 지표로 재고를 버리지 않는다.**
+ *   대신 **몇 배 뽑아야 하는지**만 계획에 싣는다 — 이건 관측이라 틀릴 여지가 없다.
+ *
+ * 표본이 적은 유형은 배수를 믿을 수 없어 1배로 둔다.
+ */
+const YIELD_MIN_SAMPLE = 20
+/** 배수 상한 — 수율이 아주 낮게 관측돼도 한 번에 이만큼만 뽑는다. */
+const YIELD_MAX_MULT = 4
+
+function writeYield() {
+  const out = new Map()
+  for (const d of fs.readdirSync(DRAIN_DIR)) {
+    const p = path.join(DRAIN_DIR, d)
+    if (!fs.statSync(p).isDirectory()) continue
+    const m = /^(.+)-v(\d+)$/.exec(d)
+    if (!m) continue
+    const type = m[1]
+    for (const f of fs.readdirSync(p).filter((x) => /^chunk-\d+\.json$/.test(x))) {
+      const outFile = path.join(p, f.replace('.json', '.out.json'))
+      // **채운 청크만 센다** — 안 채운 것은 수율이 아니라 밀린 일이다.
+      if (!fs.existsSync(outFile)) continue
+      let src
+      let done
+      try {
+        src = JSON.parse(fs.readFileSync(path.join(p, f), 'utf8'))
+        done = JSON.parse(fs.readFileSync(outFile, 'utf8'))
+      } catch {
+        continue
+      }
+      if (!Array.isArray(src) || !Array.isArray(done)) continue
+      if (!out.has(type)) out.set(type, { offered: 0, written: 0 })
+      const c = out.get(type)
+      c.offered += src.length
+      c.written += done.filter((r) => Array.isArray(r?.choices) && r.choices.length).length
+    }
+  }
+  return out
+}
+const YIELD = writeYield()
+
+/** 그 유형의 몫을 채우려면 몇 배를 뽑아야 하는가. 관측이 모자라면 1배. */
+function exportMultiplier(type) {
+  const c = YIELD.get(type)
+  if (!c || c.offered < YIELD_MIN_SAMPLE || c.written === 0) return 1
+  return Math.min(YIELD_MAX_MULT, +(c.offered / c.written).toFixed(1))
+}
+
 // 규격의 정본은 파이프라인 패키지 한 벌이다 — 사본을 두면 계획과 적재가 다른 자를 쓴다.
 const { itemWordSpec, hasArticleChrome } = await import('@vocaflow/library-pipeline')
 
@@ -250,9 +311,11 @@ for (const b of bands) {
       `그중 **지금 시작 가능 ${b.readyChunks}청크**`,
   )
   for (const t of b.types) {
+    const mult = t.drain ? exportMultiplier(t.type) : 1
     const how = t.drain
       ? `집필 ${t.chunks}청크 (손 안 댄 청크 ${t.readyChunks}` +
         (t.unfinishedItems ? ` · **반쯤 채운 칸 ${t.unfinishedItems}**` : '') +
+        (mult > 1.15 ? ` · 수율 ${(100 / mult).toFixed(0)}% → **${mult}배 뽑아야**` : '') +
         ')'
       : '결정론 생성기'
     console.log(`      ${pad(t.type, 16)} 재고 ${pad(t.items, 7)} +${pad(t.shortItems, 6)} ${how}`)
@@ -280,7 +343,9 @@ if (SHOW_CMDS) {
   for (const b of bands) {
     for (const t of b.types) {
       if (!t.drain) continue
-      const missing = t.chunks - t.readyChunks
+      // ⚠️ **몫만큼 뽑으면 모자란다.** 뽑아 준 지문 중 문항이 되는 비율이 유형마다 다르다 —
+      //   실측 `claim` 35.7% · `mood` 51.9% · `blank` 92.6%. 배수는 관측에서 나온다.
+      const missing = Math.ceil((t.chunks - t.readyChunks) * exportMultiplier(t.type))
       if (missing <= 0) continue
       console.log(
         `    pnpm dlx tsx scripts/textbook/item-drain-export.mjs --type ${t.type} ` +
