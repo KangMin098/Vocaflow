@@ -16,7 +16,7 @@ import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import type { SourceInventoryPanel } from '@/lib/textbook/source-inventory-view'
 
 import { NextStepPipeline } from './NextStepPipeline'
-import { SourceInventoryTable } from './SourceInventoryTable'
+import { SourceInventoryStrip, SourceInventoryTable } from './SourceInventoryTable'
 import type {
   AxisRow,
   BandRow,
@@ -141,6 +141,9 @@ export function SourceEligibilityClient({
         ) : null}
       </p>
 
+
+      {/* 소스 한 줄 — 표는 아래 제자리에 두고 **요약만** 접힌 위로 올린다(§SourceInventoryStrip). */}
+      <SourceInventoryStrip panel={inventory} />
 
       {/* 다섯 단계 도식 — 옛 문단 넷이 담던 **조건**은 단계별 note 로 옮겼다.
           특히 「미절단 원본은 게이트를 돌려도 안 풀린다」는 지우면 안 되는 줄이다. */}

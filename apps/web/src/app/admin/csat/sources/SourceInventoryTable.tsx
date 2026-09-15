@@ -28,6 +28,47 @@ const BAR = {
   other: 'var(--t3)',
 }
 
+/**
+ * **접힌 위에 놓는 소스 한 줄.**
+ *
+ * ⚠️ 완료 조건은 「스크롤 없이 KPI·병목·**소스 현황**이 파악될 것」인데, 절 순서는
+ *   소스 표를 일곱 축 **뒤**에 둔다(판정 기준을 먼저 읽어야 표가 읽히기 때문이다).
+ *   둘은 그냥 충돌한다 — 표를 위로 올리면 순서가 깨지고, 두면 접힌 위에 소스가 없다.
+ *   그래서 **표는 제자리에 두고 요약 한 줄만 위로 올린다.** 한 줄이 답하는 것은 셋뿐이다:
+ *   원천이 몇이고 · 재고가 얼마고 · **판정이 하나도 없는 원천이 어디인가**.
+ *   마지막 것이 이 화면에서 가장 자주 쓰는 신호다(재고는 있는데 조판 풀에 못 들어온다).
+ */
+export function SourceInventoryStrip({ panel }: { panel: SourceInventoryPanel }) {
+  const total = panel.rows.reduce((n, r) => n + r.total, 0)
+  const unjudged = panel.rows.filter((r) => r.judged === 0 && r.total > 0)
+  const newest = panel.rows.reduce<string | null>(
+    (best, r) => (r.lastGet && (!best || r.lastGet > best) ? r.lastGet : best),
+    null,
+  )
+  return (
+    <p className="rounded-[var(--r-sm)] border border-[var(--bd)] px-3 py-2 font-body text-[12px] text-[var(--t2)]">
+      <b className="text-[var(--t1)]">소스 {panel.rows.length}</b> · 재고{' '}
+      <b className="tabular-nums text-[var(--t1)]">{total.toLocaleString()}편</b> · 마지막 GET{' '}
+      <span className="font-mono">{newest ? newest.slice(0, 10) : '—'}</span>
+      {unjudged.length ? (
+        <>
+          {' · '}
+          <b style={{ color: 'var(--error-ink)' }}>
+            {`판정 0인 원천 ${unjudged.length}`}
+          </b>{' '}
+          <span className="font-mono text-[11px]">
+            {unjudged
+              .slice(0, 4)
+              .map((r) => `${r.source} ${r.total.toLocaleString()}`)
+              .join(' · ')}
+          </span>{' '}
+          — 재고는 있는데 조판 풀에 못 들어온다. 아래 「소스별 원문」 표에서 다음 명령을 본다.
+        </>
+      ) : null}
+    </p>
+  )
+}
+
 export function SourceInventoryTable({ panel }: { panel: SourceInventoryPanel }) {
   const [open, setOpen] = useState<string | null>(null)
   const max = Math.max(1, ...panel.rows.map((r) => r.total))
