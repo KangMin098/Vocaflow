@@ -519,6 +519,8 @@ export type HygieneReject =
   | 'ambiguousOrder'
   /** 뭉치의 대문자 기능어가 첫 자리를 알려 준다. */
   | 'caseLeak'
+  /** 지칭 문항의 절 다섯이 지문에 없거나 나오는 차례가 아니다 — 조판이 못 찍는다. */
+  | 'unprintableReference'
 
 /**
  * **학습자에게 내보내도 되는 문항인가.** 조판의 게이트와 같은 판정을 쓴다.
@@ -559,6 +561,13 @@ export function itemHygieneReject(input: {
   // ⚠️ **생성기만 고치면 재고는 그대로 인쇄된다.** `word-order.ts` 가 앞으로 만들 것을
   //   막아도, 이미 저장된 4,133건(부사)·3,182건(대문자)은 지금도 조판 대상이다.
   //   판정은 그쪽 집합을 그대로 쓴다 — 목록을 두 벌 두면 반드시 갈린다.
+  // ── 지칭 문항이 지면에 설 수 있는가 ───────────────────────────────
+  // ⚠️ 이 판정이 조판기 안에만 있어서 **아무도 읽지 않을 문항을 세 사람이 읽었다**
+  //   (3인 검수 chunk-03). 뽑기·검수 내보내기·조판이 같은 자를 쓰게 한다.
+  if (input.type === 'long_reference' && longReferenceUnprintable(input.payload)) {
+    return 'unprintableReference'
+  }
+
   {
     const bank = input.payload?.bank
     if (Array.isArray(bank) && bank.length) {
@@ -629,4 +638,40 @@ export function isTooShortForPractice(minWords: number, payload: Record<string, 
   const text = passageTextOf(payload)
   if (!text) return false
   return countPassageWords(text) < minWords
+}
+
+/**
+ * **지칭(44번)이 지면에 설 수 있는가 — 절 다섯이 있고, 나오는 차례여야 한다.**
+ *
+ * ── 왜 판정을 여기로 옮기나 (3인 검수 chunk-03, 2026-09-15) ──────────
+ * 이 판정은 조판기(`render-volume.mjs` `renderLongReference`) 안에만 있었다. 그래서
+ * **조판이 안 찍을 문항을 뽑기와 검수 내보내기는 그대로 내보냈다** — 검수자 셋이
+ * `47e4173a` 를 읽고 나서야 「이건 인쇄가 안 되는 문항」임을 알았다(실측 자리표
+ * (a)82 · (b)564 · **(c)1070 · (d)873** · (e)1365 — (d) 가 (c) 보다 앞이다).
+ *
+ * **아무도 읽지 않을 문항을 세 사람이 읽었다.** 3인 검수는 이 파이프라인에서 가장 비싼
+ * 자원이라 낭비가 그대로 발행 지연이 된다. 판정을 한 벌로 모아 셋이 같은 자를 쓰게 한다.
+ *
+ * ⚠️ **차례를 여기서 고쳐 주지 않는다.** `answer_key.rationale_ko` 가 `(a)`~`(e)` 자리표를
+ *   그대로 쓰므로 순서를 다시 매기면 해설이 딴 곳을 가리킨다. 고칠 곳은 만드는 쪽이다.
+ * ⚠️ **따옴표 모양 때문에 못 찾는 것을 「없다」고 읽지 않는다** — 풀이 지문만 정제해서
+ *   절 안의 아포스트로피 한 글자가 달라진다. 정규화는 한 글자 → 한 글자라 자리표가
+ *   안 어긋난다(조판기가 같은 이유로 같은 대비책을 쓴다).
+ *
+ * ⚠️ **조판기의 검사는 그대로 둔다 — 사본이라서가 아니라 마지막 방어선이라서다.**
+ *   조판기는 사유를 `noClause`/`outOfOrder` 로 **갈라 세어** 어느 쪽을 고쳐야 하는지
+ *   알려 준다(여기서는 한 사유로 합친다 — 풀에서는 「못 쓴다」 하나면 된다). 이 자가
+ *   앞에서 걸러 주면 그 계수기는 0 이 되고, **0 이 아니면 둘이 갈렸다는 신호**다.
+ */
+export function longReferenceUnprintable(payload: Record<string, unknown> | null | undefined): boolean {
+  const p = payload ?? {}
+  const choices = Array.isArray(p.choices) ? p.choices.map((c) => String(c)) : []
+  if (choices.length !== 5) return true
+  const passage = String((p as { passage?: unknown }).passage ?? '')
+  if (!passage) return true
+  const flat = (s: string) => s.replace(/[‘’]/g, "'").replace(/[“”]/g, '"')
+  const flatPassage = flat(passage)
+  const at = choices.map((c) => (passage.includes(c) ? passage.indexOf(c) : flatPassage.indexOf(flat(c))))
+  if (at.some((i) => i < 0)) return true
+  return at.some((v, i) => i > 0 && v <= at[i - 1]!)
 }

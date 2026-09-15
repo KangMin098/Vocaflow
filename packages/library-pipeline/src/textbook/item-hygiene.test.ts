@@ -797,3 +797,88 @@ describe('무관 문항의 부호 누설', () => {
     expect(itemHygieneReject({ payload: { sentences: ['"Only one unbalanced here.'] } })).toBeNull()
   })
 })
+
+/**
+ * **아무도 읽지 않을 문항을 세 사람이 읽었다.**
+ *
+ * 지칭(44번)의 인쇄 가능 판정이 조판기 안에만 있었다. 그래서 검수 내보내기는 조판이
+ * 건너뛸 문항을 그대로 내보냈고, 3인 검수 chunk-03 이 `47e4173a` 를 다 읽고 나서야
+ * 「이건 인쇄가 안 된다」를 알았다(실측 자리표 (a)82 · (b)564 · **(c)1070 · (d)873** · (e)1365).
+ * 3인 검수는 이 파이프라인에서 가장 비싼 자원이라 낭비가 그대로 발행 지연이 된다.
+ */
+describe('지칭 문항이 지면에 설 수 있는가', () => {
+  const passage =
+    'Ines opened the glass door and stepped onto the terrace. Her mother had gone through the same door an hour before. Marek followed her into the garden without a word. The lamp she carried threw a long shadow. Her mother called once from the far end.'
+
+  const item = (choices: string[]) => ({
+    payload: { passage, choices },
+    answer_key: { answer: 3 },
+    type: 'long_reference',
+  })
+
+  it('절 다섯이 나오는 차례면 통과한다', () => {
+    expect(
+      itemHygieneReject(
+        item([
+          'Ines opened the glass door',
+          'Her mother had gone through the same door',
+          'Marek followed her into the garden',
+          'The lamp she carried',
+          'Her mother called once',
+        ]),
+      ),
+    ).toBeNull()
+  })
+
+  it('차례가 어긋나면 인쇄하지 않는다 — (d) 가 (c) 보다 앞이다', () => {
+    expect(
+      itemHygieneReject(
+        item([
+          'Ines opened the glass door',
+          'Her mother had gone through the same door',
+          'The lamp she carried',
+          'Marek followed her into the garden',
+          'Her mother called once',
+        ]),
+      ),
+    ).toBe('unprintableReference')
+  })
+
+  it('한 절이라도 지문에 없으면 인쇄하지 않는다', () => {
+    expect(
+      itemHygieneReject(
+        item([
+          'Ines opened the glass door',
+          'Her mother had gone through the same door',
+          'a clause that never appears anywhere',
+          'The lamp she carried',
+          'Her mother called once',
+        ]),
+      ),
+    ).toBe('unprintableReference')
+  })
+
+  it('절이 다섯이 아니면 인쇄하지 않는다', () => {
+    expect(itemHygieneReject(item(['Ines opened the glass door']))).toBe('unprintableReference')
+  })
+
+  // ⚠️ **따옴표 모양 때문에 「없다」고 읽지 않는다** — 풀이 지문만 정제해 한 글자가 달라진다.
+  it('아포스트로피 모양이 달라도 찾는다', () => {
+    const curly =
+      'Ivo said he’d wait by the gate. The keeper had told him so. Ivo counted the minutes until dusk. He’d never waited so long. The gate stayed shut.'
+    expect(
+      itemHygieneReject({
+        payload: {
+          passage: curly,
+          choices: ["Ivo said he'd wait", 'The keeper had told him', 'Ivo counted the minutes', "He'd never waited", 'The gate stayed shut'],
+        },
+        answer_key: { answer: 2 },
+        type: 'long_reference',
+      }),
+    ).toBeNull()
+  })
+
+  it('다른 유형은 이 자의 대상이 아니다', () => {
+    expect(itemHygieneReject({ payload: { passage }, type: 'topic' })).toBeNull()
+  })
+})
