@@ -246,6 +246,37 @@ function AxisTable({ axes }: { axes: AxisRow[] }) {
  * ⚠️ **DB 를 안 본다.** 정본(`SERIES_SPINE` + `itemWordSpec`)에서 바로 펴므로
  *   스냅샷이 낡아도 이 표는 늘 지금 규격이다.
  */
+/**
+ * 매트릭스의 행 — **유형 union**.
+ *
+ * 학년마다 열리는 유형이 다르다(V1 은 셋, V5~V7 은 열아홉). 그래서 행은 전 학년에서
+ * 한 번이라도 열리는 유형 전부이고, 안 열리는 칸은 `byBand` 에 없다 —
+ * 화면이 그 칸을 「없음」이 아니라 「안 열림」으로 그린다.
+ */
+function typeRows(panel: SourceEligibilityPanel) {
+  const rows = new Map<
+    string,
+    {
+      type: string
+      label: string
+      familyLabel: string
+      byBand: Record<number, { window: { min: number; max: number } | null; narrowed: boolean }>
+    }
+  >()
+  for (const b of panel.requirements) {
+    for (const t of b.types) {
+      if (!rows.has(t.type)) {
+        rows.set(t.type, { type: t.type, label: t.label, familyLabel: t.familyLabel, byBand: {} })
+      }
+      rows.get(t.type)!.byBand[b.vLevel] = { window: t.window, narrowed: t.narrowed }
+    }
+  }
+  // 열리는 학년이 많은 유형부터 — 위쪽이 전 학년 공통이라 표가 읽히는 순서가 된다.
+  return [...rows.values()].sort(
+    (a, z) => Object.keys(z.byBand).length - Object.keys(a.byBand).length,
+  )
+}
+
 function RequirementTable({ panel }: { panel: SourceEligibilityPanel }) {
   const families = [...new Set(panel.requirements.flatMap((b) => b.types.map((t) => t.family)))]
   return (
@@ -259,46 +290,107 @@ function RequirementTable({ panel }: { panel: SourceEligibilityPanel }) {
         <b> 유형 계열</b>이 정한 뒤 <b>그 학년대 시중 분포(p10~p90)</b>가 좁힌다. 좁히지 못한 칸은
         그렇게 적는다 — 좁혀진 척하면 근거가 거짓이 된다.
       </p>
-      <div className="flex flex-col gap-3">
-        {panel.requirements.map((b) => (
-          <div key={b.vLevel} className="rounded-[var(--r-md)] border border-[var(--bd)] p-3">
-            <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-              <span className="font-display text-[13px] font-[700] text-[var(--t1)]">
-                {b.step}단 · {b.schoolBand}
-              </span>
-              <span className="font-body text-[12px] tabular-nums text-[var(--t2)]">
-                V{b.vLevel}
-              </span>
-              <span className="font-body text-[12px] text-[var(--t3)]">{b.volumeTitle}</span>
-              <span className="ml-auto font-body text-[11px] text-[var(--t3)]">
-                {b.marketBucket ? `시중 버킷 ${b.marketBucket}` : '시중 버킷 없음'}
-              </span>
-            </div>
-            <ul className="mt-2 flex flex-wrap gap-1.5">
-              {b.types.map((t) => (
-                <li
-                  key={t.type}
-                  className="flex items-baseline gap-1.5 rounded-[var(--r-sm)] border border-[var(--bd)] px-2 py-1 font-body text-[12px]"
-                  title={`${t.familyLabel} — ${panel.familySource[t.family] ?? ''}`}
-                >
-                  <span className="font-[600] text-[var(--t1)]">{t.label}</span>
-                  <span className="tabular-nums text-[var(--t2)]">
-                    {t.window ? `${t.window.min}–${t.window.max}어` : '지문 없음'}
+      {/*
+        ⚠️ **칩 나열에서 매트릭스로** (2026-09-16). 예전에는 학년 카드 7장에 유형 칩이
+        수십 개 흩어져 있었다 — 「어느 유형이 어느 학년에서 열리나」를 보려면 카드 일곱 장을
+        눈으로 오가야 했고, 그 비교가 이 표의 유일한 쓸모다. 행을 유형으로 세우면 그 비교가
+        한 줄이 된다.
+
+        ⚠️ **빈 칸은 「없음」이 아니라 「그 학년에 안 열림」이다.** 둘을 같게 그리면
+        「재료가 없다」로 읽혀 없는 문제를 쫓게 된다.
+      */}
+      <div className="overflow-x-auto">
+        <table className="w-full min-w-[820px] border-collapse font-body text-[12px]">
+          <thead>
+            <tr className="border-b border-[var(--bd)] text-left text-[11px] text-[var(--t2)]">
+              <th className="sticky left-0 bg-[var(--bg)] py-2 pr-3 font-[600]">유형</th>
+              {panel.requirements.map((b) => (
+                <th key={b.vLevel} className="px-1.5 py-2 text-center font-[600] align-bottom">
+                  <span className="block font-display text-[12px] font-[700] text-[var(--t1)]">
+                    V{b.vLevel}
                   </span>
-                  {t.window ? (
-                    <span
-                      className="text-[10px]"
-                      style={{ color: t.narrowed ? 'var(--success-ink)' : 'var(--t3)' }}
-                    >
-                      {t.narrowed ? '학년으로 좁힘' : '유형 창 그대로'}
-                    </span>
-                  ) : null}
-                </li>
+                  <span className="block text-[10px] text-[var(--t2)]">{b.schoolBand}</span>
+                  <span className="block text-[9px] font-[400] leading-tight text-[var(--t3)]">
+                    {b.step}단 · {b.volumeTitle}
+                  </span>
+                  <span className="block text-[9px] font-[400] text-[var(--t3)]">
+                    {b.marketBucket ? `시중 버킷 ${b.marketBucket}` : '시중 버킷 없음'}
+                  </span>
+                </th>
               ))}
-            </ul>
-          </div>
-        ))}
+            </tr>
+          </thead>
+          <tbody>
+            {typeRows(panel).map((row) => (
+              <tr key={row.type} className="border-b border-[var(--bd)]/50">
+                <th
+                  scope="row"
+                  className="sticky left-0 bg-[var(--bg)] py-1.5 pr-3 text-left font-[600] text-[var(--t1)]"
+                  title={row.familyLabel}
+                >
+                  {row.label}
+                </th>
+                {panel.requirements.map((b) => {
+                  const cell = row.byBand[b.vLevel]
+                  if (!cell) {
+                    // 그 학년에 이 유형이 **안 열린다** — 재료가 없는 것과 다르다.
+                    return (
+                      <td
+                        key={b.vLevel}
+                        className="px-1.5 py-1.5 text-center text-[10px] text-[var(--t5)]"
+                        title="이 학년에서는 이 유형을 내지 않는다"
+                      >
+                        ·
+                      </td>
+                    )
+                  }
+                  if (!cell.window) {
+                    return (
+                      <td
+                        key={b.vLevel}
+                        className="px-1.5 py-1.5 text-center text-[10px] text-[var(--t3)]"
+                      >
+                        지문 없음
+                      </td>
+                    )
+                  }
+                  return (
+                    <td key={b.vLevel} className="px-1.5 py-1.5 text-center">
+                      {/* 색만으로 말하지 않는다 — 좁혔는지는 아래 글자로도 적는다. */}
+                      <span
+                        className="block tabular-nums"
+                        style={{ color: cell.narrowed ? 'var(--success-ink)' : 'var(--t2)' }}
+                      >
+                        {/* ⚠️ **한 표현식으로 만든다** — 표현식과 리터럴을 붙여 쓰면 서버 렌더가
+                            사이에 주석 마커를 넣어 `120–178어` 가 한 문자열로 안 남는다(회귀가 잡는다). */}
+                        {`${cell.window.min}–${cell.window.max}어`}
+                      </span>
+                      <span className="block text-[9px] text-[var(--t3)]">
+                        {cell.narrowed ? '학년으로 좁힘' : '유형 창 그대로'}
+                      </span>
+                    </td>
+                  )
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
+
+      <p className="flex flex-wrap items-center gap-x-4 gap-y-1 font-body text-[11px] text-[var(--t3)]">
+        <span>
+          <b style={{ color: 'var(--success-ink)' }}>학년으로 좁힘</b> — 그 학년대 시중 분포가 창을 좁혔다
+        </span>
+        <span>
+          <b style={{ color: 'var(--t2)' }}>유형 창 그대로</b> — 교차가 비어 좁히지 못했다
+        </span>
+        <span>
+          <b>지문 없음</b> — 그 유형은 지문을 안 쓴다
+        </span>
+        <span>
+          <b>·</b> — 그 학년에서는 이 유형을 내지 않는다
+        </span>
+      </p>
       <details className="rounded-[var(--r-sm)] border border-[var(--bd)] px-3 py-2">
         <summary className="cursor-pointer font-body text-[12px] font-[600] text-[var(--t2)]">
           계열별 창의 출처 — 짐작으로 정한 값이 없다는 근거
