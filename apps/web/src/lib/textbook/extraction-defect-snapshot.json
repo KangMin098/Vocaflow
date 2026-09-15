@@ -1,9 +1,9 @@
 {
-  "measuredAt": "2026-09-15T01:14:20.495Z",
-  "elapsedSeconds": 326.4,
+  "measuredAt": "2026-09-15T11:14:53.672Z",
+  "elapsedSeconds": 611.8,
   "scope": "status in ('ready','published')",
   "scanned": 87626,
-  "defective": 20452,
+  "defective": 4876,
   "rules": [
     {
       "id": "html-attr",
@@ -132,11 +132,11 @@
       "id": "dup-paragraph",
       "label": "문단 통째 중복",
       "why": "같은 문단이 두 번 들어 있다 — 어수가 부풀고 읽으면 되풀이된다",
-      "count": 18856,
+      "count": 1219,
       "bySource": [
         {
           "source": "plos",
-          "count": 18614
+          "count": 977
         },
         {
           "source": "frontiers",
@@ -165,19 +165,19 @@
       ],
       "samples": [
         {
-          "title": "Accompaniment on the edge: What can the US learn f",
-          "source": "plos",
-          "evidence": "The US has stood as a reference point for abortion rights in"
+          "title": "Neural Correlates of Facial Mimicry: Simultaneous ",
+          "source": "frontiers",
+          "evidence": "Post-number asterisks indicate significant Pearson correlati"
         },
         {
-          "title": "Coexistence rules for small, antagonistically inte",
+          "title": "Too poor to science: How wealth determines who suc",
           "source": "plos",
-          "evidence": "The coexistence of diverse microbial communities despite the"
+          "evidence": "STEM is profoundly shaped by wealth, yet financial privilege"
         },
         {
-          "title": "Beyond Statistical Significance: Implications of N",
-          "source": "plos",
-          "evidence": "It is a common and good practice in experimental sciences to"
+          "title": "Not just phonology: a longitudinal study of dyslex",
+          "source": "frontiers",
+          "evidence": "a, b, c Post-hoc analysis for comparison between the four su"
         }
       ]
     },
@@ -235,6 +235,51 @@
           "title": "Emergent spatial structure in the gut microbiota i",
           "source": "plos",
           "evidence": "of ,"
+        }
+      ]
+    },
+    {
+      "id": "story-seam",
+      "label": "이야기 경계를 넘은 발췌",
+      "why": "선집을 자른 창이 한 이야기가 끝난 자리를 지났다 — 지문 한 편에 두 이야기가 담긴다",
+      "count": 44,
+      "bySource": [
+        {
+          "source": "gutenberg",
+          "count": 30
+        },
+        {
+          "source": "voa",
+          "count": 6
+        },
+        {
+          "source": "frontiers",
+          "count": 4
+        },
+        {
+          "source": "plos",
+          "count": 3
+        },
+        {
+          "source": "space_place",
+          "count": 1
+        }
+      ],
+      "samples": [
+        {
+          "title": "A Collection of Beatrix Potter Stories (발췌)",
+          "source": "gutenberg",
+          "evidence": "ONCE upon a time there was a frog called Mr. Jeremy Fisher; "
+        },
+        {
+          "title": "Grimm's Fairy Tales (발췌)",
+          "source": "gutenberg",
+          "evidence": "There was once on a time, a little girl whose father and mot"
+        },
+        {
+          "title": "The Phantom of the Opera",
+          "source": "gutenberg",
+          "evidence": "There was once, in a little market-town not far from Upsala,"
         }
       ]
     },

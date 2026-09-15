@@ -42,9 +42,13 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-// 규칙 하나는 패키지에 있다 — 시험(`story-seam.test.ts` 30종)이 붙어 있어야 하는데
-// 이 파일은 시험이 없기 때문이다. 정규식을 여기 베껴 두면 둘이 조용히 갈라진다.
-const { storySeam } = await import('@vocaflow/library-pipeline')
+import { retryingFetch } from '../lib/supabase-client.mjs'
+
+/** 5xx·연결 실패에 물러서는 GET. 진행 상황을 지우지 않게 재시도를 한 줄로 알린다. */
+const FETCH = retryingFetch({
+  onRetry: ({ attempt, wait, why }) =>
+    process.stderr.write(`\n  ↻ ${attempt}차 재시도 (${Math.round(wait / 1000)}초 뒤) — ${why}\n`),
+})
 
 const envPath = path.resolve('apps/web/.env.local')
 if (fs.existsSync(envPath)) {
@@ -75,117 +79,14 @@ const NO_WRITE = process.argv.includes('--no-write')
 const JSON_OUT = NO_WRITE ? null : arg('json') ?? (ALL && !ONLY_SOURCE ? SNAPSHOT_PATH : null)
 
 /**
- * 결함 규칙 — **하나하나가 실제로 본 것**이다. 짐작으로 규칙을 늘리지 않는다.
- * 늘리면 오탐이 늘고, 오탐이 늘면 이 목록을 아무도 안 본다.
+ * 결함 규칙 — **정본은 패키지에 있다**(`packages/library-pipeline/src/textbook/extraction-defect.ts`).
  *
- * `test(body)` 는 결함이면 근거 문자열을, 아니면 null 을 돌려준다 —
- * 근거가 없으면 다음 사람이 같은 조사를 처음부터 다시 한다.
+ * ⚠️ 2026-09-15 까지 규칙 일곱이 이 파일 안에만 있었다. 그래서 **세기만 하고 아무도 안 썼다** —
+ *   문항 뽑기(`item-drain-export.mjs`)가 이 판정을 한 번도 묻지 않아 결함 지문 위에 문항이
+ *   얹혔다. 규칙을 패키지로 올려 뽑기와 스캔이 **같은 잣대**를 쓰게 했다.
+ *   여기에 사본을 두면 둘이 조용히 갈라진다 — 그래서 가져다 쓰기만 한다.
  */
-const RULES = [
-  {
-    id: 'html-attr',
-    label: 'HTML 속성 혼입',
-    why: '툴팁·링크 속성이 문장 한복판에 남았다 — 그대로 인쇄된다',
-    test: (b) => {
-      const m = b.match(/[a-z-]+="[^"]{0,40}"\s*&?gt;|&lt;\/?[a-z]+&gt;|<\/?(?:div|span|p|a|img)\b/i)
-      return m ? m[0].slice(0, 60) : null
-    },
-  },
-  {
-    id: 'wiki-markup',
-    label: '위키 마크업 잔재',
-    why: '`== 절 ==` · `[[링크]]` · `{{틀}}` 이 본문에 남았다',
-    test: (b) => {
-      const m = b.match(/^={2,}[^=\n]{1,60}={2,}\s*$|\[\[[^\]\n]{1,60}\]\]|\{\{[^}\n]{1,60}\}\}/m)
-      return m ? m[0].slice(0, 60) : null
-    },
-  },
-  {
-    id: 'browser-notice',
-    label: '브라우저·재생기 안내',
-    why: '본문 자리에 "구형 브라우저" · "여기를 눌러 내려받기" 가 들어왔다 — 추출 실패',
-    test: (b) => {
-      const m = b.match(
-        /You are using an outdated browser|Click here to download this (?:video|file)|enable JavaScript|Your browser does not support/i,
-      )
-      return m ? m[0].slice(0, 60) : null
-    },
-  },
-  {
-    id: 'dup-paragraph',
-    label: '문단 통째 중복',
-    why: '같은 문단이 두 번 들어 있다 — 어수가 부풀고 읽으면 되풀이된다',
-    test: (b) => {
-      // 40자 미만 줄은 캡션·머리말일 수 있어 세지 않는다(후렴 오탐).
-      const seen = new Map()
-      for (const raw of b.split(/\n+/)) {
-        const line = raw.trim()
-        if (line.length < 80) continue
-        const key = line.slice(0, 120)
-        if (seen.has(key)) return key.slice(0, 60)
-        seen.set(key, true)
-      }
-      return null
-    },
-  },
-  {
-    id: 'dropped-math',
-    label: '수식이 사라진 문장',
-    why: '기호만 빠지고 문장은 남았다 — 산문처럼 보이는데 뜻이 안 선다',
-    /**
-     * PLOS 는 문장 안 기호를 `<img class="inline-graphic">` 로 렌더하고 **alt 를 안 준다**.
-     * 태그를 벗기면 기호가 통째로 사라져 "Let ⟨사라짐⟩ be a graph" 가 "Let be a graph" 가 된다.
-     * 겉보기엔 산문이라 다른 어떤 규칙도 못 잡는다.
-     *
-     * ⚠️ **규칙은 판정자들이 실제로 인용한 문장에서 뽑았다** — 짐작이 아니다. 실측
-     *   2026-09-07: 발췌 2,000편 표본의 5.9%가 걸렸고, PLOS 발췌 1,200편 판정에서
-     *   반려 사유의 절반 이상이 이것이었다.
-     *   공백은 저장 때 정규화되므로 「이중 공백」으로는 못 잡는다 — **문법이 무너진 자국**을 본다.
-     */
-    test: (b) => {
-      const pats = [
-        /\b(?:of|by|for|with|to|from|than|between)\s+[.,;:)]/, // 전치사 뒤 바로 문장부호
-        /\b(?:Let|Assume|Suppose)\s+(?:be|is|are|denotes?|represents?),?\s/, // 주어가 빠졌다
-        /\bwhere\s+(?:is|are|denotes?|represents?)\s/, // where 뒤 주어 없음
-        /\b(?:denotes?|represents?|equals?)\s+[.,;]/, // 목적어가 빠졌다
-      ]
-      for (const re of pats) {
-        const m = b.match(re)
-        if (m) return m[0].slice(0, 60)
-      }
-      return null
-    },
-  },
-  {
-    id: 'story-seam',
-    label: '이야기 경계를 넘은 발췌',
-    why: '선집을 자른 창이 한 이야기가 끝난 자리를 지났다 — 지문 한 편에 두 이야기가 담긴다',
-    /**
-     * 2026-09-15 해설 드레인에서 나왔다. V5 어휘 문항 하나가 해설을 쓸 수 없었는데,
-     * 지문 10문장 중 앞 5문장은 Ivan·Koshchei 이야기의 **끝**이고 뒤 5문장은
-     * Oeyvind 라는 다른 아이 이야기의 **시작**이었다. 밑줄 5개가 두 이야기에 갈려 있었다.
-     *
-     * 어법·어휘 문항은 지문이 한 덩어리라는 것을 전제하므로 그 위에서는 정답 판정이
-     * 선다고 말할 수 없다 — **해설로 덮을 문제가 아니라 다시 잘라야 하는 문제다.**
-     *
-     * 규칙과 그 정밀도(실측 77.3%)·한계는 `story-seam.ts` 주석에 있다.
-     * ⚠️ 잡히는 것은 **정형구를 쓴 경계뿐**이라 이 수는 하한이다 — 위 실물 사례부터가
-     *   "Oeyvind was his name." 로 시작해 이 규칙에 안 걸린다.
-     */
-    test: (b) => storySeam(b),
-  },
-  {
-    id: 'share-chrome',
-    label: '공유 버튼·크레딧 잔재',
-    why: '"Facebook Pinterest X LinkedIn" · "Image Credit:" 가 본문에 섞였다',
-    test: (b) => {
-      const m = b.match(
-        /Facebook\s+Pinterest\s+X?\s*LinkedIn|Share on (?:Facebook|Twitter|X)\b|\b\d+ min read\b/i,
-      )
-      return m ? m[0].slice(0, 60) : null
-    },
-  },
-]
+const { DEFECT_RULES: RULES } = await import('@vocaflow/library-pipeline')
 
 const num = (n) => n.toLocaleString()
 const pad = (s, w) => String(s).padEnd(w)
@@ -204,7 +105,11 @@ async function* walk() {
       limit: String(take),
     })
     if (ONLY_SOURCE) params.set('source', `eq.${ONLY_SOURCE}`)
-    const res = await fetch(`${URL_BASE}/rest/v1/library_articles?${params}`, { headers: HEADERS })
+    // ⚠️ **생 `fetch` 를 쓰면 한 번의 끊김에 전체가 날아간다** (실측 2026-09-15:
+    //   56,400편째에서 `ECONNRESET` — 9분을 훑고 아무것도 안 남았다). 이 저장소는 그 문제를
+    //   이미 풀어 뒀다(`scripts/lib/supabase-client.mjs` — 5xx·연결 실패에 지수 백오프,
+    //   GET 은 멱등이라 안전하게 재시도). 이 스크립트만 그 길을 안 쓰고 있었다.
+    const res = await FETCH(`${URL_BASE}/rest/v1/library_articles?${params}`, { headers: HEADERS })
     if (!res.ok) throw new Error(`${res.status} ${await res.text()}`)
     const rows = await res.json()
     if (!rows.length) return
