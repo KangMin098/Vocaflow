@@ -14,7 +14,9 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
+import { LocusBar } from '@/components/csat/LocusBar'
 import { ReportText } from '@/components/csat/ReportText'
+import { typeLocus } from '@/lib/csat/type-locus'
 import { loadCsatTypeDetail, loadCsatTypeItems } from '@/lib/csat/learner'
 
 export const dynamic = 'force-dynamic'
@@ -44,6 +46,11 @@ export default async function CsatTypePage({ params }: { params: Promise<{ typeI
   // **이미 불러온 목록**이라 추가 조회가 없고, 여기 없는 인용은 평문으로 남는다 —
   // 없는 문항으로 가는 링크는 막다른 화면이다(실측: 인용의 98.5%가 이 목록 안에 있다).
   const knownItems = new Set(items.map((it) => it.id))
+
+  // **이 유형의 기출을 실제로 세어** 근거 자리의 분포를 낸다. DB 를 치지 않는다 —
+  // 커밋된 골격이 type_id 를 들고 있다. 표본이 8문항 미만이면 null 이고, 그때는 안 그린다:
+  // 적은 표본으로 「대개 뒤쪽」이라고 적으면 학습자가 그것을 규칙으로 외운다.
+  const locus = typeLocus(typeId)
   // ⚠️ **`<main>` 이 아니라 `<div>` 다.** 셸(`(main)/layout.tsx`)이 이미
   //    `<main id="main-content">` 를 그린다. 중첩하면 문서에 보이는 main 이 둘이 되어
   //    스크린리더가 본문을 못 짚고 건너뛰기 링크도 어디로 갈지 모호해진다.
@@ -83,12 +90,14 @@ export default async function CsatTypePage({ params }: { params: Promise<{ typeI
               {detail.answer_locus_pattern ? (
                 <section>
                   <h2 className="font-display text-sm font-bold text-[var(--t1)]">정답 근거는 어디 있나</h2>
+                  {/* 산문보다 **먼저** 온다 — 학습자가 검증할 수 있는 것이 앞서야 한다. */}
+                  {locus ? <LocusBar summary={locus} /> : null}
                   {/* 한 덩어리로 쏟지 않는다 — 이 값은 평균 1,763자 · 최대 5,931자다.
                       문단·강조·문항 인용이 **데이터에 이미 있고**, 화면이 버리고 있었다. */}
                   <ReportText
                     text={detail.answer_locus_pattern}
                     known={knownItems}
-                    className="mt-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4"
+                    className="mt-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4"
                   />
                 </section>
               ) : null}

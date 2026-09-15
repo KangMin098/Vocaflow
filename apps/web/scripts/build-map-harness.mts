@@ -18,7 +18,9 @@ import { createElement } from 'react'
 import { renderToString } from 'react-dom/server'
 
 import { PassageMap } from '../src/components/csat/PassageMap'
+import { LocusBar } from '../src/components/csat/LocusBar'
 import { ReportText } from '../src/components/csat/ReportText'
+import { summarizeLocus } from '../src/lib/csat/locus-model'
 import type { MapAnchor } from '../src/lib/csat/passage-map-model'
 import type { SkeletonSentence } from '../src/lib/csat/passage-skeleton'
 
@@ -121,7 +123,29 @@ const reportMarkup = renderToString(
   }),
 )
 
+/**
+ * 근거 위치 분포 — **골격에서 실제로 센다.** 표본을 손으로 적으면 그 수치가 현실과 갈리고,
+ * 이 하네스의 존재 이유가 사라진다(2026-09-15 에 같은 이유로 고정값을 걷어냈다).
+ */
+const locusPositions = allSk
+  .filter((i) => i.sentences.length >= 2)
+  .map((i) => {
+    const a = i.anchors.find((x) => x.id === 'answer')
+    if (!a || !a.sentences.length) return null
+    const mid = a.sentences.reduce((x: number, y: number) => x + y, 0) / a.sentences.length
+    return mid / (i.sentences.length - 1)
+  })
+  .filter((x): x is number => x != null)
+const locus = summarizeLocus(locusPositions)
+if (!locus) {
+  console.error('근거 위치 표본이 모자라다 — 골격을 확인할 것')
+  process.exit(1)
+}
+const locusMarkup = renderToString(createElement(LocusBar, { summary: locus }))
+
 const markup =
+  '<section class="mb-8" data-harness="locus"><h2 class="font-display text-sm font-bold text-[var(--t1)] mb-2">정답 근거는 어디 있나</h2>' +
+  locusMarkup + '</section>' +
   '<section class="mb-8" data-harness="map">' + mapMarkup + '</section>' +
   '<section data-harness="report"><h2 class="font-display text-sm font-bold text-[var(--t1)] mb-2">정답 근거는 어디 있나</h2>' +
   reportMarkup + '</section>'

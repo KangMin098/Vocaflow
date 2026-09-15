@@ -980,6 +980,7 @@ gamekit 을 쓰지 않는 게임(WordBlitz · Pirate's Bounty)은 `GameKitStyles
 | 화면 | [`components/csat/PassageMap.tsx`](../apps/web/src/components/csat/PassageMap.tsx) · [`ReportText.tsx`](../apps/web/src/components/csat/ReportText.tsx) |
 | 다음 걸음 | [`lib/csat/next-item.ts`](../apps/web/src/lib/csat/next-item.ts) — 해설 있고 **지도 있는 것을 먼저** |
 | PDF 결합 | [`lib/csat/pdf-text-locate.ts`](../apps/web/src/lib/csat/pdf-text-locate.ts) — 학습자 PDF 텍스트 레이어에서 근거를 찾아 밑줄 |
+| 근거 위치 분포 | [`lib/csat/locus-model.ts`](../apps/web/src/lib/csat/locus-model.ts)(순수) · [`type-locus.ts`](../apps/web/src/lib/csat/type-locus.ts)(골격에서 집계 · DB 0) · [`components/csat/LocusBar.tsx`](../apps/web/src/components/csat/LocusBar.tsx) |
 | 회귀 | 순수 132 + 실 DB 통합 4 + 접근성 하네스 11 + 런타임 7(미확인) |
 
 **실측 (2026-09-15)**

@@ -15,6 +15,8 @@
 //
 //   · 계정: runtime-test-0705@vocaflow.dev
 //   · 읽기 전용 — DB 에 아무것도 쓰지 않는다(정리 불필요).
+import fs from 'node:fs';
+
 import { test, expect, type Page } from '@playwright/test';
 
 const RUNTIME_USER = {
@@ -51,6 +53,23 @@ test.describe('기출 유형 분석 — 학습자 표면', () => {
 
   test.describe('로그인 상태', () => {
     test.beforeAll(async ({ browser }) => {
+      // **미리 구운 세션이 있으면 로그인 폼을 거치지 않는다.**
+      //
+      // 이 머신은 «브라우저 → Supabase» 경로만 간헐적으로 막힌다(같은 시각 node 는 로그인
+      // 성공인데 폼은 "로그인 중..." 에서 멈춤 — 실측 2026-09-15). 그러면 화면 코드가 멀쩡해도
+      // 검증을 못 한다. `npx tsx scripts/e2e-session.mts .auth-runtime-csat.json` 이 굽는다.
+      //
+      // ⚠️ 훅 기본 제한은 **30초**인데 아래 로그인은 2회 시도 × 25초라 **최대 50초+** 다.
+      //    그래서 망이 멀쩡해도 느리면 훅이 먼저 죽고, 메시지가 «beforeAll 시간 초과» 라
+      //    **망 문제인지 코드 문제인지 구별이 안 된다.**
+      //
+      // ⚠️ 건너뛴 사실을 크게 남긴다 — 조용히 건너뛰면 로그인이 깨져도 이 스펙은 초록이다.
+      //    로그인 폼 자체의 회귀는 `20-auth-flows` 가 따로 본다.
+      if (fs.existsSync(STATE_PATH)) {
+        console.log(`[41] 미리 구운 세션을 쓴다 (${STATE_PATH}) — 로그인 폼은 거치지 않았다`);
+        return;
+      }
+      test.setTimeout(150_000);
       const page = await browser.newPage({ storageState: undefined });
       await loginRuntimeUser(page);
       await page.context().storageState({ path: STATE_PATH });
@@ -103,7 +122,12 @@ test.describe('기출 유형 분석 — 학습자 표면', () => {
       // **절차**가 이 화면의 알맹이다 — 목록만 있고 절차가 없으면 실패로 본다
       const proc = page.getByRole('heading', { name: '푸는 절차' });
       await expect(proc).toBeVisible();
-      const steps = page.locator('ol > li');
+      // ⚠️ **그 절 안에서만 센다.** 예전에는 `page.locator('ol > li')` 로 화면 전체를 훑었는데,
+      //    2026-09-15 에 「근거 위치 분포」(`LocusBar`)가 `<ol>` 로 위에 붙자 `.first()` 가
+      //    구간 라벨("앞머리 0")을 집어 이 단언이 4자에서 실패했다. 화면이 옳고 선택자가
+      //    넓었던 것이다 — 절차는 절차 절에서 센다.
+      const procSection = page.locator('section').filter({ has: proc });
+      const steps = procSection.locator('ol > li');
       expect(await steps.count(), '절차 단계가 없다').toBeGreaterThan(0);
       // 첫 단계가 실행 가능한 문장인지까지는 못 재지만, 빈 껍데기는 잡는다
       expect(((await steps.first().textContent()) ?? '').trim().length).toBeGreaterThan(15);

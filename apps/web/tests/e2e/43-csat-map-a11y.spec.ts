@@ -156,6 +156,40 @@ test.describe('기출 분석 컴포넌트 접근성 (서버 없음)', () => {
     expect(strongCount, 'strong 이 없다 — 파서가 굵게를 못 살렸다').toBeGreaterThan(0)
   })
 
+  // ── 근거 위치 분포 — 산문 1,763자가 있던 자리를 **실측**이 대신한다 ──────────
+
+  test('분포가 다섯 구간을 모두 그린다 — 0 인 구간도 자리를 지킨다', async ({ page }) => {
+    await mount(page, 'light')
+    const locus = page.locator('[data-harness="locus"]')
+    await expect(locus).toBeVisible()
+    // 구간이 빠지면 «그 자리엔 없다» 가 아니라 «그런 자리가 없다» 로 읽힌다.
+    await expect(locus.locator('ol > li')).toHaveCount(5)
+    // ⚠️ 눈에 보이는 글자로 짚지 않는다 — 라벨 칸은 «이름 + 줄바꿈 + 개수» 를 함께 담아
+    //    `getByText('앞머리', { exact: true })` 가 안 맞는다(실측). 스크린리더가 실제로 읽는
+    //    것은 `aria-label` 이므로 **그쪽**을 본다.
+    const names = await locus
+      .locator('ol > li')
+      .evaluateAll((els) => els.map((e) => e.getAttribute('aria-label') ?? ''))
+    for (const label of ['앞머리', '앞', '가운데', '뒤', '끝']) {
+      expect(names.some((n) => n.startsWith(label + ' ')), `구간 «${label}» 이 없다`).toBe(true)
+    }
+  })
+
+  test('분포가 색 말고도 말한다 — 구간마다 이름과 수가 붙어 있다', async ({ page }) => {
+    await mount(page, 'light')
+    const labels = await page
+      .locator('[data-harness="locus"] ol > li')
+      .evaluateAll((els) => els.map((e) => e.getAttribute('aria-label') ?? ''))
+    expect(labels).toHaveLength(5)
+    // 「앞머리 12문항」 꼴 — 스크린리더가 막대 높이를 읽을 수는 없다.
+    for (const l of labels) expect(l).toMatch(/문항$/)
+  })
+
+  test('분포가 «주장이 아니라 관측» 임을 화면에 적는다', async ({ page }) => {
+    await mount(page, 'light')
+    await expect(page.locator('[data-harness="locus"]')).toContainText('관측')
+  })
+
   test('위치를 못 찾은 근거도 칩으로 보이고 그렇게 적혀 있다', async ({ page }) => {
     await mount(page, 'light')
     // 조용히 아무 일도 안 일어나는 버튼을 만들지 않는다.
