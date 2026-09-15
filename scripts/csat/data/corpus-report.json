@@ -1,5 +1,5 @@
 {
- "built_at": "2026-09-13",
+ "built_at": "2026-09-15",
  "scope": "독해·장문 — 듣기 전면 제외 (듣기 마지막 번호: 2014학년도 22 · 그 외 17)",
  "exams": 29,
  "paper": {
@@ -7,8 +7,8 @@
   "expected": 1305,
   "typed": 1277,
   "keyed": 1302,
-  "passaged": 962,
-  "choiced": 1172,
+  "passaged": 931,
+  "choiced": 1272,
   "listening_items": 500
  },
  "in_scope": {
@@ -16,9 +16,9 @@
   "expected": 802,
   "typed": 802,
   "keyed": 802,
-  "passaged": 799,
-  "choiced": 789,
-  "body_suspect": 211,
+  "passaged": 802,
+  "choiced": 801,
+  "body_suspect": 111,
   "exams_fully_keyed": 29,
   "points_by_exam": {
    "2015": 63,
@@ -160,8 +160,8 @@
     "n": 28,
     "typed": 28,
     "keyed": 28,
-    "passaged": 27,
-    "choiced": 27,
+    "passaged": 28,
+    "choiced": 28,
     "points": 63
    },
    {
@@ -281,7 +281,7 @@
     "n": 28,
     "typed": 28,
     "keyed": 28,
-    "passaged": 27,
+    "passaged": 28,
     "choiced": 28,
     "points": 63
    },
@@ -303,8 +303,8 @@
     "n": 28,
     "typed": 28,
     "keyed": 28,
-    "passaged": 27,
-    "choiced": 26,
+    "passaged": 28,
+    "choiced": 28,
     "points": 63
    },
    {
@@ -326,7 +326,7 @@
     "typed": 28,
     "keyed": 28,
     "passaged": 28,
-    "choiced": 19,
+    "choiced": 28,
     "points": 63
    },
    {
@@ -405,7 +405,7 @@
    "n": 45,
    "typed": 45,
    "keyed": 45,
-   "passaged": 33,
+   "passaged": 32,
    "choiced": 44,
    "points": 100
   },
@@ -471,8 +471,8 @@
    "n": 45,
    "typed": 45,
    "keyed": 45,
-   "passaged": 34,
-   "choiced": 37,
+   "passaged": 32,
+   "choiced": 44,
    "points": 100
   },
   {
@@ -482,8 +482,8 @@
    "n": 45,
    "typed": 45,
    "keyed": 45,
-   "passaged": 34,
-   "choiced": 36,
+   "passaged": 32,
+   "choiced": 44,
    "points": 100
   },
   {
@@ -493,8 +493,8 @@
    "n": 45,
    "typed": 45,
    "keyed": 45,
-   "passaged": 35,
-   "choiced": 36,
+   "passaged": 32,
+   "choiced": 43,
    "points": 100
   },
   {
@@ -504,8 +504,8 @@
    "n": 45,
    "typed": 45,
    "keyed": 45,
-   "passaged": 34,
-   "choiced": 37,
+   "passaged": 32,
+   "choiced": 44,
    "points": 100
   },
   {
@@ -515,8 +515,8 @@
    "n": 45,
    "typed": 45,
    "keyed": 45,
-   "passaged": 35,
-   "choiced": 38,
+   "passaged": 32,
+   "choiced": 44,
    "points": 100
   },
   {
@@ -559,8 +559,8 @@
    "n": 45,
    "typed": 42,
    "keyed": 45,
-   "passaged": 39,
-   "choiced": 36,
+   "passaged": 38,
+   "choiced": 44,
    "points": 100
   },
   {
@@ -570,8 +570,8 @@
    "n": 45,
    "typed": 43,
    "keyed": 45,
-   "passaged": 40,
-   "choiced": 37,
+   "passaged": 38,
+   "choiced": 44,
    "points": 100
   },
   {
@@ -592,8 +592,8 @@
    "n": 44,
    "typed": 42,
    "keyed": 44,
-   "passaged": 35,
-   "choiced": 36,
+   "passaged": 32,
+   "choiced": 43,
    "points": 98
   },
   {
@@ -603,8 +603,8 @@
    "n": 44,
    "typed": 41,
    "keyed": 44,
-   "passaged": 33,
-   "choiced": 37,
+   "passaged": 32,
+   "choiced": 43,
    "points": 98
   },
   {
@@ -614,8 +614,8 @@
    "n": 44,
    "typed": 41,
    "keyed": 44,
-   "passaged": 34,
-   "choiced": 37,
+   "passaged": 32,
+   "choiced": 43,
    "points": 98
   },
   {
@@ -625,8 +625,8 @@
    "n": 45,
    "typed": 43,
    "keyed": 45,
-   "passaged": 34,
-   "choiced": 37,
+   "passaged": 32,
+   "choiced": 44,
    "points": 100
   },
   {
@@ -636,8 +636,8 @@
    "n": 45,
    "typed": 44,
    "keyed": 45,
-   "passaged": 33,
-   "choiced": 39,
+   "passaged": 32,
+   "choiced": 44,
    "points": 100
   },
   {
@@ -647,8 +647,8 @@
    "n": 45,
    "typed": 40,
    "keyed": 45,
-   "passaged": 37,
-   "choiced": 28,
+   "passaged": 32,
+   "choiced": 44,
    "points": 100
   },
   {
@@ -659,7 +659,7 @@
    "typed": 41,
    "keyed": 45,
    "passaged": 32,
-   "choiced": 41,
+   "choiced": 44,
    "points": 100
   },
   {
@@ -691,7 +691,7 @@
    "n": 45,
    "typed": 45,
    "keyed": 45,
-   "passaged": 33,
+   "passaged": 32,
    "choiced": 44,
    "points": 100
   }

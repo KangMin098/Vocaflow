@@ -173,6 +173,30 @@ let nItems = 0
 const fails = []
 const warns = []
 
+// ── 한 문항이 원장 여럿에 있으면 **나중 파일만** 본다 ─────────────────
+//
+// `--redo` 로 다시 뽑은 문항은 옛 `.out.json`(원장으로 남긴다)과 새 `chunk-redo-<날짜>-…` 에
+// **둘 다** 들어 있다. 적재기는 이미 「나중 파일이 이긴다」로 고쳤는데(파일명 정렬 = 시간 순서)
+// **이 게이트는 전부 검사하고 있었다.** 그래서 새 분석이 깨끗해도 옛 인용 때문에 전체 게이트가
+// 계속 FAIL 이었다 — **게이트와 적재기가 서로 다른 것을 보고 있었던 것**이다(실측 2026-09-16:
+// 도표 2문항을 다시 썼는데 옛 원장의 같은 인용으로 오류 2건이 그대로 남았다).
+//
+// 판정 대상은 **실제로 적재될 것**이어야 한다. 그렇지 않으면 게이트는 아무도 안 쓸 글을 막는다.
+// ⚠️ `--chunk` 로 한 청크만 볼 때는 이 접기를 하지 않는다 — 그때는 그 파일을 보러 온 것이다.
+const winner = new Map()
+if (!arg('chunk')) {
+  for (const f of files) {
+    let j
+    try {
+      j = JSON.parse(fs.readFileSync(path.join(WORK, f), 'utf8'))
+    } catch {
+      continue
+    }
+    for (const a of j.analyses ?? []) if (a.item_id) winner.set(a.item_id, f)
+  }
+}
+const superseded = []
+
 for (const f of files) {
   const p = path.join(WORK, f)
   if (!fs.existsSync(p)) { fails.push(`${f} — 파일이 없다`); continue }
@@ -187,6 +211,11 @@ for (const f of files) {
   const warn = (id, msg) => warns.push(`${f} ${id} — ${msg}`)
 
   for (const a of j.analyses ?? []) {
+    // 나중 원장이 이 문항을 다시 썼으면 여기서는 건너뛴다(§나중 파일만 본다)
+    if (a.item_id && winner.size && winner.get(a.item_id) !== f) {
+      superseded.push(`${f}:${a.item_id}`)
+      continue
+    }
     nItems += 1
     const id = a.item_id ?? '(item_id 없음)'
     const it = itemOf.get(a.item_id)
@@ -380,6 +409,9 @@ for (const f of files) {
 console.log('── 분석 드레인 검수 게이트 ──')
 console.log(`  파일 ${files.length} · 문항 ${nItems}`)
 for (const w of warns) console.log(`  ⚠ ${w}`)
+if (superseded.length) {
+  console.log(`  나중 원장이 다시 쓴 문항 ${superseded.length}건은 건너뛴다 — 적재기와 같은 규칙이다`)
+}
 for (const f of fails) console.log(`  ✗ ${f}`)
 if (!fails.length && !warns.length) console.log('  ✓ 전부 통과')
 console.log(`\n  ${fails.length === 0 ? 'PASS' : 'FAIL'} · 오류 ${fails.length} · 경고 ${warns.length}`)

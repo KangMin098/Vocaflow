@@ -1,0 +1,162 @@
+{
+  "chunk": 6,
+  "type_id": "R-VOCAB",
+  "type_name": "어휘(문맥)",
+  "analyses": [
+    {
+      "item_id": "2014B#28",
+      "revised": true,
+      "measured_ability": "한 문장 안에서 이유절 접속사 as 가 지정한 인과 방향에 밑줄 낱말의 극성이 맞는지 대조하는 능력. 낱말 뜻을 아느냐가 아니라, 결과절(thick seed coats are unnecessary)이 요구하는 원인의 부호를 먼저 정하고 밑줄 자리에 그 부호가 들어와 있는지를 재는 읽기다.",
+      "design_intent": "재배가 시작되면서 두꺼운 씨앗 껍질이 필요 없어진 까닭이 '농부가 보호 기능을 대신 떠맡았다'는 데 있음을 잡게 하려고 만든 문항이다. 그 자리에 evade responsibility 라는 일상에서 아주 흔한 연어를 심어, 낱말 조합의 자연스러움과 문장 논리의 성립이 다른 문제임을 가른다.",
+      "answer_locus": {
+        "sentence_index": [1, 6],
+        "quote": "thick seed coats are unnecessary, as farmers ④ evade responsibility for storing seeds away from moisture and predators.",
+        "reasoning": "as 절은 앞 주절의 이유를 대는 자리다. 껍질이 필요 없어지려면 껍질이 하던 일(습기·포식자로부터의 보호)을 누군가 대신 해야 하고, 그 대신 하는 주체가 같은 절의 주어 farmers 다. 1번 문장 'they also began protecting their plants' 가 이미 사람이 보호를 떠맡았다고 말해 두었으므로, ④ 자리에는 떠맡음(assume/take on)을 뜻하는 낱말이 와야 주절과 이유절의 부호가 맞는다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "pressure 를 일상 의미 '압박'으로만 읽으면 '식물이 겪는 압박을 바꾸었다'가 어색하게 들리고, 바로 앞 문장의 protecting(보호)과 충돌하는 듯 느껴진다.",
+          "how_to_reject": "같은 2번 문장의 as 절 'as they no longer had to survive in a natural environment' 와 다음 3번 문장 'selected for other characteristics than nature previously had' 가 '선택하는 쪽이 자연에서 사람으로 바뀌었다'를 말한다. 바뀐 것은 곧 선택압이므로 changed the evolutionary pressure 가 성립한다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "인접 문장 역전 착시",
+          "why_tempting": "바로 다음 5번 문장이 'Thick seed coats are often essential' 로 시작해, ② thinner 가 한 칸 뒤에서 곧바로 뒤집히는 것처럼 보인다.",
+          "how_to_reject": "마지막 7번 문장 'In fact, seeds with thinner coats were ⑤ preferred' 가 ②와 같은 방향으로 되받는다. 5번 문장의 essential 은 'in a natural environment' 라는 조건이 붙은 야생 쪽 진술이고, ②는 farmers 가 고른 것이라 견주는 환경 자체가 다르다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "범위 과대",
+          "why_tempting": "often 을 흘리고 '두꺼운 껍질은 늘 필수'로 읽으면, 두 문장 뒤의 unnecessary 와 정면으로 부딪쳐 essential 이 과장된 낱말로 보인다.",
+          "how_to_reject": "같은 5번 문장의 because 절 'the seeds of many wild plants remain dormant for months until winter is over' 가 두꺼운 껍질이 야생에서 하는 일(장기 휴면 보호)을 직접 대준다. unnecessary 는 6번 문장에서 'under human management' 조건 아래 나온 말이라 essential 과 같은 환경을 두고 다투지 않는다."
+        },
+        {
+          "n": 4,
+          "verdict": "correct",
+          "why_correct": "근거 문장의 as 절은 주절 'thick seed coats are unnecessary' 의 원인을 대는 자리인데, 껍질이 필요 없어지는 원인은 농부가 'responsibility for storing seeds away from moisture and predators' 를 대신 떠맡는 것이다. 1번 문장 'they also began protecting their plants' 가 그 떠맡음을 미리 말해 둔다. evade(회피하다)를 넣으면 원인절이 주절을 거꾸로 부정하므로, assume/take on 이 와야 할 자리에 반대 극성의 낱말이 들어와 있다.",
+          "confirmed_at": {
+            "sentence_index": [6],
+            "note": "5번 문장은 야생 조건 설명이라 ④의 극성을 정하지 못한다. 주절과 as 절이 한 문장 안에 있는 6번 문장에서 부호가 확정된다."
+          }
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "주체 역전",
+          "why_tempting": "preferred 의 주체를 자연·야생으로 잡으면, 얇은 껍질은 야생에서 불리하다는 5번 문장 때문에 '선호되었다'가 거꾸로 읽힌다.",
+          "how_to_reject": "4번 문장 'farmers selected for larger seeds and ② thinner seed coats' 가 선호의 주체를 농부로 못박는다. 같은 7번 문장의 이유절 'easier to eat or process into flour' 도 사람의 기준이지 자연선택의 기준이 아니다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "발문이 '적절하지 않은 것'을 묻는지 확인하고, 밑줄 다섯 자리의 핵심 낱말(내용어 하나)만 종이에 ①~⑤로 옮겨 적는다",
+          "on_fail": "밑줄이 구 전체면 그 구의 동사나 형용사 하나를 대표로 삼는다 — 판정은 언제나 내용어 한 개에서 갈린다"
+        },
+        {
+          "step": "밑줄이 든 문장마다 극성을 고정하는 표지를 동그라미 친다 — as·because·but·In fact 같은 접속 표지, un-·no longer 같은 부정 접사, often 같은 빈도 한정어",
+          "on_fail": "그 문장 안에 표지가 없으면 바로 앞 문장과 잇는 접속사나 지시어를 표지로 삼는다"
+        },
+        {
+          "step": "표지가 요구하는 부호(+/−)를 먼저 적고, 그 다음에 밑줄 낱말 자신의 부호를 적어 둘을 맞대 본다. 두 부호가 어긋나는 자리를 후보로 남긴다",
+          "on_fail": "어긋나는 후보가 둘 이상이면, 같은 문장 안의 표지로 부호가 정해지는 쪽을 먼저 택한다 — 이 유형의 근거는 대개 밑줄 문장 안에서 닫힌다"
+        },
+        {
+          "step": "후보 자리에 반대말을 넣어 그 문장을 한 번 다시 읽고, 접속사가 잇는 두 절이 이어지는지 소리 내어 확인한다",
+          "on_fail": "반대말을 넣어도 안 이어지면 정도 표현이 뒤집힌 자리(과장↔축소)인지 보고, 그래도 안 되면 후보를 물린다"
+        },
+        {
+          "step": "남은 네 자리는 뒤·앞 문장이 같은 방향으로 되받아 주는지 하나씩 대조해 표시한다 — 되받는 문장이 있으면 그 낱말은 적절하다",
+          "on_fail": "되받는 문장이 없는 자리가 남으면 그 자리는 보류하고 3단계의 부호 판정 결과를 그대로 따른다"
+        }
+      ],
+      "time_budget_sec": 100,
+      "difficulty": {
+        "predicted": 0.55,
+        "drivers": [
+          "evade responsibility 가 실제 영어에서 매우 흔한 연어라 낱말만 보면 어색함이 없다",
+          "밑줄 ②와 ③이 thin↔thick 으로 겉보기 모순을 이뤄 시선을 먼저 뺏는다",
+          "3점 문항이고 인과 판정 대상인 as 절이 문장 뒤쪽에 있어 문장 끝까지 읽어야 부호가 정해진다"
+        ]
+      },
+      "required_vocab": ["evade", "responsibility", "unnecessary", "dormant", "predators"],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "인용에 옛 추출기가 남기던 옆 단 부스러기가 섞이지 않았다 — 밑줄 기호 ④ 를 포함한 형태 그대로 현재 코퍼스 지문에 있다",
+            "why_correct 의 대응이 낱말 단위로 선다: 인용의 responsibility for storing seeds away from moisture and predators ↔ 1번 문장 began protecting their plants, 그리고 as ↔ unnecessary 의 부호 관계"
+          ],
+          "checked": [
+            "answer_locus.quote 를 corpus.json 의 2014B#28 passage 에 문자열 대조 (includes=true)",
+            "why_correct 가 정답 선지 4번 텍스트의 어구를 실제로 인용하는지 대조",
+            "R-VOCAB 유형 정의(밑줄 문장 자신의 종속 구조가 극성을 고정한다) 대조 — 이 문항은 as 이유절로 닫힌다"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "[1차 revise] ②와 ⑤에 똑같이 '어휘 함정' 라벨을 달아 오답 넷 중 둘이 같은 자로 재어졌다. ②는 바로 다음 문장이 뒤집는 것처럼 보이는 배치 함정, ⑤는 선호의 주체를 자연으로 잘못 잡는 함정이라 층이 다르다 — '인접 문장 역전 착시'(신설)와 '주체 역전'으로 갈랐다",
+            "[재검수] 오답 4개 라벨이 어휘 함정 · 인접 문장 역전 착시 · 범위 과대 · 주체 역전으로 모두 다르고, 네 how_to_reject 가 전부 문장 번호와 원문 어구를 함께 댄다"
+          ],
+          "checked": [
+            "오답 4개의 trap 라벨 중복 여부 대조",
+            "why_tempting 이 해당 밑줄 낱말 자신에 근거하는지 — ① pressure 다의성 · ② 다음 문장 Thick · ③ often 누락 · ⑤ 주체 오지정",
+            "how_to_reject 마다 배제 근거 위치(문장 번호 + 원문 어구)가 있는지 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "[1차 revise] 절차가 3단계뿐이라 후보 한 자리를 고른 뒤 검산할 방법이 없었다. 반대말 대입 확인과 남은 넷의 되받기 대조를 4·5단계로 더해 학생이 고른 답을 스스로 되짚게 했다",
+            "[재검수] 다섯 단계 모두 지문을 아직 안 본 상태에서 착수할 수 있고, 다루는 대상이 밑줄 다섯 자리뿐이라 100초 안에 끝난다"
+          ],
+          "checked": [
+            "solve_procedure 5단계를 지문 없이 실행 가능한지 단계별 점검",
+            "금지 표현 목록(흐름을 파악하면 · 문맥을 파악한다 등 8종)을 절차 문자열에 대조",
+            "required_vocab 5개가 지문에 실제로 있고 정답 판정에 쓰이는지 확인 — evade/responsibility 는 ④ 판정 자체, dormant/predators 는 ③·④ 배제 근거절의 핵심어, unnecessary 는 주절의 부호"
+          ]
+        }
+      ]
+    }
+  ],
+  "type_report": {
+    "type_id": "R-VOCAB",
+    "n_analyzed": 1,
+    "recurring_traps": [
+      { "trap": "극성 반전(반대말 자리)", "count": 1, "signature": "이유절 as/because 가 대는 원인의 부호가 주절과 거꾸로다 — assume 자리에 evade 가 놓인다" },
+      { "trap": "인접 문장 역전 착시", "count": 1, "signature": "바로 다음 문장이 반대 낱말(thin↔thick)로 시작해 멀쩡한 밑줄이 모순처럼 보인다" },
+      { "trap": "범위 과대", "count": 1, "signature": "often 같은 한정어를 흘리고 읽어 적절한 낱말이 과장으로 보인다" },
+      { "trap": "주체 역전", "count": 1, "signature": "선호·선택의 주체를 사람 대신 자연으로 잡으면 방향이 뒤집혀 보인다" },
+      { "trap": "어휘 함정", "count": 1, "signature": "pressure 처럼 전문 용례가 있는 다의어를 일상 의미로만 읽는다" }
+    ],
+    "answer_locus_pattern": "이 문항의 근거는 밑줄이 든 문장 안에서 닫힌다 — 주절 unnecessary 와 이유절 as 가 한 문장 안에 있어 부호가 그 자리에서 정해진다. 떠맡음의 주체 확인만 첫 문장 'began protecting their plants' 가 보강한다(청크가 1문항이므로 유형 일반화는 아니다).",
+    "procedure": [
+      "밑줄 다섯 자리의 내용어만 먼저 뽑아 적는다",
+      "밑줄 문장마다 극성을 고정하는 표지(as·because·but·In fact·부정 접사·빈도 한정어)를 표시한다",
+      "표지가 요구하는 부호를 먼저 정하고 밑줄 낱말의 부호와 맞대, 어긋나는 한 자리를 고른다",
+      "고른 자리에 반대말을 넣어 접속 관계가 성립하는지 되읽는다",
+      "남은 넷은 앞뒤 문장이 같은 방향으로 되받아 주는지 대조해 확인한다"
+    ],
+    "failure_modes": [
+      "evade responsibility 처럼 실제로 흔한 연어를 보고 '자연스러운 영어'라는 이유로 통과시킨다 — 이 유형이 재는 것은 연어의 자연스러움이 아니라 절 사이의 부호다",
+      "thin/thick 처럼 겉보기 모순을 이루는 두 밑줄에 먼저 매달려, 정작 부호가 어긋난 자리를 남은 시간에 대충 본다",
+      "often · under human management 같은 한정어를 빼고 두 문장을 직접 부딪쳐 멀쩡한 낱말을 오류로 만든다",
+      "선호·선택의 주체를 확인하지 않고 야생 기준으로 판단해 마지막 밑줄을 뒤집어 읽는다"
+    ],
+    "time_budget_sec": 100,
+    "open_questions": [
+      "라벨 신설 제안: '인접 문장 역전 착시' — 밑줄 낱말과 반대 뜻의 낱말이 바로 다음 문장 첫머리에 놓여 멀쩡한 밑줄이 모순으로 보이는 함정. 기존 (A)표의 '반대 진술'은 선지 자체가 반대를 말하는 경우라 이 배치 함정과 층이 다르다. 표본 1/1 이라 등재 판단은 다음 청크로 넘긴다",
+      "청크가 1문항이라 유형 수준의 비율 주장은 하지 않는다. recurring_traps 의 count 는 이 문항에서 각 함정을 한 번씩만 센 값이다(정답 자리의 극성 반전 1 + 오답 4종 각 1)",
+      "R-VOCAB 전체 정답 분포는 keyed 29 중 ④ 13 · ⑤ 10 으로 뒤쪽이 무겁지만, 이는 찍기 근거라 절차에 넣지 않았다",
+      "이 지문에는 6번 문장에 '______' 자리표 부스러기가 남아 있다(원문의 쉼표 자리로 보인다). 판정에는 영향이 없으나 인용을 그 구간에서 뜰 때는 피해야 한다 — 파서 쪽에 보고할 값어치가 있다"
+    ]
+  }
+}

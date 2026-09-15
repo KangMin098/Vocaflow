@@ -22,14 +22,14 @@
 // `lib-passage.mjs` 가 그대로 읽는다 — 그 자는 `CSAT_COLUMNS` 를 존중하므로
 // **기존 산출물을 건드리지 않고** 나란히 놓고 견줄 수 있다:
 //
-//   CSAT_COLUMNS=scripts/csat/data/columns3 node scripts/csat/build-corpus.mjs
+//   CSAT_COLUMNS=<대조폴더> node scripts/csat/build-corpus.mjs   (--out 으로 따로 뽑아 견준다)
 //
 // ⚠️ **빈칸을 넓은 공백으로 남긴다.** 평가원 PDF 의 빈칸은 밑줄이 아니라 **x 간격**이다.
 //    `passageOf` 가 「4칸 이상 공백 → ______」로 되살리므로, 좌표를 글자 칸으로 환산할 때
 //    그 간격이 살아 있어야 한다. 이 환산이 이 스크립트의 요점이다.
 //
 // 실행:
-//   node scripts/csat/pdf-columns3.mjs                  (전 회차 → data/columns3)
+//   node scripts/csat/pdf-columns3.mjs                  (전 회차 → data/columns2 · 승계)
 //   node scripts/csat/pdf-columns3.mjs --exam 2025      (한 회차만)
 //   node scripts/csat/pdf-columns3.mjs --out <폴더>
 
@@ -41,7 +41,9 @@ const arg = (n, d = null) => {
   return i >= 0 ? process.argv[i + 1] : d
 }
 
-const OUT = path.resolve(arg('out') ?? 'scripts/csat/data/columns3')
+// 산출 자리는 **`columns2` 를 그대로 승계한다.** 평가원 원문을 저장소에 두 벌로 늘리지
+// 않으려는 것이다(그 폴더는 git 에 추적된다 · 31파일). 옛 판의 산출물은 커밋 이력에 남는다.
+const OUT = path.resolve(arg('out') ?? 'scripts/csat/data/columns2')
 const ONLY = arg('exam')
 
 // 원본 위치는 옮겨진 적이 있다 — 후보를 훑는다(`ingest-listening.mjs` 와 같은 방식).

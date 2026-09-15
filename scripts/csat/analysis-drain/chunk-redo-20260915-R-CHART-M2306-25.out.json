@@ -1,0 +1,354 @@
+{
+ "chunk": 4,
+ "type_id": "R-CHART",
+ "type_name": "도표",
+ "analyses": [
+  {
+   "item_id": "M2306#25",
+   "measured_ability": "두 해의 표를 나란히 놓고, 한 선지가 묶은 두 정보(순위 이동 · 수치 증감)를 각각 다른 칸에서 따로 확인해 둘 중 하나만 어긋난 진술을 잡아내는 능력",
+   "design_intent": "2009 표와 2019 표에서 U.S. 는 5위에서 6위로 내려가지만 per million population 값은 733에서 869로 오히려 오른다. 순위 하락과 수치 하락이 같은 방향일 것이라는 통념을 걸어, 순위 열과 수치 열을 따로 읽는지 묻는 문항이다.",
+   "answer_locus": {
+    "sentence_index": [1],
+    "quote": "5 ______ U.S. ______ 733 ______ 5 Germany ______ 884 6 ______ Finland ______ 609 ______ 6 ______ U.S. ______ 869",
+    "reasoning": "표에서 U.S. 가 나오는 두 칸이 이 조각 안에 다 들어 있다 — 왼쪽 2009 표의 5위 U.S. 733, 오른쪽 2019 표의 6위 U.S. 869. 순위는 5→6 으로 내려갔지만 per million population 값은 733→869 로 136 늘었다. 한 조각 안에서 두 값이 비교되므로 증감 주장의 참·거짓이 여기서 확정된다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "범위 과대",
+     "why_tempting": "maintained their rankings 를 「수치까지 유지했다」로 넓혀 읽으면 Japan 이 2,306에서 1,943 으로 크게 떨어진 것이 보여 어긋난 진술로 판정하게 된다.",
+     "how_to_reject": "선지가 주장하는 것은 rankings 뿐이다. 왼쪽 2009 표의 1·2·3 행(Republic of Korea · Japan · Switzerland)과 오른쪽 2019 표의 1·2·3 행이 같은 세 이름이므로 순위 유지는 참이다. 수치 열(2,582/3,319, 2,306/1,943, 975/1,122)은 이 선지가 건드리지 않는다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "해 열 혼동",
+     "why_tempting": "891 과 884 가 서로 다른 해의 표에 흩어져 있어, 한 해의 표 안에서 두 수를 찾다가 짝이 안 맞아 어긋난다고 판정하게 된다. 게다가 2019 표 4위 China 890 이 891 과 한 자리 차이라 Germany 891 을 2019 쪽에서 찾는 착각을 부른다.",
+     "how_to_reject": "Germany 는 왼쪽 2009 표의 4행에 891, 오른쪽 2019 표의 5행에 884 로 두 번 나온다(지문의 '4 Germany ______ 891' 과 '5 Germany ______ 884'). 4위→5위, 891→884 로 선지 문장과 네 항목이 모두 일치한다."
+    },
+    {
+     "n": 3,
+     "verdict": "correct",
+     "why_correct": "선지 앞부분 'The U.S. fell from fifth place on the 2009 list to sixth place on the 2019 list' 는 표의 5행 U.S.(2009)·6행 U.S.(2019)와 일치하지만, 뒤에 붙은 'showing a decrease in the number of resident patent applications per million population' 이 표와 어긋난다. 근거 조각의 U.S. 733(2009 5위)과 U.S. 869(2019 6위)를 견주면 수치는 136 늘었다. 내려간 것은 rank 5→6 뿐이고 per million population 값은 증가했으므로 decrease 가 성립하지 않는다.",
+     "confirmed_at": {
+      "sentence_index": [1],
+      "note": "판정은 표의 U.S. 두 칸(733 · 869)에서 끝난다. 아래 산문('The above tables show ...')은 표를 소개할 뿐이라 증감을 확정해 주지 않는다."
+     }
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "대조 방향 혼동",
+     "why_tempting": "2009→2019 에서 빠진 나라(Finland)를 세야 하는데, 2019 표에 새로 든 China 를 보고 「바뀐 나라가 둘」이라 세거나 Germany 가 4위에서 5위로 내려간 것을 탈락으로 세면 the only origin 이 거짓처럼 읽힌다.",
+     "how_to_reject": "두 목록을 이름으로만 맞춰 본다. 2009: Republic of Korea, Japan, Switzerland, Germany, U.S., Finland / 2019: Republic of Korea, Japan, Switzerland, China, Germany, U.S. 2009 쪽에만 있는 이름은 Finland 하나뿐이다(표 6행 'Finland ______ 609'). China 는 반대 방향, 곧 새로 든 이름이므로 이 선지의 대상이 아니다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "인접 수치 혼동",
+     "why_tempting": "두 표의 4위 값이 891(Germany, 2009)과 890(China, 2019)으로 1 차이라, 890 을 891 로 잘못 옮겨 읽으면 China 의 수치가 표와 다르다고 판정하게 된다.",
+     "how_to_reject": "2019 표 4행을 그대로 읽는다 — '4 ______ China ______ 890'. 890 과 fourth 가 둘 다 맞고, China 는 2009 표 여섯 행(Republic of Korea · Japan · Switzerland · Germany · U.S. · Finland) 어디에도 없으므로 did not make the list in 2009 도 참이다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "표가 둘인지 하나인지 먼저 세고, 열 이름을 옮겨 적는다 — 여기서는 왼쪽 2009 / 오른쪽 2019, 각 표에 Rank · Origin · applications per million population 세 열이다.",
+     "on_fail": "열 이름이 안 잡히면 제목(Resident Patent Applications per Million Population ...)을 보고 수치의 단위가 건수인지 인구당 건수인지부터 확정한다."
+    },
+    {
+     "step": "선지를 보기 전에 두 표의 Origin 열만 위에서 아래로 옮겨 적어 두 목록을 만든다(2009: Korea, Japan, Switzerland, Germany, U.S., Finland / 2019: Korea, Japan, Switzerland, China, Germany, U.S.).",
+     "on_fail": "목록이 안 만들어지면 두 표에 모두 나오는 이름에 표시를 하고 한쪽에만 있는 이름을 동그라미 친다."
+    },
+    {
+     "step": "선지마다 주장을 두 조각으로 쪼갠다 — 순위 주장(fifth/sixth/fourth)과 수치 주장(733·891·890 또는 increase/decrease). 한 선지가 두 조각을 담고 있으면 둘 다 표에서 확인한다.",
+     "on_fail": "쪼개지지 않으면 선지의 숫자와 서수에 밑줄을 치고, 밑줄마다 표의 어느 칸을 봐야 하는지 화살표를 그린다."
+    },
+    {
+     "step": "increase · decrease · maintained · the only 처럼 숫자가 없는 판정어가 보이면 그 선지를 마지막으로 미루지 말고 먼저 검산한다 — 숫자는 다 맞는데 판정어만 뒤집힌 선지가 이 유형의 정답 자리다.",
+     "on_fail": "판정어가 가리키는 두 칸을 못 찾으면 그 나라 이름이 두 표에 각각 몇 행에 있는지부터 적는다."
+    },
+    {
+     "step": "순위가 내려간 대상은 수치도 내려갔는지 따로 확인한다. 표가 인구 100만 명당 값이면 순위와 값이 반대로 움직일 수 있다.",
+     "on_fail": "두 값의 차를 직접 계산한다(869 − 733 = 136). 부호가 양수면 decrease 라는 서술은 거짓이다."
+    }
+   ],
+   "time_budget_sec": 85,
+   "difficulty": {
+    "predicted": 0.7,
+    "drivers": [
+     "표가 둘이라 같은 나라를 두 곳에서 찾아야 한다",
+     "정답 선지의 숫자 주장(fifth→sixth)은 참이고 판정어(decrease)만 거짓이다",
+     "순위 하락과 수치 하락이 같이 간다는 통념",
+     "2009 4위 891 과 2019 4위 890 이 1 차이로 붙어 있다"
+    ]
+   },
+   "required_vocab": [
+    "resident",
+    "applications",
+    "origin",
+    "rank",
+    "decrease",
+    "maintain",
+    "per million population"
+   ],
+   "revised": true,
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "초판 인용이 2019 표의 U.S. 869 만 담아 '733 에서 늘었다' 는 대응이 인용 밖에 있었다 — 두 U.S. 칸이 한 조각에 들어오도록 인용을 5행부터 6행 끝까지로 넓혀 고쳤다(revise → 수정 후 pass).",
+      "why_correct 가 선지의 'showing a decrease in the number of resident patent applications per million population' 를 그대로 물고 표의 733·869 와 맞물린다."
+     ],
+     "checked": [
+      "answer_locus.quote 를 corpus.json 의 M2306#25 passage 에 문자열로 대조(연속 부분문자열 확인)",
+      "why_correct 의 영어 인용이 선지 3 원문과 일치하는지 대조",
+      "도표 유형 정의(그림 밖 수치를 지어내지 않기) — 서술에 쓴 733·869·891·890·884·2,582·3,319·2,306·1,943·975·1,122·609 가 모두 지문 표 안의 값인지 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "초판에서 ①과 ④에 똑같이 '범위 과대' 를 달아 함정이 겹쳤다 — ④는 탈락(Finland)과 신규 진입(China)을 뒤집어 세는 것이므로 '대조 방향 혼동' 으로 다시 썼다(revise → 수정 후 pass).",
+      "오답 넷의 라벨이 범위 과대 · 해 열 혼동 · 대조 방향 혼동 · 인접 수치 혼동으로 서로 다르다.",
+      "how_to_reject 넷 모두 표의 행 번호와 영어 값 조각(4 Germany ______ 891 · 5 Germany ______ 884 · Finland ______ 609 · 4 ______ China ______ 890)을 지목한다."
+     ],
+     "checked": [
+      "오답 4개 trap 라벨 중복 검사",
+      "why_tempting 이 각 선지 원문의 어느 어구(maintained their rankings · sat fourth · the only origin · 890)에 걸리는지 선지 텍스트와 대조",
+      "how_to_reject 에 표 위치(행 번호 또는 표 조각 인용)가 있는지 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "2단계(두 Origin 목록을 먼저 옮겨 적기)를 넣으니 ①과 ④가 선지를 읽자마자 판정된다 — 표를 다시 훑는 왕복이 줄어 85초 안에 끝난다.",
+      "required_vocab 일곱 낱말이 모두 선지 판정에 쓰인다(decrease 는 정답 확정어, maintain 은 ①, origin·rank 는 목록 대조)."
+     ],
+     "checked": [
+      "solve_procedure 5단계에 금지 표현(흐름을 파악하면 · 꼼꼼히 읽는다 등 8종)이 들어 있는지 문자열 검사",
+      "지문을 안 본 학생이 1단계부터 순서대로 실행 가능한지 — 각 단계가 표의 어느 열·어느 행을 보라고 지목하는지 확인",
+      "required_vocab 낱말이 지문·선지에 실제로 있는지 대조"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "M2209#25",
+   "measured_ability": "한 선지가 each 로 두 대상을 한꺼번에 걸 때 두 대상의 값을 각각 확인해, 하나만 조건을 깨도 진술 전체가 거짓임을 판정하는 능력",
+   "design_intent": "표의 Rank 는 Number of Workers Added 기준인데 Growth Percentage 열은 순위와 전혀 다른 방향으로 흩어져 있다(1위 Florida 71, 2위 Utah 158, 3위 Texas 44, 4위 Virginia 120). 순위 열로 대신 읽지 않고 성장률 열을 행별로 따로 보는지, 그리고 each 가 건 두 주를 둘 다 확인하는지를 묻는다.",
+   "answer_locus": {
+    "sentence_index": [1],
+    "quote": "3 ______ Texas ______ 3,058 ______ 44 4 ______ Virginia ______ 2,352 ______ 120",
+    "reasoning": "표에서 Texas 행과 Virginia 행이 이어져 있어, Growth Percentage 열의 두 값 44 와 120 을 한 조각 안에서 견줄 수 있다. 50 미만이라는 조건에 Texas 44 는 맞지만 Virginia 120 은 두 배 넘게 어긋나므로, 두 주를 다 건 진술의 참·거짓이 여기서 확정된다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "열 기준 혼동",
+     "why_tempting": "ranked first 를 성장률 1위로 읽으면 Utah 158 이 가장 커서 Florida 가 first 가 아니라고 판정하게 된다. 표의 Rank 가 어느 열 기준인지는 제목에만 있어 열을 바꿔 읽게 되는 자리다.",
+     "how_to_reject": "선지 자신이 with regard to the number of workers added 로 기준을 못 박는다. 표 1행 'Florida ______ 4,659 ______ 71' 에서 4,659 가 Workers Added 최대값이고 같은 행의 Growth Percentage 가 71 이므로 두 조각 모두 참이다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "배수 비교 오산",
+     "why_tempting": "4,246 과 2,003 이 얼추 두 배라 more than twice 가 아슬아슬해 보인다. 2,003 을 2,100~2,300 대로 잘못 옮겨 읽거나 Minnesota 대신 위 행 Virginia 2,352 와 견주면 두 배에 못 미쳐 거짓으로 판정하게 된다.",
+     "how_to_reject": "표 2행 'Utah ______ 4,246' 과 5행 'Minnesota ______ 2,003' 을 직접 곱해 본다. 2,003 × 2 = 4,006 이고 4,246 > 4,006 이므로 more than twice 가 성립한다."
+    },
+    {
+     "n": 3,
+     "verdict": "correct",
+     "why_correct": "'Regarding Texas and Virginia, each state showed less than 50% growth' 의 each 는 두 주 모두에 조건을 건다. 근거 조각의 Growth Percentage 열을 보면 Texas 는 44 로 50 미만이지만 Virginia 는 120 이다. 한쪽인 Virginia 120 이 50 을 두 배 넘게 웃돌므로 'each state showed less than 50% growth' 가 깨진다. 같은 행의 Workers Added 값(3,058 · 2,352)은 선지가 언급조차 하지 않아 판정에 쓰이지 않는다.",
+     "confirmed_at": {
+      "sentence_index": [1],
+      "note": "Virginia 행의 120 하나로 끝난다. Texas 44 만 보면 참으로 읽히므로 두 행을 다 봐야 확정된다."
+     }
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "행 밀림",
+     "why_tempting": "New York 은 6행인데 값이 1,964 와 24 로 위아래 행(Minnesota 2,003/101, Pennsylvania 1,810/72)과 자릿수가 비슷해, 행이 한 칸 밀리면 성장률을 101 이나 72 로 읽어 24 가 틀렸다고 판정하게 된다. 1,964 를 어림해 2,000 으로 보면 more than 1,900 도 흐릿해진다.",
+     "how_to_reject": "표 6행을 통째로 읽는다 — '6 ______ New York ______ 1,964 ______ 24'. 1,964 > 1,900 이고 같은 행의 Growth Percentage 가 24 이므로 두 조각 모두 참이다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "범위 과대",
+     "why_tempting": "the lowest number 를 미국 전체 주 가운데 최저로 넓혀 읽으면 표에 없는 주들이 떠올라 거짓처럼 읽힌다. 또 Growth Percentage 에서 New York 24 가 Pennsylvania 72 보다 낮아 최저가 New York 이라고 판정하게 된다.",
+     "how_to_reject": "선지가 Among these seven states 로 범위를 표 안으로 한정한다. Workers Added 열에서 마지막 7행 'Pennsylvania ______ 1,810' 이 일곱 값 중 가장 작고, 표 제목도 Added the Most Solar Industry Workers 상위 목록이라 표 밖의 주는 비교 대상이 아니다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "표 제목에서 Rank 가 어느 열 기준인지 못 박는다 — 여기서는 Added the Most Solar Industry Workers, 곧 Number of Workers Added 기준이다.",
+     "on_fail": "제목이 애매하면 Workers Added 열이 위에서 아래로 내림차순인지 확인한다(4,659 → 1,810). 내림차순인 열이 순위 기준이다."
+    },
+    {
+     "step": "Growth Percentage 열만 따로 훑어 순위와 무관하게 튀는 값에 표시한다(158 · 120 · 101 같은 세 자리 값).",
+     "on_fail": "열이 헷갈리면 각 행을 '주 이름 - 인원 - 퍼센트' 세 조각으로 끊어 손가락으로 짚으며 본다."
+    },
+    {
+     "step": "선지에서 each · every · both · only · the lowest 처럼 여러 대상을 한꺼번에 거는 낱말을 찾아 밑줄 친다. 그 선지는 대상 수만큼 표를 봐야 한다.",
+     "on_fail": "밑줄 칠 것이 없으면 선지에 등장하는 고유명사(주 이름)를 세어 둘 이상이면 같은 취급을 한다."
+    },
+    {
+     "step": "밑줄 친 선지부터 처리한다 — 대상 하나라도 조건을 깨면 그 선지가 어긋난 진술이다. 첫 대상이 조건을 만족해도 멈추지 않고 두 번째 대상을 확인한다.",
+     "on_fail": "첫 대상에서 참이 나와 손이 멈추면, 선지의 두 번째 고유명사를 다시 읽고 그 행을 찾는다."
+    },
+    {
+     "step": "숫자 비교어(more than twice · more than 1,900 · the lowest)는 어림하지 말고 표의 값을 그대로 옮겨 계산한다.",
+     "on_fail": "암산이 흔들리면 여백에 두 수를 세로로 적고 곱셈·뺄셈을 손으로 한다(2,003 × 2 = 4,006)."
+    }
+   ],
+   "time_budget_sec": 80,
+   "difficulty": {
+    "predicted": 0.8,
+    "drivers": [
+     "Virginia 120 이 조건(50 미만)과 두 배 넘게 벌어져 눈에 띈다",
+     "다만 Texas 44 를 먼저 보면 참으로 읽고 넘어간다",
+     "②의 more than twice 가 4,246 대 4,006 으로 아슬아슬해 검산 시간을 잡아먹는다",
+     "열이 셋뿐이고 표가 한 개라 대조 부담이 적다"
+    ]
+   },
+   "required_vocab": [
+    "workers added",
+    "growth percentage",
+    "more than twice",
+    "regarding",
+    "exhibited",
+    "displaying",
+    "the lowest"
+   ],
+   "revised": true,
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "초판 인용이 Texas 행만 담아 Virginia 120 이 근거 밖에 있었다 — each 가 두 주를 거는 선지라 한쪽만 인용하면 정답이 절반만 확정된다. Texas 행부터 Virginia 행 끝까지 이어지는 조각으로 바꿨다(revise → 수정 후 pass).",
+      "why_correct 가 선지의 'each state showed less than 50% growth' 를 그대로 인용하고 표의 44 · 120 과 맞물린다."
+     ],
+     "checked": [
+      "answer_locus.quote 를 corpus.json 의 M2209#25 passage 에 문자열로 대조(연속 부분문자열 확인)",
+      "why_correct 의 영어 인용이 선지 3 원문과 일치하는지 대조",
+      "서술에 등장하는 수치(4,659 · 4,246 · 3,058 · 2,352 · 2,003 · 1,964 · 1,810 · 71 · 158 · 44 · 120 · 101 · 24 · 72)가 모두 지문 표 안의 값인지 확인 — 그림 밖 수치 창작 없음"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "오답 넷의 라벨이 열 기준 혼동 · 배수 비교 오산 · 행 밀림 · 범위 과대로 서로 다르다.",
+      "①과 ⑤가 둘 다 성장률 열로 바꿔 읽는 심리를 일부 공유하지만, ①은 순위 기준을 바꿔 읽는 것이고 ⑤는 비교 모집단을 표 밖으로 넓히는 것이라 배제 근거가 다르다(①은 with regard to the number of workers added, ⑤는 Among these seven states).",
+      "how_to_reject 넷 모두 표의 행 번호와 영어 값 조각을 지목한다."
+     ],
+     "checked": [
+      "오답 4개 trap 라벨 중복 검사",
+      "why_tempting 이 선지 원문의 어느 어구(ranked first with regard to · more than twice · more than 1,900 · the lowest number)에 걸리는지 대조",
+      "how_to_reject 의 산술 재계산(2,003 × 2 = 4,006 < 4,246 · 1,964 > 1,900 · 1,810 이 일곱 값 중 최소)"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "초판 3단계가 '표와 선지를 하나씩 대조한다' 라 무엇을 볼지 지정하지 못했다 — each · only · the lowest 같은 전칭 낱말에 밑줄을 치라는 단계로 바꾸니 학생이 어느 선지부터 손댈지 정할 수 있다(revise → 수정 후 pass).",
+      "5단계를 80초 안에 마치려면 ②의 곱셈 한 번과 ③의 두 행 확인이 시간의 대부분이다. 나머지 세 선지는 행 하나씩이라 각 5초면 끝난다."
+     ],
+     "checked": [
+      "solve_procedure 5단계에 금지 표현 8종이 들어 있는지 문자열 검사",
+      "각 단계를 지문을 안 본 상태에서 실행 가능한지 — 1단계가 표 제목만, 2단계가 열 하나만 요구하는지 확인",
+      "required_vocab 일곱 항목이 선지·표에 실제로 등장하는 표현인지 대조"
+     ]
+    }
+   ]
+  }
+ ],
+ "type_report": {
+  "type_id": "R-CHART",
+  "n_analyzed": 2,
+  "recurring_traps": [
+   {
+    "trap": "범위 과대",
+    "count": 2,
+    "signature": "선지가 스스로 한정해 둔 범위(rankings 만 · Among these seven states)를 학습자가 넓혀 읽어, 표와 맞는 진술을 어긋난 것으로 판정한다"
+   },
+   {
+    "trap": "열 기준 혼동",
+    "count": 1,
+    "signature": "Rank 열이 어느 값 기준인지 제목에만 있어, 옆 열(Growth Percentage)로 순위를 읽는다"
+   },
+   {
+    "trap": "해 열 혼동",
+    "count": 1,
+    "signature": "표가 둘일 때 한쪽 표 안에서 두 수를 다 찾으려다 짝이 안 맞는다"
+   },
+   {
+    "trap": "대조 방향 혼동",
+    "count": 1,
+    "signature": "목록에서 빠진 이름(탈락)과 새로 든 이름(진입)을 뒤집어 센다"
+   },
+   {
+    "trap": "인접 수치 혼동",
+    "count": 1,
+    "signature": "다른 행·다른 표의 값이 1~2 차이로 붙어 있어(891 vs 890) 옮겨 읽는다"
+   },
+   {
+    "trap": "배수 비교 오산",
+    "count": 1,
+    "signature": "more than twice 가 4,246 대 4,006 처럼 아슬아슬해 어림 계산이 뒤집힌다"
+   },
+   {
+    "trap": "행 밀림",
+    "count": 1,
+    "signature": "이웃 행의 값이 자릿수가 비슷해 한 칸 밀려 읽힌다"
+   }
+  ],
+  "counting_note": "함정은 문항-라벨 쌍마다 한 번씩만 셌다 — 2문항 × 오답 4개 = 8건이고 위 count 의 합도 8이다. 같은 문항 안에서 같은 라벨을 두 번 세지 않았다(M2306#25 초판에서 ①·④에 범위 과대가 겹쳤는데, 검수에서 ④를 다른 라벨로 고쳐 겹침이 사라졌다).",
+  "answer_locus_pattern": "2문항 모두 정답 근거가 산문이 아니라 표의 두 칸 대조에 있다. 그리고 두 문항 다 정답 선지가 대상 둘을 한 문장에 묶는다 — M2306#25 는 U.S. 의 2009 칸(733)과 2019 칸(869), M2209#25 는 Texas 44 와 Virginia 120. 한쪽 칸만 보면 참으로 읽히고 나머지 한 칸에서 깨지므로 근거 인용도 두 칸이 한 조각에 들어와야 확정된다. 표 아래 산문(The above tables show ... · The table above shows ...)은 두 문항 모두 표를 소개할 뿐 판정에 쓰이지 않는다(2/2).",
+  "procedure": [
+   {
+    "step": "표 제목과 열 이름을 먼저 옮겨 적고 Rank 가 어느 열 기준인지 못 박는다. 표가 둘이면 두 표의 열 구성이 같은지 확인한다.",
+    "on_fail": "기준 열을 못 찾으면 위에서 아래로 내림차순인 열을 찾는다 — 그 열이 순위 기준이다."
+   },
+   {
+    "step": "선지를 보기 전에 범주 열(Origin · State)만 세로로 옮겨 적는다. 표가 둘이면 두 목록을 나란히 두고 한쪽에만 있는 이름에 동그라미를 친다.",
+    "on_fail": "목록이 길면 두 표에 공통으로 나오는 이름부터 지워 나간다. 남는 것이 진입·탈락 이름이다."
+   },
+   {
+    "step": "선지마다 주장을 숫자 주장과 판정어 주장으로 쪼갠다. 판정어(increase · decrease · maintained · the only · the lowest · more than twice · less than N%)에 밑줄을 친다.",
+    "on_fail": "쪼개지지 않으면 선지의 숫자와 서수를 먼저 표시하고, 숫자 없이 남은 서술어를 판정어로 삼는다."
+   },
+   {
+    "step": "each · both · every · the only · the lowest 처럼 여러 대상을 한꺼번에 거는 선지를 먼저 처리한다. 대상 수만큼 칸을 보고, 첫 대상이 조건을 만족해도 멈추지 않는다.",
+    "on_fail": "첫 대상에서 손이 멈추면 선지의 두 번째 고유명사를 다시 읽고 그 행을 찾는다."
+   },
+   {
+    "step": "숫자가 다 맞는데 판정어만 남은 선지를 마지막까지 남기지 않는다. 순위가 바뀐 대상은 값의 증감을 따로 계산하고, 배수·이상·미만은 여백에 손으로 계산한다.",
+    "on_fail": "계산이 흔들리면 두 수의 차 또는 곱을 적어 부호만 본다(869 − 733 = +136 이면 decrease 는 거짓)."
+   }
+  ],
+  "failure_modes": [
+   "each · both 로 묶인 두 대상 중 앞의 하나만 확인하고 참으로 넘긴다 — M2209#25 에서 Texas 44 를 보고 멈추면 Virginia 120 을 못 본다",
+   "순위 하락을 수치 하락으로 자동 번역한다 — M2306#25 의 U.S. 는 5위→6위인데 값은 733→869 로 올랐다",
+   "표가 둘일 때 같은 이름을 한쪽 표에서만 찾고 다른 표의 행 번호를 확인하지 않는다",
+   "선지가 스스로 한정한 범위(with regard to the number of workers added · Among these seven states · rankings)를 지나쳐 더 넓은 주장으로 읽는다",
+   "이웃 행·이웃 표의 값이 1~2 차이로 붙어 있을 때 옮겨 읽는다(891/890 · 1,964/2,003)",
+   "표 아래 소개 문장을 근거로 삼으려 시간을 쓴다 — 이 두 문항의 판정은 표 안에서만 끝난다"
+  ],
+  "time_budget_sec": 83,
+  "open_questions": [
+   "함정 라벨: 명제형 9종 중 이 두 문항 오답에 그대로 맞은 것은 '범위 과대' 2건뿐이었다(8건 중 2건). 나머지 6건은 새로 썼다 — 열 기준 혼동 · 해 열 혼동 · 대조 방향 혼동 · 인접 수치 혼동 · 배수 비교 오산 · 행 밀림. R-CHART 전용 라벨표를 _PROMPT.md §1-b 에 (D) 로 추가할 것을 제안한다. 다음 청크에서 같은 라벨이 재현되는지 확인이 필요하다.",
+   "표본이 2뿐이라 '정답 선지가 대상 둘을 한 문장에 묶는다'(2/2)를 유형 명제로 올릴 수 없다. R-CHART 사정권 29문항 중 27을 더 봐야 한다.",
+   "유형 전체 정답 분포는 by_choice {1:0, 2:2, 3:9, 4:13, 5:5} · keyed 29 다. ①이 0회지만 이 저장소의 Bonferroni 문턱(가족 130 · 3.85e-4)을 넘지 못하므로 유의하지 않다 — 절차에 넣지 않았다.",
+   "이 청크의 지문은 표의 칸 간격이 '______' 로 남아 있다. 인용은 그 칸 구분자를 포함한 연속 조각으로 뽑아야 게이트를 통과하지만, 학습자 화면에 그대로 노출되면 표로 읽히지 않는다 — 도표 문항의 인용은 렌더 단계에서 행 단위로 다시 조판해야 한다.",
+   "반려는 3건 나왔다(M2306#25 analyst — 라벨 중복 / M2209#25 setter — 인용이 한쪽 칸만 담음 / M2209#25 tutor — 절차 3단계가 실행 지시가 아님). 셋이 서로 다른 자로 쟀다는 뜻이라 자를 고칠 필요는 없다고 본다."
+  ]
+ }
+}
