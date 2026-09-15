@@ -163,7 +163,7 @@ export const TBP_HELP: HelpRegistry = {
         {
           label: '잰 시각 · N일 전',
           detail:
-            '이 화면은 실시간 집계가 **아니다.** `library_articles` 는 본문이 1.3GB 라 조건부 `count: exact` 가 8초 statement timeout 에 걸린다(오류 message 가 빈 문자열로 와서 원인이 안 보인다). 전수 훑기는 커서 페이징으로 **약 130초**(원문 22쪽 + 문항 보유 629쪽) — 매 요청에 할 일이 아니다. 그래서 스냅샷을 읽고 **언제 잰 값인지 항상 함께** 말한다. 7일이 넘으면 줄이 경고색으로 바뀐다.',
+            '이 화면은 실시간 집계가 **아니다.** `library_articles` 는 본문이 1.3GB 라 조건부 `count: exact` 가 8초 statement timeout 에 걸린다(오류 message 가 빈 문자열로 와서 원인이 안 보인다). 전수 훑기는 커서 페이징으로 **212초**(2026-09-15 실측 · 재고 87,626편) — 매 요청에 할 일이 아니다. 그래서 스냅샷을 읽고 **언제 잰 값인지 항상 함께** 말한다. 7일이 넘으면 줄이 경고색으로 바뀐다.',
         },
       ],
       cautions: [
@@ -186,7 +186,7 @@ export const TBP_HELP: HelpRegistry = {
           {
             title: '전수 판정 스캔',
             detail:
-              '`pnpm dlx tsx scripts/textbook/source-eligibility-scan.mjs` — `status in (ready, published)` 전량을 커서 페이징으로 훑어 판정하고, **인자 없이도 이 화면이 읽는 스냅샷을 갱신한다**(터미널에만 보려면 `--no-write`). **읽기만 한다 — 재실행 안전**이고, 몇 번을 돌려도 DB 가 바뀌지 않는다. 실측 **31.9초**(2026-09-06 · 문항 보유 훑기 629쪽 포함). PostgREST 가 한 쪽 1,000행으로 강제하고 집계 함수가 꺼져 있어(PGRST123) 커서 페이징 말고 다른 길이 없다.',
+              '`pnpm dlx tsx scripts/textbook/source-eligibility-scan.mjs` — `status in (ready, published)` 전량을 커서 페이징으로 훑어 판정하고, **인자 없이도 이 화면이 읽는 스냅샷을 갱신한다**(터미널에만 보려면 `--no-write`). **읽기만 한다 — 재실행 안전**이고, 몇 번을 돌려도 DB 가 바뀌지 않는다. ⏱ **재고에 비례한다** — 2026-09-06 재고 35,889편에 31.9초였고, 2026-09-15 재고 **87,626편에 212초**다. 「금방 끝난다」고 적어 두면 돌리다 말고 끊는다. PostgREST 가 한 쪽 1,000행으로 강제하고 집계 함수가 꺼져 있어(PGRST123) 커서 페이징 말고 다른 길이 없다.',
             done: '콘솔 마지막에 `→ apps/web/src/lib/textbook/source-eligibility-snapshot.json` 이 찍히고, 이 화면의 “잰 시각” 이 오늘로 바뀐다.',
           },
           {

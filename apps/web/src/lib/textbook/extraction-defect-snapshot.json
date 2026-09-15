@@ -1,36 +1,48 @@
 {
-  "measuredAt": "2026-09-07T03:45:02.885Z",
-  "elapsedSeconds": 199,
+  "measuredAt": "2026-09-15T01:14:20.495Z",
+  "elapsedSeconds": 326.4,
   "scope": "status in ('ready','published')",
-  "scanned": 36507,
-  "defective": 13244,
+  "scanned": 87626,
+  "defective": 20452,
   "rules": [
     {
       "id": "html-attr",
       "label": "HTML 속성 혼입",
       "why": "툴팁·링크 속성이 문장 한복판에 남았다 — 그대로 인쇄된다",
-      "count": 4,
+      "count": 67,
       "bySource": [
         {
           "source": "plos",
+          "count": 34
+        },
+        {
+          "source": "gutenberg",
+          "count": 27
+        },
+        {
+          "source": "frontiers",
           "count": 4
+        },
+        {
+          "source": "voa",
+          "count": 2
         }
       ],
       "samples": [
         {
-          "title": "Research on the \"multi-agent co-governance\" system",
+          "title": "Exploring the role of meaning in non-Māori speaker",
           "source": "plos",
           "evidence": "<p"
         },
         {
-          "title": "The normal human lymph node cell classification an",
+          "title": "Impact damage to the middle trough of a scraper co",
           "source": "plos",
           "evidence": "<A"
         },
         {
-          "title": "Mechanistic origin of high-cycle fatigue enhanceme",
+          "title": "Whole exome sequence-based association analyses of",
           "source": "plos",
-          "evidence": "<a"
+          "evidence": "<p"
         }
       ]
     },
@@ -38,15 +50,27 @@
       "id": "wiki-markup",
       "label": "위키 마크업 잔재",
       "why": "`== 절 ==` · `[[링크]]` · `{{틀}}` 이 본문에 남았다",
-      "count": 13,
+      "count": 33,
       "bySource": [
         {
           "source": "plos",
-          "count": 10
+          "count": 22
+        },
+        {
+          "source": "gutenberg",
+          "count": 5
         },
         {
           "source": "simple_wikipedia",
           "count": 2
+        },
+        {
+          "source": "frontiers",
+          "count": 2
+        },
+        {
+          "source": "voa",
+          "count": 1
         },
         {
           "source": "wikipedia",
@@ -55,19 +79,19 @@
       ],
       "samples": [
         {
-          "title": "Community health volunteers as a frontline platfor",
+          "title": "Formal reasoning about systems biology using theor",
           "source": "plos",
-          "evidence": "[[,]]"
+          "evidence": "[[ATP;Kinase]]"
         },
         {
-          "title": "Advanced preclinical testing of a design-optimized",
+          "title": "Recognizing the Symptoms of Mental Illness followi",
           "source": "plos",
-          "evidence": "[[,–]]"
+          "evidence": "[[ 17 , 18 ]]"
         },
         {
-          "title": "Implementation strategies for integrating non-comm",
+          "title": "Does road safety cointegrate with socio-economic c",
           "source": "plos",
-          "evidence": "[[“2016”,”12”]]"
+          "evidence": "[[,,,]]"
         }
       ]
     },
@@ -108,11 +132,19 @@
       "id": "dup-paragraph",
       "label": "문단 통째 중복",
       "why": "같은 문단이 두 번 들어 있다 — 어수가 부풀고 읽으면 되풀이된다",
-      "count": 12907,
+      "count": 18856,
       "bySource": [
         {
           "source": "plos",
-          "count": 12878
+          "count": 18614
+        },
+        {
+          "source": "frontiers",
+          "count": 182
+        },
+        {
+          "source": "voa",
+          "count": 33
         },
         {
           "source": "futurity",
@@ -129,27 +161,23 @@
         {
           "source": "noaa",
           "count": 3
-        },
-        {
-          "source": "voa",
-          "count": 2
         }
       ],
       "samples": [
         {
-          "title": "NOAA leaders, experts and climate science take the",
-          "source": "noaa",
-          "evidence": "NOAA experts are on the ground in Dubai as part of the U.S. "
-        },
-        {
-          "title": "NASA’s COFFIES Uses AI to Predict Storm-Causing Ac",
-          "source": "nasa",
-          "evidence": "To view this video please enable JavaScript, and consider up"
-        },
-        {
-          "title": "PLGA - encapsulated harmine derivative H-2-168: A ",
+          "title": "Accompaniment on the edge: What can the US learn f",
           "source": "plos",
-          "evidence": "Harmine (HM), a bioactive alkaloid, exhibits remarkable anti"
+          "evidence": "The US has stood as a reference point for abortion rights in"
+        },
+        {
+          "title": "Coexistence rules for small, antagonistically inte",
+          "source": "plos",
+          "evidence": "The coexistence of diverse microbial communities despite the"
+        },
+        {
+          "title": "Beyond Statistical Significance: Implications of N",
+          "source": "plos",
+          "evidence": "It is a common and good practice in experimental sciences to"
         }
       ]
     },
@@ -157,15 +185,27 @@
       "id": "dropped-math",
       "label": "수식이 사라진 문장",
       "why": "기호만 빠지고 문장은 남았다 — 산문처럼 보이는데 뜻이 안 선다",
-      "count": 1789,
+      "count": 3443,
       "bySource": [
         {
           "source": "plos",
-          "count": 1768
+          "count": 3280
         },
         {
           "source": "gutenberg",
-          "count": 11
+          "count": 55
+        },
+        {
+          "source": "voa",
+          "count": 48
+        },
+        {
+          "source": "frontiers",
+          "count": 34
+        },
+        {
+          "source": "europe_pmc",
+          "count": 16
         },
         {
           "source": "futurity",
@@ -182,19 +222,19 @@
       ],
       "samples": [
         {
-          "title": "&lsquo;Just Play&rsquo; (JP) - creative arts thera",
+          "title": "Coexistence rules for small, antagonistically inte",
           "source": "plos",
-          "evidence": "of ."
+          "evidence": "by ."
         },
         {
-          "title": "Patterns between evidence seeking behaviors, reaso",
+          "title": "Beyond Statistical Significance: Implications of N",
           "source": "plos",
-          "evidence": "of ."
+          "evidence": "by ."
         },
         {
-          "title": "Seasonal dynamic modeling for real-time prediction",
+          "title": "Emergent spatial structure in the gut microbiota i",
           "source": "plos",
-          "evidence": "where represents "
+          "evidence": "of ,"
         }
       ]
     },
