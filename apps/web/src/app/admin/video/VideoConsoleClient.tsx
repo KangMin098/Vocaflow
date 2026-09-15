@@ -401,7 +401,7 @@ export function VideoConsoleClient({
           )}
 
           {plan.blocked.length > 0 && (
-            <div className="mt-5 rounded-[var(--r-md)] border border-[var(--bdw)] bg-[var(--warning-light)] px-4 py-3">
+            <div className="mt-5 rounded-[var(--r-md)] border border-[var(--warning)] bg-[var(--warning-light)] px-4 py-3">
               <p className="font-body text-[13px] font-[700] text-[var(--warning-ink)]">
                 지금 찍으면 안 되는 자리 {plan.blocked.length}
               </p>

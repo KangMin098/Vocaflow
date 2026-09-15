@@ -56,7 +56,7 @@ export default async function CsatPredictPage() {
       </p>
 
       {map.error || !rows.length ? (
-        <p className="mt-4 break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4 text-sm text-[var(--t2)]">
+        <p className="mt-4 break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4 text-sm text-[var(--t2)]">
           지금은 사정권을 계산하지 못했어요.{' '}
           <Link href="/csat" className="underline underline-offset-2">
             오답 분포부터 보기 →

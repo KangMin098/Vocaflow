@@ -72,7 +72,10 @@ function SaveIndicator() {
       aria-live="polite"
       className={`pointer-events-none fixed right-6 top-6 z-30 inline-flex items-center gap-2 rounded-full px-3 py-2 font-display text-[11px] font-[600] tracking-[0.04em] shadow-[var(--sh-md)] transition-all duration-[var(--dur-normal)] ${
         failed
-          ? 'bg-[var(--danger-light)] text-[var(--danger)]'
+          // ⚠️ `--danger`·`--danger-light` 는 **정의된 적이 없는 토큰**이었다(실측 2026-09-16).
+          //    정의되지 않은 var() 는 선언을 통째로 버리므로 **저장 실패 알림이 배경도 글자색도
+          //    없이** 떴다 — 실패했다는 사실이 가장 안 보이는 자리다. 정본 이름으로 바꾼다.
+          ? 'bg-[var(--error-light)] text-[var(--error-ink)]'
           : 'bg-[var(--success-light)] text-[var(--success)]'
       } ${state === 'idle' ? 'pointer-events-none -translate-y-2 opacity-0' : 'opacity-100'}`}
     >

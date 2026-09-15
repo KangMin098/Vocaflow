@@ -317,14 +317,14 @@ export default function OverlayClient({
             void accept(e.dataTransfer?.files?.[0])
           }}
           className={`rounded-[var(--r-md)] border border-dashed p-4 transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] motion-reduce:transition-none ${
-            dragging ? 'border-[var(--p)] bg-[var(--sf-2)]' : 'border-[var(--bd)] bg-[var(--sf)]'
+            dragging ? 'border-[var(--p)] bg-[var(--bg3)]' : 'border-[var(--bd)] bg-[var(--bg)]'
           }`}
         >
           <div className="flex flex-wrap items-center gap-3">
             {/* placeholder 가 아니라 실제 레이블을 둔다 */}
             <label
               htmlFor="csat-pdf"
-              className="inline-flex min-h-[44px] cursor-pointer items-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf-2)] px-4 text-sm text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-[var(--p)] active:bg-[var(--bd)] motion-reduce:transition-none"
+              className="inline-flex min-h-[44px] cursor-pointer items-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg3)] px-4 text-sm text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-[var(--p)] active:bg-[var(--bd)] motion-reduce:transition-none"
             >
               문제지 PDF 고르기
             </label>
@@ -361,14 +361,14 @@ export default function OverlayClient({
         ) : null}
 
         {status.kind === 'error' ? (
-          <p className="mt-4 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4 text-sm text-[var(--t2)]">
+          <p className="mt-4 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4 text-sm text-[var(--t2)]">
             {status.message}
           </p>
         ) : null}
 
         {status.kind === 'unknown' ? (
           // 막다른 화면을 두지 않는다 — 다음 한 걸음을 함께 적는다
-          <div className="mt-4 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4">
+          <div className="mt-4 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
             <p className="text-sm leading-relaxed text-[var(--t2)]">
               이 파일은 아직 좌표가 없는 회차예요. 영어 영역 <strong>문제지</strong>인지(정답표·듣기 대본이
               아닌지) 확인해 주세요.
@@ -386,7 +386,7 @@ export default function OverlayClient({
               <p className="text-sm text-[var(--t2)]">
                 <strong className="text-[var(--t1)]">{payload.exam_label}</strong>
                 {payload.paper_form ? (
-                  <span className="ml-2 rounded bg-[var(--sf-2)] px-1.5 py-0.5 text-[11px] text-[var(--t3)]">
+                  <span className="ml-2 rounded bg-[var(--bg3)] px-1.5 py-0.5 text-[11px] text-[var(--t3)]">
                     {payload.paper_form === '단일' ? '형 구분 없음' : `${payload.paper_form}형 기준`}
                   </span>
                 ) : null}
@@ -396,7 +396,7 @@ export default function OverlayClient({
                   type="button"
                   onClick={() => setPage((p) => Math.max(1, p - 1))}
                   disabled={page <= 1}
-                  className="min-h-[44px] min-w-[44px] rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] px-3 text-sm text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)] disabled:cursor-not-allowed disabled:text-[var(--t3)] disabled:hover:border-[var(--bd)] motion-reduce:transition-none"
+                  className="min-h-[44px] min-w-[44px] rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 text-sm text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)] disabled:cursor-not-allowed disabled:text-[var(--t3)] disabled:hover:border-[var(--bd)] motion-reduce:transition-none"
                 >
                   ← 앞
                 </button>
@@ -407,7 +407,7 @@ export default function OverlayClient({
                   type="button"
                   onClick={() => setPage((p) => Math.min(formPages, p + 1))}
                   disabled={page >= formPages}
-                  className="min-h-[44px] min-w-[44px] rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] px-3 text-sm text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)] disabled:cursor-not-allowed disabled:text-[var(--t3)] disabled:hover:border-[var(--bd)] motion-reduce:transition-none"
+                  className="min-h-[44px] min-w-[44px] rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 text-sm text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)] disabled:cursor-not-allowed disabled:text-[var(--t3)] disabled:hover:border-[var(--bd)] motion-reduce:transition-none"
                 >
                   뒤 →
                 </button>
@@ -517,7 +517,7 @@ export default function OverlayClient({
       {/* ── 옆 패널: 우리가 쓴 것만 ───────────────────────────────── */}
       <aside className="lg:sticky lg:top-6 lg:self-start">
         {!open ? (
-          <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4">
+          <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
             <h2 className="font-display text-sm font-bold text-[var(--t1)]">해설</h2>
             <p className="mt-2 text-sm leading-relaxed text-[var(--t2)]">
               {payload
@@ -526,7 +526,7 @@ export default function OverlayClient({
             </p>
           </div>
         ) : (
-          <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4">
+          <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
             <div className="flex items-start justify-between gap-2">
               <h2 className="font-display text-base font-bold text-[var(--t1)]">
                 {open.no}번

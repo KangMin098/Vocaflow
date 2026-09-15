@@ -77,7 +77,7 @@ export function PlanTimeline({ rows, availableSec }: { rows: TimelineRow[]; avai
       {/* 띠 — **이것이 증명이다**(I1). 문항마다 한 칸, 폭은 그 문항의 시간 예산이다. */}
       <div
         data-proof="plan-timeline"
-        className="relative flex h-9 w-full overflow-hidden rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)]"
+        className="relative flex h-9 w-full overflow-hidden rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)]"
         role="img"
         aria-label={
           t.breaksAt !== null
@@ -99,7 +99,7 @@ export function PlanTimeline({ rows, availableSec }: { rows: TimelineRow[]; avai
                 // 실린 정보가 없으므로(폭이 같은 말을 한다) 색약 학습자에게 잃는 것이 없고,
                 // 28칸이 한 톤이면 띠가 「빈 줄무늬」로 읽히던 것이 고쳐진다(실측 캡처).
                 // 넘는 구간은 **주의**(--warning)지 실패(--error)가 아니다 — 절차가 무거운 것이다.
-                // ⚠️ 두 번째 인자는 **`transparent`** 다. 처음에 `var(--sf)` 를 썼는데 그 변수가
+                // ⚠️ 두 번째 인자는 **`transparent`** 다. 처음에 `var(--bg)` 를 썼는데 그 변수가
                 //    이 자리에서 안 풀려(실측: 계산된 배경 `rgba(0,0,0,0)`) `color-mix` 가 통째로
                 //    무효가 됐다 — **띠가 아예 안 칠해졌다.** 그런데 화면은 멀쩡히 뜨고 계측기도
                 //    `data-proof` 를 세므로 「증명 1개」로 보고됐다. 눈으로만 잡히는 종류라
@@ -148,7 +148,7 @@ export function PlanTimeline({ rows, availableSec }: { rows: TimelineRow[]; avai
               'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]',
               speed === s.v
                 ? 'border-[var(--p)] bg-[var(--p)] text-[var(--on-p)]'
-                : 'border-[var(--bd)] bg-[var(--sf)] text-[var(--t2)] hover:border-[var(--p)] hover:bg-[var(--sf-2)] active:bg-[var(--bd)]',
+                : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t2)] hover:border-[var(--p)] hover:bg-[var(--bg3)] active:bg-[var(--bd)]',
             ].join(' ')}
           >
             {s.label}
@@ -161,7 +161,7 @@ export function PlanTimeline({ rows, availableSec }: { rows: TimelineRow[]; avai
 
       {/* 넘칠 때도 **비난하지 않는다**(철학 3). 원인을 말하고 다음 한 걸음을 준다. */}
       {t.total > t.available ? (
-        <p className="mt-3 break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-3 text-sm leading-relaxed text-[var(--t2)]">
+        <p className="mt-3 break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-3 text-sm leading-relaxed text-[var(--t2)]">
           시간이 모자란 것은 <strong>절차가 아직 무겁다는 뜻</strong>이에요. 아래에서 {t.breaksAt}번 뒤쪽
           유형부터 절차를 줄여 보세요 — 유형 화면의 「막히면」은 접어 두고 첫 단계만 쓰면 대개 절반으로 줍니다.
         </p>

@@ -115,7 +115,7 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
       </Link>
 
       {error || !item ? (
-        <p className="mt-4 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4 text-sm text-[var(--t2)]">
+        <p className="mt-4 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4 text-sm text-[var(--t2)]">
           지금은 해설을 불러오지 못했어요. 잠시 뒤 다시 열어 주세요.
         </p>
       ) : (
@@ -140,7 +140,7 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
           {item.answer_unknown || item.answer == null ? (
             // 정답표가 없는 회차. **추정한 정답을 정답인 척 적지 않는다** —
             // 그 한 줄이 학습자를 반대로 훈련시킨다.
-            <p className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4 text-sm leading-relaxed text-[var(--t2)]">
+            <p className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4 text-sm leading-relaxed text-[var(--t2)]">
               이 회차는 평가원 정답표를 구하지 못했어요. 정답을 모르는 채로 근거를 적으면 그건 창작이라,
               이 문항은 <strong>답을 지목하지 않습니다.</strong> 대신 아래 절차는 그대로 쓸 수 있어요.
             </p>
@@ -154,17 +154,17 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
               </div>
 
               {item.why_correct ? (
-                <p className="mt-2 rounded-[var(--r-md)] border border-[#2E7D5A] bg-[var(--sf)] p-4 text-sm leading-relaxed text-[var(--t1)]">
+                <p className="mt-2 rounded-[var(--r-md)] border border-[#2E7D5A] bg-[var(--bg)] p-4 text-sm leading-relaxed text-[var(--t1)]">
                   {item.why_correct}
                 </p>
               ) : (
-                <p className="mt-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4 text-sm leading-relaxed text-[var(--t2)]">
+                <p className="mt-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4 text-sm leading-relaxed text-[var(--t2)]">
                   이 문항은 정답 근거 서술을 아직 쓰는 중이에요.
                 </p>
               )}
 
               {item.evidence_quote ? (
-                <div className="mt-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4">
+                <div className="mt-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
                   <p className="text-xs text-[var(--t3)]">근거가 되는 문장</p>
                   {/* 지문 발췌는 여기까지다 — 문단 전체는 평가원 공개자료에서 본다 */}
                   <blockquote className="mt-1 border-l-2 border-[var(--bd)] pl-3 font-display text-sm italic leading-relaxed text-[var(--t1)]">
@@ -194,13 +194,13 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
               ) : null}
               <ul className="mt-2 space-y-2">
                 {offMap.map((d) => (
-                  <li key={d.n} className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4">
+                  <li key={d.n} className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
                     <div className="flex items-baseline justify-between gap-3">
                       <span className="font-display text-base font-bold tabular-nums text-[var(--t2)]">
                         {CIRCLED[d.n] ?? d.n}
                       </span>
                       {d.trap ? (
-                        <span className="shrink-0 rounded bg-[var(--sf-2)] px-1.5 py-0.5 text-[10px] text-[var(--t3)]">
+                        <span className="shrink-0 rounded bg-[var(--bg3)] px-1.5 py-0.5 text-[10px] text-[var(--t3)]">
                           {d.trap}
                         </span>
                       ) : null}
@@ -224,7 +224,7 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
               <h2 className="font-display text-sm font-bold text-[var(--t1)]">다시 풀 때의 순서</h2>
               <ol className="mt-2 space-y-2">
                 {item.procedure.map((s, i) => (
-                  <li key={i} className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4">
+                  <li key={i} className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
                     <p className="text-sm leading-relaxed text-[var(--t1)]">{s.step}</p>
                     {s.on_fail ? (
                       <p className="mt-2 border-l-2 border-[var(--bd)] pl-3 text-xs leading-relaxed text-[var(--t3)]">
@@ -244,7 +244,7 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
                 {item.required_vocab.map((w) => (
                   <li
                     key={w}
-                    className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] px-2.5 py-1 text-sm text-[var(--t2)]"
+                    className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-2.5 py-1 text-sm text-[var(--t2)]"
                   >
                     {w}
                   </li>
@@ -258,7 +258,7 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
           {next ? (
             <Link
               href={`/csat/item/${next.item.slug}`}
-              className="mt-8 flex min-h-[44px] items-center justify-between gap-3 rounded-[var(--r-md)] border border-[var(--p)] bg-[var(--sf)] px-4 py-3 transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--sf-2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)] motion-reduce:transition-none"
+              className="mt-8 flex min-h-[44px] items-center justify-between gap-3 rounded-[var(--r-md)] border border-[var(--p)] bg-[var(--bg)] px-4 py-3 transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg3)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)] motion-reduce:transition-none"
             >
               <span className="min-w-0 break-keep">
                 <span className="block text-sm font-bold text-[var(--t1)]">
@@ -278,7 +278,7 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
               않는다는 사실이 바로 이 링크의 이유다. 막다른 안내로 끝내지 않는다(D4). */}
           <Link
             href={`/csat/overlay?exam=${encodeURIComponent(item.id.split('#')[0])}&no=${item.no}`}
-            className="mt-8 inline-flex min-h-[44px] items-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] px-4 text-sm text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] hover:bg-[var(--sf-2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)] motion-reduce:transition-none"
+            className="mt-8 inline-flex min-h-[44px] items-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 text-sm text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] hover:bg-[var(--bg3)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)] motion-reduce:transition-none"
           >
             {hasKicePaper ? '평가원 원본과 함께 보기 →' : '문제지 열고 해설 얹기 →'}
           </Link>

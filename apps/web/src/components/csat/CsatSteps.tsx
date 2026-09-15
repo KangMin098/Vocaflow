@@ -64,7 +64,7 @@ function Step({ step, current }: { step: CsatStep; current: boolean }) {
           'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]',
           current
             ? 'border-[var(--p)] bg-[var(--p)] font-[700] text-[var(--bg)]'
-            : 'border-[var(--bd)] bg-[var(--sf)] text-[var(--t2)] hover:border-[var(--p)] hover:bg-[var(--sf-2)] hover:text-[var(--t1)] active:bg-[var(--bd)]',
+            : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t2)] hover:border-[var(--p)] hover:bg-[var(--bg3)] hover:text-[var(--t1)] active:bg-[var(--bd)]',
         ].join(' ')}
       >
         {body}

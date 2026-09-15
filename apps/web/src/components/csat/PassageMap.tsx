@@ -101,8 +101,8 @@ export function PassageMap({ sentences, anchors, placements, onSelect }: Passage
                 'transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] motion-reduce:transition-none',
                 'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]',
                 on
-                  ? 'bg-[var(--sf-2)] text-[var(--t1)]'
-                  : 'border-[var(--bd)] bg-[var(--sf)] text-[var(--t2)] hover:border-[var(--p)] hover:bg-[var(--sf-2)] active:bg-[var(--bd)]',
+                  ? 'bg-[var(--bg3)] text-[var(--t1)]'
+                  : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t2)] hover:border-[var(--p)] hover:bg-[var(--bg3)] active:bg-[var(--bd)]',
               ].join(' ')}
               style={on ? { borderColor: a.kind === 'answer' ? GREEN : RED } : undefined}
             >
@@ -140,7 +140,7 @@ export function PassageMap({ sentences, anchors, placements, onSelect }: Passage
 
               {isLit && reveals.length ? (
                 <span
-                  className="flex min-w-0 flex-1 flex-wrap items-center gap-px rounded-[var(--r-sm)] bg-[var(--sf-2)] px-1 py-1"
+                  className="flex min-w-0 flex-1 flex-wrap items-center gap-px rounded-[var(--r-sm)] bg-[var(--bg3)] px-1 py-1"
                   style={{ boxShadow: `inset 0 0 0 1px ${tone}` }}
                 >
                   {segments(s, reveals).map((seg, k) =>
@@ -171,7 +171,7 @@ export function PassageMap({ sentences, anchors, placements, onSelect }: Passage
       </ol>
 
       {active ? (
-        <div className="mt-4 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4">
+        <div className="mt-4 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
           {notFound ? (
             // **막다른 화면을 만들지 않는다.** 못 찾았다는 사실을 말하고 설명은 그대로 준다.
             <p className="mb-2 break-keep text-sm leading-relaxed text-[var(--t2)]">

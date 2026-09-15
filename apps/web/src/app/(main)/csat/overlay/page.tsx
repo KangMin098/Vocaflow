@@ -83,7 +83,7 @@ export default async function CsatOverlayPage({
                       href={source.paperUrl + pdfFragment(page ?? 1)}
                       target="_blank"
                       rel="noreferrer noopener"
-                      className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] px-4 text-sm text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] hover:bg-[var(--sf-2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)] motion-reduce:transition-none"
+                      className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 text-sm text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] hover:bg-[var(--bg3)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)] motion-reduce:transition-none"
                     >
                       새 탭에서 크게 보기 ↗
                     </a>
@@ -106,12 +106,12 @@ export default async function CsatOverlayPage({
                     src={source.paperUrl + pdfFragment(page ?? 1)}
                     title={`${item?.exam_label ?? examId} 영어 영역 문제지 (한국교육과정평가원)`}
                     loading="lazy"
-                    className="h-[70vh] min-h-[28rem] w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)]"
+                    className="h-[70vh] min-h-[28rem] w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)]"
                   />
                 </>
               ) : (
                 // 막다른 안내로 끝내지 않는다 — 왜 없는지와 다음 걸음을 함께 준다(D4)
-                <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4">
+                <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
                   <p className="break-keep text-sm leading-relaxed text-[var(--t2)]">
                     이 회차는 <strong>원본 직접 링크가 없어요.</strong> {source?.reason}.
                   </p>
@@ -124,7 +124,7 @@ export default async function CsatOverlayPage({
                       href={source?.listUrl ?? '#'}
                       target="_blank"
                       rel="noreferrer noopener"
-                      className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf-2)] px-4 text-sm text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)] motion-reduce:transition-none"
+                      className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg3)] px-4 text-sm text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)] motion-reduce:transition-none"
                     >
                       평가원에서 찾기 ↗
                     </a>
@@ -135,7 +135,7 @@ export default async function CsatOverlayPage({
 
             {/* 오른쪽 — 우리가 쓴 것만. 순서는 해설 화면과 같다(①답 → ②나머지 → ③다시 풀 때) */}
             <aside className="lg:sticky lg:top-6 lg:self-start">
-              <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4">
+              <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
                 <h2 className="font-display text-base font-bold text-[var(--t1)]">
                   {no}번
                   {item?.type_name ? (

@@ -244,8 +244,8 @@ export function TrapAtlas({
                   'transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] motion-reduce:transition-none',
                   'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]',
                   open
-                    ? 'border-[var(--p)] bg-[var(--sf-2)]'
-                    : 'border-transparent hover:border-[var(--bd)] hover:bg-[var(--sf)] active:bg-[var(--sf-2)]',
+                    ? 'border-[var(--p)] bg-[var(--bg3)]'
+                    : 'border-transparent hover:border-[var(--bd)] hover:bg-[var(--bg)] active:bg-[var(--bg3)]',
                 ].join(' ')}
               >
                 <span
@@ -317,7 +317,7 @@ export function TrapAtlas({
         <button
           type="button"
           onClick={() => setExpanded(true)}
-          className="mt-2 inline-flex min-h-[44px] items-center rounded-[var(--r-md)] px-3 text-sm text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--sf)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
+          className="mt-2 inline-flex min-h-[44px] items-center rounded-[var(--r-md)] px-3 text-sm text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
         >
           이름 붙은 함정 {hidden}가지 더 보기 →
         </button>
@@ -394,7 +394,7 @@ function Lift({ share, base }: { share: number; base: number }) {
 /** 펼친 줄 — 「어떻게 잡는가」 한 줄과 **실제 기출 예시**. 예시가 없으면 장담도 안 한다. */
 function TrapDetail({ row }: { row: RankRow }) {
   return (
-    <div className="mb-2 ml-6 mt-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4">
+    <div className="mb-2 ml-6 mt-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
       {row.detector ? (
         <p className="break-keep text-sm leading-relaxed text-[var(--t1)]">
           <span className="font-display font-bold">잡는 법 </span>
@@ -452,7 +452,7 @@ function Chip({
         'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]',
         on
           ? 'border-[var(--p)] bg-[var(--p)] text-[var(--on-p)]'
-          : 'border-[var(--bd)] bg-[var(--sf)] text-[var(--t2)] hover:border-[var(--p)] hover:bg-[var(--sf-2)] active:bg-[var(--bd)]',
+          : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t2)] hover:border-[var(--p)] hover:bg-[var(--bg3)] active:bg-[var(--bd)]',
       ].join(' ')}
     >
       {children}

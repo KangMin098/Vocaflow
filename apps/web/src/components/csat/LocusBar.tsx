@@ -24,7 +24,7 @@ export function LocusBar({ summary }: { summary: LocusSummary }) {
   const parts = sentence.split(/\*\*(.+?)\*\*/)
 
   return (
-    <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4">
+    <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
       <p className="break-keep text-sm leading-relaxed text-[var(--t1)]">
         {parts.map((t, i) =>
           i % 2 === 1 ? (

@@ -89,7 +89,7 @@ export default async function CsatTypePage({ params }: { params: Promise<{ typeI
       </Link>
 
       {error || !detail ? (
-        <p className="mt-4 break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4 text-sm text-[var(--t2)]">
+        <p className="mt-4 break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4 text-sm text-[var(--t2)]">
           지금은 분석을 불러오지 못했어요. 잠시 뒤 다시 열어 주세요.
         </p>
       ) : (
@@ -105,7 +105,7 @@ export default async function CsatTypePage({ params }: { params: Promise<{ typeI
           </header>
 
           {detail.n_analyzed === 0 ? (
-            <p className="break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4 text-sm leading-relaxed text-[var(--t2)]">
+            <p className="break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4 text-sm leading-relaxed text-[var(--t2)]">
               이 유형은 아직 분석 중이에요. 준비되면 여기에 절차가 올라옵니다.
             </p>
           ) : (
@@ -155,11 +155,11 @@ export default async function CsatTypePage({ params }: { params: Promise<{ typeI
                     {detail.procedure.map((s, i) => (
                       <li
                         key={i}
-                        className="flex gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4"
+                        className="flex gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4"
                       >
                         <span
                           aria-hidden
-                          className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--sf-2)] font-display text-xs font-bold tabular-nums text-[var(--t2)]"
+                          className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--bg3)] font-display text-xs font-bold tabular-nums text-[var(--t2)]"
                         >
                           {i + 1}
                         </span>
@@ -186,8 +186,8 @@ export default async function CsatTypePage({ params }: { params: Promise<{ typeI
                   이 세 덩어리가 R-BLANK 에서 13,000자가 넘는다. 값어치가 없어서가 아니라
                   **도착하자마자 삼킬 것이 아니라서** 접는다. 손잡이가 분량을 말한다. */}
               {detail.answer_locus_pattern || detail.recurring_traps.length || detail.failure_modes.length ? (
-                <details className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)]">
-                  <summary className="flex min-h-[44px] cursor-pointer list-none items-center justify-between gap-3 break-keep px-4 text-sm text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--sf-2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none">
+                <details className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)]">
+                  <summary className="flex min-h-[44px] cursor-pointer list-none items-center justify-between gap-3 break-keep px-4 text-sm text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg3)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none">
                     <span className="font-display font-bold">분석 원문 읽기</span>
                     <span className="shrink-0 text-xs text-[var(--t3)]">{charsLabel(proseChars)} →</span>
                   </summary>
@@ -279,11 +279,11 @@ export default async function CsatTypePage({ params }: { params: Promise<{ typeI
             </h2>
 
             {itemsError ? (
-              <p className="mt-2 break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4 text-sm text-[var(--t2)]">
+              <p className="mt-2 break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4 text-sm text-[var(--t2)]">
                 지금은 기출 목록을 불러오지 못했어요. 잠시 뒤 다시 열어 주세요.
               </p>
             ) : items.length === 0 ? (
-              <p className="mt-2 break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4 text-sm text-[var(--t2)]">
+              <p className="mt-2 break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4 text-sm text-[var(--t2)]">
                 이 유형의 기출을 아직 연결하지 못했어요. 위의 절차와 함정만으로도 한 번 풀어 볼 수 있어요.
               </p>
             ) : null}
@@ -294,7 +294,7 @@ export default async function CsatTypePage({ params }: { params: Promise<{ typeI
                   <li key={it.id}>
                     <Link
                       href={`/csat/item/${it.slug}`}
-                      className="flex min-h-[44px] items-center justify-between gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] px-4 py-2 transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] hover:bg-[var(--sf-2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)] motion-reduce:transition-none"
+                      className="flex min-h-[44px] items-center justify-between gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-2 transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] hover:bg-[var(--bg3)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)] motion-reduce:transition-none"
                     >
                       <span className="text-sm text-[var(--t1)]">
                         {it.exam_label} <span className="tabular-nums">{it.no}번</span>

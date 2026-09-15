@@ -170,7 +170,7 @@ export function Heatmap({ data, onPick }: HeatmapProps) {
       {/* 고른 칸 — 격자 아래 한 줄. 모달을 띄우지 않는다(학습 중 모달 금지). */}
       <div
         aria-live="polite"
-        className="min-h-[44px] rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] px-3 py-2 text-[12px] text-[var(--t2)]"
+        className="min-h-[44px] rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 text-[12px] text-[var(--t2)]"
       >
         {picked && pickedRow ? (
           picked.n > 0 ? (

@@ -1007,9 +1007,9 @@ const MM_CSS = `
   .mm-mult { font-size: .78em; font-weight: 800; opacity: .9; }
 
   .mm-chase { height: 3px; background: color-mix(in srgb, var(--t1) 10%, transparent); }
-  .mm-chase-fill { height: 100%; background: color-mix(in srgb, var(--combo) 70%, transparent); transition: width .45s var(--ease-settle); }
+  .mm-chase-fill { height: 100%; background: color-mix(in srgb, var(--combo) 70%, transparent); transition: width .45s var(--ease-settle, ease); }
 
-  .mm-crucible { position: relative; margin: 10px 12px 0; padding: 11px 14px 12px; border-radius: var(--r-lg, 14px); border: 1px solid var(--bd); background: color-mix(in srgb, var(--bg) 74%, transparent); backdrop-filter: blur(6px); display: flex; flex-direction: column; gap: 7px; transition: border-color .4s var(--ease-settle), box-shadow .4s var(--ease-settle); }
+  .mm-crucible { position: relative; margin: 10px 12px 0; padding: 11px 14px 12px; border-radius: var(--r-lg, 14px); border: 1px solid var(--bd); background: color-mix(in srgb, var(--bg) 74%, transparent); backdrop-filter: blur(6px); display: flex; flex-direction: column; gap: 7px; transition: border-color .4s var(--ease-settle, ease), box-shadow .4s var(--ease-settle, ease); }
   .mm-root[data-rush="1"] .mm-crucible { border-color: color-mix(in srgb, var(--warning) 58%, var(--bd)); box-shadow: 0 0 0 1px color-mix(in srgb, var(--warning) 22%, transparent), 0 10px 30px -18px color-mix(in srgb, var(--warning) 60%, transparent); }
   .mm-ask { margin: 0; font-size: 10.5px; font-weight: 700; letter-spacing: .07em; color: var(--t3); text-transform: uppercase; }
   .mm-ko { margin: 0; font-family: var(--font-body, Georgia, serif); font-style: italic; font-size: clamp(24px, 6.6vw, 34px); font-weight: 600; line-height: 1.14; color: var(--t1); word-break: keep-all; }
@@ -1051,7 +1051,7 @@ const MM_CSS = `
   .mm-verdict--wrong .mm-verdict-ic, .mm-verdict--wrong .mm-verdict-main { color: var(--error); }
 
   .mm-board { flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-wrap: wrap; align-content: flex-start; justify-content: center; gap: 8px; padding: 12px; }
-  .mm-tile { position: relative; overflow: visible; min-height: 52px; padding: 10px 14px; border-radius: var(--r-lg, 14px); border: 1.5px solid var(--bd); background: var(--bg); color: var(--t1); font-family: var(--font-english, ui-monospace, monospace); font-size: clamp(15px, 3.5vw, 20px); font-weight: 700; cursor: pointer; animation: mm-in .3s var(--ease-settle) both; transition: transform .2s var(--ease-spring), border-color .15s, background .15s, box-shadow .15s, opacity .2s; }
+  .mm-tile { position: relative; overflow: visible; min-height: 52px; padding: 10px 14px; border-radius: var(--r-lg, 14px); border: 1.5px solid var(--bd); background: var(--bg); color: var(--t1); font-family: var(--font-english, ui-monospace, monospace); font-size: clamp(15px, 3.5vw, 20px); font-weight: 700; cursor: pointer; animation: mm-in .3s var(--ease-settle, ease) both; transition: transform .2s var(--ease-spring), border-color .15s, background .15s, box-shadow .15s, opacity .2s; }
   .mm-tile:hover:not(.mm-tile--on):not([aria-disabled="true"]) { border-color: var(--t3); transform: translateY(-2px); }
   .mm-tile:active:not([aria-disabled="true"]) { transform: scale(.95); }
   .mm-tile:focus-visible { outline: none; border-color: var(--combo); box-shadow: 0 0 0 3px color-mix(in srgb, var(--combo) 30%, transparent); }
@@ -1061,7 +1061,7 @@ const MM_CSS = `
   .mm-tile--wrong { border-color: var(--error); background: var(--error-light); color: var(--error); animation: gk-shake .34s ease-in-out; }
   .mm-tile--near { border-color: var(--warning); background: var(--warning-light); color: var(--warning); border-style: dashed; }
   .mm-tile--dim { opacity: .32; }
-  .mm-tile--merge { animation: mm-merge .44s var(--ease-settle) forwards; z-index: 2; }
+  .mm-tile--merge { animation: mm-merge .44s var(--ease-settle, ease) forwards; z-index: 2; }
   .mm-form { display: inline-block; }
   .mm-idx { position: absolute; left: 7px; top: -7px; padding: 0 4px; border-radius: 5px; border: 1px solid var(--bd); background: var(--bg2); color: var(--t4); font-family: var(--font-display, system-ui); font-size: 9.5px; font-weight: 800; line-height: 13px; pointer-events: none; display: none; }
   @media (hover: hover) and (min-width: 720px) { .mm-idx { display: block; } }

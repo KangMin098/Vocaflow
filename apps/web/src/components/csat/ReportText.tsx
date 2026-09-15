@@ -54,7 +54,7 @@ export function ReportText({ text, known, className }: ReportTextProps) {
                   href={`/csat/item/${toItemSlug(s.itemId)}`}
                   // 인라인 링크라 44px 을 줄 수 없다 — 대신 아래·위 여백을 넉넉히 주고
                   // 밑줄로 «누를 수 있다» 를 색 말고도 말한다(색약 대응).
-                  className="mx-0.5 inline-block rounded-[var(--r-sm)] px-1 py-0.5 font-display tabular-nums text-[var(--t1)] underline decoration-[var(--bd)] decoration-2 underline-offset-2 transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--sf-2)] hover:decoration-[var(--p)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
+                  className="mx-0.5 inline-block rounded-[var(--r-sm)] px-1 py-0.5 font-display tabular-nums text-[var(--t1)] underline decoration-[var(--bd)] decoration-2 underline-offset-2 transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg3)] hover:decoration-[var(--p)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
                 >
                   {s.text}
                 </Link>

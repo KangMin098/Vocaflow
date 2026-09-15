@@ -66,7 +66,7 @@ export default async function CsatPlanPage() {
       </header>
 
       {plan.error ? (
-        <p className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4 text-sm text-[var(--t2)]">
+        <p className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4 text-sm text-[var(--t2)]">
           지금은 계획을 불러오지 못했어요. 잠시 뒤 다시 열어 주세요.
         </p>
       ) : null}
@@ -84,7 +84,7 @@ export default async function CsatPlanPage() {
               쓸 수 있는 시간 45분」을 적는데 이 카드가 같은 두 수를 되풀이했다 — 한 화면이
               같은 질문에 두 번 답한 셈이고, 실제로 스펙 41 이 「쓸 수 있는 시간」 두 개를
               만나 strict mode 로 걸렸다(실측 2026-09-16). 남긴 것은 띠가 말하지 않는 것뿐이다. */}
-          <section className="mb-5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4">
+          <section className="mb-5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
             <div className="text-xs text-[var(--t3)]">독해 배점</div>
             <div
               className="mt-1 font-display text-xl font-bold tabular-nums"
@@ -106,7 +106,7 @@ export default async function CsatPlanPage() {
       ) : null}
 
       {!plan.error && !plan.rows.length ? (
-        <p className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4 text-sm text-[var(--t2)]">
+        <p className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4 text-sm text-[var(--t2)]">
           아직 계획을 세울 회차가 없어요.
         </p>
       ) : null}

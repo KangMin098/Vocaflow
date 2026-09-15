@@ -73,13 +73,13 @@ export default async function CsatHubPage() {
         </Link>
         <Link
           href="/csat/plan"
-          className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] px-4 text-sm text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] hover:bg-[var(--sf-2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)] motion-reduce:transition-none"
+          className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 text-sm text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] hover:bg-[var(--bg3)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)] motion-reduce:transition-none"
         >
           한 회차 주파 계획 보기 →
         </Link>
         <Link
           href="/csat/overlay"
-          className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] px-4 text-sm text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] hover:bg-[var(--sf-2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)] motion-reduce:transition-none"
+          className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 text-sm text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] hover:bg-[var(--bg3)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)] motion-reduce:transition-none"
         >
           문제지 열고 해설 얹기 →
         </Link>
@@ -97,13 +97,13 @@ export default async function CsatHubPage() {
         </div>
 
         {error ? (
-          <p className="mt-2 break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4 text-sm text-[var(--t2)]">
+          <p className="mt-2 break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4 text-sm text-[var(--t2)]">
             지금은 유형 목록을 불러오지 못했어요. 위의 오답 분포는 그대로 보실 수 있어요.
           </p>
         ) : null}
 
         {!error && !cards.length ? (
-          <p className="mt-2 break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4 text-sm text-[var(--t2)]">
+          <p className="mt-2 break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4 text-sm text-[var(--t2)]">
             아직 준비된 유형이 없어요.
           </p>
         ) : null}
@@ -121,7 +121,7 @@ export default async function CsatHubPage() {
               <li key={c.type_id}>
                 <Link
                   href={`/csat/${c.type_id}`}
-                  className="group flex h-full min-h-[44px] flex-col rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4 transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] hover:bg-[var(--sf-2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)] motion-reduce:transition-none"
+                  className="group flex h-full min-h-[44px] flex-col rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4 transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] hover:bg-[var(--bg3)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)] motion-reduce:transition-none"
                 >
                   <div className="flex items-start justify-between gap-3">
                     <h3 className="font-display text-base font-bold text-[var(--t1)]">{c.name}</h3>
@@ -131,7 +131,7 @@ export default async function CsatHubPage() {
                   </div>
 
                   {c.status === 'retired' ? (
-                    <span className="mt-1 self-start rounded bg-[var(--sf-2)] px-1.5 py-0.5 text-[10px] text-[var(--t3)]">
+                    <span className="mt-1 self-start rounded bg-[var(--bg3)] px-1.5 py-0.5 text-[10px] text-[var(--t3)]">
                       2023학년도 이후 출제 없음
                     </span>
                   ) : null}

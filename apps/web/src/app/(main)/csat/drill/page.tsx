@@ -58,7 +58,7 @@ export default async function CsatDrillPage({
       </header>
 
       {error ? (
-        <p className="break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4 text-sm text-[var(--t2)]">
+        <p className="break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4 text-sm text-[var(--t2)]">
           지금은 훈련 문제를 불러오지 못했어요. 잠시 뒤 다시 열어 주세요.
         </p>
       ) : (

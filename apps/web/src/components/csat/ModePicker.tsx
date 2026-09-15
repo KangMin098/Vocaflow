@@ -42,7 +42,7 @@ export function ModePicker() {
           <li key={m.no}>
             <Link
               href={m.href as string}
-              className="group flex h-full min-h-[44px] items-start gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-3 transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] hover:bg-[var(--sf-2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)] motion-reduce:transition-none"
+              className="group flex h-full min-h-[44px] items-start gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-3 transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] hover:bg-[var(--bg3)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)] motion-reduce:transition-none"
             >
               <span
                 aria-hidden

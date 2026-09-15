@@ -35,7 +35,7 @@ export default async function CsatMapPage() {
       </header>
 
       {data.error ? (
-        <p className="mt-3 break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4 text-sm text-[var(--t2)]">
+        <p className="mt-3 break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4 text-sm text-[var(--t2)]">
           지금은 지형을 불러오지 못했어요.{' '}
           <Link href="/csat" className="underline underline-offset-2">
             허브에서 유형별로 보기 →
@@ -43,7 +43,7 @@ export default async function CsatMapPage() {
         </p>
       ) : !data.rows.length ? (
         // 빈 상태는 설명이 아니라 **다음 한 걸음**이다(브리프 A4 · D5).
-        <p className="mt-3 break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4 text-sm text-[var(--t2)]">
+        <p className="mt-3 break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4 text-sm text-[var(--t2)]">
           아직 셀 기출이 없어요.{' '}
           <Link href="/csat" className="underline underline-offset-2">
             오답 분포부터 보기 →

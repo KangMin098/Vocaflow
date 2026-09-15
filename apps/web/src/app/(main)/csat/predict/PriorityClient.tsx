@@ -45,7 +45,7 @@ export function PriorityClient({
   return (
     <div className="flex flex-col gap-4">
       {/* 조작면 — 200ms 안에 목록이 바뀐다(I3). 네트워크 없음. */}
-      <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-3">
+      <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-3">
         <label
           htmlFor="csat-depth"
           className="flex flex-wrap items-baseline gap-2 text-[13px] text-[var(--t1)]"
@@ -80,7 +80,7 @@ export function PriorityClient({
           return (
             <li
               key={r.typeId}
-              className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-3"
+              className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-3"
             >
               <div className="flex flex-wrap items-baseline justify-between gap-2">
                 <a

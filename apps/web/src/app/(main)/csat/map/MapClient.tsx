@@ -23,7 +23,7 @@ export function MapClient({ data }: { data: HeatmapData }) {
       {pick && row ? (
         <nav
           aria-label={`${row.name} 다음 단계`}
-          className="flex flex-wrap gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-3"
+          className="flex flex-wrap gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-3"
         >
           <a
             href={`/csat/${pick.typeId}`}

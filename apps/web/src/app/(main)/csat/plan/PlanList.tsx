@@ -66,7 +66,7 @@ export function PlanList({ rows, mine }: { rows: CsatPlanRow[]; mine: MyTrapSumm
                 'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]',
                 mode === o.v
                   ? 'border-[var(--p)] bg-[var(--p)] text-[var(--on-p)]'
-                  : 'border-[var(--bd)] bg-[var(--sf)] text-[var(--t2)] hover:border-[var(--p)] hover:bg-[var(--sf-2)] active:bg-[var(--bd)]',
+                  : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t2)] hover:border-[var(--p)] hover:bg-[var(--bg3)] active:bg-[var(--bd)]',
               ].join(' ')}
             >
               {o.label}
@@ -77,7 +77,7 @@ export function PlanList({ rows, mine }: { rows: CsatPlanRow[]; mine: MyTrapSumm
 
       {/* ⚠️ 이 문장이 없으면 학습자가 **시험장에서 문제를 건너뛰며 푸는 법**으로 읽는다. */}
       {mode === 'weak' ? (
-        <p className="mb-3 break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-3 text-sm leading-relaxed text-[var(--t2)]">
+        <p className="mb-3 break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-3 text-sm leading-relaxed text-[var(--t2)]">
           시험은 <strong>번호 순서로</strong> 치릅니다 — 이건 <strong>공부할 순서</strong>예요. 내 기록에서 자주
           놓친 수법이 많이 섞인 유형부터 올렸습니다. 위의 시간 띠는 그대로 번호 순서입니다.
         </p>
@@ -87,7 +87,7 @@ export function PlanList({ rows, mine }: { rows: CsatPlanRow[]; mine: MyTrapSumm
         {shown.map((r) => {
           const x = mode === 'weak' ? risk.get(r.type_id) : undefined
           return (
-            <li key={r.no} className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4">
+            <li key={r.no} className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
               <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
                 <span className="font-display text-sm font-bold tabular-nums text-[var(--t1)]">{r.no}번</span>
                 <Link

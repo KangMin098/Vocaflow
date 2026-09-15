@@ -90,7 +90,7 @@ export function TrapDrill({ cards, pool }: { cards: DrillCard[]; pool: number })
   if (!cards.length) {
     // **막다른 화면을 만들지 않는다**(D5). 왜 비었는지 말하고 다음 한 걸음을 준다.
     return (
-      <p className="break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4 text-sm leading-relaxed text-[var(--t2)]">
+      <p className="break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4 text-sm leading-relaxed text-[var(--t2)]">
         지금은 훈련 문제를 불러오지 못했어요.{' '}
         <a className="underline decoration-[var(--bd)] underline-offset-4 hover:decoration-[var(--p)]" href="/csat">
           오답 지도에서 아홉 가지를 먼저 봐 두셔도 좋아요 →
@@ -128,7 +128,7 @@ export function TrapDrill({ cards, pool }: { cards: DrillCard[]; pool: number })
           코퍼스에서 꺼낸 실제 기출 분석이고, 클릭 0 으로 보이며, 바로 손댈 수 있다.
           ⚠️ 진행률 바에는 안 붙인다 — 그건 제품이 한 일이 아니라 화면의 장치다.
              표식을 넉넉히 붙이면 자가 스스로를 속인다(이 저장소가 한 번 겪었다 · 시간 띠). */}
-      <article data-proof="drill-card" className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4">
+      <article data-proof="drill-card" className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
         <p className="break-keep text-xs text-[var(--t3)]">
           {card!.exam_label} <span className="tabular-nums">{card!.no}번</span> · {card!.type_name} ·{' '}
           <span className="tabular-nums">{card!.choice}</span>번 선지
@@ -167,7 +167,7 @@ export function TrapDrill({ cards, pool }: { cards: DrillCard[]; pool: number })
                   'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]',
                   picked
                     ? 'cursor-default text-[var(--t1)]'
-                    : 'border-[var(--bd)] bg-[var(--sf)] text-[var(--t1)] hover:border-[var(--p)] hover:bg-[var(--sf-2)] active:bg-[var(--bd)]',
+                    : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t1)] hover:border-[var(--p)] hover:bg-[var(--bg3)] active:bg-[var(--bd)]',
                   picked && isAnswer ? 'bg-[var(--success-light)]' : '',
                   picked && chosen && !isAnswer ? 'bg-[var(--error-light)]' : '',
                   picked && !isAnswer && !chosen ? 'border-[var(--bd)] opacity-60' : '',
@@ -196,7 +196,7 @@ export function TrapDrill({ cards, pool }: { cards: DrillCard[]; pool: number })
       {picked ? (
         <div
           className={[
-            'mt-4 rounded-[var(--r-md)] border bg-[var(--sf)] p-4',
+            'mt-4 rounded-[var(--r-md)] border bg-[var(--bg)] p-4',
             // 학습 중 모션 화이트리스트: 정답 scale · 오답 shake 3회(CLAUDE.md 모션 예산).
             // **새 키프레임을 만들지 않는다** — `globals.css` 의 `correct-pop`·`error-shake` 가
             // 이미 그 둘이고 SpellForge 가 쓰고 있다. 새로 만들면 같은 동작이 두 벌이 된다.
@@ -243,7 +243,7 @@ export function TrapDrill({ cards, pool }: { cards: DrillCard[]; pool: number })
             </button>
             <a
               href={`/csat/item/${card!.slug}`}
-              className="inline-flex min-h-[44px] items-center break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] px-4 text-sm text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
+              className="inline-flex min-h-[44px] items-center break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 text-sm text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
             >
               이 문항 해설 보기 →
             </a>
@@ -285,7 +285,7 @@ function Summary({
       </p>
 
       {result.weak.length ? (
-        <p className="mt-4 break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4 text-sm leading-relaxed text-[var(--t2)]">
+        <p className="mt-4 break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4 text-sm leading-relaxed text-[var(--t2)]">
           두 번 나왔는데 두 번 다 놓친 수법이 있어요 — <strong>{result.weak.join(' · ')}</strong>. 유형 화면에서
           이 수법이 잦은 유형부터 보시면 좋아요.
         </p>
@@ -299,7 +299,7 @@ function Summary({
               const c = cardOf.get(m.cardId)
               if (!c) return null
               return (
-                <li key={m.cardId} className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4">
+                <li key={m.cardId} className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
                   <p className="break-keep text-sm text-[var(--t1)]">
                     <span className="text-[var(--t3)]">고른 것 </span>
                     {m.picked}
@@ -325,7 +325,7 @@ function Summary({
       {/* 기록은 **문제마다** 남았다. 다만 실패한 건이 있으면 그것도 말한다 — 조용히 넘기면
           학습자는 다 쌓인 줄 알고, 그건 「저장되지 않아요」를 안 적는 것과 같은 종류의 거짓말이다. */}
       {saveFailed > 0 ? (
-        <p className="mt-5 break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-3 text-xs leading-relaxed text-[var(--t2)]">
+        <p className="mt-5 break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-3 text-xs leading-relaxed text-[var(--t2)]">
           <span className="tabular-nums">{saveFailed}</span>문항은 기록에 남기지 못했어요 — 푼 것은 그대로
           맞습니다. 로그인이 풀렸거나 잠깐 연결이 끊긴 경우예요.
         </p>
@@ -350,7 +350,7 @@ function Summary({
         </a>
         <a
           href="/csat"
-          className="inline-flex min-h-[44px] items-center break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] px-4 text-sm text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] hover:bg-[var(--sf-2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
+          className="inline-flex min-h-[44px] items-center break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 text-sm text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] hover:bg-[var(--bg3)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
         >
           오답 지도로 →
         </a>
