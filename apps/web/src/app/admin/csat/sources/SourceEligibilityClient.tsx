@@ -15,6 +15,7 @@ import Link from 'next/link'
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import type { SourceInventoryPanel } from '@/lib/textbook/source-inventory-view'
 
+import { NextStepPipeline } from './NextStepPipeline'
 import { SourceInventoryTable } from './SourceInventoryTable'
 import type {
   AxisRow,
@@ -141,61 +142,9 @@ export function SourceEligibilityClient({
       </p>
 
 
-      {panel.topBlocker ? (
-        <section
-          aria-label="다음 한 걸음"
-          className="flex flex-col gap-1 rounded-[var(--r-md)] border border-[var(--warning)] bg-[var(--bg)] p-4"
-        >
-          <span className="font-body text-[12px] font-[700] text-[var(--warning-ink)]">
-            다음 한 걸음
-          </span>
-          <p className="font-body text-[14px] text-[var(--t1)]">
-            <b className="tabular-nums">{panel.topBlocker.grade.count.toLocaleString()}편</b> 이{' '}
-            <b>{panel.topBlocker.axis.label}</b> 에서 막혀 있다 — {panel.topBlocker.grade.label}.
-          </p>
-          {/* 처방 문자열의 정본은 `buildSourceEligibilityPanel` 이다 — 미판정이 전부
-              구조적이면 거기서 이미 발췌 경로로 바뀌어 온다(등급표와 같은 문자열을 읽는다). */}
-          <p className="font-body text-[13px] text-[var(--t2)]">
-            {panel.topBlocker.grade.nextStep}
-          </p>
-          {/*
-            ⚠️ **이 줄이 없으면 화면이 헛일을 시킨다.** 미절단 원본(`purpose='raw'`)은
-            게이트를 돌려도 판정이 안 붙는다 — `PURPOSE_RULE.raw.verdicts` 가 빈 집합이라
-            `decide()` 가 판정 전에 되돌아온다.
-
-            **부분일 때만 "그중" 이라고 쓴다.** 전부일 때(2026-09-04 기사 전량 판정 이후가
-            그렇다) "그중" 은 나머지가 있다는 뜻이 되어 거짓이고, 처방은 위 줄이 이미 말한다.
-          */}
-          {panel.topBlocker.axis.id === 'judgement' &&
-          panel.structurallyUnjudged &&
-          panel.structurallyUnjudged < panel.topBlocker.grade.count ? (
-            <p className="font-body text-[13px] text-[var(--error-ink)]">
-              그중 <b className="tabular-nums">{panel.structurallyUnjudged.toLocaleString()}편</b>{' '}
-              은 <b>게이트를 돌려도 안 풀린다</b> — 미절단 원본은 게이트가 판정하지 않는다(
-              <span className="font-mono">purpose=raw</span>). 발췌 경로(
-              <span className="font-mono">plos-extract</span>)로 가야 한다.
-            </p>
-          ) : null}
-          {panel.extractBacklog && panel.extractBacklog.total > 0 ? (
-            <p className="font-body text-[13px] text-[var(--t1)]">
-              발췌는 <b className="tabular-nums">{panel.extractBacklog.total.toLocaleString()}편</b> 이 이미
-              뽑혀 있다 — 그중{' '}
-              <b className="tabular-nums">{panel.extractBacklog.analyzed.toLocaleString()}편</b> 만 학령
-              분석이 붙었고{' '}
-              <b className="tabular-nums text-[var(--warning-ink)]">
-                {panel.extractBacklog.pending.toLocaleString()}편
-              </b>{' '}
-              이 <b>분석을 기다린다</b>. 분석이 붙어야 조판 풀에 들어온다.
-              <br />
-              <span className="text-[var(--t2)]">
-                다음 명령:{' '}
-                <code>{`pnpm dlx tsx scripts/acp/process-queue.mjs --feed ${panel.extractBacklog.feed} --commit --limit N`}</code>{' '}
-                — 결정론 경로라 LLM 비용은 없고, 편당 약 5초다.
-              </span>
-            </p>
-          ) : null}
-        </section>
-      ) : null}
+      {/* 다섯 단계 도식 — 옛 문단 넷이 담던 **조건**은 단계별 note 로 옮겼다.
+          특히 「미절단 원본은 게이트를 돌려도 안 풀린다」는 지우면 안 되는 줄이다. */}
+      <NextStepPipeline panel={panel} />
 
 
       <AxisTable axes={panel.axes} />
