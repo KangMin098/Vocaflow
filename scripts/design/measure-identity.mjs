@@ -1,0 +1,244 @@
+// scripts/design/measure-identity.mjs
+//
+// 「이 화면이 우리 화면인가」를 **숫자로** 잰다 — 리디자인 전후를 같은 자로 비교하기 위한 계측기.
+//
+// 왜 필요한가: "다른 학습 앱과 확실히 다르다" 는 그대로는 루프가 돌지 않는 목표다.
+// 그래서 00-inventory 가 지목한 결함 C1~C9 를 **관측 가능한 다섯 축**으로 옮겼다:
+//
+//   M1 한글 웹폰트 도달률 — 한글 텍스트 노드 중 실제 웹폰트 스택으로 그려지는 비율
+//                          (이전 실측 0% — 폰트 4종이 전부 latin subset 이었다)
+//   M2 브랜드 색 존재     — 주묵(--ju)이 화면에 **면적으로** 있는가 (요소 수)
+//   M3 형태 단일성        — 한 화면에 섞인 radius 종류 수 / 최대값
+//   M4 잉크 단조도        — 가장 많이 쓰인 글자색 하나가 차지하는 비율(낮을수록 색이 있다)
+//   M5 이모지 UI          — 화면 텍스트에 남은 이모지 개수(브랜드 자산이 아닌 것)
+//
+// ⚠️ **못 잰 것을 통과로 세지 않는다.** 화면이 안 열리면 그 라우트는 분모에서 뺀다.
+//    분모는 항상 출력한다.
+//
+// 사용: node scripts/design/measure-identity.mjs [--routes a,b,c] [--all] [--width 390]
+// 전제: dev 서버가 이미 떠 있어야 한다. 로그인 상태는 캡처 하네스와 같은 파일을 재사용한다.
+
+import fs from 'node:fs'
+import path from 'node:path'
+import { createRequire } from 'node:module'
+import { fileURLToPath } from 'node:url'
+
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..')
+const WEB = path.join(ROOT, 'apps/web')
+const require_ = createRequire(path.join(WEB, 'package.json'))
+const { chromium } = require_('@playwright/test')
+
+const BASE = process.env.CAPTURE_BASE_URL || 'http://localhost:3000'
+const USER = {
+  email: process.env.PLAYWRIGHT_RUNTIME_EMAIL || 'runtime-test-0705@vocaflow.dev',
+  password: process.env.PLAYWRIGHT_RUNTIME_PASSWORD || 'RuntimeTest1!',
+}
+const STATE_FILE = path.join(WEB, 'playwright-auth/.auth-design-capture.json')
+const STATE_TTL_MS = 25 * 60 * 1000
+
+const args = process.argv.slice(2)
+const arg = (n, d) => {
+  const i = args.indexOf(`--${n}`)
+  return i >= 0 ? args[i + 1] : d
+}
+const width = Number(arg('width', 390))
+const outFile = arg('out', '')
+
+function learnerRoutes() {
+  const appDir = (g) => path.join(WEB, 'src/app', g)
+  const under = (base) => {
+    if (!fs.existsSync(base)) return []
+    const out = []
+    const walk = (dir, url) => {
+      for (const name of fs.readdirSync(dir)) {
+        const full = path.join(dir, name)
+        if (!fs.statSync(full).isDirectory()) continue
+        if (name.startsWith('[')) continue
+        if (name.startsWith('_') || name.startsWith('(')) { walk(full, url); continue }
+        const child = `${url}/${name}`
+        if (fs.existsSync(path.join(full, 'page.tsx'))) out.push(child)
+        walk(full, child)
+      }
+    }
+    walk(base, '')
+    return out
+  }
+  const skip = new Set(['/hub-lab', '/teacher'])
+  const set = new Set()
+  for (const g of ['(main)', '(app)']) for (const r of under(appDir(g))) set.add(r)
+  return [...set].filter((r) => !skip.has(r)).sort()
+}
+
+const routes = args.includes('--all')
+  ? learnerRoutes()
+  : (arg('routes', '/hub,/dashboard,/flashcard/play,/wordvault/browse,/library,/settings')).split(',')
+
+async function login(page) {
+  await page.goto(`${BASE}/login`, { waitUntil: 'domcontentloaded' })
+  await page.waitForTimeout(900)
+  await page.fill('input[type="email"]', USER.email)
+  await page.fill('input[type="password"]', USER.password)
+  await page.click('button[type="submit"]')
+  // dev 서버에서 목적지(/hub)가 처음 컴파일되면 15초 이상 걸린다 — 인증은 이미 끝났는데
+  // **이동만** 늦는 것이라 짧은 한도는 성공을 실패로 적는다(실측 2026-09-16).
+  await page.waitForURL((u) => !u.pathname.startsWith('/login'), { timeout: 150_000 })
+}
+
+/** 브라우저 안에서 도는 계측 — 소스가 아니라 **그려진 결과**를 본다. */
+const PROBE = () => {
+  const HANGUL = /[가-힣]/
+  // 브랜드 자산이 아닌 그림문자. 변이선택자·이모지 블록만 본다(문장부호는 제외).
+  const EMOJI = /[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}]/u
+  // next/font 가 주입하는 이름은 `__<Font>_<hash>` 꼴이다. 이 이름이 스택 맨 앞에 있으면
+  // 웹폰트가 그 노드를 맡고 있다는 뜻.
+  const WEBFONT = /__(Lora|Hahmlet|IBM_Plex_Sans_KR|JetBrains_Mono)_/
+
+  const main = document.querySelector('main') || document.body
+  let korean = 0
+  let koreanWebfont = 0
+  let emoji = 0
+  const inks = {}
+  const radii = {}
+  let juElements = 0
+  let juArea = 0
+
+  const walk = (n) => {
+    for (const ch of n.childNodes) {
+      if (ch.nodeType === 3) {
+        const t = ch.textContent.trim()
+        if (!t) continue
+        const el = ch.parentElement
+        if (!el) continue
+        const s = getComputedStyle(el)
+        inks[s.color] = (inks[s.color] || 0) + 1
+        if (EMOJI.test(t)) emoji += (t.match(EMOJI) || []).length
+        if (HANGUL.test(t)) {
+          korean++
+          // 한글을 실제로 그리는 글꼴은 스택에서 **한글 글리프를 가진 첫 글꼴**이다.
+          // Lora/JetBrains 는 한글이 없으므로 그 둘만 있는 스택은 도달 실패로 센다.
+          const fam = s.fontFamily
+          const hasKoreanCapable = /__(Hahmlet|IBM_Plex_Sans_KR)_/.test(fam)
+          if (hasKoreanCapable) koreanWebfont++
+        }
+      } else if (ch.nodeType === 1) walk(ch)
+    }
+  }
+  walk(main)
+
+  const root = getComputedStyle(document.documentElement)
+  const ju = root.getPropertyValue('--ju').trim()
+  const juRgb = (() => {
+    const d = document.createElement('div')
+    d.style.color = ju
+    document.body.appendChild(d)
+    const c = getComputedStyle(d).color
+    d.remove()
+    return c
+  })()
+
+  for (const el of document.querySelectorAll('body *')) {
+    const r = el.getBoundingClientRect()
+    if (r.width < 6 || r.height < 6) continue
+    const s = getComputedStyle(el)
+    if (r.width > 60 && r.height > 28) {
+      const rr = s.borderTopLeftRadius
+      if (rr !== '0px' && rr !== '9999px') radii[rr] = (radii[rr] || 0) + 1
+    }
+    if (s.backgroundColor === juRgb || s.color === juRgb || s.borderTopColor === juRgb) {
+      juElements++
+      juArea += r.width * r.height
+    }
+  }
+
+  const inkEntries = Object.entries(inks).sort((a, b) => b[1] - a[1])
+  const inkTotal = inkEntries.reduce((a, e) => a + e[1], 0)
+  const radiusPx = Object.keys(radii).map((r) => parseFloat(r)).filter((n) => !Number.isNaN(n))
+
+  return {
+    korean,
+    koreanWebfont,
+    emoji,
+    inkTotal,
+    topInkShare: inkTotal ? inkEntries[0][1] / inkTotal : 0,
+    distinctRadii: radiusPx.length,
+    maxRadius: radiusPx.length ? Math.max(...radiusPx) : 0,
+    juElements,
+    juAreaPct: (juArea / (window.innerWidth * document.documentElement.scrollHeight)) * 100,
+  }
+}
+
+const PUBLIC_ONLY = args.includes('--public')
+
+const run = async () => {
+  const browser = await chromium.launch()
+  // 공개 화면만 잴 때는 로그인하지 않는다 — 공유 dev DB 가 다른 세션의 드레인으로 바쁠 때
+  // 로그인이 인증 200 뒤 프로필 조회에서 멎는다(실측 2026-09-16: 7시간짜리 쿼리 + IO 대기).
+  // 그때도 **한글 글꼴 도달률은 공개 화면에서 그대로 잴 수 있다.**
+  const fresh =
+    !PUBLIC_ONLY &&
+    fs.existsSync(STATE_FILE) && Date.now() - fs.statSync(STATE_FILE).mtimeMs < STATE_TTL_MS
+  let ctx
+  if (PUBLIC_ONLY) {
+    ctx = await browser.newContext({ viewport: { width, height: 844 } })
+  } else if (fresh) {
+    ctx = await browser.newContext({ viewport: { width, height: 844 }, storageState: STATE_FILE })
+  } else {
+    fs.mkdirSync(path.dirname(STATE_FILE), { recursive: true })
+    ctx = await browser.newContext({ viewport: { width, height: 844 } })
+    const p = await ctx.newPage()
+    await login(p)
+    await p.close()
+    await ctx.storageState({ path: STATE_FILE })
+  }
+
+  const page = await ctx.newPage()
+  const rows = []
+  const skipped = []
+  for (const r of routes) {
+    try {
+      await page.goto(BASE + r, { waitUntil: 'domcontentloaded', timeout: 60_000 })
+      await page.waitForTimeout(4200)
+      if (new URL(page.url()).pathname.startsWith('/login')) {
+        skipped.push(`${r} (로그인으로 튕김 — 재지 않음)`)
+        continue
+      }
+      const m = await page.evaluate(PROBE)
+      rows.push({ route: r, ...m })
+    } catch (e) {
+      skipped.push(`${r} (${String(e).slice(0, 60)})`)
+    }
+  }
+  await browser.close()
+
+  const sum = (k) => rows.reduce((a, r) => a + r[k], 0)
+  const korean = sum('korean')
+  const koreanWebfont = sum('koreanWebfont')
+  const pct = (n, d) => (d ? ((n / d) * 100).toFixed(1) : '—')
+
+  console.log(`\n측정 라우트 ${rows.length} / 요청 ${routes.length}  (폭 ${width}px)`)
+  if (skipped.length) console.log('재지 못함:', skipped.join(' · '))
+  console.log('─'.repeat(78))
+  console.log('route'.padEnd(24), 'M1 한글웹폰트', ' M2 주묵', 'M3 radius', 'M4 잉크편중', 'M5 이모지')
+  for (const r of rows) {
+    console.log(
+      r.route.padEnd(24),
+      `${pct(r.koreanWebfont, r.korean)}% (${r.koreanWebfont}/${r.korean})`.padEnd(14),
+      `${r.juElements}개 ${r.juAreaPct.toFixed(2)}%`.padEnd(9),
+      `${r.distinctRadii}종 ≤${r.maxRadius}px`.padEnd(10),
+      `${(r.topInkShare * 100).toFixed(0)}%`.padEnd(8),
+      String(r.emoji),
+    )
+  }
+  console.log('─'.repeat(78))
+  console.log(`M1 한글 웹폰트 도달률 = ${pct(koreanWebfont, korean)}%  (${koreanWebfont}/${korean})`)
+  console.log(`M2 주묵이 보이는 라우트 = ${rows.filter((r) => r.juElements > 0).length}/${rows.length}`)
+  console.log(`M3 radius 종류 최대 = ${Math.max(0, ...rows.map((r) => r.distinctRadii))}종 · 최대값 ${Math.max(0, ...rows.map((r) => r.maxRadius))}px`)
+  console.log(`M5 이모지 남은 수 = ${sum('emoji')}`)
+
+  if (outFile) {
+    fs.writeFileSync(path.resolve(ROOT, outFile), JSON.stringify({ at: new Date().toISOString(), width, rows, skipped }, null, 2))
+    console.log(`\n→ ${outFile}`)
+  }
+}
+
+run().catch((e) => { console.error(e); process.exit(1) })
