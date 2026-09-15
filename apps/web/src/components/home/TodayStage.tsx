@@ -32,6 +32,8 @@ import { startArticleLearning } from '@/lib/articles/start-learning'
 import type { ReadingRoom } from '@/lib/learner/reading-room-actions'
 import type { TodayPrescription } from '@/lib/learner/prescription-actions'
 
+import { DecayUnderline, JuMark, bandFromOverdue } from '@/components/ui/press'
+
 import { ROOM_TONE, type RoomTime, type RoomTone } from './room-tone'
 import {
   blockProgress,
@@ -109,8 +111,14 @@ export function TodayStage({
 
           {lead ? (
             <>
-              <h1 data-today-word={lead.word} className="mt-5 font-editorial text-[44px] font-[500] leading-[1.02] tracking-[-0.02em] md:text-[60px]">
-                {lead.word}
+              {/* v07 — 표제어 옆 **권점(圈點)**. 옛 문서에서 "여기를 눈여겨보라" 고 찍던 표식이다.
+                  단어를 장식하는 게 아니라, 앱이 이 낱말을 골랐다는 사실을 지면에 남긴다. */}
+              <h1
+                data-today-word={lead.word}
+                className="mt-5 flex items-baseline gap-3 font-editorial text-[44px] font-[500] leading-[1.02] tracking-[-0.02em] md:text-[60px]"
+              >
+                <span>{lead.word}</span>
+                <JuMark kind="dot" label="오늘 고른 단어" className="translate-y-[-6px]" />
               </h1>
               <p
                 className="mt-2 flex flex-wrap items-center gap-x-3 font-mono text-[11px] tabular-nums"
@@ -118,12 +126,22 @@ export function TodayStage({
               >
                 {lead.pos && <span>{lead.pos}</span>}
                 {lead.cefr && <span>· {lead.cefr}</span>}
-                <span>· {lead.overdueDays === 0 ? '오늘이 기한' : `${lead.overdueDays}일 밀림`}</span>
+                {/* 밀린 정도를 **밑줄 두께**가 함께 말한다 — 숫자를 읽기 전에 보인다.
+                    색에만 기대지 않으므로 색맹 대응을 장치 자체가 충족한다(press §DecayUnderline). */}
+                <span>
+                  ·{' '}
+                  <DecayUnderline state={bandFromOverdue(lead.overdueDays)}>
+                    {lead.overdueDays === 0 ? '오늘이 기한' : `${lead.overdueDays}일 밀림`}
+                  </DecayUnderline>
+                </span>
               </p>
 
               <hr className="my-5 border-0 border-t" style={{ borderColor: tone.rule }} />
 
-              <p className="max-w-[54ch] font-body text-[17px] leading-[1.65] [word-break:keep-all] md:text-[18px]">
+              {/* 뜻은 이 화면에서 **한국어가 주인공이 되는 유일한 자리**다 — 그래서 UI 글꼴이
+                  아니라 한글 디스플레이(Hahmlet)로 조판한다.
+                  v07 이전에는 여기가 OS 기본 고딕이었다(00-inventory §0-2). */}
+              <p className="max-w-[54ch] font-editorial text-[19px] font-[400] leading-[1.6] [word-break:keep-all] md:text-[21px]">
                 {lead.meaning}
               </p>
 

@@ -32,6 +32,7 @@
 // 이 화면은 "얼마나 오래 가나"(backward)를 맡는다.
 
 import { Screen } from '@/components/ui/ios'
+import { Rule } from '@/components/ui/press'
 import { ActivityTrace } from '@/components/dashboard/ActivityTrace'
 import { DurabilityLadder } from '@/components/dashboard/DurabilityLadder'
 import { LexicalReach } from '@/components/dashboard/LexicalReach'
@@ -80,39 +81,60 @@ export default async function DashboardPage() {
   return (
     <Screen width="wide" background="bg2" padX="md">
       <div className="flex flex-col gap-4 py-6 md:py-8">
-        {/* 1. 헤더 — 날짜와 이름만. 오늘 진행·연속일은 셸 상태 띠가 이미 판다. */}
-        <header>
+        {/* 1. 헤더 — 날짜와 이름만. 오늘 진행·연속일은 셸 상태 띠가 이미 판다.
+            v07 — 이름을 `--p`(딥 잉크)로 칠하던 것을 주묵 표식으로 바꿨다. 한 화면에서
+            "여기가 당신" 이라고 말하는 자리는 하나이고, 그 표식은 브랜드 색이 맡는다. */}
+        <header className="border-b-2 border-[var(--t1)] pb-3">
           <span className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
             {kstDateLabel()}
           </span>
           <h1 className="mt-1 font-editorial text-[26px] font-[500] leading-[1.05] tracking-[-0.012em] text-[var(--t1)] md:text-[32px]">
-            <span className="text-[var(--p)]">{overview.userName}</span>
+            <span className="text-[var(--ju-ink)]">{overview.userName}</span>
             <span>님이 지나온 길</span>
           </h1>
         </header>
 
+        {/* ── v07 「주묵 판면」 ────────────────────────────────────────────────
+            이 화면의 결함은 블록이 나쁜 게 아니라 **일곱 블록이 전부 같은 무게**라는 것이었다
+            (실측 2026-09-16: 카드 10장 · 글자색 94%가 같은 잉크 한 색의 알파 3단계).
+            위계가 글자 크기로만 생기니 어디부터 읽어야 할지가 매번 새로 판단된다.
+            그래서 상자를 더 꾸미는 대신 **판면의 구획**을 얹는다 — 번호 붙은 괘선이
+            "여기서부터 다른 이야기" 를 말하고, 블록 자체는 그대로 둔다. ─────────────── */}
+
         {/* 2. 히어로 — 기억이 버티는 시간 */}
-        {horizon && <DurabilityLadder ladder={horizon.ladder} />}
+        {horizon && (
+          <>
+            <Rule n="01" label="기억이 버티는 시간" tone="ju" className="mt-2" />
+            <DurabilityLadder ladder={horizon.ladder} />
+          </>
+        )}
 
         {/* 3·4. 되찾은 단어 + 28일 흐름 — 한 줄에 나란히 (좌: 결과 · 우: 노정) */}
         {horizon && (
-          <div className="grid gap-4 lg:grid-cols-2">
-            <RescuedWords rescued={horizon.rescued} />
-            <ActivityTrace
-              days={horizon.days28}
-              streak={horizon.streak}
-              activeDays={horizon.activeDays}
-            />
-          </div>
+          <>
+            <Rule n="02" label="되찾은 것과 지나온 날" className="mt-4" />
+            <div className="grid gap-4 lg:grid-cols-2">
+              <RescuedWords rescued={horizon.rescued} />
+              <ActivityTrace
+                days={horizon.days28}
+                streak={horizon.streak}
+                activeDays={horizon.activeDays}
+              />
+            </div>
+          </>
         )}
 
         {/* 5. 어휘의 무게중심 — 순위를 아는 단어가 없으면 스스로 사라진다 */}
-        {horizon && <LexicalReach reach={horizon.reach} />}
+        {horizon && (
+          <>
+            <Rule n="03" label="어휘의 무게중심" className="mt-4" />
+            <LexicalReach reach={horizon.reach} />
+          </>
+        )}
 
-        {/* 6. 학습 관리 (진단·계획·리포트) */}
+        {/* 6·7. 학습 관리 + 최근 학습 — 회고가 아니라 **조작**이라 한 구획으로 묶는다 */}
+        <Rule n="04" label="학습 관리" className="mt-4" />
         <ManageSection overview={overview} />
-
-        {/* 7. 최근 학습 */}
         <RecentActivity data={recent} />
 
         {/* Calm closing — 정서적 부호화. 모바일 하단 탭에 가리지 않도록 여백을 둔다

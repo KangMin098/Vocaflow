@@ -74,7 +74,9 @@ async function login(page) {
   await page.fill('input[type="email"]', USER.email)
   await page.fill('input[type="password"]', USER.password)
   await page.click('button[type="submit"]')
-  await page.waitForURL((u) => !u.pathname.startsWith('/login'), { timeout: 45_000 })
+  // dev 서버에서 로그인 직후 목적지(/hub)가 처음 컴파일되면 15초 이상 걸린다 — 인증은 이미
+  // 200 으로 끝났는데 **이동만** 늦는 것이라, 짧은 한도는 성공을 실패로 적는다(실측 2026-09-16).
+  await page.waitForURL((u) => !u.pathname.startsWith('/login'), { timeout: 150_000 })
 }
 
 /**
