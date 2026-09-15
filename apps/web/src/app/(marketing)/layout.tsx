@@ -4,7 +4,6 @@
 'use client'
 
 import Link from 'next/link'
-import { Sparkles } from 'lucide-react'
 
 export default function MarketingLayout({ children }: { children: React.ReactNode }) {
   return (

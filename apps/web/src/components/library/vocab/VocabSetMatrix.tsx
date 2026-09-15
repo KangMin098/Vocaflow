@@ -54,9 +54,9 @@ const V_LEVEL_AXIS: AxisConfig = {
   })),
   groups: [
     { label: '초급', color: '#84CC16', cols: ['V1', 'V2', 'V3'] },
-    { label: '중급', color: '#06B6D4', cols: ['V4', 'V5', 'V6'] },
-    { label: '고급', color: '#F59E0B', cols: ['V7', 'V8', 'V9'] },
-    { label: '전문', color: '#8B5CF6', cols: ['V10', 'V11'] },
+    { label: '중급', color: 'var(--learn-progress)', cols: ['V4', 'V5', 'V6'] },
+    { label: '고급', color: 'var(--memory-shaky)', cols: ['V7', 'V8', 'V9'] },
+    { label: '전문', color: 'var(--p)', cols: ['V10', 'V11'] },
   ],
   resolve: deriveVLevel,
 }
@@ -72,8 +72,8 @@ const CEFR_AXIS: AxisConfig = {
   ],
   groups: [
     { label: '기초', color: '#84CC16', cols: ['A1', 'A2'] },
-    { label: '중급', color: '#06B6D4', cols: ['B1', 'B2'] },
-    { label: '상급', color: '#F59E0B', cols: ['C1', 'C2'] },
+    { label: '중급', color: 'var(--learn-progress)', cols: ['B1', 'B2'] },
+    { label: '상급', color: 'var(--memory-shaky)', cols: ['C1', 'C2'] },
   ],
   // CEFR null 인 세트는 V-Level 기반 fallback 으로 배치 (다차원 정합)
   resolve: (s) => {
@@ -116,9 +116,9 @@ const TRACK_AXIS: AxisConfig = {
     { id: 'general', label: '일반', sub: 'General' },
   ],
   groups: [
-    { label: '입시·시험', color: '#F59E0B', cols: ['csat'] },
-    { label: '실무·학술', color: '#06B6D4', cols: ['business', 'academic'] },
-    { label: '범용', color: '#94A3B8', cols: ['general'] },
+    { label: '입시·시험', color: 'var(--memory-shaky)', cols: ['csat'] },
+    { label: '실무·학술', color: 'var(--learn-progress)', cols: ['business', 'academic'] },
+    { label: '범용', color: 'var(--memory-new)', cols: ['general'] },
   ],
   resolve: deriveTrack,
 }
@@ -142,8 +142,8 @@ const DOMAIN_AXIS: AxisConfig = {
     { id: 'general', label: '일반', sub: 'General' },
   ],
   groups: [
-    { label: '전문 도메인', color: '#8B5CF6', cols: ['medical', 'business', 'literary', 'academic'] },
-    { label: '범용', color: '#94A3B8', cols: ['general'] },
+    { label: '전문 도메인', color: 'var(--p)', cols: ['medical', 'business', 'literary', 'academic'] },
+    { label: '범용', color: 'var(--memory-new)', cols: ['general'] },
   ],
   resolve: deriveDomain,
 }
@@ -158,8 +158,8 @@ const SIZE_AXIS: AxisConfig = {
   ],
   groups: [
     { label: '소형', color: '#84CC16', cols: ['xs', 's'] },
-    { label: '중형', color: '#06B6D4', cols: ['m'] },
-    { label: '대형', color: '#F59E0B', cols: ['l', 'xl'] },
+    { label: '중형', color: 'var(--learn-progress)', cols: ['m'] },
+    { label: '대형', color: 'var(--memory-shaky)', cols: ['l', 'xl'] },
   ],
   resolve: (s) => {
     const n = s.wordCount
@@ -201,8 +201,8 @@ function deriveVLevel(set: PublishedVocabSet): string {
 const CEFR_TONE: Record<string, string> = {
   A1: '#E2E8F0',
   A2: '#CBD5E1',
-  B1: '#94A3B8',
-  B2: '#64748B',
+  B1: 'var(--memory-new)',
+  B2: 'var(--memory-new)',
   C1: '#334155',
   C2: '#0F172A',
 }
@@ -211,13 +211,13 @@ const CEFR_TONE: Record<string, string> = {
 const ROW_GROUPS: Record<string, { label: string; color: string }> = {
   preschool: { label: '기초', color: '#84CC16' },
   elementary: { label: '기초', color: '#84CC16' },
-  middle: { label: '학교', color: '#06B6D4' },
-  high: { label: '학교', color: '#06B6D4' },
-  csat: { label: '시험', color: '#F59E0B' },
-  eng_test: { label: '시험', color: '#F59E0B' },
-  civil: { label: '시험', color: '#F59E0B' },
-  business: { label: '실무', color: '#8B5CF6' },
-  themed: { label: '실무', color: '#8B5CF6' },
+  middle: { label: '학교', color: 'var(--learn-progress)' },
+  high: { label: '학교', color: 'var(--learn-progress)' },
+  csat: { label: '시험', color: 'var(--memory-shaky)' },
+  eng_test: { label: '시험', color: 'var(--memory-shaky)' },
+  civil: { label: '시험', color: 'var(--memory-shaky)' },
+  business: { label: '실무', color: 'var(--p)' },
+  themed: { label: '실무', color: 'var(--p)' },
 }
 
 // ─────────────────────────────────────────────

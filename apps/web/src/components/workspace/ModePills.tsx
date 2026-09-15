@@ -42,9 +42,9 @@ const MODES: Mode[] = [
 ]
 
 const GROUPS: { key: GroupKey; label: string; color: string; colorLight: string }[] = [
-  { key: 'input', label: 'Text', color: '#8B5CF6', colorLight: '#F5F3FF' },
-  { key: 'study', label: 'Vocabulary', color: '#6366F1', colorLight: '#EEF2FF' },
-  { key: 'practice', label: 'Practice', color: '#EC4899', colorLight: '#FDF2F8' },
+  { key: 'input', label: 'Text', color: 'var(--p)', colorLight: 'var(--p-light)' },
+  { key: 'study', label: 'Vocabulary', color: 'var(--learn-fresh)', colorLight: '#EEF2FF' },
+  { key: 'practice', label: 'Practice', color: 'var(--accent-plum)', colorLight: '#FDF2F8' },
 ]
 
 // 워크스페이스 본문 모드가 아니라 각 학습 모듈로 이동하는 pill.

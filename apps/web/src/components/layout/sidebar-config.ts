@@ -131,7 +131,7 @@ export const META_ITEMS: NavItem[] = [
 export const NAV_GROUPS: NavGroup[] = [
   {
     label: 'Read',
-    accent: '#8B5CF6', // 보라
+    accent: 'var(--p)', // 보라
     flowStage: 'read',
     step: 1,
     says: '읽을 것을 고르고 만나요',
@@ -180,7 +180,7 @@ export const NAV_GROUPS: NavGroup[] = [
   },
   {
     label: 'Words',
-    accent: '#6366F1', // 인디고
+    accent: 'var(--learn-fresh)', // 인디고
     flowStage: 'word',
     step: 2,
     says: '만난 단어를 내 것으로 모아요',
@@ -195,7 +195,7 @@ export const NAV_GROUPS: NavGroup[] = [
   },
   {
     label: 'Practice',
-    accent: '#EC4899', // 핑크
+    accent: 'var(--accent-plum)', // 핑크
     flowStage: 'practice',
     step: 3,
     says: '어느 쪽이 무른지 골라 익혀요',
@@ -238,7 +238,7 @@ export const NAV_GROUPS: NavGroup[] = [
   },
   {
     label: 'Conquer',
-    accent: '#F59E0B', // 앰버
+    accent: 'var(--memory-shaky)', // 앰버
     flowStage: 'conquer',
     step: 4,
     says: '읽던 본문으로 되돌아가 확인해요',
@@ -253,7 +253,7 @@ export const NAV_GROUPS: NavGroup[] = [
   },
   {
     label: 'Complete',
-    accent: '#06B6D4', // 시안
+    accent: 'var(--learn-progress)', // 시안
     flowStage: 'complete',
     step: 5,
     says: '들은 것을 통째로 다시 써 봐요',
@@ -279,7 +279,7 @@ export const NAV_GROUPS: NavGroup[] = [
 export const ASIDE_GROUP: { label: string; says: string; accent: string; items: NavItem[] } = {
   label: 'Comics',
   says: '같은 이야기를 그림으로',
-  accent: '#8B5CF6',
+  accent: 'var(--p)',
   items: [
     {
       label: 'Book Comics',

@@ -86,9 +86,9 @@ const RESOURCE_TYPE_META: Record<
 > = {
   // ⚠️ 이 색은 **글자로도 쓰인다** — 종이 위에서 AA 를 넘겨야 한다(실측 2026-08-22:
   //    #6366F1 4.28 · #8B5CF6 4.05 로 미달이었다). 채움용 원색을 그대로 쓰지 않는다.
-  library: { label: '라이브러리', Icon: Compass, color: '#7C3AED' },
+  library: { label: '라이브러리', Icon: Compass, color: 'var(--p)' },
   vocab: { label: '공용 단어장', Icon: Layers, color: '#0F2540' },
-  script: { label: '내 스크립트', Icon: BookOpen, color: '#7C3AED' },
+  script: { label: '내 스크립트', Icon: BookOpen, color: 'var(--p)' },
   custom: { label: '', Icon: Sparkles, color: '#7E5A1B' },
 }
 

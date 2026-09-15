@@ -51,7 +51,7 @@ const PHILOSOPHY: Principle[] = [
     en: 'Empathetic Feedback',
     desc: '비난 대신 격려. "오답"이 아니라 "다시 만나봐요".',
     icon: Heart,
-    accent: '#EC4899',
+    accent: 'var(--accent-plum)',
   },
   {
     ko: '암묵적 진행',
@@ -75,7 +75,7 @@ const SCIENCE: Principle[] = [
     en: 'Spaced Repetition',
     desc: '망각곡선의 가장자리에서 다시 만나면 기억이 단단해집니다 (Ebbinghaus, SM-2).',
     icon: Repeat,
-    accent: '#8B5CF6',
+    accent: 'var(--p)',
   },
   {
     ko: '바람직한 어려움',
@@ -96,21 +96,21 @@ const SCIENCE: Principle[] = [
     en: 'Context-Dependent',
     desc: '단어를 학습한 그 스크립트에서 다시 만나면, 인출은 더 강해집니다.',
     icon: Type,
-    accent: '#10B981',
+    accent: 'var(--memory-stable)',
   },
   {
     ko: '인지 부하 관리',
     en: 'Cognitive Load',
     desc: '작업기억은 동시에 약 4가지만 다룹니다 (Sweller). 한 번에 한 단어부터.',
     icon: Feather,
-    accent: '#F59E0B',
+    accent: 'var(--memory-shaky)',
   },
   {
     ko: '정서적 부호화',
     en: 'Emotional Encoding',
     desc: '도파민 보상과 자기효능감이 해마의 기억을 더 깊이 새깁니다.',
     icon: Sparkles,
-    accent: '#EC4899',
+    accent: 'var(--accent-plum)',
   },
 ]
 
@@ -127,7 +127,7 @@ const MODULES: Module[] = [
   { href: '/wordvault', label: 'WordVault', desc: '맥락 결합 단어장', icon: '📝', color: 'var(--on-p-tint)' },
   { href: '/flashcard', label: 'Flashcard', desc: 'SM-2 간격 반복', icon: '🃏', color: 'var(--p)' },
   { href: '/spellforge', label: 'SpellForge', desc: '능동적 타이핑 회상', icon: '⚡', color: '#4A9FCF' },
-  { href: '/play/wordblitz', label: 'WordBlitz', desc: '속사 단어 인지', icon: '⏱', color: '#8B5CF6' },
+  { href: '/play/wordblitz', label: 'WordBlitz', desc: '속사 단어 인지', icon: '⏱', color: 'var(--p)' },
   { href: '/scriptquiz', label: 'ScriptQuiz', desc: '맥락 독해 퀴즈', icon: '✏️', color: 'var(--active)' },
   { href: '/dashboard', label: 'Dashboard', desc: '암묵적 진행 시각화', icon: '📊', color: 'var(--info)' },
 ]
@@ -151,7 +151,7 @@ export default function AboutPage() {
           </span>
           <h1 className="mt-6 font-display text-[36px] font-[800] leading-[1.15] tracking-tight text-[var(--t1)] md:text-[52px]">
             영어를{' '}
-            <span className="bg-gradient-to-r from-[var(--p)] to-[#8B5CF6] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[var(--p)] to-[var(--p)] bg-clip-text text-transparent">
               오래 가게
             </span>{' '}
             만드는 학습
@@ -259,7 +259,7 @@ export default function AboutPage() {
       <section className="border-b border-[var(--bd)] bg-[var(--bg)]">
         <div className="mx-auto max-w-6xl px-6 py-16 md:py-20">
           <header className="mb-10 max-w-2xl">
-            <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[#8B5CF6]">
+            <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--p)]">
               Learning Science
             </p>
             <h2 className="mt-2 font-display text-[28px] font-[800] tracking-tight text-[var(--t1)] md:text-[34px]">

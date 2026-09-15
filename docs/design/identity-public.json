@@ -1,5 +1,5 @@
 {
-  "at": "2026-09-15T20:55:47.676Z",
+  "at": "2026-09-15T21:20:15.291Z",
   "width": 390,
   "rows": [
     {
@@ -23,8 +23,8 @@
       "topInkShare": 0.36046511627906974,
       "distinctRadii": 2,
       "maxRadius": 4,
-      "juElements": 2,
-      "juAreaPct": 0.5891840818141396
+      "juElements": 4,
+      "juAreaPct": 0.6698792055728472
     },
     {
       "route": "/signup",
@@ -47,8 +47,8 @@
       "topInkShare": 0.43209876543209874,
       "distinctRadii": 4,
       "maxRadius": 6,
-      "juElements": 3,
-      "juAreaPct": 1.0708957736284175
+      "juElements": 5,
+      "juAreaPct": 1.1281756702731591
     },
     {
       "route": "/about",
@@ -59,8 +59,8 @@
       "topInkShare": 0.4603174603174603,
       "distinctRadii": 2,
       "maxRadius": 4,
-      "juElements": 1,
-      "juAreaPct": 0.12355455002513827
+      "juElements": 3,
+      "juAreaPct": 0.172434999640882
     }
   ],
   "skipped": []

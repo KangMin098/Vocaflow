@@ -17,8 +17,8 @@ const QUALITY_LABEL: Record<VoiceQuality, string> = {
   standard: 'Standard',
 }
 const QUALITY_COLOR: Record<VoiceQuality, string> = {
-  neural: 'bg-[#8B5CF6] text-white',
-  premium: 'bg-[#3B82F6] text-white',
+  neural: 'bg-[var(--p)] text-white',
+  premium: 'bg-[var(--learn-fresh)] text-white',
   standard: 'bg-[var(--bg3)] text-[var(--t2)]',
 }
 

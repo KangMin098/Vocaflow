@@ -271,7 +271,7 @@ export function BookDetailClient({
                   key={set.id}
                   type="button"
                   onClick={() => setPreviewSet(set)}
-                  className={`flex min-h-[44px] items-start gap-3 rounded-[var(--r-md)] border p-3 text-left shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:shadow-[var(--sh-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] active:translate-y-0 ${
+                  className={`flex min-h-[44px] items-start gap-3 rounded-[var(--r-md)] border p-3 text-left shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:shadow-[var(--sh-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] active:translate-y-0 ${
                     subscribed
                       ? 'border-[var(--success)]/40 bg-[var(--success-light)]/40'
                       : 'border-[var(--bd)] bg-[var(--bg)]'
@@ -309,7 +309,7 @@ export function BookDetailClient({
           <div className="border-t border-dashed border-[var(--bd)] px-4 py-3 font-body text-[11px] text-[var(--t2)]">
             이 도서와 연관된 추가 단어장은 아직 준비되지 않았어요. <br />
             공용 단어장은{' '}
-            <a href="/library/vocab" className="font-display font-[700] text-[#8B5CF6] hover:underline">
+            <a href="/library/vocab" className="font-display font-[700] text-[var(--p)] hover:underline">
               /library/vocab
             </a>{' '}
             에서 자유롭게 선택할 수 있어요.

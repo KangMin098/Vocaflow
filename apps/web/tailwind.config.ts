@@ -35,6 +35,7 @@ const config: Config = {
         // ── v07 주묵(朱墨) — 면적을 가진 브랜드 색. 정의·대비 실측은 tokens.css §주묵 ──
         //    ⚠️ 학습자의 오답에는 쓰지 않는다(learning-tone.test.ts 가 잡는다).
         ju: "var(--ju)",
+        "accent-plum": "var(--accent-plum)",
         "ju-ink": "var(--ju-ink)",
         "ju-light": "var(--ju-light)",
         "ju-wash": "var(--ju-wash)",

@@ -65,8 +65,8 @@ interface Props {
   bookContext?: BookContext | null
 }
 
-const SET_ACCENT = '#8B5CF6' // 보라 — 라이브러리 단어장 정합
-const TEXT_ACCENT = '#6366F1' // 인디고 — FlowNav "단어" stage 정합
+const SET_ACCENT = 'var(--p)' // 보라 — 라이브러리 단어장 정합
+const TEXT_ACCENT = 'var(--learn-fresh)' // 인디고 — FlowNav "단어" stage 정합
 
 export function WordVaultBrowseClient({
   words: allWords,
@@ -312,7 +312,7 @@ export function WordVaultBrowseClient({
                 {scriptFilter.startsWith('text:') && (
                   <Link
                     href={`/text/${scriptFilter.slice(5)}`}
-                    className="inline-flex w-fit items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[700] text-[#6366F1] transition-colors hover:bg-[var(--bg2)]"
+                    className="inline-flex w-fit items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[700] text-[var(--learn-fresh)] transition-colors hover:bg-[var(--bg2)]"
                   >
                     <FileText size={12} aria-hidden />
                     이 스크립트 본문 열기 →
@@ -393,7 +393,7 @@ function EmptyAll() {
       <div className="mt-2 flex flex-wrap items-center justify-center gap-2">
         <Link
           href="/library/vocab"
-          className="inline-flex h-10 items-center rounded-[var(--r-md)] bg-[#8B5CF6] px-4 font-display text-[13px] font-[700] text-white transition-colors hover:bg-[#7C3AED] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] focus-visible:ring-offset-2"
+          className="inline-flex h-10 items-center rounded-[var(--r-md)] bg-[var(--p)] px-4 font-display text-[13px] font-[700] text-white transition-colors hover:bg-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
         >
           공용 단어장 둘러보기
         </Link>

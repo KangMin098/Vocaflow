@@ -14,8 +14,11 @@ interface Props {
   height?: number
 }
 
-const REF_COLOR = '#3B82F6' // var(--p)
-const USER_COLOR = '#22C55E' // var(--success)
+// ⚠️ **canvas 는 var() 를 못 읽는다.** `ctx.strokeStyle = 'var(--x)'` 은 조용히 무시되고
+//    직전 색(기본 검정)으로 그려진다 — 오류도 안 난다. 그래서 이 둘만 실제 hex 다.
+//    값은 v07 지면 팔레트와 같은 색: --learn-fresh(#50697F) / --memory-stable(#2E7D5A).
+const REF_COLOR = '#50697F' // = var(--learn-fresh)
+const USER_COLOR = '#2E7D5A' // = var(--memory-stable)
 // 억양이 벌어진 구간 음영 — 경고색 아님(차분한 amber), 색만으로 정보 전달 X (범례 텍스트 병기)
 const DIVERGE_FILL = 'rgba(217, 119, 6, 0.13)'
 

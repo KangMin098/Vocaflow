@@ -38,7 +38,7 @@ const CEFR_COLOR: Record<string, string> = {
   A2: 'var(--ios-green)',
   B1: 'var(--p)',
   B2: '#1D4ED8',
-  C1: '#7C3AED',
+  C1: 'var(--p)',
   C2: '#581C87',
 }
 

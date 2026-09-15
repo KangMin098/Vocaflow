@@ -22,7 +22,7 @@ import { MY_LIBRARY_TABS, TEXTBOOK_LABEL, type MyLibraryView } from '@/lib/libra
 import { workspaceHref } from '@/lib/text-viewer/workspace-href'
 
 // v06.34 — 보라 saturate 폐기. 슬레이트 인디고 계열로 — Lora 영문 자료 정합 + Calm UI
-const TEXT_ACCENT = '#6366F1'
+const TEXT_ACCENT = 'var(--learn-fresh)'
 
 function TextHubLoadingSkeleton() {
   return (
@@ -118,7 +118,7 @@ export function TextHubContent({
                 ? `정복 ${stats.conquered}권 · 새로 하나 시작해 보세요`
                 : `${faceCount}개를 모았어요`
         }
-        gradient={{ from: '#A5B4FC', to: '#6366F1' }}
+        gradient={{ from: '#A5B4FC', to: 'var(--learn-fresh)' }}
         icon={BookOpen}
         stats={[
           // 라벨은 레지스트리에서 — 여기서 '도서/스크립트/단어장' 으로 다시 짓고 있었다.
@@ -137,7 +137,7 @@ export function TextHubContent({
           className="group flex items-center gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-gradient-to-r from-[var(--p)]/5 to-[var(--bg)] p-4 transition-all duration-[var(--dur-normal)] hover:border-[var(--p)] hover:from-[var(--p)]/10 hover:shadow-[var(--sh-sm)]"
         >
           <span
-            className="inline-flex h-10 w-10 items-center justify-center rounded-[var(--r-md)] bg-gradient-to-br from-[#C4B5FD] to-[#8B5CF6] text-white shadow-[var(--sh-xs)]"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-[var(--r-md)] bg-gradient-to-br from-[var(--p-light)] to-[var(--p)] text-white shadow-[var(--sh-xs)]"
             aria-hidden="true"
           >
             <GraduationCap size={18} strokeWidth={2} />
@@ -163,7 +163,7 @@ export function TextHubContent({
           className="group flex items-center gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-gradient-to-r from-[var(--p)]/5 to-[var(--bg)] p-4 transition-all duration-[var(--dur-normal)] hover:border-[var(--p)] hover:from-[var(--p)]/10 hover:shadow-[var(--sh-sm)]"
         >
           <span
-            className="inline-flex h-10 w-10 items-center justify-center rounded-[var(--r-md)] bg-gradient-to-br from-[#A5B4FC] to-[#6366F1] text-white shadow-[var(--sh-xs)]"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-[var(--r-md)] bg-gradient-to-br from-[#A5B4FC] to-[var(--learn-fresh)] text-white shadow-[var(--sh-xs)]"
             aria-hidden="true"
           >
             <Layers size={18} strokeWidth={2} />
@@ -189,7 +189,7 @@ export function TextHubContent({
           className="group flex items-center gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-gradient-to-r from-[var(--p)]/5 to-[var(--bg)] p-4 transition-all duration-[var(--dur-normal)] hover:border-[var(--p)] hover:from-[var(--p)]/10 hover:shadow-[var(--sh-sm)]"
         >
           <span
-            className="inline-flex h-10 w-10 items-center justify-center rounded-[var(--r-md)] bg-gradient-to-br from-[#A5B4FC] to-[#6366F1] text-white shadow-[var(--sh-xs)]"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-[var(--r-md)] bg-gradient-to-br from-[#A5B4FC] to-[var(--learn-fresh)] text-white shadow-[var(--sh-xs)]"
             aria-hidden="true"
           >
             <FileText size={18} strokeWidth={2} />

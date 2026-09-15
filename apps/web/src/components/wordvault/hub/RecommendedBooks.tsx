@@ -135,7 +135,7 @@ function BookCard({
 }) {
   const fitMeta = fit ? FIT_META[fit] : null
   const coverUrl = (book as { cover_image_url?: string | null }).cover_image_url ?? null
-  const fromColor = book.cover_from ?? '#3B82F6'
+  const fromColor = book.cover_from ?? 'var(--learn-fresh)'
   const toColor = book.cover_to ?? '#1D4ED8'
   // ⚠️ DB 표지색은 아무 값이나 올 수 있다. 흰 제목을 무조건 얹으면 옅은 표지에서 사라진다 —
   //    실측 2026-08-22: 'Introduction to Sociology' 가 옅은 민트 표지에서 **1.1:1** 이었다.

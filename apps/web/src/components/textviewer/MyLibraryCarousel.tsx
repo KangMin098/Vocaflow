@@ -70,12 +70,12 @@ function deriveStatus(p: number): 'not_started' | 'in_progress' | 'completed' {
 
 const VOCAB_COLOR: Record<string, { from: string; to: string; accent: string }> = {
   elementary: { from: '#34D399', to: '#059669', accent: '#059669' },
-  middle: { from: '#22D3EE', to: '#0891B2', accent: '#0891B2' },
-  high: { from: '#60A5FA', to: '#2563EB', accent: '#2563EB' },
+  middle: { from: 'var(--learn-progress)', to: '#0891B2', accent: '#0891B2' },
+  high: { from: 'var(--learn-fresh)', to: '#2563EB', accent: '#2563EB' },
   csat: { from: '#FBBF24', to: '#D97706', accent: '#D97706' },
-  eng_test: { from: '#A5B4FC', to: '#6366F1', accent: '#6366F1' },
-  civil: { from: '#94A3B8', to: '#475569', accent: '#475569' },
-  business: { from: '#F472B6', to: '#DB2777', accent: '#DB2777' },
+  eng_test: { from: '#A5B4FC', to: 'var(--learn-fresh)', accent: 'var(--learn-fresh)' },
+  civil: { from: 'var(--memory-new)', to: '#475569', accent: '#475569' },
+  business: { from: '#F472B6', to: 'var(--accent-plum)', accent: 'var(--accent-plum)' },
   themed: { from: '#4B678A', to: '#0F2540', accent: '#0F2540' },
 }
 
