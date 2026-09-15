@@ -132,9 +132,10 @@ export interface OverlayPayload {
 
 const arr = <T,>(v: unknown): T[] => (Array.isArray(v) ? (v as T[]) : [])
 
-export function toItemSlug(itemId: string): string {
-  return itemId.replace('#', '-')
-}
+// ⚠️ 여기 같은 함수가 **따로 하나 더** 있었다(2026-09-15까지). 갈라지면 한쪽 링크가
+// 조용히 404 가 되고, 갈라진 것을 알 방법이 없다. 정의는 `item-slug.ts` 하나다.
+export { toItemSlug } from './item-slug'
+import { toItemSlug } from './item-slug'
 
 /**
  * 해시 하나로 오버레이 한 벌.

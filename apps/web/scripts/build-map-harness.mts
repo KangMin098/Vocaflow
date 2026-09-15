@@ -18,6 +18,7 @@ import { createElement } from 'react'
 import { renderToString } from 'react-dom/server'
 
 import { PassageMap } from '../src/components/csat/PassageMap'
+import { ReportText } from '../src/components/csat/ReportText'
 import type { MapAnchor } from '../src/lib/csat/passage-map-model'
 import type { SkeletonSentence } from '../src/lib/csat/passage-skeleton'
 
@@ -78,9 +79,34 @@ const css = fs
   .map((f) => fs.readFileSync(path.join(cssDir, f), 'utf8'))
   .join('\n')
 
-const markup = renderToString(
+const mapMarkup = renderToString(
   createElement(PassageMap, { sentences: SENTENCES, anchors: ANCHORS, placements: PLACEMENTS }),
 )
+
+/**
+ * 유형 리포트 산문 — 실제 리포트의 모양을 옮긴 고정값.
+ * **문항 인용 링크**가 이 컴포넌트에서 새로 생긴 것이라, 그 링크의 대비·크기를 여기서 잰다
+ * (인라인이라 44px 을 줄 수 없다 — 그러면 «얼마인가» 를 숫자로 알고 있어야 한다).
+ */
+const REPORT_TEXT =
+  '**옛 회차(2014~2015)는 빈칸을 문단 끝에 놓는다.** 9문항 중 8문항의 빈칸이 마지막 문장' +
+  '(2014B#32 7/7 · 2014B#33 9/9)에 있다. 예외는 2014A#33 하나뿐이다.' +
+  String.fromCharCode(10, 10) +
+  '그래서 근거가 빈칸 **뒤**에 있는 문항은 M1809#35 처럼 드물다.'
+const KNOWN = new Set(['2014B#32', '2014B#33', '2014A#33', 'M1809#35'])
+
+const reportMarkup = renderToString(
+  createElement(ReportText, {
+    text: REPORT_TEXT,
+    known: KNOWN,
+    className: 'rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4',
+  }),
+)
+
+const markup =
+  '<section class="mb-8" data-harness="map">' + mapMarkup + '</section>' +
+  '<section data-harness="report"><h2 class="font-display text-sm font-bold text-[var(--t1)] mb-2">정답 근거는 어디 있나</h2>' +
+  reportMarkup + '</section>'
 
 const out = path.resolve('tests/fixtures/csat-map-harness.html')
 fs.mkdirSync(path.dirname(out), { recursive: true })

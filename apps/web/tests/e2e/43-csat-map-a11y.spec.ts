@@ -1,13 +1,15 @@
 // apps/web/tests/e2e/43-csat-map-a11y.spec.ts
 //
-// **서버 없이 지문 지도만 띄워 접근성을 실측한다.**
+// **서버 없이 기출 분석 화면의 두 컴포넌트를 띄워 접근성을 실측한다.**
+//
+// 대상: `PassageMap`(지문 지도) + `ReportText`(유형 리포트 산문 · 문항 인용 링크).
 //
 // ── 왜 이렇게까지 하나 (실측 2026-09-15) ──────────────────────────────
 // 지도의 런타임 검증(`42-csat-item-map`)은 로그인이 필요하고, 로그인은 dev 서버가 Supabase 에
 // 붙어야 된다. 그런데 이 머신은 **Node 의 TLS 가 막혀 있다**(TCP 23ms 정상 · curl 401 정상 ·
 // `node fetch` = `UND_ERR_CONNECT_TIMEOUT`). 세 사이클 연속 못 돌렸다.
 //
-// 그래서 **전제를 바꿨다**: 이 컴포넌트의 접근성은 DB 와 아무 상관이 없다 — 마크업과 CSS 에만
+// 그래서 **전제를 바꿨다**: 이 컴포넌트들의 접근성은 DB 와 아무 상관이 없다 — 마크업과 CSS 에만
 // 달렸다. 그러므로 컴포넌트만 담은 정적 HTML 을 미리 구워 두고 그것을 연다.
 // 로그인·네트워크·DB 가 전부 필요 없으므로 **CI 에서도 돌고, 이 머신에서도 돈다.**
 //
@@ -36,7 +38,7 @@ const html = fs.existsSync(HARNESS) ? fs.readFileSync(HARNESS, 'utf8') : null
 /** 하네스에 넣은 문장 수 — `scripts/build-map-harness.mts` 의 고정값과 같아야 한다. */
 const SENTENCE_COUNT = 8
 
-test.describe('지문 지도 — 컴포넌트 접근성 (서버 없음)', () => {
+test.describe('기출 분석 컴포넌트 접근성 (서버 없음)', () => {
   test.skip(
     html == null,
     'tests/fixtures/csat-map-harness.html 이 없다 — 먼저 구울 것(파일 머리말의 명령 참조)',
@@ -102,6 +104,51 @@ test.describe('지문 지도 — 컴포넌트 접근성 (서버 없음)', () => 
     const lit = await page.locator('li[aria-label*="근거가 여기 있어요"]').count()
     expect(lit, '열린 근거가 없다').toBeGreaterThan(0)
     expect(lit, '전부 열려 있으면 «어디인가» 를 말하지 않는 것이다').toBeLessThan(SENTENCE_COUNT)
+  })
+
+  // ── 유형 리포트 산문 — 여기서 새로 생긴 것은 **인라인 문항 링크**다 ──────────
+  //
+  // 칩과 달리 이 링크는 문장 속에 있어 44px 을 줄 수 없다. 그러면 «얼마인가» 를 숫자로
+  // 알고 있어야 한다. 기준은 지어내지 않고 **WCAG 2.2 SC 2.5.8 Target Size (Minimum) = AA**
+  // 의 24×24 CSS 픽셀을 쓴다(44×44 는 2.5.5 AAA 이고, 문장 속 링크는 그 예외 대상이다).
+
+  test('리포트 산문이 하네스에 있다 — 없으면 아래 단언이 아무것도 안 지킨다', async ({ page }) => {
+    await mount(page, 'light')
+    await expect(page.locator('[data-harness="report"]')).toBeVisible()
+    expect(
+      await page.locator('[data-harness="report"] a').count(),
+      '문항 링크가 하나도 없다 — 파서나 배선이 끊겼다',
+    ).toBeGreaterThan(2)
+  })
+
+  test('문항 링크가 WCAG 2.5.8 의 24×24 를 넘는다', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    await mount(page, 'light')
+    const small = await page.locator('[data-harness="report"] a').evaluateAll((els) =>
+      els
+        .map((e) => ({ r: e.getBoundingClientRect(), t: (e.textContent || '').trim() }))
+        .filter(({ r }) => r.width > 0 && (r.width < 24 || r.height < 24))
+        .map(({ r, t }) => `${t} → ${r.width.toFixed(1)}×${r.height.toFixed(1)}`),
+    )
+    expect(small, '24×24 미만 인라인 링크').toEqual([])
+  })
+
+  test('문항 링크가 색 말고도 «누를 수 있다» 를 말한다 — 밑줄', async ({ page }) => {
+    await mount(page, 'light')
+    const undecorated = await page.locator('[data-harness="report"] a').evaluateAll((els) =>
+      els
+        .filter((e) => !getComputedStyle(e).textDecorationLine.includes('underline'))
+        .map((e) => (e.textContent || '').trim()),
+    )
+    expect(undecorated, '밑줄 없는 링크 — 색맹 학습자에게는 링크가 아니다').toEqual([])
+  })
+
+  test('굵게가 실제로 굵게 렌더된다 — 별표가 그대로 보이면 안 된다', async ({ page }) => {
+    await mount(page, 'light')
+    const txt = await page.locator('[data-harness="report"]').innerText()
+    expect(txt, '별표가 화면에 남아 있다').not.toContain('**')
+    const strongCount = await page.locator('[data-harness="report"] strong').count()
+    expect(strongCount, 'strong 이 없다 — 파서가 굵게를 못 살렸다').toBeGreaterThan(0)
   })
 
   test('위치를 못 찾은 근거도 칩으로 보이고 그렇게 적혀 있다', async ({ page }) => {

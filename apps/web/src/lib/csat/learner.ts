@@ -347,9 +347,10 @@ export async function loadCsatPlan(): Promise<CsatPlan> {
 //    학습자는 문항 원문을 평가원 공개자료에서 함께 본다. 곧 이 화면은 **해설**이다.
 // ─────────────────────────────────────────────────────────────────────
 
-/** URL 에 쓰는 문항 id — 원장의 `2026#31` 은 `#` 때문에 주소가 안 된다 */
-export const toItemSlug = (id: string) => id.replace('#', '-')
-export const fromItemSlug = (slug: string) => slug.replace('-', '#')
+// URL 에 쓰는 문항 id — 정의는 `item-slug.ts`(아무것도 import 하지 않는 순수 모듈)에 있다.
+// 여기서는 부르는 쪽의 import 경로를 유지하려고 다시 내보낸다.
+export { fromItemSlug, toItemSlug } from './item-slug'
+import { toItemSlug } from './item-slug'
 
 export interface CsatItemBrief {
   id: string

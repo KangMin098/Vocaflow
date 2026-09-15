@@ -14,7 +14,9 @@
 import Link from 'next/link'
 
 import { parseReportText } from '@/lib/csat/report-markup'
-import { toItemSlug } from '@/lib/csat/learner'
+// ⚠️ **`learner.ts` 에서 가져오지 않는다.** 한 줄짜리 함수 때문에 그 파일이 딸려 오고,
+// 그게 `lib/supabase/server` 를 끌고 온다 — 서버 밖에서 렌더하는 순간 터진다(실측).
+import { toItemSlug } from '@/lib/csat/item-slug'
 
 export interface ReportTextProps {
   text: string | null | undefined
