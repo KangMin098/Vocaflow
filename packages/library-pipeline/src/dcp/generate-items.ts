@@ -7,6 +7,8 @@
 // 결정론: seed(ref+문단idx) 기반 재현 가능 셔플 → 같은 콘텐츠는 항상 같은 문항(멱등).
 //   LLM 미사용 = 모호성 리스크 0. 문단 적격 필터(문장수·앵커·fragment)로 저품질 배제.
 
+import { splitSentences as splitSentencesShared } from '../textbook/csat-format'
+
 export type DcpItemType = 'order' | 'insert'
 
 export interface DcpItem {
@@ -26,10 +28,16 @@ function splitParagraphs(content: string): string[] {
     .filter((p) => p.length > 0)
 }
 
-/** 문장 분할(종결부호 뒤 공백 · lookbehind 로 부호 유지). */
+/**
+ * 문장 분할 — **약어 마침표에서 끊지 않는다.**
+ *
+ * ⚠️ 여기가 `/(?<=[.!?])\s+/` 뿐이었다. 그래서 `…borrowed a horse from Mr.` 같은 조각이
+ *   문항의 재료가 됐고, 조판 게이트(`hasBadSentenceSplit`)가 그 문항을 통째로 버렸다 —
+ *   DB 실측 11,321건. **버리기 전에 안 만드는 것이 낫다.** 자르는 자는 `csat-format` 에
+ *   한 벌만 둔다(사본을 두면 판정자와 갈린다).
+ */
 function splitSentences(paragraph: string): string[] {
-  return paragraph
-    .split(/(?<=[.!?])\s+/)
+  return splitSentencesShared(paragraph)
     .map((s) => s.trim())
     .filter((s) => s.length > 0)
 }

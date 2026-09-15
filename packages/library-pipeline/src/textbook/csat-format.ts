@@ -663,14 +663,62 @@ export function cleanPassageText(text: string): string {
   )
 }
 
+/**
+ * **마침표 앞이 약어면 문장이 끝난 것이 아니다.**
+ *
+ * 마크 ②③④⑧⑨⑩ 이 잡는 자국을 **만들지 않으려고** 여기 둔다 — 자르는 자와 잡는 자가
+ * 같은 약어를 알아야 한다(`item-hygiene.ts` `hasBadSentenceSplit`).
+ *
+ * ⚠️ **숫자는 넣지 않는다.** `He was 21. Then he left.` 는 진짜 두 문장이다. 숫자 뒤
+ *   마침표에서 생기는 조각(`13) may be…`)은 자르기가 아니라 **원문의 번호 매김**이 원인이라
+ *   여기서 막을 수 있는 것이 아니다(그쪽은 판정자가 걸러 낸다).
+ */
+const SPLIT_ABBREV =
+  /(?:^|[\s("[])(?:[A-Za-z]|Mr|Mrs|Ms|Dr|Prof|Sr|Jr|St|Mt|Ave|Rd|Inc|Co|Ltd|Corp|Fig|No|Vol|Ch|et al|vs|etc|cf|pp?|ff?|e\.g|i\.e|a\.m|p\.m|[ivxlcdm]+)\.$/i
+
+/**
+ * **문장으로 자른다 — 약어 마침표에서 끊지 않는다.**
+ *
+ * ── 왜 이 함수가 생겼나 (실측 2026-09-15) ────────────────────────────
+ * 3인 검수 chunk-00 이 두 문항에서 같은 자국을 짚었다:
+ *
+ *     `He therefore borrowed a horse from Mr.`   ← 정답 문장이 여기서 끝난다
+ *     `… the Gate of St.`                        ← 동사 없는 조각
+ *
+ * 저장소의 문장 분할이 **전부** `/(?<=[.!?])\s+/` 뿐이었다(20곳). 판정자
+ * `hasBadSentenceSplit` 은 이 꼴을 잡지만 **잡는다는 것은 문항을 버린다는 뜻**이다 —
+ * DB 실측으로 그런 조각을 가진 문항이 11,321건이고 가장 흔한 것이 `Mr.`(1,057) ·
+ * `No.`(617) · `Mrs.`(571) 다. **버리기 전에 안 만드는 것이 낫다.**
+ *
+ * ⚠️ **교재가 쓰는 두 자리에만 건다** — `buildPassage`(지문 만들기)와
+ *   `dcp/generate-items`(문항 만들기). 계측 스크립트들은 그대로 둔다(같은 수를 재던
+ *   것이 갑자기 달라지면 이전 기록과 대조가 깨진다). 남은 자리는 적어 둔다:
+ *   `compose/activities` · `compose/extract` · `compose/review` · `curriculum` ·
+ *   `explain-seam` · `frontiers-young-minds` · 그리고 `scripts/` 의 계측기들.
+ */
+export function splitSentences(text: string): string[] {
+  const parts = String(text ?? '').split(/(?<=[.!?])\s+/)
+  const out: string[] = []
+  for (const part of parts) {
+    const prev = out[out.length - 1]
+    // 앞 조각이 약어로 끝났으면 문장이 안 끝난 것이다 — 도로 붙인다.
+    if (prev !== undefined && SPLIT_ABBREV.test(prev.trimEnd())) {
+      out[out.length - 1] = `${prev} ${part}`
+      continue
+    }
+    out.push(part)
+  }
+  return out
+}
+
 export function buildPassage(
   content: string,
   spec: { min: number; max: number },
   minSentences: number,
 ): string | null {
-  const sentences = cleanPassageText(String(content ?? ''))
-    .replace(/\n\s*\n+/g, ' ')
-    .split(/(?<=[.!?])\s+/)
+  const sentences = splitSentences(
+    cleanPassageText(String(content ?? '')).replace(/\n\s*\n+/g, ' '),
+  )
     .map((s) => s.replace(/\s+/g, ' ').trim())
     .filter((s) => s.length > 1)
   const win = selectPassageWindow(sentences, spec, minSentences)
