@@ -184,9 +184,32 @@ const printedItems = units.flatMap((u) => u.items)
 //   χ²=16.25 · V=0.319 로 쏠림 판정을 받았다. 기대값이 다른 것을 한 통에 담은 것이
 //   결함이지 교재가 결함인 게 아니었다. **선택지 수별로 나눠 센다.**
 //   (`item-health.ts` 의 `assessStock` 은 이미 이렇게 하고 있었다 — 조판기만 안 따라왔다.)
+// ⚠️⚠️ **삽입의 `position` 은 지면의 ①~⑤ 가 아니다** (3인 검수 chunk-11, 2026-09-16).
+//   삽입 문항에는 `answer_key.answer` 가 없어서 이 자리가 `position` 으로 떨어졌는데,
+//   그 값은 **원문 본문의 빈틈 색인**이라 5를 넘을 수 있다(실측 V5 5,999건 중 346건 = 5.8%).
+//   그래서 `n <= k` 가 그 346건을 **조용히 버리고**, 남은 것도 엉뚱한 칸에 담겼다.
+//   **세는 자가 세려는 것을 안 세고 있었다.**
+//
+//   지면의 자리는 `toCsatInsert` 가 정한다 — 인쇄와 **같은 함수**로 되짚는다.
+//   그렇게 세니 V5 삽입의 실제 분포가 이렇다(해설 문자열로 교차 확인):
+//
+//       ① 1,518 · ② 1,642 · ③ 1,643 · **④ 747 · ⑤ 387**  (n=5,937)
+//       χ² ≈ 1,144 · Cramér V ≈ **0.219** (임계 0.1) → 쏠림
+//       **⑤ 를 절대 안 고르는 학습자가 93.5% 옳다.**
+//
+//   같은 밴드의 다른 유형은 전부 통과한다(order 0.016 · vocab_choice 0.012 · irrelevant 0.016) —
+//   즉 이것은 밴드의 문제가 아니라 **삽입 생성기의 자리 분포** 문제이고, 그 사실이
+//   여태 화면에 한 번도 안 뜬 이유가 이 계수 결함이다.
+const printedSlotOf = (it) => {
+  if (it.type === 'insert') {
+    const q = toCsatInsert(it.payload?.remaining ?? [], it.payload?.insert_sentence ?? '', it.answer_key?.position)
+    return q ? Number(q.answer) : Number.NaN
+  }
+  return Number(it.answer_key?.answer ?? it.answer_key?.position)
+}
 const answered = []
 for (const it of printedItems) {
-  const n = Number(it.answer_key?.answer ?? it.answer_key?.position)
+  const n = printedSlotOf(it)
   const k = Array.isArray(it.payload?.choices) ? it.payload.choices.length : 5
   if (Number.isInteger(n) && k >= 2 && n >= 1 && n <= k) answered.push({ n, k })
 }

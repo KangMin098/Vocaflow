@@ -69,3 +69,34 @@ describe('선택지 수와 쏠림 검정', () => {
     }
   })
 })
+
+/**
+ * **삽입의 `position` 은 지면의 ①~⑤ 가 아니다.**
+ *
+ * 삽입 문항에는 `answer_key.answer` 가 없어 계수기가 `position` 으로 떨어졌는데, 그 값은
+ * **원문 본문의 빈틈 색인**이라 5를 넘을 수 있다(V5 5,999건 중 346건 = 5.8%). `n <= k` 가
+ * 그것을 조용히 버렸고 남은 것도 엉뚱한 칸에 담겼다 — **세는 자가 세려는 것을 안 세고 있었다**
+ * (3인 검수 chunk-11, 2026-09-16).
+ *
+ * 인쇄와 같은 함수(`toCsatInsert`)로 되짚어 세니 실제 분포가 드러난다:
+ *   ① 1,518 · ② 1,642 · ③ 1,643 · ④ 747 · ⑤ 387 — Cramér V ≈ **0.219**(임계 0.1).
+ */
+describe('삽입의 정답 자리는 인쇄와 같은 자로 센다', () => {
+  it('실측 분포가 쏠림으로 판정된다 — 자를 고치면 보인다', () => {
+    const real = assessAnswerBias([1518, 1642, 1643, 747, 387])
+    expect(real.biased).toBe(true)
+    expect(real.cramersV).toBeGreaterThan(0.2)
+  })
+
+  it('조판기가 `position` 을 자리로 쓰지 않는다', () => {
+    const src = fs.readFileSync(
+      path.resolve(REPO_ROOT, 'scripts/textbook/render-volume.mjs'),
+      'utf8',
+    )
+    // 인쇄와 같은 함수로 자리를 되짚는다.
+    expect(src).toContain('printedSlotOf')
+    expect(src).toContain("it.type === 'insert'")
+    // 옛 꼴로 되돌아가지 않는다 — 그 한 줄이 5.8%를 버리고 나머지를 잘못 담았다.
+    expect(src).not.toMatch(/const n = Number\(it\.answer_key\?\.answer \?\? it\.answer_key\?\.position\)\s*\n\s*const k/)
+  })
+})
