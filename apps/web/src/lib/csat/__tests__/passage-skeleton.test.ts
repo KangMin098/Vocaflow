@@ -102,7 +102,7 @@ describe('buildSkeleton — 강조가 맞는 자리로 가는가', () => {
       { id: 'answer', quote: 'it proceeds slowly' },
       { id: 'reject:1', quote: 'Disasters resist the novel' },
     ])
-    const reveals = skeleton.sentences.flatMap((s, i) => s.reveals.map((r) => ({ r, chars: s.chars })))
+    const reveals = skeleton.sentences.flatMap((s) => s.reveals.map((r) => ({ r, chars: s.chars })))
     expect(reveals.length).toBeGreaterThan(0)
     for (const { r, chars } of reveals) {
       expect(r.end - r.start).toBe(r.text.length)

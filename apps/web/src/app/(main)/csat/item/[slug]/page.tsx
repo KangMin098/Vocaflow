@@ -18,7 +18,10 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
+import { PassageMap } from '@/components/csat/PassageMap'
 import { fromItemSlug, loadCsatItemExplain } from '@/lib/csat/learner'
+import type { MapAnchor } from '@/lib/csat/passage-map-model'
+import { loadItemSkeleton } from '@/lib/csat/skeleton'
 
 export const dynamic = 'force-dynamic'
 
@@ -37,6 +40,35 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
   const { item, error } = await loadCsatItemExplain(fromItemSlug(slug))
 
   if (!error && !item) notFound()
+
+  // 구워 둔 골격이 있으면 **지도가 해설을 대신한다** — 근거가 «지문의 어디인가» 까지 말하므로
+  // 같은 내용을 산문으로 한 번 더 쌓을 이유가 없다. 없으면(지문이 잘린 210문항) 지금까지의
+  // 산문 화면이 그대로 나온다. DB 를 치지 않는다 — 커밋된 JSON 을 읽는다.
+  const skeleton = item ? loadItemSkeleton(item.id) : null
+  const mapAnchors: MapAnchor[] = !item
+    ? []
+    : [
+        ...(item.answer != null && !item.answer_unknown && item.why_correct
+          ? [
+              {
+                id: 'answer',
+                label: CIRCLED[item.answer] ?? String(item.answer),
+                kind: 'answer' as const,
+                detail: item.why_correct,
+              },
+            ]
+          : []),
+        ...item.distractors.map((d) => ({
+          id: `reject:${d.n}`,
+          label: CIRCLED[d.n] ?? String(d.n),
+          kind: 'reject' as const,
+          detail: d.how_to_reject,
+          tempting: d.why_tempting,
+        })),
+      ]
+  // 골격이 가리키는 앵커만 지도에 올린다 — 지도에 없는 칩을 누르면 아무 일도 안 일어난다.
+  const shown = skeleton ? mapAnchors.filter((a) => skeleton.anchors.some((x) => x.id === a.id)) : []
+  const useMap = skeleton != null && shown.length > 0
 
   return (
     <main className="mx-auto max-w-3xl px-4 py-6 sm:px-6">
@@ -64,6 +96,12 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
             </p>
           </header>
 
+          {/* 지문 지도 — 근거가 «지문의 어디인가» 를 클릭 하나로 보여 준다. 첫 화면에서
+              이미 정답 근거가 열려 있으므로 클릭 0 으로도 증명이 보인다. */}
+          {skeleton && shown.length > 0 ? (
+            <PassageMap sentences={skeleton.sentences} anchors={shown} placements={skeleton.anchors} />
+          ) : null}
+
           {item.answer_unknown || item.answer == null ? (
             // 정답표가 없는 회차. **추정한 정답을 정답인 척 적지 않는다** —
             // 그 한 줄이 학습자를 반대로 훈련시킨다.
@@ -71,7 +109,7 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
               이 회차는 평가원 정답표를 구하지 못했어요. 정답을 모르는 채로 근거를 적으면 그건 창작이라,
               이 문항은 <strong>답을 지목하지 않습니다.</strong> 대신 아래 절차는 그대로 쓸 수 있어요.
             </p>
-          ) : (
+          ) : useMap ? null : (
             <section className="mb-6">
               <div className="flex items-baseline gap-3">
                 <h2 className="font-display text-sm font-bold text-[var(--t1)]">답이 왜 이것인가</h2>
@@ -105,7 +143,9 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
             </section>
           )}
 
-          {item.distractors.length ? (
+          {/* 지도가 있으면 이 절은 안 그린다 — 같은 내용을 산문으로 한 번 더 쌓는 것이 되고,
+              그게 바로 이 화면이 「단순 텍스트 나열」이라고 불린 이유였다. */}
+          {!useMap && item.distractors.length ? (
             <section className="mb-6">
               <h2 className="font-display text-sm font-bold text-[var(--t1)]">나머지가 왜 아닌가</h2>
               <ul className="mt-2 space-y-2">
