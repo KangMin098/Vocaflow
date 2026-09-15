@@ -292,6 +292,35 @@ export function hasPunctuationLeak(payload: Record<string, unknown> | null | und
       if (n(/\[/g) !== n(/\]/g)) return true
     }
   }
+
+  // ── 흐름 무관(35번)도 같은 누설을 갖는다 ──────────────────────────
+  // ⚠️ **자를 여기까지 넓히는 데 근거가 있다** (3인 검수 chunk-01, 2026-09-15).
+  //   무관 문항 두 건이 **둘 다** 정답 문장에만 짝 없는 따옴표를 달고 있었다:
+  //
+  //       `"Note that I am not giving …`     ← 닫는 것이 없다
+  //       `" Low participation …`            ← 여는 따옴표 뒤 공백
+  //
+  //   다섯 자리 중 **부호 모양이 다른 하나**가 정답이라 영어를 한 줄도 안 읽고 고른다.
+  //   `pairStraightQuotes` 는 설계상 홀수 개를 건드리지 않고(「모르면 안 고친다」),
+  //   `isPrintablePassage` 에도 따옴표 짝 검사가 없어 **어느 게이트도 안 봤다.**
+  //
+  // ⚠️ **「하나라도 어긋나면」이 아니라 「어긋난 것이 딱 하나면」이다.** 인용이 두 문장에
+  //   걸치면 둘이 함께 어긋나는데, 그때는 모양이 갈리지 않으므로 누설이 아니다.
+  //   넓게 잡으면 멀쩡한 재고가 통째로 떨어진다 — 이 저장소가 이미 두 번 겪은 일이다.
+  {
+    const v = payload.sentences
+    if (Array.isArray(v) && v.length >= 3) {
+      let odd = 0
+      for (const raw of v) {
+        if (typeof raw !== 'string') continue
+        const n = (re: RegExp) => (raw.match(re) ?? []).length
+        const unbalanced =
+          n(/“/g) !== n(/”/g) || n(/"/g) % 2 === 1 || n(/\(/g) !== n(/\)/g) || n(/\[/g) !== n(/\]/g)
+        if (unbalanced) odd += 1
+      }
+      if (odd === 1) return true
+    }
+  }
   return false
 }
 

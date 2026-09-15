@@ -751,3 +751,49 @@ describe('배열 뭉치가 정답을 하나로 확정하는가', () => {
     expect(itemHygieneReject({ payload, type: 'word_order' })).toBeNull()
   })
 })
+
+/**
+ * **무관 문항도 부호 모양으로 답이 보인다.**
+ *
+ * 3인 검수 chunk-01: 무관 문항 두 건이 **둘 다** 정답 문장에만 짝 없는 따옴표를 달고 있었다
+ * (`"Note that I am not giving …` · `" Low participation …`). 다섯 자리 중 모양이 다른
+ * 하나가 정답이라 영어를 한 줄도 안 읽고 고른다.
+ */
+describe('무관 문항의 부호 누설', () => {
+  const five = (...s: string[]) => ({ payload: { intro: 'The town kept its fleet.', sentences: s } })
+  const CLEAN = [
+    'The fleets bring in enough catch to supply the local markets.',
+    'Younger crews replace older boats with quieter engines.',
+    'Harbour councils publish the daily catch so buyers can plan.',
+    'Mountain railways carried timber to the mills inland.',
+    'The towns that kept their fleets held their populations steady.',
+  ]
+
+  it('짝 없는 따옴표가 딱 하나면 그 자리가 보인다', () => {
+    const leaky = [...CLEAN]
+    leaky[3] = '"Note that I am not giving the full figure here.'
+    expect(itemHygieneReject(five(...leaky))).toBe('punctuationLeak')
+  })
+
+  it('여는 따옴표 뒤 공백도 짝이 안 맞는 꼴이다', () => {
+    const leaky = [...CLEAN]
+    leaky[1] = '" Low participation was reported in the northern district.'
+    expect(itemHygieneReject(five(...leaky))).toBe('punctuationLeak')
+  })
+
+  // ⚠️ **넓게 잡으면 멀쩡한 재고가 통째로 떨어진다** — 이 저장소가 이미 두 번 겪었다.
+  it('인용이 두 문장에 걸치면 누설이 아니다 — 모양이 갈리지 않는다', () => {
+    const spanning = [...CLEAN]
+    spanning[1] = '“The catch is smaller than last year, said the harbour master.'
+    spanning[2] = 'Nobody expects it to recover soon,” he added.'
+    expect(itemHygieneReject(five(...spanning))).toBeNull()
+  })
+
+  it('전부 짝이 맞으면 통과한다', () => {
+    expect(itemHygieneReject(five(...CLEAN))).toBeNull()
+  })
+
+  it('문장이 셋 미만이면 대상이 아니다 — 무관 문항이 아니다', () => {
+    expect(itemHygieneReject({ payload: { sentences: ['"Only one unbalanced here.'] } })).toBeNull()
+  })
+})
