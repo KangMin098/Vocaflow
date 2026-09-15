@@ -97,9 +97,15 @@ export default async function CsatOverlayPage({
 
                   {/* 원본은 브라우저가 평가원에서 **직접** 받는다 — 우리 서버를 거치지 않는다.
                       cross-origin 이라 안을 읽을 수 없고, 그래서 상자도 못 얹는다(머리 주석 참조). */}
+                  {/* ⚠️ `loading="lazy"` 를 준다. 원본은 **2.2 MB**(2026 영어 문제지 실측)이고,
+                      브라우저가 그걸 받는 동안 이 화면의 나머지 — 특히 아래 「파일 열기」 —
+                      가 굼떠진다. e2e 가 그걸 드러냈다: 파일 입력을 10초 안에 못 잡아
+                      **단독 실행은 통과하고 전체 실행만 실패**했다(2026-09-15).
+                      lazy 는 뷰포트에 들어올 때 받으므로 첫 페인트를 원본에 인질로 잡히지 않는다. */}
                   <iframe
                     src={source.paperUrl + pdfFragment(page ?? 1)}
                     title={`${item?.exam_label ?? examId} 영어 영역 문제지 (한국교육과정평가원)`}
+                    loading="lazy"
                     className="h-[70vh] min-h-[28rem] w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)]"
                   />
                 </>
