@@ -1,4 +1,4 @@
- + 런타임 **25**(`tests/e2e/45-csat-trap-atlas.spec.ts`) || 회귀 | 순수 **59**(`trap-atlas` 18 + `plan-timeline` 12 + `trap-drill` 16 + `trap-drill-pool` 13) + **실 DB 1**| 계측 | `csat_atlas_scoped` · `csat_trap_opened` · `csat_plan_speed_set` · `csat_drill_answered` · `csat_drill_finished` (`lib/analytics/events.ts` 닫힌 목록) |# Learning Modules
+# Learning Modules
 
 > 9개 학습 모듈 + 베타. 각 모듈의 목적·라우트·인지 깊이·데이터 모델. 작성 시점: 2026-06-08 (v06.34).
 >
@@ -977,21 +977,23 @@ gamekit 을 쓰지 않는 게임(WordBlitz · Pirate's Bounty)은 `GameKitStyles
 | 순수 모델 | [`lib/csat/trap-atlas.ts`](../apps/web/src/lib/csat/trap-atlas.ts) — `rankFor`(범위별 재집계) · `baselineShare`/`liftOf`(배수 · **분모를 이름 붙은 것끼리 맞춘다**) · `standoutFor`(카드가 같은 말을 반복하지 않게) · `DETECTOR`(우리가 쓴 「잡는 법」 20줄 — **센 값이 아니다**) |
 | 화면 | [`components/csat/TrapAtlas.tsx`](../apps/web/src/components/csat/TrapAtlas.tsx) — 허브(`as="h1"` · 유형 칩)와 유형 화면(`showLift` · 칩 없음) 둘이 같은 컴포넌트를 쓴다 |
 | 시간 띠 | [`lib/csat/plan-timeline.ts`](../apps/web/src/lib/csat/plan-timeline.ts)(순수 — `buildTimeline`·`clampSpeed`) · [`components/csat/PlanTimeline.tsx`](../apps/web/src/components/csat/PlanTimeline.tsx) |
-| 계측 | `csat_atlas_scoped` · `csat_trap_opened` · `csat_plan_speed_set` (`lib/analytics/events.ts` 닫힌 목록) |
+| 내 기록 (④재기) | [`lib/csat/my-traps.ts`](../apps/web/src/lib/csat/my-traps.ts) — **표본 문턱을 여기서 쥔다**(함정당 3회 · 전체 20회). 넘기 전에는 배수를 말하지 않고 센 것만 보여 준다 |
+| 순서 (⑤주파) | [`lib/csat/plan-order.ts`](../apps/web/src/lib/csat/plan-order.ts)(순수 — 내 약점 × 유형 구성) · `plan/PlanList.tsx`(토글). ⚠️ **시간 띠는 정렬하지 않는다** — 시험은 번호대로 치러진다 |
+| 계측 | `csat_atlas_scoped` · `csat_trap_opened` · `csat_plan_speed_set` · `csat_plan_ordered` · `csat_drill_answered` · `csat_drill_finished` (`lib/analytics/events.ts` 닫힌 목록) |
 | 자 | [`apps/web/scripts/csat-surface-measure.mts`](../apps/web/scripts/csat-surface-measure.mts)(수치) · [`csat-shot.mts`](../apps/web/scripts/csat-shot.mts)(눈) |
 | 훈련 (③겨루기) | [`lib/csat/trap-drill.ts`](../apps/web/src/lib/csat/trap-drill.ts)(순수 — 보기 만들기·채점·누설 검사) · [`drill-loader.ts`](../apps/web/src/lib/csat/drill-loader.ts)(구운 풀에서 여덟을 고른다 · **DB 0**) · [`components/csat/TrapDrill.tsx`](../apps/web/src/components/csat/TrapDrill.tsx) · [`scripts/csat/build-trap-drill.mjs`](../scripts/csat/build-trap-drill.mjs) → `drill-data/pool.json` (**1,013문제** · 539KB) |
 | 굽기 | `pnpm csat:atlas` · `csat:atlas:check` · `pnpm csat:drill` · `csat:drill:check` (전부 낡으면 exit 1) |
-| 회귀 | 순수 **59**(`trap-atlas` 18 + `plan-timeline` 12 + `trap-drill` 16 + `trap-drill-pool` 13) + **실 DB 1**(`trap-atlas-fresh.integration.test.ts` — 실 DB 에서 셈을 다시 해 구운 값과 견준다. 안 구우면 화면은 멀쩡히 뜨고 **낡은 값**만 남으므로) + 런타임 **25**(`tests/e2e/45-csat-trap-atlas.spec.ts`) |
+| 회귀 | 순수 **81**(`trap-atlas` 18 · `plan-timeline` 12 · `trap-drill` 16 · `trap-drill-pool` 13 · `my-traps` 11 · `plan-order` 11) + **실 DB 1**(`trap-atlas-fresh.integration.test.ts` — 실 DB 에서 셈을 다시 해 구운 값과 견준다. 안 구우면 화면은 멀쩡히 뜨고 **낡은 값**만 남으므로) + 런타임 **26**(`tests/e2e/45-csat-trap-atlas.spec.ts`) |
 
 **실측 — 학습자 7화면 합계 (2026-09-15)**
 
 | | 전 (6화면) | 후 (7화면 — 훈련이 새로 생겼다) |
 |---|---|---|
-| 보이는 글자 | 27,772 | **15,818** (-43%) |
+| 보이는 글자 | 27,772 | **15,634** (-44%) |
 | 가장 긴 산문 덩어리 | **1,084** | **274** |
-| 접힌 위 글자 (1280×900) | 6,531 | **3,771** (-42%) |
+| 접힌 위 글자 (1280×900) | 6,531 | **3,525** (-46%) |
 | 접힌 위 **작동하는 증명** | **0** | **9** (7화면 전부 ≥1) |
-| 조작 컨트롤 | 1 | **68** (7화면 전부 ≥1) |
+| 조작 컨트롤 | 1 | **71** (7화면 전부 ≥1) |
 
 ⚠️ **`data-proof` 는 계측기가 보는 표식이다** — 막대가 `div`/`span` 이라 `svg` 로는 안 세어진다.
 그런데 표식만 보므로 **칠해지지 않은 막대도 「증명 1개」로 센다**(실제로 한 번 그랬다 — 위 문서 §6-3).

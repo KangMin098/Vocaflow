@@ -403,6 +403,41 @@ test.describe('기출 분석 — 허브·유형·계획', () => {
       ).toBeLessThan(w0.reduce((a, b) => a + b, 0));
     });
 
+    test('「내 약한 것 먼저」가 줄을 다시 세우고, 시험 순서가 아님을 말한다', async ({ page }) => {
+      await page.setViewportSize(FOLD);
+      await page.goto('/csat/plan', { waitUntil: 'networkidle', timeout: 60_000 });
+
+      const list = page.locator('ol').filter({ has: page.locator('a[href^="/csat/R-"], a[href^="/csat/X-"]') });
+      const nos = () => list.locator('> li').evaluateAll((els) => els.map((e) => (e.textContent || '').trim().slice(0, 4)));
+
+      const chip = page.getByRole('button', { name: '내 약한 것 먼저' });
+      if (!(await chip.isVisible().catch(() => false))) {
+        // 기록이 문턱 아래면 토글이 없는 것이 **설계**다 — 그때는 왜 없는지 적혀 있어야 한다.
+        await expect(page.getByText(/훈련 기록이 쌓이면/)).toBeVisible();
+        return;
+      }
+
+      const before = await nos();
+      expect(before.length, '계획 줄이 없다').toBeGreaterThan(10);
+      await chip.click();
+      await expect.poll(async () => (await nos()).join(','), { timeout: 2_000 }).not.toBe(before.join(','));
+      const after = await nos();
+
+      // **줄을 잃지 않는다** — 정렬이 행을 삼키면 계획에 구멍이 난다.
+      expect(after.length, '정렬 뒤 줄 수가 달라졌다').toBe(before.length);
+      expect(new Set(after)).toEqual(new Set(before));
+
+      // ⚠️ **이 문장이 없으면 시험장에서 문제를 건너뛰며 푸는 법으로 읽힌다.**
+      await expect(page.getByText(/시험은 번호 순서로/)).toBeVisible();
+      // 왜 위로 왔는지 줄이 말한다 — 이유 없는 순서는 믿을 근거가 없다.
+      await expect(page.getByText(/내가 자주 놓치는 수법/).first()).toBeVisible();
+      // 시간 띠는 **언제나 번호 순서**다 — 시험은 번호대로 치러지므로.
+      const barNos = await page
+        .locator('[data-proof="plan-timeline"] span[data-no]')
+        .evaluateAll((els) => els.map((e) => Number(e.getAttribute('data-no'))));
+      expect(barNos, '띠가 번호 순서를 잃었다').toEqual([...barNos].sort((a, b) => a - b));
+    });
+
     test('계획 화면도 390px 에서 밀리지 않고 44px 를 지킨다', async ({ page }) => {
       await page.setViewportSize({ width: 390, height: 844 });
       await page.goto('/csat/plan', { waitUntil: 'networkidle', timeout: 45_000 });

@@ -242,6 +242,22 @@ export type PublicEvent =
       props: { total: number; correct: number; weak: number; seconds: number }
     }
   /**
+   * 한 회차 계획의 **줄 세우는 기준**을 바꿨다 — ⑤ 주파가 실제로 쓰이는가.
+   *
+   * 「내 약한 것 먼저」는 기록이 문턱을 넘은 사람에게만 보인다. 그 사람들이 실제로 눌러
+   * 보는지가 이 이벤트로만 관측된다 — 한 번도 안 눌리면 순서는 만들어 두고 아무도 안 쓰는
+   * 기능이고, 그건 훈련 기록을 쌓게 한 이유가 사라졌다는 뜻이다.
+   */
+  | {
+      name: 'csat_plan_ordered'
+      props: {
+        /** 「내 약한 것 먼저」로 바꿨나(거짓이면 시험 순서로 되돌린 것) */
+        weak: boolean
+        /** 줄 수 — 회차가 바뀌면 달라진다 */
+        rows: number
+      }
+    }
+  /**
    * 한 회차 계획의 **읽기 속도**를 바꿨다 — 「이 계획이 내 것이 됐는가」의 유일한 신호.
    *
    * 이 화면은 두 숫자(합계·쓸 수 있는 시간)만 적던 자리였다. 띠와 배율을 넣은 이유는
@@ -391,6 +407,7 @@ const EVENT_REGISTRY: Record<PublicEventName, true> = {
   csat_evidence_opened: true,
   csat_atlas_scoped: true,
   csat_plan_speed_set: true,
+  csat_plan_ordered: true,
   csat_drill_answered: true,
   csat_drill_finished: true,
   csat_trap_opened: true,

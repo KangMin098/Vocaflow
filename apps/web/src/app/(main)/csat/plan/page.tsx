@@ -17,8 +17,11 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 import { PlanTimeline } from '@/components/csat/PlanTimeline'
-import { ReportText } from '@/components/csat/ReportText'
 import { loadCsatPlan } from '@/lib/csat/learner'
+import { loadMyTraps } from '@/lib/csat/my-traps'
+import { createClient } from '@/lib/supabase/server'
+
+import { PlanList } from './PlanList'
 
 export const metadata: Metadata = {
   title: '한 회차 주파 계획 — 기출 유형 분석',
@@ -34,7 +37,9 @@ function mmss(sec: number) {
 }
 
 export default async function CsatPlanPage() {
-  const plan = await loadCsatPlan()
+  // 내 훈련 기록 — 있으면 「내 약한 것 먼저」 순서가 생긴다(⑤). 못 읽어도 화면은 그대로
+  // 뜨고 토글만 없다: 계획은 기록과 무관하게 볼 수 있어야 한다.
+  const [plan, mine] = await Promise.all([loadCsatPlan(), createClient().then((db) => loadMyTraps(db))])
   const pending = plan.rows.length - plan.ready_items
   const over = plan.budget_sec > plan.available_sec
   // ⚠️ **`<main>` 이 아니라 `<div>` 다.** 셸(`(main)/layout.tsx`)이 이미
@@ -93,44 +98,10 @@ export default async function CsatPlanPage() {
             </div>
           </section>
 
-          <ol className="space-y-2">
-            {plan.rows.map((r) => (
-              <li
-                key={r.no}
-                className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4"
-              >
-                <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                  <span className="font-display text-sm font-bold tabular-nums text-[var(--t1)]">
-                    {r.no}번
-                  </span>
-                  <Link
-                    href={`/csat/${r.type_id}`}
-                    className="text-sm text-[var(--p)] underline-offset-2 transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
-                  >
-                    {r.type_name}
-                  </Link>
-                  <span className="ml-auto shrink-0 tabular-nums text-xs text-[var(--t3)]">
-                    {r.points ? `${r.points}점` : ''}
-                    {r.time_budget_sec ? ` · ${r.time_budget_sec}초` : ''}
-                  </span>
-                </div>
-                {r.first_step ? (
-                  // ⚠️ **`{r.first_step}` 을 맨손으로 그리지 않는다.** 이 값은 유형 리포트의
-                  //    첫 단계라 `**강조**` 와 문항 인용을 들고 있는데, 그대로 찍으면 학습자에게
-                  //    별표가 보인다(실측 2026-09-15 캡처 · 19번 「**타인의 말을 근거에서 뺀다**」).
-                  //    같은 글을 유형 화면은 `ReportText` 로 그리고 있었다 — 한쪽만 맨손이었다.
-                  //    `known` 은 주지 않는다: 이 화면은 문항 목록을 안 불러오므로 인용을
-                  //    링크로 만들면 **없는 문항으로 가는 링크**가 된다.
-                  <div className="mt-2 flex gap-1.5">
-                    <span className="shrink-0 text-sm text-[var(--t3)]">먼저 —</span>
-                    <ReportText text={r.first_step} className="min-w-0 flex-1" />
-                  </div>
-                ) : (
-                  <p className="mt-2 text-sm text-[var(--t3)]">절차 준비 중</p>
-                )}
-              </li>
-            ))}
-          </ol>
+          {/* ⑤ 주파 — 줄 세우기는 클라이언트가 한다(토글). 시간 띠는 **위에** 그대로 두어
+              번호 순서를 잃지 않는다: 시험은 번호대로 치러지고, 이 순서는 공부할 순서다. */}
+          <PlanList rows={plan.rows} mine={mine} />
+
         </>
       ) : null}
 
