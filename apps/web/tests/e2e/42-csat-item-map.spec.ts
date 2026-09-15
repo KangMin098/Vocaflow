@@ -1,0 +1,189 @@
+// apps/web/tests/e2e/42-csat-item-map.spec.ts
+//
+// **문항 해설의 「지문 지도」 런타임 회귀.**
+//
+// ── 왜 이 파일이 필요한가 (실측 2026-09-15) ───────────────────────────
+// `/csat/item/[slug]` 는 **동적 라우트**다. 접근성 전수 스윕(`10-a11y-sweep`)은 동적 세그먼트를
+// 일부러 건너뛴다("시나리오 스펙의 몫"). 그리고 기존 CSAT 스펙(`41-…`)은 허브·유형·계획만 본다.
+// 그래서 **이 화면은 런타임에서 한 번도 재진 적이 없다** — 대비도, 터치 타깃도, 가로 넘침도.
+//
+// 이 지도의 계약은 「클릭 → 분석매칭」이다. 그런데 지금까지 그것을 확인한 검사는
+// **순수 모델**(`passage-map-model.test.ts`)뿐이고, 진짜 브라우저에서 칩을 눌러 다른 문장이
+// 열리는지는 아무도 안 봤다. 모델이 맞아도 배선이 끊기면 화면은 조용히 안 움직인다.
+//
+// 지키는 계약:
+//   ① 서버 렌더에 **이미 정답 근거가 열려 있다** — 클릭 0 으로 증명이 보인다는 설계
+//   ② 칩을 누르면 **열린 문장이 바뀐다** — 이 화면의 존재 이유
+//   ③ axe WCAG2 A/AA 위반 0 (라이트·다크)
+//   ④ 터치 타깃 44px — 문자열이 아니라 실제 렌더 기하로 잰다
+//   ⑤ 390px 에서 가로 넘침 없음
+//   ⑥ 원문이 통째로 나오지 않는다 (경계는 DB 층에서도 잠기지만 화면에서도 본다)
+//   ⑦ 콘솔 에러 0
+//
+//   · 계정: runtime-test-0705@vocaflow.dev
+//   · 읽기 전용 — DB 에 아무것도 쓰지 않는다. 계측 이벤트는 **누르므로 남는다**(funnel_events).
+
+import AxeBuilder from '@axe-core/playwright';
+import { test, expect, type Page } from '@playwright/test';
+
+const RUNTIME_USER = {
+  email: process.env.PLAYWRIGHT_RUNTIME_EMAIL || 'runtime-test-0705@vocaflow.dev',
+  password: process.env.PLAYWRIGHT_RUNTIME_PASSWORD || 'RuntimeTest1!',
+};
+
+const STATE_PATH = 'playwright-auth/.auth-csat-item-map.json';
+
+/**
+ * 지도가 있는 문항 하나. `skeleton-data/M2309.json` 에 실재하고 앵커 3개(정답 + 오답 2)를 갖는다.
+ * 슬러그는 `#` 를 `-` 로 바꾼 것(`lib/csat/learner.ts` 의 `toItemSlug`).
+ */
+const ITEM_SLUG = 'M2309-42';
+
+async function loginRuntimeUser(page: Page) {
+  for (let attempt = 1; attempt <= 2; attempt++) {
+    await page.goto('/login', { waitUntil: 'networkidle' });
+    await page.waitForTimeout(800);
+    await page.fill('input[type="email"]', RUNTIME_USER.email);
+    await page.fill('input[type="password"]', RUNTIME_USER.password);
+    await page.click('button[type="submit"]');
+    try {
+      await page.waitForURL((u) => !u.pathname.startsWith('/login'), { timeout: 25_000 });
+      return;
+    } catch (e) {
+      if (attempt === 2) throw e;
+      await page.waitForTimeout(2_000);
+    }
+  }
+}
+
+async function axeViolations(page: Page) {
+  const res = await new AxeBuilder({ page })
+    .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
+    .include('main')
+    .analyze();
+  return res.violations.map(
+    (v) =>
+      `${v.impact}/${v.id} ×${v.nodes.length} :: ${(v.nodes[0]?.failureSummary || v.help)
+        .replace(/\s+/g, ' ')
+        .slice(0, 140)}`,
+  );
+}
+
+/** 지금 열려 있는 문장 번호들 — aria-label 이 «근거가 여기 있어요» 를 달고 있는 항목. */
+async function litSentences(page: Page): Promise<string[]> {
+  return page
+    .locator('li[aria-label*="근거가 여기 있어요"]')
+    .evaluateAll((els) => els.map((e) => e.getAttribute('aria-label') || ''));
+}
+
+test.describe('기출 문항 해설 — 지문 지도', () => {
+  test.beforeAll(async ({ browser }) => {
+    const page = await browser.newPage({ storageState: undefined });
+    await loginRuntimeUser(page);
+    await page.context().storageState({ path: STATE_PATH });
+    await page.close();
+  });
+  test.use({ storageState: STATE_PATH });
+
+  test('클릭 0 으로 정답 근거가 지문 위에 이미 열려 있다', async ({ page }) => {
+    const errors: string[] = [];
+    page.on('console', (m) => {
+      if (m.type() === 'error') errors.push(m.text());
+    });
+
+    await page.goto(`/csat/item/${ITEM_SLUG}`, { waitUntil: 'networkidle', timeout: 45_000 });
+
+    // 지도 자체
+    await expect(page.getByRole('heading', { name: '지문 지도' })).toBeVisible();
+
+    // 문장 막대가 실제로 있다 — 0개면 골격을 못 읽은 것이고, 화면은 그래도 뜬다.
+    const bars = page.locator('li[aria-label*="번째 문장"]');
+    expect(await bars.count(), '문장 막대가 하나도 없다 — 골격을 못 읽었다').toBeGreaterThan(2);
+
+    // **아무것도 안 누른 채로** 근거가 열려 있어야 한다.
+    expect((await litSentences(page)).length, '첫 화면에 열린 근거가 없다').toBeGreaterThan(0);
+
+    // 정답 칩이 눌린 상태로 온다
+    const pressed = page.locator('button[aria-pressed="true"]');
+    await expect(pressed).toHaveCount(1);
+    await expect(pressed).toContainText('답이 왜');
+
+    expect(
+      errors.filter(
+        (e) =>
+          !/favicon|ResizeObserver|Download the React DevTools/i.test(e) &&
+          !/fast ?refresh|hot-reloader|hot update|webpack-internal/i.test(e),
+      ),
+      '콘솔 에러',
+    ).toEqual([]);
+  });
+
+  test('칩을 누르면 열리는 문장이 바뀐다 — 이 화면의 존재 이유', async ({ page }) => {
+    await page.goto(`/csat/item/${ITEM_SLUG}`, { waitUntil: 'networkidle', timeout: 45_000 });
+
+    const before = await litSentences(page);
+    expect(before.length, '처음부터 열린 것이 없으면 이 검사는 아무것도 안 지킨다').toBeGreaterThan(0);
+
+    // 오답 칩 하나를 누른다.
+    const reject = page.locator('button[aria-pressed="false"]').first();
+    await expect(reject).toBeVisible();
+    await reject.click();
+
+    await expect(page.locator('button[aria-pressed="true"]')).toHaveCount(1);
+    const after = await litSentences(page);
+
+    expect(after.length, '누른 뒤 열린 문장이 없다').toBeGreaterThan(0);
+    // **다른 자리가 열려야 한다.** 같으면 매칭이 안 움직인 것이고, 그건 지도가 아니라 그림이다.
+    expect(after, '칩을 눌렀는데 열린 문장이 그대로다').not.toEqual(before);
+  });
+
+  test('390px 에서 가로로 밀리지 않고 터치 타깃이 44px 이상이다', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto(`/csat/item/${ITEM_SLUG}`, { waitUntil: 'networkidle', timeout: 45_000 });
+
+    const overflow = await page.evaluate(
+      () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+    );
+    expect(overflow, `390px 에서 가로로 ${overflow}px 밀린다`).toBeLessThanOrEqual(1);
+
+    // **문자열이 아니라 실제 기하로 잰다.** `min-h-[44px]` 가 있어도 부모가 줄이면 소용없다.
+    const small = await page
+      .locator('section button')
+      .evaluateAll((els) =>
+        els
+          .map((e) => ({ r: e.getBoundingClientRect(), t: (e.textContent || '').slice(0, 24) }))
+          .filter(({ r }) => r.width > 0 && r.height > 0 && r.height < 44)
+          .map(({ r, t }) => `${t} → ${Math.round(r.width)}×${Math.round(r.height)}`),
+      );
+    expect(small, '44px 미만 터치 타깃').toEqual([]);
+  });
+
+  test.describe('axe — 라이트·다크', () => {
+    for (const theme of ['light', 'dark'] as const) {
+      test(`${theme} 테마 WCAG2 A/AA 위반 0`, async ({ page }) => {
+        await page.goto(`/csat/item/${ITEM_SLUG}`, { waitUntil: 'networkidle', timeout: 45_000 });
+        await page.evaluate((t) => {
+          document.documentElement.setAttribute('data-theme', t);
+          localStorage.setItem('vocaflow-theme', t);
+        }, theme);
+        // ⚠️ 전환이 끝난 뒤에 잰다 — 페이드 도중에 재면 조상 opacity 가 한 번 더 합성돼
+        //    있지도 않은 대비 위반이 나온다(이 저장소가 2026-09-05 에 겪은 일).
+        await page.waitForTimeout(500);
+        expect(await axeViolations(page), `${theme} axe 위반`).toEqual([]);
+      });
+    }
+  });
+
+  test('원문이 통째로 나오지 않는다', async ({ page }) => {
+    await page.goto(`/csat/item/${ITEM_SLUG}`, { waitUntil: 'networkidle', timeout: 45_000 });
+    const text = (await page.locator('main').innerText()).replace(/\s+/g, ' ');
+
+    // 저작권 고지가 있어야 한다 — 이 화면의 약속이다.
+    expect(text).toContain('한국교육과정평가원');
+
+    // 드러난 영어 조각의 총량이 지문 규모에 못 미쳐야 한다. 지문은 1,538자인데
+    // 화면에 영어가 그만큼 있으면 그건 지문을 실은 것이다.
+    const english = (text.match(/[A-Za-z][A-Za-z ,.;:'"()-]{9,}/g) || []).join('');
+    expect(english.length, `영어 노출 ${english.length}자 — 지문을 실은 것으로 보인다`).toBeLessThan(700);
+  });
+});

@@ -95,3 +95,43 @@ describe('PassageMap — 화면이 지켜야 할 약속', () => {
     expect(h).not.toContain('<button')
   })
 })
+
+describe('PassageMap — e2e 가 짚는 자리 (선택자 계약)', () => {
+  // `tests/e2e/42-csat-item-map.spec.ts` 가 이 선택자들로 화면을 짚는다. 여기서 안 잠그면
+  // aria-label 한 글자만 바뀌어도 e2e 가 **조용히 아무것도 안 재게** 된다 —
+  // 0건을 찾고도 통과하는 단언이 섞여 있으면 초록불인 채로 죽는다.
+  it('열린 문장을 aria-label 로 짚을 수 있다', () => {
+    expect(html()).toMatch(/aria-label="[^"]*근거가 여기 있어요[^"]*"/)
+  })
+
+  it('닫힌 문장도 «N번째 문장» 으로 짚을 수 있다', () => {
+    expect(html()).toMatch(/aria-label="1번째 문장"/)
+  })
+
+  it('고른 칩을 aria-pressed 로 짚을 수 있고 «답이 왜» 가 들어 있다', () => {
+    const h = html()
+    const m = h.match(/<button[^>]*aria-pressed="true"[^>]*>([\s\S]*?)<\/button>/)
+    expect(m, 'aria-pressed="true" 인 버튼이 없다').not.toBeNull()
+    expect(m![0] + m![1]).toContain('답이 왜')
+  })
+
+  it('칩이 section 안에 있다 — e2e 가 `section button` 으로 터치 타깃을 잰다', () => {
+    const h = html()
+    expect(h.startsWith('<section')).toBe(true)
+    expect(h).toContain('<button')
+  })
+
+  it('안 열린 문장은 그 표식을 달지 않는다 — 안 그러면 e2e 가 «바뀌었다» 를 못 본다', () => {
+    const lit = (html().match(/근거가 여기 있어요/g) ?? []).length
+    expect(lit).toBeGreaterThan(0)
+    expect(lit).toBeLessThan(SENTENCES.length)
+  })
+})
+
+describe('PassageMap — 나머지', () => {
+  it('앵커가 없어도 터지지 않는다 (중복 확인)', () => {
+    const h = renderToString(<PassageMap sentences={SENTENCES} anchors={[]} placements={[]} />)
+    expect(h).toContain('번째 문장')
+    expect(h).not.toContain('<button')
+  })
+})
