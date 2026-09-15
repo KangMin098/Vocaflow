@@ -78,6 +78,11 @@ async function litSentences(page: Page): Promise<string[]> {
 
 test.describe('기출 문항 해설 — 지문 지도', () => {
   test.beforeAll(async ({ browser }) => {
+    // ⚠️ 훅 기본 제한은 **30초**인데 위 로그인은 2회 시도 × 25초라 **최대 50초+** 다.
+    //    그래서 로그인이 조금만 느려도 훅이 먼저 죽고, 실패 메시지는 «beforeAll 시간 초과» 라
+    //    **로그인이 문제인지 망이 문제인지 구별이 안 된다**(실측 2026-09-15: 망이 살아난 뒤에도
+    //    같은 실패가 났고, 원인은 망이 아니라 이 숫자였다).
+    test.setTimeout(150_000);
     const page = await browser.newPage({ storageState: undefined });
     await loginRuntimeUser(page);
     await page.context().storageState({ path: STATE_PATH });
