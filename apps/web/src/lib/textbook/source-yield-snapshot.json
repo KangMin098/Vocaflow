@@ -1,22 +1,22 @@
 {
-  "measuredAt": "2026-09-13T11:58:04.660Z",
+  "measuredAt": "2026-09-15T01:15:44.764Z",
   "type": "topic",
   "perCell": 30,
   "totalStock": 87094,
-  "totalUsable": 49391,
+  "totalUsable": 68529,
   "rows": [
     {
-      "source": "gutenberg",
-      "vLevel": 5,
-      "articles": 7508,
+      "source": "plos",
+      "vLevel": 6,
+      "articles": 32082,
       "sampled": 30,
-      "ok": 30,
-      "yieldPct": 100,
-      "usableEstimate": 7508,
+      "ok": 18,
+      "yieldPct": 60,
+      "usableEstimate": 19249,
       "reasons": {
-        "ok": 30,
+        "ok": 18,
         "no_window": 0,
-        "apparatus": 0,
+        "apparatus": 12,
         "chrome": 0,
         "other": 0,
         "body_none": 0
@@ -40,6 +40,23 @@
       }
     },
     {
+      "source": "gutenberg",
+      "vLevel": 5,
+      "articles": 7508,
+      "sampled": 30,
+      "ok": 29,
+      "yieldPct": 96.7,
+      "usableEstimate": 7258,
+      "reasons": {
+        "ok": 29,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 1,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
       "source": "voa",
       "vLevel": 4,
       "articles": 6090,
@@ -58,18 +75,18 @@
     },
     {
       "source": "plos",
-      "vLevel": 6,
-      "articles": 32082,
+      "vLevel": 7,
+      "articles": 7422,
       "sampled": 30,
-      "ok": 4,
-      "yieldPct": 13.3,
-      "usableEstimate": 4278,
+      "ok": 19,
+      "yieldPct": 63.3,
+      "usableEstimate": 4701,
       "reasons": {
-        "ok": 4,
+        "ok": 19,
         "no_window": 0,
-        "apparatus": 12,
+        "apparatus": 11,
         "chrome": 0,
-        "other": 14,
+        "other": 0,
         "body_none": 0
       }
     },
@@ -78,15 +95,15 @@
       "vLevel": 5,
       "articles": 4995,
       "sampled": 30,
-      "ok": 19,
-      "yieldPct": 63.3,
-      "usableEstimate": 3164,
+      "ok": 27,
+      "yieldPct": 90,
+      "usableEstimate": 4496,
       "reasons": {
-        "ok": 19,
+        "ok": 27,
         "no_window": 0,
         "apparatus": 2,
         "chrome": 0,
-        "other": 9,
+        "other": 1,
         "body_none": 0
       }
     },
@@ -121,23 +138,6 @@
         "apparatus": 0,
         "chrome": 0,
         "other": 0,
-        "body_none": 0
-      }
-    },
-    {
-      "source": "plos",
-      "vLevel": 7,
-      "articles": 7422,
-      "sampled": 30,
-      "ok": 9,
-      "yieldPct": 30,
-      "usableEstimate": 2227,
-      "reasons": {
-        "ok": 9,
-        "no_window": 0,
-        "apparatus": 11,
-        "chrome": 0,
-        "other": 10,
         "body_none": 0
       }
     },
@@ -261,6 +261,23 @@
       }
     },
     {
+      "source": "europe_pmc",
+      "vLevel": 6,
+      "articles": 772,
+      "sampled": 30,
+      "ok": 30,
+      "yieldPct": 100,
+      "usableEstimate": 772,
+      "reasons": {
+        "ok": 30,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
       "source": "futurity",
       "vLevel": 6,
       "articles": 727,
@@ -295,23 +312,6 @@
       }
     },
     {
-      "source": "europe_pmc",
-      "vLevel": 6,
-      "articles": 772,
-      "sampled": 30,
-      "ok": 17,
-      "yieldPct": 56.7,
-      "usableEstimate": 437,
-      "reasons": {
-        "ok": 17,
-        "no_window": 0,
-        "apparatus": 0,
-        "chrome": 0,
-        "other": 13,
-        "body_none": 0
-      }
-    },
-    {
       "source": "usgs",
       "vLevel": 5,
       "articles": 383,
@@ -325,6 +325,23 @@
         "apparatus": 0,
         "chrome": 0,
         "other": 1,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "europe_pmc",
+      "vLevel": 7,
+      "articles": 301,
+      "sampled": 30,
+      "ok": 29,
+      "yieldPct": 96.7,
+      "usableEstimate": 291,
+      "reasons": {
+        "ok": 29,
+        "no_window": 1,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
         "body_none": 0
       }
     },
@@ -380,23 +397,6 @@
       }
     },
     {
-      "source": "europe_pmc",
-      "vLevel": 7,
-      "articles": 301,
-      "sampled": 30,
-      "ok": 16,
-      "yieldPct": 53.3,
-      "usableEstimate": 161,
-      "reasons": {
-        "ok": 16,
-        "no_window": 1,
-        "apparatus": 0,
-        "chrome": 0,
-        "other": 13,
-        "body_none": 0
-      }
-    },
-    {
       "source": "original",
       "vLevel": 2,
       "articles": 160,
@@ -448,6 +448,23 @@
       }
     },
     {
+      "source": "europe_pmc",
+      "vLevel": 5,
+      "articles": 167,
+      "sampled": 30,
+      "ok": 27,
+      "yieldPct": 90,
+      "usableEstimate": 150,
+      "reasons": {
+        "ok": 27,
+        "no_window": 3,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
       "source": "original",
       "vLevel": 4,
       "articles": 144,
@@ -478,6 +495,23 @@
         "apparatus": 0,
         "chrome": 0,
         "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "plos",
+      "vLevel": 8,
+      "articles": 144,
+      "sampled": 30,
+      "ok": 26,
+      "yieldPct": 86.7,
+      "usableEstimate": 125,
+      "reasons": {
+        "ok": 26,
+        "no_window": 0,
+        "apparatus": 3,
+        "chrome": 0,
+        "other": 1,
         "body_none": 0
       }
     },
@@ -516,23 +550,6 @@
       }
     },
     {
-      "source": "plos",
-      "vLevel": 8,
-      "articles": 144,
-      "sampled": 30,
-      "ok": 21,
-      "yieldPct": 70,
-      "usableEstimate": 101,
-      "reasons": {
-        "ok": 21,
-        "no_window": 0,
-        "apparatus": 3,
-        "chrome": 0,
-        "other": 6,
-        "body_none": 0
-      }
-    },
-    {
       "source": "original",
       "vLevel": 5,
       "articles": 79,
@@ -567,6 +584,23 @@
       }
     },
     {
+      "source": "europe_pmc",
+      "vLevel": 8,
+      "articles": 51,
+      "sampled": 30,
+      "ok": 26,
+      "yieldPct": 86.7,
+      "usableEstimate": 44,
+      "reasons": {
+        "ok": 26,
+        "no_window": 4,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
       "source": "wikipedia",
       "vLevel": 6,
       "articles": 40,
@@ -580,23 +614,6 @@
         "apparatus": 0,
         "chrome": 0,
         "other": 1,
-        "body_none": 0
-      }
-    },
-    {
-      "source": "europe_pmc",
-      "vLevel": 5,
-      "articles": 167,
-      "sampled": 30,
-      "ok": 7,
-      "yieldPct": 23.3,
-      "usableEstimate": 39,
-      "reasons": {
-        "ok": 7,
-        "no_window": 3,
-        "apparatus": 0,
-        "chrome": 0,
-        "other": 20,
         "body_none": 0
       }
     },
@@ -648,23 +665,6 @@
         "apparatus": 0,
         "chrome": 0,
         "other": 0,
-        "body_none": 0
-      }
-    },
-    {
-      "source": "europe_pmc",
-      "vLevel": 8,
-      "articles": 51,
-      "sampled": 30,
-      "ok": 15,
-      "yieldPct": 50,
-      "usableEstimate": 26,
-      "reasons": {
-        "ok": 15,
-        "no_window": 4,
-        "apparatus": 0,
-        "chrome": 0,
-        "other": 11,
         "body_none": 0
       }
     },
@@ -941,8 +941,8 @@
       }
     },
     {
-      "source": "owid",
-      "vLevel": 5,
+      "source": "elife",
+      "vLevel": 7,
       "articles": 7,
       "sampled": 7,
       "ok": 7,
@@ -958,15 +958,15 @@
       }
     },
     {
-      "source": "elife",
-      "vLevel": 7,
-      "articles": 7,
-      "sampled": 7,
-      "ok": 7,
+      "source": "noaa",
+      "vLevel": 6,
+      "articles": 6,
+      "sampled": 6,
+      "ok": 6,
       "yieldPct": 100,
-      "usableEstimate": 7,
+      "usableEstimate": 6,
       "reasons": {
-        "ok": 7,
+        "ok": 6,
         "no_window": 0,
         "apparatus": 0,
         "chrome": 0,
@@ -1005,23 +1005,6 @@
         "apparatus": 0,
         "chrome": 28,
         "other": 0,
-        "body_none": 0
-      }
-    },
-    {
-      "source": "noaa",
-      "vLevel": 6,
-      "articles": 6,
-      "sampled": 6,
-      "ok": 5,
-      "yieldPct": 83.3,
-      "usableEstimate": 5,
-      "reasons": {
-        "ok": 5,
-        "no_window": 0,
-        "apparatus": 0,
-        "chrome": 0,
-        "other": 1,
         "body_none": 0
       }
     },
@@ -1417,23 +1400,6 @@
       }
     },
     {
-      "source": "owid",
-      "vLevel": 4,
-      "articles": 2,
-      "sampled": 2,
-      "ok": 2,
-      "yieldPct": 100,
-      "usableEstimate": 2,
-      "reasons": {
-        "ok": 2,
-        "no_window": 0,
-        "apparatus": 0,
-        "chrome": 0,
-        "other": 0,
-        "body_none": 0
-      }
-    },
-    {
       "source": "nist",
       "vLevel": 4,
       "articles": 1,
@@ -1512,6 +1478,23 @@
       "reasons": {
         "ok": 1,
         "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "europe_pmc",
+      "vLevel": 9,
+      "articles": 2,
+      "sampled": 2,
+      "ok": 1,
+      "yieldPct": 50,
+      "usableEstimate": 1,
+      "reasons": {
+        "ok": 1,
+        "no_window": 1,
         "apparatus": 0,
         "chrome": 0,
         "other": 0,
@@ -1638,6 +1621,23 @@
       }
     },
     {
+      "source": "owid",
+      "vLevel": 5,
+      "articles": 7,
+      "sampled": 7,
+      "ok": 0,
+      "yieldPct": 0,
+      "usableEstimate": 0,
+      "reasons": {
+        "ok": 0,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 7,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
       "source": "storyweaver",
       "vLevel": 7,
       "articles": 2,
@@ -1672,8 +1672,8 @@
       }
     },
     {
-      "source": "europe_pmc",
-      "vLevel": 9,
+      "source": "owid",
+      "vLevel": 4,
       "articles": 2,
       "sampled": 2,
       "ok": 0,
@@ -1681,10 +1681,10 @@
       "usableEstimate": 0,
       "reasons": {
         "ok": 0,
-        "no_window": 1,
+        "no_window": 0,
         "apparatus": 0,
-        "chrome": 0,
-        "other": 1,
+        "chrome": 2,
+        "other": 0,
         "body_none": 0
       }
     }

@@ -398,6 +398,7 @@ export {
   hasAcademicApparatus,
   hasNonProse,
   isPrintablePassage,
+  buildPassage,
   selectPassageWindow,
 } from './textbook/csat-format'
 // 문항 하나를 학습자에게 내보내도 되는가 — 조판과 연습이 **같은 판정**을 쓰게 한다.

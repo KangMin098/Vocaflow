@@ -284,6 +284,37 @@ describe('구텐베르크 표기를 지면 글자로 옮긴다', () => {
     expect(normalizeSourceMarkup('synthetic--that is to say')).toContain('synthetic—that')
   })
 
+  // ── 대괄호 참조 표시 ─────────────────────────────────────────────
+  // ⚠️ 학술 원문이 지문이 되지 못하는 **가장 큰 단일 원인**이었다. 실측 2026-09-15:
+  //    `plos` V6(32,230편)의 생존율이 29.3% 였고, 참조 표시 하나만으로 죽는 것이
+  //    표본 150 중 56편(37.3%)이었다. 떼면 29.3% → 66.7% (추정 회수 12,033편).
+  it.each([
+    ['한 개', 'relies on the neural processing [12].', 'relies on the neural processing.'],
+    ['여럿', 'such as memory [3,4] and reasoning.', 'such as memory and reasoning.'],
+    ['범위', 'reduced recall [5-7], and slower speed.', 'reduced recall, and slower speed.'],
+    // 수확기가 링크 글자만 떼고 괄호를 남긴 자국 — 표본 120편에서 1,318개로 두 번째로 많았다.
+    ['빈 괄호', 'access to abortion care []. There is also', 'access to abortion care. There is also'],
+  ])('참조 표시(%s)를 뗀다', (_label, raw, want) => {
+    expect(normalizeSourceMarkup(raw)).toBe(want)
+  })
+
+  // ⚠️ **오탐 가드.** 대괄호 안이 숫자·쉼표·붙임표뿐일 때만 손댄다 — 편집자 삽입은
+  //    본문의 일부다. 규칙이 넓어지면 이 줄이 먼저 깨져야 한다.
+  it.each([
+    ['sic', 'He wrote "teh [sic] answer" on the board.'],
+    ['편집자 삽입', 'She said [the author] had already left.'],
+    ['낱말 섞인 것', 'The value [n = 12] was stable.'],
+  ])('%s 는 본문이라 남긴다', (_label, raw) => {
+    expect(normalizeSourceMarkup(raw)).toBe(raw)
+  })
+
+  it('참조를 떼도 낱말이 붙지 않는다', () => {
+    // `speed [3] and` → `speed and` — 공백 하나만 남아야 한다.
+    expect(normalizeSourceMarkup('perceptual speed [3] and maintenance')).toBe(
+      'perceptual speed and maintenance',
+    )
+  })
+
   it('짝이 맞는 밑줄 강조를 벗긴다 — 실측 1,565문항', () => {
     expect(normalizeSourceMarkup('Reason must _possess a formative faculty._')).toBe(
       'Reason must possess a formative faculty.',

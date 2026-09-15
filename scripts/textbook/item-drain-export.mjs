@@ -243,7 +243,13 @@ const arts = await fetchAllPaged(db, (q) =>
 //
 //   순서·삽입은 처음부터 **문단**을 지문으로 쓴다. 생성형만 글 전체를 쓰고 있었던 것이
 //   문제였다 — 같은 자를 대야 한다. `selectPassageWindow` 가 그 자다(이미 어법 생성기가 쓴다).
-const { itemWordSpec, selectPassageWindow, isPrintablePassage } = await import('@vocaflow/library-pipeline')
+// ⚠️ **뽑기도 조판과 같은 정제기를 쓴다.** `normalizeSourceMarkup` 은 오래 조판 사슬에만
+//   있었는데, 그래서 **조판은 고쳐 인쇄할 글을 뽑기가 먼저 버리고 있었다**(실측 2026-09-15:
+//   `plos` V6 의 37.3%가 참조 표시 하나 때문에 후보에서 빠졌다 — 추정 12,033편).
+//   인쇄되는 판과 뽑는 판이 다르면 재고가 조용히 샌다.
+const { itemWordSpec, isPrintablePassage, normalizeSourceMarkup, buildPassage } = await import(
+  '@vocaflow/library-pipeline'
+)
 
 // **집필 몫의 창은 조립 기준과 같아야 한다.**
 //
@@ -319,19 +325,15 @@ function passageOf(a) {
   if (IS_LONG) {
     const ps = parasOf(a.content)
     if (ps.length !== LONG_PARAGRAPHS) return null
-    const text = ps.join('\n\n')
+    const text = normalizeSourceMarkup(ps.join('\n\n'))
     const n = text.split(/\s+/).filter(Boolean).length
     if (n < LONG_WORDS.min || n > LONG_WORDS.max) return null
     return isPrintablePassage(text) ? text : null
   }
-  const sentences = String(a.content)
-    .replace(/\n\s*\n+/g, ' ')
-    .split(/(?<=[.!?])\s+/)
-    .map((s) => s.replace(/\s+/g, ' ').trim())
-    .filter((s) => s.length > 1)
-  const win = selectPassageWindow(sentences, PASSAGE_WINDOW, MIN_PASSAGE_SENTENCES)
-  if (!win) return null
-  const text = win.join(' ')
+  // 정제 · 문장 쪼개기 · 창 선택은 `buildPassage` 한 벌이다 — 여기서 다시 구현하지 않는다.
+  //   (사본을 뒀다가 정제기를 넣은 날 원천 생존율 스캔이 1도 안 움직였다 — 실측 2026-09-15.)
+  const text = buildPassage(a.content, PASSAGE_WINDOW, MIN_PASSAGE_SENTENCES)
+  if (!text) return null
   // 인쇄할 수 없는 자국(각주 잔해·용어풀이 등)이 섞인 지문은 교재에 못 낸다.
   return isPrintablePassage(text) ? text : null
 }

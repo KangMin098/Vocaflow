@@ -375,11 +375,34 @@ export function dropRepeatedTail(text: string): string {
  * ⚠️ 짝이 맞는 밑줄만 벗긴다(`_낱말…낱말_`). 영어 산문에 홀 밑줄은 거의 없고, 짝을
  *   요구하면 변수명(`blank_word`) 같은 것을 건드리지 않는다.
  */
+/**
+ * **대괄호 참조 표시** — 학술 원문이 지문이 되지 못하는 가장 큰 단일 원인.
+ *
+ * ⚠️ 실측 2026-09-15: `plos` V6(재고 32,230편)의 지문 생존율이 **29.3%** 였는데,
+ *   사인을 규칙 단위로 가르니 **참조 표시 하나만으로 죽는 것이 표본 150 중 56편(37.3%)**
+ *   이었다. 떼면 생존율이 **29.3% → 66.7%** 로 오르고 **어수 창 밖으로 나가는 것은 0편**이다
+ *   (추정 회수 **12,033편**).
+ *
+ *   오탐도 쟀다 — 표본 120편에서 지워지는 3,681개의 꼴이 전부 참조 표시였다:
+ *   `[N]` 1,618 · **`[]` 1,318**(수확기가 링크 글자만 떼고 괄호를 남긴 자국) ·
+ *   `[N,N]` 426 · `[N–N]` 168. 지워지는 자리도 전부 절 끝 문장부호 앞이었다.
+ *
+ *   **대괄호 안이 숫자·쉼표·붙임표뿐일 때만 손댄다** — `[sic]` · `[the author]` 같은
+ *   편집자 삽입은 본문의 일부라 남긴다. 그 둘을 회귀에 박아 두었다.
+ *
+ *   ⚠️ 앞 공백까지 함께 먹는다(`\s*`). 안 그러면 `processing [12].` 이 `processing .` 이
+ *   되어 구두점 앞 공백이 남는데, 이 함수는 사슬에서 `stripSpaceBeforePunct` **뒤에** 돈다.
+ */
+const REFERENCE_MARK = /\s*\[\s*\d+(?:\s*[,\-–]\s*\d+)*\s*\]|\s*\[\s*\]/g
+
 export function normalizeSourceMarkup(text: string): string {
   return String(text ?? '')
     // 낱말 사이의 이중 하이픈만 — 목록의 `--` 구분선은 건드리지 않는다.
     .replace(/([A-Za-z,;])--([A-Za-z])/g, '$1—$2')
     .replace(/_([A-Za-z][^_\n]{1,120}[A-Za-z.,!?])_/g, '$1')
+    .replace(REFERENCE_MARK, '')
+    // 참조를 떼면 낱말이 붙어 버리는 자리가 생긴다 — `speed and` 가 `speedand` 가 되지 않게.
+    .replace(/\s{2,}/g, ' ')
 }
 
 export function normalizeQuotes(text: string): string {
@@ -593,6 +616,37 @@ export function selectPassageWindow(
     if (best) break // 가장 이른 시작에서 찾았으면 거기서 끝낸다 — 멱등해야 한다.
   }
   return best ? sentences.slice(best.start, best.end + 1) : null
+}
+
+/**
+ * **원글 본문 → 규격에 맞는 지문 한 장.** 정제 · 문장 쪼개기 · 창 선택을 한 자리에 묶는다.
+ *
+ * ── 왜 한 자리여야 하는가 (실측 2026-09-15) ─────────────────────────
+ * 이 다섯 줄이 저장소 열 곳 넘게 복제돼 있었고, 그래서 **조용히 갈렸다.**
+ * `normalizeSourceMarkup`(대괄호 참조 표시 제거)을 뽑기에 넣은 날, 같은 것을 재던
+ * 원천 생존율 스캔은 **수치가 1도 안 움직였다** — 스캔이 지문 만드는 과정을 제 손으로
+ * 다시 구현해 정제기를 안 불렀기 때문이다. 주석에는 「뽑기와 같은 자를 쓴다」고
+ * 적혀 있었다. **적어 둔다고 같은 자가 되지 않는다.**
+ *
+ * ⚠️ **정제가 창 선택보다 먼저다.** 뒤에 두면 참조 표시를 떼면서 어수가 줄어 창 아래로
+ *   내려갈 수 있고, 그러면 여기서 통과시킨 지문을 조판이 버린다. 자를 재고 나서 재료를
+ *   바꾸면 안 된다.
+ *
+ * @returns 규격에 맞는 구간이 없으면 null. **인쇄 가능 여부는 여기서 보지 않는다** —
+ *   부르는 쪽이 `isPrintablePassage` 로 따로 판정한다(사유를 가려 세야 하는 곳이 있다).
+ */
+export function buildPassage(
+  content: string,
+  spec: { min: number; max: number },
+  minSentences: number,
+): string | null {
+  const sentences = normalizeSourceMarkup(String(content ?? ''))
+    .replace(/\n\s*\n+/g, ' ')
+    .split(/(?<=[.!?])\s+/)
+    .map((s) => s.replace(/\s+/g, ' ').trim())
+    .filter((s) => s.length > 1)
+  const win = selectPassageWindow(sentences, spec, minSentences)
+  return win ? win.join(' ') : null
 }
 
 /** 수능 순서 문항 — 도입문 + (A)(B)(C) + 5지선다. */

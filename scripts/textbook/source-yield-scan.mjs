@@ -19,9 +19,13 @@
 // 어느 밴드에 어느 원천을 붙일지가 여기서 갈린다 — 그것이 「원문 선택의 기준」이다.
 //
 // ── 무엇을 재는가 ────────────────────────────────────────────────────
-// 원천 × 학년으로 표본을 뽑아, **뽑기(`item-drain-export.mjs`)가 쓰는 것과 같은 자**로
-// 지문을 만들어 본다: `selectPassageWindow` 로 창을 자르고 `isPrintablePassage` 로 거른다.
+// 원천 × 학년으로 표본을 뽑아, **뽑기(`item-drain-export.mjs`)와 같은 함수**로 지문을
+// 만들어 본다: `buildPassage`(정제 → 문장 쪼개기 → 창 선택) 뒤 `isPrintablePassage` 로 거른다.
 // 통과하면 그 글은 문항이 될 수 있고, 못 하면 재고에 있어도 지면에는 못 온다.
+//
+// ⚠️ **같은 함수여야 한다 — 「같은 자」라고 적는 것으로는 부족하다.** 2026-09-15 에 뽑기에
+//   정제기를 넣었더니 이 표가 **1도 안 움직였다.** 여기가 지문 만드는 과정을 제 손으로
+//   다시 구현하고 있었기 때문이다(주석에는 이미 「같은 자」라고 적혀 있었다).
 //
 // ⚠️ **표본이다.** 밴드 하나가 3만 편을 넘고 본문이 1.3GB 라 전수는 못 잰다. 원천×학년
 //   칸마다 최대 `--per`(기본 40)편을 보고, **표본 수를 반드시 함께 찍는다** — 5편 본 칸의
@@ -60,9 +64,12 @@ const { createClient } = await import('@supabase/supabase-js')
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, {
   auth: { persistSession: false },
 })
+// ⚠️ **지문 만드는 과정을 여기서 다시 구현하지 않는다.** 예전엔 문장 쪼개기·창 선택을
+//   손으로 갖고 있었고, 그래서 뽑기에 정제기를 넣은 날 이 표가 **1도 안 움직였다**
+//   (실측 2026-09-15 — 주석에는 「뽑기와 같은 자」라고 적혀 있었다). `buildPassage` 한 벌.
 const {
   itemWordSpec,
-  selectPassageWindow,
+  buildPassage,
   isPrintablePassage,
   hasArticleChrome,
   hasAcademicApparatus,
@@ -130,15 +137,9 @@ const MIN_SENTENCES = 5
 function verdict(a) {
   const body = bodies.get(a.id) ?? ''
   if (!body.trim()) return 'body_none'
-  const sentences = body
-    .replace(/\n\s*\n+/g, ' ')
-    .split(/(?<=[.!?])\s+/)
-    .map((s) => s.replace(/\s+/g, ' ').trim())
-    .filter((s) => s.length > 1)
-  const win = selectPassageWindow(sentences, itemWordSpec(TYPE, a.article_v_level), MIN_SENTENCES)
+  const text = buildPassage(body, itemWordSpec(TYPE, a.article_v_level), MIN_SENTENCES)
   // 창을 못 만든다 = 어수가 규격 밖이거나 문장이 모자라다.
-  if (!win) return 'no_window'
-  const text = win.join(' ')
+  if (!text) return 'no_window'
   if (isPrintablePassage(text)) return 'ok'
   // 왜 인쇄할 수 없는지 갈라 적는다 — 처방이 다르다(수확기 수정 vs 원천 교체).
   if (hasAcademicApparatus(text)) return 'apparatus'
