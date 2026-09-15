@@ -20,7 +20,8 @@ import { notFound } from 'next/navigation'
 
 import { PassageMap } from '@/components/csat/PassageMap'
 import { kiceSourceOf } from '@/lib/csat/kice-source'
-import { fromItemSlug, loadCsatItemExplain } from '@/lib/csat/learner'
+import { fromItemSlug, loadCsatItemExplain, loadCsatTypeItems } from '@/lib/csat/learner'
+import { pickNextItem } from '@/lib/csat/next-item'
 import type { MapAnchor } from '@/lib/csat/passage-map-model'
 import { loadItemSkeleton } from '@/lib/csat/skeleton'
 
@@ -74,6 +75,15 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
   // (게시판 7개·모평 안내 3쪽·본원 사이트·옛 archive 전수 확인 · kice-source.ts 머리말).
   // 링크가 없는 회차에서 「원본과 함께 보기」라고 적으면 눌러 본 사람이 속는다.
   const hasKicePaper = item ? kiceSourceOf(item.id.split('#')[0]).paperUrl != null : false
+
+  // **다 보고 나면 앞이 없었다** — 나가는 문이 「← 유형 목록」과 오버레이 둘뿐이라, 다음 지도에
+  // 닿으려면 목록으로 되돌아가 다시 골라야 했다. 그런데 이 화면의 값어치는 **연달아 볼 때**
+  // 생긴다(한 문항은 일화, 서넛이면 규칙). 해설이 있고 **지도가 있는 것**을 먼저 고른다 —
+  // 지도가 없으면 방금 익힌 조작이 사라진다.
+  const { items: siblings } = item?.type_id
+    ? await loadCsatTypeItems(item.type_id)
+    : { items: [] as Awaited<ReturnType<typeof loadCsatTypeItems>>['items'] }
+  const next = item ? pickNextItem(siblings, item.id, (id) => loadItemSkeleton(id) != null) : null
 
   return (
     <main className="mx-auto max-w-3xl px-4 py-6 sm:px-6">
@@ -212,6 +222,27 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
                 ))}
               </ul>
             </section>
+          ) : null}
+
+          {/* **다음 걸음.** 이 유형을 연달아 봐야 「여기를 본다」가 규칙으로 잡힌다.
+              1차 문이므로 다른 링크보다 앞에 두고 더 또렷하게 그린다. */}
+          {next ? (
+            <Link
+              href={`/csat/item/${next.item.slug}`}
+              className="mt-8 flex min-h-[44px] items-center justify-between gap-3 rounded-[var(--r-md)] border border-[var(--p)] bg-[var(--sf)] px-4 py-3 transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--sf-2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)] motion-reduce:transition-none"
+            >
+              <span className="min-w-0 break-keep">
+                <span className="block text-sm font-bold text-[var(--t1)]">
+                  같은 유형 다음 기출 — {next.item.exam_label} {next.item.no}번
+                </span>
+                <span className="mt-0.5 block text-xs text-[var(--t3)]">
+                  {next.hasMap ? '지문 지도로 이어집니다' : '해설로 이어집니다'} · 이 유형에 {next.remaining}문항 더
+                </span>
+              </span>
+              <span aria-hidden className="shrink-0 text-[var(--t3)]">
+                →
+              </span>
+            </Link>
           ) : null}
 
           {/* 「곁에 두고 읽는다」의 «곁» 을 같은 화면으로 옮기는 길 — 이 화면이 원문을 싣지

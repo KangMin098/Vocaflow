@@ -174,6 +174,20 @@ test.describe('기출 문항 해설 — 지문 지도', () => {
     }
   });
 
+  test('다 보고 나면 다음 기출로 가는 문이 있다', async ({ page }) => {
+    // 이 화면의 값어치는 **연달아 볼 때** 생긴다. 문이 없으면 유형 목록으로 되돌아가
+    // 다시 고르는 두 걸음을 거쳐야 다음 지도에 닿는다.
+    // 실측 2026-09-15: 802문항 중 **801**이 이 문을 받고, 그 801 전부가 지도로 이어진다
+    // (없는 하나는 문항이 하나뿐인 유형 — 그때는 일부러 안 그린다).
+    await page.goto(`/csat/item/${ITEM_SLUG}`, { waitUntil: 'networkidle', timeout: 45_000 })
+    const next = page.getByRole('link', { name: /같은 유형 다음 기출/ })
+    await expect(next).toBeVisible()
+    // 눌러서 도착한 곳이 **다른 문항**이어야 한다 — 제자리 링크는 앞길이 아니다.
+    const href = await next.getAttribute('href')
+    expect(href).toMatch(new RegExp('^' + '/csat/item/'))
+    expect(href).not.toContain(ITEM_SLUG)
+  })
+
   test('원문이 통째로 나오지 않는다', async ({ page }) => {
     await page.goto(`/csat/item/${ITEM_SLUG}`, { waitUntil: 'networkidle', timeout: 45_000 });
     const text = (await page.locator('main').innerText()).replace(/\s+/g, ' ');
