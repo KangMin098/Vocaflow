@@ -77,8 +77,16 @@ if (since) {
     process.exit(2)
   }
 }
-if (!id && !title && !missingVocab) {
-  console.error('--id · --title · --missing-vocab 중 하나가 필요하다.')
+/**
+ * `--ids-file <경로>` — **본문을 고친 뒤 그 행들만 다시 분석한다.**
+ *
+ * `plos-abstract-repair.mjs` 의 백업 JSONL 을 그대로 준다(줄마다 `{"id": …}`).
+ * 한 줄 한 id 인 평범한 텍스트 파일도 받는다.
+ */
+const idsFile = arg('ids-file')
+
+if (!id && !title && !missingVocab && !idsFile) {
+  console.error('--id · --title · --missing-vocab · --ids-file 중 하나가 필요하다.')
   process.exit(2)
 }
 
@@ -118,18 +126,41 @@ async function idsOf(applyFilter) {
   return out
 }
 
-/** 넓은 행을 **필요한 것만** 받는다. `IN` 묶음은 작게 — 행이 넓어 한 번에 크게 물으면 걸린다. */
+/**
+ * 넓은 행을 **필요한 것만** 받는다. `IN` 묶음은 작게 — 행이 넓어 한 번에 크게 물으면 걸린다.
+ *
+ * ⚠️ **한 묶음이 실패했다고 통째로 멈추지 않는다** (실측 2026-09-15). 17,637편을 50씩
+ *   353번 물었는데 그중 한 번이 `TypeError: fetch failed` 로 죽자 **한 편도 처리하지 못하고**
+ *   끝났다. 이 머신은 TLS 1.3 이 막혀 있어(`NODE_OPTIONS=--tls-max-v1.2` 로 붙는다) 간헐적으로
+ *   이렇게 튄다 — 긴 작업일수록 한 번은 반드시 만난다.
+ *   그래서 묶음마다 기다렸다 다시 묻고, 그래도 안 되면 **그 묶음만 건너뛰고 수를 밝힌다.**
+ *   조용히 빠지면 「대상이 그만큼이었다」로 읽혀 구멍이 영영 남는다.
+ */
 async function fullRows(ids) {
   const out = []
+  const BACKOFF = [0, 1000, 3000, 8000]
+  let dropped = 0
   for (let i = 0; i < ids.length; i += 50) {
-    const { data, error } = await db
-      .from('library_articles')
-      .select(FULL_COLS)
-      .in('id', ids.slice(i, i + 50))
-      .order('id')
-    if (error) throw new Error(error.message)
-    out.push(...(data ?? []))
+    const chunk = ids.slice(i, i + 50)
+    let got = null
+    let last = ''
+    for (let attempt = 0; attempt < BACKOFF.length && !got; attempt += 1) {
+      if (attempt > 0) await new Promise((r) => setTimeout(r, BACKOFF[attempt]))
+      const res = await db.from('library_articles').select(FULL_COLS).in('id', chunk).order('id')
+      if (res.error) {
+        last = res.error.message || '(메시지 없음)'
+        continue
+      }
+      got = res.data ?? []
+    }
+    if (!got) {
+      dropped += chunk.length
+      console.error(`  ⚠️ 묶음 ${i}–${i + chunk.length - 1} 를 못 받았다: ${last}`)
+      continue
+    }
+    out.push(...got)
   }
+  if (dropped) console.error(`  ⚠️ 못 받은 편수 ${dropped.toLocaleString()} — 다시 돌리면 이어서 받는다.`)
   return out
 }
 
@@ -182,16 +213,37 @@ if (missingVocab) {
   console.log(`어휘 없는 글만 남긴다 — ${candidates.length} → ${missing.length}`)
   // ③ 살아남은 것만 본문을 받는다
   list = (await fullRows(missing)).filter((a) => (a.content ?? '').trim())
+} else if (idsFile) {
+  // **본문이 바뀐 행을 다시 분석한다.**
+  //
+  // ⚠️ `--missing-vocab` 은 **어휘가 0인 글만** 고른다. 본문을 고친 글은 어휘가 이미
+  //   있으므로 한 편도 안 잡히고, 스크립트는 「대상 0편」으로 **정상 종료한다** —
+  //   돌린 사람은 재분석했다고 믿는다. 실측 2026-09-15: PLOS 초록 중복 17,633편을
+  //   고친 뒤 그대로 돌릴 뻔했다.
+  //   그래서 **바뀐 행의 id 를 파일로 받는다**. `plos-abstract-repair.mjs` 의 백업
+  //   JSONL 이 곧 그 목록이다(줄마다 `{"id": …}`). 일반 텍스트(한 줄 한 id)도 받는다.
+  const raw = fs.readFileSync(path.resolve(idsFile), 'utf8').split('\n').filter((l) => l.trim())
+  const ids = [...new Set(raw.map((l) => (l.trim().startsWith('{') ? JSON.parse(l).id : l.trim())))]
+  console.log(`id 파일 — ${raw.length.toLocaleString()}줄 → 고유 ${ids.length.toLocaleString()}편`)
+  list = (await fullRows(ids)).filter((a) => (a.content ?? '').trim())
 } else {
   const ids = await idsOf((p) => (id ? p.eq('id', id) : p.ilike('title', `%${title}%`)))
   list = (await fullRows(ids)).filter((a) => (a.content ?? '').trim())
 }
 
 console.log(`대상 ${list.length}편`)
-for (const a of list) console.log(`  · ${a.status.padEnd(10)} ${String(a.title).slice(0, 60)}`)
+// 목록이 길면 앞 20편만 보여 준다 — 17,637줄을 찍으면 정작 결과가 안 보인다.
+for (const a of list.slice(0, 20)) console.log(`  · ${a.status.padEnd(10)} ${String(a.title).slice(0, 60)}`)
+if (list.length > 20) console.log(`  … 그 외 ${(list.length - 20).toLocaleString()}편`)
 if (!commit) { console.log('\n--commit 을 붙이면 재분석한다.'); process.exit(0) }
 
+let done = 0
+let failed = 0
 for (const a of list) {
+  // ⚠️ **한 편이 죽어도 계속한다** (실측 2026-09-15). 예전에는 감싸지 않아서, 17,637편짜리
+  //   작업에서 간헐적인 `fetch failed` 한 번에 **나머지 전부가 날아갔다.** 긴 작업에서는
+  //   그 한 번을 반드시 만난다. 실패는 세어서 끝에 밝히고, 다시 돌리면 이어서 한다(멱등).
+  try {
   // 기사 경로와 **같은 설정**이어야 한다 — 다르면 재분석이 또 다른 결과를 만든다.
   const bodyText = reflowSoftHyphens(normalizePunctuation(a.content ?? ''), { joinHyphenLineBreaks: false })
   const norm = {
@@ -215,6 +267,18 @@ for (const a of list) {
     ].filter(Boolean).join(' · ') || null,
     content_hash: norm.body_hash,
   }).eq('id', a.id)
-  if (e) console.log(`  ✗ ${a.id}: ${e.message}`)
-  else console.log(`  ✓ ${result.cefr_level} · ${result.word_count}어 · 어휘 ${result.words.length}`)
+    if (e) {
+      failed += 1
+      console.log(`  ✗ ${a.id}: ${e.message}`)
+    } else {
+      done += 1
+      if (done % 200 === 0) process.stdout.write(`\r  재분석 ${done.toLocaleString()} / ${list.length.toLocaleString()} …`)
+    }
+  } catch (err) {
+    failed += 1
+    console.log(`  ✗ ${a.id}: ${err instanceof Error ? err.message : String(err)}`)
+  }
 }
+
+console.log(`\n\n  재분석 완료 ${done.toLocaleString()}편${failed ? ` · 실패 ${failed.toLocaleString()}` : ''}`)
+if (failed) console.log('  다시 돌리면 이어서 한다 — 재분석은 멱등이다.')

@@ -35,11 +35,25 @@
 //   ⑤ **바닥 길이** — 자른 뒤 본문이 `MIN_CHARS` 미만이면 건너뛴다. 「본문 div 없이
 //      초록만 있는 편」을 통째로 비우지 않기 위해서다(`plos-abstract-duplication.test.ts`
 //      머리말이 그 사고를 적고 있다 — 20편 중 1편).
+//   ⑥ **되돌릴 수 있다** — 잘라낸 조각을 쓰기 **전에** 파일에 적고(`--restore` 로 복원),
+//      복원할 때는 이어 붙인 결과의 해시를 대조해 그 사이 바뀐 행은 건드리지 않는다.
+//
+// ── 되돌릴 수 있게 한다 (⑥ · 2026-09-15 추가) ───────────────────────
+// 이 작업은 **덮어쓰기**다. 잘못되면 PLOS 에서 17,600편을 다시 받아야 하는데 그건 사실상
+// 복구가 아니다. 그래서 쓰기 전에 **잘라낸 앞부분을 먼저 파일에 적는다**(write-ahead).
+//
+// 통째 본문이 아니라 **잘린 조각만** 적는 이유: 이 작업이 순수한 「앞 잘라내기」라서
+// `잘린조각 + 지금본문 = 원래본문` 이 정확히 성립한다. 통째로 적으면 약 260MB 이고,
+// 조각만 적으면 약 32MB 다. 되돌릴 때는 이어 붙인 결과의 sha256 이 `hash_before` 와
+// 같은지 **확인하고** 쓰므로, 중간에 다른 손이 닿았으면 그 행은 건너뛴다.
+//
+// 백업은 `tmp/`(git 무시) 에 남는다 — 저장소에 260MB 를 넣지 않기 위해서다.
 //
 // 실행:
 //   pnpm dlx tsx scripts/acp/plos-abstract-repair.mjs              ← 세기만 한다
 //   pnpm dlx tsx scripts/acp/plos-abstract-repair.mjs --limit 200  ← 앞 200편만
-//   pnpm dlx tsx scripts/acp/plos-abstract-repair.mjs --commit     ← 실제로 쓴다
+//   pnpm dlx tsx scripts/acp/plos-abstract-repair.mjs --commit     ← 실제로 쓴다(백업 자동)
+//   pnpm dlx tsx scripts/acp/plos-abstract-repair.mjs --restore tmp/…jsonl --commit  ← 되돌린다
 //
 // ── 다음 단계 (이 스크립트가 **하지 않는** 것) ──────────────────────
 // `word_count`·`content_hash` 는 여기서 같이 고치지만, `article_v_level`·`cefr_level`·
@@ -72,6 +86,64 @@ const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABA
 })
 
 const sha256 = (s) => crypto.createHash('sha256').update(s, 'utf8').digest('hex')
+const wordCountOf = (s) => (String(s ?? '').trim().match(/\S+/g) ?? []).length
+
+// ── 되돌리기 (--restore) ────────────────────────────────────────────
+const RESTORE = arg('restore')
+if (RESTORE) {
+  const lines = fs.readFileSync(path.resolve(RESTORE), 'utf8').split('\n').filter(Boolean)
+  console.log(`되돌리기 — ${RESTORE} (${lines.length.toLocaleString()}행) · ${COMMIT ? '쓰기' : 'dry-run'}`)
+  let ok = 0
+  let mismatch = 0
+  let missing = 0
+  let failed = 0
+  for (const raw of lines) {
+    const rec = JSON.parse(raw)
+    const { data, error } = await db
+      .from('library_articles')
+      .select('id, content')
+      .eq('id', rec.id)
+      .maybeSingle()
+    if (error || !data) {
+      missing += 1
+      continue
+    }
+    const original = rec.removed + data.content
+    // **확인하고 쓴다** — 그 사이 다른 손이 닿았으면 덮지 않는다.
+    if (sha256(original) !== rec.hash_before) {
+      mismatch += 1
+      continue
+    }
+    if (!COMMIT) {
+      ok += 1
+      continue
+    }
+    const { error: werr } = await db
+      .from('library_articles')
+      .update({ content: original, content_hash: rec.hash_before, word_count: rec.wc_before })
+      .eq('id', rec.id)
+    if (werr) failed += 1
+    else ok += 1
+  }
+  console.log(`  되돌릴 수 있음/되돌림  ${ok.toLocaleString()}`)
+  console.log(`  그 사이 바뀜(건너뜀)   ${mismatch.toLocaleString()}`)
+  console.log(`  행이 없음              ${missing.toLocaleString()}`)
+  if (failed) console.log(`  쓰기 실패              ${failed.toLocaleString()}`)
+  if (!COMMIT) console.log('\n  아무것도 쓰지 않았다. 실제로 되돌리려면 --commit 을 붙인다.')
+  process.exit(0)
+}
+
+// ── 백업 파일 (쓰기 모드에서만 연다) ────────────────────────────────
+// ⚠️ **쓰기보다 먼저 적는다**(write-ahead). 중간에 죽어도 백업이 변경보다 뒤처지지 않는다.
+const BACKUP_PATH = COMMIT
+  ? path.resolve('tmp', `plos-abstract-repair-${new Date().toISOString().replace(/[:.]/g, '-')}.jsonl`)
+  : null
+let backupFd = null
+if (BACKUP_PATH) {
+  fs.mkdirSync(path.dirname(BACKUP_PATH), { recursive: true })
+  backupFd = fs.openSync(BACKUP_PATH, 'a')
+  console.log(`  백업 → ${path.relative(process.cwd(), BACKUP_PATH)}`)
+}
 
 /**
  * 중복한 긴 줄이 있는가 — **결함 스캐너와 같은 자**를 쓴다.
@@ -176,6 +248,18 @@ while (tally.scanned < LIMIT) {
     removedWords += (row.word_count ?? wordCount(row.content)) - wc
 
     if (COMMIT) {
+      // ⚠️ **백업을 먼저, 동기로 적는다.** 여기서 죽으면 DB 는 아직 옛 본문이고
+      //   백업에 한 줄이 더 있을 뿐이다 — 되돌리기가 그 줄을 「그 사이 바뀜」으로 건너뛴다.
+      //   순서를 뒤집으면 고친 행인데 백업이 없는 구멍이 생긴다.
+      fs.writeSync(
+        backupFd,
+        JSON.stringify({
+          id: row.id,
+          removed: row.content.slice(0, row.content.length - body.length),
+          hash_before: sha256(row.content),
+          wc_before: row.word_count ?? wordCountOf(row.content),
+        }) + '\n',
+      )
       const { error: werr } = await db
         .from('library_articles')
         .update({ content: body, content_hash: sha256(body), word_count: wc })
@@ -211,7 +295,10 @@ console.log(`  줄어드는 글자    ${removedChars.toLocaleString()} (편당 �
 console.log(`  줄어드는 낱말    ${removedWords.toLocaleString()} (편당 평균 ${tally.repaired ? Math.round(removedWords / tally.repaired) : 0})`)
 
 if (COMMIT) {
+  if (backupFd !== null) fs.closeSync(backupFd)
   console.log(`\n  쓴 편수          ${tally.written.toLocaleString()}${tally.failed ? ` · 실패 ${tally.failed}` : ''}`)
+  console.log(`  백업             ${path.relative(process.cwd(), BACKUP_PATH)}`)
+  console.log(`  되돌리려면       pnpm dlx tsx scripts/acp/plos-abstract-repair.mjs --restore ${path.relative(process.cwd(), BACKUP_PATH).split(path.sep).join('/')} --commit`)
   console.log('\n  ⚠️ 아직 안 끝났다 — 학령·CEFR·어휘는 옛 본문 위에서 계산된 값이다:')
   console.log('     pnpm dlx tsx scripts/acp/reprocess.mjs --commit')
   console.log('     pnpm dlx tsx scripts/textbook/extraction-defect-scan.mjs --all')
