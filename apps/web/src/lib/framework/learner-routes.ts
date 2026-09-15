@@ -166,6 +166,16 @@ export const LEARNER_ROUTES: LearnerRoute[] = [
     dynamic: true,
   },
   {
+    // 2026-09-13 에 생긴 화면인데 여기 선언이 빠져 있었다 — 그러면 사이트맵에서 사라지고
+    // 셸의 진입 계측이 `screen: 'other'` 로 접어서, 이 화면에 사람이 오는지 **영원히 모른다**.
+    // (실측 2026-09-15: 누락 4건 중 하나였다.)
+    path: '/csat/overlay',
+    screen: 'csat-overlay',
+    label: '문제지에 해설 얹기',
+    group: 'main',
+    kind: 'screen',
+  },
+  {
     path: '/csat/plan',
     screen: 'csat-plan',
     label: '기출 학습 계획',
