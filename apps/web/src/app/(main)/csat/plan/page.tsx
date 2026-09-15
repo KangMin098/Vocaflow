@@ -16,6 +16,8 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 
+import { PlanTimeline } from '@/components/csat/PlanTimeline'
+import { ReportText } from '@/components/csat/ReportText'
 import { loadCsatPlan } from '@/lib/csat/learner'
 
 export const metadata: Metadata = {
@@ -66,13 +68,20 @@ export default async function CsatPlanPage() {
 
       {!plan.error && plan.rows.length ? (
         <>
+          {/* ── 증명 ────────────────────────────────────────────────────
+              전에는 이 자리에 숫자 두 개(합계·쓸 수 있는 시간)뿐이었다. 맞는 말인데
+              **학습자가 할 수 있는 일이 없다** — 6분이 모자란 건 알겠는데 어느 번호에서
+              손이 멈추는지는 두 숫자로 안 보인다. 띠는 그 자리를 찍고, 속도 칩은 그것을
+              **자기 속도로** 다시 그린다(I1·I3). 초과 문구도 여기로 옮겼다. */}
+          <PlanTimeline rows={plan.rows} availableSec={plan.available_sec} />
+
           <section className="mb-5 grid grid-cols-2 gap-3">
             <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4">
               <div className="text-xs text-[var(--t3)]">독해 배점</div>
               <div className="mt-1 font-display text-xl font-bold tabular-nums text-[var(--t1)]">
                 {plan.scope_points}점
               </div>
-              <div className="mt-1 text-xs text-[var(--t3)]">
+              <div className="mt-1 break-keep text-xs text-[var(--t3)]">
                 {plan.rows.length}문항 · 여기서 실점 0이 목표 (듣기는 다루지 않아요)
               </div>
             </div>
@@ -80,23 +89,16 @@ export default async function CsatPlanPage() {
               <div className="text-xs text-[var(--t3)]">절차 시간 합</div>
               <div
                 className="mt-1 font-display text-xl font-bold tabular-nums"
-                style={{ color: over ? '#B5803A' : 'var(--t1)' }}
+                style={{ color: over ? 'var(--warning-ink)' : 'var(--t1)' }}
               >
                 {mmss(plan.budget_sec)}
               </div>
-              <div className="mt-1 text-xs text-[var(--t3)]">
+              <div className="mt-1 break-keep text-xs text-[var(--t3)]">
                 쓸 수 있는 시간 {mmss(plan.available_sec)}
                 {pending > 0 ? ` · ${pending}문항 절차 준비 중` : ''}
               </div>
             </div>
           </section>
-
-          {over ? (
-            <p className="mb-5 rounded-[var(--r-md)] border border-[#B5803A] bg-[var(--sf)] p-4 text-sm leading-relaxed text-[var(--t2)]">
-              지금 적힌 절차를 그대로 다 하면 시험 시간을 넘습니다. 시간이 모자란 것은 학습자의 문제가
-              아니라 <strong>절차가 아직 무겁다는 뜻</strong>이에요 — 유형별로 더 줄이는 중입니다.
-            </p>
-          ) : null}
 
           <ol className="space-y-2">
             {plan.rows.map((r) => (
@@ -120,10 +122,16 @@ export default async function CsatPlanPage() {
                   </span>
                 </div>
                 {r.first_step ? (
-                  <p className="mt-2 text-sm leading-relaxed text-[var(--t2)]">
-                    <span className="text-[var(--t3)]">먼저 — </span>
-                    {r.first_step}
-                  </p>
+                  // ⚠️ **`{r.first_step}` 을 맨손으로 그리지 않는다.** 이 값은 유형 리포트의
+                  //    첫 단계라 `**강조**` 와 문항 인용을 들고 있는데, 그대로 찍으면 학습자에게
+                  //    별표가 보인다(실측 2026-09-15 캡처 · 19번 「**타인의 말을 근거에서 뺀다**」).
+                  //    같은 글을 유형 화면은 `ReportText` 로 그리고 있었다 — 한쪽만 맨손이었다.
+                  //    `known` 은 주지 않는다: 이 화면은 문항 목록을 안 불러오므로 인용을
+                  //    링크로 만들면 **없는 문항으로 가는 링크**가 된다.
+                  <div className="mt-2 flex gap-1.5">
+                    <span className="shrink-0 text-sm text-[var(--t3)]">먼저 —</span>
+                    <ReportText text={r.first_step} className="min-w-0 flex-1" />
+                  </div>
                 ) : (
                   <p className="mt-2 text-sm text-[var(--t3)]">절차 준비 중</p>
                 )}

@@ -211,6 +211,27 @@ export type PublicEvent =
       }
     }
   /**
+   * 한 회차 계획의 **읽기 속도**를 바꿨다 — 「이 계획이 내 것이 됐는가」의 유일한 신호.
+   *
+   * 이 화면은 두 숫자(합계·쓸 수 있는 시간)만 적던 자리였다. 띠와 배율을 넣은 이유는
+   * 학습자가 **자기 속도로 다시 그려 보게** 하려는 것인데, 그게 실제로 일어나는지는
+   * 이 이벤트로만 안다. 한 번도 안 눌리면 띠는 읽고 지나가는 그림이다.
+   *
+   * `overSec` 은 그 배율에서 얼마나 초과하는지다 — 절차가 무거운지(= 우리 쪽 문제인지)를
+   * 재는 값이라 분석 쪽 결정에 쓰인다. 자유 문자열은 없다.
+   */
+  | {
+      name: 'csat_plan_speed_set'
+      props: {
+        /** 고른 배율 × 100 (80 · 100 · 125) */
+        speed: number
+        /** 그 배율에서 시험 시간을 넘는 초. 안 넘으면 0 */
+        overSec: number
+        /** 넘는가 */
+        breaks: boolean
+      }
+    }
+  /**
    * 학습자 화면 진입 — **모든 로그인 화면의 분모** (CLAUDE.md D2).
    *
    * 2026-09-05 실측: 학습자 화면 77개 중 진입 이벤트를 가진 화면이 **0개**였다. 위 14개는
@@ -338,6 +359,7 @@ const EVENT_REGISTRY: Record<PublicEventName, true> = {
   wayfinder_cta_clicked: true,
   csat_evidence_opened: true,
   csat_atlas_scoped: true,
+  csat_plan_speed_set: true,
   csat_trap_opened: true,
   csat_overlay_loaded: true,
   csat_overlay_located: true,

@@ -1,20 +1,22 @@
 // apps/web/tests/e2e/45-csat-trap-atlas.spec.ts
 //
-// **`/csat` 히어로 「오답 지도」의 런타임 회귀.**
+// **기출 분석 학습자 화면 셋(허브 · 유형 · 계획)의 런타임 회귀.**
 //
 // ── 무엇을 지키나 ─────────────────────────────────────────────────────
-// 이 화면의 값어치는 「도착하자마자 센 것이 보인다」 하나다. 그런데 그 성질은 **조용히 사라진다** —
+// 세 화면의 값어치는 「도착하자마자 센 것이 보인다」 하나다. 그런데 그 성질은 **조용히 사라진다** —
 // 구운 JSON 을 못 읽어도, 하이드레이션이 깨져도, 칩 배선이 끊겨도 화면은 멀쩡히 뜨고 글자만
-// 남는다. 그러면 이 화면은 다시 「텍스트 나열」이 되는데 아무도 모른다. 그래서 잰다:
+// 남는다. 그러면 이 화면들은 다시 「텍스트 나열」이 되는데 아무도 모른다. 그래서 잰다:
 //
 //   ① 서버 HTML 에 막대와 수치가 이미 있다 (I6 — JS 없이도 크롤러가 읽을 것이 있다)
 //   ② 아무것도 안 눌러도 증명이 **접힌 위**(1280×900)에서 끝난다 (I1·I2·I8)
-//   ③ 칩을 누르면 분포가 **다시 세어진다** (I3) — 그리고 네트워크 왕복이 0
+//   ③ 값을 바꾸면 결과가 **다시 세어진다** (I3) — 그리고 네트워크 왕복이 0
+//      (허브·유형: 유형 칩 / 계획: 읽기 속도 칩)
 //   ④ 함정 줄을 펴면 **실제 기출 예시**가 나오고 그 문항으로 가는 문이 있다
 //   ⑤ 막대가 **한 자**로 그려진다 — 「그 밖」이 자기 비율보다 길면 그림이 거짓말한다
-//   ⑥ 390px 가로 넘침 0 · 터치 타깃 44px (실제 기하로)
-//   ⑦ axe WCAG2 A/AA 위반 0 (라이트·다크)
-//   ⑧ 콘솔 에러 0
+//   ⑥ 유형 화면의 산문은 **지운 것이 아니라 접은 것**이고, 배수가 전부 ×로 뜨지 않는다
+//   ⑦ 계획 화면의 띠가 문항 수만큼 칸을 갖고, 「빠르게」가 시간을 **줄인다**
+//   ⑧ 390px 가로 넘침 0 · 터치 타깃 44px (`utils/tap-target.ts` 단일 출처)
+//   ⑨ axe WCAG2 A/AA 위반 0 (라이트·다크) · 콘솔 에러 0
 //
 //   · 계정: runtime-test-0705@vocaflow.dev
 //   · 읽기 전용 — DB 에 쓰지 않는다. 계측 이벤트는 **누르므로 남는다**(funnel_events).
@@ -73,7 +75,7 @@ async function rows(page: Page): Promise<string[]> {
     .evaluateAll((els) => els.map((e) => (e.textContent || '').replace(/\s+/g, ' ').trim()));
 }
 
-test.describe('기출 허브 — 오답 지도', () => {
+test.describe('기출 분석 — 허브·유형·계획', () => {
   test.beforeAll(async ({ browser }) => {
     // 미리 구운 세션이 있으면 로그인 폼을 거치지 않는다(사유는 `42-csat-item-map` 머리말).
     // ⚠️ 건너뛴 사실을 크게 남긴다 — 조용히 건너뛰면 로그인이 깨져도 이 스펙은 초록이다.
@@ -321,6 +323,106 @@ test.describe('기출 허브 — 오답 지도', () => {
         // 접은 것을 펴 놓고도 본다 — 접혀 있는 동안만 초록인 검사는 반쪽이다.
         await page.locator('details', { hasText: '분석 원문 읽기' }).first().locator('summary').click();
         await page.waitForTimeout(300);
+        expect(await axeViolations(page), `${theme} axe 위반`).toEqual([]);
+      });
+    }
+  });
+
+  // ── 계획 화면 ───────────────────────────────────────────────────────
+  // 여기 있던 것은 숫자 두 개였다(합계 · 쓸 수 있는 시간). 맞는 말인데 **할 수 있는 일이 없다.**
+  // 띠가 「몇 번에서 끊기는가」를 찍고, 속도 칩이 그것을 **자기 속도로** 다시 그린다.
+  test.describe('계획 화면 — 시간이 몇 번에서 바닥나는가', () => {
+    test('띠가 접힌 위에 있고 칸 수가 문항 수와 맞는다', async ({ page }) => {
+      await page.setViewportSize(FOLD);
+      await page.goto('/csat/plan', { waitUntil: 'networkidle', timeout: 45_000 });
+
+      const bar = page.locator('[data-proof="plan-timeline"]');
+      await expect(bar).toBeVisible();
+      const bottom = await bar.evaluate((el) => Math.round(el.getBoundingClientRect().bottom));
+      expect(bottom, `띠가 접힌 아래로 내려갔다 (bottom=${bottom})`).toBeLessThanOrEqual(FOLD.height);
+
+      // 칸 수 = 절차가 있는 문항 수. 0 이면 띠가 빈 상자이고, 그래도 화면은 멀쩡히 뜬다.
+      const cells = bar.locator('span[data-no]');
+      expect(await cells.count(), '띠에 칸이 없다 — 시간 예산을 못 읽었다').toBeGreaterThan(10);
+
+      // 칸 폭의 합이 띠를 채운다(초과분은 넘어가므로 100% 이상일 수 있다).
+      const fill = await cells.evaluateAll((els) =>
+        els.reduce((a, e) => a + e.getBoundingClientRect().width, 0),
+      );
+      const box = await bar.evaluate((el) => el.getBoundingClientRect().width);
+      expect(fill / box, '칸이 띠를 거의 안 채운다 — 폭 계산이 틀렸다').toBeGreaterThan(0.9);
+
+      // ⚠️ **칸이 실제로 칠해졌는가.** 실측 2026-09-15: `color-mix` 의 둘째 인자로 쓴 변수가
+      //    이 자리에서 안 풀려 색이 통째로 무효가 됐고 띠가 **투명**했다. 그래도 화면은 뜨고
+      //    `data-proof` 도 그대로라 계측기는 「증명 1개」로 보고했다 — 눈으로만 잡히던 결함이다.
+      const transparent = await cells.evaluateAll(
+        (els) =>
+          els
+            .map((e) => getComputedStyle(e).backgroundColor)
+            .filter((c) => c === 'rgba(0, 0, 0, 0)' || c === 'transparent').length,
+      );
+      expect(transparent, '띠의 칸이 투명하다 — 증명이 보이지 않는다').toBe(0);
+    });
+
+    test('속도를 바꾸면 띠가 다시 그려진다 — 네트워크 왕복 없이', async ({ page }) => {
+      await page.setViewportSize(FOLD);
+      await page.goto('/csat/plan', { waitUntil: 'networkidle', timeout: 45_000 });
+
+      const heading = page.locator('#plan-time-h');
+      const before = (await heading.textContent()) ?? '';
+      const widths = () =>
+        page
+          .locator('[data-proof="plan-timeline"] span[data-no]')
+          .evaluateAll((els) => els.map((e) => Math.round(e.getBoundingClientRect().width * 10)));
+      const w0 = await widths();
+
+      let requests = 0;
+      page.on('request', (r) => {
+        if (!/_next\/(static|image)|\.map$|favicon/.test(r.url())) requests += 1;
+      });
+
+      // 「빠르게」 — 읽는 속도를 올리면 **걸리는 시간은 줄어야 한다.** 한 번 뒤집어 썼던 자리다.
+      const t0 = Date.now();
+      await page.getByRole('button', { name: '빠르게' }).click();
+      await expect.poll(async () => (await widths()).join(','), { timeout: 2_000 }).not.toBe(w0.join(','));
+      const elapsed = Date.now() - t0;
+
+      const after = (await heading.textContent()) ?? '';
+      expect(after, '속도를 바꿨는데 문구가 그대로다').not.toBe(before);
+      expect(elapsed, `반응이 느리다 (${elapsed}ms)`).toBeLessThan(1_000);
+      expect(requests, `속도 한 번에 네트워크 요청 ${requests}건`).toBeLessThanOrEqual(2);
+
+      // 빠르게 읽으면 칸의 합이 줄어야 한다(늘면 배율을 곱하는 방향이 뒤집힌 것이다).
+      const w1 = await widths();
+      expect(
+        w1.reduce((a, b) => a + b, 0),
+        '「빠르게」를 골랐는데 시간이 늘었다 — 배율 방향이 뒤집혔다',
+      ).toBeLessThan(w0.reduce((a, b) => a + b, 0));
+    });
+
+    test('계획 화면도 390px 에서 밀리지 않고 44px 를 지킨다', async ({ page }) => {
+      await page.setViewportSize({ width: 390, height: 844 });
+      await page.goto('/csat/plan', { waitUntil: 'networkidle', timeout: 45_000 });
+      const overflow = await page.evaluate(
+        () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      );
+      expect(overflow, `390px 에서 가로로 ${overflow}px 밀린다`).toBeLessThanOrEqual(1);
+      const offenders = await page.evaluate(scanTapTargets, {
+        min: TAP_MIN,
+        minTextWidth: TAP_MIN_TEXT_WIDTH,
+      });
+      expect(offenders.map(describeOffender), '터치 타깃 규칙 위반').toEqual([]);
+    });
+
+    for (const theme of ['light', 'dark'] as const) {
+      test(`계획 화면 ${theme} axe WCAG2 A/AA 위반 0`, async ({ page }) => {
+        await page.setViewportSize(FOLD);
+        await page.goto('/csat/plan', { waitUntil: 'networkidle', timeout: 45_000 });
+        await page.evaluate((t) => {
+          document.documentElement.setAttribute('data-theme', t);
+          localStorage.setItem('vocaflow-theme', t);
+        }, theme);
+        await page.waitForTimeout(500);
         expect(await axeViolations(page), `${theme} axe 위반`).toEqual([]);
       });
     }
