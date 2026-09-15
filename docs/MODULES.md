@@ -961,6 +961,42 @@ gamekit 을 쓰지 않는 게임(WordBlitz · Pirate's Bounty)은 `GameKitStyles
 
 ---
 
+## 기출 분석 — 오답 지도 · 시간 띠 (v06.34 · 2026-09-15)
+
+전달 모델 정본은 **[CSAT_LEARNER_DELIVERY.md](./CSAT_LEARNER_DELIVERY.md)** 다 (왜 이 구조인가 ·
+5단계 중 무엇이 아직 없는가 · 이 작업에서 실제로 틀렸던 것 6건). 여기에는 **무엇이 어디 있는지**만 적는다.
+
+**정보 구조를 뒤집었다.** 1급 시민이 「유형 26개」에서 **「오답 만드는 법 9개」**로 옮겨 갔다 —
+`choice_analysis` 의 오답 선지 **3,208개**(문항마다 최신 버전 하나)를 전부 세면 아홉 가지가
+**60.3%** 이고 각각 **26유형 중 13~17유형**에 걸친다. 10위부터는 4~5유형으로 뚝 떨어진다.
+
+| | |
+|---|---|
+| 굽는 쪽 | [`scripts/csat/build-trap-atlas.mjs`](../scripts/csat/build-trap-atlas.mjs) — DB 집계 → JSON. `--check` 로 낡음 판정 · 재실행 안전 · 영어 연속 200자 유출 검사(걸리면 아무것도 안 쓴다) |
+| 산출물 | `lib/csat/trap-atlas.json` (59KB) |
+| 순수 모델 | [`lib/csat/trap-atlas.ts`](../apps/web/src/lib/csat/trap-atlas.ts) — `rankFor`(범위별 재집계) · `baselineShare`/`liftOf`(배수 · **분모를 이름 붙은 것끼리 맞춘다**) · `standoutFor`(카드가 같은 말을 반복하지 않게) · `DETECTOR`(우리가 쓴 「잡는 법」 20줄 — **센 값이 아니다**) |
+| 화면 | [`components/csat/TrapAtlas.tsx`](../apps/web/src/components/csat/TrapAtlas.tsx) — 허브(`as="h1"` · 유형 칩)와 유형 화면(`showLift` · 칩 없음) 둘이 같은 컴포넌트를 쓴다 |
+| 시간 띠 | [`lib/csat/plan-timeline.ts`](../apps/web/src/lib/csat/plan-timeline.ts)(순수 — `buildTimeline`·`clampSpeed`) · [`components/csat/PlanTimeline.tsx`](../apps/web/src/components/csat/PlanTimeline.tsx) |
+| 계측 | `csat_atlas_scoped` · `csat_trap_opened` · `csat_plan_speed_set` (`lib/analytics/events.ts` 닫힌 목록) |
+| 자 | [`apps/web/scripts/csat-surface-measure.mts`](../apps/web/scripts/csat-surface-measure.mts)(수치) · [`csat-shot.mts`](../apps/web/scripts/csat-shot.mts)(눈) |
+| 회귀 | 순수 30(`trap-atlas.test.ts` 18 + `plan-timeline.test.ts` 12) + 런타임 19(`tests/e2e/45-csat-trap-atlas.spec.ts`) |
+
+**실측 — 학습자 6화면 합계 (2026-09-15)**
+
+| | 전 | 후 |
+|---|---|---|
+| 보이는 글자 | 27,772 | **14,882** (-46%) |
+| 가장 긴 산문 덩어리 | **1,084** | **278** |
+| 접힌 위 글자 (1280×900) | 6,531 | **3,332** (-49%) |
+| 접힌 위 **작동하는 증명** | **0** | **8** |
+| 조작 컨트롤 | 1 | **64** |
+
+⚠️ **`data-proof` 는 계측기가 보는 표식이다** — 막대가 `div`/`span` 이라 `svg` 로는 안 세어진다.
+그런데 표식만 보므로 **칠해지지 않은 막대도 「증명 1개」로 센다**(실제로 한 번 그랬다 — 위 문서 §6-3).
+그래서 런타임 회귀가 「칸의 배경이 투명하지 않은가」를 따로 본다.
+
+---
+
 ## 기출 분석 — 지문 지도 (v06.34 · 2026-09-15)
 
 `/csat/item/[slug]` 는 산문 네 덩어리를 세로로 쌓는 화면이었다. 그 자리에 **조작면**을 놓았다.
