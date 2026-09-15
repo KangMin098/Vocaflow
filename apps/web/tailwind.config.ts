@@ -219,6 +219,20 @@ const config: Config = {
       },
 
       borderRadius: {
+        // ─── v07 「주묵 판면」 — Tailwind 기본 반경도 토큰 램프로 끌어온다 ───
+        //  ⚠️ 실측 2026-09-16: 토큰(`--r-*`)을 2~8px 로 내렸는데도 화면에 **12px 이 남아 있었다**.
+        //     원인은 소스가 토큰을 안 쓰고 Tailwind 기본 클래스를 쓰는 자리였다 —
+        //     `rounded-xl` 35회 · `rounded-lg` 30회 · `rounded-md` 54회(학습자+공개 표면).
+        //     토큰만 고치면 **고친 만큼만 바뀌고**, 안 쓰는 곳은 조용히 옛 값으로 남는다.
+        //     그래서 기본 스케일 자체를 같은 램프로 재정의한다(클래스 이름은 그대로).
+        //  `rounded-full` 은 건드리지 않는다 — 원형이 의미인 자리(아바타·칩)가 231곳이다.
+        sm: "var(--r-sm)",    // 2px
+        DEFAULT: "var(--r-sm)",
+        md: "var(--r-md)",    // 3px
+        lg: "var(--r-lg)",    // 4px
+        xl: "var(--r-xl)",    // 5px
+        "2xl": "var(--r-2xl)", // 6px
+        "3xl": "var(--r-ios-3xl)", // 8px
         // ─── iOS HIG radius (v06.36) ───
         "ios-xs": "var(--r-ios-xs)",
         "ios-sm": "var(--r-ios-sm)",

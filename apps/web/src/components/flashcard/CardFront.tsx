@@ -33,7 +33,9 @@ export function CardFront({
     <>
       {/* Meta Row */}
       <div className="mb-6 flex items-center justify-between opacity-50 transition-opacity duration-[var(--dur-normal)] group-hover/card:opacity-100">
-        <span className="font-body text-[10px] italic text-[var(--t2)]">{word.textTitle}에서</span>
+        {/* v07 — `italic` 을 뺐다. 한글에는 이탤릭 자형이 없어서 브라우저가 **기울여 그린다**
+            (가짜 이탤릭). 사람의 목소리는 Lora italic 이 영문에서 맡는다(DESIGN_SYSTEM §6). */}
+        <span className="font-display text-[10.5px] text-[var(--t2)]">{word.textTitle}에서</span>
         <button
           onClick={(e) => {
             e.stopPropagation()
@@ -71,7 +73,7 @@ export function CardFront({
           aria-hidden={!hintVisible}
         >
           <span>첫 글자가 떠오르지 않으면:</span>
-          <span className="inline-block rounded-[var(--r-sm)] bg-[var(--p-light)] px-2 py-1 font-english text-[14px] font-[700] not-italic tracking-[0.04em] text-[var(--on-p-tint)]">
+          <span className="inline-block rounded-[var(--r-sm)] bg-[var(--ju-light)] px-2 py-1 font-english text-[14px] font-[600] not-italic tracking-[0.04em] text-[var(--ju-ink)]">
             {firstLetters}
           </span>
         </div>
@@ -85,7 +87,7 @@ export function CardFront({
             onPlayAudio()
           }}
           aria-label="발음 듣기"
-          className="inline-flex items-center gap-2 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg2)] px-5 py-3 font-display text-[13px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:-translate-y-px hover:border-[var(--p)] hover:bg-[var(--bg)] hover:text-[var(--p)] hover:shadow-[0_4px_12px_rgba(59,130,246,0.15)]"
+          className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-5 py-3 font-display text-[13px] font-[600] text-[var(--t2)] transition-[background-color,border-color,color,transform] duration-[var(--dur-fast)] hover:border-[var(--ju)] hover:bg-[var(--bg)] hover:text-[var(--ju-ink)] active:translate-y-[1px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ju)] focus-visible:ring-offset-2"
         >
           <Volume2
             size={14}
