@@ -22,51 +22,69 @@ import { ReportText } from '../src/components/csat/ReportText'
 import type { MapAnchor } from '../src/lib/csat/passage-map-model'
 import type { SkeletonSentence } from '../src/lib/csat/passage-skeleton'
 
-/** 실제 문항(M2309#42)의 모양을 그대로 옮긴 고정값 — 막대 길이도 실제 값이다. */
-const SENTENCES: SkeletonSentence[] = [
-  { chars: 189, reveals: [] },
-  {
-    chars: 289,
-    reveals: [
-      { anchorId: 'reject:1', start: 171, end: 243, text: 'humans have failed to respond to climate change' },
-    ],
-  },
-  {
-    chars: 220,
-    reveals: [{ anchorId: 'reject:2', start: 162, end: 219, text: 'too “improbable” to belong in stories' }],
-  },
-  { chars: 87, reveals: [] },
-  {
-    chars: 228,
-    reveals: [
-      { anchorId: 'answer', start: 40, end: 98, text: 'can be “imperceptible”; it proceeds (c) rapidly' },
-    ],
-  },
-  { chars: 141, reveals: [] },
-  { chars: 95, reveals: [] },
-  { chars: 282, reveals: [] },
-]
+/**
+ * **손으로 적은 고정값을 쓰지 않는다.** 커밋된 골격(`skeleton-data/`)에서 실제 문항을 읽는다.
+ *
+ * 고정값을 쓰면 빌더가 JSON 모양을 바꿔도 하네스는 옛 모양으로 계속 통과하고,
+ * **접근성 «위반 0» 이 현실과 조용히 갈린다.** 실데이터를 쓰면 모양이 바뀌는 순간 여기서 터진다.
+ *
+ * 문항은 고르지 않고 **정해진 규칙**으로 집는다(앵커가 가장 많은 것) — 사람이 고르면
+ * 그 문항이 사라졌을 때 아무도 모른다.
+ */
+const SK_DIR = path.resolve('src/lib/csat/skeleton-data')
+const skIndex = JSON.parse(fs.readFileSync(path.join(SK_DIR, 'index.json'), 'utf8')) as {
+  exams: { exam_id: string }[]
+}
+type SkItem = {
+  id: string
+  no: number
+  chars: number
+  sentences: SkeletonSentence[]
+  anchors: { id: string; sentences: number[] }[]
+}
+const allSk: SkItem[] = skIndex.exams.flatMap(
+  (e) => (JSON.parse(fs.readFileSync(path.join(SK_DIR, `${e.exam_id}.json`), 'utf8')) as { items: SkItem[] }).items,
+)
+if (!allSk.length) {
+  console.error('골격이 비어 있다 — 먼저 scripts/csat/build-skeleton-data.mjs --write')
+  process.exit(1)
+}
+// 앵커가 가장 많은 문항. 같으면 id 순 — 언제 돌려도 같은 것이 나와야 한다.
+const sample = [...allSk].sort(
+  (a, b) => b.anchors.length - a.anchors.length || a.id.localeCompare(b.id),
+)[0]
 
-const ANCHORS: MapAnchor[] = [
-  { id: 'answer', label: '③', kind: 'answer', detail: '세미콜론 앞의 imperceptible 과 정면으로 부딪힌다.' },
-  {
-    id: 'reject:1',
-    label: '①',
-    kind: 'reject',
-    detail: '같은 문장의 주절이 fails 로 이어진다.',
-    tempting: '문학을 다루는 글이라 소설을 옹호할 것 같다.',
-  },
-  { id: 'reject:2', label: '②', kind: 'reject', detail: '앞 문단이 같은 말을 다르게 적는다.' },
-  // **위치를 못 찾은 근거**도 한 칸 넣는다 — 그 상태의 대비·터치 타깃도 재야 한다.
-  { id: 'reject:4', label: '④', kind: 'reject', detail: '자리를 못 찾은 근거의 설명.' },
-]
+const SENTENCES: SkeletonSentence[] = sample.sentences
+const PLACEMENTS = sample.anchors
 
-const PLACEMENTS = [
-  { id: 'answer', sentences: [4] },
-  { id: 'reject:1', sentences: [1] },
-  { id: 'reject:2', sentences: [2] },
-  { id: 'reject:4', sentences: [] },
-]
+const CIRCLED_LABEL: Record<string, string> = { '1': '①', '2': '②', '3': '③', '4': '④', '5': '⑤' }
+/**
+ * 칩의 글자는 골격에 없다(해설은 DB 에 있다). 접근성 측정에 필요한 것은 **구조와 길이**이므로
+ * 실제 해설과 비슷한 길이의 한국어를 넣는다 — 대비·줄바꿈·터치 타깃은 이걸로 충분히 재진다.
+ */
+const ANCHORS: MapAnchor[] = PLACEMENTS.map((pl) => {
+  const n = pl.id.startsWith('reject:') ? pl.id.slice(7) : ''
+  return pl.id === 'answer'
+    ? {
+        id: 'answer',
+        label: '③',
+        kind: 'answer' as const,
+        detail: '세미콜론 앞의 말과 정면으로 부딪힌다 — 같은 문장 뒤쪽이 그것을 다시 못 박는다.',
+      }
+    : {
+        id: pl.id,
+        label: CIRCLED_LABEL[n] ?? n,
+        kind: 'reject' as const,
+        detail: '같은 문장의 주절이 반대 방향으로 이어진다.',
+        tempting: '글의 주제를 생각하면 그럴듯해 보인다.',
+      }
+})
+// **위치를 못 찾은 근거**도 한 칸 넣는다 — 그 상태의 대비·터치 타깃도 재야 한다.
+ANCHORS.push({ id: 'reject:9', label: '④', kind: 'reject', detail: '자리를 못 찾은 근거의 설명.' })
+
+console.log(`표본: ${sample.id} · 문장 ${SENTENCES.length} · 앵커 ${PLACEMENTS.length}`)
+
+
 
 const cssDir = path.resolve('.next/static/css')
 if (!fs.existsSync(cssDir)) {

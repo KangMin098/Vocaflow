@@ -35,8 +35,12 @@ import { test, expect, type Page } from '@playwright/test'
 const HARNESS = path.resolve(process.cwd(), 'tests/fixtures/csat-map-harness.html')
 const html = fs.existsSync(HARNESS) ? fs.readFileSync(HARNESS, 'utf8') : null
 
-/** 하네스에 넣은 문장 수 — `scripts/build-map-harness.mts` 의 고정값과 같아야 한다. */
-const SENTENCE_COUNT = 8
+/**
+ * 하네스의 문장 수는 **고정값이 아니다** — 굽는 쪽이 커밋된 골격에서 실제 문항을 집어 오므로
+ * 데이터가 바뀌면 이 수도 바뀐다. 그래서 여기서 **HTML 에서 직접 센다.**
+ * (하드코딩하면 데이터가 바뀔 때마다 접근성 검사가 엉뚱한 이유로 깨진다.)
+ */
+const SENTENCE_COUNT = (html?.match(/번째 문장/g) ?? []).length
 
 test.describe('기출 분석 컴포넌트 접근성 (서버 없음)', () => {
   test.skip(
@@ -56,6 +60,7 @@ test.describe('기출 분석 컴포넌트 접근성 (서버 없음)', () => {
   test('하네스가 실제로 지도를 담고 있다 — 아니면 아래 단언이 아무것도 안 지킨다', async ({ page }) => {
     await mount(page, 'light')
     await expect(page.getByRole('heading', { name: '지문 지도' })).toBeVisible()
+    expect(SENTENCE_COUNT, '하네스에 문장이 없다 — 굽는 쪽이 골격을 못 읽었다').toBeGreaterThan(2)
     await expect(page.locator('li[aria-label*="번째 문장"]')).toHaveCount(SENTENCE_COUNT)
     expect(await page.locator('button').count(), '칩이 없다').toBeGreaterThan(2)
   })
