@@ -8,6 +8,8 @@
 
 'use client'
 
+import { Moon, Sun } from 'lucide-react'
+
 import type { ReactNode } from 'react'
 
 import { GlassBar, SegmentControl } from '@/components/ui/ios'
@@ -55,7 +57,7 @@ export function WordVaultHubChrome({ activeView, children }: WordVaultHubChromeP
                 aria-hidden
                 className="flex h-8 w-8 items-center justify-center rounded-ios-pill text-[var(--t2)] transition-colors duration-[var(--dur-ios-fast)] group-hover/theme:bg-[var(--bg2)] group-hover/theme:text-[var(--t1)]"
               >
-                {theme === 'light' ? '🌙' : '☀️'}
+                {theme === 'light' ? <Moon size={16} strokeWidth={2} /> : <Sun size={16} strokeWidth={2} />}
               </span>
             </button>
           </>

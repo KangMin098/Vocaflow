@@ -87,8 +87,15 @@ async function login(page) {
 /** 브라우저 안에서 도는 계측 — 소스가 아니라 **그려진 결과**를 본다. */
 const PROBE = () => {
   const HANGUL = /[가-힣]/
-  // 브랜드 자산이 아닌 그림문자. 변이선택자·이모지 블록만 본다(문장부호는 제외).
-  const EMOJI = /[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}]/u
+  // 브랜드 자산이 아닌 **그림문자**만 본다.
+  // ⚠️ 처음엔 Dingbats 전체(U+2600–27BF)를 셌는데 `✓`(U+2713)·`✗`(U+2717)까지 이모지로
+  //    찍혔다(실측 2026-09-16 `/dashboard` 3건). 그 둘은 그림이 아니라 **활자 기호**이고
+  //    v07 이 표식으로 쓰는 것이기도 하다 — 세면 지표가 자기 목표와 싸운다.
+  //    체크·엑스·곱셈·가운뎃점·줄임표·괘선은 분모에서 뺀다.
+  const TYPOGRAPHIC = /[✓✔✖✗✘×•…─-╿]/g
+  const EMOJI = /[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}]/gu
+  /** 활자 기호를 걷어낸 뒤 남은 그림문자 개수. */
+  const emojiCount = (t) => (t.replace(TYPOGRAPHIC, '').match(EMOJI) || []).length
   // next/font 가 주입하는 이름은 `__<Font>_<hash>` 꼴이다. 이 이름이 스택 맨 앞에 있으면
   // 웹폰트가 그 노드를 맡고 있다는 뜻.
   const WEBFONT = /__(Lora|Hahmlet|IBM_Plex_Sans_KR|JetBrains_Mono)_/
@@ -122,7 +129,7 @@ const PROBE = () => {
         if (!el) continue
         const s = getComputedStyle(el)
         inks[s.color] = (inks[s.color] || 0) + 1
-        if (EMOJI.test(t)) emoji += (t.match(EMOJI) || []).length
+        emoji += emojiCount(t)
         if (t.length >= 2) {
           const r = el.getBoundingClientRect()
           const fs2 = parseFloat(s.fontSize) || 14

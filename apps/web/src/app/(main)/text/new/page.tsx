@@ -4,7 +4,7 @@
 
 'use client'
 
-import { ArrowLeft, ArrowRight, BookOpen, FileText, RotateCcw, Sparkles, Trash2 } from 'lucide-react'
+import { ArrowLeft, ArrowRight, BookOpen, FileText, RotateCcw, Sparkles, Trash2, Moon, Sun } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
@@ -213,7 +213,7 @@ export default function TextViewerNewPage() {
           // 보이는 크기(36px)는 그대로, 누르는 영역만 44px — /wordvault 헤더가 쓰는 것과 같은 방식.
           className="flex h-11 w-11 items-center justify-center rounded-md text-t2 transition-colors duration-normal hover:bg-bg2 hover:text-t1"
         >
-          {theme === 'light' ? '🌙' : '☀️'}
+          {theme === 'light' ? <Moon size={16} strokeWidth={2} /> : <Sun size={16} strokeWidth={2} />}
         </button>
       </header>
 

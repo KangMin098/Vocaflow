@@ -45,7 +45,11 @@ export function MeaningDisplay({
         <span className="mb-3 inline-block rounded-[var(--r-full)] bg-[var(--p-light)] px-3 py-1 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--on-p-tint)]">
           {pos}
         </span>
-        <h2 className="mb-2 font-english text-[36px] font-[600] leading-tight text-[var(--t1)]">
+        {/* ⚠️ `font-english`(= Lora)가 걸려 있었다. Lora 에는 한글이 없으므로 **한국어 뜻이
+            OS 기본꼴로** 떨어졌다(실측 2026-09-16 `/spellforge/play`: "일관성 있는" → Lora 폴백).
+            CLAUDE.md 「한글에 Lora」 금지 항목에 정확히 해당한다. 이 자리는 화면에서 가장 큰
+            한국어라 `font-editorial`(영문 Lora + 한글 Hahmlet)이 맞다. */}
+        <h2 className="mb-2 font-editorial text-[34px] font-[500] leading-tight text-[var(--t1)] [word-break:keep-all]">
           {meaning}
         </h2>
         {/* 발음 표기는 hover 시만 노출 (Layered Disclosure) */}

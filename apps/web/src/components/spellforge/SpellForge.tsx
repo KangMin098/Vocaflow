@@ -551,10 +551,13 @@ export function SpellForge({ textId, textTitle, words, backHref, content }: Spel
         </div>
 
         {/* Hint Bar */}
-        <div className="mt-3 flex w-full max-w-[720px] items-center justify-center gap-2 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] px-6 py-4">
+        {/* ⚠️ 390px 실측(2026-09-16): 이 줄이 안 넘치려 하면서 **버튼 안의 글자를 세로로 세웠다**
+            ('힌트 (잠깐 보기)' 22×90px). 한 줄에 다 안 들어가면 **줄을 바꾸는 것**이 맞다 —
+            버튼 폭을 줄여 글자를 쪼개는 것이 아니라. `flex-wrap` + 각 버튼 `whitespace-nowrap`. */}
+        <div className="mt-3 flex w-full max-w-[720px] flex-wrap items-center justify-center gap-2 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-4 sm:px-6">
           <button
             onClick={triggerHint}
-            className="inline-flex cursor-pointer items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:-translate-y-px hover:border-[var(--p)] hover:bg-[var(--bg)] hover:text-[var(--t1)]"
+            className="inline-flex min-h-[44px] cursor-pointer items-center gap-2 whitespace-nowrap rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-[background-color,border-color,color] duration-[var(--dur-fast)] hover:border-[var(--ju)] hover:bg-[var(--bg)] hover:text-[var(--t1)]"
           >
             <kbd className="rounded border border-[var(--bd)] bg-[var(--bg)] px-1 py-1 font-mono text-[9px] font-[700] text-[var(--t2)]">
               Tab
@@ -567,7 +570,7 @@ export function SpellForge({ textId, textTitle, words, backHref, content }: Spel
             WCAG 2.1.2 는 표준 키가 아닌 방법으로 빠져나가야 한다면 그 방법을 **알리라**고 한다 —
             알리지 않으면 길이 있어도 없는 것과 같다(실측 2026-08-23: 키보드 축이 이걸 잡았다).
           */}
-          <span className="font-body text-[11px] text-[var(--t3)]">
+          <span className="whitespace-nowrap font-body text-[11px] text-[var(--t3)]">
             <kbd className="rounded border border-[var(--bd)] bg-[var(--bg)] px-1 py-1 font-mono text-[9px] font-[700] text-[var(--t2)]">
               Shift+Tab
             </kbd>{' '}
@@ -577,7 +580,7 @@ export function SpellForge({ textId, textTitle, words, backHref, content }: Spel
           {mode === 'blind' && (
             <button
               onClick={() => setShowLength((s) => !s)}
-              className="inline-flex cursor-pointer items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-2 font-display text-[11px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:-translate-y-px hover:border-[var(--p)] hover:bg-[var(--bg)] hover:text-[var(--t1)]"
+              className="inline-flex min-h-[44px] cursor-pointer items-center gap-2 whitespace-nowrap rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-2 font-display text-[11px] font-[600] text-[var(--t2)] transition-[background-color,border-color,color] duration-[var(--dur-fast)] hover:border-[var(--ju)] hover:bg-[var(--bg)] hover:text-[var(--t1)]"
             >
               {showLength ? '글자 수 가리기' : '글자 수 보기'}
             </button>
