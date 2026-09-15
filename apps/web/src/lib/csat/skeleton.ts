@@ -23,6 +23,8 @@ const DATA_DIR = path.join(process.cwd(), 'src/lib/csat/skeleton-data')
 export interface ItemSkeleton {
   id: string
   no: number
+  /** 이 문항의 유형. 「같은 유형 다음 기출」이 **DB 없이** 고를 수 있는 근거다. */
+  type_id: string | null
   /** 지문 전체 길이. 막대 비율의 분모. */
   chars: number
   sentences: SkeletonSentence[]
@@ -32,6 +34,8 @@ export interface ItemSkeleton {
 
 interface ExamFile {
   exam_id: string
+  /** 사람이 읽는 회차 이름. 이것이 없으면 「다음 기출」이 이름 하나 때문에 DB 를 쳐야 한다. */
+  exam_label: string
   items: ItemSkeleton[]
 }
 
@@ -80,4 +84,42 @@ export function skeletonExams(): { exam_id: string; items: number }[] {
   } catch {
     return []
   }
+}
+
+/** 「다음 기출」이 고를 수 있는 한 줄 — 조회 0회로 만들어진다. */
+export interface SkeletonSibling {
+  id: string
+  no: number
+  exam_label: string
+}
+
+/**
+ * **같은 유형의 골격 보유 문항 전부.** DB 를 치지 않는다.
+ *
+ * ── 왜 이것이 필요했나 (실측 2026-09-15) ──────────────────────────────
+ * 「다음 기출」은 원래 `loadCsatTypeItems()` 로 골랐다. 그 자는 유형 전체 문항의
+ * **모든 버전 분석을 `choice_analysis` jsonb 째로** 받아 온다 — R-BLANK 기준
+ * **432행 · 633 kB**. 그걸 다 받아서 하는 일은 문항마다 불리언 하나(«정답 선지에
+ * why_correct 가 40자 이상인가»)였다. 문항 화면을 한 번 열 때마다 그 값을 치렀고,
+ * 화면 이동이 30초를 넘는 것이 관측됐다(원인은 측정 못 한 채 적혀만 있었다).
+ *
+ * 골격은 이미 커밋돼 있고 `type_id` 도 들고 있었다 — 인터페이스가 선언을 빠뜨렸을 뿐이다.
+ *
+ * ⚠️ **후보가 골격 보유분으로 좁아진다.** 그래도 정책이 나빠지지 않는 것을 재고 바꿨다:
+ *    골격 589개가 **전부** answer 앵커를 갖고(= 해설이 있고), **25개 유형 모두**
+ *    2개 이상을 갖는다. 즉 옛 판정이 「지도 있는 것 우선」으로 고르던 자리를 그대로 고른다.
+ *    잃는 것은 «지도가 하나도 없는 유형에서 산문 화면이라도 준다» 는 대체 경로뿐인데,
+ *    그런 유형이 하나도 없다.
+ */
+export function skeletonSiblings(typeId: string): SkeletonSibling[] {
+  const out: SkeletonSibling[] = []
+  for (const e of skeletonExams()) {
+    const file = loadExam(e.exam_id)
+    if (!file) continue
+    for (const it of file.items) {
+      if (it.type_id !== typeId) continue
+      out.push({ id: it.id, no: it.no, exam_label: file.exam_label ?? file.exam_id })
+    }
+  }
+  return out
 }

@@ -20,10 +20,11 @@ import { notFound } from 'next/navigation'
 
 import { PassageMap } from '@/components/csat/PassageMap'
 import { kiceSourceOf } from '@/lib/csat/kice-source'
-import { fromItemSlug, loadCsatItemExplain, loadCsatTypeItems } from '@/lib/csat/learner'
+import { toItemSlug } from '@/lib/csat/item-slug'
+import { fromItemSlug, loadCsatItemExplain } from '@/lib/csat/learner'
 import { pickNextItem } from '@/lib/csat/next-item'
 import type { MapAnchor } from '@/lib/csat/passage-map-model'
-import { loadItemSkeleton } from '@/lib/csat/skeleton'
+import { loadItemSkeleton, skeletonSiblings } from '@/lib/csat/skeleton'
 
 export const dynamic = 'force-dynamic'
 
@@ -80,10 +81,21 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
   // 닿으려면 목록으로 되돌아가 다시 골라야 했다. 그런데 이 화면의 값어치는 **연달아 볼 때**
   // 생긴다(한 문항은 일화, 서넛이면 규칙). 해설이 있고 **지도가 있는 것**을 먼저 고른다 —
   // 지도가 없으면 방금 익힌 조작이 사라진다.
-  const { items: siblings } = item?.type_id
-    ? await loadCsatTypeItems(item.type_id)
-    : { items: [] as Awaited<ReturnType<typeof loadCsatTypeItems>>['items'] }
-  const next = item ? pickNextItem(siblings, item.id, (id) => loadItemSkeleton(id) != null) : null
+  // 「다음 기출」은 **조회 0회**로 고른다 — 커밋된 골격이 `type_id` 까지 들고 있다.
+  // 예전에는 `loadCsatTypeItems` 가 유형 전체 문항의 **모든 버전 분석을 jsonb 째로** 받아
+  // 왔다(R-BLANK 실측 **432행 · choice_analysis 633 kB**). 그 값으로 하는 일은 문항마다
+  // 불리언 하나였고, 문항 화면을 열 때마다 그 값을 치렀다(§skeletonSiblings 에 근거).
+  const siblings = item?.type_id
+    ? skeletonSiblings(item.type_id).map((sib) => ({
+        id: sib.id,
+        slug: toItemSlug(sib.id),
+        exam_label: sib.exam_label,
+        no: sib.no,
+        // 골격이 있으면 정답 근거가 있다 — 589개가 **전부** answer 앵커를 갖는다(실측).
+        explained: true,
+      }))
+    : []
+  const next = item ? pickNextItem(siblings, item.id, () => true) : null
   // ⚠️ **`<main>` 이 아니라 `<div>` 다.** 셸(`(main)/layout.tsx`)이 이미
   //    `<main id="main-content">` 를 그린다. 중첩하면 문서에 보이는 main 이 둘이 되어
   //    스크린리더가 본문을 못 짚고 건너뛰기 링크도 어디로 갈지 모호해진다.
@@ -241,7 +253,7 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
                   같은 유형 다음 기출 — {next.item.exam_label} {next.item.no}번
                 </span>
                 <span className="mt-0.5 block text-xs text-[var(--t3)]">
-                  {next.hasMap ? '지문 지도로 이어집니다' : '해설로 이어집니다'} · 이 유형에 {next.remaining}문항 더
+                  {next.hasMap ? '지문 지도로 이어집니다' : '해설로 이어집니다'} · 지도 있는 기출 {next.remaining}개 더
                 </span>
               </span>
               <span aria-hidden className="shrink-0 text-[var(--t3)]">

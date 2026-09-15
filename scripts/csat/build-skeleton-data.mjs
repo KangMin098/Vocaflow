@@ -248,10 +248,16 @@ if (!WRITE) {
 fs.mkdirSync(OUT, { recursive: true })
 let bytes = 0
 const index = []
+// 회차 이름. 한 번만 읽는다(29행).
+const { data: examRows } = await db.from('csat_exams').select('id, label')
+const examLabel = new Map((examRows ?? []).map((e) => [e.id, e.label]))
+
 for (const [examId, list] of [...byExam].sort((a, b) => a[0].localeCompare(b[0]))) {
   list.sort((x, y) => x.no - y.no)
   const file = path.join(OUT, `${examId}.json`)
-  const json = JSON.stringify({ exam_id: examId, items: list })
+  // 회차 이름을 함께 굽는다 — 이것이 없으면 「다음 기출」이 이름 하나 때문에 DB 를 쳐야 하고,
+  // 그 한 번이 유형 전체 분석 **432행·633 kB** 를 끌고 온다(실측 2026-09-15 · R-BLANK).
+  const json = JSON.stringify({ exam_id: examId, exam_label: examLabel.get(examId) ?? examId, items: list })
   fs.writeFileSync(file, json)
   bytes += json.length
   index.push({ exam_id: examId, items: list.length })

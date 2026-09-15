@@ -234,7 +234,11 @@ describe('지문 골격 데이터는 정해진 네 자리에만 글자를 담는
    *   타야** 하고, 망이 끊기면 못 한다(실측: 그 이유로 3사이클 미뤄졌다). 골격이 스스로를
    *   설명하게 두면 그 분석은 영원히 오프라인이다.
    */
-  const TEXT_KEYS = new Set(['exam_id', 'id', 'anchorId', 'text', 'built', 'type_id'])
+  // `exam_label` 은 **우리가 붙인 회차 이름**이다("2026학년도 수능") — 평가원 지문이 아니다.
+  // 2026-09-15 에 「다음 기출」을 조회 0회로 바꾸며 더했다: 이름 하나 때문에 DB 를 치면
+  // 유형 전체 분석 432행·633 kB 를 끌고 온다. **이 목록에 더할 때는 그 값이 무엇인지 적는다** —
+  // 적지 않고 더하면 다음 사람이 「원래 있던 것」으로 읽고, 그때 목록은 경계를 지키는 것을 멈춘다.
+  const TEXT_KEYS = new Set(['exam_id', 'exam_label', 'id', 'anchorId', 'text', 'built', 'type_id'])
 
   it('골격 폴더가 있고 색인이 회차를 가리킨다 — 없으면 아래 단언이 아무것도 안 지킨다', () => {
     expect(fs.existsSync(dir), `${dir} 가 없다 (build-skeleton-data.mjs --write)`).toBe(true)
