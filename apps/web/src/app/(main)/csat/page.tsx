@@ -54,7 +54,7 @@ export default async function CsatHubPage() {
             href="/csat/overlay"
             className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] px-4 text-sm text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] hover:bg-[var(--sf-2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)] motion-reduce:transition-none"
           >
-            문제지에 해설 얹기 →
+            문제지 열고 해설 얹기 →
           </Link>
         </div>
       </header>

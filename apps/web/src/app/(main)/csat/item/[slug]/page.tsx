@@ -19,6 +19,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
 import { PassageMap } from '@/components/csat/PassageMap'
+import { kiceSourceOf } from '@/lib/csat/kice-source'
 import { fromItemSlug, loadCsatItemExplain } from '@/lib/csat/learner'
 import type { MapAnchor } from '@/lib/csat/passage-map-model'
 import { loadItemSkeleton } from '@/lib/csat/skeleton'
@@ -69,6 +70,10 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
   // 골격이 가리키는 앵커만 지도에 올린다 — 지도에 없는 칩을 누르면 아무 일도 안 일어난다.
   const shown = skeleton ? mapAnchors.filter((a) => skeleton.anchors.some((x) => x.id === a.id)) : []
   const useMap = skeleton != null && shown.length > 0
+  // 라벨이 약속을 지키게 한다 — 평가원이 지금 공개하는 기출은 **올해 수능 하나**다
+  // (게시판 7개·모평 안내 3쪽·본원 사이트·옛 archive 전수 확인 · kice-source.ts 머리말).
+  // 링크가 없는 회차에서 「원본과 함께 보기」라고 적으면 눌러 본 사람이 속는다.
+  const hasKicePaper = item ? kiceSourceOf(item.id.split('#')[0]).paperUrl != null : false
 
   return (
     <main className="mx-auto max-w-3xl px-4 py-6 sm:px-6">
@@ -215,7 +220,7 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
             href={`/csat/overlay?exam=${encodeURIComponent(item.id.split('#')[0])}&no=${item.no}`}
             className="mt-8 inline-flex min-h-[44px] items-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] px-4 text-sm text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] hover:bg-[var(--sf-2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)] motion-reduce:transition-none"
           >
-            평가원 원본과 함께 보기 →
+            {hasKicePaper ? '평가원 원본과 함께 보기 →' : '문제지 열고 해설 얹기 →'}
           </Link>
 
           <p className="mt-6 text-xs leading-relaxed text-[var(--t3)]">
