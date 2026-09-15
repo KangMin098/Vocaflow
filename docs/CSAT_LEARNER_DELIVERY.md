@@ -231,12 +231,18 @@ DB 층 경계는 `lib/csat/__tests__/copyright-boundary.integration.test.ts` 가
 
 ```
 node scripts/csat/build-trap-atlas.mjs            # 예행 — 쓰지 않고 수치만
-node scripts/csat/build-trap-atlas.mjs --write    # apps/web/src/lib/csat/trap-atlas.json
-node scripts/csat/build-trap-atlas.mjs --check    # 낡았으면 exit 1 (파일은 안 고침)
+pnpm csat:atlas                                   # = --write → apps/web/src/lib/csat/trap-atlas.json
+pnpm csat:atlas:check                             # 낡았으면 exit 1 (파일은 안 고침)
 ```
 
 **분석이 늘거나 고쳐지면 다시 구워야 한다.** 안 구우면 화면의 「아홉 가지가 60%」가 낡은 값이
-되고, 그래도 화면은 멀쩡히 뜬다. `--check` 를 빌드 앞에 거는 것을 권한다(아직 안 걸려 있다).
+되고, **그래도 화면은 멀쩡히 뜬다** — 막대도 그려지고 수치도 찍힌다. 그래서 낡음을 사람이
+기억하는 대신 **검사가 잡는다**:
+
+`lib/csat/__tests__/trap-atlas-fresh.integration.test.ts` 가 실 DB 에서 **셈을 다시 해서**
+구운 값과 견준다(총계 + 함정별 개수). 굽는 스크립트를 부르지 않는다 — 그러면 「스크립트가
+자기 자신과 같은가」를 묻는 셈이라 아무것도 안 지킨다. 집계 규칙(**문항마다 최신 버전 하나**)을
+거기 다시 적어 **두 길이 같은 답을 내는지** 본다. `SERVICE_ROLE_KEY` 없으면 자동 skip.
 
 측정:
 ```

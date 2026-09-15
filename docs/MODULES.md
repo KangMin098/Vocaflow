@@ -979,7 +979,8 @@ gamekit 을 쓰지 않는 게임(WordBlitz · Pirate's Bounty)은 `GameKitStyles
 | 시간 띠 | [`lib/csat/plan-timeline.ts`](../apps/web/src/lib/csat/plan-timeline.ts)(순수 — `buildTimeline`·`clampSpeed`) · [`components/csat/PlanTimeline.tsx`](../apps/web/src/components/csat/PlanTimeline.tsx) |
 | 계측 | `csat_atlas_scoped` · `csat_trap_opened` · `csat_plan_speed_set` (`lib/analytics/events.ts` 닫힌 목록) |
 | 자 | [`apps/web/scripts/csat-surface-measure.mts`](../apps/web/scripts/csat-surface-measure.mts)(수치) · [`csat-shot.mts`](../apps/web/scripts/csat-shot.mts)(눈) |
-| 회귀 | 순수 30(`trap-atlas.test.ts` 18 + `plan-timeline.test.ts` 12) + 런타임 19(`tests/e2e/45-csat-trap-atlas.spec.ts`) |
+| 굽기 | `pnpm csat:atlas`(= `--write`) · `pnpm csat:atlas:check`(낡았으면 exit 1) |
+| 회귀 | 순수 30(`trap-atlas.test.ts` 18 + `plan-timeline.test.ts` 12) + **실 DB 1**(`trap-atlas-fresh.integration.test.ts` — 실 DB 에서 셈을 다시 해 구운 값과 견준다. 안 구우면 화면은 멀쩡히 뜨고 **낡은 값**만 남으므로) + 런타임 19(`tests/e2e/45-csat-trap-atlas.spec.ts`) |
 
 **실측 — 학습자 6화면 합계 (2026-09-15)**
 
