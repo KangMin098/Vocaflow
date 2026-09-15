@@ -48,6 +48,9 @@ import {
   readability,
 } from '../../packages/library-pipeline/src/textbook/readability.ts'
 import { curriculumFit } from '../../packages/library-pipeline/src/textbook/curriculum.ts'
+// 조각 자르기 — **여기 있던 것을 옮겼다**(2026-09-15). 시험을 붙일 수 없는 자리에 두었더니
+//   경계를 넘는 조각이 지면까지 갔다. §`excerpt-chunks.ts` 머리 주석.
+import { disjointChunks } from '../../packages/library-pipeline/src/textbook/excerpt-chunks.ts'
 // **네 번째 축** — 세 축을 통과하고도 지문이 아닌 글이 있다. 실측 2026-09-04: 이 자를
 //   붙이기 전에 적재한 906편 중 **69%(629편)** 가 소설 대화 장면이거나 앞을 가리키며 시작했다.
 import { standaloneFit } from '../../packages/library-pipeline/src/textbook/standalone.ts'
@@ -160,102 +163,12 @@ function stripBoilerplate(t) {
 }
 
 /**
- * 문단을 모아 **비중복** 조각을 만든다.
- *
- * ⚠️ **겹치면 안 된다.** probe 가 처음에 문단을 5칸씩 옮기며 창을 만들었는데, 창 하나가
- *   3~8문단이라 이웃 창이 문단을 나눠 가졌다. 그렇게 세면 수율이 부풀고, 그대로 적재하면
- *   **같은 문단이 두 지문에 실린다.** 그래서 조각을 만들면 그 끝 다음에서 다시 시작한다.
+ * ⚠️ **조각 자르기는 여기 없다** (2026-09-15 옮김).
+ *   `packages/library-pipeline/src/textbook/excerpt-chunks.ts` 가 정본이고,
+ *   시험 18종(`excerpt-chunks.test.ts`)이 붙어 있다. 이 파일에 두면 시험을 붙일 수 없어
+ *   **경계를 넘는 조각이 지면까지 갔다** — 지문 한 편에 두 이야기가 담겼다.
+ *   무엇이 잘못됐고 무엇을 고쳤는지는 그 파일 머리 주석에 있다.
  */
-/**
- * 장 머리(`CHAPTER I` · `IV.` · `THE LOST KEY`)인가.
- *
- * 짧고, 문장 부호로 끝나지 않으며, 대문자·로마숫자가 두드러진다. 본문 문단은 이 셋을
- * 동시에 만족하지 않는다.
- */
-function looksLikeHeading(p) {
-  const t = p.trim()
-  if (!t || t.length > 70) return false
-  if (/[.!?][")\]]?$/.test(t) && !/^(?:CHAPTER|BOOK|PART|SECTION)\b/i.test(t)) return false
-  if (/^(?:CHAPTER|BOOK|PART|SECTION)\b/i.test(t)) return true
-  if (/^[IVXLC]+\.?$/.test(t)) return true
-  const letters = t.replace(/[^A-Za-z]/g, '')
-  if (letters.length >= 3 && letters === letters.toUpperCase()) return true
-  return false
-}
-
-/**
- * ⚠️ **정제를 먼저 하면 장 경계가 사라진다 — 순서가 중요하다.**
- *
- * 실측 2026-09-05: `cleanBookText` 를 책 전체에 먼저 걸었더니 `CHAPTER` 로 시작하는
- * 문단이 **13개 → 0개**(Alice) · **70개 → 0개**(Tom Sawyer)가 됐다. 정제기가 장 머리를
- * 지우는 것이 그 자체로는 옳다(지문에 표제가 섞이면 안 된다). 그런데 **지우기 전에
- * 그 자리를 기억해 두지 않으면** 장이 어디서 시작하는지 영영 모른다.
- *
- * 그래서 **문단으로 먼저 나누고 문단마다 정제한다.** 정제 후 빈 문단이 곧 장 경계다 —
- * 버리는 것에서 신호를 얻는다.
- */
-function cleanByParagraph(body) {
-  const out = []
-  for (const p of body.split(/\n\s*\n/)) {
-    const cleaned = cleanBookText(p).replace(/\s+/g, ' ').trim()
-    // 원문에는 있었는데 정제가 통째로 지운 문단 = 표제·판권·장 머리.
-    out.push({ text: cleaned, wasDropped: !cleaned && Boolean(p.trim()) })
-  }
-  return out
-}
-
-function disjointChunks(units) {
-
-  // **장 경계를 기억한 채로** 본문 문단만 남긴다.
-  //
-  // ── 왜 (실측 2026-09-05) ──────────────────────────────────────────
-  // 네 축을 통과한 발췌를 손으로 읽으면 **12편 중 2~3편**만 쓸 만하다. 나머지는 장면
-  // 한가운데서 시작한다 — `Glen knew that.` · `…past them shot a huge black mass`.
-  // 그것을 **사후에 규칙으로 잡으려다 실패했다**(시중 오탐이 3%→13/19%로 뛰었다).
-  //
-  // 그러면 뽑는 자리를 바꾸는 수밖에 없다. **장이 시작하는 자리의 글은 스스로 선다** —
-  // 작가가 거기서 상황을 새로 세우기 때문이다. 그래서 장 머리 바로 뒤 문단을 표시해
-  // 두고, 조각을 고를 때 그 자리를 **먼저** 쓴다.
-  const paras = []
-  const opensChapter = []
-  let afterHeading = false
-  for (const u of units) {
-    // **정제가 지운 문단**(장 머리·표제·판권)이 경계다 — §`cleanByParagraph`.
-    //   정제가 남긴 표제(`I. THE RIVER BANK`)도 함께 본다.
-    if (u.wasDropped || (u.text && looksLikeHeading(u.text))) {
-      afterHeading = true
-      continue
-    }
-    const p = u.text
-    if (p && p.length > 80 && /[.!?]/.test(p)) {
-      paras.push(p)
-      opensChapter.push(afterHeading)
-      afterHeading = false
-    }
-  }
-
-  const out = []
-  let i = 0
-  while (i < paras.length) {
-    let acc = ''
-    let end = -1
-    for (let j = i; j < paras.length; j++) {
-      acc = acc ? `${acc} ${paras[j]}` : paras[j]
-      const w = (acc.match(/[A-Za-z][A-Za-z'-]*/g) || []).length
-      if (w < PASSAGE_WORDS.min) continue
-      if (w > PASSAGE_WORDS.max) break
-      end = j
-      break
-    }
-    if (end < 0) {
-      i++
-      continue
-    }
-    out.push({ text: acc, opensChapter: opensChapter[i] === true })
-    i = end + 1
-  }
-  return out
-}
 
 // ── DB ───────────────────────────────────────────────────────────────
 const { createClient } = await import('@supabase/supabase-js')
@@ -500,7 +413,7 @@ for (const b of picked) {
   const title = ((raw.match(/^Title:\s*(.+)$/m) ?? [])[1] ?? `#${b.id}`).trim()
   const author = ((raw.match(/^Author:\s*(.+)$/m) ?? [])[1] ?? '').trim() || null
 
-  const all = disjointChunks(cleanByParagraph(stripBoilerplate(raw)))
+  const all = disjointChunks(cleanByParagraph(stripBoilerplate(raw)), PASSAGE_WORDS)
   const kept = all.filter((c) => !looksLikeBookMatter(c.text))
 
   // 먼저 **전부** 판정한다. 그 다음 책 전체에서 고르게 뽑는다 —

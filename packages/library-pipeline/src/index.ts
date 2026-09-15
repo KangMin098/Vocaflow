@@ -1084,3 +1084,9 @@ export type {
 // 발췌가 이야기 경계를 넘었는지(`textbook/story-seam.ts`). 해설 드레인에서 나온 결함 —
 // 선집을 고정 길이 창으로 자르면 한 지문에 두 이야기가 담긴다.
 export { storySeam } from './textbook/story-seam'
+
+// PD 장문을 비중복 발췌 조각으로(`textbook/excerpt-chunks.ts`).
+// `scripts/textbook/harvest-gutenberg-kid.mjs` 안에 있던 것 — 시험을 붙일 수 없는 자리라
+// 경계를 넘는 조각이 지면까지 갔다.
+export { disjointChunks, looksLikeHeading } from './textbook/excerpt-chunks'
+export type { ChunkBounds, ExcerptChunk, ParagraphUnit } from './textbook/excerpt-chunks'
