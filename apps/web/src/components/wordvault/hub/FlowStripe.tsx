@@ -52,7 +52,7 @@ export function FlowStripe({ days, lastActivity }: FlowStripeProps) {
 
       {/* Last activity */}
       {lastActivity && (
-        <div className="mt-5 flex items-center justify-between rounded-[14px] bg-[var(--bg2)] px-4 py-3">
+        <div className="mt-5 flex items-center justify-between rounded-[var(--r-2xl)] bg-[var(--bg2)] px-4 py-3">
           <span className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
             마지막 학습
           </span>

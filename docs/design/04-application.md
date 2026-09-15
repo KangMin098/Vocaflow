@@ -80,15 +80,22 @@
 
 캡처 하네스 `scripts/design/capture-learner.mjs` — **같은 라우트·같은 폭·같은 계정**으로만 찍는다.
 
-| | before | after |
+| 화면 | before | after |
 |---|---|---|
-| `/hub` 390px | `shots/before/` (없음 — 첫 실행이 `/hub` 에서 타임아웃, 아래 주 참조) | `shots/after-s4/hub@390.png` |
-| `/dashboard` 390px | `shots/before/dashboard@390.png` | `shots/after-s3/dashboard@390.png` |
-| `/flashcard/play` 390px | `shots/before/flashcard_play@390.png` | `shots/after-s5/flashcard_play@390.png` |
-| `/wordvault/browse` 390px | `shots/before/wordvault_browse@390.png` | (재캡처 대기) |
+| `/hub` 390px | — (아래 주) | `shots/after/hub@390.png` |
+| `/dashboard` 390px | `shots/before/dashboard@390.png` | `shots/after/dashboard@390.png` |
+| `/flashcard/play` 390px | `shots/before/flashcard_play@390.png` | `shots/after/flashcard_play@390.png` |
+| `/wordvault/browse` 390px | `shots/before/wordvault_browse@390.png` | `shots/after/wordvault_browse@390.png` |
+| `/settings` · `/library` | — | `shots/after/` |
+| 다크 테마 | — | `shots/dark_pricing@390.png` · `shots/dark_fit@390.png` |
 | 3안 비교 | — | `shots/directions-3up.png` |
 
-> ⚠️ `before/hub@390.png` 이 없다. 첫 캡처 때 **Git Bash 가 `/hub` 를 `C:/Program Files/Git/hub`
-> 로 변환**해 잘못된 URL 로 이동했다(MSYS 경로 변환). 이후 `MSYS_NO_PATHCONV=1` 로 고쳤지만
-> **그 시점의 화면은 이미 지나갔다** — 없는 것을 있는 척하지 않고 빠졌다고 적는다.
-> `/dashboard` before 가 같은 시점·같은 조건이라 비교의 기준은 그쪽을 쓴다.
+> ⚠️ `before/hub@390.png` 이 없다. 첫 캡처 때 **Git Bash 가 `/hub` 를
+> `C:/Program Files/Git/hub` 로 변환**해 잘못된 URL 로 이동했다(MSYS 경로 변환).
+> 이후 `MSYS_NO_PATHCONV=1` 로 고쳤지만 **그 시점의 화면은 이미 지나갔다** —
+> 없는 것을 있는 척하지 않고 빠졌다고 적는다. `/dashboard` before 가 같은 시점·같은
+> 조건이라 비교의 기준은 그쪽을 쓴다.
+
+> ⚠️ `after/` 의 몇 장에 붉은 «1 error» 배지가 찍혀 있다. **코드 결함이 아니라**
+> 오래 편집한 dev 서버의 HMR 잔재다 — 깨끗하게 재시작한 뒤 실측하면 배지가 없다
+> (`05-report.md` §5-3-4 에 증거).

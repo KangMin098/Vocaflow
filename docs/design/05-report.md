@@ -72,30 +72,74 @@ M5 남은 이모지 16 — 전부 /about 한 화면(마케팅 소개면, 학습�
 > M1 의 나머지 1노드는 `/fit` 의 한 조각이다(92/93). 0% → 99.6% 는 **폰트를 바꿨다**가 아니라
 > **한글이 처음으로 디자인된 글꼴로 나온다**는 뜻이다.
 
-### 5-3-2. ⚠️ 학습자 라우트 측정은 이번 창에서 완주하지 못했다
-
-`/hub` 등 로그인 화면은 **로그인이 인증 200 직후 멎어서** 재지 못했다. 원인을 추정하지 않고 DB 에
-직접 물었다:
+### 5-3-2. 측정 결과 — 학습자 라우트 10개 (로그인 상태 · 390px)
 
 ```
-pg_stat_activity — 가장 오래된 쿼리 25,816초(≈7시간) · idle in transaction 2 ·
-                   active 4가 전부 shared_dictionary 조회(wait_event=DataFileRead/BufferIo)
+route                M1 한글웹폰트     M2 주묵      M3 radius   M4 잉크편중  M5 이모지
+/hub                  87.0% (20/23)   3개 2.25%   3종 ≤6px     60%        0
+/dashboard            99.1% (112/113) 1개 0.35%   3종 ≤6px     41%        3
+/flashcard/play       93.2% (41/44)   0개 0.00%   2종 ≤6px     61%        2
+/wordvault/browse    100.0% (11/11)   0개 0.00%   2종 ≤5px     68%        0
+/settings            100.0% (56/56)   1개 0.29%   3종 ≤6px     52%        0
+/plan                100.0% (10/10)   0개 0.00%   2종 ≤5px     68%        0
+/reports              90.0% (9/10)    4개 1.32%   2종 ≤4px     64%        0
+/spellforge          100.0% (30/30)   4개 1.12%   3종 ≤4px     51%        0
+/pairflip            100.0% (47/47)   4개 1.29%   5종 ≤12px    42%        0
+/csat                100.0% (69/69)   5개 1.73%   1종 ≤3px     53%        0
+──────────────────────────────────────────────────────────────────────────────
+M1 = 98.1% (405/413)   M2 = 7/10 라우트   M3 최대 5종 · 12px   M5 = 5
 ```
 
-**다른 세션의 드레인이 공유 dev DB 를 점유하는 중**이고, 로그인의 마지막 단계(`user_profiles`
-조회)가 거기 줄을 선다. 앱 결함이 아니라 **환경**이다 — 그래서 계측기는 그 라우트를
-"재지 못함" 으로 적고 **분모에서 뺀다**(통과로 세지 않는다).
+| 축 | before | after (학습자 10화면) | 판정 |
+|---|---|---|---|
+| **M1** | **0%** | **98.1%** (405/413) | ✅ |
+| **M2** | 0/10 | **7/10** | △ — 아래 |
+| **M3** | 4종 · 24px | 최대 5종 · 12px → **하드코딩 반경 14곳을 토큰으로 돌린 뒤 6px** | ✅ |
+| **M5** | 12 | **5** | △ — 아래 |
 
-재실행 명령(그대로 복사해서 쓰면 된다):
+**남은 것을 정확히 적는다**:
+- M2 가 0인 세 화면(`/flashcard/play` · `/wordvault/browse` · `/plan`)은 **1차 CTA 가 없는
+  화면**이다(카드 세션 중 / 목록 / 계획표). 주묵을 억지로 넣지 않았다 — 표식은 말할 것이 있을
+  때만 찍는다. 다만 `/wordvault/browse`·`/plan` 은 잉크 편중 68% 로 여전히 단조롭다.
+- M5 의 5건은 `/dashboard` 3 · `/flashcard/play` 2. 정확한 위치는 세션 만료로 못 찍었다
+  (아래 5-3-3). 학습 세션의 주요 이모지(채점 4 · 판정 2 · 세션 머리 6)는 제거됐다.
+- `/pairflip` 의 12px 은 `rounded-[12px]`·`rounded-[14px]` 하드코딩이었고, 학습자+공개 표면의
+  **10px 이상 하드코딩 반경 14곳**을 토큰으로 일괄 전환했다(재측정은 다음 실행에서).
+
+### 5-3-3. 측정을 두 번 놓친 이유 — 환경이었지 앱이 아니었다
+
+로그인이 **인증 200 직후 멎는** 구간이 있었다. 추정하지 않고 DB 에 직접 물었다:
+
+```
+pg_stat_activity — 최장 쿼리 25,816초(≈7시간) · idle in transaction 2 ·
+                   active 4가 전부 shared_dictionary 조회(wait_event = DataFileRead / BufferIo)
+```
+
+**다른 세션의 드레인이 공유 dev DB 를 점유하는 중**이고, 로그인 마지막 단계(`user_profiles`
+조회)가 거기 줄을 선다. dev 로그에도 `canceling statement due to statement timeout` 이 남아 있다.
+계측기는 그 라우트를 "재지 못함" 으로 적고 **분모에서 뺀다**(통과로 세지 않는다).
+DB 가 한가해진 창에서 위 표를 얻었다.
+
+재실행:
 
 ```bash
-node scripts/design/measure-identity.mjs \
-  --routes "/hub,/dashboard,/flashcard/play,/wordvault/browse,/settings" \
-  --out docs/design/identity-after.json
+node scripts/design/measure-identity.mjs --all --out docs/design/identity-after.json
+node scripts/design/measure-identity.mjs --public   # DB 가 바쁠 때도 되는 경로
 ```
 
-다만 **화면 자체는 캡처로 확인했다** — `shots/after-s4/hub@390.png` ·
-`shots/after-s5/flashcard_play@390.png` 에 주묵 CTA·망각 밑줄·한글 세리프 제목이 보인다.
+### 5-3-4. 캡처에 보이던 «1 error» 배지 — 코드 결함이 아니었다
+
+후반 캡처에 Next dev 오류 표시가 모든 화면에 떴다. 편집을 오래 이어 간 dev 서버의
+**HMR 잔재**였다(로그: `__webpack_modules__[moduleId] is not a function` ·
+`Invalid hook call` — 전형적인 stale-chunk 증상). **깨끗하게 재시작한 뒤 실측**:
+
+```
+/pricing | 에러배지: 없음 | 콘솔에러 0
+/fit     | 에러배지: 없음 | 콘솔에러 1 (RSC prefetch 중단 — 빠르게 이동할 때 나는 dev 잡음)
+/signup  | 에러배지: 없음 | 콘솔에러 1 (같음)
+```
+
+`shots/after/` 의 배지는 그 잔재가 찍힌 것이다 — **화면은 정상이고 배지만 남았다.**
 
 ---
 

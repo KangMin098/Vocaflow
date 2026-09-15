@@ -56,7 +56,7 @@ export function NextStepList({ sets, status, vLevel }: NextStepListProps) {
   if (status === 'no-diagnostic') {
     return (
       <Frame title="다음 한 단계">
-        <div className="flex items-center justify-between gap-4 rounded-[18px] bg-[var(--bg2)] px-5 py-4">
+        <div className="flex items-center justify-between gap-4 rounded-[var(--r-ios-3xl)] bg-[var(--bg2)] px-5 py-4">
           <p className="font-body text-[13px] text-[var(--t2)]">
             진단을 받으면 수준에 맞는 단어장을 추천해드려요.
           </p>
@@ -87,7 +87,7 @@ export function NextStepList({ sets, status, vLevel }: NextStepListProps) {
       title="다음 한 단계"
       meta={vLevel != null ? `V${vLevel} 기준` : undefined}
     >
-      <div className="overflow-hidden rounded-[14px] bg-[var(--bg2)]">
+      <div className="overflow-hidden rounded-[var(--r-2xl)] bg-[var(--bg2)]">
         <div className="divide-y divide-[var(--bd)]/60 bg-[var(--bg)]">
           {sets.map((set) => {
             // 방어 — recommend RPC 가 TYPE_META 미등록 tier 를 반환하면 undefined.tone 크래시 (v06.183 /hub 복구)

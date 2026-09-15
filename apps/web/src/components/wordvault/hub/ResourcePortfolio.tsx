@@ -4,7 +4,7 @@
 //
 // iOS Settings 감성:
 //   · 캡슐 세그먼트로 도서/스크립트/단어장 전환
-//   · 흰 카드 위에 인셋 그룹 list (rounded-[14px], divider, disclosure chevron)
+//   · 흰 카드 위에 인셋 그룹 list (rounded-[var(--r-2xl)], divider, disclosure chevron)
 //   · 행 좌측 SF Symbol 컬러 사각형 아이콘
 //   · 우측 chevron + 메타 텍스트
 //

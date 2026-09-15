@@ -1,0 +1,127 @@
+{
+  "at": "2026-09-15T21:00:06.354Z",
+  "width": 390,
+  "rows": [
+    {
+      "route": "/hub",
+      "korean": 23,
+      "koreanWebfont": 20,
+      "emoji": 0,
+      "inkTotal": 47,
+      "topInkShare": 0.5957446808510638,
+      "distinctRadii": 3,
+      "maxRadius": 6,
+      "juElements": 3,
+      "juAreaPct": 2.247856047350571
+    },
+    {
+      "route": "/dashboard",
+      "korean": 113,
+      "koreanWebfont": 112,
+      "emoji": 3,
+      "inkTotal": 154,
+      "topInkShare": 0.4090909090909091,
+      "distinctRadii": 3,
+      "maxRadius": 6,
+      "juElements": 1,
+      "juAreaPct": 0.34778310930964945
+    },
+    {
+      "route": "/flashcard/play",
+      "korean": 44,
+      "koreanWebfont": 41,
+      "emoji": 2,
+      "inkTotal": 85,
+      "topInkShare": 0.611764705882353,
+      "distinctRadii": 2,
+      "maxRadius": 6,
+      "juElements": 0,
+      "juAreaPct": 0
+    },
+    {
+      "route": "/wordvault/browse",
+      "korean": 11,
+      "koreanWebfont": 11,
+      "emoji": 0,
+      "inkTotal": 19,
+      "topInkShare": 0.6842105263157895,
+      "distinctRadii": 2,
+      "maxRadius": 5,
+      "juElements": 0,
+      "juAreaPct": 0
+    },
+    {
+      "route": "/settings",
+      "korean": 56,
+      "koreanWebfont": 56,
+      "emoji": 0,
+      "inkTotal": 69,
+      "topInkShare": 0.5217391304347826,
+      "distinctRadii": 3,
+      "maxRadius": 6,
+      "juElements": 1,
+      "juAreaPct": 0.2884409399512227
+    },
+    {
+      "route": "/plan",
+      "korean": 10,
+      "koreanWebfont": 10,
+      "emoji": 0,
+      "inkTotal": 19,
+      "topInkShare": 0.6842105263157895,
+      "distinctRadii": 2,
+      "maxRadius": 5,
+      "juElements": 0,
+      "juAreaPct": 0
+    },
+    {
+      "route": "/reports",
+      "korean": 10,
+      "koreanWebfont": 9,
+      "emoji": 0,
+      "inkTotal": 14,
+      "topInkShare": 0.6428571428571429,
+      "distinctRadii": 2,
+      "maxRadius": 4,
+      "juElements": 4,
+      "juAreaPct": 1.3178939185400418
+    },
+    {
+      "route": "/spellforge",
+      "korean": 30,
+      "koreanWebfont": 30,
+      "emoji": 0,
+      "inkTotal": 47,
+      "topInkShare": 0.5106382978723404,
+      "distinctRadii": 3,
+      "maxRadius": 4,
+      "juElements": 4,
+      "juAreaPct": 1.1216592910755347
+    },
+    {
+      "route": "/pairflip",
+      "korean": 47,
+      "koreanWebfont": 47,
+      "emoji": 0,
+      "inkTotal": 79,
+      "topInkShare": 0.4177215189873418,
+      "distinctRadii": 5,
+      "maxRadius": 12,
+      "juElements": 4,
+      "juAreaPct": 1.2884366200692732
+    },
+    {
+      "route": "/csat",
+      "korean": 69,
+      "koreanWebfont": 69,
+      "emoji": 0,
+      "inkTotal": 150,
+      "topInkShare": 0.5266666666666666,
+      "distinctRadii": 1,
+      "maxRadius": 3,
+      "juElements": 5,
+      "juAreaPct": 1.7257547559966915
+    }
+  ],
+  "skipped": []
+}

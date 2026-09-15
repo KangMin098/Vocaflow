@@ -124,7 +124,7 @@ export function ListenPanel({
         <div className="flex items-center gap-s-3">
           <div
             className={cn(
-              'flex h-9 w-9 items-center justify-center rounded-[10px] transition-all duration-normal',
+              'flex h-9 w-9 items-center justify-center rounded-[var(--r-2xl)] transition-all duration-normal',
               isPlaying
                 ? 'bg-learn-fresh animate-[soft-pulse_1.8s_ease-in-out_infinite] text-white'
                 : 'bg-bg2 text-t2'
@@ -193,7 +193,7 @@ export function ListenPanel({
             <span>선택 듣기</span>
             <span
               className={cn(
-                'px-s-2 inline-flex h-[20px] min-w-[20px] items-center justify-center rounded-[10px]',
+                'px-s-2 inline-flex h-[20px] min-w-[20px] items-center justify-center rounded-[var(--r-2xl)]',
                 'font-mono text-[11px] font-bold',
                 selectedCount > 0 ? 'bg-learn-mastered text-white' : 'bg-bg2 text-t3'
               )}

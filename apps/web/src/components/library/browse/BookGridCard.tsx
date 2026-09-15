@@ -65,7 +65,7 @@ export function BookGridCard({ book, userVLevel, reasons = [], onOpen }: Props) 
       // 카드가 제목 길이만큼만 넓어져, 표지(w-full)가 그 폭을 그대로 따라 제각각이 됐다 —
       // 실측 2026-08-15: 같은 행에서 63px(`Fables`) ~ 150px. 서가가 어수선해 보이던 진짜
       // 원인이고, 비율(3:4)은 내내 정확했다. 폭이 흔들리고 있었을 뿐이다.
-      className="focus-visible:ring-[var(--p)]/40 group flex w-full flex-col gap-2 rounded-[10px] text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+      className="focus-visible:ring-[var(--p)]/40 group flex w-full flex-col gap-2 rounded-[var(--r-2xl)] text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
     >
       {/* 표지 */}
       <div

@@ -466,7 +466,7 @@ function CoverCard({
       tabIndex={isCenter ? undefined : -1}
       aria-hidden={isCenter ? undefined : true}
       aria-label={isCenter ? `${set.title} 미리보기` : `${set.title} 선택`}
-      className="focus-visible:ring-[var(--p)]/40 block rounded-[10px] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-offset-4"
+      className="focus-visible:ring-[var(--p)]/40 block rounded-[var(--r-2xl)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-offset-4"
     >
       <div
         className={`book-cover-premium relative w-[270px] overflow-hidden ${

@@ -737,7 +737,7 @@ function CardWrap({
     <button
       type="button"
       onClick={onClick}
-      className="block rounded-[10px] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[var(--p)]/40 focus-visible:ring-offset-4"
+      className="block rounded-[var(--r-2xl)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[var(--p)]/40 focus-visible:ring-offset-4"
       aria-label={ariaLabel}
     >
       {children}

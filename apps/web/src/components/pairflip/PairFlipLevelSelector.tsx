@@ -30,7 +30,7 @@ export function PairFlipLevelSelector({ selected, onChange }: LevelSelectorProps
             aria-checked={isActive}
             aria-label={`${lvl.label} — ${lvl.description}, 카드 ${lvl.cardCount}장`}
             onClick={() => onChange(lvl.id)}
-            className={`group flex min-h-[100px] min-w-[100px] shrink-0 flex-col items-center justify-center gap-1 rounded-[12px] border-[1.5px] px-3 py-3 transition-all duration-[var(--dur-normal)] ease-[var(--ease-spring)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B] focus-visible:ring-offset-2 active:scale-95 ${
+            className={`group flex min-h-[100px] min-w-[100px] shrink-0 flex-col items-center justify-center gap-1 rounded-[var(--r-2xl)] border-[1.5px] px-3 py-3 transition-all duration-[var(--dur-normal)] ease-[var(--ease-spring)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B] focus-visible:ring-offset-2 active:scale-95 ${
               isActive
                 ? 'border-transparent text-[var(--ti)]'
                 : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t1)] hover:-translate-y-0.5 hover:border-[#F59E0B]/50 hover:shadow-md'

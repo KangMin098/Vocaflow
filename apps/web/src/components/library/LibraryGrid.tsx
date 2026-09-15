@@ -587,7 +587,7 @@ function CarouselBook({
     <button
       type="button"
       onClick={isActive ? onCenterClick : onSideClick}
-      className={`block rounded-[10px] focus-visible:outline-none ${
+      className={`block rounded-[var(--r-2xl)] focus-visible:outline-none ${
         isActive
           ? 'focus-visible:ring-4 focus-visible:ring-[var(--p)]/40 focus-visible:ring-offset-4'
           : 'focus-visible:ring-2 focus-visible:ring-[var(--p)]/40'
