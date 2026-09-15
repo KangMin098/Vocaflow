@@ -504,17 +504,47 @@ export async function loadFactoryLine(): Promise<FactoryLine> {
   /* ⑦ 검수 — 다층. 한 층만 통과한 것은 통과가 아니다. */
   const renderRows = (renders.data ?? []) as {
     band: number
-    colophon: { review?: { answerBias?: unknown; proofread?: unknown } } | null
+    colophon: {
+      review?: {
+        answerBias?: unknown
+        proofread?: unknown
+        /** 조판기가 그 권을 찍을 때 잰 3인 페르소나 검수. 옛 행에는 없다(null 로 남는다). */
+        personaReview?: { items?: number; passed?: number } | null
+      }
+    } | null
     brand_fingerprint: string | null
   }[]
   {
-    // ⚠️ **행이 아니라 문항을 센다.** 처음에는 `csat_item_analyses` 의 published 행 수를 썼는데
-    //   그 표는 분석을 **덮지 않고 버전을 올려 새 행**으로 넣는다(옛 분석을 남기려고). 그래서
-    //   "검수 통과 2,234 / 사정권 830" 이라는 270% 짜리 눈금이 나왔다 — 통과율이 아니라
-    //   버전 수였다. 회차 커버리지 RPC 는 문항 단위로 세므로 그것을 합한다.
-    const covRows = (coverage.data ?? []) as { in_scope_items: number; published: number }[]
-    const kice = coverage.error ? null : covRows.reduce((n, r) => n + r.in_scope_items, 0)
-    const pub = coverage.error ? null : covRows.reduce((n, r) => n + r.published, 0)
+    // ── L2 는 **교재 문항**을 센다 ─────────────────────────────────────
+    //
+    // ⚠️ 이 눈금은 두 번 틀렸고, 두 번째는 **고쳤다고 적어 둔 뒤에도 여기만 안 고쳐져** 있었다.
+    //
+    //   ① 처음에는 `csat_item_analyses` 의 published **행 수**를 썼다. 그 표는 분석을 덮지 않고
+    //      버전을 올려 새 행으로 넣으므로 "검수 통과 2,234 / 사정권 830" 이라는 270% 짜리
+    //      눈금이 나왔다 — 통과율이 아니라 버전 수였다.
+    //   ② 그래서 `csat_coverage()`(문항 단위)로 옮겼다. 수는 맞았지만 **모집단이 틀렸다** —
+    //      그것은 **기출 분석**이고 학습자에게 가지 않는다. 2026-09-13 에 검수 화면
+    //      (`loadReviewView`)이 이 사실을 발견해 교재 문항으로 옮겼고 그 경위를 주석에 적었다.
+    //      **그런데 현황판인 여기는 안 옮겼다.** 실측 2026-09-16: 같은 라벨
+    //      「L2 3인 페르소나」가 현황판에서 **802/802(100%)**, 검수 화면에서 **4/408(0.98%)** 로
+    //      **동시에** 떠 있었다. 관리자는 어느 쪽을 믿을지 정할 방법이 없었고, 위쪽 화면이
+    //      먼저 읽히므로 **검수 안 한 책이 통과로 보였다.**
+    //
+    // 세는 곳은 조판기 하나다 — 어느 문항이 그 권에 실렸는지는 조판기만 안다. 화면은 그 권이
+    // 조판될 때 잰 값을 읽을 뿐 다시 세지 않는다. 검수 화면과 **같은 셈법**이어야 하므로
+    // 분자·분모를 그쪽과 똑같이 접는다(`factory-line-views.ts` 의 L2).
+    //
+    // 기출 쪽 수(802/802)는 없어지지 않는다 — **① 기출 원천**의 눈금으로 살아 있다.
+    // 여기서 빼는 것이지 지우는 것이 아니다.
+    const personaRows = renders.error
+      ? []
+      : renderRows.filter((r) => r.colophon?.review?.personaReview != null)
+    const personaPassed = personaRows.length
+      ? personaRows.reduce((n, r) => n + (r.colophon!.review!.personaReview!.passed ?? 0), 0)
+      : null
+    const personaItems = personaRows.length
+      ? personaRows.reduce((n, r) => n + (r.colophon!.review!.personaReview!.items ?? 0), 0)
+      : null
     const withBias = renders.error ? null : renderRows.filter((r) => r.colophon?.review?.answerBias != null).length
     const withProof = renders.error ? null : renderRows.filter((r) => r.colophon?.review?.proofread != null).length
     const bench = volume ?? warehouse
@@ -531,14 +561,19 @@ export async function loadFactoryLine(): Promise<FactoryLine> {
             unmeasuredReason: renders.error ? `조판 기록 조회 실패: ${renders.error.message}` : undefined,
           },
           {
-            label: 'L2 3인 페르소나 — 검수 통과 문항',
-            num: pub,
-            den: kice,
+            // 라벨에 **모집단을 박는다.** 기출 쪽 수와 한 화면에 함께 뜨므로, 이름만으로
+            // 무엇을 센 값인지 갈리지 않으면 같은 사고가 되풀이된다.
+            label: 'L2 3인 페르소나 — 조판된 권의 교재 문항',
+            num: personaPassed,
+            den: personaItems,
             unit: 'ratio',
             target: 1,
-            unmeasuredReason:
-              pub == null || kice == null
-                ? `검수 기록을 못 셌다${coverage.error ? `: ${coverage.error.message}` : ''}`
+            unmeasuredReason: renders.error
+              ? `조판 기록 조회 실패: ${renders.error.message}`
+              : personaRows.length === 0
+                ? renderRows.length
+                  ? '조판 기록에 3인 검수 실측이 없다 — 이 눈금이 붙기 전에 찍힌 권이다. 다시 조판하면 채워진다'
+                  : '조판된 권이 없다'
                 : undefined,
           },
           {
@@ -563,6 +598,23 @@ export async function loadFactoryLine(): Promise<FactoryLine> {
           {
             cmd: 'node scripts/csat/analysis-drain-validate.mjs',
             why: 'L1 — 인용 대조·정답 대조·순환논법 거부. 읽기만 한다',
+          },
+          // ⚠️ L2 가 이 공정의 병목인데 **그것을 푸는 명령이 없었다.** 눈금이 기출 수를 읽어
+          //   늘 통과였으므로 아무도 아쉬워하지 않았다 — 눈금을 고치자 비로소 빈자리가 보였다.
+          //   검수 화면과 **같은 명령**을 둔다(두 화면이 다른 길을 가리키면 그 자체가 다음 어긋남이다).
+          {
+            cmd: 'npx tsx --tsconfig apps/web/tsconfig.json scripts/textbook/item-review-drain-export.mjs --band 5',
+            why: 'L2 — 그 권에 실릴 문항 중 3인 검수가 안 된 것만 뽑는다. 읽기만 하고 재실행 안전',
+          },
+          {
+            cmd: 'Claude Code: chunk-NN.json 을 읽어 3인 판정을 chunk-NN.out.json 으로 채운다',
+            why: '명세는 scripts/textbook/item-review-drain/_PROMPT.md 가 정본이다',
+            claudeCode: true,
+          },
+          {
+            cmd: 'npx tsx --tsconfig apps/web/tsconfig.json scripts/textbook/item-review-drain-import.mjs --band 5 --commit',
+            why: 'L2 — --commit 없이는 거를 것만 찍는다. 재실행 안전(unique (item_id, persona) upsert)',
+            writes: true,
           },
           {
             cmd: 'pnpm dlx tsx scripts/textbook/item-health-report.mjs',

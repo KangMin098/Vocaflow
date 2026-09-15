@@ -105,13 +105,57 @@ describe.skipIf(skip)('교재 공장 공정 현황판 (실 DB)', () => {
     expect(typeof at.data, '갱신 시각이 비어 있다').toBe('string')
   })
 
-  it('검수 L2 는 분석 **행**이 아니라 **문항**을 센다 — 통과율이 100%를 넘을 수 없다', async () => {
+  /**
+   * ⑦ 검수 L2 — **현황판과 검수 화면이 같은 수를 말하는가.**
+   *
+   * ⚠️ 이 눈금은 세 번 틀렸다. 앞의 둘은 고쳤다고 적혔는데도 **세 번째가 남아 있었다**:
+   *
+   *   ① 분석 **행**을 셌다 → 통과율 270%(2,234/830). 행이 아니라 문항이어야 했다.
+   *   ② `csat_coverage()`(문항 단위)로 옮겼다 → 수는 맞았지만 그것은 **기출 분석**이다.
+   *   ③ 2026-09-13 에 **검수 화면만** 교재 문항으로 옮겼다. 현황판은 그대로 두었다.
+   *      실측 2026-09-16: 같은 라벨 「L2 3인 페르소나」가 현황판 **802/802(100%)** ·
+   *      검수 화면 **4/408(0.98%)** 로 동시에 떠 있었다. 위쪽이 먼저 읽히므로
+   *      **검수 안 한 책이 통과로 보였다.**
+   *
+   * 앞의 둘을 막던 검사(`num ≤ den`)는 ③을 못 잡았다 — 802/802 도 그 부등식을 만족한다.
+   * 그래서 여기서 잠그는 것은 값의 모양이 아니라 **두 화면이 같은 출처를 보는가**다.
+   * 한쪽만 고치면 이 검사가 먼저 깨진다.
+   */
+  it('검수 L2 는 현황판과 검수 화면이 **같은 수**를 말한다 — 한쪽만 고치면 여기서 깨진다', async () => {
     const line = await loadFactoryLine()
-    const l2 = line.stages.find((s) => s.def.id === 'review')!.gauges[1]!
-    expect(l2.num).not.toBeNull()
-    expect(l2.den).not.toBeNull()
-    // 분석은 버전을 올려 새 행으로 쌓이므로 행을 세면 분모를 훌쩍 넘는다(실측 2,234 / 830).
-    expect(l2.num!).toBeLessThanOrEqual(l2.den!)
+    const { loadReviewView } = await import('../factory-line-views')
+    const screen = (await loadReviewView()).layers[1]!
+    const board = line.stages.find((s) => s.def.id === 'review')!.gauges[1]!
+
+    expect(board.label, '라벨에 모집단이 안 적혀 있다 — 이름만으로 갈리지 않으면 같은 사고가 난다').toContain(
+      '교재 문항',
+    )
+    expect(board.num, '현황판 L2 분자가 검수 화면과 다르다').toBe(screen.passed)
+    expect(board.den, '현황판 L2 분모가 검수 화면과 다르다').toBe(screen.total)
+
+    if (board.num == null) {
+      // 못 쟀으면 왜 못 쟀는지가 있어야 한다 — 빈칸은 「0건」으로 읽힌다.
+      expect(board.den).toBeNull()
+      expect(board.unmeasuredReason).toBeTruthy()
+    } else {
+      expect(board.num).toBeLessThanOrEqual(board.den!)
+    }
+  })
+
+  /**
+   * L2 가 막히면 **그것을 푸는 명령**이 그 공정에 있어야 한다.
+   *
+   * ⚠️ 눈금이 기출 수를 읽던 동안 ⑦은 늘 통과였고, 그래서 L2 를 푸는 명령이 **없어도**
+   *   아무도 아쉬워하지 않았다(실측 2026-09-16: ⑦의 명령 넷이 L1·L3·L1·L4 였다).
+   *   눈금을 고치면 그 자리가 막다른 화면이 된다 — CLAUDE.md D4.
+   */
+  it('⑦ 검수는 네 층을 **전부** 푸는 명령을 들고 있다', async () => {
+    const line = await loadFactoryLine()
+    const cmds = line.stages.find((s) => s.def.id === 'review')!.nextCommands
+    expect(cmds.some((c) => c.cmd.includes('analysis-drain-validate')), 'L1 명령이 없다').toBe(true)
+    expect(cmds.some((c) => c.cmd.includes('item-review-drain')), 'L2 명령이 없다').toBe(true)
+    expect(cmds.some((c) => c.cmd.includes('item-health-report')), 'L3 명령이 없다').toBe(true)
+    expect(cmds.some((c) => c.cmd.includes('market-benchmark')), 'L4 명령이 없다').toBe(true)
   })
 
   it('공정 눈금 중 「못 잼」이 남아 있으면 그 이유가 반드시 적혀 있다', async () => {

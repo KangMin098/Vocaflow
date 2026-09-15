@@ -102,7 +102,8 @@ export const STAGES_REAL: StageState[] = [
     'short',
     [
       { label: 'L1 기계 게이트 — 조판 교정 기록', num: 7, den: 7, unit: 'ratio', target: 1 },
-      { label: 'L2 3인 페르소나 — 검수 통과 문항', num: 802, den: 802, unit: 'ratio', target: 1 },
+      // 실측 2026-09-16 의 모양 — 조판된 권의 교재 문항을 센다(기출 802/802 가 아니다).
+      { label: 'L2 3인 페르소나 — 조판된 권의 교재 문항', num: 4, den: 408, unit: 'ratio', target: 1 },
       { label: 'L3 교차 대조 — 정답 번호 쏠림 검정', num: 7, den: 7, unit: 'ratio', target: 1 },
       { label: 'L4 외부 대조 — 시중 대비 잰 축', num: 10, den: 28, unit: 'ratio', target: 1 },
     ],
