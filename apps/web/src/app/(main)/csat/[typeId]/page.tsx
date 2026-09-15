@@ -14,6 +14,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
+import { ReportText } from '@/components/csat/ReportText'
 import { loadCsatTypeDetail, loadCsatTypeItems } from '@/lib/csat/learner'
 
 export const dynamic = 'force-dynamic'
@@ -38,6 +39,11 @@ export default async function CsatTypePage({ params }: { params: Promise<{ typeI
   ])
 
   if (!error && !detail) notFound()
+
+  // 리포트 산문에 박힌 문항 인용(리포트 전체 1,182개)을 링크로 만들 때 쓰는 자.
+  // **이미 불러온 목록**이라 추가 조회가 없고, 여기 없는 인용은 평문으로 남는다 —
+  // 없는 문항으로 가는 링크는 막다른 화면이다(실측: 인용의 98.5%가 이 목록 안에 있다).
+  const knownItems = new Set(items.map((it) => it.id))
 
   return (
     <main className="mx-auto max-w-3xl px-4 py-6 sm:px-6">
@@ -72,9 +78,13 @@ export default async function CsatTypePage({ params }: { params: Promise<{ typeI
               {detail.answer_locus_pattern ? (
                 <section>
                   <h2 className="font-display text-sm font-bold text-[var(--t1)]">정답 근거는 어디 있나</h2>
-                  <p className="mt-2 whitespace-pre-line rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4 text-sm leading-relaxed text-[var(--t2)]">
-                    {detail.answer_locus_pattern}
-                  </p>
+                  {/* 한 덩어리로 쏟지 않는다 — 이 값은 평균 1,763자 · 최대 5,931자다.
+                      문단·강조·문항 인용이 **데이터에 이미 있고**, 화면이 버리고 있었다. */}
+                  <ReportText
+                    text={detail.answer_locus_pattern}
+                    known={knownItems}
+                    className="mt-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4"
+                  />
                 </section>
               ) : null}
 
@@ -87,11 +97,12 @@ export default async function CsatTypePage({ params }: { params: Promise<{ typeI
                         key={i}
                         className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4"
                       >
-                        <p className="text-sm leading-relaxed text-[var(--t1)]">{s.step}</p>
+                        <ReportText text={s.step} known={knownItems} />
                         {s.on_fail ? (
-                          <p className="mt-2 border-l-2 border-[var(--bd)] pl-3 text-xs leading-relaxed text-[var(--t3)]">
-                            막히면 — {s.on_fail}
-                          </p>
+                          <div className="mt-2 border-l-2 border-[var(--bd)] pl-3">
+                            <p className="text-xs text-[var(--t3)]">막히면</p>
+                            <ReportText text={s.on_fail} known={knownItems} />
+                          </div>
                         ) : null}
                       </li>
                     ))}
@@ -124,7 +135,7 @@ export default async function CsatTypePage({ params }: { params: Promise<{ typeI
                           ) : null}
                         </div>
                         {t.signature ? (
-                          <p className="mt-1 text-sm leading-relaxed text-[var(--t2)]">{t.signature}</p>
+                          <ReportText text={t.signature} known={knownItems} className="mt-1" />
                         ) : null}
                       </li>
                     ))}
@@ -146,9 +157,10 @@ export default async function CsatTypePage({ params }: { params: Promise<{ typeI
                     {detail.failure_modes.map((m, i) => (
                       <li
                         key={i}
-                        className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4 text-sm leading-relaxed text-[var(--t2)]"
+                        className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4"
                       >
-                        {m}
+                        {/* 이 절의 인용이 리포트 전체에서 두 번째로 많다(472개). */}
+                        <ReportText text={m} known={knownItems} />
                       </li>
                     ))}
                   </ul>
