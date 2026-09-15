@@ -170,12 +170,21 @@ describe('빈 상태는 다음 한 걸음이다 (A4 · D5)', () => {
     expect(html).toContain('눌러')
   })
 
-  it('안 지은 단계는 링크가 아니다 — 빈 화면으로 보내지 않는다', () => {
+  /**
+   * ⚠️ 이 검사는 두 번 뒤집혔다. 처음엔 「⑥⑦ 이 링크가 아니어야 한다」였는데 그 둘이
+   *   이미 있는 화면이었고(/csat/drill · /csat/plan), 다음엔 ⑦ 「내 기록」이 아직인 줄
+   *   알았는데 그것도 이미 돌고 있었다. 지금 레일에는 **막힌 칸이 없다** — 그래서
+   *   검사도 그렇게 적는다. 막힌 칸이 생기면 이 검사가 먼저 깨진다.
+   */
+  it('레일의 모든 칸이 실제로 갈 수 있는 링크다', () => {
     const html = SCREENS[2][1]
-    expect(html).toContain('아직 열리지 않음')
-    // ⑥⑦ 이 href 를 갖지 않는다.
-    expect(html).not.toContain('href="/csat/train"')
-    expect(html).not.toContain('href="/csat/review"')
+    expect(html).not.toContain('아직 열리지 않음')
+    // 없는 라우트로 가는 칸이 없다.
+    for (const dead of ['/csat/train', '/csat/review', '/csat/item"']) {
+      expect(html, dead).not.toContain(`href="${dead}`)
+    }
+    // 여섯 칸이 전부 <a> 다.
+    expect((html.match(/<a /g) ?? []).length).toBe(6)
   })
 })
 

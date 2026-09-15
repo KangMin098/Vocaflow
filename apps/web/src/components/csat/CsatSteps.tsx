@@ -78,7 +78,9 @@ export function CsatSteps() {
   const here = stepFor(pathname)
 
   return (
-    <nav aria-label="기출 분석 7단계">
+    // 칸 수를 라벨에 박지 않는다 — 단계가 늘거나 줄면 스크린리더만 옛 수를 읽는다
+    // (실제로 7 → 6 이 됐다. 2026-09-16).
+    <nav aria-label="기출 분석 단계">
       {/* ⚠️ **가로 스크롤 레일을 쓰지 않는다.** 처음엔 `-mx-4 overflow-x-auto` + `w-max` 로
           한 줄에 밀어 넣었는데, 375px 에서 문서가 **422px 로 벌어졌다**(실측 2026-09-15 —
           `document.scrollWidth` 422 vs client 375, 브리프 G7 위반). 더 중요한 것은
