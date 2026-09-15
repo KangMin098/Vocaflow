@@ -75,28 +75,21 @@ export default async function CsatPlanPage() {
               **자기 속도로** 다시 그린다(I1·I3). 초과 문구도 여기로 옮겼다. */}
           <PlanTimeline rows={plan.rows} availableSec={plan.available_sec} />
 
-          <section className="mb-5 grid grid-cols-2 gap-3">
-            <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4">
-              <div className="text-xs text-[var(--t3)]">독해 배점</div>
-              <div className="mt-1 font-display text-xl font-bold tabular-nums text-[var(--t1)]">
-                {plan.scope_points}점
-              </div>
-              <div className="mt-1 break-keep text-xs text-[var(--t3)]">
-                {plan.rows.length}문항 · 여기서 실점 0이 목표 (듣기는 다루지 않아요)
-              </div>
+          {/* ⚠️ **「절차 시간 합」 카드를 없앴다.** 위 시간 띠가 이미 「합 45분 43초 /
+              쓸 수 있는 시간 45분」을 적는데 이 카드가 같은 두 수를 되풀이했다 — 한 화면이
+              같은 질문에 두 번 답한 셈이고, 실제로 스펙 41 이 「쓸 수 있는 시간」 두 개를
+              만나 strict mode 로 걸렸다(실측 2026-09-16). 남긴 것은 띠가 말하지 않는 것뿐이다. */}
+          <section className="mb-5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4">
+            <div className="text-xs text-[var(--t3)]">독해 배점</div>
+            <div
+              className="mt-1 font-display text-xl font-bold tabular-nums"
+              style={{ color: over ? 'var(--warning-ink)' : 'var(--t1)' }}
+            >
+              {plan.scope_points}점
             </div>
-            <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4">
-              <div className="text-xs text-[var(--t3)]">절차 시간 합</div>
-              <div
-                className="mt-1 font-display text-xl font-bold tabular-nums"
-                style={{ color: over ? 'var(--warning-ink)' : 'var(--t1)' }}
-              >
-                {mmss(plan.budget_sec)}
-              </div>
-              <div className="mt-1 break-keep text-xs text-[var(--t3)]">
-                쓸 수 있는 시간 {mmss(plan.available_sec)}
-                {pending > 0 ? ` · ${pending}문항 절차 준비 중` : ''}
-              </div>
+            <div className="mt-1 break-keep text-xs text-[var(--t3)]">
+              {plan.rows.length}문항 · 여기서 실점 0이 목표 (듣기는 다루지 않아요)
+              {pending > 0 ? ` · ${pending}문항 절차 준비 중` : ''}
             </div>
           </section>
 

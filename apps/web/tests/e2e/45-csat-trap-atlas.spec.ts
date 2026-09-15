@@ -19,7 +19,10 @@
 //   ⑨ axe WCAG2 A/AA 위반 0 (라이트·다크) · 콘솔 에러 0
 //
 //   · 계정: runtime-test-0705@vocaflow.dev
-//   · 읽기 전용 — DB 에 쓰지 않는다. 계측 이벤트는 **누르므로 남는다**(funnel_events).
+//   · ⚠️ **이 스펙은 DB 에 쓴다.** 훈련 문제를 풀면 `csat_trap_attempts` 에 문항마다 한 행이
+//     남는다(그게 ④의 설계다 — 세트 끝이 아니라 문제마다). 계측 이벤트도 남는다(funnel_events).
+//     지우지 않는다: 검증 계정의 기록이 쌓여 있어야 「내 기록」 칩이 있는 상태를 검사할 수 있고,
+//     **비우면 그 검사가 조용히 건너뛰어진다.** 이 표는 학습자별 RLS 라 다른 계정에 영향이 없다.
 
 import fs from 'node:fs';
 
@@ -469,7 +472,7 @@ test.describe('기출 분석 — 허브·유형·계획', () => {
       ).toEqual([]);
     });
 
-    test('여덟 개를 끝까지 풀면 결과와 다음 걸음이 나온다', async ({ page }) => {
+    test('여덟 개를 끝까지 풀면 결과가 나오고 기록이 남는다', async ({ page }) => {
       await page.setViewportSize(FOLD);
       await page.goto('/csat/drill', { waitUntil: 'networkidle', timeout: 60_000 });
 
@@ -478,11 +481,29 @@ test.describe('기출 분석 — 허브·유형·계획', () => {
         await page.getByRole('button', { name: /다음|결과 보기/ }).click();
       }
 
-      // 결과 — 숫자를 말하고, **기록이 아직 안 남는다는 사실**도 말해야 한다(거짓 약속 금지).
       await expect(page.getByText(/8개 중 \d개를 맞혔어요/)).toBeVisible();
-      await expect(page.getByText(/아직 이 결과는 저장되지 않아요/)).toBeVisible();
+      // **화면이 기록에 대해 하는 말이 사실이어야 한다.** 둘 중 하나가 떠야 하고,
+      // 「저장됐다」가 떴으면 아래 `/csat` 의 「내 기록」 칩으로 실제 확인한다.
+      const saved = page.getByText(/기록은 문제마다 남았어요/);
+      const failed = page.getByText(/기록에 남기지 못했어요/);
+      await expect(saved.or(failed)).toBeVisible();
       // 막다른 화면을 만들지 않는다(D5).
       await expect(page.getByRole('link', { name: /여덟 개 더/ })).toBeVisible();
+
+      if (await saved.isVisible()) {
+        // 지도에 「내 기록」 칩이 생겼는가 — 이 한 줄이 ④가 실제로 붙었다는 유일한 증거다.
+        await page.goto('/csat', { waitUntil: 'networkidle', timeout: 45_000 });
+        const chip = page.getByRole('button', { name: /내 기록/ });
+        await expect(chip, '훈련을 했는데 지도에 「내 기록」 칩이 없다').toBeVisible();
+
+        // 눌러서 **같은 막대가 내 오답으로 다시 세어지는가**.
+        const before = await rows(page);
+        await chip.click();
+        await expect.poll(async () => (await rows(page)).join('|'), { timeout: 2_000 }).not.toBe(before.join('|'));
+
+        // ⚠️ 표본이 얇을 때 **분포라고 부르지 않는다** — 그 약속이 화면에 남아 있는지 본다.
+        await expect(page.getByText(/분포라고 부르기엔 일러요|수법별로 센 것입니다/)).toBeVisible();
+      }
     });
 
     test('허브에서 훈련으로 가는 문이 있다', async ({ page }) => {

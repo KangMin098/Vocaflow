@@ -1594,6 +1594,29 @@ anon 세션으로 실측 검증: 미발행 호 0건 노출.
 `passage`·`choices`·`raw_block` 를 뺀 것)만 본다. 분석·유형 리포트는 `status='published'` 만 열린다.
 검수 기록은 정책이 없어 service_role 전용이다.
 
+### `csat_trap_attempts` — 오답 감별 훈련 기록 ([20260916021500](../supabase/migrations/20260916021500_csat_trap_attempts.sql))
+
+`/csat/drill` 이 **문제마다** 한 행을 쓴다(세트 끝이 아니라 — 중간에 그만둔 것도 기록이다).
+`/csat` 지도의 「내 기록」 칩이 이것을 함정별로 접어 **같은 막대를 내 오답으로 다시 센다.**
+
+| 칸 | 무엇 |
+|---|---|
+| `item_id` **text** | `csat_items.id`(`M2309#42`) 참조 |
+| `choice` smallint | 몇 번 선지에 대한 판정이었나 — 같은 문항의 다른 오답이 다른 문제가 된다 |
+| `answer_trap` · `picked_trap` | 실제 수법과 고른 수법. **FK 를 걸지 않는다** — 이름이 바뀌어도 과거 기록은 그때의 이름으로 남는 것이 옳다 |
+| `is_correct` | `generated always as (answer_trap = picked_trap) stored` |
+
+⚠️ **기존 `csat_item_attempts` 를 못 쓴다.** 그 표의 문항 칸(`question_id`·`text_id`·`dcp_item_id`)이
+전부 `uuid` 인데 `csat_items.id` 는 TEXT 다. 덧대면 「어떤 문항 체계의 기록인가」가 행마다 달라져
+읽는 쪽이 매번 분기해야 한다.
+
+RLS: 자기 행만 `select`/`insert`. **`update`·`delete` 정책은 일부러 없다** — 지난 답을 고칠 수
+있으면 기록이 아니다. 색인 둘: `(user_id, answered_at desc)` · `(user_id, answer_trap)`.
+
+표본 문턱은 코드가 쥔다(`lib/csat/my-traps.ts`): 함정 하나에 **3회 이상**, 전체 **20회 이상**이라야
+배수를 말한다. 그 아래에서는 센 것만 보여 준다 — 얇은 표본으로 「당신의 약점」을 적으면
+학습자가 없는 결함을 고치러 간다.
+
 ## 담은 교재가 시리즈를 구별한다 — `user_textbook_selections.series` ([20260912221500](../supabase/migrations/20260912221500_user_textbook_selections_series.sql))
 
 PK 가 `(user_id, step)` 이던 동안 **어휘 5단과 독해 5단이 같은 행**이었다 — 어휘 권을 담으면

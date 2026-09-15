@@ -208,6 +208,30 @@ export function rankFor(typeId: string | null, recentOnly = false): Rank {
 }
 
 /**
+ * 임의의 셈(내 오답 수 등)을 같은 `Rank` 모양으로 만든다.
+ *
+ * 화면이 「전체 / 유형 / **나**」를 같은 막대로 그리게 하려고 둔다 — 그리는 길이 하나면
+ * 한쪽만 고쳐져 어긋나는 일이 없다. 여기 들어오는 셈은 **이미 이름이 붙은 것**이므로
+ * 「그 밖」은 0이다(내 기록에는 이름 없는 함정이 없다 — 훈련이 범용 아홉만 낸다).
+ */
+export function rankFromCounts(counts: Record<string, number>): Rank {
+  const total = Object.values(counts).reduce((a, b) => a + b, 0)
+  const rows: RankRow[] = TRAPS.filter((t) => (counts[t.key] ?? 0) > 0)
+    .map((t) => ({
+      key: t.key,
+      n: counts[t.key]!,
+      pct: total > 0 ? (100 * counts[t.key]!) / total : 0,
+      types: t.types,
+      universal: t.types >= UNIVERSAL_MIN_TYPES,
+      detector: DETECTOR[t.key] ?? null,
+      examples: t.examples,
+    }))
+    .sort((a, b) => b.n - a.n || (a.key < b.key ? -1 : 1))
+
+  return { type_id: null, type_name: null, total, rows, other: { n: 0, pct: 0 } }
+}
+
+/**
  * 배수의 자 — **이름 붙은 것끼리만** 견준다.
  *
  * ⚠️ 여기서 한 번 틀렸다(실측 2026-09-15). 처음에는 「유형 안 비율 ÷ 전체 비율」로 쟀는데,

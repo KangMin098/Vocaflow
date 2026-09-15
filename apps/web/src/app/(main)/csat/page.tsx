@@ -21,6 +21,8 @@ import Link from 'next/link'
 import { ModePicker } from '@/components/csat/ModePicker'
 import { TrapAtlas } from '@/components/csat/TrapAtlas'
 import { loadCsatTypeCards } from '@/lib/csat/learner'
+import { loadMyTraps } from '@/lib/csat/my-traps'
+import { createClient } from '@/lib/supabase/server'
 import { ATLAS_TYPES, CORPUS, standoutFor } from '@/lib/csat/trap-atlas'
 
 export const metadata: Metadata = {
@@ -35,7 +37,12 @@ export const dynamic = 'force-dynamic'
 const CHIP_COUNT = 8
 
 export default async function CsatHubPage() {
-  const { cards, error } = await loadCsatTypeCards()
+  // 내 훈련 기록 — 있으면 지도에 「내 기록」 칩이 생겨 **같은 막대를 내 오답으로 다시 센다.**
+  // 못 읽어도 화면은 그대로 뜬다(칩만 없다) — 지도는 로그인과 무관하게 볼 수 있어야 한다.
+  const [{ cards, error }, mine] = await Promise.all([
+    loadCsatTypeCards(),
+    createClient().then((db) => loadMyTraps(db)),
+  ])
   const ready = cards.filter((c) => c.ready).length
   const chips = ATLAS_TYPES.filter((t) => t.status !== 'retired' && t.recent > 0).slice(0, CHIP_COUNT)
 
@@ -44,7 +51,7 @@ export default async function CsatHubPage() {
       {/* ── 증명이 먼저다 ──────────────────────────────────────────────
           클릭 0 · 입력 0 으로 「우리가 실제로 한 일」이 보인다(I1·I2). 칩을 누르면
           네트워크 왕복 없이 그 유형의 분포로 다시 세어진다(I3). */}
-      <TrapAtlas chips={chips} as="h1" />
+      <TrapAtlas chips={chips} as="h1" mine={mine} />
 
       {/* ⚠️ 오버레이 링크가 **여기 있어야 한다.** 2026-09-13 에 `/csat/overlay` 를 만들고
           진입 링크를 안 달아, 주소를 직접 쳐야만 닿는 화면이 됐다. 도달성 감사

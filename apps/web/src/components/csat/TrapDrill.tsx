@@ -23,6 +23,7 @@ import { useMemo, useRef, useState } from 'react'
 import { track } from '@/lib/analytics/client'
 import { CORPUS, DETECTOR, TRAPS } from '@/lib/csat/trap-atlas'
 import { scoreDrill, type DrillAnswer, type DrillCard } from '@/lib/csat/trap-drill'
+import { recordTrapAttempt } from '@/app/(main)/csat/drill/actions'
 
 const GREEN = '#2E7D5A'
 const RED = '#9C3A30'
@@ -31,6 +32,8 @@ export function TrapDrill({ cards, pool }: { cards: DrillCard[]; pool: number })
   const [idx, setIdx] = useState(0)
   const [picked, setPicked] = useState<string | null>(null)
   const [answers, setAnswers] = useState<DrillAnswer[]>([])
+  // 기록이 몇 건 실패했나. 0 이 아니면 끝 화면이 그 사실을 말한다 — 조용히 넘기면 거짓말이 된다.
+  const [saveFailed, setSaveFailed] = useState(0)
   const started = useRef(Date.now())
 
   const card = cards[idx]
@@ -47,6 +50,22 @@ export function TrapDrill({ cards, pool }: { cards: DrillCard[]; pool: number })
       name: 'csat_drill_answered',
       props: { seq: next.length, correct: option === card.answer, options: card.options.length },
     })
+
+    // **문제 단위로 남긴다** — 세트 끝에 몰아 쓰면 중간에 그만둔 사람이 통째로 사라지고,
+    // 그 사람이야말로 훈련이 어려웠던 사람이라 가장 알아야 할 대상이다.
+    //
+    // ⚠️ 기다리지 않는다. 기록이 안 되는 것과 문제를 못 푸는 것은 다르므로, 쓰기가 느리거나
+    //    실패해도 학습자는 다음 문제로 간다. 실패하면 화면이 한 줄로 그 사실만 말한다.
+    void recordTrapAttempt({
+      itemId: card.item_id,
+      choice: card.choice,
+      answerTrap: card.answer,
+      pickedTrap: option,
+    })
+      .then((r) => {
+        if (!r.ok) setSaveFailed((n) => n + 1)
+      })
+      .catch(() => setSaveFailed((n) => n + 1))
   }
 
   function advance() {
@@ -80,7 +99,7 @@ export function TrapDrill({ cards, pool }: { cards: DrillCard[]; pool: number })
     )
   }
 
-  if (done) return <Summary result={result} cards={cards} answers={answers} />
+  if (done) return <Summary result={result} cards={cards} answers={answers} saveFailed={saveFailed} />
 
   const right = picked === card!.answer
 
@@ -246,10 +265,12 @@ function Summary({
   result,
   cards,
   answers,
+  saveFailed,
 }: {
   result: ReturnType<typeof scoreDrill>
   cards: DrillCard[]
   answers: DrillAnswer[]
+  saveFailed: number
 }) {
   const cardOf = new Map(cards.map((c) => [c.id, c]))
   return (
@@ -301,12 +322,24 @@ function Summary({
         </section>
       ) : null}
 
-      {/* ⚠️ **기록은 아직 남지 않는다.** 그 사실을 화면이 말한다 — 안 말하면 학습자는 쌓이는 줄
-          알고 돌아왔다가 빈 화면을 본다(D5 · 막다른 화면 금지는 거짓 약속 금지이기도 하다). */}
-      <p className="mt-5 break-keep text-xs leading-relaxed text-[var(--t3)]">
-        아직 이 결과는 저장되지 않아요 — 새로고침하면 사라집니다. 기록이 쌓이면 「내가 되풀이해 걸리는
-        수법」을 여기서 보여 드릴 수 있어요.
-      </p>
+      {/* 기록은 **문제마다** 남았다. 다만 실패한 건이 있으면 그것도 말한다 — 조용히 넘기면
+          학습자는 다 쌓인 줄 알고, 그건 「저장되지 않아요」를 안 적는 것과 같은 종류의 거짓말이다. */}
+      {saveFailed > 0 ? (
+        <p className="mt-5 break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-3 text-xs leading-relaxed text-[var(--t2)]">
+          <span className="tabular-nums">{saveFailed}</span>문항은 기록에 남기지 못했어요 — 푼 것은 그대로
+          맞습니다. 로그인이 풀렸거나 잠깐 연결이 끊긴 경우예요.
+        </p>
+      ) : (
+        <p className="mt-5 break-keep text-xs leading-relaxed text-[var(--t3)]">
+          기록은 문제마다 남았어요.{' '}
+          <a
+            className="underline decoration-[var(--bd)] underline-offset-4 transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:text-[var(--t1)] hover:decoration-[var(--p)] motion-reduce:transition-none"
+            href="/csat"
+          >
+            오답 지도의 「내 기록」에서 되풀이해 걸리는 수법을 볼 수 있어요 →
+          </a>
+        </p>
+      )}
 
       <div className="mt-4 flex flex-wrap gap-2">
         <a

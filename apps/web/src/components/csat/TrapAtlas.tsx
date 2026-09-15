@@ -27,10 +27,12 @@
 import { useMemo, useRef, useState } from 'react'
 
 import { track } from '@/lib/analytics/client'
+import { MIN_SEEN, MIN_TOTAL, myMissCounts, type MyTrapSummary } from '@/lib/csat/my-traps'
 import {
   CORPUS,
   baselineShare,
   rankFor,
+  rankFromCounts,
   universalCoverage,
   type AtlasType,
   type RankRow,
@@ -69,6 +71,12 @@ export interface TrapAtlasProps {
    * 이 화면이 답해야 할 질문이다.
    */
   showLift?: boolean
+  /**
+   * 내 훈련 기록 — 있으면 「내 기록」 칩이 생기고, 그 칩은 **같은 막대를 내 오답으로 다시 센다.**
+   * 화면이 유형에 대해 이미 하는 말(「여기서 유난하다」)을 학습자 자신에 대해 하게 되는 지점이다.
+   * 비어 있으면 칩을 그리지 않는다 — 기록이 없는 사람에게 빈 칩을 내밀지 않는다.
+   */
+  mine?: MyTrapSummary | null
 }
 
 /** 막대 한 칸의 최소 폭 — 1%짜리도 「있다」가 보여야 한다(0px 막대는 없는 것과 같다). */
@@ -83,24 +91,45 @@ export function TrapAtlas({
   subtitle,
   showLift = false,
   as: Heading = 'h2',
+  mine = null,
 }: TrapAtlasProps) {
   const [typeId, setTypeId] = useState<string | null>(initialTypeId)
   const [recentOnly, setRecentOnly] = useState(false)
   const [openKey, setOpenKey] = useState<string | null>(null)
   const [expanded, setExpanded] = useState(false)
+  // 「내 기록」으로 보고 있나. 기록이 있을 때만 켤 수 있다.
+  const [mineOn, setMineOn] = useState(false)
   const opened = useRef(0)
 
-  const rank = useMemo(() => rankFor(typeId, recentOnly), [typeId, recentOnly])
+  // 기록이 하나도 없으면 칩 자체를 안 그린다 — 빈 막대를 내미는 것은 정보가 아니다.
+  const hasMine = Boolean(mine && mine.missedTotal > 0)
+  const atlasRank = useMemo(() => rankFor(typeId, recentOnly), [typeId, recentOnly])
+  const mineRank = useMemo(() => (mine ? rankFromCounts(myMissCounts(mine)) : null), [mine])
+  const rank = mineOn && mineRank ? mineRank : atlasRank
   const cover = useMemo(() => universalCoverage(), [])
   // 배수의 분모 — 같은 era 의 **전체** 분포에서 「이름 붙은 오답」이 차지하는 몫.
   // era 를 안 맞추면 「최근만」에서 배수가 엉키고, 「이름 붙은 것끼리」로 안 맞추면
   // 「그 밖」이 0인 유형에서 전부 ×1.3 이상으로 뜬다(`trap-atlas.ts` 의 `namedShare` 주석).
-  const base = useMemo(() => (showLift ? baselineShare(recentOnly) : null), [showLift, recentOnly])
+  //
+  // 「내 기록」에서는 배수가 **이 화면의 전부**다: 내 오답에서 이 수법이 차지하는 몫이
+  // 전체 기출에서의 몫보다 큰가. 그래서 `showLift` 를 안 켜도 저절로 켜진다.
+  const liftOn = showLift || mineOn
+  const base = useMemo(() => (liftOn ? baselineShare(recentOnly) : null), [liftOn, recentOnly])
   const scopeShare = useMemo(() => {
     if (!base) return null
     const named = rank.rows.reduce((a, r) => a + r.n, 0)
     return new Map(rank.rows.map((r) => [r.key, named > 0 ? r.n / named : 0]))
   }, [base, rank])
+  /**
+   * 배수를 말해도 되는 함정 — **표본이 얇으면 말하지 않는다.**
+   * 세 번 만나 두 번 틀린 것과 스무 번 만나 열네 번 틀린 것은 같은 66%가 아닌데,
+   * 막대는 둘을 똑같이 그린다. 문턱은 `my-traps.ts` 가 정하고 여기서는 따르기만 한다.
+   */
+  const liftAllowed = useMemo(() => {
+    if (!mineOn || !mine) return null
+    if (!mine.enough) return new Set<string>()
+    return new Set(mine.rows.filter((r) => r.seen >= MIN_SEEN).map((r) => r.trap))
+  }, [mineOn, mine])
   // ⚠️ **「그 밖」도 같은 자로 잰다.** 1위 막대만 기준으로 삼았더니 그 밖(24.4%)이 1위(12.1%)의
   //    두 배라 컨테이너를 넘어 **꽉 찬 막대**로 그려졌다 — 「드문 것들의 합」이 가장 큰 함정처럼
   //    보였다(실측 2026-09-15 캡처). 막대는 눈으로 견주라고 있는 것이라, 자가 다르면 거짓말이다.
@@ -110,7 +139,10 @@ export function TrapAtlas({
   const hidden = rank.rows.length - shown.length
 
   function scope(next: string | null, nextRecent = recentOnly) {
-    if (next === typeId && nextRecent === recentOnly) return
+    // 「내 기록」을 켠 채 전체·유형 칩을 누르면 **끄고** 그쪽으로 간다 — 두 칩이 동시에
+    // 눌린 것처럼 보이면 학습자는 지금 무엇을 보고 있는지 모른다(실측 캡처).
+    if (mineOn) setMineOn(false)
+    else if (next === typeId && nextRecent === recentOnly) return
     setTypeId(next)
     setRecentOnly(nextRecent)
     setOpenKey(null)
@@ -156,8 +188,11 @@ export function TrapAtlas({
 
       {showChips ? (
         <div className="mt-4 flex flex-wrap items-center gap-2" role="group" aria-label="분포를 볼 범위">
-          <Chip on={typeId === null} onClick={() => scope(null)}>
-            전체 <Num>{rank.total.toLocaleString()}</Num>
+          {/* ⚠️ 여기는 **`atlasRank`** 를 읽는다. `rank` 를 쓰면 「내 기록」을 켠 순간
+              전체 칩이 내 오답 수(18)를 적는다 — 실측 캡처에서 「전체 18」로 나왔다.
+              칩의 수는 **그 칩을 누르면 보게 될 것**이어야 한다. */}
+          <Chip on={!mineOn && typeId === null} onClick={() => scope(null)}>
+            전체 <Num>{atlasRank.total.toLocaleString()}</Num>
           </Chip>
           {/* 390px 에서 칩이 다섯 줄을 먹어 **막대가 접힌 아래로 밀려났다**(실측 캡처).
               증명이 접힌 위에서 끝나야 하므로(I8) 좁은 화면에서는 앞의 넷만 남긴다 —
@@ -165,7 +200,7 @@ export function TrapAtlas({
           {chips.map((t, i) => (
             <Chip
               key={t.id}
-              on={typeId === t.id}
+              on={!mineOn && typeId === t.id}
               onClick={() => scope(t.id)}
               className={i >= 4 && typeId !== t.id ? 'hidden sm:inline-flex' : undefined}
             >
@@ -175,6 +210,19 @@ export function TrapAtlas({
           <Chip on={recentOnly} onClick={() => scope(typeId, !recentOnly)} pressedLabel="최근 4개년만">
             최근 4개년만
           </Chip>
+          {/* **같은 막대를 내 오답으로 다시 센다.** 기록이 없으면 칩이 아예 없다. */}
+          {hasMine ? (
+            <Chip
+              on={mineOn}
+              onClick={() => {
+                setMineOn((v) => !v)
+                setOpenKey(null)
+                setExpanded(false)
+              }}
+            >
+              내 기록 <Num>{mine!.missedTotal}</Num>
+            </Chip>
+          ) : null}
         </div>
       ) : null}
 
@@ -224,8 +272,13 @@ export function TrapAtlas({
                 <span className="w-11 shrink-0 text-right tabular-nums text-xs text-[var(--t3)]">
                   {row.pct.toFixed(1)}%
                 </span>
-                {base && scopeShare ? (
+                {base && scopeShare && (!liftAllowed || liftAllowed.has(row.key)) ? (
                   <Lift share={scopeShare.get(row.key) ?? 0} base={base.get(row.key) ?? 0} />
+                ) : liftOn ? (
+                  // 문턱을 못 넘었다 — **짐작을 숫자로 적지 않는다.** 몇 번 봤는지만 말한다.
+                  <span className="w-14 shrink-0 text-right tabular-nums text-xs text-[var(--t3)]">
+                    {mine?.rows.find((r) => r.trap === row.key)?.seen ?? 0}번 봄
+                  </span>
                 ) : (
                   <span className="hidden w-14 shrink-0 text-right text-xs text-[var(--t3)] sm:inline">
                     {row.types}유형
@@ -270,11 +323,45 @@ export function TrapAtlas({
         </button>
       ) : null}
 
-      <p className="mt-3 break-keep text-xs leading-relaxed text-[var(--t3)]">
-        <span aria-hidden>◆</span> 는 {cover.minTypes}개 이상의 유형에 걸쳐 나오는 함정입니다 — 유형을 바꿔도 같은
-        수법이 옵니다. <span aria-hidden>◇</span> 는 몇몇 유형에만 나옵니다.
-        {base ? ' 오른쪽 배수는 전체 기출의 오답 분포와 견준 값입니다 — ×가 클수록 이 유형에서 유난한 함정입니다.' : ''}
-      </p>
+      {/* ⚠️ **표본이 얇으면 「분포」라고 부르지 않는다.** 여기 적는 문장이 곧 약속이다 —
+          다섯 번 훈련하고 「당신의 약점」을 말하면 학습자가 없는 결함을 고치러 간다. */}
+      {mineOn && mine ? (
+        <p className="mt-3 break-keep text-xs leading-relaxed text-[var(--t3)]">
+          {mine.enough ? (
+            <>
+              훈련 <span className="tabular-nums">{mine.total}</span>문항 중 놓친{' '}
+              <span className="tabular-nums">{mine.missedTotal}</span>개를 수법별로 센 것입니다. 배수는 전체 기출의
+              오답 분포와 견준 값이고, <span className="tabular-nums">{MIN_SEEN}</span>번 이상 만난 수법에만
+              적습니다.
+              {mine.repeated.length ? (
+                <>
+                  {/* 조사를 붙이지 않는다 — 함정 이름의 끝 글자에 따라 「이에요/예요」가 갈리는데
+                      이름은 데이터에서 온다. 실측 캡처에 「범위 과대 이에요」가 찍혔다.
+                      ⚠️ **셋까지만 부른다.** 여섯이 다 걸리면 문장이 목록이 되고, 그건
+                         「전부 유난하면 아무것도 유난하지 않다」의 다른 얼굴이다(실측 캡처). */}{' '}
+                  지금 가장 자주 놓치는 것:{' '}
+                  <strong className="text-[var(--t1)]">{mine.repeated.slice(0, 3).join(' · ')}</strong>
+                  {mine.repeated.length > 3 ? ` 외 ${mine.repeated.length - 3}가지` : ''}.
+                </>
+              ) : null}
+            </>
+          ) : (
+            <>
+              아직 <span className="tabular-nums">{mine.total}</span>문항이라 분포라고 부르기엔 일러요 — 센 것만
+              보여 드립니다. <span className="tabular-nums">{MIN_TOTAL}</span>문항쯤 쌓이면 전체 기출과 견준 배수를
+              함께 적을게요.
+            </>
+          )}
+        </p>
+      ) : (
+        <p className="mt-3 break-keep text-xs leading-relaxed text-[var(--t3)]">
+          <span aria-hidden>◆</span> 는 {cover.minTypes}개 이상의 유형에 걸쳐 나오는 함정입니다 — 유형을 바꿔도
+          같은 수법이 옵니다. <span aria-hidden>◇</span> 는 몇몇 유형에만 나옵니다.
+          {base
+            ? ' 오른쪽 배수는 전체 기출의 오답 분포와 견준 값입니다 — ×가 클수록 이 유형에서 유난한 함정입니다.'
+            : ''}
+        </p>
+      )}
     </section>
   )
 }
