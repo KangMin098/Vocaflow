@@ -312,3 +312,32 @@ describe('assemble — 이음매 한 칸까지 예산에 넣는다', () => {
     expect(e!.ko).toContain('반면')
   })
 })
+
+/**
+ * **자리를 근거로 삼지 않는다** (3인 검수 3회차 실측 2026-09-15).
+ *
+ * 삽입 해설의 끝자리 가지에 「**글의 마지막 자리이므로** "…" 가 끝을 맺는다」가 남아 있었다.
+ * 「⑤가 답인 이유는 ⑤가 마지막이라서」라는 순환 논증이라 학습자가 쓸 수 없다 — 순서
+ * 유형에서 이미 없앤 「원문의 이음매와 다르다」와 **같은 꼴**이다. DB 실측 **29,121문항**.
+ *
+ * ⚠️ `insert` 정답이 끝자리인 것 자체는 결함이 아니다 — 실측 121,519문항 중 **24.0%** 로
+ *   자리 다섯의 균등(20%)에 가깝다. 검수자가 「끝자리를 정답으로 내놓는다」고 본 것은
+ *   표본 3건 중 2건이었고 **집단에서는 쏠림이 아니다.** 고칠 것은 자리가 아니라 해설이었다.
+ */
+describe('삽입 해설 — 끝자리를 자기 근거로 쓰지 않는다', () => {
+  const short = SOURCE.slice(0, 6)
+  // 마지막 문장을 빼면 정답 자리가 글의 끝이 된다.
+  const remaining = short.slice(0, 5)
+
+  it('「마지막 자리이므로」로 답을 정당화하지 않는다', () => {
+    const e = explainShortInsertSeam(remaining, short[5]!, 5)
+    expect(e).not.toBeNull()
+    expect(e!.ko, '자리를 근거로 삼았다').not.toContain('마지막 자리이므로')
+  })
+
+  it('끝자리라는 **사실**과 앞 문장은 보인다 — 아무 말도 안 하는 것은 아니다', () => {
+    const e = explainShortInsertSeam(remaining, short[5]!, 5)!
+    expect(e.ko).toContain('끝자리')
+    expect(e.hasCitation).toBe(true)
+  })
+})
