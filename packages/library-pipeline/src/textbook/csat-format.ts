@@ -398,7 +398,11 @@ const REFERENCE_MARK = /\s*\[\s*\d+(?:\s*[,\-–]\s*\d+)*\s*\]|\s*\[\s*\]/g
 export function normalizeSourceMarkup(text: string): string {
   return String(text ?? '')
     // 낱말 사이의 이중 하이픈만 — 목록의 `--` 구분선은 건드리지 않는다.
-    .replace(/([A-Za-z,;])--([A-Za-z])/g, '$1—$2')
+    // ⚠️ **왼쪽에 숫자도 온다.** 처음엔 글자·쉼표·쌍반점만 봤는데, 3인 검수가
+    //   `in the year 138--the Equiria` 를 되짚어 왔다(연도·수치 뒤가 구텐베르크에서 흔하다).
+    //   오른쪽은 글자로 묶어 둔다 — `1914--1918` 같은 범위까지 줄표로 바꾸면 쪽·연도 범위의
+    //   뜻이 달라진다.
+    .replace(/([A-Za-z0-9,;])--([A-Za-z])/g, '$1—$2')
     .replace(/_([A-Za-z][^_\n]{1,120}[A-Za-z.,!?])_/g, '$1')
     .replace(REFERENCE_MARK, '')
     // 참조를 떼면 낱말이 붙어 버리는 자리가 생긴다 — `speed and` 가 `speedand` 가 되지 않게.

@@ -25,17 +25,12 @@
 //   판정 일부를 DB 로 옮기더라도 이 파일은 남는다. 두 경로가 같은 함수를 부르게 하는 것이
 //   목적이지, 어디서 거르느냐가 목적이 아니다.
 import {
+  cleanPassageText,
   countPassageWords,
-  dropDuplicatedLeadWord,
-  dropRepeatedTail,
   hasArticleChrome,
   hasSensitiveTopic,
   hasUnbalancedParens,
   isPrintablePassage,
-  normalizeQuotes,
-  pairStraightQuotes,
-  stripSectionLabels,
-  stripSpaceBeforePunct,
 } from './csat-format'
 import { isPrintableUnderlineWord } from './vocab-choice'
 
@@ -54,20 +49,16 @@ export function isRetractedTitle(title: string | null | undefined): boolean {
 }
 
 /**
- * 인쇄·출제에 쓰는 사본으로 다듬는다.
+ * 인쇄·출제에 쓰는 사본으로 다듬는다 — **정본은 `csat-format` 에 있다.**
  *
- * ⚠️ **순서는 안에서 밖으로 읽는다.** 절 이름 → 반복 꼬리 → 눌어붙은 제목 →
- *   구두점 앞 공백 → 아포스트로피 → 큰따옴표. 제목 제거를 꼬리 절단보다 뒤에 두는 이유는,
- *   꼬리 대조가 **글머리와 글자 그대로** 같은지를 보기 때문이다 — 글머리를 먼저 손대면
- *   대조가 깨져 중복이 그대로 남는다.
+ * ⚠️ **여기서 사슬을 다시 쓰지 않는다.** 2026-09-15 에 두 벌이 됐고 곧바로 갈렸다 —
+ *   이 파일의 사본에만 `normalizeSourceMarkup` 이 빠져서, 조판이 고쳐 인쇄할 `--` 를
+ *   **뽑기(`volume-pool.mjs`)는 그대로 내보냈다.** 패키지가 밖으로 내주는 것이 이 이름이라
+ *   (`src/index.ts`) 검수자 손에는 안 고쳐진 쪽이 갔고, 3인 검수 청크 3건이
+ *   `Carlisle--Jimmie` · `the year 138--the Equiria` · `the saddle--though` 를 되짚어 왔다.
+ *   **사슬이 둘이면 반드시 갈린다** — 그래서 이름만 남기고 본문은 정본으로 넘긴다.
  */
-export function cleanPassageText(value: string): string {
-  return pairStraightQuotes(
-    normalizeQuotes(
-      stripSpaceBeforePunct(dropDuplicatedLeadWord(dropRepeatedTail(stripSectionLabels(value)))),
-    ),
-  )
-}
+export { cleanPassageText }
 
 /** 지문이 담기는 payload 키. `presented` 를 빠뜨리면 순서 문항이 통째로 새어 나간다. */
 export const PASSAGE_KEYS = [
