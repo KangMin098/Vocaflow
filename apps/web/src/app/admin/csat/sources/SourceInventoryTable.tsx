@@ -21,12 +21,29 @@ import Link from 'next/link'
 
 import type { SourceInventoryPanel, SourceInventoryRow } from '@/lib/textbook/source-inventory-view'
 
-/** 상태 세 칸의 색 — Memory Decay 4색을 그대로 쓴다(새 색을 만들지 않는다). */
+/**
+ * 상태 세 칸의 색 — **단일 색조 순차 램프**(잉크 t2 → t1 → t4).
+ *
+ * ⚠️ 처음에는 `warning-ink`(대기) · `success-ink`(발행) · `t3`(그 외) 로 칠했다.
+ *   두 가지가 틀렸다:
+ *   ① **상태 색을 범주 색으로 썼다.** 검토 대기는 재고의 80%인 **정상 상태**인데
+ *      경고색으로 칠하면 화면이 없는 경보를 만든다.
+ *   ② **눈으로 구분이 안 된다.** dataviz 검증기 실측: `#1F6B49`↔`#7A5200` 이
+ *      정상 시야에서 ΔE **12.7**(기준 15) — 색약이 아니어도 헷갈린다.
+ *
+ *   범주 3색으로 고치려면 이 시스템에 없는 색을 새로 만들어야 했다(저채도 팔레트라
+ *   검증을 통과하는 조합이 토큰 밖에 있다). 색을 만드는 대신 **인코딩을 바꿨다** —
+ *   세 상태는 실은 파이프라인 순서(그 외 → 대기 → 발행)라 순차 램프가 맞다.
+ *   순차는 색조 하나에 명도만 달리하므로 구분이 명도로 보장된다.
+ */
 const BAR = {
-  ready: 'var(--warning-ink)',
-  published: 'var(--success-ink)',
-  other: 'var(--t3)',
+  ready: 'var(--t2)',
+  published: 'var(--t1)',
+  other: 'var(--t4)',
 }
+
+/** 0 이 아닌데 0px 로 그려지지 않게 하는 바닥. 21원천 중 11곳의 발행분이 1px 미만이었다. */
+const MIN_SEG_PX = 2
 
 /**
  * **접힌 위에 놓는 소스 한 줄.**
@@ -92,6 +109,24 @@ export function SourceInventoryTable({ panel }: { panel: SourceInventoryPanel })
         재실행 안전). 원천 이름을 누르면 그 원천의 원문 목록으로, 행을 누르면 다음 할 일이 펼쳐진다.
       </p>
 
+      {/* 계열이 둘 이상이면 범례는 **항상** 있어야 한다 — 행마다 숫자를 적었어도 색이 무엇인지는
+          한 번 말해 줘야 한다(dataviz §6). 색조는 하나이고 명도만 다르다. */}
+      <p className="flex flex-wrap items-center gap-x-4 gap-y-1 font-body text-[11px] text-[var(--t3)]">
+        <span className="inline-flex items-center gap-1.5">
+          <i aria-hidden className="inline-block h-[10px] w-[14px] rounded-[2px]" style={{ background: BAR.ready }} />
+          검토 대기
+        </span>
+        <span className="inline-flex items-center gap-1.5">
+          <i aria-hidden className="inline-block h-[10px] w-[14px] rounded-[2px]" style={{ background: BAR.published }} />
+          발행
+        </span>
+        <span className="inline-flex items-center gap-1.5">
+          <i aria-hidden className="inline-block h-[10px] w-[14px] rounded-[2px]" style={{ background: BAR.other }} />
+          그 외 (보관 · 실패 · 큐)
+        </span>
+        <span>0 이 아닌 칸은 최소 2px — 안 보이면 「없다」와 구별되지 않는다</span>
+      </p>
+
       <div className="overflow-x-auto">
         <table className="w-full min-w-[860px] border-collapse font-body text-[13px]">
           <thead>
@@ -139,7 +174,11 @@ function Row({
   open: boolean
   onToggle: () => void
 }) {
-  const w = (n: number) => `${(n / row.total) * 100}%`
+  // ⚠️ **0 이 아닌 세그먼트는 최소 ${MIN_SEG_PX}px 을 준다.** 실측: 발행 세그먼트가
+  //   21원천 중 11곳에서 1px 미만이었고 9곳은 0px 이었다 — 보이지 않는 마크는
+  //   「없다」와 구별되지 않는다. 0 은 그대로 0 으로 둔다(없는 것을 있다고 그리지 않는다).
+  const w = (n: number) =>
+    n === 0 ? '0px' : `max(${MIN_SEG_PX}px, ${(n / row.total) * 100}%)`
   return (
     <>
       <tr className="border-b border-[var(--bd)]/50 align-middle">
@@ -162,7 +201,8 @@ function Row({
         </td>
         <td className="py-2 pr-3">
           {/* 색만으로 말하지 않는다 — 숫자를 옆에 둔다(색맹 대응). */}
-          <span className="flex h-[10px] w-[120px] overflow-hidden rounded-[var(--r-sm)] bg-[var(--bg2)]">
+          {/* 세그먼트 사이 2px 틈 — 인접한 두 칸이 한 덩어리로 안 읽히게(dataviz §marks). */}
+          <span className="flex h-[10px] w-[120px] gap-[2px] overflow-hidden rounded-[var(--r-sm)] bg-[var(--bg2)]">
             <i style={{ width: w(row.ready), background: BAR.ready }} />
             <i style={{ width: w(row.published), background: BAR.published }} />
             <i style={{ width: w(row.other), background: BAR.other }} />
@@ -173,10 +213,13 @@ function Row({
           </span>
         </td>
         <td className="py-2 pr-3 text-right tabular-nums">
+          {/* ⚠️ 상태색은 **아이콘·라벨과 함께** 온다 — 빨간 「0」만 두면 색이 유일한 신호가 된다. */}
           <span style={{ color: row.judged === 0 ? 'var(--error-ink)' : 'var(--t1)' }}>
-            {row.judged.toLocaleString()}
+            {row.judged === 0 ? '⚠ 0' : row.judged.toLocaleString()}
           </span>
-          <span className="ml-1 font-mono text-[10px] text-[var(--t3)]">{row.judgedPct}%</span>
+          <span className="ml-1 font-mono text-[10px] text-[var(--t3)]">
+            {row.judged === 0 ? '판정 없음' : `${row.judgedPct}%`}
+          </span>
         </td>
         <td className="py-2 pr-3 text-right tabular-nums text-[var(--t2)]">
           {row.levelled.toLocaleString()}
