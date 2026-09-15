@@ -402,7 +402,12 @@ export function normalizeSourceMarkup(text: string): string {
     //   `in the year 138--the Equiria` 를 되짚어 왔다(연도·수치 뒤가 구텐베르크에서 흔하다).
     //   오른쪽은 글자로 묶어 둔다 — `1914--1918` 같은 범위까지 줄표로 바꾸면 쪽·연도 범위의
     //   뜻이 달라진다.
-    .replace(/([A-Za-z0-9,;])--([A-Za-z])/g, '$1—$2')
+    // ⚠️ **오른쪽에 빈칸 표시도 온다** (3인 검수 2회차 chunk-07, 2026-09-16).
+    //   오른쪽을 글자로만 묶었더니 `kitchen chimney--____` 가 안 바뀌어, **한 문장 안에**
+    //   `the very place—a little white house`(바뀜)와 `chimney--____`(안 바뀜)가 같이
+    //   인쇄됐다. 빈칸 표시 앞은 연도 범위일 수 없으므로 안전하게 넓힌다(실측 2건).
+    //   삼교의 `dash_style` 은 공백 하이픈만 보므로 이 자국에는 영영 안 걸린다.
+    .replace(/([A-Za-z0-9,;])--([A-Za-z]|_{4,})/g, '$1—$2')
     .replace(/_([A-Za-z][^_\n]{1,120}[A-Za-z.,!?])_/g, '$1')
     .replace(REFERENCE_MARK, '')
     // 참조를 떼면 낱말이 붙어 버리는 자리가 생긴다 — `speed and` 가 `speedand` 가 되지 않게.

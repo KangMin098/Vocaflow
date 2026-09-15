@@ -138,6 +138,7 @@ describe('정제 사슬은 한 벌이다', () => {
     ['chunk-02 · 낱말 사이', '“Carlisle--Jimmie Carlisle.”', '—Jimmie'],
     ['chunk-04 · 숫자 뒤', 'in the year 138--the Equiria', '138—the'],
     ['chunk-05 · 절 사이', 'the saddle--though he used one--and', 'saddle—though'],
+    ['chunk-07 · 빈칸 앞', 'the kitchen chimney--____ stood there', 'chimney—____'],
   ])('%s 이중 하이픈이 지면 글자로 바뀐다', (_label, raw, want) => {
     expect(cleanPassageText(raw)).toContain(want)
     expect(cleanPassageText(raw)).not.toContain('--')
