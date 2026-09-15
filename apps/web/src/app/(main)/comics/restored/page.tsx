@@ -54,7 +54,7 @@ export default async function PdComicsPage({
           <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--active-ink)]">
             Vintage Comics
           </p>
-          <h1 className="mt-1 font-display text-[26px] font-[800] tracking-tight text-[var(--t1)] md:text-[30px]">
+          <h1 className="mt-1 font-editorial text-[26px] font-[800] tracking-tight text-[var(--t1)] md:text-[30px]">
             옛 영어 만화책
           </h1>
           {/* 화면 문구는 **실제로 배달되는 것**을 말해야 한다. 지금 발행되는 것은 복원된 원본

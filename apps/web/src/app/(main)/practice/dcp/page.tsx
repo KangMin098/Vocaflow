@@ -49,7 +49,7 @@ export default async function DcpPracticePage({
             <ArrowLeft size={13} strokeWidth={2} aria-hidden />
             {backLabel ?? '돌아가기'}
           </Link>
-          <h1 className="font-display text-[20px] font-[800] text-[var(--t1)]">구문 연습</h1>
+          <h1 className="font-editorial text-[20px] font-[800] text-[var(--t1)]">구문 연습</h1>
           <p className="break-keep font-body text-[13px] text-[var(--t2)]">
             문장의 순서와 위치로 글의 논리 구조를 훈련해요.
           </p>

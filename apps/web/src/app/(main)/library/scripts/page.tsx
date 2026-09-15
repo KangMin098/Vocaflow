@@ -73,7 +73,7 @@ export default async function LibraryScriptsPage({
           <div className="flex items-center gap-3">
             <span
               aria-hidden
-              className="inline-flex h-8 w-8 items-center justify-center rounded-ios-sm bg-[var(--p)] text-white"
+              className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-sm)] bg-[var(--p)] text-[var(--on-p)]"
             >
               <FileText size={16} />
             </span>

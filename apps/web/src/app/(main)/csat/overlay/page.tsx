@@ -62,7 +62,7 @@ export default async function CsatOverlayPage({
       </Link>
 
       <header className="mb-6 mt-2">
-        <h1 className="font-display text-2xl font-bold text-[var(--t1)]">
+        <h1 className="font-editorial text-2xl font-[600] text-[var(--t1)]">
           {linkMode ? `${item?.exam_label ?? examId} ${no}번 — 원본과 함께 보기` : '문제지에 해설 얹기'}
         </h1>
         <p className="mt-2 max-w-2xl break-keep text-sm leading-relaxed text-[var(--t2)]">

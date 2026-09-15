@@ -121,7 +121,7 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
       ) : (
         <>
           <header className="mb-6 mt-2">
-            <h1 className="font-display text-2xl font-bold text-[var(--t1)]">
+            <h1 className="font-editorial text-2xl font-[600] text-[var(--t1)]">
               {item.exam_label} {item.no}번
             </h1>
             <p className="mt-2 text-xs text-[var(--t3)]">

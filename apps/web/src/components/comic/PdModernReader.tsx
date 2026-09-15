@@ -91,7 +91,7 @@ export default function PdModernReader({ issueId, pages: pagesProp, title: title
     <div className="mx-auto w-full max-w-[820px] px-3 pb-24 md:px-4">
       <header className="flex items-center gap-2 py-3">
         <BookOpen size={15} className="text-[var(--p)]" aria-hidden />
-        <h1 className="truncate font-display text-[15px] font-[800] text-[var(--t1)]">{title}</h1>
+        <h1 className="truncate font-editorial text-[15px] font-[800] text-[var(--t1)]">{title}</h1>
         <span className="ml-auto font-mono text-[10px] text-[var(--t3)]">구성 보존 현대화 · 말풍선 탭·듣기</span>
       </header>
 

@@ -229,7 +229,7 @@ function Hero({
           </div>
           <h1
             id="bookvault-title"
-            className="font-display text-[22px] font-[700] tracking-[-0.01em] text-[var(--t1)] md:text-[26px]"
+            className="font-editorial text-[22px] font-[700] tracking-[-0.01em] text-[var(--t1)] md:text-[26px]"
           >
             내 책장
           </h1>

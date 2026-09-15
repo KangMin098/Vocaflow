@@ -126,7 +126,7 @@ export function DictationResultsClient() {
         <div>
           {/* 이 화면의 **이름**이므로 h1 이다. h2 로 두면 문서에 h1 이 없어
               화면 판독기가 "이 페이지는 무엇인가" 에 답하지 못한다. */}
-          <h1 className="font-display text-[16px] font-[700] text-[var(--t1)]">
+          <h1 className="font-editorial text-[16px] font-[700] text-[var(--t1)]">
             이 결과를 찾을 수 없어요
           </h1>
           {/* ⚠️ 여기 있던 문구는 **불가능한 상태**를 설명했다 — "로그인 없이 진행한 세션은
@@ -179,7 +179,7 @@ export function DictationResultsClient() {
           {/* 히어로 최상단이 이 화면의 이름이다 — `p` 로 두면 결과 화면 전체에 h1 이 없다
               (실측 2026-09-06: 전 화면 정체 검사에서 `/dictate/results` 만 h1=0 이었다).
               보이는 모습은 그대로 두고 의미만 바로잡는다. */}
-          <h1 className="font-display text-[12px] font-[700] uppercase tracking-[0.10em] opacity-80">
+          <h1 className="font-editorial text-[12px] font-[700] uppercase tracking-[0.10em] opacity-80">
             받아쓰기 완료
           </h1>
           <p data-testid="results-accuracy" className="mt-2 font-display text-[60px] font-[800] leading-none tabular-nums">

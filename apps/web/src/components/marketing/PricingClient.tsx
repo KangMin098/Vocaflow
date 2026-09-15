@@ -111,7 +111,7 @@ export function PricingClient({ signals }: { signals: TrustSignal[] | null }) {
             <Sparkles size={12} className="text-[var(--p)]" aria-hidden />
             요금제
           </span>
-          <h1 className="mt-6 break-keep font-display text-[36px] font-[800] leading-[1.15] tracking-tight text-[var(--t1)] md:text-[48px]">
+          <h1 className="mt-6 break-keep font-editorial text-[36px] font-[800] leading-[1.15] tracking-tight text-[var(--t1)] md:text-[48px]">
             지금은 전부 무료입니다
           </h1>
           <p className="mx-auto mt-4 max-w-xl break-keep font-body text-[15px] leading-relaxed text-[var(--t2)]">

@@ -49,7 +49,7 @@ export default async function CsatDrillPage({
       </Link>
 
       <header className="mb-5 mt-2">
-        <h1 className="break-keep font-display text-2xl font-bold text-[var(--t1)]">오답 감별 훈련</h1>
+        <h1 className="break-keep font-editorial text-2xl font-[600] text-[var(--t1)]">오답 감별 훈련</h1>
         {/* 무엇을 재는 훈련인지 먼저 말한다 — 「지문 풀이」로 오해하면 실망한다. */}
         <p className="mt-2 max-w-2xl break-keep text-sm leading-relaxed text-[var(--t2)]">
           기출 오답 해설을 읽고 <strong>그 수법의 이름</strong>을 고릅니다. 이름을 한 번 꺼내 본 수법은 다음

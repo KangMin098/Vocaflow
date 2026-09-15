@@ -1,38 +1,8 @@
 [
   {
-    "route": "/hub",
-    "width": 390,
-    "ok": false,
-    "error": "TimeoutError: page.goto: Timeout 45000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"http://localhost:3000/hub\", waiting "
-  },
-  {
-    "route": "/dashboard",
-    "width": 390,
-    "ok": false,
-    "error": "TimeoutError: page.goto: Timeout 45000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"http://localhost:3000/dashboard\", wa"
-  },
-  {
-    "route": "/flashcard/play",
-    "width": 390,
-    "landed": "/flashcard/play",
-    "ok": true
-  },
-  {
     "route": "/wordvault/browse",
     "width": 390,
     "landed": "/wordvault/browse",
-    "ok": true
-  },
-  {
-    "route": "/settings",
-    "width": 390,
-    "landed": "/settings",
-    "ok": true
-  },
-  {
-    "route": "/library",
-    "width": 390,
-    "landed": "/library/books",
     "ok": true
   }
 ]

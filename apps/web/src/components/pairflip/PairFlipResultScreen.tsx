@@ -48,7 +48,7 @@ export function PairFlipResultScreen({ result }: ResultScreenProps) {
           <PairFlipMascot mood={mascotMood} size={96} />
           <PairFlipScoreRing accuracy={accuracy} score={result.score} />
           <div className="text-center">
-            <h1 className="font-display text-[24px] font-[800] text-[var(--t1)]">
+            <h1 className="font-editorial text-[24px] font-[800] text-[var(--t1)]">
               {copy.title}
             </h1>
             <p className="mt-1 font-body text-[14px] text-[var(--t2)]">{copy.sub}</p>

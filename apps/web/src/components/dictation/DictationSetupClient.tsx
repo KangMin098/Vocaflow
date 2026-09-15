@@ -327,7 +327,7 @@ export function DictationSetupClient() {
           <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
             받아쓰기 준비
           </p>
-          <h1 className="truncate font-display text-[19px] font-[700] text-[var(--t1)]">
+          <h1 className="truncate font-editorial text-[19px] font-[700] text-[var(--t1)]">
             {source.title}
           </h1>
         </div>

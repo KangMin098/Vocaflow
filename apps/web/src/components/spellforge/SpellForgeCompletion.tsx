@@ -60,7 +60,7 @@ export function SpellForgeCompletion({
           ⚡
         </span>
 
-        <h1 className="mb-2 font-display text-[32px] font-[800] text-[var(--t1)]">
+        <h1 className="mb-2 font-editorial text-[32px] font-[800] text-[var(--t1)]">
           오늘의 학습이 완료됐어요
         </h1>
         <p className="mb-8 font-english text-[16px] italic text-[var(--t2)]">

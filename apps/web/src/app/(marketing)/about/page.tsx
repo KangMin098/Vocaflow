@@ -396,7 +396,10 @@ export default function AboutPage() {
       </section>
 
       {/* ── CTA ── */}
-      <section className="bg-gradient-to-br from-[var(--p)] to-[#6D28D9] text-[var(--ti)]">
+      {/* v07 — 잉크→보라 그라데이션을 걷었다(`#6D28D9` 는 지면 팔레트 밖이고 다크에서 따라오지
+          않는다). 글자색도 `--ti`(지면색)가 아니라 **`--p` 면 위의 짝 토큰**을 쓴다 —
+          다크에서 `--p` 가 밝게 뒤집히면 `--ti` 는 2.9:1 로 무너진다(a11y/on-p-contrast 회귀). */}
+      <section className="bg-gradient-to-br from-[var(--p)] to-[var(--p-dark)] text-[var(--on-p)]">
         <div className="mx-auto max-w-3xl px-6 py-16 text-center md:py-20">
           <h2 className="font-display text-[28px] font-[800] tracking-tight md:text-[36px]">
             지금 단어 한 개부터

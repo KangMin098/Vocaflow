@@ -374,7 +374,7 @@ export function PlanClient({
     <div className="flex w-full flex-col gap-5 py-6 md:py-8">
       {/* Hero */}
       <header>
-        <h1 className="flex items-center gap-2 font-display text-[22px] font-[800] text-[var(--t1)]">
+        <h1 className="flex items-center gap-2 font-editorial text-[22px] font-[800] text-[var(--t1)]">
           <span
             className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)] bg-[var(--p-light)] text-[var(--on-p-tint)]"
             aria-hidden

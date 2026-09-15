@@ -3,7 +3,6 @@
 // v06.32 도서관 — 슬림 헤더 + 책장 그리드.
 // Hero 영역 ~200px → ~40px (1 row meta). 인지 부하 최소화 + 컨텐츠 집중.
 
-import { Library } from 'lucide-react';
 import type { SupabaseClient } from '@supabase/supabase-js';
 
 import { Capsule, Screen } from '@/components/ui/ios';
@@ -382,12 +381,10 @@ export default async function LibraryBooksPage({
       <div className="flex flex-col gap-5 py-6 md:py-8">
         <header className="flex flex-col gap-3 px-1">
           <div className="flex items-center gap-3">
-            <span
-              aria-hidden
-              className="inline-flex h-8 w-8 items-center justify-center rounded-ios-sm bg-ios-orange text-white"
-            >
-              <Library size={16} />
-            </span>
+            {/* v07 — 둥근 컬러 아이콘 칩을 뺐다. 아이콘을 상자에 담는 것은 지금 AI 생성 UI 의
+                공통 관용구이고(00-inventory C4·C8), `bg-ios-orange` 는 지면 팔레트 밖이다.
+                판면에서 제목을 여는 것은 **주묵 획 하나**다 — 셸·세션 머리와 같은 표식. */}
+            <span aria-hidden className="inline-block h-[30px] w-[4px] shrink-0 bg-[var(--ju)] md:h-[40px]" />
             <h1 className="font-editorial text-[44px] font-[500] tracking-[-0.012em] leading-[1.02] text-[var(--t1)] md:text-[56px]">
               {MATERIAL_LABEL.book}
             </h1>

@@ -530,7 +530,7 @@ function CarouselBook({
         {/* 학습 상태 배지 — 가장 가시성 높은 위치 */}
         {book.enrollment_state === 'completed' && (
           <span
-            className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--success)] px-2 py-1 font-display text-[10px] font-[700] text-white shadow-[0_2px_6px_rgba(0,0,0,0.25)]"
+            className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--success)] px-2 py-1 font-display text-[10px] font-[700] text-[var(--on-p)]"
             title="완독한 도서"
             aria-label="완독한 도서"
           >

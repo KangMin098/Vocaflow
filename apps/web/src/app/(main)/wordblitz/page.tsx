@@ -119,7 +119,7 @@ export default async function WordBlitzHubPage() {
             <span className="opacity-30" aria-hidden>
               ·
             </span>
-            <h1 className="font-display text-[15px] font-[800] leading-tight text-[var(--t1)] md:text-[16px]">
+            <h1 className="font-editorial text-[15px] font-[800] leading-tight text-[var(--t1)] md:text-[16px]">
               WordBlitz
             </h1>
             <span className="hidden opacity-30 sm:inline" aria-hidden>

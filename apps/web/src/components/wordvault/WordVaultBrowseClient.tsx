@@ -18,6 +18,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { FileText, Layers } from 'lucide-react'
 
 import { ResourceContext } from '@/components/layout/ResourceContext'
+import { Rule } from '@/components/ui/press'
 import { useListenQueue } from '@/components/wordvault/hooks/useListenQueue'
 import { useSpeech } from '@/components/wordvault/hooks/useSpeech'
 import type { BrowseChip, BrowseWord } from '@/lib/wordvault/browse-queries'
@@ -286,43 +287,63 @@ export function WordVaultBrowseClient({
           <EmptyAll />
         ) : (
           <>
-            {/* ── 기억 상태로 걸러 들어온 경우: 무엇을 보고 있는지 + 학습 진입 ── */}
-            {stateKey && !bookContext && (
-              <MemoryFilterBar
-                filterKey={stateKey}
-                count={words.length}
-                onClear={clearStateFilter}
-              />
-            )}
+            {/*
+              ── 도구 판면 ────────────────────────────────────────────────────
+              v07 「주묵 판면」. 이 화면의 결함은 컨트롤이 많다는 것이 아니라
+              **컨트롤마다 제 상자를 갖고 있다는 것**이었다 — 기억 필터 · 소스 내비 ·
+              듣기 패널 · 검색줄 · 가리기줄이 각자 테두리를 두르고 세로로 쌓여서,
+              390px 실측에서 **첫 단어가 나오기 전까지 5개의 카드**를 지나야 했다
+              (화면 전체 높이 5,154px). 카드 다섯 장이 같은 무게로 서 있으면
+              무엇이 도구이고 무엇이 내용인지가 형태로 구분되지 않는다.
 
-            {/* ── 소스 바: 도서 컨텍스트 = 컴팩트 챕터/소스 바 / 일반 = chip nav ── */}
-            {bookContext ? (
-              <BrowseSourceBar
-                bookId={bookContext.bookId}
-                chapterIdx={bookContext.chapterIdx}
-                currentTextId={bookContext.currentTextId}
-                chapters={bookContext.chapters}
-                wordCount={words.length}
-                onGoToChapter={goToChapter}
-              />
-            ) : (
-              <div className="flex flex-col gap-2">
-                <ScriptsChipNav chips={chips} active={scriptFilter} onChange={setScriptFilter} />
-                {/* 스크립트 필터 시 해당 스크립트 본문으로 바로가기 */}
-                {scriptFilter.startsWith('text:') && (
-                  <Link
-                    href={`/text/${scriptFilter.slice(5)}`}
-                    className="inline-flex w-fit items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[700] text-[var(--learn-fresh)] transition-colors hover:bg-[var(--bg2)]"
-                  >
-                    <FileText size={12} aria-hidden />
-                    이 스크립트 본문 열기 →
-                  </Link>
-                )}
-              </div>
-            )}
+              지면 문법에서 도구는 **여백(margin)** 이고 목록이 **판면**이다.
+              그래서 상자를 없애는 대신 **하나로 합친다** — 바깥 테두리 하나,
+              안쪽은 괘선으로 갈린다. 자식 컴포넌트는 손대지 않고 직계 자식의
+              테두리·배경·라운드만 여기서 지운다(`[&>*]`는 직계에만 걸린다).
+              기능은 하나도 감추지 않는다 — Progressive Disclosure 는 **위계**의 문제이지
+              숨김의 문제가 아니다.
+              ───────────────────────────────────────────────────────────────── */}
+            <section
+              aria-label="단어장 도구"
+              className="overflow-hidden rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] [&>*+*]:border-t [&>*+*]:border-[var(--bd)] [&>*]:mb-0 [&>*]:rounded-none [&>*]:border-x-0 [&>*]:border-b-0 [&>*]:bg-transparent"
+            >
+              {/* ── 기억 상태로 걸러 들어온 경우: 무엇을 보고 있는지 + 학습 진입 ── */}
+              {stateKey && !bookContext && (
+                <MemoryFilterBar
+                  filterKey={stateKey}
+                  count={words.length}
+                  onClear={clearStateFilter}
+                />
+              )}
 
-            {/* ── 듣기 옵션 ── */}
-            <ListenPanel
+              {/* ── 소스 바: 도서 컨텍스트 = 컴팩트 챕터/소스 바 / 일반 = chip nav ── */}
+              {bookContext ? (
+                <BrowseSourceBar
+                  bookId={bookContext.bookId}
+                  chapterIdx={bookContext.chapterIdx}
+                  currentTextId={bookContext.currentTextId}
+                  chapters={bookContext.chapters}
+                  wordCount={words.length}
+                  onGoToChapter={goToChapter}
+                />
+              ) : (
+                <div className="flex flex-col gap-2 px-3 py-2.5">
+                  <ScriptsChipNav chips={chips} active={scriptFilter} onChange={setScriptFilter} />
+                  {/* 스크립트 필터 시 해당 스크립트 본문으로 바로가기 */}
+                  {scriptFilter.startsWith('text:') && (
+                    <Link
+                      href={`/text/${scriptFilter.slice(5)}`}
+                      className="inline-flex w-fit items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[700] text-[var(--learn-fresh)] transition-colors hover:bg-[var(--bg2)]"
+                    >
+                      <FileText size={12} aria-hidden />
+                      이 스크립트 본문 열기 →
+                    </Link>
+                  )}
+                </div>
+              )}
+
+              {/* ── 듣기 옵션 ── */}
+              <ListenPanel
               allWords={words}
               selectedIds={selectedIds}
               settings={listenSettings}
@@ -336,30 +357,39 @@ export function WordVaultBrowseClient({
               isPaused={queue.isPaused}
               currentIndex={queue.currentIndex}
               queueLength={queue.queueLength}
-              currentWord={queue.currentWord}
-              englishVoice={queue.englishVoice}
-            />
+                currentWord={queue.currentWord}
+                englishVoice={queue.englishVoice}
+              />
 
-            {/* ── 도구 모음: 검색 + 난이도 + 정렬 + Active Recall (1행 컴팩트) ── */}
-            <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-              <div className="min-w-0 flex-1">
-                <SearchRow
-                  initialQuery={initialQuery}
-                  // 낱개 CEFR(`B1`)은 셀렉트에 대응 칸이 없어 묶음으로 환산해 보여 준다 —
-                  // 목록은 여전히 B1 만 거른다(허브 막대가 가리킨 칸이 그것이라서).
-                  // 그 정확한 조건은 아래 ResourceContext 가 문장으로 말한다.
-                  initialLevel={levelParamToClass(initialLevel)}
-                  onSearchChange={setSearchQuery}
-                  onLevelChange={setLevelFilter}
-                  onSortChange={setSortBy}
-                />
+              {/* ── 도구 모음: 검색 + 난이도 + 정렬 + Active Recall (1행 컴팩트) ── */}
+              <div className="flex flex-col gap-2 px-3 py-2.5 sm:flex-row sm:items-center">
+                <div className="min-w-0 flex-1">
+                  <SearchRow
+                    initialQuery={initialQuery}
+                    // 낱개 CEFR(`B1`)은 셀렉트에 대응 칸이 없어 묶음으로 환산해 보여 준다 —
+                    // 목록은 여전히 B1 만 거른다(허브 막대가 가리킨 칸이 그것이라서).
+                    // 그 정확한 조건은 아래 ResourceContext 가 문장으로 말한다.
+                    initialLevel={levelParamToClass(initialLevel)}
+                    onSearchChange={setSearchQuery}
+                    onLevelChange={setLevelFilter}
+                    onSortChange={setSortBy}
+                  />
+                </div>
+                <HideToggleBar hideStates={hideStates} onToggle={handleToggleHide} />
               </div>
-              <HideToggleBar hideStates={hideStates} onToggle={handleToggleHide} />
-            </div>
+            </section>
+
+            {/* ── 목록 머리 괘선 — 여기서부터 **내용**이다.
+                 도구와 목록 사이에 형태의 경계가 없던 것이 이 화면의 문제였다. */}
+            <Rule
+              label="단어"
+              right={`${words.length.toLocaleString()}개`}
+              className="mt-1"
+            />
 
             {/* ── 4. 단어 리스트 / 필터 빈 상태 ── */}
             {words.length === 0 ? (
-              <div className="rounded-xl border border-dashed border-[var(--bd)] bg-[var(--bg2)] py-12 text-center font-body text-[14px] text-[var(--t2)]">
+              <div className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] py-12 text-center font-body text-[14px] text-[var(--t2)]">
                 이 필터에 해당하는 단어가 없어요
               </div>
             ) : (

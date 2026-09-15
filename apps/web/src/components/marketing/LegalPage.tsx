@@ -56,7 +56,7 @@ export function LegalPage({ title, intro, effectiveDate, version, sections }: Le
             <FileText size={11} className="text-[var(--p)]" aria-hidden />
             법적 문서
           </span>
-          <h1 className="mt-4 font-display text-[32px] font-[800] tracking-tight text-[var(--t1)] md:text-[40px]">
+          <h1 className="mt-4 font-editorial text-[32px] font-[800] tracking-tight text-[var(--t1)] md:text-[40px]">
             {title}
           </h1>
           <p className="mt-3 max-w-2xl font-body text-[15px] leading-relaxed text-[var(--t2)]">

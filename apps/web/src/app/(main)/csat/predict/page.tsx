@@ -40,7 +40,7 @@ export default async function CsatPredictPage() {
   return (
     <div className="mx-auto max-w-4xl">
       <header className="flex flex-wrap items-baseline justify-between gap-2">
-        <h1 className="font-display text-xl font-bold text-[var(--t1)]">사정권</h1>
+        <h1 className="font-editorial text-xl font-[600] text-[var(--t1)]">사정권</h1>
         <p className="tabular-nums text-xs text-[var(--t3)]">
           {map.exams}회차 {map.items.toLocaleString()}문항을 센 결과
         </p>

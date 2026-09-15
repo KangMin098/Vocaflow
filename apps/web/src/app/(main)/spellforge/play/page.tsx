@@ -111,7 +111,7 @@ function HubEmpty({ reason }: { reason: 'auth' | 'empty' }) {
       <div className="select-none text-4xl" aria-hidden>
         ⌨️
       </div>
-      <h1 className="font-display text-[16px] font-[700] text-[var(--t1)]">
+      <h1 className="font-editorial text-[16px] font-[700] text-[var(--t1)]">
         {reason === 'auth' ? '로그인이 필요해요' : '연습할 단어가 아직 없어요'}
       </h1>
       <p className="font-body text-[13px] leading-relaxed text-[var(--t2)]">

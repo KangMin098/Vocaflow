@@ -43,7 +43,7 @@ export function ReportsClient({ reports }: { reports: WeeklyReport[] }) {
           <CalendarRange size={18} strokeWidth={1.75} />
         </span>
         <div className="flex-1">
-          <h1 className="font-display text-[20px] font-[800] text-[var(--t1)]">주간 리포트</h1>
+          <h1 className="font-editorial text-[20px] font-[800] text-[var(--t1)]">주간 리포트</h1>
           <p className="font-body text-[12px] text-[var(--t2)]">주마다 학습을 차분히 돌아봐요</p>
         </div>
         <button

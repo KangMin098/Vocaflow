@@ -188,7 +188,7 @@ export default function TextViewerNewPage() {
       {/* ── 헤더 ── */}
       <header className="flex h-[60px] flex-shrink-0 items-center gap-s-4 border-b border-bd bg-bg px-s-4 lg:px-s-6">
         <div className="flex min-w-0 flex-col">
-          <h1 className="truncate font-display text-base font-bold leading-tight tracking-tight text-t1 sm:text-lg">
+          <h1 className="truncate font-editorial text-base font-[600] leading-tight tracking-tight text-t1 sm:text-lg">
             새 스크립트 추가
           </h1>
           <p className="truncate font-mono text-[10px] uppercase tracking-wider text-t3">
@@ -255,7 +255,7 @@ export default function TextViewerNewPage() {
                 <button
                   type="button"
                   onClick={restoreDraft}
-                  className="inline-flex min-h-11 items-center gap-s-2 rounded-md bg-p px-s-4 font-display text-[13px] font-semibold text-ti transition-colors duration-normal hover:bg-p-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-p focus-visible:ring-offset-2 active:scale-[0.99] disabled:opacity-40"
+                  className="inline-flex min-h-11 items-center gap-s-2 rounded-md bg-p px-s-4 font-display text-[13px] font-semibold text-[var(--on-p)] transition-colors duration-normal hover:bg-p-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-p focus-visible:ring-offset-2 active:scale-[0.99] disabled:opacity-40"
                 >
                   <RotateCcw size={14} aria-hidden="true" />
                   이어 쓰기
@@ -453,7 +453,7 @@ export default function TextViewerNewPage() {
             type="button"
             onClick={handleSave}
             disabled={!canSave || isSaving}
-            className="group relative flex h-14 w-full items-center justify-center gap-s-3 overflow-hidden rounded-xl bg-p font-display text-base font-bold text-ti shadow-sm transition-all duration-normal hover:bg-p-hover hover:shadow-lg active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-p"
+            className="group relative flex h-14 w-full items-center justify-center gap-s-3 overflow-hidden rounded-xl bg-p font-display text-base font-bold text-[var(--on-p)] shadow-sm transition-all duration-normal hover:bg-p-hover hover:shadow-lg active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-p"
           >
             {isSaving ? (
               <>

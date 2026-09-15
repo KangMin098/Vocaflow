@@ -118,7 +118,7 @@ export function TeacherClient({
           <GraduationCap size={18} strokeWidth={1.75} />
         </span>
         <div>
-          <h1 className="font-display text-[20px] font-[800] text-[var(--t1)]">클래스</h1>
+          <h1 className="font-editorial text-[20px] font-[800] text-[var(--t1)]">클래스</h1>
           <p className="font-body text-[12px] text-[var(--t2)]">
             클래스를 만들어 초대코드로 학생을 모아요
           </p>

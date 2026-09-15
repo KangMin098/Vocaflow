@@ -58,7 +58,7 @@ export default async function CsatPlanPage() {
       </Link>
 
       <header className="mb-6 mt-2">
-        <h1 className="font-display text-2xl font-bold text-[var(--t1)]">한 회차 주파 계획</h1>
+        <h1 className="font-editorial text-2xl font-[600] text-[var(--t1)]">한 회차 주파 계획</h1>
         <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[var(--t2)]">
           번호별 유형은 2019학년도부터 고정입니다. 그래서 <strong>번호를 보면 무엇을 할지 미리 정해
           둘 수 있어요.</strong> 아래는 {plan.exam_label || '최근 수능'} 기준입니다.

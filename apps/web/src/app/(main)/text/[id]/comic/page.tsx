@@ -44,7 +44,7 @@ function ComicEmpty({ textId, message }: { textId: string; message: string }) {
         </div>
         <Link
           href={`/text/${textId}?mode=read`}
-          className="inline-flex items-center gap-2 rounded-[var(--r-full)] bg-[var(--p)] px-4 py-2 font-display text-[13px] font-[700] text-white shadow-[var(--sh-sm)]"
+          className="inline-flex items-center gap-2 rounded-[var(--r-full)] bg-[var(--p)] px-4 py-2 font-display text-[13px] font-[600] text-[var(--on-p)]"
         >
           본문 읽기
         </Link>

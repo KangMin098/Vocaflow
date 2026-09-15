@@ -101,7 +101,7 @@ export default function WordBlitzPage() {
         <div className="select-none text-4xl" aria-hidden>
           📚
         </div>
-        <h1 className="font-display text-[16px] font-[700]" style={{ color: 'var(--t1)' }}>
+        <h1 className="font-editorial text-[16px] font-[700]" style={{ color: 'var(--t1)' }}>
           이 자료에 학습할 단어가 아직 없어요
         </h1>
         <p className="font-body text-[13px]" style={{ color: 'var(--t2)' }}>

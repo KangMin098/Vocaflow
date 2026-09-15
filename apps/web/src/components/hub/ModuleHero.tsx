@@ -100,7 +100,7 @@ export function ModuleHero({
             {eyebrow}
           </span>
           <span className="opacity-30" aria-hidden>·</span>
-          <h1 className="font-display text-[15px] font-[700] leading-tight md:text-[16px]">
+          <h1 className="font-editorial text-[15px] font-[700] leading-tight md:text-[16px]">
             {title}
           </h1>
           {subText && (

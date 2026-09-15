@@ -84,7 +84,7 @@ export default async function TextbookPracticePage({
             <ArrowLeft size={13} strokeWidth={2} aria-hidden />
             {rung.volumeTitle}
           </Link>
-          <h1 className="font-display text-[20px] font-[800] text-[var(--t1)]">연습</h1>
+          <h1 className="font-editorial text-[20px] font-[800] text-[var(--t1)]">연습</h1>
           <p className="font-body text-[13px] text-[var(--t2)]">
             {rung.schoolBand} 계단의 순서·삽입 문항이에요. 푼 기록은 다음 문항을 고르는 데 쓰여요.
           </p>

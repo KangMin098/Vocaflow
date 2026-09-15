@@ -44,7 +44,7 @@ export function ChapterContentView({
           Chapter {content.chapter_idx}
         </span>
         {content.chapter_title && (
-          <h1 className="mt-1 font-display text-[24px] font-[700] text-[var(--t1)]">
+          <h1 className="mt-1 font-editorial text-[24px] font-[700] text-[var(--t1)]">
             {content.chapter_title}
           </h1>
         )}

@@ -95,7 +95,7 @@ export default async function CsatTypePage({ params }: { params: Promise<{ typeI
       ) : (
         <>
           <header className="mb-5 mt-2">
-            <h1 className="break-keep font-display text-2xl font-bold text-[var(--t1)]">{detail.name}</h1>
+            <h1 className="break-keep font-editorial text-2xl font-[600] text-[var(--t1)]">{detail.name}</h1>
             <p className="mt-1.5 text-xs text-[var(--t3)]">
               기출 {detail.items}문항
               {detail.n_analyzed > 0 ? ` · 분석 ${detail.n_analyzed}문항` : ''}

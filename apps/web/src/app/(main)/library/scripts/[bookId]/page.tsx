@@ -238,7 +238,7 @@ function ArticlePreview({
       </div>
 
       <header className="flex flex-col gap-2">
-        <h1 className="m-0 text-balance font-display text-[24px] font-[800] leading-[1.25] tracking-[-0.02em] text-[var(--t1)] md:text-[30px]">
+        <h1 className="m-0 text-balance font-editorial text-[24px] font-[800] leading-[1.25] tracking-[-0.02em] text-[var(--t1)] md:text-[30px]">
           {a.title}
         </h1>
         <p className="m-0 flex flex-wrap items-center gap-x-2 gap-y-1 font-body text-[12px] text-[var(--t2)]">
