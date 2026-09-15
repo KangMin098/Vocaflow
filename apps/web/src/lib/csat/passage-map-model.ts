@@ -93,3 +93,25 @@ export function widthPct(chars: number, max: number): number {
   // 아주 짧은 문장도 보이게 바닥을 둔다 — 0에 가까우면 «문장이 없다» 로 읽힌다.
   return Math.max(6, Math.round((chars / Math.max(max, 1)) * 100))
 }
+
+/**
+ * **지도가 들지 못한 선지** — 이 선지들의 근거는 산문으로 내려간다.
+ *
+ * 지도는 `how_to_reject` 안의 영어 조각이 **지문에서 찾힐 때만** `reject:n` 앵커를 얻는다
+ * (노출 예산에 걸려 버려지기도 한다 — `scripts/csat/build-skeleton-data.mjs` §fitBudget).
+ * 그래서 「골격이 있으면 산문 절을 안 그린다」는 규칙이 문항 단위로는 **틀렸다**.
+ *
+ * 실측 2026-09-15 — 골격 589문항 중 **136문항(23.1%)이 answer 앵커 하나뿐**이었고,
+ * 그 136문항 **전부**가 오답 분석을 갖고 있었다(배제 근거 544문단 · 평균 867자 · 최대 1,616자).
+ * 화면은 그것을 **한 글자도 안 보여 주고 있었다.** 지도가 대신하기로 한 내용을 그 문항에서는
+ * 지도가 들고 있지 않았는데, 조건이 문항 단위라 조용히 사라졌다.
+ *
+ * 규칙은 선지 단위다 — **모든 선지는 칩이거나 글이거나, 둘 중 하나로는 반드시 닿는다.**
+ */
+export function offMapChoices<T extends { n: number }>(
+  distractors: readonly T[],
+  shownIds: readonly string[],
+): T[] {
+  const on = new Set(shownIds)
+  return distractors.filter((d) => !on.has(`reject:${d.n}`))
+}

@@ -197,13 +197,29 @@ test.describe('기출 유형 분석 — 학습자 표면', () => {
       // 되풀이가 아니라 **대응**을 말해야 한다 — 짧은 한 줄은 근거가 아니다
       expect(((await whyBody.textContent()) ?? '').trim().length).toBeGreaterThan(80);
 
-      // ② 오답이 **번호로 가리켜진다** — 지도에서는 칩, 산문에서는 절.
-      if (useMap) {
-        // 지도는 오답을 칩으로 낸다. 정답 칩 하나는 눌린 채로 오고 나머지는 안 눌린 상태다.
-        await expect(page.locator('button[aria-pressed="false"]').first()).toBeVisible();
-      } else {
-        await expect(page.getByRole('heading', { name: '나머지가 왜 아닌가' })).toBeVisible();
-        await expect(page.getByText('지우는 근거 —').first()).toBeVisible();
+      // ② 오답 넷이 **하나도 빠지지 않고** 닿는다 — 지도의 칩이거나, 산문의 항목이거나.
+      //
+      // ⚠️ 「지도가 떴다」는 이 화면이 옳다는 증거가 아니다. 2026-09-15 실측 — 지도는
+      //    `how_to_reject` 속 영어 조각이 지문에서 **찾힐 때만** 오답 칩을 얻는데(노출 예산에
+      //    걸려 버려지기도 한다) 산문 절을 지우는 조건은 **문항 단위**였다. 그래서 골격
+      //    589문항 중 **136문항(23.1%)** 에서 오답 분석 **544문단(평균 867자)** 이 화면에서
+      //    통째로 사라졌고, 지도는 정답 칩 하나만 띄운 채 멀쩡해 보였다.
+      //    그러니 여기서 세는 것은 «칩이 있는가» 가 아니라 **넷이 다 닿는가** 다.
+      const rejectChips = useMap
+        ? (await page.getByRole('group', { name: '근거 고르기' }).locator('button[aria-pressed]').count()) - 1
+        : 0;
+      const proseSection = page
+        .locator('section')
+        .filter({ has: page.getByRole('heading', { name: '나머지가 왜 아닌가' }) });
+      const proseRejects = (await proseSection.count()) ? await proseSection.locator('> ul > li').count() : 0;
+      expect(
+        rejectChips + proseRejects,
+        `오답 넷 중 닿지 않는 것이 있다 — 칩 ${rejectChips} + 글 ${proseRejects}`,
+      ).toBe(4);
+      // 글로 내려온 것이 있으면 «왜 칩이 아닌지» 를 말해야 한다 — 말없이 두면 두 화면이
+      // 같은 문항을 다르게 그리는 것으로만 보인다.
+      if (useMap && proseRejects > 0) {
+        await expect(page.getByText('지문에서 가리킬 문장을 찾지 못한 선지예요')).toBeVisible();
       }
 
       // ③ 다시 풀 때의 순서

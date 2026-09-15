@@ -6,7 +6,7 @@
 import { describe, expect, it } from 'vitest'
 
 import type { SkeletonSentence } from '../passage-skeleton'
-import { countsAsOpen, initialAnchorId, mapState, segments, widthPct, type MapAnchor } from '../passage-map-model'
+import { countsAsOpen, initialAnchorId, mapState, offMapChoices, segments, widthPct, type MapAnchor } from '../passage-map-model'
 
 const ANCHORS: MapAnchor[] = [
   { id: 'reject:1', label: '①', kind: 'reject', detail: '①은 이래서 아니다' },
@@ -138,5 +138,42 @@ describe('widthPct', () => {
 
   it('0 으로 나누지 않는다', () => {
     expect(widthPct(0, 0)).toBe(6)
+  })
+})
+
+describe('offMapChoices — 모든 선지는 칩이거나 글이거나', () => {
+  const ds = [{ n: 1 }, { n: 2 }, { n: 3 }, { n: 4 }, { n: 5 }]
+
+  it('지도가 하나도 못 들면 전부 글로 내려온다 — 이것이 실제로 깨져 있던 경우다', () => {
+    // 실측 2026-09-15: 골격 589 중 136문항이 answer 앵커 하나뿐인데 조건이 문항 단위라
+    // 오답 분석 544문단(평균 867자)이 화면에서 통째로 사라져 있었다.
+    expect(offMapChoices(ds, ['answer'])).toEqual(ds)
+  })
+
+  it('지도가 든 선지만 빠진다', () => {
+    expect(offMapChoices(ds, ['answer', 'reject:2', 'reject:5']).map((d) => d.n)).toEqual([1, 3, 4])
+  })
+
+  it('지도가 전부 들면 비어 있다 — 같은 내용을 두 번 쌓지 않는다', () => {
+    expect(offMapChoices(ds, ['answer', 'reject:1', 'reject:2', 'reject:3', 'reject:4', 'reject:5'])).toEqual([])
+  })
+
+  it('골격이 없으면(앵커 0) 전부 글이다 — 지금까지의 산문 화면 그대로', () => {
+    expect(offMapChoices(ds, [])).toEqual(ds)
+  })
+
+  it('answer 앵커는 선지를 가리지 않는다 — id 를 접두사로 비교하면 ①이 사라진다', () => {
+    // `reject:1` 과 `answer` 를 뭉뚱그려 비교하는 구현을 막는다.
+    expect(offMapChoices([{ n: 1 }], ['answer']).map((d) => d.n)).toEqual([1])
+  })
+
+  it('없는 번호의 앵커는 아무것도 빼지 않는다', () => {
+    expect(offMapChoices(ds, ['reject:9']).map((d) => d.n)).toEqual([1, 2, 3, 4, 5])
+  })
+
+  it('원래 배열을 건드리지 않고 순서를 지킨다', () => {
+    const src = [{ n: 3 }, { n: 1 }, { n: 2 }]
+    expect(offMapChoices(src, ['reject:1']).map((d) => d.n)).toEqual([3, 2])
+    expect(src.map((d) => d.n)).toEqual([3, 1, 2])
   })
 })

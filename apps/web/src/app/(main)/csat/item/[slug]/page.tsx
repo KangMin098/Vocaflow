@@ -23,7 +23,7 @@ import { kiceSourceOf } from '@/lib/csat/kice-source'
 import { toItemSlug } from '@/lib/csat/item-slug'
 import { fromItemSlug, loadCsatItemExplain } from '@/lib/csat/learner'
 import { pickNextItem } from '@/lib/csat/next-item'
-import type { MapAnchor } from '@/lib/csat/passage-map-model'
+import { offMapChoices, type MapAnchor } from '@/lib/csat/passage-map-model'
 import { loadItemSkeleton, skeletonSiblings } from '@/lib/csat/skeleton'
 
 export const dynamic = 'force-dynamic'
@@ -72,6 +72,9 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
   // 골격이 가리키는 앵커만 지도에 올린다 — 지도에 없는 칩을 누르면 아무 일도 안 일어난다.
   const shown = skeleton ? mapAnchors.filter((a) => skeleton.anchors.some((x) => x.id === a.id)) : []
   const useMap = skeleton != null && shown.length > 0
+  // **지도가 못 든 선지는 글로 내려온다.** 조건이 문항 단위였을 때 136문항(23.1%)의 오답
+  // 분석 544문단이 화면에서 통째로 사라져 있었다 — §offMapChoices 머리말에 실측이 있다.
+  const offMap = item ? offMapChoices(item.distractors, shown.map((a) => a.id)) : []
   // 라벨이 약속을 지키게 한다 — 평가원이 지금 공개하는 기출은 **올해 수능 하나**다
   // (게시판 7개·모평 안내 3쪽·본원 사이트·옛 archive 전수 확인 · kice-source.ts 머리말).
   // 링크가 없는 회차에서 「원본과 함께 보기」라고 적으면 눌러 본 사람이 속는다.
@@ -175,13 +178,22 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
             </section>
           )}
 
-          {/* 지도가 있으면 이 절은 안 그린다 — 같은 내용을 산문으로 한 번 더 쌓는 것이 되고,
-              그게 바로 이 화면이 「단순 텍스트 나열」이라고 불린 이유였다. */}
-          {!useMap && item.distractors.length ? (
+          {/* 지도가 **이미 든 선지**만 이 절에서 뺀다 — 같은 내용을 산문으로 한 번 더 쌓는 것이
+              이 화면이 「단순 텍스트 나열」이라 불린 이유였지만, 안 든 선지까지 지우면 그건
+              중복 제거가 아니라 **누락**이다. */}
+          {offMap.length ? (
             <section className="mb-6">
               <h2 className="font-display text-sm font-bold text-[var(--t1)]">나머지가 왜 아닌가</h2>
+              {useMap ? (
+                // 칩이 없는 이유를 사실대로 적는다 — 「지문에 근거가 없다」가 아니라 «가리킬
+                // 문장을 못 찾았다» 다. 배제 근거가 도표·형식·상식에 걸려 있거나, 한국어로만
+                // 쓰여 지문 대조가 안 되는 경우다.
+                <p className="mt-1 break-keep text-xs leading-relaxed text-[var(--t3)]">
+                  지문에서 가리킬 문장을 찾지 못한 선지예요 — 근거는 여기에 글로 적혀 있습니다.
+                </p>
+              ) : null}
               <ul className="mt-2 space-y-2">
-                {item.distractors.map((d) => (
+                {offMap.map((d) => (
                   <li key={d.n} className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4">
                     <div className="flex items-baseline justify-between gap-3">
                       <span className="font-display text-base font-bold tabular-nums text-[var(--t2)]">

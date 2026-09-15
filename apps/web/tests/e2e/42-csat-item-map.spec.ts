@@ -208,6 +208,53 @@ test.describe('기출 문항 해설 — 지문 지도', () => {
     expect(href).not.toContain(ITEM_SLUG)
   })
 
+  // ── 오답 넷은 **하나도 빠지지 않는다** ──────────────────────────────
+  //
+  // 지도는 `how_to_reject` 안의 영어 조각이 **지문에서 찾힐 때만** 오답 칩을 얻는다(노출
+  // 예산에 걸려 버려지기도 한다 — `scripts/csat/build-skeleton-data.mjs` §fitBudget).
+  // 그런데 「지도가 있으면 산문 절을 안 그린다」는 조건이 **문항 단위**였다. 그래서 골격
+  // 589문항 중 **136문항(23.1%)** — answer 앵커 하나뿐인 문항 — 에서 오답 분석
+  // **544문단(평균 867자 · 최대 1,616자)** 이 화면에서 통째로 사라져 있었다. 지도는 정답 칩
+  // 하나만 띄운 채 **멀쩡해 보였고**, 그래서 어느 검사에도 안 걸렸다.
+  //
+  // 여기서 재는 것은 「지도가 떴는가」가 아니라 **넷이 다 닿는가** 다. 앵커 수 1~5 를 한
+  // 문항씩 덮어, 중복 제거(칩이 든 선지는 글에서 뺀다)와 누락 방지를 같은 식으로 잠근다.
+  for (const [slug, anchors] of [
+    ['2014A-25', 1],
+    ['2014A-26', 2],
+    ['2014A-23', 3],
+    ['2014A-37', 4],
+    ['2014A-24', 5],
+  ] as const) {
+    test(`앵커 ${anchors}개 문항 — 오답 넷이 칩이거나 글이거나`, async ({ page }) => {
+      await page.goto(`/csat/item/${slug}`, { waitUntil: 'networkidle', timeout: 45_000 });
+
+      const group = page.getByRole('group', { name: '근거 고르기' });
+      await expect(group, '지문 지도가 없다 — 골격이 안 읽혔다').toBeVisible();
+      const chips = await group.locator('button[aria-pressed]').count();
+      expect(chips, '칩 수가 골격의 앵커 수와 다르다').toBe(anchors);
+
+      const prose = page
+        .locator('section')
+        .filter({ has: page.getByRole('heading', { name: '나머지가 왜 아닌가' }) });
+      const proseItems = (await prose.count()) ? await prose.locator('> ul > li').count() : 0;
+
+      // 정답 칩 하나를 빼면 지도가 든 오답 수다. 나머지는 글로 내려와 있어야 한다.
+      expect(
+        chips - 1 + proseItems,
+        `오답 넷 중 닿지 않는 것이 있다 — 칩 ${chips - 1} + 글 ${proseItems}`,
+      ).toBe(4);
+
+      // 글로 내려온 것이 있으면 «왜 칩이 아닌지» 를 말한다 — 말없이 두면 같은 문항이
+      // 화면마다 다르게 보이는 것으로만 읽힌다.
+      if (proseItems > 0) {
+        await expect(page.getByText('지문에서 가리킬 문장을 찾지 못한 선지예요')).toBeVisible();
+      } else {
+        await expect(page.getByRole('heading', { name: '나머지가 왜 아닌가' })).toHaveCount(0);
+      }
+    });
+  }
+
   test('원문이 통째로 나오지 않는다', async ({ page }) => {
     await page.goto(`/csat/item/${ITEM_SLUG}`, { waitUntil: 'networkidle', timeout: 45_000 });
     const text = (await page.locator('main').innerText()).replace(/\s+/g, ' ');
