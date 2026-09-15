@@ -205,3 +205,73 @@ describe('오버레이 앵커 데이터는 좌표만 담는다', () => {
     }
   })
 })
+
+// ── 지문 골격 — **두 번째 새 저장소** ────────────────────────────────────
+//
+// 2026-09-15 에 또 하나 생겼다 — `lib/csat/skeleton-data/*.json`(문장 길이 + 인용문).
+// 앵커와 다른 점이 있다: **여기는 글자가 들어 있는 것이 설계다.** 화면이 «근거가 지문의
+// 어디인가» 를 보여주려면 인용문을 내보내야 하고, 그건 이미 `learner.ts` 가 하던 일이다.
+//
+// 그러므로 지킬 규칙이 앵커와 다르다. 「문자열 0」이 아니라 **「문자열이 들어올 수 있는
+// 자리가 넷뿐」** 이다. 누군가 `sentenceText` 같은 키를 하나 더하는 순간 실패해야 한다 —
+// 그게 지문 전체가 새는 가장 짧은 길이고, 화면은 그때도 멀쩡히 돈다.
+//
+// 노출 «양» 은 `skeleton-data.test.ts` 가 지킨다(현행 배포본의 최대치를 넘지 않는지).
+// 여기서 지키는 것은 노출 «자리» 다. 둘 다 있어야 한다 — 양만 재면 새 필드를 놓치고,
+// 자리만 보면 같은 필드로 더 많이 내보내는 것을 놓친다.
+describe('지문 골격 데이터는 정해진 네 자리에만 글자를 담는다', () => {
+  const dir = path.resolve(process.cwd(), 'src/lib/csat/skeleton-data')
+  /** 글자가 허용되는 키. 늘리려면 **왜 필요한지 여기 적고** 늘릴 것. */
+  const TEXT_KEYS = new Set(['exam_id', 'id', 'anchorId', 'text', 'built'])
+
+  it('골격 폴더가 있고 색인이 회차를 가리킨다 — 없으면 아래 단언이 아무것도 안 지킨다', () => {
+    expect(fs.existsSync(dir), `${dir} 가 없다 (build-skeleton-data.mjs --write)`).toBe(true)
+    const idx = JSON.parse(fs.readFileSync(path.join(dir, 'index.json'), 'utf8'))
+    expect(Array.isArray(idx.exams)).toBe(true)
+    expect(idx.exams.length, '색인이 비어 있다').toBeGreaterThan(0)
+  })
+
+  it('문자열은 네 자리에만 있다 — 새 필드로 지문이 새는 길을 막는다', () => {
+    const bad: string[] = []
+    for (const f of fs.readdirSync(dir).filter((x) => x.endsWith('.json'))) {
+      const walk = (v: unknown, key: string) => {
+        if (typeof v === 'number') return
+        if (typeof v === 'string') {
+          if (!TEXT_KEYS.has(key)) bad.push(`${f}: ${key} = "${v.slice(0, 40)}"`)
+          return
+        }
+        if (Array.isArray(v)) {
+          v.forEach((x) => walk(x, key))
+          return
+        }
+        if (v && typeof v === 'object') {
+          for (const k of Object.keys(v as Record<string, unknown>)) walk((v as Record<string, unknown>)[k], k)
+        }
+      }
+      walk(JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8')), 'root')
+    }
+    expect(bad, `골격에 허용되지 않은 문자열이 있다 — 경계가 옮겨갔다:\n  ${bad.slice(0, 6).join('\n  ')}`).toHaveLength(0)
+  })
+
+  it('한 문장이 통째로 드러나는 일이 드물다 — 이어 붙이면 지문이 된다', () => {
+    // 문장 하나가 100% 드러나는 것 자체는 인용의 정상 범위다(근거 문장이 짧으면 그렇게 된다).
+    // 위험한 것은 **그런 문장이 한 지문에 몰리는 것**이다 — 다 드러난 문장이 절반을 넘으면
+    // 이어 붙여 지문을 복원할 수 있다. 문항 단위로 본다.
+    const idx = JSON.parse(fs.readFileSync(path.join(dir, 'index.json'), 'utf8'))
+    const worst = { id: '', frac: 0 }
+    for (const e of idx.exams as { exam_id: string }[]) {
+      const j = JSON.parse(fs.readFileSync(path.join(dir, `${e.exam_id}.json`), 'utf8'))
+      for (const it of j.items as { id: string; sentences: { chars: number; reveals: { text: string }[] }[] }[]) {
+        const full = it.sentences.filter(
+          (s) => s.reveals.reduce((a, r) => a + r.text.length, 0) >= s.chars * 0.9,
+        ).length
+        const frac = full / Math.max(it.sentences.length, 1)
+        if (frac > worst.frac) {
+          worst.frac = frac
+          worst.id = it.id
+        }
+      }
+    }
+    expect(worst.frac, `${worst.id} 에서 거의 다 드러난 문장이 ${(worst.frac * 100).toFixed(0)}%`).toBeLessThan(0.5)
+  })
+})
