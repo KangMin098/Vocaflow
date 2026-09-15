@@ -69,10 +69,30 @@ const I_DA = ['이다', '다'] as const
 const EUL_REUL = ['을', '를'] as const
 const WA_GWA = ['과', '와'] as const
 
-/** 인용이 길면 앞뒤를 잘라 규격 안에 넣는다. 잘랐다는 것을 말줄임으로 보인다. */
-function quote(sentence: string, limit = 150): string {
+/**
+ * 인용이 길면 앞뒤를 잘라 규격 안에 넣는다. 잘랐다는 것을 말줄임으로 보인다.
+ *
+ * ⚠️ **낱말 가운데를 자르지 않는다.** 여기가 `slice(0, limit - 1)` 뿐이었다 —
+ *   3인 검수 chunk-01 이 실물로 짚었다:
+ *
+ *     `…one in Montana and one in Washingt…`
+ *     `…controlling the pollution o…`
+ *
+ *   같은 파일이 「낱말 가운데도 인용 가운데도 아니게」를 길게 적어 두고 그 규칙을
+ *   `finish()`(해설 전체 길이)에만 적용했다. `quote()` 는 **모든 흐름무관 해설의
+ *   첫 문장**에 쓰이는데 그 규칙이 안 걸려 있었다 — 자가 둘이면 한쪽만 좋아진다.
+ *
+ * ⚠️ **물러서다 너무 많이 잃으면 그냥 자른다.** 마지막 공백이 앞쪽에 있는 경우
+ *   (긴 URL·화학식 한 덩어리) 낱말 경계를 지키려다 인용이 반토막 난다. 실측 규칙과
+ *   같은 몫(60%)을 하한으로 둔다 — `trimExplanation` 이 쓰는 그 값이다.
+ */
+export function quote(sentence: string, limit = 150): string {
   const s = sentence.replace(/\s+/g, ' ').trim()
-  return s.length <= limit ? s : `${s.slice(0, limit - 1).trimEnd()}…`
+  if (s.length <= limit) return s
+  const hard = s.slice(0, limit - 1)
+  const lastSpace = hard.lastIndexOf(' ')
+  const cut = lastSpace >= Math.floor((limit - 1) * 0.6) ? hard.slice(0, lastSpace) : hard
+  return `${cut.trimEnd()}…`
 }
 
 /**

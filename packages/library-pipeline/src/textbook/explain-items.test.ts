@@ -19,6 +19,7 @@ import {
   explainVocabChoice,
   explainWordOrder,
   inferRule,
+  quote,
 } from './explain-items'
 
 const SENTENCES = [
@@ -723,5 +724,43 @@ describe('해설에 마크다운 표기를 남기지 않는다', () => {
       .filter(({ line }) => /`[^`]*\*\*[^`]*`/.test(line))
       .map(({ line, n }) => `${n}: ${line.trim().slice(0, 90)}`)
     expect(offenders, offenders.join('\n')).toEqual([])
+  })
+})
+
+/**
+ * **인용은 낱말 가운데서 끊기지 않는다.**
+ *
+ * 3인 검수 chunk-01 이 실물로 짚었다 — `…one in Montana and one in Washingt…` ·
+ * `…controlling the pollution o…`. 흐름무관 해설의 첫 문장이 전부 `quote()` 를 지난다.
+ *
+ * ⚠️ **「말줄임이 있는가」만 보면 못 잡는다** — 잘린 자리가 낱말 가운데여도 말줄임은 붙는다.
+ *   그래서 **잘린 마지막 토막이 원문의 온전한 낱말인지**를 본다.
+ */
+describe('인용이 낱말 가운데서 끊기지 않는다', () => {
+  const LONG =
+    'The agency listed two remaining sites, one in Montana and one in Washington, where controlling the pollution of groundwater has proved far more expensive than the original cleanup estimate suggested.'
+  const words = new Set(LONG.split(/\s+/).map((w) => w.replace(/[^A-Za-z'-]/g, '')))
+
+  it.each([60, 80, 100, 120, 150, 180])('상한 %d 에서 온전한 낱말로 끝난다', (limit) => {
+    const out = quote(LONG, limit)
+    expect(out.length).toBeLessThanOrEqual(limit)
+    const tail = out
+      .replace(/…$/, '')
+      .trim()
+      .split(/\s+/)
+      .pop()!
+      .replace(/[^A-Za-z'-]/g, '')
+    expect(words, `낱말 가운데서 잘렸다: …${tail} (상한 ${limit})`).toContain(tail)
+  })
+
+  // ⚠️ **물러서다 인용을 반토막 내지 않는다** — 공백이 앞쪽에만 있으면 그냥 자른다.
+  it('낱말 경계가 너무 앞이면 물러서지 않는다', () => {
+    const oneLongToken = 'short ' + 'x'.repeat(200)
+    const out = quote(oneLongToken, 120)
+    expect(out.length).toBeGreaterThan(100)
+  })
+
+  it('상한 안에 드는 인용은 그대로 둔다', () => {
+    expect(quote('A short sentence.', 150)).toBe('A short sentence.')
   })
 })
