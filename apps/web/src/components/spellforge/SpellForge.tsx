@@ -585,7 +585,9 @@ export function SpellForge({ textId, textTitle, words, backHref, content }: Spel
 
           <button
             onClick={handleSkip}
-            className="inline-flex cursor-pointer items-center gap-2 rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:-translate-y-px hover:border-solid hover:border-[var(--t3)] hover:bg-[var(--bg)] hover:text-[var(--t1)]"
+            // `whitespace-nowrap` — '건너뛰기'가 세로로 서 있었다(실측 2026-09-16: 15×72px).
+            // hover 의 `-translate-y` 도 걷었다 — 판면에서 요소는 뜨지 않는다(v07 §3-6).
+            className="inline-flex min-h-[44px] cursor-pointer items-center gap-2 whitespace-nowrap rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-[background-color,border-color,color] duration-[var(--dur-fast)] hover:border-solid hover:border-[var(--t3)] hover:bg-[var(--bg)] hover:text-[var(--t1)]"
           >
             <kbd className="rounded border border-[var(--bd)] bg-[var(--bg)] px-1 py-1 font-mono text-[9px] font-[700] text-[var(--t2)]">
               Esc

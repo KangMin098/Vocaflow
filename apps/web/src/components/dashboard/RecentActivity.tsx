@@ -200,7 +200,9 @@ function ActivityChip({ item, runLength }: { item: ActivityItem; runLength: numb
     <li>
       <span
         title={`${short}${runLabel && ` ${runLabel}`} · ${item.textTitle} · ${item.relativeTime}`}
-        className="group inline-flex h-7 shrink-0 items-center gap-2 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg2)] px-3"
+        // `whitespace-nowrap` — 칩은 한 줄짜리다. 없으면 좁은 폭에서 '블리츠'·'3주 전' 이
+        // 세로로 선다(실측 2026-09-16 `/dashboard`: 10×50px · 9×60px 4곳).
+        className="group inline-flex h-7 shrink-0 items-center gap-2 whitespace-nowrap rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg2)] px-3"
         aria-label={`${short} ${runLength > 1 ? `${runLength}회 ` : ''}${body}, ${item.relativeTime} — ${item.textTitle}`}
       >
         <span
