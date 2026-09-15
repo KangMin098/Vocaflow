@@ -208,18 +208,45 @@ export function rankFor(typeId: string | null, recentOnly = false): Rank {
 }
 
 /**
+ * 배수의 자 — **이름 붙은 것끼리만** 견준다.
+ *
+ * ⚠️ 여기서 한 번 틀렸다(실측 2026-09-15). 처음에는 「유형 안 비율 ÷ 전체 비율」로 쟀는데,
+ *    두 비율의 **분모가 다르다**: 전체는 24.4%가 「그 밖」(이름 못 붙인 드문 함정)인데
+ *    R-BLANK 는 오답 460개가 전부 이름을 받아 「그 밖」이 0이다. 그래서 그 유형에서는
+ *    **여섯 줄이 모두 ×1.3 이상**으로 떴다 — 전부 유난하면 아무것도 유난하지 않다.
+ *    분모를 「이름 붙은 것의 합」으로 맞추면 견줄 수 있는 값이 된다.
+ */
+function namedShare(rank: Rank): Map<string, number> {
+  const named = rank.rows.reduce((a, r) => a + r.n, 0)
+  return new Map(rank.rows.map((r) => [r.key, named > 0 ? r.n / named : 0]))
+}
+
+/** 전체 분포에서 각 함정이 「이름 붙은 오답」 중 차지하는 몫. 배수의 분모다. */
+export function baselineShare(recentOnly = false): Map<string, number> {
+  return namedShare(rankFor(null, recentOnly))
+}
+
+/** 이 범위에서 함정이 차지하는 몫 ÷ 전체에서의 몫. 1 보다 크면 여기서 유난하다. */
+export function liftOf(rank: Rank, key: string, base: Map<string, number>): number | null {
+  const b = base.get(key)
+  if (!b) return null
+  const share = namedShare(rank).get(key) ?? 0
+  return share / b
+}
+
+/**
  * 한 유형에서 **전체보다 유난히 잦은** 함정 — 「이 유형에서 특히 조심할 것」.
  *
  * 그냥 상위 셋을 보여 주면 어느 유형을 눌러도 「어휘 함정 · 부분 사실 · 반대 진술」이 나온다
- * (그게 전체 1~3위니까). 학습자에게 그것은 정보가 아니다. 그래서 **전체 비율 대비 배수**로
- * 고른다 — 표본이 얇으면 배수가 출렁이므로 최소 개수를 함께 건다.
+ * (그게 전체 1~3위니까). 학습자에게 그것은 정보가 아니다. 그래서 **배수**로 고른다 —
+ * 표본이 얇으면 배수가 출렁이므로 최소 개수를 함께 건다.
  */
 export function standoutFor(typeId: string, minN = 4, minLift = 1.3): RankRow[] {
-  const all = rankFor(null)
-  const base = new Map(all.rows.map((r) => [r.key, r.pct]))
-  return rankFor(typeId)
-    .rows.filter((r) => r.n >= minN && r.pct >= (base.get(r.key) ?? 0) * minLift)
-    .sort((a, b) => b.pct / (base.get(b.key) || 1) - a.pct / (base.get(a.key) || 1))
+  const base = baselineShare()
+  const rank = rankFor(typeId)
+  const share = namedShare(rank)
+  const lift = (k: string) => (base.get(k) ? (share.get(k) ?? 0) / base.get(k)! : 0)
+  return rank.rows.filter((r) => r.n >= minN && lift(r.key) >= minLift).sort((a, b) => lift(b.key) - lift(a.key))
 }
 
 /** 화면이 「몇 가지를 외우면 되는가」를 말할 때 쓰는 값. */

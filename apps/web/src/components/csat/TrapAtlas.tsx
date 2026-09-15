@@ -27,7 +27,14 @@
 import { useMemo, useRef, useState } from 'react'
 
 import { track } from '@/lib/analytics/client'
-import { CORPUS, rankFor, universalCoverage, type AtlasType, type RankRow } from '@/lib/csat/trap-atlas'
+import {
+  CORPUS,
+  baselineShare,
+  rankFor,
+  universalCoverage,
+  type AtlasType,
+  type RankRow,
+} from '@/lib/csat/trap-atlas'
 
 // 부제가 쓰는 두 수치.
 const ATLAS_ITEMS = CORPUS.analyzed
@@ -42,12 +49,41 @@ export interface TrapAtlasProps {
   showChips?: boolean
   /** 처음에 몇 줄을 펼쳐 둘까. 나머지는 「더 보기」 뒤에 있다. */
   visibleRows?: number
+  /** 제목을 갈아 끼운다(유형 화면). 비우면 허브 문구. */
+  title?: string
+  /**
+   * 제목의 단계. 허브에서는 이 지도가 **화면의 주제**이므로 `h1` 이다.
+   *
+   * ⚠️ 기본값을 `h2` 로 두고 허브에서 안 넘기면 **화면에 h1 이 하나도 없게 된다.**
+   *    실측 2026-09-15 에 실제로 그랬고, `axe` 의 wcag2a/aa 로는 안 잡힌다(빈 h1 은
+   *    best-practice 규칙이다 — 중복 landmark 와 같은 사각지대). 기존 스펙 41 이 잡았다.
+   */
+  as?: 'h1' | 'h2'
+  /** 부제를 갈아 끼운다. 비우면 허브 문구(I4 — 90자 안). */
+  subtitle?: React.ReactNode
+  /**
+   * 전체 분포 대비 **배수**를 함께 낸다 — 유형 화면에서만 의미가 있다.
+   *
+   * 유형 안의 순위만 보여 주면 어느 유형을 열어도 「어휘 함정 · 부분 사실」이 위에 온다
+   * (그게 전체 1~2위니까). 학습자에게 그것은 정보가 아니다. **여기서 유난히 잦은가**가
+   * 이 화면이 답해야 할 질문이다.
+   */
+  showLift?: boolean
 }
 
 /** 막대 한 칸의 최소 폭 — 1%짜리도 「있다」가 보여야 한다(0px 막대는 없는 것과 같다). */
 const MIN_BAR_PCT = 1.5
 
-export function TrapAtlas({ chips, initialTypeId = null, showChips = true, visibleRows = 9 }: TrapAtlasProps) {
+export function TrapAtlas({
+  chips,
+  initialTypeId = null,
+  showChips = true,
+  visibleRows = 9,
+  title,
+  subtitle,
+  showLift = false,
+  as: Heading = 'h2',
+}: TrapAtlasProps) {
   const [typeId, setTypeId] = useState<string | null>(initialTypeId)
   const [recentOnly, setRecentOnly] = useState(false)
   const [openKey, setOpenKey] = useState<string | null>(null)
@@ -56,6 +92,15 @@ export function TrapAtlas({ chips, initialTypeId = null, showChips = true, visib
 
   const rank = useMemo(() => rankFor(typeId, recentOnly), [typeId, recentOnly])
   const cover = useMemo(() => universalCoverage(), [])
+  // 배수의 분모 — 같은 era 의 **전체** 분포에서 「이름 붙은 오답」이 차지하는 몫.
+  // era 를 안 맞추면 「최근만」에서 배수가 엉키고, 「이름 붙은 것끼리」로 안 맞추면
+  // 「그 밖」이 0인 유형에서 전부 ×1.3 이상으로 뜬다(`trap-atlas.ts` 의 `namedShare` 주석).
+  const base = useMemo(() => (showLift ? baselineShare(recentOnly) : null), [showLift, recentOnly])
+  const scopeShare = useMemo(() => {
+    if (!base) return null
+    const named = rank.rows.reduce((a, r) => a + r.n, 0)
+    return new Map(rank.rows.map((r) => [r.key, named > 0 ? r.n / named : 0]))
+  }, [base, rank])
   // ⚠️ **「그 밖」도 같은 자로 잰다.** 1위 막대만 기준으로 삼았더니 그 밖(24.4%)이 1위(12.1%)의
   //    두 배라 컨테이너를 넘어 **꽉 찬 막대**로 그려졌다 — 「드문 것들의 합」이 가장 큰 함정처럼
   //    보였다(실측 2026-09-15 캡처). 막대는 눈으로 견주라고 있는 것이라, 자가 다르면 거짓말이다.
@@ -90,13 +135,23 @@ export function TrapAtlas({ chips, initialTypeId = null, showChips = true, visib
   return (
     <section aria-labelledby="trap-atlas-h">
       {/* ⚠️ `break-keep` 이 없으면 390px 에서 「만듭니 / 다」로 쪼개진다 (CLAUDE.md I7 · 실측). */}
-      <h2 id="trap-atlas-h" className="break-keep font-display text-xl font-bold text-[var(--t1)] sm:text-2xl">
-        평가원은 오답을 {cover.kinds}가지 방법으로 만듭니다
-      </h2>
+      <Heading
+        id="trap-atlas-h"
+        className={[
+          'break-keep font-display font-bold text-[var(--t1)]',
+          title ? 'text-sm' : 'text-xl sm:text-2xl',
+        ].join(' ')}
+      >
+        {title ?? `평가원은 오답을 ${cover.kinds}가지 방법으로 만듭니다`}
+      </Heading>
       {/* I4 — 부제는 90자 안. 근거 수치만 말하고 해석은 막대가 한다. */}
       <p className="mt-1.5 break-keep text-sm leading-relaxed text-[var(--t2)]">
-        기출 {ATLAS_ITEMS.toLocaleString()}문항의 오답 선지 {ATLAS_DISTRACTORS.toLocaleString()}개를 하나씩 뜯어
-        세었습니다. 그 {cover.kinds}가지가 {cover.pct.toFixed(0)}%입니다.
+        {subtitle ?? (
+          <>
+            기출 {ATLAS_ITEMS.toLocaleString()}문항의 오답 선지 {ATLAS_DISTRACTORS.toLocaleString()}개를 하나씩 뜯어
+            세었습니다. 그 {cover.kinds}가지가 {cover.pct.toFixed(0)}%입니다.
+          </>
+        )}
       </p>
 
       {showChips ? (
@@ -169,9 +224,13 @@ export function TrapAtlas({ chips, initialTypeId = null, showChips = true, visib
                 <span className="w-11 shrink-0 text-right tabular-nums text-xs text-[var(--t3)]">
                   {row.pct.toFixed(1)}%
                 </span>
-                <span className="hidden w-14 shrink-0 text-right text-xs text-[var(--t3)] sm:inline">
-                  {row.types}유형
-                </span>
+                {base && scopeShare ? (
+                  <Lift share={scopeShare.get(row.key) ?? 0} base={base.get(row.key) ?? 0} />
+                ) : (
+                  <span className="hidden w-14 shrink-0 text-right text-xs text-[var(--t3)] sm:inline">
+                    {row.types}유형
+                  </span>
+                )}
               </button>
 
               {open ? <TrapDetail row={row} /> : null}
@@ -214,8 +273,34 @@ export function TrapAtlas({ chips, initialTypeId = null, showChips = true, visib
       <p className="mt-3 break-keep text-xs leading-relaxed text-[var(--t3)]">
         <span aria-hidden>◆</span> 는 {cover.minTypes}개 이상의 유형에 걸쳐 나오는 함정입니다 — 유형을 바꿔도 같은
         수법이 옵니다. <span aria-hidden>◇</span> 는 몇몇 유형에만 나옵니다.
+        {base ? ' 오른쪽 배수는 전체 기출의 오답 분포와 견준 값입니다 — ×가 클수록 이 유형에서 유난한 함정입니다.' : ''}
       </p>
     </section>
+  )
+}
+
+/**
+ * 전체 대비 배수 — 「여기서 유난히 잦은가」.
+ *
+ * 색으로만 말하지 않는다: 잦으면 `×2.1`, 드물면 `÷1.8`, 비슷하면 「비슷」 이라고 **글자로** 적는다.
+ * 1.3배 미만은 표본 흔들림과 구별이 안 되므로 굳이 방향을 말하지 않는다.
+ */
+function Lift({ share, base }: { share: number; base: number }) {
+  if (base <= 0) {
+    return <span className="w-14 shrink-0 text-right text-xs text-[var(--t3)]">이 유형만</span>
+  }
+  const x = share / base
+  const label = x >= 1.3 ? `×${x.toFixed(1)}` : x <= 1 / 1.3 ? `÷${(1 / x).toFixed(1)}` : '비슷'
+  return (
+    <span
+      className={[
+        'w-14 shrink-0 text-right tabular-nums text-xs',
+        x >= 1.3 ? 'font-bold text-[var(--t1)]' : 'text-[var(--t3)]',
+      ].join(' ')}
+      title="전체 기출의 오답 분포와 견준 값"
+    >
+      {label}
+    </span>
   )
 }
 

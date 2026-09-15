@@ -37,7 +37,9 @@ export function LocusBar({ summary }: { summary: LocusSummary }) {
         )}
       </p>
 
-      <ol className="mt-3 flex items-end gap-1" aria-label="근거 위치 분포">
+      {/* `data-proof` 는 표면 계측기(`scripts/csat-surface-measure.mts`)가 「접힌 위에 작동하는
+          결과가 있는가」(CLAUDE.md I1)를 셀 때 보는 표식이다. 막대가 div 라 svg 로는 안 세어진다. */}
+      <ol className="mt-3 flex items-end gap-1" aria-label="근거 위치 분포" data-proof="answer-locus">
         {summary.bands.map((b) => {
           const on = b.key === summary.top.key && b.count > 0
           // 0 인 구간도 자리를 지킨다 — 빠지면 «그 자리엔 없다» 가 아니라 «그런 자리가 없다» 로 읽힌다.

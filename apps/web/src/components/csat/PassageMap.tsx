@@ -118,7 +118,9 @@ export function PassageMap({ sentences, anchors, placements, onSelect }: Passage
         })}
       </div>
 
-      <ol className="space-y-1.5" aria-label="지문의 문장">
+      {/* `data-proof` 는 표면 계측기(`scripts/csat-surface-measure.mts`)가 「접힌 위에 작동하는
+          결과가 있는가」(CLAUDE.md I1)를 셀 때 보는 표식이다. 막대가 span 이라 svg 로는 안 세어진다. */}
+      <ol className="space-y-1.5" aria-label="지문의 문장" data-proof="passage-map">
         {sentences.map((s, i) => {
           const isLit = lit.includes(i)
           const reveals = isLit && activeId ? s.reveals.filter((r) => r.anchorId === activeId) : []

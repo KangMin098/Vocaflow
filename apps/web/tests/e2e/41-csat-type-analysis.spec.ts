@@ -87,14 +87,22 @@ test.describe('기출 유형 분석 — 학습자 표면', () => {
 
       // ── ① 허브 ────────────────────────────────────────────────────
       await page.goto('/csat', { waitUntil: 'domcontentloaded', timeout: 30_000 });
-      await expect(page.getByRole('heading', { name: '기출 유형 분석', level: 1 })).toBeVisible();
+      // ⚠️ 2026-09-15 재설계로 허브의 h1 이 **오답 지도의 주장**으로 바뀌었다 — 화면의 주제가
+      //    「유형 26개 목록」에서 「오답은 아홉 가지로 만들어진다」로 옮겨 갔기 때문이다.
+      //    문구를 못 박지 않는다(가짓수는 DB 에서 세는 값이라 분석이 늘면 바뀐다) — h1 이 **있고**
+      //    그것이 오답 지도의 제목인지만 본다.
+      const h1 = page.getByRole('heading', { level: 1 });
+      await expect(h1).toBeVisible();
+      await expect(h1).toHaveText(/평가원은 오답을 \d+가지 방법으로 만듭니다/);
 
       // 못 불러왔으면 조용히 빈 목록이 되므로 **에러 문구가 없음**을 먼저 못 박는다
       await expect(page.getByText('지금은 분석을 불러오지 못했어요.')).toHaveCount(0);
       await expect(page.getByText('아직 준비된 유형이 없어요.')).toHaveCount(0);
 
       // 준비된 유형 수가 0이 아니어야 한다 — 0이면 헤더 줄 자체가 렌더되지 않는다
-      const readyLine = page.getByText(/분석이 준비된 유형 \d+ \/ \d+/);
+      // (2026-09-15 재설계로 문구가 「분석 26/26 유형」으로 짧아졌다 — 유형 목록이 2급 시민이 되면서
+      //  그 절의 머리로 옮겨 갔다. 세는 것은 그대로다.)
+      const readyLine = page.getByText(/분석 \d+\/\d+ 유형/);
       await expect(readyLine).toBeVisible();
       const readyText = (await readyLine.textContent()) ?? '';
       const [, ready, total] = readyText.match(/(\d+)\s*\/\s*(\d+)/) ?? [];

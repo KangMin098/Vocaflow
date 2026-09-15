@@ -18,6 +18,8 @@ import {
   TRAPS,
   UNIVERSAL,
   UNIVERSAL_MIN_TYPES,
+  baselineShare,
+  liftOf,
   rankFor,
   standoutFor,
   universalCoverage,
@@ -141,6 +143,51 @@ describe('rankFor — 범위를 바꾸면 다시 센다', () => {
   })
 })
 
+describe('배수 — 분모를 맞춰 견준다', () => {
+  it('「그 밖」이 0인 유형에서 모든 줄이 유난해지지 않는다', () => {
+    // 실측 2026-09-15 에 실제로 났던 결함이다. 「유형 안 비율 ÷ 전체 비율」로 쟀더니
+    // R-BLANK(오답 460개 전부 이름 있음 · 그 밖 0)에서 **여섯 줄이 모두 ×1.3 이상**으로 떴다.
+    // 전체는 24%가 「그 밖」이라 분모가 그만큼 크기 때문이다 — 전부 유난하면 아무것도 유난하지 않다.
+    const base = baselineShare()
+    const dense = ATLAS_TYPES.filter((t) => rankFor(t.id).other.n === 0 && t.distractors >= 50)
+    expect(dense.length, '「그 밖」이 0인 유형이 없어 이 검사가 아무것도 안 지킨다').toBeGreaterThan(0)
+
+    for (const t of dense) {
+      const r = rankFor(t.id)
+      const named = r.rows.reduce((a, x) => a + x.n, 0)
+      const lifts = r.rows.map((x) => (base.get(x.key) ? x.n / named / base.get(x.key)! : 0))
+      const high = lifts.filter((l) => l >= 1.3).length
+      expect(`${t.id}: ${high}/${lifts.length}`, '이 유형의 모든 함정이 「유난히 잦다」로 뜬다').not.toBe(
+        `${t.id}: ${lifts.length}/${lifts.length}`,
+      )
+    }
+  })
+
+  it('전체를 스스로와 견주면 배수가 모두 1 이다', () => {
+    // 자가 옳다면 같은 것끼리 견줄 때 1 이 나와야 한다.
+    const base = baselineShare()
+    const all = rankFor(null)
+    const named = all.rows.reduce((a, x) => a + x.n, 0)
+    for (const r of all.rows) {
+      const lift = (r.n / named) / (base.get(r.key) ?? 1)
+      expect(Math.abs(lift - 1)).toBeLessThan(1e-9)
+    }
+  })
+
+  it('liftOf 가 같은 값을 돌려준다', () => {
+    const base = baselineShare()
+    const t = ATLAS_TYPES[0]!
+    const r = rankFor(t.id)
+    const named = r.rows.reduce((a, x) => a + x.n, 0)
+    for (const row of r.rows) {
+      const expected = base.get(row.key) ? row.n / named / base.get(row.key)! : null
+      const got = liftOf(r, row.key, base)
+      if (expected === null) expect(got).toBeNull()
+      else expect(Math.abs((got ?? 0) - expected)).toBeLessThan(1e-9)
+    }
+  })
+})
+
 describe('standoutFor — 카드가 같은 말을 반복하지 않는다', () => {
   it('상위 함정만 되풀이하지 않는다', () => {
     // 전체 1~3위를 그대로 내밀면 26장의 카드가 전부 같은 말을 한다. 그건 정보가 아니다.
@@ -153,11 +200,15 @@ describe('standoutFor — 카드가 같은 말을 반복하지 않는다', () =>
   })
 
   it('고른 함정은 그 유형에서 실제로 전체보다 잦다', () => {
-    const base = new Map(rankFor(null).rows.map((r) => [r.key, r.pct]))
+    // **분모를 맞춰** 견준다 — 이름 붙은 것끼리의 몫끼리(위 「배수」 스위트 참조).
+    const base = baselineShare()
     for (const t of ATLAS_TYPES) {
+      const r = rankFor(t.id)
+      const named = r.rows.reduce((a, x) => a + x.n, 0)
       for (const s of standoutFor(t.id)) {
-        expect(`${t.id}/${s.key}`).toBe(`${t.id}/${s.key}`)
-        expect(s.pct).toBeGreaterThan(base.get(s.key) ?? 0)
+        const lift = named > 0 && base.get(s.key) ? s.n / named / base.get(s.key)! : 0
+        expect(`${t.id}/${s.key}: ${lift.toFixed(2)}`).toBe(`${t.id}/${s.key}: ${lift.toFixed(2)}`)
+        expect(lift).toBeGreaterThanOrEqual(1.3)
         expect(s.n).toBeGreaterThanOrEqual(4)
       }
     }

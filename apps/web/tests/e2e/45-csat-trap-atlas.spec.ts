@@ -1,4 +1,4 @@
-// apps/web/tests/e2e/44-csat-trap-atlas.spec.ts
+// apps/web/tests/e2e/45-csat-trap-atlas.spec.ts
 //
 // **`/csat` 히어로 「오답 지도」의 런타임 회귀.**
 //
@@ -23,6 +23,8 @@ import fs from 'node:fs';
 
 import AxeBuilder from '@axe-core/playwright';
 import { test, expect, type Page } from '@playwright/test';
+
+import { TAP_MIN, TAP_MIN_TEXT_WIDTH, describeOffender, scanTapTargets } from './utils/tap-target';
 
 const RUNTIME_USER = {
   email: process.env.PLAYWRIGHT_RUNTIME_EMAIL || 'runtime-test-0705@vocaflow.dev',
@@ -76,7 +78,7 @@ test.describe('기출 허브 — 오답 지도', () => {
     // 미리 구운 세션이 있으면 로그인 폼을 거치지 않는다(사유는 `42-csat-item-map` 머리말).
     // ⚠️ 건너뛴 사실을 크게 남긴다 — 조용히 건너뛰면 로그인이 깨져도 이 스펙은 초록이다.
     if (fs.existsSync(STATE_PATH)) {
-      console.log(`[44] 미리 구운 세션을 쓴다 (${STATE_PATH}) — 로그인 폼은 거치지 않았다`);
+      console.log(`[45] 미리 구운 세션을 쓴다 (${STATE_PATH}) — 로그인 폼은 거치지 않았다`);
       return;
     }
     test.setTimeout(150_000);
@@ -98,6 +100,13 @@ test.describe('기출 허브 — 오답 지도', () => {
 
     const list = page.locator('ol[data-proof="trap-distribution"]');
     await expect(list).toBeVisible();
+
+    // ⚠️ 지도의 제목이 이 화면의 **h1** 이어야 한다. 히어로를 컴포넌트로 뽑으면서 기본값
+    //    `h2` 를 그대로 쓰면 화면에 h1 이 하나도 남지 않는데(실측 2026-09-15 에 실제로 그랬다),
+    //    **axe 의 wcag2a/aa 로는 안 잡힌다** — 빈 h1 은 best-practice 규칙이다.
+    const h1 = page.getByRole('heading', { level: 1 });
+    await expect(h1, '허브에 h1 이 없다').toHaveCount(1);
+    await expect(h1).toHaveAttribute('id', 'trap-atlas-h');
 
     const all = await rows(page);
     // 「아홉 가지」를 말하려면 아홉 줄 + 그 밖이 있어야 한다.
@@ -218,15 +227,103 @@ test.describe('기출 허브 — 오답 지도', () => {
     );
     expect(overflow, `390px 에서 가로로 ${overflow}px 밀린다`).toBeLessThanOrEqual(1);
 
-    const small = await page
-      .locator('main button, main a')
-      .evaluateAll((els) =>
-        els
-          .map((e) => ({ r: e.getBoundingClientRect(), t: (e.textContent || '').replace(/\s+/g, ' ').slice(0, 24) }))
-          .filter(({ r }) => r.width > 0 && r.height > 0 && r.height < 44)
-          .map(({ r, t }) => `${t} → ${Math.round(r.width)}×${Math.round(r.height)}`),
+    // ⚠️ 규칙을 여기 다시 쓰지 않는다 — `utils/tap-target.ts` 가 단일 출처다.
+    //    베껴 썼다가 **문장 속 인라인 링크 예외**를 빠뜨려 144건이 거짓 양성으로 잡혔다
+    //    (실측 2026-09-15 · 유형 화면의 문항 인용 링크). 규칙은 한 곳에만 있어야 한다.
+    const offenders = await page.evaluate(scanTapTargets, {
+      min: TAP_MIN,
+      minTextWidth: TAP_MIN_TEXT_WIDTH,
+    });
+    expect(offenders.map(describeOffender), '터치 타깃 규칙 위반').toEqual([]);
+  });
+
+  // ── 유형 화면 ───────────────────────────────────────────────────────
+  // 같은 지도를 **이 유형으로 좁혀** 다시 그린다. 여기서 지켜야 할 것은 하나 더 있다:
+  // 산문을 **지우지 않고 접었다**는 것 — 접은 게 아니라 지운 것이면 분석이 사라진 셈이다.
+  test.describe('유형 화면 — 센 것이 먼저, 산문은 접혀서', () => {
+    // 오답 460개가 **전부 이름을 받은** 유형이다(그 밖 0). 배수 분모 결함이 여기서 드러났다.
+    const TYPE = 'R-BLANK';
+
+    test('센 것 둘이 접힌 위에 있고 산문은 접혀 있다', async ({ page }) => {
+      await page.setViewportSize(FOLD);
+      await page.goto(`/csat/${TYPE}`, { waitUntil: 'networkidle', timeout: 45_000 });
+
+      // ① 근거 자리 분포 ② 오답 구성 — 둘 다 **센 것**이다.
+      await expect(page.locator('[data-proof="answer-locus"]')).toBeVisible();
+      const atlas = page.locator('ol[data-proof="trap-distribution"]');
+      await expect(atlas).toBeVisible();
+      const bottom = await atlas.evaluate((el) => Math.round(el.getBoundingClientRect().bottom));
+      expect(bottom, `오답 구성이 접힌 아래로 내려갔다 (bottom=${bottom})`).toBeLessThanOrEqual(FOLD.height);
+
+      // 산문은 **지운 것이 아니라 접은 것**이다 — 손잡이가 있고, 열면 내용이 나온다.
+      const fold = page.locator('details', { hasText: '분석 원문 읽기' }).first();
+      await expect(fold).toBeVisible();
+      expect(await fold.evaluate((el) => (el as HTMLDetailsElement).open), '산문이 처음부터 펴져 있다').toBe(
+        false,
       );
-    expect(small, '44px 미만 터치 타깃').toEqual([]);
+      await fold.locator('summary').click();
+      await expect(fold.getByRole('heading', { name: /근거 자리/ })).toBeVisible();
+    });
+
+    test('배수가 전부 「유난히 잦다」로 뜨지 않는다', async ({ page }) => {
+      // 실측 2026-09-15: 분모를 안 맞춰 R-BLANK 의 여섯 줄이 모두 ×1.3 이상으로 떴다.
+      // **전부 유난하면 아무것도 유난하지 않다** — 그 화면은 아무 말도 안 하는 것이다.
+      await page.setViewportSize(FOLD);
+      await page.goto(`/csat/${TYPE}`, { waitUntil: 'networkidle', timeout: 45_000 });
+
+      const lifts = await page
+        .locator('ol[data-proof="trap-distribution"] > li[data-pct] button')
+        .evaluateAll((els) =>
+          els
+            .map((e) => (e.lastElementChild?.textContent || '').trim())
+            .filter((t) => /^[×÷]|비슷|이 유형만/.test(t)),
+        );
+      expect(lifts.length, '배수 칸이 없다 — showLift 배선이 끊겼다').toBeGreaterThanOrEqual(4);
+      const high = lifts.filter((t) => t.startsWith('×')).length;
+      expect(high, `모든 줄이 ×로 떴다 (${lifts.join(' ')})`).toBeLessThan(lifts.length);
+    });
+
+    test('절차의 「막히면」이 접혀 있다 — 단계 수가 두 배로 보이지 않게', async ({ page }) => {
+      await page.goto(`/csat/${TYPE}`, { waitUntil: 'networkidle', timeout: 45_000 });
+      const onFail = page.locator('summary', { hasText: '여기서 막히면' });
+      const n = await onFail.count();
+      expect(n, '「막히면」 손잡이가 하나도 없다').toBeGreaterThan(0);
+      // 펴 두면 화면이 두 배로 길어지고 "이걸 다 외워야 하나" 가 된다.
+      const open = await page
+        .locator('details:has(summary:text-is("여기서 막히면 →"))')
+        .evaluateAll((els) => els.filter((e) => (e as HTMLDetailsElement).open).length);
+      expect(open, '「막히면」이 처음부터 펴져 있다').toBe(0);
+    });
+
+    test('유형 화면도 390px 에서 밀리지 않고 44px 를 지킨다', async ({ page }) => {
+      await page.setViewportSize({ width: 390, height: 844 });
+      await page.goto(`/csat/${TYPE}`, { waitUntil: 'networkidle', timeout: 45_000 });
+      const overflow = await page.evaluate(
+        () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      );
+      expect(overflow, `390px 에서 가로로 ${overflow}px 밀린다`).toBeLessThanOrEqual(1);
+      const offenders = await page.evaluate(scanTapTargets, {
+        min: TAP_MIN,
+        minTextWidth: TAP_MIN_TEXT_WIDTH,
+      });
+      expect(offenders.map(describeOffender), '터치 타깃 규칙 위반').toEqual([]);
+    });
+
+    for (const theme of ['light', 'dark'] as const) {
+      test(`유형 화면 ${theme} axe WCAG2 A/AA 위반 0`, async ({ page }) => {
+        await page.setViewportSize(FOLD);
+        await page.goto(`/csat/${TYPE}`, { waitUntil: 'networkidle', timeout: 45_000 });
+        await page.evaluate((t) => {
+          document.documentElement.setAttribute('data-theme', t);
+          localStorage.setItem('vocaflow-theme', t);
+        }, theme);
+        await page.waitForTimeout(500);
+        // 접은 것을 펴 놓고도 본다 — 접혀 있는 동안만 초록인 검사는 반쪽이다.
+        await page.locator('details', { hasText: '분석 원문 읽기' }).first().locator('summary').click();
+        await page.waitForTimeout(300);
+        expect(await axeViolations(page), `${theme} axe 위반`).toEqual([]);
+      });
+    }
   });
 
   test.describe('axe — 라이트·다크', () => {
