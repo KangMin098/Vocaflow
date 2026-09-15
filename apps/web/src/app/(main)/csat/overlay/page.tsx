@@ -53,7 +53,7 @@ export default async function CsatOverlayPage({
   const { item } = linkMode ? await loadCsatItemExplain(`${examId}#${no}`) : { item: null }
 
   return (
-    <main className="mx-auto max-w-6xl px-4 py-6 sm:px-6">
+    <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6">
       <Link
         href="/csat"
         className="inline-flex min-h-[44px] items-center text-sm text-[var(--t3)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
@@ -214,6 +214,6 @@ export default async function CsatOverlayPage({
         문항을 분석해 우리가 쓴 글입니다. 원본은 <strong>여러분 브라우저가 평가원에서 직접</strong>{' '}
         받으며 우리 서버를 거치지 않습니다. 해설이 얹힌 파일을 내려받는 기능은 두지 않았습니다.
       </p>
-    </main>
+    </div>
   )
 }

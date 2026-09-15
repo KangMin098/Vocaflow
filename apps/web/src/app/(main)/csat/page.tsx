@@ -23,7 +23,7 @@ export default async function CsatHubPage() {
   const ready = cards.filter((c) => c.ready).length
 
   return (
-    <main className="mx-auto max-w-5xl px-4 py-6 sm:px-6">
+    <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6">
       <header className="mb-6">
         <h1 className="font-display text-2xl font-bold text-[var(--t1)]">기출 유형 분석</h1>
         <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[var(--t2)]">
@@ -119,6 +119,6 @@ export default async function CsatHubPage() {
         문항 원문은 싣지 않습니다. 지문·선지의 저작권은 한국교육과정평가원에 있고, 여기 있는 것은
         그 문항을 분석해 우리가 쓴 글입니다. 원문은 평가원 공개자료에서 보실 수 있어요.
       </p>
-    </main>
+    </div>
   )
 }

@@ -221,8 +221,20 @@ describe('오버레이 앵커 데이터는 좌표만 담는다', () => {
 // 자리만 보면 같은 필드로 더 많이 내보내는 것을 놓친다.
 describe('지문 골격 데이터는 정해진 네 자리에만 글자를 담는다', () => {
   const dir = path.resolve(process.cwd(), 'src/lib/csat/skeleton-data')
-  /** 글자가 허용되는 키. 늘리려면 **왜 필요한지 여기 적고** 늘릴 것. */
-  const TEXT_KEYS = new Set(['exam_id', 'id', 'anchorId', 'text', 'built'])
+  /**
+   * 글자가 허용되는 키. 늘리려면 **왜 필요한지 여기 적고** 늘릴 것.
+   *
+   * · `exam_id` · `id` — 식별자(`M2309` · `M2309#42`). 지문 글자가 아니다.
+   * · `anchorId` — `'answer'` · `'reject:2'`. 닫힌 모양이다.
+   * · `text` — **여기만 지문 글자가 나간다.** 분석이 근거로 든 인용문이고, 양은
+   *   `skeleton-data.test.ts` 가 따로 잠근다(현행 배포본의 최대치를 넘지 않는다).
+   * · `built` — 굽은 시각.
+   * · `type_id`(2026-09-15 추가) — 유형 코드(`R-BLANK` 등 26종의 닫힌 집합). 지문과 무관하다.
+   *   왜 넣었나: 「이 유형은 근거가 지문의 어디에 있나」 같은 분석이 없으면 **매번 DB 를
+   *   타야** 하고, 망이 끊기면 못 한다(실측: 그 이유로 3사이클 미뤄졌다). 골격이 스스로를
+   *   설명하게 두면 그 분석은 영원히 오프라인이다.
+   */
+  const TEXT_KEYS = new Set(['exam_id', 'id', 'anchorId', 'text', 'built', 'type_id'])
 
   it('골격 폴더가 있고 색인이 회차를 가리킨다 — 없으면 아래 단언이 아무것도 안 지킨다', () => {
     expect(fs.existsSync(dir), `${dir} 가 없다 (build-skeleton-data.mjs --write)`).toBe(true)

@@ -78,7 +78,10 @@ const analyses = await page('csat_item_analyses', 'item_id, version, answer_locu
 const latest = new Map()
 for (const r of analyses) if (!latest.has(r.item_id)) latest.set(r.item_id, r)
 
-const items = await page('csat_items', 'id, exam_id, no, passage, body_ok', (q) => q.order('id'))
+// ⚠️ `type_id` 를 함께 굽는다 — 없으면 «이 유형은 근거가 지문의 어디에 있나» 같은 분석이
+//    **매번 DB 를 타야** 하고, 망이 끊기면 못 한다(실측: 그 이유로 3사이클 미뤄졌다).
+//    골격이 스스로를 설명하게 두면 그 분석은 영원히 오프라인이다.
+const items = await page('csat_items', 'id, exam_id, no, type_id, passage, body_ok', (q) => q.order('id'))
 
 // 한국어 산문에 박힌 영어 조각. 낱말 하나는 지문 어디에나 있어 «아무 데나 칠하기» 가 되므로
 // 구(句) 이상만 쓴다.
@@ -212,6 +215,7 @@ for (const it of items) {
   byExam.get(it.exam_id).push({
     id: it.id,
     no: it.no,
+    type_id: it.type_id ?? null,
     chars: skeleton.chars,
     sentences: skeleton.sentences,
     anchors: placements,

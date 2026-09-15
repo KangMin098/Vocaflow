@@ -23,6 +23,8 @@
 //   · 계정: runtime-test-0705@vocaflow.dev
 //   · 읽기 전용 — DB 에 아무것도 쓰지 않는다. 계측 이벤트는 **누르므로 남는다**(funnel_events).
 
+import fs from 'node:fs';
+
 import AxeBuilder from '@axe-core/playwright';
 import { test, expect, type Page } from '@playwright/test';
 
@@ -78,6 +80,19 @@ async function litSentences(page: Page): Promise<string[]> {
 
 test.describe('기출 문항 해설 — 지문 지도', () => {
   test.beforeAll(async ({ browser }) => {
+    // **미리 구운 세션이 있으면 로그인 폼을 거치지 않는다.**
+    //
+    // 이 머신은 «브라우저 → Supabase» 경로만 막힌다(같은 시각 node 는 401·로그인 성공,
+    // 브라우저 폼은 "로그인 중..." 에서 멈춤 — 실측 2026-09-15). 그러면 화면 코드가 멀쩡해도
+    // 검증을 못 한다. `scripts/e2e-session.mts` 가 Node 로 세션을 받아 쿠키로 구워 두면
+    // 브라우저는 그걸 들고 시작한다.
+    //
+    // ⚠️ **건너뛴 사실을 크게 남긴다.** 조용히 건너뛰면 로그인이 깨져도 이 스펙은 초록이다.
+    //    로그인 폼 자체의 회귀는 `20-auth-flows` 가 따로 본다 — 그쪽을 이 길로 검증하면 안 된다.
+    if (fs.existsSync(STATE_PATH)) {
+      console.log(`[42] 미리 구운 세션을 쓴다 (${STATE_PATH}) — 로그인 폼은 거치지 않았다`)
+      return
+    }
     // ⚠️ 훅 기본 제한은 **30초**인데 위 로그인은 2회 시도 × 25초라 **최대 50초+** 다.
     //    그래서 로그인이 조금만 느려도 훅이 먼저 죽고, 실패 메시지는 «beforeAll 시간 초과» 라
     //    **로그인이 문제인지 망이 문제인지 구별이 안 된다**(실측 2026-09-15: 망이 살아난 뒤에도

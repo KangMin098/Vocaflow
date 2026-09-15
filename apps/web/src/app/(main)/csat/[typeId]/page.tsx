@@ -44,9 +44,14 @@ export default async function CsatTypePage({ params }: { params: Promise<{ typeI
   // **이미 불러온 목록**이라 추가 조회가 없고, 여기 없는 인용은 평문으로 남는다 —
   // 없는 문항으로 가는 링크는 막다른 화면이다(실측: 인용의 98.5%가 이 목록 안에 있다).
   const knownItems = new Set(items.map((it) => it.id))
+  // ⚠️ **`<main>` 이 아니라 `<div>` 다.** 셸(`(main)/layout.tsx`)이 이미
+  //    `<main id="main-content">` 를 그린다. 중첩하면 문서에 보이는 main 이 둘이 되어
+  //    스크린리더가 본문을 못 짚고 건너뛰기 링크도 어디로 갈지 모호해진다.
+  //    실측 2026-09-15: Playwright strict mode 가 `locator('main')` 에서 2개를 만나 드러났다 —
+  //    **axe 의 wcag2a/aa 태그로는 안 잡힌다**(중복 landmark 는 best-practice 규칙이다).
 
   return (
-    <main className="mx-auto max-w-3xl px-4 py-6 sm:px-6">
+    <div className="mx-auto max-w-3xl px-4 py-6 sm:px-6">
       <Link
         href="/csat"
         className="inline-flex min-h-[44px] items-center text-sm text-[var(--t3)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
@@ -225,6 +230,6 @@ export default async function CsatTypePage({ params }: { params: Promise<{ typeI
           </p>
         </>
       )}
-    </main>
+    </div>
   )
 }
