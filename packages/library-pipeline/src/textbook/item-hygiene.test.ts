@@ -783,9 +783,12 @@ describe('무관 문항의 부호 누설', () => {
 
   // ⚠️ **넓게 잡으면 멀쩡한 재고가 통째로 떨어진다** — 이 저장소가 이미 두 번 겪었다.
   it('인용이 두 문장에 걸치면 누설이 아니다 — 모양이 갈리지 않는다', () => {
+    // ⚠️ 두 토막이 **둘 다** 인용부호로 열리게 둔다. 한쪽만 열면 첫 글자 모양이 갈려
+    //   아래 「첫 글자 모양」 검사가 잡는다 — 그 검사는 실측 98.5% 정밀도라 그대로 둔다
+    //   (오탐 1/66 = 1.5%, 그 하나가 바로 이런 자리다).
     const spanning = [...CLEAN]
-    spanning[1] = '“The catch is smaller than last year, said the harbour master.'
-    spanning[2] = 'Nobody expects it to recover soon,” he added.'
+    spanning[1] = '“The catch is smaller than last year,” the harbour master said.'
+    spanning[2] = '“Nobody expects it to recover soon,” he added.'
     expect(itemHygieneReject(five(...spanning))).toBeNull()
   })
 
@@ -920,5 +923,73 @@ describe('문장처럼 열리지 않는 조각', () => {
     ['평범한 문장', 'The coastal region provides a steady supply of fresh water each year.'],
   ])('%s 는 그대로 통과한다', (_label, s) => {
     expect(itemHygieneReject(sents('Farmers depend on it during the dry season.', s))).toBeNull()
+  })
+})
+
+/**
+ * **첫 글자 모양도 답을 알려 준다.**
+ *
+ * 앞의 「짝이 안 맞는가」는 인용이 같은 문장 안에서 닫히면 통과시킨다 — 개수가 짝수라서다.
+ * 그런데 지면에서는 **그 줄만 따옴표로 열려** 눈에 띈다.
+ *
+ * 실측 2026-09-16 (V5 무관 2,500문항): 정답 문장이 알파벳으로 안 시작하는 비율 **87.0%**,
+ * 정답 아닌 문장 **1.4%**. 새로 빠지는 66건 중 **65건(98.5%)에서 그 문장이 정답**이었다.
+ */
+describe('첫 글자 모양이 갈리면 답이 보인다', () => {
+  const CLEAN = [
+    'The fleets bring in enough catch to supply the local markets.',
+    'Younger crews replace older boats with quieter engines.',
+    'Harbour councils publish the daily catch so buyers can plan.',
+    'Mountain railways carried timber to the mills inland.',
+    'The towns that kept their fleets held their populations steady.',
+  ]
+  const five = (...s: string[]) => ({ payload: { intro: 'The town kept its fleet.', sentences: s } })
+
+  it('짝이 맞는 따옴표로 열려도 그 줄만 다르면 잡는다', () => {
+    const leaky = [...CLEAN]
+    // 따옴표가 같은 문장 안에서 닫힌다 — 개수가 짝수라 앞 검사는 통과시킨다.
+    leaky[3] = '" Low participation" is an indicator that measures involvement of lawmakers.'
+    expect(itemHygieneReject(five(...leaky))).toBe('punctuationLeak')
+  })
+
+  // ⚠️ 여럿이면 모양이 갈리지 않는다 — 누설이 아니다.
+  it('모양이 다른 줄이 둘이면 잡지 않는다', () => {
+    const many = [...CLEAN]
+    many[1] = '"The catch is smaller than last year," the harbour master said.'
+    many[3] = '"Nobody expects it to recover soon," he added.'
+    expect(itemHygieneReject(five(...many))).toBeNull()
+  })
+
+  it('전부 글자로 열리면 통과한다', () => {
+    expect(itemHygieneReject(five(...CLEAN))).toBeNull()
+  })
+})
+
+/**
+ * **배열 문항의 정답은 `payload` 가 아니라 `answer_key` 에 있다.**
+ *
+ * `hasBadSentenceSplit` 은 `PASSAGE_KEYS`·`SPLIT_CHECK_ARRAY_KEYS` 만 훑는데
+ * `word_order` 의 정답 문장은 `answer_key.sentence` 다 — 자가 그 자리를 한 번도 안 봤다
+ * (3인 검수 chunk-02 이 짚었다). **재고가 낡아서가 아니라 범위 누락이다.**
+ * DB 실측 2026-09-16: `word_order` 48,855건 중 **3,772건(7.7%)**.
+ */
+describe('배열 문항의 정답 문장도 본다', () => {
+  const item = (sentence: string) => ({
+    payload: { bank: ['boat', 'the', 'into', 'they', 'got', 'warning'] },
+    answer_key: { sentence },
+    answerKey: { sentence },
+    type: 'word_order',
+  })
+
+  it('약어에서 잘린 정답을 잡는다 — 이름이 통째로 없다', () => {
+    expect(itemHygieneReject(item('They got into the boat with a warning from Mr.'))).toBe('badSplit')
+  })
+
+  it('온전한 정답은 통과한다', () => {
+    expect(itemHygieneReject(item('They got into the boat with a warning.'))).toBeNull()
+  })
+
+  it('정답 문장이 없으면 이 검사만 건너뛴다', () => {
+    expect(itemHygieneReject({ payload: { bank: ['boat', 'the'] }, type: 'word_order' })).toBeNull()
   })
 })

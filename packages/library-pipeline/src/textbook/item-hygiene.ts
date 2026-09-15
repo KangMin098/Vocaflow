@@ -336,6 +336,28 @@ export function hasPunctuationLeak(payload: Record<string, unknown> | null | und
         if (unbalanced) odd += 1
       }
       if (odd === 1) return true
+
+      // ── 첫 글자 모양도 답을 알려 준다 ─────────────────────────────
+      // ⚠️ **위의 「짝이 안 맞는가」로는 못 잡는다.** 인용이 같은 문장 안에서 닫히면
+      //   개수가 짝수라 통과하는데, 지면에서는 **그 줄만 따옴표로 열려** 눈에 띈다.
+      //
+      //   실측 2026-09-16 (V5 무관 2,500문항 · 문장 12,500개):
+      //     정답 문장이 알파벳으로 안 시작    2,176 / 2,500 = **87.0%**
+      //     정답 아닌 문장                     138 / 10,000 =   1.4%
+      //
+      //   **「글자로 시작하지 않는 줄」을 찍으면 87%를 맞힌다**(우연 20%). 이 유형이
+      //   재려던 「글의 통일성」은 하나도 안 재진다. 3인 검수 두 청크가 각자 짚었다.
+      //
+      // ⚠️ **여기서도 「딱 하나일 때」만 본다** — 여럿이면 모양이 갈리지 않아 누설이 아니다.
+      //   그리고 넓게 잡으면 멀쩡한 재고가 통째로 떨어진다(두 번 겪은 일이다).
+      //
+      // 얼마나 더 빼는지 재고 넣었다(표본 600): 모양이 다른 것이 딱 하나인 문항 531 중
+      // **이미 다른 사유로 빠지는 것이 482**, 새로 빠지는 것은 **66**. 그 66건 중
+      // **65건(98.5%)에서 그 문장이 실제로 정답**이었다 — 오탐이 아니라 누설이다.
+      const shapeOdd = v.filter(
+        (x) => typeof x === 'string' && x.trim() && !/^[A-Za-z]/.test(x.trim()),
+      ).length
+      if (shapeOdd === 1) return true
     }
   }
   return false
@@ -578,6 +600,25 @@ export function itemHygieneReject(input: {
   // ⚠️ **생성기만 고치면 재고는 그대로 인쇄된다.** `word-order.ts` 가 앞으로 만들 것을
   //   막아도, 이미 저장된 4,133건(부사)·3,182건(대문자)은 지금도 조판 대상이다.
   //   판정은 그쪽 집합을 그대로 쓴다 — 목록을 두 벌 두면 반드시 갈린다.
+  // ── 배열 문항의 정답은 `payload` 가 아니라 `answer_key` 에 있다 ────
+  // ⚠️ **자가 그 자리를 한 번도 안 봤다** (3인 검수 chunk-02, 2026-09-16).
+  //   `hasBadSentenceSplit` 은 `PASSAGE_KEYS`·`SPLIT_CHECK_ARRAY_KEYS` 만 훑는데
+  //   `word_order` 의 정답 문장은 `answer_key.sentence` 다. 그래서 약어 마침표에서
+  //   잘린 정답(`They got into the boat with a warning from Mr.`)이 그대로 지면에 갔다 —
+  //   이름이 통째로 없는 문장을 배열하라고 내주는 셈이다.
+  //
+  //   **재고가 낡아서가 아니다.** 이 청크는 조각 자국을 늘린 커밋보다 **뒤에** 뽑혔다.
+  //   범위 누락이다. DB 실측: `word_order` 48,855건 중 **3,772건(7.7%)**.
+  //
+  // ⚠️ **새 자를 만들지 않는다** — 같은 판정자에 문장 하나를 얹어 부른다.
+  //   여기서 규칙을 사본으로 적으면 다음에 자국을 하나 늘릴 때 또 갈린다.
+  {
+    const answerSentence = (input.answerKey as { sentence?: unknown } | null | undefined)?.sentence
+    if (typeof answerSentence === 'string' && answerSentence.trim()) {
+      if (hasBadSentenceSplit({ passage: answerSentence })) return 'badSplit'
+    }
+  }
+
   // ── 지칭 문항이 지면에 설 수 있는가 ───────────────────────────────
   // ⚠️ 이 판정이 조판기 안에만 있어서 **아무도 읽지 않을 문항을 세 사람이 읽었다**
   //   (3인 검수 chunk-03). 뽑기·검수 내보내기·조판이 같은 자를 쓰게 한다.
