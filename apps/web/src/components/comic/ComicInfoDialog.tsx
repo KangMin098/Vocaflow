@@ -133,7 +133,7 @@ export function ComicInfoDialog({
             <header className="sticky top-0 flex items-start gap-3 border-b border-[var(--bd)] bg-[var(--bg)] px-5 py-4">
               <div className="min-w-0 flex-1">
                 {info?.kindLabel && (
-                  <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.14em] text-[var(--active-ink)]">
+                  <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--active-ink)]">
                     {info.kindLabel}
                   </p>
                 )}
@@ -234,7 +234,7 @@ function InfoBody({ info }: { info: PdComicInfo }) {
       <div className="flex flex-wrap gap-2">
         <Link
           href={`/comics/restored/${info.slug}`}
-          className="inline-flex min-h-[44px] flex-1 items-center justify-center rounded-[var(--r-full)] bg-[var(--p)] px-5 font-display text-[13px] font-[700] text-[var(--on-p)] transition-transform duration-[var(--dur-normal)] ease-[var(--ease)] hover:-translate-y-px active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+          className="inline-flex min-h-[44px] flex-1 items-center justify-center rounded-[var(--r-md)] bg-[var(--ju)] px-5 font-display text-[13px] font-[700] text-[var(--on-ju)] transition-transform duration-[var(--dur-normal)] ease-[var(--ease)] hover:-translate-y-px active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ju)] focus-visible:ring-offset-2"
         >
           읽기
         </Link>

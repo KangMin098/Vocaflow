@@ -25,7 +25,7 @@ export function InsetGroup({
   return (
     <div className={cn('flex flex-col gap-2', className)}>
       {header && (
-        <span className="px-1 font-mono text-[10px] font-[700] uppercase tracking-[0.16em] text-[var(--t2)]">
+        <span className="px-1 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
           {header}
         </span>
       )}

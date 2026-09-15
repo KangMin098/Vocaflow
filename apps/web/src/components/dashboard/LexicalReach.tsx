@@ -27,7 +27,7 @@ export function LexicalReach({ reach }: { reach: Reach }) {
       className="flex flex-col rounded-ios-2xl bg-[var(--bg)] px-5 py-5 shadow-ios-2 md:px-6"
     >
       <header className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-        <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.18em] text-[var(--t3)]">
+        <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t3)]">
           어휘의 무게중심
         </p>
         <span className="font-mono text-[10px] tabular-nums text-[var(--t3)]">

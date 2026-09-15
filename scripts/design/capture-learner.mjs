@@ -100,7 +100,8 @@ const run = async () => {
       try {
         await p.goto(`${BASE}${r}`, { waitUntil: 'domcontentloaded', timeout: 45_000 })
         // 주소가 멈출 때까지(클라이언트 리다이렉트) + 폰트·데이터 도착까지
-        await p.waitForTimeout(2600)
+        // 느린 화면(첫 컴파일·서버 조회)은 2.6초로 부족하다 — 스피너가 찍힌다.
+        await p.waitForTimeout(Number(arg('wait', 2600)))
         await p.screenshot({ path: file, fullPage })
         const landed = new URL(p.url()).pathname
         report.push({ route: r, width: w, landed, ok: true })

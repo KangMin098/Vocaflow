@@ -52,7 +52,7 @@ export function LegalPage({ title, intro, effectiveDate, version, sections }: Le
       {/* ── Header ── */}
       <header className="border-b border-[var(--bd)] bg-[var(--bg2)]">
         <div className="mx-auto max-w-5xl px-6 py-12">
-          <span className="inline-flex items-center gap-2 rounded-full border border-[var(--bd)] bg-[var(--bg)] px-3 py-1 font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--t2)]">
+          <span className="inline-flex items-center gap-2 rounded-full border border-[var(--bd)] bg-[var(--bg)] px-3 py-1 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
             <FileText size={11} className="text-[var(--p)]" aria-hidden />
             법적 문서
           </span>

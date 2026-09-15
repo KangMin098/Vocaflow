@@ -56,7 +56,7 @@ export function VariantB({ terrain }: { terrain: StageMemoryGrid | null }) {
       >
         <header className="flex flex-wrap items-end gap-x-4 gap-y-2">
           <div className="min-w-0">
-            <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.16em] text-[var(--t3)]">
+            <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t3)]">
               내 어휘 지형
             </p>
             <h1 className="mt-1 font-editorial text-[26px] font-[500] leading-[1.2] tracking-[-0.012em] text-[var(--t1)] [word-break:keep-all] md:text-[32px]">
@@ -197,7 +197,7 @@ function TerrainAction({ deepButFading, total }: { deepButFading: number; total:
         style={{ backgroundImage: 'linear-gradient(135deg, var(--p-dark) 0%, var(--p) 70%)' }}
       >
         <div className="min-w-0 flex-1">
-          <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.16em] opacity-70">
+          <p className="font-display text-[11px] font-[600] tracking-[0.04em] opacity-70">
             지형이 가리키는 곳
           </p>
           <p className="mt-1.5 max-w-[34ch] font-editorial text-[19px] font-[500] leading-[1.35] [word-break:keep-all] md:text-[22px]">
@@ -226,7 +226,7 @@ function TerrainAction({ deepButFading, total }: { deepButFading: number; total:
       className="flex flex-wrap items-center gap-4 rounded-ios-2xl bg-[var(--bg)] px-5 py-5 shadow-ios-2 md:px-8"
     >
       <div className="min-w-0 flex-1">
-        <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.16em] text-[var(--t3)]">
+        <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t3)]">
           지형이 가리키는 곳
         </p>
         <p className="mt-1.5 max-w-[36ch] font-editorial text-[19px] font-[500] leading-[1.35] text-[var(--t1)] [word-break:keep-all] md:text-[22px]">
@@ -238,7 +238,7 @@ function TerrainAction({ deepButFading, total }: { deepButFading: number; total:
       </div>
       <Link
         href="/library/books"
-        className="inline-flex min-h-[48px] shrink-0 items-center gap-2 rounded-ios-pill bg-[var(--p)] px-5 font-display text-[14px] font-[700] text-[var(--on-p)] no-underline motion-safe:transition-all motion-safe:duration-[var(--dur-ios-normal)] motion-safe:hover:brightness-110 motion-safe:active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+        className="inline-flex min-h-[48px] shrink-0 items-center gap-2 rounded-[var(--r-md)] bg-[var(--ju)] px-5 font-display text-[14px] font-[700] text-[var(--on-ju)] no-underline motion-safe:transition-all motion-safe:duration-[var(--dur-ios-normal)] motion-safe:hover:brightness-110 motion-safe:active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
       >
         읽을 것 고르기
         <ArrowRight size={15} aria-hidden />
@@ -262,7 +262,7 @@ function NoTerrain() {
       </p>
       <Link
         href="/library/books"
-        className="mt-5 inline-flex min-h-[48px] items-center gap-2 rounded-ios-pill bg-[var(--p)] px-5 font-display text-[14px] font-[700] text-[var(--on-p)] no-underline motion-safe:transition-all motion-safe:duration-[var(--dur-ios-normal)] motion-safe:hover:brightness-110 motion-safe:active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+        className="mt-5 inline-flex min-h-[48px] items-center gap-2 rounded-[var(--r-md)] bg-[var(--ju)] px-5 font-display text-[14px] font-[700] text-[var(--on-ju)] no-underline motion-safe:transition-all motion-safe:duration-[var(--dur-ios-normal)] motion-safe:hover:brightness-110 motion-safe:active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
       >
         읽을 것 고르기
         <ArrowRight size={15} aria-hidden />

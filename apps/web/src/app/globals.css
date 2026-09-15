@@ -39,15 +39,22 @@
     --learn-mastered-light: #F5F3FF;
     --learn-review:         #F59E0B;
     --learn-review-light:   #FFFBEB;
-    --learn-error:          #EF4444;
-    --learn-error-light:    #FEF2F2;
+    /* v07 「주묵 판면」 — **오답을 빨강에서 뺀다.**
+       빨강은 이제 주묵(`--ju`)이 브랜드 표식으로 독점한다. 같은 화면에 붉은색이 둘이면
+       "앱이 남긴 표식" 과 "내가 틀렸다는 낙인" 이 구별되지 않는다.
+       그리고 학습자의 오답에 붉은 글씨를 쓰는 것은 CLAUDE.md 「정답률 빨간 글씨 압박 금지」
+       와 철학 3(Empathetic Feedback)이 원래부터 막고 있던 것이다 — 토큰이 그걸 허용하고
+       있었을 뿐이다. 오답은 이제 **중립 흑연색 + 표식 + 문장**으로 말한다("아직", "다시 만나요").
+       대비 실측: #6B6258 on --bg 5.75:1 · --learn-error-ink #57504A on --bg2 6.97:1 (AA). */
+    --learn-error:          #6B6258;
+    --learn-error-light:    #EDEAE4;
 
     /* v07 — 학습 상태색을 "작은 글자"로 쓸 때의 잉크.
        원색은 종이 위에서 2.0~3.6:1 이라 WCAG AA(4.5) 미달이다(2026-08-09 axe 실측:
        known 2.23 · review 1.89 · error 3.31 on --bg2). 면/점/막대는 원색, 글자는 잉크. */
     --learn-known-ink:      #0F6B4A;  /* on --bg2 5.74:1 */
     --learn-review-ink:     #7A5200;  /* on --bg2 6.09:1 */
-    --learn-error-ink:      #A32218;  /* on --bg2 6.60:1 */
+    --learn-error-ink:      #57504A;  /* v07 — 오답 중립 흑연. on --bg2 6.97:1 */
 
     /* CEFR 난이도 (긍정 기반) */
     --level-a:       #10B981;
@@ -112,22 +119,22 @@
     --reader-line-height: 1.55;
 
     /* Flashcard v2 — SRS 4단계 (한국 친화 그라디언트) */
-    --srs-1: #EF4444;   /* 몰라요 */
-    --srs-2: #F59E0B;   /* 어려워요 */
-    --srs-3: #22C55E;   /* 기억나요 */
-    --srs-4: #3B82F6;   /* 너무 쉬워요 */
+    --srs-1: #6B6258;   /* 몰라요 — v07: 빨강 제거(중립 흑연). 평가가 아니라 상태다 */
+    --srs-2: #B5803A;   /* 어려워요 — v07: 지면 톤 앰버(= --memory-shaky) */
+    --srs-3: #2E7D5A;   /* 기억나요 — v07: 지면 톤 포레스트(= --memory-stable) */
+    --srs-4: #3E6FA8;   /* 너무 쉬워요 — v07: 원색 파랑 → 지면 톤 더스티 블루 */
 
     /* SRS 4단계 — **글자로 쓸 때의 색.** 위 네 색은 면을 칠하는 색이다.
        그대로 글자로 얹으면 종이 위에서 2.06~3.6:1 로 읽힌다(실측 2026-08-22,
        /flashcard/play 채점 4버튼 — 학습자가 가장 많이 누르는 버튼이다).
        한 색으로 두 테마를 못 맞추므로 테마마다 뒤집는다. 라이트 최악 6.03~8.93 */
-    --srs-1-ink: #B42318;
+    --srs-1-ink: #57504A;
     --srs-2-ink: #7E5A1B;   /* = --active-ink */
     --srs-3-ink: #1F6B49;   /* = --success-ink */
-    --srs-4-ink: #1D4ED8;
+    --srs-4-ink: #2F5B8C;
 
     /* Card 전용 shadow */
-    --sh-card: 0 16px 40px rgba(0,0,0,0.10), 0 4px 12px rgba(0,0,0,0.06);
+    --sh-card: 0 0 0 1px var(--bd);  /* v07 — 카드도 뜨지 않고 그어진다(tokens.css §그림자) */
 
     /* Flip 전용 motion */
     --dur-flip:  600ms;
@@ -137,23 +144,23 @@
     --slot-empty-bg:     #F8FAFC;
     --slot-empty-bd:     #E2E8F0;
     --slot-empty-text:   #94A3B8;
-    --slot-current-bg:   #EFF6FF;
-    --slot-current-bd:   #3B82F6;
-    --slot-current-text: #3B82F6;
-    --slot-correct-bg:   #DCFCE7;
-    --slot-correct-bd:   #22C55E;
-    --slot-correct-text: #16A34A;
-    --slot-error-bg:     #FEE2E2;
-    --slot-error-bd:     #EF4444;
-    --slot-error-text:   #DC2626;
+    --slot-current-bg:   #E9EDF2;
+    --slot-current-bd:   #0F2540;
+    --slot-current-text: #0F2540;
+    --slot-correct-bg:   #E1EFE6;
+    --slot-correct-bd:   #2E7D5A;
+    --slot-correct-text: #1F6B49;
+    --slot-error-bg:     #F6EEDD;
+    --slot-error-bd:     #B5803A;
+    --slot-error-text:   #7A5200;
     --slot-typed-bg:     #FFFFFF;
     --slot-typed-bd:     #94A3B8;
     --slot-typed-text:   #475569;
 
     /* SpellForge ring shadows — 입력/정답/오답 강조 */
-    --sh-input:   0 0 0 4px rgba(59,130,246,0.12);
-    --sh-correct: 0 0 0 4px rgba(34,197,94,0.18);
-    --sh-error:   0 0 0 4px rgba(239,68,68,0.15);
+    --sh-input:   0 0 0 4px rgba(15,37,64,0.12);
+    --sh-correct: 0 0 0 4px rgba(46,125,90,0.20);
+    --sh-error:   0 0 0 4px rgba(181,128,58,0.20);  /* v07 — 오답 링도 빨강에서 앰버로 */
   }
 
   [data-theme="dark"] {
@@ -168,13 +175,13 @@
     --learn-mastered-light: #1E1B30;
     --learn-review:         #FBBF24;
     --learn-review-light:   #1F1610;
-    --learn-error:          #F87171;
-    --learn-error-light:    #1F1010;
+    --learn-error:          #A9A096;
+    --learn-error-light:    #2A241E;
 
     /* 다크에서는 밝은 원색이 어두운 배경 위에서 이미 대비를 확보한다 → 그대로 사용 */
     --learn-known-ink:      #34D399;
     --learn-review-ink:     #FBBF24;
-    --learn-error-ink:      #F87171;
+    --learn-error-ink:      #C3BAAE;
     /* Memory Decay 다크 — 어두운 배경 위에서는 밝은 쪽이 대비를 얻는다 */
     --memory-stable-ink: #5BA47D;
     --memory-shaky-ink:  #D9A441;
@@ -218,10 +225,10 @@
     --cefr-c2: #6D28D9;
 
     /* SRS 글자색 — 어두운 지면에서는 밝은 쪽이 읽힌다. 다크 최악 6.03 */
-    --srs-1-ink: #F87171;
+    --srs-1-ink: #C3BAAE;   /* v07 — 오답 중립 흑연(다크) */
     --srs-2-ink: #D4A856;   /* = --active-ink (dark) */
     --srs-3-ink: #7FC49E;   /* = --success-ink (dark) */
-    --srs-4-ink: #93C5FD;
+    --srs-4-ink: #9BBBDC;
   }
 }
 
@@ -235,7 +242,8 @@
 }
 
 /* ── Font Families (next/font가 주입하는 변수) ── */
-/* --font-display, --font-body, --font-serif (영어 원문 = Lora), --font-mono
+/* --font-display (= IBM Plex Sans KR · UI/본문), --font-body (= 같은 글꼴),
+   --font-ko-display (= Hahmlet · 한글 제목/뜻/감성), --font-serif (= Lora · 영어 원문), --font-mono
    → app/layout.tsx 의 next/font/google 설정에서 정의됨.
    Tailwind 에서는 font-display / font-body / font-english (= font-serif) / font-mono 로 사용. */
 
@@ -251,7 +259,7 @@ html {
 body {
   background-color: var(--bg);
   color: var(--t1);
-  font-family: var(--font-body), 'DM Sans', system-ui, -apple-system, sans-serif;
+  font-family: var(--font-body), 'IBM Plex Sans KR', system-ui, -apple-system, sans-serif;
   font-size: 14px;
   line-height: 1.5;
   transition:
@@ -259,16 +267,23 @@ body {
     color var(--dur-normal) var(--ease);
 }
 
-/* ── Heading 기본 폰트 (Display) ── */
+/* ── Heading 기본 폰트 ── v07 「주묵 판면」
+   ⚠️ 이전에는 h1~h6 이 전부 `--font-display`(당시 Plus Jakarta, latin-only)였다.
+      한국어 제목은 전량 OS 기본 고딕으로 나왔다는 뜻이고, **화면에서 가장 큰 글자가
+      가장 개성 없는 글자**였다(00-inventory §0-2).
+   지금은 영문 Lora + 한글 Hahmlet 세리프가 제목을 맡는다. 글리프 단위 폴백이라
+   "Vocaflow 는 Lora, 되찾을 단어는 Hahmlet" 이 한 줄 안에서 자연스럽게 섞인다.
+   웨이트를 800→600 으로 내린 이유: 세리프는 같은 굵기에서 산세리프보다 무겁게 읽힌다. */
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-display), 'Plus Jakarta Sans', system-ui, sans-serif;
-  font-weight: 700;
-  letter-spacing: -0.01em;
+  font-family: var(--font-serif), var(--font-ko-display), 'Lora', 'Hahmlet', Georgia, serif;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  word-break: keep-all;  /* 한글 낱말이 390px 에서 쪼개지지 않게 (CLAUDE.md I7) */
 }
 
 /* ── Code 폰트 ── */
 code, pre, kbd, samp {
-  font-family: var(--font-mono), 'JetBrains Mono', ui-monospace, monospace;
+  font-family: var(--font-mono), 'JetBrains Mono', ui-monospace, var(--font-body), monospace;
 }
 
 /* ── Selection ── */
@@ -440,13 +455,15 @@ code, pre, kbd, samp {
     );
   }
 
-  /* 카드 eyebrow / section label — 작은 라벨 통일 */
+  /* 카드 eyebrow / section label — v07: 대문자·넓은 트래킹을 내렸다.
+     ⚠️ `text-transform: uppercase` + `letter-spacing .10em` 은 템플릿 관용구이고,
+        **한국어에는 대문자가 없어서** 한글 라벨에서는 넓은 자간만 남아 읽기가 나빠진다.
+        판면 언어에서 작은 라벨은 조용히 앉아 있으면 된다. */
   .hub-eyebrow {
-    font-family: var(--font-mono), 'JetBrains Mono', monospace;
-    font-size: 10.5px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.10em;
+    font-family: var(--font-display), 'IBM Plex Sans KR', system-ui, sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
     color: var(--t3);
   }
 
@@ -733,7 +750,7 @@ body.focus-mode .sidebar:hover {
   /* 책등 텍스트 — 90deg 회전 */
   writing-mode: vertical-rl;
   text-orientation: mixed;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-display), 'IBM Plex Sans KR', sans-serif;
   font-size: 8px;
   font-weight: 600;
   letter-spacing: 0.04em;

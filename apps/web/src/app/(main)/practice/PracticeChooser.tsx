@@ -216,7 +216,7 @@ function LeadCard({
         <div className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2">
           <Link
             href={primary.href}
-            className="inline-flex min-h-[48px] items-center gap-2 rounded-ios-pill bg-[var(--p)] px-5 font-display text-[14px] font-[700] text-[var(--on-p)] no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] motion-safe:transition-all motion-safe:duration-[var(--dur-ios-normal)] motion-safe:hover:brightness-110 motion-safe:active:scale-[0.98]"
+            className="inline-flex min-h-[48px] items-center gap-2 rounded-[var(--r-md)] bg-[var(--ju)] px-5 font-display text-[14px] font-[700] text-[var(--on-ju)] no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] motion-safe:transition-all motion-safe:duration-[var(--dur-ios-normal)] motion-safe:hover:brightness-110 motion-safe:active:scale-[0.98]"
           >
             {primary.label} 로 연습
             <ArrowRight size={15} aria-hidden />

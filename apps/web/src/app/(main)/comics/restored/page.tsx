@@ -51,7 +51,7 @@ export default async function PdComicsPage({
     <Screen width="wide" background="bg2" padX="md">
       <div className="flex flex-col gap-5 py-6 md:py-8">
         <header>
-          <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.16em] text-[var(--active-ink)]">
+          <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--active-ink)]">
             Vintage Comics
           </p>
           <h1 className="mt-1 font-display text-[26px] font-[800] tracking-tight text-[var(--t1)] md:text-[30px]">
@@ -299,7 +299,7 @@ function NotReady() {
       </p>
       <Link
         href="/library/books"
-        className="mt-4 inline-flex min-h-[44px] items-center rounded-[var(--r-full)] bg-[var(--p)] px-5 font-display text-[13px] font-[700] text-[var(--on-p)]"
+        className="mt-4 inline-flex min-h-[44px] items-center rounded-[var(--r-md)] bg-[var(--ju)] px-5 font-display text-[13px] font-[700] text-[var(--on-ju)]"
       >
         도서 라이브러리로
       </Link>
@@ -326,7 +326,7 @@ function Empty() {
       <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
         <Link
           href="/library/books"
-          className="inline-flex min-h-[44px] items-center rounded-[var(--r-full)] bg-[var(--p)] px-5 font-display text-[13px] font-[700] text-[var(--on-p)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+          className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] bg-[var(--ju)] px-5 font-display text-[13px] font-[700] text-[var(--on-ju)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--ju-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ju)] focus-visible:ring-offset-2"
         >
           도서 라이브러리로
         </Link>

@@ -31,7 +31,7 @@ export function RescuedWords({ rescued }: { rescued: RescuedWordsData }) {
       data-design-card=""
       className="flex min-w-0 flex-col rounded-ios-2xl bg-[var(--bg)] px-5 py-5 shadow-ios-2 md:px-6"
     >
-      <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.18em] text-[var(--t3)]">
+      <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t3)]">
         이번 주에 다시 만난 단어
       </p>
 

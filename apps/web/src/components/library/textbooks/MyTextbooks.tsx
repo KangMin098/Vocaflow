@@ -226,7 +226,7 @@ function Section({ children }: { children: React.ReactNode }) {
       aria-label="내 교재"
       className="rounded-ios-2xl bg-[var(--bg)] px-5 py-5 shadow-ios-2 md:px-8"
     >
-      <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.18em] text-[var(--t2)]">
+      <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
         내 교재
       </p>
       <div className="mt-3">{children}</div>

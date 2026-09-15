@@ -46,7 +46,7 @@ function Cell({
         10px 라벨은 이 패널에서 가장 작은 글자라 3단 잉크 중 **2단(`--t2`)** 을 쓴다.
         (`--t3` 도 AA 는 넘는다 — 실측 `--bg2` 위 4.77:1. 토큰 문제가 아니라 크기 문제다.)
       */}
-      <h3 className="font-mono text-[10px] font-[700] uppercase tracking-[0.14em] text-[var(--t2)]">
+      <h3 className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
         {title}
       </h3>
       {children}

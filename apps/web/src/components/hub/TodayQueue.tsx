@@ -140,7 +140,7 @@ export function TodayQueue({ buckets, totalLabel }: TodayQueueProps) {
                   style={{ backgroundColor: meta.color }}
                   aria-hidden
                 />
-                <p className="font-display text-[11px] font-[700] uppercase tracking-[0.06em]" style={{ color: dim ? 'var(--t2)' : meta.ink }}>
+                <p className="font-display text-[11px] font-[600] tracking-[0.04em]" style={{ color: dim ? 'var(--t2)' : meta.ink }}>
                   {meta.label}
                 </p>
               </div>

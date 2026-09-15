@@ -565,7 +565,7 @@ export function DiagnosticClient() {
                   setError(null)
                   void submit(responses)
                 }}
-                className="mt-3 inline-flex min-h-[44px] items-center justify-center rounded-[var(--r-md)] bg-[var(--p)] px-5 font-display text-[14px] font-[700] text-[var(--on-p)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:scale-[0.97]"
+                className="mt-3 inline-flex min-h-[44px] items-center justify-center rounded-[var(--r-md)] bg-[var(--ju)] px-5 font-display text-[14px] font-[700] text-[var(--on-ju)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--ju-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:scale-[0.97]"
               >
                 답한 그대로 다시 제출
               </button>
@@ -705,7 +705,7 @@ export function DiagnosticClient() {
               <button
                 onClick={() => void resumeTest(saved)}
                 disabled={resuming}
-                className="inline-flex min-h-[44px] items-center justify-center rounded-[var(--r-md)] bg-[var(--p)] px-5 font-display text-[14px] font-[700] text-[var(--on-p)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-60"
+                className="inline-flex min-h-[44px] items-center justify-center rounded-[var(--r-md)] bg-[var(--ju)] px-5 font-display text-[14px] font-[700] text-[var(--on-ju)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--ju-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {resuming ? (
                   <>
@@ -833,7 +833,7 @@ export function DiagnosticClient() {
               </span>
             )}
           </div>
-          <div className="mb-2 flex items-center justify-between font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
+          <div className="mb-2 flex items-center justify-between font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
             <span>
               {currentIdx + 1} / {questions.length}
             </span>
@@ -1076,7 +1076,7 @@ export function DiagnosticClient() {
           return (
             <button
               onClick={() => router.push('/diagnostic')}
-              className="min-h-[44px] w-full rounded-[var(--r-md)] bg-[var(--p)] px-6 py-4 font-display text-[16px] font-[700] text-[var(--on-p)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:scale-[0.97]"
+              className="min-h-[44px] w-full rounded-[var(--r-md)] bg-[var(--ju)] px-6 py-4 font-display text-[16px] font-[700] text-[var(--on-ju)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--ju-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:scale-[0.97]"
             >
               다른 진단 받기
             </button>
@@ -1091,7 +1091,7 @@ export function DiagnosticClient() {
           return (
             <button
               onClick={() => router.push('/hub')}
-              className="min-h-[44px] w-full rounded-[var(--r-md)] bg-[var(--p)] px-6 py-4 font-display text-[16px] font-[700] text-[var(--on-p)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:scale-[0.97]"
+              className="min-h-[44px] w-full rounded-[var(--r-md)] bg-[var(--ju)] px-6 py-4 font-display text-[16px] font-[700] text-[var(--on-ju)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--ju-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:scale-[0.97]"
             >
               오늘 할 일 보러 가기
             </button>
@@ -1103,7 +1103,7 @@ export function DiagnosticClient() {
             <button
               onClick={() => void startWithRecommendation(first)}
               disabled={starting}
-              className="flex min-h-[44px] w-full items-center justify-center gap-2 rounded-[var(--r-md)] bg-[var(--p)] px-6 py-4 font-display text-[16px] font-[700] text-[var(--on-p)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-60"
+              className="flex min-h-[44px] w-full items-center justify-center gap-2 rounded-[var(--r-md)] bg-[var(--ju)] px-6 py-4 font-display text-[16px] font-[700] text-[var(--on-ju)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--ju-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-60"
             >
               {starting ? (
                 <>
@@ -1223,7 +1223,7 @@ function InfoModal({
 
           {/* 결과 활용 */}
           <div>
-            <h3 className="mb-2 font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
+            <h3 className="mb-2 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
               결과 활용
             </h3>
             <ul className="flex flex-col gap-2">
@@ -1241,7 +1241,7 @@ function InfoModal({
 
           {/* 학습 흐름 */}
           <div>
-            <h3 className="mb-2 font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
+            <h3 className="mb-2 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
               학습 흐름
             </h3>
             <div className="flex items-stretch gap-1">

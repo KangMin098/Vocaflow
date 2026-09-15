@@ -5,8 +5,8 @@
 
 import type { Metadata, Viewport } from "next";
 import {
-  Plus_Jakarta_Sans,
-  DM_Sans,
+  Hahmlet,
+  IBM_Plex_Sans_KR,
   Lora,
   JetBrains_Mono,
 } from "next/font/google";
@@ -15,18 +15,56 @@ import { DevicePreferences } from "@/components/layout/DevicePreferences";
 import { SITE_URL } from "@/lib/seo/site";
 import "./globals.css";
 
-const fontDisplay = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+// ═══════════════════════════════════════════════════════════════════════════
+// v07 「주묵 판면」 — 한글에 글꼴을 준다
+//
+// ⚠️ 이전까지 이 파일이 로드하던 4종(Plus Jakarta Sans · DM Sans · Lora · JetBrains Mono)은
+//    **전부 `subsets: ["latin"]`** 이었다. 한글 글리프가 한 자도 없다는 뜻이다.
+//    실측 2026-09-16(`/dashboard`, 로그인 상태): 본문 텍스트 노드 144개 중 한글이 108개(75%)인데
+//    그 108개가 선언한 font-family 스택이 **100% 라틴 전용**이었다 — 즉 화면 글자의 4분의 3이
+//    OS 기본 한글꼴(맑은 고딕 / Apple SD Gothic / Noto CJK)로 떨어지고 있었다.
+//    27개는 한술 더 떠 **모노스페이스 폴백**으로 갔다(자간이 무너진다).
+//    소스에 `font-display` 1,193회 + `font-body` 848회를 적어 놨지만 한글에 대해서는
+//    **그 2,041번의 지정이 전부 무효**였다. "어디서나 본 템플릿 느낌" 의 1차 원인이다.
+//
+// 그래서 역할을 다시 나눈다 — **클래스 이름은 그대로 두고 스택만 바꾼다**(마크업 무변경):
+//    · IBM Plex Sans KR — 모든 UI·본문 (한글+라틴 한 벌). Plus Jakarta/DM Sans 를 흡수했다.
+//    · Hahmlet         — 한글 디스플레이(제목·뜻·감성 문장). 한글과 라틴을 한 설계에서 뽑은 세리프
+//    · Lora            — 영어 원문·표제어 (v06.39 부터의 시그니처 · 유지)
+//    · JetBrains Mono  — 숫자·코드 라벨
+//    Pretendard 를 일부러 피했다: 안전하지만 지금 한국 웹의 절반이 그 얼굴이라
+//    "스크린샷 한 장으로 알아보기" 라는 목표와 정반대로 간다(docs/design/01-research.md §1-1).
+//
+// ⚠️ **한글 폰트에 `preload` 를 켜면 안 된다.** Google Fonts 의 한글은 `unicode-range` 로
+//    수백 조각으로 쪼개져 오고, next/font 의 preload 기본값(true)은 그 조각을 전부 preload 한다
+//    (공개 사례: 281조각 2.32MB 가 모든 페이지에서). 브라우저가 필요한 조각만 가져가게 둔다.
+// ⚠️ `subsets` 를 주지 않는다 — next/font 의 폰트 목록에 이 둘의 `korean` 서브셋이 등재돼
+//    있지 않아서, 지정하면 오히려 라틴만 받아 온다. 미지정 + preload:false 가 Google 의
+//    전체 CSS(= 한글 unicode-range 포함)를 쓰는 경로다.
+// ═══════════════════════════════════════════════════════════════════════════
+
+/** UI·본문 — 한글과 라틴을 한 벌로. 이전 `--font-display`(Plus Jakarta) 자리를 물려받는다. */
+const fontDisplay = IBM_Plex_Sans_KR({
+  weight: ["300", "400", "500", "600", "700"],
   variable: "--font-display",
   display: "swap",
+  preload: false,
 });
 
-const fontBody = DM_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+/** 본문 — display 와 같은 글꼴을 가리킨다. 역할이 같은 두 벌을 둘 이유가 없다. */
+const fontBody = IBM_Plex_Sans_KR({
+  weight: ["300", "400", "500", "600"],
   variable: "--font-body",
   display: "swap",
+  preload: false,
+});
+
+/** 한글 디스플레이 — 제목·뜻·감성 문장. Lora 가 못 그리는 한글을 같은 세리프 정서로 받는다. */
+const fontKoDisplay = Hahmlet({
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-ko-display",
+  display: "swap",
+  preload: false,
 });
 
 const fontSerif = Lora({
@@ -94,7 +132,7 @@ export default function RootLayout({
   return (
     <html
       lang="ko"
-      className={`${fontDisplay.variable} ${fontBody.variable} ${fontSerif.variable} ${fontMono.variable}`}
+      className={`${fontDisplay.variable} ${fontBody.variable} ${fontKoDisplay.variable} ${fontSerif.variable} ${fontMono.variable}`}
       suppressHydrationWarning
     >
       <head>

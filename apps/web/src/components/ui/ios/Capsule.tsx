@@ -91,7 +91,7 @@ export function Capsule({
       {label && (
         <span
           // opacity 0.85 를 덧씌우면 색 토큰이 확보한 대비가 다시 깎인다(이중 감광) → 제거.
-          className="font-mono text-[10px] font-[700] uppercase tracking-[0.14em]"
+          className="font-display text-[11px] font-[600] tracking-[0.04em]"
           style={{ color: t.label }}
         >
           {label}

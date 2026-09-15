@@ -68,7 +68,7 @@ export function VariantD({
         {/* ── 좌: 무엇을 배우나 ── */}
         <div className="min-w-0">
           <p
-            className="font-mono text-[10px] font-[700] uppercase tracking-[0.18em]"
+            className="font-display text-[11px] font-[600] tracking-[0.04em]"
             style={{ color: tone.sub }}
           >
             {tone.says}
@@ -142,7 +142,7 @@ export function VariantD({
               style={{ borderColor: tone.rule }}
             >
               <h2
-                className="font-mono text-[10px] font-[700] uppercase tracking-[0.16em]"
+                className="font-display text-[11px] font-[600] tracking-[0.04em]"
                 style={{ color: tone.sub }}
               >
                 오늘의 흐름
@@ -176,7 +176,7 @@ export function VariantD({
           aria-label="뒤따르는 단어"
           className="rounded-ios-2xl bg-[var(--bg)] px-5 py-4 shadow-ios-1 md:px-8 md:py-5"
         >
-          <h2 className="font-mono text-[10px] font-[700] uppercase tracking-[0.16em] text-[var(--t3)]">
+          <h2 className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t3)]">
             뒤이어
           </h2>
           <ul className="mt-2 divide-y divide-[var(--bd)]">

@@ -31,6 +31,15 @@ const config: Config = {
         //   이미 존재 → 매핑만 추가하면 앱 전역의 의도된 색이 한 번에 살아남) ──
         active: "var(--active)",
         "active-light": "var(--active-light)",
+
+        // ── v07 주묵(朱墨) — 면적을 가진 브랜드 색. 정의·대비 실측은 tokens.css §주묵 ──
+        //    ⚠️ 학습자의 오답에는 쓰지 않는다(learning-tone.test.ts 가 잡는다).
+        ju: "var(--ju)",
+        "ju-ink": "var(--ju-ink)",
+        "ju-light": "var(--ju-light)",
+        "ju-wash": "var(--ju-wash)",
+        "on-ju": "var(--on-ju)",
+
         success: "var(--success)",
         "success-light": "var(--success-light)",
         error: "var(--error)",
@@ -103,36 +112,64 @@ const config: Config = {
         "ios-pink-tint": "var(--ios-pink-tint)",
       },
 
+      // ══════════════════════════════════════════════════════════════════════
+      // v07 「주묵 판면」 — **클래스 이름은 그대로, 스택만 바꾼다.**
+      //
+      // 학습자 표면이 `font-display` 1,193회 · `font-body` 848회 · `font-editorial` 73회 ·
+      // `font-english` 268회를 이미 적어 뒀다. 이름을 바꾸면 447파일을 손대야 하고, 손대는
+      // 순간 누락이 생긴다. 스택만 갈아 끼우면 **마크업 0줄 수정으로 70 라우트가 다 바뀐다.**
+      //
+      // ⚠️ 핵심: 한글 글꼴을 스택에 **반드시 넣는다.** 이전 스택은 넷 다 라틴 전용이라
+      //    `-apple-system`/`system-ui` 로 떨어졌고, 그게 화면 글자 절반~4분의 3이었다
+      //    (실측 근거는 `app/layout.tsx` 머리 주석 · `docs/design/00-inventory.md` §0-2).
+      //
+      // 글리프 단위 폴백을 이용한다 — 라틴은 앞 글꼴이, 한글은 뒤 한글 글꼴이 그린다.
+      // 그래서 `editorial` 은 **영문 Lora + 한글 Hahmlet** 한 줄로 성립한다.
+      // ══════════════════════════════════════════════════════════════════════
       fontFamily: {
-        // v06.39 Reading Room — Lora 를 display 로 승격 (Dual Coding 시그니처)
-        // editorial: Hero/Title/단어 카드 (Lora — 가장 개성 있는 자산, 더 이상 본문에 갇히지 않음)
-        editorial: ["var(--font-serif)", "Lora", "Iowan Old Style", "Georgia", "serif"],
-        // display: UI 라벨 · nav · 작은 헤딩 (Plus Jakarta — geometric sans, 정밀한 UI 텍스트)
+        // editorial: 제목 · 표제어 · 감성 문장. 영문은 Lora, 한글은 Hahmlet 이 받는다.
+        editorial: [
+          "var(--font-serif)",
+          "var(--font-ko-display)",
+          "Lora",
+          "Hahmlet",
+          "Iowan Old Style",
+          "Georgia",
+          "serif",
+        ],
+        // ko-display: 한글만 세리프로 쓰고 싶을 때(제목이 한글로만 끝나는 자리).
+        "ko-display": ["var(--font-ko-display)", "Hahmlet", "Georgia", "serif"],
+        // display: UI 라벨 · nav · 버튼. IBM Plex Sans KR 한 벌이 한글·라틴을 같이 그린다.
         display: [
           "var(--font-display)",
-          "Plus Jakarta Sans",
+          "IBM Plex Sans KR",
           "-apple-system",
           "BlinkMacSystemFont",
           "system-ui",
           "sans-serif",
         ],
-        // body: 한글 본문 + 작은 영문 UI 텍스트 (DM Sans + 한글)
+        // body: 본문. display 와 같은 글꼴 — 역할이 같은 두 벌을 두지 않는다.
         body: [
           "var(--font-body)",
-          "DM Sans",
+          "IBM Plex Sans KR",
           "-apple-system",
           "BlinkMacSystemFont",
           "system-ui",
           "sans-serif",
         ],
-        // english: 영어 원문/본문 전용 (Lora 본문 weight)
+        // english: 영어 원문 전용 — 한글이 섞이면 안 되는 자리(지문·예문)라 Hahmlet 를 넣지 않는다.
         english: ["var(--font-serif)", "Lora", "Iowan Old Style", "Georgia", "serif"],
-        serif: ["var(--font-serif)", "Lora", "serif"],
+        serif: ["var(--font-serif)", "var(--font-ko-display)", "Lora", "Hahmlet", "serif"],
+        // mono: 숫자·코드. ⚠️ 한글이 모노 폴백으로 떨어지던 것(실측 27노드)을 막으려고
+        //       **한글 UI 글꼴을 뒤에 붙인다** — 모노 클래스에 한국어 라벨이 섞여 있어도
+        //       자간이 무너지지 않는다.
         mono: [
           "var(--font-mono)",
           "JetBrains Mono",
           "SF Mono",
           "ui-monospace",
+          "var(--font-body)",
+          "IBM Plex Sans KR",
           "monospace",
         ],
       },

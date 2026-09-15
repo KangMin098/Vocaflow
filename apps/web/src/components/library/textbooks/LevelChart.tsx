@@ -48,16 +48,16 @@ export function LevelChart({ chart }: { chart: LevelChartData }) {
         </caption>
         <thead>
           <tr className="border-b border-[var(--bd)]">
-            <th scope="col" className="pb-1.5 text-left font-mono text-[10px] font-[700] uppercase tracking-[0.12em] text-[var(--t2)]">
+            <th scope="col" className="pb-1.5 text-left font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
               계단
             </th>
-            <th scope="col" className="pb-1.5 text-left font-mono text-[10px] font-[700] uppercase tracking-[0.12em] text-[var(--t2)]">
+            <th scope="col" className="pb-1.5 text-left font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
               대상
             </th>
-            <th scope="col" className="pb-1.5 text-left font-mono text-[10px] font-[700] uppercase tracking-[0.12em] text-[var(--t2)]">
+            <th scope="col" className="pb-1.5 text-left font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
               지문 어수 (시중 교재 실측)
             </th>
-            <th scope="col" className="pb-1.5 text-right font-mono text-[10px] font-[700] uppercase tracking-[0.12em] text-[var(--t2)]">
+            <th scope="col" className="pb-1.5 text-right font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
               문항
             </th>
           </tr>

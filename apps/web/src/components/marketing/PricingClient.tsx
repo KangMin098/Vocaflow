@@ -107,7 +107,7 @@ export function PricingClient({ signals }: { signals: TrustSignal[] | null }) {
       {/* ── Hero ── */}
       <section className="border-b border-[var(--bd)] bg-gradient-to-br from-[var(--bg2)] to-[var(--bg)]">
         <div className="mx-auto max-w-3xl px-6 py-16 text-center md:py-20">
-          <span className="inline-flex items-center gap-2 rounded-full border border-[var(--bd)] bg-[var(--bg)] px-4 py-2 font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--t2)] shadow-[var(--sh-xs)]">
+          <span className="inline-flex items-center gap-2 rounded-full border border-[var(--bd)] bg-[var(--bg)] px-4 py-2 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)] shadow-[var(--sh-xs)]">
             <Sparkles size={12} className="text-[var(--p)]" aria-hidden />
             요금제
           </span>
@@ -170,7 +170,7 @@ export function PricingClient({ signals }: { signals: TrustSignal[] | null }) {
 
               <Link
                 href="/signup"
-                className="mt-6 inline-flex min-h-[44px] items-center justify-center gap-2 rounded-[var(--r-md)] bg-[var(--p)] px-5 font-display text-[14px] font-[700] text-[var(--on-p)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] hover:shadow-[var(--sh-md)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:scale-[0.97]"
+                className="mt-6 inline-flex min-h-[44px] items-center justify-center gap-2 rounded-[var(--r-md)] bg-[var(--ju)] px-5 font-display text-[14px] font-[700] text-[var(--on-ju)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--ju-ink)] hover:shadow-[var(--sh-md)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:scale-[0.97]"
               >
                 무료로 시작하기
               </Link>

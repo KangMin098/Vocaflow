@@ -52,7 +52,7 @@ export function TodayReading({ candidates }: { candidates: PrescriptionCandidate
       className="rounded-ios-2xl bg-[var(--bg)] px-5 py-4 shadow-ios-1 md:px-8 md:py-5"
     >
       <header className="flex flex-wrap items-baseline gap-x-3">
-        <h2 className="font-mono text-[10px] font-[700] uppercase tracking-[0.16em] text-[var(--t3)]">
+        <h2 className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t3)]">
           오늘 읽을 것
         </h2>
         <p className="font-body text-[12px] text-[var(--t3)]">지금 수준에서 읽을 수 있는 글이에요</p>

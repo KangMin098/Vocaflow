@@ -177,7 +177,7 @@ export default async function TextbookVolumePage({
         <VolumeHero volume={v} dossier={dossier} brand={shelf.brand}>
           <Link
             href={`/library/textbooks/${v.seriesId}/${v.step}/practice`}
-            className="group inline-flex min-h-[48px] w-fit items-center gap-2 rounded-ios-pill bg-[var(--p)] px-5 font-display text-[14px] font-[700] text-[var(--on-p)] no-underline motion-safe:transition-all motion-safe:hover:brightness-110 motion-safe:active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+            className="group inline-flex min-h-[48px] w-fit items-center gap-2 rounded-[var(--r-md)] bg-[var(--ju)] px-5 font-display text-[14px] font-[700] text-[var(--on-ju)] no-underline motion-safe:transition-all motion-safe:hover:brightness-110 motion-safe:active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
           >
             <ArrowRight size={15} aria-hidden />
             문항 풀어 보기
@@ -206,7 +206,7 @@ export default async function TextbookVolumePage({
           aria-label="수록 구성"
           className="rounded-ios-2xl bg-[var(--bg)] px-5 py-6 shadow-ios-2 md:px-8"
         >
-          <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.18em] text-[var(--t2)]">
+          <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
             수록 구성
           </p>
           <h2 className="mt-1.5 font-editorial text-[22px] font-[500] leading-[1.2] tracking-[-0.012em] text-[var(--t1)]">
@@ -233,7 +233,7 @@ export default async function TextbookVolumePage({
                       className="hidden h-1.5 w-[112px] shrink-0 overflow-hidden rounded-ios-pill bg-[var(--bg3)] sm:block"
                     >
                       <span
-                        className="block h-1.5 rounded-ios-pill bg-[var(--p)]"
+                        className="block h-1.5 rounded-[var(--r-md)] bg-[var(--ju)]"
                         style={{ width: `${pct}%` }}
                       />
                     </span>
@@ -262,7 +262,7 @@ export default async function TextbookVolumePage({
             aria-label="계단 안내"
             className="rounded-ios-2xl bg-[var(--bg)] px-5 py-6 shadow-ios-2 md:px-8"
           >
-            <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.18em] text-[var(--t2)]">
+            <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
               이 권이 안 맞는다면
             </p>
             <h2 className="mt-1.5 font-editorial text-[22px] font-[500] leading-[1.2] tracking-[-0.012em] text-[var(--t1)]">

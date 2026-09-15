@@ -108,7 +108,7 @@ export function VariantC({ room, time }: { room: ReadingRoom | null; time: RoomT
       >
         <div className="mx-auto max-w-[62ch]">
           <p
-            className="font-mono text-[10px] font-[700] uppercase tracking-[0.18em]"
+            className="font-display text-[11px] font-[600] tracking-[0.04em]"
             style={{ color: tone.sub }}
           >
             {tone.says} · 되찾을 단어 {overdueTotal}
@@ -156,7 +156,7 @@ export function VariantC({ room, time }: { room: ReadingRoom | null; time: RoomT
           카드 격자가 아니라 목차다. 서재의 다음 장(章) 처럼 읽히게 행으로만 둔다. */}
       {rest.length > 0 && (
         <section aria-label="뒤따르는 단어" className="rounded-ios-2xl bg-[var(--bg)] px-5 py-4 shadow-ios-1 md:px-8 md:py-5">
-          <h2 className="font-mono text-[10px] font-[700] uppercase tracking-[0.16em] text-[var(--t3)]">
+          <h2 className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t3)]">
             뒤이어
           </h2>
           <ul className="mt-2 divide-y divide-[var(--bd)]">
@@ -196,7 +196,7 @@ function QuietRoom({ tone }: { tone: (typeof ROOM_TONE)[RoomTime] }) {
       style={{ background: tone.canvas, color: tone.ink }}
     >
       <div className="mx-auto max-w-[52ch]">
-        <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.18em]" style={{ color: tone.sub }}>
+        <p className="font-display text-[11px] font-[600] tracking-[0.04em]" style={{ color: tone.sub }}>
           {tone.says}
         </p>
         <h1 className="mt-5 font-editorial text-[32px] font-[500] leading-[1.2] tracking-[-0.014em] [word-break:keep-all] md:text-[42px]">

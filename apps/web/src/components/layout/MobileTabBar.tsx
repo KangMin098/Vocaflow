@@ -88,7 +88,7 @@ export function MobileTabBar({ status = null }: MobileTabBarProps) {
         {ratio > 0 && (
           <span
             aria-hidden
-            className="absolute inset-x-0 top-[-1px] h-[2px] origin-left bg-[var(--p)] transition-transform duration-[var(--dur-normal)] ease-[var(--ease)]"
+            className="absolute inset-x-0 top-[-1px] h-[2px] origin-left bg-[var(--ju)] transition-transform duration-[var(--dur-normal)] ease-[var(--ease)]"
             style={{ transform: `scaleX(${ratio})` }}
           />
         )}
@@ -109,8 +109,8 @@ export function MobileTabBar({ status = null }: MobileTabBarProps) {
                       : undefined
                   }
                   // 44px 하한은 프로젝트 절대 규칙 — h-14(56px)로 여유를 둔다.
-                  className={`flex h-14 flex-col items-center justify-center gap-1 transition-colors duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-inset ${
-                    active ? 'text-[var(--p)]' : 'text-[var(--t2)]'
+                  className={`flex h-14 flex-col items-center justify-center gap-1 transition-colors duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ju)] focus-visible:ring-inset ${
+                    active ? 'text-[var(--ju-ink)]' : 'text-[var(--t2)]'
                   }`}
                 >
                   <span className="relative">
@@ -118,7 +118,7 @@ export function MobileTabBar({ status = null }: MobileTabBarProps) {
                     {id === 'today' && hasRemaining && (
                       <span
                         aria-hidden
-                        className="absolute -right-1 -top-0.5 h-[6px] w-[6px] rounded-full bg-[var(--p)]"
+                        className="absolute -right-1 -top-0.5 h-[6px] w-[6px] rounded-full bg-[var(--ju)]"
                       />
                     )}
                   </span>

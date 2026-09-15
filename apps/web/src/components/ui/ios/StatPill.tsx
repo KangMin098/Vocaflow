@@ -60,7 +60,7 @@ export function StatPill({
             }}
           />
         )}
-        <span className="font-mono text-[10px] font-[700] uppercase tracking-[0.14em] text-[var(--t2)]">
+        <span className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
           {label}
         </span>
       </div>

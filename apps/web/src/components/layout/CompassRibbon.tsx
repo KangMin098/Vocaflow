@@ -72,7 +72,7 @@ function StepDots({ model }: { model: WayfinderModel }) {
                   boxShadow: '0 0 0 2px var(--active-light)',
                 }
               : s.done
-                ? { width: 7, height: 7, background: 'var(--p)' }
+                ? { width: 7, height: 7, background: 'var(--ju)' }
                 : { width: 5, height: 5, background: 'var(--t4)' }
           }
         />
@@ -122,7 +122,7 @@ export function CompassRibbon({ data }: CompassRibbonProps) {
       >
         {/* ① 나는 어디에 있나 — 데스크톱에서만. 모바일은 하단 탭이 이미 위치를 말한다 */}
         {model.surface && (
-          <span className="hidden shrink-0 font-mono text-[10px] font-[700] uppercase tracking-[0.16em] text-[var(--t3)] md:inline">
+          <span className="hidden shrink-0 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t3)] md:inline">
             {model.surface.name}
           </span>
         )}
@@ -132,7 +132,7 @@ export function CompassRibbon({ data }: CompassRibbonProps) {
 
         {/* ③ 지금 누를 한 개 */}
         <p className="flex min-w-0 flex-1 items-baseline gap-2">
-          <span className="shrink-0 font-mono text-[10px] font-[700] uppercase tracking-[0.14em] text-[var(--active-ink)]">
+          <span className="shrink-0 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--active-ink)]">
             {model.now.kicker}
           </span>
           <span className="min-w-0 truncate break-keep font-display text-[13px] font-[600] text-[var(--t1)]">
@@ -145,7 +145,7 @@ export function CompassRibbon({ data }: CompassRibbonProps) {
           onClick={() =>
             track({ name: 'wayfinder_cta_clicked', props: { phase: model.phase, done: model.done } })
           }
-          className="inline-flex min-h-11 shrink-0 items-center rounded-[var(--r-full)] bg-[var(--p)] px-4 font-display text-[12px] font-[700] text-[var(--on-p)] transition-[filter,transform] duration-[var(--dur-normal)] ease-[var(--ease)] hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 active:scale-[0.98]"
+          className="inline-flex min-h-11 shrink-0 items-center rounded-[var(--r-md)] bg-[var(--ju)] px-4 font-display text-[12.5px] font-[600] text-[var(--on-ju)] transition-[background-color,transform] duration-[var(--dur-fast)] ease-[var(--ease)] hover:bg-[var(--ju-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ju)] focus-visible:ring-offset-2 active:translate-y-[1px]"
         >
           {model.now.cta}
         </Link>

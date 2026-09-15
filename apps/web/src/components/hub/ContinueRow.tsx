@@ -75,7 +75,7 @@ export function ContinueRow({
 
         <div className="min-w-0 flex-1">
           <div className="flex items-baseline gap-2">
-            <span className="font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--t2)]">
+            <span className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
               이어하기
             </span>
             {session.hint && (

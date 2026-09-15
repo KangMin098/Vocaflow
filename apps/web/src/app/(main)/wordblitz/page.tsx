@@ -113,7 +113,7 @@ export default async function WordBlitzHubPage() {
               strokeWidth={2.25}
               className="shrink-0 text-[var(--t3)]"
             />
-            <span className="font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--t3)]">
+            <span className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t3)]">
               정글 어드벤처
             </span>
             <span className="opacity-30" aria-hidden>

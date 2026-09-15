@@ -392,7 +392,7 @@ function ArticlePreview({
           </p>
           <Link
             href={`/login?${RETURN_PARAM}=${encodeURIComponent(`/library/scripts/${a.id}`)}`}
-            className="inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] bg-[var(--p)] px-5 font-display text-[13px] font-[700] text-[var(--on-p)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+            className="inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] bg-[var(--ju)] px-5 font-display text-[13px] font-[700] text-[var(--on-ju)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--ju-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ju)] focus-visible:ring-offset-2"
           >
             이 글로 학습 시작
           </Link>

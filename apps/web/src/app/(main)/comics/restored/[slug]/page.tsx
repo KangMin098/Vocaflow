@@ -194,7 +194,7 @@ function Provenance({
 }) {
   return (
     <footer className="mt-6 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-4">
-      <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.12em] text-[var(--t2)]">
+      <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
         출처 · 복원
       </p>
       <dl className="mt-2 grid gap-2 font-body text-[12.5px] text-[var(--t2)]">
@@ -317,7 +317,7 @@ function NotReady() {
       </p>
       <Link
         href="/comics/restored"
-        className="mt-4 inline-flex min-h-[44px] items-center rounded-[var(--r-full)] bg-[var(--p)] px-5 font-display text-[13px] font-[700] text-[var(--on-p)]"
+        className="mt-4 inline-flex min-h-[44px] items-center rounded-[var(--r-md)] bg-[var(--ju)] px-5 font-display text-[13px] font-[700] text-[var(--on-ju)]"
       >
         서가로
       </Link>

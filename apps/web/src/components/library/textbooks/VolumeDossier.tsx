@@ -54,7 +54,7 @@ function Sheet({
 function SheetHead({ kicker, title, lead }: { kicker: string; title: string; lead?: string }) {
   return (
     <div className="flex flex-col gap-1.5">
-      <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.18em] text-[var(--t2)]">
+      <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
         {kicker}
       </p>
       <h2 className="font-editorial text-[22px] font-[500] leading-[1.2] tracking-[-0.012em] text-[var(--t1)]">
@@ -133,7 +133,7 @@ export function VolumeHero({
         </div>
 
         <div className="flex min-w-0 flex-col">
-          <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.18em] text-[var(--t2)]">
+          <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
             {brand} · Step {v.step}
           </p>
           <h1 className="mt-2 font-editorial text-[30px] font-[500] leading-[1.06] tracking-[-0.02em] text-[var(--t1)] md:text-[42px]">

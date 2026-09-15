@@ -175,13 +175,19 @@ export function Sidebar() {
             aria-label="Vocaflow 홈"
           >
             <span
-              className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)] bg-gradient-to-br from-[var(--p-light)] to-[var(--p)] font-display text-[15px] font-[800] text-[var(--ti)] shadow-[0_1px_4px_rgba(59,130,246,0.16)]"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-sm)] bg-[var(--ju)] font-english text-[17px] font-[500] leading-none text-[var(--on-ju)]"
               aria-hidden="true"
             >
               V
             </span>
-            <span className="font-display text-[18px] font-[800] tracking-tight text-[var(--t1)]">
+            {/* 워드마크 — 라틴은 Lora, 뒤에 주묵 권점 하나. 자산 파일 없이 서명이 된다.
+                (실측: public/ 의 이미지·로고 자산은 0개였다 — docs/design/00-inventory.md §0-5) */}
+            <span className="font-english text-[19px] font-[500] tracking-[0.01em] text-[var(--t1)]">
               Vocaflow
+              <span
+                aria-hidden
+                className="ml-[3px] inline-block h-[5px] w-[5px] rounded-full bg-[var(--ju)] align-[3px]"
+              />
             </span>
           </Link>
         )}
@@ -246,7 +252,7 @@ export function Sidebar() {
         <div>
           {!collapsed && (
             <h3 className="mb-2 flex items-baseline gap-2 px-3">
-              <span className="font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
+              <span className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
                 {ASIDE_GROUP.label}
               </span>
               <span className="truncate font-body text-[12px] font-[400] text-[var(--t2)]">
@@ -359,7 +365,7 @@ function NavGroupBlock({
             {group.step}
           </span>
           <span
-            className={`font-display text-[11px] font-[700] uppercase tracking-[0.06em] transition-colors duration-[var(--dur-normal)] ${
+            className={`font-display text-[11px] font-[600] tracking-[0.04em] transition-colors duration-[var(--dur-normal)] ${
               here ? 'text-[var(--t1)]' : 'text-[var(--t2)]'
             }`}
           >
@@ -448,7 +454,8 @@ function NavLinkItem({
   // 하위 라우트(/wordvault/study·review 등)에서도 부모 항목 활성 유지.
   const isActive = matchesItem(pathname, item, search)
   const Icon: LucideIcon = item.icon
-  const accentColor = accent ?? 'var(--p)'
+  // v07 「주묵 판면」 — 현재 위치 표식의 기본색은 주묵이다. 모듈이 자기 색을 주면 그것을 쓴다.
+  const accentColor = accent ?? 'var(--ju)'
 
   // 활성 배경 — accent 8% mix (Calm UI: 색 자체가 약하게)
   const activeBg = `color-mix(in srgb, ${accentColor} 8%, transparent)`

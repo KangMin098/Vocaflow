@@ -46,7 +46,7 @@ export function TodayFocus({ word }: { word: TasteWord | null }) {
       {/* ── 지면: 제품이 하는 일 ── */}
       {word && (
         <>
-          <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.18em] text-[var(--t3)]">
+          <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t3)]">
             오늘 만나 볼 단어
           </p>
 
@@ -101,7 +101,7 @@ export function TodayFocus({ word }: { word: TasteWord | null }) {
 
         <Link
           href="/diagnostic"
-          className="group inline-flex min-h-[48px] shrink-0 items-center gap-2 self-start rounded-ios-pill bg-[var(--p)] px-5 font-display text-[14px] font-[700] text-[var(--on-p)] no-underline motion-safe:transition-all motion-safe:duration-[var(--dur-ios-normal)] motion-safe:hover:brightness-110 motion-safe:active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 md:self-auto"
+          className="group inline-flex min-h-[48px] shrink-0 items-center gap-2 self-start rounded-[var(--r-md)] bg-[var(--ju)] px-5 font-display text-[14px] font-[700] text-[var(--on-ju)] no-underline motion-safe:transition-all motion-safe:duration-[var(--dur-ios-normal)] motion-safe:hover:brightness-110 motion-safe:active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 md:self-auto"
         >
           5분 시작하기
           <ArrowRight

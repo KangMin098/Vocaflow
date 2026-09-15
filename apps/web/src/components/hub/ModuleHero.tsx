@@ -96,7 +96,7 @@ export function ModuleHero({
               className="shrink-0 opacity-80"
             />
           )}
-          <span className="font-mono text-[10px] font-[700] uppercase tracking-[0.10em] opacity-80">
+          <span className="font-display text-[11px] font-[600] tracking-[0.04em] opacity-80">
             {eyebrow}
           </span>
           <span className="opacity-30" aria-hidden>·</span>

@@ -174,3 +174,115 @@ describe('예외 목록이 스스로 검증된다 — 유령 예외 금지', () 
     ).toBe(true)
   })
 })
+
+// ══════════════════════════════════════════════════════════════════════════════
+// v07 「주묵 판면」 — 새 방향이 스스로를 지킨다
+//
+// 두 규칙을 코드에 닿게 한다. 둘 다 **문서에만 적어 두면 반드시 새어 나가는** 종류다:
+//   ① 주묵(`--ju`)은 앱이 지면에 남기는 표식이지 학습자에 대한 평가가 아니다.
+//      오답·틀림 경로에 붉은색을 다시 들이면 CLAUDE.md 「정답률 빨간 글씨 압박 금지」로 되돌아간다.
+//   ② 한글에 웹폰트가 있어야 한다. 이 저장소는 그게 없는 채로 오래 굴러갔고
+//      (폰트 4종 전부 latin subset), 화면 글자의 48~75% 가 OS 기본꼴로 나왔다.
+//      폰트를 바꾸는 커밋은 **조용히** 그 상태로 되돌릴 수 있다 — 화면은 멀쩡히 뜬다.
+// ══════════════════════════════════════════════════════════════════════════════
+
+describe('v07 — 주묵은 표식이지 낙인이 아니다', () => {
+  /** 오답·틀림을 다루는 코드로 보이는 이름들. 좁게 잡는다(넓히면 전부 오탐이 된다). */
+  const WRONG_CONTEXT =
+    /(isWrong|wasWrong|incorrect|isIncorrect|wrongAnswer|오답|틀렸|실패했|missed)/i
+
+  it('오답을 다루는 줄에서 주묵 토큰을 쓰지 않는다', () => {
+    const offenders: string[] = []
+    for (const { path, src } of FILES) {
+      const lines = src.split('\n')
+      lines.forEach((line, i) => {
+        if (!/var\(--ju\b|--ju-ink|--ju-light|bg-ju\b|text-ju\b/.test(line)) return
+        // 같은 줄, 그리고 바로 위아래 한 줄까지 본다 — 삼항 조건이 줄바꿈되는 경우가 있다.
+        const near = [lines[i - 1] ?? '', line, lines[i + 1] ?? ''].join(' ')
+        if (WRONG_CONTEXT.test(near)) offenders.push(`${rel(path)}:${i + 1}`)
+      })
+    }
+    expect(
+      offenders,
+      `주묵이 오답 경로에 쓰였다: ${offenders.join(', ')} — 주묵은 앱의 표식 전용이다(tokens.css §주묵)`,
+    ).toEqual([])
+  })
+
+  it('SRS 채점 4단계와 오답 토큰에 원색 빨강이 없다', () => {
+    // #EF4444 / #F87171 / #DC2626 — 이전 값들. 되돌아오면 여기서 걸린다.
+    const globals = readFileSync(join(SRC, 'app', 'globals.css'), 'utf8')
+    const grading = globals
+      .split('\n')
+      .filter((l) => /--srs-[14](-ink)?\s*:|--learn-error|--slot-error/.test(l))
+      .join('\n')
+    expect(grading, 'SRS/오답 토큰에 원색 빨강이 돌아왔다').not.toMatch(
+      /#(EF4444|F87171|DC2626|B42318|A32218|FEE2E2|FEF2F2)/i,
+    )
+  })
+
+  it('주묵 토큰이 실재한다 — 규칙이 빈 공간을 지키지 않는다', () => {
+    const tokens = readFileSync(
+      join(process.cwd(), '..', '..', 'packages', 'design-tokens', 'src', 'tokens.css'),
+      'utf8',
+    )
+    expect(tokens, '--ju 정의가 없다').toMatch(/--ju:\s*#C0392B/)
+    expect(tokens, '--on-ju 정의가 없다').toMatch(/--on-ju:/)
+    // 다크에서도 짝이 있어야 한다 — 한쪽만 있으면 다크에서 대비가 무너진다(C6 의 재발).
+    const dark = tokens.slice(tokens.indexOf('[data-theme="dark"]'))
+    expect(dark, '다크 주묵 짝이 없다').toMatch(/--ju:/)
+    expect(dark, '다크 --on-ju 짝이 없다').toMatch(/--on-ju:/)
+  })
+})
+
+describe('v07 — 한글에 글꼴이 있다', () => {
+  const layout = () => readFileSync(join(SRC, 'app', 'layout.tsx'), 'utf8')
+  const tw = () => readFileSync(join(process.cwd(), 'tailwind.config.ts'), 'utf8')
+
+  it('루트 레이아웃이 한글 글꼴을 로드한다', () => {
+    const src = layout()
+    expect(src, '한글 UI 글꼴(IBM Plex Sans KR)이 없다').toMatch(/IBM_Plex_Sans_KR/)
+    expect(src, '한글 디스플레이 글꼴(Hahmlet)이 없다').toMatch(/Hahmlet/)
+  })
+
+  it('한글 글꼴에 preload 를 켜지 않는다', () => {
+    /**
+     * Google Fonts 의 한글은 `unicode-range` 로 수백 조각으로 쪼개져 온다.
+     * `next/font` 의 preload 기본값(true)이면 그 조각을 **전부** preload 한다 —
+     * 공개 사례로 281조각 2.32MB 가 모든 페이지에서 preload 된 것이 보고돼 있다.
+     * 이건 화면을 깨지 않고 느리게만 만든다 = 혼자서는 절대 안 발견된다.
+     */
+    const src = layout()
+    for (const name of ['IBM_Plex_Sans_KR', 'Hahmlet']) {
+      // 선언 블록(여는 괄호 ~ 닫는 괄호)을 잘라 그 안에 preload: false 가 있는지 본다.
+      // 정규식을 만들지 않고 문자열로 자른다 — 템플릿 리터럴 안의 역슬래시가 조용히
+      // 먹히면(`[\s\S]` → `[sS]`) 검사는 통과도 실패도 아닌 "못 찾음" 이 된다.
+      const blocks: string[] = []
+      let from = 0
+      for (;;) {
+        const at = src.indexOf(`${name}({`, from)
+        if (at < 0) break
+        const end = src.indexOf('})', at)
+        if (end < 0) break
+        blocks.push(src.slice(at, end))
+        from = end
+      }
+      expect(blocks.length, `${name} 선언을 못 찾았다`).toBeGreaterThan(0)
+      for (const b of blocks) {
+        expect(b, `${name} 에 preload: false 가 없다`).toMatch(/preload:\s*false/)
+      }
+    }
+  })
+
+  it('Tailwind 의 본문·UI 스택이 라틴 전용으로 되돌아가지 않았다', () => {
+    const src = tw()
+    const block = src.slice(src.indexOf('fontFamily:'), src.indexOf('spacing:'))
+    // display/body 가 가리키는 변수는 한글을 그리는 글꼴이어야 한다.
+    expect(block, 'UI 스택에 한글 글꼴이 없다').toMatch(/IBM Plex Sans KR/)
+    // editorial 은 영문 Lora + 한글 Hahmlet 한 줄로 성립한다.
+    expect(block, 'editorial 스택에 한글 세리프가 없다').toMatch(/--font-ko-display/)
+    // 되돌아오면 안 되는 것 — 한글 글리프가 없는 글꼴만 남기는 스택
+    expect(block, 'Plus Jakarta / DM Sans 전용 스택이 돌아왔다').not.toMatch(
+      /"DM Sans",\s*\n?\s*"-apple-system"/,
+    )
+  })
+})

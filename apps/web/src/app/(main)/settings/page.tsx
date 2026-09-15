@@ -70,7 +70,7 @@ function SaveIndicator() {
     <div
       role="status"
       aria-live="polite"
-      className={`pointer-events-none fixed right-6 top-6 z-30 inline-flex items-center gap-2 rounded-full px-3 py-2 font-display text-[11px] font-[700] uppercase tracking-[0.06em] shadow-[var(--sh-md)] transition-all duration-[var(--dur-normal)] ${
+      className={`pointer-events-none fixed right-6 top-6 z-30 inline-flex items-center gap-2 rounded-full px-3 py-2 font-display text-[11px] font-[600] tracking-[0.04em] shadow-[var(--sh-md)] transition-all duration-[var(--dur-normal)] ${
         failed
           ? 'bg-[var(--danger-light)] text-[var(--danger)]'
           : 'bg-[var(--success-light)] text-[var(--success)]'

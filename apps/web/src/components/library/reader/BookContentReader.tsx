@@ -450,7 +450,7 @@ function SignInToReadPanel() {
       </p>
       <Link
         href={`/login?${RETURN_PARAM}=${encodeURIComponent(pathname)}`}
-        className="mt-1 inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] bg-[var(--p)] px-5 font-display text-[13px] font-[700] text-[var(--on-p)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+        className="mt-1 inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] bg-[var(--ju)] px-5 font-display text-[13px] font-[700] text-[var(--on-ju)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--ju-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ju)] focus-visible:ring-offset-2"
       >
         로그인하고 읽기
       </Link>

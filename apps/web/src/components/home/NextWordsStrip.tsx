@@ -17,11 +17,19 @@
 // **밀린 단어가 오늘 읽을 것보다 위**에 오게 된다. 오늘의 논리 순서는
 // `무대(지금 할 일) → 오늘 읽을 것 → 뒤이어(남은 단어)` 다.
 // ─────────────────────────────────────────────────────────────
+//
+// v07 「주묵 판면」 — 이름을 나열하던 자리에 **망각 밑줄**을 긋는다.
+//   이전에는 `sealing · prudent · vex` 가 그냥 글자였다. 지금은 각 낱말 아래에 밀린 정도만큼
+//   두꺼운 선이 그어진다 — 셋이 같은 무게가 아니라는 사실이 **읽기 전에** 보인다.
+//   두께가 정보를 나르므로 색맹 대응도 색에 기대지 않는다(CLAUDE.md 「색상만으로 정보 전달 금지」).
+//   섹션 라벨의 대문자·넓은 트래킹(`uppercase tracking-[0.16em]`)은 내렸다 —
+//   한국어에는 대문자가 없어서 그 조합은 자간만 벌어지고 읽기를 해친다.
 
 import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 
 import type { ReadingRoom } from '@/lib/learner/reading-room-actions'
+import { DecayUnderline, Eyebrow, bandFromOverdue } from '@/components/ui/press'
 
 /** 맛보기로 이름을 보여줄 개수 — 나머지는 `+N` 으로 접는다. */
 const NAMED = 3
@@ -35,21 +43,26 @@ export function NextWordsStrip({ room }: { room: ReadingRoom | null }) {
   return (
     <section
       aria-label="뒤따르는 단어"
-      className="rounded-ios-2xl bg-[var(--bg)] px-5 py-4 shadow-ios-1 md:px-8"
+      className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-5 py-4 md:px-8"
     >
-      <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-        <h2 className="font-mono text-[10px] font-[700] uppercase tracking-[0.16em] text-[var(--t3)]">
-          뒤이어
+      <div className="flex flex-wrap items-baseline gap-x-3 gap-y-2">
+        <h2>
+          <Eyebrow>뒤이어</Eyebrow>
         </h2>
-        <p className="min-w-0 flex-1 font-editorial text-[15px] font-[500] text-[var(--t2)]">
-          {named.map((w) => w.word).join(' · ')}
+        <p className="min-w-0 flex-1 font-english text-[16px] font-[500] leading-[1.9] text-[var(--t1)]">
+          {named.map((w, i) => (
+            <span key={w.id}>
+              <DecayUnderline state={bandFromOverdue(w.overdueDays)}>{w.word}</DecayUnderline>
+              {i < named.length - 1 ? ' ' : ''}
+            </span>
+          ))}
           {more > 0 && (
-            <span className="font-mono text-[11px] text-[var(--t3)]">{` +${more}`}</span>
+            <span className="font-display text-[12px] text-[var(--t3)]">{` 외 ${more}개`}</span>
           )}
         </p>
         <Link
           href="/wordvault"
-          className="group inline-flex min-h-[44px] shrink-0 items-center gap-1 font-display text-[12px] font-[700] text-[var(--p)] no-underline transition-colors hover:text-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          className="group inline-flex min-h-[44px] shrink-0 items-center gap-1 font-display text-[12.5px] font-[600] text-[var(--ju-ink)] no-underline transition-colors hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ju)]"
         >
           단어장에서 보기
           <ArrowRight

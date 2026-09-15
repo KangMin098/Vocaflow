@@ -123,7 +123,7 @@ function SheetHead({ kicker, title, aside }: { kicker: string; title: string; as
   return (
     <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-1.5">
       <div className="flex flex-col gap-1.5">
-        <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.18em] text-[var(--t2)]">
+        <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
           {kicker}
         </p>
         <h2 className="font-editorial text-[22px] font-[500] leading-[1.2] tracking-[-0.012em] text-[var(--t1)]">

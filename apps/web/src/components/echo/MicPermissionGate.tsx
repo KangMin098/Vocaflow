@@ -48,7 +48,7 @@ export function MicPermissionGate({ onGrant, error }: Props) {
           <button
             type="button"
             onClick={onGrant}
-            className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-full)] bg-[var(--p)] px-6 font-display text-[14px] font-[700] text-[var(--on-p)] shadow-[var(--sh-sm)] transition-all hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 active:scale-[0.97]"
+            className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] bg-[var(--ju)] px-6 font-display text-[14px] font-[700] text-[var(--on-ju)] shadow-[var(--sh-sm)] transition-all hover:bg-[var(--ju-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ju)] focus-visible:ring-offset-2 active:scale-[0.97]"
           >
             <Mic size={14} aria-hidden /> {error ? '다시 시도' : '마이크 사용 허용'}
           </button>

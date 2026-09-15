@@ -224,7 +224,7 @@ export function TextbookShelf({
           도구는 제목 오른쪽에 붙이고, 설명은 아래 한 줄로 줄인다. */}
       <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
         <div className="min-w-0 shrink-0">
-          <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.18em] text-[var(--t2)]">
+          <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
             {shelf.brand}
           </p>
           <h2 className="font-editorial text-[17px] font-[500] leading-[1.25] tracking-[-0.014em] text-[var(--t1)] md:text-[22px]">

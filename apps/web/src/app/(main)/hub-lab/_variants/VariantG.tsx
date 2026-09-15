@@ -97,7 +97,7 @@ export function VariantG() {
           여기 세워 두면 테마 캡처(HUB_SHOT_THEME=dark)로 함께 잡힌다. */}
       <section className="flex flex-col gap-2">
         <div className="flex flex-wrap items-baseline gap-x-3">
-          <span className="font-mono text-[10px] font-[700] uppercase tracking-[0.14em] text-[var(--p)]">
+          <span className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--p)]">
             first — 첫 방문 카드 (TodayFocus)
           </span>
           <span className="font-body text-[11.5px] text-[var(--t3)] [word-break:keep-all]">
@@ -110,7 +110,7 @@ export function VariantG() {
       {CASES.map((c) => (
         <section key={c.caption} className="flex flex-col gap-2">
           <div className="flex flex-wrap items-baseline gap-x-3">
-            <span className="font-mono text-[10px] font-[700] uppercase tracking-[0.14em] text-[var(--p)]">
+            <span className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--p)]">
               {c.caption}
             </span>
             <span className="font-body text-[11.5px] text-[var(--t3)] [word-break:keep-all]">

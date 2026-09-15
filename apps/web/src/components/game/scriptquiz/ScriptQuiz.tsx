@@ -376,7 +376,7 @@ function StartScreen({
 
       {/* 스크립트 정보 */}
       <div className="mt-10 rounded-[var(--r-2xl)] border border-[var(--bd)] bg-[var(--bg)] p-8 shadow-[var(--sh-md)]">
-        <span className="inline-flex items-center gap-2 rounded-full bg-[var(--p-light)] px-3 py-1 font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--on-p-tint)]">
+        <span className="inline-flex items-center gap-2 rounded-full bg-[var(--p-light)] px-3 py-1 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--on-p-tint)]">
           <BookOpen size={11} aria-hidden />
           스크립트 기반 퀴즈
         </span>
@@ -514,7 +514,7 @@ function QuestionScreen({
       <div className="mx-auto max-w-3xl px-4 py-8 md:px-6 md:py-10">
         {/* 문제 박스 */}
         <div className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-6 shadow-[var(--sh-sm)] md:p-7">
-          <span className="inline-flex items-center gap-2 rounded-full bg-[var(--p-light)] px-3 py-1 font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--on-p-tint)]">
+          <span className="inline-flex items-center gap-2 rounded-full bg-[var(--p-light)] px-3 py-1 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--on-p-tint)]">
             {question.type === 'truefalse' ? 'OX' : '4지선다'}
           </span>
           <h2 className="mt-3 font-english text-[18px] font-[600] leading-[1.6] text-[var(--t1)] md:text-[20px]">
@@ -598,7 +598,7 @@ function QuestionScreen({
             )}
             {graded?.sourceSnippet && (
               <div>
-                <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--t2)]">
+                <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
                   스크립트 근거
                 </p>
                 <p className="mt-1.5 font-english text-[14px] italic leading-[1.7] text-[var(--t1)]">
@@ -785,7 +785,7 @@ function QuestionScreen({
             type="button"
             onClick={onNext}
 
-            className="mt-6 inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-[var(--r-md)] bg-[var(--p)] px-6 py-3 font-display text-[15px] font-[700] text-[var(--on-p)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] active:translate-y-[1px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:opacity-50"
+            className="mt-6 inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-[var(--r-md)] bg-[var(--ju)] px-6 py-3 font-display text-[15px] font-[700] text-[var(--on-ju)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--ju-ink)] active:translate-y-[1px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ju)] focus-visible:ring-offset-2 disabled:opacity-50"
           >
             {isLast ? '결과 보기' : '다음 문항'}
             <ArrowRight size={15} strokeWidth={2.25} aria-hidden />
@@ -844,7 +844,7 @@ function ResultScreen({
       <div className="rounded-[var(--r-2xl)] border border-[var(--bd)] bg-[var(--bg)] p-6 shadow-[var(--sh-md)] md:p-10">
         {/* 헤더 */}
         <header className="text-center">
-          <span className="inline-flex items-center gap-2 rounded-full bg-[var(--success-light)] px-3 py-1 font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--success)]">
+          <span className="inline-flex items-center gap-2 rounded-full bg-[var(--success-light)] px-3 py-1 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--success)]">
             <Sparkles size={11} aria-hidden />
             완료
           </span>
@@ -884,7 +884,7 @@ function ResultScreen({
               />
             </svg>
             <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
-              <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--t2)]">
+              <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
                 정확도
               </p>
               <p className="font-display text-[40px] font-[800] tabular-nums leading-none text-[var(--t1)]">
@@ -897,7 +897,7 @@ function ResultScreen({
         {/* 통계 3분할 */}
         <div className="mt-8 grid grid-cols-3 gap-3">
           <div className="rounded-[var(--r-md)] bg-[var(--success-light)] p-4 text-center">
-            <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--success)]">
+            <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--success)]">
               정답
             </p>
             <p className="mt-1 font-display text-[24px] font-[800] tabular-nums leading-none text-[var(--success)]">
@@ -906,7 +906,7 @@ function ResultScreen({
             </p>
           </div>
           <div className="rounded-[var(--r-md)] bg-[var(--error-light)] p-4 text-center">
-            <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--error-ink)]">
+            <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--error-ink)]">
               오답
             </p>
             <p className="mt-1 font-display text-[24px] font-[800] tabular-nums leading-none text-[var(--error-ink)]">
@@ -914,7 +914,7 @@ function ResultScreen({
             </p>
           </div>
           <div className="rounded-[var(--r-md)] bg-[var(--bg2)] p-4 text-center">
-            <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--t2)]">
+            <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
               평균 시간
             </p>
             <p className="mt-1 font-display text-[24px] font-[800] tabular-nums leading-none text-[var(--t1)]">

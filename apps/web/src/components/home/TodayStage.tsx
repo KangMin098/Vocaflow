@@ -100,7 +100,7 @@ export function TodayStage({
         {/* ── 좌: 무엇을 배우나 ── */}
         <div className="min-w-0">
           <p
-            className="font-mono text-[10px] font-[700] uppercase tracking-[0.18em]"
+            className="font-display text-[11px] font-[600] tracking-[0.04em]"
             style={{ color: tone.sub }}
           >
             {tone.says}
@@ -174,7 +174,7 @@ export function TodayStage({
               style={{ borderColor: tone.rule }}
             >
               <h2
-                className="font-mono text-[10px] font-[700] uppercase tracking-[0.16em]"
+                className="font-display text-[11px] font-[600] tracking-[0.04em]"
                 style={{ color: tone.sub }}
               >
                 오늘의 흐름
@@ -301,10 +301,12 @@ function StartNow({ block, tone, label }: { block: TodayBlock; tone: RoomTone; l
   const Icon = block.icon
 
   const cls =
-    'inline-flex min-h-[48px] items-center gap-2 rounded-ios-pill px-5 font-display text-[14px] font-[700] no-underline motion-safe:transition-all motion-safe:duration-[var(--dur-ios-normal)] motion-safe:hover:brightness-110 motion-safe:active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 disabled:cursor-progress disabled:opacity-70'
-  // `--p` / `--on-p` 는 두 테마에서 짝으로 뒤집히도록 토큰이 보장하는 조합이다.
-  // 골드 면(`--active`) 위 글자색은 그런 짝 토큰이 없어서 다크에서 대비가 무너졌다(C6).
-  const style = { background: 'var(--p)', color: 'var(--on-p)' }
+    'inline-flex min-h-[48px] items-center gap-2 rounded-[var(--r-md)] px-5 font-display text-[14.5px] font-[600] no-underline motion-safe:transition-[background-color,transform] motion-safe:duration-[var(--dur-fast)] motion-safe:active:translate-y-[1px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-progress disabled:opacity-70'
+  // v07 「주묵 판면」 — 화면의 1차 행동은 주묵이 맡는다.
+  // `--ju` / `--on-ju` 는 두 테마에서 짝으로 뒤집히도록 토큰이 보장하는 조합이다
+  // (라이트 흰 글자 5.13:1 · 다크는 밝은 주묵 + 잉크 글자). 골드 면(`--active`) 위 글자색은
+  // 그런 짝 토큰이 없어서 다크에서 대비가 무너졌다(C6) — 같은 실수를 반복하지 않는다.
+  const style = { background: 'var(--ju)', color: 'var(--on-ju)' }
 
   if (!block.articleId) {
     return (

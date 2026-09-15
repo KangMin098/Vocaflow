@@ -178,7 +178,7 @@ export function VolumeAction({ volume: v }: { volume: ShelfVolume }) {
       <Link
         href={`/library/textbooks/${v.seriesId}/${v.step}`}
         aria-label={`${v.title} 펼쳐 보기`}
-        className="inline-flex min-h-[44px] items-center gap-2 whitespace-nowrap rounded-ios-pill bg-[var(--p)] px-4 font-display text-[12px] font-[700] text-[var(--on-p)] no-underline motion-safe:transition-all motion-safe:hover:brightness-110 motion-safe:active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+        className="inline-flex min-h-[44px] items-center gap-2 whitespace-nowrap rounded-[var(--r-md)] bg-[var(--ju)] px-4 font-display text-[12px] font-[700] text-[var(--on-ju)] no-underline motion-safe:transition-all motion-safe:hover:brightness-110 motion-safe:active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
       >
         <BookOpen size={14} aria-hidden />
         {STATUS_LABEL[v.status]}
@@ -388,7 +388,7 @@ export function ShelfToolbar({
               onClick={() => onView(v.id)}
               className={`inline-flex min-h-[44px] min-w-[44px] items-center justify-center motion-safe:transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--p)] ${
                 on
-                  ? 'bg-[var(--p)] text-[var(--on-p)]'
+                  ? 'bg-[var(--p)] text-[var(--on-ju)]'
                   : 'bg-[var(--bg)] text-[var(--t2)] hover:text-[var(--p)]'
               }`}
             >
@@ -476,7 +476,7 @@ function LadderAxis({
               onClick={() => onChange(toggleValue(sel, 'school', v.schoolBand))}
               className={`inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-full)] border px-3 font-display text-[12px] font-[700] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
                 on
-                  ? 'border-[var(--p)] bg-[var(--p)] text-[var(--on-p)]'
+                  ? 'border-[var(--p)] bg-[var(--p)] text-[var(--on-ju)]'
                   : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t2)] hover:border-[var(--p)] hover:text-[var(--p)]'
               }`}
             >
@@ -560,7 +560,7 @@ export function RefinePanel({
       }
     >
       <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-        <span className="font-mono text-[10px] font-[700] uppercase tracking-[0.16em] text-[var(--t2)]">
+        <span className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
           찾기
         </span>
         <span className="font-mono text-[11px] tabular-nums text-[var(--t2)]">
@@ -611,7 +611,7 @@ export function RefinePanel({
                   onClick={() => onChange(toggleValue(sel, axis, f.value))}
                   className={`inline-flex min-h-[44px] items-center gap-1 rounded-[var(--r-full)] border px-3 font-display text-[12px] font-[700] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
                     on
-                      ? 'border-[var(--p)] bg-[var(--p)] text-[var(--on-p)]'
+                      ? 'border-[var(--p)] bg-[var(--p)] text-[var(--on-ju)]'
                       : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t2)] hover:border-[var(--p)] hover:text-[var(--p)]'
                   }`}
                 >
@@ -677,7 +677,7 @@ export function VolumeResources({ volume: v }: { volume: ShelfVolume }) {
 
   return (
     <dl className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-      <dt className="font-mono text-[10px] font-[700] uppercase tracking-[0.14em] text-[var(--t2)]">
+      <dt className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
         딸린 것
       </dt>
       {explainRate != null && (

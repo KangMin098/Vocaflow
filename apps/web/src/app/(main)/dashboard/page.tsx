@@ -82,7 +82,7 @@ export default async function DashboardPage() {
       <div className="flex flex-col gap-4 py-6 md:py-8">
         {/* 1. 헤더 — 날짜와 이름만. 오늘 진행·연속일은 셸 상태 띠가 이미 판다. */}
         <header>
-          <span className="font-mono text-[10px] font-[700] uppercase tracking-[0.15em] text-[var(--t2)]">
+          <span className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
             {kstDateLabel()}
           </span>
           <h1 className="mt-1 font-editorial text-[26px] font-[500] leading-[1.05] tracking-[-0.012em] text-[var(--t1)] md:text-[32px]">

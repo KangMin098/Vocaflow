@@ -77,7 +77,7 @@ export function HubStartCard({
         <div className="mb-4">
           <label
             htmlFor={`vocab-${vocabulary.label}`}
-            className="mb-1.5 block font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]"
+            className="mb-1.5 block font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]"
           >
             {vocabulary.label}
           </label>
@@ -101,7 +101,7 @@ export function HubStartCard({
       <div className="space-y-4">
         {choices.map((c) => (
           <fieldset key={c.label} className="flex flex-wrap items-center gap-3">
-            <legend className="contents font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
+            <legend className="contents font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
               {c.label}
             </legend>
             <div className="flex flex-wrap items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-1">

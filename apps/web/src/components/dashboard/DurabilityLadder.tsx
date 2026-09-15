@@ -158,7 +158,7 @@ export function DurabilityLadder({ ladder }: { ladder: Ladder }) {
           수치가 아니라 "언제 처음 만나 몇 번을 다시 만났나" 라는 자기 이력이다. */}
       {champion && (
         <aside className="mt-4 rounded-[var(--r-lg)] bg-[var(--bg2)] px-4 py-4">
-          <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.16em] text-[var(--t3)]">
+          <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t3)]">
             가장 멀리 온 단어
           </p>
           <p className="mt-1.5 flex flex-wrap items-baseline gap-x-3 gap-y-1">
@@ -191,7 +191,7 @@ function fmtFirstMet(iso: string): string {
 
 function Eyebrow() {
   return (
-    <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.18em] text-[var(--t3)]">
+    <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t3)]">
       기억이 버티는 시간
     </p>
   )

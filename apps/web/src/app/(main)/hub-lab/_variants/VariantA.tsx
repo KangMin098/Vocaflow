@@ -174,7 +174,7 @@ export function VariantA({
         {/* ── 좌: 지금 ── */}
         <div className="flex flex-col lg:justify-center">
           <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-            <span className="font-mono text-[10px] font-[700] uppercase tracking-[0.16em] opacity-70">
+            <span className="font-display text-[11px] font-[600] tracking-[0.04em] opacity-70">
               오늘
             </span>
             <span
@@ -230,7 +230,7 @@ export function VariantA({
             className="mb-3 flex items-baseline gap-2 border-b pb-2"
             style={{ borderColor: 'rgb(255 255 255 / 0.16)' }}
           >
-            <h2 className="font-mono text-[10px] font-[700] uppercase tracking-[0.16em] opacity-85">
+            <h2 className="font-display text-[11px] font-[600] tracking-[0.04em] opacity-85">
               오늘의 흐름
             </h2>
             <span className="ml-auto font-mono text-[11px] font-[700] tabular-nums opacity-75">
@@ -457,7 +457,7 @@ function UndiagnosedFocus() {
       className="relative overflow-hidden rounded-ios-2xl px-6 py-9 text-[var(--ti)] shadow-ios-3 md:px-9 md:py-12"
       style={{ backgroundImage: 'linear-gradient(135deg, var(--p-dark) 0%, var(--p) 70%)' }}
     >
-      <span className="font-mono text-[10px] font-[700] uppercase tracking-[0.16em] opacity-70">
+      <span className="font-display text-[11px] font-[600] tracking-[0.04em] opacity-70">
         시작
       </span>
       <h1 className="mt-4 max-w-[18ch] font-editorial text-[30px] font-[500] leading-[1.16] tracking-[-0.014em] md:text-[36px]">

@@ -74,7 +74,7 @@ export function ActivityTrace({
       className="flex min-w-0 flex-col rounded-ios-2xl bg-[var(--bg)] px-5 py-5 shadow-ios-2 md:px-6"
     >
       <header className="flex items-center justify-between gap-3">
-        <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.18em] text-[var(--t3)]">
+        <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t3)]">
           지난 28일
         </p>
         {/* 0이면 그리지 않는다 — 압박 금지(철학 ③). 신기록 배지도 두지 않는다:
