@@ -961,6 +961,49 @@ gamekit 을 쓰지 않는 게임(WordBlitz · Pirate's Bounty)은 `GameKitStyles
 
 ---
 
+## 기출 분석 — 지문 지도 (v06.34 · 2026-09-15)
+
+`/csat/item/[slug]` 는 산문 네 덩어리를 세로로 쌓는 화면이었다. 그 자리에 **조작면**을 놓았다.
+
+**핵심 제약이 설계를 정했다.** 지문·선지는 평가원 저작물이라 실을 수 없다
+(`csat_items_public` 뷰에 컬럼 자체가 없다). 그래서 **글자 대신 모양**을 그린다 — 문장마다
+길이 비례 막대가 쌓이고, 칩을 누르면 그 근거가 든 막대가 그 자리에서 열려 인용문이
+**막대 안의 정확한 위치**에 드러난다. 업로드 0 · 로그인 0 이라 클릭 0 으로도 증명이 보인다.
+
+| | |
+|---|---|
+| 매칭 엔진 | [`lib/csat/quote-match.ts`](../apps/web/src/lib/csat/quote-match.ts) — 인용문 → 원본 인덱스 구간. **정규화가 길이를 바꾸므로 원본 인덱스 지도를 함께 만든다** |
+| 골격 | [`lib/csat/passage-skeleton.ts`](../apps/web/src/lib/csat/passage-skeleton.ts) — 문장 길이 + 드러낼 구간. 지문 글자는 `Reveal.text` 하나로만 나간다 |
+| 판단부 | [`lib/csat/passage-map-model.ts`](../apps/web/src/lib/csat/passage-map-model.ts) — 무엇이 열리는가 · 계측을 셀 것인가 |
+| 로더 | [`lib/csat/skeleton.ts`](../apps/web/src/lib/csat/skeleton.ts) — **커밋된 JSON 만 읽는다.** 런타임이 `passage` 를 만질 길이 없다 |
+| 산출물 | `lib/csat/skeleton-data/*.json` — 29회차 415KB. `scripts/csat/build-skeleton-data.mjs` 가 굽는다 |
+| 화면 | [`components/csat/PassageMap.tsx`](../apps/web/src/components/csat/PassageMap.tsx) · [`ReportText.tsx`](../apps/web/src/components/csat/ReportText.tsx) |
+| 다음 걸음 | [`lib/csat/next-item.ts`](../apps/web/src/lib/csat/next-item.ts) — 해설 있고 **지도 있는 것을 먼저** |
+| PDF 결합 | [`lib/csat/pdf-text-locate.ts`](../apps/web/src/lib/csat/pdf-text-locate.ts) — 학습자 PDF 텍스트 레이어에서 근거를 찾아 밑줄 |
+| 회귀 | 순수 132 + 실 DB 통합 4 + 접근성 하네스 11 + 런타임 7(미확인) |
+
+**실측 (2026-09-15)**
+
+| | 값 |
+|---|---|
+| 지도가 뜨는 문항 | **589 / 589** (`body_ok = true` 전량) |
+| 화면이 가리키는 앵커 | **1,704** (정답 589 + 오답 1,115) |
+| 인용문 → 원문 매칭 | **589 / 589 = 100.00%** |
+| 첫 화면 산문 | 2,100 → **964자** |
+| 유형 화면 가장 긴 덩어리 | 5,931 → **1,579자** |
+| 다음 걸음을 받는 문항 | **801 / 802** (전부 지도로 이어진다) |
+| 노출 (지문 대비) | 14.8% · 한 문항 최대 37.1% (= 현행 배포본의 최대치) |
+
+⚠️ **`answer_locus.sentence_index` 를 쓰지 않는다.** 1-기반으로 봐도 일치율 **65.0%** 라
+3문항 중 1문항이 틀린 문장을 칠한다. 규약이 저장소 어디에도 없는, 분석가가 자기 방식으로 센
+값이다. **문장은 인용 위치에서 역산한다.** 재고조사: `scripts/csat/anchor-inventory.mjs`.
+
+⚠️ **노출 예산에 임계값을 지어내지 않았다.** 규칙은 «새 화면은 어느 지문에서도 지금보다 더
+드러내지 않는다» 이고, 그 «지금» 은 배포 중인 `evidence_quote` 단독 노출(최대 37.1%)을 재서 쓴다.
+예산 없이는 전체 18.0% 뒤에 **한 문항 59.5%** 가 숨어 있었다.
+
+---
+
 ## 베타 — Pirate Quest
 
 ### 목적
