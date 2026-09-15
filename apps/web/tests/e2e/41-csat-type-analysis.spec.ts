@@ -182,17 +182,29 @@ test.describe('기출 유형 분석 — 학습자 표면', () => {
       await expect(page.getByText('지금은 해설을 불러오지 못했어요.')).toHaveCount(0);
       await expect(page.getByText('이 문항은 정답 근거 서술을 아직 쓰는 중이에요.')).toHaveCount(0);
 
-      // ① 답이 왜 이것인가 — 정답 번호와 근거가 함께 있어야 한다
-      const why = page.getByRole('heading', { name: '답이 왜 이것인가' });
+      // ① 정답 근거가 **번호와 함께** 있어야 한다.
+      //
+      // ⚠️ 이 화면은 2026-09-15 에 갈라졌다 — 골격이 있는 589문항은 「지문 지도」가 근거를
+      //    지문 위치와 함께 보여 주고, 지문이 잘린 213문항은 예전 산문 절을 그대로 쓴다.
+      //    그래서 **둘 중 하나**를 본다. 하나만 고집하면 옳은 화면을 실패로 센다.
+      const mapHead = page.getByRole('heading', { name: '지문 지도' });
+      const proseHead = page.getByRole('heading', { name: '답이 왜 이것인가' });
+      const useMap = (await mapHead.count()) > 0;
+      const why = useMap ? mapHead : proseHead;
       await expect(why).toBeVisible();
       const whyBody = page.locator('section').filter({ has: why }).first();
       await expect(whyBody.getByText(/[①②③④⑤]/).first()).toBeVisible();
       // 되풀이가 아니라 **대응**을 말해야 한다 — 짧은 한 줄은 근거가 아니다
       expect(((await whyBody.textContent()) ?? '').trim().length).toBeGreaterThan(80);
 
-      // ② 나머지가 왜 아닌가 — 오답 넷이 번호로 가리켜진다
-      await expect(page.getByRole('heading', { name: '나머지가 왜 아닌가' })).toBeVisible();
-      await expect(page.getByText('지우는 근거 —').first()).toBeVisible();
+      // ② 오답이 **번호로 가리켜진다** — 지도에서는 칩, 산문에서는 절.
+      if (useMap) {
+        // 지도는 오답을 칩으로 낸다. 정답 칩 하나는 눌린 채로 오고 나머지는 안 눌린 상태다.
+        await expect(page.locator('button[aria-pressed="false"]').first()).toBeVisible();
+      } else {
+        await expect(page.getByRole('heading', { name: '나머지가 왜 아닌가' })).toBeVisible();
+        await expect(page.getByText('지우는 근거 —').first()).toBeVisible();
+      }
 
       // ③ 다시 풀 때의 순서
       await expect(page.getByRole('heading', { name: '다시 풀 때의 순서' })).toBeVisible();
