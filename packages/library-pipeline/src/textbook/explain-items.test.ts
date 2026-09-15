@@ -764,3 +764,39 @@ describe('인용이 낱말 가운데서 끊기지 않는다', () => {
     expect(quote('A short sentence.', 150)).toBe('A short sentence.')
   })
 })
+
+/**
+ * **낱말 끊김을 「푸는 법」으로 가르치지 않는다.**
+ *
+ * 이 저장소의 기출 실측(`CSAT_TYPE_BLUEPRINTS.md` §R-IRRELEVANT)은 평가원 무관 문장이
+ * **직전 문장의 어휘를 이어받아** 심긴다고 말한다 — 직전 문장 기준 **83.3%**.
+ * 낱말 끊김은 **우리 생성기의 성질**이지 본시험의 성질이 아니다. 그것을 전략으로 적으면
+ * 학습자가 시험장에서 역효과가 나는 법을 배운다(3인 검수 chunk-01 이 짚었다).
+ *
+ * ⚠️ 근거 서술(「이 문장만 …낱말로 다른 화제를 꺼낸다」)은 **사실이라 남긴다.**
+ *   막는 것은 그것을 **일반 규칙으로 승격**하는 마지막 한 줄이다.
+ */
+describe('무관 해설이 본시험에서 역효과 나는 전략을 가르치지 않는다', () => {
+  const PAYLOAD_IRR = {
+    intro: 'Coastal towns have long relied on small fishing fleets for their livelihood.',
+    sentences: [
+      'The fleets bring in enough catch to supply the local markets each morning.',
+      'Younger crews have started to replace older boats with quieter engines.',
+      'Harbour councils now publish the daily catch so buyers can plan ahead.',
+      'Mountain railways in the interior were built to carry timber to the mills.',
+      'The towns that kept their fleets have held their populations steady.',
+    ],
+  }
+
+  it('낱말 끊김을 판정 규칙으로 적지 않는다', () => {
+    const e = explainIrrelevant(PAYLOAD_IRR, { position: 4 })
+    expect(e).not.toBeNull()
+    expect(e!.ko).not.toContain('낱말이 끊기는')
+    expect(e!.ko).not.toContain('한 문단은 한 화제를 이어 가야 하므로')
+  })
+
+  it('기출이 쓰는 판정 — 빼고 읽어 이어지는가 — 을 적는다', () => {
+    const e = explainIrrelevant(PAYLOAD_IRR, { position: 4 })!
+    expect(e.ko).toContain('빼고 읽으면')
+  })
+})
