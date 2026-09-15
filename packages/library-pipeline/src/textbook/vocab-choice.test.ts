@@ -288,7 +288,11 @@ describe('밑줄은 문맥 판단이 되는 자리여야 한다', () => {
     expect(item, '문항이 안 만들어지면 이 검사는 아무것도 안 지킨다').not.toBeNull()
     const midCap = new Set<string>()
     for (const sent of item!.sentences) {
-      const toks = sent.split(/s+/)
+      // ⚠️ 여기가 `split(/s+/)` 였다 — 백슬래시 하나가 빠져 **리터럴 s 로** 쪼갰다.
+      //   문장이 낱말로 안 나뉘니 「문장 중간의 대문자」가 거의 안 모였고, 이 검사는
+      //   빈 집합과 대조하며 **늘 통과**했다. 같은 자국이 이 저장소에서 세 번째다
+      //   (`headNounAfter` · `explain-items` 회귀 · 여기).
+      const toks = sent.split(/\s+/)
       for (let i = 1; i < toks.length; i += 1) {
         const t = toks[i]!.replace(/^[^A-Za-z']+|[^A-Za-z']+$/g, '')
         if (/^[A-Z][a-z']+$/.test(t) || /^[A-Z]{2,}$/.test(t)) midCap.add(t.toLowerCase())
@@ -343,5 +347,50 @@ describe('properNounsIn — 지문 안의 증거로만 가린다', () => {
   // ⚠️ 못 잡는 것을 잡았다고 적지 않는다 — 이 한계가 문서와 같아야 한다.
   it('문장 첫머리에 한 번만 나오는 이름은 못 잡는다 — 하한이라고 적어 둔 그대로다', () => {
     expect([...properNounsIn(['Maria was more to be pitied than others.'])]).toEqual([])
+  })
+})
+
+/**
+ * **문장 첫머리에 한 번만 나오는 이름은 사전이 잡는다.**
+ *
+ * `properNounsIn` 의 두 증거(문장 중간의 대문자 · 통짜 대문자)는 `Maria was more to be
+ * pitied…` 를 못 잡는다 — 그 함수 주석이 스스로 「하한이다」라고 적어 둔 구멍이다.
+ * 3인 검수가 실물을 들고 왔다(chunk-00 · chunk-01): 밑줄 다섯 중 셋이
+ * `November`·`Thomas`·`Maria` 라 **실질 2지선다**였고 해설은 그 셋을 한 줄도 안 다뤘다.
+ *
+ * 짐작을 더하지 않고 **이미 손에 있는 증거**를 쓴다 — 대문자로 문장을 여는데 사전에
+ * 품사조차 없으면 보통 이름이다.
+ */
+describe('문장 첫머리의 이름도 밑줄에서 뺀다', () => {
+  const namedFirst = long([
+    'Maria remained expensive company for the households of that northern district.',
+    'Thomas argued that expensive permits delay every single building project there.',
+    'November brought another review of the expensive programme before the winter.',
+    'Regional grants cover roughly a third of the reported installation costs.',
+    'Officials expect another review of the programme before the winter season.',
+  ])
+
+  it('사전에 없는 첫머리 대문자는 밑줄 후보가 아니다', () => {
+    const item = buildVocabChoice(namedFirst, lex)
+    expect(item, '문항이 안 만들어지면 이 검사는 아무것도 안 지킨다').not.toBeNull()
+    const underlined = item!.underlines.map((u) => u.word.replace(/^[^A-Za-z']+|[^A-Za-z']+$/g, ''))
+    for (const name of ['Maria', 'Thomas', 'November']) {
+      expect(underlined, `이름이 밑줄에 있다 — ${JSON.stringify(underlined)}`).not.toContain(name)
+    }
+  })
+
+  // ⚠️ **사전에 있는 낱말은 첫머리 대문자여도 남긴다** — 자가 넓어지면 첫 문장의 후보가
+  //   통째로 사라지고, 이 유형은 이미 ① 쏠림을 고치느라 번호를 균등하게 뽑고 있다.
+  it('사전에 있는 낱말은 첫머리에 있어도 후보로 남는다', () => {
+    const commonFirst = long([
+      'Expensive permits delay every single building project in that northern district.',
+      'Councils argue that expensive equipment discourages ordinary households from applying.',
+      'Installers report that expensive reviews add several weeks to every project.',
+      'Regional grants cover roughly a third of the reported installation costs.',
+      'Officials expect another review of the programme before the winter season.',
+    ])
+    const item = buildVocabChoice(commonFirst, lex)
+    expect(item).not.toBeNull()
+    expect(item!.underlines).toHaveLength(VOCAB_UNDERLINES)
   })
 })

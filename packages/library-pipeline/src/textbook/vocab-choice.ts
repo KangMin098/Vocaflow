@@ -239,6 +239,18 @@ export function buildVocabChoice(
       // 문장 첫 낱말은 대문자가 정상이다 — 고유명사 규칙에서 빼 준다.
       if (!isCandidateToken(tokens[ti]!, ti === 0)) continue
       if (properNouns.has(normalize(tokens[ti]!))) continue
+      // ⚠️ **문장 첫머리에 한 번만 나오는 이름은 사전이 잡는다** (3인 검수 chunk-00 · chunk-01).
+      //   위 두 증거(문장 중간의 대문자 · 통짜 대문자)는 `Maria was more to be pitied…` 처럼
+      //   **첫머리에 한 번뿐인 이름**을 못 잡는다. 주석이 「하한이다」라고 적어 둔 그 구멍이다.
+      //   검수가 실물을 들고 왔다 — 밑줄 다섯 중 셋이 `November`·`Thomas`·`Maria` 라
+      //   **실질 2지선다**가 됐고, 해설은 그 셋을 한 줄도 다루지 않았다.
+      //
+      //   짐작을 더하지 않고 **이미 손에 있는 증거**를 하나 더 쓴다 — 사전이다.
+      //   대문자로 문장을 여는 낱말인데 사전에 품사조차 없으면 보통 이름이다.
+      //   ⚠️ **문장 첫머리 대문자에만 건다.** 소문자 낱말까지 사전 유무로 거르면 사전이
+      //     성긴 만큼 멀쩡한 후보를 잃는다 — 여기서 잃는 것은 이름이거나, 학습자가
+      //     문맥으로 판정할 수 없을 만큼 드문 낱말이다(둘 다 밑줄 자리가 아니다).
+      if (ti === 0 && /^[A-Z]/.test(tokens[ti]!) && lex.posOf(normalize(tokens[ti]!)) === null) continue
       all.push({ sentenceIdx: si, tokenIdx: ti, token: tokens[ti]! })
     }
   }
