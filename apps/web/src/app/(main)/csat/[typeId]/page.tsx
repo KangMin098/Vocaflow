@@ -80,7 +80,7 @@ export default async function CsatTypePage({ params }: { params: Promise<{ typeI
     (detail?.failure_modes ?? []).reduce((a, m) => a + m.length, 0)
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-6 sm:px-6">
+    <div className="mx-auto max-w-3xl">
       <Link
         href="/csat"
         className="inline-flex min-h-[44px] items-center text-sm text-[var(--t3)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"

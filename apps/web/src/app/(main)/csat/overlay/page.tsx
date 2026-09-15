@@ -53,7 +53,7 @@ export default async function CsatOverlayPage({
   const { item } = linkMode ? await loadCsatItemExplain(`${examId}#${no}`) : { item: null }
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6">
+    <div className="mx-auto max-w-6xl">
       <Link
         href="/csat"
         className="inline-flex min-h-[44px] items-center text-sm text-[var(--t3)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"

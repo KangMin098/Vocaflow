@@ -18,6 +18,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 
+import { ModePicker } from '@/components/csat/ModePicker'
 import { TrapAtlas } from '@/components/csat/TrapAtlas'
 import { loadCsatTypeCards } from '@/lib/csat/learner'
 import { ATLAS_TYPES, CORPUS, standoutFor } from '@/lib/csat/trap-atlas'
@@ -39,7 +40,7 @@ export default async function CsatHubPage() {
   const chips = ATLAS_TYPES.filter((t) => t.status !== 'retired' && t.recent > 0).slice(0, CHIP_COUNT)
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6">
+    <div className="mx-auto max-w-5xl">
       {/* ── 증명이 먼저다 ──────────────────────────────────────────────
           클릭 0 · 입력 0 으로 「우리가 실제로 한 일」이 보인다(I1·I2). 칩을 누르면
           네트워크 왕복 없이 그 유형의 분포로 다시 세어진다(I3). */}
@@ -49,6 +50,11 @@ export default async function CsatHubPage() {
           진입 링크를 안 달아, 주소를 직접 쳐야만 닿는 화면이 됐다. 도달성 감사
           (`scripts/audit/learner-linkgraph.mjs`)도 못 잡았다 — 이 화면의 유형 링크가
           정적 형제까지 「링크됨」으로 보증했기 때문이다. */}
+      {/* ── 오늘 뭘 하러 왔나 ─────────────────────────────────────────
+          증명(TrapAtlas) 다음이 **다음 문**이다. 브리프 §B 의 네 모드를 화면 하나에
+          네 갈래로 편다 — 「읽을거리 목록」이 아니라 「할 일」로 들어오게 한다. */}
+      <ModePicker />
+
       <nav className="mt-6 flex flex-wrap gap-2" aria-label="기출로 하는 다른 일">
         <Link
           href="/csat/plan"
