@@ -18,6 +18,8 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
+import { locateQuote, type HighlightBox, type PdfTextItem } from '@/lib/csat/pdf-text-locate'
+
 interface AnchorBox {
   p: number
   x: number
@@ -100,6 +102,8 @@ export default function OverlayClient({
   const [dragging, setDragging] = useState(false)
   /** 렌더된 캔버스의 실제 표시 크기 — 상자를 %로 얹으려면 이것이 기준이다 */
   const [canvasSize, setCanvasSize] = useState<{ w: number; h: number } | null>(null)
+  /** 근거 문장이 이 쪽에서 차지하는 자리. 비어 있으면 못 찾은 것이고, 그때는 안 칠한다. */
+  const [quoteBoxes, setQuoteBoxes] = useState<HighlightBox[]>([])
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const docRef = useRef<{ getPage: (n: number) => Promise<unknown>; destroy?: () => Promise<void> } | null>(null)
@@ -231,6 +235,43 @@ export default function OverlayClient({
       cancelled = true
     }
   }, [payload, page])
+
+  /**
+   * **근거 문장이 이 쪽의 어디에 있는가** — 학습자의 PDF 에서 직접 찾는다.
+   *
+   * 좌표는 우리가 가질 수 없다(문제지는 우리 것이 아니다). 대신 인용문(우리 저작물)을
+   * PDF.js 텍스트 레이어에 대고 찾으면 브라우저가 스스로 자리를 안다. 계산은 순수 모듈
+   * `lib/csat/pdf-text-locate.ts` 가 하고 여기서는 부르기만 한다(그래야 검사할 수 있다).
+   *
+   * 못 찾으면 **아무것도 안 칠한다** — 틀린 자리를 자신 있게 칠하는 것이 더 나쁘다.
+   */
+  useEffect(() => {
+    setQuoteBoxes([])
+    const quote = open?.answer_quote
+    if (!docRef.current || !quote) return
+    let cancelled = false
+    ;(async () => {
+      try {
+        const p = (await docRef.current!.getPage(page)) as {
+          getTextContent?: () => Promise<{ items: unknown[] }>
+        }
+        if (cancelled || !p.getTextContent) return
+        const content = await p.getTextContent()
+        if (cancelled) return
+        const items = (content.items as PdfTextItem[]).filter(
+          (t) => typeof t?.str === 'string' && Array.isArray(t?.transform),
+        )
+        setQuoteBoxes(locateQuote(items, quote))
+      } catch {
+        // 텍스트 레이어가 없는 문제지(스캔본)도 있다. 그 경우 조용히 안 칠한다 —
+        // 이 기능이 없어도 나머지 상자는 그대로 쓸모 있다.
+        if (!cancelled) setQuoteBoxes([])
+      }
+    })()
+    return () => {
+      cancelled = true
+    }
+  }, [page, open?.answer_quote, payload])
 
   /** PDF 좌표(왼아래 원점) → 캔버스 위 % 위치. 배율이 바뀌어도 %는 그대로다. */
   const pct = useCallback(
@@ -400,6 +441,27 @@ export default function OverlayClient({
                         >
                           {a.no}
                         </button>
+                      )
+                    })}
+
+                    {/* **근거 문장을 학습자의 종이 위에 칠한다.**
+                        이전에는 이 문장이 옆 패널에 글자로만 떴고, 학습자는 종이에서 눈으로
+                        찾아야 했다 — 이 기능이 없애려던 바로 그 일이다. 좌표는 우리에게 없지만
+                        학습자의 브라우저에는 있다(PDF.js 텍스트 레이어). 나가는 것은 여전히
+                        해시 64자뿐이다. */}
+                    {quoteBoxes.map((b, i) => {
+                      // `pct` 는 앵커 상자를 받으므로 쪽 번호를 붙여 준다 — 이 상자들은
+                      // 지금 그리는 쪽에서 방금 찾은 것이라 언제나 `page` 다.
+                      const box = pct({ ...b, p: page })
+                      if (!box) return null
+                      return (
+                        <span
+                          key={`q${i}`}
+                          // 밑줄로 그린다 — 글자를 덮으면 읽을 수 없다. 색 말고도 «밑줄» 이라는
+                          // 모양으로 말한다(색맹 대응).
+                          className="absolute border-b-[3px] border-[var(--success)]"
+                          style={{ left: box.left, top: box.top, width: box.width, height: box.height }}
+                        />
                       )
                     })}
 
