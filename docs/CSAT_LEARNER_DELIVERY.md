@@ -94,6 +94,7 @@
 | `/csat/[typeId]` 유형 | 이 유형에서 **유난한** 것은 무엇인가 | 근거 자리 분포 + 오답 구성 + **전체 대비 배수** | 함정 줄 펴기 · 절차 「막히면」 |
 | `/csat/item/[slug]` 문항 | 그래서 **왜 ③인가** | 지문 지도(문장 막대 + 근거 자리) | 근거 칩 |
 | `/csat/plan` 계획 | 시험 시간이 **몇 번에서** 바닥나는가 | 시간 띠 + 45분 선 | 읽기 속도 칩 3 |
+| `/csat/drill` 훈련 | 나는 이 수법을 **알아보는가** | 실제 기출 오답 해설 한 장 | 보기 4 · 다음 |
 | `/csat/overlay` 오버레이 | 내 문제지 **그 자리**에 해설을 얹으면 | PDF 위 좌표 상자 | 파일 떨어뜨리기 |
 
 **같은 질문을 두 화면이 답하지 않는다.** 답이 겹치면 학습자는 어느 화면에 가야 할지 모른다.
@@ -103,23 +104,45 @@
 ```
 ① 알기   함정 지도에서 「평가원이 쓰는 아홉 가지」를 본다          ✅ /csat
 ② 짚기   함정 하나를 골라 그 함정이 든 실제 기출을 본다            ✅ /csat 줄 펴기 → /csat/item
-③ 겨루기 같은 함정의 새 문항에서 «이 오답은 몇 번 함정인가»를 맞힌다 ❌ 없다
-④ 재기   내가 어느 함정에 되풀이해 걸리는지 개인 분포가 쌓인다      ❌ 없다 (표는 있다)
+③ 겨루기 오답 해설을 읽고 «그 수법의 이름»을 맞힌다                ✅ /csat/drill
+④ 재기   내가 어느 함정에 되풀이해 걸리는지 개인 분포가 쌓인다      ❌ 없다 (저장 칸이 없다)
 ⑤ 주파   내 약한 함정 순서로 한 회차를 짠다                       △ 시간 축만 있다
 ```
 
-**③④가 없다는 것을 분명히 적어 둔다.** ①②만으로 이 화면은 「읽고 납득하는」 물건이고,
-인출(Active Recall · 원칙 1)이 일어나지 않는다. 그게 지금의 한계다.
+### ③ 겨루기 — 왜 이 형태인가 (2026-09-15)
 
-- ③④의 저장소는 이미 있다: `csat_item_attempts`(user_id · is_correct · error_cause · responded_at).
-  2026-09-15 현재 **14행** — 사실상 비어 있다.
-- ③을 붙이면 ④는 조인 하나로 따라온다: `csat_item_attempts × choice_analysis[].trap`
-  = 「내 오답의 함정 분포」. 그리고 그것을 §2 의 전체 분포와 견주면 **「나는 여기서 유난하다」**
-  가 나온다 — 화면이 유형에 대해 이미 하는 말을, 학습자 자신에 대해 하게 된다.
-- ⑤는 그때 「시간 순서」에서 「내 약한 함정 순서」로 바뀐다.
+지문을 실을 수 없으니 「문제를 푼다」는 못 한다. 대신 **우리가 쓴 오답 해설**(끌리는 이유 ·
+버리는 법)을 읽고 **수법의 이름**을 고르게 했다. 그러면 평가원 저작물이 **한 글자도** 필요
+없고, 그 자리에서 **1,013문제**가 생긴다(범용 아홉 × 함정당 최대 120).
 
-> **다음 한 걸음으로 ③을 권한다.** 공급(새 코퍼스·새 유형)이 아니라 **수요** 쪽이고
-> (설계 판정 §D), 새 테이블 없이 기존 자산의 조인 하나로 성립한다.
+재는 것을 망가뜨리는 길이 셋 있고 셋 다 화면은 멀쩡히 돈다 — 그래서 회귀로 막았다:
+
+| 망가지는 길 | 막은 방법 |
+|---|---|
+| 보기를 전체에서 뽑으면 **소거법**으로 풀린다 | 그 유형에서 **실제로 나오는** 함정 중에서 뽑는다 (`by_type`) |
+| 여덟을 그냥 뽑으면 **어휘 함정(20%)이 셋** 나온다 | 함정마다 최대 둘 — 한 세트가 넷 이상을 묻는다 |
+| 해설이 정답 이름을 품으면 **읽기 검사**가 된다 | 굽는 단계에서 버린다(실측 3건 · 0.16%) |
+
+그리고 **한 번 틀린 것을 「약점」이라 부르지 않는다.** 여덟 문항에서 1/1 은 표본이 아니고,
+그걸 약점이라 적으면 학습자가 **없는 결함**을 고치러 간다(철학 3). 두 번 보고 두 번 다
+놓친 것만 이름을 부른다.
+
+### ④ 재기가 아직 없는 이유 — 저장할 칸이 없다
+
+`csat_item_attempts` 는 있지만 **문항 id 를 담을 칸이 없다**: `question_id` · `text_id` ·
+`dcp_item_id` 가 전부 `uuid` 인데 `csat_items.id` 는 `M2309#42` 같은 **TEXT** 다.
+2026-09-15 현재 **14행** — 사실상 비어 있다.
+
+그래서 훈련 결과는 **저장되지 않고, 화면이 그 사실을 적는다**("아직 이 결과는 저장되지
+않아요"). 안 적으면 학습자는 쌓이는 줄 알고 돌아왔다가 빈 화면을 본다 — 막다른 화면 금지는
+**거짓 약속 금지**이기도 하다.
+
+칸이 생기면 ④는 조인 하나로 따라온다: `기록 × choice_analysis[].trap` = 「내 오답의 함정
+분포」. 그것을 §2 의 전체 분포와 견주면 **「나는 여기서 유난하다」** 가 나온다 — 화면이 유형에
+대해 이미 하는 말을, **학습자 자신에 대해** 하게 된다. ⑤는 그때 「시간 순서」에서 「내 약한
+함정 순서」로 바뀐다.
+
+> 마이그레이션은 **승인이 필요하다**(CLAUDE.md). SQL 은 아래 §9 에 적어 두었다.
 
 ---
 
@@ -141,7 +164,10 @@
 8. **「그 밖」을 지우지 않는다.** 60%라고 말하려면 나머지 40%가 화면에 있어야 한다.
 9. **계측을 같은 커밋에.** 조작을 넣었으면 그 조작이 실제로 일어나는지 세는 이벤트를 함께
    넣는다 — 안 재면 그 조작이 장식인지 아닌지 영원히 모른다.
-   현재: `csat_atlas_scoped` · `csat_trap_opened` · `csat_plan_speed_set` · `csat_evidence_opened`.
+   현재: `csat_atlas_scoped` · `csat_trap_opened` · `csat_plan_speed_set` · `csat_evidence_opened` ·
+   `csat_drill_answered` · `csat_drill_finished`.
+10. **못 하는 것을 화면이 말한다.** 훈련 결과가 저장되지 않으면 그렇게 적는다 — 안 적으면
+    학습자는 쌓이는 줄 알고 돌아왔다가 빈 화면을 본다. 막다른 화면 금지는 **거짓 약속 금지**다.
 
 ---
 
@@ -206,8 +232,12 @@ DB 층 경계는 `lib/csat/__tests__/copyright-boundary.integration.test.ts` 가
 | 유형 R-ORDER | 6,175 → **2,491** | 660 → **233** | 1,368 → **539** | 0 → **2** | 0 → **14** |
 | 유형 X-BLANK2 | 1,548 → **809** | 138 → **118** | 698 → **506** | 0 → **1** | 0 → **10** |
 | 문항 | 1,785 | 223 | 712 | 0 → **1** | 3 |
-| 계획 | 4,076 → **4,188** | 278 | 845 → **663** | 0 → **1** | 0 → **3** |
-| **합계** | 27,772 → **14,882** (-46%) | **1,084 → 278** | 6,531 → **3,332** (-49%) | 0 → **8** | 1 → **64** |
+| 계획 | 4,076 → **4,220** | 278 → **274** | 845 → **589** | 0 → **1** | 0 → **3** |
+| 훈련 `/csat/drill` | — (없던 화면) | **162** | **548** | **1** | **4** |
+| **합계** | 27,772 → **15,818** (-43%) | **1,084 → 274** | 6,531 → **3,771** (-42%) | 0 → **9** | 1 → **68** |
+
+> 합계가 「전」보다 화면 하나만큼 늘었다(훈련이 새로 생겼다) — 그래서 **-43%는 화면 수가
+> 늘어난 상태에서의 감소**다. 여섯 화면만 견주면 27,772 → 15,270(-45%)이다.
 
 > 계획 화면의 보이는 글자가 **늘었다**(4,076 → 4,188). 띠와 속도 칩과 안내 문구가 들어갔기
 > 때문이고, 그 대신 접힌 위가 845 → 663 으로 줄었다. **글자 수를 줄이는 것이 목표가 아니다** —
@@ -219,10 +249,13 @@ DB 층 경계는 `lib/csat/__tests__/copyright-boundary.integration.test.ts` 가
 |---|---|---|
 | 순수 모델 | `lib/csat/__tests__/trap-atlas.test.ts` | 18 |
 | 순수 모델 | `lib/csat/__tests__/plan-timeline.test.ts` | 12 |
-| 런타임 | `tests/e2e/45-csat-trap-atlas.spec.ts` | 19 |
+| 순수 모델 | `lib/csat/__tests__/trap-drill.test.ts` | 16 |
+| 구운 풀 | `lib/csat/__tests__/trap-drill-pool.test.ts` | 13 |
+| 실 DB | `lib/csat/__tests__/trap-atlas-fresh.integration.test.ts` | 1 |
+| 런타임 | `tests/e2e/45-csat-trap-atlas.spec.ts` | 25 |
 | 런타임(문항) | `tests/e2e/42-csat-item-map.spec.ts` · `43-csat-map-a11y.spec.ts` | 기존 |
 
-`axe` WCAG2 A/AA 위반 **0**(허브·유형·계획 × 라이트/다크 · 접은 것을 편 상태 포함) ·
+`axe` WCAG2 A/AA 위반 **0**(허브·유형·계획·훈련 × 라이트/다크 · 접은 것을 편 상태와 답한 뒤 상태 포함) ·
 390px 가로 넘침 **0** · 터치 타깃 위반 **0**.
 
 ---
@@ -251,3 +284,65 @@ npx tsx scripts/e2e-session.mts .auth-csat-measure.json   # 세션 굽기 (만�
 npx tsx scripts/csat-surface-measure.mts                  # 수치
 npx tsx scripts/csat-shot.mts /csat /csat/R-BLANK /csat/plan   # 눈
 ```
+
+---
+
+## 9. ④ 재기를 붙이려면 — 승인 대기 중인 마이그레이션
+
+훈련 기록을 남길 칸이 없다(§3). 아래가 필요한 전부다. **아직 적용하지 않았다** —
+마이그레이션은 사용자 승인 뒤에 적용한다(CLAUDE.md).
+
+```sql
+-- supabase/migrations/<stamp>_csat_trap_attempts.sql
+--
+-- 오답 감별 훈련의 기록. 기존 `csat_item_attempts` 를 못 쓰는 이유는 그 표의 문항 칸이
+-- 전부 uuid 인데 `csat_items.id` 는 'M2309#42' 같은 TEXT 라서다.
+
+create table if not exists public.csat_trap_attempts (
+  id          uuid primary key default gen_random_uuid(),
+  user_id     uuid not null references auth.users(id) on delete cascade,
+  item_id     text not null references public.csat_items(id) on delete cascade,
+  -- 몇 번 선지에 대한 판정이었나. 같은 문항의 다른 오답이 다른 문제가 된다.
+  choice      smallint not null,
+  -- 정답 함정과 고른 함정. 이름은 분석이 쥐고 있으므로 FK 를 걸지 않는다(이름이 바뀌면
+  -- 과거 기록은 그때의 이름으로 남는 것이 옳다 — 지난 답을 소급해 고치지 않는다).
+  answer_trap text not null,
+  picked_trap text not null,
+  is_correct  boolean generated always as (answer_trap = picked_trap) stored,
+  answered_at timestamptz not null default now()
+);
+
+-- 「내 분포」는 늘 한 사람 것을 최근 순으로 읽는다.
+create index if not exists csat_trap_attempts_user_time
+  on public.csat_trap_attempts (user_id, answered_at desc);
+-- 함정별 집계용.
+create index if not exists csat_trap_attempts_user_trap
+  on public.csat_trap_attempts (user_id, answer_trap);
+
+alter table public.csat_trap_attempts enable row level security;
+
+-- 자기 기록만 쓰고 읽는다. 남의 성적은 보이지 않는다.
+create policy csat_trap_attempts_own_select on public.csat_trap_attempts
+  for select to authenticated using (auth.uid() = user_id);
+create policy csat_trap_attempts_own_insert on public.csat_trap_attempts
+  for insert to authenticated with check (auth.uid() = user_id);
+-- update/delete 정책은 두지 않는다 — 지난 답을 고칠 수 있으면 기록이 아니다.
+```
+
+붙인 뒤 할 일:
+
+1. 훈련이 답마다 한 행을 쓴다(세트 끝이 아니라 **문제마다** — 중간에 그만둔 것도 기록이다).
+2. 끝 화면의 「아직 저장되지 않아요」를 지운다 — **그 문구가 남아 있으면 거짓말이 된다.**
+3. `/csat` 지도에 「나」 칩을 더한다: 같은 막대를 **내 기록으로** 다시 센다. 그 화면이
+   유형에 대해 이미 하는 말을 학습자 자신에 대해 하게 되는 지점이다.
+4. 표본이 얇을 때 **분포라고 부르지 않는다** — 함정마다 최소 몇 번을 본 뒤에 말할지 먼저 정한다.
+
+## 10. 굽는 절차 (훈련 풀)
+
+```
+pnpm csat:drill          # = --write → apps/web/src/lib/csat/drill-data/pool.json
+pnpm csat:drill:check    # 낡았으면 exit 1
+```
+
+⚠️ 이 머신에서 node 가 Supabase 에 못 붙고 Cloudflare 5xx HTML 을 토해 내면
+**`node --tls-max-v1.2`** 로 붙는다(실측 2026-09-15 · 같은 시각 `curl` 은 붙었다).
