@@ -23,7 +23,7 @@ import {
   PRESS_REAL,
   REVIEW_REAL,
   KID_SOURCE_REAL,
-  SOURCE_REAL,
+  SOURCE_CONSOLE_REAL,
   STAGES_REAL,
 } from '@/lib/csat/__tests__/fixtures'
 
@@ -46,7 +46,17 @@ const SCREENS: { name: string; html: () => string }[] = [
   },
   { name: '기획', html: () => renderToString(<MarketClient {...MARKET_REAL} />) },
   { name: '설계', html: () => renderToString(<BlueprintClient {...BLUEPRINT_REAL} />) },
-  { name: '소재', html: () => renderToString(<SourceClient {...SOURCE_REAL} kidSource={KID_SOURCE_REAL} />) },
+  {
+    name: '소재',
+    html: () =>
+      renderToString(
+        <SourceClient
+          view={SOURCE_CONSOLE_REAL}
+          kidSource={KID_SOURCE_REAL}
+          onRetake={async () => ({ ok: true })}
+        />,
+      ),
+  },
   { name: '집필', html: () => renderToString(<AuthorClient {...AUTHOR_REAL} />) },
   { name: '검수', html: () => renderToString(<ReviewClient {...REVIEW_REAL} />) },
   { name: '조판', html: () => renderToString(<PressClient {...PRESS_REAL} />) },
@@ -89,7 +99,13 @@ const BUDGET: Record<string, { chunks: number; chars: number }> = {
   // 소재 +초·중 원문 재고(TBP 이관 2026-09-06): 96 · 773 → 100 · 902. 사다리 아래 계단은
   //   수능 지문으로 못 채우므로 그 학령의 원문 재고가 이 공정의 것이다 — 따로 두면 「지문이
   //   모자란다」와 「원문이 모자란다」를 두 화면에서 따로 읽는다.
-  소재: { chunks: 115, chars: 1040 },
+  // 소재 **분모 교체**(2026-09-15): 100 · 902 → **65 · 775**. 발행분 562편을 세던 여섯 열 표
+  //   (밴드 × 수준 × 라이선스 × CEFR)를 지웠다 — 띠가 「비었나·얇나」를 이미 말하고, 그 표의
+  //   수는 애초에 출고분이었다. 그 자리에 신선도 한 줄 · 등록부 대조 · 출고분 한 줄이 왔는데도
+  //   덩어리가 **줄었다**: 소스 타겟 6줄과 수확 명령을 접었기 때문이다(접힌 것은 안 센다).
+  //   조작은 3 → 4 — 「지금 다시 잰다」 하나가 늘었다.
+  // ⚠️ 예산을 옛 값(115 · 1,040)으로 두면 이 개선이 그대로 되돌아가도 안 걸린다. 조인다.
+  소재: { chunks: 75, chars: 890 },
   집필: { chunks: 175, chars: 1035 },
   // 검수: 카드 4장(75 덩어리 · 907 글자)을 층 도식으로 바꾸며 89 · 784 가 됐다. 덩어리가 +14 인
   // 이유는 층마다 통과 막대 1 + 명령 접힘 손잡이 1 + 모양 1 이 붙어서다 — 글자 −14% · 그림 2 → 6 과

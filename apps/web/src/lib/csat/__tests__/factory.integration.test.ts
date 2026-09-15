@@ -313,13 +313,26 @@ describe.skipIf(skip)('생산 라인 네 화면 (실 DB)', () => {
     //   사람을 빨간불에 무뎌지게 만든다. 속도는 현황판 테스트가 따로 지킨다.
     180_000)
 
-  it('소재 화면의 게이트 밴드는 실제 게이트 정의에서 온다', async () => {
-    const { loadSourceView, emptyGateBands } = await import('../factory-line-views')
-    const v = await loadSourceView()
-    expect(v.gateBands.length).toBeGreaterThan(0)
-    // 비었다고 보고한 밴드에 실제로 지문이 0편인지 되짚는다
-    for (const b of emptyGateBands(v)) {
-      expect(v.rows.filter((r) => r.band === b && r.count > 0)).toHaveLength(0)
+  it('소재 화면의 밴드는 실제 게이트 정의에서 오고, 재고는 스냅샷에서 온다', async () => {
+    const { loadSourceConsole } = await import('../source-console')
+    const v = await loadSourceConsole()
+    expect(v.errors, v.errors.join(' / ')).toEqual([])
+    expect(v.bands.length).toBeGreaterThan(0)
+
+    // ① 비었다고 보고한 밴드는 실제로 0편이어야 한다.
+    for (const b of v.emptyBands) {
+      expect(v.bands.find((x) => x.band === b)!.n).toBe(0)
+    }
+
+    // ② **오디오 축 밴드가 「막힘」에 섞이면 안 된다.** 수확으로는 영영 안 꺼지는 경보라,
+    //    한 번 섞이면 관리자가 하지 않아도 될 일을 계속 한다.
+    for (const b of v.audioBands) {
+      expect(v.emptyBands, `${b} 는 지문으로 채우는 칸이 아니다`).not.toContain(b)
+    }
+
+    // ③ 분모가 출고분으로 돌아가지 않았는지 — 조판 풀은 발행분보다 훨씬 커야 한다.
+    if (v.rollup && v.published.articles != null) {
+      expect(v.rollup.pool.n).toBeGreaterThan(v.published.articles)
     }
   })
 

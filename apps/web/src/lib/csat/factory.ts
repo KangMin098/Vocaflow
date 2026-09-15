@@ -22,6 +22,12 @@
 import 'server-only'
 
 import { SERIES_SPINE, brandFingerprint, type SeriesItemType } from '@vocaflow/library-pipeline'
+import {
+  bandStock,
+  emptyPassageBands,
+  type SourceRollup,
+  type StageGateRow,
+} from '@vocaflow/library-pipeline/source-rollup'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { createAdminClient } from '@/lib/supabase/admin'
@@ -95,8 +101,6 @@ export interface FactoryLine {
   stages: StageState[]
   /** 사다리 칸 실측 — 설계·집필 화면이 다시 안 재도 되게 같이 내려보낸다. */
   cells: Cell[]
-  /** 단계 밴드별 지문 재고 — 소재 화면의 원자료. */
-  passageBands: { band: string; vLevel: number | null; count: number; displayOnly: number }[]
   /** 두 벤치마크(창고·권). 못 읽었으면 null. */
   bench: { warehouse: BenchFile | null; volume: BenchFile | null }
   /** 조회 자체가 깨졌을 때만. 개별 눈금의 "못 잼" 과 다르다. */
@@ -158,14 +162,22 @@ export async function loadFactoryLine(): Promise<FactoryLine> {
   // (실측 2026-09-05: 따로 던지면 8.3초·7.7초에 정상, 같이 던지면 null). 그 상태로
   // 화면은 「집필 · 해설 못 잼」이라고 적었고, 그것은 사실이 아니라 **경합의 흔적**이었다.
   // 가벼운 조회 + 사다리 칸(26개)이 1물결, 무거운 전수 count 둘이 2물결이다.
-  const [coverage, gates, passages, cells, renders, warehouse, volume] =
+  const [coverage, gates, snapshot, cells, renders, warehouse, volume] =
     await Promise.all([
       withTimeout(db.rpc('csat_coverage'), 8_000, {
         data: null,
         error: { message: '8초 안에 안 돌아왔다' },
       } as Awaited<ReturnType<typeof db.rpc>>),
       db.from('csat_stage_gates').select('stage, metric, threshold, is_locked'),
-      db.from('csat_stage_catalog').select('stage_band, v_level, display_only'),
+      // ④ 소재의 분모 — **발행분 뷰가 아니라 재고 스냅샷이다.**
+      //   `csat_stage_catalog` 는 양쪽 갈래가 다 `status = published` 라, 그것으로 세던
+      //   562편은 출고분이었다(실측 2026-09-13: 조판 풀은 87,556편). 같은 공장 안에서
+      //   ④ 화면과 이 눈금이 서로 다른 수를 말하지 않도록 **한 스냅샷을 같이 읽는다.**
+      db
+        .from('csat_source_snapshots')
+        .select('taken_at, payload')
+        .order('taken_at', { ascending: false })
+        .limit(1),
       loadLadderCells(db),
       // 검수 기록은 별도 컬럼이 아니라 `colophon.review` 안에 있다 — 조판기가 찍은 그 값이어야
       // 화면과 손에 쥔 책이 같은 것을 말한다(`lib/textbook/console-stats.ts` 와 같은 규약).
@@ -315,54 +327,50 @@ export async function loadFactoryLine(): Promise<FactoryLine> {
     )
   }
 
-  /* ④ 소재 — 게이트가 정의된 단계 밴드에 지문이 있는가. */
-  const passageBands = (() => {
-    const rows = (passages.data ?? []) as {
-      stage_band: string | null
-      v_level: number | null
-      display_only: boolean | null
-    }[]
-    const m = new Map<string, { band: string; vLevel: number | null; count: number; displayOnly: number }>()
-    for (const r of rows) {
-      const band = r.stage_band ?? '미분류'
-      const k = `${band}|${r.v_level}`
-      const cur = m.get(k) ?? { band, vLevel: r.v_level, count: 0, displayOnly: 0 }
-      cur.count += 1
-      if (r.display_only) cur.displayOnly += 1
-      m.set(k, cur)
-    }
-    return [...m.values()].sort((a, b) => a.band.localeCompare(b.band) || (a.vLevel ?? 0) - (b.vLevel ?? 0))
-  })()
+  /* ④ 소재 — 지문으로 채우는 밴드에 재고가 있는가.
+
+     ⚠️ 밴드 판정을 **게이트의 metric** 에 맡긴다. 예전에는 「합격선이 있는데 지문 0편」
+        하나로 판정해서 S5 가 늘 빨갛게 서 있었는데, S5 의 합격선은 `listening` 하나뿐이라
+        **지문을 수확해서 채우는 칸이 아니다.** 수확을 아무리 해도 안 꺼지는 경보는 소음이고,
+        소음은 옆의 진짜 경보까지 안 보이게 만든다. 셈법은 `source-rollup.ts` §6 한 벌. */
   {
-    const gateRows = (gates.data ?? []) as { stage: string }[]
-    const gateBands = [...new Set(gateRows.map((r) => r.stage))].sort()
-    const filled = gateBands.filter((b) => passageBands.some((p) => p.band === b && p.count > 0))
-    const empty = gateBands.filter((b) => !filled.includes(b))
+    const gateRows = (gates.data ?? []) as StageGateRow[]
+    const snapRow = ((snapshot.data ?? []) as { payload: SourceRollup }[])[0] ?? null
+    const rollup = snapRow?.payload ?? null
+    const stock = rollup ? bandStock(rollup, gateRows) : []
+    const passage = stock.filter((b) => b.gated)
+    const filled = passage.filter((b) => b.n > 0)
+    const empty = emptyPassageBands(stock)
+    const failed = snapshot.error != null || gates.error != null || rollup == null
+    const why = snapshot.error
+      ? `재고 스냅샷 조회 실패: ${snapshot.error.message}`
+      : gates.error
+        ? `게이트 조회 실패: ${gates.error.message}`
+        : rollup == null
+          ? '스냅샷이 아직 한 번도 안 떠졌다 — ④ 소재의 「지금 다시 잰다」'
+          : undefined
     stages.push(
       state(
         'source',
         [
           {
-            label: '게이트가 있는 밴드 중 지문 보유',
-            num: passages.error || gates.error ? null : filled.length,
-            den: passages.error || gates.error ? null : gateBands.length,
+            label: '지문으로 채우는 밴드 중 재고 보유',
+            num: failed ? null : filled.length,
+            den: failed ? null : passage.length,
             unit: 'ratio',
-            unmeasuredReason: passages.error
-              ? `지문 재고 조회 실패: ${passages.error.message}`
-              : gates.error
-                ? `게이트 조회 실패: ${gates.error.message}`
-                : undefined,
+            unmeasuredReason: why,
           },
           {
-            label: '지문 재고',
-            num: passages.error ? null : passageBands.reduce((s, p) => s + p.count, 0),
+            label: '조판 풀',
+            num: rollup ? rollup.pool.n : null,
             den: null,
             unit: 'count',
+            unmeasuredReason: why,
           },
         ],
         empty.length
           ? `${empty.join(' · ')} 밴드에 지문이 0편 — 그 단계 책은 지금 못 만든다`
-          : '지문 재고가 게이트 밴드를 덮었다',
+          : '지문으로 채우는 밴드를 재고가 덮었다',
         [
           {
             cmd: 'node scripts/csat/harvest-plos.mjs',
@@ -628,7 +636,6 @@ export async function loadFactoryLine(): Promise<FactoryLine> {
   return {
     stages: stages.sort((a, b) => a.def.ord - b.def.ord),
     cells,
-    passageBands,
     bench: { warehouse, volume },
     loadError: coverage.error ? `기출 커버리지를 못 읽었다: ${coverage.error.message}` : null,
   }

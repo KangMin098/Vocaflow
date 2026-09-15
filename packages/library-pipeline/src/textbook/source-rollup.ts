@@ -404,3 +404,108 @@ export function auditRegistry(p: SourceRollup, reg: SourceRegistryRow[]): Regist
 
   return { unregistered, empty, licenseMismatch }
 }
+
+/* ─────────────────────────── ⑥ 단계 밴드 ─────────────────────────── */
+
+/**
+ * **지문 재고로 채울 수 없는 밴드가 있다.**
+ *
+ * ── 왜 이 함수가 생겼나 (2026-09-15) ────────────────────────────────
+ * ④ 소재 화면이 오래 「S5 는 지금 책을 못 만든다 — 문항을 더 만들어도 안 된다」를 빨갛게
+ * 띄우고 있었다. 사실이 아니었다. `csat_stage_gates` 에서 S5 가 가진 합격선은 **`listening`
+ * 하나**(BYO 병행 듣기 정합 0.80)뿐이다 — S5 는 지문을 새로 수확해 채우는 칸이 아니라
+ * **같은 지문에 오디오 정합을 얹는 축**이다. 그런데 화면은 「게이트가 있는데 지문 0편」이라는
+ * 한 가지 규칙으로 밴드를 판정했고, 그래서 **수확을 아무리 해도 안 움직이는 빨간불**이 섰다.
+ * 관리자가 그 문구를 믿으면 하지 않아도 될 수확을 하고, 만들어도 되는 문항을 안 만든다.
+ *
+ * ── 왜 목록이 아니라 metric 인가 ────────────────────────────────────
+ * `['S5']` 라고 적어 두면 **S5 에 `coverage` 게이트가 붙는 날 아무도 이 줄을 안 고친다.**
+ * 판정 근거를 게이트 자체에 두면 그날 자동으로 지문 밴드가 된다 — 목록은 낡고 규칙은 안 낡는다.
+ */
+export const AUDIO_ONLY_METRICS = new Set(['listening'])
+
+/** `csat_stage_gates` 한 행 중 밴드 판정에 필요한 두 열. */
+export interface StageGateRow {
+  stage: string
+  metric: string
+}
+
+/** 지문 재고로 채우는 밴드 — 오디오 전용 합격선 말고 다른 것을 하나라도 가진 단계. */
+export function passageGateBands(gates: StageGateRow[]): string[] {
+  const bands = new Set<string>()
+  for (const g of gates) if (!AUDIO_ONLY_METRICS.has(g.metric)) bands.add(g.stage)
+  return [...bands].sort()
+}
+
+/** 오디오 축으로만 채우는 밴드 — 지문 0편이어도 **막힌 것이 아니다**. */
+export function audioOnlyGateBands(gates: StageGateRow[]): string[] {
+  const passage = new Set(passageGateBands(gates))
+  const bands = new Set<string>()
+  for (const g of gates) if (!passage.has(g.stage)) bands.add(g.stage)
+  return [...bands].sort()
+}
+
+/**
+ * V-Level → 단계 밴드.
+ *
+ * 경계는 `csat_stage_catalog` 뷰가 쓰던 것과 **같다** — 여기서 다르게 자르면 같은 재고가
+ * 화면마다 다른 밴드에 서고, 그 차이를 「재고가 움직였다」로 읽게 된다.
+ *
+ * ⚠️ 딱 한 가지를 바꿨다: 뷰는 `v_level IS NULL` 을 **조용히 S2 로 넣었다.** 수준을 모르는
+ * 글이 자동화 다독 재고로 세어지는 것인데, 그러면 「S2 는 차 있다」가 거짓이 될 수 있다.
+ * 모르는 것은 모른다고 적는다.
+ */
+export function bandForVLevel(v: number | null): string {
+  if (v == null) return '미분류'
+  if (v <= 2) return 'S1'
+  if (v <= 4) return 'S2'
+  if (v <= 6) return 'S3'
+  return 'S4'
+}
+
+/** 한 밴드의 조판 풀 재고. **화면 전용은 이미 빠져 있다** — 집계의 `in_pool` 이 걸러 낸다. */
+export interface BandStock {
+  band: string
+  /** 이 밴드에 지문 합격선이 걸려 있는가. */
+  gated: boolean
+  /** 오디오 축으로만 채우는 밴드인가 — 지문 0편이 결함이 아닌 자리. */
+  audioOnly: boolean
+  n: number
+  /** 시중 지문 어수창(40–250어) 안. */
+  inMarket: number
+  /** 사내 규격창(100–200어) 안. */
+  inRepo: number
+}
+
+/**
+ * 밴드별 조판 풀 재고 — `vlevels`(집계의 `in_pool` 기준)에서 접는다.
+ *
+ * ⚠️ **중앙 어수는 접지 않는다.** 중앙값의 평균은 중앙값이 아니다. 밴드 단위로 그 값이
+ * 필요하면 집계 함수가 밴드별로 내야 한다.
+ */
+export function bandStock(p: SourceRollup, gates: StageGateRow[]): BandStock[] {
+  const passage = new Set(passageGateBands(gates))
+  const audio = new Set(audioOnlyGateBands(gates))
+  const m = new Map<string, BandStock>()
+  const ensure = (band: string): BandStock => {
+    const cur =
+      m.get(band) ??
+      { band, gated: passage.has(band), audioOnly: audio.has(band), n: 0, inMarket: 0, inRepo: 0 }
+    m.set(band, cur)
+    return cur
+  }
+  // 합격선이 있는 밴드는 재고가 0이어도 칸을 세운다 — 빈 칸이 곧 할 일이다.
+  for (const b of [...passage, ...audio]) ensure(b)
+  for (const r of p.vlevels) {
+    const cur = ensure(bandForVLevel(r.v))
+    cur.n += r.n
+    cur.inMarket += r.inMarket
+    cur.inRepo += r.inRepo
+  }
+  return [...m.values()].sort((a, b) => a.band.localeCompare(b.band))
+}
+
+/** 지문으로 채워야 하는데 0편인 밴드 — **그 단계 책은 지금 못 만든다.** */
+export function emptyPassageBands(stock: BandStock[]): string[] {
+  return stock.filter((b) => b.gated && b.n === 0).map((b) => b.band)
+}

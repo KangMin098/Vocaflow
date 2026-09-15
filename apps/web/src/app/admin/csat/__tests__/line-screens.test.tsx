@@ -6,7 +6,7 @@
 // null 을 0 으로 그려 "지적 0건" 이라는 거짓 안심이 떴다. 둘 다 화면은 멀쩡해 보이는데
 // 관리자가 잘못 조작하게 만드는 종류라 렌더 테스트로 못 박는다.
 
-import { existsSync } from 'node:fs'
+import { existsSync, readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 
 import { renderToString } from 'react-dom/server'
@@ -16,18 +16,24 @@ import { HELP_REGISTRY } from '@/lib/admin/help'
 import type { KidSourcePanel } from '@/lib/textbook/kid-source-stats'
 import { FACTORY_STAGES } from '@/lib/csat/factory-model'
 import {
-  emptyGateBands,
   offLadderCount,
   type AuthorView,
   type PressView,
   type ReviewView,
-  type SourceView,
 } from '@/lib/csat/factory-line-model'
+import {
+  bandStock,
+  emptyPassageBands,
+  passageGateBands,
+  type SourceRollup,
+  type StageGateRow,
+} from '@vocaflow/library-pipeline/source-rollup'
+import { SOURCE_CONSOLE_REAL } from '@/lib/csat/__tests__/fixtures'
 
 import { AuthorClient } from '../authoring/AuthorClient'
 import { PressClient } from '../press/PressClient'
 import { ReviewClient } from '../review/ReviewClient'
-import { foldBands } from '../sourcing/BandStrip'
+import { bandState } from '../sourcing/BandStrip'
 import { SourceClient } from '../sourcing/SourceClient'
 
 const text = (html: string) => html.replace(/<!--[\s\S]*?-->/g, '')
@@ -67,47 +73,152 @@ describe('공정 정본과 화면·도움말이 어긋나지 않는다', () => {
 /** ④ 소재가 TBP 에서 넘겨받은 패널. 이 테스트들은 지문 재고만 보므로 빈 값으로 둔다. */
 const kidSource: KidSourcePanel = { inventory: null, error: null }
 
-const source: SourceView = {
-  rows: [
-    { band: 'S1', vLevel: 2, count: 15, displayOnly: 0, licenseClasses: ['pd'], cefrLevels: ['A2'] },
-    { band: 'S3', vLevel: 5, count: 205, displayOnly: 15, licenseClasses: ['pd', 'cc-by'], cefrLevels: ['B1'] },
-  ],
-  gateBands: ['S1', 'S2', 'S3', 'S4', 'S5'],
-  loadError: null,
-}
+const view = SOURCE_CONSOLE_REAL
+
+/** 렌더만 보는 테스트라 액션은 안 부른다 — 누르는 경로는 통합 테스트의 몫이다. */
+const noRetake = async () => ({ ok: true })
 
 describe('SourceClient', () => {
-  it('게이트는 있는데 지문이 0편인 밴드를 지목한다', () => {
-    const html = text(renderToString(<SourceClient {...source} kidSource={kidSource} />))
-    // 예전에는 빈 밴드 이름을 글로 열거했는데, 띠가 같은 것을 보여 주므로 지웠다(중복).
-    // 지금은 「몇 단계가 막혔는가」 + 띠의 「게이트 있는데 0편」 칸이 그 말을 한다.
-    expect(html).toContain('3단계는 지금 책을 못 만든다')
-    expect(html).toContain('게이트 있는데 0편')
-  })
-
-  it('화면 전용 지문을 재고에서 빼고 센다 — 넣으면 있지도 않은 여유를 믿게 된다', () => {
-    const html = text(renderToString(<SourceClient {...source} kidSource={kidSource} />))
-    expect(html).toContain('(−15)')
-    expect(html).toContain('190') // 205 − 15
-  })
-
-  it('모든 게이트 밴드에 지문이 있으면 그렇게 말한다', () => {
-    const full: SourceView = {
-      ...source,
-      gateBands: ['S1', 'S3'],
+  it('지문으로 채우는 밴드가 비면 지목한다', () => {
+    const blocked = {
+      ...view,
+      emptyBands: ['S2'],
+      bands: view.bands.map((b) => (b.band === 'S2' ? { ...b, n: 0, inMarket: 0 } : b)),
     }
-    const html = text(renderToString(<SourceClient {...full} kidSource={kidSource} />))
-    expect(html).toContain('모두 지문이 있다')
+    const html = text(renderToString(<SourceClient view={blocked} kidSource={kidSource} onRetake={noRetake} />))
+    expect(html).toContain('S2 자동화 다독')
+    expect(html).toContain('지문이 0편이다')
+  })
+
+  /**
+   * **이 화면의 옛 결함.** S5 의 합격선은 `listening` 하나뿐이라 지문을 수확해서 채우는
+   * 칸이 아닌데, 「합격선이 있는데 0편」 규칙 하나로 판정해 늘 빨갛게 서 있었다. 수확을
+   * 아무리 해도 안 꺼지는 경보는 옆의 진짜 경보까지 안 보이게 만든다.
+   */
+  it('오디오 축 밴드를 「막힘」으로 세지 않는다', () => {
+    const html = text(renderToString(<SourceClient view={view} kidSource={kidSource} onRetake={noRetake} />))
+    expect(view.emptyBands).not.toContain('S5')
+    expect(html).toContain('지문을 수확해서 채우는 칸이 아니다')
+    expect(html).not.toContain('S5 병행 듣기 는 지문이 0편이다')
+  })
+
+  /** 562편(발행분)을 「지문 재고」라 부르던 것이 분모 사고의 시작이었다. */
+  it('출고분을 재고라 부르지 않는다', () => {
+    const html = text(renderToString(<SourceClient view={view} kidSource={kidSource} onRetake={noRetake} />))
+    expect(html).toContain('학습자에게 나간 것')
+    expect(html).toContain('출고분이지 조판이 고르는 풀이 아니다')
+    // 분모는 조판 풀이어야 한다 — 출고분(250·312)이 아니라.
+    expect(html).toContain('87,556')
+  })
+
+  it('잰 시각과 직전 대비 증감을 함께 낸다 — 낡은 값을 최신인 척 보이지 않는다', () => {
+    const html = text(renderToString(<SourceClient view={view} kidSource={kidSource} onRetake={noRetake} />))
+    expect(html).toMatch(/잰 값/)
+    expect(html).toContain('+312')
+  })
+
+  it('스냅샷이 없으면 「0편」이 아니라 「안 쟀다」라고 말한다', () => {
+    const none = { ...view, rollup: null, bands: [], delta: null }
+    const html = text(renderToString(<SourceClient view={none} kidSource={kidSource} onRetake={noRetake} />))
+    expect(html).toContain('아직 한 번도 안 쟀다')
+    expect(html).toContain('0편이 아니다')
+  })
+
+  it('등록부와 어긋난 원천을 화면에 낸다 — 감사 결과가 코드에만 있으면 아무도 안 본다', () => {
+    const html = text(renderToString(<SourceClient view={view} kidSource={kidSource} onRetake={noRetake} />))
+    expect(html).toContain('등록부에 없는 원천')
+    expect(html).toContain('frontiers')
   })
 })
 
-describe('emptyGateBands', () => {
-  it('지문이 0편인 게이트 밴드만 낸다', () => {
-    expect(emptyGateBands(source)).toEqual(['S2', 'S4', 'S5'])
+/* ── ④ 소재 — 밴드 셈법 정본 ── */
+
+/** 실제 `csat_stage_gates`(2026-09-15 실측)의 모양. S5 만 오디오 축이다. */
+const GATES: StageGateRow[] = [
+  { stage: 'S1', metric: 'coverage' },
+  { stage: 'S1', metric: 'wpm' },
+  { stage: 'S2', metric: 'coverage' },
+  { stage: 'S3', metric: 'coverage' },
+  { stage: 'S3', metric: 'item_accuracy' },
+  { stage: 'S4', metric: 'coverage' },
+  { stage: 'S5', metric: 'listening' },
+]
+
+const rollupOf = (vlevels: SourceRollup['vlevels']): SourceRollup => ({
+  ...(SOURCE_CONSOLE_REAL.rollup as SourceRollup),
+  vlevels,
+})
+
+describe('bandStock — 무엇이 지문 밴드인가', () => {
+  it('합격선이 듣기뿐인 밴드는 지문 밴드가 아니다', () => {
+    expect(passageGateBands(GATES)).toEqual(['S1', 'S2', 'S3', 'S4'])
+    const stock = bandStock(rollupOf([{ v: 8, n: 10, wcMed: 900, inMarket: 4, inRepo: 3 }]), GATES)
+    expect(stock.find((b) => b.band === 'S5')!.audioOnly).toBe(true)
+    expect(emptyPassageBands(stock)).not.toContain('S5')
   })
 
-  it('게이트가 없는 밴드는 세지 않는다 — 합격선이 없으면 막힌 것이 아니다', () => {
-    expect(emptyGateBands({ rows: [], gateBands: [] })).toEqual([])
+  it('지문으로 채워야 하는데 0편인 밴드는 잡는다', () => {
+    const stock = bandStock(rollupOf([{ v: 8, n: 10, wcMed: 900, inMarket: 4, inRepo: 3 }]), GATES)
+    expect(emptyPassageBands(stock)).toEqual(['S1', 'S2', 'S3'])
+  })
+
+  /** 목록(`['S5']`)이 아니라 규칙이라서 — 게이트가 바뀌면 판정도 그날 바뀐다. */
+  it('S5 에 지문 합격선이 붙는 날 자동으로 지문 밴드가 된다', () => {
+    const later = [...GATES, { stage: 'S5', metric: 'coverage' }]
+    expect(passageGateBands(later)).toContain('S5')
+    const stock = bandStock(rollupOf([]), later)
+    expect(stock.find((b) => b.band === 'S5')!.audioOnly).toBe(false)
+    expect(emptyPassageBands(stock)).toContain('S5')
+  })
+
+  it('수준 미부여를 S2 로 몰래 넣지 않는다 — 뷰가 하던 짓이다', () => {
+    const stock = bandStock(
+      rollupOf([{ v: null, n: 77, wcMed: null, inMarket: 0, inRepo: 0 }]),
+      GATES,
+    )
+    expect(stock.find((b) => b.band === 'S2')!.n).toBe(0)
+    expect(stock.find((b) => b.band === '미분류')!.n).toBe(77)
+  })
+
+  it('밴드 칸의 상태는 색보다 먼저 정해진다', () => {
+    expect(
+      bandState({ band: 'S5', gated: false, audioOnly: true, n: 0, inMarket: 0, inRepo: 0 }),
+    ).toBe('audio')
+    expect(
+      bandState({ band: 'S2', gated: true, audioOnly: false, n: 0, inMarket: 0, inRepo: 0 }),
+    ).toBe('blocked')
+    expect(
+      bandState({ band: 'S2', gated: true, audioOnly: false, n: 9, inMarket: 2, inRepo: 1 }),
+    ).toBe('stocked')
+    expect(
+      bandState({ band: '미분류', gated: false, audioOnly: false, n: 9, inMarket: 2, inRepo: 1 }),
+    ).toBe('ungated')
+  })
+})
+
+/* ── ④ 소재 — 분모 ── */
+
+describe('④ 소재의 분모', () => {
+  /**
+   * `csat_stage_catalog` 는 뷰이고 양쪽 갈래가 다 `status = published` 다. 그것으로 세던
+   * 562편은 **출고분**이었고 조판 풀의 0.6% 였다(실측 2026-09-13: 87,556편). 되돌아가면
+   * 화면은 멀쩡히 뜨고 수만 조용히 200분의 1 이 된다 — 그래서 조회 자체를 막는다.
+   */
+  it('발행분 뷰로 재고를 세지 않는다', () => {
+    const ROOT = resolve(__dirname, '../../../../../../..')
+    const files = [
+      'apps/web/src/lib/csat/factory.ts',
+      'apps/web/src/lib/csat/factory-line-views.ts',
+      'apps/web/src/app/admin/csat/sourcing/page.tsx',
+      'apps/web/src/app/admin/csat/sourcing/SourceClient.tsx',
+    ]
+    for (const rel of files) {
+      const src = readFileSync(resolve(ROOT, rel), 'utf8')
+      // 묘비명(주석)에 이름이 남는 것은 좋다 — **조회**가 있으면 안 된다.
+      expect(src, `${rel} 이 발행분 뷰를 다시 읽는다`).not.toMatch(
+        /from\(\s*['"]csat_stage_catalog['"]/,
+      )
+    }
   })
 })
 
@@ -511,39 +622,5 @@ describe('LadderFill — 「N / 7」을 계단으로', () => {
   it('조판된 권이 없어도 7칸을 다 그린다 — 빈 사다리가 곧 할 일 목록이다', () => {
     const html = text(renderToString(<PressClient {...press} volumes={[]} />))
     expect((html.match(/비어 있음/g) ?? []).length).toBeGreaterThanOrEqual(7)
-  })
-})
-
-/* ── ④ 소재 — 밴드 띠 ── */
-
-describe('BandStrip', () => {
-  it('밴드별로 접는다 — 표는 (밴드 × 수준) 이라 한 밴드가 여러 줄에 흩어져 있다', () => {
-    const folded = foldBands(source.rows, source.gateBands)
-    expect(folded.map((b) => b.band)).toEqual(['S1', 'S2', 'S3', 'S4', 'S5'])
-    // S3 는 205편 중 화면 전용 15 → 쓸 수 있는 것 190
-    expect(folded.find((b) => b.band === 'S3')!.usable).toBe(190)
-  })
-
-  it('게이트가 있는데 0편인 밴드를 지목한다 — 그 단계 책은 지금 못 만든다', () => {
-    const html = text(renderToString(<SourceClient {...source} kidSource={kidSource} />))
-    expect(html).toContain('게이트 있는데 0편')
-  })
-
-  it('화면 전용 지문을 막대에서 뺀다 — 넣으면 있지도 않은 여유를 믿게 된다', () => {
-    const folded = foldBands(
-      [{ band: 'S3', vLevel: 5, count: 100, displayOnly: 40, licenseClasses: [], cefrLevels: [] }],
-      ['S3'],
-    )
-    expect(folded[0]!.usable).toBe(60)
-    expect(folded[0]!.displayOnly).toBe(40)
-  })
-
-  it('게이트가 없는 밴드도 재고가 있으면 보여 준다 — 다만 흐리게', () => {
-    const folded = foldBands(
-      [{ band: 'S9', vLevel: 1, count: 5, displayOnly: 0, licenseClasses: [], cefrLevels: [] }],
-      ['S1'],
-    )
-    expect(folded.find((b) => b.band === 'S9')!.gated).toBe(false)
-    expect(folded.find((b) => b.band === 'S1')!.gated).toBe(true)
   })
 })

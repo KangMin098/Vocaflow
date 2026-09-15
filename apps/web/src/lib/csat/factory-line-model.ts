@@ -77,28 +77,19 @@ export const TYPE_KO: Record<string, string> = {
 }
 
 /* ───────────────────────── ④ 소재 ───────────────────────── */
-
-export interface SourceBandRow {
-  band: string
-  vLevel: number | null
-  count: number
-  /** 화면에만 쓰고 문항으로는 못 쓰는 지문 — 저작권·형식 문제. 재고에서 빼고 세야 한다. */
-  displayOnly: number
-  licenseClasses: string[]
-  cefrLevels: string[]
-}
-
-export interface SourceView {
-  rows: SourceBandRow[]
-  /** 게이트가 정의된 단계 밴드(S1~S5). 여기에 지문이 0편이면 그 단계 책은 못 만든다. */
-  gateBands: string[]
-  loadError: string | null
-}
-
-/** 지문이 하나도 없는 게이트 밴드 — 그 단계는 지금 책을 못 만든다. */
-export function emptyGateBands(v: Pick<SourceView, 'rows' | 'gateBands'>): string[] {
-  return v.gateBands.filter((b) => !v.rows.some((r) => r.band === b && r.count > 0))
-}
+//
+// **`SourceView` · `SourceBandRow` · `emptyGateBands` 는 2026-09-15 에 지웠다.**
+//
+// 두 가지가 틀려 있었다:
+//   · **분모** — 재고를 `csat_stage_catalog`(뷰, 양쪽 다 `status = published`)에서 셌다.
+//     562편은 출고분이지 조판이 고르는 풀이 아니다(실측 87,556편).
+//   · **판정** — `emptyGateBands` 는 「합격선이 있는데 지문 0편」 하나로 밴드를 판정했다.
+//     S5 의 합격선은 `listening` 하나뿐이라 **지문으로는 영영 안 차고**, 화면은 수확을
+//     아무리 해도 안 꺼지는 빨간불을 띄웠다.
+//
+// 대체: `@vocaflow/library-pipeline/source-rollup` 의 `bandStock` · `emptyPassageBands` ·
+// `passageGateBands`. 판정 근거를 목록이 아니라 **게이트의 metric** 에 뒀으므로, S5 에
+// `coverage` 가 붙는 날 자동으로 지문 밴드가 된다.
 
 /* ───────────────────────── ⑤ 집필 ───────────────────────── */
 

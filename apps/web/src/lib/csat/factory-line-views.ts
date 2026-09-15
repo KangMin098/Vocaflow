@@ -32,73 +32,22 @@ import {
   type ReviewLayer,
   type ReviewView,
   type ReviewVolumeRow,
-  type SourceBandRow,
-  type SourceView,
 } from './factory-line-model'
 
 export * from './factory-line-model'
 
 /* ───────────────────────── ④ 소재 ───────────────────────── */
-
-export async function loadSourceView(): Promise<SourceView> {
-  const db = createAdminClient() as unknown as SupabaseClient
-  const [cat, gates] = await Promise.all([
-    db
-      .from('csat_stage_catalog')
-      .select('stage_band, v_level, display_only, license_class, cefr_level'),
-    db.from('csat_stage_gates').select('stage'),
-  ])
-
-  const rows = (cat.data ?? []) as {
-    stage_band: string | null
-    v_level: number | null
-    display_only: boolean | null
-    license_class: string | null
-    cefr_level: string | null
-  }[]
-
-  const m = new Map<string, SourceBandRow & { _lic: Set<string>; _cefr: Set<string> }>()
-  for (const r of rows) {
-    const band = r.stage_band ?? '미분류'
-    const k = `${band}|${r.v_level}`
-    const cur =
-      m.get(k) ??
-      {
-        band,
-        vLevel: r.v_level,
-        count: 0,
-        displayOnly: 0,
-        licenseClasses: [],
-        cefrLevels: [],
-        _lic: new Set<string>(),
-        _cefr: new Set<string>(),
-      }
-    cur.count += 1
-    if (r.display_only) cur.displayOnly += 1
-    if (r.license_class) cur._lic.add(r.license_class)
-    if (r.cefr_level) cur._cefr.add(r.cefr_level)
-    m.set(k, cur)
-  }
-
-  return {
-    rows: [...m.values()]
-      .map((r) => ({
-        band: r.band,
-        vLevel: r.vLevel,
-        count: r.count,
-        displayOnly: r.displayOnly,
-        licenseClasses: [...r._lic].sort(),
-        cefrLevels: [...r._cefr].sort(),
-      }))
-      .sort((a, b) => a.band.localeCompare(b.band) || (a.vLevel ?? 0) - (b.vLevel ?? 0)),
-    gateBands: [...new Set(((gates.data ?? []) as { stage: string }[]).map((g) => g.stage))].sort(),
-    loadError: cat.error
-      ? `지문 재고를 못 읽었다: ${cat.error.message}`
-      : gates.error
-        ? `단계 게이트를 못 읽었다: ${gates.error.message}`
-        : null,
-  }
-}
+//
+// **여기 있던 `loadSourceView` 는 2026-09-15 에 지웠다 — 틀린 것을 세고 있었다.**
+//
+// `csat_stage_catalog` 는 테이블이 아니라 **뷰**이고 양쪽 갈래가 다 `status = published` 로
+// 걸려 있다. 그래서 이 함수가 「지문 재고」라 부르며 세던 562편은 **이미 학습자에게 나간 것**
+// 이었고, 조판이 실제로 고르는 풀(실측 2026-09-13: 87,556편)의 0.6% 였다. 두 화면(④ 소재 ·
+// 현황판)이 그 수를 근거로 「재료가 없다」고 말해 왔다.
+//
+// 지금은 `lib/csat/source-console.ts` 의 `loadSourceConsole()` 이 6시간 스냅샷에서 읽는다 —
+// 집계는 DB(`csat_source_rollup()`)가 하고, 밴드 접기는 `source-rollup.ts` §6 이 한 벌로 갖는다.
+// 출고분(562)은 없어지지 않았다. **이름만 정직해졌다**(콘솔의 `published`).
 
 /* ───────────────────────── ⑤ 집필 ───────────────────────── */
 

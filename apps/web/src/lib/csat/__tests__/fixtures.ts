@@ -10,7 +10,9 @@
 
 import type { BenchPublisher } from '../factory-bench'
 import type { BlueprintView, MarketView } from '../factory-lab-model'
-import type { AuthorView, PressView, ReviewView, SourceView } from '../factory-line-model'
+import type { AuthorView, PressView, ReviewView } from '../factory-line-model'
+// `import type` 이라 런타임에 사라진다 — `source-console.ts` 의 `server-only` 가 안 끌려온다.
+import type { SourceConsoleView } from '../source-console'
 import type { KidSourcePanel } from '@/lib/textbook/kid-source-stats'
 import { FACTORY_STAGES, type StageState } from '../factory-model'
 import {
@@ -220,15 +222,118 @@ export const BLUEPRINT_REAL: BlueprintView = {
   loadError: null,
 }
 
-export const SOURCE_REAL: SourceView = {
-  rows: [
-    { band: 'S1', vLevel: 2, count: 15, displayOnly: 0, licenseClasses: ['pd'], cefrLevels: ['A2'] },
-    { band: 'S2', vLevel: 3, count: 17, displayOnly: 0, licenseClasses: ['pd'], cefrLevels: ['A2'] },
-    { band: 'S3', vLevel: 5, count: 205, displayOnly: 15, licenseClasses: ['pd', 'cc-by'], cefrLevels: ['B1'] },
-    { band: 'S4', vLevel: 8, count: 149, displayOnly: 0, licenseClasses: ['cc-by'], cefrLevels: ['C1'] },
+/**
+ * ④ 소재 — **스냅샷 콘솔** 표본.
+ *
+ * 2026-09-15 에 `SOURCE_REAL`(발행분 뷰 기반)을 갈아 치웠다. 옛 표본은 562편을 「지문 재고」로
+ * 세던 화면의 모양이라, 그대로 두면 **없어진 결함을 계속 검사**하게 된다.
+ * 수치는 2026-09-13 실측의 축약이다 — 밴드 합과 `pool.n`(87,556)이 서로 맞아야 한다.
+ */
+export const SOURCE_CONSOLE_REAL: SourceConsoleView = {
+  takenAt: '2026-09-13T12:20:00.000Z',
+  takenBy: 'cron',
+  durationMs: 2586,
+  prevTakenAt: '2026-09-13T06:20:00.000Z',
+  rollup: {
+    v: 1,
+    rows: 108953,
+    byStatus: { ready: 87376, archived: 20385, queued: 937, published: 250, failed: 4 },
+    pool: { n: 87556, inMarket: 10338, inRepo: 9627, wcMedian: 727.5 },
+    feeds: [],
+    sources: [
+      {
+        src: 'plos',
+        n: 47939,
+        queued: 0,
+        ready: 45081,
+        published: 15,
+        archived: 2843,
+        failed: 0,
+        dio: 0,
+        lics: ['cc_by'],
+      },
+    ],
+    licenses: [],
+    vlevels: [
+      { v: 2, n: 1200, wcMed: 140, inMarket: 900, inRepo: 700 },
+      { v: 4, n: 8400, wcMed: 190, inMarket: 3100, inRepo: 2600 },
+      { v: 6, n: 31000, wcMed: 520, inMarket: 3600, inRepo: 3300 },
+      { v: 8, n: 46956, wcMed: 880, inMarket: 2738, inRepo: 3027 },
+    ],
+    registers: [],
+    cefrs: [],
+    topics: [],
+    purposes: [],
+    blockedBy: [],
+    codes: [],
+    verdicts: [],
+    judges: [],
+  },
+  delta: {
+    rows: 312,
+    pool: 290,
+    inMarket: 41,
+    byStatus: { ready: 290, queued: 22 },
+    sources: [
+      { src: 'plos', d: 298 },
+      { src: 'nist', d: 14 },
+    ],
+  },
+  gates: [],
+  bands: [
+    { band: 'S1', gated: true, audioOnly: false, n: 1200, inMarket: 900, inRepo: 700 },
+    { band: 'S2', gated: true, audioOnly: false, n: 8400, inMarket: 3100, inRepo: 2600 },
+    { band: 'S3', gated: true, audioOnly: false, n: 31000, inMarket: 3600, inRepo: 3300 },
+    { band: 'S4', gated: true, audioOnly: false, n: 46956, inMarket: 2738, inRepo: 3027 },
+    { band: 'S5', gated: false, audioOnly: true, n: 0, inMarket: 0, inRepo: 0 },
   ],
-  gateBands: ['S1', 'S2', 'S3', 'S4', 'S5'],
-  loadError: null,
+  emptyBands: [],
+  audioBands: ['S5'],
+  segments: [],
+  targets: [
+    {
+      key: 'kid:elem34',
+      label: '초3~4',
+      scope: 'kid',
+      held: 2400,
+      quarantined: 40,
+      publishable: 2360,
+      unjudged: 1900,
+      goal: 3120,
+      pct: 0.756,
+      left: 760,
+      mode: 'ratio_of_pool',
+      basisLabel: 'V5~V9 재고 31,200 × 0.1',
+      note: null,
+    },
+    {
+      key: 'kid:adapted',
+      label: '각색 (칸 밖 경로)',
+      scope: 'kid',
+      held: 260,
+      quarantined: 0,
+      publishable: 260,
+      unjudged: 0,
+      goal: 200,
+      pct: 1.3,
+      left: 0,
+      mode: 'fixed',
+      basisLabel: null,
+      note: null,
+    },
+  ],
+  registry: [],
+  audit: {
+    unregistered: [
+      { src: 'frontiers', n: 1961 },
+      { src: 'europe_pmc', n: 1300 },
+      { src: 'nist', n: 23 },
+    ],
+    empty: [],
+    licenseMismatch: [],
+  },
+  published: { articles: 250, books: 312 },
+  errors: [],
 }
 
 export const AUTHOR_REAL: AuthorView = {

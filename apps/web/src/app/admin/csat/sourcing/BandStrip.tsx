@@ -3,20 +3,22 @@
 // **단계 밴드 재고 띠 — 「어느 단계에 지문이 없나」를 표 여섯 열 대신 한 줄로.**
 //
 // ── 왜 그림인가 ──────────────────────────────────────────────────────
-// 이 화면이 답해야 하는 질문은 하나다: **"어느 단계 책을 지금 못 만드나."** 그런데 표는
-// 단계·수준·지문·쓸 수 있는 것·라이선스·CEFR 여섯 열이라, 그 하나를 알려면 여섯 열을 읽고
-// 밴드별로 머릿속에서 합쳐야 한다. 밴드는 다섯뿐이고 비교하는 것은 **양 하나**이므로,
-// 나란한 막대가 그 질문에 곧바로 답한다.
-//
+// 이 화면이 답해야 하는 질문은 하나다: **"어느 단계 책을 지금 못 만드나."** 밴드는 다섯뿐이고
+// 비교하는 것은 **양 하나**이므로, 나란한 막대가 그 질문에 곧바로 답한다.
 // 조판 화면의 사다리 띠(`LadderFill`)와 같은 모양으로 그린다 — 공장 안에서 「칸이 찼나 비었나」는
 // 늘 같은 그림이어야 관리자가 매번 새로 배우지 않는다.
 //
+// ── 빨간 칸이 하나 줄었다 (2026-09-15) ───────────────────────────────
+// 예전에는 **합격선이 있는데 지문 0편**이면 무조건 빨갛게 칠했다. 그래서 S5(병행 듣기)가
+// 늘 빨갛게 서 있었는데, S5 의 합격선은 `listening` 하나뿐이다 — **지문을 수확해서 채우는
+// 칸이 아니다.** 수확을 아무리 해도 안 꺼지는 빨간불은 경보가 아니라 소음이고, 소음은
+// 옆에 있는 진짜 경보까지 안 보이게 만든다. 지금은 세 상태가 아니라 넷이다:
+// 재고 있음 · **지문으로 채워야 하는데 0편** · 오디오 축(지문 재고가 아님) · 합격선 없음.
+//
 // ── 색만으로 말하지 않는다 ───────────────────────────────────────────
-// 상태는 셋 — 재고 있음 · 게이트는 있는데 0편 · 게이트 없음. 색(초록/빨강/회색)에 더해
-// 채움(칠함/점선/옅음)과 글자(편 수 · 「0편」 · 「게이트 없음」)를 함께 싣는다.
-// 화면 전용 지문은 **막대에서 뺀다** — 문항으로 못 쓰는 것을 재고로 세면 있지도 않은 여유를 믿는다.
+// 색(초록/빨강/보라/회색)에 더해 채움(칠함/점선/옅음)과 글자를 함께 싣는다.
 
-import type { SourceView } from '@/lib/csat/factory-line-model'
+import type { BandStock } from '@/lib/csat/source-console'
 
 const BAND_KO: Record<string, string> = {
   S1: '입문 다독',
@@ -24,52 +26,52 @@ const BAND_KO: Record<string, string> = {
   S3: '논증 정독',
   S4: '킬러 정독',
   S5: '병행 듣기',
+  미분류: '수준 미부여',
 }
 
-interface BandSum {
-  band: string
-  usable: number
-  displayOnly: number
-  gated: boolean
+/** 한 칸이 무엇을 말하는가 — 색보다 먼저 이것을 정한다. */
+export type BandState = 'stocked' | 'blocked' | 'audio' | 'ungated'
+
+export function bandState(b: BandStock): BandState {
+  if (b.audioOnly) return 'audio'
+  if (b.gated && b.n === 0) return 'blocked'
+  if (!b.gated) return 'ungated'
+  return 'stocked'
 }
 
-/** 밴드별로 접는다 — 표는 (밴드 × 수준) 행이라 밴드 하나가 여러 줄에 흩어져 있다. */
-export function foldBands(rows: SourceView['rows'], gateBands: string[]): BandSum[] {
-  const m = new Map<string, BandSum>()
-  for (const b of gateBands) m.set(b, { band: b, usable: 0, displayOnly: 0, gated: true })
-  for (const r of rows) {
-    const cur = m.get(r.band) ?? { band: r.band, usable: 0, displayOnly: 0, gated: false }
-    cur.usable += r.count - r.displayOnly
-    cur.displayOnly += r.displayOnly
-    m.set(r.band, cur)
-  }
-  return [...m.values()].sort((a, b) => a.band.localeCompare(b.band))
+const NOTE: Record<BandState, string> = {
+  stocked: '',
+  blocked: '지문 0편 — 이 단계 책은 못 만든다',
+  audio: '오디오 축 — 지문 재고가 아니다',
+  ungated: '합격선 없음',
 }
 
-export function BandStrip({ rows, gateBands }: { rows: SourceView['rows']; gateBands: string[] }) {
-  const bands = foldBands(rows, gateBands)
-  const max = bands.reduce((m, b) => Math.max(m, b.usable), 0)
-  const empty = bands.filter((b) => b.gated && b.usable === 0).length
+export function BandStrip({ bands }: { bands: BandStock[] }) {
+  const max = bands.reduce((m, b) => Math.max(m, b.n), 0)
+  const blocked = bands.filter((b) => bandState(b) === 'blocked').length
 
   return (
     <div className="flex flex-col gap-2">
       <ol
         className="grid gap-1"
         style={{ gridTemplateColumns: `repeat(${bands.length || 1}, minmax(0, 1fr))` }}
-        aria-label={`단계 밴드 ${bands.length}개 중 지문이 없는 밴드 ${empty}개`}
+        aria-label={`단계 밴드 ${bands.length}개 중 지문이 없는 밴드 ${blocked}개`}
       >
         {bands.map((b) => {
-          const blocked = b.gated && b.usable === 0
-          // 재고 차이가 커서(15편 ~ 260편) 선형이면 작은 밴드가 안 보인다. 제곱근으로 누른다 —
-          // 로그는 15와 260을 너무 붙여 놓아 "비슷하다" 로 읽힌다.
-          const fill = max > 0 ? Math.round(100 * Math.sqrt(b.usable / max)) : 0
+          const st = bandState(b)
+          // 재고 차이가 커서(0편 ~ 4만편) 선형이면 작은 밴드가 안 보인다. 제곱근으로 누른다 —
+          // 로그는 작은 것과 큰 것을 너무 붙여 놓아 "비슷하다" 로 읽힌다.
+          const fill = max > 0 ? Math.round(100 * Math.sqrt(b.n / max)) : 0
+          const border =
+            st === 'blocked'
+              ? 'border-dashed border-[#9C3A30]'
+              : st === 'audio'
+                ? 'border-dashed border-[#8B5CF6]'
+                : st === 'ungated'
+                  ? 'border-[var(--bd)] opacity-60'
+                  : 'border-[var(--bd)]'
           return (
-            <li
-              key={b.band}
-              className={`flex flex-col rounded-[var(--r-md)] border p-2 ${
-                blocked ? 'border-dashed border-[#9C3A30]' : b.gated ? 'border-[var(--bd)]' : 'border-[var(--bd)] opacity-60'
-              }`}
-            >
+            <li key={b.band} className={`flex flex-col rounded-[var(--r-md)] border p-2 ${border}`}>
               <span className="break-keep font-display text-[11.5px] font-[600] text-[var(--t1)]">
                 {b.band}
                 <span className="ml-1 font-body text-[10.5px] font-[400] text-[var(--t3)]">
@@ -82,8 +84,8 @@ export function BandStrip({ rows, gateBands }: { rows: SourceView['rows']; gateB
                 <div
                   className="w-full rounded-[var(--r-sm)] transition-[height] duration-[var(--dur-normal)] ease-[var(--ease)]"
                   style={{
-                    height: `${blocked ? 0 : Math.max(fill, 6)}%`,
-                    background: blocked ? 'transparent' : '#2E7D5A',
+                    height: `${b.n === 0 ? 0 : Math.max(fill, 6)}%`,
+                    background: st === 'audio' ? '#8B5CF6' : '#2E7D5A',
                   }}
                   aria-hidden
                 />
@@ -91,17 +93,11 @@ export function BandStrip({ rows, gateBands }: { rows: SourceView['rows']; gateB
 
               <span
                 className="mt-1 break-keep font-mono text-[11.5px] tabular-nums"
-                style={{ color: blocked ? '#9C3A30' : 'var(--t1)' }}
+                style={{ color: st === 'blocked' ? '#9C3A30' : 'var(--t1)' }}
               >
-                {b.usable.toLocaleString()}편
+                {b.n.toLocaleString()}편
                 <span className="ml-1 font-body text-[10px] font-[400] text-[var(--t3)]">
-                  {blocked
-                    ? '게이트 있는데 0편'
-                    : !b.gated
-                      ? '게이트 없음'
-                      : b.displayOnly
-                        ? `화면 전용 −${b.displayOnly}`
-                        : ''}
+                  {NOTE[st] || (b.inMarket ? `규격 안 ${b.inMarket.toLocaleString()}` : '')}
                 </span>
               </span>
             </li>
@@ -109,8 +105,9 @@ export function BandStrip({ rows, gateBands }: { rows: SourceView['rows']; gateB
         })}
       </ol>
       <p className="break-keep font-body text-[11px] text-[var(--t3)]">
-        막대는 <strong>문항으로 쓸 수 있는 지문</strong>만이다 — 화면 전용은 뺐다. 높이는 제곱근
-        눈금이라 작은 밴드도 보인다(선형이면 15편이 260편 옆에서 사라진다).
+        막대는 <strong>조판 풀</strong>이다 — 화면 전용은 집계에서 이미 빠졌다. 높이는 제곱근
+        눈금이라 작은 밴드도 보인다. <strong>규격 안</strong>은 시중 지문 어수창(40–250어)에
+        드는 편수로, 나머지는 조판이 잘라 써야 한다.
       </p>
     </div>
   )
