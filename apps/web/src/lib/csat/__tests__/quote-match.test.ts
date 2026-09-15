@@ -90,3 +90,21 @@ describe('findQuotes', () => {
     expect(got[2]?.start).toBe(8)
   })
 })
+
+describe('findQuote — 끝 좌표가 인용 뒤의 공백을 삼키지 않는다', () => {
+  it('접힌 공백을 넘어가지 않는다', () => {
+    // 실측에서 나온 결함이다 — 끝을 «다음 글자의 자리» 로 잡으면 인용 뒤 공백이
+    // 구간에 들어와 한 칸 더 칠해진다. 화면에서는 눈에 안 띄는 크기지만,
+    // 「노출은 인용문 안」이라는 경계 주장이 그만큼 거짓이 된다.
+    const h = 'A  “quote”   and more'
+    const hit = findQuote(h, 'A "quote"')!
+    expect(h.slice(hit.start, hit.end)).toBe('A  “quote”')
+    expect(h[hit.end]).toBe(' ')
+  })
+
+  it('여러 줄에 걸쳐도 끝에 공백이 안 붙는다', () => {
+    const h = 'can be imperceptible;\n  it proceeds   slowly.  Next sentence.'
+    const hit = findQuote(h, 'it proceeds slowly.')!
+    expect(h.slice(hit.start, hit.end)).toBe('it proceeds   slowly.')
+  })
+})

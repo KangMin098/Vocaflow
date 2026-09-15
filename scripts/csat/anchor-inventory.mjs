@@ -34,7 +34,8 @@ for (const f of ['apps/web/.env.local', '.env.local']) {
 }
 
 const { createClient } = await import('@supabase/supabase-js')
-const { findQuote } = await import('../../apps/web/src/lib/csat/quote-match.ts')
+const { findQuote, normalizeForMatch } = await import('../../apps/web/src/lib/csat/quote-match.ts')
+const { buildSkeleton } = await import('../../apps/web/src/lib/csat/passage-skeleton.ts')
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, {
   auth: { persistSession: false },
 })
@@ -131,6 +132,49 @@ for (const [id, a] of latest) {
   if (itemHit) itemsWithAny += 1
 }
 
+// ── 골격 경계 검증 — 실제 지문으로 «원문이 새지 않는가» 를 확인한다 ──────────
+// 합성 사례에서 안 새는 것과 589편 실제 지문에서 안 새는 것은 다르다. 여기서 한 건이라도
+// 걸리면 우리는 평가원 지문을 재배포하는 것이 된다 — 화면은 멀쩡히 잘 도는 채로.
+function allStrings(v, out = []) {
+  if (typeof v === 'string') out.push(v)
+  else if (Array.isArray(v)) for (const x of v) allStrings(x, out)
+  else if (v && typeof v === 'object') for (const x of Object.values(v)) allStrings(x, out)
+  return out
+}
+
+let skItems = 0, skAnchors = 0, skPlaced = 0, skLeak = 0, revealedChars = 0, passageChars = 0
+for (const [id, a] of latest) {
+  const it = P.get(id)
+  if (!it?.passage || !it.body_ok) continue
+  const anchors = []
+  if (a.answer_locus?.quote) anchors.push({ id: 'answer', quote: a.answer_locus.quote })
+  for (const ch of a.choice_analysis || []) {
+    if (!ch.how_to_reject) continue
+    const fr = fragments(ch.how_to_reject).find((f) => findQuote(it.passage, f))
+    if (fr) anchors.push({ id: 'reject:' + ch.n, quote: fr })
+  }
+  if (!anchors.length) continue
+  skItems += 1
+  skAnchors += anchors.length
+  const { skeleton, placements } = buildSkeleton(it.passage, anchors)
+  skPlaced += placements.filter((x) => x.sentences.length).length
+  passageChars += it.passage.length
+  for (const sn of skeleton.sentences) for (const r of sn.reveals) revealedChars += r.text.length
+  // 나가는 문자열은 전부 앵커 인용문 안이어야 한다(앵커 id 는 제외).
+  //
+  // ⚠️ **정규화해서 견준다.** 글자 그대로 견주면 거짓 양성이 쏟아진다 — 지문은 don't 를
+  //    don’t 로 적고 인용문은 곧은 따옴표로 적는다(실측 2026-09-15: 그대로 견줬더니
+  //    43문항이 «유출» 로 잡혔는데 정규화 기준 불일치는 0건이었다). 견주는 기준이 틀리면
+  //    진짜 유출이 났을 때 그 43건에 묻힌다.
+  const ids = new Set(anchors.map((x) => x.id))
+  const normQuotes = anchors.map((x) => normalizeForMatch(x.quote).text)
+  const maxQuote = Math.max(...anchors.map((x) => x.quote.length))
+  for (const str of allStrings(skeleton)) {
+    if (ids.has(str)) continue
+    const ns = normalizeForMatch(str).text
+    if (!normQuotes.some((q) => q.includes(ns)) || str.length > maxQuote) { skLeak += 1; break }
+  }
+}
 const pct = (x, y) => (y ? ((100 * x) / y).toFixed(1) : '—')
 const L = (label, value) => console.log('  ' + label.padEnd(28) + value)
 
@@ -148,6 +192,11 @@ L('how_to_reject 있음', `${withReject} (${pct(withReject, rowsN)}%)`)
 L(`영어 조각 ${MIN}자+ 있음`, `${anyFrag} (${pct(anyFrag, withReject)}%)`)
 L('그중 원문에 걸림', `${matched} (${pct(matched, anyFrag)}%)`)
 L('문항이 하나 이상 보유', `${itemsWithAny} / ${n} (${pct(itemsWithAny, n)}%)`)
+console.log('\n[골격 경계 — 실제 지문]')
+L('골격을 만든 문항', String(skItems))
+L('앵커', `${skAnchors} (배치됨 ${skPlaced}, ${pct(skPlaced, skAnchors)}%)`)
+L('드러난 글자 / 지문 글자', `${revealedChars} / ${passageChars} (${pct(revealedChars, passageChars)}%)`)
+L('원문 유출 문항', skLeak === 0 ? '0  <- 경계 지켜짐' : `${skLeak}  <- 중대 결함`)
 console.log(`\n>>> 화면이 쓸 수 있는 앵커 합계 ${n - nomatch + matched}개\n`)
 
 await new Promise((r) => setTimeout(r, 100))

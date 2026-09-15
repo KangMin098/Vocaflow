@@ -129,7 +129,10 @@ export function findQuote(haystack: string, quote: string, from = 0): QuoteHit |
   const at = h.text.indexOf(q.text, nFrom)
   if (at < 0) return null
 
-  return { start: h.map[at], end: h.map[at + q.text.length], exact: false }
+  // ⚠️ 끝은 **다음 글자의 자리가 아니라 마지막 글자의 끝**이다. `map[at + len]` 을 쓰면
+  //    접힌 공백을 넘어간 자리를 가리켜 인용 뒤의 공백까지 구간에 들어온다
+  //    (실측 2026-09-15: 589편 중 3건이 "...say no. " 처럼 한 칸 더 칠해졌다).
+  return { start: h.map[at], end: h.map[at + q.text.length - 1] + 1, exact: false }
 }
 
 /**
