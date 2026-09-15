@@ -170,6 +170,47 @@ export type PublicEvent =
       props: { kind: 'answer' | 'reject'; found: boolean; seq: number }
     }
   /**
+   * 오답 지도(`/csat` 히어로)의 범위를 바꿨다 — 유형 칩 또는 「최근 4개년만」.
+   *
+   * 이 화면의 주장은 «오답은 아홉 가지로 수렴한다» 이고, 그 주장이 학습자에게 **자기 것으로**
+   * 넘어갔는지는 «범위를 바꿔 봤는가» 로만 알 수 있다(I3 — 값을 바꾸면 결과가 바뀐다).
+   * 진입은 `screen_viewed`(csat) 가 이미 세므로 여기서 또 세지 않는다 — 분모가 갈린다.
+   *
+   * ⚠️ 유형 id 는 **보내지 않는다.** 26개짜리 닫힌 목록이라 보낼 수는 있지만, 이 이벤트로
+   *    답하려는 질문은 «어느 유형인가» 가 아니라 «조작했는가» 다. 유형별 관심은 유형 화면의
+   *    `screen_viewed` 가 이미 말한다.
+   */
+  | {
+      name: 'csat_atlas_scoped'
+      props: {
+        /** 유형을 골랐나(거짓이면 「전체」로 되돌린 것) */
+        scoped: boolean
+        /** 「최근 4개년만」이 켜져 있나 */
+        recentOnly: boolean
+        /** 그 범위에서 이름이 붙은 함정 가짓수 — 범위를 좁힐수록 준다 */
+        kinds: number
+      }
+    }
+  /**
+   * 함정 한 줄을 펴서 **실제 기출 예시**까지 봤다 — 「세었다」에서 「납득했다」로 넘어가는 자리.
+   *
+   * `rank` 가 계속 1~2 에 몰리면 학습자는 큰 막대만 누르는 것이고, 지도는 순위표로만 읽힌 것이다.
+   * `seq` 가 1에서 멈추면 하나 열고 떠난 것이다(같은 이유로 `csat_evidence_opened` 도 센다).
+   */
+  | {
+      name: 'csat_trap_opened'
+      props: {
+        /** 지금 보이는 목록에서 몇 번째 줄인가 (1-기반) */
+        rank: number
+        /** 유형을 가로지르는 함정인가 */
+        universal: boolean
+        /** 유형으로 좁힌 상태에서 열었나 */
+        scoped: boolean
+        /** 이 방문에서 몇 번째로 편 것인가 */
+        seq: number
+      }
+    }
+  /**
    * 학습자 화면 진입 — **모든 로그인 화면의 분모** (CLAUDE.md D2).
    *
    * 2026-09-05 실측: 학습자 화면 77개 중 진입 이벤트를 가진 화면이 **0개**였다. 위 14개는
@@ -296,6 +337,8 @@ const EVENT_REGISTRY: Record<PublicEventName, true> = {
   wayfinder_opened: true,
   wayfinder_cta_clicked: true,
   csat_evidence_opened: true,
+  csat_atlas_scoped: true,
+  csat_trap_opened: true,
   csat_overlay_loaded: true,
   csat_overlay_located: true,
   screen_viewed: true,
