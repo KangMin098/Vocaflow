@@ -92,6 +92,26 @@ const hasBadUnderline = (payload) =>
   (payload?.underlines ?? []).some((u) => isBadWord(u?.word ?? ''))
 
 /**
+ * **대문자로 시작하는 밑줄이 있는가** — 고유명사 가드가 닿아야 할 재고를 고른다.
+ *
+ * ── 왜 필요한가 (3인 검수 2회차 실측 2026-09-16) ─────────────────────
+ * 위 `isBadWord` 는 **부호가 붙은 밑줄**만 고른다. 그런데 그 뒤로 생성기에 가드가 둘 더
+ * 들어갔다 — `properNounsIn`(2026-09-14, 문장 중간의 대문자·통짜 대문자)과 사전 검사
+ * (2026-09-15, 문장 첫머리의 이름). **두 가드 다 부호를 안 보므로 이 선택자에 안 걸린다.**
+ * 그래서 검수자 둘이 각자 같은 말을 했다 — 「코드는 고쳤는데 재고를 안 쓸었다」.
+ * 실측: V5 `vocab_choice` 10,612건 중 **3,598건(33.9%)** 이 사전에 없는 대문자 밑줄을 갖고,
+ * 이번 라운드 어휘 11문항 중 4문항이 그 꼴이었다(`Tabitha`·`Marian`·`Thomas`·`Maria`).
+ *
+ * ⚠️ **선택자는 상위집합이면 된다 — 정확도는 생성기가 낸다.** 재생성은 결정론이라
+ *   규칙이 그 밑줄을 이제 와서 거절하지 않으면 **같은 문항이 다시 나오고 쓰기는 무의미해진다**
+ *   (이 스크립트는 바뀐 것만 쓴다). 그러니 여기서 정밀하게 고를 이유가 없다.
+ * ⚠️ **`sentences` 를 받지 않는다** — 그러면 `properNounsIn` 을 그대로 쓸 수 있지만
+ *   위 ① 주석이 적어 둔 그 timeout 으로 되돌아간다. 판정에 필요한 것은 `underlines` 뿐이다.
+ */
+const hasCapitalUnderline = (payload) =>
+  (payload?.underlines ?? []).some((u) => /^[A-Z]/.test(String(u?.word ?? '')))
+
+/**
  * 정답 키가 **반쪽인가** — 해설 작성기가 요구하는 `original` 이 없는 문항.
  *
  * ⚠️ 이 갈래는 **내가 낸 사고를 스스로 줍기 위해** 있다(실측 2026-09-13). 아래 ③의 주석은
@@ -136,13 +156,15 @@ const targets = []
     for (const r of data) {
       const badUnderline = (r.underlines ?? []).some((u) => isBadWord(u?.word ?? ''))
       const halfKey = hasHalfKey(r.type, r.original)
-      if (badUnderline || halfKey) {
+      // 고유명사 가드(2026-09-14·15)가 닿아야 할 재고 — 위 `hasCapitalUnderline` 주석 참조.
+      const capital = hasCapitalUnderline(r)
+      if (badUnderline || halfKey || capital) {
         targets.push({
           id: r.id,
           type: r.type,
           ref_id: r.ref_id,
           paragraph_idx: r.paragraph_idx,
-          why: badUnderline ? 'underline' : 'key',
+          why: badUnderline ? 'underline' : halfKey ? 'key' : 'capital',
         })
       }
     }
