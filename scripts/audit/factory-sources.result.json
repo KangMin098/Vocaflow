@@ -1,0 +1,322 @@
+{
+  "measuredAt": "2026-09-15T21:30:32.808Z",
+  "db": {
+    "mvItems": 880247,
+    "mvExplained": 880181,
+    "mvCells": 149,
+    "mvUnexplained": 66,
+    "ladderItems": 715683,
+    "orphanItems": 164564,
+    "authorTableCoverage": 880247,
+    "authorTableLeak": 0,
+    "coverageExams": 0,
+    "coverageScored": 0,
+    "coverageCovered": 0,
+    "coverageItems": 0,
+    "coveragePublished": 0,
+    "renders": 19,
+    "rendersWithPersona": 7,
+    "personaPassed": 4,
+    "personaItems": 408,
+    "distinctFingerprints": 1,
+    "sourceSnapshotAt": "2026-09-15T18:20:03.291319+00:00",
+    "sourcePool": {
+      "n": 87556,
+      "inRepo": 9627,
+      "inMarket": 10338,
+      "wcMedian": 727
+    }
+  },
+  "repoJson": {
+    "eligibility": {
+      "measuredAt": "2026-09-15T16:23:26.135Z",
+      "total": 87626,
+      "byGrade": {
+        "usable": 9454,
+        "excerpt": 21054,
+        "excerpt-blind": 7671,
+        "unjudged": 48811,
+        "unknown": 15,
+        "blocked": 621
+      },
+      "byBlockedAxis": {
+        "safety": 378,
+        "judgement": 48811,
+        "format": 7764,
+        "analysis": 15,
+        "legal": 150
+      },
+      "composable": 30508,
+      "composablePct": 34.8,
+      "judged": 38815,
+      "composablePctOfJudged": 78.6,
+      "structurallyUnjudged": 31367,
+      "extractBacklog": {
+        "feed": "plos-extract",
+        "total": 11601,
+        "analyzed": 11600,
+        "byStatus": [
+          {
+            "status": "ready",
+            "count": 8758
+          },
+          {
+            "status": "archived",
+            "count": 2843
+          }
+        ]
+      }
+    },
+    "typeInventory": {
+      "measuredAt": "2026-09-15T13:35:54.121Z",
+      "totalItems": 841826,
+      "orphanItems": 0
+    },
+    "sourceInventory": {
+      "measuredAt": "2026-09-15T16:23:26.391Z",
+      "scanned": 108953,
+      "sources": 21
+    },
+    "fillPlan": {
+      "computedAt": "2026-09-15T13:05:47.911Z",
+      "totalChunks": 24,
+      "readyChunks": 11,
+      "staleItems": 16
+    },
+    "defects": {
+      "measuredAt": "2026-09-15T11:14:53.672Z",
+      "scanned": 87626,
+      "defective": 4876
+    }
+  },
+  "gate2Market": {
+    "file": "textbook-publisher-benchmark-volume.json",
+    "generatedAt": "2026-09-01T07:33:23.059Z",
+    "ageHours": 350,
+    "bindingPublisher": "EBS",
+    "bindingIndex": 1.199,
+    "target": 1.2,
+    "publishers": [
+      {
+        "publisher": "NE능률",
+        "docs": 60,
+        "overallIndex": 1.343,
+        "reachableMax": 1.391,
+        "targetReachable": true,
+        "axes": "6/7",
+        "gaps": [
+          "유형 축 A5"
+        ]
+      },
+      {
+        "publisher": "EBS",
+        "docs": 3,
+        "overallIndex": 1.199,
+        "reachableMax": 1.199,
+        "targetReachable": false,
+        "axes": "2/7",
+        "gaps": [
+          "해설 축 A1~A4",
+          "유형 축 A5"
+        ]
+      },
+      {
+        "publisher": "쎄듀",
+        "docs": 3,
+        "overallIndex": 1.2,
+        "reachableMax": 1.2,
+        "targetReachable": true,
+        "axes": "2/7",
+        "gaps": [
+          "해설 축 A1~A4",
+          "유형 축 A5"
+        ]
+      },
+      {
+        "publisher": "수경출판사",
+        "docs": 1,
+        "overallIndex": null,
+        "reachableMax": null,
+        "targetReachable": false,
+        "axes": "0/7",
+        "gaps": [
+          "해설 축 A1~A4",
+          "지문 축 A6",
+          "유형 축 A5"
+        ]
+      }
+    ],
+    "screenUsesReachableMax": false,
+    "unreachablePublishers": [
+      "EBS (최대 1.199)"
+    ]
+  },
+  "pairs": [
+    {
+      "id": "P1-items",
+      "quantity": "교재 문항 총 재고",
+      "a": {
+        "source": "DB mv textbook_shelf_inventory()",
+        "value": 880247,
+        "at": null
+      },
+      "b": {
+        "source": "repo JSON type-inventory-snapshot.json:totalItems",
+        "value": 841826,
+        "at": "2026-09-15T13:35:54.121Z"
+      },
+      "note": "⑤집필·⑥해설은 mv 를, 자유도 패널(FreedomPanel)은 JSON 을 읽는다 — 같은 /admin/csat 한 화면 안이다",
+      "deltaPct": 4.6,
+      "verdict": "diverged"
+    },
+    {
+      "id": "P2-orphan",
+      "quantity": "사다리 밖 재고(어느 권에도 안 실리는 문항)",
+      "a": {
+        "source": "DB mv − SERIES_SPINE 칸",
+        "value": 164564,
+        "at": null
+      },
+      "b": {
+        "source": "repo JSON type-inventory-snapshot.json:orphanItems",
+        "value": 0,
+        "at": "2026-09-15T13:35:54.121Z"
+      },
+      "note": "JSON 이 0 을 말하면 자유도 패널은 \"버려지는 재고 없음\" 으로 읽힌다",
+      "deltaPct": null,
+      "verdict": "unmeasurable"
+    },
+    {
+      "id": "P3-pool",
+      "quantity": "조판에 쓸 수 있는 원문 수",
+      "a": {
+        "source": "DB csat_source_snapshots.payload.pool.n",
+        "value": 87556,
+        "at": "2026-09-15T18:20:03.291319+00:00"
+      },
+      "b": {
+        "source": "repo JSON source-eligibility-snapshot.json:total.composable",
+        "value": 30508,
+        "at": "2026-09-15T16:23:26.135Z"
+      },
+      "note": "④소재의 「조판 풀」과 원문적격의 「조판 가능」이 **다른 것을 센다** — 이름이 같아 관리자가 같은 수로 읽는다",
+      "deltaPct": 187,
+      "verdict": "diverged"
+    },
+    {
+      "id": "P4-articles",
+      "quantity": "원문 모집단 (status in ready/published)",
+      "a": {
+        "source": "DB csat_source_snapshots.payload.pool.n",
+        "value": 87556,
+        "at": "2026-09-15T18:20:03.291319+00:00"
+      },
+      "b": {
+        "source": "repo JSON source-eligibility-snapshot.json:total.total",
+        "value": 87626,
+        "at": "2026-09-15T16:23:26.135Z"
+      },
+      "tolPct": 0.5,
+      "note": "분모가 같아야 두 화면의 백분율이 비교 가능하다",
+      "deltaPct": -0.1,
+      "verdict": "same"
+    },
+    {
+      "id": "P5-L2",
+      "quantity": "⑦검수 L2 「3인 페르소나」 통과 문항",
+      "a": {
+        "source": "현황판 factory.ts → csat_coverage() (기출 분석)",
+        "value": null,
+        "at": null
+      },
+      "b": {
+        "source": "검수 화면 loadReviewView → colophon.review.personaReview (교재 문항)",
+        "value": 4,
+        "at": null
+      },
+      "note": "두 수의 **모집단이 다르다** — 같은 라벨 「L2 3인 페르소나」로 한 화면과 그 하위 화면에 동시에 뜬다",
+      "deltaPct": null,
+      "verdict": "unmeasurable"
+    },
+    {
+      "id": "P6-L2-den",
+      "quantity": "⑦검수 L2 분모",
+      "a": {
+        "source": "현황판 → csat_coverage().in_scope_items 합 (기출 802)",
+        "value": null,
+        "at": null
+      },
+      "b": {
+        "source": "검수 화면 → personaReview.items 합 (조판된 권의 문항)",
+        "value": 408,
+        "at": null
+      },
+      "note": "분모까지 다르므로 두 백분율이 같은 질문의 답이 아니다",
+      "deltaPct": null,
+      "verdict": "unmeasurable"
+    }
+  ],
+  "freshness": [
+    {
+      "source": "DB mv textbook_shelf_inventory_mv",
+      "cadence": "cron 14 · 30분",
+      "owner": "cron",
+      "ageHours": null
+    },
+    {
+      "source": "DB csat_source_snapshots",
+      "cadence": "cron 18 · 6시간",
+      "owner": "cron",
+      "ageHours": 3.2
+    },
+    {
+      "source": "DB csat_coverage()",
+      "cadence": "질의 시점",
+      "owner": "live",
+      "ageHours": 0
+    },
+    {
+      "source": "repo source-eligibility-snapshot.json",
+      "cadence": "사람이 스캔을 돌려야 갱신 (실측 212초)",
+      "owner": "human",
+      "ageHours": 5.1
+    },
+    {
+      "source": "repo type-inventory-snapshot.json",
+      "cadence": "사람이 스캔을 돌려야 갱신",
+      "owner": "human",
+      "ageHours": 7.9
+    },
+    {
+      "source": "repo source-inventory-snapshot.json",
+      "cadence": "사람이 스캔을 돌려야 갱신",
+      "owner": "human",
+      "ageHours": 5.1
+    },
+    {
+      "source": "repo item-fill-plan.json",
+      "cadence": "사람이 스캔을 돌려야 갱신",
+      "owner": "human",
+      "ageHours": 8.4
+    },
+    {
+      "source": "repo extraction-defect-snapshot.json",
+      "cadence": "사람이 스캔을 돌려야 갱신",
+      "owner": "human",
+      "ageHours": 10.3
+    },
+    {
+      "source": "docs/reports/textbook-publisher-benchmark-volume.json",
+      "cadence": "사람이 market-benchmark 를 돌려야 갱신",
+      "owner": "human",
+      "ageHours": 350
+    },
+    {
+      "source": "docs/reports/textbook-publisher-benchmark.json",
+      "cadence": "사람이 market-benchmark 를 돌려야 갱신",
+      "owner": "human",
+      "ageHours": 349.9
+    }
+  ],
+  "divergedCount": 2
+}

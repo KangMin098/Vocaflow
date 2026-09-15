@@ -1,0 +1,704 @@
+{
+  "measuredAt": "2026-09-15T21:30:34.542Z",
+  "help": {
+    "screens": 9,
+    "withDrain": 6,
+    "withVerify": 6,
+    "withRecovery": 6,
+    "rerunSafetyTotal": 24,
+    "rows": [
+      {
+        "key": "csat-new",
+        "hasDrain": false,
+        "rerunSafetyMentions": 1,
+        "hasPrerequisites": false,
+        "hasVerify": false,
+        "hasRecovery": false,
+        "hasCautions": true,
+        "steps": 7
+      },
+      {
+        "key": "csat-catalog",
+        "hasDrain": true,
+        "rerunSafetyMentions": 1,
+        "hasPrerequisites": true,
+        "hasVerify": true,
+        "hasRecovery": true,
+        "hasCautions": true,
+        "steps": 22
+      },
+      {
+        "key": "csat-strategy",
+        "hasDrain": true,
+        "rerunSafetyMentions": 0,
+        "hasPrerequisites": true,
+        "hasVerify": true,
+        "hasRecovery": true,
+        "hasCautions": true,
+        "steps": 7
+      },
+      {
+        "key": "csat-blueprint",
+        "hasDrain": false,
+        "rerunSafetyMentions": 0,
+        "hasPrerequisites": false,
+        "hasVerify": false,
+        "hasRecovery": false,
+        "hasCautions": true,
+        "steps": 4
+      },
+      {
+        "key": "csat-sourcing",
+        "hasDrain": true,
+        "rerunSafetyMentions": 3,
+        "hasPrerequisites": true,
+        "hasVerify": true,
+        "hasRecovery": true,
+        "hasCautions": true,
+        "steps": 13
+      },
+      {
+        "key": "csat-authoring",
+        "hasDrain": true,
+        "rerunSafetyMentions": 3,
+        "hasPrerequisites": true,
+        "hasVerify": true,
+        "hasRecovery": true,
+        "hasCautions": true,
+        "steps": 4
+      },
+      {
+        "key": "csat-review",
+        "hasDrain": true,
+        "rerunSafetyMentions": 7,
+        "hasPrerequisites": true,
+        "hasVerify": true,
+        "hasRecovery": true,
+        "hasCautions": true,
+        "steps": 24
+      },
+      {
+        "key": "csat-press",
+        "hasDrain": false,
+        "rerunSafetyMentions": 1,
+        "hasPrerequisites": false,
+        "hasVerify": false,
+        "hasRecovery": false,
+        "hasCautions": true,
+        "steps": 48
+      },
+      {
+        "key": "csat-evidence",
+        "hasDrain": true,
+        "rerunSafetyMentions": 8,
+        "hasPrerequisites": true,
+        "hasVerify": true,
+        "hasRecovery": true,
+        "hasCautions": true,
+        "steps": 5
+      }
+    ]
+  },
+  "commands": {
+    "total": 23,
+    "missingFile": 0,
+    "undeclaredWrites": 0,
+    "noDryRun": 1,
+    "noResume": 0,
+    "claudeCodeSteps": 3,
+    "findings": [
+      {
+        "cmd": "node scripts/csat/analysis-drain-export.mjs --limit 6",
+        "declaredWrites": false,
+        "declaredClaudeCode": false,
+        "script": "scripts/csat/analysis-drain-export.mjs",
+        "exists": true,
+        "hasCommitFlag": false,
+        "dbWrite": false,
+        "appStateWrite": false,
+        "hasResume": true,
+        "resumeEvidence": [
+          "이미 채운 것 건너뛰기",
+          "건너뛴 수 출력"
+        ],
+        "mismatch": []
+      },
+      {
+        "cmd": "Claude Code: csat-item-analyst 서브에이전트로 청크를 채운다",
+        "declaredWrites": false,
+        "declaredClaudeCode": true,
+        "script": null,
+        "exists": false,
+        "hasCommitFlag": false,
+        "dbWrite": false,
+        "appStateWrite": false,
+        "hasResume": false,
+        "resumeEvidence": [],
+        "mismatch": []
+      },
+      {
+        "cmd": "node scripts/csat/analysis-drain-validate.mjs",
+        "declaredWrites": false,
+        "declaredClaudeCode": false,
+        "script": "scripts/csat/analysis-drain-validate.mjs",
+        "exists": true,
+        "hasCommitFlag": false,
+        "dbWrite": false,
+        "appStateWrite": false,
+        "hasResume": true,
+        "resumeEvidence": [
+          "건너뛴 수 출력"
+        ],
+        "mismatch": []
+      },
+      {
+        "cmd": "node scripts/csat/analysis-drain-import.mjs --commit",
+        "declaredWrites": true,
+        "declaredClaudeCode": false,
+        "script": "scripts/csat/analysis-drain-import.mjs",
+        "exists": true,
+        "hasCommitFlag": true,
+        "dbWrite": true,
+        "appStateWrite": false,
+        "hasResume": true,
+        "resumeEvidence": [
+          "건너뛴 수 출력"
+        ],
+        "mismatch": []
+      },
+      {
+        "cmd": "npx tsx --tsconfig apps/web/tsconfig.json scripts/textbook/market-benchmark.mjs --per-publisher",
+        "declaredWrites": false,
+        "declaredClaudeCode": false,
+        "script": "scripts/textbook/market-benchmark.mjs",
+        "exists": true,
+        "hasCommitFlag": false,
+        "dbWrite": false,
+        "appStateWrite": false,
+        "hasResume": false,
+        "resumeEvidence": [],
+        "mismatch": []
+      },
+      {
+        "cmd": "npx tsx --tsconfig apps/web/tsconfig.json scripts/textbook/gen-benchmark-report.mjs",
+        "declaredWrites": true,
+        "declaredClaudeCode": false,
+        "script": "scripts/textbook/gen-benchmark-report.mjs",
+        "exists": true,
+        "hasCommitFlag": false,
+        "dbWrite": false,
+        "appStateWrite": false,
+        "hasResume": false,
+        "resumeEvidence": [],
+        "mismatch": []
+      },
+      {
+        "cmd": "npx tsx --tsconfig apps/web/tsconfig.json scripts/textbook/series-report.mjs",
+        "declaredWrites": false,
+        "declaredClaudeCode": false,
+        "script": "scripts/textbook/series-report.mjs",
+        "exists": true,
+        "hasCommitFlag": false,
+        "dbWrite": false,
+        "appStateWrite": false,
+        "hasResume": false,
+        "resumeEvidence": [],
+        "mismatch": []
+      },
+      {
+        "cmd": "node scripts/csat/build-blueprint.mjs",
+        "declaredWrites": false,
+        "declaredClaudeCode": false,
+        "script": "scripts/csat/build-blueprint.mjs",
+        "exists": true,
+        "hasCommitFlag": false,
+        "dbWrite": false,
+        "appStateWrite": false,
+        "hasResume": false,
+        "resumeEvidence": [],
+        "mismatch": []
+      },
+      {
+        "cmd": "node scripts/csat/harvest-plos.mjs",
+        "declaredWrites": true,
+        "declaredClaudeCode": false,
+        "script": "scripts/csat/harvest-plos.mjs",
+        "exists": true,
+        "hasCommitFlag": true,
+        "dbWrite": false,
+        "appStateWrite": false,
+        "hasResume": true,
+        "resumeEvidence": [
+          "커서 파일",
+          "이미 채운 것 건너뛰기",
+          "건너뛴 수 출력"
+        ],
+        "mismatch": []
+      },
+      {
+        "cmd": "node scripts/textbook/harvest-gutenberg-kid.mjs",
+        "declaredWrites": true,
+        "declaredClaudeCode": false,
+        "script": "scripts/textbook/harvest-gutenberg-kid.mjs",
+        "exists": true,
+        "hasCommitFlag": true,
+        "dbWrite": false,
+        "appStateWrite": false,
+        "hasResume": true,
+        "resumeEvidence": [
+          "커서 파일",
+          "건너뛴 수 출력"
+        ],
+        "mismatch": []
+      },
+      {
+        "cmd": "npx tsx --tsconfig apps/web/tsconfig.json scripts/textbook/graded-source-probe.mjs",
+        "declaredWrites": false,
+        "declaredClaudeCode": false,
+        "script": "scripts/textbook/graded-source-probe.mjs",
+        "exists": true,
+        "hasCommitFlag": false,
+        "dbWrite": false,
+        "appStateWrite": false,
+        "hasResume": false,
+        "resumeEvidence": [],
+        "mismatch": []
+      },
+      {
+        "cmd": "pnpm dlx tsx scripts/textbook/store-new-types.mjs",
+        "declaredWrites": false,
+        "declaredClaudeCode": false,
+        "script": "scripts/textbook/store-new-types.mjs",
+        "exists": true,
+        "hasCommitFlag": true,
+        "dbWrite": false,
+        "appStateWrite": false,
+        "hasResume": true,
+        "resumeEvidence": [
+          "이미 채운 것 건너뛰기",
+          "건너뛴 수 출력"
+        ],
+        "mismatch": []
+      },
+      {
+        "cmd": "pnpm dlx tsx scripts/textbook/store-new-types.mjs --band 5 --commit",
+        "declaredWrites": true,
+        "declaredClaudeCode": false,
+        "script": "scripts/textbook/store-new-types.mjs",
+        "exists": true,
+        "hasCommitFlag": true,
+        "dbWrite": true,
+        "appStateWrite": false,
+        "hasResume": true,
+        "resumeEvidence": [
+          "이미 채운 것 건너뛰기",
+          "건너뛴 수 출력"
+        ],
+        "mismatch": []
+      },
+      {
+        "cmd": "pnpm dlx tsx scripts/textbook/write-drain-export.mjs --band 3 --size 6",
+        "declaredWrites": false,
+        "declaredClaudeCode": true,
+        "script": "scripts/textbook/write-drain-export.mjs",
+        "exists": true,
+        "hasCommitFlag": false,
+        "dbWrite": false,
+        "appStateWrite": false,
+        "hasResume": true,
+        "resumeEvidence": [
+          "이미 채운 것 건너뛰기"
+        ],
+        "mismatch": []
+      },
+      {
+        "cmd": "pnpm dlx tsx scripts/textbook/explain-fill.mjs --commit",
+        "declaredWrites": true,
+        "declaredClaudeCode": false,
+        "script": "scripts/textbook/explain-fill.mjs",
+        "exists": true,
+        "hasCommitFlag": true,
+        "dbWrite": true,
+        "appStateWrite": false,
+        "hasResume": true,
+        "resumeEvidence": [
+          "이미 채운 것 건너뛰기",
+          "건너뛴 수 출력"
+        ],
+        "mismatch": []
+      },
+      {
+        "cmd": "pnpm dlx tsx scripts/textbook/explain-drain-export.mjs --band 6 --volume 20 --size 12",
+        "declaredWrites": false,
+        "declaredClaudeCode": false,
+        "script": "scripts/textbook/explain-drain-export.mjs",
+        "exists": true,
+        "hasCommitFlag": true,
+        "dbWrite": false,
+        "appStateWrite": false,
+        "hasResume": true,
+        "resumeEvidence": [
+          "이미 채운 것 건너뛰기",
+          "건너뛴 수 출력"
+        ],
+        "mismatch": []
+      },
+      {
+        "cmd": "Claude Code: chunk-NN.json 을 읽어 chunk-NN.out.json 으로 채운다",
+        "declaredWrites": false,
+        "declaredClaudeCode": true,
+        "script": null,
+        "exists": false,
+        "hasCommitFlag": false,
+        "dbWrite": false,
+        "appStateWrite": false,
+        "hasResume": false,
+        "resumeEvidence": [],
+        "mismatch": []
+      },
+      {
+        "cmd": "pnpm dlx tsx scripts/textbook/explain-drain-import.mjs --band 6 --commit",
+        "declaredWrites": true,
+        "declaredClaudeCode": false,
+        "script": "scripts/textbook/explain-drain-import.mjs",
+        "exists": true,
+        "hasCommitFlag": true,
+        "dbWrite": false,
+        "appStateWrite": false,
+        "hasResume": true,
+        "resumeEvidence": [
+          "건너뛴 수 출력"
+        ],
+        "mismatch": []
+      },
+      {
+        "cmd": "pnpm dlx tsx scripts/textbook/item-health-report.mjs",
+        "declaredWrites": false,
+        "declaredClaudeCode": false,
+        "script": "scripts/textbook/item-health-report.mjs",
+        "exists": true,
+        "hasCommitFlag": false,
+        "dbWrite": false,
+        "appStateWrite": false,
+        "hasResume": false,
+        "resumeEvidence": [],
+        "mismatch": []
+      },
+      {
+        "cmd": "pnpm dlx tsx scripts/textbook/proofread-report.mjs",
+        "declaredWrites": false,
+        "declaredClaudeCode": false,
+        "script": "scripts/textbook/proofread-report.mjs",
+        "exists": true,
+        "hasCommitFlag": false,
+        "dbWrite": false,
+        "appStateWrite": false,
+        "hasResume": false,
+        "resumeEvidence": [],
+        "mismatch": []
+      },
+      {
+        "cmd": "pnpm dlx tsx scripts/textbook/build-volume.mjs --band 6 --units 20",
+        "declaredWrites": false,
+        "declaredClaudeCode": false,
+        "script": "scripts/textbook/build-volume.mjs",
+        "exists": true,
+        "hasCommitFlag": false,
+        "dbWrite": false,
+        "appStateWrite": false,
+        "hasResume": false,
+        "resumeEvidence": [],
+        "mismatch": []
+      },
+      {
+        "cmd": "pnpm dlx tsx scripts/textbook/render-volume.mjs --band 6 --units 20 --out volume-v6.html",
+        "declaredWrites": true,
+        "declaredClaudeCode": false,
+        "script": "scripts/textbook/render-volume.mjs",
+        "exists": true,
+        "hasCommitFlag": false,
+        "dbWrite": true,
+        "appStateWrite": false,
+        "hasResume": true,
+        "resumeEvidence": [
+          "이미 채운 것 건너뛰기",
+          "건너뛴 수 출력"
+        ],
+        "mismatch": [
+          "DB 쓰기로 표시됐는데 `--commit` 관문이 없다 — dry-run 이 불가능하다"
+        ]
+      },
+      {
+        "cmd": "npx tsx --tsconfig apps/web/tsconfig.json scripts/textbook/item-review-drain-export.mjs --band 5",
+        "declaredWrites": false,
+        "declaredClaudeCode": false,
+        "script": "scripts/textbook/item-review-drain-export.mjs",
+        "exists": true,
+        "hasCommitFlag": true,
+        "dbWrite": false,
+        "appStateWrite": false,
+        "hasResume": true,
+        "resumeEvidence": [
+          ".imported 표식",
+          "이미 채운 것 건너뛰기"
+        ],
+        "mismatch": []
+      }
+    ]
+  },
+  "drains": {
+    "total": 11,
+    "withBrief": 3,
+    "gated": 2,
+    "blindSets": 8,
+    "rows": [
+      {
+        "dir": "scripts/csat/analysis-drain",
+        "kind": "drain",
+        "brief": "_MANIFEST.json · _PROMPT.md",
+        "chunks": 6,
+        "outs": 90,
+        "imported": 0,
+        "exportScript": "scripts/csat/analysis-drain-export.mjs",
+        "importScript": "scripts/csat/analysis-drain-import.mjs",
+        "validateScript": "scripts/csat/analysis-drain-validate.mjs",
+        "complete": true,
+        "gated": true
+      },
+      {
+        "dir": "scripts/csat/choice-blind",
+        "kind": "blind",
+        "brief": null,
+        "chunks": 3,
+        "outs": 3,
+        "imported": 0,
+        "exportScript": null,
+        "importScript": null,
+        "validateScript": null,
+        "complete": false,
+        "gated": false
+      },
+      {
+        "dir": "scripts/csat/choice-blind-gist",
+        "kind": "blind",
+        "brief": null,
+        "chunks": 3,
+        "outs": 3,
+        "imported": 0,
+        "exportScript": null,
+        "importScript": null,
+        "validateScript": null,
+        "complete": false,
+        "gated": false
+      },
+      {
+        "dir": "scripts/csat/choice-blind-ko",
+        "kind": "blind",
+        "brief": null,
+        "chunks": 2,
+        "outs": 2,
+        "imported": 0,
+        "exportScript": null,
+        "importScript": null,
+        "validateScript": null,
+        "complete": false,
+        "gated": false
+      },
+      {
+        "dir": "scripts/csat/compose-drain",
+        "kind": "drain",
+        "brief": null,
+        "chunks": 44,
+        "outs": 44,
+        "imported": 44,
+        "exportScript": "scripts/csat/compose-drain-export.mjs",
+        "importScript": "scripts/csat/compose-drain-import.mjs",
+        "validateScript": null,
+        "complete": true,
+        "gated": false
+      },
+      {
+        "dir": "scripts/csat/compose-pilot",
+        "kind": "blind",
+        "brief": null,
+        "chunks": 0,
+        "outs": 0,
+        "imported": 0,
+        "exportScript": null,
+        "importScript": null,
+        "validateScript": null,
+        "complete": false,
+        "gated": false
+      },
+      {
+        "dir": "scripts/csat/gate-article-drain",
+        "kind": "blind",
+        "brief": "JUDGING.md",
+        "chunks": 133,
+        "outs": 133,
+        "imported": 0,
+        "exportScript": "scripts/csat/gate-article-export.mjs",
+        "importScript": null,
+        "validateScript": null,
+        "complete": false,
+        "gated": false
+      },
+      {
+        "dir": "scripts/csat/gate-drain",
+        "kind": "drain",
+        "brief": null,
+        "chunks": 40,
+        "outs": 40,
+        "imported": 0,
+        "exportScript": null,
+        "importScript": "scripts/csat/gate-import.mjs",
+        "validateScript": "scripts/csat/gate-drain-validate.mjs",
+        "complete": false,
+        "gated": true
+      },
+      {
+        "dir": "scripts/csat/gate-mixed",
+        "kind": "drain",
+        "brief": null,
+        "chunks": 22,
+        "outs": 22,
+        "imported": 0,
+        "exportScript": "scripts/csat/gate-mixed-export.mjs",
+        "importScript": "scripts/csat/gate-mixed-import.mjs",
+        "validateScript": null,
+        "complete": true,
+        "gated": false
+      },
+      {
+        "dir": "scripts/csat/locus-refold",
+        "kind": "drain",
+        "brief": "_PROMPT.md",
+        "chunks": 13,
+        "outs": 13,
+        "imported": 0,
+        "exportScript": "scripts/csat/locus-refold-export.mjs",
+        "importScript": "scripts/csat/locus-refold-import.mjs",
+        "validateScript": null,
+        "complete": true,
+        "gated": false
+      },
+      {
+        "dir": "scripts/csat/topic-blind",
+        "kind": "blind",
+        "brief": null,
+        "chunks": 7,
+        "outs": 10,
+        "imported": 0,
+        "exportScript": null,
+        "importScript": null,
+        "validateScript": null,
+        "complete": false,
+        "gated": false
+      },
+      {
+        "dir": "scripts/csat/trim-drain",
+        "kind": "drain",
+        "brief": null,
+        "chunks": 7,
+        "outs": 7,
+        "imported": 0,
+        "exportScript": "scripts/csat/trim-export.mjs",
+        "importScript": "scripts/csat/trim-import.mjs",
+        "validateScript": null,
+        "complete": true,
+        "gated": false
+      },
+      {
+        "dir": "scripts/csat/vocab-blind",
+        "kind": "blind",
+        "brief": null,
+        "chunks": 2,
+        "outs": 2,
+        "imported": 0,
+        "exportScript": null,
+        "importScript": null,
+        "validateScript": null,
+        "complete": false,
+        "gated": false
+      },
+      {
+        "dir": "scripts/textbook/adapt-drain",
+        "kind": "drain",
+        "brief": null,
+        "chunks": 0,
+        "outs": 0,
+        "imported": 0,
+        "exportScript": "scripts/textbook/adapt-drain-export.mjs",
+        "importScript": "scripts/textbook/adapt-drain-import.mjs",
+        "validateScript": null,
+        "complete": true,
+        "gated": false
+      },
+      {
+        "dir": "scripts/textbook/explain-drain",
+        "kind": "drain",
+        "brief": null,
+        "chunks": 0,
+        "outs": 0,
+        "imported": 0,
+        "exportScript": "scripts/textbook/explain-drain-export.mjs",
+        "importScript": "scripts/textbook/explain-drain-import.mjs",
+        "validateScript": null,
+        "complete": true,
+        "gated": false
+      },
+      {
+        "dir": "scripts/textbook/item-drain",
+        "kind": "drain",
+        "brief": null,
+        "chunks": 0,
+        "outs": 0,
+        "imported": 0,
+        "exportScript": "scripts/textbook/item-drain-export.mjs",
+        "importScript": "scripts/textbook/item-drain-import.mjs",
+        "validateScript": null,
+        "complete": true,
+        "gated": false
+      },
+      {
+        "dir": "scripts/textbook/item-review-drain",
+        "kind": "drain",
+        "brief": "_PROMPT.md",
+        "chunks": 0,
+        "outs": 0,
+        "imported": 0,
+        "exportScript": "scripts/textbook/item-review-drain-export.mjs",
+        "importScript": "scripts/textbook/item-review-drain-import.mjs",
+        "validateScript": null,
+        "complete": true,
+        "gated": false
+      },
+      {
+        "dir": "scripts/textbook/market-revise",
+        "kind": "blind",
+        "brief": null,
+        "chunks": 0,
+        "outs": 0,
+        "imported": 0,
+        "exportScript": "scripts/textbook/market-revise-export.mjs",
+        "importScript": null,
+        "validateScript": null,
+        "complete": false,
+        "gated": false
+      },
+      {
+        "dir": "scripts/textbook/write-drain",
+        "kind": "drain",
+        "brief": null,
+        "chunks": 0,
+        "outs": 0,
+        "imported": 0,
+        "exportScript": "scripts/textbook/write-drain-export.mjs",
+        "importScript": "scripts/textbook/write-drain-import.mjs",
+        "validateScript": null,
+        "complete": true,
+        "gated": false
+      }
+    ]
+  }
+}
