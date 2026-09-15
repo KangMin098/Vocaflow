@@ -17,6 +17,7 @@
 // ⚠️ 관리자 게이트는 `DEV_ADMIN_BYPASS` 로 통과한다. 그게 꺼져 있으면 화면이 로그인으로
 //   튕기므로 **조용히 통과시키지 않고 skip 으로 남긴다** — 통과처럼 보이면 안 된다.
 
+import AxeBuilder from '@axe-core/playwright'
 import { test, expect } from '@playwright/test'
 
 const ROUTE = '/admin/csat/sources'
@@ -88,5 +89,21 @@ test.describe('원문 적격 — 접힌 위', () => {
     const rows = await table.locator('tbody > tr').count()
     expect(rows, '소스별 재고 표의 행이 너무 적다 — 스냅샷이 비었는지 본다').toBeGreaterThan(10)
     console.log(`[소스별 재고] 행 ${rows}`)
+  })
+  test('axe — WCAG 2.1 A/AA 위반이 없다', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 })
+    test.skip(!(await adminReachable(page)), 'DEV_ADMIN_BYPASS 가 꺼져 있어 관리자 화면에 못 들어간다')
+
+    // ⚠️ **main 안만 본다.** 사이드바 같은 전역 크롬은 이 화면이 만든 것이 아니라,
+    //   섞으면 남의 위반이 이 화면의 빨간불로 남는다(14-learner-quality 와 같은 판단).
+    const result = await new AxeBuilder({ page })
+      .include('main')
+      .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
+      .analyze()
+
+    const lines = result.violations.map(
+      (v) => `${v.id} (${v.impact}) × ${v.nodes.length} — ${v.help}`,
+    )
+    expect(lines, `axe 위반:\n  ${lines.join('\n  ')}`).toEqual([])
   })
 })
