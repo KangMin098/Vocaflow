@@ -214,7 +214,7 @@ const WEEKDAYS = ['월', '화', '수', '목', '금', '토', '일'] as const
 function Stat({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex flex-1 flex-col gap-1">
-      <dt className="font-mono text-[9px] font-[700] uppercase tracking-[0.12em] text-[var(--t2)]">
+      <dt className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
         {label}
       </dt>
       <dd className="font-display text-[15px] font-[700] leading-none tabular-nums text-[var(--t1)]">

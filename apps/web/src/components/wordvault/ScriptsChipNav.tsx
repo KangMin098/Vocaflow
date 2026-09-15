@@ -27,7 +27,7 @@ interface ScriptsChipNavProps {
   onChange: (id: string) => void
 }
 
-const DEFAULT_ACCENT = '#6366F1' // indigo (FlowNav 단어 stage 정합)
+const DEFAULT_ACCENT = '#0F2540' // v07: deep ink — indigo 는 지면 팔레트 밖이었다
 
 export function ScriptsChipNav({ chips, active, onChange }: ScriptsChipNavProps) {
   return (

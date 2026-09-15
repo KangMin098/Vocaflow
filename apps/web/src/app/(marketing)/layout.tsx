@@ -38,7 +38,7 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
           </Link>
           <Link
             href="/login"
-            className="inline-flex min-h-[44px] items-center rounded-md bg-p px-s-4 py-s-2 font-semibold text-white hover:opacity-90"
+            className="inline-flex min-h-[44px] items-center rounded-md bg-[var(--ju)] px-s-4 py-s-2 font-semibold text-[var(--on-ju)] hover:opacity-90"
           >
             로그인
           </Link>
@@ -88,7 +88,7 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
               },
             ].map((col) => (
               <div key={col.title}>
-                <p className="font-display text-[11px] font-[700] uppercase tracking-[0.10em] text-t3">
+                <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-t3">
                   {col.title}
                 </p>
                 <ul className="mt-s-3 space-y-s-2">

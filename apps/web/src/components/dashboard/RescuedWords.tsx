@@ -45,7 +45,7 @@ export function RescuedWords({ rescued }: { rescued: RescuedWordsData }) {
           </p>
           <Link
             href="/flashcard"
-            className="group mt-4 inline-flex min-h-[44px] w-fit items-center gap-2 rounded-[var(--r-full)] bg-[var(--p-light)] px-4 font-display text-[13px] font-[700] text-[var(--on-p-tint)] no-underline transition-colors duration-[var(--dur-normal)] hover:bg-[var(--p)] hover:text-[var(--on-p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+            className="group mt-4 inline-flex min-h-[44px] w-fit items-center gap-2 rounded-[var(--r-md)] bg-[var(--p-light)] px-4 font-display text-[13px] font-[700] text-[var(--on-p-tint)] no-underline transition-colors duration-[var(--dur-normal)] hover:bg-[var(--ju)] hover:text-[var(--on-ju)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ju)]"
           >
             복습 열기
             <ArrowRight

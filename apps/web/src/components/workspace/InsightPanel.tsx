@@ -109,7 +109,7 @@ export function InsightPanel({
 
           {/* Bookmarks */}
           <section className="mb-8">
-            <h3 className="mb-3 flex items-center gap-2 font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
+            <h3 className="mb-3 flex items-center gap-2 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
               <Bookmark size={11} fill="currentColor" strokeWidth={0} aria-hidden="true" />
               북마크 ({bookmarks.length})
             </h3>
@@ -144,7 +144,7 @@ export function InsightPanel({
 
           {/* Memory Decay */}
           <section>
-            <h3 className="mb-3 flex items-center gap-2 font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
+            <h3 className="mb-3 flex items-center gap-2 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
               <Layers size={11} strokeWidth={2} aria-hidden="true" />
               기억 상태
             </h3>
@@ -204,7 +204,7 @@ function DecayCard({ color, label, count, hint, hasGlow, hasPulse }: DecayCardPr
         }}
         aria-hidden="true"
       />
-      <p className="mb-1 font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
+      <p className="mb-1 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
         {label}
       </p>
       <p className="mb-0.5 font-display text-[22px] font-[800] tabular-nums leading-none text-[var(--t1)]">

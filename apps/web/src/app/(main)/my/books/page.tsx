@@ -223,7 +223,7 @@ function Hero({
       <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-[var(--p)]/[0.07] blur-2xl" aria-hidden />
       <div className="relative flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <div className="flex flex-col gap-2">
-          <div className="flex items-center gap-2 font-display text-[10.5px] font-[700] uppercase tracking-[0.10em] text-[var(--p)]">
+          <div className="flex items-center gap-2 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--p)]">
             <Library size={12} aria-hidden />
             BookVault
           </div>
@@ -266,7 +266,7 @@ function Stat({
       >
         {value}
       </dd>
-      <dt className="font-display text-[10.5px] font-[600] uppercase tracking-[0.08em] text-[var(--t2)]">
+      <dt className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
         {label}
       </dt>
     </div>
@@ -503,7 +503,7 @@ function Empty({ message }: { message: string }) {
         href="/library/books"
         // 151×34 였다 — 44px 미만 탭 대상(CLAUDE.md 절대 금지 · 실측 390px).
         // 빈 서가에서 **밖으로 나가는 유일한 버튼**이라 특히 놓치면 안 된다.
-        className="inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] bg-[var(--p)] px-4 py-2 font-display text-[12px] font-[600] text-[var(--on-p)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+        className="inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] bg-[var(--ju)] px-4 py-2 font-display text-[12px] font-[600] text-[var(--on-ju)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--ju-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ju)] focus-visible:ring-offset-2"
       >
         Library에서 책 발견 →
       </Link>

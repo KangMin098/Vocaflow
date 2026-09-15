@@ -228,7 +228,7 @@ export function PairFlipHub({
 
         {/* Level */}
         <div className="mb-5">
-          <p className="mb-2.5 font-display text-[11px] font-[700] uppercase tracking-[0.10em] text-[var(--t2)]">
+          <p className="mb-2.5 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
             난이도
           </p>
           <PairFlipLevelSelector selected={level} onChange={setLevel} />
@@ -236,7 +236,7 @@ export function PairFlipHub({
 
         {/* Mode */}
         <div className="mb-5">
-          <p className="mb-2.5 font-display text-[11px] font-[700] uppercase tracking-[0.10em] text-[var(--t2)]">
+          <p className="mb-2.5 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
             매칭 모드
           </p>
           <PairFlipModeSelector selected={mode} onChange={setMode} />

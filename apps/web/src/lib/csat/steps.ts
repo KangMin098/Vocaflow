@@ -34,6 +34,13 @@
 //
 //   교훈: 이 목록은 **문서가 아니라 저장소·DB 에서 출발해야 한다.** 두 번 다 문서를
 //   베껴 적었다가 현실이 앞서 있었다. 회귀가 라우트 실재를 보는 것도 같은 이유다.
+//
+// ⚠️ **「묶기」(`/csat/patterns`)를 걷어냈다**(2026-09-16). 내가 하루 전에 지은 화면인데,
+//   같은 날 `my-traps.ts` 가 들어오면서 **잉여가 됐다.** 둘 다 「내가 챙길 함정」에 답하는데
+//   묶기는 *손으로 고른* 것을 `localStorage` 에 담고, 기록은 *실제로 틀린* 것을 DB 에 담아
+//   표본 문턱(3회·20회)까지 지키며 주파 순서에 쓰인다. **측정이 자기보고를 이긴다.**
+//   더 나쁜 것은 학습자가 브라우저에만 있는 묶음을 자기 「기록」으로 오해할 수 있다는 점이다.
+//   정본 문서의 「같은 질문을 두 화면이 답하지 않는다」에도 걸린다.
 
 /** 그 단계를 지금 쓸 수 있는가. */
 export type StepState =
@@ -86,14 +93,6 @@ export const CSAT_STEPS: readonly CsatStep[] = [
   },
   {
     no: 3,
-    label: '묶기',
-    verb: '모은다',
-    says: '자주 걸리는 함정을 골라 내 묶음을 만든다',
-    href: '/csat/patterns',
-    state: 'ready',
-  },
-  {
-    no: 4,
     label: '사정권',
     verb: '좁힌다',
     says: '최근 출제가 많은 유형부터 볼 범위를 정한다',
@@ -101,7 +100,7 @@ export const CSAT_STEPS: readonly CsatStep[] = [
     state: 'ready',
   },
   {
-    no: 5,
+    no: 4,
     label: '겨루기',
     verb: '가린다',
     says: '오답 해설을 읽고 그 수법의 이름을 맞힌다',
@@ -109,7 +108,7 @@ export const CSAT_STEPS: readonly CsatStep[] = [
     state: 'ready',
   },
   {
-    no: 6,
+    no: 5,
     label: '주파',
     verb: '푼다',
     says: '내 약한 수법 순서로 한 회차 계획을 짠다',

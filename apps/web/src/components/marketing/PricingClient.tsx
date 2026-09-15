@@ -131,7 +131,7 @@ export function PricingClient({ signals }: { signals: TrustSignal[] | null }) {
                   <p className="font-display text-[24px] font-[800] tabular-nums tracking-tight text-[var(--t1)] md:text-[28px]">
                     {s.value}
                   </p>
-                  <p className="mt-0.5 font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
+                  <p className="mt-0.5 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
                     {s.label}
                   </p>
                   <p className="mt-0.5 break-keep font-body text-[11px] text-[var(--t2)]">{s.sub}</p>
@@ -204,7 +204,7 @@ export function PricingClient({ signals }: { signals: TrustSignal[] | null }) {
                 <h2 className="break-keep font-display text-[22px] font-[800] text-[var(--t1)]">
                   유료 플랜
                 </h2>
-                <span className="rounded-full border border-[var(--bd)] bg-[var(--bg2)] px-2 py-1 font-mono text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
+                <span className="rounded-full border border-[var(--bd)] bg-[var(--bg2)] px-2 py-1 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
                   준비 중
                 </span>
               </div>
@@ -226,7 +226,7 @@ export function PricingClient({ signals }: { signals: TrustSignal[] | null }) {
               </a>
 
               <ul className="mt-6 space-y-3 border-t border-[var(--bd)] pt-6">
-                <li className="break-keep font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
+                <li className="break-keep font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
                   아직 없는 것
                 </li>
                 {NOT_YET.map((f) => (
@@ -293,7 +293,7 @@ export function PricingClient({ signals }: { signals: TrustSignal[] | null }) {
       <section aria-label="다른 점" className="border-t border-[var(--bd)] bg-[var(--bg)]">
         <div className="mx-auto max-w-6xl px-6 py-16">
           <header className="mb-8 max-w-2xl">
-            <p className="font-mono text-[11px] font-[700] uppercase tracking-[0.10em] text-[var(--p)]">
+            <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--p)]">
               What&apos;s different
             </p>
             <h2 className="mt-2 break-keep font-display text-[26px] font-[800] tracking-tight text-[var(--t1)]">
@@ -305,7 +305,7 @@ export function PricingClient({ signals }: { signals: TrustSignal[] | null }) {
             </p>
             <Link
               href="/fit"
-              className="mt-4 inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--p)] bg-[var(--p)] px-4 font-display text-[13.5px] font-[600] text-[var(--bg)] transition-all duration-[var(--dur-normal)] hover:brightness-110 active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
+              className="mt-4 inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--p)] bg-[var(--ju)] px-4 font-display text-[13.5px] font-[600] text-[var(--bg)] transition-all duration-[var(--dur-normal)] hover:brightness-110 active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
             >
               지금 지문 넣어 보기 — 가입 없이
             </Link>
@@ -342,7 +342,7 @@ export function PricingClient({ signals }: { signals: TrustSignal[] | null }) {
         <section aria-label="무엇이 들어 있나" className="border-t border-[var(--bd)] bg-[var(--bg2)]">
           <div className="mx-auto max-w-6xl px-6 py-16">
             <header className="mb-8 max-w-2xl">
-              <p className="font-mono text-[11px] font-[700] uppercase tracking-[0.10em] text-[var(--p)]">
+              <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--p)]">
                 What&apos;s inside
               </p>
               <h2 className="mt-2 break-keep font-display text-[26px] font-[800] tracking-tight text-[var(--t1)]">
@@ -385,7 +385,7 @@ export function PricingClient({ signals }: { signals: TrustSignal[] | null }) {
       <section className="border-t border-[var(--bd)] bg-[var(--bg)]">
         <div className="mx-auto max-w-3xl px-6 py-16">
           <header className="mb-8 text-center">
-            <p className="font-mono text-[11px] font-[700] uppercase tracking-[0.10em] text-[var(--p)]">
+            <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--p)]">
               FAQ
             </p>
             <h2 className="mt-2 break-keep font-display text-[26px] font-[800] tracking-tight text-[var(--t1)]">

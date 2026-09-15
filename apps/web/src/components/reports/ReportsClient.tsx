@@ -81,7 +81,7 @@ export function ReportsClient({ reports }: { reports: WeeklyReport[] }) {
               처방 정본은 하나(Today) — 여기서 고르게 하지 않고 그리로 보낸다. */}
           <Link
             href="/hub"
-            className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] bg-[var(--p)] px-4 py-2 font-display text-[13px] font-[700] text-white transition-transform hover:-translate-y-px motion-reduce:transition-none"
+            className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] bg-[var(--ju)] px-4 py-2 font-display text-[13px] font-[700] text-[var(--on-ju)] transition-transform hover:-translate-y-px motion-reduce:transition-none"
           >
             오늘 할 일 보러 가기
             <ArrowRight size={14} strokeWidth={2.2} aria-hidden />
@@ -161,7 +161,7 @@ function Stat({ label, value }: { label: string; value: number }) {
       <p className="font-display text-[20px] font-[800] tabular-nums leading-none text-[var(--t1)]">
         {value.toLocaleString()}
       </p>
-      <p className="mt-1 font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
+      <p className="mt-1 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
         {label}
       </p>
     </div>

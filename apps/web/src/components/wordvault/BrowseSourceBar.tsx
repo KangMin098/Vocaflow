@@ -153,7 +153,7 @@ function SourceLink({
       title={title}
       className={`inline-flex h-8 items-center gap-2 rounded-[var(--r-md)] px-3 font-display text-[12px] font-[700] transition-all ${
         primary
-          ? 'bg-[#6366F1] text-white shadow-[var(--sh-xs)] hover:bg-[#4F46E5]'
+          ? 'bg-[var(--ju)] text-[var(--on-ju)] hover:bg-[var(--ju-ink)]'
           : 'border border-[var(--bd)] bg-[var(--bg)] text-[var(--t2)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]'
       }`}
     >

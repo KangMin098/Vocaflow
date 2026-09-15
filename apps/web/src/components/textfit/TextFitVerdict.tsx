@@ -252,7 +252,7 @@ export function TextFitVerdict({ report, onCollectWords, onDiagnose }: Props) {
             <button
               type="button"
               onClick={() => onCollectWords(active.words.map((w) => w.lemma))}
-              className="inline-flex min-h-[44px] items-center gap-[8px] rounded-[var(--r-md)] border border-[var(--p)] bg-[var(--p)] px-4 font-display text-[13.5px] font-[600] text-[var(--bg)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:brightness-110 active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50 motion-reduce:transition-none"
+              className="inline-flex min-h-[44px] items-center gap-[8px] rounded-[var(--r-md)] border border-[var(--p)] bg-[var(--ju)] px-4 font-display text-[13.5px] font-[600] text-[var(--bg)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:brightness-110 active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50 motion-reduce:transition-none"
             >
               <Sparkles size={15} aria-hidden />
               단어장에 담기

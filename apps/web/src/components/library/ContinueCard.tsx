@@ -45,7 +45,7 @@ export function ContinueCard({ text }: ContinueCardProps) {
         {/* Info */}
         <div className="flex min-w-0 flex-1 flex-col gap-2">
           {/* CEFR + Author */}
-          <div className="flex items-center gap-2 font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
+          <div className="flex items-center gap-2 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
             <CEFRBadge level={text.cefrLevel} />
             <span className="truncate">{text.author}</span>
           </div>

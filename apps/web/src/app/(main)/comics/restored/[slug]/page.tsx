@@ -273,7 +273,7 @@ async function SeriesNav({
       aria-label="같은 시리즈"
       className="mt-6 flex flex-col gap-2 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-4"
     >
-      <p className="m-0 font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
+      <p className="m-0 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
         {seriesTitle ?? '같은 시리즈'}
         {total > 0 && <span className="ml-2 font-mono text-[10px] text-[var(--t3)]">{total}권</span>}
       </p>

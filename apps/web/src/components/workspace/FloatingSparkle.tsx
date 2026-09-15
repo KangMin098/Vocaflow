@@ -48,7 +48,7 @@ export function FloatingSparkle({ message, ctaLabel, ctaHref }: FloatingSparkleP
             : 'pointer-events-none translate-y-2.5 scale-95 opacity-0'
         } `}
       >
-        <p className="mb-2.5 flex items-center gap-2 font-display text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--p)]">
+        <p className="mb-2.5 flex items-center gap-2 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--p)]">
           <Sparkles size={11} strokeWidth={2} aria-hidden="true" />
           <span>다음 단계</span>
         </p>

@@ -22,9 +22,10 @@ import { CSAT_STEPS } from '@/lib/csat/steps'
  *
  * ⚠️ ① 은 넣지 않는다. 이 컴포넌트가 사는 곳이 곧 `/csat`(① 지도)이라 자기 자신으로 가는
  *   카드가 된다. 처음엔 `[1,2,3,4]` 로 두었다가 그 자기 링크를 만들 뻔했다.
- * ⚠️ ⑦(내 기록)은 `href` 가 없으므로 아래 필터가 자동으로 뺀다 — 여기서 또 세지 않는다.
+ * ⚠️ 번호가 아니라 **`href` 유무**로 한 번 더 거른다(아래 필터). 막힌 칸이 생겨도
+ *   이 컴포넌트가 죽은 카드를 그리지 않는다 — 지금은 막힌 칸이 없다.
  */
-const MODE_STEPS = [2, 3, 4, 5] as const
+const MODE_STEPS = [2, 3, 4, 5] as const  // 지형 · 사정권 · 겨루기 · 주파
 
 export function ModePicker() {
   const modes = MODE_STEPS.map((no) => CSAT_STEPS.find((s) => s.no === no)).filter(

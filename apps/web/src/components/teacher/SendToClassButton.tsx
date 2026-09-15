@@ -83,7 +83,7 @@ export function SendToClassButton({ classes, words, defaultTitle = '' }: Props) 
         <button
           type="button"
           onClick={() => setOpen(true)}
-          className="inline-flex min-h-[44px] w-fit items-center gap-2 rounded-[var(--r-md)] border border-[var(--p)] bg-[var(--p)] px-4 font-display text-[13px] font-[600] text-[var(--bg)] transition-all duration-[var(--dur-normal)] hover:brightness-110 active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
+          className="inline-flex min-h-[44px] w-fit items-center gap-2 rounded-[var(--r-md)] border border-[var(--p)] bg-[var(--ju)] px-4 font-display text-[13px] font-[600] text-[var(--bg)] transition-all duration-[var(--dur-normal)] hover:brightness-110 active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
         >
           <Send size={14} aria-hidden />
           우리 반에 보내기 ({words.length}개)
@@ -136,7 +136,7 @@ export function SendToClassButton({ classes, words, defaultTitle = '' }: Props) 
               type="button"
               onClick={handleSend}
               disabled={busy || !classId}
-              className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--p)] bg-[var(--p)] px-4 font-display text-[13px] font-[600] text-[var(--bg)] transition-all duration-[var(--dur-normal)] hover:brightness-110 active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50 motion-reduce:transition-none"
+              className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--p)] bg-[var(--ju)] px-4 font-display text-[13px] font-[600] text-[var(--bg)] transition-all duration-[var(--dur-normal)] hover:brightness-110 active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50 motion-reduce:transition-none"
             >
               {busy ? (
                 <Loader2 size={14} aria-hidden className="animate-spin motion-reduce:animate-none" />

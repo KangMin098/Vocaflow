@@ -50,7 +50,7 @@ export function BookQuickPicks({ filters, sort, diagnosed, hasAudio, hasComic, o
 
   return (
     <div className="flex flex-wrap items-center gap-2">
-      <span className="font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
+      <span className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
         빠른 선택
       </span>
       {visible.map((p) => {

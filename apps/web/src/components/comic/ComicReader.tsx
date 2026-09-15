@@ -298,7 +298,7 @@ export function ComicReader({ textId, bookTitle, pages, libraryBookId = null, in
           <div aria-hidden style={{ height: 2, background: 'color-mix(in srgb, var(--active) 30%, transparent)' }} />
           <div className="flex select-text flex-col gap-2 px-4 py-3">
             <div className="flex items-center gap-2">
-              <span className="font-display text-[10px] font-[700] uppercase tracking-[0.14em] text-[var(--active-ink)]">{st}</span>
+              <span className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--active-ink)]">{st}</span>
               <span className="h-px flex-1 bg-[var(--bd)]" aria-hidden />
             </div>
             {p.bubbles.length === 0 && <p className="font-body text-[12px] text-[var(--t2)]">…</p>}
@@ -310,7 +310,7 @@ export function ComicReader({ textId, bookTitle, pages, libraryBookId = null, in
               return (
                 <div key={key} className="flex flex-col gap-1">
                   {b.speaker && (
-                    <span className="inline-flex items-center gap-2 font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
+                    <span className="inline-flex items-center gap-2 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
                       <span aria-hidden className="h-2 w-2 rounded-full" style={{ background: speakerHue(b.speaker) }} />{b.speaker}
                     </span>
                   )}
@@ -340,7 +340,7 @@ export function ComicReader({ textId, bookTitle, pages, libraryBookId = null, in
         </div>
         {p.targetVocab.length > 0 && (
           <div className="mt-3 flex flex-wrap items-center gap-2">
-            <span className="font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">학습 단어</span>
+            <span className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">학습 단어</span>
             {p.targetVocab.map((w) => (
               <button key={w} type="button" data-no-nav onClick={(e) => { vocabTrigger.current = e.currentTarget; setVocab(w) }} className="min-h-11 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-1 font-body text-[13px] font-[600] text-[var(--t1)] transition-colors hover:border-[var(--active)] motion-reduce:transition-none">{w}</button>
             ))}

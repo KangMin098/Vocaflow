@@ -323,7 +323,7 @@ export default async function WordBlitzHubPage() {
       <footer className="mt-10 text-center">
         <Link
           href="/play/wordblitz"
-          className="inline-flex items-center gap-2 rounded-[var(--r-full)] bg-[var(--p)] px-8 py-4 font-display text-[15px] font-[700] text-[var(--on-p)] shadow-[var(--sh-md)] transition-all duration-[var(--dur-normal)] hover:brightness-110 active:translate-y-0.5"
+          className="inline-flex items-center gap-2 rounded-[var(--r-md)] bg-[var(--ju)] px-8 py-4 font-display text-[15px] font-[700] text-[var(--on-ju)] shadow-[var(--sh-md)] transition-all duration-[var(--dur-normal)] hover:brightness-110 active:translate-y-0.5"
         >
           <Gamepad2 size={16} strokeWidth={2.5} aria-hidden />
           지금 한 판

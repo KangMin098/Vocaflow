@@ -60,7 +60,7 @@ export function TypePopover({ onClose }: TypePopoverProps) {
     >
       {/* Font Size */}
       <div className="mb-4">
-        <p className="mb-2 font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
+        <p className="mb-2 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
           글자 크기
         </p>
         <div className="flex gap-1 rounded-[var(--r-md)] bg-[var(--bg2)] p-[4px]">
@@ -84,7 +84,7 @@ export function TypePopover({ onClose }: TypePopoverProps) {
 
       {/* Line Height */}
       <div>
-        <p className="mb-2 font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
+        <p className="mb-2 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
           줄 간격
         </p>
         <div className="flex gap-1 rounded-[var(--r-md)] bg-[var(--bg2)] p-[4px]">

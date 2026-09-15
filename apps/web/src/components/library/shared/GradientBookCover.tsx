@@ -104,8 +104,8 @@ export function GradientBookCover({
     ? `${clamp} break-keep font-english text-[15px] font-[600] leading-[1.26] tracking-[0.005em] ${titleInk}`
     : `${clamp} break-keep font-english text-[20px] font-[600] leading-[1.28] tracking-[0.005em] ${titleInk}`
   const subCls = compact
-    ? `line-clamp-1 font-display text-[9px] font-[600] uppercase tracking-[0.14em] ${subInk}`
-    : `line-clamp-1 font-display text-[10px] font-[600] uppercase tracking-[0.16em] ${subInk}`
+    ? `line-clamp-1 font-display text-[11px] font-[600] tracking-[0.04em] ${subInk}`
+    : `line-clamp-1 font-display text-[11px] font-[600] tracking-[0.04em] ${subInk}`
 
   return (
     <div

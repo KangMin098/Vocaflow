@@ -541,7 +541,7 @@ function Section({
 }) {
   return (
     <section className="flex flex-col gap-2">
-      <h3 className="font-mono text-[11px] font-[700] uppercase tracking-[0.1em] text-[var(--t2)]">
+      <h3 className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
         {title}
       </h3>
       <div>{children}</div>
@@ -608,7 +608,7 @@ function MyProgressSection({
   return (
     <section className="flex flex-col gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-4">
       <div className="flex items-center justify-between gap-2">
-        <h3 className="font-mono text-[11px] font-[700] uppercase tracking-[0.1em] text-[var(--t2)]">
+        <h3 className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
           내 학습
         </h3>
         <span
@@ -935,7 +935,7 @@ function Footer({ variant, onClose }: { variant: DetailVariant; onClose: () => v
 function Stat({ label, value, sub }: { label: string; value: string; sub?: string }) {
   return (
     <div className="flex flex-col gap-1 rounded-[var(--r-md)] bg-[var(--bg2)] p-3">
-      <span className="font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
+      <span className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
         {label}
       </span>
       <span className="font-display text-[16px] font-[800] tabular-nums text-[var(--t1)]">

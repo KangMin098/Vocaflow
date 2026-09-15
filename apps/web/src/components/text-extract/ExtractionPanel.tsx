@@ -693,7 +693,7 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
               <button
                 onClick={() => void handleSave()}
                 disabled={saving || selected.size === 0}
-                className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] bg-[var(--p)] px-4 font-display text-[13px] font-[700] text-[var(--on-p)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] active:scale-[0.98] disabled:opacity-50"
+                className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] bg-[var(--ju)] px-4 font-display text-[13px] font-[700] text-[var(--on-ju)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--ju-ink)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ju)] active:scale-[0.98] disabled:opacity-50"
               >
                 {saving ? <Loader2 size={14} className="animate-spin" /> : <CheckCircle2 size={14} />}
                 {saving ? '담는 중…' : `${selected.size}개 담기`}

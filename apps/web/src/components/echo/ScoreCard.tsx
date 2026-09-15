@@ -24,7 +24,7 @@ export function ScoreCard({ score, feedback, tone }: Props) {
     >
       <div className="flex items-baseline justify-between gap-4">
         <div className="flex flex-col">
-          <span className="font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
+          <span className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
             overall
           </span>
           <span

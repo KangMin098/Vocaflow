@@ -15,10 +15,8 @@ import { ModePicker } from '@/components/csat/ModePicker'
 import { AXIS } from '@/lib/csat/axes'
 import { buildHeatmap, type Heatmap as HeatmapData } from '@/lib/csat/heatmap'
 import { buildPriority } from '@/lib/csat/priority'
-import { PatternBoard } from '../patterns/PatternBoard'
 import { PriorityClient } from '../predict/PriorityClient'
 import { BAND_LABEL, BAND_SAYS, type Band } from '@/lib/csat/priority'
-import type { TrapEntry } from '@/lib/csat/trap-atlas'
 
 // `usePathname` 은 라우터 밖에서 null 을 준다 — 컴포넌트가 그걸 견디는지도 함께 본다.
 vi.mock('next/navigation', () => ({ usePathname: () => '/csat/map' }))
@@ -41,29 +39,6 @@ const mapData: HeatmapData = {
   error: null,
 }
 
-const TRAPS: TrapEntry[] = [
-  {
-    key: '어휘 함정',
-    n: 389,
-    recent: 173,
-    items: 383,
-    types: 17,
-    by_type: {},
-    by_type_recent: {},
-    examples: [],
-  },
-  {
-    key: '부분 사실',
-    n: 200,
-    recent: 90,
-    items: 198,
-    types: 8,
-    by_type: {},
-    by_type_recent: {},
-    examples: [],
-  },
-]
-
 const BANDS: Band[] = ['A', 'B', 'C', 'gone']
 const bandInfo = BANDS.map((b) => ({ band: b, label: BAND_LABEL[b], says: BAND_SAYS[b] }))
 
@@ -71,7 +46,6 @@ const SCREENS: [string, string][] = [
   ['지형 히트맵', renderToStaticMarkup(<Heatmap data={mapData} />)],
   ['모드 선택', renderToStaticMarkup(<ModePicker />)],
   ['단계 레일', renderToStaticMarkup(<CsatSteps />)],
-  ['패턴 보드', renderToStaticMarkup(<PatternBoard traps={TRAPS} />)],
   [
     '사정권',
     renderToStaticMarkup(
@@ -85,6 +59,19 @@ const SCREENS: [string, string][] = [
     ),
   ],
 ]
+
+/**
+ * 화면을 **이름으로** 집는다.
+ *
+ * ⚠️ 처음엔 SCREENS[3] 처럼 첨자로 집었는데, 화면 하나를 걷어내자 뒤 첨자가 통째로
+ *   밀려 엉뚱한 화면을 검사했다(2026-09-16 · 「묶기」 제거). 목록 순서가 검사의 의미를
+ *   바꾸면 안 된다.
+ */
+const S = (name: string): string => {
+  const hit = SCREENS.find(([n]) => n === name)
+  if (!hit) throw new Error('그런 화면이 없다: ' + name)
+  return hit[1]
+}
 
 /** 서로 인접한 `<p>` 가 몇 개까지 이어지는가. 브리프 G2 가 세는 것. */
 function maxAdjacentP(html: string): number {
@@ -120,22 +107,17 @@ describe('G3 — 기출 원문이 렌더 트리에 없다', () => {
 
 describe('G4 — 주인공 객체가 키보드로 조작된다', () => {
   it('히트맵 칸이 button 이다 — div+onClick 이 아니다', () => {
-    const html = SCREENS[0][1]
+    const html = S('지형 히트맵')
     expect(html).toContain('data-cell="0-0"')
     expect(html).toMatch(/<button[^>]*data-cell="0-0"/)
   })
 
   it('히트맵 칸마다 읽어 주는 이름이 있다', () => {
-    expect(SCREENS[0][1]).toMatch(/aria-label="[^"]*빈칸 추론[^"]*문항/)
-  })
-
-  it('패턴 보드 항목이 button 이다', () => {
-    expect(SCREENS[3][1]).toMatch(/<button[^>]*어휘 함정|어휘 함정[^<]*<\/span>/)
-    expect(SCREENS[3][1]).toContain('<button')
+    expect(S('지형 히트맵')).toMatch(/aria-label="[^"]*빈칸 추론[^"]*문항/)
   })
 
   it('사정권 슬라이더가 라벨을 가진 input 이다', () => {
-    const html = SCREENS[4][1]
+    const html = S('사정권')
     expect(html).toContain('type="range"')
     expect(html).toContain('id="csat-depth"')
     expect(html).toContain('for="csat-depth"')
@@ -155,21 +137,15 @@ describe('G5 — 두 축이 시각적으로 갈린다', () => {
   })
 
   it('히트맵의 유형 라벨이 형식 축 색을 쓴다', () => {
-    expect(SCREENS[0][1]).toContain(AXIS.format.fg)
+    expect(S('지형 히트맵')).toContain(AXIS.format.fg)
   })
 
   it('3점 표시가 색 말고 기호도 쓴다 — 색 단독 금지', () => {
-    expect(SCREENS[0][1]).toContain(AXIS.hard.mark)
+    expect(S('지형 히트맵')).toContain(AXIS.hard.mark)
   })
 })
 
 describe('빈 상태는 다음 한 걸음이다 (A4 · D5)', () => {
-  it('패턴 보드 내 묶음이 비면 무엇을 하면 되는지 적는다', () => {
-    const html = SCREENS[3][1]
-    expect(html).toContain('아직 비어 있어요')
-    expect(html).toContain('눌러')
-  })
-
   /**
    * ⚠️ 이 검사는 두 번 뒤집혔다. 처음엔 「⑥⑦ 이 링크가 아니어야 한다」였는데 그 둘이
    *   이미 있는 화면이었고(/csat/drill · /csat/plan), 다음엔 ⑦ 「내 기록」이 아직인 줄
@@ -177,29 +153,30 @@ describe('빈 상태는 다음 한 걸음이다 (A4 · D5)', () => {
    *   검사도 그렇게 적는다. 막힌 칸이 생기면 이 검사가 먼저 깨진다.
    */
   it('레일의 모든 칸이 실제로 갈 수 있는 링크다', () => {
-    const html = SCREENS[2][1]
+    const html = S('단계 레일')
     expect(html).not.toContain('아직 열리지 않음')
-    // 없는 라우트로 가는 칸이 없다.
-    for (const dead of ['/csat/train', '/csat/review', '/csat/item"']) {
+    // 없는 라우트로 가는 칸이 없다. `/csat/patterns` 는 2026-09-16 에 걷어냈다
+    // (`my-traps.ts` 와 같은 질문에 답해 잉여가 됐다 — `steps.ts` 머리말 참조).
+    for (const dead of ['/csat/train', '/csat/review', '/csat/patterns', '/csat/item"']) {
       expect(html, dead).not.toContain(`href="${dead}`)
     }
-    // 여섯 칸이 전부 <a> 다.
-    expect((html.match(/<a /g) ?? []).length).toBe(6)
+    // 다섯 칸이 전부 <a> 다 — 지도·지형·사정권·겨루기·주파.
+    expect((html.match(/<a /g) ?? []).length).toBe(5)
   })
 })
 
 describe('E5 — 숫자는 분모와 함께', () => {
   it('히트맵 행 끝이 전체 문항 수를 든다', () => {
-    expect(SCREENS[0][1]).toContain('>3<')
+    expect(S('지형 히트맵')).toContain('>3<')
   })
 
   it('사정권이 최근/전체를 함께 적는다', () => {
-    expect(SCREENS[4][1]).toMatch(/최근 \d+ \/ 전체 \d+/)
+    expect(S('사정권')).toMatch(/최근 \d+ \/ 전체 \d+/)
   })
 })
 
 describe('현재 단계 표시', () => {
   it('레일이 현재 칸에 aria-current 를 준다', () => {
-    expect(SCREENS[2][1]).toContain('aria-current="step"')
+    expect(S('단계 레일')).toContain('aria-current="step"')
   })
 })

@@ -149,7 +149,7 @@ export default function VideoDetailPage({ params }: { params: { id: string } }) 
         </p>
         <Link
           href="/fit"
-          className="mt-4 inline-flex min-h-[44px] items-center rounded-[var(--r-md)] bg-[var(--p)] px-5 font-body text-[15px] font-semibold text-[var(--ti)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
+          className="mt-4 inline-flex min-h-[44px] items-center rounded-[var(--r-md)] bg-[var(--ju)] px-5 font-body text-[15px] font-semibold text-[var(--ti)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--ju-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
         >
           내 지문으로 재 보기
         </Link>

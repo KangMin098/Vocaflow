@@ -73,7 +73,7 @@ export function MyTextbooks({ shelf, mine }: { shelf: Shelf; mine: MySelection }
 
         <Link
           href="/library/textbooks"
-          className="group mt-4 inline-flex min-h-[44px] w-fit items-center gap-2 rounded-[var(--r-full)] bg-[var(--p-light)] px-4 font-display text-[12.5px] font-[700] text-[var(--on-p-tint)] no-underline transition-colors hover:bg-[var(--p)] hover:text-[var(--on-p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          className="group mt-4 inline-flex min-h-[44px] w-fit items-center gap-2 rounded-[var(--r-md)] bg-[var(--p-light)] px-4 font-display text-[12.5px] font-[700] text-[var(--on-p-tint)] no-underline transition-colors hover:bg-[var(--ju)] hover:text-[var(--on-ju)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ju)]"
         >
           <Library size={14} aria-hidden />
           교재 서가 둘러보기

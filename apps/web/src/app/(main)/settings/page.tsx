@@ -507,7 +507,7 @@ export default function SettingsPage() {
                       {row.label}
                     </p>
                     {!row.ready && (
-                      <span className="inline-flex items-center rounded-full bg-[var(--warning-light)] px-2 py-1 font-display text-[9px] font-[700] uppercase tracking-[0.08em] text-[var(--active-ink)]">
+                      <span className="inline-flex items-center rounded-full bg-[var(--warning-light)] px-2 py-1 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--active-ink)]">
                         준비중
                       </span>
                     )}
@@ -576,7 +576,7 @@ export default function SettingsPage() {
               >
                 <Trash2 size={12} aria-hidden />
                 계정 해지
-                <span className="ml-1 inline-flex items-center rounded-full bg-[var(--warning-light)] px-2 py-1 font-display text-[9px] font-[700] uppercase tracking-[0.08em] text-[var(--active-ink)]">
+                <span className="ml-1 inline-flex items-center rounded-full bg-[var(--warning-light)] px-2 py-1 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--active-ink)]">
                   준비중
                 </span>
               </button>

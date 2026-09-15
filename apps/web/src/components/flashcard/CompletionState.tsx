@@ -180,7 +180,7 @@ function CompletionStat({ value, label }: { value: string | number; label: strin
       <p className="mb-1.5 font-display text-[32px] font-[800] tabular-nums leading-none text-[var(--t1)]">
         {value}
       </p>
-      <p className="font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
+      <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
         {label}
       </p>
     </div>
@@ -189,7 +189,7 @@ function CompletionStat({ value, label }: { value: string | number; label: strin
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
-    <h3 className="mb-3 flex items-center gap-2 text-left font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
+    <h3 className="mb-3 flex items-center gap-2 text-left font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
       <span>{children}</span>
       <span className="h-px flex-1 bg-[var(--bd)]" aria-hidden="true" />
     </h3>

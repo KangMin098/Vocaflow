@@ -154,7 +154,7 @@ export function ReadingUniverse({
             isFocusMode ? 'opacity-30' : 'opacity-100'
           } `}
         >
-          <span className="font-display text-[11px] font-[700] uppercase tracking-[0.12em] text-[var(--t2)]">
+          <span className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
             {chapterMeta.label}
           </span>
           <span className="h-px flex-1 bg-gradient-to-r from-[var(--bd)] via-[var(--bd)] to-transparent" />

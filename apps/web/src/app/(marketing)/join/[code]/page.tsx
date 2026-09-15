@@ -92,7 +92,7 @@ export default async function JoinPage({ params }: PageProps) {
           <form action={join} className="mt-2">
             <button
               type="submit"
-              className="inline-flex min-h-[44px] w-full items-center justify-center rounded-[var(--r-md)] bg-[var(--p)] px-6 font-display text-[14px] font-[700] text-[var(--on-p)] transition-opacity duration-[var(--dur-normal)] hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
+              className="inline-flex min-h-[44px] w-full items-center justify-center rounded-[var(--r-md)] bg-[var(--ju)] px-6 font-display text-[14px] font-[700] text-[var(--on-ju)] transition-opacity duration-[var(--dur-normal)] hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
             >
               이 클래스에 참여하기
             </button>
@@ -105,7 +105,7 @@ export default async function JoinPage({ params }: PageProps) {
             */}
             <Link
               href={`/signup?${RETURN_PARAM}=${encodeURIComponent(next)}`}
-              className="inline-flex min-h-[44px] w-full items-center justify-center rounded-[var(--r-md)] bg-[var(--p)] px-6 font-display text-[14px] font-[700] text-[var(--on-p)] transition-opacity duration-[var(--dur-normal)] hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
+              className="inline-flex min-h-[44px] w-full items-center justify-center rounded-[var(--r-md)] bg-[var(--ju)] px-6 font-display text-[14px] font-[700] text-[var(--on-ju)] transition-opacity duration-[var(--dur-normal)] hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
             >
               가입하고 참여하기
             </Link>

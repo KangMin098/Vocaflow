@@ -77,13 +77,34 @@ async function login(page) {
   await page.waitForURL((u) => !u.pathname.startsWith('/login'), { timeout: 45_000 })
 }
 
+/**
+ * 로그인 상태를 파일에 남겨 **재사용**한다.
+ *
+ * ⚠️ 실행마다 새로 로그인하면 Supabase 인증 엔드포인트의 시간당 한도에 걸린다 —
+ *    실측 2026-09-16: 30분 사이 열 번쯤 캡처를 돌리자 로그인이 "로그인 중…" 에서
+ *    멈추고 45초 타임아웃으로 죽기 시작했다. 앱 결함처럼 보이지만 **재는 쪽의 문제**다.
+ *    (이 워크스페이스는 검증 계정 하나를 여러 세션이 공유하므로 남의 실행도 같은 한도를 쓴다.)
+ */
+const STATE_FILE = path.join(ROOT, 'apps/web/playwright-auth/.auth-design-capture.json')
+const STATE_TTL_MS = 25 * 60 * 1000
+
 const run = async () => {
   fs.mkdirSync(outDir, { recursive: true })
+  fs.mkdirSync(path.dirname(STATE_FILE), { recursive: true })
   const browser = await chromium.launch()
-  const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } })
-  const page = await ctx.newPage()
-  await login(page)
-  await page.close()
+  const fresh =
+    fs.existsSync(STATE_FILE) && Date.now() - fs.statSync(STATE_FILE).mtimeMs < STATE_TTL_MS
+  let ctx
+  if (fresh) {
+    ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, storageState: STATE_FILE })
+    console.log('저장된 로그인 상태 재사용 (재로그인 없음)')
+  } else {
+    ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } })
+    const page = await ctx.newPage()
+    await login(page)
+    await page.close()
+    await ctx.storageState({ path: STATE_FILE })
+  }
 
   const report = []
   for (const w of widths) {

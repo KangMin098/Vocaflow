@@ -82,7 +82,7 @@ export function LegalPage({ title, intro, effectiveDate, version, sections }: Le
               aria-label="목차"
               className="sticky top-20 space-y-1 border-l border-[var(--bd)] pl-4"
             >
-              <p className="mb-3 font-display text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--t2)]">
+              <p className="mb-3 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
                 목차
               </p>
               {sections.map((s, i) => (

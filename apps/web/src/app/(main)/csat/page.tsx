@@ -67,7 +67,7 @@ export default async function CsatHubPage() {
             (원칙 1) — 여기가 「읽었다」에서 「알아본다」로 넘어가는 유일한 문이다. */}
         <Link
           href="/csat/drill"
-          className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] border border-[var(--p)] bg-[var(--p)] px-4 text-sm text-[var(--on-p)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
+          className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] border border-[var(--p)] bg-[var(--ju)] px-4 text-sm text-[var(--on-ju)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--ju-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
         >
           오답 감별 훈련 8문항 →
         </Link>

@@ -33,7 +33,7 @@ export function NextActionCard({ recommendation, prelude }: NextActionCardProps)
     >
       <div className="mb-3 flex items-center gap-2">
         <Sparkles size={14} strokeWidth={2} className="text-[var(--p)]" aria-hidden="true" />
-        <span className="font-display text-[11px] font-[700] uppercase tracking-[0.10em] text-[var(--p)]">
+        <span className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--p)]">
           다음 추천
         </span>
       </div>

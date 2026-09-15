@@ -100,7 +100,7 @@ export function CardFront({
 
       {/* Flip Hint */}
       <p
-        className={`mt-3 flex h-4 items-center justify-center gap-2 text-center font-display text-[10px] font-[600] uppercase tracking-[0.10em] text-[var(--t2)] opacity-60 transition-opacity duration-[var(--dur-normal)] ${showFlipHint ? 'opacity-60' : 'pointer-events-none opacity-0'} `}
+        className={`mt-3 flex h-4 items-center justify-center gap-2 text-center font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)] opacity-60 transition-opacity duration-[var(--dur-normal)] ${showFlipHint ? 'opacity-60' : 'pointer-events-none opacity-0'} `}
       >
         <span>탭 또는</span>
         <kbd className="rounded border border-[var(--bd)] bg-[var(--bg2)] px-2 py-1 font-mono text-[10px] font-[700] text-[var(--t2)]">

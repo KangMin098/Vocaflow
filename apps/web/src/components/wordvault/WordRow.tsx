@@ -178,7 +178,7 @@ export function WordRow({
             {word.word}
           </span>
           <MemoryBadge srs={word.srs} size="xs" />
-          <sup className="font-mono text-[9px] font-[700] uppercase tracking-[0.06em] text-t3">
+          <sup className="font-display text-[11px] font-[600] tracking-[0.04em] text-t3">
             {word.pos.replace(/\.$/, '')}
           </sup>
         </div>

@@ -6,7 +6,6 @@
 
 'use client'
 
-import { Sparkles } from 'lucide-react'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
@@ -49,10 +48,19 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
             /* 108×28 이었다 — 44px 미만 탭 대상이었다(CLAUDE.md 절대 금지 · 실측 390px). 로그인·가입·재설정·인증 네 화면이 공유한다. */
             className="group flex min-h-[44px] items-center gap-s-2 text-t1 transition-opacity duration-normal hover:opacity-80"
           >
-            <div className="flex h-7 w-7 items-center justify-center rounded-md bg-p transition-transform duration-normal group-hover:scale-105">
-              <Sparkles size={14} className="text-white" />
-            </div>
-            <span className="font-display text-base font-extrabold tracking-tight">Vocaflow</span>
+            {/* v07 워드마크 — 주묵 각인 + Lora. `Sparkles` 아이콘은 지금 전 세계 AI 생성 UI 가
+                공통으로 쓰는 표식이라, 그걸 로고로 쓰면 로고가 아니라 출신 표시가 된다.
+                (실측: public/ 에 로고 자산 0개 — docs/design/00-inventory.md §0-5) */}
+            <span className="flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] bg-[var(--ju)] font-english text-[14px] font-[500] leading-none text-[var(--on-ju)]">
+              V
+            </span>
+            <span className="font-english text-[17px] font-[500] tracking-[0.01em]">
+              Vocaflow
+              <span
+                aria-hidden
+                className="ml-[3px] inline-block h-[4px] w-[4px] rounded-full bg-[var(--ju)] align-[3px]"
+              />
+            </span>
           </Link>
 
           {/* 우측 — 미세한 액션 */}

@@ -309,7 +309,7 @@ function DailyCard({
       <div className="flex items-start justify-between gap-3">
         <div className="flex flex-col gap-1">
           <span
-            className="font-display text-[11px] font-[700] uppercase tracking-[0.10em]"
+            className="font-display text-[11px] font-[600] tracking-[0.04em]"
             style={{ color: DICTATION_ACCENT }}
           >
             오늘의 받아쓰기

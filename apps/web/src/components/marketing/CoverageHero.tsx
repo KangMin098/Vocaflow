@@ -143,7 +143,7 @@ export function CoverageHero({ demo }: { demo: HeroDemo }) {
             <span className="font-display text-[30px] font-[800] tabular-nums leading-none tracking-tight text-[var(--t1)] md:text-[36px]">
               {pct(reading.coverage)}
             </span>
-            <span className="mt-1 block font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
+            <span className="mt-1 block font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
               어휘 커버리지
             </span>
           </p>

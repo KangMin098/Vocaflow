@@ -163,7 +163,7 @@ export function ChapterLevelWords({
   if (bare) {
     return (
       <section aria-label="이 챕터에서 익힐 단어">
-        <h3 className="mb-3 flex items-center gap-2 font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
+        <h3 className="mb-3 flex items-center gap-2 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
           <Target size={11} strokeWidth={2} aria-hidden />
           이 챕터에서 익힐 단어
         </h3>
@@ -284,7 +284,7 @@ function DeliveredBody({
           type="button"
           onClick={onSave}
           disabled={saving || saved}
-          className="flex min-h-[44px] items-center gap-2 rounded-[var(--r-sm)] bg-[var(--p)] px-4 font-body text-[13px] font-[600] text-[var(--on-p)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:scale-[0.98] disabled:cursor-default disabled:opacity-50 disabled:active:scale-100"
+          className="flex min-h-[44px] items-center gap-2 rounded-[var(--r-sm)] bg-[var(--ju)] px-4 font-body text-[13px] font-[600] text-[var(--on-ju)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:scale-[0.98] disabled:cursor-default disabled:opacity-50 disabled:active:scale-100"
         >
           {saved && <Check size={14} aria-hidden />}
           {saved ? '단어장에 담았어요' : saving ? '담는 중…' : '내 단어장에 담기'}

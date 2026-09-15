@@ -415,7 +415,7 @@ export function DictationSessionClient() {
           <div className="mb-3 flex items-center justify-between gap-2">
             <div className="flex items-center gap-2">
               <span
-                className="font-display text-[11px] font-[700] uppercase tracking-[0.10em]"
+                className="font-display text-[11px] font-[600] tracking-[0.04em]"
                 style={{ color: DICTATION_ACCENT }}
               >
                 듣고 받아쓰기

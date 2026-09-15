@@ -526,21 +526,21 @@ export function SpellForge({ textId, textTitle, words, backHref, content }: Spel
           {/* Feedback Strip */}
           <div className="mt-4 flex w-full items-center justify-center gap-5 py-2 font-mono text-[11px] text-[var(--t2)] opacity-40 transition-opacity duration-[var(--dur-normal)] hover:opacity-100">
             <div className="flex items-center gap-2">
-              <span className="font-display text-[9px] font-[700] uppercase tracking-[0.08em]">
+              <span className="font-display text-[11px] font-[600] tracking-[0.04em]">
                 정확도
               </span>
               <strong className="font-[700] text-[var(--t1)]">{sessionAccuracy}%</strong>
             </div>
             <span className="h-3 w-px bg-[var(--bd)]" />
             <div className="flex items-center gap-2">
-              <span className="font-display text-[9px] font-[700] uppercase tracking-[0.08em]">
+              <span className="font-display text-[11px] font-[600] tracking-[0.04em]">
                 힌트
               </span>
               <strong className="font-[700] text-[var(--t1)]">{hintCount}</strong>
             </div>
             <span className="h-3 w-px bg-[var(--bd)]" />
             <div className="flex items-center gap-2">
-              <span className="font-display text-[9px] font-[700] uppercase tracking-[0.08em]">
+              <span className="font-display text-[11px] font-[600] tracking-[0.04em]">
                 진행
               </span>
               <strong className="font-[700] text-[var(--t1)]">

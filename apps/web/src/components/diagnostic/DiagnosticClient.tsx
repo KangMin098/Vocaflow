@@ -670,7 +670,7 @@ export function DiagnosticClient() {
           <button
             onClick={() => void startTest(t)}
             // 44px 하한 — 실측 69x34. 진단 목록의 **시작 버튼**이라 가장 자주 눌린다.
-            className="group inline-flex min-h-[44px] shrink-0 items-center gap-1 rounded-[var(--r-md)] bg-[var(--bg3)] px-4 py-2 font-display text-[12px] font-[700] text-[var(--t1)] transition-colors hover:bg-[var(--p)] hover:text-[var(--on-p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+            className="group inline-flex min-h-[44px] shrink-0 items-center gap-1 rounded-[var(--r-md)] bg-[var(--bg3)] px-4 py-2 font-display text-[12px] font-[700] text-[var(--t1)] transition-colors hover:bg-[var(--ju)] hover:text-[var(--on-ju)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ju)]"
           >
             시작
             <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" aria-hidden />
@@ -863,7 +863,7 @@ export function DiagnosticClient() {
           </button>
           <button
             onClick={() => handleAnswer(true)}
-            className="flex items-center justify-center gap-2 rounded-[var(--r-md)] bg-[var(--p)] px-6 py-4 font-display text-[16px] font-[700] text-[var(--on-p)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] active:scale-[0.97]"
+            className="flex items-center justify-center gap-2 rounded-[var(--r-md)] bg-[var(--ju)] px-6 py-4 font-display text-[16px] font-[700] text-[var(--on-ju)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--ju-ink)] active:scale-[0.97]"
           >
             <CheckCircle2 size={20} /> 알아요
           </button>
@@ -1278,7 +1278,7 @@ function InfoModal({
           </button>
           <button
             onClick={onStart}
-            className="group flex flex-[2] items-center justify-center gap-2 rounded-[var(--r-md)] bg-[var(--p)] px-4 py-3 font-display text-[14px] font-[700] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)]"
+            className="group flex flex-[2] items-center justify-center gap-2 rounded-[var(--r-md)] bg-[var(--ju)] px-4 py-3 font-display text-[14px] font-[700] text-[var(--on-ju)] transition-colors hover:bg-[var(--ju-ink)]"
           >
             이 진단 시작
             <ArrowRight

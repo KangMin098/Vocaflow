@@ -76,7 +76,7 @@ const VOCAB_COLOR: Record<string, { from: string; to: string; accent: string }> 
   eng_test: { from: '#A5B4FC', to: '#6366F1', accent: '#6366F1' },
   civil: { from: '#94A3B8', to: '#475569', accent: '#475569' },
   business: { from: '#F472B6', to: '#DB2777', accent: '#DB2777' },
-  themed: { from: '#818CF8', to: '#4F46E5', accent: '#4F46E5' },
+  themed: { from: '#4B678A', to: '#0F2540', accent: '#0F2540' },
 }
 
 // LibraryGrid 패턴 — 사이드 가독성 우선

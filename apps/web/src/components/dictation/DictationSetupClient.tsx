@@ -324,7 +324,7 @@ export function DictationSetupClient() {
           <ArrowLeft size={16} />
         </button>
         <div className="min-w-0 flex-1">
-          <p className="font-display text-[11px] font-[700] uppercase tracking-[0.10em] text-[var(--t2)]">
+          <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
             받아쓰기 준비
           </p>
           <h1 className="truncate font-display text-[19px] font-[700] text-[var(--t1)]">

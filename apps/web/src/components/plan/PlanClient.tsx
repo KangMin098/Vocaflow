@@ -1330,7 +1330,7 @@ function ArticleNav({
     <div className="flex gap-3">
       {/* ① 1단 분류(소스/카테고리) */}
       <div className="flex shrink-0 flex-col gap-2">
-        <span className="px-1 font-mono text-[9px] font-[700] uppercase tracking-[0.12em] text-[var(--t2)]">
+        <span className="px-1 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
           {col1Label}
         </span>
         <nav aria-label={col1Label} className="flex max-h-[400px] w-[96px] flex-col gap-1 overflow-y-auto">
@@ -1347,7 +1347,7 @@ function ArticleNav({
       </div>
       {/* ② 2단 분류(프로그램/책) */}
       <div className="flex shrink-0 flex-col gap-2 border-l border-[var(--bd)] pl-3">
-        <span className="px-1 font-mono text-[9px] font-[700] uppercase tracking-[0.12em] text-[var(--t2)]">
+        <span className="px-1 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
           {col2Label}
         </span>
         <nav aria-label={col2Label} className="flex max-h-[400px] w-[134px] flex-col gap-1 overflow-y-auto">

@@ -43,7 +43,7 @@ import type {
 const MODULE_COLOR: Record<string, string> = {
   textviewer: '#8B5CF6', // purple (스크립트)
   workspace: '#8B5CF6',
-  wordvault: '#6366F1', // indigo (단어)
+  wordvault: '#0F2540', // deep ink (단어) — v07: 떠돌이 indigo 제거, 지면 팔레트로
   flashcard: '#EC4899', // pink (익히기)
   spellforge: '#EC4899',
   wordblitz: '#EC4899',

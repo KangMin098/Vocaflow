@@ -76,7 +76,7 @@ export function MemoryFilterBar({ filterKey, count, onClear }: MemoryFilterBarPr
         {count > 0 && (
           <Link
             href={`/wordvault/study?filter=${encodeURIComponent(toStateFilterValue(filterKey))}`}
-            className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] bg-[var(--p)] px-4 font-display text-[13px] font-[700] text-[var(--on-p)] transition-[filter,transform] duration-[var(--dur-normal)] ease-[var(--ease)] hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 active:scale-[0.98]"
+            className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] bg-[var(--ju)] px-4 font-display text-[13px] font-[700] text-[var(--on-ju)] transition-[filter,transform] duration-[var(--dur-normal)] ease-[var(--ease)] hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ju)] focus-visible:ring-offset-2 active:scale-[0.98]"
           >
             <Play size={13} aria-hidden />이 단어로 학습 시작
           </Link>

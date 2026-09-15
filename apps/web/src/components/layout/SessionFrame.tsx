@@ -87,7 +87,7 @@ const RESOURCE_TYPE_META: Record<
   // ⚠️ 이 색은 **글자로도 쓰인다** — 종이 위에서 AA 를 넘겨야 한다(실측 2026-08-22:
   //    #6366F1 4.28 · #8B5CF6 4.05 로 미달이었다). 채움용 원색을 그대로 쓰지 않는다.
   library: { label: '라이브러리', Icon: Compass, color: '#7C3AED' },
-  vocab: { label: '공용 단어장', Icon: Layers, color: '#4F46E5' },
+  vocab: { label: '공용 단어장', Icon: Layers, color: '#0F2540' },
   script: { label: '내 스크립트', Icon: BookOpen, color: '#7C3AED' },
   custom: { label: '', Icon: Sparkles, color: '#7E5A1B' },
 }
@@ -231,12 +231,17 @@ export function SessionFrame({ children }: { children: ReactNode }) {
               hasResource ? '' : 'h-12 md:h-14'
             }`}
           >
-            {/* Left: emoji + title + (desktop) progress */}
-            <div className="flex min-w-0 items-center gap-2">
-              <span className="text-[18px] leading-none" aria-hidden="true">
-                {meta.emoji}
-              </span>
-              <h1 className="truncate font-display text-[14px] font-[700] tracking-tight text-[var(--t1)] md:text-[15px]">
+            {/* Left: 표식 + title + (desktop) progress
+                v07 — 이모지(🎯 ⚡ 🏆 …)를 세션 머리에서 뺐다. 기기마다 다른 그림이 나오므로
+                **우리가 고른 얼굴이 아니고**, 학습 세션의 첫 글자가 장난스러워진다.
+                대신 주묵 세로 획 하나 — 페이지에 표시가 된 자리라는 뜻이고 어디서나 같다.
+                (`meta.emoji` 는 아케이드 카탈로그가 자기 자리에서 계속 쓴다 — 지우지 않는다.) */}
+            <div className="flex min-w-0 items-center gap-2.5">
+              <span
+                aria-hidden="true"
+                className="inline-block h-[15px] w-[3px] shrink-0 bg-[var(--ju)]"
+              />
+              <h1 className="truncate font-english text-[15px] font-[600] tracking-[0.01em] text-[var(--t1)] md:text-[16px]">
                 {meta.title}
               </h1>
               {progressLabel && (
@@ -345,7 +350,7 @@ function ResourceBreadcrumb({ resource }: { resource: SessionResource }) {
         />
         {meta.label && (
           <span
-            className="font-mono text-[10px] font-[700] uppercase tracking-[0.08em]"
+            className="font-display text-[11px] font-[600] tracking-[0.04em]"
             style={{ color: meta.color }}
           >
             {meta.label}

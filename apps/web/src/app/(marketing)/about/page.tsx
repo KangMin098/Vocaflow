@@ -145,7 +145,7 @@ export default function AboutPage() {
       {/* ── Hero ── */}
       <section className="relative overflow-hidden border-b border-[var(--bd)] bg-gradient-to-br from-[var(--p-light)] via-[var(--bg)] to-[var(--bg)]">
         <div className="mx-auto max-w-4xl px-6 py-20 text-center md:py-28">
-          <span className="inline-flex items-center gap-2 rounded-full border border-[var(--bd)] bg-[var(--bg)] px-4 py-2 font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--t2)] shadow-[var(--sh-xs)]">
+          <span className="inline-flex items-center gap-2 rounded-full border border-[var(--bd)] bg-[var(--bg)] px-4 py-2 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)] shadow-[var(--sh-xs)]">
             <Sparkles size={12} className="text-[var(--p)]" aria-hidden />
             우리의 미션
           </span>
@@ -208,7 +208,7 @@ export default function AboutPage() {
       <section className="border-b border-[var(--bd)] bg-[var(--bg2)]">
         <div className="mx-auto max-w-6xl px-6 py-16 md:py-20">
           <header className="mb-10 max-w-2xl">
-            <p className="font-mono text-[11px] font-[700] uppercase tracking-[0.10em] text-[var(--p)]">
+            <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--p)]">
               Design Philosophy
             </p>
             <h2 className="mt-2 font-display text-[28px] font-[800] tracking-tight text-[var(--t1)] md:text-[34px]">
@@ -239,7 +239,7 @@ export default function AboutPage() {
                   >
                     <Icon size={20} strokeWidth={1.75} />
                   </span>
-                  <p className="relative mt-4 font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--t2)]">
+                  <p className="relative mt-4 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
                     {p.en}
                   </p>
                   <h3 className="relative mt-1 font-display text-[20px] font-[700] text-[var(--t1)]">
@@ -259,7 +259,7 @@ export default function AboutPage() {
       <section className="border-b border-[var(--bd)] bg-[var(--bg)]">
         <div className="mx-auto max-w-6xl px-6 py-16 md:py-20">
           <header className="mb-10 max-w-2xl">
-            <p className="font-mono text-[11px] font-[700] uppercase tracking-[0.10em] text-[#8B5CF6]">
+            <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[#8B5CF6]">
               Learning Science
             </p>
             <h2 className="mt-2 font-display text-[28px] font-[800] tracking-tight text-[var(--t1)] md:text-[34px]">
@@ -309,7 +309,7 @@ export default function AboutPage() {
       <section className="border-b border-[var(--bd)] bg-[var(--bg2)]">
         <div className="mx-auto max-w-6xl px-6 py-16 md:py-20">
           <header className="mb-10 max-w-2xl">
-            <p className="font-mono text-[11px] font-[700] uppercase tracking-[0.10em] text-[var(--success)]">
+            <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--success)]">
               Modules
             </p>
             <h2 className="mt-2 font-display text-[28px] font-[800] tracking-tight text-[var(--t1)] md:text-[34px]">
@@ -352,7 +352,7 @@ export default function AboutPage() {
       <section className="border-b border-[var(--bd)] bg-[var(--bg)]">
         <div className="mx-auto max-w-4xl px-6 py-16 md:py-20">
           <header className="mb-8 text-center">
-            <p className="font-mono text-[11px] font-[700] uppercase tracking-[0.10em] text-[var(--error-ink)]">
+            <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--error-ink)]">
               What we never do
             </p>
             <h2 className="mt-2 font-display text-[26px] font-[800] tracking-tight text-[var(--t1)] md:text-[32px]">

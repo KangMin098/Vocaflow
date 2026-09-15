@@ -160,7 +160,7 @@ CLAUDE.md 절대금지는 **「진행률 100% 시 폭죽·트로피」** 다 —
 | "Serif fonts banned in dashboards" | `stitch-design-taste` | **거부** — Lora 는 Dual Coding 시그니처(`tailwind.config.ts` `editorial`) | 영어 원문·단어카드·히어로 = Lora |
 | glassmorphism · 무거운 섀도로 "비싸 보이게" | `high-end-visual-design` · `stitch` | **금지** — Reading Room 과 어긋나고 대비를 깎는다 | `--r-lg` + 1px `--bd` + 톤차, 고도는 `--el-*` |
 | AIDA 구조 · 거대 여백 | `gpt-taste` | **거부** | §1 증명 우선 순서 |
-| 폰트 자유 선택 (Geist·Satoshi·Cabinet Grotesk) | 8개 공통 | **거부** — 폰트는 SSoT | Plus Jakarta · DM Sans · Lora · JetBrains Mono 4종 고정 |
+| 폰트 자유 선택 (Geist·Satoshi·Cabinet Grotesk) | 8개 공통 | **거부** — 폰트는 SSoT | **v07**: Hahmlet(한글 디스플레이) · IBM Plex Sans KR(UI/본문) · Lora(영어 원문) · JetBrains Mono **4종 고정**. 취향이 아니라 *한글 글리프 유무*로 정해졌다 |
 | Inter·Roboto·Arial 금지 · AI-보라 그라데이션 금지 · 동일 3카드 금지 · 가짜 사회적 증거 금지 | 다수 | **채택** (이 문서와 일치) | 그대로 |
 
 라우팅(어떤 화면에 어떤 스킬을 부르는가)과 3D/제너러티브 스택 고정은
@@ -308,17 +308,37 @@ CLAUDE.md 절대금지는 **「진행률 100% 시 폭죽·트로피」** 다 —
 
 **v06.39**: Lora 를 **`font-editorial`** 로 승격 → 모든 hero/대형 표시는 Lora. **Dual Coding (Paivio) 의 시각 구현**:
 - **영어 표시 → Lora 세리프** (서재의 잉크)
-- **한글 표시 → DM Sans 산세리프**
-- **UI 칩/메타 → Plus Jakarta** (정밀한 산세리프)
+- **한글 표시 → 산세리프**
+- **UI 칩/메타 → 정밀한 산세리프**
 
-타이포 hierarchy:
+> ### ⚠️ v07 정정 — 위 문단의 "한글 표시" 는 **2026-09-16 까지 실현된 적이 없었다**
+>
+> Plus Jakarta Sans · DM Sans · Lora · JetBrains Mono 넷 다 `subsets: ["latin"]` 이었다.
+> 한글 글리프가 한 자도 없었다는 뜻이고, 그래서 "한글 표시 → DM Sans" 는 실제로는
+> **"한글 표시 → OS 기본 고딕"** 이었다.
+> 실측(`/dashboard`, 로그인 상태): 본문 텍스트 노드 144개 중 한글 108개(**75%**)가
+> 100% 라틴 전용 스택을 선언하고 폴백으로 떨어졌다. 27개는 **모노스페이스 폴백**까지 갔다.
+> `font-display` 1,193회 + `font-body` 848회 = **2,041번의 지정이 한글에는 전부 무효**였다.
+> 근거·전체 진단: [design/00-inventory.md](./design/00-inventory.md) §0-2.
+
+**v07 「주묵 판면」** — 한글에 실제 글꼴을 준다 (`docs/design/03-system.md` §3-1):
+- **한글 디스플레이 → Hahmlet** (OFL · Google Fonts) — 한글과 라틴을 한 설계에서 뽑은 세리프
+- **UI·본문(한글+라틴) → IBM Plex Sans KR** (OFL) — Plus Jakarta·DM Sans 의 역할을 흡수
+- **영어 원문·표제어 → Lora** (유지 · v06.39 시그니처)
+- **숫자·코드 → JetBrains Mono** (유지)
+- ⚠️ 한글 글꼴은 **`preload: false`** 로 선언한다 — `unicode-range` 수백 조각을 전량 preload 하면
+  화면은 멀쩡한 채 느려지기만 한다. 회귀가 잡는다(`learning-tone.test.ts`).
+
+타이포 hierarchy (v07):
 
 ```
-font-editorial   = Lora bold 500-600  → Hero 42-96px (Page title / 단어카드 / 큰 숫자)
-font-display     = Plus Jakarta 600-700 → UI labels / nav / 작은 헤딩 22-26px
-font-body        = DM Sans 400-500     → 한글 본문 + UI 14-17px
-font-english     = Lora 400            → 영어 본문 17-20px
-font-mono        = JetBrains Mono      → 캡션 · 숫자 · 9-12px
+font-editorial   = Lora + Hahmlet 500-600  → Hero 42-96px (Page title / 단어카드 / 큰 숫자)
+                                              ↑ 글리프 단위 폴백: 영문 Lora · 한글 Hahmlet
+font-ko-display  = Hahmlet                 → 한글만 세리프로 쓰는 자리
+font-display     = IBM Plex Sans KR 500-700 → UI labels / nav / 작은 헤딩
+font-body        = IBM Plex Sans KR 400-500 → 본문 + UI 14-17px
+font-english     = Lora 400                → 영어 본문 17-20px (한글을 일부러 안 넣는다)
+font-mono        = JetBrains Mono          → 캡션 · 숫자 · 9-12px (뒤에 한글 UI 글꼴을 붙여 둔다)
 ```
 
 | 사용처 | 폰트 | 크기 | weight |

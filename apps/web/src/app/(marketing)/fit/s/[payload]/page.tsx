@@ -61,7 +61,7 @@ export default function SharedFitPage({ params }: Params) {
   return (
     <div className="mx-auto max-w-3xl px-6 py-12 md:py-16">
       <header className="mb-9 flex flex-col gap-3">
-        <p className="m-0 font-mono text-[11px] font-[700] uppercase tracking-[0.10em] text-[var(--p)]">
+        <p className="m-0 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--p)]">
           공유받은 결과
         </p>
         <h1 className="m-0 text-balance font-display text-[28px] font-[800] leading-[1.2] tracking-[-0.03em] text-[var(--t1)] md:text-[34px]">
