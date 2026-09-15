@@ -76,6 +76,18 @@ export function segments(
   return out.filter((x) => x.chars > 0)
 }
 
+/**
+ * 칩을 눌렀을 때 «연 근거» 로 셀 것인가.
+ *
+ * 계측의 `seq` 는 「클릭/클릭/클릭」이 실제로 일어나는지를 재는 수라, **부풀면 안 된다.**
+ *   · 같은 칩을 다시 누르는 것은 새로 연 것이 아니다 — 세면 한 사람이 10을 만들 수 있다.
+ *   · 첫 근거는 서버가 이미 펴 둔 채로 오므로 «눌러서 연 것» 이 아니다. 그래서 세는 쪽은
+ *     0에서 시작한다(이 함수가 아니라 부르는 쪽의 초깃값이 그 규칙을 담는다).
+ */
+export function countsAsOpen(activeId: string | null, clickedId: string): boolean {
+  return clickedId !== activeId
+}
+
 /** 막대 폭 — 가장 긴 문장을 100% 로 둔다. 지문의 «모양» 이 그대로 보인다. */
 export function widthPct(chars: number, max: number): number {
   // 아주 짧은 문장도 보이게 바닥을 둔다 — 0에 가까우면 «문장이 없다» 로 읽힌다.

@@ -6,7 +6,7 @@
 import { describe, expect, it } from 'vitest'
 
 import type { SkeletonSentence } from '../passage-skeleton'
-import { initialAnchorId, mapState, segments, widthPct, type MapAnchor } from '../passage-map-model'
+import { countsAsOpen, initialAnchorId, mapState, segments, widthPct, type MapAnchor } from '../passage-map-model'
 
 const ANCHORS: MapAnchor[] = [
   { id: 'reject:1', label: '①', kind: 'reject', detail: '①은 이래서 아니다' },
@@ -110,6 +110,20 @@ describe('segments — 문장 안의 «어디» 를 그린다', () => {
 
   it('드러난 것이 없으면 통짜 가림 하나다', () => {
     expect(segments(sent(42), [])).toEqual([{ chars: 42 }])
+  })
+})
+
+describe('countsAsOpen — 계측 수가 부풀지 않는가', () => {
+  it('다른 칩을 누르면 센다', () => {
+    expect(countsAsOpen('answer', 'reject:1')).toBe(true)
+  })
+
+  it('같은 칩을 다시 눌러도 안 센다 — 한 사람이 10을 만들 수 있다', () => {
+    expect(countsAsOpen('answer', 'answer')).toBe(false)
+  })
+
+  it('아무것도 안 열린 상태에서 처음 누르면 센다', () => {
+    expect(countsAsOpen(null, 'answer')).toBe(true)
   })
 })
 

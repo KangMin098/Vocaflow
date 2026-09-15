@@ -126,6 +126,25 @@ export type PublicEvent =
       props: { phase: 'undiagnosed' | 'ready' | 'moving' | 'complete'; done: number }
     }
   /**
+   * 기출 해설에서 근거 하나를 열었다 — **「클릭/클릭/클릭」이 실제로 일어나는가.**
+   *
+   * 이 화면의 전제는 «근거를 눌러 가며 지문 위에서 풀이를 재구성한다» 인데, 그 전제가
+   * 맞는지는 **몇 개를 여는지**로만 알 수 있다. `seq` 가 1에서 멈추면 지도는 열어 본
+   * 장식이고, 3~4 로 이어지면 설계가 작동하는 것이다. 진입은 `screen_viewed`(csat-item)가
+   * 이미 세므로 여기서 또 세지 않는다 — 분모가 갈린다.
+   *
+   * ⚠️ **첫 근거는 안 센다.** 서버 렌더가 정답 근거를 이미 펴 둔 채 오므로(클릭 0으로
+   *    증명이 보이게 한 설계) 그걸 세면 모든 방문이 최소 1이 되어 «눌렀다» 와 «떠 있었다» 가
+   *    구별되지 않는다.
+   *
+   * `found` 는 그 근거의 위치를 지문에서 찾았는가다 — 거짓이 늘면 앵커 추출이 나빠진 것이고,
+   * 학습자에게는 「위치 없음」으로 보인다.
+   */
+  | {
+      name: 'csat_evidence_opened'
+      props: { kind: 'answer' | 'reject'; found: boolean; seq: number }
+    }
+  /**
    * 학습자 화면 진입 — **모든 로그인 화면의 분모** (CLAUDE.md D2).
    *
    * 2026-09-05 실측: 학습자 화면 77개 중 진입 이벤트를 가진 화면이 **0개**였다. 위 14개는
@@ -251,6 +270,7 @@ const EVENT_REGISTRY: Record<PublicEventName, true> = {
   landing_section_reached: true,
   wayfinder_opened: true,
   wayfinder_cta_clicked: true,
+  csat_evidence_opened: true,
   screen_viewed: true,
   video_started: true,
   video_completed: true,

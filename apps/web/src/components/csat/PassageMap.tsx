@@ -25,9 +25,11 @@
 
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 
+import { track } from '@/lib/analytics/client'
 import {
+  countsAsOpen,
   initialAnchorId,
   mapState,
   segments,
@@ -60,9 +62,19 @@ export function PassageMap({ sentences, anchors, placements, onSelect }: Passage
   const found = useMemo(() => new Map(placements.map((p) => [p.id, p.sentences.length > 0])), [placements])
   const tone = active?.kind === 'answer' ? GREEN : RED
 
+  // 「클릭/클릭/클릭」이 실제로 일어나는지는 **몇 번째인지**를 세야 안다. 첫 근거는 서버가
+  // 이미 펴 둔 채로 오므로 세지 않는다 — 세면 모든 방문이 최소 1이 되어 «눌렀다» 와
+  // «떠 있었다» 가 구별되지 않는다.
+  const opened = useRef(0)
+
   function pick(id: string) {
+    if (!countsAsOpen(activeId, id)) return
     setActiveId(id)
-    onSelect?.(id, found.get(id) === true)
+    const hit = found.get(id) === true
+    opened.current += 1
+    const kind = anchors.find((a) => a.id === id)?.kind ?? 'reject'
+    track({ name: 'csat_evidence_opened', props: { kind, found: hit, seq: opened.current } })
+    onSelect?.(id, hit)
   }
 
   if (!sentences.length) return null
