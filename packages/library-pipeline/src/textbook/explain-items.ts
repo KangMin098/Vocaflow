@@ -123,14 +123,14 @@ const RULE_KO: Record<string, { name: string; why: (wrong: string, right: string
     name: '관사',
     why: (wrong, right, next) =>
       next
-        ? `관사는 뒤 낱말의 첫 **소리**에 맞춘다 — "${next}"${josa(next, EUN_NEUN)} ${/^[aeiou]/i.test(next) ? '모음' : '자음'} 소리로 시작하므로 "${right}"${josa(right, I_GA)} 맞고 "${wrong}"${josa(wrong, EUN_NEUN)} 틀리다.`
+        ? `관사는 철자가 아니라 뒤 낱말의 첫소리에 맞춘다 — "${next}"${josa(next, EUN_NEUN)} ${/^[aeiou]/i.test(next) ? '모음' : '자음'} 소리로 시작하므로 "${right}"${josa(right, I_GA)} 맞고 "${wrong}"${josa(wrong, EUN_NEUN)} 틀리다.`
         : `관사는 뒤 낱말의 첫 소리에 맞춘다 — 여기서는 "${right}"${josa(right, I_GA)} 맞고 "${wrong}"${josa(wrong, EUN_NEUN)} 틀리다.`,
   },
   demonstrative: {
     name: '지시어',
     why: (wrong, right, next) =>
       next
-        ? `지시어는 뒤 명사의 **수**에 맞춘다 — "${next}"${josa(next, I_GA)} ${looksPlural(next) ? '복수' : '단수'}이므로 "${right}"${josa(right, I_GA)} 맞고 "${wrong}"${josa(wrong, EUN_NEUN)} 틀리다.`
+        ? `지시어는 뒤 명사의 수에 맞춘다 — "${next}"${josa(next, I_GA)} ${looksPlural(next) ? '복수' : '단수'}이므로 "${right}"${josa(right, I_GA)} 맞고 "${wrong}"${josa(wrong, EUN_NEUN)} 틀리다.`
         : `지시어는 뒤 명사의 수에 맞춘다 — 여기서는 "${right}"${josa(right, I_GA)} 맞고 "${wrong}"${josa(wrong, EUN_NEUN)} 틀리다.`,
   },
 }
@@ -403,7 +403,7 @@ export function explainUnderlinedGrammar(payload: Json, answerKey: Json): ItemEx
           : `${o.label} "${str(o.word)}"`
       })
       .join(' · ')
-    parts.push(`나머지 ${where} 의 자리는 각각 그 문장에서 확인할 수 있다 — 이 유형은 규칙에 어긋나는 자리가 하나뿐이다.`)
+    parts.push(`나머지 ${where} 의 자리는 각각 그 문장에서 확인할 수 있다.`)
   }
   return finish(parts.join(' '), 'underlined_grammar')
 }
@@ -472,7 +472,7 @@ export function explainVocabChoice(payload: Json, answerKey: Json): ItemExplanat
           : `${o.label} "${o.word}"`
       })
       .join(' · ')
-    parts.push(`나머지 ${where} 의 자리는 각각 그 문장에서 확인할 수 있다 — 이 유형은 문맥과 어긋나는 자리가 하나뿐이다.`)
+    parts.push(`나머지 ${where} 의 자리는 각각 그 문장에서 확인할 수 있다.`)
   }
   // 찾지 못하면 아무 말도 하지 않는다 — 못 찾은 것을 「있다」로 적지 않는다.
   const keptAt = sentenceStillHolding(sentences, original, Number(u.sentenceIdx))
@@ -676,7 +676,7 @@ export function explainElementary(
   const parts: string[] = []
   if (kind === 'rhyme') {
     parts.push(`정답은 ${label} "${answerText}" 다.`)
-    parts.push(`"${stem}" 와 끝소리가 같다 — 소리를 맞추는 문제이므로 철자가 아니라 **끝소리**를 본다.`)
+    parts.push(`"${stem}" 와 끝소리가 같다 — 소리를 맞추는 문제이므로 철자가 아니라 끝소리를 본다.`)
     if (others.length) {
       parts.push(`나머지 ${others.map((c) => `${c.label} "${c.text}"`).join(' · ')} 는 끝소리가 다르다.`)
     }
@@ -686,7 +686,7 @@ export function explainElementary(
       // 오답이 어디서 왔는지는 **사실**이다 — 보기 풀이 교육과정 별표이기 때문이다.
       // 길이를 채우려고 지어낸 말이 아니라, 학습자가 오답을 따로 외울 거리로 쓸 수 있다.
       parts.push(
-        `나머지 ${others.map((c) => `${c.label} "${c.text}"`).join(' · ')} 는 같은 교육과정 낱말 목록에 있는 **다른 낱말**의 뜻이다.`,
+        `나머지 ${others.map((c) => `${c.label} "${c.text}"`).join(' · ')} 는 같은 교육과정 낱말 목록에 있는 다른 낱말의 뜻이다.`,
       )
     }
   } else {
