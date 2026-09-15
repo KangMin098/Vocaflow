@@ -1080,3 +1080,7 @@ export type {
   FreshReviewTally,
   ReviewFreshness,
 } from './textbook/review-digest'
+
+// 발췌가 이야기 경계를 넘었는지(`textbook/story-seam.ts`). 해설 드레인에서 나온 결함 —
+// 선집을 고정 길이 창으로 자르면 한 지문에 두 이야기가 담긴다.
+export { storySeam } from './textbook/story-seam'

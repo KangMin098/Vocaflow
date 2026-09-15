@@ -42,6 +42,10 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
+// 규칙 하나는 패키지에 있다 — 시험(`story-seam.test.ts` 30종)이 붙어 있어야 하는데
+// 이 파일은 시험이 없기 때문이다. 정규식을 여기 베껴 두면 둘이 조용히 갈라진다.
+const { storySeam } = await import('@vocaflow/library-pipeline')
+
 const envPath = path.resolve('apps/web/.env.local')
 if (fs.existsSync(envPath)) {
   for (const line of fs.readFileSync(envPath, 'utf8').split('\n')) {
@@ -151,6 +155,24 @@ const RULES = [
       }
       return null
     },
+  },
+  {
+    id: 'story-seam',
+    label: '이야기 경계를 넘은 발췌',
+    why: '선집을 자른 창이 한 이야기가 끝난 자리를 지났다 — 지문 한 편에 두 이야기가 담긴다',
+    /**
+     * 2026-09-15 해설 드레인에서 나왔다. V5 어휘 문항 하나가 해설을 쓸 수 없었는데,
+     * 지문 10문장 중 앞 5문장은 Ivan·Koshchei 이야기의 **끝**이고 뒤 5문장은
+     * Oeyvind 라는 다른 아이 이야기의 **시작**이었다. 밑줄 5개가 두 이야기에 갈려 있었다.
+     *
+     * 어법·어휘 문항은 지문이 한 덩어리라는 것을 전제하므로 그 위에서는 정답 판정이
+     * 선다고 말할 수 없다 — **해설로 덮을 문제가 아니라 다시 잘라야 하는 문제다.**
+     *
+     * 규칙과 그 정밀도(실측 77.3%)·한계는 `story-seam.ts` 주석에 있다.
+     * ⚠️ 잡히는 것은 **정형구를 쓴 경계뿐**이라 이 수는 하한이다 — 위 실물 사례부터가
+     *   "Oeyvind was his name." 로 시작해 이 규칙에 안 걸린다.
+     */
+    test: (b) => storySeam(b),
   },
   {
     id: 'share-chrome',
