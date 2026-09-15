@@ -43,18 +43,18 @@ import "./globals.css";
 //    전체 CSS(= 한글 unicode-range 포함)를 쓰는 경로다.
 // ═══════════════════════════════════════════════════════════════════════════
 
-/** UI·본문 — 한글과 라틴을 한 벌로. 이전 `--font-display`(Plus Jakarta) 자리를 물려받는다. */
-const fontDisplay = IBM_Plex_Sans_KR({
+/**
+ * UI·본문 — 한글과 라틴을 한 벌로. 이전 `--font-display`(Plus Jakarta) 자리를 물려받는다.
+ *
+ * ⚠️ **한 번만 선언한다.** 처음에는 `--font-display` 와 `--font-body` 를 각각
+ *    `IBM_Plex_Sans_KR({...})` 로 선언했는데, `next/font` 는 호출마다 별도 페이스를 만들어
+ *    **같은 글꼴을 두 번 내려받는다**(실측 2026-09-16: `/pricing` 폰트 요청 37건 · 373KB).
+ *    같은 글꼴을 가리키는 변수가 둘 필요할 뿐이지 페이스가 둘 필요한 게 아니다 —
+ *    `variable` 하나로 선언하고 두 번째 이름은 CSS 에서 별칭으로 잇는다(globals.css).
+ */
+const fontUI = IBM_Plex_Sans_KR({
   weight: ["300", "400", "500", "600", "700"],
   variable: "--font-display",
-  display: "swap",
-  preload: false,
-});
-
-/** 본문 — display 와 같은 글꼴을 가리킨다. 역할이 같은 두 벌을 둘 이유가 없다. */
-const fontBody = IBM_Plex_Sans_KR({
-  weight: ["300", "400", "500", "600"],
-  variable: "--font-body",
   display: "swap",
   preload: false,
 });
@@ -132,7 +132,7 @@ export default function RootLayout({
   return (
     <html
       lang="ko"
-      className={`${fontDisplay.variable} ${fontBody.variable} ${fontKoDisplay.variable} ${fontSerif.variable} ${fontMono.variable}`}
+      className={`${fontUI.variable} ${fontKoDisplay.variable} ${fontSerif.variable} ${fontMono.variable}`}
       suppressHydrationWarning
     >
       <head>
