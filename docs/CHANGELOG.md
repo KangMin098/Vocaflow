@@ -62,6 +62,15 @@
   주묵과 헷갈리지 않게 붉은 쪽이 아니라 자주 쪽으로 뺐다.
   예외(변경 금지): 아케이드 · PairFlip · SpellForge 패널 · WordBlitz 정글 · 만화 표지 장르색.
   ⚠️ canvas 는 `var()` 를 못 읽는다(조용히 검정으로 그린다) — `echo/PitchVisualizer` 만 실제 hex.
+- **글꼴 교체가 터뜨린 배치 9곳** — 한글 UI 글꼴이 OS 기본 고딕보다 넓어지자 원래 아슬아슬하던
+  자리에서 **한글이 한 줄에 한 글자씩 세로로 섰다**(/settings · /dashboard · /my/words ·
+  /spellforge/play). 타입체크도 테스트도 못 잡는다 — 화면은 멀쩡히 뜬다.
+  → 계측기에 **M6 「세로로 선 글자」** 축을 붙여 68 라우트 전수로 찾아 **9 → 0**.
+  `SegmentControl` 주석은 2026-08-25 에 이미 "짧은 라벨은 폭이 43px" 이라고 적고 있었다 —
+  경계를 알고 있었고 글꼴이 넓어지자 넘었다.
+- `/spellforge/play` 의 **한국어 뜻이 Lora 로 조판**되고 있었다(`font-english`). Lora 에는 한글이
+  없으니 OS 기본꼴로 떨어진다 — CLAUDE.md 「한글에 Lora」 금지 항목이고 그 화면에서 가장 큰
+  한국어였다. → `font-editorial`. M1 92.9% → 100%.
 - 회귀 `learning-tone.test.ts` **18 → 24**. 변이 3종(주묵을 오답 경로에 · SRS 에 원색 빨강 ·
   `preload:false` 삭제) **전부 잡히는 것 확인**. 계측기 2종 신규
   (`scripts/design/capture-learner.mjs` · `scripts/design/measure-identity.mjs`).
