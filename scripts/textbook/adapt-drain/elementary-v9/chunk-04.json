@@ -1,0 +1,260 @@
+[
+  {
+    "adapted_from_id": "01e16cd2-3308-438b-ac72-c23e14995a90",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 20,
+      "outside_pct_max": 38.6,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "The Coming Wave; Or, The Hidden Treasure of High Rock (발췌)",
+    "source_feed": "gutenberg",
+    "source_license": "public_domain",
+    "source_v_level": 5,
+    "source_url": "https://www.gutenberg.org/ebooks/23773",
+    "source_text": "The western extremity of the village extended nearly to the high cliffs on the sea-shore, and the situation was very romantic and picturesque. The fishing was the best in the bay, and the rocks were very attractive to people from the city. The harbor had deep water at any time of tide. For a summer residence, the only disadvantage was the want of suitable hotels or boarding-houses. Of the former there were two, of the most homely and primitive character, and not many of the inhabitants who had houses suitable for city people were willing to take boarders. John Carter pulled his passenger across the harbor, and walked with him to the Cliff House, near the headlong steeps which bounded the village on the west. He introduced him to Peter Bennington, the landlord, and told his story for him.",
+    "teachable_new_words": {
+      "teachable": 10,
+      "outside": 31,
+      "pct": 32.3
+    },
+    "title": "",
+    "text": ""
+  },
+  {
+    "adapted_from_id": "0b9ab76c-47b8-4e50-be1a-64bb348a0716",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 20,
+      "outside_pct_max": 38.6,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "Fifty-Two Stories For Girls (발췌)",
+    "source_feed": "gutenberg",
+    "source_license": "public_domain",
+    "source_v_level": 4,
+    "source_url": "https://www.gutenberg.org/ebooks/25948",
+    "source_text": "A light! a number of lights. They're moving--moving up. They've reached the spot where we met the shepherd who told us of the two ways. A shout--a hail--loud and long continued, as though a lot of people are calling together. Hurrah! We're saved. The farmer has turned out a rescue party to find and save us. Hurrah! Gathering all my strength--all I have left--I answer the hail. Smith joins me as well as he can. Once, twice, thrice we shout. We catch the distant cry that tells us we have been heard. For a minute the lights are stationary. Then--their bearers sending up another great hail as though to tell us they know where we are and are coming--we see the lanterns flashing forward up the track which leads above our heads, and then round to the Eagles' Home. Mr. Griffiths, who knows the hills as well as he knows his own farm lands, has told them where we are from the direction of our frantic voices.",
+    "teachable_new_words": {
+      "teachable": 5,
+      "outside": 36,
+      "pct": 13.9
+    },
+    "title": "",
+    "text": ""
+  },
+  {
+    "adapted_from_id": "10fc4af0-27ed-40ea-afb1-08c71217cfe5",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 20,
+      "outside_pct_max": 38.6,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "Mansfield Park (발췌)",
+    "source_feed": "gutenberg",
+    "source_license": "public_domain",
+    "source_v_level": 4,
+    "source_url": "https://www.gutenberg.org/ebooks/141",
+    "source_text": "There was, indeed, so deep a blush over Fanny’s face at that moment as might warrant strong suspicion in a predisposed mind. “Excellent creature! I will not tease you. Everything shall take its course. But, dear Fanny, you must allow that you were not so absolutely unprepared to have the question asked as your cousin fancies. It is not possible but that you must have had some thoughts on the subject, some surmises as to what might be. You must have seen that he was trying to please you by every attention in his power. Was not he devoted to you at the ball? And then before the ball, the necklace! Oh! you received it just as it was meant. You were as conscious as heart could desire. I remember it perfectly.”",
+    "teachable_new_words": {
+      "teachable": 8,
+      "outside": 24,
+      "pct": 33.3
+    },
+    "title": "",
+    "text": ""
+  },
+  {
+    "adapted_from_id": "01ecd7f7-aa78-43ae-b7f7-de16b4e0a916",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 20,
+      "outside_pct_max": 38.6,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "A Book of Myths (발췌)",
+    "source_feed": "gutenberg",
+    "source_license": "public_domain",
+    "source_v_level": 5,
+    "source_url": "https://www.gutenberg.org/ebooks/22693",
+    "source_text": "As a martyr walks to death, so did she walk. And when the yellow light fell upon the form of him who lay there, still she gazed steadily. And, lo, before her she saw the form of him who had ever been the ideal of her dreams. Love himself, incarnate Love, perfect in beauty and in all else was he whom her sisters had told her was a monster--he, of whom the oracle had said that neither gods nor men could resist him. For a moment of perfect happiness she gazed upon his beauty. Then he turned in his sleep, and smiled, and stretched out his arms to find the one of his love. And Psyche started, and, starting, shook the lamp; and from it fell a drop of burning oil on the white shoulder of Eros. At once he awoke, and with piteous, pitying eyes looked in those of Psyche. And when he spoke, his words were like daggers that pierced deep into her soul. He told her all that had been, all that might have been. Had she only had faith and patience to wait, an immortal life should have been hers.",
+    "teachable_new_words": {
+      "teachable": 12,
+      "outside": 36,
+      "pct": 33.3
+    },
+    "title": "",
+    "text": ""
+  },
+  {
+    "adapted_from_id": "6b8a5f7b-262b-4936-bbdd-c27c97fb1d64",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 20,
+      "outside_pct_max": 38.6,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "‘Kitchen-Table’ Is a Type of Politics",
+    "source_feed": "voa",
+    "source_license": "public_domain",
+    "source_v_level": 4,
+    "source_url": "https://learningenglish.voanews.com/a/what-are-kitchen-table-politics-/7953635.html",
+    "source_text": "And now, Words and Their Stories, from VOA Learning English.\nOn this program we explore words and expressions in the English language. We give examples and notes on usage.\nToday we talk about different kinds of politics.\nWe start with kitchen-table politics. The kitchen is often considered the hub, or center, of the home. It is where we gather to not only share a meal but to talk about the events of the day. We often discuss issues of importance with our family and friends around the dining room table.\nSo, kitchen-table issues are those that affect individuals and their families daily. A family might discuss these issues at the kitchen table during mealtimes.\nRising gas and food prices are two good examples of kitchen-table politics. These issues affect decisions we make day to day. They are sometimes also called dinner-table politics. Or we could describe them as bread-and-butter issues.\nMerriam Webster dictionary defines bread-and-butter issues as “being as basic as the earning of one's livelihood.” The online Cambridge Dictionary defines a bread-and-butter issue as “a subject or problem that relates directly to most people's needs and interests.”\nFor example, affordable food prices and availability of good healthcare are the kinds of bread-and-butter political issues that people vote on.\nThe noun bread and butter means a way of making a living. For example, for a creative writer, her ideas are her bread and butter.\nSo, bread-and-butter political issues deal with our ability to provide for the needs of ourselves and our families.\nNext, let’s talk about green politics. These political issues deal with caring for the natural environment. Green politics can cover ideas such as environmental sustainability, recycling, and threats to wildlife. The natural world is central to green politics.\nIdentity politics is more personal. This term means that a person’s political views are formed by their experiences and understanding of themselves. Things like gender, age, social and economic position, and religious belief can inform identity politics.\nFinally, we come to gotcha politics. This type of politics is centered on damaging opponents through public accusations of wrongdoing or misbehavior. Gotcha politics often involves investigation into the private lives, past and present, of politicians in search of negative information.\nIn gotcha politics, “Gotcha” is short for “I got you,” meaning, “I caught you!”\nAnd that's the end of this Words and Their Stories.\nUntil next time, I’m Anna Matteo.\nAnna Matteo wrote this story for VOA Learning English.\n______________________________________________________\ndine -v. to eat dinner\ndinner -n. the main meal of the day\nbasic -adj. of, relating to, or forming the base or essence\nlivelihood -n. means of support\naffordable -adj. having a cost that is not too high\nsustainability -n. of, relating to, or being a method of harvesting or using a resource so that the resource is not depleted or permanently damaged\nrecycling -n. to process (something, such as liquid body waste, glass, or cans) in order to regain material for human use\ngender -n. the behavioral, cultural, or psychological traits typically associated with one sex\nnegative -adj. not positive or helpful",
+    "teachable_new_words": {
+      "teachable": 37,
+      "outside": 102,
+      "pct": 36.3
+    },
+    "title": "",
+    "text": ""
+  },
+  {
+    "adapted_from_id": "020c8ff7-da7a-43e9-a4c8-e6e63595057a",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 20,
+      "outside_pct_max": 38.6,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "Bilateral regulation of EGFR activity and local PI(4,5)P2 dynamics in mammalian cells observed with superresolution microscopy",
+    "source_feed": "elife",
+    "source_license": "cc_by",
+    "source_v_level": 6,
+    "source_url": "https://elifesciences.org/articles/101652",
+    "source_text": "Residing on the surface of cells are proteins called receptors, which bind to external molecules. Once activated, receptors undergo various changes that allow them to relay the signal to other components inside the cell that can alter the cell’s behavior.\n\nOne such protein is the epidermal growth factor receptor (or EGFR for short), which helps regulate cell division and development. When molecules bind to an EGFR, this causes the receptor to attach to another EGFR in the membrane to form a dimer. This dimerization is crucial as it allows the two receptors to add chemicals known as phosphates to each other, which recruit additional proteins that relay the activation signal to downstream targets inside the cell.\n\nStudies have shown that a lipid which sits within the cell membrane, called PI(4,5)P2, helps stabilize the EGFR dimer and aid its activation. However, it is not fully understood exactly how PI(4,5)P2 achieves this.\n\nTo investigate, Abe et al. used a super-resolution microscope that can visualize single molecules to examine how PI(4,5)P2 lipids are distributed around the receptor. This revealed that EGFR and PI(4,5)P2 overlap one another to form structures termed ‘nanodomains’ before the receptor is stimulated. Further experiments showed that the nanodomains promote dimerization and activation of EGFRs. They also provide a surface for downstream molecules to dock on to, making it easier for them to relay signals into the cell.\n\nAbe et al. found that once an EGFR has been stimulated, PI(4,5)P2 is broken down by downstream molecules. This results in fewer nanodomains and induces a process that deactivates the signaling pathway.\n\nThe findings of Abe et al. suggest that PI(4,5)P2 enhances EGFR signaling by forming nanodomains which are then dissolved once the receptor has been activated. This aligns with previous studies showing lipids in the cell membrane influence the behavior of receptors similar to EGFRs.\n\nThe gene for EGFR, and the receptor itself, have both been shown to display abnormal activity in various human cancers. In the future, the work of Abe et al. may provide new insights into how nanodomains influence this irregular signaling, potentially aiding researchers in discovering new cancer treatments.",
+    "teachable_new_words": {
+      "teachable": 13,
+      "outside": 69,
+      "pct": 18.8
+    },
+    "title": "",
+    "text": ""
+  }
+]

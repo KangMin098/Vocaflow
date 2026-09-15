@@ -55,7 +55,7 @@ export function Pagination({ textId, currentPage, totalPages }: PaginationProps)
       <button
         onClick={() => goTo(currentPage - 1)}
         disabled={currentPage <= 1}
-        className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3.5 py-2 font-display text-[13px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:border-[var(--p)] hover:bg-[var(--bg)] hover:text-[var(--t1)] hover:shadow-[var(--sh-sm)] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-[var(--bd)] disabled:hover:bg-[var(--bg2)] disabled:hover:text-[var(--t2)] disabled:hover:shadow-none"
+        className="inline-flex items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-2 font-display text-[13px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:border-[var(--p)] hover:bg-[var(--bg)] hover:text-[var(--t1)] hover:shadow-[var(--sh-sm)] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-[var(--bd)] disabled:hover:bg-[var(--bg2)] disabled:hover:text-[var(--t2)] disabled:hover:shadow-none"
       >
         <ChevronLeft size={14} strokeWidth={2} aria-hidden="true" />
         <span>이전</span>
@@ -65,7 +65,7 @@ export function Pagination({ textId, currentPage, totalPages }: PaginationProps)
         {pageNumbers.map((p, i) => {
           if (p === 'gap') {
             return (
-              <span key={`gap-${i}`} className="px-1 font-display font-[700] text-[var(--t4)]">
+              <span key={`gap-${i}`} className="px-1 font-display font-[700] text-[var(--t2)]">
                 ⋯
               </span>
             )
@@ -90,7 +90,7 @@ export function Pagination({ textId, currentPage, totalPages }: PaginationProps)
       <button
         onClick={() => goTo(currentPage + 1)}
         disabled={currentPage >= totalPages}
-        className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3.5 py-2 font-display text-[13px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:border-[var(--p)] hover:bg-[var(--bg)] hover:text-[var(--t1)] hover:shadow-[var(--sh-sm)] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-[var(--bd)] disabled:hover:bg-[var(--bg2)] disabled:hover:text-[var(--t2)] disabled:hover:shadow-none"
+        className="inline-flex items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-2 font-display text-[13px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:border-[var(--p)] hover:bg-[var(--bg)] hover:text-[var(--t1)] hover:shadow-[var(--sh-sm)] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-[var(--bd)] disabled:hover:bg-[var(--bg2)] disabled:hover:text-[var(--t2)] disabled:hover:shadow-none"
       >
         <span>다음</span>
         <ChevronRight size={14} strokeWidth={2} aria-hidden="true" />

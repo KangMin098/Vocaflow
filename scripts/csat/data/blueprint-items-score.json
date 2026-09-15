@@ -1,0 +1,1639 @@
+{
+ "scope": "수능 14개년 대역(듣기는 대본 7개년) · 10~90 분위",
+ "caveat": "양식 일치의 증거일 뿐 정답성의 증거가 아니다 (P10.18: 어휘 유사도의 정답 적중 27.3%, 기저 20%)",
+ "typesWithItem": 37,
+ "denominator": 37,
+ "fullPass": 37,
+ "axisOk": 185,
+ "axisTotal": 185,
+ "rows": [
+  {
+   "type": "L-RESPONSE",
+   "has": true,
+   "no": 13,
+   "points": 3,
+   "answer": 2,
+   "words": 136,
+   "inBand": 5,
+   "axisN": 5,
+   "axes": {
+    "chars": {
+     "v": 695,
+     "lo": 181,
+     "hi": 756,
+     "ok": true
+    },
+    "words": {
+     "v": 136,
+     "lo": 38,
+     "hi": 146,
+     "ok": true
+    },
+    "sentLen": {
+     "v": 6.476,
+     "lo": 5.92,
+     "hi": 8.833,
+     "ok": true
+    },
+    "wordLen": {
+     "v": 3.949,
+     "lo": 3.196,
+     "hi": 4.037,
+     "ok": true
+    },
+    "ttr": {
+     "v": 0.61,
+     "lo": 0.579,
+     "hi": 0.891,
+     "ok": true
+    }
+   },
+   "viol": [],
+   "pass": true
+  },
+  {
+   "type": "L-PURPOSE",
+   "has": true,
+   "no": 1,
+   "points": 2,
+   "answer": 2,
+   "words": 106,
+   "inBand": 5,
+   "axisN": 5,
+   "axes": {
+    "chars": {
+     "v": 583,
+     "lo": 551,
+     "hi": 648,
+     "ok": true
+    },
+    "words": {
+     "v": 106,
+     "lo": 98,
+     "hi": 121,
+     "ok": true
+    },
+    "sentLen": {
+     "v": 11.778,
+     "lo": 10.167,
+     "hi": 12.333,
+     "ok": true
+    },
+    "wordLen": {
+     "v": 4.368,
+     "lo": 4.082,
+     "hi": 4.532,
+     "ok": true
+    },
+    "ttr": {
+     "v": 0.689,
+     "lo": 0.636,
+     "hi": 0.694,
+     "ok": true
+    }
+   },
+   "viol": [],
+   "pass": true
+  },
+  {
+   "type": "L-OPINION",
+   "has": true,
+   "no": 2,
+   "points": 2,
+   "answer": 1,
+   "words": 144,
+   "inBand": 5,
+   "axisN": 5,
+   "axes": {
+    "chars": {
+     "v": 702,
+     "lo": 635,
+     "hi": 746,
+     "ok": true
+    },
+    "words": {
+     "v": 144,
+     "lo": 125,
+     "hi": 144,
+     "ok": true
+    },
+    "sentLen": {
+     "v": 7.2,
+     "lo": 6.5,
+     "hi": 7.947,
+     "ok": true
+    },
+    "wordLen": {
+     "v": 3.722,
+     "lo": 3.701,
+     "hi": 4.238,
+     "ok": true
+    },
+    "ttr": {
+     "v": 0.597,
+     "lo": 0.584,
+     "hi": 0.646,
+     "ok": true
+    }
+   },
+   "viol": [],
+   "pass": true
+  },
+  {
+   "type": "L-RELATION",
+   "has": true,
+   "no": 3,
+   "points": 2,
+   "answer": 3,
+   "words": 147,
+   "inBand": 5,
+   "axisN": 5,
+   "axes": {
+    "chars": {
+     "v": 727,
+     "lo": 717,
+     "hi": 803,
+     "ok": true
+    },
+    "words": {
+     "v": 147,
+     "lo": 136,
+     "hi": 147,
+     "ok": true
+    },
+    "sentLen": {
+     "v": 6.682,
+     "lo": 6.125,
+     "hi": 7.158,
+     "ok": true
+    },
+    "wordLen": {
+     "v": 3.782,
+     "lo": 3.764,
+     "hi": 4.485,
+     "ok": true
+    },
+    "ttr": {
+     "v": 0.626,
+     "lo": 0.611,
+     "hi": 0.714,
+     "ok": true
+    }
+   },
+   "viol": [],
+   "pass": true
+  },
+  {
+   "type": "L-MAIN",
+   "has": true,
+   "no": 3,
+   "points": 2,
+   "answer": 5,
+   "words": 120,
+   "inBand": 5,
+   "axisN": 5,
+   "axes": {
+    "chars": {
+     "v": 634,
+     "lo": 551,
+     "hi": 648,
+     "ok": true
+    },
+    "words": {
+     "v": 120,
+     "lo": 98,
+     "hi": 121,
+     "ok": true
+    },
+    "sentLen": {
+     "v": 10.909,
+     "lo": 10.167,
+     "hi": 12.333,
+     "ok": true
+    },
+    "wordLen": {
+     "v": 4.15,
+     "lo": 4.082,
+     "hi": 4.532,
+     "ok": true
+    },
+    "ttr": {
+     "v": 0.675,
+     "lo": 0.636,
+     "hi": 0.694,
+     "ok": true
+    }
+   },
+   "viol": [],
+   "pass": true
+  },
+  {
+   "type": "L-PICTURE",
+   "has": true,
+   "no": 4,
+   "points": 2,
+   "answer": 5,
+   "words": 146,
+   "inBand": 5,
+   "axisN": 5,
+   "axes": {
+    "chars": {
+     "v": 723,
+     "lo": 648,
+     "hi": 763,
+     "ok": true
+    },
+    "words": {
+     "v": 146,
+     "lo": 129,
+     "hi": 148,
+     "ok": true
+    },
+    "sentLen": {
+     "v": 6.348,
+     "lo": 5.481,
+     "hi": 6.45,
+     "ok": true
+    },
+    "wordLen": {
+     "v": 3.781,
+     "lo": 3.581,
+     "hi": 4.118,
+     "ok": true
+    },
+    "ttr": {
+     "v": 0.61,
+     "lo": 0.607,
+     "hi": 0.701,
+     "ok": true
+    }
+   },
+   "viol": [],
+   "pass": true
+  },
+  {
+   "type": "L-TODO",
+   "has": true,
+   "no": 5,
+   "points": 2,
+   "answer": 1,
+   "words": 129,
+   "inBand": 5,
+   "axisN": 5,
+   "axes": {
+    "chars": {
+     "v": 623,
+     "lo": 576,
+     "hi": 690,
+     "ok": true
+    },
+    "words": {
+     "v": 129,
+     "lo": 118,
+     "hi": 136,
+     "ok": true
+    },
+    "sentLen": {
+     "v": 6.45,
+     "lo": 5.542,
+     "hi": 6.619,
+     "ok": true
+    },
+    "wordLen": {
+     "v": 3.667,
+     "lo": 3.618,
+     "hi": 3.947,
+     "ok": true
+    },
+    "ttr": {
+     "v": 0.581,
+     "lo": 0.581,
+     "hi": 0.654,
+     "ok": true
+    }
+   },
+   "viol": [],
+   "pass": true
+  },
+  {
+   "type": "L-MONEY",
+   "has": true,
+   "no": 6,
+   "points": 3,
+   "answer": 2,
+   "words": 136,
+   "inBand": 5,
+   "axisN": 5,
+   "axes": {
+    "chars": {
+     "v": 710,
+     "lo": 658,
+     "hi": 754,
+     "ok": true
+    },
+    "words": {
+     "v": 136,
+     "lo": 130,
+     "hi": 141,
+     "ok": true
+    },
+    "sentLen": {
+     "v": 6.476,
+     "lo": 5.107,
+     "hi": 6.476,
+     "ok": true
+    },
+    "wordLen": {
+     "v": 4.044,
+     "lo": 3.671,
+     "hi": 4.093,
+     "ok": true
+    },
+    "ttr": {
+     "v": 0.566,
+     "lo": 0.559,
+     "hi": 0.643,
+     "ok": true
+    }
+   },
+   "viol": [],
+   "pass": true
+  },
+  {
+   "type": "L-REASON",
+   "has": true,
+   "no": 7,
+   "points": 2,
+   "answer": 5,
+   "words": 129,
+   "inBand": 5,
+   "axisN": 5,
+   "axes": {
+    "chars": {
+     "v": 649,
+     "lo": 576,
+     "hi": 690,
+     "ok": true
+    },
+    "words": {
+     "v": 129,
+     "lo": 118,
+     "hi": 136,
+     "ok": true
+    },
+    "sentLen": {
+     "v": 6.143,
+     "lo": 5.542,
+     "hi": 6.619,
+     "ok": true
+    },
+    "wordLen": {
+     "v": 3.868,
+     "lo": 3.618,
+     "hi": 3.947,
+     "ok": true
+    },
+    "ttr": {
+     "v": 0.581,
+     "lo": 0.581,
+     "hi": 0.654,
+     "ok": true
+    }
+   },
+   "viol": [],
+   "pass": true
+  },
+  {
+   "type": "L-NOTMENTION",
+   "has": true,
+   "no": 8,
+   "points": 2,
+   "answer": 4,
+   "words": 123,
+   "inBand": 5,
+   "axisN": 5,
+   "axes": {
+    "chars": {
+     "v": 634,
+     "lo": 604,
+     "hi": 749,
+     "ok": true
+    },
+    "words": {
+     "v": 123,
+     "lo": 113,
+     "hi": 141,
+     "ok": true
+    },
+    "sentLen": {
+     "v": 6.474,
+     "lo": 5.25,
+     "hi": 6.714,
+     "ok": true
+    },
+    "wordLen": {
+     "v": 3.984,
+     "lo": 3.924,
+     "hi": 4.143,
+     "ok": true
+    },
+    "ttr": {
+     "v": 0.659,
+     "lo": 0.625,
+     "hi": 0.726,
+     "ok": true
+    }
+   },
+   "viol": [],
+   "pass": true
+  },
+  {
+   "type": "L-ANNOUNCE",
+   "has": true,
+   "no": 9,
+   "points": 2,
+   "answer": 4,
+   "words": 127,
+   "inBand": 5,
+   "axisN": 5,
+   "axes": {
+    "chars": {
+     "v": 704,
+     "lo": 686,
+     "hi": 730,
+     "ok": true
+    },
+    "words": {
+     "v": 127,
+     "lo": 117,
+     "hi": 133,
+     "ok": true
+    },
+    "sentLen": {
+     "v": 10.583,
+     "lo": 7.938,
+     "hi": 12.5,
+     "ok": true
+    },
+    "wordLen": {
+     "v": 4.449,
+     "lo": 4.105,
+     "hi": 4.608,
+     "ok": true
+    },
+    "ttr": {
+     "v": 0.701,
+     "lo": 0.639,
+     "hi": 0.733,
+     "ok": true
+    }
+   },
+   "viol": [],
+   "pass": true
+  },
+  {
+   "type": "L-TABLE",
+   "has": true,
+   "no": 10,
+   "points": 2,
+   "answer": 4,
+   "words": 126,
+   "inBand": 5,
+   "axisN": 5,
+   "axes": {
+    "chars": {
+     "v": 635,
+     "lo": 633,
+     "hi": 749,
+     "ok": true
+    },
+    "words": {
+     "v": 126,
+     "lo": 123,
+     "hi": 149,
+     "ok": true
+    },
+    "sentLen": {
+     "v": 6,
+     "lo": 5.783,
+     "hi": 6.773,
+     "ok": true
+    },
+    "wordLen": {
+     "v": 3.873,
+     "lo": 3.504,
+     "hi": 3.967,
+     "ok": true
+    },
+    "ttr": {
+     "v": 0.619,
+     "lo": 0.609,
+     "hi": 0.727,
+     "ok": true
+    }
+   },
+   "viol": [],
+   "pass": true
+  },
+  {
+   "type": "L-SITUATION",
+   "has": true,
+   "no": 15,
+   "points": 3,
+   "answer": 1,
+   "words": 127,
+   "inBand": 5,
+   "axisN": 5,
+   "axes": {
+    "chars": {
+     "v": 682,
+     "lo": 663,
+     "hi": 734,
+     "ok": true
+    },
+    "words": {
+     "v": 127,
+     "lo": 119,
+     "hi": 129,
+     "ok": true
+    },
+    "sentLen": {
+     "v": 12.7,
+     "lo": 11.182,
+     "hi": 13.556,
+     "ok": true
+    },
+    "wordLen": {
+     "v": 4.291,
+     "lo": 4.101,
+     "hi": 4.589,
+     "ok": true
+    },
+    "ttr": {
+     "v": 0.606,
+     "lo": 0.581,
+     "hi": 0.623,
+     "ok": true
+    }
+   },
+   "viol": [],
+   "pass": true
+  },
+  {
+   "type": "L-SET-TOPIC",
+   "has": true,
+   "no": 16,
+   "points": 2,
+   "answer": 5,
+   "words": 173,
+   "inBand": 5,
+   "axisN": 5,
+   "axes": {
+    "chars": {
+     "v": 1002,
+     "lo": 921,
+     "hi": 1086,
+     "ok": true
+    },
+    "words": {
+     "v": 173,
+     "lo": 161,
+     "hi": 177,
+     "ok": true
+    },
+    "sentLen": {
+     "v": 13.308,
+     "lo": 9.895,
+     "hi": 14,
+     "ok": true
+    },
+    "wordLen": {
+     "v": 4.676,
+     "lo": 4.543,
+     "hi": 4.863,
+     "ok": true
+    },
+    "ttr": {
+     "v": 0.682,
+     "lo": 0.609,
+     "hi": 0.683,
+     "ok": true
+    }
+   },
+   "viol": [],
+   "pass": true
+  },
+  {
+   "type": "L-SET-NOT",
+   "has": true,
+   "no": 17,
+   "points": 2,
+   "answer": 4,
+   "words": 173,
+   "inBand": 5,
+   "axisN": 5,
+   "axes": {
+    "chars": {
+     "v": 1002,
+     "lo": 921,
+     "hi": 1086,
+     "ok": true
+    },
+    "words": {
+     "v": 173,
+     "lo": 161,
+     "hi": 177,
+     "ok": true
+    },
+    "sentLen": {
+     "v": 13.308,
+     "lo": 9.895,
+     "hi": 14,
+     "ok": true
+    },
+    "wordLen": {
+     "v": 4.676,
+     "lo": 4.543,
+     "hi": 4.863,
+     "ok": true
+    },
+    "ttr": {
+     "v": 0.682,
+     "lo": 0.609,
+     "hi": 0.683,
+     "ok": true
+    }
+   },
+   "viol": [],
+   "pass": true
+  },
+  {
+   "type": "R-GIST",
+   "has": true,
+   "no": 22,
+   "points": 2,
+   "answer": 1,
+   "words": 153,
+   "inBand": 5,
+   "axisN": 5,
+   "axes": {
+    "chars": {
+     "v": 867,
+     "lo": 698,
+     "hi": 1060,
+     "ok": true
+    },
+    "words": {
+     "v": 153,
+     "lo": 130,
+     "hi": 172,
+     "ok": true
+    },
+    "sentLen": {
+     "v": 21.857,
+     "lo": 17.4,
+     "hi": 24.833,
+     "ok": true
+    },
+    "wordLen": {
+     "v": 4.588,
+     "lo": 4.029,
+     "hi": 5.618,
+     "ok": true
+    },
+    "ttr": {
+     "v": 0.66,
+     "lo": 0.599,
+     "hi": 0.7,
+     "ok": true
+    }
+   },
+   "viol": [],
+   "pass": true
+  },
+  {
+   "type": "R-PURPOSE",
+   "has": true,
+   "no": 18,
+   "points": 2,
+   "answer": 3,
+   "words": 120,
+   "inBand": 5,
+   "axisN": 5,
+   "axes": {
+    "chars": {
+     "v": 659,
+     "lo": 613,
+     "hi": 698,
+     "ok": true
+    },
+    "words": {
+     "v": 120,
+     "lo": 105,
+     "hi": 120,
+     "ok": true
+    },
+    "sentLen": {
+     "v": 10.909,
+     "lo": 10.182,
+     "hi": 14.75,
+     "ok": true
+    },
+    "wordLen": {
+     "v": 4.4,
+     "lo": 4.292,
+     "hi": 4.712,
+     "ok": true
+    },
+    "ttr": {
+     "v": 0.708,
+     "lo": 0.658,
+     "hi": 0.723,
+     "ok": true
+    }
+   },
+   "viol": [],
+   "pass": true
+  },
+  {
+   "type": "R-MOOD",
+   "has": true,
+   "no": 19,
+   "points": 2,
+   "answer": 1,
+   "words": 131,
+   "inBand": 5,
+   "axisN": 5,
+   "axes": {
+    "chars": {
+     "v": 658,
+     "lo": 627,
+     "hi": 750,
+     "ok": true
+    },
+    "words": {
+     "v": 131,
+     "lo": 122,
+     "hi": 133,
+     "ok": true
+    },
+    "sentLen": {
+     "v": 10.917,
+     "lo": 10.333,
+     "hi": 15.375,
+     "ok": true
+    },
+    "wordLen": {
+     "v": 3.931,
+     "lo": 3.903,
+     "hi": 4.559,
+     "ok": true
+    },
+    "ttr": {
+     "v": 0.649,
+     "lo": 0.625,
+     "hi": 0.699,
+     "ok": true
+    }
+   },
+   "viol": [],
+   "pass": true
+  },
+  {
+   "type": "R-TOPIC",
+   "has": true,
+   "no": 23,
+   "points": 2,
+   "answer": 2,
+   "words": 162,
+   "inBand": 5,
+   "axisN": 5,
+   "axes": {
+    "chars": {
+     "v": 956,
+     "lo": 672,
+     "hi": 1033,
+     "ok": true
+    },
+    "words": {
+     "v": 162,
+     "lo": 121,
+     "hi": 168,
+     "ok": true
+    },
+    "sentLen": {
+     "v": 18,
+     "lo": 17.625,
+     "hi": 25.167,
+     "ok": true
+    },
+    "wordLen": {
+     "v": 4.815,
+     "lo": 4.691,
+     "hi": 5.607,
+     "ok": true
+    },
+    "ttr": {
+     "v": 0.673,
+     "lo": 0.519,
+     "hi": 0.694,
+     "ok": true
+    }
+   },
+   "viol": [],
+   "pass": true
+  },
+  {
+   "type": "R-CLAIM",
+   "has": true,
+   "no": 20,
+   "points": 2,
+   "answer": 5,
+   "words": 143,
+   "inBand": 5,
+   "axisN": 5,
+   "axes": {
+    "chars": {
+     "v": 783,
+     "lo": 774,
+     "hi": 896,
+     "ok": true
+    },
+    "words": {
+     "v": 143,
+     "lo": 126,
+     "hi": 149,
+     "ok": true
+    },
+    "sentLen": {
+     "v": 17.875,
+     "lo": 15.556,
+     "hi": 27.5,
+     "ok": true
+    },
+    "wordLen": {
+     "v": 4.392,
+     "lo": 4.349,
+     "hi": 4.972,
+     "ok": true
+    },
+    "ttr": {
+     "v": 0.692,
+     "lo": 0.564,
+     "hi": 0.694,
+     "ok": true
+    }
+   },
+   "viol": [],
+   "pass": true
+  },
+  {
+   "type": "R-IMPLY",
+   "has": true,
+   "no": 21,
+   "points": 3,
+   "answer": 2,
+   "words": 163,
+   "inBand": 5,
+   "axisN": 5,
+   "axes": {
+    "chars": {
+     "v": 945,
+     "lo": 924,
+     "hi": 1026,
+     "ok": true
+    },
+    "words": {
+     "v": 163,
+     "lo": 145,
+     "hi": 171,
+     "ok": true
+    },
+    "sentLen": {
+     "v": 20.375,
+     "lo": 14,
+     "hi": 23.714,
+     "ok": true
+    },
+    "wordLen": {
+     "v": 4.73,
+     "lo": 4.681,
+     "hi": 4.958,
+     "ok": true
+    },
+    "ttr": {
+     "v": 0.577,
+     "lo": 0.575,
+     "hi": 0.703,
+     "ok": true
+    }
+   },
+   "viol": [],
+   "pass": true
+  },
+  {
+   "type": "R-TITLE",
+   "has": true,
+   "no": 24,
+   "points": 2,
+   "answer": 5,
+   "words": 177,
+   "inBand": 5,
+   "axisN": 5,
+   "axes": {
+    "chars": {
+     "v": 1035,
+     "lo": 753,
+     "hi": 1108,
+     "ok": true
+    },
+    "words": {
+     "v": 177,
+     "lo": 132,
+     "hi": 179,
+     "ok": true
+    },
+    "sentLen": {
+     "v": 19.667,
+     "lo": 16.273,
+     "hi": 26.833,
+     "ok": true
+    },
+    "wordLen": {
+     "v": 4.763,
+     "lo": 4.184,
+     "hi": 5.667,
+     "ok": true
+    },
+    "ttr": {
+     "v": 0.655,
+     "lo": 0.544,
+     "hi": 0.687,
+     "ok": true
+    }
+   },
+   "viol": [],
+   "pass": true
+  },
+  {
+   "type": "R-CHART",
+   "has": true,
+   "no": 25,
+   "points": 2,
+   "answer": 3,
+   "words": 120,
+   "inBand": 5,
+   "axisN": 5,
+   "axes": {
+    "chars": {
+     "v": 723,
+     "lo": 702,
+     "hi": 909,
+     "ok": true
+    },
+    "words": {
+     "v": 120,
+     "lo": 107,
+     "hi": 145,
+     "ok": true
+    },
+    "sentLen": {
+     "v": 20,
+     "lo": 13,
+     "hi": 24.571,
+     "ok": true
+    },
+    "wordLen": {
+     "v": 4.475,
+     "lo": 4.197,
+     "hi": 4.953,
+     "ok": true
+    },
+    "ttr": {
+     "v": 0.358,
+     "lo": 0.318,
+     "hi": 0.482,
+     "ok": true
+    }
+   },
+   "viol": [],
+   "pass": true
+  },
+  {
+   "type": "R-FACT",
+   "has": true,
+   "no": 26,
+   "points": 2,
+   "answer": 3,
+   "words": 149,
+   "inBand": 5,
+   "axisN": 5,
+   "axes": {
+    "chars": {
+     "v": 844,
+     "lo": 674,
+     "hi": 891,
+     "ok": true
+    },
+    "words": {
+     "v": 149,
+     "lo": 110,
+     "hi": 150,
+     "ok": true
+    },
+    "sentLen": {
+     "v": 13.545,
+     "lo": 12.5,
+     "hi": 17.375,
+     "ok": true
+    },
+    "wordLen": {
+     "v": 4.584,
+     "lo": 4.4,
+     "hi": 4.96,
+     "ok": true
+    },
+    "ttr": {
+     "v": 0.678,
+     "lo": 0.588,
+     "hi": 0.682,
+     "ok": true
+    }
+   },
+   "viol": [],
+   "pass": true
+  },
+  {
+   "type": "R-NOTICE",
+   "has": true,
+   "no": 27,
+   "points": 2,
+   "answer": 4,
+   "words": 96,
+   "inBand": 5,
+   "axisN": 5,
+   "axes": {
+    "chars": {
+     "v": 573,
+     "lo": 426,
+     "hi": 643,
+     "ok": true
+    },
+    "words": {
+     "v": 96,
+     "lo": 68,
+     "hi": 99,
+     "ok": true
+    },
+    "sentLen": {
+     "v": 10.667,
+     "lo": 8.5,
+     "hi": 16.5,
+     "ok": true
+    },
+    "wordLen": {
+     "v": 4.854,
+     "lo": 4.414,
+     "hi": 5.44,
+     "ok": true
+    },
+    "ttr": {
+     "v": 0.76,
+     "lo": 0.688,
+     "hi": 0.818,
+     "ok": true
+    }
+   },
+   "viol": [],
+   "pass": true
+  },
+  {
+   "type": "R-GRAMMAR",
+   "has": true,
+   "no": 29,
+   "points": 2,
+   "answer": 3,
+   "words": 154,
+   "inBand": 5,
+   "axisN": 5,
+   "axes": {
+    "chars": {
+     "v": 921,
+     "lo": 878,
+     "hi": 1082,
+     "ok": true
+    },
+    "words": {
+     "v": 154,
+     "lo": 146,
+     "hi": 166,
+     "ok": true
+    },
+    "sentLen": {
+     "v": 22,
+     "lo": 14.909,
+     "hi": 24.833,
+     "ok": true
+    },
+    "wordLen": {
+     "v": 4.831,
+     "lo": 4.554,
+     "hi": 5.343,
+     "ok": true
+    },
+    "ttr": {
+     "v": 0.682,
+     "lo": 0.601,
+     "hi": 0.703,
+     "ok": true
+    }
+   },
+   "viol": [],
+   "pass": true
+  },
+  {
+   "type": "R-VOCAB",
+   "has": true,
+   "no": 30,
+   "points": 3,
+   "answer": 4,
+   "words": 158,
+   "inBand": 5,
+   "axisN": 5,
+   "axes": {
+    "chars": {
+     "v": 934,
+     "lo": 749,
+     "hi": 980,
+     "ok": true
+    },
+    "words": {
+     "v": 158,
+     "lo": 124,
+     "hi": 160,
+     "ok": true
+    },
+    "sentLen": {
+     "v": 19.75,
+     "lo": 15.2,
+     "hi": 22.857,
+     "ok": true
+    },
+    "wordLen": {
+     "v": 4.759,
+     "lo": 4.633,
+     "hi": 5.344,
+     "ok": true
+    },
+    "ttr": {
+     "v": 0.684,
+     "lo": 0.616,
+     "hi": 0.711,
+     "ok": true
+    }
+   },
+   "viol": [],
+   "pass": true
+  },
+  {
+   "type": "R-BLANK",
+   "has": true,
+   "no": 32,
+   "points": 3,
+   "answer": 2,
+   "words": 136,
+   "inBand": 5,
+   "axisN": 5,
+   "axes": {
+    "chars": {
+     "v": 807,
+     "lo": 802,
+     "hi": 997,
+     "ok": true
+    },
+    "words": {
+     "v": 136,
+     "lo": 124,
+     "hi": 163,
+     "ok": true
+    },
+    "sentLen": {
+     "v": 17,
+     "lo": 16,
+     "hi": 26.667,
+     "ok": true
+    },
+    "wordLen": {
+     "v": 4.787,
+     "lo": 4.692,
+     "hi": 5.356,
+     "ok": true
+    },
+    "ttr": {
+     "v": 0.676,
+     "lo": 0.589,
+     "hi": 0.705,
+     "ok": true
+    }
+   },
+   "viol": [],
+   "pass": true
+  },
+  {
+   "type": "R-ORDER",
+   "has": true,
+   "no": 37,
+   "points": 3,
+   "answer": 2,
+   "words": 177,
+   "inBand": 5,
+   "axisN": 5,
+   "axes": {
+    "chars": {
+     "v": 1059,
+     "lo": 865,
+     "hi": 1072,
+     "ok": true
+    },
+    "words": {
+     "v": 177,
+     "lo": 146,
+     "hi": 180,
+     "ok": true
+    },
+    "sentLen": {
+     "v": 17.7,
+     "lo": 15.5,
+     "hi": 23.571,
+     "ok": true
+    },
+    "wordLen": {
+     "v": 4.898,
+     "lo": 4.354,
+     "hi": 5.642,
+     "ok": true
+    },
+    "ttr": {
+     "v": 0.672,
+     "lo": 0.532,
+     "hi": 0.683,
+     "ok": true
+    }
+   },
+   "viol": [],
+   "pass": true
+  },
+  {
+   "type": "R-IRRELEVANT",
+   "has": true,
+   "no": 35,
+   "points": 2,
+   "answer": 4,
+   "words": 143,
+   "inBand": 5,
+   "axisN": 5,
+   "axes": {
+    "chars": {
+     "v": 867,
+     "lo": 361,
+     "hi": 1039,
+     "ok": true
+    },
+    "words": {
+     "v": 143,
+     "lo": 51,
+     "hi": 174,
+     "ok": true
+    },
+    "sentLen": {
+     "v": 17.875,
+     "lo": 17,
+     "hi": 24.857,
+     "ok": true
+    },
+    "wordLen": {
+     "v": 4.909,
+     "lo": 4.447,
+     "hi": 5.203,
+     "ok": true
+    },
+    "ttr": {
+     "v": 0.706,
+     "lo": 0.617,
+     "hi": 0.723,
+     "ok": true
+    }
+   },
+   "viol": [],
+   "pass": true
+  },
+  {
+   "type": "R-INSERT",
+   "has": true,
+   "no": 38,
+   "points": 2,
+   "answer": 5,
+   "words": 167,
+   "inBand": 5,
+   "axisN": 5,
+   "axes": {
+    "chars": {
+     "v": 975,
+     "lo": 956,
+     "hi": 1172,
+     "ok": true
+    },
+    "words": {
+     "v": 167,
+     "lo": 156,
+     "hi": 174,
+     "ok": true
+    },
+    "sentLen": {
+     "v": 23.857,
+     "lo": 17.667,
+     "hi": 24.286,
+     "ok": true
+    },
+    "wordLen": {
+     "v": 4.569,
+     "lo": 4.524,
+     "hi": 5.393,
+     "ok": true
+    },
+    "ttr": {
+     "v": 0.563,
+     "lo": 0.512,
+     "hi": 0.688,
+     "ok": true
+    }
+   },
+   "viol": [],
+   "pass": true
+  },
+  {
+   "type": "R-SUMMARY",
+   "has": true,
+   "no": 40,
+   "points": 2,
+   "answer": 1,
+   "words": 186,
+   "inBand": 5,
+   "axisN": 5,
+   "axes": {
+    "chars": {
+     "v": 1160,
+     "lo": 1138,
+     "hi": 1264,
+     "ok": true
+    },
+    "words": {
+     "v": 186,
+     "lo": 175,
+     "hi": 198,
+     "ok": true
+    },
+    "sentLen": {
+     "v": 20.667,
+     "lo": 18.6,
+     "hi": 24.75,
+     "ok": true
+    },
+    "wordLen": {
+     "v": 5.129,
+     "lo": 4.929,
+     "hi": 5.53,
+     "ok": true
+    },
+    "ttr": {
+     "v": 0.586,
+     "lo": 0.554,
+     "hi": 0.657,
+     "ok": true
+    }
+   },
+   "viol": [],
+   "pass": true
+  },
+  {
+   "type": "X-TITLE",
+   "has": true,
+   "no": 41,
+   "points": 2,
+   "answer": 1,
+   "words": 250,
+   "inBand": 5,
+   "axisN": 5,
+   "axes": {
+    "chars": {
+     "v": 1412,
+     "lo": 1379,
+     "hi": 1574,
+     "ok": true
+    },
+    "words": {
+     "v": 250,
+     "lo": 228,
+     "hi": 259,
+     "ok": true
+    },
+    "sentLen": {
+     "v": 20.833,
+     "lo": 17.067,
+     "hi": 27.5,
+     "ok": true
+    },
+    "wordLen": {
+     "v": 4.532,
+     "lo": 4.209,
+     "hi": 5.126,
+     "ok": true
+    },
+    "ttr": {
+     "v": 0.528,
+     "lo": 0.508,
+     "hi": 0.6,
+     "ok": true
+    }
+   },
+   "viol": [],
+   "pass": true
+  },
+  {
+   "type": "X-VOCAB",
+   "has": true,
+   "no": 42,
+   "points": 3,
+   "answer": 4,
+   "words": 250,
+   "inBand": 5,
+   "axisN": 5,
+   "axes": {
+    "chars": {
+     "v": 1412,
+     "lo": 1387,
+     "hi": 1632,
+     "ok": true
+    },
+    "words": {
+     "v": 250,
+     "lo": 228,
+     "hi": 259,
+     "ok": true
+    },
+    "sentLen": {
+     "v": 20.833,
+     "lo": 20,
+     "hi": 29.5,
+     "ok": true
+    },
+    "wordLen": {
+     "v": 4.532,
+     "lo": 4.434,
+     "hi": 5.131,
+     "ok": true
+    },
+    "ttr": {
+     "v": 0.528,
+     "lo": 0.496,
+     "hi": 0.64,
+     "ok": true
+    }
+   },
+   "viol": [],
+   "pass": true
+  },
+  {
+   "type": "X-ORDER",
+   "has": true,
+   "no": 43,
+   "points": 2,
+   "answer": 3,
+   "words": 364,
+   "inBand": 5,
+   "axisN": 5,
+   "axes": {
+    "chars": {
+     "v": 1948,
+     "lo": 1786,
+     "hi": 2152,
+     "ok": true
+    },
+    "words": {
+     "v": 364,
+     "lo": 315,
+     "hi": 397,
+     "ok": true
+    },
+    "sentLen": {
+     "v": 14.56,
+     "lo": 12.071,
+     "hi": 16.955,
+     "ok": true
+    },
+    "wordLen": {
+     "v": 4.203,
+     "lo": 4.156,
+     "hi": 4.506,
+     "ok": true
+    },
+    "ttr": {
+     "v": 0.53,
+     "lo": 0.512,
+     "hi": 0.574,
+     "ok": true
+    }
+   },
+   "viol": [],
+   "pass": true
+  },
+  {
+   "type": "X-REFER",
+   "has": true,
+   "no": 44,
+   "points": 2,
+   "answer": 2,
+   "words": 364,
+   "inBand": 5,
+   "axisN": 5,
+   "axes": {
+    "chars": {
+     "v": 1948,
+     "lo": 1786,
+     "hi": 2152,
+     "ok": true
+    },
+    "words": {
+     "v": 364,
+     "lo": 315,
+     "hi": 397,
+     "ok": true
+    },
+    "sentLen": {
+     "v": 14.56,
+     "lo": 12.071,
+     "hi": 16.955,
+     "ok": true
+    },
+    "wordLen": {
+     "v": 4.203,
+     "lo": 4.156,
+     "hi": 4.506,
+     "ok": true
+    },
+    "ttr": {
+     "v": 0.53,
+     "lo": 0.512,
+     "hi": 0.574,
+     "ok": true
+    }
+   },
+   "viol": [],
+   "pass": true
+  },
+  {
+   "type": "X-FACT",
+   "has": true,
+   "no": 45,
+   "points": 2,
+   "answer": 3,
+   "words": 364,
+   "inBand": 5,
+   "axisN": 5,
+   "axes": {
+    "chars": {
+     "v": 1948,
+     "lo": 1786,
+     "hi": 2152,
+     "ok": true
+    },
+    "words": {
+     "v": 364,
+     "lo": 315,
+     "hi": 397,
+     "ok": true
+    },
+    "sentLen": {
+     "v": 14.56,
+     "lo": 12.071,
+     "hi": 16.955,
+     "ok": true
+    },
+    "wordLen": {
+     "v": 4.203,
+     "lo": 4.156,
+     "hi": 4.506,
+     "ok": true
+    },
+    "ttr": {
+     "v": 0.53,
+     "lo": 0.512,
+     "hi": 0.574,
+     "ok": true
+    }
+   },
+   "viol": [],
+   "pass": true
+  }
+ ]
+}

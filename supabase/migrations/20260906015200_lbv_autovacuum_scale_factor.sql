@@ -1,0 +1,23 @@
+-- library_book_vocabularies 의 autovacuum 임계를 표 크기에 맞춘다.
+--
+-- ── 왜 필요한가 (실측 2026-09-06) ──────────────────────────────────
+-- 이 표는 vacuum 이력이 0 이다 (vacuum_count 0 · autovacuum_count 0).
+-- 그 결과 visibility map 이 5.0% 밖에 안 차 있어(relallvisible 3,638 / relpages 72,225),
+-- 방금 넣은 idx_lbv_word_lemma 가 Index Only Scan 을 타고도 Heap Fetches 844 를 치른다
+-- (53,668ms -> 7,375ms 로 줄었지만 남은 7.4초를 이 heap fetch 가 다 먹는다).
+--
+-- 직접 VACUUM 은 statement_timeout(120s) 안에 못 끝낸다 — 블록 62,001/72,225 에서 취소됐다.
+-- autovacuum 은 statement_timeout 이 없으므로 거기에 맡기는 것이 맞다.
+--
+-- 기본 scale_factor 0.2 는 1,680,356 행짜리 표에 과하다:
+--   임계 = 50 + 0.2 x 1,680,356 = 336,121  (죽은 튜플 33만개를 쌓아둬야 도는 설정)
+--   현재 dead_tup 310,635 로 아직 못 미쳐 영영 안 돌고 있었다.
+-- 0.05 로 낮추면:
+--   임계 = 50 + 0.05 x 1,680,356 = 84,068  -> 즉시 발화, naptime(60s) 안에 집어간다.
+--
+-- 되돌리기: ALTER TABLE public.library_book_vocabularies
+--             RESET (autovacuum_vacuum_scale_factor);
+--
+-- csat_dcp_items 가 이미 같은 방식으로 표별 autovacuum reloptions 를 갖고 있다.
+ALTER TABLE public.library_book_vocabularies
+  SET (autovacuum_vacuum_scale_factor = 0.05);

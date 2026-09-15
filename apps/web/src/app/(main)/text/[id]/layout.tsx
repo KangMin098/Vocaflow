@@ -5,6 +5,7 @@
 // layout.tsx가 RSC로 실 데이터 fetch + status 자동 변경 + BookContext 띠 주입
 // + TextContentProvider로 본문 데이터 client에 전달 (Phase 11.6).
 
+import { notFound } from 'next/navigation';
 import type { ReactNode } from 'react';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { createClient } from '@/lib/supabase/server';
@@ -95,10 +96,15 @@ export default async function TextWorkspaceLayout({ children, params }: LayoutPr
 
   const text = textData as TextContentRow | null;
 
+  // 1-B. 없는 id · 삭제된 챕터 · 남의 텍스트 → 404.
+  //   예전에는 여기서 provider 없이 children 만 내보냈고, page.tsx 가 그 빈자리를
+  //   「위대한 개츠비」 목업으로 메웠다 — 학습자는 남의 본문을 자기 챕터로 읽었고,
+  //   그 화면의 모든 링크가 존재하지 않는 id 로 이어졌다.
+  //   형제 라우트 echo·comic 은 처음부터 notFound() 였다. 답을 하나로 맞춘다.
+  if (!text) notFound();
+
   // 2. G2 — status 자동 변경 (멱등)
-  if (text) {
-    await markChapterStarted(text.id);
-  }
+  await markChapterStarted(text.id);
 
   // 2-B. Phase 2A — library chapter 진입 시 학습 활성화 (멱등)
   //      personalizeChapter (reading_sessions) + adaptiveExtractWords (vocabularies)
@@ -336,12 +342,32 @@ export default async function TextWorkspaceLayout({ children, params }: LayoutPr
         //   VOA=PD 파생 자유 · preview==publish==workspace 동일 어휘로 본문 enrich.
         const { data: swData } = await client
           .from('shared_words')
-          .select('word, meaning_ko, part_of_speech, cefr_level, example_en, source_sentence')
+          .select('word, lemma, meaning_ko, part_of_speech, cefr_level, example_en, source_sentence')
           .eq('set_id', set.id)
           .order('sort_order', { ascending: true });
+        // 단어별 V-Level — shared_words 에는 없으므로 사전에서 한 번에 조회한다.
+        //
+        // ⚠️ **표면형이 아니라 원형으로 찾는다.** 단어장 표제어는 글에 나온 그대로라
+        //   `abated` · `flushed` 같은 굴절형이 섞여 있는데, 사전은 원형만 갖고 있다.
+        //   표면형으로 찾으면 그 낱말들의 v_level 이 조용히 null 이 되고, 아래 주석대로
+        //   학습자가 "지금 단계보다 어려운 단어" 를 알 방법이 사라진다.
+        //   실측(2026-08-22): 표면형 조회 적중 76,789/81,409(94.3%) → 원형 조회 **81,409(100%)**.
+        const lemmaOf = (w: { word: string; lemma?: string | null }) =>
+          (w.lemma?.trim() || w.word).toLowerCase();
+        const swWords = ((swData ?? []) as Array<{ word: string; lemma: string | null }>).map(lemmaOf);
+        const { data: vRows } = swWords.length
+          ? await client.from('shared_dictionary').select('word, v_level').in('word', swWords)
+          : { data: [] };
+        const vByWord = new Map(
+          ((vRows ?? []) as Array<{ word: string; v_level: number | null }>).map((r) => [
+            r.word,
+            r.v_level,
+          ]),
+        );
         chapterWords = (
           (swData ?? []) as Array<{
             word: string;
+            lemma: string | null;
             meaning_ko: string | null;
             part_of_speech: string | null;
             cefr_level: string | null;
@@ -349,11 +375,15 @@ export default async function TextWorkspaceLayout({ children, params }: LayoutPr
             source_sentence: string | null;
           }>
         ).map((w) => ({
-          word: w.word,
+          // 본문 주석에 보이는 표제어도 원형으로 맞춘다 — 여기만 표면형이면
+          // 학습자가 단어장에서 본 낱말과 본문 주석의 낱말이 달라진다.
+          word: w.lemma?.trim() || w.word,
           meaning: w.meaning_ko,
           pos: w.part_of_speech,
           cefrLevel: w.cefr_level,
-          vLevel: null,
+          // 아티클 단어장은 shared_words 에서 오는데 v_level 컬럼이 없다 — 사전에서 채운다.
+          //   이 값이 없으면 학습자가 '지금 단계보다 어려운 단어' 를 알 방법이 없다.
+          vLevel: vByWord.get(lemmaOf(w)) ?? null,
           exampleSentence: w.source_sentence ?? w.example_en,
           baseLearningValue: 0,
           frequencyInChapter: 0,
@@ -363,9 +393,8 @@ export default async function TextWorkspaceLayout({ children, params }: LayoutPr
   }
 
   // 5. Phase 11.6 + 11.7 — TextContentProvider 데이터 정합
-  let textContentValue: TextContentData | null = null;
-
-  if (text) {
+  //   text 는 위에서 notFound() 로 걸러졌으므로 항상 존재한다 — 목업 폴백이 없다.
+  const textContentValue: TextContentData = (() => {
     const content = text.content ?? '';
     const paragraphOffsets = text.paragraph_offsets ?? [];
 
@@ -380,7 +409,7 @@ export default async function TextWorkspaceLayout({ children, params }: LayoutPr
       totalPages: 1,
     };
 
-    textContentValue = {
+    return {
       textId: text.id,
       libraryBookId: text.library_book_id,
       chapterIdx: text.chapter_idx,
@@ -407,15 +436,11 @@ export default async function TextWorkspaceLayout({ children, params }: LayoutPr
       text: partial,
       paragraphs: buildParagraphsFromContent(content, paragraphOffsets, chapterWords),
     };
-  }
+  })();
 
   // Phase 11.16 — WorkspaceBookContext 호출 제거. UnifiedHeader가 page.tsx에서
   // TextContentProvider 데이터 + 페이지 인터랙티브 state를 합쳐 단일 sticky header로 렌더.
-  const body = <>{children}</>;
-
-  return textContentValue ? (
-    <TextContentProvider value={textContentValue}>{body}</TextContentProvider>
-  ) : (
-    body
+  return (
+    <TextContentProvider value={textContentValue}>{children}</TextContentProvider>
   );
 }

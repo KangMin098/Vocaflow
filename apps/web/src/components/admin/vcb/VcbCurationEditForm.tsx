@@ -115,7 +115,7 @@ export function VcbCurationEditForm({
           <select
             value={cefr}
             onChange={(e) => setCefr(e.target.value as Cefr | '')}
-            className="w-full px-3 py-2 rounded-[var(--r-md)] border text-sm"
+            className="min-h-[44px] w-full px-3 py-2 rounded-[var(--r-md)] border text-sm"
             style={inputStyle}
           >
             <option value="">미지정</option>
@@ -154,7 +154,7 @@ export function VcbCurationEditForm({
                   }
                   setDefsKo(next)
                 }}
-                className="px-2 py-2 rounded-[var(--r-md)] border text-sm shrink-0"
+                className="min-h-[44px] px-2 py-2 rounded-[var(--r-md)] border text-sm shrink-0"
                 style={inputStyle}
               >
                 {REGISTERS.map((r) => (
@@ -320,7 +320,7 @@ export function VcbCurationEditForm({
           type="button"
           onClick={handleSave}
           disabled={isSaving || !koValid}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-[var(--r-md)] font-display text-sm font-medium disabled:opacity-50"
+          className="min-h-[44px] inline-flex items-center gap-2 px-4 py-2 rounded-[var(--r-md)] font-display text-sm font-medium disabled:opacity-50"
           style={{ background: 'var(--admin-strong)', color: 'var(--ti)' }}
         >
           <Check className="w-4 h-4" />
@@ -330,7 +330,7 @@ export function VcbCurationEditForm({
           type="button"
           onClick={onCancel}
           disabled={isSaving}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-[var(--r-md)] font-display text-sm font-medium border disabled:opacity-50"
+          className="min-h-[44px] inline-flex items-center gap-2 px-4 py-2 rounded-[var(--r-md)] font-display text-sm font-medium border disabled:opacity-50"
           style={{ color: 'var(--t1)', borderColor: 'var(--bd)', background: 'var(--bg)' }}
         >
           <X className="w-4 h-4" />
@@ -380,7 +380,7 @@ function AddBtn({ label, onClick }: { label: string; onClick: () => void }) {
     <button
       type="button"
       onClick={onClick}
-      className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-[var(--r-sm)] font-display text-xs border transition-colors"
+      className="min-h-[44px] inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-sm)] font-display text-xs border transition-colors"
       style={{ color: 'var(--t2)', borderColor: 'var(--bd)', background: 'var(--bg2)' }}
     >
       <Plus className="w-3.5 h-3.5" />
@@ -396,7 +396,7 @@ function RemoveBtn({ onClick, disabled }: { onClick: () => void; disabled?: bool
       onClick={onClick}
       disabled={disabled}
       aria-label="삭제"
-      className="inline-flex items-center justify-center w-8 h-8 rounded-[var(--r-sm)] shrink-0 disabled:opacity-30 transition-colors"
+      className={/* 탭 영역 44px — 시각 크기(h-8, 32px)와 다르다 */ "relative after:absolute after:left-1/2 after:top-1/2 after:h-11 after:w-11 after:-translate-x-1/2 after:-translate-y-1/2 inline-flex items-center justify-center w-8 h-8 rounded-[var(--r-sm)] shrink-0 disabled:opacity-30 transition-colors"}
       style={{ color: 'var(--error)', background: 'var(--bg2)' }}
     >
       <Trash2 className="w-4 h-4" />

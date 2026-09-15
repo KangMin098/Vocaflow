@@ -33,7 +33,7 @@ export function RegisterBadge({ register, className = '' }: RegisterBadgeProps) 
 
   return (
     <span
-      className={`inline-flex h-[18px] items-center gap-[3px] rounded-[3px] px-[5px] font-display text-[10px] font-[700] tracking-[0.02em] ${className}`}
+      className={`inline-flex h-[18px] items-center gap-[4px] rounded-[3px] px-[4px] font-display text-[10px] font-[700] tracking-[0.02em] ${className}`}
       style={{ backgroundColor: meta.bg, color: meta.text }}
       aria-label={`어휘 등급: ${meta.label}`}
       title={

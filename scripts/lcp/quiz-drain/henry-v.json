@@ -1,0 +1,637 @@
+{
+  "book": {
+    "id": "2db5c18d-5594-45cd-94d5-29e7db339e77",
+    "title": "Henry V",
+    "book_v_level": 8
+  },
+  "target_per_chapter": 8,
+  "chapters": [
+    {
+      "chapter_idx": 2,
+      "chapter_title": "Scene I",
+      "word_count": 786,
+      "chapter_v_level": 7,
+      "content": "CHAPTER 2. Scene I\u001fAct I\u001ehttps://standardebooks.org/ebooks/william-shakespeare/henry-v/text/act-1#scene-1-1\n\nLondon. An antechamber in the King's palace.\n\nEnter the Archbishop of Canterbury, and the Bishop of Ely.\n\nCanterbury\n\nMy lord, I'll tell you; that self bill is urged,\n\nWhich in the eleventh year of the last king's reign\n\nWas like, and had indeed against us pass'd,\n\nBut that the scambling and unquiet time\n\nDid push it out of farther question.\n\nEly But how, my lord, shall we resist it now?\n\nCanterbury\n\nIt must be thought on. If it pass against us,\n\nWe lose the better half of our possession:\n\nFor all the temporal lands which men devout\n\nBy testament have given to the church\n\nWould they strip from us; being valued thus:\n\nAs much as would maintain, to the King's honour,\n\nFull fifteen earls and fifteen hundred knights,\n\nSix thousand and two hundred good esquires;\n\nAnd, to relief of lazars and weak age,\n\nOf indigent faint souls past corporal toil,\n\nA hundred almshouses right well supplied;\n\nAnd to the coffers of the King beside,\n\nA thousand pounds by the year: thus runs the bill.\n\nEly This would drink deep.\n\nCanterbury\n'Twould drink the cup and all.\n\nEly But what prevention?\n\nCanterbury The King is full of grace and fair regard.\n\nEly And a true lover of the holy church.\n\nCanterbury\n\nThe courses of his youth promised it not.\n\nThe breath no sooner left his father's body,\n\nBut that his wildness, mortified in him,\n\nSeem'd to die too; yea, at that very moment\n\nConsideration, like an angel, came\n\nAnd whipped the offending Adam out of him,\n\nLeaving his body as a paradise,\n\nTo envelope and contain celestial spirits.\n\nNever was such a sudden scholar made;\n\nNever came reformation in a flood,\n\nWith such a heady currance, scouring faults;\n\nNor never Hydra-headed wilfulness\n\nSo soon did lose his seat and all at once\n\nAs in this king.\n\nEly We are blessed in the change.\n\nCanterbury\n\nHear him but reason in divinity,\n\nAnd, all-admiring with an inward wish\n\nYou would desire the king were made a prelate:\n\nHear him debate of commonwealth affairs,\n\nYou would say it hath been all in all his study:\n\nList his discourse of war, and you shall hear\n\nA fearful battle render'd you in music:\n\nTurn him to any cause of policy,\n\nThe Gordian knot of it he will unloose,\n\nFamiliar as his garter: that, when he speaks,\n\nThe air, a charter'd libertine, is still,\n\nAnd the mute wonder lurketh in men's ears,\n\nTo steal his sweet and honey'd sentences;\n\nSo that the art and practic part of life\n\nMust be the mistress to this theoric:\n\nWhich is a wonder how his grace should glean it,\n\nSince his addiction was to courses vain,\n\nHis companies unletter'd, rude and shallow,\n\nHis hours fill'd up with riots, banquets sports,\n\nAnd never noted in him any study,\n\nAny retirement, any sequestration\n\nFrom open haunts and popularity.\n\nEly\n\nThe strawberry grows underneath the nettle\n\nAnd wholesome berries thrive and ripen best\n\nNeighbour'd by fruit of baser quality:\n\nAnd so the prince obscured his contemplation\n\nUnder the veil of wildness; which, no doubt,\n\nGrew like the summer grass, fastest by night,\n\nUnseen, yet crescive in his faculty.\n\nCanterbury\n\nIt must be so; for miracles are ceased;\n\nAnd therefore we must needs admit the means\n\nHow things are perfected.\n\nEly\n\nBut, my good lord,\n\nHow now for mitigation of this bill\n\nUrged by the commons? Doth his majesty\n\nIncline to it, or no?\n\nCanterbury\n\nHe seems indifferent,\n\nOr rather swaying more upon our part\n\nThan cherishing the exhibitors against us;\n\nFor I have made an offer to his majesty,\n\nUpon our spiritual convocation\n\nAnd in regard of causes now in hand,\n\nWhich I have open'd to his grace at large,\n\nAs touching France, to give a greater sum\n\nThan ever at one time the clergy yet\n\nDid to his predecessors part withal.\n\nEly How did this offer seem received, my lord?\n\nCanterbury\n\nWith good acceptance of his majesty;\n\nSave that there was not time enough to hear,\n\nAs I perceived his grace would fain have done,\n\nThe severals and unhidden passages\n\nOf his true titles to some certain dukedoms\n\nAnd generally to the crown and seat of France\n\nDerived from Edward, his great-grandfather.\n\nEly What was the impediment that broke this off?\n\nCanterbury\n\nThe French ambassador upon that instant\n\nCraved audience; and the hour, I think, is come\n\nTo give him hearing: is it four o'clock?\n\nEly It is.\n\nCanterbury\n\nThen go we in, to know his embassy;\n\nWhich I could with a ready guess declare,\n\nBefore the Frenchman speak a word of it.\n\nEly I'll wait upon you, and I long to hear it. Exeunt.",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "What bill alarms Canterbury and Ely?",
+          "questionKo": "캔터베리와 일리를 놀라게 한 법안은 무엇인가?",
+          "options": [
+            {
+              "text": "The same bill urged in the eleventh year of the last king’s reign, which would strip from the church all the temporal lands given it by testament.",
+              "textKo": "선왕 재위 11년에 발의됐던 그 법안 — 유언으로 교회에 바쳐진 세속 영지를 전부 빼앗는 법안."
+            },
+            {
+              "text": "A bill forbidding the clergy to advise the king on war.",
+              "textKo": "성직자가 전쟁에 관해 왕에게 조언하지 못하게 하는 법안."
+            },
+            {
+              "text": "A bill raising a tax on every parish in England.",
+              "textKo": "잉글랜드 모든 교구에 세금을 매기는 법안."
+            },
+            {
+              "text": "A bill to send English bishops to France.",
+              "textKo": "잉글랜드 주교들을 프랑스로 보내는 법안."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "For all the temporal lands which men devout By testament have given to the church Would they strip from us"
+        },
+        {
+          "type": "multiple",
+          "question": "What would those lands maintain, by Canterbury’s reckoning?",
+          "questionKo": "캔터베리의 계산으로 그 영지는 무엇을 유지할 수 있는가?",
+          "options": [
+            {
+              "text": "The whole English fleet for three years.",
+              "textKo": "잉글랜드 함대 전부를 3년간."
+            },
+            {
+              "text": "Fifteen earls, fifteen hundred knights, six thousand two hundred esquires, a hundred almshouses, and a thousand pounds a year to the King’s coffers.",
+              "textKo": "백작 15명, 기사 1,500명, 종자 6,200명, 구빈원 100채, 그리고 왕의 금고에 해마다 1,000파운드."
+            },
+            {
+              "text": "Half the standing army in the north.",
+              "textKo": "북부 상비군의 절반."
+            },
+            {
+              "text": "Every cathedral in England, twice over.",
+              "textKo": "잉글랜드의 모든 대성당을 두 번씩."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "Full fifteen earls and fifteen hundred knights, Six thousand and two hundred good esquires"
+        },
+        {
+          "type": "multiple",
+          "question": "How does Canterbury describe the change in the King at his father’s death?",
+          "questionKo": "캔터베리는 부왕이 죽던 때 왕에게 일어난 변화를 어떻게 말하는가?",
+          "options": [
+            {
+              "text": "That he grew colder and harder than his father had been.",
+              "textKo": "아버지보다 더 차갑고 완고해졌다고."
+            },
+            {
+              "text": "That the change came slowly, over several years.",
+              "textKo": "그 변화는 여러 해에 걸쳐 천천히 왔다고."
+            },
+            {
+              "text": "The breath no sooner left his father’s body but his wildness seemed to die too — consideration came like an angel and whipped the offending Adam out of him.",
+              "textKo": "부왕의 몸에서 숨이 떠나자마자 그의 방탕도 죽은 듯했다고 — 사려가 천사처럼 와서 그 안의 죄지은 아담을 채찍질해 몰아냈다고."
+            },
+            {
+              "text": "That only the bishops noticed any change at all.",
+              "textKo": "주교들만이 그 변화를 알아차렸다고."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "Consideration, like an angel, came And whipped the offending Adam out of him"
+        },
+        {
+          "type": "multiple",
+          "question": "How does Canterbury describe the King’s speech?",
+          "questionKo": "캔터베리는 왕의 말솜씨를 어떻게 묘사하는가?",
+          "options": [
+            {
+              "text": "That he speaks plainly, like a soldier, and never at length.",
+              "textKo": "병사처럼 꾸밈없이, 결코 길게 말하지 않는다고."
+            },
+            {
+              "text": "That he speaks only in council and never in public.",
+              "textKo": "오직 어전회의에서만 말하고 공개석상에서는 않는다고."
+            },
+            {
+              "text": "That his Latin is better than his English.",
+              "textKo": "영어보다 라틴어가 낫다고."
+            },
+            {
+              "text": "When he speaks, the air — a chartered libertine — is still, and mute wonder lurks in men’s ears to steal his honeyed sentences.",
+              "textKo": "그가 말하면 제멋대로인 공기조차 잠잠해지고, 말없는 경탄이 사람들 귀에 숨어 그 꿀 같은 문장을 훔친다고."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "The air, a charter’d libertine, is still"
+        },
+        {
+          "type": "multiple",
+          "question": "How does Ely explain the King’s hidden learning?",
+          "questionKo": "일리는 왕의 감춰진 학식을 어떻게 설명하는가?",
+          "options": [
+            {
+              "text": "The strawberry grows underneath the nettle — the prince obscured his contemplation under the veil of wildness, growing fastest by night, unseen.",
+              "textKo": "딸기는 쐐기풀 아래서 자란다고 — 왕자는 방탕이라는 장막 아래 사색을 감췄고, 보이지 않는 밤에 가장 빨리 자랐다고."
+            },
+            {
+              "text": "That he was secretly tutored by Canterbury himself.",
+              "textKo": "캔터베리가 몰래 가르쳤다고."
+            },
+            {
+              "text": "That he studied abroad for three years.",
+              "textKo": "외국에서 3년을 공부했다고."
+            },
+            {
+              "text": "That it is simply a miracle and cannot be explained.",
+              "textKo": "그저 기적이라 설명할 수 없다고."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "The strawberry grows underneath the nettle"
+        },
+        {
+          "type": "multiple",
+          "question": "What offer has Canterbury made to the King?",
+          "questionKo": "캔터베리가 왕에게 한 제안은?",
+          "options": [
+            {
+              "text": "To crown him in Paris if he wins the war.",
+              "textKo": "전쟁에 이기면 파리에서 대관식을 열어 주겠다는 것."
+            },
+            {
+              "text": "A greater sum from the spiritual convocation, touching France, than the clergy ever gave at one time to his predecessors.",
+              "textKo": "프랑스 문제와 관련해, 성직자단이 선대 왕들에게 한 번에 바친 어떤 액수보다 큰 돈을 종교회의에서 내겠다는 것."
+            },
+            {
+              "text": "To withdraw all church claims to English land.",
+              "textKo": "잉글랜드 땅에 대한 교회의 권리를 전부 포기하겠다는 것."
+            },
+            {
+              "text": "To send an embassy to the Pope on his behalf.",
+              "textKo": "그를 대신해 교황에게 사절을 보내겠다는 것."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "to give a greater sum Than ever at one time the clergy yet Did to his predecessors part withal"
+        },
+        {
+          "type": "multiple",
+          "question": "What broke off the King’s hearing of his titles to France?",
+          "questionKo": "프랑스에 대한 왕의 권리를 듣던 자리가 무엇 때문에 끊겼는가?",
+          "options": [
+            {
+              "text": "News arrived of a Scottish raid on the border.",
+              "textKo": "스코틀랜드가 국경을 침범했다는 소식이 왔다."
+            },
+            {
+              "text": "The King fell ill and withdrew.",
+              "textKo": "왕이 병이 나 물러갔다."
+            },
+            {
+              "text": "The French ambassador craved audience at that very instant.",
+              "textKo": "바로 그 순간 프랑스 대사가 알현을 청했다."
+            },
+            {
+              "text": "The commons demanded the bill be read first.",
+              "textKo": "평민원이 법안을 먼저 읽으라 요구했다."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "The French ambassador upon that instant Craved audience"
+        },
+        {
+          "type": "multiple",
+          "question": "From whom does Canterbury say Henry’s claim to France derives?",
+          "questionKo": "캔터베리는 헨리의 프랑스 권리가 누구에게서 유래한다고 하는가?",
+          "options": [
+            {
+              "text": "The Lady Lingare, daughter to Charlemain.",
+              "textKo": "샤를마뉴의 딸 링가레 부인."
+            },
+            {
+              "text": "King Pharamond, founder of the Salic law.",
+              "textKo": "살리카법의 창시자 파라몬드 왕."
+            },
+            {
+              "text": "His own father, who conquered Normandy.",
+              "textKo": "노르망디를 정복한 그의 아버지."
+            },
+            {
+              "text": "Edward, his great-grandfather — his true titles to certain dukedoms and generally to the crown and seat of France.",
+              "textKo": "증조부 에드워드 — 몇몇 공작령과 대체로 프랑스의 왕관과 왕좌에 대한 정당한 권리."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "Derived from Edward, his great-grandfather"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 3,
+      "chapter_title": "Scene II",
+      "word_count": 2500,
+      "chapter_v_level": 7,
+      "content": "CHAPTER 3. Scene II\u001fAct I\u001ehttps://standardebooks.org/ebooks/william-shakespeare/henry-v/text/act-1#scene-1-2\n\nThe same. The Presence chamber.\n\nEnter King Henry, Gloucester, Bedford, Exeter, Warwick, Westmoreland, and Attendants.\n\nKing Henry Where is my gracious Lord of Canterbury?\n\nExeter Not here in presence.\n\nKing Henry Send for him, good uncle.\n\nWestmoreland Shall we call in the ambassador, my liege?\n\nKing Henry\n\nNot yet, my cousin: we would be resolved,\n\nBefore we hear him, of some things of weight\n\nThat task our thoughts, concerning us and France.\n\nEnter the Archbishop of Canterbury and the Bishop of Ely.\n\nCanterbury\n\nGod and his angels guard your sacred throne\n\nAnd make you long become it!\n\nKing Henry\n\nSure, we thank you.\n\nMy learned lord, we pray you to proceed\n\nAnd justly and religiously unfold\n\nWhy the law Salique that they have in France\n\nOr should, or should not, bar us in our claim:\n\nAnd God forbid, my dear and faithful lord,\n\nThat you should fashion, wrest, or bow your reading,\n\nOr nicely charge your understanding soul\n\nWith opening titles miscreate, whose right\n\nSuits not in native colours with the truth;\n\nFor God doth know how many now in health\n\nShall drop their blood in approbation\n\nOf what your reverence shall incite us to.\n\nTherefore take heed how you impawn our person,\n\nHow you awake our sleeping sword of war:\n\nWe charge you, in the name of God, take heed;\n\nFor never two such kingdoms did contend\n\nWithout much fall of blood; whose guiltless drops\n\nAre every one a woe, a sore complaint\n\n'Gainst him whose wrongs gives edge unto the swords\n\nThat makes such waste in brief mortality.\n\nUnder this conjuration speak, my lord;\n\nFor we will hear, note and believe in heart\n\nThat what you speak is in your conscience wash'd\n\nAs pure as sin with baptism.\n\nCanterbury\n\nThen hear me, gracious sovereign, and you peers,\n\nThat owe yourselves, your lives and services\n\nTo this imperial throne. There is no bar\n\nTo make against your highness' claim to France\n\nBut this, which they produce from Pharamond,\n\n\"In terram Salicam mulieres ne succedant:\"\n\n\"No woman shall succeed in Salique land:\"\n\nWhich Salique land the French unjustly glose\n\nTo be the realm of France, and Pharamond\n\nThe founder of this law and female bar.\n\nYet their own authors faithfully affirm\n\nThat the land Salique is in Germany,\n\nBetween the floods of Sala and of Elbe;\n\nWhere Charles the Great, having subdued the Saxons,\n\nThere left behind and settled certain French;\n\nWho, holding in disdain the German women\n\nFor some dishonest manners of their life,\n\nEstablish'd then this law; to wit, no female\n\nShould be inheritrix in Salique land:\n\nWhich Salique, as I said, 'twixt Elbe and Sala,\n\nIs at this day in Germany call'd Meissen.\n\nThen doth it well appear the Salique law\n\nWas not devised for the realm of France;\n\nNor did the French possess the Salique land\n\nUntil four hundred one and twenty years\n\nAfter defunction of King Pharamond,\n\nIdly supposed the founder of this law;\n\nWho died within the year of our redemption\n\nFour hundred twenty-six; and Charles the Great\n\nSubdued the Saxons, and did seat the French\n\nBeyond the river Sala, in the year\n\nEight hundred five. Besides, their writers say,\n\nKing Pepin, which deposed Childeric,\n\nDid, as heir general, being descended\n\nOf Blithild, which was daughter to King Clothair,\n\nMake claim and title to the crown of France.\n\nHugh Capet also, who usurp'd the crown\n\nOf Charles the duke of Lorraine, sole heir male\n\nOf the true line and stock of Charles the Great,\n\nTo find his title with some shows of truth,\n\nThough, in pure truth, it was corrupt and naught,\n\nConvey'd himself as the heir to the Lady Lingare,\n\nDaughter to Charlemain, who was the son\n\nTo Lewis the emperor, and Lewis the son\n\nOf Charles the Great. Also King Lewis the Tenth,\n\nWho was sole heir to the usurper Capet,\n\nCould not keep quiet in his conscience,\n\nWearing the crown of France, till satisfied\n\nThat fair Queen Isabel, his grandmother,\n\nWas lineal of the Lady Ermengare,\n\nDaughter to Charles the foresaid duke of Lorraine:\n\nBy the which marriage the line of Charles the Great\n\nWas reunited to the crown of France.\n\nSo that, as clear as is the summer's sun,\n\nKing Pepin's title and Hugh Capet's claim,\n\nKing Lewis his satisfaction, all appear\n\nTo hold in right and title of the female:\n\nSo do the kings of France unto this day;\n\nHowbeit they would hold up this Salique law\n\nTo bar your highness claiming from the female,\n\nAnd rather choose to hide them in a net\n\nThan amply to imbar their crooked titles\n\nUsurp'd from you and your progenitors.\n\nKing Henry May I with right and conscience make this claim?\n\nCanterbury\n\nThe sin upon my head, dread sovereign!\n\nFor in the Book of Numbers is it writ,\n\nWhen the man dies, let the inheritance\n\nDescend unto the daughter. Gracious lord,\n\nStand for your own; unwind your bloody flag;\n\nLook back into your mighty ancestors:\n\nGo, my dread lord, to your great-grandsire's tomb,\n\nFrom whom you claim; invoke his warlike spirit,\n\nAnd your great-uncle's, Edward the Black Prince,\n\nWho on the French ground play'd a tragedy,\n\nMaking defeat on the full power of France,\n\nWhiles his most mighty father on a hill\n\nStood smiling to behold his lion's whelp\n\nForage in blood of French nobility.\n\nO noble English, that could entertain\n\nWith half their forces the full pride of France\n\nAnd let another half stand laughing by,\n\nAll out of work and cold for action!\n\nEly\n\nAwake remembrance of these valiant dead\n\nAnd with your puissant arm renew their feats:\n\nYou are their heir; you sit upon their throne;\n\nThe blood and courage that renowned them\n\nRuns in your veins; and my thrice-puissant liege\n\nIs in the very May-morn of his youth,\n\nRipe for exploits and mighty enterprises.\n\nExeter\n\nYour brother kings and monarchs of the earth\n\nDo all expect that you should rouse yourself,\n\nAs did the former lions of your blood.\n\nWestmoreland\n\nThey know your grace hath cause and means and might;\n\nSo hath your highness; never king of England\n\nHad nobles richer and more loyal subjects,\n\nWhose hearts have left their bodies here in England\n\nAnd lie pavilion'd in the fields of France.\n\nCanterbury\n\nO, let their bodies follow, my dear liege,\n\nWith blood and sword and fire to win your right;\n\nIn aid whereof we of the spiritualty\n\nWill raise your highness such a mighty sum\n\nAs never did the clergy at one time\n\nBring in to any of your ancestors.\n\nKing Henry\n\nWe must not only arm to invade the French,\n\nBut lay down our proportions to defend\n\nAgainst the Scot, who will make road upon us\n\nWith all advantages.\n\nCanterbury\n\nThey of those marches, gracious sovereign,\n\nShall be a wall sufficient to defend\n\nOur inland from the pilfering borderers.\n\nKing Henry\n\nWe do not mean the coursing snatchers only,\n\nBut fear the main intendment of the Scot,\n\nWho hath been still a giddy neighbour to us;\n\nFor you shall read that my great-grandfather\n\nNever went with his forces into France\n\nBut that the Scot on his unfurnish'd kingdom\n\nCame pouring, like the tide into a breach,\n\nWith ample and brim fullness of his force,\n\nGalling the gleaned land with hot assays,\n\nGirdling with grievous siege castles and towns;\n\nThat England, being empty of defence,\n\nHath shook and trembled at the ill neighbourhood.\n\nCanterbury\n\nShe hath been then more fear'd than harm'd, my liege;\n\nFor hear her but exampled by herself:\n\nWhen all her chivalry hath been in France\n\nAnd she a mourning widow of her nobles,\n\nShe hath herself not only well defended\n\nBut taken and impounded as a stray\n\nThe King of Scots; whom she did send to France,\n\nTo fill King Edward's fame with prisoner kings\n\nAnd make her chronicle as rich with praise\n\nAs is the ooze and bottom of the sea\n\nWith sunken wreck and sumless treasuries.\n\nWestmoreland\n\nBut there's a saying very old and true,\n\n\"If that you will France win,\n\nThen with Scotland first begin:\"\n\nFor once the eagle England being in prey,\n\nTo her unguarded nest the weasel Scot\n\nComes sneaking and so sucks her princely eggs,\n\nPlaying the mouse in absence of the cat,\n\nTo tear and havoc more than she can eat.\n\nExeter\n\nIt follows then the cat must stay at home:\n\nYet that is but a crush'd necessity,\n\nSince we have locks to safeguard necessaries,\n\nAnd pretty traps to catch the petty thieves.\n\nWhile that the armed hand doth fight abroad,\n\nThe advised head defends itself at home;\n\nFor government, though high and low and lower,\n\nPut into parts, doth keep in one consent,\n\nCongreeing in a full and natural close,\n\nLike music.\n\nCanterbury\n\nTherefore doth heaven divide\n\nThe state of man in divers functions,\n\nSetting endeavour in continual motion;\n\nTo which is fixed, as an aim or butt,\n\nObedience: for so work the honeybees,\n\nCreatures that by a rule in nature teach\n\nThe act of order to a peopled kingdom.\n\nThey have a king and officers of sorts;\n\nWhere some, like magistrates, correct at home,\n\nOthers, like merchants, venture trade abroad,\n\nOthers, like soldiers, armed in their stings,\n\nMake boot upon the summer's velvet buds,\n\nWhich pillage they with merry march bring home\n\nTo the tent-royal of their emperor;\n\nWho, busied in his majesty, surveys\n\nThe singing masons building roofs of gold,\n\nThe civil citizens kneading up the honey,\n\nThe poor mechanic porters crowding in\n\nTheir heavy burdens at his narrow gate,\n\nThe sad-eyed justice, with his surly hum,\n\nDelivering o'er to executors pale\n\nThe lazy yawning drone. I this infer,\n\nThat many things, having full reference\n\nTo one consent, may work contrariously:\n\nAs many arrows, loosed several ways,\n\nCome to one mark; as many ways meet in one town;\n\nAs many fresh streams meet in one salt sea;\n\nAs many lines close in the dial's centre;\n\nSo many a thousand actions, once afoot,\n\nEnd in one purpose, and be all well borne\n\nWithout defeat. Therefore to France, my liege.\n\nDivide your happy England into four;\n\nWhereof take you one quarter into France,\n\nAnd you withal shall make all Gallia shake.\n\nIf we, with thrice such powers left at home,\n\nCannot defend our own doors from the dog,\n\nLet us be worried and our nation lose\n\nThe name of hardiness and policy.\n\nKing Henry\n\nCall in the messengers sent from the Dauphin. Exeunt some Attendants.\n\nNow are we well resolved; and, by God's help,\n\nAnd yours, the noble sinews of our power,\n\nFrance being ours, we'll bend it to our awe,\n\nOr break it all to pieces: or there we'll sit,\n\nRuling in large and ample empery\n\nO'er France and all her almost kingly dukedoms,\n\nOr lay these bones in an unworthy urn,\n\nTombless, with no remembrance over them:\n\nEither our history shall with full mouth\n\nSpeak freely of our acts, or else our grave,\n\nLike Turkish mute, shall have a tongueless mouth,\n\nNot worshipp'd with a waxen epitaph.\n\nEnter Ambassadors of France.\n\nNow are we well prepared to know the pleasure\n\nOf our fair cousin Dauphin; for we hear\n\nYour greeting is from him, not from the king.\n\nFirst Ambassador\n\nMay't please your majesty to give us leave\n\nFreely to render what we have in charge;\n\nOr shall we sparingly show you far off\n\nThe Dauphin's meaning and our embassy?\n\nKing Henry\n\nWe are no tyrant, but a Christian king;\n\nUnto whose grace our passion is as subject\n\nAs are our wretches fetter'd in our prisons:\n\nTherefore with frank and with uncurbed plainness\n\nTell us the Dauphin's mind.\n\nAmbassador\n\nThus, then, in few.\n\nYour highness, lately sending into France,\n\nDid claim some certain dukedoms, in the right\n\nOf your great predecessor, King Edward the Third.\n\nIn answer of which claim, the prince our master\n\nSays that you savour too much of your youth,\n\nAnd bids you be advised there's nought in France\n\nThat can be with a nimble galliard won;\n\nYou cannot revel into dukedoms there.\n\nHe therefore sends you, meeter for your spirit,\n\nThis tun of treasure; and, in lieu of this,\n\nDesires you let the dukedoms that you claim\n\nHear no more of you. This the Dauphin speaks.\n\nKing Henry What treasure, uncle?\n\nExeter Tennis-balls, my liege.\n\nKing Henry\n\nWe are glad the Dauphin is so pleasant with us;\n\nHis present and your pains we thank you for:\n\nWhen we have match'd our rackets to these balls,\n\nWe will, in France, by God's grace, play a set\n\nShall strike his father's crown into the hazard.\n\nTell him he hath made a match with such a wrangler\n\nThat all the courts of France will be disturb'd\n\nWith chases. And we understand him well,\n\nHow he comes o'er us with our wilder days,\n\nNot measuring what use we made of them.\n\nWe never valued this poor seat of England;\n\nAnd therefore, living hence, did give ourself\n\nTo barbarous licence; as 'tis ever common\n\nThat men are merriest when they are from home.\n\nBut tell the Dauphin I will keep my state,\n\nBe like a king and show my sail of greatness\n\nWhen I do rouse me in my throne of France:\n\nFor that I have laid by my majesty\n\nAnd plodded like a man for working-days,\n\nBut I will rise there with so full a glory\n\nThat I will dazzle all the eyes of France,\n\nYea, strike the Dauphin blind to look on us.\n\nAnd tell the pleasant prince this mock of his\n\nHath turn'd his balls to gun-stones; and his soul\n\nShall stand sore charged for the wasteful vengeance\n\nThat shall fly with them: for many a thousand widows\n\nShall this his mock mock out of their dear husbands;\n\nMock mothers from their sons, mock castles down;\n\nAnd some are yet ungotten and unborn\n\nThat shall have cause to curse the Dauphin's scorn.\n\nBut this lies all within the will of God,\n\nTo whom I do appeal; and in whose name\n\nTell you the Dauphin I am coming on,\n\nTo venge me as I may and to put forth\n\nMy rightful hand in a well-hallow'd cause.\n\nSo get you hence in peace; and tell the Dauphin\n\nHis jest will savour but of shallow wit,\n\nWhen thousands weep more than did laugh at it.\n\nConvey them with safe conduct. Fare you well. Exeunt Ambassadors.\n\nExeter This was a merry message.\n\nKing Henry\n\nWe hope to make the sender blush at it.\n\nTherefore, my lords, omit no happy hour\n\nThat may give furtherance to our expedition;\n\nFor we have now no thought in us but France,\n\nSave those to God, that run before our business.\n\nTherefore let our proportions for these wars\n\nBe soon collected and all things thought upon\n\nThat may with reasonable swiftness add\n\nMore feathers to our wings; for, God before,\n\nWe'll chide this Dauphin at his father's door.\n\nTherefore let every man now task his thought,\n\nThat this fair action may on foot be brought. Exeunt. Flourish.",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "What charge does Henry lay on Canterbury before he will hear the claim?",
+          "questionKo": "헨리는 권리 주장을 듣기 전에 캔터베리에게 무엇을 다짐받는가?",
+          "options": [
+            {
+              "text": "Not to fashion, wrest, or bow his reading — for many now in health shall drop their blood in approbation of what he incites them to.",
+              "textKo": "해석을 꾸미거나 비틀거나 굽히지 말라고 — 그가 부추기는 것을 입증하느라 지금 멀쩡한 많은 이가 피를 흘릴 것이므로."
+            },
+            {
+              "text": "To swear the clergy will pay for the whole war.",
+              "textKo": "전쟁 비용 전부를 성직자단이 대겠다고 맹세하라고."
+            },
+            {
+              "text": "To promise the Pope’s blessing on the campaign.",
+              "textKo": "원정에 교황의 축복을 받아 오겠다고 약속하라고."
+            },
+            {
+              "text": "To keep the matter secret from the French ambassador.",
+              "textKo": "프랑스 대사에게 이 일을 숨기라고."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "That you should fashion, wrest, or bow your reading"
+        },
+        {
+          "type": "multiple",
+          "question": "What is the Salic law as the French cite it, and where does Canterbury say the Salic land actually lies?",
+          "questionKo": "프랑스가 내세우는 살리카법의 내용과, 캔터베리가 말하는 살리카 땅의 실제 위치는?",
+          "options": [
+            {
+              "text": "\"No foreigner shall rule in France\" — and it lies in Normandy.",
+              "textKo": "\"프랑스는 외국인이 다스리지 못한다\" — 그리고 그 땅은 노르망디에 있다고."
+            },
+            {
+              "text": "\"No woman shall succeed in Salique land\" — and the Salic land lies in Germany between the Sala and the Elbe, called Meissen in his day.",
+              "textKo": "\"살리카 땅에서는 여자가 상속하지 못한다\" — 그리고 살리카 땅은 독일의 잘레강과 엘베강 사이, 당대에 마이센이라 불리는 곳이라고."
+            },
+            {
+              "text": "\"The crown passes only by election\" — and it lies in Aquitaine.",
+              "textKo": "\"왕관은 선출로만 넘어간다\" — 그리고 그 땅은 아키텐에 있다고."
+            },
+            {
+              "text": "\"Only the eldest son inherits\" — and it lies in Lorraine.",
+              "textKo": "\"맏아들만 상속한다\" — 그리고 그 땅은 로렌에 있다고."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "No woman shall succeed in Salique land"
+        },
+        {
+          "type": "multiple",
+          "question": "What is Canterbury’s central point about the French kings’ own titles?",
+          "questionKo": "프랑스 왕들 자신의 권리에 대한 캔터베리의 핵심 논지는?",
+          "options": [
+            {
+              "text": "That the French crown has always passed by conquest, never by law.",
+              "textKo": "프랑스 왕관은 언제나 법이 아니라 정복으로 넘어갔다는 것."
+            },
+            {
+              "text": "That Pharamond never existed at all.",
+              "textKo": "파라몬드는 애초에 존재한 적이 없다는 것."
+            },
+            {
+              "text": "Pepin’s title, Hugh Capet’s claim and King Lewis’s satisfaction all hold in right and title of the female — so the French use the very rule they deny Henry.",
+              "textKo": "페팽의 권리, 위그 카페의 주장, 루이 왕의 안심이 모두 여계(女系)의 권리에 근거한다고 — 프랑스가 헨리에게 부정하는 바로 그 원칙을 저들이 쓰고 있다는 것."
+            },
+            {
+              "text": "That the Pope alone may settle the succession.",
+              "textKo": "오직 교황만이 계승을 판정할 수 있다는 것."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "all appear To hold in right and title of the female"
+        },
+        {
+          "type": "multiple",
+          "question": "Which ancestor does Canterbury urge Henry to remember?",
+          "questionKo": "캔터베리는 헨리에게 어느 조상을 떠올리라 권하는가?",
+          "options": [
+            {
+              "text": "William the Conqueror, who first took England.",
+              "textKo": "잉글랜드를 처음 차지한 정복왕 윌리엄."
+            },
+            {
+              "text": "Richard the Lionheart, who fought in the Holy Land.",
+              "textKo": "성지에서 싸운 사자심왕 리처드."
+            },
+            {
+              "text": "His own father, who won the crown at Shrewsbury.",
+              "textKo": "슈루즈베리에서 왕관을 얻은 그의 아버지."
+            },
+            {
+              "text": "His great-uncle Edward the Black Prince, who made defeat on the full power of France while his father stood smiling on a hill.",
+              "textKo": "증조부의 아우 흑태자 에드워드 — 아버지가 언덕에서 미소 지으며 보는 동안 프랑스의 전력을 꺾은 이."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "your great-uncle’s, Edward the Black Prince"
+        },
+        {
+          "type": "multiple",
+          "question": "What practical objection does Henry raise before agreeing to invade?",
+          "questionKo": "침공에 동의하기 전 헨리가 제기하는 현실적 반론은?",
+          "options": [
+            {
+              "text": "They must also lay down proportions to defend against the Scot, who has always been a giddy neighbour and poured in whenever England was empty of defence.",
+              "textKo": "스코틀랜드에 대비할 병력도 배정해야 한다고 — 늘 변덕스러운 이웃이었고, 잉글랜드가 무방비일 때마다 쏟아져 들어왔다고."
+            },
+            {
+              "text": "That the treasury cannot pay for ships.",
+              "textKo": "국고가 배 값을 감당할 수 없다고."
+            },
+            {
+              "text": "That the nobles will not follow him so young.",
+              "textKo": "이렇게 젊은 자기를 귀족들이 따르지 않으리라고."
+            },
+            {
+              "text": "That the harvest must be gathered before any sailing.",
+              "textKo": "출항 전에 추수를 마쳐야 한다고."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "But fear the main intendment of the Scot"
+        },
+        {
+          "type": "multiple",
+          "question": "What model of order does Canterbury offer to answer that objection?",
+          "questionKo": "그 반론에 답하며 캔터베리가 드는 질서의 본보기는?",
+          "options": [
+            {
+              "text": "A ship’s crew under a single captain.",
+              "textKo": "한 선장 아래의 배 승무원."
+            },
+            {
+              "text": "The honeybees — magistrates correcting at home, merchants venturing abroad, soldiers armed in their stings — so many actions end in one purpose.",
+              "textKo": "꿀벌 — 집에서 바로잡는 관리, 밖으로 나가 장사하는 상인, 침으로 무장한 병사 — 그리하여 수많은 행동이 하나의 목적으로 끝난다고."
+            },
+            {
+              "text": "A cathedral choir singing in parts.",
+              "textKo": "성부를 나눠 부르는 대성당 성가대."
+            },
+            {
+              "text": "The stars keeping their courses in the heavens.",
+              "textKo": "하늘에서 제 궤도를 지키는 별들."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "for so work the honeybees, Creatures that by a rule in nature teach The act of order to a peopled kingdom"
+        },
+        {
+          "type": "multiple",
+          "question": "What does the Dauphin send Henry, and with what message?",
+          "questionKo": "황태자가 헨리에게 보낸 것과 그에 딸린 전언은?",
+          "options": [
+            {
+              "text": "A chest of gold, asking him to keep the peace.",
+              "textKo": "금 궤 하나와 함께 평화를 지켜 달라는 말."
+            },
+            {
+              "text": "A sword, challenging him to single combat.",
+              "textKo": "칼 한 자루와 함께 단독 결투를 청하는 말."
+            },
+            {
+              "text": "A tun of tennis-balls — saying Henry savours too much of his youth and cannot revel into dukedoms in France.",
+              "textKo": "테니스공 한 통 — 헨리가 아직 너무 어리며 프랑스에서 흥청거려 공작령을 얻을 수는 없다는 말과 함께."
+            },
+            {
+              "text": "A map of the dukedoms, offering to divide them.",
+              "textKo": "공작령 지도와 함께 나누자는 제안."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "Tennis-balls, my liege."
+        },
+        {
+          "type": "multiple",
+          "question": "How does Henry answer the gift?",
+          "questionKo": "헨리는 그 선물에 어떻게 답하는가?",
+          "options": [
+            {
+              "text": "He sends the balls back untouched with no reply.",
+              "textKo": "공을 손대지 않고 답 없이 돌려보낸다."
+            },
+            {
+              "text": "He laughs and says he will keep the peace after all.",
+              "textKo": "웃으며 결국 평화를 지키겠다고 한다."
+            },
+            {
+              "text": "He has the ambassadors imprisoned for the insult.",
+              "textKo": "모욕을 이유로 대사들을 가둔다."
+            },
+            {
+              "text": "When they have matched their rackets to these balls they will play a set in France that shall strike the Dauphin’s father’s crown into the hazard — the mock has turned his balls to gun-stones.",
+              "textKo": "그 공에 라켓을 맞추면 프랑스에서 한 세트를 치러 황태자 아비의 왕관을 위험한 구석으로 몰아넣겠다고 — 그 조롱이 공을 포탄으로 바꿔 놓았다고."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "Hath turn’d his balls to gun-stones"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 6,
+      "chapter_title": "Scene II",
+      "word_count": 1563,
+      "chapter_v_level": 7,
+      "content": "CHAPTER 6. Scene II\u001fAct II\u001ehttps://standardebooks.org/ebooks/william-shakespeare/henry-v/text/act-2#scene-2-2\n\nSouthampton. A council-chamber.\n\nEnter Exeter, Bedford and Westmoreland.\n\nBedford\n'Fore God, his grace is bold, to trust these traitors.\n\nExeter They shall be apprehended by and by.\n\nWestmoreland\n\nHow smooth and even they do bear themselves!\n\nAs if allegiance in their bosoms sat,\n\nCrowned with faith and constant loyalty.\n\nBedford\n\nThe king hath note of all that they intend,\n\nBy interception which they dream not of.\n\nExeter\n\nNay, but the man that was his bedfellow,\n\nWhom he hath dull'd and cloy'd with gracious favours,\n\nThat he should, for a foreign purse, so sell\n\nHis sovereign's life to death and treachery.\n\nTrumpets sound. Enter King Henry, Scroop, Cambridge, Grey, and Attendants.\n\nKing Henry\n\nNow sits the wind fair, and we will aboard.\n\nMy Lord of Cambridge, and my kind Lord of Masham,\n\nAnd you, my gentle knight, give me your thoughts:\n\nThink you not that the powers we bear with us\n\nWill cut their passage through the force of France,\n\nDoing the execution and the act\n\nFor which we have in head assembled them?\n\nScroop No doubt, my liege, if each man do his best.\n\nKing Henry\n\nI doubt not that; since we are well persuaded\n\nWe carry not a heart with us from hence\n\nThat grows not in a fair consent with ours,\n\nNor leave not one behind that doth not wish\n\nSuccess and conquest to attend on us.\n\nCambridge\n\nNever was monarch better fear'd and loved\n\nThan is your majesty: there's not, I think, a subject\n\nThat sits in heart-grief and uneasiness\n\nUnder the sweet shade of your government.\n\nGrey\n\nTrue: those that were your father's enemies\n\nHave steep'd their galls in honey and do serve you\n\nWith hearts create of duty and of zeal.\n\nKing Henry\n\nWe therefore have great cause of thankfulness;\n\nAnd shall forget the office of our hand,\n\nSooner than quittance of desert and merit\n\nAccording to the weight and worthiness.\n\nScroop\n\nSo service shall with steeled sinews toil,\n\nAnd labour shall refresh itself with hope,\n\nTo do your grace incessant services.\n\nKing Henry\n\nWe judge no less. Uncle of Exeter,\n\nEnlarge the man committed yesterday,\n\nThat rail'd against our person: we consider\n\nIt was excess of wine that set him on;\n\nAnd on his more advice we pardon him.\n\nScroop\n\nThat's mercy, but too much security:\n\nLet him be punish'd, sovereign, lest example\n\nBreed, by his sufferance, more of such a kind.\n\nKing Henry O, let us yet be merciful.\n\nCambridge So may your highness, and yet punish too.\n\nGrey\n\nSir,\n\nYou show great mercy, if you give him life,\n\nAfter the taste of much correction.\n\nKing Henry\n\nAlas, your too much love and care of me\n\nAre heavy orisons 'gainst this poor wretch!\n\nIf little faults, proceeding on distemper,\n\nShall not be wink'd at, how shall we stretch our eye\n\nWhen capital crimes, chew'd, swallow'd and digested,\n\nAppear before us? We'll yet enlarge that man,\n\nThough Cambridge, Scroop and Grey, in their dear care\n\nAnd tender preservation of our person,\n\nWould have him punish'd. And now to our French causes:\n\nWho are the late commissioners?\n\nCambridge\n\nI one, my lord:\n\nYour highness bade me ask for it today.\n\nScroop So did you me, my liege.\n\nGrey And I, my royal sovereign.\n\nKing Henry\n\nThen, Richard Earl of Cambridge, there is yours;\n\nThere yours, Lord Scroop of Masham; and, sir knight,\n\nGrey of Northumberland, this same is yours:\n\nRead them; and know, I know your worthiness.\n\nMy Lord of Westmoreland, and uncle Exeter,\n\nWe will aboard tonight. Why, how now, gentlemen!\n\nWhat see you in those papers that you lose\n\nSo much complexion? Look ye, how they change!\n\nTheir cheeks are paper. Why, what read you there,\n\nThat have so cowarded and chased your blood\n\nOut of appearance?\n\nCambridge\n\nI do confess my fault;\n\nAnd do submit me to your highness' mercy.\n\nGrey and Scroop To which we all appeal.\n\nKing Henry\n\nThe mercy that was quick in us but late,\n\nBy your own counsel is suppress'd and kill'd:\n\nYou must not dare, for shame, to talk of mercy;\n\nFor your own reasons turn into your bosoms,\n\nAs dogs upon their masters, worrying you.\n\nSee you, my princes and my noble peers,\n\nThese English monsters! My Lord of Cambridge here,\n\nYou know how apt our love was to accord\n\nTo furnish him with an appertinents\n\nBelonging to his honour; and this man\n\nHath, for a few light crowns, lightly conspired,\n\nAnd sworn unto the practices of France,\n\nTo kill us here in Hampton: to the which\n\nThis knight, no less for bounty bound to us\n\nThan Cambridge is, hath likewise sworn. But, O,\n\nWhat shall I say to thee, Lord Scroop? thou cruel,\n\nIngrateful, savage and inhuman creature!\n\nThou that didst bear the key of all my counsels,\n\nThat knew'st the very bottom of my soul,\n\nThat almost mightst have coin'd me into gold,\n\nWouldst thou have practised on me for thy use!\n\nMay it be possible, that foreign hire\n\nCould out of thee extract one spark of evil\n\nThat might annoy my finger? 'tis so strange,\n\nThat, though the truth of it stands off as gross\n\nAs black and white, my eye will scarcely see it.\n\nTreason and murder ever kept together,\n\nAs two yoke-devils sworn to either's purpose,\n\nWorking so grossly in a natural cause,\n\nThat admiration did not whoop at them:\n\nBut thou, 'gainst all proportion, didst bring in\n\nWonder to wait on treason and on murder:\n\nAnd whatsoever cunning fiend it was\n\nThat wrought upon thee so preposterously\n\nHath got the voice in hell for excellence:\n\nAnd other devils that suggest by treasons\n\nDo botch and bungle up damnation\n\nWith patches, colours and with forms being fetch'd\n\nFrom glistering semblances of piety;\n\nBut he that temper'd thee bade thee stand up,\n\nGave thee no instance why thou shouldst do treason,\n\nUnless to dub thee with the name of traitor.\n\nIf that same demon that hath gull'd thee thus\n\nShould with his lion gait walk the whole world,\n\nHe might return to vasty Tartar back,\n\nAnd tell the legions \"I can never win\n\nA soul so easy as that Englishman's.\"\n\nO, how hast thou with jealousy infected\n\nThe sweetness of affiance! Show men dutiful?\n\nWhy, so didst thou: seem they grave and learned?\n\nWhy, so didst thou: come they of noble family?\n\nWhy, so didst thou: seem they religious?\n\nWhy, so didst thou: or are they spare in diet,\n\nFree from gross passion or of mirth or anger,\n\nConstant in spirit, not swerving with the blood,\n\nGarnish'd and deck'd in modest complement,\n\nNot working with the eye without the ear,\n\nAnd but in purged judgement trusting neither?\n\nSuch and so finely bolted didst thou seem:\n\nAnd thus thy fall hath left a kind of blot,\n\nTo mark the full-fraught man and best indued\n\nWith some suspicion. I will weep for thee;\n\nFor this revolt of thine, methinks, is like\n\nAnother fall of man. Their faults are open:\n\nArrest them to the answer of the law;\n\nAnd God acquit them of their practices!\n\nExeter\n\nI arrest thee of high treason, by the name of Richard Earl of Cambridge.\n\nI arrest thee of high treason, by the name of Henry Lord Scroop of Masham.\n\nI arrest thee of high treason, by the name of Thomas Grey, knight, of Northumberland.\n\nScroop\n\nOur purposes God justly hath discover'd;\n\nAnd I repent my fault more than my death;\n\nWhich I beseech your highness to forgive,\n\nAlthough my body pay the price of it.\n\nCambridge\n\nFor me, the gold of France did not seduce;\n\nAlthough I did admit it as a motive\n\nThe sooner to effect what I intended:\n\nBut God be thanked for prevention;\n\nWhich I in sufferance heartily will rejoice,\n\nBeseeching God and you to pardon me.\n\nGrey\n\nNever did faithful subject more rejoice\n\nAt the discovery of most dangerous treason\n\nThan I do at this hour joy o'er myself,\n\nPrevented from a damned enterprise:\n\nMy fault, but not my body, pardon, sovereign.\n\nKing Henry\n\nGod quit you in his mercy! Hear your sentence.\n\nYou have conspired against our royal person,\n\nJoin'd with an enemy proclaim'd and from his coffers\n\nReceived the golden earnest of our death;\n\nWherein you would have sold your king to slaughter,\n\nHis princes and his peers to servitude,\n\nHis subjects to oppression and contempt\n\nAnd his whole kingdom into desolation.\n\nTouching our person seek we no revenge;\n\nBut we our kingdom's safety must so tender,\n\nWhose ruin you have sought, that to her laws\n\nWe do deliver you. Get you therefore hence,\n\nPoor miserable wretches, to your death:\n\nThe taste whereof, God of his mercy give\n\nYou patience to endure, and true repentance\n\nOf all your dear offences! Bear them hence. Exeunt Cambridge, Scroop and Grey, guarded.\n\nNow, lords, for France; the enterprise whereof\n\nShall be to you, as us, like glorious.\n\nWe doubt not of a fair and lucky war,\n\nSince God so graciously hath brought to light\n\nThis dangerous treason lurking in our way\n\nTo hinder our beginnings. We doubt not now\n\nBut every rub is smoothed on our way.\n\nThen forth, dear countrymen: let us deliver\n\nOur puissance into the hand of God,\n\nPutting it straight in expedition.\n\nCheerly to sea; the signs of war advance:\n\nNo king of England, if not king of France. Exeunt.",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "What do Bedford, Exeter and Westmoreland know that the three lords do not?",
+          "questionKo": "베드퍼드·엑서터·웨스트모얼랜드가 알고 세 귀족은 모르는 것은?",
+          "options": [
+            {
+              "text": "The king has note of all they intend, by an interception they do not dream of.",
+              "textKo": "왕이 그들의 계획을 전부 알고 있다 — 그들이 꿈에도 모르는 가로챈 문서로."
+            },
+            {
+              "text": "That the fleet has already sailed without them.",
+              "textKo": "함대가 이미 그들 없이 떠났다는 것."
+            },
+            {
+              "text": "That the French have withdrawn their offer of gold.",
+              "textKo": "프랑스가 금 제안을 거두었다는 것."
+            },
+            {
+              "text": "That the king means to pardon them regardless.",
+              "textKo": "왕이 어떻든 그들을 용서할 작정이라는 것."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "The king hath note of all that they intend, By interception which they dream not of"
+        },
+        {
+          "type": "multiple",
+          "question": "What test does Henry set before revealing anything?",
+          "questionKo": "헨리가 아무것도 밝히기 전에 놓는 시험은?",
+          "options": [
+            {
+              "text": "He asks each to swear a new oath of allegiance.",
+              "textKo": "저마다 새 충성 서약을 하라 명한다."
+            },
+            {
+              "text": "He proposes to release the man committed yesterday for railing against him, saying it was excess of wine — and asks their counsel.",
+              "textKo": "어제 자기를 욕해 갇힌 자를 술기운 탓이라며 풀어 주자 제안하고 — 그들의 의견을 묻는다."
+            },
+            {
+              "text": "He asks them to name the French spies at court.",
+              "textKo": "궁정의 프랑스 첩자를 지목하라 한다."
+            },
+            {
+              "text": "He offers each a command in the coming war.",
+              "textKo": "다가올 전쟁의 지휘권을 하나씩 제안한다."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "Enlarge the man committed yesterday, That rail’d against our person"
+        },
+        {
+          "type": "multiple",
+          "question": "How do Scroop, Cambridge and Grey answer that proposal?",
+          "questionKo": "스크루프·케임브리지·그레이는 그 제안에 어떻게 답하는가?",
+          "options": [
+            {
+              "text": "All three urge mercy and are thanked for it.",
+              "textKo": "셋 다 자비를 주장하고 그 때문에 치하받는다."
+            },
+            {
+              "text": "They say the matter is beneath the king’s notice.",
+              "textKo": "왕이 마음 쓸 일이 아니라 한다."
+            },
+            {
+              "text": "All three urge punishment — mercy would be too much security, and example would breed more of the kind.",
+              "textKo": "셋 다 처벌을 주장한다 — 자비는 너무 안이하며, 그런 선례가 같은 자들을 더 낳으리라고."
+            },
+            {
+              "text": "They ask to judge the case themselves.",
+              "textKo": "자기들이 그 사건을 재판하게 해 달라 청한다."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "That’s mercy, but too much security"
+        },
+        {
+          "type": "multiple",
+          "question": "What does Henry hand the three lords, and what is in it?",
+          "questionKo": "헨리가 세 귀족에게 건네는 것과 그 안에 든 것은?",
+          "options": [
+            {
+              "text": "Purses of French gold, returned to them as evidence.",
+              "textKo": "증거로 되돌려 준 프랑스 금 주머니."
+            },
+            {
+              "text": "Letters from their own families begging pardon.",
+              "textKo": "용서를 비는 가족들의 편지."
+            },
+            {
+              "text": "Maps of the French coast for the invasion.",
+              "textKo": "침공에 쓸 프랑스 해안 지도."
+            },
+            {
+              "text": "Papers they take for their commissions — reading them, their cheeks turn to paper, for the papers show their treason is known.",
+              "textKo": "위임장인 줄 아는 문서 — 읽자마자 뺨이 종잇장이 된다. 그 문서에 그들의 반역이 드러나 있기 때문이다."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "Their cheeks are paper. Why, what read you there"
+        },
+        {
+          "type": "multiple",
+          "question": "How does Henry turn their own counsel against them?",
+          "questionKo": "헨리는 그들의 조언을 어떻게 그들에게 되돌리는가?",
+          "options": [
+            {
+              "text": "The mercy quick in him but late is suppressed and killed by their own counsel — their reasons turn into their bosoms as dogs upon their masters.",
+              "textKo": "조금 전까지 살아 있던 자비가 그들 자신의 조언에 눌려 죽었다고 — 그들의 논리가 개가 주인을 물듯 제 품으로 돌아왔다고."
+            },
+            {
+              "text": "He says he will pardon them as they pardoned the drunkard.",
+              "textKo": "그들이 취객을 용서했듯 자기도 용서하겠다고."
+            },
+            {
+              "text": "He offers them the same trial they proposed for the drunkard.",
+              "textKo": "취객에게 제안한 그 재판을 그대로 받으라 한다."
+            },
+            {
+              "text": "He asks them to sentence themselves.",
+              "textKo": "스스로 형을 정하라 한다."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "By your own counsel is suppress’d and kill’d"
+        },
+        {
+          "type": "multiple",
+          "question": "Why does Scroop’s treason wound Henry most?",
+          "questionKo": "스크루프의 반역이 헨리에게 가장 아픈 까닭은?",
+          "options": [
+            {
+              "text": "Because Scroop was his kinsman by blood.",
+              "textKo": "스크루프가 혈족이었기 때문에."
+            },
+            {
+              "text": "Scroop bore the key of all his counsels and knew the very bottom of his soul — his revolt is like another fall of man, leaving a blot of suspicion on every well-endowed man.",
+              "textKo": "스크루프가 그의 모든 계략의 열쇠를 지녔고 영혼의 밑바닥까지 알았기에 — 그 배반은 또 한 번의 인간 타락 같아서, 잘 갖춰진 사람 누구에게나 의심의 얼룩을 남긴다."
+            },
+            {
+              "text": "Because Scroop took the largest share of the French gold.",
+              "textKo": "스크루프가 프랑스 금을 가장 많이 챙겼기 때문에."
+            },
+            {
+              "text": "Because Scroop had commanded the fleet.",
+              "textKo": "스크루프가 함대를 지휘했기 때문에."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "Thou that didst bear the key of all my counsels"
+        },
+        {
+          "type": "multiple",
+          "question": "What does Cambridge say about the gold of France?",
+          "questionKo": "케임브리지는 프랑스의 금에 대해 무엇이라 말하는가?",
+          "options": [
+            {
+              "text": "That he never received a single crown.",
+              "textKo": "단 한 푼도 받은 적이 없다고."
+            },
+            {
+              "text": "That the gold was forced upon him by Scroop.",
+              "textKo": "스크루프가 억지로 안겼다고."
+            },
+            {
+              "text": "The gold did not seduce him, though he admitted it as a motive the sooner to effect what he intended.",
+              "textKo": "금이 자기를 꾄 것은 아니며, 다만 뜻한 바를 더 빨리 이루려는 동기로 받아들였을 뿐이라고."
+            },
+            {
+              "text": "That he took it only to expose the plot.",
+              "textKo": "음모를 폭로하려고 받았을 뿐이라고."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "For me, the gold of France did not seduce"
+        },
+        {
+          "type": "multiple",
+          "question": "On what ground does Henry say he delivers them to the law?",
+          "questionKo": "헨리는 무엇을 근거로 그들을 법에 넘긴다고 하는가?",
+          "options": [
+            {
+              "text": "Because the peers demanded it before he could pardon them.",
+              "textKo": "용서하기 전에 귀족들이 요구했으므로."
+            },
+            {
+              "text": "Because treason against a king cannot be pardoned by law.",
+              "textKo": "왕에 대한 반역은 법으로 용서할 수 없으므로."
+            },
+            {
+              "text": "Because the French would otherwise think him weak.",
+              "textKo": "그러지 않으면 프랑스가 그를 약하다 여길 것이므로."
+            },
+            {
+              "text": "Touching his own person he seeks no revenge, but must tender his kingdom’s safety, whose ruin they sought.",
+              "textKo": "제 한 몸에 대해서는 복수를 구하지 않으나, 그들이 무너뜨리려 한 왕국의 안전은 지켜야 하므로."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "Touching our person seek we no revenge; But we our kingdom’s safety must so tender"
+        }
+      ]
+    }
+  ]
+}

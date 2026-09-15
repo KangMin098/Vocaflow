@@ -1,0 +1,981 @@
+{
+  "book": {
+    "id": "dickens-carol-stave2",
+    "title": "A Christmas Carol · Stave 2 — The First of the Three Spirits",
+    "author": "Charles Dickens, A Christmas Carol (1843)",
+    "source": "file",
+    "ref": "scratchpad-foreign/carol/pg46.raw.txt",
+    "total_words": 28000
+  },
+  "adaptation": {
+    "style": "gonick",
+    "panel_count": 18,
+    "default_tier": "teen",
+    "tiers": [
+      "child",
+      "teen",
+      "adult"
+    ],
+    "target_v_level": 7,
+    "source_span": [
+      37773,
+      71716
+    ],
+    "original_words": 6149,
+    "art_shared_across_tiers": true,
+    "seed": 46
+  },
+  "cast": [
+    {
+      "id": "scrooge",
+      "name": "Scrooge",
+      "role": "protagonist — cold, miserly old man who is redeemed",
+      "canonical": "a thin bent elderly man with a sharp pointed nose and a completely smooth clean-shaven face, bald on top with short wispy grey hair only at the sides, wearing a plain knee-length striped cotton nightshirt, barefoot",
+      "anchor": "thin bent bald clean-shaven old man, sharp nose, striped nightshirt, barefoot, bare-headed",
+      "seed_role": 46,
+      "variant": "nightcap"
+    },
+    {
+      "id": "past",
+      "name": "Ghost of Christmas Past",
+      "role": "first of the three spirits — memory",
+      "canonical": "a small child-sized barefoot spirit in a plain pure-white robe, glowing softly, with a single bright candle-flame rising straight up out of the very top of its bare head like a living crown of fire, carrying a shiny cone-shaped metal candle-snuffer cap under one arm; no hat, no staff, no torch",
+      "anchor": "small glowing child-spirit, a flame rising from the top of its bare head, white robe, snuffer-cap under arm; NO hat, NO staff",
+      "seed_role": 51
+    },
+    {
+      "id": "fezziwig",
+      "name": "Fezziwig",
+      "role": "Scrooge's jovial old master (in Christmas Past)",
+      "canonical": "a jovial rotund clean-shaven old gentleman with a big round smiling clean-shaven face under a large curly white 18th-century wig, a comfortable waistcoat and shiny buckled shoes; no beard",
+      "anchor": "rotund clean-shaven old master, large curly white wig, buckled shoes, NO beard",
+      "seed_role": 60
+    },
+    {
+      "id": "belle",
+      "name": "Belle",
+      "role": "Scrooge's former fiancee, in Christmas Past",
+      "canonical": "a gentle graceful young woman with a soft kind face and hair in simple ringlets, in a plain modest early-Victorian dress and shawl",
+      "anchor": "gentle young woman, simple ringlets, plain modest dress and shawl",
+      "seed_role": 14
+    }
+  ],
+  "panels": [
+    {
+      "n": 1,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "the bent sharp-nosed old miser in a nightcap sitting bolt upright in his curtained bed at midnight as a burst of light floods the room and an unseen hand draws back the bed-curtains",
+      "composition": "close, the stroke of One",
+      "characters": [
+        "scrooge"
+      ],
+      "text": {
+        "teen": {
+          "narration": "THE CLOCK STRIKES ONE. THE FIRST SPIRIT COMES.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "a deep, dull, hollow, melancholy ONE",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "Light flashed up in the room upon the instant, and the curtains of his bed were drawn",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "Was it a dream or not?",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        37773,
+        39659
+      ]
+    },
+    {
+      "n": 2,
+      "wide": true,
+      "cap_zone": "top",
+      "scene": "a small barefoot child in a plain white robe standing with both arms hanging down and both hands open and empty at its sides holding nothing at all, a small tuft of fire on the bald top of its head, in a dark bedroom",
+      "composition": "single subject — the reveal",
+      "characters": [
+        "past"
+      ],
+      "text": {
+        "teen": {
+          "narration": "A FIGURE BOTH CHILD AND OLD, GLOWING WITH LIGHT.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "like a child: yet not so like a child as like an old man",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "from the crown of its head there sprung a bright clear jet of light",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "It held a branch of fresh green holly in its hand",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "It wore a tunic of the purest white",
+              "pos": "tr",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        39659,
+        41544
+      ]
+    },
+    {
+      "n": 3,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "drawn as a simple flat black-and-white cartoon caricature with thick ink outlines and exaggerated features (a hand-drawn comic, not a photo, not 3D): a small barefoot child in a plain white robe standing with BOTH ARMS HANGING DOWN and both hands open and empty at its sides (holding NOTHING), a small tuft of fire on the bald top of its head, speaking",
+      "composition": "single subject — the Ghost speaks",
+      "characters": [
+        "past"
+      ],
+      "text": {
+        "teen": {
+          "narration": "IT IS THE GHOST OF CHRISTMAS PAST.",
+          "bubbles": [
+            {
+              "speaker": "PAST",
+              "text": "I am the Ghost of Christmas Past.",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "SCROOGE",
+              "text": "Long Past?",
+              "pos": "bl",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "PAST",
+              "text": "No. Your past.",
+              "pos": "br",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "The voice was soft and gentle.",
+              "pos": "tr",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        41544,
+        43430
+      ]
+    },
+    {
+      "n": 4,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "drawn as a simple flat black-and-white cartoon caricature with thick ink outlines and exaggerated features (a hand-drawn comic, not a photo, not 3D): a small barefoot child in a plain white robe standing with BOTH ARMS HANGING DOWN and both hands open and empty at its sides (holding NOTHING), a small tuft of fire on the bald top of its head, beside a plain wall",
+      "composition": "single subject — beckoning",
+      "characters": [
+        "past"
+      ],
+      "text": {
+        "teen": {
+          "narration": "IT TAKES HIS HAND AND LEADS HIM OUT.",
+          "bubbles": [
+            {
+              "speaker": "PAST",
+              "text": "Rise! and walk with me!",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "they passed through the wall, and stood upon an open country road",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "The grasp, though gentle as a woman's hand, was not to be resisted.",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        43430,
+        45316
+      ]
+    },
+    {
+      "n": 5,
+      "wide": true,
+      "cap_zone": "top",
+      "scene": "a thin bent bald-topped CLEAN-SHAVEN old man with a sharp pointed nose (wispy grey side-hair, bare-headed, NO hat), in a plain striped knee-length nightshirt, barefoot, ALONE, standing in a snowy country lane clasping his hands in wonder",
+      "composition": "single subject — Scrooge in his boyhood country",
+      "characters": [
+        "scrooge"
+      ],
+      "text": {
+        "teen": {
+          "narration": "THEY STAND WHERE SCROOGE WAS A BOY.",
+          "bubbles": [
+            {
+              "speaker": "SCROOGE",
+              "text": "I was bred in this place. I was a boy here!",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "a thousand odours floating in the air, each one connected with a thousand thoughts",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "PAST",
+              "text": "Your lip is trembling",
+              "pos": "bl",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "SCROOGE",
+              "text": "I could walk it blindfold",
+              "pos": "bl",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        45316,
+        47202
+      ]
+    },
+    {
+      "n": 6,
+      "wide": true,
+      "cap_zone": "top",
+      "scene": "merry country boys on shaggy ponies trotting down a snowy lane shouting to one another, seen like faint faded shadows, no main foreground figure",
+      "composition": "scene shot — shadows of the past",
+      "characters": [],
+      "text": {
+        "teen": {
+          "narration": "MERRY BOYS PASS — SHADOWS THAT CANNOT SEE THEM.",
+          "bubbles": [
+            {
+              "speaker": "PAST",
+              "text": "These are but shadows of the things that have been",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "PAST",
+              "text": "They have no consciousness of us.",
+              "pos": "br",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "the crisp air laughed to hear it!",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "The jocund travellers came on",
+              "pos": "tr",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        47202,
+        49087
+      ]
+    },
+    {
+      "n": 7,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "a single lonely small boy reading alone at a desk by a feeble fire in a long bare cold schoolroom, no other figure",
+      "composition": "single subject — the forgotten boy",
+      "characters": [],
+      "text": {
+        "teen": {
+          "narration": "A LONELY BOY, LEFT ALONE AT SCHOOL AT CHRISTMAS.",
+          "bubbles": [
+            {
+              "speaker": "PAST",
+              "text": "A solitary child, neglected by his friends, is left there still.",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "wept to see his poor forgotten self as he used to be",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "SCROOGE",
+              "text": "Poor boy!",
+              "pos": "tr",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "The Spirit touched him on the arm, and pointed to his younger self",
+              "pos": "tr",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        49087,
+        50973
+      ]
+    },
+    {
+      "n": 8,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "a joyful little girl in a bonnet darting into the bare schoolroom to throw her arms round the lonely boy's neck, both radiant, an open door behind",
+      "composition": "close, little Fan comes for him",
+      "characters": [],
+      "text": {
+        "teen": {
+          "narration": "HIS LITTLE SISTER FAN COMES TO TAKE HIM HOME.",
+          "bubbles": [
+            {
+              "speaker": "FAN",
+              "text": "I have come to bring you home, dear brother!",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "FAN",
+              "text": "Home, for good and all. Home, for ever and ever.",
+              "pos": "bl",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "YOUNG SCROOGE",
+              "text": "You are quite a woman, little Fan!",
+              "pos": "br",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "putting her arms about his neck, and often kissing him",
+              "pos": "tr",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        50973,
+        52859
+      ]
+    },
+    {
+      "n": 9,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "drawn as a simple flat black-and-white cartoon caricature with thick ink outlines and exaggerated features (a hand-drawn comic, not a photo, not 3D): a jolly rotund CLEAN-SHAVEN old master with a big round smooth chin and a large curly white wig (absolutely no beard, no moustache), ALONE, laughing behind a high desk",
+      "composition": "single subject — Fezziwig",
+      "characters": [
+        "fezziwig"
+      ],
+      "text": {
+        "teen": {
+          "narration": "NEXT: THE WAREHOUSE OF JOLLY OLD FEZZIWIG.",
+          "bubbles": [
+            {
+              "speaker": "SCROOGE",
+              "text": "Why, it's old Fezziwig! Bless his heart; it's Fezziwig alive again!",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "SCROOGE",
+              "text": "Was I apprenticed here!",
+              "pos": "br",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "sitting behind such a high desk",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        52859,
+        54745
+      ]
+    },
+    {
+      "n": 10,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "the rotund clean-shaven Welsh-wig master (no beard) clapping his hands and springing down from his high desk, calling for the floor cleared for a party",
+      "composition": "close, Fezziwig calls the party",
+      "characters": [
+        "fezziwig"
+      ],
+      "text": {
+        "teen": {
+          "narration": "HE CLOSES SHOP FOR A CHRISTMAS EVE BALL.",
+          "bubbles": [
+            {
+              "speaker": "FEZZIWIG",
+              "text": "No more work to-night. Christmas Eve, Dick. Christmas, Ebenezer!",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "FEZZIWIG",
+              "text": "Clear away, my lads, and let's have lots of room here!",
+              "pos": "br",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "FEZZIWIG",
+              "text": "before a man can say Jack Robinson!",
+              "pos": "tr",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "skipping down from the high desk, with wonderful agility",
+              "pos": "tr",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        54745,
+        56630
+      ]
+    },
+    {
+      "n": 11,
+      "wide": true,
+      "cap_zone": "top",
+      "scene": "a bright warm warehouse ballroom, a fiddler on a high desk, the rotund clean-shaven white-wig master (no beard) and many couples dancing under warm lamplight and holly",
+      "composition": "wide, the Fezziwig ball",
+      "characters": [
+        "fezziwig"
+      ],
+      "text": {
+        "teen": {
+          "narration": "THE WHOLE HOUSEHOLD DANCES.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "In came a fiddler with a music-book",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "In came Mrs. Fezziwig, one vast substantial smile.",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "Away they all went, twenty couple at once",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "In came the three Miss Fezziwigs, beaming and lovable.",
+              "pos": "tr",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        56630,
+        58516
+      ]
+    },
+    {
+      "n": 12,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "the rotund clean-shaven white-wig master (no beard) and his stout smiling wife dancing a lively reel, his buckled shoes and shining calves flashing",
+      "composition": "close, Fezziwig cuts a caper",
+      "characters": [
+        "fezziwig"
+      ],
+      "text": {
+        "teen": {
+          "narration": "FEZZIWIG AND HIS WIFE LEAD THE DANCE.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "A positive light appeared to issue from Fezziwig's calves.",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "They shone in every part of the dance like moons.",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "he appeared to wink with his legs, and came upon his feet again without a stagger",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        58516,
+        60402
+      ]
+    },
+    {
+      "n": 13,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "a thin bent bald-topped CLEAN-SHAVEN old man with a sharp pointed nose (wispy grey side-hair, bare-headed, NO hat), in a plain striped knee-length nightshirt, barefoot, ALONE, moved and thoughtful, a warm ballroom glow fading behind him",
+      "composition": "single subject — Scrooge reflects",
+      "characters": [
+        "scrooge"
+      ],
+      "text": {
+        "teen": {
+          "narration": "THE SPIRIT TESTS WHAT SUCH KINDNESS IS WORTH.",
+          "bubbles": [
+            {
+              "speaker": "PAST",
+              "text": "A small matter... to make these silly folks so full of gratitude.",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "SCROOGE",
+              "text": "The happiness he gives, is quite as great as if it cost a fortune.",
+              "pos": "bl",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "SCROOGE",
+              "text": "He has the power to render us happy or unhappy",
+              "pos": "tr",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "SCROOGE",
+              "text": "to make our service light or burdensome; a pleasure or a toil",
+              "pos": "br",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        60402,
+        62287
+      ]
+    },
+    {
+      "n": 14,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "a gentle young woman with simple ringlets in a plain mourning dress with tears in her eyes, sitting beside a younger, harder-eyed man in whose face greed is beginning to show, by candlelight",
+      "composition": "close, Belle and the young Scrooge",
+      "characters": [
+        "belle"
+      ],
+      "text": {
+        "teen": {
+          "narration": "YEARS LATER — SCROOGE'S YOUNG SWEETHEART, BELLE.",
+          "bubbles": [
+            {
+              "speaker": "BELLE",
+              "text": "Another idol has displaced me",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "an eager, greedy, restless motion in the eye",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "BELLE",
+              "text": "It matters little... To you, very little.",
+              "pos": "tr",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "sat by the side of a fair young girl in a mourning-dress",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        62287,
+        64173
+      ]
+    },
+    {
+      "n": 15,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "the gentle ringletted young woman speaking sadly but steadily to the greedy-eyed young man, who looks away, unable to deny it",
+      "composition": "close, the golden idol",
+      "characters": [
+        "belle"
+      ],
+      "text": {
+        "teen": {
+          "narration": "SHE NAMES WHAT HAS REPLACED HER LOVE.",
+          "bubbles": [
+            {
+              "speaker": "BELLE",
+              "text": "A golden one.",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "BELLE",
+              "text": "the master-passion, Gain, engrosses you",
+              "pos": "br",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "BELLE",
+              "text": "You fear the world too much",
+              "pos": "bl",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "BELLE",
+              "text": "All your other hopes have merged into the hope of being beyond the chance of its sordid reproach",
+              "pos": "tr",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        64173,
+        66059
+      ]
+    },
+    {
+      "n": 16,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "a gentle young woman with simple ringlets in a plain modest dress, ALONE, sorrowful but resolved, half-turning away as if releasing someone off-frame",
+      "composition": "single subject — Belle sets him free",
+      "characters": [
+        "belle"
+      ],
+      "text": {
+        "teen": {
+          "narration": "BELLE RELEASES HIM — FOR THE MAN HE ONCE WAS.",
+          "bubbles": [
+            {
+              "speaker": "BELLE",
+              "text": "I release you. With a full heart, for the love of him you once were.",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "BELLE",
+              "text": "May you be happy in the life you have chosen!",
+              "pos": "bl",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "BELLE",
+              "text": "I would gladly think otherwise if I could",
+              "pos": "br",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "BELLE",
+              "text": "the memory of what is past half makes me hope you will",
+              "pos": "tr",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        66059,
+        67945
+      ]
+    },
+    {
+      "n": 17,
+      "wide": true,
+      "cap_zone": "top",
+      "scene": "a gentle comely matron with simple ringlets (grown-up Belle), ALONE as the clear subject by a warm Christmas fire, a tender wistful expression, her family only soft blurred shapes far in the background",
+      "composition": "single subject — Belle, years on",
+      "characters": [
+        "belle"
+      ],
+      "text": {
+        "teen": {
+          "narration": "BELLE, YEARS ON — HAPPY WITH THE FAMILY SCROOGE LOST.",
+          "bubbles": [
+            {
+              "speaker": "HUSBAND",
+              "text": "Quite alone in the world, I do believe.",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "his sight grew very dim indeed",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "HUSBAND",
+              "text": "I saw an old friend of yours this afternoon.",
+              "pos": "bl",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "been a spring-time in the haggard winter of his life",
+              "pos": "tr",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        67945,
+        69830
+      ]
+    },
+    {
+      "n": 18,
+      "wide": false,
+      "cap_zone": "top",
+      "scene": "a thin bent bald-topped CLEAN-SHAVEN old man with a sharp pointed nose (wispy grey side-hair, bare-headed, NO hat), in a plain striped knee-length nightshirt, barefoot, ALONE, recoiling with both arms raised as a brilliant burst of light floods up from the floor at his feet",
+      "composition": "single subject — Scrooge snuffs the light",
+      "characters": [
+        "scrooge"
+      ],
+      "text": {
+        "teen": {
+          "narration": "UNABLE TO BEAR MORE, SCROOGE SNUFFS THE SPIRIT OUT.",
+          "bubbles": [
+            {
+              "speaker": "SCROOGE",
+              "text": "show me no more!",
+              "pos": "tc",
+              "kind": "shout",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "he seized the extinguisher-cap",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "",
+              "text": "he could not hide the light: which streamed from under it",
+              "pos": "br",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            },
+            {
+              "speaker": "SCROOGE",
+              "text": "Haunt me no longer!",
+              "pos": "tr",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        69830,
+        71716
+      ]
+    }
+  ]
+}

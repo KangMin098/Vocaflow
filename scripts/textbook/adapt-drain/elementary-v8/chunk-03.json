@@ -1,0 +1,260 @@
+[
+  {
+    "adapted_from_id": "07d98052-fa6f-4882-a8cc-8d59f252d0cb",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "The Lion's Howdah",
+    "source_feed": "storyweaver",
+    "source_license": "cc_by",
+    "source_v_level": 5,
+    "source_url": "https://storyweaver.org.in/stories/60809-the-lion-s-howdah",
+    "source_text": "The lion was the king of the jungle. One day, he spotted the king of the city. He sat atop an elephant, proud and erect. I will do the same, thought the lion. He summoned the elephant in the jungle. He told him what he wished to do. The poor elephant was alarmed. He said, “Maharaj, why must you copy the king of the city?” The lion was adamant. He sat astride the elephant but he did not look regal. He looked silly! The monkey said, “Kings sit on howdahs. They don’t ride bare-backed elephants!” The lion said, “Send for the howdah maker!” The howdah maker came. He made a royal howdah. It was placed on the elephant’s back. The lion jumped up and sat in it. As soon as the elephant took a few steps, the howdah began rocking. It had not been tied properly. It hit the branch of a tree and overturned! The lion fell down with a huge thud! He never sat atop an elephant again. He said, “I think, it is best to walk.”",
+    "teachable_new_words": {
+      "teachable": 14,
+      "outside": 33,
+      "pct": 42.4
+    },
+    "title": "",
+    "text": ""
+  },
+  {
+    "adapted_from_id": "002c3f5c-ca9f-448f-9228-1155623210a5",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "USGS prepares for Hurricane Ian",
+    "source_feed": "usgs",
+    "source_license": "public_domain",
+    "source_v_level": 5,
+    "source_url": "https://www.usgs.gov/news/featured-story/usgs-prepares-hurricane-ian",
+    "source_text": "In addition, the USGS has set up the tools that first responders and citizens can use to track the impacts of the storm as it comes ashore. These tools will be updated with more information as it becomes available.\n\nCoastal Impacts—What will happen to the shoreline?\nThe leading edge where impacts will be first felt is the shoreline. The National Hurricane Center is currently forecasting that Ian will make landfall as a hurricane along the west coast of Florida, bringing with it life-threatening storm surge. This surge, along with the normal tidal cycle, raises water levels higher on the beach, allowing storm waves to pound protective sand dunes. The combination of surge, tides and waves can result in significant erosion, and may even overtop coastal dunes and inundate areas inland.\nStorm surge is among the most dangerous natural hazards unleashed by hurricanes and tropical storms and experts are predicting some areas in Ian’s path could get life threatening flooding. Surge can destroy homes and businesses; wipe out roads, bridges, water and sewer systems; and profoundly alter coastal landscapes.\n\nTo monitor potential storm surge, tide and waves from Ian, crews from the USGS Caribbean Florida Water Science Center and USGS South Atlantic Water Science Center are deploying more than 150 sensors in Florida and along the Georgia coast. These sensors provide essential water level and wave data that local, state and federal officials can use to inform decisions that help protect lives and property. After the storm, scientists use the information gathered by the sensors to improve future storm surge and coastal change forecasts. The sensor data can also be used to guide recovery efforts, plan evacuation routes, identify areas hardest hit by storm tide flooding, inform building code decisions and improve structure designs to increase public safety.\n\nIn addition, the USGS Total Water Level and Coastal Change Forecast Viewer provides an hourly 6-day forecast of the potential for coastal change in Ian’s path, giving communities in coastal areas an idea of what dune erosion to anticipate, from no impacts to the potential for inundation of dunes. USGS experts are also working to update the USGS Coastal Change Hazards Portal with worst-case forecasted coastal impacts for Ian.\nInland Flooding Potential\nIt’s the end of the wet season for Florida, so many of the streams in the area likely to be affected by Ian are already at above average flow. The extra rainfall from Ian may increase chances of flooding, especially in areas where storm tide prevents the streams from effectively draining to the Gulf of Mexico.\nUSGS crews are currently in the field to check on streams in the region and to ensure USGS streamgages are working properly before Ian arrives. In addition, USGS crews plan to install temporary Rapid-Deployment Gages in targeted locations to provided additional real-time information to augment the USGS streamgage network. The USGS data provided is a key resource used by the National Weather Service and others to make flood forecasts and flood control decisions.\nCommunities can get real-time stream-level information from the USGS National Water Dashboard.\n\nStart with Science\nThe National Hurricane Center is providing regular updates on the progression of Hurricane Ian, and the USGS is ready to support response efforts with the best-available information. As new sensors and equipment are set up and new forecasts are made, the USGS will update all of its tools so that first-responders, communities and individuals can stay informed as Ian makes landfall.\nMore Information:\n\n USGS Flood Event Viewer—Hurricane Ian\n\n Coastal Change Hazards portal\n\n USGS Total Water Level and Coastal Change Forecast Viewer\n\n Note: Naples-area coastal inundation forecasts can be accessed by clicking the Miami Region\n\n USGS National Water Dashboard\n\n National Hurricane Center—Hurricane Ian\n\n USGS Hurricane Ian page\n\n Ready.Gov and Listo.gov",
+    "teachable_new_words": {
+      "teachable": 23,
+      "outside": 112,
+      "pct": 20.5
+    },
+    "title": "",
+    "text": ""
+  },
+  {
+    "adapted_from_id": "01c90268-b472-46bd-845a-e93dff036b82",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "Cooking School Provides Hope for Future",
+    "source_feed": "voa",
+    "source_license": "public_domain",
+    "source_v_level": 4,
+    "source_url": "https://learningenglish.voanews.com/a/cooking-school-provides-hope-for-future/7485587.html",
+    "source_text": "When Clarissa Haglid completed culinary school at the Delaware Food Bank last summer, it was the first time she had graduated from anything in her life.\nJust a few years earlier, a goal like that did not seem within reach. In 2020, she was charged with armed robbery and later sentenced to prison. Haglid told VOA that she “lost everything,” including the custody of her children.\nAs she approached the end of her four-year prison sentence, she learned about a restaurant service training program available to people in jail. Haglid started attending culinary school classes at the Food Bank in Newark, Delaware, when she received permission to take part in the work-release program. Through the 14-week program, students learned cooking and life skills to prepare them for a job in the restaurant or hospitality industry.\nSome of the students currently at Newark were incarcerated like Haglid. Others are in substance abuse recovery programs or underemployed, meaning they have been out of the workforce for a long time, said Anna McDermott. She is the Food Bank’s Chief Impact Officer.\nHaglid and other students learned how to use knives in cooking, correct food preparation, and how to make the five foundational “mother” sauces and other skills. The program also teaches teamwork, work ethic and time management.\nThose kinds of life skills, also called “soft skills,” are taught to “make sure that folks are really familiar with what is expected of them in the workplace to maintain employment,” McDermott said. “Getting a job is the easiest part, sometimes. It’s maintaining that job.”\nAt the end of the program, students are provided an entry-level job through the state restaurant association. Haglid is an apprentice at a nearby hotel, where she receives a paycheck and additional training as a cook.\n“This program meant everything to me because…it was a way for me to get not my life back, but a life to begin with,” Haglid said. Attending the culinary school started to “bridge the gap of restoration between me and my kids.”\nHaglid was able to attend the classes through a U.S. Department of Labor program called HOPES, Hospitality Opportunities for People Reentering Society. HOPES is operated through the National Restaurant Association Education Foundation (NRAEF), an industry group, which partners with community organizations like the Delaware Food Bank. The group’s goal with HOPES is to get incarcerated people training and jobs in the restaurant industry.\nRob Gifford is president of the NRAEF. He said restaurant jobs help prevent recidivism, the word for returning to prison. Gifford said food service jobs help people released from prison get work and a way to earn money as soon as possible.\nFood service, he said, has a “relatively low barrier to entry,” compared to other jobs that might require more training. Since prisons provide food service, there is already a place to provide training. And unlike other work, restaurant jobs often do not require college or even high school degrees.\n“We’re allowing these individuals to get on their feet quickly via the restaurant industry, but we're giving them ... transferable skills,” Gifford said. “When they decide they're ready to move on to their next opportunity… they’re positioned for success.”\nEmployment for formerly imprisoned people is very important to prevent recidivism. The NRAEF says that formerly imprisoned people who maintained a job for the first year following their release had a 16 percent recidivism rate over three years. That is compared to a 52 percent recidivism rate for those that did not maintain employment. The unemployment rate for people formerly incarcerated is more than six times the national rate.\nGifford said about 1000 people have gone through the HOPES program nationwide, and two-thirds are currently employed.\nHaglid, who said she is regaining custody of her children, plans to continue her work in restaurants and one day lead a kitchen as a chef. She also said she wants to support the educational and job training programs that helped her find work. She said the programs are needed to prevent recidivism and provide hope for the future.\n“When you realize you have the ability to learn, (it) almost creates a hunger in you where you want to absorb as much as you possibly can,” Haglid said. “You begin to have a drive that you never had before.”\nI’m Dan Novak.\n\nDan Novak wrote this story for VOA Learning English.\n_____________________________________________\nculinary –adj. related to cooking and the restaurant industry\ncustody — n. the legal right to take care of a child\nincarcerated — adj. currently or previously in prison\nwork ethic –n. the idea that work and employment is good, moral and gives people purpose and meaning\nmanagement –n. the ability to plan, organize or supervise something\nhospitality — adj.(industry) related to the business of restaurants, hotels, travel and tourism\napprentice — n. a person who is in training for a trade which is learned from an established tradesman\nrestore — v. to bring a person back to a position or something back to a former condition\ntransferable skill — n. skills that can be used in everyday life or in any job\nopportunity — n. a chance for a new job, project or activity\nabsorb –v. to take in or learn something",
+    "teachable_new_words": {
+      "teachable": 46,
+      "outside": 128,
+      "pct": 35.9
+    },
+    "title": "",
+    "text": ""
+  },
+  {
+    "adapted_from_id": "8c04120b-a414-4dde-8ca1-31d5ed552f0c",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "Common Adverbs in Conversation: Amplifiers, Downtoners",
+    "source_feed": "voa",
+    "source_license": "public_domain",
+    "source_v_level": 4,
+    "source_url": "https://learningenglish.voanews.com/a/amplifiers-downtoners/3714862.html",
+    "source_text": "From VOA Learning English, this is Everyday Grammar.\nImagine you are at a business meeting.\nYou have just presented a plan to your business partners. They want to give suggestions for how to make your plan better.\nThe conversation might sound like this:\nA: I really like your plan!\nB: Yes, it's pretty good … but it needs a little revising.\nA: Of course, you did a very good job. But you might need to consider a few more points.\nB: Yes, it will probably be more effective if you highlight the staffing requirements and expand on the budget.\nWhether you like business or not, this conversation gives you important grammar information that you can use in just about any situation.\nIn particular, the exchange offers examples of some of the most important adverbs that you will hear in everyday speech.\nThis week, we will explore special adverbs that increase or decrease the force of a statement. These adverbs are sometimes called amplifiers or downtoners.*\nWhat are adverbs? What are amplifiers?\nAdverbs are words that modify, or change, the meaning of adjectives, verbs, and sometimes entire sentences. They are often used to show time, a way of doing something, place, or degree – a measure of something.\nSome kinds of adverbs act as amplifiers. The word amplify means to make something stronger. So these amplifiers make the meaning of an adjective or sentence stronger.\nIn American English, amplifiers have three common uses: increasing intensity, expressing certainty and showing precision. This information comes from Susan Conrad and Douglas Biber, two experts on English grammar.\nWords such as really and very are among the most common that increase the intensity of a statement. They usually modify an adjective.\nTake the adjective good, for example. Imagine you are trying some food that your friends cooked.\nPerhaps you want to tell them, \"This food is good.\"\nYou could increase the intensity of your statement by using the word very:\n\"This food is very good.\"\nYou could express certainty by using an amplifier such as definitely:\n\"This is definitely the best food I've ever had.\"\nOr you could use an amplifier to show precision:\n\"At exactly 5:13 p.m. on February 6th, I ate the best food I've ever had in my life!\"\nWhat are downtoners?\nOther kinds of adverbs act as downtoners. Downtoners are the opposite of amplifiers. They reduce the force of a statement or express doubt. In other words, they set the tone of a statement. You can remember the term 'downtoner' by thinking about what it does: toning down a statement.\nDowntoners have three common functions: reducing intensity, expressing doubt or showing imprecision. Three common downtoners in conversational English are pretty, maybe and probably, say Conrad and Biber.\nHow can you use downtoners to change the meaning of the statement?\nTake our earlier example: \"This food is good.\"\nIf you wanted to reduce the intensity of your statement, you could say:\n\"This food is pretty good.\"\nYou could show doubt, even raise questions, by saying:\n\"This is maybe the best food I've ever had.\"\nOr,\n\"This is probably the best food I've ever had.\"\nThese statements express someone’s opinion about the food. But they are not as strong as the example sentences that use amplifiers. In other words, saying \"This food is pretty good\" is not as forceful as saying, \"This food is really good.\"\nAmplifiers and downtoners in a conversation\nSo what does this discussion of food have to do with the exchange we heard at the beginning of this report?\nLet's think back to the business conversation:\nA: I really like your plan!\nB: Yes, it's pretty good … but it needs a little revising.\nA: Of course, you did a very good job, but you might need to consider a few more points.\nB: Yes, it will probably be more effective if you highlight the staffing requirements and expand on the budget.\nYou might notice that one of the speakers uses amplifiers such as really and very. She is using these words to give more force to her statement. She is probably more excited about the business plan.\nThe second speaker uses downtoners – the words pretty and probably, for example. So you might suspect that he is more guarded about the plan. Maybe he has doubts that the new plan will be better.\nThe amplifiers and downtoners they use are also among the most common ones that you will hear in American English. These words are useful in a number of settings. They are polite and acceptable in almost any situation.\nAmplifiers and downtoners in writing\nRemember this: the amplifiers and downtoners we have discussed today are common in conversation.\nDifferent amplifiers and downtoners are more common in writing. For example, you are more likely to read words such as indeed, certainly, or approximately than you are to hear them in everyday conversation.\nIf you use these amplifiers and downtoners in conversation, your speech will take on a very official sound. While that might be a good idea in a formal presentation or speech, it might not be the best choice for an everyday conversation.\nAmplifiers and downtoners are not always necessary to use in a sentence. But when you see or hear them, you are getting information about the thoughts and feelings of another person. You are learning about how strongly they feel about something.\nAnd that's the end of this really long report!\nI'm Jill Robbins.\nAnd I'm John Russell.\n*These are also often called qualifiers.\nJohn Russell wrote this story for Learning English. George Grow was the editor.\nWe want to hear from you. Write to us in the Comments Section.\n____________________________________________________\nrevise – v. to make changes especially to correct or improve (something)\nstaff – n. the people who make a business or organization do what it does\namplifier – n. (grammar) an adverb that increases the force of a statement\ndowntoner – n. (grammar) an adverb that decreases the force of a statement\nfunction – n. the special purpose or activity for which a thing exists or is used\nconversation – n. an informal talk involving two people or a small group of people\nhighlight – v. to direct attention to (someone or something)\ngrammar – n. the set of rules that explain how words are used in a language\nparticular – n. special or unusual\nadverb – n. a word that describes a verb, an adjective, another adverb, or a sentence and that is often used to show time, manner, place, or degree\ncertainty – n. something that is certain : a fact about which there is no doubt\nprecision – n. exactness or accuracy\nimprecision – n. the opposite of precision\ndoubt – n. a feeling of being uncertain or unsure about something\ntone – n. a quality, feeling, or attitude expressed by the words that someone uses in speaking or writing\npolite – adj. having or showing good manners or respect for other people",
+    "teachable_new_words": {
+      "teachable": 53,
+      "outside": 128,
+      "pct": 41.4
+    },
+    "title": "",
+    "text": ""
+  },
+  {
+    "adapted_from_id": "47364806-c528-42f2-adaa-70650d8ea4b8",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "NASA Announces Winners for 2026 Human Lander Challenge - NASA",
+    "source_feed": "nasa",
+    "source_license": "public_domain",
+    "source_v_level": 5,
+    "source_url": "https://www.nasa.gov/directorates/esdmd/artemis-campaign-development-division/human-landing-system-program/nasa-announces-winners-for-2026-human-lander-challenge/",
+    "source_text": "3 Min Read\n\n NASA Announces Winners for 2026 Human Lander Challenge\n\nBeverly Perry\nCommunications Strategist\n\nJun 26, 2026\n Article\n\nNASA has announced the top student-developed solutions for environmental control and life support systems in future crewed lunar landers from participants in the 2026 Human Lander Challenge. The announcement marks the culmination of months of research by university teams working to advance technologies supporting the agency’s Artemis program that will return American astronauts to the Moon in 2028.\n\nThe challenge concluded June 25 following final technical presentations near NASA’s Marshall Space Flight Center in Huntsville, Alabama. Since September 2025, student teams from across the nation have designed systems‑level approaches to enhance the performance and reliability of environmental control and life support technologies essential for astronauts during deep space missions.\n\nUniversity students and advisors from 11 finalist teams gathered in Huntsville, home to NASA’s Marshall Space Flight Center, June 23-25 for the agency’s third annual Human Lander Challenge. This year’s competition challenged students to consider solutions for environmental control and life support systems for long duration spaceflight. These technologies are essential for maintaining breathable air, potable water, and thermal stability for astronauts during deep space missions.\n\nNASA/Charles Beason\n\n“As NASA continues preparing for sustained lunar exploration and future human missions to Mars, the development of robust, efficient, and reliable life support systems remains a critical focus area,” said Natalie Martinez-Vlasoff, mission capabilities and risk reduction advanced capabilities integration lead at NASA Marshall. “The 2026 student teams demonstrated a strong understanding of the range of design choices for these systems, and how well-considered, systems-level approaches can improve reliability and crew safety for astronauts using future human landing systems. It is encouraging to see students contributing ideas that help make long-duration lunar exploration more achievable.”\n\nThe finalist teams gathered at the U.S. Space & Rocket Center in Huntsville on June 22 to present their research to a panel of NASA and aerospace industry experts, as well as to their peers, during a collaborative poster session. The annual competition concluded with an awards ceremony recognizing the top-performing teams out of the 12 finalists.\n\nNASA announced California Polytechnic State University as the overall winner and recipient of the $10,000 top prize award for their Peltier-based Hydration Accumulation Terminal project. Purdue University won second place and a $5,000 award for work on an Enhanced Potable Water Dispenser, followed by Embry-Riddle Aeronautical University, Daytona Beach, in third place with a $3,000 award for their Advanced Quality Orbital Rehydration Assembly project.\n\nThe Human Lander Challenge is designed to inspire and engage the next generation of engineers and scientists as NASA and its partners prepare to send astronauts to the Moon in preparation for future missions to Mars. The human landing system is the mode of transportation that will take astronauts to the lunar surface and back to lunar orbit under Artemis.\n\nThrough competitions like the Human Lander Challenge, NASA fosters the next generation of engineers and researchers while advancing the technologies needed for astronauts to explore deep space. These initiatives support the agency’s exploration goals while cultivating hands-on, problem-solving and systems thinking among future aerospace professionals. Student solutions from the Human Lander Challenge could be incorporated into current work for the next-generation Artemis landers.\n\nNASA’s Human Landing System Program, managed by NASA Marshall, sponsors the challenge, which is administered by the National Institute of Aerospace.\n\nThrough the Artemis program, NASA will send astronauts to explore the Moon for scientific discovery, economic benefits, and to build the foundation for the first crewed missions to Mars – for the benefit of all.\n\nFor more information about the Artemis program, visit:\n\nhttps://www.nasa.gov/artemis\n\nShare\n\nDetails\n\n Last Updated\n\n Jun 26, 2026\n\n Editor\n\nLee Mohon\n\nContact\n\nCorinne Beckinger\ncorinne.m.beckinger@nasa.gov\n\nLocation\n\nMarshall Space Flight Center\n\nRelated Terms\n\nHuman Landing System Program\nArtemis\nGeneral\nMarshall Space Flight Center\n\nExplore More\n\n 1 min read\n\nNASA 2026 Human Lander Challenge\n\n Article\n\n 10 months ago\n\n 3 min read\n\nNASA Opens 2026 Human Lander Challenge for Life Support Systems, More\n\n Article\n\n 9 months ago\n\n 3 min read\n\nNASA Challenge Seeks ‘Cooler’ Solutions for Deep Space Exploration\n\n Article\n\n 2 years ago\n\n 4 min read\n\nNASA Names Finalists to Help Deal with Dust in Human Lander Challenge\n\n Article\n\n 2 years ago\n\n Keep Exploring\n\nDiscover More Topics From NASA\n\n Human Landing System\n\n Artemis\n\n Marshall Space Flight Center\n\n Space Launch System (SLS)",
+    "teachable_new_words": {
+      "teachable": 20,
+      "outside": 139,
+      "pct": 14.4
+    },
+    "title": "",
+    "text": ""
+  },
+  {
+    "adapted_from_id": "0220fe94-d4bf-400d-b9a5-5d88061ad767",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "Fairy dreams (발췌)",
+    "source_feed": "gutenberg",
+    "source_license": "public_domain",
+    "source_v_level": 6,
+    "source_url": "https://www.gutenberg.org/ebooks/76391",
+    "source_text": "All that day Claude was sad and uneasy, feeling as if something were wanting to his happiness which he knew not where to find. The next morning, however, he waked betimes, and turned eagerly to the window. Clear and splendid rose the palace in the frosty air; stern and sad stood the lonely tree,--but, that shrub at its foot! How blind he had been! It was the perfect and graceful figure of a young girl,--her long hair hanging about her, her gossamer looking robe and scarf fluttering in the morning air. She seemed looking down at something lying at the foot of the old fir, something quite as vague to Claude, however, as the girl herself had been when he first saw her.",
+    "teachable_new_words": {
+      "teachable": 8,
+      "outside": 29,
+      "pct": 27.6
+    },
+    "title": "",
+    "text": ""
+  }
+]

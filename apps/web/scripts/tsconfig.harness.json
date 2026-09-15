@@ -1,0 +1,5 @@
+{
+  "//": "하네스를 구울 때만 쓴다. 루트 tsconfig 는 jsx=preserve(Next 가 변환)이라 tsx/esbuild 가 classic 으로 떨어져 `React is not defined` 가 난다. 여기서만 자동 런타임으로 바꾼다.",
+  "extends": "../tsconfig.json",
+  "compilerOptions": { "jsx": "react-jsx" }
+}

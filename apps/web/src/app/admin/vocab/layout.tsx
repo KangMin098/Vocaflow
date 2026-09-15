@@ -1,3 +1,5 @@
+// apps/web/src/app/admin/vocab/layout.tsx
+
 import type { ReactNode } from 'react'
 import { requireAdmin } from '@/lib/auth/require-admin'
 import { VcbSectionNav } from '@/components/admin/vcb/VcbSectionNav'

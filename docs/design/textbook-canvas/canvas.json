@@ -1,0 +1,34 @@
+{
+  "artboards": [
+    { "file": "Main.dc.html", "x": 0, "y": 0, "w": 1280, "h": 2900, "title": "교재 상세면 — /library/textbooks/4" },
+    { "file": "Shelf.dc.html", "x": 1400, "y": 0, "w": 1280, "h": 900, "title": "교재 서가 매대" },
+    { "file": "Covers.dc.html", "x": 1400, "y": 1040, "w": 1440, "h": 780, "title": "표지 7종" },
+
+    { "file": "TitlePage.dc.html", "x": 1400, "y": 1960, "w": 794, "h": 1123, "title": "속표지 · 판권지" },
+    { "file": "Preface.dc.html", "x": 2280, "y": 1960, "w": 794, "h": 1123, "title": "머리말 · 구성과 특징" },
+    { "file": "Contents.dc.html", "x": 3160, "y": 1960, "w": 794, "h": 1123, "title": "목차" },
+    { "file": "UnitOpener.dc.html", "x": 4040, "y": 1960, "w": 794, "h": 1123, "title": "단원 도입" },
+
+    { "file": "ItemPage.dc.html", "x": 1400, "y": 3220, "w": 794, "h": 1123, "title": "문항 면" },
+    { "file": "AnswerPage.dc.html", "x": 2280, "y": 3220, "w": 794, "h": 1123, "title": "해설 면" },
+    { "file": "WordList.dc.html", "x": 3160, "y": 3220, "w": 794, "h": 1123, "title": "어휘 정리" },
+    { "file": "StudyPlan.dc.html", "x": 4040, "y": 3220, "w": 794, "h": 1123, "title": "학습 계획표" }
+  ],
+  "annotations": [
+    {
+      "id": "baseline",
+      "x": 0,
+      "y": -220,
+      "w": 560,
+      "text": "실측 기준선 (2026-09-06)\n시중 교재 코퍼스 79문서 → 20종을 같은 자로 셌다.\n구성요소 14축 중 시중 중앙값 5축 · 최다 8축(NE능률 달곰한 Literacy).\n\n지금 학습자 화면이 보여주는 것: 난이도 표시 + 구성 요약 정도.\n이 캔버스는 14축 중 11축을 세운다."
+    },
+    {
+      "id": "pipeline",
+      "x": 1400,
+      "y": -220,
+      "w": 620,
+      "text": "이 캔버스는 화면 목업이 아니라 파이프라인의 목표 산출물이다.\n\n표지는 cover.ts 가 이미 만든다(매대·조판기 공용).\n속지 8면은 render-volume.mjs 가 낼 것을 정한 것 —\n머리말 · 구성과 특징 · 목차 · 단원 도입 · 어휘 정리 · 학습 계획표는 아직 없다."
+    }
+  ],
+  "launch": { "view": "canvas" }
+}

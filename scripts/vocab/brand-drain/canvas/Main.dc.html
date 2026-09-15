@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap">
+  <style>
+    body { margin: 0; font-family: "DM Sans", sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #7E5A1B; } a:hover { color: #1A1714; }
+    .kicker { font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: .18em; text-transform: uppercase; }
+    .num { font-family: "JetBrains Mono", monospace; font-variant-numeric: tabular-nums; }
+    .serif { font-family: "Lora", serif; }
+  </style>
+</helmet>
+<div style="width: 560px; height: 640px; background: #FBFAF6; padding: 32px; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px;">
+  <div>
+    <p class="kicker" style="margin: 0; color: rgba(26, 23, 20, 0.62);">Vocaflow Vocabulary</p>
+    <h1 class="serif" style="margin: 6px 0 0; font-size: 30px; line-height: 1.2; font-weight: 600; color: #1A1714;">표지 lockup</h1>
+    <p style="margin: 8px 0 0; font-size: 13px; line-height: 1.65; color: rgba(26, 23, 20, 0.62); text-wrap: pretty;">
+      계열이 달라도 자리는 같다 — 바뀌는 것은 두 색과 도판뿐이다. 자리가 흔들리면 스물아홉 권이 한 시리즈로 안 읽힌다.
+    </p>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 0; border-top: 1px solid #E0DBD0;">
+    <div style="display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 14px; padding: 11px 0; border-bottom: 1px solid #E0DBD0;">
+      <span class="kicker" style="color: #1A1714; padding-top: 2px;">kicker</span>
+      <span style="font-size: 12.5px; line-height: 1.6; color: rgba(26, 23, 20, 0.62);">표지 맨 위 · "JetBrains Mono", monospace 10px · 자간 .18em · 값은 시리즈 상수에서 읽는다</span>
+    </div>
+    <div style="display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 14px; padding: 11px 0; border-bottom: 1px solid #E0DBD0;">
+      <span class="kicker" style="color: #1A1714; padding-top: 2px;">권 번호</span>
+      <span style="font-size: 12.5px; line-height: 1.6; color: rgba(26, 23, 20, 0.62);">오른쪽 위 · VOL. {n} · tabular-nums (자리가 맞아야 서가에서 줄이 선다) · {n} 은 계단 번호가 아니라 **권 이름**이다 — 계단은 한 칸 밀려 있어 나란히 두면 한 책이 두 수를 말한다</span>
+    </div>
+    <div style="display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 14px; padding: 11px 0; border-bottom: 1px solid #E0DBD0;">
+      <span class="kicker" style="color: #1A1714; padding-top: 2px;">도판</span>
+      <span style="font-size: 12.5px; line-height: 1.6; color: rgba(26, 23, 20, 0.62);">듀오톤 판 위 선화 · 계열 ink/paper 두 색만 · 채움·그라디언트 금지</span>
+    </div>
+    <div style="display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 14px; padding: 11px 0; border-bottom: 1px solid #E0DBD0;">
+      <span class="kicker" style="color: #1A1714; padding-top: 2px;">계열 줄</span>
+      <span style="font-size: 12.5px; line-height: 1.6; color: rgba(26, 23, 20, 0.62);">도판 아래 · 영문 대문자 + 한국어 계열명</span>
+    </div>
+    <div style="display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 14px; padding: 11px 0; border-bottom: 1px solid #E0DBD0;">
+      <span class="kicker" style="color: #1A1714; padding-top: 2px;">제목</span>
+      <span style="font-size: 12.5px; line-height: 1.6; color: rgba(26, 23, 20, 0.62);">"Lora", serif 34px / 1.18 · 최대 4줄 (480px 판형이 아니라 150px 타일에서 잰 값 — 여기서는 넉넉해 보인다)</span>
+    </div>
+    <div style="display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 14px; padding: 11px 0; border-bottom: 1px solid #E0DBD0;">
+      <span class="kicker" style="color: #1A1714; padding-top: 2px;">결</span>
+      <span style="font-size: 12.5px; line-height: 1.6; color: rgba(26, 23, 20, 0.62);">제목 아래 한 줄 · 이 계열이 무엇을 모으는가</span>
+    </div>
+    <div style="display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 14px; padding: 11px 0; border-bottom: 1px solid #E0DBD0;">
+      <span class="kicker" style="color: #1A1714; padding-top: 2px;">책등</span>
+      <span style="font-size: 12.5px; line-height: 1.6; color: rgba(26, 23, 20, 0.62);">왼쪽 14px 띠 · 계열 잉크 · 서가에서 계열을 가르는 유일한 신호</span>
+    </div>
+    <div style="display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 14px; padding: 11px 0; border-bottom: 1px solid #E0DBD0;">
+      <span class="kicker" style="color: #1A1714; padding-top: 2px;">사다리</span>
+      <span style="font-size: 12.5px; line-height: 1.6; color: rgba(26, 23, 20, 0.62);">아래 · 일곱 계단 중 이 권의 자리 · 다음에 무엇을 볼지</span>
+    </div>
+  </div>
+
+  <p style="margin: 0; font-size: 11.5px; line-height: 1.6; color: rgba(26, 23, 20, 0.62);">
+    색은 이 판에 적혀 있지 않다 — 계열 잉크·지면은 디자인 토큰이 정본이고, 규격은 역할 이름(ink · paper · accent)만 싣는다.
+  </p>
+</div>
+</x-dc>
+</body>
+</html>

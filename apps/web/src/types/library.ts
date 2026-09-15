@@ -7,12 +7,21 @@ export type MemoryStatus = 'stable' | 'shaky' | 'risk' | 'new'
 export type ModeKey =
   | 'listen'
   | 'read'
+  | 'comic'
   | 'shadow'
   | 'words'
   | 'flashcard'
   | 'spellforge'
   | 'wordblitz'
+  /** 아케이드 허브 — 이 자료의 단어를 게임 19종 전부로 넘기는 문(v07.8) */
+  | 'arcade'
   | 'quiz'
+  /**
+   * ADR 0006 D1 — 사이드바를 4표면으로 줄이려면 **7 모듈 전부**가 콘텐츠 상세에서
+   * 열려야 한다. 둘이 빠져 있어 지금 줄이면 이 둘만 갈 길이 없어진다.
+   */
+  | 'pairflip'
+  | 'dictation'
 
 export type ModeStatus = 'done' | 'active' | 'pending'
 
@@ -54,6 +63,24 @@ export interface LibraryText {
   coverImageUrl?: string | null
   /** 도서 단위 카드일 때 — 그림책 여부 (i+1 임계 삽화 보정) */
   isPictureBook?: boolean
+  /**
+   * ACP 기사에서 시작한 글 — 원 기사의 **매체 판정 입력**.
+   *
+   * 왜 필요한가: `texts` 에는 출처 컬럼이 없다. 그대로 두면 `resolveMediaForm({kind:'text'})`
+   * 이 전부 **대본(script) 표지**로 떨어뜨린다 — VOA 어학 강의도, NASA 보도자료도, 신문 단신도.
+   * `texts.source_url = 'article:{uuid}'` 마커로 원 기사를 되짚어 아래 값을 채운다.
+   */
+  articleSource?: string | null
+  /** `library_articles.register` — 'news' 면 소스보다 **우선**해 신문 조판으로 읽힌다
+   *  (같은 소스가 해설과 단신을 함께 낸다 — VOA 의 'As It Is' vs 'Words and Their Stories'). */
+  articleRegister?: string | null
+  /** 원문 음성 유무 — 듣기 자산이 있으면 읽는 법이 달라져 강의 형식으로 본다. */
+  articleHasAudio?: boolean
+  /** 원 기사의 실사진 커버. **HEAD 검증(`cover_verified_at`)을 통과한 것만** 채운다 —
+   *  죽은 URL 이 검은 박스로 나가던 사고(2026-08-15)의 재발 방지. */
+  articleCoverUrl?: string | null
+  /** 원문 읽기 시간(분) — 스크린리더 라벨(`mediaFormSrLabel`)에 넘긴다. */
+  articleReadingMinutes?: number | null
 }
 
 export interface CategoryItem {
@@ -76,6 +103,13 @@ export interface Word {
   pos: string
   status: MemoryStatus
   exampleSentence: string
+  /**
+   * VRL V-Level 0~11. 지문의 학령 밴드보다 높으면 '지금 단계보다 어려운 단어' 다.
+   *
+   * ⚠️ 본문에 **색을 더하지 않는다** — Memory Decay 4색이 이미 본문 표시를 쓰고 있고,
+   *   다섯 번째 시각 상태를 만들면 그 체계가 무너진다. 이 값은 팝업에서 말로 알린다.
+   */
+  vLevel?: number | null
 }
 
 export interface Sentence {

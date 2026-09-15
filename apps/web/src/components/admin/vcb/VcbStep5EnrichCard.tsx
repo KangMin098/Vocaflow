@@ -1,3 +1,5 @@
+// apps/web/src/components/admin/vcb/VcbStep5EnrichCard.tsx
+
 'use client'
 
 import { useCallback, useEffect, useState, useTransition } from 'react'
@@ -206,7 +208,7 @@ export function VcbStep5EnrichCard({ runId, runStatus, pendingCount }: Props) {
             type="button"
             onClick={handleExport}
             disabled={!canExport}
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-[var(--r-md)] text-xs font-display font-semibold disabled:opacity-50"
+            className="min-h-[44px] inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] text-xs font-display font-semibold disabled:opacity-50"
             style={{
               background: jobs.length > 0 ? 'var(--bg)' : 'var(--p)',
               color: jobs.length > 0 ? 'var(--p)' : 'var(--ti)',
@@ -243,7 +245,7 @@ export function VcbStep5EnrichCard({ runId, runStatus, pendingCount }: Props) {
             type="button"
             onClick={handleResetStale}
             disabled={isPending}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[var(--r-md)] text-xs font-display font-semibold disabled:opacity-50"
+            className="min-h-[44px] inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] text-xs font-display font-semibold disabled:opacity-50"
             style={{
               background: 'var(--warning)',
               color: 'var(--ti)',
@@ -271,7 +273,7 @@ export function VcbStep5EnrichCard({ runId, runStatus, pendingCount }: Props) {
                 type="button"
                 onClick={() => setModel(m)}
                 disabled={anyRunning || isPending}
-                className="px-3 py-1 text-xs font-mono disabled:opacity-50"
+                className="min-h-[44px] px-3 py-1 text-xs font-mono disabled:opacity-50"
                 style={{
                   background: model === m ? 'var(--p)' : 'var(--bg)',
                   color: model === m ? 'var(--ti)' : 'var(--t2)',
@@ -285,7 +287,7 @@ export function VcbStep5EnrichCard({ runId, runStatus, pendingCount }: Props) {
             type="button"
             onClick={() => { void refresh() }}
             disabled={isPending}
-            className="inline-flex items-center gap-1 px-2 py-1 rounded-[var(--r-md)] text-xs border ml-auto"
+            className="min-h-[44px] inline-flex items-center gap-1 px-2 py-1 rounded-[var(--r-md)] text-xs border ml-auto"
             style={{ background: 'var(--bg)', borderColor: 'var(--bd)', color: 'var(--t2)' }}
           >
             <RefreshCw className="w-3.5 h-3.5" />
@@ -342,7 +344,7 @@ export function VcbStep5EnrichCard({ runId, runStatus, pendingCount }: Props) {
                         파일 사라짐
                       </div>
                     ) : job.running ? (
-                      <div className="flex items-center gap-1.5 text-xs" style={{ color: 'var(--info)' }}>
+                      <div className="flex items-center gap-2 text-xs" style={{ color: 'var(--info)' }}>
                         <Loader2 className="w-3.5 h-3.5 animate-spin" />
                         {job.running_elapsed_seconds !== null
                           ? formatElapsed(job.running_elapsed_seconds)
@@ -353,7 +355,7 @@ export function VcbStep5EnrichCard({ runId, runStatus, pendingCount }: Props) {
                         type="button"
                         onClick={() => handleRun(job.pending_file)}
                         disabled={isPending || anyRunning}
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[var(--r-md)] text-xs font-display font-semibold disabled:opacity-50"
+                        className="min-h-[44px] inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] text-xs font-display font-semibold disabled:opacity-50"
                         style={{ background: 'var(--p)', color: 'var(--ti)' }}
                       >
                         <Play className="w-3.5 h-3.5" />
@@ -369,7 +371,7 @@ export function VcbStep5EnrichCard({ runId, runStatus, pendingCount }: Props) {
                     type="button"
                     onClick={() => handleImport(job.enriched_file)}
                     disabled={isPending}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[var(--r-md)] text-xs font-display font-semibold disabled:opacity-50"
+                    className="min-h-[44px] inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] text-xs font-display font-semibold disabled:opacity-50"
                     style={{
                       background: 'var(--success-light)',
                       color: 'var(--success)',
@@ -385,7 +387,7 @@ export function VcbStep5EnrichCard({ runId, runStatus, pendingCount }: Props) {
                   <button
                     type="button"
                     onClick={() => setExpandedLog(expanded ? null : job.pending_file)}
-                    className="inline-flex items-center gap-1 px-2 py-1 rounded-[var(--r-md)] text-xs border"
+                    className="min-h-[44px] inline-flex items-center gap-1 px-2 py-1 rounded-[var(--r-md)] text-xs border"
                     style={{
                       background: 'var(--bg)',
                       borderColor: 'var(--bd)',

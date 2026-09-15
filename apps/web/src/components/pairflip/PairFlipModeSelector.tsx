@@ -38,11 +38,11 @@ export function PairFlipModeSelector({ selected, onChange }: ModeSelectorProps) 
             aria-label={`${m.label} — ${m.description}`}
             disabled={m.disabled}
             onClick={() => !m.disabled && onChange(m.id)}
-            className={`min-h-[40px] rounded-[var(--r-sm)] px-4 py-2 font-display text-[13px] font-[600] transition-colors duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B] focus-visible:ring-offset-1 ${
+            className={`min-h-11 min-w-11 rounded-[var(--r-sm)] px-4 py-2 font-display text-[13px] font-[600] transition-colors duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B] focus-visible:ring-offset-1 ${
               isActive
                 ? 'text-[#FCD34D] shadow-sm [background:linear-gradient(135deg,#1E3A8A_0%,#1E1B4B_100%)]'
                 : m.disabled
-                  ? 'cursor-not-allowed text-[var(--t3)] opacity-60'
+                  ? 'cursor-not-allowed text-[var(--t2)] opacity-60'
                   : 'text-[var(--t2)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]'
             }`}
           >

@@ -1,8 +1,15 @@
+// apps/web/src/app/admin/vocab/runs/page.tsx
+
 import Link from 'next/link'
 import { Sparkles, Activity, CheckCircle2, AlertTriangle, Plus } from 'lucide-react'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 import { AdminKpiGrid } from '@/components/admin/AdminKpiGrid'
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { VcbRunCard } from '@/components/admin/vcb/VcbRunCard'
+import { VcbMarketPanel } from '@/components/admin/vcb/VcbMarketPanel'
+import { VcbProductionPanel } from '@/components/admin/vcb/VcbProductionPanel'
+import { readVcbMarketStatus } from '@/lib/vcb/server/market-status'
+import { readProductionStatus } from '@/lib/vcb/server/production'
 import { fetchRuns } from '@/lib/vcb/server/runs'
 import type { RunStatus } from '@/lib/vcb/types'
 
@@ -12,6 +19,10 @@ const ACTIVE_STATUSES: RunStatus[] = ['enriching', 'qa', 'curating']
 
 export default async function VcbRunsPage() {
   const runs = await fetchRuns()
+  // 시중 대비 지수 — 리포트를 읽기만 한다(계산은 스크립트가 한다).
+  const market = readVcbMarketStatus()
+  // 제작 단계 — 발행 뒤에 남은 일(각인·브랜드)이 어디까지 됐나. 사용자와 Claude Code 가 교대한다.
+  const production = await readProductionStatus()
 
   const counts = {
     total: runs.length,
@@ -29,7 +40,7 @@ export default async function VcbRunsPage() {
         actions={
           <Link
             href="/admin/vocab/runs/new"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-[var(--r-md)] font-display text-sm font-medium text-white"
+            className="min-h-[44px] inline-flex items-center gap-2 px-4 py-2 rounded-[var(--r-md)] font-display text-sm font-medium text-white"
             style={{ background: 'var(--admin-strong)' }}
           >
             <Plus className="w-4 h-4" />
@@ -37,6 +48,12 @@ export default async function VcbRunsPage() {
           </Link>
         }
       />
+
+      <AdminScreenHelp screen="vocab-runs" className="mb-6" />
+
+      <VcbMarketPanel status={market} />
+
+      <VcbProductionPanel status={production} />
 
       <AdminKpiGrid
         cols={4}

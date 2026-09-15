@@ -9,7 +9,7 @@ export default function MyBookResumeLoading() {
   return (
     <div className="flex min-h-[60vh] flex-col items-center justify-center gap-3">
       <Loader2 size={20} className="animate-spin text-[var(--p)]" aria-hidden />
-      <p className="font-body text-[12px] text-[var(--t3)]">학습 이어가기…</p>
+      <p className="font-body text-[12px] text-[var(--t2)]">학습 이어가기…</p>
     </div>
   )
 }

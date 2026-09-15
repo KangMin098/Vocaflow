@@ -1,0 +1,107 @@
+{
+ "instructions": [
+  "각 항목의 title 과 content 를 채운다. content 는 영어 설명문 산문이다.",
+  "길이는 248~408어 — 창(124~163어)이 두세 개 잡히도록.",
+  "문장 평균 16~27어 · 낱말 평균 4.69~5.36자 (중앙 5.01 겨냥).",
+  "연결사(however·therefore·although·because…)와 지시어(this·these·its·their…)를 반드시 섞는다.",
+  "숫자·인용·URL·고유명 약어를 피한다 — 산문 게이트가 서지 블록으로 보고 버린다.",
+  "subject 는 무엇을 쓸지에 대한 지시다. 그대로 번역하지 말고 그 주제의 영어 설명문을 쓴다.",
+  "⚠️ 낱말 길이가 가장 자주 어긋난다 — 학술어를 몰아 쓰면 상한을 넘고, 쉬운 말만 쓰면 하한에 못 미친다."
+ ],
+ "band": {
+  "type": "R-BLANK",
+  "words": {
+   "lo": 124,
+   "mid": 147,
+   "hi": 163
+  },
+  "sentLen": {
+   "lo": 16,
+   "mid": 20.142857142857142,
+   "hi": 26.666666666666668
+  },
+  "wordLen": {
+   "lo": 4.691780821917808,
+   "mid": 5.00763358778626,
+   "hi": 5.35625
+  },
+  "discourseFloor": {
+   "connective": 0,
+   "anaphora": 1.492537313432836
+  }
+ },
+ "items": [
+  {
+   "topic": "역사·인류",
+   "subject": "문자 없는 사회의 기억 전달",
+   "title": "",
+   "content": ""
+  },
+  {
+   "topic": "역사·인류",
+   "subject": "교역망이 만든 도시",
+   "title": "",
+   "content": ""
+  },
+  {
+   "topic": "역사·인류",
+   "subject": "친족 용어가 드러내는 사회 구조",
+   "title": "",
+   "content": ""
+  },
+  {
+   "topic": "역사·인류",
+   "subject": "연대기와 사료 비판",
+   "title": "",
+   "content": ""
+  },
+  {
+   "topic": "역사·인류",
+   "subject": "의례의 반복이 만드는 공동체",
+   "title": "",
+   "content": ""
+  },
+  {
+   "topic": "역사·인류",
+   "subject": "가축화는 누가 누구를 길들였나",
+   "title": "",
+   "content": ""
+  },
+  {
+   "topic": "역사·인류",
+   "subject": "달력과 시간의 표준화",
+   "title": "",
+   "content": ""
+  },
+  {
+   "topic": "역사·인류",
+   "subject": "기술 전파는 왜 고르지 않았나",
+   "title": "",
+   "content": ""
+  },
+  {
+   "topic": "역사·인류",
+   "subject": "무덤 부장품이 말하는 위계",
+   "title": "",
+   "content": ""
+  },
+  {
+   "topic": "역사·인류",
+   "subject": "구전 계보의 정확성과 그 한계",
+   "title": "",
+   "content": ""
+  },
+  {
+   "topic": "역사·인류",
+   "subject": "문자의 발명은 회계에서 시작됐다",
+   "title": "",
+   "content": ""
+  },
+  {
+   "topic": "역사·인류",
+   "subject": "지도 제작과 영토 관념",
+   "title": "",
+   "content": ""
+  }
+ ]
+}

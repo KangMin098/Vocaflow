@@ -1,0 +1,37 @@
+# 2026-08-30 — 컴포저 판으로 교체하며 서가에서 내리는 레거시 19권.
+#
+# 고른 기준: **목차가 없고(챕터 묶음 2개 미만) 청사진도 없는** 발행 권.
+#   그 둘이 없으면 학습자는 "무엇이 어떤 순서로 들어 있는지" 도 "왜 이 낱말들인지" 도
+#   알 수 없다 — 선택 지수의 `toc`·`preface` 가 정확히 그 자리다.
+#
+# 챕터가 없지만 **남기는** 두 권(컴포저 산출이라 조직 원리가 있다):
+#   cat-unlock-fables · unlock-pride-and-prejudice
+#
+# 되돌리기: node scripts/vocab/retire-sets.mjs --list scripts/vocab/data/retire-2026-08-30.txt --restore --commit
+
+# 수능 기출 계열 → exam-items
+kice-q31-34-blank
+kice-frequent-tier4
+kice-q18-24-purpose
+kice-q41-43-long
+kice-frequent-8plus
+
+# V-Level 밴드 계열 → level-band
+auto-vlevel-v1
+auto-vlevel-v2
+auto-vlevel-v3
+auto-vlevel-v4
+auto-vlevel-v5
+auto-vlevel-v6
+auto-vlevel-v7
+auto-vlevel-v8
+auto-vlevel-v9
+
+# 분야 전문 계열 → domain-specialty · academic-awl
+specialty-business
+specialty-literary
+specialty-academic
+specialty-medical
+
+# 빈도순 → freq-tier
+cast-2000

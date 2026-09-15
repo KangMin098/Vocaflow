@@ -1,0 +1,482 @@
+[
+  {
+    "id": "73f2216d-38f7-43f6-a260-4da1190849d2",
+    "book": "The International Monthly, Volume 2, No. 4, March, 1851",
+    "text": "Pardieu, my friend Lenny, if you live to be seventy, and ride in your carriage;--and by the help of a dinner-pill digest a spoonful of curry, you may sigh to think what a relish there was in potatoes, roasted in ashes after you had digged them out of that ground with your own stout young hands. Dig on, Lenny Fairfield, dig on! Dr. Riccabocca will tell you that there was once an illustrious personage[R] who made experience of two very different occupations--one was ruling men, the other was planting cabbages; he thought planting cabbages much the pleasanter of the two! Dr. Riccabocca had secured Lenny Fairfield, and might therefore be considered to have ridden his hobby in the great whirligig with adroitness and success. But Miss Jemima was still driving round in her car, bundling the reins, and flourishing the whip, without apparently having got an inch nearer to the flying form of Dr. R",
+    "verdict": "narrative",
+    "genre": "fiction",
+    "why": "리카보카 박사와 레니가 감자밭에서 주고받는 소설 장면"
+  },
+  {
+    "id": "748b3f57-3970-40ab-9f13-e4d70f823ece",
+    "book": "By-ways in Book-land: Short Essays on Literary Subjects",
+    "text": "'Sir Courtly says, if you'll but vote for him, He'll fill your pockets to the very brim.' 'Honest John no bribe can charm; His heart is like his oven, warm; Though poor as Job, He will not rob, Nor sell his truth to fill his fob.' Nay, not though by so doing he may secure a husband for his daughter Sally. He votes for Trusty, and Sally's sweetheart respects him all the more for it. As the lover says to the lady: 'What to a Briton so grateful can be, As the triumph of Freedom and Virtue to see?' Then there is that forgotten play of Joanna Baillie, also called 'The Election,' printed in 1802, and turned into an opera in 1817. Here, again, we have two candidates--one Baltimore, of ancient but decayed family, and one Freeman, a nouveau riche of equally familiar type--neighbours, but not friends, and rivals for the representation of the borough of Westown. Of Tom Taylor's 'Contested Election,",
+    "verdict": "reject",
+    "genre": "fragmentary",
+    "why": "선거 노래 운문 인용과 희곡 소개가 토막으로 이어진다"
+  },
+  {
+    "id": "748e2546-3c0d-4bad-a658-f45b0cdef19f",
+    "book": "Historic Sites of Lancashire and Cheshire",
+    "text": "It is about four or five yards in height, and adorned with a number of small shields blazoned with the armorial ensigns of the family alliances. Here is the inscription:-- In memory of Thomas eleventh Lord Willoughby of Parham in Suffolk, of Horwich, Adlington and Shaw-Place in this county who died February 20th, 1691, aged 89. Also of Eleanor, Lady Willoughby, who died in 1665, aged 67. And Hugh their eldest son, twelfth Lord Willoughby, who died in June 1712, aged 75. Also of Anne, his Lordship's first wife, who died in 1690, aged 52. Likewise the Lady Honora, his second wife, eldest daughter of Lord Leigh of Stoneleigh, and relict of Sir William Egerton of Worsley, Knight of the Bath, second son of John, Earl of Bridgewater and his countess Elizabeth, daughter of his Grace the Duke of Newcastle. She died in 1750, aged 77. A truly congenial pair, fondly attached to rural scenes and ret",
+    "verdict": "reject",
+    "genre": "fragmentary",
+    "why": "윌러비 경 묘비 명문을 그대로 옮긴 전사다"
+  },
+  {
+    "id": "74f6e9be-461f-4f19-aa1a-28bfaa625de5",
+    "book": "Papers and Proceedings of the Thirty-Fifth General Meeting of the American Library Associa",
+    "text": "In 1911 the National Child Labor Committee conducted an investigation of tenement house work in New York City. Among 163 families visited having 213 children, 196 children ranging in ages from 3-1/2 to 14 years were working on nuts, brushes, dolls' clothes, or flowers. These are truly not the good old-fashioned domestic industries in which children received a good part of their education. Those working in factories and tenement sweat shops, where labor is specialized and subdivided into innumerable operations, do not get the variety of employment that cultivates resourcefulness, alertness, endurance and skill. (Child labor bulletin, Nov., 1912.) We cannot expect these children, with bodies retarded in development by overwork, and without proper nourishment, to be able to take the same mental food that is pleasing to other children of the same age, who have had all necessary physical care",
+    "verdict": "use",
+    "genre": "social",
+    "why": "가내 하청 아동노동 실태 수치로 학습 능력 저하를 논증한다"
+  },
+  {
+    "id": "75088002-8ed7-4262-a9b8-cbdf60faef35",
+    "book": "Plain English",
+    "text": "Derivative prepositions are also formed by prefixing a to other parts of speech, as along, around, abroad, etc. Strictly speaking these might be called compound prepositions for the prefix a is really from the preposition on. By uniting a preposition and some other part of speech, usually a noun or an adjective, as beside, below and beyond. We also have a number of compound verbs which are made by prefixing a preposition to a verb. Some of these compound words have quite a different meaning from the meaning conveyed by the two words used separately; as for example, the compound verb withstand, derived from the preposition with and the verb stand, has almost the opposite meaning from stand with. Our spelling lesson this week includes a number of these compound verbs formed by the use of the verb and a preposition. Look up the meaning in the dictionary. Use them in sentences in the compoun",
+    "verdict": "reject",
+    "genre": "fragmentary",
+    "why": "전치사 파생 규칙 설명 뒤 사전 찾기 숙제 지시가 붙었다"
+  },
+  {
+    "id": "75088650-ae2a-40ef-909b-50e621616056",
+    "book": "Text book of veterinary medicine, Volume 3 (of 5) (발췌)",
+    "text": "The Symptoms vary greatly in different cases. One animal stands stock still propping his legs outward and absolutely refusing to budge. This may occur even in the stall when it is attempted to take the animal out. When on the road he is usually willing to turn and go back, but no persuasion by voice or whip can force him forward. Other horses make ineffective plunges forward but never throw weight enough into the collar to overcome any resistance. Still others stamp, bite, throw themselves to one side rather than forward, rear up, strike with the fore feet, and if whipped kick with the hind. Some will throw themselves down and struggle in this condition.",
+    "verdict": "reject",
+    "genre": "not-selfcontained",
+    "why": "'그 증상' 이 무슨 병의 증상인지 표제가 잘려 없다"
+  },
+  {
+    "id": "7534d0d1-bcd3-4fb7-9234-f84497a6dc27",
+    "book": "Mosaics of Grecian History",
+    "text": "The natural causes which tended to unite the Greeks as a people were a common descent, a common language, and a common religion. Greek genius led the nation to trace its origin, where historical memory failed, to fabulous persons sprung from the earth or the gods; and under the legends of primitive and heroic ancestors lie the actual migrations and conquests of rude bands sprung from related or allied tribes. These poetical tales, accepted throughout Hellas as historical, convinced the people of a common origin. Thus the Greeks had a common share in the renown of their ancient heroes, upon whose achievements or lineage the claims of families to hereditary authority, and of states to the leadership of confederacies, were grounded. The pride or the ambition of political rivals led to the gradual embellishment of these traditions, and ended in ancestral worship. Thus Attica had a temple to ",
+    "verdict": "use",
+    "genre": "history",
+    "why": "혈통·언어·종교라는 그리스 통합 요인을 계보 신화로 설명한다"
+  },
+  {
+    "id": "75488a6e-9baf-44bc-adb7-3e8e42a3bc43",
+    "book": "Story Hour Readings: Seventh Year (발췌)",
+    "text": "The God of harvest praise; In loud thanksgiving raise Hand, heart, and voice. The valleys laugh and sing, Forests and mountains ring, 5 The plains their tribute bring, The streams rejoice. Yes, bless His holy name, And joyous thanks proclaim Through all the earth. 10 To glory in your lot Is comely; but be not God's benefits forgot Amid your mirth. The God of harvest praise; 15 Hands, hearts, and voices raise, With sweet accord. From field to garner throng, Bearing your sheaves along, And in your harvest song 20 Bless ye the Lord. Search for a Thanksgiving story in current newspapers and magazines or in books. Read it and report on your story in class.",
+    "verdict": "reject",
+    "genre": "poetry-drama",
+    "why": "추수 감사 찬송 운문에 학습 과제가 붙었다"
+  },
+  {
+    "id": "75516caa-abe7-47b9-9a89-403f312376f8",
+    "book": "Thomas Davis, selections from his prose and poetry",
+    "text": "We merely meant to give some \"Hints on the Properties of Historical Ballads\"--they will be idle save to him who has the mind of a Poet. --------------------------------------------------------------- A \"Ballad History of Ireland.\" There are great gaps in Irish song to be filled up. This is true even of the songs of the Irish-speaking people. Many of the short snatches preserved among them from olden times are sweet and noble; but the bulk of the songs are very defective. Most of those hitherto in use were composed during the last century, and therefore their structure is irregular, their grief slavish and despairing, their joy reckless and bombastic, their religion bitter and sectarian, their politics Jacobite and concealed by extravagant and tiresome allegory. Ignorance, disorder, and every kind of oppression weakened and darkened the lyric genius of Ireland. Even these, such as they ar",
+    "verdict": "reject",
+    "genre": "fragmentary",
+    "why": "구분선을 사이에 두고 별개의 두 글이 이어붙었다"
+  },
+  {
+    "id": "7553f790-d6cc-4a69-aed2-bbdea37acc38",
+    "book": "Journeys Through Bookland, Vol. 7 (발췌)",
+    "text": "Earth one time put on a frolic mood, Heaved the rocks and changed the mighty motion Of the deep, strong currents of the ocean; Moved the plain and shook the haughty wood, Crushed the little fern in soft moist clay,-- Covered it, and hid it safe away. O the long, long centuries since that day! O the agony! O life's bitter cost, Since that useless little fern was lost! Useless? Lost? There came a thoughtful man Searching Nature's secrets, far and deep; From a fissure in a rocky steep He withdrew a stone, o'er which there ran Fairy pencilings, a quaint design, Veinings, leafage, fibres clear and fine, And the fern's life lay in every line! So, I think, God hides some souls away, Sweetly to surprise us, the last day.",
+    "verdict": "reject",
+    "genre": "poetry-drama",
+    "why": "화석 고사리를 노래한 운문이다"
+  },
+  {
+    "id": "756dec3b-89b0-4fb3-bea9-dcea196f8298",
+    "book": "An English Garner: Critical Essays & Literary Fragments",
+    "text": "This deters men of generous minds from placing themselves in such a station of life; and by that means frequently excludes Persons of Quality from the improving and agreeable conversation of a learned and obsequious friend. Mr. OLDHAM lets us know that he was affrighted from the thought of such an employment, by the scandalous sort of treatment, which often accompanies it. Are things that in a youngster's sense sound_ great. _Little the unexperienced wretch does know, What slavery he oft must undergo! Who, though in silken scarf and cassock drest, Wears but a gayer livery, at best. When dinner calls, the Implement must wait, With holy words to consecrate the meat: But hold it, for a favour seldom known, If he be deigned the honour to sit down! Soon as the tarts appear, \"Sir CRAPE, withdraw! These dainties are not for a spiritual maw! Observe your distance! and be sure to stand Hard by th",
+    "verdict": "reject",
+    "genre": "not-selfcontained",
+    "why": "지시어 This 로 시작하고 올덤의 풍자시가 이어진다"
+  },
+  {
+    "id": "75c8fd78-0526-464a-a6fb-e620bad9c878",
+    "book": "The International Monthly, Volume 2, No. 4, March, 1851",
+    "text": "In a free college (and the New-York Free Academy is, in all respects, more justly to be considered a college than are most of the schools which confer academical \"honors\"), in a free college, of which the professors are responsible only to a judicious board of directors, examinations for admissions and for advancements will be rigid and impartial, the administration will be vigilant and firm, the reckless who will not and the imbecile who cannot acquire a good education, will be dismissed for more congenial pursuits, the rich and the poor will be upon an equality, and only desert will be honorably distinguished. The Free Academy will fulfil the reasonable expectations of its founders. It is admirably designed, and its appointments and administration have thus far been judicious. We lack yet a University: there is no school in America deserving this title; all our colleges should be regar",
+    "verdict": "use",
+    "genre": "education",
+    "why": "무상 대학의 엄정한 선발 조건을 들어 대학 부재를 논증한다"
+  },
+  {
+    "id": "75e49992-681f-4e54-a61d-825b87b6a8a6",
+    "book": "On Love",
+    "text": "To let oneself be seen with a great and unsatisfied desire, is to let oneself be seen in a position of inferiority--and that is impossible in France, except for people of no position at all. It means exposing oneself to all kinds of sneers--hence come the exaggerated praises bestowed on prostitutes by young men who mistrust their own hearts. A vulgar susceptibility and dread of appearing in a position of inferiority forms the principle of conversation among provincial people. Think of the man who only lately, when told of the assassination of H. R. H. the Duke of Berri, answered: \"I knew it.\" In the Middle Ages hearts were tempered by the presence of danger, and therein, unless I am mistaken, lies another cause of the astonishing superiority of the men of the sixteenth century. Originality, which among us is rare, comical, dangerous and often affected, was then of everyday and unadorned.",
+    "verdict": "reject",
+    "genre": "fragmentary",
+    "why": "프랑스 사교계 경구가 맥락 없이 나열된 단편이다"
+  },
+  {
+    "id": "75f56c4a-60cc-437f-8c8a-ebbba50db730",
+    "book": "Scouting for Boys (발췌)",
+    "text": "To bring it home to you, I swear that if you slay this man you also slay your daughter! For I'll not leave him thus to die alone. (To WARRIORS.) Now, braves, come on and do your work. EAGLE'S WING (bowing). Nay, sweet Princess, it may not be. We care not what of men we kill in fighting for our land, but this we cannot do--to raise a hand against a woman, and she our own Princess. KING (furious). How now! What talk is this? Ye speak as though you had no King and no commands. Slay on--strike true, and spare not man nor maid, for she no longer is a child of mine.",
+    "verdict": "reject",
+    "genre": "poetry-drama",
+    "why": "EAGLE'S WING·KING 화자 표시가 붙은 희곡 대본이다"
+  },
+  {
+    "id": "75fd57c9-7b98-4242-8307-4db9ba250ace",
+    "book": "Boys and Girls Bookshelf; a Practical Plan of Character Building, Volume I (of 1 (발췌)",
+    "text": "[Illustration: LITTLE RED RIDING-HOOD. (ENGRAVED FROM THE PAINTING BY G. FERRIER.)] \"Good-morning,\" she said; but there was no answer. Then she got on the bed, and cried out: \"Grandmother, what great ears you have!\" The old wolf jumped out of bed, and Little Red Riding Hood, in the greatest terror, screamed as loud as she could. Just then the door opened, and in came the grandmother and some woodmen who were passing. They were just in time to save Little Red-Riding-Hood from the old wolf. Come and see my baby dear; Doctor, she is ill, I fear. Yesterday, do what I would, She would touch no kind of food; And she tosses, moans, and cries. Doctor, what do you advise?",
+    "verdict": "reject",
+    "genre": "fragmentary",
+    "why": "도판 캡션·빨간모자 결말·자장가가 뒤섞였다"
+  },
+  {
+    "id": "761f6506-585b-4283-9ac5-3b9eb771cb71",
+    "book": "Essay on the Principles of Translation",
+    "text": "Demeure, il faut choisir, et passer à l’instant De la vie à la mort, ou de l’être au néant. Dieux justes, s’il en est, éclairez mon courage. Faut-il vieillir courbé sous la main qui m’outrage, Supporter, ou finir mon malheur et mon sort? Que suis-je? qui m’arrête? et qu’est ce que la mort? C’est la fin de nos maux, c’est mon unique azile; Apres de longs transports, c’est un sommeil tranquile. On s’endort et tout meurt; mais un affreux reveil, Doit succéder peut-être aux douceurs du sommeil. On nous menace; on dit que cette courte vie De tourmens éternels est aussitôt suivie. O mort! moment fatale! affreuse éternité! Tout cœur à ton seul nom se glace épouvanté. Eh! qui pourrait sans toi supporter cette vie? De nos prêtres menteurs bénir l’hypocrisie? D’une indigne maitresse encenser les erreurs? Ramper sous un ministre, adorer ses hauteurs? Et montrer les langueurs de son âme abattue, A d",
+    "verdict": "reject",
+    "genre": "poetry-drama",
+    "why": "번역 없는 프랑스어 운문 독백이다"
+  },
+  {
+    "id": "76222bc5-b703-4cf1-a786-158300c73114",
+    "book": "Selected Essays of Plutarch, Vol. II.",
+    "text": "SERAPION asked a question which the guides had already answered: ‘No wonder if they are bewildered by our high-flown talk.’ The statue of Rhodope, the courtesan, called forth a stern protest from DIOGENIANUS. THEON, on an appeal from SERAPION, pointed out the greater scandal of offerings made by Greeks for victories over Greeks. One of the GUIDES reminded the company of the story of Croesus and the baker-woman. DIOGENIANUS begged that, instead of more anecdotes, the original question might be discussed: ‘Why has the use of verse in oracular answers been discontinued?’ The company seated itself in a new position, and BOETHUS genially remarked on its appropriateness, the place of origin of the heroic metre. SERAPION congratulated him on his improved tone, and PHILINUS agreed. Philosophers have dropped verse, yet we do not infer that Philosophy has died out. PHILINUS agreed. To sum up: Soul",
+    "verdict": "reject",
+    "genre": "fragmentary",
+    "why": "대문자 화자명으로 대화 내용을 요약한 편집자 개요다"
+  },
+  {
+    "id": "76891a8f-5366-4675-9e7b-822afcb8d3d3",
+    "book": "Essay on the Principles of Translation",
+    "text": "In like manner, the following colloquial phrases are capable of a perfect translation by corresponding idioms. Rem acu tetigisti, “You have hit the nail upon the head.” Mihi isthic nec seritur nec repitur, Plaut. “That’s no bread and butter of mine.” Omnem jecit aleam, “It was neck or nothing with him.” Τι προς τ’ αλφιτα; Aristoph. Nub. “Will that make the pot boil?” It is not perhaps possible to produce a happier instance of translation by corresponding idioms, than Sterne has given in the translation of Slawkenbergius’s Tale. “Nihil me pœnitet hujus nasi, quoth Pamphagus; that is, My nose has been the making of me.” “Nec est cur pœniteat; that is, How the deuce should such a nose fail?” Tristram Shandy, vol. 3, ch. 7. “_Miles peregrini in faciem suspexit. Dî boni, nova forma nasi!_ The centinel look’d up into the stranger’s face.—Never saw such a nose in his life!” Ibid. As there is no",
+    "verdict": "reject",
+    "genre": "not-selfcontained",
+    "why": "'같은 방식으로' 로 앞 예를 받고 라틴·그리스어가 번역 없이 나온다"
+  },
+  {
+    "id": "768c89a4-6f16-42a9-bc39-6b6e9c4559c9",
+    "book": "Papers and Proceedings of the Thirty-Fifth General Meeting of the American Library Associa",
+    "text": "The difficulties emphasized by the pessimist, the overlapping of studies and the rival claims, arise chiefly from improper subordination. The material is common to the several sciences because these are portions differentiated from larger fields. Child-psychology is part of Psychology. The science and art of education are mainly concerned with the mental. They are related to Physiology and to Sociology as Psychology is related. But to place Education under Sociology, as is done by the D. C. and the E. C. is to answer the relation of second, not of first dependence, and is as false as it were to put psychology under sociology, to put the cart before the horse. Education and Psychology are working together, and their books should be contiguous. How shall we arrange these practically? Well, scientifically, in the order of generality, thus: J Psychology. JN Social psychology. JO Child-psycho",
+    "verdict": "reject",
+    "genre": "not-selfcontained",
+    "why": "'비관론자가 강조한 어려움' 이 무엇인지 앞에 있다"
+  },
+  {
+    "id": "76a8505d-2747-433a-936f-bb3ff6254b75",
+    "book": "The Atlantic Monthly, Volume 2, No. 14, December 1858",
+    "text": "Charged with the care of these children, Jefferson made their education one of his regular occupations, as systematically performed as his public duties. He planned their studies, and descended to the minutest directions as to dress and deportment. While they were young, he himself selected every article of clothing for them, and even after they were married, continued their constant and confidential adviser. When they were absent, he insisted that they should inform him how they occupied themselves, what books they read, what tunes they played, dwelling on these details with the fond particularity of a lover. Association with his daughters seemed to awaken his noblest and most refined impulses, and to reveal the choicest fruit of his reading and experience. His letters to them are models of their kind. They contain not only those general precepts which an affectionate parent and wise ma",
+    "verdict": "reject",
+    "genre": "not-selfcontained",
+    "why": "'이 아이들을 맡아' 로 시작해 아이들이 특정되지 않는다"
+  },
+  {
+    "id": "76bf01a2-9ef1-4857-b510-0fbbbbe4e893",
+    "book": "Plain English",
+    "text": "+547.+ Brackets are also used for a parenthesis within a parenthesis. If we wish to introduce a parenthetical statement within a parenthetical statement this should be enclosed in a bracket. For example: He admits that this fact (the same fact which the previous witness [Mr. James E. Smith] had denied) was only partially true. +548.+ Quotation marks are used to show that the words enclosed by them are the exact words of the writer or speaker. +550.+ When the name of an author is given at the close of a quotation it is not necessary to use the quotation marks. For example: +551.+ When we are referring to titles of books, magazines or newspapers, or words and phrases used in illustration, we enclose them in quotation marks, unless they are written in italics. For example: \"Whitman's Leaves of Grass\" or Whitman's Leaves of Grass. \"The New York Call\" or The New York Call. The word \"book\" is ",
+    "verdict": "reject",
+    "genre": "fragmentary",
+    "why": "+547.+ 절번호 구두점 규칙과 빠진 예문으로 된 지면"
+  },
+  {
+    "id": "7765b6c9-6819-4594-bbf4-6626712d1929",
+    "book": "Boys and Girls Bookshelf; a Practical Plan of Character Building, Volume I (of 1 (발췌)",
+    "text": "There lives in a town that is called Chu-Bo A little Jap girl named Nami-Ko. She learns to spell and she learns to write, But her A B C's are the oddest sight! This little Jap girl has shoes most neat To put on her tiny Japanese feet, But O! They are queer--such heels, such toes! You'd think she would fall on her little Jap nose! And these are the shoes--beware of mishap If you wear what belongs to a queer little Jap! When this little Jap girl goes out to call She wears no hat--but a parasol! And her little Jap mother wears one too-- In fact it's the way that the Japs all do.",
+    "verdict": "reject",
+    "genre": "bias",
+    "why": "일본 소녀를 'queer little Jap' 이라 부르며 외모를 조롱한다"
+  },
+  {
+    "id": "77664d3f-bab1-4ca7-9c57-dd1ee9ed4b5c",
+    "book": "Papers and Proceedings of the Thirty-Fifth General Meeting of the American Library Associa",
+    "text": "We have recently been informed--no, we have been told--that to talk about reading, culture, the love of knowledge, is \"flapdoodle.\" A citizen may be benefited by knowing how many miles of railroad are in his county, or what amount of money his city spends, but he will be just as much benefited by reading a lofty poem of André Chénier, Le Jeu de Paume for example, or a stanza of William Dwight Moody's, not that he will make money, but something far better. What I want to say is that the state library shall extend the love of learning, of literature, or art and all their kin to the furthest boundaries of the state in order that all may know that here is a fountain whence all may receive instruction and refreshment. Why should the business man not read something besides the newspaper, the statements of which are denied the next day? Yet most men read nothing else. If his own town library is",
+    "verdict": "use",
+    "genre": "education",
+    "why": "주 도서관이 왜 실용 정보 너머 문학까지 넓혀야 하는지 논증"
+  },
+  {
+    "id": "7767f023-bc59-4575-9ac9-3050d1c906cb",
+    "book": "The International Monthly, Volume 2, No. 4, March, 1851",
+    "text": "The first floor contains lecture and reading-rooms, with accommodations for five hundred persons. The latter are on each side of the building, and separated from the library-hall stairway at the front entrance by two corridors leading to the rear vestibule, and thence to the lecture-room, still further in the rear. The basement contains the keeper's rooms, cellars, coal-vaults, air-furnaces, &c. The floors are of richly-wrought mosaic work, on iron beams. The building will not be completed, probably, for nearly a year from this time, and the books collected, about 27,000, are meanwhile accessible at 32 Bond-street. Dr. Cogswell has had printed, in an octavo volume of 446 pages, an alphabetical index to the books now collected, and of the proposed accessions. This catalogue is not published, and there are but few copies of it. The learned librarian, who sailed a few days ago on a new miss",
+    "verdict": "reject",
+    "genre": "not-selfcontained",
+    "why": "어느 건물인지 밝히지 않고 층별 구획만 나열한다"
+  },
+  {
+    "id": "777f749f-a50d-42d3-a573-4f44f78ed47c",
+    "book": "Byzantine Churches in Constantinople: Their History and Architecture",
+    "text": "The voussoirs of the lateral dome arches should be noticed. They do not radiate to the centre, but are laid flatter and radiate to a point above the centre. This form of construction, occurring frequently in Byzantine arches, is regarded by some authorities as a method of forming an arch without centering. But in the case of the lateral wall arches before us it occurs where centering could never have been required; while the apse arch, where centering would have had structural value, is formed with true radiating voussoirs. The failure of the voussoirs to radiate to the centre therefore seems to be simply the result of using untapered voussoirs in which the arch form must be obtained by wedge-shaped joints. For if these joints are carelessly formed, the crown may very well be reached before the requisite amount of radiation has been obtained. On the other hand, if full centering had been",
+    "verdict": "reject",
+    "genre": "not-selfcontained",
+    "why": "'우리 앞의 아치' 라며 앞서 다룬 건물에 기댄다"
+  },
+  {
+    "id": "77c33fb9-96c9-4ce6-bbd0-5f68fa3be140",
+    "book": "Boys and Girls Bookshelf; a Practical Plan of Character Building, Volume I (of 1 (발췌)",
+    "text": "Mrs. Chang, Mrs. Lee, Mama has a small babee; Stands up firm, Sits up straight, Won't eat milk, But lives on cake. My little golden sister Rides a golden horse slow, And we'll use a golden whip If the horse doesn't go. A little gold fish In a gold bowl we see, And a gold-colored bird On a gold-blossomed tree. A gold-plated god In a gold temple stands, With a gold-plated baby In his gold-plated hands. Three horses are drinking, Three horses are feeding, The two men are fighting, The old woman pleading, The baby is crying, But no one is heeding.",
+    "verdict": "reject",
+    "genre": "poetry-drama",
+    "why": "금빛 물고기·금빛 새를 읊은 동요 운문이다"
+  },
+  {
+    "id": "77e62596-6d55-4478-b3ae-f2748b084cb7",
+    "book": "Papers and Proceedings of the Thirty-Fifth General Meeting of the American Library Associa",
+    "text": "While the yellow man is clearly not a problem in libraries, it is equally certain that the black man is a problem. This is especially true in the South. In northern libraries it is the rule to admit him without distinction. Throughout the South, with very few exceptions, the segregation maintained in all social, educational and religious institutions is enforced in libraries. This paper will deal primarily with the public library question. But account should also be taken of the institutional libraries to which negroes have access. The report of the U. S. Commissioner of Education for 1910 contains a list of 189 secondary and higher schools for the colored race in 16 states and the District of Columbia. Of these 160 report libraries aggregating 368,684 volumes with an estimated value of $295,788. Following is a summary of the institutions and their libraries arranged by states. Of these ",
+    "verdict": "reject",
+    "genre": "bias",
+    "why": "'황인은 문제가 아니지만 흑인은 문제' 라고 단정한다"
+  },
+  {
+    "id": "77eb79b1-15d5-429a-aafa-db96d3d79ab9",
+    "book": "Growing Nuts in the North (발췌)",
+    "text": "Rabbits and mice, therefore, had to be dealt with. Of course, one could go hunting for rabbits and later eat them. This was one task I had my employees do. I, myself, was unwilling to take an active part in it, although still intent on saving my trees in spite of my pity for the little animals. Placing hundreds of cans in the orchard, with a pinch of poisoned wheat and oat mixture in each, helped to eradicate the mice. The bait was placed inside the cans to prevent birds from being poisoned, and the cans were tipped at an angle so that water would not enter them.",
+    "verdict": "reject",
+    "genre": "not-selfcontained",
+    "why": "'그러므로 토끼와 쥐를 처리해야 했다' 로 앞을 받는다"
+  },
+  {
+    "id": "77f9d53a-866e-4ed8-b41e-4db0908fdd42",
+    "book": "Cornish Characters and Strange Events",
+    "text": "The rebellion referred to was the rising in the West against the religious innovations, that was put down so ruthlessly. During the first years of Elizabeth there had been no persecution of the Papists. Such as would not conform to the Church of England as reformed were allowed to have priests to say Mass in their own private chapels. But after Pius V, on April 27th, 1570, had issued a Bull of excommunication against the Queen, depriving her of her title to the crown, and absolving her subjects from their oaths of allegiance; and when it became evident that insurrections were being provoked by secret agents from Rome in all directions, Elizabeth's patience was at an end, and stringent laws were passed against those who should enter England as missionary priests armed with this Bull and with dispensations, as also against all such as should harbour them. On S. Bartholomew's Day, August 24",
+    "verdict": "reject",
+    "genre": "not-selfcontained",
+    "why": "'앞서 언급한 반란' 이라며 안 보이는 대목을 가리킨다"
+  },
+  {
+    "id": "784ad2bb-bfba-417a-9a18-c7e516ee44c6",
+    "book": "Plain English",
+    "text": "The spectators are mute. Every tongue is smitten with the palsy. The people bite their lips until they bleed. They cannot explain what they have seen. \"Oh! who would have believed it?\" \"Is it possible?\"--they exclaim. But they cannot doubt what their eyes have seen--that puny and insignificant looking thing called Truth has put ancient and entrenched Error, backed by the throne, the altar, the army, the press, the people and the gods--to rout. The pursuit of truth! Is it not worth living for? To seek the truth, to love the truth, to live the truth? Can any religion offer more?--Mangasarian. Many words contain letters for which there are no corresponding sounds in the spoken words. Thus, in the spoken word though there are only two sounds, the th and the o; u and g and h are silent. There are a great many words in the English language which contain these silent letters. There has been a m",
+    "verdict": "reject",
+    "genre": "fragmentary",
+    "why": "진리 예찬 연설과 묵음 철자 수업이 무관하게 이어붙었다"
+  },
+  {
+    "id": "78744420-7c38-4397-aeb7-d5a5efce6069",
+    "book": "Jackson's Gymnastics for the Fingers and Wrist",
+    "text": "The following mechanical gymnastic exercises refer to the _wrist of the right hand_, and are intended for players on stringed instruments. Their chief purpose is to render the wrist of the right hand and the forearm strong and flexible. This all students find very difficult; it will soon be evident for what reason. It is a fact acknowledged by the most celebrated musicians, that the principal bowing difficulties in playing the violin arise from the wrist. This is chiefly owing to the circumstance that, in playing the violin, the movement sideways of the wrist is a peculiar one, being, in fact, totally different from any other movements taking place in the ordinary occupations of life. If, therefore, it be desired to diminish the painful work, as customary at present, it is indispensable to prepare the wrist and arm by exercises like those we are about to describe. At the extreme head-end",
+    "verdict": "reject",
+    "genre": "not-selfcontained",
+    "why": "'다음의 운동' 을 예고하는데 그 운동이 실려 있지 않다"
+  },
+  {
+    "id": "78ccb339-22d0-4526-a4a2-f4b048764d34",
+    "book": "Plain English",
+    "text": "Language belongs to the class of things which grows. It is organic. We have even used the same terms in speaking about language that we use in talking of a tree. We use the words ROOT, STEM and BRANCH to describe its growth. Language, too, has its different terms of life like a tree, its youth, its maturity, its old age, its death. So we have dead languages like Latin and Greek--languages which are no longer living,--no longer serving mankind. But these dead languages have left living children, languages that have descended from them. The Italian language for example is the child, the descendant of the classical Latin. We have many words in our English language from these dead languages. About five-sevenths of the words in our English are from these classical languages. The remaining two-sevenths are from the Anglo-Saxon. We use the Anglo-Saxon words more frequently, however, in our ever",
+    "verdict": "use",
+    "genre": "education",
+    "why": "언어를 나무에 빗대 사어와 파생 언어 관계를 설명한다"
+  },
+  {
+    "id": "78d9abfa-c847-4e67-a20f-fb7ae2ddaa70",
+    "book": "Boys and Girls Bookshelf; a Practical Plan of Character Building, Volume I (of 1 (발췌)",
+    "text": "9 Nine little fire crackers Walking very straight, One caught an engine spark Then-- There were eight. 8 Eight little fire crackers Trying to spell \"LEAVEN,\" One went too near the gas, Then-- There were seven. 7 Seven little fire crackers Cutting up tricks, One played with lighted punk Then-- There were six. 6 Six little fire crackers Glad they are alive, One went to have a smoke Then There were five. 5 Five little fire crackers Wishing there were more, One went to find a friend Then There were four. 4 Four little fire crackers Merry as could be, One played upon the hearth Then There were three.",
+    "verdict": "reject",
+    "genre": "poetry-drama",
+    "why": "폭죽 아홉 개가 줄어드는 수세기 운문이다"
+  },
+  {
+    "id": "78dca5ea-914f-47d1-b371-5d321e9d143d",
+    "book": "Modern Essays and Stories",
+    "text": "“I can't over-emphasize the fact that when the conference is well started, you must help the public to forget about it, and stir up interest in something new. Flay the profiteer for a month or two, and get a conference going on profiteers. Rap the Bolshevists, and telegraph for a crowd of citizens to come and probe the Bolshevists while you're deciding what your next campaign shall be. Don't let the people's minds run back to the high cost of living, or they'll be likely to notice that it hasn't gone down. Refer constantly to the success of your own campaigns, and keep the public mind moving.” The Young Politician was visibly impressed, but apparently a doubt still lingered in his mind. “There's one thing I'm afraid I don't quite understand,” he said at last. “All this denouncing and rapping and probing--isn't it likely to look rather destructive? Will people want to vote for a man whose",
+    "verdict": "narrative",
+    "genre": "fiction",
+    "why": "노회한 정치인이 젊은 정치인에게 여론 조작을 가르치는 장면"
+  },
+  {
+    "id": "79280477-a4bd-4df8-b7c1-7d7b3514d4f7",
+    "book": "Little Folks (September 1884) (발췌)",
+    "text": "For a while the lady and gentleman were so engaged in talking together, that they took no notice of the children. Duncan had seated himself in a corner, and was leaning his head against the cushion with a strange expression on his face. Elsie, sitting opposite, glanced at him several times, as if to inquire what was the matter, but he took no notice. To go over and ask him was more than she dared. She was far more frightened to move a finger before this strange lady than she had been to disobey Mrs. MacDougall in the most flagrant way.",
+    "verdict": "narrative",
+    "genre": "fiction",
+    "why": "낯선 부인 앞에서 던컨을 살피지 못하는 엘시의 장면"
+  },
+  {
+    "id": "79431123-7061-410b-89e3-151951ca2588",
+    "book": "The Antiquarian Magazine & Bibliographer; Vol. 4, July-Dec 1884",
+    "text": "MR. F. S. DRAKE, the historian of New England, has discovered the names of one hundred persons who took part in the destruction of the British tea in Boston Harbour. He has published the names in a volume called “Tea Leaves.” MR. ANDERSON, of Kirkwall, has in the press a new Guide to the Orkney Islands, in which special attention will be paid to antiquarian remains and traditional lore. Sir Henry Dryden has revised his notes for this work. AMONG the treasures in the late Prince of Orange’s collections are numerous paintings, miniatures, historical documents, and ancient relics of high value, in addition to the jewels of his mother, the late Queen Sophia. IN January next will be commenced a new journal called “The Manx Note-book,” to be devoted to the history, antiquities, and legendary lore of the Isle of Man. The work, which has been undertaken by Mr. A. W. Moore, of Cronbourne, Isle of",
+    "verdict": "reject",
+    "genre": "fragmentary",
+    "why": "'MR. DRAKE…' 식 별개 소식 항목 나열이다"
+  },
+  {
+    "id": "795e38b4-c076-45ac-b1fa-e299e5bbc375",
+    "book": "Papers and Proceedings of the Thirty-Fifth General Meeting of the American Library Associa",
+    "text": "=Publicity=--The usual methods to secure as much publicity as possible have been followed. The library periodicals have, of course, been kept informed of what the office was doing that would interest the library public. We have sent news notes from time to time to the Dial, Nation, New York Times Review of Books, Bookman, Education Review, American City, and other magazines, and to about 180 of the prominent newspapers of the country. Several articles regarding the conference were given to the Associated Press, and to news syndicates. Before the Ottawa Conference, the Associated Press sent to all their subscribers a multi-graphed portion of the president's address. The Association needs more money for this publicity work and more time should be spent on it than the secretary has been able to spend. Its results at present are far from satisfactory and we hope that with growth of income a ",
+    "verdict": "reject",
+    "genre": "fragmentary",
+    "why": "=Publicity= 표제가 붙은 협회 사업 보고 항목이다"
+  },
+  {
+    "id": "79661119-fca8-4d4b-827c-127f79937c39",
+    "book": "The Babees' Book: Medieval Manners for the Young: Done into Modern English (발췌)",
+    "text": "Also, for covetousness gifts beware to take; Unless thou know why else, quickly them forsake; For with gifts may men soon women overcome, Though they were as true as steel or as stone. Bound forsooth is she That of any man takes fee, My lief child. And wisely govern thy house, and serving maids and men, Be thou not too bitter or too debonaire with them; But look well what most needs to be done, And set thy people at it, both rathely and soon. For ready is at need A foredone deed, My lief child. And if thy husband be from home, let not thy folk do ill, But look who doeth well and who doeth nil; And he that doeth well, quit him well his while, But he that doeth other, serve him as the vile. A foredone deed Will another speed, My lief child.",
+    "verdict": "reject",
+    "genre": "poetry-drama",
+    "why": "'My lief child' 후렴이 붙은 훈계 운문이다"
+  },
+  {
+    "id": "79af7e4d-6b60-46c1-985b-e4729d595d72",
+    "book": "Papers and Proceedings of the Thirty-Fifth General Meeting of the American Library Associa",
+    "text": "The plan to combine the catalog and reference departments, the assistants working one-third of their time in reference work, brings excellent results. In the first place the assistants come in direct contact with the public for part of every day. The knowledge of books gained by examination for full cataloging can be made directly useful to the public. On the other hand, the demands of the reader, his peculiarities of expression and his general attitude toward the library give inspiration to the work in the cataloging department as to subject headings and analyticals to be made. The change of work is restful and enables the assistants to accomplish much in a day without becoming weary of either line of work. The efficiency of the assistants depends upon their ability to bring the book and the reader together and as the cataloger has the advantage of studying the books she should therefor",
+    "verdict": "use",
+    "genre": "social",
+    "why": "목록과 참고 업무를 겸하면 왜 양쪽이 나아지는지 근거를 든다"
+  },
+  {
+    "id": "79d48f4a-9f55-424d-a697-4c5e679b6b1c",
+    "book": "The Atlantic Monthly, Volume 2, No. 14, December 1858",
+    "text": "If a Christian is one who sincerely believes and implicitly obeys the teachings of Jesus so far as they affect our relations with our fellow-men, then Mr. Jefferson was a Christian in a sense in which few can be called so. Though the light did not unseal his vision, it filled his heart. Among the statesmen of the world there is no one who has more rigidly demanded that the laws of God shall be applied to the affairs of Man. His political system is a beautiful growth from the principles of love, humility, and charity, which the New Testament inculcates. When reflecting upon Mr. Jefferson's mental organization, one is impressed by the variety and perfectness of his intellectual faculties. He united the powers of observation with those of reflection in a degree hardly surpassed by Bacon. Yet he has done nothing which entitles him to a place among the first of men. It may be said, that, devo",
+    "verdict": "reject",
+    "genre": "doctrine",
+    "why": "'빛이 그의 마음을 채웠다' 며 신앙 잣대로 인물을 평가한다"
+  },
+  {
+    "id": "7a10c77c-e717-4dc2-82ae-d3bcb00244fc",
+    "book": "Thomas Davis, selections from his prose and poetry",
+    "text": "'Like Saul's plate armour on the shepherd boy, Encumbering, and not arming them.' If it were just to estimate our bardic poetry by the specimens we have received in this manner, it could not be rated highly. But it would manifestly be most unjust. Noble and touching, and often subtle and profound thoughts, which no translation could entirely spoil, shine through the poverty of the style, and vindicate the character of the originals. Like the costly arms and ornaments found in our bogs, they are substantial witnesses of a distinct civilisation; and their credit is no more diminished by the rubbish in which they chance to be found than the authenticity of the ancient torques and skians by their embedment in the mud. When the entire collection of our Irish Percy--James Hardiman--shall have been given to a public (and soon may such a one come) that can relish them in their native dress, they",
+    "verdict": "reject",
+    "genre": "not-selfcontained",
+    "why": "운문 두 행으로 시작하고 '이런 식으로 받은 표본' 을 전제한다"
+  },
+  {
+    "id": "7a1f6656-0d63-4f89-b592-3e28211b11a3",
+    "book": "Story Hour Readings: Seventh Year (발췌)",
+    "text": "What do you think the parson found When he got up and stared around? The poor old chaise in a heap, or mound, 10 As if it had been to the mill and ground! You see, of course, if you're not a dunce, How it went to pieces all at once-- All at once, and nothing first-- Just as bubbles do when they burst. 15 What kind of vehicle did the Deacon build? What was his theory as to building a \"shay\"? How did he carry out his theory? Read the passages that answer this question. Make a list of the special parts of the chaise named.",
+    "verdict": "reject",
+    "genre": "fragmentary",
+    "why": "원마차 시 뒤에 학습 발문 목록이 이어진다"
+  },
+  {
+    "id": "7a42fed4-7c5e-4421-a341-174aa3694ed9",
+    "book": "Audubon and His Journals, Volume 2 (발췌)",
+    "text": "As night came, sinking in darkness the broader portions of the river, our minds became affected by strong emotions, and wandered far beyond the present moments. The tinkling of bells told us that the cattle which bore them were gently roving from valley to valley in search of food, or returning to their distant homes. The hooting of the Great Owl, or the muffled noise of its wings, as it sailed smoothly over the stream, were matters of interest to us; so was the sound of the boatman's horn, as it came winding more and more softly from afar. When daylight returned, many songsters burst forth with echoing notes, more and more mellow to the listening ear. Here and there the lonely cabin of a squatter struck the eye, giving note of commencing civilization. The crossing of the stream by a Deer foretold how soon the hills would be covered with snow.",
+    "verdict": "narrative",
+    "genre": "travel",
+    "why": "강에서 맞은 밤과 새벽 소리를 좇는 여행 기록"
+  },
+  {
+    "id": "7a5cc94b-41ac-4c94-bcef-bd9813305ead",
+    "book": "Papers and Proceedings of the Thirty-Fifth General Meeting of the American Library Associa",
+    "text": "Note in accession record, 9; note on shelf list, 4; note in accession book and keep withdrawal book, 3; have withdrawal book, 2; have no withdrawals, 2; files ards, 1; keeps record on cards, 1; keeps cards withdrawn from public catalog, 1; not noted at all, 2. \"We keep all books except in very rare cases. The only notes made are in catalogs and in statistical record.\" Newark system, 12; Brown system, 2; Borrower's record, 2; Single file--Book file under date or class, 4; Double file--Borrower's file and book file, 6. One card, 10; two cards, 4; three cards, 1; temporary borrower's cards, 2; temporary book cards and no borrower's cards, 9; borrower's pocket instead of borrower's card, 1. c. If a borrower presents his own cards and those of others also, do you issue books on all cards presented? Tulane University--Faculty can withdraw any number at one time; students, only 3. e.2. One 7-da",
+    "verdict": "reject",
+    "genre": "fragmentary",
+    "why": "'9; 4; 3; 2' 식 설문 집계 수치 나열이다"
+  },
+  {
+    "id": "7a92985c-d5b6-4f6c-b676-d86f6e64f895",
+    "book": "Papers and Proceedings of the Thirty-Fifth General Meeting of the American Library Associa",
+    "text": "The work required in assembling and taking care of the material is such as to demand the most concentrated efforts and the most specialized training upon the part of the librarian. She must be familiar with the great issues of the day and must be able to look ahead and assemble material where she sees that a topic is engaging the attention of public-spirited men. The material which is stored in the civics room, therefore, is less in the form of books than in the way of pamphlets, magazine articles, and newspaper clippings--that which is usually regarded as ephemera. The latest material is not to be found in books, for by the time a subject has been before the public, has been talked about, assimilated, and finally published in book form it is practically an old subject. One of the first considerations for the librarian is where to obtain this material. Our civics room has a card index of",
+    "verdict": "use",
+    "genre": "social",
+    "why": "최신 자료는 책이 아니라 팸플릿·기사에 있다는 이유를 든다"
+  },
+  {
+    "id": "7aa586f0-b3ae-428b-b204-8ebdcb591d02",
+    "book": "Journeys Through Bookland, Vol. 7 (발췌)",
+    "text": "Did any great door ope or close, It seemed the birth-time of repose, The faint sound died where it arose; And they who passed from door to door; Their soft feet on the polished floor Met their soft shadows,--nothing more. Then once again the groups were drawn Through corridors, or down the lawn, Which bloomed in beauty like a dawn. Where countless fountains leapt alway, Veiling their silver heights in spray, The choral people held their way. There, midst the brightest, brightly shone Dear forms he loved in years agone,-- The earliest loved,--the earliest flown. He heard a mother's sainted tongue, A sister's voice, who vanished young, While one still dearer sweetly sung!",
+    "verdict": "reject",
+    "genre": "poetry-drama",
+    "why": "분수와 합창을 노래한 운문이다"
+  },
+  {
+    "id": "7b07bf8d-cf68-47c4-a986-2c5f30a9bb75",
+    "book": "Scouting for Boys (발췌)",
+    "text": "If he breaks his word of honour, or otherwise disgraces himself, his life is taken (that is his badge), and he is expelled from the patrol. The badge is worn by corporal on the left arm above elbow with a strip of white braid below it. Badges of Honour are also given for certain tests. These are worn on the right arm below the elbow. Signalling: ability to read and send Morse or semaphore message, twenty letters a minute. Stalking: series of twelve photos of wild animals taken from life by the scout and developed and printed by himself. Bronze medal with red ribbon: For gallantry in saving life, or attempting to save life at risk of own life.",
+    "verdict": "reject",
+    "genre": "fragmentary",
+    "why": "배지 착용 위치와 시험 항목을 나열한 규정이다"
+  },
+  {
+    "id": "7b32c282-0a5a-40a1-8b4f-88294f5d397f",
+    "book": "Papers and Proceedings of the Thirty-Fifth General Meeting of the American Library Associa",
+    "text": "The following table will show the various ramifications of a special library department in the business, if carried out as proposed. What suggestions would the libraries make in a case like this? They have a right to protest against the increasing charges made to them for passing of the books of the publishers through the hands of the booksellers, and that some concession should be made in the discounts now granted. In this, the libraries should consider they are not a trade organization, who, like the booksellers, depend on their trade for a living. Publisher and bookseller are one in interest--producer and distributor, and it is economically proper that the publisher's product should pass through the hands of the bookseller, and to whom?--to their clientele, the public. What relation does the library have to the bookseller, other than as a buyer, the same as the rest of the community? ",
+    "verdict": "reject",
+    "genre": "not-selfcontained",
+    "why": "'다음 표가 보여줄 것' 인데 표가 실려 있지 않다"
+  },
+  {
+    "id": "7b3abf44-e540-474e-af8c-d564bad7e8a3",
+    "book": "Scouting for Boys (발췌)",
+    "text": "_A visit to a slaughter-house and butcher's shop to see the cutting up is useful for boys._ Hockey, Rounders, Football, Basket Ball, which is practically football played only with the hands, with a basket seven feet above ground as goal. A small bit of ground or a room or court will do for the game. \"Bang the Bear\" (from Mr. Seton Thompson's \"Birchbark of the Woodcraft Indians.\") One big boy is bear, and has three bases, in which he can take refuge and be safe. He carries a small air balloon on his back. The other boys are armed with clubs of straw rope twisted, with which they try to burst his balloon while he is outside the base. The bear has a similar club, with which he knocks off the hunters' hats. The hat represents the hunter's life. A good game for introducing strange or shy boys to each other.",
+    "verdict": "reject",
+    "genre": "fragmentary",
+    "why": "구기 종목과 놀이 규칙을 나열한 항목이다"
+  },
+  {
+    "id": "7b89865d-678b-45b8-bd6b-76683568928e",
+    "book": "Modern Essays and Stories",
+    "text": "A faint, nervous smile curved the boy's sensitive lips. “Oh, I can skee and snow-shoe all right, but--” He paused, noticing the incredulous expression which Hedges was at no pains to hide. “Everybody does, where I live in Canada,” he explained, “often it's the only way to get about.” “Oh, I see.” Hedges' tone was no longer curt, and a sudden look of interest had flashed into his eyes. “But don't you like it? Doesn't this snow make you want to go out and try some stunts?” Seabury glanced sidewise through the casement windows at the sloping, drifted field beyond. “N--no, I can't say it does,” he confessed hesitatingly; “it's such a beastly, rotten day.” His interest in Plug's unexpected accomplishments made Hedges forbear to comment scornfully on such weakness. “Shucks!” sniffed Hedges. “A little snow won't hurt you. Come ahead out and let's see what you can do.” Seabury hesitated, glancin",
+    "verdict": "narrative",
+    "genre": "fiction",
+    "why": "캐나다에서 온 소년이 스키를 권유받는 대화 장면"
+  },
+  {
+    "id": "7b9e601f-5915-4760-bb0d-b56b6478b21e",
+    "book": "Modern Essays and Stories",
+    "text": "Many essays tell stories, but never for the sake of the stories alone. They use the stories as frameworks on which to hang thought, or as illustrations to emphasize thought. The essays hold beyond and above everything the personality of the one who writes. Almost all essays are in some sense biographical, but they reveal stories of lives, instead of telling the stories in organized form. The little of biography that essays tell is just enough to permit the writers to recall the memories of childhood, and the varied affections and interests of life. For real biography one must go elsewhere than to essays. Some essays lift one into a fine and close communion with their writers, and give intimate companionship with a human soul. They are the best of all essays. Such essays are always extremely familiar, and deeply personal, like the essays of Michel de Montaigne and Charles Lamb. About such",
+    "verdict": "use",
+    "genre": "essay",
+    "why": "수필이 이야기를 생각을 걸어두는 틀로 쓴다는 점을 논증한다"
+  },
+  {
+    "id": "7bac9ef4-4b08-4aef-a5ac-bf7c6c91caf3",
+    "book": "Boy Scouts Handbook (발췌)",
+    "text": "There are three qualities to a good knot: 1. Rapidity with which it can be tied. 2. Its ability to hold fast when pulled tight, and 3. The readiness with which it can be undone. The following knots, recommended to scouts, are the most serviceable because they meet the above requirements and will be of great help in scoutcraft. If the tenderfoot will follow closely the various steps indicated in the diagrams, he will have little difficulty in reproducing them at pleasure. In practising knot-tying a short piece of hemp rope may be used. To protect the ends from fraying a scout should know how to \"whip\" them. The commonest method of \"whipping\" is as follows:",
+    "verdict": "reject",
+    "genre": "not-selfcontained",
+    "why": "'도해의 단계를 따르라' 며 없는 그림에 기댄다"
+  },
+  {
+    "id": "7bf461ce-16ff-4e5b-a5aa-607963daaa34",
+    "book": "Papers and Proceedings of the Thirty-Fifth General Meeting of the American Library Associa",
+    "text": "It is believed that, with the right spirit of coöperation, there are certain changes that might be made which would help the bookseller, as well as the librarian. If what we understand to be the present attitude of the booksellers remains unchanged, if they are unable to give as well as to take, your committee feels as though the discussion might as well come to an end. We believe that there exists considerable difference of opinion among booksellers as to the justice of the terms now being offered to libraries as large buyers of books. It will be a matter of great regret if there cannot be established most cordial relations between the libraries and the Booksellers' Association. At the same time, we do not think that the A. L. A. should establish such relations upon terms made wholly for the benefit of the booksellers. We think that the Executive Board should know the present condition ",
+    "verdict": "reject",
+    "genre": "not-selfcontained",
+    "why": "'현재 서적상의 태도' 라는 진행 중 협상을 전제한다"
+  },
+  {
+    "id": "7bf6fbe6-cd00-4d8a-8a94-cf2e3391ee43",
+    "book": "Papers and Proceedings of the Thirty-Fifth General Meeting of the American Library Associa",
+    "text": "In our scheme of scientific management, therefore, the small library, perhaps even more than the large, can not afford to do without collecting such literature. The pamphlet collection is indispensable. It means work, but in the end by its live usefulness it saves time. By scientific management and intensive use a small library with a good pamphlet collection can get better results than one three times as large whose resources are not up-to-date and thoroughly made use of. First, a word as to the filing of such material; second, as to sources for securing it. I cannot attempt to offer any new solution to the vexed problem of pamphlet disposal. I will merely state briefly how Goodwyn Institute library handles its pamphlets. We have found the system of filing in pamphlet boxes most convenient and practicable. A box is lettered with D. C. number or inclusive numbers, and with subject or sub",
+    "verdict": "reject",
+    "genre": "not-selfcontained",
+    "why": "'우리의 관리 방안' 을 앞에서 세운 뒤 therefore 로 받는다"
+  },
+  {
+    "id": "7bf965c9-7e71-4214-b8e3-a365f0f2ae8f",
+    "book": "The Babees' Book: Medieval Manners for the Young: Done into Modern English (발췌)",
+    "text": "Keep your knife clean and sharp, and cleanse it on some cut bread, not on the cloth, I bid you; a courteous man is careful of the cloth. Do not put your spoon in the dish or on the edge of it, as the untaught do, or make a noise when you sup as do boys. Do not put the meat off your trencher into the dish, but get a voider and empty it into that. When your better hands you a cup, take it with both hands lest it fall, and drink yourself and set it by; and if he speaks to you, doff your cap and bow your knee.",
+    "verdict": "use",
+    "genre": "education",
+    "why": "칼과 숟가락 쓰는 법을 이유와 함께 제시한 예절 산문"
+  },
+  {
+    "id": "7c2aa191-7a39-434f-9115-5035618117d1",
+    "book": "Essay on the Principles of Translation",
+    "text": "If a translator is bound, in general, to adhere with fidelity to the manners of the age and country to which his original belongs, there are some instances in which he will find it necessary to make a slight sacrifice to the manners of his modern readers. The ancients, in the expression of resentment or contempt, made use of many epithets and appellations which sound extremely shocking to our more polished ears, because we never hear them employed but by the meanest and most degraded of the populace. By similar reasoning we must conclude, that those expressions conveyed no such mean or shocking ideas to the ancients, since we find them used by the most dignified and exalted characters. In the 19th book of the Odyssey, Melantho, one of Penelope’s maids, having vented her spleen against Ulysses, and treated him as a bold beggar who had intruded himself into the palace as a spy, is thus sha",
+    "verdict": "use",
+    "genre": "essay",
+    "why": "고대의 욕설을 완화해야 하는 이유를 용례 근거로 논증한다"
+  },
+  {
+    "id": "7c5cf23c-9fb9-4fae-96f1-6cfd13b23a51",
+    "book": "Bedouins",
+    "text": "Paul was standing in the street, the girl looking down into his eyes; he made a conventional answer, their hands touched, and they went down the street together. That afternoon Paul received a pretty note from the Roumanian. She wrote of her sorrow at his not having called again, and asked him to join them during the first entr’acte of Die Walküre. He tossed the note away, for his brain was filled with the vision of a girl in a straight-brimmed straw hat, a girl with a voice like a wooing clarinet and eyes that were dewy with desire. Paul was hard hit, and, as one nail drives out another, the blonde woman supplanted the brunette in his easily stirred imagination. The first act of Die Walküre did not lay the fair ghost in his brain; he went out on the esplanade and encountered the three Roumanians. Helena detached herself and came to him with that gracious gait and proud lift of head and ",
+    "verdict": "narrative",
+    "genre": "fiction",
+    "why": "폴이 발퀴레 막간에 두 여인 사이에서 흔들리는 장면"
+  },
+  {
+    "id": "7ccc0605-c4ca-4568-8b0f-d094e75419af",
+    "book": "Sanders' Union Fourth Reader",
+    "text": "(sl.) At length, o'er Columbus slow consciousness breaks, (oo) \"LAND! LAND!\" cry the sailors; (ff.) \"LAND! LAND!\"--he awakes,-- ('') He runs,--yes! behold it! it blesseth his sight! THE LAND! O, dear spectacle! transport! delight! RHETORICAL PAUSES are those which are frequently required by the voice in reading and speaking, although the construction of the passage admits of no grammatical point. These pauses should be as manifest to the ear, as those which are indicated by the comma, semicolon, or other grammatical points, though not commonly denoted by any visible sign. In the following examples they are denoted thus, (||). 1. In slumbers of midnight || the sailor-boy lay, His hammock swung loose || at the sport of the wind; But watch-worn and weary, || his cares flew away, And visions of happiness || danced o'er his mind. DIMOND. 2. There is a land, || of every land the pride, Beloved",
+    "verdict": "reject",
+    "genre": "fragmentary",
+    "why": "(sl.)(ff.) 낭독 기호와 운문·낭독 규칙이 뒤섞였다"
+  },
+  {
+    "id": "7cdbfe88-3521-423e-85f4-9546bf007bf1",
+    "book": "Golden Days for Boys and Girls, Vol. XII, Jan. 3, 1891 (발췌)",
+    "text": "Jumping out, he was about to give her a shove out into the stream, when he reflected that the tide was still flood and an empty boat would be sure to be seen and secured and his sudden appearance connected with her in some way; so he hauled her under a clump of bushes, made her well fast and walked up a marshy cattle-path toward the town. In about twenty minutes he came out close to a wharf, where the work of the day was in full blast. A large schooner lay there, with \"Traveler, of Boston,\" on her broad stern. She was taking, as a deck-load, some large, squared timbers, and just then had a big one hung by chains from a patent crane, which stood upon the dock.",
+    "verdict": "narrative",
+    "genre": "fiction",
+    "why": "보트를 숨기고 부두로 걸어 나가는 장면"
+  },
+  {
+    "id": "7cf007d4-9bcf-4adb-adbc-0d34f8eedbd3",
+    "book": "The Antiquarian Magazine & Bibliographer; Vol. 4, July-Dec 1884",
+    "text": "Historic Sites of Lancashire and Cheshire. By JAMES CROSTON, Esq., F.S.A. Manchester: John Heywood. 1883. The author of this work says, rather grandiloquently, in his preface, that, without any pretension to the dignity of history, his aim has been “to combine with topographical description, personal narrative and local legend, and to snatch from Oblivion’s spoils the shadowy fragments of tradition that have floated down through centuries of time.” Certainly a worthy and admirable aim, not wanting, despite the writer’s disclaimer, in ‘dignity.’ He has contrived to clothe his descriptions of persons and places in a mantle of poetical beauty, which renders them exceedingly charming to the general reader, as they are also of pre-eminent interest to the antiquary. One of the chapters, that devoted to Alderley and the Stanleys, will be especially attractive to admirers of perhaps the most uni",
+    "verdict": "reject",
+    "genre": "fragmentary",
+    "why": "출판사·연도 서지 표제로 시작하는 서평 항목이다"
+  }
+]

@@ -7,7 +7,7 @@ import { Screen } from '@/components/ui/ios'
 import { fetchRecentReports } from '@/lib/learner/weekly-report'
 
 export const metadata = {
-  title: '주간 리포트 · Vocaflow',
+  title: '주간 리포트',
   description: '주마다 학습을 돌아보는 Report Card',
 }
 

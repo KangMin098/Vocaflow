@@ -1,0 +1,320 @@
+// packages/library-pipeline/src/textbook/type-spread.ts
+//
+// **유형 폭 — 사다리가 약속한 유형과 지면에 실제로 실린 유형을 견준다.**
+//
+// ── 왜 이 자가 따로 필요한가 (실측 2026-09-13) ───────────────────────
+// `market-benchmark.mjs` 의 A5(유형 다양성)는 **창고**를 재거나, 권 모드에서도
+// 출판사별로는 「못 잼」으로 빠진다(OCR 이 발문을 못 잡은 출판사가 3곳이다).
+// 그래서 이 축은 리포트에서 늘 `—` 였고, **아무도 권당 유형 폭을 보지 않았다.**
+//
+// 이것은 재고 부족과 다른 결함이다 — `type-gap.mjs` 는 창고에 무엇이 모자란지를 재고,
+// 이 자는 **창고에 있는데도 지면에 안 실린 것**을 잰다. 둘 다 필요하다.
+//
+// ── 이 자가 실제로 찾아낸 것 (2026-09-13) ────────────────────────────
+// 스냅샷을 사다리와 같은 시점으로 다시 굽고 재니, 선언 19종에 지면 13종이었고
+// **여섯 유형이 일곱 권 어디에도 한 문항도 없었다.** 그 여섯을 유형별로 추적하자
+// (`diagnoseMissingTypes`) 원인이 재고가 아니라 **판정자 둘의 오탐**이었다:
+//
+//     badSplit  선지가 소문자로 여는 유형을 전량 반려 (빈칸·주제·심경·요약·함의)
+//     residue   빈칸 표시 `_____` 를 사전 보일러플레이트로 오인 (blank_word 19,870)
+//
+// 고치고 나서 V5 지면 유형 **13 → 18종** · 풀 20,111 → 36,520문항.
+// **좋아 보이던 수치(13종·시중 9 대비 1.44배) 뒤에 결함이 숨어 있었다** — 그래서 이 자는
+// 「몇 종인가」로 끝내지 않고 **빠진 유형의 이름과 사유**까지 낸다.
+//
+// ⚠️⚠️ **「선언」과 「지면」은 서로 다른 시점에서 온다 — 이것을 안 밝히면 인과가 뒤집힌다.**
+//   선언은 **지금 코드**(`SERIES_SPINE`)에서, 지면은 **조판 스냅샷**에서 읽는다. 스냅샷이
+//   사다리보다 낡으면 그 차이는 결함이 아니라 **시차**다.
+//
+//   2026-09-13 에 실제로 그렇게 틀렸다. 「사다리가 19종을 선언해 놓고 지면에 4종만 실린다」고
+//   적었는데, 스냅샷 시점(09-07)의 사다리를 git 에서 꺼내 보니 선언이 **4종**이었다 —
+//   지면과 정확히 같았다. 19 는 그날 17:26 커밋이 넓힌 값이다. **조합기는 결백했고**
+//   낡은 것은 스냅샷이었다. 그래서 이 자는 두 시각을 받아 `skew` 로 그 사실을 함께 낸다.
+//
+// ── 왜 「선언 대비」와 「시중 대비」를 함께 내는가 ────────────────────
+// 하나만 내면 둘 다 틀리게 읽힌다. 선언 대비만 보면 사다리를 얇게 선언해 놓고 100% 가 되고,
+// 시중 대비만 보면 사다리가 약속한 것을 안 지킨 사실이 안 보인다. 둘을 나란히 둔다.
+//
+// ⚠️ **못 잰 것은 통과가 아니다.** 시중 기준선이 없는 학교급은 `market: null` 이고
+//   지수도 `null` 이다. 0 으로도 1 로도 뭉개지 않는다 — 이 저장소가 이미 겪은 거짓 초록이다.
+//
+// 순수 함수다 — DB 도 파일도 안 읽는다. 부르는 쪽이 스냅샷과 규격을 넣어 준다.
+
+import { MARKET_BUCKET_BORROWED, V_TO_MARKET_BUCKET } from './level-chart'
+import marketSpec from './market-spec.json'
+
+/** 시중 권당 유형 수 기준선의 학교급 — `market-spec.json` 의 `typeCoverage.perDocument.bySchool` 키. */
+export type MarketSchool = '초등' | '중등' | '고등'
+
+/**
+ * 밴드 → 학교급.
+ *
+ * ⚠️ **눈금을 여기서 새로 만들지 않는다.** `level-chart.ts` 의 `V_TO_MARKET_BUCKET`
+ *   (초6 · 중1 · 고1…)이 정본이고, 이 함수는 그 버킷의 앞 글자를 학교급으로 옮길 뿐이다.
+ *   눈금이 둘이면 반드시 갈리고, 그 갈림은 두 리포트가 다른 학년을 말할 때 드러난다.
+ */
+export function schoolOfBucket(bucket: string | null | undefined): MarketSchool | null {
+  if (!bucket) return null
+  if (bucket.startsWith('초')) return '초등'
+  if (bucket.startsWith('중')) return '중등'
+  if (bucket.startsWith('고')) return '고등'
+  return null
+}
+
+/** 그 권이 어떤 상태인가. */
+export type SpreadState =
+  /** 지면 유형 수가 시중 권당 중앙값 이상. */
+  | 'ahead'
+  /** 시중 중앙값 미만. */
+  | 'behind'
+  /** 시중 기준선이 없어 견줄 수 없다. */
+  | 'unmeasured'
+
+export interface VolumeTypeSpread {
+  band: number
+  schoolBand: string
+  school: MarketSchool | null
+  /** 사다리가 그 권에 쓰기로 **선언한** 유형 수. */
+  declared: number
+  /** 지면에 **실제로 실린** 유형 수. */
+  printed: number
+  /** 선언했는데 한 문항도 안 실린 유형. **여기가 할 일 목록이다.** */
+  absent: string[]
+  /** 선언에 없는데 실린 유형 — 사다리와 조합기가 어긋난 자국. */
+  unexpected: string[]
+  /** 시중 같은 학교급의 **권당** 유형 수 중앙값. 없으면 null. */
+  market: number | null
+  /** `printed / market`. `market` 이 null 이면 null — **못 쟀다는 뜻이다.** */
+  index: number | null
+  state: SpreadState
+}
+
+/** 한 권의 입력 — 조판 스냅샷과 사다리에서 온다. */
+export interface VolumeSpreadInput {
+  band: number
+  schoolBand: string
+  /** `V_TO_MARKET_BUCKET[band]` — 부르는 쪽이 정본 눈금에서 읽어 넣는다. */
+  marketBucket: string | null
+  /** 사다리(`SERIES_SPINE` 의 rung)가 선언한 유형. */
+  declaredTypes: readonly string[]
+  /** 지면 단원들이 실제로 쓴 유형 — 중복 포함으로 넣어도 된다. */
+  printedTypes: readonly string[]
+}
+
+/** 시중 권당 유형 수 — `market-spec.json` 의 `typeCoverage.perDocument.bySchool[*].median`. */
+export type MarketPerSchoolMedian = Partial<Record<MarketSchool, number>>
+
+/**
+ * **규격에서 그대로 읽은 기준선** — 초등 4 · 중등 4 · 고등 9 (코퍼스 46권 실측).
+ *
+ * ⚠️ **판정 함수들은 여전히 이 값을 인자로 받는다.** 여기서 자를 굳히지 않는 이유는
+ *   회귀가 다른 기준선으로도 검사할 수 있어야 하기 때문이다. 이 상수는 **부르는 쪽이
+ *   같은 값을 두 번 적지 않게** 하는 편의일 뿐이고, 정본은 `market-spec.json` 이다.
+ */
+export const MARKET_TYPE_MEDIAN: MarketPerSchoolMedian = Object.fromEntries(
+  Object.entries(marketSpec.typeCoverage?.perDocument?.bySchool ?? {}).map(([k, v]) => [
+    k,
+    (v as { median?: number }).median,
+  ]),
+) as MarketPerSchoolMedian
+
+/**
+ * 밴드의 시중 기준선. **없으면 `null` — 0 이 아니다.**
+ *
+ * 눈금은 `V_TO_MARKET_BUCKET`(정본) → `schoolOfBucket` 을 거친다. 여기서 밴드를 직접
+ * 학교급으로 나누면 눈금이 둘이 되고, 그 갈림은 두 리포트가 다른 학년을 말할 때 드러난다.
+ */
+export function marketTypeMedianOfBand(band: number): number | null {
+  const school = schoolOfBucket(V_TO_MARKET_BUCKET[band] ?? null)
+  if (!school) return null
+  return MARKET_TYPE_MEDIAN[school] ?? null
+}
+
+/**
+ * **그 기준선이 어느 표본에서 왔나.** 빌려 온 버킷이면 그 사실을, 아니면 `null`.
+ *
+ * ── 왜 수만으로는 부족한가 (실측 2026-09-13) ──────────────────────────
+ * 발행 게이트가 V1 을 「지면 3종 / 시중 권당 중앙 4종 — 미달」로 적었다. 그런데 V1 은
+ * **초등 저학년**이고 그 기준선은 `V_TO_MARKET_BUCKET` 이 초6 에서 **빌려 온** 값이다
+ * (`MARKET_BUCKET_BORROWED` — 코퍼스에 초등 저학년 표본이 없다).
+ *
+ * 그 문구를 그대로 읽으면 관리자는 **일곱 살 교재의 유형 구성을 초6 실측으로 넓히러 간다.**
+ * 빌린 사실은 이 저장소가 이미 레벨 차트에서 밝히기로 한 것인데(`borrowedFrom`),
+ * 게이트만 그것을 몰랐다. **자가 아니라 자의 출처를 함께 말한다.**
+ */
+export function marketTypeSampleOfBand(band: number): string | null {
+  const bucket = V_TO_MARKET_BUCKET[band] ?? null
+  if (!bucket) return null
+  return MARKET_BUCKET_BORROWED[bucket] ?? null
+}
+
+/**
+ * 한 권을 잰다.
+ *
+ * ⚠️ `printedTypes` 가 비면 `printed: 0` 이다 — 이것은 **못 쟀다가 아니라 실제 0** 이다.
+ *   조판 스냅샷은 그 권을 실제로 조합한 결과라, 비었다면 그 권에 실릴 것이 없었다는 뜻이다.
+ */
+export function measureVolumeSpread(
+  v: VolumeSpreadInput,
+  marketMedian: MarketPerSchoolMedian,
+): VolumeTypeSpread {
+  const declared = new Set(v.declaredTypes)
+  const printed = new Set(v.printedTypes)
+  const school = schoolOfBucket(v.marketBucket)
+  const market = school ? marketMedian[school] ?? null : null
+  const index = market != null && market > 0 ? printed.size / market : null
+  return {
+    band: v.band,
+    schoolBand: v.schoolBand,
+    school,
+    declared: declared.size,
+    printed: printed.size,
+    absent: [...declared].filter((t) => !printed.has(t)).sort(),
+    unexpected: [...printed].filter((t) => !declared.has(t)).sort(),
+    market,
+    index,
+    state: index == null ? 'unmeasured' : index >= 1 ? 'ahead' : 'behind',
+  }
+}
+
+/** 두 입력의 시각이 어긋났는가. **어긋난 채로 읽으면 조합기를 범인으로 지목하게 된다.** */
+export interface SpreadSkew {
+  /** 조판 스냅샷을 구운 시각. */
+  printedAt: string
+  /** 사다리(`SERIES_SPINE`)가 마지막으로 바뀐 시각. */
+  declaredAt: string
+  /** 스냅샷이 사다리보다 낡았다 — 선언·지면 차이를 결함으로 읽으면 안 된다. */
+  stale: boolean
+}
+
+/**
+ * 스냅샷이 사다리보다 낡았는가.
+ *
+ * ⚠️ 파싱 못 하는 값은 `null` 이다 — `false`(안 낡았다)로 뭉개면 시차가 조용히 숨는다.
+ */
+export function measureSkew(
+  printedAt?: string | null,
+  declaredAt?: string | null,
+): SpreadSkew | null {
+  if (!printedAt || !declaredAt) return null
+  const p = Date.parse(printedAt)
+  const d = Date.parse(declaredAt)
+  if (Number.isNaN(p) || Number.isNaN(d)) return null
+  return { printedAt, declaredAt, stale: p < d }
+}
+
+// ── 왜 그 유형이 0 인가 ──────────────────────────────────────────────
+//
+// 위 `absent` 는 **무엇이** 없는지만 말한다. 그것만으로는 다음에 할 일이 안 정해진다 —
+// 실측 2026-09-13 에 일곱 권 어디에도 안 실린 유형이 6종이었는데, 그 6종의 처방이 서로
+// 정반대였다. 창고가 빈 유형은 드레인을 돌려야 하고, 자에 걸린 유형은 자를 봐야 하고,
+// 몫까지 받고도 안 뽑힌 유형은 조합기의 제약(같은 원글 금지)에 밀린 것이라 재고를
+// 아무리 늘려도 안 바뀐다. **뭉뚱그리면 세 번 중 두 번은 헛일을 한다.**
+
+/** 그 유형이 어디서 끊겼나. */
+export type MissingCause =
+  /** 조합기에 한 건도 안 들어왔다 — 창고가 비었거나 등뼈가 그 유형을 안 선언했다. */
+  | 'noStock'
+  /** 들어왔지만 규격에서 전량 떨어졌다 — **자를 먼저 의심한다.** */
+  | 'ruledOut'
+  /** 규격은 통과했는데 한 개도 안 뽑혔다 — 몫·원글 제약에 밀렸다. */
+  | 'notPicked'
+  /** 몫이 0 이다 — 시장이 그 학년 교재에 안 싣는 유형이라 **일부러** 안 실었다. */
+  | 'noQuota'
+
+/** `TypeTrace` 를 구조로만 받는다 — 이 파일은 조합기에 의존하지 않는다. */
+export interface TypeTraceLike {
+  pool: number
+  fit: number
+  printed: number
+  rejected: Record<string, number>
+  /** 배정된 몫. 몫을 안 쓴 조합이면 `null`·생략 — **0 과 다르다.** */
+  quota?: number | null
+}
+
+export interface MissingTypeDiagnosis {
+  type: string
+  cause: MissingCause
+  /** 분자/분모를 그대로 적는다 — 백분율만 적으면 「전량」과 「대부분」이 같아 보인다. */
+  detail: string
+}
+
+/**
+ * 지면에 하나도 안 실린 유형을 사유별로 가른다.
+ *
+ * ⚠️ **실린 유형은 여기 안 나온다.** 한 개라도 실렸으면 「없다」가 아니다 —
+ *   모자란 것은 유형 폭이 아니라 비중의 문제이고, 그것은 `mixRelaxed` 가 잰다.
+ */
+export function diagnoseMissingTypes(
+  trace: Readonly<Record<string, TypeTraceLike>>,
+): MissingTypeDiagnosis[] {
+  const out: MissingTypeDiagnosis[] = []
+  for (const [type, t] of Object.entries(trace)) {
+    if (t.printed > 0) continue
+    // ⚠️ **몫 0 을 결함으로 적지 않는다.** 시장 비중이 바닥선 아래면 그 학년 교재에
+    //   안 싣는 유형이라 조합기가 **일부러** 뺀 것이다 — 고등의 `blank_word` 가 그렇다
+    //   (시중 쪽당 0.002 · 규격 통과 15,933건인데 몫 0). 이것을 결함으로 적으면
+    //   관리자는 있지도 않은 구멍을 메우러 간다.
+    if (t.quota === 0) {
+      out.push({
+        type,
+        cause: 'noQuota',
+        detail: `풀 ${t.pool} · 규격 통과 ${t.fit} — 시장 비중이 0 이라 일부러 안 실었다`,
+      })
+      continue
+    }
+    if (t.pool === 0) {
+      out.push({ type, cause: 'noStock', detail: '풀 0건 — 창고에 없거나 등뼈 밖이다' })
+      continue
+    }
+    if (t.fit === 0) {
+      const top = Object.entries(t.rejected).sort((a, b) => b[1] - a[1])[0]
+      out.push({
+        type,
+        cause: 'ruledOut',
+        detail: `풀 ${t.pool} → 규격 통과 0${top ? ` · 최다 사유 ${top[0]} ${top[1]}` : ''}`,
+      })
+      continue
+    }
+    out.push({ type, cause: 'notPicked', detail: `규격 통과 ${t.fit}건인데 지면 0` })
+  }
+  return out.sort((a, b) => a.type.localeCompare(b.type))
+}
+
+export interface SpreadReport {
+  volumes: VolumeTypeSpread[]
+  /** 시중 중앙값 이상인 권 수 / 견줄 수 있었던 권 수. */
+  ahead: number
+  behind: number
+  unmeasured: number
+  /** 선언했는데 어느 권에도 안 실린 유형 — 사다리 전체 기준. */
+  absentEverywhere: string[]
+  /** 견줄 수 있었던 권들의 지수 평균. 하나도 못 재면 null. */
+  meanIndex: number | null
+  /** 두 입력의 시각. 안 주면 null — **못 쟀다는 뜻이지 안 어긋났다는 뜻이 아니다.** */
+  skew: SpreadSkew | null
+}
+
+export function measureSpread(
+  volumes: readonly VolumeSpreadInput[],
+  marketMedian: MarketPerSchoolMedian,
+  at: { printedAt?: string | null; declaredAt?: string | null } = {},
+): SpreadReport {
+  const rows = volumes.map((v) => measureVolumeSpread(v, marketMedian))
+  const scored = rows.filter((r) => r.index != null)
+  const declaredAll = new Set<string>()
+  const printedAll = new Set<string>()
+  for (const v of volumes) {
+    for (const t of v.declaredTypes) declaredAll.add(t)
+    for (const t of v.printedTypes) printedAll.add(t)
+  }
+  return {
+    volumes: rows,
+    ahead: rows.filter((r) => r.state === 'ahead').length,
+    behind: rows.filter((r) => r.state === 'behind').length,
+    unmeasured: rows.filter((r) => r.state === 'unmeasured').length,
+    absentEverywhere: [...declaredAll].filter((t) => !printedAll.has(t)).sort(),
+    meanIndex: scored.length === 0 ? null : scored.reduce((a, r) => a + r.index!, 0) / scored.length,
+    skew: measureSkew(at.printedAt, at.declaredAt),
+  }
+}

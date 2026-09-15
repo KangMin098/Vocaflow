@@ -1,0 +1,1215 @@
+[
+  {
+    "id": "3afbdab5-4ec3-462b-97fd-fab00b521f2f",
+    "title": "Darkwater",
+    "author": "W. E. B. Du Bois",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 66772,
+    "chapters": 10,
+    "minutes": 446,
+    "tags": [
+      "nonfiction",
+      "essay",
+      "politics",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "1차 대전 직후 미국의 인종과 노동을 파고든 두보이스의 에세이집.",
+    "learning_value": "산문과 시가 섞인 논설 — 수사법 정독",
+    "themes": [
+      "인종",
+      "노동",
+      "식민"
+    ],
+    "genre_norm": "에세이",
+    "age_band": "17+",
+    "est_cefr": "C1",
+    "est_basis": "논설과 서정이 섞인다"
+  },
+  {
+    "id": "b6864c3c-eb1e-4847-8803-177f07ec4b8f",
+    "title": "A Little Princess",
+    "author": "Frances Hodgson Burnett",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 66909,
+    "chapters": 19,
+    "minutes": 447,
+    "tags": [
+      "fiction",
+      "children",
+      "coming-of-age",
+      "classic",
+      "literature"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "부유하던 세라가 하녀로 떨어졌다가 다시 일어선다.",
+    "learning_value": "아동 고전 — 감정 어휘와 대화가 풍부",
+    "themes": [
+      "품위",
+      "역경",
+      "상상"
+    ],
+    "genre_norm": "동화",
+    "age_band": "9+",
+    "est_cefr": "B1",
+    "est_basis": "평이한 아동 서사"
+  },
+  {
+    "id": "619f05cb-5229-4633-8c53-e5558144d671",
+    "title": "Death Comes for the Archbishop",
+    "author": "Willa Cather",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 67111,
+    "chapters": 9,
+    "minutes": 448,
+    "tags": [
+      "fiction",
+      "historical",
+      "religion",
+      "literature",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "뉴멕시코에 파견된 프랑스 신부 두 사람의 40년.",
+    "learning_value": "삽화식 구성 — 절제된 미국 산문",
+    "themes": [
+      "선교",
+      "사막",
+      "우정"
+    ],
+    "genre_norm": "역사 소설",
+    "age_band": "16+",
+    "est_cefr": "B2",
+    "est_basis": "절제된 삽화식 서술"
+  },
+  {
+    "id": "3b012996-1b33-4f7d-92b9-0c4bd7586790",
+    "title": "A Sicilian Romance",
+    "author": "Ann Radcliffe",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 67354,
+    "chapters": 16,
+    "minutes": 450,
+    "tags": [
+      "fiction",
+      "romance",
+      "horror",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "시칠리아 고성에 감춰진 비밀과 쫓기는 자매.",
+    "learning_value": "고딕 소설의 초기형 — 분위기 어휘",
+    "themes": [
+      "고딕",
+      "비밀",
+      "도피"
+    ],
+    "genre_norm": "고딕 소설",
+    "age_band": "15+",
+    "est_cefr": "B2",
+    "est_basis": "고딕 묘사체"
+  },
+  {
+    "id": "6affede9-b6c0-40c9-ac56-8909f692d701",
+    "title": "Dubliners",
+    "author": "James Joyce",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 67728,
+    "chapters": 15,
+    "minutes": 452,
+    "tags": [
+      "short-story",
+      "fiction",
+      "literature",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "더블린 사람들의 마비된 순간을 포착한 15편.",
+    "learning_value": "조이스 입문 — 짧은 단편으로 시작",
+    "themes": [
+      "일상",
+      "마비",
+      "도시"
+    ],
+    "genre_norm": "모더니즘 소설",
+    "age_band": "16+",
+    "est_cefr": "B2",
+    "est_basis": "절제된 단편 서술"
+  },
+  {
+    "id": "c101c00e-65b4-4806-9104-b3ff9b9d2c1b",
+    "title": "Simon",
+    "author": "J. Storer Clouston",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 67982,
+    "chapters": 40,
+    "minutes": 454,
+    "tags": [
+      "fiction",
+      "mystery",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "수수께끼 같은 인물 사이먼을 둘러싼 사건.",
+    "learning_value": "가벼운 미스터리 — 대화 비중이 높다",
+    "themes": [
+      "추리",
+      "정체",
+      "반전"
+    ],
+    "genre_norm": "추리",
+    "age_band": "14+",
+    "est_cefr": "B1",
+    "est_basis": "평이한 추리체"
+  },
+  {
+    "id": "180e6369-a980-46a1-b579-a9df3a08ba54",
+    "title": "The Enchanted Castle",
+    "author": "E. Nesbit",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 68225,
+    "chapters": 12,
+    "minutes": 455,
+    "tags": [
+      "fiction",
+      "fantasy",
+      "children",
+      "adventure",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "마법 반지를 얻은 아이들이 감당 못 할 소원을 빈다.",
+    "learning_value": "네스빗 판타지 — 유머와 공포가 섞인다",
+    "themes": [
+      "마법",
+      "소원",
+      "유머"
+    ],
+    "genre_norm": "환상 동화",
+    "age_band": "9+",
+    "est_cefr": "B1",
+    "est_basis": "평이한 동화체"
+  },
+  {
+    "id": "a545d48b-7ce5-49c1-8ea1-f1f61e33595e",
+    "title": "Treasure Island",
+    "author": "Robert Louis Stevenson",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 68358,
+    "chapters": 34,
+    "minutes": 456,
+    "tags": [
+      "fiction",
+      "adventure",
+      "young-adult",
+      "classic",
+      "literature"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "소년 짐이 해적 실버와 함께 보물섬으로 향한다.",
+    "learning_value": "해양 모험의 원형 — 항해 어휘",
+    "themes": [
+      "해적",
+      "보물",
+      "항해"
+    ],
+    "genre_norm": "모험 소설",
+    "age_band": "11+",
+    "est_cefr": "B2",
+    "est_basis": "항해 어휘가 많다"
+  },
+  {
+    "id": "6d455da3-8699-41dc-b913-f4d613cdb636",
+    "title": "Agnes Grey",
+    "author": "Anne Brontë",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 68427,
+    "chapters": 25,
+    "minutes": 457,
+    "tags": [
+      "fiction",
+      "coming-of-age",
+      "classic",
+      "literature"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "가정교사로 일하는 여성의 담담한 기록.",
+    "learning_value": "브론테 자매 중 가장 평이한 문장",
+    "themes": [
+      "노동",
+      "계급",
+      "인내"
+    ],
+    "genre_norm": "성장 소설",
+    "age_band": "15+",
+    "est_cefr": "B2",
+    "est_basis": "평이한 1인칭"
+  },
+  {
+    "id": "14c6bc9b-c415-45b1-91a6-dd878320e5ec",
+    "title": "Niels Lyhne",
+    "author": "J. P. Jacobsen",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 68642,
+    "chapters": 14,
+    "minutes": 458,
+    "tags": [
+      "fiction",
+      "coming-of-age",
+      "literature",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "신을 잃은 시인 닐스가 사랑과 죽음을 지나간다.",
+    "learning_value": "북유럽 서정 산문 — 내면 묘사 정독",
+    "themes": [
+      "무신론",
+      "사랑",
+      "환멸"
+    ],
+    "genre_norm": "심리 소설",
+    "age_band": "17+",
+    "est_cefr": "C1",
+    "est_basis": "번역 서정 산문"
+  },
+  {
+    "id": "1dbb3093-dc4d-4e09-a85a-2eef0cf7fc78",
+    "title": "Harding’s Luck",
+    "author": "E. Nesbit",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 68959,
+    "chapters": 12,
+    "minutes": 460,
+    "tags": [
+      "fiction",
+      "fantasy",
+      "children",
+      "historical"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "다리를 저는 소년 딕키가 과거와 현재를 오간다.",
+    "learning_value": "시간 이동 판타지 — 역사 배경 어휘",
+    "themes": [
+      "시간",
+      "가난",
+      "가문"
+    ],
+    "genre_norm": "환상 동화",
+    "age_band": "10+",
+    "est_cefr": "B1",
+    "est_basis": "평이한 동화체"
+  },
+  {
+    "id": "80fc7615-80c6-472c-bd02-bce5a25b1091",
+    "title": "The Story of the Amulet",
+    "author": "E. Nesbit",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 69033,
+    "chapters": 14,
+    "minutes": 461,
+    "tags": [
+      "fiction",
+      "fantasy",
+      "children",
+      "adventure"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "부적의 반쪽을 찾아 고대 문명을 여행하는 아이들.",
+    "learning_value": "고대사 배경 판타지 — 지명·문명 어휘",
+    "themes": [
+      "시간",
+      "고대",
+      "모험"
+    ],
+    "genre_norm": "환상 동화",
+    "age_band": "9+",
+    "est_cefr": "B1",
+    "est_basis": "평이한 동화체"
+  },
+  {
+    "id": "e086d401-26c7-4625-8164-f1b72bde59ba",
+    "title": "The Blue Castle",
+    "author": "L. M. Montgomery",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 69594,
+    "chapters": 45,
+    "minutes": 464,
+    "tags": [
+      "fiction",
+      "romance",
+      "coming-of-age",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "시한부 선고를 받은 29세 여성이 처음으로 자기 삶을 산다.",
+    "learning_value": "빨간머리 앤 작가의 성인 소설 — 읽기 쉬운 로맨스",
+    "themes": [
+      "자유",
+      "사랑",
+      "용기"
+    ],
+    "genre_norm": "로맨스",
+    "age_band": "14+",
+    "est_cefr": "B2",
+    "est_basis": "평이한 로맨스체"
+  },
+  {
+    "id": "798ff6a2-3159-49e8-9ef1-44c920c0779f",
+    "title": "The Murder of Roger Ackroyd",
+    "author": "Agatha Christie",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 70270,
+    "chapters": 27,
+    "minutes": 469,
+    "tags": [
+      "fiction",
+      "mystery",
+      "detective",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "추리 역사상 가장 유명한 서술 트릭.",
+    "learning_value": "화자를 의심하며 읽는 훈련",
+    "themes": [
+      "추리",
+      "서술",
+      "반전"
+    ],
+    "genre_norm": "추리",
+    "age_band": "14+",
+    "est_cefr": "B1",
+    "est_basis": "평이한 1인칭 추리"
+  },
+  {
+    "id": "3ad17074-9702-47dc-9271-2c07508a429c",
+    "title": "The Adventures of Tom Sawyer",
+    "author": "Mark Twain",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 70769,
+    "chapters": 35,
+    "minutes": 472,
+    "tags": [
+      "fiction",
+      "adventure",
+      "coming-of-age",
+      "children",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "미시시피 강가 소년 톰의 장난과 모험.",
+    "learning_value": "미국 구어와 방언 입문 — 짧은 장 구성",
+    "themes": [
+      "유년",
+      "모험",
+      "강"
+    ],
+    "genre_norm": "모험 소설",
+    "age_band": "11+",
+    "est_cefr": "B2",
+    "est_basis": "미국 남부 구어"
+  },
+  {
+    "id": "f876ceb6-a9cf-4826-98f2-86674122a3c9",
+    "title": "A Woman of Thirty",
+    "author": "Honoré de Balzac",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 70849,
+    "chapters": 6,
+    "minutes": 473,
+    "tags": [
+      "fiction",
+      "romance",
+      "literature",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "서른의 여인이 결혼 밖에서 사랑을 찾는다.",
+    "learning_value": "발자크 심리 묘사 — 번역 만연체",
+    "themes": [
+      "결혼",
+      "욕망",
+      "나이"
+    ],
+    "genre_norm": "연애 소설",
+    "age_band": "17+",
+    "est_cefr": "B2",
+    "est_basis": "번역 만연체"
+  },
+  {
+    "id": "150df447-93bd-4725-8dcf-9e75a1684b0b",
+    "title": "Against the Grain",
+    "author": "J.-K. Huysmans",
+    "year": null,
+    "v_level": 9,
+    "cefr_band": "B2",
+    "cefrj": "B2.2",
+    "words": 70833,
+    "chapters": 16,
+    "minutes": 473,
+    "tags": [
+      "fiction",
+      "literature",
+      "classic",
+      "adult"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "세상에 등 돌린 귀족이 인공의 감각만으로 집을 채운다.",
+    "learning_value": "데카당스의 교본 — 어휘 밀도가 극단적",
+    "themes": [
+      "탐미",
+      "고독",
+      "퇴폐"
+    ],
+    "genre_norm": "탐미 소설",
+    "age_band": "17+",
+    "est_cefr": "C2",
+    "est_basis": "희귀 어휘 밀도 최상"
+  },
+  {
+    "id": "cc1086b0-6a2d-425b-8e73-bb2706484e97",
+    "title": "Cranford",
+    "author": "Elizabeth Gaskell",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 71033,
+    "chapters": 16,
+    "minutes": 474,
+    "tags": [
+      "fiction",
+      "humor",
+      "literature",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "노부인들이 지키는 작은 마을의 소소한 사건들.",
+    "learning_value": "따뜻한 유머 — 대화 중심의 편안한 문장",
+    "themes": [
+      "마을",
+      "노년",
+      "유머"
+    ],
+    "genre_norm": "유머 소설",
+    "age_band": "14+",
+    "est_cefr": "B2",
+    "est_basis": "평이한 서술과 대화"
+  },
+  {
+    "id": "27de7a35-f911-462f-ac94-2961918a1750",
+    "title": "Fathers and Children",
+    "author": "Ivan Turgenev",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 71204,
+    "chapters": 28,
+    "minutes": 475,
+    "tags": [
+      "fiction",
+      "literature",
+      "classic",
+      "adult"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "허무주의 청년 바자로프와 아버지 세대의 충돌.",
+    "learning_value": "세대 갈등의 원형 — 논쟁 대사 정독",
+    "themes": [
+      "세대",
+      "허무",
+      "사랑"
+    ],
+    "genre_norm": "심리 소설",
+    "age_band": "16+",
+    "est_cefr": "B2",
+    "est_basis": "번역 대화 중심"
+  },
+  {
+    "id": "392772de-139e-41de-bd8d-aaac0b5a4304",
+    "title": "The Wisdom of Father Brown",
+    "author": "G. K. Chesterton",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 71907,
+    "chapters": 12,
+    "minutes": 480,
+    "tags": [
+      "short-story",
+      "mystery",
+      "detective",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "겸손한 신부 탐정이 인간의 마음으로 사건을 푼다.",
+    "learning_value": "역설이 가득한 단편 추리",
+    "themes": [
+      "추리",
+      "역설",
+      "신앙"
+    ],
+    "genre_norm": "추리",
+    "age_band": "14+",
+    "est_cefr": "B2",
+    "est_basis": "역설이 잦은 서술"
+  },
+  {
+    "id": "05739782-e1b5-4a3e-bccc-acbee9b9de73",
+    "title": "Figures of Earth",
+    "author": "James Branch Cabell",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 73248,
+    "chapters": 40,
+    "minutes": 489,
+    "tags": [
+      "fiction",
+      "fantasy",
+      "myth-legend",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "자기 그림자를 좇는 마누엘의 우화적 편력.",
+    "learning_value": "아이러니가 짙은 판타지 — 문체가 화려하다",
+    "themes": [
+      "환상",
+      "야망",
+      "아이러니"
+    ],
+    "genre_norm": "판타지",
+    "age_band": "16+",
+    "est_cefr": "C1",
+    "est_basis": "장식적 문체"
+  },
+  {
+    "id": "ccffa80f-3ba9-427d-9b75-54d400c8be27",
+    "title": "Hudibras",
+    "author": "Samuel Butler",
+    "year": null,
+    "v_level": 9,
+    "cefr_band": "B2",
+    "cefrj": "B2.2",
+    "words": 73544,
+    "chapters": 12,
+    "minutes": 491,
+    "tags": [
+      "poetry",
+      "satire",
+      "humor",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "청교도 기사를 조롱하는 17세기 운문 풍자시.",
+    "learning_value": "각운 풍자시 — 리듬으로 읽는 정치 풍자",
+    "themes": [
+      "풍자",
+      "종교",
+      "내전"
+    ],
+    "genre_norm": "운문",
+    "age_band": "17+",
+    "est_cefr": "C2",
+    "est_basis": "17세기 각운 풍자"
+  },
+  {
+    "id": "0a98bd58-97e0-415a-914a-efc11f30779c",
+    "title": "The Voyages of Doctor Dolittle",
+    "author": "Hugh Lofting",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 73599,
+    "chapters": 60,
+    "minutes": 491,
+    "tags": [
+      "fiction",
+      "children",
+      "fantasy",
+      "adventure",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "둘리틀 박사와 소년 스터빈스의 항해.",
+    "learning_value": "1인칭 소년 화자 — 앞권보다 길지만 평이",
+    "themes": [
+      "항해",
+      "동물",
+      "모험"
+    ],
+    "genre_norm": "동화",
+    "age_band": "9+",
+    "est_cefr": "B1",
+    "est_basis": "평이한 1인칭 서사"
+  },
+  {
+    "id": "2c764be0-0e74-45ed-9614-72877b439051",
+    "title": "School Stories",
+    "author": "P. G. Wodehouse",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 73708,
+    "chapters": 36,
+    "minutes": 492,
+    "tags": [
+      "short-story",
+      "fiction",
+      "humor",
+      "young-adult",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "영국 기숙학교를 무대로 한 우드하우스 단편들.",
+    "learning_value": "단편 단위 — 학교 구어 익히기",
+    "themes": [
+      "학교",
+      "유머",
+      "경기"
+    ],
+    "genre_norm": "유머 소설",
+    "age_band": "13+",
+    "est_cefr": "B2",
+    "est_basis": "영국 학교 구어"
+  },
+  {
+    "id": "6c575c0e-2cd8-4b3e-a7af-ef8f04a32108",
+    "title": "Anna of the Five Towns",
+    "author": "Arnold Bennett",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 74026,
+    "chapters": 14,
+    "minutes": 494,
+    "tags": [
+      "fiction",
+      "romance",
+      "literature",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "아버지의 인색함에 눌린 애나가 유산과 사랑 앞에 선다.",
+    "learning_value": "영국 도자기 마을을 그린 사실주의",
+    "themes": [
+      "가족",
+      "돈",
+      "억압"
+    ],
+    "genre_norm": "사실주의 소설",
+    "age_band": "16+",
+    "est_cefr": "B2",
+    "est_basis": "사실주의 서술"
+  },
+  {
+    "id": "5541c102-abb5-4846-9f75-c62b11ea211a",
+    "title": "The Man in the Brown Suit",
+    "author": "Agatha Christie",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 74135,
+    "chapters": 36,
+    "minutes": 495,
+    "tags": [
+      "fiction",
+      "mystery",
+      "adventure",
+      "detective",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "우연히 사건에 뛰어든 젊은 여성의 세계 일주 추격.",
+    "learning_value": "모험 비중이 큰 크리스티 — 1인칭 발랄체",
+    "themes": [
+      "모험",
+      "추리",
+      "여행"
+    ],
+    "genre_norm": "추리",
+    "age_band": "13+",
+    "est_cefr": "B1",
+    "est_basis": "발랄한 1인칭"
+  },
+  {
+    "id": "e6f13cae-af14-4906-b57f-47cd39fb681d",
+    "title": "Gallions Reach",
+    "author": "H. M. Tomlinson",
+    "year": null,
+    "v_level": 9,
+    "cefr_band": "B2",
+    "cefrj": "B2.2",
+    "words": 74343,
+    "chapters": 40,
+    "minutes": 496,
+    "tags": [
+      "fiction",
+      "adventure",
+      "travel",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "런던을 떠나 동남아 바다를 떠도는 남자의 항해.",
+    "learning_value": "해양 산문 — 묘사 밀도가 높다",
+    "themes": [
+      "항해",
+      "표류",
+      "식민"
+    ],
+    "genre_norm": "항해 소설",
+    "age_band": "17+",
+    "est_cefr": "C1",
+    "est_basis": "묘사 밀도가 높다"
+  },
+  {
+    "id": "6e9fc49a-f8de-49e5-8b22-5d197afa329a",
+    "title": "Pollyanna Grows Up",
+    "author": "Eleanor H. Porter",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 74419,
+    "chapters": 32,
+    "minutes": 497,
+    "tags": [
+      "fiction",
+      "coming-of-age",
+      "children",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "자란 폴리애나가 도시에서 다시 사람들을 바꾼다.",
+    "learning_value": "평이한 아동 후속편 — 대화 중심",
+    "themes": [
+      "낙관",
+      "성장",
+      "우정"
+    ],
+    "genre_norm": "동화",
+    "age_band": "10+",
+    "est_cefr": "B1",
+    "est_basis": "평이한 아동 서사"
+  },
+  {
+    "id": "a38204f0-5978-42a6-a657-0e98f7c3e241",
+    "title": "Tusculan Disputations",
+    "author": "Cicero",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 76524,
+    "chapters": 5,
+    "minutes": 511,
+    "tags": [
+      "nonfiction",
+      "philosophy",
+      "essay",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "죽음과 고통을 어떻게 견딜 것인가에 대한 키케로의 대화편.",
+    "learning_value": "고전 수사학 — 논증 구조 정독",
+    "themes": [
+      "죽음",
+      "덕",
+      "수사"
+    ],
+    "genre_norm": "철학",
+    "age_band": "17+",
+    "est_cefr": "C1",
+    "est_basis": "번역 대화편"
+  },
+  {
+    "id": "d7c4e83c-d0e9-40c5-8efb-b2811f388900",
+    "title": "In the Midst of Life",
+    "author": "Ambrose Bierce",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 76963,
+    "chapters": 56,
+    "minutes": 514,
+    "tags": [
+      "short-story",
+      "war",
+      "horror",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "남북전쟁과 초자연을 오가는 비어스의 냉혹한 단편들.",
+    "learning_value": "반전으로 끝나는 짧은 단편 — 밀도 높은 문장",
+    "themes": [
+      "전쟁",
+      "죽음",
+      "공포"
+    ],
+    "genre_norm": "괴기 단편",
+    "age_band": "16+",
+    "est_cefr": "B2",
+    "est_basis": "압축된 냉소 문체"
+  },
+  {
+    "id": "492ba39d-e4ed-4242-847c-8f18416d6a76",
+    "title": "Northanger Abbey",
+    "author": "Jane Austen",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 77573,
+    "chapters": 31,
+    "minutes": 518,
+    "tags": [
+      "fiction",
+      "romance",
+      "satire",
+      "literature",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "고딕 소설에 빠진 소녀가 현실과 상상을 헷갈린다.",
+    "learning_value": "오스틴 입문 — 가장 짧고 유머러스",
+    "themes": [
+      "풍자",
+      "독서",
+      "사랑"
+    ],
+    "genre_norm": "풍자 소설",
+    "age_band": "14+",
+    "est_cefr": "B2",
+    "est_basis": "오스틴 산문"
+  },
+  {
+    "id": "931cbe31-471e-43a4-8f2f-4c68caf3984d",
+    "title": "The Golden Ass",
+    "author": "Apuleius",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 78933,
+    "chapters": 48,
+    "minutes": 527,
+    "tags": [
+      "fiction",
+      "adventure",
+      "fantasy",
+      "myth-legend",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "당나귀로 변한 남자가 겪는 고대 로마의 기담들.",
+    "learning_value": "고대 소설의 원형 — 삽화식 구성",
+    "themes": [
+      "변신",
+      "기담",
+      "고대"
+    ],
+    "genre_norm": "환상 소설",
+    "age_band": "17+",
+    "est_cefr": "B2",
+    "est_basis": "번역 삽화식 서술"
+  },
+  {
+    "id": "e478cc59-6ee8-4fdf-af0a-470faeaf3350",
+    "title": "After the Divorce",
+    "author": "Grazia Deledda",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 79062,
+    "chapters": 17,
+    "minutes": 528,
+    "tags": [
+      "fiction",
+      "romance",
+      "literature",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "사르데냐 마을에서 이혼과 죄의식에 갇힌 여인.",
+    "learning_value": "노벨상 작가의 지역 사실주의",
+    "themes": [
+      "죄의식",
+      "마을",
+      "이혼"
+    ],
+    "genre_norm": "사실주의 소설",
+    "age_band": "17+",
+    "est_cefr": "B2",
+    "est_basis": "번역 사실주의"
+  },
+  {
+    "id": "d8527dc6-f3c7-4b84-b4ce-5c60a3adfaf2",
+    "title": "An Antarctic Mystery",
+    "author": "Jules Verne",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 79336,
+    "chapters": 26,
+    "minutes": 529,
+    "tags": [
+      "fiction",
+      "adventure",
+      "mystery",
+      "classic",
+      "literature"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "포의 미완성 소설을 이어받은 남극 탐험담.",
+    "learning_value": "탐험 어휘 — 베른 특유의 사실 나열",
+    "themes": [
+      "남극",
+      "탐험",
+      "실종"
+    ],
+    "genre_norm": "모험 소설",
+    "age_band": "13+",
+    "est_cefr": "B2",
+    "est_basis": "베른식 사실 나열"
+  },
+  {
+    "id": "0200698f-d55f-473c-9337-19ab383e9f5c",
+    "title": "A Vindication of the Rights of Woman",
+    "author": "Mary Wollstonecraft",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 79719,
+    "chapters": 13,
+    "minutes": 532,
+    "tags": [
+      "nonfiction",
+      "essay",
+      "philosophy",
+      "politics",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "여성에게도 이성 교육을 달라는 최초의 체계적 요구.",
+    "learning_value": "18세기 논설 — 페미니즘의 출발점",
+    "themes": [
+      "여성",
+      "교육",
+      "이성"
+    ],
+    "genre_norm": "논설",
+    "age_band": "17+",
+    "est_cefr": "C1",
+    "est_basis": "18세기 논설 장문"
+  },
+  {
+    "id": "f34f36d4-d4b7-4d5b-9ce5-9a749304e5c5",
+    "title": "Smoky the Cowhorse",
+    "author": "Will James",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 80216,
+    "chapters": 14,
+    "minutes": 535,
+    "tags": [
+      "fiction",
+      "adventure",
+      "nature",
+      "children",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "카우보이의 말 스모키가 태어나 늙기까지.",
+    "learning_value": "카우보이 구어체 — 비표준 철자 주의",
+    "themes": [
+      "말",
+      "서부",
+      "유대"
+    ],
+    "genre_norm": "모험 소설",
+    "age_band": "11+",
+    "est_cefr": "B1",
+    "est_basis": "카우보이 방언"
+  },
+  {
+    "id": "b6a31b69-49e4-4aed-8d67-1f4964863279",
+    "title": "Piccadilly Jim",
+    "author": "P. G. Wodehouse",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 80542,
+    "chapters": 26,
+    "minutes": 537,
+    "tags": [
+      "fiction",
+      "humor",
+      "romance",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "난봉꾼으로 소문난 짐이 신분을 감추고 사랑을 얻는다.",
+    "learning_value": "우드하우스 장편 — 오해가 쌓이는 구조",
+    "themes": [
+      "변장",
+      "유머",
+      "사랑"
+    ],
+    "genre_norm": "유머 소설",
+    "age_band": "14+",
+    "est_cefr": "B2",
+    "est_basis": "영국 구어 대화"
+  },
+  {
+    "id": "b0972cb1-17f9-49ea-971c-67dd2e44feb3",
+    "title": "Kai Lung’s Golden Hours",
+    "author": "Ernest Bramah",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 80598,
+    "chapters": 12,
+    "minutes": 538,
+    "tags": [
+      "fiction",
+      "fantasy",
+      "humor",
+      "literature",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "이야기꾼 카이렁이 목숨을 걸고 이야기를 이어 간다.",
+    "learning_value": "의고체 유머 — 문장이 일부러 장식적",
+    "themes": [
+      "이야기",
+      "유머",
+      "동양"
+    ],
+    "genre_norm": "환상 소설",
+    "age_band": "16+",
+    "est_cefr": "C1",
+    "est_basis": "의고적 장식 문체"
+  },
+  {
+    "id": "6419c181-bfe3-4db2-8edd-e1d8fa6f6fc2",
+    "title": "Blue Hand",
+    "author": "Edgar Wallace",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 80820,
+    "chapters": 49,
+    "minutes": 539,
+    "tags": [
+      "fiction",
+      "mystery",
+      "detective",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "푸른 손 자국이 남는 연쇄 사건을 쫓는 스릴러.",
+    "learning_value": "월리스 스릴러 — 짧은 장, 빠른 전개",
+    "themes": [
+      "추리",
+      "유산",
+      "위협"
+    ],
+    "genre_norm": "추리",
+    "age_band": "15+",
+    "est_cefr": "B2",
+    "est_basis": "짧은 장 구성"
+  },
+  {
+    "id": "ed25f0d5-9fe1-4b6a-b043-9567416dbfe3",
+    "title": "Dr. Mabuse, the Gambler",
+    "author": "Norbert Jacques",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 80994,
+    "chapters": 21,
+    "minutes": 540,
+    "tags": [
+      "fiction",
+      "mystery",
+      "classic",
+      "adult"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "변장의 천재 마부제 박사가 도시를 조종한다.",
+    "learning_value": "범죄 스릴러 — 번역 속도감",
+    "themes": [
+      "범죄",
+      "최면",
+      "도박"
+    ],
+    "genre_norm": "스릴러",
+    "age_band": "17+",
+    "est_cefr": "B2",
+    "est_basis": "번역 스릴러체"
+  }
+]

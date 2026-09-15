@@ -20,7 +20,7 @@ export function EmptyState() {
       </div>
 
       <div className="relative max-w-2xl">
-        <p className="mb-3 font-mono text-[10px] font-[700] uppercase tracking-[0.15em] text-[var(--t3)]">
+        <p className="mb-3 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
           — 첫 스크립트을 시작해 보세요
         </p>
 
@@ -38,7 +38,7 @@ export function EmptyState() {
         <div className="flex flex-col gap-3 sm:flex-row">
           <Link
             href="/text/new"
-            className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-[var(--r-md)] bg-gradient-to-br from-[#A5B4FC] to-[#6366F1] px-5 py-3 font-display text-[14px] font-[700] text-white shadow-[var(--sh-xs)] transition-all duration-[var(--dur-normal)] ease-[var(--ease-spring)] hover:scale-[1.02] hover:shadow-[var(--sh-sm)] active:scale-[0.99]"
+            className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-[var(--r-md)] bg-gradient-to-br from-[#A5B4FC] to-[var(--learn-fresh)] px-5 py-3 font-display text-[14px] font-[700] text-white shadow-[var(--sh-xs)] transition-all duration-[var(--dur-normal)] ease-[var(--ease-spring)] hover:scale-[1.02] hover:shadow-[var(--sh-sm)] active:scale-[0.99]"
           >
             <FileText size={16} aria-hidden="true" />
             <span>직접 입력하기</span>

@@ -32,9 +32,15 @@ export async function GET(req: NextRequest) {
     let publishedSourceIds: string[] = []
     if (items.length > 0) {
       const supabase = await createClient()
+      // ⚠️ 이 검사는 2026-09-07 까지 **영구 0건**이었다 — 목록기가 `wikipedia:<Title_slug>`,
+      //   적재기가 `wikipedia:<pageid>` 를 만들었고 DB 92행이 전부 pageid 꼴이라
+      //   `.in(...)` 이 한 건도 맞지 않았다. 오류는 나지 않았다. 이제 양쪽 다
+      //   `sourceKey('wikipedia', …)` 를 부른다(`ingest-article/source-key.ts`).
+      //   `source` 도 함께 건다 — 열쇠에 접두어가 있어도 표 전체 스캔은 할 일이 아니다.
       const { data } = await supabase
         .from('library_articles')
         .select('source_id')
+        .eq('source', 'wikipedia')
         .in('source_id', items.map((i) => i.source_id))
       publishedSourceIds = (data ?? []).map((r: { source_id: string }) => r.source_id)
       await upsertArticleSeeds(supabase, 'wikipedia', feed.id, feed.label, items)

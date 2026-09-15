@@ -1,7 +1,10 @@
+// apps/web/src/app/admin/vocab/runs/[id]/seed/page.tsx
+
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft, Sparkles } from 'lucide-react'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { VcbSeedFlow } from '@/components/admin/vcb/VcbSeedFlow'
 import { fetchRunDetail } from '@/lib/vcb/server/runs'
 import { checkSeedJobStatus } from '@/lib/vcb/server/seed'
@@ -71,7 +74,7 @@ export default async function VcbRunSeedPage({ params }: PageProps) {
         actions={
           <Link
             href={`/admin/vocab/runs/${runId}`}
-            className="inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] font-display text-sm border"
+            className="min-h-[44px] inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] font-display text-sm border"
             style={{
               color: 'var(--t2)',
               borderColor: 'var(--bd)',
@@ -83,6 +86,8 @@ export default async function VcbRunSeedPage({ params }: PageProps) {
           </Link>
         }
       />
+
+      <AdminScreenHelp screen="vocab-run-seed" className="mb-6" />
 
       <VcbSeedFlow
         runId={runId}

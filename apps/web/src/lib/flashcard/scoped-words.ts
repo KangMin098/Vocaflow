@@ -10,7 +10,7 @@ import { createNewCard } from '@/lib/srs'
 import { createInitialSRS } from '@/lib/srs/sm2'
 import { fetchScopedWords } from '@/lib/workspace/scoped-words'
 import { blankSurface } from '@/lib/text/surface-match'
-import { fetchDictExtras } from '@/lib/flashcard/dict-extras'
+import { fetchDictExtras, exampleKey } from '@/lib/flashcard/dict-extras'
 import type { FlashcardWord } from '@/types/flashcard'
 
 export interface ScopedFlashcardResult {
@@ -34,13 +34,15 @@ export async function fetchScopedFlashcardWords(
   if (!res) return null
 
   // 사전 부가정보(연어+다의어+어원) 배치 보강 — hub-words 와 공용 헬퍼. 실패해도 렌더 무영향.
+  // 조회 키는 **표면형이 아니라 lemma** 다 — 발행 단어장에는 abated·leaves 같은 표면형이
+  // 그대로 들어 있어(3,005종) 표면형으로 찾으면 연어·니모닉이 조용히 빈다.
   const extras = await fetchDictExtras(
     client,
-    res.words.map((w) => w.word),
+    res.words.map((w) => w.lemma),
   )
 
   const words: FlashcardWord[] = res.words.map((w) => {
-    const ex = extras.get(w.word.toLowerCase())
+    const ex = extras.get(w.lemma)
     return {
       id: w.id,
       text: w.word,
@@ -51,7 +53,11 @@ export async function fetchScopedFlashcardWords(
       exampleSentenceWithBlank: withBlank(w.example, w.word, w.inflectedForms),
       inflectedForms: w.inflectedForms,
       collocations: ex?.collocations,
+      derived: ex?.derived,
+      synonyms: ex?.synonyms,
+      antonyms: ex?.antonyms,
       senses: ex?.senses,
+      exampleTranslation: ex?.exampleTranslations?.[exampleKey(w.example ?? '')],
       roots: ex?.roots,
       mnemonic: ex?.mnemonic,
       textId: w.id,

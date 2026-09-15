@@ -35,7 +35,7 @@
 | **L3 Encode** | `/wordvault` 허브 + `/wordvault/browse` | Memory Decay 4색 자산 시각화 + 풀스크린 세션 | 능동 부호화 | `vocabularies` N건 (state=new) |
 | **L4a Recognize (재인)** | `/flashcard` · `/wordblitz` · `/pairflip` | 단어 보기 → 아는지 판단 | Recognition | `learning_records` |
 | **L4b Generate-Visual (시각 생성)** | `/spellforge` | 뜻 → 철자 직접 생성 (시각+운동) | Generation | `learning_records` |
-| **L4c Generate-Auditory (청각 생성)** | `/text/[id]/echo` | TTS → 발화 (Shadow Reading) | Generation + Production | `echo_match_attempts` |
+| **L4c Generate-Auditory (청각 생성)** | `/text/[id]/echo` | TTS → 발화 (Shadow Reading) | Generation + Production | `echo_match_attempts` + `learning_records(echo)` — 면 이력만, **복습 간격은 안 움직인다**(문장이 보이므로 인출 아님) |
 | **L5 Conquer (정복 · 의미 통합)** | `/scriptquiz` | 스크립트 맥락 4지선다 — 텍스트 단위 검증 | Recognition + Transfer | `scores` + 텍스트 정복 |
 | **L6 Complete (완성 · 다중 채널 재생산)** | `/dictate` | TTS 청취 → 받아쓰기 (음운+의미+문법+철자) | Free Recall + Production | `learning_records` + 텍스트 완성 |
 | **L7 Reflect (회고)** | `/dashboard` 단독 | 메타인지 + 다음 제안 수신 | 메타인지 | (v06.108 이중할당 해소: `/hub`=오늘/forward 오케스트레이터, `/dashboard`=회고/backward 단독) |

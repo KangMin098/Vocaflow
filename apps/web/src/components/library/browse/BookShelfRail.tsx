@@ -34,9 +34,9 @@ export function BookShelfRail({
   if (books.length === 0) return null
 
   return (
-    <section className="flex flex-col gap-2.5" aria-label={title}>
+    <section className="flex flex-col gap-3" aria-label={title}>
       <div className="flex items-baseline gap-2">
-        <h2 className="inline-flex items-center gap-1.5 font-display text-[15px] font-[700] text-[var(--t1)]">
+        <h2 className="inline-flex items-center gap-2 font-display text-[15px] font-[700] text-[var(--t1)]">
           {icon && (
             <span style={{ color: accent }} aria-hidden>
               {icon}
@@ -44,7 +44,7 @@ export function BookShelfRail({
           )}
           {title}
         </h2>
-        {hint && <span className="font-body text-[11.5px] text-[var(--t3)]">{hint}</span>}
+        {hint && <span className="font-body text-[11.5px] text-[var(--t2)]">{hint}</span>}
       </div>
 
       <div

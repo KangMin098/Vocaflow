@@ -1,0 +1,422 @@
+[
+ {
+  "word": "no light matter",
+  "meaning_ko": "가벼운 일이 아닌 것, 결코 만만치 않은 일",
+  "pos": "idiom",
+  "cefr_level": "C1",
+  "example_en": "Raising three children alone is no light matter."
+ },
+ {
+  "word": "no strings attached",
+  "meaning_ko": "아무런 조건 없이, 대가를 바라지 않고",
+  "pos": "idiom",
+  "cefr_level": "B2",
+  "example_en": "He offered me the money with no strings attached."
+ },
+ {
+  "word": "nonproductive",
+  "meaning_ko": "비생산적인, 결실을 낳지 못하는",
+  "pos": "adjective",
+  "cefr_level": "C1",
+  "example_en": "The committee spent hours in nonproductive argument."
+ },
+ {
+  "word": "not so much a as b",
+  "meaning_ko": "A라기보다는 오히려 B인",
+  "pos": "idiom",
+  "cefr_level": "B2",
+  "example_en": "She is not so much a singer as an actress."
+ },
+ {
+  "word": "object detection",
+  "meaning_ko": "객체 탐지(영상 속 사물의 종류와 위치를 찾아내는 기술)",
+  "pos": "noun",
+  "cefr_level": "C1",
+  "example_en": "Self-driving cars rely on object detection to spot pedestrians."
+ },
+ {
+  "word": "occurred to",
+  "meaning_ko": "(생각이) ~에게 문득 떠올랐다, 생각나다 (occur to)",
+  "pos": "phrasal_verb",
+  "cefr_level": "B2",
+  "example_en": "It never occurred to me that she might refuse."
+ },
+ {
+  "word": "on foot",
+  "meaning_ko": "걸어서, 도보로",
+  "pos": "idiom",
+  "cefr_level": "A2",
+  "example_en": "The village is small enough to explore on foot."
+ },
+ {
+  "word": "on the other hand",
+  "meaning_ko": "반면에, 다른 한편으로는",
+  "pos": "idiom",
+  "cefr_level": "B1",
+  "example_en": "The plan is cheap; on the other hand, it takes far longer."
+ },
+ {
+  "word": "oriented to",
+  "meaning_ko": "~에 맞춰진, ~을 지향하는, ~ 중심의",
+  "pos": "idiom",
+  "cefr_level": "B2",
+  "example_en": "The course is oriented to beginners with no coding background."
+ },
+ {
+  "word": "out of proportion",
+  "meaning_ko": "균형이 맞지 않는, 정도에 지나친",
+  "pos": "idiom",
+  "cefr_level": "B2",
+  "example_en": "His anger was completely out of proportion to the mistake."
+ },
+ {
+  "word": "out-of-date",
+  "meaning_ko": "구식의, 시대에 뒤떨어진, 낡은",
+  "pos": "adjective",
+  "cefr_level": "B1",
+  "example_en": "The map on the wall is badly out-of-date."
+ },
+ {
+  "word": "outlier",
+  "meaning_ko": "(집단에서) 크게 벗어난 것[사람], 이상치·특이값",
+  "pos": "noun",
+  "cefr_level": "C1",
+  "example_en": "One unusually tall student was an outlier in the data."
+ },
+ {
+  "word": "overabundant",
+  "meaning_ko": "지나치게 많은, 과잉인",
+  "pos": "adjective",
+  "cefr_level": "C1",
+  "example_en": "Deer became overabundant once wolves disappeared."
+ },
+ {
+  "word": "overemphasized",
+  "meaning_ko": "지나치게 강조된, 과장된",
+  "pos": "adjective",
+  "cefr_level": "B2",
+  "example_en": "Her overemphasized gestures made the scene look unnatural."
+ },
+ {
+  "word": "overpopulation",
+  "meaning_ko": "인구 과잉, 개체 수 과밀",
+  "pos": "noun",
+  "cefr_level": "B2",
+  "example_en": "Overpopulation puts heavy pressure on water supplies."
+ },
+ {
+  "word": "parent lines",
+  "meaning_ko": "(육종의) 부모 계통, 교배종의 바탕이 되는 원종",
+  "pos": "noun",
+  "cefr_level": "C1",
+  "example_en": "Breeders cross two parent lines to create a hybrid variety."
+ },
+ {
+  "word": "passing by",
+  "meaning_ko": "지나가는 중인, 지나치다",
+  "pos": "phrasal_verb",
+  "cefr_level": "B1",
+  "example_en": "A neighbor waved at us while passing by the gate."
+ },
+ {
+  "word": "percentage points",
+  "meaning_ko": "퍼센트 포인트(두 백분율 사이의 차이를 나타내는 단위)",
+  "pos": "noun",
+  "cefr_level": "B2",
+  "example_en": "Support for the plan rose by five percentage points."
+ },
+ {
+  "word": "place-bound",
+  "meaning_ko": "특정 장소에 매인, 장소에 얽매인",
+  "pos": "adjective",
+  "cefr_level": "C1",
+  "example_en": "Remote work has made many jobs far less place-bound."
+ },
+ {
+  "word": "playback",
+  "meaning_ko": "(녹음·녹화한 것의) 재생, 재생된 소리",
+  "pos": "noun",
+  "cefr_level": "B2",
+  "example_en": "The singer listened to the playback of her first take."
+ },
+ {
+  "word": "popularization",
+  "meaning_ko": "대중화, 널리 알려지게 하기",
+  "pos": "noun",
+  "cefr_level": "C1",
+  "example_en": "His documentaries helped the popularization of astronomy."
+ },
+ {
+  "word": "pre-emptive",
+  "meaning_ko": "선제적인, 미리 손을 쓰는",
+  "pos": "adjective",
+  "cefr_level": "C1",
+  "example_en": "The city took pre-emptive steps before the storm arrived."
+ },
+ {
+  "word": "preprogrammed",
+  "meaning_ko": "미리 프로그램된, (본능처럼) 이미 정해져 있는",
+  "pos": "adjective",
+  "cefr_level": "C1",
+  "example_en": "Newly hatched turtles follow a preprogrammed route to the sea."
+ },
+ {
+  "word": "present-biased",
+  "meaning_ko": "현재 편향적인(먼 미래의 이익보다 당장의 만족을 앞세우는)",
+  "pos": "adjective",
+  "cefr_level": "C1",
+  "example_en": "Present-biased shoppers spend now and regret it later."
+ },
+ {
+  "word": "prime mover",
+  "meaning_ko": "원동력, 주된 추진 세력",
+  "pos": "noun",
+  "cefr_level": "C1",
+  "example_en": "Cheap electricity was the prime mover behind the boom."
+ },
+ {
+  "word": "pro-environmental",
+  "meaning_ko": "친환경적인, 환경 보호에 우호적인",
+  "pos": "adjective",
+  "cefr_level": "B2",
+  "example_en": "Small pro-environmental habits add up over a year."
+ },
+ {
+  "word": "product-oriented",
+  "meaning_ko": "결과물 중심의, 완성품 위주의",
+  "pos": "adjective",
+  "cefr_level": "B2",
+  "example_en": "A product-oriented class judges only the final essay."
+ },
+ {
+  "word": "proud of",
+  "meaning_ko": "~을 자랑스러워하는, ~을 뿌듯해하는",
+  "pos": "idiom",
+  "cefr_level": "A2",
+  "example_en": "She was proud of her younger brother."
+ },
+ {
+  "word": "put in perspective",
+  "meaning_ko": "(전체 맥락 속에서) 균형 있게 바라보다, 대수롭지 않게 여기게 되다",
+  "pos": "idiom",
+  "cefr_level": "C1",
+  "example_en": "A week in the hospital put my small worries in perspective."
+ },
+ {
+  "word": "rational actor",
+  "meaning_ko": "합리적 행위자(비용과 이익을 따져 선택한다고 가정되는 개인)",
+  "pos": "noun",
+  "cefr_level": "C1",
+  "example_en": "Economic models often treat each buyer as a rational actor."
+ },
+ {
+  "word": "recolonize",
+  "meaning_ko": "(생물이) 다시 자리 잡다, 재정착하다",
+  "pos": "verb",
+  "cefr_level": "C1",
+  "example_en": "Wildflowers quickly recolonize burned hillsides."
+ },
+ {
+  "word": "reference point",
+  "meaning_ko": "기준점, 판단의 잣대",
+  "pos": "noun",
+  "cefr_level": "B2",
+  "example_en": "His first salary became the reference point for every later offer."
+ },
+ {
+  "word": "registration form",
+  "meaning_ko": "신청서, 등록 양식",
+  "pos": "noun",
+  "cefr_level": "B1",
+  "example_en": "Please fill out the registration form before Friday."
+ },
+ {
+  "word": "remediations",
+  "meaning_ko": "(문제를 바로잡는) 개선책, 교정 조치",
+  "pos": "noun",
+  "cefr_level": "C1",
+  "example_en": "The report lists three remediations for the leaking roof."
+ },
+ {
+  "word": "reseeding",
+  "meaning_ko": "다시 씨 뿌리기, 재파종",
+  "pos": "noun",
+  "cefr_level": "C1",
+  "example_en": "The bare slope recovered after reseeding with native grasses."
+ },
+ {
+  "word": "resprouting",
+  "meaning_ko": "(잘리거나 탄 식물이) 다시 싹을 틔움",
+  "pos": "noun",
+  "cefr_level": "C1",
+  "example_en": "Many oaks survive fire by resprouting from the roots."
+ },
+ {
+  "word": "rest assured",
+  "meaning_ko": "안심해도 된다, 확신해도 좋다",
+  "pos": "idiom",
+  "cefr_level": "B2",
+  "example_en": "Rest assured, your luggage will arrive tomorrow."
+ },
+ {
+  "word": "rot-resistant",
+  "meaning_ko": "잘 썩지 않는, 부패에 강한",
+  "pos": "adjective",
+  "cefr_level": "B2",
+  "example_en": "Cedar is rot-resistant, so it suits outdoor decks."
+ },
+ {
+  "word": "rote-learned",
+  "meaning_ko": "기계적으로 암기한, 뜻은 모른 채 통째로 외운",
+  "pos": "adjective",
+  "cefr_level": "C1",
+  "example_en": "Rote-learned formulas fade once the exam is over."
+ },
+ {
+  "word": "ruling out",
+  "meaning_ko": "~을 배제하다, 가능성에서 제외하다 (rule out)",
+  "pos": "phrasal_verb",
+  "cefr_level": "B2",
+  "example_en": "The doctor began by ruling out a broken bone."
+ },
+ {
+  "word": "run for",
+  "meaning_ko": "~에 출마하다, ~에 입후보하다",
+  "pos": "phrasal_verb",
+  "cefr_level": "B2",
+  "example_en": "She decided to run for class president."
+ },
+ {
+  "word": "sandlot",
+  "meaning_ko": "(아이들이 야구를 하는) 동네 공터",
+  "pos": "noun",
+  "cefr_level": "C1",
+  "example_en": "They played baseball on a dusty sandlot after school."
+ },
+ {
+  "word": "save face",
+  "meaning_ko": "체면을 세우다, 체면을 지키다",
+  "pos": "idiom",
+  "cefr_level": "B2",
+  "example_en": "He apologized quietly so his rival could save face."
+ },
+ {
+  "word": "saving grace",
+  "meaning_ko": "(단점을 덮어 주는) 유일한 장점, 그나마 다행인 점",
+  "pos": "idiom",
+  "cefr_level": "C1",
+  "example_en": "The hotel was noisy, but the view was its saving grace."
+ },
+ {
+  "word": "second highest",
+  "meaning_ko": "두 번째로 높은",
+  "pos": "adjective",
+  "cefr_level": "B1",
+  "example_en": "Korea recorded the second highest score in the survey."
+ },
+ {
+  "word": "seed coat",
+  "meaning_ko": "씨껍질, 종피",
+  "pos": "noun",
+  "cefr_level": "B2",
+  "example_en": "Soaking softens the hard seed coat so the plant can sprout."
+ },
+ {
+  "word": "seed saving",
+  "meaning_ko": "(다음 해에 심으려고) 씨앗을 받아 두기, 채종",
+  "pos": "noun",
+  "cefr_level": "C1",
+  "example_en": "Seed saving lets farmers plant next spring without buying grain."
+ },
+ {
+  "word": "self-contained",
+  "meaning_ko": "그 자체로 완결된, 독립적인, 외부 도움이 필요 없는",
+  "pos": "adjective",
+  "cefr_level": "C1",
+  "example_en": "Each chapter is self-contained and can be read alone."
+ },
+ {
+  "word": "self-containment",
+  "meaning_ko": "자기 완결성, 외부와 교류 없이 스스로 갇혀 있음",
+  "pos": "noun",
+  "cefr_level": "C1",
+  "example_en": "The club’s self-containment kept out fresh ideas."
+ },
+ {
+  "word": "self-enhancement",
+  "meaning_ko": "자기 고양(자신을 실제보다 좋게 평가하려는 경향)",
+  "pos": "noun",
+  "cefr_level": "C1",
+  "example_en": "Praising our own honesty is a familiar form of self-enhancement."
+ },
+ {
+  "word": "self-guides",
+  "meaning_ko": "자기 지침(자신이 되고자 하는 이상적·당위적 자아상)",
+  "pos": "noun",
+  "cefr_level": "C1",
+  "example_en": "A large gap between reality and our self-guides breeds anxiety."
+ },
+ {
+  "word": "self-monitoring",
+  "meaning_ko": "자기 감시(남에게 비치는 자기 모습을 스스로 살피고 조절하기)",
+  "pos": "noun",
+  "cefr_level": "C1",
+  "example_en": "People high in self-monitoring change their manner with each audience."
+ },
+ {
+  "word": "self-regulating",
+  "meaning_ko": "스스로 조절하는, 자기 조절적인",
+  "pos": "adjective",
+  "cefr_level": "C1",
+  "example_en": "A healthy forest is largely self-regulating."
+ },
+ {
+  "word": "self-responsibility",
+  "meaning_ko": "자기 책임, 스스로 책임지는 태도",
+  "pos": "noun",
+  "cefr_level": "B2",
+  "example_en": "The program teaches teenagers self-responsibility for their money."
+ },
+ {
+  "word": "self-sufficiency",
+  "meaning_ko": "자급자족, 자립",
+  "pos": "noun",
+  "cefr_level": "C1",
+  "example_en": "The island aims at food self-sufficiency within ten years."
+ },
+ {
+  "word": "sensory states",
+  "meaning_ko": "감각 상태(해석되기 전의 날것 그대로의 감각)",
+  "pos": "noun",
+  "cefr_level": "B2",
+  "example_en": "Pain and hunger are sensory states we notice at once."
+ },
+ {
+  "word": "serialized",
+  "meaning_ko": "(신문·잡지에) 연재된, 여러 회로 나누어 실린",
+  "pos": "verb",
+  "cefr_level": "B2",
+  "example_en": "The novel was first serialized in a weekly magazine."
+ },
+ {
+  "word": "set aside",
+  "meaning_ko": "따로 떼어 두다, 챙겨 두다, (감정·의견을) 제쳐 두다",
+  "pos": "phrasal_verb",
+  "cefr_level": "B1",
+  "example_en": "She sets aside an hour each night for reading."
+ },
+ {
+  "word": "set healthy limits",
+  "meaning_ko": "건전한 선을 긋다, 적절한 경계를 정하다",
+  "pos": "idiom",
+  "cefr_level": "B2",
+  "example_en": "Learning to set healthy limits protects your free time."
+ },
+ {
+  "word": "share out",
+  "meaning_ko": "나누어 주다, 몫을 배분하다",
+  "pos": "phrasal_verb",
+  "cefr_level": "B2",
+  "example_en": "The captain shared out the last of the water."
+ }
+]

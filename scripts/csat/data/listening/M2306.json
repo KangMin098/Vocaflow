@@ -1,0 +1,842 @@
+[
+ {
+  "exam": "M2306",
+  "no": 1,
+  "stem": "다음을 듣고, 남자가 하는 말의 목적으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Hello, everyone. Are you looking for an easier way to create your own website? Then use Dream Website Wizard, an easy-to-use program for building websites. With Dream Website Wizard, no technical skills are needed to build a well-designed website that fits your needs. This program has a variety of designer templates for you to choose from. You’ll also find hundreds of images and video backgrounds at your fingertips. You can use them for your own website without worrying about copyright issues. Download the program for a 30-day free trial and start making your own website today."
+   }
+  ],
+  "script": "Hello, everyone. Are you looking for an easier way to create your own website? Then use Dream Website Wizard, an easy-to-use program for building websites. With Dream Website Wizard, no technical skills are needed to build a well-designed website that fits your needs. This program has a variety of designer templates for you to choose from. You’ll also find hundreds of images and video backgrounds at your fingertips. You can use them for your own website without worrying about copyright issues. Download the program for a 30-day free trial and start making your own website today.",
+  "words": 96,
+  "nTurns": 1,
+  "speakers": [
+   "M"
+  ],
+  "isDialogue": false,
+  "typeGuess": "L-PURPOSE",
+  "typeGuessAll": [
+   "L-PURPOSE"
+  ]
+ },
+ {
+  "exam": "M2306",
+  "no": 2,
+  "stem": "대화를 듣고, 여자의 의견으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Hi, honey. I bought these carrots on my way home."
+   },
+   {
+    "who": "W",
+    "text": "Great. We can add roasted carrots to our dinner."
+   },
+   {
+    "who": "M",
+    "text": "Well, isn’t it healthier to eat vegetables raw rather than cooked?"
+   },
+   {
+    "who": "W",
+    "text": "Not necessarily. Some vegetables are healthier for us when cooked."
+   },
+   {
+    "who": "M",
+    "text": "What do you mean?"
+   },
+   {
+    "who": "W",
+    "text": "For example, by roasting carrots and tomatoes, it helps us to receive more substances that are good for our health."
+   },
+   {
+    "who": "M",
+    "text": "Oh, really? What other vegetables are better when cooked?"
+   },
+   {
+    "who": "W",
+    "text": "When we steam broccoli and cabbage, they release a compound that helps to prevent certain types of cancer."
+   },
+   {
+    "who": "M",
+    "text": "I see. That’s why you always put steamed broccoli in our salad."
+   },
+   {
+    "who": "W",
+    "text": "Exactly. Cooking can be a good way to increase some vegetables’ health benefits."
+   },
+   {
+    "who": "M",
+    "text": "Okay. Then I’ll prepare the roasted carrots."
+   }
+  ],
+  "script": "Hi, honey. I bought these carrots on my way home. Great. We can add roasted carrots to our dinner. Well, isn’t it healthier to eat vegetables raw rather than cooked? Not necessarily. Some vegetables are healthier for us when cooked. What do you mean? For example, by roasting carrots and tomatoes, it helps us to receive more substances that are good for our health. Oh, really? What other vegetables are better when cooked? When we steam broccoli and cabbage, they release a compound that helps to prevent certain types of cancer. I see. That’s why you always put steamed broccoli in our salad. Exactly. Cooking can be a good way to increase some vegetables’ health benefits. Okay. Then I’ll prepare the roasted carrots.",
+  "words": 123,
+  "nTurns": 11,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-OPINION",
+  "typeGuessAll": [
+   "L-OPINION"
+  ]
+ },
+ {
+  "exam": "M2306",
+  "no": 3,
+  "stem": "대화를 듣고, 두 사람의 관계를 가장 잘 나타낸 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Hi, are you enjoying the exhibition?"
+   },
+   {
+    "who": "M",
+    "text": "Yes. It’s the most unique art exhibition that I’ve ever been to."
+   },
+   {
+    "who": "W",
+    "text": "Thanks. I’m glad that you like my paper sculpture exhibition."
+   },
+   {
+    "who": "M",
+    "text": "Oh, you must be Karen Edwards. I can’t believe I’m getting the chance to meet you in front of your artwork."
+   },
+   {
+    "who": "W",
+    "text": "Well, I’ll be here for the first three days of my exhibition. Is this your first time visiting this gallery?"
+   },
+   {
+    "who": "M",
+    "text": "Yeah. I’m especially impressed with this paper sculpture. What does it symbolize, though?"
+   },
+   {
+    "who": "W",
+    "text": "I intended to represent family love when I created it."
+   },
+   {
+    "who": "M",
+    "text": "How’s that?"
+   },
+   {
+    "who": "W",
+    "text": "By putting different pieces of paper together, it becomes complete just like a family."
+   },
+   {
+    "who": "M",
+    "text": "Wow, I can appreciate your artwork even more after your explanation. I’m so lucky that I visited this gallery today."
+   },
+   {
+    "who": "W",
+    "text": "Good to hear that. Thanks for coming."
+   }
+  ],
+  "script": "Hi, are you enjoying the exhibition? Yes. It’s the most unique art exhibition that I’ve ever been to. Thanks. I’m glad that you like my paper sculpture exhibition. Oh, you must be Karen Edwards. I can’t believe I’m getting the chance to meet you in front of your artwork. Well, I’ll be here for the first three days of my exhibition. Is this your first time visiting this gallery? Yeah. I’m especially impressed with this paper sculpture. What does it symbolize, though? I intended to represent family love when I created it. How’s that? By putting different pieces of paper together, it becomes complete just like a family. Wow, I can appreciate your artwork even more after your explanation. I’m so lucky that I visited this gallery today. Good to hear that. Thanks for coming.",
+  "words": 135,
+  "nTurns": 11,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-RELATION",
+  "typeGuessAll": [
+   "L-RELATION"
+  ]
+ },
+ {
+  "exam": "M2306",
+  "no": 4,
+  "stem": "대화를 듣고, 그림에서 대화의 내용과 일치하지 않는 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Kate, I heard the school broadcasting studio has been remodeled. How did it turn out?"
+   },
+   {
+    "who": "W",
+    "text": "It’s great. All our club members are excited about it. Here, check out this picture."
+   },
+   {
+    "who": "M",
+    "text": "Wow, it’s much better than I imagined. There’s even an ON AIR sign above the clock."
+   },
+   {
+    "who": "W",
+    "text": "Isn’t it cool? That’s my favorite part of this studio."
+   },
+   {
+    "who": "M",
+    "text": "Awesome. Oh, there’s a bookshelf in the corner."
+   },
+   {
+    "who": "W",
+    "text": "We’re going to keep our scripts in it. What do you think of the world map on the wall?"
+   },
+   {
+    "who": "M",
+    "text": "That’s perfect for the background. I also like this stripe-patterned rug on the floor."
+   },
+   {
+    "who": "W",
+    "text": "Yeah, it makes the place feel so cozy."
+   },
+   {
+    "who": "M",
+    "text": "I agree. Oh, there are three cameras. They give the studio a professional look."
+   },
+   {
+    "who": "W",
+    "text": "I know. I can’t wait to start broadcasting the school news."
+   }
+  ],
+  "script": "Kate, I heard the school broadcasting studio has been remodeled. How did it turn out? It’s great. All our club members are excited about it. Here, check out this picture. Wow, it’s much better than I imagined. There’s even an ON AIR sign above the clock. Isn’t it cool? That’s my favorite part of this studio. Awesome. Oh, there’s a bookshelf in the corner. We’re going to keep our scripts in it. What do you think of the world map on the wall? That’s perfect for the background. I also like this stripe-patterned rug on the floor. Yeah, it makes the place feel so cozy. I agree. Oh, there are three cameras. They give the studio a professional look. I know. I can’t wait to start broadcasting the school news.",
+  "words": 130,
+  "nTurns": 10,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-PICTURE",
+  "typeGuessAll": [
+   "L-PICTURE"
+  ]
+ },
+ {
+  "exam": "M2306",
+  "no": 5,
+  "stem": "대화를 듣고, 남자가 할 일로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Jason, you look worried. Is something wrong?"
+   },
+   {
+    "who": "M",
+    "text": "Well, you know our badminton club has been losing members recently."
+   },
+   {
+    "who": "W",
+    "text": "That’s right. We may need something to promote our club."
+   },
+   {
+    "who": "M",
+    "text": "How about a special event like offering one-on-one beginner lessons?"
+   },
+   {
+    "who": "W",
+    "text": "I don’t think we have enough members for that. Hmm, how about promotional posters instead?"
+   },
+   {
+    "who": "M",
+    "text": "Good idea. Do you want to try creating the poster?"
+   },
+   {
+    "who": "W",
+    "text": "Well, I’m not sure. I’m not good at design."
+   },
+   {
+    "who": "M",
+    "text": "Then I’ll make the poster. I’ll try my best to make it eye-catching."
+   },
+   {
+    "who": "W",
+    "text": "Thanks. Once you’re done, I’ll put the posters up around the school and on social media as well."
+   },
+   {
+    "who": "M",
+    "text": "Good. I hope this will get many students to join our club."
+   }
+  ],
+  "script": "Jason, you look worried. Is something wrong? Well, you know our badminton club has been losing members recently. That’s right. We may need something to promote our club. How about a special event like offering one-on-one beginner lessons? I don’t think we have enough members for that. Hmm, how about promotional posters instead? Good idea. Do you want to try creating the poster? Well, I’m not sure. I’m not good at design. Then I’ll make the poster. I’ll try my best to make it eye-catching. Thanks. Once you’re done, I’ll put the posters up around the school and on social media as well. Good. I hope this will get many students to join our club.",
+  "words": 115,
+  "nTurns": 10,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-TODO",
+  "typeGuessAll": [
+   "L-TODO"
+  ]
+ },
+ {
+  "exam": "M2306",
+  "no": 6,
+  "stem": "대화를 듣고, 여자가 지불할 금액을 고르시오. [3점]",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Welcome to Spring Road Garden. May I help you?"
+   },
+   {
+    "who": "W",
+    "text": "Hi. I’m thinking of putting some flowers in the living room. What would you recommend?"
+   },
+   {
+    "who": "M",
+    "text": "How about carnations or tulips in flowerpots? They’re popular for home decoration."
+   },
+   {
+    "who": "W",
+    "text": "I like them. How much are they?"
+   },
+   {
+    "who": "M",
+    "text": "A pot of carnations is $20, and a pot of tulips is $30."
+   },
+   {
+    "who": "W",
+    "text": "I’ll take two pots of carnations."
+   },
+   {
+    "who": "M",
+    "text": "Good choice. I also recommend getting a spray bottle to water your flowers."
+   },
+   {
+    "who": "W",
+    "text": "Oh, I was thinking of buying one. How much is it?"
+   },
+   {
+    "who": "M",
+    "text": "It’s normally $10, but I’ll give you a $5 discount on it."
+   },
+   {
+    "who": "W",
+    "text": "Thanks. I’ll buy one."
+   },
+   {
+    "who": "M",
+    "text": "So, two pots of carnations and one spray bottle. Would you like them delivered? It’s only $5."
+   },
+   {
+    "who": "W",
+    "text": "No, thanks. I brought my car."
+   },
+   {
+    "who": "M",
+    "text": "Okay. How would you like to pay?"
+   },
+   {
+    "who": "W",
+    "text": "I’ll pay with cash."
+   }
+  ],
+  "script": "Welcome to Spring Road Garden. May I help you? Hi. I’m thinking of putting some flowers in the living room. What would you recommend? How about carnations or tulips in flowerpots? They’re popular for home decoration. I like them. How much are they? A pot of carnations is $20, and a pot of tulips is $30. I’ll take two pots of carnations. Good choice. I also recommend getting a spray bottle to water your flowers. Oh, I was thinking of buying one. How much is it? It’s normally $10, but I’ll give you a $5 discount on it. Thanks. I’ll buy one. So, two pots of carnations and one spray bottle. Would you like them delivered? It’s only $5. No, thanks. I brought my car. Okay. How would you like to pay? I’ll pay with cash.",
+  "words": 131,
+  "nTurns": 14,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-MONEY",
+  "typeGuessAll": [
+   "L-MONEY"
+  ]
+ },
+ {
+  "exam": "M2306",
+  "no": 7,
+  "stem": "대화를 듣고, 남자가 과학 보고서 대회에서 상을 받지 못한 이유를 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Hi, Dave. Come in."
+   },
+   {
+    "who": "M",
+    "text": "You wanted to see me, Ms. Adams?"
+   },
+   {
+    "who": "W",
+    "text": "Yes. It’s about the science report competition. You must be disappointed that you didn’t get a prize."
+   },
+   {
+    "who": "M",
+    "text": "Well, I tried my best until the last minute, so I was wondering why."
+   },
+   {
+    "who": "W",
+    "text": "Actually, your topic was creative and interesting."
+   },
+   {
+    "who": "M",
+    "text": "How about the length? Was my report too long?"
+   },
+   {
+    "who": "W",
+    "text": "No, the length was not the issue."
+   },
+   {
+    "who": "M",
+    "text": "Then, did I use any incorrect information?"
+   },
+   {
+    "who": "W",
+    "text": "Not at all. It seemed that you researched the topic thoroughly."
+   },
+   {
+    "who": "M",
+    "text": "Yes. I tried to use reliable sources from the Internet and books."
+   },
+   {
+    "who": "W",
+    "text": "Good. However, you didn’t include the experiment pictures in your report."
+   },
+   {
+    "who": "M",
+    "text": "Really? I thought I put them in my report."
+   },
+   {
+    "who": "W",
+    "text": "Unfortunately, you didn’t. That’s the reason why you didn’t get a prize."
+   },
+   {
+    "who": "M",
+    "text": "Oh, I see. I won’t make the same mistake next time."
+   }
+  ],
+  "script": "Hi, Dave. Come in. You wanted to see me, Ms. Adams? Yes. It’s about the science report competition. You must be disappointed that you didn’t get a prize. Well, I tried my best until the last minute, so I was wondering why. Actually, your topic was creative and interesting. How about the length? Was my report too long? No, the length was not the issue. Then, did I use any incorrect information? Not at all. It seemed that you researched the topic thoroughly. Yes. I tried to use reliable sources from the Internet and books. Good. However, you didn’t include the experiment pictures in your report. Really? I thought I put them in my report. Unfortunately, you didn’t. That’s the reason why you didn’t get a prize. Oh, I see. I won’t make the same mistake next time.",
+  "words": 138,
+  "nTurns": 14,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-REASON",
+  "typeGuessAll": [
+   "L-REASON"
+  ]
+ },
+ {
+  "exam": "M2306",
+  "no": 8,
+  "stem": "대화를 듣고, 2022 Technology Fair에 관해 언급되지 않은 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Rosa, did you find anything interesting on the community board?"
+   },
+   {
+    "who": "W",
+    "text": "Hey, James. Look. The 2022 Technology Fair is going on right now."
+   },
+   {
+    "who": "M",
+    "text": "Let me see. It says the theme of this fair is “AI and the Fourth Industrial Revolution.”"
+   },
+   {
+    "who": "W",
+    "text": "Yeah, AI technology is the topic for our group presentation."
+   },
+   {
+    "who": "M",
+    "text": "Right. I bet we could get a lot of useful information there. Hmm, do you see where it’s taking place?"
+   },
+   {
+    "who": "W",
+    "text": "Yes, look here. It’s being held at the civic center downtown. It’s within walking distance from here."
+   },
+   {
+    "who": "M",
+    "text": "Perfect. And the admission fee is $10 for students. Should we go?"
+   },
+   {
+    "who": "W",
+    "text": "Definitely. How about going next weekend?"
+   },
+   {
+    "who": "M",
+    "text": "No, we have to go this weekend. The fair ends on June 15th."
+   },
+   {
+    "who": "W",
+    "text": "Okay. Let’s look into getting tickets."
+   }
+  ],
+  "script": "Rosa, did you find anything interesting on the community board? Hey, James. Look. The 2022 Technology Fair is going on right now. Let me see. It says the theme of this fair is “AI and the Fourth Industrial Revolution.” Yeah, AI technology is the topic for our group presentation. Right. I bet we could get a lot of useful information there. Hmm, do you see where it’s taking place? Yes, look here. It’s being held at the civic center downtown. It’s within walking distance from here. Perfect. And the admission fee is $10 for students. Should we go? Definitely. How about going next weekend? No, we have to go this weekend. The fair ends on June 15th. Okay. Let’s look into getting tickets.",
+  "words": 121,
+  "nTurns": 10,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-NOTMENTION",
+  "typeGuessAll": [
+   "L-NOTMENTION"
+  ]
+ },
+ {
+  "exam": "M2306",
+  "no": 9,
+  "stem": "Junior Money Smart Course에 관한 다음 내용을 듣고, 일치하지 않는 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Hello, parents. Do you want your children to learn how to be smart with their money? Then, sign them up for the Junior Money Smart Course. The instructor of this course is an economics professor, who will teach your children basic accounting principles and money management skills. This course is only for high school students. It’ll be held at the Shellburne Community Center from Monday to Friday in the afternoon. Registration can be done on our website starting from August 1st. Please note that on-site registration is not available. Everyone who signs up will receive a planner as a gift. Set your children on the right path for their financial security. For more information, visit our website, www.juniormoneysmart.com."
+   }
+  ],
+  "script": "Hello, parents. Do you want your children to learn how to be smart with their money? Then, sign them up for the Junior Money Smart Course. The instructor of this course is an economics professor, who will teach your children basic accounting principles and money management skills. This course is only for high school students. It’ll be held at the Shellburne Community Center from Monday to Friday in the afternoon. Registration can be done on our website starting from August 1st. Please note that on-site registration is not available. Everyone who signs up will receive a planner as a gift. Set your children on the right path for their financial security. For more information, visit our website, www.juniormoneysmart.com.",
+  "words": 120,
+  "nTurns": 1,
+  "speakers": [
+   "W"
+  ],
+  "isDialogue": false,
+  "typeGuess": "L-ANNOUNCE",
+  "typeGuessAll": [
+   "L-ANNOUNCE"
+  ]
+ },
+ {
+  "exam": "M2306",
+  "no": 10,
+  "stem": "다음 표를 보면서 대화를 듣고, 여자가 구입할 책상용 태블릿 거치대를 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Emily, what are you shopping for on your computer?"
+   },
+   {
+    "who": "W",
+    "text": "I’m looking at these tablet stands for desks. Can you help me choose one?"
+   },
+   {
+    "who": "M",
+    "text": "Sure. Let me take a look. [Pause] Hmm, these five models all look pretty good. How much do you want to spend?"
+   },
+   {
+    "who": "W",
+    "text": "I’d like to keep it under $20."
+   },
+   {
+    "who": "M",
+    "text": "Okay. Oh, it seems they come in three different materials. Do you have any preference?"
+   },
+   {
+    "who": "W",
+    "text": "Well, I don’t like the texture of wood. The other materials are fine, though."
+   },
+   {
+    "who": "M",
+    "text": "I see. And I think you should consider a foldable model because it’s easier to carry around."
+   },
+   {
+    "who": "W",
+    "text": "But I’ll mainly use it at home, so I don’t need a foldable one. Plus, it seems less stable."
+   },
+   {
+    "who": "M",
+    "text": "Then there are two options left. Which one do you like?"
+   },
+   {
+    "who": "W",
+    "text": "This silver one looks fancier."
+   },
+   {
+    "who": "M",
+    "text": "I agree."
+   },
+   {
+    "who": "W",
+    "text": "Okay. I’ll buy this one then. Thanks for your help."
+   }
+  ],
+  "script": "Emily, what are you shopping for on your computer? I’m looking at these tablet stands for desks. Can you help me choose one? Sure. Let me take a look. [Pause] Hmm, these five models all look pretty good. How much do you want to spend? I’d like to keep it under $20. Okay. Oh, it seems they come in three different materials. Do you have any preference? Well, I don’t like the texture of wood. The other materials are fine, though. I see. And I think you should consider a foldable model because it’s easier to carry around. But I’ll mainly use it at home, so I don’t need a foldable one. Plus, it seems less stable. Then there are two options left. Which one do you like? This silver one looks fancier. I agree. Okay. I’ll buy this one then. Thanks for your help.",
+  "words": 144,
+  "nTurns": 12,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-TABLE",
+  "typeGuessAll": [
+   "L-TABLE"
+  ]
+ },
+ {
+  "exam": "M2306",
+  "no": 11,
+  "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "?",
+    "text": "[Cell phone rings.]"
+   },
+   {
+    "who": "W",
+    "text": "Honey, did you get home from work yet? The fish I ordered yesterday has just arrived, but I’ll be home late today."
+   },
+   {
+    "who": "M",
+    "text": "Oh, I’ll be home in two hours. Won’t it go bad because the weather is so hot?"
+   },
+   {
+    "who": "W",
+    "text": "I hope not. Can you store the fish as soon as you get home?"
+   }
+  ],
+  "script": "[Cell phone rings.] Honey, did you get home from work yet? The fish I ordered yesterday has just arrived, but I’ll be home late today. Oh, I’ll be home in two hours. Won’t it go bad because the weather is so hot? I hope not. Can you store the fish as soon as you get home?",
+  "words": 56,
+  "nTurns": 4,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-RESPONSE",
+  "typeGuessAll": [
+   "L-RESPONSE"
+  ]
+ },
+ {
+  "exam": "M2306",
+  "no": 12,
+  "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Hello, my son would love to ride on this roller coaster. Can he?"
+   },
+   {
+    "who": "W",
+    "text": "Well, he must be at least 130 cm tall to ride it. How tall is he?"
+   },
+   {
+    "who": "M",
+    "text": "Oh, my son is much shorter than that."
+   }
+  ],
+  "script": "Hello, my son would love to ride on this roller coaster. Can he? Well, he must be at least 130 cm tall to ride it. How tall is he? Oh, my son is much shorter than that.",
+  "words": 36,
+  "nTurns": 3,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-RESPONSE",
+  "typeGuessAll": [
+   "L-RESPONSE"
+  ]
+ },
+ {
+  "exam": "M2306",
+  "no": 13,
+  "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "?",
+    "text": "[3점]"
+   },
+   {
+    "who": "M",
+    "text": "Grandma, I’m home. What are you making?"
+   },
+   {
+    "who": "W",
+    "text": "Hi, Kevin. I’m about to bake some cream cheese bread. I know how much you love it."
+   },
+   {
+    "who": "M",
+    "text": "Of course, I do. It’s really soft and delicious."
+   },
+   {
+    "who": "W",
+    "text": "Oh, sweetheart, you’re too kind."
+   },
+   {
+    "who": "M",
+    "text": "No, really. It’s the best. Is there anything I can help you with?"
+   },
+   {
+    "who": "W",
+    "text": "That’d be lovely. Can you get the butter from the refrigerator?"
+   },
+   {
+    "who": "M",
+    "text": "Sure. [Pause] Here it is. What should I do next?"
+   },
+   {
+    "who": "W",
+    "text": "Wait. The butter looks slightly old. Do you remember when we bought it?"
+   },
+   {
+    "who": "M",
+    "text": "Probably a few months ago. But usually butter lasts a long time, so it should be okay."
+   },
+   {
+    "who": "W",
+    "text": "Yeah, but it’s important to always check the expiration dates before cooking."
+   },
+   {
+    "who": "M",
+    "text": "I guess you’re right. It’s better to be safe."
+   },
+   {
+    "who": "W",
+    "text": "Let me take a look. [Pause] Oh, dear. The print on the package is too small for me to read."
+   }
+  ],
+  "script": "[3점] Grandma, I’m home. What are you making? Hi, Kevin. I’m about to bake some cream cheese bread. I know how much you love it. Of course, I do. It’s really soft and delicious. Oh, sweetheart, you’re too kind. No, really. It’s the best. Is there anything I can help you with? That’d be lovely. Can you get the butter from the refrigerator? Sure. [Pause] Here it is. What should I do next? Wait. The butter looks slightly old. Do you remember when we bought it? Probably a few months ago. But usually butter lasts a long time, so it should be okay. Yeah, but it’s important to always check the expiration dates before cooking. I guess you’re right. It’s better to be safe. Let me take a look. [Pause] Oh, dear. The print on the package is too small for me to read.",
+  "words": 143,
+  "nTurns": 13,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-RESPONSE",
+  "typeGuessAll": [
+   "L-RESPONSE"
+  ]
+ },
+ {
+  "exam": "M2306",
+  "no": 14,
+  "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Hi, Mr. Taylor."
+   },
+   {
+    "who": "M",
+    "text": "Hi, Christie. How is the preparation for the school’s Eco-Festival going?"
+   },
+   {
+    "who": "W",
+    "text": "Well, our club is planning to hold a quiz event during the festival."
+   },
+   {
+    "who": "M",
+    "text": "Sounds interesting. What is the quiz about?"
+   },
+   {
+    "who": "W",
+    "text": "It’ll be on the best-selling book, An Eco-Friendly Way of Life."
+   },
+   {
+    "who": "M",
+    "text": "I’ve read that book. It’s educational and fascinating."
+   },
+   {
+    "who": "W",
+    "text": "Yeah. I think the students will be really into it. Plus, as a present, each participant will receive an eco-bag made from recycled materials."
+   },
+   {
+    "who": "M",
+    "text": "Oh, that’s why you asked me to order the eco-bags. How many students have signed up for the quiz event so far?"
+   },
+   {
+    "who": "W",
+    "text": "Far more than we expected."
+   },
+   {
+    "who": "M",
+    "text": "That’s great news!"
+   },
+   {
+    "who": "W",
+    "text": "Yeah, but I’m really concerned because we didn’t prepare enough eco-bags."
+   },
+   {
+    "who": "M",
+    "text": "Don’t worry. I’ll order more if you need. We still have funds that can be used for the festival."
+   }
+  ],
+  "script": "Hi, Mr. Taylor. Hi, Christie. How is the preparation for the school’s Eco-Festival going? Well, our club is planning to hold a quiz event during the festival. Sounds interesting. What is the quiz about? It’ll be on the best-selling book, An Eco-Friendly Way of Life. I’ve read that book. It’s educational and fascinating. Yeah. I think the students will be really into it. Plus, as a present, each participant will receive an eco-bag made from recycled materials. Oh, that’s why you asked me to order the eco-bags. How many students have signed up for the quiz event so far? Far more than we expected. That’s great news! Yeah, but I’m really concerned because we didn’t prepare enough eco-bags. Don’t worry. I’ll order more if you need. We still have funds that can be used for the festival.",
+  "words": 137,
+  "nTurns": 12,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-RESPONSE",
+  "typeGuessAll": [
+   "L-RESPONSE"
+  ]
+ },
+ {
+  "exam": "M2306",
+  "no": 15,
+  "stem": "다음 상황 설명을 듣고, Tom이 Alice에게 할 말로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "?",
+    "text": "[3점]"
+   },
+   {
+    "who": "M",
+    "text": "Alice runs an online shopping mall. Recently, some of her customers left negative reviews about her products. She’s worried that these comments will cause customers to turn away from her business. She visits her friend Tom, who also runs an online shopping mall, and asks for his advice. Tom thinks that those negative comments can be useful, as they can help owners to better understand consumers’ needs and to improve the quality of the products. He believes this can contribute to a sales increase in the end. So, Tom wants to tell Alice that she needs to make use of negative reviews to improve her business. In this situation, what would Tom most likely say to Alice? 16번부터 17번까지는 두 번 들려줍니다."
+   }
+  ],
+  "script": "[3점] Alice runs an online shopping mall. Recently, some of her customers left negative reviews about her products. She’s worried that these comments will cause customers to turn away from her business. She visits her friend Tom, who also runs an online shopping mall, and asks for his advice. Tom thinks that those negative comments can be useful, as they can help owners to better understand consumers’ needs and to improve the quality of the products. He believes this can contribute to a sales increase in the end. So, Tom wants to tell Alice that she needs to make use of negative reviews to improve her business. In this situation, what would Tom most likely say to Alice? 16번부터 17번까지는 두 번 들려줍니다.",
+  "words": 117,
+  "nTurns": 2,
+  "speakers": [
+   "M"
+  ],
+  "isDialogue": false,
+  "typeGuess": "L-SITUATION",
+  "typeGuessAll": [
+   "L-SITUATION"
+  ]
+ },
+ {
+  "exam": "M2306",
+  "no": 16,
+  "stem": "여자가 하는 말의 주제로 가장 적절한 것은?",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Hello, students. We all know birds are expert nest builders. So today, we’ll learn about the reasons that some materials are used in bird nests. Firstly, many types of birds incorporate different kinds of materials to keep their nests warm. Particularly, feathers are commonly used for this purpose. Secondly, some bird species build their nests along the side of cliffs or buildings, which requires sticky substances. These birds use mud because it attaches well to vertical surfaces. Next, some tiny birds normally build small cup-like nests with light materials, so they need an additional material to bind them. They often use spiderwebs to fasten these nesting materials together. Lastly, some species of birds that live in cold environments use certain objects to protect their eggs. These birds gather stones for their nests to place their eggs on. This keeps their eggs above ground level, which reduces the danger of flooding from melting ice. Now, let’s watch a short video clip about these fascinating bird nests."
+   }
+  ],
+  "fromSet": "16~17",
+  "script": "Hello, students. We all know birds are expert nest builders. So today, we’ll learn about the reasons that some materials are used in bird nests. Firstly, many types of birds incorporate different kinds of materials to keep their nests warm. Particularly, feathers are commonly used for this purpose. Secondly, some bird species build their nests along the side of cliffs or buildings, which requires sticky substances. These birds use mud because it attaches well to vertical surfaces. Next, some tiny birds normally build small cup-like nests with light materials, so they need an additional material to bind them. They often use spiderwebs to fasten these nesting materials together. Lastly, some species of birds that live in cold environments use certain objects to protect their eggs. These birds gather stones for their nests to place their eggs on. This keeps their eggs above ground level, which reduces the danger of flooding from melting ice. Now, let’s watch a short video clip about these fascinating bird nests.",
+  "words": 165,
+  "nTurns": 1,
+  "speakers": [
+   "W"
+  ],
+  "isDialogue": false,
+  "typeGuess": "L-SET-TOPIC",
+  "typeGuessAll": [
+   "L-SET-TOPIC"
+  ]
+ },
+ {
+  "exam": "M2306",
+  "no": 17,
+  "stem": "언급된 재료가 아닌 것은?",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Hello, students. We all know birds are expert nest builders. So today, we’ll learn about the reasons that some materials are used in bird nests. Firstly, many types of birds incorporate different kinds of materials to keep their nests warm. Particularly, feathers are commonly used for this purpose. Secondly, some bird species build their nests along the side of cliffs or buildings, which requires sticky substances. These birds use mud because it attaches well to vertical surfaces. Next, some tiny birds normally build small cup-like nests with light materials, so they need an additional material to bind them. They often use spiderwebs to fasten these nesting materials together. Lastly, some species of birds that live in cold environments use certain objects to protect their eggs. These birds gather stones for their nests to place their eggs on. This keeps their eggs above ground level, which reduces the danger of flooding from melting ice. Now, let’s watch a short video clip about these fascinating bird nests."
+   }
+  ],
+  "fromSet": "16~17",
+  "script": "Hello, students. We all know birds are expert nest builders. So today, we’ll learn about the reasons that some materials are used in bird nests. Firstly, many types of birds incorporate different kinds of materials to keep their nests warm. Particularly, feathers are commonly used for this purpose. Secondly, some bird species build their nests along the side of cliffs or buildings, which requires sticky substances. These birds use mud because it attaches well to vertical surfaces. Next, some tiny birds normally build small cup-like nests with light materials, so they need an additional material to bind them. They often use spiderwebs to fasten these nesting materials together. Lastly, some species of birds that live in cold environments use certain objects to protect their eggs. These birds gather stones for their nests to place their eggs on. This keeps their eggs above ground level, which reduces the danger of flooding from melting ice. Now, let’s watch a short video clip about these fascinating bird nests.",
+  "words": 165,
+  "nTurns": 1,
+  "speakers": [
+   "W"
+  ],
+  "isDialogue": false,
+  "typeGuess": "L-SET-NOT",
+  "typeGuessAll": [
+   "L-SET-NOT"
+  ]
+ }
+]

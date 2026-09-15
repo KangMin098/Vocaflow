@@ -1,0 +1,488 @@
+{
+  "$schema": "textbook-market-series/1",
+  "generatedAt": "2026-09-06T07:27:40.737Z",
+  "provenance": {
+    "manifest": "d:\\workspace\\textbook-corpus\\manifest.json",
+    "manifestAt": "2026-09-01T07:24:41.418Z",
+    "corpusDocuments": 94,
+    "rule": "기출(평가원 시험지)과 시리즈명이 없는 문서는 뺀다 — 시리즈로 셀 수 없다.",
+    "privacy": "원문은 담지 않는다 — 출판사·시리즈명·분류축·개수만."
+  },
+  "documentsCounted": 75,
+  "seriesCount": 22,
+  "publisherCount": 6,
+  "byCategory": [
+    {
+      "category": "독해",
+      "series": 16
+    },
+    {
+      "category": "어휘",
+      "series": 3
+    },
+    {
+      "category": "구문",
+      "series": 2
+    },
+    {
+      "category": "내신",
+      "series": 1
+    }
+  ],
+  "byPublisher": [
+    {
+      "publisher": "NE능률",
+      "series": 13,
+      "names": [
+        "리딩튜터 주니어",
+        "달곰한 Literacy",
+        "리딩튜터 스타터",
+        "리딩튜터 챌린저",
+        "능률VOCA",
+        "빠른독해 바른독해 - 구문독해",
+        "빠른독해 바른독해 - 유형독해",
+        "수능 1 Up",
+        "리딩튜터 수능PLUS",
+        "1316 Reading",
+        "빠른독해 바른독해 - 기초세우기",
+        "빠른독해 바른독해 - 수능실전",
+        "리딩인사이드"
+      ]
+    },
+    {
+      "publisher": "미상",
+      "series": 3,
+      "names": [
+        "중학 수능 딥독",
+        "내신백신",
+        "AST Reading Key"
+      ]
+    },
+    {
+      "publisher": "쎄듀",
+      "series": 2,
+      "names": [
+        "첫단추",
+        "천일문"
+      ]
+    },
+    {
+      "publisher": "EBS",
+      "series": 2,
+      "names": [
+        "EBS 올림포스",
+        "EBS 수능특강"
+      ]
+    },
+    {
+      "publisher": "참고자료",
+      "series": 1,
+      "names": [
+        "TED 어휘 참고자료"
+      ]
+    },
+    {
+      "publisher": "수경출판사",
+      "series": 1,
+      "names": [
+        "Xistory"
+      ]
+    }
+  ],
+  "series": [
+    {
+      "publisher": "NE능률",
+      "series": "리딩튜터 주니어",
+      "docs": 10,
+      "categories": [
+        "독해"
+      ],
+      "schools": [
+        "중등",
+        "초등~중등"
+      ],
+      "roles": [
+        "미리보기",
+        "본책",
+        "정답해설"
+      ],
+      "gradeMin": 6,
+      "gradeMax": 9,
+      "gradeSpan": 4
+    },
+    {
+      "publisher": "NE능률",
+      "series": "달곰한 Literacy",
+      "docs": 8,
+      "categories": [
+        "독해"
+      ],
+      "schools": [
+        "초등"
+      ],
+      "roles": [
+        "미리보기",
+        "정답해설"
+      ],
+      "gradeMin": 3,
+      "gradeMax": 6,
+      "gradeSpan": 4
+    },
+    {
+      "publisher": "NE능률",
+      "series": "리딩튜터 스타터",
+      "docs": 6,
+      "categories": [
+        "독해"
+      ],
+      "schools": [
+        "초등"
+      ],
+      "roles": [
+        "미리보기",
+        "정답해설"
+      ],
+      "gradeMin": 4,
+      "gradeMax": 6,
+      "gradeSpan": 3
+    },
+    {
+      "publisher": "NE능률",
+      "series": "리딩튜터 챌린저",
+      "docs": 6,
+      "categories": [
+        "독해"
+      ],
+      "schools": [
+        "고등",
+        "중등"
+      ],
+      "roles": [
+        "미리보기",
+        "정답해설"
+      ],
+      "gradeMin": 9,
+      "gradeMax": 11,
+      "gradeSpan": 3
+    },
+    {
+      "publisher": "미상",
+      "series": "중학 수능 딥독",
+      "docs": 6,
+      "categories": [
+        "독해"
+      ],
+      "schools": [
+        "중등"
+      ],
+      "roles": [
+        "미리보기",
+        "정답해설"
+      ],
+      "gradeMin": 7,
+      "gradeMax": 9,
+      "gradeSpan": 3
+    },
+    {
+      "publisher": "NE능률",
+      "series": "능률VOCA",
+      "docs": 4,
+      "categories": [
+        "어휘"
+      ],
+      "schools": [
+        "고등",
+        "중등~고등"
+      ],
+      "roles": [
+        "미리보기"
+      ],
+      "gradeMin": 9,
+      "gradeMax": 12,
+      "gradeSpan": 4
+    },
+    {
+      "publisher": "NE능률",
+      "series": "빠른독해 바른독해 - 구문독해",
+      "docs": 4,
+      "categories": [
+        "구문"
+      ],
+      "schools": [
+        "고등"
+      ],
+      "roles": [
+        "미리보기",
+        "본책",
+        "정답해설"
+      ],
+      "gradeMin": 10,
+      "gradeMax": 11,
+      "gradeSpan": 2
+    },
+    {
+      "publisher": "NE능률",
+      "series": "빠른독해 바른독해 - 유형독해",
+      "docs": 4,
+      "categories": [
+        "독해"
+      ],
+      "schools": [
+        "고등"
+      ],
+      "roles": [
+        "미리보기",
+        "본책",
+        "정답해설"
+      ],
+      "gradeMin": 10,
+      "gradeMax": 12,
+      "gradeSpan": 3
+    },
+    {
+      "publisher": "NE능률",
+      "series": "수능 1 Up",
+      "docs": 4,
+      "categories": [
+        "독해"
+      ],
+      "schools": [
+        "고등"
+      ],
+      "roles": [
+        "미리보기",
+        "정답해설"
+      ],
+      "gradeMin": 11,
+      "gradeMax": 12,
+      "gradeSpan": 2
+    },
+    {
+      "publisher": "NE능률",
+      "series": "리딩튜터 수능PLUS",
+      "docs": 3,
+      "categories": [
+        "독해"
+      ],
+      "schools": [
+        "고등"
+      ],
+      "roles": [
+        "본책",
+        "정답해설"
+      ],
+      "gradeMin": 10,
+      "gradeMax": 11,
+      "gradeSpan": 2
+    },
+    {
+      "publisher": "참고자료",
+      "series": "TED 어휘 참고자료",
+      "docs": 3,
+      "categories": [
+        "어휘"
+      ],
+      "schools": [
+        "공통"
+      ],
+      "roles": [
+        "본책"
+      ],
+      "gradeMin": null,
+      "gradeMax": null,
+      "gradeSpan": null
+    },
+    {
+      "publisher": "NE능률",
+      "series": "1316 Reading",
+      "docs": 2,
+      "categories": [
+        "독해"
+      ],
+      "schools": [
+        "중등"
+      ],
+      "roles": [
+        "본책",
+        "워크북"
+      ],
+      "gradeMin": 7,
+      "gradeMax": 9,
+      "gradeSpan": 3
+    },
+    {
+      "publisher": "미상",
+      "series": "내신백신",
+      "docs": 2,
+      "categories": [
+        "내신"
+      ],
+      "schools": [
+        "고등"
+      ],
+      "roles": [
+        "미리보기",
+        "정답해설"
+      ],
+      "gradeMin": 11,
+      "gradeMax": 12,
+      "gradeSpan": 2
+    },
+    {
+      "publisher": "NE능률",
+      "series": "빠른독해 바른독해 - 기초세우기",
+      "docs": 2,
+      "categories": [
+        "독해"
+      ],
+      "schools": [
+        "중등~고등"
+      ],
+      "roles": [
+        "미리보기",
+        "정답해설"
+      ],
+      "gradeMin": 9,
+      "gradeMax": 10,
+      "gradeSpan": 2
+    },
+    {
+      "publisher": "NE능률",
+      "series": "빠른독해 바른독해 - 수능실전",
+      "docs": 2,
+      "categories": [
+        "독해"
+      ],
+      "schools": [
+        "고등"
+      ],
+      "roles": [
+        "미리보기",
+        "정답해설"
+      ],
+      "gradeMin": 11,
+      "gradeMax": 12,
+      "gradeSpan": 2
+    },
+    {
+      "publisher": "쎄듀",
+      "series": "첫단추",
+      "docs": 2,
+      "categories": [
+        "독해"
+      ],
+      "schools": [
+        "고등"
+      ],
+      "roles": [
+        "본문",
+        "본책"
+      ],
+      "gradeMin": 10,
+      "gradeMax": 11,
+      "gradeSpan": 2
+    },
+    {
+      "publisher": "EBS",
+      "series": "EBS 올림포스",
+      "docs": 2,
+      "categories": [
+        "독해"
+      ],
+      "schools": [
+        "고등"
+      ],
+      "roles": [
+        "본책"
+      ],
+      "gradeMin": 10,
+      "gradeMax": 11,
+      "gradeSpan": 2
+    },
+    {
+      "publisher": "NE능률",
+      "series": "리딩인사이드",
+      "docs": 1,
+      "categories": [
+        "독해"
+      ],
+      "schools": [
+        "중등"
+      ],
+      "roles": [
+        "미리보기"
+      ],
+      "gradeMin": 7,
+      "gradeMax": 9,
+      "gradeSpan": 3
+    },
+    {
+      "publisher": "쎄듀",
+      "series": "천일문",
+      "docs": 1,
+      "categories": [
+        "구문"
+      ],
+      "schools": [
+        "고등"
+      ],
+      "roles": [
+        "본문"
+      ],
+      "gradeMin": 10,
+      "gradeMax": 11,
+      "gradeSpan": 2
+    },
+    {
+      "publisher": "미상",
+      "series": "AST Reading Key",
+      "docs": 1,
+      "categories": [
+        "어휘"
+      ],
+      "schools": [
+        "초등"
+      ],
+      "roles": [
+        "단어장"
+      ],
+      "gradeMin": 3,
+      "gradeMax": 6,
+      "gradeSpan": 4
+    },
+    {
+      "publisher": "EBS",
+      "series": "EBS 수능특강",
+      "docs": 1,
+      "categories": [
+        "독해"
+      ],
+      "schools": [
+        "고등"
+      ],
+      "roles": [
+        "본책"
+      ],
+      "gradeMin": 12,
+      "gradeMax": 12,
+      "gradeSpan": 1
+    },
+    {
+      "publisher": "수경출판사",
+      "series": "Xistory",
+      "docs": 1,
+      "categories": [
+        "독해"
+      ],
+      "schools": [
+        "고등"
+      ],
+      "roles": [
+        "미리보기"
+      ],
+      "gradeMin": 10,
+      "gradeMax": 11,
+      "gradeSpan": 2
+    }
+  ]
+}

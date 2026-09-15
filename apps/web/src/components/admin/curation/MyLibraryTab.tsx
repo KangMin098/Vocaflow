@@ -388,8 +388,9 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
   //    결정론적 단계(수집·정규화·분절·분석·추출·V-Level·표지·LibriVox 자동매핑)는 전부 로직.
   //    정합 실패본만 dev-process 가 매핑 큐(book_curation_jobs)에 자동 등록 → Claude 수동 정합.
   //    v06.x — 이전 '큐 자동 처리(drain)' + 'Dev 일괄 처리' 두 엔진을 하나로 통합.
-  //    dev-drain-queue 라우트는 결국 큐 도서마다 dev-process 를 부르는 서버측 루프라,
-  //    클라이언트가 큐 도서 id 를 직접 모아 같은 루프를 돌리면 동일 (books 는 전량 로드).
+  //    구 dev-drain-queue 라우트는 결국 큐 도서마다 dev-process 를 부르는 서버측 루프였고,
+  //    클라이언트가 큐 도서 id 를 직접 모아 같은 루프를 돌리면 동일하다 (books 는 전량 로드).
+  //    → 그 라우트는 호출부 0 으로 2026-09-06 삭제됐다.
   //    → 상태·배너·중지 로직 1벌. 처리 대상: 처리중 ∪ 검토대기 ∪ 실패 (실패는 ingest 부터 재시작).
   const devBatchIds = useMemo(
     () => [...inProgressIds, ...readyIds, ...failedIds],
@@ -461,10 +462,15 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
             finish = 'error';
             break;
           }
-          const data = (await res.json()) as { error?: string; librivox?: string };
+          const data = (await res.json()) as {
+            error?: string;
+            message?: string;
+            librivox?: string;
+          };
           if (!res.ok || data.error) {
             failed += 1;
-            lastError = data.error ?? `HTTP ${res.status}`;
+            // 가드는 401/403 을 { error, message } 로 낸다 — 읽을 문장은 message 다.
+            lastError = data.message ?? data.error ?? `HTTP ${res.status}`;
             console.error(`[dev-process] ${bookId.slice(0, 8)} 실패: ${lastError}`);
           } else {
             succeeded += 1;
@@ -569,7 +575,7 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
           <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">
             📂 Curated Books
           </h2>
-          <span className="font-mono text-[12px] text-[var(--t3)]">
+          <span className="font-mono text-[12px] text-[var(--t2)]">
             {visible.length === books.length
               ? `${books.length}권`
               : `${visible.length} / ${books.length}권`}
@@ -581,7 +587,7 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
             disabled={refreshing}
             title="상태·목록·큐 배너를 새로고침"
             aria-label="새로고침"
-            className="ml-1 inline-flex items-center gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 py-1 font-display text-[11px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:opacity-50"
+            className="min-h-[44px] ml-1 inline-flex items-center gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 py-1 font-display text-[11px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:opacity-50"
           >
             <RefreshCw size={12} className={refreshing ? 'animate-spin' : ''} aria-hidden />
             새로고침
@@ -593,7 +599,7 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
               type="button"
               onClick={runQueueProcess}
               title={`status='queued' 도서 ${queuedIds.length}권을 dev-process 로 순차 처리 (dev only)`}
-              className="ml-1 inline-flex items-center gap-1 rounded-[var(--r-md)] border-2 border-[var(--warning)] bg-[var(--warning-light)] px-3 py-1 font-display text-[12px] font-[700] text-[var(--warning)] shadow-[var(--sh-sm)] transition-all duration-150 hover:bg-[var(--warning)] hover:text-white hover:scale-105 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--warning)] focus-visible:ring-offset-2 cursor-pointer"
+              className="min-h-[44px] ml-1 inline-flex items-center gap-1 rounded-[var(--r-md)] border-2 border-[var(--warning)] bg-[var(--warning-light)] px-3 py-1 font-display text-[12px] font-[700] text-[var(--warning)] shadow-[var(--sh-sm)] transition-all duration-150 hover:bg-[var(--warning)] hover:text-white hover:scale-105 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--warning)] focus-visible:ring-offset-2 cursor-pointer"
             >
               <PlayCircle size={13} aria-hidden />
               ▶ 큐 처리 (dev · {queuedIds.length}권)
@@ -607,7 +613,7 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
             <div
               role="radiogroup"
               aria-label="소스 필터"
-              className="inline-flex flex-wrap rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] p-0.5"
+              className="inline-flex flex-wrap rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] p-1"
             >
               <FilterChip
                 label="전체"
@@ -636,7 +642,7 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
             <div
               role="radiogroup"
               aria-label="레벨 필터 (V-Level)"
-              className="inline-flex flex-wrap rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] p-0.5"
+              className="inline-flex flex-wrap rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] p-1"
             >
               <FilterChip
                 label="전체"
@@ -669,7 +675,7 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
             <Search
               size={12}
               aria-hidden
-              className="absolute left-2 top-1/2 -translate-y-1/2 text-[var(--t3)]"
+              className="absolute left-2 top-1/2 -translate-y-1/2 text-[var(--t2)]"
             />
             <input
               type="text"
@@ -677,14 +683,14 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
               onChange={(e) => setTitleSearch(e.target.value)}
               placeholder="제목·저자 검색"
               aria-label="제목 또는 저자 검색"
-              className="h-8 w-44 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] pl-7 pr-7 font-body text-[12px] text-[var(--t1)] placeholder:text-[var(--t3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+              className="h-11 w-44 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] pl-7 pr-7 font-body text-[12px] text-[var(--t1)] placeholder:text-[var(--t2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
             />
             {titleSearch && (
               <button
                 type="button"
                 onClick={() => setTitleSearch('')}
                 aria-label="검색어 지우기"
-                className="absolute right-1 top-1/2 -translate-y-1/2 flex h-5 w-5 items-center justify-center rounded-full text-[var(--t3)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
+                className={/* 탭 영역 44px — 시각 크기(h-5, 20px)와 다르다 */ "after:absolute after:left-1/2 after:top-1/2 after:h-11 after:w-11 after:-translate-x-1/2 after:-translate-y-1/2 absolute right-1 top-1/2 -translate-y-1/2 flex h-5 w-5 items-center justify-center rounded-full text-[var(--t2)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]"}
               >
                 <X size={11} />
               </button>
@@ -695,7 +701,7 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
           <div
             role="radiogroup"
             aria-label="상태 필터"
-            className="inline-flex flex-wrap rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] p-0.5"
+            className="inline-flex flex-wrap rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] p-1"
           >
             {FILTER_OPTIONS.map((opt) => {
               const active = opt.value === filter;
@@ -786,7 +792,15 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
           />
         )
       ) : (
-        <div className="overflow-x-auto rounded-[var(--r-md)] border border-[var(--bd)]">
+        <div className="overflow-x-auto rounded-[var(--r-md)] border border-[var(--bd)] [contain:paint]">
+          {/* `[contain:paint]` 이 필요한 이유 (실측 2026-08-25 · 390px):
+              표는 `min-w-[1080px]` 이고 이 컨테이너는 342px 로 **시각적으로는 이미 잘린다.**
+              그런데도 `documentElement.scrollWidth` 가 1086px 이 되어 **페이지 전체가 가로로
+              696px 스크롤됐다** — 컨테이너가 페인트 컨테인먼트를 세우지 않아 루트가 넘치는
+              자손을 계속 셈에 넣기 때문이다.
+              검증: `overflow-x:hidden` 추가 → 1086(안 됨) · 조상들에 `min-w-0` → 1086(안 됨)
+                    `contain:paint` → 390(해결) · 컨테이너 `display:none` → 390(원인 확정)
+              가로 스크롤은 어떤 화면에서도 의도가 아니다(CLAUDE.md "모바일 퍼스트 390"). */}
           <table className="w-full min-w-[1080px]">
             <thead className="border-b border-[var(--bd)] bg-[var(--bg2)]">
               <tr>
@@ -806,7 +820,12 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
                 <Th align="center" title="V-Level (p75) · 정밀 centroid">V · Cent</Th>
                 <Th align="center" title="CEFR-J 12-band (internal heuristic) · confidence">CEFR-J</Th>
                 <Th align="center" title="Flesch-Kincaid Grade Level">F-K</Th>
-                <Th align="center" title="단어 추출 + lemma 사전 매핑 진행도">추출</Th>
+                <Th
+                  align="center"
+                  title="추출 어휘 해석률 — 사전 결합 + 고어/방언/외국어 해석 + 인명·지명 제외. 배지 옆 숫자는 어떤 자산으로도 해석 안 된 진짜 공백."
+                >
+                  추출
+                </Th>
                 <Th align="center" title="발행된 챕터 단어장 수 (검수·발행 완료 여부)">단어장</Th>
                 <Th align="right">단어</Th>
                 <Th align="right">갱신</Th>
@@ -889,13 +908,13 @@ function BookRow({
       ].join(' ')}
       onClick={onClick}
     >
-      <td className="w-9 px-2 py-2.5 text-center" onClick={(e) => e.stopPropagation()}>
+      <td className="w-9 px-2 py-3 text-center" onClick={(e) => e.stopPropagation()}>
         <input
           type="checkbox"
           checked={selected}
           onChange={onToggleSelected}
           aria-label={`${book.title} 선택`}
-          className="h-4 w-4 cursor-pointer rounded border-[var(--bd)] text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          className={/* 체크박스는 대체 요소(replaced element)라 ::after 로 히트 영역을 넓힐 수 없다 — 이 자리엔 <label> 이 없어 회귀 허용목록에 남는다 */ 'h-4 w-4 cursor-pointer rounded border-[var(--bd)] text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]'}
         />
       </td>
       <Td>
@@ -908,7 +927,7 @@ function BookRow({
         </button>
       </Td>
       <Td>
-        <span className="line-clamp-1 font-body text-[12px] text-[var(--t3)]">
+        <span className="line-clamp-1 font-body text-[12px] text-[var(--t2)]">
           {book.author ?? '—'}
         </span>
       </Td>
@@ -935,7 +954,7 @@ function BookRow({
             {book.book_v_level != null ? `V${book.book_v_level}` : '—'}
           </span>
           {book.v_level_centroid_precise && (
-            <span className="font-mono text-[10px] tabular-nums text-[var(--t3)]">
+            <span className="font-mono text-[10px] tabular-nums text-[var(--t2)]">
               {book.v_level_centroid_precise}
             </span>
           )}
@@ -974,6 +993,10 @@ function BookRow({
           extracted={book.extracted_count}
           coverage={book.lemma_coverage_pct ? parseFloat(book.lemma_coverage_pct) : null}
           unbound={book.lemma_unbound}
+          resolvedPct={book.resolved_pct ? parseFloat(book.resolved_pct) : null}
+          noise={book.noise_count}
+          resolvedOther={book.resolved_other_count}
+          unresolved={book.unresolved_count}
         />
       </Td>
       <Td align="center">
@@ -988,7 +1011,7 @@ function BookRow({
         {/* suppressHydrationWarning: 서버/클라이언트 렌더 시각 차이로 "25분 전" / "26분 전" mismatch 정상.
             상대 시간은 본질적으로 시간 의존 — server SSR 시점 != client hydrate 시점. */}
         <span
-          className="font-mono text-[11px] text-[var(--t3)]"
+          className="font-mono text-[11px] text-[var(--t2)]"
           suppressHydrationWarning
         >
           {formatRelative(book.updated_at)}
@@ -1003,7 +1026,7 @@ function BookRow({
               disabled={pending}
               title="실패 도서 영구 삭제"
               aria-label={`${book.title} 영구 삭제`}
-              className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] text-[var(--t3)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--error-light)] hover:text-[var(--error)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--error)] disabled:opacity-50"
+              className={/* 탭 영역 44px — 시각 크기(h-7, 28px)와 다르다 */ "relative after:absolute after:left-1/2 after:top-1/2 after:h-11 after:w-11 after:-translate-x-1/2 after:-translate-y-1/2 inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--error-light)] hover:text-[var(--error-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--error)] disabled:opacity-50"}
             >
               {pending ? (
                 <Loader2 size={13} className="animate-spin" />
@@ -1012,7 +1035,7 @@ function BookRow({
               )}
             </button>
           )}
-          <ChevronRight size={14} className="text-[var(--t3)]" aria-hidden />
+          <ChevronRight size={14} className="text-[var(--t2)]" aria-hidden />
         </div>
       </Td>
     </tr>
@@ -1020,35 +1043,55 @@ function BookRow({
 }
 
 /**
- * 추출 진행도 셀 — v06.34
+ * 추출 진행 셀 — v06.35 부터 **해석률** 기준.
+ *
  * 4-state:
  *   - extracted=0/null: "—" 미추출 (회색)
- *   - coverage=100%: "완료 ✓" (success)
- *   - coverage≥95%: "{n}% · {unbound} 보강" (info — 사전 보완 일부 남음)
- *   - coverage<95%: "{n}% · {unbound} 보강" (warning — 사전 보강 필요)
+ *   - unresolved=0: "✓ 완료" (success)
+ *   - 해석률≥99%: "{n}% · {unresolved}↑" (info — 진짜 공백 소수)
+ *   - 해석률<99%: "{n}% · {unresolved}↑" (warning — 사전 보강 필요)
+ *
+ * 왜 바꿨나 (2026-08-09 실측): 이전 지표 lemma_coverage_pct 는 shared_dictionary 결합만 쟀다.
+ * 그래서 고어(thee/whilst — enforce_archaic_not_in_shared/ADR D4 로 애초에 등재 금지) ·
+ * 외국어 원문 인용(Les Misérables 의 de/la/du 748회) · 인명/지명(elizabeth 602회) 이
+ * 전부 "추출 실패" 로 표시됐다. Les Misérables 89.5% → 실제 해석률 98.7%.
+ *
+ * 이제 배지 숫자는 resolved_pct(설명된 비율)이고, 남은 작업량은 unresolved(진짜 공백)로 센다.
+ * lemma 결합률은 툴팁에 그대로 유지 — 학습 단어 선택은 여전히 결합된 것만 쓴다.
  */
 function ExtractionCell({
   extracted,
   coverage,
   unbound,
+  resolvedPct,
+  noise,
+  resolvedOther,
+  unresolved,
 }: {
   extracted: number | null
   coverage: number | null
   unbound: number | null
+  resolvedPct: number | null
+  noise: number | null
+  resolvedOther: number | null
+  unresolved: number | null
 }) {
   if (!extracted || extracted === 0) {
-    return <span className="font-mono text-[11px] text-[var(--t4)]">—</span>
+    return <span className="font-mono text-[11px] text-[var(--t2)]">—</span>
   }
   if (coverage == null) {
     return (
-      <span className="font-mono text-[11px] tabular-nums text-[var(--t3)]">
+      <span className="font-mono text-[11px] tabular-nums text-[var(--t2)]">
         {extracted.toLocaleString()}
       </span>
     )
   }
 
-  const isComplete = coverage >= 100 && (unbound ?? 0) === 0
-  const isHigh = coverage >= 95
+  // 백필 전(resolved_pct NULL)에는 구 지표로 폴백해 화면이 비지 않게 한다.
+  const shown = resolvedPct ?? coverage
+  const remaining = unresolved ?? unbound ?? 0
+  const isComplete = remaining === 0
+  const isHigh = shown >= 99
   const tone = isComplete ? 'success' : isHigh ? 'info' : 'warning'
   const colors = {
     success: { bg: 'var(--success-light)', fg: 'var(--success)', border: 'var(--success)' },
@@ -1056,19 +1099,29 @@ function ExtractionCell({
     warning: { bg: 'var(--warning-light)', fg: 'var(--warning)', border: 'var(--warning)' },
   }[tone]
 
+  const title = [
+    `추출 ${extracted.toLocaleString()}단어`,
+    `해석 ${shown}% · 미해결 ${remaining}개`,
+    `사전 결합 ${coverage}% (${(extracted - (unbound ?? 0)).toLocaleString()}개)`,
+    resolvedOther != null ? `고어·방언·외국어 해석 ${resolvedOther}개` : null,
+    noise != null && noise > 0 ? `인명·지명 제외 ${noise}개` : null,
+  ]
+    .filter(Boolean)
+    .join('\n')
+
   return (
     <span
-      className="inline-flex items-center gap-1 rounded-[var(--r-full)] border px-1.5 py-0.5 font-mono text-[10px] tabular-nums"
+      className="inline-flex items-center gap-1 rounded-[var(--r-full)] border px-2 py-1 font-mono text-[10px] tabular-nums"
       style={{ background: colors.bg, color: colors.fg, borderColor: colors.border }}
-      title={`추출 ${extracted.toLocaleString()}단어 · 매핑 ${coverage}% · 미매핑 ${unbound ?? 0}개`}
+      title={title}
     >
       {isComplete ? (
         <>✓ 완료</>
       ) : (
         <>
-          {coverage.toFixed(0)}%
-          {unbound != null && unbound > 0 && (
-            <span className="font-display text-[9px] opacity-80">·{unbound}↑</span>
+          {shown.toFixed(0)}%
+          {remaining > 0 && (
+            <span className="font-display text-[9px] opacity-80">·{remaining}↑</span>
           )}
         </>
       )}
@@ -1087,11 +1140,11 @@ function ExtractionCell({
  */
 function WordSetCell({ count }: { count: number | null }) {
   if (!count || count === 0) {
-    return <span className="font-mono text-[11px] text-[var(--t4)]">—</span>
+    return <span className="font-mono text-[11px] text-[var(--t2)]">—</span>
   }
   return (
     <span
-      className="inline-flex items-center gap-0.5 rounded-[var(--r-full)] border px-1.5 py-0.5 font-mono text-[10px] tabular-nums"
+      className="inline-flex items-center gap-1 rounded-[var(--r-full)] border px-2 py-1 font-mono text-[10px] tabular-nums"
       style={{
         background: 'var(--active-light)',
         color: 'var(--active)',
@@ -1131,13 +1184,13 @@ function FilterChip({
       aria-checked={active}
       onClick={onClick}
       className={[
-        'rounded-[var(--r-sm)] px-3 py-1 inline-flex items-center gap-1',
+        'min-h-[44px] rounded-[var(--r-sm)] px-3 py-1 inline-flex items-center gap-1',
         'font-display text-[11px] font-[600]',
         'transition-colors duration-[var(--dur-normal)] ease-[var(--ease)]',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]',
         active
           ? 'bg-[var(--bg)] text-[var(--t1)] shadow-[var(--sh-xs)]'
-          : 'text-[var(--t3)] hover:text-[var(--t2)]',
+          : 'text-[var(--t2)] hover:text-[var(--t2)]',
       ].join(' ')}
     >
       {badge && (
@@ -1150,7 +1203,7 @@ function FilterChip({
       )}
       {label}
       {count > 0 && (
-        <span className="font-mono text-[10px] text-[var(--t3)]">{count}</span>
+        <span className="font-mono text-[10px] text-[var(--t2)]">{count}</span>
       )}
     </button>
   );
@@ -1172,7 +1225,7 @@ function Th({
       className={[
         'px-3 py-2',
         align === 'center' ? 'text-center' : align === 'right' ? 'text-right' : 'text-left',
-        'font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]',
+        'font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]',
         title ? 'cursor-help' : '',
       ].join(' ')}
       scope="col"
@@ -1193,7 +1246,7 @@ function Td({
   return (
     <td
       className={[
-        'px-3 py-2.5',
+        'px-3 py-3',
         align === 'center' ? 'text-center' : align === 'right' ? 'text-right' : 'text-left',
       ].join(' ')}
     >
@@ -1224,7 +1277,7 @@ function SourceBadge({
   const url = bookSourceUrl(source, sourceId);
   const badge = (
     <span
-      className="inline-flex items-center rounded-[var(--r-full)] px-2 py-0.5 font-mono text-[9px] font-[700]"
+      className="inline-flex items-center rounded-[var(--r-full)] px-2 py-1 font-mono text-[9px] font-[700]"
       style={{
         color: cfg.color,
         backgroundColor: `color-mix(in srgb, ${cfg.color} 12%, transparent)`,
@@ -1245,7 +1298,7 @@ function SourceBadge({
       className="inline-flex items-center gap-1 hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:rounded-[var(--r-full)]"
     >
       {badge}
-      <ExternalLink size={10} aria-hidden className="text-[var(--t3)]" />
+      <ExternalLink size={10} aria-hidden className="text-[var(--t2)]" />
     </a>
   );
 }
@@ -1267,7 +1320,7 @@ function StatusPill({
   const { bg, text } = colorMap[tone];
   return (
     <span
-      className="inline-flex items-center rounded-[var(--r-sm)] px-2 py-0.5 font-display text-[10px] font-[700]"
+      className="inline-flex items-center rounded-[var(--r-sm)] px-2 py-1 font-display text-[10px] font-[700]"
       style={{ backgroundColor: bg, color: text }}
     >
       {label}
@@ -1298,7 +1351,7 @@ function JobQueueBadge({
   const m = meta[status];
   return (
     <span
-      className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-1.5 py-0.5 font-mono text-[9px] font-[700]"
+      className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-1 font-mono text-[9px] font-[700]"
       style={{ backgroundColor: m.bg, color: m.fg }}
       title={
         `Dev 매핑 큐 · ${mode === 'dev_reprocess' ? '재처리' : '처리'} · ${status}` +
@@ -1363,7 +1416,7 @@ function CurationWorkflowGuide({
         type="button"
         onClick={onRunQueue}
         disabled={drainRunning}
-        className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] bg-[var(--p)] px-3 py-1.5 font-display text-[12px] font-[700] text-[var(--ti)] transition-colors hover:bg-[var(--p-hover)] disabled:cursor-not-allowed disabled:opacity-50"
+        className="min-h-[44px] inline-flex items-center gap-2 rounded-[var(--r-md)] bg-[var(--p)] px-3 py-2 font-display text-[12px] font-[700] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)] disabled:cursor-not-allowed disabled:opacity-50"
       >
         <PlayCircle size={13} aria-hidden /> 큐 처리 (dev · {queued}권)
       </button>
@@ -1376,7 +1429,7 @@ function CurationWorkflowGuide({
       <button
         type="button"
         onClick={() => onFocus('ready')}
-        className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--p)] bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[700] text-[var(--p)] transition-colors hover:bg-[var(--p-light)]"
+        className="min-h-[44px] inline-flex items-center gap-2 rounded-[var(--r-md)] border border-[var(--p)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[700] text-[var(--on-p-tint)] transition-colors hover:bg-[var(--p-light)]"
       >
         검토대기 보기
       </button>
@@ -1387,42 +1440,42 @@ function CurationWorkflowGuide({
   }
 
   return (
-    <div className="flex flex-col gap-2.5 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-3">
+    <div className="flex flex-col gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-3">
       <div className="flex items-center justify-between gap-2">
-        <span className="font-mono text-[10px] font-[700] uppercase tracking-[0.12em] text-[var(--t3)]">
+        <span className="font-mono text-[10px] font-[700] uppercase tracking-[0.12em] text-[var(--t2)]">
           작업 순서
         </span>
-        <span className="font-mono text-[10px] text-[var(--t4)]">단계를 클릭하면 목록이 필터됩니다</span>
+        <span className="font-mono text-[10px] text-[var(--t2)]">단계를 클릭하면 목록이 필터됩니다</span>
       </div>
 
       {/* 스테퍼 */}
-      <div className="flex items-center gap-1 overflow-x-auto pb-0.5">
+      <div className="flex items-center gap-1 overflow-x-auto pb-1">
         {STAGES.map((s, i) => {
           const isCurrent = current === s.key;
           const isViewing = activeFilter !== 'all' && s.filter === activeFilter;
           return (
             <div key={s.key} className="flex shrink-0 items-center gap-1">
               {i > 0 && (
-                <ChevronRight size={13} className="shrink-0 text-[var(--t4)]" aria-hidden />
+                <ChevronRight size={13} className="shrink-0 text-[var(--t2)]" aria-hidden />
               )}
               <button
                 type="button"
                 onClick={() => onFocus(s.filter)}
                 aria-current={isCurrent ? 'step' : undefined}
                 className={[
-                  'inline-flex items-center gap-1.5 rounded-[var(--r-md)] px-2.5 py-1.5 font-display text-[12px] font-[600] transition-all duration-[var(--dur-normal)]',
+                  'min-h-[44px] inline-flex items-center gap-2 rounded-[var(--r-md)] px-3 py-2 font-display text-[12px] font-[600] transition-all duration-[var(--dur-normal)]',
                   isCurrent
                     ? 'bg-[var(--p)] text-[var(--ti)] shadow-[var(--sh-sm)]'
                     : s.count > 0
                       ? 'bg-[var(--bg)] text-[var(--t1)] ring-1 ring-[var(--bd)] hover:ring-[var(--p)]'
-                      : 'bg-transparent text-[var(--t4)] hover:text-[var(--t2)]',
+                      : 'bg-transparent text-[var(--t2)] hover:text-[var(--t2)]',
                   isViewing && !isCurrent ? 'ring-2 ring-[var(--p)]' : '',
                 ].join(' ')}
                 title={`${s.label} ${s.count}권 — 클릭 시 목록 필터`}
               >
                 <span
                   className={`flex h-4 w-4 items-center justify-center rounded-full text-[9px] font-[800] ${
-                    isCurrent ? 'bg-white/25 text-[var(--ti)]' : 'bg-[var(--bg3)] text-[var(--t3)]'
+                    isCurrent ? 'bg-white/25 text-[var(--ti)]' : 'bg-[var(--bg3)] text-[var(--t2)]'
                   }`}
                 >
                   {s.n}
@@ -1436,7 +1489,7 @@ function CurationWorkflowGuide({
       </div>
 
       {/* 현재 권장 액션 */}
-      <div className="flex flex-wrap items-center justify-between gap-2 border-t border-[var(--bd)] pt-2.5">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-t border-[var(--bd)] pt-3">
         <span className="font-body text-[12px] text-[var(--t2)]">
           <span aria-hidden>👉 </span>
           <strong className="font-[700] text-[var(--t1)]">지금 할 일</strong> — {calloutText}
@@ -1457,7 +1510,7 @@ function EmptyAll() {
       <h3 className="font-display text-[15px] font-[700] text-[var(--t1)]">
         아직 등록된 책이 없습니다
       </h3>
-      <p className="font-body text-[12px] text-[var(--t3)]">
+      <p className="font-body text-[12px] text-[var(--t2)]">
         추천 시드 또는 ID 입력 탭에서 책을 큐에 추가하세요.
       </p>
     </div>
@@ -1477,7 +1530,7 @@ function EmptyFiltered({ onReset }: { onReset: () => void }) {
       <button
         type="button"
         onClick={onReset}
-        className="mt-1 rounded-[var(--r-sm)] bg-[var(--p)] px-3 py-1.5 font-display text-[11px] font-[600] text-[var(--ti)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+        className="min-h-[44px] mt-1 rounded-[var(--r-sm)] bg-[var(--p)] px-3 py-2 font-display text-[11px] font-[600] text-[var(--on-p)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
       >
         필터 초기화
       </button>
@@ -1535,7 +1588,7 @@ function BulkActionToolbar({
       <div className="flex items-center gap-2 font-display text-[12px] text-[var(--t1)]">
         <span className="font-[700] text-[var(--p-dark)]">{selectedCount}권</span>
         선택됨
-        <span className="font-mono text-[10px] text-[var(--t3)]">
+        <span className="font-mono text-[10px] text-[var(--t2)]">
           (검토대기 {readyCount} · 처리중 {inProgressCount}
           {failedCount > 0 ? ` · 실패 ${failedCount}` : ''})
         </span>
@@ -1554,7 +1607,7 @@ function BulkActionToolbar({
                   failedCount > 0 ? ` + 실패 ${failedCount}` : ''
                 } = ${devBatchCount}권을 로직 파이프라인으로 dev 처리 (수집·정규화·분절·분석·추출·V-Level·LibriVox 자동매핑). 실패 도서는 ingest 부터 재시작.`
           }
-          className="inline-flex items-center gap-1.5 rounded-[var(--r-sm)] border-2 border-[var(--p)] bg-[var(--p)] px-3 py-1.5 font-display text-[12px] font-[700] text-[var(--ti)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
+          className="min-h-[44px] inline-flex items-center gap-2 rounded-[var(--r-sm)] border-2 border-[var(--p)] bg-[var(--p)] px-3 py-2 font-display text-[12px] font-[700] text-[var(--on-p)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
         >
           {pending ? (
             <Loader2 size={12} className="animate-spin" aria-hidden />
@@ -1563,7 +1616,7 @@ function BulkActionToolbar({
           )}
           Dev 일괄 처리
           {devBatchCount > 0 && (
-            <span className="ml-1 rounded-[var(--r-full)] bg-white/25 px-1.5 py-0 font-mono text-[10px]">
+            <span className="ml-1 rounded-[var(--r-full)] bg-white/25 px-2 py-0 font-mono text-[10px]">
               {devBatchCount}
             </span>
           )}
@@ -1579,7 +1632,7 @@ function BulkActionToolbar({
               ? '선택한 도서 중 검토대기/게시됨 상태가 없습니다 (퀴즈 생성 자격: 챕터 존재)'
               : `검토대기/게시됨 ${quizEligibleCount}권을 스크립트 퀴즈 생성 큐에 적재. 챕터별 스토리 퀴즈(문항 수 = 도서 V-Level 곡선 3~10)를 Claude Code 드레인이 생성.`
           }
-          className="inline-flex items-center gap-1.5 rounded-[var(--r-sm)] border-2 border-[var(--active)] bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[700] text-[var(--active)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--warning-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--active)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
+          className="min-h-[44px] inline-flex items-center gap-2 rounded-[var(--r-sm)] border-2 border-[var(--active)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[700] text-[var(--active)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--warning-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--active)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
         >
           {pending ? (
             <Loader2 size={12} className="animate-spin" aria-hidden />
@@ -1588,7 +1641,7 @@ function BulkActionToolbar({
           )}
           스크립트 퀴즈 큐
           {quizEligibleCount > 0 && (
-            <span className="ml-1 rounded-[var(--r-full)] bg-[var(--active)]/15 px-1.5 py-0 font-mono text-[10px]">
+            <span className="ml-1 rounded-[var(--r-full)] bg-[var(--active)]/15 px-2 py-0 font-mono text-[10px]">
               {quizEligibleCount}
             </span>
           )}
@@ -1604,7 +1657,7 @@ function BulkActionToolbar({
               ? '선택한 도서 중 검토대기/게시됨 상태가 없습니다'
               : `검토대기/게시됨 ${reviewEligibleCount}권을 레벨 검토 큐에 적재. Claude Code 드레인이 본문을 읽어 CEFR/V-Level 을 재판정(저신뢰 도서 품질 검토).`
           }
-          className="inline-flex items-center gap-1.5 rounded-[var(--r-sm)] border-2 border-[var(--info)] bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[700] text-[var(--info)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--info-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--info)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
+          className="min-h-[44px] inline-flex items-center gap-2 rounded-[var(--r-sm)] border-2 border-[var(--info)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[700] text-[var(--info)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--info-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--info)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
         >
           {pending ? (
             <Loader2 size={12} className="animate-spin" aria-hidden />
@@ -1613,7 +1666,7 @@ function BulkActionToolbar({
           )}
           레벨 검토 큐
           {reviewEligibleCount > 0 && (
-            <span className="ml-1 rounded-[var(--r-full)] bg-[var(--info)]/15 px-1.5 py-0 font-mono text-[10px]">
+            <span className="ml-1 rounded-[var(--r-full)] bg-[var(--info)]/15 px-2 py-0 font-mono text-[10px]">
               {reviewEligibleCount}
             </span>
           )}
@@ -1629,7 +1682,7 @@ function BulkActionToolbar({
               ? '선택한 도서 중 게시됨(발행 단어장 존재) 상태가 없습니다'
               : `게시됨 ${vocabAuditEligibleCount}권을 어휘 감사 큐에 적재. Claude Code 드레인이 발행 단어장의 뜻·품사·레벨·register 를 문맥 근거로 점검(flagged 기록).`
           }
-          className="inline-flex items-center gap-1.5 rounded-[var(--r-sm)] border-2 border-[var(--info)] bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[700] text-[var(--info)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--info-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--info)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
+          className="min-h-[44px] inline-flex items-center gap-2 rounded-[var(--r-sm)] border-2 border-[var(--info)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[700] text-[var(--info)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--info-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--info)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
         >
           {pending ? (
             <Loader2 size={12} className="animate-spin" aria-hidden />
@@ -1638,7 +1691,7 @@ function BulkActionToolbar({
           )}
           어휘 감사 큐
           {vocabAuditEligibleCount > 0 && (
-            <span className="ml-1 rounded-[var(--r-full)] bg-[var(--info)]/15 px-1.5 py-0 font-mono text-[10px]">
+            <span className="ml-1 rounded-[var(--r-full)] bg-[var(--info)]/15 px-2 py-0 font-mono text-[10px]">
               {vocabAuditEligibleCount}
             </span>
           )}
@@ -1665,7 +1718,7 @@ function BulkActionToolbar({
           onClick={onClear}
           disabled={pending}
           aria-label="선택 해제"
-          className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] text-[var(--t3)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:opacity-40"
+          className={/* 탭 영역 44px — 시각 크기(h-7, 28px)와 다르다 */ "relative after:absolute after:left-1/2 after:top-1/2 after:h-11 after:w-11 after:-translate-x-1/2 after:-translate-y-1/2 inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] text-[var(--t2)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:opacity-40"}
         >
           <X size={13} />
         </button>
@@ -1786,7 +1839,7 @@ function DrainBanner({
             type="button"
             onClick={onStop}
             title="현재 라운드 끝낸 뒤 자동 반복 중지"
-            className="inline-flex items-center gap-1 rounded-[var(--r-sm)] border bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[600] hover:opacity-80 focus-visible:outline-none focus-visible:ring-2"
+            className="min-h-[44px] inline-flex items-center gap-1 rounded-[var(--r-sm)] border bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] hover:opacity-80 focus-visible:outline-none focus-visible:ring-2"
             style={{ borderColor: c.border, color: c.fg }}
           >
             <X size={12} aria-hidden />
@@ -1799,7 +1852,7 @@ function DrainBanner({
                 type="button"
                 onClick={onViewResults}
                 title="방금 처리된 도서(검토 대기)로 이동해 검수를 시작하세요"
-                className="inline-flex items-center gap-1 rounded-[var(--r-sm)] px-3 py-1.5 font-display text-[12px] font-[700] text-[var(--ti)] shadow-[var(--sh-xs)] transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1"
+                className="min-h-[44px] inline-flex items-center gap-1 rounded-[var(--r-sm)] px-3 py-2 font-display text-[12px] font-[700] text-[var(--ti)] shadow-[var(--sh-xs)] transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1"
                 style={{ background: c.fg }}
               >
                 검토 대기 보기
@@ -1811,7 +1864,7 @@ function DrainBanner({
                 type="button"
                 onClick={onRestart}
                 title="남은 큐 계속 처리"
-                className="inline-flex items-center gap-1 rounded-[var(--r-sm)] border bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[600] hover:opacity-80 focus-visible:outline-none focus-visible:ring-2"
+                className="min-h-[44px] inline-flex items-center gap-1 rounded-[var(--r-sm)] border bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] hover:opacity-80 focus-visible:outline-none focus-visible:ring-2"
                 style={{ borderColor: c.border, color: c.fg }}
               >
                 <PlayCircle size={12} aria-hidden />
@@ -1822,7 +1875,7 @@ function DrainBanner({
               type="button"
               onClick={onDismiss}
               aria-label="이 결과 닫기"
-              className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] text-[var(--t3)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+              className={/* 탭 영역 44px — 시각 크기(h-7, 28px)와 다르다 */ "relative after:absolute after:left-1/2 after:top-1/2 after:h-11 after:w-11 after:-translate-x-1/2 after:-translate-y-1/2 inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] text-[var(--t2)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"}
             >
               <X size={13} />
             </button>
@@ -1856,12 +1909,12 @@ function ToolbarBtn({
       onClick={onClick}
       disabled={disabled}
       title={title}
-      className="inline-flex items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-40"
+      className="min-h-[44px] inline-flex items-center gap-2 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-40"
     >
       {pending ? <Loader2 size={12} className="animate-spin" aria-hidden /> : icon}
       {label}
       {count > 0 && (
-        <span className="ml-1 rounded-[var(--r-full)] bg-[var(--p-light)] px-1.5 py-0 font-mono text-[10px] text-[var(--p-dark)]">
+        <span className="ml-1 rounded-[var(--r-full)] bg-[var(--p-light)] px-2 py-0 font-mono text-[10px] text-[var(--on-p-tint)]">
           {count}
         </span>
       )}
@@ -1891,7 +1944,7 @@ function SelectAllCheckbox({
       checked={checked}
       onChange={onChange}
       aria-label={ariaLabel}
-      className="h-4 w-4 cursor-pointer rounded border-[var(--bd)] text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+      className={/* 체크박스는 대체 요소(replaced element)라 ::after 로 히트 영역을 넓힐 수 없다 — 이 자리엔 <label> 이 없어 회귀 허용목록에 남는다 */ 'h-4 w-4 cursor-pointer rounded border-[var(--bd)] text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]'}
     />
   );
 }

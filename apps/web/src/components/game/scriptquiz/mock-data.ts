@@ -1,12 +1,17 @@
 // apps/web/src/components/game/scriptquiz/mock-data.ts
 // 영어 immersion 기본 + 한국어 번역 fallback (showKorean 토글 시 노출)
-// Phase 2에서 OpenAI 기반 생성으로 교체
+//
+// ⚠️ **정답표는 여기 없다.** 이 모듈은 클라이언트 번들에 들어가므로 `correctIndex` ·
+//    `sourceSnippet` 을 두면 데모 경로로 정답 유출 구멍이 다시 열린다.
+//    정답은 `lib/scriptquiz/sample-answers.ts`(server-only)에 있고 채점은 실 세션과
+//    **같은 server action** 이 한다 — 두 경로가 갈리면 한쪽만 낡는다.
 
 import type { QuizSession } from './types'
 
 export const MOCK_SESSION: QuizSession = {
   textTitle: 'The Great Gatsby',
   textChapter: 'Chapter 1',
+  source: { kind: 'sample' },
   questions: [
     {
       id: 'q1',
@@ -26,9 +31,6 @@ export const MOCK_SESSION: QuizSession = {
         { text: 'Manage your money wisely', textKo: '돈을 잘 관리하라' },
         { text: 'Choose your friends carefully', textKo: '친구를 신중하게 사귀어라' },
       ],
-      correctIndex: 0,
-      sourceSnippet:
-        '“Whenever you feel like criticizing any one,” he told me, “just remember that all the people in this world haven’t had the advantages that you’ve had.”',
     },
     {
       id: 'q2',
@@ -41,9 +43,6 @@ export const MOCK_SESSION: QuizSession = {
         { text: 'Aggressive', textKo: '공격적인' },
         { text: 'Indifferent', textKo: '무관심한' },
       ],
-      correctIndex: 0,
-      sourceSnippet:
-        'In consequence, I’m inclined to reserve all judgments, a habit that has opened up many curious natures to me...',
     },
     {
       id: 'q3',
@@ -54,9 +53,6 @@ export const MOCK_SESSION: QuizSession = {
         { text: 'True', textKo: '참' },
         { text: 'False', textKo: '거짓' },
       ],
-      correctIndex: 1,
-      sourceSnippet:
-        '“...all the people in this world haven’t had the advantages that you’ve had.”',
     },
     {
       id: 'q4',
@@ -70,9 +66,6 @@ export const MOCK_SESSION: QuizSession = {
         { text: 'Himself and his colleagues', textKo: '본인과 동료들' },
         { text: 'Himself and his neighbours', textKo: '본인과 이웃들' },
       ],
-      correctIndex: 0,
-      sourceSnippet:
-        '...we’ve always been unusually communicative in a reserved way, and I understood that he meant a great deal more than that.',
     },
     {
       id: 'q5',
@@ -86,8 +79,6 @@ export const MOCK_SESSION: QuizSession = {
         { text: 'Mysterious or unknown', textKo: '신비로운' },
         { text: 'Strange or unfamiliar', textKo: '낯선' },
       ],
-      correctIndex: 0,
-      sourceSnippet: 'There was something unmistakable about the way he held himself...',
     },
   ],
 }

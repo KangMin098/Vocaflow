@@ -1,0 +1,561 @@
+{
+  "measured_at": "2026-08-21T10:03:12.850Z",
+  "have": 338,
+  "feeds": [
+    {
+      "source": "voa",
+      "feed_id": "as-it-is",
+      "label": "As It Is (Level 2)",
+      "register": "news",
+      "ok": true,
+      "error": null,
+      "got": 3,
+      "fresh": 3,
+      "dup": 0,
+      "raw": null,
+      "ms": 801
+    },
+    {
+      "source": "voa",
+      "feed_id": "words-and-their-stories",
+      "label": "Words and Their Stories (Level 3)",
+      "register": "expository",
+      "ok": true,
+      "error": null,
+      "got": 9,
+      "fresh": 9,
+      "dup": 0,
+      "raw": null,
+      "ms": 458
+    },
+    {
+      "source": "voa",
+      "feed_id": "science-technology",
+      "label": "Science & Technology (Level 2)",
+      "register": "expository",
+      "ok": true,
+      "error": null,
+      "got": 9,
+      "fresh": 9,
+      "dup": 0,
+      "raw": null,
+      "ms": 434
+    },
+    {
+      "source": "voa",
+      "feed_id": "lets-learn-english",
+      "label": "Lessons of the Day (종합 피처 · z/952)",
+      "register": "expository",
+      "ok": true,
+      "error": null,
+      "got": 15,
+      "fresh": 15,
+      "dup": 0,
+      "raw": null,
+      "ms": 443
+    },
+    {
+      "source": "voa",
+      "feed_id": "american-stories",
+      "label": "American Stories (Level 3) — 단편 서사",
+      "register": "narrative",
+      "ok": true,
+      "error": null,
+      "got": 15,
+      "fresh": 15,
+      "dup": 0,
+      "raw": null,
+      "ms": 403
+    },
+    {
+      "source": "voa",
+      "feed_id": "health-lifestyle",
+      "label": "Health & Lifestyle (Level 2)",
+      "register": "expository",
+      "ok": true,
+      "error": null,
+      "got": 11,
+      "fresh": 11,
+      "dup": 0,
+      "raw": null,
+      "ms": 431
+    },
+    {
+      "source": "voa",
+      "feed_id": "education",
+      "label": "Education (Level 2)",
+      "register": "expository",
+      "ok": true,
+      "error": null,
+      "got": 11,
+      "fresh": 11,
+      "dup": 0,
+      "raw": null,
+      "ms": 482
+    },
+    {
+      "source": "voa",
+      "feed_id": "arts-culture",
+      "label": "Arts & Culture (Level 2)",
+      "register": "expository",
+      "ok": true,
+      "error": null,
+      "got": 7,
+      "fresh": 7,
+      "dup": 0,
+      "raw": null,
+      "ms": 419
+    },
+    {
+      "source": "voa",
+      "feed_id": "everyday-grammar",
+      "label": "Everyday Grammar (Level 2)",
+      "register": "expository",
+      "ok": true,
+      "error": null,
+      "got": 11,
+      "fresh": 11,
+      "dup": 0,
+      "raw": null,
+      "ms": 475
+    },
+    {
+      "source": "voa",
+      "feed_id": "ask-a-teacher",
+      "label": "Ask a Teacher (Level 2)",
+      "register": "expository",
+      "ok": true,
+      "error": null,
+      "got": 6,
+      "fresh": 6,
+      "dup": 0,
+      "raw": null,
+      "ms": 443
+    },
+    {
+      "source": "voa",
+      "feed_id": "education-tips",
+      "label": "Education Tips (Level 2)",
+      "register": "expository",
+      "ok": true,
+      "error": null,
+      "got": 15,
+      "fresh": 15,
+      "dup": 0,
+      "raw": null,
+      "ms": 515
+    },
+    {
+      "source": "voa",
+      "feed_id": "all-about-america",
+      "label": "All About America (Level 2)",
+      "register": "expository",
+      "ok": true,
+      "error": null,
+      "got": 9,
+      "fresh": 9,
+      "dup": 0,
+      "raw": null,
+      "ms": 426
+    },
+    {
+      "source": "voa",
+      "feed_id": "us-history",
+      "label": "U.S. History (Level 3)",
+      "register": "narrative",
+      "ok": true,
+      "error": null,
+      "got": 15,
+      "fresh": 15,
+      "dup": 0,
+      "raw": null,
+      "ms": 522
+    },
+    {
+      "source": "nasa",
+      "feed_id": "news",
+      "label": "NASA News Releases",
+      "register": "expository",
+      "ok": true,
+      "error": null,
+      "got": 8,
+      "fresh": 8,
+      "dup": 0,
+      "raw": null,
+      "ms": 2694
+    },
+    {
+      "source": "nasa",
+      "feed_id": "apod",
+      "label": "Astronomy Picture of the Day",
+      "register": "expository",
+      "ok": true,
+      "error": null,
+      "got": 0,
+      "fresh": 0,
+      "dup": 0,
+      "raw": {
+        "status": 200,
+        "items": 7
+      },
+      "ms": 6261
+    },
+    {
+      "source": "nasa",
+      "feed_id": "iotd",
+      "label": "Image of the Day",
+      "register": "expository",
+      "ok": true,
+      "error": null,
+      "got": 12,
+      "fresh": 5,
+      "dup": 7,
+      "raw": null,
+      "ms": 2561
+    },
+    {
+      "source": "nih",
+      "feed_id": "medlineplus",
+      "label": "MedlinePlus What's New (안정)",
+      "register": "expository",
+      "ok": true,
+      "error": null,
+      "got": 0,
+      "fresh": 0,
+      "dup": 0,
+      "raw": {
+        "status": 200,
+        "items": 54
+      },
+      "ms": 3997
+    },
+    {
+      "source": "nih",
+      "feed_id": "directors-blog",
+      "label": "NIH Director's Blog",
+      "register": "expository",
+      "ok": false,
+      "error": "fetch failed",
+      "got": 0,
+      "fresh": 0,
+      "dup": 0,
+      "raw": {
+        "error": "fetch failed"
+      },
+      "ms": 9
+    },
+    {
+      "source": "nih",
+      "feed_id": "news",
+      "label": "NIH News Releases (현재 차단됨 · URL 직접 입력)",
+      "register": "expository",
+      "ok": false,
+      "error": "NIH RSS fetch failed: 403",
+      "got": 0,
+      "fresh": 0,
+      "dup": 0,
+      "raw": {
+        "status": 403,
+        "items": 0
+      },
+      "ms": 607
+    },
+    {
+      "source": "wikinews",
+      "feed_id": "latest",
+      "label": "Wikinews — Latest news (※ 현재 거의 비활성)",
+      "register": "news",
+      "ok": true,
+      "error": null,
+      "got": 0,
+      "fresh": 0,
+      "dup": 0,
+      "raw": {
+        "status": 200,
+        "items": 0
+      },
+      "ms": 2697
+    },
+    {
+      "source": "the_conversation",
+      "feed_id": "all",
+      "label": "The Conversation — All articles",
+      "register": "argumentative",
+      "ok": true,
+      "error": null,
+      "got": 20,
+      "fresh": 20,
+      "dup": 0,
+      "raw": null,
+      "ms": 613
+    },
+    {
+      "source": "the_conversation",
+      "feed_id": "science",
+      "label": "The Conversation — Science + Tech",
+      "register": "argumentative",
+      "ok": true,
+      "error": null,
+      "got": 20,
+      "fresh": 10,
+      "dup": 10,
+      "raw": null,
+      "ms": 237
+    },
+    {
+      "source": "the_conversation",
+      "feed_id": "health",
+      "label": "The Conversation — Health + Medicine",
+      "register": "argumentative",
+      "ok": true,
+      "error": null,
+      "got": 20,
+      "fresh": 6,
+      "dup": 14,
+      "raw": null,
+      "ms": 70
+    },
+    {
+      "source": "the_conversation",
+      "feed_id": "education",
+      "label": "The Conversation — Education (적합률 실측 64.0%)",
+      "register": "argumentative",
+      "ok": true,
+      "error": null,
+      "got": 20,
+      "fresh": 10,
+      "dup": 10,
+      "raw": null,
+      "ms": 60
+    },
+    {
+      "source": "owid",
+      "feed_id": "all",
+      "label": "Our World in Data — All articles",
+      "register": "argumentative",
+      "ok": true,
+      "error": null,
+      "got": 5,
+      "fresh": 0,
+      "dup": 5,
+      "raw": null,
+      "ms": 688
+    },
+    {
+      "source": "simple_wikipedia",
+      "feed_id": "very-good",
+      "label": "Very Good Articles (Simple Wikipedia)",
+      "register": "expository",
+      "ok": false,
+      "error": "fetch failed",
+      "got": 0,
+      "fresh": 0,
+      "dup": 0,
+      "raw": null,
+      "ms": 10665
+    },
+    {
+      "source": "simple_wikipedia",
+      "feed_id": "good",
+      "label": "Good Articles (Simple Wikipedia)",
+      "register": "expository",
+      "ok": true,
+      "error": null,
+      "got": 20,
+      "fresh": 20,
+      "dup": 0,
+      "raw": null,
+      "ms": 3191
+    },
+    {
+      "source": "wikipedia",
+      "feed_id": "featured",
+      "label": "Featured Articles (Wikipedia)",
+      "register": "expository",
+      "ok": true,
+      "error": null,
+      "got": 17,
+      "fresh": 17,
+      "dup": 0,
+      "raw": null,
+      "ms": 3276
+    },
+    {
+      "source": "wikipedia",
+      "feed_id": "good",
+      "label": "Good Articles (Wikipedia)",
+      "register": "expository",
+      "ok": true,
+      "error": null,
+      "got": 18,
+      "fresh": 18,
+      "dup": 0,
+      "raw": null,
+      "ms": 631
+    },
+    {
+      "source": "wikivoyage",
+      "feed_id": "star",
+      "label": "Star Articles (Wikivoyage)",
+      "register": "reference",
+      "ok": true,
+      "error": null,
+      "got": 20,
+      "fresh": 20,
+      "dup": 0,
+      "raw": null,
+      "ms": 3270
+    },
+    {
+      "source": "wikivoyage",
+      "feed_id": "guide",
+      "label": "Guide Articles (Wikivoyage)",
+      "register": "reference",
+      "ok": true,
+      "error": null,
+      "got": 20,
+      "fresh": 20,
+      "dup": 0,
+      "raw": null,
+      "ms": 658
+    },
+    {
+      "source": "usgs",
+      "feed_id": "featured",
+      "label": "Featured Stories (USGS)",
+      "register": "expository",
+      "ok": true,
+      "error": null,
+      "got": 12,
+      "fresh": 3,
+      "dup": 9,
+      "raw": null,
+      "ms": 2344
+    },
+    {
+      "source": "usgs",
+      "feed_id": "snippets",
+      "label": "Science Snippets (USGS)",
+      "register": "expository",
+      "ok": true,
+      "error": null,
+      "got": 12,
+      "fresh": 5,
+      "dup": 7,
+      "raw": null,
+      "ms": 37
+    },
+    {
+      "source": "noaa",
+      "feed_id": "understanding-climate",
+      "label": "Understanding Climate (NOAA)",
+      "register": "expository",
+      "ok": true,
+      "error": null,
+      "got": 7,
+      "fresh": 2,
+      "dup": 5,
+      "raw": null,
+      "ms": 3489
+    },
+    {
+      "source": "noaa",
+      "feed_id": "features",
+      "label": "Features (NOAA)",
+      "register": "expository",
+      "ok": true,
+      "error": null,
+      "got": 12,
+      "fresh": 5,
+      "dup": 7,
+      "raw": null,
+      "ms": 756
+    },
+    {
+      "source": "factbook",
+      "feed_id": "all",
+      "label": "국가 개요 35개국",
+      "register": "reference",
+      "ok": true,
+      "error": null,
+      "got": 30,
+      "fresh": 23,
+      "dup": 7,
+      "raw": null,
+      "ms": 1
+    },
+    {
+      "source": "elife",
+      "feed_id": "recent",
+      "label": "eLife digest (최신)",
+      "register": "expository",
+      "ok": true,
+      "error": null,
+      "got": 20,
+      "fresh": 20,
+      "dup": 0,
+      "raw": null,
+      "ms": 385
+    },
+    {
+      "source": "plos",
+      "feed_id": "recent",
+      "label": "PLOS 최신",
+      "register": "expository",
+      "ok": true,
+      "error": null,
+      "got": 15,
+      "fresh": 15,
+      "dup": 0,
+      "raw": null,
+      "ms": 5838
+    }
+  ],
+  "upstream": [
+    {
+      "source": "plos",
+      "label": "PLOS 전체 (CC-BY 논문)",
+      "total": 3512456
+    },
+    {
+      "source": "elife",
+      "label": "eLife 전체 (digest 보유는 부분집합)",
+      "total": 19443
+    },
+    {
+      "source": "simple_wikipedia",
+      "label": "Very Good Articles (Simple Wikipedia) (Category:Very_good_articles)",
+      "total": 30
+    },
+    {
+      "source": "simple_wikipedia",
+      "label": "Good Articles (Simple Wikipedia) (Category:Good_articles)",
+      "total": 113
+    },
+    {
+      "source": "wikipedia",
+      "label": "Featured Articles (Wikipedia) (Category:Featured articles)",
+      "total": 6987
+    },
+    {
+      "source": "wikipedia",
+      "label": "Good Articles (Wikipedia) (Category:Good articles)",
+      "total": 44673
+    },
+    {
+      "source": "wikivoyage",
+      "label": "Star Articles (Wikivoyage) (Category:Star articles)",
+      "total": 80
+    },
+    {
+      "source": "wikivoyage",
+      "label": "Guide Articles (Wikivoyage) (Category:Guide articles)",
+      "total": 1467
+    },
+    {
+      "source": "factbook",
+      "label": "국가 개요 (코드에 고정)",
+      "total": 35
+    }
+  ]
+}

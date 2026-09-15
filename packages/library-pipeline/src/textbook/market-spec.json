@@ -1,0 +1,703 @@
+{
+  "$schema": "market-spec/1",
+  "generatedAt": "2026-09-01T07:24:45.469Z",
+  "provenance": {
+    "corpus": "시중 영어 교재 79종 (저장소 밖 store)",
+    "documentsMeasured": 94,
+    "pagesMeasured": 5229,
+    "charsMeasured": 15319907,
+    "pagesUnreadable": 234,
+    "pagesScannedForReadability": 4787,
+    "rule": "집계 통계와 업계 공통 발문형만 담는다. 지문·해설 원문은 담지 않는다.",
+    "stemRule": "서로 다른 시리즈 2곳 이상에서 같은 형태로 쓰인 발문만 표준형으로 본다"
+  },
+  "questionStems": [
+    {
+      "stem": "다음 글의 주제로 가장 적절한 것은?",
+      "seriesCount": 9,
+      "publisherCount": 4,
+      "occurrences": 64,
+      "gradeMin": 9,
+      "gradeMax": 12,
+      "ourType": "topic"
+    },
+    {
+      "stem": "다음 글의 제목으로 가장 적절한 것은?",
+      "seriesCount": 9,
+      "publisherCount": 4,
+      "occurrences": 50,
+      "gradeMin": 9,
+      "gradeMax": 12,
+      "ourType": "title"
+    },
+    {
+      "stem": "다음 글의 요지로 가장 적절한 것은?",
+      "seriesCount": 9,
+      "publisherCount": 4,
+      "occurrences": 44,
+      "gradeMin": 10,
+      "gradeMax": 12,
+      "ourType": "main_point"
+    },
+    {
+      "stem": "다음 글에서 필자가 주장하는 바로 가장 적절한 것은?",
+      "seriesCount": 9,
+      "publisherCount": 4,
+      "occurrences": 35,
+      "gradeMin": 10,
+      "gradeMax": 12,
+      "ourType": "claim"
+    },
+    {
+      "stem": "다음 글의 목적으로 가장 적절한 것은?",
+      "seriesCount": 8,
+      "publisherCount": 4,
+      "occurrences": 64,
+      "gradeMin": 10,
+      "gradeMax": 12,
+      "ourType": "purpose"
+    },
+    {
+      "stem": "다음 글의 밑줄 친 부분 중, 어법상 틀린 것은?",
+      "seriesCount": 8,
+      "publisherCount": 5,
+      "occurrences": 61,
+      "gradeMin": 9,
+      "gradeMax": 12,
+      "ourType": "grammar_fix"
+    },
+    {
+      "stem": "다음 글에서 전체 흐름과 관계 없는 문장은?",
+      "seriesCount": 8,
+      "publisherCount": 4,
+      "occurrences": 59,
+      "gradeMin": 9,
+      "gradeMax": 12,
+      "ourType": "irrelevant"
+    },
+    {
+      "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "seriesCount": 7,
+      "publisherCount": 3,
+      "occurrences": 88,
+      "gradeMin": 10,
+      "gradeMax": 12,
+      "ourType": "blank"
+    },
+    {
+      "stem": "주어진 글 다음에 이어질 글의 순서로 가장 적절한 것은?",
+      "seriesCount": 7,
+      "publisherCount": 4,
+      "occurrences": 47,
+      "gradeMin": 10,
+      "gradeMax": 12,
+      "ourType": "order"
+    },
+    {
+      "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳은?",
+      "seriesCount": 6,
+      "publisherCount": 2,
+      "occurrences": 42,
+      "gradeMin": 9,
+      "gradeMax": 12,
+      "ourType": "insert"
+    },
+    {
+      "stem": "다음 글의 밑줄 친 부분 중, 문맥상 낱말의 쓰임이 적절하지 않은 것은?",
+      "seriesCount": 5,
+      "publisherCount": 3,
+      "occurrences": 41,
+      "gradeMin": 7,
+      "gradeMax": 12,
+      "ourType": "vocab_choice"
+    },
+    {
+      "stem": "윗글의 제목으로 가장 적절한 것은?",
+      "seriesCount": 5,
+      "publisherCount": 4,
+      "occurrences": 38,
+      "gradeMin": 10,
+      "gradeMax": 12,
+      "ourType": "title"
+    },
+    {
+      "stem": "다음 도표의 내용과 일치하지 않는 것은?",
+      "seriesCount": 5,
+      "publisherCount": 4,
+      "occurrences": 35,
+      "gradeMin": 10,
+      "gradeMax": 12,
+      "ourType": "content_match"
+    },
+    {
+      "stem": "윗글에 관한 내용으로 적절하지 않은 것은?",
+      "seriesCount": 5,
+      "publisherCount": 4,
+      "occurrences": 25,
+      "gradeMin": 10,
+      "gradeMax": 12,
+      "ourType": "content_match"
+    },
+    {
+      "stem": "다음 글의 내용을 한 문장으로 요약하고자 한다. 빈칸 (A), (B)에 들어갈 말로 가장 적절한 것은?",
+      "seriesCount": 4,
+      "publisherCount": 2,
+      "occurrences": 22,
+      "gradeMin": 9,
+      "gradeMax": 12,
+      "ourType": "summary"
+    },
+    {
+      "stem": "다음 글에 드러난 ‘I’의 심경 변화로 가장 적절한 것은?",
+      "seriesCount": 4,
+      "publisherCount": 4,
+      "occurrences": 7,
+      "gradeMin": 10,
+      "gradeMax": 12,
+      "ourType": "mood"
+    },
+    {
+      "stem": "다음 표의 내용과 일치하지 않는 것은?",
+      "seriesCount": 4,
+      "publisherCount": 3,
+      "occurrences": 6,
+      "gradeMin": 10,
+      "gradeMax": 12,
+      "ourType": "content_match"
+    },
+    {
+      "stem": "글의 빈칸에 들어갈 말로 가장 알맞은 것은?",
+      "seriesCount": 3,
+      "publisherCount": 1,
+      "occurrences": 39,
+      "gradeMin": 4,
+      "gradeMax": 8,
+      "ourType": "blank"
+    },
+    {
+      "stem": "글의 주제로 가장 알맞은 것은?",
+      "seriesCount": 3,
+      "publisherCount": 1,
+      "occurrences": 32,
+      "gradeMin": 4,
+      "gradeMax": 7,
+      "ourType": "topic"
+    },
+    {
+      "stem": "밑줄 친 (a)~(e) 중에서 문맥상 낱말의 쓰임이 적절하지 않은 것은?",
+      "seriesCount": 3,
+      "publisherCount": 2,
+      "occurrences": 16,
+      "gradeMin": 10,
+      "gradeMax": 12,
+      "ourType": "vocab_choice"
+    },
+    {
+      "stem": "주어진 글 (A)에 이어질 내용을 순서에 맞게 배열한 것으로 가장 적절한 것은?",
+      "seriesCount": 3,
+      "publisherCount": 2,
+      "occurrences": 10,
+      "gradeMin": 10,
+      "gradeMax": 12,
+      "ourType": "order"
+    },
+    {
+      "stem": "글의 내용과 일치하지 않는 것은?",
+      "seriesCount": 3,
+      "publisherCount": 1,
+      "occurrences": 9,
+      "gradeMin": 6,
+      "gradeMax": 10,
+      "ourType": "content_match"
+    },
+    {
+      "stem": "윗글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "seriesCount": 3,
+      "publisherCount": 3,
+      "occurrences": 8,
+      "gradeMin": 10,
+      "gradeMax": 12,
+      "ourType": "blank"
+    },
+    {
+      "stem": "글의 제목으로 가장 적절한 것은?",
+      "seriesCount": 3,
+      "publisherCount": 2,
+      "occurrences": 7,
+      "gradeMin": 7,
+      "gradeMax": 10,
+      "ourType": "title"
+    },
+    {
+      "stem": "밑줄 친 (a)~(e) 중에서 가리키는 대상이 나머지 넷과 다른 것은?",
+      "seriesCount": 3,
+      "publisherCount": 2,
+      "occurrences": 7,
+      "gradeMin": 10,
+      "gradeMax": 12,
+      "ourType": "long_reference"
+    },
+    {
+      "stem": "글의 제목으로 가장 알맞은 것은?",
+      "seriesCount": 2,
+      "publisherCount": 1,
+      "occurrences": 50,
+      "gradeMin": 4,
+      "gradeMax": 8,
+      "ourType": "title"
+    },
+    {
+      "stem": "(A), (B), (C)의 각 네모 안에서 어법에 맞는 표현으로 가장 적절한 것은?",
+      "seriesCount": 2,
+      "publisherCount": 1,
+      "occurrences": 14,
+      "gradeMin": 10,
+      "gradeMax": 11,
+      "ourType": "grammar_choice"
+    },
+    {
+      "stem": "밑줄 친 부분이 가리키는 대상이 나머지 넷과 다른 것은?",
+      "seriesCount": 2,
+      "publisherCount": 2,
+      "occurrences": 12,
+      "gradeMin": 10,
+      "gradeMax": 12,
+      "ourType": "long_reference"
+    },
+    {
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "seriesCount": 2,
+      "publisherCount": 2,
+      "occurrences": 10,
+      "gradeMin": 10,
+      "gradeMax": 11,
+      "ourType": "blank"
+    },
+    {
+      "stem": "글의 (a)~(e) 중, 전체 흐름과 관계없는 문장은?",
+      "seriesCount": 2,
+      "publisherCount": 1,
+      "occurrences": 10,
+      "gradeMin": 5,
+      "gradeMax": 7,
+      "ourType": "irrelevant"
+    },
+    {
+      "stem": "What is the best title for the passage?",
+      "seriesCount": 2,
+      "publisherCount": 1,
+      "occurrences": 6,
+      "gradeMin": 7,
+      "gradeMax": 7,
+      "ourType": "title"
+    },
+    {
+      "stem": "What is the passage mainly about?",
+      "seriesCount": 2,
+      "publisherCount": 1,
+      "occurrences": 5,
+      "gradeMin": 6,
+      "gradeMax": 7,
+      "ourType": "topic"
+    },
+    {
+      "stem": "다음 글의 상황에 나타난 분위기로 가장 적절한 것은?",
+      "seriesCount": 2,
+      "publisherCount": 2,
+      "occurrences": 4,
+      "gradeMin": 10,
+      "gradeMax": 10,
+      "ourType": "mood"
+    },
+    {
+      "stem": "(A), (B), (C)의 각 네모 안에서 문맥에 맞는 낱말로 가장 적절한 것은?",
+      "seriesCount": 2,
+      "publisherCount": 2,
+      "occurrences": 4,
+      "gradeMin": 10,
+      "gradeMax": 10,
+      "ourType": "vocab_choice"
+    },
+    {
+      "stem": "밑줄 친 (a)∼(e) 중에서 가리키는 대상이 나머지 넷과 다른 것은?",
+      "seriesCount": 2,
+      "publisherCount": 2,
+      "occurrences": 4,
+      "gradeMin": 10,
+      "gradeMax": 12,
+      "ourType": "long_reference"
+    },
+    {
+      "stem": "What is the best choice for the blank?",
+      "seriesCount": 2,
+      "publisherCount": 1,
+      "occurrences": 3,
+      "gradeMin": 7,
+      "gradeMax": 7,
+      "ourType": "blank"
+    },
+    {
+      "stem": "밑줄 친 he[his]가 가리키는 대상이 나머지 넷과 다른 것은?",
+      "seriesCount": 2,
+      "publisherCount": 2,
+      "occurrences": 3,
+      "gradeMin": 10,
+      "gradeMax": 12,
+      "ourType": "long_reference"
+    },
+    {
+      "stem": "다음 글에 드러난 Sarah의 심경 변화로 가장 적절한 것은?",
+      "seriesCount": 2,
+      "publisherCount": 2,
+      "occurrences": 2,
+      "gradeMin": 10,
+      "gradeMax": 10,
+      "ourType": "mood"
+    },
+    {
+      "stem": "글의 요지로 가장 알맞은 것은?",
+      "seriesCount": 2,
+      "publisherCount": 1,
+      "occurrences": 2,
+      "gradeMin": 6,
+      "gradeMax": 7,
+      "ourType": "main_point"
+    },
+    {
+      "stem": "글의 내용과 일치하는 것은?",
+      "seriesCount": 2,
+      "publisherCount": 1,
+      "occurrences": 2,
+      "gradeMin": 6,
+      "gradeMax": 7,
+      "ourType": "content_match"
+    },
+    {
+      "stem": "글을 통해 답을 알 수 없는 것은?",
+      "seriesCount": 2,
+      "publisherCount": 1,
+      "occurrences": 2,
+      "gradeMin": 5,
+      "gradeMax": 6,
+      "ourType": "content_match"
+    }
+  ],
+  "typeCoverage": {
+    "standardStems": 41,
+    "mappedToOurTypes": 41,
+    "unmappedStems": [],
+    "distinctOurTypesCovered": [
+      "blank",
+      "claim",
+      "content_match",
+      "grammar_choice",
+      "grammar_fix",
+      "insert",
+      "irrelevant",
+      "long_reference",
+      "main_point",
+      "mood",
+      "order",
+      "purpose",
+      "summary",
+      "title",
+      "topic",
+      "vocab_choice"
+    ],
+    "perDocument": {
+      "note": "교재 **한 권**이 담는 표준 유형 수. 79종을 합친 수와 다르다 — 한 권을 견줄 때 쓴다.",
+      "documentsTotal": 94,
+      "overall": {
+        "docs": 46,
+        "p10": 3,
+        "median": 8,
+        "p90": 11,
+        "max": 17
+      },
+      "bySchool": {
+        "초등": {
+          "docs": 6,
+          "p10": 3,
+          "median": 4,
+          "p90": 6,
+          "max": 7
+        },
+        "중등": {
+          "docs": 10,
+          "p10": 1,
+          "median": 4,
+          "p90": 5,
+          "max": 8
+        },
+        "고등": {
+          "docs": 30,
+          "p10": 5,
+          "median": 9,
+          "p90": 15,
+          "max": 17
+        }
+      }
+    }
+  },
+  "passageWords": {
+    "초6": {
+      "gradeMin": 6,
+      "words": {
+        "n": 96,
+        "min": 40,
+        "p10": 44,
+        "p25": 52,
+        "median": 62,
+        "p75": 81,
+        "p90": 121,
+        "max": 194,
+        "mean": 72
+      }
+    },
+    "중1": {
+      "gradeMin": 7,
+      "words": {
+        "n": 67,
+        "min": 40,
+        "p10": 46,
+        "p25": 57,
+        "median": 84,
+        "p75": 124,
+        "p90": 154,
+        "max": 197,
+        "mean": 93.7
+      }
+    },
+    "중2": {
+      "gradeMin": 8,
+      "words": {
+        "n": 10,
+        "min": 48,
+        "p10": 50,
+        "p25": 58,
+        "median": 99,
+        "p75": 156,
+        "p90": 173,
+        "max": 173,
+        "mean": 100.3
+      }
+    },
+    "중3": {
+      "gradeMin": 9,
+      "words": {
+        "n": 28,
+        "min": 41,
+        "p10": 42,
+        "p25": 45,
+        "median": 81,
+        "p75": 122,
+        "p90": 153,
+        "max": 165,
+        "mean": 84.5
+      }
+    },
+    "고1": {
+      "gradeMin": 10,
+      "words": {
+        "n": 690,
+        "min": 40,
+        "p10": 48,
+        "p25": 68,
+        "median": 116,
+        "p75": 178,
+        "p90": 243,
+        "max": 354,
+        "mean": 129.9
+      }
+    },
+    "고2": {
+      "gradeMin": 11,
+      "words": {
+        "n": 134,
+        "min": 40,
+        "p10": 54,
+        "p25": 70,
+        "median": 117,
+        "p75": 172,
+        "p90": 208,
+        "max": 307,
+        "mean": 125.8
+      }
+    },
+    "고3": {
+      "gradeMin": 12,
+      "words": {
+        "n": 647,
+        "min": 40,
+        "p10": 50,
+        "p25": 87,
+        "median": 132,
+        "p75": 158,
+        "p90": 178,
+        "max": 319,
+        "mean": 125
+      }
+    }
+  },
+  "explanation": {
+    "blocksMeasured": 2149,
+    "lengthChars": {
+      "n": 2149,
+      "min": 40,
+      "p10": 52,
+      "p25": 75,
+      "median": 143,
+      "p75": 269,
+      "p90": 473,
+      "max": 855,
+      "mean": 200.5
+    },
+    "wrongOptionMentionRate": 0.536,
+    "sourceCitationRate": 0.497,
+    "seriesShippingAnswerKey": {
+      "total": 19,
+      "with_ans": 12
+    },
+    "note": "해설지를 내는 교재는 사실상 전 문항에 해설이 붙는다 — 보유율의 시장 기준선은 100% 로 본다"
+  },
+  "typeDensity": {
+    "note": "쪽 단위 등장률이다(문항 수가 아니다). 학교급 사이 **상대 비교**로 쓴다 — 어떤 유형이 그 학년의 교재에 실리는 유형인지 가르는 데 쓴다.",
+    "bySchool": {
+      "고등": {
+        "pagesMeasured": 2467,
+        "densityPerPage": {
+          "blank": 0.0389,
+          "blank_word": 0.002,
+          "claim": 0.0077,
+          "content_match": 0.017,
+          "grammar_choice": 0.0057,
+          "grammar_fix": 0.0243,
+          "implication": 0.0077,
+          "insert": 0.015,
+          "irrelevant": 0.0158,
+          "long_reference": 0.0073,
+          "main_point": 0.0081,
+          "mood": 0.0113,
+          "order": 0.0223,
+          "purpose": 0.0118,
+          "summary": 0.0109,
+          "title": 0.0219,
+          "topic": 0.0174,
+          "unit_vocab": 0,
+          "vocab_choice": 0.0247,
+          "word_order": 0.0073
+        }
+      },
+      "초등": {
+        "pagesMeasured": 871,
+        "densityPerPage": {
+          "blank": 0.0471,
+          "blank_word": 0.0126,
+          "claim": 0,
+          "content_match": 0.0092,
+          "grammar_choice": 0,
+          "grammar_fix": 0,
+          "implication": 0,
+          "insert": 0,
+          "irrelevant": 0.0172,
+          "long_reference": 0.0046,
+          "main_point": 0.0011,
+          "mood": 0,
+          "order": 0,
+          "purpose": 0,
+          "summary": 0,
+          "title": 0.0517,
+          "topic": 0.0321,
+          "unit_vocab": 0.0069,
+          "vocab_choice": 0,
+          "word_order": 0.0367
+        }
+      },
+      "중등": {
+        "pagesMeasured": 1053,
+        "densityPerPage": {
+          "blank": 0.0095,
+          "blank_word": 0.0009,
+          "claim": 0,
+          "content_match": 0.0047,
+          "grammar_choice": 0.0009,
+          "grammar_fix": 0.0028,
+          "implication": 0.0019,
+          "insert": 0.0028,
+          "irrelevant": 0.0028,
+          "long_reference": 0.0009,
+          "main_point": 0.0009,
+          "mood": 0,
+          "order": 0.0009,
+          "purpose": 0,
+          "summary": 0.0009,
+          "title": 0.0161,
+          "topic": 0.0161,
+          "unit_vocab": 0.0199,
+          "vocab_choice": 0.0047,
+          "word_order": 0.0199
+        }
+      }
+    }
+  },
+  "choiceCount": {
+    "고등": {
+      "seriesMeasured": 10,
+      "itemsMeasured": 946,
+      "byCount": {
+        "3": 97,
+        "4": 48,
+        "5": 801
+      },
+      "dominant": 5,
+      "fiveChoiceRate": 0.847
+    },
+    "초등": {
+      "seriesMeasured": 3,
+      "itemsMeasured": 311,
+      "byCount": {
+        "3": 50,
+        "4": 13,
+        "5": 248
+      },
+      "dominant": 5,
+      "fiveChoiceRate": 0.797
+    },
+    "중등": {
+      "seriesMeasured": 6,
+      "itemsMeasured": 225,
+      "byCount": {
+        "3": 4,
+        "4": 10,
+        "5": 211
+      },
+      "dominant": 5,
+      "fiveChoiceRate": 0.938
+    }
+  },
+  "units": {
+    "booksMeasured": 9,
+    "unitsPerBook": {
+      "n": 9,
+      "min": 5,
+      "p10": 5,
+      "p25": 7,
+      "median": 10,
+      "p75": 12,
+      "p90": 29,
+      "max": 29,
+      "mean": 11.2
+    },
+    "pagesPerUnit": {
+      "n": 9,
+      "min": 2,
+      "p10": 2,
+      "p25": 4,
+      "median": 17,
+      "p75": 29,
+      "p90": 38,
+      "max": 38,
+      "mean": 18.3
+    }
+  }
+}

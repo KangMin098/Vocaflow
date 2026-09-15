@@ -13,6 +13,7 @@ import {
   createEmptyCard,
   generatorParameters,
   Rating as FsrsRating,
+  State as FsrsState,
   type Card as FsrsCard,
   type FSRSParameters,
   type Grade as FsrsGrade,
@@ -73,9 +74,8 @@ export function createVocaflowScheduler(targetRetention?: number) {
 /**
  * SrsCard → ts-fsrs Card 변환
  *
- * ts-fsrs Card에는 state(New/Learning/Review/Relearning), reps, lapses, due 등이 있으나
- * Vocaflow는 R(t) 동적 계산 + DB 컬럼 정합을 우선시하므로 핵심 3변수만 매핑.
- * 나머지는 ts-fsrs가 내부에서 합리적 default로 처리.
+ * Vocaflow 는 R(t) 를 읽을 때 동적으로 계산하므로 DB 에 상태 컬럼을 두지 않는다.
+ * **하지만 ts-fsrs 에게는 state 를 말해 줘야 한다** — 아래 주석 참조.
  */
 function toFsrsCard(card: SrsCard, now: Date): FsrsCard {
   // 신규 카드는 createEmptyCard로 시작
@@ -93,8 +93,23 @@ function toFsrsCard(card: SrsCard, now: Date): FsrsCard {
     reps: card.reviewCount,
     // due는 nextReviewAt 또는 now (재계산되므로 무관)
     due: card.nextReviewAt ?? now,
-    // state는 stability에서 추론 — Vocaflow는 ts-fsrs state 미사용
-    // (§17.2: state는 R(t)에서 동적 계산)
+    // ⚠️ **`state` 를 반드시 넣는다. 안 넣으면 간격 반복이 통째로 멈춘다.**
+    //
+    // `createEmptyCard()` 는 `state: New` 로 시작하고 위 스프레드는 그걸 안 덮는다.
+    // 그러면 ts-fsrs 의 `next()` 가 매번 New 분기(`init_ds`)를 타서 **바로 위에서 복원한
+    // stability 를 버리고** `S = w[rating-1]` 로 초기화한다. 오류는 하나도 안 난다.
+    //
+    // 실측 2026-09-05 (이 줄이 없던 동안):
+    //   Good 8회 반복 → S 가 2.3065 로 **8회 내내 같은 값**(FSRS-5 초기값 w[2] 그대로)
+    //   DB: 복습한 234단어의 최대 S = 8.2956일, 그리고 S 는 복습 횟수와 **역상관**
+    //       (29회 복습한 단어의 S = 0.0010일 = 86초 — 많이 할수록 나빠졌다)
+    //   그 결과 `stable`(R≥0.95)은 구조적으로 도달 불가(실측 stable 0 / risk 234),
+    //   `known_word_count` 의 임계 `stability >= 21` 도 영원히 넘지 못했다(두 계정 다 0).
+    //
+    // 예전 주석은 "state 는 stability 에서 추론 — ts-fsrs state 미사용" 이라고 적었는데,
+    // **우리가 안 쓰는 것과 ts-fsrs 가 안 쓰는 것은 다른 말이다.** ts-fsrs 는 쓴다.
+    // `lapses` 는 DB 에 없어 0 으로 둔다 — D 보정에만 쓰이고 S 성장을 막지는 않는다.
+    state: FsrsState.Review,
   };
 }
 

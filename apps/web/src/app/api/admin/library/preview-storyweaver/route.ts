@@ -7,13 +7,14 @@
 import { NextResponse } from 'next/server'
 import { ingestFromStoryWeaver } from '@vocaflow/library-pipeline'
 
-import { requireAdmin } from '@/lib/auth/require-admin'
+import { requireAdminApi } from '@/lib/auth/require-admin-api'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 
 export async function GET(request: Request): Promise<NextResponse> {
-  await requireAdmin('/admin/curation')
+  const admin = await requireAdminApi()
+  if (admin instanceof NextResponse) return admin
 
   const { searchParams } = new URL(request.url)
   const id = (searchParams.get('id') ?? '').trim()

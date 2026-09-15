@@ -1,0 +1,416 @@
+{
+ "rubric": {
+  "note": "자료를 보기 전에 고정한 규칙표. 선지마다 세 값을 매긴다. 정답이 무엇인지 모르는 채로 매겨야 한다.",
+  "abstractness": "1~5. 이 선지가 얼마나 추상적인가. 1 = 구체 사건·사례·수치·행위 서술. 3 = 일반 진술. 5 = 상위 개념을 가리키는 추상 명사구(예: the limits of perception). 길이를 보지 말고 지시 대상의 층위만 볼 것.",
+  "passageEcho": "0~2. 이 선지가 지문의 표현을 얼마나 그대로 쓰는가. 0 = 지문에 없는 낱말로 다시 썼다. 1 = 지문의 핵심어 한둘을 그대로 가져왔다. 2 = 지문의 구절을 거의 그대로 옮겼다. **낱말 겹침이 아니라 표현을 그대로 쓰는가**를 볼 것 — 같은 뜻 다른 낱말은 0 이다.",
+  "concreteMarker": "true/false. 구체 표지(고유명사·숫자·예시 도입어·시제 있는 사건 서술)가 하나라도 있는가. 이건 abstractness 와 따로 매긴다 — 내 추상도 판단이 길이만 따라간 것인지 검사하는 대조 항목이다."
+ },
+ "fillInstruction": "각 choices 원소에 abstractness(1~5) · passageEcho(0~2) · concreteMarker(true/false) 세 키를 더해 chunk-NN.out.json 으로 저장할 것. 다른 키는 건드리지 말 것.",
+ "items": [
+  {
+   "id": "2022#22",
+   "type": "R-GIST",
+   "passage": "Environmental hazards include biological, physical, and chemical ones, along with the human behaviors that promote or allow exposure. Some environmental contaminants are difficult to avoid (the breathing of polluted air, the drinking of chemically contaminated public drinking water, noise in open public spaces); in these circumstances, exposure is largely involuntary. Reduction or elimination of these factors may require societal action, such as public awareness and public health measures. In many countries, the fact that some environmental hazards are difficult to avoid at the individual level is felt to be more morally egregious than those hazards that can be avoided. Having no choice but to drink water contaminated with very high levels of arsenic, or being forced to passively breathe in tobacco smoke in restaurants, outrages people more than the personal choice of whether an individual smokes tobacco. These factors are important when one considers how change (risk reduction) happens. * contaminate: 오염시키다 ** egregious: 매우 나쁜",
+   "choices": [
+    {
+     "label": "A",
+     "text": "환경오염으로 인한 피해자들에게 적절한 보상을 하는 것이 바람직하다."
+    },
+    {
+     "label": "B",
+     "text": "개인이피하기 어려운유해환경요인에대해서는사회적대응이필요하다."
+    },
+    {
+     "label": "C",
+     "text": "대기오염 문제는 인접 국가들과의 긴밀한 협력을 통해 해결할 수 있다. 38 3"
+    },
+    {
+     "label": "D",
+     "text": "다수의 건강을 해치는 행위에 대해 도덕적 비난 이상의 조치가 요구된다."
+    },
+    {
+     "label": "E",
+     "text": "환경오염 문제를 해결하기 위해서는 사후 대응보다 예방이 중요하다."
+    }
+   ]
+  },
+  {
+   "id": "2023#20",
+   "type": "R-CLAIM",
+   "passage": "At every step in our journey through life we encounter junctions with many different pathways leading into the distance. Each choice involves uncertainty about which path will get you to your destination. Trusting our intuition to make the choice often ends up with us making a suboptimal choice. Turning the uncertainty into numbers has proved a potent way of analyzing the paths and finding the shortcut to your destination. The mathematical theory of probability hasn’t eliminated risk, but it allows us to manage that risk more effectively. The strategy is to analyze all the possible scenarios that the future holds and then to see what proportion of them lead to success or failure. This gives you a much better map of the future on which to base your decisions about which path to choose. * junction: 분기점 ** suboptimal: 차선의",
+   "choices": [
+    {
+     "label": "A",
+     "text": "인생의 여정에서 선택에 따른 결과를 스스로 책임져야 한다. K"
+    },
+    {
+     "label": "B",
+     "text": "성공적인 삶을 위해 미래에 대한 구체적인 계획을 세워야 한다."
+    },
+    {
+     "label": "C",
+     "text": "더 나은 선택을 위해 성공 가능성을 확률적으로 분석해야 한다."
+    },
+    {
+     "label": "D",
+     "text": "빠른 목표 달성을 위해 지름길로 가고자 할 때 신중해야 한다."
+    },
+    {
+     "label": "E",
+     "text": "중요한 결정을 내릴 때에는 자신의 직관에 따라 판단해야 한다."
+    }
+   ]
+  },
+  {
+   "id": "2023#22",
+   "type": "R-GIST",
+   "passage": "Urban delivery vehicles can be adapted to better suit the density of urban distribution, which often involves smaller vehicles such as vans, including bicycles. The latter have the potential to become a preferred ‘last-mile’ vehicle, particularly in high-density and congested areas. In locations where bicycle use is high, such as the Netherlands, delivery bicycles are also used to carry personal cargo (e.g. groceries). Due to their low acquisition and maintenance costs, cargo bicycles convey much potential in developed and developing countries alike, such as the becak (a three-wheeled bicycle) in Indonesia. Services using electrically assisted delivery tricycles have been successfully implemented in France and are gradually being adopted across Europe for services as varied as parcel and catering deliveries. Using bicycles as cargo vehicles is particularly encouraged when combined with policies that restrict motor vehicle access to specific areas of a city, such as downtown or commercial districts, or with the extension of dedicated bike lanes.",
+   "choices": [
+    {
+     "label": "A",
+     "text": "자전거는 배송 수단으로의 경제적 장단점을 모두 가질 수 있다."
+    },
+    {
+     "label": "B",
+     "text": "세계 각국에서는 전기 자전거 사용을 장려하는 정책을 추진하고 있다. 38 3"
+    },
+    {
+     "label": "C",
+     "text": "도시에서 자전거는 효율적인 배송 수단으로 사용될 수 있다."
+    },
+    {
+     "label": "D",
+     "text": "수요자의 요구에 부합하는 다양한 용도의 자전거가 개발되고 있다."
+    },
+    {
+     "label": "E",
+     "text": "자전거는 출퇴근 시간을 줄이기 위한 대안으로 선호되고 있다."
+    }
+   ]
+  },
+  {
+   "id": "2024#20",
+   "type": "R-CLAIM",
+   "passage": "Values alone do not create and build culture. Living your values only some of the time does not contribute to the creation and maintenance of culture. Changing values into behaviors is only half the battle. Certainly, this is a step in the right direction, but those behaviors must then be shared and distributed widely throughout the organization, along with a clear and concise description of what is expected. It is not enough to simply talk about it. It is critical to have a visual representation of the specific behaviors that leaders and all people managers can use to coach their people. Just like a sports team has a playbook with specific plays designed to help them perform well and win, your company should have a playbook with the key shifts needed to transform your culture into action and turn your values into winning behaviors.",
+   "choices": [
+    {
+     "label": "A",
+     "text": "조직 구성원의 행동을 변화시키려면 지도자는 명확한 가치관을 가져야 한다."
+    },
+    {
+     "label": "B",
+     "text": "조직 내 문화가 공유되기 위해서 구성원의 자발적 행동이 뒷받침되어야 한다."
+    },
+    {
+     "label": "C",
+     "text": "조직의 문화 형성에는 가치를 반영한 행동의 공유를위한 명시적지침이필요하다. K"
+    },
+    {
+     "label": "D",
+     "text": "조직 문화 혁신을 위해서 모든 구성원이 공유할 핵심 가치를 정립해야 한다."
+    },
+    {
+     "label": "E",
+     "text": "조직의 핵심 가치 실현을 위해 구성원 간의 지속적인 의사소통이 필수적이다."
+    }
+   ]
+  },
+  {
+   "id": "2024#22",
+   "type": "R-GIST",
+   "passage": "Being able to prioritize your responses allows you to connect more deeply with individual customers, be it a one-off interaction around a particularly delightful or upsetting experience, or the development of a longer-term relationship with a significantly influential individual within your customer base. If you’ve ever posted a favorable comment ― or any comment, for that matter ― about a brand, product or service, think about what it would feel like if you were personally acknowledged by the brand manager, for example, as a result. In general, people post because they have something to say ― and because they want to be recognized for having said it. In particular, when people post positive comments they are expressions of appreciation for the experience that led to the post. While a compliment to the person standing next to you is typically answered with a response like “Thank You,” the sad fact is that most brand compliments go unanswered. These are lost opportunities to understand what drove the compliments and create a solid fan based on them. * compliment: 칭",
+   "choices": [
+    {
+     "label": "A",
+     "text": "고객의 의견을 경청하는 것은 브랜드의 새로운 이미지 창출에 도움이 된다. 38 3"
+    },
+    {
+     "label": "B",
+     "text": "신속한 고객 응대를 통해서 고객의 긍정적인 반응을 이끌어 낼 수 있다."
+    },
+    {
+     "label": "C",
+     "text": "고객의피드백을 면밀히 분석함으로써 브랜드의 성공 가능성을 높일 수 있다."
+    },
+    {
+     "label": "D",
+     "text": "고객과의 관계 증진을 위해 고객의 브랜드 칭찬에 응답하는 것은 중요하다."
+    },
+    {
+     "label": "E",
+     "text": "브랜드 매니저에게는 고객의 부정적인 의견을 수용하는 태도가 요구된다."
+    }
+   ]
+  },
+  {
+   "id": "2025#20",
+   "type": "R-CLAIM",
+   "passage": "We almost universally accept that playing video games is at best a pleasant break from a student’s learning and more often what prevents a student from accomplishing their goals. Games catch and hold attention in a way that few things can. And yet once they have our focus, they rarely seem to offer anything meaningful to help students grow in their lives outside the games. While this may be true for many games, we are too easily ignoring a valuable tool that could be used to enhance productivity instead of derailing it. Rather, it is desirable that we develop games that connect to the learning outcomes we want for our students. This will enable educators to take advantage of games’ attention commanding capacities and allow our students to enjoy their games while learning.",
+   "choices": [
+    {
+     "label": "A",
+     "text": "게임의 부정적 영향을 줄이기 위해 학습 공동체가 노력해야 한다."
+    },
+    {
+     "label": "B",
+     "text": "교육 현장에서 학습과 게임 활동을 적절하게 분배해야 한다."
+    },
+    {
+     "label": "C",
+     "text": "학습 활동에 게임이 초래하는 집중력 저하를 경계해야 한다."
+    },
+    {
+     "label": "D",
+     "text": "학습 효과 증진에 활용될 수 있는 게임을 개발해야 한다. K"
+    },
+    {
+     "label": "E",
+     "text": "여가 시간에 게임을 활용함으로써 학습 효율을 향상해야 한다."
+    }
+   ]
+  },
+  {
+   "id": "2025#22",
+   "type": "R-GIST",
+   "passage": "The ability to understand emotions ― to have a diverse emotion vocabulary and to understand the causes and consequences of emotion ― is particularly relevant in group settings. Individuals who are skilled in this domain are able to express emotions, feelings and moods accurately and thus, may facilitate clear communication between co-workers. Furthermore, they may be more likely to act in ways that accommodate their own needs as well as the needs of others (i.e. cooperate). In a group conflict situation, for example, a member with a strong ability to understand emotion will be able to express how he feels about the problem and why he feels this way. He also should be able to take the perspective of the other group members and understand why they are reacting in a certain manner. Appreciation of differences creates an arena for open communication and promotes constructive conflict resolution and improved group functioning.",
+   "choices": [
+    {
+     "label": "A",
+     "text": "자신의 감정 상태에 대한 이해는 사회성 함양에 필수적 요소이다."
+    },
+    {
+     "label": "B",
+     "text": "감정 이해 능력은 집단 내 원활한 소통과 협력을 촉진한다."
+    },
+    {
+     "label": "C",
+     "text": "감정 관련 어휘에 대한 지식은 공감 능력 발달의 기반이 된다."
+    },
+    {
+     "label": "D",
+     "text": "집단 구성원 간 갈등 해소를 위해 감정 조절이 중요하다. 38 3"
+    },
+    {
+     "label": "E",
+     "text": "타인에 대한 공감 능력은 자신의 감정 표현 능력을 향상한다."
+    }
+   ]
+  },
+  {
+   "id": "2026#20",
+   "type": "R-CLAIM",
+   "passage": "The study of literature has repeatedly failed to recognize the influence of modern musical lyricists and their contributions to the evolution of language. Unlike Shakespeare, who has been studied and celebrated for his development of the English language, particularly in vocabulary and grammatical structure, modern songwriters have experienced restraints on the acknowledgement of their contributions and largely been ignored. Over the past century, we have witnessed an explosion of incredible literary works by these artists, who, through their music, have used linguistic manipulation and storytelling to enrich our language and literature. Producing lyrics of distinct and complex imagery, songwriters have had an incredible literary impact on our language. Their remarkable works, including influences on modern language development, must be recognized in the field of modern literature. 2 * lyricist: 작사가 ** restraint: 제약",
+   "choices": [
+    {
+     "label": "A",
+     "text": "독특하고 복합적인 이미지 표현 기법을 작사 과정에 적용해야 한다."
+    },
+    {
+     "label": "B",
+     "text": "셰익스피어의 작품이 영문학 발전에 미친 영향을 분석해야 한다."
+    },
+    {
+     "label": "C",
+     "text": "가사를 통해 작사가들이 언어와 문학에 기여한 바를 인정해야 한다."
+    },
+    {
+     "label": "D",
+     "text": "문학 작품을 감상하기 위해 스토리텔링 기법을 이해해야 한다."
+    },
+    {
+     "label": "E",
+     "text": "문학 작품과 가사에 사용되는 언어의 차이를 연구해야 한다. 8 이 문제지에 관한 저작권은 한국교육과정평가원에 있습니다."
+    }
+   ]
+  },
+  {
+   "id": "2026#22",
+   "type": "R-GIST",
+   "passage": "A sport ecosystem exists based on the type and rate of coopetition existing. Coopetition is defined as “the simultaneous pursuit of cooperation and competition among firms to leverage strategically important resources for superior value creation purposes”. It is a useful way to understand the dynamic nature of sport businesses which need to collaborate for resource efficiency purposes but potentially compete with each other. This special relationship should be managed properly due to trust and confidence issues being paramount. It can be challenging to be collaborative and competitive in sport as they involve different forms of behaviour. This means a careful balancing act may be required in terms of the amount of emphasis placed on each activity. Often sport managers will try to be more competitive due to performance reasons and less collaborative. By necessity they may need to share information but do so in a cautious manner. This means it might be better to have plans in place about how to pursue both simultaneously. This will ensure one is not neglected at the expense of the other. * simultaneous: 동시의 ** paramount: 최고의",
+   "choices": [
+    {
+     "label": "A",
+     "text": "스포츠 산업에서는 협력과 경쟁 사이의 균형 잡힌 접근이 요구된다."
+    },
+    {
+     "label": "B",
+     "text": "협력에 기반한 경쟁을 위해서 스포츠 정신 함양 교육이 필수적이다."
+    },
+    {
+     "label": "C",
+     "text": "스포츠에서는 성과를 중요시하기 때문에 협력을 과소평가하기 쉽다."
+    },
+    {
+     "label": "D",
+     "text": "스포츠 산업에서는 효율적 자원 활용을 위한 전략이 필요하다."
+    },
+    {
+     "label": "E",
+     "text": "스포츠 산업에서의 성취는 경쟁을 필연적으로 수반한다. 3"
+    }
+   ]
+  },
+  {
+   "id": "M2606#20",
+   "type": "R-CLAIM",
+   "passage": "Our ability to respond to danger has been important for survival, so feeling worried in uncertain situations is normal. Feelings of worry, which are activated in anticipation of future events, are often experienced in everyday situations. For example, we may feel nervous imagining unlikely events, such as a computer crashing during an important presentation. To some extent, thinking through potential scenarios can be helpful. When our worries exceed our control, however, they cause us unnecessary suffering. Consider how many times you have lost sleep thinking about a terrible situation, which, in the end, did not actually take place. If that situation actually occurred, it only goes to show that worrying about it did nothing to prevent it from happening. It is worth making a conscious effort, then, to stop worrying endlessly about events you may not experience. 2 ① 긴장감으로 인한 실수를 줄이기 위해 연습을 많이 해야 한다. ② 일어날 것 같지 않은 일에 대해 지나치게 걱정하지 말아야 한다. ③ 목표를 수월하게 달성하려면 계획을 구체적으로 세워야 한다. ④ 일의 과정을 즐기려면 결과에 대한 과도한 집착을 버려야 한다. ⑤ 자신의 걱정이 무엇에서 비롯되었는지 면밀히 살펴봐야 한다. 8 이 문제지에 관한 저작권은 한국교육과정평가원에 있습니다.",
+   "choices": [
+    {
+     "label": "A",
+     "text": "일어날 것 같지 않은 일에 대해 지나치게 걱정하지 말아야 한다."
+    },
+    {
+     "label": "B",
+     "text": "자신의 걱정이 무엇에서 비롯되었는지 면밀히 살펴봐야 한다. 8 이 문제지에 관한 저작권은 한국교육과정평가원에 있습니다."
+    },
+    {
+     "label": "C",
+     "text": "일의 과정을 즐기려면 결과에 대한 과도한 집착을 버려야 한다."
+    },
+    {
+     "label": "D",
+     "text": "긴장감으로 인한 실수를 줄이기 위해 연습을 많이 해야 한다."
+    },
+    {
+     "label": "E",
+     "text": "목표를 수월하게 달성하려면 계획을 구체적으로 세워야 한다."
+    }
+   ]
+  },
+  {
+   "id": "M2606#22",
+   "type": "R-GIST",
+   "passage": "Information and meaning are, clearly, not the same thing. The former refers to uninterpreted data or sensory states whose probability in a certain situation can be easily measured; the latter refers to the interpretation of the data or sensory states, including the special kinds of nuances and values that the information entails, or is intended to have, in the given situation. This applies to any type of information, from alarm signals to sophisticated statements. Take, for instance, a coin-tossing game in which it is decided that throwing three heads in a row constitutes a win. If a certain player ends up consistently with the desired outcome, defeating all who challenge that player, then we tend to interpret the outcome either as the work of Fortune, or else as clever and undetectable cheating on the part of the winning player. Interpretation is at the core of everything we do, think about, and feel. * sophisticated",
+   "choices": [
+    {
+     "label": "A",
+     "text": "우리는 경험적 확률에 근거하여 미래를 예측한다."
+    },
+    {
+     "label": "B",
+     "text": "정보의 진위 여부를 판단할 때 출처 확인이 필수이다."
+    },
+    {
+     "label": "C",
+     "text": "정보 해석에 개인의 감정이 개입되면 의미가 왜곡된다. 3"
+    },
+    {
+     "label": "D",
+     "text": "우리는 정보를 해석함으로써 의미를 만들어 낸다."
+    },
+    {
+     "label": "E",
+     "text": "정보의 양이 너무 많으면 정확한 분석이 어려워진다."
+    }
+   ]
+  },
+  {
+   "id": "M2609#20",
+   "type": "R-CLAIM",
+   "passage": "Showing up late for work and using abusive language are the kinds of problems that every business wants to eliminate. Business leaders looking to achieve this often focus on finding “bad apples” who break their rules and then punishing them. This assumes that the bad apples are acting badly on purpose. In fact, one common reason that employees give for breaking rules is that they were unaware their behavior was undesirable. There are some actors who knowingly act against policy, but many problems are unintentional failings. If businesses want better employees, those businesses must create clear standards and educate their employees directly about how to follow them. Without these standards there would be no way to distinguish bad apples from merely uninformed apples.",
+   "choices": [
+    {
+     "label": "A",
+     "text": "기업은 행동 수칙에 대한 명확한 규정을 마련하여 직원을 교육해야 한다."
+    },
+    {
+     "label": "B",
+     "text": "기업은 직원에 대한 공정한 평가를 위해 동료 평가를 실시해야 한다. 8 이 문제지에 관한 저작권은 한국교육과정평가원에 있습니다."
+    },
+    {
+     "label": "C",
+     "text": "근무 성과에 따른 보상을 통해 기업은 우수 직원의 이탈을 막아야 한다."
+    },
+    {
+     "label": "D",
+     "text": "직원의 비윤리적 행위 예방을 위해 기업은 상벌 규정을 정비해야 한다."
+    },
+    {
+     "label": "E",
+     "text": "생산성 향상을 위해 기업은 직원 윤리 교육을 주기적으로 시행해야 한다. 2"
+    }
+   ]
+  },
+  {
+   "id": "M2609#22",
+   "type": "R-GIST",
+   "passage": "One reason that people participate in social media is because it builds social relations. We increase our social capital when we successfully engage in social media. Social capital describes the networks of relationships we have that are built on mutuality and sharing of identity, understanding, norms and values. We build ties that may pay off with a job lead or a letter of recommendation. We reinforce our identities through our online presentation in a personal blog or our profile. “The premise behind the notion of social capital is rather simple and straightforward: investment in social relations with expected returns,” noted sociologist Nan Lin. Lin’s work stresses that it is who you know as much as what you know that shapes our experience in society. With new media, our reach of connecting is all the greater, expanding our “who you know” to greater and greater lengths. * prem",
+   "choices": [
+    {
+     "label": "A",
+     "text": "사회적 경험은 인격 함양과 세계관 확장에 도움이 된다. 3"
+    },
+    {
+     "label": "B",
+     "text": "사회적 규범과 가치를 공유하는 것이 인간관계 형성의 기반이다."
+    },
+    {
+     "label": "C",
+     "text": "다양한 인적 자본 구축은 소셜 미디어 활동에 필수적이다."
+    },
+    {
+     "label": "D",
+     "text": "뉴 미디어의 등장은 사회적 자본 형성의 방식을 변화시킨다."
+    },
+    {
+     "label": "E",
+     "text": "소셜 미디어를 통한 관계망의 확장은 중요한 사회적 자본이 된다."
+    }
+   ]
+  },
+  {
+   "id": "M2706#20",
+   "type": "R-CLAIM",
+   "passage": "Instructors of physical activities often focus more on the activities themselves than on the participants who perform them. People may believe that training our bodies is unrelated to training our minds. However, participants’ minds determine their attitudes and level of effort toward physical development. In usual practice, instructors may just tell their participants to exercise regularly, warm up before exercising, or use a particular strategy. However, it is not sufficient for instructors to expect participants to blindly follow their directions in physical activities. Instructors must raise participants’ awareness of how these activities enhance their physical performance. For example, an instructor could explicitly explain how warming up before exercising improves their performances. If participants understand the principles of these activities, it enables them to gradually take fuller ownership of their own development. 2 ① 체육 교육은 학습자의 역량 향상을 위해 이론보다 실습을 강조해야 한다. ② 체육 활동은 참여자의 적성을 발굴하고 개발하는 데 집중해야 한다. ③ 체육지도자는참여자가체육활동의원리를알고훈련하도록도와야한다. ④ 체육 프로그램은 참여자의 편의를 위해 단계적으로 계획되어야 한다. ⑤ 체육 수업은 각 개인의 신체 능력에 맞는 다양한 활동을 제공해야 한다. 8 이 문제지에 관한 저작권은 한국교육과정평가원에 있습니다.",
+   "choices": [
+    {
+     "label": "A",
+     "text": "체육지도자는참여자가체육활동의원리를알고훈련하도록도와야한다."
+    },
+    {
+     "label": "B",
+     "text": "체육 활동은 참여자의 적성을 발굴하고 개발하는 데 집중해야 한다."
+    },
+    {
+     "label": "C",
+     "text": "체육 교육은 학습자의 역량 향상을 위해 이론보다 실습을 강조해야 한다."
+    },
+    {
+     "label": "D",
+     "text": "체육 프로그램은 참여자의 편의를 위해 단계적으로 계획되어야 한다."
+    },
+    {
+     "label": "E",
+     "text": "체육 수업은 각 개인의 신체 능력에 맞는 다양한 활동을 제공해야 한다. 8 이 문제지에 관한 저작권은 한국교육과정평가원에 있습니다."
+    }
+   ]
+  },
+  {
+   "id": "M2706#22",
+   "type": "R-GIST",
+   "passage": "Car manufacturers know people form emotional attachments to automobile ‘faces’ and use the fact to guide their design and marketing efforts. “In today’s hyper-competitive car market, designers are focusing on faces as part of a broader effort to design cars that appeal to buyers ― tapping psychologists, anthropologists and other experts in human behavior, and even monitoring the brain waves of focus-group participants,” the Wall Street Journal reported in a 2006 article entitled ‘Why Cars Got Angry.’ Automotive research shows “70% of drivers identify and judge vehicles by the headlights and grille,” the article reported. In the first years of the twenty-first century, the trend was toward angrier, scarier vehicles’ faces. The article hypothesized that these faces help drivers feel safer in heavier traffic amidst more oversize SUVs. Reflecting our tumultuous times, the ‘scary look’ shows no sign of slowing in the new millennium. “Buoyant sales of cars with styling which suggests power or bad temper seem to confirm that customers are happy with this look,” an international automotive site reported in 2017. * tumultuous: 떠들썩한 ** buoyant: 부력이 있는",
+   "choices": [
+    {
+     "label": "A",
+     "text": "자동차 판매 증가를 위해 다양한 학문적 접근이 시도되고 있다."
+    },
+    {
+     "label": "B",
+     "text": "소비자 심리를 반영한 성난 외관의 자동차가 인기를 끌고 있다."
+    },
+    {
+     "label": "C",
+     "text": "구매자들은 이성보다는 감정적 판단에 근거하여 차를 선택한다."
+    },
+    {
+     "label": "D",
+     "text": "자동차의 전면 디자인을 개조하기 위한 다양한 서비스가 있다."
+    },
+    {
+     "label": "E",
+     "text": "안전감을 원하는 운전자들은 거친 모습의 SUV 차량을 선호하지 않는다. 3"
+    }
+   ]
+  }
+ ]
+}

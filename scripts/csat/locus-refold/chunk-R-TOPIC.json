@@ -1,0 +1,92 @@
+{
+  "type_id": "R-TOPIC",
+  "name": "주제",
+  "n_analyzed": 30,
+  "time_budget_sec": 100,
+  "detected_markers": [
+    "청크",
+    "내부 필드명"
+  ],
+  "current_answer_locus_pattern": "6문항 전부 **한 문장**이 정답을 확정했고, 그 문장을 알려 주는 것은 위치가 아니라 **문형**이었다 — 비교급 주장 better ~ than(2015#20, 1/6) · 비례 구문 The more ~, the more ~(2014B, 2/8) · 지목 문형 X is what makes Y(2017, 3/5) · 명령문 Break out of ~(2014A, 4/9) · 판단 문형 it is usually best to ~(2015#21, 5/6) · 결과 문형 tempt A into B(2016, 9/9). 위치는 1·2·3·4·5·9번째 문장으로 완전히 흩어져 있어 '첫 문장' 도 '마지막 문장' 도 규칙이 아니다. 그리고 역접 표지(However/But)는 6문항 중 2문항에만 논지 언저리에 있다(2017#21 However 는 넷째 문장이라 논지 문장보다 뒤, 2015#21 But 은 둘째 문장) — 곧 **역접 뒤를 본다는 습관은 이 유형에서 6문항 중 4문항을 놓친다.** R-TITLE 청크가 옛 회차에서 '앞쪽 명시 문형' 을 보고했는데, R-TOPIC 은 위치조차 흩어져 문형 표지가 유일한 안내판이다.\n\n이제 12문항 모두 정답표가 있다(2차 드레인에서 4개가 채워졌다). **한 문장으로 정답이 닫히는 것은 12개 중 7개**다(2022#23 · 2021#23 · M2106#23 · 2020#23 · M2006#23 · 2018#22 · M1809#22). 두 문장 이상이 필요한 것이 5개인데, 그중 넷이 이번에 채운 문항이다 — M2306#23(문화가 바꾸는 층위 + 감정 자체는 불변) · M2209#23(제약 없음이 상상력을 자극 + 그 쾌의 정의) · M2206#23(통념 부정 + Instead 대체) · M2109#23(재규정 + not denied 유보), 그리고 2019#23(목적 문장 + 수단 문장). 넷 다 ‘앞 문장이 무엇을 부정·한정하고 뒤 문장이 무엇을 남기는가’가 두 자리로 갈린 형태다. _PROMPT §1-c 의 「대의파악 7/7이 두 문장 이상」과 방향이 같으므로, 정답표가 늦게 온 문항일수록 두 문장형이 몰렸다고 볼 이유는 없다.\n\n정답표가 12문항 전부에 갖춰졌다. **앞서 적은 「한 문장으로 충분하다 8/9」는 12문항으로 넓히자 8/12 로 내려앉았다** — 새로 채운 셋이 모두 두 문장을 요구했기 때문이다. M2409#23 은 시도(broadcasters attempt to maximise their audience size)와 결과(Playlists are restricted, and often very small)를 둘 다 대야 outcome 이 채워지고, M2406#23 은 원인(forced to increase their earnings)과 결과(the spaces of storage may even suffer)가 갈라져 있으며, M2309#23 은 무너지는 기준이 둘이라(trialability · relative advantage) 하나만 세면 그 기준을 머리에 둔 선지에서 멈춘다. 이는 _PROMPT §1-c 가 「대의파악 7/7이 두 문장 이상」이라 적은 것과 같은 방향이고, **1차 드레인의 8/9 가 정답표 있는 문항만 본 표본 편향이었음**을 뜻한다. 갈림의 표지는 그대로다 — 명제 문장은 역접·대조 표지 뒤(7) · 결론 표지 뒤(3) · 첫 문장(3) 네 순위로 덮이고, 새로 채운 셋 중 둘은 결과 표지(As a result · In consequence · at best/at worst) 사슬형이라 **표지가 두 번 이상 나오면 마지막 마디까지 따라가야 한다**는 항목을 절차에 더할 것.",
+  "context": {
+    "procedure_steps": [
+      {
+        "step": "지문보다 선지 5개를 먼저 읽고 두 가지를 표시한다 — (a) 다섯이 공유하는 명사(=소재)와 갈리는 자리(=술어 축), (b) 각 선지가 요구하는 서술 종류(이유 · 어려움 · 필요성 · 영향 · 역할). (b)는 뒤에서 '그 말을 하는 문장이 지문에 있는가'로 그대로 쓰인다",
+        "on_fail": "공유 명사가 없으면 네 개 이상에 들어간 낱말을 소재로 삼고, 각 선지의 첫 명사만 적어 둔다"
+      },
+      {
+        "step": "지문 첫 문장이 필자 주장인지 먼저 판정한다. believe that · It has been claimed · Conventional wisdom · It might be thought that · has shown that 이 있으면 그 문장은 뒤집힐 자리이므로 가로선을 긋고, 다음 역접 표지까지를 통째로 괄호에 넣는다",
+        "on_fail": "전언 문형이 없으면 첫 문장을 후보로 남기되 밑줄은 아직 긋지 않는다"
+      },
+      {
+        "step": "역접·전환 표지(However · Nevertheless · but · Yet · on the contrary · Instead)를 전부 찾아 동그라미 친다. 두 개 이상이면 마지막 것 뒤를, 하나면 그 뒤 문장을 근거 후보로 삼는다. 표지가 없으면 because ~ thereby · leads to · had become 처럼 인과나 판정이 실린 문장을 대신 찾는다",
+        "on_fail": "표지도 인과도 없으면 고유명사·수치가 없는 문장만 남겨 그중 마지막 문장에 밑줄을 긋는다"
+      },
+      {
+        "step": "예시 구간을 잘라 낸다 — For example · For an illustration · consider · 연구자 이름 · 수치 · such as 가 든 문장에 괄호를 치고, 그 구간에서만 낱말을 따온 선지를 지운다. 예시가 두 갈래로 갈리면(On the other hand) 한쪽만 담은 선지도 지운다",
+        "on_fail": "예시 경계가 흐리면 고유명사가 처음 나오는 문장을 예시 시작점으로 삼는다"
+      },
+      {
+        "step": "근거 문장에서 두 자리(무엇이 · 무엇을 어떻게 한다)를 지문 표현 그대로 옮겨 적는다. 선지가 'A by B' · 'impact of A on B' 처럼 두 자리를 요구하는데 한 문장에서 두 자리가 안 나오면, 앞뒤에서 나머지 자리를 채운 문장을 하나 더 찾아 근거를 두 문장으로 만든다",
+        "on_fail": "두 자리가 끝내 안 채워지면 목적을 담은 문장을 우선 근거로 삼는다"
+      },
+      {
+        "step": "남은 선지에서 지문 낱말을 그대로 쓴 것을 골라 세 가지를 확인한다 — (가) 그 낱말이 근거 문장에 있는가 (나) 지문에서 그 낱말 앞에 부정어·한정어(not · need not · without · nonsensical · intended)가 붙어 있는가 (다) 괄호 친 예시·전언 구간에서만 나오는가. 하나라도 걸리면 지운다. 남은 하나를 고르고 되돌아가지 않는다",
+        "on_fail": "둘이 남으면 1단계 (b)에 적은 서술 종류를 지문에서 찾아 대응 문장이 없는 쪽을 지운다"
+      }
+    ],
+    "recurring_traps": [
+      {
+        "trap": "어휘 함정",
+        "count": 23,
+        "signature": "지문 낱말을 그대로 쓰되 그 낱말이 놓였던 자리를 바꾼다 — accuracy 가 aura 의 목적어였는데 요건으로(2017 ①) · danger 가 조건절 안이었는데 놀이의 해악으로(2015#21 ①) · communicate 를 supervision 으로 바꿔치기(2014B ③) · creative/mentally fitter 가 효과 자리였는데 능력 간 관계로(2014A ③)"
+      },
+      {
+        "trap": "무관",
+        "count": 22,
+        "signature": "지문의 소재 영역에 어울리는 상투적 틀을 만들되 지문이 한 번도 다루지 않은 축으로 바꾼다 — creativity of map-making(2017 ③) · ways of recording history(2016 ①) · history of science education(2015#20 ①) · physical development(2015#21 ⑤) · 직장 내 대인 관계(2014A ②). 6문항 중 5문항에 하나씩 들어 있어 이 유형에서 가장 흔한 오답 형태다"
+      },
+      {
+        "trap": "반대 진술",
+        "count": 19,
+        "signature": "지문이 처방한 것을 금지로, 문제라 부른 것을 미덕으로 뒤집는다 — universal features discovered(2016 ②, 지문은 lack of perspective) · necessity of intervening(2015#21 ④, 지문은 without interfering) · 게임 중독 경계(2014A ①, 지문은 게임 10분을 처방)"
+      },
+      {
+        "trap": "부분 사실",
+        "count": 16,
+        "signature": "선지의 앞 절반만 지문과 맞고 뒤 절반이 지문에 없다 — trust/authority 는 맞고 trustworthy 라는 단정이 틀림(2017 ④) · '둘' 과 cons 는 맞고 pros 가 없음(2016 ④) · 두 분야가 나오는 건 맞고 대조가 아님(2015#20 ⑤) · parental authority 는 맞고 귀결이 social skills 가 아님(2014B ②). 넷 모두 앞 절반의 일치 때문에 마지막까지 남는다"
+      },
+      {
+        "trap": "지문 밖 상식",
+        "count": 11,
+        "signature": "소재에 따라붙는 통념을 주제로 만든다 — 놀이는 바깥놀이가 좋다(2015#21 ②) · 부모가 개입해 안전을 지킨다(2014B ①)"
+      },
+      {
+        "trap": "범위 과소",
+        "count": 10,
+        "signature": "부정 조건절의 결과나 수식어 하나를 주제로 승격시킨다 — disobedient(2014B ④, If they don’t ~ 뒤의 증상) · 죄책감(2014A ④, without feelings of guilt 라는 수식어)"
+      },
+      {
+        "trap": "범위 과대",
+        "count": 8,
+        "signature": "한 방식의 우열 판정을 그 범주 전체의 한계로 넓힌다 — limitations of learning strategies(2015#20 ②)"
+      },
+      {
+        "trap": "인과 역전",
+        "count": 5,
+        "signature": "지문이 결과 자리에 둔 것을 원인 자리로 옮긴다 — 정치·사회 조건이 지도에 반영되는데 지도가 갈등을 낳는다고(2017 ②) · 직관이 실행의 결과인데 발견의 원인이라고(2015#20 ④)"
+      }
+    ],
+    "failure_modes": [
+      "**소재 세기** — 오답 넷에 지문 소재가 하나씩 심겨 있어(2015#21 의 play/danger/assist, 2014A 의 게임/친구/죄책감) 낱말이 겹치는지만 보면 넷 다 근거가 생긴다. 6문항 24개 오답 중 20개가 지문에 실재하는 낱말 또는 그 번역을 담고 있었다",
+      "**한정어 탈락** — 지문이 aura of · appears to · apparent 로 한정한 명사를 선지가 단정으로 바꾼 것을 놓친다(2017 ④가 대표). 명사만 세면 오답 ④가 정답보다 근거가 많아 보인다",
+      "**마지막 문장 = 결론이라는 습관** — 2014B 의 마지막 문장은 부정 조건절에 딸린 증상이고, 2015#21 의 마지막 문장은 처방의 이유다. 두 문항 모두 그 습관이 특정 오답(④)으로 바로 이어지도록 설계돼 있다",
+      "**예시를 주제로 승격** — 2015#20 은 예시 소재(philosophy · science · bubble chamber)로 만든 오답이 둘(①④⑤ 중 셋)이다. For example 표지를 표시하지 않고 읽으면 예시가 주제 후보로 남는다",
+      "**정답 선지가 낯설어 건너뜀** — 2016 의 biased, 2017 의 lying beneath 는 지문에 없는 표현이라, 지문 낱말이 많은 오답 쪽이 안전해 보인다. 낱말 겹침이 근거라는 믿음이 정확히 반대로 작동하는 자리다",
+      "첫 문장을 주제문으로 읽는다 — 12문항 중 5문항의 첫 문장이 전언·통념·인정 구간이고, 그중 넷은 첫 문장 방향이 정답과 반대다(M1809#22 · M2206#23 · M2109#23 · M2306#23)",
+      "낱말이 가장 많이 겹치는 선지를 고른다 — 정답표가 있는 8문항 중 7문항에서 부호어를 뗀 어휘 재사용 오답이 하나씩 배치돼 있고, 정답 쪽은 반대로 지문에 없는 낱말로 바꿔 말한 경우가 많다(functional aspects · allocating unfit tasks · interplay · marker for class distinction)",
+      "예시의 구체어를 주제로 올린다 — M2106#23 의 은유·범죄 예방, 2019#23 의 OECD, 2020#23 의 culture 가 그 자리다. 예시가 지문의 절반을 넘는 문항이 셋이다"
+    ]
+  },
+  "instructions_ref": "scripts/csat/locus-refold/_PROMPT.md"
+}

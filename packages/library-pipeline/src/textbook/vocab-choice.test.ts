@@ -1,0 +1,396 @@
+// packages/library-pipeline/src/textbook/vocab-choice.test.ts
+//
+// 어휘(수능 30번) 회귀. 지키려는 것은 **바뀐 낱말이 지문 안에서 모순으로 보이는가** 다.
+// 문장 하나만 놓고 보면 반대말도 자연스럽다 — 틀렸다는 건 글의 나머지와 어긋날 때만 드러난다.
+
+import { describe, expect, it } from 'vitest'
+import {
+  buildVocabChoice,
+  MIN_CHAIN_OCCURRENCES,
+  spread,
+  VOCAB_UNDERLINES,
+  isCandidateToken,
+  properNounsIn,
+  type VocabLexicon,
+} from './vocab-choice'
+
+const ANTONYMS: Record<string, string[]> = {
+  increase: ['decrease'],
+  decrease: ['increase'],
+  expensive: ['cheap'],
+  distant: ['nearby'],
+  simple: ['complex'],
+}
+const POS: Record<string, string> = {
+  increase: 'verb',
+  decrease: 'verb',
+  expensive: 'adjective',
+  cheap: 'adjective',
+  distant: 'adjective',
+  nearby: 'adjective',
+  simple: 'adjective',
+  complex: 'adjective',
+}
+const lex: VocabLexicon = {
+  antonymsOf: (w) => ANTONYMS[w] ?? [],
+  posOf: (w) => POS[w] ?? null,
+}
+
+/**
+ * 지문을 규격 안으로 늘린다.
+ *
+ * 생성기가 **90~200어 구간을 잘라 쓰므로**(`selectPassageWindow`) 짧은 픽스처는 통째로
+ * 탈락한다. 문장마다 같은 꼬리를 붙여 낱말 수만 채운다 — 꼬리에는 반대말이 없어
+ * 바꿀 후보가 늘지 않고, 관사·지시사도 없어 어법 후보도 늘지 않는다.
+ */
+const PAD = 'according to the regional planning office released earlier last quarter'
+const long = (ss: readonly string[]): string[] => ss.map((s) => s.replace(/\.$/, ` ${PAD}.`))
+
+// `expensive` 가 세 번 나온다 — 한 자리를 `cheap` 으로 바꿔도 나머지 둘이 남아 모순이 보인다.
+const sentences = long([
+  'Rooftop solar panels remain expensive across most of the northern districts.',
+  'Councils argue that expensive equipment discourages ordinary households from applying.',
+  'Installers report that expensive permits add several weeks to every project.',
+  'Regional grants cover roughly a third of the reported installation costs.',
+  'Officials expect another review of the programme before the winter season.',
+])
+
+describe('어휘 문항', () => {
+  it('밑줄 다섯을 걸고 그중 하나만 반대말로 바뀐다', () => {
+    const item = buildVocabChoice(sentences, lex)
+    expect(item).not.toBeNull()
+    expect(item!.underlines).toHaveLength(VOCAB_UNDERLINES)
+    expect(item!.answer).toBeGreaterThanOrEqual(1)
+    expect(item!.answer).toBeLessThanOrEqual(VOCAB_UNDERLINES)
+    expect(item!.original).toBe('expensive')
+  })
+
+  it('바뀐 낱말은 한 번, 원래 낱말은 그대로 남는다 — 이것이 모순의 근거다', () => {
+    const item = buildVocabChoice(sentences, lex)!
+    const body = item.sentences.join(' ').toLowerCase()
+    expect((body.match(/\bcheap\b/g) ?? []).length).toBe(1)
+    expect((body.match(/\bexpensive\b/g) ?? []).length).toBeGreaterThanOrEqual(
+      MIN_CHAIN_OCCURRENCES - 1,
+    )
+  })
+
+  it('정답 자리의 밑줄에는 바뀐 낱말이 보인다', () => {
+    const item = buildVocabChoice(sentences, lex)!
+    expect(item.underlines[item.answer - 1]!.word.toLowerCase()).toBe('cheap')
+  })
+
+  it('한 번만 나오는 낱말은 바꾸지 않는다 — 어긋난 데가 안 보인다', () => {
+    const once = long([
+      'Rooftop solar panels remain expensive across the northern districts.',
+      'Councils publish quarterly figures about household applications.',
+      'Installers report longer waits during the summer months.',
+      'Regional grants cover roughly a third of installation costs.',
+      'Officials expect another review before the winter season.',
+    ])
+    expect(buildVocabChoice(once, lex)).toBeNull()
+  })
+
+  it('반대말이 이미 글에 있으면 바꾸지 않는다 — 어느 쪽이 어긋난 건지 갈린다', () => {
+    const both = long([
+      'Rooftop panels remain expensive across the northern districts today.',
+      'Councils argue that expensive equipment discourages ordinary households.',
+      'Imported panels are far cheap by comparison with local products.',
+      'Regional grants cover roughly a third of installation costs.',
+      'Officials expect another review before the winter season.',
+    ])
+    expect(buildVocabChoice(both, lex)).toBeNull()
+  })
+
+  it('품사가 다른 반대말은 쓰지 않는다', () => {
+    const mismatched: VocabLexicon = {
+      antonymsOf: (w) => (w === 'expensive' ? ['cheaply'] : []),
+      posOf: (w) => (w === 'cheaply' ? 'adverb' : POS[w] ?? null),
+    }
+    expect(buildVocabChoice(sentences, mismatched)).toBeNull()
+  })
+
+  it('문장이 다섯 개보다 적으면 만들지 않는다', () => {
+    expect(buildVocabChoice(sentences.slice(0, 4), lex)).toBeNull()
+  })
+
+  it('멱등하다', () => {
+    expect(buildVocabChoice(sentences, lex)).toEqual(buildVocabChoice(sentences, lex))
+  })
+
+  it('밑줄은 서로 다른 문장에 흩어지고 정답 자리를 포함한다', () => {
+    const item = buildVocabChoice(sentences, lex)!
+    const idx = item.underlines.map((u) => u.sentenceIdx)
+    expect(new Set(idx).size).toBe(idx.length)
+    expect([...idx].sort((a, b) => a - b)).toEqual(idx) // 읽는 순서대로
+    expect(item.underlines[item.answer - 1]!.word.toLowerCase()).toBe('cheap')
+  })
+
+  it('고르게 뽑는다 — 앞뒤로 몰리지 않는다', () => {
+    expect(spread([0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 4)).toEqual([0, 3, 6, 9])
+    expect(spread([1, 2], 5)).toEqual([1, 2]) // 모자라면 있는 만큼
+    expect(spread([1, 2, 3], 0)).toEqual([])
+  })
+
+  it('**정답 번호가 만들 수 있는 범위 안에서 고르게 퍼진다** — 쏠리면 찍어서 맞는다', () => {
+    // 문장 수가 늘수록 정답이 놓일 수 있는 번호가 늘어난다. 같은 지문 모양에서
+    // 바꿀 낱말의 자리만 다를 때 번호가 한쪽에 뭉치지 않아야 한다.
+    const seen = new Set<number>()
+    for (let extra = 0; extra < 6; extra++) {
+      const body = [
+        ...sentences,
+        ...Array.from(
+          { length: extra },
+          (_, i) => `Local reviewers noted expensive delays in district number ${i} again ${PAD}.`,
+        ),
+      ]
+      const item = buildVocabChoice(body, lex)
+      if (item) seen.add(item.answer)
+    }
+    expect(seen.size).toBeGreaterThan(1)
+  })
+
+  it('문장 첫머리 낱말을 바꿔도 대문자를 지킨다', () => {
+    const capital = long([
+      'Expensive permits delayed the northern rooftop programme by several weeks.',
+      'Councils argue that expensive equipment discourages ordinary households here.',
+      'Installers report that expensive reviews add weeks to every single project.',
+      'Regional grants cover roughly a third of the installation costs reported.',
+      'Officials expect another review of the programme before the winter season.',
+    ])
+    const item = buildVocabChoice(capital, lex)
+    if (item && item.sentences[0]!.startsWith('Cheap')) {
+      expect(item.sentences[0]).toMatch(/^Cheap\b/)
+    }
+    // 어느 자리가 뽑히든 소문자로 시작하는 문장이 생기면 안 된다.
+    for (const s of item?.sentences ?? []) expect(s).toMatch(/^[A-Z]/)
+  })
+})
+/**
+ * **밑줄 후보 — 붙은 부호가 자리를 말해 준다.**
+ *
+ * ── 왜 (3인 검수 + DB 실측 2026-09-12) ──────────────────────────────
+ * 교재 문항 3인 검수에서 같은 자국이 되풀이됐다 — 밑줄이 `"Analogously,"`·`"Importantly,"`
+ * 같은 **문장부사**, `"[Sidenote:"` 같은 **원본 책 마크업**, `"Campbell’s."` 같은 **쪼개진
+ * 조각**, `"William"` 같은 **고유명사**에 걸렸다. 학습자는 뜻을 재는 것이 아니라 「이건 바꿀
+ * 낱말이 아니다」로 걸러 내고, 그만큼 오답 자리가 버려진다.
+ *
+ * 원인은 판정이 구두점을 떼고 본 것이다: `normalize("Analogously,")` → `analogously` 는
+ * 기능어 목록에 없어 후보로 통과했다.
+ *
+ * DB 실측(V5 `vocab_choice` 10,612문항 · 밑줄 53,060): 쉼표로 끝남 **5,389** ·
+ * 마침표로 끝남 260 · 마크업 61 → **4,436문항(42%)** 이 그런 밑줄을 하나 이상 갖고 있었다.
+ */
+describe('밑줄 후보', () => {
+  it('쉼표·세미콜론·콜론이 붙은 낱말은 후보가 아니다 — 문장부사이거나 절 경계다', () => {
+    for (const t of ['Analogously,', 'Importantly,', 'Furthermore,', 'however;', 'following:']) {
+      expect(isCandidateToken(t, true), t).toBe(false)
+    }
+  })
+
+  it('마크업 조각은 후보가 아니다', () => {
+    for (const t of ['[Sidenote:', 'Sidenote]', '(anecdotal)', '[Footnote']) {
+      expect(isCandidateToken(t, true), t).toBe(false)
+    }
+  })
+
+  it('문장 중간의 대문자는 고유명사라 후보가 아니다', () => {
+    for (const t of ['William', 'Jasmine', 'Campbell']) {
+      expect(isCandidateToken(t, false), t).toBe(false)
+    }
+  })
+
+  it('문장 첫 낱말의 대문자는 막지 않는다 — 그 자리는 정상이다', () => {
+    expect(isCandidateToken('Maturity', true)).toBe(true)
+  })
+
+  /**
+   * ⚠️ **여기는 앞 판을 뒤집은 자리다.** 앞 판의 회귀는 `isCandidateToken('breath.')` 가
+   * **참**이기를 요구했다 — 「마침표까지 막으면 문장 마지막 낱말이 전부 후보에서 빠진다」는
+   * 이유였고, 자리에 관해서는 옳다.
+   *
+   * 뒤집은 근거는 **인쇄물**이다. 저장되는 것은 원본 토큰 그대로이고(`word: p.token`),
+   * 조판기 둘 다 그 문자열을 글자 그대로 밑줄친다 — `render-volume.mjs` 의 `<u>${w}</u>` 와
+   * `VolumeContents.tsx` 의 `<u>{m.word}</u>`. 그래서 `breath.` 는 **마침표까지 밑줄에
+   * 들어간 채 인쇄된다.** 자리가 정상인 것과 인쇄가 정상인 것은 다른 문제였다.
+   *
+   * 부호만 떼어 저장하는 길도 있었지만 조판기가 부분 문자열로 찾으므로(`indexOf`)
+   * 짧아진 낱말이 다른 자리를 짚을 여지가 생긴다. 잃는 것은 문장마다 마지막 낱말 하나다.
+   */
+  it('마침표가 붙은 낱말도 후보가 아니다 — 마침표까지 밑줄에 들어가 인쇄된다', () => {
+    expect(isCandidateToken('breath.', false)).toBe(false)
+    expect(isCandidateToken('worry.', false)).toBe(false)
+    // 낱말 자체는 멀쩡하다 — 막는 것은 **붙은 부호**이지 낱말이 아니다.
+    expect(isCandidateToken('breath', false)).toBe(true)
+  })
+
+  /**
+   * 목록을 늘리는 대신 자를 하나로 바꾼 뒤, **목록 밖에 있던 것들**이 실제로 막히는지.
+   * 전부 V5 실측에서 나온 꼴이다(따옴표 260 · 마침표 264 · 숫자 123 · 물음표 84 · 줄표 42).
+   */
+  it('물음표·줄표·따옴표·숫자가 붙은 낱말은 후보가 아니다', () => {
+    for (const t of ['Happen?', 'Earthquakes—Rattling', 'Stop!', '“quoted', 'chapter12', "Campbell’s"]) {
+      expect(isCandidateToken(t, true), t).toBe(false)
+    }
+  })
+
+  it('평범한 내용어는 그대로 후보다', () => {
+    for (const t of ['expensive', 'distant', 'agriculture', 'rationale']) {
+      expect(isCandidateToken(t, false), t).toBe(true)
+    }
+  })
+
+  it('기능어와 짧은 낱말은 여전히 빠진다', () => {
+    expect(isCandidateToken('however', false)).toBe(false)
+    expect(isCandidateToken('cat', false)).toBe(false)
+  })
+})
+
+// ── 왜 이 회귀가 생겼나 (3인 검수 + DB 실측 2026-09-14) ─────────────
+// 검수가 한 문항을 이렇게 막았다: "밑줄 다섯 중 셋(① November · ② Thomas · ③ Maria)이
+// 고유명사다. 문맥 적합성을 따질 대상이 아니므로 지문을 읽기 전에 후보가 ④⑤ 둘로 좁혀진다."
+// 표본 6,000문항을 **증거 기반**(같은 낱말이 문장 중간에도 대문자)으로 세니:
+//
+//   고유명사 밑줄 1개 이상  17.3%   ·  전부 대문자 낱말 1.3%
+//   같은 낱말 두 번 밑줄    10.1%   ← ["parabens","parabens","moreover","identical","parabens"]
+//
+// 기존 20종이 둘 다 못 잡았다 — 밑줄이 **몇 개인지**는 봤어도 **무엇인지**는 안 봤다.
+describe('밑줄은 문맥 판단이 되는 자리여야 한다', () => {
+  const words = (item: { underlines: { word: string }[] }) =>
+    item.underlines.map((u) => u.word.replace(/^[^A-Za-z']+|[^A-Za-z']+$/g, ''))
+
+  // 문장마다 첫 내용어가 같은 낱말이라, 고치기 전에는 그것이 여러 자리에 밑줄로 걸렸다.
+  const repeated = long([
+    'Parabens appear in expensive shampoos sold across the northern districts.',
+    'Parabens also raise the expensive testing costs that families pay each week.',
+    'Regulators call the expensive programme a temporary measure for now.',
+    'Parabens remain the single most studied group in that whole category.',
+    'Officials expect another review of the programme before the winter season.',
+  ])
+
+  // 이름이 문장 **중간**에도 대문자로 나온다 — 그것이 고유명사라는 증거다.
+  const named = long([
+    'Haglid argued that expensive permits delay every single building project.',
+    'The council told Haglid that the expensive review would continue anyway.',
+    'Neighbours describe the expensive process as slow and hard to follow.',
+    'Regional grants cover roughly a third of the reported installation costs.',
+    'Officials expect another review of the programme before the winter season.',
+  ])
+
+  it('같은 낱말을 두 번 밑줄 치지 않는다', () => {
+    const item = buildVocabChoice(repeated, lex)
+    expect(item, '문항이 안 만들어지면 이 검사는 아무것도 안 지킨다').not.toBeNull()
+    const w = words(item!).map((x) => x.toLowerCase())
+    expect(new Set(w).size, `밑줄이 겹친다 — ${JSON.stringify(words(item!))}`).toBe(w.length)
+  })
+
+  it('문장 중간에도 대문자로 나오는 낱말은 밑줄에 없다', () => {
+    const item = buildVocabChoice(named, lex)
+    expect(item, '문항이 안 만들어지면 이 검사는 아무것도 안 지킨다').not.toBeNull()
+    const midCap = new Set<string>()
+    for (const sent of item!.sentences) {
+      // ⚠️ 여기가 `split(/s+/)` 였다 — 백슬래시 하나가 빠져 **리터럴 s 로** 쪼갰다.
+      //   문장이 낱말로 안 나뉘니 「문장 중간의 대문자」가 거의 안 모였고, 이 검사는
+      //   빈 집합과 대조하며 **늘 통과**했다. 같은 자국이 이 저장소에서 세 번째다
+      //   (`headNounAfter` · `explain-items` 회귀 · 여기).
+      const toks = sent.split(/\s+/)
+      for (let i = 1; i < toks.length; i += 1) {
+        const t = toks[i]!.replace(/^[^A-Za-z']+|[^A-Za-z']+$/g, '')
+        if (/^[A-Z][a-z']+$/.test(t) || /^[A-Z]{2,}$/.test(t)) midCap.add(t.toLowerCase())
+      }
+    }
+    const bad = words(item!).filter((w) => midCap.has(w.toLowerCase()))
+    expect(bad, '고유명사가 밑줄에 있다').toEqual([])
+  })
+
+  // HARRY · STANILAND 처럼 이름표로 쓰인 대문자 낱말.
+  const shouty = long([
+    'HARRY told the council that expensive permits delay every single project.',
+    'The office said HARRY had filed the expensive paperwork twice already.',
+    'Neighbours describe the expensive process as slow and hard to follow.',
+    'Regional grants cover roughly a third of the reported installation costs.',
+    'Officials expect another review of the programme before the winter season.',
+  ])
+
+  it('통째로 대문자인 낱말은 밑줄에 없다 — 이름표지 어휘가 아니다', () => {
+    const item = buildVocabChoice(shouty, lex)
+    expect(item).not.toBeNull()
+    const bad = words(item!).filter((w) => /^[A-Z]{2,}$/.test(w))
+    expect(bad, '전부 대문자 낱말이 밑줄에 있다').toEqual([])
+  })
+
+  it('고유명사를 걸러도 원래 만들던 문항은 그대로 만든다', () => {
+    const item = buildVocabChoice(sentences, lex)
+    expect(item).not.toBeNull()
+    expect(item!.underlines).toHaveLength(VOCAB_UNDERLINES)
+  })
+})
+
+describe('properNounsIn — 지문 안의 증거로만 가린다', () => {
+  it('문장 중간의 대문자는 고유명사다', () => {
+    expect([...properNounsIn(['The council told Haglid that the review continues.'])]).toContain('haglid')
+  })
+
+  it('문장 첫머리의 대문자만으로는 고유명사라고 하지 않는다', () => {
+    // Something · Because 처럼 평범한 낱말도 문장 첫머리에서는 대문자다.
+    expect([...properNounsIn(['Something forces me to keep on speaking.'])]).toEqual([])
+  })
+
+  it('통째로 대문자면 자리와 무관하게 고유명사다', () => {
+    expect([...properNounsIn(['HARRY filed the paperwork twice already.'])]).toContain('harry')
+    expect([...properNounsIn(['The office said STANILAND had left.'])]).toContain('staniland')
+  })
+
+  it('붙은 부호를 떼고 본다 — "Haglid," 도 같은 낱말이다', () => {
+    expect([...properNounsIn(['The council told Haglid, who left, that it continues.'])]).toContain('haglid')
+  })
+
+  // ⚠️ 못 잡는 것을 잡았다고 적지 않는다 — 이 한계가 문서와 같아야 한다.
+  it('문장 첫머리에 한 번만 나오는 이름은 못 잡는다 — 하한이라고 적어 둔 그대로다', () => {
+    expect([...properNounsIn(['Maria was more to be pitied than others.'])]).toEqual([])
+  })
+})
+
+/**
+ * **문장 첫머리에 한 번만 나오는 이름은 사전이 잡는다.**
+ *
+ * `properNounsIn` 의 두 증거(문장 중간의 대문자 · 통짜 대문자)는 `Maria was more to be
+ * pitied…` 를 못 잡는다 — 그 함수 주석이 스스로 「하한이다」라고 적어 둔 구멍이다.
+ * 3인 검수가 실물을 들고 왔다(chunk-00 · chunk-01): 밑줄 다섯 중 셋이
+ * `November`·`Thomas`·`Maria` 라 **실질 2지선다**였고 해설은 그 셋을 한 줄도 안 다뤘다.
+ *
+ * 짐작을 더하지 않고 **이미 손에 있는 증거**를 쓴다 — 대문자로 문장을 여는데 사전에
+ * 품사조차 없으면 보통 이름이다.
+ */
+describe('문장 첫머리의 이름도 밑줄에서 뺀다', () => {
+  const namedFirst = long([
+    'Maria remained expensive company for the households of that northern district.',
+    'Thomas argued that expensive permits delay every single building project there.',
+    'November brought another review of the expensive programme before the winter.',
+    'Regional grants cover roughly a third of the reported installation costs.',
+    'Officials expect another review of the programme before the winter season.',
+  ])
+
+  it('사전에 없는 첫머리 대문자는 밑줄 후보가 아니다', () => {
+    const item = buildVocabChoice(namedFirst, lex)
+    expect(item, '문항이 안 만들어지면 이 검사는 아무것도 안 지킨다').not.toBeNull()
+    const underlined = item!.underlines.map((u) => u.word.replace(/^[^A-Za-z']+|[^A-Za-z']+$/g, ''))
+    for (const name of ['Maria', 'Thomas', 'November']) {
+      expect(underlined, `이름이 밑줄에 있다 — ${JSON.stringify(underlined)}`).not.toContain(name)
+    }
+  })
+
+  // ⚠️ **사전에 있는 낱말은 첫머리 대문자여도 남긴다** — 자가 넓어지면 첫 문장의 후보가
+  //   통째로 사라지고, 이 유형은 이미 ① 쏠림을 고치느라 번호를 균등하게 뽑고 있다.
+  it('사전에 있는 낱말은 첫머리에 있어도 후보로 남는다', () => {
+    const commonFirst = long([
+      'Expensive permits delay every single building project in that northern district.',
+      'Councils argue that expensive equipment discourages ordinary households from applying.',
+      'Installers report that expensive reviews add several weeks to every project.',
+      'Regional grants cover roughly a third of the reported installation costs.',
+      'Officials expect another review of the programme before the winter season.',
+    ])
+    const item = buildVocabChoice(commonFirst, lex)
+    expect(item).not.toBeNull()
+    expect(item!.underlines).toHaveLength(VOCAB_UNDERLINES)
+  })
+})

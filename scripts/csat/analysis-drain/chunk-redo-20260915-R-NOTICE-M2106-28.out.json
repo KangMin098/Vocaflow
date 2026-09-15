@@ -1,0 +1,625 @@
+{
+ "chunk": 2,
+ "type_id": "R-NOTICE",
+ "type_name": "안내문 일치",
+ "analyses": [
+  {
+   "item_id": "M2106#28",
+   "measured_ability": "안내문의 항목 이름(When & Where · Participation Fee · Registration · Preparations · You will learn)과 선지가 묻는 항목을 짝지은 뒤, 그 한 줄 안의 숫자·괄호·접속사 or·부정어 not 한 자리까지 선지 값과 맞춰 보는 능력",
+   "design_intent": "오답 넷이 서로 다른 칸을 하나씩 건드리도록 배치했다 — 날짜 칸(하루를 이틀로), 참가비 괄호(not included 를 포함으로), 등록 칸(Call or email 을 이메일만으로), 준비물 칸(are provided 를 제공 안 함으로). 한 칸만 확인하고 고르면 반드시 다른 칸에서 걸리고, 정답 ⑤는 맨 아래 You will learn 목록 마지막 줄이라 위에서부터 훑던 눈이 닿기 전에 시간을 쓰게 만든다.",
+   "answer_locus": {
+    "sentence_index": [
+     8
+    ],
+    "quote": "how to choose the right tools.",
+    "reasoning": "You will learn 아래 세 불릿 중 마지막 줄이 '적절한 도구를 선택하는 방법'을 성분 하나도 갈지 않고 그대로 적는다. 앞 두 불릿(traces of suspects · the scene of a crime)은 다른 학습 내용이고, 나머지 네 선지는 각각 다른 칸의 값과 어긋나므로 일치하는 선지가 이 줄 하나로 정해진다."
+   },
+   "choices": [
+    {
+     "n": 5,
+     "verdict": "correct",
+     "why_correct": "You will learn 목록의 how to choose the right tools 에서 choose 가 선지 ⑤의 '적절한 도구를 선택하는 방법을' 중 '선택하는' 과, the right tools 가 '적절한 도구' 와 낱말 단위로 맞물린다. 목록 머리인 You will learn 의 주어 you(참가자)가 선지의 '배울 것이다' 주체와도 같다.",
+     "confirmed_at": {
+      "sentence_index": [
+       8
+      ],
+      "note": "how to find traces of suspects · how to manage the scene of a crime 두 줄은 다른 학습 내용이라 이 선지를 확정하지 못한다"
+     }
+    },
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "범위 과대",
+     "why_tempting": "안내문에 요일이 둘 나온다 — When & Where 의 Tuesday, August 18 과 Registration 의 Wednesday, July 29. 두 요일을 일정으로 묶으면 이틀짜리가 되고, 9 a.m. to 3 p.m. 의 두 시각도 이틀로 늘려 읽는 유인이 된다.",
+     "how_to_reject": "When & Where 첫 줄 '9 a.m. to 3 p.m. on Tuesday, August 18, 2020' 은 날짜가 하나뿐이고 on 뒤에 붙는 날도 하나다. Wednesday, July 29 는 Registration 칸의 접수 마감일이라 행사일이 아니다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "반대 진술",
+     "why_tempting": "Participation Fee: $20 뒤 괄호가 짧아 insurance 라는 낱말만 눈에 남으면 보험이 참가비에 딸려 있다고 읽힌다. 괄호 안에 금액이 따로 없다는 점도 포함으로 오독하게 만든다.",
+     "how_to_reject": "Participation Fee 줄 괄호 안이 '(insurance not included)' 로, included 앞에 not 이 붙어 있다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "범위 과소",
+     "why_tempting": "Registration 칸에 이메일 주소 spyscience@zbu.edu 가 눈에 띄게 적혀 있어 등록 창구를 이메일 하나로 좁혀 읽는다.",
+     "how_to_reject": "같은 줄이 'Call 555-540-0421, or email spyscience@zbu.edu' 로 or 를 사이에 두고 창구를 둘 든다 — 전화번호가 이메일보다 먼저 나온다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "지문 밖 상식",
+     "why_tempting": "바로 앞 줄이 'Bring comfortable shoes and a bag to carry detective tools.' 라 준비물은 참가자 몫이라는 인상이 남고, 참가비 $20 으로 식사까지 나오기 어렵다는 짐작이 겹친다.",
+     "how_to_reject": "Preparations 칸 둘째 불릿이 'Lunch and snacks are provided.' 로 수동태 provided 를 써 제공 주체를 주최 측에 둔다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "발문 끝을 먼저 본다 — '일치하는 것은?' 이면 선지 넷이 틀린 값이고 하나만 지문과 같다. 이 문항은 '않는' 이 없는 쪽이다",
+     "on_fail": "'않는' 두 글자가 있는지 헷갈리면 선지를 읽기 전에 발문에 동그라미를 쳐 두고 답을 적기 직전에 한 번 더 본다"
+    },
+    {
+     "step": "안내문을 보기 전에 선지 다섯을 읽고 각 선지가 묻는 항목을 한 낱말로 여백에 적는다 — 기간 · 참가비 · 등록 · 식사 · 학습 내용",
+     "on_fail": "항목 이름이 안 뽑히면 선지에서 명사만 밑줄 친다(이틀·보험·이메일·점심·도구)"
+    },
+    {
+     "step": "안내문의 굵은 소제목만 훑어 앞 단계에서 적은 항목과 짝짓는다(When & Where · Participation Fee · Registration · Preparations · You will learn). 짝지은 줄만 읽고 나머지 줄은 건너뛴다",
+     "on_fail": "짝이 없는 선지는 뒤로 미루고, 마지막에 소제목이 없는 도입 두 문장과 괄호 부속 줄에서 찾는다"
+    },
+    {
+     "step": "짝지은 줄에서 숫자 · 괄호 · or · not 네 가지에만 표시하고 선지의 값과 하나씩 맞춘다",
+     "on_fail": "표시할 것이 없는 줄이면 선지의 술어(제공된다 · 받는다 · 배운다)를 그 줄의 동사와 맞춘다"
+    },
+    {
+     "step": "어긋난 자리를 찾은 선지는 그 자리(예: not included)를 여백에 적고 지운다. 네 개에 어긋난 자리를 다 적었을 때 남은 하나를 답으로 확정한다",
+     "on_fail": "지운 것이 셋뿐이면 남은 두 선지의 항목 줄을 다시 짝짓는다 — 맨 아래 You will learn 목록이 아직 안 읽힌 칸이다"
+    }
+   ],
+   "time_budget_sec": 60,
+   "difficulty": {
+    "predicted": 0.93,
+    "drivers": [
+     "선지 다섯이 각각 다른 칸을 가리켜 칸 짝짓기가 곧 답이 된다",
+     "오답 넷이 괄호 안 not · 접속사 or 처럼 낱말 하나에 걸려 있어 훑어 읽으면 그 낱말을 건너뛴다",
+     "정답 근거가 안내문 맨 마지막 줄이라 위에서부터 읽으면 가장 늦게 닿는다"
+    ]
+   },
+   "required_vocab": [
+    "insurance",
+    "included",
+    "provided",
+    "traces",
+    "suspects"
+   ],
+   "revised": true,
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "quote 를 코퍼스 지문에서 잘라 붙였다 — 목록 한 줄 안에서 이어지는 조각이라 불릿 기호가 섞이지 않았다",
+      "why_correct 의 대응이 낱말 단위로 성립한다: choose↔선택하는, the right tools↔적절한 도구, you↔배울 것이다의 주체"
+     ],
+     "checked": [
+      "answer_locus.quote 를 corpus.json 의 M2106#28 passage 와 문자열 대조",
+      "선지 ⑤ 텍스트('적절한 도구를 선택하는 방법을 배울 것이다')와 why_correct 의 대응 낱말 일대일 확인",
+      "발문이 '일치하는 것은?' 임을 확인하고 정답 선지가 지문과 같은 진술인지 점검"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "초안에서 ④의 라벨을 ②와 같은 「반대 진술」로 달았다 — 같은 극성 뒤집기로 뭉뚱그리면 두 오답의 실제 경로가 지워진다. ②는 괄호 안 not 을 못 본 것이고 ④는 준비물 목록을 보고 식사도 스스로 챙긴다고 넘겨짚는 것이라 「지문 밖 상식」으로 고쳤다",
+      "고친 뒤 오답 넷의 라벨이 범위 과대 · 반대 진술 · 범위 과소 · 지문 밖 상식 넷으로 갈린다"
+     ],
+     "checked": [
+      "오답 4개 trap 라벨의 중복 여부 확인 (4종 전부 다름)",
+      "how_to_reject 네 개에 지문 위치나 영어 인용이 들어 있는지 확인 (When & Where 첫 줄 · Participation Fee 줄 괄호 · Registration 같은 줄 · Preparations 둘째 불릿)",
+      "why_tempting 이 선지 텍스트에 실제로 근거하는지 대조 (이틀 / 보험 포함 / 이메일로만 / 제공되지 않는다)"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "절차 2단계가 안내문을 보기 전에 실행되므로 지문을 아직 안 본 학생도 시작할 수 있다",
+      "60초 안에 다섯 칸 짝짓기 + 네 칸 대조가 끝난다 — 2점 문항 배점에 맞다"
+     ],
+     "checked": [
+      "solve_procedure 5단계를 정답을 모른다고 가정하고 순서대로 실행해 봄 (2단계에서 항목 5개가 뽑히고 3단계에서 소제목 5개와 1:1로 붙음)",
+      "금지 표현(흐름을 파악하면 · 전체를 읽고 등) 포함 여부 확인",
+      "required_vocab 5개가 지문에 실제로 있는지 문자열 대조 (insurance/included/provided/traces/suspects)"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "2018#26",
+   "body_recovered": true,
+   "measured_ability": "시각과 활동이 한 줄에 한 쌍씩 묶인 Daily Schedule 칸에서, 선지가 부른 활동을 먼저 찾고 그 활동이 붙어 있는 줄의 시간대를 되짚어 선지의 시간대와 맞추는 능력",
+   "design_intent": "오답 넷은 지문 문장을 거의 그대로 옮겨 놓고 정답 하나만 Daily Schedule 두 줄의 시간대를 맞바꿨다. practice game sessions 라는 활동명 자체는 안내문에 실제로 있으므로 활동명을 찾은 것으로 만족하면 걸린다 — 활동명이 아니라 그 앞에 붙은 시각을 읽게 만든 문항이다.",
+   "answer_locus": {
+    "sentence_index": [
+     3
+    ],
+    "quote": "9 a.m. － 11 a.m.: one-on-one skills training ∙ 1 p.m. － 4 p.m.: practice game sessions",
+    "reasoning": "Daily Schedule 칸은 시각과 활동을 한 줄에 한 쌍씩 묶는다. practice game sessions 는 1 p.m. － 4 p.m. 줄에만 붙어 있고 오전 줄(9 a.m. － 11 a.m.)이 담은 활동은 one-on-one skills training 이므로, 활동을 오전으로 옮겨 붙인 선지가 하나로 정해진다."
+   },
+   "choices": [
+    {
+     "n": 3,
+     "verdict": "correct",
+     "why_correct": "Daily Schedule 에서 practice game sessions 가 붙은 줄의 시각은 1 p.m. － 4 p.m. 인데, 선지 ③은 '오전에 연습 경기를 실시한다' 로 활동은 그대로 두고 시각 한 자리만 오전으로 갈아 끼웠다. 오전 줄(9 a.m. － 11 a.m.)이 담은 활동은 one-on-one skills training 이다.",
+     "confirmed_at": {
+      "sentence_index": [
+       3
+      ],
+      "note": "Training Program 칸의 a brief skills test 는 수준 배정 절차라 시간대를 정하지 않는다 — 시간대는 Daily Schedule 두 줄에서만 확정된다"
+     }
+    },
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "주체 역전",
+     "why_tempting": "주최가 The College Volleyball League 이고 Note 마지막 줄에도 College volleyball players 가 나와, 주최 기관의 '대학' 을 참가 대상으로 옮겨 읽으면 '고등학생을 대상으로 한다' 가 어긋나 보인다.",
+     "how_to_reject": "첫 문장 'The College Volleyball League (CVL) is hosting a camp for high school students' 에서 주최는 CVL, 대상은 for 뒤의 high school students 로 갈린다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "범위 과소",
+     "why_tempting": "'After a brief skills test' 를 선발 시험으로 읽으면 훈련 대상이 합격자로 좁혀져, 참가자 전체를 가리키는 '참가자들은 수준에 따라 훈련을 받을 것이다' 가 과한 진술로 보인다.",
+     "how_to_reject": "같은 문장 뒷부분 'participants will be trained based on their levels' 가 주어를 participants 로 두고, 바로 아래 Basic Level · Advanced Level 두 줄이 그 levels 의 내역이다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "지문 밖 상식",
+     "why_tempting": "바로 앞 줄이 'Participation fee is $100.' 이라 배구공과 티셔츠를 참가비로 사거나 빌리는 것으로 넘겨짚기 쉽다.",
+     "how_to_reject": "Note 둘째 줄의 동사가 receive 다 — 'Participants will receive a volleyball and a camp T-shirt.' 로 참가자가 받는 쪽이다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "'visit to offer advice' 에서 advice 만 눈에 들어오면 조언을 전달한다는 뜻으로만 읽혀 '방문할 것이다' 라는 선지가 지나쳐 보인다. 캠프 마지막 날짜(January 27)가 선지에 없다는 점도 확인을 흐린다.",
+     "how_to_reject": "Note 셋째 줄 'College volleyball players will visit to offer advice to participants on the final day of the camp' 에 visit 과 on the final day 가 함께 들어 있다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "발문 끝의 '일치하지 않는 것은?' 을 확인하고, 선지 넷은 지문 그대로일 것이라 전제한다 — 맞는 선지를 찾는 것이 아니라 한 자리가 갈린 선지 하나를 찾는다",
+     "on_fail": "'않는' 을 못 봤으면 선지 옆에 O 를 네 개 그려 두고 시작해, X 가 하나 나오는 순간 멈춘다"
+    },
+    {
+     "step": "선지 다섯에서 대조할 값을 하나씩 밑줄 친다 — 대상(고등학생) · 기준(수준) · 시간대(오전) · 물품(배구공·티셔츠) · 시점(마지막 날)",
+     "on_fail": "밑줄 칠 값이 안 보이면 선지에서 숫자 · 시각 · 요일 · 사람 이름을 먼저 찾는다"
+    },
+    {
+     "step": "그 값이 들어 있을 칸을 소제목으로 짚는다(Training Program · Daily Schedule · Note). 시간대를 묻는 선지는 Daily Schedule 칸에서만 확인한다",
+     "on_fail": "소제목에 짝이 없는 선지는 첫 문장(도입)과 맨 끝 안내 줄에서 찾는다"
+    },
+    {
+     "step": "시각이 적힌 칸은 '시각 → 활동' 이 아니라 '활동 → 시각' 방향으로 되짚는다. 선지의 활동명(연습 경기)을 지문에서 먼저 찾고 그 줄 맨 앞의 시각을 읽는다",
+     "on_fail": "같은 활동명이 두 줄에 다 나오면 두 줄의 시각을 모두 옮겨 적고 선지와 맞춘다"
+    },
+    {
+     "step": "값이 지문과 같은 선지에 O 를 적어 지워 나가고, 어긋난 자리를 찾은 순간 그 선지를 답으로 확정한다",
+     "on_fail": "남은 것이 둘이면 숫자·시각이 든 쪽을 먼저 다시 보되, 그 값이 적힌 줄의 소제목이 서로 다른 칸인지 확인한다"
+    }
+   ],
+   "time_budget_sec": 60,
+   "difficulty": {
+    "predicted": 0.9,
+    "drivers": [
+     "시각과 활동이 표처럼 두 줄로 갈려 있어 활동명만 찾으면 시간대를 안 보게 된다",
+     "오답 넷이 지문 문장을 거의 그대로 옮겨 놓아 확인 자체는 빠르다",
+     "주최(College)와 대상(high school)이 첫 문장 안에서 붙어 있어 ①에서 한 번 흔들린다"
+    ]
+   },
+   "required_vocab": [
+    "one-on-one",
+    "practice",
+    "sessions",
+    "receive",
+    "advice"
+   ],
+   "revised": true,
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "청크에는 body_ok:false 로 실려 있었으나 현재 코퍼스의 지문은 두 단 섞임 없이 온전하다 — 코퍼스 지문에서 인용을 잘라 붙이고 body_recovered 를 표시했다",
+      "인용이 오전·오후 두 줄을 함께 담아 「시각 한 자리만 갈렸다」는 주장이 인용 안에서 검증된다"
+     ],
+     "checked": [
+      "answer_locus.quote 를 corpus.json 의 2018#26 passage 와 문자열 대조 (전각 － 포함 그대로)",
+      "청크 raw_block 의 원문 줄과 코퍼스 지문을 대조해 Daily Schedule 두 줄이 같은지 확인",
+      "why_correct 가 선지 ③ 텍스트('오전에 연습 경기를 실시한다')를 인용하는지 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "오답 넷의 라벨이 주체 역전 · 범위 과소 · 지문 밖 상식 · 어휘 함정 넷으로 갈린다",
+      "불일치 유형이라 오답 넷이 모두 참인 진술이므로 why_tempting 은 「왜 이 참인 선지를 의심하게 되나」로 썼다 — ①은 주최 기관명, ②는 skills test, ④는 참가비 줄, ⑤는 advice 라는 서로 다른 유인을 짚는다"
+     ],
+     "checked": [
+      "오답 4개 trap 라벨 중복 확인",
+      "how_to_reject 네 개에 영어 인용과 칸 이름이 들어 있는지 확인 (첫 문장 · 같은 문장 뒷부분 · Note 둘째 줄 · Note 셋째 줄)",
+      "선지 ①~⑤ 한국어 텍스트와 지문 문장의 대응을 1:1로 확인 (넷이 참, ③만 시간대가 어긋남)"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "초안 4단계를 '시각 → 활동' 순으로 썼다가 뒤집었다 — 그 방향은 두 줄을 다 읽게 만들고, 실제로 학습자가 미끄러지는 지점은 활동명을 찾은 뒤 시각을 안 보는 것이다. '활동 → 시각' 으로 고쳐야 이 문항의 함정 위를 지나간다",
+      "고친 절차로 60초 안에 다섯 선지 대조가 끝난다"
+     ],
+     "checked": [
+      "solve_procedure 5단계를 정답을 모른다고 가정하고 실행 (4단계에서 practice game sessions 를 찾으면 그 줄 앞의 1 p.m. 이 곧바로 읽힌다)",
+      "금지 표현 포함 여부 확인",
+      "required_vocab 5개가 지문에 있는지 문자열 대조 (one-on-one/practice/sessions/receive/advice)"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "M1809#27",
+   "measured_ability": "숫자가 여러 칸에 흩어진 안내문에서, 선지가 요구하는 것이 값 자체인지 값들 사이의 관계(상금의 배수 · 날짜와 요일과 시각의 짝)인지 가려 읽고 그 관계를 계산으로 확인하는 능력",
+   "design_intent": "숫자를 세 칸에 흩뿌려 놓고(상금 세 줄 · 심사 이틀 · 시상식 한 시각) 오답 셋이 그 숫자들을 서로 섞게 만들었다 — 200 대 100 을 세 배로, Judging 의 날짜·요일을 Award ceremony 의 시각에 붙이는 식이다. 정답 ②만 숫자가 없는 칸(Judging Standards)에 있어, 숫자부터 확인하는 습관대로 읽으면 정답 칸이 맨 뒤로 밀린다.",
+   "answer_locus": {
+    "sentence_index": [
+     4
+    ],
+    "quote": "Judging Standards ∙ Use of this year’s “Fantasy” theme ∙ Design originality",
+    "reasoning": "Judging Standards 칸은 심사 기준을 불릿 세 줄로 나열하고 그 둘째 줄이 Design originality 다. 선지 ②는 이 줄이 목록에 있느냐만 묻고 값을 바꾸지 않았으므로, 숫자가 섞인 나머지 칸과 달리 이 한 줄로 확정된다."
+   },
+   "choices": [
+    {
+     "n": 2,
+     "verdict": "correct",
+     "why_correct": "Judging Standards 목록의 둘째 줄 Design originality 가 선지 ②의 '심사 기준 중에 디자인 독창성 항목이 있다' 와 한 낱말씩 대응한다 — 칸 이름 Judging Standards 가 '심사 기준', 줄 내용 Design originality 가 '디자인 독창성' 이다. 선지가 값이 아니라 항목의 존재를 묻고 있으므로 목록에 그 줄이 있다는 것으로 성립한다.",
+     "confirmed_at": {
+      "sentence_index": [
+       4
+      ],
+      "note": "Prizes 와 Contest Schedule 칸은 금액과 날짜만 담아 심사 기준을 정하지 않는다 — 심사 기준은 이 목록 세 줄이 전부다"
+     }
+    },
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "Prizes 칸의 $200 · $100 · $50 이 먼저 눈에 들어오면 돈이 오가는 행사로 읽혀 '참가비가 있다' 가 맞아 보인다. free 라는 낱말이 금액 표기가 아니라 산문 문장 속에 숨어 있는 것도 한몫한다.",
+     "how_to_reject": "둘째 문장 'Participation in the contest is free of charge' 가 참가를 free of charge 로 못박는다 — Prizes 의 금액은 받는 돈이지 내는 돈이 아니다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "범위 과대",
+     "why_tempting": "Prizes 가 First · Second · Third 세 줄이라 '세 배' 라는 말이 줄 수와 겹쳐 그럴듯해지고, 금액을 옮겨 적지 않고 눈으로만 비교하면 배수가 커 보인다.",
+     "how_to_reject": "Prizes 칸의 First place: $200 을 Second place: $100 으로 나누면 2 다 — 두 배이므로 세 배라는 진술은 어긋난다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "부분 사실",
+     "why_tempting": "October 20 · Friday · 5:00 p.m. 이 모두 안내문에 실제로 있는 값이라, 한 줄에서 함께 온 것처럼 읽힌다.",
+     "how_to_reject": "Contest Schedule 칸은 두 줄이다 — October 20 － 21 (Friday & Saturday) 는 Judging 줄이고, at 5:00 p.m. 이 붙은 Award ceremony 줄의 날짜는 October 21 (Saturday) 다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "반대 진술",
+     "why_tempting": "Contest Registration 칸이 짧아 주소만 스치듯 보고 넘기면 등록 창구가 따로 있다고 짐작하게 되어, 이메일을 부정하는 진술을 거르지 못한다.",
+     "how_to_reject": "마지막 줄 'To register your booth, please email the festival manager at mholden@bbcgrff.org.' 가 이메일을 등록 방법으로 지시한다 — 안내문에 다른 등록 창구는 없다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "발문이 '일치하는 것은?' 이므로 답 하나만 지문과 같고 넷은 한 자리씩 갈렸다고 전제하고 시작한다",
+     "on_fail": "'않는' 이 있는지 다시 보고, 없으면 선지 옆에 X 칸을 네 개 그려 둔다"
+    },
+    {
+     "step": "선지를 읽으며 숫자·날짜·요일이 든 선지와 그렇지 않은 선지를 갈라 표시한다 — 숫자 선지는 값 하나가 아니라 값들 사이의 관계(배수 · 날짜와 요일의 짝)를 묻는 경우가 많다",
+     "on_fail": "가르기 어려우면 선지에서 아라비아 숫자와 '배' · '월' · '시' 글자를 찾아 표시한다"
+    },
+    {
+     "step": "숫자 없는 선지부터 처리한다 — 항목 이름(심사 기준 · 등록)을 안내문 소제목에서 찾아 그 목록에 해당 줄이 있는지만 본다",
+     "on_fail": "소제목에 짝이 없으면 도입 두 문장과 맨 끝 줄에서 찾는다"
+    },
+    {
+     "step": "숫자 선지는 값을 줄 이름과 함께 옮겨 적은 뒤 계산한다 — 배수는 나눗셈으로, 날짜는 같은 줄에 적힌 요일과 시각까지 묶어서 확인한다",
+     "on_fail": "값이 여러 줄에 흩어져 있으면 값 옆에 줄 이름(Judging · Award ceremony)을 같이 적어 어느 줄에서 왔는지 남긴다"
+    },
+    {
+     "step": "네 선지에서 어긋난 자리를 하나씩 찾았으면 남은 선지를 답으로 확정한다",
+     "on_fail": "어긋난 자리를 셋밖에 못 찾았으면 아직 안 읽은 칸(Prizes · Contest Registration)을 마저 읽는다"
+    }
+   ],
+   "time_budget_sec": 65,
+   "difficulty": {
+    "predicted": 0.88,
+    "drivers": [
+     "상금 세 줄과 일정 두 줄에 숫자가 흩어져 있어 오답이 값을 서로 섞어 놓기 좋다",
+     "정답 칸(Judging Standards)에는 숫자가 없어 확인 순서에서 뒤로 밀린다",
+     "③은 계산을, ④는 두 줄 대조를 요구해 다른 안내문 문항보다 손이 한 번 더 간다"
+    ]
+   },
+   "required_vocab": [
+    "free of charge",
+    "originality",
+    "ceremony",
+    "register"
+   ],
+   "revised": true,
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "quote 를 코퍼스에서 잘라 붙여 곡선 따옴표와 불릿이 원문 그대로다",
+      "why_correct 가 칸 이름(Judging Standards)과 줄 내용(Design originality)을 각각 선지의 '심사 기준' · '디자인 독창성' 에 붙여 대응이 두 겹으로 확인된다"
+     ],
+     "checked": [
+      "answer_locus.quote 를 corpus.json 의 M1809#27 passage 와 문자열 대조",
+      "선지 ② 텍스트와 why_correct 의 낱말 대응 확인",
+      "정답표(정답 ②)와 correct 판정 일치 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "초안에서 ①을 「반대 진술」로 달았는데 ⑤와 라벨이 겹쳤다. ①의 실제 유인은 free of charge 라는 산문 속 표현을 못 읽고 Prizes 의 금액만 보는 것이므로 「어휘 함정」으로 고쳤고, 부정문을 그대로 뒤집은 ⑤만 「반대 진술」로 남겼다",
+      "고친 뒤 라벨이 어휘 함정 · 범위 과대 · 부분 사실 · 반대 진술 넷으로 갈린다"
+     ],
+     "checked": [
+      "오답 4개 trap 라벨 중복 확인 (고치기 전 2종 겹침 → 고친 뒤 4종)",
+      "how_to_reject 에 계산(200÷100=2)과 줄 이름(Judging · Award ceremony)이 들어 있는지 확인",
+      "why_tempting 이 선지 텍스트에 근거하는지 대조 ('세 배' 는 Prizes 세 줄, '10월 20일 금요일' 은 Judging 줄에서 온 값)"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "2단계에서 숫자 선지와 비숫자 선지를 가르므로, 계산이 필요한 ③④를 뒤로 미루고 ②를 먼저 확인하게 된다 — 정답 칸이 맨 뒤로 밀리는 이 문항의 함정을 절차가 막는다",
+      "계산이 한 번 들어가 다른 안내문 문항보다 5초 더 잡았다"
+     ],
+     "checked": [
+      "solve_procedure 5단계를 정답을 모른다고 가정하고 실행 (3단계에서 ②·⑤가, 4단계에서 ③·④가 처리된다)",
+      "금지 표현 포함 여부 확인",
+      "required_vocab 4개가 지문에 있는지 문자열 대조 (free of charge / originality / ceremony / register)"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "2016#27",
+   "measured_ability": "행사 기간을 적은 Dates 줄과 하루 운영 시각을 적은 Hours 줄을 갈라 읽고, 시작일과 종료일의 월이 같은지를 따져 선지의 기간 표현과 맞추는 능력",
+   "design_intent": "Dates 와 Hours 를 잇달아 붙여 두 범위가 나란히 보이게 해 놓고, 정답 ④에서 기간 단위 한 자리만 한 달에서 두 달로 갈았다. 나머지 넷(20th · famous artists · the first day · Virginia residents)은 안내문 표현을 그대로 옮긴 미끼라, 넷을 확인하는 데 시간을 다 쓰면 정작 계산이 필요한 한 줄을 대충 보게 된다.",
+   "answer_locus": {
+    "sentence_index": [
+     5
+    ],
+    "quote": "Dates: November 1 － 30 ∙ Hours: 10:00 a.m. － 9:00 p.m.",
+    "reasoning": "Dates 줄이 시작과 끝을 같은 달(November)의 1일과 30일로 적어 행사 기간을 한 달로 못박는다. 바로 옆 Hours 줄은 하루 운영 시각이라 기간과 층이 다르고, 안내문 어디에도 November 밖의 날짜가 없어 기간을 늘릴 근거가 없다."
+   },
+   "choices": [
+    {
+     "n": 4,
+     "verdict": "correct",
+     "why_correct": "Dates: November 1 － 30 은 시작과 끝이 같은 달 안에 있어 한 달인데, 선지 ④는 '두 달 동안 열린다' 로 기간 단위 한 자리만 갈아 끼웠다. 바로 옆의 Hours: 10:00 a.m. － 9:00 p.m. 은 하루 운영 시각이라 기간을 두 달로 늘릴 근거가 되지 못한다.",
+     "confirmed_at": {
+      "sentence_index": [
+       5
+      ],
+      "note": "Entrance Fees 의 'one day' 는 입장권 단위(1일권)라 행사 기간과 다른 층이다 — 기간은 Dates 줄에서만 확정된다"
+     }
+    },
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "제목이 Virginia Art Show 2015 라 2015 라는 수가 먼저 읽히고, 회차를 나타내는 20th 는 첫 문장 가운데 묻혀 있어 서수로 안 읽힌다.",
+     "how_to_reject": "첫 문장 'We invite you to join us at the 20th Virginia Art Show' 의 20th 가 스무 번째 회차를 가리킨다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "범위 과대",
+     "why_tempting": "안내문은 Mabel Green · Theresa Peterson · Ronald McKuen 세 사람만 들어서, '유명한 예술가의 작품이 전시된다' 라는 일반 진술이 과장으로 보인다.",
+     "how_to_reject": "둘째 문장 'Works by famous artists such as ... will be displayed' 가 famous artists 를 그대로 쓰고, 세 이름은 such as 로 든 예시다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "지문 밖 상식",
+     "why_tempting": "미술 전시회에 관현악단 공연이 붙는다는 것이 낯설어 Philharmonic 이 든 줄을 장식 문구로 흘려보내기 쉽고, 마지막 문장의 the great music 도 같은 인상을 준다.",
+     "how_to_reject": "셋째 문장 'The Virginia Philharmonic will perform on the first day of the show.' 가 공연 주체와 날짜(the first day)를 함께 적는다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "범위 과소",
+     "why_tempting": "Entrance Fees 칸에 Adults: $15 · Children: $7 가 먼저 적혀 있어 입장이 전부 유료라고 읽으면 무료입장 진술이 틀려 보인다.",
+     "how_to_reject": "Entrance Fees 칸의 마지막 줄이 'Free admission for Virginia residents' 로 주민 예외를 따로 둔다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "발문 끝의 '일치하지 않는 것은?' 을 확인하고 선지 다섯 중 넷은 지문 그대로임을 전제한다",
+     "on_fail": "'않는' 을 놓칠까 싶으면 선지 옆에 O 를 네 개 그려 두고 시작해 X 하나를 찾는다"
+    },
+    {
+     "step": "선지에서 계산이 필요한 것을 먼저 고른다 — 회차(스무 번째)와 기간(두 달)처럼 값 하나가 아니라 두 값의 차이나 서수를 묻는 선지다",
+     "on_fail": "계산할 것이 안 보이면 선지의 고유명사(Virginia Philharmonic · Virginia 주민)를 표시해 찾을 자리를 정한다"
+    },
+    {
+     "step": "계산 선지는 ∙ 가 붙은 항목 줄에서 값을 옮겨 적는다. Dates 와 Hours 는 이름이 다른 줄이므로 섞지 말고 따로 적는다",
+     "on_fail": "항목 이름이 안 보이면 콜론(:) 앞 낱말을 항목 이름으로 삼는다"
+    },
+    {
+     "step": "날짜는 시작과 끝의 '월' 이 같은지부터 본다 — 같은 달 안에서 끝나면 날 수가 아무리 많아도 한 달이다",
+     "on_fail": "끝 날짜에 월이 안 적혀 있으면 앞에 나온 월을 끌어와 붙여 읽는다"
+    },
+    {
+     "step": "나머지 선지는 도입 산문 세 문장(20th · famous artists · the first day)과 Entrance Fees 마지막 줄에서 같은 표현을 찾아 지운다. 끝까지 짝을 못 찾은 선지가 답이다",
+     "on_fail": "두 선지가 남으면 숫자가 든 쪽을 먼저 계산으로 검증한다"
+    }
+   ],
+   "time_budget_sec": 55,
+   "difficulty": {
+    "predicted": 0.94,
+    "drivers": [
+     "Dates 줄과 Hours 줄이 잇달아 놓여 두 범위를 섞기 쉽다",
+     "오답 넷이 안내문 표현을 그대로 옮겨 놓아 대조가 빠르다",
+     "기간 계산이 같은 달 안에서 끝나 나눗셈이나 요일 확인이 필요 없다"
+    ]
+   },
+   "required_vocab": [
+    "displayed",
+    "perform",
+    "admission",
+    "residents"
+   ],
+   "revised": true,
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "초안 인용이 'Dates: November 1 － 30' 뿐이었다 — 정규화하면 22자로 게이트의 짧은 인용 경고선에 붙고, 무엇보다 '옆 줄 Hours 는 기간이 아니다' 라는 배제 논리가 인용 밖으로 나간다. Hours 줄까지 이어 붙여 두 줄이 다른 층임을 인용 안에서 보이게 고쳤다",
+      "고친 인용도 코퍼스 지문에서 이어지는 한 조각이다"
+     ],
+     "checked": [
+      "answer_locus.quote 를 corpus.json 의 2016#27 passage 와 문자열 대조 (전각 － 와 불릿 포함)",
+      "why_correct 가 선지 ④ 텍스트('두 달 동안 열린다')를 인용하는지 확인",
+      "정답표(정답 ④)와 correct 판정 일치 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "오답 넷의 라벨이 어휘 함정 · 범위 과대 · 지문 밖 상식 · 범위 과소 넷으로 갈린다",
+      "불일치 유형이므로 넷 다 참인 진술이고, why_tempting 은 각각 다른 자리에서 나온다 — ①은 제목의 연도, ②는 예시 세 사람, ③은 전시회 통념, ⑤는 바로 위의 유료 금액"
+     ],
+     "checked": [
+      "오답 4개 trap 라벨 중복 확인",
+      "how_to_reject 네 개에 문장 위치(첫째·둘째·셋째 문장 · Entrance Fees 마지막 줄)와 영어 인용이 있는지 확인",
+      "선지 다섯과 지문 문장의 대응을 1:1로 확인 (넷이 참, ④만 기간이 어긋남)"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "2단계가 계산 선지를 먼저 고르게 해서, 대조가 쉬운 넷에 시간을 다 쓰고 기간 줄을 대충 보는 경로를 막는다",
+      "55초면 항목 줄 두 개와 도입 세 문장 확인이 끝난다"
+     ],
+     "checked": [
+      "solve_procedure 5단계를 정답을 모른다고 가정하고 실행 (4단계에서 November 1 과 November 30 의 월이 같음이 바로 나온다)",
+      "금지 표현 포함 여부 확인",
+      "required_vocab 4개가 지문에 있는지 문자열 대조 (displayed/perform/admission/residents)"
+     ]
+    }
+   ]
+  }
+ ],
+ "type_report": {
+  "type_id": "R-NOTICE",
+  "n_analyzed": 4,
+  "recurring_traps": [
+   {
+    "trap": "범위 과대",
+    "count": 3,
+    "signature": "값을 실제보다 크게 잡는다 — 하루 일정을 이틀로(M2106#28 ①), 두 배 상금을 세 배로(M1809#27 ③), 예시 세 사람을 「유명 예술가 일반」보다 좁게 보아 일반 진술을 과장으로 의심(2016#27 ②)"
+   },
+   {
+    "trap": "범위 과소",
+    "count": 3,
+    "signature": "or 나 all 로 열린 것을 한쪽으로 닫는다 — Call or email 을 이메일만으로(M2106#28 ③), participants 를 skills test 합격자로(2018#26 ②), Entrance Fees 를 전원 유료로(2016#27 ⑤)"
+   },
+   {
+    "trap": "지문 밖 상식",
+    "count": 3,
+    "signature": "안내문 관행으로 판정하고 해당 줄을 안 찾는다 — 준비물은 참가자 몫(M2106#28 ④), 참가비 낸 물품은 대여(2018#26 ④), 미술 전시회에 관현악 공연은 없다(2016#27 ③)"
+   },
+   {
+    "trap": "어휘 함정",
+    "count": 3,
+    "signature": "결정적 낱말이 숫자 옆 산문에 숨는다 — free of charge(M1809#27 ①), visit(2018#26 ⑤), 20th(2016#27 ①). 셋 다 옆에 굵은 숫자가 있어 눈이 그쪽으로 끌린다"
+   },
+   {
+    "trap": "반대 진술",
+    "count": 2,
+    "signature": "부정 표지를 흘리면 선지의 단정문이 그대로 참이 된다 — (insurance not included)(M2106#28 ②), please email 을 「이메일로는 안 받는다」로(M1809#27 ⑤)"
+   },
+   {
+    "trap": "부분 사실",
+    "count": 1,
+    "signature": "한 칸의 두 줄에서 값을 하나씩 떼어 와 섞는다 — Judging 줄의 October 20 (Friday) 와 Award ceremony 줄의 5:00 p.m.(M1809#27 ④)"
+   },
+   {
+    "trap": "주체 역전",
+    "count": 1,
+    "signature": "주최 기관명을 참가 대상으로 옮겨 읽는다 — College Volleyball League 가 여는 high school students 캠프(2018#26 ①)"
+   }
+  ],
+  "answer_locus_pattern": "4문항 4개 모두 ∙ 불릿이나 소제목이 붙은 **항목 줄**에서 확정된다(You will learn 마지막 불릿 · Daily Schedule 두 줄 · Judging Standards 둘째 불릿 · Dates 줄). 도입 산문 단락이 정답 근거였던 경우는 0/4 이고, 도입 산문은 오답의 재료로만 쓰였다 — 오답 16개 중 6개가 도입 산문에서 왔다(2018#26 ①②, M1809#27 ①, 2016#27 ①②③). 그리고 정답 근거 줄은 네 문항 모두 안내문의 아래쪽 절반이나 목록 안에 있어, 굵은 소제목만 훑는 습관으로는 닿지 않는다.",
+  "procedure": [
+   {
+    "step": "발문 끝이 '일치하는' 인지 '일치하지 않는' 인지에 먼저 표시한다 — 이 청크 4문항이 2:2로 갈린다(M2106#28·M1809#27 은 일치, 2018#26·2016#27 은 불일치). 방향을 놓치면 참인 선지 넷 중 하나를 고르게 된다",
+    "on_fail": "선지 옆에 찾는 표시를 미리 그린다 — 일치 문항이면 O 하나, 불일치 문항이면 X 하나를 찾는 것이다"
+   },
+   {
+    "step": "안내문을 보기 전에 선지 다섯을 읽고 각 선지가 묻는 항목을 한 낱말로 여백에 적는다(기간 · 참가비 · 등록 · 식사 · 학습 내용 식으로)",
+    "on_fail": "항목 이름이 안 뽑히면 선지의 명사와 숫자에만 밑줄을 친다"
+   },
+   {
+    "step": "선지를 두 무리로 가른다 — 값 하나만 보면 되는 선지(항목이 있나·물품을 받나)와 값들 사이의 관계를 계산해야 하는 선지(배수 · 기간 · 날짜와 요일의 짝). 값 선지를 먼저 처리해 시간을 남긴다",
+    "on_fail": "가르기 어려우면 선지에서 아라비아 숫자와 '배' · '월' · '시' 글자를 찾아 계산 무리로 보낸다"
+   },
+   {
+    "step": "안내문의 소제목만 훑어 2단계 항목과 짝짓고, 짝지은 줄만 읽는다. 같은 칸에 줄이 둘이면(Daily Schedule 오전·오후, Contest Schedule 심사·시상식) 두 줄을 반드시 함께 옮겨 적는다",
+    "on_fail": "짝이 없는 선지는 뒤로 미루고 마지막에 도입 산문과 괄호·부속 줄에서 찾는다"
+   },
+   {
+    "step": "시각·활동이 붙은 칸은 '활동 → 시각' 방향으로 되짚는다. 선지의 활동명을 지문에서 먼저 찾고, 그 줄 맨 앞의 시각을 읽어 선지와 맞춘다",
+    "on_fail": "같은 활동명이 두 줄에 나오면 두 줄의 시각을 나란히 적어 어느 줄에서 왔는지 확정한다"
+   },
+   {
+    "step": "괄호 · 부속 줄 · 목록 맨 마지막 불릿을 반드시 훑는다 — 이 청크의 정답 근거가 거기 있는 문항이 4개 중 2개다(You will learn 마지막 불릿, Free admission 줄은 오답 ⑤의 근거). 부정어 not 과 접속사 or 도 이 자리에 숨는다",
+    "on_fail": "시간이 없으면 아직 표시를 못 적은 선지가 가리키는 칸만 확인한다"
+   },
+   {
+    "step": "찾는 표시(일치면 O, 불일치면 X)가 하나 나오면 확정하고 나머지를 검산하지 않는다",
+    "on_fail": "둘 이상 남으면 계산 무리로 보냈던 선지를 나눗셈·월 대조로 다시 본다"
+   }
+  ],
+  "failure_modes": [
+   "발문 방향 혼동 — 같은 회차에서 '일치하는 것'과 '일치하지 않는 것'이 26·27번으로 나란히 나온다. 앞 문항 방식대로 풀면 정답의 반대편을 고른다",
+   "항목 이름만 맞추고 값을 안 본다 — 선지의 활동명(연습 경기)이 지문에 있다는 것만 확인하고 그 앞의 시간대를 안 읽는 경로가 2018#26 의 정답 자리다",
+   "값 하나가 맞으면 통과시킨다 — 상금 금액은 맞는데 배수가 틀리고(M1809#27 ③), 날짜와 시각은 각각 맞는데 서로 다른 줄에서 왔다(M1809#27 ④)",
+   "기간과 시각을 같은 층으로 읽는다 — Dates 줄과 Hours 줄이 잇달아 놓이면 하루 운영 시각이 기간 판단에 섞인다(2016#27)",
+   "괄호 한 낱말을 건너뛴다 — (insurance not included) 의 not, Call ~ or email 의 or 처럼 오답의 전부가 낱말 하나인데 소제목만 훑는 습관으로는 닿지 않는다",
+   "넷을 확인하다 시간 초과 — 오답 넷이 지문 표현 그대로라 확인이 잘 되고, 그 확인감 때문에 정작 계산이 필요한 한 줄을 마지막에 대충 본다"
+  ],
+  "time_budget_sec": 60,
+  "open_questions": [
+   "_PROMPT §1-c 는 R-NOTICE 정답 선지가 「성분을 딱 하나만 갈아 끼운다」(10/10)고 적는데, 그 명제는 발문이 「일치하지 않는 것」일 때의 것이다. 이 청크 4문항 중 2문항(M2106#28 · M1809#27)이 「일치하는 것」 발문이라 명제가 뒤집힌다 — 그 2문항에서는 정답이 지문 그대로이고 **오답 8개가** 각각 한 성분만 갈렸다(8/8). 표를 발문 방향별로 갈라야 하는지 다음 청크가 판단할 것",
+   "「정답 근거가 도입 산문에 없다(0/4)」는 표본 4로는 유형 명제로 올리기 이르다. R-NOTICE 사정권 57문항을 분모로 확인이 필요하다",
+   "선지 번호 분포는 유형 전체 실측(keyed 57 · ①0 ②6 ③17 ④18 ⑤16)을 쓴다. ①이 0회인 것은 눈에 띄지만 이 저장소의 Bonferroni 문턱(가족 130 · 3.85e-4)을 넘는지 계산하지 않았으므로 절차에 넣지 않았다 — 다음 청크가 계산하기 전까지는 사실로 쓰지 말 것",
+   "반려는 4문항에서 4건 나왔다(라벨 중복 2 · 절차 방향 1 · 인용 범위 1). 세 페르소나가 서로 다른 것을 잡았으므로(analyst 2 · tutor 1 · setter 1) 자를 고칠 필요는 없어 보이나, 안내문 유형은 setter 가 잡을 거리(인용·대응)가 구조적으로 적다"
+  ]
+ }
+}

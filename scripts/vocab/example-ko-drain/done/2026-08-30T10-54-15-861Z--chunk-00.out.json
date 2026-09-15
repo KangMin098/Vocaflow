@@ -1,0 +1,3907 @@
+{
+  "chunk": 0,
+  "generatedAt": "2026-08-30T10:50:58.744Z",
+  "instruction": "examples_ko 를 examples 와 **같은 길이**로 채운다. 한 문장에 한 줄. 직역이 아니라 학습자가 읽을 자연스러운 한국어로 쓰되, 표제어의 그 뜻(sense_ko)이 문장에서 어떻게 쓰였는지 드러나게 옮긴다. 빈 문자열을 넣지 않는다 — 넣으면 import 가 건너뛰고 그 자리는 영영 구멍으로 남는다.",
+  "items": [
+    {
+      "target": "top",
+      "word": "deadlock",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "교착 상태 — 힘이 팽팽해 한 발도 나아가지 못하는 대치",
+      "examples": [
+        "The negotiations reached a deadlock over the issue of wages."
+      ],
+      "examples_ko": [
+        "그 협상은 임금 문제를 두고 교착 상태에 빠졌다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deadly",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "치명적인, 죽음의",
+      "examples": [
+        "The cobra delivered a deadly bite that killed the small rodent instantly."
+      ],
+      "examples_ko": [
+        "그 코브라가 물자 작은 설치류는 그 자리에서 즉사했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deaf",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "귀가 안 들리는, 청각 장애가 있는",
+      "examples": [
+        "The school offers special programs for deaf students."
+      ],
+      "examples_ko": [
+        "그 학교는 청각 장애 학생을 위한 특별 과정을 운영한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deaf-blind",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "시청각 장애의, 보지도 듣지도 못하는",
+      "examples": [
+        "The school has specially trained teachers for deaf-blind children."
+      ],
+      "examples_ko": [
+        "그 학교에는 시청각 장애 아동을 위해 특별히 훈련된 교사들이 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deafness",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "난청, 청각장애",
+      "examples": [
+        "Her gradual deafness made it harder to follow group conversations."
+      ],
+      "examples_ko": [
+        "청력이 차츰 떨어지면서 그녀는 여럿이 나누는 대화를 따라가기가 힘들어졌다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deal",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "거래; 다량",
+      "examples": [
+        "We made a great deal on the used car last weekend."
+      ],
+      "examples_ko": [
+        "우리는 지난 주말에 중고차를 아주 좋은 조건에 샀다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "dealer",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "판매업자",
+      "examples": [
+        "The car dealer offered a great discount on the new model."
+      ],
+      "examples_ko": [
+        "그 자동차 판매원은 신형 모델을 크게 할인해 주겠다고 했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "dealership",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "대리점 (특정 회사 제품을 판매하는 인가 매장, 특히 자동차); 판매 대리권",
+      "examples": [
+        "He bought his new car from a local Toyota dealership."
+      ],
+      "examples_ko": [
+        "그는 동네 도요타 대리점에서 새 차를 샀다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "dean",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(대학) 학장, 단과대학 책임자",
+      "examples": [
+        "She was appointed dean of the medical school last year."
+      ],
+      "examples_ko": [
+        "그녀는 지난해 의과대학 학장으로 임명되었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "dear",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "친애하는, 소중한; 비싼",
+      "examples": [
+        "She wrote a letter to her dear friend who had moved abroad."
+      ],
+      "examples_ko": [
+        "그녀는 외국으로 떠난 소중한 친구에게 편지를 썼다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "dearest",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "가장 사랑하는 (dear의 최상급)",
+      "examples": [
+        "She wrote a long letter to her dearest friend far away."
+      ],
+      "examples_ko": [
+        "그녀는 멀리 있는 가장 소중한 친구에게 긴 편지를 썼다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "dearly",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "몹시, 진심으로",
+      "examples": [
+        "I loved my grandmother dearly."
+      ],
+      "examples_ko": [
+        "나는 할머니를 무척 사랑했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "death",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "죽음",
+      "examples": [
+        "The death of a loved one is always a painful experience."
+      ],
+      "examples_ko": [
+        "사랑하는 사람의 죽음은 언제나 가슴 아픈 일이다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "debacle",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "대실패, 큰 낭패, 갑작스럽고 완전한 실패 (프랑스어 차용어)",
+      "examples": [
+        "The product launch turned into a complete debacle when the website crashed."
+      ],
+      "examples_ko": [
+        "웹사이트가 다운되면서 그 제품 출시는 완전한 낭패로 끝났다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "debatable",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "논쟁의 여지가 있는, 의문스러운",
+      "examples": [
+        "Whether the new policy actually helps small businesses is highly debatable."
+      ],
+      "examples_ko": [
+        "그 새 정책이 정말 소상공인에게 도움이 되는지는 논란의 여지가 크다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "debate",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "토론, 논쟁",
+      "examples": [
+        "The presidential debate sparked heated discussion across the entire country."
+      ],
+      "examples_ko": [
+        "그 대통령 후보 토론은 전국에서 뜨거운 논쟁을 불러일으켰다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "debenture",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(금융) 사채, 회사채 (담보 없이 회사가 발행하는 장기 채권)",
+      "examples": [
+        "The company raised funds by issuing a long-term debenture to investors."
+      ],
+      "examples_ko": [
+        "그 회사는 투자자들에게 장기 사채를 발행해 자금을 모았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "debt",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "빚; 부채",
+      "examples": [
+        "He worked hard for years to pay off his student debt."
+      ],
+      "examples_ko": [
+        "그는 학자금 빚을 갚으려고 여러 해 열심히 일했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "debuff",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "디버프, 약화 효과",
+      "examples": [
+        "The spell put a slow debuff on the enemy."
+      ],
+      "examples_ko": [
+        "그 주문은 적에게 이동 속도가 느려지는 약화 효과를 걸었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "decade",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "10년, 십년",
+      "examples": [
+        "The company has grown significantly over the past decade."
+      ],
+      "examples_ko": [
+        "그 회사는 지난 십 년 사이 크게 성장했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "decaffeinated",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "카페인을 제거한, 디카페인의",
+      "examples": [
+        "He drinks decaffeinated coffee after six in the evening."
+      ],
+      "examples_ko": [
+        "그는 저녁 여섯 시가 지나면 카페인을 뺀 커피를 마신다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "decay",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "썩다, 부패하다",
+      "examples": [
+        "The fallen leaves slowly decayed on the ground."
+      ],
+      "examples_ko": [
+        "떨어진 잎들이 땅에서 천천히 썩어 갔다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deceased",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "사망한, 고인의",
+      "examples": [
+        "The lawyer read out the last wishes of the deceased man to his family."
+      ],
+      "examples_ko": [
+        "변호사는 고인의 유언을 가족들에게 읽어 주었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deceit",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "기만, 속임수, 거짓으로 사람을 속이는 행위",
+      "examples": [
+        "He was accused of practicing deceit to obtain money from elderly clients."
+      ],
+      "examples_ko": [
+        "그는 나이 든 고객들에게서 돈을 받아 내려고 속임수를 썼다는 혐의를 받았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deceitful",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "기만적인, 사람을 속이려 드는, 거짓된",
+      "examples": [
+        "His deceitful behaviour eventually destroyed the friendship."
+      ],
+      "examples_ko": [
+        "그의 기만적인 행동이 결국 그 우정을 무너뜨렸다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deceive",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "속이다, 기만하다",
+      "examples": [
+        "He would never deceive his closest friends about something so important."
+      ],
+      "examples_ko": [
+        "그는 그렇게 중요한 일로 가장 가까운 친구들을 속일 사람이 아니다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "decelerate",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "움직이거나 진행되는 속도가 느려지다, 또는 느리게 만들다",
+      "examples": [
+        "The driver decelerated as he approached the school zone."
+      ],
+      "examples_ko": [
+        "그 운전자는 어린이 보호 구역에 다가서며 속도를 줄였다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "decent",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "괜찮은, 적당한",
+      "examples": [
+        "He earns a decent salary working at the new tech company."
+      ],
+      "examples_ko": [
+        "그는 새로 생긴 기술 회사에서 일하며 괜찮은 월급을 번다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "decentralize",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "중앙 집중된 권한·기능을 여러 지역·단위로 분산시키다",
+      "examples": [
+        "The company decided to decentralize decision-making to local branches."
+      ],
+      "examples_ko": [
+        "그 회사는 의사 결정 권한을 각 지점으로 분산하기로 했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deception",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "기만",
+      "examples": [
+        "The whole scheme was based on deception and false promises to investors."
+      ],
+      "examples_ko": [
+        "그 계획 전체가 투자자들을 향한 기만과 헛된 약속 위에 세워져 있었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deceptive",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "속이는, 보이는 것과 실제가 다른, 현혹시키는",
+      "examples": [
+        "The calm surface of the lake was deceptive—strong currents lurked below."
+      ],
+      "examples_ko": [
+        "잔잔해 보이던 호수 표면은 속임수였다 — 아래에는 거센 물살이 도사리고 있었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "decide",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "결정하다",
+      "examples": [
+        "I decided to take the job offer."
+      ],
+      "examples_ko": [
+        "나는 그 일자리 제안을 받아들이기로 했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "decidedly",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "확실히, 단연코, 의심할 여지 없이",
+      "examples": [
+        "The weather this week has been decidedly colder than last year."
+      ],
+      "examples_ko": [
+        "이번 주 날씨는 작년보다 확실히 더 춥다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deciduous",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "낙엽성의, 해마다 잎이 지는 (상록수 evergreen의 반대)",
+      "examples": [
+        "Oaks and maples are deciduous trees that lose their leaves each autumn."
+      ],
+      "examples_ko": [
+        "참나무와 단풍나무는 가을마다 잎을 떨구는 낙엽수다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "decipher",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(암호·부호를) 해독하다",
+      "examples": [
+        "It took years for scholars to decipher the ancient inscription."
+      ],
+      "examples_ko": [
+        "학자들이 그 고대 비문을 해독하는 데 여러 해가 걸렸다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "decision",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "결정",
+      "examples": [
+        "It was a difficult decision to leave her job and start a business."
+      ],
+      "examples_ko": [
+        "직장을 그만두고 사업을 시작하는 것은 어려운 결정이었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "decisive",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "결정적인, 중대한",
+      "examples": [
+        "Her decisive action saved the company from collapse."
+      ],
+      "examples_ko": [
+        "그녀의 과감한 조치가 회사를 붕괴에서 구했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deck",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(배의) 갑판; (버스·건물의) 층",
+      "examples": [
+        "We enjoyed our morning coffee on the upper deck while watching the dolphins swim."
+      ],
+      "examples_ko": [
+        "우리는 돌고래가 헤엄치는 것을 보며 상갑판에서 아침 커피를 즐겼다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deckchair",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "갑판 의자, 천을 씌운 접이식 야외 의자",
+      "examples": [
+        "He stretched out on a deckchair and watched the waves."
+      ],
+      "examples_ko": [
+        "그는 접이식 의자에 길게 누워 파도를 바라보았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deckhand",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "갑판원, 일반 선원 (배의 갑판 작업을 맡는 비전문 선원)",
+      "examples": [
+        "The young deckhand coiled the heavy ropes."
+      ],
+      "examples_ko": [
+        "그 젊은 갑판원이 무거운 밧줄을 사려 감았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "decking",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "덱, 데크 바닥재 (정원·옥상에 까는 목재 바닥, 또는 그 자재)",
+      "examples": [
+        "They built a wooden decking in the back garden."
+      ],
+      "examples_ko": [
+        "그들은 뒤뜰에 나무 데크를 깔았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "declaration",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "선언, 발표",
+      "examples": [
+        "The president made a formal declaration of independence on national television."
+      ],
+      "examples_ko": [
+        "대통령은 전국 방송에서 독립을 공식 선언했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "declare",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "선언하다, 발표하다",
+      "examples": [
+        "The president declared a state of emergency."
+      ],
+      "examples_ko": [
+        "대통령은 비상사태를 선포했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "decline",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "감소, 하락",
+      "examples": [
+        "There has been a sharp decline in sales over the past year."
+      ],
+      "examples_ko": [
+        "지난 한 해 사이 매출이 가파르게 줄었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "decode",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "암호·부호화된 정보를 원래 형태로 풀다, 복호화하다",
+      "examples": [
+        "The software can decode encrypted messages in real time."
+      ],
+      "examples_ko": [
+        "그 소프트웨어는 암호화된 메시지를 실시간으로 풀어낼 수 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "decompose",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(유기물이) 썩다, 부패하다",
+      "examples": [
+        "Fallen leaves slowly decompose into rich, dark soil."
+      ],
+      "examples_ko": [
+        "떨어진 잎들이 천천히 썩어 기름진 검은 흙이 된다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deconstruct",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(텍스트·개념을) 해체하여 비판적으로 분석하다",
+      "examples": [
+        "The critic deconstructed the novel to reveal its hidden assumptions."
+      ],
+      "examples_ko": [
+        "그 평론가는 그 소설을 해체해 숨은 전제들을 드러냈다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "decor",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "장식",
+      "examples": [
+        "The restaurant's modern decor attracts a younger crowd."
+      ],
+      "examples_ko": [
+        "그 식당의 현대적인 실내 장식이 젊은 손님들을 끌어들인다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "decorate",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "장식하다, 꾸미다",
+      "examples": [
+        "They decorated the room for the party."
+      ],
+      "examples_ko": [
+        "그들은 파티를 위해 방을 꾸몄다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "decoration",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "장식, 꾸밈",
+      "examples": [
+        "The Christmas decoration on the front door looked festive and welcoming."
+      ],
+      "examples_ko": [
+        "현관문에 걸린 크리스마스 장식이 흥겹고 반가워 보였다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "decorative",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "장식의, 장식용의",
+      "examples": [
+        "She added decorative cushions to brighten up the sofa."
+      ],
+      "examples_ko": [
+        "그녀는 소파를 화사하게 하려고 장식용 쿠션을 놓았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "decrease",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "감소하다, 줄다",
+      "examples": [
+        "Sales tend to decrease sharply after the holiday season ends."
+      ],
+      "examples_ko": [
+        "연휴가 끝나면 매출이 가파르게 줄곤 한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "decree",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "법령, 포고; (법) 판결",
+      "examples": [
+        "The king issued a decree banning all public gatherings."
+      ],
+      "examples_ko": [
+        "그 왕은 모든 집회를 금지하는 칙령을 내렸다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "dedicate",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(시간·노력을) 어떤 일에 쏟다",
+      "examples": [
+        "She decided to dedicate her career to helping refugees."
+      ],
+      "examples_ko": [
+        "그녀는 난민을 돕는 일에 자기 경력을 바치기로 했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deduce",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "추론하다, 연역하다",
+      "examples": [
+        "From the clues, the detective was able to deduce the killer's identity."
+      ],
+      "examples_ko": [
+        "그 형사는 단서들로부터 범인의 정체를 추론해 낼 수 있었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deduct",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(금액을) 공제하다, 차감하다",
+      "examples": [
+        "Taxes are deducted automatically from your salary."
+      ],
+      "examples_ko": [
+        "세금은 급여에서 자동으로 공제된다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deduction",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "추론, 추리",
+      "examples": [
+        "His clever deduction quickly led the detectives straight to the suspect."
+      ],
+      "examples_ko": [
+        "그의 영리한 추론이 형사들을 곧바로 용의자에게 이끌었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deed",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "행위, 행동 (good deed 선행)",
+      "examples": [
+        "His brave deed during the fire saved the lives of three young children."
+      ],
+      "examples_ko": [
+        "화재 때 보인 그의 용감한 행동이 어린아이 셋의 목숨을 구했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deem",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "여기다, 간주하다",
+      "examples": [
+        "The committee deemed the proposal worthy of further consideration."
+      ],
+      "examples_ko": [
+        "위원회는 그 제안이 더 검토할 만하다고 판단했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deep",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "깊은",
+      "examples": [
+        "The lake was so deep that they could not see the bottom."
+      ],
+      "examples_ko": [
+        "그 호수는 너무 깊어서 바닥이 보이지 않았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deeply",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "깊이, 깊게",
+      "examples": [
+        "She was deeply moved by the emotional speech."
+      ],
+      "examples_ko": [
+        "그녀는 그 감동적인 연설에 깊이 마음이 움직였다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deer",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "사슴",
+      "examples": [
+        "A young deer wandered out of the forest at dusk."
+      ],
+      "examples_ko": [
+        "어린 사슴 한 마리가 해 질 녘에 숲에서 나왔다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "default",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "기본값, 디폴트",
+      "examples": [
+        "The software's default settings work well for most users without any modification needed."
+      ],
+      "examples_ko": [
+        "그 소프트웨어의 기본 설정은 대부분의 사용자에게 손댈 것 없이 잘 맞는다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "defeat",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "패배",
+      "examples": [
+        "The team suffered a crushing defeat in the championship final last weekend."
+      ],
+      "examples_ko": [
+        "그 팀은 지난 주말 결승전에서 참패했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "defect",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "결함, 결점",
+      "examples": [
+        "We discovered a small defect in the new design."
+      ],
+      "examples_ko": [
+        "우리는 새 설계에서 작은 결함을 발견했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "defence",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "방어, 수비",
+      "examples": [
+        "The country spends a lot on national defence."
+      ],
+      "examples_ko": [
+        "그 나라는 국방에 많은 돈을 쓴다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "defend",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "방어하다; 지키다",
+      "examples": [
+        "The soldiers fought to defend their country."
+      ],
+      "examples_ko": [
+        "병사들은 조국을 지키려고 싸웠다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "defendant",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "피고, 피고인",
+      "examples": [
+        "The defendant pleaded not guilty to all the charges."
+      ],
+      "examples_ko": [
+        "그 피고인은 모든 혐의에 대해 무죄를 주장했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "defender",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "수비수",
+      "examples": [
+        "The tall defender blocked the shot just before it reached the goal."
+      ],
+      "examples_ko": [
+        "키 큰 수비수가 골문에 닿기 직전에 슛을 막아 냈다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "defense",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "방어, 수비",
+      "examples": [
+        "The country spent billions on national defense."
+      ],
+      "examples_ko": [
+        "그 나라는 국방에 수십억을 썼다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "defer",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "연기하다, 미루다",
+      "examples": [
+        "They decided to defer the meeting until next week."
+      ],
+      "examples_ko": [
+        "그들은 그 회의를 다음 주로 미루기로 했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "defibrillator",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "제세동기 (심장에 전기 충격을 주어 정상 박동을 회복시키는 의료 기기)",
+      "examples": [
+        "A defibrillator was installed in the lobby in case of emergencies."
+      ],
+      "examples_ko": [
+        "응급 상황에 대비해 로비에 제세동기를 설치했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deficiency",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "결핍",
+      "examples": [
+        "A vitamin D deficiency can cause weak bones and frequent fatigue."
+      ],
+      "examples_ko": [
+        "비타민 D가 모자라면 뼈가 약해지고 자주 피로할 수 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deficient",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": null,
+      "examples": [
+        "The soil here is deficient in iron, so very little grows."
+      ],
+      "examples_ko": [
+        "이곳 흙은 철분이 모자라서 자라는 것이 거의 없다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deficit",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "적자",
+      "examples": [
+        "The country is facing a huge budget deficit this year."
+      ],
+      "examples_ko": [
+        "그 나라는 올해 막대한 재정 적자를 맞고 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "define",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "정의하다, 규정하다",
+      "examples": [
+        "Can you define the word 'sustainability'?"
+      ],
+      "examples_ko": [
+        "'지속가능성'이라는 낱말을 정의해 볼 수 있나요?"
+      ]
+    },
+    {
+      "target": "top",
+      "word": "defining",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "결정적인, 본질을 규정하는",
+      "examples": [
+        "That moment was a defining experience that shaped the rest of her life."
+      ],
+      "examples_ko": [
+        "그 순간은 그녀의 남은 삶을 빚어 놓은 결정적인 경험이었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "definite",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "확실한, 분명한, 명확한",
+      "examples": [
+        "There is no definite answer to that question yet."
+      ],
+      "examples_ko": [
+        "그 질문에는 아직 확실한 답이 없다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "definitely",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "확실히, 분명히",
+      "examples": [
+        "This is definitely the best meal I have eaten all week, perhaps even all month."
+      ],
+      "examples_ko": [
+        "이건 이번 주, 어쩌면 이번 달 통틀어 내가 먹은 가장 좋은 식사다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "definition",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "정의",
+      "examples": [
+        "Look up the definition of this word in the dictionary."
+      ],
+      "examples_ko": [
+        "이 낱말의 뜻을 사전에서 찾아보아라."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "definitive",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "더 이상 반박할 수 없는, 결정적인",
+      "examples": [
+        "This biography is widely regarded as the definitive account of his life."
+      ],
+      "examples_ko": [
+        "그 전기는 그의 생애를 다룬 결정판으로 널리 평가받는다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deflate",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(공·타이어 등의) 바람·공기를 빼다",
+      "examples": [
+        "His harsh criticism quickly deflated her enthusiasm."
+      ],
+      "examples_ko": [
+        "그의 모진 비판이 그녀의 열의를 단번에 꺾어 놓았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deflect",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "날아오는 물체의 방향을 비껴 가게 하다",
+      "examples": [
+        "The goalkeeper deflected the shot away from the net."
+      ],
+      "examples_ko": [
+        "골키퍼가 슛을 골문 밖으로 쳐 냈다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deforestation",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "삼림 벌채, 산림 파괴",
+      "examples": [
+        "Widespread deforestation in the Amazon threatens countless species."
+      ],
+      "examples_ko": [
+        "아마존의 광범위한 삼림 파괴가 무수한 종을 위협하고 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deform",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "본래의 모양을 일그러뜨리다, 형태를 망가뜨리다",
+      "examples": [
+        "Extreme heat can deform plastic containers."
+      ],
+      "examples_ko": [
+        "심한 열은 플라스틱 용기를 일그러뜨릴 수 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "defy",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "반항하다, 거역하다",
+      "examples": [
+        "The acrobat seemed to defy gravity with every leap."
+      ],
+      "examples_ko": [
+        "그 곡예사는 뛸 때마다 중력을 거스르는 듯했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "degenerate",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "퇴화하다, 타락하다",
+      "examples": [
+        "The polite debate began to degenerate into shouting."
+      ],
+      "examples_ko": [
+        "점잖던 논쟁이 고함으로 변질되기 시작했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "degrade",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "품위를 떨어뜨리다; 분해되다",
+      "examples": [
+        "Plastic bottles take centuries to degrade in the environment."
+      ],
+      "examples_ko": [
+        "플라스틱 병은 자연에서 분해되는 데 수백 년이 걸린다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "degree",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "정도, 등급",
+      "examples": [
+        "The success of the event depends to a large degree on the weather."
+      ],
+      "examples_ko": [
+        "그 행사의 성패는 상당 부분 날씨에 달려 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "dehydrate",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "탈수시키다, 수분을 제거하다 (식품 건조 또는 신체 탈수)",
+      "examples": [
+        "Heat and sweat can quickly dehydrate the body."
+      ],
+      "examples_ko": [
+        "더위와 땀은 몸을 빠르게 탈수시킬 수 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "delay",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "지연, 미룸",
+      "examples": [
+        "The meeting was delayed by an hour."
+      ],
+      "examples_ko": [
+        "그 회의는 한 시간 늦춰졌다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "delegate",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "대표, 대의원",
+      "examples": [
+        "Each delegate received a copy of the conference agenda."
+      ],
+      "examples_ko": [
+        "대표단은 각자 회의 안건 사본을 받았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "delete",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "삭제하다, 지우다",
+      "examples": [
+        "Please delete any old files you no longer need from the drive."
+      ],
+      "examples_ko": [
+        "이제 필요 없는 옛 파일은 드라이브에서 지워 주세요."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deletion",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "삭제, 말소",
+      "examples": [
+        "The accidental deletion of the file caused hours of extra work."
+      ],
+      "examples_ko": [
+        "실수로 그 파일을 지우는 바람에 몇 시간을 더 일해야 했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deli",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "조제 식품점, 델리",
+      "examples": [
+        "We grabbed sandwiches at the deli on the corner."
+      ],
+      "examples_ko": [
+        "우리는 모퉁이 델리에서 샌드위치를 사 왔다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deliberate",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "고의적인, 의도적인",
+      "examples": [
+        "The damage to the painting was clearly deliberate, not an accident."
+      ],
+      "examples_ko": [
+        "그 그림의 훼손은 사고가 아니라 명백히 고의였다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deliberation",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": null,
+      "examples": [
+        "After long deliberation, the jury reached a verdict."
+      ],
+      "examples_ko": [
+        "오랜 숙의 끝에 배심원단이 평결에 이르렀다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "delicate",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "부서지기 쉬운, 연약한",
+      "examples": [
+        "The delicate fabric must be washed by hand."
+      ],
+      "examples_ko": [
+        "그 섬세한 옷감은 손으로 빨아야 한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "delicatessen",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "조제 식품점, 델리카트슨",
+      "examples": [
+        "We bought sliced ham and olives from the delicatessen on the corner."
+      ],
+      "examples_ko": [
+        "우리는 모퉁이 델리카트슨에서 슬라이스 햄과 올리브를 샀다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "delicious",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "맛있는",
+      "examples": [
+        "The soup was absolutely delicious and I asked for a second bowl."
+      ],
+      "examples_ko": [
+        "그 수프가 정말 맛있어서 나는 한 그릇 더 달라고 했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "delight",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "기쁨, 즐거움",
+      "examples": [
+        "To my delight, the package finally arrived."
+      ],
+      "examples_ko": [
+        "기쁘게도 그 소포가 드디어 도착했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "delighted",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "기쁜, 즐거운",
+      "examples": [
+        "She was absolutely delighted to receive the job offer from her dream company."
+      ],
+      "examples_ko": [
+        "그녀는 꿈꾸던 회사에서 입사 제안을 받고 무척 기뻐했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "delightful",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "매우 즐거운, 기쁜",
+      "examples": [
+        "We had a delightful dinner together."
+      ],
+      "examples_ko": [
+        "우리는 함께 즐거운 저녁 식사를 했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "delineate",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "세부 사항을 상세히 설명·묘사하다",
+      "examples": [
+        "The contract clearly delineates the responsibilities of each party."
+      ],
+      "examples_ko": [
+        "그 계약서는 양측의 책임을 분명하게 규정한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deliver",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "배달하다",
+      "examples": [
+        "The package was delivered to my door this morning."
+      ],
+      "examples_ko": [
+        "그 소포는 오늘 아침 우리 집 문 앞에 배달되었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "delivery",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "배달; 전달",
+      "examples": [
+        "The delivery of your new sofa is scheduled for Friday morning."
+      ],
+      "examples_ko": [
+        "새 소파 배송은 금요일 오전으로 잡혀 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "delta",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(지리) 삼각주 — 강 하구에 퇴적물이 쌓여 생긴 평탄한 지형",
+      "examples": [
+        "The Nile delta is one of the most fertile regions in northern Africa."
+      ],
+      "examples_ko": [
+        "나일강 삼각주는 북아프리카에서 가장 기름진 지역 가운데 하나다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "delude",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "현혹시키다, 그릇된 믿음에 빠지게 하다 (delude oneself 자기 자신을 속이다)",
+      "examples": [
+        "Don't delude yourself into thinking the problem will disappear."
+      ],
+      "examples_ko": [
+        "그 문제가 저절로 사라지리라고 스스로를 속이지 마라."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "delusion",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "망상, 착각, 잘못된 믿음 (증거에도 흔들리지 않는 그릇된 확신)",
+      "examples": [
+        "He suffered from the delusion that everyone was conspiring against him."
+      ],
+      "examples_ko": [
+        "그는 모두가 자기를 해치려 공모한다는 망상에 시달렸다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deluxe",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "보통보다 더 좋은 자재·서비스를 갖춘, 호화로운",
+      "examples": [
+        "They booked a deluxe suite for their anniversary."
+      ],
+      "examples_ko": [
+        "그들은 결혼기념일에 특실 스위트룸을 예약했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "demagogue",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "선동가, 대중 선동가",
+      "examples": [
+        "The demagogue stirred up the crowd by playing on their deepest fears."
+      ],
+      "examples_ko": [
+        "그 선동가는 군중의 깊은 두려움을 건드려 그들을 부추겼다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "demand",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "요구, 수요",
+      "examples": [
+        "The customers demanded a full refund."
+      ],
+      "examples_ko": [
+        "손님들이 전액 환불을 요구했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "demanding",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "까다로운, 부담이 큰",
+      "examples": [
+        "Working as a surgeon is an extremely demanding profession both physically and mentally."
+      ],
+      "examples_ko": [
+        "외과의로 일하는 것은 몸으로나 마음으로나 몹시 힘든 직업이다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "dementia",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(의학) 치매 (기억력·판단력·언어 능력이 점차 떨어지는 뇌 질환)",
+      "examples": [
+        "Her grandmother was diagnosed with dementia last year."
+      ],
+      "examples_ko": [
+        "그녀의 할머니는 지난해 치매 진단을 받았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "demise",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(조직·관습 등의) 종말, 소멸, 몰락",
+      "examples": [
+        "Critics predicted the demise of the print newspaper within a decade."
+      ],
+      "examples_ko": [
+        "비평가들은 십 년 안에 종이 신문이 사라지리라고 내다봤다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "demo",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "시연, 시범 — 어떻게 작동하는지 직접 보여 주는 것",
+      "examples": [
+        "The engineer will demo the new software at next week's meeting."
+      ],
+      "examples_ko": [
+        "그 기술자가 다음 주 회의에서 새 소프트웨어를 시연할 것이다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "democracy",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "민주주의",
+      "examples": [
+        "True democracy depends on free elections and an informed, engaged citizenry."
+      ],
+      "examples_ko": [
+        "진정한 민주주의는 자유로운 선거와 잘 알고 참여하는 시민에게 달려 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "democrat",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "민주주의자",
+      "examples": [
+        "He is a lifelong democrat who strongly believes in popular elections."
+      ],
+      "examples_ko": [
+        "그는 대중 선거를 굳게 믿는 평생 민주주의자다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "democratic",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "민주주의의",
+      "examples": [
+        "They live in a democratic society that protects individual freedoms."
+      ],
+      "examples_ko": [
+        "그들은 개인의 자유를 지켜 주는 민주 사회에 살고 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "demographic",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "인구 집단, 특정 계층",
+      "examples": [
+        "The brand targets a younger demographic with its social media campaigns."
+      ],
+      "examples_ko": [
+        "그 브랜드는 소셜 미디어 캠페인으로 더 젊은 층을 겨냥한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "demography",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "인구통계학",
+      "examples": [
+        "Changes in demography are affecting the country's economy."
+      ],
+      "examples_ko": [
+        "인구 구조의 변화가 그 나라 경제에 영향을 주고 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "demolish",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(건물을) 철거하다, 허물다",
+      "examples": [
+        "The old factory was demolished last year."
+      ],
+      "examples_ko": [
+        "그 낡은 공장은 지난해 헐렸다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "demon",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "악마, 악령",
+      "examples": [
+        "In the legend, a fearsome demon guarded the gates of the underworld."
+      ],
+      "examples_ko": [
+        "그 전설에서는 무시무시한 악마가 저승의 문을 지킨다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "demonstrate",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "입증하다, 보여주다",
+      "examples": [
+        "The skilled instructor patiently demonstrated the correct technique to the new students."
+      ],
+      "examples_ko": [
+        "그 노련한 강사는 새 수강생들에게 올바른 자세를 차근차근 보여 주었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "demonstration",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "시위, 데모",
+      "examples": [
+        "A large demonstration took place in the city centre against the new government policy."
+      ],
+      "examples_ko": [
+        "새 정부 정책에 반대하는 대규모 시위가 도심에서 열렸다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "demonstrator",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "시위자, 시위 참가자",
+      "examples": [
+        "Hundreds of demonstrators gathered peacefully outside the parliament."
+      ],
+      "examples_ko": [
+        "시위 참가자 수백 명이 의사당 앞에 평화롭게 모였다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "demotic",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "일반 대중의, 평민적인",
+      "examples": [
+        "The novelist's demotic style brought literature closer to ordinary readers."
+      ],
+      "examples_ko": [
+        "그 소설가의 일상어 문체가 문학을 보통 독자들에게 더 가깝게 만들었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "den",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(야생 동물의) 굴, 은신처",
+      "examples": [
+        "The fox returned to its den at dawn."
+      ],
+      "examples_ko": [
+        "그 여우는 동틀 무렵 굴로 돌아갔다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "dendrite",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(신경) 수상돌기",
+      "examples": [
+        "Each neuron uses its dendrite branches to receive incoming signals."
+      ],
+      "examples_ko": [
+        "신경 세포는 저마다 수상돌기 가지로 들어오는 신호를 받는다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "dendritic",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "나뭇가지처럼 갈라진, 수지상의 (광물·강줄기 등)",
+      "examples": [
+        "The river formed a dendritic pattern as it branched across the valley."
+      ],
+      "examples_ko": [
+        "그 강은 골짜기를 가로지르며 갈라져 나뭇가지 모양을 이루었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "denim",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "데님, 청 원단",
+      "examples": [
+        "He wore a denim jacket over his white shirt."
+      ],
+      "examples_ko": [
+        "그는 흰 셔츠 위에 데님 재킷을 걸쳤다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "denomination",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "교파, 종파; 액면가",
+      "examples": [
+        "Notes are issued in denominations of five, ten and twenty pounds."
+      ],
+      "examples_ko": [
+        "지폐는 5파운드, 10파운드, 20파운드 액면가로 발행된다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "denominator",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(수학) 분모 (분수에서 가로선 아래의 수, 분자 numerator의 반대); 공통점 (common denominator)",
+      "examples": [
+        "To add the fractions, you must first find a common denominator."
+      ],
+      "examples_ko": [
+        "분수를 더하려면 먼저 공통분모를 찾아야 한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "denounce",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "공개적으로 비난하다, 고발하다",
+      "examples": [
+        "World leaders denounced the attack as a crime against humanity."
+      ],
+      "examples_ko": [
+        "세계 지도자들은 그 공격을 인류에 대한 범죄로 규탄했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "dense",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "빽빽한, 밀집한",
+      "examples": [
+        "The forest was so dense that very little light reached the ground."
+      ],
+      "examples_ko": [
+        "그 숲이 어찌나 빽빽한지 땅에 닿는 빛이 거의 없었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "density",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "밀도",
+      "examples": [
+        "The population density of the city has doubled in the last decade."
+      ],
+      "examples_ko": [
+        "그 도시의 인구 밀도가 지난 십 년 사이 두 배가 되었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "dental",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "치아의, 치과의",
+      "examples": [
+        "Regular dental checkups can prevent serious problems."
+      ],
+      "examples_ko": [
+        "정기 치과 검진은 큰 문제를 막아 줄 수 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "dentist",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "치과의사",
+      "examples": [
+        "I have an appointment with my dentist next Tuesday morning."
+      ],
+      "examples_ko": [
+        "나는 다음 주 화요일 아침에 치과 예약이 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deny",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "부인하다, 부정하다",
+      "examples": [
+        "He denied stealing the money."
+      ],
+      "examples_ko": [
+        "그는 그 돈을 훔치지 않았다고 부인했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deodorize",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "냄새를 없애다, 탈취하다",
+      "examples": [
+        "Baking soda is often used to deodorize refrigerators."
+      ],
+      "examples_ko": [
+        "베이킹 소다는 냉장고 냄새를 없애는 데 흔히 쓰인다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "depart",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "떠나다, 출발하다",
+      "examples": [
+        "The train will depart in five minutes."
+      ],
+      "examples_ko": [
+        "그 열차는 오 분 뒤에 출발한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "departed",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "죽은, 고인이 된",
+      "examples": [
+        "The family lit a candle in memory of their departed grandmother."
+      ],
+      "examples_ko": [
+        "그 가족은 돌아가신 할머니를 기리며 촛불을 켰다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "department",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(회사·조직의) 부서",
+      "examples": [
+        "She has been working in the marketing department of a large global company for five years."
+      ],
+      "examples_ko": [
+        "그녀는 오 년째 큰 다국적 회사의 마케팅 부서에서 일하고 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "department store",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "백화점",
+      "examples": [
+        "We bought winter coats at a large department store in the city centre."
+      ],
+      "examples_ko": [
+        "우리는 도심의 큰 백화점에서 겨울 외투를 샀다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "departure",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "출발, 떠남",
+      "examples": [
+        "Our departure was delayed by two hours due to fog."
+      ],
+      "examples_ko": [
+        "안개 때문에 우리 출발이 두 시간 늦춰졌다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "depend",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "의존하다, 의지하다",
+      "examples": [
+        "Children depend on their parents for food and shelter."
+      ],
+      "examples_ko": [
+        "아이들은 먹을 것과 살 곳을 부모에게 기댄다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "dependence",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "의존",
+      "examples": [
+        "The country's dependence on oil exports makes its economy unstable."
+      ],
+      "examples_ko": [
+        "석유 수출에 기대는 구조 때문에 그 나라 경제가 불안정하다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "dependency",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "의존 상태(약물·관계 등)",
+      "examples": [
+        "Long-term use of the drug can create a serious dependency."
+      ],
+      "examples_ko": [
+        "그 약을 오래 쓰면 심각한 의존이 생길 수 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "dependent",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "의존하는, 의지하는",
+      "examples": [
+        "Young children are entirely dependent on their parents for care."
+      ],
+      "examples_ko": [
+        "어린아이들은 돌봄을 온전히 부모에게 기댄다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "depict",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "묘사하다",
+      "examples": [
+        "The painting depicts a quiet village."
+      ],
+      "examples_ko": [
+        "그 그림은 고요한 마을을 담고 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "depiction",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "묘사",
+      "examples": [
+        "The novel offers a vivid depiction of life in the 1800s."
+      ],
+      "examples_ko": [
+        "그 소설은 1800년대의 삶을 생생하게 그려 낸다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deplane",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "비행기에서 내리다, 하기하다 (미국식 표현)",
+      "examples": [
+        "We had to wait ten minutes before we could deplane at the small airport."
+      ],
+      "examples_ko": [
+        "우리는 그 작은 공항에서 십 분을 기다린 뒤에야 비행기에서 내릴 수 있었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deplete",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "자원·기력 등을 크게 줄이다",
+      "examples": [
+        "Overfishing has severely depleted cod stocks in the North Atlantic."
+      ],
+      "examples_ko": [
+        "남획으로 북대서양의 대구 자원이 크게 줄었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deploy",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(군대를) 배치하다, 전개하다",
+      "examples": [
+        "The company deployed new software across all branches last week."
+      ],
+      "examples_ko": [
+        "그 회사는 지난주 모든 지점에 새 소프트웨어를 배포했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deport",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "추방하다, 강제 송환하다",
+      "examples": [
+        "The government decided to deport him back to his home country."
+      ],
+      "examples_ko": [
+        "정부는 그를 본국으로 추방하기로 결정했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deportation",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "강제 추방, 강제 송환 (외국인을 본국으로 돌려보내는 조치)",
+      "examples": [
+        "He is facing deportation after overstaying his visa for several years."
+      ],
+      "examples_ko": [
+        "그는 여러 해 비자 기간을 넘겨 머물러 추방을 앞두고 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "depose",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(왕·지도자를) 권좌에서 몰아내다, 폐위시키다",
+      "examples": [
+        "The king was deposed by a military coup."
+      ],
+      "examples_ko": [
+        "그 왕은 군사 쿠데타로 폐위되었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deposit",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "예치금, 보증금",
+      "examples": [
+        "They paid a large deposit to secure the apartment for next month."
+      ],
+      "examples_ko": [
+        "그들은 다음 달 그 아파트를 확보하려고 큰 보증금을 냈다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "depot",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "창고, 보관소 — 물자를 쌓아 두는 곳",
+      "examples": [
+        "The buses return to the depot at the end of each working day."
+      ],
+      "examples_ko": [
+        "버스들은 하루 운행이 끝나면 차고지로 돌아온다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "depress",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "우울하게 하다",
+      "examples": [
+        "Rainy days always depress me."
+      ],
+      "examples_ko": [
+        "비 오는 날은 늘 나를 우울하게 한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "depressed",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "우울한, 의기소침한",
+      "examples": [
+        "She felt depressed after losing her job last month."
+      ],
+      "examples_ko": [
+        "그녀는 지난달 직장을 잃고 우울해했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "depressing",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "우울하게 하는, 침울한",
+      "examples": [
+        "The rainy weather has been really depressing this week."
+      ],
+      "examples_ko": [
+        "이번 주 비 오는 날씨가 정말 우울했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "depression",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "우울증, 우울",
+      "examples": [
+        "She suffered from severe depression after losing her job and home last year."
+      ],
+      "examples_ko": [
+        "그녀는 지난해 직장과 집을 잃은 뒤 심한 우울증을 앓았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deprive",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "빼앗다, 박탈하다 (deprive of)",
+      "examples": [
+        "War can deprive children of their childhood."
+      ],
+      "examples_ko": [
+        "전쟁은 아이들에게서 어린 시절을 앗아 갈 수 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deprived",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "궁핍한, 빈곤한, 기본적인 것조차 갖지 못한 (deprived neighborhood 빈곤 지역)",
+      "examples": [
+        "The children in that deprived village had few books and very little food."
+      ],
+      "examples_ko": [
+        "그 가난한 마을의 아이들은 책도 거의 없고 먹을 것도 몹시 부족했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "depth",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "깊이",
+      "examples": [
+        "The depth of the ocean at that point was over 4,000 meters."
+      ],
+      "examples_ko": [
+        "그 지점의 바다 깊이는 4,000미터가 넘었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deputy",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "대리인, 부관",
+      "examples": [
+        "The deputy took charge while the director was abroad."
+      ],
+      "examples_ko": [
+        "관장이 외국에 나가 있는 동안 부관장이 일을 맡았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "derail",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(열차가) 탈선하다, 탈선시키다",
+      "examples": [
+        "The scandal threatened to derail the senator's campaign."
+      ],
+      "examples_ko": [
+        "그 추문은 그 상원 의원의 선거 운동을 무산시킬 뻔했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "derailment",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(열차) 탈선",
+      "examples": [
+        "The derailment of the freight train blocked the line for two days."
+      ],
+      "examples_ko": [
+        "그 화물 열차 탈선으로 노선이 이틀 동안 막혔다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "derby",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "더비 — 같은 지역 라이벌 팀 간의 경기",
+      "examples": [
+        "The local derby always draws a huge crowd of passionate supporters from both sides."
+      ],
+      "examples_ko": [
+        "그 지역 더비 경기는 언제나 양쪽의 열성 팬을 엄청나게 불러 모은다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "derivative",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "파생물; 파생상품; 도함수",
+      "examples": [
+        "Aspirin is a derivative of salicylic acid found in willow bark."
+      ],
+      "examples_ko": [
+        "아스피린은 버드나무 껍질에 들어 있는 살리실산에서 나온 유도체다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "derive",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "얻다, 끌어내다",
+      "examples": [
+        "She derives great pleasure from reading."
+      ],
+      "examples_ko": [
+        "그녀는 독서에서 큰 즐거움을 얻는다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "dermatitis",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "피부에 염증이 생겨 가렵고 붉어지는 질환",
+      "examples": [
+        "The doctor diagnosed him with atopic dermatitis and prescribed a cream."
+      ],
+      "examples_ko": [
+        "의사는 그에게 아토피 피부염 진단을 내리고 연고를 처방했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "dermatologist",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "피부과 의사 (피부 질환을 진단·치료하는 의사)",
+      "examples": [
+        "A dermatologist can recommend the best treatment for persistent acne."
+      ],
+      "examples_ko": [
+        "피부과 의사는 잘 낫지 않는 여드름에 가장 좋은 치료법을 권해 줄 수 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "dermatology",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "피부과학, 피부의학 분야",
+      "examples": [
+        "She specialized in dermatology after completing her medical degree."
+      ],
+      "examples_ko": [
+        "그녀는 의대를 마친 뒤 피부과를 전공했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "derogate",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(가치・명성을) 폄하하다, 깎아내리다",
+      "examples": [
+        "Critics derogated the novel as poorly written and derivative."
+      ],
+      "examples_ko": [
+        "평론가들은 그 소설을 형편없고 남의 것을 따온 작품이라며 깎아내렸다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "derogatory",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "남을 깎아내리는, 모욕적인",
+      "examples": [
+        "He made several derogatory remarks about his colleagues."
+      ],
+      "examples_ko": [
+        "그는 동료들에 대해 여러 차례 비하하는 말을 했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "descend",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "내려가다, 하강하다",
+      "examples": [
+        "The plane descended slowly toward the runway."
+      ],
+      "examples_ko": [
+        "그 비행기가 활주로를 향해 천천히 내려갔다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "descendant",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "후손, 자손",
+      "examples": [
+        "She is a direct descendant of the founding family."
+      ],
+      "examples_ko": [
+        "그녀는 그 창건 가문의 직계 후손이다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "descent",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "하강, 내려감",
+      "examples": [
+        "The plane began its slow descent toward the runway through the clouds."
+      ],
+      "examples_ko": [
+        "그 비행기는 구름을 지나 활주로를 향해 천천히 하강하기 시작했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "describe",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "묘사하다, 설명하다",
+      "examples": [
+        "Can you describe the man you saw?"
+      ],
+      "examples_ko": [
+        "당신이 본 그 남자를 설명해 줄 수 있나요?"
+      ]
+    },
+    {
+      "target": "top",
+      "word": "description",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "묘사",
+      "examples": [
+        "The police carefully asked for a detailed description of the missing teenage girl last night."
+      ],
+      "examples_ko": [
+        "경찰은 어젯밤 실종된 그 십 대 소녀의 인상착의를 자세히 물었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "descriptor",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "기술자, 식별 어구 (사물·개념을 묘사하거나 식별하는 단어·구); (컴퓨터) 디스크립터",
+      "examples": [
+        "Each entry includes a short descriptor explaining its purpose."
+      ],
+      "examples_ko": [
+        "각 항목에는 그 쓰임을 설명하는 짧은 설명어가 붙어 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "desegregate",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "학교·공공시설 등의 인종별 분리 제도를 없애다",
+      "examples": [
+        "Schools in the South were ordered to desegregate in 1954."
+      ],
+      "examples_ko": [
+        "1954년에 남부의 학교들은 인종 분리를 없애라는 명령을 받았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "desert",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "사막",
+      "examples": [
+        "The Sahara desert is one of the hottest places on Earth."
+      ],
+      "examples_ko": [
+        "사하라 사막은 지구에서 가장 더운 곳 가운데 하나다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deserve",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "받을 만하다, ~할 자격이 있다",
+      "examples": [
+        "After all her tireless effort this year, she truly deserves the promotion she received."
+      ],
+      "examples_ko": [
+        "올 한 해 쉼 없이 애쓴 그녀는 받은 승진을 마땅히 누릴 자격이 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "design",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "디자인, 설계",
+      "examples": [
+        "The design of the new phone is sleek and modern."
+      ],
+      "examples_ko": [
+        "그 새 휴대전화의 디자인은 매끈하고 현대적이다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "designate",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "공식적으로 지정하다",
+      "examples": [
+        "The committee will designate a new chairperson next week."
+      ],
+      "examples_ko": [
+        "그 위원회는 다음 주에 새 의장을 지명할 것이다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "desire",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "욕망, 욕구",
+      "examples": [
+        "She had a strong desire to travel the world before settling down."
+      ],
+      "examples_ko": [
+        "그녀는 정착하기 전에 세계를 여행하고 싶은 마음이 컸다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "desirous",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "바라는, 원하는 (문어)",
+      "examples": [
+        "We are desirous of hearing more about your travels."
+      ],
+      "examples_ko": [
+        "저희는 당신의 여행 이야기를 더 듣고 싶습니다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "desk",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "책상",
+      "examples": [
+        "Please put the books on my desk by the window."
+      ],
+      "examples_ko": [
+        "그 책들을 창가 내 책상에 놓아 주세요."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "desk clerk",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "프런트 직원, 안내 데스크 직원",
+      "examples": [
+        "The desk clerk gave us a key and pointed to the lift."
+      ],
+      "examples_ko": [
+        "프런트 직원이 열쇠를 주며 승강기 쪽을 가리켰다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "desktop",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "데스크톱, 책상용 컴퓨터",
+      "examples": [
+        "He prefers working on a desktop because the larger screen reduces eye strain."
+      ],
+      "examples_ko": [
+        "그는 화면이 커서 눈이 덜 피로한 데스크톱으로 일하는 것을 좋아한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "desolate",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "황량한, 인적 없이 버려진",
+      "examples": [
+        "They walked across the desolate plain without seeing another soul."
+      ],
+      "examples_ko": [
+        "그들은 사람 하나 마주치지 않고 황량한 벌판을 가로질러 걸었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "desolation",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "황폐함, 폐허가 된 상태",
+      "examples": [
+        "After the fire swept through, only desolation remained where the forest had once stood."
+      ],
+      "examples_ko": [
+        "불길이 휩쓸고 지나간 뒤, 숲이 있던 자리에는 황폐함만 남았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "despair",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "절망",
+      "examples": [
+        "A deep sense of despair filled him after losing his job and his home."
+      ],
+      "examples_ko": [
+        "직장과 집을 잃은 뒤 깊은 절망이 그를 사로잡았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "desperate",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "절박한, 필사적인",
+      "examples": [
+        "She made a desperate attempt to reach him before the train left."
+      ],
+      "examples_ko": [
+        "그녀는 기차가 떠나기 전에 그에게 닿으려고 필사적으로 애썼다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "desperation",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "절망, 자포자기, 막다른 심정에서 비롯한 무모함 (in desperation 절박한 심정으로)",
+      "examples": [
+        "In desperation, he called every hospital in the city looking for his missing son."
+      ],
+      "examples_ko": [
+        "다급한 마음에 그는 실종된 아들을 찾아 시내 병원마다 전화를 돌렸다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "despise",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "경멸하다, 멸시하다",
+      "examples": [
+        "She had come to despise everything that her former boss stood for."
+      ],
+      "examples_ko": [
+        "그녀는 옛 상사가 내세우던 모든 것을 경멸하게 되었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "despite",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "~에도 불구하고",
+      "examples": [
+        "Despite the heavy rain, the match went ahead as planned."
+      ],
+      "examples_ko": [
+        "폭우가 쏟아졌는데도 그 경기는 예정대로 열렸다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "despondency",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "낙담, 의기소침, 깊은 실의에 빠진 상태",
+      "examples": [
+        "A deep despondency settled over the team after the final defeat."
+      ],
+      "examples_ko": [
+        "마지막 패배 뒤 깊은 낙담이 팀 전체를 덮었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "despondent",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "낙담한, 희망을 잃고 우울한",
+      "examples": [
+        "She grew despondent after months of fruitless job hunting."
+      ],
+      "examples_ko": [
+        "몇 달째 구직에 성과가 없자 그녀는 의기소침해졌다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "dessert",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "후식, 디저트",
+      "examples": [
+        "For dessert we shared a slice of chocolate cake with vanilla ice cream."
+      ],
+      "examples_ko": [
+        "우리는 후식으로 초콜릿 케이크 한 조각에 바닐라 아이스크림을 곁들여 나눠 먹었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "destination",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "목적지",
+      "examples": [
+        "Paris is a popular destination for honeymooners every spring."
+      ],
+      "examples_ko": [
+        "파리는 봄마다 신혼여행객에게 인기 있는 여행지다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "destine",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "운명 짓다, ~할 운명으로 정해 두다 (주로 be destined to)",
+      "examples": [
+        "She seemed destined to become a famous musician."
+      ],
+      "examples_ko": [
+        "그녀는 유명한 음악가가 될 운명인 듯했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "destiny",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "운명, 숙명",
+      "examples": [
+        "She felt it was her destiny to become a doctor and heal others."
+      ],
+      "examples_ko": [
+        "그녀는 의사가 되어 남을 낫게 하는 것이 자기 운명이라고 느꼈다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "destroy",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "파괴하다",
+      "examples": [
+        "The fire destroyed the entire building."
+      ],
+      "examples_ko": [
+        "그 화재가 건물 전체를 태워 버렸다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "destroyer",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(해군) 구축함 — 대잠·방공 임무를 맡는 빠른 군함",
+      "examples": [
+        "The navy dispatched a destroyer to patrol the strait."
+      ],
+      "examples_ko": [
+        "해군은 그 해협을 순찰하도록 구축함 한 척을 보냈다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "destruction",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "파괴, 부숨",
+      "examples": [
+        "The war caused widespread destruction across the city."
+      ],
+      "examples_ko": [
+        "그 전쟁으로 도시 전역이 크게 파괴되었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "detach",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(붙어 있던 것을) 떼어내다, 분리하다",
+      "examples": [
+        "Please detach the coupon from the bottom of the page before sending it."
+      ],
+      "examples_ko": [
+        "보내기 전에 쪽 아래의 쿠폰을 떼어 내 주세요."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "detail",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "세부 사항",
+      "examples": [
+        "She explained every detail of the plan to the new members of the team."
+      ],
+      "examples_ko": [
+        "그녀는 새 팀원들에게 그 계획의 세부 사항을 하나하나 설명했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "detain",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "구금하다, 억류하다",
+      "examples": [
+        "Police can detain a suspect for up to 24 hours without charge."
+      ],
+      "examples_ko": [
+        "경찰은 기소 없이 용의자를 최대 24시간까지 구금할 수 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "detainee",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "피구금자, 억류자 (정치적 이유 등으로 구금된 사람)",
+      "examples": [
+        "Lawyers argued that every detainee deserved access to a fair legal hearing."
+      ],
+      "examples_ko": [
+        "변호인들은 구금자라면 누구나 공정한 심리를 받을 자격이 있다고 주장했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "detect",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "감지하다",
+      "examples": [
+        "The device can detect even small amounts of gas."
+      ],
+      "examples_ko": [
+        "그 장치는 아주 적은 양의 가스도 감지할 수 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "detection",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": null,
+      "examples": [
+        "Early detection of cancer can save lives."
+      ],
+      "examples_ko": [
+        "암을 일찍 발견하면 목숨을 구할 수 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "detective",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "탐정",
+      "examples": [
+        "The detective questioned all the witnesses at the crime scene."
+      ],
+      "examples_ko": [
+        "그 형사는 범행 현장에서 목격자들을 모두 조사했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "detention",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "구금, 억류",
+      "examples": [
+        "The students were given detention for skipping class."
+      ],
+      "examples_ko": [
+        "그 학생들은 수업을 빼먹어 방과 후에 남는 벌을 받았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "detergent",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "세제 (옷·식기 등을 씻는 세정제, 가루·액체 형태)",
+      "examples": [
+        "Add a small amount of detergent to the wash cycle."
+      ],
+      "examples_ko": [
+        "세탁을 돌릴 때 세제를 조금만 넣어라."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deteriorate",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "악화되다, 나빠지다",
+      "examples": [
+        "The patient's overall health continued to deteriorate rapidly despite the new treatment."
+      ],
+      "examples_ko": [
+        "새 치료를 했는데도 그 환자의 전반적인 건강이 빠르게 나빠졌다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deterioration",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "악화, 저하",
+      "examples": [
+        "Doctors noted a rapid deterioration in the patient's condition overnight."
+      ],
+      "examples_ko": [
+        "의료진은 밤사이 그 환자 상태가 급격히 나빠진 것을 확인했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "determinate",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "분명하게 정해진, 명확히 규정된",
+      "examples": [
+        "The contract specifies a determinate period of two years."
+      ],
+      "examples_ko": [
+        "그 계약은 이 년이라는 확정된 기간을 명시하고 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "determination",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "결정, 결심, 결단력",
+      "examples": [
+        "Her determination helped her finish the race."
+      ],
+      "examples_ko": [
+        "그녀의 굳은 의지가 경주를 완주하게 해 주었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "determine",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "결정하다, 좌우하다",
+      "examples": [
+        "Hard work and dedication largely determine the level of success a person achieves in life."
+      ],
+      "examples_ko": [
+        "노력과 헌신이 한 사람이 인생에서 이루는 성공의 크기를 크게 좌우한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "determined",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "단호한",
+      "examples": [
+        "She was determined to finish the project on time no matter what."
+      ],
+      "examples_ko": [
+        "그녀는 무슨 일이 있어도 그 일을 제때 끝내겠다고 마음먹었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "determiner",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(문법) 한정사 — a, the, this 처럼 명사 앞에서 범위를 한정하는 말",
+      "examples": [
+        "In English grammar, a determiner appears before a noun to specify it."
+      ],
+      "examples_ko": [
+        "영문법에서 한정사는 명사 앞에 놓여 그 명사를 한정한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "detest",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "혐오하다, 몹시 싫어하다",
+      "examples": [
+        "I absolutely detest waking up early on cold winter mornings."
+      ],
+      "examples_ko": [
+        "나는 추운 겨울 아침에 일찍 일어나는 것이 정말 싫다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "dethrone",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": null,
+      "examples": [
+        "A new champion may dethrone her at the tournament next spring."
+      ],
+      "examples_ko": [
+        "내년 봄 대회에서 새 챔피언이 그녀를 왕좌에서 끌어내릴지도 모른다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "detour",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "우회로, 우회",
+      "examples": [
+        "We had to take a long detour because of construction on the main road."
+      ],
+      "examples_ko": [
+        "본선 도로 공사 때문에 우리는 멀리 우회해야 했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "detract",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(가치·매력·중요성을) 떨어뜨리다, 손상시키다 — 주로 'detract from'",
+      "examples": [
+        "The small scratch does not detract from the painting's overall beauty."
+      ],
+      "examples_ko": [
+        "그 작은 흠집은 그림 전체의 아름다움을 해치지 않는다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "detrain",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(격식) 기차에서 내리다, 하차하다",
+      "examples": [
+        "Passengers for the coast should detrain at the next station."
+      ],
+      "examples_ko": [
+        "해안으로 가시는 승객은 다음 역에서 내리시기 바랍니다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "detriment",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "손해, 해, 불이익",
+      "examples": [
+        "He works long hours to the detriment of his health."
+      ],
+      "examples_ko": [
+        "그는 건강을 해칠 만큼 오래 일한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "devastate",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "황폐화시키다",
+      "examples": [
+        "The hurricane devastated the entire coastal town."
+      ],
+      "examples_ko": [
+        "그 허리케인이 해안 마을 전체를 초토화했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "develop",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "발전하다, 발달하다",
+      "examples": [
+        "The company is developing a new software product."
+      ],
+      "examples_ko": [
+        "그 회사는 새 소프트웨어 제품을 개발하고 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "developed",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "발달한, 선진의, 발전된",
+      "examples": [
+        "Japan is one of the most developed countries in Asia."
+      ],
+      "examples_ko": [
+        "일본은 아시아에서 가장 발전한 나라 가운데 하나다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "developer",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "개발자",
+      "examples": [
+        "A software developer wrote the code that runs the entire payment system."
+      ],
+      "examples_ko": [
+        "한 소프트웨어 개발자가 결제 시스템 전체를 돌리는 코드를 짰다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "development",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "발전, 발달",
+      "examples": [
+        "Economic development in the region has been rapid in recent years."
+      ],
+      "examples_ko": [
+        "최근 몇 해 사이 그 지역의 경제 발전이 빨랐다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deviant",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(규범·정상에서) 벗어난, 일탈한",
+      "examples": [
+        "His behavior was considered deviant by the community."
+      ],
+      "examples_ko": [
+        "그의 행동은 그 지역 사회에서 일탈로 여겨졌다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "deviate",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "정해진 경로·기준에서 벗어나다(from)",
+      "examples": [
+        "The pilot was forced to deviate from the planned route due to a storm."
+      ],
+      "examples_ko": [
+        "그 조종사는 폭풍 때문에 계획된 항로를 벗어날 수밖에 없었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "device",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "장치",
+      "examples": [
+        "She always keeps her electronic device charged before a long trip."
+      ],
+      "examples_ko": [
+        "그녀는 긴 여행을 떠나기 전에 늘 전자 기기를 충전해 둔다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "devil",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "악마, 마귀",
+      "examples": [
+        "In the story, the devil tempts the hero with promises of wealth."
+      ],
+      "examples_ko": [
+        "그 이야기에서 악마는 부를 약속하며 주인공을 꾄다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "devise",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "고안하다, 궁리하여 만들다",
+      "examples": [
+        "The team devised a clever way to reduce production costs."
+      ],
+      "examples_ko": [
+        "그 팀은 생산비를 줄일 영리한 방법을 고안해 냈다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "devoid",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "결여된, 없는 (devoid of)",
+      "examples": [
+        "The room was completely devoid of furniture."
+      ],
+      "examples_ko": [
+        "그 방에는 가구가 하나도 없었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "devolve",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(중앙의 권한이 지방·하급 기관에) 이양되다",
+      "examples": [
+        "Many powers have been devolved from London to the Scottish Parliament."
+      ],
+      "examples_ko": [
+        "많은 권한이 런던에서 스코틀랜드 의회로 이양되었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "devote",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "바치다, 헌신하다",
+      "examples": [
+        "She devoted her life to helping the poor."
+      ],
+      "examples_ko": [
+        "그녀는 가난한 사람들을 돕는 데 일생을 바쳤다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "devoted",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "헌신적인",
+      "examples": [
+        "She is a devoted mother who always puts her children's needs first."
+      ],
+      "examples_ko": [
+        "그녀는 늘 아이들의 필요를 앞세우는 헌신적인 어머니다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "devotion",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "헌신, 전념",
+      "examples": [
+        "Her devotion to her family was admired by everyone."
+      ],
+      "examples_ko": [
+        "가족을 향한 그녀의 헌신을 모두가 우러러보았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "devour",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "게걸스럽게 먹다, 허겁지겁 먹어 치우다",
+      "examples": [
+        "The children devour their dinner after a long day at school."
+      ],
+      "examples_ko": [
+        "그 아이들은 학교에서 긴 하루를 보내고 저녁을 게걸스럽게 먹는다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "dew",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "이슬 (밤사이 풀·잎에 맺히는 작은 물방울)",
+      "examples": [
+        "Drops of dew sparkled on the grass at dawn."
+      ],
+      "examples_ko": [
+        "동틀 무렵 이슬방울이 풀잎에서 반짝였다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "dhaba",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "다바 (인도·파키스탄의 도로변 간이 식당, 주로 트럭 운전사들이 들름)",
+      "examples": [
+        "They stopped at a roadside dhaba for a hot meal."
+      ],
+      "examples_ko": [
+        "그들은 뜨거운 식사를 하려고 길가 식당에 들렀다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "diabetes",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "당뇨병",
+      "examples": [
+        "Regular exercise can help prevent type two diabetes in many adults."
+      ],
+      "examples_ko": [
+        "규칙적인 운동은 많은 성인에게서 2형 당뇨병을 막는 데 도움이 된다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "diabetic",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "당뇨병의, 당뇨병 환자용의",
+      "examples": [
+        "He follows a strict diabetic diet to manage his blood sugar levels."
+      ],
+      "examples_ko": [
+        "그는 혈당을 조절하려고 엄격한 당뇨 식단을 지킨다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "diachronic",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "언어·현상의 시간적 변화에 초점을 둔 (cf. 공시적 synchronic)",
+      "examples": [
+        "Diachronic linguistics examines how languages change across centuries."
+      ],
+      "examples_ko": [
+        "통시 언어학은 언어가 수백 년에 걸쳐 어떻게 바뀌는지를 살핀다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "diagnose",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "진단하다",
+      "examples": [
+        "It can take years to diagnose this rare autoimmune condition accurately."
+      ],
+      "examples_ko": [
+        "이 희귀 자가면역 질환을 정확히 진단하는 데는 여러 해가 걸릴 수 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "diagnosis",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "진단",
+      "examples": [
+        "The doctor's diagnosis confirmed that he had mild asthma."
+      ],
+      "examples_ko": [
+        "의사의 진단으로 그에게 가벼운 천식이 있다는 것이 확인되었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "diagnostic",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "진단의, 진단을 위한",
+      "examples": [
+        "The doctor ordered several diagnostic tests to confirm the illness."
+      ],
+      "examples_ko": [
+        "의사는 그 병을 확인하려고 여러 진단 검사를 지시했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "diagonal",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "대각선의, 비스듬한",
+      "examples": [
+        "She drew a diagonal line from one corner of the page to the other."
+      ],
+      "examples_ko": [
+        "그녀는 종이의 한 모서리에서 반대편 모서리까지 대각선을 그었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "diagram",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(설명을 위한) 도표, 도해",
+      "examples": [
+        "The teacher drew a diagram on the board to explain the water cycle."
+      ],
+      "examples_ko": [
+        "선생님은 물의 순환을 설명하려고 칠판에 도표를 그렸다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "dial",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "다이얼, 문자판",
+      "examples": [
+        "Turn the dial slowly to adjust the volume of the radio."
+      ],
+      "examples_ko": [
+        "라디오 소리를 맞추려면 다이얼을 천천히 돌려라."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "dial in",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(전화·원격 회의에) 접속하다, 다이얼로 들어오다; (장비·설정을) 정밀하게 맞추다",
+      "examples": [
+        "Before starting the recording, make sure you've dialled in the right synthesiser settings."
+      ],
+      "examples_ko": [
+        "녹음을 시작하기 전에 신시사이저 설정을 제대로 맞춰 두어라."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "dial up",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(전화선으로) 다이얼업 접속하다; (강도·수치를) 높이다, 끌어올리다",
+      "examples": [
+        "In the 1990s we had to dial up to connect to the internet."
+      ],
+      "examples_ko": [
+        "1990년대에는 인터넷에 접속하려면 전화선으로 연결해야 했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "dialect",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "방언, 사투리",
+      "examples": [
+        "The local dialect is hard to understand for visitors from other regions."
+      ],
+      "examples_ko": [
+        "그 지역 방언은 다른 지방에서 온 사람이 알아듣기 어렵다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "dialog",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": null,
+      "examples": [
+        "The two leaders opened a friendly dialog about sharing the river water."
+      ],
+      "examples_ko": [
+        "두 지도자는 강물을 나누는 문제를 두고 우호적인 대화를 시작했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "dialogue",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "대화",
+      "examples": [
+        "The actor studied the dialogue carefully before each performance."
+      ],
+      "examples_ko": [
+        "그 배우는 공연 때마다 대사를 꼼꼼히 익혔다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "dialysis",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(의학) 신장 투석 — 혈액의 노폐물을 걸러내는 치료",
+      "examples": [
+        "He has been on dialysis three times a week for two years."
+      ],
+      "examples_ko": [
+        "그는 두 해째 일주일에 세 번 투석을 받고 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "diameter",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "지름, 직경",
+      "examples": [
+        "The circle has a diameter of exactly ten centimeters according to the precise measurement."
+      ],
+      "examples_ko": [
+        "정밀 측정에 따르면 그 원의 지름은 정확히 십 센티미터다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "diamond",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "다이아몬드",
+      "examples": [
+        "He gave her a small diamond ring on the evening of their anniversary."
+      ],
+      "examples_ko": [
+        "그는 결혼기념일 저녁에 그녀에게 작은 다이아몬드 반지를 주었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "diaphragm",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(해부) 횡격막 (가슴과 배를 나누는 근육); (피임) 페서리; (스피커·카메라) 진동판, 조리개",
+      "examples": [
+        "Singers learn to breathe deeply from the diaphragm."
+      ],
+      "examples_ko": [
+        "가수들은 횡격막으로 깊이 숨 쉬는 법을 익힌다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "diarist",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "일기 작가, 일기를 쓰는 사람 (특히 출판된 일기로 유명한 사람)",
+      "examples": [
+        "Samuel Pepys remains one of the most famous diarists in English literature."
+      ],
+      "examples_ko": [
+        "새뮤얼 피프스는 영문학에서 가장 유명한 일기 작가 가운데 하나로 남아 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "diarrhoea",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "설사",
+      "examples": [
+        "The traveler suffered from diarrhoea after drinking bad water."
+      ],
+      "examples_ko": [
+        "그 여행자는 상한 물을 마시고 설사에 시달렸다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "diary",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "일기",
+      "examples": [
+        "She kept a diary throughout her travels across Europe."
+      ],
+      "examples_ko": [
+        "그녀는 유럽을 여행하는 내내 일기를 썼다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "diaspora",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "고국을 떠나 세계 곳곳에 흩어져 사는 민족 집단",
+      "examples": [
+        "The Korean diaspora has built strong communities across the Americas."
+      ],
+      "examples_ko": [
+        "한국인 디아스포라는 아메리카 대륙 곳곳에 든든한 공동체를 일궈 왔다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "diatribe",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "누군가·무언가를 길고 격렬하게 공격하는 연설·글",
+      "examples": [
+        "He launched into a diatribe against the new tax policy."
+      ],
+      "examples_ko": [
+        "그는 새 조세 정책을 성토하는 장광설을 늘어놓기 시작했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "dice",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "주사위",
+      "examples": [
+        "Peel the carrots and dice them into small cubes before adding to the stew."
+      ],
+      "examples_ko": [
+        "당근 껍질을 벗기고 작은 깍둑 모양으로 썰어 스튜에 넣어라."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "dicey",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(비격식) 위태로운, 위험한",
+      "examples": [
+        "Driving on these icy mountain roads at night can be a dicey proposition."
+      ],
+      "examples_ko": [
+        "밤에 이런 얼어붙은 산길을 운전하는 것은 위태로운 일일 수 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "dictate",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "받아쓰게 하다; (권력으로) 지시하다, 좌우하다",
+      "examples": [
+        "The manager dictated a long letter to his secretary before lunch."
+      ],
+      "examples_ko": [
+        "그 관리자는 점심 전에 비서에게 긴 편지를 받아쓰게 했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "dictator",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "독재자 — 권위주의적으로 나라를 지배하는 지도자",
+      "examples": [
+        "The country was ruled by a brutal dictator for over thirty years."
+      ],
+      "examples_ko": [
+        "그 나라는 삼십 년 넘게 잔혹한 독재자의 지배를 받았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "dictatorship",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "독재",
+      "examples": [
+        "The country suffered under a brutal military dictatorship for decades."
+      ],
+      "examples_ko": [
+        "그 나라는 수십 년 동안 잔혹한 군사 독재에 시달렸다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "dictionary",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "사전",
+      "examples": [
+        "She looked up the unfamiliar word in her English dictionary."
+      ],
+      "examples_ko": [
+        "그녀는 낯선 낱말을 영어 사전에서 찾아보았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "die",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "죽다",
+      "examples": [
+        "The flowers will die if you don't water them."
+      ],
+      "examples_ko": [
+        "물을 주지 않으면 그 꽃들은 죽을 것이다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "die out",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "멸종하다, 사라지다",
+      "examples": [
+        "The dinosaurs died out a long time ago."
+      ],
+      "examples_ko": [
+        "공룡은 아주 오래전에 멸종했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "diesel",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "디젤, 경유",
+      "examples": [
+        "The truck runs on diesel rather than gasoline."
+      ],
+      "examples_ko": [
+        "그 트럭은 휘발유가 아니라 경유로 달린다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "diet",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "식단, 식습관",
+      "examples": [
+        "A balanced diet rich in vegetables is essential for maintaining good health."
+      ],
+      "examples_ko": [
+        "채소가 풍부한 균형 잡힌 식단은 건강을 지키는 데 꼭 필요하다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "differ",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "다르다",
+      "examples": [
+        "British English differs from American English in many ways."
+      ],
+      "examples_ko": [
+        "영국 영어는 여러 면에서 미국 영어와 다르다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "difference",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "차이, 다른 점",
+      "examples": [
+        "There is a big difference in price between the two models."
+      ],
+      "examples_ko": [
+        "그 두 모델은 가격 차이가 크다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "different",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "다른, 차이가 있는",
+      "examples": [
+        "The two sisters have very different personalities, even though they look almost identical at first glance."
+      ],
+      "examples_ko": [
+        "그 두 자매는 언뜻 보면 거의 똑같이 생겼는데도 성격이 아주 다르다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "differential",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "차등을 두는, 차별적인",
+      "examples": [
+        "The company faces criticism for its differential pay between men and women."
+      ],
+      "examples_ko": [
+        "그 회사는 남녀 임금 격차로 비판을 받고 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "differentiate",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(둘 이상의 것을) 구별하다, 식별하다",
+      "examples": [
+        "It can be hard to differentiate between the twins at first glance."
+      ],
+      "examples_ko": [
+        "그 쌍둥이는 언뜻 봐서는 구별하기 어려울 수 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "differently",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "다르게, 별개로",
+      "examples": [
+        "He sees the world differently from most people."
+      ],
+      "examples_ko": [
+        "그는 세상을 대부분의 사람과 다르게 본다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "difficult",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "어려운",
+      "examples": [
+        "The exam was so difficult that many students had to retake it."
+      ],
+      "examples_ko": [
+        "그 시험이 어찌나 어려웠는지 많은 학생이 재시험을 봐야 했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "difficulty",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "어려움",
+      "examples": [
+        "She learned to swim without much difficulty."
+      ],
+      "examples_ko": [
+        "그녀는 별 어려움 없이 수영을 배웠다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "diffuse",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "퍼뜨리다, 확산되다",
+      "examples": [
+        "The lamp diffuses a soft, warm light across the room."
+      ],
+      "examples_ko": [
+        "그 램프는 부드럽고 따뜻한 빛을 방 안에 은은하게 퍼뜨린다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "dig",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "파다, 캐다",
+      "examples": [
+        "They had to dig a deep hole in the garden to plant the young tree."
+      ],
+      "examples_ko": [
+        "그들은 어린나무를 심으려고 정원에 깊은 구덩이를 파야 했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "digest",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "소화하다",
+      "examples": [
+        "It can be hard to digest heavy meals late at night."
+      ],
+      "examples_ko": [
+        "밤늦게 기름진 음식을 먹으면 소화하기 힘들 수 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "digestion",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "소화, 소화 작용",
+      "examples": [
+        "Chewing food slowly aids digestion and prevents discomfort."
+      ],
+      "examples_ko": [
+        "음식을 천천히 씹으면 소화에 도움이 되고 속이 불편해지지 않는다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "digestive",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "소화의, 소화에 관한",
+      "examples": [
+        "Ginger tea can soothe digestive problems after a heavy meal."
+      ],
+      "examples_ko": [
+        "생강차는 기름진 식사 뒤의 소화 불편을 달래 준다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "digital",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "디지털의",
+      "examples": [
+        "The digital revolution has changed the way people communicate."
+      ],
+      "examples_ko": [
+        "디지털 혁명이 사람들이 소통하는 방식을 바꿔 놓았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "dignify",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "위엄을 더하다, 품위 있게 만들다",
+      "examples": [
+        "I refuse to dignify that question with an answer."
+      ],
+      "examples_ko": [
+        "나는 그런 질문에 답할 가치도 없다고 본다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "dignity",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "존엄, 위엄",
+      "examples": [
+        "He accepted his defeat with quiet dignity."
+      ],
+      "examples_ko": [
+        "그는 조용한 품위로 자신의 패배를 받아들였다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "dike",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "둑, 제방",
+      "examples": [
+        "The Dutch built a long dike to hold back the sea."
+      ],
+      "examples_ko": [
+        "네덜란드 사람들은 바닷물을 막으려고 긴 제방을 쌓았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "dilemma",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "딜레마, 진퇴양난",
+      "examples": [
+        "She faced a difficult dilemma between her career and her family."
+      ],
+      "examples_ko": [
+        "그녀는 일과 가족 사이에서 어려운 딜레마에 놓였다."
+      ]
+    }
+  ]
+}

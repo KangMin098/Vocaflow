@@ -1,633 +1,855 @@
 /* apps/web/src/components/pirate-quest/PirateQuestUI.css
-   Pirate's Bounty - HUD/카드/토스트/결과 스타일 */
+   Pirate's Bounty v08 — HUD · 자리 마커 · 하단 조타실 카드 · 로딩 게이트.
 
-/* ═══════ Header ═══════ */
-.pq-header {
+   색 정책: 이 게임은 전용 무드(석양 해변)를 항상 같은 톤으로 그리는 3D 씬 위에 UI 를
+   얹는다. 그래서 앱 테마 토큰을 그대로 쓰면 라이트 테마에서 어두운 글씨가 어두운 유리
+   패널 위에 얹히는 대비 사고가 난다. 대신 **컨테이너 안에서 토큰을 재정의**해,
+   공용 킷 컴포넌트(TimerBar · Kbd · FeedbackIcon)까지 같은 대비로 따라오게 한다.
+   결과 화면(GameDone)만은 씬을 벗어나므로 앱 토큰 그대로 — 라이트/다크 양쪽 정상. */
+
+.pq-hud,
+.pq-deck,
+.pq-gate {
+  --combo: #ffd54a;
+  --streak: #ffd54a;
+  --error: #ff9a5b;
+  --success: #7bd9a6;
+  --t1: #fff6e4;
+  --t2: #f0dbb4;
+  --t3: #c3a87f;
+  --t4: #93805f;
+  --bd: rgba(255, 225, 170, 0.26);
+  --bg: rgba(26, 15, 11, 0.55);
+  --pq-glass: linear-gradient(180deg, rgba(38, 22, 15, 0.86) 0%, rgba(22, 12, 9, 0.92) 100%);
+  --pq-ring: 0 0 0 3px rgba(255, 213, 74, 0.55);
+  font-family: var(--font-display, system-ui, -apple-system, sans-serif);
+  color: var(--t1);
+}
+
+/* ══════════════ HUD ══════════════ */
+.pq-hud {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 100;
+  z-index: 120;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 16px;
-  padding: 14px 22px;
-  background: linear-gradient(180deg, rgba(40, 20, 8, 0.85), rgba(40, 20, 8, 0.4));
+  gap: 8px 10px;
+  padding: calc(8px + env(safe-area-inset-top, 0px)) 12px 8px;
+  background: linear-gradient(180deg, rgba(20, 11, 8, 0.78) 0%, rgba(20, 11, 8, 0) 100%);
   pointer-events: none;
 }
-.pq-header > * {
+.pq-hud > * {
   pointer-events: auto;
 }
-.pq-brand {
+
+.pq-hud-brand {
+  display: none;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--t2);
+}
+.pq-hud-brand strong {
+  color: var(--combo);
+}
+
+/* 390px 에서는 시계를 두 번째 줄 전체 폭으로 내린다 — 점수·연속 칩과 겹쳐 찌그러지지 않게. */
+.pq-hud-tide {
+  order: 2;
+  flex: 1 1 100%;
+  min-width: 0;
   display: flex;
   align-items: center;
   gap: 8px;
-  font-family: 'Bungee', cursive;
-  font-size: 18px;
-  color: #FFD93D;
-  text-shadow: 2px 2px 0 #2A1810;
-  letter-spacing: 0.05em;
+  padding: 7px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--bd);
+  background: var(--pq-glass);
+  backdrop-filter: blur(8px);
 }
-.pq-brand strong {
-  color: #FFFFFF;
-  margin-left: 4px;
+.pq-hud-tide .gk-timer {
+  flex: 1;
+  min-width: 60px;
 }
-.pq-stats {
-  display: flex;
-  gap: 12px;
-  margin-left: auto;
-  margin-right: 12px;
+/* 만조 — 확정해도 시계가 더 안 늘어난다. 색 + 테두리 + "만조" 글자 3중 인코딩. */
+.pq-hud-tide[data-capped='1'] {
+  border-color: rgba(120, 220, 230, 0.75);
+  box-shadow: inset 0 0 0 1px rgba(120, 220, 230, 0.35);
 }
-.pq-stat {
-  background: rgba(0, 0, 0, 0.55);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 217, 61, 0.4);
-  border-radius: 10px;
-  padding: 6px 14px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-width: 80px;
+.pq-hud-tide[data-capped='1'] .pq-hud-cap {
+  color: #bfeaf1;
 }
-.pq-stat--streak {
-  background: rgba(239, 68, 68, 0.5);
-  border-color: rgba(255, 217, 61, 0.6);
-}
-.pq-stat--gold {
-  background: linear-gradient(180deg, rgba(255, 217, 61, 0.7), rgba(201, 162, 39, 0.7));
-  border-color: #FFD93D;
-  box-shadow: 0 0 18px rgba(255, 217, 61, 0.6);
-  animation: pq-gold-pulse 1.5s ease-in-out infinite;
-}
-@keyframes pq-gold-pulse {
-  0%, 100% { box-shadow: 0 0 18px rgba(255, 217, 61, 0.6); }
-  50% { box-shadow: 0 0 28px rgba(255, 217, 61, 0.9); }
-}
-.pq-stat-label {
-  font-family: 'Bungee', cursive;
-  font-size: 9px;
-  color: #FFD93D;
-  letter-spacing: 0.1em;
-}
-.pq-stat-value {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 18px;
-  font-weight: 700;
-  color: #FFFFFF;
-  text-shadow: 1px 1px 0 #000;
-}
-.pq-exit {
-  background: rgba(239, 68, 68, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  border-radius: 100px;
-  padding: 6px 14px;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-  color: white;
+
+.pq-hud-cap {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.4);
-}
-.pq-exit:hover {
-  background: rgba(239, 68, 68, 1);
-  transform: translateY(-1px);
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--t3);
+  white-space: nowrap;
 }
 
-/* ═══════ 단어 카드 (상단 중앙) ═══════ */
-.pq-card {
-  position: fixed;
-  top: 80px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 60;
-  background: linear-gradient(180deg, #FFE8B0 0%, #FFD18F 100%);
-  border: 4px solid #8B4513;
-  border-radius: 16px;
-  padding: 14px 28px;
-  min-width: 320px;
-  text-align: center;
-  box-shadow:
-    0 8px 24px rgba(60, 30, 10, 0.5),
-    inset 0 2px 0 rgba(255, 255, 255, 0.5);
-}
-.pq-card-row {
+.pq-hud-right {
+  order: 1;
+  margin-left: auto;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  font-size: 10px;
-  color: #6B3010;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-bottom: 4px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px;
 }
-.pq-card-round {
-  background: #2A1810;
-  color: #FFD93D;
-  padding: 2px 10px;
-  border-radius: 100px;
-  font-family: 'JetBrains Mono', monospace;
+
+.pq-hud-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1.1;
+  padding: 5px 10px;
+  border-radius: 12px;
+  border: 1px solid var(--bd);
+  background: var(--pq-glass);
+  backdrop-filter: blur(8px);
 }
-.pq-card-meaning {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 26px;
-  font-weight: 700;
-  color: #2A1810;
-  line-height: 1.2;
-  margin-bottom: 6px;
+.pq-hud-num {
+  font-size: 15px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: var(--t1);
 }
-.pq-card-sound {
-  background: #2A1810;
-  color: #FFD93D;
-  border: none;
-  border-radius: 50%;
-  width: 26px;
-  height: 26px;
+.pq-hud-stat--pending {
+  border-color: rgba(181, 128, 58, 0.75);
+}
+.pq-hud-stat--pending .pq-hud-num {
+  color: #ffc46b;
+}
+.pq-hud-stat--combo .pq-hud-num {
+  color: var(--combo);
+}
+.pq-hud-stat--combo[data-tier='2'] {
+  border-color: rgba(255, 213, 74, 0.7);
+}
+.pq-hud-mult {
+  margin-left: 4px;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 800;
+  opacity: 0.9;
+}
+.pq-hud-tier {
+  padding: 5px 9px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 213, 74, 0.6);
+  background: rgba(255, 213, 74, 0.14);
+  color: #ffe089;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  animation: pq-fade-in 0.28s ease-out;
+}
+
+.pq-icon-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  border-radius: 12px;
+  border: 1px solid var(--bd);
+  background: var(--pq-glass);
+  color: var(--t2);
   cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: color 0.15s, border-color 0.15s, transform 0.12s;
+}
+.pq-icon-btn:hover {
+  color: var(--t1);
+  border-color: rgba(255, 225, 170, 0.55);
+}
+.pq-icon-btn:active {
+  transform: scale(0.94);
+}
+.pq-icon-btn:focus-visible {
+  outline: none;
+  box-shadow: var(--pq-ring);
+}
+
+/* ══════════════ 자리 마커 (drei Html · 캔버스 위) ══════════════ */
+/*
+   겹침 방지는 두 축으로 한다.
+   ① 가로 — 라벨 폭에 상한을 걸어 (max-width) 자리 선택 알고리즘이 쓰는 폭 모델과 일치시킨다.
+      logic.beachMetrics 의 labelMaxPx(118 / 152) 와 이 파일의 max-width 는 같은 수다.
+      한쪽만 바꾸면 배치 계산이 거짓말이 되므로 반드시 같이 고칠 것.
+   ② 세로 — .pq-mk-lift 가 마커를 픽셀 단위로 끌어올려 계단을 만든다.
+      카메라 피치가 7° 남짓이라 z 가 달라도 라벨이 같은 높이에 찍히기 때문에,
+      3D 좌표가 아니라 화면 픽셀로 올려야 실제로 안 겹친다. */
+.pq-mk-lift {
+  position: relative;
+  display: inline-flex;
+  transform: translateY(calc(-1 * var(--pq-lift, 0px)));
+}
+/* 올라간 라벨과 그 자리의 오브젝트를 눈으로 다시 잇는 줄기 */
+.pq-mk-stem {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  width: 2px;
+  height: var(--pq-lift, 0px);
+  margin-left: -1px;
+  background: linear-gradient(180deg, rgba(255, 225, 170, 0.55) 0%, rgba(255, 225, 170, 0) 100%);
+  pointer-events: none;
+}
+
+.pq-mk {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  min-width: 44px;
+  max-width: 152px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 2px solid rgba(255, 225, 170, 0.5);
+  background: linear-gradient(180deg, rgba(40, 24, 16, 0.92) 0%, rgba(22, 12, 9, 0.95) 100%);
+  color: #fff6e4;
+  font-family: var(--font-display, system-ui, sans-serif);
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(20, 10, 6, 0.5);
+  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.15s, background 0.2s,
+    opacity 0.2s;
+}
+.pq-mk[aria-disabled='true'] {
+  cursor: default;
+}
+.pq-mk:hover:not([aria-disabled='true']),
+.pq-mk[data-hover='1']:not([aria-disabled='true']) {
+  transform: translateY(-3px) scale(1.06);
+  border-color: #ffd54a;
+}
+.pq-mk:active:not([aria-disabled='true']) {
+  transform: translateY(0) scale(0.96);
+}
+.pq-mk:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 213, 74, 0.75), 0 6px 18px rgba(20, 10, 6, 0.5);
+}
+
+.pq-mk-badge {
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(255, 213, 74, 0.22);
+  border: 1px solid rgba(255, 213, 74, 0.6);
+  color: #ffe089;
+  font-size: 11px;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+}
+/* 최대 14글자 폭, 넘치면 두 줄까지만 — 폭이 무한히 늘어나 옆 라벨을 덮던 경로 차단.
+   말줄임이 아니라 줄바꿈인 이유: 외워야 할 대상 단어를 잘라내면 과제 자체가 망가진다. */
+.pq-mk-en {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  max-width: 14ch;
+  overflow-wrap: anywhere;
+  line-height: 1.15;
+  text-align: left;
+  font-family: var(--font-english, var(--font-display, system-ui));
+}
+.pq-mk-ko {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.15;
+  opacity: 0.82;
+}
+.pq-mk-pair {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2px 5px;
+  min-width: 0;
+}
+.pq-mk-glyph {
+  flex: 0 0 auto;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+/* 노출 — 이 순간에는 뜻이 화면 어디에도 없다 */
+.pq-mk[data-mode='label'] {
+  border-color: rgba(255, 213, 74, 0.85);
+  animation: pq-mk-in 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+/* 물속 — 번호만 남는다 */
+.pq-mk[data-mode='hidden'] {
+  background: linear-gradient(180deg, rgba(20, 60, 74, 0.9) 0%, rgba(10, 34, 44, 0.95) 100%);
+  border-color: rgba(120, 220, 230, 0.5);
+  color: #bfeaf1;
+}
+.pq-mk[data-mode='hidden'] .pq-mk-badge {
+  background: rgba(120, 220, 230, 0.18);
+  border-color: rgba(120, 220, 230, 0.6);
+  color: #d7f4f8;
+}
+.pq-mk[data-mode='correct'] {
+  border-color: #ffd54a;
+  background: linear-gradient(180deg, rgba(88, 62, 14, 0.95) 0%, rgba(44, 28, 8, 0.96) 100%);
+  animation: pq-mk-pop 0.42s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.pq-mk[data-mode='wrong'] {
+  border-color: #b5803a;
+  background: linear-gradient(180deg, rgba(78, 48, 18, 0.95) 0%, rgba(40, 24, 10, 0.96) 100%);
+  animation: pq-mk-shake 0.4s ease-in-out;
+}
+
+/* ══════════════ 하단 조타실 카드 ══════════════ */
+.pq-deck {
+  position: fixed;
+  left: 50%;
+  bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  transform: translateX(-50%);
+  z-index: 130;
+  width: min(560px, calc(100vw - 24px));
+}
+.pq-deck-burst {
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  width: 0;
+  height: 0;
+}
+.pq-deck-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding: 14px 16px 15px;
+  border-radius: 18px;
+  border: 1px solid var(--bd);
+  background: var(--pq-glass);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 18px 44px -14px rgba(12, 6, 4, 0.72);
+  animation: pq-deck-in 0.26s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.pq-deck[data-phase='reveal'] .pq-deck-inner,
+.pq-deck[data-phase='recall'] .pq-deck-inner {
+  border-color: rgba(181, 128, 58, 0.7);
+}
+.pq-deck[data-phase='choice'] .pq-deck-inner,
+.pq-deck[data-phase='settle'] .pq-deck-inner {
+  border-color: rgba(255, 213, 74, 0.55);
+}
+
+.pq-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0;
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: var(--t3);
+}
+.pq-eyebrow--good {
+  color: #ffd54a;
+}
+.pq-eyebrow--miss {
+  color: #e0a760;
+}
+.pq-step {
+  display: inline-grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1px solid var(--bd);
+  color: var(--t2);
+  font-size: 10px;
+  font-weight: 900;
+}
+.pq-chain {
+  margin-left: auto;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 12.5px;
+  color: #ffd54a;
+  font-variant-numeric: tabular-nums;
+}
+
+.pq-scanrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.pq-scanrow .gk-timer {
+  flex: 1;
+}
+.pq-scan-count {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--t2);
+  font-variant-numeric: tabular-nums;
+}
+
+.pq-ask {
+  margin: 2px 0 0;
+  font-family: var(--font-body, Georgia, serif);
+  font-size: clamp(26px, 7vw, 36px);
+  font-weight: 700;
+  line-height: 1.15;
+  color: #fff6e4;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.45);
+}
+
+.pq-line {
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--t2);
+}
+.pq-line--sub {
+  color: var(--t3);
+}
+.pq-line b {
+  color: var(--t1);
+  font-weight: 800;
+}
+.pq-keys {
+  display: inline-flex;
+  gap: 4px;
   margin-left: 8px;
   vertical-align: middle;
 }
-.pq-card-sound:hover {
-  background: #FFD93D;
-  color: #2A1810;
-}
-
-/* ═══════ 시간 보너스 progress bar ═══════ */
-.pq-time-bar {
-  position: relative;
-  height: 22px;
-  background: rgba(42, 24, 16, 0.18);
-  border: 2px solid #8B4513;
-  border-radius: 100px;
-  overflow: hidden;
-  margin-top: 10px;
-  margin-bottom: 8px;
-}
-.pq-time-bar-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #06D4E8, #FFD93D);
-  border-radius: 100px;
-  transition: width 100ms linear;
-}
-.pq-time-bar-fill[data-low='true'] {
-  background: linear-gradient(90deg, #FF8C42, #EF4444);
-}
-.pq-time-bar-label {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  font-weight: 700;
-  color: #2A1810;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
-  pointer-events: none;
-}
-
-/* ═══════ 힌트 버튼 ═══════ */
-.pq-hint {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 14px;
-  background: linear-gradient(180deg, #FFE876, #FFD93D);
-  border: 2px solid #8B4513;
-  border-radius: 100px;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+.pq-rules {
+  margin: 0;
+  padding: 9px 11px;
+  border-radius: 12px;
+  border: 1px dashed var(--bd);
   font-size: 12px;
-  font-weight: 700;
-  color: #2A1810;
-  cursor: pointer;
-  transition: transform 150ms ease;
-  margin-top: 4px;
+  line-height: 1.6;
+  color: var(--t2);
 }
-.pq-hint:hover:not(:disabled) {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(255, 217, 61, 0.5);
+.pq-rules b {
+  color: #ffd54a;
 }
-.pq-hint:disabled {
-  background: rgba(180, 180, 180, 0.5);
-  color: rgba(60, 40, 20, 0.5);
-  cursor: not-allowed;
-  border-color: rgba(139, 69, 19, 0.3);
-}
-
-/* ═══════ 콤보 마일스톤 (5/10 streak) ═══════ */
-.pq-combo {
-  position: fixed;
-  top: 30%;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 250;
-  padding: 18px 36px;
-  border-radius: 24px;
-  text-align: center;
-  border: 4px solid;
-  pointer-events: none;
-  animation: pq-combo-in 1500ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
-.pq-combo--gold {
-  background: linear-gradient(135deg, #FFE876 0%, #FFD93D 50%, #C9A227 100%);
-  border-color: #6B4A0A;
-  color: #2A1810;
-  box-shadow: 0 16px 50px rgba(255, 217, 61, 0.8), 0 0 80px rgba(255, 217, 61, 0.5);
-}
-.pq-combo--diamond {
-  background: linear-gradient(135deg, #06D4E8 0%, #ADE8F4 50%, #67E8F9 100%);
-  border-color: #0E7490;
-  color: #082F49;
-  box-shadow: 0 16px 60px rgba(6, 212, 232, 0.8), 0 0 100px rgba(6, 212, 232, 0.6);
-}
-@keyframes pq-combo-in {
-  0% {
-    transform: translateX(-50%) scale(0) rotate(-20deg);
-    opacity: 0;
-  }
-  30% {
-    transform: translateX(-50%) scale(1.2) rotate(5deg);
-    opacity: 1;
-  }
-  60% {
-    transform: translateX(-50%) scale(1.0) rotate(0deg);
-    opacity: 1;
-  }
-  100% {
-    transform: translateX(-50%) scale(1.05) translateY(-30px);
-    opacity: 0;
-  }
-}
-.pq-combo-label {
-  font-family: 'Bungee', cursive;
-  font-size: 32px;
-  letter-spacing: 0.05em;
-  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
-}
-.pq-combo-bonus {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 18px;
-  font-weight: 800;
-  margin-top: 4px;
-  background: rgba(0, 0, 0, 0.25);
-  display: inline-block;
-  padding: 4px 14px;
-  border-radius: 100px;
-}
-
-/* ═══════ 토스트 시간 보너스 부스 ═══════ */
-.pq-toast-time-bonus {
-  margin-top: 6px;
-  padding: 3px 12px;
-  background: linear-gradient(135deg, #06D4E8, #0E7490);
-  color: white;
-  border-radius: 100px;
-  font-family: 'Bungee', cursive;
-  font-size: 11px;
-  display: inline-block;
-}
-
-/* GLB 위 영단어 라벨 (drei Html, 화면 픽셀 고정 크기 + 카테고리별 색) */
-.pq-glb-label {
-  display: inline-block;
-  padding: 4px 12px;
-  background: linear-gradient(180deg, #FFFFFF 0%, #FFF1D6 100%);
-  border: 2.5px solid #2A1810;
-  border-radius: 100px;
-  font-family: 'Lora', serif;
-  font-size: 14px;
-  font-weight: 700;
-  color: #2A1810;
-  white-space: nowrap;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
-  box-shadow:
-    0 3px 8px rgba(42, 24, 16, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6);
-  transition: all 180ms ease;
-  user-select: none;
-  -webkit-user-select: none;
-  letter-spacing: 0.02em;
-  min-width: 56px;
-  text-align: center;
-}
-.pq-glb-label--hover {
-  background: linear-gradient(180deg, #FFE876 0%, #FFD93D 100%) !important;
-  border-color: #2A1810 !important;
-  color: #2A1810 !important;
-  transform: scale(1.25) translateY(-3px);
-  font-size: 17px;
-  box-shadow:
-    0 8px 20px rgba(255, 217, 61, 0.7),
-    inset 0 1px 0 rgba(255, 255, 255, 0.85);
-  z-index: 100;
-}
-.pq-glb-label--correct {
-  background: linear-gradient(180deg, #FFD93D 0%, #C9A227 100%);
-  border-color: #6B4A0A;
-  color: #2A1810;
-  transform: scale(1.2);
-  box-shadow:
-    0 0 24px rgba(255, 217, 61, 0.9),
-    0 8px 20px rgba(255, 217, 61, 0.5);
-  animation: pq-label-correct 500ms ease;
-}
-.pq-glb-label--wrong {
-  background: linear-gradient(180deg, #EF4444 0%, #B91C1C 100%);
-  border-color: #FFFFFF;
-  color: #FFFFFF;
-  transform: scale(0.95);
-  animation: pq-label-wrong 400ms ease;
-}
-@keyframes pq-label-correct {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.3) rotate(3deg); }
-  100% { transform: scale(1.2) rotate(0); }
-}
-@keyframes pq-label-wrong {
-  0%, 100% { transform: scale(0.95); }
-  25% { transform: scale(0.95) translateX(-4px); }
-  75% { transform: scale(0.95) translateX(4px); }
-}
-
-/* ═══════ 피드백 토스트 ═══════ */
-.pq-toast {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 200;
-  padding: 22px 40px;
-  border-radius: 20px;
-  text-align: center;
-  border: 4px solid;
-  box-shadow: 0 16px 60px rgba(0, 0, 0, 0.5);
-  animation: pq-toast-in 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
-  min-width: 240px;
-  pointer-events: none;
-}
-.pq-toast--correct {
-  background: linear-gradient(135deg, #FFD93D 0%, #F59E0B 100%);
-  border-color: #FFE876;
-  color: #2A1810;
-}
-.pq-toast--wrong {
-  background: linear-gradient(135deg, #EF4444 0%, #B91C1C 100%);
-  border-color: #FCA5A5;
-  color: white;
-}
-@keyframes pq-toast-in {
-  0% {
-    transform: translate(-50%, -50%) scale(0.6) rotate(-8deg);
-    opacity: 0;
-  }
-  60% {
-    transform: translate(-50%, -50%) scale(1.1) rotate(2deg);
-    opacity: 1;
-  }
-  100% {
-    transform: translate(-50%, -50%) scale(1) rotate(0deg);
-    opacity: 1;
-  }
-}
-.pq-toast-icon {
-  font-size: 36px;
-  margin-bottom: 4px;
-}
-.pq-toast-word {
-  font-family: 'Lora', serif;
-  font-size: 32px;
-  font-weight: 700;
-  line-height: 1;
-}
-.pq-toast--wrong .pq-toast-word {
-  color: white;
-}
-.pq-toast-meaning {
-  font-family: 'DM Sans', sans-serif;
+.pq-note {
+  margin: 0;
+  font-family: var(--font-body, Georgia, serif);
   font-style: italic;
-  font-size: 14px;
-  margin: 4px 0 10px;
-  opacity: 0.85;
-}
-.pq-toast-points {
-  display: inline-block;
-  padding: 4px 14px;
-  background: rgba(0, 0, 0, 0.3);
-  color: #FFFFFF;
-  border-radius: 100px;
-  font-family: 'Bungee', cursive;
-  font-size: 14px;
+  font-size: 12px;
+  color: var(--t3);
 }
 
-/* ═══════ 인트로 ═══════ */
-.pq-intro {
-  position: fixed;
-  inset: 0;
-  z-index: 300;
+.pq-got,
+.pq-correction {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #2A1810 0%, #5A2E14 100%);
-  pointer-events: none;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  margin: 0;
 }
-.pq-intro-card {
-  background: linear-gradient(180deg, #FFE8B0, #FFD18F);
-  border: 5px solid #8B4513;
-  border-radius: 20px;
-  padding: 32px 56px;
-  text-align: center;
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
-}
-.pq-intro-emoji {
-  font-size: 64px;
-  margin-bottom: 8px;
-}
-.pq-intro-title {
-  font-family: 'Bungee', cursive;
-  font-size: 36px;
-  color: #2A1810;
-  text-shadow: 3px 3px 0 #FFD93D;
-  margin-bottom: 8px;
-}
-.pq-intro-title span {
-  color: #B91C1C;
-}
-.pq-intro-sub {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 14px;
-  color: #6B3010;
-  margin-bottom: 12px;
-}
-.pq-intro-loading {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  color: #8B4513;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-}
-
-/* ═══════ 결과 ═══════ */
-.pq-complete {
-  position: fixed;
-  inset: 0;
-  z-index: 300;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(20, 8, 4, 0.85);
-  backdrop-filter: blur(10px);
-}
-.pq-complete-card {
-  background: linear-gradient(180deg, #FFE8B0, #FFD18F);
-  border: 5px solid #8B4513;
-  border-radius: 24px;
-  padding: 32px 48px;
-  text-align: center;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
-  max-width: 540px;
-  width: 90%;
-}
-.pq-complete-emoji {
-  font-size: 72px;
-  margin-bottom: 4px;
-}
-.pq-complete-title {
-  font-family: 'Bungee', cursive;
-  font-size: 36px;
-  color: #2A1810;
-  text-shadow: 2px 2px 0 #FFD93D;
-  margin-bottom: 16px;
-  letter-spacing: 0.05em;
-}
-.pq-complete-stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  margin-bottom: 18px;
-}
-.pq-complete-stat {
-  background: rgba(42, 24, 16, 0.1);
-  border: 2px solid rgba(139, 69, 19, 0.3);
-  border-radius: 12px;
-  padding: 10px 8px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.pq-stat-big {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 22px;
+.pq-got b,
+.pq-correction b {
+  font-family: var(--font-english, var(--font-display, system-ui));
+  font-size: clamp(22px, 6vw, 30px);
   font-weight: 800;
-  color: #2A1810;
+  letter-spacing: -0.015em;
+  color: #ffd54a;
 }
-.pq-collected {
-  background: rgba(42, 24, 16, 0.08);
-  border: 2px solid rgba(139, 69, 19, 0.2);
-  border-radius: 12px;
-  padding: 10px 14px;
-  margin-bottom: 18px;
-  text-align: left;
+.pq-correction b {
+  color: #ffca7a;
 }
-.pq-collected svg {
-  display: inline-block;
-  vertical-align: middle;
-  color: #C9A227;
-  margin-right: 4px;
-}
-.pq-collected-label {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 11px;
+.pq-got span,
+.pq-correction span {
+  font-size: 15px;
   font-weight: 700;
-  color: #6B3010;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-right: 8px;
-  vertical-align: middle;
+  color: var(--t1);
 }
-.pq-collected-list {
+.pq-correction em {
+  font-style: normal;
+  font-size: 12.5px;
+  color: var(--t3);
+}
+
+/* ── 오답 뒤 "뜻은 알았나" 마이크로 체크 ── */
+.pq-recall-word {
+  margin: 2px 0 0;
+  font-family: var(--font-english, var(--font-display, system-ui));
+  font-size: clamp(24px, 6.5vw, 32px);
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  line-height: 1.1;
+  color: #ffca7a;
+  overflow-wrap: anywhere;
+}
+.pq-recall-bar {
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(255, 246, 228, 0.16);
+  overflow: hidden;
+}
+.pq-recall-fill {
+  display: block;
+  height: 100%;
+  width: 100%;
+  border-radius: 999px;
+  background: #e0a760;
+  transform-origin: left center;
+  animation: pq-recall-drain linear forwards;
+}
+.pq-actions--recall {
+  flex-direction: column;
+  align-items: stretch;
+}
+.pq-btn--recall {
+  justify-content: flex-start;
+  font-family: var(--font-display, system-ui, sans-serif);
+  font-size: 15px;
+}
+.pq-note--info {
+  font-style: normal;
+  color: var(--t2);
+}
+.pq-line--sub[data-knew='1'] b,
+.pq-line--sub[data-knew='1'] {
+  color: #9fd9b8;
+}
+
+.pq-settle {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 0;
+}
+.pq-settle b {
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 900;
+  color: #ffd54a;
+  font-variant-numeric: tabular-nums;
+}
+.pq-settle span {
+  font-size: 12.5px;
+  color: var(--t2);
+}
+
+.pq-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 6px;
-}
-.pq-collected-chip {
-  background: linear-gradient(180deg, #FFD93D, #C9A227);
-  border: 1px solid #8B6500;
-  border-radius: 100px;
-  padding: 3px 10px;
-  font-family: 'Lora', serif;
-  font-size: 12px;
-  font-weight: 600;
-  color: #2A1810;
-}
-.pq-collected-chip em {
-  font-style: italic;
-  font-weight: 400;
-  opacity: 0.75;
-}
-.pq-complete-actions {
-  display: flex;
   gap: 8px;
-  justify-content: center;
+  margin-top: 2px;
 }
+.pq-actions--split .pq-btn {
+  flex: 1 1 46%;
+}
+
 .pq-btn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 10px 22px;
-  border-radius: 100px;
-  font-family: 'Bungee', cursive;
-  font-size: 14px;
+  justify-content: center;
+  gap: 7px;
+  min-height: 46px;
+  min-width: 44px;
+  padding: 0 16px;
+  border-radius: 13px;
+  border: 1px solid var(--bd);
+  background: rgba(255, 246, 228, 0.06);
+  color: var(--t1);
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
   cursor: pointer;
-  border: 2px solid;
-  transition: transform 150ms ease;
+  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.15s, border-color 0.15s,
+    opacity 0.15s;
 }
 .pq-btn:hover {
-  transform: translateY(-2px);
+  border-color: rgba(255, 225, 170, 0.6);
+  background: rgba(255, 246, 228, 0.12);
+}
+.pq-btn:active {
+  transform: scale(0.97);
+}
+.pq-btn:focus-visible {
+  outline: none;
+  box-shadow: var(--pq-ring);
+}
+.pq-btn[aria-disabled='true'] {
+  pointer-events: none;
+  opacity: 0.45;
 }
 .pq-btn--primary {
-  background: linear-gradient(180deg, #EF4444, #B91C1C);
-  color: white;
-  border-color: #FCA5A5;
-  box-shadow: 0 4px 16px rgba(239, 68, 68, 0.4);
+  background: linear-gradient(180deg, #ffd54a 0%, #e6a72c 100%);
+  border-color: #ffd54a;
+  color: #33200a;
 }
-.pq-btn--secondary {
-  background: rgba(42, 24, 16, 0.1);
-  color: #2A1810;
-  border-color: #8B4513;
+.pq-btn--primary:hover {
+  background: linear-gradient(180deg, #ffdf70 0%, #f0b336 100%);
+  border-color: #ffdf70;
+}
+.pq-btn--risk {
+  background: rgba(120, 220, 230, 0.1);
+  border-color: rgba(120, 220, 230, 0.55);
+  color: #d7f4f8;
+}
+.pq-btn--risk:hover {
+  background: rgba(120, 220, 230, 0.2);
+  border-color: rgba(120, 220, 230, 0.85);
+}
+.pq-btn--ghost {
+  background: transparent;
+}
+.pq-btn .gk-kbd {
+  border-color: rgba(255, 225, 170, 0.35);
+  background: rgba(0, 0, 0, 0.25);
+  color: inherit;
+}
+.pq-btn--primary .gk-kbd {
+  border-color: rgba(51, 32, 10, 0.4);
+  background: rgba(255, 255, 255, 0.35);
+  color: #33200a;
 }
 
-/* ═══════ Responsive ═══════ */
-@media (max-width: 768px) {
-  .pq-card {
-    min-width: auto;
-    width: calc(100% - 32px);
-    padding: 12px 18px;
+.pq-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ══════════════ 로딩 게이트 ══════════════ */
+.pq-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 24px;
+  text-align: center;
+  background: linear-gradient(180deg, #2a1810 0%, #4a2a16 55%, #7a4a20 100%);
+}
+.pq-gate-mark {
+  display: grid;
+  place-items: center;
+  width: 62px;
+  height: 62px;
+  border-radius: 20px;
+  border: 1px solid var(--bd);
+  background: rgba(255, 246, 228, 0.07);
+  color: #ffd54a;
+}
+.pq-gate-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--t1);
+}
+.pq-gate-bar {
+  width: min(260px, 70vw);
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 246, 228, 0.16);
+  overflow: hidden;
+}
+.pq-gate-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: #ffd54a;
+  transition: width 0.3s ease;
+}
+.pq-gate-sub {
+  margin: 0;
+  font-family: var(--font-body, Georgia, serif);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--t3);
+}
+
+/* ══════════════ 결과 (앱 토큰 그대로 — 라이트/다크 대응) ══════════════ */
+/* GameKitStyles 는 body 에 <style> 로 주입돼 문서 순서상 이 파일보다 뒤에 온다.
+   .gk-root 의 `position: relative` 를 이기려면 명시도를 한 단계 올려야 한다(둘 다 같은 요소). */
+.gk-root.pq-done-root {
+  position: fixed;
+  inset: 0;
+  z-index: 210;
+}
+.pq-reveal-title {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: var(--t2);
+}
+.pq-reveal-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.pq-reveal-chip {
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--bd);
+  background: var(--bg2);
+  font-size: 12.5px;
+  color: var(--t2);
+}
+.pq-reveal-chip b {
+  font-family: var(--font-english, var(--font-display, system-ui));
+  color: var(--t1);
+}
+
+/* ══════════════ 애니메이션 ══════════════ */
+@keyframes pq-fade-in {
+  from {
+    opacity: 0;
   }
-  .pq-card-meaning {
-    font-size: 22px;
+  to {
+    opacity: 1;
   }
-  .pq-toast {
-    padding: 16px 28px;
+}
+@keyframes pq-deck-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
   }
-  .pq-toast-word {
-    font-size: 26px;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  .pq-complete-card {
-    padding: 24px 28px;
+}
+@keyframes pq-mk-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.82) translateY(6px);
   }
-  .pq-complete-title {
-    font-size: 28px;
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+@keyframes pq-mk-pop {
+  0% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(1.16);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes pq-recall-drain {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(0);
+  }
+}
+@keyframes pq-mk-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-6px);
+  }
+  45% {
+    transform: translateX(6px);
+  }
+  70% {
+    transform: translateX(-4px);
+  }
+}
+
+/* ══════════════ 반응형 ══════════════ */
+/* 390px 급 — 라벨 폭 상한 118px. logic.beachMetrics 의 narrow(=width<=430) 분기와
+   같은 경계여야 한다. 이 두 수가 어긋나면 자리 계산이 라벨 크기를 잘못 알게 된다. */
+@media (max-width: 430px) {
+  .pq-mk {
+    max-width: 118px;
+    padding: 4px 9px;
+    gap: 5px;
+    font-size: 12.5px;
+  }
+  .pq-mk-badge {
+    width: 18px;
+    height: 18px;
+    font-size: 10px;
+  }
+  .pq-mk-en {
+    max-width: 11ch;
+  }
+  .pq-mk-ko {
+    font-size: 11px;
+  }
+}
+@media (min-width: 768px) {
+  .pq-hud {
+    gap: 12px;
+    padding: calc(12px + env(safe-area-inset-top, 0px)) 18px 10px;
+  }
+  .pq-hud-brand {
+    display: flex;
+  }
+  .pq-hud-tide {
+    order: 0;
+    flex: 1 1 auto;
+    max-width: 340px;
+  }
+  .pq-hud-num {
+    font-size: 17px;
+  }
+  .pq-deck-inner {
+    padding: 16px 20px 18px;
+  }
+  .pq-mk {
+    font-size: 15px;
+  }
+}
+@media (min-width: 1280px) {
+  .pq-deck {
+    width: min(620px, calc(100vw - 32px));
+  }
+}
+
+/* ══════════════ 모션 축소 ══════════════ */
+@media (prefers-reduced-motion: reduce) {
+  .pq-deck-inner,
+  .pq-hud-tier,
+  .pq-mk[data-mode='label'],
+  .pq-mk[data-mode='correct'],
+  .pq-mk[data-mode='wrong'] {
+    animation: pq-fade-in 0.2s ease !important;
+  }
+  .pq-mk,
+  .pq-btn,
+  .pq-icon-btn,
+  .pq-gate-fill {
+    transition: none;
+  }
+  .pq-mk:hover:not([aria-disabled='true']),
+  .pq-mk[data-hover='1']:not([aria-disabled='true']),
+  .pq-btn:active,
+  .pq-icon-btn:active {
+    transform: none;
   }
 }

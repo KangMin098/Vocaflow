@@ -1,0 +1,20 @@
+{
+  "1": { "pass": true, "hard_fail": [], "scores": { "character": 9, "scene": 9, "style": 8, "text_match": 9 } },
+  "2": { "pass": false, "hard_fail": ["baked_text"], "scores": { "character": 8, "scene": 7, "style": 8, "text_match": 3 }, "regen_hint": "sign-board must be BLANK in art; supply 'SCROOGE AND MARLEY' as HTML caption" },
+  "3": { "pass": false, "hard_fail": ["colour_leak"], "scores": { "character": 8, "scene": 7, "style": 3, "text_match": 8 }, "regen_hint": "no red eyes / blue lips — render menace with stark black ink hatching only" },
+  "4": { "pass": true, "hard_fail": [], "scores": { "character": 8, "scene": 8, "style": 8, "text_match": 8 } },
+  "5": { "pass": true, "hard_fail": [], "scores": { "character": 8, "scene": 8, "style": 8, "text_match": 8 } },
+  "6": { "pass": true, "hard_fail": [], "scores": { "character": 8, "scene": 8, "style": 8, "text_match": 7 } },
+  "7": { "pass": true, "hard_fail": [], "scores": { "character": 8, "scene": 8, "style": 8, "text_match": 8 } },
+  "8": { "pass": false, "hard_fail": ["wrong_or_duplicate_character"], "scores": { "character": 3, "scene": 6, "style": 8, "text_match": 5 }, "regen_hint": "single subject Fred only; no second bald/holly figure (that duplicate reads as Fred, not Bob)" },
+  "9": { "pass": true, "hard_fail": [], "scores": { "character": 8, "scene": 7, "style": 8, "text_match": 7 } },
+  "10": { "pass": false, "hard_fail": ["no_background"], "scores": { "character": 8, "scene": 1, "style": 9, "text_match": 3 }, "regen_hint": "counting-house interior behind; dismissive over-the-shoulder wave, not a raised greeting; no checkerboard" },
+  "11": { "pass": false, "hard_fail": ["text_image_mismatch"], "scores": { "character": 7, "scene": 7, "style": 7, "text_match": 3 }, "regen_hint": "Bob sliding on a stripe of ice, not pushing a cart" },
+  "12": { "pass": false, "hard_fail": ["identity_collapse"], "scores": { "character": 3, "scene": 5, "style": 7, "text_match": 4 }, "regen_hint": "knocker-face must be MARLEY: jaw-bandage + spectacles, translucent; home front door, not office" },
+  "13": { "pass": true, "hard_fail": [], "scores": { "character": 8, "scene": 8, "style": 8, "text_match": 8 } },
+  "14": { "pass": true, "hard_fail": [], "scores": { "character": 8, "scene": 8, "style": 8, "text_match": 8 } },
+  "15": { "pass": false, "hard_fail": ["text_image_mismatch", "identity_collapse"], "scores": { "character": 5, "scene": 6, "style": 7, "text_match": 4 }, "regen_hint": "Marley must be see-through (door visible through body) and not Scrooge-like" },
+  "16": { "pass": false, "hard_fail": ["empty_balloon"], "scores": { "character": 7, "scene": 6, "style": 6, "text_match": 6 }, "regen_hint": "no blank speech balloons baked into art; fire in a brick fireplace, not a floor campfire" },
+  "17": { "pass": false, "hard_fail": ["wrong_character"], "scores": { "character": 4, "scene": 7, "style": 7, "text_match": 6 }, "regen_hint": "Marley is a gaunt thin OLD ghost, never muscular; translucent" },
+  "18": { "pass": true, "hard_fail": [], "scores": { "character": 8, "scene": 8, "style": 8, "text_match": 8 } }
+}

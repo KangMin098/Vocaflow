@@ -1,0 +1,190 @@
+{
+  "book": {
+    "id": "darwin-origin",
+    "title": "Darwin & the Great Drought",
+    "author": "Charles Darwin, On the Origin of Species (1859)",
+    "source": "gutenberg",
+    "ref": "2009",
+    "total_words": 190000
+  },
+  "adaptation": {
+    "style": "gonick",
+    "panel_count": 12,
+    "default_tier": "teen",
+    "tiers": ["child", "teen", "adult"],
+    "target_v_level": 10,
+    "source_span": [40000, 210000],
+    "art_shared_across_tiers": true,
+    "seed": 909
+  },
+  "cast": [
+    { "id": "chip", "name": "Chip", "role": "protagonist",
+      "canonical": "a small skinny finch with a tiny dainty beak",
+      "anchor": "a little red scarf", "seed_role": 909 },
+    { "id": "bruna", "name": "Bruna", "role": "foil",
+      "canonical": "a chunky finch with a huge thick powerful beak",
+      "anchor": "a yellow flower on her head", "seed_role": 909 },
+    { "id": "darwin", "name": "Darwin", "role": "observer",
+      "canonical": "a small cartoon Charles Darwin, bald, huge white beard, glasses, notebook",
+      "anchor": "a notebook", "seed_role": 909 }
+  ],
+  "panels": [
+    { "n": 1, "wide": true, "beat_offset": [40000, 54000],
+      "scene": "sunny Galapagos island, a lively flock of finches partying, Chip showing off, Darwin peeking from behind a rock taking notes",
+      "composition": "wide establishing shot; characters small and spaced apart",
+      "characters": ["chip", "bruna", "darwin"],
+      "text": {
+        "teen": {
+          "narration": "WELCOME TO A TINY ISLAND OFF SOUTH AMERICA, WHERE THE <b>FINCHES</b> ARE MANY AND LIFE IS GOOD. THAT NERVOUS FELLOW BEHIND THE ROCK? A YOUNG NATURALIST NAMED <b>DARWIN</b>.",
+          "bubbles": [ { "speaker": "chip", "text": "CHECK OUT MY GORGEOUS BEAK, LADIES!", "pos": "tr" }, { "speaker": "darwin", "text": "...FASCINATING.", "pos": "br" } ],
+          "labels": [ { "text": "CHIP", "pos": "bl" }, { "text": "BRUNA", "pos": "br" } ],
+          "quote": null
+        },
+        "child": {
+          "narration": "ON A SUNNY ISLAND LIVED LOTS OF LITTLE BIRDS CALLED <b>FINCHES</b>. A MAN NAMED <b>DARWIN</b> CAME TO WATCH THEM.",
+          "bubbles": [ { "speaker": "chip", "text": "LOOK AT MY BEAK!", "pos": "tr" } ],
+          "labels": [ { "text": "CHIP", "pos": "bl" }, { "text": "BRUNA", "pos": "br" } ],
+          "quote": null
+        }
+      } },
+    { "n": 2, "wide": false, "beat_offset": [54000, 68000],
+      "scene": "finches feasting on piles of soft juicy seeds, everyone fat and happy, Chip juggling seeds",
+      "composition": "medium; Chip centre",
+      "characters": ["chip"],
+      "text": {
+        "teen": {
+          "narration": "THE GOOD TIMES: SOFT JUICY SEEDS EVERYWHERE. A DAINTY LITTLE BEAK LIKE <b>CHIP&rsquo;S</b> WORKS JUST FINE. WHY WOULD A BEAK EVER NEED TO BE BIGGER?",
+          "bubbles": [ { "speaker": "chip", "text": "EASY LIVING, BABY!", "pos": "tr" } ],
+          "quote": null
+        },
+        "child": {
+          "narration": "THERE WERE SOFT SEEDS EVERYWHERE. <b>CHIP&rsquo;S</b> SMALL BEAK COULD EAT THEM EASILY. YUM!",
+          "bubbles": [ { "speaker": "chip", "text": "SO EASY!", "pos": "tr" } ],
+          "quote": null
+        }
+      } },
+    { "n": 3, "wide": false, "beat_offset": [68000, 82000],
+      "scene": "a nest absolutely overflowing with too many baby finches, dozens of open screaming beaks, only a few seeds",
+      "composition": "medium; chaotic nest",
+      "characters": [],
+      "text": {
+        "teen": {
+          "narration": "ONE CATCH. FINCHES HAVE <b>WAY TOO MANY BABIES</b> &mdash; FAR MORE THAN THE ISLAND CAN EVER FEED. NOBODY WORRIES ABOUT IT... YET.",
+          "bubbles": [ { "speaker": "", "text": "FEED US!!", "pos": "tr" }, { "speaker": "", "text": "THERE&rsquo;S HUNDREDS OF YOU!", "pos": "br" } ],
+          "quote": null
+        },
+        "child": {
+          "narration": "THE FINCHES HAD <b>SO MANY BABIES</b>. TOO MANY! THERE WAS NOT ENOUGH FOOD FOR ALL OF THEM.",
+          "bubbles": [ { "speaker": "", "text": "FEED US!", "pos": "tr" } ],
+          "quote": null
+        }
+      } },
+    { "n": 4, "wide": true, "beat_offset": [82000, 96000],
+      "scene": "a blazing angry sun with a face, cracked dry desert ground, dead wilted plants, terrified finches, only hard spiky seeds remain",
+      "composition": "wide dramatic; barren landscape",
+      "characters": [],
+      "text": {
+        "teen": {
+          "narration": "THEN THE RAINS DON&rsquo;T COME. <b>THE GREAT DROUGHT.</b> THE SOFT SEEDS SHRIVEL AWAY. ALL THAT&rsquo;S LEFT ARE BIG, HARD, SPIKY SEEDS LIKE LITTLE ROCKS.",
+          "bubbles": [ { "speaker": "", "text": "UH... GUYS? WHERE&rsquo;S THE FOOD?", "pos": "br" } ],
+          "labels": [ { "text": "NO RAIN FOR MONTHS", "pos": "bl" } ],
+          "quote": null
+        }
+      } },
+    { "n": 5, "wide": false, "beat_offset": [96000, 110000],
+      "scene": "Chip the small-beak finch straining and failing to crack one giant hard spiky seed, comic frustration, sweat drops",
+      "composition": "close on Chip; single character",
+      "characters": ["chip"],
+      "text": {
+        "teen": {
+          "narration": "POOR <b>CHIP</b>. HIS CUTE LITTLE BEAK CAN&rsquo;T CRACK THESE MONSTERS. HIS DAINTY VARIATION, ONCE SO CHARMING, IS NOW A DISASTER.",
+          "bubbles": [ { "speaker": "chip", "text": "CRACK, YOU STUPID SEED!!", "pos": "tr" } ],
+          "quote": null
+        }
+      } },
+    { "n": 6, "wide": false, "beat_offset": [110000, 124000],
+      "scene": "Bruna the big-beak finch easily cracking the hard spiky seeds with a loud CRACK, looking smug and well-fed",
+      "composition": "close on Bruna; single character",
+      "characters": ["bruna"],
+      "text": {
+        "teen": {
+          "narration": "BUT <b>BRUNA</b> WAS BORN WITH A RIDICULOUS, OVERSIZED BEAK &mdash; AND SUDDENLY IT&rsquo;S A SUPERPOWER. <b>CRACK!</b> SHE EATS LIKE A QUEEN.",
+          "bubbles": [ { "speaker": "bruna", "text": "MMM. WHO&rsquo;S LAUGHING NOW?", "pos": "br" } ],
+          "labels": [ { "text": "CRACK!", "pos": "tr" } ],
+          "quote": null
+        }
+      } },
+    { "n": 7, "wide": true, "beat_offset": [124000, 138000],
+      "scene": "a crowd of hungry finches shoving and fighting over one last hard seed, a struggle, some fainting, dramatic",
+      "composition": "wide; many characters small and spread out",
+      "characters": ["chip", "bruna"],
+      "text": {
+        "teen": {
+          "narration": "THIS IS THE UGLY PART. TOO MANY FINCHES, TOO LITTLE FOOD &mdash; A FLAT-OUT <b>STRUGGLE FOR EXISTENCE</b>. AND DARWIN, WATCHING, SEES THE RULE OF IT.",
+          "bubbles": [ { "speaker": "chip", "text": "MINE!", "pos": "tr" } ],
+          "quote": "any being, if it vary however slightly in any manner profitable to itself … will have a better chance of surviving, and thus be naturally selected",
+          "quote_by": "DARWIN, 1859"
+        }
+      } },
+    { "n": 8, "wide": false, "beat_offset": [138000, 152000],
+      "scene": "weak thin small-beak finches drooping while Bruna the strong big-beak finch stands victorious on a rock",
+      "composition": "medium; Bruna elevated, others low",
+      "characters": ["bruna"],
+      "text": {
+        "teen": {
+          "narration": "NATURE NEVER ASKED WHO WAS NICER OR PRETTIER &mdash; ONLY WHOSE BEAK <b>WORKED</b>. THE BIG-BEAKS LIVE. THE OTHERS... FADE.",
+          "bubbles": [ { "speaker": "bruna", "text": "STILL HERE!", "pos": "tr" } ],
+          "labels": [ { "text": "SURVIVAL OF THE FITTEST", "pos": "bl" } ],
+          "quote": "Man selects only for his own good; Nature only for that of the being which she tends.",
+          "quote_by": "DARWIN, 1859"
+        }
+      } },
+    { "n": 9, "wide": false, "beat_offset": [152000, 166000],
+      "scene": "Bruna proudly with a row of baby finches that all have the same big thick beak, an arrow showing the trait passed down",
+      "composition": "medium; Bruna and chicks",
+      "characters": ["bruna"],
+      "text": {
+        "teen": {
+          "narration": "HERE&rsquo;S THE TWIST THAT CHANGES EVERYTHING: BRUNA&rsquo;S CHICKS <b>INHERIT</b> HER BIG BEAK. THE NEXT GENERATION IS BORN ALREADY ARMED.",
+          "bubbles": [ { "speaker": "", "text": "WE GOT MOM&rsquo;S BEAK!", "pos": "br" } ],
+          "labels": [ { "text": "&rarr; PASSED DOWN", "pos": "tr" } ],
+          "quote": null
+        }
+      } },
+    { "n": 10, "wide": false, "beat_offset": [166000, 180000],
+      "scene": "Darwin at his desk with notebook having a giant lightbulb AHA moment, connecting drawings of finch beaks with string on a board",
+      "composition": "medium; Darwin at desk",
+      "characters": ["darwin"],
+      "text": {
+        "teen": {
+          "narration": "BACK IN HIS STUDY, DARWIN CONNECTS THE THREADS. NO DESIGNER, NO MAGIC &mdash; JUST <b>NATURE QUIETLY KEEPING WHAT WORKS</b>, OVER AND OVER.",
+          "bubbles": [ { "speaker": "darwin", "text": "AHA!!", "pos": "tr" } ],
+          "quote": "natural selection is daily and hourly scrutinising, throughout the world, the slightest variations; rejecting those that are bad, preserving and adding up all that are good",
+          "quote_by": "DARWIN, 1859"
+        }
+      } },
+    { "n": 11, "wide": false, "beat_offset": [180000, 194000],
+      "scene": "a long winding timeline path across geological rock layers, tiny finches slowly changing, their beaks getting bigger over millions of years",
+      "composition": "medium; timeline left-to-right",
+      "characters": [],
+      "text": {
+        "teen": {
+          "narration": "NOW ADD THE ONE INGREDIENT WE NEVER SEE: <b>DEEP TIME</b>. AGE AFTER AGE, THE BEAKS CREEP BIGGER... UNTIL ONE KIND OF FINCH HAS BECOME <b>ANOTHER</b>.",
+          "labels": [ { "text": "THEN", "pos": "bl" }, { "text": "A MILLION YEARS LATER", "pos": "br" } ],
+          "quote": null
+        }
+      } },
+    { "n": 12, "wide": true, "beat_offset": [194000, 210000],
+      "scene": "a lush green tangled riverbank bursting with many plants, birds, insects and worms, Darwin gesturing proudly, one finch wearing a red scarf now has a big beak too",
+      "composition": "wide finale; Darwin small at left",
+      "characters": ["darwin"],
+      "text": {
+        "teen": {
+          "narration": "AND THAT IS HOW ONE TANGLED, CROWDED, HUNGRY LITTLE ISLAND FILLS UP WITH <b>ENDLESS DIFFERENT CREATURES</b> &mdash; NO MIRACLES REQUIRED, JUST LAWS ACTING AROUND US. (P.S. CHIP&rsquo;S GREAT-GREAT-GRANDKID? BIG BEAK.)",
+          "bubbles": [ { "speaker": "chip", "text": "RUNS IN THE FAMILY NOW!", "pos": "br" } ],
+          "quote": "from so simple a beginning endless forms most beautiful and most wonderful have been, and are being evolved",
+          "quote_by": "DARWIN, 1859"
+        }
+      } }
+  ]
+}

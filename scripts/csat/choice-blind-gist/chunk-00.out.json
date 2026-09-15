@@ -1,0 +1,886 @@
+{
+ "items": [
+  {
+   "id": "2014B#24",
+   "type": "R-TOPIC",
+   "passage": "In order to successfully release himself from the control of his parents, a child must be secure in his parents’ power, as represented by their loving authority. The more effectively they communicate that authority, the more secure the child feels, and the better able he is to move away from them toward a life of his own. During this lengthy process, whenever he feels threatened, he turns back toward the safety of his parents’ love and authority. In other words, it is impossible for a child to successfully release himself unless he knows exactly where his parents stand, both literally and figuratively. That requires, of course, that his parents know where they themselves stand. If they don’t know where they stand ― if, in other words, they are insecure in their authority ― they cannot communicate security to their child, and he cannot move successfully away from them. Under the circumstances, he will become clingy, or disobedient, or both.",
+   "choices": [
+    {
+     "label": "A",
+     "text": "necessity of parental intervention in ensuring children’s safety",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "importance of communicating parental authority to children for their independence 3",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "consequences of offering parental supervision for children’s independence",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "requirements for preventing children from being disobedient to their parents",
+     "abstractness": 2,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "roles of parental authority in children’s social skills development",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2014B#25",
+   "type": "R-TITLE",
+   "passage": "The names of pitches are associated with particular frequency values. Our current system is called A440 because the note we call ‘A’ that is in the middle of the piano keyboard has been fixed to have a frequency of 440 Hz. This is entirely arbitrary. We could fix ‘A’ at any frequency, such as 439 or 424; different standards were used in the time of Mozart than today. Some people claim that the precise frequencies affect the overall sound of a musical piece and the sound of instruments. Led Zeppelin, a band popular in the 70s, often tuned their instruments away from the modern A440 standard to give their music an uncommon sound, and perhaps to link it with the European children’s folk songs that inspired many of their compositions. Many purists insist on hearing baroque music on period instruments, both because the instruments have a different sound and because they are designed to play the music in its original tuning standard, something that purists deem important.",
+   "choices": [
+    {
+     "label": "A",
+     "text": "Should ‘A’ Always Be Tuned at 440 Hz?",
+     "abstractness": 1,
+     "passageEcho": 2,
+     "concreteMarker": true
+    },
+    {
+     "label": "B",
+     "text": "Unstable Pitches: A Common Thread in Music",
+     "abstractness": 4,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "How to Correctly Measure Frequency Values",
+     "abstractness": 2,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "Arbitrary Tuning: A New Trend in Music",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "How Do Musicians Detect Pitch Differences?",
+     "abstractness": 2,
+     "passageEcho": 1,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2014B#40",
+   "type": "R-SUMMARY",
+   "passage": "(B)에 들어갈 말로 가장 적절한 것은? Low-balling describes the technique where two individuals arrive at an agreement and then one increases the cost to be incurred by the other. For example, after the consumer has agreed to purchase a car for $8,000, the salesperson begins to add on $100 for tax and $200 for tires. These additional costs might be thought of as a metaphorical ‘low ball’ that the salesperson throws the consumer. One explanation for the effectiveness of low-balling is in terms of self-perception theory. When the consumer agrees to purchase the product under the original terms, that behavior might be used by the consumer to infer his sincere interest in the product. This inferred sincere interest in the product may enable him to endure the increased cost. An alternative explanation is in terms of impression management theory. If the consumer were to withdraw from the deal after the ‘slight’ change in the terms of agreement, he might foster the rather undesirable impression of being an irresponsible consumer unaware of these necessary charges. ������ Low-balling is effective in sales contexts because the consumer, by not withdrawing from the deal, tends to (A) his purchase decision or tries to save (B) . (A) (B) (A) (B)",
+   "choices": [
+    {
+     "label": "A",
+     "text": "modify …… face",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "cherish …… time",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "modify …… trouble 7 7",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "justify …… face",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "justify …… time",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2014A#25",
+   "type": "R-TOPIC",
+   "passage": "Some people punish themselves when they are under time pressure. They delete all the games on their PC, they stop going for walks, and they don’t spend time with their friends. They then have less pleasure in life and less balance ― and their work performance actually declines. Break out of this pattern by paying more attention to relaxation and getting more involved in living when you are under pressure. Define clear time periods for this: half an hour for a walk, ten minutes to play a game on your PC, and so on. Your mind will become more creative during the break, and you will become mentally fitter. Free time without feelings of guilt will give you the strength to do high-quality work in the remaining time. Furthermore, a certain amount of recreation reduces the chances of developing stress-related disorders.",
+   "choices": [
+    {
+     "label": "A",
+     "text": "컴퓨터 게임 중독의 심각성",
+     "abstractness": 2,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "집중력과 학습 능력 간의 관계",
+     "abstractness": 3,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "시간적 압박하에서의 휴식의 필요성",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "죄책감이 정신 건강에 미치는 영향",
+     "abstractness": 3,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "직장 내 대인 관계의 중요성",
+     "abstractness": 2,
+     "passageEcho": 0,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2014A#26",
+   "type": "R-TITLE",
+   "passage": "Large animals are actually less dangerous to hikers than smaller ones. Common sense tells us that we should avoid tigers, bears, and other large threatening animals. But smaller animals are actually more threatening than bigger animals. To overcome disadvantages of their size, small animals have developed useful weapons such as poison to protect themselves in the wild. Each year, only a few people are attacked by tigers or bears, and most of these incidents are caused by the people themselves. However, more people are killed by bites from small poisonous snakes than by these large animals. Even more people lose their lives from allergic reactions to common bee stings. For these reasons, hikers should be careful about small dangerous creatures.",
+   "choices": [
+    {
+     "label": "A",
+     "text": "Animals: Human’s True Friends",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "Why Are Wild Animals Endangered? 3 8 4",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "Watch Out for Small Animals!",
+     "abstractness": 2,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "How to Deal with Allergies",
+     "abstractness": 2,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "Animals Attack Human Villages!",
+     "abstractness": 1,
+     "passageEcho": 1,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2015#20",
+   "type": "R-TOPIC",
+   "passage": "doing than by mere abstract study. This is often the case with the most abstract as well as the seemingly more practical disciplines. For example, within the philosophical disciplines, logic must be learned through the use of examples and actual problem solving. Only after some time and struggle does the student begin to develop the insights and intuitions that enable him to see the centrality and relevance of this mode of thinking. This learning by doing is essential in many of the sciences. For instance, only after a good deal of observation do the sparks in the bubble chamber become recognizable as the specific movements of identifiable particles.",
+   "choices": [
+    {
+     "label": "A",
+     "text": "difference between philosophy and science 8 2",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "limitations of learning strategies",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "history of science education",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "importance of learning by doing",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "effects of intuition on scientific discoveries",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2015#21",
+   "type": "R-TOPIC",
+   "passage": "seem like insurmountable problems in living. But by playing them out, he may become able to cope with them in a step-by-step process. He often does so in symbolic ways that are hard for even him to understand, as he is reacting to inner processes whose origin may be buried deep in his unconscious. This may result in play that makes little sense to us at the moment, since we do not know the purposes it serves. When there is no immediate danger, it is usually best to approve of the child’s play without interfering. Efforts to assist him in his struggles, while well intentioned, may divert him from seeking and eventually finding the solution that will serve him best.",
+   "choices": [
+    {
+     "label": "A",
+     "text": "parental roles in children’s physical development",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "dangers of playing violent games to mental health",
+     "abstractness": 2,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "necessity of intervening in disputes between siblings",
+     "abstractness": 2,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "children’s play as problem solving with minimal intervention",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "beneficial influence of playing outdoors in childhood",
+     "abstractness": 2,
+     "passageEcho": 1,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2015#22",
+   "type": "R-TITLE",
+   "passage": "their own moral principles and on the practical implications of those principles, and they sometimes think about what principles people should have or which moral standards can be best justified. When a person accepts a moral principle, naturally the person believes the principle is important and well justified. But there is more to moral principles than that. When a principle is part of a person’s moral code, that person is strongly motivated toward the conduct required by the principle, and against behavior that conflicts with that principle. The person will tend to feel guilty when his or her own conduct violates that principle and to disapprove of others whose behavior conflicts with it. Likewise, the person will tend to hold in esteem those whose conduct shows an abundance of the motivation required by the principle.",
+   "choices": [
+    {
+     "label": "A",
+     "text": "Do Not Let Your Moral Principles Change!",
+     "abstractness": 2,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "How Do People Form Their Personalities?",
+     "abstractness": 3,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "Feeling Guilty? Check Your Self-Esteem First",
+     "abstractness": 2,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "Moral Integrity: A Principle of Philosophy",
+     "abstractness": 4,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "Moral Principles: Guiding Our Conduct 3",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2015#23",
+   "type": "R-TITLE",
+   "passage": "actions you’re taking should be the natural next step. One of the mistakes we often make when confronting a risk situation is our tendency to focus on the end result. Skiers who are unsure of themselves often do this. They’ll go to the edge of a difficult slope, look all the way down to the bottom, and determine that the slope is too steep for them to try. The ones that decide to make it change their focus by analyzing what they need to do to master the first step, like getting through the first mogul on the hill. Once they get there, they concentrate on the next mogul, and over the course of the run, they end up at the bottom of what others thought was an impossible mountain. * mogul: 모굴(스키의 활주 사면에 있는 단단한 눈 더미)",
+   "choices": [
+    {
+     "label": "A",
+     "text": "Separating the Possible from the Impossible",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "Success Through Risk Avoidance",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "Start with Ultimate Goals in Mind!",
+     "abstractness": 3,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "The Wonders of Committed Efforts",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "Focus on the Next Step, Not the Final Result",
+     "abstractness": 2,
+     "passageEcho": 2,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2015#40",
+   "type": "R-SUMMARY",
+   "passage": "(B)에 들어갈 말로 가장 적절한 것은? Plato and Tolstoy both assume that it can be firmly established that certain works have certain effects. Plato is sure that the representation of cowardly people makes us cowardly; the only way to prevent this effect is to suppress such representations. Tolstoy is confident that the artist who sincerely expresses feelings of pride will pass those feelings on to us; we can no more escape than we could escape an infectious disease. In fact, however, the effects of art are neither so certain nor so direct. People vary a great deal both in the intensity of their response to art and in the form which that response takes. Some people may indulge fantasies of violence by watching a film instead of working out those fantasies in real life. Others may be disgusted by even glamorous representations of violence. Still others may be left unmoved, neither attracted nor disgusted. ������ Although Plato and Tolstoy claim that works of art have a(n) (A) impact on people’s feelings, the degrees and forms of people’s actual responses (B) greatly. (A) (B) (A) (B) : 애벌레 ① unavoidable …… differ ② direct …… converge sap: 수액 ③ temporary …… fluctuate ④ unexpected …… converge 7 ⑤ favorable …… differ 8 8",
+   "choices": [
+    {
+     "label": "A",
+     "text": "direct …… converge sap: 수액",
+     "abstractness": 4,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "unavoidable …… differ",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "temporary …… fluctuate",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "favorable …… differ 8 8",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "unexpected …… converge 7",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2016#22",
+   "type": "R-TOPIC",
+   "passage": "Twin sirens hide in the sea of history, tempting those seeking to understand and appreciate the past onto the reefs of misunderstanding and misinterpretation. These twin dangers are temporocentrism and ethnocentrism. Temporocentrism is the belief that your times are the best of all possible times. All other times are thus inferior. Ethnocentrism is the belief that your culture is the best of all possible cultures. All other cultures are thus inferior. Temporocentrism and ethnocentrism unite to cause individuals and cultures to judge all other individuals and cultures by the “superior” standards of their current culture. This leads to a total lack of perspective when dealing with past and / or foreign cultures and a resultant misunderstanding and misappreciation of them. Temporocentrism and ethnocentrism tempt moderns into unjustified criticisms of the peoples of the past.",
+   "choices": [
+    {
+     "label": "A",
+     "text": "historians’ efforts to advocate their own culture",
+     "abstractness": 2,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "pros and cons of two cross-cultural perspectives",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "beliefs that cause biased interpretations of the past 3",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "distinct differences in the ways of recording history",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "universal features discovered in different cultures",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2016#23",
+   "type": "R-TITLE",
+   "passage": "When we remark with surprise that someone “looks young” for his or her chronological age, we are observing that we all age biologically at different rates. Scientists have good evidence that this apparent difference is real. It is likely that age changes begin in different parts of the body at different times and that the rate of annual change varies among various cells, tissues, and organs, as well as from person to person. Unlike the passage of time, biological aging resists easy measurement. What we would like to have is one or a few measurable biological changes that mirror all other biological age changes without reference to the passage of time, so that we could say, for example, that someone who is chronologically eighty years old is biologically sixty years old. This kind of measurement would help explain why one eighty-year-old has so many more youthful qualities than does another eighty-year-old, who may be biologically eighty or even ninety years old.",
+   "choices": [
+    {
+     "label": "A",
+     "text": "A Few Tips to Guess Chronological Age",
+     "abstractness": 2,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "Reasons for Slow Aging in the Modern Era",
+     "abstractness": 2,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "Secrets of Biological Aging Disclosed",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "In Search of a Mirror Reflecting Biological Aging : 교수법",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "Looking for the Fountain of Youth",
+     "abstractness": 3,
+     "passageEcho": 0,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2016#40",
+   "type": "R-SUMMARY",
+   "passage": "(B)에 들어갈 말로 가장 적절한 것은? Performance must be judged in terms of what is under the control of the individuals being evaluated rather than those influences on performance that are beyond their control. There can be broad, influential factors, sometimes of an economic nature, that hold down the performance of everyone being judged. One example is in sales. If there is a general downturn in the economy and products or services are not being purchased with the same frequency as in the previous year, sales could be down, for example, by an average of 15%. This 15% (actually －15%) figure would then represent “average” performance. Perhaps the best salesperson in the year had only a 3% drop in sales over the previous year. Thus, “good” performance in this situation is a smaller loss compared to some average or norm group. 그 자체로 ������ 7 In performance evaluation, we should consider (A) factors affecting the individual’s performance rather than (B) figures only. (A) (B)",
+   "choices": [
+    {
+     "label": "A",
+     "text": "controllable …… put aside",
+     "abstractness": 4,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "positive …… ignore",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "positive …… rely on 8 8",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "contextual …… rely on",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "contextual …… put aside",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2017#21",
+   "type": "R-TOPIC",
+   "passage": "The precision of the lines on the map, the consistency with which symbols are used, the grid and/or projection system, the apparent certainty with which place names are written and placed, and the legend and scale information all give the map an aura of scientific accuracy and objectivity. Although subjective interpretation goes into the construction of these cartographic elements, the finished map appears to express an authoritative truth about the world, separate from any interests and influences. The very trust that this apparent objectivity inspires is what makes maps such powerful carriers of ideology. However unnoticeably, maps do indeed reflect the world views of either their makers or, more probably, the supporters of their makers, in addition to the political and social conditions under which they were made. Some of the simple ideological messages that maps can convey include: This land is and has long been ours; here is the center of the universe; if we do not claim this land, the enemies you most fear will. * aura : 기운, 분위기 ** cartographic : 지도 제작(법)의",
+   "choices": [
+    {
+     "label": "A",
+     "text": "subjectivity defining the creativity of map-making",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "the authority derived from trustworthy maps",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "the conditions essential to making a map accurate",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "ideologies lying beneath the objectivity of maps",
+     "abstractness": 4,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "political and social conflicts caused by maps",
+     "abstractness": 2,
+     "passageEcho": 1,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2017#22",
+   "type": "R-TITLE",
+   "passage": "without any distortion or ambiguity, the sign system of honey-bees would probably win easily over human language every time. However, language offers something more valuable than mere information exchange. Because the meanings of words are not invariable and because understanding always involves interpretation, the act of communicating is always a joint, creative effort. Words can carry meanings beyond those consciously intended by speakers or writers because listeners or readers bring their own perspectives to the language they encounter. Ideas expressed imprecisely may be more intellectually stimulating for listeners or readers than simple facts. The fact that language is not always reliable for causing precise meanings to be generated in someone else’s mind is a reflection of its powerful strength as a medium for creating new understanding. It is the inherent ambiguity and adaptability of language as a meaning-making system that makes the relationship between language and thinking so special. * distortion : 왜",
+   "choices": [
+    {
+     "label": "A",
+     "text": "Erase Ambiguity in Language Production!",
+     "abstractness": 2,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "Communication as a Universal Goal in Language Use",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "What in Language Creates Varied Understanding?",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "Not Creative but Simple: The Way Language Works",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "Language: A Crystal-Clear Looking Glass 3",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2017#23",
+   "type": "R-TITLE",
+   "passage": "as his material, the finished, recorded celluloid. This material from which his final work is composed consists not of living men or real landscapes, not of real, actual stage-sets, but only of their images, recorded on separate strips that can be shortened, altered, and assembled according to his will. The elements of reality are fixed on these pieces; by combining them in his selected sequence, shortening and lengthening them according to his desire, the director builds up his own “filmic” time and “filmic” space. He does not adapt reality, but uses it for the creation of a new reality, and the most characteristic and important aspect of this process is that, in it, laws of space and time invariable and inescapable in work with actuality become obedient. The film assembles from them a new reality proper only to itself.",
+   "choices": [
+    {
+     "label": "A",
+     "text": "Innovative Technology in Film Editing",
+     "abstractness": 2,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "A Reality in the Film Director’s Hands",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "Film Making: Exploration into the Unknown",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "The Director’s Reality Never Changes",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "A Filmic World: Lost in Time and Space",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2017#40",
+   "type": "R-SUMMARY",
+   "passage": "(B)에 들어갈 말로 가장 적절한 것은? The impacts of tourism on the environment are evident to scientists, but not all residents attribute environmental damage to tourism. Residents commonly have positive views on the economic and some sociocultural influences of tourism on quality of life, but their reactions to environmental impacts are mixed. Some residents feel tourism provides more parks and recreation areas, improves the quality of the roads and public facilities, and does not contribute to ecological decline. Many do not blame tourism for traffic problems, overcrowded outdoor recreation, or the disturbance of peace and tranquility of parks. Alternatively, some residents express concern that tourists overcrowd the local fishing, hunting, and other recreation areas or may cause traffic and pedestrian congestion. Some studies suggest that variations in residents’ feelings about tourism’s relationship to environmental damage are related to the type of tourism, the extent to which residents feel the natural environment needs to be protected, and the distance residents live from the tourist attractions. * tranquility : 고요함 ** congestion : 혼잡 ������ Residents do not (A) tourism’s environmental influences identically since they take (B) postures based on factors such as the type of tourism, opinions on the degree of protection, and their distance from an attraction. 대순의 (A) (B) (A) (B) 7",
+   "choices": [
+    {
+     "label": "A",
+     "text": "weigh …… balanced",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "weigh …… common",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "control …… conflicting 8 8",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "weigh …… dissimilar",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "control …… favorable",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2018#22",
+   "type": "R-TOPIC",
+   "passage": "Sensory-specific satiety is defined as a decrease in appetite, or the subjective liking for the food that is consumed, with little change in the hedonics of uneaten food. As a result of sensory-specific satiety, when people consume a variety of foods, they tend to overeat. A greater variety of food leads people to eat more than they would otherwise. So, being full and feeling sated are separate matters. The recovery of appetite or the motivation to eat is apparent to anyone who has consumed a large meal and is quite full, and does not require additional energy or nutrients to meet their daily needs, but decides to consume additional calories after seeing the dessert cart. Small changes in the sensory properties of foods are sufficient to increase food intake. For example, subjects who were presented with different shapes of pasta showed increased hedonic ratings and increased energy consumption relative to subjects eating only a single shape of pasta. * satiety : 포만(감) ** hedonics : 쾌락 *** sated : 충분히 만족한",
+   "choices": [
+    {
+     "label": "A",
+     "text": "necessity of consuming a varied diet in daily life",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "importance of maintaining food diversity to prevent overeating 3",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "impact of food variety on the amount of food people consume",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "changes in people’s preference for basic food items",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "reasons for people’s rejection of unfamiliar foods",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2018#23",
+   "type": "R-TITLE",
+   "passage": "Individual authors and photographers have rights to their intellectual property during their lifetimes, and their heirs have rights for 70 years after the creator’s death, so any publication less than 125 years old has to be checked for its copyright status. The duration of copyright protection has increased steadily over the years; the life-plus-70-years standard was set by the Copyright Term Extension Act of 1998, which increased the 50-year limit established by the 1976 Copyright Act. Supporters of such legislation like to defend these increases with tales of starving writers and their impoverished descendants, but in reality the beneficiaries are more likely to be transnational publishing companies. And note that copyright laws serve a dual purpose. In addition to protecting the rights of authors so as to encourage the publication of new creative works, copyright is also supposed to place reasonable time limits on those rights so that outdated works may be incorporated into new creative efforts. ion : 위임 Therefore, the extended copyright protection frustrates new creative endeavors such as including poetry and song lyrics on Internet sites. * heir : 상속인 ** legislation : 법률, 입법",
+   "choices": [
+    {
+     "label": "A",
+     "text": "Creativity Leaps with Longer Copyright Protection!",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "Does Extended Copyright Truly Enhance Protection and Creation?",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "Who Smiles at Copyright Protection, Writers or Publishers?",
+     "abstractness": 2,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "More Is Not Enough: No Limits to Copyright Coverage",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "The Untold Origin of Copyright Protection",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2018#40",
+   "type": "R-SUMMARY",
+   "passage": "n : 제재 (B)에 들어갈 말로 가장 적절한 것은? Time spent on on-line interaction with members of one’s own, preselected community leaves less time available for actual encounters with a wide variety of people. If physicists, for example, were to concentrate on exchanging email and electronic preprints with other physicists around the world working in the same specialized subject area, they would likely devote less time, and be less receptive to new ways of looking at the world. Facilitating the voluntary construction of highly homogeneous social networks of scientific communication therefore allows individuals to filter the potentially overwhelming f low of information. But the result may be the tendency to overfilter it, thus eliminating the diversity of the knowledge circulating and diminishing the frequency of radically new ideas. In this regard, even a journey through the stacks of a real library can be more fruitful than a trip through today’s distributed virtual archives, because it seems difficult to use the available “search engines” to emulate efficiently the mixture of predictable and surprising discoveries that typically result from a physical shelf-search of an extensive library collection. * homogeneous : 동종의 ** emulate : 따라 하다 ������ Focusing on on-line interaction with people who are engaged in the same specialized area can (A) potential sources of information and thus make it less probable for (B) findings to happen. 7 (A) (B) (A) (B)",
+   "choices": [
+    {
+     "label": "A",
+     "text": "diversify …… accidental",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "limit …… distorted",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "provide …… novel 8 8",
+     "abstractness": 4,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "diversify ……misleading",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "limit ……unexpected",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2019#21",
+   "type": "R-IMPLY",
+   "passage": "가장 적절한 것은? Although not the explicit goal, the best science can really be seen as refining ignorance. Scientists, especially young ones, can get too obsessed with results. Society helps them along in this mad chase. Big discoveries are covered in the press, show up on the university’s home page, help get grants, and make the case for promotions. But it’s wrong. Great scientists, the pioneers that we admire, are not concerned with results but with the next questions. The highly respected physicist Enrico Fermi told his students that an experiment that successfully proves a hypothesis is a measurement; one that doesn’t is a discovery. A discovery, an uncovering ― of new ignorance. The Nobel Prize, the pinnacle of scientific accomplishment, is awarded, not for a lifetime of scientific achievement, but for a single discovery, a result. Even the Nobel committee realizes in some way that this is not really in the scientific spirit, and their award citations commonly honor the discovery for having “opened a field up,” “transformed a field,” or “taken a field in new and unexpected directions.” * pin",
+   "choices": [
+    {
+     "label": "A",
+     "text": "informing students of a new field of science",
+     "abstractness": 2,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "looking beyond what is known towards what is left unknown",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "offering an ultimate account of what has been discovered",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "inspiring scientists to publicize significant discoveries",
+     "abstractness": 2,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "analyzing existing knowledge with an objective mindset",
+     "abstractness": 3,
+     "passageEcho": 0,
+     "concreteMarker": false
+    }
+   ]
+  }
+ ]
+}

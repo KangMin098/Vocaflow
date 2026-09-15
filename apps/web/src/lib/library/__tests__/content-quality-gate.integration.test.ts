@@ -15,6 +15,9 @@ const skipIfNoEnv = !SUPABASE_URL || !SERVICE_KEY
  *  파일 직렬 실행(fileParallelism:false)으로 extraction.integration 과 경합 없음. */
 const GOLDEN_BOOK = 'ac506006-6147-4d23-8dba-72698eb7e9ae'
 
+/** `word_register='phrase_unit'` 인 실제 사전 표제어 — 구 유형 예외의 대조 픽스처에 쓴다. */
+const PHRASE_UNIT_WORD = '(a case of) dog eat dog'
+
 interface GateRow {
   pipeline: string
   invariant: string
@@ -43,6 +46,8 @@ describe.skipIf(skipIfNoEnv)('content quality gate (integration · 자체 테스
   // 결함 주입용 임시 세트(미발행 — 전역 게이트 오염 방지, word_set scope 는 is_published 무관 검사)
   let defectSetId: string
   let emptySetId: string
+  let phrasalSetId: string
+  let phraseLeakSetId: string
 
   beforeAll(async () => {
     db = createClient(SUPABASE_URL!, SERVICE_KEY!, {
@@ -87,6 +92,42 @@ describe.skipIf(skipIfNoEnv)('content quality gate (integration · 자체 테스
       .insert({ set_id: defectSetId, word: 'fortune', lemma: 'fortune', meaning_ko: '', sort_order: 2 })
     if (e2.error) throw new Error(`empty-meaning insert failed: ${e2.error.message}`)
 
+    // 구 유형 예외 픽스처 — **같은 단어**를 유형만 바꿔 두 세트에 넣는다.
+    // 예외가 유형에 걸려 있는지(넓게 새지 않는지)는 이 대조 없이는 증명되지 않는다.
+    // 실데이터로는 못 한다 — 발행 세트 중 phrase_unit 을 가진 것이 구동사 세트 하나뿐이라
+    // "다른 유형이었으면 잡혔을까" 를 물을 대조군이 존재하지 않는다.
+    const { data: pset } = await db
+      .from('shared_word_sets')
+      .insert({
+        title: 'GATE TEST — phrasal', category: 'themed', is_published: false,
+        auto_curated: false, slug: `gatetest-phrasal-${randomUUID()}`, version: 1,
+        curation_query: { blueprint: 'phrasal-idiom' },
+      })
+      .select('id')
+      .single()
+    phrasalSetId = (pset as { id: string }).id
+    const p1 = await db.from('shared_words').insert({
+      set_id: phrasalSetId, word: PHRASE_UNIT_WORD, lemma: PHRASE_UNIT_WORD,
+      meaning_ko: '약육강식의 세계', sort_order: 1,
+    })
+    if (p1.error) throw new Error(`phrase insert failed: ${p1.error.message}`)
+
+    const { data: nset } = await db
+      .from('shared_word_sets')
+      .insert({
+        title: 'GATE TEST — phrase leak', category: 'themed', is_published: false,
+        auto_curated: false, slug: `gatetest-phraseleak-${randomUUID()}`, version: 1,
+        curation_query: { blueprint: 'freq-tier' },
+      })
+      .select('id')
+      .single()
+    phraseLeakSetId = (nset as { id: string }).id
+    const p2 = await db.from('shared_words').insert({
+      set_id: phraseLeakSetId, word: PHRASE_UNIT_WORD, lemma: PHRASE_UNIT_WORD,
+      meaning_ko: '약육강식의 세계', sort_order: 1,
+    })
+    if (p2.error) throw new Error(`phrase leak insert failed: ${p2.error.message}`)
+
     // 결함 주입 세트 B: 빈 세트
     const { data: eset } = await db
       .from('shared_word_sets')
@@ -103,6 +144,8 @@ describe.skipIf(skipIfNoEnv)('content quality gate (integration · 자체 테스
     // 임시 세트 정리 (shared_words 는 set_id CASCADE)
     if (defectSetId) await db.from('shared_word_sets').delete().eq('id', defectSetId)
     if (emptySetId) await db.from('shared_word_sets').delete().eq('id', emptySetId)
+    if (phrasalSetId) await db.from('shared_word_sets').delete().eq('id', phrasalSetId)
+    if (phraseLeakSetId) await db.from('shared_word_sets').delete().eq('id', phraseLeakSetId)
   })
 
   // ── 계약: 각 scope 가 기대 불변식을 반환하고 verdict 가 유효 ──
@@ -166,6 +209,27 @@ describe.skipIf(skipIfNoEnv)('content quality gate (integration · 자체 테스
     const m = rows.find((r) => r.invariant.includes('뜻'))
     expect(m?.verdict).toBe('FAIL')
     expect(m?.fail_count).toBeGreaterThanOrEqual(1)
+  })
+
+  // ── I7 구 유형 예외 (마이그레이션 20260815120000) ──
+  //
+  // 구동사·관용어 단어장은 표제어가 곧 구이므로 그 유형에서 `phrase_unit` 은 산출물이다.
+  // 위험한 것은 이 예외가 **유형을 안 가리고** 넓어지는 것이다 — 그러면 낱말 단어장에
+  // 사전 변형(`(as) sick as a parrot`)이 섞여도 게이트가 조용해진다.
+  // 아래 두 테스트는 같은 단어로 그 경계를 양쪽에서 누른다.
+
+  it('구 유형 예외: 구동사 세트의 phrase_unit 은 I7 PASS', async () => {
+    const rows = await gate(db, 'word_set', phrasalSetId)
+    const i7 = rows.find((r) => r.invariant.startsWith('I7'))
+    expect(i7?.verdict, `구동사 유형에서 표제어가 구인 것은 결함이 아니다`).toBe('PASS')
+    expect(i7?.fail_count).toBe(0)
+  })
+
+  it('구 유형 예외는 유형에 걸려 있다: 같은 단어라도 다른 유형이면 I7 FAIL', async () => {
+    const rows = await gate(db, 'word_set', phraseLeakSetId)
+    const i7 = rows.find((r) => r.invariant.startsWith('I7'))
+    expect(i7?.verdict, `예외가 blueprint 를 안 보고 넓어졌다 — 낱말 단어장의 구 누출이 안 잡힌다`).toBe('FAIL')
+    expect(i7?.fail_count).toBeGreaterThanOrEqual(1)
   })
 
   it('결함검출: 빈 세트 → word_set 비어있음 FAIL', async () => {

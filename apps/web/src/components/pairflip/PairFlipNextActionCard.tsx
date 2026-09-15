@@ -108,13 +108,13 @@ export function PairFlipNextActionCard({ accuracy }: NextActionCardProps) {
             <p className="truncate font-display text-[13px] font-[700] text-[var(--t1)]">
               {a.label}
             </p>
-            <p className="truncate font-body text-[11px] text-[var(--t3)]">
+            <p className="truncate font-body text-[11px] text-[var(--t2)]">
               {a.description}
             </p>
           </div>
           <ArrowRight
             size={14}
-            className="shrink-0 text-[var(--t3)] transition-transform duration-[var(--dur-normal)] group-hover:translate-x-0.5 group-hover:text-[#F59E0B]"
+            className="shrink-0 text-[var(--t2)] transition-transform duration-[var(--dur-normal)] group-hover:translate-x-0.5 group-hover:text-[#F59E0B]"
             aria-hidden
           />
         </Link>
