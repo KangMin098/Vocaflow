@@ -99,7 +99,24 @@ const run = async () => {
   let ctx
   if (fresh) {
     ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, storageState: STATE_FILE })
-    console.log('저장된 로그인 상태 재사용 (재로그인 없음)')
+    // ⚠️ 파일 나이만 보고 믿지 않는다. 공유 계정이라 다른 세션 로그인이 이쪽 토큰을 회전시키면
+    //    **파일은 새것인데 세션은 죽어 있다.** 한 번 열어 보고, 죽었으면 다시 로그인한다.
+    const probe = await ctx.newPage()
+    await probe.goto(`${BASE}/hub`, { waitUntil: 'domcontentloaded', timeout: 90_000 })
+    await probe.waitForTimeout(2500)
+    const alive = !new URL(probe.url()).pathname.startsWith('/login')
+    await probe.close()
+    if (alive) {
+      console.log('저장된 로그인 상태 재사용 (확인함)')
+    } else {
+      console.log('저장된 상태가 죽어 있다 — 다시 로그인한다')
+      await ctx.close()
+      ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } })
+      const page = await ctx.newPage()
+      await login(page)
+      await page.close()
+      await ctx.storageState({ path: STATE_FILE })
+    }
   } else {
     ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } })
     const page = await ctx.newPage()
@@ -125,8 +142,20 @@ const run = async () => {
         // 주소가 멈출 때까지(클라이언트 리다이렉트) + 폰트·데이터 도착까지
         // 느린 화면(첫 컴파일·서버 조회)은 2.6초로 부족하다 — 스피너가 찍힌다.
         await p.waitForTimeout(Number(arg('wait', 2600)))
-        await p.screenshot({ path: file, fullPage })
         const landed = new URL(p.url()).pathname
+
+        // ⚠️ **로그인으로 튕긴 화면을 찍지 않는다.**
+        //    2026-09-16 실측: 저장된 로그인 상태가 만료된 채 재사용되자 다섯 라우트가 전부
+        //    /login 으로 갔는데, 하네스는 그걸 `✓` 로 적고 **멀쩡하던 after 캡처 위에
+        //    로그인 화면을 덮어썼다.** 못 잰 것을 통과로 세는 계측기는 없느니만 못하다
+        //    (같은 원칙을 `measure-identity.mjs` 는 처음부터 지키고 있었다 — 분모에서 뺀다).
+        if (landed.startsWith('/login') && !r.startsWith('/login')) {
+          report.push({ route: r, width: w, landed, ok: false, error: '로그인으로 튕김 — 찍지 않음' })
+          process.stdout.write(`✗ ${r} @${w} — 로그인으로 튕겼다(세션 만료). 기존 파일 보존\n`)
+          continue
+        }
+
+        await p.screenshot({ path: file, fullPage })
         report.push({ route: r, width: w, landed, ok: true })
         process.stdout.write(`✓ ${r} @${w}${landed !== r ? ` → ${landed}` : ''}\n`)
       } catch (e) {

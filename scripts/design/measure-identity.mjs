@@ -94,6 +94,17 @@ const PROBE = () => {
   const WEBFONT = /__(Lora|Hahmlet|IBM_Plex_Sans_KR|JetBrains_Mono)_/
 
   const main = document.querySelector('main') || document.body
+  /**
+   * M6 «세로로 선 글자» — 글자 상자가 너무 좁아 **한 줄에 한 글자씩** 떨어지는 자리.
+   *
+   * 왜 이 축이 생겼나(실측 2026-09-16): 한글 UI 글꼴을 OS 기본 고딕에서 IBM Plex Sans KR 로
+   * 바꾸자 글자가 조금 넓어졌고, **원래 아슬아슬하던 배치가 터졌다** — /settings 의
+   * 「능동적 회상 대기 시간」이 세로 한 줄로 섰다. 글꼴 탓이 아니라 배치가 원래 빠듯했던 것인데,
+   * **화면은 멀쩡히 뜨므로 테스트도 타입체크도 못 잡는다.** 눈으로 보거나 이렇게 재야 한다.
+   *
+   * 판정: 글자 2자 이상인데 상자 폭이 글자 크기의 2배 미만 → 세로로 섰다.
+   */
+  const vertical = []
   let korean = 0
   let koreanWebfont = 0
   let emoji = 0
@@ -112,6 +123,13 @@ const PROBE = () => {
         const s = getComputedStyle(el)
         inks[s.color] = (inks[s.color] || 0) + 1
         if (EMOJI.test(t)) emoji += (t.match(EMOJI) || []).length
+        if (t.length >= 2) {
+          const r = el.getBoundingClientRect()
+          const fs2 = parseFloat(s.fontSize) || 14
+          if (r.width > 0 && r.width < fs2 * 2 && r.height > fs2 * 2.2) {
+            vertical.push({ t: t.slice(0, 18), w: Math.round(r.width), h: Math.round(r.height), cls: (el.className || '').toString().slice(0, 60) })
+          }
+        }
         if (HANGUL.test(t)) {
           korean++
           // 한글을 실제로 그리는 글꼴은 스택에서 **한글 글리프를 가진 첫 글꼴**이다.
@@ -158,6 +176,8 @@ const PROBE = () => {
     korean,
     koreanWebfont,
     emoji,
+    vertical: vertical.slice(0, 6),
+    verticalCount: vertical.length,
     inkTotal,
     topInkShare: inkTotal ? inkEntries[0][1] / inkTotal : 0,
     distinctRadii: radiusPx.length,
@@ -218,7 +238,7 @@ const run = async () => {
   console.log(`\n측정 라우트 ${rows.length} / 요청 ${routes.length}  (폭 ${width}px)`)
   if (skipped.length) console.log('재지 못함:', skipped.join(' · '))
   console.log('─'.repeat(78))
-  console.log('route'.padEnd(24), 'M1 한글웹폰트', ' M2 주묵', 'M3 radius', 'M4 잉크편중', 'M5 이모지')
+  console.log('route'.padEnd(24), 'M1 한글웹폰트', ' M2 주묵', 'M3 radius', 'M4 잉크편중', 'M5 이모지', 'M6 세로글자')
   for (const r of rows) {
     console.log(
       r.route.padEnd(24),
@@ -226,7 +246,8 @@ const run = async () => {
       `${r.juElements}개 ${r.juAreaPct.toFixed(2)}%`.padEnd(9),
       `${r.distinctRadii}종 ≤${r.maxRadius}px`.padEnd(10),
       `${(r.topInkShare * 100).toFixed(0)}%`.padEnd(8),
-      String(r.emoji),
+      String(r.emoji).padEnd(9),
+      String(r.verticalCount),
     )
   }
   console.log('─'.repeat(78))
@@ -234,6 +255,11 @@ const run = async () => {
   console.log(`M2 주묵이 보이는 라우트 = ${rows.filter((r) => r.juElements > 0).length}/${rows.length}`)
   console.log(`M3 radius 종류 최대 = ${Math.max(0, ...rows.map((r) => r.distinctRadii))}종 · 최대값 ${Math.max(0, ...rows.map((r) => r.maxRadius))}px`)
   console.log(`M5 이모지 남은 수 = ${sum('emoji')}`)
+  const vtot = rows.reduce((a, r) => a + r.verticalCount, 0)
+  console.log(`M6 세로로 선 글자 = ${vtot}`)
+  if (vtot) {
+    for (const r of rows) for (const v of r.vertical) console.log(`   ${r.route} | "${v.t}" ${v.w}×${v.h}px | ${v.cls}`)
+  }
 
   if (outFile) {
     fs.writeFileSync(path.resolve(ROOT, outFile), JSON.stringify({ at: new Date().toISOString(), width, rows, skipped }, null, 2))

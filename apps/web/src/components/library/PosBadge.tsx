@@ -46,12 +46,12 @@ function posMeta(pos: string): PosMeta {
     case 'pronoun':
       return { Icon: User, label: 'pron.', color: 'var(--p)' }
     case 'preposition':
-      return { Icon: Link2, label: 'prep.', color: 'var(--memory-new)' }
+      return { Icon: Link2, label: 'prep.', color: 'var(--memory-new-ink)' }
     case 'conjunction':
-      return { Icon: Link, label: 'conj.', color: 'var(--memory-new)' }
+      return { Icon: Link, label: 'conj.', color: 'var(--memory-new-ink)' }
     case 'determiner':
     case 'article':
-      return { Icon: Hash, label: 'det.', color: 'var(--memory-new)' }
+      return { Icon: Hash, label: 'det.', color: 'var(--memory-new-ink)' }
     case 'interjection':
       return { Icon: MessageCircle, label: 'interj.', color: 'var(--accent-plum)' }
     case 'idiom':
@@ -59,15 +59,15 @@ function posMeta(pos: string): PosMeta {
     case 'phrasal_verb':
       return { Icon: Combine, label: '구동사', color: 'var(--memory-shaky)' }
     case 'abbreviation':
-      return { Icon: Type, label: '약어', color: 'var(--memory-new)' }
+      return { Icon: Type, label: '약어', color: 'var(--memory-new-ink)' }
     case 'numeral':
-      return { Icon: Hash, label: '수사', color: 'var(--memory-new)' }
+      return { Icon: Hash, label: '수사', color: 'var(--memory-new-ink)' }
     case 'auxiliary':
       return { Icon: Zap, label: '조동사', color: 'var(--memory-shaky)' }
     case 'prefix':
-      return { Icon: Type, label: '접두', color: 'var(--memory-new)' }
+      return { Icon: Type, label: '접두', color: 'var(--memory-new-ink)' }
     default:
-      return { Icon: Tag, label: pos, color: 'var(--memory-new)' }
+      return { Icon: Tag, label: pos, color: 'var(--memory-new-ink)' }
   }
 }
 

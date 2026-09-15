@@ -85,6 +85,33 @@ Google Fonts 의 한글은 `unicode-range` 로 **수백 조각**으로 쪼개져
 `--ju-ink` on `--bg` **6.34:1** · 다크 `--ju` on `--bg` **5.27:1** / on `--bg2` **5.79:1**.
 (라이트 값 `#C0392B` 를 다크에 그대로 쓰면 3.07:1 로 미달 — 그래서 테마마다 뒤집는다.)
 
+### 분류 팔레트 — 원색을 지면 색조로, **개수를 보존해서**
+
+학습자 화면에는 정보를 나르는 팔레트가 둘 있다(POS 배지 8색 · 사이드바 그룹 6색).
+일반 Tailwind 색조를 같은 구분력의 지면 색조로 **1:1** 로 옮긴다 — 한 색으로 접으면 구분이 사라진다.
+
+| 일반(이전) | 지면(지금) | 토큰 |
+|---|---|---|
+| indigo `#6366F1` · blue `#3B82F6` | dusty blue | `--learn-fresh` `#50697F` |
+| violet `#8B5CF6` `#7C3AED` | deep ink | `--p` `#0F2540` |
+| amber `#F59E0B` | deeper warm amber | `--memory-shaky` `#B5803A` |
+| emerald `#10B981` `#22C55E` | muted forest | `--memory-stable` `#2E7D5A` |
+| cyan `#06B6D4` | muted teal | `--learn-progress` `#2F6E6B` |
+| pink `#EC4899` | **muted plum (신규)** | `--accent-plum` `#7A4A6B` (다크 `#C79AB6`) |
+| slate `#64748B` | warm gray | `--memory-new` `#8A8278` |
+| red `#EF4444` | 중립 흑연 | `--learn-error` `#6B6258` |
+
+`--accent-plum` 은 여섯 번째 색조가 필요해서 새로 만들었다. **주묵과 헷갈리면 안 되므로
+색상환에서 붉은 쪽이 아니라 자주 쪽으로** 뺐다(종이 위 6.25:1 · 흰 글자 위 5.35:1, 둘 다 AA).
+
+**변경 금지(예외)** — 아케이드(`components/game/`) · PairFlip 모듈 팔레트(`#F59E0B` `#FCD34D`
+`#1E3A8A→#1E1B4B`) · SpellForge 패널 · WordBlitz 정글 · 만화 표지 장르색(아트워크).
+`DESIGN_SYSTEM.md` §게임 전용 하드코딩 색상 이 정본이다.
+
+⚠️ **canvas 는 `var()` 를 못 읽는다.** `ctx.strokeStyle = 'var(--x)'` 은 조용히 무시되고
+기본 검정으로 그려진다(오류도 안 난다). `components/echo/PitchVisualizer.tsx` 두 상수만
+실제 hex 로 두고 그 이유를 파일에 적어 뒀다.
+
 ### 주묵을 쓰는 자리 / 쓰지 않는 자리
 
 | 쓴다 | 쓰지 않는다 |

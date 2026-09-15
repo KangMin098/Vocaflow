@@ -51,6 +51,17 @@
   `lib/srs/fsrs.ts` 없이는 못 긋는 선이라 **폰트와 색을 베껴도 이건 못 베낀다.**
 - 새 프리미티브 `components/ui/press`(Rule · Panel · Wash · JuMark · DecayUnderline ·
   PressButton · Eyebrow) · 떠돌이 indigo 5곳 제거 · 템플릿 eyebrow(대문자+넓은 트래킹) 145곳 정리.
+- **「연보라」 진단은 맞았고 내 계수가 틀렸다** — 처음에 "학습자 표면에 `violet-*` 0회" 라며
+  틀린 진단이라 적었는데, 보라는 클래스가 아니라 **토큰 뒤에** 있었다
+  (`--learn-mastered #8B5CF6` 30곳 · `--level-c` · 하드코딩 3건, 그중 둘은 **파랑→보라
+  그라데이션**). 이 저장소는 「색상 하드코딩 금지」를 잘 지켜서 **grep 으로는 색이 안 보인다** —
+  실행 중 화면의 `getComputedStyle` 로 재야 한다.
+  → 학습 단계 5색 · CEFR 3색 · 모듈색 · 나머지 원색 96건을 지면 팔레트로 옮겼다.
+  **개수를 보존하는 1:1 매핑**이다(POS 배지 8색 · 사이드바 그룹 6색은 정보를 나르는 팔레트라
+  한 색으로 접으면 구분이 사라진다). 자리가 모자라 새 토큰 `--accent-plum #7A4A6B` 를 만들었고,
+  주묵과 헷갈리지 않게 붉은 쪽이 아니라 자주 쪽으로 뺐다.
+  예외(변경 금지): 아케이드 · PairFlip · SpellForge 패널 · WordBlitz 정글 · 만화 표지 장르색.
+  ⚠️ canvas 는 `var()` 를 못 읽는다(조용히 검정으로 그린다) — `echo/PitchVisualizer` 만 실제 hex.
 - 회귀 `learning-tone.test.ts` **18 → 24**. 변이 3종(주묵을 오답 경로에 · SRS 에 원색 빨강 ·
   `preload:false` 삭제) **전부 잡히는 것 확인**. 계측기 2종 신규
   (`scripts/design/capture-learner.mjs` · `scripts/design/measure-identity.mjs`).

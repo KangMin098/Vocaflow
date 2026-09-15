@@ -149,16 +149,27 @@ interface RowProps {
 
 function Row({ label, description, control }: RowProps) {
   return (
-    <div className="flex items-start justify-between gap-4 py-4 first:pt-0 last:pb-0">
+    // ⚠️ 390px 실측(2026-09-16): 한 줄 배치가 **글자를 세로로 세웠다.**
+    //    「능동적 회상 대기 시간」 행은 컨트롤이 3칸 세그먼트(Short/Normal/Long, 약 280px)인데
+    //    `shrink-0` 이라 폭을 다 가져가고, 라벨 쪽에 40px 이 남아 한 글자씩 줄바꿈됐다.
+    //    v07 에서 한글 UI 글꼴이 OS 기본 고딕보다 넓어지면서 경계를 넘었다 —
+    //    **원래 아슬아슬했던 배치가 글꼴 교체로 터진 것**이지 글꼴 탓이 아니다.
+    //    좁은 화면에서는 세로로 쌓고(라벨이 온전한 폭을 갖는다), sm 이상에서만 한 줄로 둔다.
+    <div className="flex flex-col gap-2 py-4 first:pt-0 last:pb-0 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
       <div className="min-w-0 flex-1">
-        <p className="font-display text-[14px] font-[600] text-[var(--t1)]">{label}</p>
+        <p className="font-display text-[14px] font-[600] text-[var(--t1)] [word-break:keep-all]">
+          {label}
+        </p>
         {description && (
-          <p className="mt-1 font-body text-[12px] leading-relaxed text-[var(--t2)]">
+          <p className="mt-1 font-body text-[12px] leading-relaxed text-[var(--t2)] [word-break:keep-all]">
             {description}
           </p>
         )}
       </div>
-      <div className="shrink-0">{control}</div>
+      {/* 좁은 화면에서는 넘치면 가로로 흘린다 — 컨트롤을 줄바꿈하면 세그먼트가 두 줄이 된다. */}
+      <div className="-mx-1 overflow-x-auto px-1 [scrollbar-width:none] sm:mx-0 sm:shrink-0 sm:overflow-visible sm:px-0">
+        {control}
+      </div>
     </div>
   )
 }
