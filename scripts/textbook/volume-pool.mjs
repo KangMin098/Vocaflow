@@ -702,6 +702,7 @@ export async function loadVolume(
     pairStraightQuotes,
     stripSpaceBeforePunct,
     // 구텐베르크의 이중 하이픈과 밑줄 강조를 지면 글자로 옮긴다(실측 4,389 + 1,565문항).
+    cleanPassageText,
     normalizeSourceMarkup,
     dropDuplicatedLeadWord,
     hasSensitiveTopic,
@@ -850,16 +851,10 @@ export async function loadVolume(
   // ⚠️ **순서는 안에서 밖으로 읽는다.** 절 이름 → 반복 꼬리 → 눌어붙은 제목 →
   //   구두점 앞 공백 → 따옴표. 제목 제거를 꼬리 절단보다 뒤에 두는 이유는, 꼬리 대조가
   //   **글머리와 글자 그대로** 같은지를 보기 때문이다 — 글머리를 먼저 손대면 대조가 깨진다.
-  const clean = (v) =>
-    typeof v === "string"
-      ? pairStraightQuotes(
-          normalizeQuotes(
-            normalizeSourceMarkup(
-              stripSpaceBeforePunct(dropDuplicatedLeadWord(dropRepeatedTail(stripSectionLabels(v)))),
-            ),
-          ),
-        )
-      : v
+  // ⚠️ **사슬은 `cleanPassageText` 한 벌이다** — 여기 인라인으로 갖고 있던 동안 뽑기는
+  //   아무것도 안 걸었고, 그래서 **조판이 고쳐 인쇄할 글을 뽑기가 먼저 버렸다**
+  //   (실측 2026-09-15: `plos` V6 65.3% → 86.7%, 추정 +6,876편). 순서 근거는 그 함수 주석에.
+  const clean = (v) => (typeof v === "string" ? cleanPassageText(v) : v)
   const cleanPayload = (raw) => {
     if (!raw || typeof raw !== "object") return raw
     const out = { ...raw }

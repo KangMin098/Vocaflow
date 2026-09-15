@@ -635,12 +635,36 @@ export function selectPassageWindow(
  * @returns 규격에 맞는 구간이 없으면 null. **인쇄 가능 여부는 여기서 보지 않는다** —
  *   부르는 쪽이 `isPrintablePassage` 로 따로 판정한다(사유를 가려 세야 하는 곳이 있다).
  */
+/**
+ * **인쇄에 쓰는 판으로 정제한다 — 조판과 뽑기가 이 한 벌을 같이 쓴다.**
+ *
+ * ⚠️ **순서는 안에서 밖으로 읽는다.** 절 이름 → 반복 꼬리 → 눌어붙은 제목 → 구두점 앞
+ *   공백 → 원문 표기 → 따옴표. 절 이름을 먼저 지워야 반복 꼬리가 글머리와 **글자 그대로**
+ *   같아진다 — 뒤집으면 꼬리가 `Abstract The Amazon…` 이라 접두사 대조가 실패하고 중복이
+ *   그대로 인쇄된다.
+ *
+ * ⚠️ **사슬을 두 벌 두지 않는다.** 조판(`volume-pool.mjs`)이 이 순서를 인라인으로 갖고
+ *   있었고 뽑기는 아무것도 안 걸었다 — 그래서 **조판이 고쳐 인쇄할 글을 뽑기가 먼저
+ *   버렸다.** 실측 2026-09-15: `plos` V6 의 지문 생존율이 뽑기 기준 65.3% 였는데 절 이름
+ *   제거만 붙여도 **86.7%** 였다(추정 +6,876편). 다른 원천(구텐베르크 97.8% · VOA 95.6% ·
+ *   futurity 96.7%)에서는 **손해가 0** 이고 창을 못 만드는 것도 늘지 않는다.
+ */
+export function cleanPassageText(text: string): string {
+  return pairStraightQuotes(
+    normalizeQuotes(
+      normalizeSourceMarkup(
+        stripSpaceBeforePunct(dropDuplicatedLeadWord(dropRepeatedTail(stripSectionLabels(String(text ?? ''))))),
+      ),
+    ),
+  )
+}
+
 export function buildPassage(
   content: string,
   spec: { min: number; max: number },
   minSentences: number,
 ): string | null {
-  const sentences = normalizeSourceMarkup(String(content ?? ''))
+  const sentences = cleanPassageText(String(content ?? ''))
     .replace(/\n\s*\n+/g, ' ')
     .split(/(?<=[.!?])\s+/)
     .map((s) => s.replace(/\s+/g, ' ').trim())

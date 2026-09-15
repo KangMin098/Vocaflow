@@ -10,6 +10,8 @@ import {
   CSAT_INSERT_BODY_SENTENCES,
   hasCitationResidue,
   isPrintablePassage,
+  buildPassage,
+  cleanPassageText,
   normalizeSourceMarkup,
   ORDER_PERMS,
   splitIntoThree,
@@ -282,6 +284,32 @@ describe('구텐베르크 표기를 지면 글자로 옮긴다', () => {
   it('낱말 사이 이중 하이픈을 줄표로 옮긴다 — 실측 4,389문항', () => {
     expect(normalizeSourceMarkup("Larry understands--he's holding back Red Hannigan!")).toContain('understands—he')
     expect(normalizeSourceMarkup('synthetic--that is to say')).toContain('synthetic—that')
+  })
+
+  // ── 정제 사슬은 한 벌이다 ────────────────────────────────────────
+  // ⚠️ 이 사슬이 조판(`volume-pool.mjs`)에 인라인으로만 있던 동안 뽑기는 아무것도 안 걸었고,
+  //    그래서 **조판이 고쳐 인쇄할 글을 뽑기가 먼저 버렸다** — 실측 2026-09-15:
+  //    `plos` V6 지문 생존율 65.3% → 86.7%(추정 +6,876편). 사슬이 갈리면 재고가 조용히 샌다.
+  it('지문 만들기가 조판과 같은 정제를 쓴다 — 절 이름이 지워진다', () => {
+    const raw = 'Objective To evaluate the effect. The team measured the result for a year.'
+    // 정제기를 직접 부르든 지문을 만들든 같은 결과라야 한다.
+    expect(cleanPassageText(raw)).not.toMatch(/^Objective To/)
+    const spec = { min: 5, max: 200 }
+    const built = buildPassage(`${raw} ${'More prose follows here. '.repeat(6)}`, spec, 3)
+    expect(built).not.toBeNull()
+    expect(built!.startsWith('Objective To')).toBe(false)
+  })
+
+  it('정제가 창 선택보다 먼저다 — 자를 재고 나서 재료를 바꾸지 않는다', () => {
+    // 참조 표시가 든 문장 여덟. 정제를 나중에 하면 어수가 줄어 창 아래로 내려간다.
+    const body = Array.from({ length: 8 }, (_, i) => `Sentence ${i} carries a marker [${i + 1}].`).join(' ')
+    const built = buildPassage(body, { min: 30, max: 60 }, 5)
+    expect(built).not.toBeNull()
+    // 창은 **정제된 글자 수**로 잡혀야 한다 — 남은 참조 표시가 있으면 안 된다.
+    expect(built!).not.toMatch(/\[\d+\]/)
+    const words = built!.split(/\s+/).filter(Boolean).length
+    expect(words).toBeGreaterThanOrEqual(30)
+    expect(words).toBeLessThanOrEqual(60)
   })
 
   // ── 대괄호 참조 표시 ─────────────────────────────────────────────
