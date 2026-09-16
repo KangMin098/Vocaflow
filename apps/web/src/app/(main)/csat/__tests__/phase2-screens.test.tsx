@@ -219,3 +219,31 @@ describe('v07 — 제목이 세리프 기본값을 되돌리지 않는다', () =
     expect(offenders, `세리프 기본값을 되돌린 제목: ${offenders.join(' · ')}`).toEqual([])
   })
 })
+
+/**
+ * **격자는 탭 정거장 하나다** (roving tabindex · WAI-ARIA grid).
+ *
+ * ⚠️ 처음엔 364칸(26유형 × 14연도)이 **전부** 탭 정거장이었다. 화살표 이동을 붙여 놓아서
+ *   「키보드로 된다」고 여겼는데, 격자를 **지나가려면** Tab 을 364번 눌러야 했다.
+ *   계측기의 「컨트롤 364」가 알려 줬다(실측 2026-09-16 · 브라우저 재확인: 1/364).
+ */
+describe('히트맵 — 탭 정거장은 하나', () => {
+  const html = S('지형 히트맵')
+
+  it('칸은 여럿인데 tabindex=0 은 하나뿐이다', () => {
+    const cells = html.match(/data-cell="/g) ?? []
+    const stops = html.match(/tabindex="0"/gi) ?? []
+    expect(cells.length).toBeGreaterThan(1)
+    expect(stops.length).toBe(1)
+  })
+
+  it('나머지 칸은 tabindex=-1 로 건너뛴다', () => {
+    const skipped = html.match(/tabindex="-1"/gi) ?? []
+    const cells = html.match(/data-cell="/g) ?? []
+    expect(skipped.length).toBe(cells.length - 1)
+  })
+
+  it('증명 표식이 붙어 있다 — 계측기가 div 격자를 못 보던 것', () => {
+    expect(html).toContain('data-proof="heatmap"')
+  })
+})

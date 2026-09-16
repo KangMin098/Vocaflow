@@ -36,6 +36,16 @@ interface Focus {
 export function Heatmap({ data, onPick }: HeatmapProps) {
   const { years, rows, max } = data
   const [sel, setSel] = useState<Focus | null>(null)
+  /**
+   * **탭 정거장은 하나다**(roving tabindex).
+   *
+   * ⚠️ 처음엔 364칸(26유형 × 14연도)이 전부 탭 정거장이었다 — 계측기가 「컨트롤 364」로
+   *   잡아 줘서 알았다(실측 2026-09-16). 키보드 사용자가 격자를 **지나가려면 Tab 을 364번**
+   *   눌러야 한다는 뜻이다. 화살표 이동을 붙여 놓고도 그걸 안 고치면 접근성은 나아지지 않는다.
+   *   격자는 「하나의 위젯」이라 밖에서 보면 정거장 하나여야 하고, 안은 화살표로 돈다
+   *   (WAI-ARIA grid 패턴).
+   */
+  const [cursor, setCursor] = useState<Focus>({ row: 0, col: 0 })
   const gridRef = useRef<HTMLDivElement>(null)
 
   /** 화살표 이동 — 격자를 격자처럼 다룬다. */
@@ -52,9 +62,9 @@ export function Heatmap({ data, onPick }: HeatmapProps) {
       e.preventDefault()
       const r = Math.min(rows.length - 1, Math.max(0, row + step[0]))
       const c = Math.min(years.length - 1, Math.max(0, col + step[1]))
-      gridRef.current
-        ?.querySelector<HTMLButtonElement>(`[data-cell="${r}-${c}"]`)
-        ?.focus()
+      // 커서를 먼저 옮겨야 그 칸의 `tabIndex` 가 0 이 되고, 그래야 포커스가 들어간다.
+      setCursor({ row: r, col: c })
+      gridRef.current?.querySelector<HTMLButtonElement>(`[data-cell="${r}-${c}"]`)?.focus()
     },
     [rows.length, years.length],
   )
@@ -88,7 +98,12 @@ export function Heatmap({ data, onPick }: HeatmapProps) {
 
       {/* ⚠️ 가로 스크롤은 **격자 안에서만**. 페이지 본문은 375px 에서 안 밀린다(G7). */}
       <div className="overflow-x-auto">
-        <div ref={gridRef} className="min-w-max">
+        {/* ⚠️ `data-proof` — 계측기(`csat-surface-measure.mts`)가 「접힌 위 증명」을
+            셀 때 보는 표식이다. 이 격자는 실데이터를 그린 조작 가능한 증명인데 svg 가
+            아니라 div 라 표식 없이는 **0 으로 세어졌다**(실측 2026-09-16 · 지형 0).
+            ⚠️ 표식만 붙이고 실제로 안 그리면 계측기가 스스로를 속인다(정본 문서 §6-3).
+            그래서 행이 있을 때만 이 자리에 온다 — 위에서 `rows.length` 가 0 이면 반환했다. */}
+        <div ref={gridRef} data-proof="heatmap" className="min-w-max">
           {/* 머리 행 */}
           <div className="flex items-end gap-px pl-[112px]">
             {years.map((y) => (
@@ -122,10 +137,14 @@ export function Heatmap({ data, onPick }: HeatmapProps) {
                     key={c.year}
                     type="button"
                     data-cell={`${ri}-${ci}`}
+                    // 격자 전체가 탭 정거장 하나 — 커서 칸만 0, 나머지는 -1.
+                    tabIndex={cursor.row === ri && cursor.col === ci ? 0 : -1}
                     onClick={() => {
+                      setCursor({ row: ri, col: ci })
                       setSel({ row: ri, col: ci })
                       if (c.n > 0) onPick?.(r.typeId, c.year)
                     }}
+                    onFocus={() => setCursor({ row: ri, col: ci })}
                     onKeyDown={(e) => onKey(e, ri, ci)}
                     aria-label={`${r.name} ${c.year}년 ${c.n}문항${c.hard ? `, 3점 ${c.hard}문항` : ''}`}
                     className={[
@@ -155,8 +174,10 @@ export function Heatmap({ data, onPick }: HeatmapProps) {
                 {r.recent === 0 ? (
                   <span
                     className="ml-0.5 text-[9px] text-[var(--t3)]"
-                    title="최근 4개년 출제 없음"
-                    aria-label="최근 4개년 출제 없음"
+                    // 「N개년」을 박지 않는다 — 회차가 늘면 이 문자열만 옛 수를 말한다
+                    // (같은 버그를 사정권에서 이미 한 번 고쳤다: 4 라 적고 실제는 5).
+                    title="최근 회차에는 출제 없음"
+                    aria-label="최근 회차에는 출제 없음"
                   >
                     ·
                   </span>

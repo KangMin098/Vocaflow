@@ -39,6 +39,9 @@ const ROUTES = [
   { path: '/csat/item/M2309-42', label: '문항' },
   { path: '/csat/plan', label: '계획' },
   { path: '/csat/drill', label: '훈련' },
+  // 2026-09-16 에 붙은 둘. 안 재면 표가 화면 수보다 짧아지고, 그 차이는 조용하다.
+  { path: '/csat/map', label: '지형' },
+  { path: '/csat/predict', label: '사정권' },
 ]
 
 export interface SurfaceMetric {

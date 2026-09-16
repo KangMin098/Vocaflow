@@ -74,7 +74,8 @@ export function PriorityClient({
         </p>
       </div>
 
-      <ul className="flex flex-col gap-2">
+      {/* 막대 목록이 이 화면의 증명이다 — div 로 그려서 계측기가 못 보던 것을 표식으로 알린다. */}
+      <ul data-proof="priority-bars" className="flex flex-col gap-2">
         {shown.map((r) => {
           const w = maxRecent > 0 ? Math.round((r.recent / maxRecent) * 100) : 0
           return (
