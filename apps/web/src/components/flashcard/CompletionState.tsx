@@ -69,7 +69,7 @@ export function CompletionState({
         <h1 className="mb-2 font-editorial text-[32px] font-[800] text-[var(--t1)]">
           오늘의 학습이 완료됐어요
         </h1>
-        <p className="mb-8 font-english text-[16px] italic text-[var(--t2)]">
+        <p className="mb-8 font-editorial text-[17px] text-[var(--t2)] [word-break:keep-all]">
           {stats.totalCards}개의 단어와 함께한 {totalMinutes}분의 깊은 시간
         </p>
 
@@ -127,7 +127,7 @@ export function CompletionState({
               <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-[var(--p)] text-[var(--on-p)]">
                 <Clock size={20} strokeWidth={2} aria-hidden="true" />
               </span>
-              <p className="font-english text-[15px] italic leading-relaxed text-[var(--t1)]">
+              <p className="font-editorial text-[16px] leading-relaxed text-[var(--t1)] [word-break:keep-all]">
                 <strong className="font-display font-[700] not-italic text-[var(--p)]">
                   {tomorrowCount}개
                 </strong>

@@ -25,7 +25,7 @@ export function MicroPause({ visible, message, currentIdx, total }: MicroPausePr
         >
           {message.icon}
         </span>
-        <p className="mb-5 font-english text-[18px] italic leading-relaxed text-[var(--t1)]">
+        <p className="mb-5 font-editorial text-[19px] leading-relaxed text-[var(--t1)] [word-break:keep-all]">
           {message.text}
         </p>
         <div className="inline-flex items-center gap-2 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-2 font-mono text-[12px] font-[500] text-[var(--t2)]">

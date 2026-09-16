@@ -151,7 +151,7 @@ export function TodayQueue({ buckets, totalLabel }: TodayQueueProps) {
                 {meta.description}
               </p>
               {b?.preview && b.preview.length > 0 && (
-                <p className="mt-2 truncate font-english text-[10px] italic text-[var(--t2)]">
+                <p className="mt-2 truncate font-english text-[10.5px] text-[var(--t2)]">
                   {b.preview.slice(0, 3).join(' · ')}
                 </p>
               )}

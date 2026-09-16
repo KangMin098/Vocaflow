@@ -141,7 +141,7 @@ export function DurabilityLadder({ ladder }: { ladder: Ladder }) {
       {/* 지금 무엇을 하면 사다리가 오르는가 — 회고 화면이 채점이 아니라 안내가 되는 지점.
           무게 중심이 어디냐에 따라 말이 달라진다. */}
       <footer className="mt-5 border-t border-[var(--bd)] pt-4">
-        <p className="max-w-[58ch] font-english text-[14px] italic leading-[1.75] text-[var(--t2)] [word-break:keep-all]">
+        <p className="max-w-[58ch] font-editorial text-[15px] leading-[1.7] text-[var(--t2)] [word-break:keep-all]">
           {heaviest.key === 'day' || heaviest.key === 'few'
             ? '간격을 두고 다시 만날수록 버티는 시간이 늘어나요. 오늘 다 하지 않아도 괜찮아요 — 내일 다시 만나는 편이 오히려 오래 남아요.'
             : '한 번 올라간 칸은 잘 내려오지 않아요. 지금 속도면 충분해요.'}

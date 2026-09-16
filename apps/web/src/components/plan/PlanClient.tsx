@@ -374,16 +374,18 @@ export function PlanClient({
     <div className="flex w-full flex-col gap-5 py-6 md:py-8">
       {/* Hero */}
       <header>
-        <h1 className="flex items-center gap-2 font-editorial text-[22px] font-[800] text-[var(--t1)]">
-          <span
-            className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)] bg-[var(--p-light)] text-[var(--on-p-tint)]"
-            aria-hidden
-          >
-            <Sparkles size={18} strokeWidth={1.75} />
-          </span>
+        {/* v07 — 둥근 아이콘 칩 + `Sparkles` 를 주묵 획으로. `Sparkles` 는 지금 AI 생성 UI 의
+            공통 표식이라 화면마다 붙이면 출신 표시가 된다(00-inventory C4). */}
+        <h1 className="flex items-center gap-2.5 font-editorial text-[24px] font-[600] text-[var(--t1)] md:text-[28px]">
+          <span aria-hidden className="inline-block h-[22px] w-[3px] shrink-0 bg-[var(--ju)]" />
           나의 학습 계획
         </h1>
-        <p className="mt-1.5 font-english text-[14px] italic text-[var(--t2)]">
+        {/* ⚠️ `font-english italic` 이 **한국어 문장**에 걸려 있었다(390px 실측).
+            `font-english` 는 Lora 전용이라 한글이 없고, 브라우저는 폴백 글꼴을 **기울여 그린다**
+            — 가짜 이탤릭이다. CLAUDE.md 「한글에 Lora」·video-factory 회귀가 이름 대어 막는 것과
+            같은 종류다. 사람의 목소리는 **영문** Lora italic 이 맡는다(DESIGN_SYSTEM §6).
+            한국어 부제는 정자로 두고 낱말이 안 끊기게 `break-keep`. */}
+        <p className="mt-1.5 font-body text-[14px] leading-[1.6] text-[var(--t2)] [word-break:keep-all]">
           자료를 고르고 — 챕터·활동·요일을 클릭, 주간 보드에 쌓여요.
         </p>
       </header>

@@ -66,7 +66,7 @@
 |---|---|---|
 | 1 | **Calm UI** | 학습 중 자극 최소화. 광고·뱃지 알림·과한 애니메이션 금지 |
 | 2 | **Progressive Disclosure** | 본질만 먼저 노출, 깊이는 사용자 요청 시 |
-| 3 | **Empathetic Feedback** | 비난·압박 대신 격려·맥락. Lora italic "사람의 말투" |
+| 3 | **Empathetic Feedback** | 비난·압박 대신 격려·맥락. "사람의 말투" — 한국어는 Hahmlet 세리프(이탤릭 없음) · 영어는 Lora italic |
 | 4 | **Implicit Progress** | 숫자 게이지보다 환경 변화로 성장 시각화 |
 
 ## 학습 과학 원칙 7개 (always-on)

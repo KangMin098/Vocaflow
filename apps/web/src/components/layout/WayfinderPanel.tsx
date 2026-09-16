@@ -57,7 +57,7 @@ function Cell({
 /** 사람의 목소리가 나는 자리 — Lora italic (§6 감성 표). */
 function Says({ children }: { children: React.ReactNode }) {
   return (
-    <p className="break-keep font-english text-[13px] italic leading-snug text-[var(--t2)]">
+    <p className="break-keep font-editorial text-[13.5px] leading-snug text-[var(--t2)]">
       {children}
     </p>
   )

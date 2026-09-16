@@ -913,7 +913,7 @@ gray    = bg3 + t2         — secondary 정보
 |---|---|---|---|
 | 1 | **Calm UI** | 학습 중 시각·청각 자극 최소화. 광고·뱃지 알림·과한 애니메이션 금지 | 집중 모드 30초 무활동 진입 · sidebar dim · 정답 spring 한정 |
 | 2 | **Progressive Disclosure** | 본질만 먼저 노출, 깊이는 사용자 요청 시 | 단어 hover/click → RecallCard · 인사이트 패널 토글 · ContinueCard 미리보기 |
-| 3 | **Empathetic Feedback** | 비난·압박 대신 격려·맥락. Lora italic 으로 "사람의 말투" | "20분의 깊은 시간" · "Page 3까지 왔어요" · 오답 "다시 만나봐요" |
+| 3 | **Empathetic Feedback** | 비난·압박 대신 격려·맥락. **한국어는 Hahmlet 세리프(이탤릭 없음)** · 영어는 Lora italic 으로 "사람의 말투" | "20분의 깊은 시간" · "Page 3까지 왔어요" · 오답 "다시 만나봐요" |
 | 4 | **Implicit Progress** | 숫자 게이지보다 환경 변화로 성장 시각화 | Streak 카운터 · WeeklyHeatmap · Memory Decay 색 변화 · 1.5px 얇은 바 |
 
 ---
