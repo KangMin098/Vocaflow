@@ -983,7 +983,7 @@ gamekit 을 쓰지 않는 게임(WordBlitz · Pirate's Bounty)은 `GameKitStyles
 | 자 | [`apps/web/scripts/csat-surface-measure.mts`](../apps/web/scripts/csat-surface-measure.mts)(수치) · [`csat-shot.mts`](../apps/web/scripts/csat-shot.mts)(눈) |
 | 훈련 (③겨루기) | [`lib/csat/trap-drill.ts`](../apps/web/src/lib/csat/trap-drill.ts)(순수 — 보기 만들기·채점·누설 검사) · [`drill-loader.ts`](../apps/web/src/lib/csat/drill-loader.ts)(구운 풀에서 여덟을 고른다 · **DB 0**) · [`components/csat/TrapDrill.tsx`](../apps/web/src/components/csat/TrapDrill.tsx) · [`scripts/csat/build-trap-drill.mjs`](../scripts/csat/build-trap-drill.mjs) → `drill-data/pool.json` (**1,013문제** · 539KB) |
 | 굽기 | `pnpm csat:atlas` · `csat:atlas:check` · `pnpm csat:drill` · `csat:drill:check` (전부 낡으면 exit 1) |
-| 회귀 | 순수 **81**(`trap-atlas` 18 · `plan-timeline` 12 · `trap-drill` 16 · `trap-drill-pool` 13 · `my-traps` 11 · `plan-order` 11) + **실 DB 1**(`trap-atlas-fresh.integration.test.ts` — 실 DB 에서 셈을 다시 해 구운 값과 견준다. 안 구우면 화면은 멀쩡히 뜨고 **낡은 값**만 남으므로) + 런타임 **26**(`tests/e2e/45-csat-trap-atlas.spec.ts`) |
+| 회귀 | 순수 **81**(`trap-atlas` 18 · `plan-timeline` 12 · `trap-drill` 16 · `trap-drill-pool` 13 · `my-traps` 12 · `plan-order` 11) + **실 DB 2**(`trap-atlas-fresh.integration.test.ts` — 실 DB 에서 셈을 다시 해 구운 값과 견준다. **2026-09-16 에 실제로 잡았다**: 분석이 늘어 함정 이름 513→518 · 구운 지도가 낡음) + `trap-drill-fresh`(훈련이 **옛 정답으로 채점**하는 것을 잡는다 — 변이로 확인) + 런타임 **26**(`tests/e2e/45-csat-trap-atlas.spec.ts`) |
 
 **실측 — 학습자 7화면 합계 (2026-09-15)**
 
