@@ -123,6 +123,18 @@ describe('허용 이벤트 목록', () => {
     // 작동하는지의 유일한 관측이다 — 스캔본에서는 조용히 실패하도록 만들어 두었으므로 더욱.
     'csat_overlay_loaded',
     'csat_overlay_located',
+    // 2026-09-16 — 오버레이 순차 공개 2종. 이 목록을 손대다가 **여섯이 빠져 있던 것**을
+    // 찾았다(atlas/plan/drill/trap): 코드에는 있고 DB CHECK 에는 없어 «보내는데 한 건도
+    // 안 쌓이는» 상태였다. 마이그레이션 `20260916120000` 이 여덟을 함께 넣는다.
+    'csat_overlay_answered',
+    'csat_overlay_revealed',
+    // 기출 오답 지도 · 계획 · 훈련 — 위에서 말한 그 여섯
+    'csat_atlas_scoped',
+    'csat_plan_speed_set',
+    'csat_plan_ordered',
+    'csat_drill_answered',
+    'csat_drill_finished',
+    'csat_trap_opened',
     'screen_viewed',
     // 2026-09-12 — 구성요소 영상 2종(`packages/video-factory`). **만든 수가 아니라 본 수**를
     // 센다: 141개를 찍어 낼 수 있어도 본 사람이 0 이면 공급만 늘린 것이다(§D).

@@ -151,6 +151,37 @@ export type PublicEvent =
    */
   | { name: 'csat_overlay_located'; props: { found: boolean } }
   /**
+   * 오버레이에서 **스스로 답을 골랐다** — 이 제품에서 학습자가 기출을 «읽는지 푸는지» 를
+   * 가르는 첫 관측.
+   *
+   * 2026-09-16 까지 이 화면은 문항 번호를 누르면 답·근거·오답 넷을 **한꺼번에** 펼쳤다.
+   * 그 화면에서 일어나는 일은 읽기이고, 읽기는 재인이지 인출이 아니다(원칙 1). 순차 공개를
+   * 넣으면서 **그 전제가 맞는지 재는 자리**를 함께 만든다 — 이 수가 `csat_overlay_loaded`
+   * 대비 0 에 가까우면 학습자는 문제지를 열되 풀지는 않는 것이고, 그건 순서를 바꿀 근거다.
+   *
+   * `picked` 가 거짓이면 「답을 안 고르고 보기」다 — 그 비율이 높으면 풀기 단계가 부담이다.
+   * 초는 **버킷으로만** 나간다(`secondsBucket`) — 원본 숫자가 필요한 질문이 없다.
+   */
+  | {
+      name: 'csat_overlay_answered'
+      props: { picked: boolean; correct: boolean; secondsBucket: 0 | 1 | 2 | 3 | 4 | 5 }
+    }
+  /**
+   * 해설 겹을 한 장 열었다 — **순차 공개가 끝까지 가는가.**
+   *
+   * `seq` 가 1~2 에서 멈추면 겹이 너무 잘게 나뉘었거나 첫 겹이 이미 답을 다 말한 것이고,
+   * `total` 까지 가면 설계대로 작동하는 것이다. `kind` 는 **어디서 그만두는지**를 말한다 —
+   * 오답 배제에서 멈추는지 절차·어휘까지 가는지는 다음에 무엇을 고칠지를 가른다.
+   */
+  | {
+      name: 'csat_overlay_revealed'
+      props: {
+        seq: number
+        total: number
+        kind: 'evidence' | 'correct' | 'reject' | 'procedure' | 'vocab'
+      }
+    }
+  /**
    * 기출 해설에서 근거 하나를 열었다 — **「클릭/클릭/클릭」이 실제로 일어나는가.**
    *
    * 이 화면의 전제는 «근거를 눌러 가며 지문 위에서 풀이를 재구성한다» 인데, 그 전제가
@@ -413,6 +444,8 @@ const EVENT_REGISTRY: Record<PublicEventName, true> = {
   csat_trap_opened: true,
   csat_overlay_loaded: true,
   csat_overlay_located: true,
+  csat_overlay_answered: true,
+  csat_overlay_revealed: true,
   screen_viewed: true,
   video_started: true,
   video_completed: true,

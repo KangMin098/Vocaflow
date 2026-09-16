@@ -23,6 +23,7 @@ import { kiceSourceOf, pdfFragment } from '@/lib/csat/kice-source'
 import { loadCsatItemExplain } from '@/lib/csat/learner'
 import { anchorCatalog, anchorMetaOf, pageOfItem } from '@/lib/csat/overlay'
 
+import LinkPanel from './LinkPanel'
 import OverlayClient from './OverlayClient'
 
 export const metadata: Metadata = {
@@ -31,8 +32,6 @@ export const metadata: Metadata = {
 }
 
 export const dynamic = 'force-dynamic'
-
-const CIRCLED = ['', '①', '②', '③', '④', '⑤']
 
 export default async function CsatOverlayPage({
   searchParams,
@@ -133,70 +132,33 @@ export default async function CsatOverlayPage({
               )}
             </section>
 
-            {/* 오른쪽 — 우리가 쓴 것만. 순서는 해설 화면과 같다(①답 → ②나머지 → ③다시 풀 때) */}
+            {/* 오른쪽 — 우리가 쓴 것만. **여기도 풀고 나서 열린다**(2026-09-16).
+                예전에는 이 칸이 답·근거·오답 넷·절차를 서버 렌더로 이미 다 펼쳐 놓았다.
+                아래 파일 모드에 순차 공개를 넣어도 학습자는 여기를 보면 그만이었다 —
+                문을 달고 옆벽을 터 둔 셈이었다. 순서는 해설 화면과 같다(①근거 → ②답 →
+                ③나머지 → ④절차 → ⑤어휘 · `lib/csat/overlay-reveal.ts` 한 곳이 정한다). */}
             <aside className="lg:sticky lg:top-6 lg:self-start">
-              <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
-                <h2 className="text-base font-bold text-[var(--t1)]">
-                  {no}번
-                  {item?.type_name ? (
-                    <span className="ml-2 text-xs font-normal text-[var(--t3)]">{item.type_name}</span>
-                  ) : null}
-                </h2>
-                <p className="mt-1 text-xs text-[var(--t3)]">
-                  {item?.points ? `${item.points}점` : ''}
-                  {item?.time_budget_sec ? ` · 권장 ${item.time_budget_sec}초` : ''}
-                </p>
-
-                {!item ? (
-                  <p className="mt-3 text-sm leading-relaxed text-[var(--t2)]">
-                    이 문항은 분석 준비 중이에요.
-                  </p>
-                ) : (
-                  <>
-                    {item.answer && !item.answer_unknown ? (
-                      <p className="mt-3 text-sm text-[var(--t1)]">
-                        답 <strong className="text-base">{CIRCLED[item.answer]}</strong>
-                      </p>
-                    ) : null}
-
-                    {item.evidence_quote ? (
-                      <blockquote className="mt-2 border-l-2 border-[var(--p)] pl-3 text-sm leading-relaxed text-[var(--t2)]">
-                        {item.evidence_quote}
-                      </blockquote>
-                    ) : null}
-
-                    {item.why_correct ? (
-                      <p className="mt-3 break-keep text-sm leading-relaxed text-[var(--t2)]">{item.why_correct}</p>
-                    ) : null}
-
-                    {item.distractors.length ? (
-                      <ul className="mt-3 space-y-2">
-                        {item.distractors.map((d) => (
-                          <li key={d.n} className="break-keep text-sm leading-relaxed text-[var(--t2)]">
-                            <span className="font-bold text-[var(--t1)]">{CIRCLED[d.n] ?? d.n}</span>{' '}
-                            {d.how_to_reject ?? d.trap ?? ''}
-                          </li>
-                        ))}
-                      </ul>
-                    ) : null}
-
-                    {item.procedure.length ? (
-                      <ol className="mt-3 list-decimal space-y-1 pl-5 break-keep text-sm leading-relaxed text-[var(--t2)]">
-                        {item.procedure.map((s, i) => (
-                          <li key={i}>{s.step}</li>
-                        ))}
-                      </ol>
-                    ) : null}
-
-                    <Link
-                      href={`/csat/item/${examId}-${no}`}
-                      className="mt-4 inline-flex min-h-[44px] items-center text-sm text-[var(--t2)] underline decoration-dotted underline-offset-2 transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
-                    >
-                      해설 전문 보기 →
-                    </Link>
-                  </>
-                )}
-              </div>
+              <LinkPanel
+                item={
+                  item
+                    ? {
+                        no: item.no,
+                        slug: `${examId}-${no}`,
+                        type_name: item.type_name,
+                        points: item.points,
+                        time_budget_sec: item.time_budget_sec,
+                        answer: item.answer,
+                        answer_unknown: item.answer_unknown,
+                        why_correct: item.why_correct,
+                        evidence_quote: item.evidence_quote,
+                        evidence_reasoning: item.evidence_reasoning,
+                        distractors: item.distractors,
+                        procedure: item.procedure,
+                        required_vocab: item.required_vocab,
+                      }
+                    : null
+                }
+              />
             </aside>
           </div>
 

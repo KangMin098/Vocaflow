@@ -82,8 +82,6 @@ interface Payload {
   items: OverlayItem[]
 }
 
-const CIRCLED = ['', '①', '②', '③', '④', '⑤']
-
 /** 이 브라우저에서 해시. 파일은 여기서 벗어나지 않는다. */
 async function sha256Of(file: File): Promise<string> {
   const buf = await file.arrayBuffer()
@@ -91,6 +89,17 @@ async function sha256Of(file: File): Promise<string> {
   return Array.from(new Uint8Array(digest))
     .map((b) => b.toString(16).padStart(2, '0'))
     .join('')
+}
+
+/**
+ * 한 번만, 부드럽게. **줄이기이지 끄기가 아니다** — `prefers-reduced-motion` 에서는 즉시
+ * 이동하되 «가긴 간다»(CLAUDE.md 모션 예산: 끄면 무엇이 바뀌었는지 알 수 없다).
+ */
+function softScroll(el: Element | null) {
+  if (!el) return
+  const reduce =
+    typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+  el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' })
 }
 
 type Status =
@@ -137,6 +146,10 @@ export default function OverlayClient({
   const renderSeq = useRef(0)
   /** 근거 자리를 이미 센 문항. 쪽을 넘나들며 같은 문항을 다시 세지 않는다. */
   const locatedFor = useRef<string | null>(null)
+  /** 옆 패널 — 좁은 화면에서는 종이 아래로 내려간다. 문항을 열면 그 자리로 한 번 데려간다. */
+  const panelRef = useRef<HTMLElement | null>(null)
+  /** 지금 겹이 가리키는 첫 상자. 겹을 넘길 때 종이 위의 그 자리로 한 번 움직인다. */
+  const focusElRef = useRef<HTMLElement | null>(null)
 
   const payload = status.kind === 'ready' ? status.payload : null
   const formPages = payload?.anchors.form_pages ?? 0
@@ -168,6 +181,9 @@ export default function OverlayClient({
   /** 지금 겹이 켜는 것만 진하다 — 한 화면에서 두드러지는 것은 하나여야 한다(E4). */
   const focus = curStep?.focus ?? { quote: false, marks: [] as number[], vocab: false }
   const vocabWords = useMemo(() => (open?.required_vocab ?? []).filter(Boolean), [open])
+  const hasFocus = focus.quote || focus.marks.length > 0 || focus.vocab
+  // 이번 렌더가 가리킬 자리를 다시 모은다 — 비우지 않으면 «지난 겹» 의 자리로 데려간다.
+  focusElRef.current = null
 
   const reset = useCallback(async () => {
     renderSeq.current += 1
@@ -457,6 +473,18 @@ export default function OverlayClient({
     return () => window.removeEventListener('keydown', onKey)
   }, [openNo, phase, steps, step, submit, goStep])
 
+  // 문항을 열면 패널로 한 번 데려간다 — 좁은 화면에서 패널은 종이 아래, 접힌 곳에 있다.
+  useEffect(() => {
+    if (openNo == null || typeof window === 'undefined' || window.innerWidth >= 1024) return
+    softScroll(panelRef.current)
+  }, [openNo])
+
+  // 겹을 넘기면 종이 위의 그 자리로 **한 번** 움직인다. 그 밖의 자동 모션은 없다(E3).
+  useEffect(() => {
+    if (phase !== 'reveal' || !hasFocus) return
+    softScroll(focusElRef.current)
+  }, [phase, step, hasFocus])
+
   /** PDF 좌표(왼아래 원점) → 캔버스 위 % 위치. 배율이 바뀌어도 %는 그대로다. */
   const pct = useCallback(
     (b: AnchorBox) => {
@@ -600,7 +628,7 @@ export default function OverlayClient({
                     className="pointer-events-none absolute left-0 top-0"
                     style={{ width: canvasSize.w, height: canvasSize.h }}
                   >
-                    {anchorsOnPage.map((a) => {
+                    {(layers.numbers ? anchorsOnPage : []).map((a) => {
                       const box = pct(a)
                       if (!box) return null
                       const meta = itemsByNo.get(a.no)
@@ -633,7 +661,7 @@ export default function OverlayClient({
                         찾아야 했다 — 이 기능이 없애려던 바로 그 일이다. 좌표는 우리에게 없지만
                         학습자의 브라우저에는 있다(PDF.js 텍스트 레이어). 나가는 것은 여전히
                         해시 64자뿐이다. */}
-                    {quoteBoxes.map((b, i) => {
+                    {(phase === 'reveal' && layers.evidence ? quoteBoxes : []).map((b, i) => {
                       // `pct` 는 앵커 상자를 받으므로 쪽 번호를 붙여 준다 — 이 상자들은
                       // 지금 그리는 쪽에서 방금 찾은 것이라 언제나 `page` 다.
                       const box = pct({ ...b, p: page })
@@ -641,16 +669,22 @@ export default function OverlayClient({
                       return (
                         <span
                           key={`q${i}`}
+                          ref={
+                            focus.quote && i === 0 ? (el: HTMLSpanElement | null) => void (focusElRef.current = el) : undefined
+                          }
                           // 밑줄로 그린다 — 글자를 덮으면 읽을 수 없다. 색 말고도 «밑줄» 이라는
                           // 모양으로 말한다(색맹 대응).
-                          className="absolute border-b-[3px] border-[var(--success)]"
+                          // 지금 겹이 가리키는 것만 진하다 — 나머지는 옅게 남는다(사라지면 «어디였지» 가 된다)
+                          className={`absolute border-b-[3px] border-[var(--success)] transition-opacity duration-[var(--dur-normal)] ease-[var(--ease)] motion-reduce:transition-none ${
+                            focus.quote ? 'opacity-100' : 'opacity-40'
+                          }`}
                           style={{ left: box.left, top: box.top, width: box.width, height: box.height }}
                         />
                       )
                     })}
 
                     {/* 펼친 문항의 선지 자리 — 오답 분석이 가리키는 곳을 실제로 보여 준다 */}
-                    {openAnchor?.marks.map((m) => {
+                    {(phase === 'reveal' && layers.choices ? (openAnchor?.marks ?? []) : []).map((m) => {
                       const box = pct(m)
                       if (!box) return null
                       const ca = open?.choice_analysis.find((c) => c.n === m.n)
@@ -658,12 +692,15 @@ export default function OverlayClient({
                       return (
                         <span
                           key={m.n}
+                          ref={
+                            focus.marks[0] === m.n ? (el: HTMLSpanElement | null) => void (focusElRef.current = el) : undefined
+                          }
                           title={correct ? '정답' : (ca?.trap ?? '')}
                           // 색만으로 말하지 않는다 — 정답은 실선, 오답은 파선으로 모양도 다르다
                           // (색맹 대응: CLAUDE.md 「색상만으로 정보 전달」 금지).
-                          className={`absolute rounded-sm border-2 ${
+                          className={`absolute rounded-sm border-2 transition-opacity duration-[var(--dur-normal)] ease-[var(--ease)] motion-reduce:transition-none ${
                             correct ? 'border-solid border-[var(--success)]' : 'border-dashed border-[var(--warning)]'
-                          }`}
+                          } ${focus.marks.includes(m.n) ? 'opacity-100' : 'opacity-40'}`}
                           style={{
                             left: box.left,
                             top: box.top,
@@ -673,104 +710,76 @@ export default function OverlayClient({
                         />
                       )
                     })}
+
+                    {/* **어휘 겹** — 이 문항이 요구한 낱말. 근거(실선)·선지(파선)와 모양이 달라야
+                        색을 못 보는 학습자도 셋을 가른다: 여기는 **점선**이다. */}
+                    {(phase === 'reveal' && layers.vocab ? vocabBoxes : []).map((boxes, wi) =>
+                      boxes.map((b, bi) => {
+                        const box = pct({ ...b, p: page })
+                        if (!box) return null
+                        return (
+                          <span
+                            key={`v${wi}-${bi}`}
+                            ref={
+                              focus.vocab && wi === 0 && bi === 0
+                                ? (el: HTMLSpanElement | null) => void (focusElRef.current = el)
+                                : undefined
+                            }
+                            className={`absolute border-b-2 border-dotted border-[var(--info)] transition-opacity duration-[var(--dur-normal)] ease-[var(--ease)] motion-reduce:transition-none ${
+                              focus.vocab ? 'opacity-100' : 'opacity-40'
+                            }`}
+                            style={{ left: box.left, top: box.top, width: box.width, height: box.height }}
+                          />
+                        )
+                      }),
+                    )}
                   </div>
                 ) : null}
               </div>
             </div>
 
             <p className="mt-3 text-xs leading-relaxed text-[var(--t3)]">
-              문항 번호 자리를 누르면 해설이 열려요. 분석이 준비된 문항은 테두리가 진해요.
+              문항 번호 자리를 누르면 <strong className="text-[var(--t2)]">풀기</strong>가 먼저 열려요 — 답을
+              고른 뒤에 해설이 한 겹씩 나옵니다. 분석이 준비된 문항은 테두리가 진해요.
             </p>
           </>
         ) : null}
       </section>
 
       {/* ── 옆 패널: 우리가 쓴 것만 ───────────────────────────────── */}
-      <aside className="lg:sticky lg:top-6 lg:self-start">
+      <aside ref={panelRef} className="lg:sticky lg:top-6 lg:self-start">
         {!open ? (
           <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
             <h2 className="text-sm font-bold text-[var(--t1)]">해설</h2>
-            <p className="mt-2 text-sm leading-relaxed text-[var(--t2)]">
+            <p className="mt-2 break-keep text-sm leading-relaxed text-[var(--t2)]">
               {payload
-                ? '문제지에서 문항 번호를 누르면 여기에 「답이 왜 이것인가」가 열려요.'
+                ? '문제지에서 문항 번호를 누르면 먼저 「풀기」가 열려요. 답을 고른 뒤에 해설이 한 겹씩 나옵니다.'
                 : '문제지를 열면 문항마다 해설을 붙여 드려요.'}
             </p>
           </div>
         ) : (
-          <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
-            <div className="flex items-start justify-between gap-2">
-              <h2 className="text-base font-bold text-[var(--t1)]">
-                {open.no}번
-                {open.type_name ? <span className="ml-2 text-xs font-normal text-[var(--t3)]">{open.type_name}</span> : null}
-              </h2>
-              <button
-                type="button"
-                onClick={() => setOpenNo(null)}
-                className="-m-2 min-h-[44px] min-w-[44px] rounded-[var(--r-md)] p-2 text-sm text-[var(--t3)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
-                aria-label="해설 닫기"
-              >
-                닫기
-              </button>
-            </div>
-
-            <p className="mt-1 text-xs text-[var(--t3)]">
-              {open.points ? `${open.points}점` : ''}
-              {open.time_budget_sec ? ` · 권장 ${open.time_budget_sec}초` : ''}
-            </p>
-
-            {!open.ready ? (
-              <p className="mt-3 text-sm leading-relaxed text-[var(--t2)]">
-                이 문항은 분석 준비 중이에요.
-              </p>
-            ) : (
-              <>
-                {open.answer ? (
-                  <p className="mt-3 text-sm text-[var(--t1)]">
-                    답 <strong className="text-base">{CIRCLED[open.answer]}</strong>
-                  </p>
-                ) : null}
-
-                {open.answer_quote ? (
-                  <blockquote className="mt-2 border-l-2 border-[var(--p)] pl-3 text-sm leading-relaxed text-[var(--t2)]">
-                    {open.answer_quote}
-                  </blockquote>
-                ) : null}
-
-                {open.design_intent ? (
-                  <p className="mt-3 text-sm leading-relaxed text-[var(--t2)]">{open.design_intent}</p>
-                ) : null}
-
-                {open.choice_analysis.length ? (
-                  <ul className="mt-3 space-y-2">
-                    {open.choice_analysis
-                      .slice()
-                      .sort((a, b) => a.n - b.n)
-                      .map((c) => (
-                        <li key={c.n} className="text-sm leading-relaxed text-[var(--t2)]">
-                          <span className="font-bold text-[var(--t1)]">{CIRCLED[c.n] ?? c.n}</span>{' '}
-                          {c.n === open.answer ? (c.why_correct ?? '') : (c.how_to_reject ?? c.trap ?? '')}
-                        </li>
-                      ))}
-                  </ul>
-                ) : null}
-
-                {open.solve_procedure.length ? (
-                  <ol className="mt-3 list-decimal space-y-1 pl-5 text-sm leading-relaxed text-[var(--t2)]">
-                    {open.solve_procedure.map((s, i) => (
-                      <li key={i}>{s.step}</li>
-                    ))}
-                  </ol>
-                ) : null}
-
-                <a
-                  href={`/csat/item/${open.slug}`}
-                  className="mt-4 inline-flex min-h-[44px] items-center text-sm text-[var(--t2)] underline decoration-dotted underline-offset-2 transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
-                >
-                  이 문항 해설 전문 보기 →
-                </a>
-              </>
-            )}
-          </div>
+          <OverlayPanel
+            item={{
+              no: open.no,
+              slug: open.slug,
+              type_name: open.type_name,
+              points: open.points,
+              time_budget_sec: open.time_budget_sec,
+              measured_ability: open.measured_ability,
+              ready: open.ready,
+              answer: open.answer,
+            }}
+            steps={steps}
+            picked={picked}
+            step={step}
+            elapsed={elapsed}
+            layers={layers}
+            onPick={setPicked}
+            onSubmit={submit}
+            onStep={goStep}
+            onLayer={(k: LayerKey) => setLayers((prev) => ({ ...prev, [k]: !prev[k] }))}
+            onClose={() => setOpenNo(null)}
+          />
         )}
       </aside>
     </div>

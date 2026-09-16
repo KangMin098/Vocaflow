@@ -15,8 +15,11 @@
 //   ① 링크 모드 — `?exam=2026&no=30` 이 **그 문항이 있는 쪽**(5쪽)을 가리키는 원본을 건다
 //   ② 파일 모드 — 문제지를 열면 캔버스가 그려지고 **문항 번호 상자**가 그 위에 놓인다
 //   ③ 상자가 캔버스 **안**에 있다 — 좌표 뒤집기가 틀리면 여기서 밖으로 나간다
-//   ④ 펼친 문항의 선지 기호 상자 **5개**가 그려진다
-//   ⑤ 콘솔 에러 0
+//   ④ **제출 전에는 선지 상자가 0개** — 해설은 감춰진 게 아니라 «없다»(순차 공개의 전부)
+//   ⑤ 답을 내면 선지 기호 상자 **5개**가 그려진다
+//   ⑥ 키보드만으로 풀고 겹을 넘긴다
+//   ⑦ 390px 에서 가로 스크롤 0 — 두 단 화면이 좁은 폭에서 종이를 밀어내지 않는다
+//   ⑧ 콘솔 에러 0
 //
 //   · 계정: `runtime-test-0705@vocaflow.dev`
 //   · 읽기 전용 — DB 에 아무것도 쓰지 않는다
@@ -48,6 +51,13 @@ const paperPath = PAPER_CANDIDATES.find((p) => fs.existsSync(p)) ?? null;
 const EXAM = '2026';
 const NO = 30;
 const EXPECTED_PAGE = 5;
+
+/**
+ * 파일 모드 구역. **이름이 겹치기 때문에 필요하다** — 링크 모드에도 같은 해설 패널이 있어
+ * (2026-09-16부터 그쪽도 풀고 나서 열린다) 「30번」 제목과 「답 맞춰 보기」 단추가 둘씩 있다.
+ * 범위를 안 좁히면 strict mode 위반으로 죽고, 원인이 화면인지 검사인지 구별이 안 된다.
+ */
+const paperSection = (page: Page) => page.locator('section').filter({ hasText: '글자 위에 상자까지 얹기' });
 
 async function loginRuntimeUser(page: Page) {
   for (let attempt = 1; attempt <= 2; attempt++) {
@@ -103,8 +113,11 @@ test.describe('기출 오버레이', () => {
     expect(src!, '평가원 원본이 아니다').toContain('suneung.re.kr');
     expect(src!, `${EXPECTED_PAGE}쪽을 가리키지 않는다`).toContain(`#page=${EXPECTED_PAGE}`);
 
-    // 오른쪽 해설이 그 문항의 것인가
-    await expect(page.getByRole('heading', { level: 2, name: new RegExp(`^${NO}번`) })).toBeVisible();
+    // 오른쪽 해설이 그 문항의 것인가. 제목은 둘이다(링크 모드 패널 + 아래 파일 모드 패널) —
+    // 여기서 볼 것은 **앞의 것**이다.
+    await expect(
+      page.getByRole('heading', { level: 2, name: new RegExp(`^${NO}번`) }).first(),
+    ).toBeVisible();
 
     expect(errors, `콘솔 에러: ${errors.slice(0, 3).join(' | ')}`).toHaveLength(0);
   });
@@ -169,12 +182,21 @@ test.describe('기출 오버레이', () => {
     }
     expect(outside, `캔버스 밖에 놓인 상자: ${outside.join(' · ')}`).toHaveLength(0);
 
-    // ── 펼친 문항의 선지 기호 5개 ────────────────────────────────────
-    const marks = page.locator('span[title]').filter({ hasNot: page.locator('*') });
-    // 제목이 붙은 span 중 이 문항의 기호 상자만 센다 — 캔버스 위 레이어 안에 있다.
-    const markCount = await page.locator('div.pointer-events-none span[class*="border-2"]').count();
-    expect(markCount, '펼친 문항의 선지 기호 상자가 5개가 아니다').toBe(5);
-    void marks;
+    // ── 제출 전에는 상자가 **없다** ──────────────────────────────────
+    // 이것이 순차 공개의 전부다. 감춰 둔 것과 안 만든 것은 화면이 똑같지만, 감춰 두면
+    // «스스로 답해 보기» 가 안 일어난다. 그래서 **진짜 브라우저의 DOM 에서** 센다.
+    const marksOnPaper = page.locator('div.pointer-events-none span[class*="border-2"]');
+    expect(
+      await marksOnPaper.count(),
+      '풀기 단계인데 선지 상자가 종이에 이미 그려져 있다 — 해설이 새고 있다',
+    ).toBe(0);
+    const submitBtn = paperSection(page).getByRole('button', { name: /답을 안 고르고 보기|답 맞춰 보기/ });
+    await expect(submitBtn).toBeVisible();
+
+    // ── 답을 내면 비로소 그려진다 ────────────────────────────────────
+    await submitBtn.click();
+    await expect(marksOnPaper.first()).toBeVisible({ timeout: 15_000 });
+    expect(await marksOnPaper.count(), '답을 낸 뒤에도 선지 기호 상자가 5개가 아니다').toBe(5);
 
     // ── 그림으로 남긴다 ─────────────────────────────────────────────
     // 「한 줄 밀렸다」는 숫자로 안 잡힌다. 사람이 한 장만 보면 되게 해 둔다.
@@ -186,5 +208,82 @@ test.describe('기출 오버레이', () => {
     await canvas.screenshot({ path: path.join(SHOT_DIR, `${EXAM}-p${EXPECTED_PAGE}-with-boxes.png`) });
 
     expect(errors, `콘솔 에러: ${errors.slice(0, 3).join(' | ')}`).toHaveLength(0);
+  });
+
+  test('③ 키보드만으로 풀고 겹을 넘긴다', async ({ page }) => {
+    test.skip(!paperPath, `원본 PDF 가 없다 — 찾아본 곳: ${PAPER_CANDIDATES.join(' · ')}`);
+    test.setTimeout(120_000);
+
+    const errors: string[] = [];
+    page.on('console', (m) => {
+      if (m.type() === 'error') errors.push(m.text());
+    });
+
+    await page.goto(`/csat/overlay?exam=${EXAM}&no=${NO}`, { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('#csat-pdf')).toBeAttached({ timeout: 45_000 });
+    await page.setInputFiles('#csat-pdf', paperPath!, { timeout: 45_000 });
+    await expect(page.locator('canvas')).toBeVisible({ timeout: 45_000 });
+    await expect(
+      paperSection(page).getByRole('heading', { level: 2, name: new RegExp(`^${NO}번`) }),
+    ).toBeVisible({ timeout: 45_000 });
+
+    // 1~5 로 답하고 Enter 로 연다. 마우스를 한 번도 쓰지 않는다.
+    await page.locator('body').click({ position: { x: 5, y: 5 } });
+    await page.keyboard.press('3');
+    await expect(paperSection(page).getByRole('button', { name: '③', pressed: true })).toBeVisible();
+    await page.keyboard.press('Enter');
+
+    // 첫 겹이 열렸다 — 그리고 **한 장만** 열렸다.
+    const stepButtons = page.getByRole('group', { name: '해설 단계' }).getByRole('button');
+    const total = await stepButtons.count();
+    expect(total, '겹이 하나도 없다').toBeGreaterThan(1);
+    await expect(stepButtons.nth(0)).toHaveAttribute('aria-current', 'step');
+    await expect(stepButtons.nth(1)).toBeDisabled();
+
+    // → 로 넘기면 «지금 겹» 이 옮겨 가고, 그만큼만 열린다.
+    await page.keyboard.press('ArrowRight');
+    await expect(stepButtons.nth(1)).toHaveAttribute('aria-current', 'step');
+    await expect(stepButtons.nth(0)).toBeEnabled();
+    if (total > 2) await expect(stepButtons.nth(2)).toBeDisabled();
+
+    // ← 로 되돌아간다 — 되감기 없는 순차는 그냥 불편함이다.
+    await page.keyboard.press('ArrowLeft');
+    await expect(stepButtons.nth(0)).toHaveAttribute('aria-current', 'step');
+
+    // Esc 로 닫는다.
+    await page.keyboard.press('Escape');
+    await expect(paperSection(page).getByRole('heading', { level: 2, name: new RegExp(`^${NO}번`) })).toHaveCount(0);
+
+    expect(errors, `콘솔 에러: ${errors.slice(0, 3).join(' | ')}`).toHaveLength(0);
+  });
+
+  test('④ 390px — 가로로 밀려나지 않는다', async ({ page }) => {
+    test.skip(!paperPath, `원본 PDF 가 없다 — 찾아본 곳: ${PAPER_CANDIDATES.join(' · ')}`);
+    test.setTimeout(120_000);
+
+    // 390 = CLAUDE.md 의 모바일 기준선. 이 화면은 «종이 + 옆 패널» 두 단이라 좁은 폭에서
+    // 가장 먼저 깨질 곳이고, 종이는 폭에 맞춰 배율을 잡으므로 한 번 넘치면 조용히 넘친다.
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto(`/csat/overlay?exam=${EXAM}&no=${NO}`, { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('#csat-pdf')).toBeAttached({ timeout: 45_000 });
+    await page.setInputFiles('#csat-pdf', paperPath!, { timeout: 45_000 });
+    await expect(page.locator('canvas')).toBeVisible({ timeout: 45_000 });
+    await paperSection(page).getByRole('button', { name: /답을 안 고르고 보기|답 맞춰 보기/ }).click();
+    await expect(paperSection(page).getByRole('group', { name: '해설 단계' })).toBeVisible();
+
+    // ⚠️ **종이 자체는 예외다.** 2단 조판을 390px 로 줄이면 글자를 못 읽으므로 최소 배율을
+    //    두었고(`OverlayClient` 의 `Math.max(0.55, …)`), 그 칸만 가로로 넘긴다.
+    //    문서 전체가 밀리는 것과 한 칸이 스스로 넘치는 것은 다르다 — 여기서 재는 것은 앞쪽이다.
+    const overflow = await page.evaluate(() => {
+      const el = document.scrollingElement!;
+      return { scrollWidth: el.scrollWidth, clientWidth: el.clientWidth };
+    });
+    expect(
+      overflow.scrollWidth,
+      `문서가 가로로 ${overflow.scrollWidth - overflow.clientWidth}px 밀렸다`,
+    ).toBeLessThanOrEqual(overflow.clientWidth + 1);
+
+    fs.mkdirSync(SHOT_DIR, { recursive: true });
+    await page.screenshot({ path: path.join(SHOT_DIR, `${EXAM}-390-reveal.png`), fullPage: false });
   });
 });

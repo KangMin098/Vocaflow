@@ -118,6 +118,8 @@ export interface OverlayItem {
   answer_quote: string | null
   choice_analysis: { n: number; verdict?: string; trap?: string; why_tempting?: string; how_to_reject?: string; why_correct?: string }[]
   solve_procedure: { step: string; on_fail?: string }[]
+  /** 이 문항이 요구한 낱말 — 순차 공개의 마지막 겹(L6). 우리가 쓴 목록이지 원문이 아니다. */
+  required_vocab: string[]
   time_budget_sec: number | null
 }
 
@@ -180,7 +182,9 @@ export async function loadOverlayBySha256(
   const { data: analyses } = ids.length
     ? await db
         .from('csat_item_analyses')
-        .select('item_id, version, measured_ability, design_intent, answer_locus, choice_analysis, solve_procedure, time_budget_sec')
+        .select(
+          'item_id, version, measured_ability, design_intent, answer_locus, choice_analysis, solve_procedure, required_vocab, time_budget_sec',
+        )
         .in('item_id', ids)
         .eq('status', 'published')
         .order('version', { ascending: false })
@@ -194,6 +198,7 @@ export async function loadOverlayBySha256(
     answer_locus: unknown
     choice_analysis: unknown
     solve_procedure: unknown
+    required_vocab: unknown
     time_budget_sec: number | null
   }
   const latest = new Map<string, ARow>()
@@ -220,6 +225,7 @@ export async function loadOverlayBySha256(
         answer_quote: locus?.quote ?? null,
         choice_analysis: arr<OverlayItem['choice_analysis'][number]>(a?.choice_analysis),
         solve_procedure: arr<OverlayItem['solve_procedure'][number]>(a?.solve_procedure),
+        required_vocab: arr<string>(a?.required_vocab).filter((w) => typeof w === 'string'),
         time_budget_sec: a?.time_budget_sec ?? null,
       }
     },

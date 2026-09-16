@@ -1001,6 +1001,31 @@ gamekit 을 쓰지 않는 게임(WordBlitz · Pirate's Bounty)은 `GameKitStyles
 
 ---
 
+## 기출 오버레이 — 풀고 나서 열리는 해설 (2026-09-16)
+
+`/csat/overlay` 는 학습자가 떨어뜨린 평가원 문제지를 브라우저에서 렌더하고 그 위에 상자를
+얹는다. 좌표와 경계(해시 64자만 나간다)는 2026-09-13~15 에 섰고, 2026-09-16 에 **순서**가 붙었다.
+
+그전까지 이 화면은 문항 번호를 누르면 답·근거·오답 넷·절차를 **동시에** 펼쳤다 — 거기서
+일어나는 일은 읽기이고, 답을 본 뒤 읽는 근거는 재인이지 회상이 아니다(원칙 1). 이제
+**풀기 → 제출 → 한 겹씩**이다. 제출 전에는 해설이 감춰지는 게 아니라 **만들어지지 않는다**.
+
+| | |
+|---|---|
+| 겹 만드는 규칙 | [`lib/csat/overlay-reveal.ts`](../apps/web/src/lib/csat/overlay-reveal.ts)(순수) — 근거 → 정답 → 오답(번호순) → 절차 → 어휘. **빈 겹을 만들지 않는다.** `revealSourceFromExplain` 이 링크 모드의 자료 모양을 같은 재료로 맞춘다(두 화면이 다른 순서를 가르치지 않게) |
+| 패널 | [`components/csat/OverlayPanel.tsx`](../apps/web/src/components/csat/OverlayPanel.tsx) — `steps={null}` 이면 풀기 한 장(답·근거·오답 **부재**). `showLayers`/`showClose` 로 종이 없는 자리(링크 모드)에 맞춘다 |
+| 파일 모드 | [`app/(main)/csat/overlay/OverlayClient.tsx`](../apps/web/src/app/(main)/csat/overlay/OverlayClient.tsx) — 상태기계 + 전역 키보드(1~5 · Enter · ←/→ · Esc · L) + 겹 스위치 5(문항 번호·근거·선지·함정·어휘) + 겹 이동 시 종이 위 **한 번** 스크롤 |
+| 링크 모드 | [`app/(main)/csat/overlay/LinkPanel.tsx`](../apps/web/src/app/(main)/csat/overlay/LinkPanel.tsx) — 같은 문을 서버 렌더 쪽에도 단다. **전역 키보드는 안 건다**(같은 화면에 패널이 둘) |
+| 종이 위 모양 | 근거 **실선 밑줄**(`--success`) · 정답 기호 **실선**(`--success`) · 오답 기호 **파선**(`--warning`) · 어휘 **점선**(`--info`) — 색 하나에 뜻 하나이되 색만으로 말하지 않는다 |
+| 계측 | `csat_overlay_answered`(스스로 답했는가 · picked/correct/초 버킷) · `csat_overlay_revealed`(겹을 몇 장까지 · kind) |
+| 회귀 | 순수 9(`overlay-reveal`) + 마크업 13(`overlay-panel` — **제출 전 분석 0조각**) + 런타임 4(`tests/e2e/44-csat-overlay.spec.ts`) |
+
+**실측 (2026-09-16 · 진짜 브라우저 · 2026 수능 영어 문제지)** — 제출 전 선지 상자 **0개** ·
+제출 후 **5개** · 키보드만으로 완주 · 390px 가로 밀림 **0px** · 콘솔 에러 **0**.
+결정 기록과 남은 것: [docs/reports/csat-overlay-reveal-20260916.md](./reports/csat-overlay-reveal-20260916.md)
+
+---
+
 ## 기출 분석 — 지문 지도 (v06.34 · 2026-09-15)
 
 `/csat/item/[slug]` 는 산문 네 덩어리를 세로로 쌓는 화면이었다. 그 자리에 **조작면**을 놓았다.
