@@ -1461,6 +1461,11 @@ UPDATE 가 죽은 튜플을 남기기 때문이고, 실제 반환은 `VACUUM FUL
 > 표가 다시 커질 예정이면 회수해도 곧 같은 크기가 된다"* 이고, `CONCURRENTLY` 는 같은 표에서
 > **`_pending_*.sql` 로 남기고 사람이 psql 로 돌린다**. Supabase SQL Editor 는 자체 시간
 > 제한이 있어 이 크기에서는 중간에 끊긴다.
+>
+> **그래서 `supabase/migrations/_pending_reindex_lav_word_key.sql` 로 남겼다 — 미적용**
+> (락 없는 `REINDEX INDEX CONCURRENTLY` · 접속 방법 · 체크포인트 앞뒤 · 실패 시 남는
+> `_ccnew` INVALID 색인 정리까지 한 파일에). `VACUUM FULL` 은 **하지 않기로 했다** —
+> 힙 몫은 다시 쓰이므로 락 10~30분과 임시 디스크 10 GB 를 치를 이유가 없다.
 
 ```
 VACUUM FULL ANALYZE public.library_article_vocabularies;
