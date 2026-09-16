@@ -180,3 +180,42 @@ describe('현재 단계 표시', () => {
     expect(S('단계 레일')).toContain('aria-current="step"')
   })
 })
+
+/**
+ * **v07 판면 — 제목은 세리프다.**
+ *
+ * `globals.css` 가 `h1~h6` 을 세리프(Lora/Hahmlet)로 깔아 두었다. 그런데 컴포넌트에
+ * `font-display`(IBM Plex Sans)를 붙이면 그 기본값을 **되돌려** 산세리프가 된다.
+ *
+ * ⚠️ 실제로 그렇게 됐다(실측 2026-09-16). v07 적용 커밋이 페이지의 `h1` 은 고쳤는데
+ *   같은 시각 내가 만들고 있던 컴포넌트(`ModePicker`·`PriorityClient`)는 못 보고 지나갔다.
+ *   화면은 멀쩡히 뜨고 **제목만 다른 글꼴**이라, 나란히 놓고 보기 전에는 안 보인다.
+ */
+describe('v07 — 제목이 세리프 기본값을 되돌리지 않는다', () => {
+  it('csat 화면·컴포넌트의 제목에 font-display 가 없다', async () => {
+    const fs = await import('node:fs')
+    const path = await import('node:path')
+    const roots = [
+      path.resolve(__dirname, '..'),
+      path.resolve(__dirname, '../../../../components/csat'),
+    ]
+    const walk = (dir: string): string[] =>
+      fs.readdirSync(dir, { withFileTypes: true }).flatMap((d) => {
+        const full = path.join(dir, d.name)
+        if (d.isDirectory()) return d.name === '__tests__' ? [] : walk(full)
+        return /\.tsx$/.test(d.name) ? [full] : []
+      })
+
+    const offenders: string[] = []
+    for (const file of roots.flatMap(walk)) {
+      const src = fs.readFileSync(file, 'utf8')
+      src.split('\n').forEach((line, i) => {
+        // 제목 태그(h1~h6)나 제목 자리에 font-display 를 박은 줄.
+        if (/font-display/.test(line) && /<h[1-6]|제목|title/i.test(line)) {
+          offenders.push(`${path.basename(file)}:${i + 1}`)
+        }
+      })
+    }
+    expect(offenders, `세리프 기본값을 되돌린 제목: ${offenders.join(' · ')}`).toEqual([])
+  })
+})
