@@ -213,10 +213,21 @@ const drains = drainDirs.map((d) => {
    CLAUDE.md §3️⃣ 가 `lib/admin/help/<pipeline>.ts` 의 `drain` 을 정본으로 지정한다.
    ⚠️ 첫 판은 `_PROMPT.md` 개수만 세어 「11개 중 3개」라 적을 뻔했다 — 지시문은 대부분
       도움말 쪽에 있었고, 그것은 **거짓 음성**이다. 없는 것을 없다고 하려면 정본을 봐야 한다. */
-const helpKeys = [...helpSrc.matchAll(/^ {2}'([a-z0-9-]+)':\s*\{/gm)].map((m) => m[1]!)
+// ⚠️ **따옴표 없는 키를 빠뜨리면 안 된다.** 첫 판은 `/^ {2}'([a-z0-9-]+)':/` 로만 훑어
+//   `csat-*` 아홉만 찾고 **현황판 자신인 `csat:`**(따옴표 없는 식별자)을 놓쳤다. 그 결과
+//   「현황판에는 화면도움말이 아예 없다」는 **거짓 결함**을 보고할 뻔했다 — 도움말은 있었다.
+//   JS 객체 리터럴은 하이픈 없는 키를 따옴표 없이 쓸 수 있으므로 둘 다 받는다.
+const KEY_RE = /^ {2}'?([a-z0-9-]+)'?:\s*\{/gm
+const helpKeys = [...helpSrc.matchAll(KEY_RE)].map((m) => m[1]!)
+/** 그 키가 원문에서 시작하는 자리 — 따옴표가 있을 수도 없을 수도 있다. */
+const keyStart = (key: string): number => {
+  const q = helpSrc.indexOf(`  '${key}':`)
+  const u = helpSrc.indexOf(`  ${key}:`)
+  return q >= 0 && (u < 0 || q < u) ? q : u
+}
 const helpBlocks = helpKeys.map((key, i) => {
-  const start = helpSrc.indexOf(`  '${key}':`)
-  const end = i + 1 < helpKeys.length ? helpSrc.indexOf(`  '${helpKeys[i + 1]}':`) : helpSrc.length
+  const start = keyStart(key)
+  const end = i + 1 < helpKeys.length ? keyStart(helpKeys[i + 1]!) : helpSrc.length
   const block = helpSrc.slice(start, end)
   const drain = /^ {6}drain:\s*\{/m.test(block)
   const steps = [...block.matchAll(/^ {12}'(?:[^']|\\')*'/gm)].length

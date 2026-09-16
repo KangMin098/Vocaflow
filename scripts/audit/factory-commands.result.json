@@ -1,7 +1,7 @@
 {
-  "measuredAt": "2026-09-15T21:30:34.542Z",
+  "measuredAt": "2026-09-16T03:20:11.975Z",
   "help": {
-    "screens": 9,
+    "screens": 10,
     "withDrain": 6,
     "withVerify": 6,
     "withRecovery": 6,
@@ -19,13 +19,23 @@
       },
       {
         "key": "csat-catalog",
+        "hasDrain": false,
+        "rerunSafetyMentions": 0,
+        "hasPrerequisites": false,
+        "hasVerify": false,
+        "hasRecovery": false,
+        "hasCautions": true,
+        "steps": 8
+      },
+      {
+        "key": "csat",
         "hasDrain": true,
         "rerunSafetyMentions": 1,
         "hasPrerequisites": true,
         "hasVerify": true,
         "hasRecovery": true,
         "hasCautions": true,
-        "steps": 22
+        "steps": 14
       },
       {
         "key": "csat-strategy",
@@ -95,17 +105,17 @@
         "hasVerify": true,
         "hasRecovery": true,
         "hasCautions": true,
-        "steps": 5
+        "steps": 7
       }
     ]
   },
   "commands": {
-    "total": 23,
+    "total": 25,
     "missingFile": 0,
     "undeclaredWrites": 0,
     "noDryRun": 1,
     "noResume": 0,
-    "claudeCodeSteps": 3,
+    "claudeCodeSteps": 4,
     "findings": [
       {
         "cmd": "node scripts/csat/analysis-drain-export.mjs --limit 6",
@@ -372,6 +382,52 @@
         "mismatch": []
       },
       {
+        "cmd": "npx tsx --tsconfig apps/web/tsconfig.json scripts/textbook/item-review-drain-export.mjs --band 5",
+        "declaredWrites": false,
+        "declaredClaudeCode": false,
+        "script": "scripts/textbook/item-review-drain-export.mjs",
+        "exists": true,
+        "hasCommitFlag": true,
+        "dbWrite": false,
+        "appStateWrite": false,
+        "hasResume": true,
+        "resumeEvidence": [
+          ".imported 표식",
+          "이미 채운 것 건너뛰기"
+        ],
+        "mismatch": []
+      },
+      {
+        "cmd": "Claude Code: chunk-NN.json 을 읽어 3인 판정을 chunk-NN.out.json 으로 채운다",
+        "declaredWrites": false,
+        "declaredClaudeCode": true,
+        "script": null,
+        "exists": false,
+        "hasCommitFlag": false,
+        "dbWrite": false,
+        "appStateWrite": false,
+        "hasResume": false,
+        "resumeEvidence": [],
+        "mismatch": []
+      },
+      {
+        "cmd": "npx tsx --tsconfig apps/web/tsconfig.json scripts/textbook/item-review-drain-import.mjs --band 5 --commit",
+        "declaredWrites": true,
+        "declaredClaudeCode": false,
+        "script": "scripts/textbook/item-review-drain-import.mjs",
+        "exists": true,
+        "hasCommitFlag": true,
+        "dbWrite": true,
+        "appStateWrite": false,
+        "hasResume": true,
+        "resumeEvidence": [
+          ".imported 표식",
+          "이미 채운 것 건너뛰기",
+          "건너뛴 수 출력"
+        ],
+        "mismatch": []
+      },
+      {
         "cmd": "pnpm dlx tsx scripts/textbook/item-health-report.mjs",
         "declaredWrites": false,
         "declaredClaudeCode": false,
@@ -427,22 +483,6 @@
         "mismatch": [
           "DB 쓰기로 표시됐는데 `--commit` 관문이 없다 — dry-run 이 불가능하다"
         ]
-      },
-      {
-        "cmd": "npx tsx --tsconfig apps/web/tsconfig.json scripts/textbook/item-review-drain-export.mjs --band 5",
-        "declaredWrites": false,
-        "declaredClaudeCode": false,
-        "script": "scripts/textbook/item-review-drain-export.mjs",
-        "exists": true,
-        "hasCommitFlag": true,
-        "dbWrite": false,
-        "appStateWrite": false,
-        "hasResume": true,
-        "resumeEvidence": [
-          ".imported 표식",
-          "이미 채운 것 건너뛰기"
-        ],
-        "mismatch": []
       }
     ]
   },
