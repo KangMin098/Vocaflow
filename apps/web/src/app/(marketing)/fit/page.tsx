@@ -138,7 +138,7 @@ export default async function FitPage({ searchParams }: { searchParams?: SearchP
         <p className="m-0 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--p)]">
           지문 난이도 진단
         </p>
-        <h1 className="m-0 text-balance font-display text-[30px] font-[800] leading-[1.2] tracking-[-0.03em] text-[var(--t1)] md:text-[38px]">
+        <h1 className="m-0 text-balance font-editorial text-[30px] font-[800] leading-[1.2] tracking-[-0.03em] text-[var(--t1)] md:text-[38px]">
           이 지문, 우리 반에 맞을까?
         </h1>
         <p className="m-0 max-w-[52ch] font-body text-[15px] leading-[1.75] text-[var(--t2)] md:text-[16px]">

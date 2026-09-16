@@ -144,7 +144,7 @@ export function TrapDrill({ cards, pool }: { cards: DrillCard[]; pool: number })
         </p>
       </article>
 
-      <h2 className="mb-2 mt-5 break-keep font-display text-sm font-bold text-[var(--t1)]">
+      <h2 className="mb-2 mt-5 break-keep text-sm font-bold text-[var(--t1)]">
         이 오답은 어떤 수법인가요?
       </h2>
 
@@ -293,7 +293,7 @@ function Summary({
 
       {result.missed.length ? (
         <section className="mt-5">
-          <h2 className="mb-2 font-display text-sm font-bold text-[var(--t1)]">다시 볼 것</h2>
+          <h2 className="mb-2 text-sm font-bold text-[var(--t1)]">다시 볼 것</h2>
           <ul className="space-y-2">
             {result.missed.map((m) => {
               const c = cardOf.get(m.cardId)

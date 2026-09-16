@@ -34,7 +34,7 @@ export function ModePicker() {
 
   return (
     <section aria-labelledby="csat-mode-h" className="mt-8">
-      <h2 id="csat-mode-h" className="font-display text-base font-bold text-[var(--t1)]">
+      <h2 id="csat-mode-h" className="text-base text-[var(--t1)]">
         오늘 뭘 하러 오셨어요?
       </h2>
       <ul className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
@@ -51,7 +51,7 @@ export function ModePicker() {
                 {m.no}
               </span>
               <span className="min-w-0">
-                <span className="block font-display text-[15px] font-bold text-[var(--t1)]">
+                <span className="block font-editorial text-[15px] font-[600] text-[var(--t1)]">
                   {m.label}
                   {/* 동사가 곧 이 화면에서 하는 일이다. 라벨만 두면 또 목록이 된다. */}
                   <span className="ml-1.5 font-body text-xs font-normal text-[var(--t3)]">

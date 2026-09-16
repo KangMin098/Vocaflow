@@ -82,7 +82,7 @@ export function PassageMap({ sentences, anchors, placements, onSelect }: Passage
   return (
     <section className="mb-6">
       <div className="mb-2 flex items-baseline justify-between gap-3">
-        <h2 className="font-display text-sm font-bold text-[var(--t1)]">지문 지도</h2>
+        <h2 className="text-sm font-bold text-[var(--t1)]">지문 지도</h2>
         <p className="break-keep text-xs text-[var(--t3)]">{sentences.length}문장 · 눌러서 근거 자리 보기</p>
       </div>
 

@@ -112,11 +112,11 @@ function LoginForm() {
     <Card variant="elevated" padding="lg" className="rounded-xl">
       {/* ── 헤더 ── */}
       <div className="mb-s-8 text-center">
-        <p className="mb-s-3 font-mono text-[10px] uppercase tracking-[0.15em] text-t3">
+        <p className="mb-s-3 font-display text-[11px] font-[600] tracking-[0.04em] text-t3">
           다시 만나서 반가워요
         </p>
 
-        <h1 className="mb-s-2 font-display text-2xl font-extrabold leading-[1.1] tracking-[-0.02em] text-t1 sm:text-3xl">
+        <h1 className="mb-s-2 font-editorial text-2xl font-[600] leading-[1.1] tracking-[-0.02em] text-t1 sm:text-3xl">
           로그인
         </h1>
         <p className="font-body text-sm text-t2">
@@ -168,7 +168,7 @@ function LoginForm() {
             <Link
               href="/reset-password"
               /* 73×13 이었다 — 44px 미만 탭 대상이었다(CLAUDE.md 절대 금지 · 실측 390px). 비밀번호를 잊은 사람이 누르는 유일한 길이다. */
-              className="inline-flex min-h-[44px] items-center font-mono text-[10px] uppercase tracking-[0.1em] text-t3 transition-colors duration-normal hover:text-p"
+              className="inline-flex min-h-[44px] items-center font-display text-[11px] font-[600] tracking-[0.04em] text-t3 transition-colors duration-normal hover:text-p"
             >
               비밀번호 찾기
             </Link>
@@ -212,7 +212,7 @@ function LoginForm() {
         </button>
 
         {/* 푸터 — 세션은 Supabase refresh token 이 자동 연장한다 (별도 "로그인 유지" 토글 없음) */}
-        <p className="pt-s-2 text-center font-mono text-[10px] uppercase tracking-[0.1em] text-t3">
+        <p className="pt-s-2 text-center font-display text-[11px] font-[600] tracking-[0.04em] text-t3">
           안전한 인증 · 산업 표준 암호화
         </p>
       </form>

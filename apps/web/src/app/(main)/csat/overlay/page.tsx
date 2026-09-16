@@ -136,7 +136,7 @@ export default async function CsatOverlayPage({
             {/* 오른쪽 — 우리가 쓴 것만. 순서는 해설 화면과 같다(①답 → ②나머지 → ③다시 풀 때) */}
             <aside className="lg:sticky lg:top-6 lg:self-start">
               <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
-                <h2 className="font-display text-base font-bold text-[var(--t1)]">
+                <h2 className="text-base font-bold text-[var(--t1)]">
                   {no}번
                   {item?.type_name ? (
                     <span className="ml-2 text-xs font-normal text-[var(--t3)]">{item.type_name}</span>
@@ -201,7 +201,7 @@ export default async function CsatOverlayPage({
           </div>
 
           <section className="mt-10 border-t border-[var(--bd)] pt-6">
-            <h2 className="font-display text-base font-bold text-[var(--t1)]">글자 위에 상자까지 얹기</h2>
+            <h2 className="text-base font-bold text-[var(--t1)]">글자 위에 상자까지 얹기</h2>
             <p className="mt-2 max-w-2xl break-keep text-sm leading-relaxed text-[var(--t2)]">
               위 원본은 평가원에서 바로 열리는 것이라 <strong>우리가 안을 들여다볼 수 없어요</strong> — 그래서
               쪽만 맞춰 드립니다. 내려받은 문제지를 아래에서 열면 문항 번호와 선지 자리에 상자를 그려요.

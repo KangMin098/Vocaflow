@@ -114,7 +114,7 @@ export default async function CsatTypePage({ params }: { params: Promise<{ typeI
                   산문보다 **먼저** 온다 — 학습자가 검증할 수 있는 것이 앞서야 한다. */}
               {locus ? (
                 <section aria-labelledby="locus-h">
-                  <h2 id="locus-h" className="mb-2 font-display text-sm font-bold text-[var(--t1)]">
+                  <h2 id="locus-h" className="mb-2 text-sm font-bold text-[var(--t1)]">
                     정답 근거는 어디 있나
                   </h2>
                   <LocusBar summary={locus} />
@@ -145,7 +145,7 @@ export default async function CsatTypePage({ params }: { params: Promise<{ typeI
                   "이걸 다 외워야 하나" 가 된다 — 막힌 사람만 열면 된다. */}
               {detail.procedure.length ? (
                 <section aria-labelledby="proc-h">
-                  <h2 id="proc-h" className="mb-2 font-display text-sm font-bold text-[var(--t1)]">
+                  <h2 id="proc-h" className="mb-2 text-sm font-bold text-[var(--t1)]">
                     푸는 절차
                     <span className="ml-2 font-sans text-xs font-normal text-[var(--t3)]">
                       {detail.procedure.length}단계
@@ -195,7 +195,7 @@ export default async function CsatTypePage({ params }: { params: Promise<{ typeI
                   <div className="space-y-6 border-t border-[var(--bd)] p-4">
                     {detail.answer_locus_pattern ? (
                       <section>
-                        <h3 className="mb-2 font-display text-sm font-bold text-[var(--t1)]">
+                        <h3 className="mb-2 text-sm font-bold text-[var(--t1)]">
                           근거 자리 — 자세히
                         </h3>
                         {/* 한 덩어리로 쏟지 않는다 — 문단·강조·문항 인용이 **데이터에 이미 있고**,
@@ -206,7 +206,7 @@ export default async function CsatTypePage({ params }: { params: Promise<{ typeI
 
                     {detail.recurring_traps.length ? (
                       <section>
-                        <h3 className="mb-2 font-display text-sm font-bold text-[var(--t1)]">
+                        <h3 className="mb-2 text-sm font-bold text-[var(--t1)]">
                           되풀이되는 함정
                           {detail.recurring_traps_total > detail.recurring_traps.length ? (
                             <span className="ml-2 font-sans text-xs font-normal text-[var(--t3)]">
@@ -236,7 +236,7 @@ export default async function CsatTypePage({ params }: { params: Promise<{ typeI
 
                     {detail.failure_modes.length ? (
                       <section>
-                        <h3 className="mb-2 font-display text-sm font-bold text-[var(--t1)]">
+                        <h3 className="mb-2 text-sm font-bold text-[var(--t1)]">
                           여기서 미끄러집니다
                           {detail.failure_modes_total > detail.failure_modes.length ? (
                             <span className="ml-2 font-sans text-xs font-normal text-[var(--t3)]">
@@ -269,7 +269,7 @@ export default async function CsatTypePage({ params }: { params: Promise<{ typeI
             {/* **유형 절차만으로는 부족하다.** 학습자가 실제로 막히는 자리는 눈앞의 한 문항이고,
                 거기서 알고 싶은 것은 "그래서 왜 ③인가" 다. 그 답으로 가는 문을 여기 둔다.
                 최신 회차가 위에 온다 — 현행 설계부터 보는 것이 시험에 가깝다. */}
-            <h2 id="items-h" className="font-display text-sm font-bold text-[var(--t1)]">
+            <h2 id="items-h" className="text-sm font-bold text-[var(--t1)]">
               이 유형의 기출
               {items.length > 0 && (
                 <span className="ml-2 font-sans text-xs font-normal text-[var(--t3)]">

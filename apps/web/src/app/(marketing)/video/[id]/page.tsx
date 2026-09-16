@@ -93,7 +93,7 @@ export default function VideoDetailPage({ params }: { params: { id: string } }) 
         <span>{KIND_LABEL[video.kind]}</span>
       </nav>
 
-      <h1 className="break-keep font-display text-[clamp(24px,4vw,36px)] font-extrabold leading-tight text-[var(--t1)]">
+      <h1 className="break-keep font-editorial text-[clamp(24px,4vw,36px)] font-[600] leading-tight text-[var(--t1)]">
         {video.title}
       </h1>
       <p className="mt-2 break-keep font-body text-[15px] leading-relaxed text-[var(--t2)]">

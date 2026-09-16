@@ -31,7 +31,7 @@ export default function VideoIndexPage() {
   return (
     <main className="mx-auto w-full max-w-5xl px-4 py-12 sm:px-6">
       <header className="mb-10">
-        <h1 className="break-keep font-display text-[clamp(28px,5vw,44px)] font-extrabold leading-tight text-[var(--t1)]">
+        <h1 className="break-keep font-editorial text-[clamp(28px,5vw,44px)] font-[600] leading-tight text-[var(--t1)]">
           영상으로 보기
         </h1>
         <p className="mt-3 max-w-[52ch] break-keep text-[15px] leading-relaxed text-[var(--t2)]">

@@ -149,7 +149,7 @@ export default function AboutPage() {
             <Sparkles size={12} className="text-[var(--p)]" aria-hidden />
             우리의 미션
           </span>
-          <h1 className="mt-6 font-display text-[36px] font-[800] leading-[1.15] tracking-tight text-[var(--t1)] md:text-[52px]">
+          <h1 className="mt-6 font-editorial text-[36px] font-[800] leading-[1.15] tracking-tight text-[var(--t1)] md:text-[52px]">
             영어를{' '}
             <span className="bg-gradient-to-r from-[var(--p)] to-[var(--p)] bg-clip-text text-transparent">
               오래 가게

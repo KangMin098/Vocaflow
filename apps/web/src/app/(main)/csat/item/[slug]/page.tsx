@@ -147,7 +147,7 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
           ) : useMap ? null : (
             <section className="mb-6">
               <div className="flex items-baseline gap-3">
-                <h2 className="font-display text-sm font-bold text-[var(--t1)]">답이 왜 이것인가</h2>
+                <h2 className="text-sm font-bold text-[var(--t1)]">답이 왜 이것인가</h2>
                 <span className="font-display text-lg font-bold tabular-nums text-[#2E7D5A]">
                   {CIRCLED[item.answer] ?? item.answer}
                 </span>
@@ -183,7 +183,7 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
               중복 제거가 아니라 **누락**이다. */}
           {offMap.length ? (
             <section className="mb-6">
-              <h2 className="font-display text-sm font-bold text-[var(--t1)]">나머지가 왜 아닌가</h2>
+              <h2 className="text-sm font-bold text-[var(--t1)]">나머지가 왜 아닌가</h2>
               {useMap ? (
                 // 칩이 없는 이유를 사실대로 적는다 — 「지문에 근거가 없다」가 아니라 «가리킬
                 // 문장을 못 찾았다» 다. 배제 근거가 도표·형식·상식에 걸려 있거나, 한국어로만
@@ -221,7 +221,7 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
 
           {item.procedure.length ? (
             <section className="mb-6">
-              <h2 className="font-display text-sm font-bold text-[var(--t1)]">다시 풀 때의 순서</h2>
+              <h2 className="text-sm font-bold text-[var(--t1)]">다시 풀 때의 순서</h2>
               <ol className="mt-2 space-y-2">
                 {item.procedure.map((s, i) => (
                   <li key={i} className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
@@ -239,7 +239,7 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
 
           {item.required_vocab.length ? (
             <section className="mb-6">
-              <h2 className="font-display text-sm font-bold text-[var(--t1)]">이 문항이 요구한 낱말</h2>
+              <h2 className="text-sm font-bold text-[var(--t1)]">이 문항이 요구한 낱말</h2>
               <ul className="mt-2 flex flex-wrap gap-2">
                 {item.required_vocab.map((w) => (
                   <li

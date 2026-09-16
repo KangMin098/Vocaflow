@@ -434,8 +434,16 @@ export function BooksExplorer({ books, userVLevel, userMastery, showAll = false 
           href="/diagnostic"
           className="flex items-center justify-between gap-3 rounded-[var(--r-lg)] border border-dashed border-[var(--p)]/40 bg-[var(--p-light)]/50 px-4 py-3 transition-colors hover:bg-[var(--p-light)]"
         >
-          <span className="inline-flex items-center gap-2 font-body text-[12.5px] text-[var(--t2)]">
-            <Compass size={15} aria-hidden className="text-[var(--p)]" />
+          {/* ⚠️ 390px 실측(2026-09-16): 이 줄이 «레벨을 진단하 / 면», «을 추천해드려 / 요.» 로
+              **낱말 가운데서 끊겼다.** 원인은 폭이 아니라 `inline-flex` 다 — 문장 안의
+              `<strong>` 이 **flex 항목**이 되면서 앞뒤 텍스트와 한 덩어리로 줄바꿈되지 못한다.
+              문장에는 flex 를 쓰지 않는다. 아이콘만 인라인으로 띄우고 한글은 `break-keep`(I7). */}
+          <span className="font-body text-[12.5px] leading-[1.6] text-[var(--t2)] [word-break:keep-all]">
+            <Compass
+              size={15}
+              aria-hidden
+              className="mr-1.5 inline-block align-[-2px] text-[var(--p)]"
+            />
             레벨을 진단하면 <strong className="font-[700] text-[var(--t1)]">나에게 딱 맞는 책</strong>을
             추천해드려요.
           </span>

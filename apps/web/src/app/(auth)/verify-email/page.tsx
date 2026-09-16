@@ -101,11 +101,11 @@ function VerifyEmailInner() {
           </div>
         </div>
 
-        <p className="mb-s-3 font-mono text-[10px] uppercase tracking-[0.15em] text-t3">
+        <p className="mb-s-3 font-display text-[11px] font-[600] tracking-[0.04em] text-t3">
           마지막 한 단계만 남았어요
         </p>
 
-        <h1 className="mb-s-3 font-display text-2xl font-extrabold leading-[1.1] tracking-[-0.02em] text-t1 sm:text-3xl">
+        <h1 className="mb-s-3 font-editorial text-2xl font-[600] leading-[1.1] tracking-[-0.02em] text-t1 sm:text-3xl">
           이메일을 확인해주세요
         </h1>
 
@@ -119,7 +119,7 @@ function VerifyEmailInner() {
 
       {/* 단계 안내 */}
       <div className="mb-s-6 rounded-lg border border-bd bg-bg2 p-s-4">
-        <p className="mb-s-3 font-mono text-[10px] uppercase tracking-[0.15em] text-t3">다음 단계</p>
+        <p className="mb-s-3 font-display text-[11px] font-[600] tracking-[0.04em] text-t3">다음 단계</p>
 
         <ol className="space-y-s-3">
           <li className="flex items-start gap-s-3">
@@ -217,7 +217,7 @@ function VerifyEmailInner() {
         </Link>
       </div>
 
-      <p className="pt-s-6 text-center font-mono text-[10px] uppercase tracking-[0.1em] text-t3">
+      <p className="pt-s-6 text-center font-display text-[11px] font-[600] tracking-[0.04em] text-t3">
         문의: support@vocaflow.com
       </p>
     </Card>

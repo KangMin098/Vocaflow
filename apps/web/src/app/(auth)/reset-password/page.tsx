@@ -162,10 +162,10 @@ function ResetPasswordInner() {
           <div className="mb-s-4 inline-flex h-14 w-14 items-center justify-center rounded-full bg-p-light">
             <KeyRound size={28} className="text-p" />
           </div>
-          <p className="mb-s-3 font-mono text-[10px] uppercase tracking-[0.15em] text-t3">
+          <p className="mb-s-3 font-display text-[11px] font-[600] tracking-[0.04em] text-t3">
             마지막 단계예요
           </p>
-          <h1 className="mb-s-3 font-display text-2xl font-extrabold leading-[1.1] tracking-[-0.02em] text-t1 sm:text-3xl">
+          <h1 className="mb-s-3 font-editorial text-2xl font-[600] leading-[1.1] tracking-[-0.02em] text-t1 sm:text-3xl">
             새 비밀번호 설정
           </h1>
           <p className="font-body text-sm leading-relaxed text-t2">
@@ -241,7 +241,7 @@ function ResetPasswordInner() {
               setMode('request')
               setPwSubmitted(false)
             }}
-            className="font-mono text-[10px] uppercase tracking-[0.1em] text-t3 transition-colors duration-normal hover:text-p"
+            className="font-display text-[11px] font-[600] tracking-[0.04em] text-t3 transition-colors duration-normal hover:text-p"
           >
             대신 재설정 메일 받기 →
           </button>
@@ -261,11 +261,11 @@ function ResetPasswordInner() {
             <CheckCircle2 size={28} className="text-success" />
           </div>
 
-          <p className="mb-s-3 font-mono text-[10px] uppercase tracking-[0.15em] text-t3">
+          <p className="mb-s-3 font-display text-[11px] font-[600] tracking-[0.04em] text-t3">
             메일함을 확인해주세요
           </p>
 
-          <h1 className="mb-s-3 font-display text-2xl font-extrabold leading-[1.1] tracking-[-0.02em] text-t1 sm:text-3xl">
+          <h1 className="mb-s-3 font-editorial text-2xl font-[600] leading-[1.1] tracking-[-0.02em] text-t1 sm:text-3xl">
             이메일을 보냈어요
           </h1>
 
@@ -277,7 +277,7 @@ function ResetPasswordInner() {
 
         {/* 안내 박스 */}
         <div className="border-info/20 mb-s-6 rounded-lg border bg-info-light p-s-4">
-          <p className="mb-s-2 font-mono text-[10px] uppercase tracking-[0.15em] text-info">
+          <p className="mb-s-2 font-display text-[11px] font-[600] tracking-[0.04em] text-info">
             다음 단계
           </p>
           <p className="font-body text-sm leading-relaxed text-t1">
@@ -311,7 +311,7 @@ function ResetPasswordInner() {
           </Link>
         </div>
 
-        <p className="pt-s-6 text-center font-mono text-[10px] uppercase tracking-[0.1em] text-t3">
+        <p className="pt-s-6 text-center font-display text-[11px] font-[600] tracking-[0.04em] text-t3">
           링크는 1시간 후 만료됩니다
         </p>
       </Card>
@@ -325,11 +325,11 @@ function ResetPasswordInner() {
     <Card variant="elevated" padding="lg" className="rounded-xl">
       {/* 헤더 */}
       <div className="mb-s-8 text-center">
-        <p className="mb-s-3 font-mono text-[10px] uppercase tracking-[0.15em] text-t3">
+        <p className="mb-s-3 font-display text-[11px] font-[600] tracking-[0.04em] text-t3">
           걱정마세요, 도와드릴게요
         </p>
 
-        <h1 className="mb-s-3 font-display text-2xl font-extrabold leading-[1.1] tracking-[-0.02em] text-t1 sm:text-3xl">
+        <h1 className="mb-s-3 font-editorial text-2xl font-[600] leading-[1.1] tracking-[-0.02em] text-t1 sm:text-3xl">
           비밀번호를
           <br />
           잊으셨나요?
@@ -392,13 +392,13 @@ function ResetPasswordInner() {
       <div className="mt-s-8 flex items-center justify-between border-t border-bd pt-s-6">
         <Link
           href="/login"
-          className="font-mono text-[10px] uppercase tracking-[0.1em] text-t3 transition-colors duration-normal hover:text-p"
+          className="font-display text-[11px] font-[600] tracking-[0.04em] text-t3 transition-colors duration-normal hover:text-p"
         >
           ← 로그인으로
         </Link>
         <Link
           href="/signup"
-          className="font-mono text-[10px] uppercase tracking-[0.1em] text-t3 transition-colors duration-normal hover:text-p"
+          className="font-display text-[11px] font-[600] tracking-[0.04em] text-t3 transition-colors duration-normal hover:text-p"
         >
           회원가입 →
         </Link>

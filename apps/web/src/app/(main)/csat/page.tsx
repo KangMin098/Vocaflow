@@ -87,7 +87,7 @@ export default async function CsatHubPage() {
 
       <section className="mt-10" aria-labelledby="csat-types-h">
         <div className="flex flex-wrap items-baseline justify-between gap-2">
-          <h2 id="csat-types-h" className="font-display text-base font-bold text-[var(--t1)]">
+          <h2 id="csat-types-h" className="text-base font-bold text-[var(--t1)]">
             유형별로 보기
           </h2>
           <p className="text-xs text-[var(--t3)]">
@@ -124,7 +124,7 @@ export default async function CsatHubPage() {
                   className="group flex h-full min-h-[44px] flex-col rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4 transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] hover:bg-[var(--bg3)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)] motion-reduce:transition-none"
                 >
                   <div className="flex items-start justify-between gap-3">
-                    <h3 className="font-display text-base font-bold text-[var(--t1)]">{c.name}</h3>
+                    <h3 className="text-base font-bold text-[var(--t1)]">{c.name}</h3>
                     <span className="shrink-0 tabular-nums text-xs text-[var(--t3)]">
                       {c.recent > 0 ? `최근 4개년 ${c.recent}문항` : `기출 ${c.items}문항`}
                     </span>

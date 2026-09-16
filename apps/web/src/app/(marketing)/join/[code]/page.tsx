@@ -78,7 +78,7 @@ export default async function JoinPage({ params }: PageProps) {
         <p className="font-display text-[11px] font-[800] uppercase tracking-[0.14em] text-[var(--p)]">
           클래스 초대
         </p>
-        <h1 className="m-0 font-display text-[26px] font-[800] leading-[1.15] tracking-tight text-[var(--t1)] md:text-[30px]">
+        <h1 className="m-0 font-editorial text-[26px] font-[800] leading-[1.15] tracking-tight text-[var(--t1)] md:text-[30px]">
           {peek.name}
         </h1>
         <p className="m-0 inline-flex items-center gap-2 font-mono text-[12px] text-[var(--t2)]">
@@ -135,7 +135,7 @@ export default async function JoinPage({ params }: PageProps) {
 function UnknownCode({ code }: { code: string }) {
   return (
     <main className="mx-auto flex w-full max-w-[520px] flex-col gap-4 px-4 py-12 md:py-16">
-      <h1 className="m-0 font-display text-[22px] font-[800] tracking-tight text-[var(--t1)]">
+      <h1 className="m-0 font-editorial text-[22px] font-[800] tracking-tight text-[var(--t1)]">
         이 초대 링크는 확인할 수 없어요
       </h1>
       <p className="m-0 font-body text-[13.5px] leading-relaxed text-[var(--t2)]">

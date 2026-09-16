@@ -164,7 +164,7 @@ export function PricingClient({ signals }: { signals: TrustSignal[] | null }) {
               <p className="mt-6 font-display text-[40px] font-[800] leading-none tracking-tight text-[var(--t1)] md:text-[44px]">
                 무료
               </p>
-              <p className="mt-2 break-keep font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t2)]">
+              <p className="mt-2 break-keep font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
                 결제 수단을 받지 않습니다
               </p>
 

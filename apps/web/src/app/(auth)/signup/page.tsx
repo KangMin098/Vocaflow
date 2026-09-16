@@ -187,11 +187,11 @@ function SignupForm() {
             끝난 뒤 결제할 곳도 코드에 없다**(학습자 표면 결제 라우트 0개, 실측 2026-09-05).
             받아 줄 곳 없는 약속은 공개 화면에서 즉시 내린다(CLAUDE.md §4️⃣ 표시광고법 예외).
             요금제 화면과 같은 문장을 쓴다 — 두 화면이 다른 말을 하면 다시 갈라진다. */}
-        <p className="mb-s-3 font-mono text-[10px] uppercase tracking-[0.15em] text-t3">
+        <p className="mb-s-3 font-display text-[11px] font-[600] tracking-[0.04em] text-t3">
           지금은 모든 기능이 무료
         </p>
 
-        <h1 className="mb-s-2 font-display text-2xl font-extrabold leading-[1.1] tracking-[-0.02em] text-t1 sm:text-3xl">
+        <h1 className="mb-s-2 font-editorial text-2xl font-[600] leading-[1.1] tracking-[-0.02em] text-t1 sm:text-3xl">
           영어 학습을
           <br />
           시작하세요
@@ -291,7 +291,7 @@ function SignupForm() {
             <div className="mt-s-2 space-y-s-1">
               <ProgressBar value={strength.score} max={4} color={strength.color} size="xs" />
               <p
-                className={`text-right font-mono text-[10px] uppercase tracking-[0.1em] ${
+                className={`text-right font-display text-[11px] font-[600] tracking-[0.04em] ${
                   strength.color === 'error'
                     ? 'text-error'
                     : strength.color === 'warning'
@@ -351,7 +351,7 @@ function SignupForm() {
             onChange={(e) => setAgreeMarketing(e.target.checked)}
           />
           {termsError && (
-            <p className="pt-s-1 font-mono text-[10px] uppercase tracking-[0.1em] text-error">
+            <p className="pt-s-1 font-display text-[11px] font-[600] tracking-[0.04em] text-error">
               {termsError}
             </p>
           )}
@@ -381,7 +381,7 @@ function SignupForm() {
 
         {/* 푸터 안내 */}
         {/* "14일 무료 · 언제든 해지 가능" 이었다 — 해지할 구독이 존재하지 않는다. */}
-        <p className="break-keep pt-s-2 text-center font-mono text-[10px] uppercase tracking-[0.1em] text-t3">
+        <p className="break-keep pt-s-2 text-center font-display text-[11px] font-[600] tracking-[0.04em] text-t3">
           결제 수단을 받지 않습니다 · 유료 플랜은 준비 중
         </p>
       </form>

@@ -1,26 +1,8 @@
 [
   {
-    "route": "/library/books",
+    "route": "/text",
     "width": 390,
-    "landed": "/library/books",
-    "ok": true
-  },
-  {
-    "route": "/csat",
-    "width": 390,
-    "landed": "/csat",
-    "ok": true
-  },
-  {
-    "route": "/csat/map",
-    "width": 390,
-    "landed": "/csat/map",
-    "ok": true
-  },
-  {
-    "route": "/wordvault/browse",
-    "width": 390,
-    "landed": "/wordvault/browse",
+    "landed": "/text",
     "ok": true
   }
 ]

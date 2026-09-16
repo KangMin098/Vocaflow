@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-09-15",
+  "built_at": "2026-09-16",
   "recent_from": 2023,
   "min_n": 8,
   "corpus": {
@@ -7,9 +7,9 @@
     "items": 802,
     "analyzed": 802,
     "distractors": 3208,
-    "distinct_traps": 513,
+    "distinct_traps": 518,
     "named": 2426,
-    "named_recent": 1078,
+    "named_recent": 1077,
     "recent": 1456,
     "year_min": 2014,
     "year_max": 2027
@@ -94,7 +94,7 @@
       "distractors": 116,
       "recent": 52,
       "items": 29,
-      "named": 56
+      "named": 53
     },
     {
       "id": "X-FACT",
@@ -175,7 +175,7 @@
       "distractors": 116,
       "recent": 52,
       "items": 29,
-      "named": 17
+      "named": 20
     },
     {
       "id": "R-IMPLY",
@@ -253,13 +253,13 @@
   "traps": [
     {
       "key": "어휘 함정",
-      "n": 389,
-      "recent": 173,
-      "items": 383,
+      "n": 392,
+      "recent": 174,
+      "items": 386,
       "types": 17,
       "by_type": {
         "R-BLANK": 92,
-        "R-NOTICE": 48,
+        "R-NOTICE": 50,
         "R-FACT": 27,
         "X-FACT": 26,
         "R-PURPOSE": 23,
@@ -272,13 +272,13 @@
         "R-CLAIM": 17,
         "R-IMPLY": 17,
         "X-BLANK": 6,
-        "R-VOCAB": 3,
+        "R-VOCAB": 4,
         "R-BLANK2": 2,
         "X-BLANK2": 1
       },
       "by_type_recent": {
         "R-BLANK": 42,
-        "R-NOTICE": 22,
+        "R-NOTICE": 23,
         "R-FACT": 13,
         "R-CLAIM": 11,
         "R-TITLE": 11,
@@ -326,87 +326,15 @@
       ]
     },
     {
-      "key": "부분 사실",
-      "n": 303,
-      "recent": 141,
-      "items": 301,
-      "types": 16,
-      "by_type": {
-        "R-BLANK": 57,
-        "R-NOTICE": 47,
-        "R-FACT": 26,
-        "R-GIST": 23,
-        "R-MOOD": 21,
-        "R-PURPOSE": 21,
-        "R-SUMMARY": 18,
-        "R-TOPIC": 16,
-        "R-TITLE": 15,
-        "R-CLAIM": 14,
-        "X-FACT": 13,
-        "X-TITLE": 13,
-        "R-IMPLY": 12,
-        "R-BLANK2": 4,
-        "X-BLANK": 2,
-        "X-BLANK2": 1
-      },
-      "by_type_recent": {
-        "R-BLANK": 31,
-        "R-NOTICE": 19,
-        "R-FACT": 13,
-        "R-MOOD": 12,
-        "R-GIST": 11,
-        "R-PURPOSE": 9,
-        "R-IMPLY": 8,
-        "R-CLAIM": 7,
-        "R-SUMMARY": 7,
-        "R-TITLE": 7,
-        "X-FACT": 7,
-        "R-TOPIC": 5,
-        "X-TITLE": 5
-      },
-      "examples": [
-        {
-          "item_id": "M2706#31",
-          "slug": "M2706-31",
-          "exam_label": "2027학년도 6월 모의평가",
-          "no": 31,
-          "type_id": "R-BLANK",
-          "choice": 5,
-          "tempting": "마지막 문장의 'in a deteriorated state'가 취약함을 연상시킨다",
-          "reject": "그 상태는 preservationists 가 그대로 두려는 상태다. 보전주의자가 연장하려는 상태와 반대편에 있다"
-        },
-        {
-          "item_id": "2023#28",
-          "slug": "2023-28",
-          "exam_label": "2023학년도 수능",
-          "no": 28,
-          "type_id": "R-NOTICE",
-          "choice": 3,
-          "tempting": "Submission Format 아래 두 줄 가운데 용량 제한만 읽고 형식 줄을 건너뛰면, 제한은 용량뿐이고 형식은 열려 있다고 남는다.",
-          "reject": "Submission Format 첫 줄 'File type: PDF only' 가 형식을 PDF 하나로 못 박는다."
-        },
-        {
-          "item_id": "M2409#19",
-          "slug": "M2409-19",
-          "exam_label": "2024학년도 9월 모의평가",
-          "no": 19,
-          "type_id": "R-MOOD",
-          "choice": 3,
-          "tempting": "4번 문장 there was a knock 이 갑작스러운 사건이라 앞 칸을 놀람으로 잡게 된다.",
-          "reject": "노크는 전환점 뒤의 사건이고 앞 칸은 1~3번 문장의 심경이다. 뒤 칸 annoyed 도 7~8번 문장의 서두름·감탄과 부호가 반대다."
-        }
-      ]
-    },
-    {
       "key": "반대 진술",
-      "n": 298,
-      "recent": 131,
-      "items": 291,
+      "n": 301,
+      "recent": 134,
+      "items": 294,
       "types": 17,
       "by_type": {
         "R-BLANK": 86,
+        "R-NOTICE": 32,
         "R-SUMMARY": 31,
-        "R-NOTICE": 29,
         "R-CLAIM": 19,
         "R-MOOD": 19,
         "R-TOPIC": 19,
@@ -425,7 +353,7 @@
       "by_type_recent": {
         "R-BLANK": 36,
         "R-SUMMARY": 17,
-        "R-NOTICE": 13,
+        "R-NOTICE": 16,
         "R-CLAIM": 11,
         "R-MOOD": 11,
         "R-IMPLY": 10,
@@ -469,10 +397,82 @@
       ]
     },
     {
+      "key": "부분 사실",
+      "n": 300,
+      "recent": 140,
+      "items": 298,
+      "types": 16,
+      "by_type": {
+        "R-BLANK": 57,
+        "R-NOTICE": 44,
+        "R-FACT": 26,
+        "R-GIST": 23,
+        "R-MOOD": 21,
+        "R-PURPOSE": 21,
+        "R-SUMMARY": 18,
+        "R-TOPIC": 16,
+        "R-TITLE": 15,
+        "R-CLAIM": 14,
+        "X-FACT": 13,
+        "X-TITLE": 13,
+        "R-IMPLY": 12,
+        "R-BLANK2": 4,
+        "X-BLANK": 2,
+        "X-BLANK2": 1
+      },
+      "by_type_recent": {
+        "R-BLANK": 31,
+        "R-NOTICE": 18,
+        "R-FACT": 13,
+        "R-MOOD": 12,
+        "R-GIST": 11,
+        "R-PURPOSE": 9,
+        "R-IMPLY": 8,
+        "R-CLAIM": 7,
+        "R-SUMMARY": 7,
+        "R-TITLE": 7,
+        "X-FACT": 7,
+        "R-TOPIC": 5,
+        "X-TITLE": 5
+      },
+      "examples": [
+        {
+          "item_id": "M2706#31",
+          "slug": "M2706-31",
+          "exam_label": "2027학년도 6월 모의평가",
+          "no": 31,
+          "type_id": "R-BLANK",
+          "choice": 5,
+          "tempting": "마지막 문장의 'in a deteriorated state'가 취약함을 연상시킨다",
+          "reject": "그 상태는 preservationists 가 그대로 두려는 상태다. 보전주의자가 연장하려는 상태와 반대편에 있다"
+        },
+        {
+          "item_id": "M2409#28",
+          "slug": "M2409-28",
+          "exam_label": "2024학년도 9월 모의평가",
+          "no": 28,
+          "type_id": "R-NOTICE",
+          "choice": 4,
+          "tempting": "일정 표에 구간이 셋이라 어느 행이 투표인지 안 정하고 보면 다른 행의 기간을 가져다 세게 된다.",
+          "reject": "표의 Voting 행 'October 11－October 13' 은 사흘이다. 일주일짜리 구간은 표 어디에도 없다."
+        },
+        {
+          "item_id": "M2409#19",
+          "slug": "M2409-19",
+          "exam_label": "2024학년도 9월 모의평가",
+          "no": 19,
+          "type_id": "R-MOOD",
+          "choice": 3,
+          "tempting": "4번 문장 there was a knock 이 갑작스러운 사건이라 앞 칸을 놀람으로 잡게 된다.",
+          "reject": "노크는 전환점 뒤의 사건이고 앞 칸은 1~3번 문장의 심경이다. 뒤 칸 annoyed 도 7~8번 문장의 서두름·감탄과 부호가 반대다."
+        }
+      ]
+    },
+    {
       "key": "무관",
-      "n": 270,
-      "recent": 124,
-      "items": 268,
+      "n": 269,
+      "recent": 122,
+      "items": 267,
       "types": 14,
       "by_type": {
         "R-BLANK": 79,
@@ -482,11 +482,11 @@
         "R-PURPOSE": 20,
         "R-SUMMARY": 20,
         "R-CLAIM": 18,
-        "R-GIST": 16,
+        "R-GIST": 17,
         "R-IMPLY": 13,
         "R-MOOD": 11,
         "R-FACT": 8,
-        "R-NOTICE": 8,
+        "R-NOTICE": 6,
         "X-BLANK": 5,
         "R-BLANK2": 3
       },
@@ -499,9 +499,9 @@
         "R-GIST": 9,
         "R-TITLE": 9,
         "R-IMPLY": 8,
-        "R-NOTICE": 7,
         "R-SUMMARY": 7,
         "R-MOOD": 5,
+        "R-NOTICE": 5,
         "R-FACT": 2
       },
       "examples": [
@@ -539,14 +539,14 @@
     },
     {
       "key": "지문 밖 상식",
-      "n": 221,
-      "recent": 90,
-      "items": 221,
+      "n": 219,
+      "recent": 89,
+      "items": 219,
       "types": 17,
       "by_type": {
         "R-BLANK": 67,
-        "R-NOTICE": 23,
-        "R-GIST": 17,
+        "R-NOTICE": 22,
+        "R-GIST": 16,
         "R-MOOD": 16,
         "R-CLAIM": 13,
         "R-IMPLY": 13,
@@ -564,10 +564,10 @@
       },
       "by_type_recent": {
         "R-BLANK": 29,
-        "R-NOTICE": 7,
         "R-SUMMARY": 7,
         "R-GIST": 6,
         "R-IMPLY": 6,
+        "R-NOTICE": 6,
         "R-PURPOSE": 6,
         "R-CLAIM": 5,
         "R-MOOD": 5,
@@ -612,16 +612,16 @@
     },
     {
       "key": "주체 역전",
-      "n": 142,
-      "recent": 59,
-      "items": 142,
+      "n": 144,
+      "recent": 60,
+      "items": 144,
       "types": 16,
       "by_type": {
         "X-FACT": 21,
         "R-PURPOSE": 20,
         "R-FACT": 19,
         "R-BLANK": 18,
-        "R-NOTICE": 12,
+        "R-NOTICE": 13,
         "R-CLAIM": 10,
         "R-TITLE": 10,
         "X-TITLE": 7,
@@ -629,16 +629,16 @@
         "R-TOPIC": 5,
         "R-GIST": 4,
         "R-SUMMARY": 3,
+        "R-VOCAB": 3,
         "R-MOOD": 2,
-        "R-VOCAB": 2,
         "X-BLANK": 2,
         "R-REFER": 1
       },
       "by_type_recent": {
         "R-FACT": 9,
         "X-FACT": 9,
+        "R-NOTICE": 8,
         "R-PURPOSE": 8,
-        "R-NOTICE": 7,
         "R-BLANK": 6,
         "R-IMPLY": 4,
         "R-TITLE": 4,
@@ -683,10 +683,10 @@
     },
     {
       "key": "범위 과대",
-      "n": 139,
+      "n": 140,
       "recent": 70,
-      "items": 139,
-      "types": 14,
+      "items": 140,
+      "types": 15,
       "by_type": {
         "R-NOTICE": 34,
         "R-BLANK": 25,
@@ -701,7 +701,8 @@
         "R-PURPOSE": 4,
         "R-SUMMARY": 4,
         "R-IMPLY": 3,
-        "X-FACT": 3
+        "X-FACT": 3,
+        "R-VOCAB": 1
       },
       "by_type_recent": {
         "R-NOTICE": 18,
@@ -721,14 +722,14 @@
       },
       "examples": [
         {
-          "item_id": "M2609#28",
-          "slug": "M2609-28",
-          "exam_label": "2026학년도 9월 모의평가",
-          "no": 28,
+          "item_id": "M2606#27",
+          "slug": "M2606-27",
+          "exam_label": "2026학년도 6월 모의평가",
+          "no": 27,
           "type_id": "R-NOTICE",
           "choice": 2,
-          "tempting": "Prizes 표에 2 라는 수가 실제로 있어 2등의 인원처럼 보인다.",
-          "reject": "표에서 2nd prize 행의 인원은 1 이고, 2 는 3rd prize 행의 인원이다."
+          "tempting": "공모전 응모 자격은 보통 개인 창작자에 한정된다는 예상 때문에 사회적 기업까지 포함한 선지가 넓어 보인다.",
+          "reject": "Applicants: Artists and social enterprises 줄이 둘 다 명시한다."
         },
         {
           "item_id": "M2409#25",
@@ -755,7 +756,7 @@
     {
       "key": "범위 과소",
       "n": 92,
-      "recent": 44,
+      "recent": 43,
       "items": 92,
       "types": 14,
       "by_type": {
@@ -775,7 +776,7 @@
         "R-SUMMARY": 1
       },
       "by_type_recent": {
-        "R-NOTICE": 11,
+        "R-NOTICE": 10,
         "R-BLANK": 5,
         "R-TOPIC": 5,
         "R-FACT": 4,
@@ -1378,15 +1379,15 @@
     },
     {
       "key": "항목 짝 바꾸기",
-      "n": 15,
-      "recent": 4,
-      "items": 15,
+      "n": 13,
+      "recent": 3,
+      "items": 13,
       "types": 1,
       "by_type": {
-        "R-CHART": 15
+        "R-CHART": 13
       },
       "by_type_recent": {
-        "R-CHART": 4
+        "R-CHART": 3
       },
       "examples": [
         {
@@ -1557,51 +1558,6 @@
       ]
     },
     {
-      "key": "임계값 경계",
-      "n": 11,
-      "recent": 8,
-      "items": 11,
-      "types": 1,
-      "by_type": {
-        "R-CHART": 11
-      },
-      "by_type_recent": {
-        "R-CHART": 8
-      },
-      "examples": [
-        {
-          "item_id": "M2406#25",
-          "slug": "M2406-25",
-          "exam_label": "2024학년도 6월 모의평가",
-          "no": 25,
-          "type_id": "R-CHART",
-          "choice": 5,
-          "tempting": "more than 50% 는 한 칸짜리 판정이라 빠르게 O 를 주게 되고, ①에서 이미 No Trips 계열을 봤다는 기억이 재확인을 막는다.",
-          "reject": "65 or over 묶음에서 No Trips 막대 하나만 50 이라는 눈금선과 견준다."
-        },
-        {
-          "item_id": "M2509#25",
-          "slug": "M2509-25",
-          "exam_label": "2025학년도 9월 모의평가",
-          "no": 25,
-          "type_id": "R-CHART",
-          "choice": 4,
-          "tempting": "'greater than 60%'는 눈금선 하나에 걸리는 주장이라, Japan 의 VR 막대가 60 선 근처면 참·거짓이 뒤집혔다고 의심한다.",
-          "reject": "Japan 묶음의 VR 막대 하나만 골라 세로축 60 눈금선과 비교한다. 선 위로 올라가 있으면 참이다."
-        },
-        {
-          "item_id": "2023#25",
-          "slug": "2023-25",
-          "exam_label": "2023학년도 수능",
-          "no": 25,
-          "type_id": "R-CHART",
-          "choice": 5,
-          "tempting": "'higher than 20% across the three age groups'는 아홉 칸 전부가 20 선 위여야 한다는 뜻이라, 가장 낮은 막대가 20 근처면 참·거짓이 뒤집혔다고 의심한다.",
-          "reject": "아홉 칸 중 가장 낮은 막대 하나만 골라 20 눈금선과 비교한다. 그 하나가 20 위면 나머지는 볼 필요가 없다."
-        }
-      ]
-    },
-    {
       "key": "등장인물 혼동",
       "n": 10,
       "recent": 10,
@@ -1643,6 +1599,51 @@
           "choice": 2,
           "tempting": "Sean turned around and found him running toward a large pond 에서 him 을 Sean 으로 읽으면 연못으로 달려간 쪽이 사람이 되어 선지가 어긋난 것처럼 보인다",
           "reject": "바로 앞 절 As Toby started to bark 가 him 의 선행사를 Toby 로 못박고, turned around 의 주어가 Sean 이므로 달려간 쪽은 Sean 일 수 없다"
+        }
+      ]
+    },
+    {
+      "key": "임계값 경계",
+      "n": 10,
+      "recent": 8,
+      "items": 10,
+      "types": 1,
+      "by_type": {
+        "R-CHART": 10
+      },
+      "by_type_recent": {
+        "R-CHART": 8
+      },
+      "examples": [
+        {
+          "item_id": "M2406#25",
+          "slug": "M2406-25",
+          "exam_label": "2024학년도 6월 모의평가",
+          "no": 25,
+          "type_id": "R-CHART",
+          "choice": 5,
+          "tempting": "more than 50% 는 한 칸짜리 판정이라 빠르게 O 를 주게 되고, ①에서 이미 No Trips 계열을 봤다는 기억이 재확인을 막는다.",
+          "reject": "65 or over 묶음에서 No Trips 막대 하나만 50 이라는 눈금선과 견준다."
+        },
+        {
+          "item_id": "M2509#25",
+          "slug": "M2509-25",
+          "exam_label": "2025학년도 9월 모의평가",
+          "no": 25,
+          "type_id": "R-CHART",
+          "choice": 4,
+          "tempting": "'greater than 60%'는 눈금선 하나에 걸리는 주장이라, Japan 의 VR 막대가 60 선 근처면 참·거짓이 뒤집혔다고 의심한다.",
+          "reject": "Japan 묶음의 VR 막대 하나만 골라 세로축 60 눈금선과 비교한다. 선 위로 올라가 있으면 참이다."
+        },
+        {
+          "item_id": "2023#25",
+          "slug": "2023-25",
+          "exam_label": "2023학년도 수능",
+          "no": 25,
+          "type_id": "R-CHART",
+          "choice": 5,
+          "tempting": "'higher than 20% across the three age groups'는 아홉 칸 전부가 20 선 위여야 한다는 뜻이라, 가장 낮은 막대가 20 근처면 참·거짓이 뒤집혔다고 의심한다.",
+          "reject": "아홉 칸 중 가장 낮은 막대 하나만 골라 20 눈금선과 비교한다. 그 하나가 20 위면 나머지는 볼 필요가 없다."
         }
       ]
     },

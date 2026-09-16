@@ -64,7 +64,7 @@ export default function SharedFitPage({ params }: Params) {
         <p className="m-0 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--p)]">
           공유받은 결과
         </p>
-        <h1 className="m-0 text-balance font-display text-[28px] font-[800] leading-[1.2] tracking-[-0.03em] text-[var(--t1)] md:text-[34px]">
+        <h1 className="m-0 text-balance font-editorial text-[28px] font-[800] leading-[1.2] tracking-[-0.03em] text-[var(--t1)] md:text-[34px]">
           {profileHeadline(shared)}
         </h1>
         <p className="m-0 max-w-[52ch] font-body text-[15px] leading-[1.75] text-[var(--t2)]">

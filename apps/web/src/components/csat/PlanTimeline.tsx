@@ -58,7 +58,7 @@ export function PlanTimeline({ rows, availableSec }: { rows: TimelineRow[]; avai
   return (
     <section aria-labelledby="plan-time-h" className="mb-6">
       <div className="mb-2 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-        <h2 id="plan-time-h" className="break-keep font-display text-sm font-bold text-[var(--t1)]">
+        <h2 id="plan-time-h" className="break-keep text-sm font-bold text-[var(--t1)]">
           {t.breaksAt !== null ? (
             <>
               지금 절차대로면 <span className="tabular-nums">{t.breaksAt}</span>번에서 시간이 끝납니다

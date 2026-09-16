@@ -130,7 +130,7 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
               <span className="font-english text-[14px] font-[500] tracking-[0.01em] text-t1">
                 Vocaflow
               </span>
-              <span className="font-mono text-[10px] uppercase tracking-[0.10em] text-t3">
+              <span className="font-display text-[11px] font-[600] tracking-[0.04em] text-t3">
                 © {new Date().getFullYear()}
               </span>
             </Link>

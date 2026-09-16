@@ -18,8 +18,20 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
+import {
+  ALL_LAYERS_ON,
+  OverlayPanel,
+  type LayerKey,
+  type LayerState,
+} from '@/components/csat/OverlayPanel'
 import { track } from '@/lib/analytics/client'
-import { locateQuote, type HighlightBox, type PdfTextItem } from '@/lib/csat/pdf-text-locate'
+import {
+  buildRevealSteps,
+  secondsBucket,
+  stepIndexOfChoice,
+  type RevealStep,
+} from '@/lib/csat/overlay-reveal'
+import { locateQuote, locateQuotes, type HighlightBox, type PdfTextItem } from '@/lib/csat/pdf-text-locate'
 
 interface AnchorBox {
   p: number
@@ -54,6 +66,7 @@ interface OverlayItem {
     why_correct?: string
   }[]
   solve_procedure: { step: string; on_fail?: string }[]
+  required_vocab: string[]
   time_budget_sec: number | null
 }
 interface Payload {
@@ -105,6 +118,18 @@ export default function OverlayClient({
   const [canvasSize, setCanvasSize] = useState<{ w: number; h: number } | null>(null)
   /** 근거 문장이 이 쪽에서 차지하는 자리. 비어 있으면 못 찾은 것이고, 그때는 안 칠한다. */
   const [quoteBoxes, setQuoteBoxes] = useState<HighlightBox[]>([])
+  /** 어휘 낱말의 자리 — 근거와 같은 방식으로 학습자의 PDF 에서 찾는다(우리에겐 좌표가 없다). */
+  const [vocabBoxes, setVocabBoxes] = useState<HighlightBox[][]>([])
+
+  // ── 풀기 → 제출 → 한 겹씩 ─────────────────────────────────────────
+  // 제출 전에는 해설을 **만들지 않는다**(패널에 null 이 간다). 숨김이 아니라 부재다 —
+  // 감춰 두면 도구·선택·읽기로 다 보이고, 무엇보다 스스로 답해 보는 일이 안 일어난다.
+  const [phase, setPhase] = useState<'solve' | 'reveal'>('solve')
+  const [picked, setPicked] = useState<number | null>(null)
+  const [step, setStep] = useState(0)
+  const [elapsed, setElapsed] = useState(0)
+  const [layers, setLayers] = useState<LayerState>(ALL_LAYERS_ON)
+  const openedAt = useRef<number>(0)
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const docRef = useRef<{ getPage: (n: number) => Promise<unknown>; destroy?: () => Promise<void> } | null>(null)
@@ -133,6 +158,16 @@ export default function OverlayClient({
 
   const open = openNo == null ? null : (itemsByNo.get(openNo) ?? null)
   const openAnchor = openNo == null ? null : (anchorsOnPage.find((a) => a.no === openNo) ?? null)
+
+  /** 열어 갈 겹들. **풀기 중에는 계산조차 하지 않는다.** */
+  const steps: RevealStep[] | null = useMemo(
+    () => (phase === 'reveal' && open ? buildRevealSteps(open) : null),
+    [phase, open],
+  )
+  const curStep = steps && step < steps.length ? steps[step] : null
+  /** 지금 겹이 켜는 것만 진하다 — 한 화면에서 두드러지는 것은 하나여야 한다(E4). */
+  const focus = curStep?.focus ?? { quote: false, marks: [] as number[], vocab: false }
+  const vocabWords = useMemo(() => (open?.required_vocab ?? []).filter(Boolean), [open])
 
   const reset = useCallback(async () => {
     renderSeq.current += 1
@@ -285,6 +320,142 @@ export default function OverlayClient({
       cancelled = true
     }
   }, [page, open?.answer_quote, payload])
+
+  /**
+   * **어휘 낱말의 자리** — 근거 문장과 같은 길로 찾는다(PDF.js 텍스트 레이어).
+   *
+   * 못 찾은 낱말은 빈 배열로 남는다 — `locateQuotes` 가 자리를 보존하므로 n번째 낱말과
+   * n번째 결과가 어긋나지 않는다. 같은 낱말이 여러 번 나오면 **첫 자리만** 표시한다.
+   */
+  useEffect(() => {
+    setVocabBoxes([])
+    if (phase !== 'reveal' || !docRef.current || !vocabWords.length) return
+    let cancelled = false
+    ;(async () => {
+      try {
+        const pg = (await docRef.current!.getPage(page)) as { getTextContent?: () => Promise<{ items: unknown[] }> }
+        if (cancelled || !pg.getTextContent) return
+        const content = await pg.getTextContent()
+        if (cancelled) return
+        const items = (content.items as PdfTextItem[]).filter(
+          (t) => typeof t?.str === 'string' && Array.isArray(t?.transform),
+        )
+        setVocabBoxes(locateQuotes(items, vocabWords))
+      } catch {
+        if (!cancelled) setVocabBoxes([])
+      }
+    })()
+    return () => {
+      cancelled = true
+    }
+  }, [page, phase, vocabWords, payload])
+
+  /**
+   * **문항을 바꾸면 처음부터.** 앞 문항의 답과 열어 둔 겹이 남아 있으면, 다음 문항이
+   * 이미 풀린 채로 열린다 — 이 화면이 만들려는 «스스로 답해 보기» 가 통째로 사라진다.
+   */
+  useEffect(() => {
+    setPhase('solve')
+    setPicked(null)
+    setStep(0)
+    setElapsed(0)
+    setLayers(ALL_LAYERS_ON)
+    openedAt.current = Date.now()
+  }, [openNo])
+
+  // 흐른 시간. 푸는 동안만 센다 — 해설을 읽는 시간까지 세면 그 수가 아무 뜻도 없어진다.
+  useEffect(() => {
+    if (openNo == null || phase !== 'solve') return
+    const t = window.setInterval(() => {
+      setElapsed(Math.floor((Date.now() - openedAt.current) / 1000))
+    }, 1000)
+    return () => window.clearInterval(t)
+  }, [openNo, phase])
+
+  /** 제출 — 여기서부터 해설이 «만들어진다». */
+  const submit = useCallback(() => {
+    if (!open) return
+    const seconds = Math.floor((Date.now() - openedAt.current) / 1000)
+    setElapsed(seconds)
+    setStep(0)
+    setPhase('reveal')
+    // 이 제품에서 **학습자가 기출을 실제로 푸는지** 를 재는 첫 관측이다. 진입·파일 열기까지는
+    // 세고 있었지만, 그 다음이 읽기였는지 풀기였는지는 어떤 표에도 남지 않았다.
+    track({
+      name: 'csat_overlay_answered',
+      props: {
+        picked: picked != null,
+        correct: picked != null && open.answer != null && picked === open.answer,
+        secondsBucket: secondsBucket(seconds),
+      },
+    })
+  }, [open, picked])
+
+  /** 겹 이동. 없는 겹으로는 가지 않는다 — 눌렀는데 안 바뀌면 고장으로 읽힌다. */
+  const goStep = useCallback(
+    (i: number) => {
+      if (!steps || !steps.length) return
+      const n = Math.max(0, Math.min(steps.length - 1, i))
+      setStep(n)
+      track({ name: 'csat_overlay_revealed', props: { seq: n + 1, total: steps.length, kind: steps[n].kind } })
+    },
+    [steps],
+  )
+
+  /**
+   * 키보드만으로 다 된다 — 1~5 로 답하고, ←/→ 로 겹을 넘기고, Esc 로 닫고, L 로 겹 스위치.
+   *
+   * 버튼 위에서의 Enter·Space 는 **가로채지 않는다** — 가로채면 눌린 버튼과 일어난 일이
+   * 달라져서, 키보드 사용자만 겪는 «내가 누른 게 아닌 일» 이 생긴다.
+   */
+  useEffect(() => {
+    if (openNo == null) return
+    const onKey = (e: KeyboardEvent) => {
+      const t = e.target as HTMLElement | null
+      const tag = t?.tagName
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || t?.isContentEditable) return
+      if (e.metaKey || e.ctrlKey || e.altKey) return
+      if (tag === 'BUTTON' && (e.key === 'Enter' || e.key === ' ')) return
+
+      if (e.key === 'Escape') {
+        setOpenNo(null)
+        return
+      }
+      if (/^[1-5]$/.test(e.key)) {
+        const n = Number(e.key)
+        if (phase === 'solve') {
+          setPicked(n)
+          e.preventDefault()
+        } else if (steps) {
+          const i = stepIndexOfChoice(steps, n)
+          if (i >= 0) {
+            goStep(i)
+            e.preventDefault()
+          }
+        }
+        return
+      }
+      if (phase === 'solve' && e.key === 'Enter') {
+        submit()
+        e.preventDefault()
+        return
+      }
+      if (phase === 'reveal' && (e.key === 'ArrowRight' || e.key === 'ArrowLeft')) {
+        goStep(step + (e.key === 'ArrowRight' ? 1 : -1))
+        e.preventDefault()
+        return
+      }
+      if (e.key === 'l' || e.key === 'L') {
+        const first = document.getElementById('csat-overlay-layers')?.querySelector('button')
+        if (first instanceof HTMLElement) {
+          first.focus()
+          e.preventDefault()
+        }
+      }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [openNo, phase, steps, step, submit, goStep])
 
   /** PDF 좌표(왼아래 원점) → 캔버스 위 % 위치. 배율이 바뀌어도 %는 그대로다. */
   const pct = useCallback(
@@ -518,7 +689,7 @@ export default function OverlayClient({
       <aside className="lg:sticky lg:top-6 lg:self-start">
         {!open ? (
           <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
-            <h2 className="font-display text-sm font-bold text-[var(--t1)]">해설</h2>
+            <h2 className="text-sm font-bold text-[var(--t1)]">해설</h2>
             <p className="mt-2 text-sm leading-relaxed text-[var(--t2)]">
               {payload
                 ? '문제지에서 문항 번호를 누르면 여기에 「답이 왜 이것인가」가 열려요.'
@@ -528,7 +699,7 @@ export default function OverlayClient({
         ) : (
           <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
             <div className="flex items-start justify-between gap-2">
-              <h2 className="font-display text-base font-bold text-[var(--t1)]">
+              <h2 className="text-base font-bold text-[var(--t1)]">
                 {open.no}번
                 {open.type_name ? <span className="ml-2 text-xs font-normal text-[var(--t3)]">{open.type_name}</span> : null}
               </h2>
