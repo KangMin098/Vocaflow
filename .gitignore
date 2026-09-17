@@ -181,6 +181,8 @@ docs/design/*/vocaflow-*.html
 # ── 정리 2026-09-08 ───────────────────────────────────────────────
 # Playwright 학습자 표면 감사 산출물 (매 실행 재생성 — test-results-arcade/ 와 같은 성격)
 apps/web/test-results-learner/
+# 기출 학습자 재설계 게이트 스크린샷 — **평가원 지문이 찍힌다**(학습자 PDF 에서 뽑은 글). 저장소에 두지 않는다
+apps/web/test-results-csat-learner/
 
 # 일회성 프로브 — 한 번 재고 버리는 코드다. 이름이 아니라 **성질**로 가른다:
 #   · 절대 경로가 박혀 있거나(v5x-c02-grade.mjs 의 file:///d:/…) 남의 머신에서 안 돈다

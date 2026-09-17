@@ -979,7 +979,7 @@ gamekit 을 쓰지 않는 게임(WordBlitz · Pirate's Bounty)은 `GameKitStyles
 | 시간 띠 | [`lib/csat/plan-timeline.ts`](../apps/web/src/lib/csat/plan-timeline.ts)(순수 — `buildTimeline`·`clampSpeed`) · [`components/csat/PlanTimeline.tsx`](../apps/web/src/components/csat/PlanTimeline.tsx) |
 | 내 기록 (④재기) | [`lib/csat/my-traps.ts`](../apps/web/src/lib/csat/my-traps.ts) — **표본 문턱을 여기서 쥔다**(함정당 3회 · 전체 20회). 넘기 전에는 배수를 말하지 않고 센 것만 보여 준다. `returningCardIds`·`drillBias` 가 기록을 **다음 훈련 세트**로 되먹인다(24시간 지난 최근 오답 · 문턱 넘은 약한 수법) |
 | 순서 (⑤주파) | [`lib/csat/plan-order.ts`](../apps/web/src/lib/csat/plan-order.ts)(순수 — 내 약점 × 유형 구성) · `plan/PlanList.tsx`(토글). ⚠️ **시간 띠는 정렬하지 않는다** — 시험은 번호대로 치러진다 |
-| 계측 | `csat_atlas_scoped` · `csat_trap_opened` · `csat_plan_speed_set` · `csat_plan_ordered` · `csat_drill_answered` · `csat_drill_finished` (`lib/analytics/events.ts` 닫힌 목록) |
+| 계측 | `csat_atlas_scoped` · `csat_trap_opened` · `csat_plan_speed_set` · `csat_plan_ordered` (`lib/analytics/events.ts` 닫힌 목록 · 훈련 2종은 2026-09-17 은퇴) |
 | 자 | [`apps/web/scripts/csat-surface-measure.mts`](../apps/web/scripts/csat-surface-measure.mts)(수치) · [`csat-shot.mts`](../apps/web/scripts/csat-shot.mts)(눈) |
 | 훈련 (③겨루기) | [`lib/csat/trap-drill.ts`](../apps/web/src/lib/csat/trap-drill.ts)(순수 — 보기 만들기·채점·누설 검사) · [`drill-loader.ts`](../apps/web/src/lib/csat/drill-loader.ts)(구운 풀에서 여덟을 고른다 · **DB 0**) · [`components/csat/TrapDrill.tsx`](../apps/web/src/components/csat/TrapDrill.tsx) · [`scripts/csat/build-trap-drill.mjs`](../scripts/csat/build-trap-drill.mjs) → `drill-data/pool.json` (**1,013문제** · 539KB) |
 | 굽기 | `pnpm csat:atlas` · `csat:atlas:check` · `pnpm csat:drill` · `csat:drill:check` (전부 낡으면 exit 1) |
@@ -1003,7 +1003,7 @@ gamekit 을 쓰지 않는 게임(WordBlitz · Pirate's Bounty)은 `GameKitStyles
 
 ## 기출 해설 강의 — 하이라이트 동기 TTS (2026-09-17)
 
-`/csat/item/[slug]` 에서 **강의 듣기**를 누르면 브라우저 목소리가 강의식 대본을 읽고, 대본이 지금 설명하는
+`/admin/kice/item/[slug]`(분석 뷰)와 학습자 세션 ② 이해(`/csat/session`)에서 **강의 듣기**를 누르면 브라우저 목소리가 강의식 대본을 읽고, 대본이 지금 설명하는
 분석 블록(또는 지문 지도의 문장 막대)만 진하게 빛난다. 대본은 화면에 글로 나오지 않는다 — **낭독이 아니라
 지목**이 강의를 만든다(원문은 「여기 세 번째 문장」처럼 자리로 가리킨다). 지시문
 [docs/csat-lecture-tts-brief.md](./csat-lecture-tts-brief.md) · 결정 [docs/csat-lecture/DECISIONS.md](./csat-lecture/DECISIONS.md).
@@ -1028,30 +1028,39 @@ gamekit 을 쓰지 않는 게임(WordBlitz · Pirate's Bounty)은 `GameKitStyles
 
 ---
 
-## 기출 오버레이 — 풀고 나서 열리는 해설 (2026-09-16)
+## 기출 세션 루프 — 풀고 · 이해하고 · 한 줄 (2026-09-17)
 
-`/csat/overlay` 는 학습자가 떨어뜨린 평가원 문제지를 브라우저에서 렌더하고 그 위에 상자를
-얹는다. 좌표와 경계(해시 64자만 나간다)는 2026-09-13~15 에 섰고, 2026-09-16 에 **순서**가 붙었다.
+학습자 `/csat` 은 **라우트 셋**(홈 · 세션 · 기록)이다. 지시문 [csat-learner-brief.md](./csat-learner-brief.md) ·
+결정 [csat-learner/DECISIONS.md](./csat-learner/DECISIONS.md) · 처분표 [csat-learner/gate0-routes.md](./csat-learner/gate0-routes.md).
 
-그전까지 이 화면은 문항 번호를 누르면 답·근거·오답 넷·절차를 **동시에** 펼쳤다 — 거기서
-일어나는 일은 읽기이고, 답을 본 뒤 읽는 근거는 재인이지 회상이 아니다(원칙 1). 이제
-**풀기 → 제출 → 한 겹씩**이다. 제출 전에는 해설이 감춰지는 게 아니라 **만들어지지 않는다**.
+세 가지 지적(화면이 복잡하다 · 문제지가 너무 작다 · 분석이 원문과 따로 논다)은 한 원인에서 나왔다 —
+분석가의 사고 구조(모드 4 · 라우트 7 · 겹 6)를 학습자에게 그대로 펼친 것. 그래서 **고르는 화면**을
+**다음 버튼 하나로 굴러가는 루프**로 바꿨다. 페이지를 캔버스에 그리지 않고 **문항 글만 뽑아 큰 글자로
+다시 흘려 넣고**(reflow), 분석은 그 문장 **안**에서 열린다(좌우 2열 없음).
 
 | | |
 |---|---|
-| 겹 만드는 규칙 | [`lib/csat/overlay-reveal.ts`](../apps/web/src/lib/csat/overlay-reveal.ts)(순수) — 근거 → 정답 → 오답(번호순) → 절차 → 어휘. **빈 겹을 만들지 않는다.** `revealSourceFromExplain` 이 링크 모드의 자료 모양을 같은 재료로 맞춘다(두 화면이 다른 순서를 가르치지 않게) |
-| 패널 | [`components/csat/OverlayPanel.tsx`](../apps/web/src/components/csat/OverlayPanel.tsx) — `steps={null}` 이면 풀기 한 장(답·근거·오답 **부재**). `showLayers`/`showClose` 로 종이 없는 자리(링크 모드)에 맞춘다 |
-| 파일 모드 | [`app/(main)/csat/overlay/OverlayClient.tsx`](../apps/web/src/app/(main)/csat/overlay/OverlayClient.tsx) — 상태기계 + 전역 키보드(1~5 · Enter · ←/→ · Esc · L) + 겹 스위치 5(문항 번호·근거·선지·함정·어휘) + 겹 이동 시 종이 위 **한 번** 스크롤 |
-| 링크 모드 | [`app/(main)/csat/overlay/LinkPanel.tsx`](../apps/web/src/app/(main)/csat/overlay/LinkPanel.tsx) — 같은 문을 서버 렌더 쪽에도 단다. **전역 키보드는 안 건다**(같은 화면에 패널이 둘) |
-| 종이 위 모양 | 근거 **실선 밑줄**(`--success`) · 정답 기호 **실선**(`--success`) · 오답 기호 **파선**(`--warning`) · 어휘 **점선**(`--info`) — 색 하나에 뜻 하나이되 색만으로 말하지 않는다 |
-| 종이에 대한 말 | `OverlayPanel` 의 `paper` — `null`(종이 없음: 밑줄·점선 이야기를 안 한다) · `quote: found/missing/pending` · `vocabFound`. 「밑줄 친 자리」는 **찾았을 때만**, 못 찾으면 그렇다고 드러낸다 |
-| 다음 문항 | 마지막 겹에서만 · 같은 회차 · 재드롭 없음 · **풀기부터** (`nextAnchor` — 분석 사정권 밖·뒤 형 쪽수는 건너뛴다) |
-| 계측 | `csat_overlay_answered`(스스로 답했는가 · picked/correct/초 버킷) · `csat_overlay_revealed`(겹을 몇 장까지 · kind) |
-| 회귀 | 순수 9(`overlay-reveal`) + 마크업 20(`overlay-panel` — **제출 전 분석 0조각** · 종이에 대한 말 · 다음 문항) + 런타임 4(`tests/e2e/44-csat-overlay.spec.ts`) |
+| reflow 코어 | [`lib/csat/reflow/reflow.ts`](../apps/web/src/lib/csat/reflow/reflow.ts)(순수) — 글자 조각 → 줄(쪽 → 단 → 위에서 아래) → 문항 영역(다음 번호·묶음 머리글에서 끊음) → 발문·지문·각주·선지. 경계는 **커밋된 좌표 색인**(sha256)으로, 선지 분리는 코퍼스 빌드 규칙(`choiceStart` · `INLINE_SYMBOL_TYPES`)을 옮겨 왔다 |
+| 모르는 파일 | [`reflow/detect.ts`](../apps/web/src/lib/csat/reflow/detect.ts) — 색인을 만든 규칙(단 여백 최빈값 · 번호 단조 증가 · 형 대칭)을 브라우저에서 · 첫 쪽 글자로 회차 식별(2014 A/B 는 학습자가 고름) |
+| 문장 대응 | [`reflow/align.ts`](../apps/web/src/lib/csat/reflow/align.ts) — 골격 문장 길이열 ↔ reflow 문장 길이열 **정렬**(DP). 강의 큐 `sentence:k` 와 골격 앵커가 reflow 문장에 붙는 길. DB 지문에 쪽 번호가 섞인 장문에서 순번 대조는 34 중 11 만 맞았다 |
+| 브라우저 파이프라인 | [`reflow/read-paper.ts`](../apps/web/src/lib/csat/reflow/read-paper.ts) — 파일 → SHA-256 → `/api/csat/paper`(좌표만) → PDF.js 조각 → reflow → 기기 저장. 추출 실패 문항은 단 조각을 **2.5배 크롭**(탭 메모리에만) |
+| 세션 규칙 | [`lib/csat/session/model.ts`](../apps/web/src/lib/csat/session/model.ts)(순수) — `composeSession`(약한 유형 = 최근 20문항 정확도 최하 · 다음 순서 = 최근 출제 순 · 복습 · 신규는 다른 유형) · `applyResult`(틀림/헷갈림 → 3일 → 10일 → 졸업) · `streak` · `weekCount` |
+| 문장 위 표식 | [`session/passage-model.ts`](../apps/web/src/lib/csat/session/passage-model.ts)(순수) — 인용을 reflow 지문에서 직접 찾고, 못 찾으면 골격 번호를 정렬로 옮긴다. 못 붙인 앵커는 `unplaced` 로 돌려준다 |
+| 짧게 내놓기 | [`session/text.ts`](../apps/web/src/lib/csat/session/text.ts) — 설명 ≤ 3문장 · 「한 줄」 = 유형 첫 절차의 첫 절(괄호는 걷고 자르지 않는다) |
+| 서버 | [`session/catalog.ts`](../apps/web/src/lib/csat/session/catalog.ts)(글자 없는 후보 589 · 프로세스 캐시 10분) · [`session/reveal.ts`](../apps/web/src/lib/csat/session/reveal.ts)(답 뒤에만) |
+| 기기 저장 | [`session/store.ts`](../apps/web/src/lib/csat/session/store.ts) — IndexedDB `vocaflow-csat`(record · papers). **원본 바이트 없음.** 실패하면 메모리로. 서버 저장은 `_pending_csat_session_records.sql`(승인 대기) |
+| 화면 | [`components/csat/session/`](../apps/web/src/components/csat/session/) — `SessionHome`(카드 1 · 온보딩 1) · `PaperDrop`(받기/놓기 · 회차 고르기) · `SessionRunner`(순서 · 끝 화면) · `ItemScreen`(①②③) · `ReflowPassage`(문단을 열린 문장에서 쪼개 **바로 아래** 설명) · `ProgressView`(숫자 3 + 막대) · `session.module.css`(모션 2곳 · 150ms) |
+| 색 셋 | 정답 `--success` + ✓ · 고른 오답 `--learn-error`(흑연) + ✕ · 근거 `--ju` 밑줄(점선 = 오답 자리 · 물결 = 함정 자리는 무채색). 주 버튼은 먹색 채움 하나 |
+| 강의 | `LectureStage` 를 ② 이해에 그대로 — 타깃 `analysis:head/answer/reject:n/map/ability/intent/procedure/vocab` · `anchor:sentence:k`(정렬로 붙임) |
+| 계측 | `csat_session_started/answered/explained/marked/finished` · `csat_paper_read`(= reflow 실패율) — 허용 목록 마이그레이션 `20260917190000`(**적용 승인 대기**). 옛 `csat_overlay_*` · `csat_drill_*` 는 은퇴(DB 목록엔 남김) |
+| 회귀 | 순수 27(`session/model` 20 · `text` 7) + reflow 합성 조각(`reflow.test.ts`) + 런타임 1(`tests/e2e/47-csat-session.spec.ts`) · 게이트 하네스 `scripts/csat-learner/gate{1,2,3}-*.mts` |
 
-**실측 (2026-09-16 · 진짜 브라우저 · 2026 수능 영어 문제지)** — 제출 전 선지 상자 **0개** ·
-제출 후 **5개** · 키보드만으로 완주 · 390px 가로 밀림 **0px** · 콘솔 에러 **0**.
-결정 기록과 남은 것: [docs/reports/csat-overlay-reveal-20260916.md](./reports/csat-overlay-reveal-20260916.md)
+**실측 (2026-09-17)** — Gate 1 전 회차 802문항: 경계 **100%** · 텍스트 99.5% · 문장 앵커 98.9% · 인용 자리 99.5% ·
+reflow 선지 100%(DB 쪽 잡음 68건 분리). Gate 2(375px): 제출 전 해설 DOM 0 · 본문 18px · 선지 ≥48px · 가로 넘침 0.
+Gate 3(프로덕션 · 3G): 열기 → 첫 문항 **탭 1 · 중앙값 1.3초** · Lighthouse 접근성 100/100/100 · axe 0 · 키보드 완주.
+
+옛 오버레이(`/csat/overlay` · 2026-09-13~16)의 기록: [docs/reports/csat-overlay-reveal-20260916.md](./reports/csat-overlay-reveal-20260916.md).
+겹 규칙(`lib/csat/overlay-reveal.ts`)과 좌표 색인(`lib/csat/overlay.ts` · `anchor-data/`)은 남았다 — 뒤쪽은 세션이 쓴다.
 
 ---
 

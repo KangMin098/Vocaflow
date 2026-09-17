@@ -160,9 +160,7 @@ export function SessionHome({ catalog }: { catalog: LearnerCatalog }) {
             </>
           ) : st.broken ? (
             <span className="font-editorial">오늘 다시 시작해요</span>
-          ) : (
-            <span className="font-editorial">첫날이에요</span>
-          )}
+          ) : null /* Gate 4 — 「첫날이에요」를 뺐다. 아무 정보도 없는 위로였다 */}
         </span>
         <Link
           href="/csat/progress"

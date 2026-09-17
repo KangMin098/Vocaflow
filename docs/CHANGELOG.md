@@ -9,6 +9,33 @@
 ---
 ## Unreleased (v06.34 → next)
 
+### 기출이 「고르는 화면」에서 「굴러가는 루프」로 — 학습자 `/csat` 재설계 (2026-09-17)
+
+학습자 라우트 **7 → 3**(`/csat` 오늘의 세션 · `/csat/session` 한 문항 = 한 화면 · `/csat/progress` 숫자 셋).
+문제지를 쪽째 캔버스에 그리지 않고 **문항 글만 뽑아 18px 로 다시 흘려 넣는다**(reflow · 브라우저 안에서만) —
+분석은 그 문장 **안**에서 열린다. 지시문 [docs/csat-learner-brief.md](./csat-learner-brief.md) · 결정 17줄
+[docs/csat-learner/DECISIONS.md](./csat-learner/DECISIONS.md) · 처분표 [gate0-routes.md](./csat-learner/gate0-routes.md).
+
+- **Gate 1 PASS — 전 회차 802문항**: 경계 100% · 텍스트 99.5% · 문장 앵커 98.9% · 인용 자리 99.5% · reflow 선지 100%.
+  모르는 파일(해시 불일치) 경로도 경계 100% · 첫 쪽으로 회차 식별 27/29(2014 A/B 는 고르게 둠)
+- **실측이 잡은 reflow 결함 셋** — 선지 「…**저작권** 보호」가 바닥글로 버려짐 · 안내문 `※ All passes…` 에서 지문이 잘림 ·
+  두 줄 묶음 발문이 「가장」에서 끊김. 셋 다 **오류 없이 덜 뽑히는** 종류 → 합성 조각 회귀 16 + 변이 3종 전부 잡힘
+- **문장 대응을 순번이 아니라 길이열 정렬로** — DB 지문에 쪽 번호 `8` 이 섞인 장문은 순번 대조가 34 중 11만 맞았다(73% → 99.4%)
+- **Gate 2 PASS(375px 19/19)** — 제출 전 해설 DOM 0 · 본문 18px · 선지 ≥48px · 근거 문장 → 바로 아래 설명 · 오답 카드 → 관련 문장 스크롤.
+  `<button>` 은 `display:inline` 을 안 받아 문장마다 줄이 바뀌던 것을 `span[role=button]` 으로
+- **Gate 3 PASS(프로덕션 9/9)** — 열기 → 첫 문항 **탭 1 · 3G 중앙값 1.3초** · Lighthouse 접근성 100/100/100 · axe 0 · 키보드 완주 ·
+  복습 큐(3일 → 10일 → 졸업) · 세션 구성(약한 유형 · 다음 순서 · 복습/신규) 순수 회귀 27
+- **분석 뷰는 관리자로** — `/admin/kice` · `/[typeId]` · `/item/[slug]`(강의 검수 하네스 경로) · `/map` · `/predict` · `/plan`.
+  사이드바 「기출 분석 뷰」 + 화면도움말 6(`lib/admin/help/kice.ts`). **삭제**: `/csat/drill` · `/csat/overlay` · `POST /api/csat/overlay` ·
+  `CsatSteps` · `ModePicker` · `OverlayPanel` · `TrapDrill` · `lib/csat/steps.ts` · e2e 44
+- **새 API** — `POST /api/csat/paper`(해시 → 좌표만) · `POST /api/csat/session/reveal`(답 뒤에만 해설)
+- 셸 — `/csat/session` 풀스크린 · `/csat*` 에서 셸 띠 숨김(다른 모듈 CTA 가 주 행동과 겨뤘다) · 세션 머리의 「다른 학습 세션으로 이동」 숨김
+- 계측 6종(`csat_session_*` 5 · `csat_paper_read`) + 허용 목록 마이그레이션 `20260917190000`(**미적용 — 승인 대기**).
+  옛 `csat_overlay_*` 4 · `csat_drill_*` 2 는 코드에서 은퇴(DB 목록엔 남김). 풀이 기록은 지금 **기기(IndexedDB)** 에만 —
+  서버 표 초안 `_pending_csat_session_records.sql`(미적용)
+- 곁가지 — 삭제한 라우트의 타입 스텁이 다른 빌드 폴더(`.next-e2e` 등)에 남아 `next build` 가 죽던 것 정리 ·
+  옮긴 관리자 화면 링크 6곳 44px · 공유 개발 서버가 지운 모듈을 붙잡고 전 라우트 500 이던 것 재기동으로 복구
+
 ### 기출 해설이 말을 한다 — 하이라이트 동기 강의 TTS (2026-09-17)
 
 `/csat/item/[slug]` 에 **강의 듣기**. 브라우저 목소리가 강의식 대본을 읽는 동안 대본이 지금 설명하는 블록 하나만

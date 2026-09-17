@@ -106,19 +106,30 @@
 | **Practice — 연습 단일 진입면** (v06.201) | `(main)/practice` | — | — | 사이드바 PRACTICE 5형제(Flashcard·WordBlitz·PairFlip·SpellForge·Game Lab) → 2개로 통폐합. **면(facet)으로 고른다** — `FACETS` 6개 카드 + 가장 무른 면 강조. 도구 = 모듈 4 + Game Lab 게임 17(`lib/learner/practice-map.ts` 가 `GAME_CATALOG.layer` 에서 파생) + 활성 시 `Syntax`. 게임 링크는 `from=/practice` 필수(없으면 종료가 `/arcade` 로 튕김) |
 | **DCP 구문 연습** (CTP ⑥) | — | `(main)/practice/dcp` | — | hub 처방 ④ + **`/practice` Use 면**(v06.201 — 그전엔 처방이 유일 진입). order(순서 배열)/insert(위치 삽입) · `grade_dcp_item` 서버 채점 · 오답 error_cause 1-tap |
 
-#### 평가원 기출 분석 (`(main)/csat/*` · 보호 라우트)
+#### 평가원 기출 — 학습자 루프 (`(main)/csat/*` · 보호 라우트 · 2026-09-17 재설계)
 
-**문항 원문을 싣지 않는다.** 지문·선지는 평가원 저작물이고 `csat_items` 의 RLS 가
-`USING (false)` 로 막는다 — 나가는 것은 우리가 쓴 분석과 그 안의 짧은 인용까지다
-(경계 회귀: `lib/csat/__tests__/copyright-boundary.integration.test.ts`).
+**학습자 라우트는 셋뿐이다**(docs/csat-learner-brief.md A1). 분석을 **읽는** 화면은 관리자 뷰
+`/admin/kice/*` 로 옮겼고 훈련(`/csat/drill`)·오버레이(`/csat/overlay`)는 걷었다(처분표
+[csat-learner/gate0-routes.md](./csat-learner/gate0-routes.md)).
+
+**서버는 문항 원문을 싣지 않는다.** 지문·선지는 학습자가 받은 문제지 PDF 에서 **브라우저가** 뽑아
+큰 글자로 다시 흘려 넣는다(reflow · `lib/csat/reflow`). 서버로 가는 것은 SHA-256 64자뿐이고,
+기기에는 추출 글과 해시만 남는다(원본 바이트는 버린다). 경계 회귀: `lib/csat/__tests__/copyright-boundary.integration.test.ts`.
 
 | 라우트 | 파일 | 설명 |
 |---|---|---|
-| `/csat` | `(main)/csat/page.tsx` | 유형 허브 26종. 출제 비중 + 실패 지점만 — 진도 게이지를 두지 않는다. 분석 없는 유형도 숨기지 않는다(숨기면 「시험에 안 나온다」로 읽힌다) |
-| `/csat/[typeId]` | `(main)/csat/[typeId]/page.tsx` | 유형 하나 — 절차·되풀이 함정·실패 모드 |
-| `/csat/item/[slug]` | `(main)/csat/item/[slug]/page.tsx` | 문항 한 개 해설. 순서가 설계다 — ①답이 왜 이것인가 → ②나머지가 왜 아닌가 → ③다시 풀 때. 오답부터 보이면 자책이 앞선다 |
-| `/csat/plan` | `(main)/csat/plan/page.tsx` | 한 회차 주파 계획 — 18~45번 줄 순서 |
-| **`/csat/overlay`** (2026-09-13) | `(main)/csat/overlay/page.tsx` + `OverlayClient.tsx` (로더 `lib/csat/overlay.ts` · 좌표 `lib/csat/anchor-data/*.json`) | **평가원 문제지에 해설을 얹는다.** 학습자가 받은 PDF 를 떨어뜨리면 `crypto.subtle` 이 그 자리에서 SHA-256 → 서버로 가는 것은 **해시 64자뿐** → 그 회차 좌표와 분석이 돌아온다. PDF.js 가 **브라우저 메모리에서** 렌더하고 그 위에 상자를 얹는다. ⚠️ 원본을 서버에 올리지 않고(프록시 = 우리가 전송하는 것), **「해설 얹힌 PDF 내려받기」를 두지 않는다**(변형 복제물이 된다). 좌표 29회차 · 사정권 문항마다 ①~⑤ 5개(실측 840/840) |
+| `/csat` | `(main)/csat/page.tsx` + `components/csat/session/SessionHome.tsx` | **오늘의 세션 카드 한 장** — 「빈칸 1 + 순서 1 + 복습 1 · 약 N분」 + [시작]. 세션 구성은 시스템이 한다(약한 유형 1 + 다음 순서 1 + 복습 1, 복습이 비면 신규 1 · `lib/csat/session/model.ts`). 필요한 문제지가 기기에 없으면 카드에 「받기/놓기」 한 줄만 더해진다. 첫 방문은 그림 셋 온보딩 한 장. 셸 띠(다른 모듈 CTA)를 숨긴다 |
+| `/csat/session` | `(main)/csat/session/page.tsx` + `SessionRunner.tsx` · `ItemScreen.tsx` · `ReflowPassage.tsx` | **한 문항 = 한 화면** — ① 풀기(reflow 지문 18px · 선지 카드 5 · 조용한 타이머) → ② 이해(근거 문장 밑줄 → 누르면 **바로 아래** 설명 · 오답 카드 → 한 줄 + 관련 문장으로 스크롤 · 함정 마커 1 · [강의 듣기] · [더 보기]) → ③ 한 줄 + [알겠어요]/[헷갈려요]. `?set=<슬러그,…>&k=<칸 종류>` 로 구성을 싣는다(후보에 있는 문항만 통과). 풀스크린(셸 걷음) · 해설은 답을 고른 뒤 API 로만 온다 |
+| `/csat/progress` | `(main)/csat/progress/page.tsx` + `ProgressView.tsx` | **기록** — 연속 일수 · 이번 주 문항 · 복습 대기 + 유형별 정확도 막대 한 열. 표 없음 |
+
+#### 기출 분석 뷰 (관리자 · `admin/kice/*` · 2026-09-17 학습자 `/csat` 에서 이전)
+
+| 라우트 | 파일 | 설명 |
+|---|---|---|
+| `/admin/kice` | `admin/kice/page.tsx` (+ `layout.tsx` 여백만) | 옛 학습자 허브 — 오답 분포 지도(`TrapAtlas`) + 유형 카드 26 + 지형·사정권·계획 링크. 화면도움말 `kice` |
+| `/admin/kice/[typeId]` | `admin/kice/[typeId]/page.tsx` | 유형 하나 — 절차·되풀이 함정·실패 모드. 첫 절차가 학습자 세션 ③ 「한 줄」의 재료다 |
+| `/admin/kice/item/[slug]` | `admin/kice/item/[slug]/page.tsx` | 문항 한 개 해설 전문 + 강의 재생. **강의 검수 하네스(`gate2-play.mts` · e2e 46)가 쓰는 자리** |
+| `/admin/kice/map` · `/predict` · `/plan` | `admin/kice/{map,predict,plan}/page.tsx` | 출제 지형(히트맵) · 사정권 · 한 회차 주파 계획 |
 
 #### 아케이드 19종 (`(app)/play/<slug>`)
 
@@ -256,11 +267,15 @@
 |---|---|
 | `POST /api/auth/callback` | `api/auth/callback/route.ts` (Supabase OAuth) |
 
-### `/api/csat/*` (1 · 2026-09-13 신설)
+### `/api/csat/*` (3 · 2026-09-17 개편)
+
+`/api/csat/overlay`(좌표 + 분석 한 벌)는 오버레이 화면과 함께 걷었다 — 좌표와 분석을 **따로** 준다.
+분석이 답보다 먼저 브라우저에 오면 「먼저 푼다」가 코드로 안 지켜지기 때문이다(docs/csat-learner/DECISIONS.md D9).
 
 | 라우트 | 설명 |
 |---|---|
-| `GET · POST /api/csat/overlay` | 오버레이 한 벌. POST 본문에 **SHA-256 64자만** 받아 회차를 찾고 좌표 + 분석을 돌려준다. **평가원 문제지는 이 경로로 오지 않는다** — 브라우저가 그 자리에서 해시한다. GET 아니라 POST 인 이유: 해시가 URL 에 남으면 접속 기록·리퍼러에 「어느 회차를 열었는지」가 따라다닌다. 화면과 같은 문턱(401) — 분석이 새지 않는 것은 이 검사가 아니라 RLS 가 지킨다 |
+| `POST /api/csat/paper` | 본문에 **SHA-256 64자만** 받아 회차를 찾고 **문항 번호 좌표만**(쪽·단·x·y) 돌려준다 — 글자도 분석도 없다. 모르는 해시면 `known:false`(오류 아님 — 브라우저가 그 자리에서 번호를 찾는다). POST 인 이유: 해시가 URL 에 남으면 「어느 회차를 열었는지」가 따라다닌다. 로그인 문턱(401) |
+| `POST /api/csat/session/reveal` | 본문 `{ item: '<슬러그>' }` → 정답 · 근거 설명(≤3문장) · 오답별 한 줄 · 함정 · 「한 줄」 · 골격(문장 길이열 + 인용) · 강의 길이. **세션 화면이 답을 고른 뒤에만 부른다.** 고른 답은 받지 않는다(기록은 기기에). 로그인 문턱(401) · 슬러그 모양 검사 |
 | `GET /api/csat/lecture?item=<슬러그>` | 문항 해설 **강의 대본**(큐 목록). 해설 화면의 서버 렌더에는 길이(초)만 싣고, 학습자가 재생을 누른 뒤 여기서 받는다 — 대본이 화면 HTML 에 남지 않게. 로그인 문턱(401) · 슬러그 모양 검사(값이 파일 이름으로 흘러간다) · 커밋된 `lib/csat/lecture-data/*.json` 을 읽는다(DB 0) |
 
 ### `/api/srs/*` (1)

@@ -1,0 +1,116 @@
+{
+  "gate": 3,
+  "at": "2026-09-17T10:22:42.251Z",
+  "base": "http://localhost:3100",
+  "pass": true,
+  "checks": [
+    {
+      "id": "F2",
+      "pass": true,
+      "detail": "파일 /csat /csat/progress /csat/session · 레지스트리 /csat /csat/progress /csat/session"
+    },
+    {
+      "id": "F7",
+      "pass": true,
+      "detail": "6/6 통과"
+    },
+    {
+      "id": "F8",
+      "pass": true,
+      "detail": "9/9 통과"
+    },
+    {
+      "id": "온보딩 한 번",
+      "pass": true,
+      "detail": "두 번째 방문에 온보딩 0개"
+    },
+    {
+      "id": "F9",
+      "pass": true,
+      "detail": "PDF 없음: 안내 true · 있음: 안내 false · 나머지 요소 같음 true · 카드 글자 같음 true"
+    },
+    {
+      "id": "F1",
+      "pass": true,
+      "detail": "탭 1 · 중앙값 1.4초 (1.4 / 1.4 / 1.4 · 3G 1.6Mbps/150ms · PDF 캐시 있음 · http://localhost:3100)"
+    },
+    {
+      "id": "F10 키보드",
+      "pass": true,
+      "detail": "Tab 수 — 선지 3 · 근거 문장 2(Enter → 설명 1) · 알겠어요 11 · 홈으로 1 · 오류 0"
+    },
+    {
+      "id": "F10 axe",
+      "pass": true,
+      "detail": "session(이해): 0 · /csat: 0 · /csat/progress: 0"
+    },
+    {
+      "id": "F10 Lighthouse",
+      "pass": true,
+      "detail": "/csat 100 · /csat/session 100 · /csat/progress 100"
+    }
+  ],
+  "needed": [
+    "M2706"
+  ],
+  "home": {
+    "without": {
+      "ids": [
+        "today-card",
+        "today-plan",
+        "paper-need",
+        "paper-input",
+        "start",
+        "streak"
+      ],
+      "text": "오늘\n빈칸 1 + 안내문 1 + 순서 1|약 8분|시작",
+      "hasNeed": true
+    },
+    "withPdf": {
+      "ids": [
+        "today-card",
+        "today-plan",
+        "start",
+        "streak"
+      ],
+      "text": "오늘\n빈칸 1 + 안내문 1 + 순서 1|약 8분|시작",
+      "hasNeed": false
+    }
+  },
+  "f1": {
+    "taps": 1,
+    "runs": [
+      1390,
+      1378,
+      1370
+    ],
+    "median": 1378,
+    "base": "http://localhost:3100"
+  },
+  "axe": {
+    "session(이해)": [],
+    "/csat": [],
+    "/csat/progress": []
+  },
+  "lighthouseFailed": {
+    "/csat": [
+      "label-content-name-mismatch"
+    ],
+    "/csat/session?set=2026-38&k=order": [],
+    "/csat/progress": [
+      "label-content-name-mismatch"
+    ]
+  },
+  "lighthouse": {
+    "/csat": 100,
+    "/csat/session?set=2026-38&k=order": 100,
+    "/csat/progress": 100
+  },
+  "shots": [
+    "apps/web/test-results-csat-learner/f1-first-item.png",
+    "apps/web/test-results-csat-learner/home-no-pdf.png",
+    "apps/web/test-results-csat-learner/home-onboarding.png",
+    "apps/web/test-results-csat-learner/home-with-pdf.png",
+    "apps/web/test-results-csat-learner/progress.png"
+  ]
+}

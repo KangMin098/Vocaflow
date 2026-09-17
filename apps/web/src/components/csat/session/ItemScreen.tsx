@@ -14,7 +14,7 @@
 // ⚠️ 시간은 재되 몰아붙이지 않는다 — 권장 시간을 넘겨도 색이 그대로다(CLAUDE.md 빨간 글씨 압박 금지).
 // ⚠️ 틀린 답은 빨강이 아니다 — 흑연색(`--learn-error`) + ✕ 아이콘 + 「고른 답」 글자(3중 · 색 단독 금지).
 
-import { Check, ChevronDown, Diamond, Headphones, X } from 'lucide-react'
+import { Check, ChevronDown, Headphones, X } from 'lucide-react'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { LecturePlayerBar } from '@/components/csat/lecture/LecturePlayerBar'
@@ -326,12 +326,8 @@ function Understand({ reveal, paper, picked }: { reveal: RevealPayload; paper: R
           if (kind && open !== i) track({ name: 'csat_session_explained', props: { kind } })
         }}
       />
-      {trap ? (
-        <p className="flex items-center gap-1.5 text-[14px] text-[var(--t3)]">
-          <Diamond aria-hidden className="h-3.5 w-3.5" />
-          물결 밑줄은 함정 자리예요 — 눌러 보세요
-        </p>
-      ) : null}
+      {/* Gate 4 — 「물결 밑줄은 함정 자리예요 — 눌러 보세요」 안내 줄을 뺐다. 마커(물결 밑줄)가 이미
+          누를 수 있는 모양이고, 눌렀을 때 제목이 「함정 · …」이라고 말한다. 설명을 설명하는 줄이었다. */}
       {extra.length || model.unplaced.length ? <ExtraNotes notes={extra} /> : null}
     </div>
   )

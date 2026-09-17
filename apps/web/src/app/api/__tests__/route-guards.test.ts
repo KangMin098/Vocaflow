@@ -53,6 +53,14 @@ const PUBLIC: ReadonlyArray<{ route: string; why: string }> = [
       'lib/srs/flush-actions.ts 가 쿠키로 한다 (두 곳에서 하면 반드시 갈라진다)',
   },
   { route: 'wordvault/facets', why: '학습자 본인 데이터 — 라우트 안에서 auth.getUser() 로 본다' },
+  // 기출 학습자 경로 — admin 이 아니라 **로그인한 학습자**가 부른다. 셋 다 라우트 안에서
+  // auth.getUser() 로 401 을 내고, 읽기는 RLS 를 따르는 클라이언트로만 한다(원문은 안 나간다).
+  { route: 'csat/lecture', why: '기출 강의 대본 — 재생을 누른 학습자에게만(로그인 확인은 라우트 안)' },
+  { route: 'csat/paper', why: '기출 문제지 해시 → 문항 번호 좌표(글자 없음) — 로그인 확인은 라우트 안' },
+  {
+    route: 'csat/session/reveal',
+    why: '기출 세션 — 답을 고른 뒤에만 해설을 준다(docs/csat-learner-brief.md A4). 로그인 확인은 라우트 안',
+  },
 ]
 
 const PUBLIC_ROUTES = new Set(PUBLIC.map((p) => p.route))

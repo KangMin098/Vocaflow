@@ -90,11 +90,8 @@ export function ProgressView({ types }: { types: LearnerCatalog['types'] }) {
         )}
       </section>
 
-      {rows.length ? (
-        <Link href="/csat" className={PRIMARY}>
-          오늘의 세션으로
-        </Link>
-      ) : null}
+      {/* Gate 4 — 막대 아래 「오늘의 세션으로」 버튼을 뺐다. 지시문이 「숫자 셋과 막대 하나. 그 이상 없음」
+          이고, 돌아가는 길은 셸(사이드바·탭바)에 있다. 기록이 **없을 때**의 버튼은 남긴다 — 빈 화면의 다음 한 걸음이다. */}
     </div>
   )
 }
