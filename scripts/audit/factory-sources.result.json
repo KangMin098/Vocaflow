@@ -1,5 +1,5 @@
 {
-  "measuredAt": "2026-09-17T04:53:47.977Z",
+  "measuredAt": "2026-09-17T08:27:56.607Z",
   "db": {
     "mvItems": 880247,
     "mvExplained": 875528,
@@ -26,7 +26,7 @@
       "volumes": 19,
       "note": "JS 셈법(앱과 동일). SQL 의 `is not null` 은 jsonb null 을 「있음」으로 세어 더 크게 나온다"
     },
-    "sourceSnapshotAt": "2026-09-17T00:20:00.075269+00:00",
+    "sourceSnapshotAt": "2026-09-17T06:20:00.133878+00:00",
     "sourcePool": {
       "n": 87556,
       "inRepo": 9627,
@@ -98,7 +98,7 @@
   },
   "gate2Market": {
     "file": "textbook-publisher-benchmark-volume.json",
-    "generatedAt": "2026-09-17T04:51:22.892Z",
+    "generatedAt": "2026-09-17T08:26:14.444Z",
     "ageHours": 0,
     "bindingPublisher": "EBS",
     "bindingIndex": 1.199,
@@ -107,7 +107,7 @@
       {
         "publisher": "NE능률",
         "docs": 60,
-        "overallIndex": 1.339,
+        "overallIndex": 1.356,
         "reachableMax": 1.391,
         "targetReachable": true,
         "axes": "6/7",
@@ -286,7 +286,7 @@
       "a": {
         "source": "DB csat_source_snapshots.payload.pool.n",
         "value": 87556,
-        "at": "2026-09-17T00:20:00.075269+00:00"
+        "at": "2026-09-17T06:20:00.133878+00:00"
       },
       "b": {
         "source": "repo JSON source-eligibility-snapshot.json:total.composable",
@@ -304,7 +304,7 @@
       "a": {
         "source": "DB csat_source_snapshots.payload.pool.n",
         "value": 87556,
-        "at": "2026-09-17T00:20:00.075269+00:00"
+        "at": "2026-09-17T06:20:00.133878+00:00"
       },
       "b": {
         "source": "repo JSON source-eligibility-snapshot.json:total.total",
@@ -364,7 +364,7 @@
       "source": "DB csat_source_snapshots",
       "cadence": "cron 18 · 6시간",
       "owner": "cron",
-      "ageHours": 4.6
+      "ageHours": 2.1
     },
     {
       "source": "DB csat_coverage()",
@@ -376,31 +376,31 @@
       "source": "repo source-eligibility-snapshot.json",
       "cadence": "사람이 스캔을 돌려야 갱신 (실측 212초)",
       "owner": "human",
-      "ageHours": 36.5
+      "ageHours": 40.1
     },
     {
       "source": "repo type-inventory-snapshot.json",
       "cadence": "사람이 스캔을 돌려야 갱신",
       "owner": "human",
-      "ageHours": 39.3
+      "ageHours": 42.9
     },
     {
       "source": "repo source-inventory-snapshot.json",
       "cadence": "사람이 스캔을 돌려야 갱신",
       "owner": "human",
-      "ageHours": 36.5
+      "ageHours": 40.1
     },
     {
       "source": "repo item-fill-plan.json",
       "cadence": "사람이 스캔을 돌려야 갱신",
       "owner": "human",
-      "ageHours": 39.8
+      "ageHours": 43.4
     },
     {
       "source": "repo extraction-defect-snapshot.json",
       "cadence": "사람이 스캔을 돌려야 갱신",
       "owner": "human",
-      "ageHours": 41.6
+      "ageHours": 45.2
     },
     {
       "source": "docs/reports/textbook-publisher-benchmark-volume.json",
@@ -412,7 +412,7 @@
       "source": "docs/reports/textbook-publisher-benchmark.json",
       "cadence": "사람이 market-benchmark 를 돌려야 갱신",
       "owner": "human",
-      "ageHours": 0.1
+      "ageHours": 3.7
     }
   ],
   "divergedCount": 4,

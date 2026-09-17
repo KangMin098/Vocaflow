@@ -438,6 +438,7 @@ function computeAxes(spec) {
   let a7In = 0
   let a7Total = 0
   let a7NoBaseline = 0
+  let a7NoGenre = 0
   const a7ByType = {}
   for (const it of items) {
     const choices = it.payload?.choices ?? it.payload?.underlines
@@ -454,6 +455,17 @@ function computeAxes(spec) {
     //   (출판사별 지수가 해설 축을 `—` 로 남기는 것과 같은 원칙이다).
     if (it.v_level != null && it.v_level <= 1) {
       a7NoBaseline += 1
+      continue
+    }
+    // ⚠️ **학년이 아니라 장르로도 뺀다** (2026-09-17). 위 제외는 V1 만 걸렀는데, 사전에서 나오는
+    //   초등 유형(파닉스 운율·낱말 뜻·철자)은 **V2 권에도 실린다.** 그 문항들이 초3~6
+    //   **독해서** 기준(5지 79.7%)으로 재어져 A7 이 100% → 92.7% 로 떨어졌다(word_meaning 10 ·
+    //   rhyme 6 · 전부 4지). 그런데 `elementary.ts` 의 `ELEMENTARY_CHOICES` 는 바로 그 적용을
+    //   **금지한다고** 적고 있다 — 코퍼스의 초등은 독해서이고 이것은 파닉스라 장르가 다르다.
+    //   A4 가 초등 3종을 **유형으로** 빼는 것과 같은 원칙이다(`ELEMENTARY_TYPES`).
+    //   파닉스 교재가 코퍼스에 들어오면 그때 이 제외를 걷어내고 그 자로 잰다.
+    if (ELEMENTARY_TYPES.has(it.type)) {
+      a7NoGenre += 1
       continue
     }
     const school = VBAND_SCHOOL(it.v_level)
@@ -486,14 +498,14 @@ function computeAxes(spec) {
 
   return {
     AXES, LO, HI, marketTypes, ourTypes, beyond, reachableTypes, unreachableTypes, missingReachable,
-    a6ByBucket, a6FailByType, a6Fails, a6SentSkipped, a6SentWouldFail, a6Total, a7ByType, a7NoBaseline,
+    a6ByBucket, a6FailByType, a6Fails, a6SentSkipped, a6SentWouldFail, a6Total, a7ByType, a7NoBaseline, a7NoGenre,
     withOptions, citable, failBy, WRONG_RE, CITE_RE,
   }
 }
 
 const {
   AXES, LO, HI, marketTypes, ourTypes, beyond, reachableTypes, unreachableTypes, missingReachable,
-  a6ByBucket, a6FailByType, a6Fails, a6SentSkipped, a6SentWouldFail, a6Total, a7ByType, a7NoBaseline,
+  a6ByBucket, a6FailByType, a6Fails, a6SentSkipped, a6SentWouldFail, a6Total, a7ByType, a7NoBaseline, a7NoGenre,
   withOptions, citable, failBy, WRONG_RE, CITE_RE,
 } = computeAxes(spec)
 
@@ -583,6 +595,11 @@ if (process.argv.includes('--json')) {
       (a7NoBaseline
         ? `\n  A7 내역  초1~2 문항 ${a7NoBaseline}건을 이 축에서 뺐다 — 코퍼스의 초등 교재 19건이` +
           ` 전부 초3~6 이라 초1~2 의 지배값을 잰 적이 없다 (없는 자로 재지 않는다)`
+        : '') +
+      (a7NoGenre
+        ? `
+  A7 내역  V2 이상의 초등 사전 유형 ${a7NoGenre}건도 뺐다 — 파닉스·낱말 뜻은 독해서와 장르가 달라` +
+          ` 초3~6 독해서의 5지 기준을 적용하지 않는다 (elementary.ts 의 ELEMENTARY_CHOICES)`
         : '') +
       `
 `,

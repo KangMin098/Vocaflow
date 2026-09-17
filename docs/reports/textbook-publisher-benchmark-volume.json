@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-17T04:51:22.892Z",
+  "generatedAt": "2026-09-17T08:26:14.444Z",
   "scope": "사다리 7권 — 70단원 · 420문항 (인쇄되는 것만 · V1 60 · V2 60 · V3 60 · V4 60 · V5 60 · V6 60 · V7 60)",
   "itemsMeasured": 420,
   "baselineRule": "비율 축은 상대의 Wilson 95% 상한을 기준선으로 쓴다 — 상대에게 가장 유리한 해석으로도 이겨야 우위로 친다",
@@ -106,11 +106,11 @@
         {
           "id": "A7",
           "name": "선택지 수 규격 적합률",
-          "ours": 0.926605504587156,
+          "ours": 1,
           "market": 0.915,
           "unit": "%",
           "why": "학교급마다 시장 지배값이 있다 — 어긋나면 그 학년 시험지가 아니다",
-          "index": 1.013,
+          "index": 1.093,
           "ceiling": 1.093
         }
       ],
@@ -119,7 +119,7 @@
       "gaps": [
         "유형 축 A5"
       ],
-      "overallIndex": 1.339,
+      "overallIndex": 1.356,
       "reachableMax": 1.391,
       "targetReachable": true
     },
@@ -450,5 +450,5 @@
   ],
   "bindingPublisher": "EBS",
   "bindingIndex": 1.199,
-  "pooledIndex": 1.325
+  "pooledIndex": 1.34
 }
