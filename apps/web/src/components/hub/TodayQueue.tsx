@@ -5,7 +5,7 @@
 //   · Retrieval priming (Wagner) — 학습 직전 단어 종류 미리 노출
 //   · Cognitive Load (Sweller) — 복잡한 SRS 결과를 색·숫자로 chunk
 
-import { Sparkles } from 'lucide-react'
+import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 
 import { MEMORY_LABEL } from '@/lib/framework/memory-labels'
 
@@ -79,7 +79,7 @@ export function TodayQueue({ buckets, totalLabel }: TodayQueueProps) {
           className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] bg-[var(--p-light)] text-[var(--on-p-tint)]"
           aria-hidden
         >
-          <Sparkles size={13} strokeWidth={2} />
+          <Gwonjeom size={13} strokeWidth={2} />
         </span>
         <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">오늘의 큐</h2>
         <span className="font-body text-[12px] text-[var(--t2)]">·</span>

@@ -16,7 +16,8 @@ import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { useCallback, useEffect, useRef, useState } from 'react'
 // 탭 아이콘은 `MY_LIBRARY_TABS` 가 들고 온다 — 여기서 다시 고르지 않는다.
-import { ChevronLeft, ChevronRight, Sparkles } from 'lucide-react'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 
 import { useScrollHint, scrollActiveIntoView } from '@/hooks/useScrollHint'
 import { bookCover, cefrToVLevel } from '@/lib/library/book-cover'
@@ -623,7 +624,7 @@ function VocabCard({
           aria-hidden
           className="absolute right-3.5 top-3.5 inline-flex items-center justify-center rounded-full bg-white/95 p-1 text-[var(--success)] shadow-[0_2px_6px_rgba(0,0,0,0.2)]"
         >
-          <Sparkles size={11} strokeWidth={2.5} />
+          <Gwonjeom size={11} strokeWidth={2.5} />
         </span>
       </CoverShell>
     </CardWrap>

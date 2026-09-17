@@ -7,7 +7,8 @@ import { useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 
 type RouterInstance = ReturnType<typeof useRouter>;
-import { Check, ArrowRight, Loader2, Sparkles, Library } from 'lucide-react';
+import { Check, ArrowRight, Loader2, Library } from 'lucide-react'
+import { Gwonjeom } from '@/components/ui/press/Gwonjeom';
 import {
   completeChapter,
   type CompleteChapterResult,
@@ -102,7 +103,7 @@ function CompletionResult({
         className="inline-flex items-center gap-2 rounded-[var(--r-sm)] bg-gradient-to-r from-[var(--cefr-C1-bg)] to-[var(--learn-known-light)] px-3 py-2"
         role="status"
       >
-        <Sparkles size={14} className="text-[var(--learn-known)]" aria-hidden />
+        <Gwonjeom size={14} className="text-[var(--learn-known)]" aria-hidden />
         <span className="font-display text-[11px] font-[700] text-[var(--learn-known)]">
           책 학습 완료!
         </span>

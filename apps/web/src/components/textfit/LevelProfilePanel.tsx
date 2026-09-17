@@ -15,7 +15,8 @@
 
 'use client'
 
-import { ArrowRight, Check, ClipboardList, FileText, Link2, Loader2, Sparkles } from 'lucide-react'
+import { ArrowRight, Check, ClipboardList, FileText, Link2, Loader2 } from 'lucide-react'
+import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 import Link from 'next/link'
 
 import { track } from '@/lib/analytics/client'
@@ -271,7 +272,7 @@ export function LevelProfilePanel({
             onClick={() => track({ name: 'fit_signup_clicked', props: {} })}
             className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--p)] bg-[var(--ju)] px-4 font-display text-[13.5px] font-[600] text-[var(--bg)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:brightness-110 active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
           >
-            <Sparkles size={15} aria-hidden />내 기준으로 보기
+            <Gwonjeom size={15} aria-hidden />내 기준으로 보기
           </Link>
           <Link
             href="/pricing"

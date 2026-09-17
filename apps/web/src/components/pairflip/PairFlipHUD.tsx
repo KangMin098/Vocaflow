@@ -3,7 +3,8 @@
 
 'use client'
 
-import { Lightbulb, Sparkles, Timer, Trophy } from 'lucide-react'
+import { Lightbulb, Timer, Trophy } from 'lucide-react'
+import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 
 interface HUDProps {
   remainingTime: number
@@ -139,7 +140,7 @@ function ComboBadge({
       className={`inline-flex h-8 items-center gap-1 rounded-[var(--r-full)] px-3 font-display text-[13px] font-[800] shadow-sm ${cls}`}
       style={style}
     >
-      {tier === 'rainbow' && <Sparkles size={12} aria-hidden />}
+      {tier === 'rainbow' && <Gwonjeom size={12} aria-hidden />}
       <span className="font-mono tabular-nums">×{combo}</span>
     </span>
   )

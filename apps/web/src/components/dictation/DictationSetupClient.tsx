@@ -23,8 +23,8 @@ import {
   ChevronUp,
   Loader2,
   RotateCcw,
-  Sparkles,
 } from 'lucide-react'
+import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 
 import { createClient } from '@/lib/supabase/client'
 import { getLevelByCode } from '@/lib/dictation/cefr'
@@ -560,7 +560,7 @@ export function DictationSetupClient() {
           </>
         ) : (
           <>
-            <Sparkles size={16} />
+            <Gwonjeom size={16} />
             시작하기
             <ArrowRight size={16} className="transition-transform group-hover:translate-x-0.5" />
           </>

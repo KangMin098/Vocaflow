@@ -3,7 +3,8 @@
 
 'use client'
 
-import { ArrowRight, CalendarRange, Clock, RefreshCw, Sparkles } from 'lucide-react'
+import { ArrowRight, CalendarRange, Clock, RefreshCw } from 'lucide-react'
+import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState, useTransition } from 'react'
@@ -147,7 +148,7 @@ function ReportCard({ report }: { report: WeeklyReport }) {
 
       {report.empathetic_note && (
         <p className="flex items-start gap-2 border-t border-[var(--bd)] pt-3 font-editorial text-[15px] leading-relaxed text-[var(--t1)] [word-break:keep-all]">
-          <Sparkles size={14} className="mt-0.5 flex-shrink-0 text-[var(--p)]" aria-hidden />
+          <Gwonjeom size={14} className="mt-0.5 flex-shrink-0 text-[var(--p)]" aria-hidden />
           {report.empathetic_note}
         </p>
       )}

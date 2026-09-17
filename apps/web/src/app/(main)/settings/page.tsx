@@ -22,12 +22,12 @@ import {
   Moon,
   Palette,
   Shield,
-  Sparkles,
   Sun,
   Trash2,
   Volume2,
   type LucideIcon,
 } from 'lucide-react'
+import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
@@ -357,7 +357,7 @@ export default function SettingsPage() {
                 options={[
                   { value: 'light', label: 'Light', icon: Sun },
                   { value: 'dark', label: 'Dark', icon: Moon },
-                  { value: 'system', label: 'System', icon: Sparkles },
+                  { value: 'system', label: 'System', icon: Gwonjeom },
                 ]}
                 onChange={setTheme}
                 ariaLabel="테마"

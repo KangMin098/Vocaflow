@@ -12,7 +12,8 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import Link from 'next/link'
-import { ArrowLeft, ArrowRight, BookImage, BookOpen, Check, Eye, ListChecks, Loader2, Moon, Plus, Rows3, Sparkles, Square, Sun } from 'lucide-react'
+import { ArrowLeft, ArrowRight, BookImage, BookOpen, Check, Eye, ListChecks, Loader2, Moon, Plus, Rows3, Square, Sun } from 'lucide-react'
+import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { createClient } from '@/lib/supabase/client'
 import { addWordToVault } from '@/lib/wordvault/add-word'
@@ -352,7 +353,7 @@ export function ComicReader({ textId, bookTitle, pages, libraryBookId = null, in
 
   const endCTA = (
     <div className="flex flex-col items-center gap-5 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] px-6 py-14 text-center">
-      <Sparkles size={22} style={{ color: 'var(--active)' }} aria-hidden />
+      <Gwonjeom size={22} style={{ color: 'var(--active)' }} aria-hidden />
       <div>
         <p className="font-display text-[17px] font-[800] text-[var(--t1)]">여기까지 잘 읽었어요</p>
         <p className="mt-1 font-body text-[13px] text-[var(--t2)]">이야기의 흐름을 잡았다면, 이제 본문으로 더 깊이 만나 볼까요?</p>

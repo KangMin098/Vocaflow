@@ -10,7 +10,8 @@
 
 'use client'
 
-import { Activity, ChevronRight, Layers, Shuffle, Sparkles } from 'lucide-react'
+import { Activity, ChevronRight, Layers, Shuffle } from 'lucide-react'
+import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
@@ -164,7 +165,7 @@ export function PairFlipHub({
               style={{ backgroundColor: `${PF_COLORS.coverFrom}12`, color: PF_COLORS.coverFrom }}
               aria-hidden
             >
-              <Sparkles size={14} strokeWidth={1.75} />
+              <Gwonjeom size={14} strokeWidth={1.75} />
             </span>
             <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">게임 규칙</h2>
             <span className="ml-auto font-mono text-[11px] text-[var(--t2)]">3단계</span>

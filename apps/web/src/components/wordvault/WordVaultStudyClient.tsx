@@ -7,7 +7,8 @@
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { Check, Sparkles } from 'lucide-react'
+import { Check } from 'lucide-react'
+import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 
 import { StudyMode } from '@/components/wordvault/StudyMode'
 import type { WordItem } from '@/components/wordvault/types'
@@ -43,7 +44,7 @@ export function WordVaultStudyClient({
             아래 h2 는 **상태 안내**지 화면 이름이 아니다 — 둘은 다른 것이다. */}
         <h1 className="sr-only">{screenName}</h1>
         <div className="mb-s-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-bg2 text-t3">
-          <Sparkles size={22} aria-hidden />
+          <Gwonjeom size={22} aria-hidden />
         </div>
         <h2 className="mb-s-2 font-editorial text-[24px] font-[500] leading-snug tracking-[-0.015em] text-t1">
           {mode === 'review' ? '지금 복습할 단어가 없어요' : '오늘 학습할 단어가 아직 없어요'}

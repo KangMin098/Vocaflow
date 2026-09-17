@@ -7,7 +7,8 @@
 
 'use client'
 
-import { ArrowRight, FileText, Library, Sparkles } from 'lucide-react'
+import { ArrowRight, FileText, Library } from 'lucide-react'
+import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 import Link from 'next/link'
 
 export function WordVaultEmptyState() {
@@ -17,7 +18,7 @@ export function WordVaultEmptyState() {
       className="relative overflow-hidden rounded-[var(--r-2xl)] border border-[var(--bd)] bg-gradient-to-br from-[var(--p)]/10 to-[var(--bg2)] p-8 md:p-12"
     >
       <div className="absolute right-6 top-6 opacity-20" aria-hidden="true">
-        <Sparkles size={64} className="text-[var(--p)]" />
+        <Gwonjeom size={64} className="text-[var(--p)]" />
       </div>
 
       <div className="relative max-w-2xl">

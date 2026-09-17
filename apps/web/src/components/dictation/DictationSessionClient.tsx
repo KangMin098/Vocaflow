@@ -39,9 +39,9 @@ import {
   Pause,
   RotateCw,
   SkipForward,
-  Sparkles,
   X,
 } from 'lucide-react'
+import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 
 import { useSessionProgress, type SessionResourceType } from '@/components/layout/SessionFrame'
 import { useAudioControl } from '@/hooks/dictation/useAudioControl'
@@ -561,7 +561,7 @@ export function DictationSessionClient() {
               {/* 어떤 단어인지는 알려주지 않는다 — 개수만으로 주의를 모은다 */}
               {targetCount > 0 && (
                 <span className="inline-flex items-center gap-1 rounded-full bg-[var(--p-light)] px-3 py-1 font-body text-[11px] font-[600] text-[var(--on-p-tint)]">
-                  <Sparkles size={11} />내 단어 {targetCount}개 포함
+                  <Gwonjeom size={11} />내 단어 {targetCount}개 포함
                 </span>
               )}
             </div>

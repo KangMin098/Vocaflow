@@ -28,7 +28,8 @@
 import { useCallback, useEffect, useState, useTransition } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { ArrowRight, Headphones, Loader2, Play, RotateCcw, Sparkles } from 'lucide-react'
+import { ArrowRight, Headphones, Loader2, Play, RotateCcw } from 'lucide-react'
+import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 
 import { ModuleHero, type HeroStat } from '@/components/hub/ModuleHero'
 import type { DailyDictation } from '@/lib/dictation/daily'
@@ -322,7 +323,7 @@ function DailyCard({
           </h2>
           {/* 구성 내역은 아래 칩이 말한다 — 같은 말을 두 번 하지 않는다(§철학2) */}
         </div>
-        <Sparkles size={18} className="mt-0.5 shrink-0 text-[var(--t3)]" />
+        <Gwonjeom size={18} className="mt-0.5 shrink-0 text-[var(--t3)]" />
       </div>
 
       {/* 왜 이 문장인지 — 구성 근거를 접지 않고 보여준다. 시스템을 신뢰하려면 근거가 보여야 한다. */}

@@ -14,7 +14,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 
 import { chunkForIn } from '@/lib/supabase/paged-select'
-import { CheckCircle2, ChevronDown, ChevronUp, Loader2, Sparkles, TrendingUp, User, FileText, Target, GraduationCap, Briefcase, Repeat, Star, Shuffle } from 'lucide-react'
+import { CheckCircle2, ChevronDown, ChevronUp, Loader2, TrendingUp, User, FileText, Target, GraduationCap, Briefcase, Repeat, Star, Shuffle } from 'lucide-react'
+import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 import type { LucideIcon } from 'lucide-react'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { createClient } from '@/lib/supabase/client'
@@ -134,7 +135,7 @@ function buildReasons(r: ExtractedWord): Reason[] {
   const gap = r.v_level - bd.v_threshold
   reasons.push(
     gap === 0
-      ? { key: 'level', Icon: Sparkles, label: '딱 지금 배우기 좋은 난이도예요' }
+      ? { key: 'level', Icon: Gwonjeom, label: '딱 지금 배우기 좋은 난이도예요' }
       : { key: 'level', Icon: TrendingUp, label: '조금 도전적이지만 이 글에 필요해요' },
   )
 
@@ -500,7 +501,7 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
     <section className="mt-8 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-6 shadow-[var(--sh-sm)]">
       <header className="mb-4">
         <h3 className="inline-flex items-center gap-2 font-display text-[16px] font-[700] text-[var(--t1)]">
-          <Sparkles size={16} className="text-[var(--p)]" />
+          <Gwonjeom size={16} className="text-[var(--p)]" />
           AI 단어 추출 (다축 VRL)
         </h3>
         <TokenizationSummary
@@ -578,7 +579,7 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
           disabled={loading}
           className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-[var(--r-md)] bg-[var(--p)] px-4 py-2 font-display text-[13px] font-[700] text-[var(--on-p)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] active:scale-[0.97] disabled:opacity-50"
         >
-          {loading ? <Loader2 size={14} className="animate-spin" /> : <Sparkles size={14} />}
+          {loading ? <Loader2 size={14} className="animate-spin" /> : <Gwonjeom size={14} />}
           {loading ? '분석 중…' : '추출 분석'}
         </button>
       </div>
@@ -705,7 +706,7 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
                 결정 앞에서 한 번 알려 준다 (Empathetic Feedback — 비난 없이 맥락만). */}
             {selected.size > CALM_BATCH && (
               <p className="mt-1 flex items-start gap-2 font-body text-[11px] leading-relaxed text-[var(--t2)]">
-                <Sparkles size={11} className="mt-0.5 shrink-0 text-[var(--p)]/70" aria-hidden />
+                <Gwonjeom size={11} className="mt-0.5 shrink-0 text-[var(--p)]/70" aria-hidden />
                 <span>
                   한 번에 {selected.size}개를 담으면 며칠 뒤 복습이 몰려요.
                   {displayPct > 10 && (
@@ -836,7 +837,7 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
                         {reasons.length > 0 && (
                           <div className="mb-3 rounded-[var(--r-md)] border border-[var(--p)]/20 bg-[var(--p-light)]/40 p-3">
                             <h4 className="mb-1.5 inline-flex items-center gap-1 font-display text-[10px] font-[700] uppercase tracking-wide text-[var(--p)]">
-                              <Sparkles size={11} /> 왜 추천했어요?
+                              <Gwonjeom size={11} /> 왜 추천했어요?
                             </h4>
                             <ul className="flex flex-col gap-1">
                               {reasons.map((rs) => (

@@ -5,7 +5,8 @@
 
 'use client'
 
-import { ArrowRight, FileText, Library, Sparkles } from 'lucide-react'
+import { ArrowRight, FileText, Library } from 'lucide-react'
+import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 import Link from 'next/link'
 
 export function EmptyState() {
@@ -16,7 +17,7 @@ export function EmptyState() {
     >
       {/* Decorative sparkles */}
       <div className="absolute right-6 top-6 opacity-20" aria-hidden="true">
-        <Sparkles size={64} className="text-[var(--p)]" />
+        <Gwonjeom size={64} className="text-[var(--p)]" />
       </div>
 
       <div className="relative max-w-2xl">

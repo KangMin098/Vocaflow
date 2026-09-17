@@ -4,7 +4,8 @@
 'use client'
 
 import { cn } from '@/lib/utils/cn'
-import { BookOpen, Mic, Newspaper, Sparkles, Zap } from 'lucide-react'
+import { BookOpen, Mic, Newspaper, Zap } from 'lucide-react'
+import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 
 export interface Sample {
   id: string
@@ -13,7 +14,7 @@ export interface Sample {
   difficulty: '쉬움' | '보통' | '어려움'
   wordCount: number
   text: string
-  icon: typeof Sparkles
+  icon: typeof Gwonjeom
   color: string
 }
 
@@ -44,7 +45,7 @@ const samples: Sample[] = [
     source: 'TED Talk · Charles Duhigg',
     difficulty: '쉬움',
     wordCount: 220,
-    icon: Sparkles,
+    icon: Gwonjeom,
     color: 'var(--memory-stable)',
     text: `Every habit has three components: a cue, a routine, and a reward. Once you understand this loop, you can change any behavior. The key is to identify your cue and reward, then experiment with different routines.`,
   },

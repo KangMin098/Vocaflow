@@ -3,7 +3,8 @@
 
 'use client'
 
-import { ArrowLeft, ArrowRight, Save, Sparkles } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Save } from 'lucide-react'
+import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 import { useState } from 'react'
 import type { AnalysisResult as AnalysisResultData } from './analysis-types'
 import { ScriptDisplay } from './ScriptDisplay'
@@ -67,7 +68,7 @@ export function AnalysisResult({ result, onBack, onSave, onPlayAudio }: Analysis
         <div className="relative flex flex-col gap-s-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-s-3">
             <div className="bg-success flex h-10 w-10 shrink-0 items-center justify-center rounded-lg shadow-sm">
-              <Sparkles size={18} className="text-ti" />
+              <Gwonjeom size={18} className="text-ti" />
             </div>
             <div>
               <div className="text-success mb-[2px] font-mono text-[10px] font-bold uppercase tracking-[0.15em]">

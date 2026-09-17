@@ -8,7 +8,8 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { AlertTriangle, ArrowRight, Check, Home, RefreshCw, Sparkles, X } from 'lucide-react'
+import { AlertTriangle, ArrowRight, Check, Home, RefreshCw, X } from 'lucide-react'
+import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 
 import {
   correctOrderFromKey,
@@ -109,7 +110,7 @@ export function DcpPlayer({
           className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-[var(--success-light)] text-[var(--success)]"
           aria-hidden
         >
-          <Sparkles size={26} strokeWidth={2} />
+          <Gwonjeom size={26} strokeWidth={2} />
         </span>
         <div>
           <h2 className="font-display text-[18px] font-[800] text-[var(--t1)]">오늘 구문 연습을 마쳤어요</h2>

@@ -13,7 +13,8 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Loader2, RefreshCw, Sparkles, TrendingUp } from 'lucide-react'
+import { Loader2, RefreshCw, TrendingUp } from 'lucide-react'
+import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 import { createClient } from '@/lib/supabase/client'
 
 interface PromotionResult {
@@ -78,7 +79,7 @@ export function VLevelPromotionCheck() {
   if (result?.promoted) {
     return (
       <div className="mt-3 flex items-center gap-3 rounded-[var(--r-md)] border border-[var(--active)]/40 bg-[var(--active-light)] p-4">
-        <Sparkles size={20} className="text-[var(--active)]" />
+        <Gwonjeom size={20} className="text-[var(--active)]" />
         <div className="flex-1">
           <p className="font-display text-[14px] font-[700] text-[var(--t1)]">
             축하해요 — V{result.old_level} → <span className="text-[var(--active)]">V{result.new_level}</span> 상향

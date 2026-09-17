@@ -6,7 +6,8 @@
 
 'use client'
 
-import { ArrowRight, BookPlus, Sparkles } from 'lucide-react'
+import { ArrowRight, BookPlus } from 'lucide-react'
+import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 import Link from 'next/link'
 
 import { useHubData, type ModuleId } from '@/hooks/useHubData'
@@ -52,7 +53,7 @@ export function ContinueCard() {
           aria-hidden
           className="inline-flex h-10 w-10 items-center justify-center rounded-[var(--r-full)] bg-[var(--p-light)] text-[var(--on-p-tint)]"
         >
-          <Sparkles size={18} />
+          <Gwonjeom size={18} />
         </span>
         <div className="flex flex-col gap-1">
           <span className="font-display text-[15px] font-[600] text-[var(--t1)]">

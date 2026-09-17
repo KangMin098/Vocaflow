@@ -7,7 +7,8 @@
 //   - delta 표시 (+1 / -1 / 0)
 //   - 시간 순 vertical timeline (좌측 dot + connector + 우측 카드)
 
-import { Activity, Brain, Compass, Settings as SettingsIcon, Sparkles, Target, type LucideIcon } from 'lucide-react'
+import { Activity, Brain, Compass, Settings as SettingsIcon, Target, type LucideIcon } from 'lucide-react'
+import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 
 interface Snapshot {
   id: string
@@ -31,7 +32,7 @@ interface ReasonStyle {
 const REASON_STYLES: Record<string, ReasonStyle> = {
   diagnostic_completed:       { icon: Compass,      label: '진단 완료',     color: 'var(--p)' },
   track_diagnostic_completed: { icon: Target,       label: 'track 진단',    color: 'var(--on-p-tint)' },
-  auto_promotion:             { icon: Sparkles,     label: '자동 상향',     color: 'var(--active)' },
+  auto_promotion:             { icon: Gwonjeom,     label: '자동 상향',     color: 'var(--active)' },
   self_declared:              { icon: SettingsIcon, label: '직접 설정',     color: 'var(--info)' },
   learning_data:              { icon: Brain,        label: '학습 누적',     color: 'var(--success)' },
   manual_override:            { icon: Activity,     label: '수동 조정',     color: 'var(--warning)' },

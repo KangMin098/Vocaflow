@@ -10,7 +10,8 @@
 
 'use client'
 
-import { BookOpen, Check, Loader2, Sparkles } from 'lucide-react'
+import { BookOpen, Check, Loader2 } from 'lucide-react'
+import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 import { useState } from 'react'
 
 import type { ClassAssignment } from '@/lib/teacher/assignment-actions'
@@ -123,7 +124,7 @@ export function ReceivedAssignments({ assignments, failed = false, collectedIds 
                   ) : done ? (
                     <Check size={14} aria-hidden style={{ color: 'var(--memory-stable)' }} />
                   ) : (
-                    <Sparkles size={14} aria-hidden />
+                    <Gwonjeom size={14} aria-hidden />
                   )}
                   {done ? '담았어요' : '단어장에 담기'}
                 </button>

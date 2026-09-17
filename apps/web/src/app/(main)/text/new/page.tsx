@@ -4,7 +4,8 @@
 
 'use client'
 
-import { ArrowLeft, ArrowRight, BookOpen, FileText, RotateCcw, Sparkles, Trash2, Moon, Sun } from 'lucide-react'
+import { ArrowLeft, ArrowRight, BookOpen, FileText, RotateCcw, Trash2, Moon, Sun } from 'lucide-react'
+import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
@@ -421,7 +422,7 @@ export default function TextViewerNewPage() {
           {(mode === 'file' || mode === 'url') && (
             <div className="mb-s-6 flex flex-col items-center justify-center rounded-xl border border-dashed border-bd bg-bg2 px-s-6 py-s-12 text-center">
               <div className="mb-s-3 flex h-12 w-12 items-center justify-center rounded-full bg-bg3 text-t3">
-                <Sparkles size={20} />
+                <Gwonjeom size={20} />
               </div>
               <p className="font-display text-base font-bold text-t1">
                 이 입력 방식은 준비 중입니다

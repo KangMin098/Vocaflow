@@ -11,7 +11,8 @@
 'use client'
 
 import Link from 'next/link'
-import { ArrowRight, Sparkles } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
+import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 
 import { actionToHref } from '@/lib/recommend/next-action.mock'
 import type { RecommendedAction } from '@/lib/recommend/types'
@@ -32,7 +33,7 @@ export function NextActionCard({ recommendation, prelude }: NextActionCardProps)
       aria-label="다음 추천"
     >
       <div className="mb-3 flex items-center gap-2">
-        <Sparkles size={14} strokeWidth={2} className="text-[var(--p)]" aria-hidden="true" />
+        <Gwonjeom size={14} strokeWidth={2} className="text-[var(--p)]" aria-hidden="true" />
         <span className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--p)]">
           다음 추천
         </span>

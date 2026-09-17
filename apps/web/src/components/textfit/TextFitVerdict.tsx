@@ -13,7 +13,8 @@
 
 'use client'
 
-import { ChevronDown, ChevronUp, Clock3, Sparkles, Target, TrendingDown } from 'lucide-react'
+import { ChevronDown, ChevronUp, Clock3, Target, TrendingDown } from 'lucide-react'
+import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 import { useId, useState } from 'react'
 
 import { BAND_COPY, BAND_THRESHOLDS, FORECAST_DAYS, SOURCE_COPY } from '@/lib/textfit/coverage'
@@ -254,7 +255,7 @@ export function TextFitVerdict({ report, onCollectWords, onDiagnose }: Props) {
               onClick={() => onCollectWords(active.words.map((w) => w.lemma))}
               className="inline-flex min-h-[44px] items-center gap-[8px] rounded-[var(--r-md)] border border-[var(--p)] bg-[var(--ju)] px-4 font-display text-[13.5px] font-[600] text-[var(--bg)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:brightness-110 active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50 motion-reduce:transition-none"
             >
-              <Sparkles size={15} aria-hidden />
+              <Gwonjeom size={15} aria-hidden />
               단어장에 담기
             </button>
           )}

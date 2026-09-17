@@ -3,7 +3,8 @@
 
 import { Suspense } from 'react';
 import Link from 'next/link';
-import { BookOpen, Library, Sparkles } from 'lucide-react';
+import { BookOpen, Library } from 'lucide-react'
+import { Gwonjeom } from '@/components/ui/press/Gwonjeom';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { createClient } from '@/lib/supabase/server';
 
@@ -329,7 +330,7 @@ function BookCard({ book }: { book: BookSummary }) {
         <div className="mt-1 flex items-center gap-2 font-body text-[11.5px] text-[var(--t2)]">
           {isComplete ? (
             <span className="inline-flex items-center gap-1 font-[600] text-[var(--learn-known)]">
-              <Sparkles size={11} aria-hidden /> 완독했어요
+              <Gwonjeom size={11} aria-hidden /> 완독했어요
             </span>
           ) : book.nextChapterIdx != null ? (
             <span className="inline-flex items-center gap-1">

@@ -14,7 +14,8 @@
 
 'use client'
 
-import { BookOpen, ChevronDown, Compass, Layers, Sparkles, X } from 'lucide-react'
+import { BookOpen, ChevronDown, Compass, Layers, X } from 'lucide-react'
+import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import {
@@ -89,7 +90,7 @@ const RESOURCE_TYPE_META: Record<
   library: { label: '라이브러리', Icon: Compass, color: 'var(--p)' },
   vocab: { label: '공용 단어장', Icon: Layers, color: '#0F2540' },
   script: { label: '내 스크립트', Icon: BookOpen, color: 'var(--p)' },
-  custom: { label: '', Icon: Sparkles, color: '#7E5A1B' },
+  custom: { label: '', Icon: Gwonjeom, color: '#7E5A1B' },
 }
 
 export interface SessionResource {
