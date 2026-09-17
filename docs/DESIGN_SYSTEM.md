@@ -1,5 +1,7 @@
 # Design System
 
+> 디자인 작업 진입: [DESIGN.md](../DESIGN.md) · 캡처·비평·수정과 로컬 픽셀 비교: [디자인 작업 절차](design/06-workflow.md).
+
 > Vocaflow 디자인 시스템 SSoT. **v06.39 — Reading Room Art Direction (iOS 골격 위 잉크/페이퍼/금)**.
 
 ---
