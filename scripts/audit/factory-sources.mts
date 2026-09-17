@@ -51,6 +51,10 @@ const { SERIES_SPINE } = (await import('../../packages/library-pipeline/src/text
 const { GENERATED_TYPES, INVENTORY_LEVELS } = (await import(
   '../../apps/web/src/lib/csat/factory-line-model.ts'
 )) as any
+// `factory-model.ts` 는 `server-only` 를 안 쓰는 순수 모듈이라 여기서 그대로 읽을 수 있다.
+const { FACTORY_STAGES, judgeStage } = (await import(
+  '../../apps/web/src/lib/csat/factory-model.ts'
+)) as any
 
 /** 사전의 순수 함수 3종 — DB 에 없는 것이 정상이다(`factory.ts` 의 `PURE_FUNCTION_TYPES`). */
 const PURE = new Set(['rhyme', 'word_meaning', 'spell_blank'])
@@ -111,6 +115,24 @@ const renders = await db
 type RenderRow = { band: number; items: number; colophon: any; brand_fingerprint: string | null }
 const renderRows: RenderRow[] = (renders.data ?? []) as RenderRow[]
 const persona = renderRows.filter((r) => r.colophon?.review?.personaReview != null)
+
+/**
+ * ⑦ 검수 각 층의 분자 — **앱과 같은 셈법(JS)으로 센다.**
+ *
+ * ⚠️ 감사 1회차가 여기서 틀렸다. SQL 로 `(colophon->'review'->'answerBias') is not null` 을 물어
+ *   L3 를 19/19 라 적었는데 화면은 **16/19** 였다. jsonb 의 `null` 은 **SQL NULL 이 아니다** —
+ *   `'null'::jsonb is not null` 은 **참**이다. 앱은 JS 로 읽어 `null` 을 없는 것으로 세므로 셋이 갈린다.
+ *
+ *   SQL 로 앱 수치를 검증할 때는 `jsonb_typeof(x) <> 'null'` 을 함께 봐야 한다.
+ *   이 자는 supabase-js 로 읽으므로 **앱과 같은 쪽**이다 — 그래서 여기가 정답 쪽이다.
+ */
+const reviewLayers = {
+  L1_proofread: renderRows.filter((r) => r.colophon?.review?.proofread != null).length,
+  L2_personaVolumes: persona.length,
+  L3_answerBias: renderRows.filter((r) => r.colophon?.review?.answerBias != null).length,
+  volumes: renderRows.length,
+  note: 'JS 셈법(앱과 동일). SQL 의 `is not null` 은 jsonb null 을 「있음」으로 세어 더 크게 나온다',
+}
 
 /* ───────── ④ 저장소 JSON ───────── */
 const S = 'apps/web/src/lib/textbook/'
@@ -269,6 +291,36 @@ const gate2Market = bench
     }
   : null
 
+/* ───────── 게이트 정렬 — **이름이 어긋나면 그 공정은 화면에서 「못 잼」이다** ─────────
+   ⚠️ 감사 1회차(2026-09-16)가 여기서 틀렸다. ④ 소재의 눈금이 4/4 로 차 있는 것만 보고
+      「통과」라 적었는데, 화면은 「못 잼」이었다 — `factory.ts` 의 `state()` 가
+      `def.gateGauges` 에 적힌 라벨의 눈금이 없으면 **「못 잼」 눈금을 대신 꽂기** 때문이다.
+      눈금을 직접 읽어 판정하면 그 주입을 통째로 못 본다.
+
+      `state()` 는 `factory.ts` 안의 비공개 함수이고 그 파일은 `server-only` 라 여기서 못 부른다.
+      그래서 **그 판정을 가르는 조건 하나**(이름이 맞는가)를 여기서 따로 잰다 — 어긋난 공정은
+      눈금이 아무리 차 있어도 화면에서 회색이다. 판정 자체는 `factory-model.test.ts` 가 잠근다. */
+const factorySrc = readFileSync(path.join(ROOT, 'apps/web/src/lib/csat/factory.ts'), 'utf8')
+const gateAlignment = (FACTORY_STAGES as any[]).map((def) => {
+  const missing = (def.gateGauges as string[]).filter(
+    (want) => !new RegExp(`label:\\s*[\`'"].*${want.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`).test(factorySrc),
+  )
+  return {
+    id: def.id,
+    ord: def.ord,
+    name: def.name,
+    gate: def.gate,
+    gateGauges: def.gateGauges,
+    missing,
+    /** 어긋나면 `state()` 가 「못 잼」을 꽂아 이 공정은 통과할 수 없다. */
+    forcedUnmeasured: missing.length > 0,
+    /** 어긋나지 않았을 때 「못 잼」 주입 없이 판정했다면 — 확인용(실측 눈금은 화면이 낸다). */
+    judgeOfMissing: missing.length
+      ? judgeStage(missing.map((l: string) => ({ label: l, num: null, den: null, unit: 'ratio' })))
+      : null,
+  }
+})
+
 /* ───────── 갱신 주기 — 어느 출처가 가장 낡았는가 ───────── */
 const freshness = [
   {
@@ -349,6 +401,7 @@ const result = {
     personaPassed: persona.reduce((n, r) => n + (r.colophon.review.personaReview.passed ?? 0), 0),
     personaItems: persona.reduce((n, r) => n + (r.colophon.review.personaReview.items ?? 0), 0),
     distinctFingerprints: new Set(renderRows.map((r) => r.brand_fingerprint)).size,
+    reviewLayers,
     sourceSnapshotAt: snapRow?.taken_at ?? null,
     sourcePool: snapRow?.payload?.pool ?? null,
   },
@@ -379,6 +432,7 @@ const result = {
       : null,
   },
   gate2Market,
+  gateAlignment,
   pairs,
   freshness,
   divergedCount: pairs.filter((p) => p.verdict === 'diverged').length,
@@ -426,6 +480,20 @@ if (!process.argv.includes('--json')) {
     if (r.gate2Market.unreachablePublishers.length)
       console.log(`  ⚠ 증거가 막는 출판사: ${r.gate2Market.unreachablePublishers.join(' · ')}`)
   }
+
+  console.log('\n─── 게이트 정렬 (이름이 어긋나면 그 공정은 눈금이 차 있어도 화면에서 「못 잼」) ───')
+  for (const g of r.gateAlignment)
+    console.log(
+      `  ${g.forcedUnmeasured ? '✗' : '·'} ${g.ord}. ${g.name.padEnd(10)} ${
+        g.forcedUnmeasured ? '어긋남 → 못 잼 강제: ' + g.missing.join(' · ') : '정렬됨'
+      }`,
+    )
+
+  const rl = r.db.reviewLayers
+  console.log(
+    `\n─── ⑦ 검수 층 (JS 셈법 = 앱과 동일) ───  L1 ${rl.L1_proofread}/${rl.volumes} · L2 기록 보유 권 ${rl.L2_personaVolumes}/${rl.volumes} · L3 ${rl.L3_answerBias}/${rl.volumes}`,
+  )
+  console.log(`  ⚠ SQL 의 \`is not null\` 로 세면 jsonb null 까지 세어 더 크게 나온다 — 앱과 갈린다`)
 
   console.log('\n─── 출처별 낡음 ───')
   for (const f of [...r.freshness].sort((a, b) => (b.ageHours ?? -1) - (a.ageHours ?? -1)))
