@@ -1,6 +1,8 @@
 // apps/web/tests/e2e/41-csat-type-analysis.spec.ts
 //
-// 기출 유형 분석 학습자 표면 런타임 회귀 — `/csat` · `/csat/<유형>` · `/csat/plan`.
+// 기출 유형 분석 표면 런타임 회귀 — `/admin/kice` · `/admin/kice/<유형>` · `/admin/kice/plan`.
+// (2026-09-17 까지 학습자 `/csat` 밑에 있던 화면 — 학습자 재설계로 관리자 뷰가 됐다. 개발 서버는
+//  `DEV_ADMIN_BYPASS=1` 이라 일반 계정으로 열린다.)
 //
 // 이 스펙이 지키는 계약:
 //   ① 셋 다 실제 데이터로 뜬다 — 이 화면들은 전부 서버 컴포넌트이고 **RLS 를 따르는**
@@ -86,14 +88,15 @@ test.describe('기출 유형 분석 — 학습자 표면', () => {
       });
 
       // ── ① 허브 ────────────────────────────────────────────────────
-      await page.goto('/csat', { waitUntil: 'domcontentloaded', timeout: 30_000 });
+      await page.goto('/admin/kice', { waitUntil: 'domcontentloaded', timeout: 30_000 });
       // ⚠️ 2026-09-15 재설계로 허브의 h1 이 **오답 지도의 주장**으로 바뀌었다 — 화면의 주제가
       //    「유형 26개 목록」에서 「오답은 아홉 가지로 만들어진다」로 옮겨 갔기 때문이다.
       //    문구를 못 박지 않는다(가짓수는 DB 에서 세는 값이라 분석이 늘면 바뀐다) — h1 이 **있고**
       //    그것이 오답 지도의 제목인지만 본다.
+      // 2026-09-17 — 관리자 뷰로 옮기며 h1 은 메뉴 이름, 지도 제목은 h2 가 됐다
       const h1 = page.getByRole('heading', { level: 1 });
-      await expect(h1).toBeVisible();
-      await expect(h1).toHaveText(/평가원은 오답을 \d+가지 방법으로 만듭니다/);
+      await expect(h1).toHaveText('기출 분석 뷰');
+      await expect(page.locator('h2#trap-atlas-h')).toHaveText(/평가원은 오답을 \d+가지 방법으로 만듭니다/);
 
       // 못 불러왔으면 조용히 빈 목록이 되므로 **에러 문구가 없음**을 먼저 못 박는다
       await expect(page.getByText('지금은 분석을 불러오지 못했어요.')).toHaveCount(0);
@@ -117,7 +120,7 @@ test.describe('기출 유형 분석 — 학습자 표면', () => {
       const readyCard = page.locator('ul.grid > li a').filter({ hasText: '권장 풀이 시간' }).first();
       await expect(readyCard).toBeVisible();
       await readyCard.click();
-      await page.waitForURL(/\/csat\/[A-Z0-9-]+$/, { timeout: 30_000 });
+      await page.waitForURL(/\/admin\/kice\/[A-Z0-9-]+$/, { timeout: 30_000 });
 
       await expect(page.getByText('지금은 분석을 불러오지 못했어요.')).toHaveCount(0);
       await expect(page.getByText('이 유형은 아직 분석 중이에요.')).toHaveCount(0);
@@ -143,7 +146,7 @@ test.describe('기출 유형 분석 — 학습자 표면', () => {
       await expect(page.getByText(/한국교육과정평가원/)).toBeVisible();
 
       // ── ③ 계획 ────────────────────────────────────────────────────
-      await page.goto('/csat/plan', { waitUntil: 'domcontentloaded', timeout: 30_000 });
+      await page.goto('/admin/kice/plan', { waitUntil: 'domcontentloaded', timeout: 30_000 });
       await expect(page.getByRole('heading', { name: '한 회차 주파 계획', level: 1 })).toBeVisible();
       await expect(page.getByText('지금은 계획을 불러오지 못했어요.')).toHaveCount(0);
       await expect(page.getByText('아직 계획을 세울 회차가 없어요.')).toHaveCount(0);
@@ -167,9 +170,9 @@ test.describe('기출 유형 분석 — 학습자 표면', () => {
       // 유형 절차는 "이 유형은 이렇게 푼다" 를 말한다. 그런데 학습자가 채점 뒤 알고 싶은 것은
       // 눈앞의 한 문항이고 질문은 하나다 — **그래서 왜 ③인가.**
       // 그 답이 화면에 없으면 나머지는 전부 딸림이므로, 여기서 비어 있으면 실패로 본다.
-      await page.goto('/csat', { waitUntil: 'domcontentloaded', timeout: 30_000 });
+      await page.goto('/admin/kice', { waitUntil: 'domcontentloaded', timeout: 30_000 });
       await page.locator('ul.grid > li a').filter({ hasText: '권장 풀이 시간' }).first().click();
-      await page.waitForURL(/\/csat\/[A-Z0-9-]+$/, { timeout: 30_000 });
+      await page.waitForURL(/\/admin\/kice\/[A-Z0-9-]+$/, { timeout: 30_000 });
 
       // 유형 화면이 그 유형의 기출 목록을 준다 — 「해설 N / M」으로 준비된 수를 함께 말한다
       const itemsHeading = page.getByRole('heading', { name: /이 유형의 기출/ });
@@ -182,10 +185,10 @@ test.describe('기출 유형 분석 — 학습자 표면', () => {
       await expect(page.getByText('지금은 기출 목록을 불러오지 못했어요.')).toHaveCount(0);
       await expect(page.getByText(/이 유형의 기출을 아직 연결하지 못했어요/)).toHaveCount(0);
 
-      const explained = page.locator('ul.grid > li a[href^="/csat/item/"]').filter({ hasNotText: '준비 중' });
+      const explained = page.locator('ul.grid > li a[href^="/admin/kice/item/"]').filter({ hasNotText: '준비 중' });
       expect(await explained.count(), '해설이 준비된 문항이 없다').toBeGreaterThan(0);
       await explained.first().click();
-      await page.waitForURL(/\/csat\/item\//, { timeout: 30_000 });
+      await page.waitForURL(/\/admin\/kice\/item\//, { timeout: 30_000 });
 
       await expect(page.getByText('지금은 해설을 불러오지 못했어요.')).toHaveCount(0);
       await expect(page.getByText('이 문항은 정답 근거 서술을 아직 쓰는 중이에요.')).toHaveCount(0);

@@ -3,7 +3,7 @@
 // **문항 해설의 「지문 지도」 런타임 회귀.**
 //
 // ── 왜 이 파일이 필요한가 (실측 2026-09-15) ───────────────────────────
-// `/csat/item/[slug]` 는 **동적 라우트**다. 접근성 전수 스윕(`10-a11y-sweep`)은 동적 세그먼트를
+// `/admin/kice/item/[slug]` 는 **동적 라우트**다. 접근성 전수 스윕(`10-a11y-sweep`)은 동적 세그먼트를
 // 일부러 건너뛴다("시나리오 스펙의 몫"). 그리고 기존 CSAT 스펙(`41-…`)은 허브·유형·계획만 본다.
 // 그래서 **이 화면은 런타임에서 한 번도 재진 적이 없다** — 대비도, 터치 타깃도, 가로 넘침도.
 //
@@ -111,7 +111,7 @@ test.describe('기출 문항 해설 — 지문 지도', () => {
       if (m.type() === 'error') errors.push(m.text());
     });
 
-    await page.goto(`/csat/item/${ITEM_SLUG}`, { waitUntil: 'networkidle', timeout: 45_000 });
+    await page.goto(`/admin/kice/item/${ITEM_SLUG}`, { waitUntil: 'networkidle', timeout: 45_000 });
 
     // 지도 자체
     await expect(page.getByRole('heading', { name: '지문 지도' })).toBeVisible();
@@ -139,7 +139,7 @@ test.describe('기출 문항 해설 — 지문 지도', () => {
   });
 
   test('칩을 누르면 열리는 문장이 바뀐다 — 이 화면의 존재 이유', async ({ page }) => {
-    await page.goto(`/csat/item/${ITEM_SLUG}`, { waitUntil: 'networkidle', timeout: 45_000 });
+    await page.goto(`/admin/kice/item/${ITEM_SLUG}`, { waitUntil: 'networkidle', timeout: 45_000 });
 
     const before = await litSentences(page);
     expect(before.length, '처음부터 열린 것이 없으면 이 검사는 아무것도 안 지킨다').toBeGreaterThan(0);
@@ -159,7 +159,7 @@ test.describe('기출 문항 해설 — 지문 지도', () => {
 
   test('390px 에서 가로로 밀리지 않고 터치 타깃이 44px 이상이다', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
-    await page.goto(`/csat/item/${ITEM_SLUG}`, { waitUntil: 'networkidle', timeout: 45_000 });
+    await page.goto(`/admin/kice/item/${ITEM_SLUG}`, { waitUntil: 'networkidle', timeout: 45_000 });
 
     const overflow = await page.evaluate(
       () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
@@ -181,7 +181,7 @@ test.describe('기출 문항 해설 — 지문 지도', () => {
   test.describe('axe — 라이트·다크', () => {
     for (const theme of ['light', 'dark'] as const) {
       test(`${theme} 테마 WCAG2 A/AA 위반 0`, async ({ page }) => {
-        await page.goto(`/csat/item/${ITEM_SLUG}`, { waitUntil: 'networkidle', timeout: 45_000 });
+        await page.goto(`/admin/kice/item/${ITEM_SLUG}`, { waitUntil: 'networkidle', timeout: 45_000 });
         await page.evaluate((t) => {
           document.documentElement.setAttribute('data-theme', t);
           localStorage.setItem('vocaflow-theme', t);
@@ -199,12 +199,12 @@ test.describe('기출 문항 해설 — 지문 지도', () => {
     // 다시 고르는 두 걸음을 거쳐야 다음 지도에 닿는다.
     // 실측 2026-09-15: 802문항 중 **801**이 이 문을 받고, 그 801 전부가 지도로 이어진다
     // (없는 하나는 문항이 하나뿐인 유형 — 그때는 일부러 안 그린다).
-    await page.goto(`/csat/item/${ITEM_SLUG}`, { waitUntil: 'networkidle', timeout: 45_000 })
+    await page.goto(`/admin/kice/item/${ITEM_SLUG}`, { waitUntil: 'networkidle', timeout: 45_000 })
     const next = page.getByRole('link', { name: /같은 유형 다음 기출/ })
     await expect(next).toBeVisible()
     // 눌러서 도착한 곳이 **다른 문항**이어야 한다 — 제자리 링크는 앞길이 아니다.
     const href = await next.getAttribute('href')
-    expect(href).toMatch(new RegExp('^' + '/csat/item/'))
+    expect(href).toMatch(new RegExp('^' + '/admin/kice/item/'))
     expect(href).not.toContain(ITEM_SLUG)
   })
 
@@ -227,7 +227,7 @@ test.describe('기출 문항 해설 — 지문 지도', () => {
     ['2014A-24', 5],
   ] as const) {
     test(`앵커 ${anchors}개 문항 — 오답 넷이 칩이거나 글이거나`, async ({ page }) => {
-      await page.goto(`/csat/item/${slug}`, { waitUntil: 'networkidle', timeout: 45_000 });
+      await page.goto(`/admin/kice/item/${slug}`, { waitUntil: 'networkidle', timeout: 45_000 });
 
       const group = page.getByRole('group', { name: '근거 고르기' });
       await expect(group, '지문 지도가 없다 — 골격이 안 읽혔다').toBeVisible();
@@ -256,7 +256,7 @@ test.describe('기출 문항 해설 — 지문 지도', () => {
   }
 
   test('원문이 통째로 나오지 않는다', async ({ page }) => {
-    await page.goto(`/csat/item/${ITEM_SLUG}`, { waitUntil: 'networkidle', timeout: 45_000 });
+    await page.goto(`/admin/kice/item/${ITEM_SLUG}`, { waitUntil: 'networkidle', timeout: 45_000 });
     const text = (await page.locator('main').innerText()).replace(/\s+/g, ' ');
 
     // 저작권 고지가 있어야 한다 — 이 화면의 약속이다.

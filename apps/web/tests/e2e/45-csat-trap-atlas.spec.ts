@@ -101,7 +101,7 @@ test.describe('기출 분석 — 허브·유형·계획', () => {
     });
 
     await page.setViewportSize(FOLD);
-    await page.goto('/csat', { waitUntil: 'networkidle', timeout: 45_000 });
+    await page.goto('/admin/kice', { waitUntil: 'networkidle', timeout: 45_000 });
 
     const list = page.locator('ol[data-proof="trap-distribution"]');
     await expect(list).toBeVisible();
@@ -109,9 +109,12 @@ test.describe('기출 분석 — 허브·유형·계획', () => {
     // ⚠️ 지도의 제목이 이 화면의 **h1** 이어야 한다. 히어로를 컴포넌트로 뽑으면서 기본값
     //    `h2` 를 그대로 쓰면 화면에 h1 이 하나도 남지 않는데(실측 2026-09-15 에 실제로 그랬다),
     //    **axe 의 wcag2a/aa 로는 안 잡힌다** — 빈 h1 은 best-practice 규칙이다.
+    // 2026-09-17 — 관리자 뷰(`/admin/kice`)로 옮기면서 h1 은 메뉴 이름(「기출 분석 뷰」)이 됐고
+    // 지도 제목은 h2 다(관리자 화면 규칙: 메뉴 이름 = 화면 h1 · `sidebar-screen-titles.test.tsx`).
     const h1 = page.getByRole('heading', { level: 1 });
     await expect(h1, '허브에 h1 이 없다').toHaveCount(1);
-    await expect(h1).toHaveAttribute('id', 'trap-atlas-h');
+    await expect(h1).toHaveText('기출 분석 뷰');
+    await expect(page.locator('h2#trap-atlas-h')).toBeVisible();
 
     const all = await rows(page);
     // 「아홉 가지」를 말하려면 아홉 줄 + 그 밖이 있어야 한다.
@@ -141,7 +144,7 @@ test.describe('기출 분석 — 허브·유형·계획', () => {
     // 히어로가 클라이언트에서만 그려지면 크롤러에게 이 화면은 빈 껍데기다(I6).
     const ctx = await browser.newContext({ storageState: STATE_PATH, javaScriptEnabled: false });
     const page = await ctx.newPage();
-    await page.goto('/csat', { waitUntil: 'domcontentloaded', timeout: 45_000 });
+    await page.goto('/admin/kice', { waitUntil: 'domcontentloaded', timeout: 45_000 });
     const html = await page.content();
     expect(html, '서버 HTML 에 막대가 없다').toContain('data-proof="trap-distribution"');
     expect(html, '서버 HTML 에 함정 이름이 없다').toMatch(/어휘 함정|부분 사실|반대 진술/);
@@ -150,7 +153,7 @@ test.describe('기출 분석 — 허브·유형·계획', () => {
 
   test('칩을 누르면 분포가 다시 세어진다 — 네트워크 왕복 없이', async ({ page }) => {
     await page.setViewportSize(FOLD);
-    await page.goto('/csat', { waitUntil: 'networkidle', timeout: 45_000 });
+    await page.goto('/admin/kice', { waitUntil: 'networkidle', timeout: 45_000 });
 
     const before = await rows(page);
     expect(before.length).toBeGreaterThan(3);
@@ -181,7 +184,7 @@ test.describe('기출 분석 — 허브·유형·계획', () => {
     // 실측 2026-09-15: 1위(12.1%)만 기준으로 삼았더니 그 밖(24.4%)이 컨테이너를 넘어
     // **꽉 찬 막대**가 됐다. 수치는 맞는데 그림이 거짓말하는 종류라 눈으로는 안 잡힌다.
     await page.setViewportSize(FOLD);
-    await page.goto('/csat', { waitUntil: 'networkidle', timeout: 45_000 });
+    await page.goto('/admin/kice', { waitUntil: 'networkidle', timeout: 45_000 });
 
     // ⚠️ 비율은 **`data-pct` 에서** 읽는다. 글자에서 읽으면 「389」와 「12.1%」가 붙어
     //    `38912.1` 로 잡힌다 — 이 검사가 처음에 그걸로 헛돌았다(실측 2026-09-15).
@@ -209,7 +212,7 @@ test.describe('기출 분석 — 허브·유형·계획', () => {
 
   test('함정을 펴면 실제 기출 예시와 그 문항으로 가는 문이 있다', async ({ page }) => {
     await page.setViewportSize(FOLD);
-    await page.goto('/csat', { waitUntil: 'networkidle', timeout: 45_000 });
+    await page.goto('/admin/kice', { waitUntil: 'networkidle', timeout: 45_000 });
 
     const row = page.locator('ol[data-proof="trap-distribution"] button[aria-expanded]').first();
     await row.click();
@@ -218,14 +221,14 @@ test.describe('기출 분석 — 허브·유형·계획', () => {
     // 잡는 법 한 줄 — 없으면 이름만 늘려 준 셈이다.
     await expect(page.getByText('잡는 법').first()).toBeVisible();
     // **실제 기출로 이어져야 한다.** 예시가 없으면 「센 것」이 주장으로만 남는다.
-    const link = page.locator('a[href^="/csat/item/"]').first();
+    const link = page.locator('a[href^="/admin/kice/item/"]').first();
     await expect(link).toBeVisible();
     await expect(page.getByText('버리는 법').first()).toBeVisible();
   });
 
   test('390px 에서 가로로 밀리지 않고 터치 타깃이 44px 이상이다', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
-    await page.goto('/csat', { waitUntil: 'networkidle', timeout: 45_000 });
+    await page.goto('/admin/kice', { waitUntil: 'networkidle', timeout: 45_000 });
 
     const overflow = await page.evaluate(
       () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
@@ -251,7 +254,7 @@ test.describe('기출 분석 — 허브·유형·계획', () => {
 
     test('센 것 둘이 접힌 위에 있고 산문은 접혀 있다', async ({ page }) => {
       await page.setViewportSize(FOLD);
-      await page.goto(`/csat/${TYPE}`, { waitUntil: 'networkidle', timeout: 45_000 });
+      await page.goto(`/admin/kice/${TYPE}`, { waitUntil: 'networkidle', timeout: 45_000 });
 
       // ① 근거 자리 분포 ② 오답 구성 — 둘 다 **센 것**이다.
       await expect(page.locator('[data-proof="answer-locus"]')).toBeVisible();
@@ -274,7 +277,7 @@ test.describe('기출 분석 — 허브·유형·계획', () => {
       // 실측 2026-09-15: 분모를 안 맞춰 R-BLANK 의 여섯 줄이 모두 ×1.3 이상으로 떴다.
       // **전부 유난하면 아무것도 유난하지 않다** — 그 화면은 아무 말도 안 하는 것이다.
       await page.setViewportSize(FOLD);
-      await page.goto(`/csat/${TYPE}`, { waitUntil: 'networkidle', timeout: 45_000 });
+      await page.goto(`/admin/kice/${TYPE}`, { waitUntil: 'networkidle', timeout: 45_000 });
 
       const lifts = await page
         .locator('ol[data-proof="trap-distribution"] > li[data-pct] button')
@@ -289,7 +292,7 @@ test.describe('기출 분석 — 허브·유형·계획', () => {
     });
 
     test('절차의 「막히면」이 접혀 있다 — 단계 수가 두 배로 보이지 않게', async ({ page }) => {
-      await page.goto(`/csat/${TYPE}`, { waitUntil: 'networkidle', timeout: 45_000 });
+      await page.goto(`/admin/kice/${TYPE}`, { waitUntil: 'networkidle', timeout: 45_000 });
       const onFail = page.locator('summary', { hasText: '여기서 막히면' });
       const n = await onFail.count();
       expect(n, '「막히면」 손잡이가 하나도 없다').toBeGreaterThan(0);
@@ -302,7 +305,7 @@ test.describe('기출 분석 — 허브·유형·계획', () => {
 
     test('유형 화면도 390px 에서 밀리지 않고 44px 를 지킨다', async ({ page }) => {
       await page.setViewportSize({ width: 390, height: 844 });
-      await page.goto(`/csat/${TYPE}`, { waitUntil: 'networkidle', timeout: 45_000 });
+      await page.goto(`/admin/kice/${TYPE}`, { waitUntil: 'networkidle', timeout: 45_000 });
       const overflow = await page.evaluate(
         () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
       );
@@ -317,7 +320,7 @@ test.describe('기출 분석 — 허브·유형·계획', () => {
     for (const theme of ['light', 'dark'] as const) {
       test(`유형 화면 ${theme} axe WCAG2 A/AA 위반 0`, async ({ page }) => {
         await page.setViewportSize(FOLD);
-        await page.goto(`/csat/${TYPE}`, { waitUntil: 'networkidle', timeout: 45_000 });
+        await page.goto(`/admin/kice/${TYPE}`, { waitUntil: 'networkidle', timeout: 45_000 });
         await page.evaluate((t) => {
           document.documentElement.setAttribute('data-theme', t);
           localStorage.setItem('vocaflow-theme', t);
@@ -337,7 +340,7 @@ test.describe('기출 분석 — 허브·유형·계획', () => {
   test.describe('계획 화면 — 시간이 몇 번에서 바닥나는가', () => {
     test('띠가 접힌 위에 있고 칸 수가 문항 수와 맞는다', async ({ page }) => {
       await page.setViewportSize(FOLD);
-      await page.goto('/csat/plan', { waitUntil: 'networkidle', timeout: 45_000 });
+      await page.goto('/admin/kice/plan', { waitUntil: 'networkidle', timeout: 45_000 });
 
       const bar = page.locator('[data-proof="plan-timeline"]');
       await expect(bar).toBeVisible();
@@ -369,7 +372,7 @@ test.describe('기출 분석 — 허브·유형·계획', () => {
 
     test('속도를 바꾸면 띠가 다시 그려진다 — 네트워크 왕복 없이', async ({ page }) => {
       await page.setViewportSize(FOLD);
-      await page.goto('/csat/plan', { waitUntil: 'networkidle', timeout: 45_000 });
+      await page.goto('/admin/kice/plan', { waitUntil: 'networkidle', timeout: 45_000 });
 
       const heading = page.locator('#plan-time-h');
       const before = (await heading.textContent()) ?? '';
@@ -405,9 +408,9 @@ test.describe('기출 분석 — 허브·유형·계획', () => {
 
     test('「내 약한 것 먼저」가 줄을 다시 세우고, 시험 순서가 아님을 말한다', async ({ page }) => {
       await page.setViewportSize(FOLD);
-      await page.goto('/csat/plan', { waitUntil: 'networkidle', timeout: 60_000 });
+      await page.goto('/admin/kice/plan', { waitUntil: 'networkidle', timeout: 60_000 });
 
-      const list = page.locator('ol').filter({ has: page.locator('a[href^="/csat/R-"], a[href^="/csat/X-"]') });
+      const list = page.locator('ol').filter({ has: page.locator('a[href^="/admin/kice/R-"], a[href^="/admin/kice/X-"]') });
       const nos = () => list.locator('> li').evaluateAll((els) => els.map((e) => (e.textContent || '').trim().slice(0, 4)));
 
       const chip = page.getByRole('button', { name: '내 약한 것 먼저' });
@@ -440,7 +443,7 @@ test.describe('기출 분석 — 허브·유형·계획', () => {
 
     test('계획 화면도 390px 에서 밀리지 않고 44px 를 지킨다', async ({ page }) => {
       await page.setViewportSize({ width: 390, height: 844 });
-      await page.goto('/csat/plan', { waitUntil: 'networkidle', timeout: 45_000 });
+      await page.goto('/admin/kice/plan', { waitUntil: 'networkidle', timeout: 45_000 });
       const overflow = await page.evaluate(
         () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
       );
@@ -455,7 +458,7 @@ test.describe('기출 분석 — 허브·유형·계획', () => {
     for (const theme of ['light', 'dark'] as const) {
       test(`계획 화면 ${theme} axe WCAG2 A/AA 위반 0`, async ({ page }) => {
         await page.setViewportSize(FOLD);
-        await page.goto('/csat/plan', { waitUntil: 'networkidle', timeout: 45_000 });
+        await page.goto('/admin/kice/plan', { waitUntil: 'networkidle', timeout: 45_000 });
         await page.evaluate((t) => {
           document.documentElement.setAttribute('data-theme', t);
           localStorage.setItem('vocaflow-theme', t);
@@ -466,159 +469,14 @@ test.describe('기출 분석 — 허브·유형·계획', () => {
     }
   });
 
-  // ── 훈련 화면 ───────────────────────────────────────────────────────
-  // 이 화면이 무너지는 방식은 「안 돌아간다」가 아니라 **「돌아가는데 아무것도 안 잰다」**다:
-  // 답을 골라도 채점이 안 되거나, 정답이 보기에 없거나, 서버·클라이언트 보기 순서가 어긋나거나.
-  test.describe('훈련 화면 — 인출이 실제로 일어나는가', () => {
-    test('여덟 문제가 있고 보기가 넷이며 답을 고르면 채점된다', async ({ page }) => {
-      const errors: string[] = [];
-      page.on('console', (m) => {
-        if (m.type() === 'error') errors.push(m.text());
-      });
-
-      await page.setViewportSize(FOLD);
-      await page.goto('/csat/drill', { waitUntil: 'networkidle', timeout: 60_000 });
-
-      await expect(page.getByRole('heading', { level: 1, name: '오답 감별 훈련' })).toBeVisible();
-      // 문제 한 장이 보이고 보기가 넷이다.
-      await expect(page.locator('article')).toBeVisible();
-      const options = page.locator('ul.grid button');
-      await expect(options).toHaveCount(4);
-
-      // **아무것도 안 고른 상태에서 정답이 드러나 있으면 안 된다.**
-      expect(await page.locator('text=잡는 법').count(), '고르기 전에 답이 보인다').toBe(0);
-
-      await options.first().click();
-      // 채점 결과가 뜬다 — 맞든 틀리든 `role="status"` 한 덩어리.
-      await expect(page.locator('[role="status"]')).toBeVisible();
-      // 고른 뒤에는 보기가 잠긴다 — 답을 바꿔 가며 찍으면 인출이 아니다.
-      expect(await page.locator('ul.grid button:not([disabled])').count(), '고른 뒤에도 보기를 누를 수 있다').toBe(
-        0,
-      );
-      await expect(page.getByRole('button', { name: /다음|결과 보기/ })).toBeVisible();
-
-      expect(
-        errors.filter(
-          (e) =>
-            !/favicon|ResizeObserver|Download the React DevTools/i.test(e) &&
-            !/fast ?refresh|hot-reloader|hot update|webpack-internal/i.test(e),
-        ),
-        '콘솔 에러',
-      ).toEqual([]);
-    });
-
-    test('여덟 개를 끝까지 풀면 결과가 나오고 기록이 남는다', async ({ page }) => {
-      await page.setViewportSize(FOLD);
-      await page.goto('/csat/drill', { waitUntil: 'networkidle', timeout: 60_000 });
-
-      for (let i = 0; i < 8; i++) {
-        await page.locator('ul.grid button').first().click();
-        await page.getByRole('button', { name: /다음|결과 보기/ }).click();
-      }
-
-      await expect(page.getByText(/8개 중 \d개를 맞혔어요/)).toBeVisible();
-      // **화면이 기록에 대해 하는 말이 사실이어야 한다.** 둘 중 하나가 떠야 하고,
-      // 「저장됐다」가 떴으면 아래 `/csat` 의 「내 기록」 칩으로 실제 확인한다.
-      const saved = page.getByText(/기록은 문제마다 남았어요/);
-      const failed = page.getByText(/기록에 남기지 못했어요/);
-      await expect(saved.or(failed)).toBeVisible();
-      // 막다른 화면을 만들지 않는다(D5).
-      await expect(page.getByRole('link', { name: /여덟 개 더/ })).toBeVisible();
-
-      if (await saved.isVisible()) {
-        // 지도에 「내 기록」 칩이 생겼는가 — 이 한 줄이 ④가 실제로 붙었다는 유일한 증거다.
-        await page.goto('/csat', { waitUntil: 'networkidle', timeout: 45_000 });
-        const chip = page.getByRole('button', { name: /내 기록/ });
-        await expect(chip, '훈련을 했는데 지도에 「내 기록」 칩이 없다').toBeVisible();
-
-        // 눌러서 **같은 막대가 내 오답으로 다시 세어지는가**.
-        const before = await rows(page);
-        await chip.click();
-        await expect.poll(async () => (await rows(page)).join('|'), { timeout: 2_000 }).not.toBe(before.join('|'));
-
-        // ⚠️ 표본이 얇을 때 **분포라고 부르지 않는다** — 그 약속이 화면에 남아 있는지 본다.
-        await expect(page.getByText(/분포라고 부르기엔 일러요|수법별로 센 것입니다/)).toBeVisible();
-      }
-    });
-
-    test('기록이 세트를 고르면 화면이 그렇다고 말하고, 말과 표시가 맞는다', async ({ page }) => {
-      // 검증 계정은 여러 실행이 공유하므로 기록 상태가 변한다. 그래서 「무엇이 나오나」가 아니라
-      // **화면이 한 말과 실제 표시가 서로 맞는가**를 본다 — 그게 틀리면 학습자는 같은 문제가
-      // 또 나온 이유를 모르거나, 없는 이유를 듣는다.
-      await page.setViewportSize(FOLD);
-      await page.goto('/csat/drill?set=e2e-feedback', { waitUntil: 'networkidle', timeout: 60_000 });
-
-      const why = page.locator('p', { hasText: '내 기록을 보고 골랐어요' });
-      const tag = page.getByText('다시 보기 · 지난번 놓친 문제');
-      const hasWhy = (await why.count()) > 0;
-      const tagged = await tag.count();
-
-      if (!hasWhy) {
-        // 설명이 없으면 **되돌아온 표시도 없어야** 한다 — 표시만 있고 이유가 없으면 버그처럼 읽힌다.
-        expect(tagged, '설명 없이 「다시 보기」 표시가 떴다').toBe(0);
-        return;
-      }
-      const text = (await why.first().textContent()) ?? '';
-      expect(text, '설명은 떴는데 무엇 때문인지 안 말한다').toMatch(/다시 나옵니다|자주 놓치는 수법/);
-      // 첫 카드에 「다시 보기」가 붙었으면 설명이 되돌아온 문제를 말해야 한다.
-      if (tagged > 0) expect(text).toMatch(/다시 나옵니다/);
-
-      // **여덟 문제를 다 풀었을 때 되돌아온 카드 수가 설명의 수와 같다.**
-      const said = Number(text.match(/놓친 문제 (\d+)개/)?.[1] ?? '0');
-      let seen = 0;
-      for (let i = 0; i < 8; i++) {
-        if ((await tag.count()) > 0) seen += 1;
-        await page.locator('ul.grid button').first().click();
-        await page.getByRole('button', { name: /다음|결과 보기/ }).click();
-      }
-      expect(seen, `설명은 ${said}개라 했는데 「다시 보기」가 ${seen}번 떴다`).toBe(said);
-    });
-
-    test('허브에서 훈련으로 가는 문이 있다', async ({ page }) => {
-      // 도달할 수 없는 화면은 없는 화면이다 — `/csat/overlay` 가 이미 그렇게 묻혔다.
-      await page.goto('/csat', { waitUntil: 'networkidle', timeout: 45_000 });
-      const link = page.getByRole('link', { name: /오답 감별 훈련/ });
-      await expect(link).toBeVisible();
-      await link.click();
-      await page.waitForURL(/\/csat\/drill/, { timeout: 30_000 });
-    });
-
-    test('훈련 화면도 390px 에서 밀리지 않고 44px 를 지킨다', async ({ page }) => {
-      await page.setViewportSize({ width: 390, height: 844 });
-      await page.goto('/csat/drill', { waitUntil: 'networkidle', timeout: 60_000 });
-      const overflow = await page.evaluate(
-        () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
-      );
-      expect(overflow, `390px 에서 가로로 ${overflow}px 밀린다`).toBeLessThanOrEqual(1);
-      const offenders = await page.evaluate(scanTapTargets, {
-        min: TAP_MIN,
-        minTextWidth: TAP_MIN_TEXT_WIDTH,
-      });
-      expect(offenders.map(describeOffender), '터치 타깃 규칙 위반').toEqual([]);
-    });
-
-    for (const theme of ['light', 'dark'] as const) {
-      test(`훈련 화면 ${theme} axe WCAG2 A/AA 위반 0`, async ({ page }) => {
-        await page.setViewportSize(FOLD);
-        await page.goto('/csat/drill', { waitUntil: 'networkidle', timeout: 60_000 });
-        await page.evaluate((t) => {
-          document.documentElement.setAttribute('data-theme', t);
-          localStorage.setItem('vocaflow-theme', t);
-        }, theme);
-        await page.waitForTimeout(500);
-        // 답을 고른 뒤(정답/오답 피드백이 뜬 상태)도 함께 본다 — 그때만 나오는 색이 있다.
-        await page.locator('ul.grid button').first().click();
-        await page.waitForTimeout(400);
-        expect(await axeViolations(page), `${theme} axe 위반`).toEqual([]);
-      });
-    }
-  });
+  // 훈련 화면(`/csat/drill`)은 2026-09-17 학습자 재설계로 걷었다 — 세션 루프가 대체한다
+  // (docs/csat-learner/DECISIONS.md D8 · 회귀는 `47-csat-session.spec.ts`).
 
   test.describe('axe — 라이트·다크', () => {
     for (const theme of ['light', 'dark'] as const) {
       test(`${theme} 테마 WCAG2 A/AA 위반 0`, async ({ page }) => {
         await page.setViewportSize(FOLD);
-        await page.goto('/csat', { waitUntil: 'networkidle', timeout: 45_000 });
+        await page.goto('/admin/kice', { waitUntil: 'networkidle', timeout: 45_000 });
         await page.evaluate((t) => {
           document.documentElement.setAttribute('data-theme', t);
           localStorage.setItem('vocaflow-theme', t);

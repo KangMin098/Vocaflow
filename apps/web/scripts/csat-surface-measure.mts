@@ -32,16 +32,15 @@ const STATE = path.resolve('playwright-auth/.auth-csat-measure.json')
 
 /** 재는 화면. 유형은 리포트가 가장 두꺼운 것 · 중간 · 가장 얇은 것 셋을 고른다. */
 const ROUTES = [
-  { path: '/csat', label: '허브' },
-  { path: '/csat/R-BLANK', label: '유형(최대)' },
-  { path: '/csat/R-ORDER', label: '유형(중간)' },
-  { path: '/csat/X-BLANK2', label: '유형(최소)' },
-  { path: '/csat/item/M2309-42', label: '문항' },
-  { path: '/csat/plan', label: '계획' },
-  { path: '/csat/drill', label: '훈련' },
+  { path: '/admin/kice', label: '허브' },
+  { path: '/admin/kice/R-BLANK', label: '유형(최대)' },
+  { path: '/admin/kice/R-ORDER', label: '유형(중간)' },
+  { path: '/admin/kice/X-BLANK2', label: '유형(최소)' },
+  { path: '/admin/kice/item/M2309-42', label: '문항' },
+  { path: '/admin/kice/plan', label: '계획' },
   // 2026-09-16 에 붙은 둘. 안 재면 표가 화면 수보다 짧아지고, 그 차이는 조용하다.
-  { path: '/csat/map', label: '지형' },
-  { path: '/csat/predict', label: '사정권' },
+  { path: '/admin/kice/map', label: '지형' },
+  { path: '/admin/kice/predict', label: '사정권' },
 ]
 
 export interface SurfaceMetric {

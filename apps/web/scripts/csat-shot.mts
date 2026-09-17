@@ -3,7 +3,7 @@
 // 화면을 눈으로 보기 위한 캡처 — 측정(`csat-surface-measure.mts`)과 짝이다.
 // 수치가 좋아져도 화면이 깨져 있을 수 있으므로, 사이클마다 둘 다 본다.
 //
-//   npx tsx scripts/csat-shot.mts /csat [/csat/R-BLANK …]
+//   npx tsx scripts/csat-shot.mts /csat [/admin/kice/R-BLANK …]
 
 import fs from 'node:fs'
 import path from 'node:path'

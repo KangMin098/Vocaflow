@@ -74,7 +74,7 @@ async function read(page: Page): Promise<Probe | null> {
 
 async function playOne(name: BrowserName, page: Page, itemId: string, shoot: boolean) {
   const slug = itemId.replace('#', '-')
-  await page.goto(`${BASE}/csat/item/${slug}?lecture-debug=1`, { waitUntil: 'domcontentloaded', timeout: 180_000 })
+  await page.goto(`${BASE}/admin/kice/item/${slug}?lecture-debug=1`, { waitUntil: 'domcontentloaded', timeout: 180_000 })
   const bar = page.locator('[data-lecture-bar]')
   await bar.waitFor({ timeout: 60_000 })
   // 목소리 판정이 끝날 때까지 — 버튼 문구가 바뀐다

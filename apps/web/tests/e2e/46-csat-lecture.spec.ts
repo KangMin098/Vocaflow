@@ -71,7 +71,7 @@ test.describe('해설 강의', () => {
       if (m.type() === 'error') errors.push(m.text())
     })
     await page.setViewportSize({ width: 375, height: 812 })
-    await page.goto('/csat/item/M2706-34?lecture-debug=1&lecture-silent=1', { waitUntil: 'domcontentloaded' })
+    await page.goto('/admin/kice/item/M2706-34?lecture-debug=1&lecture-silent=1', { waitUntil: 'domcontentloaded' })
 
     const bar = page.locator('[data-lecture-bar]')
     await expect(bar).toBeVisible({ timeout: 60_000 })
@@ -116,7 +116,7 @@ test.describe('해설 강의', () => {
   test('④ 서버 HTML 에 대본이 없다 (파일럿 여섯)', async ({ request }) => {
     test.setTimeout(240_000)
     for (const id of PILOT) {
-      const res = await request.get(`/csat/item/${id.replace('#', '-')}`)
+      const res = await request.get(`/admin/kice/item/${id.replace('#', '-')}`)
       expect(res.status()).toBe(200)
       const html = await res.text()
       expect(html, `${id}: 재생 바가 없다`).toContain('data-lecture-bar')
@@ -127,7 +127,7 @@ test.describe('해설 강의', () => {
 
   test('⑤ 설명 블록을 누르면 그 블록을 설명하는 큐로 간다', async ({ page }) => {
     test.setTimeout(120_000)
-    await page.goto('/csat/item/M2706-31?lecture-debug=1&lecture-silent=1', { waitUntil: 'domcontentloaded' })
+    await page.goto('/admin/kice/item/M2706-31?lecture-debug=1&lecture-silent=1', { waitUntil: 'domcontentloaded' })
     const bar = page.locator('[data-lecture-bar]')
     await expect(bar).toBeVisible({ timeout: 60_000 })
     await bar.getByRole('button', { name: /하이라이트만 보기/ }).click()

@@ -1,6 +1,6 @@
 // apps/web/src/lib/csat/__tests__/axes-steps.test.ts
 //
-// **두 축이 합쳐지는 것과, 단계가 조용히 끊기는 것을 막는다.**
+// **두 축이 합쳐지는 것을 막는다.** (학습자 단계 레일 `steps.ts` 는 2026-09-17 학습자 재설계로 걷었다 — docs/csat-learner/DECISIONS.md D8)
 //
 // 이 두 모델은 화면 다섯이 함께 읽는다. 틀리면 화면마다 다른 색·다른 순서를 말하는데,
 // 그건 스타일 문제로 보여서 아무도 버그로 신고하지 않는다. 그래서 여기서 잠근다.
@@ -8,7 +8,6 @@
 import { describe, expect, it } from 'vitest'
 
 import { AXIS, DENSITY_STEPS, densityBg, densityFg, densityStep } from '../axes'
-import { CSAT_STEPS, readySteps, stepFor } from '../steps'
 
 describe('두 축은 절대 합치지 않는다', () => {
   it('형식과 소재는 다른 색·다른 기호를 쓴다', () => {
@@ -79,89 +78,3 @@ describe('히트맵 농도', () => {
   })
 })
 
-describe('단계 — 있는 문을 없다고 말하지 않는다', () => {
-  it('번호가 1부터 빠짐없이 이어진다', () => {
-    expect(CSAT_STEPS.map((s) => s.no)).toEqual(CSAT_STEPS.map((_, i) => i + 1))
-  })
-
-  it('모든 단계에 학습자의 동사가 있다 — 없으면 그 화면은 문서다', () => {
-    for (const s of CSAT_STEPS) {
-      expect(s.verb.length, `${s.no} ${s.label}`).toBeGreaterThan(0)
-      expect(s.says.length, `${s.no} ${s.label}`).toBeGreaterThan(0)
-    }
-  })
-
-  it('안 지은 단계만 링크가 없다', () => {
-    for (const s of CSAT_STEPS) {
-      if (s.state === 'later') expect(s.href, `${s.no}`).toBeNull()
-      else expect(s.href, `${s.no}`).toBeTruthy()
-    }
-  })
-
-  /**
-   * ⚠️ **later 칸을 함부로 두지 않는다.** 「아직 없다」고 적은 것이 이미 돌고 있던 일이
-   *   이 파일에서 두 번 났다(⑥ 훈련 · ⑦ 내 기록). 지금은 later 가 0 이고, 다시 넣으려면
-   *   이 검사를 손대야 한다 — 그때 «정말 아직인가» 를 저장소·DB 로 확인하게 만드는 것이
-   *   이 검사의 목적이다.
-   */
-  it('지금 later 칸은 없다 — 넣으려면 근거를 다시 확인할 것', () => {
-    expect(CSAT_STEPS.filter((s) => s.state === 'later')).toEqual([])
-  })
-
-  /**
-   * ⚠️ **이 검사가 실제 결함을 잡으라고 있다.** 첫 판 레일은 브리프의 7단계를 실제 화면을
-   *   안 보고 옮겨서, `/csat/drill` 이 있는데도 「훈련 — 아직 열리지 않음」이라 적었고
-   *   `/csat/plan` 은 통째로 빠뜨렸다(실측 2026-09-16). 레일은 「어디로 갈까」에 답하는
-   *   줄인데 **있는 문을 없다고 말한 것**이다.
-   *   그래서 이름을 맞춰 보는 대신 **파일 시스템에 그 라우트가 있는지** 본다.
-   */
-  it('열린 단계의 href 는 전부 실재하는 라우트다', async () => {
-    const fs = await import('node:fs')
-    const path = await import('node:path')
-    const root = path.resolve(__dirname, '../../../app/(main)')
-    for (const s of readySteps()) {
-      const dir = path.join(root, s.href!.replace(/^\//, ''))
-      const ok = fs.existsSync(path.join(dir, 'page.tsx'))
-      expect(ok, `${s.no} ${s.label} → ${s.href} 에 page.tsx 가 없다`).toBe(true)
-    }
-  })
-
-  /** 반대 방향 — 있는 화면을 레일이 빠뜨리지 않았는가. 드릴다운·도구는 뺀다. */
-  it('입구가 될 만한 라우트를 레일이 빠뜨리지 않았다', async () => {
-    const fs = await import('node:fs')
-    const path = await import('node:path')
-    const root = path.resolve(__dirname, '../../../app/(main)/csat')
-    /** 레일에 안 넣기로 한 것 — 이유는 `steps.ts` 목록 주석에 적혀 있다. */
-    const NOT_A_STEP = new Set(['item', 'overlay'])
-    const dirs = fs
-      .readdirSync(root, { withFileTypes: true })
-      .filter((d) => d.isDirectory() && !d.name.startsWith('[') && !d.name.startsWith('_'))
-      .map((d) => d.name)
-      .filter((n) => !NOT_A_STEP.has(n) && n !== '__tests__')
-
-    const linked = new Set(CSAT_STEPS.map((s) => s.href).filter(Boolean) as string[])
-    for (const d of dirs) {
-      expect(linked.has(`/csat/${d}`), `/csat/${d} 가 레일에 없다`).toBe(true)
-    }
-  })
-})
-
-describe('현재 위치 판정', () => {
-  it('허브는 정확히 일치할 때만 ① 이다 — 두 칸이 동시에 켜지지 않는다', () => {
-    expect(stepFor('/csat')?.no).toBe(1)
-    expect(stepFor('/csat/map')?.no).toBe(2)
-  })
-
-  it('하위 경로도 그 단계로 센다', () => {
-    expect(stepFor('/csat/map/2024')?.no).toBe(2)
-  })
-
-  it('드릴다운 목적지는 어느 단계도 아니다 — 레일이 켜지지 않는다', () => {
-    expect(stepFor('/csat/item/2024-34')).toBeNull()
-    expect(stepFor('/csat/overlay')).toBeNull()
-  })
-
-  it('모르는 경로는 null', () => {
-    expect(stepFor('/dashboard')).toBeNull()
-  })
-})
