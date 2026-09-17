@@ -10,7 +10,9 @@
 //   ⑤ 문장 단추가 문단을 끊지 않는다 — `display: inline`(버튼이면 inline-block 이라 문장마다 줄이 바뀐다)
 //   ⑥ [헷갈려요] 뒤 끝 화면이 「다음 복습」을 말한다
 //
-//   · 계정: runtime-test-0705@vocaflow.dev · 기록은 **브라우저 IndexedDB** 에만 쓴다(DB 쓰기 없음)
+//   ⑦ 기록이 기기와 **서버**(`csat_session_attempts` · `csat_review_queue`)에 남는다
+//
+//   · 계정: runtime-test-0705@vocaflow.dev · 시작 때 이 계정의 기출 세션 기록을 지운다(자기 행만 · RLS)
 //
 // ⚠️ 원본 PDF 는 저장소에 없다(평가원 저작물). 없으면 **소리 내어** 건너뛴다.
 
@@ -38,7 +40,8 @@ test.describe('기출 세션 — 한 문항 = 한 화면', () => {
     const errors: string[] = [];
     page.on('pageerror', (e) => errors.push(e.message));
 
-    // 깨끗한 기기
+    // 깨끗한 기기 — 서버 기록도(읽을 때 기기 기록과 합쳐진다)
+    await page.request.delete('/api/csat/session/record');
     await page.goto('/csat/progress', { waitUntil: 'domcontentloaded', timeout: 120_000 });
     await page.evaluate(
       () =>
@@ -101,6 +104,15 @@ test.describe('기출 세션 — 한 문항 = 한 화면', () => {
     // ⑥ 헷갈려요 → 끝 화면
     await page.getByTestId('mark-confused').click();
     await expect(page.getByTestId('finish')).toContainText('다음 복습');
+
+    // ⑦ 서버에도 남았다 — 다른 기기에서 복습 큐가 따라온다
+    await expect
+      .poll(async () => {
+        const res = await page.request.get('/api/csat/session/record');
+        const json = (await res.json()) as { attempts?: { item_id: string; confused: boolean }[] };
+        return (json.attempts ?? []).filter((a) => a.item_id === '2026#18' && a.confused).length;
+      }, { timeout: 10_000 })
+      .toBe(1);
     expect(errors, errors.join('\n')).toEqual([]);
   });
 });

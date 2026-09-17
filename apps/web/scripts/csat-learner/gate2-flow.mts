@@ -85,7 +85,8 @@ page.on('console', (m) => {
   if (m.type() === 'error') errors.push(m.text())
 })
 
-// 깨끗한 기기에서 시작 — 기록·추출본을 지운다
+// 깨끗한 기기에서 시작 — 기록·추출본을 지운다(서버 기록도 — 기기 기록과 합쳐진다)
+await page.request.delete(`${BASE}/api/csat/session/record`)
 await page.goto(`${BASE}/csat/progress`, { waitUntil: 'domcontentloaded', timeout: 180_000 })
 await page.evaluate(
   () =>

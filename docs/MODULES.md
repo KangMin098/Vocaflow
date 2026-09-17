@@ -1048,12 +1048,12 @@ gamekit 을 쓰지 않는 게임(WordBlitz · Pirate's Bounty)은 `GameKitStyles
 | 문장 위 표식 | [`session/passage-model.ts`](../apps/web/src/lib/csat/session/passage-model.ts)(순수) — 인용을 reflow 지문에서 직접 찾고, 못 찾으면 골격 번호를 정렬로 옮긴다. 못 붙인 앵커는 `unplaced` 로 돌려준다 |
 | 짧게 내놓기 | [`session/text.ts`](../apps/web/src/lib/csat/session/text.ts) — 설명 ≤ 3문장 · 「한 줄」 = 유형 첫 절차의 첫 절(괄호는 걷고 자르지 않는다) |
 | 서버 | [`session/catalog.ts`](../apps/web/src/lib/csat/session/catalog.ts)(글자 없는 후보 589 · 프로세스 캐시 10분) · [`session/reveal.ts`](../apps/web/src/lib/csat/session/reveal.ts)(답 뒤에만) |
-| 기기 저장 | [`session/store.ts`](../apps/web/src/lib/csat/session/store.ts) — IndexedDB `vocaflow-csat`(record · papers). **원본 바이트 없음.** 실패하면 메모리로. 서버 저장은 `_pending_csat_session_records.sql`(승인 대기) |
+| 기록 저장 | [`session/store.ts`](../apps/web/src/lib/csat/session/store.ts) — **기기 먼저, 서버 뒤.** IndexedDB `vocaflow-csat`(record · papers · 원본 바이트 없음 · 실패하면 메모리) → `POST /api/csat/session/record`. 읽을 때 서버와 합친다 · [`session/sync.ts`](../apps/web/src/lib/csat/session/sync.ts)(순수 — 풀이 합치기 · **복습 큐는 다시 돌려 계산** · API 입력 검사). 표 `csat_session_attempts` · `csat_review_queue`(마이그레이션 `20260917200000`) |
 | 화면 | [`components/csat/session/`](../apps/web/src/components/csat/session/) — `SessionHome`(카드 1 · 온보딩 1) · `PaperDrop`(받기/놓기 · 회차 고르기) · `SessionRunner`(순서 · 끝 화면) · `ItemScreen`(①②③) · `ReflowPassage`(문단을 열린 문장에서 쪼개 **바로 아래** 설명) · `ProgressView`(숫자 3 + 막대) · `session.module.css`(모션 2곳 · 150ms) |
 | 색 셋 | 정답 `--success` + ✓ · 고른 오답 `--learn-error`(흑연) + ✕ · 근거 `--ju` 밑줄(점선 = 오답 자리 · 물결 = 함정 자리는 무채색). 주 버튼은 먹색 채움 하나 |
 | 강의 | `LectureStage` 를 ② 이해에 그대로 — 타깃 `analysis:head/answer/reject:n/map/ability/intent/procedure/vocab` · `anchor:sentence:k`(정렬로 붙임) |
-| 계측 | `csat_session_started/answered/explained/marked/finished` · `csat_paper_read`(= reflow 실패율) — 허용 목록 마이그레이션 `20260917190000`(**적용 승인 대기**). 옛 `csat_overlay_*` · `csat_drill_*` 는 은퇴(DB 목록엔 남김) |
-| 회귀 | 순수 27(`session/model` 20 · `text` 7) + reflow 합성 조각(`reflow.test.ts`) + 런타임 1(`tests/e2e/47-csat-session.spec.ts`) · 게이트 하네스 `scripts/csat-learner/gate{1,2,3}-*.mts` |
+| 계측 | `csat_session_started/answered/explained/marked/finished` · `csat_paper_read`(= reflow 실패율) — 허용 목록 마이그레이션 `20260917190000`(2026-09-17 적용). 옛 `csat_overlay_*` · `csat_drill_*` 는 은퇴(DB 목록엔 남김) |
+| 회귀 | 순수 35(`session/model` 20 · `text` 7 · `sync` 8) + reflow 합성 조각(`reflow.test.ts`) + 런타임 1(`tests/e2e/47-csat-session.spec.ts`) · 게이트 하네스 `scripts/csat-learner/gate{1,2,3}-*.mts` |
 
 **실측 (2026-09-17)** — Gate 1 전 회차 802문항: 경계 **100%** · 텍스트 99.5% · 문장 앵커 98.9% · 인용 자리 99.5% ·
 reflow 선지 100%(DB 쪽 잡음 68건 분리). Gate 2(375px): 제출 전 해설 DOM 0 · 본문 18px · 선지 ≥48px · 가로 넘침 0.

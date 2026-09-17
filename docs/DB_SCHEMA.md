@@ -12,6 +12,19 @@
 - 주요 계열 — CTP 3종 `reading_fluency_log`·`csat_stage_gates`·`csat_item_attempts` · 추출신뢰 `word_familiarity` · 어원 `word_roots`·`word_root_links` · 추출품질 `extraction_judgments`
 - 이전 기재(테이블 77 · view 7 · 함수 262 · migrations 72+)는 실측과 어긋나 있었다. **이 요약은 DB 쿼리로 재생성 가능한 값만 적는다.**
 
+### 🧭 기출 학습자 세션 기록 (2026-09-17, migration `20260917200000_csat_session_records` · 계측 `20260917190000`)
+
+학습자 `/csat` 세션 루프(docs/csat-learner-brief.md)의 풀이 기록. 기기(IndexedDB)가 먼저 쓰고 `POST /api/csat/session/record` 로 올린다.
+
+| 표 | 열 | 제약 · 정책 |
+|---|---|---|
+| `csat_session_attempts` | `id` uuid PK · `user_id` → auth.users · `item_id` text(`2026#31`) · `type_id` · `correct` bool(null = 넘김) · `confused` · `sec` · `answered_at` | **UNIQUE `(user_id, item_id, answered_at)`** — 재전송·두 탭이 겹쳐도 한 행. 인덱스 `(user_id, answered_at DESC)` |
+| `csat_review_queue` | PK `(user_id, item_id)` · `type_id` · `due_at` · `stage` 1\|2 · `updated_at` | 졸업하면 행 삭제. **`due_at` 은 코드가 계산한 값** — 합친 풀이를 시간순으로 다시 돌린 결과(`lib/csat/session/sync.ts#replayReviews`). DB 함수로 다시 계산하지 않는다(두 벌 금지) |
+
+두 표 모두 RLS **본인 행만**(`FOR ALL TO authenticated USING user_id = auth.uid()`) · `anon` 권한 회수(보안 권고 후속
+`csat_session_records_revoke_anon`). 기존 `csat_item_attempts`(dcp 문항 uuid)·`csat_trap_attempts`(선지 단위 훈련)와는 다른 단위라 새 표다.
+`funnel_events_event_check` 에 `csat_session_started/answered/explained/marked/finished` · `csat_paper_read` 추가(옛 `csat_overlay_*` · `csat_drill_*` 는 남김).
+
 ### 🧮 관리자 화면의 COUNT 폭주를 접는 두 자리 (2026-09-06)
 
 | 무엇을 | 어디서 | 실측 | 대체한 것 |

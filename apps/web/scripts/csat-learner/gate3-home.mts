@@ -95,6 +95,8 @@ async function freshContext(): Promise<{ ctx: BrowserContext; page: Page; errors
 }
 
 async function resetDevice(page: Page, onboarded: boolean) {
+  // 서버 기록도 지운다 — 읽을 때 기기 기록과 합쳐지므로(온보딩 판정까지 바뀐다)
+  await page.request.delete(`${BASE}/api/csat/session/record`)
   await page.goto(`${BASE}/csat/progress`, { waitUntil: 'domcontentloaded', timeout: 180_000 })
   await page.evaluate(async (ob) => {
     await new Promise<void>((res) => {

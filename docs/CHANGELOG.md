@@ -30,9 +30,13 @@
   `CsatSteps` · `ModePicker` · `OverlayPanel` · `TrapDrill` · `lib/csat/steps.ts` · e2e 44
 - **새 API** — `POST /api/csat/paper`(해시 → 좌표만) · `POST /api/csat/session/reveal`(답 뒤에만 해설)
 - 셸 — `/csat/session` 풀스크린 · `/csat*` 에서 셸 띠 숨김(다른 모듈 CTA 가 주 행동과 겨뤘다) · 세션 머리의 「다른 학습 세션으로 이동」 숨김
-- 계측 6종(`csat_session_*` 5 · `csat_paper_read`) + 허용 목록 마이그레이션 `20260917190000`(**미적용 — 승인 대기**).
-  옛 `csat_overlay_*` 4 · `csat_drill_*` 2 는 코드에서 은퇴(DB 목록엔 남김). 풀이 기록은 지금 **기기(IndexedDB)** 에만 —
-  서버 표 초안 `_pending_csat_session_records.sql`(미적용)
+- 계측 6종(`csat_session_*` 5 · `csat_paper_read`) + 허용 목록 마이그레이션 `20260917190000`(**2026-09-17 적용 — 사용자 승인** ·
+  통합 회귀 `db-allowlist` 통과 · 적용 직후 6건 적재 확인). 옛 `csat_overlay_*` 4 · `csat_drill_*` 2 는 코드에서 은퇴(DB 목록엔 남김)
+- **풀이 기록 서버 저장** — 마이그레이션 `20260917200000_csat_session_records`(**적용 — 사용자 승인**): `csat_session_attempts`
+  (고유 `(user_id,item_id,answered_at)` — 재전송 안전) · `csat_review_queue` · RLS 본인 행만 · anon 권한 회수(보안 권고 후속
+  `csat_session_records_revoke_anon`). 기기가 먼저 쓰고 곧바로 `POST /api/csat/session/record` 로 올리며, 읽을 때 합친다.
+  **복습 큐는 옮기지 않고 합친 풀이를 시간순으로 다시 돌려 만든다**(`lib/csat/session/sync.ts`) — 두 기기가 갈라질 자리가 없다.
+  회귀 `sync` 8 · e2e 47 에 「서버에도 남았다」 단언
 - 곁가지 — 삭제한 라우트의 타입 스텁이 다른 빌드 폴더(`.next-e2e` 등)에 남아 `next build` 가 죽던 것 정리 ·
   옮긴 관리자 화면 링크 6곳 44px · 공유 개발 서버가 지운 모듈을 붙잡고 전 라우트 500 이던 것 재기동으로 복구
 

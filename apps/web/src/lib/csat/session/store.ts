@@ -3,14 +3,15 @@
 // **기기 저장소 — 풀이 기록과 문제지 추출본.** (브라우저 전용)
 //
 // ⚠️ 원본 PDF 바이트는 **저장하지 않는다**(지시문 C7). 남기는 것은 회차별 추출 글과 해시다.
-// ⚠️ 풀이 기록이 여기(기기)에만 있는 것은 **임시 결정**이다(DECISIONS.md D7) — 서버 테이블
-//    마이그레이션이 승인되면 이 인터페이스 뒤에 서버 어댑터를 둔다. 화면은 이 파일의 함수만 부른다.
+// ⚠️ 풀이 기록은 **기기가 먼저, 서버가 뒤**다(DECISIONS.md D18). 기기에 쓰고 곧바로 올리며, 읽을 때
+//    서버와 합친다(`sync.ts`). 서버가 막혀도 세션은 기기 기록으로 돈다. 화면은 이 파일의 함수만 부른다.
 // ⚠️ IndexedDB 는 사생활 모드·저장 차단·미리보기에서 **던질 수 있다.** 모든 호출을 감싸고,
 //    실패하면 메모리로 버틴다 — 화면은 저장이 안 돼도 세션을 끝까지 돈다.
 
 import type { CachedPaper } from '@/lib/csat/reflow/types'
 
-import { EMPTY_RECORD, type LearnerRecord } from './model'
+import { EMPTY_RECORD, type Attempt, type LearnerRecord } from './model'
+import { mergeRecord, unsynced } from './sync'
 
 const DB_NAME = 'vocaflow-csat'
 const DB_VERSION = 1
@@ -55,16 +56,62 @@ async function run<T>(store: string, mode: IDBTransactionMode, fn: (s: IDBObject
   })
 }
 
-export async function loadRecord(): Promise<LearnerRecord> {
+async function loadLocal(): Promise<LearnerRecord> {
   const v = await run<LearnerRecord | undefined>(S_RECORD, 'readonly', (s) => s.get(RECORD_KEY))
-  const rec = v && v.version === 1 ? v : (memory.record ?? EMPTY_RECORD)
-  memory.record = rec
-  return rec
+  return v && v.version === 1 ? v : (memory.record ?? EMPTY_RECORD)
+}
+
+/** 서버 풀이 기록. 못 읽으면 null — 기기 기록만으로 계속 간다(오프라인·서버 지연). */
+async function fetchServer(): Promise<Attempt[] | null> {
+  try {
+    const res = await fetch('/api/csat/session/record', { cache: 'no-store' })
+    if (!res.ok) return null
+    const json = (await res.json()) as { ok: boolean; attempts?: Attempt[] }
+    return json.ok && Array.isArray(json.attempts) ? json.attempts : null
+  } catch {
+    return null
+  }
+}
+
+/** 서버로 올린다 — 실패해도 조용히(다음 loadRecord 가 `unsynced` 로 다시 올린다) */
+async function push(attempts: Attempt[]): Promise<void> {
+  if (!attempts.length) return
+  try {
+    await fetch('/api/csat/session/record', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ attempts }),
+      keepalive: true,
+    })
+  } catch {
+    /* 기기에 남아 있다 */
+  }
+}
+
+/**
+ * 기록 읽기 — 기기 먼저, 서버와 합친다(2026-09-17 서버 표 적용 · DECISIONS D18).
+ * 기기를 바꿔도 복습 큐가 따라온다. 서버에 없는 기기 풀이는 이때 올린다.
+ */
+export async function loadRecord(): Promise<LearnerRecord> {
+  const local = await loadLocal()
+  const server = await fetchServer()
+  if (!server) {
+    memory.record = local
+    return local
+  }
+  const merged = mergeRecord(local, server)
+  memory.record = merged
+  await run(S_RECORD, 'readwrite', (s) => s.put(merged, RECORD_KEY))
+  void push(unsynced(local.attempts, server))
+  return merged
 }
 
 export async function saveRecord(rec: LearnerRecord): Promise<void> {
+  const prev = memory.record
   memory.record = rec
   await run(S_RECORD, 'readwrite', (s) => s.put(rec, RECORD_KEY))
+  // 새로 생긴 풀이만 올린다(온보딩 표시만 바뀐 저장은 서버에 안 간다)
+  await push(unsynced(rec.attempts, prev?.attempts ?? []))
 }
 
 export async function loadPaper(examId: string, version: number): Promise<CachedPaper | null> {
@@ -87,10 +134,15 @@ export async function cachedExamIds(version: number): Promise<string[]> {
   return out
 }
 
-/** 테스트·「기기에서 지우기」용 */
+/** 테스트·「기록 지우기」용 — 기기와 서버 둘 다 */
 export async function clearAll(): Promise<void> {
   memory.record = null
   memory.papers.clear()
+  try {
+    await fetch('/api/csat/session/record', { method: 'DELETE' })
+  } catch {
+    /* 서버 쪽은 다음에 */
+  }
   await run(S_RECORD, 'readwrite', (s) => s.clear())
   await run(S_PAPERS, 'readwrite', (s) => s.clear())
 }

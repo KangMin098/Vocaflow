@@ -43,7 +43,8 @@ const browser = await chromium.launch()
 const ctx = await browser.newContext({ storageState: STATE, viewport: { width: 375, height: 812 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true })
 const page = await ctx.newPage()
 
-// 기기 정리 + 온보딩 끝낸 상태 + 풀이 두 개(기록 화면이 비지 않게)
+// 기기 정리 + 온보딩 끝낸 상태 + 풀이 세 개(기록 화면이 비지 않게) · 서버 기록도 비운다
+await page.request.delete(`${BASE}/api/csat/session/record`)
 await page.goto(`${BASE}/csat/progress`, { waitUntil: 'domcontentloaded', timeout: 120_000 })
 await page.evaluate(async () => {
   await new Promise<void>((res) => {

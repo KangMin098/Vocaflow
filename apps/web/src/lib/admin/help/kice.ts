@@ -32,7 +32,7 @@ export const KICE_HELP: HelpRegistry = {
         },
       ],
       cautions: [
-        '「내 기록」 칩은 옛 훈련 기록(`csat_trap_attempts`)을 읽는다. 새 세션의 풀이 기록은 지금 **학습자 기기(IndexedDB)** 에만 있어 여기 안 잡힌다 — 서버 저장 마이그레이션이 승인되기 전까지는 0 으로 보이는 것이 정상이다.',
+        '「내 기록」 칩과 계획의 「내 약한 것 먼저」는 옛 훈련 기록(`csat_trap_attempts`)을 읽는다. 새 세션의 풀이는 `csat_session_attempts` 에 쌓이지만(2026-09-17~) **이 화면은 아직 그 표를 읽지 않는다** — 훈련 화면이 없어진 뒤로 칩이 비어 보이는 것이 그 때문이다. 세션 기록을 보려면 표를 직접 조회한다.',
       ],
       seeAlso: [{ label: '기출 원천 — 분석 진행', href: '/admin/csat/evidence' }, SEE_SESSION],
     },

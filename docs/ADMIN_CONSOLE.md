@@ -510,8 +510,9 @@ KPI 카드는 §13 StatCard 와 다른 디자인 — delta 변화율 (`▲ 12%`)
 | `/admin/kice/item/[slug]` | 문항 해설 전문 + 강의 재생 — **강의 검수 하네스 경로**(`gate2-play.mts` · e2e 46) | 강의 재생만 |
 | `/admin/kice/map` · `/predict` · `/plan` | 출제 지형 · 사정권 · 한 회차 주파 계획 | 읽기 전용 |
 
-⚠️ 「내 기록」 칩과 계획의 「내 약한 것 먼저」는 옛 훈련 기록(`csat_trap_attempts`)을 읽는다. 새 세션 기록은 지금
-학습자 기기(IndexedDB)에만 있어 여기 안 잡힌다 — 서버 표(`_pending_csat_session_records.sql`) 승인 전까지 정상이다.
+⚠️ 「내 기록」 칩과 계획의 「내 약한 것 먼저」는 옛 훈련 기록(`csat_trap_attempts`)을 읽는다. 새 세션 기록은
+`csat_session_attempts`(2026-09-17 적용)에 쌓이지만 **이 화면들은 아직 그 표를 읽지 않는다** — 옛 훈련이 없어진 뒤로
+칩이 비어 보이는 것은 그 때문이다.
 
 ---
 
