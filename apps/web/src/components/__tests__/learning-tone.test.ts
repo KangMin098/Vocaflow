@@ -321,3 +321,18 @@ describe('v07 — 학습자 판면에 그림문자를 그리지 않는다', () =
     }
   })
 })
+
+describe('v07 — 반짝이(Sparkles)는 우리 표식이 아니다', () => {
+  // 워드마크에서 뺀 「AI 생성 UI 공통 표식」이 학습자 화면 45파일에 56번 남아 있었다(실측 2026-09-17).
+  // 같은 뜻(「여기를 보라」)은 권점 `components/ui/press/Gwonjeom` 이 맡는다 — lucide 와 같은 타입이라
+  // 이름만 바꾸면 된다. 관리자 화면(보라 액센트 체계)과 마케팅 소개면은 이 의뢰의 범위 밖이다.
+  it('학습자 컴포넌트가 lucide Sparkles 를 들이지 않는다', () => {
+    const offenders = FILES.filter(({ path, src }) => {
+      const r = rel(path)
+      if (r.startsWith('components/admin/') || r.startsWith('components/marketing/')) return false
+      const m = src.match(/import\s*\{([^}]*)\}\s*from\s*'lucide-react'/)
+      return !!m && /\bSparkles\b/.test(m[1])
+    }).map(({ path }) => rel(path))
+    expect(offenders, `Sparkles 를 쓴다: ${offenders.join(', ')}`).toEqual([])
+  })
+})
