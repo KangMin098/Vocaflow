@@ -105,7 +105,8 @@ export function BandStrip({ bands }: { bands: BandStock[] }) {
         })}
       </ol>
       <p className="break-keep font-body text-[11px] text-[var(--t3)]">
-        막대는 <strong>조판 풀</strong>이다 — 화면 전용은 집계에서 이미 빠졌다. 높이는 제곱근
+        막대는 <strong>조판 후보</strong>다 — 화면 전용은 빠졌지만 <strong>적격 판정 전</strong>이라,
+        조판기가 실제로 싣는 것은 그중 원문 적격 화면의 「조판 가능」뿐이다. 높이는 제곱근
         눈금이라 작은 밴드도 보인다. <strong>규격 안</strong>은 시중 지문 어수창(40–250어)에
         드는 편수로, 나머지는 조판이 잘라 써야 한다.
       </p>

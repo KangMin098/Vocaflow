@@ -31,6 +31,7 @@ import {
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { createAdminClient } from '@/lib/supabase/admin'
+import eligibilitySnapshot from '@/lib/textbook/source-eligibility-snapshot.json'
 
 import { countItemCells, inventoryFreshnessNote, loadDcpInventory } from './item-count'
 
@@ -171,7 +172,7 @@ export async function loadFactoryLine(): Promise<FactoryLine> {
       db.from('csat_stage_gates').select('stage, metric, threshold, is_locked'),
       // ④ 소재의 분모 — **발행분 뷰가 아니라 재고 스냅샷이다.**
       //   `csat_stage_catalog` 는 양쪽 갈래가 다 `status = published` 라, 그것으로 세던
-      //   562편은 출고분이었다(실측 2026-09-13: 조판 풀은 87,556편). 같은 공장 안에서
+      //   562편은 출고분이었다(실측 2026-09-13: 조판 후보는 87,556편). 같은 공장 안에서
       //   ④ 화면과 이 눈금이 서로 다른 수를 말하지 않도록 **한 스냅샷을 같이 읽는다.**
       db
         .from('csat_source_snapshots')
@@ -360,12 +361,21 @@ export async function loadFactoryLine(): Promise<FactoryLine> {
             unit: 'ratio',
             unmeasuredReason: why,
           },
+          // ── 「조판 풀」이라 부르던 눈금 (2026-09-16 에 이름을 바꿨다) ─────────
+          // 이 수(`pool.n`)는 `ready`·`published` 중 화면 전용을 뺀 것 — **적격 판정 전**이다.
+          // 그런데 조판기(`volume-pool.mjs`)는 기본값(STRICT)에서 **7축 적격을 통과한 원문만**
+          // 싣는다(`적격미달`로 뺀다). 그러니 조판기가 실제로 고르는 풀은 원문 적격 화면의
+          // 「조판 가능」(실측 2026-09-15 30,508)이고, 이 수는 그보다 **2.9배** 크다.
+          // 같은 낱말 「조판」으로 두 수를 부르면 관리자는 재료가 세 배 있다고 읽는다.
+          // 그래서 이 눈금은 **후보**라고 부르고, 조판기가 싣는 수는 노트로 옆에 적는다 —
+          // 노트는 판정에 안 들어가므로 사람이 돌리는 스캔의 낡음이 공정 상태를 흔들지 않는다.
           {
-            label: '조판 풀',
+            label: '조판 후보 원문 (적격 판정 전)',
             num: rollup ? rollup.pool.n : null,
             den: null,
             unit: 'count',
             unmeasuredReason: why,
+            note: `그중 조판기가 싣는 「조판 가능」 ${eligibilitySnapshot.total.composable.toLocaleString()}편 · 원문 적격 스캔 ${new Date(eligibilitySnapshot.measuredAt).toLocaleString('ko-KR', { dateStyle: 'short', timeStyle: 'short' })}`,
           },
         ],
         empty.length

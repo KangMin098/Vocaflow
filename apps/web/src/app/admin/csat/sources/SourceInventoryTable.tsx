@@ -53,7 +53,7 @@ const MIN_SEG_PX = 2
  *   둘은 그냥 충돌한다 — 표를 위로 올리면 순서가 깨지고, 두면 접힌 위에 소스가 없다.
  *   그래서 **표는 제자리에 두고 요약 한 줄만 위로 올린다.** 한 줄이 답하는 것은 셋뿐이다:
  *   원천이 몇이고 · 재고가 얼마고 · **판정이 하나도 없는 원천이 어디인가**.
- *   마지막 것이 이 화면에서 가장 자주 쓰는 신호다(재고는 있는데 조판 풀에 못 들어온다).
+ *   마지막 것이 이 화면에서 가장 자주 쓰는 신호다(재고는 있는데 조판 가능이 못 된다).
  */
 export function SourceInventoryStrip({ panel }: { panel: SourceInventoryPanel }) {
   const total = panel.rows.reduce((n, r) => n + r.total, 0)
@@ -79,7 +79,7 @@ export function SourceInventoryStrip({ panel }: { panel: SourceInventoryPanel })
               .map((r) => `${r.source} ${r.total.toLocaleString()}`)
               .join(' · ')}
           </span>{' '}
-          — 재고는 있는데 조판 풀에 못 들어온다. 아래 「소스별 원문」 표에서 다음 명령을 본다.
+          — 재고는 있는데 조판 가능이 못 된다. 아래 「소스별 원문」 표에서 다음 명령을 본다.
         </>
       ) : null}
     </p>

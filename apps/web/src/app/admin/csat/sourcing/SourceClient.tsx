@@ -133,7 +133,7 @@ export function SourceClient({
                 ? `${emptyBands.map((b) => BAND_KO[b] ?? b).join(' · ')} 는 지문이 0편이다 — 문항을 더 만들어도 안 된다`
                 : '지문으로 채우는 밴드에 모두 재고가 있다'}
               <span className="ml-2 font-body text-[12px] font-[400] text-[var(--t3)]">
-                조판 풀 {rollup.pool.n.toLocaleString()}편 · 규격 안{' '}
+                조판 후보 {rollup.pool.n.toLocaleString()}편(적격 판정 전) · 규격 안{' '}
                 {rollup.pool.inMarket.toLocaleString()}편 · 적재 전체{' '}
                 {rollup.rows.toLocaleString()}편
               </span>

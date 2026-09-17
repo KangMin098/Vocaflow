@@ -127,8 +127,8 @@ function buildStages(panel: SourceEligibilityPanel): Stage[] {
       count: backlog ? backlog.pending : null,
       note: backlog
         // 「분석을 기다린다」도 회귀가 잠근 문구다(§이미 한 일을 다시 시킨다).
-        ? `발췌 ${backlog.total.toLocaleString()}편 중 ${backlog.analyzed.toLocaleString()}편만 분석이 붙었고 ${backlog.pending.toLocaleString()}편이 분석을 기다린다. 분석이 붙어야 조판 풀에 들어온다 — 결정론 경로라 LLM 비용이 없고 편당 약 5초다.`
-        : '분석이 붙어야 조판 풀에 들어온다 — 결정론 경로라 LLM 비용이 없고 편당 약 5초다.',
+        ? `발췌 ${backlog.total.toLocaleString()}편 중 ${backlog.analyzed.toLocaleString()}편만 분석이 붙었고 ${backlog.pending.toLocaleString()}편이 분석을 기다린다. 분석이 붙어야 조판 가능이 될 수 있다 — 결정론 경로라 LLM 비용이 없고 편당 약 5초다.`
+        : '분석이 붙어야 조판 가능이 될 수 있다 — 결정론 경로라 LLM 비용이 없고 편당 약 5초다.',
       command: backlog
         ? `pnpm dlx tsx scripts/acp/process-queue.mjs --feed ${backlog.feed} --commit --limit N`
         : 'pnpm dlx tsx scripts/acp/process-queue.mjs --commit',
@@ -210,7 +210,7 @@ export function NextStepPipeline({ panel }: { panel: SourceEligibilityPanel }) {
       </ol>
 
       <p className="font-body text-[11px] text-[var(--t3)]">
-        ⑤ 까지 가야 조판 풀에 들어온다. <b>병목은 편수가 가장 큰 단계</b>이고 재고가 바뀌면 옮겨간다 —
+        ⑤ 까지 가야 조판 가능이 된다. <b>병목은 편수가 가장 큰 단계</b>이고 재고가 바뀌면 옮겨간다 —
         손으로 고른 값이 아니다. 명령은 전부 <b>읽고 쓰는 것이 갈려 있다</b>: 뽑기·검증은 읽기만 하고,
         적재만 <code>--commit</code> 이 필요하다.
       </p>

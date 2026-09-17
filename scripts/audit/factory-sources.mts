@@ -205,7 +205,9 @@ const pairs: Pair[] = [
       value: eligibility?.total?.composable ?? null,
       at: eligibility?.measuredAt ?? null,
     },
-    note: '④소재의 「조판 풀」과 원문적격의 「조판 가능」이 **다른 것을 센다** — 이름이 같아 관리자가 같은 수로 읽는다',
+    note: '④소재의 「조판 풀」과 원문적격의 「조판 가능」이 **다른 것을 센다** — 이름이 같아 관리자가 같은 수로 읽었다',
+    resolvedBy:
+      'T4(2026-09-16) — ④는 「조판 후보 원문 (적격 판정 전)」으로 부르고 조판기가 싣는 수를 노트로 옆에 적는다. 조판기(STRICT)가 싣는 것은 B 쪽이다. 옛 이름의 복귀는 pool-vocabulary.test 가 막는다',
   }),
   pair({
     id: 'P4-articles',

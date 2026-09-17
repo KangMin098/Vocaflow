@@ -1,5 +1,5 @@
 {
-  "measuredAt": "2026-09-17T00:42:59.774Z",
+  "measuredAt": "2026-09-17T01:01:46.373Z",
   "db": {
     "mvItems": 880247,
     "mvExplained": 875528,
@@ -99,7 +99,7 @@
   "gate2Market": {
     "file": "textbook-publisher-benchmark-volume.json",
     "generatedAt": "2026-09-01T07:33:23.059Z",
-    "ageHours": 377.2,
+    "ageHours": 377.5,
     "bindingPublisher": "EBS",
     "bindingIndex": 1.199,
     "target": 1.2,
@@ -293,7 +293,8 @@
         "value": 30508,
         "at": "2026-09-15T16:23:26.135Z"
       },
-      "note": "④소재의 「조판 풀」과 원문적격의 「조판 가능」이 **다른 것을 센다** — 이름이 같아 관리자가 같은 수로 읽는다",
+      "note": "④소재의 「조판 풀」과 원문적격의 「조판 가능」이 **다른 것을 센다** — 이름이 같아 관리자가 같은 수로 읽었다",
+      "resolvedBy": "T4(2026-09-16) — ④는 「조판 후보 원문 (적격 판정 전)」으로 부르고 조판기가 싣는 수를 노트로 옆에 적는다. 조판기(STRICT)가 싣는 것은 B 쪽이다. 옛 이름의 복귀는 pool-vocabulary.test 가 막는다",
       "deltaPct": 187,
       "verdict": "diverged"
     },
@@ -363,7 +364,7 @@
       "source": "DB csat_source_snapshots",
       "cadence": "cron 18 · 6시간",
       "owner": "cron",
-      "ageHours": 0.4
+      "ageHours": 0.7
     },
     {
       "source": "DB csat_coverage()",
@@ -375,45 +376,45 @@
       "source": "repo source-eligibility-snapshot.json",
       "cadence": "사람이 스캔을 돌려야 갱신 (실측 212초)",
       "owner": "human",
-      "ageHours": 32.3
+      "ageHours": 32.6
     },
     {
       "source": "repo type-inventory-snapshot.json",
       "cadence": "사람이 스캔을 돌려야 갱신",
       "owner": "human",
-      "ageHours": 35.1
+      "ageHours": 35.4
     },
     {
       "source": "repo source-inventory-snapshot.json",
       "cadence": "사람이 스캔을 돌려야 갱신",
       "owner": "human",
-      "ageHours": 32.3
+      "ageHours": 32.6
     },
     {
       "source": "repo item-fill-plan.json",
       "cadence": "사람이 스캔을 돌려야 갱신",
       "owner": "human",
-      "ageHours": 35.6
+      "ageHours": 35.9
     },
     {
       "source": "repo extraction-defect-snapshot.json",
       "cadence": "사람이 스캔을 돌려야 갱신",
       "owner": "human",
-      "ageHours": 37.5
+      "ageHours": 37.8
     },
     {
       "source": "docs/reports/textbook-publisher-benchmark-volume.json",
       "cadence": "사람이 market-benchmark 를 돌려야 갱신",
       "owner": "human",
-      "ageHours": 377.2
+      "ageHours": 377.5
     },
     {
       "source": "docs/reports/textbook-publisher-benchmark.json",
       "cadence": "사람이 market-benchmark 를 돌려야 갱신",
       "owner": "human",
-      "ageHours": 377.1
+      "ageHours": 377.4
     }
   ],
   "divergedCount": 4,
-  "openDivergedCount": 1
+  "openDivergedCount": 0
 }
