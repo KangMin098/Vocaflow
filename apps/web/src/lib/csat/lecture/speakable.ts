@@ -88,6 +88,17 @@ export function segmentIssues(g: LectureSegment): string[] {
   return out
 }
 
+/**
+ * **변환 전** 원고에서만 잡히는 실수 — 고유어 수가 맞는 자리에 아라비아 숫자.
+ * 「3번째」는 기계 변환이 「삼 번째」로 만들어 틀리게 읽힌다. 변환 뒤에는 흔적이 안 남으므로
+ * 적재가 변환 **전에** 이것을 부른다.
+ */
+export function rawNumeralIssues(text: string): string[] {
+  return /[0-9]+[ ]*(번째|개|가지|문장|단락|줄|명|단어|군데|곳)/.test(text)
+    ? ['고유어 수 자리에 아라비아 숫자(「세 번째」처럼 한글로 쓴다)']
+    : []
+}
+
 /** 한국어 문장들로 자른다(낭독 길이·호흡 검사용) */
 export function koSentences(text: string): string[] {
   return text

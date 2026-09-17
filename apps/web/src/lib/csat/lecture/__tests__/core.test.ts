@@ -11,6 +11,7 @@ import { estimateSec, segmentIssues, sinoKorean, speakKo, speakSegments } from '
 import { isValidTarget, lectureTargets } from '../targets'
 import { pickVoice, utterancePlan, type CueOutcome, type TtsAdapter } from '../tts'
 import type { Lecture, LectureCue } from '../types'
+import { spokenHereOrdinals, validateLecture, type ValidateContext } from '../validate'
 
 describe('한자어 수', () => {
   it.each([
@@ -229,5 +230,74 @@ describe('재생 엔진', () => {
     await p.next()
     expect(last!.index).toBe(2)
     p.destroy()
+  })
+})
+
+// ── 검사기 — 파일럿에서 실제로 나온 두 종류 ────────────────────────────────
+
+describe('귀와 눈이 같은 곳 — pointing', () => {
+  it('「여기 N번째 문장」을 읽어 낸다', () => {
+    expect(spokenHereOrdinals('자, 여기 세 번째 문장을 보세요.')).toEqual([3])
+    expect(spokenHereOrdinals('여기, 첫 문장이죠. 그리고 여기 여덟 번째 문장')).toEqual([1, 8])
+    // 「여기」 없이 번호만 말한 것은 가리키기가 아니다
+    expect(spokenHereOrdinals('다섯 번째 문장을 짚어 보세요.')).toEqual([])
+  })
+
+  const ctx: ValidateContext = {
+    targets: lectureTargets({
+      answer: 1,
+      answer_unknown: false,
+      has_ability: true,
+      has_intent: true,
+      distractors: [2],
+      procedure_len: 1,
+      vocab_len: 0,
+      skeleton: { sentences: 8, placedAnchorIds: ['answer'] },
+    }),
+    answer: 1,
+    wrongChoices: [],
+    hasTrapLabels: false,
+    hasVocab: false,
+    analysisTexts: [],
+    sourceTexts: [],
+  }
+  const one = (text: string, target: { kind: 'analysis' | 'anchor'; id: string }): Lecture => ({
+    ...lecture(1),
+    cues: [{ ...cue(1), role: 'evidence', target, segments: [{ lang: 'ko-KR', text }] }],
+  })
+  const codes = (l: Lecture) => validateLecture(l, ctx).issues.map((i) => i.code)
+
+  it('화면이 다른 문장을 켜면 막는다 (파일럿 M2706#34 c5 의 재현)', () => {
+    expect(codes(one('여러분, 여기 두 번째 문장을 보세요.', { kind: 'anchor', id: 'sentence:6' }))).toContain('pointing')
+  })
+  it('분석 블록을 켜 놓고 「여기 N번째 문장」이라 말해도 막는다', () => {
+    expect(codes(one('여러분, 여기 세 번째 문장을 보세요.', { kind: 'analysis', id: 'answer' }))).toContain('pointing')
+  })
+  it('맞게 켜면 통과한다', () => {
+    expect(codes(one('여러분, 여기 두 번째 문장을 보세요.', { kind: 'anchor', id: 'sentence:1' }))).not.toContain('pointing')
+  })
+})
+
+describe('무근거 난이도 판정 — banned', () => {
+  const ctx = {
+    targets: { analysis: ['head', 'answer'], anchor: [], useMap: false },
+    answer: 1,
+    wrongChoices: [],
+    hasTrapLabels: false,
+    hasVocab: false,
+    analysisTexts: [],
+    sourceTexts: [],
+  }
+  const has = (text: string) =>
+    validateLecture(
+      { ...lecture(1), cues: [{ ...cue(1), role: 'evidence', target: { kind: 'analysis', id: 'answer' }, segments: [{ lang: 'ko-KR', text }] }] },
+      ctx,
+    ).issues.some((i) => i.code === 'banned')
+  it('문제에 대한 판정은 막는다', () => {
+    expect(has('여기 보세요. 이 문제는 쉽습니다.')).toBe(true)
+    expect(has('여기, 어려운 문항이죠.')).toBe(true)
+  })
+  it('지문 논리를 풀어 말한 「쉽죠」는 막지 않는다 (파일럿 오탐의 재현)', () => {
+    expect(has('여기 보세요. 속마음이 새면 읽기는 오히려 쉽죠.')).toBe(false)
   })
 })

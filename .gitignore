@@ -194,3 +194,6 @@ scripts/textbook/v5x-*-grade.mjs
 scripts/dict/pending-drain/.tmp-*.json
 scripts/textbook/.patch/
 scripts/textbook/.vol4.txt
+
+# 강의 대본 드레인 — 청크에 기출 원문(지문·선지)이 실린다. 커밋되는 산출물은 apps/web/src/lib/csat/lecture-data/ 뿐
+scripts/csat/lecture-drain/
