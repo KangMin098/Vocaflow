@@ -1,0 +1,347 @@
+{
+  "exam_id": "2014A",
+  "built": "2026-09-17",
+  "lectures": {
+    "2014A#39": {
+      "item_id": "2014A#39",
+      "version": 1,
+      "total_sec_est": 199,
+      "generated_by": "claude-opus-5 · Claude Code 드레인",
+      "rubric_score": 89,
+      "cues": [
+        {
+          "id": "c1",
+          "order": 1,
+          "role": "intro",
+          "target": {
+            "kind": "analysis",
+            "id": "head"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "여러분, 이천십사 학년도 수능 에이형 삼십구 번, 문장 삽입입니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "문항 머리를 보세요. 사건이 시간 순서로 놓인 이야기 글이에요."
+            }
+          ],
+          "est_sec": 13.7,
+          "pause_after_ms": 500
+        },
+        {
+          "id": "c2",
+          "order": 2,
+          "role": "strategy",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:0"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "읽기 전에 여기 첫 번째 문장의 시점과 새 물건을 표시하세요."
+            },
+            {
+              "lang": "en-US",
+              "text": "had helped"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "도와준 뒤. 횡단이 끝난 시점이죠."
+            },
+            {
+              "lang": "en-US",
+              "text": "his book bag"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "책가방을 처음 꺼냅니다."
+            }
+          ],
+          "est_sec": 15.5,
+          "pause_after_ms": 500
+        },
+        {
+          "id": "c3",
+          "order": 3,
+          "role": "structure",
+          "target": {
+            "kind": "analysis",
+            "id": "map"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "지도를 보세요. 첫 막대가 주어진 문장이에요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "두·세 번째는 발견과 위험, 네 번째는 제안, 다섯 번째는 횡단입니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "여섯 번째부터 벤치와 가방이 나오죠."
+            }
+          ],
+          "est_sec": 16,
+          "pause_after_ms": 600
+        },
+        {
+          "id": "c4",
+          "order": 4,
+          "role": "evidence",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:5"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "정답은 사 번입니다. 근거는 여기, 여섯 번째 문장이에요."
+            },
+            {
+              "lang": "en-US",
+              "text": "next to his book bag"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "그의 책가방을 이미 아는 물건처럼 부르죠."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "그런데 앞에 가방은 없습니다. 삽입문이 바로 앞에 와야 해요."
+            }
+          ],
+          "est_sec": 19.5,
+          "pause_after_ms": 700
+        },
+        {
+          "id": "c5",
+          "order": 5,
+          "role": "evidence",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:4"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "여기 다섯 번째 문장도 확인하세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "팔을 붙잡고 건너기 시작합니다. 횡단 서술이 이 문장에서 끝나죠."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "그래서 도와준 뒤라는 시점이 이 문장 뒤에 맞습니다."
+            }
+          ],
+          "est_sec": 16.5,
+          "pause_after_ms": 700
+        },
+        {
+          "id": "c6",
+          "order": 6,
+          "role": "eliminate",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:1"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "일 번 자리는 세 번째 문장 앞입니다. 그 문장을 짚어 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "차가 많아 위험하다. 도움은 시작도 안 됐죠."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "완료 시점이 설 수 없습니다."
+            }
+          ],
+          "est_sec": 14.3,
+          "pause_after_ms": 400
+        },
+        {
+          "id": "c7",
+          "order": 7,
+          "role": "eliminate",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:2"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "이 번 자리는 네 번째 문장 앞이죠. 그 문장을 확인하세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "톰은 이 문장에서야 도움을 제안합니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "도움을 마친 문장이 제안보다 먼저 올 수 없어요."
+            }
+          ],
+          "est_sec": 15.5,
+          "pause_after_ms": 400
+        },
+        {
+          "id": "c8",
+          "order": 8,
+          "role": "eliminate",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:3"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "삼 번 자리는 다섯 번째 문장 앞입니다. 첫머리를 짚어 보세요."
+            },
+            {
+              "lang": "en-US",
+              "text": "readily said yes"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "선뜻 좋다고 했다. 앞의 제안에 대한 대답이에요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "끊을 수 없고, 횡단도 이 문장에서 시작됩니다."
+            }
+          ],
+          "est_sec": 18.2,
+          "pause_after_ms": 400
+        },
+        {
+          "id": "c9",
+          "order": 9,
+          "role": "eliminate",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:5"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "오 번 자리는 일곱 번째 문장 앞이죠. 여섯 번째 문장을 확인하세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "그러면 가방이 소개 없이 여섯 번째 문장에 먼저 나옵니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "두고 온 걸 깨닫기 전에 가방 옆 남자를 보는 셈이죠."
+            }
+          ],
+          "est_sec": 18.5,
+          "pause_after_ms": 400
+        },
+        {
+          "id": "c10",
+          "order": 10,
+          "role": "trap",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:6"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "함정은 여기 일곱 번째 문장, 오 번의 어휘 반복입니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "벤치와 책가방이 겹쳐 끌리죠."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "하지만 가방은 이미 앞 문장에 나왔어요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "새 물건을 처음 부르는 문장을 찾고, 그 앞에 넣으세요."
+            }
+          ],
+          "est_sec": 18.7,
+          "pause_after_ms": 600
+        },
+        {
+          "id": "c11",
+          "order": 11,
+          "role": "vocab",
+          "target": {
+            "kind": "analysis",
+            "id": "vocab"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "어휘를 보세요."
+            },
+            {
+              "lang": "en-US",
+              "text": "latched onto"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "꽉 붙잡았다."
+            },
+            {
+              "lang": "en-US",
+              "text": "readily"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "선뜻."
+            },
+            {
+              "lang": "en-US",
+              "text": "crosswalk"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "횡단보도."
+            }
+          ],
+          "est_sec": 7.9,
+          "pause_after_ms": 500
+        },
+        {
+          "id": "c12",
+          "order": 12,
+          "role": "wrapup",
+          "target": {
+            "kind": "analysis",
+            "id": "procedure"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "정리합니다. 이야기 글은 삽입문의 새 물건을 따라가세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "그 물건을 아는 듯 부르는 첫 문장 앞이 자리입니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "여러분, 다음에는 첫 십 초에 시점과 새 물건부터 표시하세요."
+            }
+          ],
+          "est_sec": 18,
+          "pause_after_ms": 900
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,2922 @@
+{
+  "exam_id": "M1809",
+  "built": "2026-09-17",
+  "lectures": {
+    "M1809#20": {
+      "item_id": "M1809#20",
+      "version": 1,
+      "total_sec_est": 219,
+      "generated_by": "claude-opus-5 · Claude Code 드레인",
+      "rubric_score": 89,
+      "cues": [
+        {
+          "id": "c1",
+          "order": 1,
+          "role": "intro",
+          "target": {
+            "kind": "analysis",
+            "id": "head"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "여러분, 이천십팔 학년도 구월 모의평가 이십 번, 필자 주장입니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "문항 머리를 보세요. 멈추기 어렵다는 양보와 멈춰야 한다는 요구를 가르는 문항이에요."
+            }
+          ],
+          "est_sec": 16.2,
+          "pause_after_ms": 500
+        },
+        {
+          "id": "c2",
+          "order": 2,
+          "role": "strategy",
+          "target": {
+            "kind": "analysis",
+            "id": "procedure"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "읽기 전에 선지부터. 방향에 표시하세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "그만두기, 해 주기, 삼가기, 길러 주기, 가르치기."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "칭찬을 멈추느냐, 무언가 더하느냐로 갈립니다."
+            }
+          ],
+          "est_sec": 14.5,
+          "pause_after_ms": 500
+        },
+        {
+          "id": "c3",
+          "order": 3,
+          "role": "structure",
+          "target": {
+            "kind": "analysis",
+            "id": "map"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "뼈대를 보세요. 첫 두 문장은 어른의 칭찬을 비꼽니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "세 번째와 네 번째는 끊기 어렵다는 양보예요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "다섯 번째 머리의 역접에서 뒤집힙니다."
+            }
+          ],
+          "est_sec": 15,
+          "pause_after_ms": 600
+        },
+        {
+          "id": "c4",
+          "order": 4,
+          "role": "evidence",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:4"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "여기 다섯 번째 문장을 보세요."
+            },
+            {
+              "lang": "en-US",
+              "text": "because we need to say it"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "아이가 들어야 해서보다, 우리가 말해야 해서 칭찬한다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "칭찬이 어른의 필요를 채운다는 겁니다."
+            }
+          ],
+          "est_sec": 16,
+          "pause_after_ms": 700
+        },
+        {
+          "id": "c5",
+          "order": 5,
+          "role": "evidence",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:5"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "정답은 일 번. 여기 여섯 번째 문장이 요구예요."
+            },
+            {
+              "lang": "en-US",
+              "text": "it's time to rethink"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "그렇다면 하는 일을 다시 생각할 때다."
+            }
+          ],
+          "est_sec": 11,
+          "pause_after_ms": 700
+        },
+        {
+          "id": "c6",
+          "order": 6,
+          "role": "evidence",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:5"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "다시 생각할 일을 확인하세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "세 번째 문장의 끊기 어려운 습관, 네 번째의 칭찬 멈추기죠."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "습관과 멈추기가 선지의 습관을 그만두기와 맞물립니다."
+            }
+          ],
+          "est_sec": 15.4,
+          "pause_after_ms": 700
+        },
+        {
+          "id": "c7",
+          "order": 7,
+          "role": "evidence",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:7"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "여기 여덟 번째 문장이 방향을 굳힙니다."
+            },
+            {
+              "lang": "en-US",
+              "text": "the opposite of praise"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "아이에게 필요한 조건 없는 지지는 칭찬의 반대다."
+            }
+          ],
+          "est_sec": 11.4,
+          "pause_after_ms": 700
+        },
+        {
+          "id": "c8",
+          "order": 8,
+          "role": "eliminate",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:2"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "이 번, 눈높이 조언. 일곱 번째 문장을 짚어 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "아이에게 필요한 건 무조건적 지지, 조건 없는 사랑이에요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "조언이라는 말은 없습니다."
+            }
+          ],
+          "est_sec": 14.5,
+          "pause_after_ms": 400
+        },
+        {
+          "id": "c9",
+          "order": 9,
+          "role": "eliminate",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:3"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "삼 번, 지지를 삼가기. 일곱 번째 문장을 짚어 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "무조건적 지지는 아이에게 필요한 것이에요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "삼갈 것은 칭찬이니 방향이 뒤집혔습니다."
+            }
+          ],
+          "est_sec": 15,
+          "pause_after_ms": 400
+        },
+        {
+          "id": "c10",
+          "order": 10,
+          "role": "eliminate",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:4"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "사 번, 칭찬 습관 길러 주기. 두 번째 문장을 짚어 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "아이가 칭찬을 되돌려 주는 장면은 어른의 칭찬을 꼬집는 상상이에요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "칭찬을 기르라는 요구는 없습니다."
+            }
+          ],
+          "est_sec": 17,
+          "pause_after_ms": 400
+        },
+        {
+          "id": "c11",
+          "order": 11,
+          "role": "eliminate",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:5"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "오 번, 감정 표현 가르치기. 다섯 번째 문장을 짚어 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "우리가 말해야 해서라는 건 칭찬이 어른의 필요라는 비판이에요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "감정 표현을 가르치라는 말은 없습니다."
+            }
+          ],
+          "est_sec": 17.2,
+          "pause_after_ms": 400
+        },
+        {
+          "id": "c12",
+          "order": 12,
+          "role": "trap",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:6"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "함정은 삼 번, 반대 진술. 여기 일곱 번째 문장을 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "무조건적 지지가 선지에 그대로 있어 끌립니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "지문에선 필요한 것, 선지에선 삼갈 것이에요. 방향이 같은지 확인하세요."
+            }
+          ],
+          "est_sec": 18.8,
+          "pause_after_ms": 600
+        },
+        {
+          "id": "c13",
+          "order": 13,
+          "role": "vocab",
+          "target": {
+            "kind": "analysis",
+            "id": "vocab"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "어휘를 확인하세요."
+            },
+            {
+              "lang": "en-US",
+              "text": "praise"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "칭찬."
+            },
+            {
+              "lang": "en-US",
+              "text": "evaluative"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "평가하는."
+            },
+            {
+              "lang": "en-US",
+              "text": "withholding"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "주지 않고 쥔."
+            },
+            {
+              "lang": "en-US",
+              "text": "unconditional"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "무조건적인."
+            },
+            {
+              "lang": "en-US",
+              "text": "no strings attached"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "조건 없는."
+            }
+          ],
+          "est_sec": 13,
+          "pause_after_ms": 500
+        },
+        {
+          "id": "c14",
+          "order": 14,
+          "role": "wrapup",
+          "target": {
+            "kind": "analysis",
+            "id": "procedure"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "정리합니다. 양보 뒤 역접에서 멈출 이유가 나오면, 그 멈춤이 주장입니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "다음에는 첫 십 초에 선지가 멈추는 쪽인지 더하는 쪽인지부터 표시하세요."
+            }
+          ],
+          "est_sec": 15.7,
+          "pause_after_ms": 900
+        }
+      ]
+    },
+    "M1809#25": {
+      "item_id": "M1809#25",
+      "version": 1,
+      "total_sec_est": 225,
+      "generated_by": "claude-opus-5 · Claude Code 드레인",
+      "rubric_score": 92,
+      "cues": [
+        {
+          "id": "c1",
+          "order": 1,
+          "role": "intro",
+          "target": {
+            "kind": "analysis",
+            "id": "head"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "여러분, 이천십팔 학년도 구월 모의평가 이십오 번, 내용 일치입니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "발문을 보세요. 갈색나무뱀에 관해 일치하지 않는 것을 고릅니다."
+            }
+          ],
+          "est_sec": 14.2,
+          "pause_after_ms": 500
+        },
+        {
+          "id": "c2",
+          "order": 2,
+          "role": "intro",
+          "target": {
+            "kind": "analysis",
+            "id": "intent"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "출제 의도에 주목하세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "유입 문장은 시점을 맨 앞에 두고, 우연히 실려 왔다는 사실을 뒤에 이어요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "눈이 사실 쪽으로 가는 사이, 시점을 보는지 가립니다."
+            }
+          ],
+          "est_sec": 15.9,
+          "pause_after_ms": 500
+        },
+        {
+          "id": "c3",
+          "order": 3,
+          "role": "strategy",
+          "target": {
+            "kind": "analysis",
+            "id": "procedure"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "읽기 전에 할 일 하나. 선지부터 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "이전에, 나올 때처럼 시점을 말하는 말에 별표를 칩니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "사 번의 이전에, 삼 번의 나올 때가 그 자리예요."
+            }
+          ],
+          "est_sec": 15,
+          "pause_after_ms": 500
+        },
+        {
+          "id": "c4",
+          "order": 4,
+          "role": "structure",
+          "target": {
+            "kind": "analysis",
+            "id": "map"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "지문 지도를 보세요. 선지가 지문 순서를 따릅니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "일 번은 첫 문장, 이 번은 세 번째, 삼 번은 네 번째 문장."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "사 번은 여섯 번째, 오 번은 일곱 번째, 마지막 문장이에요."
+            }
+          ],
+          "est_sec": 16.7,
+          "pause_after_ms": 600
+        },
+        {
+          "id": "c5",
+          "order": 5,
+          "role": "evidence",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:5"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "정답은 사 번입니다. 여기 여섯 번째 문장을 보세요."
+            },
+            {
+              "lang": "en-US",
+              "text": "Shortly after World War"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "전쟁 직후라고 문장 맨 앞에 못 박았어요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "선지는 이전에라고 했으니 정반대입니다."
+            }
+          ],
+          "est_sec": 16.3,
+          "pause_after_ms": 700
+        },
+        {
+          "id": "c6",
+          "order": 6,
+          "role": "evidence",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:5"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "여기 여섯 번째 문장의 나머지를 확인하세요."
+            },
+            {
+              "lang": "en-US",
+              "text": "was accidentally brought into Guam"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "우연히 괌에 들어왔다는 사실은 선지와 같아요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "그래서 사실만 맞추면 통과시키기 쉽습니다. 시점 한 구만 바뀐 선지예요."
+            }
+          ],
+          "est_sec": 19.9,
+          "pause_after_ms": 700
+        },
+        {
+          "id": "c7",
+          "order": 7,
+          "role": "eliminate",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:1"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "일 번, 큰 머리와 돌출된 눈. 첫 문장을 짚어 보세요."
+            },
+            {
+              "lang": "en-US",
+              "text": "sticking-out eyes"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "밖으로 튀어나온 눈이라는 뜻이에요. 큰 머리도 같은 문장에 있습니다."
+            }
+          ],
+          "est_sec": 14,
+          "pause_after_ms": 400
+        },
+        {
+          "id": "c8",
+          "order": 8,
+          "role": "eliminate",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:2"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "이 번, 몸 바탕색은 대개 연한 갈색. 세 번째 문장을 확인하세요."
+            },
+            {
+              "lang": "en-US",
+              "text": "a light brown background"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "연한 갈색은 바탕에, 더 어두운 색은 무늬에 붙어요. 붙는 명사가 다릅니다."
+            }
+          ],
+          "est_sec": 16.3,
+          "pause_after_ms": 400
+        },
+        {
+          "id": "c9",
+          "order": 9,
+          "role": "eliminate",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:3"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "삼 번, 알에서 나올 때 약 삼십팔 센티미터. 네 번째 문장을 짚어 보세요."
+            },
+            {
+              "lang": "en-US",
+              "text": "when it comes out of"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "알에서 나올 때가 삼십팔 센티미터예요. 선지는 이 숫자를 맞게 짝지었습니다."
+            }
+          ],
+          "est_sec": 17.9,
+          "pause_after_ms": 400
+        },
+        {
+          "id": "c10",
+          "order": 10,
+          "role": "eliminate",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:5"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "오 번, 괌에서 먹이 사슬 최상위. 일곱 번째 문장을 확인하세요."
+            },
+            {
+              "lang": "en-US",
+              "text": "at the top of its"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "부정어는 잡아먹히지 않는다는 앞 절에만 걸려요. 그 결과로 최상위에 있다는 긍정입니다."
+            }
+          ],
+          "est_sec": 18.4,
+          "pause_after_ms": 400
+        },
+        {
+          "id": "c11",
+          "order": 11,
+          "role": "trap",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:3"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "함정은 삼 번, 부분 사실. 여기 네 번째 문장을 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "길이가 둘이라, 다 자란 길이와 섞으면 삼 번이 틀려 보여요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "숫자마다 붙은 조건에 밑줄을 긋고, 같은 조건끼리 비교하세요."
+            }
+          ],
+          "est_sec": 18.2,
+          "pause_after_ms": 600
+        },
+        {
+          "id": "c12",
+          "order": 12,
+          "role": "vocab",
+          "target": {
+            "kind": "analysis",
+            "id": "vocab"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "어휘를 확인하세요."
+            },
+            {
+              "lang": "en-US",
+              "text": "distinct"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "뚜렷이 구별되는, 두 번째 문장."
+            },
+            {
+              "lang": "en-US",
+              "text": "markings"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "무늬, 세 번째 문장."
+            },
+            {
+              "lang": "en-US",
+              "text": "infamous, extinction"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "악명 높은, 멸종. 다섯 번째 문장."
+            },
+            {
+              "lang": "en-US",
+              "text": "accidentally"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "우연히, 여섯 번째 문장이에요."
+            }
+          ],
+          "est_sec": 17.7,
+          "pause_after_ms": 500
+        },
+        {
+          "id": "c13",
+          "order": 13,
+          "role": "wrapup",
+          "target": {
+            "kind": "analysis",
+            "id": "procedure"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "정리합니다. 사실이 맞아도 문장 맨 앞 시점이 반대면 불일치예요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "여러분, 다음에는 첫 십 초에 선지부터 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "이전에, 후에 같은 시점 말에 별표부터 치는 겁니다."
+            }
+          ],
+          "est_sec": 17.2,
+          "pause_after_ms": 900
+        }
+      ]
+    },
+    "M1809#31": {
+      "item_id": "M1809#31",
+      "version": 1,
+      "total_sec_est": 187,
+      "generated_by": "claude-opus-5 · Claude Code 드레인",
+      "rubric_score": 84,
+      "cues": [
+        {
+          "id": "c1",
+          "order": 1,
+          "role": "intro",
+          "target": {
+            "kind": "analysis",
+            "id": "head"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "여러분, 이천십팔 학년도 구월 모의평가 삼십일 번, 빈칸 추론입니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "빈칸이 첫 문장 끝이에요. 주목하세요."
+            }
+          ],
+          "est_sec": 11.4,
+          "pause_after_ms": 500
+        },
+        {
+          "id": "c2",
+          "order": 2,
+          "role": "intro",
+          "target": {
+            "kind": "analysis",
+            "id": "intent"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "흔한 설명을 빈칸 앞에서 밀어냈습니다. 확인하세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "양의 논리를 한 낱말로 묶는지 재요."
+            }
+          ],
+          "est_sec": 9.7,
+          "pause_after_ms": 500
+        },
+        {
+          "id": "c3",
+          "order": 3,
+          "role": "strategy",
+          "target": {
+            "kind": "analysis",
+            "id": "procedure"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "읽기 전에 할 일 하나. 빈칸 문장의 대비 틀을 표시하세요."
+            },
+            {
+              "lang": "en-US",
+              "text": "isn’t about wild talent so much"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "재능이라기보다 무엇, 빈칸은 재능의 반대편이에요."
+            }
+          ],
+          "est_sec": 14.3,
+          "pause_after_ms": 500
+        },
+        {
+          "id": "c4",
+          "order": 4,
+          "role": "structure",
+          "target": {
+            "kind": "analysis",
+            "id": "intent"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "뼈대를 보세요. 첫 문장이 주장입니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "두 번째, 많이 시도해야 한다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "세 번째, 숫자 게임이다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "네 번째와 다섯 번째가 천재 이야기예요."
+            }
+          ],
+          "est_sec": 14.3,
+          "pause_after_ms": 600
+        },
+        {
+          "id": "c5",
+          "order": 5,
+          "role": "evidence",
+          "target": {
+            "kind": "analysis",
+            "id": "answer"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "정답은 사 번, 생산성. 네 번째 문장을 짚어 보세요."
+            },
+            {
+              "lang": "en-US",
+              "text": "they simply do more"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "성공률이 높은 게 아니라 그저 더 많이 한다고 하죠."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "많이 만들어 내는 성질이 생산성입니다."
+            }
+          ],
+          "est_sec": 16.8,
+          "pause_after_ms": 700
+        },
+        {
+          "id": "c6",
+          "order": 6,
+          "role": "evidence",
+          "target": {
+            "kind": "analysis",
+            "id": "answer"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "세 번째 문장도 확인하세요."
+            },
+            {
+              "lang": "en-US",
+              "text": "a pure numbers game"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "양의 문제라고 이름 붙였죠."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "재능 대신 양, 빈칸 틀과 맞물려요."
+            }
+          ],
+          "est_sec": 11.5,
+          "pause_after_ms": 700
+        },
+        {
+          "id": "c7",
+          "order": 7,
+          "role": "eliminate",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:1"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "일 번, 감수성. 세 번째 문장을 짚어 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "논의는 숫자 게임입니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "감수성을 말한 문장은 없어요."
+            }
+          ],
+          "est_sec": 10.7,
+          "pause_after_ms": 400
+        },
+        {
+          "id": "c8",
+          "order": 8,
+          "role": "eliminate",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:2"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "이 번, 우월성. 네 번째 문장을 짚어 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "성공률이 더 높진 않다고 했죠."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "뛰어남을 그 문장이 부정합니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "빈칸 앞에서 재능 쪽도 이미 밀려났어요."
+            }
+          ],
+          "est_sec": 15.8,
+          "pause_after_ms": 400
+        },
+        {
+          "id": "c9",
+          "order": 9,
+          "role": "eliminate",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:3"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "삼 번, 상상력. 첫 문장의 대비 틀을 확인하세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "상상력은 재능 쪽이라 대비가 서지 않아요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "시도 횟수라는 근거와도 멀어요."
+            }
+          ],
+          "est_sec": 13.2,
+          "pause_after_ms": 400
+        },
+        {
+          "id": "c10",
+          "order": 10,
+          "role": "eliminate",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:5"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "오 번, 성취. 다섯 번째 문장을 짚어 보세요."
+            },
+            {
+              "lang": "en-US",
+              "text": "more successes and more failures"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "실패도 많다고 했죠."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "성취는 성공만 담습니다. 마지막 문장도 더 빨리 실패하라고 해요."
+            }
+          ],
+          "est_sec": 16.2,
+          "pause_after_ms": 400
+        },
+        {
+          "id": "c11",
+          "order": 11,
+          "role": "trap",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:3"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "함정은 삼 번, 지문 밖 상식입니다. 첫 문장의 빈칸을 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "창의성은 상상력이라는 통념에 끌리죠."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "하지만 재능 쪽은 이미 밀려났어요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "밀려난 쪽과 같은 계열부터 지우세요."
+            }
+          ],
+          "est_sec": 18.5,
+          "pause_after_ms": 600
+        },
+        {
+          "id": "c12",
+          "order": 12,
+          "role": "vocab",
+          "target": {
+            "kind": "analysis",
+            "id": "vocab"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "어휘를 확인하세요."
+            },
+            {
+              "lang": "en-US",
+              "text": "unspoken"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "말해지지 않은."
+            },
+            {
+              "lang": "en-US",
+              "text": "generate"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "만들어 내다."
+            },
+            {
+              "lang": "en-US",
+              "text": "at the outset"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "처음에는."
+            },
+            {
+              "lang": "en-US",
+              "text": "productivity"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "생산성."
+            }
+          ],
+          "est_sec": 11.5,
+          "pause_after_ms": 500
+        },
+        {
+          "id": "c13",
+          "order": 13,
+          "role": "wrapup",
+          "target": {
+            "kind": "analysis",
+            "id": "procedure"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "정리합니다. 대비 틀 빈칸은 밀려난 쪽의 반대를 고릅니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "이번엔 재능 대신 양이었죠."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "다음에는 첫 십 초에 빈칸 문장의 대비 틀부터 표시하세요."
+            }
+          ],
+          "est_sec": 15.5,
+          "pause_after_ms": 900
+        }
+      ]
+    },
+    "M1809#32": {
+      "item_id": "M1809#32",
+      "version": 1,
+      "total_sec_est": 185,
+      "generated_by": "claude-opus-5 · Claude Code 드레인",
+      "rubric_score": 88,
+      "cues": [
+        {
+          "id": "c1",
+          "order": 1,
+          "role": "intro",
+          "target": {
+            "kind": "analysis",
+            "id": "head"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "여러분, 이천십팔 학년도 구월 모의평가 삼십이 번, 빈칸 추론입니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "빈칸 앞에 예고 문장이 있어요. 주목하세요."
+            }
+          ],
+          "est_sec": 11.9,
+          "pause_after_ms": 500
+        },
+        {
+          "id": "c2",
+          "order": 2,
+          "role": "intro",
+          "target": {
+            "kind": "analysis",
+            "id": "intent"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "빈칸의 풀이가 바로 뒤에 있습니다. 확인하세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "오답은 가게라는 소재로 꾸몄어요."
+            }
+          ],
+          "est_sec": 9.2,
+          "pause_after_ms": 500
+        },
+        {
+          "id": "c3",
+          "order": 3,
+          "role": "strategy",
+          "target": {
+            "kind": "analysis",
+            "id": "procedure"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "읽기 전에 할 일 하나. 빈칸 앞 예고 표지를 표시하세요."
+            },
+            {
+              "lang": "en-US",
+              "text": "What I mean is this."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "풀이가 곧 온다는 신호예요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "네 번째 문장부터 읽으세요."
+            }
+          ],
+          "est_sec": 14.2,
+          "pause_after_ms": 500
+        },
+        {
+          "id": "c4",
+          "order": 4,
+          "role": "structure",
+          "target": {
+            "kind": "analysis",
+            "id": "intent"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "뼈대를 보세요. 세 번째가 빈칸, 네 번째가 풀이입니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "다섯과 여섯 번째가 두 친구 사례."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "일곱 번째가 정리예요."
+            }
+          ],
+          "est_sec": 12,
+          "pause_after_ms": 600
+        },
+        {
+          "id": "c5",
+          "order": 5,
+          "role": "evidence",
+          "target": {
+            "kind": "analysis",
+            "id": "answer"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "정답은 사 번, 지금 일에 대한 특정한 시각. 네 번째 문장을 짚어 보세요."
+            },
+            {
+              "lang": "en-US",
+              "text": "notices this rather than that"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "어떤 측면을 골라 알아차린다는 말이죠."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "그 고름이 특정한 시각과 짝입니다."
+            }
+          ],
+          "est_sec": 17.7,
+          "pause_after_ms": 700
+        },
+        {
+          "id": "c6",
+          "order": 6,
+          "role": "evidence",
+          "target": {
+            "kind": "analysis",
+            "id": "answer"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "일곱 번째 문장도 확인하세요."
+            },
+            {
+              "lang": "en-US",
+              "text": "quite different experiences"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "같은 가게에서 경험이 꽤 다릅니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "사람마다 시각이 다르다는 확인이에요."
+            }
+          ],
+          "est_sec": 12.9,
+          "pause_after_ms": 700
+        },
+        {
+          "id": "c7",
+          "order": 7,
+          "role": "eliminate",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:1"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "일 번, 더 나은 선택의 욕구. 다섯 번째 문장을 짚어 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "한 사람은 식료품을, 친구는 신문을 알아차립니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "갈리는 건 선택이 아니라 주목이에요."
+            }
+          ],
+          "est_sec": 15.5,
+          "pause_after_ms": 400
+        },
+        {
+          "id": "c8",
+          "order": 8,
+          "role": "eliminate",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:2"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "이 번, 남들과 비슷한 관점. 일곱 번째 문장을 짚어 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "꽤 다른 경험을 한다고 했죠."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "비슷하다는 건 정반대입니다."
+            }
+          ],
+          "est_sec": 12.5,
+          "pause_after_ms": 400
+        },
+        {
+          "id": "c9",
+          "order": 9,
+          "role": "eliminate",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:3"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "삼 번, 장 볼 곳의 취향. 일곱 번째 문장을 짚어 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "두 친구는 같은 가게에 있습니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "갈리는 건 가게가 아니라 보는 것이에요."
+            }
+          ],
+          "est_sec": 13.5,
+          "pause_after_ms": 400
+        },
+        {
+          "id": "c10",
+          "order": 10,
+          "role": "eliminate",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:5"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "오 번, 전통을 고수하는 경향. 세 번째 문장을 짚어 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "빈칸은 어느 순간에든 갖는 것입니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "전통을 말한 문장은 없어요."
+            }
+          ],
+          "est_sec": 13.2,
+          "pause_after_ms": 400
+        },
+        {
+          "id": "c11",
+          "order": 11,
+          "role": "trap",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:3"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "함정은 삼 번, 어휘 함정입니다. 다섯 번째 문장을 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "가게가 자주 나와 끌리죠."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "하지만 가게는 무대일 뿐이에요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "사례 소재 선지는 축이 맞는지 확인하세요."
+            }
+          ],
+          "est_sec": 17,
+          "pause_after_ms": 600
+        },
+        {
+          "id": "c12",
+          "order": 12,
+          "role": "vocab",
+          "target": {
+            "kind": "analysis",
+            "id": "vocab"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "어휘를 확인하세요."
+            },
+            {
+              "lang": "en-US",
+              "text": "orientation"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "지향."
+            },
+            {
+              "lang": "en-US",
+              "text": "resent"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "분개하다."
+            },
+            {
+              "lang": "en-US",
+              "text": "comprehend"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "이해하다."
+            },
+            {
+              "lang": "en-US",
+              "text": "peculiar"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "특이한."
+            },
+            {
+              "lang": "en-US",
+              "text": "take"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "시각, 견해."
+            }
+          ],
+          "est_sec": 11.5,
+          "pause_after_ms": 500
+        },
+        {
+          "id": "c13",
+          "order": 13,
+          "role": "wrapup",
+          "target": {
+            "kind": "analysis",
+            "id": "procedure"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "정리합니다. 예고 표지 뒤 빈칸은 다음 문장의 풀이를 접어 고릅니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "이번엔 저마다의 시각이었죠."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "다음에는 첫 십 초에 빈칸 앞 예고 표지부터 표시하세요."
+            }
+          ],
+          "est_sec": 16.5,
+          "pause_after_ms": 900
+        }
+      ]
+    },
+    "M1809#33": {
+      "item_id": "M1809#33",
+      "version": 1,
+      "total_sec_est": 182,
+      "generated_by": "claude-opus-5 · Claude Code 드레인",
+      "rubric_score": 88,
+      "cues": [
+        {
+          "id": "c1",
+          "order": 1,
+          "role": "intro",
+          "target": {
+            "kind": "analysis",
+            "id": "head"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "여러분, 이천십팔 학년도 구월 모의평가 삼십삼 번, 빈칸 추론입니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "빈칸이 여섯 번째 문장의 주어예요. 주목하세요."
+            }
+          ],
+          "est_sec": 12.4,
+          "pause_after_ms": 500
+        },
+        {
+          "id": "c2",
+          "order": 2,
+          "role": "intro",
+          "target": {
+            "kind": "analysis",
+            "id": "intent"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "빈칸 앞에 지시어가 있습니다. 확인하세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "받는 대상을 다시 이름 붙이는지 재요."
+            }
+          ],
+          "est_sec": 8.9,
+          "pause_after_ms": 500
+        },
+        {
+          "id": "c3",
+          "order": 3,
+          "role": "strategy",
+          "target": {
+            "kind": "analysis",
+            "id": "procedure"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "읽기 전에 할 일 하나. 빈칸 문장의 지시어를 표시하세요."
+            },
+            {
+              "lang": "en-US",
+              "text": "These"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "이것들이 무엇인지 앞 문장에서 찾습니다."
+            }
+          ],
+          "est_sec": 11.3,
+          "pause_after_ms": 500
+        },
+        {
+          "id": "c4",
+          "order": 4,
+          "role": "structure",
+          "target": {
+            "kind": "analysis",
+            "id": "intent"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "뼈대를 보세요. 네 번째 문장, 옛 이야기를 허물고 새 이야기를 짓는다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "다섯 번째가 방법, 여섯 번째가 빈칸."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "일곱 번째, 새 이야기를 붙잡게 하라."
+            }
+          ],
+          "est_sec": 15,
+          "pause_after_ms": 600
+        },
+        {
+          "id": "c5",
+          "order": 5,
+          "role": "evidence",
+          "target": {
+            "kind": "analysis",
+            "id": "answer"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "정답은 일 번, 문제 이야기의 예외들. 다섯 번째 문장을 짚어 보세요."
+            },
+            {
+              "lang": "en-US",
+              "text": "the problem has not influenced"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "문제가 힘을 못 쓴 때를 찾는다고 하죠."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "이것들이 바로 그때입니다."
+            }
+          ],
+          "est_sec": 16.4,
+          "pause_after_ms": 700
+        },
+        {
+          "id": "c6",
+          "order": 6,
+          "role": "evidence",
+          "target": {
+            "kind": "analysis",
+            "id": "answer"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "그 때를 한 구로 불러 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "문제 이야기가 안 맞는 경우, 곧 예외예요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "않은 때가 예외와 짝입니다."
+            }
+          ],
+          "est_sec": 10.4,
+          "pause_after_ms": 700
+        },
+        {
+          "id": "c7",
+          "order": 7,
+          "role": "eliminate",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:2"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "이 번, 대안 이야기와의 거리. 일곱 번째 문장을 짚어 보세요."
+            },
+            {
+              "lang": "en-US",
+              "text": "hold on to, or stay connected"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "새 이야기는 붙잡으라고 했죠."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "거리를 둔다는 건 정반대예요."
+            }
+          ],
+          "est_sec": 15.6,
+          "pause_after_ms": 400
+        },
+        {
+          "id": "c8",
+          "order": 8,
+          "role": "eliminate",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:3"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "삼 번, 상담자에게서 온 문제. 네 번째 문장을 짚어 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "상담자는 옛 이야기를 허물어 돕는 쪽입니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "역할이 뒤집혔어요."
+            }
+          ],
+          "est_sec": 13.2,
+          "pause_after_ms": 400
+        },
+        {
+          "id": "c9",
+          "order": 9,
+          "role": "eliminate",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:4"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "사 번, 옛것과 새것을 합치는 노력. 네 번째 문장을 짚어 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "옛 이야기는 허무는 대상입니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "합치는 재료가 아니에요."
+            }
+          ],
+          "est_sec": 13,
+          "pause_after_ms": 400
+        },
+        {
+          "id": "c10",
+          "order": 10,
+          "role": "eliminate",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:5"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "오 번, 남의 이야기와 잇는 방법. 다섯 번째 문장을 짚어 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "살피는 건 같은 아이의 다른 모습입니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "남의 이야기는 나오지 않아요."
+            }
+          ],
+          "est_sec": 14.2,
+          "pause_after_ms": 400
+        },
+        {
+          "id": "c11",
+          "order": 11,
+          "role": "trap",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:2"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "함정은 이 번, 반대 진술입니다. 일곱 번째 문장을 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "대안 이야기라는 말이 맞아 보이죠."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "하지만 지문은 붙잡으라고 해요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "낱말에 붙은 동작의 방향을 확인하세요."
+            }
+          ],
+          "est_sec": 17.8,
+          "pause_after_ms": 600
+        },
+        {
+          "id": "c12",
+          "order": 12,
+          "role": "vocab",
+          "target": {
+            "kind": "analysis",
+            "id": "vocab"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "어휘를 확인하세요."
+            },
+            {
+              "lang": "en-US",
+              "text": "externalization"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "외재화."
+            },
+            {
+              "lang": "en-US",
+              "text": "deconstruct"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "해체하다."
+            },
+            {
+              "lang": "en-US",
+              "text": "exception"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "예외."
+            },
+            {
+              "lang": "en-US",
+              "text": "influence"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "영향을 주다."
+            },
+            {
+              "lang": "en-US",
+              "text": "preferred"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "바라는."
+            }
+          ],
+          "est_sec": 11.5,
+          "pause_after_ms": 500
+        },
+        {
+          "id": "c13",
+          "order": 13,
+          "role": "wrapup",
+          "target": {
+            "kind": "analysis",
+            "id": "procedure"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "정리합니다. 지시어 빈칸은 앞 문장의 대상을 다시 부릅니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "이번엔 예외였죠."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "다음에는 첫 십 초에 빈칸 문장의 지시어부터 표시하세요."
+            }
+          ],
+          "est_sec": 14.7,
+          "pause_after_ms": 900
+        }
+      ]
+    },
+    "M1809#36": {
+      "item_id": "M1809#36",
+      "version": 1,
+      "total_sec_est": 208,
+      "generated_by": "claude-opus-5 · Claude Code 드레인",
+      "rubric_score": 88,
+      "cues": [
+        {
+          "id": "c1",
+          "order": 1,
+          "role": "intro",
+          "target": {
+            "kind": "analysis",
+            "id": "head"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "자, 여러분. 이천십팔 학년도 구월 모의평가 삼십육 번, 글의 순서입니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "문항 머리를 보세요. 에이의 이런 경험과 비의 그 낱말들이 순서를 정합니다."
+            }
+          ],
+          "est_sec": 15.7,
+          "pause_after_ms": 500
+        },
+        {
+          "id": "c2",
+          "order": 2,
+          "role": "strategy",
+          "target": {
+            "kind": "analysis",
+            "id": "procedure"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "읽기 전에 풀이 순서를 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "단락 첫 문장의 지시어와 정관사 명사를 먼저 표시합니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "받을 내용이 앞 단락 끝에 있는지 볼 거예요."
+            }
+          ],
+          "est_sec": 13.9,
+          "pause_after_ms": 500
+        },
+        {
+          "id": "c3",
+          "order": 3,
+          "role": "structure",
+          "target": {
+            "kind": "analysis",
+            "id": "map"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "지도를 보세요. 세 번째가 에이, 네·다섯 번째가 비, 여섯·일곱 번째가 씨."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "주의는 눈 움직임 그 이상이라는 예고 뒤에 두 갈래 예가 옵니다."
+            }
+          ],
+          "est_sec": 13.9,
+          "pause_after_ms": 600
+        },
+        {
+          "id": "c4",
+          "order": 4,
+          "role": "evidence",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:5"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "정답은 사 번, 씨 에이 비. 여기 여섯 번째 문장을 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "옆의 동료를 보지 않고도 주의하는 농구 선수입니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "그 이상의 첫 갈래라, 씨가 첫 자리죠."
+            }
+          ],
+          "est_sec": 15.2,
+          "pause_after_ms": 700
+        },
+        {
+          "id": "c5",
+          "order": 5,
+          "role": "evidence",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:6"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "다음, 여기 일곱 번째 문장을 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "똑바로 보면서도 주의하지 않을 수 있다는 경험입니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "세 번째 문장의 이런 경험이 이걸 받아 책 읽기 장면으로 펼치죠."
+            }
+          ],
+          "est_sec": 16.2,
+          "pause_after_ms": 700
+        },
+        {
+          "id": "c6",
+          "order": 6,
+          "role": "evidence",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:3"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "끝으로 여기 네 번째 문장을 확인하세요."
+            },
+            {
+              "lang": "en-US",
+              "text": "looking at the words"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "정관사 붙은 낱말들은 에이의 책장 위 낱말들입니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "그래서 에이 다음이 비죠."
+            }
+          ],
+          "est_sec": 14.5,
+          "pause_after_ms": 700
+        },
+        {
+          "id": "c7",
+          "order": 7,
+          "role": "eliminate",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:1"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "일 번, 에이 씨 비. 세 번째 문장 첫머리를 짚어 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "바로 앞 두 번째 문장은 일반 진술이라, 이런 경험이 받을 장면이 아닙니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "그 경험은 일곱 번째 문장이죠."
+            }
+          ],
+          "est_sec": 16.5,
+          "pause_after_ms": 400
+        },
+        {
+          "id": "c8",
+          "order": 8,
+          "role": "eliminate",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:2"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "이 번, 비 에이 씨. 네 번째 문장을 짚어 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "그 낱말들이 처음 나오는 곳은 에이의 책 읽기 장면입니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "소개보다 먼저 받는 꼴이죠."
+            }
+          ],
+          "est_sec": 14,
+          "pause_after_ms": 400
+        },
+        {
+          "id": "c9",
+          "order": 9,
+          "role": "eliminate",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:3"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "삼 번, 비 씨 에이. 다섯 번째 문장을 확인하세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "눈 움직임과 따로 일어나는 정신적 주의라는 결론입니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "사례보다 결론이 앞서고, 낱말들도 받을 장면이 없죠."
+            }
+          ],
+          "est_sec": 16.7,
+          "pause_after_ms": 400
+        },
+        {
+          "id": "c10",
+          "order": 10,
+          "role": "eliminate",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:5"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "오 번, 씨 비 에이. 네 번째 문장을 짚어 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "바로 앞 일곱 번째 문장에는 글자가 없어, 그 낱말들이 받을 게 없습니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "이런 경험도 제 짝에서 멀어지죠."
+            }
+          ],
+          "est_sec": 15.7,
+          "pause_after_ms": 400
+        },
+        {
+          "id": "c11",
+          "order": 11,
+          "role": "trap",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:2"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "함정은 여기 세 번째 문장, 지시어 선행사 절단입니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "책 읽기가 첫 예로 자연스러워 보이죠. 일 번이에요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "여러분, 이런 경험의 장면이 바로 앞 문장에 있는지 확인하세요."
+            }
+          ],
+          "est_sec": 17.7,
+          "pause_after_ms": 600
+        },
+        {
+          "id": "c12",
+          "order": 12,
+          "role": "vocab",
+          "target": {
+            "kind": "analysis",
+            "id": "vocab"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "어휘 확인하세요."
+            },
+            {
+              "lang": "en-US",
+              "text": "attending"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "주의를 기울이는, 첫 문장."
+            },
+            {
+              "lang": "en-US",
+              "text": "aware"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "알아차린, 세 번째 문장."
+            },
+            {
+              "lang": "en-US",
+              "text": "independently"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "독립적으로, 다섯 번째 문장."
+            },
+            {
+              "lang": "en-US",
+              "text": "evidenced"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "입증되는, 여섯 번째 문장."
+            }
+          ],
+          "est_sec": 16,
+          "pause_after_ms": 500
+        },
+        {
+          "id": "c13",
+          "order": 13,
+          "role": "wrapup",
+          "target": {
+            "kind": "analysis",
+            "id": "procedure"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "정리합니다. 지시어로 받는 단락은 받을 내용이 나온 단락 바로 뒤입니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "여러분, 다음에는 첫 십 초에 단락 첫 문장의 지시어부터 표시하세요."
+            }
+          ],
+          "est_sec": 14.9,
+          "pause_after_ms": 900
+        }
+      ]
+    },
+    "M1809#37": {
+      "item_id": "M1809#37",
+      "version": 1,
+      "total_sec_est": 209,
+      "generated_by": "claude-opus-5 · Claude Code 드레인",
+      "rubric_score": 88,
+      "cues": [
+        {
+          "id": "c1",
+          "order": 1,
+          "role": "intro",
+          "target": {
+            "kind": "analysis",
+            "id": "head"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "자, 여러분. 이천십팔 학년도 구월 모의평가 삼십칠 번, 글의 순서입니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "문항 머리를 보세요. 비의 이 용어와 이 전통, 씨의 이 하나됨이 순서를 정합니다."
+            }
+          ],
+          "est_sec": 16,
+          "pause_after_ms": 500
+        },
+        {
+          "id": "c2",
+          "order": 2,
+          "role": "strategy",
+          "target": {
+            "kind": "analysis",
+            "id": "procedure"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "읽기 전에 풀이 순서를 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "단락 첫 문장에서 이것 붙은 명사를 먼저 표시합니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "그 뜻을 담은 말이 앞에 있는지 찾을 거예요."
+            }
+          ],
+          "est_sec": 13.4,
+          "pause_after_ms": 500
+        },
+        {
+          "id": "c3",
+          "order": 3,
+          "role": "structure",
+          "target": {
+            "kind": "analysis",
+            "id": "map"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "지도를 보세요. 세 번째부터 다섯 번째가 에이, 여섯·일곱 번째가 비, 여덟·아홉 번째가 씨."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "용어, 서구 전통, 개인 공적, 하나됨의 흐름입니다."
+            }
+          ],
+          "est_sec": 14.2,
+          "pause_after_ms": 600
+        },
+        {
+          "id": "c4",
+          "order": 4,
+          "role": "evidence",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:5"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "정답은 이 번, 비 에이 씨. 여기 여섯 번째 문장을 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "이 용어는 주어진 글의 예술가라는 말, 다양성은 폭넓은 창작자들을 받습니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "그래서 비가 첫 자리죠."
+            }
+          ],
+          "est_sec": 16.5,
+          "pause_after_ms": 700
+        },
+        {
+          "id": "c5",
+          "order": 5,
+          "role": "evidence",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:6"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "다음, 여기 일곱 번째 문장을 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "이 전통은 개인의 성취를 인정해 왔다고 합니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "세 번째 문장이 그걸 펴죠. 발명은 처음 만든 사람의 공이라고요."
+            }
+          ],
+          "est_sec": 15.7,
+          "pause_after_ms": 700
+        },
+        {
+          "id": "c6",
+          "order": 6,
+          "role": "evidence",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:4"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "끝으로 여기 다섯 번째 문장을 확인하세요."
+            },
+            {
+              "lang": "en-US",
+              "text": "combining into one"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "예술가가 작품과 하나로 합쳐질 만큼 묶인다고 여겨집니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "여덟 번째 문장의 이 하나됨이 이걸 받죠."
+            }
+          ],
+          "est_sec": 16.6,
+          "pause_after_ms": 700
+        },
+        {
+          "id": "c7",
+          "order": 7,
+          "role": "eliminate",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:1"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "일 번, 에이 씨 비. 세 번째 문장을 짚어 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "개인에게 공을 돌린다는 에이는 일곱 번째 문장의 전통을 펴는 내용입니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "그 전통보다 먼저 올 수 없죠."
+            }
+          ],
+          "est_sec": 15.7,
+          "pause_after_ms": 400
+        },
+        {
+          "id": "c8",
+          "order": 8,
+          "role": "eliminate",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:3"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "삼 번, 비 씨 에이. 여덟 번째 문장을 짚어 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "이 하나됨이 받을 말은 다섯 번째 문장에 있습니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "씨가 에이보다 앞서면 받는 말이 먼저 나오죠."
+            }
+          ],
+          "est_sec": 15.2,
+          "pause_after_ms": 400
+        },
+        {
+          "id": "c9",
+          "order": 9,
+          "role": "eliminate",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:4"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "사 번, 씨 에이 비. 여덟 번째 문장 첫머리를 확인하세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "바로 앞 두 번째 문장은 용어의 오해를 말할 뿐, 하나됨을 뜻하는 말이 없습니다."
+            }
+          ],
+          "est_sec": 13.9,
+          "pause_after_ms": 400
+        },
+        {
+          "id": "c10",
+          "order": 10,
+          "role": "eliminate",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:5"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "오 번, 씨 비 에이. 여덟 번째 문장을 짚어 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "이 배열도 씨가 맨 앞이라 이 하나됨이 받을 말이 없습니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "비의 이 용어도 주어진 글에서 멀어지죠."
+            }
+          ],
+          "est_sec": 15.5,
+          "pause_after_ms": 400
+        },
+        {
+          "id": "c11",
+          "order": 11,
+          "role": "trap",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:7"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "함정은 여기 여덟 번째 문장, 지시어 선행사 앞당김입니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "피카소 이야기가 서구 전통 뒤에 어울려 보이죠. 삼 번이에요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "여러분, 이것 붙은 추상명사는 그 뜻이 앞에 있는지 찾으세요."
+            }
+          ],
+          "est_sec": 19,
+          "pause_after_ms": 600
+        },
+        {
+          "id": "c12",
+          "order": 12,
+          "role": "vocab",
+          "target": {
+            "kind": "analysis",
+            "id": "vocab"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "어휘 확인하세요."
+            },
+            {
+              "lang": "en-US",
+              "text": "originated"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "처음 만들어 내다, 세 번째 문장."
+            },
+            {
+              "lang": "en-US",
+              "text": "entity"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "하나의 존재, 다섯 번째 문장."
+            },
+            {
+              "lang": "en-US",
+              "text": "oneness"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "하나됨, 여덟 번째 문장."
+            },
+            {
+              "lang": "en-US",
+              "text": "authenticity"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "진정성, 아홉 번째 문장."
+            }
+          ],
+          "est_sec": 16.2,
+          "pause_after_ms": 500
+        },
+        {
+          "id": "c13",
+          "order": 13,
+          "role": "wrapup",
+          "target": {
+            "kind": "analysis",
+            "id": "procedure"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "정리합니다. 이것 붙은 명사는 그 뜻이 처음 나온 단락 뒤에 섭니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "여러분, 다음에는 첫 십 초에 이것 붙은 명사부터 표시하세요."
+            }
+          ],
+          "est_sec": 13.4,
+          "pause_after_ms": 900
+        }
+      ]
+    },
+    "M1809#39": {
+      "item_id": "M1809#39",
+      "version": 1,
+      "total_sec_est": 195,
+      "generated_by": "claude-opus-5 · Claude Code 드레인",
+      "rubric_score": 86,
+      "cues": [
+        {
+          "id": "c1",
+          "order": 1,
+          "role": "intro",
+          "target": {
+            "kind": "analysis",
+            "id": "head"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "여러분, 이천십팔 학년도 구월 모의평가 삼십구 번, 문장 삽입입니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "문항 머리를 보세요. 마지막 문장의 이것이 무엇을 받는지가 자리를 정합니다."
+            }
+          ],
+          "est_sec": 15.4,
+          "pause_after_ms": 500
+        },
+        {
+          "id": "c2",
+          "order": 2,
+          "role": "strategy",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:0"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "읽기 전에 여기 첫 번째 문장의 명제를 한 줄로 적으세요."
+            },
+            {
+              "lang": "en-US",
+              "text": "no light matter"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "곡을 빠르고 정확히 받아 적기는 가볍지 않다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "이 명제를 받는 지시어를 찾습니다."
+            }
+          ],
+          "est_sec": 15.9,
+          "pause_after_ms": 500
+        },
+        {
+          "id": "c3",
+          "order": 3,
+          "role": "structure",
+          "target": {
+            "kind": "analysis",
+            "id": "map"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "지도를 보세요. 두 번째 문장은 빠른 작곡에 대한 경탄입니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "세 번째는 경탄이 빗나갔다, 네 번째는 그 까닭, 다섯 번째는 머릿속 작곡."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "여섯 번째는 평판, 일곱 번째는 베껴 보라는 제안입니다."
+            }
+          ],
+          "est_sec": 19.7,
+          "pause_after_ms": 600
+        },
+        {
+          "id": "c4",
+          "order": 4,
+          "role": "evidence",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:6"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "정답은 오 번. 근거는 여기 일곱 번째 문장이에요."
+            },
+            {
+              "lang": "en-US",
+              "text": "to realize this"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "악보를 베껴 보면 이것을 안다고 하죠."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "베껴서 깨닫는 건 받아 적기가 가볍지 않다는 명제입니다."
+            }
+          ],
+          "est_sec": 16.9,
+          "pause_after_ms": 700
+        },
+        {
+          "id": "c5",
+          "order": 5,
+          "role": "evidence",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:5"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "이제 여기 여섯 번째 문장을 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "속도로 인정받았다는 평판이라 베껴서 깨달을 내용이 아니죠."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "주어진 문장의 그러나가 이 평판에 맞섭니다."
+            }
+          ],
+          "est_sec": 15.2,
+          "pause_after_ms": 700
+        },
+        {
+          "id": "c6",
+          "order": 6,
+          "role": "eliminate",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:1"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "일 번은 세 번째 문장 앞입니다. 그 문장을 짚어 보세요."
+            },
+            {
+              "lang": "en-US",
+              "text": "our admiration is often misdirected"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "이미 그러나로 뒤집죠."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "넣으면 그러나가 두 번 연달아 옵니다."
+            }
+          ],
+          "est_sec": 14.7,
+          "pause_after_ms": 400
+        },
+        {
+          "id": "c7",
+          "order": 7,
+          "role": "eliminate",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:2"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "이 번은 네 번째 문장 앞이에요. 그 문장을 확인하세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "빗나간 경탄을 풀어 주는 설명이죠."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "그 전에 끼면 빗나갔다는 말이 빈 채로 남습니다."
+            }
+          ],
+          "est_sec": 14.7,
+          "pause_after_ms": 400
+        },
+        {
+          "id": "c8",
+          "order": 8,
+          "role": "eliminate",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:3"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "삼 번은 다섯 번째 문장 앞입니다. 그 첫머리를 짚어 보세요."
+            },
+            {
+              "lang": "en-US",
+              "text": "These great musicians"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "네 번째 문장의 두 작곡가를 받죠. 끼면 끊깁니다."
+            }
+          ],
+          "est_sec": 13.2,
+          "pause_after_ms": 400
+        },
+        {
+          "id": "c9",
+          "order": 9,
+          "role": "eliminate",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:4"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "사 번은 여섯 번째 문장 앞이에요. 그 첫머리를 확인하세요."
+            },
+            {
+              "lang": "en-US",
+              "text": "Then they got credit"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "필기를 미룬 데서 바로 이어진 결과죠."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "끊기고, 이것은 평판을 받게 됩니다."
+            }
+          ],
+          "est_sec": 16,
+          "pause_after_ms": 400
+        },
+        {
+          "id": "c10",
+          "order": 10,
+          "role": "trap",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:4"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "함정은 여기 다섯 번째 문장, 낱말 겹침입니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "종이에 옮기는 수고가 나와 사 번에 끌리죠."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "하지만 뒤는 결과로 바로 이어집니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "여러분, 마지막 문장의 이것부터 확인하세요."
+            }
+          ],
+          "est_sec": 18.2,
+          "pause_after_ms": 600
+        },
+        {
+          "id": "c11",
+          "order": 11,
+          "role": "vocab",
+          "target": {
+            "kind": "analysis",
+            "id": "vocab"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "어휘를 확인하세요."
+            },
+            {
+              "lang": "en-US",
+              "text": "pen"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "곡을 쓰다."
+            },
+            {
+              "lang": "en-US",
+              "text": "composition"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "작곡."
+            },
+            {
+              "lang": "en-US",
+              "text": "facility"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "능숙함."
+            },
+            {
+              "lang": "en-US",
+              "text": "postponed"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "미뤘다."
+            },
+            {
+              "lang": "en-US",
+              "text": "committing"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "옮겨 적기."
+            }
+          ],
+          "est_sec": 11.2,
+          "pause_after_ms": 500
+        },
+        {
+          "id": "c12",
+          "order": 12,
+          "role": "wrapup",
+          "target": {
+            "kind": "analysis",
+            "id": "procedure"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "정리합니다. 이것이 받을 명제가 주어진 문장뿐이면 그 문장 바로 앞이 답입니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "여러분, 다음에는 첫 십 초에 주어진 문장의 명제를 적고, 받는 지시어를 찾으세요."
+            }
+          ],
+          "est_sec": 16.9,
+          "pause_after_ms": 900
+        }
+      ]
+    }
+  }
+}

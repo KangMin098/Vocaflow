@@ -1,0 +1,363 @@
+{
+  "exam_id": "2015",
+  "built": "2026-09-17",
+  "lectures": {
+    "2015#39": {
+      "item_id": "2015#39",
+      "version": 1,
+      "total_sec_est": 202,
+      "generated_by": "claude-opus-5 · Claude Code 드레인",
+      "rubric_score": 88,
+      "cues": [
+        {
+          "id": "c1",
+          "order": 1,
+          "role": "intro",
+          "target": {
+            "kind": "analysis",
+            "id": "head"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "여러분, 이천십오 학년도 수능 삼십구 번, 문장 삽입입니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "문항 머리를 보세요. 주어진 문장은 대명사와 첨가 표지로 시작해요."
+            }
+          ],
+          "est_sec": 13.4,
+          "pause_after_ms": 500
+        },
+        {
+          "id": "c2",
+          "order": 2,
+          "role": "strategy",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:0"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "읽기 전에 여기 첫 번째 문장의 앞머리를 표시하세요."
+            },
+            {
+              "lang": "en-US",
+              "text": "They also rated"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "그들은 또한 평가했다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "앞에 복수 주체와 이미 한 측정이 있어야 합니다."
+            }
+          ],
+          "est_sec": 14.6,
+          "pause_after_ms": 500
+        },
+        {
+          "id": "c3",
+          "order": 3,
+          "role": "structure",
+          "target": {
+            "kind": "analysis",
+            "id": "map"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "지도를 보세요. 첫 막대가 주어진 문장이에요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "두 번째는 연기 지시, 세 번째는 측정, 네 번째는 실제 외향인입니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "다섯 번째가 결과, 나머지가 해석이죠."
+            }
+          ],
+          "est_sec": 16,
+          "pause_after_ms": 600
+        },
+        {
+          "id": "c4",
+          "order": 4,
+          "role": "evidence",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:2"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "정답은 이 번입니다. 근거는 여기, 세 번째 문장이에요."
+            },
+            {
+              "lang": "en-US",
+              "text": "he and his team"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "이 사람들이 그들이고, 보폭과 말을 잰 것이 또한의 짝이죠."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "카메라로 찍었으니 녹화로 평가할 수 있고요."
+            }
+          ],
+          "est_sec": 18.5,
+          "pause_after_ms": 700
+        },
+        {
+          "id": "c5",
+          "order": 5,
+          "role": "evidence",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:3"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "다음은 여기 네 번째 문장입니다."
+            },
+            {
+              "lang": "en-US",
+              "text": "did the same thing with actual"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "같은 일을 실제 외향인에게도 했다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "가짜 쪽 측정과 평가가 끝나야 이 대비가 섭니다."
+            }
+          ],
+          "est_sec": 15,
+          "pause_after_ms": 700
+        },
+        {
+          "id": "c6",
+          "order": 6,
+          "role": "eliminate",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:1"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "일 번 자리는 세 번째 문장 앞입니다. 두 번째 문장을 짚어 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "연기만 시켰고 측정은 아직 없어요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "연구팀도 세 번째 문장에서 처음 나옵니다."
+            }
+          ],
+          "est_sec": 15.2,
+          "pause_after_ms": 400
+        },
+        {
+          "id": "c7",
+          "order": 7,
+          "role": "eliminate",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:3"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "삼 번 자리는 다섯 번째 문장 앞이죠. 네 번째 문장을 확인하세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "이미 실제 외향인으로 넘어가 비교까지 한 뒤예요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "가짜 쪽 평가를 미루면 절차가 되돌아갑니다."
+            }
+          ],
+          "est_sec": 17,
+          "pause_after_ms": 400
+        },
+        {
+          "id": "c8",
+          "order": 8,
+          "role": "eliminate",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:4"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "사 번 자리는 여섯 번째 문장 앞입니다. 다섯 번째 문장을 짚어 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "실제 외향인이 더 외향적이었다는 결과예요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "결과와 해석 사이에 절차가 끼면 순서가 깨집니다."
+            }
+          ],
+          "est_sec": 17.5,
+          "pause_after_ms": 400
+        },
+        {
+          "id": "c9",
+          "order": 9,
+          "role": "eliminate",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:5"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "오 번 자리는 마지막 문장 앞이죠. 여섯 번째 문장을 확인하세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "우리 대부분이 흉내 낼 줄 안다는 일반화입니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "마지막 문장이 이를 바로 이어받아 틈이 없어요."
+            }
+          ],
+          "est_sec": 17,
+          "pause_after_ms": 400
+        },
+        {
+          "id": "c10",
+          "order": 10,
+          "role": "trap",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:4"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "함정은 여기 다섯 번째 문장, 사 번의 어휘 반복입니다."
+            },
+            {
+              "lang": "en-US",
+              "text": "fake extroverts were surprisingly convincing"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "가짜 외향인이라는 말이 겹쳐 끌리죠."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "하지만 이미 결과 보고예요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "또한이 더할 앞 행위를 먼저 찾으세요."
+            }
+          ],
+          "est_sec": 18.9,
+          "pause_after_ms": 600
+        },
+        {
+          "id": "c11",
+          "order": 11,
+          "role": "vocab",
+          "target": {
+            "kind": "analysis",
+            "id": "vocab"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "어휘를 보세요."
+            },
+            {
+              "lang": "en-US",
+              "text": "extroverted"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "외향적인."
+            },
+            {
+              "lang": "en-US",
+              "text": "introverts"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "내향적인 사람들."
+            },
+            {
+              "lang": "en-US",
+              "text": "strides"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "보폭."
+            },
+            {
+              "lang": "en-US",
+              "text": "came across as"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "처럼 보였다."
+            },
+            {
+              "lang": "en-US",
+              "text": "convincing"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "그럴듯한."
+            }
+          ],
+          "est_sec": 13,
+          "pause_after_ms": 500
+        },
+        {
+          "id": "c12",
+          "order": 12,
+          "role": "wrapup",
+          "target": {
+            "kind": "analysis",
+            "id": "procedure"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "정리합니다. 대명사와 또한이면, 같은 주체의 같은 행위를 찾으세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "그 행위 뒤가 자리이고, 뒤 문장의 대상 전환도 확인합니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "여러분, 다음에는 첫 십 초에 앞머리부터 표시하세요."
+            }
+          ],
+          "est_sec": 19,
+          "pause_after_ms": 900
+        }
+      ]
+    }
+  }
+}

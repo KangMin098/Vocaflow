@@ -145,6 +145,7 @@ type Row = {
 
 const rows: Row[] = []
 const passed: Lecture[] = []
+const typeOf = new Map(chunk.items.map((i) => [i.id, i.type_id]))
 
 for (const it of chunk.items) {
   const d = out.lectures[it.id]
@@ -267,7 +268,7 @@ for (const [exam, list] of byExam) {
       continue
     }
     file.lectures[l.item_id] = { ...l, version: prev ? prev.version + 1 : 1 }
-    index.items[l.item_id] = { sec: l.total_sec_est, cues: l.cues.length, score: l.rubric_score }
+    index.items[l.item_id] = { sec: l.total_sec_est, cues: l.cues.length, score: l.rubric_score, type: typeOf.get(l.item_id) ?? null }
     added += 1
   }
   file.built = new Date().toISOString().slice(0, 10)

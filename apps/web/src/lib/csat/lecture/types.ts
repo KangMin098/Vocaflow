@@ -82,5 +82,5 @@ export interface LectureExamFile {
 /** 색인 — 화면이 「강의가 있는가 · 몇 분인가」를 **대본 없이** 알 수 있게 */
 export interface LectureIndex {
   built: string
-  items: Record<string, { sec: number; cues: number; score: number }>
+  items: Record<string, { sec: number; cues: number; score: number; type?: string | null }>
 }
