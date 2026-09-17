@@ -221,10 +221,48 @@ const run = async () => {
   const page = await ctx.newPage()
   const rows = []
   const skipped = []
+
+  /**
+   * **실행 도중 세션이 죽는 것을 견딘다.**
+   *
+   * 이 워크스페이스는 검증 계정 하나를 여러 세션이 공유한다. Supabase 는 리프레시 토큰을
+   * 회전시키므로 다른 세션이 같은 계정으로 로그인하면 이쪽 토큰이 조용히 무효가 된다.
+   * 실측 2026-09-16: 69 라우트 전수 측정이 **10개를 재고 나머지 59를 «로그인으로 튕김»** 으로
+   * 적었다. 수치는 정직했지만(통과로 세지 않았다) **답이 되지 못했다.**
+   *
+   * `tests/e2e/utils/session-guard.ts` 가 같은 문제를 이미 풀어 뒀고 거기 이렇게 적혀 있다 —
+   * "이건 앱 결함이 아니라 **환경**이다. 그런데 성적표에는 앱 결함과 똑같이 보인다.
+   *  **재는 쪽이 견뎌야 한다.**"
+   *
+   * ⚠️ 감추지는 않는다. 다시 로그인한 횟수를 세고, 예산(3회)을 넘기면 그때부터는
+   *    그대로 «재지 못함» 으로 적는다 — 무한 재로그인은 "인증이 깨져도 초록" 이 되어 더 나쁘다.
+   */
+  let reauths = 0
+  const REAUTH_BUDGET = 3
+  const reauth = async () => {
+    if (PUBLIC_ONLY || reauths >= REAUTH_BUDGET) return false
+    reauths += 1
+    const p = await ctx.newPage()
+    try {
+      await login(p)
+      await ctx.storageState({ path: STATE_FILE })
+      return true
+    } catch {
+      return false
+    } finally {
+      await p.close().catch(() => {})
+    }
+  }
+
   for (const r of routes) {
     try {
       await page.goto(BASE + r, { waitUntil: 'domcontentloaded', timeout: 60_000 })
       await page.waitForTimeout(4200)
+      // 튕겼으면 **한 번** 되살리고 같은 라우트를 다시 연다.
+      if (new URL(page.url()).pathname.startsWith('/login') && (await reauth())) {
+        await page.goto(BASE + r, { waitUntil: 'domcontentloaded', timeout: 60_000 })
+        await page.waitForTimeout(4200)
+      }
       if (new URL(page.url()).pathname.startsWith('/login')) {
         skipped.push(`${r} (로그인으로 튕김 — 재지 않음)`)
         continue
@@ -244,6 +282,12 @@ const run = async () => {
 
   console.log(`\n측정 라우트 ${rows.length} / 요청 ${routes.length}  (폭 ${width}px)`)
   if (skipped.length) console.log('재지 못함:', skipped.join(' · '))
+  if (reauths) {
+    console.log(
+      `(도중에 ${reauths}번 다시 로그인했다 — 공유 계정이 회전당한 것이지 앱 결함이 아니다)`,
+    )
+  }
+  if (reauths) console.log()
   console.log('─'.repeat(78))
   console.log('route'.padEnd(24), 'M1 한글웹폰트', ' M2 주묵', 'M3 radius', 'M4 잉크편중', 'M5 이모지', 'M6 세로글자')
   for (const r of rows) {

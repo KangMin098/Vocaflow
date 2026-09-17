@@ -19,7 +19,6 @@ import {
   Pencil,
   Play,
   Plus,
-  Sparkles,
   Trash2,
   X,
 } from 'lucide-react'

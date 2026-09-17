@@ -30,12 +30,6 @@ export const metadata: Metadata = {
 
 export const dynamic = 'force-dynamic'
 
-function mmss(sec: number) {
-  const m = Math.floor(sec / 60)
-  const s = sec % 60
-  return s ? `${m}분 ${s}초` : `${m}분`
-}
-
 export default async function CsatPlanPage() {
   // 내 훈련 기록 — 있으면 「내 약한 것 먼저」 순서가 생긴다(⑤). 못 읽어도 화면은 그대로
   // 뜨고 토글만 없다: 계획은 기록과 무관하게 볼 수 있어야 한다.
