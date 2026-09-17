@@ -32,6 +32,8 @@ export interface CueStub {
   id: string
   role: LectureRole
   key: string
+  /** 대본이 말한 문장 번호(0부터) — 번호뿐, 대본 글자는 없다 */
+  focus?: number[]
 }
 
 interface LectureCtx {
@@ -45,6 +47,8 @@ interface LectureCtx {
   /** 불러온 뒤에만 채워진다 — 역할과 타깃 키뿐(대본 없음) */
   cues: CueStub[]
   activeKey: string | null
+  /** 지금 큐가 말한 문장 번호 — 지도가 켤 막대를 말과 맞춘다(`focus.ts`) */
+  activeFocus: number[] | null
   start: (from?: number, via?: 'start' | 'cue' | 'block') => void
   toggle: () => void
   prev: () => void
@@ -62,6 +66,12 @@ export function useLecture(): LectureCtx | null {
 export function useLectureTargetKey(): string | null {
   const c = useContext(Ctx)
   return c && (c.status === 'playing' || c.status === 'paused') ? c.activeKey : null
+}
+
+/** 지금 큐가 말한 문장 번호 — 재생 중이 아니면 null */
+export function useLectureFocus(): number[] | null {
+  const c = useContext(Ctx)
+  return c && (c.status === 'playing' || c.status === 'paused') ? c.activeFocus : null
 }
 
 const RATE_CODE: Record<string, 90 | 100 | 115> = { '0.9': 90, '1': 100, '1.15': 115 }
@@ -145,7 +155,7 @@ export function LectureStage({
         // 불러오기 전에 고른 속도를 잃지 않는다
         player.setRate(rateRef.current)
         playerRef.current = player
-        setCues(lecture.cues.map((c) => ({ id: c.id, role: c.role, key: targetKey(c.target) })))
+        setCues(lecture.cues.map((c) => ({ id: c.id, role: c.role, key: targetKey(c.target), ...(c.focus?.length ? { focus: c.focus } : {}) })))
         if (debug.current) {
           debug.current.mode = m
           debug.current.player = player
@@ -204,6 +214,8 @@ export function LectureStage({
   }, [])
 
   const activeKey = ps?.target ? targetKey(ps.target) : null
+  const focusList = ps ? cues[ps.index]?.focus : undefined
+  const activeFocus = useMemo(() => (focusList?.length ? focusList : null), [focusList])
   const sessionOn = status === 'playing' || status === 'paused'
 
   // ── DOM 에 상태를 단다 ────────────────────────────────────────────────
@@ -216,9 +228,20 @@ export function LectureStage({
       return
     }
     const active = all.find((el) => el.dataset.lectureTarget === activeKey) ?? null
+    // 대본이 말한 막대도 켠다 — 오답 칩을 가리키며 「일곱 번째 문장」이라고 할 때 그 막대가 흐려지면
+    // 귀와 눈이 갈라진다. 칩이 주인공이고 막대는 함께 켜지는 짝이다.
+    const focusKeys = new Set((activeFocus ?? []).map((k) => `anchor:sentence:${k}`))
+    const lit = [active, ...all.filter((el) => focusKeys.has(el.dataset.lectureTarget ?? ''))].filter(
+      (el): el is HTMLElement => el != null,
+    )
     for (const el of all) {
-      const state =
-        el === active ? 'active' : active && el.contains(active) ? 'path' : active && active.contains(el) ? 'inside' : 'dim'
+      const state = lit.includes(el)
+        ? 'active'
+        : lit.some((a) => el.contains(a))
+          ? 'path'
+          : lit.some((a) => a.contains(el))
+            ? 'inside'
+            : 'dim'
       el.setAttribute('data-lecture-state', state)
     }
     if (active) {
@@ -226,7 +249,7 @@ export function LectureStage({
       const det = active.tagName === 'DETAILS' ? (active as HTMLDetailsElement) : active.closest('details')
       if (det && !det.open) det.open = true
     }
-  }, [activeKey, sessionOn])
+  }, [activeKey, activeFocus, sessionOn])
 
   // 큐가 바뀔 때만 한 번 움직인다(붙들기·멈춤으로는 움직이지 않는다) — 지시문 [D] 「스크롤 1회」
   const lastScrolled = useRef<number>(-1)
@@ -318,13 +341,14 @@ export function LectureStage({
       rate,
       cues,
       activeKey,
+      activeFocus,
       start,
       toggle,
       prev,
       next,
       setRate,
     }),
-    [meta, mode, status, error, ps, rate, cues, activeKey, start, toggle, prev, next, setRate],
+    [meta, mode, status, error, ps, rate, cues, activeKey, activeFocus, start, toggle, prev, next, setRate],
   )
 
   return (

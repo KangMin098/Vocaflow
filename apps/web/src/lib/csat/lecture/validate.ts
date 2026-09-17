@@ -14,6 +14,7 @@
 // ⚠️ 원문(`source`)은 검사에만 쓰고 **결과에는 수만 남긴다**(F4). 어느 구절이 겹쳤는지를
 //    문자열로 돌려주면 그 문자열이 리포트 파일을 타고 저장소에 들어온다.
 
+import { cueFocus } from './focus'
 import { enWords, estimateSec, koSentences, segmentIssues, syllables } from './speakable'
 import { isValidTarget, type TargetSet } from './targets'
 import { ROLE_ORDER, type Lecture, type LectureCue, type LectureRole } from './types'
@@ -153,6 +154,13 @@ export function validateLecture(lec: Lecture, ctx: ValidateContext): ValidateRes
     for (const n of spokenHereOrdinals(ko)) {
       const k = c.target?.kind === 'anchor' ? Number(c.target.id.split(':')[1]) : NaN
       if (k + 1 !== n) add('pointing', `「여기 ${n}번째 문장」이라 말하는데 화면은 ${c.target?.kind}:${c.target?.id} 를 켠다`, c)
+    }
+    // 분석 블록을 가리키며 문장 번호를 말하면, 그 번호가 `focus` 로 실려 있어야 지도가 같은 막대를 켠다.
+    // 적재가 채우는 값이다 — 어긋나면 옛 데이터(채우기 전) 이거나 손으로 고친 것이다.
+    if (c.target) {
+      const want = cueFocus(c, ctx.targets.useMap ? ctx.targets.anchor.length : 0)
+      if (JSON.stringify(want ?? null) !== JSON.stringify(c.focus ?? null))
+        add('focus', `말한 문장 ${JSON.stringify(want ?? [])} ≠ 실린 focus ${JSON.stringify(c.focus ?? [])}`, c)
     }
   })
 

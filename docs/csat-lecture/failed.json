@@ -1,67 +1,11 @@
 {
-  "updated": "2026-09-17T07:08:17.847Z",
-  "count": 77,
+  "updated": "2026-09-17T07:51:12.583Z",
+  "count": 49,
   "items": {
-    "2025#37": {
-      "chunk": "R-ORDER-01",
-      "attempt": 2,
-      "score": 86,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "2024#32": {
-      "chunk": "R-BLANK-03",
-      "attempt": 2,
-      "score": 88,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "2024#33": {
-      "chunk": "R-BLANK-03",
-      "attempt": 2,
-      "score": 78,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
     "2023#31": {
       "chunk": "R-BLANK-04",
       "attempt": 1,
-      "score": 84,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "2023#32": {
-      "chunk": "R-BLANK-04",
-      "attempt": 1,
-      "score": 86,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "2023#34": {
-      "chunk": "R-BLANK-04",
-      "attempt": 1,
-      "score": 83,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "M2309#32": {
-      "chunk": "R-BLANK-04",
-      "attempt": 1,
-      "score": 84,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "M2306#31": {
-      "chunk": "R-BLANK-04",
-      "attempt": 1,
-      "score": 85,
+      "score": 88,
       "reasons": [
         "factual: 심사관이 지문과 어긋나는 말을 찾았다"
       ]
@@ -69,7 +13,7 @@
     "2024#37": {
       "chunk": "R-ORDER-02",
       "attempt": 1,
-      "score": 68,
+      "score": 87,
       "reasons": [
         "factual: 심사관이 지문과 어긋나는 말을 찾았다"
       ]
@@ -77,95 +21,7 @@
     "M2409#36": {
       "chunk": "R-ORDER-02",
       "attempt": 1,
-      "score": 82,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "M2406#36": {
-      "chunk": "R-ORDER-02",
-      "attempt": 1,
-      "score": 84,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "M2406#37": {
-      "chunk": "R-ORDER-02",
-      "attempt": 1,
-      "score": 83,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "M2306#37": {
-      "chunk": "R-ORDER-02",
-      "attempt": 1,
-      "score": 83,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "M2506#39": {
-      "chunk": "R-INSERT-02",
-      "attempt": 1,
-      "score": 77,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "2023#39": {
-      "chunk": "R-INSERT-02",
-      "attempt": 1,
-      "score": 89,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "M2706#23": {
-      "chunk": "R-TOPIC-01",
-      "attempt": 1,
-      "score": 82,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "M2606#23": {
-      "chunk": "R-TOPIC-01",
-      "attempt": 1,
-      "score": 82,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "M2706#22": {
-      "chunk": "R-GIST-01",
-      "attempt": 1,
-      "score": 79,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "2026#22": {
-      "chunk": "R-GIST-01",
-      "attempt": 1,
-      "score": 83,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "M2506#22": {
-      "chunk": "R-GIST-01",
-      "attempt": 1,
-      "score": 85,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "M2409#22": {
-      "chunk": "R-GIST-01",
-      "attempt": 1,
-      "score": 83,
+      "score": 81,
       "reasons": [
         "factual: 심사관이 지문과 어긋나는 말을 찾았다"
       ]
@@ -173,23 +29,7 @@
     "M2606#20": {
       "chunk": "R-CLAIM-01",
       "attempt": 1,
-      "score": 86,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "2025#20": {
-      "chunk": "R-CLAIM-01",
-      "attempt": 1,
-      "score": 87,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "2024#20": {
-      "chunk": "R-CLAIM-01",
-      "attempt": 1,
-      "score": 85,
+      "score": 91,
       "reasons": [
         "factual: 심사관이 지문과 어긋나는 말을 찾았다"
       ]
@@ -197,143 +37,7 @@
     "M2406#20": {
       "chunk": "R-CLAIM-01",
       "attempt": 1,
-      "score": 85,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "2026#26": {
-      "chunk": "R-FACT-01",
-      "attempt": 1,
-      "score": 83,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "M2606#26": {
-      "chunk": "R-FACT-01",
-      "attempt": 1,
-      "score": 81,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "2025#26": {
-      "chunk": "R-FACT-01",
-      "attempt": 1,
-      "score": 81,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "2022#34": {
-      "chunk": "R-BLANK-05",
-      "attempt": 1,
-      "score": 83,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "M2206#32": {
-      "chunk": "R-BLANK-05",
-      "attempt": 1,
-      "score": 84,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "M2409#18": {
-      "chunk": "R-PURPOSE-01",
-      "attempt": 1,
-      "score": 86,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "M2306#26": {
-      "chunk": "R-FACT-02",
-      "attempt": 1,
-      "score": 89,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "M2206#26": {
-      "chunk": "R-FACT-02",
-      "attempt": 1,
       "score": 87,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "2020#38": {
-      "chunk": "R-INSERT-04",
-      "attempt": 1,
-      "score": 82,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "2018#39": {
-      "chunk": "R-INSERT-04",
-      "attempt": 1,
-      "score": 83,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "M1809#38": {
-      "chunk": "R-INSERT-04",
-      "attempt": 1,
-      "score": 83,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "2016#37": {
-      "chunk": "R-INSERT-05",
-      "attempt": 1,
-      "score": 83,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "2015#38": {
-      "chunk": "R-INSERT-05",
-      "attempt": 1,
-      "score": 80,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "2014B#39": {
-      "chunk": "R-INSERT-05",
-      "attempt": 1,
-      "score": 81,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "2021#37": {
-      "chunk": "R-ORDER-03",
-      "attempt": 1,
-      "score": 88,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "M2109#36": {
-      "chunk": "R-ORDER-03",
-      "attempt": 1,
-      "score": 86,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "M2306#39": {
-      "chunk": "R-INSERT-03",
-      "attempt": 1,
-      "score": 85,
       "reasons": [
         "factual: 심사관이 지문과 어긋나는 말을 찾았다"
       ]
@@ -341,15 +45,7 @@
     "M2209#39": {
       "chunk": "R-INSERT-03",
       "attempt": 1,
-      "score": 86,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "M2609#25": {
-      "chunk": "R-CHART-01",
-      "attempt": 1,
-      "score": 76,
+      "score": 87,
       "reasons": [
         "factual: 심사관이 지문과 어긋나는 말을 찾았다"
       ]
@@ -357,191 +53,7 @@
     "M2409#25": {
       "chunk": "R-CHART-01",
       "attempt": 1,
-      "score": 84,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "M2106#34": {
-      "chunk": "R-BLANK-07",
-      "attempt": 1,
-      "score": 84,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "2020#33": {
-      "chunk": "R-BLANK-07",
-      "attempt": 1,
-      "score": 87,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "2019#32": {
-      "chunk": "R-BLANK-07",
-      "attempt": 1,
-      "score": 90,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "M2609#24": {
-      "chunk": "R-TITLE-01",
-      "attempt": 2,
-      "score": 90,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "2024#24": {
-      "chunk": "R-TITLE-01",
-      "attempt": 2,
-      "score": 89,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "M2406#24": {
-      "chunk": "R-TITLE-01",
-      "attempt": 2,
-      "score": 87,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "M2306#22": {
-      "chunk": "R-GIST-02",
-      "attempt": 1,
-      "score": 85,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "2021#22": {
-      "chunk": "R-GIST-02",
-      "attempt": 1,
-      "score": 87,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "M2109#22": {
-      "chunk": "R-GIST-02",
-      "attempt": 1,
-      "score": 86,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "M2106#22": {
-      "chunk": "R-GIST-02",
-      "attempt": 1,
-      "score": 86,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "M2006#22": {
-      "chunk": "R-GIST-02",
-      "attempt": 1,
-      "score": 84,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "2018#21": {
-      "chunk": "R-GIST-02",
-      "attempt": 1,
-      "score": 86,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "M1809#21": {
-      "chunk": "R-GIST-02",
-      "attempt": 1,
-      "score": 87,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "M2306#28": {
-      "chunk": "R-NOTICE-03",
-      "attempt": 1,
-      "score": 85,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "M2609#31": {
-      "chunk": "R-BLANK-01",
-      "attempt": 2,
-      "score": 85,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "M2606#31": {
-      "chunk": "R-BLANK-01",
-      "attempt": 2,
-      "score": 84,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "M2606#29": {
-      "chunk": "R-GRAMMAR-01",
-      "attempt": 2,
       "score": 83,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "M2309#29": {
-      "chunk": "R-GRAMMAR-01",
-      "attempt": 2,
-      "score": 85,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "2026#37": {
-      "chunk": "R-ORDER-01",
-      "attempt": 2,
-      "score": 84,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "2022#20": {
-      "chunk": "R-CLAIM-02",
-      "attempt": 1,
-      "score": 85,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "2018#31": {
-      "chunk": "R-BLANK-08",
-      "attempt": 1,
-      "score": 88,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "M1809#34": {
-      "chunk": "R-BLANK-08",
-      "attempt": 1,
-      "score": 77,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "2020#37": {
-      "chunk": "R-ORDER-04",
-      "attempt": 1,
-      "score": 86,
       "reasons": [
         "factual: 심사관이 지문과 어긋나는 말을 찾았다"
       ]
@@ -549,55 +61,7 @@
     "M2006#37": {
       "chunk": "R-ORDER-04",
       "attempt": 1,
-      "score": 73,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "2019#36": {
-      "chunk": "R-ORDER-04",
-      "attempt": 1,
-      "score": 89,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "2018#36": {
-      "chunk": "R-ORDER-04",
-      "attempt": 1,
-      "score": 89,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "M2306#23": {
-      "chunk": "R-TOPIC-02",
-      "attempt": 1,
-      "score": 85,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "M2209#23": {
-      "chunk": "R-TOPIC-02",
-      "attempt": 1,
-      "score": 84,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "2021#23": {
-      "chunk": "R-TOPIC-02",
-      "attempt": 1,
-      "score": 86,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "M2109#23": {
-      "chunk": "R-TOPIC-02",
-      "attempt": 1,
-      "score": 87,
+      "score": 75,
       "reasons": [
         "factual: 심사관이 지문과 어긋나는 말을 찾았다"
       ]
@@ -605,13 +69,325 @@
     "2018#22": {
       "chunk": "R-TOPIC-02",
       "attempt": 1,
+      "score": 88,
+      "reasons": [
+        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
+      ]
+    },
+    "M2206#25": {
+      "chunk": "R-CHART-02",
+      "attempt": 1,
+      "score": 79,
+      "reasons": [
+        "score: 루브릭 79 < 80"
+      ]
+    },
+    "M1809#24": {
+      "chunk": "R-CHART-02",
+      "attempt": 1,
+      "score": 79,
+      "reasons": [
+        "score: 루브릭 79 < 80"
+      ]
+    },
+    "2020#28": {
+      "chunk": "R-NOTICE-04",
+      "attempt": 1,
+      "score": 86,
+      "reasons": [
+        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
+      ]
+    },
+    "2020#29": {
+      "chunk": "R-GRAMMAR-02",
+      "attempt": 1,
+      "score": 87,
+      "reasons": [
+        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
+      ]
+    },
+    "M1809#28": {
+      "chunk": "R-GRAMMAR-02",
+      "attempt": 1,
+      "score": 89,
+      "reasons": [
+        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
+      ]
+    },
+    "2017#40": {
+      "chunk": "R-SUMMARY-03",
+      "attempt": 1,
+      "score": 81,
+      "reasons": [
+        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
+      ]
+    },
+    "2016#40": {
+      "chunk": "R-SUMMARY-03",
+      "attempt": 1,
+      "score": 86,
+      "reasons": [
+        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
+      ]
+    },
+    "2022#44": {
+      "chunk": "X-REFER-02",
+      "attempt": 1,
+      "score": 92,
+      "reasons": [
+        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
+      ]
+    },
+    "M2109#44": {
+      "chunk": "X-REFER-02",
+      "attempt": 1,
+      "score": 89,
+      "reasons": [
+        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
+      ]
+    },
+    "2020#44": {
+      "chunk": "X-REFER-02",
+      "attempt": 1,
+      "score": 88,
+      "reasons": [
+        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
+      ]
+    },
+    "2018#44": {
+      "chunk": "X-REFER-02",
+      "attempt": 1,
+      "score": 87,
+      "reasons": [
+        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
+      ]
+    },
+    "M1809#44": {
+      "chunk": "X-REFER-02",
+      "attempt": 1,
+      "score": 85,
+      "reasons": [
+        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
+      ]
+    },
+    "M2406#44": {
+      "chunk": "X-REFER-01",
+      "attempt": 1,
+      "score": 81,
+      "reasons": [
+        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
+      ]
+    },
+    "2017#28": {
+      "chunk": "R-GRAMMAR-03",
+      "attempt": 1,
+      "score": 86,
+      "reasons": [
+        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
+      ]
+    },
+    "2014B#27": {
+      "chunk": "R-GRAMMAR-03",
+      "attempt": 1,
+      "score": 90,
+      "reasons": [
+        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
+      ]
+    },
+    "2016#29": {
+      "chunk": "R-VOCAB-03",
+      "attempt": 1,
+      "score": 88,
+      "reasons": [
+        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
+      ]
+    },
+    "2026#41": {
+      "chunk": "X-TITLE-01",
+      "attempt": 1,
+      "score": 83,
+      "reasons": [
+        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
+      ]
+    },
+    "M2606#41": {
+      "chunk": "X-TITLE-01",
+      "attempt": 1,
       "score": 84,
       "reasons": [
         "factual: 심사관이 지문과 어긋나는 말을 찾았다"
       ]
     },
-    "M1809#22": {
-      "chunk": "R-TOPIC-02",
+    "2025#41": {
+      "chunk": "X-TITLE-01",
+      "attempt": 1,
+      "score": 84,
+      "reasons": [
+        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
+      ]
+    },
+    "2024#41": {
+      "chunk": "X-TITLE-01",
+      "attempt": 1,
+      "score": 85,
+      "reasons": [
+        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
+      ]
+    },
+    "M2309#41": {
+      "chunk": "X-TITLE-01",
+      "attempt": 1,
+      "score": 84,
+      "reasons": [
+        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
+      ]
+    },
+    "2017#20": {
+      "chunk": "R-GIST-03",
+      "attempt": 1,
+      "score": 86,
+      "reasons": [
+        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
+      ]
+    },
+    "2021#30": {
+      "chunk": "R-VOCAB-02",
+      "attempt": 1,
+      "score": 87,
+      "reasons": [
+        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
+      ]
+    },
+    "M1809#29": {
+      "chunk": "R-VOCAB-02",
+      "attempt": 1,
+      "score": 86,
+      "reasons": [
+        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
+      ]
+    },
+    "M2306#41": {
+      "chunk": "X-TITLE-02",
+      "attempt": 1,
+      "score": 84,
+      "reasons": [
+        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
+      ]
+    },
+    "2022#41": {
+      "chunk": "X-TITLE-02",
+      "attempt": 1,
+      "score": 89,
+      "reasons": [
+        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
+      ]
+    },
+    "M2206#41": {
+      "chunk": "X-TITLE-02",
+      "attempt": 1,
+      "score": 83,
+      "reasons": [
+        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
+      ]
+    },
+    "2021#41": {
+      "chunk": "X-TITLE-02",
+      "attempt": 1,
+      "score": 84,
+      "reasons": [
+        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
+      ]
+    },
+    "M2109#41": {
+      "chunk": "X-TITLE-02",
+      "attempt": 1,
+      "score": 84,
+      "reasons": [
+        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
+      ]
+    },
+    "M2006#41": {
+      "chunk": "X-TITLE-02",
+      "attempt": 1,
+      "score": 83,
+      "reasons": [
+        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
+      ]
+    },
+    "2019#41": {
+      "chunk": "X-TITLE-02",
+      "attempt": 1,
+      "score": 86,
+      "reasons": [
+        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
+      ]
+    },
+    "2018#41": {
+      "chunk": "X-TITLE-02",
+      "attempt": 1,
+      "score": 86,
+      "reasons": [
+        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
+      ]
+    },
+    "2015#45": {
+      "chunk": "X-FACT-03",
+      "attempt": 1,
+      "score": 88,
+      "reasons": [
+        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
+      ]
+    },
+    "M2306#45": {
+      "chunk": "X-FACT-02",
+      "attempt": 1,
+      "score": 86,
+      "reasons": [
+        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
+      ]
+    },
+    "M2206#45": {
+      "chunk": "X-FACT-02",
+      "attempt": 1,
+      "score": 88,
+      "reasons": [
+        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
+      ]
+    },
+    "2017#41": {
+      "chunk": "X-TITLE-03",
+      "attempt": 1,
+      "score": 83,
+      "reasons": [
+        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
+      ]
+    },
+    "2016#41": {
+      "chunk": "X-TITLE-03",
+      "attempt": 1,
+      "score": 78,
+      "reasons": [
+        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
+      ]
+    },
+    "2015#41": {
+      "chunk": "X-TITLE-03",
+      "attempt": 1,
+      "score": 83,
+      "reasons": [
+        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
+      ]
+    },
+    "2014A#41": {
+      "chunk": "X-TITLE-03",
+      "attempt": 1,
+      "score": 80,
+      "reasons": [
+        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
+      ]
+    },
+    "2014A#44": {
+      "chunk": "X-REFER-03",
       "attempt": 1,
       "score": 87,
       "reasons": [

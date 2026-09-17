@@ -1,8 +1,248 @@
 {
   "built": "2026-09-17",
   "items": {
+    "2014A#24": {
+      "sec": 220,
+      "cues": 13,
+      "score": 90,
+      "type": "R-GIST"
+    },
+    "2014A#25": {
+      "sec": 238,
+      "cues": 14,
+      "score": 86,
+      "type": "R-TOPIC"
+    },
+    "2014A#26": {
+      "sec": 209,
+      "cues": 13,
+      "score": 84,
+      "type": "R-TITLE"
+    },
+    "2014A#27": {
+      "sec": 202,
+      "cues": 14,
+      "score": 93,
+      "type": "R-GRAMMAR"
+    },
+    "2014A#28": {
+      "sec": 233,
+      "cues": 14,
+      "score": 90,
+      "type": "R-VOCAB"
+    },
+    "2014A#33": {
+      "sec": 191,
+      "cues": 13,
+      "score": 89,
+      "type": "R-BLANK"
+    },
+    "2014A#34": {
+      "sec": 219,
+      "cues": 13,
+      "score": 85,
+      "type": "R-BLANK"
+    },
+    "2014A#35": {
+      "sec": 209,
+      "cues": 13,
+      "score": 85,
+      "type": "R-BLANK"
+    },
+    "2014A#36": {
+      "sec": 231,
+      "cues": 14,
+      "score": 90,
+      "type": "R-BLANK2"
+    },
     "2014A#39": {
       "sec": 199,
+      "cues": 12,
+      "score": 89,
+      "type": "R-INSERT"
+    },
+    "2014A#43": {
+      "sec": 225,
+      "cues": 14,
+      "score": 89,
+      "type": "X-ORDER"
+    },
+    "2014A#45": {
+      "sec": 218,
+      "cues": 14,
+      "score": 93,
+      "type": "X-FACT"
+    },
+    "2014B#23": {
+      "sec": 217,
+      "cues": 13,
+      "score": 86,
+      "type": "R-GIST"
+    },
+    "2014B#24": {
+      "sec": 223,
+      "cues": 13,
+      "score": 90,
+      "type": "R-TOPIC"
+    },
+    "2014B#25": {
+      "sec": 223,
+      "cues": 13,
+      "score": 85,
+      "type": "R-TITLE"
+    },
+    "2014B#28": {
+      "sec": 220,
+      "cues": 14,
+      "score": 84,
+      "type": "R-VOCAB"
+    },
+    "2014B#31": {
+      "sec": 210,
+      "cues": 14,
+      "score": 85,
+      "type": "R-BLANK"
+    },
+    "2014B#32": {
+      "sec": 213,
+      "cues": 14,
+      "score": 91,
+      "type": "R-BLANK"
+    },
+    "2014B#33": {
+      "sec": 229,
+      "cues": 14,
+      "score": 90,
+      "type": "R-BLANK"
+    },
+    "2014B#34": {
+      "sec": 213,
+      "cues": 13,
+      "score": 87,
+      "type": "R-BLANK"
+    },
+    "2014B#35": {
+      "sec": 242,
+      "cues": 14,
+      "score": 90,
+      "type": "R-BLANK"
+    },
+    "2014B#36": {
+      "sec": 227,
+      "cues": 14,
+      "score": 85,
+      "type": "R-BLANK2"
+    },
+    "2014B#37": {
+      "sec": 242,
+      "cues": 14,
+      "score": 91,
+      "type": "R-BLANK2"
+    },
+    "2014B#39": {
+      "sec": 210,
+      "cues": 12,
+      "score": 91,
+      "type": "R-INSERT"
+    },
+    "2014B#40": {
+      "sec": 224,
+      "cues": 13,
+      "score": 85,
+      "type": "R-SUMMARY"
+    },
+    "2014B#41": {
+      "sec": 214,
+      "cues": 13,
+      "score": 82,
+      "type": "X-TITLE"
+    },
+    "2014B#43": {
+      "sec": 248,
+      "cues": 14,
+      "score": 88,
+      "type": "X-ORDER"
+    },
+    "2014B#44": {
+      "sec": 221,
+      "cues": 13,
+      "score": 90,
+      "type": "X-REFER"
+    },
+    "2014B#45": {
+      "sec": 221,
+      "cues": 14,
+      "score": 92,
+      "type": "X-FACT"
+    },
+    "2015#18": {
+      "sec": 221,
+      "cues": 13,
+      "score": 85,
+      "type": "R-GIST"
+    },
+    "2015#20": {
+      "sec": 220,
+      "cues": 13,
+      "score": 88,
+      "type": "R-TOPIC"
+    },
+    "2015#21": {
+      "sec": 244,
+      "cues": 14,
+      "score": 88,
+      "type": "R-TOPIC"
+    },
+    "2015#22": {
+      "sec": 224,
+      "cues": 14,
+      "score": 87,
+      "type": "R-TITLE"
+    },
+    "2015#23": {
+      "sec": 225,
+      "cues": 14,
+      "score": 88,
+      "type": "R-TITLE"
+    },
+    "2015#28": {
+      "sec": 196,
+      "cues": 13,
+      "score": 87,
+      "type": "R-GRAMMAR"
+    },
+    "2015#30": {
+      "sec": 243,
+      "cues": 14,
+      "score": 90,
+      "type": "R-VOCAB"
+    },
+    "2015#31": {
+      "sec": 210,
+      "cues": 14,
+      "score": 89,
+      "type": "R-BLANK"
+    },
+    "2015#32": {
+      "sec": 220,
+      "cues": 14,
+      "score": 90,
+      "type": "R-BLANK"
+    },
+    "2015#33": {
+      "sec": 223,
+      "cues": 14,
+      "score": 88,
+      "type": "R-BLANK"
+    },
+    "2015#34": {
+      "sec": 228,
+      "cues": 13,
+      "score": 91,
+      "type": "R-BLANK2"
+    },
+    "2015#38": {
+      "sec": 214,
       "cues": 12,
       "score": 89,
       "type": "R-INSERT"
@@ -13,17 +253,131 @@
       "score": 88,
       "type": "R-INSERT"
     },
+    "2015#40": {
+      "sec": 238,
+      "cues": 13,
+      "score": 88,
+      "type": "R-SUMMARY"
+    },
+    "2015#43": {
+      "sec": 243,
+      "cues": 13,
+      "score": 90,
+      "type": "X-ORDER"
+    },
+    "2015#44": {
+      "sec": 216,
+      "cues": 13,
+      "score": 88,
+      "type": "X-REFER"
+    },
+    "2016#21": {
+      "sec": 238,
+      "cues": 14,
+      "score": 89,
+      "type": "R-GIST"
+    },
+    "2016#22": {
+      "sec": 236,
+      "cues": 14,
+      "score": 88,
+      "type": "R-TOPIC"
+    },
+    "2016#23": {
+      "sec": 224,
+      "cues": 14,
+      "score": 88,
+      "type": "R-TITLE"
+    },
+    "2016#28": {
+      "sec": 203,
+      "cues": 14,
+      "score": 92,
+      "type": "R-GRAMMAR"
+    },
+    "2016#31": {
+      "sec": 227,
+      "cues": 14,
+      "score": 84,
+      "type": "R-BLANK"
+    },
+    "2016#32": {
+      "sec": 228,
+      "cues": 14,
+      "score": 85,
+      "type": "R-BLANK"
+    },
+    "2016#33": {
+      "sec": 210,
+      "cues": 14,
+      "score": 88,
+      "type": "R-BLANK"
+    },
+    "2016#34": {
+      "sec": 214,
+      "cues": 14,
+      "score": 89,
+      "type": "R-BLANK"
+    },
     "2016#35": {
       "sec": 198,
       "cues": 13,
       "score": 92,
       "type": "R-ORDER"
     },
+    "2016#37": {
+      "sec": 211,
+      "cues": 12,
+      "score": 91,
+      "type": "R-INSERT"
+    },
     "2016#38": {
       "sec": 209,
       "cues": 12,
       "score": 89,
       "type": "R-INSERT"
+    },
+    "2016#43": {
+      "sec": 230,
+      "cues": 13,
+      "score": 87,
+      "type": "X-ORDER"
+    },
+    "2016#44": {
+      "sec": 194,
+      "cues": 12,
+      "score": 86,
+      "type": "X-REFER"
+    },
+    "2016#45": {
+      "sec": 215,
+      "cues": 14,
+      "score": 90,
+      "type": "X-FACT"
+    },
+    "2017#21": {
+      "sec": 238,
+      "cues": 14,
+      "score": 89,
+      "type": "R-TOPIC"
+    },
+    "2017#22": {
+      "sec": 242,
+      "cues": 14,
+      "score": 88,
+      "type": "R-TITLE"
+    },
+    "2017#23": {
+      "sec": 229,
+      "cues": 14,
+      "score": 86,
+      "type": "R-TITLE"
+    },
+    "2017#29": {
+      "sec": 242,
+      "cues": 14,
+      "score": 88,
+      "type": "R-VOCAB"
     },
     "2017#31": {
       "sec": 187,
@@ -41,6 +395,12 @@
       "sec": 188,
       "cues": 13,
       "score": 89,
+      "type": "R-BLANK"
+    },
+    "2017#34": {
+      "sec": 222,
+      "cues": 14,
+      "score": 86,
       "type": "R-BLANK"
     },
     "2017#36": {
@@ -67,17 +427,83 @@
       "score": 91,
       "type": "R-INSERT"
     },
+    "2017#43": {
+      "sec": 229,
+      "cues": 13,
+      "score": 87,
+      "type": "X-ORDER"
+    },
+    "2017#44": {
+      "sec": 202,
+      "cues": 12,
+      "score": 88,
+      "type": "X-REFER"
+    },
+    "2017#45": {
+      "sec": 220,
+      "cues": 14,
+      "score": 89,
+      "type": "X-FACT"
+    },
+    "2018#19": {
+      "sec": 230,
+      "cues": 14,
+      "score": 90,
+      "type": "R-MOOD"
+    },
     "2018#20": {
       "sec": 206,
       "cues": 14,
       "score": 92,
       "type": "R-CLAIM"
     },
+    "2018#21": {
+      "sec": 202,
+      "cues": 13,
+      "score": 86,
+      "type": "R-GIST"
+    },
+    "2018#24": {
+      "sec": 194,
+      "cues": 12,
+      "score": 82,
+      "type": "R-CHART"
+    },
     "2018#25": {
       "sec": 226,
       "cues": 13,
       "score": 90,
       "type": "R-FACT"
+    },
+    "2018#26": {
+      "sec": 215,
+      "cues": 13,
+      "score": 88,
+      "type": "R-NOTICE"
+    },
+    "2018#27": {
+      "sec": 216,
+      "cues": 13,
+      "score": 92,
+      "type": "R-NOTICE"
+    },
+    "2018#28": {
+      "sec": 204,
+      "cues": 12,
+      "score": 89,
+      "type": "R-GRAMMAR"
+    },
+    "2018#29": {
+      "sec": 227,
+      "cues": 14,
+      "score": 91,
+      "type": "R-VOCAB"
+    },
+    "2018#31": {
+      "sec": 213,
+      "cues": 13,
+      "score": 91,
+      "type": "R-BLANK"
     },
     "2018#32": {
       "sec": 206,
@@ -97,6 +523,12 @@
       "score": 90,
       "type": "R-BLANK"
     },
+    "2018#36": {
+      "sec": 219,
+      "cues": 13,
+      "score": 89,
+      "type": "R-ORDER"
+    },
     "2018#37": {
       "sec": 219,
       "cues": 13,
@@ -109,11 +541,47 @@
       "score": 85,
       "type": "R-INSERT"
     },
+    "2018#39": {
+      "sec": 200,
+      "cues": 12,
+      "score": 90,
+      "type": "R-INSERT"
+    },
+    "2018#40": {
+      "sec": 209,
+      "cues": 13,
+      "score": 92,
+      "type": "R-SUMMARY"
+    },
+    "2018#43": {
+      "sec": 217,
+      "cues": 14,
+      "score": 92,
+      "type": "X-ORDER"
+    },
+    "2018#45": {
+      "sec": 219,
+      "cues": 13,
+      "score": 91,
+      "type": "X-FACT"
+    },
+    "2019#19": {
+      "sec": 223,
+      "cues": 14,
+      "score": 91,
+      "type": "R-MOOD"
+    },
     "2019#20": {
       "sec": 212,
       "cues": 14,
       "score": 92,
       "type": "R-CLAIM"
+    },
+    "2019#21": {
+      "sec": 222,
+      "cues": 14,
+      "score": 88,
+      "type": "R-IMPLY"
     },
     "2019#22": {
       "sec": 201,
@@ -127,16 +595,52 @@
       "score": 90,
       "type": "R-TOPIC"
     },
+    "2019#25": {
+      "sec": 217,
+      "cues": 13,
+      "score": 92,
+      "type": "R-CHART"
+    },
     "2019#26": {
       "sec": 218,
       "cues": 13,
       "score": 91,
       "type": "R-FACT"
     },
+    "2019#27": {
+      "sec": 214,
+      "cues": 13,
+      "score": 91,
+      "type": "R-NOTICE"
+    },
+    "2019#28": {
+      "sec": 219,
+      "cues": 13,
+      "score": 92,
+      "type": "R-NOTICE"
+    },
+    "2019#29": {
+      "sec": 198,
+      "cues": 12,
+      "score": 91,
+      "type": "R-GRAMMAR"
+    },
+    "2019#30": {
+      "sec": 217,
+      "cues": 14,
+      "score": 91,
+      "type": "R-VOCAB"
+    },
     "2019#31": {
       "sec": 221,
       "cues": 13,
       "score": 89,
+      "type": "R-BLANK"
+    },
+    "2019#32": {
+      "sec": 226,
+      "cues": 13,
+      "score": 91,
       "type": "R-BLANK"
     },
     "2019#33": {
@@ -150,6 +654,12 @@
       "cues": 14,
       "score": 85,
       "type": "R-BLANK"
+    },
+    "2019#36": {
+      "sec": 221,
+      "cues": 13,
+      "score": 87,
+      "type": "R-ORDER"
     },
     "2019#37": {
       "sec": 211,
@@ -169,11 +679,47 @@
       "score": 83,
       "type": "R-INSERT"
     },
+    "2019#40": {
+      "sec": 213,
+      "cues": 13,
+      "score": 89,
+      "type": "R-SUMMARY"
+    },
+    "2019#43": {
+      "sec": 214,
+      "cues": 14,
+      "score": 92,
+      "type": "X-ORDER"
+    },
+    "2019#44": {
+      "sec": 213,
+      "cues": 14,
+      "score": 91,
+      "type": "X-REFER"
+    },
+    "2019#45": {
+      "sec": 205,
+      "cues": 13,
+      "score": 92,
+      "type": "X-FACT"
+    },
+    "2020#19": {
+      "sec": 219,
+      "cues": 14,
+      "score": 91,
+      "type": "R-MOOD"
+    },
     "2020#20": {
       "sec": 214,
       "cues": 14,
       "score": 88,
       "type": "R-CLAIM"
+    },
+    "2020#21": {
+      "sec": 245,
+      "cues": 14,
+      "score": 90,
+      "type": "R-IMPLY"
     },
     "2020#22": {
       "sec": 204,
@@ -187,11 +733,29 @@
       "score": 89,
       "type": "R-TOPIC"
     },
+    "2020#25": {
+      "sec": 222,
+      "cues": 13,
+      "score": 89,
+      "type": "R-CHART"
+    },
     "2020#26": {
       "sec": 220,
       "cues": 13,
       "score": 87,
       "type": "R-FACT"
+    },
+    "2020#27": {
+      "sec": 227,
+      "cues": 13,
+      "score": 88,
+      "type": "R-NOTICE"
+    },
+    "2020#30": {
+      "sec": 213,
+      "cues": 13,
+      "score": 91,
+      "type": "R-VOCAB"
     },
     "2020#31": {
       "sec": 219,
@@ -202,6 +766,12 @@
     "2020#32": {
       "sec": 233,
       "cues": 14,
+      "score": 90,
+      "type": "R-BLANK"
+    },
+    "2020#33": {
+      "sec": 223,
+      "cues": 13,
       "score": 90,
       "type": "R-BLANK"
     },
@@ -217,17 +787,83 @@
       "score": 88,
       "type": "R-ORDER"
     },
+    "2020#37": {
+      "sec": 232,
+      "cues": 13,
+      "score": 89,
+      "type": "R-ORDER"
+    },
+    "2020#38": {
+      "sec": 206,
+      "cues": 12,
+      "score": 90,
+      "type": "R-INSERT"
+    },
     "2020#39": {
       "sec": 210,
       "cues": 12,
       "score": 87,
       "type": "R-INSERT"
     },
+    "2020#40": {
+      "sec": 214,
+      "cues": 13,
+      "score": 87,
+      "type": "R-SUMMARY"
+    },
+    "2020#41": {
+      "sec": 203,
+      "cues": 13,
+      "score": 92,
+      "type": "X-TITLE"
+    },
+    "2020#43": {
+      "sec": 233,
+      "cues": 14,
+      "score": 89,
+      "type": "X-ORDER"
+    },
+    "2020#45": {
+      "sec": 202,
+      "cues": 13,
+      "score": 93,
+      "type": "X-FACT"
+    },
+    "2021#19": {
+      "sec": 227,
+      "cues": 14,
+      "score": 91,
+      "type": "R-MOOD"
+    },
     "2021#20": {
       "sec": 212,
       "cues": 14,
       "score": 90,
       "type": "R-CLAIM"
+    },
+    "2021#21": {
+      "sec": 238,
+      "cues": 14,
+      "score": 89,
+      "type": "R-IMPLY"
+    },
+    "2021#22": {
+      "sec": 218,
+      "cues": 14,
+      "score": 90,
+      "type": "R-GIST"
+    },
+    "2021#23": {
+      "sec": 213,
+      "cues": 12,
+      "score": 88,
+      "type": "R-TOPIC"
+    },
+    "2021#25": {
+      "sec": 229,
+      "cues": 14,
+      "score": 85,
+      "type": "R-CHART"
     },
     "2021#26": {
       "sec": 221,
@@ -246,6 +882,12 @@
       "cues": 14,
       "score": 90,
       "type": "R-NOTICE"
+    },
+    "2021#29": {
+      "sec": 208,
+      "cues": 12,
+      "score": 91,
+      "type": "R-GRAMMAR"
     },
     "2021#31": {
       "sec": 234,
@@ -277,6 +919,12 @@
       "score": 91,
       "type": "R-ORDER"
     },
+    "2021#37": {
+      "sec": 200,
+      "cues": 13,
+      "score": 90,
+      "type": "R-ORDER"
+    },
     "2021#38": {
       "sec": 190,
       "cues": 12,
@@ -289,6 +937,48 @@
       "score": 89,
       "type": "R-INSERT"
     },
+    "2021#40": {
+      "sec": 221,
+      "cues": 13,
+      "score": 94,
+      "type": "R-SUMMARY"
+    },
+    "2021#43": {
+      "sec": 228,
+      "cues": 14,
+      "score": 91,
+      "type": "X-ORDER"
+    },
+    "2021#44": {
+      "sec": 219,
+      "cues": 13,
+      "score": 90,
+      "type": "X-REFER"
+    },
+    "2021#45": {
+      "sec": 204,
+      "cues": 13,
+      "score": 90,
+      "type": "X-FACT"
+    },
+    "2022#19": {
+      "sec": 234,
+      "cues": 14,
+      "score": 89,
+      "type": "R-MOOD"
+    },
+    "2022#20": {
+      "sec": 228,
+      "cues": 14,
+      "score": 89,
+      "type": "R-CLAIM"
+    },
+    "2022#21": {
+      "sec": 227,
+      "cues": 13,
+      "score": 87,
+      "type": "R-IMPLY"
+    },
     "2022#22": {
       "sec": 208,
       "cues": 13,
@@ -300,6 +990,12 @@
       "cues": 13,
       "score": 91,
       "type": "R-TOPIC"
+    },
+    "2022#25": {
+      "sec": 232,
+      "cues": 13,
+      "score": 86,
+      "type": "R-CHART"
     },
     "2022#26": {
       "sec": 228,
@@ -319,6 +1015,18 @@
       "score": 90,
       "type": "R-NOTICE"
     },
+    "2022#29": {
+      "sec": 203,
+      "cues": 12,
+      "score": 92,
+      "type": "R-GRAMMAR"
+    },
+    "2022#30": {
+      "sec": 226,
+      "cues": 14,
+      "score": 88,
+      "type": "R-VOCAB"
+    },
     "2022#31": {
       "sec": 210,
       "cues": 13,
@@ -335,6 +1043,12 @@
       "sec": 220,
       "cues": 13,
       "score": 83,
+      "type": "R-BLANK"
+    },
+    "2022#34": {
+      "sec": 238,
+      "cues": 14,
+      "score": 89,
       "type": "R-BLANK"
     },
     "2022#36": {
@@ -361,6 +1075,24 @@
       "score": 90,
       "type": "R-INSERT"
     },
+    "2022#40": {
+      "sec": 217,
+      "cues": 13,
+      "score": 90,
+      "type": "R-SUMMARY"
+    },
+    "2022#43": {
+      "sec": 222,
+      "cues": 14,
+      "score": 91,
+      "type": "X-ORDER"
+    },
+    "2022#45": {
+      "sec": 196,
+      "cues": 12,
+      "score": 89,
+      "type": "X-FACT"
+    },
     "2023#18": {
       "sec": 199,
       "cues": 13,
@@ -372,6 +1104,12 @@
       "cues": 14,
       "score": 88,
       "type": "R-CLAIM"
+    },
+    "2023#21": {
+      "sec": 213,
+      "cues": 13,
+      "score": 89,
+      "type": "R-IMPLY"
     },
     "2023#22": {
       "sec": 203,
@@ -421,10 +1159,28 @@
       "score": 92,
       "type": "R-GRAMMAR"
     },
+    "2023#30": {
+      "sec": 221,
+      "cues": 14,
+      "score": 91,
+      "type": "R-VOCAB"
+    },
+    "2023#32": {
+      "sec": 232,
+      "cues": 14,
+      "score": 91,
+      "type": "R-BLANK"
+    },
     "2023#33": {
       "sec": 194,
       "cues": 13,
       "score": 89,
+      "type": "R-BLANK"
+    },
+    "2023#34": {
+      "sec": 213,
+      "cues": 14,
+      "score": 92,
       "type": "R-BLANK"
     },
     "2023#36": {
@@ -445,6 +1201,36 @@
       "score": 86,
       "type": "R-INSERT"
     },
+    "2023#39": {
+      "sec": 200,
+      "cues": 12,
+      "score": 88,
+      "type": "R-INSERT"
+    },
+    "2023#40": {
+      "sec": 236,
+      "cues": 13,
+      "score": 93,
+      "type": "R-SUMMARY"
+    },
+    "2023#41": {
+      "sec": 230,
+      "cues": 14,
+      "score": 87,
+      "type": "X-TITLE"
+    },
+    "2023#43": {
+      "sec": 219,
+      "cues": 13,
+      "score": 90,
+      "type": "X-ORDER"
+    },
+    "2023#44": {
+      "sec": 205,
+      "cues": 13,
+      "score": 89,
+      "type": "X-REFER"
+    },
     "2023#45": {
       "sec": 188,
       "cues": 14,
@@ -456,6 +1242,18 @@
       "cues": 13,
       "score": 89,
       "type": "R-PURPOSE"
+    },
+    "2024#20": {
+      "sec": 207,
+      "cues": 14,
+      "score": 85,
+      "type": "R-CLAIM"
+    },
+    "2024#21": {
+      "sec": 225,
+      "cues": 13,
+      "score": 91,
+      "type": "R-IMPLY"
     },
     "2024#22": {
       "sec": 207,
@@ -470,9 +1268,9 @@
       "type": "R-TOPIC"
     },
     "2024#24": {
-      "sec": 189,
-      "cues": 12,
-      "score": 82,
+      "sec": 216,
+      "cues": 13,
+      "score": 88,
       "type": "R-TITLE"
     },
     "2024#25": {
@@ -505,10 +1303,28 @@
       "score": 93,
       "type": "R-GRAMMAR"
     },
+    "2024#30": {
+      "sec": 199,
+      "cues": 13,
+      "score": 91,
+      "type": "R-VOCAB"
+    },
     "2024#31": {
       "sec": 223,
       "cues": 13,
       "score": 88,
+      "type": "R-BLANK"
+    },
+    "2024#32": {
+      "sec": 234,
+      "cues": 13,
+      "score": 90,
+      "type": "R-BLANK"
+    },
+    "2024#33": {
+      "sec": 226,
+      "cues": 13,
+      "score": 89,
       "type": "R-BLANK"
     },
     "2024#34": {
@@ -535,6 +1351,24 @@
       "score": 88,
       "type": "R-INSERT"
     },
+    "2024#40": {
+      "sec": 224,
+      "cues": 13,
+      "score": 88,
+      "type": "R-SUMMARY"
+    },
+    "2024#43": {
+      "sec": 211,
+      "cues": 13,
+      "score": 91,
+      "type": "X-ORDER"
+    },
+    "2024#44": {
+      "sec": 180,
+      "cues": 12,
+      "score": 89,
+      "type": "X-REFER"
+    },
     "2024#45": {
       "sec": 176,
       "cues": 13,
@@ -546,6 +1380,18 @@
       "cues": 13,
       "score": 88,
       "type": "R-PURPOSE"
+    },
+    "2025#20": {
+      "sec": 220,
+      "cues": 14,
+      "score": 89,
+      "type": "R-CLAIM"
+    },
+    "2025#21": {
+      "sec": 223,
+      "cues": 13,
+      "score": 90,
+      "type": "R-IMPLY"
     },
     "2025#22": {
       "sec": 207,
@@ -571,6 +1417,12 @@
       "score": 87,
       "type": "R-CHART"
     },
+    "2025#26": {
+      "sec": 217,
+      "cues": 14,
+      "score": 92,
+      "type": "R-FACT"
+    },
     "2025#27": {
       "sec": 189,
       "cues": 12,
@@ -588,6 +1440,12 @@
       "cues": 13,
       "score": 92,
       "type": "R-GRAMMAR"
+    },
+    "2025#30": {
+      "sec": 219,
+      "cues": 14,
+      "score": 90,
+      "type": "R-VOCAB"
     },
     "2025#31": {
       "sec": 212,
@@ -619,6 +1477,12 @@
       "score": 92,
       "type": "R-ORDER"
     },
+    "2025#37": {
+      "sec": 226,
+      "cues": 13,
+      "score": 90,
+      "type": "R-ORDER"
+    },
     "2025#38": {
       "sec": 200,
       "cues": 12,
@@ -630,6 +1494,24 @@
       "cues": 12,
       "score": 91,
       "type": "R-INSERT"
+    },
+    "2025#40": {
+      "sec": 217,
+      "cues": 13,
+      "score": 88,
+      "type": "R-SUMMARY"
+    },
+    "2025#43": {
+      "sec": 228,
+      "cues": 13,
+      "score": 93,
+      "type": "X-ORDER"
+    },
+    "2025#44": {
+      "sec": 192,
+      "cues": 13,
+      "score": 89,
+      "type": "X-REFER"
     },
     "2025#45": {
       "sec": 181,
@@ -649,6 +1531,18 @@
       "score": 88,
       "type": "R-CLAIM"
     },
+    "2026#21": {
+      "sec": 226,
+      "cues": 13,
+      "score": 86,
+      "type": "R-IMPLY"
+    },
+    "2026#22": {
+      "sec": 222,
+      "cues": 13,
+      "score": 87,
+      "type": "R-GIST"
+    },
     "2026#23": {
       "sec": 242,
       "cues": 14,
@@ -667,6 +1561,12 @@
       "score": 83,
       "type": "R-CHART"
     },
+    "2026#26": {
+      "sec": 222,
+      "cues": 14,
+      "score": 92,
+      "type": "R-FACT"
+    },
     "2026#27": {
       "sec": 188,
       "cues": 12,
@@ -684,6 +1584,12 @@
       "cues": 13,
       "score": 92,
       "type": "R-GRAMMAR"
+    },
+    "2026#30": {
+      "sec": 219,
+      "cues": 13,
+      "score": 88,
+      "type": "R-VOCAB"
     },
     "2026#31": {
       "sec": 215,
@@ -715,9 +1621,9 @@
       "score": 88
     },
     "2026#37": {
-      "sec": 219,
+      "sec": 228,
       "cues": 13,
-      "score": 91,
+      "score": 84,
       "type": "R-ORDER"
     },
     "2026#38": {
@@ -732,11 +1638,35 @@
       "score": 91,
       "type": "R-INSERT"
     },
+    "2026#40": {
+      "sec": 226,
+      "cues": 13,
+      "score": 90,
+      "type": "R-SUMMARY"
+    },
+    "2026#43": {
+      "sec": 235,
+      "cues": 13,
+      "score": 93,
+      "type": "X-ORDER"
+    },
+    "2026#44": {
+      "sec": 195,
+      "cues": 12,
+      "score": 88,
+      "type": "X-REFER"
+    },
     "2026#45": {
       "sec": 192,
       "cues": 13,
       "score": 89,
       "type": "X-FACT"
+    },
+    "M1809#19": {
+      "sec": 222,
+      "cues": 14,
+      "score": 91,
+      "type": "R-MOOD"
     },
     "M1809#20": {
       "sec": 219,
@@ -744,11 +1674,35 @@
       "score": 89,
       "type": "R-CLAIM"
     },
+    "M1809#21": {
+      "sec": 202,
+      "cues": 13,
+      "score": 89,
+      "type": "R-GIST"
+    },
+    "M1809#22": {
+      "sec": 225,
+      "cues": 13,
+      "score": 90,
+      "type": "R-TOPIC"
+    },
     "M1809#25": {
       "sec": 225,
       "cues": 13,
       "score": 92,
       "type": "R-FACT"
+    },
+    "M1809#26": {
+      "sec": 197,
+      "cues": 13,
+      "score": 89,
+      "type": "R-NOTICE"
+    },
+    "M1809#27": {
+      "sec": 216,
+      "cues": 13,
+      "score": 88,
+      "type": "R-NOTICE"
     },
     "M1809#31": {
       "sec": 187,
@@ -768,6 +1722,12 @@
       "score": 88,
       "type": "R-BLANK"
     },
+    "M1809#34": {
+      "sec": 222,
+      "cues": 13,
+      "score": 85,
+      "type": "R-BLANK"
+    },
     "M1809#36": {
       "sec": 208,
       "cues": 13,
@@ -780,11 +1740,47 @@
       "score": 88,
       "type": "R-ORDER"
     },
+    "M1809#38": {
+      "sec": 214,
+      "cues": 13,
+      "score": 90,
+      "type": "R-INSERT"
+    },
     "M1809#39": {
       "sec": 195,
       "cues": 12,
       "score": 86,
       "type": "R-INSERT"
+    },
+    "M1809#40": {
+      "sec": 199,
+      "cues": 13,
+      "score": 94,
+      "type": "R-SUMMARY"
+    },
+    "M1809#41": {
+      "sec": 213,
+      "cues": 12,
+      "score": 86,
+      "type": "X-TITLE"
+    },
+    "M1809#43": {
+      "sec": 217,
+      "cues": 14,
+      "score": 90,
+      "type": "X-ORDER"
+    },
+    "M1809#45": {
+      "sec": 214,
+      "cues": 13,
+      "score": 91,
+      "type": "X-FACT"
+    },
+    "M2006#19": {
+      "sec": 221,
+      "cues": 14,
+      "score": 89,
+      "type": "R-MOOD"
     },
     "M2006#20": {
       "sec": 200,
@@ -792,17 +1788,59 @@
       "score": 88,
       "type": "R-CLAIM"
     },
+    "M2006#21": {
+      "sec": 237,
+      "cues": 14,
+      "score": 89,
+      "type": "R-IMPLY"
+    },
+    "M2006#22": {
+      "sec": 210,
+      "cues": 13,
+      "score": 88,
+      "type": "R-GIST"
+    },
     "M2006#23": {
       "sec": 211,
       "cues": 13,
       "score": 91,
       "type": "R-TOPIC"
     },
+    "M2006#25": {
+      "sec": 223,
+      "cues": 13,
+      "score": 88,
+      "type": "R-CHART"
+    },
     "M2006#26": {
       "sec": 209,
       "cues": 13,
       "score": 91,
       "type": "R-FACT"
+    },
+    "M2006#27": {
+      "sec": 227,
+      "cues": 13,
+      "score": 93,
+      "type": "R-NOTICE"
+    },
+    "M2006#28": {
+      "sec": 219,
+      "cues": 13,
+      "score": 89,
+      "type": "R-NOTICE"
+    },
+    "M2006#29": {
+      "sec": 203,
+      "cues": 12,
+      "score": 92,
+      "type": "R-GRAMMAR"
+    },
+    "M2006#30": {
+      "sec": 222,
+      "cues": 14,
+      "score": 91,
+      "type": "R-VOCAB"
     },
     "M2006#31": {
       "sec": 227,
@@ -846,11 +1884,53 @@
       "score": 89,
       "type": "R-INSERT"
     },
+    "M2006#40": {
+      "sec": 207,
+      "cues": 13,
+      "score": 92,
+      "type": "R-SUMMARY"
+    },
+    "M2006#43": {
+      "sec": 218,
+      "cues": 14,
+      "score": 92,
+      "type": "X-ORDER"
+    },
+    "M2006#44": {
+      "sec": 204,
+      "cues": 13,
+      "score": 90,
+      "type": "X-REFER"
+    },
+    "M2006#45": {
+      "sec": 206,
+      "cues": 13,
+      "score": 93,
+      "type": "X-FACT"
+    },
+    "M2106#19": {
+      "sec": 228,
+      "cues": 14,
+      "score": 89,
+      "type": "R-MOOD"
+    },
     "M2106#20": {
       "sec": 219,
       "cues": 14,
       "score": 88,
       "type": "R-CLAIM"
+    },
+    "M2106#21": {
+      "sec": 224,
+      "cues": 13,
+      "score": 89,
+      "type": "R-IMPLY"
+    },
+    "M2106#22": {
+      "sec": 212,
+      "cues": 13,
+      "score": 90,
+      "type": "R-GIST"
     },
     "M2106#23": {
       "sec": 200,
@@ -858,11 +1938,41 @@
       "score": 92,
       "type": "R-TOPIC"
     },
+    "M2106#25": {
+      "sec": 203,
+      "cues": 12,
+      "score": 92,
+      "type": "R-CHART"
+    },
     "M2106#26": {
       "sec": 222,
       "cues": 13,
       "score": 91,
       "type": "R-FACT"
+    },
+    "M2106#27": {
+      "sec": 229,
+      "cues": 13,
+      "score": 92,
+      "type": "R-NOTICE"
+    },
+    "M2106#28": {
+      "sec": 221,
+      "cues": 13,
+      "score": 92,
+      "type": "R-NOTICE"
+    },
+    "M2106#29": {
+      "sec": 204,
+      "cues": 12,
+      "score": 90,
+      "type": "R-GRAMMAR"
+    },
+    "M2106#30": {
+      "sec": 227,
+      "cues": 14,
+      "score": 87,
+      "type": "R-VOCAB"
     },
     "M2106#31": {
       "sec": 233,
@@ -880,6 +1990,12 @@
       "sec": 232,
       "cues": 13,
       "score": 90,
+      "type": "R-BLANK"
+    },
+    "M2106#34": {
+      "sec": 228,
+      "cues": 13,
+      "score": 91,
       "type": "R-BLANK"
     },
     "M2106#36": {
@@ -906,11 +2022,71 @@
       "score": 88,
       "type": "R-INSERT"
     },
+    "M2106#40": {
+      "sec": 216,
+      "cues": 13,
+      "score": 93,
+      "type": "R-SUMMARY"
+    },
+    "M2106#41": {
+      "sec": 202,
+      "cues": 13,
+      "score": 87,
+      "type": "X-TITLE"
+    },
+    "M2106#43": {
+      "sec": 226,
+      "cues": 14,
+      "score": 92,
+      "type": "X-ORDER"
+    },
+    "M2106#44": {
+      "sec": 214,
+      "cues": 14,
+      "score": 86,
+      "type": "X-REFER"
+    },
+    "M2106#45": {
+      "sec": 199,
+      "cues": 13,
+      "score": 91,
+      "type": "X-FACT"
+    },
+    "M2109#19": {
+      "sec": 227,
+      "cues": 14,
+      "score": 92,
+      "type": "R-MOOD"
+    },
     "M2109#20": {
       "sec": 212,
       "cues": 14,
       "score": 92,
       "type": "R-CLAIM"
+    },
+    "M2109#21": {
+      "sec": 233,
+      "cues": 14,
+      "score": 88,
+      "type": "R-IMPLY"
+    },
+    "M2109#22": {
+      "sec": 227,
+      "cues": 14,
+      "score": 88,
+      "type": "R-GIST"
+    },
+    "M2109#23": {
+      "sec": 224,
+      "cues": 13,
+      "score": 90,
+      "type": "R-TOPIC"
+    },
+    "M2109#25": {
+      "sec": 204,
+      "cues": 12,
+      "score": 92,
+      "type": "R-CHART"
     },
     "M2109#26": {
       "sec": 225,
@@ -929,6 +2105,18 @@
       "cues": 14,
       "score": 91,
       "type": "R-NOTICE"
+    },
+    "M2109#29": {
+      "sec": 203,
+      "cues": 12,
+      "score": 89,
+      "type": "R-GRAMMAR"
+    },
+    "M2109#30": {
+      "sec": 227,
+      "cues": 14,
+      "score": 87,
+      "type": "R-VOCAB"
     },
     "M2109#31": {
       "sec": 230,
@@ -954,6 +2142,12 @@
       "score": 90,
       "type": "R-BLANK"
     },
+    "M2109#36": {
+      "sec": 203,
+      "cues": 13,
+      "score": 90,
+      "type": "R-ORDER"
+    },
     "M2109#37": {
       "sec": 183,
       "cues": 13,
@@ -972,11 +2166,41 @@
       "score": 88,
       "type": "R-INSERT"
     },
+    "M2109#40": {
+      "sec": 218,
+      "cues": 13,
+      "score": 92,
+      "type": "R-SUMMARY"
+    },
+    "M2109#43": {
+      "sec": 224,
+      "cues": 14,
+      "score": 90,
+      "type": "X-ORDER"
+    },
+    "M2109#45": {
+      "sec": 201,
+      "cues": 13,
+      "score": 91,
+      "type": "X-FACT"
+    },
+    "M2206#19": {
+      "sec": 228,
+      "cues": 14,
+      "score": 93,
+      "type": "R-MOOD"
+    },
     "M2206#20": {
       "sec": 220,
       "cues": 14,
       "score": 90,
       "type": "R-CLAIM"
+    },
+    "M2206#21": {
+      "sec": 239,
+      "cues": 14,
+      "score": 90,
+      "type": "R-IMPLY"
     },
     "M2206#22": {
       "sec": 204,
@@ -990,6 +2214,12 @@
       "score": 88,
       "type": "R-TOPIC"
     },
+    "M2206#26": {
+      "sec": 228,
+      "cues": 13,
+      "score": 89,
+      "type": "R-FACT"
+    },
     "M2206#27": {
       "sec": 232,
       "cues": 14,
@@ -1002,10 +2232,28 @@
       "score": 91,
       "type": "R-NOTICE"
     },
+    "M2206#29": {
+      "sec": 211,
+      "cues": 12,
+      "score": 93,
+      "type": "R-GRAMMAR"
+    },
+    "M2206#30": {
+      "sec": 234,
+      "cues": 14,
+      "score": 91,
+      "type": "R-VOCAB"
+    },
     "M2206#31": {
       "sec": 210,
       "cues": 13,
       "score": 86,
+      "type": "R-BLANK"
+    },
+    "M2206#32": {
+      "sec": 229,
+      "cues": 13,
+      "score": 88,
       "type": "R-BLANK"
     },
     "M2206#33": {
@@ -1044,17 +2292,59 @@
       "score": 89,
       "type": "R-INSERT"
     },
+    "M2206#40": {
+      "sec": 216,
+      "cues": 13,
+      "score": 86,
+      "type": "R-SUMMARY"
+    },
+    "M2206#43": {
+      "sec": 225,
+      "cues": 14,
+      "score": 88,
+      "type": "X-ORDER"
+    },
+    "M2206#44": {
+      "sec": 224,
+      "cues": 14,
+      "score": 91,
+      "type": "X-REFER"
+    },
+    "M2209#19": {
+      "sec": 226,
+      "cues": 14,
+      "score": 90,
+      "type": "R-MOOD"
+    },
     "M2209#20": {
       "sec": 218,
       "cues": 14,
       "score": 89,
       "type": "R-CLAIM"
     },
+    "M2209#21": {
+      "sec": 222,
+      "cues": 13,
+      "score": 88,
+      "type": "R-IMPLY"
+    },
     "M2209#22": {
       "sec": 213,
       "cues": 13,
       "score": 92,
       "type": "R-GIST"
+    },
+    "M2209#23": {
+      "sec": 232,
+      "cues": 13,
+      "score": 89,
+      "type": "R-TOPIC"
+    },
+    "M2209#25": {
+      "sec": 209,
+      "cues": 12,
+      "score": 91,
+      "type": "R-CHART"
     },
     "M2209#26": {
       "sec": 222,
@@ -1073,6 +2363,18 @@
       "cues": 14,
       "score": 91,
       "type": "R-NOTICE"
+    },
+    "M2209#29": {
+      "sec": 206,
+      "cues": 12,
+      "score": 91,
+      "type": "R-GRAMMAR"
+    },
+    "M2209#30": {
+      "sec": 228,
+      "cues": 14,
+      "score": 83,
+      "type": "R-VOCAB"
     },
     "M2209#31": {
       "sec": 212,
@@ -1116,17 +2418,107 @@
       "score": 90,
       "type": "R-INSERT"
     },
+    "M2209#40": {
+      "sec": 221,
+      "cues": 13,
+      "score": 91,
+      "type": "R-SUMMARY"
+    },
+    "M2209#41": {
+      "sec": 189,
+      "cues": 12,
+      "score": 85,
+      "type": "X-TITLE"
+    },
+    "M2209#43": {
+      "sec": 223,
+      "cues": 14,
+      "score": 89,
+      "type": "X-ORDER"
+    },
+    "M2209#44": {
+      "sec": 219,
+      "cues": 14,
+      "score": 89,
+      "type": "X-REFER"
+    },
+    "M2209#45": {
+      "sec": 209,
+      "cues": 13,
+      "score": 91,
+      "type": "X-FACT"
+    },
+    "M2306#19": {
+      "sec": 228,
+      "cues": 14,
+      "score": 90,
+      "type": "R-MOOD"
+    },
     "M2306#20": {
       "sec": 226,
       "cues": 14,
       "score": 88,
       "type": "R-CLAIM"
     },
+    "M2306#21": {
+      "sec": 227,
+      "cues": 13,
+      "score": 88,
+      "type": "R-IMPLY"
+    },
+    "M2306#22": {
+      "sec": 219,
+      "cues": 13,
+      "score": 86,
+      "type": "R-GIST"
+    },
+    "M2306#23": {
+      "sec": 232,
+      "cues": 13,
+      "score": 88,
+      "type": "R-TOPIC"
+    },
+    "M2306#25": {
+      "sec": 220,
+      "cues": 12,
+      "score": 90,
+      "type": "R-CHART"
+    },
+    "M2306#26": {
+      "sec": 238,
+      "cues": 14,
+      "score": 88,
+      "type": "R-FACT"
+    },
     "M2306#27": {
       "sec": 237,
       "cues": 14,
       "score": 89,
       "type": "R-NOTICE"
+    },
+    "M2306#28": {
+      "sec": 232,
+      "cues": 14,
+      "score": 90,
+      "type": "R-NOTICE"
+    },
+    "M2306#29": {
+      "sec": 216,
+      "cues": 12,
+      "score": 91,
+      "type": "R-GRAMMAR"
+    },
+    "M2306#30": {
+      "sec": 227,
+      "cues": 14,
+      "score": 87,
+      "type": "R-VOCAB"
+    },
+    "M2306#31": {
+      "sec": 208,
+      "cues": 13,
+      "score": 87,
+      "type": "R-BLANK"
     },
     "M2306#32": {
       "sec": 191,
@@ -1152,11 +2544,41 @@
       "score": 89,
       "type": "R-ORDER"
     },
+    "M2306#37": {
+      "sec": 245,
+      "cues": 14,
+      "score": 88,
+      "type": "R-ORDER"
+    },
     "M2306#38": {
       "sec": 214,
       "cues": 13,
       "score": 89,
       "type": "R-INSERT"
+    },
+    "M2306#39": {
+      "sec": 203,
+      "cues": 12,
+      "score": 88,
+      "type": "R-INSERT"
+    },
+    "M2306#40": {
+      "sec": 252,
+      "cues": 14,
+      "score": 87,
+      "type": "R-SUMMARY"
+    },
+    "M2306#43": {
+      "sec": 222,
+      "cues": 14,
+      "score": 86,
+      "type": "X-ORDER"
+    },
+    "M2306#44": {
+      "sec": 219,
+      "cues": 13,
+      "score": 91,
+      "type": "X-REFER"
     },
     "M2309#18": {
       "sec": 207,
@@ -1169,6 +2591,12 @@
       "cues": 14,
       "score": 84,
       "type": "R-CLAIM"
+    },
+    "M2309#21": {
+      "sec": 218,
+      "cues": 13,
+      "score": 87,
+      "type": "R-IMPLY"
     },
     "M2309#22": {
       "sec": 207,
@@ -1213,15 +2641,27 @@
       "type": "R-NOTICE"
     },
     "M2309#29": {
-      "sec": 216,
-      "cues": 13,
+      "sec": 236,
+      "cues": 14,
       "score": 90,
       "type": "R-GRAMMAR"
+    },
+    "M2309#30": {
+      "sec": 202,
+      "cues": 13,
+      "score": 89,
+      "type": "R-VOCAB"
     },
     "M2309#31": {
       "sec": 194,
       "cues": 13,
       "score": 86,
+      "type": "R-BLANK"
+    },
+    "M2309#32": {
+      "sec": 205,
+      "cues": 13,
+      "score": 88,
       "type": "R-BLANK"
     },
     "M2309#33": {
@@ -1260,6 +2700,24 @@
       "score": 88,
       "type": "R-INSERT"
     },
+    "M2309#40": {
+      "sec": 222,
+      "cues": 13,
+      "score": 87,
+      "type": "R-SUMMARY"
+    },
+    "M2309#43": {
+      "sec": 220,
+      "cues": 13,
+      "score": 90,
+      "type": "X-ORDER"
+    },
+    "M2309#44": {
+      "sec": 186,
+      "cues": 12,
+      "score": 89,
+      "type": "X-REFER"
+    },
     "M2309#45": {
       "sec": 180,
       "cues": 13,
@@ -1271,6 +2729,12 @@
       "cues": 13,
       "score": 89,
       "type": "R-PURPOSE"
+    },
+    "M2406#21": {
+      "sec": 218,
+      "cues": 13,
+      "score": 86,
+      "type": "R-IMPLY"
     },
     "M2406#22": {
       "sec": 207,
@@ -1285,9 +2749,9 @@
       "type": "R-TOPIC"
     },
     "M2406#24": {
-      "sec": 177,
-      "cues": 13,
-      "score": 80,
+      "sec": 215,
+      "cues": 14,
+      "score": 89,
       "type": "R-TITLE"
     },
     "M2406#25": {
@@ -1320,6 +2784,12 @@
       "score": 92,
       "type": "R-GRAMMAR"
     },
+    "M2406#30": {
+      "sec": 214,
+      "cues": 14,
+      "score": 93,
+      "type": "R-VOCAB"
+    },
     "M2406#31": {
       "sec": 239,
       "cues": 14,
@@ -1344,6 +2814,18 @@
       "score": 90,
       "type": "R-BLANK"
     },
+    "M2406#36": {
+      "sec": 235,
+      "cues": 14,
+      "score": 90,
+      "type": "R-ORDER"
+    },
+    "M2406#37": {
+      "sec": 248,
+      "cues": 14,
+      "score": 86,
+      "type": "R-ORDER"
+    },
     "M2406#38": {
       "sec": 210,
       "cues": 12,
@@ -1356,17 +2838,53 @@
       "score": 87,
       "type": "R-INSERT"
     },
+    "M2406#40": {
+      "sec": 225,
+      "cues": 13,
+      "score": 85,
+      "type": "R-SUMMARY"
+    },
+    "M2406#41": {
+      "sec": 228,
+      "cues": 14,
+      "score": 89,
+      "type": "X-TITLE"
+    },
+    "M2406#43": {
+      "sec": 213,
+      "cues": 13,
+      "score": 92,
+      "type": "X-ORDER"
+    },
     "M2406#45": {
       "sec": 173,
       "cues": 13,
       "score": 91,
       "type": "X-FACT"
     },
+    "M2409#18": {
+      "sec": 205,
+      "cues": 13,
+      "score": 90,
+      "type": "R-PURPOSE"
+    },
     "M2409#20": {
       "sec": 209,
       "cues": 14,
       "score": 88,
       "type": "R-CLAIM"
+    },
+    "M2409#21": {
+      "sec": 216,
+      "cues": 13,
+      "score": 87,
+      "type": "R-IMPLY"
+    },
+    "M2409#22": {
+      "sec": 213,
+      "cues": 13,
+      "score": 84,
+      "type": "R-GIST"
     },
     "M2409#23": {
       "sec": 231,
@@ -1403,6 +2921,12 @@
       "cues": 13,
       "score": 92,
       "type": "R-GRAMMAR"
+    },
+    "M2409#30": {
+      "sec": 209,
+      "cues": 14,
+      "score": 90,
+      "type": "R-VOCAB"
     },
     "M2409#31": {
       "sec": 215,
@@ -1446,6 +2970,30 @@
       "score": 87,
       "type": "R-INSERT"
     },
+    "M2409#40": {
+      "sec": 235,
+      "cues": 13,
+      "score": 90,
+      "type": "R-SUMMARY"
+    },
+    "M2409#41": {
+      "sec": 229,
+      "cues": 14,
+      "score": 82,
+      "type": "X-TITLE"
+    },
+    "M2409#43": {
+      "sec": 215,
+      "cues": 13,
+      "score": 92,
+      "type": "X-ORDER"
+    },
+    "M2409#44": {
+      "sec": 186,
+      "cues": 12,
+      "score": 85,
+      "type": "X-REFER"
+    },
     "M2409#45": {
       "sec": 180,
       "cues": 13,
@@ -1463,6 +3011,18 @@
       "cues": 14,
       "score": 88,
       "type": "R-CLAIM"
+    },
+    "M2506#21": {
+      "sec": 219,
+      "cues": 13,
+      "score": 84,
+      "type": "R-IMPLY"
+    },
+    "M2506#22": {
+      "sec": 208,
+      "cues": 13,
+      "score": 86,
+      "type": "R-GIST"
     },
     "M2506#23": {
       "sec": 220,
@@ -1506,6 +3066,12 @@
       "score": 89,
       "type": "R-GRAMMAR"
     },
+    "M2506#30": {
+      "sec": 209,
+      "cues": 14,
+      "score": 86,
+      "type": "R-VOCAB"
+    },
     "M2506#31": {
       "sec": 194,
       "cues": 12,
@@ -1548,6 +3114,36 @@
       "score": 87,
       "type": "R-INSERT"
     },
+    "M2506#39": {
+      "sec": 215,
+      "cues": 12,
+      "score": 87,
+      "type": "R-INSERT"
+    },
+    "M2506#40": {
+      "sec": 224,
+      "cues": 13,
+      "score": 90,
+      "type": "R-SUMMARY"
+    },
+    "M2506#41": {
+      "sec": 230,
+      "cues": 14,
+      "score": 85,
+      "type": "X-TITLE"
+    },
+    "M2506#43": {
+      "sec": 218,
+      "cues": 13,
+      "score": 91,
+      "type": "X-ORDER"
+    },
+    "M2506#44": {
+      "sec": 193,
+      "cues": 13,
+      "score": 88,
+      "type": "X-REFER"
+    },
     "M2506#45": {
       "sec": 190,
       "cues": 14,
@@ -1565,6 +3161,12 @@
       "cues": 14,
       "score": 89,
       "type": "R-CLAIM"
+    },
+    "M2509#21": {
+      "sec": 225,
+      "cues": 13,
+      "score": 87,
+      "type": "R-IMPLY"
     },
     "M2509#22": {
       "sec": 206,
@@ -1614,6 +3216,12 @@
       "score": 92,
       "type": "R-GRAMMAR"
     },
+    "M2509#30": {
+      "sec": 216,
+      "cues": 14,
+      "score": 91,
+      "type": "R-VOCAB"
+    },
     "M2509#31": {
       "sec": 202,
       "cues": 12,
@@ -1662,6 +3270,30 @@
       "score": 91,
       "type": "R-INSERT"
     },
+    "M2509#40": {
+      "sec": 213,
+      "cues": 13,
+      "score": 89,
+      "type": "R-SUMMARY"
+    },
+    "M2509#41": {
+      "sec": 234,
+      "cues": 14,
+      "score": 88,
+      "type": "X-TITLE"
+    },
+    "M2509#43": {
+      "sec": 227,
+      "cues": 13,
+      "score": 88,
+      "type": "X-ORDER"
+    },
+    "M2509#44": {
+      "sec": 194,
+      "cues": 12,
+      "score": 85,
+      "type": "X-REFER"
+    },
     "M2509#45": {
       "sec": 188,
       "cues": 13,
@@ -1674,11 +3306,23 @@
       "score": 90,
       "type": "R-PURPOSE"
     },
+    "M2606#21": {
+      "sec": 217,
+      "cues": 13,
+      "score": 88,
+      "type": "R-IMPLY"
+    },
     "M2606#22": {
       "sec": 206,
       "cues": 13,
       "score": 80,
       "type": "R-GIST"
+    },
+    "M2606#23": {
+      "sec": 246,
+      "cues": 14,
+      "score": 85,
+      "type": "R-TOPIC"
     },
     "M2606#24": {
       "sec": 215,
@@ -1691,6 +3335,12 @@
       "cues": 12,
       "score": 88,
       "type": "R-CHART"
+    },
+    "M2606#26": {
+      "sec": 225,
+      "cues": 14,
+      "score": 91,
+      "type": "R-FACT"
     },
     "M2606#27": {
       "sec": 191,
@@ -1705,15 +3355,21 @@
       "type": "R-NOTICE"
     },
     "M2606#29": {
-      "sec": 209,
+      "sec": 220,
       "cues": 13,
       "score": 91,
       "type": "R-GRAMMAR"
     },
+    "M2606#30": {
+      "sec": 207,
+      "cues": 13,
+      "score": 89,
+      "type": "R-VOCAB"
+    },
     "M2606#31": {
-      "sec": 220,
+      "sec": 230,
       "cues": 14,
-      "score": 92,
+      "score": 88,
       "type": "R-BLANK"
     },
     "M2606#32": {
@@ -1758,6 +3414,24 @@
       "score": 89,
       "type": "R-INSERT"
     },
+    "M2606#40": {
+      "sec": 213,
+      "cues": 13,
+      "score": 89,
+      "type": "R-SUMMARY"
+    },
+    "M2606#43": {
+      "sec": 231,
+      "cues": 13,
+      "score": 93,
+      "type": "X-ORDER"
+    },
+    "M2606#44": {
+      "sec": 187,
+      "cues": 12,
+      "score": 89,
+      "type": "X-REFER"
+    },
     "M2606#45": {
       "sec": 181,
       "cues": 13,
@@ -1776,6 +3450,12 @@
       "score": 89,
       "type": "R-CLAIM"
     },
+    "M2609#21": {
+      "sec": 235,
+      "cues": 13,
+      "score": 90,
+      "type": "R-IMPLY"
+    },
     "M2609#22": {
       "sec": 208,
       "cues": 13,
@@ -1789,10 +3469,16 @@
       "type": "R-TOPIC"
     },
     "M2609#24": {
-      "sec": 198,
-      "cues": 12,
-      "score": 85,
+      "sec": 227,
+      "cues": 13,
+      "score": 87,
       "type": "R-TITLE"
+    },
+    "M2609#25": {
+      "sec": 208,
+      "cues": 12,
+      "score": 82,
+      "type": "R-CHART"
     },
     "M2609#26": {
       "sec": 225,
@@ -1818,10 +3504,16 @@
       "score": 90,
       "type": "R-GRAMMAR"
     },
-    "M2609#31": {
-      "sec": 200,
+    "M2609#30": {
+      "sec": 209,
       "cues": 13,
       "score": 90,
+      "type": "R-VOCAB"
+    },
+    "M2609#31": {
+      "sec": 208,
+      "cues": 13,
+      "score": 86,
       "type": "R-BLANK"
     },
     "M2609#32": {
@@ -1866,6 +3558,30 @@
       "score": 90,
       "type": "R-INSERT"
     },
+    "M2609#40": {
+      "sec": 209,
+      "cues": 13,
+      "score": 89,
+      "type": "R-SUMMARY"
+    },
+    "M2609#41": {
+      "sec": 240,
+      "cues": 14,
+      "score": 88,
+      "type": "X-TITLE"
+    },
+    "M2609#43": {
+      "sec": 229,
+      "cues": 13,
+      "score": 91,
+      "type": "X-ORDER"
+    },
+    "M2609#44": {
+      "sec": 193,
+      "cues": 12,
+      "score": 87,
+      "type": "X-REFER"
+    },
     "M2609#45": {
       "sec": 191,
       "cues": 13,
@@ -1883,6 +3599,24 @@
       "cues": 14,
       "score": 89,
       "type": "R-CLAIM"
+    },
+    "M2706#21": {
+      "sec": 231,
+      "cues": 13,
+      "score": 87,
+      "type": "R-IMPLY"
+    },
+    "M2706#22": {
+      "sec": 228,
+      "cues": 13,
+      "score": 88,
+      "type": "R-GIST"
+    },
+    "M2706#23": {
+      "sec": 259,
+      "cues": 14,
+      "score": 89,
+      "type": "R-TOPIC"
     },
     "M2706#24": {
       "sec": 238,
@@ -1919,6 +3653,12 @@
       "cues": 13,
       "score": 87,
       "type": "R-GRAMMAR"
+    },
+    "M2706#30": {
+      "sec": 226,
+      "cues": 14,
+      "score": 90,
+      "type": "R-VOCAB"
     },
     "M2706#31": {
       "sec": 221,
@@ -1962,6 +3702,30 @@
       "cues": 12,
       "score": 91,
       "type": "R-INSERT"
+    },
+    "M2706#40": {
+      "sec": 233,
+      "cues": 13,
+      "score": 86,
+      "type": "R-SUMMARY"
+    },
+    "M2706#41": {
+      "sec": 250,
+      "cues": 14,
+      "score": 88,
+      "type": "X-TITLE"
+    },
+    "M2706#43": {
+      "sec": 235,
+      "cues": 13,
+      "score": 87,
+      "type": "X-ORDER"
+    },
+    "M2706#44": {
+      "sec": 221,
+      "cues": 13,
+      "score": 87,
+      "type": "X-REFER"
     },
     "M2706#45": {
       "sec": 203,

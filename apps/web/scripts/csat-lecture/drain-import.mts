@@ -24,6 +24,7 @@ import path from 'node:path'
 
 import { rawNumeralIssues, speakSegments } from '../../src/lib/csat/lecture/speakable'
 import type { Lecture, LectureCue, LectureExamFile, LectureIndex, LectureRole, LectureSegment } from '../../src/lib/csat/lecture/types'
+import { withFocus } from '../../src/lib/csat/lecture/focus'
 import { validateLecture, withComputedTimes } from '../../src/lib/csat/lecture/validate'
 import { arg, DATA, flag, readJson, REPORTS, WORK, writeJson } from './env.mts'
 
@@ -96,7 +97,7 @@ const grades = readJson<{ grades: Record<string, Grade> }>(path.join(WORK, `chun
 const graded = readJson<{ lectures: Record<string, Draft> } | null>(path.join(WORK, `chunk-${CHUNK}.out.graded.json`), null)
 const sameText = (a: Draft | undefined, b: Draft | undefined) => JSON.stringify(a?.cues ?? null) === JSON.stringify(b?.cues ?? null)
 
-function expand(itemId: string, d: Draft): { lecture: Lecture; rawIssues: { cue: string; msg: string }[] } {
+function expand(itemId: string, d: Draft, sentenceCount: number): { lecture: Lecture; rawIssues: { cue: string; msg: string }[] } {
   const rawIssues: { cue: string; msg: string }[] = []
   const cues: LectureCue[] = (d.cues as (Shorthand | LectureCue)[]).map((c, i) => {
     const id = `c${i + 1}`
@@ -121,7 +122,8 @@ function expand(itemId: string, d: Draft): { lecture: Lecture; rawIssues: { cue:
     total_sec_est: 0,
     generated_by: GENERATED_BY,
     rubric_score: 0,
-    cues,
+    // 말한 문장 번호를 싣는다 — 지도가 켤 막대를 말과 맞춘다(focus.ts). 지도가 없는 문항은 싣지 않는다.
+    cues: withFocus(cues, sentenceCount),
   })
   return { lecture, rawIssues }
 }
@@ -153,7 +155,7 @@ for (const it of chunk.items) {
     rows.push({ id: it.id, type_id: it.type_id, status: 'missing', attempt: 0, score: null, parts: null, totalSec: null, cues: null, maxCueSec: null, quoteHits: null, issues: [{ code: 'missing', msg: '대본이 없다' }] })
     continue
   }
-  const { lecture, rawIssues } = expand(it.id, d)
+  const { lecture, rawIssues } = expand(it.id, d, it.targets.useMap ? it.targets.anchor.length : 0)
   const chs = it.analysis.choices ?? []
   const v = validateLecture(lecture, {
     targets: it.targets,

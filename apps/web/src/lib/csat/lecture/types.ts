@@ -60,6 +60,11 @@ export interface LectureCue {
   est_sec: number
   /** 이 큐가 끝난 뒤 하이라이트를 붙들고 있는 시간 */
   pause_after_ms: number
+  /**
+   * 대본이 「N번째 문장」이라고 말한 막대(0부터). 분석 블록을 가리키는 큐에만 적재가 채운다.
+   * 지도가 켜려던 문장에 이것이 없으면 지도는 이쪽을 켠다 — 말과 막대를 맞춘다(`focus.ts`).
+   */
+  focus?: number[]
 }
 
 export interface Lecture {

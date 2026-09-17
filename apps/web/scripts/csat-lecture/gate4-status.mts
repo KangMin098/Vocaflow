@@ -16,7 +16,7 @@ import { DATA, readJson, WORK } from './env.mts'
 const index = readJson<LectureIndex>(path.join(DATA, 'index.json'), { built: '', items: {} })
 const names = fs
   .readdirSync(WORK)
-  .filter((f) => /^chunk-.+\.json$/.test(f) && !/\.(out|grade|report|graded)/.test(f) && f !== 'chunk-pilot.json')
+  .filter((f) => /^chunk-.+\.json$/.test(f) && !/\.(out|grade|regrade|report|graded)/.test(f) && f !== 'chunk-pilot.json')
   .map((f) => f.slice('chunk-'.length, -'.json'.length))
   .sort()
 

@@ -6,6 +6,7 @@
 
 import { describe, expect, it } from 'vitest'
 
+import { cueFocus, litForCue, spokenSentenceIndices, withFocus } from '../focus'
 import { LecturePlayer, type PlayerState } from '../player'
 import { estimateSec, segmentIssues, sinoKorean, speakKo, speakSegments } from '../speakable'
 import { isValidTarget, lectureTargets } from '../targets'
@@ -278,6 +279,48 @@ describe('귀와 눈이 같은 곳 — pointing', () => {
   })
   it('맞게 켜면 통과한다', () => {
     expect(codes(one('여러분, 여기 두 번째 문장을 보세요.', { kind: 'anchor', id: 'sentence:1' }))).not.toContain('pointing')
+  })
+  it('지도 블록을 켜고 문장 번호를 말했는데 focus 가 없으면 막는다 — 옛 데이터·손으로 고친 대본', () => {
+    expect(codes(one('여러분, 일곱 번째 문장을 보세요.', { kind: 'analysis', id: 'answer' }))).toContain('focus')
+  })
+  it('적재가 채운 focus 면 통과한다', () => {
+    const l = one('여러분, 일곱 번째 문장을 보세요.', { kind: 'analysis', id: 'answer' })
+    expect(validateLecture({ ...l, cues: withFocus(l.cues, 8) }, ctx).issues.map((i) => i.code)).not.toContain('focus')
+  })
+})
+
+describe('말한 문장 = 켜진 막대 — focus', () => {
+  it('서수를 0부터의 막대 번호로 — 첫·열한·스무·스물세', () => {
+    expect(spokenSentenceIndices('첫 문장과 열한 번째 문장, 스무 번째 문장, 스물세 번째 문장', 30)).toEqual([0, 10, 19, 22])
+  })
+  it('「스물세」 안의 「세」를 따로 세지 않는다 · 막대가 없는 번호는 버린다', () => {
+    expect(spokenSentenceIndices('스물세 번째 문장', 30)).toEqual([22])
+    expect(spokenSentenceIndices('아홉 번째 문장', 5)).toEqual([])
+  })
+  it('「두 번째 선지」는 문장이 아니다', () => {
+    expect(spokenSentenceIndices('두 번째 선지를 보세요', 8)).toEqual([])
+  })
+  const at = (id: string, text: string): LectureCue => ({
+    ...cue(1),
+    target: { kind: 'analysis', id },
+    segments: [{ lang: 'ko-KR', text }],
+  })
+  it('지도 블록(정답·오답·지도)만 싣는다 — 도입·정리 블록은 눈이 지도에 없다', () => {
+    expect(cueFocus(at('reject:2', '일곱 번째 문장이 지워요'), 8)).toEqual([6])
+    expect(cueFocus(at('map', '첫 문장과 네 번째 문장'), 8)).toEqual([0, 3])
+    expect(cueFocus(at('head', '첫 문장부터 보세요'), 8)).toBeUndefined()
+    expect(cueFocus(at('reject:2', '일곱 번째 문장'), 0)).toBeUndefined()
+  })
+  it('재실행 안전 — 두 번 채워도 같다', () => {
+    const once = withFocus([at('reject:2', '일곱 번째 문장')], 8)
+    expect(withFocus(once, 8)).toEqual(once)
+  })
+  it('근거 막대가 말한 문장을 품으면 그대로, 아니면 말한 막대를 켠다', () => {
+    const anchor = [3]
+    expect(litForCue(anchor, [3, 6])).toBe(anchor)
+    expect(litForCue(anchor, [6])).toEqual([6])
+    expect(litForCue([], [0, 3])).toEqual([0, 3])
+    expect(litForCue(anchor, null)).toBe(anchor)
   })
 })
 

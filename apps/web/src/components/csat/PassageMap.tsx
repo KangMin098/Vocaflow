@@ -39,7 +39,9 @@ import {
 } from '@/lib/csat/passage-map-model'
 import type { SkeletonSentence } from '@/lib/csat/passage-skeleton'
 
-import { useLectureTargetKey } from './lecture/LectureStage'
+import { litForCue } from '@/lib/csat/lecture/focus'
+
+import { useLectureFocus, useLectureTargetKey } from './lecture/LectureStage'
 
 export type { MapAnchor, MapPlacement }
 
@@ -72,6 +74,13 @@ export function PassageMap({ sentences, anchors, placements, onSelect }: Passage
     const id = lectureKey.slice('analysis:'.length)
     if (anchors.some((a) => a.id === id)) setActiveId(id)
   }, [lectureKey, anchors])
+
+  // 강의가 「N번째 문장」이라고 말하는데 근거 막대가 그 문장이 아니면, 말한 막대를 켠다(`focus.ts`).
+  // 오답을 지우는 근거가 칩에 붙은 문장이 아닌 곳에 있는 일이 흔하다 — 켜진 막대와 말이 갈라지면
+  // 학습자는 엉뚱한 줄을 읽는다.
+  const lectureFocus = useLectureFocus()
+  const shownLit = useMemo(() => litForCue(lit, lectureFocus), [lit, lectureFocus])
+  const followingSpeech = shownLit !== lit
 
   // 「클릭/클릭/클릭」이 실제로 일어나는지는 **몇 번째인지**를 세야 안다. 첫 근거는 서버가
   // 이미 펴 둔 채로 오므로 세지 않는다 — 세면 모든 방문이 최소 1이 되어 «눌렀다» 와
@@ -134,21 +143,23 @@ export function PassageMap({ sentences, anchors, placements, onSelect }: Passage
           결과가 있는가」(CLAUDE.md I1)를 셀 때 보는 표식이다. 막대가 span 이라 svg 로는 안 세어진다. */}
       <ol className="space-y-1.5" aria-label="지문의 문장" data-proof="passage-map">
         {sentences.map((s, i) => {
-          const isLit = lit.includes(i)
-          const reveals = isLit && activeId ? s.reveals.filter((r) => r.anchorId === activeId) : []
+          const isLit = shownLit.includes(i)
+          const reveals = isLit && activeId && !followingSpeech ? s.reveals.filter((r) => r.anchorId === activeId) : []
 
           return (
             <li
               key={i}
               data-lecture-target={`anchor:sentence:${i}`}
-              aria-label={`${i + 1}번째 문장${isLit ? ' — 지금 보는 근거가 여기 있어요' : ''}`}
+              aria-label={`${i + 1}번째 문장${
+                isLit ? (followingSpeech ? ' — 강의가 지금 말하는 문장이에요' : ' — 지금 보는 근거가 여기 있어요') : ''
+              }`}
               className="flex items-center gap-2"
             >
               <span
                 aria-hidden
                 className="w-5 shrink-0 text-right font-display text-[10px] tabular-nums text-[var(--t3)]"
               >
-                {isLit ? (active?.kind === 'answer' ? '✓' : active?.label) : i + 1}
+                {isLit && !followingSpeech ? (active?.kind === 'answer' ? '✓' : active?.label) : i + 1}
               </span>
 
               {isLit && reveals.length ? (
@@ -175,7 +186,7 @@ export function PassageMap({ sentences, anchors, placements, onSelect }: Passage
                 <span
                   aria-hidden
                   className="h-2 rounded-full bg-[var(--bd)] transition-opacity duration-[var(--dur-normal)] ease-[var(--ease)] motion-reduce:transition-none"
-                  style={{ width: `${widthPct(s.chars, maxChars)}%`, opacity: activeId && !isLit ? 0.45 : 0.8 }}
+                  style={{ width: `${widthPct(s.chars, maxChars)}%`, opacity: (activeId || followingSpeech) && !isLit ? 0.45 : 0.8 }}
                 />
               )}
             </li>
