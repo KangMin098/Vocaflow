@@ -25,15 +25,12 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-import { rngFrom, shuffle, type DrillCard } from './trap-drill'
+import { pickSet, type DrillBias, type DrillCard } from './trap-drill'
 
 const DATA = path.join(process.cwd(), 'src/lib/csat/drill-data/pool.json')
 
 /** 한 세트의 문항 수. 8 은 작업기억을 넘기지 않으면서 함정 넷 이상을 만나는 크기다. */
 export const DRILL_SIZE = 8
-
-/** 한 세트에 같은 함정이 몇 번까지 나올 수 있나. 여덟이면 함정 넷 이상을 만난다. */
-const MAX_PER_TRAP = 2
 
 interface Pool {
   built_at: string
@@ -61,33 +58,24 @@ export interface DrillSet {
   cards: DrillCard[]
   /** 구운 문제 수 — 화면이 「무엇에서 골랐는지」 말할 수 있어야 한다. */
   pool: number
+  /** 이번 세트에 **되돌아온** 카드 id (지난번 틀린 것) */
+  returningIds: string[]
+  /** 기록 때문에 자리를 먼저 받은 수법 */
+  boosted: string[]
   error: string | null
 }
 
-export function loadTrapDrill(seed: string, size = DRILL_SIZE): DrillSet {
+/**
+ * 한 세트를 고른다. 뽑기 규칙은 `trap-drill.ts` 의 `pickSet` 한 곳에 있다 —
+ * 여기에 다시 적으면 화면과 회귀가 서로 다른 규칙을 보게 된다(이 파일에 한때 같은 루프가
+ * 복제돼 있었다).
+ *
+ * `bias` 는 **기록이 문턱을 넘은 학습자에게만** 넘긴다(부르는 쪽 책임). 없으면 편향 없이 뽑고,
+ * 그때의 세트는 같은 씨앗에 대해 편향 도입 전과 똑같다.
+ */
+export function loadTrapDrill(seed: string, size = DRILL_SIZE, bias?: DrillBias | null): DrillSet {
   const data = load()
-  if (!data) return { cards: [], pool: 0, error: '훈련 문제를 불러오지 못했어요.' }
-
-  // ── 뽑기 ─────────────────────────────────────────────────────────
-  // 그냥 무작위로 여덟을 뽑으면 흔한 함정이 세 번 나온다. 그러면 한 세트가 한두 함정만 재게
-  // 되고, 훈련이 「아홉 가지를 알아보는 것」이 아니라 「흔한 것을 찍는 것」이 된다.
-  const rand = rngFrom(seed)
-  const shuffled = shuffle(data.cards, rand)
-  const seenItem = new Set<string>()
-  const perTrap = new Map<string, number>()
-  const picked: DrillCard[] = []
-
-  for (const cap of [MAX_PER_TRAP - 1, MAX_PER_TRAP, Infinity]) {
-    for (const c of shuffled) {
-      if (picked.length >= size) break
-      if (seenItem.has(c.item_id)) continue
-      if ((perTrap.get(c.answer) ?? 0) >= cap) continue
-      seenItem.add(c.item_id)
-      perTrap.set(c.answer, (perTrap.get(c.answer) ?? 0) + 1)
-      picked.push(c)
-    }
-    if (picked.length >= size) break
-  }
-
-  return { cards: picked, pool: data.cards.length, error: null }
+  if (!data) return { cards: [], pool: 0, returningIds: [], boosted: [], error: '훈련 문제를 불러오지 못했어요.' }
+  const set = pickSet(data.cards, seed, size, bias)
+  return { ...set, pool: data.cards.length, error: null }
 }

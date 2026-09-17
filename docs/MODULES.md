@@ -977,13 +977,13 @@ gamekit 을 쓰지 않는 게임(WordBlitz · Pirate's Bounty)은 `GameKitStyles
 | 순수 모델 | [`lib/csat/trap-atlas.ts`](../apps/web/src/lib/csat/trap-atlas.ts) — `rankFor`(범위별 재집계) · `baselineShare`/`liftOf`(배수 · **분모를 이름 붙은 것끼리 맞춘다**) · `standoutFor`(카드가 같은 말을 반복하지 않게) · `DETECTOR`(우리가 쓴 「잡는 법」 20줄 — **센 값이 아니다**) |
 | 화면 | [`components/csat/TrapAtlas.tsx`](../apps/web/src/components/csat/TrapAtlas.tsx) — 허브(`as="h1"` · 유형 칩)와 유형 화면(`showLift` · 칩 없음) 둘이 같은 컴포넌트를 쓴다 |
 | 시간 띠 | [`lib/csat/plan-timeline.ts`](../apps/web/src/lib/csat/plan-timeline.ts)(순수 — `buildTimeline`·`clampSpeed`) · [`components/csat/PlanTimeline.tsx`](../apps/web/src/components/csat/PlanTimeline.tsx) |
-| 내 기록 (④재기) | [`lib/csat/my-traps.ts`](../apps/web/src/lib/csat/my-traps.ts) — **표본 문턱을 여기서 쥔다**(함정당 3회 · 전체 20회). 넘기 전에는 배수를 말하지 않고 센 것만 보여 준다 |
+| 내 기록 (④재기) | [`lib/csat/my-traps.ts`](../apps/web/src/lib/csat/my-traps.ts) — **표본 문턱을 여기서 쥔다**(함정당 3회 · 전체 20회). 넘기 전에는 배수를 말하지 않고 센 것만 보여 준다. `returningCardIds`·`drillBias` 가 기록을 **다음 훈련 세트**로 되먹인다(24시간 지난 최근 오답 · 문턱 넘은 약한 수법) |
 | 순서 (⑤주파) | [`lib/csat/plan-order.ts`](../apps/web/src/lib/csat/plan-order.ts)(순수 — 내 약점 × 유형 구성) · `plan/PlanList.tsx`(토글). ⚠️ **시간 띠는 정렬하지 않는다** — 시험은 번호대로 치러진다 |
 | 계측 | `csat_atlas_scoped` · `csat_trap_opened` · `csat_plan_speed_set` · `csat_plan_ordered` · `csat_drill_answered` · `csat_drill_finished` (`lib/analytics/events.ts` 닫힌 목록) |
 | 자 | [`apps/web/scripts/csat-surface-measure.mts`](../apps/web/scripts/csat-surface-measure.mts)(수치) · [`csat-shot.mts`](../apps/web/scripts/csat-shot.mts)(눈) |
 | 훈련 (③겨루기) | [`lib/csat/trap-drill.ts`](../apps/web/src/lib/csat/trap-drill.ts)(순수 — 보기 만들기·채점·누설 검사) · [`drill-loader.ts`](../apps/web/src/lib/csat/drill-loader.ts)(구운 풀에서 여덟을 고른다 · **DB 0**) · [`components/csat/TrapDrill.tsx`](../apps/web/src/components/csat/TrapDrill.tsx) · [`scripts/csat/build-trap-drill.mjs`](../scripts/csat/build-trap-drill.mjs) → `drill-data/pool.json` (**1,013문제** · 539KB) |
 | 굽기 | `pnpm csat:atlas` · `csat:atlas:check` · `pnpm csat:drill` · `csat:drill:check` (전부 낡으면 exit 1) |
-| 회귀 | 순수 **81**(`trap-atlas` 18 · `plan-timeline` 12 · `trap-drill` 16 · `trap-drill-pool` 13 · `my-traps` 12 · `plan-order` 11) + **실 DB 2**(`trap-atlas-fresh.integration.test.ts` — 실 DB 에서 셈을 다시 해 구운 값과 견준다. **2026-09-16 에 실제로 잡았다**: 분석이 늘어 함정 이름 513→518 · 구운 지도가 낡음) + `trap-drill-fresh`(훈련이 **옛 정답으로 채점**하는 것을 잡는다 — 변이로 확인) + 런타임 **26**(`tests/e2e/45-csat-trap-atlas.spec.ts`) |
+| 회귀 | 순수 **96**(`trap-atlas` 18 · `plan-timeline` 12 · `trap-drill` 16 · `trap-drill-pool` 13 · `my-traps` 12 · `plan-order` 11 · `drill-feedback` 15) + **실 DB 2**(`trap-atlas-fresh.integration.test.ts` — 실 DB 에서 셈을 다시 해 구운 값과 견준다. **2026-09-16 에 실제로 잡았다**: 분석이 늘어 함정 이름 513→518 · 구운 지도가 낡음) + `trap-drill-fresh`(훈련이 **옛 정답으로 채점**하는 것을 잡는다 — 변이로 확인) + 런타임 **27**(`tests/e2e/45-csat-trap-atlas.spec.ts`) |
 
 **실측 — 학습자 7화면 합계 (2026-09-15)**
 

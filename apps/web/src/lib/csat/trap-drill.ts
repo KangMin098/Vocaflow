@@ -166,3 +166,99 @@ export function scoreDrill(answers: DrillAnswer[]): DrillResult {
     weak: [...by.values()].filter((t) => t.seen >= 2 && t.correct === 0).map((t) => t.trap),
   }
 }
+
+// ─────────────────────────────────────────────────────────────────────
+// 세트 뽑기 — **기록이 훈련으로 되돌아오는 자리** (학습과학 원칙 2 · 간격 반복)
+//
+// 기록(④)이 생기기 전에는 「여덟 개 더」가 매번 무작위였다. 그러면 지난번에 놓친 문제는
+// 다시 안 나오고, 자주 놓치는 수법도 다른 수법과 같은 확률로만 나온다 — **기록은 쌓이는데
+// 훈련은 그것을 모른다.** 여기서 두 가지를 되먹인다:
+//
+//   ① 되돌아오는 문제 — 지난번 **틀린** 카드를 **하루 이상 지나서** 다시 낸다.
+//      바로 다음 세트에 내면 방금 본 해설을 기억으로 맞히는 것이라 인출이 아니다(간격 효과).
+//      세트당 최대 `MAX_RETURNING` 장 — 되돌아오는 것만으로 세트가 차면 새로 배우는 것이 없다.
+//   ② 자주 놓치는 수법 — 그 수법의 카드가 **자리를 먼저** 받는다. 단, 함정당 상한(2)은
+//      그대로다: 「한 세트가 넷 이상의 수법을 묻는다」는 약속을 편향 때문에 깨지 않는다.
+//
+// ⚠️ 편향은 **부르는 쪽이 문턱을 넘겼을 때만** 넘긴다(`my-traps.ts` 의 `enough`). 다섯 문항
+//    기록으로 세트를 기울이면 그건 개인화가 아니라 잡음을 증폭하는 것이다.
+// ─────────────────────────────────────────────────────────────────────
+
+/** 한 세트에 같은 수법이 몇 번까지 나올 수 있나. 여덟이면 넷 이상의 수법을 만난다. */
+export const MAX_PER_TRAP = 2
+/** 한 세트에 되돌아오는 문제의 상한 — 나머지는 새로 배우는 자리다. */
+export const MAX_RETURNING = 2
+
+export interface DrillBias {
+  /** 자주 놓치는 수법 — 이 수법의 카드가 먼저 자리를 받는다 */
+  weak: string[]
+  /** 다시 낼 카드 id(`M2309#42:2`) — 하루 이상 지난 오답만 부르는 쪽이 골라 넘긴다 */
+  returning: string[]
+}
+
+export interface PickedSet {
+  cards: DrillCard[]
+  /** 이번 세트에 **되돌아온** 카드 id — 화면이 「다시 보기」 표시를 달고, 계측이 세는 값 */
+  returningIds: string[]
+  /** 편향이 실제로 자리를 준 수법 — 화면이 「왜 이 세트인가」를 한 줄로 말할 때 쓴다 */
+  boosted: string[]
+}
+
+/**
+ * 풀에서 한 세트를 뽑는다. **순수 함수다** — 같은 입력에 같은 세트.
+ *
+ * 규칙 순서가 곧 우선순위다: 되돌아오는 문제 → 자주 놓치는 수법 → 나머지.
+ * 어느 단계에서도 **같은 문항 두 번 · 수법당 3장 이상**은 없다.
+ */
+export function pickSet(pool: DrillCard[], seed: string, size: number, bias?: DrillBias | null): PickedSet {
+  const shuffled = shuffle(pool, rngFrom(seed))
+  const seenItem = new Set<string>()
+  const perTrap = new Map<string, number>()
+  const picked: DrillCard[] = []
+  const returningIds: string[] = []
+  const boosted = new Set<string>()
+
+  const take = (c: DrillCard, cap: number): boolean => {
+    if (picked.length >= size) return false
+    if (seenItem.has(c.item_id)) return false
+    if ((perTrap.get(c.answer) ?? 0) >= cap) return false
+    seenItem.add(c.item_id)
+    perTrap.set(c.answer, (perTrap.get(c.answer) ?? 0) + 1)
+    picked.push(c)
+    return true
+  }
+
+  if (bias) {
+    // ① 되돌아오는 문제 — id 로 찾는다. 풀에서 사라진 카드(재굽기로 빠짐)는 조용히 건너뛴다.
+    const byId = new Map(pool.map((c) => [c.id, c]))
+    for (const id of bias.returning) {
+      if (returningIds.length >= MAX_RETURNING) break
+      const c = byId.get(id)
+      if (c && take(c, MAX_PER_TRAP)) returningIds.push(id)
+    }
+
+    // ② 자주 놓치는 수법 — 남은 칸의 절반까지만. 전부 기울이면 새 수법을 만날 자리가 없다.
+    const weakBudget = Math.floor((size - picked.length) / 2)
+    const weak = new Set(bias.weak)
+    let used = 0
+    for (const c of shuffled) {
+      if (used >= weakBudget) break
+      if (!weak.has(c.answer)) continue
+      if (take(c, MAX_PER_TRAP)) {
+        used += 1
+        boosted.add(c.answer)
+      }
+    }
+  }
+
+  // ③ 나머지 — 먼저 수법당 한 장씩(넓게), 그다음 두 장까지, 끝으로 상한 없이(풀이 얇을 때).
+  for (const cap of [1, MAX_PER_TRAP, Infinity]) {
+    for (const c of shuffled) {
+      if (picked.length >= size) break
+      take(c, cap)
+    }
+    if (picked.length >= size) break
+  }
+
+  return { cards: picked, returningIds, boosted: [...boosted] }
+}

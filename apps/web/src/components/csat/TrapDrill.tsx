@@ -28,7 +28,20 @@ import { recordTrapAttempt } from '@/app/(main)/csat/drill/actions'
 const GREEN = '#2E7D5A'
 const RED = '#9C3A30'
 
-export function TrapDrill({ cards, pool }: { cards: DrillCard[]; pool: number }) {
+export function TrapDrill({
+  cards,
+  pool,
+  returningIds = [],
+  boosted = [],
+}: {
+  cards: DrillCard[]
+  pool: number
+  /** 지난번 틀려서 **되돌아온** 카드 id — 「다시 보기」 표시와 계측에 쓴다 */
+  returningIds?: string[]
+  /** 기록 때문에 자리를 먼저 받은 수법 — 「왜 이 세트인가」를 한 줄로 말한다 */
+  boosted?: string[]
+}) {
+  const returning = useMemo(() => new Set(returningIds), [returningIds])
   const [idx, setIdx] = useState(0)
   const [picked, setPicked] = useState<string | null>(null)
   const [answers, setAnswers] = useState<DrillAnswer[]>([])
@@ -48,7 +61,14 @@ export function TrapDrill({ cards, pool }: { cards: DrillCard[]; pool: number })
     setAnswers(next)
     track({
       name: 'csat_drill_answered',
-      props: { seq: next.length, correct: option === card.answer, options: card.options.length },
+      // `returning` 이 이 기능이 **작동하는지의 유일한 관측**이다: 되돌아온 카드의 정답률이
+      // 처음 만난 카드보다 높으면 간격 반복이 기억을 남긴 것이고, 같으면 장식이다.
+      props: {
+        seq: next.length,
+        correct: option === card.answer,
+        options: card.options.length,
+        returning: returning.has(card.id),
+      },
     })
 
     // **문제 단위로 남긴다** — 세트 끝에 몰아 쓰면 중간에 그만둔 사람이 통째로 사라지고,
@@ -121,6 +141,26 @@ export function TrapDrill({ cards, pool }: { cards: DrillCard[]; pool: number })
             style={{ width: `${(100 * idx) / cards.length}%` }}
           />
         </div>
+        {/* **왜 이 세트인가를 말한다.** 기록이 세트를 고른 것을 숨기면, 같은 수법이 자꾸 나오는
+            이유를 학습자가 모른 채 「문제가 편향됐다」고 읽는다. 첫 문제에서만 보인다 —
+            매 문제 띄우면 그건 안내가 아니라 소음이다. */}
+        {idx === 0 && (returningIds.length > 0 || boosted.length > 0) ? (
+          <p className="mt-2 break-keep text-xs leading-relaxed text-[var(--t3)]">
+            내 기록을 보고 골랐어요
+            {returningIds.length > 0 ? (
+              <>
+                {' '}
+                — 지난번 놓친 문제 <span className="tabular-nums">{returningIds.length}</span>개가 다시 나옵니다
+              </>
+            ) : null}
+            {boosted.length > 0 ? (
+              <>
+                {returningIds.length > 0 ? ' · ' : ' — '}자주 놓치는 수법:{' '}
+                <strong className="text-[var(--t2)]">{boosted.join(' · ')}</strong>
+              </>
+            ) : null}
+          </p>
+        ) : null}
       </div>
 
       {/* `data-proof` — 계측기가 「접힌 위에 작동하는 결과가 있는가」(I1)를 셀 때 보는 표식.
@@ -130,6 +170,13 @@ export function TrapDrill({ cards, pool }: { cards: DrillCard[]; pool: number })
              표식을 넉넉히 붙이면 자가 스스로를 속인다(이 저장소가 한 번 겪었다 · 시간 띠). */}
       <article data-proof="drill-card" className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
         <p className="break-keep text-xs text-[var(--t3)]">
+          {/* 되돌아온 카드는 **글자로** 표시한다(색만으로 말하지 않는다). 모르고 풀면 학습자는
+              「같은 문제가 또 나왔다 — 버그인가」로 읽는다. */}
+          {returning.has(card!.id) ? (
+            <span className="mr-1.5 inline-flex items-center rounded-[var(--r-sm)] border border-[var(--bd)] px-1.5 py-px text-[11px] text-[var(--t2)]">
+              다시 보기 · 지난번 놓친 문제
+            </span>
+          ) : null}
           {card!.exam_label} <span className="tabular-nums">{card!.no}번</span> · {card!.type_name} ·{' '}
           <span className="tabular-nums">{card!.choice}</span>번 선지
         </p>

@@ -541,6 +541,39 @@ test.describe('기출 분석 — 허브·유형·계획', () => {
       }
     });
 
+    test('기록이 세트를 고르면 화면이 그렇다고 말하고, 말과 표시가 맞는다', async ({ page }) => {
+      // 검증 계정은 여러 실행이 공유하므로 기록 상태가 변한다. 그래서 「무엇이 나오나」가 아니라
+      // **화면이 한 말과 실제 표시가 서로 맞는가**를 본다 — 그게 틀리면 학습자는 같은 문제가
+      // 또 나온 이유를 모르거나, 없는 이유를 듣는다.
+      await page.setViewportSize(FOLD);
+      await page.goto('/csat/drill?set=e2e-feedback', { waitUntil: 'networkidle', timeout: 60_000 });
+
+      const why = page.locator('p', { hasText: '내 기록을 보고 골랐어요' });
+      const tag = page.getByText('다시 보기 · 지난번 놓친 문제');
+      const hasWhy = (await why.count()) > 0;
+      const tagged = await tag.count();
+
+      if (!hasWhy) {
+        // 설명이 없으면 **되돌아온 표시도 없어야** 한다 — 표시만 있고 이유가 없으면 버그처럼 읽힌다.
+        expect(tagged, '설명 없이 「다시 보기」 표시가 떴다').toBe(0);
+        return;
+      }
+      const text = (await why.first().textContent()) ?? '';
+      expect(text, '설명은 떴는데 무엇 때문인지 안 말한다').toMatch(/다시 나옵니다|자주 놓치는 수법/);
+      // 첫 카드에 「다시 보기」가 붙었으면 설명이 되돌아온 문제를 말해야 한다.
+      if (tagged > 0) expect(text).toMatch(/다시 나옵니다/);
+
+      // **여덟 문제를 다 풀었을 때 되돌아온 카드 수가 설명의 수와 같다.**
+      const said = Number(text.match(/놓친 문제 (\d+)개/)?.[1] ?? '0');
+      let seen = 0;
+      for (let i = 0; i < 8; i++) {
+        if ((await tag.count()) > 0) seen += 1;
+        await page.locator('ul.grid button').first().click();
+        await page.getByRole('button', { name: /다음|결과 보기/ }).click();
+      }
+      expect(seen, `설명은 ${said}개라 했는데 「다시 보기」가 ${seen}번 떴다`).toBe(said);
+    });
+
     test('허브에서 훈련으로 가는 문이 있다', async ({ page }) => {
       // 도달할 수 없는 화면은 없는 화면이다 — `/csat/overlay` 가 이미 그렇게 묻혔다.
       await page.goto('/csat', { waitUntil: 'networkidle', timeout: 45_000 });

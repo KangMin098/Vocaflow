@@ -17,6 +17,8 @@ import Link from 'next/link'
 
 import { TrapDrill } from '@/components/csat/TrapDrill'
 import { DRILL_SIZE, loadTrapDrill } from '@/lib/csat/drill-loader'
+import { drillBias, loadMyAttempts, loadMyTraps, returningCardIds } from '@/lib/csat/my-traps'
+import { createClient } from '@/lib/supabase/server'
 import { universalCoverage } from '@/lib/csat/trap-atlas'
 
 export const metadata: Metadata = {
@@ -35,8 +37,13 @@ export default async function CsatDrillPage({
   // 세트 씨앗. 같은 씨앗이면 같은 여덟 문제가 나온다 — 「여덟 개 더」가 새 씨앗을 준다.
   // 값을 그대로 쓰지 않고 길이를 잘라 둔다(URL 로 들어온 문자열을 무제한으로 씨앗에 넣지 않는다).
   const seed = (set ?? 'first').slice(0, 40)
-  // 구운 JSON 을 읽을 뿐이라 **조회 왕복이 0** 이다(동기 함수인 이유).
-  const { cards, pool, error } = loadTrapDrill(seed, DRILL_SIZE)
+  // ── 기록을 세트에 되먹인다 (원칙 2 · 간격 반복) ─────────────────────
+  // 문제 풀 자체는 구운 JSON 이라 왕복 0 이고, 여기서 읽는 것은 **내 기록**뿐이다.
+  // 못 읽어도 훈련은 돈다 — 편향 없이 뽑을 뿐이다.
+  const db = await createClient()
+  const [mine, attempts] = await Promise.all([loadMyTraps(db), loadMyAttempts(db)])
+  const bias = drillBias(mine, returningCardIds(attempts, new Date()))
+  const { cards, pool, returningIds, boosted, error } = loadTrapDrill(seed, DRILL_SIZE, bias)
   const cover = universalCoverage()
 
   return (
@@ -62,7 +69,7 @@ export default async function CsatDrillPage({
           지금은 훈련 문제를 불러오지 못했어요. 잠시 뒤 다시 열어 주세요.
         </p>
       ) : (
-        <TrapDrill cards={cards} pool={pool} />
+        <TrapDrill cards={cards} pool={pool} returningIds={returningIds} boosted={boosted} />
       )}
 
       <p className="mt-8 break-keep text-xs leading-relaxed text-[var(--t3)]">

@@ -121,3 +121,78 @@ export async function loadMyTraps(db: SupabaseClient, limit = 500): Promise<MyTr
   if (error) return summarizeMyTraps([])
   return summarizeMyTraps((data ?? []) as MyAttempt[])
 }
+
+// ─────────────────────────────────────────────────────────────────────
+// 훈련으로 되먹이기 — **기록이 다음 세트를 고른다** (원칙 2 · 간격 반복)
+// ─────────────────────────────────────────────────────────────────────
+
+/** 틀린 문제가 다시 나오기까지의 최소 간격(시간). 방금 본 해설을 기억으로 맞히면 인출이 아니다. */
+export const RETURN_AFTER_HOURS = 24
+
+export interface AttemptRow {
+  item_id: string
+  choice: number
+  is_correct: boolean
+  answered_at: string
+}
+
+/**
+ * 다시 낼 카드 id — **가장 최근 시도가 오답**이고 그 시도가 `afterHours` 이상 지난 것.
+ *
+ * 순수 함수다(`now` 를 받는다). 규칙이 둘뿐이지만 둘 다 틀리기 쉽다:
+ *   · **가장 최근 시도로** 본다 — 한 번 틀리고 나중에 맞혔으면 다시 낼 이유가 없다.
+ *     「틀린 적이 있다」로 고르면 이미 익힌 문제가 끝없이 돌아온다.
+ *   · **오래 기다린 것부터** — 가장 오래된 오답이 가장 잊히기 쉽다.
+ */
+export function returningCardIds(rows: AttemptRow[], now: Date, afterHours = RETURN_AFTER_HOURS): string[] {
+  const latest = new Map<string, AttemptRow>()
+  for (const r of rows) {
+    const key = `${r.item_id}:${r.choice}`
+    const prev = latest.get(key)
+    if (!prev || Date.parse(r.answered_at) > Date.parse(prev.answered_at)) latest.set(key, r)
+  }
+  const cutoff = now.getTime() - afterHours * 3600_000
+  return [...latest.entries()]
+    .filter(([, r]) => !r.is_correct && Date.parse(r.answered_at) <= cutoff)
+    // 시각은 **파싱해서** 견준다 — 문자열로 견주면 형식이 한 번만 달라져도(공백 대 T, 소수 자릿수)
+    // 순서가 조용히 뒤집힌다.
+    .sort((a, b) => Date.parse(a[1].answered_at) - Date.parse(b[1].answered_at) || (a[0] < b[0] ? -1 : 1))
+    .map(([key]) => key)
+}
+
+export interface DrillBiasInput {
+  weak: string[]
+  returning: string[]
+}
+
+/**
+ * 훈련 세트에 넘길 편향을 만든다.
+ *
+ * ⚠️ 두 신호의 문턱이 **다르다** — 한데 묶으면 말할 수 있는 것도 못 말한다:
+ *   · 되돌아오는 문제는 **특정 카드를 다시 묻는 것**이지 분포에 대한 주장이 아니다.
+ *     그래서 기록이 얇아도 낸다.
+ *   · 자주 놓치는 수법은 **분포에 대한 주장**이다. 그래서 `enough` 를 넘어야만 넘긴다 —
+ *     다섯 문항으로 세트를 기울이면 개인화가 아니라 잡음을 키우는 것이다.
+ */
+export function drillBias(summary: MyTrapSummary, returning: string[]): DrillBiasInput | null {
+  const weak = summary.enough ? summary.repeated : []
+  if (!weak.length && !returning.length) return null
+  return { weak, returning }
+}
+
+/** 내 훈련 기록의 시도 행 — 되돌아올 카드를 고르는 데만 쓴다. */
+export async function loadMyAttempts(db: SupabaseClient, limit = 500): Promise<AttemptRow[]> {
+  const {
+    data: { user },
+  } = await db.auth.getUser()
+  if (!user) return []
+  const { data, error } = await db
+    .from('csat_trap_attempts')
+    .select('item_id, choice, is_correct, answered_at')
+    .eq('user_id', user.id)
+    .order('answered_at', { ascending: false })
+    .limit(limit)
+  // 못 읽으면 되돌아오는 문제 없이 뽑는다 — 훈련은 기록 없이도 돌아야 한다.
+  if (error) return []
+  return (data ?? []) as AttemptRow[]
+}
