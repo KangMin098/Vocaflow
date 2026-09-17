@@ -57,7 +57,8 @@ export function cueFocus(cue: Pick<LectureCue, 'target' | 'segments'>, sentenceC
 /** 큐 목록에 `focus` 를 채운다(있던 값은 다시 계산해 덮는다 — 재실행 안전). */
 export function withFocus<T extends Pick<LectureCue, 'target' | 'segments'> & { focus?: number[] }>(cues: T[], sentenceCount: number): T[] {
   return cues.map((c) => {
-    const { focus: _old, ...rest } = c
+    const rest = { ...c }
+    delete rest.focus
     const f = cueFocus(c, sentenceCount)
     return (f ? { ...rest, focus: f } : rest) as T
   })

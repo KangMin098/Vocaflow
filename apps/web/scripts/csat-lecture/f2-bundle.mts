@@ -7,7 +7,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 
 import type { LectureExamFile } from '../../src/lib/csat/lecture/types'
-import { DATA, REPORTS, writeJson } from './env.mts'
+import { arg, DATA, REPORTS, writeJson } from './env.mts'
 
 const needles = new Set<string>()
 for (const f of fs.readdirSync(DATA).filter((x) => x.endsWith('.json') && x !== 'index.json')) {
@@ -15,7 +15,9 @@ for (const f of fs.readdirSync(DATA).filter((x) => x.endsWith('.json') && x !== 
   for (const l of Object.values(j.lectures))
     for (const c of l.cues) for (const g of c.segments) if (g.lang === 'ko-KR' && g.text.length >= 12) needles.add(g.text)
 }
-const roots = ['.next/static', '.next/server/app']
+// 빌드 폴더 — dev 서버가 쓰는 폴더와 겹치지 않게 따로 빌드했으면 `--dist .next-f2`(NEXT_DIST_DIR 과 같은 값)
+const DIST = arg('dist') ?? '.next'
+const roots = [`${DIST}/static`, `${DIST}/server/app`]
 const files: string[] = []
 const walk = (d: string) => {
   if (!fs.existsSync(d)) return
