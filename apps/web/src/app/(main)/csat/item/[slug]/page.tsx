@@ -30,6 +30,38 @@ export const dynamic = 'force-dynamic'
 
 const CIRCLED = ['', '①', '②', '③', '④', '⑤']
 
+/**
+ * 접히는 층 하나 — **`<details>` 라 JS 없이 선다.**
+ *
+ * 서버 컴포넌트에서 그대로 쓴다. 클라이언트 상태를 들이지 않는 이유: 이 화면은 서버 HTML 에
+ * 해설이 남아야 하고(I6), 접힌 내용도 크롤러와 「찾기(Ctrl+F)」가 읽을 수 있어야 한다 —
+ * `<details>` 는 둘 다 된다(브라우저가 찾기 결과를 스스로 펼친다).
+ *
+ * ⚠️ 손잡이에 **분량**을 적는다(`size`). 전달 모델 §4 규칙 4 — 몇 자를 여는지 알고 열어야 한다.
+ * ⚠️ 계측기(`csat-surface-measure`)는 닫힌 `details` 안을 **세지 않는다** — 접기가 개선인데
+ *   세면 개선이 악화로 잡히기 때문이다. 그래서 여기로 옮긴 산문은 「보이는 글자」에서 빠진다.
+ */
+function Layer({ label, size, children }: { label: string; size: string; children: React.ReactNode }) {
+  return (
+    <details className="group mb-6 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)]">
+      <summary className="flex min-h-[44px] cursor-pointer list-none items-center justify-between gap-3 rounded-[var(--r-md)] px-4 py-2 transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg3)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)] motion-reduce:transition-none [&::-webkit-details-marker]:hidden">
+        <h2 className="text-sm font-bold text-[var(--t1)]">{label}</h2>
+        <span className="flex shrink-0 items-center gap-2 text-xs text-[var(--t3)]">
+          <span className="tabular-nums">{size}</span>
+          {/* 열림 상태를 **기호로도** 말한다 — 회전 애니메이션은 쓰지 않는다(모션 화이트리스트 밖). */}
+          <span aria-hidden className="group-open:hidden">
+            펼치기 ▸
+          </span>
+          <span aria-hidden className="hidden group-open:inline">
+            접기 ▾
+          </span>
+        </span>
+      </summary>
+      <div className="px-4 pb-4">{children}</div>
+    </details>
+  )
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
   const { item } = await loadCsatItemExplain(fromItemSlug(slug))
@@ -70,7 +102,14 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
         })),
       ]
   // 골격이 가리키는 앵커만 지도에 올린다 — 지도에 없는 칩을 누르면 아무 일도 안 일어난다.
-  const shown = skeleton ? mapAnchors.filter((a) => skeleton.anchors.some((x) => x.id === a.id)) : []
+  // **출처를 함께 싣는다.** 「끌리는 이유」에서 위치를 찾은 칩은 그 자리가 이 선지를 지우는
+  // 것이 아니라 **끌어당기는** 것이라, 지도가 다르게 말해야 한다(§AnchorOrigin).
+  const shown = skeleton
+    ? mapAnchors.flatMap((a) => {
+        const placed = skeleton.anchors.find((x) => x.id === a.id)
+        return placed ? [{ ...a, origin: placed.from }] : []
+      })
+    : []
   const useMap = skeleton != null && shown.length > 0
   // **지도가 못 든 선지는 글로 내려온다.** 조건이 문항 단위였을 때 136문항(23.1%)의 오답
   // 분석 544문단이 화면에서 통째로 사라져 있었다 — §offMapChoices 머리말에 실측이 있다.
@@ -129,7 +168,27 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
               {item.points ? ` · ${item.points}점` : ''}
               {item.time_budget_sec ? ` · 권장 풀이 시간 ${item.time_budget_sec}초` : ''}
             </p>
+            {/* ── 1층 · 이 문항이 재는 것 ─────────────────────────────────
+                **열어 둔다.** 한 호흡(중앙값 91자)이라 접으면 여는 수고가 읽는 수고보다 크다.
+                이것이 없으면 학습자는 무엇을 연습하는지 모른 채 근거를 따라간다 —
+                802문항 전부에 쓰여 있었는데 로더가 안 읽어 한 번도 안 나왔다. */}
+            {item.measured_ability ? (
+              <p className="mt-3 break-keep border-l-2 border-[var(--p)] pl-3 text-sm leading-relaxed text-[var(--t1)]">
+                <span className="mr-1.5 text-xs text-[var(--t3)]">재는 것</span>
+                {item.measured_ability}
+              </p>
+            ) : null}
           </header>
+
+          {/* ── 2층 · 출제 의도 ─────────────────────────────────────────
+              **접어 둔다**(중앙값 177자 · 최대 438자). 정답을 확인하러 온 사람에게는 곁가지고,
+              「왜 이렇게 냈나」가 궁금한 사람만 연다(철학 2 Progressive Disclosure).
+              손잡이에 분량을 적는다 — 몇 자를 여는지 알고 열어야 한다(전달 모델 §4 규칙 4). */}
+          {item.design_intent ? (
+            <Layer label="출제 의도" size={`${item.design_intent.length}자`}>
+              <p className="break-keep text-sm leading-relaxed text-[var(--t2)]">{item.design_intent}</p>
+            </Layer>
+          ) : null}
 
           {/* 지문 지도 — 근거가 «지문의 어디인가» 를 클릭 하나로 보여 준다. 첫 화면에서
               이미 정답 근거가 열려 있으므로 클릭 0 으로도 증명이 보인다. */}
@@ -167,7 +226,9 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
                 <div className="mt-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
                   <p className="text-xs text-[var(--t3)]">근거가 되는 문장</p>
                   {/* 지문 발췌는 여기까지다 — 문단 전체는 평가원 공개자료에서 본다 */}
-                  <blockquote className="mt-1 border-l-2 border-[var(--bd)] pl-3 font-display text-sm italic leading-relaxed text-[var(--t1)]">
+                  {/* ⚠️ 인용은 **영어**다 — `font-display`(IBM Plex Sans)로 찍혀 있었는데
+                      CLAUDE.md 가 「영어에 산세리프」를 금지한다. 영문 전용면(Lora)으로 돌린다. */}
+                  <blockquote className="mt-1 border-l-2 border-[var(--bd)] pl-3 font-english text-sm italic leading-relaxed text-[var(--t1)]">
                     {item.evidence_quote}
                   </blockquote>
                   {item.evidence_reasoning ? (
@@ -219,10 +280,13 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
             </section>
           ) : null}
 
+          {/* ── 4층 · 다시 풀 때의 순서 ───────────────────────────────────
+              **접어 둔다.** 이 화면에서 가장 무거운 산문이다(중앙값 5단계 · 약 700자, 실측).
+              지도와 선지 해설로 「왜 ③인가」를 확인한 뒤에야 쓸모가 있는 층이라, 확인하러 온
+              사람의 첫 화면을 차지할 이유가 없다. 손잡이에 **단계 수**를 적는다. */}
           {item.procedure.length ? (
-            <section className="mb-6">
-              <h2 className="text-sm font-bold text-[var(--t1)]">다시 풀 때의 순서</h2>
-              <ol className="mt-2 space-y-2">
+            <Layer label="다시 풀 때의 순서" size={`${item.procedure.length}단계`}>
+              <ol className="space-y-2">
                 {item.procedure.map((s, i) => (
                   <li key={i} className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
                     <p className="text-sm leading-relaxed text-[var(--t1)]">{s.step}</p>
@@ -234,7 +298,7 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
                   </li>
                 ))}
               </ol>
-            </section>
+            </Layer>
           ) : null}
 
           {item.required_vocab.length ? (

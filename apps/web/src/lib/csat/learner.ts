@@ -69,6 +69,38 @@ type ReportRow = {
 const arr = <T,>(v: unknown): T[] => (Array.isArray(v) ? (v as T[]) : [])
 
 /** 회차 id 에서 학년도를 읽는다 — `2026` · `2014A` · `M2606` */
+/** 비었거나 공백뿐이면 `null` — 화면이 빈 층을 그리지 않게 한다. */
+const nonEmpty = (v: string | null | undefined): string | null => {
+  const t = (v ?? '').trim()
+  return t ? t : null
+}
+
+/**
+ * 근거 인용의 **상한** — 낱말 수.
+ *
+ * ⚠️ 인용문은 평가원 원문의 조각이다. 이 화면은 원문을 싣지 않는다는 원칙 위에 서 있고
+ *   (`csat_items_public` 에 지문 컬럼 자체가 없다), 인용은 「근거가 어디 있나」를 가리키는
+ *   **짧은 발췌**로만 허용된다. 실측(2026-09-15 · 2,867개): 중앙값 17 · p95 28 · 최대 60낱말,
+ *   40 초과는 **8건**뿐이다. 수능 지문 한 편이 약 140낱말이니 40 은 그 3할이다 —
+ *   그보다 길면 발췌가 아니라 복제에 가까워진다.
+ */
+export const QUOTE_WORD_CAP = 40
+
+/**
+ * 인용을 상한으로 자른다. 잘랐으면 **말줄임을 붙인다** — 자른 사실을 숨기면 학습자가
+ * 그 조각을 온전한 문장으로 읽는다.
+ *
+ * ⚠️ 이 값은 **글 화면**(지도가 없는 문항)만 쓴다. 지문 지도는 구운 골격을 따로 읽으므로
+ *   여기서 자른다고 지도의 앵커가 어긋나지 않는다.
+ */
+export function capQuoteWords(quote: string | null, cap = QUOTE_WORD_CAP): string | null {
+  const t = nonEmpty(quote)
+  if (!t) return null
+  const words = t.split(/\s+/)
+  if (words.length <= cap) return t
+  return `${words.slice(0, cap).join(' ')} …`
+}
+
 function yearOf(examId: string): number {
   if (examId.startsWith('M')) return 2000 + Number(examId.slice(1, 3))
   return Number(examId.slice(0, 4))
@@ -373,6 +405,16 @@ export interface CsatItemExplain {
   type_name: string | null
   /** 답을 모르는 회차 — 정답표가 없으면 「왜 정답인가」를 쓸 수 없다 */
   answer_unknown: boolean
+  /**
+   * **1층 — 이 문항이 재는 능력.** 한 호흡(중앙값 91자 · 최대 215자, 실측 2026-09-17).
+   *
+   * ⚠️ 802문항 **전부**에 쓰여 있었는데 이 로더가 한 번도 안 읽었다 — 그래서 화면에 한 번도
+   *   안 나왔다. 해설이 「왜 ③인가」부터 시작하면 학습자는 **무엇을 연습하는 중인지** 모른 채
+   *   근거를 따라간다. 이것이 그 틀이다.
+   */
+  measured_ability: string | null
+  /** **2층 — 출제 의도.** 중앙값 177자 · 최대 438자라 기본으로 접는다. 역시 한 번도 안 나왔다. */
+  design_intent: string | null
   /** ① 답이 왜 이것인가 */
   why_correct: string | null
   evidence_quote: string | null
@@ -389,6 +431,8 @@ type AnalysisRow = {
   item_id: string
   version: number
   answer_unknown: boolean
+  measured_ability?: string | null
+  design_intent?: string | null
   answer_locus: { quote?: string; reasoning?: string } | null
   choice_analysis: {
     n: number
@@ -515,7 +559,9 @@ export async function loadCsatItemExplain(
     //    **언제나 최신 버전 하나**를 집는다.
     db
       .from('csat_item_analyses')
-      .select('item_id, answer_unknown, answer_locus, choice_analysis, solve_procedure, required_vocab, time_budget_sec, version')
+      .select(
+        'item_id, answer_unknown, measured_ability, design_intent, answer_locus, choice_analysis, solve_procedure, required_vocab, time_budget_sec, version',
+      )
       .eq('item_id', id)
       .eq('status', 'published')
       .order('version', { ascending: false })
@@ -544,8 +590,10 @@ export async function loadCsatItemExplain(
       type_id: it.type_id,
       type_name: (typeRes.data as { name?: string } | null)?.name ?? null,
       answer_unknown: a?.answer_unknown === true,
+      measured_ability: nonEmpty(a?.measured_ability),
+      design_intent: nonEmpty(a?.design_intent),
       why_correct: correct?.why_correct ?? null,
-      evidence_quote: a?.answer_locus?.quote ?? null,
+      evidence_quote: capQuoteWords(a?.answer_locus?.quote ?? null),
       evidence_reasoning: a?.answer_locus?.reasoning ?? null,
       distractors: chs
         .filter((c) => c.verdict === 'distractor')
