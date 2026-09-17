@@ -40,6 +40,7 @@ import {
   type TrackStat,
 } from '@/lib/articles/source-map'
 import type { PublishedArticle } from '@/lib/articles/types'
+import { SealMark } from '@/components/ui/press'
 import { useCloseOnBack } from '@/lib/ui/use-close-on-back'
 import { useFocusTrap } from '@/lib/ui/use-focus-trap'
 
@@ -166,13 +167,7 @@ export function SeriesInfoModal({
           >
             <X size={20} aria-hidden />
           </button>
-          <span
-            aria-hidden
-            className="inline-flex h-16 w-16 shrink-0 items-center justify-center rounded-[var(--r-lg)] text-[32px] shadow-[var(--sh-sm)]"
-            style={{ backgroundColor: `color-mix(in srgb, ${accent} 22%, var(--bg))` }}
-          >
-            {track.icon}
-          </span>
+          <SealMark label={track.title} size="lg" />
           <div className="flex min-w-0 flex-1 flex-col gap-1 pr-8">
             <span className="inline-flex w-fit items-center gap-1 font-display text-[11px] font-[800] uppercase tracking-[0.1em]" style={{ color: accent }}>
               학습 시리즈

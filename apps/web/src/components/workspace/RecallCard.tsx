@@ -13,6 +13,7 @@ import { Volume2 } from 'lucide-react'
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useSpeechSynthesis } from '@/hooks/useSpeechSynthesis'
 import { PosBadge } from '@/components/library/PosBadge'
+import { JuMark } from '@/components/ui/press'
 import { ZoomableImage } from '@/components/ui/ZoomableImage'
 import { createClient } from '@/lib/supabase/client'
 import { fetchDictExtras, type DictExtras } from '@/lib/flashcard/dict-extras'
@@ -196,12 +197,10 @@ export function RecallCard({ word, anchorRect, onClose, illustrationUrl }: Recal
         </div>
       )}
 
-      {/* 어근 니모닉 💡 — 어원 근거 기억 힌트(발음 말장난 아님) */}
+      {/* 어근 니모닉 — 어원 근거 기억 힌트(발음 말장난 아님) */}
       {extras?.mnemonic && (
-        <p className="mt-1.5 flex items-start gap-1 font-body text-[11.5px] italic leading-relaxed text-[var(--t2)]">
-          <span className="not-italic" aria-hidden="true">
-            💡
-          </span>
+        <p className="mt-1.5 flex items-start gap-1.5 break-keep font-body text-[11.5px] leading-relaxed text-[var(--t2)]">
+          <JuMark kind="now" label="기억법" className="mt-[1px] shrink-0" />
           <span>{extras.mnemonic}</span>
         </p>
       )}

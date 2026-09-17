@@ -8,6 +8,8 @@
 
 'use client'
 
+import { SealMark } from '@/components/ui/press'
+
 import { VOCAB_CATEGORIES, type VocabCategoryId } from './categories'
 
 interface CategoryMatrixProps {
@@ -73,13 +75,9 @@ export function CategoryMatrix({
               {count}
             </span>
 
-            {/* Emoji = visual anchor */}
-            <span
-              aria-hidden="true"
-              className="text-[32px] leading-none transition-transform duration-[var(--dur-slow)] group-hover:scale-110"
-            >
-              {cat.emoji}
-            </span>
+            {/* 시각 앵커 — v07 이모지 대신 낙관(라벨 첫 글자). 선택된 타일은 어두운 바탕이라 반전 */}
+            <SealMark label={cat.label} size="lg" tone={isActive ? 'inverse' : 'ju'} />
+
 
             {/* 라벨 + 힌트 */}
             <div className="flex flex-col items-center gap-1">

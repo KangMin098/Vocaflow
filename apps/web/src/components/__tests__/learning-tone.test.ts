@@ -300,3 +300,24 @@ describe('v07 — 한글에 글꼴이 있다', () => {
     )
   })
 })
+
+describe('v07 — 학습자 판면에 그림문자를 그리지 않는다', () => {
+  // 실측 2026-09-17: 세션 머리·채점·판정의 이모지를 걷어낸 뒤에도 `/library/books` 17 ·
+  // `/library/vocab` 18 · `/diagnostic` 5 개가 남아 있었다. 전부 **데이터 필드**(`emoji:`)를
+  // 렌더러가 그대로 찍은 것이었다 — 데이터는 두고(기능 불변) 그리는 쪽만 `SealMark`·라벨로 바꿨다.
+  // 렌더러가 다시 `{x.emoji}` 를 찍으면 기기마다 다른 그림이 판면에 돌아온다.
+  it('컴포넌트가 emoji 필드를 JSX 로 찍지 않는다', () => {
+    const offenders = FILES.filter(({ path, src }) => {
+      if (rel(path).startsWith('components/admin/')) return false
+      return /\{\s*[A-Za-z_$][\w$]*\.emoji\s*\}/.test(src)
+    }).map(({ path }) => rel(path))
+    expect(offenders, `emoji 필드를 그린다: ${offenders.join(', ')}`).toEqual([])
+  })
+
+  it('학습 중 쉼 화면에 무한 반복 장식 모션이 없다', () => {
+    for (const f of ['flashcard/MicroPause.tsx', 'spellforge/MicroPause.tsx']) {
+      const src = readFileSync(join(COMPONENTS, f), 'utf8')
+      expect(src, `${f} 에 끝나지 않는 장식 모션`).not.toMatch(/_infinite\]/)
+    }
+  })
+})

@@ -240,7 +240,6 @@ export function VocabSetCarousel({ sets, subscribedIds, pendingId, isLoggedIn, o
                   : { backgroundColor: cc.tint, color: cc.ink }
               }
             >
-              <span aria-hidden>{c.emoji}</span>
               {c.label}
               <span
                 className={`rounded-[var(--r-full)] px-2 text-[10px] tabular-nums ${

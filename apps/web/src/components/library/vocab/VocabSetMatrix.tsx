@@ -19,6 +19,7 @@
 
 import { useMemo, useRef, useState } from 'react'
 
+import { SealMark } from '@/components/ui/press'
 import type { PublishedVocabSet } from '@/lib/library/vocab/queries'
 
 import { VOCAB_CATEGORIES, type VocabCategoryId } from './categories'
@@ -642,9 +643,7 @@ export function VocabSetMatrix({
                     className="flex w-full items-center gap-3 px-3 py-3 text-left transition-colors hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--t1)]/30 disabled:cursor-not-allowed disabled:opacity-50"
                     aria-label={`${cat.label} 카테고리만 보기 · ${total}개`}
                   >
-                    <span aria-hidden className="text-[22px] leading-none">
-                      {cat.emoji}
-                    </span>
+                    <SealMark label={cat.label} size="sm" />
                     <div className="min-w-0 flex-1">
                       <div className="flex items-baseline gap-2">
                         <span className="font-display text-[13px] font-[700] text-[var(--t1)]">

@@ -509,7 +509,6 @@ export function VocabSetPreviewModal({
                                   : 'border-[var(--bd)] bg-[var(--bg2)] text-[var(--t2)] hover:border-[var(--p)] hover:bg-[var(--p-light)] hover:text-[var(--on-p-tint)]')
                               }
                             >
-                              <span aria-hidden>{g.emoji}</span>
                               {g.label}
                               {g.wide && <span aria-hidden>→</span>}
                             </a>

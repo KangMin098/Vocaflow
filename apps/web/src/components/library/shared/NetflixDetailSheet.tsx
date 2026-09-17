@@ -673,7 +673,7 @@ function MyProgressSection({
       )}
 
       {/* 권장 1줄 */}
-      <p className="font-body text-[12px] leading-relaxed text-[var(--t2)]">💡 {guidance}</p>
+      <p className="font-body text-[12px] leading-relaxed text-[var(--t2)] break-keep">{guidance}</p>
     </section>
   )
 }
@@ -988,6 +988,6 @@ function ProgressRow({ percent, accent }: { percent: number; accent: string }) {
 
 function Tip({ text }: { text: string }) {
   return (
-    <p className="font-body text-[12px] italic text-[var(--t2)]">💡 {text}</p>
+    <p className="break-keep border-l-2 border-[var(--ju)] pl-2 font-body text-[12px] text-[var(--t2)]">{text}</p>
   )
 }

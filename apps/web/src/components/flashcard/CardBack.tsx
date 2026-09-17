@@ -6,6 +6,7 @@ import type { FlashcardWord } from '@/types/flashcard'
 import { Volume2 } from 'lucide-react'
 import { matchSurface } from '@/lib/text/surface-match'
 import { ZoomableImage } from '@/components/ui/ZoomableImage'
+import { JuMark } from '@/components/ui/press'
 
 interface CardBackProps {
   word: FlashcardWord
@@ -201,12 +202,10 @@ export function CardBack({ word, isExampleAudioPlaying }: CardBackProps) {
       )}
 
       {/* 어근 기반 니모닉 — "어떻게 기억할까"의 다리. 데이터 있을 때만(Progressive Disclosure).
-          Empathetic Feedback: 압박 없는 기억 힌트. Lora italic 사람 말투 톤. */}
+          Empathetic Feedback: 압박 없는 기억 힌트. 한글이라 이탤릭 없이 주묵 꼬리표로 구분한다(v07). */}
       {word.mnemonic && (
-        <p className="mt-2.5 flex items-start gap-2 font-body text-[12.5px] italic leading-relaxed text-[var(--t2)]">
-          <span className="not-italic" aria-hidden="true">
-            💡
-          </span>
+        <p className="mt-2.5 flex items-start gap-2 break-keep font-body text-[12.5px] leading-relaxed text-[var(--t2)]">
+          <JuMark kind="now" label="기억법" className="mt-[1px] shrink-0" />
           <span>{word.mnemonic}</span>
         </p>
       )}

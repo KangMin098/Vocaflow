@@ -92,7 +92,8 @@ const PROBE = () => {
   //    찍혔다(실측 2026-09-16 `/dashboard` 3건). 그 둘은 그림이 아니라 **활자 기호**이고
   //    v07 이 표식으로 쓰는 것이기도 하다 — 세면 지표가 자기 목표와 싸운다.
   //    체크·엑스·곱셈·가운뎃점·줄임표·괘선은 분모에서 뺀다.
-  const TYPOGRAPHIC = /[✓✔✖✗✘×•…─-╿]/g
+  //    ❧(U+2767, 인쇄 화관)도 같다 — 판면의 장식 괘이지 그림문자가 아니다(실측 2026-09-17 /library/vocab 7건).
+  const TYPOGRAPHIC = /[✓✔✖✗✘×•…─-╿❧]/g
   const EMOJI = /[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}]/gu
   /** 활자 기호를 걷어낸 뒤 남은 그림문자 개수. */
   const emojiCount = (t) => (t.replace(TYPOGRAPHIC, '').match(EMOJI) || []).length

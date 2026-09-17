@@ -161,6 +161,54 @@ export function JuMark({
 }
 
 // ══════════════════════════════════════════════════════════════
+// SealMark — 낙관(落款)
+//
+//   분류 타일·목표 카드가 이모지로 얼굴을 삼던 자리. 이모지는 기기마다 다른 그림이 나오고
+//   (애플·구글·삼성이 전부 다르다) 우리가 고른 적 없는 색이 판면에 번진다.
+//   대신 **라벨의 첫 글자**를 Hahmlet 으로 주묵 테두리 안에 찍는다 — 도장처럼.
+//   글자는 이미 라벨에 있으므로 장식이다(aria-hidden). 뜻은 옆의 라벨이 말한다.
+//
+//   `size`: sm 28px(목록 행) · md 36px(카드) · lg 44px(타일·모달 머리)
+// ══════════════════════════════════════════════════════════════
+const SEAL_SIZE = {
+  sm: 'h-7 w-7 text-[14px]',
+  md: 'h-9 w-9 text-[17px]',
+  lg: 'h-11 w-11 text-[21px]',
+} as const
+
+export function SealMark({
+  label,
+  size = 'md',
+  tone = 'ju',
+  className,
+}: {
+  /** 첫 글자를 뽑을 라벨 — 화면에 이미 적힌 이름을 그대로 넘긴다 */
+  label: string
+  size?: keyof typeof SEAL_SIZE
+  /** `ju` 주묵 · `inverse` 어두운 바탕 위(선택된 타일) */
+  tone?: 'ju' | 'inverse'
+  className?: string
+}) {
+  const glyph = Array.from(label.trim())[0] ?? ''
+  return (
+    <span
+      aria-hidden
+      className={cn(
+        'inline-flex shrink-0 items-center justify-center rounded-[var(--r-sm)] border',
+        'font-ko-display font-[600] leading-none',
+        tone === 'ju'
+          ? 'border-[var(--ju)] bg-[var(--ju-wash)] text-[var(--ju-ink)]'
+          : 'border-current bg-transparent text-current',
+        SEAL_SIZE[size],
+        className,
+      )}
+    >
+      {glyph}
+    </span>
+  )
+}
+
+// ══════════════════════════════════════════════════════════════
 // DecayUnderline — 망각 밑줄
 //
 //   이 키트에서 **유일하게 데이터가 직접 그리는 형태**다. 밑줄 두께가 R(t)를 말한다:

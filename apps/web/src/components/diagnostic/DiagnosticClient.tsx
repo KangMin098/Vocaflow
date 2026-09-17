@@ -14,6 +14,7 @@ import { Fragment, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { subscribeSet } from '@/app/(main)/library/vocab/actions'
 import { useToast } from '@/components/ui/Toast'
+import { SealMark } from '@/components/ui/press'
 import { createClient } from '@/lib/supabase/client'
 import {
   ArrowRight,
@@ -612,7 +613,7 @@ export function DiagnosticClient() {
       return (
         <div className="rounded-[var(--r-2xl)] bg-gradient-to-br from-[var(--p-dark)] to-[var(--p)] p-6 text-[var(--on-p)] shadow-[var(--sh-md)]">
           <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--active)] px-3 py-1 font-display text-[11px] font-[700] text-[var(--on-active)]">
-            ★ 처음이라면 여기서 시작
+            처음이라면 여기서 시작
           </span>
           <h2 className="mt-3 font-display text-[24px] font-[700] leading-tight">{p.title}</h2>
           <p className="mt-1.5 font-body text-[14px] leading-relaxed opacity-90">
@@ -650,9 +651,7 @@ export function DiagnosticClient() {
           key={t.id}
           className="flex items-center gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4 shadow-[var(--sh-sm)] transition-colors hover:border-[var(--p)]"
         >
-          <span className="text-[22px] leading-none" aria-hidden>
-            {p.emoji}
-          </span>
+          <SealMark label={goal} />
           <div className="min-w-0 flex-1">
             <p className="font-display text-[14px] font-[700] text-[var(--t1)]">{goal}</p>
             <p className="truncate font-body text-[11px] text-[var(--t2)]">
@@ -1055,9 +1054,7 @@ export function DiagnosticClient() {
                       : 'border-[var(--bd)] bg-[var(--bg)] hover:border-[var(--t3)]'
                   }`}
                 >
-                  <span className="text-[24px]" aria-hidden>
-                    {opt.emoji}
-                  </span>
+                  <SealMark label={opt.label} size="sm" />
                   <span className="font-display text-[12px] font-[600] text-[var(--t1)]">
                     {opt.label}
                   </span>
@@ -1173,9 +1170,7 @@ function InfoModal({
         {/* 헤더 밴드 */}
         <div className="flex items-start justify-between gap-3 border-b border-[var(--bd)] p-5">
           <div className="flex items-start gap-3">
-            <span className="text-[30px] leading-none" aria-hidden>
-              {p.emoji}
-            </span>
+            <SealMark label={p.title} size="lg" />
             <div>
               <div className="flex items-center gap-2">
                 <h2 className="font-display text-[17px] font-[700] text-[var(--t1)]">{p.title}</h2>

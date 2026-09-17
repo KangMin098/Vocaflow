@@ -16,7 +16,6 @@ interface MicroPauseProps {
 
 export function MicroPause({
   visible,
-  icon,
   message,
   currentIdx,
   totalCount,
@@ -45,12 +44,8 @@ export function MicroPause({
       } `}
     >
       <div className="max-w-md p-8 text-center">
-        <span
-          className="mb-4 inline-block animate-[gentle-float_2s_ease-in-out_infinite] text-[48px]"
-          aria-hidden="true"
-        >
-          {icon}
-        </span>
+        {/* v07 — 떠다니는 48px 이모지(무한 반복)를 뺐다 — flashcard/MicroPause 와 같은 판단 */}
+        <span aria-hidden className="mx-auto mb-5 block h-8 w-[3px] bg-[var(--ju)]" />
         <p className="mb-4 font-english text-[18px] italic leading-relaxed text-[var(--t1)]">
           {message}
         </p>

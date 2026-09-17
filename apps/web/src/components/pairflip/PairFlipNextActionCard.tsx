@@ -6,6 +6,8 @@
 import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 
+import { SealMark } from '@/components/ui/press'
+
 interface ActionItem {
   label: string
   description: string
@@ -101,9 +103,7 @@ export function PairFlipNextActionCard({ accuracy }: NextActionCardProps) {
           className="group flex min-h-[64px] items-center gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-3 transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:border-[#F59E0B]/50 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B]"
           aria-label={`${a.label} — ${a.description}`}
         >
-          <span className="text-[24px] leading-none" aria-hidden="true">
-            {a.emoji}
-          </span>
+          <SealMark label={a.label} />
           <div className="min-w-0 flex-1">
             <p className="truncate font-display text-[13px] font-[700] text-[var(--t1)]">
               {a.label}

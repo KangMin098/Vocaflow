@@ -69,7 +69,6 @@ export function BookQuickPicks({ filters, sort, diagnosed, hasAudio, hasComic, o
                 : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t1)] hover:border-[var(--p)] hover:bg-[var(--p-light)]'
             }`}
           >
-            <span aria-hidden>{p.emoji}</span>
             {p.label}
           </button>
         )

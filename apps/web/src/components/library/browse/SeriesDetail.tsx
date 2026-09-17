@@ -11,6 +11,7 @@
 
 import { ArrowLeft, ArrowRight, Volume2 } from 'lucide-react'
 
+import { SealMark } from '@/components/ui/press'
 import { TRACK_FIT_META, type TrackStat } from '@/lib/articles/source-map'
 import type { PublishedArticle } from '@/lib/articles/types'
 
@@ -91,13 +92,7 @@ export function SeriesDetail({
       {/* 정체성 헤더 */}
       <header className="flex flex-col gap-3">
         <div className="flex items-start gap-3">
-          <span
-            aria-hidden
-            className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-[var(--r-lg)] text-[24px]"
-            style={{ backgroundColor: `color-mix(in srgb, ${track.accent} 14%, transparent)` }}
-          >
-            {track.icon}
-          </span>
+          <SealMark label={track.title} size="lg" />
           <div className="flex min-w-0 flex-1 flex-col gap-1">
             <h1 className="font-editorial text-[26px] font-[500] leading-[1.1] tracking-[-0.01em] text-[var(--t1)] md:text-[30px]">
               {track.title}

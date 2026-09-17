@@ -9,7 +9,7 @@
 'use client'
 
 import { useState } from 'react'
-import { BookImage, Search, SlidersHorizontal, X } from 'lucide-react'
+import { BookImage, BookOpen, Search, SlidersHorizontal, Volume2, X } from 'lucide-react'
 
 import {
   AGE_BANDS,
@@ -305,7 +305,7 @@ export function BookFilterBar({
               active={filters.genre === g.key}
               onClick={() => onChange({ genre: filters.genre === g.key ? null : g.key })}
             >
-              <span aria-hidden>{g.emoji}</span> {g.label}
+              {g.label}
             </Chip>
           ))}
         </Section>
@@ -383,7 +383,7 @@ export function BookFilterBar({
               active={filters.audioOnly}
               onClick={() => onChange({ audioOnly: !filters.audioOnly })}
             >
-              🔊 원어민 음성
+              <Volume2 size={11} aria-hidden /> 원어민 음성
             </Chip>
           )}
           {/* 진단한 학습자에게만 — 수준을 모르면 baseline V5 가정이라 "내 수준" 이 거짓말이 된다. */}
@@ -392,7 +392,7 @@ export function BookFilterBar({
               active={filters.readableChaptersOnly}
               onClick={() => onChange({ readableChaptersOnly: !filters.readableChaptersOnly })}
             >
-              📖 지금 읽을 챕터 있음
+              <BookOpen size={11} aria-hidden /> 지금 읽을 챕터 있음
             </Chip>
           )}
         </Section>

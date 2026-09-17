@@ -42,7 +42,6 @@ export function RegisterBadge({ register, className = '' }: RegisterBadgeProps) 
           : '시대·문화 어휘 — 특정 시대 맥락의 사물·제도'
       }
     >
-      <span aria-hidden>{meta.icon}</span>
       {meta.label}
     </span>
   )

@@ -232,7 +232,7 @@ export function BookContentReader({
           <ToggleButton
             active={showLevelWords}
             onToggle={() => setShowLevelWords((v) => !v)}
-            label="🎯 익힐 단어"
+            label="익힐 단어"
             ariaLabel="이 챕터에서 익힐 단어 보기"
           />
           {mode === 'admin-review' && (

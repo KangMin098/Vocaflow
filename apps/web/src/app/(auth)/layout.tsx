@@ -6,6 +6,7 @@
 
 'use client'
 
+import { Moon, Sun } from 'lucide-react'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
@@ -71,7 +72,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
               /* 40×32 였다 — 44px 미만 탭 대상이었다(CLAUDE.md 절대 금지 · 실측 390px). 로그인·가입·재설정·인증 네 화면이 공유한다. */
               className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md px-s-3 py-s-2 font-display text-xs font-medium text-t2 transition-colors duration-normal hover:bg-bg2 hover:text-t1"
             >
-              {theme === 'light' ? '🌙' : '☀️'}
+              {theme === 'light' ? <Moon size={16} aria-hidden /> : <Sun size={16} aria-hidden />}
             </button>
           </div>
         </div>
