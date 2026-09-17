@@ -96,6 +96,17 @@ export function pageOfItem(examId: string, no: number): number | null {
   return a?.items.find((i) => i.no === no)?.p ?? null
 }
 
+/**
+ * 해시 → **좌표만.** 학습 세션의 reflow 가 문항 경계를 잡는 데 쓴다(`lib/csat/reflow`).
+ * 분석은 싣지 않는다 — 분석은 답을 고른 뒤 `/api/csat/session/reveal` 로만 나간다.
+ */
+export function anchorsBySha256(sha256: string): { exam_id: string; anchors: ExamAnchors } | null {
+  const examId = examBySha256(sha256)
+  if (!examId) return null
+  const anchors = readAnchors(examId)
+  return anchors ? { exam_id: examId, anchors } : null
+}
+
 /** 그 회차 좌표의 요약 — 「이 문제지는 앞 8쪽만 우리 기준」을 화면이 말할 수 있게 */
 export function anchorMetaOf(examId: string): { formPages: number; totalPages: number; sha256: string } | null {
   const a = readAnchors(examId)

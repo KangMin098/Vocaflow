@@ -117,26 +117,23 @@ describe('허용 이벤트 목록', () => {
     // 지도는 열어 본 장식이다. 진입은 screen_viewed(csat-item)가 이미 세므로 안 늘린다 —
     // 같은 일을 하는 이벤트를 둘 만들면 분모가 갈린다.
     'csat_evidence_opened',
-    // 2026-09-15 — 오버레이 2종. 이 화면의 값어치 전체가 «학습자가 자기 문제지를 연다» 는
-    // 전제 위에 있는데 그 전제가 한 번도 확인된 적이 없었다(파일이 서버로 안 오는 것이
-    // 설계의 요점이라 어떤 표에도 흔적이 없다). located 는 PDF 텍스트 매칭이 실제 문제지에서
-    // 작동하는지의 유일한 관측이다 — 스캔본에서는 조용히 실패하도록 만들어 두었으므로 더욱.
-    'csat_overlay_loaded',
-    'csat_overlay_located',
-    // 2026-09-16 — 오버레이 순차 공개 2종. 이 목록을 손대다가 **여섯이 빠져 있던 것**을
-    // 찾았다(atlas/plan/drill/trap): 코드에는 있고 DB CHECK 에는 없어 «보내는데 한 건도
-    // 안 쌓이는» 상태였다. 마이그레이션 `20260916120000` 이 여덟을 함께 넣는다.
-    'csat_overlay_answered',
-    'csat_overlay_revealed',
+    // 2026-09-15~16 의 오버레이 4종(`csat_overlay_*`)은 2026-09-17 에 화면과 함께 은퇴했다 —
+    // 같은 질문(문제지를 여는가 · 스스로 푸는가)은 아래 세션 6종이 받는다(DB 허용 목록에는 남는다).
     // 2026-09-17 — 해설 강의 2종. 틀었는가 · 끝까지 들었는가(마이그레이션 `20260917150000`)
     'csat_lecture_played',
     'csat_lecture_ended',
-    // 기출 오답 지도 · 계획 · 훈련 — 위에서 말한 그 여섯
+    // 2026-09-17 — 기출 학습자 세션 루프 6종(docs/csat-learner-brief.md · 마이그레이션 `20260917190000`).
+    // 시작 · 답 · 무엇을 열었나 · 한 줄 판정 · 완주 · 문제지 읽기(= reflow 실패율)
+    'csat_session_started',
+    'csat_session_answered',
+    'csat_session_explained',
+    'csat_session_marked',
+    'csat_session_finished',
+    'csat_paper_read',
+    // 기출 오답 지도 · 계획(관리자 뷰) — 훈련 2종은 2026-09-17 에 은퇴
     'csat_atlas_scoped',
     'csat_plan_speed_set',
     'csat_plan_ordered',
-    'csat_drill_answered',
-    'csat_drill_finished',
     'csat_trap_opened',
     'screen_viewed',
     // 2026-09-12 — 구성요소 영상 2종(`packages/video-factory`). **만든 수가 아니라 본 수**를

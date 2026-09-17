@@ -54,6 +54,8 @@ const MODULE_SESSION_META: Record<string, SessionMeta> = {
 //   셸 제목이 "학습 세션 ✨"으로 뜨고 닫기가 /arcade 가 아닌 /hub 로 갔다. 카탈로그 파생으로 재발 차단.
 const SESSION_META: Record<string, SessionMeta> = {
   ...MODULE_SESSION_META,
+  // 기출 세션 — 닫으면 기출 홈(오늘의 세션)으로
+  '/csat/session': { title: '기출 세션', emoji: '', closeHref: '/csat' },
   ...Object.fromEntries(
     GAME_CATALOG.map((g) => [
       `/play/${g.slug}`,
@@ -210,6 +212,9 @@ export function SessionFrame({ children }: { children: ReactNode }) {
   const hasResource = !!resource && resource.label.length > 0
 
   const currentOptionMatch = STAGE_OPTIONS.some((o) => o.href === pathname)
+  // 기출 세션에는 「다른 학습 세션으로 이동」을 두지 않는다 — 화면당 행동 하나 ·
+  // 모드 전환 UI 금지(docs/csat-learner-brief.md A2 · F5). 나가는 길은 닫기 하나다.
+  const showStages = !pathname.startsWith('/csat/')
 
   return (
     <SessionContext.Provider value={ctx}>
@@ -254,6 +259,7 @@ export function SessionFrame({ children }: { children: ReactNode }) {
 
             {/* Right: stage combo + close */}
             <div className="flex shrink-0 items-center gap-2">
+              {showStages ? (
               <div className="relative">
                 <select
                   value={currentOptionMatch ? pathname : ''}
@@ -288,6 +294,7 @@ export function SessionFrame({ children }: { children: ReactNode }) {
                   className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-[var(--t2)]"
                 />
               </div>
+              ) : null}
 
               <Link
                 href={closeHref}

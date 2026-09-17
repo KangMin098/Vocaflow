@@ -148,38 +148,22 @@ export const LEARNER_ROUTES: LearnerRoute[] = [
     kind: 'screen',
     dynamic: true,
   },
-  { path: '/csat', screen: 'csat', label: 'CSAT Types', group: 'main', kind: 'screen' },
+  // 기출 — 2026-09-17 학습자 재설계로 라우트가 셋이다(docs/csat-learner-brief.md A1).
+  // 유형·문항·지형·사정권·계획 화면은 `/admin/kice/*` 로 옮겼고 훈련·오버레이는 걷었다.
+  { path: '/csat', screen: 'csat', label: '기출 — 오늘의 세션', group: 'main', kind: 'screen' },
   {
-    path: '/csat/[typeId]',
-    screen: 'csat-type',
-    label: '기출 유형 하나',
-    group: 'main',
-    kind: 'screen',
-    dynamic: true,
-  },
-  {
-    path: '/csat/item/[slug]',
-    screen: 'csat-item',
-    label: '기출 문항 하나',
-    group: 'main',
-    kind: 'screen',
-    dynamic: true,
-  },
-  {
-    // 2026-09-13 에 생긴 화면인데 여기 선언이 빠져 있었다 — 그러면 사이트맵에서 사라지고
-    // 셸의 진입 계측이 `screen: 'other'` 로 접어서, 이 화면에 사람이 오는지 **영원히 모른다**.
-    // (실측 2026-09-15: 누락 4건 중 하나였다.)
-    path: '/csat/overlay',
-    screen: 'csat-overlay',
-    label: '문제지에 해설 얹기',
+    path: '/csat/session',
+    screen: 'csat-session',
+    label: '기출 세션',
+    says: '세 문항을 풀고, 근거 문장에서 이해하고, 한 줄 남긴다.',
     group: 'main',
     kind: 'screen',
   },
   {
-    path: '/csat/plan',
-    screen: 'csat-plan',
-    label: '기출 학습 계획',
-    says: '약한 유형부터 순서를 짠다.',
+    path: '/csat/progress',
+    screen: 'csat-progress',
+    label: '기출 기록',
+    says: '연속 일수 · 이번 주 문항 · 복습 대기와 유형별 정확도.',
     group: 'main',
     kind: 'screen',
     section: '학습 관리',

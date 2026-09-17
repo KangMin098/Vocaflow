@@ -307,10 +307,12 @@ export const FOOTER_ITEMS: NavItem[] = [
    * Comics 를 ASIDE_GROUP 에 둔 것과 같은 이유다.
    */
   {
-    label: 'CSAT Types',
+    // 2026-09-17 — 「유형 분석」 참조면에서 「오늘의 세션」 루프로 바뀌었다(docs/csat-learner-brief.md).
+    // 유형별 분석을 읽는 자리는 관리자 뷰(`/admin/kice`)로 옮겼다.
+    label: 'CSAT',
     href: '/csat',
     icon: Scale,
-    ariaLabel: '기출 유형 분석 — 평가원 수능·모의평가 독해 유형별 풀이 절차',
+    ariaLabel: '기출 — 오늘의 세션: 평가원 수능·모의평가 독해 세 문항',
   },
   {
     label: 'Class',

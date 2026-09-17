@@ -125,54 +125,10 @@ export type PublicEvent =
       name: 'wayfinder_cta_clicked'
       props: { phase: 'undiagnosed' | 'ready' | 'moving' | 'complete'; done: number }
     }
-  /**
-   * 문제지 PDF 를 떨어뜨렸다 — **오버레이 경로가 실제로 쓰이는가.**
-   *
-   * 이 화면의 값어치 전체가 «학습자가 자기 문제지를 연다» 는 전제 위에 있는데, 그 전제는
-   * 지금까지 **한 번도 확인된 적이 없다.** 진입은 `screen_viewed`(csat-overlay)가 세지만
-   * 「들어와서 파일까지 떨어뜨렸는가」는 어떤 표에도 흔적이 남지 않는다 — 파일이 서버로
-   * 오지 않는 것이 이 설계의 요점이기 때문이다(해시 64자만 간다).
-   *
-   * 이 수가 진입 대비 0 에 가까우면 **오버레이는 죽은 길**이고, 업로드 없이 보는 지문 지도가
-   * 유일한 경로다. 그건 설계를 바꿀 근거가 된다(§D — 공급이 아니라 수요 쪽에서).
-   *
-   * `known` 은 그 해시로 회차를 알아봤는가다. 거짓이 많으면 앵커가 덮는 회차가 모자란 것이다.
-   */
-  | { name: 'csat_overlay_loaded'; props: { known: boolean } }
-  /**
-   * 문제지 위에서 **근거 문장의 자리를 찾았는가** — 2026-09-15 에 넣은 PDF 텍스트 매칭이
-   * 실제 문제지에서 작동하는지의 **유일한 관측**.
-   *
-   * 우리 손에는 좌표가 없고(문제지는 우리 것이 아니다) 학습자의 브라우저가 스스로 찾는다.
-   * 그러므로 **우리는 그것이 되는지 알 방법이 이 이벤트밖에 없다.** 스캔본처럼 텍스트 레이어가
-   * 없는 문제지에서는 조용히 실패하도록 만들어 두었으므로(화면은 멀쩡히 돈다) 더욱 그렇다.
-   *
-   * 문항 하나를 펼칠 때 한 번만 보낸다 — 쪽을 넘나들며 같은 문항을 다시 그려도 세지 않는다.
-   */
-  | { name: 'csat_overlay_located'; props: { found: boolean } }
-  /**
-   * 오버레이에서 **스스로 답을 골랐다** — 이 제품에서 학습자가 기출을 «읽는지 푸는지» 를
-   * 가르는 첫 관측.
-   *
-   * 2026-09-16 까지 이 화면은 문항 번호를 누르면 답·근거·오답 넷을 **한꺼번에** 펼쳤다.
-   * 그 화면에서 일어나는 일은 읽기이고, 읽기는 재인이지 인출이 아니다(원칙 1). 순차 공개를
-   * 넣으면서 **그 전제가 맞는지 재는 자리**를 함께 만든다 — 이 수가 `csat_overlay_loaded`
-   * 대비 0 에 가까우면 학습자는 문제지를 열되 풀지는 않는 것이고, 그건 순서를 바꿀 근거다.
-   *
-   * `picked` 가 거짓이면 「답을 안 고르고 보기」다 — 그 비율이 높으면 풀기 단계가 부담이다.
-   * 초는 **버킷으로만** 나간다(`secondsBucket`) — 원본 숫자가 필요한 질문이 없다.
-   */
-  | {
-      name: 'csat_overlay_answered'
-      props: { picked: boolean; correct: boolean; secondsBucket: 0 | 1 | 2 | 3 | 4 | 5 }
-    }
-  /**
-   * 해설 겹을 한 장 열었다 — **순차 공개가 끝까지 가는가.**
-   *
-   * `seq` 가 1~2 에서 멈추면 겹이 너무 잘게 나뉘었거나 첫 겹이 이미 답을 다 말한 것이고,
-   * `total` 까지 가면 설계대로 작동하는 것이다. `kind` 는 **어디서 그만두는지**를 말한다 —
-   * 오답 배제에서 멈추는지 절차·어휘까지 가는지는 다음에 무엇을 고칠지를 가른다.
-   */
+  // 은퇴(2026-09-17) — `csat_overlay_loaded` · `_located` · `_answered` · `_revealed` ·
+  // `csat_drill_answered` · `_finished`. 보내던 화면(`/csat/overlay` · `/csat/drill`)을 학습자 재설계로
+  // 걷었다(docs/csat-learner/DECISIONS.md D8). 같은 질문은 `csat_paper_read` · `csat_session_*` 이 받는다.
+  // DB 허용 목록에는 남긴다 — 이미 쌓인 행을 읽는 대시보드가 이름을 안다.
   /**
    * 해설 화면에서 **강의를 틀었다** — 한 화면 방문에 한 번(처음 재생)만 보낸다.
    *
@@ -192,13 +148,47 @@ export type PublicEvent =
       name: 'csat_lecture_ended'
       props: { cues: number; jumps: number; mode: 'voice' | 'silent' }
     }
+  /**
+   * **학습자 세션 루프(2026-09-17 · docs/csat-learner-brief.md).** 진입은 `screen_viewed`
+   * (csat · csat-session · csat-progress)가 센다. 여기는 루프 안에서 무슨 일이 있었는지다.
+   *
+   * `started` — [시작]을 눌렀다. `cached` 는 그 세션에 필요한 회차 중 기기에 이미 있던 수 —
+   *   0 이 많으면 「받기/놓기」가 시작의 문턱이라는 뜻이다(F1 의 전제).
+   */
   | {
-      name: 'csat_overlay_revealed'
-      props: {
-        seq: number
-        total: number
-        kind: 'evidence' | 'correct' | 'reject' | 'procedure' | 'vocab'
-      }
+      name: 'csat_session_started'
+      props: { size: number; review: boolean; needed: number; cached: number }
+    }
+  /** 한 문항에 답했다(또는 고르지 않고 넘겼다). `sec` 는 반올림한 초. */
+  | {
+      name: 'csat_session_answered'
+      props: { seq: number; correct: boolean; skipped: boolean; sec: number; review: boolean }
+    }
+  /**
+   * ② 이해 단계에서 무엇을 열었나 — 인라인 설명이 실제로 쓰이는지의 유일한 관측.
+   * 한 번도 안 열리면 「문장을 탭하면 설명」이 발견되지 않는다는 뜻이다.
+   */
+  | {
+      name: 'csat_session_explained'
+      props: { kind: 'evidence' | 'reject' | 'tempt' | 'more' | 'lecture' }
+    }
+  /** ③ 한 줄 — [알겠어요] / [헷갈려요]. 정답인데 헷갈린 수가 메타인지 신호다. */
+  | {
+      name: 'csat_session_marked'
+      props: { seq: number; confused: boolean; correct: boolean }
+    }
+  /** 세션을 끝까지 돌았다 — 완주율의 분자. */
+  | {
+      name: 'csat_session_finished'
+      props: { total: number; correct: number; confused: number; seconds: number }
+    }
+  /**
+   * 문제지를 읽었다. `known` 은 해시가 색인에 있었나, `failed` 는 글로 못 뽑아 **종이 그대로**
+   * 보여 줘야 하는 문항 수 — 이것이 reflow 실패율이다(지시문 C6 · 관리자 evidence 쪽 수신처).
+   */
+  | {
+      name: 'csat_paper_read'
+      props: { known: boolean; items: number; failed: number; chosen: boolean }
     }
   /**
    * 기출 해설에서 근거 하나를 열었다 — **「클릭/클릭/클릭」이 실제로 일어나는가.**
@@ -259,43 +249,6 @@ export type PublicEvent =
         /** 이 방문에서 몇 번째로 편 것인가 */
         seq: number
       }
-    }
-  /**
-   * 오답 감별 훈련에서 한 문제를 답했다 — **인출이 실제로 일어나는가.**
-   *
-   * 허브·유형 화면은 「읽고 납득하는」 물건이라 학습자가 무엇을 **기억하는지** 알 수 없다.
-   * 이 이벤트가 그 제품 전체에서 처음으로 그것을 잰다(원칙 1 Active Recall).
-   * `seq` 가 1~2 에서 멈추면 훈련이 어렵거나 지루한 것이고, 8까지 가면 세트 크기가 맞는 것이다.
-   *
-   * ⚠️ 함정 이름은 **보내지 않는다.** 32개짜리 닫힌 목록이라 보낼 수는 있지만, 이 이벤트로
-   *    답하려는 질문은 「어느 함정인가」가 아니라 「인출이 일어나는가」다. 함정별 성적은
-   *    기록이 DB 에 남게 된 뒤에 그 표가 답한다.
-   */
-  | {
-      name: 'csat_drill_answered'
-      props: {
-        /** 이 세트에서 몇 번째 문제인가 (1-기반) */
-        seq: number
-        correct: boolean
-        /** 보기 수 — 넷이 기본. 달라지면 난이도가 달라진 것이다 */
-        options: number
-        /**
-         * 지난번 틀려서 **하루 이상 지나 되돌아온** 카드였나.
-         * 이 값이 참인 답의 정답률이 거짓인 답보다 높으면 간격 반복이 기억을 남긴 것이다 —
-         * 그 비교가 이 기능이 장식인지 아닌지를 가르는 **유일한 관측**이다.
-         */
-        returning: boolean
-      }
-    }
-  /**
-   * 한 세트를 끝냈다 — **완료율의 분자**.
-   *
-   * `csat_drill_answered` 의 seq 분포와 함께 보면 어디서 그만두는지가 보인다.
-   * `weak` 는 두 번 보고 두 번 다 놓친 수법의 수다(한 번 틀린 것은 약점이라 부르지 않는다).
-   */
-  | {
-      name: 'csat_drill_finished'
-      props: { total: number; correct: number; weak: number; seconds: number }
     }
   /**
    * 한 회차 계획의 **줄 세우는 기준**을 바꿨다 — ⑤ 주파가 실제로 쓰이는가.
@@ -464,15 +417,15 @@ const EVENT_REGISTRY: Record<PublicEventName, true> = {
   csat_atlas_scoped: true,
   csat_plan_speed_set: true,
   csat_plan_ordered: true,
-  csat_drill_answered: true,
-  csat_drill_finished: true,
   csat_trap_opened: true,
-  csat_overlay_loaded: true,
-  csat_overlay_located: true,
-  csat_overlay_answered: true,
-  csat_overlay_revealed: true,
   csat_lecture_played: true,
   csat_lecture_ended: true,
+  csat_session_started: true,
+  csat_session_answered: true,
+  csat_session_explained: true,
+  csat_session_marked: true,
+  csat_session_finished: true,
+  csat_paper_read: true,
   screen_viewed: true,
   video_started: true,
   video_completed: true,
