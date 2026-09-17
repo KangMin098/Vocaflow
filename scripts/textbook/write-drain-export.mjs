@@ -57,12 +57,30 @@ const SIZE = Number(arg('size') ?? 5)
  *   **지문 풀을 바꾸지 않는 한 배치를 더 돌려도 같은 결과다**(`csat-types.ts` mood 주석).
  */
 const MODE_ARG = arg('mode')
-const MODES = new Set(['narrative', 'long-narrative', 'long-expository'])
+/*
+ * ⚠️ **서신(`correspondence`) 갈래 — 2026-09-17 추가.** 분위기 유형이 설명문뿐이라 0건이었던 것과
+ *   같은 벽이 「글의 목적」(18번)에도 있었다. 저장된 `purpose` 86건이 **전부** 부르는 사람·받는
+ *   사람이 없는 글(소설·설명문)이라 `type-fit` 게이트가 통째로 막는다(평가원 설계 규칙
+ *   §R-PURPOSE — 「화자와 수신자가 분명해야 목적이 성립한다」). 재고 10.7만 편 중 편지 꼴은
+ *   7편뿐이었다 — **거르기로는 안 되고 원문을 써야 한다**(`item-drain-export` 가 그렇게 안내한다).
+ *   시장 합본의 유형 다양성(A5)이 16 대 15 로 지는 것도 이 한 유형 때문이다.
+ */
+const MODES = new Set(['narrative', 'long-narrative', 'long-expository', 'correspondence'])
 const MODE = MODES.has(MODE_ARG) ? MODE_ARG : 'expository'
 /** 서사 갈래인가 — 축·짜임·규칙을 공유한다. 길이만 다르다. */
 const IS_NARRATIVE = MODE === 'narrative' || MODE === 'long-narrative'
+/** 서신 갈래인가 — 필자가 독자에게 무엇을 **시키는** 글. */
+const IS_CORRESPONDENCE = MODE === 'correspondence'
 const MODE_SUFFIX =
-  MODE === 'narrative' ? '-narr' : MODE === 'long-narrative' ? '-long' : MODE === 'long-expository' ? '-longx' : ''
+  MODE === 'narrative'
+    ? '-narr'
+    : MODE === 'long-narrative'
+      ? '-long'
+      : MODE === 'long-expository'
+        ? '-longx'
+        : MODE === 'correspondence'
+          ? '-corr'
+          : ''
 const DIR = path.resolve(
   // 갈래마다 청크 디렉터리를 나눈다 — 섞이면 배치가 어느 지침으로 쓸지 알 수 없다.
   arg('dir') ?? `scripts/textbook/write-drain/v${BAND}${MODE_SUFFIX}`,
@@ -361,8 +379,83 @@ const LONG_EXPOSITORY_SHAPES = [
   },
 ]
 
+/**
+ * 서신의 축 — **누가 누구에게 무엇을 시키는가.**
+ *
+ * 설명문 축을 그대로 쓰면 「Dear …」 만 붙은 설명문이 나온다. 18번의 정답은 **필자가 독자에게
+ * 시키는 행위**이므로, 축 자체가 발신자·수신자·요청이 정해진 상황이어야 한다.
+ * 시중 18번의 단골 상황(학교·지역·기관·단체의 공지와 요청)에서 고른다.
+ */
+const CORRESPONDENCE_AXES = [
+  {
+    key: 'school_notice',
+    label: '학교가 학부모·학생에게',
+    hint: '학교(교장·담임·동아리 지도교사)가 학부모나 학생에게 보내는 안내. 무엇을 언제까지 해 달라는지가 분명하다.',
+    subs: ['현장학습 동의서 제출', '방과후 수업 신청 변경', '급식 설문 참여', '도서관 연체 도서 반납', '체육대회 자원봉사 모집', '분실물 찾아가기', '통학버스 노선 변경 확인', '학부모 상담 주간 예약'],
+  },
+  {
+    key: 'community_request',
+    label: '지역 모임이 주민에게',
+    hint: '아파트 관리사무소·동네 모임·지역 센터가 주민에게 보내는 요청. 공동의 불편이나 행사가 배경이다.',
+    subs: ['분리수거 요일 지키기', '공원 청소의 날 참여', '주차 구역 비워 주기', '소음 줄이기 협조', '벼룩시장 물품 기증', '헌혈 캠페인 참여', '공용 텃밭 신청', '겨울철 수도관 동파 예방'],
+  },
+  {
+    key: 'citizen_letter',
+    label: '개인이 기관에',
+    hint: '한 사람(학생·주민·이용자)이 기관·회사·시청에 보내는 건의나 요청. 구체적 불편과 바라는 조치가 있다.',
+    subs: ['버스 정류장 의자 설치 건의', '도서관 운영 시간 연장 요청', '횡단보도 신호 시간 조정', '공원 조명 수리 요청', '온라인 강좌 자막 추가', '박물관 단체 관람 예약 문의', '잘못 배송된 상품 교환', '행사 취소에 따른 환불 요청'],
+  },
+  {
+    key: 'organization_appeal',
+    label: '단체가 회원·후원자에게',
+    hint: '동물보호소·환경단체·동호회·재단이 회원이나 후원자에게 보내는 호소. 참여나 도움을 청한다.',
+    subs: ['보호소 임시 보호 가정 모집', '해안 정화 활동 참여', '회비 납부 방식 변경 안내', '장학금 추천서 제출', '연례 모임 참석 회신', '중고 악기 기증', '자원봉사 교육 일정 확인', '설문 응답 마감 안내'],
+  },
+  {
+    key: 'business_notice',
+    label: '가게·시설이 이용자에게',
+    hint: '가게·체육관·수영장·영화관이 이용자에게 보내는 안내. 바뀐 규칙이나 일정에 따라 이용자가 할 일이 있다.',
+    subs: ['수영장 정기 점검 휴장', '회원 카드 재발급', '예약 방식 변경', '반려동물 동반 규칙', '포인트 소멸 전 사용', '주차장 공사 기간 우회', '분실 우산 보관 기한', '새 운영 시간 적응'],
+  },
+]
+
+/**
+ * 서신의 짜임 — **요청이 창 어디서 잘려도 보이게.**
+ *
+ * ⚠️ 문항 지문은 원글 전체가 아니라 `buildPassage` 가 자른 **창**이다. 인사말이 창 밖으로
+ *   잘리면 「부르는 자국」은 2인칭 두 번으로만 남고, 요청 행위가 끝에만 있으면 창이 그 앞에서
+ *   끊길 수 있다. 그래서 요청을 **앞(용건)과 뒤(재요청)** 두 번 적게 하고, 독자를 you 로
+ *   여러 번 부르게 한다. (2026-09-17 본보기 187어가 V5~V7 창 셋에서 모두 적합을 통과했다 —
+ *   V7 창은 178어라 서명이 잘렸는데도 통과했다. 요청이 앞에 있었기 때문이다.)
+ */
+const CORRESPONDENCE_SHAPES = [
+  {
+    key: 'request_letter',
+    label: '요청 편지 — 용건 → 사정 → 부탁 → 방법 → 재요청',
+    hint:
+      '첫 줄 `Dear …,` 뒤 둘째 문장에서 **I am writing to …** 로 용건을 밝힌다. 왜 필요한지 사정을 두세 문장, ' +
+      '**Please …** 로 시작하는 부탁 문장, 어떻게·언제까지 하면 되는지, 마지막에 **We hope you will …** 로 다시 청한다. ' +
+      '끝에 `Sincerely,` 와 이름·직함을 각각 한 줄로 둔다.',
+  },
+  {
+    key: 'notice',
+    label: '공지 — 바뀐 것 → 영향 → 할 일 → 문의처',
+    hint:
+      '첫 줄 `Dear …,`(Dear Residents · Dear Parents 등) 뒤 **We would like to inform you that …** 로 무엇이 바뀌는지 알린다. ' +
+      '그 때문에 독자에게 생기는 일, **Please …** 로 시작하는 할 일 두 가지, 질문이 있으면 어디로 연락하는지 적는다. ' +
+      '끝에 보내는 이(부서·직함)를 한 줄로 둔다.',
+  },
+  {
+    key: 'invitation',
+    label: '초대·모집 — 행사 → 의미 → 참여 방법 → 회신 요청',
+    hint:
+      '첫 줄 `Dear …,` 뒤 **We would like to invite you to …** 로 행사를 밝힌다. 왜 의미 있는지, 누가 오는지, ' +
+      '**Please …** 로 시작하는 신청·회신 방법, 마감일을 적고 **We hope you will join us** 류로 맺는다.',
+  },
+]
+
 /** 이번 실행이 쓸 축·짜임. 갈래를 섞지 않는다. */
-const AXES = IS_NARRATIVE ? NARRATIVE_AXES : TOPIC_AXES
+const AXES = IS_CORRESPONDENCE ? CORRESPONDENCE_AXES : IS_NARRATIVE ? NARRATIVE_AXES : TOPIC_AXES
 const SHAPE_POOL =
   MODE === 'long-narrative'
     ? LONG_NARRATIVE_SHAPES
@@ -370,7 +463,9 @@ const SHAPE_POOL =
       ? LONG_EXPOSITORY_SHAPES
       : MODE === 'narrative'
         ? NARRATIVE_SHAPES
-        : SHAPES
+        : IS_CORRESPONDENCE
+          ? CORRESPONDENCE_SHAPES
+          : SHAPES
 
 const { createClient } = await import('@supabase/supabase-js')
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, {
@@ -613,6 +708,16 @@ for (let i = 0; i < need; i++) {
       ? '사람이 등장하고 시간이 흐르는 **이야기**를 쓴다. 과거형으로 쓰고, 시간 표지로 ' +
         '순서를 붙들어 둔다. 정의·통계·일반론 문장을 쓰지 않는다 — 그런 문장이 들어가면 ' +
         '설명문이 되고, 분위기·심경 문항이 성립하지 않는다.'
+      : null,
+    // 서신일 때만 붙는 규칙. 18번(글의 목적)이 설 자리를 만든다 — 판정 정본은 `type-fit.ts` 의 `bearsPurpose`.
+    correspondence_rule: IS_CORRESPONDENCE
+      ? '필자가 독자에게 **무엇을 해 달라고 하는** 편지·공지·초대를 쓴다. 지켜야 할 것: ' +
+        '① 첫 줄은 `Dear …,` 한 줄(줄머리 · 쉼표로 끝) ② 독자를 **you/your 로 세 번 이상** 부른다 ' +
+        '③ 요청 행위를 **두 번** 쓴다 — 앞쪽(둘째~넷째 문장)에 `I am writing to …` 또는 `We would like to …`, ' +
+        '뒤쪽에 **문장 첫머리의** `Please …`(소문자 동사가 뒤따른다) ④ 요청은 **하나의 행위**로 모인다 — ' +
+        '용건이 둘로 갈리면 18번 정답이 둘이 된다 ⑤ 따옴표 대사를 쓰지 않는다(대사 속 요청은 필자의 요청으로 안 센다) ' +
+        '⑥ 사건을 이야기로 풀지 않는다 — 소설이 되면 목적이 사라진다. ' +
+        '맺음말(`Sincerely,`)과 서명도 각각 한 줄로 두되, **서명·인사말은 12문장에 넣어 세지 않는다.**'
       : null,
     // 장문에만 붙는 형식 규칙. 이걸 어기면 43번(순서)을 아예 못 만든다.
     // 장문 공통 형식 — 문단 4 × 6문장. 갈래와 무관하게 지켜야 한다.

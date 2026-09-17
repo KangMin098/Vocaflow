@@ -41,6 +41,27 @@ const FROM = fromArg > 0 ? process.argv[fromArg + 1] : ''
 //   애초에 안 받는다. 회차당 486편이 남은 것 전부가 된다.
 const STALE = process.argv.includes('--stale')
 /**
+ * `--ids-file <경로>` — **이 id 들만 판정한다** (한 줄 한 id · 2026-09-17 추가).
+ *
+ * 집필 드레인이 새 원글 몇 편을 넣었을 때, 그 몇 편만 판정할 길이 없었다. `--stale` 은 판이
+ * 낡은 **모든** 행을 받으므로 실측 2026-09-17 예행에서 1만 8천 편을 훑고 1,548편을 격리하려
+ * 했다 — 새 편지 6편을 판정하려다 공장 전체의 게시 상태를 바꾸게 된다.
+ * `scripts/acp/reprocess.mjs` 의 `--ids-file` 과 같은 규약이다.
+ */
+const idsArg = process.argv.indexOf('--ids-file')
+const ONLY_IDS =
+  idsArg > 0 && process.argv[idsArg + 1]
+    ? fs
+        .readFileSync(process.argv[idsArg + 1], 'utf8')
+        .split(/\r?\n/)
+        .map((l) => l.trim())
+        .filter((l) => /^[0-9a-f-]{36}$/i.test(l))
+    : null
+if (ONLY_IDS && !ONLY_IDS.length) {
+  console.error('  ✗ --ids-file 에 id 가 하나도 없다')
+  process.exit(2)
+}
+/**
  * 판정 청크가 있는 곳 — **둘이다.**
  *
  * `gate-drain` 은 책 단위(Gutenberg), `gate-article-drain` 은 기사 단위(futurity·usgs·nasa…).
@@ -185,8 +206,8 @@ const NOW = new Date().toISOString()
 let cursor = FROM || '00000000-0000-0000-0000-000000000000'
 for (;;) {
   const { data } = await retry(
-    () =>
-      db
+    () => {
+      const q = db
         .from('library_articles')
         // ⚠️ 전에는 `.eq('source','gutenberg')` 였다. 그러면 **판정을 안 받은 소스가
         //   그대로 게시된다** — PLOS 논문 전문 34,700행이 정확히 그 상태였다.
@@ -199,7 +220,9 @@ for (;;) {
         .gt('id', cursor)
         .or(STALE ? `csat_fit->gate->>rv.is.null,csat_fit->gate->>rv.neq.${RULES_VERSION}` : 'id.gte.00000000-0000-0000-0000-000000000000')
         .order('id')
-        .limit(300),
+        .limit(300)
+      return ONLY_IDS ? q.in('id', ONLY_IDS) : q
+    },
     '조회',
   )
   if (!data?.length) break
