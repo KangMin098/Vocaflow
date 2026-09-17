@@ -1,5 +1,5 @@
 {
-  "measuredAt": "2026-09-17T01:01:46.373Z",
+  "measuredAt": "2026-09-17T04:53:47.977Z",
   "db": {
     "mvItems": 880247,
     "mvExplained": 875528,
@@ -98,8 +98,8 @@
   },
   "gate2Market": {
     "file": "textbook-publisher-benchmark-volume.json",
-    "generatedAt": "2026-09-01T07:33:23.059Z",
-    "ageHours": 377.5,
+    "generatedAt": "2026-09-17T04:51:22.892Z",
+    "ageHours": 0,
     "bindingPublisher": "EBS",
     "bindingIndex": 1.199,
     "target": 1.2,
@@ -107,7 +107,7 @@
       {
         "publisher": "NE능률",
         "docs": 60,
-        "overallIndex": 1.343,
+        "overallIndex": 1.339,
         "reachableMax": 1.391,
         "targetReachable": true,
         "axes": "6/7",
@@ -364,7 +364,7 @@
       "source": "DB csat_source_snapshots",
       "cadence": "cron 18 · 6시간",
       "owner": "cron",
-      "ageHours": 0.7
+      "ageHours": 4.6
     },
     {
       "source": "DB csat_coverage()",
@@ -376,43 +376,43 @@
       "source": "repo source-eligibility-snapshot.json",
       "cadence": "사람이 스캔을 돌려야 갱신 (실측 212초)",
       "owner": "human",
-      "ageHours": 32.6
+      "ageHours": 36.5
     },
     {
       "source": "repo type-inventory-snapshot.json",
       "cadence": "사람이 스캔을 돌려야 갱신",
       "owner": "human",
-      "ageHours": 35.4
+      "ageHours": 39.3
     },
     {
       "source": "repo source-inventory-snapshot.json",
       "cadence": "사람이 스캔을 돌려야 갱신",
       "owner": "human",
-      "ageHours": 32.6
+      "ageHours": 36.5
     },
     {
       "source": "repo item-fill-plan.json",
       "cadence": "사람이 스캔을 돌려야 갱신",
       "owner": "human",
-      "ageHours": 35.9
+      "ageHours": 39.8
     },
     {
       "source": "repo extraction-defect-snapshot.json",
       "cadence": "사람이 스캔을 돌려야 갱신",
       "owner": "human",
-      "ageHours": 37.8
+      "ageHours": 41.6
     },
     {
       "source": "docs/reports/textbook-publisher-benchmark-volume.json",
       "cadence": "사람이 market-benchmark 를 돌려야 갱신",
       "owner": "human",
-      "ageHours": 377.5
+      "ageHours": 0
     },
     {
       "source": "docs/reports/textbook-publisher-benchmark.json",
       "cadence": "사람이 market-benchmark 를 돌려야 갱신",
       "owner": "human",
-      "ageHours": 377.4
+      "ageHours": 0.1
     }
   ],
   "divergedCount": 4,
