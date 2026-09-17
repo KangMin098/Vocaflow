@@ -155,6 +155,11 @@ interface Pair {
   deltaPct: number | null
   verdict: 'same' | 'diverged' | 'unmeasurable'
   note: string
+  /**
+   * **화면이 아직 이 두 출처를 섞어 읽는가.** 고쳐진 짝은 값이 계속 갈려도(한쪽 출처가 남아 있으므로)
+   * 화면 어긋남이 아니다 — 그 사실을 적지 않으면 이 자는 고친 뒤에도 영원히 「어긋남」을 센다.
+   */
+  resolvedBy?: string
 }
 
 const pct = (a: number | null, b: number | null): number | null =>
@@ -180,19 +185,13 @@ const pairs: Pair[] = [
       value: typeInv?.totalItems ?? null,
       at: typeInv?.measuredAt ?? null,
     },
-    note: '⑤집필·⑥해설은 mv 를, 자유도 패널(FreedomPanel)은 JSON 을 읽는다 — 같은 /admin/csat 한 화면 안이다',
+    note: '⑤집필·⑥해설은 mv 를, 자유도 패널은 JSON 을 읽었다 — 같은 /admin/csat 한 화면 안이었다',
+    resolvedBy:
+      'T3(2026-09-16) — 자유도 패널이 mv 를 읽는다(freedom-load.ts). 이 짝은 이제 고정 표본 JSON 의 낡음만 잰다',
   }),
-  pair({
-    id: 'P2-orphan',
-    quantity: '사다리 밖 재고(어느 권에도 안 실리는 문항)',
-    a: { source: 'DB mv − SERIES_SPINE 칸', value: mvTotal - inLadder, at: null },
-    b: {
-      source: 'repo JSON type-inventory-snapshot.json:orphanItems',
-      value: typeInv?.orphanItems ?? null,
-      at: typeInv?.measuredAt ?? null,
-    },
-    note: 'JSON 이 0 을 말하면 자유도 패널은 "버려지는 재고 없음" 으로 읽힌다',
-  }),
+  // ⚠️ 여기 있던 P2(사다리 밖 재고 vs 스냅샷 `orphanItems`)는 **지웠다** — 스냅샷의 `orphanItems` 는
+  //   「원글이 사라진 문항」(댕글링 참조)이고 「사다리 밖」(어느 권에도 안 실리는 칸)과 **다른 개념**이다.
+  //   다른 것을 견주고 「어긋남」이라 셌다(감사 2026-09-16 정정). 사다리 밖 수 자체는 `db.orphanItems` 에 남는다.
   pair({
     id: 'P3-pool',
     quantity: '조판에 쓸 수 있는 원문 수',
@@ -239,7 +238,9 @@ const pairs: Pair[] = [
         : null,
       at: null,
     },
-    note: '두 수의 **모집단이 다르다** — 같은 라벨 「L2 3인 페르소나」로 한 화면과 그 하위 화면에 동시에 뜬다',
+    note: '두 수의 **모집단이 다르다** — 같은 라벨 「L2 3인 페르소나」로 한 화면과 그 하위 화면에 동시에 떴다',
+    resolvedBy:
+      'T1(2026-09-16) — 현황판 L2 가 personaReview 를 읽는다. 두 화면 일치는 factory.integration.test 가 잠근다',
   }),
   pair({
     id: 'P6-L2-den',
@@ -256,7 +257,8 @@ const pairs: Pair[] = [
         : null,
       at: null,
     },
-    note: '분모까지 다르므로 두 백분율이 같은 질문의 답이 아니다',
+    note: '분모까지 다르므로 두 백분율이 같은 질문의 답이 아니었다',
+    resolvedBy: 'T1(2026-09-16) — P5 와 같은 수정',
   }),
 ]
 
@@ -436,6 +438,8 @@ const result = {
   pairs,
   freshness,
   divergedCount: pairs.filter((p) => p.verdict === 'diverged').length,
+  /** **화면에 아직 남은** 어긋남 — 이 자가 답하려는 질문은 이것이다. */
+  openDivergedCount: pairs.filter((p) => p.verdict === 'diverged' && !p.resolvedBy).length,
 }
 
 writeFileSync(OUT, JSON.stringify(result, null, 2) + '\n', 'utf8')
@@ -461,11 +465,12 @@ if (!process.argv.includes('--json')) {
 
   console.log('\n─── 같은 양을 두 출처가 다르게 말하는가 ───')
   for (const p of r.pairs) {
-    const mark = p.verdict === 'diverged' ? '✗' : p.verdict === 'same' ? '·' : '?'
+    const mark = p.resolvedBy ? '✓' : p.verdict === 'diverged' ? '✗' : p.verdict === 'same' ? '·' : '?'
     console.log(`${mark} ${p.id}  ${p.quantity}`)
     console.log(`    A ${p.a.value?.toLocaleString() ?? '—'}  ${p.a.source}`)
     console.log(`    B ${p.b.value?.toLocaleString() ?? '—'}  ${p.b.source}`)
     console.log(`    Δ ${p.deltaPct == null ? '못 잼' : p.deltaPct + '%'}   ${p.note}`)
+    if (p.resolvedBy) console.log(`    해소 ${p.resolvedBy}`)
   }
 
   if (r.gate2Market) {
@@ -501,6 +506,8 @@ if (!process.argv.includes('--json')) {
       `  ${String(f.ageHours ?? '—').padStart(7)}시간  ${f.owner.padEnd(6)} ${f.source}  (${f.cadence})`,
     )
 
-  console.log(`\n어긋난 짝 ${r.divergedCount} / ${r.pairs.length}`)
+  console.log(
+    `\n화면에 남은 어긋남 ${r.openDivergedCount} / ${r.pairs.length}  (값이 갈리는 짝 ${r.divergedCount} — 해소된 짝은 한쪽 출처가 남아 있어 계속 갈린다)`,
+  )
   console.log(`→ ${path.relative(ROOT, OUT)}\n`)
 }

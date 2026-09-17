@@ -2,13 +2,17 @@
 //
 // **자유도를 화면 몫으로 — 새 데이터 원천을 만들지 않는다.**
 //
-// ── 왜 스캔을 새로 안 짓나 ──────────────────────────────────────────
-// 자유도는 (밴드 × 유형) 재고와 배합만 있으면 나오는데, 그 둘은 **이미 스냅샷에 있다**
-// (`type-inventory-snapshot.json` · `type-inventory-scan.mjs` 가 굽는다). 스캔을 하나 더
-// 지으면 같은 표를 두 번 세게 되고, 두 수가 갈리는 날 화면이 어느 쪽을 말하는지 알 수 없다.
-// (이 저장소는 어수 창에서 이미 그 일을 겪었다 — 뽑는 자와 싣는 자가 달랐다.)
+// ── 재고는 어디서 오나 (2026-09-16 에 바뀌었다) ──────────────────────
+// 처음에는 `type-inventory-snapshot.json`(사람이 스캔을 돌려야 갱신되는 저장소 파일)을 읽었다.
+// 감사 실측(2026-09-16): 그 파일은 **841,826문항**을 말하는데 같은 화면의 공정 ⑤·⑥은 DB 집계표
+// (`textbook_shelf_inventory_mv` · 30분 갱신)로 **880,247문항**을 말했다. 차이 38,421 중 수준
+// 불일치는 1,779 · 댕글링 0 · 책 문항 808 이고 **나머지는 스캔 뒤에 쓰인 문항**이었다 — 낡음이다.
+// 한 화면 안에서 위 패널과 아래 공정이 **다른 시점의 재고**를 보고 있었다.
 //
-// 그래서 이 파일은 **읽어서 옮기기만** 한다. 산수는 패키지(`freedom.ts`)에 있고 시험이 붙어 있다.
+// 그래서 **재고는 공정 ⑤·⑥과 같은 집계표에서** 받고(`freedom-load.ts`), **배합은 `rungMix` 에서
+// 직접** 계산한다 — 배합은 DB 값이 아니라 시중 실측에서 유도한 규격이라 스냅샷에 담아 둘 이유가
+// 없다. 계산식은 스캔(`scripts/textbook/type-inventory-scan.mjs`)과 같게 옮겼다.
+// 산수는 여전히 패키지(`freedom.ts`)에 있고, **이 파일은 순수 함수다**(DB 를 부르지 않는다).
 //
 // ── 무엇을 말하려고 있나 ────────────────────────────────────────────
 // 현황판(`production-stages.ts`)은 밴드마다 **60문항 한 권**을 재고 7/7 초록을 띄운다.
@@ -17,14 +21,14 @@
 // 현황판은 한 권만 보므로 이것을 구조적으로 못 본다. 이 화면 몫이 그 사각을 채운다.
 
 import {
+  ITEMS_PER_UNIT,
   bandFreedom,
   freedomIndex,
+  rungMix,
   type BandFreedom,
   type FreedomCell,
   type FreedomIndex,
 } from '@vocaflow/library-pipeline'
-
-import raw from './type-inventory-snapshot.json'
 
 /**
  * 단일유형 특강 한 권의 문항 수.
@@ -35,6 +39,24 @@ import raw from './type-inventory-snapshot.json'
  *   바꾼 이유를 여기 적는다.
  */
 export const SOLO_SIZE = 30
+
+/**
+ * 혼합권 한 권의 문항 수 — **스캔과 같은 값**이어야 두 계산이 같은 권 수를 낸다.
+ * 정본은 조판기의 기본 `--units 20`(`build-volume.mjs`) × 단원 6문항.
+ */
+export const ITEMS_PER_VOLUME = 20 * ITEMS_PER_UNIT
+
+/** 학년 사다리 — `rungMix` 가 목표를 갖는 밴드. 스캔의 `BANDS` 와 같다. */
+export const FREEDOM_BANDS: readonly number[] = [1, 2, 3, 4, 5, 6, 7]
+
+/**
+ * 사전의 순수 함수 3종 — **DB 문항이 아니다**(`factory.ts` 의 `PURE_FUNCTION_TYPES` 와 같은 뜻).
+ *
+ * ⚠️ 집계표에는 이 셋이 없다. 배합에 넣은 채 재고를 집계표에서 받으면 초등 칸이 **거짓 0** 이
+ *   된다. 자유도 지수는 이해형만 보므로 결과는 안 바뀌지만, 없는 구멍을 계산에 태우지 않으려고
+ *   배합에서 뺀다 — 이 셋을 재는 곳은 스캔(`tallyElementary`)이다.
+ */
+const PURE_FUNCTION_TYPES: ReadonlySet<string> = new Set(['rhyme', 'word_meaning', 'spell_blank'])
 
 /**
  * **시장이 교재를 고르는 기준이 되는 이해·추론형.**
@@ -59,32 +81,64 @@ export const COMPREHENSION_TYPES: readonly string[] = [
   'long_reference',
 ]
 
-interface SnapType {
+export interface SnapType {
   type: string
   items: number
   needPerVolume: number
 }
-interface SnapBand {
+export interface SnapBand {
   vLevel: number
   /** **목표 배합**의 유형들 — 배합에 없는 유형은 재고가 있어도 여기 없다. */
   types: SnapType[]
   /**
    * **실재고** — 배합과 무관하게 그 밴드에 실제로 있는 (유형 → 문항 수).
    *
-   * ⚠️ 낡은 스냅샷에는 이 열이 없다(2026-09-15 에 생겼다). 없으면 `undefined` 이고,
-   *   그때는 **못 쟀다**로 다뤄야 한다 — `types` 로 대신하면 배합 밖 유형이 0 으로 찍혀
-   *   "만들어야 할 것" 과 "이 권이 안 쓰는 것" 이 뒤섞인다.
+   * 없으면 `undefined` 이고, 그때는 **못 쟀다**로 다뤄야 한다 — `types` 로 대신하면 배합 밖
+   * 유형이 0 으로 찍혀 "만들어야 할 것" 과 "이 권이 안 쓰는 것" 이 뒤섞인다.
    */
-  stock?: { type: string; items: number; articles: number }[]
+  stock?: { type: string; items: number }[]
+  /** 스캔이 스스로 계산해 둔 권 수. 라이브 재고로 만든 밴드는 같은 식으로 여기서 계산한다. */
   volumes: number
   bindingType: string | null
 }
-interface Snapshot {
-  measuredAt: string
-  bands: SnapBand[]
+
+/** 집계표 한 칸 — `item-count.ts` 의 `DcpInventoryCell` 과 같은 모양(필요한 열만). */
+export interface InventoryCellLike {
+  type: string
+  vLevel: number
+  items: number
 }
 
-const snap = raw as unknown as Snapshot
+/**
+ * 집계표 칸 → 밴드 7개.
+ *
+ * 배합은 `rungMix(v).targetShare` 에서, 권당 필요 수는 스캔과 **같은 식**
+ * (`max(1, round(ITEMS_PER_VOLUME × 비중))`)으로, 권 수는 **가장 얇은 유형**이 정한다.
+ */
+export function bandsFromInventory(cells: readonly InventoryCellLike[]): SnapBand[] {
+  return FREEDOM_BANDS.map((v) => {
+    const here = cells.filter((c) => c.vLevel === v)
+    const stockOf = new Map(here.map((c) => [c.type, c.items]))
+    const types: SnapType[] = Object.entries(rungMix(v).targetShare)
+      .filter(([type]) => !PURE_FUNCTION_TYPES.has(type))
+      .map(([type, share]) => ({
+        type,
+        items: stockOf.get(type) ?? 0,
+        needPerVolume: Math.max(1, Math.round(ITEMS_PER_VOLUME * share)),
+      }))
+    const binding = types.reduce<{ type: string; volumes: number } | null>((worst, t) => {
+      const volumes = Math.floor(t.items / t.needPerVolume)
+      return worst == null || volumes < worst.volumes ? { type: t.type, volumes } : worst
+    }, null)
+    return {
+      vLevel: v,
+      types,
+      stock: here.map((c) => ({ type: c.type, items: c.items })).sort((a, b) => b.items - a.items),
+      volumes: binding ? binding.volumes : 0,
+      bindingType: binding ? binding.type : null,
+    }
+  })
+}
 
 /**
  * 그 밴드의 칸들 — **재고는 `stock`, 배합은 `types`** 에서 온다.
@@ -92,7 +146,7 @@ const snap = raw as unknown as Snapshot
  * ⚠️ 두 출처를 섞지 않는 것이 이 함수의 전부다. `types` 는 목표 배합이라 배합 밖 유형이
  *   빠져 있고, 그것을 재고로 읽으면 있는 문항을 0 으로 센다(실측 2026-09-15: V3 의
  *   `main_point` 16문항이 0 으로 찍혀 화면이 "하나도 없다" 고 말했다).
- *   `stock` 이 없는 낡은 스냅샷에서는 **못 쟀다(`null`)** 로 둔다 — 0 이라고 지어내지 않는다.
+ *   `stock` 이 없으면 **못 쟀다(`null`)** 로 둔다 — 0 이라고 지어내지 않는다.
  */
 export function cellsOf(
   band: SnapBand,
@@ -102,7 +156,7 @@ export function cellsOf(
   const stock = band.stock ? new Map(band.stock.map((s) => [s.type, s.items])) : null
   return types.map((type) => ({
     type,
-    // 스캔은 전 유형을 훑으므로, `stock` 이 있는데 그 유형이 없으면 진짜 0 이다.
+    // 집계표는 전 유형을 담으므로, `stock` 이 있는데 그 유형이 없으면 진짜 0 이다.
     items: stock ? (stock.get(type) ?? 0) : null,
     needPerVolume: mix.get(type)?.needPerVolume ?? 0,
   }))
@@ -121,30 +175,42 @@ export const usesComprehension = (band: SnapBand): boolean =>
   band.types.some((t) => COMPREHENSION_TYPES.includes(t.type) && t.needPerVolume > 0)
 
 export interface FreedomView {
-  measuredAt: string
+  /** 재고를 잰 시각 — 집계표 갱신 시각. 못 읽었으면 null. */
+  measuredAt: string | null
   soloSize: number
   index: FreedomIndex
   /** 이해형을 안 쓰는 밴드 — 지수 분모에서 뺀 이유를 화면이 말해야 한다. */
   outOfScope: number[]
-  /** 스냅샷이 스스로 계산한 권 수와 우리 계산이 갈리는 밴드. 비어 있어야 정상이다. */
+  /**
+   * 밴드가 스스로 들고 온 권 수와 패키지 계산(`bandFreedom`)이 갈리는 밴드. 비어 있어야 정상이다.
+   * 두 계산은 같은 입력에서 같은 수를 내야 한다 — 갈리면 식 하나가 틀린 것이다.
+   */
   drift: { vLevel: number; snapshot: number; ours: number | null }[]
+  /** 재고를 못 읽었을 때만. 그때 지수는 빈 밴드로 서고 화면이 이유를 적는다. */
+  loadError: string | null
 }
 
 /**
- * 스냅샷 → 자유도.
+ * 밴드 → 자유도. **순수 함수** — 재고는 인자로 받는다.
  *
- * ⚠️ **스냅샷과 대조한다.** 스냅샷은 자기 `volumes` 를 이미 갖고 있으므로, 같은 입력에서
- *   같은 수가 나와야 한다. 갈리면 둘 중 하나가 틀린 것이고 그 사실이 화면에 떠야 한다 —
- *   조용히 다른 수를 말하는 것이 최악이다.
- *   (대조는 **전 유형** 기준이다. 자유도 지수는 이해형만 보지만, 스냅샷의 `volumes` 는
- *   배합 전체를 보고 낸 수이기 때문이다.)
+ * ⚠️ **두 계산을 대조한다.** 밴드는 자기 `volumes` 를 이미 갖고 있으므로(스캔 또는
+ *   `bandsFromInventory`), 같은 입력에서 패키지 계산이 같은 수를 내야 한다. 갈리면 둘 중
+ *   하나가 틀린 것이고 그 사실이 화면에 떠야 한다 — 조용히 다른 수를 말하는 것이 최악이다.
+ *   (대조는 **배합 전체** 기준이다. 자유도 지수는 이해형만 보지만 `volumes` 는 배합 전체의 수다.)
  */
-export function buildFreedomView(): FreedomView {
-  const inScope = snap.bands.filter(usesComprehension)
-  const bands: BandFreedom[] = inScope.map((b) => bandFreedom(b.vLevel, cellsOf(b), SOLO_SIZE))
-  const outOfScope = snap.bands.filter((b) => !usesComprehension(b)).map((b) => b.vLevel)
+export function buildFreedomView(
+  bands: readonly SnapBand[],
+  measuredAt: string | null,
+  loadError: string | null = null,
+): FreedomView {
+  const inScope = bands.filter(usesComprehension)
+  const measured: BandFreedom[] = inScope.map((b) => bandFreedom(b.vLevel, cellsOf(b), SOLO_SIZE))
+  const outOfScope = bands.filter((b) => !usesComprehension(b)).map((b) => b.vLevel)
   const drift: FreedomView['drift'] = []
-  for (const b of snap.bands) {
+  for (const b of bands) {
+    // 배합이 비면(라이브 V1 — 순수 함수 3종만 쓰는 밴드) 대조할 것이 없다. 패키지는 그때
+    // `null` 을, 밴드는 `0` 을 들고 있어 **거짓 경보**가 난다 — 실측으로 확인한 자리다.
+    if (!b.types.length) continue
     const all = bandFreedom(
       b.vLevel,
       cellsOf(
@@ -158,10 +224,11 @@ export function buildFreedomView(): FreedomView {
     }
   }
   return {
-    measuredAt: snap.measuredAt,
+    measuredAt,
     soloSize: SOLO_SIZE,
-    index: freedomIndex(bands, SOLO_SIZE),
+    index: freedomIndex(measured, SOLO_SIZE),
     outOfScope,
     drift,
+    loadError,
   }
 }

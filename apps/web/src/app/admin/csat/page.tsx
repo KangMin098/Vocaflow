@@ -14,7 +14,7 @@ import { FreedomPanel } from '@/components/admin/textbook/FreedomPanel'
 import { TextbookProductionPanel } from '@/components/admin/textbook/TextbookProductionPanel'
 import { requireAdmin } from '@/lib/auth/require-admin'
 import { loadFactoryLine } from '@/lib/csat/factory'
-import { buildFreedomView } from '@/lib/textbook/freedom-view'
+import { loadFreedomView } from '@/lib/textbook/freedom-load'
 import { measureProduction } from '@/lib/textbook/production-stages'
 import { fetchTextbookShelf } from '@/lib/textbook/shelf-query'
 
@@ -26,7 +26,13 @@ export default async function AdminCsatPage() {
   await requireAdmin('/admin/csat')
   // ⚠️ 둘을 **같이** 기다린다 — 순서대로 걸면 서가 조회(재고 전량 집계)가 공정 조회 뒤에
   //    붙어 첫 픽셀이 그만큼 늦는다.
-  const [line, shelf] = await Promise.all([loadFactoryLine(), fetchTextbookShelf()])
+  //    자유도도 같은 물결에 싣는다 — 공정 ⑤·⑥과 **같은 집계표**를 읽으므로 한 화면이 한 시점의
+  //    재고를 말한다(예전에는 저장소 스냅샷을 읽어 공정보다 38,421문항 낡아 있었다 · 2026-09-16).
+  const [line, shelf, freedom] = await Promise.all([
+    loadFactoryLine(),
+    fetchTextbookShelf(),
+    loadFreedomView(),
+  ])
 
   return (
     <div className="flex flex-col gap-4">
@@ -34,9 +40,9 @@ export default async function AdminCsatPage() {
       {/* ⚠️ **자유도가 제작 단계보다 위에 있다.** 아래 패널은 밴드마다 60문항 **한 권**을
           재고 전 밴드 초록을 띄우는데, 실측(2026-09-15)으로 V2·V7 은 겹치지 않는 권을
           하나밖에 못 낸다. 한 권만 보는 잣대는 그 사실을 구조적으로 못 본다 — 먼저 읽히는
-          자리에 "한 권은 된다" 를 두면 관리자가 거기서 멈춘다. 스냅샷을 읽을 뿐이라
-          DB 왕복이 없다(위 두 조회와 경쟁하지 않는다). */}
-      <FreedomPanel view={buildFreedomView()} />
+          자리에 "한 권은 된다" 를 두면 관리자가 거기서 멈춘다. 재고는 공정 ⑤·⑥과 같은
+          집계표(30분 갱신)에서 온다 — 조회 1회 · 약 1.2초. */}
+      <FreedomPanel view={freedom} />
       {/* 공정 8칸은 **우리 화면·큐**의 상태다. 그 아래 이 패널은 **권마다** 어디까지 왔고
           지금 누구 차례인가를 말한다 — 축이 다르므로 한 화면에 둘 다 있어야 한다. */}
       <TextbookProductionPanel report={measureProduction(shelf.volumes)} />

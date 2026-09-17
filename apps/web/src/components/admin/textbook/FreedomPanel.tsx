@@ -48,10 +48,24 @@ export function FreedomPanel({ view }: { view: FreedomView }) {
         <h3 className="font-display text-[14px] font-[700] text-[var(--t1)]">
           자유도 — 아무 유형으로나 낼 수 있는가
         </h3>
+        {/* 집계표 갱신 시각 — 공정 ⑤·⑥과 같은 표다. 날짜만 적으면 30분 주기가 안 보이므로 시각까지. */}
         <p className="break-keep font-body text-[11.5px] text-[var(--t3)]">
-          재고 실측 {new Date(view.measuredAt).toLocaleDateString('ko-KR')}
+          {view.measuredAt
+            ? `재고 집계 ${new Date(view.measuredAt).toLocaleString('ko-KR', { dateStyle: 'short', timeStyle: 'short' })}`
+            : '재고 집계 시각 모름'}
         </p>
       </header>
+
+      {/* 재고를 못 읽었으면 아래 수는 전부 빈손이다 — 0 권처럼 읽히지 않게 이유를 먼저 적는다. */}
+      {view.loadError ? (
+        <p
+          role="alert"
+          className="flex items-start gap-1.5 rounded-[var(--r-sm)] border border-[#B5803A] bg-[#B5803A]/8 p-2 font-body text-[12px] text-[#B5803A]"
+        >
+          <AlertTriangle size={13} strokeWidth={2} className="mt-0.5 shrink-0" aria-hidden />
+          <span className="break-keep">{view.loadError}</span>
+        </p>
+      ) : null}
 
       {/* 스냅샷과 우리 계산이 갈리면 그 사실이 가장 먼저 떠야 한다 — 조용히 다른 수를
           말하는 것이 최악이다. 정상이면 이 줄은 아예 없다. */}
@@ -62,8 +76,8 @@ export function FreedomPanel({ view }: { view: FreedomView }) {
         >
           <AlertTriangle size={13} strokeWidth={2} className="mt-0.5 shrink-0" aria-hidden />
           <span className="break-keep">
-            재고 스냅샷과 계산이 갈린다 —{' '}
-            {view.drift.map((d) => `V${d.vLevel} 스냅샷 ${d.snapshot} vs ${d.ours ?? '못 잼'}`).join(' · ')}
+            권 수 계산 두 벌이 갈린다 —{' '}
+            {view.drift.map((d) => `V${d.vLevel} 배합식 ${d.snapshot} vs 패키지 ${d.ours ?? '못 잼'}`).join(' · ')}
             . 둘 중 하나가 틀렸다.
           </span>
         </p>

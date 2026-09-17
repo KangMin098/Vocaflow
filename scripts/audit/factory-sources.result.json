@@ -1,5 +1,5 @@
 {
-  "measuredAt": "2026-09-17T00:26:52.758Z",
+  "measuredAt": "2026-09-17T00:42:59.774Z",
   "db": {
     "mvItems": 880247,
     "mvExplained": 875528,
@@ -99,7 +99,7 @@
   "gate2Market": {
     "file": "textbook-publisher-benchmark-volume.json",
     "generatedAt": "2026-09-01T07:33:23.059Z",
-    "ageHours": 376.9,
+    "ageHours": 377.2,
     "bindingPublisher": "EBS",
     "bindingIndex": 1.199,
     "target": 1.2,
@@ -275,26 +275,10 @@
         "value": 841826,
         "at": "2026-09-15T13:35:54.121Z"
       },
-      "note": "⑤집필·⑥해설은 mv 를, 자유도 패널(FreedomPanel)은 JSON 을 읽는다 — 같은 /admin/csat 한 화면 안이다",
+      "note": "⑤집필·⑥해설은 mv 를, 자유도 패널은 JSON 을 읽었다 — 같은 /admin/csat 한 화면 안이었다",
+      "resolvedBy": "T3(2026-09-16) — 자유도 패널이 mv 를 읽는다(freedom-load.ts). 이 짝은 이제 고정 표본 JSON 의 낡음만 잰다",
       "deltaPct": 4.6,
       "verdict": "diverged"
-    },
-    {
-      "id": "P2-orphan",
-      "quantity": "사다리 밖 재고(어느 권에도 안 실리는 문항)",
-      "a": {
-        "source": "DB mv − SERIES_SPINE 칸",
-        "value": 164564,
-        "at": null
-      },
-      "b": {
-        "source": "repo JSON type-inventory-snapshot.json:orphanItems",
-        "value": 0,
-        "at": "2026-09-15T13:35:54.121Z"
-      },
-      "note": "JSON 이 0 을 말하면 자유도 패널은 \"버려지는 재고 없음\" 으로 읽힌다",
-      "deltaPct": null,
-      "verdict": "unmeasurable"
     },
     {
       "id": "P3-pool",
@@ -344,7 +328,8 @@
         "value": 4,
         "at": null
       },
-      "note": "두 수의 **모집단이 다르다** — 같은 라벨 「L2 3인 페르소나」로 한 화면과 그 하위 화면에 동시에 뜬다",
+      "note": "두 수의 **모집단이 다르다** — 같은 라벨 「L2 3인 페르소나」로 한 화면과 그 하위 화면에 동시에 떴다",
+      "resolvedBy": "T1(2026-09-16) — 현황판 L2 가 personaReview 를 읽는다. 두 화면 일치는 factory.integration.test 가 잠근다",
       "deltaPct": 19950,
       "verdict": "diverged"
     },
@@ -361,7 +346,8 @@
         "value": 408,
         "at": null
       },
-      "note": "분모까지 다르므로 두 백분율이 같은 질문의 답이 아니다",
+      "note": "분모까지 다르므로 두 백분율이 같은 질문의 답이 아니었다",
+      "resolvedBy": "T1(2026-09-16) — P5 와 같은 수정",
       "deltaPct": 96.6,
       "verdict": "diverged"
     }
@@ -377,7 +363,7 @@
       "source": "DB csat_source_snapshots",
       "cadence": "cron 18 · 6시간",
       "owner": "cron",
-      "ageHours": 0.1
+      "ageHours": 0.4
     },
     {
       "source": "DB csat_coverage()",
@@ -389,44 +375,45 @@
       "source": "repo source-eligibility-snapshot.json",
       "cadence": "사람이 스캔을 돌려야 갱신 (실측 212초)",
       "owner": "human",
-      "ageHours": 32.1
+      "ageHours": 32.3
     },
     {
       "source": "repo type-inventory-snapshot.json",
       "cadence": "사람이 스캔을 돌려야 갱신",
       "owner": "human",
-      "ageHours": 34.8
+      "ageHours": 35.1
     },
     {
       "source": "repo source-inventory-snapshot.json",
       "cadence": "사람이 스캔을 돌려야 갱신",
       "owner": "human",
-      "ageHours": 32.1
+      "ageHours": 32.3
     },
     {
       "source": "repo item-fill-plan.json",
       "cadence": "사람이 스캔을 돌려야 갱신",
       "owner": "human",
-      "ageHours": 35.4
+      "ageHours": 35.6
     },
     {
       "source": "repo extraction-defect-snapshot.json",
       "cadence": "사람이 스캔을 돌려야 갱신",
       "owner": "human",
-      "ageHours": 37.2
+      "ageHours": 37.5
     },
     {
       "source": "docs/reports/textbook-publisher-benchmark-volume.json",
       "cadence": "사람이 market-benchmark 를 돌려야 갱신",
       "owner": "human",
-      "ageHours": 376.9
+      "ageHours": 377.2
     },
     {
       "source": "docs/reports/textbook-publisher-benchmark.json",
       "cadence": "사람이 market-benchmark 를 돌려야 갱신",
       "owner": "human",
-      "ageHours": 376.8
+      "ageHours": 377.1
     }
   ],
-  "divergedCount": 4
+  "divergedCount": 4,
+  "openDivergedCount": 1
 }

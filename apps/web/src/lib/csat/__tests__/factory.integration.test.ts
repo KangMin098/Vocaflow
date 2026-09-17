@@ -149,6 +149,34 @@ describe.skipIf(skip)('교재 공장 공정 현황판 (실 DB)', () => {
    *   아무도 아쉬워하지 않았다(실측 2026-09-16: ⑦의 명령 넷이 L1·L3·L1·L4 였다).
    *   눈금을 고치면 그 자리가 막다른 화면이 된다 — CLAUDE.md D4.
    */
+  /**
+   * 자유도 패널과 공정 ⑤ 집필이 **같은 시점의 재고**를 보는가.
+   *
+   * ⚠️ 2026-09-16 전까지 자유도 패널은 저장소 스냅샷(841,826문항)을, 공정 ⑤는 집계표
+   *   (880,247문항)를 읽었다 — 한 화면 위아래가 38,421문항 다른 재고를 말했다.
+   *   둘 다 `loadDcpInventory` 를 거치는지 **갱신 시각이 같은가**로 확인한다.
+   */
+  it('자유도 패널은 공정 ⑤·⑥과 같은 집계표를 읽는다', async () => {
+    const { loadFreedomView } = await import('@/lib/textbook/freedom-load')
+    const { loadDcpInventory } = await import('../item-count')
+    const { createAdminClient } = await import('@/lib/supabase/admin')
+    const [freedom, inv] = await Promise.all([
+      loadFreedomView(),
+      loadDcpInventory(createAdminClient() as never),
+    ])
+    expect(freedom.loadError, freedom.loadError ?? '').toBeNull()
+    expect(inv.ok).toBe(true)
+    if (!inv.ok) return
+    expect(freedom.measuredAt, '자유도가 집계표 시각을 안 들고 있다 — 다른 출처를 읽고 있다').toBe(
+      inv.refreshedAt,
+    )
+    // 두 계산(배합식 · 패키지)이 라이브 재고에서도 갈리지 않아야 한다.
+    expect(freedom.drift).toEqual([])
+    // V1 만 범위 밖 — 초등 저학년은 수능 이해형을 안 낸다.
+    expect(freedom.outOfScope).toEqual([1])
+    expect(freedom.index.soloMeasured).toBe(66)
+  })
+
   it('⑦ 검수는 네 층을 **전부** 푸는 명령을 들고 있다', async () => {
     const line = await loadFactoryLine()
     const cmds = line.stages.find((s) => s.def.id === 'review')!.nextCommands

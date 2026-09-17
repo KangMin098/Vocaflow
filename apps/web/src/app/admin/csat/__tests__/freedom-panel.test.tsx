@@ -10,12 +10,17 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
 
 import { FreedomPanel } from '@/components/admin/textbook/FreedomPanel'
-import { buildFreedomView, type FreedomView } from '@/lib/textbook/freedom-view'
+import { buildFreedomView, type FreedomView, type SnapBand } from '@/lib/textbook/freedom-view'
+import snapshot from '@/lib/textbook/type-inventory-snapshot.json'
+
+/** 고정 표본 — 화면은 집계표를 읽지만 렌더 회귀는 DB 없이 돈다. */
+const snap = snapshot as unknown as { measuredAt: string; bands: SnapBand[] }
+const fromSnapshot = () => buildFreedomView(snap.bands, snap.measuredAt)
 
 const html = (v: FreedomView) => renderToStaticMarkup(<FreedomPanel view={v} />)
 
 describe('실제 스냅샷', () => {
-  const view = buildFreedomView()
+  const view = fromSnapshot()
   const out = html(view)
 
   it('두 수를 화면에 적는다 — 유형 자유도와 권 자유도', () => {
@@ -46,7 +51,7 @@ describe('실제 스냅샷', () => {
 })
 
 describe('못 잰 값 · 어긋남', () => {
-  const base = buildFreedomView()
+  const base = fromSnapshot()
 
   it('스냅샷과 갈리면 경보를 띄운다 — 조용히 다른 수를 말하지 않는다', () => {
     const out = html({ ...base, drift: [{ vLevel: 7, snapshot: 1, ours: 4 }] })
@@ -60,6 +65,13 @@ describe('못 잰 값 · 어긋남', () => {
     )
     const out = html({ ...base, index: { ...base.index, bands } })
     expect(out).toContain('못 잼')
+  })
+
+  it('재고를 못 읽었으면 이유를 경보로 적는다 — 빈 수가 0 권으로 읽히지 않게', () => {
+    const out = html({ ...base, measuredAt: null, loadError: '재고 집계표를 못 읽었다 — 시험' })
+    expect(out).toContain('role="alert"')
+    expect(out).toContain('재고 집계표를 못 읽었다')
+    expect(out).toContain('시각 모름')
   })
 
   it('밴드가 없어도 죽지 않는다', () => {

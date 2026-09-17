@@ -15,10 +15,20 @@ import { describe, expect, it } from 'vitest'
 import {
   COMPREHENSION_TYPES,
   SOLO_SIZE,
+  bandsFromInventory,
   buildFreedomView,
   cellsOf,
   usesComprehension,
+  type SnapBand,
 } from '../freedom-view'
+import snapshot from '../type-inventory-snapshot.json'
+
+/**
+ * 저장소 스냅샷을 **고정 표본**으로 쓴다 — 화면은 이제 집계표를 읽지만(freedom-load.ts),
+ * 오프라인 회귀는 DB 없이 돌아야 하므로 2026-09-15 스캔 결과로 계산 규칙을 잠근다.
+ */
+const snap = snapshot as unknown as { measuredAt: string; bands: SnapBand[] }
+const fromSnapshot = () => buildFreedomView(snap.bands, snap.measuredAt)
 
 /** 스냅샷 한 밴드의 모양을 흉내 낸 픽스처. */
 const band = (over: Partial<Parameters<typeof cellsOf>[0]> = {}) =>
@@ -75,12 +85,12 @@ describe('범위 — 초등은 수능 이해형을 안 낸다', () => {
 
   it('실제 스냅샷에서 V1 만 범위 밖이다', () => {
     // 초1용 수능 빈칸추론이 없는 것은 **메워서는 안 되는 구멍**이다.
-    expect(buildFreedomView().outOfScope).toEqual([1])
+    expect(fromSnapshot().outOfScope).toEqual([1])
   })
 })
 
 describe('실제 스냅샷 — 자유도 기준선', () => {
-  const view = buildFreedomView()
+  const view = fromSnapshot()
 
   it('스냅샷과 갈리지 않는다 — 갈리면 둘 중 하나가 틀렸다', () => {
     expect(view.drift).toEqual([])
@@ -114,5 +124,39 @@ describe('실제 스냅샷 — 자유도 기준선', () => {
 
   it('특강 크기가 근거 있는 값이다 — 단원 6문항의 배수', () => {
     expect(SOLO_SIZE % 6).toBe(0)
+  })
+})
+
+describe('라이브 경로 — 집계표 칸에서 밴드를 짓는다', () => {
+  /** 스냅샷의 실재고를 집계표 칸 모양으로 편다 — 같은 재고를 두 길로 넣어 본다. */
+  const cells = snap.bands.flatMap((b) =>
+    (b.stock ?? []).map((s) => ({ type: s.type, vLevel: b.vLevel, items: s.items })),
+  )
+  const live = buildFreedomView(bandsFromInventory(cells), '2026-09-16T00:00:00Z')
+
+  it('같은 재고면 스냅샷 경로와 **같은 지수**를 낸다 — 출처만 바뀌고 셈은 안 바뀐다', () => {
+    const base = fromSnapshot()
+    expect(live.index.soloOk).toBe(base.index.soloOk)
+    expect(live.index.soloMeasured).toBe(base.index.soloMeasured)
+    expect(live.index.mixVolumes).toBe(base.index.mixVolumes)
+    expect(live.outOfScope).toEqual(base.outOfScope)
+  })
+
+  it('두 계산(배합식 · 패키지)이 갈리지 않는다 — V1 의 빈 배합이 거짓 경보를 내지 않는다', () => {
+    expect(live.drift).toEqual([])
+  })
+
+  it('사전의 순수 함수 3종은 배합에 넣지 않는다 — 집계표에 없어 거짓 0 이 된다', () => {
+    const pure = ['rhyme', 'word_meaning', 'spell_blank']
+    for (const b of bandsFromInventory(cells)) {
+      expect(b.types.some((t) => pure.includes(t.type))).toBe(false)
+    }
+  })
+
+  it('재고를 못 읽으면 빈 밴드와 이유를 낸다 — 0 권으로 그리지 않는다', () => {
+    const v = buildFreedomView([], null, '재고 집계표를 못 읽었다 — 시험')
+    expect(v.index.bands).toEqual([])
+    expect(v.loadError).toContain('못 읽었다')
+    expect(v.measuredAt).toBeNull()
   })
 })
