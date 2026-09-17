@@ -21,7 +21,8 @@
 import { useMemo, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { ArrowRight, ChevronRight, Info, Sparkles, Volume2 } from 'lucide-react'
+import { ArrowRight, ChevronRight, Info, Volume2 } from 'lucide-react'
+import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 
 import { useUserVLevel } from '@/hooks/useUserVLevel'
 import { dominantMediaForm } from '@/lib/library/media-form'
@@ -125,7 +126,7 @@ export function ScriptsBrowser({
       {/* ① 밴드별 한 줄 안내 (calm) */}
       <section aria-label="학습 안내" className="flex flex-col gap-2 px-1">
         <span className="inline-flex w-fit items-center gap-2 font-display text-[11px] font-[800] uppercase tracking-[0.09em] text-[var(--p)]">
-          <Sparkles size={12} aria-hidden /> {g.eyebrow}
+          <Gwonjeom size={12} aria-hidden /> {g.eyebrow}
         </span>
         {/* 한글 문단에 break-keep — 없으면 390px 에서 낱말이 음절로 쪼개진다(CLAUDE.md I7). */}
         <p className="break-keep font-body text-[15px] leading-[1.45] text-[var(--t1)]">{g.title}</p>
@@ -215,7 +216,7 @@ function SeriesHero({
       >
         <div className="flex items-center justify-between gap-2">
           <span className="inline-flex items-center gap-1 font-display text-[11px] font-[800] uppercase tracking-[0.08em]" style={{ color: track.accent }}>
-            <Sparkles size={12} aria-hidden /> 먼저 이걸로
+            <Gwonjeom size={12} aria-hidden /> 먼저 이걸로
           </span>
           <span
             className="inline-flex items-center rounded-[var(--r-full)] px-2 py-1 font-display text-[10.5px] font-[800]"

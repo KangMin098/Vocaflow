@@ -24,7 +24,8 @@
 import { useTransition } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { ArrowRight, Clock, ExternalLink, Loader2, Target, Volume2, Sparkles } from 'lucide-react'
+import { ArrowRight, Clock, ExternalLink, Loader2, Target, Volume2 } from 'lucide-react'
+import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 
 import { sourceMeta } from '@/lib/articles/source-meta'
 import { startArticleLearning } from '@/lib/articles/start-learning'
@@ -145,7 +146,7 @@ export function ArticleCard({
           className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--bg2)] px-2 text-[var(--p)]"
           title="같은 글을 쉬운 영어로 다시 쓴 판이에요"
         >
-          <Sparkles size={11} aria-hidden /> 쉬운 판
+          <Gwonjeom size={11} aria-hidden /> 쉬운 판
         </span>
       )}
     </div>

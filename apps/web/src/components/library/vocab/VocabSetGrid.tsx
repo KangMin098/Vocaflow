@@ -10,7 +10,8 @@
 
 import { useRouter } from 'next/navigation'
 import { useCallback, useEffect, useMemo, useState, useTransition } from 'react'
-import { Search, Sparkles } from 'lucide-react'
+import { Search } from 'lucide-react'
+import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 
 import { subscribeSet, unsubscribeSet } from '@/app/(main)/library/vocab/actions'
 import type { PublishedVocabSet, RecommendedSet } from '@/lib/library/vocab/queries'
@@ -458,18 +459,19 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn, userVLevel, reco
 }
 
 // 미진단 학습자 — 개인 맞춤 추천 대신 진단 유도 배너.
+// v07 — 원색 보라 점선 상자 → 주묵 왼쪽 획 + 주묵 CTA. 진단은 이 화면의 1차 행동이다.
 function DiagnosePrompt() {
   return (
     <a
       href="/diagnostic"
-      className="border-ios-purple/40 bg-ios-purple/[0.06] hover:bg-ios-purple/[0.1] focus-visible:ring-ios-purple/40 flex items-center justify-between gap-3 rounded-[var(--r-lg)] border border-dashed px-4 py-3 no-underline transition-colors focus-visible:outline-none focus-visible:ring-2"
+      className="flex items-center justify-between gap-3 rounded-[var(--r-md)] border border-[var(--bd)] border-l-[3px] border-l-[var(--ju)] bg-[var(--bg)] px-4 py-3 no-underline transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--ju-wash)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ju)]"
     >
       <span className="flex items-center gap-3">
         <span
           aria-hidden
-          className="inline-flex h-8 w-8 items-center justify-center rounded-ios-sm bg-ios-purple text-white"
+          className="inline-flex h-8 w-8 shrink-0 items-center justify-center text-[var(--ju)]"
         >
-          <Sparkles size={15} />
+          <Gwonjeom size={15} />
         </span>
         <span className="flex flex-col">
           <span className="font-display text-[13.5px] font-[800] text-[var(--t1)]">
@@ -480,7 +482,7 @@ function DiagnosePrompt() {
           </span>
         </span>
       </span>
-      <span className="shrink-0 rounded-[var(--r-md)] bg-ios-purple px-3 py-2 font-display text-[12px] font-[700] text-white">
+      <span className="inline-flex min-h-[44px] shrink-0 items-center whitespace-nowrap rounded-[var(--r-sm)] bg-[var(--ju)] px-3 font-display text-[12px] font-[700] text-[var(--on-ju)]">
         진단하기
       </span>
     </a>
@@ -514,7 +516,7 @@ function FeaturedRow({
           aria-hidden
           className="bg-ios-purple/12 inline-flex h-6 w-6 items-center justify-center rounded-ios-sm text-ios-purple"
         >
-          <Sparkles size={14} />
+          <Gwonjeom size={14} />
         </span>
         <h2 className="font-display text-[15px] font-[800] text-[var(--t1)]">{title}</h2>
         <span className="font-body text-[12px] text-[var(--t2)]">{subtitle}</span>

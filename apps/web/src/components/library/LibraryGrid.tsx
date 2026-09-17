@@ -13,7 +13,8 @@
 import Image from 'next/image'
 import { useCallback, useEffect, useRef, useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
-import { Check, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react'
+import { Check, ChevronLeft, ChevronRight } from 'lucide-react'
+import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 
 import { bookCover } from '@/lib/library/book-cover'
 import { coverFitFor } from '@/lib/library/cover-fit'
@@ -322,7 +323,7 @@ export function LibraryGrid({ books, userVLevel = 0, loadError = false }: Librar
           )}
           {activeBook.word_set_count != null && activeBook.word_set_count > 0 && (
             <span className="inline-flex items-center gap-1 text-[var(--p-dark)]">
-              ·  <Sparkles size={9} aria-hidden />
+              ·  <Gwonjeom size={9} aria-hidden />
               {activeBook.word_set_count}개 단어장
             </span>
           )}
@@ -562,7 +563,7 @@ function CarouselBook({
             className="inline-flex items-center justify-center rounded-full bg-white/20 p-1 text-white/95 backdrop-blur-sm"
             title="챕터 단어장 포함"
           >
-            <Sparkles size={10} />
+            <Gwonjeom size={10} />
           </span>
         )}
       </div>

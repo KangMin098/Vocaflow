@@ -25,7 +25,8 @@
 'use client'
 
 import Link from 'next/link'
-import { AlertTriangle, ArrowRight, RotateCcw, Sparkles } from 'lucide-react'
+import { AlertTriangle, ArrowRight, RotateCcw } from 'lucide-react'
+import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 
 export interface ShelfEmptyStateProps {
   /** 'empty' = 재고가 없다 · 'filtered' = 조건이 걸렀다 · 'error' = 못 읽었다 */
@@ -42,8 +43,8 @@ export interface ShelfEmptyStateProps {
 }
 
 const TONE_ICON = {
-  empty: Sparkles,
-  filtered: Sparkles,
+  empty: Gwonjeom,
+  filtered: Gwonjeom,
   error: AlertTriangle,
 } as const
 

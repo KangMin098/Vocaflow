@@ -11,7 +11,8 @@
 'use client'
 
 import { useState, useTransition } from 'react'
-import { BookOpen, CheckCircle2, ChevronDown, ChevronUp, Loader2, Sparkles } from 'lucide-react'
+import { BookOpen, CheckCircle2, ChevronDown, ChevronUp, Loader2 } from 'lucide-react'
+import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 
 import CourseLauncher from '@/components/game/CourseLauncher'
 import { VocabSetPreviewModal } from '@/components/library/vocab/VocabSetPreviewModal'
@@ -117,7 +118,7 @@ export function BookDetailClient({
                 도서 학습 단어장
               </h3>
               <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[#FBBF24] px-2 py-1 font-display text-[9px] font-[700] uppercase tracking-wider text-[#7C2D12]">
-                <Sparkles size={9} aria-hidden /> 추천
+                <Gwonjeom size={9} aria-hidden /> 추천
               </span>
             </div>
             <p className="mt-1 font-body text-[12px] text-[var(--t2)]">

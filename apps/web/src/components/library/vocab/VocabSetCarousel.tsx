@@ -149,7 +149,6 @@ export function VocabSetCarousel({ sets, subscribedIds, pendingId, isLoggedIn, o
   }
 
   const items = sets.filter((s) => s.category === activeCat)
-  const color = identityOf(activeCat)
   const last = items.length - 1
   const activeSet = items[active]
 
@@ -231,18 +230,20 @@ export function VocabSetCarousel({ sets, subscribedIds, pendingId, isLoggedIn, o
               // **비활성 칩도 자기 유형 색을 입는다.** 활성 하나만 칠하면 나머지 일곱은
               //   전부 같은 회색이라, 여덟 유형이 한자리에 보이는 이 유일한 줄이
               //   "고를 것이 하나" 처럼 읽힌다(실측 2026-09-01 — 표지는 한 번에 한 유형만 뜬다).
-              className={`inline-flex min-h-[44px] shrink-0 items-center gap-2 rounded-[var(--r-full)] px-4 py-2 font-display text-[13px] font-[700] transition-all ${
-                isActive ? 'text-white shadow-[var(--sh-sm)]' : 'hover:brightness-[0.97]'
+              className={`inline-flex min-h-[44px] shrink-0 items-center gap-2 whitespace-nowrap rounded-[var(--r-sm)] px-4 py-2 font-display text-[13px] font-[700] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] ${
+                isActive ? '' : 'hover:brightness-[0.97]'
               }`}
               style={
+                // v07 — 활성 칩은 **잉크**로 채우고 유형 색은 밑줄로만 남긴다. 원색 면(수능·내신 =
+                //   인디고 한 덩어리)이 첫 화면에서 가장 큰 색 면적이었다 — 판면의 색은 주묵 하나다.
                 isActive
-                  ? { backgroundColor: cc.accent }
+                  ? { backgroundColor: 'var(--t1)', color: 'var(--bg)', boxShadow: `inset 0 -3px 0 ${cc.tint}` }
                   : { backgroundColor: cc.tint, color: cc.ink }
               }
             >
               {c.label}
               <span
-                className={`rounded-[var(--r-full)] px-2 text-[10px] tabular-nums ${
+                className={`rounded-[var(--r-sm)] px-1.5 font-mono text-[10px] tabular-nums ${
                   // ⚠️ 흰 막은 강조색 바탕을 **밝혀서** 그 위의 흰 글자를 깎는다
                   //    (실측 2026-08-22: 3.34:1). 같은 분리감을 어둡히는 쪽으로 낸다.
                   isActive ? 'bg-black/25' : 'bg-black/[0.07]'
@@ -348,11 +349,10 @@ export function VocabSetCarousel({ sets, subscribedIds, pendingId, isLoggedIn, o
               className={`inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] px-5 py-2 font-display text-[13px] font-[700] transition-all hover:scale-[1.03] active:scale-[0.97] disabled:opacity-60 ${
                 subscribedIds.has(activeSet.id)
                   ? 'border-[var(--success)]/30 border bg-[var(--success-light)] text-[var(--success-ink)]'
-                  : 'text-white'
+                  : 'bg-[var(--ju)] text-[var(--on-ju)] hover:bg-[var(--ju-ink)]'
               }`}
-              style={
-                subscribedIds.has(activeSet.id) ? undefined : { backgroundColor: color.accent }
-              }
+              // v07 — 유형 색은 표지와 칩이 말한다. **행동은 주묵**이다 — 유형마다 버튼 색이
+              //   바뀌면 「담기」가 어디 있는지 매번 다시 찾아야 한다(수능·내신에선 인디고였다).
             >
               {pendingId === activeSet.id ? (
                 <Loader2 size={14} className="animate-spin" aria-hidden />
@@ -396,7 +396,7 @@ export function VocabSetCarousel({ sets, subscribedIds, pendingId, isLoggedIn, o
                 className="h-1.5 rounded-full transition-all"
                 style={{
                   width: idx === active ? '24px' : '6px',
-                  backgroundColor: idx === active ? color.accent : 'var(--t4)',
+                  backgroundColor: idx === active ? 'var(--t1)' : 'var(--t4)',
                   display: 'block',
                 }}
               />

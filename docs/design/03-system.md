@@ -211,6 +211,7 @@ Google Fonts 의 한글은 `unicode-range` 로 **수백 조각**으로 쪼개져
 | `Wash` | 숫자·낱말 뒤 붓 자국(9° skew, `--ju-wash`). 장식이라 `aria-hidden` |
 | `JuMark` | `dot` 권점 · `check` 마친 것 · `now` 지금 할 것. 전부 스크린리더 라벨 필수 |
 | `SealMark` | 낙관(落款) — 라벨 첫 글자를 Hahmlet 으로 주묵 테두리 안에 찍는다. 분류 타일·목표 카드가 **이모지로 얼굴을 삼던 자리**를 대신한다(`sm` 28 · `md` 36 · `lg` 44px · `inverse` 톤). 라벨이 옆에 있으므로 `aria-hidden` |
+| `Gwonjeom` | 권점(圈點) 아이콘 — lucide `Sparkles` 의 자리. `createLucideIcon` 으로 만들어 **`LucideIcon` 과 같은 타입**(호출부는 이름만 바꾼다). 「추천·새것·눈여겨볼 것」 |
 | `PressButton` | 1차(주묵 채움) / 2차(잉크 외곽) / 3차(글자만). 48px 하한 · 4상태 |
 | `Eyebrow` | 작은 라벨. **대문자·넓은 트래킹 금지** |
 

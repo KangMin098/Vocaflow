@@ -23,13 +23,13 @@ import {
   Headphones,
   Lightbulb,
   Scale,
-  Sparkles,
   Target,
   Type,
   Volume2,
   X,
   type LucideIcon,
 } from 'lucide-react'
+import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 
 import {
   TRACK_FIT_META,
@@ -71,7 +71,7 @@ function skillIcon(skill: string): LucideIcon {
   if (/배경|폭넓|스키마|지식|넓/.test(skill)) return Globe
   if (/어휘|단어|철자/.test(skill)) return Type
   if (/독해|읽기|이해|파악/.test(skill)) return BookOpen
-  if (/자신감|친숙|시작/.test(skill)) return Sparkles
+  if (/자신감|친숙|시작/.test(skill)) return Gwonjeom
   return Target
 }
 
@@ -197,7 +197,7 @@ export function SeriesInfoModal({
             style={{ borderColor: fitMeta.color, backgroundColor: `color-mix(in srgb, ${fitMeta.color} 9%, var(--bg))` }}
           >
             <span aria-hidden className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-[var(--r-full)]" style={{ backgroundColor: fitMeta.color, color: 'var(--ti)' }}>
-              <Sparkles size={13} aria-hidden />
+              <Gwonjeom size={13} aria-hidden />
             </span>
             <div className="flex flex-col gap-1">
               <span className="font-display text-[16px] font-[800] leading-[1.3] text-[var(--t1)]">{appeal.lead}</span>

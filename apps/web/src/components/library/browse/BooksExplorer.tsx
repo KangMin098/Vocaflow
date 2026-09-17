@@ -19,7 +19,8 @@
 import { useCallback, useMemo, useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { BookOpen, Compass, PlayCircle, Sparkles, TrendingUp } from 'lucide-react'
+import { BookOpen, Compass, PlayCircle, TrendingUp } from 'lucide-react'
+import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 
 import { LibraryGrid } from '@/components/library/LibraryGrid'
 import {
@@ -471,7 +472,7 @@ export function BooksExplorer({ books, userVLevel, userMastery, showAll = false 
       <BookShelfRail
         title="지금 딱 맞아요"
         hint="모르는 단어가 적당해 맥락으로 익히기 좋아요"
-        icon={<Sparkles size={16} aria-hidden />}
+        icon={<Gwonjeom size={16} aria-hidden />}
         accent="var(--success)"
         books={justRight}
         userVLevel={userVLevel}

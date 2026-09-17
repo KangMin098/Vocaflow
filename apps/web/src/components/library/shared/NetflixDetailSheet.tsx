@@ -15,7 +15,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useRef } from 'react'
-import { X, Clock, BookImage, BookOpen, Layers, Sparkles, Volume2 } from 'lucide-react'
+import { X, Clock, BookImage, BookOpen, Layers, Volume2 } from 'lucide-react'
+import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 
 import { VocabSpreadSheet } from '@/components/library/vocab/VocabSpreadSheet'
 import { bookCover } from '@/lib/library/book-cover'
@@ -427,7 +428,7 @@ function BookBody({ v }: { v: BookVariant }) {
         {v.lexile != null && <MetaItem label="Lexile" value={`${v.lexile}L`} />}
         {v.wordSetCount != null && v.wordSetCount > 0 && (
           <MetaItem
-            icon={<Sparkles size={12} aria-hidden />}
+            icon={<Gwonjeom size={12} aria-hidden />}
             label="단어장"
             value={`${v.wordSetCount}개`}
           />
@@ -821,7 +822,7 @@ function VocabBody({ v }: { v: VocabVariant }) {
       {v.samples && v.samples.length > 0 && (
         <div>
           <p className="mb-2 inline-flex items-center gap-2 font-display text-[10px] font-[700] uppercase tracking-wider text-[var(--t2)]">
-            <Sparkles size={11} aria-hidden /> 단어 미리보기 ({v.samples.length})
+            <Gwonjeom size={11} aria-hidden /> 단어 미리보기 ({v.samples.length})
           </p>
           <ul className="grid grid-cols-1 gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)]/40 p-3 sm:grid-cols-2">
             {v.samples.slice(0, 8).map((w) => (

@@ -18,7 +18,8 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { Check, Sparkles, Volume2 } from 'lucide-react'
+import { Check, Volume2 } from 'lucide-react'
+import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 
 import { ComicBadge } from '@/components/comic/ComicBadge'
 import { bookCover } from '@/lib/library/book-cover'
@@ -245,7 +246,7 @@ export function BookGridCard({ book, userVLevel, reasons = [], onOpen }: Props) 
                 key={r}
                 className="inline-flex shrink-0 items-center gap-1 rounded-[var(--r-full)] bg-[var(--bg3)] px-2 py-1 font-display text-[9px] font-[600] text-[var(--t2)]"
               >
-                {r === '원어민 음성' && <Sparkles size={8} aria-hidden />}
+                {r === '원어민 음성' && <Gwonjeom size={8} aria-hidden />}
                 {r}
               </span>
             ))}
