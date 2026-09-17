@@ -42,6 +42,10 @@ export function sinoKorean(n: number): string {
 }
 
 const CIRCLED: Record<string, number> = { '①': 1, '②': 2, '③': 3, '④': 4, '⑤': 5 }
+const MONTH: Record<number, string> = {
+  1: '일월', 2: '이월', 3: '삼월', 4: '사월', 5: '오월', 6: '유월',
+  7: '칠월', 8: '팔월', 9: '구월', 10: '시월', 11: '십일월', 12: '십이월',
+}
 const LETTER: Record<string, string> = { A: '에이', B: '비', C: '씨', D: '디', E: '이' }
 
 /** 한국어 조각 하나를 낭독 표기로 */
@@ -51,6 +55,8 @@ export function speakKo(text: string): string {
   s = s.replace(/([①②③④⑤])\s*번/g, (_, c: string) => `${sinoKorean(CIRCLED[c])} 번`)
   s = s.replace(/[①②③④⑤]/g, (c) => `${sinoKorean(CIRCLED[c])} 번`)
   s = s.replace(/(\d+)\s*학년도/g, (_, d: string) => `${sinoKorean(Number(d))} 학년도`)
+  // 달 이름은 한자어 수와 읽기가 다르다 — 「6월」은 「육월」이 아니라 「유월」, 「10월」은 「시월」
+  s = s.replace(/(\d{1,2})\s*월/g, (m, d: string) => MONTH[Number(d)] ?? m)
   s = s.replace(/(\d+)\s*번/g, (_, d: string) => `${sinoKorean(Number(d))} 번`)
   s = s.replace(/(\d+(?:\.\d+)?)\s*%/g, (_, d: string) => `${readNumber(d)} 퍼센트`)
   s = s.replace(/%/g, ' 퍼센트')

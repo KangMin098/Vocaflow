@@ -173,6 +173,25 @@ export type PublicEvent =
    * `total` 까지 가면 설계대로 작동하는 것이다. `kind` 는 **어디서 그만두는지**를 말한다 —
    * 오답 배제에서 멈추는지 절차·어휘까지 가는지는 다음에 무엇을 고칠지를 가른다.
    */
+  /**
+   * 해설 화면에서 **강의를 틀었다** — 한 화면 방문에 한 번(처음 재생)만 보낸다.
+   *
+   * 이 기능의 전제는 «읽기보다 들으며 짚기가 낫다» 인데, 그 전제는 **틀었는가**부터 확인해야 한다.
+   * `mode` 는 소리가 났는지(목소리 없는 기기는 하이라이트만 진행한다), `from` 은 어디서
+   * 시작했는지(재생 단추 · 눈금 · 설명 블록), `rate` 는 고른 속도(×100).
+   */
+  | {
+      name: 'csat_lecture_played'
+      props: { mode: 'voice' | 'silent'; from: 'start' | 'cue' | 'block'; rate: 90 | 100 | 115 }
+    }
+  /**
+   * 강의를 **끝까지** 들었다 — 완주율의 분자. `jumps` 는 건너뛴 횟수 — 많으면 강의가 길거나
+   * 이미 아는 부분이 많았다는 뜻이고, 0 이면 처음부터 끝까지 흘려들은 것이다.
+   */
+  | {
+      name: 'csat_lecture_ended'
+      props: { cues: number; jumps: number; mode: 'voice' | 'silent' }
+    }
   | {
       name: 'csat_overlay_revealed'
       props: {
@@ -452,6 +471,8 @@ const EVENT_REGISTRY: Record<PublicEventName, true> = {
   csat_overlay_located: true,
   csat_overlay_answered: true,
   csat_overlay_revealed: true,
+  csat_lecture_played: true,
+  csat_lecture_ended: true,
   screen_viewed: true,
   video_started: true,
   video_completed: true,

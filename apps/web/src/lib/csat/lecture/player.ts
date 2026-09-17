@@ -32,6 +32,8 @@ export interface PlayerLogEntry {
   cue?: string
   index?: number
   outcome?: CueOutcome
+  /** 이 큐 뒤에 붙들기로 한 시간(ms) — 앞당김을 뺀 값. 검사는 이것과 실제를 견준다 */
+  holdMs?: number
 }
 
 export const RATES = [0.9, 1, 1.15] as const
@@ -108,12 +110,14 @@ export class LecturePlayer {
       this.note({ type: 'cue-start', cue: cue.id, index: i })
       const outcome = await this.adapter.speak(cue)
       if (my !== this.run || outcome.cancelled) return
-      this.note({ type: 'cue-end', cue: cue.id, index: i, outcome })
+      // 다음 큐의 발화 준비 시간만큼 먼저 출발한다 — 들리는 쉼 = 대본의 쉼.
+      // 앞당김은 이동평균이라 강의 중에 바뀐다 → 그때 쓴 값을 기록에 남긴다(검사가 마지막 값으로 재면 틀린다)
+      const isLast = i === this.cues.length - 1
+      const holdMs = isLast ? cue.pause_after_ms : Math.max(0, cue.pause_after_ms - this.adapter.leadMs)
+      this.note({ type: 'cue-end', cue: cue.id, index: i, outcome, holdMs })
       // 끝난 큐의 하이라이트를 붙든다 — 들은 것을 눈으로 한 번 더 확인할 틈
       this.set({ holding: true })
-      // 다음 큐의 발화 준비 시간만큼 먼저 출발한다 — 들리는 쉼 = 대본의 쉼
-      const isLast = i === this.cues.length - 1
-      await this.hold(isLast ? cue.pause_after_ms : Math.max(0, cue.pause_after_ms - this.adapter.leadMs))
+      await this.hold(holdMs)
       if (my !== this.run) return
       this.note({ type: 'hold-end', cue: cue.id, index: i })
     }
@@ -122,27 +126,43 @@ export class LecturePlayer {
     this.set({ status: 'ended', holding: false })
   }
 
+  /**
+   * 붙들기 — **타이머 하나로 정확히.** 처음에는 100ms 틱으로 셌는데, 틱이 남은 시간을 올림해
+   * 쉼이 최대 100ms + 지터만큼 길어졌다(Gate 2 실측 +157ms). 멈추면 남은 시간을 떼어 두고,
+   * 재개하면 그만큼만 다시 건다.
+   */
+  private holdRemaining = 0
+  private holdStartedAt = 0
+
   private hold(ms: number): Promise<void> {
     return new Promise((resolve) => {
       this.holdResolve = resolve
-      const tick = () => {
-        // 멈춘 동안은 붙든 시간이 흐르지 않는다
-        if (this.state.status === 'paused') {
-          this.holdTimer = setTimeout(tick, 100)
-          return
-        }
-        ms -= 100
-        if (ms <= 0) return this.releaseHold()
-        this.holdTimer = setTimeout(tick, 100)
-      }
       if (ms <= 0) return this.releaseHold()
-      this.holdTimer = setTimeout(tick, Math.min(100, ms))
+      this.holdRemaining = ms
+      if (this.state.status !== 'paused') this.armHold()
     })
+  }
+
+  private armHold() {
+    if (!this.holdResolve || this.holdTimer != null) return
+    this.holdStartedAt = this.now()
+    this.holdTimer = setTimeout(() => {
+      this.holdTimer = null
+      this.releaseHold()
+    }, this.holdRemaining)
+  }
+
+  private suspendHold() {
+    if (this.holdTimer == null) return
+    clearTimeout(this.holdTimer)
+    this.holdTimer = null
+    this.holdRemaining = Math.max(0, this.holdRemaining - (this.now() - this.holdStartedAt))
   }
 
   private releaseHold() {
     if (this.holdTimer != null) clearTimeout(this.holdTimer)
     this.holdTimer = null
+    this.holdRemaining = 0
     const r = this.holdResolve
     this.holdResolve = null
     r?.()
@@ -151,6 +171,7 @@ export class LecturePlayer {
   pause() {
     if (this.state.status !== 'playing') return
     this.pausedByUser = true
+    this.suspendHold()
     this.adapter.pause()
     this.note({ type: 'pause', index: this.state.index })
     this.set({ status: 'paused' })
@@ -164,6 +185,7 @@ export class LecturePlayer {
     this.adapter.resume()
     this.note({ type: 'resume', index: this.state.index })
     this.set({ status: 'playing' })
+    this.armHold()
   }
 
   toggle() {
@@ -188,6 +210,7 @@ export class LecturePlayer {
     if (typeof document === 'undefined') return
     if (document.hidden && this.state.status === 'playing') {
       this.pausedByHidden = true
+      this.suspendHold()
       this.adapter.pause()
       this.note({ type: 'pause', index: this.state.index })
       this.set({ status: 'paused' })
@@ -196,6 +219,7 @@ export class LecturePlayer {
       this.adapter.resume()
       this.note({ type: 'resume', index: this.state.index })
       this.set({ status: 'playing' })
+      this.armHold()
     }
   }
 

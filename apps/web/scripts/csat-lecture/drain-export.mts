@@ -27,7 +27,7 @@ import { lectureTargets } from '../../src/lib/csat/lecture/targets'
 import type { LectureIndex } from '../../src/lib/csat/lecture/types'
 import { splitSentences } from '../../src/lib/csat/passage-skeleton'
 import { loadItemSkeleton } from '../../src/lib/csat/skeleton'
-import { arg, DATA, flag, readJson, serviceDb, WORK, writeJson } from './env.mts'
+import { arg, DATA, flag, readJson, serviceDb, WORK } from './env.mts'
 
 const PILOT_TYPES = ['R-BLANK', 'R-ORDER']
 const SIZE = Number(arg('size', '8'))
@@ -194,7 +194,9 @@ for (const c of chunks.slice(0, LIMIT)) {
     console.log(`  ${c.name}: 이미 있다 — 건너뜀 (--force 로 덮기)`)
     continue
   }
-  writeJson(p, { name: c.name, created: new Date().toISOString(), items: c.items })
+  // 한 줄 JSON — 쓰는 쪽·심사하는 쪽이 이 파일을 통째로 읽는다. 들여쓰기는 읽는 비용만 늘린다
+  fs.mkdirSync(path.dirname(p), { recursive: true })
+  fs.writeFileSync(p, JSON.stringify({ name: c.name, created: new Date().toISOString(), items: c.items }) + String.fromCharCode(10))
   written += 1
   console.log(`  ${c.name}: ${c.items.length}문항 → ${path.relative(process.cwd(), p)}`)
 }

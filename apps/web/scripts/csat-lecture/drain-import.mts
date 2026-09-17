@@ -55,6 +55,8 @@ type Grade = {
   trap: number
   strategy: number
   formula: number
+  /** 심사관이 지문과 어긋나는 말을 찾았는가 — 참이면 점수와 상관없이 떨어뜨린다(결정 L17) */
+  factual_error?: boolean
   notes?: string
   fixes?: { cue: string; what: string }[]
 }
@@ -187,6 +189,7 @@ for (const it of chunk.items) {
   const score = parts ? Object.values(parts).reduce((a, b) => a + b, 0) : null
   if (!g) issues.push({ code: 'ungraded', msg: '심사 점수가 없다' })
   else if (!graded || !sameText(graded.lectures[it.id], d)) issues.push({ code: 'stale-grade', msg: '채점 뒤 원고가 바뀌었다 — 다시 채점해야 한다' })
+  else if (g.factual_error) issues.push({ code: 'factual', msg: '심사관이 지문과 어긋나는 말을 찾았다' })
   else if ((score ?? 0) < PASS_SCORE) issues.push({ code: 'score', msg: `루브릭 ${score} < ${PASS_SCORE}` })
   const ok = issues.length === 0
   rows.push({

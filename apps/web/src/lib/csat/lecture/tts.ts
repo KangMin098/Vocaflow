@@ -22,6 +22,11 @@ export interface CueOutcome {
   cancelled: boolean
   /** 발화 오류 — 취소로 생긴 interrupted/canceled 는 세지 않는다 */
   errors: string[]
+  /**
+   * 한 번 막혔다가 다시 읽어 살린 발화(`timeout@3:ko-KR`). 오류는 아니지만 **감춰지지 않게** 남긴다 —
+   * 네트워크 음성이 흔들린 흔적이다.
+   */
+  recovered?: string[]
   /** 읽은 발화 수 / 계획한 발화 수 */
   spoken: number
   planned: number
@@ -173,7 +178,11 @@ export class WebSpeechAdapter implements TtsAdapter {
   /** 발화 객체를 붙들어 둔다 — 놓치면 GC 가 거둬 `onend` 가 영영 안 온다(Chrome) */
   private live = new Set<SpeechSynthesisUtterance>()
 
-  constructor(private voices: { ko: SpeechSynthesisVoice | null; en: SpeechSynthesisVoice | null }) {}
+  constructor(
+    private voices: { ko: SpeechSynthesisVoice | null; en: SpeechSynthesisVoice | null },
+    /** 감시 시한 배율 — 검사가 줄여 쓴다 */
+    private watchdog = { perCharMs: 600, floorMs: 6000 },
+  ) {}
 
   setRate(rate: number) {
     this.rate = rate
@@ -183,6 +192,7 @@ export class WebSpeechAdapter implements TtsAdapter {
     const my = ++this.seq
     const plan = utterancePlan(cue.segments)
     const errors: string[] = []
+    const recovered: string[] = []
     let spoken = 0
     this.onCueStart?.(cue)
 
@@ -193,15 +203,28 @@ export class WebSpeechAdapter implements TtsAdapter {
         continue
       }
       const g = plan[i]
-      const r = await this.say(g, cue.id, i)
+      let r = await this.say(g, cue.id, i)
       if (my !== this.seq) return this.finish(cue, { completed: false, cancelled: true, errors, spoken, planned: plan.length })
+      // **막힌 발화는 끊고 한 번 더.** 실측 2026-09-17 Edge 의 온라인 음성이 발화 하나에서 끝 신호를
+      // 주지 않았다. 감시 시한이 멈춤은 막았지만 그 발화를 끊지 않아 다음 발화와 겹칠 수 있었고,
+      // 다시 읽지 않아 그 문장이 빠졌다. 두 번째도 막히면 그때 오류로 센다.
+      if (r === 'timeout') {
+        window.speechSynthesis.cancel()
+        r = await this.say(g, cue.id, i)
+        if (my !== this.seq) return this.finish(cue, { completed: false, cancelled: true, errors, spoken, planned: plan.length })
+        if (r === 'ok') recovered.push(`timeout@${i}:${g.lang}`)
+        else if (r === 'timeout') {
+          window.speechSynthesis.cancel()
+          r = `timeout@${i}:${g.lang}`
+        }
+      }
       // 멈춤으로 끊긴 문장은 **다시 읽는다** — 같은 i 로 돌아간다
       if (r === 'interrupted' && this.paused) continue
       if (r !== 'ok' && r !== 'interrupted') errors.push(r)
       spoken += 1
       i += 1
     }
-    return this.finish(cue, { completed: true, cancelled: false, errors, spoken, planned: plan.length })
+    return this.finish(cue, { completed: true, cancelled: false, errors, recovered, spoken, planned: plan.length })
   }
 
   private finish(cue: LectureCue, o: CueOutcome) {
@@ -219,7 +242,9 @@ export class WebSpeechAdapter implements TtsAdapter {
       this.live.add(u)
       let settled = false
       // 감시 시한: 글자 수로 어림한 시간의 세 배 + 6초. 이 안에 끝나지 않으면 잃은 것으로 친다.
-      const budget = ((g.text.length / (g.lang === 'ko-KR' ? 5 : 13)) * 3 * 1000) / this.rate + 6000
+      // 글자 수로 어림한 시간의 여유 있는 배수 + 바닥값. 영어는 글자당 시간이 짧다.
+      const perChar = (g.lang === 'ko-KR' ? 1 : 0.4) * this.watchdog.perCharMs
+      const budget = (g.text.length * perChar) / this.rate + this.watchdog.floorMs
       const timer = window.setTimeout(() => settle('timeout'), budget)
       const calledAt = performance.now()
       const settle = (why: string) => {

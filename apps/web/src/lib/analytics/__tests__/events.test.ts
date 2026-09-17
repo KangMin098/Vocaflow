@@ -128,6 +128,9 @@ describe('허용 이벤트 목록', () => {
     // 안 쌓이는» 상태였다. 마이그레이션 `20260916120000` 이 여덟을 함께 넣는다.
     'csat_overlay_answered',
     'csat_overlay_revealed',
+    // 2026-09-17 — 해설 강의 2종. 틀었는가 · 끝까지 들었는가(마이그레이션 `20260917150000`)
+    'csat_lecture_played',
+    'csat_lecture_ended',
     // 기출 오답 지도 · 계획 · 훈련 — 위에서 말한 그 여섯
     'csat_atlas_scoped',
     'csat_plan_speed_set',

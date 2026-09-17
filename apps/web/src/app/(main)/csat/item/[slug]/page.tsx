@@ -19,9 +19,12 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
 import { PassageMap } from '@/components/csat/PassageMap'
+import { LecturePlayerBar } from '@/components/csat/lecture/LecturePlayerBar'
+import { LectureStage } from '@/components/csat/lecture/LectureStage'
 import { kiceSourceOf } from '@/lib/csat/kice-source'
 import { toItemSlug } from '@/lib/csat/item-slug'
 import { fromItemSlug, loadCsatItemExplain } from '@/lib/csat/learner'
+import { lectureMeta } from '@/lib/csat/lecture/store'
 import { pickNextItem } from '@/lib/csat/next-item'
 import { offMapChoices, type MapAnchor } from '@/lib/csat/passage-map-model'
 import { loadItemSkeleton, skeletonSiblings } from '@/lib/csat/skeleton'
@@ -41,9 +44,20 @@ const CIRCLED = ['', '①', '②', '③', '④', '⑤']
  * ⚠️ 계측기(`csat-surface-measure`)는 닫힌 `details` 안을 **세지 않는다** — 접기가 개선인데
  *   세면 개선이 악화로 잡히기 때문이다. 그래서 여기로 옮긴 산문은 「보이는 글자」에서 빠진다.
  */
-function Layer({ label, size, children }: { label: string; size: string; children: React.ReactNode }) {
+function Layer({
+  label,
+  size,
+  target,
+  children,
+}: {
+  label: string
+  size: string
+  /** 강의가 이 층을 가리킬 때의 키 — 가리키면 무대가 층을 편다 */
+  target?: string
+  children: React.ReactNode
+}) {
   return (
-    <details className="group mb-6 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)]">
+    <details data-lecture-target={target} className="group mb-6 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)]">
       <summary className="flex min-h-[44px] cursor-pointer list-none items-center justify-between gap-3 rounded-[var(--r-md)] px-4 py-2 transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg3)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)] motion-reduce:transition-none [&::-webkit-details-marker]:hidden">
         <h2 className="text-sm font-bold text-[var(--t1)]">{label}</h2>
         <span className="flex shrink-0 items-center gap-2 text-xs text-[var(--t3)]">
@@ -138,6 +152,17 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
       }))
     : []
   const next = item ? pickNextItem(siblings, item.id, () => true) : null
+  // **강의** — 길이(초)와 큐 수만 서버가 안다. 대본은 재생을 누른 뒤 API 로 받는다(대본이
+  // 이 HTML 에 한 글자도 남지 않게). 강의가 없는 문항은 무대 자체를 세우지 않는다.
+  const lecture = item ? lectureMeta(item.id) : null
+  const Stage = ({ children }: { children: React.ReactNode }) =>
+    lecture && item ? (
+      <LectureStage slug={toItemSlug(item.id)} meta={lecture}>
+        {children}
+      </LectureStage>
+    ) : (
+      <>{children}</>
+    )
   // ⚠️ **`<main>` 이 아니라 `<div>` 다.** 셸(`(main)/layout.tsx`)이 이미
   //    `<main id="main-content">` 를 그린다. 중첩하면 문서에 보이는 main 이 둘이 되어
   //    스크린리더가 본문을 못 짚고 건너뛰기 링크도 어디로 갈지 모호해진다.
@@ -158,8 +183,8 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
           지금은 해설을 불러오지 못했어요. 잠시 뒤 다시 열어 주세요.
         </p>
       ) : (
-        <>
-          <header className="mb-6 mt-2">
+        <Stage>
+          <header className="mb-6 mt-2" data-lecture-target="analysis:head">
             <h1 className="font-editorial text-2xl font-[600] text-[var(--t1)]">
               {item.exam_label} {item.no}번
             </h1>
@@ -173,19 +198,24 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
                 이것이 없으면 학습자는 무엇을 연습하는지 모른 채 근거를 따라간다 —
                 802문항 전부에 쓰여 있었는데 로더가 안 읽어 한 번도 안 나왔다. */}
             {item.measured_ability ? (
-              <p className="mt-3 break-keep border-l-2 border-[var(--p)] pl-3 text-sm leading-relaxed text-[var(--t1)]">
+              <p
+                data-lecture-target="analysis:ability"
+                className="mt-3 break-keep border-l-2 border-[var(--p)] pl-3 text-sm leading-relaxed text-[var(--t1)]"
+              >
                 <span className="mr-1.5 text-xs text-[var(--t3)]">재는 것</span>
                 {item.measured_ability}
               </p>
             ) : null}
           </header>
 
+          {lecture ? <LecturePlayerBar /> : null}
+
           {/* ── 2층 · 출제 의도 ─────────────────────────────────────────
               **접어 둔다**(중앙값 177자 · 최대 438자). 정답을 확인하러 온 사람에게는 곁가지고,
               「왜 이렇게 냈나」가 궁금한 사람만 연다(철학 2 Progressive Disclosure).
               손잡이에 분량을 적는다 — 몇 자를 여는지 알고 열어야 한다(전달 모델 §4 규칙 4). */}
           {item.design_intent ? (
-            <Layer label="출제 의도" size={`${item.design_intent.length}자`}>
+            <Layer label="출제 의도" size={`${item.design_intent.length}자`} target="analysis:intent">
               <p className="break-keep text-sm leading-relaxed text-[var(--t2)]">{item.design_intent}</p>
             </Layer>
           ) : null}
@@ -204,7 +234,7 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
               이 문항은 <strong>답을 지목하지 않습니다.</strong> 대신 아래 절차는 그대로 쓸 수 있어요.
             </p>
           ) : useMap ? null : (
-            <section className="mb-6">
+            <section className="mb-6" data-lecture-target="analysis:answer">
               <div className="flex items-baseline gap-3">
                 <h2 className="text-sm font-bold text-[var(--t1)]">답이 왜 이것인가</h2>
                 <span className="font-display text-lg font-bold tabular-nums text-[#2E7D5A]">
@@ -255,7 +285,11 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
               ) : null}
               <ul className="mt-2 space-y-2">
                 {offMap.map((d) => (
-                  <li key={d.n} className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
+                  <li
+                    key={d.n}
+                    data-lecture-target={`analysis:reject:${d.n}`}
+                    className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4"
+                  >
                     <div className="flex items-baseline justify-between gap-3">
                       <span className="font-display text-base font-bold tabular-nums text-[var(--t2)]">
                         {CIRCLED[d.n] ?? d.n}
@@ -285,7 +319,7 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
               지도와 선지 해설로 「왜 ③인가」를 확인한 뒤에야 쓸모가 있는 층이라, 확인하러 온
               사람의 첫 화면을 차지할 이유가 없다. 손잡이에 **단계 수**를 적는다. */}
           {item.procedure.length ? (
-            <Layer label="다시 풀 때의 순서" size={`${item.procedure.length}단계`}>
+            <Layer label="다시 풀 때의 순서" size={`${item.procedure.length}단계`} target="analysis:procedure">
               <ol className="space-y-2">
                 {item.procedure.map((s, i) => (
                   <li key={i} className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
@@ -302,7 +336,7 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
           ) : null}
 
           {item.required_vocab.length ? (
-            <section className="mb-6">
+            <section className="mb-6" data-lecture-target="analysis:vocab">
               <h2 className="text-sm font-bold text-[var(--t1)]">이 문항이 요구한 낱말</h2>
               <ul className="mt-2 flex flex-wrap gap-2">
                 {item.required_vocab.map((w) => (
@@ -351,7 +385,7 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
             문항 원문(지문·선지)은 싣지 않습니다. 저작권은 한국교육과정평가원에 있고, 여기 있는 것은
             그 문항을 분석해 우리가 쓴 해설입니다. 원문은 평가원 공개자료에서 함께 보세요.
           </p>
-        </>
+        </Stage>
       )}
     </div>
   )

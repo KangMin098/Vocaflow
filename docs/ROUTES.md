@@ -16,6 +16,7 @@
 | `(app)` | `/play/wordblitz` / `/play/pirate-quest` | 인증 | 풀스크린 (Sidebar X · SessionFrame ✓) |
 | `admin/*` | `/admin/*` | admin/curator only | AdminSidebar |
 | `dev/*` | `/dev/components` | 개발 | 카탈로그 |
+| `dev/tts-probe` | `/dev/tts-probe` | 개발 | **강의 TTS 프로브(Gate 0)** — 강의 재생에 쓰는 어댑터·엔진을 그대로 돌려 음성 목록·경계 이벤트·40초 발화·큐 연속 재생·낭독 속도를 잰다. `?auto=1` 이면 열자마자 돌고 `window.__TTS_PROBE__` 에 남긴다(하네스 `scripts/csat-lecture/tts-probe.mts`) |
 
 ---
 
@@ -260,6 +261,7 @@
 | 라우트 | 설명 |
 |---|---|
 | `GET · POST /api/csat/overlay` | 오버레이 한 벌. POST 본문에 **SHA-256 64자만** 받아 회차를 찾고 좌표 + 분석을 돌려준다. **평가원 문제지는 이 경로로 오지 않는다** — 브라우저가 그 자리에서 해시한다. GET 아니라 POST 인 이유: 해시가 URL 에 남으면 접속 기록·리퍼러에 「어느 회차를 열었는지」가 따라다닌다. 화면과 같은 문턱(401) — 분석이 새지 않는 것은 이 검사가 아니라 RLS 가 지킨다 |
+| `GET /api/csat/lecture?item=<슬러그>` | 문항 해설 **강의 대본**(큐 목록). 해설 화면의 서버 렌더에는 길이(초)만 싣고, 학습자가 재생을 누른 뒤 여기서 받는다 — 대본이 화면 HTML 에 남지 않게. 로그인 문턱(401) · 슬러그 모양 검사(값이 파일 이름으로 흘러간다) · 커밋된 `lib/csat/lecture-data/*.json` 을 읽는다(DB 0) |
 
 ### `/api/srs/*` (1)
 

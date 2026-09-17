@@ -253,6 +253,10 @@ describe('지문 골격 데이터는 정해진 네 자리에만 글자를 담는
       const walk = (v: unknown, key: string) => {
         if (typeof v === 'number') return
         if (typeof v === 'string') {
+          // `from` — 앵커를 어디서 찾았나(`answer` · `reject` · `tempt`). **닫힌 세 값**만 받는다.
+          // 2026-09-15 「끌리는 이유」 칩과 함께 골격에 들어왔는데 이 목록이 따라오지 않아
+          // 이 검사가 2,261건으로 빨갛게 서 있었다(2026-09-17 발견). 값을 좁혀서 연다.
+          if (key === 'from' && ['answer', 'reject', 'tempt'].includes(v)) return
           if (!TEXT_KEYS.has(key)) bad.push(`${f}: ${key} = "${v.slice(0, 40)}"`)
           return
         }
@@ -289,5 +293,65 @@ describe('지문 골격 데이터는 정해진 네 자리에만 글자를 담는
       }
     }
     expect(worst.frac, `${worst.id} 에서 거의 다 드러난 문장이 ${(worst.frac * 100).toFixed(0)}%`).toBeLessThan(0.5)
+  })
+})
+
+// ── 강의 대본 데이터 — 원문은 위치로 가리키고, 인용은 짧게 ─────────────────
+// 대본은 우리가 쓴 한국어 해설이다. 영어 조각만 지문을 인용할 수 있고, 그 길이는 적재가
+// 8단어 연속 일치 0 으로 막는다(`lib/csat/lecture/validate.ts`). 여기서는 **커밋된 산출물 자체**가
+// 그 경계 안에 있는지를 DB 없이 본다 — 적재를 거치지 않고 파일이 바뀌어도 잡히게.
+describe('강의 대본 데이터의 경계', () => {
+  const dir = path.join(process.cwd(), 'src/lib/csat/lecture-data')
+  const files = fs.existsSync(dir) ? fs.readdirSync(dir).filter((f) => f.endsWith('.json') && f !== 'index.json') : []
+  const ENUM: Record<string, string[]> = {
+    kind: ['analysis', 'anchor'],
+    role: ['intro', 'strategy', 'structure', 'evidence', 'eliminate', 'trap', 'vocab', 'wrapup'],
+    lang: ['ko-KR', 'en-US'],
+  }
+  const FREE = new Set(['exam_id', 'item_id', 'built', 'generated_by', 'id', 'text'])
+
+  it('대본 파일이 있다 — 없으면 아래 단언이 아무것도 안 지킨다', () => {
+    expect(files.length).toBeGreaterThan(0)
+  })
+
+  it('문자열은 정해진 자리에만 — 열거형은 닫힌 값만', () => {
+    const bad: string[] = []
+    for (const f of files) {
+      const walk = (v: unknown, key: string) => {
+        if (typeof v === 'string') {
+          if (ENUM[key]) {
+            if (!ENUM[key].includes(v)) bad.push(`${f}: ${key} = "${v.slice(0, 30)}"`)
+          } else if (!FREE.has(key)) bad.push(`${f}: ${key} = "${v.slice(0, 30)}"`)
+          return
+        }
+        if (Array.isArray(v)) return v.forEach((x) => walk(x, key))
+        if (v && typeof v === 'object') for (const [k, x] of Object.entries(v)) walk(x, k)
+      }
+      walk(JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8')), 'root')
+    }
+    expect(bad, bad.slice(0, 6).join('\n')).toEqual([])
+  })
+
+  it('영어 조각은 7단어 이하다 — 긴 원문은 위치로 가리킨다', () => {
+    const long: string[] = []
+    for (const f of files) {
+      const j = JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8'))
+      for (const [id, lec] of Object.entries(j.lectures as Record<string, { cues: { id: string; segments: { lang: string; text: string }[] }[] }>))
+        for (const c of lec.cues)
+          for (const g of c.segments)
+            if (g.lang === 'en-US' && (g.text.match(/[A-Za-z']+/g) ?? []).length > 7) long.push(`${id} ${c.id}`)
+    }
+    expect(long, `8단어 이상 영어 조각: ${long.slice(0, 5).join(', ')}`).toEqual([])
+  })
+
+  it('한국어 조각에는 영어 문장이 숨어 있지 않다', () => {
+    const hidden: string[] = []
+    for (const f of files) {
+      const j = JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8'))
+      for (const [id, lec] of Object.entries(j.lectures as Record<string, { cues: { id: string; segments: { lang: string; text: string }[] }[] }>))
+        for (const c of lec.cues)
+          for (const g of c.segments) if (g.lang === 'ko-KR' && /[A-Za-z]{2,}/.test(g.text)) hidden.push(`${id} ${c.id}`)
+    }
+    expect(hidden).toEqual([])
   })
 })

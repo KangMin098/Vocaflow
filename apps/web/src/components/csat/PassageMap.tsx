@@ -25,7 +25,7 @@
 
 'use client'
 
-import { useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 
 import { track } from '@/lib/analytics/client'
 import {
@@ -38,6 +38,8 @@ import {
   type MapPlacement,
 } from '@/lib/csat/passage-map-model'
 import type { SkeletonSentence } from '@/lib/csat/passage-skeleton'
+
+import { useLectureTargetKey } from './lecture/LectureStage'
 
 export type { MapAnchor, MapPlacement }
 
@@ -62,6 +64,15 @@ export function PassageMap({ sentences, anchors, placements, onSelect }: Passage
   const found = useMemo(() => new Map(placements.map((p) => [p.id, p.sentences.length > 0])), [placements])
   const tone = active?.kind === 'answer' ? GREEN : RED
 
+  // **강의를 따라간다.** 강의가 정답·오답 칩을 가리키면 그 근거를 연다 — 소리가 「여기」라고 할 때
+  // 막대 안의 글자가 드러나 있어야 한다. 학습자의 클릭이 아니므로 계측(csat_evidence_opened)은 세지 않는다.
+  const lectureKey = useLectureTargetKey()
+  useEffect(() => {
+    if (!lectureKey?.startsWith('analysis:')) return
+    const id = lectureKey.slice('analysis:'.length)
+    if (anchors.some((a) => a.id === id)) setActiveId(id)
+  }, [lectureKey, anchors])
+
   // 「클릭/클릭/클릭」이 실제로 일어나는지는 **몇 번째인지**를 세야 안다. 첫 근거는 서버가
   // 이미 펴 둔 채로 오므로 세지 않는다 — 세면 모든 방문이 최소 1이 되어 «눌렀다» 와
   // «떠 있었다» 가 구별되지 않는다.
@@ -80,7 +91,7 @@ export function PassageMap({ sentences, anchors, placements, onSelect }: Passage
   if (!sentences.length) return null
 
   return (
-    <section className="mb-6">
+    <section className="mb-6" data-lecture-target="analysis:map">
       <div className="mb-2 flex items-baseline justify-between gap-3">
         <h2 className="text-sm font-bold text-[var(--t1)]">지문 지도</h2>
         <p className="break-keep text-xs text-[var(--t3)]">{sentences.length}문장 · 눌러서 근거 자리 보기</p>
@@ -94,6 +105,7 @@ export function PassageMap({ sentences, anchors, placements, onSelect }: Passage
             <button
               key={a.id}
               type="button"
+              data-lecture-target={`analysis:${a.id}`}
               onClick={() => pick(a.id)}
               aria-pressed={on}
               className={[
@@ -128,6 +140,7 @@ export function PassageMap({ sentences, anchors, placements, onSelect }: Passage
           return (
             <li
               key={i}
+              data-lecture-target={`anchor:sentence:${i}`}
               aria-label={`${i + 1}번째 문장${isLit ? ' — 지금 보는 근거가 여기 있어요' : ''}`}
               className="flex items-center gap-2"
             >

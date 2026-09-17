@@ -9,7 +9,7 @@ import { describe, expect, it } from 'vitest'
 import { LecturePlayer, type PlayerState } from '../player'
 import { estimateSec, segmentIssues, sinoKorean, speakKo, speakSegments } from '../speakable'
 import { isValidTarget, lectureTargets } from '../targets'
-import { pickVoice, utterancePlan, type CueOutcome, type TtsAdapter } from '../tts'
+import { pickVoice, utterancePlan, WebSpeechAdapter, type CueOutcome, type TtsAdapter } from '../tts'
 import type { Lecture, LectureCue } from '../types'
 import { spokenHereOrdinals, validateLecture, type ValidateContext } from '../validate'
 
@@ -35,6 +35,9 @@ describe('낭독 표기', () => {
   it('학년도 · 번 · 퍼센트', () => {
     expect(speakKo('2014학년도 23번')).toBe('이천십사 학년도 이십삼 번')
     expect(speakKo('정답률 40%')).toBe('정답률 사십 퍼센트')
+  })
+  it('달 이름은 따로 읽는다 — 유월 · 시월', () => {
+    expect(speakKo('6월 모의평가와 10월 학력평가')).toBe('유월 모의평가와 시월 학력평가')
   })
   it('글의 순서 기호 (A)(B)(C) 와 A/B', () => {
     expect(speakKo('(A) 다음에 (C)가 옵니다')).toBe('에이 다음에 씨가 옵니다')
@@ -299,5 +302,93 @@ describe('무근거 난이도 판정 — banned', () => {
   })
   it('지문 논리를 풀어 말한 「쉽죠」는 막지 않는다 (파일럿 오탐의 재현)', () => {
     expect(has('여기 보세요. 속마음이 새면 읽기는 오히려 쉽죠.')).toBe(false)
+  })
+})
+
+describe('붙들기 — 정확한 쉼', () => {
+  const holdLecture = (pause: number): Lecture => ({ ...lecture(2), cues: lecture(2).cues.map((c) => ({ ...c, pause_after_ms: pause })) })
+
+  it('쉼은 올림되지 않는다 — 옛 100ms 틱은 최대 +100ms 를 더했다', async () => {
+    const a = new FakeAdapter(5)
+    let last: PlayerState | null = null
+    const p = new LecturePlayer(holdLecture(250), a, (s) => (last = s))
+    await p.play(0)
+    await until(() => last?.status === 'ended')
+    const e = p.log.find((x) => x.type === 'cue-end' && x.index === 0)!
+    const h = p.log.find((x) => x.type === 'hold-end' && x.index === 0)!
+    expect(h.t - e.t).toBeGreaterThanOrEqual(245)
+    expect(h.t - e.t).toBeLessThan(250 + 60)
+  })
+
+  it('붙드는 중에 멈추면 시간이 흐르지 않고, 재개하면 남은 만큼만 붙든다', async () => {
+    const a = new FakeAdapter(5)
+    let last: PlayerState | null = null
+    const p = new LecturePlayer(holdLecture(300), a, (s) => (last = s))
+    await p.play(0)
+    await until(() => last?.holding === true)
+    await new Promise((r) => setTimeout(r, 100))
+    p.pause()
+    await new Promise((r) => setTimeout(r, 400))
+    // 멈춘 400ms 동안 다음 큐로 넘어가지 않았다
+    expect(last!.index).toBe(0)
+    p.resume()
+    await until(() => last?.index === 1)
+    p.destroy()
+  })
+})
+
+// ── Web Speech 어댑터 — 막힌 발화를 끊고 한 번 더 ─────────────────────────
+
+describe('Web Speech — 막힌 발화', () => {
+  /** 가짜 speechSynthesis: `hangs` 번째 발화까지는 끝 신호를 안 준다 */
+  function stub(hangs: number) {
+    let n = 0
+    const cancels = { count: 0 }
+    class Utt {
+      lang = ''
+      rate = 1
+      voice: unknown = null
+      onstart: (() => void) | null = null
+      onend: (() => void) | null = null
+      onerror: ((e: unknown) => void) | null = null
+      constructor(public text: string) {}
+    }
+    const g = globalThis as unknown as Record<string, unknown>
+    g.SpeechSynthesisUtterance = Utt
+    g.window = {
+      setTimeout: (f: () => void, ms: number) => setTimeout(f, ms),
+      clearTimeout: (t: ReturnType<typeof setTimeout>) => clearTimeout(t),
+      speechSynthesis: {
+        speak(u: Utt) {
+          n += 1
+          setTimeout(() => u.onstart?.(), 1)
+          if (n > hangs) setTimeout(() => u.onend?.(), 5)
+        },
+        cancel() {
+          cancels.count += 1
+        },
+      },
+    }
+    g.performance ??= { now: () => Date.now() }
+    return cancels
+  }
+  const oneCue: LectureCue = { ...cue(1), segments: [{ lang: 'ko-KR', text: '자, 여기 보세요.' }] }
+
+  it('한 번 막히면 끊고 다시 읽어 살린다 — 오류가 아니라 recovered 로 남는다', async () => {
+    const cancels = stub(1)
+    const a = new WebSpeechAdapter({ ko: null, en: null }, { perCharMs: 1, floorMs: 30 })
+    const o = await a.speak(oneCue)
+    expect(o.completed).toBe(true)
+    expect(o.errors).toEqual([])
+    expect(o.recovered).toEqual(['timeout@0:ko-KR'])
+    expect(cancels.count).toBeGreaterThanOrEqual(1)
+  })
+
+  it('두 번 막히면 그때 오류로 센다 — 강의는 멈추지 않는다', async () => {
+    stub(2)
+    const a = new WebSpeechAdapter({ ko: null, en: null }, { perCharMs: 1, floorMs: 30 })
+    const o = await a.speak(oneCue)
+    expect(o.completed).toBe(true)
+    expect(o.errors).toEqual(['timeout@0:ko-KR'])
   })
 })

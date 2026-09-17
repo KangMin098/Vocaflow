@@ -1001,6 +1001,32 @@ gamekit 을 쓰지 않는 게임(WordBlitz · Pirate's Bounty)은 `GameKitStyles
 
 ---
 
+## 기출 해설 강의 — 하이라이트 동기 TTS (2026-09-17)
+
+`/csat/item/[slug]` 에서 **강의 듣기**를 누르면 브라우저 목소리가 강의식 대본을 읽고, 대본이 지금 설명하는
+분석 블록(또는 지문 지도의 문장 막대)만 진하게 빛난다. 대본은 화면에 글로 나오지 않는다 — **낭독이 아니라
+지목**이 강의를 만든다(원문은 「여기 세 번째 문장」처럼 자리로 가리킨다). 지시문
+[docs/csat-lecture-tts-brief.md](./csat-lecture-tts-brief.md) · 결정 [docs/csat-lecture/DECISIONS.md](./csat-lecture/DECISIONS.md).
+
+| | |
+|---|---|
+| 스키마 | [`lib/csat/lecture/types.ts`](../apps/web/src/lib/csat/lecture/types.ts) — 강의 = 큐 목록. 큐 = 역할(intro→…→wrapup) · 타깃(`analysis:<블록>` · `anchor:sentence:k`) · 한/영 조각 · 추정 초 · 쉼. **엔진에 관한 필드가 없다** — 서버 TTS 로 바꿔도 그대로 |
+| 타깃 목록 | [`targets.ts`](../apps/web/src/lib/csat/lecture/targets.ts) — 해설 화면이 **실제로 그리는** 블록 id. 화면과 드레인이 같은 함수를 부른다 |
+| 낭독 표기 | [`speakable.ts`](../apps/web/src/lib/csat/lecture/speakable.ts) — ①→「일 번」 · 학년도 · 번 · 달(유월·시월) · 퍼센트 · (A)→「에이」. 추정 초 계수는 Gate 0 실측(한국어 초당 4.0음절) |
+| 검사기 | [`validate.ts`](../apps/web/src/lib/csat/lecture/validate.ts) — 구조·타깃·낭독 표기·원문 8단어 인용·분석 베껴 읽기·길이·지시어·무근거 판정·**pointing**(「여기 N번째 문장」↔ 켜진 막대) + 기계 채점(낭독 10 · 시간 10) |
+| 어댑터 | [`tts.ts`](../apps/web/src/lib/csat/lecture/tts.ts) — `WebSpeechAdapter`(문장 단위 발화 · 언어별 목소리 · 감시 시한 · 발화 준비 시간 이동평균) · `SilentAdapter`(목소리 없는 기기) |
+| 엔진 | [`player.ts`](../apps/web/src/lib/csat/lecture/player.ts) — 큐 순서 · 붙들기(쉼 − 앞당김) · 건너뛰기(앞 발화를 끝까지 취소한 뒤) · 탭 이탈 시 멈춤·복귀 · 기록 |
+| 읽기 | [`store.ts`](../apps/web/src/lib/csat/lecture/store.ts) — 커밋된 `lecture-data/<회차>.json`. 화면은 **길이만**, 대본은 `GET /api/csat/lecture` 로만 |
+| 무대 | [`components/csat/lecture/LectureStage.tsx`](../apps/web/src/components/csat/lecture/LectureStage.tsx) — 재생 중에만 `data-lecture-state`(active·path·inside·dim)를 DOM 에 단다 · 접힌 층을 편다 · 큐마다 스크롤 한 번 · 블록 클릭 = 그 블록 설명부터 · Space/←/→ |
+| 재생 바 | [`LecturePlayerBar.tsx`](../apps/web/src/components/csat/lecture/LecturePlayerBar.tsx) — 재생/멈춤 · 속도 0.9/1.0/1.15 · 이전/다음 · 역할 아이콘 눈금(글자 없음) · 무음 모드 안내 |
+| 지문 지도 연동 | `PassageMap` — 섹션·칩·문장 막대에 타깃 속성, 강의가 칩을 가리키면 그 근거를 편다(계측 안 셈) |
+| 드레인 | `scripts/csat-lecture/drain-export.mts` → 작성(`WRITER.md`) → 독립 심사(`GRADER.md`) → `drain-import.mts`(검사·채점 합산·**stale-grade** · 사실 오류 탈락 · 적재) |
+| 게이트 | Gate 0 `tts-probe.mts` · Gate 2 `gate2-play.mts`(진짜 Chrome·Edge 를 CDP 로 — Playwright 가 띄운 브라우저는 음성 0개) · Gate 3 `gate3-input.mts`(정답표 없는 학습자 역할) — 리포트 `docs/csat-lecture/` |
+| 계측 | `csat_lecture_played`(mode·from·rate) · `csat_lecture_ended`(cues·jumps·mode) — 허용 목록 마이그레이션 `20260917150000` |
+| 회귀 | 순수 33(`lib/csat/lecture/__tests__/core.test.ts`) + 런타임 3(`tests/e2e/46-csat-lecture.spec.ts` — 무음 완주 · 375px · 키보드 · 서버 HTML 에 대본 0 · 블록 클릭) |
+
+---
+
 ## 기출 오버레이 — 풀고 나서 열리는 해설 (2026-09-16)
 
 `/csat/overlay` 는 학습자가 떨어뜨린 평가원 문제지를 브라우저에서 렌더하고 그 위에 상자를
