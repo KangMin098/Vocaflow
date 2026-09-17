@@ -8,6 +8,14 @@
 
 ## 라우트 그룹 구조
 
+<!-- csat-sources-workspace:start -->
+`/admin/csat/sources`는 기존 관리자 가드를 유지하는 단일 route다. 검색 상태를 서버에서 초기화하고
+브라우저 history로 복원한다. query: `view=sources|eligibility|operations`,
+`issue=all|attention|failed|legal|raw|analysis|unjudged|gate`,
+`sort=attention|total|recent|name`, `q=<원천 이름 또는 ID>`, `source=<선택한 원천 ID>`.
+기본값은 URL에서 생략하며, 알 수 없는 enum은 기본값으로 복원한다. 새 API·동적 상세 route는 추가하지 않았다.
+<!-- csat-sources-workspace:end -->
+
 | 그룹 | URL | 인증 | 레이아웃 |
 |---|---|---|---|
 | `(auth)` | `/login` / `/signup` / `/reset-password` / `/verify-email` | 미인증 | 헤더 없음 |

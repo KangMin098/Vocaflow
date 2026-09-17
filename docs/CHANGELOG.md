@@ -13,6 +13,11 @@
 - UX 감사(설계 준비) — 화면 157 전수·대상 127 판정(서명 2·경계 5·평균 104·보류 14), 여정 4·카드 67·관리자 표 60·브리프 10·우선순위(브랜치 `feat/ux-audit` `docs/design/audit/`). 코드 수정 0.
 - 디자인 거버넌스 개정 — vocaflow-design 에 N4 형태 판정 · §G 형태 발명(자산이 골격) 추가, DESIGN_SYSTEM 1,509→360줄대(원문 `docs/design/archive/`) + 공용 「형태 문법」 절, DESIGN.md 에 방향 값·화면별 골격/서명, 06-workflow 비평에 익명성·평균 회귀·골든·포트폴리오, 외부 취향 스킬 13→활성 2(+dataviz, 11개 `_disabled/`). 사용자 결정 4건 확정(`docs/design/DECISIONS.md`).
 - 평균 금지를 테스트로 — `form-declaration-ratchet`(새 page 는 `// @form: <G1 축> — <서명>` 필수, 무선언 152화면 기준선은 감소만) · `average-signal-ratchet`(3열 균등·그림자·둥근 카드·그라디언트·AI-보라·glass·떠오르는 hover·무한 모션, 표면별 증가 금지). Admin 액센트 보라 → Deep Ink `--p` 결정. `/text/[id]` risk 단어 `word-pulse` 무한 반복 제거(형태 문법 F1). `/library/books` 발산 4안 `docs/design/compare/library-books.md`.
+<!-- csat-sources-workspace:start -->
+- `/admin/csat/sources`를 원천 목록·근거 상세·적격 판정·처리 안내 작업 공간으로 재설계. 검색/필터/정렬/선택 URL 복원, ACP 검수 연결, 탭별 도움말과 반응형·키보드 회귀 추가.
+- 원천에 맞지 않는 자동 명령 처방과 독립 집계 차이를 미통과 수로 표시하던 오류 제거. 스냅샷 시각·미측정 범위·보충 계획의 노후 여부를 명시(DB/마이그레이션/API 변경 없음).
+<!-- csat-sources-workspace:end -->
+
 ### 교재 「글의 목적」(18번) 생산 — 서신 90편 · 문항 90 · 시장 A5 16/16 (2026-09-17)
 
 합본 벤치마크에서 A5(유형 다양성)가 시중 16 · 우리 15 로 졌고, 빠진 유형은 `purpose` 하나였다 — 재고 86건이 전부

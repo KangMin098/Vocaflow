@@ -12,11 +12,11 @@
 
 import Link from 'next/link'
 
-import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
+import { SourceWorkspace } from './SourceWorkspace'
+import type { SourceWorkspaceState } from '@/lib/textbook/source-workspace'
 import type { SourceInventoryPanel } from '@/lib/textbook/source-inventory-view'
 
 import { NextStepPipeline } from './NextStepPipeline'
-import { SourceInventoryStrip, SourceInventoryTable } from './SourceInventoryTable'
 import type {
   AxisRow,
   BandRow,
@@ -54,117 +54,36 @@ function SourceLink({ source, children }: { source: string; children: React.Reac
     <Link
       href={`/admin/articles?stage=review&status=all&src=${encodeURIComponent(source)}`}
       title={`${source} 원문 목록 열기`}
-      className="inline-flex min-h-[44px] items-center text-[var(--t2)] underline decoration-dotted underline-offset-2 transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:text-[#8B5CF6] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8B5CF6] active:text-[#8B5CF6]"
+      className="inline-flex min-h-[44px] items-center text-[var(--t2)] underline decoration-dotted underline-offset-2 transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:text-[var(--admin)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--admin)] active:text-[var(--admin)]"
     >
       {children}
     </Link>
   )
 }
 
-export function SourceEligibilityClient({
-  panel,
-  inventory,
-}: {
+export function SourceEligibilityClient({ panel, inventory, initialState }: {
   panel: SourceEligibilityPanel
   inventory: SourceInventoryPanel
+  initialState?: SourceWorkspaceState
 }) {
-  const t = panel.total
-  return (
-    <div className="flex flex-col gap-6">
-      <header className="flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h2 className="font-display text-[18px] font-[800] text-[var(--t1)]">원문 적격</h2>
-          <p className="font-body text-[13px] text-[var(--t2)]">
-            교재에 실을 수 있는 원문인가를 일곱 축으로 판정한다. 조판은 이 판정을 통과한 원문만
-            받아야 한다.
-          </p>
-        </div>
-        <AdminScreenHelp screen="csat-sources" />
-      </header>
-
-      <FreshnessBar panel={panel} />
-
-      {/* ⚠️ **KPI 가 「다음 한 걸음」보다 먼저다.** 무엇을 할지는 지금 어떤지를 안 뒤에 읽힌다 —
-          예전에는 처방이 먼저 나오고 분모가 그 아래 있어, 접힌 위에서 「얼마나 나쁜가」가 안 보였다. */}
-      <section aria-label="요약" className="grid grid-cols-2 gap-3 md:grid-cols-4">
-        <Stat
-          label="조판 가능"
-          value={t.composable.toLocaleString()}
-          sub={`전체 ${t.total.toLocaleString()}편의 ${t.composablePct}%`}
-          warn={t.composablePct < 100}
-          ratio={t.composable / t.total}
-        />
-        <Stat
-          label="지금 조판이 받으면 안 되는 편수"
-          value={(t.total - t.composable).toLocaleString()}
-          sub="판정을 통과하지 못한 원문"
-          warn={t.total - t.composable > 0}
-          ratio={(t.total - t.composable) / t.total}
-        />
-        <Stat
-          label="되돌릴 수 없는 부적격"
-          value={((t.byBlockedAxis.legal ?? 0) + (t.byBlockedAxis.safety ?? 0)).toLocaleString()}
-          sub="라이선스 · 철회 · 민감 소재"
-          warn={(t.byBlockedAxis.legal ?? 0) + (t.byBlockedAxis.safety ?? 0) > 0}
-          ratio={((t.byBlockedAxis.legal ?? 0) + (t.byBlockedAxis.safety ?? 0)) / t.total}
-        />
-        {/*
-          문항이 붙었다는 것은 **그 원문에서 이미 지문이 잘려 나왔다**는 뜻이다.
-          그 편수와 조판 가능 편수의 차이가 곧 "판정 없이 만들어진 문항" 의 분모다 —
-          숨기면 화면이 좋아 보이지만 그게 이 화면이 막으려는 바로 그것이다.
-        */}
-        <Stat
-          label="문항이 붙은 원문"
-          value={
-            panel.articlesWithItems == null ? '못 잼' : panel.articlesWithItems.toLocaleString()
-          }
-          sub={
-            panel.articlesWithItems == null
-              ? '옛 스냅샷 — 다시 재야 한다'
-              : `그중 판정 통과 ${t.composable.toLocaleString()}`
-          }
-          warn={panel.articlesWithItems != null && panel.articlesWithItems > t.composable}
-          ratio={panel.articlesWithItems == null ? undefined : panel.articlesWithItems / t.total}
-        />
-      </section>
-      <p className="font-body text-[12px] text-[var(--t3)]">
-        판정 규격 <span className="font-mono">v{panel.specVersion}</span> · 훑는 데{' '}
-        {panel.scanSeconds}초
-        {panel.articlesWithItems != null && panel.articlesWithItems > t.composable ? (
-          <>
-            {' · '}
-            <b className="text-[var(--warning-ink)]">
-              {(panel.articlesWithItems - t.composable).toLocaleString()}편은 문항이 이미 있는데
-              원문이 판정을 통과하지 못한다
-            </b>
-          </>
-        ) : null}
-      </p>
-
-
-      {/* 소스 한 줄 — 표는 아래 제자리에 두고 **요약만** 접힌 위로 올린다(§SourceInventoryStrip). */}
-      <SourceInventoryStrip panel={inventory} />
-
-      {/* 다섯 단계 도식 — 옛 문단 넷이 담던 **조건**은 단계별 note 로 옮겼다.
-          특히 「미절단 원본은 게이트를 돌려도 안 풀린다」는 지우면 안 되는 줄이다. */}
-      <NextStepPipeline panel={panel} />
-
-
+  return <SourceWorkspace panel={panel} inventory={inventory} initialState={initialState}
+    eligibility={<>
+      <GradeTable grades={panel.grades} total={panel.total.total} />
       <AxisTable axes={panel.axes} />
-      {/* 소스별 재고 — 판정(위)과 달리 「언제 몇 편 받았나」를 본다. 스냅샷이 따로다. */}
-      <SourceInventoryTable panel={inventory} />
-
-      <RequirementTable panel={panel} />
-      <GradeTable grades={panel.grades} total={t.total} />
-      <BandTable bands={panel.bands} />
-      <BlockedSources rows={panel.blockedBySource} />
-      {panel.typeInventory ? <TypeInventoryTable inv={panel.typeInventory} /> : null}
-      {panel.fillPlan ? <FillPlanTable plan={panel.fillPlan} /> : null}
-      {panel.drainAudit ? <DrainAuditTable audit={panel.drainAudit} /> : null}
-      {panel.sourceYield ? <SourceYieldTable yieldPanel={panel.sourceYield} /> : null}
-      <DefectTable defects={panel.defects} />
-    </div>
-  )
+      <p className="text-[12px] text-[var(--t2)]">지금 조판이 받으면 안 되는 편수: {(panel.total.total - panel.total.composable).toLocaleString()}편</p>
+      <details><summary>학령과 유형별 요건</summary><div><RequirementTable panel={panel} /><BandTable bands={panel.bands} /></div></details>
+      <details><summary>원천별 제외 기록과 수율</summary><div><BlockedSources rows={panel.blockedBySource} />{panel.sourceYield ? <SourceYieldTable yieldPanel={panel.sourceYield} /> : null}</div></details>
+      <details><summary>본문 추출 결함</summary><div><DefectTable defects={panel.defects} /></div></details>
+    </>}
+    operations={<>
+      <FreshnessBar panel={panel} />
+      <p className="text-[12px] text-[var(--t2)]">문항이 붙은 원문 {panel.articlesWithItems == null ? '미측정' : panel.articlesWithItems.toLocaleString() + '편'}. 조판 통과와의 교집합은 이 집계로 알 수 없습니다.</p>
+      <NextStepPipeline panel={panel} />
+      {panel.fillPlan && panel.typeInventory && new Date(panel.fillPlan.computedAt).getTime() < new Date(panel.typeInventory.measuredAt).getTime() ? <p role="status" className="text-[12px] text-[var(--warning-ink)]">보충 계획이 유형 재고보다 오래되었습니다. 아래 계획을 실행하기 전에 item-fill-plan.mjs로 다시 계산하세요.</p> : null}
+      <details><summary>유형별 문항과 보충 계획</summary><div>{panel.typeInventory ? <TypeInventoryTable inv={panel.typeInventory} /> : null}{panel.fillPlan ? <FillPlanTable plan={panel.fillPlan} /> : null}</div></details>
+      <details><summary>문항 검수 드레인 결과</summary><div>{panel.drainAudit ? <DrainAuditTable audit={panel.drainAudit} /> : null}</div></details>
+    </>}
+  />
 }
 
 /**
@@ -1070,59 +989,5 @@ function DefectTable({ defects }: { defects: DefectPanel }) {
         나온다).
       </p>
     </section>
-  )
-}
-
-/**
- * KPI 한 칸.
- *
- * ⚠️ **비율 바는 장식이 아니다.** 「30,508」만 보면 많은지 적은지 모른다 — 분모가 87,626 이라는
- *   사실은 `sub` 줄 글자에만 있었고, 넉 장을 나란히 두면 그 글자들이 서로 안 비교된다.
- *   바는 **같은 분모 위의 네 값**을 한눈에 견주게 한다. 색만으로 말하지 않으므로
- *   숫자·글자는 그대로 둔다(색맹 대응).
- */
-function Stat({
-  label,
-  value,
-  sub,
-  warn,
-  ratio,
-}: {
-  label: string
-  value: string
-  sub?: string
-  warn?: boolean
-  /** 0~1. 전체(분모) 대비 이 값의 몫. `undefined` 면 바를 그리지 않는다(못 잰 칸). */
-  ratio?: number
-}) {
-  return (
-    <div className="flex flex-col gap-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-3">
-      <span className="font-body text-[12px] text-[var(--t2)]">{label}</span>
-      <span className="font-display text-[20px] font-[800] tabular-nums text-[var(--t1)]">
-        {value}
-      </span>
-      {ratio != null ? (
-        <span
-          aria-hidden
-          className="block h-[4px] overflow-hidden rounded-[var(--r-full)] bg-[var(--bg2)]"
-        >
-          <i
-            className="block h-full rounded-[var(--r-full)]"
-            style={{
-              width: `${Math.max(1, Math.min(100, ratio * 100))}%`,
-              background: warn ? 'var(--warning-ink)' : 'var(--success-ink)',
-            }}
-          />
-        </span>
-      ) : null}
-      {sub ? (
-        <span
-          className="font-body text-[11px]"
-          style={{ color: warn ? 'var(--warning-ink)' : 'var(--t3)' }}
-        >
-          {sub}
-        </span>
-      ) : null}
-    </div>
   )
 }

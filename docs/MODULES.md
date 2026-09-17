@@ -8,6 +8,14 @@
 
 ## 모듈 카탈로그
 
+<!-- csat-sources-workspace:start -->
+관리자 원문 작업 공간(`/admin/csat/sources`, 2026-09-18)은 `SourceWorkspace`가 보기·검색·필터·정렬·선택을,
+`SourceInventoryTable`과 `SourceDetail`이 원천 검토와 ACP 이동을 담당한다.
+`lib/textbook/source-workspace.ts`는 재고의 확인 항목과 URL만 계산하며 적격 판정을 복제하지 않는다.
+기존 `SourceEligibilityClient`의 7축·등급·학령·결함·문항 계획은 판정/처리 보기에 유지한다.
+학습 모듈·판정 정본·DB 스키마는 바꾸지 않는다.
+<!-- csat-sources-workspace:end -->
+
 | # | 모듈 | 계층 | 인지 유형 | 라우트 | 구현 상태 |
 |---|---|---|---|---|---|
 | 1 | **TextViewer** | L0~L2 | 획득·이해 | `/text`, `/text/new`, `/text/[id]` | ✅ v06.34 (책 모드 추가) |
