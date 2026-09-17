@@ -26,13 +26,29 @@ const DRAIN = path.resolve('scripts/csat/gate-mixed')
 
 const judged = new Map()
 let files = 0
+// ⚠️ **빈 판정을 조용히 건너뛰고 있었다** (감사 2026-09-16). 건너뛴 것이 안 찍히면 다음 export 가
+//   그 조각을 어떻게 세는지와 무관하게 **사람은 구멍이 있는 줄 모른다** — CLAUDE.md 가 「건너뛴 수를
+//   반드시 출력한다」고 요구하는 이유다.
+//   판정 값이 낯선 것(오타 · 새 값)은 **건너뛰지 않는다** — `decide()` 가 그런 값을 차단으로
+//   적용하도록 이미 짜여 있고(`blockedBy: verdict:<값>`), 건너뛰면 그 기록이 사라진다. 경고만 한다.
+const KNOWN_VERDICTS = new Set(['use', 'narrative', 'reject'])
+let skippedEmpty = 0
+const unknownVerdicts = {}
 for (const f of fs.readdirSync(DRAIN).filter((f) => f.endsWith('.out.json')).sort()) {
   files += 1
   for (const it of JSON.parse(fs.readFileSync(path.join(DRAIN, f), 'utf8'))) {
-    if (it.verdict) judged.set(it.id, { verdict: it.verdict, genre: it.genre ?? '', why: it.why ?? '' })
+    if (!it.verdict) {
+      skippedEmpty += 1
+      continue
+    }
+    if (!KNOWN_VERDICTS.has(it.verdict)) unknownVerdicts[it.verdict] = (unknownVerdicts[it.verdict] ?? 0) + 1
+    judged.set(it.id, { verdict: it.verdict, genre: it.genre ?? '', why: it.why ?? '' })
   }
 }
 console.log('L3 조각 판정 적용' + (COMMIT ? ' — **쓴다**' : ' — 예행'))
+console.log(`  건너뜀 — 판정이 비어 있음 ${skippedEmpty}`)
+for (const [v, n] of Object.entries(unknownVerdicts))
+  console.log(`  ⚠ 낯선 판정 「${v}」 ${n} — decide() 가 차단(verdict:${v})으로 적용한다. 오타면 청크를 고친다`)
 console.log('='.repeat(78))
 console.log(`  판정 파일 ${files}개 · 조각 **${judged.size.toLocaleString()}편**\n`)
 if (!judged.size) {

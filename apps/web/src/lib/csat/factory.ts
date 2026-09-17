@@ -34,6 +34,7 @@ import { createAdminClient } from '@/lib/supabase/admin'
 import eligibilitySnapshot from '@/lib/textbook/source-eligibility-snapshot.json'
 
 import { countItemCells, inventoryFreshnessNote, loadDcpInventory } from './item-count'
+import { reportAgeDays, splitMarketGate } from './market-gate'
 
 import {
   BENCH_FILES,
@@ -245,33 +246,67 @@ export async function loadFactoryLine(): Promise<FactoryLine> {
     )
   }
 
-  /* ② 기획 — 구속 출판사 지수가 1.200 에 닿았는가. 창고가 아니라 **권**이 출간물 기준이다. */
+  /* ② 기획 — 판정할 수 있는 출판사 중 구속점이 1.200 에 닿았는가. 창고가 아니라 **권**이 출간물 기준이다.
+
+     ⚠️ 2026-09-16 전에는 리포트의 `bindingIndex`(EBS 1.199) 하나를 견줬다. EBS 는 7축 중 5축을
+        못 재 **닿을 수 있는 최대가 1.199** 였다 — 집필을 아무리 해도 안 꺼지는 경보였다.
+        판정 가능한 출판사와 증거가 없는 출판사를 가르는 규칙은 `market-gate.ts`.
+     ⚠️ 리포트는 **사람이 돌려야 갱신된다** — 눈금마다 생성 시각을 노트로 단다(T5). 낡은 자로
+        지금 공장을 재고 있다는 사실이 화면에 없으면 아무도 다시 안 돌린다. */
   {
     const b = volume ?? warehouse
+    const gate = b ? splitMarketGate(b, MARKET_TARGET_INDEX) : null
+    const age = b ? reportAgeDays(b.generatedAt) : null
+    const ageNote = b
+      ? `리포트 ${b.generatedAt.slice(0, 10)} 생성${age != null ? ` · ${age}일 전` : ''} — 사람이 market-benchmark 를 돌려야 갱신된다`
+      : undefined
+    const gauges: StageGauge[] = [
+      {
+        label: `구속 출판사 지수${gate?.judged ? ` (판정 가능 · ${gate.judged.publisher})` : ''}`,
+        num: gate?.judged?.index ?? null,
+        den: null,
+        unit: 'index',
+        target: MARKET_TARGET_INDEX,
+        unmeasuredReason: !b
+          ? '벤치마크 리포트를 못 읽었다 — market-benchmark 를 돌린다'
+          : gate?.judged
+            ? undefined
+            : '목표에 닿을 수 있는 출판사가 하나도 없다 — 전부 증거가 모자란다',
+        note: ageNote,
+      },
+    ]
+    for (const u of gate?.unreachable ?? []) {
+      gauges.push({
+        label: `증거 부족 — ${u.publisher}`,
+        num: null,
+        den: null,
+        unit: 'index',
+        target: MARKET_TARGET_INDEX,
+        unmeasuredReason:
+          `지수 ${u.index.toFixed(3)} · 못 잰 축을 다 이겨도 최대 ${u.reachableMax?.toFixed(3) ?? '—'} 라 목표 ${MARKET_TARGET_INDEX.toFixed(3)} 를 판정할 수 없다 ` +
+          `(잰 축 ${u.axesMeasured}/${u.axesTotal}${u.gaps.length ? ` · 빈 축 ${u.gaps.join(' · ')}` : ''}). 막는 것은 생산이 아니라 증거다 — 그 출판사의 정답해설을 코퍼스에 넣어야 풀린다`,
+      })
+    }
+    gauges.push({
+      label: '합본 지수',
+      num: b?.pooledIndex ?? null,
+      den: null,
+      unit: 'index',
+      target: MARKET_TARGET_INDEX,
+      unmeasuredReason: b ? undefined : '벤치마크 리포트 없음',
+      note: ageNote,
+    })
     stages.push(
       state(
         'market',
-        [
-          {
-            label: `구속 출판사 지수${b?.bindingPublisher ? ` (${b.bindingPublisher})` : ''}`,
-            num: b?.bindingIndex ?? null,
-            den: null,
-            unit: 'index',
-            target: MARKET_TARGET_INDEX,
-            unmeasuredReason: b ? undefined : '벤치마크 리포트를 못 읽었다 — market-benchmark 를 돌린다',
-          },
-          {
-            label: '합본 지수',
-            num: b?.pooledIndex ?? null,
-            den: null,
-            unit: 'index',
-            target: MARKET_TARGET_INDEX,
-            unmeasuredReason: b ? undefined : '벤치마크 리포트 없음',
-          },
-        ],
-        b
-          ? `구속점은 ${b.bindingPublisher ?? '미상'} ${b.bindingIndex?.toFixed(3) ?? '—'} — 합본 평균이 이걸 감춘다`
-          : '벤치마크를 아직 안 쟀다',
+        gauges,
+        !b
+          ? '벤치마크를 아직 안 쟀다'
+          : gate?.judged && gate.judged.index < MARKET_TARGET_INDEX
+            ? `판정 가능한 구속점 ${gate.judged.publisher} ${gate.judged.index.toFixed(3)} — 목표 미달이다. 합본 평균이 이걸 감춘다`
+            : gate?.unreachable.length
+              ? `${gate.unreachable.map((u) => u.publisher).join(' · ')} 는 증거가 모자라 판정할 수 없다 — 생산으로는 안 풀린다. 그 출판사의 정답해설을 코퍼스에 넣는 것이 다음 일이다`
+              : '판정할 출판사가 없다',
         [
           {
             cmd: 'npx tsx --tsconfig apps/web/tsconfig.json scripts/textbook/market-benchmark.mjs --per-publisher',
@@ -601,6 +636,10 @@ export async function loadFactoryLine(): Promise<FactoryLine> {
             unit: 'ratio',
             target: 1,
             unmeasuredReason: bench ? undefined : '벤치마크 리포트 없음',
+            // ② 와 같은 리포트다 — 사람이 돌려야 갱신되므로 언제 잰 값인지를 함께 말한다.
+            note: bench
+              ? `리포트 ${bench.generatedAt.slice(0, 10)} 생성 · ${reportAgeDays(bench.generatedAt) ?? '?'}일 전`
+              : undefined,
           },
         ],
         '층이 하나라도 비면 그 책은 검수를 받은 것이 아니다 — 층마다 보는 것이 다르다',

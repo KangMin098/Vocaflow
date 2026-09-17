@@ -191,6 +191,21 @@ const drains = drainDirs.map((d) => {
   //    「3단 미완비」로 걸었다. 완비될 수 없는 것을 미완비라 부르면 분모가 거짓이 된다.
   //    적재기가 있어야 드레인이다 — 결과가 제품으로 돌아가는 것이 드레인의 정의다.
   const kind: 'drain' | 'blind' = importScript ? 'drain' : 'blind'
+
+  // ⚠️ **게이트는 파일 이름이 아니라 동작이다** (감사 2026-09-16 정정).
+  //   첫 판은 `*-drain-validate.mjs` 라는 **파일**이 있는 드레인만 「게이트 보유」로 세어 2/11 을 냈고,
+  //   그것을 근거로 「드레인 네 개에 검사기를 새로 붙이자」(T6)를 제안했다. 적재기를 열어 보니
+  //   네 개 모두 **이미** `--commit` 없이는 미리보기만 하고, 빈 값·짧은 값·규격 밖을 **이유와 수를
+  //   찍으며** 거르고 있었다 — CLAUDE.md 가 요구하는 그대로다. 새 파일은 중복이었다.
+  //   그래서 적재기 **안의** 관문도 게이트로 센다: dry-run 스위치 + 건너뛴 수 출력.
+  //   따로 돌릴 수 있는 검증기(`*-verify` · `*-audit` · `*-selfcheck`)도 함께 적는다.
+  const importSrc = importScript ? readFileSync(path.join(ROOT, importScript), 'utf8') : ''
+  const inImportGate =
+    /process\.argv\.includes\(\s*['"]--commit['"]\s*\)/.test(importSrc) &&
+    // `trim` 은 거부 사유를 `reject[코드]` 로 센다 — 낱말 「건너뛴」만 찾으면 그 자물쇠를 못 본다.
+    /건너뛴|건너뜀|skipped|skip\(|reject\[/.test(importSrc)
+  const checkRe = new RegExp(`^${base}-(drain-)?(verify|audit|selfcheck|validate)\\.m?[jt]s$`)
+  const siblingChecks = readdirSync(path.join(ROOT, dir)).filter((f) => checkRe.test(f))
   return {
     dir: d,
     kind,
@@ -204,8 +219,12 @@ const drains = drainDirs.map((d) => {
     validateScript: validateScript ?? null,
     /** 3단(export → Claude Code → import) 이 다 있는가. */
     complete: Boolean(exportScript && importScript),
-    /** 게이트(validate)까지 있는가 — 빈 값 적재를 막는 층. */
-    gated: Boolean(validateScript),
+    /** 적재기 안의 관문 — `--commit` 없이는 미리보기 + 건너뛴 수 출력. */
+    inImportGate,
+    /** 따로 돌려 볼 수 있는 검증기. */
+    siblingChecks,
+    /** 빈 값 적재를 막는 층이 **어디든** 있는가. */
+    gated: Boolean(validateScript) || inImportGate,
   }
 })
 
@@ -290,7 +309,7 @@ console.log(
 )
 for (const d of drains.filter((x) => x.kind === 'drain')) {
   console.log(
-    `  ${d.brief ? '·' : '✗'} ${d.dir.padEnd(36)} 지시문 ${(d.brief ?? '없음').slice(0, 28).padEnd(28)} 청크 ${String(d.chunks).padStart(4)} / 채움 ${String(d.outs).padStart(4)} / 적재 ${String(d.imported).padStart(4)}  ${d.gated ? '게이트 있음' : '게이트 없음'}`,
+    `  ${d.gated ? '·' : '✗'} ${d.dir.padEnd(36)} 게이트 ${d.validateScript ? '검증기 파일' : d.inImportGate ? '적재기 안(dry-run+건너뛴 수)' : '없음'}${d.siblingChecks.length ? ` · 별도 ${d.siblingChecks.join(', ')}` : ''} · 지시문 ${d.brief ?? '전용 파일 없음'}`,
   )
 }
 console.log(

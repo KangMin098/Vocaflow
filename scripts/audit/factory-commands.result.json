@@ -1,11 +1,11 @@
 {
-  "measuredAt": "2026-09-16T03:20:11.975Z",
+  "measuredAt": "2026-09-17T04:00:28.711Z",
   "help": {
     "screens": 10,
     "withDrain": 6,
     "withVerify": 6,
     "withRecovery": 6,
-    "rerunSafetyTotal": 24,
+    "rerunSafetyTotal": 25,
     "rows": [
       {
         "key": "csat-new",
@@ -30,12 +30,12 @@
       {
         "key": "csat",
         "hasDrain": true,
-        "rerunSafetyMentions": 1,
+        "rerunSafetyMentions": 2,
         "hasPrerequisites": true,
         "hasVerify": true,
         "hasRecovery": true,
         "hasCautions": true,
-        "steps": 14
+        "steps": 18
       },
       {
         "key": "csat-strategy",
@@ -65,7 +65,7 @@
         "hasVerify": true,
         "hasRecovery": true,
         "hasCautions": true,
-        "steps": 13
+        "steps": 14
       },
       {
         "key": "csat-authoring",
@@ -489,7 +489,7 @@
   "drains": {
     "total": 11,
     "withBrief": 3,
-    "gated": 2,
+    "gated": 11,
     "blindSets": 8,
     "rows": [
       {
@@ -503,6 +503,10 @@
         "importScript": "scripts/csat/analysis-drain-import.mjs",
         "validateScript": "scripts/csat/analysis-drain-validate.mjs",
         "complete": true,
+        "inImportGate": true,
+        "siblingChecks": [
+          "analysis-drain-validate.mjs"
+        ],
         "gated": true
       },
       {
@@ -516,6 +520,8 @@
         "importScript": null,
         "validateScript": null,
         "complete": false,
+        "inImportGate": false,
+        "siblingChecks": [],
         "gated": false
       },
       {
@@ -529,6 +535,8 @@
         "importScript": null,
         "validateScript": null,
         "complete": false,
+        "inImportGate": false,
+        "siblingChecks": [],
         "gated": false
       },
       {
@@ -542,6 +550,8 @@
         "importScript": null,
         "validateScript": null,
         "complete": false,
+        "inImportGate": false,
+        "siblingChecks": [],
         "gated": false
       },
       {
@@ -555,7 +565,9 @@
         "importScript": "scripts/csat/compose-drain-import.mjs",
         "validateScript": null,
         "complete": true,
-        "gated": false
+        "inImportGate": true,
+        "siblingChecks": [],
+        "gated": true
       },
       {
         "dir": "scripts/csat/compose-pilot",
@@ -568,6 +580,8 @@
         "importScript": null,
         "validateScript": null,
         "complete": false,
+        "inImportGate": false,
+        "siblingChecks": [],
         "gated": false
       },
       {
@@ -581,6 +595,8 @@
         "importScript": null,
         "validateScript": null,
         "complete": false,
+        "inImportGate": false,
+        "siblingChecks": [],
         "gated": false
       },
       {
@@ -594,6 +610,10 @@
         "importScript": "scripts/csat/gate-import.mjs",
         "validateScript": "scripts/csat/gate-drain-validate.mjs",
         "complete": false,
+        "inImportGate": true,
+        "siblingChecks": [
+          "gate-drain-validate.mjs"
+        ],
         "gated": true
       },
       {
@@ -607,7 +627,9 @@
         "importScript": "scripts/csat/gate-mixed-import.mjs",
         "validateScript": null,
         "complete": true,
-        "gated": false
+        "inImportGate": true,
+        "siblingChecks": [],
+        "gated": true
       },
       {
         "dir": "scripts/csat/locus-refold",
@@ -620,7 +642,9 @@
         "importScript": "scripts/csat/locus-refold-import.mjs",
         "validateScript": null,
         "complete": true,
-        "gated": false
+        "inImportGate": true,
+        "siblingChecks": [],
+        "gated": true
       },
       {
         "dir": "scripts/csat/topic-blind",
@@ -633,6 +657,8 @@
         "importScript": null,
         "validateScript": null,
         "complete": false,
+        "inImportGate": false,
+        "siblingChecks": [],
         "gated": false
       },
       {
@@ -646,7 +672,9 @@
         "importScript": "scripts/csat/trim-import.mjs",
         "validateScript": null,
         "complete": true,
-        "gated": false
+        "inImportGate": true,
+        "siblingChecks": [],
+        "gated": true
       },
       {
         "dir": "scripts/csat/vocab-blind",
@@ -659,6 +687,8 @@
         "importScript": null,
         "validateScript": null,
         "complete": false,
+        "inImportGate": false,
+        "siblingChecks": [],
         "gated": false
       },
       {
@@ -672,7 +702,9 @@
         "importScript": "scripts/textbook/adapt-drain-import.mjs",
         "validateScript": null,
         "complete": true,
-        "gated": false
+        "inImportGate": true,
+        "siblingChecks": [],
+        "gated": true
       },
       {
         "dir": "scripts/textbook/explain-drain",
@@ -685,7 +717,9 @@
         "importScript": "scripts/textbook/explain-drain-import.mjs",
         "validateScript": null,
         "complete": true,
-        "gated": false
+        "inImportGate": true,
+        "siblingChecks": [],
+        "gated": true
       },
       {
         "dir": "scripts/textbook/item-drain",
@@ -698,7 +732,12 @@
         "importScript": "scripts/textbook/item-drain-import.mjs",
         "validateScript": null,
         "complete": true,
-        "gated": false
+        "inImportGate": true,
+        "siblingChecks": [
+          "item-drain-audit.mjs",
+          "item-selfcheck.mjs"
+        ],
+        "gated": true
       },
       {
         "dir": "scripts/textbook/item-review-drain",
@@ -711,7 +750,9 @@
         "importScript": "scripts/textbook/item-review-drain-import.mjs",
         "validateScript": null,
         "complete": true,
-        "gated": false
+        "inImportGate": true,
+        "siblingChecks": [],
+        "gated": true
       },
       {
         "dir": "scripts/textbook/market-revise",
@@ -724,6 +765,8 @@
         "importScript": null,
         "validateScript": null,
         "complete": false,
+        "inImportGate": false,
+        "siblingChecks": [],
         "gated": false
       },
       {
@@ -737,7 +780,11 @@
         "importScript": "scripts/textbook/write-drain-import.mjs",
         "validateScript": null,
         "complete": true,
-        "gated": false
+        "inImportGate": true,
+        "siblingChecks": [
+          "write-drain-verify.mjs"
+        ],
+        "gated": true
       }
     ]
   }

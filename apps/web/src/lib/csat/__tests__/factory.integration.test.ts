@@ -215,7 +215,35 @@ describe.skipIf(skip)('교재 공장 공정 현황판 (실 DB)', () => {
       expect(binding.unmeasuredReason).toBeTruthy()
     } else {
       expect(typeof binding.num).toBe('number')
+      // 리포트는 사람이 돌려야 갱신된다 — 언제 만든 것인지가 눈금에 붙어 있어야 한다(T5).
+      expect(binding.note, '리포트 생성 시각이 눈금에 없다').toMatch(/생성/)
     }
+  })
+
+  /**
+   * ② 기획 — 구조적으로 목표에 못 닿는 출판사가 **「몫 남음」으로 공정을 막지 않는다**(T2).
+   *
+   * ⚠️ 2026-09-16 전에는 EBS(reachableMax 1.199)가 구속점이라 ②가 영원히 「몫 남음」이었다.
+   *   집필을 아무리 해도 안 꺼지는 경보였다. 그런 출판사는 「증거 부족」 눈금(못 잼)으로 따로 서고,
+   *   판정 구속점은 **목표에 닿을 수 있는 출판사 중 최저**다.
+   */
+  it('② 의 판정 구속점은 목표에 닿을 수 있는 출판사다 — 못 닿는 곳은 「증거 부족」으로 선다', async () => {
+    const line = await loadFactoryLine()
+    const market = line.stages.find((s) => s.def.id === 'market')!
+    const bench = line.bench.volume ?? line.bench.warehouse
+    if (!bench) return
+    const unreachable = bench.publishers.filter(
+      (p) => p.overallIndex != null && p.reachableMax != null && p.reachableMax < MARKET_TARGET_INDEX,
+    )
+    const gaps = market.gauges.filter((g) => g.label.startsWith('증거 부족'))
+    expect(gaps.map((g) => g.label)).toEqual(unreachable.map((p) => `증거 부족 — ${p.publisher}`))
+    for (const g of gaps) {
+      expect(g.num, '증거 부족 눈금이 수를 들고 있으면 「몫 남음」으로 판정된다').toBeNull()
+      expect(g.unmeasuredReason).toContain('증거')
+    }
+    // 판정 구속점이 못 닿는 출판사이면 안 된다.
+    const judged = market.gauges[0]!
+    for (const p of unreachable) expect(judged.label).not.toContain(p.publisher)
   })
 
   it('검수는 층이 넷이다 — 한 층만 통과한 것을 통과라고 부르지 않는다', async () => {
