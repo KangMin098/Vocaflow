@@ -1017,8 +1017,10 @@ gamekit 을 쓰지 않는 게임(WordBlitz · Pirate's Bounty)은 `GameKitStyles
 | 파일 모드 | [`app/(main)/csat/overlay/OverlayClient.tsx`](../apps/web/src/app/(main)/csat/overlay/OverlayClient.tsx) — 상태기계 + 전역 키보드(1~5 · Enter · ←/→ · Esc · L) + 겹 스위치 5(문항 번호·근거·선지·함정·어휘) + 겹 이동 시 종이 위 **한 번** 스크롤 |
 | 링크 모드 | [`app/(main)/csat/overlay/LinkPanel.tsx`](../apps/web/src/app/(main)/csat/overlay/LinkPanel.tsx) — 같은 문을 서버 렌더 쪽에도 단다. **전역 키보드는 안 건다**(같은 화면에 패널이 둘) |
 | 종이 위 모양 | 근거 **실선 밑줄**(`--success`) · 정답 기호 **실선**(`--success`) · 오답 기호 **파선**(`--warning`) · 어휘 **점선**(`--info`) — 색 하나에 뜻 하나이되 색만으로 말하지 않는다 |
+| 종이에 대한 말 | `OverlayPanel` 의 `paper` — `null`(종이 없음: 밑줄·점선 이야기를 안 한다) · `quote: found/missing/pending` · `vocabFound`. 「밑줄 친 자리」는 **찾았을 때만**, 못 찾으면 그렇다고 드러낸다 |
+| 다음 문항 | 마지막 겹에서만 · 같은 회차 · 재드롭 없음 · **풀기부터** (`nextAnchor` — 분석 사정권 밖·뒤 형 쪽수는 건너뛴다) |
 | 계측 | `csat_overlay_answered`(스스로 답했는가 · picked/correct/초 버킷) · `csat_overlay_revealed`(겹을 몇 장까지 · kind) |
-| 회귀 | 순수 9(`overlay-reveal`) + 마크업 13(`overlay-panel` — **제출 전 분석 0조각**) + 런타임 4(`tests/e2e/44-csat-overlay.spec.ts`) |
+| 회귀 | 순수 9(`overlay-reveal`) + 마크업 20(`overlay-panel` — **제출 전 분석 0조각** · 종이에 대한 말 · 다음 문항) + 런타임 4(`tests/e2e/44-csat-overlay.spec.ts`) |
 
 **실측 (2026-09-16 · 진짜 브라우저 · 2026 수능 영어 문제지)** — 제출 전 선지 상자 **0개** ·
 제출 후 **5개** · 키보드만으로 완주 · 390px 가로 밀림 **0px** · 콘솔 에러 **0**.

@@ -17,7 +17,7 @@
 //   ③ 상자가 캔버스 **안**에 있다 — 좌표 뒤집기가 틀리면 여기서 밖으로 나간다
 //   ④ **제출 전에는 선지 상자가 0개** — 해설은 감춰진 게 아니라 «없다»(순차 공개의 전부)
 //   ⑤ 답을 내면 선지 기호 상자 **5개**가 그려진다
-//   ⑥ 키보드만으로 풀고 겹을 넘긴다
+//   ⑥ 키보드만으로 풀고 겹을 넘긴다 · 끝나면 같은 회차 다음 문항이 **재드롭 없이, 풀기부터** 열린다
 //   ⑦ 390px 에서 가로 스크롤 0 — 두 단 화면이 좁은 폭에서 종이를 밀어내지 않는다
 //   ⑧ 콘솔 에러 0
 //
@@ -250,9 +250,27 @@ test.describe('기출 오버레이', () => {
     await page.keyboard.press('ArrowLeft');
     await expect(stepButtons.nth(0)).toHaveAttribute('aria-current', 'step');
 
+    // ── 끝까지 열면 같은 회차 다음 문항으로 — **문제지를 다시 떨어뜨리지 않는다** ──
+    for (let i = 0; i < total; i += 1) await page.keyboard.press('ArrowRight');
+    await expect(stepButtons.nth(total - 1)).toHaveAttribute('aria-current', 'step');
+    const nextBtn = paperSection(page).getByRole('button', { name: /^다음 문항 [0-9]+번 풀기/ });
+    await expect(nextBtn).toBeVisible();
+    const nextNo = Number((await nextBtn.innerText()).match(/([0-9]+)번/)![1]);
+    expect(nextNo, '다음 문항이 앞 번호를 가리킨다').toBeGreaterThan(NO);
+    await nextBtn.click();
+    const nextHeading = paperSection(page).getByRole('heading', { level: 2, name: new RegExp(`^${nextNo}번`) });
+    await expect(nextHeading).toBeVisible({ timeout: 15_000 });
+    // 다음 문항은 **풀기부터** — 앞 문항의 답과 겹이 따라오면 이미 풀린 채로 열린다.
+    await expect(
+      paperSection(page).getByRole('button', { name: /답을 안 고르고 보기|답 맞춰 보기/ }),
+    ).toBeVisible();
+    expect(await page.locator('div.pointer-events-none span[class*="border-2"]').count()).toBe(0);
+    // 파일 입력을 다시 건드리지 않았다 — 캔버스가 그대로 살아 있다.
+    await expect(page.locator('canvas')).toBeVisible();
+
     // Esc 로 닫는다.
     await page.keyboard.press('Escape');
-    await expect(paperSection(page).getByRole('heading', { level: 2, name: new RegExp(`^${NO}번`) })).toHaveCount(0);
+    await expect(paperSection(page).getByRole('heading', { level: 2, name: /^[0-9]+번/ })).toHaveCount(0);
 
     expect(errors, `콘솔 에러: ${errors.slice(0, 3).join(' | ')}`).toHaveLength(0);
   });

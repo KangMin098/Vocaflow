@@ -127,6 +127,8 @@ export default function OverlayClient({
   const [canvasSize, setCanvasSize] = useState<{ w: number; h: number } | null>(null)
   /** 근거 문장이 이 쪽에서 차지하는 자리. 비어 있으면 못 찾은 것이고, 그때는 안 칠한다. */
   const [quoteBoxes, setQuoteBoxes] = useState<HighlightBox[]>([])
+  /** 근거를 찾았는가 — 패널이 「밑줄 친 자리」라고 말해도 되는지가 여기에 달렸다 */
+  const [quoteState, setQuoteState] = useState<'pending' | 'found' | 'missing'>('pending')
   /** 어휘 낱말의 자리 — 근거와 같은 방식으로 학습자의 PDF 에서 찾는다(우리에겐 좌표가 없다). */
   const [vocabBoxes, setVocabBoxes] = useState<HighlightBox[][]>([])
 
@@ -181,6 +183,18 @@ export default function OverlayClient({
   /** 지금 겹이 켜는 것만 진하다 — 한 화면에서 두드러지는 것은 하나여야 한다(E4). */
   const focus = curStep?.focus ?? { quote: false, marks: [] as number[], vocab: false }
   const vocabWords = useMemo(() => (open?.required_vocab ?? []).filter(Boolean), [open])
+  /**
+   * 같은 회차의 다음 문항 — **문제지를 다시 떨어뜨리지 않는다**. 회차 한 벌이 이미 메모리에 있으므로
+   * 쪽만 넘기면 된다. 듣기처럼 분석 사정권 밖 문항은 건너뛴다(누를 것이 없다).
+   */
+  const nextAnchor = useMemo(() => {
+    if (openNo == null || !payload) return null
+    return (
+      [...payload.anchors.items]
+        .sort((a, b) => a.no - b.no)
+        .find((a) => a.no > openNo && a.p <= formPages && itemsByNo.has(a.no)) ?? null
+    )
+  }, [openNo, payload, formPages, itemsByNo])
   const hasFocus = focus.quote || focus.marks.length > 0 || focus.vocab
   // 이번 렌더가 가리킬 자리를 다시 모은다 — 비우지 않으면 «지난 겹» 의 자리로 데려간다.
   focusElRef.current = null
@@ -304,6 +318,7 @@ export default function OverlayClient({
    */
   useEffect(() => {
     setQuoteBoxes([])
+    setQuoteState('pending')
     const quote = open?.answer_quote
     if (!docRef.current || !quote) return
     let cancelled = false
@@ -320,6 +335,7 @@ export default function OverlayClient({
         )
         const boxes = locateQuote(items, quote)
         setQuoteBoxes(boxes)
+        setQuoteState(boxes.length > 0 ? 'found' : 'missing')
         // 문항 하나에 **한 번만** 센다 — 쪽을 넘나들며 같은 문항을 다시 그려도 세지 않는다.
         // 이 수가 우리가 PDF 텍스트 매칭의 성패를 아는 **유일한 길**이다(좌표는 우리에게 없다).
         if (open && locatedFor.current !== open.item_id) {
@@ -329,7 +345,10 @@ export default function OverlayClient({
       } catch {
         // 텍스트 레이어가 없는 문제지(스캔본)도 있다. 그 경우 조용히 안 칠한다 —
         // 이 기능이 없어도 나머지 상자는 그대로 쓸모 있다.
-        if (!cancelled) setQuoteBoxes([])
+        if (!cancelled) {
+          setQuoteBoxes([])
+          setQuoteState('missing')
+        }
       }
     })()
     return () => {
@@ -779,6 +798,13 @@ export default function OverlayClient({
             onStep={goStep}
             onLayer={(k: LayerKey) => setLayers((prev) => ({ ...prev, [k]: !prev[k] }))}
             onClose={() => setOpenNo(null)}
+            paper={{ quote: quoteState, vocabFound: vocabBoxes.filter((b) => b.length > 0).length }}
+            nextNo={nextAnchor?.no ?? null}
+            onNext={() => {
+              if (!nextAnchor) return
+              setPage(nextAnchor.p)
+              setOpenNo(nextAnchor.no)
+            }}
           />
         )}
       </aside>

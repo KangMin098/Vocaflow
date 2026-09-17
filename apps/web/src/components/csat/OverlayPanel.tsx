@@ -51,6 +51,18 @@ export interface OverlayPanelMeta {
   answer: number | null
 }
 
+/**
+ * 종이 위에서 **실제로 찾았는가.** 화면이 「밑줄 친 자리예요」라고 말하려면 밑줄이 있어야 한다.
+ *
+ * - `null` — 옆에 종이가 없다(링크 모드). 종이 이야기를 하지 않는다.
+ * - `quote` — 근거 문장: 찾는 중 / 찾음 / 못 찾음(스캔본·추출 오차)
+ * - `vocabFound` — 어휘 중 몇 개를 찾았나
+ */
+export interface PaperFind {
+  quote: 'pending' | 'found' | 'missing'
+  vocabFound: number
+}
+
 export interface OverlayPanelProps {
   item: OverlayPanelMeta
   /** **제출 전에는 null.** 해설은 만들어지지도 않는다(위 계약). */
@@ -69,6 +81,11 @@ export interface OverlayPanelProps {
   onStep: (i: number) => void
   onLayer: (k: LayerKey) => void
   onClose: () => void
+  /** 종이 위에서 찾은 결과. 없으면(링크 모드) 종이 이야기를 하지 않는다. */
+  paper?: PaperFind | null
+  /** 같은 회차 다음 문항 — 문제지를 다시 떨어뜨리지 않고 넘어간다 */
+  nextNo?: number | null
+  onNext?: () => void
 }
 
 const mmss = (sec: number) => {
@@ -93,6 +110,9 @@ export function OverlayPanel({
   onStep,
   onLayer,
   onClose,
+  paper = null,
+  nextNo = null,
+  onNext,
 }: OverlayPanelProps) {
   const solving = steps === null
   const cur = steps && step >= 0 && step < steps.length ? steps[step] : null
@@ -142,7 +162,16 @@ export function OverlayPanel({
             </p>
           ) : null}
           <Stepper steps={steps!} step={step} onStep={onStep} />
-          {cur ? <StepCard step={cur} showTrap={layers.traps} /> : null}
+          {cur ? <StepCard step={cur} showTrap={layers.traps} paper={paper} /> : null}
+          {nextNo != null && onNext && step >= steps!.length - 1 ? (
+            <button
+              type="button"
+              onClick={onNext}
+              className={`mt-3 inline-flex min-h-[44px] w-full items-center justify-center rounded-[var(--r-md)] border border-[var(--p)] bg-[var(--p)] px-4 text-sm text-[var(--on-p)] hover:bg-[var(--p-hover)] active:bg-[var(--p-dark)] disabled:opacity-50 ${BTN}`}
+            >
+              다음 문항 {nextNo}번 풀기 →
+            </button>
+          ) : null}
           {showLayers ? <Layers layers={layers} onLayer={onLayer} /> : null}
           <a
             href={`/csat/item/${item.slug}`}
@@ -288,11 +317,19 @@ function Stepper({ steps, step, onStep }: { steps: RevealStep[]; step: number; o
 }
 
 /** 지금 겹 한 장. 문제지 위의 강조와 **같은 것**을 말한다 — 둘이 어긋나면 눈이 헤맨다. */
-function StepCard({ step, showTrap }: { step: RevealStep; showTrap: boolean }) {
+function StepCard({ step, showTrap, paper }: { step: RevealStep; showTrap: boolean; paper: PaperFind | null }) {
   return (
     <div className="mt-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-3">
       {step.kind === 'evidence' ? (
-        <p className="text-xs text-[var(--t3)]">문제지에 밑줄 친 자리예요</p>
+        // 밑줄이 **실제로 있을 때만** 「밑줄 친 자리」라고 말한다. 못 찾은 것을 숨기지 않는다 —
+        // 조용히 비워 두면 학습자는 밑줄을 찾아 종이를 헤맨다.
+        paper?.quote === 'found' ? (
+          <p className="text-xs text-[var(--t3)]">문제지에 밑줄 친 자리예요</p>
+        ) : paper?.quote === 'missing' ? (
+          <p className="mb-1 inline-flex rounded-[var(--r-md)] bg-[var(--bg3)] px-2 py-0.5 text-xs text-[var(--t2)]">
+            이 문장은 문제지에서 자동으로 찾지 못했어요 — 지문에서 직접 짚어 보세요
+          </p>
+        ) : null
       ) : null}
 
       {showTrap && step.trap ? (
@@ -328,7 +365,14 @@ function StepCard({ step, showTrap }: { step: RevealStep; showTrap: boolean }) {
 
       {step.vocab.length ? (
         <>
-          <p className="text-xs text-[var(--t3)]">이 문항이 요구한 낱말 — 문제지에서 점선으로 표시했어요</p>
+          <p className="break-keep text-xs text-[var(--t3)]">
+            이 문항이 요구한 낱말
+            {paper
+              ? paper.vocabFound > 0
+                ? ` — ${step.vocab.length}개 중 ${paper.vocabFound}개를 문제지에 점선으로 표시했어요`
+                : ' — 이 쪽에서는 찾지 못했어요'
+              : ''}
+          </p>
           <ul className="mt-2 flex flex-wrap gap-1.5">
             {step.vocab.map((w) => (
               <li

@@ -131,6 +131,59 @@ describe('순차 공개 — 한 겹씩만 열린다', () => {
   })
 })
 
+describe('화면이 종이에 대해 거짓말하지 않는다', () => {
+  const vocabStep = () => steps.length - 1
+
+  it('종이가 없는 자리(링크 모드)에서는 밑줄·점선 이야기를 하지 않는다', () => {
+    const ev = markup({ steps, picked: 3, step: 0, paper: null })
+    expect(ev).toContain(QUOTE)
+    expect(ev).not.toContain('밑줄')
+    const vo = markup({ steps, picked: 3, step: vocabStep(), paper: null })
+    expect(vo).toContain(VOCAB)
+    expect(vo).not.toContain('점선')
+  })
+
+  it('근거를 찾았을 때만 「밑줄 친 자리」라고 말한다', () => {
+    expect(markup({ steps, picked: 3, step: 0, paper: { quote: 'found', vocabFound: 0 } })).toContain(
+      '밑줄 친 자리',
+    )
+    for (const quote of ['pending', 'missing'] as const) {
+      expect(markup({ steps, picked: 3, step: 0, paper: { quote, vocabFound: 0 } })).not.toContain('밑줄 친 자리')
+    }
+  })
+
+  it('못 찾은 것을 숨기지 않는다 — 직접 짚으라고 말한다', () => {
+    const html = markup({ steps, picked: 3, step: 0, paper: { quote: 'missing', vocabFound: 0 } })
+    expect(html).toContain('자동으로 찾지 못했어요')
+  })
+
+  it('어휘는 찾은 수만큼만 표시했다고 말한다', () => {
+    const found = markup({ steps, picked: 3, step: vocabStep(), paper: { quote: 'found', vocabFound: 1 } })
+    expect(found).toContain('1개 중 1개')
+    const none = markup({ steps, picked: 3, step: vocabStep(), paper: { quote: 'found', vocabFound: 0 } })
+    expect(none).not.toContain('점선')
+    expect(none).toContain('찾지 못했어요')
+  })
+})
+
+describe('같은 회차 다음 문항', () => {
+  it('마지막 겹에서만 나타난다 — 중간에 두면 겹을 건너뛰는 출구가 된다', () => {
+    const onNext = () => {}
+    expect(markup({ steps, picked: 3, step: 0, nextNo: 31, onNext })).not.toContain('다음 문항 31번')
+    expect(markup({ steps, picked: 3, step: steps.length - 1, nextNo: 31, onNext })).toContain('다음 문항 31번')
+  })
+
+  it('다음 문항이 없으면 단추도 없다', () => {
+    expect(markup({ steps, picked: 3, step: steps.length - 1, nextNo: null, onNext: () => {} })).not.toContain(
+      '다음 문항',
+    )
+  })
+
+  it('풀기 단계에는 없다', () => {
+    expect(markup({ nextNo: 31, onNext: () => {} })).not.toContain('다음 문항 31번')
+  })
+})
+
 describe('압박하지 않는다', () => {
   it('틀린 답에 오류색·주묵을 쓰지 않는다', () => {
     const html = markup({ steps, picked: 1, step: 0 })
