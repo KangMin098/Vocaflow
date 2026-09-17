@@ -1,6 +1,6 @@
 'use client'
 
-// apps/web/src/app/(main)/csat/predict/PriorityClient.tsx
+// apps/web/src/app/admin/kice/predict/PriorityClient.tsx
 //
 // **주인공: 등급 슬라이더.** 학습자가 「어디까지 볼 것인가」를 직접 좁힌다.
 //
@@ -85,8 +85,8 @@ export function PriorityClient({
             >
               <div className="flex flex-wrap items-baseline justify-between gap-2">
                 <a
-                  href={`/csat/${r.typeId}`}
-                  className="font-editorial text-[15px] font-[600] text-[var(--t1)] underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
+                  href={`/admin/kice/${r.typeId}`}
+                  className="inline-flex min-h-[44px] items-center font-editorial text-[15px] font-[600] text-[var(--t1)] underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
                 >
                   {r.name}
                 </a>

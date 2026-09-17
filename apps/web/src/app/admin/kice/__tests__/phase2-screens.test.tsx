@@ -1,4 +1,7 @@
-// apps/web/src/app/(main)/csat/__tests__/phase2-screens.test.tsx
+// apps/web/src/app/admin/kice/__tests__/phase2-screens.test.tsx
+//
+// 2026-09-17 — 학습자 `/csat` 밑에 있던 분석 화면을 관리자 뷰로 옮기며 함께 옮겼다.
+// 학습자 레일(`CsatSteps`)·모드 선택(`ModePicker`)은 세션 루프로 대체돼 검사도 걷었다.
 //
 // **브리프 [G] 완료 조건을 기계로 채점한다.**
 //
@@ -9,9 +12,7 @@
 import { renderToStaticMarkup } from 'react-dom/server'
 import { describe, expect, it, vi } from 'vitest'
 
-import { CsatSteps } from '@/components/csat/CsatSteps'
 import { Heatmap } from '@/components/csat/Heatmap'
-import { ModePicker } from '@/components/csat/ModePicker'
 import { AXIS } from '@/lib/csat/axes'
 import { buildHeatmap, type Heatmap as HeatmapData } from '@/lib/csat/heatmap'
 import { buildPriority } from '@/lib/csat/priority'
@@ -19,7 +20,7 @@ import { PriorityClient } from '../predict/PriorityClient'
 import { BAND_LABEL, BAND_SAYS, type Band } from '@/lib/csat/priority'
 
 // `usePathname` 은 라우터 밖에서 null 을 준다 — 컴포넌트가 그걸 견디는지도 함께 본다.
-vi.mock('next/navigation', () => ({ usePathname: () => '/csat/map' }))
+vi.mock('next/navigation', () => ({ usePathname: () => '/admin/kice/map' }))
 
 const mapData: HeatmapData = {
   ...buildHeatmap(
@@ -44,8 +45,6 @@ const bandInfo = BANDS.map((b) => ({ band: b, label: BAND_LABEL[b], says: BAND_S
 
 const SCREENS: [string, string][] = [
   ['지형 히트맵', renderToStaticMarkup(<Heatmap data={mapData} />)],
-  ['모드 선택', renderToStaticMarkup(<ModePicker />)],
-  ['단계 레일', renderToStaticMarkup(<CsatSteps />)],
   [
     '사정권',
     renderToStaticMarkup(
@@ -145,26 +144,6 @@ describe('G5 — 두 축이 시각적으로 갈린다', () => {
   })
 })
 
-describe('빈 상태는 다음 한 걸음이다 (A4 · D5)', () => {
-  /**
-   * ⚠️ 이 검사는 두 번 뒤집혔다. 처음엔 「⑥⑦ 이 링크가 아니어야 한다」였는데 그 둘이
-   *   이미 있는 화면이었고(/csat/drill · /csat/plan), 다음엔 ⑦ 「내 기록」이 아직인 줄
-   *   알았는데 그것도 이미 돌고 있었다. 지금 레일에는 **막힌 칸이 없다** — 그래서
-   *   검사도 그렇게 적는다. 막힌 칸이 생기면 이 검사가 먼저 깨진다.
-   */
-  it('레일의 모든 칸이 실제로 갈 수 있는 링크다', () => {
-    const html = S('단계 레일')
-    expect(html).not.toContain('아직 열리지 않음')
-    // 없는 라우트로 가는 칸이 없다. `/csat/patterns` 는 2026-09-16 에 걷어냈다
-    // (`my-traps.ts` 와 같은 질문에 답해 잉여가 됐다 — `steps.ts` 머리말 참조).
-    for (const dead of ['/csat/train', '/csat/review', '/csat/patterns', '/csat/item"']) {
-      expect(html, dead).not.toContain(`href="${dead}`)
-    }
-    // 다섯 칸이 전부 <a> 다 — 지도·지형·사정권·겨루기·주파.
-    expect((html.match(/<a /g) ?? []).length).toBe(5)
-  })
-})
-
 describe('E5 — 숫자는 분모와 함께', () => {
   it('히트맵 행 끝이 전체 문항 수를 든다', () => {
     expect(S('지형 히트맵')).toContain('>3<')
@@ -172,12 +151,6 @@ describe('E5 — 숫자는 분모와 함께', () => {
 
   it('사정권이 최근/전체를 함께 적는다', () => {
     expect(S('사정권')).toMatch(/최근 \d+ \/ 전체 \d+/)
-  })
-})
-
-describe('현재 단계 표시', () => {
-  it('레일이 현재 칸에 aria-current 를 준다', () => {
-    expect(S('단계 레일')).toContain('aria-current="step"')
   })
 })
 

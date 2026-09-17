@@ -1,6 +1,6 @@
 'use client'
 
-// apps/web/src/app/(main)/csat/map/MapClient.tsx
+// apps/web/src/app/admin/kice/map/MapClient.tsx
 //
 // 히트맵에서 칸을 고르면 **그 칸으로 드릴다운**한다.
 //
@@ -26,21 +26,13 @@ export function MapClient({ data }: { data: HeatmapData }) {
           className="flex flex-wrap gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-3"
         >
           <a
-            href={`/csat/${pick.typeId}`}
+            href={`/admin/kice/${pick.typeId}`}
             className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 text-sm text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
           >
             {row.name} 유형 해부 →
           </a>
-          {/* ⚠️ 여기는 `/csat/patterns`(묶기) 로 가고 있었다. 그 화면은 걷어냈다 —
-              「내가 챙길 함정」은 손으로 고르는 것보다 **실제로 틀린 기록**이 낫고,
-              그쪽은 이미 있다(`my-traps.ts`). 그래서 다음 문을 **겨루기**로 바꾼다:
-              고른 유형을 본 뒤 할 일은 묶어 두는 것이 아니라 **가려낼 수 있는지 보는 것**이다. */}
-          <a
-            href="/csat/drill"
-            className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 text-sm text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
-          >
-            이 수법 가려낼 수 있는지 해 보기 →
-          </a>
+          {/* 예전에는 여기서 학습자 훈련(`/csat/drill`)으로 이었다. 그 화면은 세션 루프로
+              대체돼 걷었다(docs/csat-learner/DECISIONS.md D8) — 관리자 뷰의 다음 문은 해부 하나다. */}
         </nav>
       ) : null}
     </div>

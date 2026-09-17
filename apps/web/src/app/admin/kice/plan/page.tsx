@@ -1,4 +1,4 @@
-// apps/web/src/app/(main)/csat/plan/page.tsx
+// apps/web/src/app/admin/kice/plan/page.tsx
 //
 // **한 회차 주파 계획** — 유형 분석을 번호 순서로 늘어놓은 것.
 //
@@ -15,6 +15,8 @@
 
 import type { Metadata } from 'next'
 import Link from 'next/link'
+
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 
 import { PlanTimeline } from '@/components/csat/PlanTimeline'
 import { loadCsatPlan } from '@/lib/csat/learner'
@@ -45,7 +47,7 @@ export default async function CsatPlanPage() {
   return (
     <div className="mx-auto max-w-3xl">
       <Link
-        href="/csat"
+        href="/admin/kice"
         className="inline-flex min-h-[44px] items-center text-sm text-[var(--t3)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
       >
         ← 유형 목록
@@ -53,6 +55,7 @@ export default async function CsatPlanPage() {
 
       <header className="mb-6 mt-2">
         <h1 className="font-editorial text-2xl font-[600] text-[var(--t1)]">한 회차 주파 계획</h1>
+        <AdminScreenHelp screen="kice-plan" className="mt-2" />
         <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[var(--t2)]">
           번호별 유형은 2019학년도부터 고정입니다. 그래서 <strong>번호를 보면 무엇을 할지 미리 정해
           둘 수 있어요.</strong> 아래는 {plan.exam_label || '최근 수능'} 기준입니다.

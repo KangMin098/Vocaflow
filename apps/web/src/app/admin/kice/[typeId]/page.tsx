@@ -1,4 +1,4 @@
-// apps/web/src/app/(main)/csat/[typeId]/page.tsx
+// apps/web/src/app/admin/kice/[typeId]/page.tsx
 //
 // 유형 하나의 분석 — **센 것이 먼저, 산문은 요청할 때.**
 //
@@ -25,6 +25,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { LocusBar } from '@/components/csat/LocusBar'
 import { ReportText } from '@/components/csat/ReportText'
 import { TrapAtlas } from '@/components/csat/TrapAtlas'
@@ -82,7 +83,7 @@ export default async function CsatTypePage({ params }: { params: Promise<{ typeI
   return (
     <div className="mx-auto max-w-3xl">
       <Link
-        href="/csat"
+        href="/admin/kice"
         className="inline-flex min-h-[44px] items-center text-sm text-[var(--t3)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
       >
         ← 유형 목록
@@ -96,6 +97,7 @@ export default async function CsatTypePage({ params }: { params: Promise<{ typeI
         <>
           <header className="mb-5 mt-2">
             <h1 className="break-keep font-editorial text-2xl font-[600] text-[var(--t1)]">{detail.name}</h1>
+            <AdminScreenHelp screen="kice-type" className="mt-2" />
             <p className="mt-1.5 text-xs text-[var(--t3)]">
               기출 {detail.items}문항
               {detail.n_analyzed > 0 ? ` · 분석 ${detail.n_analyzed}문항` : ''}
@@ -293,7 +295,7 @@ export default async function CsatTypePage({ params }: { params: Promise<{ typeI
                 {items.map((it) => (
                   <li key={it.id}>
                     <Link
-                      href={`/csat/item/${it.slug}`}
+                      href={`/admin/kice/item/${it.slug}`}
                       className="flex min-h-[44px] items-center justify-between gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-2 transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] hover:bg-[var(--bg3)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)] motion-reduce:transition-none"
                     >
                       <span className="text-sm text-[var(--t1)]">

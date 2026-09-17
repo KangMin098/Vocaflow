@@ -1,4 +1,4 @@
-// apps/web/src/app/(main)/csat/plan/PlanList.tsx
+// apps/web/src/app/admin/kice/plan/PlanList.tsx
 //
 // **⑤ 주파 — 한 회차를 「시험 순서」로도, 「내 약한 것 먼저」로도 본다.**
 //
@@ -91,8 +91,8 @@ export function PlanList({ rows, mine }: { rows: CsatPlanRow[]; mine: MyTrapSumm
               <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
                 <span className="font-display text-sm font-bold tabular-nums text-[var(--t1)]">{r.no}번</span>
                 <Link
-                  href={`/csat/${r.type_id}`}
-                  className="text-sm text-[var(--p)] underline-offset-2 transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
+                  href={`/admin/kice/${r.type_id}`}
+                  className="inline-flex min-h-[44px] items-center text-sm text-[var(--p)] underline-offset-2 transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
                 >
                   {r.type_name}
                 </Link>
@@ -133,13 +133,7 @@ export function PlanList({ rows, mine }: { rows: CsatPlanRow[]; mine: MyTrapSumm
       {/* 기록이 얇을 때 **왜 토글이 없는지** 말한다 — 없는 이유를 안 적으면 없는 기능이 된다. */}
       {!canWeak ? (
         <p className="mt-3 break-keep text-xs leading-relaxed text-[var(--t3)]">
-          훈련 기록이 쌓이면 여기에 <strong>「내 약한 것 먼저」</strong> 순서가 생겨요 —{' '}
-          <Link
-            href="/csat/drill"
-            className="underline decoration-[var(--bd)] underline-offset-4 transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:text-[var(--t1)] hover:decoration-[var(--p)] motion-reduce:transition-none"
-          >
-            오답 감별 훈련 →
-          </Link>
+          오답 감별 기록이 쌓이면 여기에 <strong>「내 약한 것 먼저」</strong> 순서가 생겨요.
         </p>
       ) : null}
     </>

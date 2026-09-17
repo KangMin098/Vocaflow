@@ -497,6 +497,24 @@ KPI 카드는 §13 StatCard 와 다른 디자인 — delta 변화율 (`▲ 12%`)
 
 ---
 
+## /admin/kice — 기출 분석 뷰 (2026-09-17 학습자 `/csat` 에서 이전)
+
+학습자 `/csat` 이 「오늘의 세션」 루프 하나로 바뀌면서(docs/csat-learner-brief.md) 분석을 **읽는** 화면이 관리자
+몫이 됐다. 화면 자체는 그대로 옮겼고 학습자 링크(훈련·오버레이)만 걷었다. 사이드바 「교재」 묶음의 「기출 분석 뷰」.
+화면도움말 `lib/admin/help/kice.ts`(6 화면). 처분표 [csat-learner/gate0-routes.md](./csat-learner/gate0-routes.md).
+
+| 경로 | 무엇 | 조작 |
+|---|---|---|
+| `/admin/kice` | 오답 분포 지도 + 유형 카드 26 + 지형·사정권·계획 링크 | 읽기 전용(칩으로 분포 재집계) |
+| `/admin/kice/[typeId]` | 유형 리포트 — 첫 절차가 학습자 세션 ③ 「한 줄」의 재료 | 읽기 전용 |
+| `/admin/kice/item/[slug]` | 문항 해설 전문 + 강의 재생 — **강의 검수 하네스 경로**(`gate2-play.mts` · e2e 46) | 강의 재생만 |
+| `/admin/kice/map` · `/predict` · `/plan` | 출제 지형 · 사정권 · 한 회차 주파 계획 | 읽기 전용 |
+
+⚠️ 「내 기록」 칩과 계획의 「내 약한 것 먼저」는 옛 훈련 기록(`csat_trap_attempts`)을 읽는다. 새 세션 기록은 지금
+학습자 기기(IndexedDB)에만 있어 여기 안 잡힌다 — 서버 표(`_pending_csat_session_records.sql`) 승인 전까지 정상이다.
+
+---
+
 ## /admin/csat — 교재 공장 (공정 8칸)
 
 **요청은 「파이프라인」이었는데 오래 조회 표 세 개였다.** 표는 "지금 몇 개인가" 에는 답하지만

@@ -407,7 +407,7 @@ function TrapDetail({ row }: { row: RankRow }) {
           {row.examples.map((ex) => (
             <li key={`${ex.item_id}-${ex.choice}`} className="border-l-2 border-[var(--bd)] pl-3">
               <a
-                href={`/csat/item/${ex.slug}`}
+                href={`/admin/kice/item/${ex.slug}`}
                 className="inline-flex min-h-[44px] items-center text-xs text-[var(--t3)] underline decoration-[var(--bd)] underline-offset-4 transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:text-[var(--t1)] hover:decoration-[var(--p)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
               >
                 {ex.exam_label} <span className="tabular-nums">{ex.no}번</span> · {ex.choice}번 선지 →

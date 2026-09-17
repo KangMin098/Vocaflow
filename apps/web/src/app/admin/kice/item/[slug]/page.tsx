@@ -1,4 +1,4 @@
-// apps/web/src/app/(main)/csat/item/[slug]/page.tsx
+// apps/web/src/app/admin/kice/item/[slug]/page.tsx
 //
 // **문항 하나의 해설 — 「이 문제의 답이 왜 이것인가」.**
 //
@@ -18,6 +18,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { PassageMap } from '@/components/csat/PassageMap'
 import { LecturePlayerBar } from '@/components/csat/lecture/LecturePlayerBar'
 import { LectureStage } from '@/components/csat/lecture/LectureStage'
@@ -172,7 +173,7 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
   return (
     <div className="mx-auto max-w-3xl">
       <Link
-        href={item?.type_id ? `/csat/${item.type_id}` : '/csat'}
+        href={item?.type_id ? `/admin/kice/${item.type_id}` : '/admin/kice'}
         className="inline-flex min-h-[44px] items-center text-sm text-[var(--t3)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
       >
         ← {item?.type_name ?? '유형 목록'}
@@ -188,6 +189,7 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
             <h1 className="font-editorial text-2xl font-[600] text-[var(--t1)]">
               {item.exam_label} {item.no}번
             </h1>
+            <AdminScreenHelp screen="kice-item" className="mt-2" />
             <p className="mt-2 text-xs text-[var(--t3)]">
               {item.type_name ?? '유형 미정'}
               {item.points ? ` · ${item.points}점` : ''}
@@ -355,7 +357,7 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
               1차 문이므로 다른 링크보다 앞에 두고 더 또렷하게 그린다. */}
           {next ? (
             <Link
-              href={`/csat/item/${next.item.slug}`}
+              href={`/admin/kice/item/${next.item.slug}`}
               className="mt-8 flex min-h-[44px] items-center justify-between gap-3 rounded-[var(--r-md)] border border-[var(--p)] bg-[var(--bg)] px-4 py-3 transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg3)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)] motion-reduce:transition-none"
             >
               <span className="min-w-0 break-keep">
@@ -372,14 +374,11 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
             </Link>
           ) : null}
 
-          {/* 「곁에 두고 읽는다」의 «곁» 을 같은 화면으로 옮기는 길 — 이 화면이 원문을 싣지
-              않는다는 사실이 바로 이 링크의 이유다. 막다른 안내로 끝내지 않는다(D4). */}
-          <Link
-            href={`/csat/overlay?exam=${encodeURIComponent(item.id.split('#')[0])}&no=${item.no}`}
-            className="mt-8 inline-flex min-h-[44px] items-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 text-sm text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] hover:bg-[var(--bg3)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)] motion-reduce:transition-none"
-          >
-            {hasKicePaper ? '평가원 원본과 함께 보기 →' : '문제지 열고 해설 얹기 →'}
-          </Link>
+          {/* 학습자가 이 문항을 원문과 함께 푸는 자리는 이제 `/csat/session` 이다(문제지 reflow).
+              예전의 `/csat/overlay` 링크는 그 화면과 함께 걷었다(docs/csat-learner/DECISIONS.md D8). */}
+          {hasKicePaper ? (
+            <p className="mt-8 break-keep text-xs text-[var(--t3)]">평가원 원본 직접 링크가 있는 회차예요.</p>
+          ) : null}
 
           <p className="mt-6 text-xs leading-relaxed text-[var(--t3)]">
             문항 원문(지문·선지)은 싣지 않습니다. 저작권은 한국교육과정평가원에 있고, 여기 있는 것은

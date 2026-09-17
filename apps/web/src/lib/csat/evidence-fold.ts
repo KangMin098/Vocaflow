@@ -191,7 +191,7 @@ export interface EvidenceData {
 
 // ── 유형 리포트 오염 판정 ───────────────────────────────────────────────
 
-/** 학습자 화면(`/csat/[typeId]`)이 상위 6개만 그리므로, 그 6개 안의 오염만 배포를 막는다. */
+/** 분석 뷰(`/admin/kice/[typeId]`, 옛 학습자 유형 화면)가 상위 6개만 그리므로, 그 6개 안의 오염만 배포를 막는다. */
 export const LEARNER_FAILURE_MODES = 6
 
 /**
@@ -249,7 +249,7 @@ export const FIELDS: readonly FieldDef[] = [
   { key: 'trap', label: '함정 라벨', stage: '③설계', defect: null },
   { key: 'procedure', label: '풀이 절차', stage: '학습자·⑥해설', defect: null },
   { key: 'vocab', label: '필수 어휘', stage: '어휘 드레인', defect: null },
-  { key: 'time', label: '권장 시간', stage: '/csat/plan', defect: null },
+  { key: 'time', label: '권장 시간', stage: '/admin/kice/plan', defect: null },
   { key: 'predicted', label: '예측 정답률', stage: '⑤집필', defect: null },
   { key: 'body', label: '지문 본문', stage: '④소재·⑥해설', defect: 'body' },
   { key: 'review3', label: '3인 검수', stage: '⑦검수', defect: null },
