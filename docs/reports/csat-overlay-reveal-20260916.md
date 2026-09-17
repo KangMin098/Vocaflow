@@ -78,7 +78,8 @@ csat_drill_answered · csat_drill_finished · csat_trap_opened
 사람이 목록 셋을 눈으로 맞추는 한 다시 일어난다 — 지금 이것을 잡은 것은 지침이 아니라
 **실제로 INSERT 해 보는 검사**(`db-allowlist.integration.test.ts`)다.
 
-→ 마이그레이션 `20260916120000_funnel_allow_csat_rest.sql` 이 여덟을 함께 넣는다.
+→ 마이그레이션 `20260916120000_funnel_allow_csat_rest.sql` 이 여덟을 함께 넣는다. **2026-09-17 적용** — 적용 뒤 실제 INSERT 검사 통과(전날 8건 거부 → 0).
+  이 여섯의 **관측은 적용 시점부터** 시작한다. 그전 기간은 복구할 수 없다(보낸 이벤트가 어디에도 남지 않았다).
 
 ---
 
