@@ -22,6 +22,8 @@ import {
 } from '@/lib/textbook/source-workspace'
 import { SourceInventoryTable, SourceDetail } from './SourceInventoryTable'
 import styles from './sources.module.css'
+import { SourceOperations, SourceQueueSummary } from './SourceOperations'
+import type { SourceQueue } from '@/lib/textbook/source-operations'
 
 export function SourceWorkspace({
   panel,
@@ -37,6 +39,7 @@ export function SourceWorkspace({
   operations: ReactNode
 }) {
   const [state, setState] = useState(initialState)
+  const [queue, setQueue] = useState<SourceQueue>('p0')
   const heading = useRef<HTMLHeadingElement>(null)
   const trigger = useRef<HTMLButtonElement | null>(null)
   const tabs = useRef<Partial<Record<SourceView, HTMLButtonElement | null>>>({})
@@ -98,6 +101,7 @@ export function SourceWorkspace({
         </div>
         <AdminScreenHelp screen="csat-sources" tab={SOURCE_VIEWS[state.view]} />
       </header>
+      <SourceQueueSummary onSelect={q => { setQueue(q); update({ view: 'eligibility' }) }} />
       <section className={styles.overview} aria-label="판정 현황과 측정 시각">
         <button className={styles.verdict} onClick={() => update({ view: 'eligibility' })}>
           <span>교재에 실을 수 있는 원문</span>
@@ -278,7 +282,8 @@ export function SourceWorkspace({
           <h3>교재에 사용할 수 있는 이유와 제외되는 이유</h3>
           <p>조판은 일곱 축의 판정을 통과한 원문만 받습니다. 수집 상태와는 별개의 기준입니다.</p>
         </div>
-        {eligibility}
+        <SourceOperations queue={queue} onQueue={setQueue} />
+        <details><summary>전체 판정 기준과 집계 상세</summary>{eligibility}</details>
       </section>
       <section
         className={styles.reference}

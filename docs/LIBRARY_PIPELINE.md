@@ -1,5 +1,29 @@
 # Library Pipeline
 
+## CSAT 파생 콘텐츠의 원문 정책 v3 (2026-09-18)
+
+최종 판정은 `source-eligibility.ts:evaluateSource` 한 벌이다. `judgeSource`는 기존 7축 진단이며 사용 허가에는 쓰지 않는다.
+조판·감사·스냅샷·관리자 재검증은 같은 함수를 호출하고 학습자 RPC는 동일 판정의 DB 캐시와 revision을 검증한다.
+reject·분석 누락·CEFR 초과는 사용 차단. 발췌 위치만 있으면 후보이며 승인된 지문이 아니다.
+
+운영 순서(저장소 루트):
+
+1. `SELECT ref_id, count(*) AS items FROM csat_dcp_items WHERE kind='article' GROUP BY ref_id ORDER BY ref_id`를 JSON으로 내보낸다.
+2. `pnpm exec tsx scripts/textbook/source-policy-refresh.mjs --item-counts <JSON> --output <JSONL>` — 읽기 전용 dry run.
+3. diff·영향·배치 백업 경로를 확인하고 DB checkpoint before를 남긴다.
+4. `--commit <JSONL> --limit 100`으로 소량 검증 후 `--commit <JSONL> --all`로 500행씩 적재한다. 파일은 24시간 이내여야 하며 canonical 판정을 대조한다. 배치 전체의 현재 원문 revision과 기존 캐시 측정시각을 확인한 뒤 쓰고, DB trigger에서도 원자적으로 검사한다. 같은 revision의 더 오래된 측정은 거절되며 동일 입력 재실행은 변경 0. 거절 시 최신 입력으로 다시 내보낸다.
+5. checkpoint after/diff, `source-eligibility-scan.mjs`, `source-inventory-scan.mjs`, `scripts/audit/csat-sources-audit.mjs --check`로 확인한다. 스캔은 DB 읽기만 하며 UI JSON을 갱신한다. 한 원문은 관리자 inspector에서 재검증할 수 있다.
+
+배치 전 캐시 백업은 `.agent-logs`에 기록한다. 복구는 해당 배치의 이전 값만 복원하며 원문/정답을 덮지 않는다.
+원문 수정은 별도 revision 조건·본문 해시·앵커 영향 검증이 필요하다. 캐시 재검증은 내용 AI 판정을 대신하지 않는다.
+운영 집계는 현재 ready/published 원문과 일치하는 캐시만 적격으로 센다. 누락·변경 캐시는 `캐시 재검증` 큐에서 사용 대기로 노출하며 보관된 원문은 후보에서 제외한다.
+VOA ingestion은 관측된 댓글 안내 문단 제거 후 최소 길이를 검사한다. 기존 450편은 문항 100개(4편)의 위치 영향 때문에 보존한다.
+미판정 raw 31,367편은 발췌 후 판정 경로, 나머지 17,444편은 내용 검토 대상이다.
+
+일일 읽기 전용 workflow `csat-source-audit.yml`은 DB/cache/snapshot drift와 모순을 exit 1로 알린다.
+기본 브랜치 반영 및 기존 Supabase secrets 설정 후 일정 실행이 활성화된다. 자동 데이터 수정은 없다.
+상세: [Gate 기록](./reports/csat-sources-normalization-20260918.md).
+
 > 라이브러리 도서·짧은 글·공용 단어장·어휘 분류 — 4 개 큐레이션 파이프라인.
 > 작성 시점: 2026-06-08 (v06.34).
 

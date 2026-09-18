@@ -41,7 +41,7 @@ describe('규칙별 실측 표본', () => {
 
   it('wiki-markup — 절 표시와 대괄호 링크', () => {
     expect(idsOf('Some prose.\n== Plot ==\nMore prose here.')).toContain('wiki-markup')
-    expect(idsOf('Formal reasoning about [[ATP;Kinase]] in cells.')).toContain('wiki-markup')
+    expect(idsOf('A link to [[Earth]] in the source.')).toContain('wiki-markup')
   })
 
   it('browser-notice — 추출이 본문 대신 안내문을 가져왔다', () => {
@@ -75,6 +75,15 @@ describe('규칙별 실측 표본', () => {
 })
 
 describe('오탐 — 멀쩡한 글을 잃지 않는다', () => {
+  it('전수 표본의 음운·비교·인용·악보·질문을 결함으로 오인하지 않는다', () => {
+    expect(idsOf('Phonemes are written <p, t, k, m, n>. A3 <A1 in the comparison.')).not.toContain('html-attr')
+    for (const text of ['Formal reasoning about [[ATP;Kinase]] in cells.', 'Studies [[ 17 , 18 ]] agree.', 'Capriccio [[A]], [[C]], [[M-P]].']) {
+      expect(idsOf(text)).not.toContain('wiki-markup')
+    }
+    expect(idsOf('Within a period of ... years. where is our security?')).not.toContain('dropped-math')
+    const prefix = 'This is a long introduction '.repeat(6)
+    expect(idsOf(`${prefix}First conclusion.\n${prefix}Different conclusion.`)).not.toContain('dup-paragraph')
+  })
   it('깨끗한 지문은 어느 규칙에도 안 걸린다', () => {
     expect(allDefects(CLEAN)).toEqual([])
     expect(isUsablePassage(CLEAN)).toBe(true)

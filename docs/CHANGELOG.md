@@ -13,6 +13,13 @@
 - UX 감사(설계 준비) — 화면 157 전수·대상 127 판정(서명 2·경계 5·평균 104·보류 14), 여정 4·카드 67·관리자 표 60·브리프 10·우선순위(브랜치 `feat/ux-audit` `docs/design/audit/`). 코드 수정 0.
 - 디자인 거버넌스 개정 — vocaflow-design 에 N4 형태 판정 · §G 형태 발명(자산이 골격) 추가, DESIGN_SYSTEM 1,509→360줄대(원문 `docs/design/archive/`) + 공용 「형태 문법」 절, DESIGN.md 에 방향 값·화면별 골격/서명, 06-workflow 비평에 익명성·평균 회귀·골든·포트폴리오, 외부 취향 스킬 13→활성 2(+dataviz, 11개 `_disabled/`). 사용자 결정 4건 확정(`docs/design/DECISIONS.md`).
 - 평균 금지를 테스트로 — `form-declaration-ratchet`(새 page 는 `// @form: <G1 축> — <서명>` 필수, 무선언 152화면 기준선은 감소만) · `average-signal-ratchet`(3열 균등·그림자·둥근 카드·그라디언트·AI-보라·glass·떠오르는 hover·무한 모션, 표면별 증가 금지). Admin 액센트 보라 → Deep Ink `--p` 결정. `/text/[id]` risk 단어 `word-pulse` 무한 반복 제거(형태 문법 F1). `/library/books` 발산 4안 `docs/design/compare/library-books.md`.
+- CSAT 운영 집계의 14개 동시 count 시간 제한 실패를 단일 집계 view 조회로 수정(`20260918232551_csat_source_operations_summary.sql`, 2026-09-19 사용자 승인 후 적용). 전후 체크포인트 비교와 API 200 응답 3/3·14개 큐 수치 검증 완료. 분리 체크아웃의 기존 optional 앵커 타입 계약과 도움말 `.json`을 `.js`로 오인하던 회귀 검사도 복구.
+
+- 피드 직접 주소 검증의 나이 계산이 주입된 시계를 무시하던 오류 수정. `verifyFeedUrl`이 `deps.now()`를 전달하고 30일 허용·31일 거부 회귀로 날짜에 따른 테스트 실패를 방지한다(라우트·DB 변경 없음).
+- CSAT 원문 정책 v3: 반려·CEFR·분석·발췌 후보 판정 통합, 승인된 캐시/소비자 SQL 2개 적용. 87,716편 캐시 검증, 메타데이터 12건 복구(본문 보존), 관리자 검토 큐·원문 inspector·재검증 API·일일 감사 workflow 추가. [전후 수치·잔여 검토](./reports/csat-sources-normalization-20260918.md).
+- 원문 적격 데이터 감사(2026-09-18): 109,043행 메타데이터·87,716편 본문 전수 점검, raw 반려 319편의 적격 우회 및 조판 CEFR 기준 차이 확인. 읽기 전용 `scripts/audit/csat-sources-audit.mjs --check`와 회귀 4건 추가; [상세 결과](./reports/csat-sources-audit-20260918.md). DB·기존 판정·화면 스냅샷 변경 없음.
+- CSAT 원문 정책 후속 보강(2026-09-19): 오래된·누락 캐시 재검증 큐, 원문 revision·측정 시각을 확인하는 적재 가드, 음수 구문 점수 차단. DB 트리거·운영 view SQL `20260918222517_csat_source_cache_freshness.sql`은 **2026-09-19 사용자 승인 후 적용**, 전후 체크포인트 비교 완료.
+
 <!-- csat-sources-workspace:start -->
 - `/admin/csat/sources`를 원천 목록·근거 상세·적격 판정·처리 안내 작업 공간으로 재설계. 검색/필터/정렬/선택 URL 복원, ACP 검수 연결, 탭별 도움말과 반응형·키보드 회귀 추가.
 - 원천에 맞지 않는 자동 명령 처방과 독립 집계 차이를 미통과 수로 표시하던 오류 제거. 스냅샷 시각·미측정 범위·보충 계획의 노후 여부를 명시(DB/마이그레이션/API 변경 없음).

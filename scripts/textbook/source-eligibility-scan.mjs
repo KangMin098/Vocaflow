@@ -31,12 +31,13 @@
 //   pnpm dlx tsx scripts/textbook/source-eligibility-scan.mjs --no-write    # 터미널에만
 //   pnpm dlx tsx scripts/textbook/source-eligibility-scan.mjs --json <경로>  # 다른 곳에 쓴다
 //   pnpm dlx tsx scripts/textbook/source-eligibility-scan.mjs --band 2      # V2 만 (스냅샷 안 씀)
+//   --item-refs <json> accepts a fresh SQL DISTINCT article ref_id UUID array.
 
 import fs from 'node:fs'
 import path from 'node:path'
 
 const {
-  judgeSource,
+  evaluateSource: judgeSource,
   tallyEligibility,
   GRADE_LABEL,
   GRADE_NEXT_STEP,
@@ -86,6 +87,7 @@ const SELECT = [
   'gp:csat_fit->gate->>publishable',
   'gb:csat_fit->gate->>blockedBy',
   'gv:csat_fit->gate->>verdict',
+  'gg:csat_fit->gate->>genre',
   'gpu:csat_fit->gate->>purpose',
   'win:csat_fit->make->windows',
 ].join(',')
@@ -203,7 +205,15 @@ async function loadExtractBacklog(feed = 'plos-extract') {
 }
 
 const started = Date.now()
-const withItems = await loadArticlesWithItems()
+const itemRefsFile = arg('item-refs')
+let withItems
+if (itemRefsFile) {
+  const refs = JSON.parse(fs.readFileSync(itemRefsFile, 'utf8'))
+  if (!Array.isArray(refs) || refs.some(id => typeof id !== 'string' || !/^[0-9a-f-]{36}$/i.test(id))) throw new Error('Invalid item reference list')
+  withItems = new Set(refs)
+} else {
+  withItems = await loadArticlesWithItems()
+}
 const extractBacklog = await loadExtractBacklog()
 
 /** DB 행 → 판정 입력. **여기서만 열 이름을 안다.** */
@@ -223,6 +233,7 @@ const toInput = (r) => ({
   gatePublishable: r.gp == null ? null : r.gp === 'true',
   gateBlockedBy: r.gb ?? null,
   gateVerdict: r.gv ?? null,
+  gateGenre: r.gg ?? null,
   gatePurpose: r.gpu ?? null,
   excerptWindows: Array.isArray(r.win) ? r.win.length : null,
   hasItems: withItems.has(r.id),
