@@ -142,8 +142,17 @@ scripts/dict/article-lemmas/
 scripts/dict/SLUR_CANDIDATES.json
 
 # 스킬 설치기 산출물 (머신별 도구 — .claude/settings.local.json 과 같은 성격)
-.agents/
-.claude/skills/
+# 단, 저장소가 직접 쓴 vocaflow-* 스킬은 정본 문서라 추적한다(AGENTS.md 가 링크한다) — 2026-09-18
+# docs/design/DECISIONS.md DD-07. `_disabled/` 는 비활성으로 옮긴 제3자 스킬(설치기 산출물과 같은 성격).
+.agents/*
+!.agents/skills/
+.agents/skills/*
+!.agents/skills/vocaflow-design/
+!.agents/skills/vocaflow-design-loop/
+!.agents/skills/vocaflow-visual-critic/
+.claude/skills/*
+!.claude/skills/vocaflow-design/
+.claude/_disabled/
 skills-lock.json
 
 # 저장소 루트 프로토타입·임시 파일 (작업 산출물은 docs/ 또는 apps/ 안에 둔다)

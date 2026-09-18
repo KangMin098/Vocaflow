@@ -1,4 +1,5 @@
 // apps/web/src/app/page.tsx
+// @form: 채색 지문 — 레벨 슬라이더를 움직이면 지문의 단어 면 색이 200ms 에 바뀐다 (CoverageHero)
 //
 // 랜딩 — 검색과 공유가 도착하는 곳.
 //

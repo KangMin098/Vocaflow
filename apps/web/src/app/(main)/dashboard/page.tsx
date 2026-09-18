@@ -1,4 +1,5 @@
 // apps/web/src/app/(main)/dashboard/page.tsx
+// @form: 환경 변형 — 단어가 버티는 기간의 사다리 층 (DurabilityLadder)
 //
 // Growth (Reflect, L7) — "나 어떻게 하고 있나" 단일 표면.
 //

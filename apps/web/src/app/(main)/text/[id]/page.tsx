@@ -1,4 +1,5 @@
 // apps/web/src/app/(main)/text/[id]/page.tsx
+// @form: 채색 지문 — 지문 자체가 조작면, 단어 밑줄 두께 3/2/1px = 망각도 (형태 문법 F1)
 
 'use client'
 

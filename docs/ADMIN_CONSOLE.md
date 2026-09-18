@@ -9,7 +9,7 @@
 
 | 요소 | 사용자 앱 | Admin Console |
 |---|---|---|
-| 액센트 | `var(--p)` `#3B82F6` | **#8B5CF6 → #6D28D9** (보라 그라디언트) |
+| 액센트 | `var(--p)` Deep Ink `#0F2540` | **`var(--p)` Deep Ink** — 2026-09-18 결정([design/DECISIONS](./design/DECISIONS.md) DD-01). 옛 보라 `#8B5CF6 → #6D28D9` 그라디언트는 **신규 사용 금지**, 남은 318회(2026-09-18 실측)는 평균 신호 라쳇(`components/__tests__/average-signal-ratchet.test.ts`)이 감소만 허용한다. 관리자 구분은 색이 아니라 `ShieldCheck` + 「Admin」 배지가 진다 |
 | 로고 아이콘 | `V` (Plus Jakarta) | `ShieldCheck` |
 | Sidebar 헤더 | "Vocaflow" | "Vocaflow" + **"Admin"** mono 배지 |
 | 알림 박스 | Streak | **"관리자 모드 · 시스템 데이터 접근 중"** |
@@ -971,7 +971,7 @@ RLS read=admin — dev-bypass 브라우징은 「지금 상태를 읽지 못함�
 
 ## 접근성 / UX 원칙
 
-- 보라 액센트는 **색상 + 형태(ShieldCheck) + 텍스트("Admin")** 3중 표현
+- 관리자 표식은 **형태(ShieldCheck) + 텍스트("Admin")** 가 진다 — 액센트는 학습자 앱과 같은 `--p`(옛 보라는 교체 중, DD-01)
 - "사용자 앱으로" 링크 항상 visible — 컨텍스트 전환 비용 최소화
 - 신고 뱃지 색상 + 숫자 + `aria-label` 3중 (색맹 대응)
 - 모든 stub 페이지 `components/dev/StubPage` 통일 — 일관된 검증 경험

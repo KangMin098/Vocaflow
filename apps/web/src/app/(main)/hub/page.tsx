@@ -1,4 +1,5 @@
 // apps/web/src/app/(main)/hub/page.tsx
+// @form: 망각 — 오늘 단어의 밑줄 두께 3/2/1px (TodayStage · DecayUnderline)
 //
 // Today (Hub) — forward 진입면.
 //
