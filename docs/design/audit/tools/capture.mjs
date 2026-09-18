@@ -82,7 +82,9 @@ for (const s of targets) {
   if (results[s.route]?.done) continue
   const rec = { route: s.route, surface: s.surface }
   try {
-    const url = s.dynamic.length ? await resolveDynamic([anon, authed], s.route) : s.route
+    // 2차: 부모 화면에서 링크를 못 찾은 동적 화면은 DB 에서 고른 샘플(override)을 쓴다
+    const url = s.override ?? (s.dynamic.length ? await resolveDynamic([anon, authed], s.route) : s.route)
+    if (s.override) rec.sampleSource = s.overrideSource
     rec.sampleUrl = url
     if (!url) {
       rec.fail = '동적 param 샘플 없음 — 부모 화면(익명·로그인 둘 다)에 자식 링크가 없다'
