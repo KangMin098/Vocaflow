@@ -43,11 +43,11 @@ export function ProgressView({ types }: { types: LearnerCatalog['types'] }) {
     <div className="flex flex-col gap-6">
       <h1 className="font-editorial text-[24px] font-[600] text-[var(--t1)]">기록</h1>
 
-      <dl className="grid grid-cols-3 gap-2" data-testid="progress-numbers">
+      <dl className="flex flex-col gap-2" data-testid="progress-numbers">
         {numbers.map((n) => (
-          <div key={n.id} className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-3" data-testid={`num-${n.id}`}>
+          <div key={n.id} className="flex items-baseline justify-between gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-3" data-testid={`num-${n.id}`}>
             <dt className="text-[14px] text-[var(--t3)]">{n.label}</dt>
-            <dd className="mt-1 text-[var(--t1)]">
+            <dd className="text-[var(--t1)]">
               <span className="font-mono text-[26px] tabular-nums leading-none">{n.value}</span>
               <span className="ml-0.5 text-[14px] text-[var(--t2)]">{n.unit}</span>
             </dd>
