@@ -70,12 +70,13 @@ const SIGNALS: Record<string, { re: RegExp; why: string }> = {
 }
 
 /**
- * 기준선 — 2026-09-18 실측. **내리기만 한다.**
+ * 기준선 — 2026-09-18 실측, 2026-09-19 **커밋된 트리 기준으로 재측정**(처음에는 다른 세션의 미커밋 변경이
+ * 섞인 작업 트리에서 재서 CI 와 어긋났다 — learner.grid-3eq 59→60 · admin.ai-purple 318→326). **내리기만 한다.**
  * learner 의 `infinite-anim` 는 `/text/[id]` risk 단어 `word-pulse` 제거(DD-06) 뒤의 값이다.
  */
 const BASELINE: Record<Surface, Record<string, number>> = {
   learner: {
-    'grid-3eq': 59,
+    'grid-3eq': 60,
     'shadow-heavy': 29,
     'rounded-big': 41,
     gradient: 171,
@@ -89,7 +90,7 @@ const BASELINE: Record<Surface, Record<string, number>> = {
     'shadow-heavy': 0,
     'rounded-big': 4,
     gradient: 36,
-    'ai-purple': 318,
+    'ai-purple': 326,
     glass: 7,
     'float-hover': 8,
     'infinite-anim': 0,

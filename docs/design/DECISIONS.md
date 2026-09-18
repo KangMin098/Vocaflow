@@ -117,3 +117,9 @@
 |---|---|---|
 | **DD-19** | `/fit` = **A 「칠해지는 입력칸」 골격 + B 「학급에 나눠 줄 한 장」 출력 면**(별도 화면 아님). C 「일주일 뒤의 이 글」 **보류** — 로그인 후 개인 기록(FSRS) 기반으로 재검토(공개 화면의 일반 모형 수치는 표시광고 위험). D 「지문 지도」 **A 확정 후 추가 여부 재검토**. `/library/books` 는 병행하지 않고 `/fit` 골든 고정 뒤 착수 | 사용자 결정. 구현: `/api/fit` 응답에 표면형→레벨 표(`surfaceLevels` — 원문은 여전히 서버로 안 감) · `lib/textfit/paint.ts`(랜딩과 공용) · `PaintedPassage` · `ClassSheet`(권점 = CSS `text-emphasis`) · `PrintSheet.prelude`(판면이 인쇄 첫 장) · 사다리는 「학년별 범위 자세히」 접힘으로(철학 2) · 한국어 판정 문장 Lora 이탤릭 → Hahmlet. 2회 수정 후 골든 4장(`golden/fit.md`). `@form` 선언을 렌더와 일치하게 정정 |
 | **DD-19b** | 새 관측 2종 `fit_level_moved` · `fit_sheet_opened` — **마이그레이션 적용**(2026-09-19 사용자 승인, DB 버전 `20260918232454` · 행 9,143 보존 · `db-allowlist` 통합 테스트 35/35) | `funnel_events_event_check` 가 허용 목록이라 DB 가 받지 않는다(`db-allowlist.integration.test.ts` 가 적용 전까지 실패 — 맞는 실패). SQL: `supabase/migrations/20260919100000_funnel_allow_fit_paint.sql`(적용 시점 DB 제약 38개 + 2) |
+
+## 공유 문서 커밋 (2026-09-19) — DD-20
+
+| # | 결정 | 근거 · 한 일 |
+|---|---|---|
+| **DD-20** | AGENTS.md · DESIGN.md · CLAUDE.md 는 **(b) 경로** — 임시 워크트리에서 HEAD 기준으로 이 세션의 변경만 다시 적용해 커밋. 작업 트리의 혼합 파일은 그대로 둔다 | 다른 세션 변경(두 에이전트 전환: CLAUDE.md 495→44줄 · AGENTS.md 신설 · Codex 입구 DESIGN.md)은 이해되지만 **저장소 안에서 완결되지 않는다** — 가리키는 `agents/` · `docs/agents/CONTEXT_DETAIL.md` · `.claude/settings.json` · `.codex/` 가 전부 미추적이라 파일째 커밋하면 CLAUDE.md 의 규칙 485줄이 없는 파일로 옮겨지고 `doc-path-drift` 가 CI 에서 깨진다. 그래서 AGENTS.md 에 넣었던 이 세션의 규칙(DESIGN.md 필독 · 활성 스킬 2 · 평균 금지 · Admin 액센트)은 HEAD 의 CLAUDE.md 같은 자리에 적용했고, DESIGN.md 는 이 세션이 쓴 절만으로 만들었다(미추적 파일을 가리키지 않게). **함께 고친 구조 결함**: 라쳇 기준선을 처음에 다른 세션의 미커밋 변경이 섞인 작업 트리에서 재서 **커밋된 트리에서 실패**했다 — 기준선을 커밋된 트리로 재측정(화면 기준선 csat/progress·session ↔ dissect·formulas · learner.grid-3eq 60 · admin.ai-purple 326), DESIGN_SYSTEM 의 미추적 경로 참조 제거. 그 결과 **미커밋 CSAT 작업이 있는 작업 트리에서는 두 라쳇이 "기준선을 갱신하라" 로 떨어진다** — 그 세션이 커밋할 때 기준선을 함께 내린다(라쳇의 의도된 동작) |

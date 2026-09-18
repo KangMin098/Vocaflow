@@ -14,7 +14,7 @@
 
 | 영역 | 추가 attachment |
 |---|---|
-| UI / 컴포넌트 | [docs/DESIGN_SYSTEM.md](./docs/DESIGN_SYSTEM.md) · [docs/MODULES.md](./docs/MODULES.md) |
+| UI / 컴포넌트 | **[DESIGN.md](./DESIGN.md) 필독**(방향·화면별 골격·서명) · [docs/DESIGN_SYSTEM.md](./docs/DESIGN_SYSTEM.md) · [docs/MODULES.md](./docs/MODULES.md) |
 | DB / 마이그레이션 | [docs/DB_SCHEMA.md](./docs/DB_SCHEMA.md) · [docs/LIBRARY_PIPELINE.md](./docs/LIBRARY_PIPELINE.md) |
 | 라이브러리 큐레이션 | [docs/LIBRARY_PIPELINE.md](./docs/LIBRARY_PIPELINE.md) · [docs/ADMIN_CONSOLE.md](./docs/ADMIN_CONSOLE.md) |
 | 만화(CCP) 카탈로그 편입 | [docs/CCP_LIBRARY_INTEGRATION.md](./docs/CCP_LIBRARY_INTEGRATION.md) · [scripts/comic/docs/COMIC_PIPELINE_DESIGN.md](./scripts/comic/docs/COMIC_PIPELINE_DESIGN.md) |
@@ -139,11 +139,11 @@ R(t) = `exp(ln(0.9) × t / S)` 동적 계산. **`memory_state` 컬럼 DB 저장 
 
 ### 설치된 외부 디자인 스킬과의 관계
 
-`.claude/skills/` 에 13개 취향 스킬이 있고 **서로, 그리고 위 철학과 충돌한다**
-(`stitch-design-taste` 의 perpetual micro-motion · `gpt-taste` 의 GSAP pinning ·
-`stitch` 의 "세리프 금지" vs Lora 시그니처). **발명 엔진(§A–§F)** 과 판정표·라우팅은
+활성 외부 취향 스킬은 **2개**(`design-taste-frontend` · `minimalist-ui`, + 내장 `dataviz`)이고 나머지 11개는
+`_disabled/` 로 옮겼다([docs/design/DECISIONS.md](./docs/design/DECISIONS.md) DD-05). 남은 스킬도 위 철학과 충돌한다
+(perpetual micro-interactions · 앰비언트 블롭 · 세리프 기피 vs Lora/Hahmlet 시그니처). **발명 엔진(§A–§G)** 과 판정표·라우팅은
 **[.claude/skills/vocaflow-design/SKILL.md](./.claude/skills/vocaflow-design/SKILL.md)** 가 정본이다.
-UI 작업 전 그 스킬을 먼저 읽는다. **Part 1(§A–§F)이 목표이고 Part 2(§0–§8)는 하한선이다** —
+UI 작업 전 그 스킬을 먼저 읽는다. **Part 1(§A–§G)이 목표이고 — 화면은 §G 로 자산의 형태를 골격으로 세운다 — Part 2(§0–§8)는 하한선이다** —
 제약만 지킨 화면은 "위반 없는 평범한 화면"이지 혁신이 아니다.
 
 ---
@@ -189,6 +189,7 @@ UI 작업 전 그 스킬을 먼저 읽는다. **Part 1(§A–§F)이 목표이�
 - 코드 완성형만 — TODO·생략·placeholder 절대 금지
 - 마이그레이션 자동 적용 금지 — SQL 보여주고 사용자 승인 후 `apply_migration`
 - **LLM 판단이 필요한 일은 Claude Code 배치로 직접 한다** — 아래 §🤖 참조
+- **평균 금지(혁신만 목표)**: 새 `page.tsx` 는 첫 20줄에 `// @form: <G1 축> — <서명>`(vocaflow-design §G) · 평균 신호(3열 균등·그림자·둥근 카드·그라디언트·AI-보라·glass·떠오르는 hover·무한 모션)는 늘리지 않는다. 회귀 `apps/web/src/app/__tests__/form-declaration-ratchet.test.ts` · `apps/web/src/components/__tests__/average-signal-ratchet.test.ts` — 기준선을 올려 통과시키지 않는다
 
 상세 + PR 체크리스트: [docs/CONVENTIONS.md](./docs/CONVENTIONS.md)
 
@@ -355,7 +356,7 @@ vocaflow/
 
 ## 🛡 Admin Console
 
-`/admin/*` 라우트 (route group 미사용). 보라 액센트 (#8B5CF6) + `ShieldCheck` 아이콘.
+`/admin/*` 라우트 (route group 미사용). 액센트 = Deep Ink `--p` + `ShieldCheck` 아이콘 + 「Admin」 텍스트 (2026-09-18 결정 DD-01 — 옛 보라 #8B5CF6 은 신규 사용 금지, 평균 신호 라쳇으로 감소만).
 
 8 그룹 — 대시보드 / 사용자&콘텐츠 (7 항목 — LCP/ACP/VCB/VRL 포함) / 운영 / 시스템.
 

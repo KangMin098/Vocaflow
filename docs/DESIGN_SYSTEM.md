@@ -212,7 +212,7 @@ FSRS 상태가 없는 표면은 `bandFromOverdue(overdueDays)` 로 **가진 값*
 
 ### F5. 비교 판면
 
-두 소재 → 하나의 출제 공식 관계를 **CSS Grid + 괘선**으로 나란히 놓는다(`components/csat/session/learning-home.module.css`).
+두 소재 → 하나의 출제 공식 관계를 **CSS Grid + 괘선**으로 나란히 놓는다(CSAT 홈 `learning-home.module.css` — 2026-09-19 기준 다른 세션의 미커밋 작업).
 wrapper 최대 68rem, 읽기면은 42rem. 패턴 교체 `button[aria-pressed]` · 심화 `details/summary` · 필터 `label/select`.
 
 ---
