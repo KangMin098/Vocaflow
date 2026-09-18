@@ -100,6 +100,12 @@ Lexile·ATOS 는 글만 재고 LingQ 의 known-word 카운트는 이진값이라
 | 라우트 | `(marketing)/fit` — 학습자 표면 아님 |
 
 **출력**: 지문 하나 → V3~V10 **8개 학년의 커버리지 곡선** + 적정 레벨 + 가장 어려운 단어(V-Level 동반).
+
+**2026-09-19 재설계(골든 1호, `docs/design/golden/fit.md`)** — 첫 시선이 **칠해지는 입력칸**이다:
+[`PaintedPassage`](../apps/web/src/components/textfit/PaintedPassage.tsx)(원문 위 처음 만나는 낱말 면 + 학년 8단 슬라이더 눈금 = 커버리지)
+· [`ClassSheet`](../apps/web/src/components/textfit/ClassSheet.tsx)(「학급에 나눠 줄 한 장」 — 권점 · 난외 풀이 · 적정 도장, 인쇄 첫 장)
+· 칠하기 규칙 [`lib/textfit/paint.ts`](../apps/web/src/lib/textfit/paint.ts)(랜딩 히어로와 공용). 원문은 서버로 가지 않고,
+`/api/fit` 이 받은 빈도표의 **표면형 → 레벨 표**(`surfaces`)만 돌려준다. 학년 사다리(`LevelProfilePanel`)는 「학년별 범위 자세히」 접힘으로 내려갔다.
 `textVLevel` 은 `extract_vocabulary_for_user_v2` 와 **같은 통계**(percentile_disc 0.75)를 쓴다 —
 다르면 같은 지문을 두고 추출 화면과 공개 화면이 서로 다른 난도를 말한다.
 
