@@ -21,6 +21,7 @@ import type { RawArticle } from '../types-article'
 import { applyArticleCurationSpec, type ArticleScore } from './_curation-spec'
 import { safeDate, safeDateISO } from './_helpers'
 import { sourceKey } from './source-key'
+import { stripVoaBoilerplate } from './voa-boilerplate'
 
 // VOA WAF 는 비브라우저 UA (curl/bot) 를 403 차단 → 일반 브라우저 UA 로 fetch.
 const USER_AGENT =
@@ -597,7 +598,7 @@ export function parseVoaArticle(
   const paraText = htmlToPlainText(
     [...containerHtml.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/gi)].map((m) => m[1] ?? '').join('\n'),
   )
-  const content = (paraText.trim().length >= 200 ? paraText : htmlToPlainText(containerHtml))
+  const content = stripVoaBoilerplate(paraText.trim().length >= 200 ? paraText : htmlToPlainText(containerHtml))
     .replace(/no media source currently available\.?/gi, '') // VOA 오디오 플레이어 boilerplate
     .replace(/[ \t ]+/g, ' ')
     .trim()

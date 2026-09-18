@@ -1,5 +1,15 @@
 # Routes Map
 
+### CSAT 원문 운영 API (2026-09-18)
+
+`/api/admin/csat/sources` — 관리자/큐레이터 전용, no-store.
+GET `summary=1`: 판정별 집계, `queue/q/page`: 30개씩 원문 목록, `id`: 최신 원문·판정·연결·이력.
+POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 캐시만 갱신.
+`/admin/csat/sources`의 개별 원문 inspector에서 사용한다. 실패/누락 count는 0으로 표시하지 않는다.
+
+후속 운영 큐 `queue=stale`는 오래된 판정과 캐시 누락을 포함한다. 집계·목록은 현재 원문 revision에 맞는 판정만 적격으로 취급한다.
+이 동작의 DB 의존성 `20260918222517_csat_source_cache_freshness.sql`은 **2026-09-19 사용자 승인 후 적용**했다.
+
 > Next.js 14 App Router. 모든 page.tsx · route.ts · layout.tsx 직접 파일 스캔으로 검증. 작성 시점: 2026-06-08.
 >
 > **카운트**: page.tsx 123 · route.ts 75 · layout.tsx 11 (2026-08-17 실측). 이 밖에 `robots.ts`·`sitemap.ts`·`opengraph-image.tsx` 메타 라우트 3.
@@ -7,6 +17,14 @@
 ---
 
 ## 라우트 그룹 구조
+
+<!-- csat-sources-workspace:start -->
+`/admin/csat/sources`는 기존 관리자 가드를 유지하는 단일 route다. 검색 상태를 서버에서 초기화하고
+브라우저 history로 복원한다. query: `view=sources|eligibility|operations`,
+`issue=all|attention|failed|legal|raw|analysis|unjudged|gate`,
+`sort=attention|total|recent|name`, `q=<원천 이름 또는 ID>`, `source=<선택한 원천 ID>`.
+기본값은 URL에서 생략하며, 알 수 없는 enum은 기본값으로 복원한다. 새 API·동적 상세 route는 추가하지 않았다.
+<!-- csat-sources-workspace:end -->
 
 | 그룹 | URL | 인증 | 레이아웃 |
 |---|---|---|---|

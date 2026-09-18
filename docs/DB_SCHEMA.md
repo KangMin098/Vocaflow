@@ -1,5 +1,21 @@
 # DB Schema
 
+## CSAT 원문 판정 캐시 v3 (2026-09-18)
+
+사용자 승인 후 `20260918140224_csat_source_eligibility_cache.sql`, `20260918141948_csat_source_eligibility_consumers.sql` 적용.
+
+- `csat_source_eligibility`: article_id PK/FK, source_updated_at, policy_version, input/result JSONB, quality_flags, excerpt_evidence, linked_items, measured_at. 정본은 `library_articles`, 이 표는 재생성 가능한 캐시다.
+- `csat_source_eligibility_history`: revision·입력·판정이 바뀔 때 이전 캐시 보관. 품질 신호만 바뀐 배치는 별도 백업으로 추적한다. 두 표는 RLS 관리자/큐레이터 조회, service_role 쓰기. history의 기본 anon 테이블 권한은 남지만 RLS 정책이 없어 실조회 0행을 확인했다.
+- `csat_source_is_eligible(uuid)`: v3·원문 revision 일치·usable/excerpt·blocker 없음·ready/published 확인. excerpt는 실제 article 문항도 요구한다. 신규/변경 원문은 재검증까지 사용 대기다.
+- `textbook_practice_items`, `prescribe_today`의 article 연습 선택, `grade_dcp_item`의 article 채점이 위 함수를 사용한다. 독서 입력 후보와 비 article 문항은 기존 소비 정책을 유지한다.
+- `20260918222517_csat_source_cache_freshness.sql`: 2026-09-19 추가 승인 후 적용. `csat_source_operations`는 현재 ready/published 원문과 캐시를 LEFT JOIN하는 service_role 전용 security-invoker view다. 누락·revision/규격 불일치·excerpt 문항 소실은 `cache_state=missing/stale`, `effective_status=review`, `can_use=false`로 표시한다.
+- `enforce_source_eligibility_freshness` / `source_eligibility_freshness`: 캐시 INSERT/UPDATE 전에 원문을 `FOR SHARE`로 잠그고 revision 일치를 검사한다. 정책 하향과 같은 revision·정책의 측정시각 후퇴를 거절한다. 마이크로초 정밀도를 유지하며 동일 projection 재적재는 허용한다.
+- `20260918232551_csat_source_operations_summary.sql`은 2026-09-19 사용자 승인 후 적용했다. `csat_source_operations_summary`는 같은 현재 원문 집합을 한 번 읽어 14개 큐 수치·최초 측정 시각·정책 규격을 반환하는 service_role 전용 view다. 14개 병렬 count의 실측 시간 제한 실패를 줄이기 위한 변경이며 원문이나 판정은 수정하지 않는다.
+
+SQL 파일명은 실제 MCP 적용 이력 version에 맞췄다: `20260918140224/csat_source_eligibility_cache`, `20260918141948/csat_source_eligibility_consumers`, `20260918222517/csat_source_cache_freshness`, `20260918232551/csat_source_operations_summary`. 승인 당시 임시 파일명과 SQL 본문은 같으며 파일명·첫 줄 경로 주석만 정렬했다. CLI 일괄 적용 전에 이름·정의를 대조해야 하며 이미 적용된 SQL을 다시 실행하지 않는다.
+
+수치·검증·복구: [정상화 기록](./reports/csat-sources-normalization-20260918.md).
+
 > Supabase PostgreSQL — `project_id=jajenrevcbmrpaliomxv` (vocaflow-dev).
 > 본 문서의 모든 테이블·view·function·migration 카운트는 **DB direct query** 로 검증된 사실. 작성 시점: 2026-06-08.
 

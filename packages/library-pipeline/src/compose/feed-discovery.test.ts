@@ -145,6 +145,21 @@ describe('verifyFeedUrl — 자동 발견이 실패했을 때의 백스톱', () 
     expect(r.feed.itemCount).toBe(2)
   })
 
+  it.each([[30, true], [31, false]] as const)(
+    '주입한 현재 시각으로 피드 나이를 판정한다: %i일, 허용 %s',
+    async (ageDays, accepted) => {
+      const url = 'https://news.example/odd/path.xml'
+      const d = deps({
+        'https://news.example/robots.txt': ALLOW,
+        [url]: OK(FEED_XML),
+      })
+      d.now = () => Date.parse('2026-08-14T10:00:00Z') + ageDays * 86_400_000
+      const result = await verifyFeedUrl(spec, url, new CrawlGate(), d)
+      expect('feed' in result).toBe(accepted)
+      if ('fail' in result) expect(result.fail.kind).toBe('stale-feed')
+    },
+  )
+
   it('피드가 아니면 직접 넣어도 거부한다', async () => {
     const d = deps({
       'https://news.example/robots.txt': ALLOW,

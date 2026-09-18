@@ -707,7 +707,7 @@ export async function loadVolume(
     dropDuplicatedLeadWord,
     hasSensitiveTopic,
     countPassageWords,
-    judgeSource,
+    evaluateSource: judgeSource,
     isComposable,
     isPrintableUnderlineWord,
     // 검수 판정의 판(版) — 지금 판 판정만 세려면 둘 다 필요하다.
@@ -901,10 +901,10 @@ export async function loadVolume(
   // 규칙을 어긴 것이다. 얇은 권이 나오는 것은 결함이 아니라 **재고가 얇다는 사실의 표시**다.
   // V7 을 되살리는 길은 강제를 끄는 것이 아니라 `scripts/csat/plos-extract` 다.
   //
-  // ⚠️ 끄는 것은 **명시적으로만** — `VOCAFLOW_SOURCE_STRICT=0`. 옛 실험을 재현하거나
-  //   강제 전후를 비교할 때만 쓴다. 켜고 끄든 **편수는 항상 인쇄한다.**
+  // v3 판정은 항상 강제한다. 전후 비교는 읽기 전용 감사에서 수행한다.
   const withItems = new Set(itemRows.map((r) => r.ref_id))
-  const STRICT = process.env.VOCAFLOW_SOURCE_STRICT !== '0'
+  // v3: source authorization cannot be disabled, even for legacy experiments.
+  if (process.env.VOCAFLOW_SOURCE_STRICT === '0') throw new Error('원문 적격 검사는 끌 수 없습니다. 읽기 전용 audit으로 전후를 비교하세요.')
   // ⚠️ **판정 열은 문항이 붙은 원글에만 받는다.** 밴드 전체 select 에 넣었더니 V4(856편)
   //   조판이 statement timeout 으로 죽었다 — jsonb 를 행마다 detoast 하기 때문이다.
   //   문항이 없는 원글은 이 권에 아무것도 기여하지 않으므로 분모에서 빼는 것이 맞기도 하다:
@@ -914,7 +914,7 @@ export async function loadVolume(
     'library_articles',
     'id, word_count, register, cefr_level, syn:syntax_score->>score, ' +
       'gp:csat_fit->gate->>publishable, gb:csat_fit->gate->>blockedBy, ' +
-      'gv:csat_fit->gate->>verdict, gpu:csat_fit->gate->>purpose',
+      'gv:csat_fit->gate->>verdict, gg:csat_fit->gate->>genre, gpu:csat_fit->gate->>purpose',
     'id',
     [...withItems].filter((r) => byId.has(r)),
     ['id'],
@@ -942,6 +942,7 @@ export async function loadVolume(
         gatePublishable: g.gp == null ? null : g.gp === 'true',
         gateBlockedBy: g.gb ?? null,
         gateVerdict: g.gv ?? null,
+        gateGenre: g.gg ?? null,
         gatePurpose: g.gpu ?? null,
         excerptWindows: null,
         hasItems: true, // 이 집합이 곧 "문항이 붙은 원글" 이다
@@ -964,11 +965,7 @@ export async function loadVolume(
       .filter(([, n]) => n > 0)
       .map(([g, n]) => `${GRADE_LABEL[g]} ${n.toLocaleString()}`)
       .join(' · ')}`
-  console.log(
-    STRICT
-      ? `${gateLine}  [강제: 통과분만 싣는다]`
-      : `${gateLine}  ⚠️ [강제 꺼짐 — VOCAFLOW_SOURCE_STRICT=0 · 판정 못 받은 원문이 실린다]`,
-  )
+  console.log(`${gateLine}  [강제: 통과분만 싣는다]`)
 
   // ── 3인 검수에서 떨어진 문항은 다시 올리지 않는다 ────────────────────
   //
@@ -1082,7 +1079,7 @@ export async function loadVolume(
       lose(r.type, '원글없음')
       continue
     }
-    if (STRICT && !isComposable(verdictByRef.get(r.ref_id)?.grade ?? 'unknown')) {
+    if (!isComposable(verdictByRef.get(r.ref_id)?.grade ?? 'unknown')) {
       lose(r.type, '적격미달')
       continue
     }

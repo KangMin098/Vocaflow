@@ -1,8 +1,8 @@
 {
-  "measuredAt": "2026-09-15T16:23:26.391Z",
-  "elapsedSeconds": 9,
+  "measuredAt": "2026-09-18T14:23:12.235Z",
+  "elapsedSeconds": 43,
   "scope": "전체 상태 (status 필터 없음) — 관리 뷰는 보관·실패까지 본다",
-  "scanned": 108953,
+  "scanned": 109043,
   "sources": [
     {
       "source": "plos",
@@ -220,25 +220,25 @@
     },
     {
       "source": "original",
-      "total": 1429,
+      "total": 1519,
       "byStatus": {
         "queued": 888,
-        "ready": 541
+        "ready": 631
       },
-      "judged": 531,
+      "judged": 621,
       "rawPurpose": 0,
-      "levelled": 541,
+      "levelled": 631,
       "legalBlocked": 0,
       "blockedBy": {},
       "firstGet": "2026-08-18T03:40:45.743105+00:00",
-      "lastGet": "2026-09-08T08:52:04.709174+00:00",
+      "lastGet": "2026-09-17T11:43:18.948689+00:00",
       "byVLevel": {
         "2": 160,
         "3": 151,
         "4": 144,
-        "5": 79,
-        "6": 4,
-        "7": 3
+        "5": 109,
+        "6": 34,
+        "7": 33
       },
       "topBlocked": []
     },

@@ -291,13 +291,14 @@ describe('원문 적격 화면', () => {
   })
 
   // 재고와 계획이 다른 시각에 계산되면 화면이 두 세계를 겹쳐 보인다.
-  it('계획이 재고보다 앞선 값으로 계산되지 않았다', () => {
+  it('계획이 재고보다 오래되면 갱신 필요를 표시한다', () => {
     const plan = panel.fillPlan
     const inv = panel.typeInventory
     if (!plan || !inv) return
-    expect(new Date(plan.computedAt).getTime()).toBeGreaterThanOrEqual(
-      new Date(inv.measuredAt).getTime(),
-    )
+    if (new Date(plan.computedAt).getTime() < new Date(inv.measuredAt).getTime()) {
+      expect(html).toContain('보충 계획이 유형 재고보다 오래되었습니다')
+      return
+    }
     // 같은 밴드를 같은 권수로 말해야 한다 — 어긋나면 둘 중 하나가 낡았다.
     for (const b of plan.bands) {
       const iv = inv.bands.find((x) => x.vLevel === b.vLevel)
@@ -405,12 +406,11 @@ describe('원문 적격 화면', () => {
     if (zero) expect(html).toContain('만들 수 없음')
   })
 
-  it('문항이 이미 있는데 원문이 판정을 못 넘는 편수를 드러낸다', () => {
-    // 이 격차가 곧 "판정 없이 만들어진 문항" 의 분모다. 숨기면 화면이 좋아 보이지만
-    // 그게 이 화면이 막으려는 바로 그것이다.
+  it('독립 집계의 차이를 교집합으로 오해하지 않는다', () => {
     expect(html).toContain('문항이 붙은 원문')
-    if (panel.articlesWithItems != null && panel.articlesWithItems > panel.total.composable) {
-      expect(html).toContain((panel.articlesWithItems - panel.total.composable).toLocaleString())
+    expect(html).toContain('조판 통과와의 교집합은 이 집계로 알 수 없습니다')
+    if (panel.articlesWithItems != null) {
+      expect(html).toContain(panel.articlesWithItems.toLocaleString())
     }
   })
 

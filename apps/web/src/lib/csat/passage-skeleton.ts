@@ -53,6 +53,9 @@ export interface PassageSkeleton {
   sentences: SkeletonSentence[]
 }
 
+/** Optional provenance in stored skeletons: answer evidence, rejection evidence, or temptation. */
+export type AnchorOrigin = 'answer' | 'reject' | 'tempt'
+
 /** 앵커 하나 — "이 인용문이 근거다". */
 export interface AnchorSpec {
   id: string
