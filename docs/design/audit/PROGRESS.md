@@ -18,9 +18,9 @@
 |---|---|---|---|
 | 0 화면 전수 | **완료** | [screens.json](screens.json) · [screens.md](screens.md) | 157 = 대상 127 + 제외 30. 로그인 필요 여부는 캡처(Gate 3) 결과로 채운다 |
 | 1 연결 | 진행 | flows.md | 링크 그래프·셸 도달성 재실행 완료(scratchpad), 화면 단위 import 트리 계산 완료 |
-| 2 UX 카드 | 대기 | cards/ | 서브에이전트 배정 아래 |
+| 2 UX 카드 | 진행 | cards/ | 서브에이전트 6개 실행 중(영역별) |
 | 3 평균 판정 | 캡처 진행 중 | verdict.md | 화면당 약 50초(dev 서버 첫 컴파일) |
-| 4 참고 자료 | 대기 | ../references.md 추가분 | |
+| 4 참고 자료 | **완료** | [references-additions.md](references-additions.md) | references.md 는 메인 워크트리의 미추적 파일(다른 세션) — 잠금 해제 후 합친다. Mobbin 403 · Page Flows 유료 · Figma MCP 미연결 |
 | 5 브리프·우선순위 | 대기 | briefs/ · priority.md | |
 
 ## 서브에이전트 배정 (Gate 2 · 3)
