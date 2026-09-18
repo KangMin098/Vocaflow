@@ -99,6 +99,10 @@ describe('허용 이벤트 목록', () => {
     'fit_share_opened',
     'fit_signup_clicked',
     'fit_worksheet_printed',
+    // 2026-09-19 — `/fit` 발산 A+B: 칠해진 지문 위 학년 이동 · 「학급에 나눠 줄 한 장」 펼치기.
+    // 속성은 레벨(닫힌 열거형)과 낱말 수(숫자)뿐이다.
+    'fit_level_moved',
+    'fit_sheet_opened',
     'landing_viewed',
     'landing_cta_clicked',
     'catalog_viewed',

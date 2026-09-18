@@ -30,28 +30,43 @@ import { unstable_cache } from 'next/cache'
 
 import { tokenizeText } from '@/lib/text-extract/tokenize'
 
-import { analyzeCounts } from './analyze'
+import { analyzeCounts, surfaceLevels } from './analyze'
+import type { SurfaceLevels } from './paint'
 import type { LevelProfile } from './profile'
 import { FIT_SAMPLE } from './sample'
 
 /** 캐시 유효 기간(초) — 랜딩 ISR 과 같은 하루. 사전 레벨은 그보다 천천히 바뀐다. */
 const SAMPLE_REVALIDATE_SECONDS = 86_400
 
+/** 예시 지문 분석 — 프로파일 + 칠하기용 표면형→레벨 표(2026-09-19, 발산 A 「칠해지는 입력칸」). */
+export interface SampleAnalysis {
+  profile: LevelProfile
+  surfaces: SurfaceLevels
+}
+
 /**
  * 예시 지문을 실제로 분석한다 — **캐시 없는 순수 계산.** 테스트와 캐시 래퍼가 이걸 부른다.
  */
-export async function computeSampleProfile(): Promise<LevelProfile | null> {
+export async function computeSampleAnalysis(): Promise<SampleAnalysis | null> {
   try {
     const tokenization = tokenizeText(FIT_SAMPLE)
     if (tokenization.uniqueFinal === 0) return null
-    const { profile } = await analyzeCounts(tokenization.counts, tokenization.totalWords)
+    const { profile, words, lemmaBySurface } = await analyzeCounts(
+      tokenization.counts,
+      tokenization.totalWords,
+    )
     // 학습 대상 단어가 하나도 안 잡혔으면 결과가 아니라 결함이다 — 화면에 내지 않는다.
     if (profile.uniqueContentWords === 0) return null
-    return profile
+    return { profile, surfaces: surfaceLevels(words, lemmaBySurface) }
   } catch (err) {
     console.error('[fit-sample] 예시 지문 분석 실패:', err)
     return null
   }
+}
+
+/** 프로파일만 — 기존 호출부·회귀를 위해 남긴다. */
+export async function computeSampleProfile(): Promise<LevelProfile | null> {
+  return (await computeSampleAnalysis())?.profile ?? null
 }
 
 /**
@@ -62,5 +77,10 @@ export async function computeSampleProfile(): Promise<LevelProfile | null> {
  *    도구는 있어야 하는 것이다 — 도구 쪽을 지킨다.
  */
 export const getSampleProfile = unstable_cache(computeSampleProfile, ['fit-sample-profile'], {
+  revalidate: SAMPLE_REVALIDATE_SECONDS,
+})
+
+/** 프로파일 + 표 — `/fit` 이 쓴다. 캐시 키를 따로 둔다(응답 모양이 다르다). */
+export const getSampleAnalysis = unstable_cache(computeSampleAnalysis, ['fit-sample-analysis'], {
   revalidate: SAMPLE_REVALIDATE_SECONDS,
 })

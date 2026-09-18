@@ -17,10 +17,12 @@
 
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
-import { FileText, RotateCcw } from 'lucide-react'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { FileText, PencilLine, Printer, RotateCcw } from 'lucide-react'
 
+import { ClassSheet, buildGloss } from '@/components/textfit/ClassSheet'
 import { CurriculumPanel } from '@/components/textfit/CurriculumPanel'
+import { PaintedPassage } from '@/components/textfit/PaintedPassage'
 import { Worksheet, type WorksheetMode } from '@/components/textfit/Worksheet'
 import { WorksheetControls } from '@/components/textfit/WorksheetControls'
 import { LevelProfilePanel } from '@/components/textfit/LevelProfilePanel'
@@ -33,11 +35,28 @@ import {
 import { buildShareUrl, isShareable } from '@/lib/textfit/share'
 import { track } from '@/lib/analytics/client'
 import { resolvedDecile, sizeBucket } from '@/lib/analytics/events'
-import type { LevelProfile } from '@/lib/textfit/profile'
+import type { LevelProfile, ProfileLevel } from '@/lib/textfit/profile'
+import { paintTokens, type SurfaceLevels } from '@/lib/textfit/paint'
 import { FIT_SAMPLE } from '@/lib/textfit/sample'
 
 /** 분석을 시작하는 최소 길이 — 한두 문장으로는 커버리지가 통계적 의미를 갖지 못한다. */
 const MIN_CHARS = 120
+
+/**
+ * 처음 보이는 학년 — **고1**(랜딩 히어로와 같다). 100% 도 0% 도 아닌 자리여야 "학년을 바꾸면
+ * 칠이 바뀐다" 가 보이고, 방문자 다수(고교 교사)가 자기 반을 먼저 떠올리는 지점이다.
+ */
+const DEFAULT_LEVEL: ProfileLevel = 6
+
+/** 학년 조작을 멈춘 뒤 한 번만 보낸다 — 드래그 중 수십 번 보내지 않는다. */
+const TRACK_DEBOUNCE_MS = 600
+
+const TOOL_BUTTON =
+  'inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 font-display text-[13px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg3)] active:bg-[var(--bg-strong)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] disabled:cursor-not-allowed disabled:opacity-40 motion-reduce:transition-none'
+
+/** 1차 행동 — 주묵 채움(화면에 하나씩). 판면에서 요소는 뜨지 않는다: 눌리면 1px 들어간다. */
+const PRIMARY_BUTTON =
+  'inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--ju)] bg-[var(--ju)] px-4 font-display text-[13.5px] font-[600] text-[var(--on-ju)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--ju-ink)] active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] disabled:cursor-not-allowed disabled:opacity-40 motion-reduce:transition-none'
 
 // 예시 지문은 `lib/textfit/sample.ts` 가 정본이다 — 서버가 미리 분석한 문장과 같아야 한다.
 
@@ -56,9 +75,15 @@ interface Props {
    * 그 사람은 받은 결과를 보러 왔다.
    */
   initialSample?: LevelProfile | null
+  /** 예시 지문의 표면형 → 레벨 표 — 도착 즉시 예시 지문을 칠한다(2026-09-19 발산 A). */
+  initialSampleSurfaces?: SurfaceLevels | null
 }
 
-export function PublicFitClient({ initialShared = null, initialSample = null }: Props) {
+export function PublicFitClient({
+  initialShared = null,
+  initialSample = null,
+  initialSampleSurfaces = null,
+}: Props) {
   // 공유 결과가 없고 예시 결과가 있으면 예시로 시작한다 — 입력칸과 결과가 **같은 문장**을 가리켜야 한다.
   const startsWithSample = initialShared === null && initialSample !== null
   const [text, setText] = useState(startsWithSample ? FIT_SAMPLE : '')
@@ -75,6 +100,18 @@ export function PublicFitClient({ initialShared = null, initialSample = null }: 
   const [viewingShared, setViewingShared] = useState(initialShared !== null)
   // 예시 결과를 보고 있는가 — 입력칸을 건드리는 순간 해제된다(그때부터는 내 지문이다).
   const [viewingSample, setViewingSample] = useState(startsWithSample)
+  /** 표면형 → 레벨 표 — 마지막 분석의 것. 원문은 브라우저에만 있고, 칠하기도 여기서 한다. */
+  const [surfaces, setSurfaces] = useState<SurfaceLevels | null>(
+    startsWithSample ? initialSampleSurfaces : null,
+  )
+  const [level, setLevel] = useState<ProfileLevel>(DEFAULT_LEVEL)
+  /** 입력칸을 보고 있는가 — 칠해진 지문이 없거나, 「지문 바꾸기」 를 눌렀을 때. */
+  const [editing, setEditing] = useState(!(startsWithSample && initialSampleSurfaces))
+  const [sheetOpen, setSheetOpen] = useState(false)
+  const inputRef = useRef<HTMLTextAreaElement>(null)
+  /** 붙여 넣은 직후면 결과가 오는 대로 칠해진 지문으로 넘어간다(타이핑 중에는 넘어가지 않는다). */
+  const paintOnArrival = useRef(false)
+  const levelTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   // 퍼널 분모 — 이 화면에 몇 명이 왔는가. 공유 링크로 온 진입은 확산 계수의 분자다.
   useEffect(() => {
@@ -119,7 +156,13 @@ export function PublicFitClient({ initialShared = null, initialSample = null }: 
         .then((p) => {
           if (!alive) return
           setProfile(p)
+          setSurfaces(p.surfaces ?? {})
           setError(null)
+          // 붙여 넣은 지문이면 곧바로 칠해진 모습으로 — 입력칸이 곧 결과다.
+          if (paintOnArrival.current) {
+            paintOnArrival.current = false
+            setEditing(false)
+          }
           // 내 지문으로 다시 계산됐으므로 더 이상 남의 결과가 아니다.
           setViewingShared(false)
           setViewingSample(false)
@@ -156,10 +199,63 @@ export function PublicFitClient({ initialShared = null, initialSample = null }: 
     }
   }, [tokenization, analysed, viewingShared, viewingSample])
 
+  /** 칠할 조각 — 원문(브라우저에만 있다) × 마지막 분석의 레벨 표. */
+  const tokens = useMemo(
+    () => (surfaces && analysed.trim().length > 0 ? paintTokens(analysed, surfaces) : null),
+    [surfaces, analysed],
+  )
+
   /** 입력칸을 바꾸는 모든 경로 — 예시 결과에서 벗어난다(빈 문자열이면 결과도 비워진다). */
   function replaceText(next: string) {
     setText(next)
     setViewingSample(false)
+    if (next.trim().length === 0) {
+      setEditing(true)
+      setSurfaces(null)
+      setSheetOpen(false)
+    }
+  }
+
+  /** 예시 지문 — 서버가 미리 칠해 둔 결과가 있으면 네트워크 없이 그대로 돌아간다. */
+  function loadSample() {
+    if (initialSample && initialSampleSurfaces) {
+      setText(FIT_SAMPLE)
+      setProfile(initialSample)
+      setSurfaces(initialSampleSurfaces)
+      setViewingSample(true)
+      setViewingShared(false)
+      setError(null)
+      setEditing(false)
+      return
+    }
+    paintOnArrival.current = true
+    replaceText(FIT_SAMPLE)
+  }
+
+  function startEditing() {
+    setEditing(true)
+    // 숨김이 풀린 다음 틱에 포커스 — 같은 자리에 입력칸이 선다.
+    window.setTimeout(() => inputRef.current?.focus(), 0)
+  }
+
+  function changeLevel(next: ProfileLevel) {
+    setLevel(next)
+    if (levelTimer.current) clearTimeout(levelTimer.current)
+    levelTimer.current = setTimeout(() => {
+      track({ name: 'fit_level_moved', props: { level: next } })
+    }, TRACK_DEBOUNCE_MS)
+  }
+
+  useEffect(() => () => {
+    if (levelTimer.current) clearTimeout(levelTimer.current)
+  }, [])
+
+  function toggleSheet() {
+    const next = !sheetOpen
+    setSheetOpen(next)
+    if (next && profile) {
+      track({ name: 'fit_sheet_opened', props: { words: buildGloss(profile, tokens, level).length } })
+    }
   }
 
   /**
@@ -215,52 +311,106 @@ export function PublicFitClient({ initialShared = null, initialSample = null }: 
     }
   }
 
+  const showPainted = !editing && tokens !== null
+  const empty = text.trim().length === 0 && !viewingShared
+  const glossCount = profile && profile.uniqueContentWords > 0 ? buildGloss(profile, tokens, level).length : 0
+
   return (
     <div className="flex flex-col gap-5">
-      <div className="flex flex-col gap-3">
-        <label
-          htmlFor="fit-input"
-          className="font-display text-[13px] font-[700] text-[var(--t1)]"
-        >
-          영어 지문 붙여넣기
-        </label>
-        <textarea
-          id="fit-input"
-          value={text}
-          onChange={(e) => replaceText(e.target.value)}
-          rows={9}
-          spellCheck={false}
-          placeholder="교과서 본문, 모의고사 지문, 수업 프린트 — 무엇이든 괜찮아요. 저장하지 않습니다."
-          className="w-full resize-y rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4 font-body text-[14px] leading-[1.7] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] placeholder:text-[var(--t3)] hover:border-[var(--t3)] focus:border-[var(--p)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1 motion-reduce:transition-none"
-        />
-
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <p className="m-0 font-mono text-[11.5px] tabular-nums text-[var(--t3)]">
-            {analysed.length.toLocaleString()} / {PUBLIC_TEXT_LIMIT.toLocaleString()}자
-            {tooShort && <span className="ml-2 font-body"> · {MIN_CHARS}자 이상이면 분석돼요</span>}
-          </p>
-
-          <div className="flex gap-2">
-            <button
-              type="button"
-              onClick={() => replaceText(FIT_SAMPLE)}
-              className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 font-display text-[13px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg3)] active:bg-[var(--bg-strong)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
-            >
-              <FileText size={14} aria-hidden />
-              예시 지문
-            </button>
+      {/*
+        ── 골격: 칠해지는 입력칸 (발산 A) ──
+        입력칸이 곧 결과다. 붙여 넣으면 이 자리에서 원문이 칠해지고, 아래 학년 눈금이 곧 커버리지다.
+      */}
+      <section
+        aria-label="칠해진 지문"
+        className="flex flex-col gap-4 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-4 md:p-6"
+      >
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <label htmlFor="fit-input" className="font-display text-[13px] font-[700] text-[var(--t1)]">
+            영어 지문
+          </label>
+          <div className="flex flex-wrap gap-2">
+            {showPainted && (
+              <button type="button" onClick={startEditing} className={TOOL_BUTTON}>
+                <PencilLine size={14} aria-hidden />
+                지문 바꾸기
+              </button>
+            )}
+            {/* 예시를 이미 보고 있으면 같은 것을 다시 부르는 버튼은 뺀다 — 390 에서 버튼 줄이 둘로 넘쳐
+                증명을 밀어냈다(2026-09-19 비평 2회차). 빈 상태에서는 아래 1차 행동이 같은 일을 한다. */}
+            {!viewingSample && !empty && (
+              <button type="button" onClick={loadSample} className={TOOL_BUTTON}>
+                <FileText size={14} aria-hidden />
+                예시 지문
+              </button>
+            )}
             <button
               type="button"
               onClick={() => replaceText('')}
               disabled={text.length === 0}
-              className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 font-display text-[13px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg3)] active:bg-[var(--bg-strong)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] disabled:cursor-not-allowed disabled:opacity-40 motion-reduce:transition-none"
+              className={`${TOOL_BUTTON} text-[var(--t2)]`}
             >
               <RotateCcw size={14} aria-hidden />
               지우기
             </button>
           </div>
         </div>
-      </div>
+
+        {/* 입력칸 — 칠해진 지문을 보는 동안은 숨겨 두고(값은 그대로), 바꾸기를 누르면 같은 자리에 선다. */}
+        {/* `hidden` 속성만 쓰면 `flex` 클래스가 display 를 덮어 숨지 않는다(2026-09-19 비평 1회차) — 클래스로 끈다. */}
+        <div aria-hidden={showPainted} className={showPainted ? 'hidden' : 'flex flex-col gap-2'}>
+          <textarea
+            ref={inputRef}
+            id="fit-input"
+            value={text}
+            onChange={(e) => replaceText(e.target.value)}
+            onPaste={() => {
+              paintOnArrival.current = true
+            }}
+            onBlur={() => {
+              if (profile && tokens && !loading) setEditing(false)
+            }}
+            rows={9}
+            spellCheck={false}
+            placeholder="교과서 본문, 모의고사 지문, 수업 프린트 — 무엇이든 붙여 넣으세요. 저장하지 않습니다."
+            className="w-full resize-y rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4 font-english text-[16px] leading-[1.9] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] placeholder:font-body placeholder:text-[14px] placeholder:text-[var(--t2)] hover:border-[var(--t3)] focus:border-[var(--p)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1 motion-reduce:transition-none"
+          />
+          <p className="m-0 font-mono text-[11.5px] tabular-nums text-[var(--t2)]">
+            {analysed.length.toLocaleString()} / {PUBLIC_TEXT_LIMIT.toLocaleString()}자
+            {tooShort && <span className="ml-2 font-body"> · {MIN_CHARS}자 이상이면 칠해져요</span>}
+          </p>
+        </div>
+
+        {/* ── 빈 상태 (D5) — 무엇을 하면 무엇이 보이는지, 그리고 다음 한 걸음 ── */}
+        {empty && (
+          <div className="flex flex-col gap-3 border-t border-[var(--bd)] pt-4">
+            <p className="m-0 break-keep font-ko-display text-[16px] font-[600] leading-[1.5] text-[var(--t1)]">
+              붙여 넣으면 이 자리에서 바로 칠해져요.
+            </p>
+            <p className="m-0 break-keep font-body text-[13px] leading-[1.65] text-[var(--t2)]">
+              학년을 고르면 그 반 학생이 처음 만나는 낱말에 면이 칠해지고, 아래 눈금에 학년마다 몇 %가
+              읽히는지가 나옵니다.
+            </p>
+            <div>
+              <button type="button" onClick={loadSample} className={PRIMARY_BUTTON}>
+                <FileText size={15} aria-hidden />
+                예시 지문으로 먼저 보기
+              </button>
+            </div>
+          </div>
+        )}
+
+        {profile && profile.uniqueContentWords > 0 && (
+          <PaintedPassage
+            tokens={showPainted ? tokens : null}
+            readings={profile.readings}
+            fitLevel={profile.fitLevel as ProfileLevel | null}
+            level={level}
+            onLevelChange={changeLevel}
+            stale={loading}
+          />
+        )}
+      </section>
 
       {error && (
         <p
@@ -291,19 +441,44 @@ export function PublicFitClient({ initialShared = null, initialSample = null }: 
       <CurriculumPanel profile={profile} />
 
       {/*
-        마지막 자리 — 여기까지 읽은 사람은 "이 지문을 쓰겠다" 고 정한 사람이다.
-        인쇄는 링크 복사보다 강한 의도이고, 그 종이가 교무실에 남는다.
+        ── 출력 면: 학급에 나눠 줄 한 장 (발산 B) ──
+        별도 화면이 아니다. 버튼 뒤에 펼쳐지고, 같은 판면이 인쇄의 첫 장이 된다.
+        여기까지 온 사람은 "이 지문을 쓰겠다" 고 정한 사람이다 — 그 종이가 교무실에 남는다.
       */}
-      {profile && (
-        <>
-          <WorksheetControls
+      {profile && profile.uniqueContentWords > 0 && (
+        <section aria-label="수업에 쓰기" className="flex flex-col gap-4">
+          <button
+            type="button"
+            aria-expanded={sheetOpen}
+            aria-controls="fit-class-sheet"
+            onClick={toggleSheet}
+            className={`${PRIMARY_BUTTON} self-start`}
+          >
+            <Printer size={15} aria-hidden />
+            {sheetOpen ? '한 장 접기' : '학급에 나눠 줄 한 장으로'}
+          </button>
+
+          {sheetOpen && (
+            <div id="fit-class-sheet" className="flex flex-col gap-4">
+              <ClassSheet profile={profile} tokens={tokens} level={level} variant="screen" />
+              <WorksheetControls
+                mode={worksheetMode}
+                onModeChange={setWorksheetMode}
+                wordCount={profile.hardestWords.length}
+              />
+            </div>
+          )}
+
+          {/* 화면에 안 보인다 — 인쇄에서만 켜진다(globals.css 의 .vf-sheet). 첫 장이 위 판면이다. */}
+          <Worksheet
+            profile={profile}
             mode={worksheetMode}
-            onModeChange={setWorksheetMode}
-            wordCount={profile.hardestWords.length}
+            prelude={<ClassSheet profile={profile} tokens={tokens} level={level} variant="print" />}
           />
-          {/* 화면에 안 보인다 — 인쇄에서만 켜진다(globals.css 의 .vf-sheet). */}
-          <Worksheet profile={profile} mode={worksheetMode} />
-        </>
+          <span className="sr-only" aria-live="polite">
+            {sheetOpen ? `한 장이 펼쳐졌어요 — 난외 풀이 ${glossCount}개` : ''}
+          </span>
+        </section>
       )}
     </div>
   )

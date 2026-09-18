@@ -27,6 +27,7 @@ import {
 import type { ResolvedSurface } from './level-map'
 import { buildLevelProfile } from './profile'
 import type { LevelProfile, PublicWord } from './profile'
+import type { SurfaceLevels } from './paint'
 
 export interface AnalyzeResult {
   profile: LevelProfile
@@ -34,7 +35,8 @@ export interface AnalyzeResult {
    * 표제어로 접힌 단어 전체 — **표면형 색칠에 필요하다.**
    *
    * `profile.hardestWords` 는 상위 일부뿐이라 지문의 모든 낱말을 칠할 수 없다.
-   * 라우트 응답에는 넣지 않는다(응답이 몇 배가 되고 `/fit` 화면은 쓰지 않는다).
+   * 라우트 응답에는 통째로 넣지 않는다 — `/fit` 은 `surfaceLevels()` 로 줄인 표면형→레벨 표만 받는다
+   * (2026-09-19, 붙여 넣은 지문을 브라우저가 칠하기 위해).
    */
   words: PublicWord[]
   /** 표면형 → 표제어. 원문 순서대로 다시 칠할 때 쓴다. */
@@ -147,4 +149,18 @@ export async function analyzeCounts(
   }
 
   return { profile, words, lemmaBySurface, mode }
+}
+
+/**
+ * 표면형(소문자) → V-Level 표 — 원문 없이 받은 빈도표의 낱말마다 레벨만 돌려준다.
+ * `null` 은 레벨 미상(실재하지만 학습 어휘 목록 밖). 표에 없는 표면형은 학습 대상이 아니다.
+ */
+export function surfaceLevels(
+  words: PublicWord[],
+  lemmaBySurface: Map<string, string>,
+): SurfaceLevels {
+  const levelByLemma = new Map(words.map((w) => [w.lemma, w.vLevel]))
+  const out: SurfaceLevels = {}
+  for (const [surface, lemma] of lemmaBySurface) out[surface] = levelByLemma.get(lemma) ?? null
+  return out
 }

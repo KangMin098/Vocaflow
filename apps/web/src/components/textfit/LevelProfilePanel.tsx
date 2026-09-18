@@ -131,18 +131,17 @@ export function LevelProfilePanel({
         <p className="m-0 flex items-start gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg3)] px-4 py-3 font-body text-[12.5px] leading-[1.6] text-[var(--t2)]">
           <FileText size={14} aria-hidden className="mt-0.5 shrink-0 text-[var(--t3)]" />
           <span>
-            <b>예시 지문의 결과</b>예요 — 도구가 어떻게 답하는지 먼저 보여드립니다. 위 입력칸에 지문을
-            붙여넣으면 그 지문으로 다시 계산돼요.
+            <b>예시 지문의 결과</b>예요 — 도구가 어떻게 답하는지 먼저 보여드립니다. 위 「지문 바꾸기」로
+            내 지문을 붙여 넣으면 그 자리에서 다시 칠해져요.
           </span>
         </p>
       )}
 
       {/* ── 한 줄 답 ── */}
       <header className="flex flex-col gap-2">
-        <p
-          className="m-0 text-[17px] leading-[1.55] text-[var(--t1)] md:text-[19px]"
-          style={{ fontFamily: 'Lora, serif', fontStyle: 'italic' }}
-        >
+        {/* 한국어 판정 문장 — Hahmlet, 이탤릭 없음(AGENTS 철학 3). 2026-09-18 감사에서 Lora 이탤릭으로
+            그려져 한국어가 가짜 기울임이 되던 것을 바로잡았다. */}
+        <p className="m-0 break-keep font-ko-display text-[17px] font-[600] leading-[1.55] text-[var(--t1)] md:text-[19px]">
           {profileHeadline(profile)}
         </p>
         <p className="m-0 font-body text-[13px] leading-[1.6] text-[var(--t3)]">
@@ -153,8 +152,15 @@ export function LevelProfilePanel({
         </p>
       </header>
 
-      {/* ── 레벨 사다리 ── */}
-      <div className="flex flex-col gap-2">
+      {/* ── 레벨 사다리 — 2026-09-19 부터 첫 시선은 위 칠해진 지문의 학년 눈금이다(발산 A).
+          사다리는 불확실 범위를 학년마다 펼쳐 보는 **깊이**로 내려왔다(철학 2 Progressive Disclosure). ── */}
+      <details className="group flex flex-col gap-2">
+        <summary className="flex min-h-[44px] cursor-pointer list-none items-center justify-between gap-3 rounded-[var(--r-md)] px-2 font-display text-[13px] font-[700] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg3)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none [&::-webkit-details-marker]:hidden">
+          학년별 범위 자세히
+          <span aria-hidden className="font-mono text-[12px] text-[var(--t2)] group-open:hidden">+</span>
+          <span aria-hidden className="hidden font-mono text-[12px] text-[var(--t2)] group-open:inline">−</span>
+        </summary>
+        <div className="mt-2 flex flex-col gap-2">
         {profile.readings.map((r) => (
           <LevelRow key={r.level} reading={r} isFit={fit?.level === r.level} />
         ))}
@@ -177,7 +183,8 @@ export function LevelProfilePanel({
             ),
           )}
         </div>
-      </div>
+        </div>
+      </details>
 
       {/* ── 정직성 고지 ── */}
       {profile.resolvedShare < 0.97 && (

@@ -23,6 +23,16 @@ across weeks. Nevertheless, the prevailing curriculum still favours concentrated
 because it is easier to administer and to measure.`;
 
 /**
+ * 지문을 넣는다 — 2026-09-19 부터 도착 화면은 **칠해진 예시 지문**이고 입력칸은 숨어 있다
+ * (발산 A 「칠해지는 입력칸」). 「지문 바꾸기」 가 보이면 눌러 같은 자리에 입력칸을 세운 뒤 채운다.
+ */
+async function fillPassage(page: import('@playwright/test').Page, text: string): Promise<void> {
+  const change = page.getByRole('button', { name: '지문 바꾸기' });
+  if (await change.isVisible().catch(() => false)) await change.click();
+  await page.locator('#fit-input').fill(text);
+}
+
+/**
  * 지문 → 결과 → 공유 URL 을 얻고, 그 주소를 **새로 연다**.
  *
  * ⚠️ 복사 버튼은 `history.replaceState` 로 주소만 바꾼다 — `<head>` 는 서버가 다시 만들지
@@ -31,7 +41,7 @@ because it is easier to administer and to measure.`;
  */
 async function openSharedPage(page: import('@playwright/test').Page): Promise<string> {
   await page.goto('/fit', { waitUntil: 'domcontentloaded', timeout: 30_000 });
-  await page.locator('#fit-input').fill(PASSAGE);
+  await fillPassage(page, PASSAGE);
   await expect(page.getByRole('region', { name: '레벨 프로파일' })).toBeVisible({ timeout: 40_000 });
 
   await page.getByRole('button', { name: '결과 링크 복사' }).click();
@@ -54,17 +64,23 @@ test.describe('공개 지문 진단 — /fit (로그아웃)', () => {
     expect(page.url()).toContain('/fit');
     await expect(page.getByRole('heading', { name: '이 지문, 우리 반에 맞을까?' })).toBeVisible();
 
-    // ② 예시 지문 버튼이 입력을 채운다 (교사가 아무것도 준비 안 해도 볼 수 있어야 한다)
-    await page.getByRole('button', { name: '예시 지문' }).click();
-    await expect(page.locator('#fit-input')).not.toBeEmpty();
+    // ② 도착 즉시 예시 지문이 **칠해져** 있다(I2 · 발산 A) — 비워도 1차 행동으로 되돌아온다(D5)
+    const painted = page.getByRole('region', { name: '칠해진 지문' });
+    await expect(painted.locator('mark').first()).toBeVisible({ timeout: 30_000 });
+    await page.getByRole('button', { name: '지우기' }).click();
+    await expect(page.getByText('붙여 넣으면 이 자리에서 바로 칠해져요')).toBeVisible();
+    await page.getByRole('button', { name: '예시 지문으로 먼저 보기' }).click();
+    await expect(painted.locator('mark').first()).toBeVisible({ timeout: 30_000 });
 
     // ③ 직접 붙여넣기 → 프로파일
-    await page.locator('#fit-input').fill(PASSAGE);
+    await fillPassage(page, PASSAGE);
 
     const panel = page.getByRole('region', { name: '레벨 프로파일' });
     await expect(panel).toBeVisible({ timeout: 40_000 });
 
     // ④ 여덟 학년이 모두 글자로 나온다 (색만으로 정보를 전달하지 않는다)
+    //    사다리는 2026-09-19 부터 「학년별 범위 자세히」 접힘 안이다 — 연 뒤에 본다.
+    await panel.getByText('학년별 범위 자세히').click();
     for (const label of ['중1–2', '중3', '고1', '고2 · 수능 기본', '학술 · 원서']) {
       await expect(panel.getByText(label, { exact: false }).first()).toBeVisible();
     }
@@ -109,9 +125,9 @@ test.describe('공개 지문 진단 — /fit (로그아웃)', () => {
     test.setTimeout(90_000);
 
     await page.goto('/fit', { waitUntil: 'domcontentloaded', timeout: 30_000 });
-    await page.locator('#fit-input').fill('Hello world.');
+    await fillPassage(page, 'Hello world.');
 
-    await expect(page.getByText(/자 이상이면 분석돼요/)).toBeVisible();
+    await expect(page.getByText(/자 이상이면 칠해져요/)).toBeVisible();
     await expect(page.getByRole('region', { name: '레벨 프로파일' })).toBeHidden();
   });
 
@@ -121,7 +137,7 @@ test.describe('공개 지문 진단 — /fit (로그아웃)', () => {
     await context.grantPermissions(['clipboard-read', 'clipboard-write']);
 
     await page.goto('/fit', { waitUntil: 'domcontentloaded', timeout: 30_000 });
-    await page.locator('#fit-input').fill(PASSAGE);
+    await fillPassage(page, PASSAGE);
 
     const panel = page.getByRole('region', { name: '레벨 프로파일' });
     await expect(panel).toBeVisible({ timeout: 40_000 });
@@ -205,7 +221,7 @@ test.describe('공개 지문 진단 — /fit (로그아웃)', () => {
     });
 
     await page.goto('/fit', { waitUntil: 'domcontentloaded', timeout: 30_000 });
-    await page.locator('#fit-input').fill(PASSAGE);
+    await fillPassage(page, PASSAGE);
     await expect(page.getByRole('region', { name: '레벨 프로파일' })).toBeVisible({
       timeout: 40_000,
     });
@@ -228,7 +244,7 @@ test.describe('공개 지문 진단 — /fit (로그아웃)', () => {
     await context.grantPermissions(['clipboard-read', 'clipboard-write']);
 
     await page.goto('/fit', { waitUntil: 'domcontentloaded', timeout: 30_000 });
-    await page.locator('#fit-input').fill(PASSAGE);
+    await fillPassage(page, PASSAGE);
 
     const panel = page.getByRole('region', { name: '레벨 프로파일' });
     await expect(panel).toBeVisible({ timeout: 40_000 });

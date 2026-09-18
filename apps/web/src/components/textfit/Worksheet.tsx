@@ -13,6 +13,8 @@
 
 'use client'
 
+import type { ReactNode } from 'react'
+
 import {
   CURRICULUM_BAND_MARK,
   type CurriculumBand,
@@ -28,7 +30,16 @@ import {
 
 export type WorksheetMode = SheetMode
 
-export function Worksheet({ profile, mode }: { profile: LevelProfile; mode: WorksheetMode }) {
+export function Worksheet({
+  profile,
+  mode,
+  prelude,
+}: {
+  profile: LevelProfile
+  mode: WorksheetMode
+  /** 낱말 장들 앞에 붙는 지문 판면(「학급에 나눠 줄 한 장」) — 있으면 첫 장이 된다. */
+  prelude?: ReactNode
+}) {
   const rows: SheetRow[] = profile.hardestWords.slice(0, MAX_SHEET_ROWS).map((w) => ({
     word: w.surface,
     meaning: w.meaningKo ?? null,
@@ -58,6 +69,7 @@ export function Worksheet({ profile, mode }: { profile: LevelProfile; mode: Work
         '빈칸은 기본 어휘 목록 밖 (교육부 고시 제2022-33호 [별책 14])'
       }
       qr={{ url: absoluteUrl('/fit'), caption: '지문을 넣으면\n이 표가 만들어져요' }}
+      prelude={prelude}
     />
   )
 }

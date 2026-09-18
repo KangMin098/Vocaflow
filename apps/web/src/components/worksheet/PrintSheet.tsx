@@ -19,7 +19,7 @@
 
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type ReactNode } from 'react'
 import { createPortal } from 'react-dom'
 
 import { printSizeMm, qrSvg } from '@/lib/worksheet/qr'
@@ -54,6 +54,11 @@ export interface PrintSheetProps {
   qr?: SheetQr | null
   /** 표시 칸을 쓰는가. 안 쓰면 뜻 칸이 넓어진다. */
   showMarkColumn?: boolean
+  /**
+   * 낱말 장들 **앞**에 붙는 한 장 — `/fit` 의 「학급에 나눠 줄 한 장」(지문 판면, 2026-09-19).
+   * 없으면 예전과 같다(교사 학급 학습지는 쓰지 않는다).
+   */
+  prelude?: ReactNode
 }
 
 export function PrintSheet({
@@ -64,6 +69,7 @@ export function PrintSheet({
   legend,
   qr,
   showMarkColumn = true,
+  prelude,
 }: PrintSheetProps) {
   // portal 은 DOM 이 있어야 한다 — 서버 렌더에서는 아무것도 그리지 않는다.
   const [mounted, setMounted] = useState(false)
@@ -90,9 +96,10 @@ export function PrintSheet({
   return createPortal(
     // 화면에서는 `hidden`, 인쇄에서만 `.vf-sheet` 규칙이 켠다.
     <div className="vf-sheet hidden" aria-hidden>
-      {showList && page(true)}
+      {prelude}
+      {showList && <div className={prelude ? 'vf-page-break' : undefined}>{page(true)}</div>}
       {showQuiz && (
-        <div className={showList ? 'vf-page-break' : undefined}>{page(false)}</div>
+        <div className={showList || prelude ? 'vf-page-break' : undefined}>{page(false)}</div>
       )}
     </div>,
     document.body,

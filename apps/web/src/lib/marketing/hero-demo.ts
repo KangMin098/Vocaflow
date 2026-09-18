@@ -23,6 +23,7 @@
 //    초등~학술까지 고르게 퍼지도록 어휘를 골랐다(이게 곡선을 보여 주는 조건이다).
 
 import { analyzeCounts } from '@/lib/textfit/analyze'
+import { splitSurface } from '@/lib/textfit/paint'
 import type { LevelReading, ProfileLevel } from '@/lib/textfit/profile'
 import { tokenizeText } from '@/lib/text-extract/tokenize'
 
@@ -56,14 +57,11 @@ export interface HeroDemo {
 }
 
 /**
- * 원문을 낱말 / 비낱말로 쪼갠다 — 순서와 문장부호를 그대로 살려 다시 그려야 한다.
- *
- * export 인 이유: **이어 붙이면 원문과 글자 하나까지 같아야 한다**는 것이 이 화면의 정직성
- * 조건이다(지문을 조용히 잘라 놓고 그 지문의 커버리지라고 말하면 안 된다). 회귀가 그것을 잰다.
+ * 원문을 낱말 / 비낱말로 쪼갠다 — 정본은 `lib/textfit/paint.ts`(2026-09-19 이동).
+ * `/fit` 이 같은 규칙으로 칠해야 해서 클라이언트에서도 쓸 수 있는 자리로 옮겼다.
+ * 여기서는 기존 호출부·회귀를 위해 다시 내보낸다.
  */
-export function splitSurface(text: string): string[] {
-  return text.split(/([A-Za-z]+(?:'[A-Za-z]+)?)/).filter((s) => s.length > 0)
-}
+export { splitSurface }
 
 /**
  * 히어로 데모를 계산한다. 실패하면 `null` — **히어로가 사라지는 게 아니라 증명만 빠진다.**

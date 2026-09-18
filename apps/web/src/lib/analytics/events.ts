@@ -53,6 +53,16 @@ export type PublicEvent =
    */
   | { name: 'fit_worksheet_printed'; props: { mode: 'list' | 'quiz' | 'both'; words: number } }
   /**
+   * 칠해진 지문 위에서 학년을 옮겼다 — `/fit` 의 서명(2026-09-19 발산 A). 랜딩의 `landing_demo_moved`
+   * 와 같은 몸짓이 도구에서도 쓰이는지를 잰다. 드래그 중 매번이 아니라 멈춘 뒤 한 번.
+   */
+  | { name: 'fit_level_moved'; props: { level: LevelValue } }
+  /**
+   * 「학급에 나눠 줄 한 장으로」 를 펼쳤다(발산 B — 출력 면). 인쇄(`fit_worksheet_printed`) 의 앞 단계다.
+   * `words` 는 난외 풀이 낱말 수(숫자) — 지문은 싣지 않는다.
+   */
+  | { name: 'fit_sheet_opened'; props: { words: number } }
+  /**
    * 랜딩 진입 — 검색·공유가 도착하는 지점의 분모.
    *
    * 2026-08-26 이전 이 자리는 개발용 화면 인덱스였고 랜딩 자체가 없었다. 이제 sitemap 의
@@ -405,6 +415,8 @@ const EVENT_REGISTRY: Record<PublicEventName, true> = {
   fit_share_opened: true,
   fit_signup_clicked: true,
   fit_worksheet_printed: true,
+  fit_level_moved: true,
+  fit_sheet_opened: true,
   landing_viewed: true,
   landing_cta_clicked: true,
   catalog_viewed: true,

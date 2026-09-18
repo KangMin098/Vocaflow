@@ -17,6 +17,13 @@
 
 import { buildLevelProfile } from './profile'
 import type { LevelProfile } from './profile'
+import type { SurfaceLevels } from './paint'
+
+/**
+ * `/api/fit` 응답 — 프로파일 + **표면형 → 레벨 표**(2026-09-19). 표는 붙여 넣은 지문을 브라우저가
+ * 칠하는 데만 쓴다. 공유 링크(`share.ts`)에는 넣지 않는다 — 링크는 지문을 담지 않으므로 칠할 원문이 없다.
+ */
+export type PublicAnalysis = LevelProfile & { surfaces?: SurfaceLevels }
 
 /** 공개 화면이 받는 지문 길이 상한(문자). 넘으면 앞에서 자르고 잘렸다고 알린다. */
 export const PUBLIC_TEXT_LIMIT = 12_000
@@ -38,8 +45,8 @@ export async function analyzePublicText(
   counts: Record<string, number>,
   totalTokens: number,
   signal?: AbortSignal,
-): Promise<LevelProfile> {
-  if (Object.keys(counts).length === 0) return buildLevelProfile([], totalTokens)
+): Promise<PublicAnalysis> {
+  if (Object.keys(counts).length === 0) return { ...buildLevelProfile([], totalTokens), surfaces: {} }
 
   const res = await fetch('/api/fit', {
     method: 'POST',
@@ -54,5 +61,5 @@ export async function analyzePublicText(
   }
   if (!res.ok) throw new Error(`분석 실패 (${res.status})`)
 
-  return (await res.json()) as LevelProfile
+  return (await res.json()) as PublicAnalysis
 }

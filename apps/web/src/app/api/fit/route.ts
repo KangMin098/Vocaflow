@@ -18,7 +18,7 @@
 
 import { NextResponse } from 'next/server'
 
-import { analyzeCounts } from '@/lib/textfit/analyze'
+import { analyzeCounts, surfaceLevels } from '@/lib/textfit/analyze'
 import { buildLevelProfile } from '@/lib/textfit/profile'
 import {
   FIT_RATE_LIMIT,
@@ -89,9 +89,14 @@ export async function POST(request: Request): Promise<NextResponse> {
   try {
     // 분석 코어는 랜딩 히어로와 공유한다(`lib/textfit/analyze.ts`).
     // 여기 남는 것은 **외부 입력의 책임**뿐이다 — 한도·검증·응답 형태.
-    const { profile } = await analyzeCounts(counts, totalTokens)
+    const { profile, words, lemmaBySurface } = await analyzeCounts(counts, totalTokens)
 
-    return NextResponse.json(profile, {
+    // 2026-09-19 — `/fit` 이 붙여 넣은 지문을 **그 자리에서 칠한다**(발산 A, `docs/design/compare/fit.md`).
+    // 원문은 여전히 받지 않는다. 받은 빈도표의 표면형마다 레벨만 되돌려 준다 — 칠하기는 원문을 가진
+    // 브라우저가 한다. 크기는 입력 상한(MAX_UNIQUE_WORDS)을 넘지 않는다.
+    const surfaces = surfaceLevels(words, lemmaBySurface)
+
+    return NextResponse.json({ ...profile, surfaces }, {
       headers: {
         // 같은 지문을 다시 보내면 CDN/브라우저가 받아 준다. 개인 데이터가 없어 공개 캐시 가능.
         'Cache-Control': 'public, max-age=60',
