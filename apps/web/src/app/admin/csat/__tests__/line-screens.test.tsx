@@ -37,6 +37,9 @@ import { bandState } from '../sourcing/BandStrip'
 import { SourceClient } from '../sourcing/SourceClient'
 
 const text = (html: string) => html.replace(/<!--[\s\S]*?-->/g, '')
+const scriptPaths = (value: string) =>
+  Array.from(value.matchAll(/(scripts\/[\w./-]+\.(?:mjs|mts|ts|js)\b)/g), (match) => match[1]!)
+
 
 /* ── 공정 정본 ↔ 화면 ↔ 도움말 ── */
 
@@ -529,6 +532,18 @@ describe('공정별 드레인 절차가 있어야 할 곳에만 있다', () => {
     }
   })
 
+  it('스크립트 경로는 전체 확장자를 확인한다 — JSON 산출물을 JS로 자르지 않는다', () => {
+    const blob = [
+      'scripts/csat/gate-article-drain/chunk-corr-v5.out.json',
+      'node scripts/csat/gate-article-drain-import.mjs --commit',
+      'scripts/verify.mts scripts/verify.ts scripts/verify.js',
+    ].join(' ')
+    expect(scriptPaths(blob)).toEqual([
+      'scripts/csat/gate-article-drain-import.mjs',
+      'scripts/verify.mts', 'scripts/verify.ts', 'scripts/verify.js',
+    ])
+  })
+
   it('드레인이 내미는 scripts/ 경로가 저장소에 실제로 있다', () => {
     const REPO_ROOT = resolve(__dirname, '../../../../../../..')
     const seen = new Set<string>()
@@ -541,7 +556,7 @@ describe('공정별 드레인 절차가 있어야 할 곳에만 있다', () => {
         ...d.verify,
         ...(d.recovery ?? []),
       ].join(' ')
-      for (const m of blob.matchAll(/(scripts\/[\w./-]+\.(?:mjs|mts|ts|js))/g)) seen.add(m[1]!)
+      for (const script of scriptPaths(blob)) seen.add(script)
     }
     expect(seen.size).toBeGreaterThanOrEqual(8)
     for (const rel of seen) {
