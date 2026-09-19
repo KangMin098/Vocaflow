@@ -151,6 +151,7 @@
 | **DD-31** | 인증 3화면 `/login` · `/reset-password` · `/verify-email` = **A 「칠해진 지문 옆의 폼」**(`/signup` 골든 6호의 두 단을 그대로 — `AuthSpread` → `SignupProof`). 세 `page.tsx` 를 서버 페이지 + 클라이언트 폼으로 나눴다(폼 로직 불변, 탭 제목이 처음으로 생김). 주소를 모르는 메일 확인 화면은 잠긴 재발송 버튼 대신 이유 + 1차 「다시 가입하기」(e2e 계약 갱신). 탈락: B 「내 서가가 기다려요」(로그인 전엔 내 서가를 모름) · C 「한 줄 인증」 · D 「원고 봉투」(N4 불통과) | B1: 상위 10 다음 여정 ①② 의 남은 화면(`/verify-email`)이 브리프상 인증 4화면 한 단위. B4: (1) A·C·D 0 (2) A 만 `/signup` 과 같은 틀 → A. 정적 신호 6·11·6 → 0·0·0. 수정 0회. C6 미실행. 골든 [golden/auth.md](golden/auth.md) |
 | **DD-32** | `/practice` (+ `/practice/dcp` 빈 날) = **A 「오늘의 연습지」**(시험지 사물 — 번호 붙은 괘선 문항 여섯 줄, 문항마다 그 면에서 아직 통과하지 못한 **내 낱말**). `FacetSummary` 에 `pending`(면당 8) 을 더했다 — 이미 읽는 행에서 접는 응답 확장(추가 조회 0). 면 요약은 서버에서 읽는다(브라우저 조회가 첫 화면을 흔들었다). 탈락: B 「여섯 면 레이더」(N4 부분) · C 「낱말이 먼저」(조회 1) · D 「도구 서랍」(N4 불통과) | B1: 학습자 화면 중 점수 최고(`/practice/dcp` 8) + 부모. B4 (2) A 만 허브·회고와 같은 「낱말 줄」 문법. 렌더 1280 큰 모서리 10→0 · 카드형 5→0. `DcpPlayer` 는 교재 연습과 공용이라 그대로(공용 교체 후보). 수정 0회. C6 미실행. 골든 [golden/practice.md](golden/practice.md) |
 | **DD-33** | `/teacher` = **A 「교실에 붙일 초대장」**(시험지 사물 — 반 이름 · 큰 초대코드 · QR 한 장, `InviteSheet`). 반이 없으면 같은 종이가 미리보기로 서고 반 이름 칸이 종이의 제목(입력칸이 곧 결과). 여러 반이면 괘선 목록에서 고르고 처음엔 학생이 가장 적은 반. 참여(학생 입구)는 한 줄 폼. 탈락: B 「우리 반 칠판」(학생 0 이라 첫 화면이 빈 칠판) · C 「첫 과제 미리보기」(예시뿐) · D 「학급 대시보드」(N4 불통과) | B1: 남은 학습자 화면 중 점수가 있는 유일한 화면(4, 렌즈 6). B4 (2) A 만 「입력칸이 곧 결과」 몸짓. 반이 있는 상태는 **캡처하지 않았다** — 검증 계정에 반이 없고 캡처용 반 생성은 DB 쓰기라서, 렌더 계약 테스트로 고정. 수정 0회. C6 미실행. 골든 [golden/teacher.md](golden/teacher.md) |
+| **DD-34** | 모듈 허브 `/flashcard` · `/spellforge` = **A 「오늘 담길 낱말」**(망각 — 카드가 나오는 순서의 낱말 줄 `QueueLine`, 밑줄 = 기억 상태, 세션 길이만큼 권점이 옮겨 찍힘 — `/hub` 골든의 몸짓). 공용 `components/hub/*` 를 쓰는 라우트가 모두 남은 평균 화면이라 부품을 바꿨다: ModuleHero = 판면 머리(면 칠 없음 — `/dictate` · `/pairflip` · `/text` 머리도 함께) · HubStartCard 1차 행동 = 주묵 하나(모듈별 핑크·파랑 CTA 폐지) · TodayQueue 삭제. 탈락: B 「기억 곡선 위의 큐」(조회 1) · C 「카드 더미」 · D 「타일 유지」(N4 불통과) | B4 (2) A 만 세 골든(허브 권점 · `/text/[id]` 밑줄 · 허브 낱말 줄)의 표식 그대로. e2e 18 계약 갱신(히어로 세션 수 = 권점 낱말 수). 수정 2회(모바일 첫 화면 · 「급한 순서」 → 실제 정렬 · 새 단어를 「안정」 이라 말하던 문구). C6 미실행. 골든 [golden/module-hubs.md](golden/module-hubs.md) |
 | **DD-22b** | 관측 `hub_curve_interacted` 의 DB 허용 목록 = **승인 대기** — `supabase/migrations/_pending_funnel_allow_hub_curve.sql`(작성 시점 DB 제약 40 + 1). 적용하지 않았다 | A7(마이그레이션은 SQL 커밋 후 승인 대기). 적용 전에는 `db-allowlist.integration.test.ts` 가 이 1종에서 실패한다 — 맞는 실패. 화면 동작에는 영향 없음(관측만 빠진다) |
 
 ### 공용 컴포넌트 교체 후보 (A5 — 화면 범위 밖이라 손대지 않은 것)
@@ -165,7 +166,7 @@
 | `components/ui/ZoomableImage.tsx` glass | 플래시카드 카드 뒷면이 가져오는 확대 오버레이에 backdrop-blur | 불투명 오버레이로 |
 | `components/spellforge/*` 가 `/text/[id]` 트리에 실린다 | 읽기 화면이 SpellForge 를 모드로 품어 정적 신호 7(그라디언트·떠오르는 hover·무한 모션·3열)이 이 화면 몫으로 셈된다 — SpellForge 는 `/spellforge*` 와 공유 | SpellForge 재설계 때 함께 줄어든다(우선순위 밖 학습 모듈) |
 | `ForgettingCurve` · `lib/flashcard/memory-line` 이 두 화면(플래시카드 · WordVault 학습)에서 쓰인다 | 플래시카드 전용으로 만들었는데 WordVault 가 수정 없이 가져왔다 — 이제 공용 | `components/ui/press` 옆으로 옮기고 이름을 `MemoryLine` 으로(동작 변경 없음) |
-| 권점(`text-emphasis`)이 `/hub` · `/dashboard` 두 곳에 같은 값으로 따로 있다 | 둘 다 라우트 전용 CSS 모듈에 적었다(남의 라우트 CSS 를 import 하지 않으려고). 영어 낱말에서는 글자마다 점이 찍혀 낱말 하나가 점 줄이 된다 | `ui/press` 에 `Gwonjeom` 옆 `.gwonjeomWord` 한 벌 · 영어는 낱말 끝 점 하나(`::after`)로 — 두 화면 동시 교체 |
+| 권점(`text-emphasis`)이 `/hub` · `/dashboard` · 모듈 허브(`components/hub/queue-line.module.css`) **세 곳**에 같은 값으로 따로 있다 | 둘 다 라우트 전용 CSS 모듈에 적었다(남의 라우트 CSS 를 import 하지 않으려고). 영어 낱말에서는 글자마다 점이 찍혀 낱말 하나가 점 줄이 된다 | `ui/press` 에 `Gwonjeom` 옆 `.gwonjeomWord` 한 벌 · 영어는 낱말 끝 점 하나(`::after`)로 — 두 화면 동시 교체 |
 | `ExtractionPanel`(공용: `/text/[id]` · 옛 `/text/new`)이 한국어 판정 문장을 **이탤릭**으로 쓰고, 「커버리지」 를 **내 단어장 기준**으로 계산해 같은 글의 학년 기준 커버리지(`/fit` 계열)와 다른 숫자를 낸다 | `/text/new` 에서 두 숫자가 한 화면에 섰다(39.4% vs 100%) — 이 화면에서는 걷었다 | 한국어 이탤릭 제거 · 지표 이름을 「내 단어장으로 본 커버리지」 로 구분(또는 `/fit` 커버리지와 한 정의로) |
 | `useTheme` 의 첫 값이 서버(light)와 브라우저(OS 다크)에서 다르다 | 테마 아이콘을 그리는 화면(`/text/new` · `/wordvault`)이 다크 OS 에서 hydration 오류 3건 — `/text/new` 는 화면 안에서 막았다 | 훅이 `ready` 전에는 `theme` 을 `null` 로 내게 |
 | `saveText` · `saveUserBook` 이 새 글 표지 기본색으로 AI-보라(`#A78BFA → #6D28D9`)를 **DB 에 쓴다** | 화면 밖 데이터라 이 재설계에서 안 건드렸다 — 새 글마다 보라 표지가 쌓인다 | 표지 기본색을 토큰 계열(주묵·잉크)로. 기존 행은 그대로 |
@@ -186,6 +187,7 @@
 - 없음(인증 3화면). `/signup` 부품 그대로.
 - 없음(`/practice`). 모션 0.
 - 없음(`/teacher`). 모션 0.
+- 없음(모듈 허브). 권점 색 전환 200ms — `/hub` 와 같은 7종 안.
 - 없음(`/flashcard/play`). 평가 미리보기 곡선은 모션 없이 바뀐다. (후보로만: 서명을 「곡선이 오른쪽으로 늘어나는 200ms」 로 키우려면 §5.2 화이트리스트에 「기억선 전환」 을 더하는 개정이 먼저다 — G4.)
 
 ### 이 세션이 만난 기존 결함 (범위 밖 — 고치지 않음)

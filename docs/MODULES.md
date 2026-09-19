@@ -188,6 +188,10 @@ Lexile·ATOS 는 글만 재고 LingQ 의 known-word 카운트는 이진값이라
 - `EmptyState.tsx` — Cold 첫 진입
 - `DiscoveryFooter.tsx` — Library 전환
 
+### 모듈 허브 공용 (`components/hub/`)
+- `ModuleHero.tsx` — 판면 머리(2026-09-19 — 면 칠 없음, 26/32px 제목) · `HubStartCard.tsx` — 길이 글자 탭 + 주묵 1차 행동
+- `QueueLine.tsx` — (2026-09-19 DD-34) 카드가 나오는 순서의 낱말 줄, 밑줄 = 기억 상태, 세션 길이만큼 권점. `TodayQueue.tsx`(4열 타일) 삭제 — 타입 `QueueBucket` 은 `lib/learner/session-queue.ts`
+
 ### 입력 폼 (`components/text-viewer/`)
 - `NewTextPaint.tsx` — (2026-09-19) 붙여 넣은 본문을 그 자리에서 칠함 — `/fit` 의 `PaintedPassage`·`/api/fit` 재사용(`InputModeTabs` 는 준비 안 된 파일·URL 탭이라 삭제)
 - `TextInput.tsx` / `FileUploadArea.tsx` / `UrlInput.tsx`
