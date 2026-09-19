@@ -15,6 +15,7 @@ const screens: { path: string; heading: string | RegExp; auth: boolean }[] = [
   // 화면 재설계 실행(2026-09-19) — h1 이 오늘의 단어·문장이라 형태만 확인한다.
   { path: '/hub', heading: /.+/, auth: true },
   { path: '/diagnostic', heading: '답할수록 이 글이 내 눈에 보이는 대로 칠해져요', auth: true },
+  { path: '/signup', heading: '영어 학습을 시작하세요', auth: false },
 ]
 const requested = (process.env.DESIGN_ROUTES ?? '/fit').split(',').map(value => value.trim())
 const unknown = requested.filter(value => !screens.some(screen => screen.path === value))

@@ -79,8 +79,10 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
       </header>
 
       {/* ── Main ── */}
-      <main className="flex flex-1 items-center justify-center px-s-4 py-s-8 sm:py-s-12">
-        <div className="w-full max-w-md">{children}</div>
+      <main className="flex flex-1 items-center justify-center px-s-4 py-s-5 sm:py-s-12">
+        {/* 칼럼은 기본 max-w-md. `data-auth-wide` 를 단 화면(가입 — 칠해진 지문 옆의 폼, DD-26)만 넓힌다.
+            다른 세 화면(로그인·재설정·메일 확인)은 그대로다. */}
+        <div className="w-full max-w-md has-[[data-auth-wide]]:max-w-5xl">{children}</div>
       </main>
 
       {/* ── Footer — 작고 절제 ── */}

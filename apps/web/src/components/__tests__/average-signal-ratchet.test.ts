@@ -78,7 +78,7 @@ const BASELINE: Record<Surface, Record<string, number>> = {
   learner: {
     'grid-3eq': 59, // 2026-09-19 /flashcard/play 완료 3열 통계 카드(60→59)
     'shadow-heavy': 29,
-    'rounded-big': 41,
+    'rounded-big': 39, // 2026-09-19 /signup 그림자 카드 rounded-xl 2(41→39)
     gradient: 165, // 2026-09-19 /diagnostic 헤더 2(171→169) · /flashcard/play 회상 막대·예문·완료 박스·버튼 4(169→165)
     'ai-purple': 38,
     glass: 50, // 2026-09-19 /diagnostic — 안내 모달 backdrop-blur 2(52→50)

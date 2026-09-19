@@ -20,7 +20,6 @@
   "src/app/(app)/play/wordsmith-vigil/page.tsx",
   "src/app/(auth)/login/page.tsx",
   "src/app/(auth)/reset-password/page.tsx",
-  "src/app/(auth)/signup/page.tsx",
   "src/app/(auth)/verify-email/page.tsx",
   "src/app/(main)/arcade/page.tsx",
   "src/app/(main)/arcade/ranking/page.tsx",

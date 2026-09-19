@@ -20,7 +20,7 @@ import {
   mapAuthError,
   mapCallbackError,
 } from '@/lib/auth/errors'
-import { resolveReturnTo } from '@/lib/auth/redirect'
+import { RETURN_PARAM, resolveReturnTo } from '@/lib/auth/redirect'
 import { isValidEmail } from '@/lib/auth/validation'
 import { createClient } from '@/lib/supabase/client'
 
@@ -121,7 +121,11 @@ function LoginForm() {
         </h1>
         <p className="font-body text-sm text-t2">
           처음 오셨나요?{' '}
-          <Link href="/signup" className="font-semibold text-p underline-offset-4 hover:underline">
+          {/* 복귀 경로를 떨어뜨리지 않는다 — 초대 링크로 온 학생이 가입으로 넘어가도 학급 연결이 남아야 한다(감사 · DD-26) */}
+          <Link
+            href={searchParams.get(RETURN_PARAM) ? `/signup?${RETURN_PARAM}=${encodeURIComponent(searchParams.get(RETURN_PARAM)!)}` : '/signup'}
+            className="inline-flex min-h-[44px] items-center font-semibold text-p underline-offset-4 hover:underline"
+          >
             회원가입
           </Link>
         </p>
