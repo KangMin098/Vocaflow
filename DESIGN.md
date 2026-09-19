@@ -21,7 +21,7 @@
 | 주묵 붓 | 실선+화살표(지지) · 점선+막대(배제) · 점선+화살표(유인) · `=`(합류) | CSAT 분석 자료 | [DESIGN_SYSTEM §✒ 형태 문법](docs/DESIGN_SYSTEM.md) |
 | 기록 지도 | ○ · • · ✓ · ↻ × 점선 · 실선 · 이중선 · 라벨 | 세션 기록 | 같은 절 F3 |
 | 낙관·권점 | 주묵 테두리 28/36/44px 안의 Hahmlet 한 글자 · 권점 | — (서명 전용) | `apps/web/src/components/ui/press` |
-| 서가 | 층이 차오르는 사다리 | FSRS 안정도 | `apps/web/src/components/dashboard/DurabilityLadder.tsx` |
+| 서가 | 층이 차오르는 사다리 → 층 안에 낱말이 선 지층(2026-09-19) | FSRS 안정도 | `apps/web/src/components/dashboard/DurabilityLadder.tsx` |
 | 시험지 | 2단 격자 · 문항 번호 · 괘선 | CSAT 코퍼스 | `apps/web/src/components/textfit/ClassSheet.tsx`(권점 · 난외 · 도장) |
 
 씨앗 전체(10개)와 골격 여부: [00-form-seeds](docs/design/00-form-seeds.md).
@@ -40,7 +40,7 @@
 | `/text/[id]` | 채색 지문 × 망각 | 원문 낱말 밑줄 두께 3/2/1px = 이 학습자의 R(t) · 원문 위 낱말 줄, 누르면 원문의 그 자리로(모션 0) | **서명 있음**(2026-09-19 골든 7호 [golden/text-id.md](docs/design/golden/text-id.md) · DD-27) |
 | `/csat` 분석 | 주묵 문법 | 대조 순간 지지 실선이 근거 → 정답으로 그어짐 · 200ms | 현행(선 그리기 모션은 §5.2 개정 전까지 페이드) |
 | `/csat` 홈 | 시험지 사물 | 두 문항이 `=` 로 합류 · 패턴 교체 시 · 200ms | 현행 |
-| `/dashboard` | 환경 변형(목표) | 버티는 기간 사다리의 층 · 정지(모션 0) | **감사 판정 평균 · 선언 미렌더**(첫 화면이 빈 상태 문장 카드) |
+| `/dashboard` · `/reports` | 환경 변형 | 기억의 지층 — 층 두께 = 낱말 수, 층 안에 내 낱말, 이번 주에 되찾은 낱말엔 권점 · 층을 누르면 펼침(모션 0) · `/reports` = 주마다 한 겹 | **서명 있음**(2026-09-19 골든 9호 [golden/retrospect.md](docs/design/golden/retrospect.md) · DD-29) |
 | `/hub` · 홈 | 망각 | 「오늘 다시 볼 단어」 슬라이더 → 7일 기억 곡선(Σ R(t))의 실선·면이 서고 낱말 권점이 옮겨 찍힘 · 200ms(`TodayStage`) | **서명 있음**(2026-09-19 골든 2호 [golden/hub.md](docs/design/golden/hub.md) · DD-22) |
 | `/diagnostic` | 채색 지문 | 「알아요 / 몰라요」 → 지금까지의 답으로 본 수준에서 지문 칠이 다시 갈림 · 200ms(`DiagnosticPassage`) · 결과 h1 = 지금 읽을 수 있는 책 수 | **서명 있음**(2026-09-19 골든 3호 [golden/diagnostic.md](docs/design/golden/diagnostic.md) · DD-23) |
 | `/wordvault` | 망각(목표) | — | **감사 판정 평균** — 링 게이지·4열 타일, 4색은 점·숫자 색뿐 · `/review` ≡ `/study` 픽셀 동일(우선순위 8위) |
