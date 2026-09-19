@@ -25,7 +25,8 @@ export function WeaknessPanel({ rows, days = 14 }: { rows: WeaknessRow[]; days?:
   const max = Math.max(...top.map((r) => r.hits), 1)
 
   return (
-    <section className="flex flex-col gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-sm)]">
+    // 2026-09-19 (DD-36) — 상자·그림자 → 문제지 아래 괘선 구획
+    <section className="flex flex-col gap-3 border-t border-[var(--bd)] pt-4">
       <header className="flex items-baseline justify-between">
         <h2 className="flex items-center gap-2 font-display text-[15px] font-[700] text-[var(--t1)]">
           <Target size={14} className="text-[var(--t2)]" strokeWidth={2.2} />
@@ -67,7 +68,7 @@ export function WeaknessPanel({ rows, days = 14 }: { rows: WeaknessRow[]; days?:
 
               {isOpen && (
                 <div className="mt-1.5 flex flex-col gap-2 rounded-[var(--r-md)] bg-[var(--bg2)] px-3 py-3">
-                  <p className="font-body text-[12px] italic leading-relaxed text-[var(--t2)]">
+                  <p className="font-body text-[12px] leading-relaxed text-[var(--t2)]">
                     {tagCoach(r.tag)}
                   </p>
                   {r.sampleExpected && (

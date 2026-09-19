@@ -23,13 +23,17 @@
 //   ② 세션 시작 — 문항 캐시 적재가 브라우저에서 일어난다
 //   ③ [다시 시도] — 서버 데이터를 다시 받아야 하므로 `router.refresh()`
 
+// 2026-09-19 화면 재설계(DD-36 · docs/design/compare/dictate.md 발산 A 「오늘의 받아쓰기 문제지」):
+//   첫 시선이 하늘→파랑 그라디언트 띠(머리)와 그라디언트 상자·CTA 였다(감사 평균 — 1차 행동 색이 둘). 지금은
+//   판면 머리(ModuleHero, DD-34) 아래 **받아쓸 문장 다섯 줄의 빈칸**(`DailySheet`)이 골격이고 1차 행동은 주묵 하나.
+//   최근 세션은 괘선 목록 · 정확도 색은 글자 + 숫자(색만으로 전달하지 않는다).
+
 'use client'
 
 import { useCallback, useEffect, useState, useTransition } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { ArrowRight, Headphones, Loader2, Play, RotateCcw } from 'lucide-react'
-import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
+import { ArrowRight, Headphones, Play, RotateCcw } from 'lucide-react'
 
 import { ModuleHero, type HeroStat } from '@/components/hub/ModuleHero'
 import type { DailyDictation } from '@/lib/dictation/daily'
@@ -38,9 +42,11 @@ import { getResumableSession } from '@/lib/dictation/storage'
 import { createDictationSession, DictationStartError } from '@/hooks/dictation/useDictationSession'
 import type { DictationConfig } from '@/lib/dictation/types'
 
+import { DailySheet } from './DailySheet'
 import { SourcePicker } from './SourcePicker'
 import { WeaknessPanel } from './WeaknessPanel'
 
+/** 머리 그라디언트 — ModuleHero 는 2026-09-19 부터 면을 칠하지 않는다(호환용으로만 넘긴다) */
 const DICTATION_ACCENT = '#0EA5E9'
 
 /** 오늘의 받아쓰기 기본값 — 고르는 화면 없이 바로 시작하므로 온건한 중간값. */
@@ -208,7 +214,7 @@ export function DictationHubClient({ data }: { data: DictationHubData }) {
       {recent.length > 0 && (
         <section className="flex flex-col gap-3">
           <h2 className="font-display text-[15px] font-[700] text-[var(--t1)]">최근 받아쓰기</h2>
-          <ul className="flex flex-col divide-y divide-[var(--bg3)] rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)]">
+          <ul className="m-0 flex list-none flex-col divide-y divide-[var(--bd)] border-y border-[var(--bd)] p-0">
             {recent.map((s) => {
               const acc = s.avgAccuracy
               const accColor =
@@ -221,8 +227,8 @@ export function DictationHubClient({ data }: { data: DictationHubData }) {
                       : 'var(--warning)'
               const done = !!s.completedAt
               return (
-                <li key={s.id} className="flex items-center gap-3 px-4 py-3">
-                  <span className="shrink-0 rounded-full bg-[var(--bg3)] px-2 py-1 font-display text-[10px] font-[700] text-[var(--t2)]">
+                <li key={s.id} className="flex items-center gap-3 px-1 py-3">
+                  <span className="shrink-0 font-display text-[11px] font-[700] text-[var(--t2)]">
                     {SOURCE_KIND_LABEL[s.sourceKind] ?? s.sourceKind}
                   </span>
                   <div className="min-w-0 flex-1">
@@ -251,7 +257,7 @@ export function DictationHubClient({ data }: { data: DictationHubData }) {
                   {done && (
                     <Link
                       href={`/dictate/results?sessionId=${s.id}`}
-                      className="shrink-0 rounded-[var(--r-sm)] bg-[var(--bg2)] px-2 py-1 font-display text-[11px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+                      className="inline-flex min-h-[44px] shrink-0 items-center px-2 font-display text-[12px] font-[600] text-[var(--t2)] underline decoration-[var(--bd)] underline-offset-4 transition-colors hover:text-[var(--p)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]"
                     >
                       결과
                     </Link>
@@ -289,9 +295,9 @@ function DailyCard({
   // 재료가 없는 이유는 하나뿐 — 받아쓸 자료가 없다. (비로그인은 라우트가 막는다.)
   if (!daily) {
     return (
-      <section className="flex flex-col gap-3 rounded-[var(--r-lg)] border border-dashed border-[var(--bd)] bg-[var(--bg)] p-5">
+      <section className="flex flex-col gap-1 border-l-2 border-[var(--bd)] py-1 pl-4">
         <h2 className="font-display text-[15px] font-[700] text-[var(--t1)]">오늘의 받아쓰기</h2>
-        <p className="break-keep font-body text-[13px] leading-relaxed text-[var(--t2)]">
+        <p className="m-0 break-keep font-body text-[13px] leading-relaxed text-[var(--t2)]">
           {hasAnything
             ? '아래에서 자료를 하나 골라 첫 세션을 마치면, 내일부터는 오늘의 5문장이 자동으로 만들어져요.'
             : '받아쓸 자료가 아직 없어요. 도서를 담거나 스크립트를 넣으면 여기에 매일 5문장이 놓입니다.'}
@@ -300,74 +306,5 @@ function DailyCard({
     )
   }
 
-  const minutes = Math.max(1, Math.round(daily.sentences.length * 0.8))
-
-  return (
-    <section
-      className="flex flex-col gap-4 rounded-[var(--r-lg)] border border-[var(--bd)] bg-gradient-to-br from-[var(--bg)] to-[var(--bg2)] p-5 shadow-[var(--sh-sm)]"
-      aria-labelledby="daily-dictation-title"
-    >
-      <div className="flex items-start justify-between gap-3">
-        <div className="flex flex-col gap-1">
-          <span
-            className="font-display text-[11px] font-[600] tracking-[0.04em]"
-            style={{ color: DICTATION_ACCENT }}
-          >
-            오늘의 받아쓰기
-          </span>
-          <h2
-            id="daily-dictation-title"
-            className="font-display text-[19px] font-[700] text-[var(--t1)]"
-          >
-            {daily.sentences.length}문장 · 약 {minutes}분
-          </h2>
-          {/* 구성 내역은 아래 칩이 말한다 — 같은 말을 두 번 하지 않는다(§철학2) */}
-        </div>
-        <Gwonjeom size={18} className="mt-0.5 shrink-0 text-[var(--t3)]" />
-      </div>
-
-      {/* 왜 이 문장인지 — 구성 근거를 접지 않고 보여준다. 시스템을 신뢰하려면 근거가 보여야 한다. */}
-      <ul className="flex flex-wrap gap-2">
-        {daily.meta.due > 0 && <ReasonChip label={`복습 임박 단어 ${daily.meta.due}`} tone="p" />}
-        {daily.meta.retry > 0 && (
-          <ReasonChip label={`지난번 놓친 문장 ${daily.meta.retry}`} tone="warning" />
-        )}
-        {daily.meta.fresh > 0 && (
-          <ReasonChip label={`읽던 자료에서 ${daily.meta.fresh}`} tone="neutral" />
-        )}
-      </ul>
-
-      <button
-        type="button"
-        onClick={onStart}
-        disabled={starting}
-        className="group inline-flex items-center justify-center gap-2 rounded-[var(--r-md)] py-3 font-display text-[14px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:shadow-[var(--sh-md)] active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
-        style={{ background: `linear-gradient(135deg, ${DICTATION_ACCENT}, #1D4ED8)` }}
-      >
-        {starting ? (
-          <>
-            <Loader2 size={15} className="animate-spin" />
-            준비 중
-          </>
-        ) : (
-          <>
-            시작하기
-            <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
-          </>
-        )}
-      </button>
-    </section>
-  )
-}
-
-function ReasonChip({ label, tone }: { label: string; tone: 'p' | 'warning' | 'neutral' }) {
-  const cls =
-    tone === 'p'
-      ? 'bg-[var(--p-light)] text-[var(--on-p-tint)]'
-      : tone === 'warning'
-        ? 'bg-[var(--warning-light)] text-[var(--warning)]'
-        : 'bg-[var(--bg3)] text-[var(--t2)]'
-  return (
-    <li className={`rounded-full px-3 py-1 font-body text-[11px] font-[600] ${cls}`}>{label}</li>
-  )
+  return <DailySheet daily={daily} starting={starting} onStart={onStart} />
 }

@@ -114,7 +114,8 @@ export function SourcePicker({ catalog }: { catalog: DictationCatalog }) {
   }
 
   return (
-    <section className="flex flex-col gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-sm)]">
+    // 2026-09-19 (DD-36) — 상자·그림자 → 문제지 아래 괘선 구획
+    <section className="flex flex-col gap-3 border-t border-[var(--bd)] pt-4">
       <div className="flex items-center gap-2" role="tablist" aria-label="받아쓸 자료 종류">
         {TABS.map((t) => {
           const Icon = t.icon
@@ -265,7 +266,7 @@ function QuickPaste() {
         }`}
       />
       {error && (
-        <p role="status" className="font-body text-[12px] italic text-[var(--warning)]">
+        <p role="status" className="font-body text-[12px] text-[var(--warning)]">
           {error}
         </p>
       )}
