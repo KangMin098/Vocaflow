@@ -54,7 +54,7 @@
 | `/flashcard` · `/spellforge` 허브 | 망각 | 오늘 담길 낱말 — 카드가 나오는 순서의 낱말 줄(밑줄 = 기억 상태), 세션 길이만큼 권점이 옮겨 찍힘 · 200ms(`/hub` 와 같은 몸짓) | **서명 있음**(2026-09-19 골든 14호 [golden/module-hubs.md](docs/design/golden/module-hubs.md) · DD-34) |
 | `/wordblitz` · `/pairflip` 허브 | 시험지 사물 | 이번 판 낱말 — 게임이 쓸 낱말 괘선 두 단, PairFlip 난이도의 쌍 수만큼 권점 · 시작은 주묵 하나 | **서명 있음**(2026-09-19 골든 15호 [golden/game-hubs.md](docs/design/golden/game-hubs.md) · DD-35) |
 | `/dictate` 허브 | 시험지 사물 | 오늘의 받아쓰기 문제지 — 다섯 줄의 빈칸(폭 = 낱말 길이, 내 낱말 자리 주묵), 글자는 보이지 않음 | **서명 있음**(2026-09-19 골든 16호 [golden/dictate.md](docs/design/golden/dictate.md) · DD-36) |
-| 다른 학습 모듈 허브(`/scriptquiz`) | 망각(목표) | 카드 뒤집기 0.55s(7종 안) | **감사 판정 평균** |
+| `/scriptquiz` 허브 | 망각 | 읽은 챕터 장부 — 읽고 오래된 챕터부터, 확인 안 한 챕터에 권점 · 빈 상태는 준비된 책의 실제 목록 | **서명 있음**(2026-09-19 골든 17호 [golden/scriptquiz.md](docs/design/golden/scriptquiz.md) · DD-37 — 장부 상태는 계약 테스트만) |
 | `/admin/*` | 환경 변형 · 주묵 문법 중 화면별 선언 | — | 액센트 = Deep Ink `--p` 확정(DD-01). 옛 보라는 신규 금지·감소만 |
 
 ## 평균 금지 — 목표는 혁신뿐
