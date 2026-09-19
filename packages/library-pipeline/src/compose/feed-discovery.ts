@@ -172,7 +172,7 @@ export const FEED_CONVENTIONS: ReadonlyArray<string> = [
  */
 export const FEED_MAX_AGE_DAYS = 30
 
-export function looksLikeFeed(text: string): {
+export function looksLikeFeed(text: string, now = Date.now()): {
   ok: boolean
   itemCount: number
   title: string | null
@@ -189,7 +189,7 @@ export function looksLikeFeed(text: string): {
     if (!Number.isNaN(ts) && ts > newest) newest = ts
   }
   const newestAgeDays =
-    newest === -Infinity ? null : Math.floor((Date.now() - newest) / 86_400_000)
+    newest === -Infinity ? null : Math.floor((now - newest) / 86_400_000)
   return { ok: true, itemCount: items.length, title, newestAgeDays }
 }
 
@@ -288,7 +288,7 @@ export async function verifyFeedUrl(
   }
   const r = await guardedFetch(url, gate, deps)
   if ('fail' in r) return r
-  const check = looksLikeFeed(r.res.text)
+  const check = looksLikeFeed(r.res.text, deps.now())
   if (!check.ok) {
     // RSS 가 아니면 **섹션 목록 페이지**인지 본다. 학습에 가장 적합한 섹션(생활·문화·과학)이
     //   RSS 를 안 주는 경우가 흔한데, 여기서 그냥 거부하면 그 섹션은 영영 등록할 수 없다.
@@ -465,7 +465,7 @@ export async function discoverFeeds(
         skipped.push(r.fail)
         continue
       }
-      const check = looksLikeFeed(r.res.text)
+      const check = looksLikeFeed(r.res.text, deps.now())
       if (!check.ok) {
         // 피드가 아니면 **안내 페이지일 수 있다.** 발행사는 `/rss` 에 섹션 목록만 두는 일이
         //   흔한데(코리아헤럴드 8개), 여기서 그냥 버리면 그 목록을 영영 못 본다.
