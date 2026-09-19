@@ -1,0 +1,200 @@
+{
+ "rubric": {
+  "note": "자료를 보기 전에 고정한 규칙표. 지문마다 소재 하나를 고른다. 기계가 뭐라고 했는지 모르는 채로 고른다.",
+  "categories": [
+   "과학·자연",
+   "심리·인지",
+   "사회·경제",
+   "기술·매체",
+   "예술·문화",
+   "역사·인류",
+   "교육·언어",
+   "철학·윤리",
+   "분류불가"
+  ],
+  "rule": "**지문이 무엇에 관한 글인지**로 고른다. 소재 낱말이 몇 개 나오는지가 아니라 글의 주제가 어느 영역에 속하는지를 본다. 두 영역에 걸치면 **논지가 걸린 쪽**을 고른다(예: 뇌과학으로 학습을 설명하면 학습이 논지면 교육·언어). 학술 소재 축에 안 맞는 글(안내문·편지·서사·심경)은 **분류불가**로 둔다 — 억지로 밀어 넣지 않는다."
+ },
+ "fillInstruction": "각 items 원소에 hand 키(위 categories 중 하나)를 더해 batchB-NN.out.json 으로 저장할 것.",
+ "items": [
+  {
+   "id": "2020#40",
+   "type": "R-SUMMARY",
+   "passage": "(B)에 들어갈 말로 가장 적절한 것은? Because elephant groups break up and reunite very frequently ― for instance, in response to variation in food availability ― reunions are more important in elephant society than among primates. And the species has evolved elaborate greeting behaviors, the form of which reflects the strength of the social bond between the individuals (much like how you might merely shake hands with a long-standing acquaintance but hug a close friend you have not seen in a while, and maybe even tear up). Elephants may greet each other simply by reaching their trunks into each other’s mouths, possibly equivalent to a human peck on the cheek. However, after long absences, members of family and bond groups greet one another with incredibly theatrical displays. The fact that the intensity reflects the duration of the separation as well as the level of intimacy suggests that elephants have a sense of time as well. To human eyes, these greetings strike a familiar chord. I’m reminded of the joyous reunions so visible in the arrivals area of an international airport terminal. * acquaintance: 지인 ** peck: 가벼운 입맞춤 ������ The evolved greeting behaviors of elephants can serve as an indicator of how much they are socially (A) and how long they have been (B) . (A) (B)"
+  },
+  {
+   "id": "2021#18",
+   "type": "R-PURPOSE",
+   "passage": "Dear Friends, Season’s greetings. As some of you already know, we are starting the campus food drive. This is how you participate. You can bring your items for donation to our booths. Our donation booths are located in the lobbies of the campus libraries. Just drop off the items there during usual library hours from December 4 to 23. The donated food should be . non-perishable like canned meats and canned fruits. Packaged goods such as jam and peanut butter are also good. We will distribute the food to our neighbors on Christmas Eve. We truly appreciate your help. Many blessings, Joanna at Campus Food Bank"
+  },
+  {
+   "id": "2021#19",
+   "type": "R-MOOD",
+   "passage": "Once again, I had lost the piano contest to my friend. When I learned that Linda had won, I was deeply troubled and unhappy. My body was shaking with uneasiness. My heart beat quickly and my face became reddish. I had to run out of the concert hall to settle down. Sitting on the stairs alone, I recalled what my teacher had said. “Life is about winning, not necessarily about winning against others but winning at being you. And the way to win is to figure out who you are and do your best.” He was absolutely right. I had no reason to oppose my friend. Instead, I should focus on myself and my own improvement. I breathed out slowly. My hands were steady now. At last, my mind was at peace."
+  },
+  {
+   "id": "2021#20",
+   "type": "R-CLAIM",
+   "passage": "Developing expertise carries costs of its own. We can become experts in some areas, like speaking a language or knowing our favorite foods, simply by living our lives, but in many other domains expertise requires considerable training and effort. What’s more, expertise is domain specific. The expertise that we work hard to acquire in one domain will carry over only imperfectly to related ones, and not at all to unrelated ones. In the end, as much as we may want to become experts on everything in our lives, there simply isn’t enough time to do so. Even in areas where we could, it won’t necessarily be worth the effort. It’s clear that we should concentrate our own expertise on those domains of choice that are most common and/or important to our lives, and those we actively enjoy learning about and choosing from."
+  },
+  {
+   "id": "2021#21",
+   "type": "R-IMPLY",
+   "passage": "하는 바로 가장 적절한 것은? There is an African proverb that says, ‘Till the lions have their historians, tales of hunting will always glorify the hunter’. The proverb is about power, control and law making. Environmental journalists have to play the role of the ‘lion’s historians’. They have to put across the point of view of the environment to people who make the laws. They have to be the voice of wild India. The present rate of human consumption is completely unsustainable. Forest, wetlands, wastelands, coastal zones, eco-sensitive zones, they are all seen as disposable for the accelerating demands of human population. But to ask for any change in human behaviour ― whether it be to cut down on consumption, alter lifestyles or decrease population growth ― is seen as a violation of human rights. But at some point human rights become ‘wrongs’. It’s time we changed our thinking so that there is no difference between the rights of humans and the rights of the rest of the environment."
+  },
+  {
+   "id": "2021#22",
+   "type": "R-GIST",
+   "passage": "Prior to file-sharing services, music albums landed exclusively in the hands of music critics before their release. These critics would listen to them well before the general public could and preview them for the rest of the world in their reviews. Once the internet made music easily accessible and allowed even advanced releases to spread through online social networks, availability of new music became democratized, which meant critics no longer had unique access. That is, critics and laypeople alike could obtain new music simultaneously. Social media services also enabled people to publicize their views on new songs, list their new favorite bands in their social media bios, and argue over new music endlessly on message boards. The result was that critics now could access the opinions of the masses on a particular album before writing their reviews. Thus, instead of music reviews guiding popular opinion toward art (as they did in preinternet times), music reviews began to reflect ― consciously or subconsciously ― public opinion. * laypeople: 비"
+  },
+  {
+   "id": "2021#24",
+   "type": "R-TITLE",
+   "passage": "People don’t usually think of touch as a temporal phenomenon, but it is every bit as time-based as it is spatial. You can carry out an experiment to see for yourself. Ask a friend to cup his hand, palm face up, and close his eyes. Place a small ordinary object in his palm ― a ring, an eraser, anything will do ― and ask him to identify it without moving any part of his hand. He won’t have a clue other than weight and maybe overall size. Then tell him to keep his eyes closed and move his fingers over the object. He’ll most likely identify it at once. By allowing the fingers to move, you’ve added time to the sensory perception of touch. There’s a direct analogy between the fovea at the center of your retina and your fingertips, both of which have high acuity. Your ability to make complex use of touch, such as buttoning your shirt or unlocking your front door in the dark, depends on continuous time-varying patterns of touch sensation. * analogy: 유사 ** fovea: (망막의) 중심와(窩) *** retina: 망막 전문가"
+  },
+  {
+   "id": "2021#29",
+   "type": "R-GRAMMAR",
+   "passage": "Regulations covering scientific experiments on human subjects are strict. Subjects must give their informed, written consent, and experimenters must submit their proposed experiments to thorough examination by overseeing bodies. Scientists who experiment on themselves can, functionally if not legally, avoid the restrictions ① associated with experimenting on other people. They can also sidestep most of the ethical issues involved: nobody, presumably, is more aware of an experiment’s potential hazards than the scientist who devised ② it. Nonetheless, experimenting on oneself remains ③ deeply problematic. One obvious drawback is the danger involved; knowing that it exists ④ does nothing to reduce it. A less obvious drawback is the limited range of data that the experiment can generate. Human anatomy and physiology vary, in small but significant ways, according to gender, age, lifestyle, and other factors. Experimental results derived from a single subject are, therefore, of limited value; there is no way to know ⑤ what the subject’s responses are typical or atypical of the response of humans as a group. * consent: 동의 ** anatomy: (해부학적) 구조 *** physiology: 생리적 현상"
+  },
+  {
+   "id": "2021#31",
+   "type": "R-BLANK",
+   "passage": "functioned as an administrative authority governing commodity production, collection, and redistribution. The discovery of administrative tablets from the temple complexes at Uruk suggests that token use and consequently writing evolved as a tool of centralized economic governance. Given the lack of archaeological evidence from Uruk-period domestic sites, it is not clear whether individuals also used the system for . For that matter, it is not clear how widespread literacy was at its beginnings. The use of identifiable symbols and pictograms on the early tablets is consistent with administrators needing a lexicon that was mutually intelligible by literate and nonliterate parties. As cuneiform script became more abstract, literacy must have become increasingly important to ensure one understood what he or she had agreed to. * archaeological: 고고학적인 ** lexicon: 어휘 목록 *** cuneiform script: 쐐기 문자"
+  },
+  {
+   "id": "2021#32",
+   "type": "R-BLANK",
+   "passage": "the survivability of an environment can be risky (if an environment turns out to be deadly, for instance, it might be too late by the time you found out), so humans have evolved the desire to associate with similar individuals as a way to perform this function efficiently. This is especially useful to a species that lives in so many different sorts of environments. However, the carrying capacity of a given environment . If resources are very limited, the individuals who live in a particular place cannot all do the exact same thing (for example, if there are few trees, people cannot all live in tree houses, or if mangoes are in short supply, people cannot all live solely on a diet of mangoes). A rational strategy would therefore sometimes be to avoid similar members of one’s species."
+  },
+  {
+   "id": "2021#33",
+   "type": "R-BLANK",
+   "passage": "now have access to the specific brain changes that occur during learning. Even though all of our brains contain the same basic structures, our neural networks are as unique as our fingerprints. The latest developmental neuroscience research has shown that the brain is much more malleable throughout life than previously assumed; it develops in response to its own processes, to its immediate and distant “environments,” and to its past and current situations. The brain seeks to create meaning through establishing or refining existing neural networks. When we learn a new fact or skill, our neurons communicate to form networks of connected information. Using this knowledge or skill results in structural changes to allow similar future impulses to travel more quickly and efficiently than others. High-activity synaptic connections are stabilized and strengthened, while connections with relatively low use are weakened and eventually pruned. In this way, our brains are . [3점 * malleable: 순응성이 있는 ** prune: 잘라 내다"
+  },
+  {
+   "id": "2021#34",
+   "type": "R-BLANK",
+   "passage": "marked by that technology being regarded by users as an unobtrusive facilitator of learning, instruction, or performance. When the focus shifts from the technology being used to the educational purpose that technology serves, then that technology is becoming a comfortable and trusted element, and can be regarded as being successfully integrated. Few people give a second thought to the use of a ball-point pen although the mechanisms involved vary ― some use a twist mechanism and some use a push button on top, and there are other variations as well. Personal computers have reached a similar level of familiarity for a great many users, but certainly not for all. New and emerging technologies often introduce both fascination and frustration with users. As long as promoting learning, instruction, or performance, then one ought not to conclude that the technology has been successfully integrated ― at least for that user. [3점] * unobtrusive: 눈에 띄지 않는"
+  },
+  {
+   "id": "2021#35",
+   "type": "R-IRRELEVANT",
+   "passage": "Workers are united by laughing at shared events, even ones that may initially spark anger or conflict. Humor reframes potentially divisive events into merely “laughable” ones which are put in perspective as subservient to unifying values held by organization members. Repeatedly recounting humorous incidents reinforces unity based on key organizational values."
+  },
+  {
+   "id": "2021#37",
+   "type": "R-ORDER",
+   "passage": "Experts have identified a large number of measures that promote energy efficiency. Unfortunately many of them are not cost effective. This is a fundamental requirement for energy efficiency investment from an economic perspective. (A) And this has direct repercussions at the individual level: households can reduce the cost of electricity and gas bills, and improve their health and comfort, while companies can increase their competitiveness and their productivity. Finally, the market for energy efficiency could contribute to the economy through job and firms creation. (B) There are significant externalities to take into account and there are also macroeconomic effects. For instance, at the aggregate level, improving the level of national energy efficiency has positive effects on macroeconomic issues such as energy dependence, climate change, health, national competitiveness and reducing fuel poverty. (C) However, the calculation of such cost effectiveness is not easy: it is not simply a case of looking at private costs and comparing them to the reductions achieved. [3점] * repercussion: 반향, 영향 ** aggregate: 집합의"
+  },
+  {
+   "id": "2021#38",
+   "type": "R-INSERT",
+   "passage": "I have still not exactly pinpointed Maddy’s character since wickedness takes many forms. Imagine I tell you that Maddy is bad. Perhaps you infer from my intonation, or the context in which we are talking, that I mean morally bad. Additionally, you will probably infer that I am disapproving of Maddy, or saying that I think you should disapprove of her, or similar, given typical linguistic conventions and assuming I am sincere. ( ① ) However, you might not get a more detailed sense of the particular sorts of way in which Maddy is bad, her typical character traits, and the like, since people can be bad in many ways. ( ② ) In contrast, if I say that Maddy is wicked, then you get more of a sense of her typical actions and attitudes to others. ( ③ ) The word ‘wicked’ is more specific than ‘bad’. ( ④ ) But there is more detail nevertheless, perhaps a stronger connotation of the sort of person Maddy is. ( ⑤ ) In addition, and again assuming typical linguistic conventions, you should also get a sense that I am disapproving of Maddy, or saying that you should disapprove of her, or similar, assuming that we are still discussing her moral character. * connotati 78 7"
+  },
+  {
+   "id": "2022#18",
+   "type": "R-PURPOSE",
+   "passage": "Dear Ms. Green, My name is Donna Williams, a science teacher at Rogan High School. I am planning a special workshop for our science ids. teachers. We are interested in learning how to teach online science classes. I have been impressed with your ideas about using internet platforms for science classes. Since you are an expert in online education, I would like to ask you to deliver a special lecture at the workshop scheduled for next month. I am sure the lecture will help our teachers manage successful online science classes, and I hope we can learn from your insights. I am looking forward to hearing from you. Sincerely, Donna Williams"
+  },
+  {
+   "id": "2022#19",
+   "type": "R-MOOD",
+   "passage": "It was Evelyn’s first time to explore the Badlands of Alberta, famous across Canada for its numerous dinosaur fossils. As a young amateur bone-hunter, she was overflowing with anticipation. She had not travelled this far for the bones of common dinosaur species. Her life-long dream to find rare fossils of dinosaurs was about to come true. She began eagerly searching for them. After many hours of wandering throughout the deserted lands, however, she was unsuccessful. Now, the sun was beginning to set, and her goal was still far beyond her reach. Looking at the slowly darkening ground before her, she sighed to herself, “I can’t believe I came all this way for nothing. What a waste of time!”"
+  },
+  {
+   "id": "2022#20",
+   "type": "R-CLAIM",
+   "passage": "One of the most common mistakes made by organizations when they first consider experimenting with social media is that they focus too much on social media tools and platforms and not enough on their business objectives. The reality of success in the social web for businesses is that creating a social media program begins not with insight into the latest social media tools and channels but with a thorough understanding of the organization’s own goals and objectives. A social media program is not merely the fulfillment of a vague need to manage a “presence” on popular social networks because “everyone else is doing it.” “Being in social media” serves no purpose in and of itself. In order to serve any purpose at all, a social media presence must either solve a problem for the organization and its customers or result in an improvement of some sort (preferably a measurable one). In all things, purpose drives success. The world of social media is no different."
+  },
+  {
+   "id": "2022#21",
+   "type": "R-IMPLY",
+   "passage": "or not이 다음 글에서 의미하는 바로 가장 적절한 것은? [3점] Scientists have no special purchase on moral or ethical decisions; a climate scientist is no more qualified to comment on health care reform than a physicist is to judge the causes of bee colony collapse. The very features that create expertise in a specialized domain lead to ignorance in many others. In some cases lay people ― farmers, fishermen, patients, native peoples ― may have relevant experiences that scientists can learn from. Indeed, in recent years, scientists have begun to recognize this: the Arctic Climate Impact Assessment includes observations gathered from local native groups. So our trust needs to be limited, and focused. It needs to be very particular. Blind trust will get us into at least as much trouble as no trust at all. But without some degree of trust in our designated experts ― the men and women who have devoted their lives to sorting out tough questions about the natural world we live in ― we are paralyzed, in effect not knowing whether to make ready for the morning commute or not. * lay: 전문가가 아닌 ** paralyze: 마비시키다 *** commute: 통근"
+  },
+  {
+   "id": "2022#23",
+   "type": "R-TOPIC",
+   "passage": "Scientists use paradigms rather than believing them. The use of a paradigm in research typically addresses related problems by employing shared concepts, symbolic expressions, experimental and mathematical tools and procedures, and even some of the same theoretical statements. Scientists need only understand how to use these various elements in ways that others would accept. These elements of shared practice thus need not presuppose any comparable unity in scientists’ beliefs about what they are doing when they use them. Indeed, one role of a paradigm is to enable scientists to work successfully without having to provide a detailed account of what they are doing or what they believe about it. Thomas Kuhn noted that scientists “can agree in their identification of a paradigm without agreeing on, or even attempting to produce, a full interpretation or rationalization of it. Lack of a standard interpretation or of an agreed reduction to rules will not prevent a paradigm from guiding research.”"
+  },
+  {
+   "id": "2022#24",
+   "type": "R-TITLE",
+   "passage": "Mending and restoring objects often require even more creativity than original production. The preindustrial blacksmith made things to order for people in his immediate community; customizing the product, modifying or transforming it according to the user, was routine. Customers would bring things back if something went wrong; repair was thus an extension of fabrication. With industrialization and eventually with mass production, making things became the province of machine tenders with limited knowledge. But repair continued to require a larger grasp of design and materials, an understanding of the whole and a comprehension of the designer’s intentions. “Manufacturers all work by machinery or by vast subdivision of labour and not, so to speak, by hand,” an 1896 Manual of Mending and Repairing explained. “But all repairing must be done by hand. We can make every detail of a watch or of a gun by machinery, but the machine cannot mend it when broken, much less a clock or a pistol!”"
+  },
+  {
+   "id": "2022#29",
+   "type": "R-GRAMMAR",
+   "passage": "Like whole individuals, cells have a life span. During their life cycle (cell cycle), cell size, shape, and metabolic activities can change dramatically. A cell is “born” as a twin when its mother cell divides, ① producing two daughter cells. Each daughter cell is smaller than the mother cell, and except for unusual cases, each grows until it becomes as large as the mother cell ② was. During this time, the cell absorbs water, sugars, amino acids, and other nutrients and assembles them into new, living protoplasm. After the cell has grown to the proper size, its metabolism shifts as it either prepares to divide or matures and ③ differentiates into a specialized cell. Both growth and development require a complex and dynamic set of interactions involving all cell parts. ④ What cell metabolism and structure should be complex would not be surprising, but actually, they are rather simple and logical. Even the most complex cell has only a small number of parts, each ⑤ responsible for a distinct, well-defined aspect of cell life. * metabolic: 물질대사의 ** protoplasm: 원형질"
+  },
+  {
+   "id": "2022#30",
+   "type": "R-VOCAB",
+   "passage": "않은 것은? It has been suggested that “organic” methods, defined as those in which only natural products can be used as inputs, would be less damaging to the biosphere. Large-scale adoption of “organic” farming methods, however, would ① reduce yields and increase production costs for many major crops. Inorganic nitrogen supplies are ② essential for maintaining moderate to high levels of productivity for many of the non-leguminous crop species, because organic supplies of nitrogenous materials often are either limited or more expensive than inorganic nitrogen fertilizers. In addition, there are ③ benefits to the extensive use of either manure or legumes as “green manure” crops. In many cases, weed control can be very difficult or require much hand labor if chemicals cannot be used, and ④ fewer people are willing to do this work as societies become wealthier. Some methods used in “organic” farming, however, such as the sensible use of crop rotations and specific combinations of cropping and livestock enterprises, can make important ⑤ contributions to the sustainability of rural ecosystems. * nitrogen fertilizer: 질소 비료 ** manure: 거름 *** legume: 콩과(科) 58 5"
+  },
+  {
+   "id": "2022#31",
+   "type": "R-BLANK",
+   "passage": "cognitive disengagement. As long as something is funny, we are for the moment not concerned with whether it is real or fictional, true or false. This is why we give considerable leeway to people telling funny stories. If they are getting extra laughs by exaggerating the silliness of a situation or even by making up a few details, we are happy to grant them comic licence, a kind of poetic licence. Indeed, someone listening to a funny story who tries to correct the teller ― ‘No, he didn’t spill the spaghetti on the keyboard and the monitor, just on the keyboard’ ― will probably be told by the other listeners to stop interrupting. The creator of humour is putting ideas into people’s heads for the pleasure those ideas will bring, not to provide information. ① detailed * cognitive: 인식의 ** leeway: 여지 ③ useful ⑤ alternative ② accurate ④ additional"
+  },
+  {
+   "id": "2022#32",
+   "type": "R-BLANK",
+   "passage": "only by its choice of topics and stories but by its . Presentational styles have been subject to a tension between an informational-educational purpose and the need to engage us entertainingly. While current affairs programmes are often ‘serious’ in tone sticking to the ‘rules’ of balance, more popular programmes adopt a friendly, lighter, idiom in which we are invited to consider the impact of particular news items from the perspective of the ‘average person in the street’. Indeed, contemporary news construction has come to rely on an increased use of faster editing tempos and ‘flashier’ presentational styles including the use of logos, sound-bites, rapid visual cuts and the ‘star quality’ of news readers. Popular formats can be said to enhance understanding by engaging an audience unwilling to endure the longer verbal orientation of older news formats. However, they arguably work to reduce understanding by failing to provide the structural contexts for news events."
+  },
+  {
+   "id": "2022#36",
+   "type": "R-ORDER",
+   "passage": "According to the market response model, it is increasing prices that drive providers to search for new sources, innovators to substitute, consumers to conserve, and alternatives to emerge. (A) Many examples of such “green taxes” exist. Facing landfill costs, labor expenses, and related costs in the provision of garbage disposal, for example, some cities have required households to dispose of all waste in special trash bags, purchased by consumers themselves, and often costing a dollar or more each. (B) Taxing certain goods or services, and so increasing prices, should result in either decreased use of these resources or creative innovation of new sources or options. The money raised through the tax can be used directly by the government either to supply services or to search for alternatives. us (C) The results have been greatly increased recycling and more careful attention by consumers to packaging and waste. By internalizing the costs of trash to consumers, there has been an observed decrease in the flow of garbage from households."
+  },
+  {
+   "id": "2022#37",
+   "type": "R-ORDER",
+   "passage": "In spite of the likeness between the fictional and real As long as the irrealism of the silent black and white film world, the fictional world deviates from the real one in one predominated, one could not take filmic fantasies for important respect. representations of reality. (A) The author has selected the content according to his own Cinema is valuable not for its ability to make visible the worldview and his own conception of relevance, in an hidden outlines of our reality, but for its ability to reveal what attempt to be neutral and objective or convey a subjective reality itself veils ― the dimension of fantasy. ( ① ) This is view on the world. Whatever the motives, the author’s why, to a person, the first great theorists of film decried the subjective conception of the world stands between the introduction of sound and other technical innovations (such as reader and the original, untouched world on which the color) that pushed film in the direction of realism. ( ② ) Since story is based. cinema was an entirely fantasmatic art, these innovations were completely unnecessary. ( ③ ) And what’s worse, they could (B) Because of the inner qualities with which the individual is do nothing but turn filmmakers and audiences away from the endowed through heritage and environment, the mind fantasmatic dimension of cinema, potentially transforming functions as a filter; every outside impression that passes film into a mere delivery device for representations of through it is filtered and interpreted. However, the world reality. ( ④ ) But sound and color threatened to create just the reader encounters in literature is already processed such an illusion, thereby destroying the very essence of film and filtered by another consciousness. art. ( ⑤ ) As Rudolf Arnheim puts it, “The creative power of the artist can only come into play where reality and the (C) The existing world faced by the individual is in principle medium of representation do not coincide.” [3점] an infinite chaos of events and details before it is organized by a human mind. This chaos only gets processed and * decry: 공공연히 비난하다 ** fantasmatic: 환상의 modified when perceived by a human mind. [3점] * deviate: 벗어나다 ** endow: 부여하다 *** heritage: 유산 (B)에 들어갈 말로 가장 적절한 것은?"
+  },
+  {
+   "id": "2022#38",
+   "type": "R-INSERT",
+   "passage": "phenomena. Scientific explanations organize and systematize Retraining current employees for new positions within the our knowledge of the empirical world; the more economical company will also greatly reduce their fear of being laid the systematization, the deeper our understanding of what off. is explained. The other view is the causal/mechanical approach. According to it, a scientific explanation of a Introduction of robots into factories, while employment of human phenomenon consists of uncovering the mechanisms that workers is being reduced, creates worry and fear. ( ① ) It is produced the phenomenon of interest. This view sees the the responsibility of management to prevent or, at least, to ease explanation of individual events as primary, with the these fears. ( ② ) For example, robots could be introduced only explanation of generalizations flowing from them. That is, in new plants rather than replacing humans in existing assembly the explanation of scientific generalizations comes from lines. ( ③ ) Workers should be included in the planning for the causal mechanisms that produce the regularities. new factories or the introduction of robots into existing plants, so they can participate in the process. ( ④ ) It may be that robots * subsume: 포섭(포함)하다 ** empirical: 경험적인 are needed to reduce manufacturing costs so that the company ������ remains competitive, but planning for such cost reductions should be done jointly by labor and management. ( ⑤ ) Since Scientific explanations can be made either by seeking the robots are particularly good at highly repetitive simple motions, the replaced human workers should be moved to positions (A) number of principles covering all observations where judgment and decisions beyond the abilities of robots are required. or by finding general (B) drawn from individual phenomena. (A) (B) (A) (B)"
+  },
+  {
+   "id": "2023#19",
+   "type": "R-MOOD",
+   "passage": "Putting all of her energy into her last steps of the running race, Jamie crossed the finish line. To her disappointment, she had failed to beat her personal best time, again. Jamie had pushed herself for months to finally break her record, but it was all for nothing. Recognizing how she felt about her failure, Ken, her teammate, approached her and said, “Jamie, even though you didn’t set a personal best time today, your performances have improved dramatically. Your running skills have progressed so much! You’ll definitely break your personal best time in the next race!” After hearing his comments, she felt confident about herself. Jamie, now motivated to keep pushing for her goal, replied with a smile. “You’re right! Next race, I’ll beat my best time for sure!”"
+  },
+  {
+   "id": "2023#20",
+   "type": "R-CLAIM",
+   "passage": "At every step in our journey through life we encounter junctions with many different pathways leading into the distance. Each choice involves uncertainty about which path will get you to your destination. Trusting our intuition to make the choice often ends up with us making a suboptimal choice. Turning the uncertainty into numbers has proved a potent way of analyzing the paths and finding the shortcut to your destination. The mathematical theory of probability hasn’t eliminated risk, but it allows us to manage that risk more effectively. The strategy is to analyze all the possible scenarios that the future holds and then to see what proportion of them lead to success or failure. This gives you a much better map of the future on which to base your decisions about which path to choose. * junction: 분기점 ** suboptimal: 차선의"
+  },
+  {
+   "id": "2023#21",
+   "type": "R-IMPLY",
+   "passage": "하는 바로 가장 적절한 것은? [3점] Coming of age in the 18th and 19th centuries, the personal diary became a centerpiece in the construction of a modern subjectivity, at the heart of which is the application of reason and critique to the understanding of world and self, which allowed the creation of a new kind of knowledge. Diaries were central media through which enlightened and free subjects could be constructed. They provided a space where one could write daily about her whereabouts, feelings, and thoughts. Over time and with rereading, disparate entries, events, and happenstances could be rendered into insights and narratives about the self, and allowed for the formation of subjectivity. It is in that context that the idea of “the self [as] both made and explored with words” emerges. Diaries were personal and private; one would write for oneself, or, in Habermas’s formulation, one would make oneself public to oneself. By making the self public in a private sphere, the self also became an object for self-inspection and self-critique. * disparate: 이질적인 ** render: 만들다"
+  },
+  {
+   "id": "2023#22",
+   "type": "R-GIST",
+   "passage": "Urban delivery vehicles can be adapted to better suit the density of urban distribution, which often involves smaller vehicles such as vans, including bicycles. The latter have the potential to become a preferred ‘last-mile’ vehicle, particularly in high-density and congested areas. In locations where bicycle use is high, such as the Netherlands, delivery bicycles are also used to carry personal cargo (e.g. groceries). Due to their low acquisition and maintenance costs, cargo bicycles convey much potential in developed and developing countries alike, such as the becak (a three-wheeled bicycle) in Indonesia. Services using electrically assisted delivery tricycles have been successfully implemented in France and are gradually being adopted across Europe for services as varied as parcel and catering deliveries. Using bicycles as cargo vehicles is particularly encouraged when combined with policies that restrict motor vehicle access to specific areas of a city, such as downtown or commercial districts, or with the extension of dedicated bike lanes."
+  },
+  {
+   "id": "2023#23",
+   "type": "R-TOPIC",
+   "passage": "An important advantage of disclosure, as opposed to more aggressive forms of regulation, is its flexibility and respect for the operation of free markets. Regulatory mandates are blunt swords; they tend to neglect diversity and may have serious unintended adverse effects. For example, energy efficiency requirements for appliances may produce goods that work less well or that have characteristics that consumers do not want. Information provision, by contrast, respects freedom of choice. If automobile manufacturers are required to measure and publicize the safety characteristics of cars, potential car purchasers can trade safety concerns against other attributes, such as price and styling. If restaurant customers are informed of the calories in their meals, those who want to lose weight can make use of the information, leaving those who are unconcerned about calories unaffected. Disclosure does not interfere with, and should even promote, the autonomy (and quality) of individual decision-making. * mandate: 명령 ** adverse: 거스르는 *** autonomy: 자율성"
+  },
+  {
+   "id": "2023#24",
+   "type": "R-TITLE",
+   "passage": "Different parts of the brain’s visual system get information on a need-to-know basis. Cells that help your hand muscles reach out to an object need to know the size and location of the object, but they don’t need to know about color. They need to know a little about shape, but not in great detail. Cells that help you recognize people’s faces need to be extremely sensitive to details of shape, but they can pay less attention to location. It is natural to assume that anyone who sees an object sees everything about it ― the shape, color, location, and movement. However, one part of your brain sees its shape, another sees color, another detects location, and another perceives movement. Consequently, after localized brain damage, it is possible to see certain aspects of an object and not others. Centuries ago, people found it difficult to imagine how someone could see an object without seeing what color it is. Even today, you might find it surprising to learn about people who see an object without seeing where it is, or see it without seeing whether it is moving."
+  },
+  {
+   "id": "2023#30",
+   "type": "R-VOCAB",
+   "passage": "않은 것은? [3점] Everywhere we turn we hear about almighty “cyberspace”! The hype promises that we will leave our boring lives, put on goggles and body suits, and enter some metallic, three-dimensional, multimedia otherworld. When the Industrial Revolution arrived with its great innovation, the motor, we didn’t leave our world to go to some ① remote motorspace! On the contrary, we brought the motors into our lives, as automobiles, refrigerators, drill presses, and pencil sharpeners. This ② absorption has been so complete that we refer to all these tools with names that declare their usage, not their “motorness.” These innovations led to a major socioeconomic movement precisely because they entered and ③ affected profoundly our everyday lives. People have not changed fundamentally in thousands of years. Technology changes constantly. It’s the one that must ④ adapt to us. That’s exactly what will happen with information technology and its devices under human-centric computing. The longer we continue to believe that computers will take us to a magical new world, the longer we will ⑤ maintain their natural fusion with our lives, the hallmark of every major movement that aspires to be called a socioeconomic revolution. * hype: 과대광고 ** hallmark: 특징 58 5"
+  },
+  {
+   "id": "2023#31",
+   "type": "R-BLANK",
+   "passage": "status of sports journalism, especially in the medium of print. In discharging their usual responsibilities of description and commentary, reporters’ accounts of sports events are eagerly consulted by sports fans, while in their broader journalistic role of covering sport in its many forms, sports journalists are among the most visible of all contemporary writers. The ruminations of the elite class of ‘celebrity’ sports journalists are much sought after by the major newspapers, their lucrative contracts being the envy of colleagues in other ‘disciplines’ of ure: 능력 journalism. Yet sports journalists do not have a standing in their profession that corresponds to the size of their readerships or of their pay packets, with the old saying (now reaching the status of cliché) that sport is the ‘toy department of the news media’ still readily to hand as a dismissal of the worth of what sports journalists do. This reluctance to take sports journalism seriously produces the paradoxical outcome that sports newspaper writers are much read but little . ① paid * discharge: 이행하다 ** rumination: 생각 ③ censored *** lucrative: 돈을 많이 버는 ⑤ discussed ② admired ④ challenged"
+  }
+ ]
+}

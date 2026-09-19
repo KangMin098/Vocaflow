@@ -1,0 +1,92 @@
+{
+ "items": [
+  {
+   "id": "2014A#28",
+   "answer": 3,
+   "points": 3,
+   "pairs": [
+    {
+     "slot": "A",
+     "a": "frequently",
+     "b": "rarely"
+    },
+    {
+     "slot": "B",
+     "a": "attractions",
+     "b": "distractions"
+    },
+    {
+     "slot": "C",
+     "a": "decrease",
+     "b": "increase"
+    }
+   ]
+  },
+  {
+   "id": "2015#30",
+   "answer": 5,
+   "points": 3,
+   "pairs": [
+    {
+     "slot": "A",
+     "a": "fuses",
+     "b": "replaces"
+    },
+    {
+     "slot": "B",
+     "a": "diversity",
+     "b": "precision"
+    },
+    {
+     "slot": "C",
+     "a": "underlies",
+     "b": "undermines"
+    }
+   ]
+  },
+  {
+   "id": "2016#29",
+   "answer": 3,
+   "points": 2,
+   "pairs": [
+    {
+     "slot": "A",
+     "a": "accommodation",
+     "b": "destruction"
+    },
+    {
+     "slot": "B",
+     "a": "lacked",
+     "b": "supported"
+    },
+    {
+     "slot": "C",
+     "a": "competing",
+     "b": "cooperating"
+    }
+   ]
+  },
+  {
+   "id": "2017#29",
+   "answer": 4,
+   "points": 2,
+   "pairs": [
+    {
+     "slot": "A",
+     "a": "based",
+     "b": "lost"
+    },
+    {
+     "slot": "B",
+     "a": "allows",
+     "b": "forbids"
+    },
+    {
+     "slot": "C",
+     "a": "mostly",
+     "b": "never"
+    }
+   ]
+  }
+ ]
+}

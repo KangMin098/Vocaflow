@@ -1,0 +1,482 @@
+[
+  {
+    "id": "9f46cbf0-ecd5-46ef-a685-dab6146940e7",
+    "book": "Scouting for Boys (발췌)",
+    "text": "[_Show ju-jitsu or Swedish extension motions--one or two exercises only to begin with. Also deep breathing._] PATRIOTISM.--You belong to the Great British Empire, one of the greatest empires that has ever existed in the world. From this little island of Great Britain have sprung colonies all over the world, Australia, New Zealand, South Africa, India, Canada. Almost every race, every kind of man, black, white, or yellow, in the world furnishes subjects of King Edward VII. This vast empire did not grow of itself out of nothing; it was made by your forefathers by dint of hard work and hard fighting, at the sacrifice of their lives--that is, by their hearty patriotism.",
+    "verdict": "reject",
+    "genre": "bias",
+    "why": "제국의 정복을 조상의 미덕으로 찬양하며 인종별 신민을 열거"
+  },
+  {
+    "id": "9fab3d75-9f7b-492a-8765-7bb196f19ce8",
+    "book": "The Babees' Book: Medieval Manners for the Young: Done into Modern English (발췌)",
+    "text": "When thou art a wife, a neighbour for to be, Love then well thy neighbours as God hath commanded thee. It behoveth thee so for to do, And to do to them as thou would’st be done to. If any discord happen, night or day, Make it no worse, mend it if thou may, My lief child. And if thou art a rich wife, be not then too hard, But welcome fair thy neighbours that come to-thee-ward With meat, drink, and honest cheer, such as thou mayest bid, To each man after his degree, and help the poor at need. And also for hap that may betide, Please well thy neighbours that dwell thee beside, My lief child.",
+    "verdict": "reject",
+    "genre": "poetry-drama",
+    "why": "이웃 사귀는 법을 읊은 중세 교훈 운문"
+  },
+  {
+    "id": "9fc68f0e-8666-46a3-a7c0-ab293109ebe8",
+    "book": "Growing Nuts in the North (발췌)",
+    "text": "In October 1921, I ordered from J. F. Jones, one hundred plants of what is known as the Rush hazel which was, at that time, the best known of the propagated hazels. In ordering these, I mentioned the fact that I expected to get layered plants or grafted ones. Mr. Jones wrote me at once to say that the plants he had were seedlings of the Rush hazel which are said to come very true to seed, but that if I did not want them as seedlings he would cancel the order. Rather than lacking a profitable filler between the orchard trees, I accepted the order of one hundred plants and received from him a fine lot of hazels which took good root and began to grow luxuriantly. It was several years before any of them began to bear and when one or two did, the nuts were not hazels at all, but filberts and hybrids. In most cases these nuts were larger and better than those of the original Rush hazel.",
+    "verdict": "use",
+    "genre": "science",
+    "why": "씨앗 번식 헤이즐이 참되게 나오지 않고 잡종이 됐다는 실측 보고"
+  },
+  {
+    "id": "9fd1998a-f2b0-4cf0-8e65-cba4176a309a",
+    "book": "Bedouins",
+    "text": "Nietzsche revealed new intellectual vistas for Paul and he actually became serious. The notion of regarding one’s own personality as a possible work of art to be labored upon and polished to perfection’s point, set him thinking hard. What had he done with his life? What wasted opportunities! He deserted his club and began piano-playing again, and when reproached by his friends for his fickleness he excused himself by quoting Nietzsche; a thinker, as well as a snake, must shed his skin once a year, else death. He also was ready with Emerson’s phrase about fools being consistent, and felt altogether very fine, and superior to his fellow-beings. Nietzsche feeds the flame of one’s vanity, and Paul was sure that he belonged to the quintessential band of elect souls that is making for the Uebermensch--the Superman! He really was a nice, boyish lad, and he could never pass a pretty girl--whethe",
+    "verdict": "narrative",
+    "genre": "fiction",
+    "why": "니체에 빠져 우쭐해진 청년 폴을 그린 풍자 인물 묘사"
+  },
+  {
+    "id": "9fd20c4a-acc4-4305-9e6d-0a4bb8cb8daf",
+    "book": "Journeys Through Bookland, Vol. 7 (발췌)",
+    "text": "Every eye was turned upon him; the countrywoman herself seemed astonished. At length he raised his dripping head. This ablution had partly dispelled his drunkenness; he looked at us for a moment, then he turned to Genevieve, and his face brightened up. \"Robert!\" cried he, going up to the child and taking him in his arms. \"Ah! give him me, wife; I must look at him.\" The mother seemed to give up his son to him with reluctance, and stayed before him with her arms extended, as if she feared the child would have a fall. The nurse began again in her turn to speak, and renewed her claims, this time threatening to appeal to law. At first Michael listened to her attentively, and when he comprehended her meaning he gave the child back to its mother.",
+    "verdict": "reject",
+    "genre": "not-selfcontained",
+    "why": "누구인지 모르는 him에 시선이 쏠린 장면 한가운데서 시작한다"
+  },
+  {
+    "id": "9ffb8e5a-42c2-4252-b2d0-ee21affd3ef8",
+    "book": "The Atlantic Monthly, Volume 2, No. 14, December 1858",
+    "text": "In force of mind Jefferson has often been surpassed: Hamilton was his superior. As an executive officer, where action was required, he could not have been distinguished. It is true, he was a successful President, but neither the time nor the place demanded the highest executive talents. When Governor of Virginia, during the Revolution, he was more severely tried, and, although some excuse may be made for him, he must be said to have failed. Upon matters which are affected by feeling and sentiment, the judgment of woman is said to surpass that of our sex,--her more sensitive instincts carrying her to heights which our blind strength fails to reach. If this be true, Jefferson in some respects resembled woman. We have already alluded to the delicacy of his organization; it was strangely delicate, indeed, for one who had so many solid qualities. Like woman, he was constant rather than passio",
+    "verdict": "reject",
+    "genre": "bias",
+    "why": "여성의 판단과 기질을 성별 본성으로 일반화해 제퍼슨에 빗댄다"
+  },
+  {
+    "id": "a00e1261-bb89-406e-a0f9-a11e44da950f",
+    "book": "Bedouins",
+    "text": "The constructive in him was artistic, but when the propagandist reins were between his teeth his judgments were muddied by his turbulence. And how clearly he could judge was proved by his clairvoyant article in Le Figaro on an unknown Belgian, by name Maurice Maeterlinck (1890). Mirbeau literally discovered Maeterlinck; and while we now smile over the title of “Belgian Shakespeare,” there is no denying the flair of the Parisian critic. Certainly he made a better guess than the amusing Max Nordau, who once described the author of The Treasures of the Humble as “a pitiable mental cripple.” In 1888 L’Abbé Jules appeared. It was Mirbeau’s first novel. For the chief character he went to his uncle, a priest of rather singular traits. The book became a burning scandal. Le Calvaire (1887) confirmed the reputation of the young writer. He certainly had a predilection “pour la poésie de la pourritu",
+    "verdict": "narrative",
+    "genre": "biography",
+    "why": "미르보의 비평 안목과 초기 소설들을 짚은 인물 소묘"
+  },
+  {
+    "id": "a0965126-bf4d-4031-98c1-abae444d5ab2",
+    "book": "Mosaics of Grecian History",
+    "text": "Thy sons (sad change!) in abject bondage sigh; Unpitied toil, and unlamented die; Groan at the labors of the galling oar, Or the dark caverns of the mine explore. The glittering tyranny of Othman's sons, The pomp of horror which surrounds their thrones, Have awed their servile spirits into fear; Spurned by the foot, they tremble and revere. The day of labor, night's sad, sleepless hour, The inflictive scourge of arbitrary power, The bloody terror of the pointed steel, The murderous stake, the agonizing wheel, And (dreadful choice!) the bowstring or the bowl, Damps their faint vigor and unmans the soul. Disastrous fate! Still tears will fill the eye, Still recollection prompt the mournful sigh, When to the mind recurs thy former fame, And all the horrors of thy present shame. In 1810-'11 the poet BYRON spent considerable time in Greece, visiting its many scenes of historic interest, and n",
+    "verdict": "reject",
+    "genre": "poetry-drama",
+    "why": "오스만 치하 그리스의 예속을 노래한 운문이 본문 대부분"
+  },
+  {
+    "id": "a0b04684-67ce-4f81-a407-e667e1bd21bd",
+    "book": "Papers and Proceedings of the Thirty-Fifth General Meeting of the American Library Associa",
+    "text": "\"In order to reach all the pupils in the high school this work is carried on through the department of English, which subject all pupils must take. Brief themes and discussions form the basis of the work. Pupils are directed in their reading along vocational and ethical lines and are advised by teachers who have made a special study of vocational guidance. The following outline is but suggestive of the types of themes and discussions to be used. Each teacher is given opportunity to use her own individuality in working out the details of the scheme. (a) Purpose of life. (b) Habit. (c) Happiness. (d) Self-control. (e) Work. (f) Health. 1st Semester--Social ethics: The individual and society--from the point of view of my vocation. (a) Public schools? (b) The slums? (c) Social settlements? (d) Public charities? (e) The church? (f) Social service? 2nd Semester--Social ethics: The individual a",
+    "verdict": "reject",
+    "genre": "fragmentary",
+    "why": "학기별 주제를 a·b·c로 나열한 교과 개요 인용"
+  },
+  {
+    "id": "a0d33284-add1-47aa-98d3-1a2af3168a0c",
+    "book": "Papers and Proceedings of the Thirty-Fifth General Meeting of the American Library Associa",
+    "text": "I was asked a few weeks ago to supply a college library with a cataloger who must be a library school graduate knowing French and German and the salary offered was $40 a month. If a woman ate poor food, she might be able to save enough out of $40 to pay for her washing--only she couldn't afford to buy any clothes to be washed. She could never see a play, hear an orchestra, or buy a book. A good cook, on the other hand, would have no difficulty in getting $30 or $35 a month =and maintenance=, which would be equivalent to a salary of at least $50 or $55 a month. Moreover, the cook would not be expected to dress as well as the cataloger (though, as a matter of fact, her Sunday clothes would probably be more costly) or to attend conventions. The case I have mentioned is by no means an isolated one. A good-looking girl with pleasant manners, who could understand French, German, Spanish and It",
+    "verdict": "use",
+    "genre": "social",
+    "why": "사서 급여가 요리사보다 낮다는 것을 생활비 계산으로 논증"
+  },
+  {
+    "id": "a0df8abb-a56c-40d8-80d6-c9480ec0b1df",
+    "book": "Essay on the Principles of Translation",
+    "text": "Let us proceed to exemplify this third rule of translation, which regards the attainment of ease of style, by instances both of success and failure. The familiar style of epistolary correspondence is rarely attainable even in original composition. It consists in a delicate medium between the perfect freedom of ordinary conversation and the regularity of written dissertation or narrative. It is extremely difficult to attain this delicate medium in a translation; because the writer has neither a freedom of choice in the sentiments, nor in the mode of expressing them. Mr. Melmoth appears to me to be a great model in this respect. His Translations of the Epistles of Cicero and of Pliny have all the ease of the originals, while they present in general a very faithful transcript of his author’s sense. “Surely, my friend, your couriers are _a set of the most unconscionable fellows. Not that the",
+    "verdict": "use",
+    "genre": "essay",
+    "why": "번역가는 감정도 표현도 고를 자유가 없어 편지투가 어렵다고 논증"
+  },
+  {
+    "id": "a125c420-3611-4633-b38b-2fbd939cb2fa",
+    "book": "Papers and Proceedings of the Thirty-Fifth General Meeting of the American Library Associa",
+    "text": "The next speaker was Miss SARAH B. BALL, librarian of the business branch of the Newark free public library, who spoke on Have you ever felt discouraged over the purely potential value of your reference books, because they seem to remain forever potential? Have you ever turned the pages of the World Almanac and sighed over perfectly good answers which you could give to questions that nobody asks you? Every reference librarian present knows what I mean. When is wheat harvested in Burmah? Who is the secretary of sanitation in Cuba? How long does it take a letter to go from New York to Melbourne, via Vancouver? Are grapes more nutritious than plums? What are the dues in the Knickerbocker Club? What three nations have dominions on which the sun never sets? How many shipwrecks last year on the U. S. coasts? These questions are being asked by somebody and being answered in a fashion by somebod",
+    "verdict": "reject",
+    "genre": "fragmentary",
+    "why": "강연 제목이 빠진 채 소개문과 질문 나열이 이어 붙는다"
+  },
+  {
+    "id": "a145ae2f-069e-4fe0-b0a8-8835219c3832",
+    "book": "On Love",
+    "text": "We must judge manners as a whole, by certain particular facts. You know the anecdote of the poet who [Pg 203] had offended his lady: after two years of despair she deigned at last to answer his many messages and let him know that if he had one of his nails torn off and had this nail presented to her by fifty loving and faithful knights, she might perhaps pardon him. The poet made all haste to submit to the painful operation. Fifty knights, who stood in their ladies' good graces, went to present this nail with all imaginable pomp to the offended beauty. It was as imposing a ceremony as the entry of a prince of the blood into one of the royal towns. The lover, dressed in the garb of a penitent, followed his nail from afar. The lady, after having watched the ceremony, which was of great length, right through, deigned to pardon him; he was restored to all the sweets of his former happiness. ",
+    "verdict": "reject",
+    "genre": "fragmentary",
+    "why": "문장 한가운데 [Pg 203] 쪽 표시가 끼어 있다"
+  },
+  {
+    "id": "a1550008-0156-454f-af03-e27dba38f7b7",
+    "book": "Woodland Tales (발췌)",
+    "text": "You can win honours in Woodcraft if you make a successful bird-box. That is one made by yourself, and used by some bird to raise its brood in. There are three kinds of birds that are very ready to use the nesting places you make. These are the Robin, Wren, and Phoebe. But each bird wants its own kind exactly right, or will not use it. First the Robin wants a shelf, as in the picture. It should be hung against a tree or a building, about ten feet up, and not much exposed to the wind. It should also be in a shady place or at least not where it gets much sun.",
+    "verdict": "reject",
+    "genre": "not-selfcontained",
+    "why": "그림처럼이라며 도면을 가리키는 새집 제작 지시문"
+  },
+  {
+    "id": "a1ba7ce4-e9b6-47a1-b0cb-ff786c748138",
+    "book": "Journeys Through Bookland, Vol. 7 (발췌)",
+    "text": "On the 26th of April the Black Hawk band crossed the Mississippi several miles below Rock River. They numbered twelve hundred in all, less than four hundred being warriors, and these only partly armed. Their destination was Prophetstown, as Black Hawk's plan was to raise a crop there and go on the war path in the fall. The braves struck across the country, while the women, weak with famine, slowly paddled the canoes up against the swift current of the river. They reached Prophetstown late in April, the heavy rains which had swollen the rivers greatly impeding their progress. A marvelous feature of this journey across the territory which the whites claimed had been ceded to them, is the fact that not the slightest depredation was committed at any farm or house on the march. The inhabitants fled, but the hungry Indians touched none of the abundant food which they left behind. Not a gun was",
+    "verdict": "narrative",
+    "genre": "history",
+    "why": "블랙호크 부대의 도하와 행군을 약탈이 없었다는 관찰과 함께 서술"
+  },
+  {
+    "id": "a1c46f24-8869-4bde-9c27-9207e93be715",
+    "book": "The International Monthly, Volume 2, No. 4, March, 1851",
+    "text": "AUSTRIAN ITALY is even in a worse condition. Several conspiracies have been discovered, and a large number of arrests made in consequence. A large number of persons have been executed, in the Lombardo-Venetian provinces. The most interesting news from SPAIN is that of another resignation of the Ministry. The resignation of General Narvaez was not accepted by the Queen, whereupon that gentleman assembled his colleagues, and commissioned them to inform the Queen that unless she released him at once from his office, he should blow his brains out! This threat had the desired effect, and the following Cabinet was then appointed: President of the Council and Minister of Finance Bravo Murillo. Foreign Office Bertran de Lys. Grace and Justice Gonzales Romero. Home Department Arteta. War Count Mirasol. Marine Bustillos. Commerce, &c. Fernandez Negrete. The project of a revision of the Constitutio",
+    "verdict": "reject",
+    "genre": "fragmentary",
+    "why": "국가별 단신과 새 내각 명단을 나열한 시사 요약"
+  },
+  {
+    "id": "a2450cb9-ff21-40ba-b304-7a24a1481b7a",
+    "book": "Cornish Characters and Strange Events",
+    "text": "During the action the Excellent, on which Richard Thomas was lieutenant, was acknowledged by Nelson to have taken a very distinguished share, and to have rendered him the most effectual support in the hottest part of the battle, as will be seen by the following note which he addressed to her commander, and an extract from his own account of the transactions in which he himself was personally engaged. \"At this time (about 2.15 p.m.) the Salvador del Mundo and _San Esidero_ dropped astern, and were fired into, in a masterly style, by the Excellent, Captain Collingwood, who compelled the San Esidero to hoist English colours; and I thought the large ship, the _Salvador del Mundo_, had also struck, but Captain Collingwood, disdaining the parade of taking possession of a vanquished enemy, most gallantly pushed up, with every sail set, to save his old friend and messmate, who was to appearance ",
+    "verdict": "reject",
+    "genre": "not-selfcontained",
+    "why": "어느 해전인지 밝히지 않은 the action으로 시작한다"
+  },
+  {
+    "id": "a25573ba-9e1a-4d5d-a251-0ef004518f73",
+    "book": "The Underground Railroad (발췌)",
+    "text": "MR. WILLIAM STILL:--Sir--Your kind letter arrived safe at hand on the 18th, and I was very happy to receive it. I now feel that I should return you some thanks for your kindness. Dear sir I do pray from the bottom of my heart, that the high heavens may bless you for your kindness; give my love to Mr. Bagnel and Mr. Minkins, ask them if they have heard anything from my brother, tell Mr. Bagnel to give my love to my sister-in-law and mother and all the family. I am now living at Russell's Hotel; it is the first situation I have had since I have been here and I like it very well. Sir you would oblige me by letting me know if Mr. Minkins has seen my wife; you will please let me know as soon as possible. I wonder if Mr. Minkins has thought of any way that he can get my wife away. I should like to know in a few days.",
+    "verdict": "narrative",
+    "genre": "biography",
+    "why": "일자리를 얻은 뒤 아내 소식을 애타게 묻는 도망노예의 편지"
+  },
+  {
+    "id": "a2b0e1b6-0a32-4653-bb51-113f4f49cad9",
+    "book": "Journal 01, 1837-1846",
+    "text": "Highly characteristic is that concluding ejaculation. For Thoreau the five senses were not organs or means of sensuous gratification, but the five gateways of the soul. He would have them open and undefiled. Upon that point no man was ever more insistent. Above all, no sense must be pampered; else it would lose its native freshness and delicacy, and so its diviner use. That way lay perdition. When a woman came to Concord to lecture, and Thoreau carried her manuscript to the hall for her, wrapped in its owner's handkerchief, he complained twenty-four hours afterward that his pocket \"still exhaled cologne.\" Faint, elusive outdoor odors were not only a continual delight to him, but a positive means of grace. So, too, he would rather not see any of the scenic wonders of the world. Only let his sense of beauty remain uncorrupted, and he could trust his Musketaquid meadows, and the low hills r",
+    "verdict": "reject",
+    "genre": "not-selfcontained",
+    "why": "앞에 인용된 마지막 외침을 받으며 시작해 혼자 못 읽는다"
+  },
+  {
+    "id": "a2fd12aa-22e7-4d25-8679-169fca8fe2a5",
+    "book": "The Underground Railroad (발췌)",
+    "text": "I seriously doubt the rumor, that he had made his escape. I fear that he was sacrificed. Language would fail to express my feelings; the intense and deep anxiety I felt about them for weeks before I heard of their capture in Indiana, and then it seemed too much to bear. O! my heart almost bleeds when I think of it. The hopes of the dear family all blasted by the wretched blood-hounds in human shape. And poor Seth, after all his toil, and dangerous, shrewd and wise management, and almost unheard of adventures, the many narrow and almost miraculous escapes. Then to be given up to Indianians, to these fiendish tyrants, to be sacrificed. O! Shame, Shame!!",
+    "verdict": "reject",
+    "genre": "not-selfcontained",
+    "why": "누구의 체포인지 밝히지 않은 채 them을 애도하는 편지 토막"
+  },
+  {
+    "id": "a35df0ca-51c0-4771-8ac1-f5523af15c37",
+    "book": "The Best of the World's Classics, Vol. V (of X) - Great Britain and Ireland III",
+    "text": "He was sprung of a house, ancient indeed and noble, but degraded and impoverished by a series of crimes and follies, which had attained a scandalous publicity. The kinsman whom he succeeded had died poor, and, but for merciful judges, would have died upon the gallows. The young peer had great intellectual powers; yet there was an unsound n his mind. He had naturally a generous and tender heart; but his temper was irritable and wayward. He had a head which statuaries loved to copy, and a foot the deformity of which the beggars in the street mimicked. Distinguished at once by the strength and by the weakness of his intellect, affectionate yet perverse, a poor lord, and a handsome cripple, he required, if ever man required, the firmest and the most judicious training. But, capriciously as nature had dealt with him, the relative to whom the office of forming his character was entrusted was m",
+    "verdict": "reject",
+    "genre": "not-selfcontained",
+    "why": "이름이 끝내 나오지 않는 He의 가문 내력으로 시작한다"
+  },
+  {
+    "id": "a3d0e7c2-eba1-48f9-8617-59c19e4a159f",
+    "book": "The Babees' Book: Medieval Manners for the Young: Done into Modern English (발췌)",
+    "text": "Pick not thy teeth with thy knife nor finger-end, But with a stick or some clean thing, then do ye not offend. If your teeth be putrified, methinks it is no right To touch meat that other should eat, it is no cleanly sight. Pick not thy hands nor play with thy knife; Keep still foot and hand; at meat begin ye no strife. Wipe thy mouth when thou shalt drink ale or wine On thy napkin only; and see all things be clean. Blow not your nose in the napkin where ye wipe your hand; Cleanse it in your handkerchief, then pass ye not your band.",
+    "verdict": "reject",
+    "genre": "poetry-drama",
+    "why": "식탁 예절을 읊은 교훈 운문"
+  },
+  {
+    "id": "a474e71b-c345-4d41-b260-aed0adb11c35",
+    "book": "Sanders' Union Fourth Reader",
+    "text": "Look at Cincinnatus! At the call of his country he laid aside the plow and seized the sword. But having wielded it with success, when his country was no longer endangered, and public affairs needed not his longer stay, \"he beat his sword Into a ploughshare,\" and returned with honest delight to his little farm. Look at Washington! What was his course of life? He was first a farmer; next a Commander in Chief of the hosts of freedom, fighting for the liberation of his country from the thralls of despotic oppression; next, called to the highest seat of government by his ransomed brethren, a President of the largest Republic on earth, and lastly, a farmer again. What was the famous Ben Jonson? He was first a _brick-layer, or mason!_ What was he in after years? 'Tis needless to answer. What was Burns? An Ayrshire plowman! What was he in after life, in the estimation of his countrymen, and the ",
+    "verdict": "use",
+    "genre": "essay",
+    "why": "농부·벽돌공 출신 위인을 열거해 노동이 천하지 않음을 논증"
+  },
+  {
+    "id": "a49cfd27-893b-4ee5-8aa0-902712d364e3",
+    "book": "Bedouins",
+    "text": "“Ah, my dear June, I shall at last have an auditor for my bad Wagner playing! I live, Monsieur Invern, around the corner in the little Impasse du Maine, off the Avenue. We are neighbors, I think, and perhaps it may interest you to know that we, June and myself, inhabit the old atelier of Bastien Lepage, where he painted Sarah Bernhardt, where, also, unfortunate Marie Bashkirtseff was often wheeled to see the dying painter.” “Oh! oh!” remonstrated the girl in a toneless voice, “first Devil-worship, and now studio scandal. Fie!” Her high spirits had vanished; her face was ash-grey as she bowed to Invern. After shaking hands with the brothers, Count Van Zorn turned to him and said: “Don’t forget--eleven o’clock. Impasse du Maine. The Devil perhaps; anyhow, Wagner. And the Devil is a gentleman.” He tittered, baring his gums, his painted eyebrows high on his forehead. “The Devil is a woman,” ",
+    "verdict": "narrative",
+    "genre": "fiction",
+    "why": "악마 숭배 초대를 두고 오가는 파리 화실의 대화 장면"
+  },
+  {
+    "id": "a4c30286-972a-4bb7-b028-8217b9b05249",
+    "book": "Papers and Proceedings of the Thirty-Fifth General Meeting of the American Library Associa",
+    "text": "Relate these groups of topics with this definition of education from the late Andrew S. Draper, of honored memory: \"Education that has life and enters into life; education that makes a living and makes life worth living; education that can use English to express itself; education that does not assume that a doctor must be an educated man and that a mechanic or a farmer cannot be; education that appeals to the masses, that makes better citizens and a greater state; education that supports the imperial position of the State and inspires education in all of the States--that is the education that concerns New York.\" Mingle with educational men and women, search the educational periodicals and programs, scan the educational books, visit the normal colleges; and I think you will discover that something like this is happening in the educational world: The content of education is being adapted t",
+    "verdict": "reject",
+    "genre": "not-selfcontained",
+    "why": "앞서 든 이 주제 묶음을 연결하라며 시작해 앞 대목이 필요하다"
+  },
+  {
+    "id": "a4e4f760-d044-4308-90bd-1a92d39182f9",
+    "book": "Byzantine Churches in Constantinople: Their History and Architecture",
+    "text": "It has been supposed that the method followed in the wall arches was employed in order to economise centering, since bricks could gradually be worked out over the space, each course simply sticking to the one below. This is undoubtedly the case in some examples. But here centering could not have been of any service in the wall arches, and the transverse arches are laid without flattening of the courses, though that arrangement might have been useful in their case. It is therefore more probable that the flattening of the courses in the wall arches is simply a piece of careless workmanship. The pendentives, like all pendentives that could be examined, were formed of horizontal courses corbelled out to the circle. The dome, bema, and the barrel vault in the lower story (p. 285) seem to be laid with true radiating joints. The springing of the barrel vault is formed of four courses of stone l",
+    "verdict": "reject",
+    "genre": "not-selfcontained",
+    "why": "어느 건물인지 밝히지 않은 here를 근거로 가설을 반박한다"
+  },
+  {
+    "id": "a50cce2e-d8ee-45dd-b9e4-a9c5a94b1c45",
+    "book": "Bedouins",
+    "text": "Why demand if the initial impulse be the Monna Lisa or a quatrain by Verlaine? A composer who can interpret in tone the recondite moods of Baudelaire, Verlaine, Mallarmé, or the dramatic prose-poem of Maeterlinck, need not have been daunted by criticism; in sooth, it is the angle of critical incidence that must be shifted to adapt itself to the new optique. Pelléas and Mélisande is a study in musical decomposition; the phrase is decomposed, rhythms are dislocated, the harmonic structure melts and resolves itself into air. His themes are developed in opposition to the old laws of musical syntax. But what have laws in common with genius? Once assimilated, they may be broken as were broken the stone tablets by the mighty iconoclast, Moses. Besides, every law has its holiday. In the Debussyan idiom there seems to be no normal sequence. I say seems, for much water has gone under the bridge si",
+    "verdict": "reject",
+    "genre": "not-selfcontained",
+    "why": "앞 논의를 전제한 반문으로 시작하는 드뷔시 비평"
+  },
+  {
+    "id": "a5d1c1c4-ff6e-4ad9-bff8-d7fbfdb458e3",
+    "book": "Thomas Davis, selections from his prose and poetry",
+    "text": "\"It is now ascertained that, doubtful of the king's success in the struggle for restoring popery in England, he had made secret overtures to some of the French agents, for casting off all connection with that kingdom in case of James's death, and, with the aid of Louis, placing the crown of Ireland on his own head. M. Mazure has brought this remarkable fact to light. Bonrepos, a French emissary in England, was authorised by his court to proceed in a negociation with Tyrconnell for the separation of the two islands, in case that a Protestant should succeed to the crown of England. He had accordingly a private interview with a confidential agent of the Lord Lieutenant at Chester in the month of October, 1687. Tyrconnell undertook that in less than a year everything should be prepared.\" Tyrconnell was made Baron Talbotstown, Viscount Baltinglass, and Earl of Tyrconnell in 1686, and Duke and",
+    "verdict": "reject",
+    "genre": "not-selfcontained",
+    "why": "출처 없는 인용 안 he가 누구인지 한참 뒤에야 나온다"
+  },
+  {
+    "id": "a5d612e6-1966-47bb-8489-f73b35260ba7",
+    "book": "The Underground Railroad (발췌)",
+    "text": "The weather are very cold at Present, the snow continue to fall though not as deep here as it is in Boston. The people haves their own Amousements, the weather as it is now, they don't care for the snow nor ice, but they are going from Ten A.M. until Twelve P.M., the hous that we have open don't take well because we don't Sell Spirits, which we are trying to avoid if we can. Mr. Still, I hold in my hand A letter from a friend of South, who calls me to promise that I made to him before I left. My dear Sir, this letter have made my heart Bleed, since I Received it, he also desires of me to remember him to his beloved Brethren and then to Pray for him and his dear friends who are in Slavery. I shall Present his letter to the churches of this city. I forward to your care for Mrs. Moore, a few weeks ago. Mrs. Hill sends her love to your wife and yourself.",
+    "verdict": "reject",
+    "genre": "not-selfcontained",
+    "why": "누구의 편지인지 모를 소식과 안부가 뒤섞인 서한 토막"
+  },
+  {
+    "id": "a6034876-c345-43fe-b9a8-bc645a7a1c38",
+    "book": "Modern Essays and Stories",
+    "text": "“And neither of them is really human,” grunted Hedges, turning restlessly from the window. With a disgusted snort he recalled the behavior of those two, whom so far he had met only at meal-time. Mr. Wilson, the tutor left in charge of the school, consumed his food in a preoccupied sort of daze, rousing himself at rare intervals to make some plainly perfunctory remark. He was writing some article or other for the magazines, and it was all too evident that the subject filled his waking hours. And “Plug” Seabury, with his everlasting book propped up against a tumbler, was even worse. But then Hedges had never expected anything from him. Crossing to his locker, the boy pulled out a heavy sweater, stared at it dubiously for a moment, and then let it dangle from his relaxed fingers. For once the thought of violent physical exertion in the open failed to arouse the least enthusiasm. Ever since ",
+    "verdict": "narrative",
+    "genre": "fiction",
+    "why": "학교에 남은 두 사람에게 질린 소년의 심경을 그린 장면"
+  },
+  {
+    "id": "a68f9cff-8c7d-44f9-a616-cc593558b7f6",
+    "book": "Cornish Characters and Strange Events",
+    "text": "Having in some degree recovered his health, he was advised by his physician to try the south of France during the winter; and with this intent he reached Dover on the 20th October, 1777, on his way to Calais. Whilst at Dover, he went into the kitchen of the inn to order a particular dish for dinner, and the cook, understanding that he was about to embark for France, began to brag of her powers, and defy him to find any better cuisine abroad, though, for her part, she said, she had never crossed the water. \"Why cookey,\" said Foote, \"that cannot be, for above stairs they informed me you have been several times _all over grease_ (Greece).\" \"They may say what they like,\" retorted she, \"but I was never ten miles from Dover in all my life.\" \"Nay, now,\" said Foote, \"that must be a fib, for I myself have seen you at Spit-head.\" This was his last joke. Next morning he was seized with a shivering ",
+    "verdict": "narrative",
+    "genre": "biography",
+    "why": "도버 여관에서 요리사와 말장난을 주고받은 마지막 일화"
+  },
+  {
+    "id": "a6aab0e0-5554-4977-942a-21ef08bee34c",
+    "book": "Audubon and His Journals, Volume 2 (발췌)",
+    "text": "Several species or varieties of catfish are found in the Ohio, namely, the Blue, the White, and the Mud Cats, which differ considerably in their form and color, as well as in their habits. The Mud Cat is the best, although it seldom attains so great a size as the rest. The Blue Cat is the coarsest, but when not exceeding from four to six pounds it affords tolerable eating. The White Cat is preferable to the last, but not so common; and the Yellow Mud Cat is the best and rarest. Of the Blue kind some have been caught that weighed a hundred pounds. Such fish, however, are looked upon as monsters.",
+    "verdict": "use",
+    "genre": "science",
+    "why": "오하이오 강 메기 네 종을 크기와 식용 가치로 비교 분류"
+  },
+  {
+    "id": "a748f78f-59a7-45d9-90fa-0c6c5d6e9508",
+    "book": "Thomas Davis, selections from his prose and poetry",
+    "text": "To create a mass of great pictures, statues, and buildings is of the same sort of ennoblement to a people as to create great poems or histories, or make great codes, or win great battles. The next best, though far inferior, blessing and power is to inherit such works and achievements. The lowest stage of all is neither to possess nor to create them. Ireland has had some great Painters--Barry and Forde, for example, and many of inferior but great excellence; and now she boasts high names--Maclise, Hogan, and Mulready. But their works were seldom done for Ireland, and are rarely known in it. Our portrait and landscape Painters paint foreign men and scenes; and, at all events, the Irish people do not see, possess, nor receive knowledge from their works. Irish history has supplied no subjects for our greatest Artists; and though, as we repeat, Ireland possessed a Forde and Barry, creative Pa",
+    "verdict": "use",
+    "genre": "art",
+    "why": "예술 창조가 시·전투와 같은 국민적 성취임을 3단계로 논증"
+  },
+  {
+    "id": "a75dec40-5c81-4595-b267-9f7a2016cd50",
+    "book": "Papers and Proceedings of the Thirty-Fifth General Meeting of the American Library Associa",
+    "text": "The work of the reference department was tellingly illustrated by an arch in which the reference library was the keystone, all intellectual activities depending on it. (Miss Rathbone then exhibited various other charts and described them in detail.) In addition to this, children's work, the field work, the courses in binding and printing, the making of reading lists, the course in fiction were represented. Altogether we felt that graphic illustration of library work was not only possible but distinctly worth while and that the exhibition had done a good work in educating the library's public, as well as the class, and we expect to make it a permanent feature of the year's work. The PRESIDENT: We begin this morning the fourth session of this Thirty-fifth Annual Conference and I shall ask the chairman of the Committee on Library Administration to submit at this time his report. The PRESIDE",
+    "verdict": "reject",
+    "genre": "fragmentary",
+    "why": "전시 설명과 의장의 개회 발언이 이어 붙은 회의 기록"
+  },
+  {
+    "id": "a7a4cd90-c54e-4d2e-9808-70c843a7c9e9",
+    "book": "An English Garner: Critical Essays & Literary Fragments",
+    "text": "For the rest of his life Ellwood was engaged for the most part in fighting the battles of the Quakers-esoterically in endeavouring to compose their internal feuds, exoterically in defending them and their tenets against their common enemies--and in writing poetry, which it is to be hoped he did not communicate to his 'master.' After the death of his father in 1684 he lived in retirement at Amersham. His most important literary service was his edition of George Fox's Journal, the manuscript of which he transcribed and published. He died at his house on Hunger Hill, Amersham, in March 1714, and lies with Penn in the Quaker's burying-ground at New Jordan, Chalfont St. Giles. We have now arrived at the pamphlets in our Miscellany bearing on the reign of Queen Anne. First come the Partridge tracts. The history of the inimitable hoax of which they are the record is full of interest. In Novembe",
+    "verdict": "reject",
+    "genre": "fragmentary",
+    "why": "엘우드 약전 뒤 이제 소책자로 넘어간다는 편집 안내가 붙는다"
+  },
+  {
+    "id": "a7efcd40-adbf-4e37-8788-081b77fea6e4",
+    "book": "Boy Scouts Handbook (발췌)",
+    "text": "One of the largest of our trees; up to 140 feet high; commonly hollow. Little use for weather work. Famous for shedding {132} its bark as well as its leaves; leaves 4 to 9 inches long. Canada to Gulf. A tall forest tree up to 80 feet high; leaves 8 to 14 inches long; leaflets 9 to 19, 1 to 2 inches long, pods 2 to 4 inches long, 4 to 7 seeded. This is the common locust so often seen about old lawns. A fine, tall tree, often over 100 feet high. Noted for its flaming crimson foliage in fall, as well as its red leaf stalks, flowers, and fruit, earlier. Leaves 2 to 6 inches long. Like all the maples it produces sugar, though in this case not much. Western North America.",
+    "verdict": "reject",
+    "genre": "reference",
+    "why": "수종 이름 없이 높이와 잎 길이만 적은 도감 항목 나열"
+  },
+  {
+    "id": "a7f7c76d-a205-4244-9264-b62875058399",
+    "book": "The Underground Railroad (발췌)",
+    "text": "I have seen Mr. Beans whip one of his slaves to death, at the tree to which he was tied. Mr. Henry would make them lie down across a log, stripped naked, and with every stroke would lay the flesh open. Being used to it, some would lie on the log without being tied. In New Orleans, I have seen women stretched out just as naked as my hand, on boxes, and given one hundred and fifty lashes, four men holding them. I have helped hold them myself: when released they could hardly sit or walk. This whipping was at the \"Fancy House.\"",
+    "verdict": "reject",
+    "genre": "not-selfcontained",
+    "why": "누구인지 모를 주인들의 채찍질 장면만 나열한 증언 토막"
+  },
+  {
+    "id": "a80accc4-cef6-404d-98ee-bce1ea0efd7f",
+    "book": "Woodland Tales (발췌)",
+    "text": "In this way they will inherit one of the good things of the woods and be strong and hardened, for there is no greater medicine than the Sun in the sky. O Guide of the young Tribe! Know you the Twelfth Secret of the Woods? Know you what walked around your tent on that thirtieth night of your camp out? No! I think you knew, if you continued for thirty nights, but you knew not that you knew. These things, then, you should have in heart, and give to those you are leading. The Great Spirit does not put out good air in the daytime and poison air at night. It is the same pure air at night, only cooler. Therefore use more clothing while you sleep. But while the outdoor air is pure, the indoor may be foul. Therefore sleep out of doors, and you will learn the blessedness of the night, and the night air, with its cooling kindly influence laden.",
+    "verdict": "reject",
+    "genre": "not-selfcontained",
+    "why": "이렇게 하면으로 시작하는데 앞의 방법이 본문에 없다"
+  },
+  {
+    "id": "a828af6e-1c2e-4173-a50c-f841f551277b",
+    "book": "Text book of veterinary medicine, Volume 3 (of 5) (발췌)",
+    "text": "The eye in the physiognomy. Broad forehead. Full eyes. Both eyes alike. Iris smooth, lustrous. Media translucent. Pupil sensitive to light. Convexity median, uniform. Pupil black in ordinary light. Lids open and mobile. Sclera light pink. Tears clear, limpid without overflow. Lids thin, delicate, margins evenly curved. Whole eye responsive to moving objects. Defects: small eye: semi-closed, thick, sluggish lids; convex cornea: sunken eye: projecting eye: weeping eye: blear eye: watch eye: irresponsive iris: dilated pupil: unequal eyes: flat cornea; ovoid cornea. Much of the expression of the face depends upon the eyes, and in animals as in man it is difficult to find compensations for a forbidding countenance. Perfect, sound, intelligent eyes are always pleasing; imperfect, defective, sunken or lifeless eyes mar the whole expression. The following points may be specially noted:",
+    "verdict": "reject",
+    "genre": "fragmentary",
+    "why": "명사구만 이어지는 눈 검사 점검표"
+  },
+  {
+    "id": "a86b7be7-3e43-4855-b2ac-6744a7dc44fd",
+    "book": "Thomas Davis, selections from his prose and poetry",
+    "text": "Black Tom Wentworth, the ablest of despots, came here 210 years ago, and found \"small beginnings towards a clothing trade.\" He at once resolved to discourage it. He wrote so to the king on July 25th, 1636, and he was a man true to his enmities. \"But,\" said he, \"I'll give them a linen manufacture instead.\" Now, the Irish had raised flax and made and dyed linen from time immemorial. The saffron-coloured linen shirt was as national as the cloak and birred; so that Strafford rather introduced the linen manufacture among the new settlers than among the Irish. Certainly he encouraged it, by sending Irishmen to learn in Brabant, and by bringing French and Flemings to work in Ireland. Charles the Second, doubtless to punish us for our most unwise loyalty to him and his father, assented to a series of Acts prohibiting the export of Irish wool, cattle, etc., to England or her colonies, and prohibi",
+    "verdict": "reject",
+    "genre": "not-selfcontained",
+    "why": "여기와 210년 전이 어디·언제인지 정해지지 않는다"
+  },
+  {
+    "id": "a8db3a1c-0146-48ee-adb7-2e1b9a9602a0",
+    "book": "Text book of veterinary medicine, Volume 3 (of 5) (발췌)",
+    "text": "The attack usually lasts for two or three minutes, then the convulsions gradually lessen in intensity and finally cease, the dog raises his head, opens his eyes, and gazes inquiringly around. Then he gets on his feet shakes himself and may at once resume his customary habits. In other cases the restoration is less sudden. The dog remains for 30 to 60 minutes dull and stupid, or seems to have little power of control over its muscles and staggers as if intoxicated, or as if the muscles were benumbed. It may drop on its knees and then fall with the head on the ground and repeat this several times. In other cases the dog wanders around, or trots off and may snap at any one interfering with him, so that the case is often mistaken for one of rabies. Finally the animal may remain prostrate and fall into a deep sleep marked by stertorous breathing.",
+    "verdict": "reject",
+    "genre": "not-selfcontained",
+    "why": "무슨 병의 발작인지 밝히지 않은 채 회복 과정만 서술"
+  },
+  {
+    "id": "a8eef886-ec87-4a59-9644-16b246217a88",
+    "book": "Mosaics of Grecian History",
+    "text": "Supported on his shortened arm he leans, Prone agonizing; with incumbent fate Heavy declines his head, yet dark beneath The suffering feature sullen vengeance lowers, Shame, indignation, unaccomplished rage; And still the cheated eye expects his fall. --THOMSON. The other statue is that masterpiece of art, the group of the La-oc'o-on, now in the Vatican at Rome, the work of the three Rhodian sculptors, Agesan'dros, Polydo'rus, and Athenodo'rus. It represents a scene, in connection with the fall of Troy, that Virgil describes in the Second Book of the Æneid. A Trojan priest, named Laocoon, endeavored to propitiate Neptune by sacrifice, and to dissuade the Trojans from admitting within the walls the fatal wooden horse, whereupon the goddess Minerva, ever favorable to the Greeks, punished him by sending two enormous serpents from the sea to destroy him and his two sons. The poet THOMSON wel",
+    "verdict": "reject",
+    "genre": "poetry-drama",
+    "why": "톰슨의 조각 묘사 운문으로 시작해 산문으로 넘어간다"
+  },
+  {
+    "id": "a9c502dc-94b8-42b7-b240-1aff97c629b9",
+    "book": "Historic Sites of Lancashire and Cheshire",
+    "text": "The \"Mr. Urione Brereton,\" who, according to the Cheadle registers, was buried there \"Jan. 6, 1631,\" must have been another member of the family. Peter Venables had been elected with Sir Wm. Brereton, but, being a Royalist, he withdrew, and was succeeded by George Booth. An old portrait in oil of the loyal and intrepid mayor taken in 1657, when he was 61 years of age, was presented some years ago by Mr. J. Edisbury, of Bersham, near Wrexham, to the Water Tower Museum, at Chester, where it is now preserved. Richard Percival, linen webster, of Kirman's Hulme, is said to have been the first person whose blood was shed in the great Civil War. The Manchester Register thus records his burial: \"1642, Julie 18, Richard Parcivall, of Grindlowe.\" This work, which has been commonly recognised as Burghall's, can be no longer attributed to him, the bonâ-fide author, as Mr. Hall, the historian of Nant",
+    "verdict": "reject",
+    "genre": "fragmentary",
+    "why": "교구 기록·초상·매장부 단신을 이어 붙인 골동 메모"
+  },
+  {
+    "id": "aa01d04a-933d-4936-b48c-acc3cf8127d7",
+    "book": "Cornish Characters and Strange Events",
+    "text": "The women were not disembarked till the 6th February, when, every person belonging to the settlement being landed, the whole amounted to 1030 persons. The tents for the sick were placed on the west side, and it was observed with concern that their number was fast increasing. Scurvy, that had not appeared during the voyage, now broke out, and this, along with dysentery, began to fill the hospital, and several died. In addition to the medicines that were administered, every species of esculent plant that could be found in the country was procured for them--wild celery, spinach, and parsley fortunately grew in abundance. Those who were in health, as well as the sick, were glad to introduce this wholesome addition to their ration of salt meat. The public stock, consisting of one bull, four cows, one bull-calf, one stallion, three mares, and three colts, were landed and left to crop the pastu",
+    "verdict": "reject",
+    "genre": "not-selfcontained",
+    "why": "어느 식민지 상륙인지 밝히지 않은 채 인원과 병세만 적는다"
+  },
+  {
+    "id": "aa0e4573-3aad-4e8f-bc65-5506abe91c37",
+    "book": "Growing Nuts in the North (발췌)",
+    "text": "Because I did not know how to preserve the scions I had cut, they dried out during the winter to such an extent that they were worthless for spring grafting. This meant losing a whole season. The next fall I obtained more scionwood from Mr. Fobes and having kept it in good condition during the winter by storing it in a Harrington graft box shown by illustration, I was able to graft it in the spring. However, these grafts did not take hold well, only two or three branches resulting from all of it and these did not bear nor even grow as they should have. I was disappointed and discouraged, writing to Mr. Fobes that I did not believe the tree could be propagated.",
+    "verdict": "use",
+    "genre": "science",
+    "why": "접수 보관을 고쳐도 접목이 붙지 않았다는 실패 경과 보고"
+  },
+  {
+    "id": "aa4d71dd-9561-4c52-b653-63e3e6b1a45c",
+    "book": "On Love",
+    "text": "[Pg xvi] extensive, and we might swell the list with the names of Montesquieu, Condillac, Condorcet, Chamfort, Diderot--to name only the moralists. It is noticeable that almost all these books, mentioned as the favourite authorities of Stendhal, are eighteenth-century works. The fact will seem suspicious to those inclined to believe that the eighteenth century was a time of pretty ways and gallantry à la Watteau, or of windy mouthings about Cause and Effect, Duties and Principles, Reason and Nature. But, to begin with, neither estimate comes near the mark; and, moreover, Stendhal hated Voltaire almost as much as Blake did. It was not an indiscriminate cry of Rights and Liberty which interested Stendhal in the eighteenth century. The old régime was, of course, politically uncongenial to him, the liberal and Bonapartist, and he could see the stupidity and injustice and hollowness of a soci",
+    "verdict": "reject",
+    "genre": "fragmentary",
+    "why": "[Pg xvi] 쪽 표시와 함께 문장 도중에서 시작한다"
+  },
+  {
+    "id": "aad5cc3f-7d62-4c76-b5b6-6434f28a4cf0",
+    "book": "Thomas Davis, selections from his prose and poetry",
+    "text": "Ye Geraldines! ye Geraldines!--how royally ye reigned O'er Desmond broad, and rich Kildare, and English arts disdained: Your sword made knights, your banner waved, free was your bugle call By Gleann's green slopes, and Daingean's tide, from Bearbha's banks to Eochaill. What gorgeous shrines, what breitheamh lore, what minstrel feasts there were In and around Magh Nuadhaid's keep, and palace-filled Adare! But not for rite or feast ye stayed, when friend or kin were pressed; And foemen fled, when \"Crom Abu\" bespoke your lance in rest. Ye Geraldines! ye Geraldines!--since Silken Thomas flung King Henry's sword on council board, the English thanes among, Ye never ceased to battle brave against the English sway, Though axe and brand and treachery your proudest cut away. Of Desmond's blood through woman's veins passed on th' exhausted tide; His title lives--a Sacsanach churl usurps the lion's ",
+    "verdict": "reject",
+    "genre": "poetry-drama",
+    "why": "제럴딘 가문을 부르는 아일랜드 담시"
+  },
+  {
+    "id": "aae3168c-2440-40f7-ae1e-f8f28883616e",
+    "book": "Bedouins",
+    "text": "Her cadenced step in the first scene is replaced by rhythmic movements in the second act that reveal her glowing inner life. She is all flame and gold--except when she sings above the staff. Even then she infuses it with a characteristic timbre. A singing-actress. People like Mary Garden because she has that rarest of artistic virtues--personality. During the first week of last season’s Chicago opera the temperament of Mary Garden was carefully chained in its cage; nevertheless, we overheard its growls in Gismonda, but the mock-Fafner at the bottom of the cistern outroared Miss Garden’s tame panther. In Monna Vanna there were whimperings and menacing claws. The feline had no chance to spring, not even in the tent scene. At a matinée in the Lexington Theatre Thaïs was sung by the Chicago Opera Association, and now or never! we said, the temperament so artistically expressed, rather canali",
+    "verdict": "reject",
+    "genre": "not-selfcontained",
+    "why": "누구인지 모르는 her의 2막 동작부터 시작하는 공연평"
+  },
+  {
+    "id": "ab4b2b96-793d-4aa2-b781-d0f46acdbd82",
+    "book": "McGuffey's Eclectic Primer, Revised Edition (발췌)",
+    "text": "Miss May tells the girls and boys that they should be at the schoolhouse when the bell rings. So Henry walks fast, and is first at school. He is a good boy, and wants to keep the rule of the school. I saw him try to kill a quail with a stone. The quail is too quick a bird for that, and Ned did not hurt it; but I know that a good child would not try to kill a bird. [Illustration: Script Exercise: There is a baby at Ned's house. Her name is Kate. Ned is not a good boy, but he loves Kate, and I do not think he would hurt her. ]",
+    "verdict": "reject",
+    "genre": "fragmentary",
+    "why": "Henry가 Ned로 바뀌고 삽화 습자 문장이 붙어 앞뒤가 안 맞는다"
+  },
+  {
+    "id": "abb2f17e-b659-4f69-9fe9-f6a6dde01f19",
+    "book": "The International Monthly, Volume 2, No. 4, March, 1851",
+    "text": "In our account of this book we have not strictly followed the order of the author. Thus he makes the direct miraculous creation of man the concluding topic of his book, and treats it not without a certain poetic elevation as comports with such an event. We have aimed only to give the outlines of his doctrine, and for the rest recommend those of our readers who are interested in such studies to procure and read the work. JOACHIM LELEWEL (a name honored by all lovers of liberty,) has just published at Breslau a work on the geography of the middle ages, which is worthy of the warmest admiration. It consists of an atlas of fifty plates, engraved by the hand of the venerable author, containing one hundred and forty-five figures and maps, from eighty-eight different Arabic and Latin geographers of different epochs, with eleven explicative or comparative maps and two geographical essays. The wh",
+    "verdict": "reject",
+    "genre": "fragmentary",
+    "why": "어느 책인지 모를 소개 끝머리에 다른 신간 단신이 붙는다"
+  },
+  {
+    "id": "abb9a7e3-a290-4de2-a741-34976ce7b64c",
+    "book": "The Babees' Book: Medieval Manners for the Young: Done into Modern English (발췌)",
+    "text": "Uncalled go to no council, scorn not the poor, nor hurt any man, learn of him that can teach you, be no flatterer or scoffer, oppress not your servants, be not proud, but meek and gentle, and always walk behind your betters. When your better shows his will, be silent; and in speaking to any man keep your hands and feet quiet, and look up into his face, and be always courteous. Point not with your finger at anything, nor be lief to tell tidings. If any man speak well of you or of your friends, he must be thanked. Have few words and wisely placed, for so may you win a good name.",
+    "verdict": "reject",
+    "genre": "fragmentary",
+    "why": "쉼표로 이어 붙인 처세 격언 나열이라 논지가 없다"
+  },
+  {
+    "id": "ac104ba7-7887-456a-80b8-baadc8927b4f",
+    "book": "On Love",
+    "text": "That you should be made a fool of by a young woman, why, it is many an honest man's case. Stendhal's three prefaces to this work on Love are not an encouraging opening. Their main theme is the utter incomprehensibility of the book to all but a very select few--\"a hundred readers only\": they are rather warnings than introductions. Certainly, the early life of Stendhal's De l'Amour justifies this somewhat distant attitude towards the public. The first and second editions were phenomenal failures--not even a hundred readers were forthcoming. But Stendhal, writing in the early part of the nineteenth century, himself prophesied that the twentieth would find his ideas at least more comprehensible. The ideas of genius in one age are the normal spiritual food for superior intellect in the next. Stendhal is still something of a mystery to the general public; but the ideas, which he agitated, are ",
+    "verdict": "reject",
+    "genre": "fragmentary",
+    "why": "앞뒤 없는 제사 한 줄이 본문 앞에 붙어 있다"
+  },
+  {
+    "id": "ac24080d-e63f-45e0-8a39-210fb6eda195",
+    "book": "The Antiquarian Magazine & Bibliographer; Vol. 4, July-Dec 1884",
+    "text": "CATALOGUES of rare and curious books, most of which contain the names of works of antiquarian interest, have reached us from Mr. F. Edwards, 83, High-street, Marylebone; Mr. U. Maggs, 159, Church-street, Paddington-green; Mr. G. P. Johnston, 33, George-street, Edinburgh; Mr. W. Scott, 7, Bristol-place, Edinburgh; Mr. G. Harding, 19, St. John-street, Westminster; Mr. A. B. Osborne, 11, Red Lion-passage, Holborn; Mr. J. E. Cornish, 33, Piccadilly, Manchester; Messrs. Jarvis & Son, 28, King William-street, Strand; Messrs. Robson & Kerslake, 43, Cranbourn-street, Leicester-square; Mr. W. Wilkins, Merthyr Tydvil; Mr. E. Parsons, 45, Brompton-road, S.W.; Messrs. Reeves & Turner, 196, Strand; Messrs. Farrar & Fenton, 8, John-street, Adelphi. A PROPOSAL for the foundation of a museum devoted to the antiquities of Palestine, has recently been attracting attention in Paris. A room in the Louvre is",
+    "verdict": "reject",
+    "genre": "reference",
+    "why": "고서점 이름과 주소만 나열한 목록 안내"
+  },
+  {
+    "id": "ac31691d-8dd0-429d-8d74-910e507277eb",
+    "book": "Plain English",
+    "text": "This confusion in the use of words detracts from the influence which our statements would otherwise have. There are a number of words which are so nearly alike that it is very easy to be confused in the use of them. In our spelling lesson for this week we have a number of the most common of these easily confounded words. Add to the list as many others as you can. Advice, counsel Advise, to give counsel Attendants, servants Attendance, those present Stationary, fixed Stationery, pens, paper, etc. As we look back over the study of these thirty lessons we find that we have covered quite a little ground. We have covered the entire field of English grammar including punctuation. But our study of English must not conclude with the study of this course. This is simply the foundation which we have laid for future work. You know when students graduate from high school or college the graduation is",
+    "verdict": "reject",
+    "genre": "fragmentary",
+    "why": "혼동 어휘 대조 목록과 강좌 마무리 인사가 섞여 있다"
+  },
+  {
+    "id": "ac3274fb-373c-453b-91d0-13e1a25d6af7",
+    "book": "Audubon and His Journals, Volume 2 (발췌)",
+    "text": "The sun was now sinking in the west. Two of the hunters separated from the rest to procure venison, whilst the squatter's sons were ordered to make the best of their way home, to be ready to feed the hogs in the morning. The rest of the party agreed to camp on the spot. The Cougar was despoiled of its skin, and its carcass left to the hungry dogs. Whilst engaged in preparing our camp, we heard the report of a gun, and soon after one of our hunters returned with a small Deer. A fire was lighted, and each hunter displayed his pone of bread, along with a flask of whiskey. The deer was skinned in a trice, and slices placed on sticks before the fire. These materials afforded us an excellent meal, and as the night grew darker, stories and songs went round, until my companions, fatigued, laid themselves down, close under the smoke of the fire, and soon fell asleep.",
+    "verdict": "narrative",
+    "genre": "travel",
+    "why": "쿠거 사냥 뒤 야영을 차리고 잠드는 저녁 장면"
+  },
+  {
+    "id": "ac60ebb4-90dd-4081-ad32-4ab97c979c79",
+    "book": "Sanders' Union Fourth Reader",
+    "text": "Let him who looks for a monument of Washington look around the United States. The whole country is a monument to him. Your freedom, your independence, your national power, your prosperity, and your prodigious growth, is a monument to Washington. There is no room left for panegyric, none especially to a stranger whom you had full reason to charge with arrogance, were he able to believe that his feeble voice could claim to be noticed in the mighty harmony of a nation's praise. Let me, therefore, instead of such an arrogant attempt, pray that that God, to whose providential intentions Washington was a glorious instrument, may impart to the people of the United States the same wisdom for the conservation of the present prosperity of the land and for its future security, which he gave to Washington for the foundation of it. I yield to nobody in the world in reverence and respect to the immort",
+    "verdict": "reject",
+    "genre": "not-selfcontained",
+    "why": "연설자를 밝히지 않아 이방인이라는 겸사가 허공에 뜬다"
+  },
+  {
+    "id": "ace4f2b7-96b0-4d96-9e4b-3abfb725937a",
+    "book": "Selected Essays of Plutarch, Vol. II.",
+    "text": "XI. ‘Passing over many similar points, I will’, I said, ‘produce Plato, who, in discussing the question of a single universe, says that if there are others besides ours, and it is not alone, then the whole number of them is five and no more; not but that, if ours is the only universe in being, as Aristotle also thinks, even this one is in a fashion composite and formed out of five; one of earth, one of water, a third of fire, and a fourth of air, [Sidenote: 390] while the fifth is called heaven or light or air, or by others “fifth substance”, to which alone of all bodies circular motion is natural, not due to force or other accidental cause. Therefore it is that Plato, observing the five perfect figures of Nature—Pyramid, Cube, Octahedron, Eicosahedron, and Dodecahedron—assigned them to the elements, each to each. XII. ‘There are some who appropriate to the same elements our own senses, ",
+    "verdict": "reject",
+    "genre": "fragmentary",
+    "why": "XI·XII 절 번호와 [Sidenote] 방주가 본문에 섞여 있다"
+  },
+  {
+    "id": "ad210bfd-38e0-4a07-b8f0-f322cd53784d",
+    "book": "Mosaics of Grecian History",
+    "text": "\"No other man seems to have been held in so high estimation by most of the ablest writers of Greece and Rome, for universal superiority of talents, as Pericles. The accounts remaining of his actions hardly support his renown, which was yet, perhaps, more fairly earned than that of many, the merit of whose achievements has been, in a great degree, due to others acting under them, whose very names have perished. The philosophy of Pericles taught him not to be vain-glorious, but to rest his fame upon essentially great and good rather than upon brilliant actions. It is observed by Plutarch that, often as he commanded the Athenian forces, he never was defeated; yet, though he won many trophies, he never gained a splendid victory. A battle, according to a great modern authority, is the resource of ignorant generals; when they know not what to do they fight a battle. It was almost universally t",
+    "verdict": "reject",
+    "genre": "fragmentary",
+    "why": "출처 없이 열린 인용 부호 안 문단이라 누구의 평가인지 모른다"
+  },
+  {
+    "id": "ad442c72-9fbb-40de-85c0-5423b4dbc29c",
+    "book": "The Antiquarian Magazine & Bibliographer; Vol. 4, July-Dec 1884",
+    "text": "AMONG the “South Kensington Art Handbooks” now in course of preparation is one on the “Saracenic Art of Egypt,” by Mr. Stanley Lane-Poole. IT is reported that there are only five genuine signatures of Shakespeare in existence. “From this it is inferred,” writes the San Francisco News Letter, “that the Bard of Avon did not make a practice of endorsing his friends’ notes--another evidence of his good sense.” CHRISTMAS-EVE IN DEVONSHIRE.--In Devonshire is still observed on Christmas-Eve an ancient custom, which is supposed to ensure a good crop of apples. The farm-servants procure an ash-fagot, round which they carefully put as many binds as possible, because they are rewarded with cups of cider equivalent in number to the binds which encircle the fagot. The fagot is then placed on the fire, and as each bind bursts they claim a cup of cider; they have also a bowl of toast and cider which th",
+    "verdict": "reject",
+    "genre": "fragmentary",
+    "why": "예술 총서·셰익스피어 서명·데번 풍습을 이어 붙인 잡보"
+  },
+  {
+    "id": "ad777b17-c9b9-4537-bfb8-72998a657a6e",
+    "book": "The Quiver, Annual Volume 10/1899",
+    "text": "When, in 1849, the American author, Nathaniel Hawthorne, was dismissed from being a surveyor, his wife thus writes of the supposed calamity in a letter to her mother: \"It has come in the way of an inevitable providence to us (whatever knavery some people may have to answer for who have been the agents in the removal), and I never receive inevitable providences with resignation merely, but with joy, as certainly, undoubtedly, the best possible events that can happen for me.\" Surely this is the right way to regard the changes and so-called chances of this mortal life, if we believe that our Heavenly Father orders the lives of each one of us with individual care. The Quiver Prize has long since become an annual institution in several representative orphanages, and as our object is to encourage honesty, industry, and general good conduct, it is awarded each year to those inmates who have sho",
+    "verdict": "reject",
+    "genre": "doctrine",
+    "why": "섭리 신앙을 전제로 해고를 기쁨으로 받으라 가르친다"
+  }
+]

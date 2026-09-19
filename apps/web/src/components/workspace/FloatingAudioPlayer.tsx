@@ -121,8 +121,13 @@ export function FloatingAudioPlayer({
     <div
       role="region"
       aria-label="오디오 플레이어"
-      className={`fixed bottom-0 left-0 right-0 z-[70] border-t border-[var(--bd)] text-[var(--t1)] shadow-[0_-8px_32px_-12px_rgba(0,0,0,0.28)] transition-transform duration-[var(--dur-slow)] ease-[var(--ease-ios-spring)] md:left-[var(--sidebar-w,240px)] ${
-        isVisible ? 'translate-y-0' : 'translate-y-full'
+      // bottom = 하단 탭 높이(모바일). z-70 이라 탭을 덮을 수는 있지만, 글래스 배경이라
+      // 탭이 비쳐 보이면서 탭 자리를 먹는다 — 앱 프레임을 페이지가 조용히 가리는 셈이다.
+      // 그 위에 얹는다. md 이상은 `--tabbar-h: 0px` 라 종전대로 가장자리 flush.
+      // 숨김 상태에서 `pointer-events-none` 은 필수다 — bottom 이 0 이 아니게 되면서
+      // translate 로 내려간 자리가 **탭 바 위**가 되어, 없는 플레이어가 탭 터치를 먹는다.
+      className={`fixed bottom-[var(--tabbar-h)] left-0 right-0 z-[70] border-t border-[var(--bd)] text-[var(--t1)] shadow-[0_-8px_32px_-12px_rgba(0,0,0,0.28)] transition-transform duration-[var(--dur-slow)] ease-[var(--ease-ios-spring)] md:left-[var(--sidebar-w,240px)] ${
+        isVisible ? 'translate-y-0' : 'pointer-events-none translate-y-full'
       }`}
       style={{
         background: 'var(--mat-glass-bg-thick)',
@@ -131,7 +136,7 @@ export function FloatingAudioPlayer({
       }}
     >
       {/* 하단 고정 바 — 가장자리 flush · 상단 hairline + 위로 향한 soft shadow · 콘텐츠는 중앙 정렬 · 최소 높이 */}
-      <div className="mx-auto flex w-full max-w-[920px] flex-col gap-1 px-3 pt-1 pb-[max(0.4rem,env(safe-area-inset-bottom))] sm:px-5 sm:pt-1.5">
+      <div className="mx-auto flex w-full max-w-[920px] flex-col gap-1 px-3 pt-1 pb-[max(0.4rem,env(safe-area-inset-bottom))] sm:px-5 sm:pt-2">
         {/* 소스 토글 (보이스 연결된 챕터만) */}
         {hasVoice && (
           <SourceToggleRow source={source} onSourceChange={onSourceChange} onClose={onClose} />
@@ -178,12 +183,12 @@ function Segmented<T extends string>({
   ariaLabel: string
   size?: 'sm' | 'md'
 }) {
-  const pad = size === 'sm' ? 'px-2 py-0.5 text-[10.5px]' : 'px-3 py-1 text-[12px]'
+  const pad = size === 'sm' ? 'px-2 py-1 text-[10.5px]' : 'px-3 py-1 text-[12px]'
   return (
     <div
       role="tablist"
       aria-label={ariaLabel}
-      className="inline-flex items-center gap-0.5 rounded-[var(--r-ios-pill)] bg-[var(--bg2)] p-0.5"
+      className="inline-flex items-center gap-1 rounded-[var(--r-ios-pill)] bg-[var(--bg2)] p-1"
     >
       {options.map((o) => {
         const active = value === o.key
@@ -243,7 +248,7 @@ function CloseButton({ onClose }: { onClose: () => void }) {
       type="button"
       onClick={onClose}
       aria-label="닫기"
-      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[var(--t3)] transition-colors duration-[var(--dur-ios-fast)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] ${RING}`}
+      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[var(--t2)] transition-colors duration-[var(--dur-ios-fast)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] ${RING}`}
     >
       <X size={14} aria-hidden />
     </button>
@@ -325,7 +330,7 @@ function BrowserBody({
       )}
 
       {/* ── 단일 컨트롤 행 (최소 높이) ── */}
-      <div className="flex flex-wrap items-center gap-x-1.5 gap-y-1">
+      <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
         {/* 모드 (compact) */}
         <Segmented<PlayMode>
           ariaLabel="듣기 모드"
@@ -397,16 +402,16 @@ function BrowserBody({
                 aria-hidden
               />
             </div>
-            <span className="shrink-0 font-mono text-[10.5px] tabular-nums text-[var(--t3)]">
+            <span className="shrink-0 font-mono text-[10.5px] tabular-nums text-[var(--t2)]">
               <span className="text-[var(--t1)]">{currentIdx + 1}</span>
-              <span className="mx-0.5 text-[var(--t4)]">/</span>
+              <span className="mx-0.5 text-[var(--t2)]">/</span>
               {total}
             </span>
           </div>
         )}
 
         {/* 우측 — 속도 · voice · 닫기 */}
-        <div className="ml-auto flex items-center gap-1.5">
+        <div className="ml-auto flex items-center gap-2">
           <SpeedButton rate={tts.state.rate} onClick={handleSpeedChange} />
           <VoicePickerPopover />
           {!hideClose && <CloseButton onClose={onClose} />}
@@ -475,13 +480,13 @@ function StepHero({
     <div className="flex flex-col gap-2 rounded-[var(--r-ios-lg)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3">
       {/* meta: step number + status */}
       <div className="flex items-center justify-between gap-3">
-        <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--t3)]">
+        <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--t2)]">
           STEP <span className="font-display tabular-nums text-[var(--t1)]">{stepNumber}</span>
-          <span className="mx-1 text-[var(--t4)]">/</span>
-          <span className="font-display tabular-nums text-[var(--t3)]">{totalSteps}</span>
+          <span className="mx-1 text-[var(--t2)]">/</span>
+          <span className="font-display tabular-nums text-[var(--t2)]">{totalSteps}</span>
         </span>
         <span
-          className={`inline-flex items-center gap-1.5 font-display text-[11px] font-[700] transition-colors ${
+          className={`inline-flex items-center gap-2 font-display text-[11px] font-[700] transition-colors ${
             isAwaitingRepeat ? 'text-[var(--success)]' : 'text-[var(--t2)]'
           }`}
         >
@@ -631,16 +636,16 @@ function LibriVoxBody({
   }
 
   return (
-    <div className="flex items-center gap-1.5">
+    <div className="flex items-center gap-2">
       {/* 성우 — 최소화 (작게·truncate·모바일 숨김. 전체 이름은 title) */}
       <span
-        className="hidden min-w-0 max-w-[100px] items-center gap-1 font-body text-[10.5px] text-[var(--t3)] sm:inline-flex"
+        className="hidden min-w-0 max-w-[100px] items-center gap-1 font-body text-[10.5px] text-[var(--t2)] sm:inline-flex"
         title={currentPart?.reader ?? audio.reader ?? '원어민 낭독'}
       >
-        <Mic size={11} className="shrink-0 text-[var(--t4)]" aria-hidden />
+        <Mic size={11} className="shrink-0 text-[var(--t2)]" aria-hidden />
         <span className="truncate">{currentPart?.reader ?? audio.reader ?? '원어민'}</span>
         {multiPart && (
-          <span className="shrink-0 font-mono text-[9px] tabular-nums text-[var(--t4)]">
+          <span className="shrink-0 font-mono text-[9px] tabular-nums text-[var(--t2)]">
             {partIdx + 1}/{parts.length}
           </span>
         )}
@@ -675,9 +680,9 @@ function LibriVoxBody({
       )}
 
       {/* 시간 + seek */}
-      <span className="ml-1 shrink-0 font-mono text-[10px] tabular-nums text-[var(--t3)]">
+      <span className="ml-1 shrink-0 font-mono text-[10px] tabular-nums text-[var(--t2)]">
         {formatAudioTime(cur)}
-        <span className="mx-0.5 text-[var(--t4)]">/</span>
+        <span className="mx-0.5 text-[var(--t2)]">/</span>
         {formatAudioTime(total)}
       </span>
       <input
@@ -700,7 +705,7 @@ function LibriVoxBody({
           rel="noreferrer"
           title="LibriVox 출처"
           aria-label="LibriVox 출처 보기"
-          className={`inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[var(--t4)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--p)] ${RING}`}
+          className={`inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--p)] ${RING}`}
         >
           <ExternalLink size={13} aria-hidden />
         </a>

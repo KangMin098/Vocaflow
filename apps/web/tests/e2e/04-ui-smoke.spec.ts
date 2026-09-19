@@ -7,17 +7,26 @@
 import { test, expect, type Page } from '@playwright/test';
 
 import { getUserVLevel, setUserVLevel, userIdByEmail } from './utils/db';
+import { seedBriefsSeen } from './utils/brief';
+
+// v08.6 — `/play/*` 는 그 게임의 브리핑을 처음 여는 학습자에게 게임 대신 브리핑을 띄운다.
+// 이 스펙들이 검증하는 것은 게임의 동작이므로 "돌아온 학습자" 를 재현한다.
+// 게이트 자체의 회귀는 15-arcade-brief.spec.ts 가 심지 않은 상태로 본다.
+test.beforeEach(async ({ page }) => {
+  await seedBriefsSeen(page);
+});
+
 
 const RUNTIME_USER = {
   email: process.env.PLAYWRIGHT_RUNTIME_EMAIL || 'runtime-test-0705@vocaflow.dev',
-  password: process.env.PLAYWRIGHT_RUNTIME_PASSWORD || 'RuntimeTest1!',
+  password: process.env.PLAYWRIGHT_RUNTIME_PASSWORD ?? (() => { throw new Error('PLAYWRIGHT_RUNTIME_PASSWORD 가 없다 — apps/web/.env.local (CI: 저장소 시크릿)') })(),
 };
 
 /** EchoMatch 런타임 검증용 시드 텍스트 (runtime-test 계정 소유, 5문장) */
 const ECHO_TEXT_ID = '89970bfa-f49d-44c2-92ce-75895a608317';
 
 /** 로그인은 파일당 1회만 (auth rate-limit 회피) — storageState 로 각 테스트에 주입 */
-const STATE_PATH = 'test-results/.auth-runtime-user.json';
+const STATE_PATH = 'playwright-auth/.auth-runtime-user.json';
 
 async function loginRuntimeUser(page: Page) {
   // 배치 실행 시 테스트마다 새 로그인 → auth 스로틀/dev 컴파일 경합으로 리다이렉트 지연 →
@@ -64,6 +73,7 @@ const SCREENS: Array<{ path: string; marker: RegExp }> = [
   { path: '/flashcard', marker: /Flashcard|플래시|복습/ },
   { path: '/pairflip', marker: /PairFlip|페어|짝/ },
   { path: '/scriptquiz', marker: /ScriptQuiz|퀴즈/ },
+  { path: '/dictate', marker: /받아쓰기|오늘의 받아쓰기/ },
   { path: '/library/books', marker: /Library|도서|발견/ },
   { path: '/library/scripts', marker: /먼저 이걸로|다른 주제로 읽기|스크립트/ },
 ];
@@ -111,6 +121,60 @@ test.describe('UI 스모크 — 학습자 주요 화면', () => {
 
     const fatal = fatalErrors(errors);
     expect(fatal, `console errors: ${fatal.join(' | ')}`).toHaveLength(0);
+  });
+
+  // 모바일 전역 내비 — 설계안 실측 "모바일 전역 내비 링크 **0개**"(사이드바는 hidden md:flex)
+  // 를 닫은 것이다. 좁은 화면에서 링크를 타고 들어가면 되돌아 나올 길이 없었다.
+  test('모바일 폭에서 하단 탭으로 4 표면에 갈 수 있다', async ({ page }) => {
+    test.setTimeout(120_000);
+    await page.setViewportSize({ width: 390, height: 844 }); // 모바일 퍼스트 기준폭
+
+    await page.goto('/hub', { waitUntil: 'domcontentloaded', timeout: 30_000 });
+    const nav = page.getByRole('navigation', { name: '주요 화면' });
+    await expect(nav, '모바일에 전역 내비가 없다 — 되돌아 나올 길이 없어진다').toBeVisible({
+      timeout: 20_000,
+    });
+
+    // 44px 하한(프로젝트 절대 규칙) — 탭은 손가락으로 누르는 유일한 전역 내비다
+    const heights = await nav
+      .locator('a')
+      .evaluateAll((els) => els.map((e) => Math.round(e.getBoundingClientRect().height)));
+    expect(heights.length, '탭이 4개가 아니다').toBe(4);
+    for (const h of heights) expect(h, `탭 높이 ${h}px < 44px`).toBeGreaterThanOrEqual(44);
+
+    // 실제로 이동하고, 현재 위치를 색이 아닌 것으로도 알린다(aria-current)
+    // 라벨은 `SURFACES[].name`(축 레지스트리) 과 같아야 한다 — v06.141 에서 하단 탭이
+    // 자체 한국어 목록('서재'·'내 단어'…)을 들고 있던 것을 걷어내고 레지스트리를 쓰게 했다.
+    // 여기서 이름을 다시 적는 이유: 탭이 레지스트리를 **실제로** 읽는지 확인하는 것이 이 단언의 값이다.
+    for (const [label, expected] of [
+      ['Library', /\/library/],
+      ['Vault', /\/wordvault/],
+      ['Growth', /\/dashboard/],
+      ['Today', /\/hub/],
+    ] as const) {
+      await nav.getByRole('link', { name: label }).click();
+      await page.waitForURL(expected, { timeout: 20_000 });
+      await expect(
+        nav.locator('a[aria-current="page"]'),
+        `${label} 이동 후 현재 탭 표시가 없다`,
+      ).toHaveCount(1);
+    }
+  });
+
+  test('학습 세션에서는 하단 탭이 사라진다 (작업기억 보호)', async ({ page }) => {
+    test.setTimeout(90_000);
+    await page.setViewportSize({ width: 390, height: 844 });
+    // 사이드바·FlowNav 와 같은 판정(isFullScreenRoute)을 쓰는지 확인한다 —
+    // 셋이 갈리면 세션 화면에 내비가 하나만 남아 더 이상해진다.
+    await page.goto('/play/cascade?from=%2Farcade', {
+      waitUntil: 'domcontentloaded',
+      timeout: 30_000,
+    });
+    await page.waitForTimeout(3_000);
+    await expect(
+      page.getByRole('navigation', { name: '주요 화면' }),
+      '세션 중에 하단 탭이 남아 있다',
+    ).toHaveCount(0);
   });
 
   test('도서관 전체 탐색 — 필터 구획 렌더 + 칩 필터가 결과를 좁힌다', async ({ page }) => {
@@ -181,21 +245,20 @@ test.describe('UI 스모크 — 학습자 주요 화면', () => {
     await expect(hero).toBeVisible();
     await expect(page.getByRole('region', { name: '다른 시리즈' }).getByRole('listitem').first()).toBeVisible();
 
-    // 3) 히어로 선택 → 상세(글 목록 + '시리즈 목록' 뒤로).
-    //   v06.238 히어로는 버튼 2개 — 본문='학습 안내 보기'(팝업), 하단='글 둘러보기'(시리즈 진입).
-    //   시리즈 상세로 가려면 '글 둘러보기'(onEnter)를 눌러야 함. .first()(=안내 팝업)를 누르면
-    //   시트 오버레이가 열려 이후 클릭이 가로막힘. hydration 지연 대비 toPass 재클릭.
+    // 3) 히어로의 '글 둘러보기' → 상세(글 목록 + '시리즈 목록' 뒤로).
+    //   이 컨트롤은 버튼이 아니라 **링크**다 — 드릴다운이 상태에서 `?series=` 주소로 바뀌었고(`0698e6bf`),
+    //   그 링크가 크롤러가 글 목록에 닿는 유일한 경로다(`ScriptsBrowser.tsx` 주석). 그래서 hydration 을
+    //   기다릴 필요가 없다 — 진짜 anchor 라 클릭이 곧 이동이다(옛 toPass 재클릭 제거, #103).
+    //   본문의 '… — 학습 안내 보기'는 팝업 버튼이므로 그걸 누르면 시트가 이후 클릭을 가로막는다.
     const back = page.getByRole('button', { name: /시리즈 목록/ });
-    await expect(async () => {
-      if (!(await back.isVisible())) {
-        await hero.getByRole('button', { name: /글 둘러보기/ }).click();
-      }
-      await expect(back).toBeVisible({ timeout: 1_500 });
-    }).toPass({ timeout: 20_000 });
+    await hero.getByRole('link', { name: /글 둘러보기/ }).click();
+    await expect(page).toHaveURL(/[?&]series=/);
+    await expect(back).toBeVisible({ timeout: 15_000 });
     await expect(page.getByRole('region', { name: '글 목록' }).getByRole('listitem').first()).toBeVisible();
 
-    // 4) 복귀 → 진입면 재노출
+    // 4) 복귀 → 주소가 진입면으로 되돌고(replace) 진입면 재노출
     await back.click();
+    await expect(page).not.toHaveURL(/[?&]series=/);
     await expect(page.getByRole('region', { name: '추천 시리즈' })).toBeVisible();
 
     const fatal = fatalErrors(errors);

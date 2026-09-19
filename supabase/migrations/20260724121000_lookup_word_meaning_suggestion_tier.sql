@@ -1,0 +1,8 @@
+-- lookup_word_meaning 에 음성 제안 tier 추가 (not_found 직전, tier 10) — dmetaphone∧lev≤1(86% 정밀).
+-- 단정 아닌 "혹시 X?"(match_via='suggestion') — misspelling/방언 추정. UI(SuggestionBody)가 저확신으로 표기.
+-- 커버리지엔 미포함(추출/큐레이션은 lookup_word_meaning 미사용) — 독해 툴팁 전용 보조.
+-- 전체 정의는 DB 적용본 기준(20260723151000 위에 tier 10 추가):
+--   RETURN QUERY SELECT true,...,'suggestion',...,'en' FROM shared_dictionary d
+--     WHERE length(s)>=5 AND dmetaphone(d.word)=dmetaphone(s) AND levenshtein(d.word,s)<=1
+--       AND d.classified_by IS NOT NULL AND d.meaning_ko IS NOT NULL AND d.word ~ '^[a-z]+$'
+--     ORDER BY levenshtein(d.word,s), d.frequency_rank NULLS LAST LIMIT 1;

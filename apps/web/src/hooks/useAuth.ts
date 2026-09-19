@@ -138,22 +138,30 @@ export function useUser(): UseUserResult {
 // ────────────────────────────────────────────────────────────
 
 /**
- * Supabase 세션을 종료하고 `/` 로 hard reload 합니다.
+ * Supabase 세션을 종료하고 `/login` 으로 hard reload 합니다.
  *
  * hard reload 이유:
  *   - Server Component 캐시 무효화 (`supabase/server.ts` 가 새 세션으로 재실행)
  *   - 다른 탭/브라우저의 세션도 onAuthStateChange 로 자동 SIGNED_OUT
+ *
+ * ⚠️ 서버 호출이 실패해도 **로컬 세션은 반드시 정리하고 이동한다**.
+ *    (네트워크 오류로 로그아웃이 중간에 멈추면 사용자는 로그인된 채 갇힌다.)
  *
  * @example
  *   import { signOut } from '@/hooks/useAuth'
  *   <button onClick={() => signOut()}>로그아웃</button>
  */
 export async function signOut(): Promise<void> {
-  const supabase = createClient()
-  await supabase.auth.signOut()
-  useAuthStore.getState().clear()
-  if (typeof window !== 'undefined') {
-    window.location.href = '/'
+  try {
+    const supabase = createClient()
+    await supabase.auth.signOut()
+  } catch {
+    // 서버 revoke 실패 — 아래에서 로컬 상태를 비우고 이동하는 것이 더 중요하다
+  } finally {
+    useAuthStore.getState().clear()
+    if (typeof window !== 'undefined') {
+      window.location.href = '/login'
+    }
   }
 }
 

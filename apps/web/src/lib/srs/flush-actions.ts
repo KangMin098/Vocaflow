@@ -35,14 +35,23 @@ function clampRating(r: number): RatingValue {
 }
 
 /**
- * 큐에 쌓인 SRS 평가 결과를 DB 로 일괄 영속화.
- * 멱등하지 않으므로(같은 항목 두 번 보내면 두 번 적용) 호출 측이 성공 후 큐를 비워야 한다.
+ * 큐에 쌓인 SRS 평가 결과를 DB 로 일괄 영속화. **멱등하다** — 같은 항목을 두 번 보내도
+ * 두 번 적용되지 않는다.
+ *
+ * ── 왜 멱등이어야 하는가 (2026-09-05) ──────────────────────────────────
+ * 원래는 멱등하지 않았고, 호출 측이 "성공 응답을 받은 뒤 큐를 비운다" 로 이중 적용을 막았다.
+ * 그 전제는 **응답을 받을 수 있을 때만** 성립한다. 탭을 닫거나 화면을 떠나는 순간 보내는
+ * flush 는 응답을 못 받으므로, 큐를 미리 비우면 실패 시 유실되고 안 비우면 다음 기회에
+ * 두 번 적용된다 — 둘 다 학습자의 기록이 틀어진다.
+ *
+ * 그래서 서버가 스스로 거른다. 중복 키는 **(vocabulary_id, attempted_at)** 이다.
+ * 같은 단어를 같은 밀리초에 두 번 평가하는 일은 사람에게 일어나지 않는다.
  */
 export async function flushPendingSrsResults(
   items: FlushItem[],
 ): Promise<FlushResult> {
   if (!Array.isArray(items) || items.length === 0) {
-    return { ok: true, persisted: 0, skipped: 0 };
+    return { ok: true, persisted: 0, skipped: 0, duplicated: 0 };
   }
 
   const client = (await createClient()) as unknown as SupabaseClient;
@@ -56,7 +65,8 @@ export async function flushPendingSrsResults(
       items.map((i) => i.word?.toLowerCase()).filter((w): w is string => !!w),
     ),
   ];
-  if (words.length === 0) return { ok: true, persisted: 0, skipped: 0 };
+  if (words.length === 0)
+    return { ok: true, persisted: 0, skipped: 0, duplicated: 0 };
 
   const { data: rowData, error: fetchErr } = await client
     .from('vocabularies')
@@ -74,10 +84,38 @@ export async function flushPendingSrsResults(
   const sorted = [...items].sort((a, b) =>
     a.reviewedAt.localeCompare(b.reviewedAt),
   );
+
+  // ── 이미 적재된 평가 찾기 (멱등 가드) ─────────────────────────────────
+  // 타임스탬프를 `in()` 으로 나열하지 않고 **구간**으로 조회한다 — 큐가 길면 URL 이
+  // 터지고, 터지는 순간 가드가 조용히 사라져 이중 적용이 다시 시작된다.
+  const seen = new Set<string>();
+  const stamps = sorted
+    .map((i) => Date.parse(i.reviewedAt))
+    .filter((n) => Number.isFinite(n));
+  const vocabIds = [...new Set([...byWord.values()].map((r) => r.id))];
+  if (stamps.length > 0 && vocabIds.length > 0) {
+    const lo = new Date(Math.min(...stamps)).toISOString();
+    const hi = new Date(Math.max(...stamps)).toISOString();
+    const { data: already } = await client
+      .from('learning_records')
+      .select('vocabulary_id, attempted_at')
+      .eq('user_id', user.id)
+      .in('vocabulary_id', vocabIds)
+      .gte('attempted_at', lo)
+      .lte('attempted_at', hi);
+    for (const r of (already ?? []) as {
+      vocabulary_id: string;
+      attempted_at: string;
+    }[]) {
+      seen.add(`${r.vocabulary_id}@${Date.parse(r.attempted_at)}`);
+    }
+  }
+
   const running = new Map<string, SrsCard>();
   const records: LearningRecordPayload[] = [];
   let persisted = 0;
   let skipped = 0;
+  let duplicated = 0;
 
   for (const it of sorted) {
     const key = it.word?.toLowerCase();
@@ -91,6 +129,14 @@ export async function flushPendingSrsResults(
       skipped += 1;
       continue;
     }
+    // 이미 들어간 평가면 카드에도 적용하지 않는다 — 기록만 건너뛰고 D/S 는 누적하면
+    // 표는 맞는데 난이도만 두 번 움직여, 더 찾기 어려운 어긋남이 된다.
+    const dedupeKey = `${row.id}@${Date.parse(it.reviewedAt)}`;
+    if (seen.has(dedupeKey)) {
+      duplicated += 1;
+      continue;
+    }
+    seen.add(dedupeKey); // 한 요청 안의 중복도 같은 자로 막는다
     const card = running.get(key) ?? rowToCard(row);
     const result = applyReview({
       card,
@@ -132,5 +178,5 @@ export async function flushPendingSrsResults(
     }
   }
 
-  return { ok: true, persisted, skipped };
+  return { ok: true, persisted, skipped, duplicated };
 }

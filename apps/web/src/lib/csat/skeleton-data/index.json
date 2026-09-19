@@ -1,0 +1,121 @@
+{
+  "built": "2026-09-16T03:30:02.822Z",
+  "exams": [
+    {
+      "exam_id": "2014A",
+      "items": 19
+    },
+    {
+      "exam_id": "2014B",
+      "items": 17
+    },
+    {
+      "exam_id": "2015",
+      "items": 24
+    },
+    {
+      "exam_id": "2016",
+      "items": 20
+    },
+    {
+      "exam_id": "2017",
+      "items": 24
+    },
+    {
+      "exam_id": "2018",
+      "items": 22
+    },
+    {
+      "exam_id": "2019",
+      "items": 26
+    },
+    {
+      "exam_id": "2020",
+      "items": 24
+    },
+    {
+      "exam_id": "2021",
+      "items": 24
+    },
+    {
+      "exam_id": "2022",
+      "items": 26
+    },
+    {
+      "exam_id": "2023",
+      "items": 24
+    },
+    {
+      "exam_id": "2024",
+      "items": 24
+    },
+    {
+      "exam_id": "2025",
+      "items": 25
+    },
+    {
+      "exam_id": "2026",
+      "items": 25
+    },
+    {
+      "exam_id": "M1809",
+      "items": 22
+    },
+    {
+      "exam_id": "M2006",
+      "items": 24
+    },
+    {
+      "exam_id": "M2106",
+      "items": 26
+    },
+    {
+      "exam_id": "M2109",
+      "items": 24
+    },
+    {
+      "exam_id": "M2206",
+      "items": 24
+    },
+    {
+      "exam_id": "M2209",
+      "items": 22
+    },
+    {
+      "exam_id": "M2306",
+      "items": 23
+    },
+    {
+      "exam_id": "M2309",
+      "items": 25
+    },
+    {
+      "exam_id": "M2406",
+      "items": 26
+    },
+    {
+      "exam_id": "M2409",
+      "items": 24
+    },
+    {
+      "exam_id": "M2506",
+      "items": 24
+    },
+    {
+      "exam_id": "M2509",
+      "items": 25
+    },
+    {
+      "exam_id": "M2606",
+      "items": 27
+    },
+    {
+      "exam_id": "M2609",
+      "items": 24
+    },
+    {
+      "exam_id": "M2706",
+      "items": 26
+    }
+  ]
+}

@@ -8,8 +8,20 @@
   "types": "./src/index.ts",
   "exports": {
     ".": "./src/index.ts",
+    "./vocab-brand": "./src/vocab/brand.ts",
     "./curation-spec": "./src/ingest-article/_curation-spec.ts",
-    "./seed/curated-seed.json": "./src/seed/curated-seed.json"
+    "./seed/curated-seed.json": "./src/seed/curated-seed.json",
+    "./textbook-cover": "./src/textbook/cover.ts",
+    "./textbook-kid-source": "./src/textbook/kid-source.ts",
+    "./source-rollup": "./src/textbook/source-rollup.ts",
+    "./textbook-series": "./src/textbook/series.ts",
+    "./textbook-brand": "./src/textbook/brand.ts",
+    "./textbook-evaluation": "./src/textbook/evaluation.ts",
+    "./textbook-series-catalog": "./src/textbook/series-catalog.ts",
+    "./vocab-typeset": "./src/vocab/typeset.ts",
+    "./vocab-brand-canvas": "./src/vocab/brand-canvas.ts",
+    "./vocab-cover-art": "./src/vocab/cover-art.ts",
+    "./vocab-book-guide": "./src/vocab/book-guide.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
@@ -19,6 +31,7 @@
   "dependencies": {
     "@anthropic-ai/sdk": "^0.92.0",
     "@supabase/supabase-js": "^2.104.1",
+    "@vocaflow/design-tokens": "workspace:*",
     "@vocaflow/types": "workspace:*",
     "@vocaflow/wlp": "workspace:*",
     "text-readability": "^1.1.0",

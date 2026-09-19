@@ -1,0 +1,834 @@
+[
+ {
+  "exam": "M2309",
+  "no": 1,
+  "stem": "다음을 듣고, 남자가 하는 말의 목적으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Good afternoon, Bolden Express Bus passengers. My name is Logan Campbell, and I’ll be your bus driver today. Before departing, I’d like to ask you to avoid talking on your cell phone on the bus. Loud conversations on the phone may bother the other passengers. We kindly ask you to wait until you’ve reached your destination to talk on the phone. If you must answer a call, please keep it short and lower your voice while speaking on the phone. Thank you for your cooperation."
+   }
+  ],
+  "script": "Good afternoon, Bolden Express Bus passengers. My name is Logan Campbell, and I’ll be your bus driver today. Before departing, I’d like to ask you to avoid talking on your cell phone on the bus. Loud conversations on the phone may bother the other passengers. We kindly ask you to wait until you’ve reached your destination to talk on the phone. If you must answer a call, please keep it short and lower your voice while speaking on the phone. Thank you for your cooperation.",
+  "words": 85,
+  "nTurns": 1,
+  "speakers": [
+   "M"
+  ],
+  "isDialogue": false,
+  "typeGuess": "L-PURPOSE",
+  "typeGuessAll": [
+   "L-PURPOSE"
+  ]
+ },
+ {
+  "exam": "M2309",
+  "no": 2,
+  "stem": "대화를 듣고, 여자의 의견으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Hi, Grandma. What are you doing?"
+   },
+   {
+    "who": "W",
+    "text": "I’m listening to the radio. I really like it."
+   },
+   {
+    "who": "M",
+    "text": "I wonder why some people love the radio. It seems boring."
+   },
+   {
+    "who": "W",
+    "text": "You may think so. But listening to the radio can increase your sense of happiness."
+   },
+   {
+    "who": "M",
+    "text": "I don’t understand."
+   },
+   {
+    "who": "W",
+    "text": "Well, by listening to a radio talk show, for example, you often feel like you’re part of the conversation."
+   },
+   {
+    "who": "M",
+    "text": "Hmm... That makes sense."
+   },
+   {
+    "who": "W",
+    "text": "Then, you feel emotionally connected and less lonely."
+   },
+   {
+    "who": "M",
+    "text": "And that can eventually make you happy, right?"
+   },
+   {
+    "who": "W",
+    "text": "That’s correct. Also, when you feel down, listening to the radio brings you joy and good laughs."
+   },
+   {
+    "who": "M",
+    "text": "Wow. I never thought that the radio has this much power."
+   },
+   {
+    "who": "W",
+    "text": "See? Listening to the radio can boost happiness."
+   },
+   {
+    "who": "M",
+    "text": "Now I understand why you love the radio so much."
+   }
+  ],
+  "script": "Hi, Grandma. What are you doing? I’m listening to the radio. I really like it. I wonder why some people love the radio. It seems boring. You may think so. But listening to the radio can increase your sense of happiness. I don’t understand. Well, by listening to a radio talk show, for example, you often feel like you’re part of the conversation. Hmm... That makes sense. Then, you feel emotionally connected and less lonely. And that can eventually make you happy, right? That’s correct. Also, when you feel down, listening to the radio brings you joy and good laughs. Wow. I never thought that the radio has this much power. See? Listening to the radio can boost happiness. Now I understand why you love the radio so much.",
+  "words": 129,
+  "nTurns": 13,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-OPINION",
+  "typeGuessAll": [
+   "L-OPINION"
+  ]
+ },
+ {
+  "exam": "M2309",
+  "no": 3,
+  "stem": "대화를 듣고, 두 사람의 관계를 가장 잘 나타낸 것을 고르시오.",
+  "turns": [
+   {
+    "who": "?",
+    "text": "[Telephone rings.]"
+   },
+   {
+    "who": "W",
+    "text": "Good morning. Cathy Sullivan speaking."
+   },
+   {
+    "who": "M",
+    "text": "Hello, Ms. Sullivan. This is Josh Gordon from Gordon’s Fresh Fruits."
+   },
+   {
+    "who": "W",
+    "text": "Hi, Mr. Gordon! How’s this year’s fruit harvest?"
+   },
+   {
+    "who": "M",
+    "text": "This has been the best year since I started my farm. I’ve already begun packaging the summer fruits for sale."
+   },
+   {
+    "who": "W",
+    "text": "That’s good to hear. How may I help you today?"
+   },
+   {
+    "who": "M",
+    "text": "Well, I’d like to promote my fruit farm more actively on the Internet."
+   },
+   {
+    "who": "W",
+    "text": "In that case, we can make a digital banner and display it on personal blogs and social networking sites."
+   },
+   {
+    "who": "M",
+    "text": "That sounds like a good idea."
+   },
+   {
+    "who": "W",
+    "text": "Our advertisements will definitely help you attract new customers and increase your fruit sales."
+   },
+   {
+    "who": "M",
+    "text": "Sounds wonderful. When can you start promoting my farm?"
+   },
+   {
+    "who": "W",
+    "text": "I’ll ask my boss and call you back."
+   },
+   {
+    "who": "M",
+    "text": "Great. Thank you."
+   }
+  ],
+  "script": "[Telephone rings.] Good morning. Cathy Sullivan speaking. Hello, Ms. Sullivan. This is Josh Gordon from Gordon’s Fresh Fruits. Hi, Mr. Gordon! How’s this year’s fruit harvest? This has been the best year since I started my farm. I’ve already begun packaging the summer fruits for sale. That’s good to hear. How may I help you today? Well, I’d like to promote my fruit farm more actively on the Internet. In that case, we can make a digital banner and display it on personal blogs and social networking sites. That sounds like a good idea. Our advertisements will definitely help you attract new customers and increase your fruit sales. Sounds wonderful. When can you start promoting my farm? I’ll ask my boss and call you back. Great. Thank you.",
+  "words": 128,
+  "nTurns": 13,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-RELATION",
+  "typeGuessAll": [
+   "L-RELATION"
+  ]
+ },
+ {
+  "exam": "M2309",
+  "no": 4,
+  "stem": "대화를 듣고, 그림에서 대화의 내용과 일치하지 않는 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Honey, let’s take Jack to the outdoor pool at the park across the road."
+   },
+   {
+    "who": "W",
+    "text": "Does the park have a pool?"
+   },
+   {
+    "who": "M",
+    "text": "Yes. Check out this picture I found on the Internet. Look! There’s a see-saw in the pool."
+   },
+   {
+    "who": "W",
+    "text": "I’m sure he’d want to go on it with you. And I see a painting of a dolphin on the slide."
+   },
+   {
+    "who": "M",
+    "text": "Jack loves dolphins. I bet he’ll go up and down the slide all day."
+   },
+   {
+    "who": "W",
+    "text": "I think so, too. There’s a striped bucket at the top of the slide. What’s that for?"
+   },
+   {
+    "who": "M",
+    "text": "Hmm... I think it pours out water every few minutes. Look at the two tents near the shower."
+   },
+   {
+    "who": "W",
+    "text": "Those must be for changing clothes."
+   },
+   {
+    "who": "M",
+    "text": "That’s convenient. Oh, I see a bench between the trees."
+   },
+   {
+    "who": "W",
+    "text": "We could sit there while Jack plays in the pool."
+   },
+   {
+    "who": "M",
+    "text": "Yeah. That’ll be nice. Let’s get ready to go."
+   }
+  ],
+  "script": "Honey, let’s take Jack to the outdoor pool at the park across the road. Does the park have a pool? Yes. Check out this picture I found on the Internet. Look! There’s a see-saw in the pool. I’m sure he’d want to go on it with you. And I see a painting of a dolphin on the slide. Jack loves dolphins. I bet he’ll go up and down the slide all day. I think so, too. There’s a striped bucket at the top of the slide. What’s that for? Hmm... I think it pours out water every few minutes. Look at the two tents near the shower. Those must be for changing clothes. That’s convenient. Oh, I see a bench between the trees. We could sit there while Jack plays in the pool. Yeah. That’ll be nice. Let’s get ready to go.",
+  "words": 142,
+  "nTurns": 11,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-PICTURE",
+  "typeGuessAll": [
+   "L-PICTURE"
+  ]
+ },
+ {
+  "exam": "M2309",
+  "no": 5,
+  "stem": "대화를 듣고, 여자가 할 일로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Hi, Mr. Kane. How’s the preparation going for tomorrow’s outdoor school concert?"
+   },
+   {
+    "who": "M",
+    "text": "Hi, Ms. Anderson. I’ve been working on it all morning, and I just finished confirming the schedule with the DJ."
+   },
+   {
+    "who": "W",
+    "text": "Would you like me to help you with anything?"
+   },
+   {
+    "who": "M",
+    "text": "That would be great. There are still a few more things that need to be done."
+   },
+   {
+    "who": "W",
+    "text": "Okay. Do you want me to place the chairs for the audience?"
+   },
+   {
+    "who": "M",
+    "text": "No. That’s not necessary. I have volunteers to do that this afternoon."
+   },
+   {
+    "who": "W",
+    "text": "I see. How about hanging up the banners? I don’t see them anywhere."
+   },
+   {
+    "who": "M",
+    "text": "I’ll take care of it when they arrive. Actually, it would be helpful if you set up the camera on the stage."
+   },
+   {
+    "who": "W",
+    "text": "Sure. I’ll do that."
+   },
+   {
+    "who": "M",
+    "text": "Great! The camera is on that table. Thank you."
+   }
+  ],
+  "script": "Hi, Mr. Kane. How’s the preparation going for tomorrow’s outdoor school concert? Hi, Ms. Anderson. I’ve been working on it all morning, and I just finished confirming the schedule with the DJ. Would you like me to help you with anything? That would be great. There are still a few more things that need to be done. Okay. Do you want me to place the chairs for the audience? No. That’s not necessary. I have volunteers to do that this afternoon. I see. How about hanging up the banners? I don’t see them anywhere. I’ll take care of it when they arrive. Actually, it would be helpful if you set up the camera on the stage. Sure. I’ll do that. Great! The camera is on that table. Thank you.",
+  "words": 129,
+  "nTurns": 10,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-TODO",
+  "typeGuessAll": [
+   "L-TODO"
+  ]
+ },
+ {
+  "exam": "M2309",
+  "no": 6,
+  "stem": "대화를 듣고, 남자가 지불할 금액을 고르시오. [3점]",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Welcome to the Mentonberg Paper Art Gallery. How may I help you?"
+   },
+   {
+    "who": "M",
+    "text": "Hi. I need four admission tickets. How much do they cost?"
+   },
+   {
+    "who": "W",
+    "text": "It’s $15 per adult and $10 per child under the age of 13."
+   },
+   {
+    "who": "M",
+    "text": "My twin daughters are only 10 years old, so I’ll get two adult tickets and two child tickets."
+   },
+   {
+    "who": "W",
+    "text": "Okay. So, you want four tickets."
+   },
+   {
+    "who": "M",
+    "text": "Yes. We’re also interested in your special program. How much is it?"
+   },
+   {
+    "who": "W",
+    "text": "You mean the “Traditional Paper-Making” program? It’s $5 per person."
+   },
+   {
+    "who": "M",
+    "text": "Good. All four of us would love to participate in the program."
+   },
+   {
+    "who": "W",
+    "text": "All right. So, let me confirm. Admission tickets for two adults and two children. Plus, four special program tickets, right?"
+   },
+   {
+    "who": "M",
+    "text": "That’s right. Can I get the 10% resident discount off the total price?"
+   },
+   {
+    "who": "W",
+    "text": "Sure. Do you have your IDs with you?"
+   },
+   {
+    "who": "M",
+    "text": "Yeah. Here are our IDs and my credit card."
+   }
+  ],
+  "script": "Welcome to the Mentonberg Paper Art Gallery. How may I help you? Hi. I need four admission tickets. How much do they cost? It’s $15 per adult and $10 per child under the age of 13. My twin daughters are only 10 years old, so I’ll get two adult tickets and two child tickets. Okay. So, you want four tickets. Yes. We’re also interested in your special program. How much is it? You mean the “Traditional Paper-Making” program? It’s $5 per person. Good. All four of us would love to participate in the program. All right. So, let me confirm. Admission tickets for two adults and two children. Plus, four special program tickets, right? That’s right. Can I get the 10% resident discount off the total price? Sure. Do you have your IDs with you? Yeah. Here are our IDs and my credit card.",
+  "words": 138,
+  "nTurns": 12,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-MONEY",
+  "typeGuessAll": [
+   "L-MONEY"
+  ]
+ },
+ {
+  "exam": "M2309",
+  "no": 7,
+  "stem": "대화를 듣고, 여자가 밴드 오디션에 참가하지 않은 이유를 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Hi, Nancy. How are you today? I heard you were sick last week."
+   },
+   {
+    "who": "W",
+    "text": "Hello, Scott. Yes. I had a stomachache but I’m all right now."
+   },
+   {
+    "who": "M",
+    "text": "I’m glad to hear that. So, how was the band audition yesterday?"
+   },
+   {
+    "who": "W",
+    "text": "Actually, I didn’t go to the audition."
+   },
+   {
+    "who": "M",
+    "text": "Really? Why not? Did you have to do something with your family?"
+   },
+   {
+    "who": "W",
+    "text": "Not at all. It had nothing to do with my family."
+   },
+   {
+    "who": "M",
+    "text": "Was there a problem with your guitar again?"
+   },
+   {
+    "who": "W",
+    "text": "No. My guitar works just fine."
+   },
+   {
+    "who": "M",
+    "text": "Then, why didn’t you go to the audition?"
+   },
+   {
+    "who": "W",
+    "text": "I had a job interview with a company I want to work for. Unfortunately, it was at the same time as the audition."
+   },
+   {
+    "who": "M",
+    "text": "Well, you were worried about what you should do after you graduate. How did the interview go?"
+   },
+   {
+    "who": "W",
+    "text": "It went well. Thanks for asking."
+   }
+  ],
+  "script": "Hi, Nancy. How are you today? I heard you were sick last week. Hello, Scott. Yes. I had a stomachache but I’m all right now. I’m glad to hear that. So, how was the band audition yesterday? Actually, I didn’t go to the audition. Really? Why not? Did you have to do something with your family? Not at all. It had nothing to do with my family. Was there a problem with your guitar again? No. My guitar works just fine. Then, why didn’t you go to the audition? I had a job interview with a company I want to work for. Unfortunately, it was at the same time as the audition. Well, you were worried about what you should do after you graduate. How did the interview go? It went well. Thanks for asking.",
+  "words": 135,
+  "nTurns": 12,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-REASON",
+  "typeGuessAll": [
+   "L-REASON"
+  ]
+ },
+ {
+  "exam": "M2309",
+  "no": 8,
+  "stem": "대화를 듣고, Kint Chocolate Museum에 관해 언급되지 않은 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Ms. Brown. Have you decided where you’re taking the students on the school trip next month?"
+   },
+   {
+    "who": "W",
+    "text": "Yes, Principal Thompson. We’re going to the Kint Chocolate Museum."
+   },
+   {
+    "who": "M",
+    "text": "Oh, I’ve heard about that museum. It’s located in the center of Queen’s City, right?"
+   },
+   {
+    "who": "W",
+    "text": "That’s right. We’re going to leave at 9 a.m. from the school because the museum opens at 10 a.m."
+   },
+   {
+    "who": "M",
+    "text": "I didn’t know it takes an hour to get there."
+   },
+   {
+    "who": "W",
+    "text": "It doesn’t. But we wanted to make sure that we arrive early."
+   },
+   {
+    "who": "M",
+    "text": "Well planned! How about the admission fee?"
+   },
+   {
+    "who": "W",
+    "text": "Each entry ticket costs $12 and includes a chocolate-tasting event."
+   },
+   {
+    "who": "M",
+    "text": "The students will love it. I’m sure they’ll want to buy some chocolates."
+   },
+   {
+    "who": "W",
+    "text": "Absolutely. The museum is famous for its gift shop, and it has various chocolate-related items."
+   },
+   {
+    "who": "M",
+    "text": "Sounds great!"
+   }
+  ],
+  "script": "Ms. Brown. Have you decided where you’re taking the students on the school trip next month? Yes, Principal Thompson. We’re going to the Kint Chocolate Museum. Oh, I’ve heard about that museum. It’s located in the center of Queen’s City, right? That’s right. We’re going to leave at 9 a.m. from the school because the museum opens at 10 a.m. I didn’t know it takes an hour to get there. It doesn’t. But we wanted to make sure that we arrive early. Well planned! How about the admission fee? Each entry ticket costs $12 and includes a chocolate-tasting event. The students will love it. I’m sure they’ll want to buy some chocolates. Absolutely. The museum is famous for its gift shop, and it has various chocolate-related items. Sounds great!",
+  "words": 128,
+  "nTurns": 11,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-NOTMENTION",
+  "typeGuessAll": [
+   "L-NOTMENTION"
+  ]
+ },
+ {
+  "exam": "M2309",
+  "no": 9,
+  "stem": "Endangered Animals Photo Exhibition에 관한 다음 내용을 듣고, 일치하지 않는",
+  "turns": [
+   {
+    "who": "?",
+    "text": "것을 고르시오."
+   },
+   {
+    "who": "W",
+    "text": "Hello, listeners. If you’re interested in wildlife photography, don’t miss the Endangered Animals Photo Exhibition at the Kenton Cultural Center. It starts on December 2nd, and continues for three weeks. Wildlife photographer, Richard Burrow, has taken pictures of many endangered species around the world. The exhibition displays 100 pictures of endangered animals, including birds and fish. Under the photographs, there are explanations for why the animals in the photos are in danger of extinction. Admission will be $20, and all the profits from the exhibition will be donated to an animal-protection center. At the end of the exhibition hall, posters of the endangered animals will be for sale at $5 each. For more information, please visit the website, www.kentonculturalcenter.com."
+   }
+  ],
+  "script": "것을 고르시오. Hello, listeners. If you’re interested in wildlife photography, don’t miss the Endangered Animals Photo Exhibition at the Kenton Cultural Center. It starts on December 2nd, and continues for three weeks. Wildlife photographer, Richard Burrow, has taken pictures of many endangered species around the world. The exhibition displays 100 pictures of endangered animals, including birds and fish. Under the photographs, there are explanations for why the animals in the photos are in danger of extinction. Admission will be $20, and all the profits from the exhibition will be donated to an animal-protection center. At the end of the exhibition hall, posters of the endangered animals will be for sale at $5 each. For more information, please visit the website, www.kentonculturalcenter.com.",
+  "words": 118,
+  "nTurns": 2,
+  "speakers": [
+   "W"
+  ],
+  "isDialogue": false,
+  "typeGuess": "L-ANNOUNCE",
+  "typeGuessAll": [
+   "L-ANNOUNCE"
+  ]
+ },
+ {
+  "exam": "M2309",
+  "no": 10,
+  "stem": "다음 표를 보면서 대화를 듣고, 두 사람이 주문할 기내 휴대용 가방을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Honey. Could you come here and help me buy a carry-on bag for Sarah?"
+   },
+   {
+    "who": "M",
+    "text": "Of course. She’s old enough to have her own carry-on bag for our family trip next month."
+   },
+   {
+    "who": "W",
+    "text": "Right. Look at this website. There are five models to choose from."
+   },
+   {
+    "who": "M",
+    "text": "Hmm... How much should we spend?"
+   },
+   {
+    "who": "W",
+    "text": "Let’s not spend more than $100."
+   },
+   {
+    "who": "M",
+    "text": "That sounds reasonable. What about the size? How tall should it be?"
+   },
+   {
+    "who": "W",
+    "text": "The one that’s 14 inches in height isn’t big enough. She always likes to bring lots of toys and books with her."
+   },
+   {
+    "who": "M",
+    "text": "Okay. Do you think she’d like the black one?"
+   },
+   {
+    "who": "W",
+    "text": "No. She doesn’t like the color black. So, there are only two options left."
+   },
+   {
+    "who": "M",
+    "text": "I don’t think the fabric one is practical. It’ll easily get dirty."
+   },
+   {
+    "who": "W",
+    "text": "I agree. Let’s order the other one."
+   }
+  ],
+  "script": "Honey. Could you come here and help me buy a carry-on bag for Sarah? Of course. She’s old enough to have her own carry-on bag for our family trip next month. Right. Look at this website. There are five models to choose from. Hmm... How much should we spend? Let’s not spend more than $100. That sounds reasonable. What about the size? How tall should it be? The one that’s 14 inches in height isn’t big enough. She always likes to bring lots of toys and books with her. Okay. Do you think she’d like the black one? No. She doesn’t like the color black. So, there are only two options left. I don’t think the fabric one is practical. It’ll easily get dirty. I agree. Let’s order the other one.",
+  "words": 129,
+  "nTurns": 11,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-TABLE",
+  "typeGuessAll": [
+   "L-TABLE"
+  ]
+ },
+ {
+  "exam": "M2309",
+  "no": 11,
+  "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Rachel, we have too many plastic bottles to throw away. Let’s take them to the recycling area."
+   },
+   {
+    "who": "W",
+    "text": "Okay, Dad. But wait. There are still labels on the bottles. They need to be removed first."
+   },
+   {
+    "who": "M",
+    "text": "Oh, you’re right! Then, could you give me a hand?"
+   }
+  ],
+  "script": "Rachel, we have too many plastic bottles to throw away. Let’s take them to the recycling area. Okay, Dad. But wait. There are still labels on the bottles. They need to be removed first. Oh, you’re right! Then, could you give me a hand?",
+  "words": 44,
+  "nTurns": 3,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-RESPONSE",
+  "typeGuessAll": [
+   "L-RESPONSE"
+  ]
+ },
+ {
+  "exam": "M2309",
+  "no": 12,
+  "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Daniel, I’m sorry but can we reschedule our project meeting? I cannot attend it tomorrow."
+   },
+   {
+    "who": "M",
+    "text": "Oh. It’s impossible to have this meeting without your presentation, Ms. Robinson. May I ask what the problem is?"
+   },
+   {
+    "who": "W",
+    "text": "Well, there was a last minute change to my business trip schedule. I’ll be available any day after next Monday."
+   }
+  ],
+  "script": "Daniel, I’m sorry but can we reschedule our project meeting? I cannot attend it tomorrow. Oh. It’s impossible to have this meeting without your presentation, Ms. Robinson. May I ask what the problem is? Well, there was a last minute change to my business trip schedule. I’ll be available any day after next Monday.",
+  "words": 54,
+  "nTurns": 3,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-RESPONSE",
+  "typeGuessAll": [
+   "L-RESPONSE"
+  ]
+ },
+ {
+  "exam": "M2309",
+  "no": 13,
+  "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Good afternoon. Welcome to Swan Palace Ballet Studio."
+   },
+   {
+    "who": "W",
+    "text": "Hello. I’m here to register for one of your classes."
+   },
+   {
+    "who": "M",
+    "text": "Great. We offer three levels of classes from beginner to advanced. Which class do you want to take?"
+   },
+   {
+    "who": "W",
+    "text": "I’d like to take the advanced class."
+   },
+   {
+    "who": "M",
+    "text": "Okay. Do you have any particular instructor in mind?"
+   },
+   {
+    "who": "W",
+    "text": "Actually, I do. I heard Gina Miller has a really good reputation."
+   },
+   {
+    "who": "M",
+    "text": "Indeed. She’s a popular instructor. She has two advanced classes on Wednesdays, one at 7 p.m. and one at 8 p.m."
+   },
+   {
+    "who": "W",
+    "text": "I think the 7 p.m. class would be good."
+   },
+   {
+    "who": "M",
+    "text": "Sure. Let me check if there are any spots left. [Typing sound] Oh, her 7 p.m. class is full. Sorry."
+   },
+   {
+    "who": "W",
+    "text": "Hmm... Then, what about the 8 p.m. class? I really want to take her class."
+   },
+   {
+    "who": "M",
+    "text": "One moment, please. [Pause] Yes, there’s one spot left."
+   }
+  ],
+  "script": "Good afternoon. Welcome to Swan Palace Ballet Studio. Hello. I’m here to register for one of your classes. Great. We offer three levels of classes from beginner to advanced. Which class do you want to take? I’d like to take the advanced class. Okay. Do you have any particular instructor in mind? Actually, I do. I heard Gina Miller has a really good reputation. Indeed. She’s a popular instructor. She has two advanced classes on Wednesdays, one at 7 p.m. and one at 8 p.m. I think the 7 p.m. class would be good. Sure. Let me check if there are any spots left. [Typing sound] Oh, her 7 p.m. class is full. Sorry. Hmm... Then, what about the 8 p.m. class? I really want to take her class. One moment, please. [Pause] Yes, there’s one spot left.",
+  "words": 138,
+  "nTurns": 11,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-RESPONSE",
+  "typeGuessAll": [
+   "L-RESPONSE"
+  ]
+ },
+ {
+  "exam": "M2309",
+  "no": 14,
+  "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "?",
+    "text": "[3점] [Cell phone rings.]"
+   },
+   {
+    "who": "M",
+    "text": "Hello, Clara. What’s up?"
+   },
+   {
+    "who": "W",
+    "text": "Hi, Brian. I’ve been trying to reach you all morning. Why didn’t you answer your phone?"
+   },
+   {
+    "who": "M",
+    "text": "Sorry. I just woke up. What’s the matter?"
+   },
+   {
+    "who": "W",
+    "text": "Jane had her tennis match early this morning. We promised her that we would come and cheer for her."
+   },
+   {
+    "who": "M",
+    "text": "Oh, right! That was this morning! I forgot."
+   },
+   {
+    "who": "W",
+    "text": "Oh, no. How could you forget?"
+   },
+   {
+    "who": "M",
+    "text": "I stayed up all night watching a fascinating TV series. I guess Jane’s tennis match completely slipped my mind."
+   },
+   {
+    "who": "W",
+    "text": "Well, after the match, Jane told me that she was disappointed because you didn’t come."
+   },
+   {
+    "who": "M",
+    "text": "Oh, I feel awful to have disappointed her."
+   },
+   {
+    "who": "W",
+    "text": "I think it would be good if you told her that you didn’t mean to miss it."
+   }
+  ],
+  "script": "[3점] [Cell phone rings.] Hello, Clara. What’s up? Hi, Brian. I’ve been trying to reach you all morning. Why didn’t you answer your phone? Sorry. I just woke up. What’s the matter? Jane had her tennis match early this morning. We promised her that we would come and cheer for her. Oh, right! That was this morning! I forgot. Oh, no. How could you forget? I stayed up all night watching a fascinating TV series. I guess Jane’s tennis match completely slipped my mind. Well, after the match, Jane told me that she was disappointed because you didn’t come. Oh, I feel awful to have disappointed her. I think it would be good if you told her that you didn’t mean to miss it.",
+  "words": 123,
+  "nTurns": 11,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-RESPONSE",
+  "typeGuessAll": [
+   "L-RESPONSE"
+  ]
+ },
+ {
+  "exam": "M2309",
+  "no": 15,
+  "stem": "다음 상황 설명을 듣고, Randy가 Angela에게 할 말로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "?",
+    "text": "[3점]"
+   },
+   {
+    "who": "M",
+    "text": "Angela transferred to a new school a few months ago. She has adjusted to life at the new school and has made many new friends. However, there’s one thing that she isn’t happy about. Her previous school had a drone racing club, but her new school doesn’t. One day, she meets Randy, one of her old club members, and talks about how much she misses flying drones together. Randy thinks that there could be some students in Angela’s new school who would love racing drones. So, Randy wants to suggest to Angela that she look for members to start a drone racing club. In this situation, what would Randy most likely say to Angela? 16번부터 17번까지는 두 번 들려줍니다."
+   }
+  ],
+  "script": "[3점] Angela transferred to a new school a few months ago. She has adjusted to life at the new school and has made many new friends. However, there’s one thing that she isn’t happy about. Her previous school had a drone racing club, but her new school doesn’t. One day, she meets Randy, one of her old club members, and talks about how much she misses flying drones together. Randy thinks that there could be some students in Angela’s new school who would love racing drones. So, Randy wants to suggest to Angela that she look for members to start a drone racing club. In this situation, what would Randy most likely say to Angela? 16번부터 17번까지는 두 번 들려줍니다.",
+  "words": 114,
+  "nTurns": 2,
+  "speakers": [
+   "M"
+  ],
+  "isDialogue": false,
+  "typeGuess": "L-SITUATION",
+  "typeGuessAll": [
+   "L-SITUATION"
+  ]
+ },
+ {
+  "exam": "M2309",
+  "no": 16,
+  "stem": "여자가 하는 말의 주제로 가장 적절한 것은?",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Good morning, students. Did you know that plants can send out messages? Today, we’re going to learn about the various reasons that plants communicate. First, plants communicate to call for help. When cotton plants are attacked by bugs, these plants send out a chemical signal to attract the bugs’ natural enemy that eats them. Second, plants communicate to recognize their relatives. When mustard plants recognize their family members by exchanging chemical signals, they grow shorter roots to avoid competing with one another. Third, some plants communicate with other plant species to scare insects away. For example, tomato plants use low vibrating sounds to attract other plants that produce a smell, which is unpleasant to insects. Last, plants communicate to warn other plants and defend their territory. Walnut trees spread toxic chemicals to hurt or kill plants nearby. It’s their way of saying, “Stay away from me.” Now, let’s watch some related videos."
+   }
+  ],
+  "fromSet": "16~17",
+  "script": "Good morning, students. Did you know that plants can send out messages? Today, we’re going to learn about the various reasons that plants communicate. First, plants communicate to call for help. When cotton plants are attacked by bugs, these plants send out a chemical signal to attract the bugs’ natural enemy that eats them. Second, plants communicate to recognize their relatives. When mustard plants recognize their family members by exchanging chemical signals, they grow shorter roots to avoid competing with one another. Third, some plants communicate with other plant species to scare insects away. For example, tomato plants use low vibrating sounds to attract other plants that produce a smell, which is unpleasant to insects. Last, plants communicate to warn other plants and defend their territory. Walnut trees spread toxic chemicals to hurt or kill plants nearby. It’s their way of saying, “Stay away from me.” Now, let’s watch some related videos.",
+  "words": 152,
+  "nTurns": 1,
+  "speakers": [
+   "W"
+  ],
+  "isDialogue": false,
+  "typeGuess": "L-SET-TOPIC",
+  "typeGuessAll": [
+   "L-SET-TOPIC"
+  ]
+ },
+ {
+  "exam": "M2309",
+  "no": 17,
+  "stem": "언급된 식물이 아닌 것은?",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Good morning, students. Did you know that plants can send out messages? Today, we’re going to learn about the various reasons that plants communicate. First, plants communicate to call for help. When cotton plants are attacked by bugs, these plants send out a chemical signal to attract the bugs’ natural enemy that eats them. Second, plants communicate to recognize their relatives. When mustard plants recognize their family members by exchanging chemical signals, they grow shorter roots to avoid competing with one another. Third, some plants communicate with other plant species to scare insects away. For example, tomato plants use low vibrating sounds to attract other plants that produce a smell, which is unpleasant to insects. Last, plants communicate to warn other plants and defend their territory. Walnut trees spread toxic chemicals to hurt or kill plants nearby. It’s their way of saying, “Stay away from me.” Now, let’s watch some related videos."
+   }
+  ],
+  "fromSet": "16~17",
+  "script": "Good morning, students. Did you know that plants can send out messages? Today, we’re going to learn about the various reasons that plants communicate. First, plants communicate to call for help. When cotton plants are attacked by bugs, these plants send out a chemical signal to attract the bugs’ natural enemy that eats them. Second, plants communicate to recognize their relatives. When mustard plants recognize their family members by exchanging chemical signals, they grow shorter roots to avoid competing with one another. Third, some plants communicate with other plant species to scare insects away. For example, tomato plants use low vibrating sounds to attract other plants that produce a smell, which is unpleasant to insects. Last, plants communicate to warn other plants and defend their territory. Walnut trees spread toxic chemicals to hurt or kill plants nearby. It’s their way of saying, “Stay away from me.” Now, let’s watch some related videos.",
+  "words": 152,
+  "nTurns": 1,
+  "speakers": [
+   "W"
+  ],
+  "isDialogue": false,
+  "typeGuess": "L-SET-NOT",
+  "typeGuessAll": [
+   "L-SET-NOT"
+  ]
+ }
+]

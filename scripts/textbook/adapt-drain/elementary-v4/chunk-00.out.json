@@ -1,0 +1,260 @@
+[
+  {
+    "adapted_from_id": "4127ae03-4354-4fdf-9198-39b666253b79",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "Mansfield Park (발췌)",
+    "source_feed": "gutenberg",
+    "source_license": "public_domain",
+    "source_v_level": 5,
+    "source_url": "https://www.gutenberg.org/ebooks/141",
+    "source_text": "After some minutes spent in this way, Miss Bertram, observing the iron gate, expressed a wish of passing through it into the park, that their views and their plans might be more comprehensive. It was the very thing of all others to be wished, it was the best, it was the only way of proceeding with any advantage, in Henry Crawford’s opinion; and he directly saw a knoll not half a mile off, which would give them exactly the requisite command of the house. Go therefore they must to that knoll, and through that gate; but the gate was locked. Mr. Rushworth wished he had brought the key; he had been very near thinking whether he should not bring the key; he was determined he would never come without the key again; but still this did not remove the present evil. They could not get through; and as Miss Bertram’s inclination for so doing did by no means lessen, it ended in Mr. Rushworth’s declaring outright that he would go and fetch the key. He set off accordingly.",
+    "teachable_new_words": {
+      "teachable": 14,
+      "outside": 31,
+      "pct": 45.2
+    },
+    "title": "The Locked Gate",
+    "text": "Miss Bertram looked through the iron gate. The park lay green on the other side. She wanted to walk up to the knoll. From the knoll they could see the whole house. Henry Crawford agreed with her at once. The knoll was only a short walk away. So they went down to the gate together. But the gate was locked. Mr. Rushworth had left the key at home. He said he had almost brought it. He promised never to forget the key again. His promise did not open the gate. Miss Bertram still wanted to go through. In the end Mr. Rushworth walked back for the key."
+  },
+  {
+    "adapted_from_id": "31f50197-5bfc-4615-b2a1-b81ea8b7549f",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "A Child's Garden of Verses (발췌)",
+    "source_feed": "gutenberg",
+    "source_license": "public_domain",
+    "source_v_level": 7,
+    "source_url": "https://www.gutenberg.org/ebooks/25609",
+    "source_text": "Armies march by tower and spire Of cities blazing, in the fire;-- Till as I gaze with staring eyes, The armies fade, the lustre dies. Then once again the glow returns; Again the phantom city burns; And down the red-hot valley, lo! The phantom armies marching go! Blinking embers, tell me true Where are those armies marching to, And what the burning city is That crumbles in your furnaces! When at home alone I sit, And am very tired of it, I have just to shut my eyes To go sailing through the skies-- To go sailing far away To the pleasant Land of Play; To the fairy land afar Where the Little People are; Where the clover-tops are trees, And the rain-pools are the seas, And the leaves, like little ships, Sail about on tiny trips; And above the daisy tree Through the grasses, High o'erhead the Bumble Bee Hums and passes.",
+    "teachable_new_words": {
+      "teachable": 4,
+      "outside": 26,
+      "pct": 15.4
+    },
+    "title": "",
+    "text": ""
+  },
+  {
+    "adapted_from_id": "b3156204-9bce-4423-81c3-38df36e3eeef",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "Peter and Wendy (발췌)",
+    "source_feed": "gutenberg",
+    "source_license": "public_domain",
+    "source_v_level": 4,
+    "source_url": "https://www.gutenberg.org/ebooks/26654",
+    "source_text": "'Peter flung my arm,' he said, wincing, 'to a crocodile that happened to be passing by.' 'Not of crocodiles,' Hook corrected him, 'but of that one crocodile.' He lowered his voice. 'It liked my arm so much, Smee, that it has followed me ever since, from sea to sea and from land to land, licking its lips for the rest of me.' 'I want no such compliments,' Hook barked petulantly. 'I want Peter Pan, who first gave the brute its taste for me.' He sat down on a large mushroom, and now there was a quiver in his voice. 'Smee,' he said huskily, 'that crocodile would have had me before this, but by a lucky chance it swallowed a clock which goes tick tick inside it, and so before it can reach me I hear the tick and bolt.' He laughed, but in a hollow way.",
+    "teachable_new_words": {
+      "teachable": 9,
+      "outside": 26,
+      "pct": 34.6
+    },
+    "title": "The Crocodile with a Clock",
+    "text": "Captain Hook sat down on a large mushroom. He spoke quietly to Smee. One crocodile follows him from sea to sea. The crocodile licks its lips when it sees him. Hook is afraid of that one crocodile. But the crocodile once swallowed a clock. Now the clock ticks inside the crocodile. Hook hears the tick before it comes near. Then he hurries away and hides. The tick works like a warning bell. Smee said something kind to his captain. Hook barked that he wanted no compliments. He only wanted to find Peter Pan. His voice shook a little as he spoke."
+  },
+  {
+    "adapted_from_id": "45f10301-c7eb-49a4-a5f5-4fc91bed146d",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "Executive resources shape the impact of language predictability across the adult lifespan",
+    "source_feed": "elife",
+    "source_license": "cc_by",
+    "source_v_level": 6,
+    "source_url": "https://elifesciences.org/articles/108176",
+    "source_text": "Understanding language requires more than simply recognizing individual words. Instead, readers and listeners continuously generate predictions about what might come next. For instance, after reading “She walked her…”, most individuals would probably anticipate the word “dog.”\n\nSuch predictive processes facilitate comprehension, making it faster and more efficient. Yet, a long-standing debate concerns whether these predictions emerge effortlessly and automatically, or whether they depend on domain-general executive resources, including working memory, attention, inhibitory control and goal-directed behaviour. Importantly, these resources are finite: they can be temporarily depleted when performing additional non-linguistic tasks and generally decline with age.\n\nSchuckart et al. investigated whether language prediction during reading relies on executive resources and how language prediction might change with age as executive functioning declines. Employing a dual task reading paradigm, they examined how imposing a cognitively demanding secondary task influenced the effect of word predictability on reading speed in adults aged 18 to 85. This approach addressed a fundamental question in psycholinguistics – whether prediction is automatic or resource-dependent – and shed light on why language comprehension remains robust despite age-related cognitive decline.\n\nThe study involved 175 participants, with an independent replication sample of 96, who read texts word by word while sometimes performing a concurrent working-memory task. Word predictability was quantified using ‘surprisal’, a lexical score derived from the large language model GPT-2, which provides information about how unpredictable a word is.\n\nThe results revealed that less predictable words were read more slowly, confirming that readers actively generated linguistic predictions. The effect of predictability diminished under increased cognitive load, demonstrating that language prediction draws on executive resources. Older adults exhibited stronger predictability effects overall, but these were also more susceptible to reduction when executive resources were taxed. Together, the results show that language prediction is not cost-free and changes systematically across the adult lifespan.\n\nThese findings advance our understanding of how predictive language processing relies on executive resources and may have implications for interventions in conditions where these resources are compromised, such as following a stroke.",
+    "teachable_new_words": {
+      "teachable": 20,
+      "outside": 90,
+      "pct": 22.2
+    },
+    "title": "Guessing the Next Word",
+    "text": "Reading is more than knowing each word. Our brain guesses what comes next. Read the words \"She walked her\" now. Most readers guess the word \"dog\". The guess makes reading faster and easier. Scientists wanted to know how the guess works. Perhaps it happens by itself. Perhaps it needs attention and memory. Attention and memory are not endless. They grow tired during a hard task. They also grow weaker as a person ages. So researchers tested readers of many ages. They watched how well each reader guessed. The answer shows how reading really works."
+  },
+  {
+    "adapted_from_id": "063a077e-123e-42a3-ae52-f05b0dc875da",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "Team finds new transient objects in 'Christmas tree galaxy cluster'",
+    "source_feed": "futurity",
+    "source_license": "cc_by",
+    "source_v_level": 4,
+    "source_url": "https://www.futurity.org/transient-objects-galaxies-space-james-webb-space-telescope-2997702/",
+    "source_text": "Scientists have discovered 14 new transient objects during a time-lapse study of a galaxy they’ve dubbed the “Christmas Tree Galaxy Cluster.”\n\nThe scientists used NASA’s James Webb Space Telescope (JWST) for the study of galaxy cluster MACS0416, located about 4.3 billion light years from Earth.\n\n“Transients are objects in space, like individual stars, that appear to suddenly brighten by orders of magnitudes and then fade away,” says Haojing Yan, an associate professor in the physics and astronomy department at the University of Missouri.\n\n“These transient objects appear bright for only a short period of time and then are gone; it’s like we’re peering through a shifting magnifying glass.\n\n“Right now, we have this rare chance that nature has given us to get a detailed view of individual stars that are located very far away. While we are currently only able to see the brightest ones, if we do this long enough—and frequently enough—we will be able to determine how many bright stars there are, and how massive they are.”\n\nUsing the advanced technological capabilities of the JWST, the researchers confirmed what’s causing the galaxy cluster’s “flickering lights” or transients that scientists first saw years ago using NASA’s Hubble Space Telescope.\n\n“We’re calling MACS0416 the Christmas Tree Galaxy Cluster, both because it’s so colorful and because of the flickering lights we find within it,” Yan says. “We can see so many transients in certain regions of this area because of a phenomenon known as gravitational lensing, which is magnifying galaxies behind this cluster.”\n\nThe team discovered the transients by studying four sets of images taken by JWST of the galaxy cluster over a period of 126 days, or about four months. Yan is particularly excited that two of the transients are supernovae—stars that are at the end of their lifespans—because the team can use them to study the supernovae’s host galaxies.\n\n“The two supernovae and the other twelve extremely magnified stars are of different nature, but they are all important,” Yan says.\n\n“We have traced the change in brightness over time through their light curves, and by examining in detail how the light changes over time, we’ll eventually be able to know what kind of stars they are. More importantly, we’ll be able to understand the detailed structure of the magnifying glass and how it relates to dark matter distribution. This is a completely new view of the universe that’s been opened by JWST.”\n\nThe study has been accepted for publication in the Astrophysical Journal.",
+    "teachable_new_words": {
+      "teachable": 20,
+      "outside": 73,
+      "pct": 27.4
+    },
+    "title": "Stars That Blink On and Off",
+    "text": "Scientists studied a group of galaxies far away. They call it the Christmas Tree Galaxy Cluster. The cluster sits a huge distance from Earth. They watched it with the Webb Space Telescope. They took pictures of the cluster over months. Then they compared the pictures carefully. They found 14 new transient objects. A transient object suddenly grows very bright. After a short while it fades away again. Some of them are single stars. Normally such stars are far too faint to see. Gravity here works like a magnifying glass. The glass lets us watch one distant star. Nature gave us a rare chance to look."
+  },
+  {
+    "adapted_from_id": "3bd91403-1ac8-4952-9670-b14d1316dd62",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "Mapping Air Pollution With MAIA Sensors in Addis Ababa - NASA Science",
+    "source_feed": "nasa",
+    "source_license": "public_domain",
+    "source_v_level": 5,
+    "source_url": "https://science.nasa.gov/photojournal/mapping-air-pollution-with-maia-sensors-in-addis-ababa/",
+    "source_text": "Photojournal Navigation\n\n 2 Min Read\n\n Mapping Air Pollution With MAIA Sensors in Addis Ababa\n\n Credits:\n NASA/JPL-Caltech\n\nImage Addition Date:08/24/2026\n\n Downloads\n\nMapping Air Pollution With MAIA Sensors in Addis Ababa\n\n PNG (456.55 KB)\n\nDescription\n\nThis map of Addis Ababa, the capital of Ethiopia, shows the locations of 10 air sensors that NASA’s Multi-Angle Imager for Aerosols (MAIA) mission is using to provide one of the most detailed looks ever at the city’s air pollution. Over the course of three years, these sensors measured particulate matter that is 2.5 micrometers or less in diameter, also known as PM2.5. Black carbon, or soot, is an important component of particulate pollution in Addis Ababa, which studies have linked to impacts on low birth weight, brain development, respiratory conditions, and premature mortality.\n\nThe color bar at right indicates air quality variations from 20 to 40 micrograms per cubic meter across the monitoring stations, with the darkest red being the poorest air quality.\n\nIn Ethiopia, black carbon is commonly produced by diesel vehicles, fires, and other combustion sources. Detailed measurements from the MAIA sensors reveal how Addis Ababa’s air pollution changes by time of day and season, including spikes produced by rush-hour traffic and holiday celebrations. The findings are relevant to cities around the world, including in the United States.\n\nMAIA’s air pollution research is focused on a dozen regions around the globe, including three in the U.S. centered on Los Angeles, Atlanta, and Boston. The mission consists of a ground-based sensor network already in operation as well as a space observatory, which uses a camera built at NASA’s Jet Propulsion Laboratory, that will be launched by the Italian Space Agency (ASI) on an ASI satellite no earlier than late 2027. The camera is specially designed to help identify different types of PM2.5 aerosols based on how they reflect light, making it possible to map particle concentrations over each region that the mission studies.\n\n Keep Exploring\n\nDiscover More Topics From Photojournal\n\n Photojournal\n\n Search Photojournal\n\n Photojournal’s Latest Content\n\n Feedback",
+    "teachable_new_words": {
+      "teachable": 20,
+      "outside": 85,
+      "pct": 23.5
+    },
+    "title": "Sensors That Watch the Air",
+    "text": "Addis Ababa is the capital city of Ethiopia. The air over the city carries tiny particles. The particles are far too small to see. Doctors link them to problems in the lungs. NASA placed 10 sensors around the city. The sensors measured the air for years. They caught particles smaller than a grain of dust. Soot from fires and engines is one part. Scientists drew a map from the sensor readings. The map paints cleaner air in one colour. Dirtier air appears in another colour. Now the city can see where the air is worst. Then it can clean that place first."
+  }
+]

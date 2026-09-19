@@ -12,11 +12,26 @@
 | 단계 | 파일 | 무엇을 얻나 |
 |---|---|---|
 | 1 | [`docs/CONTEXT.md`](./docs/CONTEXT.md) | **현재 시각의 한 줄 상태** — 활성 branch / 최근 milestone / 작업 중 영역 |
-| 2 | [`CLAUDE.md`](./CLAUDE.md) | 항상 적용되는 7 학습 원칙 + 4 디자인 철학 + 절대 금지 / 항상 지킬 것 |
+| 2 | [`AGENTS.md`](./AGENTS.md) | 모든 에이전트 공용 규칙 — 7 학습 원칙 + 4 디자인 철학 + 절대 금지 / 항상 지킬 것 (`CLAUDE.md` 는 이것을 import + Claude 전용) |
 | 3 | [`docs/PROJECT.md`](./docs/PROJECT.md) | 서비스 정체성 + 9 모듈 + 워크스페이스 구조 |
 | 4 | [`docs/CHANGELOG.md`](./docs/CHANGELOG.md) Unreleased | 가장 최근에 무엇이 바뀌었는지 |
 
 이후 작업 영역에 따라 attachment 선택 (아래 §"Claude Project Attachment 권장 조합" 참조).
+
+---
+
+## 두 에이전트로 일하는 법 (Claude Code · Codex CLI)
+
+1. 규칙은 [`AGENTS.md`](./AGENTS.md) 한 곳에만 쓴다. `CLAUDE.md` 는 `@AGENTS.md` + Claude 전용뿐 — 공용 문장을 다시 쓰면 검사가 실패한다.
+2. 분담: 설계·문서·대화형은 Claude, 명세가 분명한 구현·테스트·리뷰 배치는 Codex, 교차 검토는 쓴 쪽의 반대 — [`agents/router.md`](./agents/router.md).
+3. 쓰기 전 `node agents/scripts/lock.mjs acquire <agent>`, 끝나면 `release`. 남이 쥐고 있으면 읽기 전용이거나 `pnpm wt new <suffix>`.
+4. 한도에 걸리면 `node agents/scripts/handoff.mjs <from> <to> --done … --todo … --accept … --next …` → 출력된 시작 명령으로 상대를 띄운다.
+5. 받는 쪽은 세션 시작 때 주입된 요약의 **수용 기준부터** 확인하고 `handoff.mjs --verify` → `--ack`.
+6. MCP 는 `agents/mcp.source.json` 만 고치고 `node agents/scripts/sync.mjs` — `.mcp.json` · `.codex/config.toml` 의 서버 구역은 생성물.
+7. 비밀값은 `.env*` 에만. 두 에이전트 모두 같은 훅(`agents/scripts/guard.mjs`)이 `rm -rf` · force push · `.env` 출력 · 공유 트리 파괴를 막는다.
+8. 커밋은 `git commit --only <paths>` — 워크스페이스를 여러 세션이 공유한다. 커밋 때 훅이 비밀값·설정 불변식·eslint 를 본다.
+9. Codex 는 이 저장소를 신뢰(`trust_level = "trusted"`)하고 TUI `/hooks` 에서 훅을 승인해야 프로젝트 설정이 적용된다.
+10. 검사: `node agents/scripts/check.mjs` · `node --test agents/scripts/__tests__/*.test.mjs` (CI 도 돈다). 결정 기록 [`agents/DECISIONS.md`](./agents/DECISIONS.md).
 
 ---
 

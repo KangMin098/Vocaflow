@@ -1,0 +1,809 @@
+[
+ {
+  "exam": "M2409",
+  "no": 1,
+  "stem": "다음을 듣고, 여자가 하는 말의 목적으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Hello, viewers! Are you looking for a fun activity for your kids to enjoy on the weekend? Then, come and join our animal camp for kids. Happy Animal Friends Camp will be held every weekend in September. We’ll provide hands-on activities with a wide variety of animals such as rabbits, turtles, and parrots. Your kids will learn how to care for and interact with the animals under the guidance of experienced trainers. If your children like spending time with animals, sign them up for the Happy Animal Friends Camp! You can find more information on our website. Don’t miss this great opportunity!"
+   }
+  ],
+  "script": "Hello, viewers! Are you looking for a fun activity for your kids to enjoy on the weekend? Then, come and join our animal camp for kids. Happy Animal Friends Camp will be held every weekend in September. We’ll provide hands-on activities with a wide variety of animals such as rabbits, turtles, and parrots. Your kids will learn how to care for and interact with the animals under the guidance of experienced trainers. If your children like spending time with animals, sign them up for the Happy Animal Friends Camp! You can find more information on our website. Don’t miss this great opportunity!",
+  "words": 102,
+  "nTurns": 1,
+  "speakers": [
+   "W"
+  ],
+  "isDialogue": false,
+  "typeGuess": "L-PURPOSE",
+  "typeGuessAll": [
+   "L-PURPOSE"
+  ]
+ },
+ {
+  "exam": "M2409",
+  "no": 2,
+  "stem": "대화를 듣고, 남자의 의견으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Hey, Kevin! Where are you going?"
+   },
+   {
+    "who": "M",
+    "text": "I’m going to take the staff fitness program."
+   },
+   {
+    "who": "W",
+    "text": "Oh, is it the 25-minute lunch break workout that the company is offering?"
+   },
+   {
+    "who": "M",
+    "text": "That’s right. I find that exercising at lunch time boosts my energy and helps me focus on my work."
+   },
+   {
+    "who": "W",
+    "text": "Really? I think it would make me more tired. I usually just want to take a rest."
+   },
+   {
+    "who": "M",
+    "text": "I did, too. But I actually feel more energized after the lunch break workout. It even improves my concentration."
+   },
+   {
+    "who": "W",
+    "text": "You mean you have more energy and can focus better when you get back to your desk?"
+   },
+   {
+    "who": "M",
+    "text": "Exactly. It’s been very helpful for me."
+   },
+   {
+    "who": "W",
+    "text": "Okay. Maybe I’ll join. Thanks for the information."
+   },
+   {
+    "who": "M",
+    "text": "My pleasure."
+   }
+  ],
+  "script": "Hey, Kevin! Where are you going? I’m going to take the staff fitness program. Oh, is it the 25-minute lunch break workout that the company is offering? That’s right. I find that exercising at lunch time boosts my energy and helps me focus on my work. Really? I think it would make me more tired. I usually just want to take a rest. I did, too. But I actually feel more energized after the lunch break workout. It even improves my concentration. You mean you have more energy and can focus better when you get back to your desk? Exactly. It’s been very helpful for me. Okay. Maybe I’ll join. Thanks for the information. My pleasure.",
+  "words": 116,
+  "nTurns": 10,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-OPINION",
+  "typeGuessAll": [
+   "L-OPINION"
+  ]
+ },
+ {
+  "exam": "M2409",
+  "no": 3,
+  "stem": "다음을 듣고, 여자가 하는 말의 요지로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Good morning, students. I’m Ms. Thompson, your learning consultant for today’s workshop. Many of you have expressed concerns that you’re having difficulty submitting your homework on time. But you know what? Making a memo is an efficient way to manage your assignments. You can’t only rely on your memory. You need to make a note about what to do and when to do it so that you don’t forget. Writing a memo might be annoying at first, but you’ll get used to it in no time. With a memo, you can organize your assignments better. Now, we’re going to see some good examples of students’ memos. Let’s look at the screen."
+   }
+  ],
+  "script": "Good morning, students. I’m Ms. Thompson, your learning consultant for today’s workshop. Many of you have expressed concerns that you’re having difficulty submitting your homework on time. But you know what? Making a memo is an efficient way to manage your assignments. You can’t only rely on your memory. You need to make a note about what to do and when to do it so that you don’t forget. Writing a memo might be annoying at first, but you’ll get used to it in no time. With a memo, you can organize your assignments better. Now, we’re going to see some good examples of students’ memos. Let’s look at the screen.",
+  "words": 111,
+  "nTurns": 1,
+  "speakers": [
+   "W"
+  ],
+  "isDialogue": false,
+  "typeGuess": "L-MAIN",
+  "typeGuessAll": [
+   "L-MAIN"
+  ]
+ },
+ {
+  "exam": "M2409",
+  "no": 4,
+  "stem": "대화를 듣고, 그림에서 대화의 내용과 일치하지 않는 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Clara, I took a picture of the new reading room at our community center. Come and take a look!"
+   },
+   {
+    "who": "W",
+    "text": "Okay, Dad. Let me see. [Pause] Oh, look at the table in front of the window! There are three chairs at the table."
+   },
+   {
+    "who": "M",
+    "text": "You’re right. So we can enjoy reading books together. How about the lamp standing in the left corner?"
+   },
+   {
+    "who": "W",
+    "text": "Cool! It looks much taller than me. Wow, I love the star-patterned rug under the bookshelf."
+   },
+   {
+    "who": "M",
+    "text": "It’s nice, isn’t it?"
+   },
+   {
+    "who": "W",
+    "text": "Yeah, we can also read books sitting on the rug."
+   },
+   {
+    "who": "M",
+    "text": "And look! There’s a heart-shaped cushion on the sofa."
+   },
+   {
+    "who": "W",
+    "text": "It’s so cute. Hmm... Dad, what’s the board under the clock for?"
+   },
+   {
+    "who": "M",
+    "text": "That’s for introducing new events at the community center."
+   },
+   {
+    "who": "W",
+    "text": "I see. I want to go soon."
+   }
+  ],
+  "script": "Clara, I took a picture of the new reading room at our community center. Come and take a look! Okay, Dad. Let me see. [Pause] Oh, look at the table in front of the window! There are three chairs at the table. You’re right. So we can enjoy reading books together. How about the lamp standing in the left corner? Cool! It looks much taller than me. Wow, I love the star-patterned rug under the bookshelf. It’s nice, isn’t it? Yeah, we can also read books sitting on the rug. And look! There’s a heart-shaped cushion on the sofa. It’s so cute. Hmm... Dad, what’s the board under the clock for? That’s for introducing new events at the community center. I see. I want to go soon.",
+  "words": 127,
+  "nTurns": 10,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-PICTURE",
+  "typeGuessAll": [
+   "L-PICTURE"
+  ]
+ },
+ {
+  "exam": "M2409",
+  "no": 5,
+  "stem": "대화를 듣고, 여자가 할 일로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Ms. Jackson, the traffic safety education is just one week away."
+   },
+   {
+    "who": "W",
+    "text": "You’re right, Mr. Kim. I think it’ll be helpful for our 1st graders since many of them are starting to walk to school."
+   },
+   {
+    "who": "M",
+    "text": "Shall we check if everything’s ready?"
+   },
+   {
+    "who": "W",
+    "text": "Sure. Let’s see... Did you reserve the school gym?"
+   },
+   {
+    "who": "M",
+    "text": "Yes, I did it yesterday."
+   },
+   {
+    "who": "W",
+    "text": "How about the traffic safety handouts?"
+   },
+   {
+    "who": "M",
+    "text": "I’ve already printed them out. Ah, do you know when the banner will be delivered?"
+   },
+   {
+    "who": "W",
+    "text": "Yeah, I checked it already. It’ll arrive tomorrow."
+   },
+   {
+    "who": "M",
+    "text": "Okay. Did you call the instructor?"
+   },
+   {
+    "who": "W",
+    "text": "That’s right! I almost forgot. I’ll contact him this afternoon."
+   },
+   {
+    "who": "M",
+    "text": "Great. And I’m going to prepare some snacks for the students."
+   },
+   {
+    "who": "W",
+    "text": "Good idea! The kids will love it."
+   }
+  ],
+  "script": "Ms. Jackson, the traffic safety education is just one week away. You’re right, Mr. Kim. I think it’ll be helpful for our 1st graders since many of them are starting to walk to school. Shall we check if everything’s ready? Sure. Let’s see... Did you reserve the school gym? Yes, I did it yesterday. How about the traffic safety handouts? I’ve already printed them out. Ah, do you know when the banner will be delivered? Yeah, I checked it already. It’ll arrive tomorrow. Okay. Did you call the instructor? That’s right! I almost forgot. I’ll contact him this afternoon. Great. And I’m going to prepare some snacks for the students. Good idea! The kids will love it.",
+  "words": 117,
+  "nTurns": 12,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-TODO",
+  "typeGuessAll": [
+   "L-TODO"
+  ]
+ },
+ {
+  "exam": "M2409",
+  "no": 6,
+  "stem": "대화를 듣고, 남자가 지불할 금액을 고르시오. [3점]",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Hello, welcome to the Monet Art Museum. What can I do for you?"
+   },
+   {
+    "who": "M",
+    "text": "Hi, I’d like to purchase admission tickets."
+   },
+   {
+    "who": "W",
+    "text": "Sure. Tickets are $30 for adults, and $15 for children under 12."
+   },
+   {
+    "who": "M",
+    "text": "My sons are both under 12. So, I’ll get one adult and two child tickets."
+   },
+   {
+    "who": "W",
+    "text": "Okay."
+   },
+   {
+    "who": "M",
+    "text": "We’re also interested in the kids’ oil painting program. How much is it?"
+   },
+   {
+    "who": "W",
+    "text": "It’s $5 per child, and parents are welcome to join for free."
+   },
+   {
+    "who": "M",
+    "text": "That’s great. Then, two tickets for the program as well."
+   },
+   {
+    "who": "W",
+    "text": "Okay. Do you want to join our annual membership? It’s only $10, and you’ll receive our monthly art magazine."
+   },
+   {
+    "who": "M",
+    "text": "No, thank you. Just the tickets, please."
+   },
+   {
+    "who": "W",
+    "text": "Alright. So, that’s admission tickets for one adult and two children. And, two oil painting program tickets, right?"
+   },
+   {
+    "who": "M",
+    "text": "Perfect. Here’s my credit card."
+   }
+  ],
+  "script": "Hello, welcome to the Monet Art Museum. What can I do for you? Hi, I’d like to purchase admission tickets. Sure. Tickets are $30 for adults, and $15 for children under 12. My sons are both under 12. So, I’ll get one adult and two child tickets. Okay. We’re also interested in the kids’ oil painting program. How much is it? It’s $5 per child, and parents are welcome to join for free. That’s great. Then, two tickets for the program as well. Okay. Do you want to join our annual membership? It’s only $10, and you’ll receive our monthly art magazine. No, thank you. Just the tickets, please. Alright. So, that’s admission tickets for one adult and two children. And, two oil painting program tickets, right? Perfect. Here’s my credit card.",
+  "words": 126,
+  "nTurns": 12,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-MONEY",
+  "typeGuessAll": [
+   "L-MONEY"
+  ]
+ },
+ {
+  "exam": "M2409",
+  "no": 7,
+  "stem": "대화를 듣고, 여자가 콘서트에 갈 수 없는 이유를 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Hey, Stella. Aren’t you a fan of Miracle Girls?"
+   },
+   {
+    "who": "W",
+    "text": "I sure am. Any good news?"
+   },
+   {
+    "who": "M",
+    "text": "They’re going to have a comeback concert in our city next month."
+   },
+   {
+    "who": "W",
+    "text": "Nice. I’ve been waiting so long to see them perform. When is the concert?"
+   },
+   {
+    "who": "M",
+    "text": "It’s on October 6th."
+   },
+   {
+    "who": "W",
+    "text": "Oh, no! I can’t make it."
+   },
+   {
+    "who": "M",
+    "text": "Why not? Is it because you have to work at your part-time job?"
+   },
+   {
+    "who": "W",
+    "text": "No, it’s not that. I could easily change my schedule with another person."
+   },
+   {
+    "who": "M",
+    "text": "What is it then? Don’t tell me you have to play soccer."
+   },
+   {
+    "who": "W",
+    "text": "No. Actually, I have to join a science debate competition that day."
+   },
+   {
+    "who": "M",
+    "text": "Science debate competition? That’s amazing! I’ll keep my fingers crossed."
+   },
+   {
+    "who": "W",
+    "text": "Thanks. I hope I can make it next time."
+   }
+  ],
+  "script": "Hey, Stella. Aren’t you a fan of Miracle Girls? I sure am. Any good news? They’re going to have a comeback concert in our city next month. Nice. I’ve been waiting so long to see them perform. When is the concert? It’s on October 6th. Oh, no! I can’t make it. Why not? Is it because you have to work at your part-time job? No, it’s not that. I could easily change my schedule with another person. What is it then? Don’t tell me you have to play soccer. No. Actually, I have to join a science debate competition that day. Science debate competition? That’s amazing! I’ll keep my fingers crossed. Thanks. I hope I can make it next time.",
+  "words": 120,
+  "nTurns": 12,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-REASON",
+  "typeGuessAll": [
+   "L-REASON"
+  ]
+ },
+ {
+  "exam": "M2409",
+  "no": 8,
+  "stem": "대화를 듣고, Raven Elliott의 책 사인회에 관해 언급되지 않은 것을 고르시오.",
+  "turns": [
+   {
+    "who": "?",
+    "text": "[Cell phone rings.]"
+   },
+   {
+    "who": "W",
+    "text": "What’s up, James?"
+   },
+   {
+    "who": "M",
+    "text": "Hey, Amanda. What are you doing this Friday?"
+   },
+   {
+    "who": "W",
+    "text": "Not much. Why?"
+   },
+   {
+    "who": "M",
+    "text": "Raven Elliott’s book signing event is on Friday."
+   },
+   {
+    "who": "W",
+    "text": "Really? That’s November 3rd, right?"
+   },
+   {
+    "who": "M",
+    "text": "That’s right. The event will be held at Pineway bookstore. You know, she released her new novel."
+   },
+   {
+    "who": "W",
+    "text": "Yes, I know. I heard it’s really good. What time does the event start?"
+   },
+   {
+    "who": "M",
+    "text": "It starts at 7 p.m. Do you want to go?"
+   },
+   {
+    "who": "W",
+    "text": "Definitely! Do we need to sign up?"
+   },
+   {
+    "who": "M",
+    "text": "Yeah, I just did it. I’ll send you the link to the form. You should fill it out and submit it soon."
+   },
+   {
+    "who": "W",
+    "text": "Thanks. I’ll do it today."
+   },
+   {
+    "who": "M",
+    "text": "You’d better hurry! It’s limited to only 100 people."
+   },
+   {
+    "who": "W",
+    "text": "Got it."
+   }
+  ],
+  "script": "[Cell phone rings.] What’s up, James? Hey, Amanda. What are you doing this Friday? Not much. Why? Raven Elliott’s book signing event is on Friday. Really? That’s November 3rd, right? That’s right. The event will be held at Pineway bookstore. You know, she released her new novel. Yes, I know. I heard it’s really good. What time does the event start? It starts at 7 p.m. Do you want to go? Definitely! Do we need to sign up? Yeah, I just did it. I’ll send you the link to the form. You should fill it out and submit it soon. Thanks. I’ll do it today. You’d better hurry! It’s limited to only 100 people. Got it.",
+  "words": 115,
+  "nTurns": 14,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-NOTMENTION",
+  "typeGuessAll": [
+   "L-NOTMENTION"
+  ]
+ },
+ {
+  "exam": "M2409",
+  "no": 9,
+  "stem": "Grandhill Park Cleanup 행사에 관한 다음 내용을 듣고, 일치하지 않는 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Hello, listeners. I’m John Anderson, president of Greenism, an environmental volunteering group. We’ll be holding the Grandhill Park Cleanup event on September 30th. Come and help clean up the local park! In this event, participants will pick up trash in pairs. It’ll be good for the environment and our community. Over 20 celebrities will join in our event, including local influencers and entertainers. I’m sure you’ll have a meaningful time enjoying the beautiful scenery. At the end of the event, all participants will be given an eco bag made from recycled materials. You don’t need to bring trash bags and gloves. We’ll provide them! I look forward to seeing you all there!"
+   }
+  ],
+  "script": "Hello, listeners. I’m John Anderson, president of Greenism, an environmental volunteering group. We’ll be holding the Grandhill Park Cleanup event on September 30th. Come and help clean up the local park! In this event, participants will pick up trash in pairs. It’ll be good for the environment and our community. Over 20 celebrities will join in our event, including local influencers and entertainers. I’m sure you’ll have a meaningful time enjoying the beautiful scenery. At the end of the event, all participants will be given an eco bag made from recycled materials. You don’t need to bring trash bags and gloves. We’ll provide them! I look forward to seeing you all there!",
+  "words": 111,
+  "nTurns": 1,
+  "speakers": [
+   "M"
+  ],
+  "isDialogue": false,
+  "typeGuess": "L-ANNOUNCE",
+  "typeGuessAll": [
+   "L-ANNOUNCE"
+  ]
+ },
+ {
+  "exam": "M2409",
+  "no": 10,
+  "stem": "다음 표를 보면서 대화를 듣고, 여자가 수강할 스포츠 프로그램을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Anna, what are you doing on your tablet?"
+   },
+   {
+    "who": "W",
+    "text": "I’m checking out the list of after-school sports programs. Did you pick one?"
+   },
+   {
+    "who": "M",
+    "text": "No, I’m learning computer programming this time. Do you want some help?"
+   },
+   {
+    "who": "W",
+    "text": "Sure."
+   },
+   {
+    "who": "M",
+    "text": "Which sports do you like?"
+   },
+   {
+    "who": "W",
+    "text": "Anything but baseball. I don’t like baseball that much."
+   },
+   {
+    "who": "M",
+    "text": "Okay. This one is out. Some programs are limited to certain grades."
+   },
+   {
+    "who": "W",
+    "text": "Yeah. We’re in 2nd grade, so I cannot take this one."
+   },
+   {
+    "who": "M",
+    "text": "What about the day?"
+   },
+   {
+    "who": "W",
+    "text": "Hmm... I have a piano lesson on Mondays, so that day doesn’t work for me."
+   },
+   {
+    "who": "M",
+    "text": "Now you have two options."
+   },
+   {
+    "who": "W",
+    "text": "Well, the school provides equipment for this program but not for the other one."
+   },
+   {
+    "who": "M",
+    "text": "Which one do you like more?"
+   },
+   {
+    "who": "W",
+    "text": "I like this program better, and the school provides equipment for it. So I’ll take this one."
+   }
+  ],
+  "script": "Anna, what are you doing on your tablet? I’m checking out the list of after-school sports programs. Did you pick one? No, I’m learning computer programming this time. Do you want some help? Sure. Which sports do you like? Anything but baseball. I don’t like baseball that much. Okay. This one is out. Some programs are limited to certain grades. Yeah. We’re in 2nd grade, so I cannot take this one. What about the day? Hmm... I have a piano lesson on Mondays, so that day doesn’t work for me. Now you have two options. Well, the school provides equipment for this program but not for the other one. Which one do you like more? I like this program better, and the school provides equipment for it. So I’ll take this one.",
+  "words": 132,
+  "nTurns": 14,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-TABLE",
+  "typeGuessAll": [
+   "L-TABLE"
+  ]
+ },
+ {
+  "exam": "M2409",
+  "no": 11,
+  "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Honey, shall we go to the new pizza place that you keep talking about?"
+   },
+   {
+    "who": "W",
+    "text": "I’d really love to. But I have to stay home to attend an online meeting soon. Do they deliver?"
+   },
+   {
+    "who": "M",
+    "text": "Let me check the delivery app. [Tapping sound] Yep, they have delivery service. Oh, they have shrimp pizza, your favorite."
+   }
+  ],
+  "script": "Honey, shall we go to the new pizza place that you keep talking about? I’d really love to. But I have to stay home to attend an online meeting soon. Do they deliver? Let me check the delivery app. [Tapping sound] Yep, they have delivery service. Oh, they have shrimp pizza, your favorite.",
+  "words": 53,
+  "nTurns": 3,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-RESPONSE",
+  "typeGuessAll": [
+   "L-RESPONSE"
+  ]
+ },
+ {
+  "exam": "M2409",
+  "no": 12,
+  "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Dad, I’m so excited. It’s my first time to go on a school trip to the mountains in the fall."
+   },
+   {
+    "who": "M",
+    "text": "Right. It’ll be especially great to look at the stars outside. Maybe you’ll need something to keep yourself warm because it’s getting colder at night."
+   },
+   {
+    "who": "W",
+    "text": "So, do you think I should bring my little blanket?"
+   }
+  ],
+  "script": "Dad, I’m so excited. It’s my first time to go on a school trip to the mountains in the fall. Right. It’ll be especially great to look at the stars outside. Maybe you’ll need something to keep yourself warm because it’s getting colder at night. So, do you think I should bring my little blanket?",
+  "words": 55,
+  "nTurns": 3,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-RESPONSE",
+  "typeGuessAll": [
+   "L-RESPONSE"
+  ]
+ },
+ {
+  "exam": "M2409",
+  "no": 13,
+  "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "?",
+    "text": "[Cell phone rings.]"
+   },
+   {
+    "who": "W",
+    "text": "Hello?"
+   },
+   {
+    "who": "M",
+    "text": "Good afternoon, Ms. Ford. This is Fine Line clothing repair shop."
+   },
+   {
+    "who": "W",
+    "text": "Oh, hi."
+   },
+   {
+    "who": "M",
+    "text": "I’m calling to let you know that your pants are ready to be picked up."
+   },
+   {
+    "who": "W",
+    "text": "The pants with the broken zipper? Wow! You fixed them earlier than expected."
+   },
+   {
+    "who": "M",
+    "text": "Yes. Do you want to stop by and pick them up sometime today?"
+   },
+   {
+    "who": "W",
+    "text": "Actually, I’m out of town on a business trip, but I’ll be back on Sunday. I can come in then."
+   },
+   {
+    "who": "M",
+    "text": "I’m sorry, but we’re closed on Sundays."
+   },
+   {
+    "who": "W",
+    "text": "I see. Then, how late are you open this coming Monday?"
+   },
+   {
+    "who": "M",
+    "text": "We’re open until 7 p.m."
+   },
+   {
+    "who": "W",
+    "text": "Hmm, I finish work at 6:30 p.m. I’m afraid I might be a little bit late."
+   },
+   {
+    "who": "M",
+    "text": "It’s alright. I can wait until you arrive."
+   }
+  ],
+  "script": "[Cell phone rings.] Hello? Good afternoon, Ms. Ford. This is Fine Line clothing repair shop. Oh, hi. I’m calling to let you know that your pants are ready to be picked up. The pants with the broken zipper? Wow! You fixed them earlier than expected. Yes. Do you want to stop by and pick them up sometime today? Actually, I’m out of town on a business trip, but I’ll be back on Sunday. I can come in then. I’m sorry, but we’re closed on Sundays. I see. Then, how late are you open this coming Monday? We’re open until 7 p.m. Hmm, I finish work at 6:30 p.m. I’m afraid I might be a little bit late. It’s alright. I can wait until you arrive.",
+  "words": 125,
+  "nTurns": 13,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-RESPONSE",
+  "typeGuessAll": [
+   "L-RESPONSE"
+  ]
+ },
+ {
+  "exam": "M2409",
+  "no": 14,
+  "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Honey, do we have any plans this weekend?"
+   },
+   {
+    "who": "M",
+    "text": "Nothing special. Why?"
+   },
+   {
+    "who": "W",
+    "text": "I saw an interesting event in a brochure."
+   },
+   {
+    "who": "M",
+    "text": "Oh, yeah? What’s that?"
+   },
+   {
+    "who": "W",
+    "text": "Barefoot walking in the woods. Have you heard of it?"
+   },
+   {
+    "who": "M",
+    "text": "You mean walking without shoes? That doesn’t sound comfortable. Why would people want to do that?"
+   },
+   {
+    "who": "W",
+    "text": "According to the brochure, it’s effective for relieving foot pain."
+   },
+   {
+    "who": "M",
+    "text": "Really? My feet have been a little bit sore these days. How does it work?"
+   },
+   {
+    "who": "W",
+    "text": "It works like a foot massage."
+   },
+   {
+    "who": "M",
+    "text": "Aha! Walking in bare feet probably improves blood circulation."
+   },
+   {
+    "who": "W",
+    "text": "Yes. Plus, it can help you reduce stress."
+   },
+   {
+    "who": "M",
+    "text": "It seems like barefoot walking will be good for both body and mind."
+   },
+   {
+    "who": "W",
+    "text": "Exactly. I think we should do it."
+   }
+  ],
+  "script": "Honey, do we have any plans this weekend? Nothing special. Why? I saw an interesting event in a brochure. Oh, yeah? What’s that? Barefoot walking in the woods. Have you heard of it? You mean walking without shoes? That doesn’t sound comfortable. Why would people want to do that? According to the brochure, it’s effective for relieving foot pain. Really? My feet have been a little bit sore these days. How does it work? It works like a foot massage. Aha! Walking in bare feet probably improves blood circulation. Yes. Plus, it can help you reduce stress. It seems like barefoot walking will be good for both body and mind. Exactly. I think we should do it.",
+  "words": 117,
+  "nTurns": 13,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-RESPONSE",
+  "typeGuessAll": [
+   "L-RESPONSE"
+  ]
+ },
+ {
+  "exam": "M2409",
+  "no": 15,
+  "stem": "다음 상황 설명을 듣고, Jack이 Amy에게 할 말로 가장 적절한 것을 고르시오. [3점]",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Jack and Amy are members of their high school orchestra club. They’re creating a video to introduce their club at the freshmen orientation next month. Jack records the orchestra during practice and interviews some members. Amy says she’ll edit the video clips so they can review them in their meeting tomorrow. However, she cannot finish the work because her laptop suddenly stops working. She takes her laptop to the computer service center, but it’ll take two days to fix. Amy feels bad that she cannot complete the work by tomorrow and calls Jack to explain. Jack thinks that they have enough time to finish the video. So Jack wants to let Amy know that it’s okay and offer to change their meeting date. In this situation, what would Jack most likely say to Amy? 16번부터 17번까지는 두 번 들려줍니다."
+   }
+  ],
+  "script": "Jack and Amy are members of their high school orchestra club. They’re creating a video to introduce their club at the freshmen orientation next month. Jack records the orchestra during practice and interviews some members. Amy says she’ll edit the video clips so they can review them in their meeting tomorrow. However, she cannot finish the work because her laptop suddenly stops working. She takes her laptop to the computer service center, but it’ll take two days to fix. Amy feels bad that she cannot complete the work by tomorrow and calls Jack to explain. Jack thinks that they have enough time to finish the video. So Jack wants to let Amy know that it’s okay and offer to change their meeting date. In this situation, what would Jack most likely say to Amy? 16번부터 17번까지는 두 번 들려줍니다.",
+  "words": 134,
+  "nTurns": 1,
+  "speakers": [
+   "M"
+  ],
+  "isDialogue": false,
+  "typeGuess": "L-SITUATION",
+  "typeGuessAll": [
+   "L-SITUATION"
+  ]
+ },
+ {
+  "exam": "M2409",
+  "no": 16,
+  "stem": "여자가 하는 말의 주제로 가장 적절한 것은? [3점]",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Hello, students. As you know, sleep is common to all animals, but their sleep patterns vary in many ways. Today, we’ll learn what makes animals sleep differently. First, what animals eat can impact their sleep patterns. As grass has much fewer calories than meat, large grass-eating animals sleep only a few hours and spend the majority of their time eating. Elephants sleep only three to four hours a day. Second, temperature affects animals’ sleep patterns. High temperatures can cause some animals to overheat. Thus, bats sleep during the day to avoid overheating. Next, another factor is the fear of dangerous meat-eating animals. For protection against these hunters, sheep generally sleep closely together. Finally, the living environment. Flamingos live in shallow waters that contain high amounts of salt. In such a harmful environment, there’s no place for them to lie down. This is a reason why flamingos sleep standing up. Now, let’s watch a video clip."
+   }
+  ],
+  "fromSet": "16~17",
+  "script": "Hello, students. As you know, sleep is common to all animals, but their sleep patterns vary in many ways. Today, we’ll learn what makes animals sleep differently. First, what animals eat can impact their sleep patterns. As grass has much fewer calories than meat, large grass-eating animals sleep only a few hours and spend the majority of their time eating. Elephants sleep only three to four hours a day. Second, temperature affects animals’ sleep patterns. High temperatures can cause some animals to overheat. Thus, bats sleep during the day to avoid overheating. Next, another factor is the fear of dangerous meat-eating animals. For protection against these hunters, sheep generally sleep closely together. Finally, the living environment. Flamingos live in shallow waters that contain high amounts of salt. In such a harmful environment, there’s no place for them to lie down. This is a reason why flamingos sleep standing up. Now, let’s watch a video clip.",
+  "words": 155,
+  "nTurns": 1,
+  "speakers": [
+   "W"
+  ],
+  "isDialogue": false,
+  "typeGuess": "L-SET-TOPIC",
+  "typeGuessAll": [
+   "L-SET-TOPIC"
+  ]
+ },
+ {
+  "exam": "M2409",
+  "no": 17,
+  "stem": "언급된 동물이 아닌 것은?",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Hello, students. As you know, sleep is common to all animals, but their sleep patterns vary in many ways. Today, we’ll learn what makes animals sleep differently. First, what animals eat can impact their sleep patterns. As grass has much fewer calories than meat, large grass-eating animals sleep only a few hours and spend the majority of their time eating. Elephants sleep only three to four hours a day. Second, temperature affects animals’ sleep patterns. High temperatures can cause some animals to overheat. Thus, bats sleep during the day to avoid overheating. Next, another factor is the fear of dangerous meat-eating animals. For protection against these hunters, sheep generally sleep closely together. Finally, the living environment. Flamingos live in shallow waters that contain high amounts of salt. In such a harmful environment, there’s no place for them to lie down. This is a reason why flamingos sleep standing up. Now, let’s watch a video clip."
+   }
+  ],
+  "fromSet": "16~17",
+  "script": "Hello, students. As you know, sleep is common to all animals, but their sleep patterns vary in many ways. Today, we’ll learn what makes animals sleep differently. First, what animals eat can impact their sleep patterns. As grass has much fewer calories than meat, large grass-eating animals sleep only a few hours and spend the majority of their time eating. Elephants sleep only three to four hours a day. Second, temperature affects animals’ sleep patterns. High temperatures can cause some animals to overheat. Thus, bats sleep during the day to avoid overheating. Next, another factor is the fear of dangerous meat-eating animals. For protection against these hunters, sheep generally sleep closely together. Finally, the living environment. Flamingos live in shallow waters that contain high amounts of salt. In such a harmful environment, there’s no place for them to lie down. This is a reason why flamingos sleep standing up. Now, let’s watch a video clip.",
+  "words": 155,
+  "nTurns": 1,
+  "speakers": [
+   "W"
+  ],
+  "isDialogue": false,
+  "typeGuess": "L-SET-NOT",
+  "typeGuessAll": [
+   "L-SET-NOT"
+  ]
+ }
+]

@@ -1,0 +1,288 @@
+{
+ "seed": 20260822,
+ "note": "축 도출 전에 뽑았다. 내가 고르면 쉬운 것만 고르는 편향이 생긴다.",
+ "pool": 359,
+ "n": 40,
+ "items": [
+  {
+   "exam": "2025",
+   "no": 21,
+   "type": "R-IMPLY",
+   "answer": 3,
+   "points": 3
+  },
+  {
+   "exam": "2024",
+   "no": 26,
+   "type": "R-FACT",
+   "answer": 2,
+   "points": 2
+  },
+  {
+   "exam": "2016",
+   "no": 22,
+   "type": "R-TOPIC",
+   "answer": 5,
+   "points": 2
+  },
+  {
+   "exam": "2021",
+   "no": 44,
+   "type": "X-REFER",
+   "answer": 5,
+   "points": 2
+  },
+  {
+   "exam": "2016",
+   "no": 37,
+   "type": "R-INSERT",
+   "answer": 5,
+   "points": 2
+  },
+  {
+   "exam": "2014B",
+   "no": 45,
+   "type": "X-FACT",
+   "answer": 5,
+   "points": 2
+  },
+  {
+   "exam": "2023",
+   "no": 31,
+   "type": "R-BLANK",
+   "answer": 2,
+   "points": 2
+  },
+  {
+   "exam": "2015",
+   "no": 32,
+   "type": "R-BLANK",
+   "answer": 1,
+   "points": 3
+  },
+  {
+   "exam": "2021",
+   "no": 27,
+   "type": "R-NOTICE",
+   "answer": 4,
+   "points": 2
+  },
+  {
+   "exam": "2022",
+   "no": 30,
+   "type": "R-VOCAB",
+   "answer": 3,
+   "points": 2
+  },
+  {
+   "exam": "2014B",
+   "no": 39,
+   "type": "R-INSERT",
+   "answer": 2,
+   "points": 2
+  },
+  {
+   "exam": "2014B",
+   "no": 38,
+   "type": "R-ORDER",
+   "answer": 4,
+   "points": 2
+  },
+  {
+   "exam": "2019",
+   "no": 44,
+   "type": "X-REFER",
+   "answer": 5,
+   "points": 2
+  },
+  {
+   "exam": "2015",
+   "no": 31,
+   "type": "R-BLANK",
+   "answer": 2,
+   "points": 3
+  },
+  {
+   "exam": "2017",
+   "no": 27,
+   "type": "R-NOTICE",
+   "answer": 2,
+   "points": 2
+  },
+  {
+   "exam": "2017",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "answer": 3,
+   "points": 2
+  },
+  {
+   "exam": "2020",
+   "no": 29,
+   "type": "R-GRAMMAR",
+   "answer": 4,
+   "points": 2
+  },
+  {
+   "exam": "2018",
+   "no": 30,
+   "type": "R-REFER",
+   "answer": 5,
+   "points": 2
+  },
+  {
+   "exam": "2019",
+   "no": 18,
+   "type": "R-PURPOSE",
+   "answer": 3,
+   "points": 2
+  },
+  {
+   "exam": "2025",
+   "no": 30,
+   "type": "R-VOCAB",
+   "answer": 4,
+   "points": 3
+  },
+  {
+   "exam": "2017",
+   "no": 19,
+   "type": "R-MOOD",
+   "answer": 5,
+   "points": 2
+  },
+  {
+   "exam": "2021",
+   "no": 22,
+   "type": "R-GIST",
+   "answer": 1,
+   "points": 2
+  },
+  {
+   "exam": "2022",
+   "no": 43,
+   "type": "X-ORDER",
+   "answer": 3,
+   "points": 2
+  },
+  {
+   "exam": "2026",
+   "no": 32,
+   "type": "R-BLANK",
+   "answer": 5,
+   "points": 3
+  },
+  {
+   "exam": "2020",
+   "no": 44,
+   "type": "X-REFER",
+   "answer": 2,
+   "points": 2
+  },
+  {
+   "exam": "2026",
+   "no": 24,
+   "type": "R-TITLE",
+   "answer": 2,
+   "points": 3
+  },
+  {
+   "exam": "2025",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "answer": 1,
+   "points": 2
+  },
+  {
+   "exam": "2026",
+   "no": 29,
+   "type": "R-GRAMMAR",
+   "answer": 2,
+   "points": 2
+  },
+  {
+   "exam": "2024",
+   "no": 34,
+   "type": "R-BLANK",
+   "answer": 4,
+   "points": 3
+  },
+  {
+   "exam": "2023",
+   "no": 20,
+   "type": "R-CLAIM",
+   "answer": 3,
+   "points": 2
+  },
+  {
+   "exam": "2015",
+   "no": 24,
+   "type": "R-FACT",
+   "answer": 3,
+   "points": 2
+  },
+  {
+   "exam": "2016",
+   "no": 31,
+   "type": "R-BLANK",
+   "answer": 2,
+   "points": 3
+  },
+  {
+   "exam": "2024",
+   "no": 42,
+   "type": "X-VOCAB",
+   "answer": 5,
+   "points": 2
+  },
+  {
+   "exam": "2018",
+   "no": 18,
+   "type": "R-PURPOSE",
+   "answer": 3,
+   "points": 2
+  },
+  {
+   "exam": "2025",
+   "no": 24,
+   "type": "R-TITLE",
+   "answer": 5,
+   "points": 2
+  },
+  {
+   "exam": "2018",
+   "no": 20,
+   "type": "R-CLAIM",
+   "answer": 2,
+   "points": 2
+  },
+  {
+   "exam": "2017",
+   "no": 29,
+   "type": "R-VOCAB",
+   "answer": 4,
+   "points": 2
+  },
+  {
+   "exam": "2020",
+   "no": 22,
+   "type": "R-GIST",
+   "answer": 5,
+   "points": 2
+  },
+  {
+   "exam": "2026",
+   "no": 30,
+   "type": "R-VOCAB",
+   "answer": 5,
+   "points": 3
+  },
+  {
+   "exam": "2025",
+   "no": 18,
+   "type": "R-PURPOSE",
+   "answer": 1,
+   "points": 2
+  }
+ ]
+}

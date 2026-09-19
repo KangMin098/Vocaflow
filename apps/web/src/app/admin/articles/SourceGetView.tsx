@@ -7,7 +7,7 @@
 
 'use client'
 
-import { BarChart3, BookOpen, CloudSun, Dna, FlaskConical, Globe, Library, MapPin, Megaphone, Microscope, Mountain, Newspaper, Rocket, Volume2, VolumeX } from 'lucide-react'
+import { BarChart3, BookOpen, CloudSun, Dna, FlaskConical, Globe, GraduationCap, Library, MapPin, Megaphone, Microscope, Mountain, Newspaper, Rocket, Volume2, VolumeX } from 'lucide-react'
 
 import type { SourceFeedHealth } from '@/lib/articles/types'
 import type { SourceKey, LearnerLevel } from '@vocaflow/library-pipeline/curation-spec'
@@ -29,6 +29,9 @@ const NASA_FEEDS = [
   { id: 'apod', label: 'Astronomy Picture of the Day' },
   { id: 'iotd', label: 'Image of the Day' },
 ]
+// ⚠️ 정본은 패키지의 `FUTURITY_FEEDS` 다 — id 가 어긋나면 라우트가 400 을 돌려준다.
+//   지금은 전체 피드 하나뿐이라 사본을 둔다(NASA·NIH 와 같은 모양).
+const FUTURITY_FEEDS_UI = [{ id: 'all', label: '대학 연구 기사 (전체)' }]
 const NIH_FEEDS = [
   { id: 'medlineplus', label: "MedlinePlus What's New (안정)" },
   { id: 'directors-blog', label: "Director's Blog" },
@@ -52,7 +55,7 @@ export function SourceGetView({
       <SourceProfile source={source} level={level} feedHealth={feedHealth} />
       <CandidateTable source={source} onImported={onEnqueued} />
       <details className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)]">
-        <summary className="cursor-pointer px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] marker:text-[var(--t4)]">
+        <summary className="cursor-pointer px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] marker:text-[var(--t2)]">
           라이브 RSS 직접 수집 (후보 풀에 추가)
         </summary>
         <div className="border-t border-[var(--bd)] p-3">
@@ -79,7 +82,7 @@ function SourceHeader({ source }: { source: SourceKey }) {
     <header className="flex flex-col gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
       <h2 className="font-display text-[18px] font-[700] text-[var(--t1)]">{SOURCE_LABEL[source] ?? source}</h2>
       <p className="font-body text-[12px] text-[var(--t2)]">
-        <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">학습자에게 </span>
+        <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">학습자에게 </span>
         {offering}
       </p>
       <PolicyRow source={source} />
@@ -102,7 +105,7 @@ function PolicyRow({ source }: { source: string }) {
   const MediaIcon = policy.media === 'audio' ? Volume2 : VolumeX
   return (
     <div className="flex flex-wrap items-center gap-2 rounded-[var(--r-sm)] bg-[var(--bg2)] px-3 py-2">
-      <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">정책</span>
+      <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">정책</span>
       <PolicyChip
         label={`score · ${SUPPLY_LABEL[policy.supply]}`}
         tone={policy.supply === 'static' ? 'info' : 'neutral'}
@@ -129,7 +132,7 @@ function PolicyChip({ label, tone, Icon }: { label: string; tone: ChipTone; Icon
   const c = CHIP_COLORS[tone]
   return (
     <span
-      className="inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] px-2.5 py-1 font-mono text-[10px] font-[600]"
+      className="inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] px-3 py-1 font-mono text-[10px] font-[600]"
       style={{ backgroundColor: c.bg, color: c.fg }}
     >
       {Icon && <Icon size={11} aria-hidden />}
@@ -309,6 +312,20 @@ function SourceGetBody({ source, onEnqueued }: { source: SourceKey; onEnqueued: 
           urlPattern={/^https?:\/\/(?:www\.)?usgs\.gov\/news\//}
           urlHostHint="www.usgs.gov/news/ 도메인"
           urlPlaceholder="https://www.usgs.gov/news/featured-story/hurricane-season-arrives"
+          onEnqueued={onEnqueued}
+        />
+      )
+    case 'futurity':
+      return (
+        <RssFeedTab
+          source="futurity"
+          heading="🎓 Futurity"
+          subtitle="CC-BY 4.0 · B1~B2 대학 연구 기사 · 발행·변형 허용 · 출처 표시 의무"
+          feeds={FUTURITY_FEEDS_UI}
+          emptyIcon={GraduationCap}
+          urlPattern={/^https?:\/\/(?:www\.)?futurity\.org\//}
+          urlHostHint="futurity.org 도메인"
+          urlPlaceholder="https://www.futurity.org/sleep-memory-brain-3012345/"
           onEnqueued={onEnqueued}
         />
       )

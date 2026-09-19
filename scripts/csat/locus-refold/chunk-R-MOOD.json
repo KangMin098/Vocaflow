@@ -1,0 +1,91 @@
+{
+  "type_id": "R-MOOD",
+  "name": "심경·분위기",
+  "n_analyzed": 28,
+  "time_budget_sec": 65,
+  "detected_markers": [
+    "날짜 갱신 표시"
+  ],
+  "current_answer_locus_pattern": "4개 전부 지문 마지막 두 문장 이내에 근거가 있다 — 2017#19 he sighed. His shoulders fell.(13~14문장, 전체 14문장) · 2016#19 My heart swells...(7문장, 전체 7문장) · 2015#19 This was a dream come true for me.(9~10문장, 전체 10문장) · 2014A#40 I started losing my patience.(9문장) + 마지막 문장의 커지는 목소리. 곧 이 유형의 근거는 끝에서 온다. 변화형에서도 앞 심경의 근거는 첫 두 문장(All smiling / Wow!)에 있어, 실제로 봐야 하는 곳은 지문의 앞머리 두 문장과 꼬리 두 문장이다.\n\n정답표가 있는 8문항의 **결정 근거 위치**를 세면: 마지막 문장 6 (2022 · 2021 · 2020 · M2006 · 2019 · M1809) · 전환 표지 직후 2 (M2106의 'everything changed' 선언, 2018의 thrilled me). 앞 심경 근거는 8문항 전부 **첫 2~4문장** 안에 있고, 첫 문단 밖으로 나가는 경우가 없다. 곧 이 유형의 근거는 **첫 세 문장과 마지막 두 문장**에 갇혀 있으며, 가운데 문장들은 사건 서술이지 감정 근거가 아니다. 결정 근거 8건 중 6건이 **인물의 직접 발화 또는 동반 표현**(with a sigh / with a smile / he cheered)을 포함한다 — 따옴표가 있으면 거기가 답이다. ── 2026-09-04 갱신: 나머지 4문항(M2306#19 · M2209#19 · M2206#19 · M2109#19)의 정답표가 확보됐다. 넷 모두 앞 칸과 뒤 칸을 서로 다른 문장에서 확정해야 했다. 앞 칸 근거는 예외 없이 감정어와 신체 반응·유보 진술이 한 절에 붙은 문장이었고(sighed with concern · froze + was not sure · wasn’t sure if it would be as helpful · Getting concerned), 뒤 칸은 전환점(Just then · However · Once ~ began · At that moment) 뒤 인물 자신의 문장이었다. 넷 중 셋에서 전환점 문장과 뒤 칸 근거 문장이 서로 달라, 전환점만 찾고 멈추면 뒤 칸이 뜬다.\n\n정답표가 있는 9문항 전부에서 **뒤 심경의 결정적 근거가 마지막 두 문장 안**에 있었다(7문항은 마지막 두 문장, 2문항은 전환 표지 바로 다음 문장이자 끝에서 세 번째 문장). 첫 문단만으로 정답이 확정되는 문항은 0 — 앞 심경 근거는 9문항 모두 첫 3~4문장 안에 있지만 그것만으로는 선지가 2~3개 남는다(부호쌍의 앞자리를 공유하는 오답이 늘 하나 이상 있다). 곧 **근거는 앞뒤 양 끝에 나뉘어 있고, 선지를 최종적으로 가르는 것은 언제나 끝쪽**이다. 12문항 중 전환 부사(Suddenly·Just as·Just then·Unfortunately·All of a sudden·When he looked up again)가 있는 것은 7, 나머지 5(M2609·M2506·2023·M2406·M2309)는 **제3인물의 대사가 전환점**이라 표지가 없다. ── 2026-09-04 갱신: 나머지 3문항(M2409#19 · M2406#19 · M2309#19)의 정답표가 확보됐다. 셋 다 앞 칸이 뒤 칸과 다른 문장에서만 확정됐고, M2406#19 은 전환이 부사 표지 없이 제3인물의 대사로 일어나 뒤 칸 근거를 인물 자신의 문장(felt at ease)으로 따로 골라야 했다. M2409#19 과 M2309#19 은 뒤 칸 근거가 감정어와 동작 둘로 겹쳐 있었다(sprung off the couch + What a turn of fortune / Filled with joy and happiness + gave her a big hug).",
+  "context": {
+    "procedure_steps": [
+      {
+        "step": "발문에서 심경의 주체가 'I'(화자)인지 제3자 이름인지 확인하고, 'I' 라면 지문의 따옴표 발화마다 말한 사람을 옆에 적어 **타인의 말을 근거에서 뺀다**",
+        "on_fail": "발화자가 불분명하면 따옴표 앞뒤 said/asked/explained/recalled 의 주어로 정한다"
+      },
+      {
+        "step": "첫 2~4문장에서 **인물에게 붙은 감정어**만 앞 심경 후보로 적는다. 대상(공연·풍경·원고·날씨)에 붙은 형용사에는 괄호를 쳐 근거에서 뺀다",
+        "on_fail": "감정어가 없으면 사실 서술(횟수·결과·부정어)이나 행동 부사(eagerly, reluctantly, enthusiastically)로 부호를 정한다. 첫 문장이 눈물·비명처럼 부호가 두 갈래면 다음 문장까지 읽고 정한다"
+      },
+      {
+        "step": "전환 표지에 세로줄을 긋는다 — however / but / Once ~ began / As soon as / Just then / At that moment / All of a sudden 순으로 찾는다",
+        "on_fail": "역접 접속사가 없는 회차가 있다(M2006). 그때는 사건 부사구나 변화를 선언하는 문장('everything changed', 'something was found')을 기준선으로 삼는다"
+      },
+      {
+        "step": "마지막 두 문장에서 뒤 심경을 뽑되, **인물의 발화·동반 표현·상태 형용사**만 쓰고 배경 묘사는 뺀다. 강한 긍정/부정 신호의 **개수**를 세어 강도를 상·중으로 적는다",
+        "on_fail": "발화가 반문이면 부정으로 세고, 신호가 하나뿐이면 강도를 낮춰 잡지 말고 마지막 형용사로 다시 확인한다"
+      },
+      {
+        "step": "선지 다섯 쌍을 **앞 칸만** 먼저 세로로 훑어 2단계와 어긋나는 것을 지운다",
+        "on_fail": "앞 칸으로 셋 이상 남으면 앞 칸 낱말 중 지문에 근거 문장이 하나도 없는 것부터 버린다"
+      },
+      {
+        "step": "남은 쌍의 **뒤 칸**을 4단계 부호와 **강도**에 함께 맞춘다. 부호가 같아도 강도가 다르면 버린다",
+        "on_fail": "둘이 남으면 앞 칸으로 되돌아가 근거 문장 번호를 댈 수 있는 쪽을 고른다 — 뒤 칸끼리 뜻이 가까운 쌍(relieved/relaxed, calm/relieved)은 앞 칸에서만 갈린다"
+      }
+    ],
+    "recurring_traps": [
+      {
+        "trap": "부분 사실",
+        "count": 21,
+        "signature": "변화형에서 앞 항목만 맞고 뒤 항목이 틀린 쌍(delighted → jealous). 앞이 맞으면 뒤를 검증 없이 통과시키는 습관을 노린다"
+      },
+      {
+        "trap": "어휘 함정",
+        "count": 19,
+        "signature": "양방향으로 쓰이는 낱말 하나에 오답을 건다 — sigh(안도/낙담) · could not believe(놀람/혼란) · tough journey(겪은 고됨/앞둔 고됨) · charity와 volunteer 같은 소재어의 긍정 인상"
+      },
+      {
+        "trap": "반대 진술",
+        "count": 19,
+        "signature": "감정 방향을 통째로 뒤집는다. 변화형에서는 긍정→부정을 부정→긍정으로 세운 쌍(embarrassed → satisfied)이, 단일형에서는 indifferent 가 그 자리를 맡는다"
+      },
+      {
+        "trap": "지문 밖 상식",
+        "count": 16,
+        "signature": "외동은 외롭다, 혼자 다 하는 사람은 부럽다처럼 지문에 없는 통념을 감정으로 들여온다"
+      },
+      {
+        "trap": "무관",
+        "count": 11,
+        "signature": "감정어 없는 사실 나열 구간(교통·시간·날씨)만 보고 담담하다고 판정한다"
+      },
+      {
+        "trap": "인과 역전",
+        "count": 9,
+        "signature": "relieved 처럼 부담이 지나간 뒤라야 성립하는 감정을, 부담이 아직 앞에 있는 지문(is ahead of me)에 붙인다"
+      },
+      {
+        "trap": "범위 과대",
+        "count": 6,
+        "signature": "방향은 맞고 **강도만** 어긋난다 — 탄식 한 번을 depressed 로(2022) · 실망을 horrified 로(2020) 올리거나, 환호를 comforted 로(2019) · 감흥 셋을 relaxed 로(2018) 낮춘다. 방향만 보는 학습자가 마지막까지 남기는 선지가 대개 이것이다"
+      },
+      {
+        "trap": "강도 과장",
+        "count": 5,
+        "signature": "부호는 맞는데 세기가 지문 근거를 넘는다(안도인데 delighted·thrilled, 좌절인데 fearful, 불안인데 panicked). 마지막 문장의 반응이 신체 반응·감탄인지 조용한 서술인지로 갈린다"
+      }
+    ],
+    "failure_modes": [
+      "감정의 주인을 고정하지 않아 다른 인물의 감정을 답으로 가져온다 (2014A#40 의 bored — 지루함 신호 셋이 전부 딸의 것)",
+      "변화형에서 앞 항목이 맞으면 뒤 항목을 검증하지 않고 확정한다 (2017#19 의 delighted → jealous)",
+      "부정적으로 들리는 낱말을 낱말 단위로 주워 방향을 뒤집는다 (2016#19 의 mosquitos, snakes, spiders 로 frustrated 를 고름)",
+      "sigh 나 could not believe 처럼 양방향 낱말을 앞뒤 문장 확인 없이 한쪽으로 굳힌다",
+      "relieved 를 부담이 있으니 안도라고 붙인다 — 안도는 부담이 지나간 뒤라야 성립하는데 지문은 부담을 앞에 두고 있다",
+      "감정어 없는 도입부(교통·날씨·시간)만 보고 indifferent 를 고른다 — 이 유형의 근거는 언제나 끝에 있다",
+      "소재의 인상(자선·봉사·여행)을 인물의 감정으로 옮긴다",
+      "**뒤 칸만 보고 고른다.** 결말이 밝은지 어두운지 부호만 맞추면 두세 개가 남는데, 그 남은 것들은 앞 칸에서만 갈린다(M2006의 indifferent→excited, M1809의 jealous→relaxed). 실점은 대개 여기서 난다"
+    ]
+  },
+  "instructions_ref": "scripts/csat/locus-refold/_PROMPT.md"
+}

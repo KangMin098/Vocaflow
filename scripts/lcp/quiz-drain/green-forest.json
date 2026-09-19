@@ -1,0 +1,479 @@
+{
+  "book": {
+    "id": "2966167a-5a7d-40f0-a6e2-88e66ba65125",
+    "title": "Green Forest Stories",
+    "book_v_level": 6
+  },
+  "target_per_chapter": 6,
+  "chapters": [
+    {
+      "chapter_idx": 1,
+      "chapter_title": "Peter Rabbit Meets Lightfoot",
+      "word_count": 775,
+      "chapter_v_level": 4,
+      "content": "CHAPTER 1. Peter Rabbit Meets Lightfoot\u001fLightfoot the Deer\u001ehttps://standardebooks.org/ebooks/thornton-w-burgess/green-forest-stories/text/lightfoot-the-deer#lightfoot-the-deer-chapter-1\n\nPeter Rabbit was on his way back from the pond of Paddy the Beaver deep in the Green Forest. He had just seen Mr. and Mrs. Quack start toward the Big River for a brief visit before leaving on their long, difficult journey to the faraway Southland. Farewells are always rather sad, and this particular farewell had left Peter with a lump in his throat⁠--a queer, choky feeling.\n\n\"If I were sure that they would return next spring, it wouldn't be so bad,\" he muttered. \"It's those terrible guns. I know what it is to have to watch out for them. Farmer Brown's boy used to hunt me with one of them, but he doesn't any more. But even when he did hunt me it wasn't anything like what the Ducks have to go through. If I kept my eyes and ears open, I could tell when a hunter was coming and could hide in a hole if I wanted to. I never had to worry about my meals. But with the Ducks it is a thousand times worse. They've got to eat while making that long journey, and they can eat only where there is the right kind of food. Hunters with terrible guns know where those places are and hide there until the Ducks come, and the Ducks have no way of knowing whether the hunters are waiting for them or not. That isn't hunting. It's⁠--it's⁠--\"\n\n\"Well, what is it? What are you talking to yourself about, Peter Rabbit?\"\n\nPeter looked up with a start to find the soft, beautiful eyes of Lightfoot the Deer gazing down at him over the top of a little hemlock tree.\n\n\"It's awful,\" declared Peter. \"It's worse than unfair. It doesn't give them any chance at all.\"\n\n\"I suppose it must be so if you say so,\" replied Lightfoot, \"but you might tell me what all this awfulness is about.\"\n\nPeter grinned. Then he began at the beginning and told Lightfoot all about Mr. and Mrs. Quack and the many dangers they must face on their long journey to the faraway Southland and back again in the spring, all because of the heartless hunters with terrible guns. Lightfoot listened and his great soft eyes were filled with pity for the Quack family.\n\n\"I hope they will get through all right,\" said he, \"and I hope they will get back in the spring. It is bad enough to be hunted by men at one time of the year, as no one knows better than I do, but to be hunted in the spring as well as in the fall is more than twice as bad. Men are strange creatures. I do not understand them at all. None of the people of the Green Forest would think of doing such terrible things. I suppose it is quite right to hunt others in order to get enough to eat, though I am thankful to say that I never have had to do that, but to hunt others just for the fun of hunting is something I cannot understand at all. And yet that is what men seem to do it for. I guess the trouble is they never have been hunted themselves and don't know how it feels. Sometimes I think I'll hunt one some day just to teach him a lesson. What are you laughing at, Peter?\"\n\n\"At the idea of you hunting a man,\" replied Peter. \"Your heart is all right, Lightfoot, but you are too timid and gentle to frighten anyone. Big as you are I wouldn't fear you.\"\n\nWith a single swift bound Lightfoot sprang out in front of Peter. He stamped his sharp hoofs, lowered his handsome head until the sharp points of his antlers, which people call horns, pointed straight at Peter, lifted the hair along the back of his neck, and made a motion as if to plunge at him. His eyes, which Peter had always thought so soft and gentle, seemed to flash fire.\n\n\"Oh!\" cried Peter in a faint, frightened-sounding voice and leaped to one side before it entered his foolish little head that Lightfoot was just pretending.\n\nLightfoot chuckled. \"Did you say I couldn't frighten anyone?\" he demanded.\n\n\"I⁠--I didn't know you could look so terribly fierce,\" stammered Peter. \"Those antlers look really dangerous when you point them that way. Why⁠--why⁠--what is that hanging to them? It looks like bits of old fur. Have you been tearing somebody's coat, Lightfoot?\" Peter's eyes were wide with wonder and suspicion.",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "Why does Peter Rabbit have \"a lump in his throat\" at the start of the chapter?",
+          "questionKo": "피터 래빗이 이야기 첫머리에서 목이 메는 이유는?",
+          "options": [
+            {
+              "text": "He has just said goodbye to Mr. and Mrs. Quack before their long journey south.",
+              "textKo": "먼 남쪽으로 떠나는 꽥꽥 부부와 막 작별했기 때문에."
+            },
+            {
+              "text": "He has been chased by Farmer Brown’s boy with a gun.",
+              "textKo": "농부 브라운의 아들에게 총으로 쫓겼기 때문에."
+            },
+            {
+              "text": "Paddy the Beaver has driven him away from the pond.",
+              "textKo": "비버 패디가 연못에서 그를 쫓아냈기 때문에."
+            },
+            {
+              "text": "He cannot find enough food for the winter.",
+              "textKo": "겨울 먹이를 충분히 찾지 못했기 때문에."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "Farewells are always rather sad, and this particular farewell had left Peter with a lump in his throat"
+        },
+        {
+          "type": "multiple",
+          "question": "Why does Peter think being hunted is far worse for the Ducks than it was for him?",
+          "questionKo": "피터는 왜 사냥당하는 일이 자기보다 오리들에게 훨씬 더 가혹하다고 보는가?",
+          "options": [
+            {
+              "text": "Ducks cannot run as fast as rabbits can.",
+              "textKo": "오리는 토끼만큼 빨리 달릴 수 없어서."
+            },
+            {
+              "text": "Ducks must eat where the right food is, and hunters hide waiting at exactly those places.",
+              "textKo": "오리는 알맞은 먹이가 있는 곳에서만 먹어야 하는데, 사냥꾼이 바로 그곳에 숨어 기다려서."
+            },
+            {
+              "text": "Ducks are hunted by animals as well as by men.",
+              "textKo": "오리는 사람뿐 아니라 짐승에게도 사냥당해서."
+            },
+            {
+              "text": "Ducks have no holes to hide in during the winter.",
+              "textKo": "오리는 겨울에 숨을 굴이 없어서."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "Hunters with terrible guns know where those places are and hide there until the Ducks come"
+        },
+        {
+          "type": "multiple",
+          "question": "What does Lightfoot say he cannot understand about men?",
+          "questionKo": "라이트풋이 사람에 대해 도무지 이해할 수 없다고 말하는 것은?",
+          "options": [
+            {
+              "text": "That they keep animals such as Bossy the Cow.",
+              "textKo": "소 보시 같은 짐승을 기른다는 것."
+            },
+            {
+              "text": "That they cut down the trees of the Green Forest.",
+              "textKo": "초록 숲의 나무를 베어 낸다는 것."
+            },
+            {
+              "text": "That they hunt others just for the fun of hunting rather than for food.",
+              "textKo": "먹이 때문이 아니라 오로지 재미로 사냥한다는 것."
+            },
+            {
+              "text": "That they travel south every winter as the Ducks do.",
+              "textKo": "오리처럼 겨울마다 남쪽으로 떠난다는 것."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "to hunt others just for the fun of hunting is something I cannot understand at all"
+        },
+        {
+          "type": "multiple",
+          "question": "What explanation does Lightfoot offer for why men behave this way?",
+          "questionKo": "라이트풋은 사람이 그렇게 구는 까닭을 어떻게 설명하는가?",
+          "options": [
+            {
+              "text": "They are hungrier than the people of the Green Forest.",
+              "textKo": "초록 숲 식구들보다 더 굶주려서."
+            },
+            {
+              "text": "Their guns make them braver than they really are.",
+              "textKo": "총이 그들을 실제보다 용감하게 만들어서."
+            },
+            {
+              "text": "They are taught to hunt when they are still children.",
+              "textKo": "어릴 때부터 사냥을 배워서."
+            },
+            {
+              "text": "They have never been hunted themselves and do not know how it feels.",
+              "textKo": "자신들은 사냥당해 본 적이 없어 그 기분을 몰라서."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "the trouble is they never have been hunted themselves and don’t know how it feels"
+        },
+        {
+          "type": "multiple",
+          "question": "How does Lightfoot show Peter he is wrong to say \"I wouldn’t fear you\"?",
+          "questionKo": "\"너는 무섭지 않다\" 는 피터의 말이 틀렸음을 라이트풋은 어떻게 보여 주는가?",
+          "options": [
+            {
+              "text": "He springs in front of Peter, stamps his hoofs and points his antlers straight at him.",
+              "textKo": "피터 앞으로 뛰어들어 발굽을 구르고 뿔을 그에게 곧장 겨눈다."
+            },
+            {
+              "text": "He calls Jumper the Hare over to take his side.",
+              "textKo": "산토끼 점퍼를 불러 자기 편을 들게 한다."
+            },
+            {
+              "text": "He chases Peter all the way to his hole.",
+              "textKo": "피터를 굴까지 쫓아간다."
+            },
+            {
+              "text": "He tells a story about a hunter he once frightened.",
+              "textKo": "전에 겁준 사냥꾼 이야기를 들려준다."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "He stamped his sharp hoofs, lowered his handsome head until the sharp points of his antlers … pointed straight at Peter"
+        },
+        {
+          "type": "multiple",
+          "question": "What does Peter notice hanging from Lightfoot’s antlers, and what does he suspect?",
+          "questionKo": "피터는 라이트풋의 뿔에 무엇이 달린 것을 보고 무엇을 의심하는가?",
+          "options": [
+            {
+              "text": "Dry leaves — that Lightfoot has been sleeping in a thicket.",
+              "textKo": "마른 잎 — 라이트풋이 덤불에서 잤으리라고."
+            },
+            {
+              "text": "What looks like bits of old fur — that Lightfoot has torn somebody’s coat.",
+              "textKo": "낡은 털 조각 같은 것 — 라이트풋이 누군가의 외투를 찢었으리라고."
+            },
+            {
+              "text": "Strands of grass — that he has been feeding in the meadow.",
+              "textKo": "풀 가닥 — 초원에서 풀을 뜯었으리라고."
+            },
+            {
+              "text": "A hunter’s rope — that he has escaped a trap.",
+              "textKo": "사냥꾼의 밧줄 — 덫에서 달아났으리라고."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "It looks like bits of old fur. Have you been tearing somebody’s coat, Lightfoot?"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 2,
+      "chapter_title": "Lightfoot's New Antlers",
+      "word_count": 682,
+      "chapter_v_level": 5,
+      "content": "CHAPTER 2. Lightfoot's New Antlers\u001fLightfoot the Deer\u001ehttps://standardebooks.org/ebooks/thornton-w-burgess/green-forest-stories/text/lightfoot-the-deer#lightfoot-the-deer-chapter-2\n\nPeter Rabbit was puzzled. He stared at Lightfoot the Deer a wee bit suspiciously. \"Have you been tearing somebody's coat?\" he asked again. He didn't like to think it of Lightfoot, whom he always had believed quite as gentle, harmless, and timid as himself. But what else could he think?\n\nLightfoot slowly shook his head. \"No,\" said he, \"I haven't torn anybody's coat.\"\n\n\"Then what are those rags hanging on your antlers?\" demanded Peter.\n\nLightfoot chuckled. \"They are what is left of the coverings of my new antlers,\" he explained.\n\n\"What's that? What do you mean by new antlers?\" Peter was sitting up very straight, with his eyes fixed on Lightfoot's antlers as though he never had seen them before.\n\n\"Just what I said,\" retorted Lightfoot. \"What do you think of them? I think they are the finest antlers I've ever had. When I get the rest of those rags off, they will be as handsome a set as ever was grown in the Green Forest.\"\n\nLightfoot rubbed his antlers against the trunk of a tree till some of the rags hanging to them dropped off.\n\nPeter blinked very hard. He was trying to understand and he couldn't. Finally he said so.\n\n\"What kind of a story are you trying to fill me up with?\" he demanded indignantly. \"Do you mean to tell me that those are not the antlers that you have had as long as I've known you? How can anything hard like those antlers grow? And if those are new ones, where are the old ones? Show me the old ones, and perhaps I'll believe that these are new ones. The idea of trying to make me believe that antlers grow just like plants! I've seen Bossy the Cow all summer and I know she has got the same horns she had last summer. New antlers indeed!\"\n\n\"You are quite right, Peter, quite right about Bossy the Cow. She never has new horns, but that isn't any reason why I shouldn't have new antlers, is it?\" replied Lightfoot patiently. \"Her horns are quite different from my antlers. I have a new pair every year. You haven't seen me all summer, have you, Peter?\"\n\n\"No, I don't remember that I have,\" replied Peter, trying very hard to remember when he had last seen Lightfoot.\n\n\"I know you haven't,\" retorted Lightfoot. \"I know it because I have been hiding in a place you never visit.\"\n\n\"What have you been hiding for?\" demanded Peter.\n\n\"For my new antlers to grow,\" replied Lightfoot. \"When my new antlers are growing, I want to be away by myself. I don't like to be seen without them or with halfgrown ones. Besides, I am very uncomfortable while the new antlers are growing and I want to be alone.\"\n\nLightfoot spoke as if he really meant every word he said, but still Peter couldn't, he just couldn't believe that those wonderful great antlers had grown out of Lightfoot's head in a single summer. \"Where did you leave your old ones and when did they come off?\" he asked, and there was doubt in the very tone of his voice.\n\n\"They dropped off last spring, but I don't remember just where,\" replied Lightfoot. \"I was too glad to be rid of them to notice where they dropped. You see they were loose and uncomfortable, and I hadn't any more use for them because I knew that my new ones would be bigger and better. I've got one more point on each than I had last year.\" Lightfoot began once more to rub his antlers against the tree to get off the queer rags hanging to them and to polish the points. Peter watched in silence for a few minutes. Then, all his suspicions returning, he said:\n\n\"But you haven't told me anything about those rags hanging to your antlers.\"\n\n\"And you haven't believed what I have already told you,\" retorted Lightfoot. \"I don't like telling things to people who won't believe me.\"",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "What does Lightfoot say the rags on his antlers really are?",
+          "questionKo": "라이트풋은 뿔에 걸린 넝마가 실은 무엇이라고 말하는가?",
+          "options": [
+            {
+              "text": "Moss he gathered to line his hiding place.",
+              "textKo": "은신처에 깔려고 모은 이끼."
+            },
+            {
+              "text": "Fur torn from an animal he fought.",
+              "textKo": "싸운 짐승에게서 뜯긴 털."
+            },
+            {
+              "text": "What is left of the coverings of his new antlers.",
+              "textKo": "새 뿔을 덮고 있던 것의 남은 조각."
+            },
+            {
+              "text": "Cloth caught from a hunter’s coat.",
+              "textKo": "사냥꾼 외투에서 걸린 천."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "They are what is left of the coverings of my new antlers"
+        },
+        {
+          "type": "multiple",
+          "question": "What comparison does Peter use to argue that antlers cannot be new?",
+          "questionKo": "피터는 뿔이 새것일 리 없다고 주장하며 무엇에 견주는가?",
+          "options": [
+            {
+              "text": "Jumper the Hare, whose fur changes colour each season.",
+              "textKo": "계절마다 털색이 바뀌는 산토끼 점퍼."
+            },
+            {
+              "text": "The hemlock tree, which keeps its needles all year.",
+              "textKo": "일 년 내내 잎을 지니는 솔송나무."
+            },
+            {
+              "text": "Mr. and Mrs. Quack, who return with the same feathers.",
+              "textKo": "같은 깃털로 돌아오는 꽥꽥 부부."
+            },
+            {
+              "text": "Bossy the Cow, who has had the same horns all summer.",
+              "textKo": "여름 내내 같은 뿔을 지녀 온 소 보시."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "I’ve seen Bossy the Cow all summer and I know she has got the same horns she had last summer."
+        },
+        {
+          "type": "multiple",
+          "question": "How does Lightfoot answer Peter’s comparison?",
+          "questionKo": "라이트풋은 피터의 그 비교에 어떻게 답하는가?",
+          "options": [
+            {
+              "text": "He agrees about Bossy, but says her horns are quite different — he grows a new pair every year.",
+              "textKo": "보시에 대해선 맞다면서도, 그 뿔은 전혀 다른 것이며 자기는 해마다 새 한 쌍이 난다고 한다."
+            },
+            {
+              "text": "He denies that Bossy has horns at all.",
+              "textKo": "보시에게 뿔이 있다는 것 자체를 부인한다."
+            },
+            {
+              "text": "He says Peter has simply misremembered the summer.",
+              "textKo": "피터가 여름을 잘못 기억한 것뿐이라고 한다."
+            },
+            {
+              "text": "He admits Peter is right and drops the subject.",
+              "textKo": "피터 말이 맞다고 인정하고 화제를 접는다."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "Her horns are quite different from my antlers. I have a new pair every year."
+        },
+        {
+          "type": "multiple",
+          "question": "Why had Lightfoot kept out of sight all summer?",
+          "questionKo": "라이트풋이 여름 내내 모습을 감추고 있었던 이유는?",
+          "options": [
+            {
+              "text": "Hunters had been searching the Green Forest for him.",
+              "textKo": "사냥꾼들이 초록 숲에서 그를 찾고 있어서."
+            },
+            {
+              "text": "He was uncomfortable while the new antlers grew and did not want to be seen half-grown.",
+              "textKo": "새 뿔이 자라는 동안 불편했고, 덜 자란 모습을 보이기 싫어서."
+            },
+            {
+              "text": "He had quarrelled with Jumper the Hare.",
+              "textKo": "산토끼 점퍼와 다투어서."
+            },
+            {
+              "text": "The pond where he drank had dried up.",
+              "textKo": "물을 마시던 연못이 말라서."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "I don’t like to be seen without them or with halfgrown ones. Besides, I am very uncomfortable while the new antlers are growing"
+        },
+        {
+          "type": "multiple",
+          "question": "Why can Lightfoot not show Peter the old antlers?",
+          "questionKo": "라이트풋이 옛 뿔을 피터에게 보여 줄 수 없는 이유는?",
+          "options": [
+            {
+              "text": "Jumper the Hare carried them away.",
+              "textKo": "산토끼 점퍼가 가져가 버려서."
+            },
+            {
+              "text": "A hunter took them as a prize.",
+              "textKo": "사냥꾼이 전리품으로 가져가서."
+            },
+            {
+              "text": "They dropped off last spring and he was too glad to be rid of them to notice where.",
+              "textKo": "지난봄에 떨어졌는데, 벗어난 것이 기뻐 어디에 떨어졌는지 살피지 않아서."
+            },
+            {
+              "text": "They were buried under the winter snow.",
+              "textKo": "겨울 눈 아래 묻혀 버려서."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "They dropped off last spring, but I don’t remember just where"
+        },
+        {
+          "type": "multiple",
+          "question": "How do this year’s antlers differ from last year’s?",
+          "questionKo": "올해의 뿔은 작년 것과 어떻게 다른가?",
+          "options": [
+            {
+              "text": "They are darker in colour.",
+              "textKo": "색이 더 짙다."
+            },
+            {
+              "text": "They are lighter and easier to carry.",
+              "textKo": "더 가볍고 지니기 쉽다."
+            },
+            {
+              "text": "They grew in half the usual time.",
+              "textKo": "평소의 절반 만에 자랐다."
+            },
+            {
+              "text": "They have one more point on each side.",
+              "textKo": "양쪽에 가지가 하나씩 더 있다."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "I’ve got one more point on each than I had last year."
+        }
+      ]
+    },
+    {
+      "chapter_idx": 3,
+      "chapter_title": "Lightfoot Tells How His Antlers Grew",
+      "word_count": 742,
+      "chapter_v_level": 4,
+      "content": "CHAPTER 3. Lightfoot Tells How His Antlers Grew\u001fLightfoot the Deer\u001ehttps://standardebooks.org/ebooks/thornton-w-burgess/green-forest-stories/text/lightfoot-the-deer#lightfoot-the-deer-chapter-3\n\nIt is hard to believe what seems impossible. And yet what seems impossible to you may be a very commonplace matter to someone else. So it does not do to say that a thing cannot be possible just because you cannot understand how it can be. Peter Rabbit wanted to believe what Lightfoot the Deer had just told him, but somehow he couldn't. If he had seen those antlers growing, it would have been another matter. But he hadn't seen Lightfoot since the very last of winter, and then Lightfoot had worn just such handsome antlers as he now had. So Peter really couldn't be blamed for not being able to believe that those old ones had been lost and in their place new ones had grown in just the few months of spring and summer.\n\nBut Peter didn't blame Lightfoot in the least, because he had told Peter that he didn't like to tell things to people who wouldn't believe what he told them when Peter had asked him about the rags hanging to his antlers. \"I'm trying to believe it,\" he said, quite humbly.\n\n\"It's all true,\" broke in another voice.\n\nPeter jumped and turned to find his big cousin, Jumper the Hare. Unseen and unheard, he had stolen up and had overheard what Peter and Lightfoot had said.\n\n\"How do you know it is true?\" snapped Peter a little crossly, for Jumper had startled him.\n\n\"Because I saw Lightfoot's old antlers after they had fallen off, and I often saw Lightfoot while his new ones were growing,\" retorted Jumper.\n\n\"All right! I'll believe anything that Lightfoot tells me if you say it is true,\" declared Peter, who greatly admires his cousin, Jumper. \"Now tell me about those rags, Lightfoot. Please do.\"\n\nLightfoot couldn't resist that \"please.\" \"Those rags are what is left of a kind of covering which protected the antlers while they were growing, as I told you before,\" said he. \"Very soon after my old ones dropped off the new ones began to grow. They were not hard, not at all like they are now. They were soft and very tender, and the blood ran through them just as it does through our bodies. They were covered with a sort of skin with hairs on it like thin fur. The ends were not sharply pointed as they now are, but were big and rounded, like knobs. They were not like antlers at all, and they made my head hot and were very uncomfortable. That is why I hid away. They grew very fast, so fast that every day I could see by looking at my reflection in water that they were a little longer. It seemed to me sometimes as if all my strength went into those new antlers. And I had to be very careful not to hit them against anything. In the first place it would have hurt, and in the second place it might have spoiled the shape of them.\n\n\"When they had grown to the length you now see, they began to shrink and grow hard. The knobs on the ends shrank until they became pointed. As soon as they stopped growing the blood stopped flowing up in them, and as they became hard they were no longer tender. The skin which had covered them grew dry and split, and I rubbed it off on trees and bushes. The little rags you see are what is left, but I will soon be rid of those. Then I shall be ready to fight if need be and will fear no one save man, and will fear him only when he has a terrible gun with him.\"\n\nLightfoot tossed his head proudly and rattled his wonderful antlers against the nearest tree. \"Isn't he handsome,\" whispered Peter to Jumper the Hare; \"and did you ever hear of anything so wonderful as the growing of those new antlers in such a short time? It is hard to believe, but I suppose it must be true.\"\n\n\"It is,\" replied Jumper, \"and I tell you, Peter, I would hate to have Lightfoot try those antlers on me, even though I were big as a man. You've always thought of Lightfoot as timid and afraid, but you should see him when he is angry. Few people care to face him then.\"",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "Who finally persuades Peter that Lightfoot is telling the truth, and how?",
+          "questionKo": "결국 누가, 어떻게 피터에게 라이트풋의 말이 참임을 납득시키는가?",
+          "options": [
+            {
+              "text": "Jumper the Hare — he saw the fallen antlers and often saw the new ones growing.",
+              "textKo": "산토끼 점퍼 — 떨어진 뿔을 보았고 새 뿔이 자라는 것도 여러 번 보았다."
+            },
+            {
+              "text": "Mr. Quack — he has seen deer in the Southland.",
+              "textKo": "꽥꽥 씨 — 남쪽 나라에서 사슴을 보았다."
+            },
+            {
+              "text": "Farmer Brown’s boy — he keeps a set of old antlers.",
+              "textKo": "농부 브라운의 아들 — 옛 뿔 한 쌍을 갖고 있다."
+            },
+            {
+              "text": "Nobody — Peter goes away still not believing.",
+              "textKo": "아무도 — 피터는 끝내 믿지 않고 떠난다."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "Because I saw Lightfoot’s old antlers after they had fallen off, and I often saw Lightfoot while his new ones were growing"
+        },
+        {
+          "type": "multiple",
+          "question": "What were the antlers like while they were growing?",
+          "questionKo": "자라는 동안의 뿔은 어떤 모습이었는가?",
+          "options": [
+            {
+              "text": "Hard and sharp from the very first day.",
+              "textKo": "첫날부터 단단하고 날카로웠다."
+            },
+            {
+              "text": "Soft and tender, with blood running through them and knobs at the ends.",
+              "textKo": "부드럽고 여렸으며, 피가 흐르고 끝은 혹처럼 뭉툭했다."
+            },
+            {
+              "text": "Hollow inside and light as a feather.",
+              "textKo": "속이 비어 깃털처럼 가벼웠다."
+            },
+            {
+              "text": "Loose, so that they rattled when he moved.",
+              "textKo": "헐거워서 움직일 때마다 덜그럭거렸다."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "They were soft and very tender, and the blood ran through them just as it does through our bodies."
+        },
+        {
+          "type": "multiple",
+          "question": "Why did Lightfoot have to keep the growing antlers from striking anything?",
+          "questionKo": "라이트풋이 자라는 뿔을 어디에도 부딪지 않게 조심해야 했던 이유는?",
+          "options": [
+            {
+              "text": "The noise would have given away his hiding place.",
+              "textKo": "그 소리가 은신처를 알려 줄 수 있어서."
+            },
+            {
+              "text": "They would have fallen off at once.",
+              "textKo": "곧바로 떨어져 버릴 수 있어서."
+            },
+            {
+              "text": "A blow would have hurt, and it might also have spoiled their shape.",
+              "textKo": "부딪히면 아프고, 모양까지 망칠 수 있어서."
+            },
+            {
+              "text": "The bark would have stained them.",
+              "textKo": "나무껍질에 물이 들 수 있어서."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "In the first place it would have hurt, and in the second place it might have spoiled the shape of them."
+        },
+        {
+          "type": "multiple",
+          "question": "What happened to the antlers once they stopped growing?",
+          "questionKo": "다 자란 뒤 뿔에는 무슨 일이 일어났는가?",
+          "options": [
+            {
+              "text": "They kept growing slowly through the winter.",
+              "textKo": "겨울 내내 천천히 계속 자랐다."
+            },
+            {
+              "text": "They turned soft again and had to be protected.",
+              "textKo": "다시 물러져 보호해야 했다."
+            },
+            {
+              "text": "They became loose and were shed within days.",
+              "textKo": "헐거워져 며칠 만에 떨어졌다."
+            },
+            {
+              "text": "They shrank and hardened, the knobs became points, and the dried skin split off.",
+              "textKo": "줄어들며 단단해지고, 혹은 뾰족해졌으며, 마른 껍질이 갈라져 벗겨졌다."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "they began to shrink and grow hard. The knobs on the ends shrank until they became pointed."
+        },
+        {
+          "type": "multiple",
+          "question": "Once his antlers are finished, whom does Lightfoot still say he will fear?",
+          "questionKo": "뿔이 완성된 뒤에도 라이트풋이 두려워하겠다고 말하는 상대는?",
+          "options": [
+            {
+              "text": "Man, and man only when he carries a terrible gun.",
+              "textKo": "사람 — 그것도 무서운 총을 지녔을 때만."
+            },
+            {
+              "text": "The hunting dogs of Farmer Brown.",
+              "textKo": "농부 브라운의 사냥개들."
+            },
+            {
+              "text": "Any deer with larger antlers than his own.",
+              "textKo": "자기보다 큰 뿔을 가진 사슴."
+            },
+            {
+              "text": "No one at all — he says he is now beyond fear.",
+              "textKo": "아무도 — 이제 두려움을 넘어섰다고 말한다."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "will fear no one save man, and will fear him only when he has a terrible gun with him"
+        },
+        {
+          "type": "truefalse",
+          "question": "Jumper says Lightfoot is harmless even when he is angry.",
+          "questionKo": "점퍼는 라이트풋이 화가 났을 때도 해롭지 않다고 말한다.",
+          "options": [
+            {
+              "text": "True",
+              "textKo": "맞다"
+            },
+            {
+              "text": "False",
+              "textKo": "아니다"
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "you should see him when he is angry. Few people care to face him then."
+        }
+      ]
+    }
+  ]
+}

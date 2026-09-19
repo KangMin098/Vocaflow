@@ -1,0 +1,33 @@
+{
+  "$schema": "vocab-brand-drain/1",
+  "family": "delivery",
+  "facts": {
+    "setCount": 2,
+    "wordCount": 1100,
+    "coversPresent": 2,
+    "blueprints": [
+      "day-pacing",
+      "mnemonic-story"
+    ],
+    "titles": [
+      "연상으로 외우는 단어",
+      "30일 완성 (하루 20개)"
+    ],
+    "duotoneNow": {
+      "light": {
+        "ink": "#0F2540",
+        "paper": "#E3E8EE"
+      },
+      "dark": {
+        "ink": "#6B9BD1",
+        "paper": "#2D261F"
+      }
+    }
+  },
+  "setIds": [
+    "80c7abdd-ebb3-453a-bdcd-67c84d7d775c",
+    "e3a30bbf-d8a3-425b-b60f-d145dcb6fa2b"
+  ],
+  "alreadyBranded": 0,
+  "instructions": "Claude Design 캔버스로 이 계열의 표지 규격을 확정한 뒤 `chunk-NN.out.json` 에 VocabBrandCanvas 한 개를 쓴다. **색 값(hex/rgb)을 담으면 import 가 거절한다** — 역할 이름(ink·paper·accent)만 쓴다. 값은 디자인 토큰이 정본이다."
+}

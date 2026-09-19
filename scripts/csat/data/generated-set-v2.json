@@ -1,0 +1,101 @@
+{
+ "note": "v2 — **세 관문(난도·장르·라이선스)을 전수 스캔으로 통과한 실제 소스**로 만들었다. 소스는 eLife digest 2편(cc_by, 파생 허용). v1 은 CC0 자체 작문(CEFR B2)이라 어휘 난도가 안 나왔고, 그 격차가 ③의 남은 실패였다. 기출 지문은 한 편도 쓰지 않았다.",
+ "sources": [
+  { "id": "f678fe1c-f1c1-4127-9898-f9aa3025251d", "source": "elife", "license": "cc_by", "title": "Mouthparts of the bumblebee exhibit poor acuity for the detection of pesticides in nectar (eLife digest)", "chars": 2042, "wordLen": 5.305, "long8": 0.230 },
+  { "id": "a2e31b95-6a99-44c5-83c7-b6207e0aa9eb", "source": "elife", "license": "cc_by", "title": "Intermittent fasting promotes type 3 innate lymphoid cells (eLife digest)", "chars": 2018, "wordLen": 5.105, "long8": 0.198 }
+ ],
+ "procedure": [
+  "D2 유형: E11 의 TYPE_BY_NO 를 그대로",
+  "D3 배점: E9 로 34·37 을 3점",
+  "D7 선지 언어: blueprint 의 choice_lang",
+  "D4 정답 자리: I2(순서대응형 ① 회피)만 지키고 나머지는 자유",
+  "D5·D6: §6.15(정답은 한 층위 위) · §6.12(오답이 지문을 문다) · P3.13(어휘는 반의어 치환)",
+  "지문 길이: v1 의 교훈대로 처음부터 약 900자로 맞췄다(자르지 않았다)",
+  "⚠️ D5·D6 을 규칙을 보고 만들었으므로 추상도·반향·정답 길이순위 측정은 순환이다"
+ ],
+ "items": [
+  {
+   "no": 23, "type": "R-TOPIC", "points": 2, "answer": 2, "src": "bumblebee",
+   "passage": "Bees and other pollinators often encounter pesticides while collecting nectar and pollen from agricultural crops. Widely used to protect crops, pesticides are toxic to insects and have contributed to population declines in all bee species. One way that bees might be able to avoid pesticides is using their incredibly good sense of taste, which can detect subtle differences between sugary solutions. Therefore, if pesticides taste bitter to them, bumblebees may be able to avoid feeding on treated crops. However, it was not clear whether bees can taste pesticides at all. Previous studies investigating a group of pesticides called neonicotinoids gave contradictory results, and explicit behavioural tests of their ability to taste pesticides had not been performed. Comparisons of neuron responses within the structures used for detecting taste showed that responses were the same whether the sugar solution contained pesticides or not.",
+   "choices": [
+    "effects of neonicotinoids on the nervous systems of crops",
+    "the failure of taste as a defence against pesticides",
+    "methods for measuring sweetness in sugary solutions",
+    "reasons why pesticides are applied to flowering crops",
+    "differences in taste sensitivity among pollinator species"
+   ]
+  },
+  {
+   "no": 24, "type": "R-TITLE", "points": 2, "answer": 2, "src": "bumblebee",
+   "passage": "One way that bees might be able to avoid pesticides is using their incredibly good sense of taste, which can detect subtle differences between sugary solutions. However, it was not clear whether bees can taste pesticides at all, and previous studies gave contradictory results. Experiments with a group of pesticides known as cholinergic showed that neuron responses were the same whether the sugar solution contained pesticides or not. Secondly, bees offered both pure and pesticide-laced sugar solutions would still drink the pesticide solution, even when it was toxic enough to make them very ill or kill them. This was the case regardless of which pesticide was used. The experiments showed that bumblebees cannot use their sense of taste to avoid drinking pesticide-laced nectar, which is an important finding for policymakers making decisions about the use of pesticides on agricultural crops.",
+   "choices": [
+    "Bitter or Sweet? How Bees Rank Sugary Solutions",
+    "A Sense of Taste That Cannot Save the Bees",
+    "Neonicotinoids: The Chemistry Behind Crop Protection",
+    "Why Pollination Still Depends on Wild Insects",
+    "Designing Crops That No Longer Need Pollinators"
+   ]
+  },
+  {
+   "no": 29, "type": "R-GRAMMAR", "points": 2, "answer": 4, "src": "fasting",
+   "passage": "Obesity refers to a condition where a person has excessive fat accumulation, which ① can have negative impacts on their health. Managing obesity has typically ② relied on reducing energy intake and increasing energy use through diets and exercise. For example, intermittent fasting is a diet strategy involving periods of time in a day or week where a person does not eat any food. Research has shown that intermittent fasting may improve the metabolism and increase energy use by ③ enhancing a process known as beigeing of white fat tissue. In this process, white fat cells or their precursor cells differentiate into beige fat cells, which ④ is able to consume excess energy by burning fat. Consequently, understanding how beigeing of white fat cells is activated in intermittent fasting ⑤ may reveal a promising strategy for tackling obesity and metabolic diseases.",
+   "grammarPoints": ["G9 시제·조동사", "G1 준동사 vs 정동사", "G1 준동사 vs 정동사", "G3 수일치", "G9 시제·조동사"],
+   "choices": ["can have", "relied", "enhancing", "is able to", "may reveal"]
+  },
+  {
+   "no": 30, "type": "R-VOCAB", "points": 3, "answer": 3, "src": "fasting",
+   "vocabFormat": "underline", "swapType": "antonym", "intended": "complex",
+   "passage": "Intermittent fasting is a diet strategy involving periods of time in a day or week where a person does not eat any food. Research has shown that intermittent fasting may ① improve the metabolism and increase energy use by enhancing a process known as beigeing of white fat tissue. In this process, white fat cells or their precursor cells differentiate into beige fat cells, which can ② consume excess energy by burning fat. Immune cells found in the gut known as innate lymphoid cells may play a role in the metabolic benefits from intermittent fasting. However, the roles of these cells are ③ simple: some types can promote obesity, while others show metabolic benefits through their release of proteins that help the body to metabolise glucose. Understanding how beigeing is ④ activated may therefore reveal a promising strategy for ⑤ tackling obesity and metabolic diseases.",
+   "choices": ["improve", "consume", "simple", "activated", "tackling"]
+  },
+  {
+   "no": 32, "type": "R-BLANK", "points": 3, "answer": 4, "src": "fasting",
+   "passage": "Managing obesity has typically relied on reducing energy intake and increasing energy use through diets and exercise. For example, intermittent fasting is a diet strategy involving periods of time in a day or week where a person does not eat any food. Research has shown that intermittent fasting may improve the metabolism by enhancing a process known as beigeing of white fat tissue, in which white fat cells or their precursor cells differentiate into beige fat cells that consume excess energy by burning fat. Immune cells found in the gut may also play a role in these metabolic benefits. However, the roles of such cells resist any simple summary: some types promote obesity, while others show benefits through their release of proteins that help the body to metabolise glucose. What the recent work therefore establishes is ______.",
+   "choices": [
+    "a diet plan that removes the need for exercise entirely",
+    "the exact quantity of energy burned by a single fat cell",
+    "a method for counting immune cells in the human gut",
+    "a route by which fasting reaches fat tissue",
+    "the reason obesity has spread across wealthy populations"
+   ]
+  },
+  {
+   "no": 34, "type": "R-BLANK", "points": 3, "answer": 5, "src": "bumblebee",
+   "passage": "Bees and other pollinators often encounter pesticides while collecting nectar and pollen from agricultural crops. One way that bees might avoid them is using their incredibly good sense of taste, which can detect subtle differences between sugary solutions. Experiments with a group of pesticides known as cholinergic showed that neuron responses were the same whether the sugar solution contained pesticides or not. Bees offered both pure and pesticide-laced sugar solutions would still drink the pesticide solution, even when it was toxic enough to make them very ill or kill them, and this was the case regardless of which pesticide was used. It is possible that bees simply have a poor sense of bitter taste. In the future, these methods could be used to identify a compound that tastes bad to bees. What the experiments finally removed was ______.",
+   "choices": [
+    "the possibility of protecting crops without any chemicals",
+    "the difference between a pure and a treated sugar solution",
+    "the need for behavioural tests of insect feeding",
+    "the contradiction between two groups of earlier studies",
+    "a defence the bees were assumed to have"
+   ]
+  },
+  {
+   "no": 35, "type": "R-IRRELEVANT", "points": 2, "answer": 4, "src": "fasting",
+   "passage": "Obesity refers to a condition where a person has excessive fat accumulation, which can have negative impacts on their health. ① Managing obesity has typically relied on reducing energy intake and increasing energy use through diets and exercise. ② Intermittent fasting, for example, is a strategy involving periods of time in a day or week where a person does not eat any food. ③ Research has shown that it may improve the metabolism by enhancing a process known as beigeing of white fat tissue. ④ Commercial kitchens in large hotels are now required to record the temperature of stored food twice a day. ⑤ In that process, white fat cells differentiate into beige fat cells, which consume excess energy by burning fat.",
+   "choices": ["①", "②", "③", "④", "⑤"]
+  },
+  {
+   "no": 37, "type": "R-ORDER", "points": 3, "answer": 2, "src": "bumblebee",
+   "passage": "Bees and other pollinators often encounter pesticides while collecting nectar and pollen from agricultural crops. Widely used to protect crops, pesticides are toxic to insects and have contributed to population declines in all bee species.",
+   "blocks": {
+    "A": "Experiments with a group of pesticides known as cholinergic showed that neuron responses were the same whether the sugar solution contained pesticides or not, and bees offered both pure and treated solutions still drank the treated one.",
+    "B": "One way that bees might avoid them is using their incredibly good sense of taste, which can detect subtle differences between sugary solutions. However, it was not clear whether bees can taste pesticides at all.",
+    "C": "The experiments therefore showed that bumblebees cannot use taste to avoid pesticide-laced nectar, which is an important finding for policymakers deciding how such chemicals may be used on crops."
+   },
+   "choices": ["(A)-(C)-(B)", "(B)-(A)-(C)", "(B)-(C)-(A)", "(C)-(A)-(B)", "(C)-(B)-(A)"],
+   "orderAnswer": "(B)-(A)-(C)"
+  },
+  {
+   "no": 26, "type": "R-FACT", "points": 2, "answer": 3, "src": "bumblebee",
+   "passage": "Bees and other pollinators often encounter pesticides while collecting nectar and pollen from agricultural crops. Widely used to protect crops, pesticides are toxic to insects and have contributed to population declines in all bee species. Previous studies investigating a group of pesticides called neonicotinoids gave contradictory results, and explicit behavioural tests of the ability of bees to taste pesticides had not been performed. Experiments comparing neuron responses showed that the responses were the same whether the sugar solution contained pesticides or not. Bees offered both pure and pesticide-laced sugar solutions would still drink the pesticide solution, even when it was toxic enough to make them very ill or kill them. It is possible that bees simply have a poor sense of bitter taste, and these methods could later be used to identify a compound that tastes bad to bees.",
+   "choices": [
+    "살충제는 모든 벌 종의 개체수 감소에 기여했다.",
+    "네오니코티노이드에 관한 이전 연구들은 상반된 결과를 냈다.",
+    "신경 반응은 살충제가 든 용액에서 더 강하게 나타났다.",
+    "벌은 독성이 있는 용액도 그대로 마셨다.",
+    "벌이 싫어하는 맛의 물질을 찾는 데 이 방법을 쓸 수 있다."
+   ]
+  }
+ ]
+}

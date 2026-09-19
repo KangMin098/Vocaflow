@@ -1,0 +1,206 @@
+{
+ "chunk": 5,
+ "type_id": "R-GIST",
+ "type_name": "요지",
+ "analyses": [
+  {
+   "item_id": "2014B#23",
+   "revised": true,
+   "measured_ability": "필자가 첫 문장에서 '문제'로 규정한 행동(남이 원하는 대로 다 맞춰 주기)과 But 뒤에서 내세우는 '대안 행동'(say no)을 짝지어, 글 전체가 권하는 한 가지 행동을 우리말 명제로 옮기는 능력",
+   "design_intent": "지문이 거절(say no)의 이로움을 '나 자신'과 '대인 관계' 두 방향으로 함께 말하도록 짜여 있어, 관계 쪽 서술만 집어 들면 거절이 관계를 해친다는 정반대 명제(④)나 배려를 권하는 명제(②)로 새게 된다. 필자의 권고가 마지막 두 문장의 명령문에 한 번 더 못박혀 있다는 점을 보게 하려는 설계다.",
+   "answer_locus": {
+    "sentence_index": [4, 5],
+    "quote": "when we learn to say no to what we don’t feel like doing in order to say yes to our true self",
+    "reasoning": "4번 문장은 '무엇을' 거절하는지를 what we don’t feel like doing 으로 한정해 주고, 그 결과를 empowered(나)와 relationships ... improve(관계) 둘로 갈라 놓는다. 곧 거절은 관계를 해치는 행동이 아니라 관계를 낫게 하는 행동으로 제시된다. 이어지는 5번 문장 So don’t be afraid to say no. 가 서술을 권고(당위)로 바꾸므로, '~할 필요가 있다' 형태의 선지가 확정된다."
+   },
+   "choices": [
+    {
+     "n": 3,
+     "verdict": "correct",
+     "why_correct": "근거 문장의 say no to what we don’t feel like doing 이 이 선지의 '원하지 않는 일은 거절' 과 낱말 단위로 맞물린다 — what we don’t feel like doing = 원하지 않는 일, say no = 거절. 서술을 당위로 바꾸는 부분은 뒤 문장의 명령문 So don’t be afraid to say no. 이고, 이것이 선지 끝의 '필요가 있다' 에 대응한다.",
+     "confirmed_at": {
+      "sentence_index": [5],
+      "note": "4번 문장만으로는 '거절하면 이롭다'(사실 서술)까지이고, 권고(필요가 있다)는 5번 명령문 So don’t be afraid to say no. 에서 확정된다"
+     }
+    },
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "4번 문장의 we feel empowered 를 '성취감' 으로 옮기면 '~할 때 ~감이 생긴다' 라는 선지 골격이 그대로 맞아 보이고, 지문이 힘든 상황을 다루는 듯한 인상(distress, cost)과도 어울린다.",
+     "how_to_reject": "empowered 가 걸린 조건절을 보면 그 앞은 난관이 아니라 when we learn to say no ... 다(4번 문장). 지문 어디에도 난관·역경에 해당하는 어구가 없고, 첫 문장이 문제로 지목한 것은 어려움이 아니라 the trap of trying to please people 이다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "반대 진술",
+     "why_tempting": "첫 문장에 the good child, the uncomplaining employee, the cooperative patient 처럼 타인을 배려하는 역할 명사가 줄지어 나와, 지문이 그 태도를 권한다고 읽으면 바로 닿는다.",
+     "how_to_reject": "그 역할들이 걸린 동사가 fall into the trap of trying to please people 이다(1번 문장) — 권고가 아니라 함정으로 규정한 자리다. 게다가 5번 문장의 명령문 So don’t be afraid to say no. 는 정확히 반대 방향을 지시한다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "인과 역전",
+     "why_tempting": "3번 문장에 it causes distress in our relationships 가 있어 '관계 악화' 라는 결과어가 지문에 실제로 있다. 그 원인을 '자기 의견 고집' 으로 바꿔 놓으면 선지 전체가 지문 어휘로 채워진 것처럼 읽힌다.",
+     "how_to_reject": "3번 문장에서 distress 의 원인은 When we are unable to set healthy limits 곧 '한계를 못 긋는 것' 이다. 반대로 한계를 긋는 쪽(거절)의 결과는 4번 문장 끝의 our relationships with others improve 이므로 원인과 결과가 선지와 뒤집혀 있다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "무관",
+     "why_tempting": "'승낙 / 거절' 이라는 짝이 지문의 say yes / say no 와 겹쳐 보이고, 6번 문장의 Try to catch yourself in the moment 를 '상대의 의도를 살펴라' 로 옮기면 절차를 권하는 글처럼 읽힌다.",
+     "how_to_reject": "6번 문장이 붙잡으라고 한 대상은 상대가 아니라 yourself 이고, 이어지는 use your true voice to say what you really want to say 도 화자 자신을 향한다. 지문에 상대의 의도·동기를 가리키는 표현(intention, motive 류)이 한 번도 없다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "지문을 읽기 전에 선지 다섯을 '무엇을 하라 / 무엇이 일어난다' 로 줄여 동사만 옮겨 적는다 (거절 · 배려 · 고집→악화 · 의도 파악 · 성취감).",
+     "on_fail": "동사가 안 잡히는 선지는 서술어 끝만 본다 — '~해야 한다/필요가 있다' 는 권고형, '~가 생긴다/악화된다' 는 결과형으로 갈라 둔다"
+    },
+    {
+     "step": "첫 문장에서 필자의 평가어를 찾는다 — trap · fall into 처럼 부정 평가가 붙은 행동이 곧 필자가 반대하는 쪽이다. 그 행동에 X 표를 한다.",
+     "on_fail": "평가어가 없으면 첫 문장은 배경으로 두고 But·However 가 나오는 문장으로 바로 내려간다"
+    },
+    {
+     "step": "But 이 붙은 문장을 찾아 X 표한 행동의 반대 행동을 한 낱말로 뽑는다 (여기서는 say no).",
+     "on_fail": "But 절이 길면 주절의 동사구만 본다 — when 절은 조건, 주절은 결과다"
+    },
+    {
+     "step": "마지막 두 문장이 명령문인지 본다. 명령문이 있으면 그 동사가 필자의 권고이고, 1단계에서 갈라 둔 권고형 선지 중 그 동사와 같은 것만 남긴다.",
+     "on_fail": "명령문이 없으면 should·need to·must 가 붙은 문장을 찾아 같게 처리한다"
+    },
+    {
+     "step": "둘 이상 남으면 원인·결과의 방향을 대조한다 — 지문에서 '관계가 나빠진다' 의 원인이 거절인지 거절 못 함인지 해당 문장의 when 절을 확인한다.",
+     "on_fail": "when 절이 없으면 그 결과어(improve · distress)가 어느 행동 뒤에 붙어 있는지 위치로 판정한다"
+    }
+   ],
+   "time_budget_sec": 70,
+   "difficulty": {
+    "predicted": 0.9,
+    "drivers": [
+     "권고가 명령문 So don't be afraid to say no. 로 직접 제시되어 근거가 표면에 있다",
+     "선지가 우리말이라 영어 어휘 부담이 거의 없다",
+     "대인 관계 악화를 말하는 선지가 있어 인과 방향을 한 번은 확인해야 한다",
+     "2점 · 독해 첫머리 배치"
+    ]
+   },
+   "required_vocab": [
+    "boundaries",
+    "limits",
+    "empowered",
+    "distress",
+    "uncomplaining"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "인용을 4번 문장의 when 절로 끊어 잡았다 — 같은 문장 뒤쪽에 코퍼스 지문의 '______' 부스러기가 끼어 있어 통째로 인용하면 문자 대조가 흔들린다",
+      "why_correct 의 대응이 두 겹이다: say no to what we don't feel like doing ↔ '원하지 않는 일은 거절', 그리고 명령문 So don't be afraid to say no ↔ '필요가 있다'. 요지 유형은 권고형 어미까지 근거를 대야 ①·④ 같은 결과형 선지와 갈린다"
+     ],
+     "checked": [
+      "answer_locus.quote 를 corpus.json 의 2014B#23 passage 와 문자열 대조 (부분문자열로 존재 확인)",
+      "why_correct 의 영어 표현 두 개가 지문에 실제로 있는지 각각 대조",
+      "R-GIST 유형 정의(필자가 권하는 명제 한 가지) 대조 — 제목·주제어가 아니라 권고 명제로 서술했는지",
+      "정답 번호 3 을 코퍼스 answer 필드와 대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "1차에서 반려했다 — ①과 ⑤에 '지문 밖 상식' 을 똑같이 달아 라벨이 겹쳤고, ⑤의 how_to_reject 가 '지문에 없다' 로만 끝나 위치가 없었다",
+      "고쳤다: ①은 empowered→'성취감' 치환이 핵심이라 '어휘 함정', ⑤는 '무관' 으로 갈랐고 배제 근거를 6번 문장의 catch yourself / your true voice 로 지목했다",
+      "결과적으로 오답 넷의 라벨이 어휘 함정 · 반대 진술 · 인과 역전 · 무관 넷으로 전부 다르다",
+      "why_tempting 넷이 모두 선지 텍스트의 실제 어구('성취감' · '타인의 입장' · '고집하면 대인 관계' · '의도를 파악')를 인용한다"
+     ],
+     "checked": [
+      "오답 4개의 trap 라벨 중복 여부 확인 (4종 전부 다름)",
+      "why_tempting 을 선지 우리말 문자열과 하나씩 대조",
+      "how_to_reject 넷에 문장 번호 또는 영어 인용이 들어 있는지 확인 (4/4)",
+      "코퍼스 answer=3 과 correct 선지 번호 일치 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "1단계를 선지 먼저 줄여 적기로 둔 것은 이 문항에서 값이 있다 — 권고형(②③⑤)과 결과형(①④)이 갈리면 4단계 명령문 확인만으로 셋으로 줄어든다",
+      "절차 어느 단계도 지문을 다 읽은 상태를 전제하지 않는다. 2~4단계는 첫 문장 · But 문장 · 마지막 두 문장만 본다",
+      "70초 배분: 선지 줄여 적기 15초 · 지문 훑기 30초 · 대조 25초. 2점 문항이라 이 이상 쓰면 빈칸 유형에서 시간이 모자란다",
+      "required_vocab 다섯은 전부 지문에 있는 낱말이고, set healthy limits / boundaries 를 모르면 3번 문장의 인과를 못 읽어 ④로 간다"
+     ],
+     "checked": [
+      "solve_procedure 5단계에 금지 표현(흐름을 파악하면 · 내용을 이해하면 등)이 있는지 문자열 확인",
+      "각 단계가 지문을 아직 안 읽은 상태에서 실행 가능한지 순서대로 모의 실행",
+      "required_vocab 5개가 지문에 실제로 있는지 문자열 대조 (boundaries · limits · empowered · distress · uncomplaining)",
+      "time_budget_sec 70 을 단계별로 쪼개 합산"
+     ]
+    }
+   ]
+  }
+ ],
+ "type_report": {
+  "type_id": "R-GIST",
+  "n_analyzed": 1,
+  "recurring_traps": [
+   {
+    "trap": "인과 역전",
+    "count": 1,
+    "signature": "지문이 '한계를 못 그으면 관계가 나빠진다' 고 쓴 것을 선지가 '자기 주장을 하면 관계가 나빠진다' 로 뒤집는다 — 결과어(대인 관계 악화)는 지문에 실재하고 원인만 갈린다"
+   },
+   {
+    "trap": "반대 진술",
+    "count": 1,
+    "signature": "첫 문장의 역할 명사 나열(the good child · the uncomplaining employee)을 권고로 읽으면 필자가 함정이라고 규정한 태도가 그대로 선지가 된다"
+   },
+   {
+    "trap": "어휘 함정",
+    "count": 1,
+    "signature": "핵심 형용사 하나(empowered)를 이웃 뜻(성취감)으로 옮기고 그 조건절을 지문에 없는 것(난관 극복)으로 바꿔 끼운다"
+   },
+   {
+    "trap": "무관",
+    "count": 1,
+    "signature": "자기 자신을 향한 지시(catch yourself · your true voice)를 상대를 향한 지시(의도 파악)로 방향만 돌린다"
+   }
+  ],
+  "answer_locus_pattern": "이 1문항에서 근거는 두 자리다 — 역접 But 이 붙은 문장이 권고의 내용(무엇을 거절하는가)을 주고, 바로 뒤 명령문(So don't be afraid to say no.)이 그것을 당위로 못박는다. 한 자리만 대면 결과형 선지(①·④)와 권고형 선지가 안 갈린다. _PROMPT §1-c 의 '대의파악 7/7이 두 문장 이상' 과 같은 모양이다.",
+  "procedure": [
+   {
+    "step": "지문 전에 선지를 권고형('~해야 한다/필요가 있다')과 결과형('~가 생긴다/악화된다')으로 갈라 둔다",
+    "on_fail": "어미가 애매하면 주어가 '나/우리' 인지 '그 일' 인지로 가른다"
+   },
+   {
+    "step": "첫 문장에서 필자의 부정 평가어(trap · fall into · mistake)를 찾아 그 행동에 X 표를 한다",
+    "on_fail": "평가어가 없으면 첫 문장은 배경으로 두고 역접 표지로 내려간다"
+   },
+   {
+    "step": "But·However·Yet 뒤 문장에서 X 표한 행동의 반대 행동을 한 낱말로 뽑는다",
+    "on_fail": "역접 표지가 없으면 So·Therefore 뒤 문장을 대신 쓴다"
+   },
+   {
+    "step": "마지막 두 문장의 명령문 또는 should·need to 를 찾아, 그 동사와 같은 동사를 가진 권고형 선지만 남긴다",
+    "on_fail": "명령문도 조동사도 없으면 3단계에서 뽑은 낱말과 어의가 같은 선지를 고른다"
+   },
+   {
+    "step": "둘 이상 남으면 결과어(improve · distress 류)가 어느 행동 뒤에 붙어 있는지 그 문장의 when 절로 원인·결과 방향을 대조한다",
+    "on_fail": "방향이 안 잡히면 결과어가 든 문장의 주어를 그대로 선지 주어와 맞춰 본다"
+   }
+  ],
+  "failure_modes": [
+   "지문에 실제로 있는 결과어(대인 관계 악화)를 보고 원인을 확인하지 않은 채 ④로 간다 — 낱말은 맞고 방향만 틀린 선지가 요지 유형의 주된 실점 자리다",
+   "첫 문장의 긍정적 역할 명사(the good child · the cooperative patient)를 필자의 가치관으로 읽어 ②로 간다. 그 명사들이 걸린 동사(fall into the trap of)를 끝까지 안 읽은 결과다",
+   "권고형/결과형 구분을 안 하고 '지문에 나온 말이 많은 선지' 를 고른다 — 요지 정답은 오히려 지문 낱말을 그대로 안 쓰는 쪽이다",
+   "마지막 두 문장(명령문)을 마무리 인사로 보고 건너뛴다. 이 문항에서는 거기가 권고의 확정 자리다"
+  ],
+  "time_budget_sec": 70,
+  "open_questions": [
+   "청크가 1문항이라 유형 일반화는 이 한 건의 관찰일 뿐이다. recurring_traps 의 네 라벨은 각각 1회씩만 셌고(합 4 = 오답 4개), 같은 함정을 두 번 센 곳은 없다.",
+   "코퍼스 지문 4번 문장에 'we feel empowered, ______ and our relationships' 처럼 밑줄 부스러기가 남아 있다. 요지 유형에는 빈칸이 없으므로 원문 조판의 밑줄이 추출된 것으로 보인다. 인용은 그 앞에서 끊어 잡았지만, 다른 2014A/B 문항에도 같은 부스러기가 있는지 파서 쪽에서 한 번 훑을 값이 있다.",
+   "반려는 1건(analyst)만 나왔다. setter·tutor 가 pass 인 것은 인용 자리와 절차가 이 문항에서 단순하기 때문인데, 문항 수가 1이라 '세 자가 같은 것을 재고 있는가' 는 이 청크로 판정할 수 없다.",
+   "type_answer_distribution 상 R-GIST 사정권 29 · keyed 29 중 ①이 12회로 가장 잦다. 다만 이 편중을 절차에 넣지 않았다 — 저장소 Bonferroni 문턱(가족 130 · 3.85e-4)을 대는 검정을 하지 않았고, 찍기를 가르치는 것은 이 파이프라인의 목적이 아니다."
+  ]
+ }
+}

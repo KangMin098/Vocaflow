@@ -20,6 +20,11 @@ import {
 } from 'lucide-react'
 import Link from 'next/link'
 
+import { ComponentVideo } from '@/components/video/ComponentVideo'
+import { introVideo, videosByKind } from '@/lib/video/catalog'
+import { Illustration } from '@/components/illustrations/Illustration'
+import { ILLO_08_DECAY_PER_WORD } from '@/components/illustrations/generated/illo-08-decay-per-word'
+
 interface Principle {
   ko: string
   en: string
@@ -48,7 +53,7 @@ const PHILOSOPHY: Principle[] = [
     en: 'Empathetic Feedback',
     desc: '비난 대신 격려. "오답"이 아니라 "다시 만나봐요".',
     icon: Heart,
-    accent: '#EC4899',
+    accent: 'var(--accent-plum)',
   },
   {
     ko: '암묵적 진행',
@@ -72,7 +77,7 @@ const SCIENCE: Principle[] = [
     en: 'Spaced Repetition',
     desc: '망각곡선의 가장자리에서 다시 만나면 기억이 단단해집니다 (Ebbinghaus, SM-2).',
     icon: Repeat,
-    accent: '#8B5CF6',
+    accent: 'var(--p)',
   },
   {
     ko: '바람직한 어려움',
@@ -93,21 +98,21 @@ const SCIENCE: Principle[] = [
     en: 'Context-Dependent',
     desc: '단어를 학습한 그 스크립트에서 다시 만나면, 인출은 더 강해집니다.',
     icon: Type,
-    accent: '#10B981',
+    accent: 'var(--memory-stable)',
   },
   {
     ko: '인지 부하 관리',
     en: 'Cognitive Load',
     desc: '작업기억은 동시에 약 4가지만 다룹니다 (Sweller). 한 번에 한 단어부터.',
     icon: Feather,
-    accent: '#F59E0B',
+    accent: 'var(--memory-shaky)',
   },
   {
     ko: '정서적 부호화',
     en: 'Emotional Encoding',
     desc: '도파민 보상과 자기효능감이 해마의 기억을 더 깊이 새깁니다.',
     icon: Sparkles,
-    accent: '#EC4899',
+    accent: 'var(--accent-plum)',
   },
 ]
 
@@ -121,32 +126,34 @@ interface Module {
 
 const MODULES: Module[] = [
   { href: '/text', label: 'TextViewer', desc: '스크립트 입력 → AI 단어 추출', icon: '📖', color: 'var(--p)' },
-  { href: '/wordvault', label: 'WordVault', desc: '맥락 결합 단어장', icon: '📝', color: 'var(--p-dark)' },
+  { href: '/wordvault', label: 'WordVault', desc: '맥락 결합 단어장', icon: '📝', color: 'var(--on-p-tint)' },
   { href: '/flashcard', label: 'Flashcard', desc: 'SM-2 간격 반복', icon: '🃏', color: 'var(--p)' },
   { href: '/spellforge', label: 'SpellForge', desc: '능동적 타이핑 회상', icon: '⚡', color: '#4A9FCF' },
-  { href: '/play/wordblitz', label: 'WordBlitz', desc: '속사 단어 인지', icon: '⏱', color: '#8B5CF6' },
+  { href: '/play/wordblitz', label: 'WordBlitz', desc: '속사 단어 인지', icon: '⏱', color: 'var(--p)' },
   { href: '/scriptquiz', label: 'ScriptQuiz', desc: '맥락 독해 퀴즈', icon: '✏️', color: 'var(--active)' },
   { href: '/dashboard', label: 'Dashboard', desc: '암묵적 진행 시각화', icon: '📊', color: 'var(--info)' },
 ]
 
 export const metadata = {
-  title: '소개 · Vocaflow',
+  title: '소개',
   description: '영어를 오래 가게 만드는 학습 — 학습 철학 4개 + 학습 과학 7개를 도구로 합니다.',
 }
 
 export default function AboutPage() {
+  const benefitVideos = videosByKind().benefit
+
   return (
     <div className="bg-[var(--bg)]">
       {/* ── Hero ── */}
       <section className="relative overflow-hidden border-b border-[var(--bd)] bg-gradient-to-br from-[var(--p-light)] via-[var(--bg)] to-[var(--bg)]">
         <div className="mx-auto max-w-4xl px-6 py-20 text-center md:py-28">
-          <span className="inline-flex items-center gap-2 rounded-full border border-[var(--bd)] bg-[var(--bg)] px-4 py-1.5 font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--t3)] shadow-[var(--sh-xs)]">
+          <span className="inline-flex items-center gap-2 rounded-full border border-[var(--bd)] bg-[var(--bg)] px-4 py-2 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)] shadow-[var(--sh-xs)]">
             <Sparkles size={12} className="text-[var(--p)]" aria-hidden />
             우리의 미션
           </span>
-          <h1 className="mt-6 font-display text-[36px] font-[800] leading-[1.15] tracking-tight text-[var(--t1)] md:text-[52px]">
+          <h1 className="mt-6 font-editorial text-[36px] font-[800] leading-[1.15] tracking-tight text-[var(--t1)] md:text-[52px]">
             영어를{' '}
-            <span className="bg-gradient-to-r from-[var(--p)] to-[#8B5CF6] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[var(--p)] to-[var(--p)] bg-clip-text text-transparent">
               오래 가게
             </span>{' '}
             만드는 학습
@@ -158,14 +165,52 @@ export default function AboutPage() {
             Vocaflow는 학습 과학과 디자인을 도구로, 단어를 외우는 게 아니라 <strong className="font-[600] text-[var(--t1)]">머리에 남도록</strong>{' '}
             돕습니다. 차분하게, 단단하게, 오래.
           </p>
+
+          {/*
+            **이 페이지는 처음부터 끝까지 산문이었다.** 소개 화면에서 가장 빨리 전달되는 것은
+            글이 아니라 **실제로 하는 일을 보여 주는 25초**다(교사는 3분 안에 판단한다 — 렌즈 6).
+            발행 전이면 `ComponentVideo` 가 아무것도 안 그린다.
+          */}
+          <div className="mx-auto mt-10 max-w-2xl text-left">
+            <ComponentVideo video={introVideo()} />
+          </div>
         </div>
       </section>
+
+      {/* ── 이 제품이 다른 점 3 — 각 편이 그 주장을 화면에서 증명한다 ── */}
+      {benefitVideos.length > 0 && (
+        <section className="border-b border-[var(--bd)] bg-[var(--bg)]">
+          <div className="mx-auto max-w-6xl px-6 py-16 md:py-20">
+            <h2 className="font-display text-[28px] font-[800] tracking-tight text-[var(--t1)] md:text-[34px]">
+              다른 점 세 가지
+            </h2>
+            <p className="mt-2 break-keep font-body text-[15px] text-[var(--t2)]">
+              각 영상은 그 주장을 <strong>화면에서 증명</strong>합니다 — 근거와 출처가 함께 나옵니다.
+            </p>
+            <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
+              {benefitVideos.map((v) => (
+                <article key={v.id}>
+                  <ComponentVideo video={v} />
+                  <h3 className="mt-2 break-keep font-display text-[15px] font-[700]">
+                    <Link
+                      href={`/video/${v.id}`}
+                      className="text-[var(--t1)] underline-offset-4 hover:underline"
+                    >
+                      {v.title}
+                    </Link>
+                  </h3>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ── 디자인 철학 4 ── */}
       <section className="border-b border-[var(--bd)] bg-[var(--bg2)]">
         <div className="mx-auto max-w-6xl px-6 py-16 md:py-20">
           <header className="mb-10 max-w-2xl">
-            <p className="font-mono text-[11px] font-[700] uppercase tracking-[0.10em] text-[var(--p)]">
+            <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--p)]">
               Design Philosophy
             </p>
             <h2 className="mt-2 font-display text-[28px] font-[800] tracking-tight text-[var(--t1)] md:text-[34px]">
@@ -196,7 +241,7 @@ export default function AboutPage() {
                   >
                     <Icon size={20} strokeWidth={1.75} />
                   </span>
-                  <p className="relative mt-4 font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--t3)]">
+                  <p className="relative mt-4 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
                     {p.en}
                   </p>
                   <h3 className="relative mt-1 font-display text-[20px] font-[700] text-[var(--t1)]">
@@ -216,12 +261,14 @@ export default function AboutPage() {
       <section className="border-b border-[var(--bd)] bg-[var(--bg)]">
         <div className="mx-auto max-w-6xl px-6 py-16 md:py-20">
           <header className="mb-10 max-w-2xl">
-            <p className="font-mono text-[11px] font-[700] uppercase tracking-[0.10em] text-[#8B5CF6]">
+            <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--p)]">
               Learning Science
             </p>
             <h2 className="mt-2 font-display text-[28px] font-[800] tracking-tight text-[var(--t1)] md:text-[34px]">
               인지심리학이 입증한 7가지 원칙
             </h2>
+            {/* 삽화(사전 #8) — 잊는 속도는 낱말마다 다르다(F1 밑줄 3/2/1px). 제목 → 그림 → 본문(03-system §3-9) */}
+            <Illustration asset={ILLO_08_DECAY_PER_WORD} className="mt-6" />
             <p className="mt-3 font-body text-[15px] leading-relaxed text-[var(--t2)]">
               모든 모듈은 최소 1개 이상의 학습 과학 원칙에 근거합니다. 토큰과 컬러는 이 원칙을 구현하기 위한 도구일 뿐.
             </p>
@@ -244,7 +291,7 @@ export default function AboutPage() {
                       <Icon size={16} strokeWidth={1.75} />
                     </span>
                     <div className="min-w-0">
-                      <p className="font-mono text-[10px] font-[700] tabular-nums tracking-[0.10em] text-[var(--t3)]">
+                      <p className="font-mono text-[10px] font-[700] tabular-nums tracking-[0.10em] text-[var(--t2)]">
                         {String(i + 1).padStart(2, '0')} · {p.en}
                       </p>
                       <h3 className="mt-1 font-display text-[15px] font-[700] text-[var(--t1)]">
@@ -266,7 +313,7 @@ export default function AboutPage() {
       <section className="border-b border-[var(--bd)] bg-[var(--bg2)]">
         <div className="mx-auto max-w-6xl px-6 py-16 md:py-20">
           <header className="mb-10 max-w-2xl">
-            <p className="font-mono text-[11px] font-[700] uppercase tracking-[0.10em] text-[var(--success)]">
+            <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--success)]">
               Modules
             </p>
             <h2 className="mt-2 font-display text-[28px] font-[800] tracking-tight text-[var(--t1)] md:text-[34px]">
@@ -290,7 +337,7 @@ export default function AboutPage() {
                   <span className="font-display text-[12px] font-[600] text-[var(--t1)]">
                     {m.label}
                   </span>
-                  <span className="font-body text-[10px] leading-tight text-[var(--t3)]">
+                  <span className="font-body text-[10px] leading-tight text-[var(--t2)]">
                     {m.desc}
                   </span>
                   <span
@@ -309,7 +356,7 @@ export default function AboutPage() {
       <section className="border-b border-[var(--bd)] bg-[var(--bg)]">
         <div className="mx-auto max-w-4xl px-6 py-16 md:py-20">
           <header className="mb-8 text-center">
-            <p className="font-mono text-[11px] font-[700] uppercase tracking-[0.10em] text-[var(--error)]">
+            <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--error-ink)]">
               What we never do
             </p>
             <h2 className="mt-2 font-display text-[26px] font-[800] tracking-tight text-[var(--t1)] md:text-[32px]">
@@ -329,8 +376,8 @@ export default function AboutPage() {
                 key={i}
                 className="flex items-start gap-4 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4"
               >
-                <span className="flex shrink-0 flex-col items-center gap-1 pt-0.5">
-                  <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-[var(--error-light)] font-display text-[11px] font-[700] text-[var(--error)]">
+                <span className="flex shrink-0 flex-col items-center gap-1 pt-1">
+                  <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-[var(--error-light)] font-display text-[11px] font-[700] text-[var(--error-ink)]">
                     ✕
                   </span>
                   <span className="h-3 w-px bg-[var(--bd)]" aria-hidden />
@@ -339,7 +386,7 @@ export default function AboutPage() {
                   </span>
                 </span>
                 <div className="min-w-0 flex-1 space-y-2">
-                  <p className="font-body text-[13px] text-[var(--t3)] line-through decoration-[var(--error)]/40">
+                  <p className="font-body text-[13px] text-[var(--t2)] line-through decoration-[var(--error)]/40">
                     {item.bad}
                   </p>
                   <p className="font-body text-[14px] leading-relaxed text-[var(--t1)]">
@@ -353,7 +400,10 @@ export default function AboutPage() {
       </section>
 
       {/* ── CTA ── */}
-      <section className="bg-gradient-to-br from-[var(--p)] to-[#6D28D9] text-[var(--ti)]">
+      {/* v07 — 잉크→보라 그라데이션을 걷었다(`#6D28D9` 는 지면 팔레트 밖이고 다크에서 따라오지
+          않는다). 글자색도 `--ti`(지면색)가 아니라 **`--p` 면 위의 짝 토큰**을 쓴다 —
+          다크에서 `--p` 가 밝게 뒤집히면 `--ti` 는 2.9:1 로 무너진다(a11y/on-p-contrast 회귀). */}
+      <section className="bg-gradient-to-br from-[var(--p)] to-[var(--p-dark)] text-[var(--on-p)]">
         <div className="mx-auto max-w-3xl px-6 py-16 text-center md:py-20">
           <h2 className="font-display text-[28px] font-[800] tracking-tight md:text-[36px]">
             지금 단어 한 개부터

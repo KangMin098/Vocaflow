@@ -1,0 +1,3280 @@
+{
+  "builtAt": "2026-09-14T04:04:16.736Z",
+  "baseUrl": "https://jajenrevcbmrpaliomxv.supabase.co/storage/v1/object/public/video",
+  "videos": [
+    {
+      "id": "intro-platform",
+      "kind": "intro",
+      "title": "Vocaflow",
+      "subtitle": "글의 난이도가 아니라, 내가 아는 비율을 잽니다.",
+      "seconds": 24.73,
+      "captions": "intro-platform.vtt",
+      "transcript": [
+        "같은 글도 읽는 사람마다 난이도가 다릅니다.",
+        "초등 고학년 기준 67% — 모르는 낱말 19개",
+        "학술 · 원서 기준 100% — 모르는 낱말 0개",
+        "그 숫자는 고정이 아닙니다 — 복습을 미루면 내려갑니다.",
+        "재는 데 쓰는 자료는 전부 실측입니다.",
+        "내 지문으로 바로 재 보세요. — 무료 · 로그인 없이"
+      ],
+      "evidence": [
+        {
+          "label": "사전 표제어",
+          "value": "49,244",
+          "source": "shared_dictionary 2026-09-13 실측"
+        },
+        {
+          "label": "발행 도서",
+          "value": "312",
+          "source": "library_books(published) 2026-09-13 실측"
+        },
+        {
+          "label": "챕터 퀴즈",
+          "value": "2,453",
+          "source": "library_chapter_quiz 2026-09-13 실측"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/intro-platform.mp4",
+          "poster": "wide/intro-platform.jpg",
+          "bytes": 2227597,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/intro-platform.mp4",
+          "poster": "vertical/intro-platform.jpg",
+          "bytes": 2194997,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/intro-platform.mp4",
+          "poster": "square/intro-platform.jpg",
+          "bytes": 2181060,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "benefit-coverage",
+      "kind": "benefit",
+      "title": "내 기준 커버리지",
+      "subtitle": "글의 난이도가 아니라 \"내가 아는 비율\"을 잽니다. 같은 글도 사람마다 다른 숫자가 나와요.",
+      "seconds": 20.03,
+      "captions": "benefit-coverage.vtt",
+      "transcript": [
+        "내 기준 커버리지",
+        "글의 난이도가 아니라 \"내가 아는 비율\"을 잽니다. 같은 글도 사람마다 다른 숫자가 나와요.",
+        "초등 고학년 기준 67% — 모르는 낱말 19개",
+        "직접 확인해 보세요. — 지문 하나면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "내 기준 커버리지",
+          "value": "근거",
+          "source": "근거 · Hu & Nation (2000) 읽기 이해 임계 98/95%"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/benefit-coverage.mp4",
+          "poster": "wide/benefit-coverage.jpg",
+          "bytes": 1248826,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/benefit-coverage.mp4",
+          "poster": "vertical/benefit-coverage.jpg",
+          "bytes": 1198664,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/benefit-coverage.mp4",
+          "poster": "square/benefit-coverage.jpg",
+          "bytes": 1200804,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "benefit-decay",
+      "kind": "benefit",
+      "title": "숫자가 시간에 따라 변합니다",
+      "subtitle": "복습을 미루면 커버리지가 내려갑니다. 2주 뒤 이 글이 얼마나 어려워지는지 미리 보여줘요.",
+      "seconds": 19.83,
+      "captions": "benefit-decay.vtt",
+      "transcript": [
+        "숫자가 시간에 따라 변합니다",
+        "복습을 미루면 커버리지가 내려갑니다. 2주 뒤 이 글이 얼마나 어려워지는지 미리 보여줘요.",
+        "2주 뒤 이 글이 얼마나 어려워지는지 미리 봅니다.",
+        "직접 확인해 보세요. — 지문 하나면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "숫자가 시간에 따라 변합니다",
+          "value": "근거",
+          "source": "근거 · FSRS 기억 안정도 R(t) = exp(ln 0.9 · t / S)"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/benefit-decay.mp4",
+          "poster": "wide/benefit-decay.jpg",
+          "bytes": 896216,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/benefit-decay.mp4",
+          "poster": "vertical/benefit-decay.jpg",
+          "bytes": 1012382,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/benefit-decay.mp4",
+          "poster": "square/benefit-decay.jpg",
+          "bytes": 919119,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "benefit-minimum",
+      "kind": "benefit",
+      "title": "\"몇 개만 하면 되는지\"",
+      "subtitle": "막연히 단어를 외우는 대신, 이 글이 편하게 읽히는 최소 단어 수를 계산해 줍니다.",
+      "seconds": 13.4,
+      "captions": "benefit-minimum.vtt",
+      "transcript": [
+        "\"몇 개만 하면 되는지\"",
+        "막연히 단어를 외우는 대신, 이 글이 편하게 읽히는 최소 단어 수를 계산해 줍니다.",
+        "직접 확인해 보세요. — 지문 하나면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "\"몇 개만 하면 되는지\"",
+          "value": "근거",
+          "source": "근거 · 출현 빈도 기여도 순 최소 집합"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/benefit-minimum.mp4",
+          "poster": "wide/benefit-minimum.jpg",
+          "bytes": 577290,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/benefit-minimum.mp4",
+          "poster": "vertical/benefit-minimum.jpg",
+          "bytes": 657667,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/benefit-minimum.mp4",
+          "poster": "square/benefit-minimum.jpg",
+          "bytes": 601445,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "curriculum-ladder",
+      "kind": "curriculum",
+      "title": "7단 커리큘럼",
+      "subtitle": "소리부터 수능까지, 한 사다리로 이어집니다.",
+      "seconds": 14.77,
+      "captions": "curriculum-ladder.vtt",
+      "transcript": [
+        "어디서 시작해서 어디까지 가는지 먼저 보여 드립니다.",
+        "학령 7단 — 각 단이 쓰는 문항이 다릅니다.",
+        "재고가 찬 단 6/7",
+        "내 단부터 시작하세요. — 진단 3분"
+      ],
+      "evidence": [
+        {
+          "label": "사다리 전체 문항",
+          "value": "715,607",
+          "source": "textbook_shelf_inventory() 2026-09-13 실측"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/curriculum-ladder.mp4",
+          "poster": "wide/curriculum-ladder.jpg",
+          "bytes": 770494,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/curriculum-ladder.mp4",
+          "poster": "vertical/curriculum-ladder.jpg",
+          "bytes": 846245,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/curriculum-ladder.mp4",
+          "poster": "square/curriculum-ladder.jpg",
+          "bytes": 783532,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "series-reading",
+      "kind": "series",
+      "title": "Vocaflow Reading",
+      "subtitle": "글 전체의 논지를 잡는가",
+      "seconds": 12.33,
+      "captions": "series-reading.vtt",
+      "transcript": [
+        "글 전체의 논지를 잡는가",
+        "7권이 학령을 계단으로 잇습니다.",
+        "찍을 수 있는 권 6/7",
+        "지금 서가에 있습니다. — 시리즈 보기"
+      ],
+      "evidence": [
+        {
+          "label": "Vocaflow Reading 재고",
+          "value": "715,607",
+          "source": "textbook_shelf_inventory() 2026-09-13 실측"
+        },
+        {
+          "label": "시장 경쟁 시리즈",
+          "value": "16",
+          "source": "교재 코퍼스 실측 · 리딩튜터 주니어 · 빠른독해 바른독해 · 달곰한 Literacy"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/series-reading.mp4",
+          "poster": "wide/series-reading.jpg",
+          "bytes": 673184,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/series-reading.mp4",
+          "poster": "vertical/series-reading.jpg",
+          "bytes": 780509,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/series-reading.mp4",
+          "poster": "square/series-reading.jpg",
+          "bytes": 695324,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "series-vocab",
+      "kind": "series",
+      "title": "Vocaflow Vocab",
+      "subtitle": "문맥에서 낱말을 고르고 쓰는가",
+      "seconds": 11.97,
+      "captions": "series-vocab.vtt",
+      "transcript": [
+        "문맥에서 낱말을 고르고 쓰는가",
+        "6권이 학령을 계단으로 잇습니다.",
+        "찍을 수 있는 권 6/6",
+        "곧 나옵니다. — 시리즈 보기"
+      ],
+      "evidence": [
+        {
+          "label": "Vocaflow Vocab 재고",
+          "value": "411,607",
+          "source": "textbook_shelf_inventory() 2026-09-13 실측"
+        },
+        {
+          "label": "시장 경쟁 시리즈",
+          "value": "3",
+          "source": "교재 코퍼스 실측 · 능률VOCA · TED 어휘"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/series-vocab.mp4",
+          "poster": "wide/series-vocab.jpg",
+          "bytes": 656884,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/series-vocab.mp4",
+          "poster": "vertical/series-vocab.jpg",
+          "bytes": 743466,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/series-vocab.mp4",
+          "poster": "square/series-vocab.jpg",
+          "bytes": 675593,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "series-syntax",
+      "kind": "series",
+      "title": "Vocaflow Syntax",
+      "subtitle": "문장 구조와 어법을 다루는가",
+      "seconds": 11.97,
+      "captions": "series-syntax.vtt",
+      "transcript": [
+        "문장 구조와 어법을 다루는가",
+        "6권이 학령을 계단으로 잇습니다.",
+        "찍을 수 있는 권 6/6",
+        "곧 나옵니다. — 시리즈 보기"
+      ],
+      "evidence": [
+        {
+          "label": "Vocaflow Syntax 재고",
+          "value": "238,474",
+          "source": "textbook_shelf_inventory() 2026-09-13 실측"
+        },
+        {
+          "label": "시장 경쟁 시리즈",
+          "value": "2",
+          "source": "교재 코퍼스 실측 · 천일문 · 빠른독해 바른독해 - 구문독해"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/series-syntax.mp4",
+          "poster": "wide/series-syntax.jpg",
+          "bytes": 658841,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/series-syntax.mp4",
+          "poster": "vertical/series-syntax.jpg",
+          "bytes": 734544,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/series-syntax.mp4",
+          "poster": "square/series-syntax.jpg",
+          "bytes": 684448,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-blank",
+      "kind": "type",
+      "title": "빈칸 추론",
+      "subtitle": "지운 자리에 무엇이 있었는지 되살립니다. 글의 논리가 한 줄로 꿰여야 풀립니다.",
+      "seconds": 16.77,
+      "captions": "type-blank.vtt",
+      "transcript": [
+        "지운 자리에 무엇이 있었는지 되살립니다. 글의 논리가 한 줄로 꿰여야 풀립니다.",
+        "실제 문항입니다.",
+        "이 유형 재고 499문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "빈칸 추론 재고",
+          "value": "499",
+          "source": "textbook_shelf_inventory() 2026-09-13 실측"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/type-blank.mp4",
+          "poster": "wide/type-blank.jpg",
+          "bytes": 859717,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-blank.mp4",
+          "poster": "vertical/type-blank.jpg",
+          "bytes": 892404,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-blank.mp4",
+          "poster": "square/type-blank.jpg",
+          "bytes": 825723,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-blank-word",
+      "kind": "type",
+      "title": "빈칸 낱말",
+      "subtitle": "문장의 빈칸에 낱말을 직접 씁니다. 힌트가 붙어 있어 고르기보다 한 단계 어렵습니다.",
+      "seconds": 18.07,
+      "captions": "type-blank-word.vtt",
+      "transcript": [
+        "문장의 빈칸에 낱말을 직접 씁니다. 힌트가 붙어 있어 고르기보다 한 단계 어렵습니다.",
+        "실제 문항입니다.",
+        "이 유형 재고 224,147문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "빈칸 낱말 재고",
+          "value": "224,147",
+          "source": "textbook_shelf_inventory() 2026-09-13 실측"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/type-blank-word.mp4",
+          "poster": "wide/type-blank-word.jpg",
+          "bytes": 957500,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-blank-word.mp4",
+          "poster": "vertical/type-blank-word.jpg",
+          "bytes": 1032384,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-blank-word.mp4",
+          "poster": "square/type-blank-word.jpg",
+          "bytes": 950717,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-claim",
+      "kind": "type",
+      "title": "주장",
+      "subtitle": "필자가 독자에게 시키려는 바를 고릅니다. 요지보다 한 걸음 더 나간 자리예요.",
+      "seconds": 16.23,
+      "captions": "type-claim.vtt",
+      "transcript": [
+        "필자가 독자에게 시키려는 바를 고릅니다. 요지보다 한 걸음 더 나간 자리예요.",
+        "실제 문항입니다.",
+        "이 유형 재고 52문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "주장 재고",
+          "value": "52",
+          "source": "textbook_shelf_inventory() 2026-09-13 실측"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/type-claim.mp4",
+          "poster": "wide/type-claim.jpg",
+          "bytes": 870434,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-claim.mp4",
+          "poster": "vertical/type-claim.jpg",
+          "bytes": 907916,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-claim.mp4",
+          "poster": "square/type-claim.jpg",
+          "bytes": 851044,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-content-match",
+      "kind": "type",
+      "title": "내용 일치",
+      "subtitle": "글과 어긋나는 선택지를 찾습니다. 비슷해 보이는 문장에서 한 군데가 다릅니다.",
+      "seconds": 16.9,
+      "captions": "type-content-match.vtt",
+      "transcript": [
+        "글과 어긋나는 선택지를 찾습니다. 비슷해 보이는 문장에서 한 군데가 다릅니다.",
+        "실제 문항입니다.",
+        "이 유형 재고 210문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "내용 일치 재고",
+          "value": "210",
+          "source": "textbook_shelf_inventory() 2026-09-13 실측"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/type-content-match.mp4",
+          "poster": "wide/type-content-match.jpg",
+          "bytes": 911410,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-content-match.mp4",
+          "poster": "vertical/type-content-match.jpg",
+          "bytes": 948962,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-content-match.mp4",
+          "poster": "square/type-content-match.jpg",
+          "bytes": 931872,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-grammar-choice",
+      "kind": "type",
+      "title": "어법",
+      "subtitle": "문장에서 어법이 틀린 곳을 고릅니다. 중등 내신의 서술형과 같은 축입니다.",
+      "seconds": 17.5,
+      "captions": "type-grammar-choice.vtt",
+      "transcript": [
+        "문장에서 어법이 틀린 곳을 고릅니다. 중등 내신의 서술형과 같은 축입니다.",
+        "실제 문항입니다.",
+        "이 유형 재고 17,623문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "어법 재고",
+          "value": "17,623",
+          "source": "textbook_shelf_inventory() 2026-09-13 실측"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/type-grammar-choice.mp4",
+          "poster": "wide/type-grammar-choice.jpg",
+          "bytes": 780649,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-grammar-choice.mp4",
+          "poster": "vertical/type-grammar-choice.jpg",
+          "bytes": 861368,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-grammar-choice.mp4",
+          "poster": "square/type-grammar-choice.jpg",
+          "bytes": 795525,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-grammar-fix",
+      "kind": "type",
+      "title": "어법 고쳐쓰기",
+      "subtitle": "어법이 틀린 곳을 찾아 바르게 고쳐 씁니다. 같은 규칙을 고르는 대신 쓰게 합니다.",
+      "seconds": 17.5,
+      "captions": "type-grammar-fix.vtt",
+      "transcript": [
+        "어법이 틀린 곳을 찾아 바르게 고쳐 씁니다. 같은 규칙을 고르는 대신 쓰게 합니다.",
+        "실제 문항입니다.",
+        "이 유형 재고 137,860문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "어법 고쳐쓰기 재고",
+          "value": "137,860",
+          "source": "textbook_shelf_inventory() 2026-09-13 실측"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/type-grammar-fix.mp4",
+          "poster": "wide/type-grammar-fix.jpg",
+          "bytes": 958038,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-grammar-fix.mp4",
+          "poster": "vertical/type-grammar-fix.jpg",
+          "bytes": 1027067,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-grammar-fix.mp4",
+          "poster": "square/type-grammar-fix.jpg",
+          "bytes": 940631,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-implication",
+      "kind": "type",
+      "title": "함축 의미",
+      "subtitle": "밑줄 친 말이 이 글에서 무슨 뜻인지 고릅니다. 사전 뜻이 아니라 이 글에서의 뜻이에요.",
+      "seconds": 17.1,
+      "captions": "type-implication.vtt",
+      "transcript": [
+        "밑줄 친 말이 이 글에서 무슨 뜻인지 고릅니다. 사전 뜻이 아니라 이 글에서의 뜻이에요.",
+        "실제 문항입니다.",
+        "이 유형 재고 66문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "함축 의미 재고",
+          "value": "66",
+          "source": "textbook_shelf_inventory() 2026-09-13 실측"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/type-implication.mp4",
+          "poster": "wide/type-implication.jpg",
+          "bytes": 896743,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-implication.mp4",
+          "poster": "vertical/type-implication.jpg",
+          "bytes": 940701,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-implication.mp4",
+          "poster": "square/type-implication.jpg",
+          "bytes": 872544,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-insert",
+      "kind": "type",
+      "title": "문장 삽입",
+      "subtitle": "빠진 문장이 들어갈 자리를 찾습니다. 앞뒤 흐름을 동시에 봐야 합니다.",
+      "seconds": 16.67,
+      "captions": "type-insert.vtt",
+      "transcript": [
+        "빠진 문장이 들어갈 자리를 찾습니다. 앞뒤 흐름을 동시에 봐야 합니다.",
+        "실제 문항입니다.",
+        "이 유형 재고 121,923문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "문장 삽입 재고",
+          "value": "121,923",
+          "source": "textbook_shelf_inventory() 2026-09-13 실측"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/type-insert.mp4",
+          "poster": "wide/type-insert.jpg",
+          "bytes": 898295,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-insert.mp4",
+          "poster": "vertical/type-insert.jpg",
+          "bytes": 962243,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-insert.mp4",
+          "poster": "square/type-insert.jpg",
+          "bytes": 887164,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-irrelevant",
+      "kind": "type",
+      "title": "흐름 무관",
+      "subtitle": "글 전체의 논지에서 벗어난 문장을 찾습니다. 부분이 아니라 전체를 봐야 하는 첫 유형이에요.",
+      "seconds": 19.33,
+      "captions": "type-irrelevant.vtt",
+      "transcript": [
+        "글 전체의 논지에서 벗어난 문장을 찾습니다. 부분이 아니라 전체를 봐야 하는 첫 유형이에요.",
+        "실제 문항 (영상용으로 줄임)",
+        "이 유형 재고 15,618문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "흐름 무관 재고",
+          "value": "15,618",
+          "source": "textbook_shelf_inventory() 2026-09-13 실측"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/type-irrelevant.mp4",
+          "poster": "wide/type-irrelevant.jpg",
+          "bytes": 1205045,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-irrelevant.mp4",
+          "poster": "vertical/type-irrelevant.jpg",
+          "bytes": 1216936,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-irrelevant.mp4",
+          "poster": "square/type-irrelevant.jpg",
+          "bytes": 1168317,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-long-match",
+      "kind": "type",
+      "title": "장문 · 내용 일치",
+      "subtitle": "긴 글의 내용과 어긋나는 선택지를 찾습니다. 앞뒤가 멀리 떨어져 있어 기억이 필요합니다.",
+      "seconds": 17.23,
+      "captions": "type-long-match.vtt",
+      "transcript": [
+        "긴 글의 내용과 어긋나는 선택지를 찾습니다. 앞뒤가 멀리 떨어져 있어 기억이 필요합니다.",
+        "실제 문항입니다.",
+        "이 유형 재고 32문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "장문 · 내용 일치 재고",
+          "value": "32",
+          "source": "textbook_shelf_inventory() 2026-09-13 실측"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/type-long-match.mp4",
+          "poster": "wide/type-long-match.jpg",
+          "bytes": 1031272,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-long-match.mp4",
+          "poster": "vertical/type-long-match.jpg",
+          "bytes": 1044599,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-long-match.mp4",
+          "poster": "square/type-long-match.jpg",
+          "bytes": 1025391,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-long-order",
+      "kind": "type",
+      "title": "장문 · 순서",
+      "subtitle": "긴 이야기의 토막을 원래 순서로 되돌립니다. 인물과 시간의 실을 놓치면 안 됩니다.",
+      "seconds": 16.5,
+      "captions": "type-long-order.vtt",
+      "transcript": [
+        "긴 이야기의 토막을 원래 순서로 되돌립니다. 인물과 시간의 실을 놓치면 안 됩니다.",
+        "실제 문항입니다.",
+        "이 유형 재고 32문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "장문 · 순서 재고",
+          "value": "32",
+          "source": "textbook_shelf_inventory() 2026-09-13 실측"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/type-long-order.mp4",
+          "poster": "wide/type-long-order.jpg",
+          "bytes": 822633,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-long-order.mp4",
+          "poster": "vertical/type-long-order.jpg",
+          "bytes": 887085,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-long-order.mp4",
+          "poster": "square/type-long-order.jpg",
+          "bytes": 829196,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-long-reference",
+      "kind": "type",
+      "title": "장문 · 지칭",
+      "subtitle": "밑줄 친 다섯 말 중 가리키는 사람이 다른 하나를 찾습니다. 대명사를 따라가는 연습이에요.",
+      "seconds": 17.07,
+      "captions": "type-long-reference.vtt",
+      "transcript": [
+        "밑줄 친 다섯 말 중 가리키는 사람이 다른 하나를 찾습니다. 대명사를 따라가는 연습이에요.",
+        "실제 문항입니다.",
+        "이 유형 재고 57문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "장문 · 지칭 재고",
+          "value": "57",
+          "source": "textbook_shelf_inventory() 2026-09-13 실측"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/type-long-reference.mp4",
+          "poster": "wide/type-long-reference.jpg",
+          "bytes": 873971,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-long-reference.mp4",
+          "poster": "vertical/type-long-reference.jpg",
+          "bytes": 927693,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-long-reference.mp4",
+          "poster": "square/type-long-reference.jpg",
+          "bytes": 868123,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-long-title",
+      "kind": "type",
+      "title": "장문 · 제목",
+      "subtitle": "긴 글을 끝까지 읽고 제목을 고릅니다. 중간에 끊으면 엉뚱한 데를 고르게 됩니다.",
+      "seconds": 17.1,
+      "captions": "type-long-title.vtt",
+      "transcript": [
+        "긴 글을 끝까지 읽고 제목을 고릅니다. 중간에 끊으면 엉뚱한 데를 고르게 됩니다.",
+        "실제 문항입니다.",
+        "이 유형 재고 32문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "장문 · 제목 재고",
+          "value": "32",
+          "source": "textbook_shelf_inventory() 2026-09-13 실측"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/type-long-title.mp4",
+          "poster": "wide/type-long-title.jpg",
+          "bytes": 935444,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-long-title.mp4",
+          "poster": "vertical/type-long-title.jpg",
+          "bytes": 939114,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-long-title.mp4",
+          "poster": "square/type-long-title.jpg",
+          "bytes": 919668,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-long-vocab",
+      "kind": "type",
+      "title": "장문 · 어휘",
+      "subtitle": "긴 글 안에서 문맥에 안 맞는 낱말을 찾습니다. 다섯 곳 중 한 곳만 어긋납니다.",
+      "seconds": 16.53,
+      "captions": "type-long-vocab.vtt",
+      "transcript": [
+        "긴 글 안에서 문맥에 안 맞는 낱말을 찾습니다. 다섯 곳 중 한 곳만 어긋납니다.",
+        "실제 문항입니다.",
+        "이 유형 재고 32문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "장문 · 어휘 재고",
+          "value": "32",
+          "source": "textbook_shelf_inventory() 2026-09-13 실측"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/type-long-vocab.mp4",
+          "poster": "wide/type-long-vocab.jpg",
+          "bytes": 908450,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-long-vocab.mp4",
+          "poster": "vertical/type-long-vocab.jpg",
+          "bytes": 932488,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-long-vocab.mp4",
+          "poster": "square/type-long-vocab.jpg",
+          "bytes": 909416,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-main-point",
+      "kind": "type",
+      "title": "요지",
+      "subtitle": "필자가 하고 싶은 말을 고릅니다. 글에 나온 사실이 아니라 그 사실로 말하려는 것입니다.",
+      "seconds": 16.77,
+      "captions": "type-main-point.vtt",
+      "transcript": [
+        "필자가 하고 싶은 말을 고릅니다. 글에 나온 사실이 아니라 그 사실로 말하려는 것입니다.",
+        "실제 문항입니다.",
+        "이 유형 재고 95문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "요지 재고",
+          "value": "95",
+          "source": "textbook_shelf_inventory() 2026-09-13 실측"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/type-main-point.mp4",
+          "poster": "wide/type-main-point.jpg",
+          "bytes": 998791,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-main-point.mp4",
+          "poster": "vertical/type-main-point.jpg",
+          "bytes": 957892,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-main-point.mp4",
+          "poster": "square/type-main-point.jpg",
+          "bytes": 908604,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-mood",
+      "kind": "type",
+      "title": "심경·분위기",
+      "subtitle": "인물의 마음이 어떻게 움직였는지 고릅니다. 사건이 아니라 낱말의 결을 따라갑니다.",
+      "seconds": 16.77,
+      "captions": "type-mood.vtt",
+      "transcript": [
+        "인물의 마음이 어떻게 움직였는지 고릅니다. 사건이 아니라 낱말의 결을 따라갑니다.",
+        "실제 문항입니다.",
+        "이 유형 재고 80문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "심경·분위기 재고",
+          "value": "80",
+          "source": "textbook_shelf_inventory() 2026-09-13 실측"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/type-mood.mp4",
+          "poster": "wide/type-mood.jpg",
+          "bytes": 835087,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-mood.mp4",
+          "poster": "vertical/type-mood.jpg",
+          "bytes": 898494,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-mood.mp4",
+          "poster": "square/type-mood.jpg",
+          "bytes": 842797,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-order",
+      "kind": "type",
+      "title": "글 순서",
+      "subtitle": "토막 난 글을 원래 순서로 되돌립니다. 문장 사이의 연결을 봐야 풀려요.",
+      "seconds": 18,
+      "captions": "type-order.vtt",
+      "transcript": [
+        "토막 난 글을 원래 순서로 되돌립니다. 문장 사이의 연결을 봐야 풀려요.",
+        "실제 문항 (영상용으로 줄임)",
+        "이 유형 재고 88,539문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "글 순서 재고",
+          "value": "88,539",
+          "source": "textbook_shelf_inventory() 2026-09-13 실측"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/type-order.mp4",
+          "poster": "wide/type-order.jpg",
+          "bytes": 963597,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-order.mp4",
+          "poster": "vertical/type-order.jpg",
+          "bytes": 993628,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-order.mp4",
+          "poster": "square/type-order.jpg",
+          "bytes": 942403,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-purpose",
+      "kind": "type",
+      "title": "글의 목적",
+      "subtitle": "이 글을 왜 썼는지 고릅니다. 안내·요청·항의처럼 글이 하는 일을 봅니다.",
+      "seconds": 16.1,
+      "captions": "type-purpose.vtt",
+      "transcript": [
+        "이 글을 왜 썼는지 고릅니다. 안내·요청·항의처럼 글이 하는 일을 봅니다.",
+        "실제 문항입니다.",
+        "이 유형 재고 86문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "글의 목적 재고",
+          "value": "86",
+          "source": "textbook_shelf_inventory() 2026-09-13 실측"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/type-purpose.mp4",
+          "poster": "wide/type-purpose.jpg",
+          "bytes": 866584,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-purpose.mp4",
+          "poster": "vertical/type-purpose.jpg",
+          "bytes": 910071,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-purpose.mp4",
+          "poster": "square/type-purpose.jpg",
+          "bytes": 850056,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-rhyme",
+      "kind": "type",
+      "title": "소리·운율",
+      "subtitle": "같은 소리로 끝나는 낱말을 찾아요. 읽기 전 단계의 소리 감각을 잡습니다.",
+      "seconds": 11.3,
+      "captions": "type-rhyme.vtt",
+      "transcript": [
+        "같은 소리로 끝나는 낱말을 찾아요. 읽기 전 단계의 소리 감각을 잡습니다.",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "소리·운율 재고",
+          "value": "0",
+          "source": "textbook_shelf_inventory() 2026-09-13 실측"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/type-rhyme.mp4",
+          "poster": "wide/type-rhyme.jpg",
+          "bytes": 436194,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-rhyme.mp4",
+          "poster": "vertical/type-rhyme.jpg",
+          "bytes": 479444,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-rhyme.mp4",
+          "poster": "square/type-rhyme.jpg",
+          "bytes": 434149,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-spell-blank",
+      "kind": "type",
+      "title": "철자 완성",
+      "subtitle": "빠진 철자를 채웁니다. 눈으로 아는 낱말을 손으로도 쓸 수 있게 만듭니다.",
+      "seconds": 11.43,
+      "captions": "type-spell-blank.vtt",
+      "transcript": [
+        "빠진 철자를 채웁니다. 눈으로 아는 낱말을 손으로도 쓸 수 있게 만듭니다.",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "철자 완성 재고",
+          "value": "0",
+          "source": "textbook_shelf_inventory() 2026-09-13 실측"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/type-spell-blank.mp4",
+          "poster": "wide/type-spell-blank.jpg",
+          "bytes": 452749,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-spell-blank.mp4",
+          "poster": "vertical/type-spell-blank.jpg",
+          "bytes": 490290,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-spell-blank.mp4",
+          "poster": "square/type-spell-blank.jpg",
+          "bytes": 438253,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-summary",
+      "kind": "type",
+      "title": "요약문 완성",
+      "subtitle": "글을 한 문장으로 줄인 뒤 빈칸 둘을 채웁니다. 읽기와 쓰기를 한 번에 씁니다.",
+      "seconds": 16.4,
+      "captions": "type-summary.vtt",
+      "transcript": [
+        "글을 한 문장으로 줄인 뒤 빈칸 둘을 채웁니다. 읽기와 쓰기를 한 번에 씁니다.",
+        "실제 문항입니다.",
+        "이 유형 재고 96문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "요약문 완성 재고",
+          "value": "96",
+          "source": "textbook_shelf_inventory() 2026-09-13 실측"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/type-summary.mp4",
+          "poster": "wide/type-summary.jpg",
+          "bytes": 848968,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-summary.mp4",
+          "poster": "vertical/type-summary.jpg",
+          "bytes": 890668,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-summary.mp4",
+          "poster": "square/type-summary.jpg",
+          "bytes": 851535,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-title",
+      "kind": "type",
+      "title": "제목",
+      "subtitle": "글 전체를 한 마디로 덮는 말을 고릅니다. 주제보다 좁으면 안 되고 넓어도 안 됩니다.",
+      "seconds": 17.3,
+      "captions": "type-title.vtt",
+      "transcript": [
+        "글 전체를 한 마디로 덮는 말을 고릅니다. 주제보다 좁으면 안 되고 넓어도 안 됩니다.",
+        "실제 문항입니다.",
+        "이 유형 재고 477문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "제목 재고",
+          "value": "477",
+          "source": "textbook_shelf_inventory() 2026-09-13 실측"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/type-title.mp4",
+          "poster": "wide/type-title.jpg",
+          "bytes": 882100,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-title.mp4",
+          "poster": "vertical/type-title.jpg",
+          "bytes": 902014,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-title.mp4",
+          "poster": "square/type-title.jpg",
+          "bytes": 842901,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-topic",
+      "kind": "type",
+      "title": "주제",
+      "subtitle": "글이 무엇에 관한 글인지 한 줄로 고릅니다. 소재와 주제를 가르는 연습이에요.",
+      "seconds": 16.53,
+      "captions": "type-topic.vtt",
+      "transcript": [
+        "글이 무엇에 관한 글인지 한 줄로 고릅니다. 소재와 주제를 가르는 연습이에요.",
+        "실제 문항입니다.",
+        "이 유형 재고 419문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "주제 재고",
+          "value": "419",
+          "source": "textbook_shelf_inventory() 2026-09-13 실측"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/type-topic.mp4",
+          "poster": "wide/type-topic.jpg",
+          "bytes": 847134,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-topic.mp4",
+          "poster": "vertical/type-topic.jpg",
+          "bytes": 862627,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-topic.mp4",
+          "poster": "square/type-topic.jpg",
+          "bytes": 820945,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-unit-grammar",
+      "kind": "type",
+      "title": "단원 문법",
+      "subtitle": "밑줄 친 곳 중 어법이 맞는(틀린) 것을 고릅니다. 학교 객관식과 같은 형식이에요.",
+      "seconds": 18.37,
+      "captions": "type-unit-grammar.vtt",
+      "transcript": [
+        "밑줄 친 곳 중 어법이 맞는(틀린) 것을 고릅니다. 학교 객관식과 같은 형식이에요.",
+        "실제 문항입니다.",
+        "이 유형 재고 34,921문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "단원 문법 재고",
+          "value": "34,921",
+          "source": "textbook_shelf_inventory() 2026-09-13 실측"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/type-unit-grammar.mp4",
+          "poster": "wide/type-unit-grammar.jpg",
+          "bytes": 941001,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-unit-grammar.mp4",
+          "poster": "vertical/type-unit-grammar.jpg",
+          "bytes": 1009258,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-unit-grammar.mp4",
+          "poster": "square/type-unit-grammar.jpg",
+          "bytes": 938374,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-unit-vocab",
+      "kind": "type",
+      "title": "본문 어휘",
+      "subtitle": "지문에 나온 낱말을 보기에서 고릅니다. 글을 읽고 나서 뜻을 확인하는 자리예요.",
+      "seconds": 17.37,
+      "captions": "type-unit-vocab.vtt",
+      "transcript": [
+        "지문에 나온 낱말을 보기에서 고릅니다. 글을 읽고 나서 뜻을 확인하는 자리예요.",
+        "실제 문항입니다.",
+        "이 유형 재고 133,184문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "본문 어휘 재고",
+          "value": "133,184",
+          "source": "textbook_shelf_inventory() 2026-09-13 실측"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/type-unit-vocab.mp4",
+          "poster": "wide/type-unit-vocab.jpg",
+          "bytes": 953477,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-unit-vocab.mp4",
+          "poster": "vertical/type-unit-vocab.jpg",
+          "bytes": 989082,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-unit-vocab.mp4",
+          "poster": "square/type-unit-vocab.jpg",
+          "bytes": 921005,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-vocab-choice",
+      "kind": "type",
+      "title": "어휘 추론",
+      "subtitle": "글 안에서 어울리지 않는 낱말을 찾습니다. 뜻을 외운 것만으로는 풀리지 않아요.",
+      "seconds": 18.23,
+      "captions": "type-vocab-choice.vtt",
+      "transcript": [
+        "글 안에서 어울리지 않는 낱말을 찾습니다. 뜻을 외운 것만으로는 풀리지 않아요.",
+        "실제 문항 (영상용으로 줄임)",
+        "이 유형 재고 55,237문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "어휘 추론 재고",
+          "value": "55,237",
+          "source": "textbook_shelf_inventory() 2026-09-13 실측"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/type-vocab-choice.mp4",
+          "poster": "wide/type-vocab-choice.jpg",
+          "bytes": 1053323,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-vocab-choice.mp4",
+          "poster": "vertical/type-vocab-choice.jpg",
+          "bytes": 1090984,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-vocab-choice.mp4",
+          "poster": "square/type-vocab-choice.jpg",
+          "bytes": 1044646,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-word-meaning",
+      "kind": "type",
+      "title": "낱말 뜻",
+      "subtitle": "낱말과 뜻을 잇습니다. 지문이 없어 처음 배우는 학년도 바로 할 수 있어요.",
+      "seconds": 11.3,
+      "captions": "type-word-meaning.vtt",
+      "transcript": [
+        "낱말과 뜻을 잇습니다. 지문이 없어 처음 배우는 학년도 바로 할 수 있어요.",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "낱말 뜻 재고",
+          "value": "0",
+          "source": "textbook_shelf_inventory() 2026-09-13 실측"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/type-word-meaning.mp4",
+          "poster": "wide/type-word-meaning.jpg",
+          "bytes": 441126,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-word-meaning.mp4",
+          "poster": "vertical/type-word-meaning.jpg",
+          "bytes": 478036,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-word-meaning.mp4",
+          "poster": "square/type-word-meaning.jpg",
+          "bytes": 419415,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "type-word-order",
+      "kind": "type",
+      "title": "영작 배열",
+      "subtitle": "흩어진 낱말을 문장으로 세웁니다. 정답이 원문이라 헷갈릴 여지가 없어요.",
+      "seconds": 17.2,
+      "captions": "type-word-order.vtt",
+      "transcript": [
+        "흩어진 낱말을 문장으로 세웁니다. 정답이 원문이라 헷갈릴 여지가 없어요.",
+        "실제 문항입니다.",
+        "이 유형 재고 48,854문항",
+        "이 유형만 모아 풀 수 있어요. — 유형별 보기"
+      ],
+      "evidence": [
+        {
+          "label": "영작 배열 재고",
+          "value": "48,854",
+          "source": "textbook_shelf_inventory() 2026-09-13 실측"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/type-word-order.mp4",
+          "poster": "wide/type-word-order.jpg",
+          "bytes": 884421,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/type-word-order.mp4",
+          "poster": "vertical/type-word-order.jpg",
+          "bytes": 958737,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/type-word-order.mp4",
+          "poster": "square/type-word-order.jpg",
+          "bytes": 896900,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-flashcard",
+      "kind": "module",
+      "title": "Flashcard",
+      "subtitle": "뜻과 단어를 짝지어 떠올려요",
+      "seconds": 9.6,
+      "captions": "module-flashcard.vtt",
+      "transcript": [
+        "뜻과 단어를 짝지어 떠올려요",
+        "훈련하는 면 Recognize",
+        "한 판 해 보세요. — 내 단어만 있으면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "Flashcard",
+          "value": "Recognize",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/module-flashcard.mp4",
+          "poster": "wide/module-flashcard.jpg",
+          "bytes": 454201,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-flashcard.mp4",
+          "poster": "vertical/module-flashcard.jpg",
+          "bytes": 518912,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-flashcard.mp4",
+          "poster": "square/module-flashcard.jpg",
+          "bytes": 469989,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-pairflip",
+      "kind": "module",
+      "title": "PairFlip",
+      "subtitle": "뒤집어 짝을 맞춰요",
+      "seconds": 8.87,
+      "captions": "module-pairflip.vtt",
+      "transcript": [
+        "뒤집어 짝을 맞춰요",
+        "훈련하는 면 Recognize",
+        "한 판 해 보세요. — 내 단어만 있으면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "PairFlip",
+          "value": "Recognize",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/module-pairflip.mp4",
+          "poster": "wide/module-pairflip.jpg",
+          "bytes": 415886,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-pairflip.mp4",
+          "poster": "vertical/module-pairflip.jpg",
+          "bytes": 483540,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-pairflip.mp4",
+          "poster": "square/module-pairflip.jpg",
+          "bytes": 437620,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-spellforge",
+      "kind": "module",
+      "title": "SpellForge",
+      "subtitle": "후보 없이 철자를 직접 써요",
+      "seconds": 8.97,
+      "captions": "module-spellforge.vtt",
+      "transcript": [
+        "후보 없이 철자를 직접 써요",
+        "훈련하는 면 Spell",
+        "한 판 해 보세요. — 내 단어만 있으면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "SpellForge",
+          "value": "Spell",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/module-spellforge.mp4",
+          "poster": "wide/module-spellforge.jpg",
+          "bytes": 423953,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-spellforge.mp4",
+          "poster": "vertical/module-spellforge.jpg",
+          "bytes": 468973,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-spellforge.mp4",
+          "poster": "square/module-spellforge.jpg",
+          "bytes": 430956,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-echo",
+      "kind": "module",
+      "title": "Echo",
+      "subtitle": "소리를 따라 하고 억양을 맞춰요",
+      "seconds": 9.6,
+      "captions": "module-echo.vtt",
+      "transcript": [
+        "소리를 따라 하고 억양을 맞춰요",
+        "훈련하는 면 Sound",
+        "한 판 해 보세요. — 본문을 고르면 바로 시작"
+      ],
+      "evidence": [
+        {
+          "label": "Echo",
+          "value": "Sound",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/module-echo.mp4",
+          "poster": "wide/module-echo.jpg",
+          "bytes": 422158,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-echo.mp4",
+          "poster": "vertical/module-echo.jpg",
+          "bytes": 472964,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-echo.mp4",
+          "poster": "square/module-echo.jpg",
+          "bytes": 443924,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-shadow",
+      "kind": "module",
+      "title": "Shadow",
+      "subtitle": "본문을 소리 내어 따라 읽어요",
+      "seconds": 9.17,
+      "captions": "module-shadow.vtt",
+      "transcript": [
+        "본문을 소리 내어 따라 읽어요",
+        "훈련하는 면 Sound",
+        "한 판 해 보세요. — 본문을 고르면 바로 시작"
+      ],
+      "evidence": [
+        {
+          "label": "Shadow",
+          "value": "Sound",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/module-shadow.mp4",
+          "poster": "wide/module-shadow.jpg",
+          "bytes": 414079,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-shadow.mp4",
+          "poster": "vertical/module-shadow.jpg",
+          "bytes": 448773,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-shadow.mp4",
+          "poster": "square/module-shadow.jpg",
+          "bytes": 426979,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-scriptquiz",
+      "kind": "module",
+      "title": "ScriptQuiz",
+      "subtitle": "본문을 이해했는지 확인해요",
+      "seconds": 8.97,
+      "captions": "module-scriptquiz.vtt",
+      "transcript": [
+        "본문을 이해했는지 확인해요",
+        "훈련하는 면 Use",
+        "한 판 해 보세요. — 본문을 고르면 바로 시작"
+      ],
+      "evidence": [
+        {
+          "label": "ScriptQuiz",
+          "value": "Use",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/module-scriptquiz.mp4",
+          "poster": "wide/module-scriptquiz.jpg",
+          "bytes": 425439,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-scriptquiz.mp4",
+          "poster": "vertical/module-scriptquiz.jpg",
+          "bytes": 474939,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-scriptquiz.mp4",
+          "poster": "square/module-scriptquiz.jpg",
+          "bytes": 428475,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-dictation",
+      "kind": "module",
+      "title": "Dictation",
+      "subtitle": "들으면서 받아써요",
+      "seconds": 9.37,
+      "captions": "module-dictation.vtt",
+      "transcript": [
+        "들으면서 받아써요",
+        "훈련하는 면 Sound · Spell · Use",
+        "한 판 해 보세요. — 본문을 고르면 바로 시작"
+      ],
+      "evidence": [
+        {
+          "label": "Dictation",
+          "value": "Sound · Spell · Use",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/module-dictation.mp4",
+          "poster": "wide/module-dictation.jpg",
+          "bytes": 510357,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-dictation.mp4",
+          "poster": "vertical/module-dictation.jpg",
+          "bytes": 599870,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-dictation.mp4",
+          "poster": "square/module-dictation.jpg",
+          "bytes": 534458,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-cascade",
+      "kind": "module",
+      "title": "Cascade",
+      "subtitle": "단어와 뜻을 이어 지우는 낙하 보드",
+      "seconds": 10.63,
+      "captions": "module-cascade.vtt",
+      "transcript": [
+        "단어와 뜻을 이어 지우는 낙하 보드",
+        "훈련하는 면 Recognize · Fluency",
+        "한 판 해 보세요. — 내 단어만 있으면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "Cascade",
+          "value": "Recognize · Fluency",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/module-cascade.mp4",
+          "poster": "wide/module-cascade.jpg",
+          "bytes": 547978,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-cascade.mp4",
+          "poster": "vertical/module-cascade.jpg",
+          "bytes": 615885,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-cascade.mp4",
+          "poster": "square/module-cascade.jpg",
+          "bytes": 563162,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-ghost-race",
+      "kind": "module",
+      "title": "Ghost Race",
+      "subtitle": "3랩 추격전 — 인·아웃 라인을 걸어라",
+      "seconds": 10.47,
+      "captions": "module-ghost-race.vtt",
+      "transcript": [
+        "3랩 추격전 — 인·아웃 라인을 걸어라",
+        "훈련하는 면 Recognize · Spell",
+        "한 판 해 보세요. — 내 단어만 있으면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "Ghost Race",
+          "value": "Recognize · Spell",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/module-ghost-race.mp4",
+          "poster": "wide/module-ghost-race.jpg",
+          "bytes": 543932,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-ghost-race.mp4",
+          "poster": "vertical/module-ghost-race.jpg",
+          "bytes": 629477,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-ghost-race.mp4",
+          "poster": "square/module-ghost-race.jpg",
+          "bytes": 556719,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-word-economy",
+      "kind": "module",
+      "title": "Word Economy",
+      "subtitle": "코인을 벌어 파워업에 전략 투자",
+      "seconds": 9.83,
+      "captions": "module-word-economy.vtt",
+      "transcript": [
+        "코인을 벌어 파워업에 전략 투자",
+        "훈련하는 면 Recognize",
+        "한 판 해 보세요. — 내 단어만 있으면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "Word Economy",
+          "value": "Recognize",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/module-word-economy.mp4",
+          "poster": "wide/module-word-economy.jpg",
+          "bytes": 473830,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-word-economy.mp4",
+          "poster": "vertical/module-word-economy.jpg",
+          "bytes": 552610,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-word-economy.mp4",
+          "poster": "square/module-word-economy.jpg",
+          "bytes": 494776,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-wordfall-cadence",
+      "kind": "module",
+      "title": "Wordfall Cadence",
+      "subtitle": "발음을 듣고 케이던스가 다하기 전에 뜻을 고르라",
+      "seconds": 11.63,
+      "captions": "module-wordfall-cadence.vtt",
+      "transcript": [
+        "발음을 듣고 케이던스가 다하기 전에 뜻을 고르라",
+        "훈련하는 면 Recognize · Fluency",
+        "한 판 해 보세요. — 내 단어만 있으면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "Wordfall Cadence",
+          "value": "Recognize · Fluency",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/module-wordfall-cadence.mp4",
+          "poster": "wide/module-wordfall-cadence.jpg",
+          "bytes": 606014,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-wordfall-cadence.mp4",
+          "poster": "vertical/module-wordfall-cadence.jpg",
+          "bytes": 695961,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-wordfall-cadence.mp4",
+          "poster": "square/module-wordfall-cadence.jpg",
+          "bytes": 609868,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-letter-forge",
+      "kind": "module",
+      "title": "Letter Forge",
+      "subtitle": "흩어진 글자로 철자를 벼려내다",
+      "seconds": 9.17,
+      "captions": "module-letter-forge.vtt",
+      "transcript": [
+        "흩어진 글자로 철자를 벼려내다",
+        "훈련하는 면 Spell",
+        "한 판 해 보세요. — 내 단어만 있으면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "Letter Forge",
+          "value": "Spell",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/module-letter-forge.mp4",
+          "poster": "wide/module-letter-forge.jpg",
+          "bytes": 430620,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-letter-forge.mp4",
+          "poster": "vertical/module-letter-forge.jpg",
+          "bytes": 471382,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-letter-forge.mp4",
+          "poster": "square/module-letter-forge.jpg",
+          "bytes": 433770,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-wordsmith-vigil",
+      "kind": "module",
+      "title": "Wordsmith's Vigil",
+      "subtitle": "뜻을 든 정령을 영단어 타이핑으로 흩어라",
+      "seconds": 9.83,
+      "captions": "module-wordsmith-vigil.vtt",
+      "transcript": [
+        "뜻을 든 정령을 영단어 타이핑으로 흩어라",
+        "훈련하는 면 Spell",
+        "한 판 해 보세요. — 내 단어만 있으면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "Wordsmith's Vigil",
+          "value": "Spell",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/module-wordsmith-vigil.mp4",
+          "poster": "wide/module-wordsmith-vigil.jpg",
+          "bytes": 477698,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-wordsmith-vigil.mp4",
+          "poster": "vertical/module-wordsmith-vigil.jpg",
+          "bytes": 538036,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-wordsmith-vigil.mp4",
+          "poster": "square/module-wordsmith-vigil.jpg",
+          "bytes": 492128,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-morphmerge",
+      "kind": "module",
+      "title": "Morphmerge",
+      "subtitle": "같은 어족의 형태를 알아보고 합쳐 수집하라",
+      "seconds": 10.1,
+      "captions": "module-morphmerge.vtt",
+      "transcript": [
+        "같은 어족의 형태를 알아보고 합쳐 수집하라",
+        "훈련하는 면 Build",
+        "한 판 해 보세요. — 내 단어만 있으면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "Morphmerge",
+          "value": "Build",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/module-morphmerge.mp4",
+          "poster": "wide/module-morphmerge.jpg",
+          "bytes": 469375,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-morphmerge.mp4",
+          "poster": "vertical/module-morphmerge.jpg",
+          "bytes": 529851,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-morphmerge.mp4",
+          "poster": "square/module-morphmerge.jpg",
+          "bytes": 476743,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-daily-blitz",
+      "kind": "module",
+      "title": "Daily Blitz",
+      "subtitle": "매일 새로운 10단어 · 스트릭",
+      "seconds": 10.13,
+      "captions": "module-daily-blitz.vtt",
+      "transcript": [
+        "매일 새로운 10단어 · 스트릭",
+        "훈련하는 면 Recognize · Fluency",
+        "한 판 해 보세요. — 내 단어만 있으면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "Daily Blitz",
+          "value": "Recognize · Fluency",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/module-daily-blitz.mp4",
+          "poster": "wide/module-daily-blitz.jpg",
+          "bytes": 528291,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-daily-blitz.mp4",
+          "poster": "vertical/module-daily-blitz.jpg",
+          "bytes": 605572,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-daily-blitz.mp4",
+          "poster": "square/module-daily-blitz.jpg",
+          "bytes": 542070,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-connections",
+      "kind": "module",
+      "title": "Connections",
+      "subtitle": "뜻만 보고 숨은 규칙을 잇다",
+      "seconds": 9.5,
+      "captions": "module-connections.vtt",
+      "transcript": [
+        "뜻만 보고 숨은 규칙을 잇다",
+        "훈련하는 면 Recognize",
+        "한 판 해 보세요. — 내 단어만 있으면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "Connections",
+          "value": "Recognize",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/module-connections.mp4",
+          "poster": "wide/module-connections.jpg",
+          "bytes": 453855,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-connections.mp4",
+          "poster": "vertical/module-connections.jpg",
+          "bytes": 523885,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-connections.mp4",
+          "poster": "square/module-connections.jpg",
+          "bytes": 469409,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-glyph-tongue",
+      "kind": "module",
+      "title": "The Glyph Tongue",
+      "subtitle": "뜻을 주지 않는다 — 문맥으로 룬을 해독",
+      "seconds": 10.67,
+      "captions": "module-glyph-tongue.vtt",
+      "transcript": [
+        "뜻을 주지 않는다 — 문맥으로 룬을 해독",
+        "훈련하는 면 Build · Recognize",
+        "한 판 해 보세요. — 내 단어만 있으면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "The Glyph Tongue",
+          "value": "Build · Recognize",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/module-glyph-tongue.mp4",
+          "poster": "wide/module-glyph-tongue.jpg",
+          "bytes": 570270,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-glyph-tongue.mp4",
+          "poster": "vertical/module-glyph-tongue.jpg",
+          "bytes": 645820,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-glyph-tongue.mp4",
+          "poster": "square/module-glyph-tongue.jpg",
+          "bytes": 585542,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-word-customs",
+      "kind": "module",
+      "title": "Word Customs",
+      "subtitle": "단어의 여권을 심사해 위조를 적발하라",
+      "seconds": 9.7,
+      "captions": "module-word-customs.vtt",
+      "transcript": [
+        "단어의 여권을 심사해 위조를 적발하라",
+        "훈련하는 면 Use",
+        "한 판 해 보세요. — 내 단어만 있으면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "Word Customs",
+          "value": "Use",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/module-word-customs.mp4",
+          "poster": "wide/module-word-customs.jpg",
+          "bytes": 460850,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-word-customs.mp4",
+          "poster": "vertical/module-word-customs.jpg",
+          "bytes": 509397,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-word-customs.mp4",
+          "poster": "square/module-word-customs.jpg",
+          "bytes": 465022,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-morpheme-rules",
+      "kind": "module",
+      "title": "Morpheme Rules",
+      "subtitle": "형태소를 조립하면 그 뜻이 세계를 바꾼다",
+      "seconds": 10.33,
+      "captions": "module-morpheme-rules.vtt",
+      "transcript": [
+        "형태소를 조립하면 그 뜻이 세계를 바꾼다",
+        "훈련하는 면 Build",
+        "한 판 해 보세요. — 내 단어만 있으면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "Morpheme Rules",
+          "value": "Build",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/module-morpheme-rules.mp4",
+          "poster": "wide/module-morpheme-rules.jpg",
+          "bytes": 485456,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-morpheme-rules.mp4",
+          "poster": "vertical/module-morpheme-rules.jpg",
+          "bytes": 536546,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-morpheme-rules.mp4",
+          "poster": "square/module-morpheme-rules.jpg",
+          "bytes": 483221,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-silent-rule",
+      "kind": "module",
+      "title": "The Silent Rule",
+      "subtitle": "설명 없이 철자 규칙을 스스로 귀납하라",
+      "seconds": 10.6,
+      "captions": "module-silent-rule.vtt",
+      "transcript": [
+        "설명 없이 철자 규칙을 스스로 귀납하라",
+        "훈련하는 면 Spell · Build",
+        "한 판 해 보세요. — 내 단어만 있으면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "The Silent Rule",
+          "value": "Spell · Build",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/module-silent-rule.mp4",
+          "poster": "wide/module-silent-rule.jpg",
+          "bytes": 530735,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-silent-rule.mp4",
+          "poster": "vertical/module-silent-rule.jpg",
+          "bytes": 606933,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-silent-rule.mp4",
+          "poster": "square/module-silent-rule.jpg",
+          "bytes": 536045,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-lexicon-hands",
+      "kind": "module",
+      "title": "Lexicon Hands",
+      "subtitle": "어원·품사 시너지로 배수를 폭발시켜라",
+      "seconds": 10.5,
+      "captions": "module-lexicon-hands.vtt",
+      "transcript": [
+        "어원·품사 시너지로 배수를 폭발시켜라",
+        "훈련하는 면 Recognize",
+        "한 판 해 보세요. — 내 단어만 있으면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "Lexicon Hands",
+          "value": "Recognize",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/module-lexicon-hands.mp4",
+          "poster": "wide/module-lexicon-hands.jpg",
+          "bytes": 480707,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-lexicon-hands.mp4",
+          "poster": "vertical/module-lexicon-hands.jpg",
+          "bytes": 562144,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-lexicon-hands.mp4",
+          "poster": "square/module-lexicon-hands.jpg",
+          "bytes": 501782,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-lexicon-detective",
+      "kind": "module",
+      "title": "Lexicon Detective",
+      "subtitle": "현장 단서를 수확해 사건을 재구성하라",
+      "seconds": 10.3,
+      "captions": "module-lexicon-detective.vtt",
+      "transcript": [
+        "현장 단서를 수확해 사건을 재구성하라",
+        "훈련하는 면 Recognize",
+        "한 판 해 보세요. — 내 단어만 있으면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "Lexicon Detective",
+          "value": "Recognize",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/module-lexicon-detective.mp4",
+          "poster": "wide/module-lexicon-detective.jpg",
+          "bytes": 511364,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-lexicon-detective.mp4",
+          "poster": "vertical/module-lexicon-detective.jpg",
+          "bytes": 586107,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-lexicon-detective.mp4",
+          "poster": "square/module-lexicon-detective.jpg",
+          "bytes": 530659,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-lexicon-estate",
+      "kind": "module",
+      "title": "Lexicon Estate",
+      "subtitle": "단어-방을 배치해 의미장 저택을 짓다",
+      "seconds": 10.3,
+      "captions": "module-lexicon-estate.vtt",
+      "transcript": [
+        "단어-방을 배치해 의미장 저택을 짓다",
+        "훈련하는 면 Recognize",
+        "한 판 해 보세요. — 내 단어만 있으면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "Lexicon Estate",
+          "value": "Recognize",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/module-lexicon-estate.mp4",
+          "poster": "wide/module-lexicon-estate.jpg",
+          "bytes": 496827,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-lexicon-estate.mp4",
+          "poster": "vertical/module-lexicon-estate.jpg",
+          "bytes": 567692,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-lexicon-estate.mp4",
+          "poster": "square/module-lexicon-estate.jpg",
+          "bytes": 510009,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-word-orrery",
+      "kind": "module",
+      "title": "The Word Orrery",
+      "subtitle": "행성을 탐사해 앎으로 핵의 봉인을 연다",
+      "seconds": 10.43,
+      "captions": "module-word-orrery.vtt",
+      "transcript": [
+        "행성을 탐사해 앎으로 핵의 봉인을 연다",
+        "훈련하는 면 Recognize",
+        "한 판 해 보세요. — 내 단어만 있으면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "The Word Orrery",
+          "value": "Recognize",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/module-word-orrery.mp4",
+          "poster": "wide/module-word-orrery.jpg",
+          "bytes": 503450,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-word-orrery.mp4",
+          "poster": "vertical/module-word-orrery.jpg",
+          "bytes": 579393,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-word-orrery.mp4",
+          "poster": "square/module-word-orrery.jpg",
+          "bytes": 526758,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-wordblitz",
+      "kind": "module",
+      "title": "WordBlitz",
+      "subtitle": "시계가 없다 — 목숨 3개로 어디까지 버티는가",
+      "seconds": 11.47,
+      "captions": "module-wordblitz.vtt",
+      "transcript": [
+        "시계가 없다 — 목숨 3개로 어디까지 버티는가",
+        "훈련하는 면 Recognize · Fluency",
+        "한 판 해 보세요. — 내 단어만 있으면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "WordBlitz",
+          "value": "Recognize · Fluency",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/module-wordblitz.mp4",
+          "poster": "wide/module-wordblitz.jpg",
+          "bytes": 568331,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-wordblitz.mp4",
+          "poster": "vertical/module-wordblitz.jpg",
+          "bytes": 633224,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-wordblitz.mp4",
+          "poster": "square/module-wordblitz.jpg",
+          "bytes": 567091,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "module-pirate-quest",
+      "kind": "module",
+      "title": "Pirate's Bounty",
+      "subtitle": "해변에서 보물 단어를 찾는 3D 모험",
+      "seconds": 10.33,
+      "captions": "module-pirate-quest.vtt",
+      "transcript": [
+        "해변에서 보물 단어를 찾는 3D 모험",
+        "훈련하는 면 Recognize",
+        "한 판 해 보세요. — 내 단어만 있으면 됩니다"
+      ],
+      "evidence": [
+        {
+          "label": "Pirate's Bounty",
+          "value": "Recognize",
+          "source": "lib/framework/registry.ts (활동 정본)"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/module-pirate-quest.mp4",
+          "poster": "wide/module-pirate-quest.jpg",
+          "bytes": 492532,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/module-pirate-quest.mp4",
+          "poster": "vertical/module-pirate-quest.jpg",
+          "bytes": 569729,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/module-pirate-quest.mp4",
+          "poster": "square/module-pirate-quest.jpg",
+          "bytes": 511344,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "method-stages",
+      "kind": "method",
+      "title": "단어 하나가 거치는 다섯 자리",
+      "subtitle": "외웠다/못 외웠다 둘로 나누지 않습니다 — 어디까지 왔는지를 봅니다",
+      "seconds": 17.3,
+      "captions": "method-stages.vtt",
+      "transcript": [
+        "«외웠다» 와 «못 외웠다» 사이에 자리가 셋 더 있습니다",
+        "Met → Recognized → Recalled → Applied → Fluent",
+        "한 번에 새로 들이는 면 1개 · 하루 3블록",
+        "지금 어디까지 왔는지 보여 드릴게요. — 내 단어로 확인"
+      ],
+      "evidence": [
+        {
+          "label": "S0",
+          "value": "Met",
+          "source": "lib/framework/axes.ts STAGES (단계 정본)"
+        },
+        {
+          "label": "S1",
+          "value": "Recognized",
+          "source": "lib/framework/axes.ts STAGES (단계 정본)"
+        },
+        {
+          "label": "S2",
+          "value": "Recalled",
+          "source": "lib/framework/axes.ts STAGES (단계 정본)"
+        },
+        {
+          "label": "S3",
+          "value": "Applied",
+          "source": "lib/framework/axes.ts STAGES (단계 정본)"
+        },
+        {
+          "label": "S4",
+          "value": "Fluent",
+          "source": "lib/framework/axes.ts STAGES (단계 정본)"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/method-stages.mp4",
+          "poster": "wide/method-stages.jpg",
+          "bytes": 851985,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/method-stages.mp4",
+          "poster": "vertical/method-stages.jpg",
+          "bytes": 922524,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/method-stages.mp4",
+          "poster": "square/method-stages.jpg",
+          "bytes": 868915,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "method-recognize",
+      "kind": "method",
+      "title": "Recognize — 뜻을 보면 그 단어를 고를 수 있어요",
+      "subtitle": "뜻을 보면 그 단어를 고를 수 있어요",
+      "seconds": 18.77,
+      "captions": "method-recognize.vtt",
+      "transcript": [
+        "뜻을 보면 그 단어를 고를 수 있어요",
+        "이 면은 «후보가 있는 재인 (뜻→단어 · 단어→뜻)» 으로 잽니다",
+        "이 면을 훈련하는 활동 15개",
+        "통과하면 Recognized — 뜻을 알아봐요",
+        "이 면부터 해 볼까요. — Flashcard 로 시작"
+      ],
+      "evidence": [
+        {
+          "label": "Recognize",
+          "value": "후보가 있는 재인 (뜻→단어 · 단어→뜻)",
+          "source": "lib/framework/axes.ts FACETS (면 정본)"
+        },
+        {
+          "label": "올려 주는 자리",
+          "value": "S1 Recognized",
+          "source": "lib/framework/axes.ts STAGE_BY_FACET"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/method-recognize.mp4",
+          "poster": "wide/method-recognize.jpg",
+          "bytes": 937523,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/method-recognize.mp4",
+          "poster": "vertical/method-recognize.jpg",
+          "bytes": 1087267,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/method-recognize.mp4",
+          "poster": "square/method-recognize.jpg",
+          "bytes": 970618,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "method-spell",
+      "kind": "method",
+      "title": "Spell — 후보 없이 직접 쓸 수 있어요",
+      "subtitle": "후보 없이 직접 쓸 수 있어요",
+      "seconds": 18,
+      "captions": "method-spell.vtt",
+      "transcript": [
+        "후보 없이 직접 쓸 수 있어요",
+        "이 면은 «철자 생산 (타이핑 · 글자 조립)» 으로 잽니다",
+        "이 면을 훈련하는 활동 6개",
+        "통과하면 Recalled — 직접 쓸 수 있어요",
+        "이 면부터 해 볼까요. — SpellForge 로 시작"
+      ],
+      "evidence": [
+        {
+          "label": "Spell",
+          "value": "철자 생산 (타이핑 · 글자 조립)",
+          "source": "lib/framework/axes.ts FACETS (면 정본)"
+        },
+        {
+          "label": "올려 주는 자리",
+          "value": "S2 Recalled",
+          "source": "lib/framework/axes.ts STAGE_BY_FACET"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/method-spell.mp4",
+          "poster": "wide/method-spell.jpg",
+          "bytes": 901897,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/method-spell.mp4",
+          "poster": "vertical/method-spell.jpg",
+          "bytes": 1015699,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/method-spell.mp4",
+          "poster": "square/method-spell.jpg",
+          "bytes": 940055,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "method-sound",
+      "kind": "method",
+      "title": "Sound — 들으면 알고, 소리 내어 말할 수 있어요",
+      "subtitle": "들으면 알고, 소리 내어 말할 수 있어요",
+      "seconds": 14.27,
+      "captions": "method-sound.vtt",
+      "transcript": [
+        "들으면 알고, 소리 내어 말할 수 있어요",
+        "이 면은 «청각 단서 인출 · 발화 모방» 으로 잽니다",
+        "이 면을 훈련하는 활동 3개",
+        "이 면부터 해 볼까요. — Echo 로 시작"
+      ],
+      "evidence": [
+        {
+          "label": "Sound",
+          "value": "청각 단서 인출 · 발화 모방",
+          "source": "lib/framework/axes.ts FACETS (면 정본)"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/method-sound.mp4",
+          "poster": "wide/method-sound.jpg",
+          "bytes": 699630,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/method-sound.mp4",
+          "poster": "vertical/method-sound.jpg",
+          "bytes": 798553,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/method-sound.mp4",
+          "poster": "square/method-sound.jpg",
+          "bytes": 732012,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "method-build",
+      "kind": "method",
+      "title": "Build — 조각으로 나누고 다시 붙일 수 있어요",
+      "subtitle": "조각으로 나누고 다시 붙일 수 있어요",
+      "seconds": 13.73,
+      "captions": "method-build.vtt",
+      "transcript": [
+        "조각으로 나누고 다시 붙일 수 있어요",
+        "이 면은 «형태소 조립·분해» 으로 잽니다",
+        "이 면을 훈련하는 활동 4개",
+        "이 면부터 해 볼까요. — Morphmerge 로 시작"
+      ],
+      "evidence": [
+        {
+          "label": "Build",
+          "value": "형태소 조립·분해",
+          "source": "lib/framework/axes.ts FACETS (면 정본)"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/method-build.mp4",
+          "poster": "wide/method-build.jpg",
+          "bytes": 764771,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/method-build.mp4",
+          "poster": "vertical/method-build.jpg",
+          "bytes": 875679,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/method-build.mp4",
+          "poster": "square/method-build.jpg",
+          "bytes": 802040,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "method-use",
+      "kind": "method",
+      "title": "Use — 문장 안에서 알맞게 쓸 수 있어요",
+      "subtitle": "문장 안에서 알맞게 쓸 수 있어요",
+      "seconds": 17.1,
+      "captions": "method-use.vtt",
+      "transcript": [
+        "문장 안에서 알맞게 쓸 수 있어요",
+        "이 면은 «문맥 인출 · 연어 판정» 으로 잽니다",
+        "이 면을 훈련하는 활동 3개",
+        "통과하면 Applied — 문장에서 써요",
+        "이 면부터 해 볼까요. — ScriptQuiz 로 시작"
+      ],
+      "evidence": [
+        {
+          "label": "Use",
+          "value": "문맥 인출 · 연어 판정",
+          "source": "lib/framework/axes.ts FACETS (면 정본)"
+        },
+        {
+          "label": "올려 주는 자리",
+          "value": "S3 Applied",
+          "source": "lib/framework/axes.ts STAGE_BY_FACET"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/method-use.mp4",
+          "poster": "wide/method-use.jpg",
+          "bytes": 880575,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/method-use.mp4",
+          "poster": "vertical/method-use.jpg",
+          "bytes": 983585,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/method-use.mp4",
+          "poster": "square/method-use.jpg",
+          "bytes": 903399,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "method-fluency",
+      "kind": "method",
+      "title": "Fluency — 생각하지 않아도 바로 나와요",
+      "subtitle": "생각하지 않아도 바로 나와요",
+      "seconds": 16.23,
+      "captions": "method-fluency.vtt",
+      "transcript": [
+        "생각하지 않아도 바로 나와요",
+        "이 면은 «정확 + 속도 대역» 으로 잽니다",
+        "이 면을 훈련하는 활동 4개",
+        "통과하면 Fluent — 바로 나와요",
+        "이 면부터 해 볼까요. — Cascade 로 시작"
+      ],
+      "evidence": [
+        {
+          "label": "Fluency",
+          "value": "정확 + 속도 대역",
+          "source": "lib/framework/axes.ts FACETS (면 정본)"
+        },
+        {
+          "label": "올려 주는 자리",
+          "value": "S4 Fluent",
+          "source": "lib/framework/axes.ts STAGE_BY_FACET"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/method-fluency.mp4",
+          "poster": "wide/method-fluency.jpg",
+          "bytes": 898371,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/method-fluency.mp4",
+          "poster": "vertical/method-fluency.jpg",
+          "bytes": 1022341,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/method-fluency.mp4",
+          "poster": "square/method-fluency.jpg",
+          "bytes": 925121,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "advice-met",
+      "kind": "advice",
+      "title": "Met 다음 한 걸음",
+      "subtitle": "만난 적 있어요 — 그다음은 Recognize 입니다",
+      "seconds": 18.43,
+      "captions": "advice-met.vtt",
+      "transcript": [
+        "«만난 적 있어요» 다음에 무엇을 할까요",
+        "지금 Met — 다음은 Recognized",
+        "권하는 것 — Recognize",
+        "아직 안 권하는 때 — 정답률 70% 미만 · 만남 8회 미만",
+        "막지 않고 권합니다. — Flashcard 로 한 걸음"
+      ],
+      "evidence": [
+        {
+          "label": "다음 면",
+          "value": "Recognize",
+          "source": "lib/framework/axes.ts SPINE (단계를 정의하는 면)"
+        },
+        {
+          "label": "보류 임계",
+          "value": "정답률 70% · 만남 8회",
+          "source": "lib/framework/flow.ts (처방 임계 정본)"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/advice-met.mp4",
+          "poster": "wide/advice-met.jpg",
+          "bytes": 952245,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/advice-met.mp4",
+          "poster": "vertical/advice-met.jpg",
+          "bytes": 1085169,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/advice-met.mp4",
+          "poster": "square/advice-met.jpg",
+          "bytes": 996226,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "advice-recognized",
+      "kind": "advice",
+      "title": "Recognized 다음 한 걸음",
+      "subtitle": "뜻을 알아봐요 — 그다음은 Spell 입니다",
+      "seconds": 17.93,
+      "captions": "advice-recognized.vtt",
+      "transcript": [
+        "«뜻을 알아봐요» 다음에 무엇을 할까요",
+        "지금 Recognized — 다음은 Recalled",
+        "권하는 것 — Spell",
+        "아직 안 권하는 때 — 정답률 70% 미만 · 만남 8회 미만",
+        "막지 않고 권합니다. — SpellForge 로 한 걸음"
+      ],
+      "evidence": [
+        {
+          "label": "다음 면",
+          "value": "Spell",
+          "source": "lib/framework/axes.ts SPINE (단계를 정의하는 면)"
+        },
+        {
+          "label": "보류 임계",
+          "value": "정답률 70% · 만남 8회",
+          "source": "lib/framework/flow.ts (처방 임계 정본)"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/advice-recognized.mp4",
+          "poster": "wide/advice-recognized.jpg",
+          "bytes": 932866,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/advice-recognized.mp4",
+          "poster": "vertical/advice-recognized.jpg",
+          "bytes": 1058533,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/advice-recognized.mp4",
+          "poster": "square/advice-recognized.jpg",
+          "bytes": 967924,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "advice-recalled",
+      "kind": "advice",
+      "title": "Recalled 다음 한 걸음",
+      "subtitle": "직접 쓸 수 있어요 — 그다음은 Use 입니다",
+      "seconds": 18.73,
+      "captions": "advice-recalled.vtt",
+      "transcript": [
+        "«직접 쓸 수 있어요» 다음에 무엇을 할까요",
+        "지금 Recalled — 다음은 Applied",
+        "권하는 것 — Use",
+        "아직 안 권하는 때 — 정답률 70% 미만 · 만남 8회 미만",
+        "막지 않고 권합니다. — ScriptQuiz 로 한 걸음"
+      ],
+      "evidence": [
+        {
+          "label": "다음 면",
+          "value": "Use",
+          "source": "lib/framework/axes.ts SPINE (단계를 정의하는 면)"
+        },
+        {
+          "label": "보류 임계",
+          "value": "정답률 70% · 만남 8회",
+          "source": "lib/framework/flow.ts (처방 임계 정본)"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/advice-recalled.mp4",
+          "poster": "wide/advice-recalled.jpg",
+          "bytes": 940418,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/advice-recalled.mp4",
+          "poster": "vertical/advice-recalled.jpg",
+          "bytes": 1077726,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/advice-recalled.mp4",
+          "poster": "square/advice-recalled.jpg",
+          "bytes": 986281,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "id": "advice-applied",
+      "kind": "advice",
+      "title": "Applied 다음 한 걸음",
+      "subtitle": "문장에서 써요 — 그다음은 Fluency 입니다",
+      "seconds": 18,
+      "captions": "advice-applied.vtt",
+      "transcript": [
+        "«문장에서 써요» 다음에 무엇을 할까요",
+        "지금 Applied — 다음은 Fluent",
+        "권하는 것 — Fluency",
+        "아직 안 권하는 때 — 정답률 70% 미만 · 만남 8회 미만",
+        "막지 않고 권합니다. — Cascade 로 한 걸음"
+      ],
+      "evidence": [
+        {
+          "label": "다음 면",
+          "value": "Fluency",
+          "source": "lib/framework/axes.ts SPINE (단계를 정의하는 면)"
+        },
+        {
+          "label": "보류 임계",
+          "value": "정답률 70% · 만남 8회",
+          "source": "lib/framework/flow.ts (처방 임계 정본)"
+        }
+      ],
+      "formats": {
+        "wide": {
+          "file": "wide/advice-applied.mp4",
+          "poster": "wide/advice-applied.jpg",
+          "bytes": 919585,
+          "width": 1920,
+          "height": 1080
+        },
+        "vertical": {
+          "file": "vertical/advice-applied.mp4",
+          "poster": "vertical/advice-applied.jpg",
+          "bytes": 1042180,
+          "width": 1080,
+          "height": 1920
+        },
+        "square": {
+          "file": "square/advice-applied.mp4",
+          "poster": "square/advice-applied.jpg",
+          "bytes": 954182,
+          "width": 1080,
+          "height": 1080
+        }
+      }
+    }
+  ]
+}

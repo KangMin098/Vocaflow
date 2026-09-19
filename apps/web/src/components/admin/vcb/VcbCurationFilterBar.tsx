@@ -1,9 +1,11 @@
+// apps/web/src/components/admin/vcb/VcbCurationFilterBar.tsx
+
 'use client'
 
 // VcbCurationFilterBar.tsx
 // 자율 재구성: spec 미수신 (메시지 잘림). VcbCurationView 의 usage 시그니처
 // (filter / sort / counts: {all, flagged, unreviewed} / onFilterChange /
-// onSortChange) 기반 + AdminToolbar 의 chip 패턴 정합으로 구성.
+// onSortChange) 기반. (예전에 참조하던 AdminToolbar 는 사용처가 0이 되어 2026-09-05 삭제.)
 
 import { Filter } from 'lucide-react'
 import type { CurationFilter, CurationSort } from '@/lib/vcb/types'
@@ -52,7 +54,7 @@ export function VcbCurationFilterBar({
       style={{ background: 'var(--bg2)', borderColor: 'var(--bd)' }}
     >
       {/* 필터 chips */}
-      <div className="flex items-center gap-1.5 flex-wrap">
+      <div className="flex items-center gap-2 flex-wrap">
         <Filter className="w-3 h-3" style={{ color: 'var(--t3)' }} aria-hidden />
         {FILTER_OPTIONS.map((opt) => {
           const active = filter === opt.value
@@ -62,7 +64,7 @@ export function VcbCurationFilterBar({
               key={opt.value}
               type="button"
               onClick={() => onFilterChange(opt.value)}
-              className="inline-flex items-center gap-1 rounded-[var(--r-full)] border px-2.5 py-1 font-display text-[11px] font-semibold transition-colors"
+              className="min-h-[44px] inline-flex items-center gap-1 rounded-[var(--r-full)] border px-3 py-1 font-display text-[11px] font-semibold transition-colors"
               style={{
                 borderColor: active ? 'var(--admin-strong)' : 'var(--bd)',
                 background: active ? 'rgba(139, 92, 246, 0.10)' : 'var(--bg)',
@@ -96,7 +98,7 @@ export function VcbCurationFilterBar({
           id="vcb-curation-sort"
           value={sort}
           onChange={(e) => onSortChange(e.target.value as CurationSort)}
-          className="flex-1 px-2 py-1 rounded-[var(--r-sm)] border font-display text-xs"
+          className="min-h-[44px] flex-1 px-2 py-1 rounded-[var(--r-sm)] border font-display text-xs"
           style={{
             background: 'var(--bg)',
             borderColor: 'var(--bd)',

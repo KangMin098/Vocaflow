@@ -274,7 +274,7 @@ export function scoreSentence(
 }
 
 function generateFeedback(accuracy: number, patternCount: number): string {
-  if (accuracy === 100) return '완벽해요! 🎯';
+  if (accuracy === 100) return '완벽해요. 한 글자도 놓치지 않았어요.';
   if (accuracy >= 90) return '훌륭해요. 거의 완벽합니다.';
   if (accuracy >= 75) return '잘했어요. 몇 단어만 더 신경 쓰면 됩니다.';
   if (accuracy >= 60) return '괜찮아요. 패턴을 보고 다시 도전해보세요.';

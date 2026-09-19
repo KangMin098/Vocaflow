@@ -4,7 +4,7 @@
 // pg_cron / Vault 우회. Supabase Cloud 가 localhost 에 접근 못 하는 dev 환경 전용.
 //
 // 차이 (vs /api/lcp/process):
-//   - 인증: admin/curator role (requireAdmin) — X-LCP-Token 토큰 불필요
+//   - 인증: admin/curator role (requireAdminApi) — X-LCP-Token 토큰 불필요
 //   - 트리거: 사용자 UI 클릭, msg_id 없음 (pgmq 큐 우회)
 //   - 환경 가드: NODE_ENV='production' 차단 (배포 환경에선 pg_cron 정상 경로 사용)
 
@@ -26,8 +26,10 @@ import {
   analyzeBook,
 } from '@vocaflow/library-pipeline'
 
-import { requireAdmin } from '@/lib/auth/require-admin'
-import { resolveCoverImageUrl } from '@/lib/library/cover-image'
+import { requireAdminApi } from '@/lib/auth/require-admin-api'
+import { internalTokenMatches } from '@/lib/auth/internal-token'
+import { normalizeAuthor, normalizeTitle } from '@/lib/library/bibliographic'
+import { resolveCoverImageUrlWithSeed } from '@/lib/library/cover-image'
 import { autoMapLibriVoxForBook } from '@/lib/library/librivox-automap'
 
 export const runtime = 'nodejs'
@@ -51,8 +53,9 @@ export async function POST(request: Request): Promise<NextResponse> {
   // 인증 — X-LCP-Token (스크립트/일괄 재처리) 우선, 없으면 admin 쿠키(브라우저 버튼).
   const lcpToken = process.env['LCP_INTERNAL_TOKEN']
   const reqToken = request.headers.get('X-LCP-Token')
-  if (!(lcpToken && reqToken === lcpToken)) {
-    await requireAdmin('/admin/curation')
+  if (!internalTokenMatches(reqToken, lcpToken)) {
+    const admin = await requireAdminApi()
+    if (admin instanceof NextResponse) return admin
   }
 
   const supabaseUrl = process.env['NEXT_PUBLIC_SUPABASE_URL']
@@ -143,8 +146,10 @@ export async function POST(request: Request): Promise<NextResponse> {
     await client
       .from('library_books')
       .update({
-        title: raw.title,
-        author: raw.author ?? null,
+        // 서지 표기는 소스 관행이 제각각이라 **넣는 순간** 정규화한다 — 카탈로그가 갈린 뒤
+        // 백필로 쫓아가면 늘 늦는다(실측: 도치형 2 · 이중공백 6 · 문장형 제목 1).
+        title: normalizeTitle(raw.title) ?? raw.title,
+        author: normalizeAuthor(raw.author ?? null),
         author_birth_year: raw.author_birth_year ?? null,
         author_death_year: raw.author_death_year ?? null,
         language: raw.language,
@@ -199,19 +204,21 @@ export async function POST(request: Request): Promise<NextResponse> {
       if (error) console.warn(`[lcp/dev-process] ${fn} skipped: ${error.message}`)
     }
 
-    // 원천 표지 이미지 URL 해결 (best-effort) — Gutenberg pg{id}.cover / SE og:image.
+    // 표지 이미지 URL 해결 — **시드 우선, 원천 폴백** (process 와 같은 규칙).
     //   StoryWeaver 는 ingester 가 표지를 직접 제공(위 자산 persist) → 우회.
     if (book.source !== 'storyweaver') {
       try {
-        const coverUrl = await resolveCoverImageUrl({
+        const { url: coverUrl } = await resolveCoverImageUrlWithSeed(client, {
           source: book.source as string,
           sourceId: book.source_id as string,
         })
         if (coverUrl) {
           await client.from('library_books').update({ cover_image_url: coverUrl }).eq('id', book_id)
+        } else {
+          console.warn(`[lcp/dev-process] 표지 없음 (${book.source}/${book.source_id}) — 시드·원천 모두 실패`)
         }
       } catch (e) {
-        console.warn(`[lcp/dev-process] resolveCoverImageUrl skipped: ${e instanceof Error ? e.message : String(e)}`)
+        console.warn(`[lcp/dev-process] 표지 해결 실패: ${e instanceof Error ? e.message : String(e)}`)
       }
     }
 

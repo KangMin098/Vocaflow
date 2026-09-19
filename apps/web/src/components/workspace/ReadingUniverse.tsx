@@ -154,12 +154,12 @@ export function ReadingUniverse({
             isFocusMode ? 'opacity-30' : 'opacity-100'
           } `}
         >
-          <span className="font-display text-[11px] font-[700] uppercase tracking-[0.12em] text-[var(--t2)]">
+          <span className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
             {chapterMeta.label}
           </span>
           <span className="h-px flex-1 bg-gradient-to-r from-[var(--bd)] via-[var(--bd)] to-transparent" />
           {typeof chapterMeta.readingMinutes === 'number' && chapterMeta.readingMinutes > 0 && (
-            <span className="font-body text-[11.5px] italic text-[var(--t3)]">
+            <span className="font-body text-[11.5px] italic text-[var(--t2)]">
               약 {chapterMeta.readingMinutes}분 읽기
             </span>
           )}
@@ -270,17 +270,19 @@ export function ReadingUniverse({
 
                     const statusClass = (() => {
                       if (isActive) {
-                        return 'rounded-[var(--r-sm)] bg-[var(--p)] px-1 py-px font-[500] text-white'
+                        return 'rounded-[var(--r-sm)] bg-[var(--p)] px-1 py-px font-[500] text-[var(--on-p)]'
                       }
+                      // 형태 문법 F1 — 밑줄 두께 = 망각도(DecayUnderline 과 같은 값). 정지 상태, 모션 0.
+                      // 예전 risk 의 `word-pulse` 4s 무한 반복은 끝나는 상태가 없는 모션이라 뺐다(DD-06).
                       switch (word.status) {
                         case 'stable':
-                          return 'border-b border-[rgba(34,197,94,0.38)] hover:border-[rgba(34,197,94,0.7)]'
+                          return 'border-b border-solid border-[var(--memory-stable)]'
                         case 'shaky':
-                          return 'border-b-[1.5px] border-dashed border-[rgba(245,158,11,0.65)]'
+                          return 'border-b-2 border-solid border-[var(--memory-shaky)]'
                         case 'risk':
-                          return 'animate-[word-pulse_4s_ease-in-out_infinite] border-b-[1.5px] border-dashed border-[rgba(239,68,68,0.72)]'
+                          return 'border-b-[3px] border-solid border-[var(--memory-risk)]'
                         case 'new':
-                          return 'bg-gradient-to-b from-transparent from-[62%] to-[rgba(59,130,246,0.18)] to-[62%]'
+                          return 'border-b-2 border-dotted border-[var(--memory-new)]'
                         default:
                           return ''
                       }

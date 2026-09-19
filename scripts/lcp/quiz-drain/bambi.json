@@ -1,0 +1,546 @@
+{
+  "book": {
+    "id": "56e47f9a-6cef-4e60-987c-df8a9852ce3a",
+    "title": "Bambi",
+    "book_v_level": 7
+  },
+  "target_per_chapter": 7,
+  "chapters": [
+    {
+      "chapter_idx": 1,
+      "chapter_title": null,
+      "word_count": 789,
+      "chapter_v_level": 7,
+      "content": "CHAPTER 1. \u001ehttps://standardebooks.org/ebooks/felix-salten/bambi/whittaker-chambers/text/chapter-1\n\nHe came into the world in the middle of the thicket, in one of those little, hidden forest glades which seem to be entirely open, but are really screened in on all sides. There was very little room in it, scarcely enough for him and his mother.\n\nHe stood there, swaying unsteadily on his thin legs and staring vaguely in front of him with clouded eyes which saw nothing. He hung his head, trembled a great deal, and was still completely stunned.\n\n\"What a beautiful child,\" cried the magpie.\n\nShe had flown past, attracted by the deep groans the mother uttered in her labor. The magpie perched on a neighboring branch. \"What a beautiful child,\" she kept repeating. Receiving no answer, she went on talkatively, \"How amazing to think that he should be able to get right up and walk! How interesting! I've never seen the like of it before in all my born days. Of course, I'm still young, only a year out of the nest, you might say. But I think it's wonderful. A child like that, hardly a minute in this world, and beginning to walk already! I call that remarkable. Really, I find that everything you deer do is remarkable. Can he run, too?\"\n\n\"Of course,\" replied the mother softly. \"But you must pardon me if I don't talk with you now. I have so much to do, and I still feel a little faint.\"\n\n\"Don't put yourself out on my account,\" said the magpie. \"I have very little time myself. But you don't see a sight like this every day. Think what a care and bother such things mean to us. The children can't stir once they are out of the egg but lie helpless in the nest and require an attention, an attention, I repeat, of which you simply can't have any comprehension. What a labor it is to feed them, what a trouble to watch them. Just think for a moment what a strain it is to hunt food for the children and to have to be eternally on guard lest something happen to them. They are helpless if you are not with them. Isn't it the truth? And how long it is before they can move, how long it is before they get their feathers and look like anything at all.\"\n\n\"Pardon,\" replied the mother, \"I wasn't listening.\"\n\nThe magpie flew off. \"A stupid soul,\" she thought to herself, \"very nice, but stupid.\"\n\nThe mother scarcely noticed that she was gone. She continued zealously washing her newly-born. She washed him with her tongue, fondling and caressing his body in a sort of warm massage.\n\nThe slight thing staggered a little. Under the strokes of her tongue, which softly touched him here and there, he drew himself together and stood still. His little red coat, that was still somewhat tousled, bore fine white spots, and on his vague baby face there was still a deep, sleepy expression.\n\nRound about grew hazel bushes, dogwoods, blackthorns and young elders. Tall maples, beeches and oaks wove a green roof over the thicket and from the firm, dark-brown earth sprang fern fronds, wood-vetch and sage. Underneath, the leaves of the violets, which had already bloomed, and of the strawberries, which were just beginning, clung to the ground. Through the thick foliage, the early sunlight filtered in a golden web. The whole forest resounded with myriad voices, was penetrated by them in a joyous agitation. The wood-thrush rejoiced incessantly, the doves cooed without stopping, the blackbirds whistled, finches warbled, the titmice chirped. Through the midst of these songs the jay flew, uttering its quarrelsome cry, the magpie mocked them, and the pheasants cackled loud and high. At times the shrill exulting of a woodpecker rose above all the other voices. The call of the falcon shrilled, light and piercing, over the treetops, and the hoarse crow chorus was heard continuously.\n\nThe little fawn understood not one of the many songs and calls, not a word of the conversations. He did not even listen to them. Nor did he heed any of the odors which blew through the woods. He only heard the soft licking against his coat that washed him and warmed him and kissed him. And he smelled nothing but his mother's body near him. She smelled good to him and, snuggling closer to her, he hunted eagerly around and found nourishment for his life.\n\nWhile he suckled, the mother continued to caress her little one. \"Bambi,\" she whispered. Every little while she raised her head and, listening, snuffed the wind. Then she kissed her fawn again, reassured and happy.\n\n\"Bambi,\" she repeated. \"My little Bambi.\"",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "What does the magpie find most remarkable about the newborn fawn?",
+          "questionKo": "까치가 갓 태어난 새끼 사슴에게서 가장 놀라워하는 것은?",
+          "options": [
+            {
+              "text": "That he can already get up and walk, only a minute into the world.",
+              "textKo": "세상에 나온 지 일 분 만에 벌써 일어나 걷는다는 것."
+            },
+            {
+              "text": "That his coat already bears white spots.",
+              "textKo": "벌써 흰 반점이 난 털을 지녔다는 것."
+            },
+            {
+              "text": "That he was born in so hidden a glade.",
+              "textKo": "이토록 숨겨진 빈터에서 태어났다는 것."
+            },
+            {
+              "text": "That his mother made so little noise.",
+              "textKo": "어미가 그토록 소리를 내지 않았다는 것."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "How amazing to think that he should be able to get right up and walk!"
+        },
+        {
+          "type": "multiple",
+          "question": "What does the magpie contrast with the fawn’s quick start in life?",
+          "questionKo": "까치는 새끼 사슴의 빠른 출발을 무엇과 견주는가?",
+          "options": [
+            {
+              "text": "The mother deer’s long labour.",
+              "textKo": "어미 사슴의 긴 산고."
+            },
+            {
+              "text": "Her own children, who lie helpless in the nest and need constant feeding and guarding.",
+              "textKo": "둥지에서 꼼짝 못 하고 누워 끊임없이 먹이고 지켜 줘야 하는 제 새끼들."
+            },
+            {
+              "text": "The way the forest wakes each morning.",
+              "textKo": "숲이 아침마다 깨어나는 방식."
+            },
+            {
+              "text": "The ferret’s way of hunting.",
+              "textKo": "족제비의 사냥 방식."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "The children can’t stir once they are out of the egg but lie helpless in the nest"
+        },
+        {
+          "type": "multiple",
+          "question": "How does the mother respond to the magpie’s long speech?",
+          "questionKo": "어미 사슴은 까치의 긴 말에 어떻게 반응하는가?",
+          "options": [
+            {
+              "text": "She thanks her warmly and asks for advice.",
+              "textKo": "따뜻이 고마워하며 조언을 청한다."
+            },
+            {
+              "text": "She asks the magpie to keep watch for danger.",
+              "textKo": "까치에게 위험을 살펴 달라 부탁한다."
+            },
+            {
+              "text": "She says \"Pardon, I wasn’t listening\" — she is busy washing her newborn.",
+              "textKo": "\"미안하지만 듣고 있지 않았어요\" 라고 한다 — 새끼를 씻기느라 바빠서."
+            },
+            {
+              "text": "She drives the magpie off the branch.",
+              "textKo": "까치를 가지에서 쫓아낸다."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "Pardon, replied the mother, I wasn’t listening."
+        },
+        {
+          "type": "multiple",
+          "question": "What does the magpie think as she flies away?",
+          "questionKo": "까치는 날아가며 무엇을 생각하는가?",
+          "options": [
+            {
+              "text": "That she should return with the other birds.",
+              "textKo": "다른 새들과 함께 다시 와야겠다고."
+            },
+            {
+              "text": "That deer are the proudest creatures in the forest.",
+              "textKo": "사슴이 숲에서 가장 오만한 짐승이라고."
+            },
+            {
+              "text": "That the fawn will not survive the summer.",
+              "textKo": "새끼가 여름을 넘기지 못하리라고."
+            },
+            {
+              "text": "That the mother is very nice, but stupid.",
+              "textKo": "어미가 아주 상냥하지만 어리석다고."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "A stupid soul, she thought to herself, very nice, but stupid."
+        },
+        {
+          "type": "multiple",
+          "question": "Of all the forest’s sounds and smells, what does the newborn actually notice?",
+          "questionKo": "숲의 온갖 소리와 냄새 가운데 갓난 새끼가 실제로 알아차리는 것은?",
+          "options": [
+            {
+              "text": "Only the licking that washes and warms him, and his mother’s smell.",
+              "textKo": "그를 씻기고 덥히는 핥는 감촉과 어미의 냄새뿐."
+            },
+            {
+              "text": "The quarrelsome cry of the jay.",
+              "textKo": "어치의 다투는 울음."
+            },
+            {
+              "text": "The scent of violets and strawberries.",
+              "textKo": "제비꽃과 딸기의 향."
+            },
+            {
+              "text": "The shrill call of the falcon overhead.",
+              "textKo": "머리 위 매의 날카로운 부름."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "He only heard the soft licking against his coat that washed him and warmed him and kissed him."
+        },
+        {
+          "type": "multiple",
+          "question": "What does the mother keep doing between kisses while the fawn suckles?",
+          "questionKo": "새끼가 젖을 빠는 동안 어미가 입맞춤 사이사이 계속하는 일은?",
+          "options": [
+            {
+              "text": "Calling to the magpie to come back.",
+              "textKo": "까치에게 돌아오라고 부른다."
+            },
+            {
+              "text": "Raising her head to listen and snuff the wind.",
+              "textKo": "머리를 들어 귀를 기울이고 바람 냄새를 맡는다."
+            },
+            {
+              "text": "Clearing the fern fronds away from the glade.",
+              "textKo": "빈터의 고사리를 치운다."
+            },
+            {
+              "text": "Counting the white spots on his coat.",
+              "textKo": "털의 흰 반점을 센다."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "Every little while she raised her head and, listening, snuffed the wind."
+        },
+        {
+          "type": "truefalse",
+          "question": "The glade where the fawn is born looks open but is actually screened in on all sides.",
+          "questionKo": "새끼가 태어난 빈터는 트여 보이지만 실은 사방이 가려져 있다.",
+          "options": [
+            {
+              "text": "True",
+              "textKo": "맞다"
+            },
+            {
+              "text": "False",
+              "textKo": "아니다"
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "which seem to be entirely open, but are really screened in on all sides"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 2,
+      "chapter_title": null,
+      "word_count": 3387,
+      "chapter_v_level": 6,
+      "content": "CHAPTER 2. \u001ehttps://standardebooks.org/ebooks/felix-salten/bambi/whittaker-chambers/text/chapter-2\n\nIn early summer the trees stood still under the blue sky, held their limbs outstretched and received the direct rays of the sun. On the shrubs and bushes in the undergrowth, the flowers unfolded their red, white and yellow stars. On some the seed pods had begun to appear again. They perched innumerable on the fine tips of the branches, tender and firm and resolute, and seemed like small, clenched fists. Out of the earth came whole troops of flowers, like motley stars, so that the soil of the twilit forest floor shone with a silent, ardent, colorful gladness. Everything smelled of fresh leaves, of blossoms, of moist clods and green wood. When morning broke, or when the sun went down, the whole woods resounded with a thousand voices, and from morning till night, the bees hummed, the wasps droned, and filled the fragrant stillness with their murmur.\n\nThese were the earliest days of Bambi's life. He walked behind his mother on a narrow track that ran through the midst of the bushes. How pleasant it was to walk there. The thick foliage stroked his flanks softly and bent supplely aside. The track appeared to be barred and obstructed in a dozen places and yet they advanced with the greatest ease. There were tracks like this everywhere, running crisscross through the whole woods. His mother knew them all, and if Bambi sometimes stopped before a bush as if it were an impenetrable green wall, she always found where the path went through, without hesitation or searching.\n\nBambi questioned her. He loved to ask his mother questions. It was the pleasantest thing for him to ask a question and then to hear what answer his mother would give. Bambi was never surprised that question after question should come into his mind continually and without effort. He found it perfectly natural, and it delighted him very much. It was very delightful, too, to wait expectantly till the answer came. If it turned out the way he wanted, he was satisfied. Sometimes of course, he did not understand, but that was pleasant also because he was kept busy picturing what he had not understood, in his own way. Sometimes he felt very sure that his mother was not giving him a complete answer, was intentionally not telling him all she knew. And, at first, that was very pleasant, too. For then there would remain in him such a lively curiosity, such suspicion, mysteriously and joyously flashing through him, such anticipation, that he would become anxious and happy at the same time, and grow silent.\n\nOnce he asked, \"Whom does this trail belong to, Mother?\"\n\nHis mother answered, \"To us.\"\n\nBambi asked again, \"To you and me?\"\n\n\"Yes.\"\n\n\"To us two?\"\n\n\"Yes.\"\n\n\"Only to us two?\"\n\n\"No,\" said his mother, \"to us deer.\"\n\n\"What are deer?\" Bambi asked, and laughed.\n\nHis mother looked at him from head to foot and laughed too. \"You are a deer and I am a deer. We're both deer,\" she said. \"Do you understand?\"\n\nBambi sprang into the air for joy. \"Yes, I understand,\" he said. \"I'm a little deer and you're a big deer, aren't you?\"\n\nHis mother nodded and said, \"Now you see.\"\n\nBut Bambi grew serious again. \"Are there other deer besides you and me?\" he asked.\n\n\"Certainly,\" his mother said. \"Many of them.\"\n\n\"Where are they?\" cried Bambi.\n\n\"Here, everywhere.\"\n\n\"But I don't see them.\"\n\n\"You will soon,\" she said.\n\n\"When?\" Bambi stood still, wild with curiosity.\n\n\"Soon.\" The mother walked on quietly. Bambi followed her. He kept silent for he was wondering what \"soon\" might mean. He came to the conclusion that \"soon\" was certainly not \"now.\" But he wasn't sure at what time \"soon\" stopped being \"soon\" and began to be a \"long while.\" Suddenly he asked, \"Who made this trail?\"\n\n\"We,\" his mother answered.\n\nBambi was astonished. \"We? You and I?\"\n\nThe mother said, \"We, we⁠ ⁠... we deer.\"\n\nBambi asked, \"Which deer?\"\n\n\"All of us,\" his mother said sharply.\n\nThey walked on. Bambi was in high spirits and felt like leaping off the path, but he stayed close to his mother. Something rustled in front of them, close to the ground. The fern fronds and wood-lettuce concealed something that advanced in violent motion. A threadlike, little cry shrilled out piteously; then all was still. Only the leaves and the blades of grass shivered back into place. A ferret had caught a mouse. He came slinking by, slid sideways, and prepared to enjoy his meal.\n\n\"What was that?\" asked Bambi excitedly.\n\n\"Nothing,\" his mother soothed him.\n\n\"But,\" Bambi trembled, \"but I saw it.\"\n\n\"Yes, yes,\" said his mother. \"Don't be frightened. The ferret has killed a mouse.\" But Bambi was dreadfully frightened. A vast, unknown horror clutched at his heart. It was long before he could speak again. Then he asked, \"Why did he kill the mouse?\"\n\n\"Because,\" his mother hesitated. \"Let us walk faster,\" she said as though something had just occurred to her and as though she had forgotten the question. She began to hurry. Bambi sprang after her.\n\nA long pause ensued. They walked on quietly again. Finally Bambi asked anxiously, \"Shall we kill a mouse, too, sometime?\"\n\n\"No,\" replied his mother.\n\n\"Never?\" asked Bambi.\n\n\"Never,\" came the answer.\n\n\"Why not?\" asked Bambi, relieved.\n\n\"Because we never kill anything,\" said his mother simply.\n\nBambi grew happy again.\n\nLoud cries were coming from a young ash tree which stood near their path. The mother went along without noticing them, but Bambi stopped inquisitively. Overhead two jays were quarreling about a nest they had plundered.\n\n\"Get away, you murderer!\" cried one.\n\n\"Keep cool, you fool,\" the other answered, \"I'm not afraid of you.\"\n\n\"Look for your own nests,\" the first one shouted, \"or I'll break your head for you.\" He was beside himself with rage. \"What vulgarity!\" he chattered, \"what vulgarity!\"\n\nThe other jay had spied Bambi and fluttered down a few branches to shout at him. \"What are you gawking at, you freak?\" he screamed.\n\nBambi sprang away terrified. He reached his mother and walked behind her again, frightened and obedient, thinking she had not noticed his absence.\n\nAfter a pause he asked, \"Mother, what is vulgarity?\"\n\n\"I don't know,\" said his mother.\n\nBambi thought a while; then he began again. \"Why were they both so angry with each other, Mother?\" he asked.\n\n\"They were fighting over food,\" his mother answered.\n\n\"Will we fight over food, too, sometime?\" Bambi asked.\n\n\"No,\" said his mother.\n\nBambi asked, \"Why not?\"\n\n\"Because there is enough for all of us,\" his mother replied.\n\nBambi wanted to know something else. \"Mother,\" he began.\n\n\"What is it?\"\n\n\"Will we be angry with each other sometime?\" he asked.\n\n\"No, child,\" said his mother, \"we don't do such things.\"\n\nThey walked along again. Presently it grew light ahead of them. It grew very bright. The trail ended with the tangle of vines and bushes. A few steps more and they would be in the bright open space that spread out before them. Bambi wanted to bound forward, but his mother had stopped.\n\n\"What is it?\" he asked impatiently, already delighted.\n\n\"It's the meadow,\" his mother answered.\n\n\"What is a meadow?\" asked Bambi insistently.\n\nHis mother cut him short. \"You'll soon find out for yourself,\" she said. She had become very serious and watchful. She stood motionless, holding her head high and listening intently. She sucked in deep breathfuls of air and looked very severe.\n\n\"It's all right,\" she said at last, \"we can go out.\"\n\nBambi leaped forward, but his mother barred the way.\n\n\"Wait till I call you,\" she said. Bambi obeyed at once and stood still. \"That's right,\" said his mother, to encourage him, \"and now listen to what I am saying to you.\" Bambi heard how seriously his mother spoke and felt terribly excited.\n\n\"Walking on the meadow is not so simple,\" his mother went on. \"It's a difficult and dangerous business. Don't ask me why. You'll find that out later on. Now do exactly as I tell you to. Will you?\"\n\n\"Yes,\" Bambi promised.\n\n\"Good,\" said his mother, \"I'm going out alone first. Stay here and wait. And don't take your eyes off me for a minute. If you see me run back here, then turn round and run as fast as you can. I'll catch up with you soon.\" She grew silent and seemed to be thinking. Then she went on earnestly, \"Run anyway as fast as your legs will carry you. Run even if something should happen⁠ ⁠... even if you should see me fall to the ground.⁠ ⁠... Don't think of me, do you understand? No matter what you see or hear, start running right away and just as fast as you possibly can. Do you promise me to do that?\"\n\n\"Yes,\" said Bambi softly. His mother spoke so seriously.\n\nShe went on speaking. \"Out there if I should call you,\" she said, \"there must be no looking around and no questions, but you must get behind me instantly. Understand that. Run without pausing or stopping to think. If I begin to run, that means for you to run too, and no stopping until we are back here again. You won't forget, will you?\"\n\n\"No,\" said Bambi in a troubled voice.\n\n\"Now I'm going ahead,\" said his mother, and seemed to become calmer.\n\nShe walked out. Bambi, who never took his eyes off her, saw how she moved forward with slow, cautious steps. He stood there full of expectancy, full of fear and curiosity. He saw how his mother listened in all directions, saw her shrink together, and shrank together himself, ready to leap back into the thickets. Then his mother grew calm again. She stretched herself. Then she looked around satisfied and called, \"Come!\"\n\nBambi bounded out. Joy seized him with such tremendous force that he forgot his worries in a flash. Through the thicket he could see only the green treetops overhead. Once in a while he caught a glimpse of the blue sky.\n\nNow he saw the whole heaven stretching far and wide and he rejoiced without knowing why. In the forest he had seen only a stray sunbeam now and then, or the tender, dappled light that played through the branches. Suddenly he was standing in the blinding hot sunlight whose boundless power was beaming upon him. He stood in the splendid warmth that made him shut his eyes but which opened his heart.\n\nBambi was as though bewitched. He was completely beside himself with pleasure. He was simply wild. He leaped into the air three, four, five times. He had to do it. He felt a terrible desire to leap and jump. He stretched his young limbs joyfully. His breath came deeply and easily. He drank in the air. The sweet smell of the meadow made him so wildly happy that he had to leap into the air.\n\nBambi was a child. If he had been a human child he would have shouted. But he was a young deer, and deer cannot shout, at least not the way human children do. So he rejoiced with his legs and with his whole body as he flung himself into the air. His mother stood by and was glad. She saw that Bambi was wild. She watched how he bounded into the air and fell again awkwardly, in one spot. She saw how he stared around him, dazed and bewildered, only to leap up over and over again. She understood that Bambi knew only the narrow deer tracks in the forest and how his brief life was used to the limits of the thicket. He did not move from one place because he did not understand how to run freely around the open meadow.\n\nSo she stretched out her forefeet and bent laughingly towards Bambi for a moment. Then she was off with one bound, racing around in a circle so that the tall grass stems swished.\n\nBambi was frightened and stood motionless. Was that a sign for him to run back to the thicket? His mother had said to him, \"Don't worry about me no matter what you see or hear. Just run as fast as you can.\" He was going to turn around and run as she had commanded him to, but his mother came galloping up suddenly. She came up with a wonderful swishing sound and stopped two steps from him. She bent towards him, laughing as she had at first and cried, \"Catch me.\" And in a flash she was gone.\n\nBambi was puzzled. What did she mean? Then she came back again running so fast that it made him giddy. She pushed his flank with her nose and said quickly, \"Try to catch me,\" and fled away.\n\nBambi started after her. He took a few steps. Then his steps became short bounds. He felt as if he were flying without any effort on his part. There was a space under his hoofs, space under his bounding feet, space and still more space. Bambi was beside himself with joy.\n\nThe swishing grass sounded wonderful to his ears. It was marvelously soft and as fine as silk where it brushed against him. He ran round in a circle. He turned and flew off in a new circle, turned around again and kept running.\n\nHis mother was standing still, getting her breath again. She kept following Bambi with her eyes. He was wild.\n\nSuddenly the race was over. He stopped and came up to his mother, lifting his hoofs elegantly. He looked joyfully at her. Then they strolled contentedly side by side.\n\nSince he had been in the open, Bambi had felt the sky and the sun and the green meadow with his whole body. He took one blinding, giddy glance at the sun, and he felt its rays as they lay warmly on his back.\n\nPresently he began to enjoy the meadow with his eyes also. Its wonders amazed him at every step he took. You could not see the tiniest speck of earth the way you could in the forest. Blade after blade of grass covered every inch of the ground. It tossed and waved luxuriantly. It bent softly aside under every footstep, only to rise up unharmed again. The broad green meadow was starred with white daisies, with the thick, round red and purple clover blossoms and bright, golden dandelion heads.\n\n\"Look, look, Mother!\" Bambi exclaimed. \"There's a flower flying.\"\n\n\"That's not a flower,\" said his mother, \"that's a butterfly.\"\n\nBambi stared at the butterfly, entranced. It had darted lightly from a blade of grass and was fluttering about in its giddy way. Then Bambi saw that there were many butterflies flying in the air above the meadow. They seemed to be in a hurry and yet moved slowly, fluttering up and down in a sort of game that delighted him. They really did look like gay flying flowers that would not stay on their stems but had unfastened themselves in order to dance a little. They looked, too, like flowers that come to rest at sundown but have no fixed places and have to hunt for them, dropping down and vanishing as if they really had settled somewhere, yet always flying up again, a little way at first, then higher and higher, and always searching farther and farther because all the good places have already been taken.\n\nBambi gazed at them all. He would have loved to see one close by. He wanted to see one face to face but he was not able to. They sailed in and out continually. The air was aflutter with them.\n\nWhen he looked down at the ground again he was delighted with the thousands of living things he saw stirring under his hoofs. They ran and jumped in all directions. He would see a wild swarm of them, and the next moment they had disappeared in the grass again.\n\n\"Who are they, Mother?\" he asked.\n\n\"Those are ants,\" his mother answered.\n\n\"Look,\" cried Bambi, \"see that piece of grass jumping. Look how high it can jump!\"\n\n\"That's not grass,\" his mother explained, \"that's a nice grasshopper.\"\n\n\"Why does he jump that way?\" asked Bambi.\n\n\"Because we're walking here,\" his mother answered, \"he's afraid we'll step on him.\"\n\n\"O,\" said Bambi, turning to the grasshopper who was sitting on a daisy; \"O,\" he said again politely, \"you don't have to be afraid; we won't hurt you.\"\n\n\"I'm not afraid,\" the grasshopper replied in a quavering voice; \"I was only frightened for a moment when I was talking to my wife.\"\n\n\"Excuse us for disturbing you,\" said Bambi shyly.\n\n\"Not at all,\" the grasshopper quavered. \"Since it's you, it's perfectly all right. But you never know who's coming and you have to be careful.\"\n\n\"This is the first time in my life that I've ever been on the meadow,\" Bambi explained; \"my mother brought me.⁠ ⁠...\"\n\nThe grasshopper was sitting with his head lowered as though he were going to butt. He put on a serious face and murmured, \"That doesn't interest me at all. I haven't time to stand here gossiping with you. I have to be looking for my wife. Hopp!\" And he gave a jump.\n\n\"Hopp!\" said Bambi in surprise at the high jump with which the grasshopper vanished.\n\nBambi ran to his mother. \"Mother, I spoke to him,\" he cried.\n\n\"To whom?\" his mother asked.\n\n\"To the grasshopper,\" Bambi said, \"I spoke to him. He was very nice to me. And I like him so much. He's so wonderful and green and you can see through his sides. They look like leaves, but you can't see through a leaf.\"\n\n\"Those are his wings,\" said his mother.\n\n\"O,\" Bambi went on, \"and his face is so serious and wise. But he was very nice to me anyhow. And how he can jump! 'Hopp!' he said, and he jumped so high I couldn't see him any more.\"\n\nThey walked on. The conversation with the grasshopper had excited Bambi and tired him a little, for it was the first time he had ever spoken to a stranger. He felt hungry and pressed close to his mother to be nursed.\n\nThen he stood quietly and gazed dreamily into space for a little while with a sort of joyous ecstasy that came over him every time he was nursed by his mother. He noticed a bright flower moving in the tangled grasses. Bambi looked more closely at it. No, it wasn't a flower, but a butterfly. Bambi crept closer.\n\nThe butterfly hung heavily to a grass stem and fanned its wings slowly.\n\n\"Please sit still,\" Bambi said.\n\n\"Why should I sit still? I'm a butterfly,\" the insect answered in astonishment.\n\n\"O, please sit still, just for a minute,\" Bambi pleaded, \"I've wanted so much to see you close to. Please.\"\n\n\"Well,\" said the butterfly, \"for your sake I will, but not for long.\"\n\nBambi stood in front of him. \"How beautiful you are!\" he cried fascinated; \"how wonderfully beautiful, like a flower!\"\n\n\"What?\" cried the butterfly, fanning his wings, \"did you say like a flower? In my circle it's generally supposed that we're handsomer than flowers.\"\n\nBambi was embarrassed. \"O, yes,\" he stammered, \"much handsomer, excuse me, I only meant⁠ ⁠...\"\n\n\"Whatever you meant is all one to me,\" the butterfly replied. He arched his thin body affectedly and played with his delicate feelers.\n\nBambi looked at him enchanted. \"How elegant you are!\" he said. \"How elegant and fine! And how splendid and white your wings are!\"\n\nThe butterfly spread his wings wide apart, then raised them till they folded together like an upright sail.\n\n\"O,\" cried Bambi, \"I know that you are handsomer than the flowers. Besides, you can fly and the flowers can't because they grow on stems, that's why.\"\n\nThe butterfly spread his wings. \"It's enough,\" he said, \"that I can fly.\" He soared so lightly that Bambi could hardly see him or follow his flight. His wings moved gently and gracefully. Then he fluttered into the sunny air.\n\n\"I only sat still that long on your account,\" he said balancing in the air in front of Bambi. \"Now I'm going.\"\n\nThat was how Bambi found the meadow.",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "Why does Bambi enjoy it even when his mother’s answers are incomplete?",
+          "questionKo": "어미의 대답이 온전하지 않을 때조차 밤비가 그것을 즐기는 이유는?",
+          "options": [
+            {
+              "text": "Because it means she will answer later with a story.",
+              "textKo": "나중에 이야기로 답해 주리라는 뜻이어서."
+            },
+            {
+              "text": "Because he can then ask the other animals instead.",
+              "textKo": "그러면 다른 짐승들에게 물어볼 수 있어서."
+            },
+            {
+              "text": "Because a lively curiosity stays in him — anxious and happy at once.",
+              "textKo": "생생한 호기심이 남아, 불안하면서도 행복해지기 때문에."
+            },
+            {
+              "text": "Because he does not really want to know.",
+              "textKo": "사실은 알고 싶지 않아서."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "there would remain in him such a lively curiosity … that he would become anxious and happy at the same time"
+        },
+        {
+          "type": "multiple",
+          "question": "Whom does the trail belong to, according to Bambi’s mother?",
+          "questionKo": "밤비의 어미에 따르면, 그 오솔길은 누구의 것인가?",
+          "options": [
+            {
+              "text": "To Bambi and his mother alone.",
+              "textKo": "밤비와 어미 둘만의 것."
+            },
+            {
+              "text": "To whoever walks it first each morning.",
+              "textKo": "아침마다 먼저 걷는 이의 것."
+            },
+            {
+              "text": "To no one; it made itself.",
+              "textKo": "누구의 것도 아니다 — 저절로 난 것이다."
+            },
+            {
+              "text": "To us deer — all of them.",
+              "textKo": "우리 사슴들 — 모두의 것."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "No, said his mother, to us deer."
+        },
+        {
+          "type": "multiple",
+          "question": "How does his mother handle Bambi’s question about why the ferret killed the mouse?",
+          "questionKo": "족제비가 왜 쥐를 죽였느냐는 밤비의 물음을 어미는 어떻게 다루는가?",
+          "options": [
+            {
+              "text": "She hesitates, then says \"Let us walk faster\" as if she had forgotten the question.",
+              "textKo": "머뭇거리다 \"더 빨리 걷자\" 며 질문을 잊은 척한다."
+            },
+            {
+              "text": "She explains that every animal must eat.",
+              "textKo": "모든 짐승은 먹어야 한다고 설명한다."
+            },
+            {
+              "text": "She tells him the mouse was already dying.",
+              "textKo": "그 쥐는 이미 죽어 가고 있었다고 말한다."
+            },
+            {
+              "text": "She scolds him for watching.",
+              "textKo": "지켜본 것을 꾸짖는다."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "Let us walk faster, she said as though something had just occurred to her"
+        },
+        {
+          "type": "multiple",
+          "question": "What reason does his mother give for saying deer will never fight over food?",
+          "questionKo": "사슴은 먹이를 두고 다투지 않으리라는 말의 근거로 어미가 대는 것은?",
+          "options": [
+            {
+              "text": "Because the jays would drive them apart.",
+              "textKo": "어치들이 갈라놓을 것이므로."
+            },
+            {
+              "text": "Because there is enough for all of them.",
+              "textKo": "모두에게 넉넉하므로."
+            },
+            {
+              "text": "Because fighting would give away their trails.",
+              "textKo": "싸우면 오솔길이 드러나므로."
+            },
+            {
+              "text": "Because deer eat only at night.",
+              "textKo": "사슴은 밤에만 먹으므로."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "Because there is enough for all of us, his mother replied."
+        },
+        {
+          "type": "multiple",
+          "question": "What is the hardest part of the instruction his mother gives before the meadow?",
+          "questionKo": "초원에 나가기 전 어미가 준 지시 가운데 가장 가혹한 대목은?",
+          "options": [
+            {
+              "text": "That he must not speak to any animal on the meadow.",
+              "textKo": "초원에서 어떤 짐승과도 말하지 말라는 것."
+            },
+            {
+              "text": "That he must stay in the thicket until evening.",
+              "textKo": "저녁까지 덤불에 있으라는 것."
+            },
+            {
+              "text": "That he must run at once and not stop — even if he sees her fall to the ground.",
+              "textKo": "어미가 쓰러지는 것을 보더라도 곧바로 달리고 멈추지 말라는 것."
+            },
+            {
+              "text": "That he must never ask about the meadow again.",
+              "textKo": "다시는 초원에 대해 묻지 말라는 것."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "Run even if something should happen⁠ ⁠... even if you should see me fall to the ground."
+        },
+        {
+          "type": "multiple",
+          "question": "Why does Bambi at first leap up and down in one spot instead of running?",
+          "questionKo": "밤비가 처음에 달리지 않고 한자리에서 뛰기만 한 이유는?",
+          "options": [
+            {
+              "text": "His legs were still too weak to carry him.",
+              "textKo": "다리가 아직 그를 지탱할 만큼 튼튼하지 않아서."
+            },
+            {
+              "text": "He was waiting for his mother’s next call.",
+              "textKo": "어미의 다음 부름을 기다려서."
+            },
+            {
+              "text": "The grass was too tall for him to see through.",
+              "textKo": "풀이 너무 높아 앞이 보이지 않아서."
+            },
+            {
+              "text": "He knew only the narrow forest tracks and did not understand how to run freely.",
+              "textKo": "좁은 숲길만 알아, 마음껏 뛰는 법을 몰라서."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "He did not move from one place because he did not understand how to run freely around the open meadow."
+        },
+        {
+          "type": "multiple",
+          "question": "How does the butterfly answer when Bambi calls him beautiful \"like a flower\"?",
+          "questionKo": "밤비가 \"꽃처럼 아름답다\" 고 하자 나비는 어떻게 답하는가?",
+          "options": [
+            {
+              "text": "He says butterflies are generally supposed to be handsomer than flowers.",
+              "textKo": "나비들 사이에서는 대개 꽃보다 자기들이 더 잘생겼다고 여긴다고 한다."
+            },
+            {
+              "text": "He thanks Bambi and settles on a daisy.",
+              "textKo": "고마워하며 데이지에 내려앉는다."
+            },
+            {
+              "text": "He says he would rather be a flower.",
+              "textKo": "차라리 꽃이었으면 좋겠다고 한다."
+            },
+            {
+              "text": "He flies off without answering.",
+              "textKo": "대답 없이 날아가 버린다."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "In my circle it’s generally supposed that we’re handsomer than flowers."
+        }
+      ]
+    },
+    {
+      "chapter_idx": 3,
+      "chapter_title": null,
+      "word_count": 1014,
+      "chapter_v_level": 6,
+      "content": "CHAPTER 3. \u001ehttps://standardebooks.org/ebooks/felix-salten/bambi/whittaker-chambers/text/chapter-3\n\nIn the heart of the forest was a little glade that belonged to Bambi's mother. It lay only a few steps from the narrow trail where the deer went bounding through the woods. But no one could ever have found it who did not know the little passage leading to it through the thick bushes.\n\nThe glade was very narrow, so narrow that there was only room for Bambi and his mother, and so low that when Bambi's mother stood up her head was hidden among the branches. Sprays of hazel, furze, and dogwood, woven about each other, intercepted the little bit of sunlight that came through the treetops, so that it never reached the ground. Bambi had come into the world in this glade. It was his mother's and his.\n\nHis mother was lying asleep on the ground. Bambi had dozed a little, too. But suddenly he had become wide awake. He got up and looked around.\n\nThe shadows were so deep where he was that it was almost dark. From the woods came soft rustlings. Now and again the titmice chirped. Now and again came the clear hammering of the woodpecker or the joyless call of a crow. Everything else was still, far and wide. But the air was sizzling in the midday heat so that you could hear it if you listened closely. And it was stiflingly sweet.\n\nBambi looked down at his mother and said, \"Are you asleep?\"\n\nNo, his mother was not asleep. She had awakened the moment Bambi got up.\n\n\"What are we going to do now?\" Bambi asked.\n\n\"Nothing,\" his mother answered. \"We're going to stay right where we are. Lie down, like a good boy, and go to sleep.\"\n\nBut Bambi had no desire to go to sleep. \"Come on,\" he begged, \"let's go to the meadow.\"\n\nHis mother lifted her head. \"Go to the meadow,\" she said, \"go to the meadow now?\" Her voice was so full of astonishment and terror that Bambi became quite frightened.\n\n\"Can't we go to the meadow?\" he asked timidly.\n\n\"No,\" his mother answered, and it sounded very final. \"No, you can't go now.\"\n\n\"Why?\" Bambi perceived that something mysterious was involved. He grew still more frightened, but at the same time he was terribly anxious to know everything. \"Why can't we go to the meadow?\" he asked.\n\n\"You'll find out all about it later when you're bigger,\" his mother replied.\n\n\"But,\" Bambi insisted, \"I'd rather know now.\"\n\n\"Later,\" his mother repeated, \"you're nothing but a baby yet,\" she went on tenderly, \"and we don't talk about such things to children.\" She had grown quite serious. \"Fancy going to the meadow at this time of day. I don't even like to think of it. Why, it's broad daylight.\"\n\n\"But it was broad daylight when we went to the meadow before,\" Bambi objected.\n\n\"That's different,\" his mother explained, \"it was early in the morning.\"\n\n\"Can we only go there early in the morning?\" Bambi was very curious.\n\nHis mother was patient. \"Only in the early morning or late evening,\" she said, \"or at night.\"\n\n\"And never in the daytime, never?\"\n\nHis mother hesitated. \"Well,\" she said at last, \"sometimes a few of us do go there in the daytime.⁠ ⁠... But those are special occasions.⁠ ⁠... I can't just explain it to you, you are too young yet.⁠ ⁠... Some of us do go there.⁠ ⁠... But we are exposed to the greatest danger.\"\n\n\"What kind of danger?\" asked Bambi all attention.\n\nBut his mother did not want to go on with the conversation. \"We're in danger, and that's enough for you, my son. You can't understand such things yet.\"\n\nBambi thought that he could understand everything except why his mother did not want to tell him the truth. But he kept silent.\n\n\"That's what life means for us,\" his mother went on, \"though we all love the daylight, especially when we're young, we have to lie quiet all day long. We can only roam around from evening till morning. Do you understand?\"\n\n\"Yes,\" said Bambi.\n\n\"So, my son, we'll have to stay where we are. We're safe here. Now lie down again and go to sleep.\"\n\nBut Bambi didn't want to lie down. \"Why are we safe here?\" he asked.\n\n\"Because all the bushes shield us,\" his mother answered, \"and the twigs snap on the shrubs and the dry twigs crackle and give us warning. And last year's dead leaves lie on the ground and rustle to warn us, and the jays and magpies keep watch so we can tell from a distance if anybody is coming.\"\n\n\"What are last year's leaves?\" Bambi asked.\n\n\"Come and sit beside me,\" said his mother, \"and I will tell you.\" Bambi sat down contentedly, nestling close to his mother. And she told him how the trees are not always green, how the sunshine and the pleasant warmth disappear. Then it grows cold, the frost turns the leaves yellow, brown and red, and they fall slowly so that the trees and bushes stretch their bare branches to the sky and look perfectly naked. But the dry leaves lie on the ground, and when a foot stirs them they rustle. Then someone is coming. O, how kind last year's dead leaves are! They do their duty so well and are so alert and watchful. Even in midsummer there are a lot of them hidden beneath the undergrowth. And they give warning in advance of every danger.\n\nBambi pressed close against his mother. It was so cozy to sit there and listen while his mother talked.\n\nWhen she grew silent he began to think. He thought it was very kind of the good old leaves to keep watch, though they were all dead and frozen and had suffered so much. He wondered just what that danger could be that his mother was always talking about. But too much thought tired him. Round about him it was still. Only the air sizzling in the heat was audible. Then he fell asleep.",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "What makes the little glade safe to find only for those who know it?",
+          "questionKo": "그 작은 빈터를 아는 이만 찾을 수 있게 만드는 것은?",
+          "options": [
+            {
+              "text": "A fallen tree hides the entrance.",
+              "textKo": "쓰러진 나무가 입구를 가린다."
+            },
+            {
+              "text": "It can be reached only through a little passage in the thick bushes.",
+              "textKo": "빽빽한 덤불 속의 작은 통로로만 들어갈 수 있다."
+            },
+            {
+              "text": "It lies far from any deer trail.",
+              "textKo": "어떤 사슴 길에서도 멀리 떨어져 있다."
+            },
+            {
+              "text": "The jays and magpies guard it.",
+              "textKo": "어치와 까치가 지킨다."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "no one could ever have found it who did not know the little passage leading to it through the thick bushes"
+        },
+        {
+          "type": "multiple",
+          "question": "How does Bambi’s mother react when he asks to go to the meadow?",
+          "questionKo": "초원에 가자는 밤비의 청에 어미는 어떻게 반응하는가?",
+          "options": [
+            {
+              "text": "She agrees but says they must be quick.",
+              "textKo": "가되 서둘러야 한다고 한다."
+            },
+            {
+              "text": "She pretends to be asleep.",
+              "textKo": "자는 척한다."
+            },
+            {
+              "text": "Her voice fills with astonishment and terror — it is broad daylight.",
+              "textKo": "놀라움과 공포가 서린 목소리로 답한다 — 지금은 대낮이므로."
+            },
+            {
+              "text": "She asks him to wait for the other deer.",
+              "textKo": "다른 사슴들을 기다리자고 한다."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "Her voice was so full of astonishment and terror that Bambi became quite frightened."
+        },
+        {
+          "type": "multiple",
+          "question": "When may deer go out to the meadow, according to his mother?",
+          "questionKo": "어미에 따르면, 사슴은 언제 초원에 나갈 수 있는가?",
+          "options": [
+            {
+              "text": "Only when the wind blows from the forest.",
+              "textKo": "숲에서 바람이 불어올 때만."
+            },
+            {
+              "text": "Only when the whole herd goes together.",
+              "textKo": "무리 전체가 함께 갈 때만."
+            },
+            {
+              "text": "At any time, so long as they run fast.",
+              "textKo": "빨리 달릴 수만 있다면 언제든."
+            },
+            {
+              "text": "Only in the early morning, late evening, or at night.",
+              "textKo": "이른 아침이나 늦은 저녁, 또는 밤에만."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "Only in the early morning or late evening, she said, or at night."
+        },
+        {
+          "type": "multiple",
+          "question": "What does his mother mean by \"That’s what life means for us\"?",
+          "questionKo": "\"우리에게 삶이란 그런 것이란다\" 라는 어미의 말뜻은?",
+          "options": [
+            {
+              "text": "That deer must lie quiet all day though they love the daylight, roaming only from evening till morning.",
+              "textKo": "햇빛을 사랑하면서도 온종일 조용히 엎드려 있고, 저녁부터 아침까지만 돌아다녀야 한다는 것."
+            },
+            {
+              "text": "That deer must always travel in a herd.",
+              "textKo": "사슴은 늘 무리로 다녀야 한다는 것."
+            },
+            {
+              "text": "That every deer must learn to fight.",
+              "textKo": "사슴은 모두 싸우는 법을 배워야 한다는 것."
+            },
+            {
+              "text": "That danger passes if you do not think about it.",
+              "textKo": "생각하지 않으면 위험은 지나간다는 것."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "though we all love the daylight, especially when we’re young, we have to lie quiet all day long"
+        },
+        {
+          "type": "multiple",
+          "question": "What four things does his mother name as making the glade safe?",
+          "questionKo": "어미가 빈터를 안전하게 만든다고 꼽은 네 가지는?",
+          "options": [
+            {
+              "text": "The deep shade, the thick moss, the running water, and the wind.",
+              "textKo": "짙은 그늘, 두터운 이끼, 흐르는 물, 그리고 바람."
+            },
+            {
+              "text": "The shielding bushes, snapping twigs, rustling dead leaves, and the watching jays and magpies.",
+              "textKo": "가려 주는 덤불, 꺾이는 잔가지, 바스락거리는 마른 잎, 그리고 망보는 어치와 까치."
+            },
+            {
+              "text": "The narrow entrance, the low branches, the heat, and the silence.",
+              "textKo": "좁은 입구, 낮은 가지, 더위, 그리고 고요."
+            },
+            {
+              "text": "The other deer, the trails, the thorns, and the darkness.",
+              "textKo": "다른 사슴들, 오솔길, 가시, 그리고 어둠."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "the jays and magpies keep watch so we can tell from a distance if anybody is coming"
+        },
+        {
+          "type": "multiple",
+          "question": "Why does Bambi come to think the dead leaves are kind?",
+          "questionKo": "밤비가 마른 잎들을 고맙게 여기게 된 이유는?",
+          "options": [
+            {
+              "text": "They keep the ground warm through the winter.",
+              "textKo": "겨울 내내 땅을 덥혀 주어서."
+            },
+            {
+              "text": "They hide the deer trails from strangers.",
+              "textKo": "낯선 이들에게서 사슴 길을 감춰 주어서."
+            },
+            {
+              "text": "Though dead and frozen and having suffered, they do their duty and warn of every danger.",
+              "textKo": "죽어 얼어붙고 고생했으면서도 제 몫을 다해 온갖 위험을 미리 알려 주어서."
+            },
+            {
+              "text": "They make a soft bed to sleep on.",
+              "textKo": "자기 좋은 푹신한 잠자리를 만들어 주어서."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "They do their duty so well and are so alert and watchful."
+        },
+        {
+          "type": "truefalse",
+          "question": "Bambi accepts that he cannot understand things yet, and stops wondering about the danger.",
+          "questionKo": "밤비는 아직 이해할 수 없음을 받아들이고, 그 위험에 대해 궁금해하기를 그만둔다.",
+          "options": [
+            {
+              "text": "True",
+              "textKo": "맞다"
+            },
+            {
+              "text": "False",
+              "textKo": "아니다"
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "He wondered just what that danger could be that his mother was always talking about."
+        }
+      ]
+    }
+  ]
+}

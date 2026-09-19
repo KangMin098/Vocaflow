@@ -1,4 +1,11 @@
 // scripts/dict/topics-publish-set.mjs
+//
+// ⚠️ SUPERSEDED (2026-08-15) — 컴포저가 같은 세트를 만든다:
+//     pnpm vcb:compose --blueprint topic-field --theme 여행 --count 500 [--commit]
+//   차이: 컴포저는 목차를 먼저 짜고 그룹에서 예산을 채우므로 챕터가 굶지 않는다(이 스크립트는
+//   빈도 상위가 몰린 챕터만 남는다). 레시피·점수도 curation_query 에 남는다.
+//   새 유형은 이 파일 복사가 아니라 blueprints.ts 한 항목으로 (docs/VCB_REDESIGN.md §0).
+//
 // 주제별 단어장 생성·발행 — dictionary_categories(L1테마→L2→L3) + dictionary_word_categories → shared_word_sets/shared_words.
 //   L1 테마 = 세트, L2 = 챕터(korean_learner_note), 단어는 L3 매핑 롤업. 어근당→챕터당 cap.
 //   category='themed', subcategory='topic'. 멱등(slug 재실행 시 words 교체).

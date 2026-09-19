@@ -1,0 +1,180 @@
+{
+  "method": "Rule/source strata, first two UUID samples of 14 selected strata; purposive diagnostic sample, not population precision estimate",
+  "reviewer": "Codex",
+  "date": "2026-09-18",
+  "counts": {
+    "true_defect": 15,
+    "false_positive": 10,
+    "uncertain": 3
+  },
+  "rows": [
+    {
+      "stratum": "dropped-math/plos",
+      "articleId": "0006848a-3f1d-471d-9a13-2d19ed48d008",
+      "verdict": "true_defect",
+      "reason": "수식 누락"
+    },
+    {
+      "stratum": "dropped-math/plos",
+      "articleId": "0009f67a-3e7a-4f11-baa1-139a4eb49755",
+      "verdict": "true_defect",
+      "reason": "인용 및 수식 추출 누락"
+    },
+    {
+      "stratum": "html-attr/plos",
+      "articleId": "0019bde7-d5d2-4b1c-8786-4346f648cb85",
+      "verdict": "false_positive",
+      "reason": "음소 집합 표기"
+    },
+    {
+      "stratum": "html-attr/plos",
+      "articleId": "0248dfaf-581e-450e-b2ed-6473dd84c2f0",
+      "verdict": "false_positive",
+      "reason": "수학 비교 기호"
+    },
+    {
+      "stratum": "dropped-math/gutenberg",
+      "articleId": "002765bc-19d6-43b7-b9e2-d8c29d6bb342",
+      "verdict": "false_positive",
+      "reason": "문학적 말줄임"
+    },
+    {
+      "stratum": "dropped-math/gutenberg",
+      "articleId": "097fbadb-f416-4732-8b91-5fa0ea98e4bb",
+      "verdict": "false_positive",
+      "reason": "정상 의문문과 소유격"
+    },
+    {
+      "stratum": "dup-paragraph/frontiers",
+      "articleId": "002cb7c3-c858-4920-9598-dd0fdc2c7a86",
+      "verdict": "uncertain",
+      "reason": "반복 캡션 의미 확인 필요"
+    },
+    {
+      "stratum": "dup-paragraph/frontiers",
+      "articleId": "0077704c-7c02-4acd-a0c3-339bac19cda7",
+      "verdict": "uncertain",
+      "reason": "반복 캡션 의미 확인 필요"
+    },
+    {
+      "stratum": "dup-paragraph/plos",
+      "articleId": "003a4d32-9d66-4eb8-ab66-b95edb7508d4",
+      "verdict": "true_defect",
+      "reason": "초록 중복"
+    },
+    {
+      "stratum": "dup-paragraph/plos",
+      "articleId": "00877b89-5034-431f-81f3-d4cd1629593c",
+      "verdict": "uncertain",
+      "reason": "문맥만으로 중복 의도를 확정할 수 없음"
+    },
+    {
+      "stratum": "voa-comment-system/voa",
+      "articleId": "0063aebf-2777-4382-91c0-0551cc3e5a14",
+      "verdict": "true_defect",
+      "reason": "댓글 시스템 안내만 남은 본문"
+    },
+    {
+      "stratum": "voa-comment-system/voa",
+      "articleId": "00e453a6-c7ff-491d-9e51-039905654ae4",
+      "verdict": "true_defect",
+      "reason": "댓글 시스템 안내만 남은 본문"
+    },
+    {
+      "stratum": "share-chrome/nasa",
+      "articleId": "00880b3a-9749-4c14-ad61-fab5879f5666",
+      "verdict": "true_defect",
+      "reason": "공유 및 사이트 UI 문구"
+    },
+    {
+      "stratum": "share-chrome/nasa",
+      "articleId": "03855ce4-f0e7-496e-a7f8-d890d82245cc",
+      "verdict": "true_defect",
+      "reason": "공유 및 사이트 UI 문구"
+    },
+    {
+      "stratum": "story-seam/gutenberg",
+      "articleId": "01cd26a7-9582-452e-92f4-f6abe1b6f230",
+      "verdict": "true_defect",
+      "reason": "다른 이야기 경계 결합"
+    },
+    {
+      "stratum": "story-seam/gutenberg",
+      "articleId": "071b10e6-788d-4528-ad82-10661f232314",
+      "verdict": "true_defect",
+      "reason": "다른 이야기 경계 결합"
+    },
+    {
+      "stratum": "browser-notice/space_place",
+      "articleId": "03794711-de17-4bb8-8616-dbede7a4739d",
+      "verdict": "true_defect",
+      "reason": "브라우저 및 다운로드 안내"
+    },
+    {
+      "stratum": "browser-notice/space_place",
+      "articleId": "3374093e-6c96-4072-b8ff-35a7881f254e",
+      "verdict": "true_defect",
+      "reason": "브라우저 및 다운로드 안내"
+    },
+    {
+      "stratum": "browser-notice/nasa",
+      "articleId": "03855ce4-f0e7-496e-a7f8-d890d82245cc",
+      "verdict": "true_defect",
+      "reason": "브라우저 및 다운로드 안내"
+    },
+    {
+      "stratum": "browser-notice/nasa",
+      "articleId": "18decb45-0c5c-45c5-be7c-1fab7ed46c40",
+      "verdict": "true_defect",
+      "reason": "브라우저 및 다운로드 안내"
+    },
+    {
+      "stratum": "wiki-markup/plos",
+      "articleId": "0c8cdcd4-ff44-4990-8fa2-fd32eb0e2f88",
+      "verdict": "false_positive",
+      "reason": "ATP 표기 및 수학 집합"
+    },
+    {
+      "stratum": "wiki-markup/plos",
+      "articleId": "12ec5e26-1771-4122-bb41-159c0c11e147",
+      "verdict": "false_positive",
+      "reason": "숫자 인용 표기"
+    },
+    {
+      "stratum": "story-seam/voa",
+      "articleId": "14c5e566-a19f-4d77-b4ca-7da36d6b10e7",
+      "verdict": "false_positive",
+      "reason": "기사에 인용된 노래 가사"
+    },
+    {
+      "stratum": "story-seam/voa",
+      "articleId": "58a807b1-0cd0-4477-88e4-3db86df1e92e",
+      "verdict": "false_positive",
+      "reason": "기사에 인용된 노래 가사"
+    },
+    {
+      "stratum": "wiki-markup/gutenberg",
+      "articleId": "2c94c8ee-c2d7-4891-9679-66dbe040f63f",
+      "verdict": "false_positive",
+      "reason": "음악 표기"
+    },
+    {
+      "stratum": "wiki-markup/gutenberg",
+      "articleId": "355b9630-667c-4929-809b-81fa4ea95a2c",
+      "verdict": "false_positive",
+      "reason": "음악 표기"
+    },
+    {
+      "stratum": "html-attr/gutenberg",
+      "articleId": "2cf98890-76b0-467e-9362-eaa5b92e61a1",
+      "verdict": "true_defect",
+      "reason": "본문에 페이지 태그 잔존"
+    },
+    {
+      "stratum": "html-attr/gutenberg",
+      "articleId": "32be7152-99d3-4885-8d19-14f91f0295c6",
+      "verdict": "true_defect",
+      "reason": "본문에 페이지 태그 잔존"
+    }
+  ]
+}

@@ -1,0 +1,1957 @@
+{
+  "chunk": 0,
+  "generatedAt": "2026-08-30T10:07:18.076Z",
+  "instruction": "examples_ko 를 examples 와 **같은 길이**로 채운다. 한 문장에 한 줄. 직역이 아니라 학습자가 읽을 자연스러운 한국어로 쓰되, 표제어의 그 뜻(sense_ko)이 문장에서 어떻게 쓰였는지 드러나게 옮긴다. 빈 문자열을 넣지 않는다 — 넣으면 import 가 건너뛰고 그 자리는 영영 구멍으로 남는다.",
+  "items": [
+    {
+      "target": "top",
+      "word": "across",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "~을 가로질러, 건너서",
+      "examples": [
+        "He swam across the river without stopping."
+      ],
+      "examples_ko": [
+        "그는 쉬지 않고 강을 헤엄쳐 건넜다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "acrylic",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "아크릴 수지 — 투명하고 단단한 합성수지",
+      "examples": [
+        "She painted the landscape using bright acrylics on canvas."
+      ],
+      "examples_ko": [
+        "그녀는 캔버스에 밝은 아크릴 물감으로 그 풍경을 그렸다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "act",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "행동하다, 행하다",
+      "examples": [
+        "You must act quickly if you want to save the injured bird."
+      ],
+      "examples_ko": [
+        "다친 새를 살리려면 빨리 움직여야 한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "act on",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "~에 따라 행동하다, ~에 대응하다",
+      "examples": [
+        "The policeman decided to act on the tip from his informant."
+      ],
+      "examples_ko": [
+        "그 경찰관은 정보원의 제보에 따라 움직이기로 했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "acting",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "연기",
+      "examples": [
+        "Her acting in the final scene moved the whole audience to tears."
+      ],
+      "examples_ko": [
+        "마지막 장면에서 보인 그녀의 연기에 관객 모두가 눈물을 흘렸다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "action",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "행동",
+      "examples": [
+        "We need to take action immediately."
+      ],
+      "examples_ko": [
+        "우리는 당장 행동에 나서야 한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "activate",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "활성화하다",
+      "examples": [
+        "Please activate your new credit card before trying to use it."
+      ],
+      "examples_ko": [
+        "새 신용카드를 쓰기 전에 먼저 활성화해 주세요."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "activation",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "활성화",
+      "examples": [
+        "The activation of the alarm system requires a four-digit password."
+      ],
+      "examples_ko": [
+        "그 경보 장치를 활성화하려면 네 자리 비밀번호가 필요하다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "active",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "활동적인",
+      "examples": [
+        "My grandmother is still very active at 80."
+      ],
+      "examples_ko": [
+        "우리 할머니는 여든인데도 여전히 아주 활동적이시다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "actively",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "적극적으로, 능동적으로",
+      "examples": [
+        "She actively participates in community events."
+      ],
+      "examples_ko": [
+        "그녀는 지역 행사에 적극적으로 참여한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "activism",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "행동주의, 사회 운동",
+      "examples": [
+        "Her activism inspired thousands to join the climate march."
+      ],
+      "examples_ko": [
+        "그녀의 사회 운동에 자극받아 수천 명이 기후 행진에 함께했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "activist",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "운동가, 활동가",
+      "examples": [
+        "She has been a tireless activist for human rights for many decades."
+      ],
+      "examples_ko": [
+        "그녀는 수십 년 동안 지치지 않고 인권 운동을 해 왔다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "activity",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "활동",
+      "examples": [
+        "Swimming is my favorite outdoor activity."
+      ],
+      "examples_ko": [
+        "수영은 내가 가장 좋아하는 야외 활동이다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "actor",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "배우",
+      "examples": [
+        "He is a talented actor who has won several awards."
+      ],
+      "examples_ko": [
+        "그는 여러 상을 받은 재능 있는 배우다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "actress",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "여배우, 여자 배우",
+      "examples": [
+        "The young actress won an award for her debut performance."
+      ],
+      "examples_ko": [
+        "그 젊은 여배우는 데뷔작 연기로 상을 받았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "actual",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "실제의, 사실상의",
+      "examples": [
+        "The actual cost was higher than expected."
+      ],
+      "examples_ko": [
+        "실제 비용은 예상보다 높았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "actually",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "실제로, 사실은",
+      "examples": [
+        "I thought it was Monday, but actually, it's Tuesday."
+      ],
+      "examples_ko": [
+        "나는 월요일인 줄 알았는데 사실은 화요일이다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "actuate",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "작동시키다, 추진시키다",
+      "examples": [
+        "The alarm is actuated by a small change in temperature."
+      ],
+      "examples_ko": [
+        "그 경보기는 온도가 조금만 변해도 작동한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "acute",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "극심한, 심각한 (부족·통증·위기)",
+      "examples": [
+        "He felt an acute pain in his lower back after lifting the box."
+      ],
+      "examples_ko": [
+        "그는 상자를 든 뒤 허리 아래쪽에 극심한 통증을 느꼈다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "acutely",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "예리하게, 매우",
+      "examples": [
+        "She was acutely aware of the silence that followed her question."
+      ],
+      "examples_ko": [
+        "그녀는 자기 질문 뒤에 흐른 침묵을 예민하게 느끼고 있었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "ad",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "광고(advertisement의 줄임말)",
+      "examples": [
+        "I saw a funny ad for that new restaurant on television."
+      ],
+      "examples_ko": [
+        "나는 텔레비전에서 그 새 식당의 재미있는 광고를 보았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "adapt",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "적응하다, 맞추다",
+      "examples": [
+        "It took her months to adapt to life in Korea."
+      ],
+      "examples_ko": [
+        "그녀가 한국 생활에 적응하기까지 몇 달이 걸렸다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "adaptation",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "각색, 개작",
+      "examples": [
+        "The film is a loose adaptation of a popular nineteenth-century novel."
+      ],
+      "examples_ko": [
+        "그 영화는 19세기 인기 소설을 느슨하게 각색한 작품이다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "adapter",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(전기·기계) 어댑터, 변환 장치",
+      "examples": [
+        "I need a travel adapter to charge my laptop in Europe."
+      ],
+      "examples_ko": [
+        "유럽에서 노트북을 충전하려면 여행용 어댑터가 필요하다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "add up",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "합산하다, 더하다",
+      "examples": [
+        "Add up the prices and find out how much it will cost."
+      ],
+      "examples_ko": [
+        "값을 모두 더해서 얼마나 들지 알아보아라."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "addendum",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "부록, 추가 사항",
+      "examples": [
+        "An addendum to the contract clarified the payment schedule."
+      ],
+      "examples_ko": [
+        "계약서에 붙은 부록이 지급 일정을 분명히 밝혀 주었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "addict",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "중독자",
+      "examples": [
+        "He is a self-confessed addict of nineteenth-century Russian novels."
+      ],
+      "examples_ko": [
+        "그는 스스로 19세기 러시아 소설에 푹 빠진 사람이라고 말한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "addiction",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "중독",
+      "examples": [
+        "He sought professional help to overcome his addiction to gambling."
+      ],
+      "examples_ko": [
+        "그는 도박 중독에서 벗어나려고 전문가의 도움을 구했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "addictive",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "중독성의, 중독을 일으키는",
+      "examples": [
+        "Sugar can be surprisingly addictive for many young children."
+      ],
+      "examples_ko": [
+        "설탕은 어린아이들에게 놀랄 만큼 중독성이 있을 수 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "addition",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "추가, 부가; 추가물",
+      "examples": [
+        "The new library was a welcome addition to the small mountain town."
+      ],
+      "examples_ko": [
+        "새 도서관은 그 작은 산골 마을에 반가운 보탬이었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "additional",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "추가의",
+      "examples": [
+        "We need additional information before making a decision."
+      ],
+      "examples_ko": [
+        "결정을 내리기 전에 추가 정보가 필요하다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "address",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "주소",
+      "examples": [
+        "Please write your home address clearly on the back of the envelope."
+      ],
+      "examples_ko": [
+        "봉투 뒷면에 집 주소를 또렷하게 적어 주세요."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "address book",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "주소록, 연락처",
+      "examples": [
+        "She wrote the new phone number in her old address book."
+      ],
+      "examples_ko": [
+        "그녀는 낡은 주소록에 새 전화번호를 적었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "adduce",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(논거·증거로) 제시하다, 인용하다",
+      "examples": [
+        "The lawyer adduced several documents to support her client's claim."
+      ],
+      "examples_ko": [
+        "그 변호사는 의뢰인의 주장을 뒷받침할 문서를 여러 건 제시했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "adept",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "능숙한",
+      "examples": [
+        "She is remarkably adept at solving complex puzzles."
+      ],
+      "examples_ko": [
+        "그녀는 복잡한 퍼즐을 푸는 데 놀랄 만큼 능숙하다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "adequate",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "필요한 만큼 충분한",
+      "examples": [
+        "The salary is adequate to cover basic living expenses."
+      ],
+      "examples_ko": [
+        "그 급여는 기본 생활비를 대기에 충분하다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "adhere",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(규칙·신념을) 고수하다, 지키다",
+      "examples": [
+        "All employees must adhere to the company's strict code of conduct."
+      ],
+      "examples_ko": [
+        "모든 직원은 회사의 엄격한 행동 강령을 지켜야 한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "adhesive",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "접착제, 본드",
+      "examples": [
+        "Apply a strong adhesive to both surfaces and press them firmly together."
+      ],
+      "examples_ko": [
+        "양쪽 면에 강력 접착제를 바르고 단단히 눌러 붙여라."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "adjacent",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "인접한, 이웃한",
+      "examples": [
+        "Our office is adjacent to the new shopping mall downtown."
+      ],
+      "examples_ko": [
+        "우리 사무실은 시내의 새 쇼핑몰과 붙어 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "adjoin",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "건물·토지·방 등이 서로 붙어 있다",
+      "examples": [
+        "Our hotel room adjoins a small balcony with a sea view."
+      ],
+      "examples_ko": [
+        "우리 호텔 방에는 바다가 보이는 작은 발코니가 딸려 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "adjourn",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "휴회하다, (회의를) 정회하다",
+      "examples": [
+        "The judge decided to adjourn the trial until Monday."
+      ],
+      "examples_ko": [
+        "판사는 월요일까지 재판을 휴정하기로 했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "adjudicate",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(재판관·중재자로서) 판결하다, 재정하다",
+      "examples": [
+        "A panel of experts was appointed to adjudicate the competition."
+      ],
+      "examples_ko": [
+        "전문가로 이루어진 심사단이 그 대회를 판정하도록 임명되었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "adjudication",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "판결, 재결 — 분쟁을 공적으로 판단해 결정하는 일",
+      "examples": [
+        "The dispute was referred to an independent panel for adjudication."
+      ],
+      "examples_ko": [
+        "그 분쟁은 판정을 받기 위해 독립 심의단에 회부되었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "adjunct",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "부속물, 부가적인 것",
+      "examples": [
+        "Regular exercise is an essential adjunct to a healthy, balanced diet."
+      ],
+      "examples_ko": [
+        "규칙적인 운동은 건강하고 균형 잡힌 식단에 꼭 곁들여야 할 것이다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "adjust",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "조정하다, 맞추다",
+      "examples": [
+        "Please adjust the volume on the TV."
+      ],
+      "examples_ko": [
+        "텔레비전 소리를 좀 맞춰 주세요."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "administer",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "관리하다, 운영하다",
+      "examples": [
+        "The large fund is carefully administered by the central government department."
+      ],
+      "examples_ko": [
+        "그 큰 기금은 중앙 정부 부처가 신중하게 관리한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "administration",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "행정, 관리",
+      "examples": [
+        "The administration announced new policies to improve school safety standards."
+      ],
+      "examples_ko": [
+        "행정 당국은 학교 안전 기준을 높이기 위한 새 정책을 발표했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "administrative",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "행정의",
+      "examples": [
+        "She handles all the administrative tasks for our small company."
+      ],
+      "examples_ko": [
+        "그녀가 우리 작은 회사의 행정 업무를 모두 맡고 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "administrator",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "관리자",
+      "examples": [
+        "The hospital administrator reviewed the new staffing plan yesterday afternoon."
+      ],
+      "examples_ko": [
+        "그 병원 관리자는 어제 오후에 새 인력 배치 계획을 검토했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "admiral",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "해군 장성, 제독",
+      "examples": [
+        "The admiral inspected the fleet before it set sail."
+      ],
+      "examples_ko": [
+        "제독은 함대가 출항하기 전에 점검을 했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "admiralty",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(영국) 해군성, 해군 본부",
+      "examples": [
+        "The Admiralty has overseen the Royal Navy for centuries."
+      ],
+      "examples_ko": [
+        "영국 해군 본부는 수백 년 동안 왕립 해군을 관장해 왔다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "admiration",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "감탄",
+      "examples": [
+        "She gazed at the painting with admiration and quiet wonder."
+      ],
+      "examples_ko": [
+        "그녀는 감탄과 조용한 경이로움 속에 그 그림을 바라보았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "admire",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "감탄하다, 칭찬하다",
+      "examples": [
+        "I really admire your courage."
+      ],
+      "examples_ko": [
+        "나는 네 용기가 정말 대단하다고 생각한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "admission",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "입장, 입학",
+      "examples": [
+        "Her admission to the university came as a great surprise."
+      ],
+      "examples_ko": [
+        "그녀가 그 대학에 합격한 것은 큰 놀라움이었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "admit",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "인정하다, 시인하다",
+      "examples": [
+        "He admitted that he had made a mistake."
+      ],
+      "examples_ko": [
+        "그는 자신이 실수했음을 인정했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "adolescence",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "청소년기, 사춘기",
+      "examples": [
+        "Many people struggle with self-image throughout their adolescence and early adulthood."
+      ],
+      "examples_ko": [
+        "많은 사람이 청소년기와 성인 초기 내내 자기 이미지 문제로 힘들어한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "adolescent",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "청소년",
+      "examples": [
+        "An adolescent often struggles to balance schoolwork with social life."
+      ],
+      "examples_ko": [
+        "청소년은 학업과 교우 관계 사이에서 균형을 잡느라 애를 먹곤 한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "adopt",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "채택하다, 도입하다",
+      "examples": [
+        "The committee adopted the new proposal."
+      ],
+      "examples_ko": [
+        "위원회는 그 새 제안을 채택했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "adoption",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "입양",
+      "examples": [
+        "The adoption of new safety policies has significantly reduced workplace accidents this year."
+      ],
+      "examples_ko": [
+        "새 안전 정책을 도입한 덕에 올해 산업 재해가 크게 줄었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "adoptive",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "입양한, 양부모의",
+      "examples": [
+        "Her adoptive parents raised her with the same love as their biological children."
+      ],
+      "examples_ko": [
+        "그녀의 양부모는 친자식과 똑같은 사랑으로 그녀를 길렀다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "adore",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "아주 좋아하다, 흠모하다",
+      "examples": [
+        "The children absolutely adore their new puppy."
+      ],
+      "examples_ko": [
+        "그 아이들은 새로 온 강아지를 정말 예뻐한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "adrenaline",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "아드레날린, 흥분 호르몬",
+      "examples": [
+        "A rush of adrenaline helped her sprint to safety."
+      ],
+      "examples_ko": [
+        "치솟은 아드레날린 덕에 그녀는 안전한 곳까지 전력으로 달릴 수 있었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "adult",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "성인, 어른",
+      "examples": [
+        "This movie is for adults only."
+      ],
+      "examples_ko": [
+        "이 영화는 성인만 볼 수 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "adulterous",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "간통의, 부정한",
+      "examples": [
+        "The novel tells the story of an adulterous affair in 1920s Paris."
+      ],
+      "examples_ko": [
+        "그 소설은 1920년대 파리에서 벌어진 불륜 이야기를 그린다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "adultery",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "간통, 불륜",
+      "examples": [
+        "He confessed to adultery and asked his wife for forgiveness."
+      ],
+      "examples_ko": [
+        "그는 불륜을 고백하고 아내에게 용서를 구했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "adulthood",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "성인기, 어른의 시기",
+      "examples": [
+        "Many people gain independence when they reach adulthood."
+      ],
+      "examples_ko": [
+        "많은 사람이 성인이 되면서 독립을 이룬다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "advance",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "전진하다, 진보하다",
+      "examples": [
+        "Technology has advanced rapidly in recent years."
+      ],
+      "examples_ko": [
+        "최근 몇 해 사이 기술이 빠르게 발전했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "advanced",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "고급의",
+      "examples": [
+        "She is taking an advanced English course."
+      ],
+      "examples_ko": [
+        "그녀는 고급 영어 과정을 듣고 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "advantage",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "이점",
+      "examples": [
+        "Being able to speak two languages fluently is a big advantage when looking for a job."
+      ],
+      "examples_ko": [
+        "두 개 언어를 유창하게 하는 것은 일자리를 구할 때 큰 이점이다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "advantaged",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "혜택받은, 유리한 처지의",
+      "examples": [
+        "Children from advantaged families often have more resources."
+      ],
+      "examples_ko": [
+        "여유 있는 집안의 아이들은 쓸 수 있는 자원이 더 많은 경우가 많다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "advantageously",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": null,
+      "examples": [
+        "The little shop is advantageously placed right beside the station."
+      ],
+      "examples_ko": [
+        "그 작은 가게는 역 바로 옆이라 목이 좋다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "advent",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(중요한 것의) 도래, 출현",
+      "examples": [
+        "The advent of smartphones transformed how we communicate daily."
+      ],
+      "examples_ko": [
+        "스마트폰의 등장은 우리가 매일 소통하는 방식을 바꿔 놓았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "adventure",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "모험",
+      "examples": [
+        "Their trip to Africa was a real adventure."
+      ],
+      "examples_ko": [
+        "그들의 아프리카 여행은 진짜 모험이었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "adventure game",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "어드벤처 게임, 모험 게임",
+      "examples": [
+        "He spent the whole weekend playing an adventure game on his computer."
+      ],
+      "examples_ko": [
+        "그는 주말 내내 컴퓨터로 어드벤처 게임을 했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "adventure tourism",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "모험 관광, 익스트림 여행",
+      "examples": [
+        "Adventure tourism has brought climbers and rafters to the small mountain town."
+      ],
+      "examples_ko": [
+        "모험 관광 덕분에 등반가와 래프팅 하는 사람들이 그 작은 산골 마을로 몰려들었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "adventurous",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "모험심 있는",
+      "examples": [
+        "My sister is far more adventurous than I am when it comes to food."
+      ],
+      "examples_ko": [
+        "먹는 것에 관한 한 언니는 나보다 훨씬 모험심이 강하다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "adverb",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "부사 (동사·형용사·다른 부사를 수식하는 품사)",
+      "examples": [
+        "In the sentence 'She sings beautifully,' the word 'beautifully' is an adverb."
+      ],
+      "examples_ko": [
+        "'She sings beautifully.'라는 문장에서 'beautifully'는 부사다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "adversary",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "적수, 적대자",
+      "examples": [
+        "She faced her old adversary across the chessboard once again."
+      ],
+      "examples_ko": [
+        "그녀는 체스판을 사이에 두고 오랜 맞수와 다시 마주 앉았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "adverse",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "부정적인, 불리한",
+      "examples": [
+        "The medication may cause adverse side effects in some patients."
+      ],
+      "examples_ko": [
+        "그 약은 일부 환자에게 부작용을 일으킬 수 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "advert",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "광고",
+      "examples": [
+        "She saw an advert for the job in yesterday's paper."
+      ],
+      "examples_ko": [
+        "그녀는 어제 신문에서 그 일자리 광고를 보았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "advertise",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "광고하다",
+      "examples": [
+        "They advertise their new products on television."
+      ],
+      "examples_ko": [
+        "그들은 새 제품을 텔레비전에 광고한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "advertisement",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "광고",
+      "examples": [
+        "I saw an advertisement for the new smartphone on the bus this morning."
+      ],
+      "examples_ko": [
+        "나는 오늘 아침 버스에서 새 스마트폰 광고를 보았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "advice",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "조언",
+      "examples": [
+        "She gave me good advice about my career."
+      ],
+      "examples_ko": [
+        "그녀는 내 진로에 관해 좋은 조언을 해 주었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "advise",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "조언하다; 권하다",
+      "examples": [
+        "I would advise you to read the contract carefully first."
+      ],
+      "examples_ko": [
+        "먼저 계약서를 꼼꼼히 읽어 보시라고 권하고 싶습니다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "adviser",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "조언자",
+      "examples": [
+        "She consulted her financial adviser before investing."
+      ],
+      "examples_ko": [
+        "그녀는 투자하기 전에 재무 상담사와 상의했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "advisory",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "자문의, 조언의",
+      "examples": [
+        "She serves on the advisory board of several major charitable foundations."
+      ],
+      "examples_ko": [
+        "그녀는 여러 큰 자선 재단의 자문 위원으로 일하고 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "advocaat",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "에그노그 술, 아드보카트",
+      "examples": [
+        "They sipped creamy advocaat at Christmas."
+      ],
+      "examples_ko": [
+        "그들은 크리스마스에 크림처럼 걸쭉한 아드보카트를 홀짝였다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "advocacy",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "옹호",
+      "examples": [
+        "Her advocacy of children's rights earned her wide respect."
+      ],
+      "examples_ko": [
+        "아동 인권을 옹호해 온 그녀의 활동은 널리 존경을 받았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "advocate",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "옹호하다, 지지하다",
+      "examples": [
+        "She advocates for women's rights."
+      ],
+      "examples_ko": [
+        "그녀는 여성의 권리를 옹호한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "aegis",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "보호, 비호, 후원 (보통 'under the aegis of')",
+      "examples": [
+        "The talks took place under the aegis of the United Nations."
+      ],
+      "examples_ko": [
+        "그 회담은 유엔의 주관 아래 열렸다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "aeon",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "영겁, 무한히 긴 세월 (eon의 영국·영연방식 철자)",
+      "examples": [
+        "These mountains were formed over aeons of geological time."
+      ],
+      "examples_ko": [
+        "이 산맥은 아득한 지질 시대에 걸쳐 만들어졌다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "aerial",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "공중의, 항공의",
+      "examples": [
+        "The documentary opens with stunning aerial footage of the Amazon."
+      ],
+      "examples_ko": [
+        "그 다큐멘터리는 아마존을 공중에서 담은 멋진 영상으로 시작한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "aerobic",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(운동이) 유산소의",
+      "examples": [
+        "Regular aerobic exercise strengthens the heart and lungs."
+      ],
+      "examples_ko": [
+        "규칙적인 유산소 운동은 심장과 폐를 튼튼하게 한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "aerobics",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "에어로빅",
+      "examples": [
+        "She goes to an aerobics class three times a week."
+      ],
+      "examples_ko": [
+        "그녀는 일주일에 세 번 에어로빅 수업에 나간다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "aerodrome",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "비행장, 소형 공항",
+      "examples": [
+        "The small aerodrome was used mainly by private pilots and gliders."
+      ],
+      "examples_ko": [
+        "그 작은 비행장은 주로 개인 비행사와 글라이더가 썼다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "aerodynamic",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "공기역학의, 유선형의",
+      "examples": [
+        "The car's aerodynamic shape helps it cut through the air with less drag."
+      ],
+      "examples_ko": [
+        "그 차의 유선형 몸체 덕분에 공기 저항을 덜 받으며 나아간다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "aeronaut",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "비행사, 기구 조종사",
+      "examples": [
+        "The Victorian aeronaut crossed the Channel in a hydrogen balloon."
+      ],
+      "examples_ko": [
+        "그 빅토리아 시대 기구 조종사는 수소 기구를 타고 해협을 건넜다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "aeronautical",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "항공의, 항공학의",
+      "examples": [
+        "She earned a degree in aeronautical engineering before joining the space agency."
+      ],
+      "examples_ko": [
+        "그녀는 항공 우주국에 들어가기 전에 항공공학 학위를 받았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "aeronautics",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "항공학, 항공술",
+      "examples": [
+        "He studied aeronautics to design safer aircraft."
+      ],
+      "examples_ko": [
+        "그는 더 안전한 항공기를 설계하려고 항공학을 공부했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "aerosol",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(과학) 에어로졸, 기체에 떠 있는 미세 입자·액적",
+      "examples": [
+        "She sprayed the room with an aerosol to freshen the stale air."
+      ],
+      "examples_ko": [
+        "그녀는 텁텁한 공기를 바꾸려고 방에 스프레이를 뿌렸다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "aerospace",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "항공우주 산업 — 항공기·미사일·위성·우주선을 다루는 산업",
+      "examples": [
+        "She works as an engineer in the aerospace industry."
+      ],
+      "examples_ko": [
+        "그녀는 항공우주 업계에서 기술자로 일한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "aesthetic",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "미적인, 심미적인",
+      "examples": [
+        "The building's aesthetic appeal makes it a popular tourist destination."
+      ],
+      "examples_ko": [
+        "그 건물은 미적으로 매력이 있어 인기 있는 관광지가 되었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "affair",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "일, 사건",
+      "examples": [
+        "The wedding was a grand affair."
+      ],
+      "examples_ko": [
+        "그 결혼식은 성대한 행사였다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "affect",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "영향을 미치다",
+      "examples": [
+        "The weather can affect your mood."
+      ],
+      "examples_ko": [
+        "날씨는 기분에 영향을 줄 수 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "affectation",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "꾸밈, 가식",
+      "examples": [
+        "Her polite tone was free from any affectation."
+      ],
+      "examples_ko": [
+        "그녀의 공손한 말투에는 꾸민 데가 조금도 없었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "affection",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "애정, 호의",
+      "examples": [
+        "She showed great affection for her grandchildren whenever they came to visit."
+      ],
+      "examples_ko": [
+        "그녀는 손주들이 찾아올 때마다 깊은 애정을 보였다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "affectionately",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "애정 깊게, 다정하게",
+      "examples": [
+        "She kissed her son affectionately on the forehead."
+      ],
+      "examples_ko": [
+        "그녀는 아들의 이마에 다정하게 입을 맞추었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "affidavit",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "선서 진술서, 진술서",
+      "examples": [
+        "She signed an affidavit confirming she had witnessed the accident."
+      ],
+      "examples_ko": [
+        "그녀는 그 사고를 목격했다는 내용의 선서 진술서에 서명했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "affiliate",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(단체에) 가입시키다, 제휴하다",
+      "examples": [
+        "The small clinic is affiliated with a major teaching hospital in the city."
+      ],
+      "examples_ko": [
+        "그 작은 진료소는 시내의 큰 대학 병원과 제휴하고 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "affinity",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "친밀감, 호감, 자연스레 끌리는 마음",
+      "examples": [
+        "She felt a strong affinity for the quiet villages along the coast."
+      ],
+      "examples_ko": [
+        "그녀는 해안을 따라 늘어선 조용한 마을들에 강하게 끌렸다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "affirm",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "확언하다, 단언하다",
+      "examples": [
+        "The witness affirmed that her statement was true."
+      ],
+      "examples_ko": [
+        "그 증인은 자신의 진술이 사실이라고 확언했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "affirmative",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "긍정의, 찬성의",
+      "examples": [
+        "She gave an affirmative answer when asked if she would attend."
+      ],
+      "examples_ko": [
+        "참석하겠느냐는 물음에 그녀는 그렇게 하겠다고 답했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "affix",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "붙이다, 첨부하다",
+      "examples": [
+        "Please affix a stamp to the envelope before you post it."
+      ],
+      "examples_ko": [
+        "부치기 전에 봉투에 우표를 붙여 주세요."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "afflict",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "질병·고통·문제 등이 사람·집단을 오랫동안 괴롭히다",
+      "examples": [
+        "A rare disease has afflicted the small mountain village for years."
+      ],
+      "examples_ko": [
+        "희귀병 하나가 그 작은 산골 마을을 여러 해 동안 괴롭혀 왔다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "affliction",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "고통, 고난",
+      "examples": [
+        "Arthritis is a common affliction among older people."
+      ],
+      "examples_ko": [
+        "관절염은 나이 든 사람들에게 흔한 고통이다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "afford",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(금전적) 여유가 있다",
+      "examples": [
+        "We can't afford to buy a new car this year."
+      ],
+      "examples_ko": [
+        "우리는 올해 새 차를 살 여유가 없다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "afraid",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "두려운",
+      "examples": [
+        "She is afraid of spiders."
+      ],
+      "examples_ko": [
+        "그녀는 거미를 무서워한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "aft",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "선미 쪽으로, 배 뒤쪽으로",
+      "examples": [
+        "The captain ordered the crew to move aft and check the rudder."
+      ],
+      "examples_ko": [
+        "선장은 선원들에게 배 뒤쪽으로 가서 방향타를 점검하라고 지시했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "aftermath",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "여파, 후유증",
+      "examples": [
+        "In the aftermath of the earthquake, thousands were left without shelter."
+      ],
+      "examples_ko": [
+        "그 지진의 여파로 수천 명이 머물 곳을 잃었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "afternoon",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "오후",
+      "examples": [
+        "We usually take a short walk in the afternoon after lunch every day."
+      ],
+      "examples_ko": [
+        "우리는 보통 날마다 점심을 먹고 오후에 잠깐 산책을 한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "afterwards",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "나중에, 그 후에",
+      "examples": [
+        "We had dinner and then went for a short walk afterwards."
+      ],
+      "examples_ko": [
+        "우리는 저녁을 먹고 나서 잠깐 산책을 했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "again",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "다시, 또한",
+      "examples": [
+        "Could you please say that again? I didn't hear you clearly."
+      ],
+      "examples_ko": [
+        "다시 한번 말씀해 주시겠어요? 잘 못 들었습니다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "against",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "~에 반대하여",
+      "examples": [
+        "Many people protested against the new law."
+      ],
+      "examples_ko": [
+        "많은 사람이 그 새 법에 반대하며 시위를 벌였다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "age",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "나이, 연령",
+      "examples": [
+        "At the age of ten, she could play the piano."
+      ],
+      "examples_ko": [
+        "열 살 나이에 그녀는 피아노를 칠 줄 알았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "agency",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "대행사; 기관; 청",
+      "examples": [
+        "She booked the trip through a travel agency."
+      ],
+      "examples_ko": [
+        "그녀는 여행사를 통해 그 여행을 예약했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "agenda",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "안건",
+      "examples": [
+        "The first item on the agenda is the annual budget review."
+      ],
+      "examples_ko": [
+        "안건의 첫 항목은 연간 예산 검토다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "agent",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "대리인, 중개인",
+      "examples": [
+        "Her agent negotiated a new contract with the publisher."
+      ],
+      "examples_ko": [
+        "그녀의 대리인이 출판사와 새 계약을 협상했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "aggravate",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "악화시키다, 더 심하게 만들다",
+      "examples": [
+        "Lifting heavy boxes will only aggravate your back injury."
+      ],
+      "examples_ko": [
+        "무거운 상자를 드는 것은 네 허리 부상을 더 나빠지게 할 뿐이다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "aggregate",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "총합, 합계; (건설) 골재",
+      "examples": [
+        "In the aggregate, the two teams scored over a hundred points."
+      ],
+      "examples_ko": [
+        "두 팀의 점수를 합치면 백 점이 넘었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "aggregation",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": null,
+      "examples": [
+        "The report shows an aggregation of all sales data."
+      ],
+      "examples_ko": [
+        "그 보고서는 전체 판매 자료를 한데 모아 보여 준다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "aggress",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(자동사) 공격을 개시하다, 도발하다",
+      "examples": [
+        "The dog will not aggress unless it feels threatened."
+      ],
+      "examples_ko": [
+        "그 개는 위협을 느끼지 않는 한 먼저 덤비지 않는다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "aggression",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "공격성",
+      "examples": [
+        "The dog showed aggression toward strangers who approached the gate."
+      ],
+      "examples_ko": [
+        "그 개는 대문에 다가오는 낯선 사람에게 공격성을 보였다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "aggressive",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "공격적인",
+      "examples": [
+        "The dog became aggressive when strangers approached."
+      ],
+      "examples_ko": [
+        "그 개는 낯선 사람이 다가오자 사나워졌다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "aggressively",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "공격적으로, 적극적으로",
+      "examples": [
+        "The company has been aggressively expanding into Asian markets."
+      ],
+      "examples_ko": [
+        "그 회사는 아시아 시장으로 공격적으로 사업을 넓혀 왔다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "agitate",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(마음을) 동요시키다, 불안하게 만들다",
+      "examples": [
+        "The activists continued to agitate for better working conditions in the factories."
+      ],
+      "examples_ko": [
+        "그 활동가들은 공장의 노동 조건을 개선하라고 계속 목소리를 냈다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "agnostic",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "불가지론의 (신의 존재를 알 수 없다고 보는)",
+      "examples": [
+        "He is agnostic about the existence of God, neither believing nor denying it."
+      ],
+      "examples_ko": [
+        "그는 신의 존재에 대해 불가지론을 취해, 믿지도 부정하지도 않는다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "ago",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(얼마) 전에, ~ 이전에",
+      "examples": [
+        "I moved to this city three years ago for a new job."
+      ],
+      "examples_ko": [
+        "나는 삼 년 전에 새 일자리를 얻어 이 도시로 왔다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "agony",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "극심한 고통, 고뇌",
+      "examples": [
+        "He cried out in agony when the heavy metal door slammed onto his hand."
+      ],
+      "examples_ko": [
+        "무거운 철문이 손 위로 쾅 닫히자 그는 고통에 겨워 비명을 질렀다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "agoraphobia",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "광장공포증 (개방된 공간이나 사람이 많은 곳에 대한 공포)",
+      "examples": [
+        "Her agoraphobia made it difficult for her to leave the house."
+      ],
+      "examples_ko": [
+        "광장공포증 때문에 그녀는 집 밖으로 나서기가 힘들었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "agree",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "동의하다",
+      "examples": [
+        "I agree with your opinion."
+      ],
+      "examples_ko": [
+        "나는 네 의견에 동의한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "agreeable",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": null,
+      "examples": [
+        "She has a very agreeable personality."
+      ],
+      "examples_ko": [
+        "그녀는 아주 상냥한 성격이다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "agreeably",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": null,
+      "examples": [
+        "We spent the afternoon agreeably in the park."
+      ],
+      "examples_ko": [
+        "우리는 공원에서 기분 좋게 오후를 보냈다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "agreement",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "합의, 동의",
+      "examples": [
+        "They finally reached an agreement after several long days of difficult negotiations."
+      ],
+      "examples_ko": [
+        "그들은 며칠에 걸친 힘든 협상 끝에 마침내 합의에 이르렀다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "agricultural",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "농업의, 농경의",
+      "examples": [
+        "This region depends on agricultural production."
+      ],
+      "examples_ko": [
+        "이 지역은 농업 생산에 기대고 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "agriculture",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "농업",
+      "examples": [
+        "Agriculture remains the most important industry in this rural region."
+      ],
+      "examples_ko": [
+        "농업은 이 시골 지역에서 여전히 가장 중요한 산업이다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "agritourism",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "농촌 관광, 팜 스테이",
+      "examples": [
+        "The farm earns extra income from agritourism."
+      ],
+      "examples_ko": [
+        "그 농장은 농촌 관광으로 부수입을 얻는다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "ah",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "암페어시(전기 용량 단위), Ah",
+      "examples": [
+        "Ah, now I see why the door would not open."
+      ],
+      "examples_ko": [
+        "아, 이제 왜 그 문이 안 열렸는지 알겠다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "ahead",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "앞쪽에, 앞으로",
+      "examples": [
+        "Keep walking straight ahead until you reach the corner."
+      ],
+      "examples_ko": [
+        "모퉁이가 나올 때까지 곧장 앞으로 걸어가라."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "ahead of/behind time",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "예정보다 빠르게/늦게",
+      "examples": [
+        "The builders finished the roof ahead of time and went home early."
+      ],
+      "examples_ko": [
+        "인부들은 예정보다 일찍 지붕을 끝내고 집으로 돌아갔다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "ahistorical",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "비역사적인, 역사 맥락을 무시한",
+      "examples": [
+        "Critics called the film's depiction of the war strangely ahistorical."
+      ],
+      "examples_ko": [
+        "평론가들은 그 영화가 전쟁을 그린 방식이 유난히 역사 맥락을 벗어났다고 평했다."
+      ]
+    }
+  ]
+}

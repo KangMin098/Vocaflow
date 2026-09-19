@@ -1,0 +1,1203 @@
+[
+  {
+    "id": "c6a06f99-8ebb-46f4-8896-528faa37d7f2",
+    "title": "The Jungle Book",
+    "author": "Rudyard Kipling",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 50974,
+    "chapters": 7,
+    "minutes": 340,
+    "tags": [
+      "fiction",
+      "short-story",
+      "adventure",
+      "children",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "늑대 무리에서 자란 모글리와 인도 정글의 이야기들.",
+    "learning_value": "동물 우화와 모험 — 단편 단위로 끊어 읽기",
+    "themes": [
+      "정글",
+      "성장",
+      "동물"
+    ],
+    "genre_norm": "우화",
+    "age_band": "10+",
+    "est_cefr": "B1",
+    "est_basis": "구전 리듬이 섞인 서사"
+  },
+  {
+    "id": "ab2c80d7-8dee-440f-9022-7d610968f981",
+    "title": "Wild Animals I Have Known",
+    "author": "Ernest Thompson Seton",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 51018,
+    "chapters": 44,
+    "minutes": 341,
+    "tags": [
+      "nonfiction",
+      "short-story",
+      "nature",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "실제 관찰을 바탕으로 쓴 야생동물 전기 여덟 편.",
+    "learning_value": "자연 관찰 논픽션 — 묘사 어휘",
+    "themes": [
+      "야생",
+      "관찰",
+      "죽음"
+    ],
+    "genre_norm": "자연 논픽션",
+    "age_band": "12+",
+    "est_cefr": "B2",
+    "est_basis": "관찰 기록체"
+  },
+  {
+    "id": "6f98cfb7-8a8b-40e9-ab3f-803f67b66e15",
+    "title": "The Spy in Black",
+    "author": "J. Storer Clouston",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 51206,
+    "chapters": 27,
+    "minutes": 342,
+    "tags": [
+      "fiction",
+      "adventure",
+      "mystery",
+      "war",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "1차 대전 스코틀랜드 해안에 잠입한 독일 첩보원.",
+    "learning_value": "첩보 스릴러 — 장면 전환이 빠르다",
+    "themes": [
+      "첩보",
+      "전쟁",
+      "반전"
+    ],
+    "genre_norm": "스릴러",
+    "age_band": "14+",
+    "est_cefr": "B1",
+    "est_basis": "간결한 첩보 서술"
+  },
+  {
+    "id": "3714c827-0cef-48c7-b503-88cf9f409b60",
+    "title": "The Princess and the Goblin",
+    "author": "George MacDonald",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 51278,
+    "chapters": 32,
+    "minutes": 342,
+    "tags": [
+      "fiction",
+      "fantasy",
+      "fairy-tale",
+      "children",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "지하 고블린에게 맞서는 공주와 광부 소년.",
+    "learning_value": "판타지의 조상 — 평이한 동화체",
+    "themes": [
+      "환상",
+      "용기",
+      "지하"
+    ],
+    "genre_norm": "환상 동화",
+    "age_band": "9+",
+    "est_cefr": "B1",
+    "est_basis": "빅토리아 동화체"
+  },
+  {
+    "id": "e757ae82-afa1-48f9-83e2-f7598370d53e",
+    "title": "Black No More",
+    "author": "George Schuyler",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 52764,
+    "chapters": 13,
+    "minutes": 352,
+    "tags": [
+      "fiction",
+      "satire",
+      "science-fiction",
+      "humor"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "흑인을 백인으로 바꾸는 시술이 미국을 뒤집는다.",
+    "learning_value": "인종을 뒤집은 풍자 SF — 아이러니 독해",
+    "themes": [
+      "인종",
+      "풍자",
+      "자본"
+    ],
+    "genre_norm": "공상과학",
+    "age_band": "16+",
+    "est_cefr": "B2",
+    "est_basis": "풍자 논평체"
+  },
+  {
+    "id": "21b873b6-9eee-4fab-943a-a5e95c5f2a3d",
+    "title": "Poirot Investigates",
+    "author": "Agatha Christie",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 52797,
+    "chapters": 11,
+    "minutes": 352,
+    "tags": [
+      "short-story",
+      "mystery",
+      "detective",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "푸아로가 해결하는 열한 편의 짧은 사건.",
+    "learning_value": "한 편 30분 — 가장 읽기 쉬운 크리스티",
+    "themes": [
+      "추리",
+      "관찰",
+      "심리"
+    ],
+    "genre_norm": "추리",
+    "age_band": "13+",
+    "est_cefr": "B1",
+    "est_basis": "단편 추리 평이체"
+  },
+  {
+    "id": "bf25b906-a1d6-4d9f-830a-ce7277f83562",
+    "title": "Psmith in the City",
+    "author": "P. G. Wodehouse",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 53108,
+    "chapters": 30,
+    "minutes": 355,
+    "tags": [
+      "fiction",
+      "humor",
+      "business",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "은행에 갇힌 프스미스가 특유의 능청으로 버틴다.",
+    "learning_value": "우드하우스 능청 대사 — 영국 구어",
+    "themes": [
+      "직장",
+      "유머",
+      "우정"
+    ],
+    "genre_norm": "유머 소설",
+    "age_band": "13+",
+    "est_cefr": "B1",
+    "est_basis": "영국 구어 대화"
+  },
+  {
+    "id": "01e7be33-f2ef-47f5-bd32-34d06c33acef",
+    "title": "Backwater",
+    "author": "Dorothy M. Richardson",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 53772,
+    "chapters": 10,
+    "minutes": 359,
+    "tags": [
+      "fiction",
+      "literature",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "미리엄이 학교 교사로 일하는 시기를 그린 순례 2권.",
+    "learning_value": "의식의 흐름 — 문장 경계 파악 훈련",
+    "themes": [
+      "의식",
+      "노동",
+      "여성"
+    ],
+    "genre_norm": "모더니즘 소설",
+    "age_band": "17+",
+    "est_cefr": "C1",
+    "est_basis": "의식의 흐름"
+  },
+  {
+    "id": "6fc4e150-db3c-48f3-b223-dba51975e6b8",
+    "title": "Call Mr. Fortune",
+    "author": "H. C. Bailey",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 53996,
+    "chapters": 11,
+    "minutes": 360,
+    "tags": [
+      "short-story",
+      "mystery",
+      "detective",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "의사 탐정 레지 포춘의 초기 사건집.",
+    "learning_value": "의학 지식이 섞인 추리 단편",
+    "themes": [
+      "추리",
+      "의학",
+      "정의"
+    ],
+    "genre_norm": "추리",
+    "age_band": "14+",
+    "est_cefr": "B1",
+    "est_basis": "단편 추리체"
+  },
+  {
+    "id": "ffcbd107-2e56-4e11-8702-c20daf1cfe31",
+    "title": "The Survivors",
+    "author": "Tom Godwin",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 54027,
+    "chapters": 4,
+    "minutes": 361,
+    "tags": [
+      "fiction",
+      "science-fiction",
+      "adventure",
+      "adult"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "외계 행성에 버려진 이주민들의 수 세대 생존기.",
+    "learning_value": "생존 SF — 세대 전환 구조",
+    "themes": [
+      "생존",
+      "진화",
+      "개척"
+    ],
+    "genre_norm": "공상과학",
+    "age_band": "14+",
+    "est_cefr": "B1",
+    "est_basis": "펄프 SF 서술"
+  },
+  {
+    "id": "a689ab49-868e-4a0f-bb59-17e5d5a7b572",
+    "title": "Culture and Anarchy",
+    "author": "Matthew Arnold",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 54044,
+    "chapters": 6,
+    "minutes": 361,
+    "tags": [
+      "nonfiction",
+      "essay",
+      "philosophy",
+      "politics",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "교양이 사회를 구할 수 있는지 묻는 빅토리아 사회비평.",
+    "learning_value": "비평 에세이 — 개념 대조 구조",
+    "themes": [
+      "교양",
+      "사회",
+      "비평"
+    ],
+    "genre_norm": "에세이",
+    "age_band": "17+",
+    "est_cefr": "C1",
+    "est_basis": "19세기 비평 장문"
+  },
+  {
+    "id": "344f6c16-84bf-4d68-a302-1747eede48c2",
+    "title": "The New Freedom",
+    "author": "Woodrow Wilson",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 54316,
+    "chapters": 12,
+    "minutes": 363,
+    "tags": [
+      "nonfiction",
+      "politics",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "독점에 맞서 개인의 기회를 되찾자는 윌슨의 정치 연설집.",
+    "learning_value": "정치 연설문 — 설득 수사 학습",
+    "themes": [
+      "정치",
+      "독점",
+      "자유"
+    ],
+    "genre_norm": "정치",
+    "age_band": "17+",
+    "est_cefr": "B2",
+    "est_basis": "연설 수사"
+  },
+  {
+    "id": "8526b93b-124b-4408-b056-3d65f2615469",
+    "title": "The Big Four",
+    "author": "Agatha Christie",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 55894,
+    "chapters": 18,
+    "minutes": 373,
+    "tags": [
+      "fiction",
+      "mystery",
+      "detective",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "세계를 노리는 비밀 조직에 맞서는 푸아로.",
+    "learning_value": "스파이물에 가까운 크리스티 — 에피소드 구조",
+    "themes": [
+      "음모",
+      "추리",
+      "조직"
+    ],
+    "genre_norm": "추리",
+    "age_band": "13+",
+    "est_cefr": "B1",
+    "est_basis": "에피소드 추리"
+  },
+  {
+    "id": "a324b6bc-0389-4aff-ae3d-96911ed6ae6c",
+    "title": "The Conjure Woman",
+    "author": "Charles W. Chesnutt",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 56454,
+    "chapters": 11,
+    "minutes": 377,
+    "tags": [
+      "short-story",
+      "fiction",
+      "historical",
+      "classic",
+      "literature"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "해방 전 남부 농장의 주술 이야기를 옛 노예가 들려준다.",
+    "learning_value": "방언 액자소설 — 표준영어와 대비해 읽기",
+    "themes": [
+      "노예제",
+      "주술",
+      "남부"
+    ],
+    "genre_norm": "역사 소설",
+    "age_band": "15+",
+    "est_cefr": "B2",
+    "est_basis": "방언 액자 구조"
+  },
+  {
+    "id": "72f4ffaf-20ec-46e9-bb5a-2a1d6451be5f",
+    "title": "The Mysterious Affair at Styles",
+    "author": "Agatha Christie",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 56946,
+    "chapters": 13,
+    "minutes": 380,
+    "tags": [
+      "fiction",
+      "mystery",
+      "detective",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "푸아로가 처음 등장하는 저택 독살 사건.",
+    "learning_value": "크리스티 입문 — 단서 배치의 교과서",
+    "themes": [
+      "추리",
+      "독살",
+      "유산"
+    ],
+    "genre_norm": "추리",
+    "age_band": "13+",
+    "est_cefr": "B1",
+    "est_basis": "고전 추리 평이체"
+  },
+  {
+    "id": "55ff4c9d-c6b1-4279-b962-1ae0c6756766",
+    "title": "Clotel",
+    "author": "William Wells Brown",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 57126,
+    "chapters": 29,
+    "minutes": 381,
+    "tags": [
+      "fiction",
+      "historical",
+      "politics",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "제퍼슨의 딸로 설정된 혼혈 여성의 수난 — 최초의 흑인 미국 소설.",
+    "learning_value": "노예 서사 — 역사 배경과 함께 읽기",
+    "themes": [
+      "노예제",
+      "가족",
+      "자유"
+    ],
+    "genre_norm": "역사 소설",
+    "age_band": "16+",
+    "est_cefr": "B2",
+    "est_basis": "19세기 서사와 인용 혼재"
+  },
+  {
+    "id": "ee08a079-c3fe-403e-82cd-32855b6bb4f5",
+    "title": "Futility",
+    "author": "William Gerhardie",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 57288,
+    "chapters": 33,
+    "minutes": 382,
+    "tags": [
+      "fiction",
+      "literature",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "혁명기 러시아에 발 묶인 영국 청년과 한 가족의 무기력.",
+    "learning_value": "아이러니가 짙은 초기 모더니즘",
+    "themes": [
+      "혁명",
+      "무기력",
+      "사랑"
+    ],
+    "genre_norm": "모더니즘 소설",
+    "age_band": "17+",
+    "est_cefr": "B2",
+    "est_basis": "아이러니 서술"
+  },
+  {
+    "id": "ecbd9e6e-0166-41a9-adce-70f25d8d3260",
+    "title": "As I Lay Dying",
+    "author": "William Faulkner",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 57408,
+    "chapters": 54,
+    "minutes": 383,
+    "tags": [
+      "fiction",
+      "literature",
+      "adult"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "어머니의 관을 옮기는 가족의 여정을 15명이 번갈아 말한다.",
+    "learning_value": "다중 화자 실험 — 최고난도 미국 소설",
+    "themes": [
+      "가족",
+      "죽음",
+      "남부"
+    ],
+    "genre_norm": "모더니즘 소설",
+    "age_band": "17+",
+    "est_cefr": "C1",
+    "est_basis": "다중 화자·방언"
+  },
+  {
+    "id": "72197c33-419b-4594-83d9-ea3b5bd1a831",
+    "title": "Four-Day Planet",
+    "author": "H. Beam Piper",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 57538,
+    "chapters": 20,
+    "minutes": 384,
+    "tags": [
+      "fiction",
+      "science-fiction",
+      "adventure",
+      "young-adult"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "고래잡이 행성에서 부패에 맞서는 소년 기자.",
+    "learning_value": "청소년 SF — 1인칭 취재 서술",
+    "themes": [
+      "개척",
+      "부패",
+      "언론"
+    ],
+    "genre_norm": "공상과학",
+    "age_band": "12+",
+    "est_cefr": "B1",
+    "est_basis": "평이한 1인칭 SF"
+  },
+  {
+    "id": "058b9d94-3039-42cd-9720-f7770a40df94",
+    "title": "Ralestone Luck",
+    "author": "Andre Norton",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 58951,
+    "chapters": 18,
+    "minutes": 394,
+    "tags": [
+      "fiction",
+      "mystery",
+      "adventure",
+      "young-adult"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "몰락한 남부 가문의 후손들이 집안의 전설을 좇는다.",
+    "learning_value": "청소년 모험 추리 — 평이한 서술",
+    "themes": [
+      "가문",
+      "보물",
+      "남부"
+    ],
+    "genre_norm": "모험 소설",
+    "age_band": "12+",
+    "est_cefr": "B1",
+    "est_basis": "청소년 모험체"
+  },
+  {
+    "id": "87f1e42e-dc83-4b15-87a4-6d21095a62f4",
+    "title": "Little Fuzzy",
+    "author": "H. Beam Piper",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 59183,
+    "chapters": 17,
+    "minutes": 395,
+    "tags": [
+      "fiction",
+      "science-fiction",
+      "adventure",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "털복숭이 원주 생물이 사람인지 가리는 법정 SF.",
+    "learning_value": "법정 논쟁 SF — 논증 대사 학습",
+    "themes": [
+      "지성",
+      "법정",
+      "식민"
+    ],
+    "genre_norm": "공상과학",
+    "age_band": "13+",
+    "est_cefr": "B1",
+    "est_basis": "대화 중심 SF"
+  },
+  {
+    "id": "67855030-79a4-48e3-93d5-5bacbd4cd96f",
+    "title": "The Viaduct Murder",
+    "author": "Ronald A. Knox",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 59316,
+    "chapters": 25,
+    "minutes": 396,
+    "tags": [
+      "fiction",
+      "mystery",
+      "detective",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "골프장에서 발견된 시신을 아마추어 넷이 추리한다.",
+    "learning_value": "추리 놀이의 구조 — 가설 검증 서술",
+    "themes": [
+      "추리",
+      "가설",
+      "유머"
+    ],
+    "genre_norm": "추리",
+    "age_band": "14+",
+    "est_cefr": "B1",
+    "est_basis": "고전 추리체"
+  },
+  {
+    "id": "43b45f45-b92b-408c-8ade-821911167584",
+    "title": "Amaryllis at the Fair",
+    "author": "Richard Jefferies",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 59537,
+    "chapters": 34,
+    "minutes": 397,
+    "tags": [
+      "fiction",
+      "nature",
+      "classic",
+      "literature"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "농촌 가난과 자연을 스케치하듯 그린 자전적 소설.",
+    "learning_value": "자연 묘사 밀도 — 어휘 확장용",
+    "themes": [
+      "농촌",
+      "가난",
+      "자연"
+    ],
+    "genre_norm": "자연 소설",
+    "age_band": "16+",
+    "est_cefr": "C1",
+    "est_basis": "묘사 밀도가 높다"
+  },
+  {
+    "id": "f03b0c2e-55b4-4f06-8042-0817dda5080b",
+    "title": "The Railway Children",
+    "author": "E. Nesbit",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 59649,
+    "chapters": 14,
+    "minutes": 398,
+    "tags": [
+      "fiction",
+      "children",
+      "adventure",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "아버지가 사라진 뒤 시골 철길가로 옮겨 간 삼남매.",
+    "learning_value": "따뜻한 아동 고전 — 대화 비중이 높다",
+    "themes": [
+      "가족",
+      "기차",
+      "용기"
+    ],
+    "genre_norm": "동화",
+    "age_band": "9+",
+    "est_cefr": "B1",
+    "est_basis": "평이한 아동 서사"
+  },
+  {
+    "id": "f7a7d76c-5627-46dc-a1d8-8e0d149e63c2",
+    "title": "A Voice from the South",
+    "author": "Anna Julia Cooper",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 59700,
+    "chapters": 8,
+    "minutes": 398,
+    "tags": [
+      "essay",
+      "nonfiction",
+      "politics",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "흑인 여성의 자리에서 교육과 인종을 말한 최초의 목소리.",
+    "learning_value": "논설 에세이 — 이중 억압 논증",
+    "themes": [
+      "인종",
+      "여성",
+      "교육"
+    ],
+    "genre_norm": "에세이",
+    "age_band": "17+",
+    "est_cefr": "C1",
+    "est_basis": "19세기 논설문"
+  },
+  {
+    "id": "03d906d3-b71f-4198-95c2-2eb98514addd",
+    "title": "The Red House Mystery",
+    "author": "A. A. Milne",
+    "year": null,
+    "v_level": 6,
+    "cefr_band": "B1",
+    "cefrj": "B1.1",
+    "words": 60676,
+    "chapters": 22,
+    "minutes": 405,
+    "tags": [
+      "fiction",
+      "mystery",
+      "detective",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "곰돌이 푸 작가가 쓴 유일한 본격 추리.",
+    "learning_value": "가볍고 명료한 문장의 고전 추리",
+    "themes": [
+      "추리",
+      "저택",
+      "우정"
+    ],
+    "genre_norm": "추리",
+    "age_band": "13+",
+    "est_cefr": "B1",
+    "est_basis": "평이한 추리체"
+  },
+  {
+    "id": "1983fc74-31cb-4fb9-a997-ec3fdd2a8477",
+    "title": "The Gambler",
+    "author": "Fyodor Dostoevsky",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 60976,
+    "chapters": 17,
+    "minutes": 407,
+    "tags": [
+      "fiction",
+      "literature",
+      "classic",
+      "adult"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "룰렛에 빠진 가정교사의 파멸 — 작가 자신의 도박벽이 배경.",
+    "learning_value": "중편 — 도스토옙스키 입문에 적당한 분량",
+    "themes": [
+      "도박",
+      "집착",
+      "사랑"
+    ],
+    "genre_norm": "심리 소설",
+    "age_band": "16+",
+    "est_cefr": "B2",
+    "est_basis": "번역 1인칭 장문"
+  },
+  {
+    "id": "4d3d763a-dafe-4f7d-bd18-29769f086447",
+    "title": "Arsène Lupin Versus Herlock Sholmes",
+    "author": "Maurice Leblanc",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 61349,
+    "chapters": 8,
+    "minutes": 409,
+    "tags": [
+      "fiction",
+      "detective",
+      "mystery",
+      "adventure",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "괴도 뤼팽과 셜록을 본뜬 탐정의 대결.",
+    "learning_value": "프랑스 모험 추리 — 속도감 있는 번역체",
+    "themes": [
+      "괴도",
+      "대결",
+      "추리"
+    ],
+    "genre_norm": "추리",
+    "age_band": "12+",
+    "est_cefr": "B1",
+    "est_basis": "번역 모험 추리"
+  },
+  {
+    "id": "6a79bac3-a999-4c5a-8e04-f04f5b0f0d4a",
+    "title": "The Haunted Bookshop",
+    "author": "Christopher Morley",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 61542,
+    "chapters": 15,
+    "minutes": 411,
+    "tags": [
+      "fiction",
+      "mystery",
+      "humor",
+      "literature",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "헌책방을 무대로 한 책 애호가들의 음모극.",
+    "learning_value": "책 이야기가 가득한 가벼운 스릴러",
+    "themes": [
+      "책",
+      "음모",
+      "사랑"
+    ],
+    "genre_norm": "추리",
+    "age_band": "14+",
+    "est_cefr": "B2",
+    "est_basis": "문학 인용이 잦다"
+  },
+  {
+    "id": "c1506062-318d-44e7-a192-69ff913d441c",
+    "title": "A House of Gentlefolk",
+    "author": "Ivan Turgenev",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 61927,
+    "chapters": 45,
+    "minutes": 413,
+    "tags": [
+      "fiction",
+      "romance",
+      "literature",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "귀향한 지주가 이룰 수 없는 사랑을 만난다.",
+    "learning_value": "투르게네프 — 절제된 번역 서정체",
+    "themes": [
+      "귀향",
+      "사랑",
+      "체념"
+    ],
+    "genre_norm": "연애 소설",
+    "age_band": "16+",
+    "est_cefr": "B2",
+    "est_basis": "번역 서정체"
+  },
+  {
+    "id": "cfbdc0cd-7354-41e9-9af8-a3ee14d84c9e",
+    "title": "Star Born",
+    "author": "Andre Norton",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 62083,
+    "chapters": 18,
+    "minutes": 414,
+    "tags": [
+      "fiction",
+      "science-fiction",
+      "adventure",
+      "young-adult"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "외계 행성에서 자란 인류 후손과 원주 종족의 만남.",
+    "learning_value": "청소년 SF — 두 시점 교차",
+    "themes": [
+      "식민",
+      "공존",
+      "모험"
+    ],
+    "genre_norm": "공상과학",
+    "age_band": "12+",
+    "est_cefr": "B1",
+    "est_basis": "평이한 SF 서사"
+  },
+  {
+    "id": "50da709f-65b6-4efb-891c-95cb01aab491",
+    "title": "All Quiet on the Western Front",
+    "author": "Erich Maria Remarque",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 62958,
+    "chapters": 12,
+    "minutes": 420,
+    "tags": [
+      "fiction",
+      "war",
+      "literature",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "참호 속 독일 청년들이 하나씩 사라진다.",
+    "learning_value": "가장 널리 읽히는 반전 소설 — 1인칭 현재형",
+    "themes": [
+      "전쟁",
+      "상실",
+      "세대"
+    ],
+    "genre_norm": "전쟁 소설",
+    "age_band": "15+",
+    "est_cefr": "B2",
+    "est_basis": "번역 1인칭 현재형"
+  },
+  {
+    "id": "4a550da2-46ca-46fb-86cc-604219e4258d",
+    "title": "Almayer’s Folly",
+    "author": "Joseph Conrad",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 62898,
+    "chapters": 12,
+    "minutes": 420,
+    "tags": [
+      "fiction",
+      "literature",
+      "adventure",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "보르네오 강가에서 몰락해 가는 상인의 헛된 꿈.",
+    "learning_value": "콘래드 첫 소설 — 밀도 높은 묘사",
+    "themes": [
+      "식민",
+      "몰락",
+      "혼혈"
+    ],
+    "genre_norm": "모더니즘 소설",
+    "age_band": "17+",
+    "est_cefr": "C1",
+    "est_basis": "콘래드 만연체"
+  },
+  {
+    "id": "fb1da33f-4165-4ad6-b244-aeac3ec3ac96",
+    "title": "Mrs. Dalloway",
+    "author": "Virginia Woolf",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 63816,
+    "chapters": 13,
+    "minutes": 426,
+    "tags": [
+      "fiction",
+      "literature",
+      "classic",
+      "adult"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "런던의 하루, 파티를 준비하는 여인의 의식이 흘러간다.",
+    "learning_value": "의식의 흐름 대표작 — 시점 이동 추적",
+    "themes": [
+      "하루",
+      "기억",
+      "전후"
+    ],
+    "genre_norm": "모더니즘 소설",
+    "age_band": "17+",
+    "est_cefr": "C1",
+    "est_basis": "의식의 흐름"
+  },
+  {
+    "id": "b261b36d-d0e1-481d-aa61-a133d568fb4f",
+    "title": "The House by the River",
+    "author": "A. P. Herbert",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 64574,
+    "chapters": 18,
+    "minutes": 431,
+    "tags": [
+      "fiction",
+      "mystery",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "강가에서 벌어진 살인과 그 뒤의 죄책감.",
+    "learning_value": "심리 스릴러 — 죄책감 서술",
+    "themes": [
+      "살인",
+      "죄책감",
+      "강"
+    ],
+    "genre_norm": "스릴러",
+    "age_band": "16+",
+    "est_cefr": "B2",
+    "est_basis": "심리 서술"
+  },
+  {
+    "id": "42060b08-a304-4338-acfa-e852ffd53a1d",
+    "title": "The Murder on the Links",
+    "author": "Agatha Christie",
+    "year": null,
+    "v_level": 8,
+    "cefr_band": "B2",
+    "cefrj": "B2.1",
+    "words": 65181,
+    "chapters": 28,
+    "minutes": 435,
+    "tags": [
+      "fiction",
+      "mystery",
+      "detective",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "프랑스 골프장에서 발견된 시신을 푸아로가 쫓는다.",
+    "learning_value": "경쟁 탐정 구도 — 추리 비교 학습",
+    "themes": [
+      "추리",
+      "경쟁",
+      "가족"
+    ],
+    "genre_norm": "추리",
+    "age_band": "13+",
+    "est_cefr": "B2",
+    "est_basis": "고전 추리체"
+  },
+  {
+    "id": "c3e2bc23-958c-48c0-846e-4b2a14d0024a",
+    "title": "The Hollow Needle",
+    "author": "Maurice Leblanc",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 65846,
+    "chapters": 10,
+    "minutes": 439,
+    "tags": [
+      "fiction",
+      "mystery",
+      "detective",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "프랑스 왕가의 비밀을 감춘 바늘 절벽을 뤼팽이 좇는다.",
+    "learning_value": "암호 해독이 섞인 모험 추리",
+    "themes": [
+      "괴도",
+      "암호",
+      "비밀"
+    ],
+    "genre_norm": "추리",
+    "age_band": "12+",
+    "est_cefr": "B1",
+    "est_basis": "번역 모험 추리"
+  },
+  {
+    "id": "0bb2ab34-5865-4acd-9eba-c8a3ae9faf25",
+    "title": "The Confessions of Arsène Lupin",
+    "author": "Maurice Leblanc",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 65757,
+    "chapters": 10,
+    "minutes": 439,
+    "tags": [
+      "short-story",
+      "mystery",
+      "detective",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "뤼팽이 직접 털어놓는 아홉 편의 사건.",
+    "learning_value": "단편 단위 — 짧게 끊어 읽기 좋다",
+    "themes": [
+      "괴도",
+      "변장",
+      "추리"
+    ],
+    "genre_norm": "추리",
+    "age_band": "12+",
+    "est_cefr": "B1",
+    "est_basis": "번역 단편 추리"
+  },
+  {
+    "id": "f04be9fa-cfb3-4bc1-94ee-a89c7d29c63a",
+    "title": "Driven Back to Eden",
+    "author": "Edward Payson Roe",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 65841,
+    "chapters": 44,
+    "minutes": 439,
+    "tags": [
+      "fiction",
+      "nature",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "도시 가족이 농장으로 옮겨 사계절을 배워 간다.",
+    "learning_value": "농사·자연 어휘 — 실용 설명이 섞인 서사",
+    "themes": [
+      "귀농",
+      "가족",
+      "자연"
+    ],
+    "genre_norm": "자연 소설",
+    "age_band": "13+",
+    "est_cefr": "B1",
+    "est_basis": "설명 섞인 서사"
+  },
+  {
+    "id": "deddbc74-9d2b-4293-b4bd-67e3a1920c4a",
+    "title": "The Poisoned Chocolates Case",
+    "author": "Anthony Berkeley",
+    "year": null,
+    "v_level": 7,
+    "cefr_band": "B1",
+    "cefrj": "B1.2",
+    "words": 66183,
+    "chapters": 18,
+    "minutes": 442,
+    "tags": [
+      "fiction",
+      "mystery",
+      "detective",
+      "classic"
+    ],
+    "is_picture_book": false,
+    "synopsis_ko": "같은 사건에 여섯 명이 서로 다른 범인을 지목한다.",
+    "learning_value": "추리 소설을 해부한 추리 소설 — 논증 비교",
+    "themes": [
+      "추리",
+      "논증",
+      "반전"
+    ],
+    "genre_norm": "추리",
+    "age_band": "15+",
+    "est_cefr": "B2",
+    "est_basis": "논증 반복 구조"
+  }
+]

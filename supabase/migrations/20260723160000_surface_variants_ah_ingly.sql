@@ -1,0 +1,7 @@
+-- surface_variants 생성 규칙 추가 — 비운음 -ah→-er(nevah→never) + 재귀 -ingly→base(comprehendingly→comprehend).
+-- 정밀: 실단어(hurrah·lovingly)는 direct/derivation tier서 먼저 해소 → 미해소 방언/파생만 적중.
+-- 효과(200권): -ah 14 lemma/119 등장, -ingly 40/56. 회귀 0.
+-- 전체 정의는 DB 적용본 기준(20260723140000 위에 아래 2행 추가):
+--   case when s ~ 'ah$' and length(s)>=4 then regexp_replace(s,'ah$','er') end,
+--   case when s ~ 'ingly$' and length(s)>=6 then regexp_replace(s,'ingly$','') end,
+--   case when s ~ 'ingly$' and length(s)>=6 then regexp_replace(s,'ingly$','e') end

@@ -73,7 +73,7 @@ export function StoryWeaverIdTab({ onPickPreview }: StoryWeaverIdTabProps) {
         <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">
           📄 StoryWeaver 그림책 입력
         </h2>
-        <span className="font-mono text-[12px] text-[var(--t3)]">story id 또는 slug</span>
+        <span className="font-mono text-[12px] text-[var(--t2)]">story id 또는 slug</span>
       </div>
 
       <div className="flex flex-col gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-4">
@@ -90,7 +90,7 @@ export function StoryWeaverIdTab({ onPickPreview }: StoryWeaverIdTabProps) {
             onKeyDown={handleKeyDown}
             placeholder="예: 2-smile-please 또는 10118 또는 전체 URL"
             className={[
-              'min-h-[40px] flex-1 min-w-[240px] rounded-[var(--r-sm)]',
+              'min-h-[44px] flex-1 min-w-[240px] rounded-[var(--r-sm)]',
               'border border-[var(--bd)] bg-[var(--bg)]',
               'px-3 font-mono text-[13px] text-[var(--t1)]',
               'transition-colors duration-[var(--dur-normal)] ease-[var(--ease)]',
@@ -104,7 +104,7 @@ export function StoryWeaverIdTab({ onPickPreview }: StoryWeaverIdTabProps) {
             onClick={handleFetch}
             disabled={isLoading || !idInput.trim()}
             className={[
-              'min-h-[40px] inline-flex items-center justify-center gap-2 rounded-[var(--r-sm)] px-4',
+              'min-h-[44px] inline-flex items-center justify-center gap-2 rounded-[var(--r-sm)] px-4',
               'bg-[var(--p)] hover:bg-[var(--p-hover)] font-display text-[12px] font-[600] text-[var(--ti)]',
               'transition-colors duration-[var(--dur-normal)] ease-[var(--ease)]',
               'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2',
@@ -123,21 +123,21 @@ export function StoryWeaverIdTab({ onPickPreview }: StoryWeaverIdTabProps) {
         {error && (
           <div
             role="alert"
-            className="flex items-center gap-1.5 rounded-[var(--r-sm)] bg-[var(--learn-error-light)] px-3 py-2"
+            className="flex items-center gap-2 rounded-[var(--r-sm)] bg-[var(--learn-error-light)] px-3 py-2"
           >
             <AlertCircle size={12} className="text-[var(--learn-error)]" aria-hidden />
             <span className="font-body text-[11px] text-[var(--learn-error)]">{error}</span>
           </div>
         )}
 
-        <p className="font-body text-[11px] text-[var(--t3)]">
+        <p className="font-body text-[11px] text-[var(--t2)]">
           StoryWeaver story URL 의 id 부분입니다. 예:{' '}
           <code className="font-mono text-[var(--t2)]">
             storyweaver.org.in/stories/<strong>2-smile-please</strong>
           </code>
         </p>
 
-        <p className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-body text-[11px] text-[var(--t3)]">
+        <p className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-body text-[11px] text-[var(--t2)]">
           📄 StoryWeaver 그림책은 모두 CC BY 4.0 — 한국 저작권 안전 ✓. 페이지별 삽화(링크)와 낭독
           오디오가 자동 수집되어 학습자에게 노출됩니다.
         </p>
@@ -178,21 +178,21 @@ function PreviewCard({
               href={preview.source_url}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex shrink-0 items-center gap-1 rounded-[var(--r-sm)] px-2 py-1 font-mono text-[10px] text-[var(--t2)] transition-colors hover:bg-[var(--bg)] hover:text-[var(--t1)]"
+              className="min-h-[44px] inline-flex shrink-0 items-center gap-1 rounded-[var(--r-sm)] px-2 py-1 font-mono text-[10px] text-[var(--t2)] transition-colors hover:bg-[var(--bg)] hover:text-[var(--t1)]"
               aria-label="StoryWeaver 페이지 새 탭에서 열기"
             >
               {preview.source_id}
               <ExternalLink size={10} aria-hidden />
             </a>
           </div>
-          <p className="flex flex-wrap items-center gap-x-2 gap-y-1 font-body text-[12px] text-[var(--t3)]">
+          <p className="flex flex-wrap items-center gap-x-2 gap-y-1 font-body text-[12px] text-[var(--t2)]">
             {preview.author}
             <span className="font-mono text-[10px] text-[var(--t5)]">· {preview.license}</span>
-            <span className="inline-flex items-center gap-0.5 font-mono text-[10px] text-[var(--t5)]">
+            <span className="inline-flex items-center gap-1 font-mono text-[10px] text-[var(--t5)]">
               <ImageIcon size={9} aria-hidden /> {preview.page_count}페이지
             </span>
             {preview.has_audio && (
-              <span className="inline-flex items-center gap-0.5 font-mono text-[10px] text-[var(--learn-review)]">
+              <span className="inline-flex items-center gap-1 font-mono text-[10px] text-[var(--learn-review)]">
                 <Headphones size={9} aria-hidden /> 낭독
               </span>
             )}
@@ -201,7 +201,7 @@ function PreviewCard({
       </header>
 
       <div className="px-5 py-4">
-        <div className="mb-2 font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">
+        <div className="mb-2 font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">
           줄거리 / 본문 미리보기
         </div>
         <p className="line-clamp-5 font-body text-[13px] leading-relaxed text-[var(--t1)]">
@@ -214,7 +214,7 @@ function PreviewCard({
           type="button"
           onClick={onPick}
           disabled={isPickPending}
-          className="inline-flex min-h-[36px] items-center justify-center gap-2 rounded-[var(--r-sm)] bg-[var(--p)] px-4 font-display text-[12px] font-[600] text-[var(--ti)] transition-colors hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+          className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-[var(--r-sm)] bg-[var(--p)] px-4 font-display text-[12px] font-[600] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
         >
           ➕ 큐에 추가
         </button>

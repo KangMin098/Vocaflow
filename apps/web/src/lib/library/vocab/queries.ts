@@ -9,10 +9,23 @@ import 'server-only'
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 import type { Database } from '@vocaflow/types'
+import { setKindOf, type SetKind } from './set-kind'
+import type { CoverMeta } from '@/lib/vcb/covers/design'
+import { coverLockupOf, type CoverLockup } from '@/lib/vcb/covers/lockup'
+import { pagedSelect } from '@/lib/supabase/paged-select'
 
 type DB = Database
 
+/**
+ * 학습자 카탈로그의 칸.
+ *
+ * ⚠️ `components/library/vocab/categories.ts` 의 칩 목록과 **같아야 한다.** 한동안
+ * `preschool` · `etymology` 두 개가 칩에는 있고 이 유니온에는 없었다 — 어원 세트 2개가
+ * 실제로 그 칸에 발행돼 있는데 타입은 그런 칸이 없다고 말하는 상태였다(2026-08-15 실측).
+ * 칸을 늘릴 때 두 곳을 같이 고칠 것.
+ */
 export type VocabCategory =
+  | 'preschool'
   | 'elementary'
   | 'middle'
   | 'high'
@@ -20,6 +33,7 @@ export type VocabCategory =
   | 'eng_test'
   | 'civil'
   | 'business'
+  | 'etymology'
   | 'themed'
 
 /**
@@ -52,6 +66,59 @@ export interface PublishedVocabSet {
   /** 구독자 수 (denormalized · 사용빈도/인기 랭킹용). */
   subscriberCount: number
   createdAt: string
+  /**
+   * 무엇으로 묶은 단어장인가 — 컴포저가 남긴 유형(blueprint)에서 온다.
+   * 발행 세트의 24/29 가 '테마별' 한 칸에 있어 제목만으로는 서로 구별되지 않는다.
+   * 유형이 없는 레거시 세트는 null 이고, 카드가 그 줄을 생략한다.
+   */
+  kind: SetKind | null
+  /** 표지 이미지 (Openverse PD/CC 도판). null 이면 그라디언트 표지로 폴백. */
+  coverImageUrl: string | null
+  /** 표지 출처 — CC 표기 의무. 계열 듀오톤 색도 여기 `family` 에서 나온다. */
+  coverImageMeta: CoverMeta | null
+  /**
+   * 발행 당시 브랜드 규격의 지문(FNV-1a 8자리). 지금 규격과 다르면 **옛 규격으로 만들어진
+   * 권**이다 — 색을 DB 에 복사하지 않고 지문만 남기므로 토큰이 정본으로 남는다.
+   */
+  brandFingerprint: string | null
+  /**
+   * 컴포저가 정한 사다리 계단(1~7). **파생 캐시가 아니다** — null 이면 "아직 안 정했다" 는
+   * 뜻이고, 그때만 화면이 `lib/library/vocab/rung.ts` 의 추정으로 내려간다.
+   */
+  ladderStep: number | null
+  /**
+   * 판권 번호 — 이 **판(edition)** 을 특정하는 표기. 시중 단어장의 ISBN 자리다.
+   * 학습자가 인용·검색·문의할 때 쓸 수 있어야 하므로 slug 와 판차를 함께 낸다.
+   */
+  /**
+   * 표지를 그릴 **계열**. `curation_query.brand.family` 가 정본이고(브랜드 드레인이 각인),
+   * 각인 전 세트는 수집 도판의 메타로 떨어진다.
+   *
+   * ⚠️ `coverImageMeta.family` 를 정본으로 쓰면 **도판을 못 받은 권은 계열이 없다** —
+   *    그 권은 표지를 그릴 수 없게 된다. 계열은 그림의 성질이 아니라 그 책의 성질이다.
+   */
+  brandFamily: string | null
+  /**
+   * **표지 규격 한 벌** — kicker · 권 번호 표기 · 제목 줄 수 · 격자 · 스크림 · 서체 역할.
+   * Claude Design 캔버스가 정하고 브랜드 드레인이 각인한 값이다.
+   *
+   * 각인이 없으면 `null` 이고, 그때 표지는 **규격이 말하는 요소를 그리지 않는다**(하한만 쓴다).
+   * 코드가 기본값을 지어내면 두 번째 정본이 생겨 캔버스를 고쳐도 그 권들이 안 따라온다.
+   */
+  brandLockup: CoverLockup | null
+  /** 표지 도판의 열쇠이자 판권 번호의 뿌리. 재발행해도 같은 책이면 같은 값이어야 한다. */
+  slug: string | null
+  imprintCode: string | null
+  /**
+   * 자동 검수 실측 — `scripts/vocab/stamp-imprint.mts` 가 각인한다.
+   * **null 이면 판권면이 그 줄을 뺀다** — 0/0 은 "검수 0 통과" 로 읽혀 없는 것보다 나쁘다.
+   */
+  qa: { checked: number; passed: number; at: string } | null
+  /**
+   * 표제어 난이도 실측(V-Level 중앙값·최소·최대). 사다리 **밖**(성인 수준) 권이
+   * "대상 수준" 을 말할 수 있게 하는 유일한 근거다 — 학령 계단이 없다고 수준이 없는 게 아니다.
+   */
+  level: { median: number; min: number; max: number; measured: number } | null
 }
 
 export interface SamplePreviewWord {
@@ -95,6 +162,29 @@ interface SharedSetRow {
   created_at: string | null
   category_id?: string | null
   additional_category_ids?: string[] | null
+  slug?: string | null
+  version?: number | null
+  curation_query?: {
+    blueprint?: string
+    /** `scripts/vocab/stamp-imprint.mts` 가 더한 키. 컴포저의 레시피와 같은 jsonb 에 산다. */
+    qa?: { checked: number; passed: number; at: string }
+    level?: { median: number; min: number; max: number; measured: number }
+    /**
+     * `scripts/vocab/brand-drain-import.mts` 가 각인한 **표지 규격 한 벌**
+     * (Claude Design 캔버스 → `VocabBrandCanvas`).
+     *
+     * ⚠️ 모양을 여기서 좁히지 않고 `unknown` 으로 받는다 — jsonb 라 타입이 보장되지 않고,
+     *   좁힌 타입을 믿고 읽으면 낡은 각인 하나가 표지를 통째로 날린다.
+     *   좁히는 일은 `coverLockupOf` 하나가 한다(모양이 안 맞으면 `null`).
+     */
+    brand?: unknown
+  } | null
+  cover_image_url?: string | null
+  cover_image_meta?: CoverMeta | null
+  brand_fingerprint?: string | null
+  ladder_step?: number | null
+  /** `shared_words(count)` 임베드 집계 — enrichSets 주석 참조. 조인이 비면 null. */
+  shared_words?: { count: number }[] | null
 }
 
 export async function fetchPublishedSets(
@@ -105,7 +195,7 @@ export async function fetchPublishedSets(
   const { data, error } = await sb
     .from('shared_word_sets')
     .select(
-      'id, title, description, category, cefr_level, cover_emoji, sort_order, word_count, subscriber_count, created_at, category_id, additional_category_ids',
+      'id, title, description, category, cefr_level, cover_emoji, sort_order, word_count, subscriber_count, created_at, category_id, additional_category_ids, curation_query, cover_image_url, cover_image_meta, brand_fingerprint, ladder_step, slug, version, shared_words(count)',
     )
     .eq('is_published', true)
     // 소스 종속 자동생성 세트는 공용 단어장 영역에 노출 X — 각 소스 컨텍스트에서만.
@@ -121,7 +211,7 @@ export async function fetchPublishedSets(
     // 위 select 가 실패할 수 있음 — fallback 으로 legacy 컬럼만 fetch.
     const fallback = await sb
       .from('shared_word_sets')
-      .select('id, title, description, category, cefr_level, cover_emoji, sort_order, word_count, subscriber_count, created_at')
+      .select('id, title, description, category, cefr_level, cover_emoji, sort_order, word_count, subscriber_count, created_at, curation_query, cover_image_url, cover_image_meta, brand_fingerprint, ladder_step, slug, version, shared_words(count)')
       .eq('is_published', true)
       .neq('category', 'library_book')
       .neq('category', 'library_article')
@@ -140,18 +230,24 @@ async function enrichSets(
 ): Promise<PublishedVocabSet[]> {
   if (sets.length === 0) return []
 
-  // 실측 단어 수 보정 — id IN (...) 한 번에 가져와 set_id 별 집계
-  const ids = sets.map((s) => s.id)
-  const { data: words, error: wErr } = await supabase
-    .from('shared_words')
-    .select('set_id')
-    .in('set_id', ids)
-
-  if (wErr) throw wErr
-
+  // 실측 단어 수는 세트 조회와 **같은 왕복**에서 온다(`shared_words(count)`).
+  //
+  // ⚠️ 예전에는 여기서 `shared_words` 를 `.in('set_id', ids)` 로 한 번 더 받아 행을 세었다.
+  //    PostgREST 는 한 응답에 1,000행까지만 주는데, 이 화면의 세트 70개가 가진 단어는
+  //    **32,792개**다. 잘린 창에 걸친 세트만 실제보다 작은 수가 되고 나머지는 캐시로
+  //    떨어지므로 **오류 없이 합계가 틀린다** — 실측 2026-08-30: 화면이 `단어 32,632` 를
+  //    팔았다(160 부족). 세는 일은 DB 에 맡긴다.
+  //
+  //    ⚠️ 캐시(`word_count`) 합은 32,793 이다 — 한 세트가 1 만큼 낡았다. 이 함수의 이름이
+  //    처음부터 "실측 보정" 이었던 이유가 그것이고, 이제 실제로 그 일을 한다.
+  //
+  //    같은 함정의 전말은 `lib/library/books/queries.ts` 의 EMBEDDED_WORD_COUNT 주석.
+  //    이 저장소에서 세 번째로 같은 자리에서 났다 — 세트 목록을 받아 단어를 다시 받는
+  //    모양을 보면 상한부터 의심할 것.
   const counts = new Map<string, number>()
-  for (const row of words ?? []) {
-    counts.set(row.set_id, (counts.get(row.set_id) ?? 0) + 1)
+  for (const s of sets) {
+    const embedded = s.shared_words?.[0]?.count
+    counts.set(s.id, typeof embedded === 'number' ? embedded : (s.word_count ?? 0))
   }
 
   // category_id 노드 lookup (한 번에 fetch)
@@ -176,7 +272,10 @@ async function enrichSets(
     }
   }
 
-  return sets.map((s) => ({
+  return sets.map((s) => {
+    // 규격은 **한 번만** 좁힌다 — 계열도 여기서 나온다(각인이 유일한 정본이라는 뜻이다).
+    const lockup = coverLockupOf(s.curation_query?.brand)
+    return {
     id: s.id,
     title: s.title,
     description: s.description,
@@ -189,7 +288,20 @@ async function enrichSets(
     wordCount: counts.get(s.id) ?? s.word_count ?? 0,
     subscriberCount: s.subscriber_count ?? 0,
     createdAt: s.created_at ?? new Date(0).toISOString(),
-  }))
+    kind: setKindOf(s.curation_query?.blueprint),
+    coverImageUrl: s.cover_image_url ?? null,
+    coverImageMeta: s.cover_image_meta ?? null,
+    brandFingerprint: s.brand_fingerprint ?? null,
+    ladderStep: s.ladder_step ?? null,
+    brandFamily: lockup?.family ?? s.cover_image_meta?.family ?? null,
+    brandLockup: lockup,
+    slug: s.slug ?? null,
+    // 판권 번호 — slug 가 없으면 만들지 않는다(id 로 지어내면 학습자가 인용할 수 없는 값이 된다).
+    imprintCode: s.slug ? `VF-${s.slug}-v${s.version ?? 1}` : null,
+    qa: s.curation_query?.qa ?? null,
+    level: s.curation_query?.level ?? null,
+    }
+  })
 }
 
 /**
@@ -200,13 +312,25 @@ export async function fetchUserSubscriptions(
   userId: string | null,
 ): Promise<Set<string>> {
   if (!userId) return new Set()
-  const { data, error } = await supabase
-    .from('user_word_set_subscriptions')
-    .select('set_id')
-    .eq('user_id', userId)
 
-  if (error) throw error
-  return new Set((data ?? []).map((r) => r.set_id))
+  // ⚠️ **끝까지 받는다.** 이 조회는 상한이 없어서 PostgREST 의 1,000행에서 조용히 잘렸다.
+  //    잘리면 구독 중인 세트가 **구독 안 한 것으로** 보인다 — 오류 없이 화면만 틀리는,
+  //    이 저장소가 하루에 세 번 값을 치른 그 실패다(`lib/supabase/paged-select.ts` 머리 주석).
+  //
+  //    도달 가능한가: 오늘 최대 보유는 268개다. 그런데 챕터 단어장은 **도서를 담으면 함께
+  //    붙는다** — Clarissa 한 권이 450개, Le Morte d'Arthur 가 443개다(실측 2026-08-30).
+  //    고전 몇 권을 담은 학습자는 바로 1,000을 넘는다. "지금은 안 넘는다" 는 근거가 못 된다.
+  const rows = await pagedSelect<{ set_id: string }>(
+    (from, to) =>
+      supabase
+        .from('user_word_set_subscriptions')
+        .select('set_id')
+        .eq('user_id', userId)
+        .range(from, to),
+    '구독 단어장',
+  )
+
+  return new Set(rows.map((r) => r.set_id))
 }
 
 /**

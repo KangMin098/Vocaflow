@@ -7,7 +7,8 @@
 //   - delta 표시 (+1 / -1 / 0)
 //   - 시간 순 vertical timeline (좌측 dot + connector + 우측 카드)
 
-import { Activity, Brain, Compass, Settings as SettingsIcon, Sparkles, Target, type LucideIcon } from 'lucide-react'
+import { Activity, Brain, Compass, Settings as SettingsIcon, Target, type LucideIcon } from 'lucide-react'
+import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 
 interface Snapshot {
   id: string
@@ -30,8 +31,8 @@ interface ReasonStyle {
 
 const REASON_STYLES: Record<string, ReasonStyle> = {
   diagnostic_completed:       { icon: Compass,      label: '진단 완료',     color: 'var(--p)' },
-  track_diagnostic_completed: { icon: Target,       label: 'track 진단',    color: 'var(--p-dark)' },
-  auto_promotion:             { icon: Sparkles,     label: '자동 상향',     color: 'var(--active)' },
+  track_diagnostic_completed: { icon: Target,       label: 'track 진단',    color: 'var(--on-p-tint)' },
+  auto_promotion:             { icon: Gwonjeom,     label: '자동 상향',     color: 'var(--active)' },
   self_declared:              { icon: SettingsIcon, label: '직접 설정',     color: 'var(--info)' },
   learning_data:              { icon: Brain,        label: '학습 누적',     color: 'var(--success)' },
   manual_override:            { icon: Activity,     label: '수동 조정',     color: 'var(--warning)' },
@@ -52,7 +53,7 @@ export function HistoryTimeline({ snapshots }: { snapshots: Snapshot[] }) {
         <p className="font-body text-[14px] text-[var(--t2)]">
           아직 V-Level 기록이 없어요.
         </p>
-        <p className="mt-1 font-body text-[12px] text-[var(--t3)]">
+        <p className="mt-1 font-body text-[12px] text-[var(--t2)]">
           /diagnostic 진단을 완료하면 첫 snapshot이 생성돼요.
         </p>
       </div>
@@ -85,19 +86,19 @@ export function HistoryTimeline({ snapshots }: { snapshots: Snapshot[] }) {
               <header className="mb-2 flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <span
-                    className="inline-flex items-center rounded-[var(--r-full)] px-2 py-0.5 font-display text-[10px] font-[700] uppercase tracking-wider"
+                    className="inline-flex items-center rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700] uppercase tracking-wider"
                     style={{ backgroundColor: style.color, color: 'var(--ti)' }}
                   >
                     {style.label}
                   </span>
-                  <span className="font-body text-[11px] text-[var(--t3)]">
+                  <span className="font-body text-[11px] text-[var(--t2)]">
                     {formatDate(s.taken_at)}
                   </span>
                 </div>
                 {s.v_level_delta != null && s.v_level_delta !== 0 && (
                   <span
                     className="font-display text-[12px] font-[700] tabular-nums"
-                    style={{ color: s.v_level_delta > 0 ? 'var(--active)' : 'var(--error)' }}
+                    style={{ color: s.v_level_delta > 0 ? 'var(--active-ink)' : 'var(--error-ink)' }}
                   >
                     {deltaSign}{s.v_level_delta}
                   </span>
@@ -106,15 +107,15 @@ export function HistoryTimeline({ snapshots }: { snapshots: Snapshot[] }) {
 
               {s.taken_reason === 'track_diagnostic_completed' ? (
                 <div className="flex items-baseline gap-2">
-                  <span className="font-display text-[11px] font-[600] uppercase tracking-wide text-[var(--t3)]">
+                  <span className="font-display text-[11px] font-[600] uppercase tracking-wide text-[var(--t2)]">
                     {String((s.snapshot_meta as { track_id?: string } | null | undefined)?.track_id ?? 'track')}
                   </span>
                   {(s.snapshot_meta as { previous_track_level?: number } | null | undefined)?.previous_track_level != null && (
                     <>
-                      <span className="font-display text-[13px] font-[600] text-[var(--t3)]">
+                      <span className="font-display text-[13px] font-[600] text-[var(--t2)]">
                         L{(s.snapshot_meta as { previous_track_level?: number }).previous_track_level}
                       </span>
-                      <span className="font-body text-[10px] text-[var(--t4)]">→</span>
+                      <span className="font-body text-[10px] text-[var(--t2)]">→</span>
                     </>
                   )}
                   <span className="font-display text-[22px] font-[700] tabular-nums text-[var(--t1)]">
@@ -125,10 +126,10 @@ export function HistoryTimeline({ snapshots }: { snapshots: Snapshot[] }) {
                 <div className="flex items-baseline gap-2">
                   {s.previous_v_level != null && (
                     <>
-                      <span className="font-display text-[13px] font-[600] text-[var(--t3)]">
+                      <span className="font-display text-[13px] font-[600] text-[var(--t2)]">
                         V{s.previous_v_level}
                       </span>
-                      <span className="font-body text-[10px] text-[var(--t4)]">→</span>
+                      <span className="font-body text-[10px] text-[var(--t2)]">→</span>
                     </>
                   )}
                   <span className="font-display text-[22px] font-[700] tabular-nums text-[var(--t1)]">
@@ -138,7 +139,7 @@ export function HistoryTimeline({ snapshots }: { snapshots: Snapshot[] }) {
               )}
 
               {confidence !== undefined && (
-                <p className="mt-1 font-body text-[11px] text-[var(--t3)]">
+                <p className="mt-1 font-body text-[11px] text-[var(--t2)]">
                   신뢰도 {Math.round((confidence ?? 0) * 100)}%
                 </p>
               )}

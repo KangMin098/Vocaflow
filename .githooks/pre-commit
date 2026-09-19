@@ -1,18 +1,20 @@
 #!/usr/bin/env bash
 # .githooks/pre-commit
 #
-# Vocaflow — Claude Project ↔ VS Code 동기화 자동화 hook.
+# Vocaflow — docs/AI_CONTEXT mirror 가 낡은 채 커밋되는 것을 막는다.
 #
-# 동작:
-#   1. scripts/sync-export-memory.mjs --refresh-context 실행
-#      → docs/AI_CONTEXT/ memory mirror + docs/CONTEXT.md 자동 블록 갱신
-#   2. 변경된 docs/AI_CONTEXT/ + docs/CONTEXT.md 만 자동 stage
-#      → 이번 commit 에 함께 포함됨 (별도 commit 안 만듦)
-#   3. node 미설치 / 스크립트 오류 시 commit 진행 (block 안 함)
-#      → CI/CD 서버나 옛 머신에서도 작동
+# 동작(2026-09-20 개정 · design/DECISIONS DD-49):
+#   1. **인덱스를 절대 고치지 않는다.** `git add` 를 하지 않는다.
+#   2. 이번 커밋에 docs/AI_CONTEXT/ 가 들어 있고 mirror 가 낡았으면 → commit 을 막고 명령을 알려준다.
+#   3. 들어 있지 않으면 → 낡았다는 안내만 찍고 통과시킨다(mirror 는 정확성 게이트가 아니다).
+#   4. node 미설치 · 스크립트 부재 · 이 머신에 memory 없음(CI·다른 PC) → 통과.
 #
-# 활성화: `node scripts/setup-git-hooks.mjs` 1회 실행 (또는 pnpm install 시 자동)
-#         이미 활성화 시 `git config core.hooksPath` 가 `.githooks` 로 설정돼 있음.
+# 왜 갱신을 자동으로 하지 않나: 옛 훅은 조건 없이 `git add docs/AI_CONTEXT docs/CONTEXT.md` 를 했다.
+#   이 저장소는 `git commit --only <paths>` 로 세션마다 자기 파일만 커밋한다(AGENTS.md 공유 워크스페이스).
+#   훅이 인덱스를 건드리면 (a) 요청하지 않은 남의 파일이 커밋에 들어가고 (b) `--only` 커밋이 끝난 뒤에도
+#   그 경로가 인덱스에 staged 로 남는다 — git 이 훅의 add 를 실제 인덱스로 되돌려 놓기 때문이다.
+#   2026-09-19 에는 이 때문에 비밀값의 옛 판이 커밋 뒤 인덱스에 남았다(DD-48).
+#   mirror 갱신은 사람이 한다: `node scripts/sync-export-memory.mjs --refresh-context` 뒤 직접 add.
 
 set -e
 
@@ -29,21 +31,27 @@ if [ ! -f "$SCRIPT" ]; then
   exit 0
 fi
 
-# Claude Code 외부 memory 가 없는 환경 (CI, 다른 사용자 머신) 에선
-# 스크립트가 [sync-memory] memory dir 미발견 — skip 으로 정상 종료.
-# 실패해도 commit block 안 함.
-if ! node "$SCRIPT" --refresh-context >/dev/null 2>&1; then
-  # 진단용 출력 (실패해도 진행)
-  echo "[pre-commit] sync-export-memory.mjs 실패 — commit 은 진행" >&2
+# --check 는 파일도 인덱스도 쓰지 않는다. 낡으면 exit 1, 판정 불가면 exit 0.
+if node "$SCRIPT" --check >/dev/null 2>&1; then
   exit 0
 fi
 
-# 변경된 mirror / CONTEXT 만 자동 stage (이미 staged 면 git add 가 no-op)
-if [ -d "$REPO_ROOT/docs/AI_CONTEXT" ]; then
-  git add "$REPO_ROOT/docs/AI_CONTEXT" 2>/dev/null || true
-fi
-if [ -f "$REPO_ROOT/docs/CONTEXT.md" ]; then
-  git add "$REPO_ROOT/docs/CONTEXT.md" 2>/dev/null || true
+HOWTO_1="  node scripts/sync-export-memory.mjs --refresh-context"
+HOWTO_2="  git add docs/AI_CONTEXT docs/CONTEXT.md   # 이 커밋과 섞지 말고 따로"
+
+# 이번 커밋에 mirror 가 포함돼 있나 (`--only` 면 그 경로 집합만 보인다)
+if git diff --cached --name-only -- docs/AI_CONTEXT | grep -q .; then
+  {
+    echo "[pre-commit] docs/AI_CONTEXT mirror 가 낡았다 — 낡은 판을 커밋하려 하고 있다."
+    echo "$HOWTO_1"
+    echo "$HOWTO_2"
+  } >&2
+  exit 1
 fi
 
+{
+  echo "[pre-commit] docs/AI_CONTEXT mirror 가 낡았다 — 이 커밋은 그대로 진행한다."
+  echo "$HOWTO_1"
+  echo "$HOWTO_2"
+} >&2
 exit 0

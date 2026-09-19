@@ -1,0 +1,207 @@
+{
+  "generatedAt": "2026-08-30T01:53:37.460Z",
+  "passages": 48998,
+  "defective": 5862,
+  "defectRate": 0.1196,
+  "byRule": {
+    "space_before_punct": {
+      "stage": "재교",
+      "count": 8961,
+      "passages": 3146
+    },
+    "apostrophe_style": {
+      "stage": "삼교",
+      "count": 536,
+      "passages": 340
+    },
+    "quote_style": {
+      "stage": "삼교",
+      "count": 322,
+      "passages": 217
+    },
+    "repeated_word": {
+      "stage": "재교",
+      "count": 207,
+      "passages": 122
+    },
+    "unbalanced_paren": {
+      "stage": "재교",
+      "count": 198,
+      "passages": 136
+    },
+    "ise_ize": {
+      "stage": "삼교",
+      "count": 44,
+      "passages": 34
+    },
+    "dash_style": {
+      "stage": "삼교",
+      "count": 18,
+      "passages": 9
+    }
+  },
+  "byType": {
+    "unit_vocab": {
+      "defective": 3107,
+      "total": 29720
+    },
+    "vocab_choice": {
+      "defective": 1474,
+      "total": 10133
+    },
+    "unit_grammar": {
+      "defective": 673,
+      "total": 4643
+    },
+    "grammar_choice": {
+      "defective": 407,
+      "total": 3414
+    },
+    "irrelevant": {
+      "defective": 201,
+      "total": 1088
+    }
+  },
+  "samples": {
+    "apostrophe_style": [
+      {
+        "id": "fa9aab2e-136d-42e4-b00b-e61bbce81cce",
+        "type": "unit_vocab",
+        "found": "굽은 ’ 1개 · 곧은 ' 1개",
+        "hint": "아포스트로피를 한쪽 모양으로 맞춘다."
+      },
+      {
+        "id": "a7d03424-a79d-442a-92c4-a2909c976d59",
+        "type": "vocab_choice",
+        "found": "굽은 ’ 1개 · 곧은 ' 1개",
+        "hint": "아포스트로피를 한쪽 모양으로 맞춘다."
+      },
+      {
+        "id": "523aaeba-d67d-4252-94b6-4ca051bf38b2",
+        "type": "unit_grammar",
+        "found": "굽은 ’ 4개 · 곧은 ' 2개",
+        "hint": "아포스트로피를 한쪽 모양으로 맞춘다."
+      }
+    ],
+    "space_before_punct": [
+      {
+        "id": "b9a0164c-a310-4c48-915d-ea06c060e4fa",
+        "type": "vocab_choice",
+        "found": "…eping their mothers alive .",
+        "hint": "구두점 \".\" 앞의 공백을 지운다."
+      },
+      {
+        "id": "67e85063-6635-4095-9a58-9aa97905bd65",
+        "type": "grammar_choice",
+        "found": "…eceive proper attribution .",
+        "hint": "구두점 \".\" 앞의 공백을 지운다."
+      },
+      {
+        "id": "bf3592fa-9fc4-4fc9-98fb-f4eee775c8a0",
+        "type": "vocab_choice",
+        "found": "…on-based publishing model .",
+        "hint": "구두점 \".\" 앞의 공백을 지운다."
+      }
+    ],
+    "unbalanced_paren": [
+      {
+        "id": "8d14c256-7cd5-4582-b042-ad78b256a672",
+        "type": "unit_grammar",
+        "found": "여는 괄호 1개 · 닫는 괄호 0개",
+        "hint": "괄호 짝이 맞지 않는다 — 잘려 나간 자리가 있는지 본다."
+      },
+      {
+        "id": "163a164d-39a5-4b48-9260-8a94d7dea66c",
+        "type": "vocab_choice",
+        "found": "여는 괄호 1개 · 닫는 괄호 5개",
+        "hint": "괄호 짝이 맞지 않는다 — 잘려 나간 자리가 있는지 본다."
+      },
+      {
+        "id": "356f2428-b42f-4813-aaa6-c09058d19203",
+        "type": "vocab_choice",
+        "found": "여는 괄호 1개 · 닫는 괄호 6개",
+        "hint": "괄호 짝이 맞지 않는다 — 잘려 나간 자리가 있는지 본다."
+      }
+    ],
+    "ise_ize": [
+      {
+        "id": "9db3ee88-ca70-4353-99c3-b406c11c936c",
+        "type": "grammar_choice",
+        "found": "emphasize ↔ summarised",
+        "hint": "미국식(-ize)과 영국식(-ise)이 섞였다 — 한쪽으로 맞춘다."
+      },
+      {
+        "id": "aa80ae28-4c88-48ef-855d-d7b71aa00fcd",
+        "type": "vocab_choice",
+        "found": "emphasize ↔ summarised",
+        "hint": "미국식(-ize)과 영국식(-ise)이 섞였다 — 한쪽으로 맞춘다."
+      },
+      {
+        "id": "bd84c157-88c1-4ebb-b524-7083e7db1550",
+        "type": "unit_vocab",
+        "found": "Organization ↔ Organisation",
+        "hint": "미국식(-ize)과 영국식(-ise)이 섞였다 — 한쪽으로 맞춘다."
+      }
+    ],
+    "quote_style": [
+      {
+        "id": "14cc22f7-91c6-44e9-a945-4815e945dad9",
+        "type": "grammar_choice",
+        "found": "굽은 “ ” 6개 · 곧은 \" 2개",
+        "hint": "큰따옴표를 한쪽 모양으로 맞춘다."
+      },
+      {
+        "id": "cabd159b-92df-4ff3-b3d9-26e0e5446bf1",
+        "type": "grammar_choice",
+        "found": "굽은 “ ” 2개 · 곧은 \" 8개",
+        "hint": "큰따옴표를 한쪽 모양으로 맞춘다."
+      },
+      {
+        "id": "f62bb173-c3ba-411a-9ead-500614cc48b3",
+        "type": "grammar_choice",
+        "found": "굽은 “ ” 2개 · 곧은 \" 4개",
+        "hint": "큰따옴표를 한쪽 모양으로 맞춘다."
+      }
+    ],
+    "repeated_word": [
+      {
+        "id": "44e15615-50e3-4282-ad59-f7125f467d85",
+        "type": "grammar_choice",
+        "found": "Production Production for the movie began in…",
+        "hint": "\"Production\" 가 두 번 붙어 있다 — 겹친 이름인지 중복인지 확인한다."
+      },
+      {
+        "id": "8fdef7ed-cf89-4438-9ded-f2b691c054cb",
+        "type": "grammar_choice",
+        "found": "…s president to retrieve Durand Durand from the Tau Ceti plane…",
+        "hint": "\"Durand\" 가 두 번 붙어 있다 — 겹친 이름인지 중복인지 확인한다."
+      },
+      {
+        "id": "92becbd0-aabe-41d6-9054-2d586ac4e46e",
+        "type": "grammar_choice",
+        "found": "…other people suggested those those considered \"bad stock\"…",
+        "hint": "\"those\" 가 두 번 붙어 있다 — 하나를 지운다."
+      }
+    ],
+    "dash_style": [
+      {
+        "id": "66b9aacd-9c09-43fd-9367-9f1aec3235cd",
+        "type": "grammar_choice",
+        "found": "em 대시 1개 · 하이픈 대시 1개",
+        "hint": "삽입구 부호를 한쪽으로 맞춘다."
+      },
+      {
+        "id": "b2ee32a3-da75-4a50-91ff-3e31c727cc5b",
+        "type": "vocab_choice",
+        "found": "em 대시 2개 · 하이픈 대시 1개",
+        "hint": "삽입구 부호를 한쪽으로 맞춘다."
+      },
+      {
+        "id": "b9bc44bc-2b09-4db7-bd33-ce19bd75de61",
+        "type": "vocab_choice",
+        "found": "em 대시 2개 · 하이픈 대시 1개",
+        "hint": "삽입구 부호를 한쪽으로 맞춘다."
+      }
+    ]
+  }
+}

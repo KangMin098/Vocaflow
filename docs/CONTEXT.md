@@ -36,26 +36,26 @@
 ## 4. 자동 갱신 블록 (`scripts/sync-export-memory.mjs` 가 push 마다 regenerate)
 
 <!-- auto:branch -->
-**활성 브랜치**: `feat/plan-ui`
+**활성 브랜치**: `pc2-20260720-1`
 **main 으로 PR 대상**: 별도 확인
 <!-- /auto:branch -->
 
 <!-- auto:recent-commits -->
 **최근 5 commit**:
-- `e46c832` chore: CONTEXT.md 동기화
-- `26bd4ca` chore: 잔여 tracked 변경 동기화 (librivox 스냅샷 + coverage 핸드오프)
-- `916cf10` feat(dict): 굴절형·파생형 학습 구조 A+B PoC — ADR 0001 Phase 6 착수 (v06.273)
-- `560e648` docs(dict): coverage 번역 멀티세션 지시문 (6세션·83청크 사전분할)
-- `5532e35` feat(dict): coverage 번역 wave1-2 (13,645) + prune/skip 재부상 차단 + 핸드오프 갱신
+- `c4eff067` fix(security): 문서의 검증 계정 비밀번호 → .env 참조 · CI e2e 가 저장소 시크릿을 받는다 (DD-48)
+- `bd77d3b5` feat(security): 비밀값 전 파일 검사를 CI verify 에 · 교체 스크립트 · DD-48
+- `9c52b4c2` fix(security): 검증 계정 비밀번호 대체값 제거 2/2 · Playwright 가 .env.local 을 읽는다 (DD-48)
+- `7eafea4a` fix(security): 검증 계정 비밀번호 대체값 제거 1/2 — env 만 읽는다 (DD-48)
+- `060452ee` docs(design): v07 전후 캡처 16건 → archive/shots-v07 · 링크 갱신 · DD-47 갱신
 <!-- /auto:recent-commits -->
 
 <!-- auto:recent-migrations -->
 **최근 5 migration**:
-- `20260718100140_gate_details_drilldown.sql`
-- `20260718100130_select_vocab_statement_timeout.sql`
-- `20260718100120_gate_statement_timeout.sql`
-- `20260718100110_gate_perf_optimize.sql`
-- `20260718100100_vcb_noise_cleanup.sql`
+- `_pending_spelling_canonical.sql`
+- `_pending_reindex_lav_word_key.sql`
+- `_pending_pd_comic_pick_stable.sql`
+- `_pending_frontiers_source.sql`
+- `_pending_backfill_article_lemmas.sql`
 <!-- /auto:recent-migrations -->
 
 ---

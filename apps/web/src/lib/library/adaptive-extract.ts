@@ -222,10 +222,21 @@ export async function adaptiveExtractWords(
   }
 
   // 8. text status 업데이트 — 'extracted' (texts_status_check 통과 확인됨)
+  //
+  // ⚠️ **이미 끝낸 장은 되돌리지 않는다.** 가드 없이 덮으면
+  //    완료한 장에서 단어를 한 번 더 추출했을 때 `completed` → `extracted` 로 내려간다.
+  //    그러면 학습자 쪽에서 이런 일이 조용히 일어난다:
+  //      · `/library/books` 의 완료 수가 줄어든다(그 화면은 status='completed' 로 센다)
+  //      · enrollment 상태가 '완료' 에서 '학습 중' 으로 되돌아간다
+  //      · `complete-chapter` 의 alreadyCompleted 판정이 풀려 완료 후처리가 다시 돈다
+  //      · `progress_percent` 는 100 그대로라 **두 진도 정의가 갈린다**
+  //        (complete-chapter 는 status 와 progress_percent 를 함께 쓴다)
+  //    추출은 학습을 되돌리는 행위가 아니므로 상태를 낮출 이유가 없다.
   const { error: updateError } = await client
     .from('texts')
     .update({ status: 'extracted' })
     .eq('id', textId)
+    .not('status', 'in', '("completed","conquered")')
 
   if (updateError) {
     // 학습 추출 자체는 성공했으니 status 업데이트 실패는 throw 하지 않고 warn 만

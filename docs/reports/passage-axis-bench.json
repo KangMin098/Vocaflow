@@ -1,0 +1,82 @@
+{
+  "measuredAt": "2026-09-02T07:08:47.351Z",
+  "window": {
+    "min": 42,
+    "max": 173
+  },
+  "scope": {
+    "ours": "library_articles · ready+published · display_only 제외 · 42~173어 — 270편 · 소스 8곳",
+    "market": "시중 초·중 독해 교재 37종 1924쪽 (출판사 2 · 시리즈 8)"
+  },
+  "axes": [
+    {
+      "id": "B1",
+      "name": "지문 출처 명시율",
+      "why": "어디서 온 글인지 밝히지 않으면 학습자가 원문을 되짚을 수 없고, 교사가 신뢰성을 확인할 수 없다",
+      "ours": 0.7778,
+      "market": 0,
+      "marketCeiling": 0.002,
+      "marketBasis": "0/1924",
+      "indexSuppressed": "시중 기준선 0",
+      "unit": "%",
+      "categorical": true,
+      "index": null
+    },
+    {
+      "id": "B2",
+      "name": "재배포 가능 라이선스 비율",
+      "why": "라이선스가 없으면 지문을 학습자 화면·인쇄물·앱에 실을 수 없다 — 교재의 존재 조건이다",
+      "ours": 0.8593,
+      "market": 0,
+      "marketCeiling": 0.0941,
+      "marketBasis": "0/37",
+      "indexSuppressed": "시중 기준선 0",
+      "unit": "%",
+      "categorical": true,
+      "index": null
+    },
+    {
+      "id": "B4",
+      "name": "진본 원문 비율 (자작이 아닌 것)",
+      "why": "실제 세상에 발행된 글을 읽어야 교실 밖 영어와 이어진다 — 교재용으로 쓰인 글은 그 다리가 없다",
+      "ours": 0.6296,
+      "market": 0,
+      "marketCeiling": 0.0941,
+      "marketBasis": "0/37",
+      "indexSuppressed": "시중 기준선 0",
+      "unit": "%",
+      "categorical": true,
+      "index": null
+    },
+    {
+      "id": "B3",
+      "name": "register 다양성 (이야기 유무)",
+      "why": "시중 초·중 독해는 이야기 지문이 큰 몫이다 — 설명문만으로는 그 자리를 못 채운다",
+      "ours": 4,
+      "oursDetail": "news·expository·reference·narrative (narrative 42편)",
+      "market": null,
+      "unit": "종",
+      "categorical": false,
+      "index": null,
+      "verdict": "ok"
+    },
+    {
+      "id": "B5",
+      "name": "발행일 명시율 (사실문)",
+      "why": "언제 쓰인 글인지 모르면 시의성을 판단할 수 없고, 낡은 사실을 그대로 가르치게 된다 — 그 잣대가 닿는 것은 사실문이다",
+      "ours": 0.9922,
+      "oursAllAuthentic": 0.7471,
+      "oursDetail": "사실문 128편 중 127편. 진본 전체로는 127/170편 — 차이는 이야기 42편이고, 그림책에는 발행일이 없다(없는 날짜를 지어내지 않는다)",
+      "market": null,
+      "unit": "%",
+      "categorical": false,
+      "index": null,
+      "verdict": "ok"
+    }
+  ],
+  "ourDefects": [
+    "우리가 쓴 글 100편 (37%) — 자작 62 · 재저작 38",
+    "사실문인데 발행일 미상 1/128편",
+    "재배포 불가 라이선스 38편"
+  ]
+}

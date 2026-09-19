@@ -6,6 +6,7 @@
 import type { ArticleSource, RawArticle } from '../types-article'
 
 import { fetchWithTimeout } from './_helpers'
+import { GOVERNED_SOURCES, sourceKey, type GovernedSource } from './source-key'
 
 interface WikiPage {
   pageid?: number
@@ -67,6 +68,11 @@ export async function ingestMediaWikiArticle(opts: MediaWikiOpts): Promise<RawAr
   const pageTitle = page.title ?? title
   const fullUrl =
     page.fullurl ?? `${opts.siteBase}${encodeURIComponent(title.replace(/ /g, '_'))}`
+  // ── 열쇠 ────────────────────────────────────────────────────────────
+  // 규약 소스(§source-key.ts)면 **목록기와 같은 함수**를 부른다. 여기서 자체 규칙을
+  // 한 줄 더 쓰면 그게 곧 두 벌이고, 두 벌은 언젠가 갈린다 — 2026-09-07 에 갈려 있던
+  // 것이 정확히 이 자리와 `wikipedia.ts` 의 목록기였다(중복 검사가 영구 0건).
+  const governed = (GOVERNED_SOURCES as readonly string[]).includes(opts.source)
   const slug = (
     page.pageid != null
       ? String(page.pageid)
@@ -75,7 +81,9 @@ export async function ingestMediaWikiArticle(opts: MediaWikiOpts): Promise<RawAr
 
   return {
     source: opts.source,
-    source_id: `${opts.source}:${slug}`,
+    source_id: governed
+      ? sourceKey(opts.source as GovernedSource, { pageid: page.pageid, url: fullUrl })
+      : `${opts.source}:${slug}`,
     source_url: fullUrl,
     title: pageTitle,
     author: opts.author,

@@ -1,3 +1,5 @@
+// apps/web/src/components/admin/vcb/preview/VcbCefrDistributionBar.tsx
+
 import { AlertCircle } from 'lucide-react'
 
 const CEFR_LEVELS = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'] as const
@@ -59,14 +61,14 @@ export function VcbCefrDistributionBar({ distribution, total, specRange }: Props
           return (
             <div
               key={level}
-              className="flex flex-col gap-1 px-2 py-1.5 rounded-[var(--r-md)] border"
+              className="flex flex-col gap-1 px-2 py-2 rounded-[var(--r-md)] border"
               style={{
                 background: 'var(--bg)',
                 borderColor: 'var(--bd)',
                 opacity: isEmpty ? 0.6 : 1,
               }}
             >
-              <div className="flex items-center gap-1.5">
+              <div className="flex items-center gap-2">
                 <span
                   className="w-2 h-2 rounded-full"
                   style={{

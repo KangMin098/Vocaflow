@@ -1,0 +1,26 @@
+{
+  "measured_at": "2026-08-21T15:07:26.395Z",
+  "vocabulary": 808,
+  "sample": 60,
+  "audio": {
+    "found": 56,
+    "blocked": null,
+    "licenses": [
+      [
+        "CC BY-SA 3.0",
+        52
+      ],
+      [
+        "Public domain",
+        4
+      ]
+    ]
+  },
+  "image": {
+    "probed": 60,
+    "free": 8,
+    "attrib": 41,
+    "failed": 1,
+    "blocked": null
+  }
+}

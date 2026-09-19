@@ -1,296 +1,120 @@
 // apps/web/src/app/(main)/wordvault/page.tsx
-// WordVault — 허브 (4 Tier IA) + 3-View (Browse/Study/Review)
+// WordVault 허브 + 옛 `?view=` 주소 호환.
+//
 // Routes:
 //   /wordvault                 → 허브 (기본 진입)
-//   /wordvault?view=browse     → Browse (둘러보기)
-//   /wordvault?view=study      → StudyMode (학습)
-//   /wordvault?view=review     → Review (복습 placeholder)
+//   /wordvault?view=browse     → `/wordvault/browse` 로 이동 (쿼리 보존)
+//   /wordvault?view=study      → `/wordvault/study`
+//   /wordvault?view=review     → `/wordvault/review`
+//
+// ── 2026-09-05 — 이 파일이 다시 서버 컴포넌트가 됐다 ────────────────────
+// 이 파일이 `'use client'` 였던 유일한 이유는 옛 `?view=` 호환 리다이렉트였다. 그런데
+// 그 대가가 컸다: **서버가 그리는 것이 하나도 없어서**(첫 HTML 은 스켈레톤) 하이드레이션
+// 뒤에 8개 컴포넌트가 각자 Supabase 를 쳤고, `vocabularies` 를 전량 **두 번** 내려받았다.
+// 리다이렉트는 서버 `redirect()` 한 줄이면 되는 일이었다 —
+// 그 김에 조회도 전부 서버로 내렸다(`lib/wordvault/hub-query.ts`).
+//
+// 부수 효과 하나가 더 있다: 레거시 `?view=` 경로가 **허브 전량 조회를 낭비하지 않는다.**
+// 예전에는 `useHubStats()` 가 `target` 판정보다 먼저 무조건 돌아, 단어를 전부 받아 버린 뒤
+// 목적지로 replace 했다. 지금은 `redirect()` 가 조회 앞에 있다.
+//
+// ⚠️ 허브 통계는 목업으로 폴백하지 않는다 — "못 셌다" 와 "세어보니 0" 을 화면이 구별한다.
 
-'use client'
+import { redirect } from 'next/navigation'
+import { Suspense } from 'react'
 
-import { RotateCcw } from 'lucide-react'
-import { useRouter, useSearchParams } from 'next/navigation'
-import { useCallback, useEffect, useState } from 'react'
-
-import { GlassBar, SegmentControl } from '@/components/ui/ios'
-import { useToast } from '@/components/ui/Toast'
-import { CollectionsRow } from '@/components/wordvault/CollectionsRow'
-import { HideToggleBar } from '@/components/wordvault/HideToggleBar'
-import { ListenPanel } from '@/components/wordvault/ListenPanel'
-import { PageHeader } from '@/components/wordvault/PageHeader'
-import { SearchRow } from '@/components/wordvault/SearchRow'
-import { StatsGrid } from '@/components/wordvault/StatsGrid'
-import { StudyMode } from '@/components/wordvault/StudyMode'
-import { WordList } from '@/components/wordvault/WordList'
 import { WordVaultHub } from '@/components/wordvault/hub/WordVaultHub'
-import { useHubStats } from '@/components/wordvault/hooks/useHubStats'
-import { useListenQueue } from '@/components/wordvault/hooks/useListenQueue'
-import { useSpeech } from '@/components/wordvault/hooks/useSpeech'
-import { MOCK_WORDS } from '@/components/wordvault/mock-data'
-import type {
-  HideStates,
-  HideType,
-  ListenSettings,
-  ScreenName,
-  WordItem,
-} from '@/components/wordvault/types'
-import { useTheme } from '@/hooks/useTheme'
-import { consumePendingWords, toWordItem } from '@/lib/text-viewer/handoff'
+import { WordVaultHubChrome } from '@/components/wordvault/hub/WordVaultHubChrome'
+import { WordVaultHubSkeleton } from '@/components/wordvault/hub/WordVaultHubSkeleton'
+import { fetchFacetSummary } from '@/lib/framework/word-progress-query'
+import type { FacetSummary } from '@/lib/framework/word-progress-query'
+import { createClient } from '@/lib/supabase/server'
+import { loadHubData, type HubData } from '@/lib/wordvault/hub-query'
 
-type ViewName = 'hub' | ScreenName
+export const dynamic = 'force-dynamic'
 
-function parseView(param: string | null): ViewName {
-  if (param === 'browse' || param === 'study' || param === 'review') return param
-  return 'hub'
+/** 옛 주소 → 새 라우트. 값 하나를 두 곳에 적지 않으려고 표로 둔다. */
+const VIEW_ROUTES: Record<string, string> = {
+  browse: '/wordvault/browse',
+  study: '/wordvault/study',
+  review: '/wordvault/review',
 }
 
-export default function WordVaultPage() {
-  const { theme, toggleTheme } = useTheme()
-  const toast = useToast()
-  const router = useRouter()
-  const searchParams = useSearchParams()
+interface PageProps {
+  searchParams: Record<string, string | string[] | undefined>
+}
 
-  // ── 화면 — URL query param 기반 ──
-  const view = parseView(searchParams?.get('view') ?? null)
+export default async function WordVaultPage({ searchParams }: PageProps) {
+  const viewRaw = searchParams?.view
+  const view = typeof viewRaw === 'string' ? viewRaw : null
+  const target = view ? VIEW_ROUTES[view] : undefined
 
-  // ── 데이터 ──
-  const [words, setWords] = useState<WordItem[]>(MOCK_WORDS)
-
-  // ── 허브 Hero/VaultBar 실 데이터 (Phase 2 진입 — C-1) ──
-  // 로딩 중에는 undefined 로 전달 → mock 그대로 표시 (FOUC 회피)
-  const hubStatsState = useHubStats()
-  const realStats = hubStatsState.status === 'ready' ? hubStatsState.data : undefined
-
-  // ── TextViewer 인계 단어 수신 → ?view=browse 자동 진입 ──
-  useEffect(() => {
-    const pending = consumePendingWords()
-    if (!pending || pending.length === 0) return
-
-    setWords((prev) => {
-      const baseId = prev.reduce((max, w) => Math.max(max, w.id), 0) + 1
-      const incoming = pending.map((w, idx) => toWordItem(w, baseId + idx))
-      return [...incoming, ...prev]
-    })
-
-    toast.success(`${pending.length}개 단어가 추가되었어요`, {
-      title: 'TextViewer에서 인계',
-    })
-
-    // After ingestion, ensure user lands on browse view (v06.21.6 새 풀스크린 라우트)
-    router.replace('/wordvault/browse')
-  }, [toast, router])
-
-  // ── ?view=browse 호환성 redirect (v06.21.6) — 쿼리 파라미터 보존 ──
-  useEffect(() => {
-    if (searchParams.get('view') === 'browse') {
-      const params = new URLSearchParams(searchParams.toString())
-      params.delete('view')
-      const qs = params.toString()
-      router.replace(qs ? `/wordvault/browse?${qs}` : '/wordvault/browse')
+  // ── 옛 `?view=` 주소 호환 ──
+  //
+  // ⚠️ **나머지 쿼리를 보존한다.** 허브는 `?view=browse&q=<단어>` · `&level=B1` 로 보내는데,
+  //    `view` 만 떼고 넘기지 않으면 그 조건이 목적지에 닿지 않는다.
+  //    (그 두 파라미터를 읽는 자는 `lib/wordvault/list-params` 하나다.)
+  if (target) {
+    const params = new URLSearchParams()
+    for (const [k, v] of Object.entries(searchParams ?? {})) {
+      if (k === 'view') continue
+      if (typeof v === 'string') params.set(k, v)
+      else if (Array.isArray(v)) for (const one of v) params.append(k, one)
     }
-  }, [searchParams, router])
-
-  // ── ?view=study → 실 데이터 RSC 세션으로 redirect (A2) ──
-  useEffect(() => {
-    if (searchParams.get('view') === 'study') {
-      router.replace('/wordvault/study')
-    }
-  }, [searchParams, router])
-
-  // ── ?view=review → 실 데이터 RSC 복습 세션으로 redirect (A2b) ──
-  useEffect(() => {
-    if (searchParams.get('view') === 'review') {
-      router.replace('/wordvault/review')
-    }
-  }, [searchParams, router])
-
-  // ── 선택 ──
-  const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set())
-
-  // ── 숨김 (영단어 / 뜻) ──
-  const [hideStates, setHideStates] = useState<HideStates>({
-    word: false,
-    meaning: false,
-  })
-
-  // ── 듣기 설정 ──
-  const [listenSettings, setListenSettings] = useState<ListenSettings>({
-    content: 'word',
-    speed: 1.0,
-    gap: 1.0,
-    repeat: 1,
-    shuffle: false,
-  })
-
-  // ── 듣기 훅 ──
-  const queue = useListenQueue(listenSettings)
-  const { speak } = useSpeech()
-
-  // ── 핸들러 ──
-  const handleToggleSelect = useCallback((id: number) => {
-    setSelectedIds((prev) => {
-      const next = new Set(prev)
-      if (next.has(id)) next.delete(id)
-      else next.add(id)
-      return next
-    })
-  }, [])
-
-  const handleToggleSelectAll = useCallback(() => {
-    setSelectedIds((prev) => {
-      if (prev.size === words.length) return new Set()
-      return new Set(words.map((w) => w.id))
-    })
-  }, [words])
-
-  const handleToggleHide = useCallback((type: HideType) => {
-    setHideStates((prev) => ({ ...prev, [type]: !prev[type] }))
-  }, [])
-
-  const handlePlayWord = useCallback(
-    (id: number) => {
-      const w = words.find((x) => x.id === id)
-      if (w) speak(w.word, { rate: listenSettings.speed })
-    },
-    [words, listenSettings.speed, speak]
-  )
-
-  // ── 키보드 단축키 (browse 전용) ──
-  useEffect(() => {
-    if (view !== 'browse') return
-
-    const handler = (e: KeyboardEvent) => {
-      if ((e.target as HTMLElement)?.tagName === 'INPUT') return
-
-      if (e.code === 'Space') {
-        e.preventDefault()
-        if (queue.isPlaying) queue.togglePause()
-        else queue.startQueue(words)
-      } else if (e.key === 'h' || e.key === 'H') {
-        handleToggleHide('word')
-      } else if (e.key === 'm' || e.key === 'M') {
-        handleToggleHide('meaning')
-      }
-    }
-    window.addEventListener('keydown', handler)
-    return () => window.removeEventListener('keydown', handler)
-  }, [view, queue, words, handleToggleHide])
+    const qs = params.toString()
+    redirect(qs ? `${target}?${qs}` : target)
+  }
 
   return (
-    <>
-      {/* ── 헤더 (v06.36 GlassBar + SegmentControl 프리미티브) ── */}
-      <GlassBar
-        leading={
-          <h1 className="font-editorial text-[18px] font-[500] tracking-[-0.012em] text-[var(--t1)]">
-            WordVault
-          </h1>
-        }
-        trailing={
-          <>
-            <SegmentControl
-              ariaLabel="WordVault 뷰"
-              active={view}
-              items={[
-                { key: 'hub', label: '허브', href: '/wordvault' },
-                { key: 'browse', label: '둘러보기', href: '/wordvault/browse' },
-                { key: 'study', label: '학습', href: '/wordvault?view=study' },
-                { key: 'review', label: '복습', href: '/wordvault?view=review' },
-              ]}
-            />
-            <button
-              type="button"
-              onClick={toggleTheme}
-              aria-label="테마 전환"
-              className="flex h-8 w-8 items-center justify-center rounded-ios-pill text-[var(--t3)] transition-colors duration-[var(--dur-ios-fast)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
-            >
-              {theme === 'light' ? '🌙' : '☀️'}
-            </button>
-          </>
-        }
-      />
-
-      {/* ── 메인 (iOS 그레이 캔버스) ── */}
+    <WordVaultHubChrome activeView="hub">
+      {/* 메인은 셸이 칠해진 **뒤에** 흘러 들어온다 — 아래 주석 참조 */}
       <main className="flex-1 overflow-y-auto bg-[var(--bg2)] pb-12">
-        <div className={view === 'hub' ? '' : 'mx-auto max-w-[1200px] p-6'}>
-          {/* ── HUB (기본 진입) ── */}
-          {view === 'hub' && <WordVaultHub words={words} realStats={realStats} />}
-
-          {/* ── BROWSE ── */}
-          {view === 'browse' && (
-            <>
-              <PageHeader onStartStudy={() => router.push('/wordvault?view=study')} />
-
-              <StatsGrid />
-
-              <CollectionsRow />
-
-              <ListenPanel
-                allWords={words}
-                selectedIds={selectedIds}
-                settings={listenSettings}
-                onSettingsChange={setListenSettings}
-                onStartPlay={(q) => queue.startQueue(q)}
-                onStop={queue.stopQueue}
-                onTogglePause={queue.togglePause}
-                onNext={queue.next}
-                onPrev={queue.prev}
-                isPlaying={queue.isPlaying}
-                isPaused={queue.isPaused}
-                currentIndex={queue.currentIndex}
-                queueLength={queue.queueLength}
-                currentWord={queue.currentWord}
-              />
-
-              <HideToggleBar
-                hideStates={hideStates}
-                onToggle={handleToggleHide}
-              />
-
-              <SearchRow />
-
-              <WordList
-                words={words}
-                selectedIds={selectedIds}
-                onToggleSelect={handleToggleSelect}
-                onToggleSelectAll={handleToggleSelectAll}
-                playingId={queue.currentWord?.id ?? null}
-                hideStates={hideStates}
-                onPlayWord={handlePlayWord}
-              />
-            </>
-          )}
-
-          {/* ── STUDY ── */}
-          {view === 'study' && (
-            <StudyMode
-              words={words}
-              onExit={() => router.push('/wordvault/browse')}
-            />
-          )}
-
-          {/* ── REVIEW ── */}
-          {view === 'review' && (
-            <div className="border-learn-mastered from-learn-mastered-light mx-auto max-w-[680px] rounded-2xl border-[1.5px] bg-gradient-to-br to-bg p-s-12 text-center">
-              <div className="mb-s-3 inline-flex h-12 w-12 items-center justify-center rounded-full bg-[var(--bg2)] text-learn-mastered">
-                <RotateCcw size={28} aria-hidden />
-              </div>
-              <h2 className="mb-s-2 font-editorial text-[32px] font-[500] leading-tight tracking-[-0.015em] text-t1">
-                오늘 복습할 단어 <span className="text-learn-mastered">12개</span>
-              </h2>
-              <p className="mb-s-5 font-body text-sm font-medium text-t2">
-                vmPFC 재인코딩 강화 · 망각 곡선 기반 자동 선별
-              </p>
-              <button
-                type="button"
-                onClick={() => router.push('/wordvault?view=study')}
-                className="bg-learn-mastered inline-flex items-center gap-s-2 rounded-md px-s-6 py-s-3 font-display text-sm font-bold tracking-[-0.01em] text-white shadow-md transition-all duration-fast hover:-translate-y-px hover:bg-[var(--p)] hover:shadow-lg"
-              >
-                지금 시작 →
-              </button>
-            </div>
-          )}
-        </div>
+        <Suspense fallback={<WordVaultHubSkeleton />}>
+          <HubSection />
+        </Suspense>
       </main>
-    </>
+    </WordVaultHubChrome>
+  )
+}
+
+/**
+ * 데이터가 필요한 부분만 따로 떼어 **스트리밍**한다.
+ *
+ * ⚠️ 이것을 페이지 본문에 그대로 두면 두 조회가 끝날 때까지 **첫 픽셀이 안 나온다** —
+ *    실측 2026-09-06 콜드 진입 본문 등장 **2,831ms**(학습자는 그동안 흰 화면을 본다).
+ *    셸(`WordVaultHubChrome`)은 조회와 무관하므로 먼저 칠하고, 이 안만 기다린다.
+ */
+async function HubSection() {
+  const supabase = await createClient()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+
+  let data: HubData | null = null
+  let facets: FacetSummary | null = null
+  let failed = false
+  if (user) {
+    try {
+      // 면 요약은 `learning_records` 전량을 훑는다 — 예전에는 클라이언트가 `/api/wordvault/facets`
+      // 를 한 번 더 왕복했다. 같은 서버 렌더 안이므로 함수를 그대로 부른다.
+      const [hub, facetSummary] = await Promise.all([
+        loadHubData(supabase, user.id),
+        fetchFacetSummary(supabase, user.id).catch(() => null),
+      ])
+      data = hub
+      facets = facetSummary
+    } catch {
+      failed = true
+    }
+  }
+
+  // 셸(`WordVaultHubChrome`)과 `<main>` 은 **페이지가 이미 그렸다** — 여기서 또 그리면
+  // 캔버스가 두 겹이 되고 스크롤 컨테이너도 둘이 된다.
+  return (
+    <WordVaultHub
+      data={data}
+      facets={facets}
+      state={!user ? 'unauthenticated' : failed || !data ? 'error' : 'ready'}
+    />
   )
 }

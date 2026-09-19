@@ -1,0 +1,134 @@
+{
+  "rule": "docs/design/03-system.md §3-9",
+  "golden": "docs/design/golden/illustrations",
+  "items": [
+    {
+      "id": "illo-01-wordbook-empty",
+      "dict": 1,
+      "concept": "단어장이 아직 비었다",
+      "verb": "첫 낱말을 적는다",
+      "family": "서가",
+      "size": "E",
+      "viewBox": "320x200",
+      "target": {
+        "route": "/wordvault",
+        "component": "apps/web/src/components/wordvault/hub/WordVaultEmptyState.tsx"
+      },
+      "note": null,
+      "object": "펼친 단어장 — 괘선 8줄이 비고 첫 줄에 연필",
+      "accent": "첫 줄 머리 권점"
+    },
+    {
+      "id": "illo-02-text-hub-first",
+      "dict": 2,
+      "concept": "첫 글을 넣어 보자",
+      "verb": "칠한다",
+      "family": "지문",
+      "size": "E",
+      "viewBox": "320x200",
+      "target": {
+        "route": "/text",
+        "component": "apps/web/src/components/textviewer/EmptyState.tsx"
+      },
+      "note": null,
+      "object": "원고지 한 장 — 영어 한 문장이 칸마다 한 낱말, 한 칸만 칠해짐",
+      "accent": "모르는 낱말 칸의 붓 자국(`--ju-wash`)"
+    },
+    {
+      "id": "illo-03-shelf-filter-zero",
+      "dict": 3,
+      "concept": "이 조건의 책이 없다",
+      "verb": "범위를 넓힌다",
+      "family": "서가",
+      "size": "E",
+      "viewBox": "320x200",
+      "target": {
+        "route": "/library/books",
+        "component": "apps/web/src/components/library/shared/ShelfEmptyState.tsx"
+      },
+      "note": "ShelfEmptyState filtered 톤만(빈 서가·오류 톤은 그대로)",
+      "object": "빈 선반 한 칸 + 수준 눈금이 새긴 자",
+      "accent": "자의 현재 눈금 권점"
+    },
+    {
+      "id": "illo-04-dictation-choose",
+      "dict": 4,
+      "concept": "받아쓸 글을 고르자",
+      "verb": "받아 적는다",
+      "family": "지문",
+      "size": "E",
+      "viewBox": "320x200",
+      "target": {
+        "route": "/dictate/setup",
+        "component": "apps/web/src/components/dictation/DictationSetupClient.tsx"
+      },
+      "note": "받아쓰기 준비의 막다른 상태 3곳이 쓰는 로컬 EmptyState",
+      "object": "괘선 공책 — 윗줄에 인쇄된 문장, 아랫줄이 빈칸",
+      "accent": "빈칸 첫 칸 권점"
+    },
+    {
+      "id": "illo-07-coverage",
+      "dict": 7,
+      "concept": "내가 아는 비율",
+      "verb": "칠한다",
+      "family": "지문",
+      "size": "S",
+      "viewBox": "240x240",
+      "target": {
+        "route": "/pricing",
+        "component": "apps/web/src/components/marketing/PricingClient.tsx"
+      },
+      "note": "섹션 머리 「읽기 전에, 이 글이 나에게 맞는지 먼저 알려줍니다」 — 랜딩의 커버리지 자리는 서명(CoverageHero)이 이미 증명해 옆에 두면 DD-25 ① 위반",
+      "object": "칠해진 지문 한 장 + 그 아래 학년 자",
+      "accent": "자의 손잡이 한 점"
+    },
+    {
+      "id": "illo-08-decay-per-word",
+      "dict": 8,
+      "concept": "잊는 속도는 낱말마다 다르다",
+      "verb": "바랜다",
+      "family": "망각",
+      "size": "S",
+      "viewBox": "240x240",
+      "target": {
+        "route": "/about",
+        "component": "apps/web/src/app/(marketing)/about/page.tsx"
+      },
+      "note": "섹션 머리 「인지심리학이 입증한 7가지 원칙」",
+      "object": "같은 낱말 카드 3장 — 밑줄 두께 3/2/1px(F1 그대로 `--memory-*`)",
+      "accent": "오늘 다시 본 카드 권점"
+    },
+    {
+      "id": "illo-09-review-holds",
+      "dict": 9,
+      "concept": "다시 보면 버틴다",
+      "verb": "끌어올린다",
+      "family": "망각",
+      "size": "B",
+      "viewBox": "640x240",
+      "target": {
+        "route": "/",
+        "component": "apps/web/src/app/page.tsx"
+      },
+      "note": "「다른 점」 섹션 머리 띠 — 1280 이상만(§3-9 B 규격)",
+      "object": "7칸 달력 종이 위 감쇠 선, 한 칸에서 선이 다시 올라감",
+      "accent": "복습한 날 칸 권점"
+    },
+    {
+      "id": "illo-14-class-sheet",
+      "dict": 14,
+      "concept": "학급에 나눠 줄 한 장",
+      "verb": "찍는다",
+      "family": "시험지",
+      "size": "S",
+      "viewBox": "240x240",
+      "target": {
+        "route": "/fit",
+        "component": "apps/web/src/app/(marketing)/fit/page.tsx"
+      },
+      "note": "도구 아래 섹션 「이럴 때 씁니다」 머리 — 골든 1호 판면 밖",
+      "object": "인쇄된 A4 — 원문 단 · 난외 번호 · 머리 도장",
+      "accent": "도장"
+    }
+  ]
+}

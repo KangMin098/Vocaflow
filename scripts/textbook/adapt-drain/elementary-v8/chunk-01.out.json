@@ -1,0 +1,260 @@
+[
+  {
+    "adapted_from_id": "04a4857a-1d54-42b9-aa7a-69d4c13b378c",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "The last dragon (발췌)",
+    "source_feed": "gutenberg",
+    "source_license": "public_domain",
+    "source_v_level": 4,
+    "source_url": "https://www.gutenberg.org/ebooks/76411",
+    "source_text": "A long-drawn hissing sound answered him. He fell back. The hissing sound died. What was the matter with him? His imagination was doing strange things. He hadn’t really heard a hissing sound. He hadn’t really heard anything. Well, he had done his duty. He had called three times and nothing had happened. He would return to the court and tell his story to the king. He was turning to go, when there issued from the hole a deep, deep sigh; then a yawn and then another deep, deep sigh. Before Peter even had time to think, the deep, deep sigh ended in the most entrancing little chuckle, and two fiery eyes blazed in the hole. A long green nose was thrust slowly forth, followed by a broad and lazy smile. The eyes came into the daylight. The fire faded out of them. They were a soft, light blue, like the sky, and looked as if they had just opened from a deep and dreamless sleep.",
+    "teachable_new_words": {
+      "teachable": 12,
+      "outside": 32,
+      "pct": 37.5
+    },
+    "title": "The Dragon in the Cave",
+    "text": "Peter stood in front of a dark cave. He called out three times. Only a long hiss answered him from the cavern. Peter stepped back and waited. No dragon came out of the cave. He had done his duty, thought the young knight. He turned to walk back to the palace. Then a deep sigh rose from the cavern. The sigh ended in a small chuckle. Two fiery eyes blazed inside the cave. A long green nose slid slowly into the daylight. Green scales shone along the dragon nose. Below the nose spread a broad, lazy smile. The fire faded from the eyes. They turned soft and blue, like the sky."
+  },
+  {
+    "adapted_from_id": "0fc349f4-2e19-4e2c-a9d6-cfc5a55560ba",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "The Home Book of Verse — Volume 2 (발췌)",
+    "source_feed": "gutenberg",
+    "source_license": "public_domain",
+    "source_v_level": 5,
+    "source_url": "https://www.gutenberg.org/ebooks/2620",
+    "source_text": "Love, I marvel what you are! Heaven in a pearl of dew, Lilies hearted with a star - All are you. Spring along your forehead shines And the summer blooms your breast. Graces of autumnal vines Round you rest. Birds about a limpid rose Making song and light of wing While the warm wind sunny blows, - So you sing. Darling, if the little dust, That I know is merely I, Have availed to win your trust, Let me die. Squire Adam had two wives, they say, Two wives had he for his delight; He kissed and clypt them all the day, And clypt and kissed them all the night. Now Eve like ocean foam was white, And Lilith, roses dipped in wine, But though they were a goodly sight, No lady is so fair as mine.",
+    "teachable_new_words": {
+      "teachable": 6,
+      "outside": 28,
+      "pct": 21.4
+    },
+    "title": "",
+    "text": ""
+  },
+  {
+    "adapted_from_id": "00b6a42c-0fb2-483f-8012-deec5a9c5134",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "The mystery of the missing eyebrows (발췌)",
+    "source_feed": "gutenberg",
+    "source_license": "public_domain",
+    "source_v_level": 5,
+    "source_url": "https://www.gutenberg.org/ebooks/76914",
+    "source_text": "There were two people doing the work. Renfro knew that,--because one tied his feet while the other bound his hands. They worked in the hedge. Renfro wondered then why the city council had allowed all the tall hedges to stand in this old part of the town. Had they never seen the possibilities they offered to thieves and people like these? Evidently these men had realized them fully, for in giving a number from which to send a complaint they had chosen one next door to one of these hedges. And then he realized that one of his captors was a woman. She moved in front of him and her skirts swished against his knees. That discovery made him more furious than ever. He twisted his body, shoved with his shoulders, and pushed against her with all his might. The next minute he was firmly lifted by the other captor, from whose strength he knew was a man, carried out into the street and deposited on a small wagon there.",
+    "teachable_new_words": {
+      "teachable": 10,
+      "outside": 41,
+      "pct": 24.4
+    },
+    "title": "",
+    "text": ""
+  },
+  {
+    "adapted_from_id": "307e0095-7fd3-47bc-a6b3-98d6f63616a7",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "Scientists Link Gene to Human Speech",
+    "source_feed": "voa",
+    "source_license": "public_domain",
+    "source_v_level": 4,
+    "source_url": "https://learningenglish.voanews.com/a/scientists-link-gene-to-human-speech/7985890.html",
+    "source_text": "A new study suggests the beginnings of human speech are linked to genetics. The research identifies a protein – found only in people – that may have helped early humans develop spoken communication.\nScientists involved in the study say this new speaking ability became important for humans’ survival. For example, speech permitted individuals to share information, organize activities and pass down knowledge. These abilities are now seen as an advantage humans had over their relatives, such as the Neanderthals and Denisovans.\nThe researchers recently published their findings in a study in the journal Nature Communications.\nLiza Finestack teaches about speech and hearing at the University of Minnesota. She told The Associated Press (AP) the new study is \"a good first step to start looking at the specific genes\" that may affect speech and language development. Finestack was not involved in the study.\nDr. Robert Darnell has long been studying the protein – called NOVA1 – at his laboratory at New York’s Rockefeller University. He helped lead the new research and was a writer of the study. Darnell told the AP the genetic version, or variant, included the protein that helped humans develop into the “dominant species” that remains today.\nThe latest research involved scientists using CRISPR gene editing methods to replace the NOVA1 protein found in mice with the one found in humans. The aim was to test the real-life effects of the genetic variant. The researchers were surprised to learn that the variant changed the way the animals called out to each other.\nBaby mice with the human variant made a different sound than normal mice do when their mother came around. Adult male mice with the variant also made different sounds when they were near a female they wanted to mate with.\nDarnell said both of these situations gave the mice a reason to speak. Those with the human variant \"spoke differently,\" demonstrating the gene’s influence in speech, he added.\nThis is not the first time a gene has been linked to speech. In 2001, British scientists said they had discovered the first gene tied to a language and speech disorder.\nResearchers called this human language gene FOXP2. But even though FOXP2 was found to be linked to human language, the variant in modern humans was not found in our species alone. Later research found it was shared with Neanderthals. The NOVA1 variant in modern humans, on the other hand, is found only in our species, Darnell said.\nThe presence of a gene variant is not the only thing that permits people to speak. The ability also depends on physical elements in the human throat and areas of the brain that work together to help people produce speech and understand language.\nDarnell said he hopes the recent work can lead to new ways to treat speech-related problems.\nThe University of Minnesota's Finestack noted the genetic findings could also one day permit scientists to identify people who might need help developing speech and language early in life.\n\"That's certainly a possibility,\" she said.\nI’m Jill Robbins.\nLaura Ungar reported this story for the Associated Press. Jill Robbins adapted it for Learning English.\n______________________________________________\nadvantage – n. something (such as a good position or condition) that helps to make someone or something better or more likely to succeed than others\nspecific – adj. special or particular\nvariant – n. something that is different in some way from others of the same kind\ndominant – adj. more important, powerful, or successful than most or all others\nspecies – n. biology. a group of animals or plants that are similar and can reproduce\nCRISPR – n. short for CRISPR-Cas9, it is a genome-editing tool that allows scientists to precisely cut and modify DNA sequences.\nthroat – n. the tube inside the neck that leads to the stomach and lungs\nWhat do you think of this story? Write to us in the Comments Section.",
+    "teachable_new_words": {
+      "teachable": 40,
+      "outside": 106,
+      "pct": 37.7
+    },
+    "title": "",
+    "text": ""
+  },
+  {
+    "adapted_from_id": "3af2878d-a0f6-4e4c-b85a-1c6738d9db45",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "Knee Jerk and Gut Reactions: When We Are Not in Control",
+    "source_feed": "voa",
+    "source_license": "public_domain",
+    "source_v_level": 4,
+    "source_url": "https://learningenglish.voanews.com/a/knee-jerk-when-you-are-not-in-control-/7937763.html",
+    "source_text": "And now, Words and Their Stories, from VOA Learning English.\nIn life, some of our decisions and actions are well thought out. They involve research, examination, and time for thought. And other decisions and actions are not well thought out. We make them quickly, without thinking, almost like a pure physical reaction.\nWe can call these decisions, actions or reactions knee-jerk.\nThis term comes from a medical process. Meriam Webster defines the noun \"knee jerk\" as “an involuntary forward kick produced by a light blow on the tendon below the kneecap.” It is an involuntary action. It's automatic.\nThe words “involuntary” and “automatic” are important when understanding the term “knee jerk” and when to use it. Knee-jerk reactions seem to happen automatically without a decision-making process.\nWe often use “knee jerk” as an adjective.\nLike hitting your kneecap to move your leg, knee-jerk reactions or statements also seem like an involuntary reflex.\n\"Knee jerk\" also describes predictable behavior. Again, hit the knee, the leg will kick every time. So \"knee jerk\" describes someone who always reacts quickly and without enough thought.\nFor example, let’s say you are on a team with someone who never faces responsibility for their mistakes in the game. If brought to account, the player always blames the dropped ball on other teammates. You can say that player is having a knee-jerk reaction to criticism. They have a go-to response. It’s like a reflex they can’t control.\nWe often use knee-jerk in a criticizing or negative way.\nNow, a gut reaction also happens without thinking. But it is a bit different than a knee-jerk response. A gut reaction is a feeling. When we have a gut reaction, our instincts are telling us that something may not be right. Gut reactions are instinctual warnings.\nSo, we also use this expression a bit differently than \"knee jerk.\" We usually talk about our own gut reactions or impulses, not others.\nHere is an example:\nOne day, I was hiking on a mountain in California. I had hiked for about two hours and was near the top. The view, I was told, was truly beautiful. I couldn’t wait to see it! Then, suddenly, I had a strange feeling. Something just didn’t feel right. I can’t explain why, but my gut instinct was to turn around and head back down the mountain. I later found out that a dangerous bear had been sighted in the same area that I had fled. I am so thankful I listened to my gut instinct.\nAnd that’s Words and Their Stories. Until next time, I’m Anna Matteo.\nAnna Matteo wrote this story for VOA Learning English.\n__________________________________________\ninvoluntary -adj. not normally under the control of the will\nautomatic -adj. largely or wholly involuntary :acting or done without conscious thought or intention\nreflex -n. an automatic response to a stimulus in which a nerve message passes from a sense organ to the spinal cord and then to a point of action (as a muscle or gland) often without first passing to the brain\nnegative -adj. not positive or helpful\ninstinct -n. behavior that is based on automatic actions",
+    "teachable_new_words": {
+      "teachable": 31,
+      "outside": 94,
+      "pct": 33
+    },
+    "title": "",
+    "text": ""
+  },
+  {
+    "adapted_from_id": "002376bc-544d-4411-bb6d-d84101b1943d",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "Luminal epithelial cells integrate variable responses to aging into stereotypical changes that underlie breast cancer susceptibility",
+    "source_feed": "elife",
+    "source_license": "cc0",
+    "source_v_level": 5,
+    "source_url": "https://elifesciences.org/articles/95720",
+    "source_text": "One of the main risk factors for breast cancers is aging. But how exactly aging contributes to breast cancer is not fully understood. The mammary gland is the part of the breast that can produce milk, and is composed of two major cell types: luminal epithelial cells and myoepithelial cells. Most age-related breast cancers are thought to originate from luminal epithelial cells, but some age-related changes in myoepithelial cells may also cause cancer. These changes in breast epithelial cells vary across individuals, which may explain why some individuals are at a higher risk for breast cancer than others.\n\nStudying age-related changes in luminal and myoepithelial cells may help scientists pinpoint what causes age-related breast cancers. It may also help scientists to identify those at high risk for breast cancer, or develop alternative treatments. It could also help prevent breast cancers from occuring, getting worse or coming back. Studying age-related changes in gene expression in these two types of breast epithelial cells is the first step.\n\nSayaman et al. showed that aging leads to widespread changes in the genes expressed by luminal and myoepithelial cells. The researchers compared luminal and myoepithelial cells from breast tissue samples taken from postmenopausal women older than 55 years and premenopausal women younger than 30 years. Their experiments and analyses revealed that age-related gene expression changes reduced the cells' ability to maintain their identity and function over time. Many of the age-related expression changes occurred in cancer-linked genes.\n\nSayaman et al. found luminal and myoepithelial cells had increasingly varied gene expression among older women compared to younger women. Specifically, they saw changes in genes that helped these cells communicate, essentially changing the message relayed from myoepithelial cells to the neighboring luminal cells. The experiments further revealed large increases and decreases in gene expression with age in luminal cells but not in myoepithelial cells. Most of these age-related changes in luminal cells were linked to genes that play a role in cancer development.\n\nThese findings suggest that age-related changes make luminal cells more prone to becoming cancerous. Sayaman et al. also developed machine learning algorithms to identify age-related gene expression patterns that may distinguish tumor cells from normal breast tissue. More research in larger populations will help confirm the results. But if these efforts are successful, they may one day help clinicians identify women at risk of age-related breast cancers, detect cancers early, or create personalized prevention or treatment approaches.",
+    "teachable_new_words": {
+      "teachable": 22,
+      "outside": 78,
+      "pct": 28.2
+    },
+    "title": "",
+    "text": ""
+  }
+]

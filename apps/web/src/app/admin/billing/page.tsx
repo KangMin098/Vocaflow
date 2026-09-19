@@ -1,365 +1,107 @@
 // apps/web/src/app/admin/billing/page.tsx
-// 결제/구독 — MRR · 결제 내역 · 환불 처리
+// 결제/구독 — PG 미연동. 수치가 아니라 "셀 곳이 없다" 를 그린다.
+//
+// v06.35 이전 이 화면은 MRR ₩1.84M · 활성 구독 184 · 트랜잭션 6건을 코드 상수로 그렸다.
+// `subscriptions` · `payments` · `transactions` 세 테이블 모두 to_regclass NULL 이다
+// (2026-09-05 실측). 결제 화면의 숫자는 곧 매출 보고가 되므로 상수를 남겨 두면 안 된다.
+// 기존에도 경고 문단이 있었지만 화면마다 문구·모양이 달라, 공용 MockDataBanner 로 통일했다.
+//
+// 지운 것: KPI 4개 상수 · MRR 7일 막대(1.62~1.84 상수) · 요금제 분포(Pro 162 / Team 22) ·
+//          트랜잭션 6건(2026-04-29~30 상수 날짜) · 검색/필터 칩 · 동작하지 않던 CSV 버튼.
 
-'use client'
-
-import {
-  ArrowDownRight,
-  ArrowUpRight,
-  CreditCard,
-  DollarSign,
-  Download,
-  RefreshCcw,
-  TicketPercent,
-  TrendingUp,
-  Users,
-  type LucideIcon,
-} from 'lucide-react'
-import { useMemo, useState } from 'react'
+import { ArrowDownRight, CreditCard, DollarSign, TrendingUp, Users } from 'lucide-react'
+import Link from 'next/link'
 
 import { AdminKpiGrid, type AdminKpi } from '@/components/admin/AdminKpiGrid'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
-import { AdminToolbar } from '@/components/admin/AdminToolbar'
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
+import { MockDataBanner } from '@/components/admin/MockDataBanner'
+
+export const metadata = {
+  title: '결제/구독 — Vocaflow Admin',
+  description: '결제 PG 미연동 고지',
+}
 
 const KPIS: AdminKpi[] = [
   {
     label: 'MRR',
-    value: '₩1.84M',
-    delta: { value: 14, positive: true },
+    value: '—',
     icon: DollarSign,
-    accent: 'var(--success)',
-    bg: 'var(--success-light)',
-    hint: 'Monthly Recurring',
+    accent: 'var(--t2)',
+    bg: 'var(--bg3)',
+    hint: '집계할 곳이 없습니다 — 결제 테이블 없음',
   },
   {
     label: '활성 구독',
-    value: '184',
-    delta: { value: 12, positive: true, suffix: '' },
+    value: '—',
     icon: Users,
-    accent: 'var(--p)',
-    bg: 'var(--p-light)',
+    accent: 'var(--t2)',
+    bg: 'var(--bg3)',
+    hint: '집계할 곳이 없습니다 — 구독 테이블 없음',
   },
   {
     label: '신규 (이번 주)',
-    value: '14',
-    delta: { value: 22, positive: true },
+    value: '—',
     icon: TrendingUp,
-    accent: 'var(--info)',
-    bg: 'var(--info-light)',
+    accent: 'var(--t2)',
+    bg: 'var(--bg3)',
+    hint: '집계할 곳이 없습니다 — 구독 테이블 없음',
   },
   {
     label: '이탈 (이번 주)',
-    value: '3',
-    delta: { value: 1, positive: true, suffix: '' },
+    value: '—',
     icon: ArrowDownRight,
-    accent: 'var(--error)',
-    bg: 'var(--error-light)',
-    hint: 'churn 1.6%',
-  },
-]
-
-type TxStatus = 'paid' | 'refunded' | 'failed' | 'pending'
-type TxPlan = 'pro' | 'team'
-
-interface Transaction {
-  id: string
-  user: string
-  email: string
-  plan: TxPlan
-  amount: number
-  status: TxStatus
-  method: '카드' | '토스페이' | 'PayPal'
-  date: string
-}
-
-const TRANSACTIONS: Transaction[] = [
-  {
-    id: 'tx-93281',
-    user: '김학생',
-    email: 'student.k@example.com',
-    plan: 'pro',
-    amount: 9900,
-    status: 'paid',
-    method: '카드',
-    date: '2026-04-30 09:14',
-  },
-  {
-    id: 'tx-93280',
-    user: '박서연',
-    email: 'seoyun@example.com',
-    plan: 'team',
-    amount: 29900,
-    status: 'paid',
-    method: '토스페이',
-    date: '2026-04-30 08:42',
-  },
-  {
-    id: 'tx-93279',
-    user: 'Alex Chen',
-    email: 'alex.chen@example.com',
-    plan: 'pro',
-    amount: 9900,
-    status: 'failed',
-    method: '카드',
-    date: '2026-04-30 07:55',
-  },
-  {
-    id: 'tx-93278',
-    user: 'Maria Lopez',
-    email: 'maria@example.com',
-    plan: 'pro',
-    amount: 9900,
-    status: 'refunded',
-    method: 'PayPal',
-    date: '2026-04-29 22:11',
-  },
-  {
-    id: 'tx-93277',
-    user: '정민호',
-    email: 'minho.j@example.com',
-    plan: 'pro',
-    amount: 9900,
-    status: 'paid',
-    method: '카드',
-    date: '2026-04-29 18:23',
-  },
-  {
-    id: 'tx-93276',
-    user: 'Yui Tanaka',
-    email: 'yui.t@example.com',
-    plan: 'team',
-    amount: 29900,
-    status: 'pending',
-    method: '카드',
-    date: '2026-04-29 14:50',
-  },
-]
-
-const STATUS_META: Record<
-  TxStatus,
-  { label: string; color: string; bg: string; icon: LucideIcon }
-> = {
-  paid: {
-    label: '결제됨',
-    color: 'var(--success)',
-    bg: 'var(--success-light)',
-    icon: ArrowUpRight,
-  },
-  refunded: {
-    label: '환불',
-    color: 'var(--t3)',
+    accent: 'var(--t2)',
     bg: 'var(--bg3)',
-    icon: RefreshCcw,
+    hint: '집계할 곳이 없습니다 — 구독 테이블 없음',
   },
-  failed: { label: '실패', color: 'var(--error)', bg: 'var(--error-light)', icon: ArrowDownRight },
-  pending: { label: '대기', color: 'var(--active)', bg: 'var(--warning-light)', icon: TicketPercent },
-}
+]
 
 export default function AdminBillingPage() {
-  const [query, setQuery] = useState('')
-  const [activeChip, setActiveChip] = useState<'all' | 'paid' | 'failed' | 'refunded'>('all')
-
-  const filtered = useMemo(() => {
-    return TRANSACTIONS.filter((t) => {
-      if (query) {
-        const q = query.toLowerCase()
-        if (
-          !t.user.toLowerCase().includes(q) &&
-          !t.email.toLowerCase().includes(q) &&
-          !t.id.toLowerCase().includes(q)
-        )
-          return false
-      }
-      if (activeChip !== 'all' && t.status !== activeChip) return false
-      return true
-    })
-  }, [query, activeChip])
-
-  const totalRevenue = TRANSACTIONS.filter((t) => t.status === 'paid').reduce(
-    (s, t) => s + t.amount,
-    0
-  )
-
   return (
     <div className="mx-auto max-w-6xl px-6 py-10 md:px-8">
       <AdminPageHeader
         icon={CreditCard}
         title="결제/구독"
-        description="MRR · 결제 내역 · 환불 처리"
-        actions={
-          <button className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)]">
-            <Download size={14} aria-hidden />
-            CSV
-          </button>
-        }
+        description="결제 PG 가 아직 연동되지 않았습니다"
       />
+
+      <MockDataBanner
+        className="mb-6"
+        what="MRR·활성 구독·신규·이탈이 모두 값이 아니라 — 이고, 결제 내역도 비어 있습니다."
+        why="subscriptions · payments · transactions 세 테이블이 모두 존재하지 않습니다(to_regclass NULL · 2026-09-05 실측). 결제 PG 연동 자체가 없어 받은 돈도, 환불한 돈도 없습니다."
+        instead={[{ label: '파이프라인 실측 대시보드', href: '/admin' }]}
+        plan="PG 연동 전까지 이 화면에는 어떤 금액도 표시되지 않습니다 — 일정 미정."
+      />
+
+      <AdminScreenHelp screen="billing" className="-mt-3 mb-6" />
 
       <AdminKpiGrid kpis={KPIS} />
 
-      {/* MRR 미니 차트 + 요금제 분포 */}
-      <div className="mb-6 grid grid-cols-1 gap-4 lg:grid-cols-3">
-        <section
-          aria-label="MRR 추이"
-          className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-sm)] lg:col-span-2"
+      <section
+        aria-label="결제 내역"
+        className="rounded-[var(--r-lg)] border border-dashed border-[var(--bd)] bg-[var(--bg)] px-6 py-10 text-center"
+      >
+        <span
+          className="mx-auto inline-flex h-10 w-10 items-center justify-center rounded-full bg-[var(--bg3)] text-[var(--t2)]"
+          aria-hidden
         >
-          <header className="mb-4 flex items-center gap-2">
-            <span className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] bg-[var(--success-light)] text-[var(--success)]">
-              <TrendingUp size={13} strokeWidth={2} aria-hidden />
-            </span>
-            <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">최근 7일 MRR</h2>
-            <span className="ml-auto font-mono text-[11px] tabular-nums text-[var(--t3)]">
-              ₩{(totalRevenue / 1000).toFixed(0)}K (오늘 결제)
-            </span>
-          </header>
-          {/* 막대 차트 */}
-          <ul className="flex h-32 items-end gap-2">
-            {[1.62, 1.71, 1.68, 1.74, 1.77, 1.80, 1.84].map((v, i) => {
-              const day = ['월', '화', '수', '목', '금', '토', '일'][i]
-              const max = 1.84
-              return (
-                <li key={i} className="flex flex-1 flex-col items-center gap-1.5">
-                  <div className="flex w-full flex-1 items-end">
-                    <div
-                      className="w-full rounded-t-[var(--r-sm)] bg-gradient-to-t from-[var(--success)] to-[var(--success)]/60 transition-[height] duration-[var(--dur-slow)]"
-                      style={{ height: `${(v / max) * 100}%` }}
-                    />
-                  </div>
-                  <span className="font-mono text-[10px] text-[var(--t3)]">{day}</span>
-                </li>
-              )
-            })}
-          </ul>
-        </section>
-
-        <section
-          aria-label="요금제 분포"
-          className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-sm)]"
+          <CreditCard size={18} />
+        </span>
+        <h2 className="mt-3 font-display text-[14px] font-[700] text-[var(--t1)]">
+          결제 내역이 없습니다 — 결제를 받은 적이 없습니다
+        </h2>
+        <p className="mx-auto mt-1 max-w-[54ch] break-keep font-body text-[13px] leading-[1.7] text-[var(--t2)]">
+          이 자리에 있던 6건(₩9,900 · ₩29,900)과 MRR 곡선은 코드에 박힌 예시였습니다. 환불이
+          필요한 건이 실제로 생기면 이 화면이 아니라 결제사 콘솔에서 처리해야 합니다.
+        </p>
+        <Link
+          href="/admin"
+          className="mt-4 inline-flex min-h-[44px] items-center rounded-[var(--r-md)] bg-[var(--p)] px-4 font-display text-[12px] font-[600] text-[var(--on-p)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
-          <header className="mb-4 flex items-center gap-2">
-            <span className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] bg-[var(--p-light)] text-[var(--p)]">
-              <CreditCard size={13} strokeWidth={2} aria-hidden />
-            </span>
-            <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">요금제 분포</h2>
-          </header>
-          <ul className="space-y-3">
-            {[
-              { label: 'Pro', count: 162, total: 184, color: 'var(--p)' },
-              { label: 'Team', count: 22, total: 184, color: '#8B5CF6' },
-            ].map((p) => (
-              <li key={p.label}>
-                <div className="flex items-baseline justify-between">
-                  <span className="font-display text-[12px] font-[600] text-[var(--t1)]">
-                    {p.label}
-                  </span>
-                  <span className="font-mono text-[11px] tabular-nums text-[var(--t3)]">
-                    {p.count} ({Math.round((p.count / p.total) * 100)}%)
-                  </span>
-                </div>
-                <div className="mt-1 h-2 w-full overflow-hidden rounded-full bg-[var(--bg3)]">
-                  <div
-                    className="h-full rounded-full transition-[width] duration-[var(--dur-slow)]"
-                    style={{
-                      width: `${(p.count / p.total) * 100}%`,
-                      backgroundColor: p.color,
-                    }}
-                  />
-                </div>
-              </li>
-            ))}
-          </ul>
-        </section>
-      </div>
-
-      <AdminToolbar
-        searchPlaceholder="이름·이메일·트랜잭션 ID"
-        searchValue={query}
-        onSearchChange={setQuery}
-        chips={[
-          {
-            label: '전체',
-            active: activeChip === 'all',
-            count: TRANSACTIONS.length,
-            onClick: () => setActiveChip('all'),
-          },
-          {
-            label: '결제됨',
-            active: activeChip === 'paid',
-            count: TRANSACTIONS.filter((t) => t.status === 'paid').length,
-            onClick: () => setActiveChip('paid'),
-          },
-          {
-            label: '실패',
-            active: activeChip === 'failed',
-            count: TRANSACTIONS.filter((t) => t.status === 'failed').length,
-            onClick: () => setActiveChip('failed'),
-          },
-          {
-            label: '환불',
-            active: activeChip === 'refunded',
-            count: TRANSACTIONS.filter((t) => t.status === 'refunded').length,
-            onClick: () => setActiveChip('refunded'),
-          },
-        ]}
-      />
-
-      <div className="overflow-hidden rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] shadow-[var(--sh-sm)]">
-        <table className="w-full">
-          <thead className="bg-[var(--bg2)]">
-            <tr>
-              {['트랜잭션', '사용자', '플랜', '금액', '결제수단', '상태', '일시'].map((h, i) => (
-                <th
-                  key={i}
-                  className="px-4 py-3 text-left font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]"
-                >
-                  {h}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-[var(--bd)]">
-            {filtered.map((t) => {
-              const status = STATUS_META[t.status]
-              const StatusIcon = status.icon
-              return (
-                <tr key={t.id} className="transition-colors hover:bg-[var(--bg2)]/50">
-                  <td className="px-4 py-3 font-mono text-[11px] text-[var(--t2)]">{t.id}</td>
-                  <td className="px-4 py-3">
-                    <p className="font-display text-[13px] font-[600] text-[var(--t1)]">
-                      {t.user}
-                    </p>
-                    <p className="font-mono text-[10px] text-[var(--t3)]">{t.email}</p>
-                  </td>
-                  <td className="px-4 py-3">
-                    <span
-                      className="inline-flex rounded-full px-2 py-0.5 font-display text-[11px] font-[700]"
-                      style={{
-                        backgroundColor: t.plan === 'pro' ? 'var(--p-light)' : '#F5F3FF',
-                        color: t.plan === 'pro' ? 'var(--p)' : '#8B5CF6',
-                      }}
-                    >
-                      {t.plan === 'pro' ? 'Pro' : 'Team'}
-                    </span>
-                  </td>
-                  <td className="px-4 py-3 font-display text-[13px] font-[700] tabular-nums text-[var(--t1)]">
-                    ₩{t.amount.toLocaleString()}
-                  </td>
-                  <td className="px-4 py-3 font-body text-[12px] text-[var(--t2)]">{t.method}</td>
-                  <td className="px-4 py-3">
-                    <span
-                      className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 font-display text-[11px] font-[700]"
-                      style={{ backgroundColor: status.bg, color: status.color }}
-                    >
-                      <StatusIcon size={11} aria-hidden />
-                      {status.label}
-                    </span>
-                  </td>
-                  <td className="px-4 py-3 font-mono text-[11px] text-[var(--t3)]">{t.date}</td>
-                </tr>
-              )
-            })}
-          </tbody>
-        </table>
-      </div>
+          대시보드에서 실측 보기
+        </Link>
+      </section>
     </div>
   )
 }

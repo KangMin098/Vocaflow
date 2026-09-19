@@ -16,7 +16,7 @@ import { fetchChapterQuizSession, fetchQuizSession } from '@/lib/scriptquiz/ques
 import { createClient } from '@/lib/supabase/server'
 
 export const metadata = {
-  title: 'ScriptQuiz · Vocaflow',
+  title: 'ScriptQuiz 진행',
 }
 
 export default async function ScriptQuizPlayPage({

@@ -1,0 +1,65 @@
+{
+ "C1": {
+  "n": 128,
+  "median": 7,
+  "mean": 7.828125,
+  "inRange": 82,
+  "rate": 0.640625
+ },
+ "C4": {
+  "checked": 8,
+  "hit": 5,
+  "base": 0.4626865671641791,
+  "lift": 0.1623134328358209,
+  "rows": [
+   {
+    "id": "2026#23",
+    "top": "speed",
+    "n": 5,
+    "ok": true
+   },
+   {
+    "id": "2026#24",
+    "top": "culturtainment",
+    "n": 3,
+    "ok": true
+   },
+   {
+    "id": "2023#23",
+    "top": "information",
+    "n": 3,
+    "ok": false
+   },
+   {
+    "id": "2023#24",
+    "top": "object",
+    "n": 6,
+    "ok": false
+   },
+   {
+    "id": "2020#23",
+    "top": "moral",
+    "n": 5,
+    "ok": false
+   },
+   {
+    "id": "2021#24",
+    "top": "touch",
+    "n": 4,
+    "ok": true
+   },
+   {
+    "id": "2024#23",
+    "top": "service",
+    "n": 5,
+    "ok": true
+   },
+   {
+    "id": "2025#22",
+    "top": "emotion",
+    "n": 6,
+    "ok": true
+   }
+  ]
+ }
+}

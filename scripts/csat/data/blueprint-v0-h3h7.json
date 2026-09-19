@@ -1,0 +1,869 @@
+{
+ "H3": {
+  "items": 13,
+  "spans": 65,
+  "labeled": 65,
+  "rate": 1,
+  "ansLabeled": 13,
+  "ansTotal": 13,
+  "detail": [
+   {
+    "exam": "2014B",
+    "no": 27,
+    "n": 1,
+    "isAnswer": false,
+    "span": "that burn nearly all the oxygen we breathe",
+    "label": "G2 관계사·접속사"
+   },
+   {
+    "exam": "2014B",
+    "no": 27,
+    "n": 2,
+    "isAnswer": true,
+    "span": "sending out by-products called oxygen free radicals. They",
+    "label": "G1 준동사 vs 정동사"
+   },
+   {
+    "exam": "2014B",
+    "no": 27,
+    "n": 3,
+    "isAnswer": false,
+    "span": "to fight off infectious agents, it generates a",
+    "label": "G1 준동사 vs 정동사"
+   },
+   {
+    "exam": "2014B",
+    "no": 27,
+    "n": 4,
+    "isAnswer": false,
+    "span": "uncontrollably through the body, attacking cells, rusting their",
+    "label": "G6 형용사·부사"
+   },
+   {
+    "exam": "2014B",
+    "no": 27,
+    "n": 5,
+    "isAnswer": false,
+    "span": "built into life as both protectors and avengers,",
+    "label": "G1 준동사 vs 정동사"
+   },
+   {
+    "exam": "2015",
+    "no": 28,
+    "n": 1,
+    "isAnswer": false,
+    "span": "devastated not just the caged fish, but local",
+    "label": "G1 준동사 vs 정동사"
+   },
+   {
+    "exam": "2015",
+    "no": 28,
+    "n": 2,
+    "isAnswer": false,
+    "span": "close to the fish farms continues to be",
+    "label": "G6 형용사·부사"
+   },
+   {
+    "exam": "2015",
+    "no": 28,
+    "n": 3,
+    "isAnswer": true,
+    "span": "meaning that pollution from excess feed and fish",
+    "label": "G1 준동사 vs 정동사"
+   },
+   {
+    "exam": "2015",
+    "no": 28,
+    "n": 4,
+    "isAnswer": false,
+    "span": "where there is good water flow to remove",
+    "label": "G2 관계사·접속사"
+   },
+   {
+    "exam": "2015",
+    "no": 28,
+    "n": 5,
+    "isAnswer": false,
+    "span": "has helped aquaculture to clean up its act.",
+    "label": "G3 수일치"
+   },
+   {
+    "exam": "2016",
+    "no": 28,
+    "n": 1,
+    "isAnswer": false,
+    "span": "their failure to understand the fundamental nature of",
+    "label": "G5 대명사"
+   },
+   {
+    "exam": "2016",
+    "no": 28,
+    "n": 2,
+    "isAnswer": false,
+    "span": "tossed into water floats instead of sinking. This",
+    "label": "G1 준동사 vs 정동사"
+   },
+   {
+    "exam": "2016",
+    "no": 28,
+    "n": 3,
+    "isAnswer": false,
+    "span": "exclusively on the object, with no attention paid",
+    "label": "G6 형용사·부사"
+   },
+   {
+    "exam": "2016",
+    "no": 28,
+    "n": 4,
+    "isAnswer": true,
+    "span": "causing them to be oriented toward the complexities",
+    "label": "G1 준동사 vs 정동사"
+   },
+   {
+    "exam": "2016",
+    "no": 28,
+    "n": 5,
+    "isAnswer": false,
+    "span": "that events always occur in a field of",
+    "label": "G2 관계사·접속사"
+   },
+   {
+    "exam": "2017",
+    "no": 28,
+    "n": 1,
+    "isAnswer": false,
+    "span": "those enduring hardship because it reassures them that",
+    "label": "G5 대명사"
+   },
+   {
+    "exam": "2017",
+    "no": 28,
+    "n": 2,
+    "isAnswer": false,
+    "span": "depressed or chronically ill patients. In addition, pets",
+    "label": "G1 준동사 vs 정동사"
+   },
+   {
+    "exam": "2017",
+    "no": 28,
+    "n": 3,
+    "isAnswer": false,
+    "span": "used to great advantage with the institutionalized aged.",
+    "label": "G1 준동사 vs 정동사"
+   },
+   {
+    "exam": "2017",
+    "no": 28,
+    "n": 4,
+    "isAnswer": false,
+    "span": "what their parents or grandparents once were and",
+    "label": "G2 관계사·접속사"
+   },
+   {
+    "exam": "2017",
+    "no": 28,
+    "n": 5,
+    "isAnswer": true,
+    "span": "was and greet them as if they were",
+    "label": "G3 수일치"
+   },
+   {
+    "exam": "2018",
+    "no": 28,
+    "n": 1,
+    "isAnswer": false,
+    "span": "have noticed that some people give substantial amounts",
+    "label": "G3 수일치"
+   },
+   {
+    "exam": "2018",
+    "no": 28,
+    "n": 2,
+    "isAnswer": true,
+    "span": "what it is really having a positive impact.",
+    "label": "G2 관계사·접속사"
+   },
+   {
+    "exam": "2018",
+    "no": 28,
+    "n": 3,
+    "isAnswer": false,
+    "span": "doing helps others ─ psychologists call them warm",
+    "label": "G1 준동사 vs 정동사"
+   },
+   {
+    "exam": "2018",
+    "no": 28,
+    "n": 4,
+    "isAnswer": false,
+    "span": "them feel good, regardless of the impact of",
+    "label": "G5 대명사"
+   },
+   {
+    "exam": "2018",
+    "no": 28,
+    "n": 5,
+    "isAnswer": false,
+    "span": "to think, they would realize that the cost",
+    "label": "G1 준동사 vs 정동사"
+   },
+   {
+    "exam": "2019",
+    "no": 29,
+    "n": 1,
+    "isAnswer": false,
+    "span": "expressing the basic characteristic of Egyptian art. Never",
+    "label": "G1 준동사 vs 정동사"
+   },
+   {
+    "exam": "2019",
+    "no": 29,
+    "n": 2,
+    "isAnswer": true,
+    "span": "did in Egypt. The reason for this is",
+    "label": "G3 수일치"
+   },
+   {
+    "exam": "2019",
+    "no": 29,
+    "n": 3,
+    "isAnswer": false,
+    "span": "those of Egypt in terms of purely physical",
+    "label": "G5 대명사"
+   },
+   {
+    "exam": "2019",
+    "no": 29,
+    "n": 4,
+    "isAnswer": false,
+    "span": "that constitutes the war memorial in Leipzig, for",
+    "label": "G2 관계사·접속사"
+   },
+   {
+    "exam": "2019",
+    "no": 29,
+    "n": 5,
+    "isAnswer": false,
+    "span": "carved in wood. * gigantic: 거대한 **primeval: 원시",
+    "label": "G1 준동사 vs 정동사"
+   },
+   {
+    "exam": "2020",
+    "no": 29,
+    "n": 1,
+    "isAnswer": false,
+    "span": "rely heavily on analogies drawn with modern-day hunter-gatherer",
+    "label": "G6 형용사·부사"
+   },
+   {
+    "exam": "2020",
+    "no": 29,
+    "n": 2,
+    "isAnswer": false,
+    "span": "as Steven Mithen emphasizes in The Prehistory of",
+    "label": "G6 형용사·부사"
+   },
+   {
+    "exam": "2020",
+    "no": 29,
+    "n": 3,
+    "isAnswer": false,
+    "span": "which spread through the visual art and the",
+    "label": "G2 관계사·접속사"
+   },
+   {
+    "exam": "2020",
+    "no": 29,
+    "n": 4,
+    "isAnswer": true,
+    "span": "inhabited their world becomes profoundly meaningful. Among hunter-gatherers,",
+    "label": "G1 준동사 vs 정동사"
+   },
+   {
+    "exam": "2020",
+    "no": 29,
+    "n": 5,
+    "isAnswer": false,
+    "span": "itself and its place in nature.” * speculation:",
+    "label": "G5 대명사"
+   },
+   {
+    "exam": "2021",
+    "no": 29,
+    "n": 1,
+    "isAnswer": false,
+    "span": "associated with experimenting on other people. They can",
+    "label": "G1 준동사 vs 정동사"
+   },
+   {
+    "exam": "2021",
+    "no": 29,
+    "n": 2,
+    "isAnswer": false,
+    "span": "it. Nonetheless, experimenting on oneself remains ③ deeply",
+    "label": "G5 대명사"
+   },
+   {
+    "exam": "2021",
+    "no": 29,
+    "n": 3,
+    "isAnswer": false,
+    "span": "deeply problematic. One obvious drawback is the danger",
+    "label": "G6 형용사·부사"
+   },
+   {
+    "exam": "2021",
+    "no": 29,
+    "n": 4,
+    "isAnswer": false,
+    "span": "does nothing to reduce it. A less obvious",
+    "label": "G3 수일치"
+   },
+   {
+    "exam": "2021",
+    "no": 29,
+    "n": 5,
+    "isAnswer": true,
+    "span": "what the subject’s responses are typical or atypical",
+    "label": "G2 관계사·접속사"
+   },
+   {
+    "exam": "2022",
+    "no": 29,
+    "n": 1,
+    "isAnswer": false,
+    "span": "producing two daughter cells. Each daughter cell is",
+    "label": "G1 준동사 vs 정동사"
+   },
+   {
+    "exam": "2022",
+    "no": 29,
+    "n": 2,
+    "isAnswer": false,
+    "span": "was. During this time, the cell absorbs water,",
+    "label": "G3 수일치"
+   },
+   {
+    "exam": "2022",
+    "no": 29,
+    "n": 3,
+    "isAnswer": false,
+    "span": "differentiates into a specialized cell. Both growth and",
+    "label": "G3 수일치"
+   },
+   {
+    "exam": "2022",
+    "no": 29,
+    "n": 4,
+    "isAnswer": true,
+    "span": "What cell metabolism and structure should be complex",
+    "label": "G2 관계사·접속사"
+   },
+   {
+    "exam": "2022",
+    "no": 29,
+    "n": 5,
+    "isAnswer": false,
+    "span": "responsible for a distinct, well-defined aspect of cell",
+    "label": "G6 형용사·부사"
+   },
+   {
+    "exam": "2023",
+    "no": 29,
+    "n": 1,
+    "isAnswer": false,
+    "span": "that it constitutes a kind of theatrical costumery.",
+    "label": "G2 관계사·접속사"
+   },
+   {
+    "exam": "2023",
+    "no": 29,
+    "n": 2,
+    "isAnswer": true,
+    "span": "them to the world, and fashion locates them",
+    "label": "G5 대명사"
+   },
+   {
+    "exam": "2023",
+    "no": 29,
+    "n": 3,
+    "isAnswer": false,
+    "span": "associated with specific pieces of clothing. Fashion is",
+    "label": "G1 준동사 vs 정동사"
+   },
+   {
+    "exam": "2023",
+    "no": 29,
+    "n": 4,
+    "isAnswer": false,
+    "span": "inexpensively purchased while making it easy to convey",
+    "label": "G6 형용사·부사"
+   },
+   {
+    "exam": "2023",
+    "no": 29,
+    "n": 5,
+    "isAnswer": false,
+    "span": "opening up space for action. * stature: 능력",
+    "label": "G1 준동사 vs 정동사"
+   },
+   {
+    "exam": "2024",
+    "no": 29,
+    "n": 1,
+    "isAnswer": false,
+    "span": "seeming to know that such stimuli are particularly",
+    "label": "G1 준동사 vs 정동사"
+   },
+   {
+    "exam": "2024",
+    "no": 29,
+    "n": 2,
+    "isAnswer": true,
+    "span": "which they have some difficulty, experimenting with their",
+    "label": "G2 관계사·접속사"
+   },
+   {
+    "exam": "2024",
+    "no": 29,
+    "n": 3,
+    "isAnswer": false,
+    "span": "do succeed, they show pleasure by a brightening",
+    "label": "G3 수일치"
+   },
+   {
+    "exam": "2024",
+    "no": 29,
+    "n": 4,
+    "isAnswer": false,
+    "span": "those of others that are visually perceived; they",
+    "label": "G5 대명사"
+   },
+   {
+    "exam": "2024",
+    "no": 29,
+    "n": 5,
+    "isAnswer": false,
+    "span": "to be ‘like me’. * innate: 타고난 **disposition:",
+    "label": "G1 준동사 vs 정동사"
+   },
+   {
+    "exam": "2025",
+    "no": 29,
+    "n": 1,
+    "isAnswer": false,
+    "span": "had to consider every single muscle that needed",
+    "label": "G9 시제·조동사·가정법"
+   },
+   {
+    "exam": "2025",
+    "no": 29,
+    "n": 2,
+    "isAnswer": true,
+    "span": "knows. The autopilot parts of our brain do",
+    "label": "G3 수일치"
+   },
+   {
+    "exam": "2025",
+    "no": 29,
+    "n": 3,
+    "isAnswer": false,
+    "span": "freeing up our conscious mind for more important",
+    "label": "G1 준동사 vs 정동사"
+   },
+   {
+    "exam": "2025",
+    "no": 29,
+    "n": 4,
+    "isAnswer": false,
+    "span": "that support these automatic processes that allow us",
+    "label": "G2 관계사·접속사"
+   },
+   {
+    "exam": "2025",
+    "no": 29,
+    "n": 5,
+    "isAnswer": false,
+    "span": "what you are perceiving, feeling, or thinking is",
+    "label": "G2 관계사·접속사"
+   },
+   {
+    "exam": "2026",
+    "no": 29,
+    "n": 1,
+    "isAnswer": false,
+    "span": "to solve the adaptive problems that confronted modern",
+    "label": "G1 준동사 vs 정동사"
+   },
+   {
+    "exam": "2026",
+    "no": 29,
+    "n": 2,
+    "isAnswer": true,
+    "span": "being far too complex for any individual to",
+    "label": "G1 준동사 vs 정동사"
+   },
+   {
+    "exam": "2026",
+    "no": 29,
+    "n": 3,
+    "isAnswer": false,
+    "span": "in which we live only because we acquire",
+    "label": "G2 관계사·접속사"
+   },
+   {
+    "exam": "2026",
+    "no": 29,
+    "n": 4,
+    "isAnswer": false,
+    "span": "motivated to learn from others even when we",
+    "label": "G1 준동사 vs 정동사"
+   },
+   {
+    "exam": "2026",
+    "no": 29,
+    "n": 5,
+    "isAnswer": false,
+    "span": "greatly exceed the inventive capacities of individuals. *",
+    "label": "G6 형용사·부사"
+   }
+  ]
+ },
+ "H7": {
+  "rows": [
+   {
+    "exam": "2014B",
+    "three": 10,
+    "localThree": 6,
+    "localRate": 0.6,
+    "passageMed": 156,
+    "choiceMed": 41,
+    "n": 18
+   },
+   {
+    "exam": "2015",
+    "three": 10,
+    "localThree": 5,
+    "localRate": 0.5,
+    "passageMed": 147,
+    "choiceMed": 30,
+    "n": 23
+   },
+   {
+    "exam": "2016",
+    "three": 10,
+    "localThree": 5,
+    "localRate": 0.5,
+    "passageMed": 154,
+    "choiceMed": 34,
+    "n": 22
+   },
+   {
+    "exam": "2017",
+    "three": 10,
+    "localThree": 5,
+    "localRate": 0.5,
+    "passageMed": 151,
+    "choiceMed": 32,
+    "n": 23
+   },
+   {
+    "exam": "2018",
+    "three": 10,
+    "localThree": 5,
+    "localRate": 0.5,
+    "passageMed": 150,
+    "choiceMed": 37,
+    "n": 23
+   },
+   {
+    "exam": "2019",
+    "three": 10,
+    "localThree": 3,
+    "localRate": 0.3,
+    "passageMed": 151,
+    "choiceMed": 38,
+    "n": 22
+   },
+   {
+    "exam": "2020",
+    "three": 10,
+    "localThree": 4,
+    "localRate": 0.4,
+    "passageMed": 157,
+    "choiceMed": 37,
+    "n": 22
+   },
+   {
+    "exam": "2021",
+    "three": 10,
+    "localThree": 3,
+    "localRate": 0.3,
+    "passageMed": 155,
+    "choiceMed": 36,
+    "n": 23
+   },
+   {
+    "exam": "2022",
+    "three": 10,
+    "localThree": 4,
+    "localRate": 0.4,
+    "passageMed": 157,
+    "choiceMed": 32,
+    "n": 23
+   },
+   {
+    "exam": "2023",
+    "three": 10,
+    "localThree": 4,
+    "localRate": 0.4,
+    "passageMed": 166,
+    "choiceMed": 35,
+    "n": 23
+   },
+   {
+    "exam": "2024",
+    "three": 10,
+    "localThree": 4,
+    "localRate": 0.4,
+    "passageMed": 158,
+    "choiceMed": 40,
+    "n": 23
+   },
+   {
+    "exam": "2025",
+    "three": 10,
+    "localThree": 4,
+    "localRate": 0.4,
+    "passageMed": 152,
+    "choiceMed": 34,
+    "n": 23
+   },
+   {
+    "exam": "2026",
+    "three": 10,
+    "localThree": 3,
+    "localRate": 0.3,
+    "passageMed": 163,
+    "choiceMed": 36,
+    "n": 22
+   }
+  ],
+  "dirs": [
+   "감소",
+   "무변",
+   "무변"
+  ],
+  "up": 0,
+  "shift": [
+   {
+    "k": "R-IMPLY",
+    "e": {
+     "n": 1,
+     "three": 0
+    },
+    "l": {
+     "n": 6,
+     "three": 4
+    },
+    "delta": 4,
+    "newType": false
+   },
+   {
+    "k": "L-RESPONSE",
+    "e": {
+     "n": 25,
+     "three": 8
+    },
+    "l": {
+     "n": 24,
+     "three": 11
+    },
+    "delta": 3,
+    "newType": false
+   },
+   {
+    "k": "R-ORDER",
+    "e": {
+     "n": 11,
+     "three": 3
+    },
+    "l": {
+     "n": 12,
+     "three": 6
+    },
+    "delta": 3,
+    "newType": false
+   },
+   {
+    "k": "R-INSERT",
+    "e": {
+     "n": 11,
+     "three": 3
+    },
+    "l": {
+     "n": 12,
+     "three": 6
+    },
+    "delta": 3,
+    "newType": false
+   },
+   {
+    "k": "R-TOPIC",
+    "e": {
+     "n": 7,
+     "three": 1
+    },
+    "l": {
+     "n": 6,
+     "three": 3
+    },
+    "delta": 2,
+    "newType": false
+   },
+   {
+    "k": "R-TITLE",
+    "e": {
+     "n": 8,
+     "three": 0
+    },
+    "l": {
+     "n": 6,
+     "three": 2
+    },
+    "delta": 2,
+    "newType": false
+   },
+   {
+    "k": "R-VOCAB",
+    "e": {
+     "n": 6,
+     "three": 2
+    },
+    "l": {
+     "n": 6,
+     "three": 4
+    },
+    "delta": 2,
+    "newType": false
+   },
+   {
+    "k": "X-TITLE",
+    "e": {
+     "n": 6,
+     "three": 0
+    },
+    "l": {
+     "n": 6,
+     "three": 1
+    },
+    "delta": 1,
+    "newType": false
+   },
+   {
+    "k": "X-VOCAB",
+    "e": {
+     "n": 1,
+     "three": 1
+    },
+    "l": {
+     "n": 6,
+     "three": 2
+    },
+    "delta": 1,
+    "newType": false
+   },
+   {
+    "k": "L-SET-TOPIC",
+    "e": {
+     "n": 6,
+     "three": 1
+    },
+    "l": {
+     "n": 6,
+     "three": 0
+    },
+    "delta": -1,
+    "newType": false
+   },
+   {
+    "k": "R-BLANK2",
+    "e": {
+     "n": 3,
+     "three": 1
+    },
+    "l": {
+     "n": 0,
+     "three": 0
+    },
+    "delta": -1,
+    "newType": true
+   },
+   {
+    "k": "X-BLANK2",
+    "e": {
+     "n": 1,
+     "three": 1
+    },
+    "l": {
+     "n": 0,
+     "three": 0
+    },
+    "delta": -1,
+    "newType": true
+   },
+   {
+    "k": "L-MONEY",
+    "e": {
+     "n": 6,
+     "three": 4
+    },
+    "l": {
+     "n": 6,
+     "three": 2
+    },
+    "delta": -2,
+    "newType": false
+   },
+   {
+    "k": "X-BLANK",
+    "e": {
+     "n": 4,
+     "three": 3
+    },
+    "l": {
+     "n": 0,
+     "three": 0
+    },
+    "delta": -3,
+    "newType": true
+   },
+   {
+    "k": "R-GRAMMAR",
+    "e": {
+     "n": 6,
+     "three": 6
+    },
+    "l": {
+     "n": 6,
+     "three": 2
+    },
+    "delta": -4,
+    "newType": false
+   },
+   {
+    "k": "R-BLANK",
+    "e": {
+     "n": 24,
+     "three": 21
+    },
+    "l": {
+     "n": 24,
+     "three": 12
+    },
+    "delta": -9,
+    "newType": false
+   }
+  ]
+ }
+}

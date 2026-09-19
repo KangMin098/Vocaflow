@@ -19,10 +19,29 @@ import { applyArticleCurationSpec, type ArticleScore } from './_curation-spec'
 
 const SITE = 'https://www.climate.gov'
 
+// 배선된 피드가 사이트 전체가 아니다 — 실측 2026-09-07(sitemap 3,353 loc):
+//   산문 2,632편 중 아래 두 섹션(285+124)만 보고 있어 **15.5%** 가 상한이었다.
+//   나머지는 섹션 인덱스가 따로 있고, 전부 같은 Drupal 뷰라 `?page=N` 이 그대로 듣는다.
+//   (sitemap 최대 섹션인 `feed` 1,505편은 **섹션 인덱스가 404** 라 여기 넣지 않는다 —
+//    개별 URL 이 아직 사는지 확인하지 못했다. 그래서 실확보 증가분은 +2,200 이 아니라 **+672** 다.)
 export const NOAA_FEEDS: Array<{ id: string; label: string; path: string }> = [
   { id: 'understanding-climate', label: 'Understanding Climate (NOAA)', path: '/news-features/understanding-climate' },
   { id: 'features', label: 'Features (NOAA)', path: '/news-features/features' },
+  // 2026-09-07 추가 — 아래 편수는 sitemap 실측치.
+  { id: 'event-tracker', label: 'Event Tracker (NOAA)', path: '/news-features/event-tracker' },            // 222 — 폭염·허리케인 등 개별 사건 해설
+  { id: 'climate-qa', label: 'Climate Q&A (NOAA)', path: '/news-features/climate-qa' },                    // 47 — 독자 질문 1개에 답하는 짧은 설명문
+  { id: 'climate-case-studies', label: 'Climate Case Studies (NOAA)', path: '/news-features/climate-case-studies' }, // 28 — 지역·기관의 기후 적응 사례
+  // ⚠️ `/news-features/blogs` 는 **목록이 아니라 허브**다 — 하위 블로그 3개로만 들어간다.
+  //   기사 URL 이 `/news-features/blogs/<블로그>/<slug>` 4단이라 3단 전제였던 anchor·slug
+  //   정규식을 함께 넓혔다(아래). 허브를 그대로 피드로 넣으면 `enso` 같은 **하위 목록 페이지가
+  //   기사로 잡힌다** — 375편 중 한 편도 못 얻고 가짜 항목 3개만 얻는다.
+  { id: 'blogs-enso', label: 'ENSO Blog (NOAA)', path: '/news-features/blogs/enso' },
+  { id: 'blogs-beyond-data', label: 'Beyond the Data (NOAA)', path: '/news-features/blogs/beyond-data' },
+  { id: 'blogs-polar-vortex', label: 'Polar Vortex Blog (NOAA)', path: '/news-features/blogs/polar-vortex' },
 ]
+
+/** 기사가 아니라 목록인 경로 — anchor 수집에서 제외한다. */
+const LISTING_PATHS = new Set<string>(NOAA_FEEDS.map((f) => f.path).concat('/news-features/blogs'))
 
 export interface NoaaListItem {
   source_id: string
@@ -61,9 +80,25 @@ function sliceAllDivByClass(html: string, classRe: RegExp): string[] {
 
 /** NOAA 기사 본문 HTML → 산문. field--name-body(본문 필드만·관련링크 region 제외) → 캡션/References 제거. */
 function extractProse(html: string): string {
-  // field--name-body(가장 큰 조각 = 실 본문) 슬라이스 — node__content 는 관련링크 region 포함해 오염.
+  // field--name-body 슬라이스 — node__content 는 관련링크 region 포함해 오염.
+  //
+  // ⚠️ 원래 **가장 긴 HTML 조각**을 본문으로 골랐다. 그게 2026-08-30 에 NOAA 적재를
+  //   211편 중 25편으로 떨어뜨린 원인이다. climate.gov 의 모든 기사 페이지에는
+  //   `field--name-body` 클래스를 단 **11,345자짜리 공통 보일러플레이트 div**가 있고
+  //   그 안에는 산문이 한 글자도 없다. 본문이 그보다 짧은 기사에서는 이 껍데기가 이겨
+  //   `extractProse` 가 **정확히 0 words** 를 돌려주고 "body too short" 로 버려졌다.
+  //
+  //     understanding-cop                 슬라이스 [11345, 8343, 361] → 최장=껍데기 → 0 words
+  //     climate-change-global-temperature 슬라이스 [11345, 21113, 361] → 최장=본문  → 1,579 words
+  //
+  //   같은 코드가 어떤 기사는 되고 어떤 기사는 안 되니 "일부 페이지가 이상하다" 로 보였다.
+  //   길이가 아니라 **산문 양**으로 고르면 두 경우가 같은 이유로 맞는다.
   const bodies = sliceAllDivByClass(html, /\bfield--name-body\b/)
-  let body = bodies.sort((a, b) => b.length - a.length)[0] ?? html
+  const scored = bodies
+    .map((b) => ({ html: b, words: htmlToPlainText(b).split(/\s+/).filter(Boolean).length }))
+    .sort((a, b) => b.words - a.words)
+  // 어느 슬라이스에도 산문이 없으면 문서 전체로 물러선다(기존 폴백 유지).
+  let body = (scored[0]?.words ?? 0) > 0 ? scored[0]!.html : html
   // 차트/미디어 캡션 제거 (Drupal field-media-caption — 그래프 설명, 본문 아님).
   body = body.replace(/<div[^>]*class="[^"]*field--name-field-media-caption[^"]*"[\s\S]*?<\/div>/gi, '\n')
   body = body.replace(/<figcaption[\s\S]*?<\/figcaption>/gi, '\n')
@@ -96,23 +131,48 @@ function extractProse(html: string): string {
   return lines.join('\n').replace(/\n{3,}/g, '\n\n').trim()
 }
 
+/**
+ * 목록 URL 1페이지분. Drupal 뷰라 `?page=N`(0-index)으로 넘어간다 — 실측 2026-08-30:
+ * base·page=1·page=2 의 HTML 해시가 모두 달랐다. 첫 페이지만 읽으면 최신 ~13편이 상한이고,
+ * 그걸 다 담는 순간 "새 것 0" 이 떠서 **소진처럼 보인다**(위키미디어와 같은 조용한 상한).
+ */
+export function buildNoaaListUrl(feedId: string, page: number = 0): string {
+  const feed = NOAA_FEEDS.find((f) => f.id === feedId) ?? NOAA_FEEDS[0]!
+  return page > 0 ? `${SITE}${feed.path}?page=${page}` : `${SITE}${feed.path}`
+}
+
 /** NOAA Climate.gov 리스트 → 항목. anchor 텍스트가 제목(USGS 와 달리 직접 페어). */
 export async function listNoaaFeed(
   feedId: string = 'understanding-climate',
   limit: number = 24,
 ): Promise<NoaaListItem[]> {
+  return listNoaaFeedPage(feedId, limit, 0).then((r) => r.items)
+}
+
+/** 한 페이지 — 항목이 하나도 없을 때를 끝으로 본다(HTML 목록엔 토큰이 없다). */
+export async function listNoaaFeedPage(
+  feedId: string = 'understanding-climate',
+  limit: number = 24,
+  page: number = 0,
+): Promise<{ items: NoaaListItem[]; cont: number | null }> {
   const feed = NOAA_FEEDS.find((f) => f.id === feedId) ?? NOAA_FEEDS[0]!
-  const res = await fetchWithTimeout(`${SITE}${feed.path}`, { accept: 'text/html' })
+  const res = await fetchWithTimeout(buildNoaaListUrl(feedId, page), { accept: 'text/html' })
   if (!res.ok) throw new Error(`NOAA list fetch failed: ${res.status} ${feed.path}`)
   const html = await res.text()
 
   // /news-features/<section>/<slug> anchor(href+제목) 페어 추출.
-  const anchorRe = /<a[^>]+href="(\/news-features\/[a-z0-9-]+\/[a-z0-9-]+)"[^>]*>([\s\S]*?)<\/a>/gi
+  //   마지막 `(?:\/[a-z0-9-]+)?` 는 블로그 기사(`/blogs/<블로그>/<slug>` 4단)용 — 없으면
+  //   ENSO·Beyond the Data·Polar Vortex 375편이 **한 편도 안 잡힌다**(2026-09-07 실측).
+  const anchorRe = /<a[^>]+href="(\/news-features\/[a-z0-9-]+\/[a-z0-9-]+(?:\/[a-z0-9-]+)?)"[^>]*>([\s\S]*?)<\/a>/gi
   const seen = new Set<string>()
   const raw: NoaaListItem[] = []
   let m: RegExpExecArray | null
   while ((m = anchorRe.exec(html)) !== null) {
     const href = m[1]!
+    // 목록 페이지 자신은 기사가 아니다 — 섹션 인덱스와 블로그 허브 하위 목록을 뺀다.
+    //   (`/news-features/blogs/enso` 는 anchor 텍스트가 "ENSO Blog" 라 제목 검사를 통과한다 →
+    //    거르지 않으면 `noaa:enso` 가 기사로 큐에 들어가고 본문 GET 에서야 죽는다.)
+    if (LISTING_PATHS.has(href) || /^\/news-features\/blogs\/[a-z0-9-]+$/.test(href)) continue
     const slug = href.split('/').pop()!
     if (seen.has(slug)) continue
     const title = decodeEntities(stripTags(m[2]!)).replace(/\s+/g, ' ').trim()
@@ -128,7 +188,10 @@ export async function listNoaaFeed(
     })
   }
 
-  return applyArticleCurationSpec(raw.slice(0, limit * 2), 'noaa', feedId)
+  return {
+    items: applyArticleCurationSpec(raw.slice(0, limit * 2), 'noaa', feedId),
+    cont: raw.length > 0 ? page + 1 : null,
+  }
 }
 
 /** www.climate.gov/news-features/<section>/<slug> URL → RawArticle. */
@@ -136,7 +199,8 @@ export async function ingestNoaaArticle(itemUrl: string): Promise<RawArticle> {
   const url = itemUrl.startsWith('http')
     ? itemUrl
     : `${SITE}${itemUrl.startsWith('/') ? '' : '/'}${itemUrl}`
-  const slug = url.match(/\/news-features\/[a-z0-9-]+\/([a-z0-9-]+)/i)?.[1]
+  // 3단(`/<섹션>/<slug>`)과 4단(`/blogs/<블로그>/<slug>`) 둘 다 — 언제나 **마지막** 조각이 slug 다.
+  const slug = url.match(/\/news-features\/(?:[a-z0-9-]+\/)+([a-z0-9-]+)/i)?.[1]
   if (!slug) throw new Error(`NOAA: slug 추출 실패 (${itemUrl})`)
 
   const res = await fetchWithTimeout(url, { accept: 'text/html' })

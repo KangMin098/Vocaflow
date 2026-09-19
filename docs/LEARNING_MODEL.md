@@ -35,7 +35,7 @@
 | **L3 Encode** | `/wordvault` 허브 + `/wordvault/browse` | Memory Decay 4색 자산 시각화 + 풀스크린 세션 | 능동 부호화 | `vocabularies` N건 (state=new) |
 | **L4a Recognize (재인)** | `/flashcard` · `/wordblitz` · `/pairflip` | 단어 보기 → 아는지 판단 | Recognition | `learning_records` |
 | **L4b Generate-Visual (시각 생성)** | `/spellforge` | 뜻 → 철자 직접 생성 (시각+운동) | Generation | `learning_records` |
-| **L4c Generate-Auditory (청각 생성)** | `/text/[id]/echo` | TTS → 발화 (Shadow Reading) | Generation + Production | `echo_match_attempts` |
+| **L4c Generate-Auditory (청각 생성)** | `/text/[id]/echo` | TTS → 발화 (Shadow Reading) | Generation + Production | `echo_match_attempts` + `learning_records(echo)` — 면 이력만, **복습 간격은 안 움직인다**(문장이 보이므로 인출 아님) |
 | **L5 Conquer (정복 · 의미 통합)** | `/scriptquiz` | 스크립트 맥락 4지선다 — 텍스트 단위 검증 | Recognition + Transfer | `scores` + 텍스트 정복 |
 | **L6 Complete (완성 · 다중 채널 재생산)** | `/dictate` | TTS 청취 → 받아쓰기 (음운+의미+문법+철자) | Free Recall + Production | `learning_records` + 텍스트 완성 |
 | **L7 Reflect (회고)** | `/dashboard` 단독 | 메타인지 + 다음 제안 수신 | 메타인지 | (v06.108 이중할당 해소: `/hub`=오늘/forward 오케스트레이터, `/dashboard`=회고/backward 단독) |
@@ -418,3 +418,11 @@ Workspace L2 통독
 - Cold 사용자에게 Interleaved 강제 — undesirable difficulty
 - `state` 컬럼을 DB에 저장하고 직접 사용 — Memory Decay 색 일관성 깨짐 (반드시 R(t) 동적 계산)
 - 추천 라벨에 정확도/실패 카운트 노출 — Empathetic Feedback 위반
+
+## 기출 해부의 인출·대조·전이 (2026-09-17)
+
+정답을 아는 상태에서 근거 위치·오답 제조법·출제 의도를 먼저 예측한다. 제출한 수의 분석만 인라인으로 드러낸다. 같은 유형의 다른 소재 두 문항을 대조하고 세 번째에 전이한다. `아직 모르겠음`은 3일 뒤 같은 공식의 다른 문항을 예약한다. 기존 풀이 정답률과 새 예측 적중률은 저장 키부터 분리한다.
+
+### 분석 선열람과 인출 기록 (2026-09-18)
+
+추천 예측·피드백·대조·전이를 유지하면서 분석을 먼저 읽을 수 있다. 선열람한 문항은 이후의 예측을 인출 성공으로 저장하지 않는다. 읽기와 듣기는 같은 semantic section을 사용하며 사용자의 화면 탐색을 자동 스크롤로 덮지 않는다. 이어하기는 기기 IndexedDB에 문항과 단계·선택을 보존한다.

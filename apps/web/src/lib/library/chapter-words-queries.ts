@@ -6,6 +6,8 @@
 
 import type { SupabaseClient } from '@supabase/supabase-js';
 
+import { pagedSelect } from '@/lib/supabase/paged-select';
+
 // ─────────────────────────────────────────────
 // 사용자 레벨 맞춤 추출 (Krashen i+1) — 라이브러리 도서 chapter
 // 챕터 lemma → extract_vocabulary_for_user RPC (목표 = 사용자 V-Level+1 gaussian)
@@ -46,6 +48,18 @@ export interface LeveledChapterResult {
  *
  * 기존 getChapterWords(LV 평면 정렬) 와 별개 — 이쪽은 "내 레벨 맞춤".
  */
+/**
+ * 조회 실패 — **빈 결과와 구별되어야 한다.**
+ * 이 패널의 빈 상태 문구는 "이미 다 아는 단어들이네요" 다. 실패를 빈 결과로 돌려주면
+ * 학습자는 조회가 깨진 챕터에서 "다 안다" 는 칭찬을 받는다(2026-08-30 실측).
+ */
+export class ChapterWordsError extends Error {
+  constructor(message: string, readonly cause?: unknown) {
+    super(message);
+    this.name = 'ChapterWordsError';
+  }
+}
+
 export async function getChapterWordsForUser(
   client: SupabaseClient,
   libraryBookId: string,
@@ -54,17 +68,26 @@ export async function getChapterWordsForUser(
   strategy: 'auto' | 'user' | 'text' = 'auto',
 ): Promise<LeveledChapterResult> {
   // 1. chapter lemma 수집 (바인딩된 것만)
-  const { data: lbvData, error: lbvError } = await client
-    .from('library_book_vocabularies')
-    .select('word, lemma')
-    .eq('library_book_id', libraryBookId)
-    .eq('chapter_idx', chapterIdx)
-    .not('lemma', 'is', null)
-    .limit(5000);
-
-  if (lbvError) {
-    console.error('[getChapterWordsForUser] lbv fetch failed:', lbvError.message);
-    return { words: [], meta: null };
+  // ⚠️ 여기 있던 `.limit(5000)` 은 **1,000행에서 잘렸다** — PostgREST 가 그 위를 안 준다
+  //    (실측 2026-08-30). 빠진 lemma 는 챕터 단어장에서 그대로 빠지므로, 큰 챕터일수록
+  //    학습자가 받는 단어가 조용히 줄었다. 오류가 아니라 **적게 준 것**이라 아무도 몰랐다.
+  let lbvData: Array<{ word: string; lemma: string | null }> = [];
+  try {
+    lbvData = await pagedSelect<{ word: string; lemma: string | null }>(
+      (lo, hi) =>
+        client
+          .from('library_book_vocabularies')
+          .select('word, lemma')
+          .eq('library_book_id', libraryBookId)
+          .eq('chapter_idx', chapterIdx)
+          .not('lemma', 'is', null)
+          .range(lo, hi),
+      'library_book_vocabularies chapter lemmas',
+    );
+  } catch (e) {
+    // 조회 실패를 빈 결과로 바꾸지 않는다 — 화면이 "이미 다 아는 단어들이네요" 라고
+    // **거짓 칭찬**을 하게 된다(실패와 완벽한 이해가 같은 모습이 된다).
+    throw new ChapterWordsError('챕터 단어를 불러오지 못했습니다', e);
   }
 
   const lemmas = Array.from(
@@ -83,8 +106,7 @@ export async function getChapterWordsForUser(
     p_level_strategy: strategy,
   });
   if (error) {
-    console.error('[getChapterWordsForUser] extract RPC failed:', error.message);
-    return { words: [], meta: null };
+    throw new ChapterWordsError(`챕터 단어 추출 실패: ${error.message}`);
   }
 
   const rows = (data ?? []) as Array<{
@@ -128,6 +150,148 @@ export async function getChapterWordsForUser(
       autoN: first.auto_n,
     },
   };
+}
+
+// ─────────────────────────────────────────────
+// L2 개인화 전달 (ADR 0004 D7) — deliver_chapter_vocab RPC
+//
+// getChapterWordsForUser 와의 차이:
+//   저쪽은 챕터 lemma 를 shared_dictionary 에 **직접** 물어본다. i+1 로직은 좋지만
+//   추출 파이프라인의 정제(노이즈·register 제외 · context_pos sense · 근거문장)를
+//   통째로 우회하므로, 뜻이 문맥과 다른 품사로 나오거나 근거문장이 없다.
+//   이쪽은 이미 정제된 후보 풀(shared_words)에서 고르고, 분량도 챕터 길이에 맞춘다.
+//
+// 한계: 세트가 발행된 도서에만 결과가 있다. 미발행 도서는 빈 배열이 오므로
+//   호출부가 getChapterWordsForUser 로 폴백해야 한다 (ChapterLevelWords 참조).
+// ─────────────────────────────────────────────
+
+export interface DeliveredWord {
+  word: string;
+  meaning: string | null;
+  /** 이 챕터 본문에서 그 단어가 실제로 쓰인 문장 (Context-Dependent 인출) */
+  sourceSentence: string | null;
+  exampleEn: string | null;
+  pos: string | null;
+  cefrLevel: string | null;
+  vLevel: number | null;
+  /** 'i+1 — 지금 딱 한 걸음' 등 학습자 언어로 된 선정 근거 */
+  reason: string | null;
+  score: number;
+  rank: number;
+}
+
+export interface DeliveryResult {
+  words: DeliveredWord[];
+  meta: {
+    /** 이 챕터에서 전달하기로 한 개수 (챕터 길이 기반, 8~30) */
+    targetCount: number;
+    /** 기보유 제외 후 남은 후보 수 */
+    poolSize: number;
+    chapterWordCount: number | null;
+    effectiveVLevel: number | null;
+    levelSource: string | null;
+  } | null;
+}
+
+interface DeliverRow {
+  word: string;
+  meaning_ko: string | null;
+  source_sentence: string | null;
+  example_en: string | null;
+  pronunciation: string | null;
+  part_of_speech: string | null;
+  cefr_level: string | null;
+  v_level: number | null;
+  composite_score: number;
+  reason: string | null;
+  delivered_rank: number;
+  target_count: number;
+  pool_size: number;
+  chapter_word_count: number | null;
+  effective_v_level: number | null;
+  level_source: string | null;
+}
+
+/** 챕터 어휘를 이 학습자에게 맞춰 전달한다 (읽기 전용 — 몇 번 불러도 부작용 없음). */
+export async function deliverChapterVocab(
+  client: SupabaseClient,
+  libraryBookId: string,
+  chapterIdx: number,
+): Promise<DeliveryResult> {
+  // RPC 가 생성 타입에 아직 없다 — 느슨한 캐스팅 (BookSupportVocabPanel 과 동일 패턴)
+  const { data, error } = await (
+    client as unknown as {
+      rpc: (
+        fn: string,
+        args: Record<string, unknown>,
+      ) => Promise<{ data: DeliverRow[] | null; error: { message: string } | null }>;
+    }
+  ).rpc('deliver_chapter_vocab', {
+    p_book_id: libraryBookId,
+    p_chapter_idx: chapterIdx,
+  });
+
+  if (error) {
+    throw new ChapterWordsError(`챕터 단어 전달 실패: ${error.message}`);
+  }
+
+  const rows = data ?? [];
+  if (rows.length === 0) return { words: [], meta: null };
+
+  const first = rows[0]!;
+  return {
+    words: rows.map((r) => ({
+      word: r.word,
+      meaning: r.meaning_ko,
+      sourceSentence: r.source_sentence,
+      exampleEn: r.example_en,
+      pos: r.part_of_speech,
+      cefrLevel: r.cefr_level,
+      vLevel: r.v_level,
+      reason: r.reason,
+      score: r.composite_score,
+      rank: r.delivered_rank,
+    })),
+    meta: {
+      targetCount: first.target_count,
+      poolSize: first.pool_size,
+      chapterWordCount: first.chapter_word_count,
+      effectiveVLevel: first.effective_v_level,
+      levelSource: first.level_source,
+    },
+  };
+}
+
+/**
+ * 전달된 단어를 `vocabularies` 에 담는다 (멱등 — 이미 있으면 무시).
+ *
+ * @returns 실제로 새로 담긴 개수. **실패는 -1** 로 구분한다.
+ *   0 과 실패를 뭉뚱그리면 호출부가 "담았어요" 를 낙관적으로 표시하게 되고,
+ *   그게 이 기능이 없애려던 "표시만 되고 저장은 안 되는" 결함 그대로다
+ *   (실제로 초판에서 그렇게 터졌다 — commit 경로의 `word` 모호성 예외를 UI 가 삼켰다).
+ */
+export async function commitChapterVocab(
+  client: SupabaseClient,
+  libraryBookId: string,
+  chapterIdx: number,
+): Promise<number> {
+  const { data, error } = await (
+    client as unknown as {
+      rpc: (
+        fn: string,
+        args: Record<string, unknown>,
+      ) => Promise<{ data: number | null; error: { message: string } | null }>;
+    }
+  ).rpc('commit_chapter_vocab', {
+    p_book_id: libraryBookId,
+    p_chapter_idx: chapterIdx,
+  });
+
+  if (error) {
+    console.error('[commitChapterVocab] RPC failed:', error.message);
+    return -1;
+  }
+  return typeof data === 'number' ? data : -1;
 }
 
 export interface ChapterWord {

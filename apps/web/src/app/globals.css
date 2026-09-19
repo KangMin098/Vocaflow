@@ -19,46 +19,78 @@
    ══════════════════════════════════════════════════════════════ */
 @layer base {
   :root {
-    /* 학습 단계 (뇌과학 기반) */
-    --learn-fresh:          #3B82F6;
-    --learn-fresh-light:    #EFF6FF;
-    --learn-progress:       #06B6D4;
-    --learn-progress-light: #ECFEFF;
-    --learn-known:          #10B981;
-    --learn-known-light:    #ECFDF5;
-    --learn-mastered:       #8B5CF6;
-    --learn-mastered-light: #F5F3FF;
-    --learn-review:         #F59E0B;
-    --learn-review-light:   #FFFBEB;
-    --learn-error:          #EF4444;
-    --learn-error-light:    #FEF2F2;
+    /* v07 — `--font-body` 는 `--font-display` 의 **별칭**이다.
+       둘은 같은 글꼴(IBM Plex Sans KR)을 가리키므로 next/font 로 두 번 선언하면
+       같은 파일을 두 벌 내려받는다(실측 2026-09-16: 폰트 요청 37건 · 373KB).
+       이름은 두 개가 필요하지만(`font-display`/`font-body` 클래스가 소스에 2,041회 있다)
+       **페이스는 하나면 된다.** */
+    --font-body: var(--font-display);
 
-    /* CEFR 난이도 (긍정 기반) */
-    --level-a:       #10B981;
-    --level-a-light: #ECFDF5;
-    --level-b:       #3B82F6;
-    --level-b-light: #EFF6FF;
-    --level-c:       #8B5CF6;
-    --level-c-light: #F5F3FF;
+    /* 모바일 하단 탭(components/layout/MobileTabBar) 높이.
+       한 값이 셋을 정한다 — ① 탭 아래 여백(탭 컴포넌트의 스페이서)
+       ② 페이지가 소유한 하단 고정 UI 의 bottom 오프셋(만화 리더 컷 바 · 워크스페이스 오디오)
+       ③ md 이상에서 0(사이드바가 대신하므로 탭이 없다).
+       ⚠️ 풀스크린 세션(`lib/layout/full-screen-routes`)에는 탭이 없다. 그 화면의
+       하단 고정 UI 는 이 값을 쓰면 안 된다(빈 자리만큼 떠 보인다). */
+    --tabbar-h: calc(56px + env(safe-area-inset-bottom, 0px));
+
+    /* 학습 단계 (뇌과학 기반) — v07 「주묵 판면」에서 지면 톤으로 재조율
+       ⚠️ **여기가 의뢰서가 말한 「연보라 포인트」였다.** 00-inventory §0-1 은 학습자 표면에
+          `violet-*`·`purple-*` 클래스가 0회라는 이유로 그 진단을 "틀렸다" 고 적었는데,
+          **클래스 이름만 세고 토큰은 안 봤다.** 보라는 `--learn-mastered #8B5CF6`(violet-500)로
+          살아 있었고 학습자 표면 30곳에서 쓰였다 — 그중 둘은 파랑→보라 **그라데이션**이다
+          (`wordvault/ListenPanel` · `StudyMode`). AI-보라 그라데이션은 vocaflow-design §2 가
+          이름 대어 금지한 것이기도 하다. 의뢰인의 눈이 맞았고 내 계수 방법이 틀렸다.
+       단계 구분은 유지하되(면·점·막대로 계속 쓰인다) 전부 지면 팔레트로 옮긴다.
+       "정복(mastered)" 은 **가장 깊은 잉크** 로 — 다 익힌 낱말은 완전히 스며든 글자다. */
+    --learn-fresh:          #50697F;  /* dusty blue — 처음 만남 */
+    --learn-fresh-light:    #E1E8EF;
+    --learn-progress:       #2F6E6B;  /* muted teal — 익히는 중 */
+    --learn-progress-light: #E0EBEA;
+    --learn-known:          #2E7D5A;  /* muted forest — 안다 (= --memory-stable) */
+    --learn-known-light:    #E1EFE6;
+    --learn-mastered:       #0F2540;  /* deep ink — 정복 (= --p) */
+    --learn-mastered-ink:   #0F2540;  /* 종이 위 12.54:1 */
+    --learn-mastered-light: #E3E8EE;
+    --learn-review:         #B5803A;  /* deeper warm amber — 복습 때 (= --memory-shaky) */
+    --learn-review-light:   #F2E8D2;
+    /* v07 「주묵 판면」 — **오답을 빨강에서 뺀다.**
+       빨강은 이제 주묵(`--ju`)이 브랜드 표식으로 독점한다. 같은 화면에 붉은색이 둘이면
+       "앱이 남긴 표식" 과 "내가 틀렸다는 낙인" 이 구별되지 않는다.
+       그리고 학습자의 오답에 붉은 글씨를 쓰는 것은 CLAUDE.md 「정답률 빨간 글씨 압박 금지」
+       와 철학 3(Empathetic Feedback)이 원래부터 막고 있던 것이다 — 토큰이 그걸 허용하고
+       있었을 뿐이다. 오답은 이제 **중립 흑연색 + 표식 + 문장**으로 말한다("아직", "다시 만나요").
+       대비 실측: #6B6258 on --bg 5.75:1 · --learn-error-ink #57504A on --bg2 6.97:1 (AA). */
+    --learn-error:          #6B6258;
+    --learn-error-light:    #EDEAE4;
+
+    /* v07 — 학습 상태색을 "작은 글자"로 쓸 때의 잉크.
+       원색은 종이 위에서 2.0~3.6:1 이라 WCAG AA(4.5) 미달이다(2026-08-09 axe 실측:
+       known 2.23 · review 1.89 · error 3.31 on --bg2). 면/점/막대는 원색, 글자는 잉크. */
+    --learn-known-ink:      #0F6B4A;  /* on --bg2 5.74:1 */
+    --learn-review-ink:     #7A5200;  /* on --bg2 6.09:1 */
+    --learn-error-ink:      #57504A;  /* v07 — 오답 중립 흑연. on --bg2 6.97:1 */
+
+    /* CEFR 난이도 (긍정 기반) — v07 지면 톤. 보라(#8B5CF6)는 위 §학습 단계 주석 참조. */
+    --level-a:       #2E7D5A;
+    --level-a-light: #E1EFE6;
+    --level-b:       #50697F;
+    --level-b-light: #E1E8EF;
+    --level-c:       #0F2540;
+    --level-c-light: #E3E8EE;
 
     /* 보강 토큰 */
     --bg-strong: #E4E4E7;
     --bd-strong: #D4D4D8;
     --t5:        #D4D4D8;
 
-    /* CEFR Badge Colors */
-    --cefr-A1-bg:   #F1F5F9;
-    --cefr-A1-text: #64748B;
-    --cefr-A2-bg:   #E0F2FE;
-    --cefr-A2-text: #0369A1;
-    --cefr-B1-bg:   #DBEAFE;
-    --cefr-B1-text: #1E40AF;
-    --cefr-B2-bg:   #3B82F6;
-    --cefr-B2-text: #FFFFFF;
-    --cefr-C1-bg:   #7C3AED;
-    --cefr-C1-text: #FFFFFF;
-    --cefr-C2-bg:   #1F2937;
-    --cefr-C2-text: #FFFFFF;
+    /* CEFR Badge Colors — **정의는 tokens.css 에 있다.**
+       ⚠️ 여기에 같은 이름 12개가 따로 있었고, 나중에 로드되는 이쪽이 이겼다(실측 2026-08-22).
+          이긴 값은 B2/C1/C2 가 원색 채움 + 흰 글자라 3.68~ 로 AA 미달이었고,
+          다크 정의는 이쪽에 없어서 **라이트와 다크가 서로 다른 파일에서 왔다.**
+          한쪽만 고치면 다른 쪽이 안 따라오는, 가장 찾기 어려운 종류의 어긋남이다.
+       → 이 블록을 지우고 tokens.css(라이트+다크 한 쌍)로 일원화했다.
+          다시 벌어지지 않게 token-parity.test.ts 가 두 파일의 이름 충돌을 막는다. */
 
     /* Reading Universe Colors */
     --reading-bg:   #FAFAF7;
@@ -70,7 +102,22 @@
     --memory-shaky:  #B5803A;  /* deeper warm amber — "익숙해요" 주의 (덜 mustard) */
     --memory-risk:   #9C3A30;  /* deeper warm red — "흐릿해요" 회복 필요 */
     --memory-new:    #8A8278;  /* warm gray (살짝 lighter) — "처음 만나는 단어" 중립 */
+    /* v07 — Memory Decay 색을 "작은 글자"로 쓸 때의 잉크(면·점·막대는 위 원색 유지).
+       실측: shaky 3.29 · new 3.63 (on --bg) → AA 미달. stable/risk 는 통과하지만 짝을 맞춰 정의한다. */
+    --memory-stable-ink: #1F6B49;  /* 종이 6.17 · bg2 5.68 · bg3 5.19 — 원색(#2E7D5A)은 bg3 에서 4.03 이라 미달 */
+    --memory-shaky-ink:  #7A5200;  /* 6.63:1 */
+    --memory-risk-ink:   #9C3A30;  /* 종이 6.57 · bg3 5.53 */
+    --memory-new-ink:    #5F5A52;  /* 6.55:1 */
 
+    /* v07 — ACP 트랙 액센트. 카드 배경이 같은 색 5% wash 라 **글자로도** 쓰인다.
+       라이트는 진한 원색이 통하지만 다크에서는 2.8~3.2:1 로 미달이라 테마별로 뒤집는다. */
+    --track-listen:    #2563EB;
+    --track-easy:      #0F766E;
+    --track-topic:     #7A4A6B;   /* v07 — 보라 → 자두 (= --accent-plum). 이 카드가 /library/scripts 의 첫 면적이었다 */
+    --track-news:      #B45309;
+    --track-argue:     #15803D;
+    --track-data:      #0891B2;
+    --track-reference: #7C2D12;
     /* CEFR Distribution Fills — v06.19 (분포 시각화 전용 · badge 토큰과 분리) */
     --cefr-a1: #86EFAC;
     --cefr-a2: #22C55E;
@@ -87,13 +134,22 @@
     --reader-line-height: 1.55;
 
     /* Flashcard v2 — SRS 4단계 (한국 친화 그라디언트) */
-    --srs-1: #EF4444;   /* 몰라요 */
-    --srs-2: #F59E0B;   /* 어려워요 */
-    --srs-3: #22C55E;   /* 기억나요 */
-    --srs-4: #3B82F6;   /* 너무 쉬워요 */
+    --srs-1: #6B6258;   /* 몰라요 — v07: 빨강 제거(중립 흑연). 평가가 아니라 상태다 */
+    --srs-2: #B5803A;   /* 어려워요 — v07: 지면 톤 앰버(= --memory-shaky) */
+    --srs-3: #2E7D5A;   /* 기억나요 — v07: 지면 톤 포레스트(= --memory-stable) */
+    --srs-4: #3E6FA8;   /* 너무 쉬워요 — v07: 원색 파랑 → 지면 톤 더스티 블루 */
+
+    /* SRS 4단계 — **글자로 쓸 때의 색.** 위 네 색은 면을 칠하는 색이다.
+       그대로 글자로 얹으면 종이 위에서 2.06~3.6:1 로 읽힌다(실측 2026-08-22,
+       /flashcard/play 채점 4버튼 — 학습자가 가장 많이 누르는 버튼이다).
+       한 색으로 두 테마를 못 맞추므로 테마마다 뒤집는다. 라이트 최악 6.03~8.93 */
+    --srs-1-ink: #57504A;
+    --srs-2-ink: #7E5A1B;   /* = --active-ink */
+    --srs-3-ink: #1F6B49;   /* = --success-ink */
+    --srs-4-ink: #2F5B8C;
 
     /* Card 전용 shadow */
-    --sh-card: 0 16px 40px rgba(0,0,0,0.10), 0 4px 12px rgba(0,0,0,0.06);
+    --sh-card: 0 0 0 1px var(--bd);  /* v07 — 카드도 뜨지 않고 그어진다(tokens.css §그림자) */
 
     /* Flip 전용 motion */
     --dur-flip:  600ms;
@@ -103,45 +159,57 @@
     --slot-empty-bg:     #F8FAFC;
     --slot-empty-bd:     #E2E8F0;
     --slot-empty-text:   #94A3B8;
-    --slot-current-bg:   #EFF6FF;
-    --slot-current-bd:   #3B82F6;
-    --slot-current-text: #3B82F6;
-    --slot-correct-bg:   #DCFCE7;
-    --slot-correct-bd:   #22C55E;
-    --slot-correct-text: #16A34A;
-    --slot-error-bg:     #FEE2E2;
-    --slot-error-bd:     #EF4444;
-    --slot-error-text:   #DC2626;
+    --slot-current-bg:   #E9EDF2;
+    --slot-current-bd:   #0F2540;
+    --slot-current-text: #0F2540;
+    --slot-correct-bg:   #E1EFE6;
+    --slot-correct-bd:   #2E7D5A;
+    --slot-correct-text: #1F6B49;
+    --slot-error-bg:     #F6EEDD;
+    --slot-error-bd:     #B5803A;
+    --slot-error-text:   #7A5200;
     --slot-typed-bg:     #FFFFFF;
     --slot-typed-bd:     #94A3B8;
     --slot-typed-text:   #475569;
 
     /* SpellForge ring shadows — 입력/정답/오답 강조 */
-    --sh-input:   0 0 0 4px rgba(59,130,246,0.12);
-    --sh-correct: 0 0 0 4px rgba(34,197,94,0.18);
-    --sh-error:   0 0 0 4px rgba(239,68,68,0.15);
+    --sh-input:   0 0 0 4px rgba(15,37,64,0.12);
+    --sh-correct: 0 0 0 4px rgba(46,125,90,0.20);
+    --sh-error:   0 0 0 4px rgba(181,128,58,0.20);  /* v07 — 오답 링도 빨강에서 앰버로 */
   }
 
   [data-theme="dark"] {
-    --learn-fresh:          #60A5FA;
-    --learn-fresh-light:    #1E2D44;
-    --learn-progress:       #22D3EE;
-    --learn-progress-light: #0A1F26;
-    --learn-known:          #34D399;
-    --learn-known-light:    #0A1F18;
-    --learn-mastered:       #A78BFA;
-    --learn-mastered-light: #1E1B30;
-    --learn-review:         #FBBF24;
-    --learn-review-light:   #1F1610;
-    --learn-error:          #F87171;
-    --learn-error-light:    #1F1010;
+    /* v07 — 라이트와 같은 계열을 다크에서 밝은 쪽으로 뒤집는다(어두운 지면 위 대비 확보). */
+    --learn-fresh:          #8AA8C0;
+    --learn-fresh-light:    #1B242C;
+    --learn-progress:       #6FB0AC;
+    --learn-progress-light: #14211F;
+    --learn-known:          #5BA47D;
+    --learn-known-light:    #14241C;
+    --learn-mastered:       #6B9BD1;  /* deep ink 의 다크 짝 (= 다크 --p) */
+    --learn-mastered-ink:   #A9C8E8;
+    --learn-mastered-light: #18232F;
+    --learn-review:         #CEA254;
+    --learn-review-light:   #241E12;
+    --learn-error:          #A9A096;
+    --learn-error-light:    #2A241E;
 
-    --level-a:       #34D399;
-    --level-a-light: #0A1F18;
-    --level-b:       #60A5FA;
-    --level-b-light: #1E2D44;
-    --level-c:       #A78BFA;
-    --level-c-light: #1E1B30;
+    /* 다크에서는 밝은 원색이 어두운 배경 위에서 이미 대비를 확보한다 → 그대로 사용 */
+    --learn-known-ink:      #34D399;
+    --learn-review-ink:     #FBBF24;
+    --learn-error-ink:      #C3BAAE;
+    /* Memory Decay 다크 — 어두운 배경 위에서는 밝은 쪽이 대비를 얻는다 */
+    --memory-stable-ink: #5BA47D;
+    --memory-shaky-ink:  #D9A441;
+    --memory-risk-ink:   #E0796C;
+    --memory-new-ink:    #ADA69B;
+
+    --level-a:       #5BA47D;
+    --level-a-light: #14241C;
+    --level-b:       #8AA8C0;
+    --level-b-light: #1B242C;
+    --level-c:       #6B9BD1;
+    --level-c-light: #18232F;
 
     --bg-strong: #3F3F46;
     --bd-strong: #3F3F46;
@@ -156,6 +224,14 @@
     --slot-current-bg: rgba(96,165,250,0.10);
     --slot-typed-bg:   #141E30;
 
+    /* 트랙 액센트 다크 — 어두운 카드 위에서 읽히도록 밝은 쪽으로 */
+    --track-listen:    #93B4FF;
+    --track-easy:      #5EC8BC;
+    --track-topic:     #C79AB6;
+    --track-news:      #E0A960;
+    --track-argue:     #6EDB9B;
+    --track-data:      #5FCDE8;
+    --track-reference: #E8A184;
     /* CEFR Distribution Fills — 다크모드 (대비 4.5:1 WCAG AA) */
     --cefr-a1: #4ADE80;
     --cefr-a2: #16A34A;
@@ -163,11 +239,27 @@
     --cefr-b2: #2563EB;
     --cefr-c1: #A78BFA;
     --cefr-c2: #6D28D9;
+
+    /* SRS 글자색 — 어두운 지면에서는 밝은 쪽이 읽힌다. 다크 최악 6.03 */
+    --srs-1-ink: #C3BAAE;   /* v07 — 오답 중립 흑연(다크) */
+    --srs-2-ink: #D4A856;   /* = --active-ink (dark) */
+    --srs-3-ink: #7FC49E;   /* = --success-ink (dark) */
+    --srs-4-ink: #9BBBDC;
+  }
+}
+
+/* md 이상 = 사이드바가 내비를 맡는다 → 하단 탭이 없고, 그 자리를 비켜 줄 이유도 없다.
+   `@layer base` 밖에 둔다 — layer 안의 미디어 쿼리는 같은 layer 의 :root 와
+   우선순위가 같아 선언 순서에 의존하게 되고, 그건 조용히 깨지는 종류의 의존이다. */
+@media (min-width: 768px) {
+  :root {
+    --tabbar-h: 0px;
   }
 }
 
 /* ── Font Families (next/font가 주입하는 변수) ── */
-/* --font-display, --font-body, --font-serif (영어 원문 = Lora), --font-mono
+/* --font-display (= IBM Plex Sans KR · UI/본문), --font-body (= 같은 글꼴),
+   --font-ko-display (= Hahmlet · 한글 제목/뜻/감성), --font-serif (= Lora · 영어 원문), --font-mono
    → app/layout.tsx 의 next/font/google 설정에서 정의됨.
    Tailwind 에서는 font-display / font-body / font-english (= font-serif) / font-mono 로 사용. */
 
@@ -183,7 +275,7 @@ html {
 body {
   background-color: var(--bg);
   color: var(--t1);
-  font-family: var(--font-body), 'DM Sans', system-ui, -apple-system, sans-serif;
+  font-family: var(--font-body), 'IBM Plex Sans KR', system-ui, -apple-system, sans-serif;
   font-size: 14px;
   line-height: 1.5;
   transition:
@@ -191,16 +283,23 @@ body {
     color var(--dur-normal) var(--ease);
 }
 
-/* ── Heading 기본 폰트 (Display) ── */
+/* ── Heading 기본 폰트 ── v07 「주묵 판면」
+   ⚠️ 이전에는 h1~h6 이 전부 `--font-display`(당시 Plus Jakarta, latin-only)였다.
+      한국어 제목은 전량 OS 기본 고딕으로 나왔다는 뜻이고, **화면에서 가장 큰 글자가
+      가장 개성 없는 글자**였다(00-inventory §0-2).
+   지금은 영문 Lora + 한글 Hahmlet 세리프가 제목을 맡는다. 글리프 단위 폴백이라
+   "Vocaflow 는 Lora, 되찾을 단어는 Hahmlet" 이 한 줄 안에서 자연스럽게 섞인다.
+   웨이트를 800→600 으로 내린 이유: 세리프는 같은 굵기에서 산세리프보다 무겁게 읽힌다. */
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-display), 'Plus Jakarta Sans', system-ui, sans-serif;
-  font-weight: 700;
-  letter-spacing: -0.01em;
+  font-family: var(--font-serif), var(--font-ko-display), 'Lora', 'Hahmlet', Georgia, serif;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  word-break: keep-all;  /* 한글 낱말이 390px 에서 쪼개지지 않게 (CLAUDE.md I7) */
 }
 
 /* ── Code 폰트 ── */
 code, pre, kbd, samp {
-  font-family: var(--font-mono), 'JetBrains Mono', ui-monospace, monospace;
+  font-family: var(--font-mono), 'JetBrains Mono', ui-monospace, var(--font-body), monospace;
 }
 
 /* ── Selection ── */
@@ -217,14 +316,40 @@ code, pre, kbd, samp {
   outline-offset: 2px;
 }
 
-/* 모션 감소 선호 사용자 — RN useReduceMotion 과 동일 정책 */
+/* ── 모션 감소 선호 — **끄기가 아니라 낮추기** (v06.34 · vocaflow-design §5.1) ──────
+   이전에는 애니메이션·전환을 전부 `0.01ms` 로 죽였다. 널리 쓰이는 스니펫이지만
+   이 저장소의 디자인 정본과 정면으로 어긋난다:
+
+     "전부 0.01ms 로 죽이면 **무엇이 바뀌었는지 알 수 없게 되어** 오히려 접근성이
+      나빠진다. 이동·회전·스케일은 제거하되 **페이드는 남긴다.**"
+
+   학습 제품에서 이건 사소하지 않다 — 정답/오답 피드백·카드 뒤집기·패널 펼침이
+   전부 "순간이동" 이 되면, 모션에 민감한 학습자만 **상태 변화를 못 보고 지나친다.**
+
+   그래서 셋을 나눈다:
+     ① 키프레임 애니메이션(루프·앰비언트·연출) → 사실상 끈다.
+        여기서 시간을 늘리면 `breathing`(4s) 같은 것이 **빠른 팝**이 되어 더 나쁘다.
+        진입 연출이 꼭 필요한 표면은 개별적으로 페이드만 남긴다(`.wayfinder-reveal`).
+     ② 상태 전환 시간 → 죽이지 않고 `--dur-fast`(100ms)로 **낮춘다.**
+     ③ 전환 대상 → **움직이지 않는 속성만.** transform·이동·크기 변화는 즉시 최종값으로 간다.
+
+   ⚠️ `transform: none` 으로 지우지 않는다 — 이 저장소는 `-translate-x-1/2` 로 중앙
+      정렬하는 요소가 많아 그렇게 하면 레이아웃이 무너진다. 값은 그대로 두고
+      **중간 프레임만** 없앤다(전환 대상에서 뺀다).
+
+   ⚠️ ③ 이 ② 와 한 쌍이다. 대상을 제한하지 않으면 100ms 전환이 `all` 에 걸려
+      **모든 요소의 모든 속성**(width·height 포함)이 애니메이트된다. */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    transition-duration: var(--dur-fast) !important;
+    transition-delay: 0ms !important;
+    transition-property:
+      opacity, color, background-color, border-color, outline-color, box-shadow, fill,
+      stroke !important;
     scroll-behavior: auto !important;
   }
 }
@@ -346,13 +471,15 @@ code, pre, kbd, samp {
     );
   }
 
-  /* 카드 eyebrow / section label — 작은 라벨 통일 */
+  /* 카드 eyebrow / section label — v07: 대문자·넓은 트래킹을 내렸다.
+     ⚠️ `text-transform: uppercase` + `letter-spacing .10em` 은 템플릿 관용구이고,
+        **한국어에는 대문자가 없어서** 한글 라벨에서는 넓은 자간만 남아 읽기가 나빠진다.
+        판면 언어에서 작은 라벨은 조용히 앉아 있으면 된다. */
   .hub-eyebrow {
-    font-family: var(--font-mono), 'JetBrains Mono', monospace;
-    font-size: 10.5px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.10em;
+    font-family: var(--font-display), 'IBM Plex Sans KR', system-ui, sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
     color: var(--t3);
   }
 
@@ -639,7 +766,7 @@ body.focus-mode .sidebar:hover {
   /* 책등 텍스트 — 90deg 회전 */
   writing-mode: vertical-rl;
   text-orientation: mixed;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-display), 'IBM Plex Sans KR', sans-serif;
   font-size: 8px;
   font-weight: 600;
   letter-spacing: 0.04em;
@@ -845,3 +972,125 @@ body.studying .sidebar:hover { opacity: 1; }
 }
 
 /* gentle-float은 §8에서 이미 정의됨 (Flashcard MicroPause와 공용) */
+
+/* ══════════════════════════════════════════════════════════════════
+   인쇄 — 교사 학습지 (2026-08-26)
+
+   이 저장소에 인쇄 규칙이 하나도 없었다(`@media print` 0개). 그런데 교사의 수업 준비는
+   **종이로 끝난다** — 유인물·쪽지시험이 교무실에 남고, 그것이 CAC 0 채널에서 브랜드가
+   실제로 옮겨 다니는 경로다.
+
+   ⚠️ 학습지는 **`document.body` 직속 형제**로 그린다(React portal). 이유는 실측이다:
+      처음에는 `visibility: hidden` 으로 나머지를 지우고 학습지만 `position:absolute` 로
+      얹었다. 잉크는 맞았는데 **문서 높이가 그대로라 빈 장이 딸려 나왔다** —
+      1장짜리 목록이 **4쪽**으로 인쇄됐다.
+      `display:none` 은 조상 어딘가를 접으면 자식인 학습지까지 사라져 쓸 수 없다.
+      그래서 학습지를 트리 밖으로 빼고, body 의 **다른 자식만** 접는다. 높이가 함께 접힌다.
+   ══════════════════════════════════════════════════════════════════ */
+@media print {
+  @page {
+    size: A4;
+    margin: 14mm;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+    height: auto !important;
+  }
+
+  /* 학습지를 뺀 나머지 — 높이까지 접어야 빈 장이 안 생긴다. */
+  body > *:not(.vf-sheet) {
+    display: none !important;
+  }
+
+  .vf-sheet {
+    display: block !important;
+    margin: 0;
+    padding: 0;
+    color: #000;
+    background: #fff;
+  }
+
+  /* 색을 쓰지 않는다 — 학교 인쇄기는 대부분 흑백이고, 회색조로 떨어진 옅은 토큰 색은
+     글자를 읽기 어렵게 만든다. 검정 잉크와 선만 쓴다. */
+
+  /* 낱말 한 줄이 두 장에 걸치면 못 쓴다. */
+  .vf-sheet tr,
+  .vf-sheet li {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .vf-sheet .vf-page-break {
+    break-before: page;
+    page-break-before: always;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   나침반 띠 「나의 자리」 펼침 (v06.34)
+
+   왜 전역 CSS 인가: `prefers-reduced-motion` 전역 규칙(위 §4.4)이 모든 애니메이션을
+   0.01ms 로 죽인다. 인라인 style 로는 그 `!important` 를 이길 수 없고, 이길 수 있어도
+   컴포넌트마다 되살리는 코드가 흩어진다. 여기 한 곳에서 "낮추기"를 정의한다.
+
+   ⚠️ 위 전역 규칙 자체는 이 저장소의 디자인 정본(vocaflow-design §5.1)과 어긋난다 —
+      "끄기가 아니라 낮추기. 페이드는 남긴다". 전역을 고치면 앱 전체 모션이 바뀌므로
+      별도 판단이 필요하고, 여기서는 이 표면만 규정대로 되돌린다.
+   ══════════════════════════════════════════════════════════════ */
+@keyframes wayfinder-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes wayfinder-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.wayfinder-reveal {
+  animation: wayfinder-reveal var(--dur-slow) var(--ease) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* 이동은 걷어내되 **상태가 바뀌었다는 사실은 남긴다**.
+     전역 규칙 ①이 키프레임을 0.01ms 로 끄므로, 페이드가 필요한 이 표면만 되살린다.
+     (전역을 통째로 늘리면 앰비언트 루프가 팝이 된다 — 위 §4 주석 참조.) */
+  .wayfinder-reveal {
+    animation-name: wayfinder-fade !important;
+    animation-duration: var(--dur-fast) !important;
+  }
+}
+
+/* ── 강의 하이라이트 ────────────────────────────────────────────────────────
+   `components/csat/lecture/LectureStage.tsx` 가 재생 중에만 `data-lecture-state` 를 단다.
+   지금 설명하는 블록 하나만 테두리+배경으로 진하고, 나머지는 옅어진다(지시문 [D]).
+   모션 예산: 불투명도만 전환한다 — 테두리·배경은 한 번에 바뀐다(transform·opacity 만 애니메이트).
+   reduced-motion 에서도 **페이드는 남긴다**(무엇이 바뀌었는지는 보여야 한다). */
+[data-lecture-state] {
+  transition: opacity var(--dur-normal) var(--ease);
+}
+[data-lecture-state='dim'] {
+  opacity: 0.4;
+}
+[data-lecture-state='active'] {
+  box-shadow: 0 0 0 2px var(--p);
+  background-color: var(--bg3);
+  border-radius: var(--r-md);
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-lecture-state] {
+    transition: opacity var(--dur-fast) var(--ease);
+  }
+}

@@ -26,16 +26,52 @@ export interface PendingSrsResult {
   module: string;
 }
 
-function readSafe(): PendingSrsResult[] {
-  if (typeof window === 'undefined') return [];
+/**
+ * 평가 대기열은 **`localStorage`** 에 둔다 — `sessionStorage` 는 탭 수명이다.
+ *
+ * ── 왜 바꿨나 (실측 2026-09-05) ────────────────────────────────────────
+ * flush 는 "완주" 에만 걸려 있었다. 30장 중 12장을 평가하고 ✕ 로 나가면 그 12장은
+ * `sessionStorage` 에 남아 **같은 탭에서 다음 세션을 끝까지 마칠 때** 비로소 올라갔고,
+ * 탭을 닫으면 영구히 사라졌다. 학습자는 공부를 했는데 SRS 에는 아무 일도 없었던 것이 된다.
+ *
+ * 저장소를 바꾸는 것만으로 "탭을 닫으면 사라진다" 가 사라진다 — 다음 방문에 큐가 살아
+ * 있으므로 `flushPendingSession()` 이 이어서 올린다. 이탈 순간의 전송(`flushOnLeave`)과
+ * 서버의 멱등 가드는 그 위에 얹힌다.
+ *
+ * 옛 탭에 남아 있던 `sessionStorage` 큐는 **한 번 옮기고 지운다** — 안 옮기면 이미 한
+ * 평가가 조용히 버려진다.
+ */
+function migrateLegacyQueue(): PendingSrsResult[] {
   try {
-    const raw = sessionStorage.getItem(KEY);
-    if (!raw) return [];
-    const parsed = JSON.parse(raw);
+    const legacy = sessionStorage.getItem(KEY);
+    if (!legacy) return [];
+    sessionStorage.removeItem(KEY);
+    const parsed = JSON.parse(legacy);
     return Array.isArray(parsed) ? (parsed as PendingSrsResult[]) : [];
   } catch {
     return [];
   }
+}
+
+function readSafe(): PendingSrsResult[] {
+  if (typeof window === 'undefined') return [];
+  let current: PendingSrsResult[] = [];
+  try {
+    const raw = localStorage.getItem(KEY);
+    const parsed = raw ? JSON.parse(raw) : null;
+    if (Array.isArray(parsed)) current = parsed as PendingSrsResult[];
+  } catch {
+    current = [];
+  }
+  const legacy = migrateLegacyQueue();
+  if (legacy.length === 0) return current;
+  const merged = [...current, ...legacy];
+  try {
+    localStorage.setItem(KEY, JSON.stringify(merged));
+  } catch {
+    /* quota — 옮기지 못해도 이번 읽기에는 포함된다 */
+  }
+  return merged;
 }
 
 export function pushPendingResult(item: PendingSrsResult): void {
@@ -43,7 +79,7 @@ export function pushPendingResult(item: PendingSrsResult): void {
   const existing = readSafe();
   existing.push(item);
   try {
-    sessionStorage.setItem(KEY, JSON.stringify(existing));
+    localStorage.setItem(KEY, JSON.stringify(existing));
   } catch {
     // quota 초과 등 — 학습 흐름은 유지, 결과만 누락
   }
@@ -55,7 +91,12 @@ export function getPendingResults(): PendingSrsResult[] {
 
 export function clearPendingResults(): void {
   if (typeof window === 'undefined') return;
-  sessionStorage.removeItem(KEY);
+  localStorage.removeItem(KEY);
+  try {
+    sessionStorage.removeItem(KEY);
+  } catch {
+    /* 옛 큐가 없으면 그만이다 */
+  }
 }
 
 // ─────────────────────────────────────────────────────────────────────

@@ -162,7 +162,7 @@ export function BookChapterInput({
                 htmlFor="book-title"
                 className="mb-s-2 block font-mono text-[10px] font-semibold uppercase tracking-wider text-t3"
               >
-                책 제목 <span className="text-[var(--error)]">*</span>
+                책 제목 <span className="text-[var(--error-ink)]">*</span>
               </label>
               <input
                 id="book-title"
@@ -179,7 +179,7 @@ export function BookChapterInput({
                 htmlFor="book-author"
                 className="mb-s-2 block font-mono text-[10px] font-semibold uppercase tracking-wider text-t3"
               >
-                저자 <span className="text-t4">(선택)</span>
+                저자 <span className="text-t3">(선택)</span>
               </label>
               <input
                 id="book-author"
@@ -198,7 +198,7 @@ export function BookChapterInput({
       {/* ── 챕터 워크벤치 ── */}
       <div className="flex flex-col gap-s-3">
         <div className="flex items-end justify-between gap-s-3">
-          <div className="flex flex-col gap-0.5">
+          <div className="flex flex-col gap-1">
             <h3 className="font-display text-sm font-bold text-t1">챕터 작성</h3>
             <p className="font-body text-xs text-t3">
               레일에서 챕터를 고르거나{' '}
@@ -241,7 +241,7 @@ export function BookChapterInput({
               disabled={chapters.length >= MAX_CHAPTERS}
               aria-label="오른쪽에 챕터 추가"
               title={chapters.length >= MAX_CHAPTERS ? `최대 ${MAX_CHAPTERS}개` : '오른쪽에 챕터 추가'}
-              className="flex h-9 shrink-0 snap-start items-center gap-1 rounded-lg border-2 border-dashed border-bd px-s-3 font-display text-[12px] font-[700] text-t3 transition-all duration-normal hover:border-[var(--p)] hover:bg-[var(--p-light)] hover:text-[var(--p)] disabled:cursor-not-allowed disabled:opacity-40"
+              className="flex h-9 shrink-0 snap-start items-center gap-1 rounded-lg border-2 border-dashed border-bd px-s-3 font-display text-[12px] font-[700] text-t3 transition-all duration-normal hover:border-[var(--p)] hover:bg-[var(--p-light)] hover:text-[var(--on-p-tint)] disabled:cursor-not-allowed disabled:opacity-40"
             >
               <Plus size={14} aria-hidden />
               추가
@@ -257,7 +257,7 @@ export function BookChapterInput({
         >
           {/* 페이지 헤더 */}
           <div className="flex items-center gap-s-3 border-b border-bd bg-bg2 px-s-4 py-s-3">
-            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[var(--p)] font-display text-[13px] font-[800] text-[var(--ti)] shadow-sm">
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[var(--p)] font-display text-[13px] font-[800] text-[var(--on-p)] shadow-sm">
               {active + 1}
             </span>
             <input
@@ -300,7 +300,7 @@ export function BookChapterInput({
                 {currentLen === 0 ? (
                   <span className="text-t3">최소 {CONTENT_MIN}자</span>
                 ) : currentTooShort ? (
-                  <span className="text-[var(--error)]">
+                  <span className="text-[var(--error-ink)]">
                     {currentLen}자 · {CONTENT_MIN - currentLen}자 더 필요
                   </span>
                 ) : (
@@ -365,7 +365,7 @@ function ChapterChip({
       aria-selected={active}
       onClick={onClick}
       title={label}
-      className={`flex h-9 shrink-0 snap-start items-center gap-1.5 rounded-lg px-s-3 font-display text-[12px] font-[700] transition-all duration-normal ${tone}`}
+      className={`flex h-9 shrink-0 snap-start items-center gap-2 rounded-lg px-s-3 font-display text-[12px] font-[700] transition-all duration-normal ${tone}`}
     >
       <span className="tabular-nums">{index + 1}</span>
       {status === 'complete' && !active && <Check size={12} aria-hidden />}
@@ -422,7 +422,7 @@ function IconBtn({
       title={label}
       className={`flex h-8 w-8 items-center justify-center rounded-lg text-t3 transition-colors duration-normal disabled:cursor-not-allowed disabled:opacity-30 ${
         danger
-          ? 'hover:bg-[var(--error-light)] hover:text-[var(--error)]'
+          ? 'hover:bg-[var(--error-light)] hover:text-[var(--error-ink)]'
           : 'hover:bg-bg3 hover:text-t1'
       }`}
     >
@@ -449,7 +449,7 @@ function NavBtn({
       disabled={disabled}
       className={`inline-flex items-center gap-1 rounded-lg px-s-3 py-s-2 font-display text-[12.5px] font-[600] transition-all duration-normal disabled:cursor-not-allowed disabled:opacity-30 ${
         primary
-          ? 'bg-[var(--p)] text-[var(--ti)] shadow-sm hover:bg-[var(--p-hover)]'
+          ? 'bg-[var(--p)] text-[var(--on-p)] shadow-sm hover:bg-[var(--p-hover)]'
           : 'border border-bd bg-bg text-t2 hover:border-[var(--p)] hover:text-[var(--p)]'
       }`}
     >

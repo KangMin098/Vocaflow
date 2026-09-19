@@ -1,0 +1,127 @@
+{
+  "gate": 2,
+  "at": "2026-09-17T10:23:45.610Z",
+  "base": "http://localhost:3100",
+  "viewport": "375x812",
+  "items": [
+    "2026-18",
+    "2026-38"
+  ],
+  "pass": true,
+  "checks": [
+    {
+      "id": "F3 2026-18",
+      "pass": true,
+      "detail": "해설 조각 7개 중 DOM 노출 0 · 표식 요소 0"
+    },
+    {
+      "id": "F4 2026-18",
+      "pass": true,
+      "detail": "본문 18px · 줄간격 1.65 · 줄 폭 ≈31ch · 가로 넘침 0px · 선지 최소 48px"
+    },
+    {
+      "id": "F5 2026-18",
+      "pass": true,
+      "detail": "table 0 · tab 0 · 필터 0"
+    },
+    {
+      "id": "정오 2026-18",
+      "pass": true,
+      "detail": "정답 카드 상태 answer"
+    },
+    {
+      "id": "F6a 2026-18",
+      "pass": true,
+      "detail": "근거 문장 aria-expanded=true · 설명 194자 · 문장 display=inline"
+    },
+    {
+      "id": "F6a 접힘 2026-18",
+      "pass": true,
+      "detail": "다시 누르면 접힌다"
+    },
+    {
+      "id": "F6b 2026-18",
+      "pass": true,
+      "detail": "강조 문장 top 295 / 뷰포트 812"
+    },
+    {
+      "id": "③ 2026-18",
+      "pass": true,
+      "detail": "한 줄 31자"
+    },
+    {
+      "id": "F3 2026-38",
+      "pass": true,
+      "detail": "해설 조각 7개 중 DOM 노출 0 · 표식 요소 0"
+    },
+    {
+      "id": "F4 2026-38",
+      "pass": true,
+      "detail": "본문 18px · 줄간격 1.65 · 줄 폭 ≈31ch · 가로 넘침 0px · 선지 최소 48px"
+    },
+    {
+      "id": "F5 2026-38",
+      "pass": true,
+      "detail": "table 0 · tab 0 · 필터 0"
+    },
+    {
+      "id": "정오 2026-38",
+      "pass": true,
+      "detail": "정답 카드 상태 answer"
+    },
+    {
+      "id": "F6a 2026-38",
+      "pass": true,
+      "detail": "근거 문장 aria-expanded=true · 설명 276자 · 문장 display=inline"
+    },
+    {
+      "id": "F6a 접힘 2026-38",
+      "pass": true,
+      "detail": "다시 누르면 접힌다"
+    },
+    {
+      "id": "F6b 2026-38",
+      "pass": true,
+      "detail": "강조 문장 top 350 / 뷰포트 812"
+    },
+    {
+      "id": "③ 2026-38",
+      "pass": true,
+      "detail": "한 줄 19자"
+    },
+    {
+      "id": "끝 화면",
+      "pass": true,
+      "detail": "오늘 끝 1/2 정답 · 다음 복습 1문항 · 3일 뒤 홈으로 한 세트 더"
+    },
+    {
+      "id": "기록 저장",
+      "pass": true,
+      "detail": "{\"attempts\":2,\"reviews\":1}"
+    },
+    {
+      "id": "콘솔 에러 0",
+      "pass": true,
+      "detail": "없음"
+    }
+  ],
+  "results": [
+    {
+      "slug": "2026-18",
+      "picked": 1,
+      "answer": 2
+    },
+    {
+      "slug": "2026-38",
+      "picked": 5,
+      "answer": 5
+    }
+  ],
+  "shots": [
+    "apps/web/test-results-csat-learner/1-solve.png",
+    "apps/web/test-results-csat-learner/2-understand.png",
+    "apps/web/test-results-csat-learner/3-oneline.png",
+    "apps/web/test-results-csat-learner/4-finish.png"
+  ],
+  "note": "스크린샷에 평가원 지문이 찍혀 저장소 밖(gitignore)에 둔다"
+}

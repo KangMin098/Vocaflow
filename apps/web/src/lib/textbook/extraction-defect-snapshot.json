@@ -1,0 +1,316 @@
+{
+  "measuredAt": "2026-09-15T11:14:53.672Z",
+  "elapsedSeconds": 611.8,
+  "scope": "status in ('ready','published')",
+  "scanned": 87626,
+  "defective": 4876,
+  "rules": [
+    {
+      "id": "html-attr",
+      "label": "HTML 속성 혼입",
+      "why": "툴팁·링크 속성이 문장 한복판에 남았다 — 그대로 인쇄된다",
+      "count": 67,
+      "bySource": [
+        {
+          "source": "plos",
+          "count": 34
+        },
+        {
+          "source": "gutenberg",
+          "count": 27
+        },
+        {
+          "source": "frontiers",
+          "count": 4
+        },
+        {
+          "source": "voa",
+          "count": 2
+        }
+      ],
+      "samples": [
+        {
+          "title": "Exploring the role of meaning in non-Māori speaker",
+          "source": "plos",
+          "evidence": "<p"
+        },
+        {
+          "title": "Impact damage to the middle trough of a scraper co",
+          "source": "plos",
+          "evidence": "<A"
+        },
+        {
+          "title": "Whole exome sequence-based association analyses of",
+          "source": "plos",
+          "evidence": "<p"
+        }
+      ]
+    },
+    {
+      "id": "wiki-markup",
+      "label": "위키 마크업 잔재",
+      "why": "`== 절 ==` · `[[링크]]` · `{{틀}}` 이 본문에 남았다",
+      "count": 33,
+      "bySource": [
+        {
+          "source": "plos",
+          "count": 22
+        },
+        {
+          "source": "gutenberg",
+          "count": 5
+        },
+        {
+          "source": "simple_wikipedia",
+          "count": 2
+        },
+        {
+          "source": "frontiers",
+          "count": 2
+        },
+        {
+          "source": "voa",
+          "count": 1
+        },
+        {
+          "source": "wikipedia",
+          "count": 1
+        }
+      ],
+      "samples": [
+        {
+          "title": "Formal reasoning about systems biology using theor",
+          "source": "plos",
+          "evidence": "[[ATP;Kinase]]"
+        },
+        {
+          "title": "Recognizing the Symptoms of Mental Illness followi",
+          "source": "plos",
+          "evidence": "[[ 17 , 18 ]]"
+        },
+        {
+          "title": "Does road safety cointegrate with socio-economic c",
+          "source": "plos",
+          "evidence": "[[,,,]]"
+        }
+      ]
+    },
+    {
+      "id": "browser-notice",
+      "label": "브라우저·재생기 안내",
+      "why": "본문 자리에 \"구형 브라우저\" · \"여기를 눌러 내려받기\" 가 들어왔다 — 추출 실패",
+      "count": 20,
+      "bySource": [
+        {
+          "source": "space_place",
+          "count": 10
+        },
+        {
+          "source": "nasa",
+          "count": 10
+        }
+      ],
+      "samples": [
+        {
+          "title": "How Far Away Is the Moon? (앞부분 발췌)",
+          "source": "space_place",
+          "evidence": "You are using an outdated browser"
+        },
+        {
+          "title": "NASA’s COFFIES Uses AI to Predict Storm-Causing Ac",
+          "source": "nasa",
+          "evidence": "enable JavaScript"
+        },
+        {
+          "title": "APOD: 2026 August 19 - The Case of the Mysterious ",
+          "source": "nasa",
+          "evidence": "enable JavaScript"
+        }
+      ]
+    },
+    {
+      "id": "dup-paragraph",
+      "label": "문단 통째 중복",
+      "why": "같은 문단이 두 번 들어 있다 — 어수가 부풀고 읽으면 되풀이된다",
+      "count": 1219,
+      "bySource": [
+        {
+          "source": "plos",
+          "count": 977
+        },
+        {
+          "source": "frontiers",
+          "count": 182
+        },
+        {
+          "source": "voa",
+          "count": 33
+        },
+        {
+          "source": "futurity",
+          "count": 15
+        },
+        {
+          "source": "nasa",
+          "count": 5
+        },
+        {
+          "source": "usgs",
+          "count": 4
+        },
+        {
+          "source": "noaa",
+          "count": 3
+        }
+      ],
+      "samples": [
+        {
+          "title": "Neural Correlates of Facial Mimicry: Simultaneous ",
+          "source": "frontiers",
+          "evidence": "Post-number asterisks indicate significant Pearson correlati"
+        },
+        {
+          "title": "Too poor to science: How wealth determines who suc",
+          "source": "plos",
+          "evidence": "STEM is profoundly shaped by wealth, yet financial privilege"
+        },
+        {
+          "title": "Not just phonology: a longitudinal study of dyslex",
+          "source": "frontiers",
+          "evidence": "a, b, c Post-hoc analysis for comparison between the four su"
+        }
+      ]
+    },
+    {
+      "id": "dropped-math",
+      "label": "수식이 사라진 문장",
+      "why": "기호만 빠지고 문장은 남았다 — 산문처럼 보이는데 뜻이 안 선다",
+      "count": 3443,
+      "bySource": [
+        {
+          "source": "plos",
+          "count": 3280
+        },
+        {
+          "source": "gutenberg",
+          "count": 55
+        },
+        {
+          "source": "voa",
+          "count": 48
+        },
+        {
+          "source": "frontiers",
+          "count": 34
+        },
+        {
+          "source": "europe_pmc",
+          "count": 16
+        },
+        {
+          "source": "futurity",
+          "count": 6
+        },
+        {
+          "source": "usgs",
+          "count": 3
+        },
+        {
+          "source": "storyweaver",
+          "count": 1
+        }
+      ],
+      "samples": [
+        {
+          "title": "Coexistence rules for small, antagonistically inte",
+          "source": "plos",
+          "evidence": "by ."
+        },
+        {
+          "title": "Beyond Statistical Significance: Implications of N",
+          "source": "plos",
+          "evidence": "by ."
+        },
+        {
+          "title": "Emergent spatial structure in the gut microbiota i",
+          "source": "plos",
+          "evidence": "of ,"
+        }
+      ]
+    },
+    {
+      "id": "story-seam",
+      "label": "이야기 경계를 넘은 발췌",
+      "why": "선집을 자른 창이 한 이야기가 끝난 자리를 지났다 — 지문 한 편에 두 이야기가 담긴다",
+      "count": 44,
+      "bySource": [
+        {
+          "source": "gutenberg",
+          "count": 30
+        },
+        {
+          "source": "voa",
+          "count": 6
+        },
+        {
+          "source": "frontiers",
+          "count": 4
+        },
+        {
+          "source": "plos",
+          "count": 3
+        },
+        {
+          "source": "space_place",
+          "count": 1
+        }
+      ],
+      "samples": [
+        {
+          "title": "A Collection of Beatrix Potter Stories (발췌)",
+          "source": "gutenberg",
+          "evidence": "ONCE upon a time there was a frog called Mr. Jeremy Fisher; "
+        },
+        {
+          "title": "Grimm's Fairy Tales (발췌)",
+          "source": "gutenberg",
+          "evidence": "There was once on a time, a little girl whose father and mot"
+        },
+        {
+          "title": "The Phantom of the Opera",
+          "source": "gutenberg",
+          "evidence": "There was once, in a little market-town not far from Upsala,"
+        }
+      ]
+    },
+    {
+      "id": "share-chrome",
+      "label": "공유 버튼·크레딧 잔재",
+      "why": "\"Facebook Pinterest X LinkedIn\" · \"Image Credit:\" 가 본문에 섞였다",
+      "count": 161,
+      "bySource": [
+        {
+          "source": "nasa",
+          "count": 161
+        }
+      ],
+      "samples": [
+        {
+          "title": "Ike Theriot Helps Prepare Astronauts to Work on th",
+          "source": "nasa",
+          "evidence": "5 Min Read"
+        },
+        {
+          "title": "NASA’s COFFIES Uses AI to Predict Storm-Causing Ac",
+          "source": "nasa",
+          "evidence": "6 min read"
+        },
+        {
+          "title": "NASA Pushes New Wing Design to Find Structural Lim",
+          "source": "nasa",
+          "evidence": "3 Min Read"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,574 @@
+{
+  "book": {
+    "id": "dickens-carol-stave4",
+    "title": "A Christmas Carol · Stave 4 — The Last of the Spirits",
+    "author": "Charles Dickens, A Christmas Carol (1843)",
+    "source": "file",
+    "ref": "scratchpad-foreign/carol/pg46.raw.txt",
+    "total_words": 28000
+  },
+  "adaptation": {
+    "style": "gonick",
+    "panel_count": 18,
+    "default_tier": "teen",
+    "tiers": [
+      "child",
+      "teen",
+      "adult"
+    ],
+    "target_v_level": 7,
+    "text_mode": "adapted",
+    "_authoring_rules": "scripts/comic/docs/AUTHORING_RULES.md (v3)",
+    "target_vocab": [
+      "phantom",
+      "shroud",
+      "corpse",
+      "plunder",
+      "debt",
+      "mourn",
+      "grave",
+      "amends",
+      "spare"
+    ],
+    "iconic_quotes_kept": [
+      "My little, little child!",
+      "Am I that man",
+      "shadows of the things that Will be, or... May be",
+      "I will honour Christmas in my heart",
+      "I am not the man I was"
+    ],
+    "art_shared_across_tiers": true,
+    "seed": 46
+  },
+  "cast": [
+    {
+      "id": "scrooge",
+      "name": "Scrooge",
+      "role": "old miser, now terrified and repenting",
+      "canonical": "a thin bent elderly man, completely bald on top with wispy grey side-hair, a long smooth clean-shaven face and a sharp pointed nose, in a plain striped knee-length nightshirt, barefoot, bare-headed",
+      "anchor": "thin bent bald clean-shaven old man, sharp nose, striped nightshirt, barefoot",
+      "distinct_from": "the old bald Scrooge — not a ghost, not a giant",
+      "seed_role": 46
+    },
+    {
+      "id": "yettocome",
+      "name": "Ghost of Christmas Yet to Come",
+      "role": "third spirit — the silent future",
+      "canonical": "a tall silent phantom draped from head to foot in a deep black hooded shroud, its whole face and body hidden in blackness, only one pale outstretched hand visible, pointing; it never speaks",
+      "anchor": "tall black hooded faceless phantom, whole figure in a black shroud, only one pale pointing hand",
+      "distinct_from": "faceless and silent in a solid black shroud — no face, no torch, no light, unlike every other spirit",
+      "seed_role": 66
+    },
+    {
+      "id": "bob",
+      "name": "Bob Cratchit",
+      "role": "grieving father",
+      "canonical": "a thin gentle clerk with dark hair and a mild kind face, wound in a long white knitted comforter scarf, in a threadbare coat",
+      "anchor": "thin dark-haired clerk, long white comforter scarf",
+      "distinct_from": "a grown thin clerk — not bald, not a phantom",
+      "seed_role": 22
+    }
+  ],
+  "panels": [
+    {
+      "n": 1,
+      "wide": false,
+      "noref": false,
+      "cap_zone": "top",
+      "scene": "a tall silent phantom draped head to foot in a deep black hooded shroud, its face hidden in darkness, only one pale hand reaching out to point, looming in a dark street",
+      "composition": "close — the silent phantom",
+      "characters": [
+        "yettocome"
+      ],
+      "text": {
+        "teen": {
+          "narration": "THE LAST SPIRIT CAME — SILENT, HOODED, AND FACELESS.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "It said nothing, and only pointed. Scrooge feared this one most of all.",
+              "pos": "br",
+              "kind": "caption"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        117895,
+        120000
+      ]
+    },
+    {
+      "n": 2,
+      "wide": false,
+      "noref": false,
+      "cap_zone": "top",
+      "scene": "the bald pointed-nosed old man in a striped nightshirt, barefoot, trembling as he follows the tall black hooded phantom whose pale hand points the way through a dark city street",
+      "composition": "close — following in dread",
+      "characters": [
+        "scrooge"
+      ],
+      "text": {
+        "teen": {
+          "narration": "IT LED SCROOGE ON, ITS POINTING HAND NEVER STILL.",
+          "bubbles": [
+            {
+              "speaker": "SCROOGE",
+              "text": "Ghost of the Future — I fear you more than any spirit I have seen.",
+              "pos": "tc",
+              "kind": "speech"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        120000,
+        122100
+      ]
+    },
+    {
+      "n": 3,
+      "wide": true,
+      "noref": true,
+      "cap_zone": "top",
+      "scene": "a group of well-fed businessmen in top hats standing on a city street, chatting and chuckling carelessly, unbothered",
+      "composition": "scene — careless talk of a death",
+      "characters": [],
+      "text": {
+        "teen": {
+          "narration": "SOME BUSINESSMEN SPOKE OF A DEATH — CARELESSLY.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "'When did he die?' 'Last night, I believe.' 'What has he done with all his money?'",
+              "pos": "br",
+              "kind": "caption"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        122100,
+        124200
+      ]
+    },
+    {
+      "n": 4,
+      "wide": false,
+      "noref": true,
+      "cap_zone": "top",
+      "scene": "two of the top-hatted businessmen laughing together and turning away, one waving a careless hand",
+      "composition": "close — no one cares",
+      "characters": [],
+      "text": {
+        "teen": {
+          "narration": "THEY LAUGHED. NO ONE SEEMED SORRY THE MAN WAS DEAD.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "'It will be a cheap funeral — I'll only go if lunch is provided!'",
+              "pos": "br",
+              "kind": "caption"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        124200,
+        126300
+      ]
+    },
+    {
+      "n": 5,
+      "wide": true,
+      "noref": true,
+      "cap_zone": "top",
+      "scene": "a filthy dim rag-and-bone shop where a couple of ragged thieves and a charwoman haggle over a bundle of a dead man's belongings with a greasy old dealer",
+      "composition": "scene — selling the dead man's things",
+      "characters": [],
+      "text": {
+        "teen": {
+          "narration": "IN A FILTHY SHOP, THIEVES DIVIDED UP A DEAD MAN'S PLUNDER.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "His bed-curtains, his blankets, even the shirt off his back — all stolen and sold.",
+              "pos": "br",
+              "kind": "caption"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        126300,
+        128400
+      ]
+    },
+    {
+      "n": 6,
+      "wide": false,
+      "noref": true,
+      "cap_zone": "top",
+      "scene": "a bare cold gloomy room where a dead body lies alone under a thin plain sheet on a stripped and plundered bed, no mourners, no light but a chink of pale moon",
+      "composition": "scene — the plundered deathbed",
+      "characters": [],
+      "text": {
+        "teen": {
+          "narration": "THE CORPSE LAY ALONE UNDER A THIN SHROUD — ROBBED, UNWATCHED, UNWEPT.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "Not one kind soul sat beside him. Scrooge dared not lift the sheet to see the face.",
+              "pos": "br",
+              "kind": "caption"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        128400,
+        130500
+      ]
+    },
+    {
+      "n": 7,
+      "wide": false,
+      "noref": false,
+      "cap_zone": "top",
+      "scene": "the bald nightshirt old man shrinking back in a doorway as the tall black hooded faceless phantom stands over a sheeted body, its pale hand pointing at it",
+      "composition": "close — the phantom points at the corpse",
+      "characters": [
+        "scrooge"
+      ],
+      "text": {
+        "teen": {
+          "narration": "",
+          "bubbles": [
+            {
+              "speaker": "SCROOGE",
+              "text": "Spirit, this is a fearful place. Show me some tenderness at a death, or that dark room will haunt me forever.",
+              "pos": "tc",
+              "kind": "speech"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        130500,
+        132600
+      ]
+    },
+    {
+      "n": 8,
+      "wide": false,
+      "noref": true,
+      "cap_zone": "top",
+      "scene": "a poor young husband and wife in a modest room, a look of guilty relief passing over their tired faces",
+      "composition": "scene — relief at the death",
+      "characters": [],
+      "text": {
+        "teen": {
+          "narration": "ONE POOR COUPLE FELT ONLY RELIEF — THEY HAD OWED THE DEAD MAN MONEY.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "'We are saved,' she whispered. 'God forgive us — but thank Heaven.'",
+              "pos": "br",
+              "kind": "caption"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        132600,
+        134700
+      ]
+    },
+    {
+      "n": 9,
+      "wide": true,
+      "noref": true,
+      "cap_zone": "top",
+      "scene": "a hushed grieving Victorian family room; the mother in dark clothes sits very still, her sewing fallen in her lap; by the fire stands a small bare empty stool with a little child's crutch leaning carefully against it — but no child sits there, for the little boy is gone",
+      "composition": "scene — the empty place",
+      "characters": [],
+      "text": {
+        "teen": {
+          "narration": "AT THE CRATCHIT HOME, ALL WAS QUIET AND STILL.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "An empty stool. A little crutch, lovingly kept. Tiny Tim was gone.",
+              "pos": "br",
+              "kind": "caption"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        134700,
+        136800
+      ]
+    },
+    {
+      "n": 10,
+      "wide": false,
+      "noref": false,
+      "cap_zone": "top",
+      "scene": "the thin dark-haired clerk in his long white comforter scarf broken with grief, one hand pressed over his face, weeping alone in the quiet room",
+      "composition": "close — Bob's grief",
+      "characters": [
+        "bob"
+      ],
+      "text": {
+        "teen": {
+          "narration": "BOB CRATCHIT COULD NOT HIDE HOW DEEPLY HE MOURNED.",
+          "bubbles": [
+            {
+              "speaker": "BOB",
+              "text": "My little, little child! My little child!",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        136800,
+        138900
+      ]
+    },
+    {
+      "n": 11,
+      "wide": false,
+      "noref": false,
+      "cap_zone": "top",
+      "scene": "the dark-haired clerk in his white comforter, calmer now, gently gathering his family close, a sad tender smile through his tears",
+      "composition": "close — Bob's gentle vow",
+      "characters": [
+        "bob"
+      ],
+      "text": {
+        "teen": {
+          "narration": "BUT HE PROMISED THEY WOULD NEVER FORGET TIM'S GENTLE HEART.",
+          "bubbles": [
+            {
+              "speaker": "BOB",
+              "text": "However far apart we drift, we shall none of us forget poor Tiny Tim.",
+              "pos": "bl",
+              "kind": "speech"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        138900,
+        141000
+      ]
+    },
+    {
+      "n": 12,
+      "wide": false,
+      "noref": false,
+      "cap_zone": "top",
+      "scene": "the bald nightshirt old man trembling, turning to the tall black hooded faceless phantom, dread and a desperate need to understand on his face",
+      "composition": "close — who was the dead man?",
+      "characters": [
+        "scrooge"
+      ],
+      "text": {
+        "teen": {
+          "narration": "SCROOGE COULD BEAR IT NO LONGER.",
+          "bubbles": [
+            {
+              "speaker": "SCROOGE",
+              "text": "Spirit — tell me who that lonely dead man was!",
+              "pos": "tc",
+              "kind": "speech"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        141000,
+        143100
+      ]
+    },
+    {
+      "n": 13,
+      "wide": false,
+      "noref": false,
+      "cap_zone": "top",
+      "scene": "the tall black hooded faceless phantom standing among neglected, weed-choked graves in a bleak churchyard, its pale hand pointing straight down at one particular gravestone",
+      "composition": "close — the phantom points to a grave",
+      "characters": [
+        "yettocome"
+      ],
+      "text": {
+        "teen": {
+          "narration": "THE PHANTOM LED HIM TO A NEGLECTED GRAVE — AND POINTED DOWN.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "Before he looked, Scrooge already dreaded whose name he would find.",
+              "pos": "br",
+              "kind": "caption"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        143100,
+        145200
+      ]
+    },
+    {
+      "n": 14,
+      "wide": false,
+      "noref": false,
+      "cap_zone": "top",
+      "scene": "the bald nightshirt old man on his knees in horror before a plain weathered gravestone with a blank uncarved face, clutching at its cold edge",
+      "composition": "close — his own name on the stone",
+      "characters": [
+        "scrooge"
+      ],
+      "text": {
+        "teen": {
+          "narration": "SCROOGE CREPT TOWARD THE STONE — AND READ HIS OWN NAME.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "The neglected grave bore one name: EBENEZER SCROOGE. The lonely dead man was himself.",
+              "pos": "br",
+              "kind": "caption"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        145200,
+        147300
+      ]
+    },
+    {
+      "n": 15,
+      "wide": false,
+      "noref": false,
+      "cap_zone": "top",
+      "scene": "the bald nightshirt old man clinging to the phantom's black robe, weeping, his face lifted in desperate pleading",
+      "composition": "close — no, Spirit!",
+      "characters": [
+        "scrooge"
+      ],
+      "text": {
+        "teen": {
+          "narration": "",
+          "bubbles": [
+            {
+              "speaker": "SCROOGE",
+              "text": "Am I that man who lay upon the bed? No, Spirit! Oh no, no!",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        147300,
+        149400
+      ]
+    },
+    {
+      "n": 16,
+      "wide": false,
+      "noref": false,
+      "cap_zone": "top",
+      "scene": "the bald nightshirt old man kneeling and reaching up imploringly to the silent black hooded phantom, hope and terror fighting on his face",
+      "composition": "close — will be, or may be?",
+      "characters": [
+        "scrooge"
+      ],
+      "text": {
+        "teen": {
+          "narration": "",
+          "bubbles": [
+            {
+              "speaker": "SCROOGE",
+              "text": "Are these the shadows of things that WILL be — or only the things that MAY be?",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        149400,
+        151500
+      ]
+    },
+    {
+      "n": 17,
+      "wide": false,
+      "noref": false,
+      "cap_zone": "top",
+      "scene": "the bald nightshirt old man seizing the phantom's pale hand in both of his, his whole face streaming with tears and desperate resolve",
+      "composition": "close — the vow",
+      "characters": [
+        "scrooge"
+      ],
+      "text": {
+        "teen": {
+          "narration": "HE SEIZED THE PHANTOM'S HAND, WEEPING — VOWING TO MAKE AMENDS.",
+          "bubbles": [
+            {
+              "speaker": "SCROOGE",
+              "text": "I will honour Christmas in my heart, and try to keep it all the year! I am not the man I was!",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "DICKENS 1843"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        151500,
+        153600
+      ]
+    },
+    {
+      "n": 18,
+      "wide": false,
+      "noref": false,
+      "cap_zone": "top",
+      "scene": "the old bald pointed-nosed man in his striped nightshirt, barefoot, entirely alone in his own plain bedroom, joyfully hugging the plain wooden bedpost of his four-poster bed with both hands, bright morning sunlight streaming through the window — no one else in the room",
+      "composition": "close — alone and alive at last",
+      "characters": [
+        "scrooge"
+      ],
+      "text": {
+        "teen": {
+          "narration": "THE SPIRIT SHRANK, COLLAPSED — AND DWINDLED INTO A BEDPOST.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "It was his own bed. His own room. And he was ALIVE — with time to set everything right!",
+              "pos": "br",
+              "kind": "caption"
+            }
+          ]
+        }
+      },
+      "beat_offset": [
+        153600,
+        155700
+      ]
+    }
+  ]
+}

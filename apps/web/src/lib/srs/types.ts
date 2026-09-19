@@ -63,6 +63,7 @@ export type ModuleId =
   | 'wordvault' // 노출(L3)만, retrieve 아님
   | 'workspace' // L2 hover 인터랙션
   | 'textviewer' // L1
+  | 'echo' // L4c 청각 — 발화 모방(F3). 기록만 남기고 복습 간격은 움직이지 않는다
   // ── 신규 게임 6종 (v07.3 arcade suite) — DB enum 확장 마이그레이션 후 persistence 활성 ──
   | 'cascade' // L4a 재인·공간 (매치)
   | 'connections' // L5 의미 그룹핑
@@ -77,7 +78,11 @@ export type ModuleId =
   | 'morpheme-rules' // L4b 형태소 조립·규칙 재작성 (Baba Is You 계열)
   | 'silent-rule' // L4b 철자 규칙 귀납 (The Witness 계열)
   | 'lexicon-estate' // L5 의미장 인접 배치·드래프트 (Blue Prince 계열)
-  | 'word-orrery'; // L5 지식 게이트 탐사 (Outer Wilds 계열)
+  | 'word-orrery' // L5 지식 게이트 탐사 (Outer Wilds 계열)
+  | 'pirate-quest' // L4a 3D 공간 인출 (v07.8 재설계로 학습자 단어 사용)
+  | 'wordsmith-vigil' // L4b 타이핑 생성 서바이버 (Typing of the Dead 계열)
+  | 'morphmerge' // L4b 어족 합치기 형태론 (2048/Merge 계열)
+  | 'wordfall-cadence'; // L4c 듣기 케이던스 (리듬 계열)
 
 /**
  * 사용자 단계 — §17.2 [2] 상태 축 — 사용자 상태

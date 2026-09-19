@@ -1,0 +1,862 @@
+[
+ {
+  "exam": "M2209",
+  "no": 1,
+  "stem": "다음을 듣고, 남자가 하는 말의 목적으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Welcome back to the final episode of Tomorrow’s Singer. We hope you enjoyed the performances of our two finalists. Now, it’s time to pick the winner of our singing competition. Vote now by texting the name of your favorite contestant to the number at the bottom of your TV screen. This is your last chance to help your favorite contestant become a super star. You can also win exciting prizes just by voting. Remember voting closes in only five minutes. So, cast your vote now and decide who’ll be tomorrow’s singer. We’ll be right back after a short commercial break."
+   }
+  ],
+  "script": "Welcome back to the final episode of Tomorrow’s Singer. We hope you enjoyed the performances of our two finalists. Now, it’s time to pick the winner of our singing competition. Vote now by texting the name of your favorite contestant to the number at the bottom of your TV screen. This is your last chance to help your favorite contestant become a super star. You can also win exciting prizes just by voting. Remember voting closes in only five minutes. So, cast your vote now and decide who’ll be tomorrow’s singer. We’ll be right back after a short commercial break.",
+  "words": 100,
+  "nTurns": 1,
+  "speakers": [
+   "M"
+  ],
+  "isDialogue": false,
+  "typeGuess": "L-PURPOSE",
+  "typeGuessAll": [
+   "L-PURPOSE"
+  ]
+ },
+ {
+  "exam": "M2209",
+  "no": 2,
+  "stem": "대화를 듣고, 여자의 의견으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Honey, I just saw Amy folding laundry in the living room. Did you ask her to do it?"
+   },
+   {
+    "who": "W",
+    "text": "Well, she said she wanted to help with the housework."
+   },
+   {
+    "who": "M",
+    "text": "That’s fine. But don’t you think she’s too young to do housework? She’s just six years old."
+   },
+   {
+    "who": "W",
+    "text": "Maybe. But I think doing housework helps children improve their self­esteem."
+   },
+   {
+    "who": "M",
+    "text": "Why do you think so?"
+   },
+   {
+    "who": "W",
+    "text": "I read in a book that when kids participate in housework, they feel like they’re more important to the family."
+   },
+   {
+    "who": "M",
+    "text": "Hmm, that makes sense."
+   },
+   {
+    "who": "W",
+    "text": "Besides, children often gain a sense of achievement from completing household tasks."
+   },
+   {
+    "who": "M",
+    "text": "Oh, and maybe it could help Amy to feel proud of herself, too."
+   },
+   {
+    "who": "W",
+    "text": "Exactly. That’s why children who do housework often have higher self­esteem."
+   },
+   {
+    "who": "M",
+    "text": "You’re right. Then let’s think about other kinds of housework Amy would enjoy."
+   },
+   {
+    "who": "W",
+    "text": "Sounds good."
+   }
+  ],
+  "script": "Honey, I just saw Amy folding laundry in the living room. Did you ask her to do it? Well, she said she wanted to help with the housework. That’s fine. But don’t you think she’s too young to do housework? She’s just six years old. Maybe. But I think doing housework helps children improve their self­esteem. Why do you think so? I read in a book that when kids participate in housework, they feel like they’re more important to the family. Hmm, that makes sense. Besides, children often gain a sense of achievement from completing household tasks. Oh, and maybe it could help Amy to feel proud of herself, too. Exactly. That’s why children who do housework often have higher self­esteem. You’re right. Then let’s think about other kinds of housework Amy would enjoy. Sounds good.",
+  "words": 138,
+  "nTurns": 12,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-OPINION",
+  "typeGuessAll": [
+   "L-OPINION"
+  ]
+ },
+ {
+  "exam": "M2209",
+  "no": 3,
+  "stem": "대화를 듣고, 두 사람의 관계를 가장 잘 나타낸 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Hello, Mr. Miller. It’s been a while. How’s your business?"
+   },
+   {
+    "who": "M",
+    "text": "The restaurant is doing pretty good. Jessica, I’d like to buy some purple flowers."
+   },
+   {
+    "who": "W",
+    "text": "I’m sorry. We don’t have any purple flowers right now. Why are you looking for that specific color?"
+   },
+   {
+    "who": "M",
+    "text": "I need that color to decorate my restaurant. My customer is having a company anniversary party, and its logo is purple."
+   },
+   {
+    "who": "W",
+    "text": "I see. When do you need the flowers?"
+   },
+   {
+    "who": "M",
+    "text": "This Friday."
+   },
+   {
+    "who": "W",
+    "text": "Okay. Shall I ask my boss to order purple lilies?"
+   },
+   {
+    "who": "M",
+    "text": "That’d be perfect. I didn’t know there were purple lilies."
+   },
+   {
+    "who": "W",
+    "text": "They’re rare and stand for pride and success. They’d be a great fit for this event in your restaurant."
+   },
+   {
+    "who": "M",
+    "text": "Great to know. And I could put notes about the flower’s meaning on the tables."
+   },
+   {
+    "who": "W",
+    "text": "Good idea. My boss will call you with the details."
+   },
+   {
+    "who": "M",
+    "text": "Thanks for all your help."
+   }
+  ],
+  "script": "Hello, Mr. Miller. It’s been a while. How’s your business? The restaurant is doing pretty good. Jessica, I’d like to buy some purple flowers. I’m sorry. We don’t have any purple flowers right now. Why are you looking for that specific color? I need that color to decorate my restaurant. My customer is having a company anniversary party, and its logo is purple. I see. When do you need the flowers? This Friday. Okay. Shall I ask my boss to order purple lilies? That’d be perfect. I didn’t know there were purple lilies. They’re rare and stand for pride and success. They’d be a great fit for this event in your restaurant. Great to know. And I could put notes about the flower’s meaning on the tables. Good idea. My boss will call you with the details. Thanks for all your help.",
+  "words": 142,
+  "nTurns": 12,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-RELATION",
+  "typeGuessAll": [
+   "L-RELATION"
+  ]
+ },
+ {
+  "exam": "M2209",
+  "no": 4,
+  "stem": "대화를 듣고, 그림에서 대화의 내용과 일치하지 않는 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Hi, Jane. What are you doing?"
+   },
+   {
+    "who": "W",
+    "text": "Hi, Sam. I’m reading a blog about that book cafe we used to visit."
+   },
+   {
+    "who": "M",
+    "text": "Oh, I heard that it was recently remodeled."
+   },
+   {
+    "who": "W",
+    "text": "Right. Take a look at this picture of the first floor. I love the stairs next to the windows."
+   },
+   {
+    "who": "M",
+    "text": "Yeah, the view from the stairs is amazing."
+   },
+   {
+    "who": "W",
+    "text": "For sure. Do you remember the square clock on the wall?"
+   },
+   {
+    "who": "M",
+    "text": "Of course. It’s been there since we first visited. Oh, there are two speakers beside the bookcase now."
+   },
+   {
+    "who": "W",
+    "text": "Fantastic. I love to listen to music while I read."
+   },
+   {
+    "who": "M",
+    "text": "That’s the best. And look at the stripe­patterned cushion on the chair. I love it."
+   },
+   {
+    "who": "W",
+    "text": "So do I. I actually have the same one at home."
+   },
+   {
+    "who": "M",
+    "text": "Cool. Hey, check out the lamp on the table."
+   },
+   {
+    "who": "W",
+    "text": "Yeah, it’ll be easier to read now. I really like how the book cafe has been remodeled."
+   }
+  ],
+  "script": "Hi, Jane. What are you doing? Hi, Sam. I’m reading a blog about that book cafe we used to visit. Oh, I heard that it was recently remodeled. Right. Take a look at this picture of the first floor. I love the stairs next to the windows. Yeah, the view from the stairs is amazing. For sure. Do you remember the square clock on the wall? Of course. It’s been there since we first visited. Oh, there are two speakers beside the bookcase now. Fantastic. I love to listen to music while I read. That’s the best. And look at the stripe­patterned cushion on the chair. I love it. So do I. I actually have the same one at home. Cool. Hey, check out the lamp on the table. Yeah, it’ll be easier to read now. I really like how the book cafe has been remodeled.",
+  "words": 147,
+  "nTurns": 12,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-PICTURE",
+  "typeGuessAll": [
+   "L-PICTURE"
+  ]
+ },
+ {
+  "exam": "M2209",
+  "no": 5,
+  "stem": "대화를 듣고, 남자가 할 일로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Hi, honey. How was school today?"
+   },
+   {
+    "who": "M",
+    "text": "Fine, Mom. But I spilled some cherry juice on my shirt."
+   },
+   {
+    "who": "W",
+    "text": "Don’t worry. I’ll take it to the dry cleaner’s later."
+   },
+   {
+    "who": "M",
+    "text": "Thanks. By the way, what are you doing?"
+   },
+   {
+    "who": "W",
+    "text": "I was just about to change the water in the fish tank."
+   },
+   {
+    "who": "M",
+    "text": "Do you need some help?"
+   },
+   {
+    "who": "W",
+    "text": "No, it’s okay. But thanks for asking."
+   },
+   {
+    "who": "M",
+    "text": "Okay. Be careful with the water heater. You almost broke it last time."
+   },
+   {
+    "who": "W",
+    "text": "I’m not going to make the same mistake twice. Oh, we need to replace the filter in the tank with a new one."
+   },
+   {
+    "who": "M",
+    "text": "Really? But we’re out of filters. Should I order some online right now?"
+   },
+   {
+    "who": "W",
+    "text": "Great."
+   },
+   {
+    "who": "M",
+    "text": "Okay, I’ll do it. I think they’ll arrive in about two days."
+   }
+  ],
+  "script": "Hi, honey. How was school today? Fine, Mom. But I spilled some cherry juice on my shirt. Don’t worry. I’ll take it to the dry cleaner’s later. Thanks. By the way, what are you doing? I was just about to change the water in the fish tank. Do you need some help? No, it’s okay. But thanks for asking. Okay. Be careful with the water heater. You almost broke it last time. I’m not going to make the same mistake twice. Oh, we need to replace the filter in the tank with a new one. Really? But we’re out of filters. Should I order some online right now? Great. Okay, I’ll do it. I think they’ll arrive in about two days.",
+  "words": 121,
+  "nTurns": 12,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-TODO",
+  "typeGuessAll": [
+   "L-TODO"
+  ]
+ },
+ {
+  "exam": "M2209",
+  "no": 6,
+  "stem": "대화를 듣고, 여자가 지불할 금액을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Hello. May I help you?"
+   },
+   {
+    "who": "W",
+    "text": "Yes. I need a badminton racket for my son. He’s starting lessons next week."
+   },
+   {
+    "who": "M",
+    "text": "How old is your son?"
+   },
+   {
+    "who": "W",
+    "text": "Seven. What’s a good one?"
+   },
+   {
+    "who": "M",
+    "text": "How about this one? It’s only $20 and perfect for children that age."
+   },
+   {
+    "who": "W",
+    "text": "Okay. I’ll take it."
+   },
+   {
+    "who": "M",
+    "text": "What about rackets for adults in case you want to play with your son?"
+   },
+   {
+    "who": "W",
+    "text": "Oh, that’s a great idea."
+   },
+   {
+    "who": "M",
+    "text": "I recommend these two. This is $30 and the other is $55. But the $55 racket is much lighter."
+   },
+   {
+    "who": "W",
+    "text": "I really like the lighter one, but it’s a bit expensive."
+   },
+   {
+    "who": "M",
+    "text": "Well, if you buy the lighter one, I can give you a dozen shuttlecocks worth $10 for free. You’ll need shuttlecocks anyway."
+   },
+   {
+    "who": "W",
+    "text": "That’s a good deal. Then I’ll get the lighter one."
+   },
+   {
+    "who": "M",
+    "text": "Okay. So, the rackets for you and your son. And of course, the free shuttlecocks."
+   },
+   {
+    "who": "W",
+    "text": "Thank you. Here’s my credit card."
+   }
+  ],
+  "script": "Hello. May I help you? Yes. I need a badminton racket for my son. He’s starting lessons next week. How old is your son? Seven. What’s a good one? How about this one? It’s only $20 and perfect for children that age. Okay. I’ll take it. What about rackets for adults in case you want to play with your son? Oh, that’s a great idea. I recommend these two. This is $30 and the other is $55. But the $55 racket is much lighter. I really like the lighter one, but it’s a bit expensive. Well, if you buy the lighter one, I can give you a dozen shuttlecocks worth $10 for free. You’ll need shuttlecocks anyway. That’s a good deal. Then I’ll get the lighter one. Okay. So, the rackets for you and your son. And of course, the free shuttlecocks. Thank you. Here’s my credit card.",
+  "words": 143,
+  "nTurns": 14,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-MONEY",
+  "typeGuessAll": [
+   "L-MONEY"
+  ]
+ },
+ {
+  "exam": "M2209",
+  "no": 7,
+  "stem": "대화를 듣고, 남자가 Career Day 행사 장소를 변경하려는 이유를 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Mr. Bresnan, how’s the preparation for this month’s Career Day going?"
+   },
+   {
+    "who": "M",
+    "text": "Pretty well, Ms. Potter. This time, a local baker is visiting our school to speak with our students."
+   },
+   {
+    "who": "W",
+    "text": "It’ll be good for our students to learn about what bakers do. The event will be held in the seminar room tomorrow, right?"
+   },
+   {
+    "who": "M",
+    "text": "Well, I think I have to change the place of the event."
+   },
+   {
+    "who": "W",
+    "text": "Why? Is there another event scheduled in that room?"
+   },
+   {
+    "who": "M",
+    "text": "No, I already checked."
+   },
+   {
+    "who": "W",
+    "text": "Then is it because of the repair work going on next door?"
+   },
+   {
+    "who": "M",
+    "text": "That’s not an issue. It starts after school."
+   },
+   {
+    "who": "W",
+    "text": "So, why do you want to change the place?"
+   },
+   {
+    "who": "M",
+    "text": "Actually, more students signed up than I expected."
+   },
+   {
+    "who": "W",
+    "text": "Oh, I see. How about using the conference room, then? It has more space."
+   },
+   {
+    "who": "M",
+    "text": "Great idea. I’ll go check if it’s available and let the students know."
+   }
+  ],
+  "script": "Mr. Bresnan, how’s the preparation for this month’s Career Day going? Pretty well, Ms. Potter. This time, a local baker is visiting our school to speak with our students. It’ll be good for our students to learn about what bakers do. The event will be held in the seminar room tomorrow, right? Well, I think I have to change the place of the event. Why? Is there another event scheduled in that room? No, I already checked. Then is it because of the repair work going on next door? That’s not an issue. It starts after school. So, why do you want to change the place? Actually, more students signed up than I expected. Oh, I see. How about using the conference room, then? It has more space. Great idea. I’ll go check if it’s available and let the students know.",
+  "words": 141,
+  "nTurns": 12,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-REASON",
+  "typeGuessAll": [
+   "L-REASON"
+  ]
+ },
+ {
+  "exam": "M2209",
+  "no": 8,
+  "stem": "대화를 듣고, Digital Publishing Workshop에 관해 언급되지 않은 것을 고르시오.",
+  "turns": [
+   {
+    "who": "?",
+    "text": "[Cell phone rings.]"
+   },
+   {
+    "who": "M",
+    "text": "Hey, Charlotte. What’s up?"
+   },
+   {
+    "who": "W",
+    "text": "Hi, Chris. I’m looking at information about an online course called Digital Publishing Workshop. How about taking it with me?"
+   },
+   {
+    "who": "M",
+    "text": "Sounds interesting. Tell me more."
+   },
+   {
+    "who": "W",
+    "text": "The purpose of the workshop is to provide guidelines for publishing digital magazines and e­books. What do you think?"
+   },
+   {
+    "who": "M",
+    "text": "Actually, I’ve been dreaming about publishing my own e­books. But, is it okay if I don’t have any experience?"
+   },
+   {
+    "who": "W",
+    "text": "Of course. It’s targeted at college students who’re just starting out."
+   },
+   {
+    "who": "M",
+    "text": "Great. Then when is the workshop?"
+   },
+   {
+    "who": "W",
+    "text": "It’s held for three days from October 27th to 29th."
+   },
+   {
+    "who": "M",
+    "text": "Excellent. Midterm exams will be over by then. Do we need to register?"
+   },
+   {
+    "who": "W",
+    "text": "Yes. We can do it online. There’s a link to the registration page on our library’s website."
+   },
+   {
+    "who": "M",
+    "text": "Okay. Let’s sign up."
+   }
+  ],
+  "script": "[Cell phone rings.] Hey, Charlotte. What’s up? Hi, Chris. I’m looking at information about an online course called Digital Publishing Workshop. How about taking it with me? Sounds interesting. Tell me more. The purpose of the workshop is to provide guidelines for publishing digital magazines and e­books. What do you think? Actually, I’ve been dreaming about publishing my own e­books. But, is it okay if I don’t have any experience? Of course. It’s targeted at college students who’re just starting out. Great. Then when is the workshop? It’s held for three days from October 27th to 29th. Excellent. Midterm exams will be over by then. Do we need to register? Yes. We can do it online. There’s a link to the registration page on our library’s website. Okay. Let’s sign up.",
+  "words": 133,
+  "nTurns": 12,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-NOTMENTION",
+  "typeGuessAll": [
+   "L-NOTMENTION"
+  ]
+ },
+ {
+  "exam": "M2209",
+  "no": 9,
+  "stem": "2021 Playground in the Park에 관한 다음 내용을 듣고, 일치하지 않는 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Hello, listeners. Would you like your kids to have a good time in a park away from smartphones and video games? Then there’s an exciting event for all of you. Our radio station is hosting the 2021 Playground in the Park. This event will be on Saturday, September 25th from 10 a.m. to 3 p.m. at the Queens Quarter Park. There are five play zones, including giant seesaws, tree houses, and elephant­shaped slides. Hurry and sign up now because only up to 60 kids can participate in this event. There’ll be food trucks, so you can buy a variety of foods at the event site. This is an outdoor event, so the event will be rescheduled if it rains. Visit our website for more information."
+   }
+  ],
+  "script": "Hello, listeners. Would you like your kids to have a good time in a park away from smartphones and video games? Then there’s an exciting event for all of you. Our radio station is hosting the 2021 Playground in the Park. This event will be on Saturday, September 25th from 10 a.m. to 3 p.m. at the Queens Quarter Park. There are five play zones, including giant seesaws, tree houses, and elephant­shaped slides. Hurry and sign up now because only up to 60 kids can participate in this event. There’ll be food trucks, so you can buy a variety of foods at the event site. This is an outdoor event, so the event will be rescheduled if it rains. Visit our website for more information.",
+  "words": 124,
+  "nTurns": 1,
+  "speakers": [
+   "W"
+  ],
+  "isDialogue": false,
+  "typeGuess": "L-ANNOUNCE",
+  "typeGuessAll": [
+   "L-ANNOUNCE"
+  ]
+ },
+ {
+  "exam": "M2209",
+  "no": 10,
+  "stem": "다음 표를 보면서 대화를 듣고, 여자가 구매할 블루투스 이어폰을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Welcome to Aiden’s Electronics. What can I do for you?"
+   },
+   {
+    "who": "W",
+    "text": "Hi. I’m looking for bluetooth earphones."
+   },
+   {
+    "who": "M",
+    "text": "Okay. These are the five models we carry. Do you have any particular brand in mind?"
+   },
+   {
+    "who": "W",
+    "text": "No, but I want earphones with a battery that lasts at least three hours. It takes me more than two hours to go to work."
+   },
+   {
+    "who": "M",
+    "text": "All right. Are you interested in wireless charging?"
+   },
+   {
+    "who": "W",
+    "text": "Yes. It’d be nice to charge my earphones without connecting to a charging cable."
+   },
+   {
+    "who": "M",
+    "text": "Got it. What about the price?"
+   },
+   {
+    "who": "W",
+    "text": "I definitely don’t want to spend more than $100."
+   },
+   {
+    "who": "M",
+    "text": "No problem. Then you are down to these two. This model comes with a silicone case cover, and that one comes with a leather case cover."
+   },
+   {
+    "who": "W",
+    "text": "Well, I don’t like the feel of the silicone. It feels weird."
+   },
+   {
+    "who": "M",
+    "text": "Then, this is the model for you."
+   },
+   {
+    "who": "W",
+    "text": "Perfect. I’ll take it."
+   }
+  ],
+  "script": "Welcome to Aiden’s Electronics. What can I do for you? Hi. I’m looking for bluetooth earphones. Okay. These are the five models we carry. Do you have any particular brand in mind? No, but I want earphones with a battery that lasts at least three hours. It takes me more than two hours to go to work. All right. Are you interested in wireless charging? Yes. It’d be nice to charge my earphones without connecting to a charging cable. Got it. What about the price? I definitely don’t want to spend more than $100. No problem. Then you are down to these two. This model comes with a silicone case cover, and that one comes with a leather case cover. Well, I don’t like the feel of the silicone. It feels weird. Then, this is the model for you. Perfect. I’ll take it.",
+  "words": 142,
+  "nTurns": 12,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-TABLE",
+  "typeGuessAll": [
+   "L-TABLE"
+  ]
+ },
+ {
+  "exam": "M2209",
+  "no": 11,
+  "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Andy, it’s hard to get together for our biology group project. All our group members seem busy."
+   },
+   {
+    "who": "M",
+    "text": "I know. Why don’t we make an online group chat room? Then, we can communicate easily without face­to­face meetings."
+   },
+   {
+    "who": "W",
+    "text": "That’s a wonderful idea. Could you do it for us?"
+   }
+  ],
+  "script": "Andy, it’s hard to get together for our biology group project. All our group members seem busy. I know. Why don’t we make an online group chat room? Then, we can communicate easily without face­to­face meetings. That’s a wonderful idea. Could you do it for us?",
+  "words": 48,
+  "nTurns": 3,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-RESPONSE",
+  "typeGuessAll": [
+   "L-RESPONSE"
+  ]
+ },
+ {
+  "exam": "M2209",
+  "no": 12,
+  "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "I’m excited to go on this trip. Honey, did you fasten your seatbelt?"
+   },
+   {
+    "who": "W",
+    "text": "Yes. [Pause] Oh, wait. I’m not sure if I turned off the lights in the living room when I left the house."
+   },
+   {
+    "who": "M",
+    "text": "Don’t worry. I turned them off. And I checked all the other rooms, too."
+   }
+  ],
+  "script": "I’m excited to go on this trip. Honey, did you fasten your seatbelt? Yes. [Pause] Oh, wait. I’m not sure if I turned off the lights in the living room when I left the house. Don’t worry. I turned them off. And I checked all the other rooms, too.",
+  "words": 49,
+  "nTurns": 3,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-RESPONSE",
+  "typeGuessAll": [
+   "L-RESPONSE"
+  ]
+ },
+ {
+  "exam": "M2209",
+  "no": 13,
+  "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "?",
+    "text": "[3점]"
+   },
+   {
+    "who": "W",
+    "text": "Hi, Uncle James. I’m back from the cycling camp."
+   },
+   {
+    "who": "M",
+    "text": "Hey, Clara. How was it?"
+   },
+   {
+    "who": "W",
+    "text": "It was great. My cycling improved a lot. I want to be a national cycling champion just like you."
+   },
+   {
+    "who": "M",
+    "text": "I know you will. You’re participating in the national youth cycling competition next month, right?"
+   },
+   {
+    "who": "W",
+    "text": "Yeah, but I’m a little bit nervous because it’s my first national competition."
+   },
+   {
+    "who": "M",
+    "text": "I felt the same way. But once you start racing, you’ll forget about being nervous."
+   },
+   {
+    "who": "W",
+    "text": "I hope so. I really want to get first place."
+   },
+   {
+    "who": "M",
+    "text": "Well, you did set the record at the city competition this year."
+   },
+   {
+    "who": "W",
+    "text": "That’s true. And I’ve trained really hard all year."
+   },
+   {
+    "who": "M",
+    "text": "See, I know you’re ready."
+   },
+   {
+    "who": "W",
+    "text": "Thank you. I hope all my hard work pays off. Wish me luck."
+   }
+  ],
+  "script": "[3점] Hi, Uncle James. I’m back from the cycling camp. Hey, Clara. How was it? It was great. My cycling improved a lot. I want to be a national cycling champion just like you. I know you will. You’re participating in the national youth cycling competition next month, right? Yeah, but I’m a little bit nervous because it’s my first national competition. I felt the same way. But once you start racing, you’ll forget about being nervous. I hope so. I really want to get first place. Well, you did set the record at the city competition this year. That’s true. And I’ve trained really hard all year. See, I know you’re ready. Thank you. I hope all my hard work pays off. Wish me luck.",
+  "words": 125,
+  "nTurns": 12,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-RESPONSE",
+  "typeGuessAll": [
+   "L-RESPONSE"
+  ]
+ },
+ {
+  "exam": "M2209",
+  "no": 14,
+  "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "?",
+    "text": "[Phone rings.]"
+   },
+   {
+    "who": "W",
+    "text": "Ashton Science Museum. How can I help you?"
+   },
+   {
+    "who": "M",
+    "text": "Hi. I’m planning a field trip for my students, and I was wondering if your museum had any programs for high school students."
+   },
+   {
+    "who": "W",
+    "text": "Yes, we have one. It’s named Teen Science Adventure. When is the field trip?"
+   },
+   {
+    "who": "M",
+    "text": "It’s October 14th. I’m bringing about 50 students. Is it available that day?"
+   },
+   {
+    "who": "W",
+    "text": "Let me check. [Mouse clicking sound] It’s available in the afternoon."
+   },
+   {
+    "who": "M",
+    "text": "Perfect. Can you briefly explain the program?"
+   },
+   {
+    "who": "W",
+    "text": "Sure. It includes workshops, hands­on activities, and AI robot demonstrations."
+   },
+   {
+    "who": "M",
+    "text": "Amazing."
+   },
+   {
+    "who": "W",
+    "text": "And the highlight of this program is the VR Escape Room where students get to solve virtual challenges using scientific knowledge."
+   },
+   {
+    "who": "M",
+    "text": "It sounds fun and educational. My students would love that."
+   },
+   {
+    "who": "W",
+    "text": "Would you like to make a reservation then?"
+   },
+   {
+    "who": "M",
+    "text": "It’d be nice if you could send me more information today, so I can discuss it with my principal."
+   }
+  ],
+  "script": "[Phone rings.] Ashton Science Museum. How can I help you? Hi. I’m planning a field trip for my students, and I was wondering if your museum had any programs for high school students. Yes, we have one. It’s named Teen Science Adventure. When is the field trip? It’s October 14th. I’m bringing about 50 students. Is it available that day? Let me check. [Mouse clicking sound] It’s available in the afternoon. Perfect. Can you briefly explain the program? Sure. It includes workshops, hands­on activities, and AI robot demonstrations. Amazing. And the highlight of this program is the VR Escape Room where students get to solve virtual challenges using scientific knowledge. It sounds fun and educational. My students would love that. Would you like to make a reservation then? It’d be nice if you could send me more information today, so I can discuss it with my principal.",
+  "words": 147,
+  "nTurns": 13,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-RESPONSE",
+  "typeGuessAll": [
+   "L-RESPONSE"
+  ]
+ },
+ {
+  "exam": "M2209",
+  "no": 15,
+  "stem": "다음 상황 설명을 듣고, Megan이 Philip에게 할 말로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "?",
+    "text": "[3점]"
+   },
+   {
+    "who": "M",
+    "text": "Philip goes to a bookstore to buy a recently published book titled The Psychology of Everyday Affairs. While Philip is looking for the book, he happens to see an advertisement poster on the wall. It says that if people sign up for a membership, they can get a 10% discount on books. At the counter, he meets Megan, who works at the bookstore. He tells her that he wants to become a bookstore member to get a discount on the book. However, Megan knows that the membership discount is only for books that were published more than a year ago. Even though Megan doesn’t want to disappoint Philip, she has to tell him that he cannot get the discount on the book he wants to buy. In this situation, what would Megan most likely say to Philip? 16번부터 17번까지는 두 번 들려줍니다."
+   }
+  ],
+  "script": "[3점] Philip goes to a bookstore to buy a recently published book titled The Psychology of Everyday Affairs. While Philip is looking for the book, he happens to see an advertisement poster on the wall. It says that if people sign up for a membership, they can get a 10% discount on books. At the counter, he meets Megan, who works at the bookstore. He tells her that he wants to become a bookstore member to get a discount on the book. However, Megan knows that the membership discount is only for books that were published more than a year ago. Even though Megan doesn’t want to disappoint Philip, she has to tell him that he cannot get the discount on the book he wants to buy. In this situation, what would Megan most likely say to Philip? 16번부터 17번까지는 두 번 들려줍니다.",
+  "words": 136,
+  "nTurns": 2,
+  "speakers": [
+   "M"
+  ],
+  "isDialogue": false,
+  "typeGuess": "L-SITUATION",
+  "typeGuessAll": [
+   "L-SITUATION"
+  ]
+ },
+ {
+  "exam": "M2209",
+  "no": 16,
+  "stem": "여자가 하는 말의 주제로 가장 적절한 것은? [3점]",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Hello, students. I’m sure you’ve encountered some wild animals in cities. Let’s look at some reasons that wild animals have done well and their populations have grown in cities. First, pigeons were rare in cities like Paris, but now you can easily find them. Urban expansion reduced the number of animals hunting them, and food waste in cities has been a great food source for them. And, while London is not by the sea, it has many seagulls. This is because nesting on the roofs of buildings protects their chicks from danger. Next, Delhi is home to about 30,000 monkeys. Experts say that monkeys’ high intelligence and comfort with humans let them flourish in the city. Lastly, in the 19th century, there was a small population of squirrels in New York City. Squirrels were seen as public pets, so the city planted nut­bearing trees as their food source. This increased their population in the city. Let’s watch a video about these animals’ city lives."
+   }
+  ],
+  "fromSet": "16~17",
+  "script": "Hello, students. I’m sure you’ve encountered some wild animals in cities. Let’s look at some reasons that wild animals have done well and their populations have grown in cities. First, pigeons were rare in cities like Paris, but now you can easily find them. Urban expansion reduced the number of animals hunting them, and food waste in cities has been a great food source for them. And, while London is not by the sea, it has many seagulls. This is because nesting on the roofs of buildings protects their chicks from danger. Next, Delhi is home to about 30,000 monkeys. Experts say that monkeys’ high intelligence and comfort with humans let them flourish in the city. Lastly, in the 19th century, there was a small population of squirrels in New York City. Squirrels were seen as public pets, so the city planted nut­bearing trees as their food source. This increased their population in the city. Let’s watch a video about these animals’ city lives.",
+  "words": 164,
+  "nTurns": 1,
+  "speakers": [
+   "W"
+  ],
+  "isDialogue": false,
+  "typeGuess": "L-SET-TOPIC",
+  "typeGuessAll": [
+   "L-SET-TOPIC"
+  ]
+ },
+ {
+  "exam": "M2209",
+  "no": 17,
+  "stem": "언급된 도시가 아닌 것은?",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Hello, students. I’m sure you’ve encountered some wild animals in cities. Let’s look at some reasons that wild animals have done well and their populations have grown in cities. First, pigeons were rare in cities like Paris, but now you can easily find them. Urban expansion reduced the number of animals hunting them, and food waste in cities has been a great food source for them. And, while London is not by the sea, it has many seagulls. This is because nesting on the roofs of buildings protects their chicks from danger. Next, Delhi is home to about 30,000 monkeys. Experts say that monkeys’ high intelligence and comfort with humans let them flourish in the city. Lastly, in the 19th century, there was a small population of squirrels in New York City. Squirrels were seen as public pets, so the city planted nut­bearing trees as their food source. This increased their population in the city. Let’s watch a video about these animals’ city lives."
+   }
+  ],
+  "fromSet": "16~17",
+  "script": "Hello, students. I’m sure you’ve encountered some wild animals in cities. Let’s look at some reasons that wild animals have done well and their populations have grown in cities. First, pigeons were rare in cities like Paris, but now you can easily find them. Urban expansion reduced the number of animals hunting them, and food waste in cities has been a great food source for them. And, while London is not by the sea, it has many seagulls. This is because nesting on the roofs of buildings protects their chicks from danger. Next, Delhi is home to about 30,000 monkeys. Experts say that monkeys’ high intelligence and comfort with humans let them flourish in the city. Lastly, in the 19th century, there was a small population of squirrels in New York City. Squirrels were seen as public pets, so the city planted nut­bearing trees as their food source. This increased their population in the city. Let’s watch a video about these animals’ city lives.",
+  "words": 164,
+  "nTurns": 1,
+  "speakers": [
+   "W"
+  ],
+  "isDialogue": false,
+  "typeGuess": "L-SET-NOT",
+  "typeGuessAll": [
+   "L-SET-NOT"
+  ]
+ }
+]

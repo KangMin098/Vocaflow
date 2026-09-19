@@ -250,7 +250,15 @@ async function run(opts: ExtractOptions): Promise<void> {
   await updateRunStatus(opts.runId, 'extracted')
 
   // NFC 정규화 (CLAUDE.md §19.4 Step 2 정합 — WLP 호출 전)
-  const nfcText = text.normalize('NFC')
+  //   ⚠️ 그 앞에 **줄 끝 하이픈 재결합**이 와야 한다. 이 경로에는 하이픈·파편 가드가 전무해서
+  //   `rail-\nroad` 가 `rail` + `road` 두 lemma 로 들어간다 — 없는 낱말을 만들고 진짜 낱말은 잃는다.
+  //   개행 정규화가 먼저다(소스가 CRLF 면 `-\n` 이 매치되지 않는다).
+  //   같은 결함이 library-pipeline 의 reflowSoftHyphens 에 있었다(구텐베르크 전권 no-op).
+  const nfcText = text
+    .replace(/\r\n?/g, '\n')
+    .replace(/­/g, '')
+    .replace(/(\p{L})[-‐‑][ \t]*\n[ \t]*(\p{L})/gu, '$1$2')
+    .normalize('NFC')
 
   // WLP 처리
   childLog.info('calling WLP processText')

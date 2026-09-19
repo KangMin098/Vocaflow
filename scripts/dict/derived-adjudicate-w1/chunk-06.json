@@ -1,0 +1,582 @@
+[
+ {
+  "word": "wrist",
+  "meaning_ko": "손목",
+  "pos": "noun",
+  "candidates": [
+   "wrist shot",
+   "wristband",
+   "wristwatch"
+  ]
+ },
+ {
+  "word": "bipartisan",
+  "meaning_ko": "양당의",
+  "pos": "adjective",
+  "candidates": [
+   "bipartisanship"
+  ]
+ },
+ {
+  "word": "misleading",
+  "meaning_ko": "오해의 소지가 있는",
+  "pos": "adjective",
+  "candidates": [
+   "misleadingly"
+  ]
+ },
+ {
+  "word": "demographic",
+  "meaning_ko": "인구 집단",
+  "pos": "noun",
+  "candidates": [
+   "demographically"
+  ]
+ },
+ {
+  "word": "dynamo",
+  "meaning_ko": "발전기, 다이너모 — 역학적 에너지를 전기로 바꾸는 장치",
+  "pos": "noun",
+  "candidates": [
+   "dynamogenic",
+   "dynamometer"
+  ]
+ },
+ {
+  "word": "geode",
+  "meaning_ko": "정동(晶洞) — 내부에 결정이 가득 들어찬 구형의 암석",
+  "pos": "noun",
+  "candidates": [
+   "geodesic",
+   "geodesy",
+   "geodetic"
+  ]
+ },
+ {
+  "word": "heterodox",
+  "meaning_ko": "정설에서 벗어난, 이단적인",
+  "pos": "adjective",
+  "candidates": [
+   "heterodoxy"
+  ]
+ },
+ {
+  "word": "inaccurate",
+  "meaning_ko": "부정확한",
+  "pos": "adjective",
+  "candidates": [
+   "inaccurately"
+  ]
+ },
+ {
+  "word": "intravenous",
+  "meaning_ko": "정맥 내의 (의학, IV)",
+  "pos": "adjective",
+  "candidates": [
+   "intravenously"
+  ]
+ },
+ {
+  "word": "libertarian",
+  "meaning_ko": "자유지상주의자 — 개인의 자유를 최우선으로 주장하는 사람",
+  "pos": "noun",
+  "candidates": [
+   "libertarianism"
+  ]
+ },
+ {
+  "word": "lieu",
+  "meaning_ko": "대신, 대용; 주로 'in lieu of'(~ 대신에) 구문에서 사용",
+  "pos": "noun",
+  "candidates": [
+   "lieutenant"
+  ]
+ },
+ {
+  "word": "locus",
+  "meaning_ko": "중심지, 핵심이 되는 곳",
+  "pos": "noun",
+  "candidates": [
+   "locust"
+  ]
+ },
+ {
+  "word": "magnum",
+  "meaning_ko": "매그넘(1.5리터들이 큰 술병); 대형 권총 탄약",
+  "pos": "noun",
+  "candidates": [
+   "magnum opus"
+  ]
+ },
+ {
+  "word": "maxim",
+  "meaning_ko": "격언, 좌우명",
+  "pos": "noun",
+  "candidates": [
+   "maxima",
+   "maximal",
+   "maximin",
+   "maximise",
+   "maximize",
+   "maximum"
+  ]
+ },
+ {
+  "word": "memo",
+  "meaning_ko": "메모, 짧은 쪽지, 기록",
+  "pos": "noun",
+  "candidates": [
+   "memoir",
+   "memoire",
+   "memophone",
+   "memorable",
+   "memorably",
+   "memorandum",
+   "memorial",
+   "memoriam",
+   "memorise",
+   "memorize",
+   "memory"
+  ]
+ },
+ {
+  "word": "memoir",
+  "meaning_ko": "회고록",
+  "pos": "noun",
+  "candidates": [
+   "memoire"
+  ]
+ },
+ {
+  "word": "misjudge",
+  "meaning_ko": "잘못 판단하다",
+  "pos": "verb",
+  "candidates": [
+   "misjudgement"
+  ]
+ },
+ {
+  "word": "mistrust",
+  "meaning_ko": "불신, 의심",
+  "pos": "noun",
+  "candidates": [
+   "mistrustful"
+  ]
+ },
+ {
+  "word": "multicultural",
+  "meaning_ko": "다문화의",
+  "pos": "adjective",
+  "candidates": [
+   "multiculturalism",
+   "multiculturality"
+  ]
+ },
+ {
+  "word": "multidimensional",
+  "meaning_ko": "여러 측면을 지닌, 다면적인",
+  "pos": "adjective",
+  "candidates": [
+   "multidimensionality"
+  ]
+ },
+ {
+  "word": "nativity",
+  "meaning_ko": "탄생; (대문자 the Nativity) 예수의 탄생, 성탄",
+  "pos": "noun",
+  "candidates": [
+   "nativity play"
+  ]
+ },
+ {
+  "word": "neon",
+  "meaning_ko": "네온 (원자번호 10번의 무색무취 비활성 기체 원소)",
+  "pos": "noun",
+  "candidates": [
+   "neonatal",
+   "neonate"
+  ]
+ },
+ {
+  "word": "proof",
+  "meaning_ko": "증거; 증명",
+  "pos": "noun",
+  "candidates": [
+   "proofread",
+   "proofreader"
+  ]
+ },
+ {
+  "word": "rapport",
+  "meaning_ko": "친밀한 관계, 라포",
+  "pos": "noun",
+  "candidates": [
+   "rapporteur"
+  ]
+ },
+ {
+  "word": "renaissance",
+  "meaning_ko": "르네상스 (14~16세기 유럽의 문예 부흥)",
+  "pos": "noun",
+  "candidates": [
+   "renaissance man",
+   "renaissance woman"
+  ]
+ },
+ {
+  "word": "renown",
+  "meaning_ko": "명성, 명망",
+  "pos": "noun",
+  "candidates": [
+   "renowned"
+  ]
+ },
+ {
+  "word": "suburb",
+  "meaning_ko": "교외",
+  "pos": "noun",
+  "candidates": [
+   "suburban",
+   "suburbia"
+  ]
+ },
+ {
+  "word": "tempo",
+  "meaning_ko": "(음악) 템포, 빠르기 — 1분당 박 수로 나타내는 연주 속도",
+  "pos": "noun",
+  "candidates": [
+   "temporal",
+   "temporalis",
+   "temporally",
+   "temporalty",
+   "temporarily",
+   "temporary",
+   "temporise",
+   "temporize"
+  ]
+ },
+ {
+  "word": "terrace",
+  "meaning_ko": "테라스, (건물의) 옥외 공간",
+  "pos": "noun",
+  "candidates": [
+   "terraced"
+  ]
+ },
+ {
+  "word": "thermos",
+  "meaning_ko": "보온병",
+  "pos": "noun",
+  "candidates": [
+   "thermosetting",
+   "thermosphere",
+   "thermostat",
+   "thermostatic"
+  ]
+ },
+ {
+  "word": "aeronaut",
+  "meaning_ko": "비행사",
+  "pos": "noun",
+  "candidates": [
+   "aeronautical",
+   "aeronautics"
+  ]
+ },
+ {
+  "word": "drunk",
+  "meaning_ko": "술 취한",
+  "pos": "adjective",
+  "candidates": [
+   "drunk tank",
+   "drunkard",
+   "drunken",
+   "drunkenly",
+   "drunkenness"
+  ]
+ },
+ {
+  "word": "means",
+  "meaning_ko": "수단, 방법; 재력, 자력",
+  "pos": "noun",
+  "candidates": [
+   "means test",
+   "means-test"
+  ]
+ },
+ {
+  "word": "trident",
+  "meaning_ko": "삼지창",
+  "pos": "noun",
+  "candidates": [
+   "tridentine"
+  ]
+ },
+ {
+  "word": "trio",
+  "meaning_ko": "3인조, 셋으로 이루어진 그룹",
+  "pos": "noun",
+  "candidates": [
+   "triolet",
+   "triose",
+   "trioxide"
+  ]
+ },
+ {
+  "word": "axle",
+  "meaning_ko": "차축",
+  "pos": "noun",
+  "candidates": [
+   "axletree"
+  ]
+ },
+ {
+  "word": "baggage",
+  "meaning_ko": "수하물, 짐",
+  "pos": "noun",
+  "candidates": [
+   "baggage car"
+  ]
+ },
+ {
+  "word": "bunk",
+  "meaning_ko": "침상",
+  "pos": "noun",
+  "candidates": [
+   "bunk off",
+   "bunker",
+   "bunkhouse",
+   "bunkum"
+  ]
+ },
+ {
+  "word": "bureau",
+  "meaning_ko": "사무국",
+  "pos": "noun",
+  "candidates": [
+   "bureaucracy",
+   "bureaucrat",
+   "bureaucratic"
+  ]
+ },
+ {
+  "word": "caravan",
+  "meaning_ko": "(사막을 건너는) 대상, 행렬; 여행단",
+  "pos": "noun",
+  "candidates": [
+   "caravanning",
+   "caravanserai"
+  ]
+ },
+ {
+  "word": "cargo",
+  "meaning_ko": "화물",
+  "pos": "noun",
+  "candidates": [
+   "cargo pants"
+  ]
+ },
+ {
+  "word": "charter",
+  "meaning_ko": "헌장",
+  "pos": "noun",
+  "candidates": [
+   "chartered"
+  ]
+ },
+ {
+  "word": "courtesy",
+  "meaning_ko": "예의, 공손함",
+  "pos": "adjective",
+  "candidates": [
+   "courtesy call"
+  ]
+ },
+ {
+  "word": "curb",
+  "meaning_ko": "억제하다; 도로 연석",
+  "pos": "noun",
+  "candidates": [
+   "curbside"
+  ]
+ },
+ {
+  "word": "detour",
+  "meaning_ko": "우회로, 우회",
+  "pos": "noun",
+  "candidates": [
+   "detournement"
+  ]
+ },
+ {
+  "word": "ding",
+  "meaning_ko": "딩 — 종·벨이 한 번 울리는 맑은 소리",
+  "pos": "noun",
+  "candidates": [
+   "ding-dong",
+   "dingbat",
+   "dinge",
+   "dinghy",
+   "dingle",
+   "dingo",
+   "dingus",
+   "dingy"
+  ]
+ },
+ {
+  "word": "fare",
+  "meaning_ko": "운임, 요금",
+  "pos": "noun",
+  "candidates": [
+   "farewell"
+  ]
+ },
+ {
+  "word": "fore",
+  "meaning_ko": "앞쪽의, 전방의",
+  "pos": "adjective",
+  "candidates": [
+   "forearm",
+   "forebear",
+   "forebode",
+   "foreboding",
+   "forebore",
+   "forecast",
+   "forecastle",
+   "foreclose",
+   "forecourt",
+   "foredoom",
+   "foredoomed",
+   "forefather",
+   "forefinger",
+   "forefoot",
+   "forefront",
+   "forego",
+   "foregoers",
+   "foregoing",
+   "foregone"
+  ]
+ },
+ {
+  "word": "frigate",
+  "meaning_ko": "호위함",
+  "pos": "noun",
+  "candidates": [
+   "frigate bird"
+  ]
+ },
+ {
+  "word": "funnel",
+  "meaning_ko": "깔때기",
+  "pos": "noun",
+  "candidates": [
+   "funnelmouths"
+  ]
+ },
+ {
+  "word": "helm",
+  "meaning_ko": "(배의) 키, 조타 장치; (at the helm) 지휘권; (동사) 맡아 이끌다, 지휘하다",
+  "pos": "noun",
+  "candidates": [
+   "helmet",
+   "helminth",
+   "helmsman",
+   "helmswoman"
+  ]
+ },
+ {
+  "word": "hull",
+  "meaning_ko": "선체 — 배의 몸체",
+  "pos": "noun",
+  "candidates": [
+   "hullabaloo",
+   "hullo",
+   "hulloa"
+  ]
+ },
+ {
+  "word": "jaunt",
+  "meaning_ko": "짧은 나들이, 가벼운 여행",
+  "pos": "noun",
+  "candidates": [
+   "jauntily",
+   "jaunty"
+  ]
+ },
+ {
+  "word": "kayak",
+  "meaning_ko": "카약",
+  "pos": "noun",
+  "candidates": [
+   "kayaking"
+  ]
+ },
+ {
+  "word": "keel",
+  "meaning_ko": "용골 (배의 척추)",
+  "pos": "noun",
+  "candidates": [
+   "keel over"
+  ]
+ },
+ {
+  "word": "mast",
+  "meaning_ko": "돛대",
+  "pos": "noun",
+  "candidates": [
+   "mastaba",
+   "mastectomy",
+   "master",
+   "masterful",
+   "masterless",
+   "masterly",
+   "mastermind",
+   "mastership",
+   "masterwork",
+   "mastery",
+   "masthead",
+   "mastic",
+   "masticate",
+   "mastiff",
+   "mastitis",
+   "mastodon"
+  ]
+ },
+ {
+  "word": "median",
+  "meaning_ko": "(통계) 중앙값, 중위수",
+  "pos": "noun",
+  "candidates": [
+   "mediant"
+  ]
+ },
+ {
+  "word": "metro",
+  "meaning_ko": "지하철",
+  "pos": "noun",
+  "candidates": [
+   "metrology",
+   "metronome",
+   "metroplex",
+   "metropolis",
+   "metrosexual",
+   "metrowide"
+  ]
+ },
+ {
+  "word": "nautical",
+  "meaning_ko": "항해의, 선박의",
+  "pos": "adjective",
+  "candidates": [
+   "nautical mile"
+  ]
+ },
+ {
+  "word": "outboard",
+  "meaning_ko": "(엔진·장비가) 선체 바깥에 장착된 (반대: inboard)",
+  "pos": "adjective",
+  "candidates": [
+   "outboard motor"
+  ]
+ }
+]

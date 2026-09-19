@@ -1,0 +1,973 @@
+{
+  "source": "europe_pmc",
+  "measured_at": "2026-09-13T04:28:54.596Z",
+  "query": "OPEN_ACCESS:y AND IN_EPMC:y AND LICENSE:\"cc by\" AND LANG:\"eng\" AND PUB_TYPE:\"review\"",
+  "hit_count": 618178,
+  "sample_size": 40,
+  "windows": {
+    "short": {
+      "min": 90,
+      "max": 200
+    },
+    "long": {
+      "min": 260,
+      "max": 400
+    }
+  },
+  "no_xml": 0,
+  "no_intro": 0,
+  "fit_short": 38,
+  "fit_long": 33,
+  "fit_either": 39,
+  "projected_passages": 602724,
+  "rows": [
+    {
+      "pmcid": "PMC13539362",
+      "ok": true,
+      "license": "cc by",
+      "introTitle": "Introduction",
+      "paraWords": [
+        81,
+        92,
+        78
+      ],
+      "short": {
+        "start": 1,
+        "len": 1,
+        "wordCount": 92
+      },
+      "long": null
+    },
+    {
+      "pmcid": "PMC13523000",
+      "ok": true,
+      "license": "cc by",
+      "introTitle": "INTRODUCTION",
+      "paraWords": [
+        262,
+        260,
+        244,
+        233,
+        222,
+        98,
+        125,
+        24
+      ],
+      "short": {
+        "start": 5,
+        "len": 1,
+        "wordCount": 98
+      },
+      "long": {
+        "start": 0,
+        "len": 1,
+        "wordCount": 262
+      }
+    },
+    {
+      "pmcid": "PMC13544379",
+      "ok": true,
+      "license": "cc by",
+      "introTitle": "INTRODUCTION",
+      "paraWords": [
+        77,
+        51,
+        34,
+        67,
+        80,
+        39,
+        42,
+        34,
+        136,
+        49,
+        38
+      ],
+      "short": {
+        "start": 8,
+        "len": 1,
+        "wordCount": 136
+      },
+      "long": {
+        "start": 6,
+        "len": 4,
+        "wordCount": 261
+      }
+    },
+    {
+      "pmcid": "PMC13486619",
+      "ok": true,
+      "license": "cc by",
+      "introTitle": "Introduction",
+      "paraWords": [
+        59,
+        87,
+        51,
+        104,
+        94,
+        56,
+        16,
+        141,
+        258,
+        171,
+        100,
+        77,
+        64,
+        55
+      ],
+      "short": {
+        "start": 3,
+        "len": 1,
+        "wordCount": 104
+      },
+      "long": {
+        "start": 7,
+        "len": 2,
+        "wordCount": 399
+      }
+    },
+    {
+      "pmcid": "PMC13537450",
+      "ok": true,
+      "license": "cc by",
+      "introTitle": "INTRODUCTION",
+      "paraWords": [
+        71,
+        75,
+        267,
+        103,
+        97,
+        100,
+        109,
+        190,
+        267,
+        103,
+        197,
+        188,
+        108,
+        148,
+        98,
+        92,
+        64,
+        85,
+        73,
+        73,
+        133,
+        188,
+        226
+      ],
+      "short": {
+        "start": 3,
+        "len": 1,
+        "wordCount": 103
+      },
+      "long": {
+        "start": 2,
+        "len": 1,
+        "wordCount": 267
+      }
+    },
+    {
+      "pmcid": "PMC13491757",
+      "ok": true,
+      "license": "cc by",
+      "introTitle": "CURRENT MEDICAL NEED",
+      "paraWords": [
+        73,
+        44
+      ],
+      "short": {
+        "start": 0,
+        "len": 2,
+        "wordCount": 117
+      },
+      "long": null
+    },
+    {
+      "pmcid": "PMC13535120",
+      "ok": true,
+      "license": "cc by",
+      "introTitle": "Introduction",
+      "paraWords": [
+        107,
+        138,
+        117,
+        126
+      ],
+      "short": {
+        "start": 0,
+        "len": 1,
+        "wordCount": 107
+      },
+      "long": {
+        "start": 0,
+        "len": 3,
+        "wordCount": 362
+      }
+    },
+    {
+      "pmcid": "PMC13537465",
+      "ok": true,
+      "license": "cc by",
+      "introTitle": "INTRODUCTION",
+      "paraWords": [
+        266
+      ],
+      "short": null,
+      "long": {
+        "start": 0,
+        "len": 1,
+        "wordCount": 266
+      }
+    },
+    {
+      "pmcid": "PMC13386291",
+      "ok": true,
+      "license": "cc by",
+      "introTitle": "(절 없음 — 본문 앞머리)",
+      "paraWords": [
+        150,
+        130,
+        84,
+        185
+      ],
+      "short": {
+        "start": 0,
+        "len": 1,
+        "wordCount": 150
+      },
+      "long": {
+        "start": 0,
+        "len": 2,
+        "wordCount": 280
+      }
+    },
+    {
+      "pmcid": "PMC13386279",
+      "ok": false,
+      "license": "cc by",
+      "introTitle": "Declaration of interest",
+      "paraWords": [
+        1
+      ],
+      "short": null,
+      "long": null
+    },
+    {
+      "pmcid": "PMC13386292",
+      "ok": true,
+      "license": "cc by",
+      "introTitle": "(절 없음 — 본문 앞머리)",
+      "paraWords": [
+        63,
+        47,
+        43,
+        31,
+        75,
+        49
+      ],
+      "short": {
+        "start": 0,
+        "len": 2,
+        "wordCount": 110
+      },
+      "long": null
+    },
+    {
+      "pmcid": "PMC13386335",
+      "ok": true,
+      "license": "cc by",
+      "introTitle": "(절 없음 — 본문 앞머리)",
+      "paraWords": [
+        230,
+        103,
+        125,
+        85
+      ],
+      "short": {
+        "start": 1,
+        "len": 1,
+        "wordCount": 103
+      },
+      "long": {
+        "start": 0,
+        "len": 2,
+        "wordCount": 333
+      }
+    },
+    {
+      "pmcid": "PMC13386329",
+      "ok": true,
+      "license": "cc by",
+      "introTitle": "(절 없음 — 본문 앞머리)",
+      "paraWords": [
+        102,
+        117,
+        76,
+        52,
+        52,
+        56
+      ],
+      "short": {
+        "start": 0,
+        "len": 1,
+        "wordCount": 102
+      },
+      "long": {
+        "start": 0,
+        "len": 3,
+        "wordCount": 295
+      }
+    },
+    {
+      "pmcid": "PMC13386277",
+      "ok": true,
+      "license": "cc by",
+      "introTitle": "(절 없음 — 본문 앞머리)",
+      "paraWords": [
+        119,
+        161,
+        71
+      ],
+      "short": {
+        "start": 0,
+        "len": 1,
+        "wordCount": 119
+      },
+      "long": {
+        "start": 0,
+        "len": 2,
+        "wordCount": 280
+      }
+    },
+    {
+      "pmcid": "PMC13519057",
+      "ok": true,
+      "license": "cc by",
+      "introTitle": "Introduction",
+      "paraWords": [
+        111,
+        167,
+        125,
+        96
+      ],
+      "short": {
+        "start": 0,
+        "len": 1,
+        "wordCount": 111
+      },
+      "long": {
+        "start": 0,
+        "len": 2,
+        "wordCount": 278
+      }
+    },
+    {
+      "pmcid": "PMC13494819",
+      "ok": true,
+      "license": "cc by",
+      "introTitle": "Introduction",
+      "paraWords": [
+        69,
+        96,
+        71,
+        51
+      ],
+      "short": {
+        "start": 1,
+        "len": 1,
+        "wordCount": 96
+      },
+      "long": {
+        "start": 0,
+        "len": 4,
+        "wordCount": 287
+      }
+    },
+    {
+      "pmcid": "PMC13531366",
+      "ok": true,
+      "license": "cc by",
+      "introTitle": "Introduction",
+      "paraWords": [
+        90,
+        100,
+        249,
+        113,
+        154,
+        122,
+        145
+      ],
+      "short": {
+        "start": 0,
+        "len": 1,
+        "wordCount": 90
+      },
+      "long": {
+        "start": 1,
+        "len": 2,
+        "wordCount": 349
+      }
+    },
+    {
+      "pmcid": "PMC13521569",
+      "ok": true,
+      "license": "cc by",
+      "introTitle": "Introduction",
+      "paraWords": [
+        92,
+        72,
+        81,
+        66,
+        125,
+        105,
+        90
+      ],
+      "short": {
+        "start": 0,
+        "len": 1,
+        "wordCount": 92
+      },
+      "long": {
+        "start": 2,
+        "len": 3,
+        "wordCount": 272
+      }
+    },
+    {
+      "pmcid": "PMC13504156",
+      "ok": true,
+      "license": "cc by",
+      "introTitle": "INTRODUCTION",
+      "paraWords": [
+        112,
+        86,
+        82,
+        129,
+        112,
+        65,
+        87,
+        62
+      ],
+      "short": {
+        "start": 0,
+        "len": 1,
+        "wordCount": 112
+      },
+      "long": {
+        "start": 0,
+        "len": 3,
+        "wordCount": 280
+      }
+    },
+    {
+      "pmcid": "PMC13525075",
+      "ok": true,
+      "license": "cc by",
+      "introTitle": "Introduction",
+      "paraWords": [
+        165,
+        145,
+        37,
+        38,
+        233,
+        86,
+        15,
+        31,
+        38,
+        35,
+        99,
+        119,
+        105,
+        69,
+        98,
+        121,
+        115
+      ],
+      "short": {
+        "start": 0,
+        "len": 1,
+        "wordCount": 165
+      },
+      "long": {
+        "start": 0,
+        "len": 2,
+        "wordCount": 310
+      }
+    },
+    {
+      "pmcid": "PMC13545541",
+      "ok": true,
+      "license": "cc by",
+      "introTitle": "Introduction",
+      "paraWords": [
+        108,
+        128,
+        133
+      ],
+      "short": {
+        "start": 0,
+        "len": 1,
+        "wordCount": 108
+      },
+      "long": {
+        "start": 1,
+        "len": 2,
+        "wordCount": 261
+      }
+    },
+    {
+      "pmcid": "PMC13538971",
+      "ok": true,
+      "license": "cc by",
+      "introTitle": "Introduction",
+      "paraWords": [
+        65,
+        68,
+        64,
+        169,
+        100,
+        85
+      ],
+      "short": {
+        "start": 3,
+        "len": 1,
+        "wordCount": 169
+      },
+      "long": {
+        "start": 3,
+        "len": 2,
+        "wordCount": 269
+      }
+    },
+    {
+      "pmcid": "PMC13523623",
+      "ok": true,
+      "license": "cc by",
+      "introTitle": "Introduction",
+      "paraWords": [
+        263,
+        160,
+        177
+      ],
+      "short": {
+        "start": 1,
+        "len": 1,
+        "wordCount": 160
+      },
+      "long": {
+        "start": 0,
+        "len": 1,
+        "wordCount": 263
+      }
+    },
+    {
+      "pmcid": "PMC13481289",
+      "ok": true,
+      "license": "cc by",
+      "introTitle": "Introduction",
+      "paraWords": [
+        140,
+        91,
+        271,
+        169,
+        157,
+        139,
+        130,
+        251,
+        291,
+        65
+      ],
+      "short": {
+        "start": 0,
+        "len": 1,
+        "wordCount": 140
+      },
+      "long": {
+        "start": 2,
+        "len": 1,
+        "wordCount": 271
+      }
+    },
+    {
+      "pmcid": "PMC13525230",
+      "ok": true,
+      "license": "cc by",
+      "introTitle": "INTRODUCTION",
+      "paraWords": [
+        68,
+        88,
+        124,
+        61,
+        28,
+        23,
+        17
+      ],
+      "short": {
+        "start": 2,
+        "len": 1,
+        "wordCount": 124
+      },
+      "long": {
+        "start": 0,
+        "len": 3,
+        "wordCount": 280
+      }
+    },
+    {
+      "pmcid": "PMC13538717",
+      "ok": true,
+      "license": "cc by",
+      "introTitle": "Introduction",
+      "paraWords": [
+        48,
+        114,
+        78,
+        81,
+        62,
+        241,
+        107,
+        130,
+        117,
+        103,
+        32,
+        91,
+        84,
+        92,
+        63,
+        96,
+        42,
+        126,
+        138,
+        69,
+        65,
+        34,
+        52,
+        57,
+        41,
+        29
+      ],
+      "short": {
+        "start": 1,
+        "len": 1,
+        "wordCount": 114
+      },
+      "long": {
+        "start": 4,
+        "len": 2,
+        "wordCount": 303
+      }
+    },
+    {
+      "pmcid": "PMC13544037",
+      "ok": true,
+      "license": "cc by",
+      "introTitle": "Introduction",
+      "paraWords": [
+        127,
+        119
+      ],
+      "short": {
+        "start": 0,
+        "len": 1,
+        "wordCount": 127
+      },
+      "long": null
+    },
+    {
+      "pmcid": "PMC13530080",
+      "ok": true,
+      "license": "cc by",
+      "introTitle": "Introduction",
+      "paraWords": [
+        144,
+        79,
+        128,
+        73,
+        117
+      ],
+      "short": {
+        "start": 0,
+        "len": 1,
+        "wordCount": 144
+      },
+      "long": {
+        "start": 0,
+        "len": 3,
+        "wordCount": 351
+      }
+    },
+    {
+      "pmcid": "PMC13524367",
+      "ok": true,
+      "license": "cc by",
+      "introTitle": "Introduction",
+      "paraWords": [
+        173,
+        131,
+        183,
+        143
+      ],
+      "short": {
+        "start": 0,
+        "len": 1,
+        "wordCount": 173
+      },
+      "long": {
+        "start": 0,
+        "len": 2,
+        "wordCount": 304
+      }
+    },
+    {
+      "pmcid": "PMC13524989",
+      "ok": true,
+      "license": "cc by",
+      "introTitle": "Background",
+      "paraWords": [
+        127,
+        102,
+        114,
+        172,
+        174,
+        114,
+        28
+      ],
+      "short": {
+        "start": 0,
+        "len": 1,
+        "wordCount": 127
+      },
+      "long": {
+        "start": 2,
+        "len": 2,
+        "wordCount": 286
+      }
+    },
+    {
+      "pmcid": "PMC13523121",
+      "ok": true,
+      "license": "cc by",
+      "introTitle": "Introduction",
+      "paraWords": [
+        104,
+        140,
+        306,
+        198,
+        121,
+        107,
+        294,
+        198,
+        107
+      ],
+      "short": {
+        "start": 0,
+        "len": 1,
+        "wordCount": 104
+      },
+      "long": {
+        "start": 2,
+        "len": 1,
+        "wordCount": 306
+      }
+    },
+    {
+      "pmcid": "PMC13518448",
+      "ok": true,
+      "license": "cc by",
+      "introTitle": "Introduction",
+      "paraWords": [
+        127,
+        138,
+        131,
+        123,
+        42
+      ],
+      "short": {
+        "start": 0,
+        "len": 1,
+        "wordCount": 127
+      },
+      "long": {
+        "start": 0,
+        "len": 2,
+        "wordCount": 265
+      }
+    },
+    {
+      "pmcid": "PMC13518418",
+      "ok": true,
+      "license": "cc by",
+      "introTitle": "Introduction",
+      "paraWords": [
+        98,
+        214,
+        90
+      ],
+      "short": {
+        "start": 0,
+        "len": 1,
+        "wordCount": 98
+      },
+      "long": {
+        "start": 0,
+        "len": 2,
+        "wordCount": 312
+      }
+    },
+    {
+      "pmcid": "PMC13523982",
+      "ok": true,
+      "license": "cc by",
+      "introTitle": "Introduction",
+      "paraWords": [
+        252,
+        219,
+        233,
+        279,
+        177
+      ],
+      "short": {
+        "start": 4,
+        "len": 1,
+        "wordCount": 177
+      },
+      "long": {
+        "start": 3,
+        "len": 1,
+        "wordCount": 279
+      }
+    },
+    {
+      "pmcid": "PMC13506574",
+      "ok": true,
+      "license": "cc by",
+      "introTitle": "Introduction",
+      "paraWords": [
+        82,
+        95,
+        44,
+        87
+      ],
+      "short": {
+        "start": 1,
+        "len": 1,
+        "wordCount": 95
+      },
+      "long": {
+        "start": 0,
+        "len": 4,
+        "wordCount": 308
+      }
+    },
+    {
+      "pmcid": "PMC13519178",
+      "ok": true,
+      "license": "cc by",
+      "introTitle": "Introduction",
+      "paraWords": [
+        134,
+        43
+      ],
+      "short": {
+        "start": 0,
+        "len": 1,
+        "wordCount": 134
+      },
+      "long": null
+    },
+    {
+      "pmcid": "PMC13506624",
+      "ok": true,
+      "license": "cc by",
+      "introTitle": "Introduction",
+      "paraWords": [
+        194,
+        109,
+        217,
+        46,
+        65,
+        115,
+        101,
+        40,
+        59,
+        40,
+        169
+      ],
+      "short": {
+        "start": 0,
+        "len": 1,
+        "wordCount": 194
+      },
+      "long": {
+        "start": 0,
+        "len": 2,
+        "wordCount": 303
+      }
+    },
+    {
+      "pmcid": "PMC13488507",
+      "ok": true,
+      "license": "cc by",
+      "introTitle": "(절 없음 — 본문 앞머리)",
+      "paraWords": [
+        145,
+        60,
+        68,
+        109,
+        104,
+        100
+      ],
+      "short": {
+        "start": 0,
+        "len": 1,
+        "wordCount": 145
+      },
+      "long": {
+        "start": 0,
+        "len": 3,
+        "wordCount": 273
+      }
+    },
+    {
+      "pmcid": "PMC13503492",
+      "ok": true,
+      "license": "cc by",
+      "introTitle": "Introduction",
+      "paraWords": [
+        88,
+        88,
+        87,
+        147,
+        47,
+        35
+      ],
+      "short": {
+        "start": 3,
+        "len": 1,
+        "wordCount": 147
+      },
+      "long": {
+        "start": 0,
+        "len": 3,
+        "wordCount": 263
+      }
+    },
+    {
+      "pmcid": "PMC13521682",
+      "ok": true,
+      "license": "cc by",
+      "introTitle": "Introduction",
+      "paraWords": [
+        74,
+        79,
+        39
+      ],
+      "short": {
+        "start": 0,
+        "len": 2,
+        "wordCount": 153
+      },
+      "long": null
+    }
+  ]
+}

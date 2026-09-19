@@ -151,7 +151,7 @@ export function BookDetailModal({ book, onClose, onChanged }: BookDetailModalPro
             </h2>
             <StatusPill tone={statusInfo.tone} label={statusInfo.label} />
           </div>
-          <p className="mt-0.5 line-clamp-1 font-body text-[12px] text-[var(--t3)]">
+          <p className="mt-0.5 line-clamp-1 font-body text-[12px] text-[var(--t2)]">
             {book.author ?? '저자 미상'} ·{' '}
             {(() => {
               const url = bookSourceUrl(book.source, book.source_id)
@@ -176,7 +176,10 @@ export function BookDetailModal({ book, onClose, onChanged }: BookDetailModalPro
           type="button"
           onClick={onClose}
           disabled={!!actionPending}
-          className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--r-sm)] text-[var(--t3)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:opacity-50"
+          // h-8(32px) 이었다 — CLAUDE.md 가 금지하는 44px 미만 터치 타겟이다.
+          // 관리자도 폰으로 볼 수 있고, 폰에는 Esc 가 없어 이 버튼이 닫는 유일한 길이다
+          // (실측 2026-08-25 · 390px). 아이콘 크기는 그대로 두고 누를 면적만 넓힌다.
+          className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-[var(--r-sm)] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:opacity-50"
           aria-label="닫기"
         >
           <X size={16} aria-hidden />
@@ -277,7 +280,7 @@ export function BookDetailModal({ book, onClose, onChanged }: BookDetailModalPro
         {(book.status === 'published' || book.status === 'ready') && (
           <Section title="처리 결과">
             {statsLoading ? (
-              <div className="flex items-center gap-2 font-mono text-[11px] text-[var(--t3)]">
+              <div className="flex items-center gap-2 font-mono text-[11px] text-[var(--t2)]">
                 <Loader2 size={12} className="animate-spin" aria-hidden />
                 통계 불러오는 중…
               </div>
@@ -291,7 +294,7 @@ export function BookDetailModal({ book, onClose, onChanged }: BookDetailModalPro
                 />
               </div>
             ) : (
-              <span className="font-mono text-[11px] text-[var(--t3)]">통계 없음</span>
+              <span className="font-mono text-[11px] text-[var(--t2)]">통계 없음</span>
             )}
           </Section>
         )}
@@ -320,7 +323,7 @@ export function BookDetailModal({ book, onClose, onChanged }: BookDetailModalPro
               href={url}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1.5 font-mono text-[11px] text-[var(--p)] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+              className="inline-flex items-center gap-2 font-mono text-[11px] text-[var(--p)] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
             >
               {sourceLabel(book.source)} 페이지 열기
               <ExternalLink size={10} aria-hidden />
@@ -349,7 +352,7 @@ export function BookDetailModal({ book, onClose, onChanged }: BookDetailModalPro
         {(book.status === 'published' || book.status === 'ready') && (
           <Link
             href={`/admin/curation/preview/${book.id}`}
-            className="inline-flex min-h-[36px] items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p-light)] px-3 font-display text-[12px] font-[600] text-[var(--p)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p)] hover:text-[var(--ti)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+            className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p-light)] px-3 font-display text-[12px] font-[600] text-[var(--on-p-tint)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p)] hover:text-[var(--on-p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
           >
             <BookOpen size={12} aria-hidden />
             📖 본문 검수
@@ -431,7 +434,7 @@ export function BookDetailModal({ book, onClose, onChanged }: BookDetailModalPro
           type="button"
           onClick={onClose}
           disabled={!!actionPending}
-          className="inline-flex min-h-[36px] items-center rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-4 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:opacity-50"
+          className="inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-4 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:opacity-50"
         >
           닫기
         </button>
@@ -511,7 +514,7 @@ function DeleteConfirmDialog({
           <li>사용자 학습 기록 · echo 세션 등은 SET NULL (보존)</li>
         </ul>
         <label className="mt-4 block">
-          <span className="font-mono text-[11px] text-[var(--t3)]">
+          <span className="font-mono text-[11px] text-[var(--t2)]">
             확인을 위해 <strong className="text-[var(--learn-error)]">{required}</strong> 를 입력하세요
           </span>
           <input
@@ -520,7 +523,7 @@ function DeleteConfirmDialog({
             onChange={(e) => setTyped(e.target.value)}
             disabled={pending}
             autoFocus
-            className="mt-1 h-9 w-full rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-body text-[13px] text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--learn-error)]"
+            className="mt-1 h-11 w-full rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-body text-[13px] text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--learn-error)]"
             placeholder={required}
           />
         </label>
@@ -529,7 +532,7 @@ function DeleteConfirmDialog({
             type="button"
             onClick={onCancel}
             disabled={pending}
-            className="inline-flex min-h-[36px] items-center rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-4 font-display text-[12px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)] disabled:opacity-50"
+            className="inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-4 font-display text-[12px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)] disabled:opacity-50"
           >
             취소
           </button>
@@ -537,7 +540,7 @@ function DeleteConfirmDialog({
             type="button"
             onClick={onConfirm}
             disabled={pending || !canDelete}
-            className="inline-flex min-h-[36px] items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--learn-error)] bg-[var(--learn-error)] px-4 font-display text-[12px] font-[600] text-[var(--ti)] hover:opacity-90 disabled:opacity-40"
+            className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-sm)] border border-[var(--learn-error)] bg-[var(--learn-error)] px-4 font-display text-[12px] font-[600] text-[var(--ti)] hover:opacity-90 disabled:opacity-40"
           >
             {pending && <Loader2 size={12} className="animate-spin" aria-hidden />}
             영구 삭제
@@ -587,7 +590,7 @@ function RevertConfirmDialog({
             type="button"
             onClick={onCancel}
             disabled={pending}
-            className="inline-flex min-h-[36px] items-center rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-4 font-display text-[12px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)] disabled:opacity-50"
+            className="inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-4 font-display text-[12px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)] disabled:opacity-50"
           >
             취소
           </button>
@@ -595,7 +598,7 @@ function RevertConfirmDialog({
             type="button"
             onClick={onConfirm}
             disabled={pending}
-            className="inline-flex min-h-[36px] items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--learn-error)] bg-[var(--learn-error)] px-4 font-display text-[12px] font-[600] text-[var(--ti)] hover:opacity-90 disabled:opacity-50"
+            className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-sm)] border border-[var(--learn-error)] bg-[var(--learn-error)] px-4 font-display text-[12px] font-[600] text-[var(--ti)] hover:opacity-90 disabled:opacity-50"
           >
             {pending && <Loader2 size={12} className="animate-spin" aria-hidden />}
             되돌리고 단어장 삭제
@@ -654,10 +657,10 @@ function CoverageCurve({
         : 'var(--learn-error)';
   const present = levels.filter((l) => coverage[String(l)] != null);
   if (present.length === 0) {
-    return <p className="font-body text-[11px] text-[var(--t3)]">커버리지 데이터 없음</p>;
+    return <p className="font-body text-[11px] text-[var(--t2)]">커버리지 데이터 없음</p>;
   }
   return (
-    <div className="flex flex-col gap-1.5">
+    <div className="flex flex-col gap-2">
       <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
         {present.map((l) => {
           const pct = coverage[String(l)] as number;
@@ -667,13 +670,13 @@ function CoverageCurve({
               className="inline-flex items-baseline gap-1 font-mono text-[11px]"
               title={`V${l} 학습자가 이 도서 토큰의 ${pct}% 를 안다`}
             >
-              <span className="text-[var(--t3)]">V{l}</span>
+              <span className="text-[var(--t2)]">V{l}</span>
               <strong style={{ color: colorOf(pct) }}>{pct}%</strong>
             </span>
           );
         })}
       </div>
-      <p className="font-body text-[10px] leading-relaxed text-[var(--t3)]">
+      <p className="font-body text-[10px] leading-relaxed text-[var(--t2)]">
         V레벨 학습자가 아는 토큰 비율 ·{' '}
         <span style={{ color: 'var(--learn-known)' }}>≥95 이해가능</span> ·{' '}
         <span style={{ color: 'var(--learn-review)' }}>85–95 i+1 도전</span> ·{' '}
@@ -697,7 +700,7 @@ function Section({
       <h3
         className={[
           'font-mono text-[10px] uppercase tracking-wider',
-          tone === 'danger' ? 'text-[var(--learn-error)]' : 'text-[var(--t3)]',
+          tone === 'danger' ? 'text-[var(--learn-error)]' : 'text-[var(--t2)]',
         ].join(' ')}
       >
         {title}
@@ -726,7 +729,7 @@ function DataRow({
         : 'var(--t1)';
   return (
     <div className="flex items-baseline gap-3">
-      <span className="w-20 shrink-0 font-body text-[12px] text-[var(--t3)]">{label}</span>
+      <span className="w-20 shrink-0 font-body text-[12px] text-[var(--t2)]">{label}</span>
       <span
         className={[
           'flex-1 text-[13px] font-[600]',
@@ -742,8 +745,8 @@ function DataRow({
 
 function StatTile({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex flex-col gap-0.5 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2">
-      <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">
+    <div className="flex flex-col gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2">
+      <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">
         {label}
       </span>
       <span className="font-display text-[15px] font-[700] tabular-nums text-[var(--t1)]">
@@ -770,7 +773,7 @@ function StatusPill({
   const { bg, text } = colorMap[tone];
   return (
     <span
-      className="inline-flex shrink-0 items-center rounded-[var(--r-sm)] px-2 py-0.5 font-display text-[10px] font-[700]"
+      className="inline-flex shrink-0 items-center rounded-[var(--r-sm)] px-2 py-1 font-display text-[10px] font-[700]"
       style={{ backgroundColor: bg, color: text }}
     >
       {label}
@@ -807,13 +810,13 @@ function DryRunResult({
         {result.length_cv != null && <span className="opacity-70">CV {result.length_cv}</span>}
       </div>
       {result.warnings.length > 0 && (
-        <ul className="mt-1.5 flex flex-col gap-0.5">
+        <ul className="mt-1.5 flex flex-col gap-1">
           {result.warnings.map((w, i) => (
             <li key={i} className="font-body text-[11px]" style={{ color: tone.fg }}>· {w}</li>
           ))}
         </ul>
       )}
-      <p className="mt-1.5 font-body text-[10px] text-[var(--t3)]">
+      <p className="mt-1.5 font-body text-[10px] text-[var(--t2)]">
         ↑ 검증만 한 결과입니다 (DB 미반영). 정상이면 “재처리 (dev)”로 커밋하세요.
       </p>
     </div>
@@ -844,7 +847,7 @@ function ActionButton({
       type="button"
       onClick={onClick}
       disabled={pending}
-      className={`inline-flex min-h-[36px] items-center gap-1.5 rounded-[var(--r-sm)] px-3 font-display text-[12px] font-[600] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${cls}`}
+      className={`inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-sm)] px-3 font-display text-[12px] font-[600] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${cls}`}
     >
       {pending ? <Loader2 size={12} className="animate-spin" aria-hidden /> : icon}
       {label}

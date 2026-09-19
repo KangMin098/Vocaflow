@@ -1,0 +1,302 @@
+[
+  {
+    "w": "anti-slavery",
+    "enc": 63,
+    "df": 0
+  },
+  {
+    "w": "shit",
+    "enc": 31,
+    "df": 0
+  },
+  {
+    "w": "hlavni",
+    "enc": 24,
+    "df": 0
+  },
+  {
+    "w": "ika",
+    "enc": 24,
+    "df": 0
+  },
+  {
+    "w": "machiya",
+    "enc": 24,
+    "df": 0
+  },
+  {
+    "w": "photorespiration",
+    "enc": 24,
+    "df": 0
+  },
+  {
+    "w": "sachdev",
+    "enc": 24,
+    "df": 0
+  },
+  {
+    "w": "second-line",
+    "enc": 24,
+    "df": 0
+  },
+  {
+    "w": "self-awareness",
+    "enc": 24,
+    "df": 0
+  },
+  {
+    "w": "shelja",
+    "enc": 24,
+    "df": 0
+  },
+  {
+    "w": "sub-theme",
+    "enc": 24,
+    "df": 0
+  },
+  {
+    "w": "tro",
+    "enc": 24,
+    "df": 0
+  },
+  {
+    "w": "truong",
+    "enc": 24,
+    "df": 0
+  },
+  {
+    "w": "self-interest",
+    "enc": 23,
+    "df": 0
+  },
+  {
+    "w": "thu",
+    "enc": 23,
+    "df": 0
+  },
+  {
+    "w": "asmr",
+    "enc": 22,
+    "df": 0
+  },
+  {
+    "w": "hieu",
+    "enc": 22,
+    "df": 0
+  },
+  {
+    "w": "lstm",
+    "enc": 22,
+    "df": 0
+  },
+  {
+    "w": "nghi",
+    "enc": 22,
+    "df": 0
+  },
+  {
+    "w": "ngoai",
+    "enc": 22,
+    "df": 0
+  },
+  {
+    "w": "nguoi",
+    "enc": 22,
+    "df": 0
+  },
+  {
+    "w": "non-coding",
+    "enc": 22,
+    "df": 0
+  },
+  {
+    "w": "sinh",
+    "enc": 22,
+    "df": 0
+  },
+  {
+    "w": "cnn",
+    "enc": 21,
+    "df": 0
+  },
+  {
+    "w": "counter-service",
+    "enc": 21,
+    "df": 0
+  },
+  {
+    "w": "culture-positive",
+    "enc": 21,
+    "df": 0
+  },
+  {
+    "w": "ergosphere",
+    "enc": 21,
+    "df": 0
+  },
+  {
+    "w": "hellip",
+    "enc": 21,
+    "df": 0
+  },
+  {
+    "w": "multi-center",
+    "enc": 21,
+    "df": 0
+  },
+  {
+    "w": "namesti",
+    "enc": 21,
+    "df": 0
+  },
+  {
+    "w": "prioritisation",
+    "enc": 21,
+    "df": 0
+  },
+  {
+    "w": "self-love",
+    "enc": 21,
+    "df": 0
+  },
+  {
+    "w": "three-carbon",
+    "enc": 21,
+    "df": 0
+  },
+  {
+    "w": "cong",
+    "enc": 20,
+    "df": 0
+  },
+  {
+    "w": "crap",
+    "enc": 20,
+    "df": 0
+  },
+  {
+    "w": "icin",
+    "enc": 20,
+    "df": 0
+  },
+  {
+    "w": "isauro",
+    "enc": 20,
+    "df": 0
+  },
+  {
+    "w": "lai",
+    "enc": 20,
+    "df": 0
+  },
+  {
+    "w": "med",
+    "enc": 20,
+    "df": 0
+  },
+  {
+    "w": "murphy",
+    "enc": 20,
+    "df": 0
+  },
+  {
+    "w": "nadav",
+    "enc": 20,
+    "df": 0
+  },
+  {
+    "w": "pid",
+    "enc": 20,
+    "df": 0
+  },
+  {
+    "w": "popbot",
+    "enc": 20,
+    "df": 0
+  },
+  {
+    "w": "del",
+    "enc": 19,
+    "df": 0
+  },
+  {
+    "w": "fuck",
+    "enc": 19,
+    "df": 0
+  },
+  {
+    "w": "sub-saharan",
+    "enc": 19,
+    "df": 0
+  },
+  {
+    "w": "anoxygenic",
+    "enc": 18,
+    "df": 0
+  },
+  {
+    "w": "biet",
+    "enc": 18,
+    "df": 0
+  },
+  {
+    "w": "culture-confirmed",
+    "enc": 18,
+    "df": 0
+  },
+  {
+    "w": "ferrihydrite",
+    "enc": 18,
+    "df": 0
+  },
+  {
+    "w": "lshtm",
+    "enc": 18,
+    "df": 0
+  },
+  {
+    "w": "mesophyll",
+    "enc": 18,
+    "df": 0
+  },
+  {
+    "w": "nasahubble",
+    "enc": 18,
+    "df": 0
+  },
+  {
+    "w": "non-rotating",
+    "enc": 18,
+    "df": 0
+  },
+  {
+    "w": "plos",
+    "enc": 18,
+    "df": 0
+  },
+  {
+    "w": "pneumoniae",
+    "enc": 18,
+    "df": 0
+  },
+  {
+    "w": "spikers",
+    "enc": 18,
+    "df": 0
+  },
+  {
+    "w": "thanh",
+    "enc": 18,
+    "df": 0
+  },
+  {
+    "w": "vao",
+    "enc": 18,
+    "df": 0
+  },
+  {
+    "w": "graders",
+    "enc": 17,
+    "df": 0
+  }
+]

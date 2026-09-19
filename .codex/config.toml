@@ -1,0 +1,45 @@
+model_reasoning_effort = "high"
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+project_doc_fallback_filenames = ["CLAUDE.md"]
+project_doc_max_bytes = 32768
+
+[sandbox_workspace_write]
+network_access = false
+
+[[hooks.SessionStart]]
+
+[[hooks.SessionStart.hooks]]
+type = "command"
+command = "node agents/scripts/handoff-inject.mjs --agent codex"
+commandWindows = 'node agents\scripts\handoff-inject.mjs --agent codex'
+timeout = 15
+statusMessage = "인수인계·잠금 확인"
+
+[[hooks.PreToolUse]]
+matcher = "^(Bash|shell|local_shell|exec_command)$"
+
+[[hooks.PreToolUse.hooks]]
+type = "command"
+command = "node agents/scripts/guard.mjs --agent codex"
+commandWindows = 'node agents\scripts\guard.mjs --agent codex'
+timeout = 180
+statusMessage = "파괴 명령·커밋 전 검사"
+
+# >>> GENERATED mcp_servers — agents/scripts/sync.mjs 가 agents/mcp.source.json 에서 만든다. 직접 편집 금지.
+
+[mcp_servers.supabase]
+command = "node"
+args = ["node_modules/@supabase/mcp-server-supabase/dist/transports/stdio.js", "--project-ref=jajenrevcbmrpaliomxv"]
+env_vars = ["SUPABASE_ACCESS_TOKEN"]
+
+# <<< GENERATED mcp_servers
+
+[mcp_servers.supabase.tools.execute_sql]
+approval_mode = "approve"
+
+[shell_environment_policy]
+inherit = "core"
+
+[shell_environment_policy.set]
+CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS = "40"

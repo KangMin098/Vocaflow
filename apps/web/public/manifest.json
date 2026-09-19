@@ -4,8 +4,8 @@
   "description": "영어 원문 기반 종합 학습 플랫폼",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#FFFFFF",
-  "theme_color": "#3B82F6",
+  "background_color": "#FBFAF6",
+  "theme_color": "#FBFAF6",
   "icons": [
     {
       "src": "/icons/icon-192.png",

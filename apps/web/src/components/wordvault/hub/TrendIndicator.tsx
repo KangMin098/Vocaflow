@@ -12,6 +12,8 @@
 
 import { ArrowDown, ArrowUp } from 'lucide-react'
 
+import { MEMORY_LABEL } from '@/lib/framework/memory-labels'
+
 interface TrendIndicatorProps {
   /** 이번 주 stable 단어 수 - 지난 주 stable 단어 수 */
   stableDelta: number
@@ -31,26 +33,26 @@ export function TrendIndicator({ stableDelta, riskDelta }: TrendIndicatorProps) 
 
   const items: Item[] = []
   if (stableDelta !== 0) {
-    items.push({ label: '안정', value: stableDelta, positive: stableDelta > 0 })
+    items.push({ label: MEMORY_LABEL.stable.label, value: stableDelta, positive: stableDelta > 0 })
   }
   if (riskDelta !== 0) {
     // risk 감소 = positive
-    items.push({ label: '위급', value: riskDelta, positive: riskDelta < 0 })
+    items.push({ label: MEMORY_LABEL.risk.label, value: riskDelta, positive: riskDelta < 0 })
   }
 
   return (
-    <div className="flex items-center gap-2.5" aria-label="이번 주 추세">
+    <div className="flex items-center gap-3" aria-label="이번 주 추세">
       {items.map((item) => {
         const Arrow = item.value > 0 ? ArrowUp : ArrowDown
         const colorClass = item.positive
           ? 'text-[var(--memory-stable)]'
           : item.label === '위급'
             ? 'text-[var(--active)]' // risk 증가 = 주황 (빨강 X)
-            : 'text-[var(--t3)]' // stable 감소 = 회색 (Calm UI)
+            : 'text-[var(--t2)]' // stable 감소 = 회색 (Calm UI)
         return (
           <span
             key={item.label}
-            className={`inline-flex items-center gap-0.5 font-body text-[11px] font-[600] tabular-nums ${colorClass}`}
+            className={`inline-flex items-center gap-1 font-body text-[11px] font-[600] tabular-nums ${colorClass}`}
           >
             <Arrow size={11} strokeWidth={2.5} aria-hidden="true" />
             {item.value > 0 ? '+' : ''}

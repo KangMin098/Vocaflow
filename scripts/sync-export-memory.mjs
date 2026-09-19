@@ -11,6 +11,9 @@
 // 사용:
 //   node scripts/sync-export-memory.mjs              # mirror 갱신만
 //   node scripts/sync-export-memory.mjs --refresh-context  # docs/CONTEXT.md auto 블록도 갱신
+//   node scripts/sync-export-memory.mjs --check      # 아무것도 쓰지 않고 mirror 가 낡았는지만 본다 (낡으면 exit 1)
+//     └ pre-commit 훅이 쓴다. docs/CONTEXT.md 는 대상이 아니다 — 자동 블록에 최근 커밋이 들어가서
+//       커밋마다 "낡음" 이 되고, 그러면 안내가 매번 떠서 아무도 읽지 않게 된다.
 //
 // 무엇을 옮기나:
 //   - memory/project_*.md (작업 milestone 기록)
@@ -37,6 +40,8 @@ const CONTEXT_MD = path.join(REPO_ROOT, 'docs', 'CONTEXT.md')
 
 const args = new Set(process.argv.slice(2))
 const REFRESH_CONTEXT = args.has('--refresh-context')
+const CHECK = args.has('--check')
+let stale = 0 // --check 에서 "갱신이 필요한 파일" 수
 
 /**
  * Claude Code 의 memory dir 경로 추정.
@@ -71,6 +76,10 @@ function readSafe(p) {
 function writeIfChanged(p, content) {
   const cur = readSafe(p)
   if (cur === content) return false
+  if (CHECK) {
+    stale++
+    return true // 파일을 쓰지 않는다 — 낡았다는 사실만 센다
+  }
   fs.mkdirSync(path.dirname(p), { recursive: true })
   fs.writeFileSync(p, content, 'utf-8')
   return true
@@ -90,9 +99,25 @@ function syncMemory() {
   const memDir = resolveMemoryDir()
   if (!memDir) {
     console.log('[sync-memory] memory dir 미발견 — skip (정상)')
-    return { mirrored: 0, removed: 0 }
+    return { mirrored: 0, removed: 0, skipped: true }
   }
   console.log(`[sync-memory] source: ${memDir}`)
+
+  // 멀티 PC 안전 가드: 이 머신 memory 의 mirror 대상 파일이 기존 mirror 의 50% 미만이면
+  //   = 다른 PC 에서 생성된 mirror. mirror/prune/README/CONTEXT 전부 skip — 상대 PC mirror 파괴 방지.
+  //   (authoritative 머신: srcMatch≈existing → 정상 동작. fresh/foreign 머신: 완전 no-op.)
+  {
+    const srcMatch = fs.readdirSync(memDir).filter((n) => /^(project_|feedback_|reference_).*\.md$/.test(n)).length
+    let existingMirror = 0
+    for (const cat of ['project', 'feedback', 'reference']) {
+      const d = path.join(AI_CONTEXT_DIR, cat)
+      if (fs.existsSync(d)) existingMirror += fs.readdirSync(d).filter((f) => f.endsWith('.md')).length
+    }
+    if (existingMirror > 0 && srcMatch < existingMirror * 0.5) {
+      console.log(`[sync-memory] 이 머신 대상(${srcMatch}) < 기존 mirror(${existingMirror})×0.5 — 다른 PC mirror 로 판단, 전체 skip.`)
+      return { mirrored: 0, removed: 0, skipped: true }
+    }
+  }
 
   const entries = fs.readdirSync(memDir, { withFileTypes: true })
   const targetByName = new Map() // mirror dst path → category
@@ -125,6 +150,11 @@ function syncMemory() {
       for (const f of fs.readdirSync(catDir)) {
         const dst = path.join(catDir, f)
         if (!targetByName.has(dst)) {
+          if (CHECK) {
+            stale++
+            removed++
+            continue
+          }
           fs.unlinkSync(dst)
           removed++
           console.log(`  - ${path.relative(REPO_ROOT, dst)} (removed)`)
@@ -264,6 +294,20 @@ console.log(
   `[sync-memory] mirrored=${memResult.mirrored} removed=${memResult.removed} (${Date.now() - t0}ms)`,
 )
 
-if (REFRESH_CONTEXT) {
+if (CHECK) {
+  if (memResult.skipped) {
+    // 이 머신에 memory 가 없거나(CI·다른 사용자) mirror 가 다른 PC 것 — 낡았는지 판정할 근거가 없다.
+    console.log('[sync-memory] --check: 판정 불가 (이 머신 memory 없음 / 다른 PC mirror) — 통과')
+    process.exit(0)
+  }
+  console.log(
+    stale > 0
+      ? `[sync-memory] --check: docs/AI_CONTEXT mirror 갱신 필요 ${stale}건 (아무것도 쓰지 않았다)`
+      : '[sync-memory] --check: mirror 최신',
+  )
+  process.exit(stale > 0 ? 1 : 0)
+}
+
+if (REFRESH_CONTEXT && !memResult.skipped) {
   refreshContextAutoBlocks()
 }

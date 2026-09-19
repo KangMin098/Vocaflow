@@ -1,0 +1,184 @@
+{
+ "note": "v3 — **양측 게이트(기출 10~90% 대역) 중앙**을 통과한 소스로 만들었다. v1 은 대역 아래(어휘 쉬움), v2 는 대역 위(문장 김). v3 는 가운데다. 소스는 파이프라인 **자체 작문(cc0)** 두 편 — 즉 파이프라인이 이미 만들 수 있는 글이다. 기출 지문은 한 편도 쓰지 않았다. ⚠️ 2판: 처음에 또 짧게(570~800자) 잘랐다가 소스 A 전문에서 되살렸다 — v1 에서 겪은 실수를 세 번째 반복했다. 그 사실을 여기 적어 둔다.",
+ "sources": [
+  {
+   "id": "A",
+   "source": "original",
+   "license": "cc0",
+   "title": "A Complaint Is Rarely About Volume",
+   "chars": 1792,
+   "wordLen": 4.72,
+   "long8": 0.153,
+   "sentLen": 13.6
+  },
+  {
+   "id": "B",
+   "source": "original",
+   "license": "cc0",
+   "title": "When a river fails, the grid answers",
+   "chars": 1049,
+   "wordLen": 4.97,
+   "long8": 0.185,
+   "sentLen": 14.4
+  }
+ ],
+ "procedure": [
+  "D2 유형: E11 의 TYPE_BY_NO · D3 배점: E9 로 34·37 을 3점 · D7: blueprint · D4: I2 만 지킴",
+  "D5·D6: §6.15 · §6.12 · P3.13",
+  "지문 길이: 처음부터 약 900자 (v1 의 절단 실수를 반복하지 않았다)",
+  "⚠️ D5·D6 을 규칙을 보고 만들었으므로 추상도·반향·정답 길이순위 측정은 순환이다"
+ ],
+ "items": [
+  {
+   "no": 23,
+   "type": "R-TOPIC",
+   "points": 2,
+   "answer": 5,
+   "src": "A",
+   "passage": "A block of flats is a single structure that many separate households share. Floors and walls are continuous, so a sound made in one room enters several others. The concrete carries a footstep as a slight shake rather than as air. That shake passes downward and sideways and arrives with no clear direction. A listener below hears the noise but cannot point to the room that produced it. Every dispute between neighbours begins inside a structure that leaves no mark of origin. Communities answer the problem with rules rather than with new walls. Quiet hours, floor coverings, and a channel for complaints are the usual three. None of these rules lowers the total amount of noise a building produces. What they change is when a sound may arrive and who must answer for it. A quiet hour moves the same footsteps into a period when the others are awake. A complaint channel supplies the mark that the concrete itself cannot give.",
+   "choices": [
+    "engineering methods for reducing sound in concrete floors",
+    "legal penalties available to households in shared buildings",
+    "the difficulty of measuring loudness inside a block of flats",
+    "reasons why quiet hours fail in most residential communities",
+    "rules that manage a noise problem they cannot remove"
+   ]
+  },
+  {
+   "no": 24,
+   "type": "R-TITLE",
+   "points": 2,
+   "answer": 3,
+   "src": "A",
+   "passage": "Households under such rules report fewer disputes, though instruments record no fall in loudness. A neighbour who knows that chairs move at eight simply stops listening for them. The same chairs at midnight feel louder, because nothing in the day predicted them. Surprise, not volume, is what makes a listener notice every sound and grow angry. Where the rules are honoured, residents accept sounds they had once called unbearable. Where the rules are ignored, a soft and irregular tap can empty a building of patience. The structure that opened this account has not been altered by any of these rules. Concrete still carries every step, and the building is no softer than before. What the rules alter is the ability of a listener to expect and to explain. So a complaint about noise is usually a complaint about not knowing. The quiet that people actually want is a quiet they can predict.",
+   "choices": [
+    "Building Softer Walls: An Engineering Answer to Noise",
+    "Quiet Hours and the Law of Shared Housing",
+    "The Loudest Sound Is the One You Did Not Expect",
+    "Why Instruments Cannot Settle a Neighbour Dispute",
+    "Patience: The Forgotten Virtue of Apartment Living"
+   ]
+  },
+  {
+   "no": 29,
+   "type": "R-GRAMMAR",
+   "points": 2,
+   "answer": 4,
+   "src": "B",
+   "passage": "Infrastructure is rarely as independent as it ① appears. Romania's only nuclear station draws all of its cooling water from a single river, and that arrangement went unexamined for as long as the river ② behaved predictably. A prolonged spell of heat and drought in August lowered the Danube far beneath its normal level, and the consequences ③ followed in sequence. One of the two reactors had been taken offline a month earlier; on Thursday it closed the second, ④ suspended a plant that ordinarily supplies about a fifth of national electricity. Its director put the earliest restart at ten days away, which obliged the government to compensate through wind generation and imported power. Hungary, whose reactors rely on the same river, is now working ⑤ to prevent an identical outcome. Such episodes suggest that climate stress reaches critical systems by withdrawing a condition on which they quietly depend.",
+   "grammarPoints": [
+    "G3 수일치",
+    "G9 시제",
+    "G3 수일치",
+    "G1 준동사 vs 정동사(분사구문)",
+    "G1 준동사 vs 정동사"
+   ],
+   "choices": [
+    "appears",
+    "behaved",
+    "followed",
+    "suspended",
+    "to prevent"
+   ]
+  },
+  {
+   "no": 30,
+   "type": "R-VOCAB",
+   "points": 3,
+   "answer": 2,
+   "src": "B",
+   "vocabFormat": "underline",
+   "swapType": "antonym",
+   "intended": "dependent",
+   "passage": "Infrastructure is rarely as independent as it appears. Romania's only nuclear station draws all of its cooling water from a single river, and that arrangement went ① unexamined for as long as the river behaved predictably. A prolonged spell of heat and drought in August lowered the Danube far beneath its normal level, and the plant became ② independent of that single supply. One of the two reactors had been taken offline a month earlier; on Thursday it closed the second, ③ suspending a plant that ordinarily supplies about a fifth of national electricity. Its director put the earliest restart at ten days away, which ④ obliged the government to compensate through wind generation and imported power. Hungary, whose reactors rely on the same river, is now working to ⑤ prevent an identical outcome. Such episodes suggest that climate stress reaches critical systems quietly.",
+   "choices": [
+    "unexamined",
+    "independent",
+    "suspending",
+    "obliged",
+    "prevent"
+   ]
+  },
+  {
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 3,
+   "src": "A",
+   "passage": "A block of flats is a single structure that many separate households share. Floors and walls are continuous, so a sound made in one room enters several others. The concrete carries a footstep as a slight shake rather than as air. That shake passes downward and sideways and arrives with no clear direction. A listener below hears the noise but cannot point to the room that produced it. Every dispute between neighbours begins inside a structure that leaves no mark of origin. Communities answer the problem with rules rather than with new walls. Quiet hours, floor coverings, and a channel for complaints are the usual three. None of these rules lowers the total amount of noise a building produces. A quiet hour moves the same footsteps into a period when the others are awake. What such rules actually supply is ______.",
+   "choices": [
+    "a thicker barrier between one household and the next",
+    "a measurement of loudness that instruments can confirm",
+    "the mark of origin the concrete withholds",
+    "a schedule that removes footsteps from the evening",
+    "an agreement to replace the floors of older buildings"
+   ]
+  },
+  {
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 4,
+   "src": "A",
+   "passage": "Households under such rules report fewer disputes, though instruments record no fall in loudness. A neighbour who knows that chairs move at eight simply stops listening for them. The same chairs at midnight feel louder, because nothing in the day predicted them. Surprise, not volume, is what makes a listener notice every sound and grow angry. Where the rules are honoured, residents accept sounds they had once called unbearable. Where the rules are ignored, a soft and irregular tap can empty a building of patience. The structure that opened this account has not been altered by any of these rules. Concrete still carries every step, and the building is no softer than before. What the rules alter is the ability of a listener to expect and to explain. Measuring a neighbour in units of loudness therefore ______.",
+   "choices": [
+    "requires equipment that most households cannot afford",
+    "proves that quiet hours have no effect on behaviour",
+    "explains why concrete remains the cheapest material",
+    "answers a question nobody asked",
+    "settles the dispute before it reaches a complaint channel"
+   ]
+  },
+  {
+   "no": 35,
+   "type": "R-IRRELEVANT",
+   "points": 2,
+   "answer": 4,
+   "src": "A",
+   "passage": "A block of flats is a single structure that many separate households share. ① Floors and walls are continuous, so a sound made in one room enters several others. ② The concrete carries a footstep as a slight shake rather than as air, and that shake arrives with no clear direction. ③ A listener below hears the noise but cannot point to the room that produced it, so every dispute begins inside a structure that leaves no mark of origin. ④ Steel frames became cheaper than concrete in several markets after the transport costs of cement rose sharply in the same period. ⑤ Communities therefore answer the problem with rules rather than with new walls, and quiet hours, floor coverings, and a channel for complaints are the usual three.",
+   "choices": [
+    "①",
+    "②",
+    "③",
+    "④",
+    "⑤"
+   ]
+  },
+  {
+   "no": 37,
+   "type": "R-ORDER",
+   "points": 3,
+   "answer": 2,
+   "src": "A",
+   "passage": "A block of flats is a single structure that many separate households share. Floors and walls are continuous, so a sound made in one room enters several others, and the concrete carries a footstep as a slight shake that arrives with no clear direction.",
+   "blocks": {
+    "A": "None of these rules lowers the total amount of noise a building produces. What they change is when a sound may arrive and who must answer for it, since a quiet hour moves the same footsteps into a period when the others are awake.",
+    "B": "A listener below therefore hears the noise but cannot point to the room that produced it. Communities answer this problem with rules rather than with new walls, and quiet hours, floor coverings, and a complaint channel are the usual three.",
+    "C": "Households under such rules report fewer disputes, though instruments record no fall in loudness, because a neighbour who knows that chairs move at eight simply stops listening for them."
+   },
+   "choices": [
+    "(A)-(C)-(B)",
+    "(B)-(A)-(C)",
+    "(B)-(C)-(A)",
+    "(C)-(A)-(B)",
+    "(C)-(B)-(A)"
+   ],
+   "orderAnswer": "(B)-(A)-(C)"
+  },
+  {
+   "no": 26,
+   "type": "R-FACT",
+   "points": 2,
+   "answer": 3,
+   "src": "B",
+   "passage": "Infrastructure is rarely as independent as it appears. Romania's only nuclear station draws all of its cooling water from a single river, and that arrangement went unexamined for as long as the river behaved predictably. A prolonged spell of heat and drought in August lowered the Danube far beneath its normal level, and the consequences followed in sequence. One of the two reactors had been taken offline a month earlier; on Thursday the operator closed the second, suspending a plant that ordinarily supplies about a fifth of national electricity. Its director put the earliest restart at ten days away, which obliged the government to compensate through wind generation and imported power. Hungary, whose reactors rely on the same river, is now working to prevent an identical outcome.",
+   "choices": [
+    "이 발전소는 냉각수를 강 하나에서만 얻는다.",
+    "두 원자로는 서로 다른 시점에 가동을 멈췄다.",
+    "발전소는 목요일 이후 열흘 안에 재가동될 예정이었다.",
+    "정부는 부족분을 풍력과 수입 전력으로 메웠다.",
+    "헝가리의 원자로도 같은 강에 의존한다."
+   ]
+  }
+ ]
+}

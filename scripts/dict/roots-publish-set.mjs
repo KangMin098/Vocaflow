@@ -1,4 +1,12 @@
 // scripts/dict/roots-publish-set.mjs
+//
+// ⚠️ SUPERSEDED (2026-08-15) — 컴포저가 같은 세트를 만든다:
+//     pnpm vcb:compose --blueprint root-etymology --count 1500 --group-cap 10 [--commit]
+//   차이: 컴포저는 레시피와 7지표 점수를 curation_query 에 남기고 통과선 0.80 미달이면 발행을 막는다.
+//   이 스크립트는 자기만의 curation_query 방언({org:'root',...})을 쓰고 채점이 없다.
+//   새 유형이 필요하면 이 파일을 복사하지 말고 blueprints.ts 에 한 항목을 추가할 것
+//   (그렇게 하지 않으면 6번째 방언이 생긴다 — docs/VCB_REDESIGN.md §0).
+//
 // 어원별 단어장 생성·발행 — word_root_links + shared_dictionary → shared_word_sets + shared_words.
 //   챕터 = 어근(gloss). 각 단어는 1챕터(affix 'root' 우선, 동률 시 productive root). 어근당 cap.
 //   멱등: slug 존재 시 그 set 의 shared_words 삭제 후 재삽입(set row 는 update).

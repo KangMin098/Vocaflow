@@ -19,7 +19,7 @@ interface PageProps {
 }
 
 export const metadata = {
-  title: '따라읽기 · Vocaflow',
+  title: '따라읽기',
 }
 
 export const dynamic = 'force-dynamic'
@@ -139,7 +139,7 @@ export default async function EchoModePage({ params }: PageProps) {
       <div className="mx-auto max-w-3xl px-6 pt-6">
         <Link
           href={`/text/${params.id}?mode=read`}
-          className="inline-flex items-center gap-1.5 font-body text-[12px] font-[500] text-[var(--t3)] transition-colors hover:text-[var(--p)]"
+          className="inline-flex items-center gap-2 font-body text-[12px] font-[500] text-[var(--t2)] transition-colors hover:text-[var(--p)]"
         >
           <ArrowLeft size={14} aria-hidden />
           본문으로

@@ -16,7 +16,6 @@ interface MicroPauseProps {
 
 export function MicroPause({
   visible,
-  icon,
   message,
   currentIdx,
   totalCount,
@@ -45,18 +44,14 @@ export function MicroPause({
       } `}
     >
       <div className="max-w-md p-8 text-center">
-        <span
-          className="mb-4 inline-block animate-[gentle-float_2s_ease-in-out_infinite] text-[48px]"
-          aria-hidden="true"
-        >
-          {icon}
-        </span>
+        {/* v07 — 떠다니는 48px 이모지(무한 반복)를 뺐다 — flashcard/MicroPause 와 같은 판단 */}
+        <span aria-hidden className="mx-auto mb-5 block h-8 w-[3px] bg-[var(--ju)]" />
         <p className="mb-4 font-english text-[18px] italic leading-relaxed text-[var(--t1)]">
           {message}
         </p>
-        <div className="mb-4 inline-flex items-center gap-3.5 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-2 font-mono text-[11px] text-[var(--t2)]">
+        <div className="mb-4 inline-flex items-center gap-4 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-2 font-mono text-[11px] text-[var(--t2)]">
           <div>
-            <span className="font-display text-[9px] font-[700] uppercase tracking-[0.08em] text-[var(--t3)]">
+            <span className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
               단어
             </span>
             <strong className="ml-1 font-[700] text-[var(--t1)]">
@@ -65,18 +60,18 @@ export function MicroPause({
           </div>
           <span className="h-3 w-px bg-[var(--bd)]" />
           <div>
-            <span className="font-display text-[9px] font-[700] uppercase tracking-[0.08em] text-[var(--t3)]">
+            <span className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
               정확도
             </span>
             <strong className="ml-1 font-[700] text-[var(--t1)]">{accuracy}%</strong>
           </div>
         </div>
-        <p className="font-body text-[11px] italic text-[var(--t3)]">
-          <kbd className="mx-0.5 rounded border border-[var(--bd)] bg-[var(--bg)] px-1.5 py-0.5 font-mono text-[10px] font-[600] text-[var(--t2)]">
+        <p className="font-body text-[11px] italic text-[var(--t2)]">
+          <kbd className="mx-0.5 rounded border border-[var(--bd)] bg-[var(--bg)] px-2 py-1 font-mono text-[10px] font-[600] text-[var(--t2)]">
             Space
           </kbd>
           또는
-          <kbd className="mx-0.5 rounded border border-[var(--bd)] bg-[var(--bg)] px-1.5 py-0.5 font-mono text-[10px] font-[600] text-[var(--t2)]">
+          <kbd className="mx-0.5 rounded border border-[var(--bd)] bg-[var(--bg)] px-2 py-1 font-mono text-[10px] font-[600] text-[var(--t2)]">
             Enter
           </kbd>
           다음으로

@@ -1,0 +1,17 @@
+# .codex/rules/vocaflow.rules — Codex execpolicy 2차 방어선
+#
+# 1차는 PreToolUse 훅(agents/scripts/guard.mjs)이다. 이 규칙은 명령 **앞머리**만 보므로
+# `git push origin x --force` 처럼 플래그가 뒤에 오면 못 잡는다 — 그 경우는 훅이 잡는다.
+# 검사: codex execpolicy check --pretty --rules .codex/rules/vocaflow.rules -- rm -rf build
+
+prefix_rule(pattern = ["rm", "-rf"], decision = "forbidden", justification = "재귀 강제 삭제 금지 (AGENTS.md · 공유 워크스페이스)")
+prefix_rule(pattern = ["rm", "-fr"], decision = "forbidden", justification = "재귀 강제 삭제 금지")
+prefix_rule(pattern = ["git", "push", "--force"], decision = "forbidden", justification = "force push 금지")
+prefix_rule(pattern = ["git", "push", "-f"], decision = "forbidden", justification = "force push 금지")
+prefix_rule(pattern = ["git", "push", "--force-with-lease"], decision = "forbidden", justification = "force push 금지")
+prefix_rule(pattern = ["git", "reset", "--hard"], decision = "forbidden", justification = "공유 워크스페이스 — 다른 세션의 미커밋 변경을 지운다")
+prefix_rule(pattern = ["git", "clean"], decision = "prompt", justification = "공유 워크스페이스 — 다른 세션의 새 파일을 지울 수 있다")
+prefix_rule(pattern = ["git", "stash"], decision = "prompt", justification = "공유 워크스페이스 — 다른 세션의 변경까지 치운다")
+prefix_rule(pattern = ["cat", ".env"], decision = "forbidden", justification = ".env 출력 금지")
+prefix_rule(pattern = ["cat", ".env.local"], decision = "forbidden", justification = ".env 출력 금지")
+prefix_rule(pattern = ["cat", "apps/web/.env.local"], decision = "forbidden", justification = ".env 출력 금지")

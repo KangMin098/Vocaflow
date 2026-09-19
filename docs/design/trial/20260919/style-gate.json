@@ -1,0 +1,505 @@
+[
+  {
+    "file": "illo-01-wordbook-empty.svg",
+    "size": "320x200",
+    "title": true,
+    "slots": 5,
+    "extraTokens": [],
+    "memory": false,
+    "strokeKinds": 2,
+    "strokes": [
+      "1.5px",
+      "1px"
+    ],
+    "thick": 0,
+    "hex": 0,
+    "gradient": false,
+    "stage": true,
+    "mainRatio": 60,
+    "accent": 0.02,
+    "forbidden": false,
+    "fonts": [
+      "Lora"
+    ],
+    "badFont": false,
+    "exact": 0,
+    "nearNew": 0,
+    "nearExempt": [
+      "--bg↔#FCF9F5 1.01",
+      "--bg2↔#F3EFEA 1"
+    ],
+    "vars": [
+      "--grid-line",
+      "--bg",
+      "--bd",
+      "--t1",
+      "--bg2",
+      "--ju"
+    ],
+    "juOutside": 0,
+    "fails": [],
+    "golden": "ok"
+  },
+  {
+    "file": "illo-02-text-hub-first.svg",
+    "size": "320x200",
+    "title": true,
+    "slots": 5,
+    "extraTokens": [],
+    "memory": false,
+    "strokeKinds": 2,
+    "strokes": [
+      "1.5px",
+      "1px"
+    ],
+    "thick": 0,
+    "hex": 0,
+    "gradient": false,
+    "stage": true,
+    "mainRatio": 68,
+    "accent": 1.07,
+    "forbidden": false,
+    "fonts": [
+      "Lora"
+    ],
+    "badFont": false,
+    "exact": 0,
+    "nearNew": 0,
+    "nearExempt": [
+      "--bg↔#FCF9F5 1.01",
+      "--bg2↔#F3EFEA 1"
+    ],
+    "vars": [
+      "--grid-line",
+      "--bg",
+      "--bd",
+      "--t1",
+      "--bg2",
+      "--ju-wash"
+    ],
+    "juOutside": 0,
+    "fails": [],
+    "golden": "ok"
+  },
+  {
+    "file": "illo-03-shelf-filter-zero.svg",
+    "size": "320x200",
+    "title": true,
+    "slots": 5,
+    "extraTokens": [],
+    "memory": false,
+    "strokeKinds": 2,
+    "strokes": [
+      "1.5px",
+      "1px"
+    ],
+    "thick": 0,
+    "hex": 0,
+    "gradient": false,
+    "stage": true,
+    "mainRatio": 60,
+    "accent": 0.02,
+    "forbidden": false,
+    "fonts": [
+      "JetBrains Mono"
+    ],
+    "badFont": false,
+    "exact": 0,
+    "nearNew": 0,
+    "nearExempt": [
+      "--bg↔#FCF9F5 1.01",
+      "--bg2↔#F3EFEA 1"
+    ],
+    "vars": [
+      "--grid-line",
+      "--bg",
+      "--bd",
+      "--t1",
+      "--bg2",
+      "--ju"
+    ],
+    "juOutside": 0,
+    "fails": [],
+    "golden": "ok"
+  },
+  {
+    "file": "illo-04-dictation-choose.svg",
+    "size": "320x200",
+    "title": true,
+    "slots": 5,
+    "extraTokens": [],
+    "memory": false,
+    "strokeKinds": 2,
+    "strokes": [
+      "1.5px",
+      "1px"
+    ],
+    "thick": 0,
+    "hex": 0,
+    "gradient": false,
+    "stage": true,
+    "mainRatio": 68,
+    "accent": 0.02,
+    "forbidden": false,
+    "fonts": [
+      "Lora"
+    ],
+    "badFont": false,
+    "exact": 0,
+    "nearNew": 0,
+    "nearExempt": [
+      "--bg↔#FCF9F5 1.01",
+      "--bg2↔#F3EFEA 1"
+    ],
+    "vars": [
+      "--grid-line",
+      "--bg",
+      "--bd",
+      "--t1",
+      "--bg2",
+      "--ju"
+    ],
+    "juOutside": 0,
+    "fails": [],
+    "golden": "ok"
+  },
+  {
+    "file": "illo-07-coverage.svg",
+    "size": "240x240",
+    "title": true,
+    "slots": 5,
+    "extraTokens": [],
+    "memory": false,
+    "strokeKinds": 2,
+    "strokes": [
+      "1.5px",
+      "1px"
+    ],
+    "thick": 0,
+    "hex": 0,
+    "gradient": false,
+    "stage": true,
+    "mainRatio": 80,
+    "accent": 2.6,
+    "forbidden": false,
+    "fonts": [
+      "Lora",
+      "JetBrains Mono"
+    ],
+    "badFont": false,
+    "exact": 0,
+    "nearNew": 0,
+    "nearExempt": [
+      "--bg↔#FCF9F5 1.01",
+      "--bg2↔#F3EFEA 1"
+    ],
+    "vars": [
+      "--grid-line",
+      "--bg",
+      "--bd",
+      "--t1",
+      "--bg2",
+      "--ju-wash",
+      "--ju"
+    ],
+    "juOutside": 0,
+    "fails": [],
+    "golden": "ok"
+  },
+  {
+    "file": "illo-08-decay-per-word.svg",
+    "size": "240x240",
+    "title": true,
+    "slots": 4,
+    "extraTokens": [],
+    "memory": true,
+    "strokeKinds": 2,
+    "strokes": [
+      "1.5px",
+      "1px"
+    ],
+    "thick": 0,
+    "hex": 0,
+    "gradient": false,
+    "stage": true,
+    "mainRatio": 60,
+    "accent": 0.02,
+    "forbidden": false,
+    "fonts": [
+      "Lora",
+      "JetBrains Mono",
+      "Hahmlet"
+    ],
+    "badFont": false,
+    "exact": 0,
+    "nearNew": 0,
+    "nearExempt": [
+      "--bg↔#FCF9F5 1.01"
+    ],
+    "vars": [
+      "--grid-line",
+      "--bg",
+      "--bd",
+      "--t1",
+      "--memory-risk",
+      "--memory-shaky",
+      "--memory-stable",
+      "--ju"
+    ],
+    "juOutside": 0,
+    "fails": [],
+    "golden": "ok"
+  },
+  {
+    "file": "illo-09-review-holds.svg",
+    "size": "640x240",
+    "title": true,
+    "slots": 4,
+    "extraTokens": [],
+    "memory": true,
+    "strokeKinds": 2,
+    "strokes": [
+      "1.5px",
+      "1px"
+    ],
+    "thick": 0,
+    "hex": 0,
+    "gradient": false,
+    "stage": true,
+    "mainRatio": 85,
+    "accent": 0.02,
+    "forbidden": false,
+    "fonts": [
+      "JetBrains Mono",
+      "Lora"
+    ],
+    "badFont": false,
+    "exact": 0,
+    "nearNew": 0,
+    "nearExempt": [
+      "--bg↔#FCF9F5 1.01"
+    ],
+    "vars": [
+      "--grid-line",
+      "--bg",
+      "--bd",
+      "--t1",
+      "--memory-stable",
+      "--memory-shaky",
+      "--memory-risk",
+      "--ju"
+    ],
+    "juOutside": 0,
+    "fails": [],
+    "golden": "ok"
+  },
+  {
+    "file": "illo-10-evidence-points.svg",
+    "size": "240x240",
+    "title": true,
+    "slots": 4,
+    "extraTokens": [],
+    "memory": false,
+    "strokeKinds": 2,
+    "strokes": [
+      "1.5px",
+      "1px"
+    ],
+    "thick": 0,
+    "hex": 0,
+    "gradient": false,
+    "stage": true,
+    "mainRatio": 80,
+    "accent": 0.1,
+    "forbidden": false,
+    "fonts": [
+      "Lora",
+      "JetBrains Mono",
+      "Hahmlet"
+    ],
+    "badFont": false,
+    "exact": 0,
+    "nearNew": 0,
+    "nearExempt": [
+      "--bg↔#FCF9F5 1.01"
+    ],
+    "vars": [
+      "--grid-line",
+      "--bg",
+      "--bd",
+      "--t1",
+      "--ju"
+    ],
+    "juOutside": 0,
+    "fails": [],
+    "golden": "ok"
+  },
+  {
+    "file": "illo-14-class-sheet.svg",
+    "size": "240x240",
+    "title": true,
+    "slots": 5,
+    "extraTokens": [],
+    "memory": false,
+    "strokeKinds": 2,
+    "strokes": [
+      "1.5px",
+      "1px"
+    ],
+    "thick": 0,
+    "hex": 0,
+    "gradient": false,
+    "stage": true,
+    "mainRatio": 78,
+    "accent": 0.61,
+    "forbidden": false,
+    "fonts": [
+      "Lora",
+      "JetBrains Mono",
+      "Hahmlet"
+    ],
+    "badFont": false,
+    "exact": 0,
+    "nearNew": 0,
+    "nearExempt": [
+      "--bg↔#FCF9F5 1.01",
+      "--bg2↔#F3EFEA 1"
+    ],
+    "vars": [
+      "--grid-line",
+      "--bg",
+      "--bd",
+      "--t1",
+      "--bg2",
+      "--ju"
+    ],
+    "juOutside": 0,
+    "fails": [],
+    "golden": "ok"
+  },
+  {
+    "file": "illo-16-off-curriculum.svg",
+    "size": "240x240",
+    "title": true,
+    "slots": 5,
+    "extraTokens": [],
+    "memory": false,
+    "strokeKinds": 2,
+    "strokes": [
+      "1.5px",
+      "1px"
+    ],
+    "thick": 0,
+    "hex": 0,
+    "gradient": false,
+    "stage": true,
+    "mainRatio": 83,
+    "accent": 0.01,
+    "forbidden": false,
+    "fonts": [
+      "Lora"
+    ],
+    "badFont": false,
+    "exact": 0,
+    "nearNew": 0,
+    "nearExempt": [
+      "--bg↔#FCF9F5 1.01",
+      "--bg2↔#F3EFEA 1"
+    ],
+    "vars": [
+      "--grid-line",
+      "--bg",
+      "--bd",
+      "--t1",
+      "--bg2",
+      "--ju"
+    ],
+    "juOutside": 0,
+    "fails": [],
+    "golden": "ok"
+  },
+  {
+    "file": "illo-19-shelf-fills.svg",
+    "size": "240x240",
+    "title": true,
+    "slots": 5,
+    "extraTokens": [],
+    "memory": false,
+    "strokeKinds": 2,
+    "strokes": [
+      "1.5px",
+      "1px"
+    ],
+    "thick": 0,
+    "hex": 0,
+    "gradient": false,
+    "stage": true,
+    "mainRatio": 80,
+    "accent": 0.02,
+    "forbidden": false,
+    "fonts": [
+      "Lora",
+      "Hahmlet"
+    ],
+    "badFont": false,
+    "exact": 0,
+    "nearNew": 0,
+    "nearExempt": [
+      "--bg↔#FCF9F5 1.01",
+      "--bg2↔#F3EFEA 1"
+    ],
+    "vars": [
+      "--grid-line",
+      "--bg",
+      "--bd",
+      "--t1",
+      "--bg2",
+      "--ju"
+    ],
+    "juOutside": 0,
+    "fails": [],
+    "golden": "ok"
+  },
+  {
+    "file": "illo-30-no-review-today.svg",
+    "size": "320x200",
+    "title": true,
+    "slots": 5,
+    "extraTokens": [],
+    "memory": false,
+    "strokeKinds": 2,
+    "strokes": [
+      "1.5px",
+      "1px"
+    ],
+    "thick": 0,
+    "hex": 0,
+    "gradient": false,
+    "stage": true,
+    "mainRatio": 60,
+    "accent": 0.03,
+    "forbidden": false,
+    "fonts": [
+      "Hahmlet",
+      "JetBrains Mono"
+    ],
+    "badFont": false,
+    "exact": 0,
+    "nearNew": 0,
+    "nearExempt": [
+      "--bg↔#FCF9F5 1.01",
+      "--bg2↔#F3EFEA 1"
+    ],
+    "vars": [
+      "--grid-line",
+      "--bg",
+      "--bd",
+      "--t1",
+      "--bg2",
+      "--ju"
+    ],
+    "juOutside": 0,
+    "fails": [],
+    "golden": "ok"
+  }
+]

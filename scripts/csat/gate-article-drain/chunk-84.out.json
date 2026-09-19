@@ -1,0 +1,1502 @@
+[
+ {
+  "book": "Valorization of agro-industrial waste from the cassava industry as esterified cellulose butyrate for polyhydroxybutyrate",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0292051",
+  "source": "plos",
+  "v_level": 6,
+  "words": 311,
+  "rows": 2,
+  "excerpts": [
+   "Both governments and private organizations have adopted policy measures consisting of two actions: taxation of plastic bags and legislation to ban plastic bags. In addition, the pollution caused by waste synthetic plastics has driven research on alternatives. Bioplastics, which are environmentally friendly, are being promoted as potentially profitable materials with which to tackle these issues. Based on biodegradati",
+   "hydroxyalkanoates (PHAs) are bioplastics that have attracted interest in recent studies since they are produced biosynthetically by microorganisms and accumulate as intracellular granules used for carbon and energy storage in the cytoplasm. PHAs exhibit biodegradability, thermoplasticity, compatibility and generation from renewable carbon sources. The number of atoms in the monomer is used to determine the type of PH"
+  ],
+  "verdict": "use",
+  "genre": "environment",
+  "why": "비닐봉지 규제에서 생분해 플라스틱 대안으로 이어지는 논지가 선다"
+ },
+ {
+  "book": "The effect of different extreme weather events on attitudes toward climate change",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0300967",
+  "source": "plos",
+  "v_level": 5,
+  "words": 327,
+  "rows": 2,
+  "excerpts": [
+   "There is substantial evidence that the global climate is changing and will continue to transform well into the future. Among the most consequential effects of unmitigated climate change is climate variability, which can increase the risks of disasters with potentially devastating impacts. Disasters in the form of extreme weather—including severe storms, floods, fires, and hurricanes—cause major damage across the Unit",
+   " preferences is a crucial task, given evidence that mass attitudes can influence policymakers and play a role in determining which policies are ultimately adopted. Exploring factors that influence public opinion about climate change could inform researchers and practitioners focused on policy making in this area and, as a result, have consequential effects on efforts to curb climate variability. Although the literatu"
+  ],
+  "verdict": "use",
+  "genre": "climate",
+  "why": "기상 재해 경험이 여론과 정책에 미치는 영향을 문제 제기로 전개한다"
+ },
+ {
+  "book": "An entropy-based study of Simplification in ChatGPT translations compared to neural machine translation and human transl",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0339762",
+  "source": "plos",
+  "v_level": 6,
+  "words": 324,
+  "rows": 1,
+  "excerpts": [
+   "Furthermore, the interaction between translation modes (LLM vs. NMT vs. HT) and genre in shaping simplification requires systematic investigation. Finally, the conflicting results from previous studies using traditional metrics necessitate the application of more robust measures like entropy. This multi-genre design aligns with recent research demonstrating the importance of genre variation in translation studies. Go",
+   "anslation studies, two types of entropy measures were employed to analyze linguistic complexity. The selection of entropy-based measures is supported by their proven effectiveness in capturing both lexical and structural complexity. The first measure, unigram entropy, is calculated using Formula (1), where p(x) represents the probability of each word (unigram) occurring in the text. Unigram entropy is most directly a"
+  ],
+  "verdict": "use",
+  "genre": "language",
+  "why": "기계 번역과 인간 번역의 단순화 경향 차이를 논점으로 세운다"
+ },
+ {
+  "book": "When local governments’ stay-at-home orders meet the white house’s “opening up america again”",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0298115",
+  "source": "plos",
+  "v_level": 5,
+  "words": 333,
+  "rows": 3,
+  "excerpts": [
+   "In addition to the dates of policy enforcement initiations, this data set includes the dates the policies were rolled back. County-level socio-economic data This data set was obtained from The U.S. Department of Agriculture (USDA) and included information about the socio-economic indicators at the county level. In particular, this data set provides information about education level and population estimates, including",
+   "dential ) were obtained from Google’s Community Mobility Report. According to Google, these data are based on “data from users who have opted-in to Location History for their Google Account.” Retail and Residential indices reflect the change in users’ locations based on a baseline. Per Google’s documentation, the baseline is the median value, for the corresponding day of the week, during the five weeks from January 3"
+  ],
+  "verdict": "reject",
+  "genre": "reference",
+  "why": "농무부 자료와 구글 이동성 지표의 출처 설명만 이어지는 데이터 구간이다"
+ },
+ {
+  "book": "Event-triggered self-regulating integrated PID extreme optimization and fault-tolerant strategy for floating offshore pl",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0337290",
+  "source": "plos",
+  "v_level": 5,
+  "words": 311,
+  "rows": 1,
+  "excerpts": [
+   "As land resources approach their development limits, the human development vision is gradually extending from land to sea. The vast resource potential of the ocean is becoming a new focus of global strategic layout and sustainable development. The ocean contains vast oil and gas wealth, but to access it, you need a stable carrier that can navigate the uncertain marine environment. In this context, floating offshore p",
+   "le in the stability of the entire platform. Once the anchor chain fails, its impact cannot be underestimated. At the very least, it will lead to the anchor position to shift, and at the worst, it will cause the overall instability of the platform structure. The control system may drop in efficiency or even cause serious safety accidents. This series of consequences is enough poses a systemic risk to the entire offsho"
+  ],
+  "verdict": "use",
+  "genre": "engineering",
+  "why": "육지 자원 한계에서 해양 플랫폼 필요성으로 이어지는 설명문이다"
+ },
+ {
+  "book": "Evaluation of ambivalent sexism in Colombia and validation of the ASI and AMI brief scales",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0297981",
+  "source": "plos",
+  "v_level": 6,
+  "words": 310,
+  "rows": 3,
+  "excerpts": [
+   "Composed of two subscales: 6 items for Hostile Sexism (HS) and 6 for Benevolent Sexism (HS). Scores were obtained using a Likert scale ranging from 0 = strongly disagree to 5 = strongly agree. Higher scores indicate higher levels of sexism toward men. The brief version was based on the original AMI. The Abbreviated Gender Ideology Scale (EIG) measures the traditional conception of gender ideology. It comprises 12 ite",
+   "hus, five pairs of Colombian psychologists who had lived in Spain for over six months reviewed the instruments and selected some words from the items that, in their estimation, Colombian people may not understand clearly. Once adjustments were addressed, the online survey was created and disseminated (the scales in their Colombian adaptation are found in the appendix). The evaluation was carried out online using Surv"
+  ],
+  "verdict": "reject",
+  "genre": "reference",
+  "why": "척도 문항 수와 리커트 범위, 설문 배포 절차를 나열한 도구 설명이다"
+ },
+ {
+  "book": "Moral integration influences English as a Foreign Language (EFL) oral English learning: Evidence from textbook analysis",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0340479",
+  "source": "plos",
+  "v_level": 6,
+  "words": 319,
+  "rows": 4,
+  "excerpts": [
+   "This appreciation supports the broader educational goal of developing students’ admiration for nature and fostering a sense of compassion and responsibility towards the environment, as highlighted in various educational initiatives (Han et al., 2018; Pratiwi et al., 2023). Ryan’s response in text 18 (judgement-social esteem-capacity) underscores the environmental benefits of bicycles as a more sustainable and eco-fri",
+   "s going very well (Book 1 Unit 9 p80) Text 20: Speaking. People have accused the fashion industry of encouraging young girls to go on starvation diets. (Book 2 Unit 7 p63) The speaker in text 19 (judgement-social esteem-tenacity) acknowledges the great support from her husband, which was crucial during the challenging times following the tsunami. This highlights the husband’s resilience and commitment to the family’s"
+  ],
+  "verdict": "reject",
+  "genre": "fragmentary",
+  "why": "교과서 쪽수와 텍스트 번호가 뒤섞여 인용 조각만 남았다"
+ },
+ {
+  "book": "Ohno-miRNAs: miRNA pairs derived from whole-genome duplication",
+  "url": "https://journals.plos.org/plosbiology/article?id=10.1371/journal.pcbi.1013766",
+  "source": "plos",
+  "v_level": 6,
+  "words": 343,
+  "rows": 1,
+  "excerpts": [
+   "More than 60% of human protein-coding genes harbor predicted miRNA target sites, and more than half of the human protein-coding genome is estimated to be regulated by miRNAs. Aberrant miRNA expression is known to play an important role in pathological processes, including allergic and autoimmune diseases. Recently, however, a list of inferred WGD-derived pairs of miRNAs (hereafter referred to as ohno-miRNAs) has beco",
+   " target gene. The resulting network comprises 713 miRNAs and 10,458 target genes, combined into 102,774 interactions. The miRDIP network was processed by leveraging the presence of an integrative score assigned by the authors to each miRNA-target pair. It is well established that the interactions provided by a miRNA-target prediction program are often noisy (false positives or biologically irrelevant). In this case, "
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "마이크로RNA의 조절 범위와 중복유전자 기원 개념을 설명한다"
+ },
+ {
+  "book": "Transcriptome-wide analysis of the differences between MCF7 cells cultured in DMEM or αMEM",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0298262",
+  "source": "plos",
+  "v_level": 6,
+  "words": 280,
+  "rows": 1,
+  "excerpts": [
+   "Breast cancer is the most prevalent cancer in women. With a global incidence of 24.2%, breast cancer ranked first among cancer types in women in 2018. Basic cancer research has mainly used cell lines as the main experimental model. Cultured cells have led to major discoveries in various fields of cancer research, including those related to the occurrence and development of cancers, anticancer treatment, and prognosis",
+   " containing 10% FBS. The culture medium should not be changed during an experiment, especially when seeding cells, as the cells would otherwise be subjected to stress resulting from nutritional changes. Cells may finally adapt to the new environment over time, but their metabolic and gene expression profiles are likely to be modified during this period. For example, when breast cancer cell lines were separately cultu"
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "세포주 실험이 배양 조건에 좌우된다는 문제를 설명한다"
+ },
+ {
+  "book": "Structured reports of pelvic magnetic resonance imaging in primary endometrial cancer: Potential benefits for clinical d",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0213928",
+  "source": "plos",
+  "v_level": 7,
+  "words": 327,
+  "rows": 1,
+  "excerpts": [
+   "Endometrial cancer is a common malignancy with high mortality and morbidity rates being the sixth most common cause of cancer-related deaths in females worldwide. The presence of abnormal uterine bleeding is suggestive of a diagnosis of endometrial cancer after ruling out cervical disease by gynecological examination. The initial staging of endometrial cancer is essential for further clinical treatment decisions and ",
+   "nd the depiction of locoregional lymphadenopathy, helping for a correct surgical planning and risk stratification of patients who would potentially benefit from preoperative irradiation or systemic chemotherapy. Overstaging would lead to unnecessary radiotherapy or chemotherapy and understaging may increase the risk of tumor recurrence. Therefore, a correct and unambiguous radiological staging is crucial for further "
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "자궁내막암 병기 판정의 정확성이 왜 중요한지 인과로 설명한다"
+ },
+ {
+  "book": "Graduate students locked down? PhD students’ satisfaction with supervision during the first and second COVID-19 lockdown",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0268923",
+  "source": "plos",
+  "v_level": 5,
+  "words": 310,
+  "rows": 2,
+  "excerpts": [
+   "The impact of the preceding elements might be twofold. On the one hand, these worries and concerns contribute to PhD students’ stress levels, which are usually already high. On the other hand, PhD students’ might expect additional support from their supervisors as a result from the COVID-19 pandemic. This expected additional support can be grouped in two categories: understanding and empathy on the one hand and guida",
+   " reports a chasm in support for PhD students in relation to the COVID-19 pandemic. One group reports unchanged support–a few even report improved support –and the other group reports worsened support. Surprisingly, these groups do not differ significantly by gender, living situation or year of their PhD trajectory. The first cohort concerns PhD students that were conducting doctoral research in April-May 2019 and in "
+  ],
+  "verdict": "use",
+  "genre": "education",
+  "why": "팬데믹이 박사과정생과 지도교수 관계에 남긴 균열을 설명한다"
+ },
+ {
+  "book": "From Affective Experience to Motivated Action: Tracking Reward-Seeking and Punishment-Avoidant Behaviour in Real-Life",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0129722",
+  "source": "plos",
+  "v_level": 5,
+  "words": 313,
+  "rows": 1,
+  "excerpts": [
+   "Many of the decisions and actions in everyday life result from learning processes that are guided by interaction with environmental cues. The capacity to form and continuously update internal representations of stimulus-response associations allows one to select the most advantageous response from a repertoire, and to accurately predict its outcome. These implicit associative learning processes are therefore critical",
+   "easant physical sensations and improves quickly, soon becoming one of the best runners in the group. As a result, Peter’s repeated exposures to positive outcomes motivate him to keep training. Christine, on the other hand, who is a little shy, sensitive and less interested in running, welcomes the opportunity to join her new teammates in a party. She enjoys the party until one of the girls makes a critical remark abo"
+  ],
+  "verdict": "use",
+  "genre": "psychology",
+  "why": "연합 학습 개념을 달리기 모임 사례로 풀어 설명한다"
+ },
+ {
+  "book": "Effect of emotional factors on purchase intention in live streaming marketing of agricultural products: A moderated medi",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0298388",
+  "source": "plos",
+  "v_level": 5,
+  "words": 322,
+  "rows": 2,
+  "excerpts": [
+   "Under the catalysis of emotions and resonance, a sense of presence can enhance consumers’ purchase intention. Specifically, presence increases the consumers’ atmosphere resonance through shaping all kinds of agricultural scenes (i.e. the orchards, farmland, markets, processing factories, et al.). Scenes can provide consumers with more information, and can even replace language communication and enhance emotional conn",
+   "ming room, and finally encourage consumers to pay for their emotional needs and empathy. According this discussion, the hypothesis is proposed: H4b. Rural sentiment as a moderator Grain is the foundation for the survival and development of a nation. “Agriculture, rural areas, and farmers” matters a lot. The rural sentiment can be understood as the nostalgia and love of people with or without rural life experience for"
+  ],
+  "verdict": "use",
+  "genre": "economics",
+  "why": "현장감이 구매 의도로 이어지는 심리 경로를 설명한다"
+ },
+ {
+  "book": "A multi-agent equilibrium model in an incomplete market with discrete dividends: Applications to long-term discount curv",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0343055",
+  "source": "plos",
+  "v_level": 6,
+  "words": 311,
+  "rows": 4,
+  "excerpts": [
+   "For, represents the market value of government bonds with time to maturity belonging to zone, and for j = N + 1, it represents the market value of the stock index. Changes in the outstanding notional amounts arise from central bank purchases and from government issuance and redemption within each maturity zone. Thus, the process is treated as an exogenous input reflecting these notional changes in zone caused by the ",
+   "e types may be interpreted as domestic private investors, domestic institutional investors, and foreign institutional investors. The dimension of the Brownian motion W is set to d = 8, which exceeds the number of securities N + 1 = 6. The drift of the dividend processes depends on an economic factor Y1, driven by the Brownian motion component W7. The mortality rate defined below is influenced by both the economic fac"
+  ],
+  "verdict": "reject",
+  "genre": "fragmentary",
+  "why": "기호가 빠진 채 첨자와 변수 설명만 남아 문장이 성립하지 않는다"
+ },
+ {
+  "book": "Hepatitis E virus exposure and risk factors among ethnic minority populations in Northern Vietnam",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0345566",
+  "source": "plos",
+  "v_level": 6,
+  "words": 326,
+  "rows": 1,
+  "excerpts": [
+   "Hepatitis E virus (HEV) causes sporadic outbreaks worldwide, with zoonotic and waterborne genotypes contributing to infections. In Vietnam, HEV genotypes 3 and 4 circulate among humans and swine, but data from remote, ethnic minority populations remain limited. Hepatitis E virus (HEV) causes sporadic outbreaks worldwide, with zoonotic and waterborne genotypes contributing to infections. In Vietnam, HEV genotypes 3 an",
+   "arily occurs via the fecal–oral route through contaminated water in areas with poor sanitation and via foodborne exposure, particularly from pork-derived products. Five HEV genotypes of the virus are known to infect humans. HEV-1 and HEV-2 are primarily transmitted by the faecal–oral route through contaminated water following monsoonal flooding. HEV-1 and HEV-2 genotypes are responsible for large waterborne outbreaks"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "E형 간염의 유전형별 전파 경로를 정리해 설명한다"
+ },
+ {
+  "book": "The acceptability judgment of Chinese pseudo-modifiers with and without a sentential context",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0219896",
+  "source": "plos",
+  "v_level": 6,
+  "words": 310,
+  "rows": 1,
+  "excerpts": [
+   "A constituent in syntactic analysis usually refers to a word or a group of words that could function as a single unit within a hierarchical structure. Constituents as such are largely phrases (sequences of words built around a head lexical item and working as a unit in a sentence) in many languages. In contemporary linguistics, especially generative linguistics, constituency tests (e.g., fronting, clefting, replaceme",
+   "t stages having disparate representations. Such tests could be more appropriately considered structural heuristics rather than structural diagnostics. The reason to choose Mandarin Chinese is that this representative classifier language serves as a good test bed to evaluate grammatical properties and functions of numeral classifiers. (1) a. yi shou ge (2) a. xie liang bian (3) a. san mi chang one CL song write two CL"
+  ],
+  "verdict": "use",
+  "genre": "language",
+  "why": "구성성분 검사법의 원리와 중국어를 택한 이유를 논증한다"
+ },
+ {
+  "book": "A global approach to describe retinal defocus patterns",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0213574",
+  "source": "plos",
+  "v_level": 6,
+  "words": 356,
+  "rows": 1,
+  "excerpts": [
+   "TPS described a peripheral refractive error, where the temporal edge was positively skewed. Individually, the mean values at each meridian were used to interpolate the rest of the points of a surface fit covering a range of 40° x 40° (resulting in a matrix/map of 400 x 400 pixels with dioptric values at every 0.1 degrees). This dimension was reported to be within the limits at which functional analysis of spot patter",
+   "e addition power by an approximation to -3.00 Dioptres contact lens profiles. As in the measurements of the peripheral refraction of the naked eye, the same five horizontal meridians were recorded with the peripheral wave-front sensor (Voptica SL, Murcia, Spain), but in this case, subjects were wearing the contact lenses. Contact lenses profiles were obtained by performing an 'over-refraction' of the eye while the su"
+  ],
+  "verdict": "reject",
+  "genre": "reference",
+  "why": "보간 격자 크기와 측정 장비 설정을 적은 측정 절차 구간이다"
+ },
+ {
+  "book": "Educational attainment and chronic HIV treatment adherence in southern and eastern Africa",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0348947",
+  "source": "plos",
+  "v_level": 5,
+  "words": 321,
+  "rows": 3,
+  "excerpts": [
+   "Further, given well-documented age and gender disparities in HIV and schooling outcomes in the region, I study the potential for differences in these associations by gender and age or cohort. In contrast, I focus on HIV as a chronic health outcome among adult men and women of all ages, in diverse contexts across southern and eastern Africa. Many factors that may have explained educational associations with maternal a",
+   " in higher-income countries, like the U.S. and Western Europe, may not hold in the southern and eastern African context. Through the research presented here, I use the case of HIV to contribute to an expanded theoretical understanding of education-health associations that incorporates chronic health in the global south. Education and HIV treatment adherence There are numerous reasons to believe that education could h"
+  ],
+  "verdict": "use",
+  "genre": "social",
+  "why": "교육과 만성질환 치료 순응의 관계를 지역 맥락에서 논한다"
+ },
+ {
+  "book": "Assessing hypoxic respiratory failure in mechanically ventilated neonates: A comparative study of oxygen saturation inde",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0304278",
+  "source": "plos",
+  "v_level": 7,
+  "words": 304,
+  "rows": 1,
+  "excerpts": [
+   "Objectives To investigate the correlation between OSI with OI indices in assessing blood oxygenation status of neonates with respiratory failure requiring mechanical ventilation and to evaluate the predictive capability of OSI for clinically significant OI cutoffs. All data were prospectively collected from patients admitted to the NICU during this period. Subjects Inclusion criteria comprised 123 neonates, encompass",
+   " pair of ABG and corresponding oxygen saturation (SpO2) value was collected from each enrolled neonate. To minimize measurement errors, newborns were kept still during sampling, and no position changes, or suctioning was performed during this time. After observing a stable SpO2 value for at least one minute, the reading was recorded. ABG samples were obtained from umbilical arterial catheter or by arterial puncture. "
+  ],
+  "verdict": "reject",
+  "genre": "reference",
+  "why": "연구 목적과 대상자 포함 기준, 채혈 절차를 나열한 방법 구간이다"
+ },
+ {
+  "book": "Higher densities of T-lymphocytes in the subsynovial connective tissue of people with carpal tunnel syndrome",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0300046",
+  "source": "plos",
+  "v_level": 8,
+  "words": 316,
+  "rows": 1,
+  "excerpts": [
+   "Carpal Tunnel Syndrome (CTS) is an entrapment neuropathy caused by the compression of the median nerve within the carpal tunnel. CTS is characterised by symptoms such as pain, paraesthesia, dysaesthesia, as well as sensory loss in the median-innervated digits, and can progress to thenar muscle weakness and atrophy in advanced stages. Whereas CTS symptoms are traditionally attributed to impairment in nerve function, r",
+   "s believed to contribute to median nerve tethering, with potential downstream effects such as intraneural ischaemia. The fibrotic changes have repeatedly been described as “non-inflammatory”, as the SSCT is reported to be devoid of immune cells. For instance, Schuind et al found hyperplasia, increased collagen and necrotic regions in the SSCT, but no evidence of inflammation. Similar histological analysis by Gross, e"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "손목터널증후군을 염증 관점에서 다시 보는 논지를 세운다"
+ },
+ {
+  "book": "Judgments of American English male talkers who are perceived to sound gay or straight: Which personal attributes are ass",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0346897",
+  "source": "plos",
+  "v_level": 5,
+  "words": 316,
+  "rows": 3,
+  "excerpts": [
+   "To illustrate this, consider the following quote from The Golden Girls. Sophia Petrillo (Estelle Getty): Do people treat you differently because you’re a lesbian? Blanche Devereux (Rue McClanahan): Well, most people don’t know. This exchange exemplifies how one believes that they can perceive another individual’s SO immediately, presumably through how they speak. Could Sophia have formed other impressions of Blanche,",
+   "ssions of Blanche? For instance, if Sophia already knew Blanche’s SO, Sophia may believe that Blanche is even more outgoing and even more intelligent simply by hearing her voice. However, the self-identified SO of these talkers did not necessarily match the perception of their SO by listeners (e.g., talkers self-identified as gay, but were perceived as sounding straight, or vice versa). The second goal was to determi"
+  ],
+  "verdict": "use",
+  "genre": "language",
+  "why": "목소리로 성적 지향을 판단한다는 통념을 대화 인용으로 문제 삼는다"
+ },
+ {
+  "book": "A good tennis player does not lose matches. The effects of valence congruency in processing stance-argument pairs",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0224481",
+  "source": "plos",
+  "v_level": 4,
+  "words": 326,
+  "rows": 1,
+  "excerpts": [
+   "Say that you want to describe your favourite tennis player’s performance. Would you say that she had lost 2 out the last 10 games, or won 8 of them? Seen from a purely descriptive perspective, this choice is arbitrary because these options describe the same reality: the truth of the one statement entails the truth of the other statement. Consequently, a winning rate of 80% (positive frame) implies a losing rate of 20",
+   "nd describe how reaction times can be used to test their predictions. They argue that this shift is caused by differences in the reference point the speaker highlights when uttering a positive versus a negative object description, which, in turn, results in a different interpretation of the object described on the part of the hearer. A reference point is “a cognitively salient item that gives mental access to a less "
+  ],
+  "verdict": "use",
+  "genre": "psychology",
+  "why": "같은 사실을 긍정·부정 틀로 말하는 차이를 테니스 예로 연다"
+ },
+ {
+  "book": "Generating solutions for charged compact configurations in f(R) gravity",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0349625",
+  "source": "plos",
+  "v_level": 5,
+  "words": 309,
+  "rows": 1,
+  "excerpts": [
+   "On the other hand, when f0 = 0 and n = 2, Eq. (27) takes the form of a Bernoulli equation, which also admits a general solution. In this case, the solution can be written as (35)Moreover, by introducing the transformation, the Riccati equation can be converted into an integrable linear equation in z. Furthermore, the Riccati equation can be transformed into a second-order homogeneous linear differential equation by i",
+   "; therefore, it cannot be employed as a generating function. (16) can be rewritten in the form of y as (38)The expression of the energy density above offers a platform on which new classes of generating solutions can be built in the context of modified f(R) gravity. For related approaches and solutions involving specific forms of and y, the reader is referred to Refs. Now, by adopting ageneral EoS of the form and sub"
+  ],
+  "verdict": "reject",
+  "genre": "fragmentary",
+  "why": "베르누이·리카티 방정식 변환 과정만 남은 수식 구간이다"
+ },
+ {
+  "book": "Mechanism design for a fair and equitable approach to global vaccine distribution: The case of COVID-19",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pgph.0001711",
+  "source": "plos",
+  "v_level": 6,
+  "words": 322,
+  "rows": 7,
+  "excerpts": [
+   "Furthermore, when a country gets more vaccines than its readiness, these surplus vaccines will have little to no value in terms of saving lives. However, given that a country may mispredict its readiness, or that it could receive aid in vaccine administration, surplus vaccines may generate utility. Nonetheless, the marginal utility of any surplus vaccines is expected to be lower than that of vaccines that will surely",
+   " in utility αDR from any surplus vaccines β. The literature on fair division of limited resources investigates four allocation mechanisms. Assuming that there are N number of agents (i.e. countries) where N = { 1, …, N } is the set of all agents, these allocation mechanisms are formulated as follows: Proportional division: each agent gets at least the average utility from their own perspective, u i ( q i ) ≥ u i ( ∑ "
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "백신 잉여분의 한계효용이라는 배분 문제를 논지로 세운다"
+ },
+ {
+  "book": "Manipulating multi-level selection in a fungal entomopathogen reveals social conflicts and a method for improving biocon",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.ppat.1011775",
+  "source": "plos",
+  "v_level": 5,
+  "words": 332,
+  "rows": 1,
+  "excerpts": [
+   "Passage of invertebrate pathogens is a commonly used method to restore or maintain virulence. However, distinction should be made between a single passage to restore virulence of a potentially attenuated strain and serial passage to increase virulence via selection on allelic variation. Rapid recovery of traits may be related to DNA methylation. In terms of artificial selection, the published evidence on the efficacy",
+   "cess is often poor in practice and selection designs have not been informed by theory, which could explain the conflicting results seen to date. This means that essential traits can be difficult to maintain in the laboratory, even when using in vivo propagation in a model host. Examples of this include virulence in entomopathogenic nematodes and sporulation in entomopathogenic fungi. For example, multiple studies usi"
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "계대 접종과 인위 선택의 차이를 구분해 설명한다"
+ },
+ {
+  "book": "Why are some languages confused for others? Investigating data from the Great Language Game",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0165934",
+  "source": "plos",
+  "v_level": 5,
+  "words": 329,
+  "rows": 2,
+  "excerpts": [
+   "Objective studies of similarities and differences of languages allow researchers to reconstruct patterns of historical change in linguistic structures, or social changes such as migrations. However, knowledge of linguistic variation is also important in the day-to-day life of non-linguists. People are sensitive to differences in pronunciation and vocabulary and are quick to link these differences to their knowledge o",
+   "ehension. In spite of the importance of perceiving linguistic differences in daily life, there have been few studies exploring the factors which influence people’s ability to recognise the languages of the world and their similarities. Q3: What factors can predict whether players confuse two languages for each other? Candidates include: – geographical closeness; – genealogy; – similarity of phoneme inventories; – lex"
+  ],
+  "verdict": "use",
+  "genre": "language",
+  "why": "언어를 구별하는 능력이 일상에서 왜 중요한지 문제를 제기한다"
+ },
+ {
+  "book": "An augmented reality game to support therapeutic education for children with diabetes",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0184645",
+  "source": "plos",
+  "v_level": 5,
+  "words": 313,
+  "rows": 6,
+  "excerpts": [
+   "The second hypothesis is that there will not be statistically significant differences if the post-test questionnaire is the same as or different from the pre-test questionnaire. Section 5 presents the results, and Section 6 presents the discussion. Games, mobiles and augmented reality as educational tools The terms gamification, game-based leaning or serious games are commonly used interchangeably to refer to the use",
+   "hey also suggested missing research themes such as personal drivers, emotions and design. They concluded that most of the papers were focused on the positive effects of gamification (e.g., increasing students’ motivation and interest in their learning process), and that negative effects remain unexplored. The use of mobile devices for different purposes has been increasing. Specifically, the interest in mobile device"
+  ],
+  "verdict": "use",
+  "genre": "education",
+  "why": "게임화와 모바일 학습 도구 연구의 공백을 정리해 설명한다"
+ },
+ {
+  "book": "Refining the chronology of North America’s copper using traditions: A macroscalar approach via Bayesian modeling",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0266908",
+  "source": "plos",
+  "v_level": 6,
+  "words": 336,
+  "rows": 1,
+  "excerpts": [
+   "Red Ocher traditions were defined largely on a suite of burial practices that are in many ways similar to those of Old Copper sites but exhibit increased mortuary complexity. Specifically, Red Ocher cemeteries contain remains that have been covered with hematite powder, representing a distinctly new practice associated with societies using copper. These burials often include caches of burnt ceremonial bifacial blades",
+   " increase in prestige goods, exemplified by the presence of worked marine shell, exotic cherts, and obsidian. The Early Woodland tradition—delineated by the presence of burials in human-made mounds, the use of pottery, and the adoption of horticulture—appeared around 3000 BP in regions south of the Great Lakes. However, such patterns do not appear in the Upper Great Lakes until sometime after 2000 BP. Given the time-"
+  ],
+  "verdict": "use",
+  "genre": "history",
+  "why": "적색 안료 매장 관습과 초기 우드랜드 전통의 차이를 설명한다"
+ },
+ {
+  "book": "On the performance of uplink D2D-assisted backscatter employing short packet communication",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0336406",
+  "source": "plos",
+  "v_level": 6,
+  "words": 311,
+  "rows": 1,
+  "excerpts": [
+   "Full-MRC (Full-Maximal Ratio Combining): This strategy decisively applies MRC to both user-source and BD-source links. By effectively integrating all available signal paths for x(t) and c(t), Full-MRC maximizes received signal strength while minimizing interference and noise throughout the system. It undeniably offers superior reliability and decoding performance over SC-RAN and SC-MRC. However, it demands higher com",
+   " decoding of both x(t) and c(t), thereby securing effective end-to-end communication. From the strategies outlined above, it is clear that the e2e received SNR at the source over M-antennas can be confidently asserted as (3)where, and is the average SNR. Hence, its cumulative distribution function (CDF) and probability density function (PDF) can be given as, respectively. To take into account the impacts of the path-"
+  ],
+  "verdict": "reject",
+  "genre": "reference",
+  "why": "수신 전략별 성능 비교와 신호대잡음비 수식이 이어진다"
+ },
+ {
+  "book": "The Search for Significance: A Few Peculiarities in the Distribution of P Values in Experimental Psychology Literature",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0127872",
+  "source": "plos",
+  "v_level": 5,
+  "words": 316,
+  "rows": 2,
+  "excerpts": [
+   "For instance, if the theory from which the alternative hypothesis has been derived is highly implausible in the first place, then the \"null result\" is not very interesting. Similarly, it may be due to researcher's inability to collect enough data or the data being too noisy (particularly when proxies have to be used instead of the variables of interest). To the extent that it is difficult to establish the exact reaso",
+   "gth of an effect (although many techniques have been developed to correct for the publication bias when aggregating past results, particularly by means of meta-analyzes, Stanley (2005)). This may, for example, lead to costly policies being based on unwarranted findings of effectiveness of some measures. Further, if negative results are not made public, other researchers may waste time and money challenging the same, "
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "무의미한 영가설과 출판 편향의 폐해를 논증한다"
+ },
+ {
+  "book": "Randomised controlled trial to compare efficacy of standard care alone and in combination with homoeopathic treatment of",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0292783",
+  "source": "plos",
+  "v_level": 5,
+  "words": 268,
+  "rows": 1,
+  "excerpts": [
+   "There is a major difference in the principles of Homoeopathy and those of other streams of medicine. The choice of a homoeopathic medicine depends not only upon the diagnosis of the patient, but on a variety of patient related factors. Major factors that decide the choice of medicine are the symptoms of the patient, personal history and mental state. The homoeopathic specialist chooses the drug on the basis of a vari",
+   "sease, since it is the diseased individual that defines the treatment. The outbreak of COVID 19 and its management was a challenge to the health-care system globally, with limited availability of crucial resources like beds in intensive care units (ICU), skilled resources to handle such critical cases and medical equipment like oxygen as well oxygen or life supporting devices. In such an alarming situation, and based"
+  ],
+  "verdict": "reject",
+  "genre": "pseudoscience",
+  "why": "동종요법의 원리를 검증된 치료 원칙처럼 제시한다"
+ },
+ {
+  "book": "Intention to adopt electric transportation services by university students in emerging countries",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0341736",
+  "source": "plos",
+  "v_level": 5,
+  "words": 308,
+  "rows": 1,
+  "excerpts": [
+   "According to the TPB, attitude emerges as a key predictor of behavioral intentions, including purchase decisions. However, TPB, developed by Ajzen as an extension of TRA, incorporates a third component: perceived behavioral control, which refers to a person’s perception of his or her ability to perform a behavior, and may include internal factors (such as skills) and external factors (such as resources or barriers). ",
+   "le products. Technology acceptance model (TAM) and unified theory of acceptance and use of technology (UTAUT). The literature proposes a wide range of models to explain IT acceptance. Yaseen and El Qirem conducted a systematic review of some of these models, including the theory of reasoned action, theory of planned behavior, technology acceptance model, and social cognitive theory. Existing studies show that this mo"
+  ],
+  "verdict": "use",
+  "genre": "social",
+  "why": "계획행동이론과 기술수용모형을 비교해 설명한다"
+ },
+ {
+  "book": "The best encouraging persons in labor: A content analysis of Iranian mothers' experiences of labor support",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0179702",
+  "source": "plos",
+  "v_level": 4,
+  "words": 314,
+  "rows": 2,
+  "excerpts": [
+   "Although there was another patient in my room and I wasn’t alone in the room, I felt like there was nobody there ! But I’m happy because of the moment of birth. I think that a baby is a fruit of love, the result of passion. I really wanted my husband to be there when I got out of that delivery room, but he wasn’t. In fact, the relatives present in the waiting room expressed overwhelming feelings. This scenario was a ",
+   "oulder and then I feel relaxed. I suppose that if I could be with her at these moments, it would be good for her. It would make her feel that somebody was supporting her and help her better manage her stress…. Mother’s self-care to cope with labor pain The self-care and self-learning practiced by mothers during labor originated from their previous experiences or any information they obtained through regular trainings"
+  ],
+  "verdict": "reject",
+  "genre": "fragmentary",
+  "why": "면담 인용문이 앞뒤 없이 잘려 있고 소제목이 그대로 섞였다"
+ },
+ {
+  "book": "Enhanced dietary reconstruction of Korean prehistoric populations by combining δ13C and δ15N amino acids of bone collage",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0300068",
+  "source": "plos",
+  "v_level": 7,
+  "words": 320,
+  "rows": 1,
+  "excerpts": [
+   "The MixSIAR can be used to estimate the contribution of diets in ecological, as well as archaeological studies. The radiocarbon dates on the human collagen from the three Mumun burials showed that they belong to the Middle Mumun (535–635 BC) period. Korean archaeologists refer to the Mumun period (1500–100 BC) as the Bronze Age in Korean prehistory. The Mumun culture is characterized by crop agriculture with large dr",
+   "eved to be the most important crop. It is assumed that the social and economic complexities during the Mumun period are associated with the spread of rice agriculture. In addition to rice, the Mumun also cultivated millets, barley, wheat, legumes. In particular, studies on charred grains have suggested that millets might also be a dominant crop in the Mumun diets along with rice. However, despite abundant evidence fo"
+  ],
+  "verdict": "use",
+  "genre": "history",
+  "why": "무문토기 시대 농경과 식생활 복원을 배경부터 설명한다"
+ },
+ {
+  "book": "Host Biology in Light of the Microbiome: Ten Principles of Holobionts and Hologenomes",
+  "url": "https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1002226",
+  "source": "plos",
+  "v_level": 7,
+  "words": 320,
+  "rows": 2,
+  "excerpts": [
+   "Via fidelity of transmission from parents to offspring or stable acquisition of the microbiome from the environment, covariance between the host and microbiota can be established and maintained. Consequently, as with phenotypes encoded by nuclear genomes, phenotypes encoded by beneficial, deleterious, and neutral microbes in the microbiome are subject to selection and drift within holobiont populations. Genetic varia",
+   "ive lifetime of hosts. Importantly, genetic variation in the microbiome vastly exceeds that in the host genome and accumulates much more rapidly than variation in host genomes. Therefore, given that genetic variation is the raw material upon which evolution ultimately acts, microbial sources of hologenomic variation are potential targets of evolution, and, despite its inherent complexity, biologists must consider the"
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "숙주와 미생물군의 공진화를 선택과 표류 개념으로 설명한다"
+ },
+ {
+  "book": "Diversity in the internal functional feeding elements of sympatric morphs of Arctic charr (Salvelinus alpinus)",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0300359",
+  "source": "plos",
+  "v_level": 7,
+  "words": 317,
+  "rows": 1,
+  "excerpts": [
+   "Salmonid cranial morphology is less derived compared to more divergent groups, yet within this group many cases of sympatric morphological polymorphism have been described. Arctic charr ( Salvelinus alpinus ) shows extensive phenotypic variation throughout its geographic distribution and sympatric polymorphism of lake populations is for instance found in Norway [e.g., 27, 28 ], Siberia [e.g., 29 ], Greenland [e.g., 3",
+   " genetically, with similarity to either PL- and/or LB-charr. The morphs differ in adult size, diet, habitat use, life history, spawning times, and external and fin morphology. Two are large (LB and PI) and two small (SB and PL), hereafter referred to as the morph size gradient. Benthic morphs live along the stony littoral bottom and feed mainly on snails, and have subterminal mouths (i.e., short lower jaw) and blunt "
+  ],
+  "verdict": "use",
+  "genre": "nature",
+  "why": "북극곤들매기의 동소적 형태 분화를 서식과 먹이로 설명한다"
+ },
+ {
+  "book": "E-cigarette school policy and staff training: Knowledge and school policy experiences with e-cigarette products among a",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0264378",
+  "source": "plos",
+  "v_level": 4,
+  "words": 328,
+  "rows": 1,
+  "excerpts": [
+   "From 2017 to 2019, past 30-day e-cigarette use among U.S. high school students increased from 11.7% to 27.5%. While e-cigarette use among high school students decreased in 2020, it remains at epidemic levels with more than one in five young people currently using e-cigarettes. Much of the recent increase in e-cigarette use has been attributed to the use of JUUL, a pod-based e-cigarette introduced in 2015 that gained ",
+   "icular concern due to its high level of nicotine, especially given that JUUL delivers nicotine at a rate similar to combustible cigarettes. Although the long-term impacts of adolescent e-cigarette use are yet to be seen, addressing youth use of e-cigarettes like JUUL is critically important, as research demonstrates that nicotine is harmful to the developing adolescent brain. Over the last few years, there have been "
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "청소년 전자담배 확산 양상과 니코틴 위험을 설명한다"
+ },
+ {
+  "book": "Thermal transformation of organic matter and impacts on water quality in fire-affected Jarrah Forest",
+  "url": "https://journals.plos.org/water/article?id=10.1371/journal.pwat.0000561",
+  "source": "plos",
+  "v_level": 5,
+  "words": 321,
+  "rows": 1,
+  "excerpts": [
+   "This novel approach offers a replicable framework for assessing fire impacts on DOM and can be applied in other fire-prone regions to support sustainable water resource management. The jarrah forest bioregion is characterised by a tall open forest with a dominant overstory of jarrah (Eucalyptus marginata). The deep-rooted jarrah forest thrives on this uniquely nutrient-poor sandy soil underlain by lateritic gravel th",
+   "nnial to seasonal flow. The groundwater depth in some catchments has fallen by more than half a meter per year since 1995, and the situation is forecasted to worsen. Jarrah forest ecosystems have for the last fifty years or so been subjected to numerous fires, both wildfire and repeated management fires (referred to as ‘prescribed burns’). A longer-term drying trend is likely to have consequences for the fires and th"
+  ],
+  "verdict": "use",
+  "genre": "environment",
+  "why": "산불이 잦은 자라 숲의 수질 변화를 지역 특성과 함께 설명한다"
+ },
+ {
+  "book": "Taurocholic acid induces intrahepatic cholangiocyte cell proliferation via activating NRAS and YAP1",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0339210",
+  "source": "plos",
+  "v_level": 7,
+  "words": 308,
+  "rows": 1,
+  "excerpts": [
+   "BA patients who had early diagnosis and HPE showed significantly elevated taurocholate levels in blood (0.98 ± 0.62 µmol/L) compared to normal infants (0.43 ± 0.40 µmol/L). Bile acid-coenzyme A: amino acid N-acyltransferase (BAAT) is one of the critical liver enzymes responsible for producing conjugated bile acids. Deficiencies in this enzyme lead to abnormal bile acids and are caused by mutations in the gene that en",
+   "o show that cholangiocytes, initially thought to just be affected by the liver’s proinflammatory immune response to various stresses, are actually an effector. Experimental evidence has shown that cholangiocytes and hepatocytes in BA livers have impaired cell junctions and polarity complexes that are caused by Cdc42 insufficiency resulting in impaired intrahepatic bile ducts. Cholangiocytes’ response to the perpetual"
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "담즙산이 담관세포 증식을 유도하는 기전을 설명한다"
+ },
+ {
+  "book": "Agent-based modeling demonstrates how target-independent processes supplement killing by antibody-drug conjugates in can",
+  "url": "https://journals.plos.org/plosbiology/article?id=10.1371/journal.pcbi.1013872",
+  "source": "plos",
+  "v_level": 7,
+  "words": 308,
+  "rows": 2,
+  "excerpts": [
+   "Third, cleavage of ADCs due to high levels of extracellular proteases can also release payload independent of the target expression (hereafter referred to as tumor microenvironment (TME) release). This mechanism has also been leveraged for binding slow or non-internalizing targets. The fourth hypothesis includes the systemic release of free payload from the ADC, either by deconjugation in circulation or ADC metabolis",
+   "er, the payload is still able to activate immune cells. The free payload originates from the detachment of the ADC in circulation or intact ADC uptake within healthy tissue that releases the payload, enabling it to diffuse back into the blood, where it can enter the tumor. Importantly, the clearance of free payload is faster in mice than in humans, so the rapid clearance in mice results in much lower plasma payload c"
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "항체-약물 접합체가 표적 밖에서 작용하는 경로를 정리한다"
+ },
+ {
+  "book": "Supply chain decision based on green investment subsidy and risk aversion",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0293924",
+  "source": "plos",
+  "v_level": 6,
+  "words": 311,
+  "rows": 2,
+  "excerpts": [
+   "It is revealed that when both retailer and manufacturer consider risk aversion, they will adopt conservative strategies, which leads to the reduction of retail price. However, due to the government’s sufficient green subsidies, the green degree of products will not decrease but increase so that consumers can purchase good products with relative lower price. Thus, it means that the bargaining power of retailer decreas",
+   "ersion. Meanwhile, the expected utility of manufacturer is the highest and the expected utility of retailer is the lowest in RA model. In MA model, retailer’s expected utility is the highest and manufacturer’s expected utility is the least. The reason is that in this kind of game, when the retailer considers risk aversion and the manufacturer does not, the manufacturer has strong bargaining power. In view of this, th"
+  ],
+  "verdict": "use",
+  "genre": "economics",
+  "why": "위험 회피와 녹색 보조금이 가격과 협상력에 미치는 영향을 설명한다"
+ },
+ {
+  "book": "Precise coordination between nutrient transporters ensures fertility in the malaria mosquito Anopheles gambiae",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pgen.1011145",
+  "source": "plos",
+  "v_level": 7,
+  "words": 309,
+  "rows": 1,
+  "excerpts": [
+   "The Anopheles gambiae mosquito is one of the most important vectors for the transmission of Plasmodium falciparum, a malaria parasite that causes remarkable morbidity and mortality in sub-Saharan Africa and other tropical and subtropical regions. Transmission starts when a female mosquito takes a blood meal from a human infected with the sexual stages of Plasmodium. At the same time as parasite development begins in ",
+   "ike peptides (ILPs) are released from the brain upon blood feeding, stimulating the production of the ecdysteroid ecdysone (E, which is synthetized from cholesterol) by the ovarian epithelium. After transport to the fat body, E is converted to 20-hydroxyecdysone (20E, the active form of this steroid hormone), which binds to its nuclear receptor to trigger transcriptional cascades leading to the activation and repress"
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "말라리아 매개 모기의 흡혈과 호르몬 연쇄를 설명한다"
+ },
+ {
+  "book": "A computational model of spatial politics: Hotelling-downs model as statistical physics",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0352242",
+  "source": "plos",
+  "v_level": 6,
+  "words": 323,
+  "rows": 1,
+  "excerpts": [
+   "Party polarisation has presented a problem for political theorists despite its prevalence in nations across the globe. While it is common for competing parties to seek the centre-ground as well as for them to diverge, there is still no unified model which can explain both behaviours. The spatial model was first introduced to economics by Hotelling in his ‘Stability in Competition’. Downs applied this model to voters ",
+   "ted. Recently, political parties have focussed on their base more than swing voters. Fiorina and Abrams argue that the evidence is much less clear for polarisation among voters than among elites, but agree that significant party sorting has occurred. Roughly speaking, affective polarisation refers to how much followers of one party dislike followers of another, and elite polarisation refers to divergence among elites"
+  ],
+  "verdict": "use",
+  "genre": "social",
+  "why": "정당이 중도로 수렴하기도 분열하기도 하는 이유를 모형으로 논한다"
+ },
+ {
+  "book": "Epidemiological metrics and benchmarks for a transition in the HIV epidemic",
+  "url": "https://journals.plos.org/plosmedicine/article?id=10.1371/journal.pmed.1002678",
+  "source": "plos",
+  "v_level": 5,
+  "words": 318,
+  "rows": 1,
+  "excerpts": [
+   "The goal of ‘Ending the AIDS epidemic as a public health threat by 2030’ has been reflected in the Sustainable Development Goals (SDGs), and similar language has been adapted for other diseases and conditions. Between 2010 and 2017, the number of AIDS-related deaths has declined by 34%, and the number of new HIV infections has declined by 18%. Although these declines constitute important achievements, progress has be",
+   "ing the AIDS epidemic’ has not been defined in scientific terms, and it can be seen as a global aspiration in a distant future. Elimination of all new infections does not appear possible in the short and medium term with the tools available today. Metrics that signal medium-term progress and can be applied in countries, subnational entities, and population groups may be particularly valuable, as they can allow for lo"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "에이즈 종식 목표가 과학적으로 정의되지 않았다는 문제를 제기한다"
+ },
+ {
+  "book": "Vibration, a treatment for migraine, linked to calpain driven changes in actin cytoskeleton",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0262058",
+  "source": "plos",
+  "v_level": 7,
+  "words": 314,
+  "rows": 1,
+  "excerpts": [
+   "People working with vibration intensive machines, like a jack hammer, are exposed to prolonged vibration exposure. This type of stimulus can be deleterious and has been associated with Raynaud’s disease and rheumatoid arthritis. However, brief and localized encounters with vibration is analgesic and is known to reduce pain of such things as injections, acute headaches and hair restoration procedures. Clinically, vibr",
+   "ith the recent re-emergence of mechanobiology, there is a new appreciation that natural forces, such as vibration, impact cells in meaningful ways. Therefore, understanding how a human cell reacts to vibration is essential to understanding why vibration can elicit changes in the whole organism. At a cellular level, external vibration forces have been shown to trigger cell shape changes involving filopodia. Filopodia "
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "진동이 해롭기도 진통이 되기도 하는 양면을 대비해 설명한다"
+ },
+ {
+  "book": "From ideals to deals—The effect of impartiality experience on stakeholder behavior",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0182263",
+  "source": "plos",
+  "v_level": 5,
+  "words": 335,
+  "rows": 4,
+  "excerpts": [
+   "Moreover a rich stakeholder in round 1, after turning into an arbitrator in round 2, became a rich stakeholder also in round 3. Similarly, a poor stakeholder in round 1, after turning into an arbitrator in round 2, became a poor stakeholder again in round 3. In each session, half of the subjects started off as arbitrators and half as stakeholders, and again half of the stakeholders started in the rich stakeholder rol",
+   "sted between 40 and 45 minutes. This is because in the first period, the belief regarding the fair entitlement may be biased to the direction of the share assigned to oneself to permit grabbing a larger share of the pie without having too much bad conscience about it. At the second round, the belief about the fair share is not equally malleable since the previous round actions and beliefs are freshly recollected. Thu"
+  ],
+  "verdict": "reject",
+  "genre": "reference",
+  "why": "실험 회차 구성과 세션 소요 시간을 적은 설계 서술 구간이다"
+ },
+ {
+  "book": "What sets the mutation rate of a cell type in an animal species?",
+  "url": "https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.3003799",
+  "source": "plos",
+  "v_level": 6,
+  "words": 328,
+  "rows": 3,
+  "excerpts": [
+   "From this perspective, cell types leading to gametes belong to multiple categories but are a special case in which selection is especially strong, because the mutations they carry become constitutive in the offspring. Somatic cells, meanwhile, occupy different positions along this continuum, depending on their rate of replacement and contribution to organismal fitness. Specifically, the observed relationships between",
+   "l processes are not well captured by COSMIC signatures, such as the specific C > G substitutions enriched in aging oocytes in apes. In several somatic cell types, there is also evidence of other known damage-induced processes, such as mutations due to oxidative damage or UV radiation. Overall, in the vertebrate soma and germline, mutations in long-lived cells (such as stem cells or neurons) seem to be predominantly c"
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "세포 종류별 돌연변이율 차이를 선택 압력으로 설명한다"
+ },
+ {
+  "book": "Exploring cadmium stress responses in sisal roots: Insights from biochemical and transcriptome analysis",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0288476",
+  "source": "plos",
+  "v_level": 6,
+  "words": 334,
+  "rows": 1,
+  "excerpts": [
+   "Sisal, a leaf fiber plant of the genus Agave that grows in the tropics, is also a class of perennial, succulent, dry herbaceous plants. Sisal fiber is one of the most widely used and extensive hard fibers in the world today. Furthermore, sisal has a well-developed root system and is adaptable to soil, cold, drought-like high temperatures, wind resistance, and other characteristics. Given the large biomass and long gr",
+   "ation of Pd-contaminated soil. H.11648 was introduced from abroad in the 1960s, started to be promoted on a large scale throughout China in the 1970s, and has now become the main germplasm for sisal cultivation in the country. With its high yield and high quality, H.11648 has played an important role in the development of the sisal industry in China. In recent years, transcriptomics technologies have been rapidly dev"
+  ],
+  "verdict": "use",
+  "genre": "agriculture",
+  "why": "사이잘의 생육 특성과 중국 도입 경위를 배경으로 설명한다"
+ },
+ {
+  "book": "Complexity-entropy analysis at different levels of organisation in written language",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0214863",
+  "source": "plos",
+  "v_level": 5,
+  "words": 341,
+  "rows": 3,
+  "excerpts": [
+   "Shannon observed that not all characters convey the same information in the sense of entropy, that is, the measure of surprise of the source that is emitting the message. The estimate of entropy per letter in the English language is considered to be around 1 to 1.5 bit per character. More recent estimates rises such entropy to 2-2.4 bit per character or even larger. Still, at the character level, Schürmann and Grassb",
+   " of word rank which is known as Zipf(-Mandelbrot) law. The power law dependence is taken as mathematical evidence of the complex behavior of human language. Other empirical regularities are the power law of the number of words and the length of a text, which comes under the name of Herdan-Heap law. In order to grasp the elusive idea of complexity, it is useful to consider a system, as the one described by written tex"
+  ],
+  "verdict": "use",
+  "genre": "language",
+  "why": "문자 단위 엔트로피와 지프 법칙으로 언어 복잡성을 설명한다"
+ },
+ {
+  "book": "Effect of nutrient omissions on bread wheat and tef crops grain yield in Western Amhara, Ethiopia",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0335174",
+  "source": "plos",
+  "v_level": 6,
+  "words": 309,
+  "rows": 1,
+  "excerpts": [
+   "More than 80% of Ethiopia’s population is dependent on agriculture, which contributes 50% to the country’s gross domestic product (GDP) and 80% to its export earnings. Continuous crop production using high-yielding varieties, erosion and inadequate replacement of essential nutrients cause serious soil nutrient depletion. Plant nutrition is the key critical factor controlling crop yield. Consequently, this leads to a ",
+   "ngs also indicated that the application of potassium, sulfur, and boron nutrients also increases crop yield. Tef [Eragrostis tef (Zucc.) Trotter] is one of the most important gluten-free staple food crops in Ethiopia and has grown widely in the country for human consumption. Tef has high nutritional content and is considered a protein source. Despite its productivity is low as compared to the increased human populati"
+  ],
+  "verdict": "use",
+  "genre": "agriculture",
+  "why": "에티오피아의 토양 양분 고갈과 테프의 가치를 설명한다"
+ },
+ {
+  "book": "F-BIAS: Towards a distributed national core facility for bioimage analysis &dagger;",
+  "url": "https://journals.plos.org/plosbiology/article?id=10.1371/journal.pcbi.1013058",
+  "source": "plos",
+  "v_level": 6,
+  "words": 311,
+  "rows": 3,
+  "excerpts": [
+   "F-BIAS is a virtual structure, initially built on existing resources that are federated from host core facilities. At its creation, all members were already saturated or close to being saturated with requests from their local scientific community. This low availability is the main factor delaying image analysis projects. The inception of F-BIAS was facilitated by the scientific value it offered to members and the min",
+   "ilability of national funding for positions dedicated to the national infrastructure is instrumental in enabling the provision of services with a desirable capacity. Diversity of host facilities goals and rules F-BIAS federates analysts from several core facilities, each with its own rules regarding core facility engineers job description, career, projects scope, projects billing, etc. In addition to the geographical"
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "분산된 영상분석 지원 조직의 필요와 운영 난점을 설명한다"
+ },
+ {
+  "book": "Enhancing fish Underwater Visual Census to move forward assessment of fish assemblages: An application in three Mediterr",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0178511",
+  "source": "plos",
+  "v_level": 5,
+  "words": 322,
+  "rows": 1,
+  "excerpts": [
+   "(3) large fish tend to be shy and to show avoidance behaviour toward the observer. These fish usually occur at lower densities compared to other fish categories, due to (1) the natural lower densities of larger species and (2) they are generally the main fishing targets. Hence, in order to account for the lower detectability of large shy fish at short distances due to shyness, as well as in small sampling surface are",
+   "ice in monitoring programs carried out in coral reefs, this is not the case in Mediterranean monitoring programs, even if UVC by strip transects is the most widely used method (Prato et al. in prep and references therein). Variable transect surface areas were used in studies specifically targeting both crypto-benthic (1–2 meters width) and necto-benthic fish (4–5 meters width), but a single transect surface area was "
+  ],
+  "verdict": "reject",
+  "genre": "reference",
+  "why": "조사 띠 폭과 표본 면적 설정을 논의한 조사 방법 구간이다"
+ },
+ {
+  "book": "Exploring q-Bernstein-Bézier surfaces in Minkowski space: Analysis, modeling, and applications",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0299892",
+  "source": "plos",
+  "v_level": 7,
+  "words": 331,
+  "rows": 2,
+  "excerpts": [
+   "With the help of the parameters p and q, curves and surfaces can be modified in shape without changing the position of control-points. They also discussed some of its properties like partition of unity, end point property and non-negativity. On the other hand, H. Minkowski made an initial contribution to address the geometry of the objects moving in four dimensional spacetime in relativity (special and general relati",
+   "owski space is <, > = d x 1 2 + d x 2 2 - d x 3 2, where ( x 1, x 2, x 3 ) are the canonical-coordinates in Minkowski space- R 1 3. The Lorentz-Minkowski metric in Minkowski space- R 1 3 separates the regions into three types of vectors, they are timelike-vectors, lightlike-vectors and spacelike-vectors. In the light-like region of the Minkowski space, the null-vectors, pseudo-null-curves, null-curves, marginally tra"
+  ],
+  "verdict": "reject",
+  "genre": "fragmentary",
+  "why": "민코프스키 계량 기호 나열만 남아 글로 읽히지 않는다"
+ },
+ {
+  "book": "The relative age effect reversal among the National Hockey League elite",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0182827",
+  "source": "plos",
+  "v_level": 4,
+  "words": 320,
+  "rows": 3,
+  "excerpts": [
+   "Those born in the last quarter of the year must wait another year to enter the draft. Ironically, this means that the same factors that initially benefitted those born in the beginning of the year may reverse their advantage by making them the youngest on their NHL team. For those waiting a year for the NHL eligibility, they will be relatively older than their rookie counterparts. If being slightly older at the start",
+   " the data entered. Undrafted players were excluded because draft related information do not exist (e.g. draft year and draft age), which would prevent comparability across models. For a similar reason, observations on players who belong to an NHL team but in a given season played abroad or in minor leagues are excluded because there was no comparable data available when these players are not in the NHL. As descriptiv"
+  ],
+  "verdict": "use",
+  "genre": "sports",
+  "why": "출생 월 이점이 리그에서 역전되는 역설을 설명한다"
+ },
+ {
+  "book": "Establishing a computational biology flipped classroom",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pcbi.1006764",
+  "source": "plos",
+  "v_level": 5,
+  "words": 313,
+  "rows": 3,
+  "excerpts": [
+   "Spring 2016: Fundamentals of Bioinformatics (Carnegie Mellon) In spring 2016, I was a bright-eyed new teaching-track professor, and I had the opportunity to teach my own version of the course, Fundamentals of Bioinformatics. In an effort to facilitate a student-centric classroom, I performed a critical shift in the in-class portion of the course. As the instructor, I posed anonymous student questions and demanded tha",
+   "s from all my students. I felt that my work with developing this course was finished; I was wrong. Spring 2017: Fundamentals of Bioinformatics (Carnegie Mellon) In 2017, Fundamentals of Bioinformatics became a required course for a subset of 30 MS students for whom it would be their primary exposure to computational biology. Building on the success of my previous offering, I split the class into four independent, equ"
+  ],
+  "verdict": "narrative",
+  "genre": "education",
+  "why": "수업을 해마다 고쳐 온 과정을 연도별 1인칭 회고로 서술한다"
+ },
+ {
+  "book": "Reconsidering the context in the relationship between material deprivation and self-rated health among older people in I",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0345858",
+  "source": "plos",
+  "v_level": 6,
+  "words": 322,
+  "rows": 1,
+  "excerpts": [
+   "Together, these studies suggest that contextual prosperity does not uniformly translate into better health outcomes and may, under certain conditions, exacerbate the health inequalities. These dynamics are particularly relevant for subjective health measures such as self-rated health, which capture individuals’ overall assessments of their health and wellbeing, including psychological and social dimensions that are n",
+   " internalized as a personal failure, reinforcing stress and negative health perceptions. As a result, the health consequences of material deprivation may vary systematically across contexts, producing patterns that appear counterintuitive when regional environments are not explicitly considered. Data The empirical analysis is based on microdata from the 2018 Italian Multipurpose Survey on Households entitled Aspects "
+  ],
+  "verdict": "use",
+  "genre": "social",
+  "why": "지역 번영이 건강 격차를 되레 키울 수 있다는 역설을 논한다"
+ },
+ {
+  "book": "Lessons learnt about implementing LEGO based therapy (Play Brick Therapy) based on fidelity data and experience from a l",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0336952",
+  "source": "plos",
+  "v_level": 5,
+  "words": 311,
+  "rows": 1,
+  "excerpts": [
+   "Trainers delivering the sessions were also provided with practical examples of programme delivery. All facilitators were given a copy of both the training presentation and the manual to keep and use to help with their LEGO® based therapy delivery. Follow-up training, additional ‘top-up training’, supervision or mentoring were not provided in the research trial. Some trainers and facilitators had prior experience of L",
+   "absence would cause delays with programme completion, or lead to having more than one session a week to catch up. All materials needed to run sessions were provided by the study team (e.g., LEGO® sets of varying difficulty, trays on which to build, and loose LEGO® bricks, Minifigures®, and base plates for freestyle building). It was requested that facilitators identify a quiet and consistent room within school in whi"
+  ],
+  "verdict": "reject",
+  "genre": "reference",
+  "why": "교육 자료 제공과 장소 요건 등 시행 절차를 나열한다"
+ },
+ {
+  "book": "Bio-inspired apparatus to produce luminescent cavitation in a rigid walled chamber",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0293839",
+  "source": "plos",
+  "v_level": 6,
+  "words": 318,
+  "rows": 2,
+  "excerpts": [
+   "The fitting process was performed by applying the least squares technique in Wolfram Mathematica 10.0. The computations were carried out with the following data: I zz = 44 × 10 −6 kg⋅m 2, θ 0 = 0.617 rad, θ f = −0.527 rad. (c) Angular acceleration vs. time graph developed by the limb. Four springs were used to obtain these experimental curves. It is interesting to note how the angular velocity developed by the limb s",
+   "by employing stiffer springs and/or a larger number of these elastic elements, however, the drag forces that will have to be counteracted cannot be overlooked. A structural analysis was carried out to determine the stresses to which the elements of the mechanism are subjected during operation. Assuming that T m is divided equally, i.e., a torque with a lever arm r1 corresponding to screw (a) and a torque with a lever"
+  ],
+  "verdict": "reject",
+  "genre": "fragmentary",
+  "why": "관성모멘트 수치와 그래프 캡션이 섞여 뜻이 서지 않는다"
+ },
+ {
+  "book": "Machine vision-based detection method for buzzer iron cores",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0354351",
+  "source": "plos",
+  "v_level": 5,
+  "words": 302,
+  "rows": 1,
+  "excerpts": [
+   "It demands core localization, pose recognition, and notch-angle measurement, each with distinct requirements that a single deep model can hardly satisfy. Since the project requires 10-megapixel resolution images to guarantee accuracy, adopting such models would significantly increase the computational load. Exploiting the fact that a buzzer iron core is circular, the method first employs the Hough transform algorithm",
+   "to guide the robot to pick up only those cores that are front-up while rotating each one so that its notch is delivered at the desired angle. An innovative detection method for buzzer iron cores: A machine vision-based detection method for buzzer iron cores is proposed for the first time, integrating modules for core localization, pose recognition, and angle measurement. Through the synergy of machine vision and imag"
+  ],
+  "verdict": "use",
+  "genre": "engineering",
+  "why": "단일 모델의 한계와 허프 변환 활용 이유를 설명한다"
+ },
+ {
+  "book": "The Encoding of Decision Difficulty and Movement Time in the Primate Premotor Cortex",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pcbi.1004502",
+  "source": "plos",
+  "v_level": 5,
+  "words": 322,
+  "rows": 1,
+  "excerpts": [
+   "The information about the difficulty of a decision can be very valuable to properly allocate cognitive resources or to develop complex plans. Indeed, not only humans but even very simple form of life like honey bees are able to selectively avoid difficult decisions. Moreover the degree of difficulty in a decision can also serve as a building block for the construction of confidence and to predict the outcome of a cou",
+   " found that in neural ensembles showing abrupt changes of activity both the time of the change and its variability depend on the difficulty of the decision. Pardo-Vázquez and colleagues showed evidence of the effect of difficulty in PMv neurons, where a population of decision selective neurons is reported to have higher firing rate (FR) in easy compared to difficult trials for preferred correct choices and lower FR f"
+  ],
+  "verdict": "use",
+  "genre": "psychology",
+  "why": "결정 난이도라는 정보가 왜 유용한지 벌의 예까지 들어 설명한다"
+ },
+ {
+  "book": "Evolutionary echoes of emotion: Humans mimic other primate expressions",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0342196",
+  "source": "plos",
+  "v_level": 6,
+  "words": 330,
+  "rows": 2,
+  "excerpts": [
+   "The matching or mimicry of the emotional behavior of conspecifics is prevalent in many species. Next to humans it has, for example, been observed in orangutans, geladas and some macaque species, but also sun bears, dogs and meerkats. In humans, but also in non-human primates, the imitation of emotional behavior – emotional mimicry – has been shown to be relevant for the establishment of affiliative relations. Specifi",
+   "y also, capuchin monkeys show more affiliation towards humans who were instructed to imitate than when no imitation took place, suggesting that mimicry can serve to signal affiliation across species. Curiously however, there are to date no studies assessing whether humans spontaneously mimic the emotional expressions of non-human primates. The goal of the present research was to close this gap. Given the importance o"
+  ],
+  "verdict": "use",
+  "genre": "psychology",
+  "why": "사람이 다른 영장류 표정을 따라 하는지 묻는 공백을 제시한다"
+ },
+ {
+  "book": "Neural Correlates of Successful and Unsuccessful Strategical Mechanisms Involved in Uncertain Decision-Making",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0130871",
+  "source": "plos",
+  "v_level": 6,
+  "words": 343,
+  "rows": 1,
+  "excerpts": [
+   "Two of these decks are monetarily advantageous in the long term whereas the other two decks are disadvantageous. This test differs from other neuropsychological tests because it involves emotional processing in addition to a cognitive processing. The task involves a long series of gains and losses and to guide their decision towards the decks that they consider as being the most advantageous, the subjects have to fol",
+   "l phase, which corresponds to the period when they have an explicit knowledge of each deck and can elaborate a conscious strategy. Reaching a conceptual phase does not necessarily imply that the strategy will be successful since some patients with VMPFC dysfunction reach this phase but seem to be guided by immediate prospects, which only leads to a global decreased performance in the IGT. In order to objectivize the "
+  ],
+  "verdict": "use",
+  "genre": "psychology",
+  "why": "아이오와 도박 과제의 구조와 개념 단계의 의미를 설명한다"
+ },
+ {
+  "book": "Skin globotriaosylceramide 3 deposits are specific to Fabry disease with classical mutations and associated with small f",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0180581",
+  "source": "plos",
+  "v_level": 6,
+  "words": 259,
+  "rows": 1,
+  "excerpts": [
+   "Fabry Disease (FD) is a rare x-linked disorder characterized by an abnormal function of the lysosomal enzyme alpha-galactosidase A (GLA), involved in the cleavage of galactose residuals of globotriaosylceramide-3 (Gb3). As a consequence, Gb3 starts to accumulate within lysosomes of several tissues involving blood vessels, kidneys, nervous system and heart, as well as dermal fibroblasts, accounting for FD’s clinical f",
+   "fe. The available enzyme replacement therapy (ERT) started early before the appearance of organ failure may decrease the pathological impact of this disorder. The possibility to disclose skin Gb3 deposits is interesting because skin is an easily accessible tissue. Skin Gb3 deposits have been demonstrated by using complex techniques such as electron microscopy but they can also be detected by more simple and rapid tec"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "파브리병의 효소 결핍과 피부 침착 진단의 이점을 설명한다"
+ },
+ {
+  "book": "Edible oils as a co-extractant for the supercritical carbon dioxide extraction of flavonoids from propolis",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0266673",
+  "source": "plos",
+  "v_level": 7,
+  "words": 317,
+  "rows": 1,
+  "excerpts": [
+   "Bees use propolis in their hives as protection against predators and microorganisms, repair damage, and as a thermal isolator. It is a natural resinous material that honeybees collect from various plants and mix with beeswax and salivary enzymes. Propolis extracts have been shown to possess antioxidant, anti-inflammatory, antibacterial, anticarcinogenic, and antihepatotoxic activities. Polyphenol compounds, namely ph",
+   "extract has always been concerned. Supercritical carbon dioxide (scCO 2 ) is explored for extracting the bioactive compounds from propolis, but pure scCO 2 is not suitable because of its chemical characteristics and the physical properties of the propolis. As the propolis consists of 30% wax, organic solvents are needed to swell the matrix, increase the contact surface area, and dissolve the solutes. Additions up to "
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "프로폴리스의 성분과 초임계 추출의 한계를 설명한다"
+ },
+ {
+  "book": "Diets and environments of late pleistocene pygmy and Columbian mammoths: Isotopic evidence from Southern California",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0338674",
+  "source": "plos",
+  "v_level": 6,
+  "words": 314,
+  "rows": 2,
+  "excerpts": [
+   "Pygmy mammoths (Mammuthus exilis) are thought to have evolved from Columbian mammoth (Mammuthus columbi) populations through insular dwarfism driven by limited resources, competition, and/or predation on the island (known as Foster’s rule or the island rule). Columbian mammoths cohabitated with pygmy mammoths on Santarosae (now the Northern Channel Islands of California, USA, also known as the Channel Islands Nationa",
+   "as the Late Pleistocene megafaunal extinctions at the La Brea Tar Pits in Los Angeles, California, USA, around ca. 12.9 ka. The primary driver of these extinctions remains heavily debated. Earliest human arrival on Santarosae is radiocarbon dated to ca. 12,900 cal yr BP. However, there is no evidence of humans hunting or butchering pygmy mammoths. Rapid global warming and deglaciation also occurred around this time. "
+  ],
+  "verdict": "use",
+  "genre": "nature",
+  "why": "섬 왜소화로 갈라진 두 매머드의 공존과 멸종 논쟁을 설명한다"
+ },
+ {
+  "book": "Progress towards elimination of onchocerciasis in the Region du Sud-Ouest of Burkina Faso which was previously subject t",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pntd.0012118",
+  "source": "plos",
+  "v_level": 6,
+  "words": 360,
+  "rows": 1,
+  "excerpts": [
+   "Onchocerciasis is a vector-borne neglected tropical disease caused by infection with Onchocerca volvulus, a human parasite with no known animal reservoir. In West Africa, the parasite is transmitted from human to humans by blood-sucking female blackflies of the Similium damnosum complex, which breed in fast-flowing streams and rivers. More than 217.5 million people live in areas at-risk of onchocerciasis, and in Afri",
+   "icrofilariae which cause damage to the skin and eye tissues when they die. Until 1987, there were no safe drugs which could be used to treat onchocerciasis, and prevention of infections was by larviciding the vector breeding sites to reduce the numbers of biting vectors. However, in 1987 ivermectin was introduced for use against onchocerciasis, and it remains the only drug recommended for treatment. It has very few s"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "회선사상충증의 매개와 이버멕틴 도입 전후를 설명한다"
+ },
+ {
+  "book": "Pricing decision and channel selection of fresh agricultural products dual-channel supply chain based on blockchain",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0297484",
+  "source": "plos",
+  "v_level": 5,
+  "words": 321,
+  "rows": 4,
+  "excerpts": [
+   "In comparison to the distribution model, the online retail prices, traditional channel retail prices, traditional channel sales prices, traditional channel demand, and profits for traditional retailers are all lower in the direct sales model, while network channel demand and profits for fresh agricultural product manufacturers are higher. This is because in the context of blockchain technology adoption, regardless of",
+   "in the case of blockchain application, manufacturers save on direct selling costs. Consequently, manufacturers can offer lower direct selling prices. At the same time, traditional retailers are forced to implement price reduction measures. As a result, manufacturers have higher profits in the direct sales model (BS model), while traditional retailers’ profits are higher in the distribution model (BD model). When c τ "
+  ],
+  "verdict": "reject",
+  "genre": "reference",
+  "why": "모형 약호별 이윤 비교 결과와 조건 기호가 이어진다"
+ },
+ {
+  "book": "Evolution of intraocular pressure after cataract surgery in nonglaucomatous patients: A post-hoc analysis of PERCEPOLIS",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0349310",
+  "source": "plos",
+  "v_level": 7,
+  "words": 312,
+  "rows": 1,
+  "excerpts": [
+   "Cataracts were a leading cause of blindness in industrialized countries until a few decades ago, when improvements in cataract surgery started leading to excellent visual outcomes with few serious complications. Cataract surgery has consequently become the most common surgical procedure in the world. Another leading global cause of vision loss is glaucoma, which is a group of optic neuropathies characterized by progr",
+   "primary angle-closure glaucoma (PACG), the iris is squeezed against the cornea, which compresses and blocks the trabecular meshwork, Schlemm’s canal, and sometimes also the uveoscleral drains. It also narrows or occludes the iris-lens canal, hampering the circulation of aqueous humor from the posterior to the anterior chamber. By contrast, in primary open-angle glaucoma (POAG), the iris is positioned correctly but th"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "백내장 수술 보편화와 녹내장 유형별 기전을 설명한다"
+ },
+ {
+  "book": "Combining species distribution models and big datasets may provide finer assessments of snakebite impacts",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pntd.0012161",
+  "source": "plos",
+  "v_level": 6,
+  "words": 315,
+  "rows": 1,
+  "excerpts": [
+   "A better ecological understanding of snakebite is a primary demand of scientists and policymakers. Globally 4.5–5.4 million cases of snakebite per year have been estimated to occur using data from medical records and community surveys. As many as 2.7 million of these cases are envenoming bites resulting in approximately 125,000–138,000 human fatalities, 400,000 cases of amputation, as well as other permanent physical",
+   "st around 34,000 human snakebite fatalities per year in South Asia; however, a much worse scenario is revealed when looking at the individual countries in this region. For instance, more than 50,000 people are dying from snakebite every year in India alone, more than 8,000 in Pakistan, and more than 6,000 in Bangladesh, whereas in Sri Lanka annual snakebite fatalities number around 400. Overall, the death toll from s"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "뱀물림 피해 규모를 지역별 수치와 함께 설명한다"
+ },
+ {
+  "book": "Symptoms and Cognitive Functions in Adolescents in Relation to Mobile Phone Use during Night",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0133528",
+  "source": "plos",
+  "v_level": 5,
+  "words": 245,
+  "rows": 1,
+  "excerpts": [
+   "Within the last 15 years the use of mobile phones has increased remarkably in adults as well as in adolescents according to the International Telecommunication Union. Many adolescents tend to leave their mobile phones turned on during night and accept that they may be awakened by an incoming text message or call. A survey conducted in 2003 in Belgium showed that 27% of 13 year olds and 43% of 16 year olds reported be",
+   "phone use is associated with impaired cognitive functions. In a follow-up investigation one year later, in 236 of these students, changes in response times rather than in accuracy were observed, which were mainly attributed to statistical artefacts. Since amount of mobile phone use in general may be related to the use during night, the observed associations on cognitive functions may be the consequence of night-time "
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "청소년의 야간 휴대전화 사용과 인지 기능 연구를 설명한다"
+ },
+ {
+  "book": "Patients with knee osteoarthritis have altered gait and gaze patterns compared to age-matched controls: A pilot study",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0283451",
+  "source": "plos",
+  "v_level": 7,
+  "words": 311,
+  "rows": 1,
+  "excerpts": [
+   "They particularly have slower gait velocity with shorter steps, longer cycle and longer stance times when ascending stairs. Additionally, they have poorer absorption capabilities in response to forward momentum during a recovery step, with greater hip abduction of lower limbs when stepping over obstacles as compensatory movements. These findings demonstrate that KOA impairs gait functionality and balance. Dual task w",
+   "k conditions. The compromise in dual task performance may be underpinned by altered gait and gaze characteristics, although research is yet to confirm this phenomenon. Balance is a multisensory system which is primarily determined by the interaction between vestibular and visual inputs. Indeed, older adults with high self reported anxiety fixate on targets earlier and longer compared to those with low anxiety. Amongs"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "무릎 관절염이 보행과 균형에 남기는 영향을 설명한다"
+ },
+ {
+  "book": "Smart transition pathways and development incentive mechanism of China’s smart community elderly care industry under mar",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0297696",
+  "source": "plos",
+  "v_level": 5,
+  "words": 332,
+  "rows": 2,
+  "excerpts": [
+   "On the contrary, households with preferences for traditional services are not willing to pay more and therefore do not use smart services. When household preferences are consistent with the supply-side strategy (that is, the community and enterprise actively participate in smart construction and households prefer smart services; or when the community and enterprise negatively treat smart construction and households p",
+   "r, because smartness is the mainstream trend in future social development, and the current market share of smart services is quickly rising, so here the perception of smart preference by the community and enterprise is higher than the perception of traditionalization preference, which is Nc s > Nc t, Np s > Np t. For convenience, let A, B, C and D correspond to the local government, community, service supply enterpri"
+  ],
+  "verdict": "reject",
+  "genre": "reference",
+  "why": "선호 인식 부등호와 주체 기호 지정이 이어지는 모형 설정이다"
+ },
+ {
+  "book": "COVID-19 testing systems and their effectiveness in small, semi-isolated groups for sports events",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0266197",
+  "source": "plos",
+  "v_level": 5,
+  "words": 316,
+  "rows": 1,
+  "excerpts": [
+   "Note that the number in state E is excluded from the number of infected individuals because state E does not cause new infections. It is assumed that specimens collected for testing can include those with failed collections or subject to unintentional (or intentional) specimen mishandling. The effect that test errors resulting from such specimens has on the risk is considered. In this group, there is only one event o",
+   " at the point of entry into the destination. Let p pd be the probability that an individual in the group is infected per day after entry into the destination. The probability that one infected individual occurs in a group of N individuals ( p d ) is given by the binomial distribution as p d = N ! (2) It is assumed that infection is brought in from outside the group just once. The probability that one individual in th"
+  ],
+  "verdict": "reject",
+  "genre": "reference",
+  "why": "감염 확률을 이항분포로 유도하는 수식 전개 구간이다"
+ },
+ {
+  "book": "Seasonal timing on a cyclical Earth: Towards a theoretical framework for the evolution of phenology",
+  "url": "https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.3001952",
+  "source": "plos",
+  "v_level": 6,
+  "words": 325,
+  "rows": 2,
+  "excerpts": [
+   "Understanding how parameters of cycles shape life history evolution will help to explain and predict continued phenological shifts under future change. Above examples of studies that incorporated life history interdependencies and demographic structure into phenological analysis demonstrate that phenology is a highly eco-evolutionary process (Box 1) and would benefit from being modeled as such. For example, phenologi",
+   " loop. Such a demographically explicit conceptualization of phenological evolution may be one of the most promising targets of theoretical progress. Rates are the parameters typically manipulated in demographic and life history models due to the time differential nature of dynamical systems modeling. Such models ask what happens over a fixed time step, whether that be a large step (e.g., a month) or an infinitesimall"
+  ],
+  "verdict": "use",
+  "genre": "nature",
+  "why": "계절 주기와 생활사 진화를 연결하는 이론 틀을 논한다"
+ },
+ {
+  "book": "Assessing the role of actors in river restoration: A network perspective",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0297745",
+  "source": "plos",
+  "v_level": 5,
+  "words": 322,
+  "rows": 1,
+  "excerpts": [
+   "As an example, floodplain restoration is driven by flood management with a permanent quest for equilibrium between engineering works for defense and coping with hydrological extremes through nature-based solutions. Thus, restoration projects must be able to balance various conflicting needs and interests. The way that the public and private actors collaborate to achieve consensus on the planning and implementation of",
+   "ctors are connected to each other and their level of involvement can determine their degree of influence. Therefore, individual actors can form a bridge between other various stakeholders and are trusted and heard in several parts of the network. The position of an actor in the ecology of games in water governance can be quantified by using social network analysis. Social network analysis can help identify structures"
+  ],
+  "verdict": "use",
+  "genre": "environment",
+  "why": "하천 복원에서 이해관계자 연결망이 갖는 힘을 설명한다"
+ },
+ {
+  "book": "KCO: Balancing class distribution in just-in-time software defect prediction using kernel crossover oversampling",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0299585",
+  "source": "plos",
+  "v_level": 5,
+  "words": 329,
+  "rows": 2,
+  "excerpts": [
+   "They adopted Mahalanobis distance to rank instances and divide them into two groups. During the generation of new instances, two corresponding instances are chosen from each group. Synthetic instances tend to be more diverse when pairs of selected instances do not have a close distance between them. In comparison to SMOTE-based oversampling techniques, MAHAKIL offers superior performance and greater stability. Even t",
+   "ive samples into K-clusters and crossover interpolate synthetic instances. In this process, chromosome information contributes by two parents to generate a child. In order to generate new samples, crossover operators combine the characteristics of two samples. The setting means that the child samples inherit 50 percent of their characteristics from each of their parent samples. First, based on diversity measurements "
+  ],
+  "verdict": "reject",
+  "genre": "reference",
+  "why": "오버샘플링 알고리즘의 교차 연산 절차를 단계로 나열한다"
+ },
+ {
+  "book": "A simple and highly accurate method for fuzzy edge-based 3D morphometry",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0295988",
+  "source": "plos",
+  "v_level": 5,
+  "words": 319,
+  "rows": 6,
+  "excerpts": [
+   "The filtering effect and the time spent are taken into account. The median filter sets the grey value of each point to the median of the grey values of all points in the neighbourhood window of that point, and is also known as a ranking statistics filter. It is a non-linear signal processing technique based on the theory of ranking statistics that effectively suppresses noise. It is because the median filter algorith",
+   "tion of the digital image. The following is an analysis of the median filtered denoising process for the actual image taken. First, the colour digital image is greyed out. The greyscale values in the image were then converted into relative light intensities according to the method described in section 2.3.2. Finally the relative light intensities of the images were denoised using median filtering. The comparison of t"
+  ],
+  "verdict": "reject",
+  "genre": "reference",
+  "why": "중앙값 필터 적용 순서를 절 번호와 함께 나열한 처리 절차다"
+ },
+ {
+  "book": "AI-assisted longitudinal comparison of scenario knowledge representation in IPCC synthesis reports",
+  "url": "https://journals.plos.org/climate/article?id=10.1371/journal.pclm.0000965",
+  "source": "plos",
+  "v_level": 6,
+  "words": 324,
+  "rows": 1,
+  "excerpts": [
+   "At the same time, the paper does not make the opposite mistake of treating all differences as merely semantic. The use of identical prompts across report-specific retrieval windows makes it possible to detect where later reports provide genuinely new kinds of analytical content, especially in relation to adaptation limits, CDR dependence, compound risks, and governance stress. Mitigation-adaptation divergence tests h",
+   "ust the IPCC corpus. They provide a theoretically sufficient cross-section of scenario knowledge because they cover pathway structure, feasibility, systemic risk, and intertemporal policy dependence, which are the dimensions most relevant to the research questions. The use of RAG follows the same logic of restraint. A general-purpose language model asked to summarize the IPCC could easily produce fluent but untraceab"
+  ],
+  "verdict": "use",
+  "genre": "climate",
+  "why": "보고서 비교에서 새 내용과 표현 차이를 가르는 기준을 논증한다"
+ },
+ {
+  "book": "Understanding factors that impact patient access and engagement with biomedical and traditional care for hip fractures i",
+  "url": "https://journals.plos.org/globalpublichealth/article?id=10.1371/journal.pgph.0006626",
+  "source": "plos",
+  "v_level": 5,
+  "words": 329,
+  "rows": 1,
+  "excerpts": [
+   "In this way, the notion of “medical pluralism” has been used to describe the utilisation of both biomedical and traditional treatment modalities. This pattern of healthcare engagement is widely observed across international contexts and for patients experiencing both chronic and acute. For instance, Pham et al.’s work in Nepal highlighted how patients sought care from both biomedical healthcare professionals and trad",
+   "r knowledge and experience of traditional medicine. Despite their widespread use, Previous research has highlighted serious complications following TBS treatment. In Nigeria, these complications have included malunion and non-union of bones, while in Southern Ethiopia, cases of gangrene have been reported. Furthermore, biomedical treatment including surgery, achieves the best results if treatment takes place soon aft"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "의료 다원주의라는 개념으로 이중 치료 이용을 설명한다"
+ },
+ {
+  "book": "Nypa fruticans wurmb (Mangrove Palm) Fruit Kernel: Effect on physicochemical, sensory evaluation and shelf-life of wheat",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0342665",
+  "source": "plos",
+  "v_level": 6,
+  "words": 314,
+  "rows": 1,
+  "excerpts": [
+   "Biscuits are well known baked foods with low moisture content and have long shelf life, which are considered as a convenient, inexpensive snack among all the age groups across the world. With the increased consumption of biscuit products, there is also an increasing need for their dietary functionality. Biscuits contain various ingredients such as flour, sugar, milk, eggs, fats or shortening and flavoring ingredients",
+   "tional profile and modifies the sensory characteristics of traditional Italian Cantuccini. Nonetheless, due to increasing consumer preference for natural, healthy and functional foods and a high level of competition in the market, food companies are beginning to replace traditional flours with new ones including corn, flax seed, potato flour and defatted rice bran or other non-gluten grains like beans in developing f"
+  ],
+  "verdict": "use",
+  "genre": "food",
+  "why": "비스킷의 기능성 요구와 대체 곡물 활용 흐름을 설명한다"
+ },
+ {
+  "book": "Design of a novel intelligent computing framework for predictive solutions of malaria propagation model",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0298451",
+  "source": "plos",
+  "v_level": 6,
+  "words": 315,
+  "rows": 1,
+  "excerpts": [
+   "The parasite Plasmodium causes malaria, which spreads to people when infected female Anopheles mosquitoes bite them. In order to create eggs, female mosquitoes must consume blood. These eggs act as a bridge between the human and the bug, completing a cycle. Over 228 million individuals have been infected with malaria, an endemic disease. According to the WHO, 405,000 individuals passed away in 106 countries and terri",
+   " malaria and more than 300,000 deaths annually; this number is more than the 215,000 HIV/AIDS deaths that occur there annually. KwaZulu Natal, Mpumalanga, and Limpopo are the three provinces in South Africa where malaria is still a problem; nevertheless, these provinces are recognized to be in various stages of malaria management and eradication. One of the challenges to eliminate these areas has been found to be mig"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "말라리아 전파 고리와 지역별 퇴치 난제를 설명한다"
+ },
+ {
+  "book": "Parents’ experience of perinatal post-mortem following stillbirth: A mixed methods study",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0178475",
+  "source": "plos",
+  "v_level": 6,
+  "words": 300,
+  "rows": 1,
+  "excerpts": [
+   "Of those parents who expressed dissatisfaction, the principle reasons related to the lack of established cause of death, to the use of medical jargon and the couple wanting more investigations. The conversation about post-mortem was usually either at the time of diagnosis or within the first few hours after the birth, and the issue was usually raised more than once although most parents in that study only recalled a ",
+   " and emotional distress were important barriers. They also mentioned the negative press around organ retention, and religious or cultural barriers, but these were not significant issues for most parents. Important to parents was the possible necessity of the baby being transferred to a different hospital for post-mortem and the time required to obtain the results. In general, there is an assumption by clinicians that"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "사산 후 부검 동의를 둘러싼 부모의 불만과 장벽을 설명한다"
+ },
+ {
+  "book": "Does national intellectual capital matter for shadow economy in the Southeast Asian countries?",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0267328",
+  "source": "plos",
+  "v_level": 6,
+  "words": 324,
+  "rows": 2,
+  "excerpts": [
+   "For example, use five macroeconomic indicators to estimate the size of the shadow economy. These indicators include currency demand; discrepancies between national income and expenditure statistics; discrepancies between official and actual labour force; transactions indicator, and electricity consumption indicator. Third, the size of the shadow economy can be estimated using a set of various determinants and effects",
+   "e main reason for informal economic activities due to the lower labour costs in the shadow economy compared with the official economy. Besides tax evasion and institutional quality, other determinants of shadow economy have been pointed out, including tax and social contribution burden, regulation of the labour market, low public tax morale. However, gradually it has been extensively developed and modified on the nat"
+  ],
+  "verdict": "use",
+  "genre": "economics",
+  "why": "지하경제 규모 추정 방식과 결정 요인을 정리해 설명한다"
+ },
+ {
+  "book": "Lack of tetrodotoxin analogues and individual metabolomic profiling of the cryptic frog Colostethus imbricolus",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0325877",
+  "source": "plos",
+  "v_level": 7,
+  "words": 318,
+  "rows": 1,
+  "excerpts": [
+   "The lack of a specific LC–MS/MS based database of lipophilic alkaloids ionized by electrospray (ESI) makes tentative identification more challenging. A manual inspection of correlations between MS/MS spectra and mass spectra fragments from the GC-MS Daly database could be feasible to select the most likely amphibian alkaloid(s) when several candidates with the same mass are detected. Furthermore, the lack of centrali",
+   "n its toxicity. The only report on its toxicity refers to marginal effects observed on a mouse bioassay with a skin extract from a single specimen, but in that moment neither the presence of water-soluble toxins or lipophilic alkaloids could be demonstrated. Taking into account the extensive quantitative variation found on TTX quantities between specimens of C. panamensis the need to test the toxicity of C. imbricolu"
+  ],
+  "verdict": "reject",
+  "genre": "reference",
+  "why": "질량분석 데이터베이스 부재와 분석 절차 한계를 나열한다"
+ },
+ {
+  "book": "A framework of evolutionary optimized convolutional neural network for classification of shang and chow dynasties bronze",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0293517",
+  "source": "plos",
+  "v_level": 6,
+  "words": 311,
+  "rows": 5,
+  "excerpts": [
+   "During the first 30 epochs of training, the test accuracy rate increases rapidly, and after 50 epochs, the accuracy rate increases more gradually, ultimately stabilizing at over 95%. As for the training loss value, it decreases rapidly in the first 10,000 iterations, followed by a slower decrease and stabilization around 0.03. After 30,000 iterations, the model converges to its optimal state. Based on maintaining the",
+   "deal. While SCB-CNN exhibits high classification accuracy, it requires a significant amount of training time. As the resolution of pattern images increases, training time sharply rises. The optimization target is the SCB-CNN model established in Section 3.2, including its initial parameters. (3) According to the ratio of 7:3, the data set is randomly divided into 7000 training set and 2000 testing set, and each type "
+  ],
+  "verdict": "reject",
+  "genre": "reference",
+  "why": "학습 에폭과 손실값, 데이터 분할 비율을 적은 실험 설정이다"
+ },
+ {
+  "book": "A microRNA atlas of CD4+ T cell subsets in experimental autoimmune encephalomyelitis identifies regulators of disease pa",
+  "url": "https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.3003271",
+  "source": "plos",
+  "v_level": 8,
+  "words": 275,
+  "rows": 1,
+  "excerpts": [
+   "Th17 cells, on the other hand, activate microglia and recruit neutrophils, macrophages, and lymphocytes through synergy of IL-17A with other proinflammatory cytokines such as IL-6, IL-23, IL-1β and GM-CSF. Critically, myelin oligodendrocyte glycoprotein (MOG)-specific Th1 and Th17 cells were shown to induce experimental autoimmune encephalomyelitis (EAE), the well-established mouse model of MS, upon adoptive transfer",
+   "o the CNS. These results reinforce the concept that the balance between Teff and Treg subsets is a major determinant of the outcome of the local inflammatory/autoimmune response. As such, it is important to identify molecular mechanisms that control Teff or Treg cells across their transition from the periphery to the target CNS. MicroRNAs (miRNAs) have emerged as key players in the fine-tuning of gene expression at t"
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "T세포 균형이 자가면역 결과를 가르는 기전을 설명한다"
+ },
+ {
+  "book": "Effects of traffic noise on the calling behavior of two Neotropical hylid frogs",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0183342",
+  "source": "plos",
+  "v_level": 5,
+  "words": 332,
+  "rows": 2,
+  "excerpts": [
+   "Studies assessing effects of anthropogenic noise on frogs have shown that species respond using distinct strategies, including changes in both temporal and spectral parameters of their calls and/or the avoidance of the noise source. To reduce the masking effect of noise, some frogs may adjust the timing of whole calls or just some notes, change call amplitude or call frequency. One should expect a close relationship ",
+   " can limit the distance over which an individual can perceive acoustic signals. This variation in the efficiency of signaling is proved to have major fitness consequences for other animal groups. In this sense, it is imperative to determine whether the traffic road noise affects anuran males calling behavior and how animals attempt to reduce the masking effect between their signal and the noise. Furthermore, it is po"
+  ],
+  "verdict": "use",
+  "genre": "nature",
+  "why": "도로 소음이 개구리 울음 전략을 바꾸는 문제를 제기한다"
+ },
+ {
+  "book": "Physical function, daily activities, and spinal pain in the elderly: A cross-sectional study",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0344292",
+  "source": "plos",
+  "v_level": 6,
+  "words": 326,
+  "rows": 2,
+  "excerpts": [
+   "Maintaining physical fitness in older age is particularly important for preserving independence for as long as possible. Physical activity promotes healthy aging and protects against the decline of physical and cognitive functions. A 6-year longitudinal study on aging demonstrated that older adults maintaining moderate physical activity had a lower risk of all-cause mortality compared to their low-activity counterpar",
+   " be caused by neurological injury, such as stroke, peripheral neuropathy, spinal radiculopathy, or cranial neuralgias. Pain is modulated by higher centers of the nervous system. It is typically associated with injury or a pathophysiological process that evokes this unpleasant experience. In older adults, pain most commonly takes a chronic form. Seniors experience both acute and chronic pain conditions, including neur"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "노년의 신체 활동과 만성 통증의 관계를 설명한다"
+ },
+ {
+  "book": "Breastfeeding practices and social norms in Kinshasa, Democratic Republic of the Congo: A qualitative study",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pgph.0000957",
+  "source": "plos",
+  "v_level": 4,
+  "words": 322,
+  "rows": 1,
+  "excerpts": [
+   "Furthermore, a woman’s decision to breastfeed is a function of her intention to breastfeed and her breastfeeding self-efficacy. Intention to breastfeed, in turn, is influenced by both the woman’s own attitude toward breastfeeding and by her perceptions of what other people think. These socio-cultural beliefs are referred to as \"social norms\" and are implied group rules about what constitutes appropriate behaviour. So",
+   "g child feeding and recommends exclusive breastfeeding for six months. However, although almost all children were breastfed (99%) in the 2017–2018 Multiple Indicator Cluster Survey, only 47% were breastfed within one hour of birth, and only 53% of infants under six months were exclusively breastfed. Previous studies in Kinshasa, Sud-Kivu and Kwango identified individual barriers to EBF, such as low level of breastfee"
+  ],
+  "verdict": "use",
+  "genre": "social",
+  "why": "모유 수유 결정에 작용하는 사회 규범을 개념으로 설명한다"
+ },
+ {
+  "book": "Having pity on our victims to save ourselves: Compassion reduces self-critical emotions and self-blame about past harmfu",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0223945",
+  "source": "plos",
+  "v_level": 6,
+  "words": 330,
+  "rows": 4,
+  "excerpts": [
+   "As they put it: \"distant failures lose their power to taint and glories to flatter the present self\" [ 3 p139]. Several studies have shown that people tend to perceive, appraise and judge the past self in much the same way as they perceive other people (e.g ). Recent research has even found evidence for this at the neural level. People also vary in terms of the implicit theories they hold about personal stability and",
+   "The fact that people differentiate between past and present selves, and differ in the degree to which they do, is important. Research in the social identity tradition suggests that a confrontation with past harmful behavior by the ingroup constitutes an identity threat for high identifiers. This is because the group is very important to them, and because people are motivated to have a positive perception of the group"
+  ],
+  "verdict": "use",
+  "genre": "psychology",
+  "why": "과거의 자기를 타인처럼 보는 경향과 집단 정체성 위협을 설명한다"
+ },
+ {
+  "book": "Examining the stability and change in age-crime relation in South Korea, 1980–2019: An age-period-cohort analysis",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0299852",
+  "source": "plos",
+  "v_level": 6,
+  "words": 312,
+  "rows": 3,
+  "excerpts": [
+   "Therefore, utilizing international data and cross-cultural studies offers an intuitive and straightforward way to illustrate the significance of social context. While providing important evidence to challenge the HG age-crime invariance thesis, Steffensmeier and colleagues’ studies are not without limitations. A major shortcoming of these studies is that they relied on cross-sectional data representing a specific per",
+   " for all age groups. Different from period effects that are universal in all age groups, cohort effects may alter the shape of an age-crime pattern by changing the crime rate of a specific age (cohort) group in a specific period. Very few prior studies have explicitly tested period and cohort effects on the age-crime relationship, but sociological literature has indicated that social or demographic changes may have d"
+  ],
+  "verdict": "use",
+  "genre": "social",
+  "why": "연령-범죄 관계 불변론의 한계와 코호트 효과를 논한다"
+ },
+ {
+  "book": "Power quality enhancement in wind energy applications through E2PLL-based DSTATCOM control",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0355943",
+  "source": "plos",
+  "v_level": 6,
+  "words": 319,
+  "rows": 2,
+  "excerpts": [
+   "However, under unbalanced conditions, the DSTATCOM actively compensates for voltage imbalances at the PCC. Therefore, there is no issue with using the amplitude value calculated from (11) for reference current generation. Fundamental active current components estimation It is essential to determine the active current components to maintain the frequency of SEIG voltages at the reference value (50 Hz). The output of t",
+   "e compensated. The fundamental average reactive current component is computed as in (17). The magnitude of the reactive component of the reference current is then calculated by subtracting the from the as in (18). The OPAL-RT is a digital simulator proven to accurately represent physical systems and capable of performing real-time hardware-in-the-loop (HiL) tests. Using the OPAL-RT, complex power systems, microgrids,"
+  ],
+  "verdict": "reject",
+  "genre": "reference",
+  "why": "기준 전류 산출식 번호와 시뮬레이터 사양이 이어진다"
+ },
+ {
+  "book": "Automatic uncertainty evaluation for determining the number of components in nested models and the shrinkage regularizat",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0354966",
+  "source": "plos",
+  "v_level": 6,
+  "words": 306,
+  "rows": 3,
+  "excerpts": [
+   "Moreover, some solutions – say, for instance, with k components – may never appear for any value of; in that case, must be zero,. Interpreting the interval solutions The methods described above return an interval as the final solution. Interpretation The two interval solutions obtained by the UAED-geometric and SIC approaches have two different interpretations, which are described below. In both cases, the true numbe",
+   "elbow point is not contained in the intervals and. In other words, the UAED-geometric interval can be viewed as being designed to try to maximize the probability. Therefore, due to these two different construction philosophies, it is intuitively clear that the UAED-geometric intervals are generally wider than the corresponding SIC-based intervals. Moreover, these idealized scenarios were constructed so that the possi"
+  ],
+  "verdict": "reject",
+  "genre": "fragmentary",
+  "why": "구간 해석에서 기호가 빠져 무엇을 비교하는지 알 수 없다"
+ },
+ {
+  "book": "The approaches, theories, models, frameworks, and methods in designing toolkits to support healthcare providers in healt",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0349867",
+  "source": "plos",
+  "v_level": 5,
+  "words": 336,
+  "rows": 2,
+  "excerpts": [
+   "It is important to develop user-friendly, evidence-based tools that support the needs of HCPs for health behaviour change. Toolkits are collections of adaptable resources to inform and provide guidance which are typically intended to bridge the evidence to practice gap, support implementation processes for adoption, and/or support sustained use of the intended change. Toolkits can be used by themselves as a knowledge",
+   "kit design may improve engagement, uptake, and effectiveness. A preliminary search of MEDLINE, the Cochrane Database of Systematic Reviews, Open Science Framework, and JBI Evidence Synthesis was conducted, and no published or currently underway reviews were found. While there have been scoping reviews on toolkits in healthcare, there is a lack of information regarding the development of these toolkits. Additionally, "
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "도구모음이 근거와 실천의 간극을 메우는 역할을 설명한다"
+ },
+ {
+  "book": "The Relationship between Natural Park Usage and Happiness Does Not Hold in a Tropical City-State",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0133781",
+  "source": "plos",
+  "v_level": 5,
+  "words": 325,
+  "rows": 1,
+  "excerpts": [
+   "This may be linked to Ulrich's psycho-evolutionary model of stress recovery which argued that exposure to nature triggers positive emotions as a form of attraction towards safe environments. This is supported by a finding that higher perceived species richness within urban green spaces improves visitors' psychological well-being. Thus, it is likely that biodiversity and nature still remain relevant even in heavily ur",
+   "so offers opportunities for contact with others. The presence of green spaces within one's neighbourhood facilitates social interaction and strengthens social support. This in turn is linked to improved happiness and well-being. Thus, through promoting physical activity and social interaction, green spaces may indirectly contribute to an improvement in well-being. From the above, it can be established that an increas"
+  ],
+  "verdict": "use",
+  "genre": "environment",
+  "why": "녹지가 행복에 이르는 두 경로를 이론으로 설명한다"
+ },
+ {
+  "book": "Spatial variation in socio-economic vulnerability to Influenza-like Infection for the US population",
+  "url": "https://journals.plos.org/plosbiology/article?id=10.1371/journal.pcbi.1013839",
+  "source": "plos",
+  "v_level": 6,
+  "words": 325,
+  "rows": 1,
+  "excerpts": [
+   "While past studies have examined correlations between individual socio-economic variables and disease burden, few have developed a quantitative framework that integrates these factors into a panoramic vulnerability model. ILI represents a significant public health challenge due to its high transmissibility and seasonal recurrence. Caused primarily by influenza viruses (types A and B) and respiratory syncytial virus (",
+   "ortionately higher risk of infection, hospitalization, and adverse outcomes. Despite this well-documented association, there is no standardized framework that quantifies ILI vulnerability at a state level, incorporating both socio-economic and healthcare accessibility factors. This approach considers the interconnectedness of factors within a defined geographic or administrative area. This regional analysis facilitat"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "독감 유사 질환 취약성을 사회경제 요인으로 통합하려는 문제를 제기한다"
+ },
+ {
+  "book": "Identification of two terpenoids from Withania coagulans with predicted multitarget binding affinity: An in vitro and in",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0343273",
+  "source": "plos",
+  "v_level": 6,
+  "words": 313,
+  "rows": 1,
+  "excerpts": [
+   "Chronic metabolic disorders, persistent microbial infections, and oxidative stress–related diseases remain among the foremost global health challenges of the 21st century. The burden of these conditions is further intensified by the rise of multidrug-resistant pathogens, adverse effects of long-term synthetic drug use, and increasing incidence of lifestyle-related metabolic dysfunctions. Consequently, the focus on pl",
+   "amily with a long history in traditional and Ayurvedic medicine. The shrub is commonly called Indian Rennet or Paneer Doda and is found growing wild in the Mediterranean, North Africa, and South Asia, with large populations found in Iran, Pakistan, Afghanistan, and East India. Throughout the centuries, folk medicine has utilized many of these plant components to treat numerous diseases. Its best-known historical use "
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "약물 내성 시대에 약용 식물로 눈을 돌리는 배경을 설명한다"
+ },
+ {
+  "book": "Division of coal spontaneous combustion stages and selection of indicator gases",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0267479",
+  "source": "plos",
+  "v_level": 6,
+  "words": 324,
+  "rows": 1,
+  "excerpts": [
+   "The spontaneous combustion of coal is a major disaster in the mining, storage, and transportation chain of coal production, restricting the development of the coal industry. The spontaneous combustion of coal not only causes significant wastage of coal resources, but also leads to mine fires that vary the airflow in the mine ventilation system, resulting in gas explosions and casualties. Moreover, SO 2, NO x, tar, an",
+   "es, volatile substances, moisture, surface area, and sulfur content), geological factors (coal seam slope, coal seam thickness, cracks, and fissures), and mining factors (advancing speed, pillar and roof conditions, mining methods, ventilation, and old roadways). Its formation and development can be characterized by a spontaneous, slow, dynamically varying process involving exothermic reaction, heat build-up, and war"
+  ],
+  "verdict": "use",
+  "genre": "energy",
+  "why": "석탄 자연발화가 일으키는 피해와 영향 요인을 설명한다"
+ },
+ {
+  "book": "Fairness as an afterthought: An American perspective on fairness in model developer-clinician user collaborations",
+  "url": "https://journals.plos.org/digitalhealth/article?id=10.1371/journal.pdig.0000386",
+  "source": "plos",
+  "v_level": 6,
+  "words": 308,
+  "rows": 3,
+  "excerpts": [
+   "Furthermore, the medical records of less well-off persons are known to be particularly prone to inaccuracies, which can reduce a mortality prediction model’s accuracy. Nevertheless, other staff argue the model’s value in conserving revenues and reducing caregiver stress by preventing “futile” care allocations. A mental health facility has been approached by a generative AI developer whose model can considerably reduc",
+   "that mental illness can be very stigmatizing and that the developer who owns the model will have access to extremely sensitive data. If that data is breached, released without warrant, or inadvertently placed on a public database, the psychological harms to the facility’s patients could be devastating. The facility’s shareholders and the clinical staff find themselves at an impasse over whether the model’s use should"
+  ],
+  "verdict": "use",
+  "genre": "technology",
+  "why": "의료 인공지능 도입의 공정성 딜레마를 사례로 제시한다"
+ },
+ {
+  "book": "Aging affects motor planning for grasping everyday objects: A case control study",
+  "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0347103",
+  "source": "plos",
+  "v_level": 5,
+  "words": 333,
+  "rows": 1,
+  "excerpts": [
+   "Aging is a slow, progressive process that has a negative impact on human movement control. In addition to the loss of strength, the effect of aging is associated with reduced control of upper limb fine motor skills, gait and balance. This reduced control over hand movements can affect older people’s ability to perform activities of daily living and have a negative impact on their quality of life. Grasping an object t",
+   "rently depending on what one intends to do with it, with a preference for final comfort over initial comfort to later implement the action comfortably and efficiently. An everyday example of the final comfort effect can be observed in the task of picking up a spilled glass, described by Rosenbaum. He also describes another task, that of placing a two-colored bar on a disc. The goal being to use the right hand to plac"
+  ],
+  "verdict": "use",
+  "genre": "psychology",
+  "why": "노화가 잡기 동작 계획에 미치는 영향을 일상 예로 설명한다"
+ }
+]

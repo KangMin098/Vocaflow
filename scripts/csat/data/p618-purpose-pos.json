@@ -1,0 +1,127 @@
+{
+ "n": 12,
+ "found": 12,
+ "notFirst": 12,
+ "rows": [
+  {
+   "exam": "2014A",
+   "ok": true,
+   "nSent": 9,
+   "idx": 1,
+   "rel": 0.13,
+   "hit": true,
+   "sent": "We, ABLE Shipping, have developed the perfect system for shipp",
+   "first": "Good news for pet shop owners!"
+  },
+  {
+   "exam": "2016",
+   "ok": true,
+   "nSent": 7,
+   "idx": 3,
+   "rel": 0.5,
+   "hit": true,
+   "sent": "Rather than make him skip the day, I’d like to check to see if",
+   "first": "Dear Coach Johnson, My name is Christina Markle, Bradley Markl"
+  },
+  {
+   "exam": "2017",
+   "ok": true,
+   "nSent": 10,
+   "idx": 2,
+   "rel": 0.22,
+   "hit": true,
+   "sent": "The Ha-Rang Writing Center offers a free tutoring program open",
+   "first": "Want to improve your Korean writing?"
+  },
+  {
+   "exam": "2018",
+   "ok": true,
+   "nSent": 8,
+   "idx": 4,
+   "rel": 0.57,
+   "hit": true,
+   "sent": "Would you please let me know if it is possible to make a group",
+   "first": "Dear Ms. Diane Edwards, I am a teacher working at East End Hig"
+  },
+  {
+   "exam": "2019",
+   "ok": true,
+   "nSent": 8,
+   "idx": 1,
+   "rel": 0.14,
+   "hit": true,
+   "sent": "However, I would like to change my recipe if it is possible.",
+   "first": "Dear Mr. Reese, A few days ago, I submitted my application and"
+  },
+  {
+   "exam": "2020",
+   "ok": true,
+   "nSent": 8,
+   "idx": 5,
+   "rel": 0.71,
+   "hit": true,
+   "sent": "Since you are the manager of Vuenna Dog Park, I ask you to tak",
+   "first": "Dear Mr. Kayne, I am a resident of Cansinghill Apartments, loc"
+  },
+  {
+   "exam": "2021",
+   "ok": true,
+   "nSent": 11,
+   "idx": 1,
+   "rel": 0.1,
+   "hit": true,
+   "sent": "As some of you already know, we are starting the campus food d",
+   "first": "Dear Friends, Season’s greetings."
+  },
+  {
+   "exam": "2022",
+   "ok": true,
+   "nSent": 8,
+   "idx": 4,
+   "rel": 0.57,
+   "hit": true,
+   "sent": "Since you are an expert in online education, I would like to a",
+   "first": "Dear Ms. Green, My name is Donna Williams, a science teacher a"
+  },
+  {
+   "exam": "2023",
+   "ok": true,
+   "nSent": 10,
+   "idx": 7,
+   "rel": 0.78,
+   "hit": true,
+   "sent": "I would like to know how to sign up for the club.",
+   "first": "To whom it may concern, My name is Michael Brown."
+  },
+  {
+   "exam": "2024",
+   "ok": true,
+   "nSent": 8,
+   "idx": 2,
+   "rel": 0.29,
+   "hit": true,
+   "sent": "This year, we’ve launched special online courses, which contai",
+   "first": "I’m Charlie Reeves, manager of Toon Skills Company."
+  },
+  {
+   "exam": "2025",
+   "ok": true,
+   "nSent": 6,
+   "idx": 3,
+   "rel": 0.6,
+   "hit": true,
+   "sent": "As a result, we have decided to cancel the race.",
+   "first": "Dear Rosydale City Marathon Racers, We are really grateful to "
+  },
+  {
+   "exam": "2026",
+   "ok": true,
+   "nSent": 9,
+   "idx": 5,
+   "rel": 0.63,
+   "hit": true,
+   "sent": "Therefore, I am encouraging you to submit a proposal for a new",
+   "first": "Dear students, I am Amanda Clark, the school club director, an"
+  }
+ ]
+}

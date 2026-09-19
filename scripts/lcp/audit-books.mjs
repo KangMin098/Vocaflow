@@ -1,0 +1,106 @@
+// scripts/lcp/audit-books.mjs
+//
+// 추출 품질 증분 감사 러너 — books_needing_audit → audit_book_extraction 반복.
+//
+// 왜 러너인가: 감사를 전수 SQL 한 방으로 돌리던 v_extraction_quality_audit 는
+//   코퍼스가 300권 · lbv 154만 행이 되자 통째로 타임아웃했다. 특히 결함 04/90 은
+//   미해결 단어마다 content_chunks 를 정규식(\m…\M)으로 스캔해서 곱셈으로 커진다.
+//   도서 1권은 빠르므로 권당 계산 → 저장 → 합계 조회로 바꿨고(마이그레이션
+//   incremental_audit_and_stats_maintenance), 이 스크립트가 그 반복을 담당한다.
+//
+// 멱등: audit_book_extraction 이 도서별로 DELETE 후 INSERT 한다. 재실행해도 중복이 없고,
+//   books_needing_audit 은 "감사 없음 또는 도서가 그 뒤에 갱신됨"만 돌려주므로
+//   중단 후 다시 실행하면 남은 것부터 이어간다.
+//
+// 실행: pnpm dlx tsx scripts/lcp/audit-books.mjs [--limit N] [--delay MS]
+
+import fs from 'node:fs'
+import path from 'node:path'
+
+const envPath = path.resolve(process.cwd(), 'apps/web/.env.local')
+if (fs.existsSync(envPath)) {
+  for (const line of fs.readFileSync(envPath, 'utf8').split('\n')) {
+    const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*?)\s*$/)
+    if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, '').replace(/\r/g, '')
+  }
+}
+
+const argv = process.argv.slice(2)
+const arg = (name, dflt) => {
+  const i = argv.indexOf(`--${name}`)
+  return i >= 0 && argv[i + 1] ? argv[i + 1] : dflt
+}
+const LIMIT = parseInt(arg('limit', '1000'), 10)
+const DELAY_MS = parseInt(arg('delay', '300'), 10)
+// --all: 갱신 여부와 무관하게 전수 재감사.
+//   books_needing_audit 은 "감사 없음 또는 도서가 그 뒤에 갱신됨" 만 돌려주므로,
+//   **판정 로직 자체가 바뀐 경우**(예: 04/90 토큰 판정 수정)에는 전수를 강제해야 한다.
+const ALL = argv.includes('--all')
+// --stale-before <ISO>: 그 시각보다 오래된 감사만 다시 돌린다.
+//   판정 로직을 바꾼 뒤 전수를 돌리다 중단됐을 때, 이미 새 판정으로 끝난 도서를
+//   건너뛰고 이어갈 수 있다 (--all 재실행은 처음부터 다시 돈다).
+const STALE_BEFORE = arg('stale-before', '')
+
+const { getServiceClient } = await import('@vocaflow/library-pipeline')
+const sb = getServiceClient()
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
+
+let list = []
+if (ALL || STALE_BEFORE) {
+  const { data, error } = await sb
+    .from('library_books')
+    .select('id, title')
+    .in('status', ['ready', 'published'])
+    .limit(5000)
+  if (error) {
+    console.error(`[audit] 도서 조회 실패: ${error.message}`)
+    process.exit(1)
+  }
+  let books = (data ?? []).map((b) => ({ library_book_id: b.id, title: b.title }))
+
+  if (STALE_BEFORE) {
+    // 이미 기준 시각 이후로 감사된 도서는 제외 (중단 후 이어가기)
+    const { data: fresh } = await sb
+      .from('book_extraction_audit')
+      .select('library_book_id')
+      .gte('computed_at', STALE_BEFORE)
+      .limit(20000)
+    const done = new Set((fresh ?? []).map((r) => r.library_book_id))
+    books = books.filter((b) => !done.has(b.library_book_id))
+    console.error(`[audit] ${STALE_BEFORE} 이후 감사 완료 ${done.size}권 제외`)
+  }
+
+  list = books.slice(0, LIMIT)
+} else {
+  const { data, error } = await sb.rpc('books_needing_audit', { p_limit: LIMIT })
+  if (error) {
+    console.error(`[audit] 대상 조회 실패: ${error.message}`)
+    process.exit(1)
+  }
+  list = data ?? []
+}
+
+console.error(`[audit] 대상 ${list.length}권 (delay=${DELAY_MS}ms${ALL ? ' · 전수' : ''}${STALE_BEFORE ? ' · 이어가기' : ''})`)
+
+let ok = 0
+let fail = 0
+const failures = []
+
+for (const [idx, b] of list.entries()) {
+  const label = `${idx + 1}/${list.length} ${(b.title ?? '').slice(0, 45)}`
+  try {
+    const { error: e } = await sb.rpc('audit_book_extraction', { p_book_id: b.library_book_id })
+    if (e) throw new Error(e.message)
+    ok++
+    if ((idx + 1) % 20 === 0 || idx === list.length - 1) console.error(`  ✓ ${label}`)
+  } catch (e) {
+    fail++
+    const msg = e instanceof Error ? e.message : String(e)
+    failures.push(`${b.title} :: ${msg}`)
+    console.error(`  ✗ ${label} — ${msg.slice(0, 110)}`)
+  }
+  if (idx < list.length - 1) await sleep(DELAY_MS)
+}
+
+console.error(`\n[audit] 완료 — 성공 ${ok} · 실패 ${fail}`)
+if (failures.length) console.error(failures.slice(0, 15).join('\n'))

@@ -7,7 +7,9 @@
 
 'use client'
 
-import { ArrowRight, FileText, Library, Sparkles } from 'lucide-react'
+import { ArrowRight, FileText, Library } from 'lucide-react'
+import { Illustration } from '@/components/illustrations/Illustration'
+import { ILLO_01_WORDBOOK_EMPTY } from '@/components/illustrations/generated/illo-01-wordbook-empty'
 import Link from 'next/link'
 
 export function WordVaultEmptyState() {
@@ -16,12 +18,10 @@ export function WordVaultEmptyState() {
       aria-label="첫 단어 시작"
       className="relative overflow-hidden rounded-[var(--r-2xl)] border border-[var(--bd)] bg-gradient-to-br from-[var(--p)]/10 to-[var(--bg2)] p-8 md:p-12"
     >
-      <div className="absolute right-6 top-6 opacity-20" aria-hidden="true">
-        <Sparkles size={64} className="text-[var(--p)]" />
-      </div>
-
       <div className="relative max-w-2xl">
-        <p className="mb-3 font-mono text-[10px] font-[700] uppercase tracking-[0.15em] text-[var(--t3)]">
+        {/* 삽화(사전 #1) — 빈 상태 문장 위. 옆 문장이 같은 말을 해서 decorative(03-system §3-9) */}
+        <Illustration asset={ILLO_01_WORDBOOK_EMPTY} decorative className="mb-6" />
+        <p className="mb-3 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
           — 단어장이 비어 있어요
         </p>
 
@@ -38,7 +38,7 @@ export function WordVaultEmptyState() {
         <div className="flex flex-col gap-3 sm:flex-row">
           <Link
             href="/text/new"
-            className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-[var(--r-md)] bg-gradient-to-br from-[#6366F1] to-[#4338CA] px-5 py-3 font-display text-[14px] font-[700] text-white shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] ease-[var(--ease-spring)] hover:scale-[1.02] hover:shadow-[var(--sh-md)] active:scale-[0.99]"
+            className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-[var(--r-md)] border border-[var(--t1)] bg-[var(--ju)] px-5 py-3 font-display text-[14px] font-[700] text-[var(--on-ju)] transition-[background-color,transform] duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--ju-ink)] active:translate-y-[1px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
           >
             <FileText size={16} aria-hidden="true" />
             <span>스크립트 추가하기</span>

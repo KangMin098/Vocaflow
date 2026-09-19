@@ -1,0 +1,3 @@
+/* apps/web/tests/visual/capture.css */
+/* Development chrome is excluded; application content must remain untouched. */
+nextjs-portal { visibility: hidden !important; }
