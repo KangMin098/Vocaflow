@@ -421,14 +421,15 @@ test.describe('G. 이메일 인증 대기', () => {
     await expect(page.getByRole('button', { name: /인증 메일 다시 보내기/ })).toBeEnabled();
   });
 
-  test('?email 이 없으면 재발송 버튼을 잠그고 이유를 말한다 (예전엔 눌러도 무반응)', async ({
+  // 2026-09-19 (DD-31) — 잠근 버튼은 **활성처럼 보였다**(감사). 이제 주소를 모르면 재발송 버튼을 두지 않고
+  // 이유 + 1차 행동(다시 가입, 복귀 경로 유지)을 준다.
+  test('?email 이 없으면 재발송 버튼 대신 이유와 다시 가입하기를 준다 (예전엔 눌러도 무반응)', async ({
     page,
   }) => {
     await gotoHydrated(page, '/verify-email');
-    const resend = page.getByRole('button', { name: /인증 메일 다시 보내기/ });
-    await expect(resend).toBeVisible({ timeout: 20_000 });
-    await expect(resend).toBeDisabled();
-    await expect(page.getByText(/재발송할 수 없어요/)).toBeVisible();
+    await expect(page.getByText(/재발송할 수 없어요/)).toBeVisible({ timeout: 20_000 });
+    await expect(page.getByRole('button', { name: /인증 메일 다시 보내기/ })).toHaveCount(0);
+    await expect(page.getByRole('link', { name: /다시 가입하기/ })).toHaveAttribute('href', /^\/signup\?next=/);
   });
 });
 

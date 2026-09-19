@@ -77,8 +77,8 @@ const SIGNALS: Record<string, { re: RegExp; why: string }> = {
 const BASELINE: Record<Surface, Record<string, number>> = {
   learner: {
     'grid-3eq': 54, // 2026-09-19 /flashcard/play 완료 3열 통계 카드(60→59) · 회고 지층·관리 괘선·리포트(59→56) · /text/new 입력 방식 3열·예시 5열(56→54)
-    'shadow-heavy': 22, // 2026-09-19 /wordvault/review·study StudyMode 카드·버튼 그림자 4(29→25) · /text/new 세그먼트·책 입력(25→22)
-    'rounded-big': 25, // 2026-09-19 /signup 2(41→39) · /wordvault StudyMode 5(39→34) · /text/new 입력칸·책 입력·배너(34→25)
+    'shadow-heavy': 18, // 2026-09-19 /wordvault/review·study StudyMode 카드·버튼 그림자 4(29→25) · /text/new 세그먼트·책 입력(25→22) · 인증 3화면 카드·버튼(22→18)
+    'rounded-big': 15, // 2026-09-19 /signup 2(41→39) · /wordvault StudyMode 5(39→34) · /text/new 입력칸·책 입력·배너(34→25) · 인증 3화면 카드·아이콘 타일(25→15)
     gradient: 162, // 2026-09-19 /diagnostic 2 · /flashcard/play 4 · /wordvault StudyMode 방사형 장식 1(→164) · /text/new 책 띠·예시 칩(→162)
     'ai-purple': 36, // 2026-09-19 /text/[id] UnifiedHeader 칩 hover #6D28D9(38→37) · /dashboard 주석(37→36)
     glass: 49, // 2026-09-19 /diagnostic 모달 2(52→50) · /text/[id] ModePills backdrop-blur(50→49)
