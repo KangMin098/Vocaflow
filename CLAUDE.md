@@ -424,6 +424,7 @@ vocaflow/
 - **main 으로 직접 push 절대 금지** — PR 생성 권장
 - force push 절대 금지 (사용자 명시 요청 시만)
 - `--no-verify` 절대 금지 (hook 실패 시 root cause 찾기)
+- **작업 브랜치 수명 ≤ 2주, main 기준 분기** — 넘기면 main 에 먼저 합친다 (2026-09-19 사용자 승인 · design/DECISIONS DD-41)
 
 **Merge 규칙**:
 - PR 생성 후 자동 merge: CI 통과 + main 보호 정책 준수 시만 (현재 정책 미확정 — 우선 보류)

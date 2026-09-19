@@ -182,7 +182,6 @@ Lexile·ATOS 는 글만 재고 LingQ 의 known-word 카운트는 이진값이라
 화면 근거 패널이 그 사실을 밝힌다.
 
 ### 컴포넌트 (`components/textviewer/`)
-- `TextStatusBadge.tsx` — 4단계 상태 (미시작/진행중/정복/완성)
 - `EmptyState.tsx` — Cold 첫 진입
 - `DiscoveryFooter.tsx` — Library 전환
 
