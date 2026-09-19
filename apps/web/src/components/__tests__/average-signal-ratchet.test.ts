@@ -79,9 +79,9 @@ const BASELINE: Record<Surface, Record<string, number>> = {
     'grid-3eq': 60,
     'shadow-heavy': 29,
     'rounded-big': 41,
-    gradient: 171,
+    gradient: 169, // 2026-09-19 /diagnostic — 시작·결과 그라디언트 헤더 2(171→169)
     'ai-purple': 38,
-    glass: 52,
+    glass: 50, // 2026-09-19 /diagnostic — 안내 모달 backdrop-blur 2(52→50)
     'float-hover': 65, // 2026-09-19 /hub 재설계 — TodayPlanCard 칩의 떠오르는 hover 제거(66→65)
     'infinite-anim': 12,
   },

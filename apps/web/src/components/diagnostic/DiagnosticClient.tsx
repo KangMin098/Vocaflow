@@ -3,10 +3,13 @@
 // 진단 클라이언트 — test-agnostic (V-Level + 시험별 진단 지원)
 //
 // 흐름:
-//   1. start: 주 진단 1개 단일 CTA + 특정 시험 진단(접힘) + 지난 결과 요약
-//   2. question: 단어 카드 + 알아요/모릅니다
+//   1. start: 지문(아직 모름 — dotted) + 주 진단 1개 단일 CTA + 목표별 진단 목록 + 지난 결과 요약
+//   2. question: 지문이 **지금까지의 답으로 본 수준**에서 칠해지고, 그 아래 문항 낱말 + 알아요/몰라요
 //   3. submitting: spinner
-//   4. results: 레벨 + 추천 단어장 (+ 관심 도메인)
+//   4. results: 그 수준에서 칠해진 지문 + "지금 N권을 읽을 수 있어요" + 추천 단어장 (+ 관심 도메인)
+//
+// 2026-09-19 화면 재설계 — 골격 = 채색 지문(발산 A · docs/design/compare/diagnostic.md · DD-23).
+//   그라디언트 히어로 카드 두 장(시작·결과)과 카드 네 장을 걷었다. 로직(보관·이어서 하기·RPC·추천 구독)은 그대로다.
 
 'use client'
 
@@ -15,18 +18,13 @@ import { useRouter } from 'next/navigation'
 import { subscribeSet } from '@/app/(main)/library/vocab/actions'
 import { useToast } from '@/components/ui/Toast'
 import { SealMark } from '@/components/ui/press'
+import { interimLevel } from '@/lib/diagnostic/interim-level'
+import type { LevelReach } from '@/lib/learner/reach-math'
 import { createClient } from '@/lib/supabase/client'
-import {
-  ArrowRight,
-  CheckCircle2,
-  Info,
-  Loader2,
-  Target,
-  TrendingUp,
-  Users,
-  X,
-  XCircle,
-} from 'lucide-react'
+import type { PaintToken } from '@/lib/textfit/paint'
+import { ArrowRight, CheckCircle2, Info, Loader2, Target, TrendingUp, Users, X } from 'lucide-react'
+
+import { DiagnosticPassage, unknownIn } from './DiagnosticPassage'
 
 type Phase = 'start' | 'question' | 'submitting' | 'results'
 
@@ -261,7 +259,15 @@ function relativeTime(iso: string): string {
   return `${Math.floor(days / 30)}개월 전`
 }
 
-export function DiagnosticClient() {
+export function DiagnosticClient({
+  passage,
+  reachByLevel,
+}: {
+  /** 낱말별 V-Level 이 매겨진 지문(랜딩 데모와 같은 계산). 계산 실패면 null — 칠 없이 진단만 선다 */
+  passage: PaintToken[] | null
+  /** 레벨 → 지금 읽을 수 있는 책 수 · 한 계단 더 가면 열리는 수 · 발행 총수(셸과 같은 분포) */
+  reachByLevel: Record<number, LevelReach>
+}) {
   const router = useRouter()
   const supabase = createClient()
   const toast = useToast()
@@ -566,7 +572,7 @@ export function DiagnosticClient() {
                   setError(null)
                   void submit(responses)
                 }}
-                className="mt-3 inline-flex min-h-[44px] items-center justify-center rounded-[var(--r-md)] bg-[var(--ju)] px-5 font-display text-[14px] font-[700] text-[var(--on-ju)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--ju-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:scale-[0.97]"
+                className="mt-3 inline-flex min-h-[44px] items-center justify-center rounded-[var(--r-md)] bg-[var(--ju)] px-5 font-display text-[14px] font-[700] text-[var(--on-ju)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--ju-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:translate-y-[1px]"
               >
                 답한 그대로 다시 제출
               </button>
@@ -606,51 +612,13 @@ export function DiagnosticClient() {
       base_v_level: '전반적인 영어',
     }
 
-    // 추천 기본값 — 압도적으로 부각 (default effect + 불안 완화)
-    const renderHero = (t: TestInfo) => {
-      const p = TEST_PRESENTATION[presoKey(t)]
-      if (!p) return null
-      return (
-        <div className="rounded-[var(--r-2xl)] bg-gradient-to-br from-[var(--p-dark)] to-[var(--p)] p-6 text-[var(--on-p)] shadow-[var(--sh-md)]">
-          <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--active)] px-3 py-1 font-display text-[11px] font-[700] text-[var(--on-active)]">
-            처음이라면 여기서 시작
-          </span>
-          <h2 className="mt-3 font-display text-[24px] font-[700] leading-tight">{p.title}</h2>
-          <p className="mt-1.5 font-body text-[14px] leading-relaxed opacity-90">
-            목표가 뚜렷하지 않다면, 이 진단 하나로 충분해요.
-          </p>
-          <p className="mt-3 inline-block rounded-[var(--r-full)] bg-white/15 px-3 py-1 font-body text-[12px]">
-            {t.question_count}문항 · 약 {t.estimated_minutes}분
-          </p>
-          <div className="mt-5 flex gap-2">
-            <button
-              onClick={() => void startTest(t)}
-              className="group flex flex-1 items-center justify-center gap-2 rounded-[var(--r-md)] bg-[var(--ti)] px-5 py-3 font-display text-[15px] font-[700] text-[var(--p)] shadow-[var(--sh-sm)] transition-transform hover:scale-[1.01] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--p)]"
-            >
-              진단 시작
-              <ArrowRight size={16} className="transition-transform group-hover:translate-x-0.5" aria-hidden />
-            </button>
-            <button
-              onClick={() => setInfoTest(t)}
-              className="inline-flex items-center gap-1 rounded-[var(--r-md)] border border-[var(--on-p)]/40 px-4 py-3 font-display text-[14px] font-[600] text-[var(--on-p)] transition-colors hover:bg-white/10"
-            >
-              <Info size={14} aria-hidden /> 안내
-            </button>
-          </div>
-        </div>
-      )
-    }
-
-    // 목표 기반 보조 진단 — 조용한 위계 (recognition over recall: 목표 라벨 우선)
+    // 목표별 진단 — 조용한 위계(recognition over recall: 목표 라벨 우선). 카드가 아니라 괘선 목록이다.
     const renderGoal = (t: TestInfo) => {
       const p = TEST_PRESENTATION[presoKey(t)]
       if (!p) return null
       const goal = GOAL[presoKey(t)] ?? p.title
       return (
-        <div
-          key={t.id}
-          className="flex items-center gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4 shadow-[var(--sh-sm)] transition-colors hover:border-[var(--p)]"
-        >
+        <li key={t.id} className="flex items-center gap-3 py-2">
           <SealMark label={goal} />
           <div className="min-w-0 flex-1">
             <p className="font-display text-[14px] font-[700] text-[var(--t1)]">{goal}</p>
@@ -668,32 +636,95 @@ export function DiagnosticClient() {
           </button>
           <button
             onClick={() => void startTest(t)}
-            // 44px 하한 — 실측 69x34. 진단 목록의 **시작 버튼**이라 가장 자주 눌린다.
-            className="group inline-flex min-h-[44px] shrink-0 items-center gap-1 rounded-[var(--r-md)] bg-[var(--bg3)] px-4 py-2 font-display text-[12px] font-[700] text-[var(--t1)] transition-colors hover:bg-[var(--ju)] hover:text-[var(--on-ju)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ju)]"
+            // 44px 하한 — 진단 목록의 **시작 버튼**이라 가장 자주 눌린다. 1차(주묵 채움)는 위 주 진단 하나뿐이라 여기는 외곽선.
+            className="inline-flex min-h-[44px] shrink-0 items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] px-4 py-2 font-display text-[12px] font-[700] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] hover:border-[var(--ju)] hover:text-[var(--ju-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ju)] active:translate-y-[1px]"
           >
             시작
-            <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" aria-hidden />
+            <ArrowRight size={13} aria-hidden />
           </button>
-        </div>
+        </li>
       )
     }
 
+    const total = Object.values(reachByLevel)[0]?.total ?? 0
+
     return (
       <div className="mx-auto max-w-[var(--ios-content-wide-max)] px-4 py-6 md:px-6 md:py-8">
-        <header className="mb-6">
-          <h1 className="font-editorial text-[32px] font-[500] tracking-[-0.012em] text-[var(--t1)] md:text-[40px]">
-            어휘 진단
+        {/* ── 골격: 지문 ──
+            아직 답이 없다 — 학습 낱말마다 dotted(= 아직 모름). 답하기 시작하면 이 글이 내 수준으로 칠해진다. */}
+        <header className="border-b border-[var(--bd)] pb-6">
+          <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t3)]">어휘 진단 · 3~6분</p>
+          <h1 className="mt-3 max-w-[24ch] break-keep font-ko-display text-[26px] font-[500] leading-[1.3] text-[var(--t1)] md:text-[34px]">
+            답할수록 이 글이 내 눈에 보이는 대로 칠해져요
           </h1>
-          <p className="mt-3 font-body text-[15px] leading-relaxed text-[var(--t2)]">
-            단어를 보고 <strong className="text-[var(--t1)]">안다/모른다</strong>만 고르면 돼요.
-            3~6분이면 끝나고, <strong className="text-[var(--t1)]">언제든 다시</strong> 받을 수
-            있어요.
-          </p>
+          {/* 1차 행동은 h1 바로 아래 — 지문 아래에 두면 390 에서 폴드 밖이었다(1회차 수정) */}
+          {loadingTests ? (
+            <p className="mt-6 flex items-center gap-2 font-body text-[13px] text-[var(--t2)]">
+              <Loader2 size={14} className="animate-spin" aria-hidden /> 진단 목록 불러오는 중…
+            </p>
+          ) : tests.length === 0 ? (
+            // D5 — 막다른 화면을 두지 않는다
+            <div className="mt-6">
+              <p className="break-keep font-body text-[14px] text-[var(--t1)]">지금 받을 수 있는 진단이 없어요.</p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                <button
+                  onClick={() => router.push('/library')}
+                  className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] bg-[var(--ju)] px-5 font-display text-[14px] font-[700] text-[var(--on-ju)] transition-colors hover:bg-[var(--ju-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:translate-y-[1px]"
+                >
+                  글 먼저 둘러보기
+                </button>
+                <button
+                  onClick={() => router.push('/hub')}
+                  className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] border border-[var(--bd)] px-5 font-display text-[14px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
+                >
+                  오늘 할 일
+                </button>
+              </div>
+            </div>
+          ) : (
+            <>
+              {primary && (
+                <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2">
+                  <button
+                    onClick={() => void startTest(primary)}
+                    className="inline-flex min-h-[48px] items-center gap-2 rounded-[var(--r-md)] bg-[var(--ju)] px-6 font-display text-[15px] font-[700] text-[var(--on-ju)] transition-colors duration-[var(--dur-fast)] hover:bg-[var(--ju-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:translate-y-[1px]"
+                  >
+                    {TEST_PRESENTATION[presoKey(primary)]?.title ?? primary.name_ko} 시작
+                    <ArrowRight size={16} aria-hidden />
+                  </button>
+                  <span className="font-mono text-[12px] tabular-nums text-[var(--t2)]">
+                    {primary.question_count}문항 · 약 {primary.estimated_minutes}분
+                  </span>
+                  <button
+                    onClick={() => setInfoTest(primary)}
+                    className="inline-flex min-h-[44px] items-center gap-1 px-1 font-display text-[13px] font-[600] text-[var(--p)] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+                  >
+                    <Info size={14} aria-hidden /> 무엇을 묻나요?
+                  </button>
+                </div>
+              )}
+
+            </>
+          )}
+
+          {passage && (
+            <div className="mt-5 max-w-[68ch]">
+              <DiagnosticPassage tokens={passage} level={null} size="sm" />
+              <p className="mt-3 break-keep font-body text-[12px] leading-[1.6] text-[var(--t2)]">
+                점선 낱말은 아직 모르는 칸이에요. 끝나면 처음 만나는 낱말이{' '}
+                <mark className="rounded-[var(--r-sm)] bg-[var(--ju-wash)] px-[2px] text-[var(--t1)] underline decoration-[var(--ju)] decoration-1 underline-offset-[3px]">
+                  이렇게
+                </mark>{' '}
+                갈라지고
+                {total > 0 && <>, 발행된 {total}권 중 지금 읽을 수 있는 책 수가 정해져요</>}.
+              </p>
+            </div>
+          )}
         </header>
 
         {/* 하다 만 진단 — 보관된 답을 되돌려 준다. 자동으로 이어 붙이지 않고 고르게 한다. */}
         {saved && tests.some((t) => t.id === saved.testId) && (
-          <div className="mb-6 rounded-[var(--r-lg)] border border-[var(--p)] bg-[var(--p-light)] p-4">
+          <div className="mt-6 border-l-2 border-[var(--p)] pl-4">
             <p className="break-keep font-display text-[14px] font-[700] text-[var(--t1)]">
               하다 만 진단이 있어요 — {saved.responses.length}문항까지 답했어요
             </p>
@@ -704,7 +735,7 @@ export function DiagnosticClient() {
               <button
                 onClick={() => void resumeTest(saved)}
                 disabled={resuming}
-                className="inline-flex min-h-[44px] items-center justify-center rounded-[var(--r-md)] bg-[var(--ju)] px-5 font-display text-[14px] font-[700] text-[var(--on-ju)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--ju-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-60"
+                className="inline-flex min-h-[44px] items-center justify-center rounded-[var(--r-md)] bg-[var(--ju)] px-5 font-display text-[14px] font-[700] text-[var(--on-ju)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--ju-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:translate-y-[1px] disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {resuming ? (
                   <>
@@ -720,7 +751,7 @@ export function DiagnosticClient() {
                   setSaved(null)
                 }}
                 disabled={resuming}
-                className="inline-flex min-h-[44px] items-center justify-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-5 font-display text-[14px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-60"
+                className="inline-flex min-h-[44px] items-center justify-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-5 font-display text-[14px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:translate-y-[1px] disabled:cursor-not-allowed disabled:opacity-60"
               >
                 지우고 처음부터
               </button>
@@ -728,16 +759,15 @@ export function DiagnosticClient() {
           </div>
         )}
 
-        {/* 지난 결과 — 컴팩트 요약 */}
+        {/* 지난 결과 — 한 줄 */}
         {lastLevel && (
-          <div className="mb-6 flex items-center justify-between rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3">
+          <div className="mt-4 flex items-center justify-between border-b border-[var(--bd)] py-1">
             <span className="flex items-center gap-1 font-body text-[13px] text-[var(--t2)]">
               지난 결과{' '}
               <strong className="font-display text-[var(--t1)]">V{lastLevel.level}</strong>
               <button
                 onClick={() => setLevelGuideOpen(true)}
                 aria-label="레벨 안내 보기"
-                // 44px 하한 — 실측 20x20. 아이콘(13px)은 그대로 두고 히트영역만 키운다.
                 className="inline-flex h-11 w-11 items-center justify-center rounded-[var(--r-full)] text-[var(--t2)] transition-colors hover:bg-[var(--bg3)] hover:text-[var(--p)]"
               >
                 <Info size={13} aria-hidden />
@@ -746,7 +776,6 @@ export function DiagnosticClient() {
             </span>
             <button
               onClick={() => router.push('/diagnostic/history')}
-              // 44px 하한 — 실측 50x18. 글자 크기는 유지하고 세로 여백으로 채운다.
               className="inline-flex min-h-[44px] items-center px-2 font-display text-[12px] font-[600] text-[var(--p)] hover:underline"
             >
               기록 보기
@@ -754,31 +783,14 @@ export function DiagnosticClient() {
           </div>
         )}
 
-        {/* 진단 선택 — 추천 기본값 부각(default effect) + 목표 기반 분기(means-end) */}
-        {loadingTests ? (
-          <div className="flex items-center gap-2 font-body text-[13px] text-[var(--t2)]">
-            <Loader2 size={14} className="animate-spin" /> 진단 목록 불러오는 중…
-          </div>
-        ) : tests.length === 0 ? (
-          <p className="font-body text-[13px] text-[var(--t2)]">사용 가능한 진단이 없어요.</p>
-        ) : (
-          <>
-            {primary && renderHero(primary)}
-
-            {secondary.length > 0 && (
-              <section aria-label="목표별 진단" className="mt-7">
-                <div className="mb-3 flex items-center gap-3">
-                  <span className="font-display text-[12px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
-                    또는, 목표가 분명하다면
-                  </span>
-                  <span className="h-px flex-1 bg-[var(--bd)]" aria-hidden />
-                </div>
-                <div className="flex flex-col gap-3">{secondary.map(renderGoal)}</div>
-              </section>
-            )}
-          </>
-        )}
-
+                {secondary.length > 0 && (
+                  <section aria-label="목표별 진단" className="mt-8">
+                    <h2 className="border-b border-[var(--bd)] pb-2 font-display text-[12px] font-[700] tracking-[0.04em] text-[var(--t2)]">
+                      또는, 목표가 분명하다면
+                    </h2>
+                    <ul className="divide-y divide-[var(--bd)]">{secondary.map(renderGoal)}</ul>
+                  </section>
+                )}
         {/* 유형별 안내 팝업 */}
         {infoTest && (
           <InfoModal test={infoTest} onClose={() => setInfoTest(null)} onStart={() => { const t = infoTest; setInfoTest(null); void startTest(t); }} />
@@ -809,62 +821,78 @@ export function DiagnosticClient() {
     const q = questions[currentIdx]
     if (!q) return null
     const progress = ((currentIdx + 1) / questions.length) * 100
+    // 서버와 같은 규칙의 중간 추정(lib/diagnostic/interim-level) — 지문이 이 수준으로 칠해진다.
+    // V-Level 진단만 — 시험별(track) 레벨은 사전 V-Level 과 다른 축이라 지문을 칠하지 않는다.
+    const isVAxis = selectedTest?.test_type !== 'track'
+    const now = isVAxis ? interimLevel(questions, responses) : null
     return (
-      <div className="mx-auto max-w-[var(--ios-content-max)] px-4 py-6 md:px-6 md:py-8">
-        <div className="mb-8">
-          {/* 나가는 것을 막지 않는다(모달 금지) — 대신 답이 남는다는 사실을 라벨이 말한다.
-              답은 매 문항 localStorage 에 보관되고 시작 화면이 "이어서 하기" 로 되돌려 준다. */}
-          <div className="mb-3 flex items-center justify-between gap-2">
-            <button
-              type="button"
-              onClick={() => {
-                setSaved(readProgress())
-                setPhase('start')
-              }}
-              aria-label="진단 멈추기 — 답한 문항은 보관되고 나중에 이어서 할 수 있어요"
-              className="inline-flex min-h-[44px] items-center gap-1 rounded-[var(--r-sm)] px-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
-            >
-              ← 멈추기
-            </button>
-            {responses.length > 0 && (
-              <span className="break-keep font-body text-[11px] text-[var(--t2)]">
-                여기까지 답한 {responses.length}문항은 저장돼요
-              </span>
-            )}
-          </div>
-          <div className="mb-2 flex items-center justify-between font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
-            <span>
-              {currentIdx + 1} / {questions.length}
+      <div className="mx-auto max-w-[var(--ios-content-wide-max)] px-4 py-6 md:px-6 md:py-8">
+        {/* 나가는 것을 막지 않는다(모달 금지) — 대신 답이 남는다는 사실을 라벨이 말한다.
+            답은 매 문항 localStorage 에 보관되고 시작 화면이 "이어서 하기" 로 되돌려 준다. */}
+        <div className="mb-3 flex items-center justify-between gap-2">
+          <button
+            type="button"
+            onClick={() => {
+              setSaved(readProgress())
+              setPhase('start')
+            }}
+            aria-label="진단 멈추기 — 답한 문항은 보관되고 나중에 이어서 할 수 있어요"
+            className="inline-flex min-h-[44px] items-center gap-1 rounded-[var(--r-sm)] px-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
+          >
+            ← 멈추기
+          </button>
+          {responses.length > 0 && (
+            <span className="break-keep font-body text-[11px] text-[var(--t2)]">
+              여기까지 답한 {responses.length}문항은 저장돼요
             </span>
-            <span>{Math.round(progress)}%</span>
-          </div>
-          <div className="h-1.5 w-full overflow-hidden rounded-[var(--r-full)] bg-[var(--bg3)]">
-            <div
-              className="h-full rounded-[var(--r-full)] bg-[var(--p)] transition-[width] duration-[var(--dur-slow)] ease-out"
-              style={{ width: `${progress}%` }}
-            />
-          </div>
+          )}
+        </div>
+        <div className="mb-2 flex items-center justify-between font-mono text-[11px] tabular-nums text-[var(--t2)]">
+          <span>
+            {currentIdx + 1} / {questions.length}
+          </span>
+          <span>{Math.round(progress)}%</span>
+        </div>
+        {/* 진행률 막대 — 학습 화면 모션 7종 안 */}
+        <div className="h-1 w-full overflow-hidden bg-[var(--bg3)]">
+          <div
+            className="h-full bg-[var(--p)] transition-[width] duration-[var(--dur-slow)] ease-out"
+            style={{ width: `${progress}%` }}
+          />
         </div>
 
-        <div className="mb-8 rounded-[var(--r-xl)] border border-[var(--bd)] bg-[var(--bg)] p-12 text-center shadow-[var(--sh-sm)]">
-          <p className="font-editorial text-[56px] font-[500] leading-tight tracking-[-0.015em] text-[var(--t1)]">
+        {/* ── 골격: 지금까지의 답으로 칠해진 지문 ── */}
+        {passage && isVAxis && (
+          <section aria-label="지금까지의 답으로 칠한 지문" className="mt-6 border-b border-[var(--bd)] pb-5">
+            <p className="mb-2 font-mono text-[11px] tabular-nums text-[var(--t2)]">
+              {now === null
+                ? '첫 답부터 이 글이 칠해져요'
+                : `지금까지 답한 ${responses.length}개로 본 수준 V${now} · 이 글에서 처음 만나는 낱말 ${unknownIn(passage, now)}개`}
+            </p>
+            <DiagnosticPassage tokens={passage} level={now} size="sm" />
+          </section>
+        )}
+
+        {/* 문항 — 카드가 아니라 지면 위 낱말 하나 */}
+        <div className="py-10 text-center">
+          <p lang="en" className="font-english text-[48px] font-[500] leading-tight tracking-[-0.015em] text-[var(--t1)] md:text-[56px]">
             {q.word}
           </p>
-          <p className="mt-3 font-body text-[12px] text-[var(--t2)]">이 단어의 뜻을 알고 있나요?</p>
+          <p className="mt-3 font-body text-[13px] text-[var(--t2)]">이 단어의 뜻을 알고 있나요?</p>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="mx-auto flex max-w-[480px] gap-3">
           <button
             onClick={() => handleAnswer(false)}
-            className="flex items-center justify-center gap-2 rounded-[var(--r-md)] border-2 border-[var(--bd)] bg-[var(--bg)] px-6 py-4 font-display text-[16px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:border-[var(--t3)] hover:bg-[var(--bg2)] active:scale-[0.97]"
+            className="flex min-h-[52px] flex-1 items-center justify-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-6 font-display text-[16px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:border-[var(--t3)] hover:bg-[var(--bg2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:translate-y-[1px]"
           >
-            <XCircle size={20} /> 모릅니다
+            몰라요
           </button>
           <button
             onClick={() => handleAnswer(true)}
-            className="flex items-center justify-center gap-2 rounded-[var(--r-md)] bg-[var(--ju)] px-6 py-4 font-display text-[16px] font-[700] text-[var(--on-ju)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--ju-ink)] active:scale-[0.97]"
+            className="flex min-h-[52px] flex-1 items-center justify-center rounded-[var(--r-md)] bg-[var(--ju)] px-6 font-display text-[16px] font-[700] text-[var(--on-ju)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--ju-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:translate-y-[1px]"
           >
-            <CheckCircle2 size={20} /> 알아요
+            알아요
           </button>
         </div>
       </div>
@@ -876,6 +904,8 @@ export function DiagnosticClient() {
   const lvl = estimatedLevel
   const levelLabel = isTrack ? `L${lvl ?? '-'}` : `V${lvl ?? '-'}`
   const band = lvl != null ? (levels.find((l) => l.level === lvl) ?? null) : null
+  // 시험별(track) 레벨은 카탈로그의 V 축과 다르다 — 책 수를 말하지 않는다
+  const reach = !isTrack && lvl != null ? (reachByLevel[lvl] ?? null) : null
   const cefrRange = band?.cefr_min
     ? band.cefr_max && band.cefr_max !== band.cefr_min
       ? `${band.cefr_min}~${band.cefr_max}`
@@ -913,30 +943,116 @@ export function DiagnosticClient() {
 
   return (
     <div className="mx-auto max-w-[var(--ios-content-max)] px-4 py-6 md:px-6 md:py-8">
-      <header className="mb-6 rounded-[var(--r-xl)] bg-gradient-to-br from-[var(--p-dark)] to-[var(--p)] p-8 text-center text-[var(--on-p)] shadow-[var(--sh-md)]">
-        <p className="font-body text-[14px] opacity-85">진단 완료 · 내 수준은</p>
-        <p className="mt-1 font-editorial text-[72px] font-[500] leading-none tracking-[-0.018em] text-[var(--active)]">
-          {levelLabel}
+      {/* ── 골격: 그 수준에서 칠해진 지문 + 전역 헤더가 약속한 「읽을 수 있는 책」 ──
+          숫자 「V{n}」 은 부제다 — 레벨은 그 자체로 아무것도 약속하지 않는다(library-reach 머리 주석). */}
+      <header className="border-b border-[var(--bd)] pb-6">
+        <p className="flex flex-wrap items-center gap-x-2 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t3)]">
+          <span>진단 완료 · {levelLabel}</span>
+          {band && !isTrack && <span>· {band.korean_name}</span>}
+          {cefrRange && <span>· CEFR {cefrRange}</span>}
+          {pct !== null && <span>· 정답률 {pct}%</span>}
         </p>
-        {band && !isTrack && (
-          <p className="mt-2 font-display text-[15px] font-[700]">{band.korean_name}</p>
+        <h1 className="mt-3 max-w-[22ch] break-keep font-ko-display text-[28px] font-[500] leading-[1.3] text-[var(--t1)] md:text-[36px]">
+          {reach
+            ? `지금 ${reach.open}권을 읽을 수 있어요`
+            : isTrack
+              ? `이 영역에서 ${cefrRange ? `CEFR ${cefrRange}` : `약 ${lvl ?? '-'}단계`} 수준이에요`
+              : `내 수준은 ${levelLabel}이에요`}
+        </h1>
+        <p className="mt-2 flex flex-wrap items-center gap-x-3 font-mono text-[12px] tabular-nums text-[var(--t2)]">
+          {reach && reach.total > 0 && <span>발행 {reach.total}권 중</span>}
+          {reach && reach.unlockNext > 0 && <span>· 한 계단 더 가면 {reach.unlockNext}권 더</span>}
+          <button
+            onClick={() => setLevelGuideOpen(true)}
+            className="inline-flex min-h-[44px] items-center gap-1 font-display text-[12px] font-[600] text-[var(--p)] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          >
+            <Info size={13} aria-hidden /> 이 레벨이 뭔가요?
+          </button>
+        </p>
+        {passage && !isTrack && lvl != null && (
+          <div className="mt-5 max-w-[68ch]">
+            <DiagnosticPassage tokens={passage} level={lvl} />
+            <p className="mt-3 break-keep font-body text-[12px] leading-[1.6] text-[var(--t2)]">
+              {/* 0개일 때 "칠해진 곳" 을 가리키면 없는 것을 가리킨다(2회차 수정 — V11 결과 캡처) */}
+              {unknownIn(passage, lvl) === 0 ? (
+                <>{levelLabel} 에서는 이 글에 처음 만나는 낱말이 없어요.</>
+              ) : (
+                <>
+                  {levelLabel} 에서 이 글의 처음 만나는 낱말{' '}
+                  <span className="font-mono tabular-nums">{unknownIn(passage, lvl)}</span>개 — 칠해진 곳이 다음 공부거리예요.
+                </>
+              )}
+            </p>
+          </div>
         )}
-        {cefrRange && (
-          <p className="mt-1 font-body text-[12px] opacity-80">CEFR {cefrRange}</p>
-        )}
-        {pct !== null && (
-          <p className="mt-2 font-body text-[13px] opacity-80">정답률 {pct}%</p>
-        )}
-        <button
-          onClick={() => setLevelGuideOpen(true)}
-          className="mt-4 inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[var(--on-p)]/40 px-3 py-2 font-display text-[12px] font-[600] text-[var(--on-p)] transition-colors hover:bg-white/10"
-        >
-          <Info size={13} aria-hidden /> 이 레벨이 뭔가요?
-        </button>
       </header>
 
+      <div className="mt-6">
+        {/* ── 다음 한 걸음 ──
+            `/wordvault`(빈 화면)로 보내던 자리다. 진단 → 첫 학습 사이에 결정을 받지 않는
+            중간 화면을 두지 않는다: 추천이 있으면 그 세트로 바로 카드 세션, 없으면 오늘 할 일. */}
+        {(() => {
+          if (isTrack) {
+            return (
+              <button
+                onClick={() => router.push('/diagnostic')}
+                className="min-h-[44px] w-full rounded-[var(--r-md)] bg-[var(--ju)] px-6 py-4 font-display text-[16px] font-[700] text-[var(--on-ju)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--ju-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:translate-y-[1px]"
+              >
+                다른 진단 받기
+              </button>
+            )
+          }
+  
+          // 1순위 추천 — RPC 가 priority 순으로 준다. 'primary'(딱 맞아요)가 있으면 그것.
+          const first =
+            recommendations.find((r) => r.recommendation_type === 'primary') ?? recommendations[0]
+  
+          if (!first) {
+            return (
+              <button
+                onClick={() => router.push('/hub')}
+                className="min-h-[44px] w-full rounded-[var(--r-md)] bg-[var(--ju)] px-6 py-4 font-display text-[16px] font-[700] text-[var(--on-ju)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--ju-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:translate-y-[1px]"
+              >
+                오늘 할 일 보러 가기
+              </button>
+            )
+          }
+  
+          return (
+            <div className="flex flex-col gap-2">
+              <button
+                onClick={() => void startWithRecommendation(first)}
+                disabled={starting}
+                className="flex min-h-[44px] w-full items-center justify-center gap-2 rounded-[var(--r-md)] bg-[var(--ju)] px-6 py-4 font-display text-[16px] font-[700] text-[var(--on-ju)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--ju-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:translate-y-[1px] disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {starting ? (
+                  <>
+                    <Loader2 size={18} className="animate-spin" aria-hidden />
+                    <span>단어장을 담는 중…</span>
+                  </>
+                ) : (
+                  <span className="break-keep">
+                    「{first.title}」 담고 첫 카드 학습 시작
+                  </span>
+                )}
+              </button>
+              <p className="break-keep text-center font-body text-[12px] text-[var(--t2)]">
+                담은 단어장은 내 단어장에서 언제든 뺄 수 있어요.
+              </p>
+              <button
+                onClick={() => router.push('/hub')}
+                disabled={starting}
+                className="min-h-[44px] w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-6 font-display text-[14px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:translate-y-[1px] disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                나중에 · 오늘 할 일 보기
+              </button>
+            </div>
+          )
+        })()}
+      </div>
+
       {/* 결과 평가 */}
-      <section className="mb-6 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-sm)]">
+      <section className="mt-8 border-t border-[var(--bd)] pt-5">
         <h2 className="font-display text-[15px] font-[700] text-[var(--t1)]">결과 평가</h2>
         {band &&
           (!isTrack ? (
@@ -966,14 +1082,14 @@ export function DiagnosticClient() {
 
       {/* 맞춤 단어장 (base/comprehensive) */}
       {!isTrack && recommendations.length > 0 && (
-        <section className="mb-6">
-          <h2 className="mb-3 font-display text-[15px] font-[700] text-[var(--t1)]">맞춤 단어장</h2>
-          <div className="flex flex-col gap-2">
+        <section className="mt-8 border-t border-[var(--bd)] pt-5">
+          <h2 className="mb-2 font-display text-[15px] font-[700] text-[var(--t1)]">맞춤 단어장</h2>
+          <div className="flex flex-col divide-y divide-[var(--bd)]">
             {recommendations.map((rec) => (
               <button
                 key={rec.set_id}
                 onClick={() => router.push(`/library/vocab#set-${rec.set_id}`)}
-                className="flex items-center gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4 text-left shadow-[var(--sh-sm)] transition-colors hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+                className="flex min-h-[44px] items-center gap-3 rounded-[var(--r-sm)] px-1 py-3 text-left transition-colors hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
               >
                 <span className="text-[28px]" aria-hidden>
                   {rec.cover_emoji ?? '📒'}
@@ -1000,7 +1116,7 @@ export function DiagnosticClient() {
       )}
 
       {/* 개선 방안 */}
-      <section className="mb-6 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-sm)]">
+      <section className="mt-8 border-t border-[var(--bd)] pt-5">
         <h2 className="flex items-center gap-2 font-display text-[15px] font-[700] text-[var(--t1)]">
           <Target size={16} className="text-[var(--p)]" aria-hidden /> 개선 방안
         </h2>
@@ -1015,7 +1131,7 @@ export function DiagnosticClient() {
       </section>
 
       {/* 진행 방안 */}
-      <section className="mb-6 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-sm)]">
+      <section className="mt-8 border-t border-[var(--bd)] pt-5">
         <h2 className="flex items-center gap-2 font-display text-[15px] font-[700] text-[var(--t1)]">
           <TrendingUp size={16} className="text-[var(--success)]" aria-hidden /> 진행 방안
         </h2>
@@ -1033,7 +1149,7 @@ export function DiagnosticClient() {
 
       {/* 관심 분야 (base/comprehensive) */}
       {!isTrack && (
-        <section className="mb-6">
+        <section className="mt-8 border-t border-[var(--bd)] pt-5">
           <h2 className="mb-1 font-display text-[15px] font-[700] text-[var(--t1)]">
             관심 분야가 있나요?
           </h2>
@@ -1065,67 +1181,6 @@ export function DiagnosticClient() {
         </section>
       )}
 
-      {/* ── 다음 한 걸음 ──
-          `/wordvault`(빈 화면)로 보내던 자리다. 진단 → 첫 학습 사이에 결정을 받지 않는
-          중간 화면을 두지 않는다: 추천이 있으면 그 세트로 바로 카드 세션, 없으면 오늘 할 일. */}
-      {(() => {
-        if (isTrack) {
-          return (
-            <button
-              onClick={() => router.push('/diagnostic')}
-              className="min-h-[44px] w-full rounded-[var(--r-md)] bg-[var(--ju)] px-6 py-4 font-display text-[16px] font-[700] text-[var(--on-ju)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--ju-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:scale-[0.97]"
-            >
-              다른 진단 받기
-            </button>
-          )
-        }
-
-        // 1순위 추천 — RPC 가 priority 순으로 준다. 'primary'(딱 맞아요)가 있으면 그것.
-        const first =
-          recommendations.find((r) => r.recommendation_type === 'primary') ?? recommendations[0]
-
-        if (!first) {
-          return (
-            <button
-              onClick={() => router.push('/hub')}
-              className="min-h-[44px] w-full rounded-[var(--r-md)] bg-[var(--ju)] px-6 py-4 font-display text-[16px] font-[700] text-[var(--on-ju)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--ju-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:scale-[0.97]"
-            >
-              오늘 할 일 보러 가기
-            </button>
-          )
-        }
-
-        return (
-          <div className="flex flex-col gap-2">
-            <button
-              onClick={() => void startWithRecommendation(first)}
-              disabled={starting}
-              className="flex min-h-[44px] w-full items-center justify-center gap-2 rounded-[var(--r-md)] bg-[var(--ju)] px-6 py-4 font-display text-[16px] font-[700] text-[var(--on-ju)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--ju-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-60"
-            >
-              {starting ? (
-                <>
-                  <Loader2 size={18} className="animate-spin" aria-hidden />
-                  <span>단어장을 담는 중…</span>
-                </>
-              ) : (
-                <span className="break-keep">
-                  「{first.title}」 담고 첫 카드 학습 시작
-                </span>
-              )}
-            </button>
-            <p className="break-keep text-center font-body text-[12px] text-[var(--t2)]">
-              담은 단어장은 내 단어장에서 언제든 뺄 수 있어요.
-            </p>
-            <button
-              onClick={() => router.push('/hub')}
-              disabled={starting}
-              className="min-h-[44px] w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-6 font-display text-[14px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-60"
-            >
-              나중에 · 오늘 할 일 보기
-            </button>
-          </div>
-        )
-      })()}
 
       {/* 레벨 안내 팝업 */}
       {levelGuideOpen && (
@@ -1161,7 +1216,7 @@ function InfoModal({
       aria-modal="true"
       aria-label={`${p.title} 안내`}
       onClick={onClose}
-      className="fixed inset-0 z-[100] flex items-end justify-center bg-black/50 p-0 backdrop-blur-sm sm:items-center sm:p-4"
+      className="fixed inset-0 z-[100] flex items-end justify-center bg-black/50 p-0 sm:items-center sm:p-4"
     >
       <div
         onClick={(e) => e.stopPropagation()}
@@ -1307,7 +1362,7 @@ function LevelGuideModal({
       aria-modal="true"
       aria-label="레벨 안내"
       onClick={onClose}
-      className="fixed inset-0 z-[100] flex items-end justify-center bg-black/50 p-0 backdrop-blur-sm sm:items-center sm:p-4"
+      className="fixed inset-0 z-[100] flex items-end justify-center bg-black/50 p-0 sm:items-center sm:p-4"
     >
       <div
         onClick={(e) => e.stopPropagation()}

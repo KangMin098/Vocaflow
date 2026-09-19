@@ -14,6 +14,7 @@ const screens: { path: string; heading: string | RegExp; auth: boolean }[] = [
   { path: '/csat/formulas', heading: '내 공식', auth: true },
   // 화면 재설계 실행(2026-09-19) — h1 이 오늘의 단어·문장이라 형태만 확인한다.
   { path: '/hub', heading: /.+/, auth: true },
+  { path: '/diagnostic', heading: '답할수록 이 글이 내 눈에 보이는 대로 칠해져요', auth: true },
 ]
 const requested = (process.env.DESIGN_ROUTES ?? '/fit').split(',').map(value => value.trim())
 const unknown = requested.filter(value => !screens.some(screen => screen.path === value))
@@ -43,6 +44,8 @@ for (const screen of selected) test.describe(screen.path, () => {
     if (screen.path === '/fit') await expect(page.getByRole('region', { name: '레벨 프로파일' })).toBeVisible()
     if (screen.path === '/csat') await expect(page.getByTestId('today-card')).toHaveAttribute('aria-busy', 'false')
     if (screen.path === '/csat/formulas') await expect(page.getByTestId('formula-metrics')).toBeVisible()
+    // 진단 목록은 클라이언트가 불러온다 — 목록이 서기 전에 찍으면 로더가 기준이 된다
+    if (screen.path === '/diagnostic') await expect(page.getByRole('button', { name: /진단 시작/ })).toBeVisible()
     await page.evaluate(() => document.fonts.ready)
     await expect.poll(() => page.evaluate(() => document.getAnimations().filter(animation =>
       animation instanceof CSSTransition && animation.playState === 'running').length)).toBe(0)
