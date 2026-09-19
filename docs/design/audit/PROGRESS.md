@@ -12,8 +12,9 @@
 | 2 | `/hub` | **완료** 2026-09-19 | A 「들어 올리는 곡선」(망각) | 3→**1** · 2→**0** | [compare/hub.md](../compare/hub.md) · [golden/hub.md](../golden/hub.md) · DD-22 |
 | 3 | `/diagnostic` | **완료** 2026-09-19 | A 「답할수록 칠해지는 지문」(채색 지문) | 6→**1** · 4→**0** | [compare/diagnostic.md](../compare/diagnostic.md) · [golden/diagnostic.md](../golden/diagnostic.md) · DD-23 |
 | 4 | `/flashcard/play` | **완료** 2026-09-19 | A 「이 단어의 기억선」(망각) | 12→**4**(남은 4 공용) · 390 그라디언트 2→**0** | [compare/flashcard-play.md](../compare/flashcard-play.md) · [golden/flashcard-play.md](../golden/flashcard-play.md) · DD-24 |
-| 5 | `/fit/s/[payload]` | **다음** | — | — | [briefs/fit.md](briefs/fit.md) |
-| 6–10 | `/signup` · `/text/[id]` · `/wordvault/review` · 회고 · `/text/new` | 대기 | — | — | priority.md |
+| 5 | `/fit/s/[payload]` | **완료** 2026-09-19 | A 「가장 어려운 낱말 줄」(채색 지문) | 보류 → 정적 **0** · 카드형 **2**(괘선) | [compare/fit-s.md](../compare/fit-s.md) · [golden/fit-s.md](../golden/fit-s.md) · DD-25 |
+| 6 | `/signup` (+ 인증 3화면) | **다음** | — | — | [briefs/signup.md](briefs/signup.md) |
+| 7–10 | `/text/[id]` · `/wordvault/review` · 회고 · `/text/new` | 대기 | — | — | priority.md |
 
 - **보류**: 없음.
 - **라쳇**: average-signal learner `float-hover` 66→**65**(`/hub` — `TodayPlanCard` 칩) · `gradient` 171→**169** · `glass` 52→**50**(`/diagnostic`) · `grid-3eq` 60→**59** · `gradient` 169→**165** · `float-hover` 65→**64** · `infinite-anim` 12→**10**(`/flashcard/play`). form-declaration 무선언 목록 −1(`/diagnostic`). `/hub` 선언은 렌더와 일치하게 정정.

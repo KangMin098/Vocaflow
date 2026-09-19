@@ -9,6 +9,7 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- `/fit/s/[payload]` 골든 5호(발산 A 「가장 어려운 낱말 줄」) — 공유 링크엔 원문이 없어 빈 입력칸이 결과보다 먼저 서던 것을, `/fit/s` 전용 `SharedFitView`(같은 `PaintedPassage`·`ClassSheet`)로 결과 먼저 · 1차 「내 지문으로 해 보기」. 감사 판정 보류 → 서명 있음. `docs/design/golden/fit-s.md` · DD-25.
 - `/flashcard/play` 골든 4호(발산 A 「이 단어의 기억선」) — 카드 아래 R(t) 시간축, 평가에 손을 얹으면 다음 곡선·다음 만남. 평가 버튼 날짜를 SM-2 간격에서 **FSRS 미리보기**(세션이 적용하는 스케줄러)로 바로잡음 · 완료 화면 ✨·1s 회전·3열 통계·그라디언트 → 7일 곡선 + 한 문장. `lib/flashcard/memory-line.ts` · 0바이트 `ForgettingCurve.tsx` 구현. 정적 신호 12→4 · 라쳇 4종 하향. `docs/design/golden/flashcard-play.md` · DD-24.
 - `/diagnostic` 골든 3호(발산 A 「답할수록 칠해지는 지문」) — 데모 지문이 답마다 서버와 같은 규칙의 중간 추정(`lib/diagnostic/interim-level.ts`)으로 칠해지고, 결과 h1 이 「지금 N권을 읽을 수 있어요」(셸 사정권 분포 재사용 — 새 쿼리 0). 그라디언트 헤더 2 · 모달 glass 2 제거, 빈 상태 D5. 정적 신호 6→1 · 390 카드형 4→0. `docs/design/golden/diagnostic.md` · DD-23.
 - `/hub` 골든 2호(화면 재설계 실행 · 발산 A 「들어 올리는 곡선」) — 첫 시선이 7일 기억 곡선(Σ R(t), 오늘 N개를 다시 보면 vs 그대로 두면)과 세션 큐 순서 낱말(권점). `lib/learner/memory-lift.ts` · `hub-lift-query.ts`(새 조회 없음 — 세션과 같은 함수) · 관측 `hub_curve_interacted`(DB 허용 목록 승인 대기 `_pending_funnel_allow_hub_curve.sql`). 감사 평균 → 서명 있음, 정적 신호 3→1 · 카드형 2→0. `docs/design/golden/hub.md` · DD-22.
