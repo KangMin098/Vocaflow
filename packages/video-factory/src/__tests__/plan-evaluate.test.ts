@@ -16,7 +16,7 @@
 import { describe, expect, it } from 'vitest'
 
 import { buildSpecs } from '../catalog/build'
-import { loadBundle } from '../catalog/bundle'
+import { loadTestBundle } from './test-bundle'
 import { backlog, planItems, summarizePlan } from '../catalog/plan'
 import { cueCount, splitCaption, CUE_MAX_SEC, marksAlign } from '../render/cue'
 import { cuesOf } from '../render/captions'
@@ -26,7 +26,8 @@ import { loadVoiceManifest } from '../voice/edge-tts'
 import { applyVoiceTiming } from '../voice/timing'
 import type { VideoSpec } from '../spec/types'
 
-const bundle = loadBundle()
+// work/ 가 없으면(CI) tests/fixtures/ 고정 원료 — test-bundle.ts · 이슈 #101
+const bundle = loadTestBundle()
 const specs = buildSpecs(bundle)
 const timed = specs.map((s) => applyVoiceTiming(s, loadVoiceManifest(s.id)))
 const items = planItems(bundle, new Set(specs.map((s) => s.id)))

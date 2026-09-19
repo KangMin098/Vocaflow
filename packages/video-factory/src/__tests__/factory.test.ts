@@ -14,7 +14,7 @@
 import { describe, expect, it } from 'vitest'
 
 import { buildSpecs, countByKind } from '../catalog/build'
-import { loadBundle } from '../catalog/bundle'
+import { loadTestBundle } from './test-bundle'
 import { sceneFrames, validateAll } from '../spec/validate'
 import { captionFrames, CPS, MAX_CAPTION_SEC, MIN_CAPTION_SEC } from '../spec/timing'
 import { FPS, FORMAT_IDS, proseScale, typeScale } from '../spec/format'
@@ -25,7 +25,8 @@ import { VIDEO_MOTION } from '../spec/timing'
 import { applyVoiceTiming } from '../voice/timing'
 import { loadVoiceManifest } from '../voice/edge-tts'
 
-const bundle = loadBundle()
+// work/ 가 없으면(CI) tests/fixtures/ 고정 원료 — test-bundle.ts · 이슈 #101
+const bundle = loadTestBundle()
 const specs = buildSpecs(bundle)
 
 describe('덮는 범위 — 플랫폼이 자라면 설계도도 자란다', () => {
