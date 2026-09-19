@@ -169,6 +169,7 @@ Admin Console: `/admin/*`(route group 미사용) · 액센트 = Deep Ink `--p` +
 - `node -e "…\`x\`…"` 처럼 백틱을 쌍따옴표 안에 넣기(Bash 가 실행해 글자가 빠진다) → quoted heredoc 파일로.
 - jsonb 를 `JSON.stringify` 로 비교해 "변경 없음" 판정(DB 가 키 순서를 바꾼다 → 재실행마다 행이 늘었다).
 - `count ?? 0` — 없는 테이블도 head 요청엔 204/count=null 이다. 오류를 0 으로 삼키지 않는다.
+- 시계를 직접 읽는 코드·테스트 — `Date.now()` · `new Date()` 를 로직 안에서 부르면 고정 날짜 픽스처가 시간이 지나며 **저절로** 떨어진다(`feed-discovery` 2026-09-19). 시각은 주입(`now` 인자·deps)하고, 테스트는 고정 시각을 넘기거나 `vi.useFakeTimers()`+`setSystemTime`.
 - 규칙이 정당한 코드를 걸면 코드가 아니라 **규칙을 고친다**(「루프 애니메이션 금지」가 로더 20곳을 걸었다).
 - node 가 Supabase 에 TLS 로 못 붙으면 `node --tls-max-v1.2`.
 - 구조적 결함을 보고만 하고 넘기기 — 그 작업 안에서 영향 측정 → 오탐 확인 → 가드까지 만든다.
