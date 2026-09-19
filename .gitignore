@@ -208,3 +208,7 @@ scripts/textbook/.vol4.txt
 
 # 강의 대본 드레인 — 청크에 기출 원문(지문·선지)이 실린다. 커밋되는 산출물은 apps/web/src/lib/csat/lecture-data/ 뿐
 scripts/csat/lecture-drain/
+
+# 로컬 디자인 캡처 — 커밋하지 않는다(기출 원문·실제 사용자 데이터가 찍힐 수 있다). 골든은 docs/design/golden/ 에만
+# (design-empty 계정·검수대 데이터로 다시 찍는다). 이미 추적 중인 v07 전후 16장은 이 줄로 빠지지 않는다 — design/DECISIONS DD-47
+docs/design/shots/
