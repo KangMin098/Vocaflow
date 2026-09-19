@@ -161,6 +161,7 @@ Admin Console: `/admin/*`(route group 미사용) · 액센트 = Deep Ink `--p` +
 - 같은 워크트리 동시 쓰기 금지: 쓰기 전에 `lock.mjs acquire <agent>`, 끝나면 `release`. 잠금이 남의 것이면 읽기 전용으로만 일한다. 장기 병행은 `pnpm wt new <suffix>`.
 - 한도·중단 시 `handoff.mjs <from> <to>` → `.agent-handoff/latest.md`. **받는 쪽의 첫 동작은 그 파일을 읽고 수용 기준부터 재확인.** 받은 기능은 받은 쪽이 끝낸다.
 - MCP 정의는 `agents/mcp.source.json` 만 고친다 — `.mcp.json` · `.codex/config.toml` 의 `mcp_servers` 는 생성물.
+- **git 훅은 인덱스를 고치지 않는다**(검사·안내만) — 훅의 `git add` 는 `--only` 를 깨고 커밋 뒤에도 남는다(DD-49).
 
 ## 하지 말 것 — 두 번 이상 고친 실수
 
