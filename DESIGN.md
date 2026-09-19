@@ -40,6 +40,7 @@
 | `/login` · `/reset-password` · `/verify-email` | 채색 지문 | `/signup` 과 같은 두 단 — 폼 옆 지문이 학년 슬라이더로 칠해짐 · 화면마다 첫 문장만 다름 | **서명 있음**(2026-09-19 골든 11호 [golden/auth.md](docs/design/golden/auth.md) · DD-31) |
 | `/text/[id]` | 채색 지문 × 망각 | 원문 낱말 밑줄 두께 3/2/1px = 이 학습자의 R(t) · 원문 위 낱말 줄, 누르면 원문의 그 자리로(모션 0) | **서명 있음**(2026-09-19 골든 7호 [golden/text-id.md](docs/design/golden/text-id.md) · DD-27) |
 | `/text/new` | 채색 지문 | 붙여 넣으면 입력칸 자리가 칠해진 원문으로 · 학년을 옮기면 처음 만나는 낱말에 주묵 면 200ms(`/fit` 과 같은 부품) · 저장하면 새 글로 | **서명 있음**(2026-09-19 골든 10호 [golden/text-new.md](docs/design/golden/text-new.md) · DD-30) |
+| `/practice` (+ `/practice/dcp` 빈 날) | 시험지 사물 | 오늘의 연습지 — 번호 붙은 괘선 문항 여섯 줄, 문항마다 그 면에서 아직 걸리는 내 낱말 · 1번 = 가장 무른 면(모션 0) | **서명 있음**(2026-09-19 골든 12호 [golden/practice.md](docs/design/golden/practice.md) · DD-32) |
 | `/csat` 분석 | 주묵 문법 | 대조 순간 지지 실선이 근거 → 정답으로 그어짐 · 200ms | 현행(선 그리기 모션은 §5.2 개정 전까지 페이드) |
 | `/csat` 홈 | 시험지 사물 | 두 문항이 `=` 로 합류 · 패턴 교체 시 · 200ms | 현행 |
 | `/dashboard` · `/reports` | 환경 변형 | 기억의 지층 — 층 두께 = 낱말 수, 층 안에 내 낱말, 이번 주에 되찾은 낱말엔 권점 · 층을 누르면 펼침(모션 0) · `/reports` = 주마다 한 겹 | **서명 있음**(2026-09-19 골든 9호 [golden/retrospect.md](docs/design/golden/retrospect.md) · DD-29) |
