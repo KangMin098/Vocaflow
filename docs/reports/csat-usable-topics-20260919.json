@@ -1,0 +1,5850 @@
+{
+  "startedAt": "2026-09-19T02:40:39.826Z",
+  "measuredAt": "2026-09-19T02:40:54.811Z",
+  "readOnly": true,
+  "topicVersion": 2,
+  "scanned": 9107,
+  "skippedStale": 0,
+  "missingStoredTopic": 9096,
+  "method": "Existing lib-topic classifier on full bodies of current policy-v3 usable articles; no database changes. Paginated scan, not a transactional snapshot.",
+  "limitations": [
+    "Keyword estimates require manual review; registers are stored labels and may be ingestion defaults.",
+    "School feed denotes intended audience, not verified age suitability."
+  ],
+  "cells": [
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 73
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 345
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 6,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 4
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 4,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 82
+    },
+    {
+      "source": "original",
+      "cefr": "B1",
+      "vLevel": 2,
+      "topic": "예술·문화",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 10
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 125
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 5,
+      "topic": "심리·인지",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 3,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 111
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 220
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 228
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 6,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 166
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 2,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 86
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 7,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 16
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 6,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 158
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 143
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 153
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 135
+    },
+    {
+      "source": "original",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "분류불가",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 57
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 283
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 279
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 89
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 2,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 9
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 6,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 64
+    },
+    {
+      "source": "original",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "분류불가",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 29
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 7
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 3,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 52
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 6,
+      "topic": "심리·인지",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 4
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 6,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 12
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 299
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 5,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 56
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 2,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 72
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 3,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 161
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 5,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 163
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 6,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 44
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 28
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 6,
+      "topic": "심리·인지",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 5
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 5,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 41
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 6,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 37
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 7,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 37
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 5,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 22
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 2,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 8
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 6,
+      "topic": "사회·경제",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 4
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 4,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 161
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 2,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 46
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 201
+    },
+    {
+      "source": "original",
+      "cefr": "B2",
+      "vLevel": 6,
+      "topic": "교육·언어",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 8
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 5
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 6,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 81
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 5,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 15
+    },
+    {
+      "source": "original",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "과학·자연",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 16
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 36
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 4,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 26
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 123
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 146
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 19
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 9
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 7,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 49
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 329
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 6,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 11
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 7,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 3
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 13
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 6,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 20
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 3,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 106
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 29
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 6,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 18
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 3,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 10
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 9
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 6
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 4,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 32
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 24
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 5,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 9
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 282
+    },
+    {
+      "source": "space_place",
+      "cefr": "A2",
+      "vLevel": 4,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": null,
+      "n": 3
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 6,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 70
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 6,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 8
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 100
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 8
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A1",
+      "vLevel": 2,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 34
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 7,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 5
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 1,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 22
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 6,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 70
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 7,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 6
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 5,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 2,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 36
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 5,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 128
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "심리·인지",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 8
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 1,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 29
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 1,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 62
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 9
+    },
+    {
+      "source": "original",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "예술·문화",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 8
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 4,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 65
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "사회·경제",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 3
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 2,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 53
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 6,
+      "topic": "사회·경제",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 3
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 18
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 28
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 7,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 39
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 3,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 5
+    },
+    {
+      "source": "simple_wikipedia",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 37
+    },
+    {
+      "source": "original",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "과학·자연",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 20
+    },
+    {
+      "source": "simple_wikipedia",
+      "cefr": "B1",
+      "vLevel": 2,
+      "topic": "기술·매체",
+      "register": "expository",
+      "schoolFeed": null,
+      "n": 3
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 29
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 1,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 4
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 22
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 6,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 8
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 6,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 21
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A1",
+      "vLevel": 1,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 10
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 13
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 6,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 7
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 42
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 2,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 3
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 6,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 9
+    },
+    {
+      "source": "original",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "분류불가",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 27
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 6,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 4
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "심리·인지",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 9
+    },
+    {
+      "source": "simple_wikipedia",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 3,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 29
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 9
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 18
+    },
+    {
+      "source": "original",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "분류불가",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 48
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 1,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 14
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 7,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 15
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 4,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 2,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 9
+    },
+    {
+      "source": "storyweaver",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "역사·인류",
+      "register": "narrative",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 1,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 6
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 4,
+      "topic": "심리·인지",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 3
+    },
+    {
+      "source": "original",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "역사·인류",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 6
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 6,
+      "topic": "기술·매체",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 5,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 200
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 5,
+      "topic": "사회·경제",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 6
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 1,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 12
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 9
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 7,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 4
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 13
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 5,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 10
+    },
+    {
+      "source": "space_place",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": null,
+      "n": 4
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 32
+    },
+    {
+      "source": "original",
+      "cefr": "B1",
+      "vLevel": 2,
+      "topic": "분류불가",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 17
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 5,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 32
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 20
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 9
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 4,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 29
+    },
+    {
+      "source": "original",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "과학·자연",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 15
+    },
+    {
+      "source": "original",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "기술·매체",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "철학·윤리",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 5
+    },
+    {
+      "source": "original",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "사회·경제",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 7
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 3,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 17
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 5,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 10
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 8,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 5
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 3,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 8
+    },
+    {
+      "source": "original",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "예술·문화",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 8
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 6,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 6
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 6
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 3
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 6,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 37
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 3,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 9
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 41
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A1",
+      "vLevel": 2,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 2
+    },
+    {
+      "source": "frym",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": null,
+      "n": 14
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 4
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 6,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 10
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 2,
+      "topic": "심리·인지",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "심리·인지",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 3
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 8
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 9
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "기술·매체",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 4
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 3,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 3
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A1",
+      "vLevel": 2,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 26
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 4,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 5
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 5,
+      "topic": "사회·경제",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 3
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "철학·윤리",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 10
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 5,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 23
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A1",
+      "vLevel": 1,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 18
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 1,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 7,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 5
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 4,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 20
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 4,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 5
+    },
+    {
+      "source": "original",
+      "cefr": "A2",
+      "vLevel": 4,
+      "topic": "사회·경제",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "사회·경제",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 7
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A1",
+      "vLevel": 3,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 3
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 8,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 2
+    },
+    {
+      "source": "original",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "교육·언어",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 9
+    },
+    {
+      "source": "frym",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": null,
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 16
+    },
+    {
+      "source": "frym",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": null,
+      "n": 7
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 5
+    },
+    {
+      "source": "original",
+      "cefr": "B1",
+      "vLevel": 6,
+      "topic": "과학·자연",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 6,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 4
+    },
+    {
+      "source": "original",
+      "cefr": "B2",
+      "vLevel": 5,
+      "topic": "분류불가",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 7
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "심리·인지",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 8
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 6,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 5
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 5,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 8
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 5,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 6
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A1",
+      "vLevel": 2,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 16
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 12
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 5,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 19
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 6,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 17
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 9
+    },
+    {
+      "source": "original",
+      "cefr": "B2",
+      "vLevel": 7,
+      "topic": "교육·언어",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 8
+    },
+    {
+      "source": "original",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "심리·인지",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 4
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 11
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 7
+    },
+    {
+      "source": "frym",
+      "cefr": "B1",
+      "vLevel": 2,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": null,
+      "n": 7
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A1",
+      "vLevel": 2,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 5
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 5,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 15
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 5,
+      "topic": "사회·경제",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 6,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 12
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A1",
+      "vLevel": 2,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 10
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 6,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 7
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 3,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 4
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 6,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "철학·윤리",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 9
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 5,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 1
+    },
+    {
+      "source": "original",
+      "cefr": "B2",
+      "vLevel": 7,
+      "topic": "분류불가",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 11
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 4,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 8
+    },
+    {
+      "source": "frym",
+      "cefr": "B2",
+      "vLevel": 5,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": null,
+      "n": 7
+    },
+    {
+      "source": "original",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "심리·인지",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 7,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 8
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 10
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 5,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 19
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 1,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 9
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 3,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 4
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 3,
+      "topic": "심리·인지",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 4,
+      "topic": "사회·경제",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 14
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 15
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 6,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 5
+    },
+    {
+      "source": "original",
+      "cefr": "B1",
+      "vLevel": 2,
+      "topic": "과학·자연",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 18
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 5,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 17
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 10
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 3,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 11
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "사회·경제",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 11
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A1",
+      "vLevel": 4,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 1
+    },
+    {
+      "source": "storyweaver",
+      "cefr": "B2",
+      "vLevel": 5,
+      "topic": "분류불가",
+      "register": "narrative",
+      "schoolFeed": null,
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 6,
+      "topic": "심리·인지",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 7
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 5,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 6
+    },
+    {
+      "source": "frym",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 4
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 6
+    },
+    {
+      "source": "simple_wikipedia",
+      "cefr": "A2",
+      "vLevel": 3,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": null,
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 1,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 3
+    },
+    {
+      "source": "original",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "과학·자연",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 6
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 8,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "철학·윤리",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 2,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 6
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 7,
+      "topic": "철학·윤리",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 3
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 6
+    },
+    {
+      "source": "original",
+      "cefr": "A2",
+      "vLevel": 3,
+      "topic": "분류불가",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 6
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 8
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 6
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "심리·인지",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 3
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 6,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 11
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 7,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 3
+    },
+    {
+      "source": "original",
+      "cefr": "B2",
+      "vLevel": 7,
+      "topic": "과학·자연",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 3
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 5,
+      "topic": "심리·인지",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 4
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 3,
+      "topic": "심리·인지",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 1
+    },
+    {
+      "source": "space_place",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": null,
+      "n": 7
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 9,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 1
+    },
+    {
+      "source": "frym",
+      "cefr": "B1",
+      "vLevel": 2,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": null,
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 6,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 4
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 2,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 3
+    },
+    {
+      "source": "frym",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": null,
+      "n": 4
+    },
+    {
+      "source": "frym",
+      "cefr": "B2",
+      "vLevel": 5,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "철학·윤리",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 5
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 4
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A1",
+      "vLevel": 1,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 3,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 2,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 2
+    },
+    {
+      "source": "original",
+      "cefr": "B2",
+      "vLevel": 5,
+      "topic": "기술·매체",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 4
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 2,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 3
+    },
+    {
+      "source": "original",
+      "cefr": "B1",
+      "vLevel": 2,
+      "topic": "사회·경제",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 4
+    },
+    {
+      "source": "original",
+      "cefr": "B2",
+      "vLevel": 6,
+      "topic": "분류불가",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 8
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 3,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 3
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 7
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 6,
+      "topic": "철학·윤리",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 3
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 3,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 2
+    },
+    {
+      "source": "storyweaver",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "교육·언어",
+      "register": "narrative",
+      "schoolFeed": null,
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 5,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 5
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A1",
+      "vLevel": 1,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 7
+    },
+    {
+      "source": "futurity",
+      "cefr": "B2",
+      "vLevel": 6,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 7,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "사회·경제",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 5
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 4
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "기술·매체",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A1",
+      "vLevel": 4,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 5,
+      "topic": "철학·윤리",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 4
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 7,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 12
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 9
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 5,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 7
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 4,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 15
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 6,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 15
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 4,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "심리·인지",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 2
+    },
+    {
+      "source": "storyweaver",
+      "cefr": "A2",
+      "vLevel": 1,
+      "topic": "분류불가",
+      "register": "narrative",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "심리·인지",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "심리·인지",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 8
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 3,
+      "topic": "심리·인지",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 2,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 5
+    },
+    {
+      "source": "frym",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "사회·경제",
+      "register": "expository",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 1,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 1,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 5,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 6
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 16
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 4,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 2
+    },
+    {
+      "source": "storyweaver",
+      "cefr": "A2",
+      "vLevel": 3,
+      "topic": "분류불가",
+      "register": "narrative",
+      "schoolFeed": null,
+      "n": 4
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A1",
+      "vLevel": 3,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 5,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 10
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 3,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 5
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 9
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 4
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 3,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 8
+    },
+    {
+      "source": "space_place",
+      "cefr": "B2",
+      "vLevel": 5,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": null,
+      "n": 6
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 6,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 4
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 5,
+      "topic": "심리·인지",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 3
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 6,
+      "topic": "철학·윤리",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 3
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 4,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 3
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 3,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 4
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A1",
+      "vLevel": 3,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 7
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "사회·경제",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 4,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 3
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 7,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 5
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 7,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 3
+    },
+    {
+      "source": "original",
+      "cefr": "B2",
+      "vLevel": 6,
+      "topic": "과학·자연",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 3
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 5,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 3
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 5,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 4
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "사회·경제",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 7
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "철학·윤리",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 7,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 11
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 2,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 9,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "철학·윤리",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 3
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 4,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 1,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "심리·인지",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 6,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 1
+    },
+    {
+      "source": "space_place",
+      "cefr": "B1",
+      "vLevel": 2,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": null,
+      "n": 3
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 6
+    },
+    {
+      "source": "original",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "교육·언어",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 6
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 5,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 3,
+      "topic": "철학·윤리",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 5,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 11
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 3,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 1
+    },
+    {
+      "source": "original",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "교육·언어",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 5
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "심리·인지",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 8,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 3
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 3,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 6,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 3
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 7,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 2
+    },
+    {
+      "source": "original",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "사회·경제",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "frym",
+      "cefr": "A2",
+      "vLevel": 4,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": null,
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 8,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 8
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 6,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 11
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A1",
+      "vLevel": 2,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 3
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 2,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "기술·매체",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 6,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 5
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "사회·경제",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 2
+    },
+    {
+      "source": "african_storybook",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "교육·언어",
+      "register": "narrative",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "storyweaver",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "분류불가",
+      "register": "narrative",
+      "schoolFeed": null,
+      "n": 3
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 2,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 2
+    },
+    {
+      "source": "original",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "사회·경제",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 6
+    },
+    {
+      "source": "simple_wikipedia",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "사회·경제",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 8
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 8,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 6,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 3
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "기술·매체",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 7,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 8
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 6,
+      "topic": "사회·경제",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 3
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 6,
+      "topic": "철학·윤리",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 5,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 2
+    },
+    {
+      "source": "original",
+      "cefr": "B2",
+      "vLevel": 5,
+      "topic": "역사·인류",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 6,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 4
+    },
+    {
+      "source": "original",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "예술·문화",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 4
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "심리·인지",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 4
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "철학·윤리",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 1
+    },
+    {
+      "source": "space_place",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": null,
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 4,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 6,
+      "topic": "사회·경제",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 2
+    },
+    {
+      "source": "space_place",
+      "cefr": "B1",
+      "vLevel": 6,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 3,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 4
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 5,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 1,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 5,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 2
+    },
+    {
+      "source": "space_place",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 4,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 4
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 3,
+      "topic": "사회·경제",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 5,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 1
+    },
+    {
+      "source": "storyweaver",
+      "cefr": "A1",
+      "vLevel": 1,
+      "topic": "분류불가",
+      "register": "narrative",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 1,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 2
+    },
+    {
+      "source": "original",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "심리·인지",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 6
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "사회·경제",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 3
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "기술·매체",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 2
+    },
+    {
+      "source": "african_storybook",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "분류불가",
+      "register": "narrative",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "storyweaver",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "예술·문화",
+      "register": "narrative",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "simple_wikipedia",
+      "cefr": "A2",
+      "vLevel": 3,
+      "topic": "기술·매체",
+      "register": "expository",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 2,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 1,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "기술·매체",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 6,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 3
+    },
+    {
+      "source": "storyweaver",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "역사·인류",
+      "register": "narrative",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "철학·윤리",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A1",
+      "vLevel": 3,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 4,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 6,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 3
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 7,
+      "topic": "철학·윤리",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A1",
+      "vLevel": 2,
+      "topic": "기술·매체",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 2,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 2
+    },
+    {
+      "source": "original",
+      "cefr": "B1",
+      "vLevel": 2,
+      "topic": "심리·인지",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 5
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 7,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 3
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 5,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 3
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 4,
+      "topic": "심리·인지",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 1
+    },
+    {
+      "source": "frym",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 6,
+      "topic": "심리·인지",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 4
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 7,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 2
+    },
+    {
+      "source": "storyweaver",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "과학·자연",
+      "register": "narrative",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 1,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 1
+    },
+    {
+      "source": "storyweaver",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "분류불가",
+      "register": "narrative",
+      "schoolFeed": null,
+      "n": 3
+    },
+    {
+      "source": "nasa",
+      "cefr": "B1",
+      "vLevel": 1,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 1
+    },
+    {
+      "source": "simple_wikipedia",
+      "cefr": "B1",
+      "vLevel": 2,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 6,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 6,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 6,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 3
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 8,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 7,
+      "topic": "철학·윤리",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 1
+    },
+    {
+      "source": "original",
+      "cefr": "A2",
+      "vLevel": 3,
+      "topic": "교육·언어",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 3
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 2,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 2,
+      "topic": "심리·인지",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 1
+    },
+    {
+      "source": "storyweaver",
+      "cefr": "A1",
+      "vLevel": 2,
+      "topic": "분류불가",
+      "register": "narrative",
+      "schoolFeed": null,
+      "n": 3
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 6,
+      "topic": "사회·경제",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "철학·윤리",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 3
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "심리·인지",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 4
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "사회·경제",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 3
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 1,
+      "topic": "사회·경제",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 1
+    },
+    {
+      "source": "original",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "예술·문화",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 2
+    },
+    {
+      "source": "frym",
+      "cefr": "B2",
+      "vLevel": 5,
+      "topic": "사회·경제",
+      "register": "expository",
+      "schoolFeed": null,
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 4,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 1
+    },
+    {
+      "source": "simple_wikipedia",
+      "cefr": "B2",
+      "vLevel": 5,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": null,
+      "n": 3
+    },
+    {
+      "source": "original",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "사회·경제",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 2
+    },
+    {
+      "source": "frym",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 7,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 1
+    },
+    {
+      "source": "original",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "역사·인류",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 7,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 1,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "기술·매체",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 2
+    },
+    {
+      "source": "simple_wikipedia",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 6,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 7,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 4
+    },
+    {
+      "source": "original",
+      "cefr": "B1",
+      "vLevel": 7,
+      "topic": "교육·언어",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 2,
+      "topic": "사회·경제",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 3,
+      "topic": "심리·인지",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 4,
+      "topic": "사회·경제",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 1,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 7,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 5,
+      "topic": "심리·인지",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 4
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 1,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 1
+    },
+    {
+      "source": "original",
+      "cefr": "B2",
+      "vLevel": 5,
+      "topic": "교육·언어",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 4
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 6,
+      "topic": "사회·경제",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 1
+    },
+    {
+      "source": "storyweaver",
+      "cefr": "B1",
+      "vLevel": 2,
+      "topic": "분류불가",
+      "register": "narrative",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 1,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 2,
+      "topic": "기술·매체",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A1",
+      "vLevel": 3,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "사회·경제",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A1",
+      "vLevel": 2,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A1",
+      "vLevel": 4,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 1
+    },
+    {
+      "source": "original",
+      "cefr": "B2",
+      "vLevel": 7,
+      "topic": "기술·매체",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 6,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "심리·인지",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A1",
+      "vLevel": 1,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 2,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 1,
+      "topic": "사회·경제",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "심리·인지",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 1
+    },
+    {
+      "source": "storyweaver",
+      "cefr": "A1",
+      "vLevel": 2,
+      "topic": "과학·자연",
+      "register": "narrative",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 5,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 5
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 6,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 2
+    },
+    {
+      "source": "futurity",
+      "cefr": "B2",
+      "vLevel": 5,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 2,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 3
+    },
+    {
+      "source": "original",
+      "cefr": "B2",
+      "vLevel": 6,
+      "topic": "사회·경제",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 4
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 1,
+      "topic": "심리·인지",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 1
+    },
+    {
+      "source": "original",
+      "cefr": "B2",
+      "vLevel": 5,
+      "topic": "예술·문화",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 1,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 1
+    },
+    {
+      "source": "frym",
+      "cefr": "B1",
+      "vLevel": 2,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 4,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 6,
+      "topic": "심리·인지",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A1",
+      "vLevel": 3,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 4,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 7,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "사회·경제",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 4,
+      "topic": "심리·인지",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 4
+    },
+    {
+      "source": "frym",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "심리·인지",
+      "register": "expository",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "simple_wikipedia",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "original",
+      "cefr": "B2",
+      "vLevel": 5,
+      "topic": "과학·자연",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 7,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 4,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 4,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 1
+    },
+    {
+      "source": "simple_wikipedia",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": null,
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 5,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 1
+    },
+    {
+      "source": "original",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "교육·언어",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 2
+    },
+    {
+      "source": "space_place",
+      "cefr": "A2",
+      "vLevel": 3,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 1,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 2
+    },
+    {
+      "source": "frym",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "심리·인지",
+      "register": "expository",
+      "schoolFeed": null,
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A1",
+      "vLevel": 2,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 1
+    },
+    {
+      "source": "simple_wikipedia",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "storyweaver",
+      "cefr": "B1",
+      "vLevel": 6,
+      "topic": "분류불가",
+      "register": "narrative",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 6,
+      "topic": "철학·윤리",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "철학·윤리",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 1
+    },
+    {
+      "source": "original",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "기술·매체",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "african_storybook",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "분류불가",
+      "register": "narrative",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "storyweaver",
+      "cefr": "B2",
+      "vLevel": 6,
+      "topic": "교육·언어",
+      "register": "narrative",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "철학·윤리",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A1",
+      "vLevel": 1,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A1",
+      "vLevel": 2,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 2
+    },
+    {
+      "source": "original",
+      "cefr": "B2",
+      "vLevel": 6,
+      "topic": "기술·매체",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 8,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 1
+    },
+    {
+      "source": "original",
+      "cefr": "B2",
+      "vLevel": 6,
+      "topic": "예술·문화",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 2
+    },
+    {
+      "source": "storyweaver",
+      "cefr": "A1",
+      "vLevel": 3,
+      "topic": "교육·언어",
+      "register": "narrative",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "철학·윤리",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 1
+    },
+    {
+      "source": "original",
+      "cefr": "A2",
+      "vLevel": 3,
+      "topic": "과학·자연",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 8,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 1
+    },
+    {
+      "source": "frym",
+      "cefr": "B1",
+      "vLevel": 2,
+      "topic": "교육·언어",
+      "register": "expository",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "simple_wikipedia",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "기술·매체",
+      "register": "expository",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "storyweaver",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "분류불가",
+      "register": "narrative",
+      "schoolFeed": null,
+      "n": 3
+    },
+    {
+      "source": "storyweaver",
+      "cefr": "B1",
+      "vLevel": 2,
+      "topic": "과학·자연",
+      "register": "narrative",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "심리·인지",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 8,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 1
+    },
+    {
+      "source": "original",
+      "cefr": "B2",
+      "vLevel": 7,
+      "topic": "사회·경제",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 2,
+      "topic": "철학·윤리",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 1
+    },
+    {
+      "source": "original",
+      "cefr": "B1",
+      "vLevel": 2,
+      "topic": "교육·언어",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "심리·인지",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 1
+    },
+    {
+      "source": "original",
+      "cefr": "B2",
+      "vLevel": 7,
+      "topic": "예술·문화",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 2
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 5,
+      "topic": "심리·인지",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "기술·매체",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "사회·경제",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 1
+    },
+    {
+      "source": "space_place",
+      "cefr": "B2",
+      "vLevel": 6,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "철학·윤리",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중3",
+      "n": 1
+    },
+    {
+      "source": "simple_wikipedia",
+      "cefr": "B1",
+      "vLevel": 2,
+      "topic": "분류불가",
+      "register": "expository",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 6,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 2,
+      "topic": "심리·인지",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 1
+    },
+    {
+      "source": "frym",
+      "cefr": "B1",
+      "vLevel": 1,
+      "topic": "기술·매체",
+      "register": "expository",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "original",
+      "cefr": "A2",
+      "vLevel": 3,
+      "topic": "심리·인지",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "nasa",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A1",
+      "vLevel": 2,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 1,
+      "topic": "과학·자연",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 1
+    },
+    {
+      "source": "original",
+      "cefr": "B1",
+      "vLevel": 4,
+      "topic": "기술·매체",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 6,
+      "topic": "심리·인지",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 1
+    },
+    {
+      "source": "storyweaver",
+      "cefr": "A1",
+      "vLevel": 1,
+      "topic": "교육·언어",
+      "register": "narrative",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "storyweaver",
+      "cefr": "A1",
+      "vLevel": 3,
+      "topic": "분류불가",
+      "register": "narrative",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 3,
+      "topic": "사회·경제",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초5~6",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 5,
+      "topic": "철학·윤리",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A1",
+      "vLevel": 2,
+      "topic": "역사·인류",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A2",
+      "vLevel": 2,
+      "topic": "심리·인지",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 중1~2",
+      "n": 1
+    },
+    {
+      "source": "african_storybook",
+      "cefr": "B1",
+      "vLevel": 1,
+      "topic": "과학·자연",
+      "register": "narrative",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "original",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "역사·인류",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 5,
+      "topic": "사회·경제",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B1",
+      "vLevel": 5,
+      "topic": "심리·인지",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초3~4",
+      "n": 1
+    },
+    {
+      "source": "original",
+      "cefr": "A2",
+      "vLevel": 4,
+      "topic": "분류불가",
+      "register": "news",
+      "schoolFeed": null,
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "A1",
+      "vLevel": 2,
+      "topic": "예술·문화",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 1
+    },
+    {
+      "source": "gutenberg",
+      "cefr": "B2",
+      "vLevel": 7,
+      "topic": "심리·인지",
+      "register": "expository",
+      "schoolFeed": "PD 발췌 · 초6~중1",
+      "n": 1
+    }
+  ],
+  "sampleIds": [
+    {
+      "id": "eaa61cc8-c48b-4d09-8434-47f0454281d2",
+      "title": "The life of Jean Henri Fabre, the entomologist, 1823-1910 (발췌)",
+      "source": "gutenberg",
+      "cefr": "B1",
+      "topic": "분류불가",
+      "margin": 0,
+      "register": "expository",
+      "reading": {
+        "fk": 4.84,
+        "sentenceLength": 12.3,
+        "syllablesPerWord": 1.327,
+        "words": 147,
+        "sentences": 12
+      }
+    },
+    {
+      "id": "e0552601-5c9e-47ab-8df0-9791fb336cbd",
+      "title": "Mother West Wind \"How\" Stories (발췌)",
+      "source": "gutenberg",
+      "cefr": "A2",
+      "topic": "분류불가",
+      "margin": 0,
+      "register": "expository",
+      "reading": {
+        "fk": 7.45,
+        "sentenceLength": 23.2,
+        "syllablesPerWord": 1.187,
+        "words": 139,
+        "sentences": 6
+      }
+    },
+    {
+      "id": "172ee936-0db9-445f-85e2-b838371489e9",
+      "title": "Grimm's Fairy Tales (발췌)",
+      "source": "gutenberg",
+      "cefr": "A2",
+      "topic": "분류불가",
+      "margin": 1,
+      "register": "expository",
+      "reading": {
+        "fk": 8.36,
+        "sentenceLength": 23.4,
+        "syllablesPerWord": 1.256,
+        "words": 117,
+        "sentences": 5
+      }
+    },
+    {
+      "id": "dd30e74d-0368-4e81-9571-9ba69a603c01",
+      "title": "Boy Scouts in the North Sea; Or, The Mystery of a Sub (발췌)",
+      "source": "gutenberg",
+      "cefr": "B2",
+      "topic": "분류불가",
+      "margin": 0,
+      "register": "expository",
+      "reading": {
+        "fk": 8.93,
+        "sentenceLength": 21.2,
+        "syllablesPerWord": 1.377,
+        "words": 106,
+        "sentences": 5
+      }
+    },
+    {
+      "id": "194a1311-692f-4259-8a65-68598326c821",
+      "title": "Memories of a Hostess: A Chronicle of Eminent Friendships (발췌)",
+      "source": "gutenberg",
+      "cefr": "B2",
+      "topic": "예술·문화",
+      "margin": 1,
+      "register": "expository",
+      "reading": {
+        "fk": 3.93,
+        "sentenceLength": 9.6,
+        "syllablesPerWord": 1.337,
+        "words": 163,
+        "sentences": 17
+      }
+    },
+    {
+      "id": "298d9bb9-0377-48f2-9123-59665d81809d",
+      "title": "Adventures in Many Lands (발췌)",
+      "source": "gutenberg",
+      "cefr": "B1",
+      "topic": "예술·문화",
+      "margin": 2,
+      "register": "expository",
+      "reading": {
+        "fk": 7.42,
+        "sentenceLength": 18.8,
+        "syllablesPerWord": 1.327,
+        "words": 113,
+        "sentences": 6
+      }
+    },
+    {
+      "id": "2965d535-bd4c-47a1-b79c-099d9831c4aa",
+      "title": "Fairy dreams (발췌)",
+      "source": "gutenberg",
+      "cefr": "B1",
+      "topic": "예술·문화",
+      "margin": 2,
+      "register": "expository",
+      "reading": {
+        "fk": 8.08,
+        "sentenceLength": 23.1,
+        "syllablesPerWord": 1.241,
+        "words": 162,
+        "sentences": 7
+      }
+    },
+    {
+      "id": "765db976-1c46-4e39-a98e-5b958cb6716f",
+      "title": "White Around the Words",
+      "source": "original",
+      "cefr": "A2",
+      "topic": "예술·문화",
+      "margin": 2,
+      "register": "news",
+      "reading": {
+        "fk": 5.74,
+        "sentenceLength": 15.8,
+        "syllablesPerWord": 1.284,
+        "words": 190,
+        "sentences": 12
+      }
+    },
+    {
+      "id": "f857a918-cac5-4509-8e73-65d2fa428ff0",
+      "title": "Panther Eye (발췌)",
+      "source": "gutenberg",
+      "cefr": "B1",
+      "topic": "심리·인지",
+      "margin": 1,
+      "register": "expository",
+      "reading": {
+        "fk": 8.75,
+        "sentenceLength": 18.1,
+        "syllablesPerWord": 1.464,
+        "words": 181,
+        "sentences": 10
+      }
+    },
+    {
+      "id": "f742ea11-1d05-424a-b7b4-b9ee80eb40e8",
+      "title": "Marjorie Dean, College Sophomore (발췌)",
+      "source": "gutenberg",
+      "cefr": "B1",
+      "topic": "심리·인지",
+      "margin": 2,
+      "register": "expository",
+      "reading": {
+        "fk": 9.46,
+        "sentenceLength": 21.9,
+        "syllablesPerWord": 1.4,
+        "words": 175,
+        "sentences": 8
+      }
+    },
+    {
+      "id": "ff78f865-32c8-4ebb-98cd-b11e627bc5d6",
+      "title": "The Ocean Wireless Boys and the Naval Code (발췌)",
+      "source": "gutenberg",
+      "cefr": "B2",
+      "topic": "심리·인지",
+      "margin": 1,
+      "register": "expository",
+      "reading": {
+        "fk": 5.88,
+        "sentenceLength": 14,
+        "syllablesPerWord": 1.357,
+        "words": 154,
+        "sentences": 11
+      }
+    },
+    {
+      "id": "51fbe0f4-da04-4b4d-9204-32ab01d3da9d",
+      "title": "The Song of the Lark (발췌)",
+      "source": "gutenberg",
+      "cefr": "B1",
+      "topic": "심리·인지",
+      "margin": 1,
+      "register": "expository",
+      "reading": {
+        "fk": 5.18,
+        "sentenceLength": 12.5,
+        "syllablesPerWord": 1.347,
+        "words": 150,
+        "sentences": 12
+      }
+    },
+    {
+      "id": "86d06094-f142-4799-a8ba-500b88adfc4d",
+      "title": "The Aesop for Children (발췌)",
+      "source": "gutenberg",
+      "cefr": "B1",
+      "topic": "역사·인류",
+      "margin": 4,
+      "register": "expository",
+      "reading": {
+        "fk": 8.74,
+        "sentenceLength": 20.7,
+        "syllablesPerWord": 1.379,
+        "words": 124,
+        "sentences": 6
+      }
+    },
+    {
+      "id": "b190cf99-a9b9-4faa-b7bc-93cc480c5435",
+      "title": "The Short Lives That Were Not So Short",
+      "source": "original",
+      "cefr": "B1",
+      "topic": "역사·인류",
+      "margin": 3,
+      "register": "news",
+      "reading": {
+        "fk": 7.7,
+        "sentenceLength": 13.8,
+        "syllablesPerWord": 1.518,
+        "words": 193,
+        "sentences": 14
+      }
+    },
+    {
+      "id": "c07c6c3d-b15b-4b9a-b737-3dcd68b1b052",
+      "title": "Mother West Wind \"Where\" Stories (발췌)",
+      "source": "gutenberg",
+      "cefr": "B1",
+      "topic": "역사·인류",
+      "margin": 1,
+      "register": "expository",
+      "reading": {
+        "fk": 3.31,
+        "sentenceLength": 10.4,
+        "syllablesPerWord": 1.258,
+        "words": 198,
+        "sentences": 19
+      }
+    },
+    {
+      "id": "7d8dc475-82a8-4bfd-97f9-59fa12045815",
+      "title": "Ruth Fielding At College; or, The Missing Examination Papers (발췌)",
+      "source": "gutenberg",
+      "cefr": "B1",
+      "topic": "역사·인류",
+      "margin": 1,
+      "register": "expository",
+      "reading": {
+        "fk": 5.46,
+        "sentenceLength": 14,
+        "syllablesPerWord": 1.321,
+        "words": 112,
+        "sentences": 8
+      }
+    },
+    {
+      "id": "3d447a25-fa17-40a6-9aad-080241bf2993",
+      "title": "The Ocean Wireless Boys and the Naval Code (발췌)",
+      "source": "gutenberg",
+      "cefr": "B1",
+      "topic": "교육·언어",
+      "margin": 2,
+      "register": "expository",
+      "reading": {
+        "fk": 7.82,
+        "sentenceLength": 15.9,
+        "syllablesPerWord": 1.459,
+        "words": 111,
+        "sentences": 7
+      }
+    },
+    {
+      "id": "caad6ea4-ea28-48ab-b52c-4042c4e95736",
+      "title": "Emily of New Moon (발췌)",
+      "source": "gutenberg",
+      "cefr": "A2",
+      "topic": "교육·언어",
+      "margin": 1,
+      "register": "expository",
+      "reading": {
+        "fk": 4.72,
+        "sentenceLength": 12,
+        "syllablesPerWord": 1.325,
+        "words": 120,
+        "sentences": 10
+      }
+    },
+    {
+      "id": "9cd64f99-3085-4468-be0f-3f6f6a2c6c89",
+      "title": "Make or Break; or, The Rich Man's Daughter (발췌)",
+      "source": "gutenberg",
+      "cefr": "B1",
+      "topic": "교육·언어",
+      "margin": 1,
+      "register": "expository",
+      "reading": {
+        "fk": 11.11,
+        "sentenceLength": 27,
+        "syllablesPerWord": 1.37,
+        "words": 189,
+        "sentences": 7
+      }
+    },
+    {
+      "id": "05f5ee89-f6c0-4943-9bdb-f9c2da3a97ab",
+      "title": "Mike and Psmith (발췌)",
+      "source": "gutenberg",
+      "cefr": "A2",
+      "topic": "교육·언어",
+      "margin": 2,
+      "register": "expository",
+      "reading": {
+        "fk": 4.2,
+        "sentenceLength": 13,
+        "syllablesPerWord": 1.248,
+        "words": 117,
+        "sentences": 9
+      }
+    },
+    {
+      "id": "d6c7b346-de27-45f3-b760-979ffb6dc396",
+      "title": "Can Doctors “Teach” the Body to Fight Cancer?",
+      "source": "frym",
+      "cefr": "B1",
+      "topic": "과학·자연",
+      "margin": 4,
+      "register": "expository",
+      "reading": {
+        "fk": 6.11,
+        "sentenceLength": 14,
+        "syllablesPerWord": 1.377,
+        "words": 154,
+        "sentences": 11
+      }
+    },
+    {
+      "id": "56ce0cad-d2f9-4093-9dcc-b3a619c6d00a",
+      "title": "Illustrative Anecdotes of the Animal Kingdom (발췌)",
+      "source": "gutenberg",
+      "cefr": "B2",
+      "topic": "과학·자연",
+      "margin": 3,
+      "register": "expository",
+      "reading": {
+        "fk": 6.71,
+        "sentenceLength": 15.7,
+        "syllablesPerWord": 1.37,
+        "words": 173,
+        "sentences": 11
+      }
+    },
+    {
+      "id": "5500c9e1-e8dd-4198-abcb-64ea7155fdff",
+      "title": "In The Boyhood of Lincoln (발췌)",
+      "source": "gutenberg",
+      "cefr": "B1",
+      "topic": "과학·자연",
+      "margin": 1,
+      "register": "expository",
+      "reading": {
+        "fk": 4.54,
+        "sentenceLength": 14.2,
+        "syllablesPerWord": 1.237,
+        "words": 156,
+        "sentences": 11
+      }
+    },
+    {
+      "id": "40f889c4-8e43-402c-86f1-a63bb3e1263d",
+      "title": "The Adventures of Joel Pepper (발췌)",
+      "source": "gutenberg",
+      "cefr": "B1",
+      "topic": "과학·자연",
+      "margin": 2,
+      "register": "expository",
+      "reading": {
+        "fk": 3.87,
+        "sentenceLength": 12.7,
+        "syllablesPerWord": 1.229,
+        "words": 140,
+        "sentences": 11
+      }
+    },
+    {
+      "id": "fb9dbf75-b1ad-4106-b0a4-742adc52b0b4",
+      "title": "The True Citizen: How to Become One (발췌)",
+      "source": "gutenberg",
+      "cefr": "B1",
+      "topic": "사회·경제",
+      "margin": 2,
+      "register": "expository",
+      "reading": {
+        "fk": 4.07,
+        "sentenceLength": 11.4,
+        "syllablesPerWord": 1.289,
+        "words": 114,
+        "sentences": 10
+      }
+    },
+    {
+      "id": "d820e59c-9f4c-4485-88d6-6486fa56ae09",
+      "title": "The Wind in the Willows (발췌)",
+      "source": "gutenberg",
+      "cefr": "B1",
+      "topic": "사회·경제",
+      "margin": 2,
+      "register": "expository",
+      "reading": {
+        "fk": 3.95,
+        "sentenceLength": 8.7,
+        "syllablesPerWord": 1.369,
+        "words": 130,
+        "sentences": 15
+      }
+    },
+    {
+      "id": "13e95ba4-10af-4ae4-9dd1-1ddc55fc2753",
+      "title": "The Charge That Beat the Rule",
+      "source": "original",
+      "cefr": "A2",
+      "topic": "사회·경제",
+      "margin": 2,
+      "register": "news",
+      "reading": {
+        "fk": 4.5,
+        "sentenceLength": 11.6,
+        "syllablesPerWord": 1.32,
+        "words": 197,
+        "sentences": 17
+      }
+    },
+    {
+      "id": "1405a6f3-1937-44cf-8634-bdfb84747e82",
+      "title": "Pinocchio: The Tale of a Puppet (발췌)",
+      "source": "gutenberg",
+      "cefr": "B1",
+      "topic": "사회·경제",
+      "margin": 1,
+      "register": "expository",
+      "reading": {
+        "fk": 9.34,
+        "sentenceLength": 24.3,
+        "syllablesPerWord": 1.308,
+        "words": 146,
+        "sentences": 6
+      }
+    },
+    {
+      "id": "2964d99d-666c-4130-a166-3c439b909782",
+      "title": "Taking the Ocean's Temperature",
+      "source": "original",
+      "cefr": "B2",
+      "topic": "기술·매체",
+      "margin": 1,
+      "register": "news",
+      "reading": {
+        "fk": 6.11,
+        "sentenceLength": 11.7,
+        "syllablesPerWord": 1.452,
+        "words": 199,
+        "sentences": 17
+      }
+    },
+    {
+      "id": "088af413-9afa-4ea3-85cc-24663bb68630",
+      "title": "A Campfire Girl's Test of Friendship (발췌)",
+      "source": "gutenberg",
+      "cefr": "B2",
+      "topic": "기술·매체",
+      "margin": 2,
+      "register": "expository",
+      "reading": {
+        "fk": 7.04,
+        "sentenceLength": 18.1,
+        "syllablesPerWord": 1.319,
+        "words": 163,
+        "sentences": 9
+      }
+    },
+    {
+      "id": "4a41eefb-b44c-4d30-b084-2ca4d37ef138",
+      "title": "Roy Blakeley's Camp on Wheels (발췌)",
+      "source": "gutenberg",
+      "cefr": "A2",
+      "topic": "기술·매체",
+      "margin": 1,
+      "register": "expository",
+      "reading": {
+        "fk": 4.89,
+        "sentenceLength": 15.2,
+        "syllablesPerWord": 1.232,
+        "words": 198,
+        "sentences": 13
+      }
+    },
+    {
+      "id": "d746d53b-bd87-4efa-a1dc-b83bc95d1034",
+      "title": "Entretiens / Interviews / Entrevistas (발췌)",
+      "source": "gutenberg",
+      "cefr": "A2",
+      "topic": "기술·매체",
+      "margin": 2,
+      "register": "expository",
+      "reading": {
+        "fk": 6.89,
+        "sentenceLength": 15.4,
+        "syllablesPerWord": 1.396,
+        "words": 154,
+        "sentences": 10
+      }
+    },
+    {
+      "id": "61f74445-6408-472c-b552-c4e47bd070c6",
+      "title": "A Little Girl of Long Ago; Or, Hannah Ann (발췌)",
+      "source": "gutenberg",
+      "cefr": "B1",
+      "topic": "철학·윤리",
+      "margin": 3,
+      "register": "expository",
+      "reading": {
+        "fk": 7.6,
+        "sentenceLength": 18,
+        "syllablesPerWord": 1.37,
+        "words": 108,
+        "sentences": 6
+      }
+    },
+    {
+      "id": "7838701d-e9ad-48b8-ae98-9f34443d9345",
+      "title": "Five Children and It (발췌)",
+      "source": "gutenberg",
+      "cefr": "B1",
+      "topic": "철학·윤리",
+      "margin": 2,
+      "register": "expository",
+      "reading": {
+        "fk": 7.7,
+        "sentenceLength": 19.3,
+        "syllablesPerWord": 1.338,
+        "words": 154,
+        "sentences": 8
+      }
+    },
+    {
+      "id": "8442b161-6072-4e39-9673-15a2c18323c8",
+      "title": "Adam Bede (발췌)",
+      "source": "gutenberg",
+      "cefr": "B1",
+      "topic": "철학·윤리",
+      "margin": 2,
+      "register": "expository",
+      "reading": {
+        "fk": 7.34,
+        "sentenceLength": 17.3,
+        "syllablesPerWord": 1.372,
+        "words": 121,
+        "sentences": 7
+      }
+    },
+    {
+      "id": "3e6b362e-440a-4864-8b81-a2c6ef275139",
+      "title": "Adventures of Huckleberry Finn (발췌)",
+      "source": "gutenberg",
+      "cefr": "A2",
+      "topic": "철학·윤리",
+      "margin": 2,
+      "register": "expository",
+      "reading": {
+        "fk": 6.42,
+        "sentenceLength": 17.1,
+        "syllablesPerWord": 1.299,
+        "words": 137,
+        "sentences": 8
+      }
+    }
+  ]
+}

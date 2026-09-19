@@ -1095,6 +1095,7 @@ export const FEED_REGISTER: Record<string, string> = {
 
 /** source → register 기본값 (feed override 없을 때). */
 export const SOURCE_REGISTER_DEFAULT: Record<string, string> = {
+  african_storybook: 'narrative', // Reviewed story corpus; not a daily feed.
   // ⚠️ **선언값이다.** register 는 본문을 보지 않는다 — 실제 논증 밀도는
   //   `textbook/register-signal.ts` 가 재고, 기출 중앙 5.33/1,000어 를 눈금으로 쓴다.
   //   리뷰 논문은 주장·근거·반론 구조라 기본값을 argumentative 로 둔다.
@@ -1303,7 +1304,7 @@ export function getSourcePolicy(source: SourceKey): SourcePolicy {
     source,
     supply: SOURCE_DEFAULT_SPEC[source].frozen ? 'static' : 'live',
     media: AUDIO_SOURCES.has(source) ? 'audio' : 'text',
-    derivation: licenseClass === 'cc_by_nd' ? 'display_only' : 'full',
+    derivation: licenseClass === 'cc_by_nd' || licenseClass === 'restricted' ? 'display_only' : 'full',
     attribution: spec.attributionRequired ? 'required' : 'none',
     license: spec.license,
     licenseClass,

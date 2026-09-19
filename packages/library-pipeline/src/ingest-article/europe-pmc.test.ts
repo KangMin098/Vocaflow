@@ -12,7 +12,7 @@
 //
 // 네트워크를 타지 않는다. 고정 XML 조각으로 판정만 본다.
 
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 
 import {
   EPMC_FEEDS,
@@ -26,9 +26,23 @@ import {
   epmcParagraphs,
   epmcTopLevelSections,
   epmcWordCount,
+  ingestEuropePmcArticle,
 } from './europe-pmc'
 
 describe('라이선스 관문 — ND·NC 는 절대 통과하지 않는다', () => {
+  it.each([
+    ['cc by', 'by-sa', 'CC-BY-SA-4.0'],
+    ['cc by-sa', 'by', 'CC-BY-SA-4.0'],
+    ['cc0', 'by', 'CC-BY-4.0'],
+  ])('목록 %s / 전문 %s 충돌에서도 더 제한적인 의무를 보존한다', async (list, xmlLicense, expected) => {
+    const content = 'Research describes how learning changes communities through shared experience. '.repeat(20)
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(`<article><front><article-title>Learning</article-title><license xlink:href="https://creativecommons.org/licenses/${xmlLicense}/4.0/"/></front><body><sec sec-type="intro"><title>Introduction</title><p>${content}</p></sec></body></article>`)))
+    try {
+      expect((await ingestEuropePmcArticle('PMC123', list)).license).toBe(expected)
+    } finally {
+      vi.unstubAllGlobals()
+    }
+  })
   it('CC BY · CC BY-SA · CC0 만 통과한다', () => {
     for (const ok of ['cc by', 'CC BY', ' cc-by ', 'cc by-sa', 'cc0']) {
       expect(epmcLicenseAllowed(ok), `${ok} 가 막혔다`).toBe(true)

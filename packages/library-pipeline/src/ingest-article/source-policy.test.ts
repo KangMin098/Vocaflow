@@ -12,6 +12,7 @@ import {
   isSourceKey,
   licenseClassOf,
   resolveArticleRegister,
+  SOURCE_SPECS,
   type SourceKey,
 } from './_curation-spec'
 
@@ -34,6 +35,17 @@ describe('licenseClassOf', () => {
 })
 
 describe('활성 소스 라이선스 게이트', () => {
+  it('등록된 출처도 NC/미상 라이선스면 파생 허용으로 표시하지 않는다', () => {
+    const previous = SOURCE_SPECS.owid.license
+    try {
+      for (const license of ['CC-BY-NC-SA-4.0', 'All rights reserved']) {
+        SOURCE_SPECS.owid.license = license
+        expect(getSourcePolicy('owid')).toMatchObject({ licenseClass: 'restricted', derivation: 'display_only' })
+      }
+    } finally {
+      SOURCE_SPECS.owid.license = previous
+    }
+  })
   // 활성 소스는 전부 "발행 가능 등급" 이어야 한다. NC/미상 라이선스 소스를 SOURCE_SPECS 에
   // 추가하면 여기서 먼저 실패한다 — DB(acp_classify_license)가 copyright_safe_in_kr=false 로
   // 차단하므로, 화면만 "발행 가능"이라 말하는 상태로 배포되는 것을 막는다.
@@ -106,6 +118,9 @@ describe('핵심 분기 불변식', () => {
 })
 
 describe('resolveArticleRegister — feed-level 우선 (VOA 오분류 교정)', () => {
+  it('keeps individually reviewed African Storybook imports narrative', () => {
+    expect(resolveArticleRegister('african_storybook', 'reviewed-pilot')).toBe('narrative')
+  })
   it('VOA american-stories → narrative (고전 단편 각색)', () => {
     expect(resolveArticleRegister('voa', 'american-stories')).toBe('narrative')
   })

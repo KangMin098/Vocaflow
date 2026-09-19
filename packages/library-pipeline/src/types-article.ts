@@ -35,6 +35,7 @@ export type ArticleSource =
   | 'gutenberg' // 도서에서 잘라 온 초·중 이야기 발췌 (`scripts/textbook/harvest-gutenberg-kid.mjs` · PD). 실측 2026-09-13 **40,519편 — 단일 최대 소스**
   | 'worldbank' // World Bank 개방 보고서 (CC BY). CHECK 는 열려 있고 재고는 아직 0
   | 'manual'
+  | 'african_storybook' // Individually verified CC BY stories; bounded reviewed import only.
 
 export interface RawArticle {
   source: ArticleSource

@@ -248,13 +248,13 @@ UI 작업 전 그 스킬을 먼저 읽는다. **Part 1(§A–§F)이 목표이�
 **수요 측** — 이 줄이 이 문서에서 가장 중요하다. 공급이 아무리 늘어도 여기가 안 늘면 진단은 `risk` 다.
 
 - 가입자 **3** (프로필 3) · 학습기록 **665** · 읽기 세션 287 · 일별 활동 61 · 점수 78
-- 교사 채널: 학급 **1** · 학급 구성원 0 · 학급 과제 **0** · 퍼널 이벤트 9,143
+- 교사 채널: 학급 **1** · 학급 구성원 0 · 학급 과제 **0** · 퍼널 이벤트 9,196
 
 **공급 측**
 
 - `shared_dictionary` **49,244** row · meaning_ko 100%
 - `library_books` **401** — published 312 · archived 83 · queued 6
-- `library_articles` **109,043** — ready 87,466 · archived 20,385 · queued 937 · published 250 · failed 4 · analyzing 1
+- `library_articles` **109,047** — ready 87,470 · archived 20,385 · queued 937 · published 250 · failed 4 · analyzing 1
 - `shared_word_sets` 11,312 (published 11,099) · `library_chapter_quiz` 2,453
 - `texts` 278 · `vocabularies` 2,249
 - 만화: `pd_comic_issues` 969 · 시리즈 101 · 발행 `comic_books` 1

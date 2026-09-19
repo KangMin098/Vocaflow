@@ -1,5 +1,19 @@
 # Library Pipeline
 
+## 원문 corpus 확장과 안전한 분석 (2026-09-19 · SQL 적용)
+
+- 외부 조사 전 전수 재고·적격·메타데이터·집중도를 측정한다: `scripts/audit/csat-corpus-coverage.sql`, `csat-usable-topics.mjs`. 현재 원문 revision을 확인하며 DB 쓰기는 없다. 주제 키워드 추정을 검증된 내용 분류로 취급하지 않는다.
+- `csat-corpus-pilot.mjs`는 개별 CC BY ASP corpus를 commit에 고정하고 목록/파일의 허가가 다르면 제외한다. NARA는 REST 본문을 로컬 검토하되 저자·제3자 권리 미확정 상태를 유지한다. `csat-corpus-pilot-analyze.mjs`는 기존 WLP·사전·CEFR·LV·내용 gate·적격 판정을 읽기 전용으로 실행한다. 재실행은 로컬 산출물을 갱신하며 DB를 바꾸지 않는다.
+- `csat-corpus-pilot-dedup.mjs`는 전체 저장 hash·제목·URL과 한정 본문(usable+StoryWeaver)의 정규화/5어 shingle를 비교한다. URL·제목 일치는 삭제 근거가 아니며 의미가 같은 재서술은 별도 판독한다. 전수 본문 근접 중복률은 미측정이다.
+- `collect-daily.mjs`는 `source_fetched_at`을 보존하고, dry run·부분 처리·수집/저장 실패에서 cursor를 전진시키지 않는다. 확인된 중복은 성공적으로 관찰한 항목이다. exhausted cursor는 `--fresh`로 명시 재시작한다. 이력 없는 과거 행의 수집 시각은 소급해 만들지 않는다.
+- `publish-article-seeds.mjs`의 기존 source/id는 seed 연결만 갱신하며 본문·hash·분석·상태를 덮지 않는다. 신규 행도 queued와 seed 연결까지만 수행한다. 동기 분석·자동 발행 대신 공통 queue → 검수 → 별도 발행 절차를 따른다.
+- `process-queue.mjs`는 일반 큐와 정확한 `original/compose-drain/csat-slot-fill`만 담당한다. original의 필수 batch ID 때문에 제외되던 888편의 큐 접근을 복구했다. `--ids-file`(최대 100 UUID)로 작은 검증 범위를 지정할 수 있다. CSAT original은 LLM을 호출하지 않으며 다른 글의 `--skip-llm` 선택은 보존한다.
+- 신규 `commit_article_analysis` RPC가 설치되지 않으면 첫 claim 전에 중단한다. 설치 후에는 queued→analyzing을 revision으로 점유하고 어휘·분석·VRL·구문·ready를 한 트랜잭션으로 저장한다. 원문/보관 상태가 바뀌면 전체 결과를 거절한다. 분석 실패는 자신의 claim만 failed로 바꾸며 타 작업 상태는 보존한다. 이미 ready인 행은 재실행 큐에서 제외된다. 실패 후 queued 재시도는 원문과 판정 상태를 확인한 운영 조치다.
+- 분석 preview는 article/어휘 테이블에 쓰지 않는다. 일반 글의 사전 enrichment 캐시는 기존 옵션대로 쓰일 수 있다. 다른 legacy `analyzeArticle` 호출 경로 전체가 원자화된 것은 아니다.
+- 구문 점수 함수가 구식 공식으로 운영되는 것을 발견했다. 복구 SQL은 이후 계산만 고치며 109,043개 기존 행의 점수를 일괄 재작성하지 않는다. 과거 점수 보정은 원문·cache 영향 분석 후 별도로 수행한다.
+
+세 SQL은 **2026-09-19 사용자 승인 후 적용**했다(`20260919023610_acp_atomic_analysis`, `20260919023620_restore_syntax_score_calibration`, `20260919023622_csat_discovery_profiles`). 과거 구문 점수는 일괄 재계산하지 않았다. 승인된 ASP 4편은 적재·원자 분석·현재 revision 적격 캐시 검증을 마쳐 모두 `ready`·`usable`이다(CEFR A2 2편·B1 2편, 어휘 166행, 품질 flag 0건). 본문 SHA256을 보존했고 캐시 재적재는 변경 0·검증 4편이었다. 전후 DB 체크포인트를 비교했으며 발행은 수행하지 않았다. [분석·후보·검증 결과](./reports/csat-corpus-discovery-20260919.md).
+
 ## CSAT 파생 콘텐츠의 원문 정책 v3 (2026-09-18)
 
 최종 판정은 `source-eligibility.ts:evaluateSource` 한 벌이다. `judgeSource`는 기존 7축 진단이며 사용 허가에는 쓰지 않는다.

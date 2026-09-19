@@ -1,0 +1,4568 @@
+{
+  "schemaVersion": 1,
+  "measuredAt": "2026-09-19T02:38:56.500508Z",
+  "existing": [
+    {
+      "source": "plos",
+      "role": "HOLD",
+      "decision": "대량 신규 수집 우선순위 낮춤",
+      "reason": "47,939편을 보유하지만 현재 정책 usable 0이다. 내용 판정과 완결 발췌가 선행되어야 한다.",
+      "strengths": [
+        "검증된 연구 해설 발췌"
+      ],
+      "weaknesses": [
+        "논문 전문을 짧은 독해로 간주",
+        "수집 시도·파서 실패 모수 미기록"
+      ],
+      "recommendedUse": [
+        "검증된 연구 해설 발췌"
+      ],
+      "avoidFor": [
+        "논문 전문을 짧은 독해로 간주"
+      ],
+      "evidenceUrls": [
+        "https://plos.org"
+      ],
+      "scorecard": {
+        "educationalFit": {
+          "status": "measured-policy",
+          "evidence": "후보 45096, usable 0, 조건부 1954, 제외 9113, 미판정 34029. 학습 효과 실험은 아님."
+        },
+        "corpusGapValue": {
+          "status": "recommendation",
+          "evidence": "47,939편을 보유하지만 현재 정책 usable 0이다. 내용 판정과 완결 발췌가 선행되어야 한다."
+        },
+        "textQuality": {
+          "status": "measured-flags",
+          "evidence": "내용 판정 13549/45096, 품질 플래그 4178/47939. 미판정은 부적합 0이 아님."
+        },
+        "ageCoverage": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "difficultyCoverage": {
+          "status": "measured-stored",
+          "evidence": "전수 집계 JSON의 source×CEFR×VLevel 셀. 자동 추정이며 정책 상한과 분리해서 해석."
+        },
+        "topicValue": {
+          "status": "uncertain",
+          "evidence": "저장 주제 대부분 누락. usable 본문 키워드 재추정은 검증된 주제 아님."
+        },
+        "formatValue": {
+          "status": "uncertain",
+          "evidence": "수집 기본 register가 실제 서사와 불일치하는 표본 확인."
+        },
+        "csatTransformability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "extractability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "structuralCleanliness": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "metadataQuality": {
+          "status": "measured",
+          "evidence": "URL 누락 0, 저자 누락 25275, 발행일 누락 11606, 수집일 누락 47939. 분모 47939."
+        },
+        "stability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "scale": {
+          "status": "measured-inventory",
+          "evidence": "재고 47939편. 공급 가능 전체 규모 또는 지속 수율 아님."
+        },
+        "duplicateRisk": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "legalSuitability": {
+          "status": "review-required",
+          "evidence": "등록 분류 cc_by. 이번 실측은 개별 권리를 새로 검증하지 않음."
+        }
+      },
+      "identity": {
+        "source": "plos",
+        "label": "PLOS",
+        "registered": true
+      },
+      "acquisition": {
+        "harvestCommand": "node scripts/csat/harvest-plos.mjs",
+        "feedIds": [
+          "recent",
+          "harvest",
+          "essay",
+          "plos-extract"
+        ]
+      },
+      "lastValidated": "2026-09-19T00:02:23.23841+00:00",
+      "qualityProfile": {
+        "candidates": 45096,
+        "contentJudged": 13549,
+        "flagged": 4178
+      },
+      "eligibilityRate": 0,
+      "duplicateRate": null,
+      "extractionReliability": null,
+      "ageFit": null,
+      "learningPurposeProfile": null,
+      "health": {
+        "lastSuccessfulIngest": null,
+        "fetchSuccess": null,
+        "parserSuccess": null,
+        "metadataMissing": {
+          "author": 25275,
+          "date": 11606,
+          "url": 0,
+          "fetchedAt": 47939
+        }
+      },
+      "metrics": {
+        "review": 34029,
+        "source": "plos",
+        "usable": 0,
+        "articles": 47939,
+        "rejected": 9113,
+        "candidates": 45096,
+        "last_fetch": null,
+        "conditional": 1954,
+        "failed_rows": 0,
+        "missing_url": 0,
+        "content_pass": 8759,
+        "last_created": "2026-09-06T00:19:03.952794+00:00",
+        "unknown_topic": 9405,
+        "content_judged": 13549,
+        "missing_author": 25275,
+        "unknown_format": 0,
+        "created_last_7d": 0,
+        "quality_flagged": 4178,
+        "analysis_present": 45095,
+        "stale_or_missing": 0,
+        "usable_mean_words": null,
+        "missing_fetch_time": 47939,
+        "missing_publication_date": 11606
+      }
+    },
+    {
+      "source": "gutenberg",
+      "role": "CORE",
+      "decision": "기존 재고를 활용하되 추가 저학령 수집은 다양성 우선",
+      "reason": "사용 가능 재고의 93.55%를 차지한다. 기본 장르 라벨이 실제 서사와 어긋난다.",
+      "strengths": [
+        "완결 서사·독해 발췌"
+      ],
+      "weaknesses": [
+        "현대 사회 논증의 대체",
+        "수집 시도·파서 실패 모수 미기록"
+      ],
+      "recommendedUse": [
+        "완결 서사·독해 발췌"
+      ],
+      "avoidFor": [
+        "현대 사회 논증의 대체"
+      ],
+      "evidenceUrls": [
+        "https://gutenberg.org"
+      ],
+      "scorecard": {
+        "educationalFit": {
+          "status": "measured-policy",
+          "evidence": "후보 23618, usable 8516, 조건부 890, 제외 2519, 미판정 11693. 학습 효과 실험은 아님."
+        },
+        "corpusGapValue": {
+          "status": "recommendation",
+          "evidence": "사용 가능 재고의 93.55%를 차지한다. 기본 장르 라벨이 실제 서사와 어긋난다."
+        },
+        "textQuality": {
+          "status": "measured-flags",
+          "evidence": "내용 판정 19735/23618, 품질 플래그 100/40519. 미판정은 부적합 0이 아님."
+        },
+        "ageCoverage": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "difficultyCoverage": {
+          "status": "measured-stored",
+          "evidence": "전수 집계 JSON의 source×CEFR×VLevel 셀. 자동 추정이며 정책 상한과 분리해서 해석."
+        },
+        "topicValue": {
+          "status": "uncertain",
+          "evidence": "저장 주제 대부분 누락. usable 본문 키워드 재추정은 검증된 주제 아님."
+        },
+        "formatValue": {
+          "status": "uncertain",
+          "evidence": "수집 기본 register가 실제 서사와 불일치하는 표본 확인."
+        },
+        "csatTransformability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "extractability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "structuralCleanliness": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "metadataQuality": {
+          "status": "measured",
+          "evidence": "URL 누락 0, 저자 누락 2203, 발행일 누락 40519, 수집일 누락 40519. 분모 40519."
+        },
+        "stability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "scale": {
+          "status": "measured-inventory",
+          "evidence": "재고 40519편. 공급 가능 전체 규모 또는 지속 수율 아님."
+        },
+        "duplicateRisk": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "legalSuitability": {
+          "status": "review-required",
+          "evidence": "등록 분류 public_domain. 이번 실측은 개별 권리를 새로 검증하지 않음."
+        }
+      },
+      "identity": {
+        "source": "gutenberg",
+        "label": "Project Gutenberg",
+        "registered": true
+      },
+      "acquisition": {
+        "harvestCommand": "node scripts/textbook/harvest-gutenberg-kid.mjs",
+        "feedIds": [
+          "kid-excerpt",
+          "harvest"
+        ]
+      },
+      "lastValidated": "2026-09-19T00:02:23.23841+00:00",
+      "qualityProfile": {
+        "candidates": 23618,
+        "contentJudged": 19735,
+        "flagged": 100
+      },
+      "eligibilityRate": 0.36057244474553307,
+      "duplicateRate": null,
+      "extractionReliability": null,
+      "ageFit": null,
+      "learningPurposeProfile": null,
+      "health": {
+        "lastSuccessfulIngest": null,
+        "fetchSuccess": null,
+        "parserSuccess": null,
+        "metadataMissing": {
+          "author": 2203,
+          "date": 40519,
+          "url": 0,
+          "fetchedAt": 40519
+        }
+      },
+      "metrics": {
+        "review": 11693,
+        "source": "gutenberg",
+        "usable": 8516,
+        "articles": 40519,
+        "rejected": 2519,
+        "candidates": 23618,
+        "last_fetch": null,
+        "conditional": 890,
+        "failed_rows": 2,
+        "missing_url": 0,
+        "content_pass": 19735,
+        "last_created": "2026-09-07T13:48:14.376547+00:00",
+        "unknown_topic": 13944,
+        "content_judged": 19735,
+        "missing_author": 2203,
+        "unknown_format": 16675,
+        "created_last_7d": 0,
+        "quality_flagged": 100,
+        "analysis_present": 23618,
+        "stale_or_missing": 0,
+        "usable_mean_words": 135.9,
+        "missing_fetch_time": 40519,
+        "missing_publication_date": 40519
+      }
+    },
+    {
+      "source": "voa",
+      "role": "EXPERIMENTAL",
+      "decision": "내용 판정 회복 후 역할 확정",
+      "reason": "10,649개 후보 중 내용 판정 259편이다. 수집량으로 교육 수율을 평가할 수 없다.",
+      "strengths": [
+        "시사·일상 설명과 사실 근거"
+      ],
+      "weaknesses": [
+        "미판정 재고를 사용 가능으로 표시",
+        "수집 시도·파서 실패 모수 미기록"
+      ],
+      "recommendedUse": [
+        "시사·일상 설명과 사실 근거"
+      ],
+      "avoidFor": [
+        "미판정 재고를 사용 가능으로 표시"
+      ],
+      "evidenceUrls": [
+        "https://learningenglish.voanews.com"
+      ],
+      "scorecard": {
+        "educationalFit": {
+          "status": "measured-policy",
+          "evidence": "후보 10649, usable 0, 조건부 128, 제외 159, 미판정 10362. 학습 효과 실험은 아님."
+        },
+        "corpusGapValue": {
+          "status": "recommendation",
+          "evidence": "10,649개 후보 중 내용 판정 259편이다. 수집량으로 교육 수율을 평가할 수 없다."
+        },
+        "textQuality": {
+          "status": "measured-flags",
+          "evidence": "내용 판정 259/10649, 품질 플래그 515/10663. 미판정은 부적합 0이 아님."
+        },
+        "ageCoverage": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "difficultyCoverage": {
+          "status": "measured-stored",
+          "evidence": "전수 집계 JSON의 source×CEFR×VLevel 셀. 자동 추정이며 정책 상한과 분리해서 해석."
+        },
+        "topicValue": {
+          "status": "uncertain",
+          "evidence": "저장 주제 대부분 누락. usable 본문 키워드 재추정은 검증된 주제 아님."
+        },
+        "formatValue": {
+          "status": "uncertain",
+          "evidence": "수집 기본 register가 실제 서사와 불일치하는 표본 확인."
+        },
+        "csatTransformability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "extractability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "structuralCleanliness": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "metadataQuality": {
+          "status": "measured",
+          "evidence": "URL 누락 0, 저자 누락 17, 발행일 누락 0, 수집일 누락 10663. 분모 10663."
+        },
+        "stability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "scale": {
+          "status": "measured-inventory",
+          "evidence": "재고 10663편. 공급 가능 전체 규모 또는 지속 수율 아님."
+        },
+        "duplicateRisk": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "legalSuitability": {
+          "status": "review-required",
+          "evidence": "등록 분류 public_domain. 이번 실측은 개별 권리를 새로 검증하지 않음."
+        }
+      },
+      "identity": {
+        "source": "voa",
+        "label": "VOA Learning English",
+        "registered": true
+      },
+      "acquisition": {
+        "harvestCommand": "node scripts/acp/collect-daily.mjs",
+        "feedIds": [
+          "education",
+          "science-technology",
+          "as-it-is"
+        ]
+      },
+      "lastValidated": "2026-09-19T00:02:23.23841+00:00",
+      "qualityProfile": {
+        "candidates": 10649,
+        "contentJudged": 259,
+        "flagged": 515
+      },
+      "eligibilityRate": 0,
+      "duplicateRate": null,
+      "extractionReliability": null,
+      "ageFit": null,
+      "learningPurposeProfile": null,
+      "health": {
+        "lastSuccessfulIngest": null,
+        "fetchSuccess": null,
+        "parserSuccess": null,
+        "metadataMissing": {
+          "author": 17,
+          "date": 0,
+          "url": 0,
+          "fetchedAt": 10663
+        }
+      },
+      "metrics": {
+        "review": 10362,
+        "source": "voa",
+        "usable": 0,
+        "articles": 10663,
+        "rejected": 159,
+        "candidates": 10649,
+        "last_fetch": null,
+        "conditional": 128,
+        "failed_rows": 0,
+        "missing_url": 0,
+        "content_pass": 259,
+        "last_created": "2026-09-08T07:25:25.511377+00:00",
+        "unknown_topic": 10510,
+        "content_judged": 259,
+        "missing_author": 17,
+        "unknown_format": 7,
+        "created_last_7d": 0,
+        "quality_flagged": 515,
+        "analysis_present": 10647,
+        "stale_or_missing": 0,
+        "usable_mean_words": null,
+        "missing_fetch_time": 10663,
+        "missing_publication_date": 0
+      }
+    },
+    {
+      "source": "futurity",
+      "role": "SPECIALIST",
+      "decision": "판정된 발췌 중심 활용",
+      "reason": "후보 2,853편 중 제외 1,829편이다. 원문 품질과 장문 발췌 적합성을 구분해야 한다.",
+      "strengths": [
+        "대중 과학 연구 설명"
+      ],
+      "weaknesses": [
+        "저학령 기본 독해 전체 공급",
+        "수집 시도·파서 실패 모수 미기록"
+      ],
+      "recommendedUse": [
+        "대중 과학 연구 설명"
+      ],
+      "avoidFor": [
+        "저학령 기본 독해 전체 공급"
+      ],
+      "evidenceUrls": [
+        "https://futurity.org"
+      ],
+      "scorecard": {
+        "educationalFit": {
+          "status": "measured-policy",
+          "evidence": "후보 2853, usable 2, 조건부 721, 제외 1829, 미판정 301. 학습 효과 실험은 아님."
+        },
+        "corpusGapValue": {
+          "status": "recommendation",
+          "evidence": "후보 2,853편 중 제외 1,829편이다. 원문 품질과 장문 발췌 적합성을 구분해야 한다."
+        },
+        "textQuality": {
+          "status": "measured-flags",
+          "evidence": "내용 판정 2853/2853, 품질 플래그 12/2885. 미판정은 부적합 0이 아님."
+        },
+        "ageCoverage": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "difficultyCoverage": {
+          "status": "measured-stored",
+          "evidence": "전수 집계 JSON의 source×CEFR×VLevel 셀. 자동 추정이며 정책 상한과 분리해서 해석."
+        },
+        "topicValue": {
+          "status": "uncertain",
+          "evidence": "저장 주제 대부분 누락. usable 본문 키워드 재추정은 검증된 주제 아님."
+        },
+        "formatValue": {
+          "status": "uncertain",
+          "evidence": "수집 기본 register가 실제 서사와 불일치하는 표본 확인."
+        },
+        "csatTransformability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "extractability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "structuralCleanliness": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "metadataQuality": {
+          "status": "measured",
+          "evidence": "URL 누락 0, 저자 누락 6, 발행일 누락 6, 수집일 누락 2885. 분모 2885."
+        },
+        "stability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "scale": {
+          "status": "measured-inventory",
+          "evidence": "재고 2885편. 공급 가능 전체 규모 또는 지속 수율 아님."
+        },
+        "duplicateRisk": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "legalSuitability": {
+          "status": "review-required",
+          "evidence": "등록 분류 cc_by. 이번 실측은 개별 권리를 새로 검증하지 않음."
+        }
+      },
+      "identity": {
+        "source": "futurity",
+        "label": "Futurity",
+        "registered": true
+      },
+      "acquisition": {
+        "harvestCommand": "node scripts/acp/collect-daily.mjs",
+        "feedIds": [
+          "all"
+        ]
+      },
+      "lastValidated": "2026-09-19T00:02:23.23841+00:00",
+      "qualityProfile": {
+        "candidates": 2853,
+        "contentJudged": 2853,
+        "flagged": 12
+      },
+      "eligibilityRate": 0.0007010164738871364,
+      "duplicateRate": null,
+      "extractionReliability": null,
+      "ageFit": null,
+      "learningPurposeProfile": null,
+      "health": {
+        "lastSuccessfulIngest": null,
+        "fetchSuccess": null,
+        "parserSuccess": null,
+        "metadataMissing": {
+          "author": 6,
+          "date": 6,
+          "url": 0,
+          "fetchedAt": 2885
+        }
+      },
+      "metrics": {
+        "review": 301,
+        "source": "futurity",
+        "usable": 2,
+        "articles": 2885,
+        "rejected": 1829,
+        "candidates": 2853,
+        "last_fetch": null,
+        "conditional": 721,
+        "failed_rows": 0,
+        "missing_url": 0,
+        "content_pass": 2853,
+        "last_created": "2026-09-05T05:34:37.909572+00:00",
+        "unknown_topic": 1073,
+        "content_judged": 2853,
+        "missing_author": 6,
+        "unknown_format": 0,
+        "created_last_7d": 0,
+        "quality_flagged": 12,
+        "analysis_present": 2853,
+        "stale_or_missing": 0,
+        "usable_mean_words": 176.5,
+        "missing_fetch_time": 2885,
+        "missing_publication_date": 6
+      }
+    },
+    {
+      "source": "frontiers",
+      "role": "HOLD",
+      "decision": "기존 분석 대기 우선",
+      "reason": "1,958개 후보 중 내용 판정 0이다. FRYM과 다른 연구 논문 제공 경로다.",
+      "strengths": [
+        "독립성이 검증된 연구 해설"
+      ],
+      "weaknesses": [
+        "FRYM과 같은 학령 적합성 가정",
+        "수집 시도·파서 실패 모수 미기록"
+      ],
+      "recommendedUse": [
+        "독립성이 검증된 연구 해설"
+      ],
+      "avoidFor": [
+        "FRYM과 같은 학령 적합성 가정"
+      ],
+      "evidenceUrls": [],
+      "scorecard": {
+        "educationalFit": {
+          "status": "measured-policy",
+          "evidence": "후보 1958, usable 0, 조건부 0, 제외 1, 미판정 1957. 학습 효과 실험은 아님."
+        },
+        "corpusGapValue": {
+          "status": "recommendation",
+          "evidence": "1,958개 후보 중 내용 판정 0이다. FRYM과 다른 연구 논문 제공 경로다."
+        },
+        "textQuality": {
+          "status": "measured-flags",
+          "evidence": "내용 판정 0/1958, 품질 플래그 159/1961. 미판정은 부적합 0이 아님."
+        },
+        "ageCoverage": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "difficultyCoverage": {
+          "status": "measured-stored",
+          "evidence": "전수 집계 JSON의 source×CEFR×VLevel 셀. 자동 추정이며 정책 상한과 분리해서 해석."
+        },
+        "topicValue": {
+          "status": "uncertain",
+          "evidence": "저장 주제 대부분 누락. usable 본문 키워드 재추정은 검증된 주제 아님."
+        },
+        "formatValue": {
+          "status": "uncertain",
+          "evidence": "수집 기본 register가 실제 서사와 불일치하는 표본 확인."
+        },
+        "csatTransformability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "extractability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "structuralCleanliness": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "metadataQuality": {
+          "status": "measured",
+          "evidence": "URL 누락 0, 저자 누락 1961, 발행일 누락 0, 수집일 누락 1961. 분모 1961."
+        },
+        "stability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "scale": {
+          "status": "measured-inventory",
+          "evidence": "재고 1961편. 공급 가능 전체 규모 또는 지속 수율 아님."
+        },
+        "duplicateRisk": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "legalSuitability": {
+          "status": "review-required",
+          "evidence": "등록 분류 미등록. 이번 실측은 개별 권리를 새로 검증하지 않음."
+        }
+      },
+      "identity": {
+        "source": "frontiers",
+        "label": "frontiers",
+        "registered": false
+      },
+      "acquisition": {
+        "harvestCommand": null,
+        "feedIds": null
+      },
+      "lastValidated": "2026-09-19T00:02:23.23841+00:00",
+      "qualityProfile": {
+        "candidates": 1958,
+        "contentJudged": 0,
+        "flagged": 159
+      },
+      "eligibilityRate": 0,
+      "duplicateRate": null,
+      "extractionReliability": null,
+      "ageFit": null,
+      "learningPurposeProfile": null,
+      "health": {
+        "lastSuccessfulIngest": null,
+        "fetchSuccess": null,
+        "parserSuccess": null,
+        "metadataMissing": {
+          "author": 1961,
+          "date": 0,
+          "url": 0,
+          "fetchedAt": 1961
+        }
+      },
+      "metrics": {
+        "review": 1957,
+        "source": "frontiers",
+        "usable": 0,
+        "articles": 1961,
+        "rejected": 1,
+        "candidates": 1958,
+        "last_fetch": null,
+        "conditional": 0,
+        "failed_rows": 0,
+        "missing_url": 0,
+        "content_pass": 0,
+        "last_created": "2026-09-08T07:08:06.989148+00:00",
+        "unknown_topic": 0,
+        "content_judged": 0,
+        "missing_author": 1961,
+        "unknown_format": 3,
+        "created_last_7d": 0,
+        "quality_flagged": 159,
+        "analysis_present": 1958,
+        "stale_or_missing": 0,
+        "usable_mean_words": null,
+        "missing_fetch_time": 1961,
+        "missing_publication_date": 0
+      }
+    },
+    {
+      "source": "original",
+      "role": "GAP FILLER",
+      "decision": "큐 소유 조건 수정 후 기존 대기분부터 검증",
+      "reason": "자체 제작 888편이 batch ID 필터에서 제외되었다. 외부 확대와 별도로 수정했다.",
+      "strengths": [
+        "목표 유형에 맞춘 글·근거 구조 검토"
+      ],
+      "weaknesses": [
+        "미판정 결과의 자동 발행",
+        "수집 시도·파서 실패 모수 미기록"
+      ],
+      "recommendedUse": [
+        "목표 유형에 맞춘 글·근거 구조 검토"
+      ],
+      "avoidFor": [
+        "미판정 결과의 자동 발행"
+      ],
+      "evidenceUrls": [],
+      "scorecard": {
+        "educationalFit": {
+          "status": "measured-policy",
+          "evidence": "후보 631, usable 442, 조건부 161, 제외 18, 미판정 10. 학습 효과 실험은 아님."
+        },
+        "corpusGapValue": {
+          "status": "recommendation",
+          "evidence": "자체 제작 888편이 batch ID 필터에서 제외되었다. 외부 확대와 별도로 수정했다."
+        },
+        "textQuality": {
+          "status": "measured-flags",
+          "evidence": "내용 판정 621/631, 품질 플래그 0/1519. 미판정은 부적합 0이 아님."
+        },
+        "ageCoverage": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "difficultyCoverage": {
+          "status": "measured-stored",
+          "evidence": "전수 집계 JSON의 source×CEFR×VLevel 셀. 자동 추정이며 정책 상한과 분리해서 해석."
+        },
+        "topicValue": {
+          "status": "uncertain",
+          "evidence": "저장 주제 대부분 누락. usable 본문 키워드 재추정은 검증된 주제 아님."
+        },
+        "formatValue": {
+          "status": "uncertain",
+          "evidence": "수집 기본 register가 실제 서사와 불일치하는 표본 확인."
+        },
+        "csatTransformability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "extractability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "structuralCleanliness": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "metadataQuality": {
+          "status": "measured",
+          "evidence": "URL 누락 1515, 저자 누락 1519, 발행일 누락 1519, 수집일 누락 1519. 분모 1519."
+        },
+        "stability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "scale": {
+          "status": "measured-inventory",
+          "evidence": "재고 1519편. 공급 가능 전체 규모 또는 지속 수율 아님."
+        },
+        "duplicateRisk": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "legalSuitability": {
+          "status": "review-required",
+          "evidence": "등록 분류 cc0. 이번 실측은 개별 권리를 새로 검증하지 않음."
+        }
+      },
+      "identity": {
+        "source": "original",
+        "label": "우리 저작",
+        "registered": true
+      },
+      "acquisition": {
+        "harvestCommand": "node scripts/csat/compose-drain-export.mjs",
+        "feedIds": [
+          "compose-drain"
+        ]
+      },
+      "lastValidated": "2026-09-19T00:02:23.23841+00:00",
+      "qualityProfile": {
+        "candidates": 631,
+        "contentJudged": 621,
+        "flagged": 0
+      },
+      "eligibilityRate": 0.7004754358161648,
+      "duplicateRate": null,
+      "extractionReliability": null,
+      "ageFit": null,
+      "learningPurposeProfile": null,
+      "health": {
+        "lastSuccessfulIngest": null,
+        "fetchSuccess": null,
+        "parserSuccess": null,
+        "metadataMissing": {
+          "author": 1519,
+          "date": 1519,
+          "url": 1515,
+          "fetchedAt": 1519
+        }
+      },
+      "metrics": {
+        "review": 10,
+        "source": "original",
+        "usable": 442,
+        "articles": 1519,
+        "rejected": 18,
+        "candidates": 631,
+        "last_fetch": null,
+        "conditional": 161,
+        "failed_rows": 0,
+        "missing_url": 1515,
+        "content_pass": 621,
+        "last_created": "2026-09-17T11:43:18.948689+00:00",
+        "unknown_topic": 675,
+        "content_judged": 621,
+        "missing_author": 1519,
+        "unknown_format": 888,
+        "created_last_7d": 90,
+        "quality_flagged": 0,
+        "analysis_present": 631,
+        "stale_or_missing": 0,
+        "usable_mean_words": 186.3,
+        "missing_fetch_time": 1519,
+        "missing_publication_date": 1519
+      }
+    },
+    {
+      "source": "europe_pmc",
+      "role": "HOLD",
+      "decision": "등록부 정합성과 라이선스 충돌부터 해결",
+      "reason": "분석·내용 판정 누락이 크며 목록과 전문의 CC BY-SA 충돌을 보수적으로 처리하도록 수정했다.",
+      "strengths": [
+        "개별 허가가 확인된 독립 발췌"
+      ],
+      "weaknesses": [
+        "메타데이터 OA 표지만 믿은 원문 재배포",
+        "수집 시도·파서 실패 모수 미기록"
+      ],
+      "recommendedUse": [
+        "개별 허가가 확인된 독립 발췌"
+      ],
+      "avoidFor": [
+        "메타데이터 OA 표지만 믿은 원문 재배포"
+      ],
+      "evidenceUrls": [],
+      "scorecard": {
+        "educationalFit": {
+          "status": "measured-policy",
+          "evidence": "후보 1299, usable 0, 조건부 0, 제외 4, 미판정 1295. 학습 효과 실험은 아님."
+        },
+        "corpusGapValue": {
+          "status": "recommendation",
+          "evidence": "분석·내용 판정 누락이 크며 목록과 전문의 CC BY-SA 충돌을 보수적으로 처리하도록 수정했다."
+        },
+        "textQuality": {
+          "status": "measured-flags",
+          "evidence": "내용 판정 0/1299, 품질 플래그 16/1300. 미판정은 부적합 0이 아님."
+        },
+        "ageCoverage": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "difficultyCoverage": {
+          "status": "measured-stored",
+          "evidence": "전수 집계 JSON의 source×CEFR×VLevel 셀. 자동 추정이며 정책 상한과 분리해서 해석."
+        },
+        "topicValue": {
+          "status": "uncertain",
+          "evidence": "저장 주제 대부분 누락. usable 본문 키워드 재추정은 검증된 주제 아님."
+        },
+        "formatValue": {
+          "status": "uncertain",
+          "evidence": "수집 기본 register가 실제 서사와 불일치하는 표본 확인."
+        },
+        "csatTransformability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "extractability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "structuralCleanliness": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "metadataQuality": {
+          "status": "measured",
+          "evidence": "URL 누락 0, 저자 누락 1300, 발행일 누락 0, 수집일 누락 1300. 분모 1300."
+        },
+        "stability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "scale": {
+          "status": "measured-inventory",
+          "evidence": "재고 1300편. 공급 가능 전체 규모 또는 지속 수율 아님."
+        },
+        "duplicateRisk": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "legalSuitability": {
+          "status": "review-required",
+          "evidence": "등록 분류 미등록. 이번 실측은 개별 권리를 새로 검증하지 않음."
+        }
+      },
+      "identity": {
+        "source": "europe_pmc",
+        "label": "europe_pmc",
+        "registered": false
+      },
+      "acquisition": {
+        "harvestCommand": null,
+        "feedIds": null
+      },
+      "lastValidated": "2026-09-19T00:02:23.23841+00:00",
+      "qualityProfile": {
+        "candidates": 1299,
+        "contentJudged": 0,
+        "flagged": 16
+      },
+      "eligibilityRate": 0,
+      "duplicateRate": null,
+      "extractionReliability": null,
+      "ageFit": null,
+      "learningPurposeProfile": null,
+      "health": {
+        "lastSuccessfulIngest": null,
+        "fetchSuccess": null,
+        "parserSuccess": null,
+        "metadataMissing": {
+          "author": 1300,
+          "date": 0,
+          "url": 0,
+          "fetchedAt": 1300
+        }
+      },
+      "metrics": {
+        "review": 1295,
+        "source": "europe_pmc",
+        "usable": 0,
+        "articles": 1300,
+        "rejected": 4,
+        "candidates": 1299,
+        "last_fetch": null,
+        "conditional": 0,
+        "failed_rows": 1,
+        "missing_url": 0,
+        "content_pass": 0,
+        "last_created": "2026-09-13T08:38:58.1758+00:00",
+        "unknown_topic": 1300,
+        "content_judged": 0,
+        "missing_author": 1300,
+        "unknown_format": 1,
+        "created_last_7d": 1300,
+        "quality_flagged": 16,
+        "analysis_present": 1299,
+        "stale_or_missing": 0,
+        "usable_mean_words": null,
+        "missing_fetch_time": 1300,
+        "missing_publication_date": 0
+      }
+    },
+    {
+      "source": "usgs",
+      "role": "SPECIALIST",
+      "decision": "지구과학 발췌 검토",
+      "reason": "usable 0, 조건부 발췌 237편이다. 기관 이름만으로 문서별 권리를 확정하지 않는다.",
+      "strengths": [
+        "환경·지구과학 인과 설명"
+      ],
+      "weaknesses": [
+        "캡션·지도 의존 원문",
+        "수집 시도·파서 실패 모수 미기록"
+      ],
+      "recommendedUse": [
+        "환경·지구과학 인과 설명"
+      ],
+      "avoidFor": [
+        "캡션·지도 의존 원문"
+      ],
+      "evidenceUrls": [
+        "https://usgs.gov"
+      ],
+      "scorecard": {
+        "educationalFit": {
+          "status": "measured-policy",
+          "evidence": "후보 558, usable 0, 조건부 237, 제외 321, 미판정 0. 학습 효과 실험은 아님."
+        },
+        "corpusGapValue": {
+          "status": "recommendation",
+          "evidence": "usable 0, 조건부 발췌 237편이다. 기관 이름만으로 문서별 권리를 확정하지 않는다."
+        },
+        "textQuality": {
+          "status": "measured-flags",
+          "evidence": "내용 판정 558/558, 품질 플래그 4/738. 미판정은 부적합 0이 아님."
+        },
+        "ageCoverage": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "difficultyCoverage": {
+          "status": "measured-stored",
+          "evidence": "전수 집계 JSON의 source×CEFR×VLevel 셀. 자동 추정이며 정책 상한과 분리해서 해석."
+        },
+        "topicValue": {
+          "status": "uncertain",
+          "evidence": "저장 주제 대부분 누락. usable 본문 키워드 재추정은 검증된 주제 아님."
+        },
+        "formatValue": {
+          "status": "uncertain",
+          "evidence": "수집 기본 register가 실제 서사와 불일치하는 표본 확인."
+        },
+        "csatTransformability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "extractability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "structuralCleanliness": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "metadataQuality": {
+          "status": "measured",
+          "evidence": "URL 누락 0, 저자 누락 10, 발행일 누락 583, 수집일 누락 738. 분모 738."
+        },
+        "stability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "scale": {
+          "status": "measured-inventory",
+          "evidence": "재고 738편. 공급 가능 전체 규모 또는 지속 수율 아님."
+        },
+        "duplicateRisk": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "legalSuitability": {
+          "status": "review-required",
+          "evidence": "등록 분류 public_domain. 이번 실측은 개별 권리를 새로 검증하지 않음."
+        }
+      },
+      "identity": {
+        "source": "usgs",
+        "label": "USGS",
+        "registered": true
+      },
+      "acquisition": {
+        "harvestCommand": "node scripts/acp/collect-daily.mjs",
+        "feedIds": [
+          "featured",
+          "snippets"
+        ]
+      },
+      "lastValidated": "2026-09-19T00:02:23.23841+00:00",
+      "qualityProfile": {
+        "candidates": 558,
+        "contentJudged": 558,
+        "flagged": 4
+      },
+      "eligibilityRate": 0,
+      "duplicateRate": null,
+      "extractionReliability": null,
+      "ageFit": null,
+      "learningPurposeProfile": null,
+      "health": {
+        "lastSuccessfulIngest": null,
+        "fetchSuccess": null,
+        "parserSuccess": null,
+        "metadataMissing": {
+          "author": 10,
+          "date": 583,
+          "url": 0,
+          "fetchedAt": 738
+        }
+      },
+      "metrics": {
+        "review": 0,
+        "source": "usgs",
+        "usable": 0,
+        "articles": 738,
+        "rejected": 321,
+        "candidates": 558,
+        "last_fetch": null,
+        "conditional": 237,
+        "failed_rows": 0,
+        "missing_url": 0,
+        "content_pass": 558,
+        "last_created": "2026-09-05T07:41:40.524437+00:00",
+        "unknown_topic": 317,
+        "content_judged": 558,
+        "missing_author": 10,
+        "unknown_format": 0,
+        "created_last_7d": 0,
+        "quality_flagged": 4,
+        "analysis_present": 558,
+        "stale_or_missing": 0,
+        "usable_mean_words": null,
+        "missing_fetch_time": 738,
+        "missing_publication_date": 583
+      }
+    },
+    {
+      "source": "nasa",
+      "role": "SPECIALIST",
+      "decision": "추출 결함과 개별 권리 확인",
+      "reason": "품질 플래그 162편이 있다. Space Place 경로와 성인 기관 글을 구분한다.",
+      "strengths": [
+        "우주·과학의 검증된 설명"
+      ],
+      "weaknesses": [
+        "그림 없이 이해할 수 없는 글",
+        "수집 시도·파서 실패 모수 미기록"
+      ],
+      "recommendedUse": [
+        "우주·과학의 검증된 설명"
+      ],
+      "avoidFor": [
+        "그림 없이 이해할 수 없는 글"
+      ],
+      "evidenceUrls": [
+        "https://nasa.gov"
+      ],
+      "scorecard": {
+        "educationalFit": {
+          "status": "measured-policy",
+          "evidence": "후보 221, usable 2, 조건부 57, 제외 162, 미판정 0. 학습 효과 실험은 아님."
+        },
+        "corpusGapValue": {
+          "status": "recommendation",
+          "evidence": "품질 플래그 162편이 있다. Space Place 경로와 성인 기관 글을 구분한다."
+        },
+        "textQuality": {
+          "status": "measured-flags",
+          "evidence": "내용 판정 221/221, 품질 플래그 162/422. 미판정은 부적합 0이 아님."
+        },
+        "ageCoverage": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "difficultyCoverage": {
+          "status": "measured-stored",
+          "evidence": "전수 집계 JSON의 source×CEFR×VLevel 셀. 자동 추정이며 정책 상한과 분리해서 해석."
+        },
+        "topicValue": {
+          "status": "uncertain",
+          "evidence": "저장 주제 대부분 누락. usable 본문 키워드 재추정은 검증된 주제 아님."
+        },
+        "formatValue": {
+          "status": "uncertain",
+          "evidence": "수집 기본 register가 실제 서사와 불일치하는 표본 확인."
+        },
+        "csatTransformability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "extractability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "structuralCleanliness": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "metadataQuality": {
+          "status": "measured",
+          "evidence": "URL 누락 0, 저자 누락 22, 발행일 누락 8, 수집일 누락 422. 분모 422."
+        },
+        "stability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "scale": {
+          "status": "measured-inventory",
+          "evidence": "재고 422편. 공급 가능 전체 규모 또는 지속 수율 아님."
+        },
+        "duplicateRisk": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "legalSuitability": {
+          "status": "review-required",
+          "evidence": "등록 분류 public_domain. 이번 실측은 개별 권리를 새로 검증하지 않음."
+        }
+      },
+      "identity": {
+        "source": "nasa",
+        "label": "NASA",
+        "registered": true
+      },
+      "acquisition": {
+        "harvestCommand": "node scripts/acp/collect-daily.mjs",
+        "feedIds": [
+          "news",
+          "iotd",
+          "apod"
+        ]
+      },
+      "lastValidated": "2026-09-19T00:02:23.23841+00:00",
+      "qualityProfile": {
+        "candidates": 221,
+        "contentJudged": 221,
+        "flagged": 162
+      },
+      "eligibilityRate": 0.00904977375565611,
+      "duplicateRate": null,
+      "extractionReliability": null,
+      "ageFit": null,
+      "learningPurposeProfile": null,
+      "health": {
+        "lastSuccessfulIngest": null,
+        "fetchSuccess": null,
+        "parserSuccess": null,
+        "metadataMissing": {
+          "author": 22,
+          "date": 8,
+          "url": 0,
+          "fetchedAt": 422
+        }
+      },
+      "metrics": {
+        "review": 0,
+        "source": "nasa",
+        "usable": 2,
+        "articles": 422,
+        "rejected": 162,
+        "candidates": 221,
+        "last_fetch": null,
+        "conditional": 57,
+        "failed_rows": 0,
+        "missing_url": 0,
+        "content_pass": 221,
+        "last_created": "2026-09-05T10:16:59.240511+00:00",
+        "unknown_topic": 311,
+        "content_judged": 221,
+        "missing_author": 22,
+        "unknown_format": 1,
+        "created_last_7d": 0,
+        "quality_flagged": 162,
+        "analysis_present": 221,
+        "stale_or_missing": 0,
+        "usable_mean_words": 129,
+        "missing_fetch_time": 422,
+        "missing_publication_date": 8
+      }
+    },
+    {
+      "source": "elife",
+      "role": "SPECIALIST",
+      "decision": "digest 위주 선별",
+      "reason": "usable 0, 조건부 발췌 42편이다. 전문과 digest의 구조 차이를 유지한다.",
+      "strengths": [
+        "생명과학 대중 해설"
+      ],
+      "weaknesses": [
+        "논문 전문 무제한 수집",
+        "수집 시도·파서 실패 모수 미기록"
+      ],
+      "recommendedUse": [
+        "생명과학 대중 해설"
+      ],
+      "avoidFor": [
+        "논문 전문 무제한 수집"
+      ],
+      "evidenceUrls": [
+        "https://elifesciences.org"
+      ],
+      "scorecard": {
+        "educationalFit": {
+          "status": "measured-policy",
+          "evidence": "후보 301, usable 0, 조건부 42, 제외 242, 미판정 17. 학습 효과 실험은 아님."
+        },
+        "corpusGapValue": {
+          "status": "recommendation",
+          "evidence": "usable 0, 조건부 발췌 42편이다. 전문과 digest의 구조 차이를 유지한다."
+        },
+        "textQuality": {
+          "status": "measured-flags",
+          "evidence": "내용 판정 301/301, 품질 플래그 0/301. 미판정은 부적합 0이 아님."
+        },
+        "ageCoverage": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "difficultyCoverage": {
+          "status": "measured-stored",
+          "evidence": "전수 집계 JSON의 source×CEFR×VLevel 셀. 자동 추정이며 정책 상한과 분리해서 해석."
+        },
+        "topicValue": {
+          "status": "uncertain",
+          "evidence": "저장 주제 대부분 누락. usable 본문 키워드 재추정은 검증된 주제 아님."
+        },
+        "formatValue": {
+          "status": "uncertain",
+          "evidence": "수집 기본 register가 실제 서사와 불일치하는 표본 확인."
+        },
+        "csatTransformability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "extractability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "structuralCleanliness": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "metadataQuality": {
+          "status": "measured",
+          "evidence": "URL 누락 0, 저자 누락 6, 발행일 누락 6, 수집일 누락 301. 분모 301."
+        },
+        "stability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "scale": {
+          "status": "measured-inventory",
+          "evidence": "재고 301편. 공급 가능 전체 규모 또는 지속 수율 아님."
+        },
+        "duplicateRisk": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "legalSuitability": {
+          "status": "review-required",
+          "evidence": "등록 분류 cc_by. 이번 실측은 개별 권리를 새로 검증하지 않음."
+        }
+      },
+      "identity": {
+        "source": "elife",
+        "label": "eLife",
+        "registered": true
+      },
+      "acquisition": {
+        "harvestCommand": "node scripts/acp/collect-daily.mjs",
+        "feedIds": [
+          "default"
+        ]
+      },
+      "lastValidated": "2026-09-19T00:02:23.23841+00:00",
+      "qualityProfile": {
+        "candidates": 301,
+        "contentJudged": 301,
+        "flagged": 0
+      },
+      "eligibilityRate": 0,
+      "duplicateRate": null,
+      "extractionReliability": null,
+      "ageFit": null,
+      "learningPurposeProfile": null,
+      "health": {
+        "lastSuccessfulIngest": null,
+        "fetchSuccess": null,
+        "parserSuccess": null,
+        "metadataMissing": {
+          "author": 6,
+          "date": 6,
+          "url": 0,
+          "fetchedAt": 301
+        }
+      },
+      "metrics": {
+        "review": 17,
+        "source": "elife",
+        "usable": 0,
+        "articles": 301,
+        "rejected": 242,
+        "candidates": 301,
+        "last_fetch": null,
+        "conditional": 42,
+        "failed_rows": 0,
+        "missing_url": 0,
+        "content_pass": 301,
+        "last_created": "2026-09-05T05:34:37.909572+00:00",
+        "unknown_topic": 124,
+        "content_judged": 301,
+        "missing_author": 6,
+        "unknown_format": 0,
+        "created_last_7d": 0,
+        "quality_flagged": 0,
+        "analysis_present": 301,
+        "stale_or_missing": 0,
+        "usable_mean_words": null,
+        "missing_fetch_time": 301,
+        "missing_publication_date": 6
+      }
+    },
+    {
+      "source": "frym",
+      "role": "GAP FILLER",
+      "decision": "기존 학령 친화 재고 우선",
+      "reason": "사용 가능 58편이 있어 Gutenberg 이외의 과학 읽기 공급을 보완한다.",
+      "strengths": [
+        "학생용 과학 설명"
+      ],
+      "weaknesses": [
+        "모든 연령에 자동 적합 판정",
+        "수집 시도·파서 실패 모수 미기록"
+      ],
+      "recommendedUse": [
+        "학생용 과학 설명"
+      ],
+      "avoidFor": [
+        "모든 연령에 자동 적합 판정"
+      ],
+      "evidenceUrls": [
+        "https://kids.frontiersin.org"
+      ],
+      "scorecard": {
+        "educationalFit": {
+          "status": "measured-policy",
+          "evidence": "후보 119, usable 58, 조건부 0, 제외 61, 미판정 0. 학습 효과 실험은 아님."
+        },
+        "corpusGapValue": {
+          "status": "recommendation",
+          "evidence": "사용 가능 58편이 있어 Gutenberg 이외의 과학 읽기 공급을 보완한다."
+        },
+        "textQuality": {
+          "status": "measured-flags",
+          "evidence": "내용 판정 119/119, 품질 플래그 0/153. 미판정은 부적합 0이 아님."
+        },
+        "ageCoverage": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "difficultyCoverage": {
+          "status": "measured-stored",
+          "evidence": "전수 집계 JSON의 source×CEFR×VLevel 셀. 자동 추정이며 정책 상한과 분리해서 해석."
+        },
+        "topicValue": {
+          "status": "uncertain",
+          "evidence": "저장 주제 대부분 누락. usable 본문 키워드 재추정은 검증된 주제 아님."
+        },
+        "formatValue": {
+          "status": "uncertain",
+          "evidence": "수집 기본 register가 실제 서사와 불일치하는 표본 확인."
+        },
+        "csatTransformability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "extractability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "structuralCleanliness": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "metadataQuality": {
+          "status": "measured",
+          "evidence": "URL 누락 0, 저자 누락 1, 발행일 누락 1, 수집일 누락 153. 분모 153."
+        },
+        "stability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "scale": {
+          "status": "measured-inventory",
+          "evidence": "재고 153편. 공급 가능 전체 규모 또는 지속 수율 아님."
+        },
+        "duplicateRisk": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "legalSuitability": {
+          "status": "review-required",
+          "evidence": "등록 분류 cc_by. 이번 실측은 개별 권리를 새로 검증하지 않음."
+        }
+      },
+      "identity": {
+        "source": "frym",
+        "label": "Frontiers for Young Minds",
+        "registered": true
+      },
+      "acquisition": {
+        "harvestCommand": "node scripts/textbook/frym-ingest.mjs",
+        "feedIds": [
+          "—"
+        ]
+      },
+      "lastValidated": "2026-09-19T00:02:23.23841+00:00",
+      "qualityProfile": {
+        "candidates": 119,
+        "contentJudged": 119,
+        "flagged": 0
+      },
+      "eligibilityRate": 0.48739495798319327,
+      "duplicateRate": null,
+      "extractionReliability": null,
+      "ageFit": null,
+      "learningPurposeProfile": null,
+      "health": {
+        "lastSuccessfulIngest": null,
+        "fetchSuccess": null,
+        "parserSuccess": null,
+        "metadataMissing": {
+          "author": 1,
+          "date": 1,
+          "url": 0,
+          "fetchedAt": 153
+        }
+      },
+      "metrics": {
+        "review": 0,
+        "source": "frym",
+        "usable": 58,
+        "articles": 153,
+        "rejected": 61,
+        "candidates": 119,
+        "last_fetch": null,
+        "conditional": 0,
+        "failed_rows": 0,
+        "missing_url": 0,
+        "content_pass": 119,
+        "last_created": "2026-09-05T10:16:59.240511+00:00",
+        "unknown_topic": 153,
+        "content_judged": 119,
+        "missing_author": 1,
+        "unknown_format": 0,
+        "created_last_7d": 0,
+        "quality_flagged": 0,
+        "analysis_present": 119,
+        "stale_or_missing": 0,
+        "usable_mean_words": 137,
+        "missing_fetch_time": 153,
+        "missing_publication_date": 1
+      }
+    },
+    {
+      "source": "storyweaver",
+      "role": "GAP FILLER",
+      "decision": "신규 아동 서사와 중복 비교",
+      "reason": "사용 가능 34편이 있다. ASP 후보와 이야기 재배포가 겹칠 수 있다.",
+      "strengths": [
+        "아동 서사·감정·순서"
+      ],
+      "weaknesses": [
+        "그림 의존 단편의 수능 논증 변환",
+        "수집 시도·파서 실패 모수 미기록"
+      ],
+      "recommendedUse": [
+        "아동 서사·감정·순서"
+      ],
+      "avoidFor": [
+        "그림 의존 단편의 수능 논증 변환"
+      ],
+      "evidenceUrls": [
+        "https://storyweaver.org.in"
+      ],
+      "scorecard": {
+        "educationalFit": {
+          "status": "measured-policy",
+          "evidence": "후보 119, usable 34, 조건부 7, 제외 78, 미판정 0. 학습 효과 실험은 아님."
+        },
+        "corpusGapValue": {
+          "status": "recommendation",
+          "evidence": "사용 가능 34편이 있다. ASP 후보와 이야기 재배포가 겹칠 수 있다."
+        },
+        "textQuality": {
+          "status": "measured-flags",
+          "evidence": "내용 판정 119/119, 품질 플래그 0/136. 미판정은 부적합 0이 아님."
+        },
+        "ageCoverage": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "difficultyCoverage": {
+          "status": "measured-stored",
+          "evidence": "전수 집계 JSON의 source×CEFR×VLevel 셀. 자동 추정이며 정책 상한과 분리해서 해석."
+        },
+        "topicValue": {
+          "status": "uncertain",
+          "evidence": "저장 주제 대부분 누락. usable 본문 키워드 재추정은 검증된 주제 아님."
+        },
+        "formatValue": {
+          "status": "uncertain",
+          "evidence": "수집 기본 register가 실제 서사와 불일치하는 표본 확인."
+        },
+        "csatTransformability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "extractability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "structuralCleanliness": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "metadataQuality": {
+          "status": "measured",
+          "evidence": "URL 누락 0, 저자 누락 4, 발행일 누락 136, 수집일 누락 136. 분모 136."
+        },
+        "stability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "scale": {
+          "status": "measured-inventory",
+          "evidence": "재고 136편. 공급 가능 전체 규모 또는 지속 수율 아님."
+        },
+        "duplicateRisk": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "legalSuitability": {
+          "status": "review-required",
+          "evidence": "등록 분류 cc_by. 이번 실측은 개별 권리를 새로 검증하지 않음."
+        }
+      },
+      "identity": {
+        "source": "storyweaver",
+        "label": "StoryWeaver",
+        "registered": true
+      },
+      "acquisition": {
+        "harvestCommand": "node scripts/textbook/storyweaver-ingest.mjs",
+        "feedIds": [
+          "—"
+        ]
+      },
+      "lastValidated": "2026-09-19T00:02:23.23841+00:00",
+      "qualityProfile": {
+        "candidates": 119,
+        "contentJudged": 119,
+        "flagged": 0
+      },
+      "eligibilityRate": 0.2857142857142857,
+      "duplicateRate": null,
+      "extractionReliability": null,
+      "ageFit": null,
+      "learningPurposeProfile": null,
+      "health": {
+        "lastSuccessfulIngest": null,
+        "fetchSuccess": null,
+        "parserSuccess": null,
+        "metadataMissing": {
+          "author": 4,
+          "date": 136,
+          "url": 0,
+          "fetchedAt": 136
+        }
+      },
+      "metrics": {
+        "review": 0,
+        "source": "storyweaver",
+        "usable": 34,
+        "articles": 136,
+        "rejected": 78,
+        "candidates": 119,
+        "last_fetch": null,
+        "conditional": 7,
+        "failed_rows": 0,
+        "missing_url": 0,
+        "content_pass": 119,
+        "last_created": "2026-09-05T10:16:59.240511+00:00",
+        "unknown_topic": 136,
+        "content_judged": 119,
+        "missing_author": 4,
+        "unknown_format": 1,
+        "created_last_7d": 0,
+        "quality_flagged": 0,
+        "analysis_present": 119,
+        "stale_or_missing": 0,
+        "usable_mean_words": 132.7,
+        "missing_fetch_time": 136,
+        "missing_publication_date": 136
+      }
+    },
+    {
+      "source": "noaa",
+      "role": "SPECIALIST",
+      "decision": "환경 발췌 선별",
+      "reason": "usable 0, 조건부 발췌 30편이다. 표·수치·캡션 맥락을 확인한다.",
+      "strengths": [
+        "환경·기후 설명"
+      ],
+      "weaknesses": [
+        "수치 시점이 사라진 발췌",
+        "수집 시도·파서 실패 모수 미기록"
+      ],
+      "recommendedUse": [
+        "환경·기후 설명"
+      ],
+      "avoidFor": [
+        "수치 시점이 사라진 발췌"
+      ],
+      "evidenceUrls": [
+        "https://noaa.gov"
+      ],
+      "scorecard": {
+        "educationalFit": {
+          "status": "measured-policy",
+          "evidence": "후보 50, usable 0, 조건부 30, 제외 20, 미판정 0. 학습 효과 실험은 아님."
+        },
+        "corpusGapValue": {
+          "status": "recommendation",
+          "evidence": "usable 0, 조건부 발췌 30편이다. 표·수치·캡션 맥락을 확인한다."
+        },
+        "textQuality": {
+          "status": "measured-flags",
+          "evidence": "내용 판정 50/50, 품질 플래그 1/135. 미판정은 부적합 0이 아님."
+        },
+        "ageCoverage": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "difficultyCoverage": {
+          "status": "measured-stored",
+          "evidence": "전수 집계 JSON의 source×CEFR×VLevel 셀. 자동 추정이며 정책 상한과 분리해서 해석."
+        },
+        "topicValue": {
+          "status": "uncertain",
+          "evidence": "저장 주제 대부분 누락. usable 본문 키워드 재추정은 검증된 주제 아님."
+        },
+        "formatValue": {
+          "status": "uncertain",
+          "evidence": "수집 기본 register가 실제 서사와 불일치하는 표본 확인."
+        },
+        "csatTransformability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "extractability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "structuralCleanliness": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "metadataQuality": {
+          "status": "measured",
+          "evidence": "URL 누락 0, 저자 누락 2, 발행일 누락 6, 수집일 누락 135. 분모 135."
+        },
+        "stability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "scale": {
+          "status": "measured-inventory",
+          "evidence": "재고 135편. 공급 가능 전체 규모 또는 지속 수율 아님."
+        },
+        "duplicateRisk": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "legalSuitability": {
+          "status": "review-required",
+          "evidence": "등록 분류 public_domain. 이번 실측은 개별 권리를 새로 검증하지 않음."
+        }
+      },
+      "identity": {
+        "source": "noaa",
+        "label": "NOAA",
+        "registered": true
+      },
+      "acquisition": {
+        "harvestCommand": "node scripts/acp/collect-daily.mjs",
+        "feedIds": [
+          "understanding-climate",
+          "features"
+        ]
+      },
+      "lastValidated": "2026-09-19T00:02:23.23841+00:00",
+      "qualityProfile": {
+        "candidates": 50,
+        "contentJudged": 50,
+        "flagged": 1
+      },
+      "eligibilityRate": 0,
+      "duplicateRate": null,
+      "extractionReliability": null,
+      "ageFit": null,
+      "learningPurposeProfile": null,
+      "health": {
+        "lastSuccessfulIngest": null,
+        "fetchSuccess": null,
+        "parserSuccess": null,
+        "metadataMissing": {
+          "author": 2,
+          "date": 6,
+          "url": 0,
+          "fetchedAt": 135
+        }
+      },
+      "metrics": {
+        "review": 0,
+        "source": "noaa",
+        "usable": 0,
+        "articles": 135,
+        "rejected": 20,
+        "candidates": 50,
+        "last_fetch": null,
+        "conditional": 30,
+        "failed_rows": 0,
+        "missing_url": 0,
+        "content_pass": 50,
+        "last_created": "2026-09-07T12:20:26.338916+00:00",
+        "unknown_topic": 68,
+        "content_judged": 50,
+        "missing_author": 2,
+        "unknown_format": 18,
+        "created_last_7d": 0,
+        "quality_flagged": 1,
+        "analysis_present": 50,
+        "stale_or_missing": 0,
+        "usable_mean_words": null,
+        "missing_fetch_time": 135,
+        "missing_publication_date": 6
+      }
+    },
+    {
+      "source": "simple_wikipedia",
+      "role": "GAP FILLER",
+      "decision": "짧고 독립적인 설명 선별",
+      "reason": "사용 가능 20편이 있지만 간단한 어휘가 내용의 연령 적합성을 보장하지 않는다.",
+      "strengths": [
+        "입문 설명·배경지식"
+      ],
+      "weaknesses": [
+        "백과 항목 전체의 문제화 보장",
+        "수집 시도·파서 실패 모수 미기록"
+      ],
+      "recommendedUse": [
+        "입문 설명·배경지식"
+      ],
+      "avoidFor": [
+        "백과 항목 전체의 문제화 보장"
+      ],
+      "evidenceUrls": [
+        "https://simple.wikipedia.org"
+      ],
+      "scorecard": {
+        "educationalFit": {
+          "status": "measured-policy",
+          "evidence": "후보 55, usable 20, 조건부 28, 제외 7, 미판정 0. 학습 효과 실험은 아님."
+        },
+        "corpusGapValue": {
+          "status": "recommendation",
+          "evidence": "사용 가능 20편이 있지만 간단한 어휘가 내용의 연령 적합성을 보장하지 않는다."
+        },
+        "textQuality": {
+          "status": "measured-flags",
+          "evidence": "내용 판정 55/55, 품질 플래그 2/99. 미판정은 부적합 0이 아님."
+        },
+        "ageCoverage": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "difficultyCoverage": {
+          "status": "measured-stored",
+          "evidence": "전수 집계 JSON의 source×CEFR×VLevel 셀. 자동 추정이며 정책 상한과 분리해서 해석."
+        },
+        "topicValue": {
+          "status": "uncertain",
+          "evidence": "저장 주제 대부분 누락. usable 본문 키워드 재추정은 검증된 주제 아님."
+        },
+        "formatValue": {
+          "status": "uncertain",
+          "evidence": "수집 기본 register가 실제 서사와 불일치하는 표본 확인."
+        },
+        "csatTransformability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "extractability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "structuralCleanliness": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "metadataQuality": {
+          "status": "measured",
+          "evidence": "URL 누락 0, 저자 누락 59, 발행일 누락 65, 수집일 누락 99. 분모 99."
+        },
+        "stability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "scale": {
+          "status": "measured-inventory",
+          "evidence": "재고 99편. 공급 가능 전체 규모 또는 지속 수율 아님."
+        },
+        "duplicateRisk": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "legalSuitability": {
+          "status": "review-required",
+          "evidence": "등록 분류 cc_by_sa. 이번 실측은 개별 권리를 새로 검증하지 않음."
+        }
+      },
+      "identity": {
+        "source": "simple_wikipedia",
+        "label": "Simple Wikipedia",
+        "registered": true
+      },
+      "acquisition": {
+        "harvestCommand": "node scripts/textbook/mediawiki-lead-ingest.mjs",
+        "feedIds": [
+          "good",
+          "very-good"
+        ]
+      },
+      "lastValidated": "2026-09-19T00:02:23.23841+00:00",
+      "qualityProfile": {
+        "candidates": 55,
+        "contentJudged": 55,
+        "flagged": 2
+      },
+      "eligibilityRate": 0.36363636363636365,
+      "duplicateRate": null,
+      "extractionReliability": null,
+      "ageFit": null,
+      "learningPurposeProfile": null,
+      "health": {
+        "lastSuccessfulIngest": null,
+        "fetchSuccess": null,
+        "parserSuccess": null,
+        "metadataMissing": {
+          "author": 59,
+          "date": 65,
+          "url": 0,
+          "fetchedAt": 99
+        }
+      },
+      "metrics": {
+        "review": 0,
+        "source": "simple_wikipedia",
+        "usable": 20,
+        "articles": 99,
+        "rejected": 7,
+        "candidates": 55,
+        "last_fetch": null,
+        "conditional": 28,
+        "failed_rows": 1,
+        "missing_url": 0,
+        "content_pass": 55,
+        "last_created": "2026-09-05T06:27:26.982974+00:00",
+        "unknown_topic": 80,
+        "content_judged": 55,
+        "missing_author": 59,
+        "unknown_format": 1,
+        "created_last_7d": 0,
+        "quality_flagged": 2,
+        "analysis_present": 55,
+        "stale_or_missing": 0,
+        "usable_mean_words": 114.3,
+        "missing_fetch_time": 99,
+        "missing_publication_date": 65
+      }
+    },
+    {
+      "source": "wikipedia",
+      "role": "SPECIALIST",
+      "decision": "배경 자료와 발췌 구분",
+      "reason": "usable 0, 조건부 발췌 32편이다. 편집 이력·공유 조건과 맥락을 유지해야 한다.",
+      "strengths": [
+        "다양한 주제의 독립 설명"
+      ],
+      "weaknesses": [
+        "사실 목록을 논증문으로 표시",
+        "수집 시도·파서 실패 모수 미기록"
+      ],
+      "recommendedUse": [
+        "다양한 주제의 독립 설명"
+      ],
+      "avoidFor": [
+        "사실 목록을 논증문으로 표시"
+      ],
+      "evidenceUrls": [
+        "https://wikipedia.org"
+      ],
+      "scorecard": {
+        "educationalFit": {
+          "status": "measured-policy",
+          "evidence": "후보 59, usable 0, 조건부 32, 제외 26, 미판정 1. 학습 효과 실험은 아님."
+        },
+        "corpusGapValue": {
+          "status": "recommendation",
+          "evidence": "usable 0, 조건부 발췌 32편이다. 편집 이력·공유 조건과 맥락을 유지해야 한다."
+        },
+        "textQuality": {
+          "status": "measured-flags",
+          "evidence": "내용 판정 59/59, 품질 플래그 1/92. 미판정은 부적합 0이 아님."
+        },
+        "ageCoverage": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "difficultyCoverage": {
+          "status": "measured-stored",
+          "evidence": "전수 집계 JSON의 source×CEFR×VLevel 셀. 자동 추정이며 정책 상한과 분리해서 해석."
+        },
+        "topicValue": {
+          "status": "uncertain",
+          "evidence": "저장 주제 대부분 누락. usable 본문 키워드 재추정은 검증된 주제 아님."
+        },
+        "formatValue": {
+          "status": "uncertain",
+          "evidence": "수집 기본 register가 실제 서사와 불일치하는 표본 확인."
+        },
+        "csatTransformability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "extractability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "structuralCleanliness": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "metadataQuality": {
+          "status": "measured",
+          "evidence": "URL 누락 0, 저자 누락 0, 발행일 누락 90, 수집일 누락 92. 분모 92."
+        },
+        "stability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "scale": {
+          "status": "measured-inventory",
+          "evidence": "재고 92편. 공급 가능 전체 규모 또는 지속 수율 아님."
+        },
+        "duplicateRisk": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "legalSuitability": {
+          "status": "review-required",
+          "evidence": "등록 분류 cc_by_sa. 이번 실측은 개별 권리를 새로 검증하지 않음."
+        }
+      },
+      "identity": {
+        "source": "wikipedia",
+        "label": "Wikipedia",
+        "registered": true
+      },
+      "acquisition": {
+        "harvestCommand": "node scripts/textbook/mediawiki-lead-ingest.mjs",
+        "feedIds": [
+          "featured",
+          "good"
+        ]
+      },
+      "lastValidated": "2026-09-19T00:02:23.23841+00:00",
+      "qualityProfile": {
+        "candidates": 59,
+        "contentJudged": 59,
+        "flagged": 1
+      },
+      "eligibilityRate": 0,
+      "duplicateRate": null,
+      "extractionReliability": null,
+      "ageFit": null,
+      "learningPurposeProfile": null,
+      "health": {
+        "lastSuccessfulIngest": null,
+        "fetchSuccess": null,
+        "parserSuccess": null,
+        "metadataMissing": {
+          "author": 0,
+          "date": 90,
+          "url": 0,
+          "fetchedAt": 92
+        }
+      },
+      "metrics": {
+        "review": 1,
+        "source": "wikipedia",
+        "usable": 0,
+        "articles": 92,
+        "rejected": 26,
+        "candidates": 59,
+        "last_fetch": null,
+        "conditional": 32,
+        "failed_rows": 0,
+        "missing_url": 0,
+        "content_pass": 59,
+        "last_created": "2026-08-29T16:12:05.998029+00:00",
+        "unknown_topic": 6,
+        "content_judged": 59,
+        "missing_author": 0,
+        "unknown_format": 5,
+        "created_last_7d": 0,
+        "quality_flagged": 1,
+        "analysis_present": 59,
+        "stale_or_missing": 0,
+        "usable_mean_words": null,
+        "missing_fetch_time": 92,
+        "missing_publication_date": 90
+      }
+    },
+    {
+      "source": "the_conversation",
+      "role": "HOLD",
+      "decision": "기존 제외 근거 확인 후 재평가",
+      "reason": "후보 70편 모두 현재 정책 제외다. 새 수집으로 수율을 개선한다는 근거가 없다.",
+      "strengths": [
+        "허가와 구조가 검증된 해설"
+      ],
+      "weaknesses": [
+        "현재 제외 원문의 자동 재활성화",
+        "수집 시도·파서 실패 모수 미기록"
+      ],
+      "recommendedUse": [
+        "허가와 구조가 검증된 해설"
+      ],
+      "avoidFor": [
+        "현재 제외 원문의 자동 재활성화"
+      ],
+      "evidenceUrls": [
+        "https://theconversation.com"
+      ],
+      "scorecard": {
+        "educationalFit": {
+          "status": "measured-policy",
+          "evidence": "후보 70, usable 0, 조건부 0, 제외 70, 미판정 0. 학습 효과 실험은 아님."
+        },
+        "corpusGapValue": {
+          "status": "recommendation",
+          "evidence": "후보 70편 모두 현재 정책 제외다. 새 수집으로 수율을 개선한다는 근거가 없다."
+        },
+        "textQuality": {
+          "status": "measured-flags",
+          "evidence": "내용 판정 70/70, 품질 플래그 0/71. 미판정은 부적합 0이 아님."
+        },
+        "ageCoverage": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "difficultyCoverage": {
+          "status": "measured-stored",
+          "evidence": "전수 집계 JSON의 source×CEFR×VLevel 셀. 자동 추정이며 정책 상한과 분리해서 해석."
+        },
+        "topicValue": {
+          "status": "uncertain",
+          "evidence": "저장 주제 대부분 누락. usable 본문 키워드 재추정은 검증된 주제 아님."
+        },
+        "formatValue": {
+          "status": "uncertain",
+          "evidence": "수집 기본 register가 실제 서사와 불일치하는 표본 확인."
+        },
+        "csatTransformability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "extractability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "structuralCleanliness": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "metadataQuality": {
+          "status": "measured",
+          "evidence": "URL 누락 0, 저자 누락 0, 발행일 누락 0, 수집일 누락 71. 분모 71."
+        },
+        "stability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "scale": {
+          "status": "measured-inventory",
+          "evidence": "재고 71편. 공급 가능 전체 규모 또는 지속 수율 아님."
+        },
+        "duplicateRisk": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "legalSuitability": {
+          "status": "review-required",
+          "evidence": "등록 분류 cc_by_nd. 이번 실측은 개별 권리를 새로 검증하지 않음."
+        }
+      },
+      "identity": {
+        "source": "the_conversation",
+        "label": "The Conversation",
+        "registered": true
+      },
+      "acquisition": {
+        "harvestCommand": "node scripts/acp/collect-daily.mjs",
+        "feedIds": [
+          "all",
+          "science",
+          "health"
+        ]
+      },
+      "lastValidated": "2026-09-19T00:02:23.23841+00:00",
+      "qualityProfile": {
+        "candidates": 70,
+        "contentJudged": 70,
+        "flagged": 0
+      },
+      "eligibilityRate": 0,
+      "duplicateRate": null,
+      "extractionReliability": null,
+      "ageFit": null,
+      "learningPurposeProfile": null,
+      "health": {
+        "lastSuccessfulIngest": null,
+        "fetchSuccess": null,
+        "parserSuccess": null,
+        "metadataMissing": {
+          "author": 0,
+          "date": 0,
+          "url": 0,
+          "fetchedAt": 71
+        }
+      },
+      "metrics": {
+        "review": 0,
+        "source": "the_conversation",
+        "usable": 0,
+        "articles": 71,
+        "rejected": 70,
+        "candidates": 70,
+        "last_fetch": null,
+        "conditional": 0,
+        "failed_rows": 0,
+        "missing_url": 0,
+        "content_pass": 70,
+        "last_created": "2026-08-19T15:49:49.946549+00:00",
+        "unknown_topic": 9,
+        "content_judged": 70,
+        "missing_author": 0,
+        "unknown_format": 0,
+        "created_last_7d": 0,
+        "quality_flagged": 0,
+        "analysis_present": 70,
+        "stale_or_missing": 0,
+        "usable_mean_words": null,
+        "missing_fetch_time": 71,
+        "missing_publication_date": 0
+      }
+    },
+    {
+      "source": "space_place",
+      "role": "GAP FILLER",
+      "decision": "학령 친화 과학 선별",
+      "reason": "사용 가능 29편이 있어 제공자 다양성에 기여한다. 그림 의존성은 별도 검토한다.",
+      "strengths": [
+        "학생용 우주·과학 설명"
+      ],
+      "weaknesses": [
+        "이미지 설명만 남은 텍스트",
+        "수집 시도·파서 실패 모수 미기록"
+      ],
+      "recommendedUse": [
+        "학생용 우주·과학 설명"
+      ],
+      "avoidFor": [
+        "이미지 설명만 남은 텍스트"
+      ],
+      "evidenceUrls": [
+        "https://spaceplace.nasa.gov"
+      ],
+      "scorecard": {
+        "educationalFit": {
+          "status": "measured-policy",
+          "evidence": "후보 37, usable 29, 조건부 0, 제외 8, 미판정 0. 학습 효과 실험은 아님."
+        },
+        "corpusGapValue": {
+          "status": "recommendation",
+          "evidence": "사용 가능 29편이 있어 제공자 다양성에 기여한다. 그림 의존성은 별도 검토한다."
+        },
+        "textQuality": {
+          "status": "measured-flags",
+          "evidence": "내용 판정 37/37, 품질 플래그 11/59. 미판정은 부적합 0이 아님."
+        },
+        "ageCoverage": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "difficultyCoverage": {
+          "status": "measured-stored",
+          "evidence": "전수 집계 JSON의 source×CEFR×VLevel 셀. 자동 추정이며 정책 상한과 분리해서 해석."
+        },
+        "topicValue": {
+          "status": "uncertain",
+          "evidence": "저장 주제 대부분 누락. usable 본문 키워드 재추정은 검증된 주제 아님."
+        },
+        "formatValue": {
+          "status": "uncertain",
+          "evidence": "수집 기본 register가 실제 서사와 불일치하는 표본 확인."
+        },
+        "csatTransformability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "extractability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "structuralCleanliness": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "metadataQuality": {
+          "status": "measured",
+          "evidence": "URL 누락 0, 저자 누락 6, 발행일 누락 59, 수집일 누락 59. 분모 59."
+        },
+        "stability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "scale": {
+          "status": "measured-inventory",
+          "evidence": "재고 59편. 공급 가능 전체 규모 또는 지속 수율 아님."
+        },
+        "duplicateRisk": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "legalSuitability": {
+          "status": "review-required",
+          "evidence": "등록 분류 public_domain. 이번 실측은 개별 권리를 새로 검증하지 않음."
+        }
+      },
+      "identity": {
+        "source": "space_place",
+        "label": "NASA Space Place",
+        "registered": true
+      },
+      "acquisition": {
+        "harvestCommand": "node scripts/textbook/space-place-ingest.mjs",
+        "feedIds": [
+          "—",
+          "adapted"
+        ]
+      },
+      "lastValidated": "2026-09-19T00:02:23.23841+00:00",
+      "qualityProfile": {
+        "candidates": 37,
+        "contentJudged": 37,
+        "flagged": 11
+      },
+      "eligibilityRate": 0.7837837837837838,
+      "duplicateRate": null,
+      "extractionReliability": null,
+      "ageFit": null,
+      "learningPurposeProfile": null,
+      "health": {
+        "lastSuccessfulIngest": null,
+        "fetchSuccess": null,
+        "parserSuccess": null,
+        "metadataMissing": {
+          "author": 6,
+          "date": 59,
+          "url": 0,
+          "fetchedAt": 59
+        }
+      },
+      "metrics": {
+        "review": 0,
+        "source": "space_place",
+        "usable": 29,
+        "articles": 59,
+        "rejected": 8,
+        "candidates": 37,
+        "last_fetch": null,
+        "conditional": 0,
+        "failed_rows": 0,
+        "missing_url": 0,
+        "content_pass": 37,
+        "last_created": "2026-09-05T10:16:59.240511+00:00",
+        "unknown_topic": 59,
+        "content_judged": 37,
+        "missing_author": 6,
+        "unknown_format": 0,
+        "created_last_7d": 0,
+        "quality_flagged": 11,
+        "analysis_present": 37,
+        "stale_or_missing": 0,
+        "usable_mean_words": 144.1,
+        "missing_fetch_time": 59,
+        "missing_publication_date": 59
+      }
+    },
+    {
+      "source": "nist",
+      "role": "EXPERIMENTAL",
+      "decision": "등록부 누락과 판정부터 복구",
+      "reason": "후보 10편 전부 내용 미판정이며 등록부에도 없다.",
+      "strengths": [
+        "표준·측정의 대중 설명"
+      ],
+      "weaknesses": [
+        "현재 재고를 안정적 공급으로 표기",
+        "수집 시도·파서 실패 모수 미기록"
+      ],
+      "recommendedUse": [
+        "표준·측정의 대중 설명"
+      ],
+      "avoidFor": [
+        "현재 재고를 안정적 공급으로 표기"
+      ],
+      "evidenceUrls": [],
+      "scorecard": {
+        "educationalFit": {
+          "status": "measured-policy",
+          "evidence": "후보 10, usable 0, 조건부 0, 제외 0, 미판정 10. 학습 효과 실험은 아님."
+        },
+        "corpusGapValue": {
+          "status": "recommendation",
+          "evidence": "후보 10편 전부 내용 미판정이며 등록부에도 없다."
+        },
+        "textQuality": {
+          "status": "measured-flags",
+          "evidence": "내용 판정 0/10, 품질 플래그 0/23. 미판정은 부적합 0이 아님."
+        },
+        "ageCoverage": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "difficultyCoverage": {
+          "status": "measured-stored",
+          "evidence": "전수 집계 JSON의 source×CEFR×VLevel 셀. 자동 추정이며 정책 상한과 분리해서 해석."
+        },
+        "topicValue": {
+          "status": "uncertain",
+          "evidence": "저장 주제 대부분 누락. usable 본문 키워드 재추정은 검증된 주제 아님."
+        },
+        "formatValue": {
+          "status": "uncertain",
+          "evidence": "수집 기본 register가 실제 서사와 불일치하는 표본 확인."
+        },
+        "csatTransformability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "extractability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "structuralCleanliness": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "metadataQuality": {
+          "status": "measured",
+          "evidence": "URL 누락 0, 저자 누락 23, 발행일 누락 0, 수집일 누락 23. 분모 23."
+        },
+        "stability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "scale": {
+          "status": "measured-inventory",
+          "evidence": "재고 23편. 공급 가능 전체 규모 또는 지속 수율 아님."
+        },
+        "duplicateRisk": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "legalSuitability": {
+          "status": "review-required",
+          "evidence": "등록 분류 미등록. 이번 실측은 개별 권리를 새로 검증하지 않음."
+        }
+      },
+      "identity": {
+        "source": "nist",
+        "label": "nist",
+        "registered": false
+      },
+      "acquisition": {
+        "harvestCommand": null,
+        "feedIds": null
+      },
+      "lastValidated": "2026-09-19T00:02:23.23841+00:00",
+      "qualityProfile": {
+        "candidates": 10,
+        "contentJudged": 0,
+        "flagged": 0
+      },
+      "eligibilityRate": 0,
+      "duplicateRate": null,
+      "extractionReliability": null,
+      "ageFit": null,
+      "learningPurposeProfile": null,
+      "health": {
+        "lastSuccessfulIngest": null,
+        "fetchSuccess": null,
+        "parserSuccess": null,
+        "metadataMissing": {
+          "author": 23,
+          "date": 0,
+          "url": 0,
+          "fetchedAt": 23
+        }
+      },
+      "metrics": {
+        "review": 10,
+        "source": "nist",
+        "usable": 0,
+        "articles": 23,
+        "rejected": 0,
+        "candidates": 10,
+        "last_fetch": null,
+        "conditional": 0,
+        "failed_rows": 0,
+        "missing_url": 0,
+        "content_pass": 0,
+        "last_created": "2026-09-08T04:37:00.356259+00:00",
+        "unknown_topic": 0,
+        "content_judged": 0,
+        "missing_author": 23,
+        "unknown_format": 13,
+        "created_last_7d": 0,
+        "quality_flagged": 0,
+        "analysis_present": 10,
+        "stale_or_missing": 0,
+        "usable_mean_words": null,
+        "missing_fetch_time": 23,
+        "missing_publication_date": 0
+      }
+    },
+    {
+      "source": "owid",
+      "role": "SPECIALIST",
+      "decision": "차트 없이 독립적인 해설 선별",
+      "reason": "usable 0, 조건부 발췌 8편이다. 글·차트·외부 데이터 권리가 같다고 가정하지 않는다.",
+      "strengths": [
+        "데이터 논증·비교·인과"
+      ],
+      "weaknesses": [
+        "차트와 출처가 빠진 수치 해설",
+        "수집 시도·파서 실패 모수 미기록"
+      ],
+      "recommendedUse": [
+        "데이터 논증·비교·인과"
+      ],
+      "avoidFor": [
+        "차트와 출처가 빠진 수치 해설"
+      ],
+      "evidenceUrls": [
+        "https://ourworldindata.org"
+      ],
+      "scorecard": {
+        "educationalFit": {
+          "status": "measured-policy",
+          "evidence": "후보 9, usable 0, 조건부 8, 제외 1, 미판정 0. 학습 효과 실험은 아님."
+        },
+        "corpusGapValue": {
+          "status": "recommendation",
+          "evidence": "usable 0, 조건부 발췌 8편이다. 글·차트·외부 데이터 권리가 같다고 가정하지 않는다."
+        },
+        "textQuality": {
+          "status": "measured-flags",
+          "evidence": "내용 판정 9/9, 품질 플래그 0/13. 미판정은 부적합 0이 아님."
+        },
+        "ageCoverage": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "difficultyCoverage": {
+          "status": "measured-stored",
+          "evidence": "전수 집계 JSON의 source×CEFR×VLevel 셀. 자동 추정이며 정책 상한과 분리해서 해석."
+        },
+        "topicValue": {
+          "status": "uncertain",
+          "evidence": "저장 주제 대부분 누락. usable 본문 키워드 재추정은 검증된 주제 아님."
+        },
+        "formatValue": {
+          "status": "uncertain",
+          "evidence": "수집 기본 register가 실제 서사와 불일치하는 표본 확인."
+        },
+        "csatTransformability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "extractability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "structuralCleanliness": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "metadataQuality": {
+          "status": "measured",
+          "evidence": "URL 누락 0, 저자 누락 0, 발행일 누락 5, 수집일 누락 13. 분모 13."
+        },
+        "stability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "scale": {
+          "status": "measured-inventory",
+          "evidence": "재고 13편. 공급 가능 전체 규모 또는 지속 수율 아님."
+        },
+        "duplicateRisk": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "legalSuitability": {
+          "status": "review-required",
+          "evidence": "등록 분류 cc_by. 이번 실측은 개별 권리를 새로 검증하지 않음."
+        }
+      },
+      "identity": {
+        "source": "owid",
+        "label": "Our World in Data",
+        "registered": true
+      },
+      "acquisition": {
+        "harvestCommand": "node scripts/acp/collect-daily.mjs",
+        "feedIds": [
+          "default"
+        ]
+      },
+      "lastValidated": "2026-09-19T00:02:23.23841+00:00",
+      "qualityProfile": {
+        "candidates": 9,
+        "contentJudged": 9,
+        "flagged": 0
+      },
+      "eligibilityRate": 0,
+      "duplicateRate": null,
+      "extractionReliability": null,
+      "ageFit": null,
+      "learningPurposeProfile": null,
+      "health": {
+        "lastSuccessfulIngest": null,
+        "fetchSuccess": null,
+        "parserSuccess": null,
+        "metadataMissing": {
+          "author": 0,
+          "date": 5,
+          "url": 0,
+          "fetchedAt": 13
+        }
+      },
+      "metrics": {
+        "review": 0,
+        "source": "owid",
+        "usable": 0,
+        "articles": 13,
+        "rejected": 1,
+        "candidates": 9,
+        "last_fetch": null,
+        "conditional": 8,
+        "failed_rows": 0,
+        "missing_url": 0,
+        "content_pass": 9,
+        "last_created": "2026-08-19T15:51:00.127357+00:00",
+        "unknown_topic": 2,
+        "content_judged": 9,
+        "missing_author": 0,
+        "unknown_format": 0,
+        "created_last_7d": 0,
+        "quality_flagged": 0,
+        "analysis_present": 9,
+        "stale_or_missing": 0,
+        "usable_mean_words": null,
+        "missing_fetch_time": 13,
+        "missing_publication_date": 5
+      }
+    },
+    {
+      "source": "wikivoyage",
+      "role": "HOLD",
+      "decision": "현재 ready 재고 없음",
+      "reason": "보유 8편 중 현재 적격 평가 대상 0이다. 여행 안내와 논증 독해 목적을 구분한다.",
+      "strengths": [
+        "허가가 확인된 생활·지리 맥락"
+      ],
+      "weaknesses": [
+        "현재 사용 가능 공급으로 계산",
+        "수집 시도·파서 실패 모수 미기록"
+      ],
+      "recommendedUse": [
+        "허가가 확인된 생활·지리 맥락"
+      ],
+      "avoidFor": [
+        "현재 사용 가능 공급으로 계산"
+      ],
+      "evidenceUrls": [
+        "https://wikivoyage.org"
+      ],
+      "scorecard": {
+        "educationalFit": {
+          "status": "measured-policy",
+          "evidence": "후보 0, usable 0, 조건부 0, 제외 0, 미판정 0. 학습 효과 실험은 아님."
+        },
+        "corpusGapValue": {
+          "status": "recommendation",
+          "evidence": "보유 8편 중 현재 적격 평가 대상 0이다. 여행 안내와 논증 독해 목적을 구분한다."
+        },
+        "textQuality": {
+          "status": "measured-flags",
+          "evidence": "내용 판정 0/0, 품질 플래그 0/8. 미판정은 부적합 0이 아님."
+        },
+        "ageCoverage": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "difficultyCoverage": {
+          "status": "measured-stored",
+          "evidence": "전수 집계 JSON의 source×CEFR×VLevel 셀. 자동 추정이며 정책 상한과 분리해서 해석."
+        },
+        "topicValue": {
+          "status": "uncertain",
+          "evidence": "저장 주제 대부분 누락. usable 본문 키워드 재추정은 검증된 주제 아님."
+        },
+        "formatValue": {
+          "status": "uncertain",
+          "evidence": "수집 기본 register가 실제 서사와 불일치하는 표본 확인."
+        },
+        "csatTransformability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "extractability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "structuralCleanliness": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "metadataQuality": {
+          "status": "measured",
+          "evidence": "URL 누락 0, 저자 누락 0, 발행일 누락 6, 수집일 누락 8. 분모 8."
+        },
+        "stability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "scale": {
+          "status": "measured-inventory",
+          "evidence": "재고 8편. 공급 가능 전체 규모 또는 지속 수율 아님."
+        },
+        "duplicateRisk": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "legalSuitability": {
+          "status": "review-required",
+          "evidence": "등록 분류 cc_by_sa. 이번 실측은 개별 권리를 새로 검증하지 않음."
+        }
+      },
+      "identity": {
+        "source": "wikivoyage",
+        "label": "Wikivoyage",
+        "registered": true
+      },
+      "acquisition": {
+        "harvestCommand": "node scripts/textbook/mediawiki-lead-ingest.mjs",
+        "feedIds": [
+          "—",
+          "star"
+        ]
+      },
+      "lastValidated": "2026-09-19T00:02:23.23841+00:00",
+      "qualityProfile": {
+        "candidates": 0,
+        "contentJudged": 0,
+        "flagged": 0
+      },
+      "eligibilityRate": null,
+      "duplicateRate": null,
+      "extractionReliability": null,
+      "ageFit": null,
+      "learningPurposeProfile": null,
+      "health": {
+        "lastSuccessfulIngest": null,
+        "fetchSuccess": null,
+        "parserSuccess": null,
+        "metadataMissing": {
+          "author": 0,
+          "date": 6,
+          "url": 0,
+          "fetchedAt": 8
+        }
+      },
+      "metrics": {
+        "review": 0,
+        "source": "wikivoyage",
+        "usable": 0,
+        "articles": 8,
+        "rejected": 0,
+        "candidates": 0,
+        "last_fetch": null,
+        "conditional": 0,
+        "failed_rows": 0,
+        "missing_url": 0,
+        "content_pass": 0,
+        "last_created": "2026-08-19T15:50:10.190335+00:00",
+        "unknown_topic": 1,
+        "content_judged": 0,
+        "missing_author": 0,
+        "unknown_format": 0,
+        "created_last_7d": 0,
+        "quality_flagged": 0,
+        "analysis_present": 0,
+        "stale_or_missing": 0,
+        "usable_mean_words": null,
+        "missing_fetch_time": 8,
+        "missing_publication_date": 6
+      }
+    },
+    {
+      "source": "factbook",
+      "role": "SPECIALIST",
+      "decision": "참조 자료로 한정",
+      "reason": "후보 4편 중 조건부 1편이다. 표 형식과 갱신 시점이 독립 독해를 제한한다.",
+      "strengths": [
+        "검증된 지리·국가 배경"
+      ],
+      "weaknesses": [
+        "통계 목록을 완결 글로 계산",
+        "수집 시도·파서 실패 모수 미기록"
+      ],
+      "recommendedUse": [
+        "검증된 지리·국가 배경"
+      ],
+      "avoidFor": [
+        "통계 목록을 완결 글로 계산"
+      ],
+      "evidenceUrls": [
+        "https://cia.gov/the-world-factbook"
+      ],
+      "scorecard": {
+        "educationalFit": {
+          "status": "measured-policy",
+          "evidence": "후보 4, usable 0, 조건부 1, 제외 3, 미판정 0. 학습 효과 실험은 아님."
+        },
+        "corpusGapValue": {
+          "status": "recommendation",
+          "evidence": "후보 4편 중 조건부 1편이다. 표 형식과 갱신 시점이 독립 독해를 제한한다."
+        },
+        "textQuality": {
+          "status": "measured-flags",
+          "evidence": "내용 판정 4/4, 품질 플래그 0/7. 미판정은 부적합 0이 아님."
+        },
+        "ageCoverage": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "difficultyCoverage": {
+          "status": "measured-stored",
+          "evidence": "전수 집계 JSON의 source×CEFR×VLevel 셀. 자동 추정이며 정책 상한과 분리해서 해석."
+        },
+        "topicValue": {
+          "status": "uncertain",
+          "evidence": "저장 주제 대부분 누락. usable 본문 키워드 재추정은 검증된 주제 아님."
+        },
+        "formatValue": {
+          "status": "uncertain",
+          "evidence": "수집 기본 register가 실제 서사와 불일치하는 표본 확인."
+        },
+        "csatTransformability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "extractability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "structuralCleanliness": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "metadataQuality": {
+          "status": "measured",
+          "evidence": "URL 누락 0, 저자 누락 0, 발행일 누락 4, 수집일 누락 7. 분모 7."
+        },
+        "stability": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "scale": {
+          "status": "measured-inventory",
+          "evidence": "재고 7편. 공급 가능 전체 규모 또는 지속 수율 아님."
+        },
+        "duplicateRisk": {
+          "status": "unmeasured",
+          "evidence": "독립적인 검증 자료 없음"
+        },
+        "legalSuitability": {
+          "status": "review-required",
+          "evidence": "등록 분류 public_domain. 이번 실측은 개별 권리를 새로 검증하지 않음."
+        }
+      },
+      "identity": {
+        "source": "factbook",
+        "label": "CIA World Factbook",
+        "registered": true
+      },
+      "acquisition": {
+        "harvestCommand": "node scripts/acp/collect-daily.mjs",
+        "feedIds": [
+          "—"
+        ]
+      },
+      "lastValidated": "2026-09-19T00:02:23.23841+00:00",
+      "qualityProfile": {
+        "candidates": 4,
+        "contentJudged": 4,
+        "flagged": 0
+      },
+      "eligibilityRate": 0,
+      "duplicateRate": null,
+      "extractionReliability": null,
+      "ageFit": null,
+      "learningPurposeProfile": null,
+      "health": {
+        "lastSuccessfulIngest": null,
+        "fetchSuccess": null,
+        "parserSuccess": null,
+        "metadataMissing": {
+          "author": 0,
+          "date": 4,
+          "url": 0,
+          "fetchedAt": 7
+        }
+      },
+      "metrics": {
+        "review": 0,
+        "source": "factbook",
+        "usable": 0,
+        "articles": 7,
+        "rejected": 3,
+        "candidates": 4,
+        "last_fetch": null,
+        "conditional": 1,
+        "failed_rows": 0,
+        "missing_url": 0,
+        "content_pass": 4,
+        "last_created": "2026-07-11T15:23:57.695607+00:00",
+        "unknown_topic": 4,
+        "content_judged": 4,
+        "missing_author": 0,
+        "unknown_format": 0,
+        "created_last_7d": 0,
+        "quality_flagged": 0,
+        "analysis_present": 4,
+        "stale_or_missing": 0,
+        "usable_mean_words": null,
+        "missing_fetch_time": 7,
+        "missing_publication_date": 4
+      }
+    },
+    {
+      "source": "african_storybook",
+      "role": "GAP FILLER",
+      "decision": "RETAIN_PILOT",
+      "reason": "저학령 서사 제공자 다양성에 제한적인 보완 가치. 시도 50편 중 허가 충돌 1편 제외, 49편 전수 판독에서 clean 26편. 선별 4편(A2 2·B1 2)을 승인 후 적재·분석했고 최신 정책 usable을 확인했다. 발행은 0편이며 현대 인문 논증 공백은 채우지 못했다.",
+      "strengths": [
+        "개별 CC BY 원문·저자·본문 판독 근거 보존",
+        "A2/B1 서사 제공자 다양성"
+      ],
+      "weaknesses": [
+        "50편 시도 중 usable 4편",
+        "저학령 서사에 한정; 현대 인문 논증 미보완"
+      ],
+      "recommendedUse": [
+        "제목·내용 근거·감정·서사 순서 문항의 검토 후보"
+      ],
+      "avoidFor": [
+        "과학적 인과의 사실 설명",
+        "본문에 없는 원인·후속 선택 추측"
+      ],
+      "evidenceUrls": [
+        "https://github.com/global-asp/asp-source",
+        "https://www.storybookscanada.ca/about/faq/",
+        "https://www.storybookscanada.ca/downloads/"
+      ],
+      "scorecard": {
+        "educationalFit": {
+          "status": "manual-content-review",
+          "evidence": "49편을 판독하고 기존 분석으로 난이도를 측정했다. 선별 4편은 내용 근거·감정·서사 순서의 검토 후보이며 학습 성과는 미측정이다."
+        },
+        "corpusGapValue": {
+          "status": "measured-narrow-contribution",
+          "evidence": "적재 전 usable 9,103편 중 Gutenberg 8,516편인 편중에 새 제공자의 서사 4편을 추가했다. 현대 인문 논증 공백은 보완하지 못했다."
+        },
+        "textQuality": {
+          "status": "manually-reviewed",
+          "evidence": "49편 전수 판독: clean 26, needs_context 14, fragmentary 3, malformed 6. content verdict use 1/narrative 25/review 18/reject 5."
+        },
+        "ageCoverage": {
+          "status": "manual-content-review",
+          "evidence": "개별 작품의 폭력·학대·이미지 의존·맥락을 판독. CEFR를 연령으로 치환하지 않음."
+        },
+        "difficultyCoverage": {
+          "status": "measured-two-signal",
+          "evidence": "{\"A2\":24,\"B1\":16,\"A1\":4,\"C1\":1,\"B2\":4} — 기존 어휘/Flesch 합의. 사람 난이도 판정 없음."
+        },
+        "topicValue": {
+          "status": "manual-content-review",
+          "evidence": "사건·관계·감정을 다루는 짧은 서사 4편을 선별했다. 과학·역사 사실 설명의 근거로 일반화하지 않는다."
+        },
+        "formatValue": {
+          "status": "measured-pilot",
+          "evidence": "49편 수동 판독 표본의 형식은 narrative이며 선별 4편도 narrative다. 논증문 다양성 증가는 없다."
+        },
+        "csatTransformability": {
+          "status": "measured-source-eligibility",
+          "evidence": "50편 시도에서 선별 4편을 적재하고 최신 정책 usable 확인. 제목·내용일치·서사 순서 후보이며 완성 문항 검증은 아님."
+        },
+        "extractability": {
+          "status": "measured-once",
+          "evidence": "50편 HTTP 성공, 개별 허가 충돌 1편 제외 후 parsing 49/49. 네트워크·파서 장기 안정성은 미측정이다."
+        },
+        "structuralCleanliness": {
+          "status": "manually-reviewed",
+          "evidence": "49편 전수 판독: clean 26, needs_context 14, fragmentary 3, malformed 6. 규격 통과와 구조 품질은 별도 축이다."
+        },
+        "metadataQuality": {
+          "status": "measured",
+          "evidence": "49편 저자·제목·URL·라이선스 확보. 발행일 49편 없음. commit·수집 시각 보존."
+        },
+        "stability": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "scale": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "duplicateRisk": {
+          "status": "bounded-measurement",
+          "evidence": "기존 109,043 메타와 9,205 본문 비교에서 lexical match 0. 수동 판독은 파일럿 내부 민담 변형 0037/0074를 발견. 전수 near uniqueness 주장은 금지."
+        },
+        "legalSuitability": {
+          "status": "reviewed-conditions",
+          "evidence": "CC BY 3.0/4.0 작품만 선별. 목록과 파일이 다르면 제외. 원문·번역자·변경 표시를 보존."
+        }
+      }
+    }
+  ],
+  "candidates": [
+    {
+      "source": "african_storybook",
+      "label": "African Storybook · 영어 공개 corpus",
+      "tier": "B",
+      "role": "GAP FILLER",
+      "topics": [
+        "예술·문화",
+        "교육·언어"
+      ],
+      "reason": "저학령 서사 제공자 다양성에 제한적인 보완 가치. 시도 50편 중 허가 충돌 1편 제외, 49편 전수 판독에서 clean 26편. 선별 4편(A2 2·B1 2)을 승인 후 적재·분석했고 최신 정책 usable을 확인했다. 발행은 0편이며 현대 인문 논증 공백은 채우지 못했다.",
+      "accessStatus": "commit 고정 GitHub corpus 접근 성공; 원본 ASP 링크·저자·개별 허가 대조",
+      "licenseSummary": "CC BY 3.0/4.0 작품만 선별. 목록과 파일이 다르면 제외. 원문·번역자·변경 표시를 보존.",
+      "evidenceUrls": [
+        "https://github.com/global-asp/asp-source",
+        "https://www.storybookscanada.ca/about/faq/",
+        "https://www.storybookscanada.ca/downloads/"
+      ],
+      "pilot": {
+        "attempted": 50,
+        "extracted": 49,
+        "usable": 4,
+        "rejected": 30,
+        "canonicalEligiblePreview": 4,
+        "contentClean": 26,
+        "registered": 4,
+        "rightsExcluded": 1,
+        "canonicalRejected": 29,
+        "review": 16
+      },
+      "scorecard": {
+        "educationalFit": {
+          "status": "manual-content-review",
+          "evidence": "49편을 판독하고 기존 분석으로 난이도를 측정했다. 선별 4편은 내용 근거·감정·서사 순서의 검토 후보이며 학습 성과는 미측정이다."
+        },
+        "corpusGapValue": {
+          "status": "measured-narrow-contribution",
+          "evidence": "적재 전 usable 9,103편 중 Gutenberg 8,516편인 편중에 새 제공자의 서사 4편을 추가했다. 현대 인문 논증 공백은 보완하지 못했다."
+        },
+        "textQuality": {
+          "status": "manually-reviewed",
+          "evidence": "49편 전수 판독: clean 26, needs_context 14, fragmentary 3, malformed 6. content verdict use 1/narrative 25/review 18/reject 5."
+        },
+        "ageCoverage": {
+          "status": "manual-content-review",
+          "evidence": "개별 작품의 폭력·학대·이미지 의존·맥락을 판독. CEFR를 연령으로 치환하지 않음."
+        },
+        "difficultyCoverage": {
+          "status": "measured-two-signal",
+          "evidence": "{\"A2\":24,\"B1\":16,\"A1\":4,\"C1\":1,\"B2\":4} — 기존 어휘/Flesch 합의. 사람 난이도 판정 없음."
+        },
+        "topicValue": {
+          "status": "manual-content-review",
+          "evidence": "사건·관계·감정을 다루는 짧은 서사 4편을 선별했다. 과학·역사 사실 설명의 근거로 일반화하지 않는다."
+        },
+        "formatValue": {
+          "status": "measured-pilot",
+          "evidence": "49편 수동 판독 표본의 형식은 narrative이며 선별 4편도 narrative다. 논증문 다양성 증가는 없다."
+        },
+        "csatTransformability": {
+          "status": "measured-source-eligibility",
+          "evidence": "50편 시도에서 선별 4편을 적재하고 최신 정책 usable 확인. 제목·내용일치·서사 순서 후보이며 완성 문항 검증은 아님."
+        },
+        "extractability": {
+          "status": "measured-once",
+          "evidence": "50편 HTTP 성공, 개별 허가 충돌 1편 제외 후 parsing 49/49. 네트워크·파서 장기 안정성은 미측정이다."
+        },
+        "structuralCleanliness": {
+          "status": "manually-reviewed",
+          "evidence": "49편 전수 판독: clean 26, needs_context 14, fragmentary 3, malformed 6. 규격 통과와 구조 품질은 별도 축이다."
+        },
+        "metadataQuality": {
+          "status": "measured",
+          "evidence": "49편 저자·제목·URL·라이선스 확보. 발행일 49편 없음. commit·수집 시각 보존."
+        },
+        "stability": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "scale": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "duplicateRisk": {
+          "status": "bounded-measurement",
+          "evidence": "기존 109,043 메타와 9,205 본문 비교에서 lexical match 0. 수동 판독은 파일럿 내부 민담 변형 0037/0074를 발견. 전수 near uniqueness 주장은 금지."
+        },
+        "legalSuitability": {
+          "status": "reviewed-conditions",
+          "evidence": "CC BY 3.0/4.0 작품만 선별. 목록과 파일이 다르면 제외. 원문·번역자·변경 표시를 보존."
+        }
+      },
+      "lastValidated": "2026-09-19",
+      "automaticIngestion": false
+    },
+    {
+      "source": "nara",
+      "label": "NARA · Prologue 기관 해설",
+      "tier": "B",
+      "role": "EXPERIMENTAL",
+      "topics": [
+        "역사·인류",
+        "사회·경제",
+        "예술·문화"
+      ],
+      "reason": "현대 역사·사회 해설 가설은 유망하지만 읽은 12편에서 이미지 의존·인용·홍보·저자 구분 문제가 발견됐다. 나머지 38편은 미판정이다.",
+      "accessStatus": "공식 WordPress REST 50편/50편 확보; blog robots wp-admin 제한 확인",
+      "licenseSummary": "NARA 자체 작성물은 세계 CC0. 기증 자료·인턴/외부 작성·제3자 인용은 개별 확인 전 REVIEW REQUIRED.",
+      "evidenceUrls": [
+        "https://www.archives.gov/global-pages/privacy.html",
+        "https://prologue.blogs.archives.gov/robots.txt"
+      ],
+      "pilot": {
+        "attempted": 50,
+        "extracted": 50,
+        "usable": null,
+        "rejected": null
+      },
+      "scorecard": {
+        "educationalFit": {
+          "status": "hypothesis",
+          "evidence": "현대 역사·사회 해설 가설은 유망하지만 읽은 12편에서 이미지 의존·인용·홍보·저자 구분 문제가 발견됐다. 나머지 38편은 미판정이다."
+        },
+        "corpusGapValue": {
+          "status": "hypothesis",
+          "evidence": "현대 역사·사회 해설 가설은 유망하지만 읽은 12편에서 이미지 의존·인용·홍보·저자 구분 문제가 발견됐다. 나머지 38편은 미판정이다."
+        },
+        "textQuality": {
+          "status": "sampled-review",
+          "evidence": "12/50편 판독. 홍보/이미지 의존, 미해결 저작권과 원문 오류 확인; 38편 미판정."
+        },
+        "ageCoverage": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "difficultyCoverage": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "topicValue": {
+          "status": "hypothesis",
+          "evidence": "현대 역사·사회 해설 가설은 유망하지만 읽은 12편에서 이미지 의존·인용·홍보·저자 구분 문제가 발견됐다. 나머지 38편은 미판정이다."
+        },
+        "formatValue": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "csatTransformability": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "extractability": {
+          "status": "measured-once",
+          "evidence": "공식 REST 50/50 본문 확보. clean/허가/장기 안정성을 뜻하지 않음."
+        },
+        "structuralCleanliness": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "metadataQuality": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "stability": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "scale": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "duplicateRisk": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "legalSuitability": {
+          "status": "reviewed-conditions",
+          "evidence": "NARA 자체 작성물은 세계 CC0. 기증 자료·인턴/외부 작성·제3자 인용은 개별 확인 전 REVIEW REQUIRED."
+        }
+      },
+      "lastValidated": "2026-09-19",
+      "automaticIngestion": false
+    },
+    {
+      "source": "public_domain_review",
+      "label": "The Public Domain Review",
+      "tier": "HOLD",
+      "role": "HOLD",
+      "topics": [
+        "역사·인류",
+        "예술·문화",
+        "철학·윤리"
+      ],
+      "reason": "역사·인문 해설 가치가 있지만 유료 서비스 재사용 조건 확인이 필요하다.",
+      "accessStatus": "공식 재사용 조건 확인; 자동 접근은 미검증",
+      "licenseSummary": "CC BY-SA 글과 예외가 섞이며 재사용 페이지는 원문/번역문 paywall 금지를 요구한다.",
+      "evidenceUrls": [
+        "https://publicdomainreview.org/reusing-material",
+        "https://publicdomainreview.org/about/submissions/"
+      ],
+      "pilot": null,
+      "scorecard": {
+        "educationalFit": {
+          "status": "hypothesis",
+          "evidence": "역사·인문 해설 가치가 있지만 유료 서비스 재사용 조건 확인이 필요하다."
+        },
+        "corpusGapValue": {
+          "status": "hypothesis",
+          "evidence": "역사·인문 해설 가치가 있지만 유료 서비스 재사용 조건 확인이 필요하다."
+        },
+        "textQuality": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "ageCoverage": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "difficultyCoverage": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "topicValue": {
+          "status": "hypothesis",
+          "evidence": "역사·인문 해설 가치가 있지만 유료 서비스 재사용 조건 확인이 필요하다."
+        },
+        "formatValue": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "csatTransformability": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "extractability": {
+          "status": "unmeasured",
+          "evidence": "공식 재사용 조건 확인; 자동 접근은 미검증"
+        },
+        "structuralCleanliness": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "metadataQuality": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "stability": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "scale": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "duplicateRisk": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "legalSuitability": {
+          "status": "reviewed-conditions",
+          "evidence": "CC BY-SA 글과 예외가 섞이며 재사용 페이지는 원문/번역문 paywall 금지를 요구한다."
+        }
+      },
+      "lastValidated": "2026-09-19",
+      "automaticIngestion": false
+    },
+    {
+      "source": "wellcome",
+      "label": "Wellcome Collection",
+      "tier": "HOLD",
+      "role": "HOLD",
+      "topics": [
+        "역사·인류",
+        "예술·문화",
+        "과학·자연"
+      ],
+      "reason": "의료사·문화 해설이 유망하나 API는 본문이 없는 메타데이터이고 본문 권리도 미확정이다.",
+      "accessStatus": "공식 content API 1,234개 metadata 확인. robots에 GPTBot·ClaudeBot 접근 금지; 본문 자동 수집 안 함",
+      "licenseSummary": "개별 텍스트·이미지의 라이선스가 다름. commissioned CC라는 설명만으로 재배포 확정 불가.",
+      "evidenceUrls": [
+        "https://developers.wellcomecollection.org/api/content",
+        "https://wellcomecollection.org/robots.txt",
+        "https://wellcomecollection.org/get-involved/propose-a-story"
+      ],
+      "pilot": null,
+      "scorecard": {
+        "educationalFit": {
+          "status": "hypothesis",
+          "evidence": "의료사·문화 해설이 유망하나 API는 본문이 없는 메타데이터이고 본문 권리도 미확정이다."
+        },
+        "corpusGapValue": {
+          "status": "hypothesis",
+          "evidence": "의료사·문화 해설이 유망하나 API는 본문이 없는 메타데이터이고 본문 권리도 미확정이다."
+        },
+        "textQuality": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "ageCoverage": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "difficultyCoverage": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "topicValue": {
+          "status": "hypothesis",
+          "evidence": "의료사·문화 해설이 유망하나 API는 본문이 없는 메타데이터이고 본문 권리도 미확정이다."
+        },
+        "formatValue": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "csatTransformability": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "extractability": {
+          "status": "unmeasured",
+          "evidence": "공식 content API 1,234개 metadata 확인. robots에 GPTBot·ClaudeBot 접근 금지; 본문 자동 수집 안 함"
+        },
+        "structuralCleanliness": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "metadataQuality": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "stability": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "scale": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "duplicateRisk": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "legalSuitability": {
+          "status": "reviewed-conditions",
+          "evidence": "개별 텍스트·이미지의 라이선스가 다름. commissioned CC라는 설명만으로 재배포 확정 불가."
+        }
+      },
+      "lastValidated": "2026-09-19",
+      "automaticIngestion": false
+    },
+    {
+      "source": "saylor",
+      "label": "Saylor Open Content",
+      "tier": "B",
+      "role": "EXPERIMENTAL",
+      "topics": [
+        "사회·경제",
+        "철학·윤리",
+        "교육·언어"
+      ],
+      "reason": "교과 설명의 잠재 가치가 있으나 원문별 권리와 확보 경로 검증이 선행되어야 한다.",
+      "accessStatus": "공식 open content/licensing 안내 확인; 본문 추출 미측정",
+      "licenseSummary": "자체 outline·framing CC BY와 제3자 자료·시험 권리가 다르다.",
+      "evidenceUrls": [
+        "https://www.saylor.org/LicensingInformation",
+        "https://www.saylor.org/OpenContent"
+      ],
+      "pilot": null,
+      "scorecard": {
+        "educationalFit": {
+          "status": "hypothesis",
+          "evidence": "교과 설명의 잠재 가치가 있으나 원문별 권리와 확보 경로 검증이 선행되어야 한다."
+        },
+        "corpusGapValue": {
+          "status": "hypothesis",
+          "evidence": "교과 설명의 잠재 가치가 있으나 원문별 권리와 확보 경로 검증이 선행되어야 한다."
+        },
+        "textQuality": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "ageCoverage": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "difficultyCoverage": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "topicValue": {
+          "status": "hypothesis",
+          "evidence": "교과 설명의 잠재 가치가 있으나 원문별 권리와 확보 경로 검증이 선행되어야 한다."
+        },
+        "formatValue": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "csatTransformability": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "extractability": {
+          "status": "unmeasured",
+          "evidence": "공식 open content/licensing 안내 확인; 본문 추출 미측정"
+        },
+        "structuralCleanliness": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "metadataQuality": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "stability": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "scale": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "duplicateRisk": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "legalSuitability": {
+          "status": "reviewed-conditions",
+          "evidence": "자체 outline·framing CC BY와 제3자 자료·시험 권리가 다르다."
+        }
+      },
+      "lastValidated": "2026-09-19",
+      "automaticIngestion": false
+    },
+    {
+      "source": "openlearn",
+      "label": "OpenLearn",
+      "tier": "REJECT",
+      "role": "HOLD",
+      "topics": [
+        "사회·경제",
+        "교육·언어"
+      ],
+      "reason": "교육 자료의 가치와 별개로 현재 상업 원문 재배포 용도에 NC 조건이 맞지 않는다.",
+      "accessStatus": "공식 저작권 정책 확인; 수집 안 함",
+      "licenseSummary": "자체 콘텐츠 CC BY-NC-SA, 제3자 예외.",
+      "evidenceUrls": [
+        "https://about.open.ac.uk/strategy-and-policies/policies-and-statements/copyright-openlearn"
+      ],
+      "pilot": null,
+      "scorecard": {
+        "educationalFit": {
+          "status": "hypothesis",
+          "evidence": "교육 자료의 가치와 별개로 현재 상업 원문 재배포 용도에 NC 조건이 맞지 않는다."
+        },
+        "corpusGapValue": {
+          "status": "hypothesis",
+          "evidence": "교육 자료의 가치와 별개로 현재 상업 원문 재배포 용도에 NC 조건이 맞지 않는다."
+        },
+        "textQuality": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "ageCoverage": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "difficultyCoverage": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "topicValue": {
+          "status": "hypothesis",
+          "evidence": "교육 자료의 가치와 별개로 현재 상업 원문 재배포 용도에 NC 조건이 맞지 않는다."
+        },
+        "formatValue": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "csatTransformability": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "extractability": {
+          "status": "unmeasured",
+          "evidence": "공식 저작권 정책 확인; 수집 안 함"
+        },
+        "structuralCleanliness": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "metadataQuality": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "stability": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "scale": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "duplicateRisk": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "legalSuitability": {
+          "status": "reviewed-conditions",
+          "evidence": "자체 콘텐츠 CC BY-NC-SA, 제3자 예외."
+        }
+      },
+      "lastValidated": "2026-09-19",
+      "automaticIngestion": false
+    },
+    {
+      "source": "aeon",
+      "label": "Aeon",
+      "tier": "REJECT",
+      "role": "HOLD",
+      "topics": [
+        "철학·윤리",
+        "사회·경제"
+      ],
+      "reason": "현대 논증 글은 유망하지만 현재 허가로 원문 corpus에 재배포할 수 없다.",
+      "accessStatus": "공식 이용 약관 확인; 수집 안 함",
+      "licenseSummary": "개인 이용 중심, 복제·개작·배포 별도 허가 필요.",
+      "evidenceUrls": [
+        "https://aeon.co/terms-of-use"
+      ],
+      "pilot": null,
+      "scorecard": {
+        "educationalFit": {
+          "status": "hypothesis",
+          "evidence": "현대 논증 글은 유망하지만 현재 허가로 원문 corpus에 재배포할 수 없다."
+        },
+        "corpusGapValue": {
+          "status": "hypothesis",
+          "evidence": "현대 논증 글은 유망하지만 현재 허가로 원문 corpus에 재배포할 수 없다."
+        },
+        "textQuality": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "ageCoverage": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "difficultyCoverage": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "topicValue": {
+          "status": "hypothesis",
+          "evidence": "현대 논증 글은 유망하지만 현재 허가로 원문 corpus에 재배포할 수 없다."
+        },
+        "formatValue": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "csatTransformability": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "extractability": {
+          "status": "unmeasured",
+          "evidence": "공식 이용 약관 확인; 수집 안 함"
+        },
+        "structuralCleanliness": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "metadataQuality": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "stability": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "scale": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "duplicateRisk": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "legalSuitability": {
+          "status": "reviewed-conditions",
+          "evidence": "개인 이용 중심, 복제·개작·배포 별도 허가 필요."
+        }
+      },
+      "lastValidated": "2026-09-19",
+      "automaticIngestion": false
+    },
+    {
+      "source": "openstax_existing",
+      "label": "OpenStax · 기존 통합 개선",
+      "tier": "HOLD",
+      "role": "HOLD",
+      "topics": [
+        "사회·경제",
+        "교육·언어"
+      ],
+      "reason": "이미 도서 통합에 존재한다. 신규 제공자로 세지 않으며 신규 판본의 권리를 다시 확인한다.",
+      "accessStatus": "기존 도서 acquisition; 신규 body pilot 안 함",
+      "licenseSummary": "현재 공식 안내 CC BY-NC-SA. 과거 CC BY 판본의 기존 허가는 별도로 보존.",
+      "evidenceUrls": [
+        "https://help.openstax.org/s/article/Licensing-information-of-OpenStax-textbooks"
+      ],
+      "pilot": null,
+      "scorecard": {
+        "educationalFit": {
+          "status": "hypothesis",
+          "evidence": "이미 도서 통합에 존재한다. 신규 제공자로 세지 않으며 신규 판본의 권리를 다시 확인한다."
+        },
+        "corpusGapValue": {
+          "status": "hypothesis",
+          "evidence": "이미 도서 통합에 존재한다. 신규 제공자로 세지 않으며 신규 판본의 권리를 다시 확인한다."
+        },
+        "textQuality": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "ageCoverage": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "difficultyCoverage": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "topicValue": {
+          "status": "hypothesis",
+          "evidence": "이미 도서 통합에 존재한다. 신규 제공자로 세지 않으며 신규 판본의 권리를 다시 확인한다."
+        },
+        "formatValue": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "csatTransformability": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "extractability": {
+          "status": "unmeasured",
+          "evidence": "기존 도서 acquisition; 신규 body pilot 안 함"
+        },
+        "structuralCleanliness": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "metadataQuality": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "stability": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "scale": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "duplicateRisk": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "legalSuitability": {
+          "status": "reviewed-conditions",
+          "evidence": "현재 공식 안내 CC BY-NC-SA. 과거 CC BY 판본의 기존 허가는 별도로 보존."
+        }
+      },
+      "lastValidated": "2026-09-19",
+      "automaticIngestion": false
+    },
+    {
+      "source": "pressbooks_existing",
+      "label": "BCcampus Pressbooks · 기존 통합 개선",
+      "tier": "B",
+      "role": "GAP FILLER",
+      "topics": [
+        "사회·경제",
+        "교육·언어"
+      ],
+      "reason": "Sociology 3rd edition은 사회 설명을 보완할 수 있으나 기존 2nd edition과 장별 중복을 검증해야 한다.",
+      "accessStatus": "기존 Pressbooks 통합; 판본 차이 pilot 미실행",
+      "licenseSummary": "지정 3rd edition CC BY 4.0 except noted. 전체 플랫폼 라이선스로 확대하지 않음.",
+      "evidenceUrls": [
+        "https://opentextbc.ca/introductiontosociology3rdedition/front-matter/about-bccampus/"
+      ],
+      "pilot": null,
+      "scorecard": {
+        "educationalFit": {
+          "status": "hypothesis",
+          "evidence": "Sociology 3rd edition은 사회 설명을 보완할 수 있으나 기존 2nd edition과 장별 중복을 검증해야 한다."
+        },
+        "corpusGapValue": {
+          "status": "hypothesis",
+          "evidence": "Sociology 3rd edition은 사회 설명을 보완할 수 있으나 기존 2nd edition과 장별 중복을 검증해야 한다."
+        },
+        "textQuality": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "ageCoverage": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "difficultyCoverage": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "topicValue": {
+          "status": "hypothesis",
+          "evidence": "Sociology 3rd edition은 사회 설명을 보완할 수 있으나 기존 2nd edition과 장별 중복을 검증해야 한다."
+        },
+        "formatValue": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "csatTransformability": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "extractability": {
+          "status": "unmeasured",
+          "evidence": "기존 Pressbooks 통합; 판본 차이 pilot 미실행"
+        },
+        "structuralCleanliness": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "metadataQuality": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "stability": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "scale": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "duplicateRisk": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "legalSuitability": {
+          "status": "reviewed-conditions",
+          "evidence": "지정 3rd edition CC BY 4.0 except noted. 전체 플랫폼 라이선스로 확대하지 않음."
+        }
+      },
+      "lastValidated": "2026-09-19",
+      "automaticIngestion": false
+    },
+    {
+      "source": "dpla",
+      "label": "DPLA Primary Source Sets",
+      "tier": "HOLD",
+      "role": "HOLD",
+      "topics": [
+        "역사·인류",
+        "사회·경제"
+      ],
+      "reason": "자체 해설과 원본 사료를 구분하면 유망하나 접근 정책 검토가 필요하다.",
+      "accessStatus": "API는 metadata. robots GPTBot·Claude 등 금지; 본문 수집 안 함",
+      "licenseSummary": "자체 Sets/Exhibits 해설 CC BY 3.0, 연결된 사료 권리 별도.",
+      "evidenceUrls": [
+        "https://dp.la/about/terms-conditions",
+        "https://pro.dp.la/developers",
+        "https://dp.la/robots.txt"
+      ],
+      "pilot": null,
+      "scorecard": {
+        "educationalFit": {
+          "status": "hypothesis",
+          "evidence": "자체 해설과 원본 사료를 구분하면 유망하나 접근 정책 검토가 필요하다."
+        },
+        "corpusGapValue": {
+          "status": "hypothesis",
+          "evidence": "자체 해설과 원본 사료를 구분하면 유망하나 접근 정책 검토가 필요하다."
+        },
+        "textQuality": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "ageCoverage": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "difficultyCoverage": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "topicValue": {
+          "status": "hypothesis",
+          "evidence": "자체 해설과 원본 사료를 구분하면 유망하나 접근 정책 검토가 필요하다."
+        },
+        "formatValue": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "csatTransformability": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "extractability": {
+          "status": "unmeasured",
+          "evidence": "API는 metadata. robots GPTBot·Claude 등 금지; 본문 수집 안 함"
+        },
+        "structuralCleanliness": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "metadataQuality": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "stability": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "scale": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "duplicateRisk": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "legalSuitability": {
+          "status": "reviewed-conditions",
+          "evidence": "자체 Sets/Exhibits 해설 CC BY 3.0, 연결된 사료 권리 별도."
+        }
+      },
+      "lastValidated": "2026-09-19",
+      "automaticIngestion": false
+    },
+    {
+      "source": "loc",
+      "label": "Library of Congress",
+      "tier": "HOLD",
+      "role": "HOLD",
+      "topics": [
+        "역사·인류",
+        "예술·문화"
+      ],
+      "reason": "기관 작성 해설은 유망하지만 소장 자료와 권리를 분리해야 한다.",
+      "accessStatus": "공식 API 문서 확인; robots 요청 403으로 접근 확인 못함. 우회 안 함",
+      "licenseSummary": "직원 정부 작성물 CC0와 제3자 holdings를 구분.",
+      "evidenceUrls": [
+        "https://www.loc.gov/legal/security-copyright-and-privacy/understanding-copyright/",
+        "https://www.loc.gov/apis/json-and-yaml/working-within-limits/"
+      ],
+      "pilot": null,
+      "scorecard": {
+        "educationalFit": {
+          "status": "hypothesis",
+          "evidence": "기관 작성 해설은 유망하지만 소장 자료와 권리를 분리해야 한다."
+        },
+        "corpusGapValue": {
+          "status": "hypothesis",
+          "evidence": "기관 작성 해설은 유망하지만 소장 자료와 권리를 분리해야 한다."
+        },
+        "textQuality": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "ageCoverage": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "difficultyCoverage": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "topicValue": {
+          "status": "hypothesis",
+          "evidence": "기관 작성 해설은 유망하지만 소장 자료와 권리를 분리해야 한다."
+        },
+        "formatValue": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "csatTransformability": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "extractability": {
+          "status": "unmeasured",
+          "evidence": "공식 API 문서 확인; robots 요청 403으로 접근 확인 못함. 우회 안 함"
+        },
+        "structuralCleanliness": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "metadataQuality": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "stability": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "scale": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "duplicateRisk": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "legalSuitability": {
+          "status": "reviewed-conditions",
+          "evidence": "직원 정부 작성물 CC0와 제3자 holdings를 구분."
+        }
+      },
+      "lastValidated": "2026-09-19",
+      "automaticIngestion": false
+    },
+    {
+      "source": "nps",
+      "label": "National Park Service",
+      "tier": "HOLD",
+      "role": "HOLD",
+      "topics": [
+        "역사·인류",
+        "과학·자연"
+      ],
+      "reason": "자연·문화사 해설 잠재 가치. 세계 재사용 범위와 개별 저작물 검증 필요.",
+      "accessStatus": "공식 API key 필요; robots 미검증",
+      "licenseSummary": "자체 미국 정부 글 PD 안내. 제3자 예외와 국제 사용 범위 REVIEW REQUIRED.",
+      "evidenceUrls": [
+        "https://www.nps.gov/aboutus/disclaimer.htm",
+        "https://home.nps.gov/subjects/developer/api-documentation.htm"
+      ],
+      "pilot": null,
+      "scorecard": {
+        "educationalFit": {
+          "status": "hypothesis",
+          "evidence": "자연·문화사 해설 잠재 가치. 세계 재사용 범위와 개별 저작물 검증 필요."
+        },
+        "corpusGapValue": {
+          "status": "hypothesis",
+          "evidence": "자연·문화사 해설 잠재 가치. 세계 재사용 범위와 개별 저작물 검증 필요."
+        },
+        "textQuality": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "ageCoverage": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "difficultyCoverage": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "topicValue": {
+          "status": "hypothesis",
+          "evidence": "자연·문화사 해설 잠재 가치. 세계 재사용 범위와 개별 저작물 검증 필요."
+        },
+        "formatValue": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "csatTransformability": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "extractability": {
+          "status": "unmeasured",
+          "evidence": "공식 API key 필요; robots 미검증"
+        },
+        "structuralCleanliness": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "metadataQuality": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "stability": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "scale": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "duplicateRisk": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "legalSuitability": {
+          "status": "reviewed-conditions",
+          "evidence": "자체 미국 정부 글 PD 안내. 제3자 예외와 국제 사용 범위 REVIEW REQUIRED."
+        }
+      },
+      "lastValidated": "2026-09-19",
+      "automaticIngestion": false
+    },
+    {
+      "source": "smithsonian",
+      "label": "Smithsonian",
+      "tier": "HOLD",
+      "role": "HOLD",
+      "topics": [
+        "예술·문화",
+        "역사·인류"
+      ],
+      "reason": "지정 open access 자산과 일반 해설의 권리가 다르다.",
+      "accessStatus": "공식 open access/terms 확인; body pilot 없음",
+      "licenseSummary": "CC0 지정 자산·데이터만 해당, 일반 글까지 포괄하지 않음.",
+      "evidenceUrls": [
+        "https://www.si.edu/termsofuse",
+        "https://www.si.edu/openaccess/faq"
+      ],
+      "pilot": null,
+      "scorecard": {
+        "educationalFit": {
+          "status": "hypothesis",
+          "evidence": "지정 open access 자산과 일반 해설의 권리가 다르다."
+        },
+        "corpusGapValue": {
+          "status": "hypothesis",
+          "evidence": "지정 open access 자산과 일반 해설의 권리가 다르다."
+        },
+        "textQuality": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "ageCoverage": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "difficultyCoverage": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "topicValue": {
+          "status": "hypothesis",
+          "evidence": "지정 open access 자산과 일반 해설의 권리가 다르다."
+        },
+        "formatValue": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "csatTransformability": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "extractability": {
+          "status": "unmeasured",
+          "evidence": "공식 open access/terms 확인; body pilot 없음"
+        },
+        "structuralCleanliness": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "metadataQuality": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "stability": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "scale": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "duplicateRisk": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "legalSuitability": {
+          "status": "reviewed-conditions",
+          "evidence": "CC0 지정 자산·데이터만 해당, 일반 글까지 포괄하지 않음."
+        }
+      },
+      "lastValidated": "2026-09-19",
+      "automaticIngestion": false
+    },
+    {
+      "source": "world_history",
+      "label": "World History Encyclopedia",
+      "tier": "REJECT",
+      "role": "HOLD",
+      "topics": [
+        "역사·인류"
+      ],
+      "reason": "현재 상업 corpus 용도에서 비상업·대량 재배포 제한이 걸린다.",
+      "accessStatus": "공식 terms 확인; 수집 안 함",
+      "licenseSummary": "NC와 10개 초과 재배포 제한.",
+      "evidenceUrls": [
+        "https://www.worldhistory.org/static/terms-of-use/"
+      ],
+      "pilot": null,
+      "scorecard": {
+        "educationalFit": {
+          "status": "hypothesis",
+          "evidence": "현재 상업 corpus 용도에서 비상업·대량 재배포 제한이 걸린다."
+        },
+        "corpusGapValue": {
+          "status": "hypothesis",
+          "evidence": "현재 상업 corpus 용도에서 비상업·대량 재배포 제한이 걸린다."
+        },
+        "textQuality": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "ageCoverage": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "difficultyCoverage": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "topicValue": {
+          "status": "hypothesis",
+          "evidence": "현재 상업 corpus 용도에서 비상업·대량 재배포 제한이 걸린다."
+        },
+        "formatValue": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "csatTransformability": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "extractability": {
+          "status": "unmeasured",
+          "evidence": "공식 terms 확인; 수집 안 함"
+        },
+        "structuralCleanliness": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "metadataQuality": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "stability": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "scale": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "duplicateRisk": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "legalSuitability": {
+          "status": "reviewed-conditions",
+          "evidence": "NC와 10개 초과 재배포 제한."
+        }
+      },
+      "lastValidated": "2026-09-19",
+      "automaticIngestion": false
+    },
+    {
+      "source": "smarthistory",
+      "label": "Smarthistory",
+      "tier": "REJECT",
+      "role": "HOLD",
+      "topics": [
+        "예술·문화"
+      ],
+      "reason": "미술 해설 가치가 있으나 현재 NC 조건에 맞는 사용 허가가 없다.",
+      "accessStatus": "공식 FAQ 확인; 수집 안 함",
+      "licenseSummary": "CC BY-NC-SA 4.0.",
+      "evidenceUrls": [
+        "https://smarthistory.org/faq/"
+      ],
+      "pilot": null,
+      "scorecard": {
+        "educationalFit": {
+          "status": "hypothesis",
+          "evidence": "미술 해설 가치가 있으나 현재 NC 조건에 맞는 사용 허가가 없다."
+        },
+        "corpusGapValue": {
+          "status": "hypothesis",
+          "evidence": "미술 해설 가치가 있으나 현재 NC 조건에 맞는 사용 허가가 없다."
+        },
+        "textQuality": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "ageCoverage": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "difficultyCoverage": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "topicValue": {
+          "status": "hypothesis",
+          "evidence": "미술 해설 가치가 있으나 현재 NC 조건에 맞는 사용 허가가 없다."
+        },
+        "formatValue": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "csatTransformability": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "extractability": {
+          "status": "unmeasured",
+          "evidence": "공식 FAQ 확인; 수집 안 함"
+        },
+        "structuralCleanliness": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "metadataQuality": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "stability": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "scale": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "duplicateRisk": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "legalSuitability": {
+          "status": "reviewed-conditions",
+          "evidence": "CC BY-NC-SA 4.0."
+        }
+      },
+      "lastValidated": "2026-09-19",
+      "automaticIngestion": false
+    },
+    {
+      "source": "ushmm",
+      "label": "USHMM",
+      "tier": "HOLD",
+      "role": "HOLD",
+      "topics": [
+        "역사·인류",
+        "철학·윤리"
+      ],
+      "reason": "인권·역사 교육 가치는 높으나 민감한 맥락과 사용 허가를 함께 검토해야 한다.",
+      "accessStatus": "공식 약관 확인; 수집 안 함",
+      "licenseSummary": "개별 권리·상업 사용 확인, AI/ML 개발 서면 동의 조항. 일반 추론과 모델 훈련을 동일시하지 않음.",
+      "evidenceUrls": [
+        "https://www.ushmm.org/copyright-and-legal-information/terms-of-use"
+      ],
+      "pilot": null,
+      "scorecard": {
+        "educationalFit": {
+          "status": "hypothesis",
+          "evidence": "인권·역사 교육 가치는 높으나 민감한 맥락과 사용 허가를 함께 검토해야 한다."
+        },
+        "corpusGapValue": {
+          "status": "hypothesis",
+          "evidence": "인권·역사 교육 가치는 높으나 민감한 맥락과 사용 허가를 함께 검토해야 한다."
+        },
+        "textQuality": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "ageCoverage": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "difficultyCoverage": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "topicValue": {
+          "status": "hypothesis",
+          "evidence": "인권·역사 교육 가치는 높으나 민감한 맥락과 사용 허가를 함께 검토해야 한다."
+        },
+        "formatValue": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "csatTransformability": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "extractability": {
+          "status": "unmeasured",
+          "evidence": "공식 약관 확인; 수집 안 함"
+        },
+        "structuralCleanliness": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "metadataQuality": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "stability": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "scale": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "duplicateRisk": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "legalSuitability": {
+          "status": "reviewed-conditions",
+          "evidence": "개별 권리·상업 사용 확인, AI/ML 개발 서면 동의 조항. 일반 추론과 모델 훈련을 동일시하지 않음."
+        }
+      },
+      "lastValidated": "2026-09-19",
+      "automaticIngestion": false
+    },
+    {
+      "source": "federal_reserve",
+      "label": "Federal Reserve Board",
+      "tier": "HOLD",
+      "role": "HOLD",
+      "topics": [
+        "사회·경제"
+      ],
+      "reason": "경제 설명 보완 후보이나 Board와 지역은행은 별도 제공자·권리다.",
+      "accessStatus": "공식 disclaimer 확인; API/robots/body 미검증",
+      "licenseSummary": "Board 정부 작성물 PD except noted. 국제 권리와 제3자 자료 별도 확인.",
+      "evidenceUrls": [
+        "https://www.federalreserve.gov/disclaimer.htm"
+      ],
+      "pilot": null,
+      "scorecard": {
+        "educationalFit": {
+          "status": "hypothesis",
+          "evidence": "경제 설명 보완 후보이나 Board와 지역은행은 별도 제공자·권리다."
+        },
+        "corpusGapValue": {
+          "status": "hypothesis",
+          "evidence": "경제 설명 보완 후보이나 Board와 지역은행은 별도 제공자·권리다."
+        },
+        "textQuality": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "ageCoverage": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "difficultyCoverage": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "topicValue": {
+          "status": "hypothesis",
+          "evidence": "경제 설명 보완 후보이나 Board와 지역은행은 별도 제공자·권리다."
+        },
+        "formatValue": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "csatTransformability": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "extractability": {
+          "status": "unmeasured",
+          "evidence": "공식 disclaimer 확인; API/robots/body 미검증"
+        },
+        "structuralCleanliness": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "metadataQuality": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "stability": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "scale": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "duplicateRisk": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "legalSuitability": {
+          "status": "reviewed-conditions",
+          "evidence": "Board 정부 작성물 PD except noted. 국제 권리와 제3자 자료 별도 확인."
+        }
+      },
+      "lastValidated": "2026-09-19",
+      "automaticIngestion": false
+    },
+    {
+      "source": "edsitement",
+      "label": "NEH EDSITEment",
+      "tier": "HOLD",
+      "role": "HOLD",
+      "topics": [
+        "역사·인류",
+        "교육·언어"
+      ],
+      "reason": "옛 교육 자료 소개를 현재 수집 가능한 corpus로 세지 않는다.",
+      "accessStatus": "기존 사이트가 NEH project로 이동; 현재 확보 경로 미검증",
+      "licenseSummary": "현재 본문 재배포 권리 미확인.",
+      "evidenceUrls": [
+        "https://www.neh.gov/project/edsitement",
+        "https://www.neh.gov/divisions/education/resource/about-edsitement"
+      ],
+      "pilot": null,
+      "scorecard": {
+        "educationalFit": {
+          "status": "hypothesis",
+          "evidence": "옛 교육 자료 소개를 현재 수집 가능한 corpus로 세지 않는다."
+        },
+        "corpusGapValue": {
+          "status": "hypothesis",
+          "evidence": "옛 교육 자료 소개를 현재 수집 가능한 corpus로 세지 않는다."
+        },
+        "textQuality": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "ageCoverage": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "difficultyCoverage": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "topicValue": {
+          "status": "hypothesis",
+          "evidence": "옛 교육 자료 소개를 현재 수집 가능한 corpus로 세지 않는다."
+        },
+        "formatValue": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "csatTransformability": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "extractability": {
+          "status": "unmeasured",
+          "evidence": "기존 사이트가 NEH project로 이동; 현재 확보 경로 미검증"
+        },
+        "structuralCleanliness": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "metadataQuality": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "stability": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "scale": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "duplicateRisk": {
+          "status": "unmeasured",
+          "evidence": "파일럿 또는 장기 측정 전에는 확정하지 않음"
+        },
+        "legalSuitability": {
+          "status": "reviewed-conditions",
+          "evidence": "현재 본문 재배포 권리 미확인."
+        }
+      },
+      "lastValidated": "2026-09-19",
+      "automaticIngestion": false
+    }
+  ]
+}

@@ -15,11 +15,14 @@ import {
   parseSourceWorkspace,
   sourceClues,
   sourceWorkspaceHref,
+  sourceViewForKey,
   type SourceWorkspaceState,
   type SourceView,
   type SourceIssue,
   type SourceSort,
 } from '@/lib/textbook/source-workspace'
+import { CorpusCoverage } from './CorpusCoverage'
+import type { CorpusCoverageData, SourceDiscoveryProfiles } from '@/lib/textbook/corpus-coverage'
 import { SourceInventoryTable, SourceDetail } from './SourceInventoryTable'
 import styles from './sources.module.css'
 import { SourceOperations, SourceQueueSummary } from './SourceOperations'
@@ -31,13 +34,19 @@ export function SourceWorkspace({
   initialState = DEFAULT_SOURCE_STATE,
   eligibility,
   operations,
+  coverage,
+  discoveryProfiles,
 }: {
   panel: SourceEligibilityPanel
   inventory: SourceInventoryPanel
   initialState?: SourceWorkspaceState
   eligibility: ReactNode
   operations: ReactNode
+  coverage?: CorpusCoverageData
+  discoveryProfiles?: SourceDiscoveryProfiles
 }) {
+  const usableCount = coverage?.usable.reduce((sum, cell) => sum + cell.count, 0)
+  const conditionalCount = coverage?.conditional.reduce((sum, cell) => sum + cell.count, 0)
   const [state, setState] = useState(initialState)
   const [queue, setQueue] = useState<SourceQueue>('p0')
   const heading = useRef<HTMLHeadingElement>(null)
@@ -70,18 +79,7 @@ export function SourceWorkspace({
     requestAnimationFrame(() => heading.current?.focus())
   }
   function tabKey(event: KeyboardEvent, view: SourceView) {
-    const keys = Object.keys(SOURCE_VIEWS) as SourceView[]
-    const index = keys.indexOf(view)
-    const next =
-      event.key === 'Home'
-        ? keys[0]
-        : event.key === 'End'
-          ? keys[2]
-          : event.key === 'ArrowRight'
-            ? keys[(index + 1) % 3]
-            : event.key === 'ArrowLeft'
-              ? keys[(index + 2) % 3]
-              : null
+    const next = sourceViewForKey(view, event.key)
     if (next) {
       event.preventDefault()
       update({ view: next })
@@ -101,14 +99,29 @@ export function SourceWorkspace({
         </div>
         <AdminScreenHelp screen="csat-sources" tab={SOURCE_VIEWS[state.view]} />
       </header>
-      <SourceQueueSummary onSelect={q => { setQueue(q); update({ view: 'eligibility' }) }} />
+      <SourceQueueSummary
+        onSelect={(q) => {
+          setQueue(q)
+          update({ view: 'eligibility' })
+        }}
+      />
       <section className={styles.overview} aria-label="판정 현황과 측정 시각">
         <button className={styles.verdict} onClick={() => update({ view: 'eligibility' })}>
-          <span>교재에 실을 수 있는 원문</span>
           <span>
-            <strong>{panel.total.composable.toLocaleString()}</strong> /{' '}
-            {panel.total.total.toLocaleString()}편 <ArrowRight size={16} aria-hidden />
+            {coverage ? '현재 스냅샷에서 사용 가능 원문' : '이전 스캔의 조판 후보(조건부 포함)'}
           </span>
+          <span>
+            <strong>{(usableCount ?? panel.total.composable).toLocaleString('ko-KR')}</strong>편
+            <ArrowRight size={16} aria-hidden />
+          </span>
+          {conditionalCount !== undefined ? (
+            <small>
+              조건부 발췌 {conditionalCount.toLocaleString('ko-KR')}편 · 발췌 조건 확인이 필요하며
+              사용 가능 수에 포함하지 않습니다.
+            </small>
+          ) : (
+            <small>이전 스캔 후보는 사용 가능 원문과 조건부 발췌를 합한 수입니다.</small>
+          )}
           <small>적격 판정과 제외 이유 보기</small>
         </button>
         <div className={styles.freshness}>
@@ -119,8 +132,12 @@ export function SourceWorkspace({
             원천 재고 {inventory.measuredAt.slice(0, 16).replace('T', ' ')} UTC ·{' '}
             {inventory.ageDays}일 전
           </p>
+          {coverage ? (
+            <p>현재 판정 분포 {coverage.measuredAt.slice(0, 19).replace('T', ' ')} UTC</p>
+          ) : null}
           <p>
-            적격 판정 {panel.measuredAt.slice(0, 16).replace('T', ' ')} UTC · {panel.ageDays}일 전
+            이전 상세 스캔 {panel.measuredAt.slice(0, 16).replace('T', ' ')} UTC · {panel.ageDays}일
+            전
           </p>
           <button onClick={() => update({ view: 'operations' })}>집계 갱신 방법</button>
         </div>
@@ -251,7 +268,7 @@ export function SourceWorkspace({
               onClose={() => {
                 update({ source: null })
                 requestAnimationFrame(() =>
-                  trigger.current?.isConnected
+                  trigger.current?.isConnected && !trigger.current.closest('[hidden]')
                     ? trigger.current.focus()
                     : tabs.current.sources?.focus()
                 )
@@ -283,7 +300,26 @@ export function SourceWorkspace({
           <p>조판은 일곱 축의 판정을 통과한 원문만 받습니다. 수집 상태와는 별개의 기준입니다.</p>
         </div>
         <SourceOperations queue={queue} onQueue={setQueue} />
-        <details><summary>전체 판정 기준과 집계 상세</summary>{eligibility}</details>
+        <details>
+          <summary>전체 판정 기준과 집계 상세</summary>
+          {eligibility}
+        </details>
+      </section>
+      <section
+        role="tabpanel"
+        id="panel-coverage"
+        aria-labelledby="tab-coverage"
+        hidden={state.view !== 'coverage'}
+      >
+        <CorpusCoverage
+          data={coverage}
+          profiles={discoveryProfiles}
+          onSource={(source, button) => {
+            trigger.current = button
+            update({ source, view: 'sources', q: '', issue: 'all' })
+            requestAnimationFrame(() => heading.current?.focus())
+          }}
+        />
       </section>
       <section
         className={styles.reference}
