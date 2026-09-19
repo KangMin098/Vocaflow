@@ -44,7 +44,23 @@ manifest(36): **done 17 · blocked 19**(전부 note 에 사유) · target 실재
 ## 검수대 — 왜 `/dev/components` 인가
 
 빈 상태 5곳은 검증 계정의 데이터(단어·자료 있음)로는 나오지 않는다. 그래서 **실제 컴포넌트를 실제 문구로** `/dev/components` 에 「0. 삽화 — 빈 상태」 절(`#illo-empty`)을 더해 렌더하고 찍었다. 받아쓰기 빈 상태는 그 파일 안의 지역 함수라 이름을 붙여 내보냈다(`DictationEmptyState`, 동작 변화 0).
-**미검증**: 실제 계정의 빈 상태 진입 경로(라우트 → 데이터 0 → 빈 상태)는 이번에 밟지 않았다.
+**실제 경로 검증(추가, 2026-09-19)**: 아래 「실제 경로 캡처」 절 — 검수대는 그대로 유지한다.
+
+## 실제 경로 캡처 — 「단어 0개」 계정 (DD-38)
+
+`node --tls-max-v1.2 scripts/design/seed-empty-account.mjs` 가 `design-empty@vocaflow.local` 를 만들고(`vocabularies 0 · texts 0` 확인 — 0 이 아니면 지우지 않고 멈춘다), **실제 로그인 화면으로 로그인**해 세션을 `apps/web/playwright-auth/.auth-design-empty.json`(gitignore)에 둔다. 비밀번호는 매 실행 새로 정해 메모리에만 있다.
+
+| # | 실제 경로 | 들어간 방법 | 삽화(`data-illo`) | 390 | 검수대와 비교 |
+|---|---|---|---|---|---|
+| #1 | `/wordvault` | 단어 0 | illo-01-wordbook-empty | [real-01@390.png](image-system-gate6-20260919/real-01@390.png) | 같음 |
+| #2 | `/text` | 텍스트 0 · 구독 0 | illo-02-text-hub-first | [real-02@390.png](image-system-gate6-20260919/real-02@390.png) | 같음 |
+| #3 | `/library/vocab?mine=1` | 「내 단어장만」 켬 → 0건 | illo-03-shelf-filter-zero | [real-03@390.png](image-system-gate6-20260919/real-03@390.png) | 삽화 같음 · 문구는 단어장 서가 쪽. 캡처 아래에 모바일 탭바가 겹침(고정 내비 — 요소 캡처의 부산물, 화면 결함 아님) |
+| #4 | `/dictate/setup?custom=1` | 이 탭에 붙여넣은 글 없음 | illo-04-dictation-choose | [real-04@390.png](image-system-gate6-20260919/real-04@390.png) | 삽화 같음 · 문구 「붙여넣은 글이 사라졌어요」(다른 막다른 상태, 같은 컴포넌트) |
+| #30 | `/wordvault/review` | 복습할 단어 0 | illo-30-no-review-today | [real-30@390.png](image-system-gate6-20260919/real-30@390.png) | 같음 |
+
+![검수대(왼쪽) · 실제 경로(오른쪽), 390](image-system-gate6-20260919/dev-vs-real.png)
+
+**발견**: 만화 서가(`ComicsBrowser`)의 필터 0 은 **구조적으로 나오지 않는다** — 레벨 칩을 실재하는 편의 레벨로만 만든다(`bands` = 편이 있는 레벨). 그래서 #3 의 실제 경로는 단어장 서가다. 1280 캡처 5장은 `apps/web/test-results/design-qa/illo-20260919/real-*@1280-light.png`(로컬).
 
 ## 회귀
 
@@ -60,4 +76,4 @@ manifest(36): **done 17 · blocked 19**(전부 note 에 사유) · target 실재
 
 - 빈 상태 #1 · #2 · #4 의 **그라디언트 CTA** — 이번 변경 전부터 있던 평균 신호. Gate 6 은 자산 교체와 최소 변경만(A5)이라 두었다. 다음 화면 작업의 가장 나쁜 것 1순위.
 - manifest blocked 19 — 대부분 **대응 섹션 없음**(about 에 CSAT 주제 섹션 0 · 랜딩에 서가 섹션 0). 섹션을 새로 만드는 결정은 사람 몫.
-- `components/textviewer/MyTextsGrid.tsx` — import 0 인 고아 컴포넌트(#29 blocked 사유). 지우지 않았다.
+- `components/textviewer/MyTextsGrid.tsx` — import 0 고아라 **삭제**(DD-37). 그 결과 `components/textviewer/TextCard.tsx` 가 새 고아 — 지시 범위 밖이라 남겼다.

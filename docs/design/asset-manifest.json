@@ -20,7 +20,7 @@
       "status": "done",
       "version": 1,
       "source": "docs/design/explore/20260919 A (재사용)",
-      "applied": "/dev/components 검수대 390·1280 캡처 · 비평 통과(가장 나쁜 것은 기존 그라디언트 CTA — A5 범위 밖)"
+      "applied": "/dev/components 검수대 390·1280 캡처 · 비평 통과(가장 나쁜 것은 기존 그라디언트 CTA — A5 범위 밖) · 실제 경로 /wordvault 캡처(빈 계정, DD-38)"
     },
     {
       "id": "illo-02-text-hub-first",
@@ -38,7 +38,7 @@
       "format": "svg",
       "status": "done",
       "version": 1,
-      "applied": "골든 E · 검수대 캡처 390·1280·다크"
+      "applied": "골든 E · 검수대 캡처 390·1280·다크 · 실제 경로 /text 캡처(빈 계정, DD-38)"
     },
     {
       "id": "illo-03-shelf-filter-zero",
@@ -50,14 +50,14 @@
       "size": "E",
       "viewBox": "320x200",
       "target": {
-        "route": "/library/books",
+        "route": "/library/vocab",
         "component": "apps/web/src/components/library/shared/ShelfEmptyState.tsx"
       },
       "format": "svg",
       "status": "done",
       "version": 1,
       "note": "ShelfEmptyState filtered 톤만(빈 서가·오류 톤은 그대로)",
-      "applied": "filtered 톤만 · 검수대 캡처"
+      "applied": "filtered 톤만 · 검수대 캡처 · 실제 경로 /library/vocab?mine=1(빈 계정) — 만화 서가 필터 0 은 구조적으로 나오지 않음(DD-38)"
     },
     {
       "id": "illo-04-dictation-choose",
@@ -76,7 +76,7 @@
       "status": "done",
       "version": 1,
       "note": "받아쓰기 준비의 막다른 상태 3곳이 쓰는 로컬 EmptyState",
-      "applied": "받아쓰기 로컬 빈 상태(DictationEmptyState) · 검수대 캡처"
+      "applied": "받아쓰기 로컬 빈 상태(DictationEmptyState) · 검수대 캡처 · 실제 경로 /dictate/setup?custom=1 캡처(빈 계정, DD-38)"
     },
     {
       "id": "illo-05-portfolio-empty",
@@ -563,7 +563,7 @@
       "format": "svg",
       "status": "done",
       "version": 1,
-      "applied": "review 모드만 · 검수대 캡처 390·1280·다크"
+      "applied": "review 모드만 · 검수대 캡처 390·1280·다크 · 실제 경로 /wordvault/review 캡처(빈 계정, DD-38)"
     },
     {
       "id": "icon-apple-touch",
