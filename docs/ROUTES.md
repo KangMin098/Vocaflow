@@ -159,7 +159,7 @@
 
 | 경로 | 비고 |
 |---|---|
-| **`/`** | **랜딩** (`app/page.tsx`, 서버 컴포넌트) — 검색·공유의 정문. sitemap priority 1.0. 1차 CTA 는 가입이 아니라 `/fit`. 지어낸 지표 금지 · 수치는 `lib/marketing/trust-signals.ts` 가 DB 에서 읽는다. 2026-08-26 이전 이 자리는 개발용 화면 인덱스였다 |
+| **`/`** | **랜딩** (`app/page.tsx`, 서버 컴포넌트) — 검색·공유의 정문. sitemap priority 1.0. 1차 CTA 는 가입이 아니라 `/fit`. 지어낸 지표 금지 · 수치는 `lib/marketing/trust-signals.ts` 가 DB 에서 읽는다. 2026-08-26 이전 이 자리는 개발용 화면 인덱스였다. 공유 카드 `app/opengraph-image.tsx`(모눈 무대 + 주묵 각인, edge — 2026-09-19 이미지 체계 DD-36) |
 | `/dev` | 화면 인덱스 + 진행 현황 (구 `/`). robots 가 막는다 — ⚠️ `'/dev/'` 만으로는 `/dev` 자체가 안 막히므로 목록에 둘 다 있다 |
 
 ---
