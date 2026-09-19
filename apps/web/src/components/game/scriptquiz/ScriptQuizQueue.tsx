@@ -17,16 +17,21 @@
 
 'use client'
 
-import { ArrowRight, BookOpen, Check, Languages, Sparkles } from 'lucide-react'
+import { ArrowRight, Check } from 'lucide-react'
 import Link from 'next/link'
 import { useState } from 'react'
 
+import styles from '@/components/hub/queue-line.module.css'
+
 import type { QueueBook, QueueChapter, QuizQueue } from '@/lib/scriptquiz/queue'
 
-const ACCENT = 'var(--active)'
-// 같은 앰버를 '글자'로 쓰면 종이 위 3.24:1 로 AA 미달이라 잉크 토큰을 쓴다(2026-08-09 axe 실측).
+// 2026-09-19 화면 재설계(DD-37 · docs/design/compare/scriptquiz.md 발산 A 「읽은 챕터 장부」):
+//   카드 3종(다음 한 걸음 그림자 카드 · 반짝이 아이콘 점선 빈 상태 · 책마다 테두리 카드 + 앰버 아이콘 칩)과
+//   앰버 CTA(hover scale)를 걷고 **괘선 장부**로. 확인 안 한 챕터에 권점 — 이번에 확인할 것(허브·모듈 허브와 같은 표식).
+//   1차 행동은 주묵 하나. 번역 토글은 한 줄.
 const ACCENT_INK = 'var(--active-ink)'
-const ON_ACCENT = '#231a09'
+const PRIMARY =
+  'inline-flex min-h-[48px] items-center gap-2 rounded-[var(--r-md)] bg-[var(--ju)] px-5 font-display text-[14px] font-[700] text-[var(--on-ju)] no-underline transition-colors duration-[var(--dur-normal)] hover:bg-[var(--ju-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:translate-y-px'
 
 /** 며칠 전인지 — "언제 읽었나" 가 이 화면에서 가장 값나가는 한 줄이다(간격 인출 근거). */
 function daysAgo(iso: string): string {
@@ -40,13 +45,23 @@ function daysAgo(iso: string): string {
   return `${m}달 전에 읽었어요`
 }
 
+/** 퀴즈가 준비된 책 한 권 — 빈 상태에서 실제 목록으로 보인다 */
+export interface CatalogSample {
+  bookId: string
+  bookTitle: string
+  chapters: number
+  questions: number
+}
+
 export function ScriptQuizQueue({
   queue,
   hasCatalog,
+  catalogSample = [],
 }: {
   queue: QuizQueue
   /** 퀴즈 자체가 하나도 없는지 — 빈 상태 문구를 가른다(내가 안 읽은 것 vs 아직 안 만들어진 것) */
   hasCatalog: boolean
+  catalogSample?: CatalogSample[]
 }) {
   const [showKorean, setShowKorean] = useState(false)
   const ko = showKorean ? '&ko=1' : ''
@@ -56,7 +71,7 @@ export function ScriptQuizQueue({
     <div className="mx-auto flex max-w-[760px] flex-col gap-6 px-4 py-8 md:px-6 md:py-10">
       {/* 제목 — 그라디언트 히어로를 쓰지 않는다. 이 화면은 확인하러 오는 자리이지
           브랜드를 보러 오는 자리가 아니다(연습 진입면 v06.202 와 같은 판단). */}
-      <header className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+      <header className="flex flex-wrap items-baseline gap-x-3 gap-y-1 border-b-2 border-[var(--t1)] pb-3">
         <h1 className="font-editorial text-[30px] font-[500] leading-[1.15] tracking-[-0.014em] text-[var(--t1)] md:text-[36px]">
           읽은 것 확인하기
         </h1>
@@ -74,7 +89,7 @@ export function ScriptQuizQueue({
           href={playHref(queue.next.bookId, queue.next.chapter.chapterIdx)}
         />
       ) : (
-        <AllCaughtUp readTotal={queue.readTotal} hasCatalog={hasCatalog} />
+        <AllCaughtUp readTotal={queue.readTotal} hasCatalog={hasCatalog} catalogSample={catalogSample} />
       )}
 
       {queue.books.length > 0 && (
@@ -86,14 +101,8 @@ export function ScriptQuizQueue({
         </section>
       )}
 
-      {/* 언어 보조 — 설정은 맨 아래. 시작을 막지 않는다. */}
-      <label className="flex items-center gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-3">
-        <span
-          className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--r-sm)] bg-[var(--bg)] text-[var(--p)]"
-          aria-hidden
-        >
-          <Languages size={14} strokeWidth={2} />
-        </span>
+      {/* 언어 보조 — 설정은 맨 아래 한 줄. 시작을 막지 않는다. */}
+      <label className="flex min-h-[44px] cursor-pointer items-center gap-3 border-t border-[var(--bd)] pt-3">
         <span className="min-w-0 flex-1">
           <span className="block font-display text-[13px] font-[600] text-[var(--t1)]">
             한국어 번역 보기
@@ -125,10 +134,7 @@ function NextStep({
   href: string
 }) {
   return (
-    <section
-      aria-label="다음 한 걸음"
-      className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-sm)]"
-    >
+    <section aria-label="다음 한 걸음" className="border-l-2 border-[var(--ju)] py-1 pl-4">
       <p className="font-body text-[12px] text-[var(--t2)]">{daysAgo(chapter.readAt)}</p>
       <h2 className="mt-1 font-english text-[19px] font-[700] leading-snug text-[var(--t1)]">
         {bookTitle}
@@ -140,11 +146,7 @@ function NextStep({
         읽고 시간이 지난 챕터부터 확인해요. 바로 뒤에 푸는 것보다 이렇게 사이를 둔 인출이 더
         오래 남아요.
       </p>
-      <Link
-        href={href}
-        className="mt-4 inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] px-5 font-display text-[13px] font-[700] shadow-[var(--sh-sm)] transition-transform duration-[var(--dur-normal)] hover:scale-[1.02] active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
-        style={{ backgroundColor: ACCENT, color: ON_ACCENT }}
-      >
+      <Link href={href} className={`mt-4 ${PRIMARY}`}>
         확인 시작
         <ArrowRight size={14} strokeWidth={2.5} aria-hidden />
       </Link>
@@ -153,7 +155,15 @@ function NextStep({
 }
 
 /** 미확인이 없을 때 — 빈 화면 대신 다음에 할 일을 말한다. 축하 폭죽은 두지 않는다(철학 ④). */
-function AllCaughtUp({ readTotal, hasCatalog }: { readTotal: number; hasCatalog: boolean }) {
+function AllCaughtUp({
+  readTotal,
+  hasCatalog,
+  catalogSample,
+}: {
+  readTotal: number
+  hasCatalog: boolean
+  catalogSample: CatalogSample[]
+}) {
   const [title, body, cta, href] =
     readTotal > 0
       ? [
@@ -177,25 +187,42 @@ function AllCaughtUp({ readTotal, hasCatalog }: { readTotal: number; hasCatalog:
           ]
 
   return (
-    <section className="flex flex-col items-start gap-3 rounded-[var(--r-lg)] border border-dashed border-[var(--bd)] bg-[var(--bg)] p-6">
-      <span
-        className="inline-flex h-10 w-10 items-center justify-center rounded-[var(--r-full)]"
-        style={{ backgroundColor: 'var(--warning-light)', color: ACCENT_INK }}
-        aria-hidden
-      >
-        <Sparkles size={18} strokeWidth={2} />
-      </span>
+    <section className="flex flex-col items-start gap-2 border-l-2 border-[var(--bd)] py-1 pl-4">
       <h2 className="font-display text-[15px] font-[700] text-[var(--t1)]">{title}</h2>
       <p className="max-w-[46ch] font-body text-[13px] leading-[1.7] text-[var(--t2)] [word-break:keep-all]">
         {body.replace(/\*\*/g, '')}
       </p>
       <Link
         href={href}
-        className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] px-4 font-display text-[13px] font-[600] text-[var(--t1)] transition-colors hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+        className={PRIMARY}
       >
         {cta}
         <ArrowRight size={13} aria-hidden />
       </Link>
+
+      {/* 아직 읽은 챕터가 없으면 — 무엇을 읽으면 여기에 쌓이는지 **실제 목록**으로(빈 상태가 주인공이 되지 않게 · 수정 1회차) */}
+      {readTotal === 0 && catalogSample.length > 0 && (
+        <div className="mt-3 w-full">
+          <h3 className="font-body text-[12px] text-[var(--t2)]">확인 문항이 준비된 책 — 한 챕터를 읽고 오면 여기에 쌓여요</h3>
+          <ul className="m-0 mt-1 list-none border-t border-[var(--bd)] p-0">
+            {catalogSample.map((b) => (
+              <li key={b.bookId} className="border-b border-[var(--bd)]">
+                <Link
+                  href={`/library/books/${b.bookId}`}
+                  className="flex min-h-[44px] items-baseline gap-3 px-1 py-2 no-underline transition-colors hover:bg-[var(--bg2)] focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[var(--p)]"
+                >
+                  <span lang="en" className="min-w-0 flex-1 truncate font-english text-[15px] text-[var(--t1)]">
+                    {b.bookTitle}
+                  </span>
+                  <span className="shrink-0 font-mono text-[11px] tabular-nums text-[var(--t2)]">
+                    {b.chapters}챕터 · {b.questions}문항
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </section>
   )
 }
@@ -212,21 +239,14 @@ function BookRow({
   const panelId = `sq-book-${book.bookId}`
 
   return (
-    <div className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)]">
+    <div className="border-b border-[var(--bd)]">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-controls={panelId}
-        className="flex min-h-[44px] w-full items-center gap-3 rounded-[var(--r-lg)] p-4 text-left transition-colors hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+        className="flex min-h-[48px] w-full items-center gap-3 px-1 py-3 text-left transition-colors hover:bg-[var(--bg2)] focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[var(--p)] active:translate-y-px"
       >
-        <span
-          className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--r-sm)]"
-          style={{ backgroundColor: 'var(--warning-light)', color: ACCENT_INK }}
-          aria-hidden
-        >
-          <BookOpen size={14} strokeWidth={2} />
-        </span>
         <span className="min-w-0 flex-1">
           <span className="block truncate font-english text-[14px] font-[700] text-[var(--t1)]">
             {book.bookTitle}
@@ -242,8 +262,8 @@ function BookRow({
       </button>
 
       {open && (
-        <div id={panelId} className="border-t border-[var(--bd)] p-4">
-          <ul className="flex flex-wrap gap-2">
+        <div id={panelId} className="px-1 pb-4">
+          <ul className="m-0 flex list-none flex-wrap gap-x-4 gap-y-1 p-0">
             {book.readChapters.map((c) => (
               <li key={c.chapterIdx}>
                 <Link
@@ -252,17 +272,13 @@ function BookRow({
                   aria-label={`${c.chapterTitle} · ${c.questionCount}문항 · ${
                     c.attemptedAt ? '확인함' : '아직 확인 안 함'
                   }`}
-                  className="flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-english text-[13px] text-[var(--t1)] transition-colors hover:border-[var(--active)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+                  className="flex min-h-[44px] items-center gap-2 font-english text-[14px] text-[var(--t1)] underline decoration-[var(--bd)] underline-offset-4 transition-colors hover:text-[var(--p)] hover:decoration-[var(--p)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]"
                 >
-                  {c.attemptedAt ? (
-                    <Check size={13} aria-hidden style={{ color: ACCENT_INK }} />
-                  ) : (
-                    <span
-                      aria-hidden
-                      className="h-[7px] w-[7px] rounded-full border border-[var(--t3)]"
-                    />
-                  )}
-                  <span className="font-mono text-[12px] tabular-nums">{c.chapterIdx}</span>
+                  {c.attemptedAt ? <Check size={13} aria-hidden style={{ color: ACCENT_INK }} /> : null}
+                  {/* 확인 안 한 챕터에 권점 — 이번에 확인할 것(허브·모듈 허브와 같은 표식). 확인함은 체크 + 글자 */}
+                  <span className={`font-mono text-[13px] tabular-nums ${styles.word}`} data-on={!c.attemptedAt}>
+                    {c.chapterIdx}
+                  </span>
                   <span className="font-mono text-[11px] text-[var(--t2)]">
                     {c.questionCount}문항
                   </span>
