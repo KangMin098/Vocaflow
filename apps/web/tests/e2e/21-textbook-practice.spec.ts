@@ -25,7 +25,7 @@ import { countDcpAttemptsSince, deleteDcpAttemptsSince, userIdByEmail } from './
 
 const RUNTIME_USER = {
   email: process.env.PLAYWRIGHT_RUNTIME_EMAIL || 'runtime-test-0705@vocaflow.dev',
-  password: process.env.PLAYWRIGHT_RUNTIME_PASSWORD || 'RuntimeTest1!',
+  password: process.env.PLAYWRIGHT_RUNTIME_PASSWORD ?? (() => { throw new Error('PLAYWRIGHT_RUNTIME_PASSWORD 가 없다 — apps/web/.env.local (CI: 저장소 시크릿)') })(),
 };
 
 /** 사다리 3단 = V3. 실측상 순서·삽입 405 + 선택지 143 이라 두 갈래가 모두 나온다. */

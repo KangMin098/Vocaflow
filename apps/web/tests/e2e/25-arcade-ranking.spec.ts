@@ -25,7 +25,7 @@ import { test, expect } from '@playwright/test';
 // runtime-test-0705 은 아케이드 기록 55건을 갖는다(09·13 스펙이 쓰는 계정).
 const RUNTIME_USER = {
   email: process.env.PLAYWRIGHT_RUNTIME_EMAIL || 'runtime-test-0705@vocaflow.dev',
-  password: process.env.PLAYWRIGHT_RUNTIME_PASSWORD || 'RuntimeTest1!',
+  password: process.env.PLAYWRIGHT_RUNTIME_PASSWORD ?? (() => { throw new Error('PLAYWRIGHT_RUNTIME_PASSWORD 가 없다 — apps/web/.env.local (CI: 저장소 시크릿)') })(),
 };
 
 const STATE_PATH = 'playwright-auth/.auth-arcade-ranking.json';

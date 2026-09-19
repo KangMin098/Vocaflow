@@ -1,6 +1,12 @@
 // apps/web/playwright.config.ts
 // Lexicon Unification Phase 1 — e2e 회귀 베이스라인용
 import { defineConfig, devices } from '@playwright/test';
+import { resolve } from 'node:path';
+import { config as dotenvConfig } from 'dotenv';
+
+// 검증 계정 비밀번호는 코드에 대체값이 없다(2026-09-19 교체 — design/DECISIONS DD-48). 로컬은 apps/web/.env.local 에서,
+// CI 는 저장소 시크릿에서 받는다. dotenv 는 이미 설정된 키를 덮지 않으므로 CI 환경변수가 우선이다(vitest.config.ts 와 같은 방식).
+dotenvConfig({ path: resolve(__dirname, './.env.local') });
 
 export default defineConfig({
   testDir: './tests/e2e',

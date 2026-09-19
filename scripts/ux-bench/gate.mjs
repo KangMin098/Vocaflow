@@ -55,7 +55,7 @@ try {
   await page.goto(`${BASE}/login`, { waitUntil: 'networkidle', timeout: 60_000 })
   await page.waitForTimeout(600)
   await page.fill('input[type="email"]', process.env.PLAYWRIGHT_RUNTIME_EMAIL || 'runtime-test-0705@vocaflow.dev')
-  await page.fill('input[type="password"]', process.env.PLAYWRIGHT_RUNTIME_PASSWORD || 'RuntimeTest1!')
+  await page.fill('input[type="password"]', process.env.PLAYWRIGHT_RUNTIME_PASSWORD ?? (() => { throw new Error('PLAYWRIGHT_RUNTIME_PASSWORD 가 없다 — apps/web/.env.local (CI: 저장소 시크릿)') })())
   await page.click('button[type="submit"]')
   await page.waitForURL((u) => !u.pathname.startsWith('/login'), { timeout: 45_000 })
 
