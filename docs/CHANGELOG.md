@@ -9,6 +9,7 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- 게임 허브 `/wordblitz`·`/pairflip` 골든 15호(발산 A 「이번 판 낱말」) — 알약 칩·게임몰 스킨 → 괘선 두 단 낱말 목록(`GamePoolPanel`), PairFlip 난이도의 쌍 수만큼 권점. 시작 버튼 둘 → 주묵 하나 · 준비 중 매칭 모드 선택지 제거 · 죽은 PairFlip 선택기 3 삭제 · 최고 기록 줄 상시(e2e 18 낡은 실패 해소). `docs/design/golden/game-hubs.md` · DD-35.
 - 모듈 허브 `/flashcard`·`/spellforge` 골든 14호(발산 A 「오늘 담길 낱말」) — 4열 숫자 타일(TodayQueue 삭제) → 낱말 줄 `QueueLine`(밑줄 = 기억 상태, 세션 길이만큼 권점). 공용 ModuleHero 판면 머리 · HubStartCard 1차 행동 주묵 하나 · 한글 이탤릭 제거 · SpellForge 가 새 단어를 「안정」 이라 말하던 문구 수정. e2e 18 계약 갱신. `docs/design/golden/module-hubs.md` · DD-34.
 - `/teacher` 골든 13호(발산 A 「교실에 붙일 초대장」) — 폼 2장·점선 상자 → 초대장 한 장(`InviteSheet`: 반 이름 · 큰 코드 · `/join` QR). 반이 없으면 적는 대로 채워지는 미리보기 · 여러 반은 괘선 목록 · 참여는 한 줄 폼 · 받은/보낸 단어 괘선 행. `docs/design/golden/teacher.md` · DD-33.
 - `/practice` 골든 12호(발산 A 「오늘의 연습지」) — 카드 격자·알약 칩 메뉴판 → 번호 붙은 괘선 문항 6줄, 문항마다 그 면에서 아직 통과 못 한 내 낱말(`pendingByFacet`, `FacetSummary.pending` 응답 확장). 면 요약 서버 조회. `/practice/dcp` 빈 날 괘선 + 「다른 면 연습하기」. `docs/design/golden/practice.md` · DD-32.
