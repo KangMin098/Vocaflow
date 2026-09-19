@@ -27,9 +27,12 @@ export interface TextInputProps {
   onClear?: () => void
   maxLength?: number
   placeholder?: string
+  /** 바깥 `<label htmlFor>` 와 잇는 id — 2026-09-19 (레이블이 아무것도 가리키지 않았다) */
+  id?: string
 }
 
 export function TextInput({
+  id,
   value,
   onChange,
   onClear,
@@ -49,10 +52,12 @@ export function TextInput({
   const isNearLimit = !isOverLimit && stats.chars > maxLength * 0.9
 
   return (
-    <div className="focus-within:ring-p/20 overflow-hidden rounded-xl border border-bd bg-bg transition-all duration-normal focus-within:border-bdf focus-within:ring-2">
+    // 2026-09-19 (DD-30) — 큰 모서리 → 판면 모서리 · 한국어 placeholder 이탤릭 제거(한글 이탤릭 금지)
+    <div className="focus-within:ring-p/20 overflow-hidden rounded-[var(--r-md)] border border-bd bg-bg transition-colors duration-normal focus-within:border-bdf focus-within:ring-2">
       {/* Textarea — maxLength 속성 없음(의도적).
           하드 절단은 학습자의 글을 말없이 버린다. 넘치면 아래에서 알린다. */}
       <textarea
+        id={id}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
@@ -61,7 +66,7 @@ export function TextInput({
         // 이 화면의 본체 입력인데 이름이 없었다(실측 2026-08-25). placeholder 는 예시 문장이라
         // 이름 대신 쓸 수 없다 — 스크린리더에서 "편집" 으로만 읽혔다(WCAG 2.2 §4.1.2).
         aria-label="학습할 본문"
-        className="min-h-[280px] w-full resize-y bg-transparent px-s-5 py-s-4 font-serif text-base leading-[1.7] text-t1 placeholder:font-serif placeholder:italic placeholder:text-t3 focus:outline-none"
+        className="min-h-[280px] w-full resize-y bg-transparent px-s-5 py-s-4 font-english text-base leading-[1.7] text-t1 placeholder:font-body placeholder:text-t3 focus:outline-none"
       />
 
       {/* 상한 초과 안내 — 무엇이 문제고 무엇을 하면 되는지 (Empathetic Feedback) */}

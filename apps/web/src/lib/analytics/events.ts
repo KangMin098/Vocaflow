@@ -152,6 +152,13 @@ export type PublicEvent =
       name: 'retrospect_layer_opened'
       props: { rung: 'day' | 'few' | 'week' | 'month' | 'season'; words: number }
     }
+  /**
+   * `/text/new` 에서 새 글을 저장했다(2026-09-19 재설계 — DD-30 「붙여 넣으면 칠해지는 입력칸」).
+   * `coveragePct` = 저장 순간 고른 학년의 어휘 커버리지(0~100, 칠하지 못했거나 책 모드면 -1) · `chapters` = 챕터 수(한 편이면 1).
+   * 원문·제목은 싣지 않는다. 칠하기(서명)가 저장까지 이어지는지 재는 관측 — 진입은 screen_viewed(text-new)가 센다.
+   * DB 허용 목록은 승인 대기(`supabase/migrations/_pending_funnel_allow_hub_curve.sql`).
+   */
+  | { name: 'text_created'; props: { coveragePct: number; chapters: number } }
   // 은퇴(2026-09-17) — `csat_overlay_loaded` · `_located` · `_answered` · `_revealed` ·
   // `csat_drill_answered` · `_finished`. 보내던 화면(`/csat/overlay` · `/csat/drill`)을 학습자 재설계로
   // 걷었다(docs/csat-learner/DECISIONS.md D8). 같은 질문은 `csat_paper_read` · `csat_session_*` 이 받는다.
@@ -444,6 +451,7 @@ const EVENT_REGISTRY: Record<PublicEventName, true> = {
   wayfinder_cta_clicked: true,
   hub_curve_interacted: true,
   retrospect_layer_opened: true,
+  text_created: true,
   csat_evidence_opened: true,
   csat_atlas_scoped: true,
   csat_plan_speed_set: true,

@@ -13,7 +13,10 @@
 --   props: { rung: 닫힌 열거형 5, words: 그 층의 낱말 수 } — 낱말은 싣지 않는다.
 --   같은 세션의 관측이라 파일을 나누지 않고 한 번에 승인받는다.
 --
--- ⚠️ 목록은 파일이 아니라 **작성 시점의 DB 제약**(`pg_get_constraintdef`, 2026-09-19)에서 옮겼다 — 기존 40개 + 새 2개.
+-- `text_created` — (2026-09-19 추가 · `/text/new` 「붙여 넣으면 칠해지는 입력칸」 DD-30) 새 글을 저장했다.
+--   props: { coveragePct: 0~100 또는 -1, chapters: 챕터 수 } — 원문·제목은 싣지 않는다.
+--
+-- ⚠️ 목록은 파일이 아니라 **작성 시점의 DB 제약**(`pg_get_constraintdef`, 2026-09-19)에서 옮겼다 — 기존 40개 + 새 3개.
 --    적용 직전에 다시 읽어 그 사이 늘어난 값이 있으면 합친다(덮으면 남의 이벤트가 거부된다).
 -- ⚠️ 적용 전에는 `lib/analytics/__tests__/db-allowlist.integration.test.ts` 가 이 1종에서 실패한다 — 그것이 맞다.
 --    그동안 클라이언트 track 은 DB 가 거부해도 화면에 영향이 없다(관측만 빠진다).
@@ -51,6 +54,8 @@ ALTER TABLE public.funnel_events
         'hub_curve_interacted',
         -- 회고 (2026-09-19 · 승인 대기)
         'retrospect_layer_opened',
+        -- 새 글 (2026-09-19 · 승인 대기)
+        'text_created',
         'screen_viewed',
         -- 구성요소 영상
         'video_started',

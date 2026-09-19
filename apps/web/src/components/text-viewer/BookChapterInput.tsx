@@ -9,6 +9,7 @@
 //
 // 색상: Tailwind 테마에 semantic 색(p-light/ti/success/warning/error)이 없어
 //       arbitrary value `[var(--...)]` 로 직접 참조 (globals.css CSS 변수).
+// 2026-09-19 (DD-30) — 큰 모서리 · 그림자 · 그라디언트 띠를 걷었다(판면 모서리 · 평면 띠).
 
 'use client'
 
@@ -144,10 +145,10 @@ export function BookChapterInput({
   return (
     <div className="flex flex-col gap-s-5" onKeyDown={onKeyDown}>
       {/* ── 책 정보 카드 ── */}
-      <div className="relative overflow-hidden rounded-2xl border border-bd bg-bg shadow-sm">
+      <div className="relative overflow-hidden rounded-[var(--r-md)] border border-bd bg-bg">
         <div
           aria-hidden
-          className="absolute inset-y-0 left-0 w-1.5 bg-gradient-to-b from-[var(--p)] to-[var(--p-dark)]"
+          className="absolute inset-y-0 left-0 w-1.5 bg-[var(--p)]"
         />
         <div className="flex flex-col gap-s-4 p-s-5 pl-s-6">
           <div className="flex items-center gap-s-2">
@@ -223,7 +224,7 @@ export function BookChapterInput({
             ref={railRef}
             role="tablist"
             aria-label="챕터 목록"
-            className="flex flex-1 snap-x items-center gap-s-2 overflow-x-auto rounded-xl border border-bd bg-bg2 p-s-2 [scrollbar-width:thin]"
+            className="flex flex-1 snap-x items-center gap-s-2 overflow-x-auto rounded-[var(--r-md)] border border-bd bg-bg2 p-s-2 [scrollbar-width:thin]"
           >
             {chapters.map((c, i) => (
               <ChapterChip
@@ -253,11 +254,11 @@ export function BookChapterInput({
         {/* 활성 챕터 — 원고 페이지 */}
         <div
           key={active}
-          className="overflow-hidden rounded-2xl border border-bd bg-bg shadow-md"
+          className="overflow-hidden rounded-[var(--r-md)] border border-bd bg-bg"
         >
           {/* 페이지 헤더 */}
           <div className="flex items-center gap-s-3 border-b border-bd bg-bg2 px-s-4 py-s-3">
-            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[var(--p)] font-display text-[13px] font-[800] text-[var(--on-p)] shadow-sm">
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[var(--p)] font-display text-[13px] font-[800] text-[var(--on-p)]">
               {active + 1}
             </span>
             <input
@@ -291,7 +292,7 @@ export function BookChapterInput({
               onChange={(e) => setChapter(active, { content: e.target.value })}
               placeholder={`Chapter ${active + 1} 본문을 입력하세요.\n\n영어 원문을 붙여넣으면 다축 VRL 기반 AI 단어 추출이 챕터별로 작동합니다.`}
               rows={14}
-              className={`w-full resize-y rounded-xl border border-bd bg-bg px-s-4 py-s-3 font-english text-[16px] leading-[1.85] text-t1 placeholder:font-body placeholder:text-[14px] placeholder:leading-relaxed placeholder:text-t3 transition-all duration-normal ${INPUT_FOCUS}`}
+              className={`w-full resize-y rounded-[var(--r-md)] border border-bd bg-bg px-s-4 py-s-3 font-english text-[16px] leading-[1.85] text-t1 placeholder:font-body placeholder:text-[14px] placeholder:leading-relaxed placeholder:text-t3 transition-all duration-normal ${INPUT_FOCUS}`}
             />
 
             {/* 푸터: 상태 + 이전/다음 */}
@@ -351,7 +352,7 @@ function ChapterChip({
 }) {
   const label = title.trim() || `Chapter ${index + 1}`
   const tone = active
-    ? 'bg-[var(--p)] text-[var(--ti)] shadow-sm'
+    ? 'bg-[var(--p)] text-[var(--ti)]'
     : status === 'complete'
       ? 'bg-[var(--success-light)] text-[var(--success)] ring-1 ring-bd hover:ring-[var(--success)]'
       : status === 'partial'
@@ -393,7 +394,7 @@ function RailArrow({
       onClick={onClick}
       disabled={disabled}
       aria-label={label}
-      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-bd bg-bg text-t2 shadow-xs transition-colors duration-normal hover:border-[var(--p)] hover:text-[var(--p)] disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:border-bd disabled:hover:text-t2"
+      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-bd bg-bg text-t2 transition-colors duration-normal hover:border-[var(--p)] hover:text-[var(--p)] disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:border-bd disabled:hover:text-t2"
     >
       {dir === 'left' ? <ChevronLeft size={16} /> : <ChevronRight size={16} />}
     </button>
@@ -449,7 +450,7 @@ function NavBtn({
       disabled={disabled}
       className={`inline-flex items-center gap-1 rounded-lg px-s-3 py-s-2 font-display text-[12.5px] font-[600] transition-all duration-normal disabled:cursor-not-allowed disabled:opacity-30 ${
         primary
-          ? 'bg-[var(--p)] text-[var(--on-p)] shadow-sm hover:bg-[var(--p-hover)]'
+          ? 'bg-[var(--p)] text-[var(--on-p)] hover:bg-[var(--p-hover)]'
           : 'border border-bd bg-bg text-t2 hover:border-[var(--p)] hover:text-[var(--p)]'
       }`}
     >
