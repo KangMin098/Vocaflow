@@ -174,7 +174,7 @@ Admin 「기획」 탭. Admin 은 커밋된 원천 + **DB 실측**으로 같은 
 `pnpm video stale`(**발행본 ↔ 설계도 어긋남**) · `pnpm video thumbs`(썸네일) ·
 `pnpm video:studio`(브라우저 미리보기).
 
-**테스트와 원료**(2026-09-19 · 이슈 #101): `work/source-bundle.json` 은 커밋하지 않으므로 깨끗한 체크아웃(CI)에는 없다. 원료가 필요한 두 테스트(`factory` · `plan-evaluate`)는 `src/__tests__/test-bundle.ts` 로 읽는다 — `work/` 가 있으면 실측, 없으면 `tests/fixtures/source-bundle.json`(줄인 **고정 원료 — 테스트 전용**, 영상·광고에 쓰지 않는다). 둘 다 없으면 `vitest.config.ts` 가 두 파일을 경고와 함께 뺀다. 제품 경로(`loadBundle` · `render/ensure.ts`)는 픽스처로 떨어지지 않는다. 번들 스키마를 바꾸면 픽스처도 같은 커밋에서 고친다.
+**테스트와 원료**(2026-09-19 · 이슈 #101): `work/source-bundle.json` 은 커밋하지 않으므로 깨끗한 체크아웃(CI)에는 없다. 원료가 필요한 두 테스트(`factory` · `plan-evaluate`)는 `src/__tests__/test-bundle.ts` 로 읽는다 — `work/` 가 있으면 실측, 없으면 `tests/fixtures/source-bundle.json`(줄인 **고정 원료 — 테스트 전용**, 영상·광고에 쓰지 않는다). 둘 다 없으면 `vitest.config.ts` 가 두 파일을 경고와 함께 뺀다. 제품 경로(`loadBundle` · `render/ensure.ts`)는 픽스처로 떨어지지 않는다. 번들 스키마를 바꾸면 픽스처도 같은 커밋에서 고친다. 타입 검사도 같은 원칙이다 — `scripts/typecheck.mjs` 가 원료가 없으면 `src/remotion/Root.tsx` · `index.ts`(원료 JSON 을 번들 시점에 import)만 경고와 함께 빼고 검사한다(`tsconfig.no-bundle.json`). 원료를 픽스처로 `work/` 에 채우지 않는다 — `render/ensure.ts` 의 「없으면 만들지 않는다」 가드를 우회하게 된다.
 
 ⚠️ **기획이 맨 앞인 이유**: 렌더 전량이 90분이다. 90분을 쓰고 나서 "이걸 왜 찍었지" 가 되면
 그 90분은 되돌릴 수 없다. **평가가 맨 뒤인 이유**: 판정하려면 찍힌 파일이 있어야 한다

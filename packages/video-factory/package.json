@@ -13,7 +13,7 @@
   },
   "scripts": {
     "studio": "tsx src/render/prestudio.mts && remotion studio src/remotion/index.ts --public-dir work --port 4334",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "node scripts/typecheck.mjs",
     "test": "vitest run",
     "video": "tsx src/render/cli.mts",
     "package": "tsx src/render/package.mts",
