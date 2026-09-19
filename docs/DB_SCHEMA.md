@@ -19,6 +19,8 @@
 
 ## 요약
 
+**미적용 제안(2026-09-19)**: 방법론 지식층의 [SQL 초안](./methodology/schema.sql)은 `methodology_` 테이블 10개와 원자적 snapshot 적재/조회 RPC 2개를 제안한다. 사용자 승인 전이며 실제 DB 스키마/아래 통계에 포함하지 않는다. 기존 표 변경 없음, RLS+서비스 롤 접근, 원본 자막 미저장. [단계·검증](./methodology/README.md).
+
 - **테이블**: **107** · **Views**: **11**(+ matview 4) · **Functions**: **360** · **인덱스**: **340** · **Migrations**: **528** · **용량 7,665 MB** (2026-08-31 DB 직접 쿼리 실측)
 - RLS: 107 중 **106** enabled. 유일한 예외 `textbook_shelf_stats_meta` 는 anon 에 GRANT 되어 있지 않다.
 - 주요 계열 — CTP 3종 `reading_fluency_log`·`csat_stage_gates`·`csat_item_attempts` · 추출신뢰 `word_familiarity` · 어원 `word_roots`·`word_root_links` · 추출품질 `extraction_judgments`

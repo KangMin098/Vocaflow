@@ -32,6 +32,8 @@ VOA ingestion은 관측된 댓글 안내 문단 제거 후 최소 길이를 검�
 
 ## 파이프라인 4종 개요
 
+별도 연구 지식층(2026-09-19): [영어교육 Methodology](./methodology/README.md)는 source→claim→evidence→method를 검증하는 초기 연구 파이프라인이다. LCP/ACP 원문이나 학습자 콘텐츠로 발행하지 않으며, 전체 자막도 저장하지 않는다. 기존 스크립트 클라이언트와 에이전트 드레인 방식을 재사용한다. DB 적재는 SQL 승인 대기, 추천 자동 연결 없음.
+
 | 파이프라인 | 약어 | 입력 | 출력 | 주요 테이블 |
 |---|---|---|---|---|
 | **Library Curation Pipeline** | **LCP** | 9 외부 소스 → 도서 | `library_books` + `chapters_master` + `chapter_word_sets` (자동 발행) | `library_*` |

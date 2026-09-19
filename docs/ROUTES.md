@@ -22,6 +22,7 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 `sort=attention|total|recent|name`, `q=<원천 이름 또는 ID>`, `source=<선택한 원천 ID>`.
 기본값은 URL에서 생략하며, 알 수 없는 enum은 기본값으로 복원한다. 새 API·동적 상세 route는 추가하지 않았다.
 <!-- csat-sources-workspace:end -->
+방법론 지식층(2026-09-19): `GET /api/admin/methodology` — 기존 admin/curator 인증. 기본 DB snapshot 조회, `?id=<64 hex>` 버전 지정, `?mode=research`로만 초기 연구 자료를 명시적으로 조회. DB 미적용/오류는 503이며 seed로 자동 대체하지 않는다. `/admin/methodology` 화면은 디자인 선택 대기로 아직 없다. [상태와 계약](./methodology/README.md).
 
 | 그룹 | URL | 인증 | 레이아웃 |
 |---|---|---|---|
