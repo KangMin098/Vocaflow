@@ -9,6 +9,7 @@
 면적을 가진 색은 주묵 `#C0392B`(`--ju`) 하나다. 골드 `#B0843A`(`--active`)는 화면 면적 5% 미만.
 글꼴은 Hahmlet(한글 디스플레이) · Lora(영어 원문) · IBM Plex Sans KR(UI·본문) · JetBrains Mono(수치) 4종.
 구획은 그림자 대신 `0 0 0 1px #E0DBD0`(헤어라인 링, `--bd`), 모서리 2–6px(`--r-sm`…`--r-2xl`),
+무대는 1px 모눈(`--grid-line`, 24px) — 삽화·증명 액자·공개 히어로·빈 상태의 바탕에만, 학습 중 화면 0([03-system §3-9](docs/design/03-system.md) · DD-24).
 뜨는 것은 모달·시트·토스트·팝오버만(`--sh-float`). 모션 100–300ms(`--dur-fast`/`--dur-normal`/`--dur-slow`), 총 1s 이하.
 기억 상태는 밑줄 두께 3px(risk `#9C3A30`) · 2px(shaky `#B5803A`) · 1px(stable `#2E7D5A`) · 2px dotted(new `#8A8278`)로 긋는다.
 
@@ -22,7 +23,7 @@
 | 기록 지도 | ○ · • · ✓ · ↻ × 점선 · 실선 · 이중선 · 라벨 | 세션 기록 | 같은 절 F3 |
 | 낙관·권점 | 주묵 테두리 28/36/44px 안의 Hahmlet 한 글자 · 권점 | — (서명 전용) | `apps/web/src/components/ui/press` |
 | 서가 | 층이 차오르는 사다리 | FSRS 안정도 | `apps/web/src/components/dashboard/DurabilityLadder.tsx` |
-| 시험지 | 2단 격자 · 문항 번호 · 괘선 | CSAT 코퍼스 | `apps/web/src/components/textfit/ClassSheet.tsx`(권점 · 난외 · 도장) |
+| 시험지 | 2단 격자 · 문항 번호 · 괘선 · 모눈 무대(삽화·액자 바탕) | CSAT 코퍼스 | `apps/web/src/components/textfit/ClassSheet.tsx`(권점 · 난외 · 도장) |
 
 씨앗 전체(10개)와 골격 여부: [00-form-seeds](docs/design/00-form-seeds.md).
 
