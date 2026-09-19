@@ -47,6 +47,7 @@ export const colorsLight = {
   ti: '#FBFAF6',
 
   bd: '#E0DBD0',         // subtler hairline (Linear 정합)
+  gridLine: '#F0EEE7',   // 모눈 무대 — 웹은 color-mix(--bd 40%, transparent). RN 은 --bg 위 합성값
   bdf: '#0F2540',
   bde: '#9C3A30',
 } as const;
@@ -82,6 +83,7 @@ export const colorsDark = {
   ti: '#F0EAE0',
 
   bd: '#3D362D',
+  gridLine: '#312B23',   // 모눈 무대 — 웹은 color-mix(--bd 55%, transparent). --bg 위 합성값
   bdf: '#6B9BD1',
 } as const;
 

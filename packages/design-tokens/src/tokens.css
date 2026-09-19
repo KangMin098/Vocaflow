@@ -191,6 +191,10 @@
   /* ─────── Border = Paper hairline (subtler, 거의 안 보이게) ─────── */
   /*  v06.40 — Linear 정합: hairline 거의 visible 직전 (전반 여백이 구조 담당) */
   --bd: #E0DBD0;        /* paper hairline (subtler) */
+  /* 모눈 무대 — 삽화·증명 액자·공개 히어로·빈 상태의 바탕에만(학습 중 0). 1px 선 · 24px(--s-6) 간격.
+     투명 혼합이라 --bg · --bg2 어느 면 위에서도 같은 옅기(대비 ≈1.1:1). 그릴 때는 SVG <pattern> 만 —
+     CSS linear-gradient 로 그리면 평균 신호 라쳇 gradient 가 는다. 03-system §3-9 · DD-24 */
+  --grid-line: color-mix(in srgb, var(--bd) 40%, transparent);
   --bdf: #0F2540;       /* focused = deep ink */
   --bde: #9C3A30;       /* error border */
 
@@ -256,6 +260,8 @@
   --s-10: 40px;
   --s-12: 48px;
   --s-16: 64px;
+  --s-24: 96px;   /* 공개 화면 섹션 간격 — 390 (03-system §3-9 · DD-24) */
+  --s-40: 160px;  /* 공개 화면 섹션 간격 — 1280+ */
 
   /* ─────── Motion (legacy) ─────── */
   --dur-fast: 100ms;
@@ -482,6 +488,7 @@
   --ti: #F0EAE0;
 
   --bd: #3D362D;         /* warm hairline dark */
+  --grid-line: color-mix(in srgb, var(--bd) 55%, transparent);
   --bdf: #6B9BD1;
 
   /* ─────── iOS Dark — Vivid 컬러 사용 (HIG 다크 모드 spec) ─────── */

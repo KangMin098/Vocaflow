@@ -1,0 +1,39 @@
+/* docs/design/explore/20260919/explore.css — 발산 4안 공용 판면. 값은 전부 토큰(tokens.css). */
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--bg2);
+  color: var(--t1);
+  font-family: 'IBM Plex Sans KR', system-ui, sans-serif;
+  word-break: keep-all;
+  padding: var(--s-8) var(--s-4) var(--s-16);
+}
+.head { max-width: 1200px; margin: 0 auto var(--s-8); border-bottom: 1px solid var(--bd); padding-bottom: var(--s-6); }
+.head .k { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--t2); margin: 0 0 var(--s-2); }
+.head h1 { font-family: 'Hahmlet', serif; font-weight: 600; font-size: 40px; margin: 0 0 var(--s-3); }
+.head .thesis { font-size: 16px; line-height: 1.6; max-width: 720px; margin: 0 0 var(--s-3); color: var(--t2); }
+.head .sig { font-size: 15px; margin: 0; }
+.head .sig span { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--ju-ink); margin-right: var(--s-2); }
+
+.grid { max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: var(--s-12); align-items: flex-start; }
+.col { display: flex; flex-direction: column; gap: var(--s-8); }
+
+/* 390 해부 화면 */
+.phone { width: 390px; background: var(--bg); box-shadow: 0 0 0 1px var(--bd); border-radius: var(--r-2xl); overflow: hidden; }
+.sec { padding: var(--s-24) var(--s-5); }
+.sec.band { background: var(--bg2); }
+.h { font-family: 'Hahmlet', serif; font-weight: 600; font-size: 34px; line-height: 1.22; letter-spacing: -0.005em; margin: 0 0 var(--s-6); }
+.p { font-size: 15px; line-height: 1.6; color: var(--t2); margin: var(--s-6) 0 var(--s-4); }
+.next { font-size: 15px; font-weight: 500; color: var(--t1); text-decoration: underline; text-underline-offset: 4px; display: inline-flex; min-height: 44px; align-items: center; }
+.illo-wrap { display: flex; justify-content: center; }
+.illo-wrap svg { max-width: 100%; height: auto; }
+.empty { text-align: left; }
+.say { font-family: 'Hahmlet', serif; font-weight: 500; font-size: 20px; margin: var(--s-6) 0 0; }
+.cta { min-height: 48px; padding: 0 var(--s-6); border: 0; border-radius: var(--r-md); background: var(--ju); color: var(--on-ju); font: 600 15px 'IBM Plex Sans KR', sans-serif; cursor: pointer; transition: background-color var(--dur-normal) var(--ease); }
+.cta:hover { background: var(--ju-ink); }
+.cta:focus-visible { outline: 2px solid var(--p); outline-offset: 2px; }
+
+figure { margin: 0; }
+figcaption { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--t2); margin-bottom: var(--s-2); }
+figure.dark { background: var(--bg2); padding: var(--s-4); border-radius: var(--r-2xl); }
+figure.dark figcaption { color: var(--t2); }
