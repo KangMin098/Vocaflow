@@ -1,0 +1,336 @@
+{
+  "startedAt": "2026-09-19T02:32:10.338Z",
+  "completedAt": "2026-09-19T02:32:50.389Z",
+  "readOnly": true,
+  "scope": "All library_articles metadata; eligibility only ready/published; bodies audited separately",
+  "itemReferenceInput": "External SQL distinct reference list (not a transactional snapshot)",
+  "total": 109043,
+  "states": {
+    "ready": 87466,
+    "archived": 20385,
+    "queued": 937,
+    "published": 250,
+    "failed": 4,
+    "analyzing": 1
+  },
+  "sources": {
+    "plos": 47939,
+    "voa": 10663,
+    "gutenberg": 40519,
+    "futurity": 2885,
+    "usgs": 738,
+    "original": 1519,
+    "europe_pmc": 1300,
+    "elife": 301,
+    "frym": 153,
+    "frontiers": 1961,
+    "wikipedia": 92,
+    "storyweaver": 136,
+    "nasa": 422,
+    "owid": 13,
+    "noaa": 135,
+    "the_conversation": 71,
+    "simple_wikipedia": 99,
+    "space_place": 59,
+    "nist": 23,
+    "wikivoyage": 8,
+    "factbook": 7
+  },
+  "gateVerdicts": {
+    "(none)": 50084,
+    "reject": 18519,
+    "use": 27220,
+    "narrative": 13220
+  },
+  "eligibility": {
+    "total": 87716,
+    "byGrade": {
+      "usable": 9103,
+      "excerpt": 4306,
+      "excerpt-blind": 10861,
+      "unjudged": 48797,
+      "unknown": 0,
+      "blocked": 14649
+    },
+    "byBlockedAxis": {
+      "safety": 374,
+      "judgement": 62838,
+      "format": 10945,
+      "legal": 150
+    },
+    "composable": 13409,
+    "composablePct": 15.3,
+    "judged": 38919,
+    "composablePctOfJudged": 34.5,
+    "structurallyUnjudged": 31367
+  },
+  "byBand": {
+    "1": {
+      "usable": 160,
+      "unjudged": 9,
+      "blocked": 19
+    },
+    "2": {
+      "usable": 1362,
+      "unjudged": 1127,
+      "blocked": 84,
+      "excerpt": 66,
+      "excerpt-blind": 5
+    },
+    "3": {
+      "unjudged": 1911,
+      "usable": 1394,
+      "excerpt": 52,
+      "blocked": 114,
+      "excerpt-blind": 23
+    },
+    "4": {
+      "unjudged": 6119,
+      "blocked": 1002,
+      "usable": 2070,
+      "excerpt": 157,
+      "excerpt-blind": 263
+    },
+    "5": {
+      "unjudged": 4605,
+      "excerpt": 3163,
+      "usable": 2773,
+      "excerpt-blind": 2998,
+      "blocked": 3947
+    },
+    "6": {
+      "blocked": 7788,
+      "unjudged": 27540,
+      "excerpt": 654,
+      "excerpt-blind": 6594,
+      "usable": 1049
+    },
+    "7": {
+      "unjudged": 7270,
+      "blocked": 1520,
+      "excerpt-blind": 916,
+      "excerpt": 214,
+      "usable": 279
+    },
+    "8": {
+      "blocked": 160,
+      "unjudged": 209,
+      "excerpt-blind": 59,
+      "usable": 14
+    },
+    "9": {
+      "blocked": 13,
+      "excerpt-blind": 3,
+      "usable": 2,
+      "unjudged": 7
+    },
+    "(none)": {
+      "blocked": 2
+    }
+  },
+  "itemReferences": 38605,
+  "orphanItemReferences": [],
+  "withItemsByGrade": {
+    "blocked": 11859,
+    "unjudged": 12432,
+    "excerpt": 4306,
+    "usable": 8656
+  },
+  "composableWithItems": 12962,
+  "composableWithoutItems": 447,
+  "analysisStates": {
+    "complete": 87714,
+    "missing": 2
+  },
+  "contentStates": {
+    "unjudged": 49081,
+    "accepted": 37573,
+    "rejected": 1062
+  },
+  "cefrStates": {
+    "above-band": 55235,
+    "within-band": 32479,
+    "unknown": 2
+  },
+  "reasonCounts": {
+    "raw_content_unjudged": 31529,
+    "cefr_above_band": 55235,
+    "base_safety": 378,
+    "content_unjudged": 17552,
+    "excerpt_not_materialized": 49687,
+    "base_judgement": 48797,
+    "publication_gate_missing": 17534,
+    "base_format": 7764,
+    "content_rejected": 1062,
+    "base_gate": 6,
+    "base_legal": 150,
+    "harmful_genre": 11,
+    "analysis_missing": 2
+  },
+  "work": {
+    "policy_exclusion": {
+      "group": "D",
+      "priority": "P3",
+      "asset": "packages/library-pipeline/src/textbook/source-eligibility.ts",
+      "risk": "high if relaxed",
+      "cost": "no automatic mutation",
+      "dependency": "only review for a concrete downstream requirement; not a repair queue",
+      "count": 59323,
+      "linkedSources": 23982,
+      "recordedLinkedItems": 743618,
+      "bySource": {
+        "plos": 41566,
+        "gutenberg": 7767,
+        "futurity": 2130,
+        "usgs": 321,
+        "europe_pmc": 1228,
+        "voa": 4369,
+        "elife": 259,
+        "frym": 61,
+        "frontiers": 1220,
+        "wikipedia": 27,
+        "storyweaver": 78,
+        "nasa": 162,
+        "the_conversation": 70,
+        "nist": 8,
+        "noaa": 20,
+        "space_place": 8,
+        "simple_wikipedia": 7,
+        "original": 18,
+        "factbook": 3,
+        "owid": 1
+      },
+      "reasons": {
+        "raw_content_unjudged": 29953,
+        "cefr_above_band": 55235,
+        "base_safety": 378,
+        "base_judgement": 37720,
+        "excerpt_not_materialized": 35196,
+        "content_unjudged": 8051,
+        "publication_gate_missing": 8033,
+        "base_format": 7764,
+        "content_rejected": 1062,
+        "base_gate": 6,
+        "base_legal": 150,
+        "harmful_genre": 11,
+        "analysis_missing": 2
+      }
+    },
+    "content_judgment": {
+      "group": "B",
+      "priority": "P1",
+      "asset": "scripts/csat/gate-article-export.mjs / gate-book-export.mjs",
+      "risk": "medium",
+      "cost": "agent reading; no provider call required",
+      "dependency": "source integrity; UUID/revision-bound judgment",
+      "count": 9501,
+      "linkedSources": 0,
+      "recordedLinkedItems": 0,
+      "bySource": {
+        "voa": 6152,
+        "gutenberg": 2536,
+        "frontiers": 738,
+        "europe_pmc": 71,
+        "original": 2,
+        "nist": 2
+      },
+      "reasons": {
+        "content_unjudged": 9501,
+        "excerpt_not_materialized": 9318,
+        "base_judgement": 9501,
+        "publication_gate_missing": 9501
+      }
+    },
+    "quality_review": {
+      "group": "C",
+      "priority": "P1",
+      "asset": "scripts/textbook/extraction-defect-scan.mjs",
+      "risk": "high for text changes",
+      "cost": "source-stratified reading and anchor verification",
+      "dependency": "parser fix and confirmed defect; flags alone never reject",
+      "count": 5161,
+      "linkedSources": 2600,
+      "recordedLinkedItems": 132245,
+      "bySource": {
+        "plos": 4178,
+        "frontiers": 159,
+        "voa": 515,
+        "nasa": 162,
+        "gutenberg": 100,
+        "space_place": 11,
+        "futurity": 12,
+        "usgs": 4,
+        "europe_pmc": 16,
+        "noaa": 1,
+        "simple_wikipedia": 2,
+        "wikipedia": 1
+      },
+      "reasons": {
+        "raw_content_unjudged": 3456,
+        "cefr_above_band": 4385,
+        "base_judgement": 4169,
+        "excerpt_not_materialized": 2488,
+        "content_unjudged": 729,
+        "publication_gate_missing": 729,
+        "content_rejected": 240,
+        "base_format": 307,
+        "base_safety": 23,
+        "harmful_genre": 2
+      }
+    },
+    "excerpt_materialization": {
+      "group": "C",
+      "priority": "P2",
+      "asset": "scripts/textbook/store-new-types.mjs",
+      "risk": "high",
+      "cost": "question generation and review",
+      "dependency": "accepted content, CEFR, demand and validated excerpt",
+      "count": 3907,
+      "linkedSources": 0,
+      "recordedLinkedItems": 0,
+      "bySource": {
+        "gutenberg": 3907
+      },
+      "reasons": {
+        "excerpt_not_materialized": 3907
+      }
+    },
+    "raw_extraction": {
+      "group": "C",
+      "priority": "P2",
+      "asset": "scripts/csat/plos-extract.mjs",
+      "risk": "high",
+      "cost": "body reads, derivative insertion and analysis",
+      "dependency": "demand; source deduplication; excerpt validation before judgment",
+      "count": 1576,
+      "linkedSources": 309,
+      "recordedLinkedItems": 14265,
+      "bySource": {
+        "plos": 1576
+      },
+      "reasons": {
+        "raw_content_unjudged": 1576,
+        "excerpt_not_materialized": 1266,
+        "base_judgement": 1576
+      }
+    }
+  },
+  "workSemantics": "Overlapping candidate sets, not automatic approvals. Linked item counts are cached observations; live item references are independently scanned. Complete analysis is not readiness; assignment and historical use are not inferred.",
+  "snapshot": {
+    "measuredAt": "2026-09-19T02:31:46.502Z",
+    "inventoryMeasuredAt": "2026-09-19T02:32:50.290Z",
+    "specStale": false,
+    "inventoryDelta": 0,
+    "candidateDelta": 0,
+    "gradeDelta": {
+      "usable": 0,
+      "excerpt": 0,
+      "excerpt-blind": 0,
+      "unjudged": 0,
+      "unknown": 0,
+      "blocked": 0
+    }
+  },
+  "duplicateHashes": 115,
+  "findings": {}
+}

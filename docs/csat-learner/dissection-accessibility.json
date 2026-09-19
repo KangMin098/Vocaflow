@@ -1,0 +1,24 @@
+{
+  "/csat": {
+    "score": 100,
+    "final": "/csat",
+    "failures": [
+      "label-content-name-mismatch"
+    ],
+    "scope": "landing"
+  },
+  "/csat/dissect": {
+    "score": 100,
+    "final": "/csat/dissect",
+    "failures": [],
+    "scope": "PDF loading state; full dissection checked by Playwright axe"
+  },
+  "/csat/formulas": {
+    "score": 100,
+    "final": "/csat/formulas",
+    "failures": [
+      "label-content-name-mismatch"
+    ],
+    "scope": "landing"
+  }
+}

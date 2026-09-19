@@ -1,0 +1,87 @@
+{
+  "startedAt": "2026-09-18T14:36:34.852Z",
+  "completedAt": "2026-09-18T14:37:10.351Z",
+  "scope": "All library_articles metadata; eligibility only ready/published; bodies audited separately",
+  "total": 109043,
+  "states": {
+    "ready": 87466,
+    "archived": 20385,
+    "queued": 937,
+    "published": 250,
+    "failed": 4,
+    "analyzing": 1
+  },
+  "eligibility": {
+    "total": 87716,
+    "byGrade": {
+      "usable": 9103,
+      "excerpt": 4296,
+      "excerpt-blind": 10861,
+      "unjudged": 48811,
+      "unknown": 3,
+      "blocked": 14642
+    },
+    "byBlockedAxis": {
+      "safety": 374,
+      "judgement": 62845,
+      "format": 10945,
+      "legal": 150,
+      "analysis": 3
+    },
+    "composable": 13399,
+    "composablePct": 15.3,
+    "judged": 38905,
+    "composablePctOfJudged": 34.4,
+    "structurallyUnjudged": 31367
+  },
+  "snapshot": {
+    "measuredAt": "2026-09-18T14:35:47.611Z",
+    "inventoryMeasuredAt": "2026-09-18T14:23:12.235Z",
+    "specStale": false,
+    "inventoryDelta": 0,
+    "candidateDelta": 0,
+    "gradeDelta": {
+      "usable": 0,
+      "excerpt": 0,
+      "excerpt-blind": 0,
+      "unjudged": 0,
+      "unknown": 0,
+      "blocked": 0
+    }
+  },
+  "itemReferences": 38605,
+  "orphanItemReferences": [],
+  "findings": {
+    "analysis_incomplete": {
+      "count": 3,
+      "candidates": 3,
+      "bySource": {
+        "voa": 2,
+        "plos": 1
+      },
+      "rows": [
+        {
+          "id": "2ace785f-8f6f-4dc3-b70e-b0d7e589504f",
+          "source": "voa",
+          "status": "ready",
+          "title": "PEOPLE IN AMERICA - 2001 - 2002-01-08",
+          "detail": "학령 분석 미완 — V-Level"
+        },
+        {
+          "id": "3fa58838-1ca3-4012-8021-6370e9705a57",
+          "source": "voa",
+          "status": "ready",
+          "title": "Additional Frequencies and Times to Hear Special English in Iraq, Kuwait, Kabul and Moscow - 2005-01-14",
+          "detail": "학령 분석 미완 — V-Level"
+        },
+        {
+          "id": "c841a6aa-f600-472a-9cae-583baf9f58d2",
+          "source": "plos",
+          "status": "ready",
+          "title": "Tonic exploration governs both flexibility and lapses — 발췌",
+          "detail": "학령 분석 미완 — V-Level"
+        }
+      ]
+    }
+  }
+}
