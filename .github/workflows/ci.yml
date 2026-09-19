@@ -137,6 +137,8 @@ jobs:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          # 검증 계정 비밀번호 — 코드에 대체값이 없다(2026-09-19 교체, design/DECISIONS DD-48). 저장소 시크릿에서만 받는다
+          PLAYWRIGHT_RUNTIME_PASSWORD: ${{ secrets.PLAYWRIGHT_RUNTIME_PASSWORD }}
 
       - if: always() && steps.guard.outputs.ready == 'true'
         uses: actions/upload-artifact@v4

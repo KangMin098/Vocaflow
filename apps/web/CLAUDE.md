@@ -201,7 +201,7 @@ pnpm --filter web test:e2e         # 전체 e2e (smoke + 학습루프 + wordvaul
 카탈로그에 세트를 남기면 다음 실행의 novelty 대조군이 오염된다. 쓰기 경로는 `pnpm vcb:compose` 로 검증.
 
 - 실행 시 3000 의 기존 dev 서버 재사용(`reuseExistingServer`), 없으면 자동 기동 (playwright.config.ts)
-- 검증 계정: `runtime-test-0705@vocaflow.dev` / `RuntimeTest1!` (vocab 10·활동 시드·진단 v11) — EchoMatch 텍스트 `89970bfa-…8317`
+- 검증 계정: `runtime-test-0705@vocaflow.dev` / 비밀번호는 `.env` 의 `PLAYWRIGHT_RUNTIME_PASSWORD` 참조(2026-09-19 교체 — 옛 값은 무효, design/DECISIONS DD-48) (vocab 10·활동 시드·진단 v11) — EchoMatch 텍스트 `89970bfa-…8317`
   - **stage S3**(2026-07-13 `reading_fluency_log` wpm~160 시드) → hub 처방 ④ **DCP 구문 연습 활성**(order/insert·`/practice/dcp`). CTP DCP 계열 런타임 검증 가능. 시드 되돌리려면 해당 계정 fluency 로그 3건 DELETE → S1 복귀.
 - 새 화면/모듈 런타임 검증을 했으면 그 시나리오를 04-ui-smoke 또는 새 spec 으로 **남겨서** 다음부터 자동 회귀되게 할 것
 - 마이크 실녹음 검증은 fake-mic 플래그 필요: `--use-fake-ui-for-media-stream --use-fake-device-for-media-stream`
