@@ -7,7 +7,7 @@
 
 import { writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { fileURLToPath, pathToFileURL } from 'node:url'
 
 const HERE = dirname(fileURLToPath(import.meta.url))
 const TOKENS = '../../../../packages/design-tokens/src/tokens.css'
@@ -329,7 +329,10 @@ function page(d) {
 </body></html>`
 }
 
-for (const d of [A, B, C, D]) {
-  writeFileSync(join(HERE, `${d.key}.html`), page(d))
+// 방향 A 확정(DD-30) — Gate 5 시범(docs/design/trial/20260919/build.mjs)이 붓과 A 를 그대로 가져다 쓴다.
+export { A, O, I, IB, NS, paper, line, path, txt, mono, gwon, wash, svg, decay, WORDS, UNKNOWN, SHADE }
+
+if (import.meta.url === pathToFileURL(process.argv[1]).href) {
+  for (const d of [A, B, C, D]) writeFileSync(join(HERE, `${d.key}.html`), page(d))
+  console.log('wrote A B C D')
 }
-console.log('wrote A B C D')

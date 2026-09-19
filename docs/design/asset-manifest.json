@@ -1,0 +1,625 @@
+{
+  "$schema_note": "이미지 체계 manifest — docs/design/image-system-brief.md Gate 4 · 행 번호 dict = docs/design/symbol-dictionary.md · 규칙 docs/design/03-system.md §3-9 · 검사 node scripts/design/asset-manifest-check.mjs",
+  "generated": "2026-09-19",
+  "direction": "A 원고지 (DD-30)",
+  "items": [
+    {
+      "id": "illo-01-wordbook-empty",
+      "dict": 1,
+      "concept": "단어장이 아직 비었다",
+      "verb": "첫 낱말을 적는다",
+      "family": "서가",
+      "kind": "illustration",
+      "size": "E",
+      "viewBox": "320x200",
+      "target": {
+        "route": "/wordvault",
+        "component": "apps/web/src/components/wordvault/hub/WordVaultEmptyState.tsx"
+      },
+      "format": "svg",
+      "status": "trial",
+      "version": 1,
+      "source": "docs/design/explore/20260919 A (재사용)"
+    },
+    {
+      "id": "illo-02-text-hub-first",
+      "dict": 2,
+      "concept": "첫 글을 넣어 보자",
+      "verb": "칠한다",
+      "family": "지문",
+      "kind": "illustration",
+      "size": "E",
+      "viewBox": "320x200",
+      "target": {
+        "route": "/text",
+        "component": "apps/web/src/components/textviewer/EmptyState.tsx"
+      },
+      "format": "svg",
+      "status": "trial",
+      "version": 1
+    },
+    {
+      "id": "illo-03-shelf-filter-zero",
+      "dict": 3,
+      "concept": "이 조건의 책이 없다",
+      "verb": "범위를 넓힌다",
+      "family": "서가",
+      "kind": "illustration",
+      "size": "E",
+      "viewBox": "320x200",
+      "target": {
+        "route": "/library/books",
+        "component": "apps/web/src/components/library/shared/ShelfEmptyState.tsx"
+      },
+      "format": "svg",
+      "status": "trial",
+      "version": 1,
+      "note": "빈 서가 톤만 — 조회 실패는 아이콘 유지"
+    },
+    {
+      "id": "illo-04-dictation-choose",
+      "dict": 4,
+      "concept": "받아쓸 글을 고르자",
+      "verb": "받아 적는다",
+      "family": "지문",
+      "kind": "illustration",
+      "size": "E",
+      "viewBox": "320x200",
+      "target": {
+        "route": "/dictate/setup",
+        "component": "apps/web/src/components/dictation/DictationSetupClient.tsx"
+      },
+      "format": "svg",
+      "status": "trial",
+      "version": 1,
+      "note": "현 문구 「받아쓸 만한 문장이 없어요」 — 다른 글로 가는 한 걸음"
+    },
+    {
+      "id": "illo-05-portfolio-empty",
+      "dict": 5,
+      "concept": "모아 둔 자료가 없다",
+      "verb": "꽂는다",
+      "family": "서가",
+      "kind": "illustration",
+      "size": "E",
+      "viewBox": "320x200",
+      "target": {
+        "route": "/wordvault",
+        "component": "apps/web/src/components/wordvault/hub/ResourcePortfolio.tsx"
+      },
+      "format": "svg",
+      "status": "planned",
+      "version": 1
+    },
+    {
+      "id": "illo-06-text-list-empty",
+      "dict": 6,
+      "concept": "텍스트 목록이 비었다",
+      "verb": "묶는다",
+      "family": "지문",
+      "kind": "illustration",
+      "size": "E",
+      "viewBox": "320x200",
+      "target": {
+        "route": "/text",
+        "component": "apps/web/src/components/textviewer/TextHubContent.tsx"
+      },
+      "format": "svg",
+      "status": "planned",
+      "version": 1
+    },
+    {
+      "id": "illo-07-coverage",
+      "dict": 7,
+      "concept": "내가 아는 비율",
+      "verb": "칠한다",
+      "family": "지문",
+      "kind": "illustration",
+      "size": "S",
+      "viewBox": "240x240",
+      "target": {
+        "route": "/",
+        "component": "apps/web/src/app/page.tsx"
+      },
+      "format": "svg",
+      "status": "trial",
+      "version": 1,
+      "source": "docs/design/explore/20260919 A (재사용)"
+    },
+    {
+      "id": "illo-08-decay-per-word",
+      "dict": 8,
+      "concept": "잊는 속도는 낱말마다 다르다",
+      "verb": "바랜다",
+      "family": "망각",
+      "kind": "illustration",
+      "size": "S",
+      "viewBox": "240x240",
+      "target": {
+        "route": "/",
+        "component": "apps/web/src/app/page.tsx"
+      },
+      "format": "svg",
+      "status": "trial",
+      "version": 1
+    },
+    {
+      "id": "illo-09-review-holds",
+      "dict": 9,
+      "concept": "다시 보면 버틴다",
+      "verb": "끌어올린다",
+      "family": "망각",
+      "kind": "illustration",
+      "size": "B",
+      "viewBox": "640x240",
+      "target": {
+        "route": "/",
+        "component": "apps/web/src/app/page.tsx"
+      },
+      "format": "svg",
+      "status": "trial",
+      "version": 1,
+      "source": "docs/design/explore/20260919 A (재사용)"
+    },
+    {
+      "id": "illo-10-evidence-points",
+      "dict": 10,
+      "concept": "근거가 정답을 가리킨다",
+      "verb": "가리킨다",
+      "family": "주묵 선",
+      "kind": "illustration",
+      "size": "S",
+      "viewBox": "240x240",
+      "target": {
+        "route": "/about",
+        "component": "apps/web/src/app/(marketing)/about/page.tsx"
+      },
+      "format": "svg",
+      "status": "trial",
+      "version": 1
+    },
+    {
+      "id": "illo-11-distractor-excluded",
+      "dict": 11,
+      "concept": "매력적인 오답은 이렇게 걸러진다",
+      "verb": "막는다",
+      "family": "주묵 선",
+      "kind": "illustration",
+      "size": "S",
+      "viewBox": "240x240",
+      "target": {
+        "route": "/about",
+        "component": "apps/web/src/app/(marketing)/about/page.tsx"
+      },
+      "format": "svg",
+      "status": "planned",
+      "version": 1
+    },
+    {
+      "id": "illo-12-trap-pulls",
+      "dict": 12,
+      "concept": "함정은 여기서 당긴다",
+      "verb": "끌어당긴다",
+      "family": "주묵 선",
+      "kind": "illustration",
+      "size": "S",
+      "viewBox": "240x240",
+      "target": {
+        "route": "/about",
+        "component": "apps/web/src/app/(marketing)/about/page.tsx"
+      },
+      "format": "svg",
+      "status": "planned",
+      "version": 1
+    },
+    {
+      "id": "illo-13-same-pattern",
+      "dict": 13,
+      "concept": "두 문항은 같은 패턴이다",
+      "verb": "합친다",
+      "family": "주묵 선",
+      "kind": "illustration",
+      "size": "S",
+      "viewBox": "240x240",
+      "target": {
+        "route": "/about",
+        "component": "apps/web/src/app/(marketing)/about/page.tsx"
+      },
+      "format": "svg",
+      "status": "planned",
+      "version": 1
+    },
+    {
+      "id": "illo-14-class-sheet",
+      "dict": 14,
+      "concept": "학급에 나눠 줄 한 장",
+      "verb": "찍는다",
+      "family": "시험지",
+      "kind": "illustration",
+      "size": "S",
+      "viewBox": "240x240",
+      "target": {
+        "route": "/fit",
+        "component": "apps/web/src/app/(marketing)/fit/page.tsx"
+      },
+      "format": "svg",
+      "status": "trial",
+      "version": 1,
+      "note": "판면 아래 섹션만 — 골든 1호 판면은 건드리지 않는다"
+    },
+    {
+      "id": "illo-15-fit-grade",
+      "dict": 15,
+      "concept": "이 글의 적정 학년",
+      "verb": "맞춘다",
+      "family": "시험지",
+      "kind": "illustration",
+      "size": "S",
+      "viewBox": "240x240",
+      "target": {
+        "route": "/fit",
+        "component": "apps/web/src/app/(marketing)/fit/page.tsx"
+      },
+      "format": "svg",
+      "status": "planned",
+      "version": 1
+    },
+    {
+      "id": "illo-16-off-curriculum",
+      "dict": 16,
+      "concept": "교육과정 밖 낱말",
+      "verb": "밀려난다",
+      "family": "지문",
+      "kind": "illustration",
+      "size": "S",
+      "viewBox": "240x240",
+      "target": {
+        "route": "/fit",
+        "component": "apps/web/src/app/(marketing)/fit/page.tsx"
+      },
+      "format": "svg",
+      "status": "trial",
+      "version": 1
+    },
+    {
+      "id": "illo-17-stuck-sentence",
+      "dict": 17,
+      "concept": "어느 문장에서 막히는가",
+      "verb": "짚는다",
+      "family": "지문",
+      "kind": "illustration",
+      "size": "S",
+      "viewBox": "240x240",
+      "target": {
+        "route": "/about",
+        "component": "apps/web/src/app/(marketing)/about/page.tsx"
+      },
+      "format": "svg",
+      "status": "planned",
+      "version": 1
+    },
+    {
+      "id": "illo-18-reread-count",
+      "dict": 18,
+      "concept": "여러 번 읽었다",
+      "verb": "센다",
+      "family": "시험지",
+      "kind": "illustration",
+      "size": "S",
+      "viewBox": "240x240",
+      "target": {
+        "route": "/pricing",
+        "component": "apps/web/src/app/(marketing)/pricing/page.tsx"
+      },
+      "format": "svg",
+      "status": "planned",
+      "version": 1
+    },
+    {
+      "id": "illo-19-shelf-fills",
+      "dict": 19,
+      "concept": "서가가 차오른다",
+      "verb": "쌓인다",
+      "family": "서가",
+      "kind": "illustration",
+      "size": "S",
+      "viewBox": "240x240",
+      "target": {
+        "route": "/",
+        "component": "apps/web/src/app/page.tsx"
+      },
+      "format": "svg",
+      "status": "trial",
+      "version": 1
+    },
+    {
+      "id": "illo-20-long-lasting",
+      "dict": 20,
+      "concept": "오래 버티는 낱말",
+      "verb": "버틴다",
+      "family": "서가",
+      "kind": "illustration",
+      "size": "S",
+      "viewBox": "240x240",
+      "target": {
+        "route": "/",
+        "component": "apps/web/src/app/page.tsx"
+      },
+      "format": "svg",
+      "status": "planned",
+      "version": 1
+    },
+    {
+      "id": "illo-21-done-today",
+      "dict": 21,
+      "concept": "오늘 잘 마쳤어요",
+      "verb": "덮는다",
+      "family": "서가",
+      "kind": "illustration",
+      "size": "E",
+      "viewBox": "320x200",
+      "target": null,
+      "format": "svg",
+      "status": "blocked",
+      "version": 1,
+      "note": "blocked — 이 문장은 게임 모듈 결과 화면(범위 밖)에만 있다"
+    },
+    {
+      "id": "illo-22-share-fold",
+      "dict": 22,
+      "concept": "결과를 건넨다",
+      "verb": "건넨다",
+      "family": "시험지",
+      "kind": "illustration",
+      "size": "O",
+      "viewBox": "1200x630",
+      "target": {
+        "route": "/fit/s/[payload]",
+        "component": "apps/web/src/app/(marketing)/fit/s/[payload]/opengraph-image.tsx"
+      },
+      "format": "svg",
+      "status": "planned",
+      "version": 1,
+      "note": "무대만(사물 없이 모눈 + 제목 조판)"
+    },
+    {
+      "id": "illo-23-print-cut",
+      "dict": 23,
+      "concept": "인쇄해서 쓴다",
+      "verb": "오린다",
+      "family": "시험지",
+      "kind": "illustration",
+      "size": "S",
+      "viewBox": "240x240",
+      "target": {
+        "route": "/fit",
+        "component": "apps/web/src/app/(marketing)/fit/page.tsx"
+      },
+      "format": "svg",
+      "status": "planned",
+      "version": 1
+    },
+    {
+      "id": "illo-24-paste-text",
+      "dict": 24,
+      "concept": "글을 붙여 넣는다",
+      "verb": "채운다",
+      "family": "지문",
+      "kind": "illustration",
+      "size": "E",
+      "viewBox": "320x200",
+      "target": {
+        "route": "/text",
+        "component": "apps/web/src/components/textviewer/EmptyState.tsx"
+      },
+      "format": "svg",
+      "status": "planned",
+      "version": 1,
+      "note": "#2 와 짝 — 직접 입력 갈래"
+    },
+    {
+      "id": "illo-25-move-level",
+      "dict": 25,
+      "concept": "수준을 옮겨 본다",
+      "verb": "옮긴다",
+      "family": "지문",
+      "kind": "illustration",
+      "size": "S",
+      "viewBox": "240x240",
+      "target": {
+        "route": "/",
+        "component": "apps/web/src/app/page.tsx"
+      },
+      "format": "svg",
+      "status": "planned",
+      "version": 1
+    },
+    {
+      "id": "illo-26-past-years",
+      "dict": 26,
+      "concept": "해마다의 기출",
+      "verb": "넘긴다",
+      "family": "시험지",
+      "kind": "illustration",
+      "size": "B",
+      "viewBox": "640x240",
+      "target": {
+        "route": "/about",
+        "component": "apps/web/src/app/(marketing)/about/page.tsx"
+      },
+      "format": "svg",
+      "status": "planned",
+      "version": 1
+    },
+    {
+      "id": "illo-27-margin-note",
+      "dict": 27,
+      "concept": "해설은 난외에",
+      "verb": "잇는다",
+      "family": "주묵 선",
+      "kind": "illustration",
+      "size": "S",
+      "viewBox": "240x240",
+      "target": {
+        "route": "/about",
+        "component": "apps/web/src/app/(marketing)/about/page.tsx"
+      },
+      "format": "svg",
+      "status": "planned",
+      "version": 1
+    },
+    {
+      "id": "illo-28-dictation-hear",
+      "dict": 28,
+      "concept": "들리는 대로 적는다",
+      "verb": "받아 적는다",
+      "family": "지문",
+      "kind": "illustration",
+      "size": "E",
+      "viewBox": "320x200",
+      "target": {
+        "route": "/dictate/setup",
+        "component": "apps/web/src/components/dictation/DictationSetupClient.tsx"
+      },
+      "format": "svg",
+      "status": "planned",
+      "version": 1,
+      "note": "#4 와 짝"
+    },
+    {
+      "id": "illo-29-search-zero",
+      "dict": 29,
+      "concept": "찾는 낱말이 없다",
+      "verb": "다시 찾는다",
+      "family": "서가",
+      "kind": "illustration",
+      "size": "E",
+      "viewBox": "320x200",
+      "target": null,
+      "format": "svg",
+      "status": "blocked",
+      "version": 1,
+      "note": "blocked — 후보 components/textviewer/MyTextsGrid.tsx 가 어디서도 import 되지 않는다(고아 컴포넌트)"
+    },
+    {
+      "id": "illo-30-no-review-today",
+      "dict": 30,
+      "concept": "오늘 복습할 것이 없다",
+      "verb": "기다린다",
+      "family": "망각",
+      "kind": "illustration",
+      "size": "E",
+      "viewBox": "320x200",
+      "target": {
+        "route": "/wordvault/review",
+        "component": "apps/web/src/components/wordvault/WordVaultStudyClient.tsx"
+      },
+      "format": "svg",
+      "status": "trial",
+      "version": 1
+    },
+    {
+      "id": "icon-apple-touch",
+      "concept": "브랜드 각인",
+      "verb": null,
+      "family": null,
+      "kind": "icon",
+      "size": "180x180",
+      "target": {
+        "route": "/",
+        "component": "apps/web/src/app/layout.tsx",
+        "file": "apps/web/public/apple-touch-icon.png"
+      },
+      "format": "png",
+      "status": "done",
+      "version": 1,
+      "note": "DD-27"
+    },
+    {
+      "id": "icon-pwa-192",
+      "concept": "브랜드 각인",
+      "verb": null,
+      "family": null,
+      "kind": "icon",
+      "size": "192x192",
+      "target": {
+        "route": "/",
+        "component": "apps/web/public/manifest.json",
+        "file": "apps/web/public/icons/icon-192.png"
+      },
+      "format": "png",
+      "status": "done",
+      "version": 1,
+      "note": "DD-27"
+    },
+    {
+      "id": "icon-pwa-512",
+      "concept": "브랜드 각인",
+      "verb": null,
+      "family": null,
+      "kind": "icon",
+      "size": "512x512",
+      "target": {
+        "route": "/",
+        "component": "apps/web/public/manifest.json",
+        "file": "apps/web/public/icons/icon-512.png"
+      },
+      "format": "png",
+      "status": "done",
+      "version": 1,
+      "note": "DD-27"
+    },
+    {
+      "id": "favicon",
+      "concept": "브랜드 각인",
+      "verb": null,
+      "family": null,
+      "kind": "icon",
+      "size": "16/32/48/256",
+      "target": {
+        "route": "/",
+        "component": "apps/web/src/app/layout.tsx",
+        "file": "apps/web/src/app/favicon.ico"
+      },
+      "format": "ico",
+      "status": "done",
+      "version": 2,
+      "note": "DD-26 새로 제작 · DD-27"
+    },
+    {
+      "id": "og-root",
+      "concept": "랜딩 공유 카드",
+      "verb": null,
+      "family": "시험지",
+      "kind": "og",
+      "size": "O",
+      "viewBox": "1200x630",
+      "target": {
+        "route": "/",
+        "component": "apps/web/src/app/layout.tsx"
+      },
+      "format": "png",
+      "status": "planned",
+      "version": 1,
+      "note": "layout.tsx openGraph 에 images 가 없다 — 모눈 무대 + 제목 조판"
+    },
+    {
+      "id": "og-card-stage",
+      "concept": "공유 카드 무대",
+      "verb": null,
+      "family": "시험지",
+      "kind": "og",
+      "size": "O",
+      "viewBox": "1200x630",
+      "target": {
+        "route": "/library/books/[bookId]",
+        "component": "apps/web/src/app/(main)/library/books/[bookId]/opengraph-image.tsx",
+        "file": "apps/web/src/lib/seo/og-card.tsx"
+      },
+      "format": "png",
+      "status": "planned",
+      "version": 1,
+      "note": "og-card 공용 4라우트 — 무대만 입힌다"
+    }
+  ]
+}
