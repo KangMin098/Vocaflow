@@ -85,8 +85,10 @@ OS와 프로젝트(뷰포트·테마)별 기준선을 분리한다. 앱 데이�
 | 캡처·감사 첨부 | `test-results/design-qa/` | 다음 실행 때 교체 |
 | HTML·JSON 보고서 | `playwright-report/design-qa/` | 다음 실행 때 교체 |
 | 로컬 픽셀 기준선 | `test-results-csat-learner/design-baselines/` | 비교 실행은 보존, 명시적 갱신만 변경 |
+| 손으로 찍은 디자인 캡처 | `docs/design/shots/`(저장소 루트 기준) | **gitignore — 커밋하지 않는다**(기출 원문·실제 사용자 데이터가 찍힐 수 있다). 이미 추적 중인 v07 전후 16장만 남아 있다(DD-47) |
+| 골든 스크린 · 삽화 골든 | `docs/design/golden/`(저장소 루트 기준) | **커밋한다** — 단 `design-empty` 계정(`scripts/design/seed-empty-account.mjs`)·`/dev/components` 검수대 데이터로 찍은 것만. 기출 원문·실제 사용자 데이터 화면 금지 |
 
-모두 기존 gitignore 범위 안이다. 특히 기출 원문·개인 기록이 담긴 화면을 저장소에 올리지 않는다.
+골든을 뺀 모두가 gitignore 범위 안이다. 특히 기출 원문·개인 기록이 담긴 화면을 저장소에 올리지 않는다.
 변경 전 증거를 보존하려면 다음 실행 전에 별도의 로컬 작업 폴더로 복사한다.
 이 환경은 로컬 비교 도구이며 CI에 기준선이나 전역 통과 게이트를 추가하지 않는다.
 
