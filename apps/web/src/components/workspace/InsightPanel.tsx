@@ -76,6 +76,9 @@ export function InsightPanel({
         role="dialog"
         aria-label="학습 인사이트"
         aria-hidden={!isOpen}
+        // 닫혀 있을 때 안의 버튼이 포커스를 받았다(axe aria-hidden-focus) — 닫힌 패널은 통째로 비활성.
+        // React 18 은 불리언 `inert` 를 DOM 에 그리지 않는다 — 빈 문자열 속성으로 넘긴다.
+        {...((isOpen ? {} : { inert: '' }) as Record<string, string>)}
         className={`fixed bottom-0 right-0 top-0 z-[90] w-full overflow-y-auto border-l border-[var(--bd)] bg-[var(--bg)] shadow-[var(--sh-xl)] transition-transform duration-[var(--dur-slow)] ease-[var(--ease)] md:w-[420px] ${isOpen ? 'translate-x-0' : 'translate-x-full'} `}
       >
         <header className="sticky top-0 z-10 flex items-center justify-between border-b border-[var(--bd)] bg-[var(--bg)] px-6 py-5">

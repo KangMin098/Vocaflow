@@ -77,7 +77,8 @@ export function VoicePickerPopover() {
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-label="음성 선택"
-        className="inline-flex items-center gap-2 rounded-[var(--r-full)] bg-white/10 px-3 py-1 font-display text-[11px] font-[600] text-white/95 transition-colors hover:bg-white/20"
+        // 어두운 플레이어를 가정한 흰 글자였다 — 밝은 판면 플레이어에서 흰 바탕에 흰 글자(axe 대비 위반, 2026-09-19). 토큰으로
+        className="inline-flex min-h-11 items-center gap-2 rounded-[var(--r-full)] bg-[var(--bg2)] px-3 py-1 font-display text-[11px] font-[600] text-[var(--t1)] transition-colors hover:bg-[var(--bg3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
       >
         <Volume2 size={11} aria-hidden />
         <span className="hidden sm:inline">{label}</span>

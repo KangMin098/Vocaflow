@@ -80,8 +80,8 @@ const BASELINE: Record<Surface, Record<string, number>> = {
     'shadow-heavy': 29,
     'rounded-big': 39, // 2026-09-19 /signup 그림자 카드 rounded-xl 2(41→39)
     gradient: 165, // 2026-09-19 /diagnostic 헤더 2(171→169) · /flashcard/play 회상 막대·예문·완료 박스·버튼 4(169→165)
-    'ai-purple': 38,
-    glass: 50, // 2026-09-19 /diagnostic — 안내 모달 backdrop-blur 2(52→50)
+    'ai-purple': 37, // 2026-09-19 /text/[id] UnifiedHeader 칩 hover #6D28D9(38→37)
+    glass: 49, // 2026-09-19 /diagnostic 모달 2(52→50) · /text/[id] ModePills backdrop-blur(50→49)
     'float-hover': 64, // 2026-09-19 /hub TodayPlanCard 칩(66→65) · /flashcard/play 완료 버튼(65→64)
     'infinite-anim': 10, // 2026-09-19 /flashcard/play 발음 무한 펄스 2(12→10)
   },

@@ -7,6 +7,7 @@
 
 import type { Word } from '@/types/library';
 import type { ChapterWord } from '@/lib/library/chapter-words-queries';
+import type { MemoryState } from '@/lib/srs/types';
 import { enrichBook } from './word-enrichment';
 import { findSupportSpans, type SupportToken } from '@/lib/workspace/support';
 
@@ -77,6 +78,8 @@ export function buildParagraphsFromContent(
   content: string,
   paragraphOffsets: number[],
   chapterWords: ChapterWord[] = [],
+  /** 낱말(소문자) → 학습자의 기억 상태(`word-states.ts`, 2026-09-19). 없으면 전부 new */
+  wordStates: Record<string, MemoryState> = {},
 ): TextParagraph[] {
   if (!content) return [];
 
@@ -115,7 +118,7 @@ export function buildParagraphsFromContent(
   const flatSentences = perPara.flat();
   const enrichedFlat =
     chapterWords.length > 0
-      ? enrichBook(flatSentences, chapterWords)
+      ? enrichBook(flatSentences, chapterWords, wordStates)
       : flatSentences.map((s) => [{ text: s }]);
 
   // 재그룹 — 단락별 문장 묶음 + 전역 고유 sentence id

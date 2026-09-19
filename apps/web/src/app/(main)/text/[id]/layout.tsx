@@ -24,6 +24,7 @@ import {
 } from '@/lib/library/chapter-words-queries';
 import { fetchBookWordSetSubscriptionStats } from '@/lib/library/books/queries';
 import { pickChapterAudio, type ChapterAudio } from '@/lib/workspace/chapter-audio';
+import { fetchWordStates } from './word-states';
 
 interface LayoutProps {
   children: ReactNode;
@@ -392,6 +393,14 @@ export default async function TextWorkspaceLayout({ children, params }: LayoutPr
     }
   }
 
+  // 4.9. 2026-09-19(DD-27) — 원문 낱말의 **내 기억 상태**(R(t)). 이전엔 전부 new 하드코딩이었다.
+  //   이 챕터 학습 낱말만 조회한다. 실패하면 null → 낱말은 new 로 그리되 패널이 실패를 밝힌다.
+  const wordStates = await fetchWordStates(
+    client,
+    text.user_id,
+    chapterWords.map((w) => w.word),
+  );
+
   // 5. Phase 11.6 + 11.7 — TextContentProvider 데이터 정합
   //   text 는 위에서 notFound() 로 걸러졌으므로 항상 존재한다 — 목업 폴백이 없다.
   const textContentValue: TextContentData = (() => {
@@ -434,7 +443,8 @@ export default async function TextWorkspaceLayout({ children, params }: LayoutPr
       chapterAudio,
       illustrations,
       text: partial,
-      paragraphs: buildParagraphsFromContent(content, paragraphOffsets, chapterWords),
+      paragraphs: buildParagraphsFromContent(content, paragraphOffsets, chapterWords, wordStates ?? {}),
+      memoryLoad: wordStates === null ? 'error' : 'ok',
     };
   })();
 

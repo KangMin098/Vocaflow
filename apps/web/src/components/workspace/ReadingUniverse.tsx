@@ -198,7 +198,8 @@ export function ReadingUniverse({
             </figure>
           )}
           <p
-            className={`group/paragraph relative mb-4 whitespace-pre-line md:mb-5 ${
+            // [overflow-wrap:anywhere] — 원문에 섞인 긴 URL 이 390 에서 페이지를 6px 밀었다(2026-09-19)
+            className={`group/paragraph relative mb-4 whitespace-pre-line [overflow-wrap:anywhere] md:mb-5 ${
               pIdx === 0
                 ? '[&::first-letter]:float-left [&::first-letter]:mr-2.5 [&::first-letter]:mt-1.5 [&::first-letter]:font-english [&::first-letter]:text-[3.2em] [&::first-letter]:font-[700] [&::first-letter]:leading-[0.9] [&::first-letter]:text-[var(--p)]'
                 : ''

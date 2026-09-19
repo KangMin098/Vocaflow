@@ -1,5 +1,10 @@
 // apps/web/src/app/(main)/text/[id]/page.tsx
 // @form: 채색 지문 — 지문 자체가 조작면, 단어 밑줄 두께 3/2/1px = 망각도 (형태 문법 F1)
+//
+// 2026-09-19 화면 재설계(발산 A 「내 기억으로 칠한 원문」 · docs/design/compare/text-id.md · DD-27):
+//   선언은 있었지만 렌더는 무채색이었다 — 낱말이 전부 new 하드코딩(감사 평균 · 선언·렌더 불일치).
+//   레이아웃이 학습자의 R(t) 를 조인해 넘긴다(`word-states.ts`). 여기서는 지어낸 수치(I5)를 걷었다:
+//   기억 통계 97/28/14/17 · 「Page 3까지 왔어요」 인용 · 모드 진행 목업(듣기·읽기 「완료」).
 
 'use client'
 
@@ -43,20 +48,20 @@ import {
 import { fetchBookmarked, setBookmarked } from '@/lib/text-viewer/bookmark'
 import { useToast } from '@/components/ui/Toast'
 import { annotateSupport } from './text-content-helpers'
+import { ChapterWordLine, chapterLineWords } from './ChapterWordLine'
 
-const MODE_STATUS: Record<ModeKey, ModeStatus> = {
-  listen: 'done',
-  read: 'done',
-  comic: 'pending',
-  shadow: 'pending',
-  words: 'active',
-  flashcard: 'pending',
-  pairflip: 'pending',
-  dictation: 'pending',
-  spellforge: 'pending',
-  wordblitz: 'pending',
-  arcade: 'pending',
-  quiz: 'pending',
+const MODE_KEYS: ModeKey[] = [
+  'listen', 'read', 'comic', 'shadow', 'words', 'flashcard', 'pairflip',
+  'dictation', 'spellforge', 'wordblitz', 'arcade', 'quiz',
+]
+
+/**
+ * 모드 알약의 진행 표시 — **지금 모드만 active, 나머지는 pending.**
+ * 2026-09-19 까지 목업(듣기·읽기 「완료」 · 단어 「진행 중」)이 모든 학습자에게 같게 보였다(I5).
+ * 모드별 완료 기록을 한곳에서 읽는 경로가 생기기 전까지 「완료」 를 지어내지 않는다.
+ */
+function modeStatusFor(current: ModeKey | null): Record<ModeKey, ModeStatus> {
+  return Object.fromEntries(MODE_KEYS.map((k) => [k, k === current ? 'active' : 'pending'])) as Record<ModeKey, ModeStatus>
 }
 
 interface PageProps {
@@ -467,8 +472,28 @@ export default function WorkspacePage({ params }: PageProps) {
     },
   })
 
-  // M11(기억 상태 목업)은 이 작업 범위 밖이라 그대로 둔다 — 실데이터 경로가 아직 없다.
-  const memoryStats = { stable: 97, shaky: 28, risk: 14, newWords: 17 }
+  // 기억 통계 — 이 챕터 원문 낱말의 실제 상태(레이아웃이 R(t) 로 계산해 넘긴 것)를 센다.
+  //   2026-09-19 까지 { 97, 28, 14, 17 } 상수였다(I5).
+  const memoryStats = useMemo(() => {
+    const byWord = new Map<string, Word['status']>()
+    for (const p of paragraphs)
+      for (const s of p.sentences) for (const part of s.parts) if (part.word) byWord.set(part.word.id, part.word.status)
+    const c = { stable: 0, shaky: 0, risk: 0, newWords: 0 }
+    for (const st of byWord.values()) {
+      if (st === 'stable') c.stable++
+      else if (st === 'shaky') c.shaky++
+      else if (st === 'risk') c.risk++
+      else c.newWords++
+    }
+    return c
+  }, [paragraphs])
+  const memoryTotal = memoryStats.stable + memoryStats.shaky + memoryStats.risk + memoryStats.newWords
+  const memoryLine =
+    ctx?.memoryLoad === 'error'
+      ? '기억 상태를 불러오지 못했어요 — 지금은 낱말이 모두 처음 만나는 것으로 보여요.'
+      : memoryTotal === 0
+        ? '이 글에는 표시할 학습 낱말이 없어요.'
+        : `이 챕터 학습 낱말 ${memoryTotal}개 — 밑줄이 두꺼울수록 흐려진 낱말이에요.`
 
   // 인사이트 패널의 북마크 목록 — 저장된 값에서 만든다(목업 인용문 2개를 지웠다).
   //   북마크 단위는 "이 글/챕터" 다(texts.is_bookmarked). 문장 단위 북마크를 담을 곳이
@@ -548,7 +573,7 @@ export default function WorkspacePage({ params }: PageProps) {
         onToggleFocus={toggleFocus}
         isFocusMode={isFocusMode}
         currentMode={currentMode}
-        modeStatus={MODE_STATUS}
+        modeStatus={modeStatusFor(currentMode ?? null)}
         wordsHref={wordsHref}
         flashcardHref={flashcardHref}
         wordblitzHref={wordblitzHref}
@@ -563,6 +588,9 @@ export default function WorkspacePage({ params }: PageProps) {
           onExit={() => router.push(`/text/${text.id}?mode=read`)}
         />
       )}
+
+      {/* 첫 시선 — 이 챕터의 학습 낱말 줄(내 기억 상태의 밑줄 두께). 원문의 칠은 대개 첫 화면 아래라서 */}
+      {!isShadow && <ChapterWordLine words={chapterLineWords(paragraphs)} failed={ctx?.memoryLoad === 'error'} />}
 
       <ReadingUniverse
         paragraphs={paragraphs}
@@ -608,8 +636,9 @@ export default function WorkspacePage({ params }: PageProps) {
             학습 단어를 만났어요
           </p>
         )}
-        <p className="mt-1.5 font-body text-[12px] italic tracking-[0.01em] text-[var(--t2)]">
-          오늘도 좋은 페이스예요 · 잠깐 쉬어도 좋아요
+        {/* 한글 이탤릭 금지(가짜 기울임) — 격려는 Hahmlet 정체. 근거 없는 「좋은 페이스」 는 뺐다 */}
+        <p className="mt-1.5 break-keep font-ko-display text-[13px] text-[var(--t2)]">
+          여기서 잠깐 쉬어도 좋아요
         </p>
       </footer>
 
@@ -656,7 +685,7 @@ export default function WorkspacePage({ params }: PageProps) {
       <InsightPanel
         isOpen={isInsightOpen}
         onClose={() => setIsInsightOpen(false)}
-        softQuote="Page 3까지 왔어요. 이번 chapter의 1/4. 좋은 흐름이에요."
+        softQuote={memoryLine}
         bookmarks={bookmarks}
         memoryStats={memoryStats}
         libraryBookId={ctx?.libraryBookId ?? null}

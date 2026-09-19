@@ -6,6 +6,7 @@
 // - shared_dictionary 미매칭 단어도 lbv 메타로 표시
 
 import type { ChapterWord } from '@/lib/library/chapter-words-queries';
+import type { MemoryState } from '@/lib/srs/types';
 import type { Word, MemoryStatus } from '@/types/library';
 import type { TextParagraphPart } from './text-content-helpers';
 
@@ -20,6 +21,7 @@ export function enrichParagraph(
   paragraphText: string,
   wordMap: Map<string, ChapterWord>,
   consumedWords: Set<string>,
+  states: Record<string, MemoryState> = {},
 ): TextParagraphPart[] {
   if (wordMap.size === 0 || !paragraphText) {
     return paragraphText ? [{ text: paragraphText }] : [];
@@ -47,7 +49,7 @@ export function enrichParagraph(
       const chapterWord = wordMap.get(lower)!;
       parts.push({
         text: segment,
-        word: toWord(segment, chapterWord),
+        word: toWord(segment, chapterWord, states),
       });
 
       consumedWords.add(lower);
@@ -70,6 +72,8 @@ export function enrichParagraph(
 export function enrichBook(
   paragraphTexts: string[],
   chapterWords: ChapterWord[],
+  /** 낱말(소문자) → 학습자의 지금 기억 상태(`word-states.ts`). 없는 낱말은 new */
+  states: Record<string, MemoryState> = {},
 ): TextParagraphPart[][] {
   const wordMap = new Map<string, ChapterWord>();
   for (const w of chapterWords) {
@@ -77,18 +81,19 @@ export function enrichBook(
   }
   const consumedWords = new Set<string>();
   return paragraphTexts.map((para) =>
-    enrichParagraph(para, wordMap, consumedWords),
+    enrichParagraph(para, wordMap, consumedWords, states),
   );
 }
 
-function toWord(displayText: string, ch: ChapterWord): Word {
+function toWord(displayText: string, ch: ChapterWord, states: Record<string, MemoryState>): Word {
   return {
     id: ch.word,
     text: displayText,
     meaning: ch.meaning ?? '(의미 미등록)',
     pronunciation: '',
     pos: ch.pos ?? '',
-    status: 'new' as MemoryStatus,
+    // 2026-09-19(DD-27) — 전부 'new' 하드코딩이었다. 학습자의 R(t) 상태를 쓴다(표면형 → 표제어 순).
+    status: (states[displayText.toLowerCase()] ?? states[ch.word.toLowerCase()] ?? 'new') as MemoryStatus,
     exampleSentence: ch.exampleSentence ?? '',
     vLevel: ch.vLevel,
   };

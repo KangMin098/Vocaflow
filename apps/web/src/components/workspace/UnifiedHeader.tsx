@@ -182,7 +182,7 @@ export function UnifiedHeader({
                       type="button"
                       onClick={onToggleInsight}
                       aria-label={`챕터 단어장 ${bookWordSetStats.subscribed} / ${bookWordSetStats.total} — 학습 인사이트 열기`}
-                      className="inline-flex min-h-[44px] min-w-[44px] shrink-0 items-center justify-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-mono text-[11px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:border-[var(--p)] hover:bg-[var(--p)]/10 hover:text-[#6D28D9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+                      className="inline-flex min-h-[44px] min-w-[44px] shrink-0 items-center justify-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-mono text-[11px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:border-[var(--p)] hover:bg-[var(--p)]/10 hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
                     >
                       <Layers size={9} aria-hidden />
                       <span className="tabular-nums">
@@ -236,7 +236,8 @@ export function UnifiedHeader({
         )}
 
         {/* Actions toolbar — 북마크 · 타이포 · 집중 (insight·더보기 중복 제거) */}
-        <div role="toolbar" aria-label="액션" className="flex shrink-0 items-center gap-1">
+        {/* 390 에서 이 줄이 화면 밖으로 밀려 페이지 가로 넘침 349px 이었다(2026-09-19 실측) — 줄어들고 넘치면 가로로 민다 */}
+        <div role="toolbar" aria-label="액션" className="flex min-w-0 shrink items-center gap-1 overflow-x-auto">
           {/* Bookmark */}
           <button
             type="button"
@@ -297,7 +298,8 @@ export function UnifiedHeader({
                 onClick={() => setNavOpen((v) => !v)}
                 aria-expanded={navOpen}
                 aria-controls="chapter-nav-popover"
-                className="inline-flex min-h-[28px] items-center gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-display text-[11px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+                // 28px 였다(44px 하한 미달) · 390 에서 줄어든 도구 줄에 끼어 「목/차」 로 접혔다(2026-09-19)
+                className="inline-flex min-h-11 shrink-0 items-center gap-1 whitespace-nowrap rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-display text-[11px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
               >
                 <List size={11} aria-hidden />
                 목차

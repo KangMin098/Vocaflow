@@ -106,15 +106,16 @@ export function ModePills({
     <nav
       aria-label="학습 단계 선택"
       // UnifiedHeader 부모가 이미 sticky — 자체 sticky 제거 (stacking context 충돌 차단)
-      className={`relative border-b border-[var(--bd)]/40 bg-[var(--reading-bg)]/95 backdrop-blur-[16px] transition-all duration-[var(--dur-slower)] motion-reduce:transition-none ${
+      className={`relative border-b border-[var(--bd)]/40 bg-[var(--reading-bg)] transition-all duration-[var(--dur-slower)] motion-reduce:transition-none ${
         isFocusMode
           ? '-translate-y-1 opacity-40 hover:translate-y-0 hover:opacity-100'
           : 'opacity-100'
       }`}
     >
-      <div className="mx-auto flex max-w-[1080px] items-center justify-center gap-1 px-4 py-2 md:gap-2 md:px-8">
+      {/* 알약 12개가 1280 에서 잘리고 390 에서 화면 밖으로 넘쳤다(2026-09-19 실측) — 넘치면 가로로 민다 */}
+      <div className="mx-auto flex max-w-[1080px] items-center justify-start gap-1 overflow-x-auto px-4 py-2 md:gap-2 md:px-8 xl:justify-center">
         {grouped.map((group, gIdx) => (
-          <div key={group.key} className="flex items-center gap-1">
+          <div key={group.key} className="flex shrink-0 items-center gap-1">
             {gIdx > 0 && (
               <span aria-hidden className="mx-1.5 h-4 w-px shrink-0 bg-[var(--bd)] md:mx-2" />
             )}
@@ -156,19 +157,13 @@ export function ModePills({
                         aria-current={isActive ? 'page' : undefined}
                         className={`inline-flex items-center gap-2 rounded-[var(--r-full)] px-3 py-1 font-display text-[12px] font-[700] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] motion-reduce:transition-none ${
                           isActive
-                            ? 'text-white shadow-[var(--sh-sm)]'
+                            ? // 모둠 색 배경 위 흰 글자는 다크에서 대비가 무너졌다(axe, 2026-09-19) — 토큰 짝 --p / --on-p
+                              'bg-[var(--p)] text-[var(--on-p)]'
                             : isDone
                             ? 'text-[var(--t1)] hover:bg-[var(--bg2)]'
                             : 'text-[var(--t2)] hover:text-[var(--t1)] hover:bg-[var(--bg2)]'
                         }`}
-                        style={
-                          isActive
-                            ? {
-                                backgroundColor: group.color,
-                                boxShadow: `0 1px 8px ${group.color}55`,
-                              }
-                            : undefined
-                        }
+                        style={undefined}
                       >
                         {/* 만화 = 킬러 모드: 비활성 시 gold underline 신호(Calm — 폭죽 없음) */}
                         {/* Status dot */}

@@ -56,6 +56,11 @@ export interface TextContentData {
   illustrations: Array<{ idx: number; url: string; alt?: string }> | null;
   text: Partial<LibraryText>;
   paragraphs: TextParagraph[];
+  /**
+   * 원문 낱말의 기억 상태를 불러왔는가(2026-09-19 · DD-27). `error` 면 낱말은 전부 new 로 그려지지만
+   * 인사이트 패널이 그 사실을 밝힌다 — 조회 실패를 "전부 처음 보는 낱말" 로 삼키지 않는다.
+   */
+  memoryLoad: 'ok' | 'error';
 }
 
 const TextContentContext = createContext<TextContentData | null>(null);

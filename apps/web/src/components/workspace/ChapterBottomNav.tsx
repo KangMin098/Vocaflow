@@ -62,7 +62,8 @@ export function ChapterBottomNav({ chapters, currentChapterIdx }: ChapterBottomN
   return (
     <nav
       aria-label="장 이동"
-      className="mx-auto mt-12 mb-12 flex max-w-[760px] items-center justify-between gap-4 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] px-6 py-5"
+      // 390 에서 링크 둘 + 장 번호가 폭을 넘어 페이지를 밀었다(2026-09-19 · DD-27) — 모바일은 이전·다음만, 번호는 sm 부터
+      className="mx-auto mt-12 mb-12 flex max-w-[760px] items-center justify-between gap-2 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-4 sm:gap-4 sm:px-6 sm:py-5"
     >
       {/* 이전 */}
       <Link
@@ -86,7 +87,7 @@ export function ChapterBottomNav({ chapters, currentChapterIdx }: ChapterBottomN
       </Link>
 
       {/* Chapter numbers */}
-      <div className="flex items-center gap-1">
+      <div className="hidden items-center gap-1 sm:flex">
         {items.map((it, idx) => {
           if (it === 'gap') {
             return (
@@ -104,9 +105,9 @@ export function ChapterBottomNav({ chapters, currentChapterIdx }: ChapterBottomN
               aria-current={isCurrent ? 'page' : undefined}
               aria-label={it.chapterTitle ? `Chapter ${it.chapterIdx} — ${it.chapterTitle}` : `Chapter ${it.chapterIdx}`}
               title={it.chapterTitle ?? `Chapter ${it.chapterIdx}`}
-              className={`inline-flex h-8 min-w-[32px] items-center justify-center rounded-[var(--r-md)] px-2 font-display text-[13px] font-[600] tabular-nums transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
+              className={`inline-flex h-11 min-w-[44px] items-center justify-center rounded-[var(--r-md)] px-2 font-display text-[13px] font-[600] tabular-nums transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
                 isCurrent
-                  ? 'bg-[var(--p)] text-white shadow-[var(--sh-sm)] hover:bg-[var(--p-hover)]'
+                  ? 'bg-[var(--p)] text-[var(--on-p)] hover:bg-[var(--p-hover)]'
                   : 'text-[var(--t2)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]'
               }`}
             >
