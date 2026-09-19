@@ -9,6 +9,7 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- `/teacher` 골든 13호(발산 A 「교실에 붙일 초대장」) — 폼 2장·점선 상자 → 초대장 한 장(`InviteSheet`: 반 이름 · 큰 코드 · `/join` QR). 반이 없으면 적는 대로 채워지는 미리보기 · 여러 반은 괘선 목록 · 참여는 한 줄 폼 · 받은/보낸 단어 괘선 행. `docs/design/golden/teacher.md` · DD-33.
 - `/practice` 골든 12호(발산 A 「오늘의 연습지」) — 카드 격자·알약 칩 메뉴판 → 번호 붙은 괘선 문항 6줄, 문항마다 그 면에서 아직 통과 못 한 내 낱말(`pendingByFacet`, `FacetSummary.pending` 응답 확장). 면 요약 서버 조회. `/practice/dcp` 빈 날 괘선 + 「다른 면 연습하기」. `docs/design/golden/practice.md` · DD-32.
 - 인증 3화면(`/login`·`/reset-password`·`/verify-email`) 골든 11호 — `/signup` 과 같은 「칠해진 지문 옆의 폼」(`AuthSpread`). 세 페이지를 서버 페이지 + 클라이언트 폼으로 분리(탭 제목 생김) · 주소 모르는 메일 확인은 잠긴 재발송 버튼 대신 이유 + 다시 가입 · 44px 미만 링크 3 · 그림자 카드 5벌 제거. 정적 신호 6·11·6→0. `docs/design/golden/auth.md` · DD-31.
 - `/text/new` 골든 10호(발산 A 「붙여 넣으면 칠해지는 입력칸」) — `/fit` 부품으로 붙여 넣은 본문을 그 자리에서 칠함(`NewTextPaint`) · 준비 안 된 파일·URL 탭 제거(`InputModeTabs` 삭제) · 예시 글의 지어낸 단어 수·난이도 제거 · 저장 후 새 글로 이동 · 관측 `text_created`(DB 허용 목록 승인 대기). 정적 신호 21→4. `docs/design/golden/text-new.md` · DD-30.
