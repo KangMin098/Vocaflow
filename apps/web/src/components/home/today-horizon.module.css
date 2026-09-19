@@ -1,0 +1,42 @@
+/* apps/web/src/components/home/today-horizon.module.css
+ *
+ * `/hub` 「들어 올리는 곡선」의 서명 — 슬라이더가 멈출 때마다 실선·들어 올린 면이 새로 선다.
+ * 경로를 모핑하지 않는다(모션 예산: transform·opacity 만). 새 선을 겹쳐 세우고 불투명도만 올린다.
+ * 권점은 낱말의 `text-emphasis-color` 가 바뀐다 — `/fit` 의 「낱말 면 색 200ms」 와 같은 몸짓.
+ * ⚠️ 옅은 면은 `fill-opacity` 로 준다 — `opacity` 속성은 이 애니메이션(to: 1)이 덮어 면이 불투명해진다(2026-09-19 첫 캡처).
+ * reduced-motion 은 끄지 않고 낮춘다 — 페이드만 남는 모션이라 그대로 둔다(§5.1).
+ */
+
+@keyframes lift-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.lift {
+  animation: lift-in var(--dur-normal) var(--ease) both;
+}
+
+/* 권점(圈點) — 오늘 다시 볼 낱말. `ClassSheet` 의 open circle 과 같은 표식 */
+.word {
+  text-emphasis: open circle;
+  text-emphasis-position: over right;
+  text-emphasis-color: transparent;
+  transition: text-emphasis-color var(--dur-normal) var(--ease);
+}
+
+.word[data-on='true'] {
+  text-emphasis-color: var(--ju);
+}
+
+.range {
+  accent-color: var(--ju);
+}
+
+.range:focus-visible {
+  outline: 2px solid var(--p);
+  outline-offset: 2px;
+}

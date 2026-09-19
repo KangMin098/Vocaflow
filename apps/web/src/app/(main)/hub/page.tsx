@@ -1,7 +1,14 @@
 // apps/web/src/app/(main)/hub/page.tsx
-// @form: 망각 — 오늘 단어의 밑줄 두께 3/2/1px (TodayStage · DecayUnderline)
+// @form: 망각 — 「오늘 다시 볼 단어」 슬라이더 → 7일 기억 곡선이 들어 올려지고 낱말에 권점 · 200ms (TodayStage)
 //
 // Today (Hub) — forward 진입면.
+//
+// 2026-09-19 화면 재설계 — **첫 시선 = 7일 기억 곡선**(발산 A 「들어 올리는 곡선」, docs/design/compare/hub.md ·
+// 골든 docs/design/golden/hub.md · DECISIONS DD-22). 감사(2026-09-18)가 이전 첫 시선을 "단어 카드 1장" 으로
+// 평균 판정했다. 밀린 단어 표제어 카드(`TodayStage` 옛 좌측)·미진단 카드(`TodayFocus`)·뒤이어 띠(`NextWordsStrip`)는
+// 곡선 아래 낱말 줄 하나로 합쳤다 — 세 표면이 같은 단어 목록을 서로 다른 모양으로 보여 주고 있었다.
+//
+// 아래는 v06.200 기록이다(흐름 목록·단일 CTA·"오늘" 정본 규칙은 그대로 유효).
 //
 // v06.200 재설계 — 진입면이 답하는 질문을 바꿨다.
 //   이전: "무엇이 있나" (히어로 인사말 + 처방 5블록 나열 + 7개 동일 모듈 카드 + 추천 + 관리)
@@ -19,22 +26,21 @@
 // **유지한 것 — "오늘" 단일 정본(v06.108 META Opt A)**:
 //   · 오늘 수동계획 있음        → TodayPlanCard 가 정본 (사용자 의지 우선 · Empathetic)
 //   · 진단완료 + 수동계획 없음  → TodayStage 의 오늘의 흐름이 정본 (prescribe_today 5블록)
-//   · 미진단                    → TodayFocus (진단 유도)
+//   · 미진단                    → TodayStage 의 곡선 + 1차 행동 = 진단 (2026-09-19 — TodayFocus 카드는 은퇴)
 //   경쟁하는 표면을 만들지 않는다. 단어 지면은 "할 일" 표면이 아니라 학습 재료다.
 //
 // 회고(backward)는 /dashboard 단독 — 여기는 forward 만.
 
-import { Screen } from '@/components/ui/ios'
+// 배럴(`@/components/ui/ios`) 대신 파일을 직접 — 배럴은 이 화면이 쓰지 않는 카드(떠오르는 hover)까지 트리에 싣는다
+import { Screen } from '@/components/ui/ios/Screen'
 import { kstRoomTime } from '@/components/home/room-tone'
 import { GatewayLead } from '@/components/home/GatewayLead'
-import { TodayFocus } from '@/components/home/TodayFocus'
 import { TodayPlanCard } from '@/components/home/TodayPlanCard'
-import { NextWordsStrip } from '@/components/home/NextWordsStrip'
 import { TodayReading } from '@/components/home/TodayReading'
 import { TodayStage } from '@/components/home/TodayStage'
 import { fetchStudyPlanItems } from '@/lib/learner/plan-actions'
 import { fetchTodayPrescription } from '@/lib/learner/prescription-actions'
-import { fetchReadingRoom } from '@/lib/learner/reading-room-actions'
+import { fetchHubLift } from '@/lib/learner/hub-lift-query'
 import { fetchGatewayState } from '@/lib/learner/gateway'
 import { fetchTasteWord } from '@/lib/learner/taste-word'
 import {
@@ -49,18 +55,24 @@ export const metadata = {
   description: '오늘의 학습을 시작하세요',
 }
 
-/** KST 오늘 요일 1=월..7=일. */
+/** KST 오늘 요일 0=일..6=토. */
+function kstDay(): number {
+  return new Date(Date.now() + 9 * 3_600_000).getUTCDay()
+}
+
+/** KST 오늘 요일 1=월..7=일 — 수동 계획(`weekdays`)의 표기. */
 function kstWeekday(): number {
-  const day = new Date(Date.now() + 9 * 3_600_000).getUTCDay()
+  const day = kstDay()
   return day === 0 ? 7 : day
 }
 
 export default async function HubPage() {
-  const [planItems, prescription, room, touchedToday, dcpDoneToday, readDoneToday, checkDoneToday, gateway] =
+  const [planItems, prescription, lift, touchedToday, dcpDoneToday, readDoneToday, checkDoneToday, gateway] =
     await Promise.all([
     fetchStudyPlanItems(),
     fetchTodayPrescription(),
-    fetchReadingRoom(),
+    // 세션 큐와 같은 조회 — 곡선 아래 앞 N개가 곧 「이 N개부터」 가 여는 세션이다(hub-lift-query 주석)
+    fetchHubLift(),
     // 셸 띠와 **같은 값**을 쓴다 — cache() 라 추가 쿼리는 돌지 않는다.
     fetchTouchedModulesToday(),
     fetchDcpDoneToday(),
@@ -74,8 +86,8 @@ export default async function HubPage() {
   const hasTodayPlan = planItems.some((i) => i.weekdays.includes(today))
   const isDiagnosed = prescription?.isDiagnosed ?? false
 
-  // 첫 방문 지면에 세울 단어 — 미진단일 때만 부른다(진단한 사람에게는 무대가 이미 단어를 판다).
-  const tasteWord = !hasTodayPlan && !isDiagnosed ? await fetchTasteWord() : null
+  // 모은 낱말이 0 인 미진단 학습자에게만 낱말 하나를 세운다 — 곡선을 지어낼 수 없는 자리의 다음 한 걸음(D5).
+  const tasteWord = lift?.kind === 'empty' && !isDiagnosed ? await fetchTasteWord() : null
 
   // 시각은 서버에서 정한다 — 클라이언트에서 계산하면 SSR 과 어긋나 지면 색이 한 번 튄다.
   const time = kstRoomTime()
@@ -87,12 +99,15 @@ export default async function HubPage() {
             처음 온 사람·오늘 이미 한 사람에게는 스스로 사라진다(할 말이 없으면 그리지 않는다). */}
         <GatewayLead state={gateway} />
 
-        {/* 무대 — 좌: 오늘 되찾을 단어(학습 재료) · 우: 오늘의 흐름(처방이 정본일 때만).
+        {/* 무대 — 좌: 7일 기억 곡선 + 낱말(골격) · 우: 오늘의 흐름(처방이 정본일 때만).
             수동계획이 정본인 날에는 흐름을 넘기지 않는다(표면 이중화 방지). */}
         <TodayStage
-          room={room}
+          lift={lift}
+          tasteWord={tasteWord}
+          isDiagnosed={isDiagnosed}
           prescription={hasTodayPlan ? null : prescription}
           time={time}
+          weekday={kstDay()}
           touchedToday={[...touchedToday]}
           dcpDoneToday={dcpDoneToday}
           readDoneToday={readDoneToday}
@@ -106,17 +121,8 @@ export default async function HubPage() {
           <TodayReading candidates={prescription.input.candidates} />
         )}
 
-        {/* 뒤이어 — 밀린 단어 한 줄.
-            ⚠️ 순서가 중요하다: 무대(지금 할 일) → 오늘 읽을 것 → 뒤이어(남은 단어).
-            이 띠가 무대 안에 있던 동안에는 **밀린 단어가 오늘 읽을 것보다 위**에 왔다. */}
-        <NextWordsStrip room={room} />
-
         {/* 오늘 정본 — 수동계획 우선 */}
         {hasTodayPlan && <TodayPlanCard items={planItems} today={today} />}
-
-        {/* 미진단 — **시험이 아니라 지면을 먼저 준다.** 단어 하나를 세우고 진단은 그 아래 제안으로.
-            (근거: 가입→첫 학습 중앙값 55일 실측 + 가치를 게이트 뒤에 두지 말라는 온보딩 연구) */}
-        {!hasTodayPlan && !isDiagnosed && <TodayFocus word={tasteWord} />}
       </div>
     </Screen>
   )

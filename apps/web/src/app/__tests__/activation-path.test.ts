@@ -13,7 +13,7 @@
 //
 // ── 잠그는 경로 (2026-09-06 실측 = 3전환) ───────────────────────────
 //   ① 가입 완료  → `DEFAULT_LANDING`(/hub)
-//   ② /hub 미진단 → `TodayFocus` 1차 CTA(/diagnostic)
+//   ② /hub 미진단 → `TodayStage` 1차 CTA(/diagnostic) — 2026-09-19 재설계 전에는 `TodayFocus` 카드였다
 //   ③ 진단 완료  → 추천 세트 구독 후 **학습 화면 직행**(/flashcard/play)
 //   ④ 첫 학습 1회 완료 — 같은 화면 안에서 끝난다(전환 아님)
 //
@@ -30,7 +30,7 @@ import { DEFAULT_LANDING } from '@/lib/auth/redirect'
 const SRC = join(process.cwd(), 'src')
 const read = (...seg: string[]) => readFileSync(join(SRC, ...seg), 'utf8')
 
-const TODAY_FOCUS = read('components', 'home', 'TodayFocus.tsx')
+const TODAY_STAGE = read('components', 'home', 'TodayStage.tsx')
 const DIAGNOSTIC = read('components', 'diagnostic', 'DiagnosticClient.tsx')
 const HUB_PAGE = read('app', '(main)', 'hub', 'page.tsx')
 
@@ -65,10 +65,11 @@ describe('D5 — 가입 후 첫 학습까지 화면 전환 ≤ 3', () => {
     expect(DEFAULT_LANDING).toBe('/hub')
   })
 
-  it('② 미진단 관문이 TodayFocus 를 세우고, 그 1차 CTA 가 진단이다', () => {
-    expect(HUB_PAGE).toContain('<TodayFocus')
-    expect(HUB_PAGE).toMatch(/!isDiagnosed/)
-    expect(TODAY_FOCUS).toContain('href="/diagnostic"')
+  it('② 미진단 관문(TodayStage)의 1차 CTA 가 진단이다 — 곡선이 있을 때도, 모은 낱말이 0 일 때도', () => {
+    expect(HUB_PAGE).toContain('<TodayStage')
+    expect(HUB_PAGE).toContain('isDiagnosed={isDiagnosed}')
+    // 곡선(Horizon) · 빈 상태(EmptyHorizon) 두 분기 모두 미진단이면 진단이 먼저다
+    expect(TODAY_STAGE.match(/!isDiagnosed \? \(\s*<>\s*<Link href="\/diagnostic"/g)).toHaveLength(2)
   })
 
   it('③ 진단 완료는 학습 화면으로 **직행**한다 — /hub 를 한 번 더 거치지 않는다', () => {

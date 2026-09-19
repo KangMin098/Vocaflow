@@ -135,6 +135,13 @@ export type PublicEvent =
       name: 'wayfinder_cta_clicked'
       props: { phase: 'undiagnosed' | 'ready' | 'moving' | 'complete'; done: number }
     }
+  /**
+   * `/hub` 「오늘 다시 볼 단어」 슬라이더를 옮겼다(2026-09-19 재설계 — 발산 A 「들어 올리는 곡선」).
+   * 허브의 서명(오늘 N개를 보면 7일 곡선이 들어 올려진다)이 쓰이는지를 재는 유일한 관측이다.
+   * 드래그 중 매번이 아니라 멈춘 뒤 한 번. `count` = 고른 수 · `words` = 슬라이더 최대 — 둘 다 숫자, 낱말은 싣지 않는다.
+   * DB 허용 목록은 승인 대기(`supabase/migrations/_pending_funnel_allow_hub_curve.sql`) — 적용 전에는 DB 가 거부한다.
+   */
+  | { name: 'hub_curve_interacted'; props: { count: number; words: number } }
   // 은퇴(2026-09-17) — `csat_overlay_loaded` · `_located` · `_answered` · `_revealed` ·
   // `csat_drill_answered` · `_finished`. 보내던 화면(`/csat/overlay` · `/csat/drill`)을 학습자 재설계로
   // 걷었다(docs/csat-learner/DECISIONS.md D8). 같은 질문은 `csat_paper_read` · `csat_session_*` 이 받는다.
@@ -425,6 +432,7 @@ const EVENT_REGISTRY: Record<PublicEventName, true> = {
   landing_section_reached: true,
   wayfinder_opened: true,
   wayfinder_cta_clicked: true,
+  hub_curve_interacted: true,
   csat_evidence_opened: true,
   csat_atlas_scoped: true,
   csat_plan_speed_set: true,

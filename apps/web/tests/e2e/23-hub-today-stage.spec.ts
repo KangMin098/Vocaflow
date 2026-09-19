@@ -1,6 +1,8 @@
 // apps/web/tests/e2e/23-hub-today-stage.spec.ts
 //
 // Today(/hub) 무대 회귀 — v06.200 재설계가 지켜야 하는 계약 3가지.
+// (2026-09-19 「들어 올리는 곡선」 재설계 뒤에도 같은 계약이다 — 단어 지면이 표제어 1개에서
+//  곡선 아래 낱말 줄로 바뀌어 `data-today-word` 가 낱말마다 붙는다. 첫 낱말을 읽는다.)
 //
 // 이 스펙이 없으면 다음 사람이 반드시 되돌린다:
 //   ① 단어 지면이 **실제 내 단어**를 말한다 — 개수만 말하던 이전 허브로 돌아가지 않게.
@@ -57,7 +59,7 @@ test.describe('Today 무대 — /hub', () => {
     const stage = page.locator('[data-today-stage]')
     await expect(stage).toBeVisible({ timeout: 30_000 })
 
-    const word = page.locator('[data-today-word]')
+    const word = page.locator('[data-today-word]').first()
     await expect(word).toBeVisible()
 
     const shown = (await word.getAttribute('data-today-word'))?.trim() ?? ''
@@ -80,8 +82,8 @@ test.describe('Today 무대 — /hub', () => {
       ).toBe(1)
     }
 
-    // 뜻이 함께 조판된다(단어만 크게 띄우는 것은 학습 재료가 아니다)
-    await expect(stage).toContainText(/[가-힣]/)
+    // 곡선의 문장(h1)이 낱말과 같은 무대에 선다 — 개수만 말하는 화면으로 돌아가지 않았다
+    await expect(stage.locator('h1')).toContainText(/개/)
   })
 
   test('② 시작 버튼은 하나 (단일 CTA)', async ({ page }) => {

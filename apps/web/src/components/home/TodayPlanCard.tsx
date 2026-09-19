@@ -97,7 +97,7 @@ function LaunchChip({ activity, href, scoped }: { activity: PlanActivity; href: 
     <Link
       href={href}
       title={scoped ? `${def.label} — 이 자료로 바로 시작` : `${def.label} — 모듈에서 시작`}
-      className="inline-flex min-h-[36px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-2 pr-3 font-display text-[12px] font-[700] text-[var(--t2)] no-underline transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:border-[var(--p)] hover:bg-[var(--p-light)] hover:text-[var(--on-p-tint)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+      className="inline-flex min-h-11 items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-2 pr-3 font-display text-[12px] font-[700] text-[var(--t2)] no-underline transition-colors duration-[var(--dur-normal)] active:translate-y-[1px] hover:border-[var(--p)] hover:bg-[var(--p-light)] hover:text-[var(--on-p-tint)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
     >
       <ActivityGlyph activity={activity} size="sm" />
       {def.label}

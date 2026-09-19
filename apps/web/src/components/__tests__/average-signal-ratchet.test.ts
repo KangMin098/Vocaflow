@@ -82,7 +82,7 @@ const BASELINE: Record<Surface, Record<string, number>> = {
     gradient: 171,
     'ai-purple': 38,
     glass: 52,
-    'float-hover': 66,
+    'float-hover': 65, // 2026-09-19 /hub 재설계 — TodayPlanCard 칩의 떠오르는 hover 제거(66→65)
     'infinite-anim': 12,
   },
   admin: {

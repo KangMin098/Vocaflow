@@ -67,14 +67,12 @@ async function gotoStable(page: Page, path: string) {
  * 화면 결함처럼 읽힌다. 실제로 그렇게 한 번 오진했다(A 는 통과, 바로 뒤 B 만 실패,
  * 단독 실행하면 3/3 통과, 실패 스냅샷은 `/hub` 의 **비로그인 온보딩**이었다).
  *
- * 비로그인 판정 신호는 `/hub` 비로그인 화면에만 있는 CTA 다 — 띠의 유무로 판정하면
- * 이 함수가 검사 대상을 검사 기준으로 쓰게 되어 결함을 영영 못 잡는다.
+ * 비로그인 판정 신호는 **주소**다 — 미들웨어가 비로그인 `/hub` 를 `/login?next=…` 로 보낸다(307, 2026-09-19 실측).
+ * (예전 신호였던 「5분 시작하기」 는 비로그인이 아니라 **미진단 로그인** 화면의 문구였고, 2026-09-19 허브
+ *  재설계로 사라졌다.) 띠의 유무로 판정하면 이 함수가 검사 대상을 검사 기준으로 쓰게 되어 결함을 영영 못 잡는다.
  */
 async function ensureSignedIn(page: Page, path: string) {
-  const signedOut = await page
-    .getByRole('link', { name: '5분 시작하기' })
-    .isVisible()
-    .catch(() => false);
+  const signedOut = new URL(page.url()).pathname.startsWith('/login');
   if (!signedOut) return;
   await login(page);
   await page.context().storageState({ path: STATE_PATH });
