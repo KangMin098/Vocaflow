@@ -131,3 +131,22 @@
 | # | 결정 | 근거 · 한 일 |
 |---|---|---|
 | **DD-21** | ① **허용**: `lazyweb-search-screens` · `lazyweb-search-flows` 만. 용도는 Gate 4 층 1(평균의 정의)과 Gate 6 사후 검증(닮은 화면 유무)뿐. ② **금지**: `lazyweb-apply-design-best-practices` 와 리포트·적용 계열 스킬 전부(`lazyweb-growth-report` · `-growth-score` · `-growth-backlog` · `-search-experiments` · 라우터 `lazyweb` 로의 우회 포함). ③ **세션 분리**: Lazyweb MCP 는 감사·검증 세션에서만 쓴다. Gate 5 브리프 작성 · 발산 · 골든 고정 · 구현 세션에서는 Lazyweb 도구를 호출하지 않는다. ④ **결과 처리**: 이미지는 저장소에 넣지 않는다. 레퍼런스 인덱스(references.md — 아직 미추적, 다른 세션 작업) 에 링크 · 첫 시선 골격 분류 · 평균 신호 수만 적는다. Lazyweb 결과를 G1 축 후보의 근거로 인용하지 않는다. ⑤ **예외 — 카테고리 밖 이식**: R(t) · 커버리지와 같은 데이터 구조를 가진 비교육 도메인(finance · health · utilities) 검색 결과는 형태 후보로 쓸 수 있되, 브리프에 「이식 출처」를 명시한다 | 사용자 결정. `lazyweb-apply-design-best-practices` 는 외부 취향 스킬의 SKILL.md 를 받아 그대로 적용한다 — AGENTS.md 의 활성 외부 취향 스킬 2개 제한과 vocaflow-design 판정 우선 원칙을 우회한다. 검색 결과는 「이미 있는 평균」을 정의하는 데 쓰여야지 형태의 출처가 되면 평균으로 수렴한다(§G 발명 목표와 충돌) — 그래서 발명 세션과 분리한다. 같은 업종 밖, 같은 데이터 구조의 화면은 평균이 아니라 이식이라 ⑤로 열어 둔다 |
+
+## 이미지 체계 — Tines 계열 유사도 (2026-09-19) — DD-22~23
+
+> 지시: [image-system-brief.md](image-system-brief.md)(사용자 제공, 4회차 중 1회차 = Gate −1→2). 산출물: [refs/index.md](refs/index.md) · [refs/tines/dna.md](refs/tines/dna.md) · [refs/uxcel/dna.md](refs/uxcel/dna.md) · [asset-inventory.md](asset-inventory.md) · [similarity-proposal.md](similarity-proposal.md).
+> 범위: 웹만 — `apps/mobile` 제외(사용자 지시 「모바일은 제외」, 2026-09-19).
+
+| # | 결정 | 근거 · 한 일 |
+|---|---|---|
+| **DD-22** | **착수 · 상태 고정(Gate −1)**. 참조 캡처(Tines 289 · Uxcel 379 PNG)는 저장소 밖 `C:\Users\Administrator\design-refs\` 에만 두고, 이미지 차단은 루트 `.gitignore` 가 아니라 **`docs/design/refs/.gitignore`**(새 파일)로 | 시작 시 작업 트리 변경 210건(다른 세션 CSAT 작업 · `DESIGN.md`·`CHANGELOG.md`·`.gitignore` 미커밋 hunk · `AGENTS.md`·`06-workflow.md` 미추적) — 루트 `.gitignore` 에 줄을 더하면 `--only` 커밋에 남의 hunk 가 딸려 간다(DD-20 과 같은 사정). 읽기 목록 8개 줄 수: DESIGN 82 · DECISIONS 133 · SKILL 370 · DESIGN_SYSTEM 358 · 03-system 291 · 04-application 101 · design-tokens CLAUDE 21 · 06-workflow 110. 06-workflow 비평 (a)~(e) 재사용. 캡처 PNG 에 서체·색값이 없어 **Tines 8페이지 × 2뷰포트를 Playwright 로 다시 열어 computed style 을 읽었다**(읽기 전용, 결과는 저장소 밖). Uxcel `_private` 51장 · `auth.json` 은 열지 않았다 |
+| **DD-22b** | brief 의 전제 4개를 **실측으로 정정**해 기록(원문은 보존) | ① Tines 제목은 굵은 산세리프가 아니라 세리프(Reckless 54)·산세리프(Roobert 39) 혼용, 32px 이상 제목 32개 중 굵기 400 이 24 ② 액센트는 하나가 아니라 보라 계열 면적 19.7% + 파스텔 틴트 5계열 ③ `--paper` 토큰은 없고 `--bg #FBFAF6` 이 Tines `#FCF9F5` 와 채널당 1 차이(우리 값이 먼저) ④ 무대는 1px 선 격자 24px 가 주, 점 격자(1px · 12px)는 액자 안쪽만. 그래서 L3 hex 검사에 **ΔE2000 < 2** 를 더하자고 제안(기존 토큰 예외) |
+| **DD-22c** | 🔴 **웹 아이콘 참조 깨짐 3건 발견** — 고치지 않고 기록(A5: Gate 6 전 코드 수정 금지) | `layout.tsx` `icons.apple` → `/apple-touch-icon.png` · `public/manifest.json` → `/icons/icon-192.png` · `/icons/icon-512.png` 전부 파일 없음. `manifest.json` 색은 DD-10 이 폐기한 `#3B82F6` · 순백 `#FFFFFF`. 모바일(`app.json` 아이콘 3)도 없지만 범위 밖. 지금 따로 고칠지는 사용자 결정(proposal §5-4) |
+| **DD-23** | **유사도 상한 대기 — ① / ② / ③**. 에이전트 권고 **②**(격자 무대 · 섹션 리듬 · 여백 160px · 제목 비율 · 액자 — 서체·잉크·면적 색·모서리 유지) | 어느 옵션이든 **03-system §3-5 「자산 파일 0개」**(P1)와 **SKILL §F 「자산과 무관한 새 미감 = 장식」**(P2)을 먼저 개정해야 한다 — 조건: 삽화는 서명 아님 · 개념은 N1 자산 개념 · 학습 중 화면 0. 12px+ 모서리 · 대문자 눈썹 · 마퀴는 DD-12 라쳇 · `Eyebrow` 규칙 · 모션 금지로 **어느 옵션에도 넣을 수 없다**. 격자는 CSS 그라디언트로 그리면 평균 신호 라쳇이 늘어나므로 SVG 패턴으로만 |
+
+### 사용자 결정 대기 (DD-23)
+
+1. 유사도 상한 ① / ② / ③.
+2. P1·P2 공통 개정 승인.
+3. ✋ `ModuleHero` 삽화 재도입 · `PairFlipMascot` 캐릭터 유지 · 파비콘 재생성 · 표지 코드 별도 정본 유지.
+4. 웹 아이콘 참조 깨짐 3건 — 지금 고칠지, Gate 6 에 묶을지.
