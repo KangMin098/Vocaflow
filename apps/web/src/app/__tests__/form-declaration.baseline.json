@@ -78,7 +78,6 @@
   "src/app/(main)/wordvault/review/page.tsx",
   "src/app/(main)/wordvault/study/page.tsx",
   "src/app/(marketing)/about/page.tsx",
-  "src/app/(marketing)/fit/s/[payload]/page.tsx",
   "src/app/(marketing)/join/[code]/page.tsx",
   "src/app/(marketing)/pricing/page.tsx",
   "src/app/(marketing)/privacy/page.tsx",

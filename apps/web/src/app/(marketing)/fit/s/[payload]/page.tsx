@@ -1,5 +1,10 @@
 // apps/web/src/app/(marketing)/fit/s/[payload]/page.tsx
+// @form: 채색 지문 — 학년 슬라이더 → 이 지문의 가장 어려운 낱말 줄 면 색 200ms (/fit 과 같은 PaintedPassage · SharedFitView)
 // 공유받은 지문 진단 결과 — `/fit/s/<payload>`.
+//
+// 2026-09-19 화면 재설계(발산 A · docs/design/compare/fit-s.md · DD-25): 공유 링크에는 원문이 없어
+// 도구(`PublicFitClient`)로 열면 빈 입력칸이 결과보다 먼저 섰다. 이제 받은 결과가 먼저 —
+// 가장 어려운 낱말 줄이 `/fit` 과 같은 부품으로 칠해지고, 1차 행동이 「내 지문으로 해 보기」.
 //
 // 왜 쿼리(`?r=`)가 아니라 경로 세그먼트인가:
 //   Next 의 `opengraph-image.tsx` 는 **라우트 세그먼트(`params`)만 받고 `searchParams` 는
@@ -12,7 +17,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
-import { PublicFitClient } from '@/components/textfit/PublicFitClient'
+import { SharedFitView } from '@/components/textfit/SharedFitView'
 import { absoluteUrl } from '@/lib/seo/site'
 import { LEVEL_LABEL, profileHeadline } from '@/lib/textfit/profile'
 import { decodeProfile } from '@/lib/textfit/share'
@@ -60,19 +65,19 @@ export default function SharedFitPage({ params }: Params) {
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-12 md:py-16">
-      <header className="mb-9 flex flex-col gap-3">
+      <header className="mb-7 flex flex-col gap-3">
         <p className="m-0 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--p)]">
           공유받은 결과
         </p>
-        <h1 className="m-0 text-balance font-editorial text-[28px] font-[800] leading-[1.2] tracking-[-0.03em] text-[var(--t1)] md:text-[34px]">
+        <h1 className="m-0 text-balance break-keep font-ko-display text-[28px] font-[600] leading-[1.3] tracking-[-0.01em] text-[var(--t1)] md:text-[34px]">
           {profileHeadline(shared)}
         </h1>
-        <p className="m-0 max-w-[52ch] font-body text-[15px] leading-[1.75] text-[var(--t2)]">
-          아래에 <b>직접 지문을 넣으면</b> 내 기준으로 다시 계산돼요. 가입도, 설치도 필요 없습니다.
+        <p className="m-0 max-w-[52ch] break-keep font-body text-[15px] leading-[1.75] text-[var(--t2)]">
+          학년을 옮기면 그 반이 처음 만나는 낱말이 칠해져요. 가입도, 설치도 필요 없습니다.
         </p>
       </header>
 
-      <PublicFitClient initialShared={shared} />
+      <SharedFitView profile={shared} />
     </div>
   )
 }
