@@ -83,6 +83,8 @@
 |---|---|---|
 | `/wordvault` | `(main)/wordvault/page.tsx` | hub v6 (Identity · VLevelMap · **FacetProgress**(면 상태·실데이터) · Portfolio · RecommendedBooks · NextStep · Flow) |
 | `/wordvault/browse` | `(main)/wordvault/browse/page.tsx` | 풀스크린 브라우즈 세션 (v06.22) |
+| `/wordvault/study` | `(main)/wordvault/study/page.tsx` | 학습 세션(`StudyMode`) — 전체 급한 순 · `?filter=state:*` 로 좁힘 · 카드 아래 「이 단어의 기억선」(2026-09-19 · DD-28) |
+| `/wordvault/review` | `(main)/wordvault/review/page.tsx` | 복습 세션 — **다시 볼 낱말(`attention` = 흐릿해요 + 익숙해요)만**(2026-09-19 전에는 study 와 같은 쿼리). 같은 `StudyMode` |
 
 ### 진단
 

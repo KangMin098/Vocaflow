@@ -1,6 +1,6 @@
 # 골든 스크린
 
-> **골든 1호: [`/fit`](fit.md)(2026-09-19 고정, 4장) · 골든 2호: [`/hub`](hub.md)(2026-09-19 고정, 4장 — 학습자 진입면의 기준) · 골든 3호: [`/diagnostic`](diagnostic.md)(2026-09-19 고정, 6장 — 시작·문항·결과) · 골든 4호: [`/flashcard/play`](flashcard-play.md)(2026-09-19 고정, 6장 — 학습 중 화면의 기준) · 골든 5호: [`/fit/s`](fit-s.md)(2026-09-19 고정, 4장) · 골든 6호: [`/signup`](signup.md)(2026-09-19 고정, 3장) · 골든 7호: [`/text/[id]`](text-id.md)(2026-09-19 고정, 4장).** 채우는 절차는 vocaflow-design §G3 이다:
+> **골든 1호: [`/fit`](fit.md)(2026-09-19 고정, 4장) · 골든 2호: [`/hub`](hub.md)(2026-09-19 고정, 4장 — 학습자 진입면의 기준) · 골든 3호: [`/diagnostic`](diagnostic.md)(2026-09-19 고정, 6장 — 시작·문항·결과) · 골든 4호: [`/flashcard/play`](flashcard-play.md)(2026-09-19 고정, 6장 — 학습 중 화면의 기준) · 골든 5호: [`/fit/s`](fit-s.md)(2026-09-19 고정, 4장) · 골든 6호: [`/signup`](signup.md)(2026-09-19 고정, 3장) · 골든 7호: [`/text/[id]`](text-id.md)(2026-09-19 고정, 4장) · 골든 8호: [`/wordvault/review`](wordvault-review.md)(2026-09-19 고정, 4장).** 채우는 절차는 vocaflow-design §G3 이다:
 > 발산 4안(골격 G1 축이 서로 다른 넷) → `compare.md` → **사람이 고른다** → 고른 안을 2회 수정 → 스크린샷 3장.
 
 ## 넣을 것

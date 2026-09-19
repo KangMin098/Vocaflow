@@ -9,6 +9,7 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- `/wordvault/review`·`/study` 골든 8호 — `/flashcard/play` 의 「이 단어의 기억선」 재사용, 평가 간격 상수(I5) → FSRS 미리보기. **복습이 DB FSRS 카드 대신 새 카드에 적용되던 결함 수정**(안정도 리셋). review = 다시 볼 낱말(`attention`)만. 정적 신호 17→4. `docs/design/golden/wordvault-review.md` · DD-28.
 - `/text/[id]` 골든 7호(발산 A 「내 기억으로 칠한 원문」) — 원문 낱말이 전부 `new` 하드코딩이던 것을 레이아웃에서 단어장과 조인해 R(t) 밑줄 두께로(`word-states.ts`), 원문 위 낱말 줄(`ChapterWordLine`). 지어낸 수치 3종(기억 통계 · 인용문 · 모드 진행) 제거 · 390 가로 넘침 349→0 · axe 3→0. `docs/design/golden/text-id.md` · DD-27.
 - `/signup` 골든 6호(발산 A 「칠해진 지문 옆의 가입」) — 그림자 카드 폼을 걷고 랜딩 데모 지문을 `/fit` 과 같은 `PaintedPassage` 로 폼 옆에(모바일 두 줄). 1차 행동이 1280·390 모두 폴드 안 · 가입↔로그인 링크의 `next` 보존. `page.tsx`(서버) / `SignupForm.tsx`(클라이언트) 분리. `docs/design/golden/signup.md` · DD-26.
 - `/fit/s/[payload]` 골든 5호(발산 A 「가장 어려운 낱말 줄」) — 공유 링크엔 원문이 없어 빈 입력칸이 결과보다 먼저 서던 것을, `/fit/s` 전용 `SharedFitView`(같은 `PaintedPassage`·`ClassSheet`)로 결과 먼저 · 1차 「내 지문으로 해 보기」. 감사 판정 보류 → 서명 있음. `docs/design/golden/fit-s.md` · DD-25.

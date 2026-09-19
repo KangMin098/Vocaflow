@@ -145,6 +145,7 @@
 | **DD-25** | `/fit/s/[payload]` = **A 「가장 어려운 낱말 줄」**(채색 지문). 공유 링크엔 원문이 없으므로 표면형 + V-Level 16개를 `/fit` 과 같은 `PaintedPassage` 로 칠하고, 1차 = 「내 지문으로 해 보기」, 2차 = 같은 `ClassSheet`. 탈락: B 「받은 한 장」 · C 「학년 눈금 하나」 · D 「내 반으로 다시」(폼 우선 — N4 불통과) | 감사 **판정 보류**였다(유효 payload 없음) — `/fit` 공유 버튼으로 실제 링크를 만들어 확인: 원문이 없어 `PublicFitClient` 가 빈 입력칸을 먼저 세웠다(코드 추정이 맞았다). `PublicFitClient` 는 `/fit` 골든과 공유라 A5 로 두고 `/fit/s` 전용 `SharedFitView` 를 만들었다(`PaintedPassage`·`ClassSheet` 는 수정 없이 재사용). B4: (1) 넷 다 0 (2) A 만 `/fit` 과 같은 부품·같은 몸짓 → A. 관측·마이그레이션 신설 0(`/fit` 이름 그대로). C6 에서 가장 가까운 Cathoven(CEFR 다색 칠)은 같은 골격이 아니라고 판정 — 근거를 골든에 적었다. 수정 0회. 골든 [golden/fit-s.md](golden/fit-s.md) |
 | **DD-26** | `/signup` = **A 「칠해진 지문 옆의 가입」**(채색 지문). 판면 위 두 단 — 랜딩 데모 지문을 `/fit` 과 같은 `PaintedPassage` 로 칠해 폼 옆에(모바일은 칠해진 두 줄 → 폼). 탈락: B 「첫 서가 짓기」 · C 「원서 한 장 서명」 · D 「방금 본 결과 이어받기」 | B4: (2) 가 A·D, (3) 에서 D 는 공유 경로로 온 사람에게만 골격이 선다 → A. 페이지를 서버(`page.tsx` — `buildHeroDemo`, 쿼리 0)와 클라이언트(`SignupForm.tsx` — 로직 그대로)로 나눴다. 인증 레이아웃의 `max-w-md` 는 `has-[[data-auth-wide]]` 로 가입 화면만 넓힌다(다른 3화면 코드 무변경 · 모바일 위 여백만 줄었다). **함께 고친 결함**: 가입 ↔ 로그인 링크가 `next` 를 떨어뜨렸다(초대 학생의 학급 연결 끊김) — 양쪽 보존. 수정 2회. C6 미실행(Lazyweb 연결 끊김). 골든 [golden/signup.md](golden/signup.md) |
 | **DD-27** | `/text/[id]` = **A 「내 기억으로 칠한 원문」**(채색 지문 × 망각). 레이아웃이 챕터 낱말만 단어장과 조인해 R(t) 상태를 원문 낱말에 싣고(`word-states.ts`), 원문 위에 이 챕터의 낱말 줄(`ChapterWordLine` — 누르면 원문의 그 자리로). 탈락: B 「난외의 7일 곡선」 · C 「한 장의 판면」 · D 「읽고 나면 얇아지는 밑줄」 | A6 = **조인 필요**(키가 컬럼으로 있음 — 드레인 불필요)라 진행. B4: (1) A 가 조회 1 로 가장 적음 → A. D 는 "읽음 = 복습" 이라는 FSRS 가 정하지 않은 전이를 지어낸다. **걷은 I5 위반 3**: 기억 통계 상수 · 고정 인용문 · 모드 진행 목업(지금 모드만 active). 한국어 이탤릭 · 알약 줄 glass · 칩 hover AI-보라 제거. 390 가로 넘침 349→0 · axe 3→0(닫힌 패널 `inert` · 활성 알약·음성 버튼 토큰 대비). 수정 2회. C6 미실행. 골든 [golden/text-id.md](golden/text-id.md) |
+| **DD-28** | `/wordvault/review` · `/study` = **A 「이 단어의 기억선」**(망각 — `/flashcard/play` 골든 부품 수정 없이 재사용). review 는 **다시 볼 낱말(`attention`)만**, study 는 전체 — 두 라우트를 구분한다. 탈락: B 「곡선 위의 큐」(모션 개정 필요) · C 「차오르는 바탕」 · D 「오늘의 복습 한 장」(N4 약함) | B4: (1) A·C·D 0 (2) A 만 같은 부품·같은 몸짓 → A. **고친 데이터 결함**: `StudyMode` 가 낱말의 DB FSRS 카드(`srs`)를 쓰지 않고 세션 캐시가 비면 새 카드로 평가 — 이 화면의 복습은 매번 안정도를 리셋했다(`cardFor`). 상수 간격(I5) → FSRS 미리보기. 평균 신호 정적 17→4. 수정 2회. C6 미실행. 골든 [golden/wordvault-review.md](golden/wordvault-review.md) |
 | **DD-22b** | 관측 `hub_curve_interacted` 의 DB 허용 목록 = **승인 대기** — `supabase/migrations/_pending_funnel_allow_hub_curve.sql`(작성 시점 DB 제약 40 + 1). 적용하지 않았다 | A7(마이그레이션은 SQL 커밋 후 승인 대기). 적용 전에는 `db-allowlist.integration.test.ts` 가 이 1종에서 실패한다 — 맞는 실패. 화면 동작에는 영향 없음(관측만 빠진다) |
 
 ### 공용 컴포넌트 교체 후보 (A5 — 화면 범위 밖이라 손대지 않은 것)
@@ -158,6 +159,7 @@
 | `components/recommend/NextActionCard.tsx` 그라디언트 | 플래시카드 완료 화면 아래 추천 카드에 그라디언트 2 가 남았다 — 여러 화면이 쓰는 공용 | 판면 톤(`--bg2` + 괘선)으로 |
 | `components/ui/ZoomableImage.tsx` glass | 플래시카드 카드 뒷면이 가져오는 확대 오버레이에 backdrop-blur | 불투명 오버레이로 |
 | `components/spellforge/*` 가 `/text/[id]` 트리에 실린다 | 읽기 화면이 SpellForge 를 모드로 품어 정적 신호 7(그라디언트·떠오르는 hover·무한 모션·3열)이 이 화면 몫으로 셈된다 — SpellForge 는 `/spellforge*` 와 공유 | SpellForge 재설계 때 함께 줄어든다(우선순위 밖 학습 모듈) |
+| `ForgettingCurve` · `lib/flashcard/memory-line` 이 두 화면(플래시카드 · WordVault 학습)에서 쓰인다 | 플래시카드 전용으로 만들었는데 WordVault 가 수정 없이 가져왔다 — 이제 공용 | `components/ui/press` 옆으로 옮기고 이름을 `MemoryLine` 으로(동작 변경 없음) |
 | 평균 신호 정규식이 **주석**도 센다 | `ui/press/index.tsx:6` 주석 속 `shadow-md` 가 이 파일을 가져오는 모든 화면의 정적 신호를 1 올린다 | 라쳇·`measure-screen.mjs`·`screen-graph.mjs` 가 `//`·`/* */` 주석을 걷고 세게(기준선 재측정 필요 — 규칙을 고치는 일이라 별도 커밋) |
 
 ### 정본 변경 요청 (A2 — 토큰·씨앗·스킬은 고치지 않았다)
@@ -167,6 +169,7 @@
 - 없음(`/fit/s`). `/fit` 과 같은 부품.
 - 없음(`/signup`). `/fit` 과 같은 부품.
 - 없음(`/text/[id]`). 낱말 찾기는 즉시 스크롤 + 포커스(7종 안).
+- 없음(`/wordvault/review`). `/flashcard/play` 부품 그대로.
 - 없음(`/flashcard/play`). 평가 미리보기 곡선은 모션 없이 바뀐다. (후보로만: 서명을 「곡선이 오른쪽으로 늘어나는 200ms」 로 키우려면 §5.2 화이트리스트에 「기억선 전환」 을 더하는 개정이 먼저다 — G4.)
 
 ### 이 세션이 만난 기존 결함 (범위 밖 — 고치지 않음)
