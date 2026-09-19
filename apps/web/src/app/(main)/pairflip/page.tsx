@@ -1,4 +1,5 @@
 // apps/web/src/app/(main)/pairflip/page.tsx
+// @form: 시험지 사물 — 이번 판 낱말: 게임이 실제로 쓸 짝이 괘선 두 단으로, 난이도의 쌍 수만큼 권점이 옮겨 찍힘
 // PairFlip Hub — Stats + StartScreen 통합 (Flashcard Hub 패턴 정합)
 // stats 는 scores(module='pairflip') 서버 집계 → PairFlipHub 주입(기록 없으면 zero).
 //

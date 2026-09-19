@@ -41,6 +41,11 @@ export interface HubStartCardProps {
     /** 비활성 시 사유 메시지 */
     disabled?: boolean
     disabledReason?: string
+    /**
+     * 링크 대신 버튼으로 시작한다 — 설정을 주소가 아니라 sessionStorage 로 넘기는 게임(PairFlip)용.
+     * 있으면 `href` 는 쓰지 않는다(2026-09-19 · DD-35).
+     */
+    onStart?: () => void
   }
 }
 
@@ -81,7 +86,8 @@ export function HubStartCard({ title, description, vocabulary, choices, extras, 
       <div className="space-y-3">
         {choices.map((c) => (
           <fieldset key={c.label} className="m-0 flex flex-wrap items-center gap-x-4 gap-y-1 border-0 p-0">
-            <legend className="contents font-display text-[12px] font-[600] text-[var(--t2)]">{c.label}</legend>
+            {/* 제목과 같은 이름이면 눈에는 한 번만("난이도 / 난이도" 반복 — 2026-09-19 수정 2회차), 스크린리더에는 그대로 */}
+            <legend className={c.label === title ? 'sr-only' : 'contents font-display text-[12px] font-[600] text-[var(--t2)]'}>{c.label}</legend>
             <div role="radiogroup" aria-label={c.label} className="flex flex-wrap items-center gap-x-4 border-b border-[var(--bd)]">
               {c.options.map((opt) => {
                 const active = c.value === opt.value
@@ -116,6 +122,15 @@ export function HubStartCard({ title, description, vocabulary, choices, extras, 
             disabled
             aria-disabled
             className="inline-flex min-h-[48px] w-full cursor-not-allowed items-center justify-center gap-2 rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-6 font-display text-[14px] font-[700] text-[var(--t2)] sm:w-auto"
+          >
+            <Play size={14} strokeWidth={2.5} aria-hidden />
+            {cta.label}
+          </button>
+        ) : cta.onStart ? (
+          <button
+            type="button"
+            onClick={cta.onStart}
+            className="inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-[var(--r-md)] bg-[var(--ju)] px-6 font-display text-[14px] font-[700] text-[var(--on-ju)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--ju-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:translate-y-px sm:w-auto"
           >
             <Play size={14} strokeWidth={2.5} aria-hidden />
             {cta.label}

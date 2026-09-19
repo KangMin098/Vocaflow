@@ -14,7 +14,21 @@
 // 목업을 지우고 **새 거짓말**을 만든 셈이 된다(session-queue-query.ts 가 같은 이유로
 // play 라우트와 쿼리를 공유한다).
 
+// 2026-09-19 (DD-35 · docs/design/compare/game-hubs.md 발산 A 「이번 판 낱말」):
+//   흰 상자(큰 모서리 · 그림자) 안 알약 칩 6개 → **괘선 두 단 목록**(영어 낱말 — 뜻). 한 판에 들어가는 앞 N개에
+//   권점(`marked` — PairFlip 난이도의 쌍 수) — 모듈 허브(`QueueLine`)·`/hub` 와 같은 몸짓(200ms 색만).
+
 import Link from 'next/link'
+
+import styles from './queue-line.module.css'
+
+/** 목록에 세우는 최대 수 — 두 단 여섯 줄 */
+const SHOW_MAX = 12
+/**
+ * 좁은 화면(한 단)에서는 여섯 줄 — 다만 한 판의 쌍 수보다 적게는 자르지 않는다(권점이 가려지면 서명이 사라진다).
+ * 열두 줄을 다 세우면 390px 에서 시작 버튼이 첫 화면 밖이었다(2026-09-19 · 수정 1회차 1063/844).
+ */
+const MOBILE_MIN = 6
 
 export interface GamePoolWord {
   en: string
@@ -26,6 +40,7 @@ export function GamePoolPanel({
   ownedTotal,
   /** 이 게임이 한 판에 쓰는 최소 단어 수 — 못 채우면 그 사실을 말한다 */
   minWords,
+  marked,
 }: {
   words: GamePoolWord[]
   /**
@@ -34,17 +49,18 @@ export function GamePoolPanel({
    */
   ownedTotal: number
   minWords: number
+  /** 한 판에 실제로 들어가는 수 — 앞에서부터 권점. 없으면 권점 없이 목록만 */
+  marked?: number
 }) {
   const enough = words.length >= minWords
+  const shown = words.slice(0, SHOW_MAX)
+  const mobileRows = Math.max(MOBILE_MIN, marked ?? 0)
+  const overflowMobile = words.length - Math.min(words.length, mobileRows)
 
   return (
-    <section
-      aria-label="이번 판 단어"
-      data-game-pool=""
-      className="rounded-ios-2xl bg-[var(--bg)] px-5 py-4 shadow-ios-1 md:px-6 md:py-5"
-    >
-      <header className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-        <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">이번 판 단어</h2>
+    <section aria-label="이번 판 단어" data-game-pool="" className="flex flex-col">
+      <header className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+        <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">이번 판 낱말</h2>
         <span className="font-mono text-[11px] tabular-nums text-[var(--t2)]">
           내 단어 {ownedTotal.toLocaleString()}개 중 {words.length}개 · 복습 임박순
         </span>
@@ -52,35 +68,52 @@ export function GamePoolPanel({
 
       {enough ? (
         <>
-          <ul className="mt-3 flex flex-wrap gap-x-2 gap-y-2">
-            {words.slice(0, 6).map((w) => (
-              <li
-                key={w.en}
-                className="inline-flex items-baseline gap-2 rounded-ios-pill bg-[var(--bg2)] px-3 py-1"
-                title={w.ko}
-              >
-                <span className="font-editorial text-[14px] font-[500] text-[var(--t1)]">
-                  {w.en}
-                </span>
-                <span className="max-w-[12ch] truncate font-body text-[11px] text-[var(--t3)]">
-                  {w.ko}
-                </span>
-              </li>
-            ))}
+          <ul className="m-0 mt-2 list-none gap-x-8 border-t border-[var(--bd)] p-0 sm:columns-2">
+            {shown.map((w, i) => {
+              const on = marked != null && i < marked
+              return (
+                <li
+                  key={w.en}
+                  data-pool-word=""
+                  className={`flex min-w-0 break-inside-avoid items-baseline gap-3 border-b border-[var(--bd)] py-1.5 sm:py-2 ${i >= mobileRows ? 'max-sm:hidden' : ''}`}
+                >
+                  <span
+                    lang="en"
+                    className={`${styles.word} font-english text-[16px] ${marked != null && !on ? 'text-[var(--t2)]' : 'text-[var(--t1)]'}`}
+                    data-on={on}
+                  >
+                    {w.en}
+                  </span>
+                  <span className="min-w-0 flex-1 truncate font-body text-[12px] text-[var(--t2)]">{w.ko}</span>
+                </li>
+              )
+            })}
           </ul>
-          {words.length > 6 && (
-            <p className="mt-2 font-mono text-[11px] tabular-nums text-[var(--t3)]">
-              외 {words.length - 6}개가 이번 풀에 들어 있어요
+          {overflowMobile > 0 && (
+            <p className="m-0 mt-2 font-mono text-[11px] tabular-nums text-[var(--t2)] sm:hidden">
+              외 {overflowMobile}개가 이번 풀에 들어 있어요
+            </p>
+          )}
+          {words.length > shown.length && (
+            <p className="m-0 mt-2 hidden font-mono text-[11px] tabular-nums text-[var(--t2)] sm:block">
+              외 {words.length - shown.length}개가 이번 풀에 들어 있어요
+            </p>
+          )}
+          {marked != null && (
+            <p className="m-0 mt-1 font-body text-[12px] text-[var(--t2)] [word-break:keep-all]">
+              <span className={styles.word} data-on="true" aria-hidden>
+                점
+              </span>{' '}
+              찍힌 {Math.min(marked, words.length)}개가 이번 판에 들어가요 — 난이도를 바꾸면 따라 옮겨져요.
             </p>
           )}
         </>
       ) : (
-        // 부족하면 부족하다고 말한다 — 시작 버튼만 두면 눌러 보고서야 알게 된다.
-        <p className="mt-3 max-w-[46ch] font-body text-[13px] leading-[1.7] text-[var(--t2)] [word-break:keep-all]">
+        <p className="m-0 mt-2 max-w-[46ch] border-t border-[var(--bd)] pt-2 font-body text-[13px] leading-[1.7] text-[var(--t2)] [word-break:keep-all]">
           한 판을 만들려면 단어가 {minWords}개 이상 필요해요. 지금은 {words.length}개예요 —{' '}
           <Link
             href="/library/books"
-            className="font-[700] text-[var(--p)] no-underline hover:text-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+            className="inline-flex min-h-[44px] items-center font-[700] text-[var(--p)] no-underline hover:text-[var(--p-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]"
           >
             읽으면서 모으면
           </Link>{' '}

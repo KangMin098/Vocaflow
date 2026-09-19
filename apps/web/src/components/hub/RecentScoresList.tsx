@@ -9,7 +9,7 @@
 // 빈 상태를 컴포넌트가 직접 말한다. 호출부가 "0회" 나 "0점" 으로 채우면
 // 아직 안 해본 학습자와 0점을 받은 학습자를 구별할 수 없다.
 
-import { Trophy } from 'lucide-react'
+// 2026-09-19 (DD-35): 상자(그림자) · 트로피 칩 · 한글 이탤릭을 걷고 괘선 목록으로(`accent` 는 받기만 한다).
 
 import type { RecentScore } from '@/lib/scores/recent'
 
@@ -23,20 +23,10 @@ export interface RecentScoresListProps {
   emptyHint: string
 }
 
-export function RecentScoresList({ scores, best, accent, emptyHint }: RecentScoresListProps) {
+export function RecentScoresList({ scores, best, emptyHint }: RecentScoresListProps) {
   return (
-    <section
-      aria-label="최근 기록"
-      className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-sm)]"
-    >
-      <header className="mb-3 flex items-center gap-2">
-        <span
-          className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)]"
-          style={{ backgroundColor: `color-mix(in srgb, ${accent} 12%, transparent)`, color: accent }}
-          aria-hidden
-        >
-          <Trophy size={13} strokeWidth={2} />
-        </span>
+    <section aria-label="최근 기록" className="flex flex-col pt-3">
+      <header className="mb-1 flex items-center gap-2">
         <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">최근 기록</h2>
         {best != null && (
           <span className="ml-auto font-mono text-[11px] tabular-nums text-[var(--t2)]">
@@ -46,9 +36,9 @@ export function RecentScoresList({ scores, best, accent, emptyHint }: RecentScor
       </header>
 
       {scores.length === 0 ? (
-        <p className="py-2 font-body text-[12px] italic leading-relaxed text-[var(--t2)]">{emptyHint}</p>
+        <p className="border-t border-[var(--bd)] py-2 font-body text-[12px] leading-relaxed text-[var(--t2)]">{emptyHint}</p>
       ) : (
-        <ul className="divide-y divide-[var(--bd)]">
+        <ul className="divide-y divide-[var(--bd)] border-y border-[var(--bd)]">
           {scores.map((s, i) => (
             <li key={`${s.date}-${i}`} className="flex items-center gap-3 py-3">
               <span className="w-16 shrink-0 font-mono text-[11px] text-[var(--t2)]">{s.date}</span>

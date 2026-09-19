@@ -76,13 +76,13 @@ const SIGNALS: Record<string, { re: RegExp; why: string }> = {
  */
 const BASELINE: Record<Surface, Record<string, number>> = {
   learner: {
-    'grid-3eq': 54, // 2026-09-19 /flashcard/play 완료 3열 통계 카드(60→59) · 회고 지층·관리 괘선·리포트(59→56) · /text/new 입력 방식 3열·예시 5열(56→54)
+    'grid-3eq': 49, // 2026-09-19 /flashcard/play 완료 3열 통계 카드(60→59) · 회고 지층·관리 괘선·리포트(59→56) · /text/new 입력 방식 3열·예시 5열(56→54) · 게임 허브 규칙·효과·기록 격자(54→49)
     'shadow-heavy': 18, // 2026-09-19 /wordvault/review·study StudyMode 카드·버튼 그림자 4(29→25) · /text/new 세그먼트·책 입력(25→22) · 인증 3화면 카드·버튼(22→18)
     'rounded-big': 15, // 2026-09-19 /signup 2(41→39) · /wordvault StudyMode 5(39→34) · /text/new 입력칸·책 입력·배너(34→25) · 인증 3화면 카드·아이콘 타일(25→15)
-    gradient: 160, // 2026-09-19 /diagnostic 2 · /flashcard/play 4 · /wordvault StudyMode 방사형 장식 1(→164) · /text/new 책 띠·예시 칩(→162) · 모듈 허브 ModuleHero 면(→160)
+    gradient: 158, // 2026-09-19 /diagnostic 2 · /flashcard/play 4 · /wordvault StudyMode 방사형 장식 1(→164) · /text/new 책 띠·예시 칩(→162) · 모듈 허브 ModuleHero 면(→160) · PairFlip CTA·WordBlitz(→158)
     'ai-purple': 36, // 2026-09-19 /text/[id] UnifiedHeader 칩 hover #6D28D9(38→37) · /dashboard 주석(37→36)
     glass: 49, // 2026-09-19 /diagnostic 모달 2(52→50) · /text/[id] ModePills backdrop-blur(50→49)
-    'float-hover': 59, // 2026-09-19 /hub 1 · /flashcard/play 1 · /wordvault StudyMode 3(→61) · /reports 빈 상태 CTA(→60) · /text/new 예시 카드(→59)
+    'float-hover': 58, // 2026-09-19 /hub 1 · /flashcard/play 1 · /wordvault StudyMode 3(→61) · /reports 빈 상태 CTA(→60) · /text/new 예시 카드(→59) · PairFlip CTA(→58)
     'infinite-anim': 9, // 2026-09-19 /flashcard/play 발음 펄스 2 · /wordvault 재생 글로우 1(→9)
   },
   admin: {

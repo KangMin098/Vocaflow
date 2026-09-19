@@ -7,26 +7,27 @@
 //   · v06.27: 표준 hub IA 로 재구성 — Editorial 네이비/골드 팔레트는 카드 안으로 흡수, 마스코트는 인라인
 //   · ModuleHero (premium) + 학습 효과 카드 + 시작 설정 카드 (Level + Mode + CTA)
 //   · max-w-5xl · border-bd bg-bg shadow-sm — 다른 hub 와 동일 토큰
+//
+// 2026-09-19 화면 재설계(DD-35 · docs/design/compare/game-hubs.md 발산 A 「이번 판 낱말」):
+//   게임몰 스킨(5열 난이도 타일 선택 = 네이비 그라디언트+그림자 · 네이비→보라 그라디언트 CTA 금색 글씨)을 걷고
+//   모듈 허브와 같은 문법 — 판면 머리 · 이번 판 낱말(괘선 두 단) · 글자 탭 난이도 · 주묵 1차 행동.
+//   **서명**: 난이도를 고르면 그 판의 쌍 수만큼 권점이 옮겨 찍힌다(`/hub` · 모듈 허브와 같은 몸짓).
+//   매칭 모드 선택은 걷었다 — 두 번째 모드는 「준비 중」 이라 고를 것이 하나뿐이었다(없는 기능을 보이지 않는다).
 
 'use client'
 
-import { Activity, ChevronRight, Layers, Shuffle } from 'lucide-react'
-import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
+import { ChevronRight, Shuffle } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
+import { HubStartCard } from '@/components/hub/HubStartCard'
 import { ModuleHero } from '@/components/hub/ModuleHero'
 
-import { STORAGE_KEYS } from './constants'
-import { PairFlipLevelSelector } from './PairFlipLevelSelector'
+import { PAIRFLIP_LEVELS, STORAGE_KEYS } from './constants'
 import { GamePoolPanel } from '@/components/hub/GamePoolPanel'
 
 import { PairFlipMascot } from './PairFlipMascot'
-import { PairFlipModeSelector } from './PairFlipModeSelector'
-import { PF_COLORS } from './theme'
 import type { PairFlipConfig, PairFlipLevel, PairFlipMode } from './types'
-
-const PAIRFLIP_ACCENT = '#F59E0B' // Editorial 골드 — Sidebar 익히기 그룹 핑크와 별개로 모듈 내부 액센트
 
 /** scores(module='pairflip') 서버 집계 — /pairflip 페이지가 주입. 기록 없으면 zero. */
 export interface PairFlipHubStats {
@@ -62,7 +63,9 @@ export function PairFlipHub({
 }) {
   const router = useRouter()
   const [level, setLevel] = useState<PairFlipLevel>('normal')
-  const [mode, setMode] = useState<PairFlipMode>('word_meaning')
+  // 고를 수 있는 모드는 하나뿐이다(영영 정의는 「준비 중」) — 선택지를 보이지 않고 그 모드로 시작한다
+  const mode: PairFlipMode = 'word_meaning'
+  const pairCount = PAIRFLIP_LEVELS.find((l) => l.id === level)?.pairCount ?? MIN_PAIRS
 
   const isCold = stats.gamesPlayed === 0
   const note = isCold
@@ -109,161 +112,75 @@ export function PairFlipHub({
         ]}
       />
 
-      {/* ── 2. 이번 판 단어 ──
-          설명서보다 먼저 온다. 이 화면에서 학습자가 먼저 알아야 하는 것은 규칙이 아니라
-          **무엇으로 노는가** 다(WordBlitz 와 같은 판단 · 형제 일관성). */}
-      <GamePoolPanel words={poolWords} ownedTotal={ownedTotal} minWords={MIN_PAIRS} />
+      {/* ── 2. 이번 판 낱말 — 난이도의 쌍 수만큼 권점(서명) ── */}
+      <GamePoolPanel words={poolWords} ownedTotal={ownedTotal} minWords={MIN_PAIRS} marked={pairCount} />
 
-      {/* ── 3. 설명은 접어 둔다 (WordBlitz 와 같은 판단 · 형제 일관) ──
-          "학습 효과 + 게임 규칙" 이 화면의 30% 를 상시 차지했다. 처음 한 번은 유용하지만
-          매번 보는 것이 되면 설명이 아니라 소음이다. 연습 화면에서 먼저 와야 하는 것은
-          무엇으로 노는가(위 풀)와 시작이다. `<details>` — JS 없이 · 기본 접힘 · SR 지원. */}
+      {/* ── 3. 시작 — 난이도 글자 탭 + 주묵 1차 행동(모듈 허브와 같은 부품) ── */}
+      <HubStartCard
+        title="난이도"
+        description="쌍이 많을수록 기억할 자리가 늘어요"
+        choices={[
+          {
+            label: '난이도',
+            value: level,
+            options: PAIRFLIP_LEVELS.map((l) => ({
+              value: l.id,
+              label: `${l.label} · ${l.pairCount}쌍`,
+              hint: `${l.description} — 카드 ${l.cardCount}장 · ${l.timeLimit}초`,
+            })),
+            onChange: (v) => setLevel(v as PairFlipLevel),
+          },
+        ]}
+        cta={{
+          label: '시작하기',
+          href: '/pairflip/play',
+          onStart: handleStart,
+          disabled: poolWords.length < MIN_PAIRS,
+          disabledReason: `짝을 만들 단어가 ${MIN_PAIRS}개 이상 있어야 해요`,
+        }}
+      />
+
+      {/* ── 4. 설명은 접어 둔다 — 상자 없이 괘선 목록 ── */}
       <details className="group">
-        <summary className="inline-flex cursor-pointer list-none items-center gap-2 rounded-[var(--r-sm)] py-2 font-body text-[12.5px] text-[var(--t2)] transition-colors hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] [&::-webkit-details-marker]:hidden">
-          <ChevronRight
-            size={13}
-            aria-hidden
-            className="shrink-0 transition-transform duration-[var(--dur-normal)] group-open:rotate-90"
-          />
+        <summary className="inline-flex min-h-[44px] cursor-pointer list-none items-center gap-2 font-body text-[12.5px] text-[var(--t2)] transition-colors hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)] [&::-webkit-details-marker]:hidden">
+          <ChevronRight size={13} aria-hidden className="shrink-0 transition-transform duration-[var(--dur-normal)] group-open:rotate-90" />
           이 게임이 뭘 하는지
         </summary>
-
-        <div className="mt-3 grid grid-cols-1 gap-4 lg:grid-cols-3">
-        {/* 학습 효과 */}
-        <aside
-          aria-label="학습 효과"
-          className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-sm)]"
-        >
-          <header className="flex items-center gap-2">
-            <span
-              className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-sm)]"
-              style={{ backgroundColor: `${PAIRFLIP_ACCENT}15`, color: PAIRFLIP_ACCENT }}
-              aria-hidden
-            >
-              <Activity size={14} strokeWidth={1.75} />
-            </span>
-            <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">학습 효과</h2>
-          </header>
-          <ul className="mt-4 space-y-3">
-            {LEARNING_EFFECTS.map((e) => (
-              <li key={e.en}>
-                <p className="font-display text-[13px] font-[700] text-[var(--t1)]">{e.ko}</p>
-                <p className="mt-0.5 font-mono text-[10px] text-[var(--t2)]">{e.en}</p>
-              </li>
-            ))}
-          </ul>
-        </aside>
-
-        {/* 게임 규칙 + 인라인 마스코트 */}
-        <aside
-          aria-label="게임 규칙"
-          className="relative overflow-hidden rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-sm)] lg:col-span-2"
-        >
-          <header className="mb-4 flex items-center gap-2">
-            <span
-              className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-sm)]"
-              style={{ backgroundColor: `${PF_COLORS.coverFrom}12`, color: PF_COLORS.coverFrom }}
-              aria-hidden
-            >
-              <Gwonjeom size={14} strokeWidth={1.75} />
-            </span>
-            <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">게임 규칙</h2>
-            <span className="ml-auto font-mono text-[11px] text-[var(--t2)]">3단계</span>
-          </header>
-          <ol className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-            {[
-              { step: '01', title: '카드를 클릭', desc: '뒷면을 뒤집어 단어/뜻 확인' },
-              { step: '02', title: '짝을 찾아요', desc: '같은 단어쌍의 위치 기억' },
-              { step: '03', title: '콤보 보너스', desc: '연속 매칭 시 점수 가속' },
-            ].map((r) => (
-              <li
-                key={r.step}
-                className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-3"
-              >
-                {/* ⚠️ 순서 표시는 **글자**다. 강조색(PAIRFLIP_ACCENT #F59E0B)을 그대로 쓰면
-                    --bg2 위에서 **1.89:1** 이 된다(실측 2026-08-22 · 이 하나에서 15건).
-                    면을 칠하는 색과 글자로 쓰는 색은 다르다 — 글자는 테마별 잉크 토큰으로.
-                    (다크에서는 같은 앰버가 8.53:1 로 멀쩡하다. 그래서 한 색으로는 못 맞춘다.) */}
-                <p className="font-mono text-[10px] font-[700] tabular-nums tracking-[0.10em] text-[var(--active-ink)]">
-                  {r.step}
-                </p>
-                <p className="mt-1 font-display text-[13px] font-[700] text-[var(--t1)]">
-                  {r.title}
-                </p>
-                <p className="mt-0.5 font-body text-[11px] leading-snug text-[var(--t2)]">
-                  {r.desc}
-                </p>
-              </li>
-            ))}
-          </ol>
-
-          {/* 인라인 마스코트 — 우하단 (Calm UI: fixed 제거) */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute -bottom-3 -right-2 opacity-90 md:opacity-100"
-          >
-            <PairFlipMascot mood="idle" size={64} />
-          </div>
-        </aside>
+        <div className="mt-2 grid gap-6 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]">
+          <section aria-label="학습 효과">
+            <h2 className="font-display text-[13px] font-[700] text-[var(--t1)]">학습 효과</h2>
+            <ul className="m-0 mt-2 list-none border-t border-[var(--bd)] p-0">
+              {LEARNING_EFFECTS.map((e) => (
+                <li key={e.en} className="border-b border-[var(--bd)] py-2">
+                  <p className="m-0 font-display text-[13px] font-[700] text-[var(--t1)]">{e.ko}</p>
+                  <p className="m-0 mt-0.5 font-mono text-[11px] text-[var(--t2)]">{e.en}</p>
+                </li>
+              ))}
+            </ul>
+          </section>
+          <section aria-label="게임 규칙" className="relative">
+            <h2 className="font-display text-[13px] font-[700] text-[var(--t1)]">게임 규칙</h2>
+            <ol className="m-0 mt-2 list-none border-t border-[var(--bd)] p-0">
+              {[
+                { step: '1', title: '카드를 뒤집어요', desc: '뒷면의 단어/뜻을 확인' },
+                { step: '2', title: '짝을 찾아요', desc: '같은 단어쌍의 위치를 기억' },
+                { step: '3', title: '콤보', desc: '연속 매칭 시 점수 가속' },
+              ].map((r) => (
+                <li key={r.step} className="grid grid-cols-[20px_minmax(0,1fr)] gap-x-2 border-b border-[var(--bd)] py-2">
+                  <span className="font-mono text-[12px] font-[700] text-[var(--t2)]">{r.step}.</span>
+                  <span>
+                    <span className="font-display text-[13px] font-[700] text-[var(--t1)]">{r.title}</span>{' '}
+                    <span className="font-body text-[12px] text-[var(--t2)]">— {r.desc}</span>
+                  </span>
+                </li>
+              ))}
+            </ol>
+            <div aria-hidden className="pointer-events-none absolute -bottom-2 right-0 hidden md:block">
+              <PairFlipMascot mood="idle" size={56} />
+            </div>
+          </section>
         </div>
       </details>
-
-      {/* ── 3. 시작 설정 — Level + Mode + CTA ── */}
-      <section
-        aria-label="시작 설정"
-        className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-sm)] md:p-6"
-      >
-        <header className="mb-4 flex items-center gap-2">
-          <span
-            className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-sm)]"
-            style={{ backgroundColor: `${PAIRFLIP_ACCENT}15`, color: PAIRFLIP_ACCENT }}
-            aria-hidden
-          >
-            <Layers size={14} strokeWidth={1.75} />
-          </span>
-          <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">시작 설정</h2>
-          <span className="ml-auto font-mono text-[11px] text-[var(--t2)]">
-            난이도와 모드를 선택하세요
-          </span>
-        </header>
-
-        {/* Level */}
-        <div className="mb-5">
-          <p className="mb-2.5 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
-            난이도
-          </p>
-          <PairFlipLevelSelector selected={level} onChange={setLevel} />
-        </div>
-
-        {/* Mode */}
-        <div className="mb-5">
-          <p className="mb-2.5 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
-            매칭 모드
-          </p>
-          <PairFlipModeSelector selected={mode} onChange={setMode} />
-        </div>
-
-        {/* CTA — Editorial 골드/네이비, 다만 hub 안에 정렬 */}
-        <button
-          type="button"
-          onClick={handleStart}
-          aria-label="게임 시작"
-          className="group inline-flex w-full items-center justify-center gap-2 rounded-[var(--r-md)] py-4 font-display text-[15px] font-[700] tracking-[0.01em] transition-all duration-[var(--dur-normal)] ease-[var(--ease-spring)] hover:-translate-y-0.5 active:translate-y-[1px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B] focus-visible:ring-offset-2 md:text-[16px]"
-          style={{
-            background: `linear-gradient(135deg, ${PF_COLORS.coverFrom} 0%, ${PF_COLORS.coverMid} 60%, ${PF_COLORS.coverTo} 100%)`,
-            color: PF_COLORS.goldLight,
-            boxShadow: `0 0 0 1px ${PAIRFLIP_ACCENT}66, 0 4px 0 ${PF_COLORS.coverTo}, 0 10px 24px rgba(15,23,42,0.22)`,
-          }}
-        >
-          시작하기
-          <span
-            aria-hidden
-            className="transition-transform duration-[var(--dur-normal)] group-hover:translate-x-0.5"
-          >
-            →
-          </span>
-        </button>
-      </section>
     </div>
   )
 }
