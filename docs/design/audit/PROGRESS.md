@@ -14,11 +14,12 @@
 | 4 | `/flashcard/play` | **완료** 2026-09-19 | A 「이 단어의 기억선」(망각) | 12→**4**(남은 4 공용) · 390 그라디언트 2→**0** | [compare/flashcard-play.md](../compare/flashcard-play.md) · [golden/flashcard-play.md](../golden/flashcard-play.md) · DD-24 |
 | 5 | `/fit/s/[payload]` | **완료** 2026-09-19 | A 「가장 어려운 낱말 줄」(채색 지문) | 보류 → 정적 **0** · 카드형 **2**(괘선) | [compare/fit-s.md](../compare/fit-s.md) · [golden/fit-s.md](../golden/fit-s.md) · DD-25 |
 | 6 | `/signup` (인증 대표) | **완료** 2026-09-19 | A 「칠해진 지문 옆의 가입」(채색 지문) | 6→**1** · 그림자 2→**0** | [compare/signup.md](../compare/signup.md) · [golden/signup.md](../golden/signup.md) · DD-26 |
-| 7 | `/text/[id]` | **다음** | — | — | [briefs/text_id.md](briefs/text_id.md) |
-| 8–10 | `/wordvault/review` · 회고 · `/text/new` | 대기 | — | — | priority.md |
+| 7 | `/text/[id]` | **완료** 2026-09-19 | A 「내 기억으로 칠한 원문」(채색 지문 × 망각) | 24→**22** · 390 넘침 349→**0** · axe 3→**0** | [compare/text-id.md](../compare/text-id.md) · [golden/text-id.md](../golden/text-id.md) · DD-27 |
+| 8 | `/wordvault/review` (+study) | **다음** | — | — | [briefs/wordvault_review.md](briefs/wordvault_review.md) |
+| 9–10 | 회고 · `/text/new` | 대기 | — | — | priority.md |
 
 - **보류**: 없음.
-- **라쳇**: average-signal learner `float-hover` 66→**65**(`/hub` — `TodayPlanCard` 칩) · `gradient` 171→**169** · `glass` 52→**50**(`/diagnostic`) · `grid-3eq` 60→**59** · `gradient` 169→**165** · `float-hover` 65→**64** · `infinite-anim` 12→**10**(`/flashcard/play`) · `rounded-big` 41→**39**(`/signup`). form-declaration 무선언 목록 −1(`/diagnostic`). `/hub` 선언은 렌더와 일치하게 정정.
+- **라쳇**: average-signal learner `float-hover` 66→**65**(`/hub` — `TodayPlanCard` 칩) · `gradient` 171→**169** · `glass` 52→**50**(`/diagnostic`) · `grid-3eq` 60→**59** · `gradient` 169→**165** · `float-hover` 65→**64** · `infinite-anim` 12→**10**(`/flashcard/play`) · `rounded-big` 41→**39**(`/signup`) · `ai-purple` 38→**37** · `glass` 50→**49**(`/text/[id]`). form-declaration 무선언 목록 −1(`/diagnostic`). `/hub` 선언은 렌더와 일치하게 정정.
 - **승인 대기 마이그레이션**: `supabase/migrations/_pending_funnel_allow_hub_curve.sql`(관측 `hub_curve_interacted`).
 - **이 세션이 만난 기존 결함(범위 밖)**: 타입 오류 3(kice item · csat reveal) · 전체 vitest 실패 10(관리자 터치 타깃 78>70 · OFFSET 페이징 190→200 · `.limit` 1000 초과 · 학습자 라우트 매니페스트 textbooks · CSAT 드레인 경로 · 저작권 경계 · `wired.test` CRLF) — 전부 이 세션이 건드리지 않은 파일. DECISIONS DD-22 뒤 목록.
 
