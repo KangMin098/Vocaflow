@@ -245,21 +245,20 @@ test.describe('UI 스모크 — 학습자 주요 화면', () => {
     await expect(hero).toBeVisible();
     await expect(page.getByRole('region', { name: '다른 시리즈' }).getByRole('listitem').first()).toBeVisible();
 
-    // 3) 히어로 선택 → 상세(글 목록 + '시리즈 목록' 뒤로).
-    //   v06.238 히어로는 버튼 2개 — 본문='학습 안내 보기'(팝업), 하단='글 둘러보기'(시리즈 진입).
-    //   시리즈 상세로 가려면 '글 둘러보기'(onEnter)를 눌러야 함. .first()(=안내 팝업)를 누르면
-    //   시트 오버레이가 열려 이후 클릭이 가로막힘. hydration 지연 대비 toPass 재클릭.
+    // 3) 히어로의 '글 둘러보기' → 상세(글 목록 + '시리즈 목록' 뒤로).
+    //   이 컨트롤은 버튼이 아니라 **링크**다 — 드릴다운이 상태에서 `?series=` 주소로 바뀌었고(`0698e6bf`),
+    //   그 링크가 크롤러가 글 목록에 닿는 유일한 경로다(`ScriptsBrowser.tsx` 주석). 그래서 hydration 을
+    //   기다릴 필요가 없다 — 진짜 anchor 라 클릭이 곧 이동이다(옛 toPass 재클릭 제거, #103).
+    //   본문의 '… — 학습 안내 보기'는 팝업 버튼이므로 그걸 누르면 시트가 이후 클릭을 가로막는다.
     const back = page.getByRole('button', { name: /시리즈 목록/ });
-    await expect(async () => {
-      if (!(await back.isVisible())) {
-        await hero.getByRole('button', { name: /글 둘러보기/ }).click();
-      }
-      await expect(back).toBeVisible({ timeout: 1_500 });
-    }).toPass({ timeout: 20_000 });
+    await hero.getByRole('link', { name: /글 둘러보기/ }).click();
+    await expect(page).toHaveURL(/[?&]series=/);
+    await expect(back).toBeVisible({ timeout: 15_000 });
     await expect(page.getByRole('region', { name: '글 목록' }).getByRole('listitem').first()).toBeVisible();
 
-    // 4) 복귀 → 진입면 재노출
+    // 4) 복귀 → 주소가 진입면으로 되돌고(replace) 진입면 재노출
     await back.click();
+    await expect(page).not.toHaveURL(/[?&]series=/);
     await expect(page.getByRole('region', { name: '추천 시리즈' })).toBeVisible();
 
     const fatal = fatalErrors(errors);

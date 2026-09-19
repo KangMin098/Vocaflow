@@ -45,6 +45,7 @@
 | 첫 진입 | [PROJECT](./docs/PROJECT.md) · [STACK](./docs/STACK.md) |
 
 진입 순서: 이 파일 → 영역 문서 1–3개 → **사실 검증**(DB 직접 질의 · 라우트 grep) → 변경 시 CONVENTIONS 자가 점검 → 머지 후 CHANGELOG Unreleased 갱신.
+세션 시작에 한 번: `pnpm sync:memory --check` → stale 이면 `pnpm sync:memory` 뒤 **별도 커밋**(훅은 더 이상 자동 갱신하지 않는다 — DD-49).
 
 ## 디자인 철학 4 · 학습 과학 7 (항상)
 
