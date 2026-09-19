@@ -1,5 +1,12 @@
 // apps/web/src/components/wordvault/StudyMode.tsx
 // 학습 모드 — 큰 카드 + Active Recall + 1-5 평가
+//
+// 2026-09-19 화면 재설계(DD-28 · docs/design/compare/wordvault-review.md):
+//   ① **실제 FSRS 카드로 평가한다** — 낱말마다 `srs`(DB 의 S·D·마지막 복습)가 실려 오는데 쓰지 않고
+//      세션 캐시가 비면 `createNewCard` 로 평가했다. 이 화면의 복습은 매번 안정도를 리셋하고 있었다.
+//   ② 카드 아래 **이 단어의 기억선**(`/flashcard/play` 골든과 같은 부품 · 같은 몸짓) — 평가에 손을 얹으면 다음 곡선.
+//   ③ 평가 버튼 아래 간격이 **상수**(10 min · 1 day · 3 days · 7 days · 14 days — I5)였다 → FSRS 미리보기.
+//   ④ 장식 방사형 그라디언트 · 큰 모서리 · 그림자 · 떠오르는 hover · 무한 글로우 · 하드코딩 파랑을 걷었다.
 
 'use client'
 
@@ -7,6 +14,9 @@ import { cn } from '@/lib/utils/cn'
 import Link from 'next/link'
 import { Eye, FileText, Settings as SettingsIcon, Volume2 } from 'lucide-react'
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { ForgettingCurve } from '@/components/flashcard/ForgettingCurve'
+import { buildMemoryLine, formatDue, type LineRating, type MemoryLine } from '@/lib/flashcard/memory-line'
+import type { SrsCard } from '@/lib/srs/fsrs'
 import { applyReview, createNewCard } from '@/lib/srs'
 import { studyRatingToFsrs } from '@/lib/srs/rating-mapper'
 import { cacheCard, getCachedCard, pushPendingResult } from '@/lib/srs/session-storage'
@@ -32,25 +42,41 @@ export interface StudyModeProps {
 interface RatingConfig {
   rate: 1 | 2 | 3 | 4 | 5
   label: string
-  srs: string
   className: string
 }
 
 // 간격반복 자기평가 5단. Again/Hard/Easy 는 SRS 에서 통용되는 말이라 학습자가 다른 앱에서
 // 이미 만났을 가능성이 높다 — 굳이 새 말을 만들지 않는다. 3단은 Again~Hard 사이라 Fair.
-// srs 는 다음 복습까지의 간격 힌트다(버튼 아래 작은 글씨).
+// 버튼 아래 간격은 **FSRS 미리보기**다(`studyRatingToFsrs` 로 4단에 옮긴 뒤 `buildMemoryLine` 의 다음 만남).
+// 2026-09-19 까지 '10 min … 14 days' 상수였다 — 낱말마다 다른 값을 모든 낱말에 같게 보였다(I5).
 const RATINGS: RatingConfig[] = [
-  { rate: 1, label: 'Again', srs: '10 min', className: 'rate-1' },
-  { rate: 2, label: 'Hard', srs: '1 day', className: 'rate-2' },
-  { rate: 3, label: 'Fair', srs: '3 days', className: 'rate-3' },
-  { rate: 4, label: 'Easy', srs: '7 days', className: 'rate-4' },
-  { rate: 5, label: 'Perfect', srs: '14 days', className: 'rate-5' },
+  { rate: 1, label: 'Again', className: 'rate-1' },
+  { rate: 2, label: 'Hard', className: 'rate-2' },
+  { rate: 3, label: 'Fair', className: 'rate-3' },
+  { rate: 4, label: 'Easy', className: 'rate-4' },
+  { rate: 5, label: 'Perfect', className: 'rate-5' },
 ]
+
+/** 자가평가 1~5 → 기억선의 4단(FSRS Rating 1~4 와 같은 순서) */
+const LINE_OF_FSRS: Record<number, LineRating> = { 1: 'again', 2: 'hard', 3: 'good', 4: 'easy' }
+const lineRating = (rate: 1 | 2 | 3 | 4 | 5): LineRating => LINE_OF_FSRS[studyRatingToFsrs(rate)] ?? 'good'
+
+/**
+ * 이 낱말을 평가할 카드 — 세션 안에서 이미 평가했으면 그 카드, 아니면 **DB 에서 실려 온 카드**.
+ * 둘 다 없을 때만 새 카드. 캐시 키는 낱말 텍스트(기존 flush 경로와 같다).
+ */
+function cardFor(word: WordItem): SrsCard {
+  const key = word.word.toLowerCase()
+  return getCachedCard(key) ?? (word.srs ? { ...word.srs, id: key } : createNewCard(key))
+}
 
 export function StudyMode({ words, onExit }: StudyModeProps) {
   const [studyIndex, setStudyIndex] = useState(0)
   const [state, setState] = useState<StudyState>('hidden')
   const [isPlayingMain, setIsPlayingMain] = useState(false)
+  // 기억선 — 브라우저에서만 계산(FSRS 흔들림의 씨앗이 시각이라 서버 렌더와 어긋난다 — DD-24 와 같은 이유)
+  const [line, setLine] = useState<MemoryLine | null>(null)
+  const [preview, setPreview] = useState<LineRating | null>(null)
 
   const { speak } = useSpeech()
   const w = words[studyIndex]
@@ -83,6 +109,13 @@ export function StudyMode({ words, onExit }: StudyModeProps) {
     reset()
   }, [reset])
 
+  // 낱말이 바뀔 때마다 그 시점의 기억선
+  useEffect(() => {
+    setPreview(null)
+    setLine(w ? buildMemoryLine(cardFor(w), new Date()) : null)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [studyIndex, w?.word])
+
   const revealMeaning = useCallback(() => {
     setState((prev) => {
       if (prev === 'hidden') return 'meaning-shown'
@@ -99,8 +132,7 @@ export function StudyMode({ words, onExit }: StudyModeProps) {
     (rate: 1 | 2 | 3 | 4 | 5) => {
       if (w) {
         // §17 [4] 기억 축 — FSRS applyReview (자가평가 1~5 → Rating). 세션 캐시는 단어 텍스트 키.
-        const key = w.word.toLowerCase()
-        const existingCard = getCachedCard(key) ?? createNewCard(key)
+        const existingCard = cardFor(w)
         const reviewResult = applyReview({
           card: existingCard,
           rating: studyRatingToFsrs(rate),
@@ -193,7 +225,7 @@ export function StudyMode({ words, onExit }: StudyModeProps) {
         <div className="mx-s-5 flex flex-1 items-center gap-s-3">
           <div className="h-[6px] flex-1 overflow-hidden rounded-[3px] bg-bg2">
             <div
-              className="h-full rounded-[3px] shadow-[0_0_6px_rgba(59,130,246,0.3)] transition-all duration-slow"
+              className="h-full rounded-[3px] transition-all duration-slow"
               style={{
                 width: `${progress}%`,
                 // v07 — 파랑→보라 그라데이션을 걷어냈다. AI 생성 UI 의 표식이고(vocaflow-design §2 가
@@ -220,15 +252,8 @@ export function StudyMode({ words, onExit }: StudyModeProps) {
       </div>
 
       {/* 학습 카드 */}
-      <div className="relative mb-s-5 flex min-h-[520px] flex-col items-center justify-center overflow-hidden rounded-3xl border border-bd bg-bg px-s-12 py-s-16 text-center shadow-md">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute -right-[100px] -top-[100px] h-[300px] w-[300px] rounded-full opacity-[0.04]"
-          style={{
-            background: 'radial-gradient(circle, var(--learn-fresh) 0%, transparent 70%)',
-            filter: 'blur(40px)',
-          }}
-        />
+      {/* 떠 있는 카드가 아니라 판면 위의 한 장 — 그림자·큰 모서리·장식 방사형 원을 걷었다(감사 평균) */}
+      <div className="relative flex min-h-[340px] flex-col items-center justify-center overflow-hidden rounded-[var(--r-lg)] border border-bd bg-bg px-s-6 py-s-10 text-center sm:px-s-12">
 
         {/* 단어 (★ L1) */}
         <div className="relative mb-s-4 font-serif text-[64px] font-bold leading-[1.05] tracking-[-0.025em] text-t1 sm:text-[44px]">
@@ -250,27 +275,28 @@ export function StudyMode({ words, onExit }: StudyModeProps) {
         </div>
 
         {/* 음성 버튼 */}
-        <div className="mb-s-8 flex justify-center gap-s-3">
+        <div className="mb-s-6 flex justify-center gap-s-3">
           <button
             type="button"
             onClick={playSlow}
-            aria-label="천천히"
-            className="flex h-[60px] w-[60px] items-center justify-center rounded-xl border-[1.5px] border-bd bg-bg text-t2 transition-all duration-fast hover:-translate-y-0.5 hover:bg-bg2 hover:text-t1 hover:shadow-md"
+            aria-label="천천히 듣기"
+            className="flex h-[52px] min-w-[52px] items-center justify-center gap-1 rounded-[var(--r-md)] border border-bd bg-bg px-s-3 font-display text-[12px] font-semibold text-t2 transition-colors duration-fast hover:bg-bg2 hover:text-t1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:translate-y-px"
           >
-            <span className="text-[20px]">🐢</span>
+            {/* 레이블 없는 거북이였다 — 무엇을 하는 버튼인지 글자로 */}
+            <Volume2 size={16} aria-hidden />
+            천천히
           </button>
           <button
             type="button"
             onClick={playMain}
             aria-label="재생"
             className={cn(
-              'h-[60px] w-[60px] rounded-xl',
-              'bg-learn-fresh border-learn-fresh border-[1.5px] text-white',
+              'h-[52px] w-[52px] rounded-[var(--r-md)]',
+              // 1차(주묵). 재생 중 표시는 끝없는 글로우가 아니라 정지 색(끝나는 상태 없는 모션 금지)
+              isPlayingMain ? 'bg-[var(--ju-ink)] text-[var(--on-ju)]' : 'bg-[var(--ju)] text-[var(--on-ju)]',
               'flex items-center justify-center',
-              'transition-all duration-fast',
-              'hover:-translate-y-1 hover:bg-[#2563EB] hover:shadow-lg',
-              'shadow-[0_4px_14px_rgba(59,130,246,0.3)]',
-              isPlayingMain && 'animate-[audio-glow_1.2s_ease-in-out_infinite]'
+              'transition-colors duration-fast hover:bg-[var(--ju-ink)] active:translate-y-px',
+              'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]'
             )}
           >
             <Volume2 size={20} />
@@ -279,7 +305,7 @@ export function StudyMode({ words, onExit }: StudyModeProps) {
         </div>
 
         {/* Reveal Area */}
-        <div className="mb-s-6 flex min-h-[140px] w-full flex-col items-center justify-center">
+        <div className="flex min-h-[110px] w-full flex-col items-center justify-center">
           {state === 'hidden' && (
             <RevealPrompt
               icon={<Eye size={14} />}
@@ -290,7 +316,7 @@ export function StudyMode({ words, onExit }: StudyModeProps) {
           )}
 
           {state === 'meaning-shown' && (
-            <div className="w-full animate-[revealIn_320ms_cubic-bezier(0,0,.2,1)]">
+            <div className="w-full animate-[revealIn_var(--dur-slow)_cubic-bezier(0,0,.2,1)]">
               <div className="mb-s-4 font-body text-[24px] font-bold leading-[1.35] tracking-[-0.015em] text-t1">
                 {w.meaning}
               </div>
@@ -304,11 +330,13 @@ export function StudyMode({ words, onExit }: StudyModeProps) {
           )}
 
           {state === 'example-shown' && (
-            <div className="w-full animate-[revealIn_320ms_cubic-bezier(0,0,.2,1)]">
+            <div className="w-full animate-[revealIn_var(--dur-slow)_cubic-bezier(0,0,.2,1)]">
               <div className="mb-s-4 font-body text-[24px] font-bold leading-[1.35] tracking-[-0.015em] text-t1">
                 {w.meaning}
               </div>
-              <div className="border-learn-fresh rounded-xl border-l-[3px] bg-bg2 px-s-5 py-s-4 text-left">
+              {/* 예문이 없는 낱말에 빈 회색 상자가 섰다(DD-28 1회차) — 있을 때만 */}
+              {w.exampleEn && (
+              <div className="border-learn-fresh rounded-[var(--r-md)] border-l-[3px] bg-bg2 px-s-5 py-s-4 text-left">
                 <div
                   className={cn(
                     'font-serif text-base font-medium italic text-t1',
@@ -320,22 +348,32 @@ export function StudyMode({ words, onExit }: StudyModeProps) {
                   {w.exampleEn}
                 </div>
               </div>
+              )}
             </div>
           )}
         </div>
       </div>
 
+      {/* 골격 — 이 단어의 기억선(/flashcard/play 골든과 같은 부품). 예문을 연 뒤에는 평가별 다음 자리 */}
+      {line && (
+        <div className="mb-s-4 flex justify-center">
+          <ForgettingCurve line={line} preview={preview ?? 'good'} showRatings={state === 'example-shown'} />
+        </div>
+      )}
+
       {/* 평가 (예문 공개 후) */}
       {state === 'example-shown' && (
-        <div className="mb-s-4 grid grid-cols-5 gap-s-2">
+        <div className="mb-s-4 flex gap-s-2" onMouseLeave={() => setPreview(null)}>
           {RATINGS.map((r) => (
             <button
               key={r.rate}
               type="button"
               onClick={() => rateWord(r.rate)}
+              onMouseEnter={() => setPreview(lineRating(r.rate))}
+              onFocus={() => setPreview(lineRating(r.rate))}
               className={cn(
-                'rounded-xl border-[1.5px] border-bd bg-bg px-s-2 py-s-4 text-center',
-                'transition-all duration-fast hover:-translate-y-1 hover:shadow-md',
+                'min-h-[64px] flex-1 rounded-[var(--r-md)] border border-bd bg-bg px-s-1 py-s-3 text-center',
+                'transition-colors duration-fast active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]',
                 r.rate === 1 && 'hover:border-learn-error hover:bg-learn-error-light',
                 r.rate === 2 && 'hover:border-learn-review hover:bg-learn-review-light',
                 r.rate === 3 && 'hover:border-learn-fresh hover:bg-learn-fresh-light',
@@ -347,8 +385,11 @@ export function StudyMode({ words, onExit }: StudyModeProps) {
               <div className="font-display text-xs font-bold tracking-[-0.01em] text-t1">
                 {r.label}
               </div>
-              <div className="mt-px hidden font-mono text-[9px] font-medium text-t3 sm:block">
-                {r.srs}
+              <div className="mt-px font-mono text-[10px] font-medium text-t2">
+                {(() => {
+                  const p = line?.previews.find((x) => x.rating === lineRating(r.rate))
+                  return p ? formatDue(p.dueInDays) : ''
+                })()}
               </div>
             </button>
           ))}
@@ -358,7 +399,7 @@ export function StudyMode({ words, onExit }: StudyModeProps) {
       {/* 단축키 안내 */}
       <div className="flex flex-wrap justify-center gap-s-4 font-display text-[11px] font-medium text-t3">
         <Shortcut keys={['Space']} label="공개/재생" />
-        <Shortcut keys={['M']} label="마이크" />
+        {/* 「M 마이크」 안내가 남아 있었다 — 마이크 버튼은 2026-09-05 에 없앴다(없는 기능을 안내하지 않는다 · DD-28 1회차) */}
         <Shortcut keys={['1', '2', '3', '4', '5']} label="평가" sep="~" />
         <Shortcut keys={['Esc']} label="종료" />
       </div>

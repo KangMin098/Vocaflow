@@ -77,13 +77,13 @@ const SIGNALS: Record<string, { re: RegExp; why: string }> = {
 const BASELINE: Record<Surface, Record<string, number>> = {
   learner: {
     'grid-3eq': 59, // 2026-09-19 /flashcard/play 완료 3열 통계 카드(60→59)
-    'shadow-heavy': 29,
-    'rounded-big': 39, // 2026-09-19 /signup 그림자 카드 rounded-xl 2(41→39)
-    gradient: 165, // 2026-09-19 /diagnostic 헤더 2(171→169) · /flashcard/play 회상 막대·예문·완료 박스·버튼 4(169→165)
+    'shadow-heavy': 25, // 2026-09-19 /wordvault/review·study StudyMode 카드·버튼 그림자 4(29→25)
+    'rounded-big': 34, // 2026-09-19 /signup 2(41→39) · /wordvault StudyMode 5(39→34)
+    gradient: 164, // 2026-09-19 /diagnostic 2 · /flashcard/play 4 · /wordvault StudyMode 방사형 장식 1(→164)
     'ai-purple': 37, // 2026-09-19 /text/[id] UnifiedHeader 칩 hover #6D28D9(38→37)
     glass: 49, // 2026-09-19 /diagnostic 모달 2(52→50) · /text/[id] ModePills backdrop-blur(50→49)
-    'float-hover': 64, // 2026-09-19 /hub TodayPlanCard 칩(66→65) · /flashcard/play 완료 버튼(65→64)
-    'infinite-anim': 10, // 2026-09-19 /flashcard/play 발음 무한 펄스 2(12→10)
+    'float-hover': 61, // 2026-09-19 /hub 1 · /flashcard/play 1 · /wordvault StudyMode 3(→61)
+    'infinite-anim': 9, // 2026-09-19 /flashcard/play 발음 펄스 2 · /wordvault 재생 글로우 1(→9)
   },
   admin: {
     'grid-3eq': 35,

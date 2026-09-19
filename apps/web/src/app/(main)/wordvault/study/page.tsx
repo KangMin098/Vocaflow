@@ -1,4 +1,5 @@
 // apps/web/src/app/(main)/wordvault/study/page.tsx
+// @form: 망각 — 평가에 손을 얹으면 이 단어의 다음 곡선과 다음 만남 눈금이 선다 · 모션 0 (StudyMode · ForgettingCurve · DD-28)
 // WordVault Study 풀스크린 세션 (실 데이터 · A2).
 //
 // browse RSC 패턴 미러: 사용자 vocabularies 를 due 우선으로 fetch → StudyMode.

@@ -74,8 +74,6 @@
   "src/app/(main)/wordblitz/page.tsx",
   "src/app/(main)/wordvault/browse/page.tsx",
   "src/app/(main)/wordvault/page.tsx",
-  "src/app/(main)/wordvault/review/page.tsx",
-  "src/app/(main)/wordvault/study/page.tsx",
   "src/app/(marketing)/about/page.tsx",
   "src/app/(marketing)/join/[code]/page.tsx",
   "src/app/(marketing)/pricing/page.tsx",

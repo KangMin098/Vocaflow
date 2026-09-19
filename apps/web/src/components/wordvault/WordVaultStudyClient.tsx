@@ -50,16 +50,28 @@ export function WordVaultStudyClient({
           {mode === 'review' ? '지금 복습할 단어가 없어요' : '오늘 학습할 단어가 아직 없어요'}
         </h2>
         <p className="mb-s-6 font-body text-sm text-t2">
+          {/* review 는 2026-09-19 부터 「다시 볼 낱말」(흐릿해요 + 익숙해요)만이다(DD-28). 새 낱말만 있는 사람에게
+              「잘 따라가고 있어요」 는 근거 없는 칭찬이었다 — 사실만 말하고 새 낱말로 가는 문을 1차로 둔다 */}
           {mode === 'review'
-            ? '잘 따라가고 있어요 — 복습할 단어가 쌓이면 여기에 나타나요.'
+            ? '흐려지거나 흔들리는 단어가 지금은 없어요. 처음 만나는 단어는 학습에서 익혀요.'
             : '텍스트에서 단어를 모으거나 단어장을 구독하면 여기서 차분히 익힐 수 있어요.'}
         </p>
-        <Link
-          href="/wordvault/browse"
-          className="rounded-md bg-bg2 px-s-5 py-s-3 font-display text-[13px] font-semibold text-t1 no-underline transition-colors duration-normal hover:bg-bg3"
-        >
-          단어 둘러보기 →
-        </Link>
+        <div className="flex flex-wrap justify-center gap-s-2">
+          {mode === 'review' && (
+            <Link
+              href="/wordvault/study?filter=state:new&from=/wordvault/review"
+              className="inline-flex min-h-[44px] items-center rounded-md bg-[var(--ju)] px-s-5 font-display text-[13px] font-semibold text-[var(--on-ju)] no-underline transition-colors duration-normal hover:bg-[var(--ju-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:translate-y-px"
+            >
+              새 단어 익히기 →
+            </Link>
+          )}
+          <Link
+            href="/wordvault/browse"
+            className="inline-flex min-h-[44px] items-center rounded-md bg-bg2 px-s-5 font-display text-[13px] font-semibold text-t1 no-underline transition-colors duration-normal hover:bg-bg3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
+          >
+            단어 둘러보기 →
+          </Link>
+        </div>
       </div>
     )
   }
