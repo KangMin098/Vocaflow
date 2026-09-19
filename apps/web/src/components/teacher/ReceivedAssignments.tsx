@@ -94,13 +94,14 @@ export function ReceivedAssignments({ assignments, failed = false, collectedIds 
         </p>
       )}
 
-      <ul className="flex flex-col gap-3">
+      <ul className="flex flex-col border-t border-[var(--bd)]">
         {assignments.map((a) => {
           const done = collected.has(a.id)
           return (
             <li
               key={a.id}
-              className="flex flex-col gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4"
+              // 2026-09-19 (DD-33) — 테두리 카드 → 괘선 행(초대장 아래 같은 판면)
+              className="flex flex-col gap-3 border-b border-[var(--bd)] py-4"
             >
               <div className="flex flex-wrap items-start justify-between gap-2">
                 <div className="flex flex-col gap-1">

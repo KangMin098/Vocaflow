@@ -1,4 +1,5 @@
 // apps/web/src/app/(main)/teacher/page.tsx
+// @form: 시험지 사물 — 교실에 붙일 초대장: 반 이름 · 큰 초대코드 · QR 한 장(반이 없으면 적는 대로 채워지는 미리보기)
 // L3 B2B 교사 허브 — 클래스 개설·초대코드·참여·멤버 수 + **단어 과제**(v06.44).
 // 데이터 모델 = classes/class_members + class_assignments/class_assignment_progress.
 //
@@ -43,7 +44,7 @@ export default async function TeacherPage() {
   const receivedOnly = received.assignments.filter((a) => !sentIds.has(a.id))
 
   return (
-    <Screen width="content" background="bg2" padX="md">
+    <Screen width="content" background="bg" padX="md">
       <div className="flex flex-col gap-8">
         <TeacherClient
           classes={taught.classes}
