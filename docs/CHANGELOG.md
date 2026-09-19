@@ -9,13 +9,57 @@
 ---
 ## Unreleased (v06.34 → next)
 
-- 보안: 검증 계정 2개(runtime-test · lexicon-test) 비밀번호 교체 — 값은 `.env*`(CI 는 저장소 시크릿)에만 · 코드 57파일의 평문 대체값 제거 · 추적 파일 전체 비밀값 검사를 CI verify 에(`scripts/security/secret-scan.mjs`) · pre-commit 훅이 더는 인덱스를 고치지 않는다(`git commit --only` 보호). 결정 DD-48 · DD-49.
-
+- DB 기본 권한 하드닝(발견 111) — 새 public 함수가 anon 에 자동 노출되던 **두 경로**를 닫았다: 스키마별 기본값의 명시 `anon=X` GRANT(`20260919231528`)와 전역 기본값의 `PUBLIC EXECUTE`(`20260919232557`, `extensions`·`pgmq` 는 명시 허용해 영향을 public 으로 한정). 스키마별 기본 권한은 전역을 대체하지 않고 **더해지므로** `IN SCHEMA public … REVOKE FROM PUBLIC` 은 무효다(`20260919231822` 에 무영향으로 기록). 기존 함수 302/84/398 불변. 양방향 가드 `pnpm db:anon-grants`(`scripts/db/check-anon-rpc-grants.mjs` + 기준선 84개) — 새로 열린 것과 **조용히 막힌 것**을 같이 잡는다.
 - 이미지 체계(방향 A 「원고지」) — 모눈 무대 토큰 `--grid-line` · 삽화 규칙 03-system §3-9 · 골든 3점(`docs/design/golden/illustrations/`) · 드레인 3단(`scripts/design/assets-drain-*` · `style-gate.mjs` · `asset-manifest-check.mjs`)으로 삽화 10점을 빈 상태 5 · 섹션 머리 5(`/pricing` `/about` `/` `/fit`)에 적용, 루트 OG 신설 · 공유 카드 각인 통일, 웹 아이콘 404 3건·파비콘·manifest 색 수정. 결정 DD-22~36 · 리포트 `docs/reports/image-system-gate6-20260919.md`.
+- CSAT 원문 배치 감사: 기존 자산·A–D 후보 기록, 계약 drift/고아 참조 검사, dry-run·revision·본문 해시 검증과 legacy 제목 기반 commit 차단. 17편 처리(V-Level 1·비산문 2·문항 연결 내용 판정 14), 본문/정답 보존·전수 재감사 통과. 상세 `docs/reports/csat-source-batch-discovery-20260919.md`.
+
 - `/fit` 골든 1호(발산 A+B) — 붙여 넣은 지문이 학년 슬라이더로 칠해지는 입력칸(`PaintedPassage`) + 「학급에 나눠 줄 한 장」 출력 면(`ClassSheet`, 권점·난외·도장, 인쇄 첫 장). `/api/fit` 이 표면형→레벨 표를 함께 돌려준다(원문 미전송 유지). 관측 2종은 마이그레이션 승인 대기. 골든 `docs/design/golden/fit.md`.
 - UX 감사(설계 준비) — 화면 157 전수·대상 127 판정(서명 2·경계 5·평균 104·보류 14), 여정 4·카드 67·관리자 표 60·브리프 10·우선순위(브랜치 `feat/ux-audit` `docs/design/audit/`). 코드 수정 0.
+- CSAT 원문 정책 v3: 반려·CEFR·분석·발췌 후보 판정 통합, 승인된 캐시/소비자 SQL 2개 적용. 87,716편 캐시 검증, 메타데이터 12건 복구(본문 보존), 관리자 검토 큐·원문 inspector·재검증 API·일일 감사 workflow 추가. [전후 수치·잔여 검토](./reports/csat-sources-normalization-20260918.md).
+
+- 원문 적격 데이터 감사(2026-09-18): 109,043행 메타데이터·87,716편 본문 전수 점검, raw 반려 319편의 적격 우회 및 조판 CEFR 기준 차이 확인. 읽기 전용 `scripts/audit/csat-sources-audit.mjs --check`와 회귀 4건 추가; [상세 결과](./reports/csat-sources-audit-20260918.md). DB·기존 판정·화면 스냅샷 변경 없음.
+
 - 디자인 거버넌스 개정 — vocaflow-design 에 N4 형태 판정 · §G 형태 발명(자산이 골격) 추가, DESIGN_SYSTEM 1,509→360줄대(원문 `docs/design/archive/`) + 공용 「형태 문법」 절, DESIGN.md 에 방향 값·화면별 골격/서명, 06-workflow 비평에 익명성·평균 회귀·골든·포트폴리오, 외부 취향 스킬 13→활성 2(+dataviz, 11개 `_disabled/`). 사용자 결정 4건 확정(`docs/design/DECISIONS.md`).
 - 평균 금지를 테스트로 — `form-declaration-ratchet`(새 page 는 `// @form: <G1 축> — <서명>` 필수, 무선언 152화면 기준선은 감소만) · `average-signal-ratchet`(3열 균등·그림자·둥근 카드·그라디언트·AI-보라·glass·떠오르는 hover·무한 모션, 표면별 증가 금지). Admin 액센트 보라 → Deep Ink `--p` 결정. `/text/[id]` risk 단어 `word-pulse` 무한 반복 제거(형태 문법 F1). `/library/books` 발산 4안 `docs/design/compare/library-books.md`.
+
+- `/admin/csat/evidence`를 운영 현황·작업 큐·문항 탐색과 상세 검토 패널로 재설계. 실제 학습 준비 판정, 우선순위·단계별 제외, 8축 교차 진단, URL 복원, 작업 대상 내보내기 연결.
+- 관리자 전용 `GET /api/admin/csat/evidence` 읽기 재검증 추가. 캐시·원장 범위 오류와 정상 0건을 구분하며 분석 버전 이력·원문 링크·도움말 및 회귀 보강(DB/마이그레이션 변경 없음).
+
+- `/csat` 데스크톱 시각 분석: 실제 문장 앵커 기반 정답·오답 구조도, 두 문항 동시 비교, 공식별 기록 지도, 원문↔구조도↔TTS 선택 연결. 검증 구절 매핑을 예측 화면과 공유하고 원천 목록 테스트의 숫자 타입 가드를 보완.
+
+<!-- csat-sources-workspace:start -->
+- `/admin/csat/sources`를 원천 목록·근거 상세·적격 판정·처리 안내 작업 공간으로 재설계. 검색/필터/정렬/선택 URL 복원, ACP 검수 연결, 탭별 도움말과 반응형·키보드 회귀 추가.
+- 원천에 맞지 않는 자동 명령 처방과 독립 집계 차이를 미통과 수로 표시하던 오류 제거. 스냅샷 시각·미측정 범위·보충 계획의 노후 여부를 명시(DB/마이그레이션/API 변경 없음).
+<!-- csat-sources-workspace:end -->
+
+- 디자인 작업 입구 `DESIGN.md`와 Codex 전용 설계·비평 스킬 추가. 기존 학습·디자인 정본을 연결하고 Playwright `test:design`에 5개 뷰포트·2개 테마의 캡처, 접근성·넘침 가드, 명시적 로컬 픽셀 기준선 비교를 추가(라우트·DB 변경 없음).
+
+- `/csat` Learning Home을 실제 기출 비교·기록 기반 추천 이유·원리별 탐색 지도로 재설계. 분석 section 딥링크와 키보드/다크 테마/SSR 회귀 추가.
+
+- CSAT 허브에 문항별 자유 탐색·예측 단계 이어하기를 연결하고, 같은 분석 내용을 읽고 듣는 section 기반 TTS와 문항 이동 시 발화 취소를 추가.
+
+- `/csat`을 정답 선공개·예측 3수·두 문항 대조·전이·내 공식 흐름으로 개편(`/csat/dissect`, `/csat/formulas`). PDF reflow·인증·기존 API 보존, 새 기록 기기 저장 키 분리, 관리자 evidence에 후보 채움률/제외 이유 추가.
+- 피드 최신성 검사가 주입된 시각을 사용하도록 수정해 날짜 의존 오류 제거.
+
+### 두 에이전트 환경 — AGENTS.md 단일 출처 · 공용 안전 훅 · 잠금 · 인수인계 (2026-09-17)
+
+Claude Code 와 Codex CLI 가 같은 규칙·같은 MCP·같은 안전장치로 돌고, 한쪽 한도 시 다른 쪽이 이어받게 했다
+(지시문 [dual-agent-brief.md](./dual-agent-brief.md) · 결정 14줄 [agents/DECISIONS.md](../agents/DECISIONS.md) · 리포트 [agents/dual-agent-report.md](./agents/dual-agent-report.md)).
+
+- **`CLAUDE.md` 495줄 → `AGENTS.md` 170줄 + `CLAUDE.md` = `@AGENTS.md` + Claude 전용.** 200줄에 안 들어가는 배경·사례 원문은
+  [agents/CONTEXT_DETAIL.md](./agents/CONTEXT_DETAIL.md) 로 그대로 옮겼다. DB 통계 블록도 AGENTS.md 로 이동(바이트 일치 확인) —
+  `scripts/docs/gen-db-stats.mjs` 대상 변경. 두 파일 중복은 코드 스팬을 뺀 산문 20자 창으로 검사(줄 단위 일치는 한 구절 복사를 못 잡았다)
+- **MCP 단일 출처** `agents/mcp.source.json` → `.mcp.json`(바이트 동일 재생성) · `.codex/config.toml [mcp_servers]`.
+  Codex 는 `${VAR}` 를 치환하지 않아 토큰은 `env_vars` 로 통과시킨다
+- **공용 PreToolUse 훅** `agents/scripts/guard.mjs` — rm -rf · force/main push · `--no-verify` · `.env` 출력 · 공유 트리 파괴(reset --hard · clean -f · checkout . · stash)를
+  두 도구에서 exit 2 로 차단, `git commit` 이면 커밋될 줄의 비밀값 · `check.mjs` · eslint(오류만). 판정표 62건 + 훅 입력 형식 13건 회귀.
+  헤드리스 `claude -p` 실측에서 세 파괴 명령 모두 차단(`docs/agents/logs/d4-claude-probe.jsonl`)
+- **잠금** `lock.mjs`(에이전트 프로세스 pid · 고아 자동 해제) · **인수인계** `handoff.mjs`(필수 6항목 · `--validate` · `--verify` · `--ack`) +
+  SessionStart 주입 `handoff-inject.mjs`. Claude → Codex → Claude 왕복을 임시 저장소에서 실제로 돌려 손실 0 · 변이 2종 검출
+- `.claude/settings.json`(팀 공유 allow/deny · 훅) 신설 · `.codex/`(config · rules · reviewer/test-writer 에이전트) 신설 · CI 에 `check.mjs` + 스크립트 회귀 추가.
+  **Codex CLI 는 미설치** — Gate 3 은 실제 TOML 파서 정적 검증 16/16 으로 대체, 설치 후 실측 4건은 DECISIONS.md 「남은 것」
+- D7 1차 실측 FAIL 을 남긴다: 허용 규칙 `Bash(node --test agents/scripts/__tests__/:*)` 가 `…/*.test.mjs` 와 매치되지 않아 승인 대기로 멈췄다 → 와일드카드 형식으로 수정 후 권한 거부 0
+
 ### 교재 「글의 목적」(18번) 생산 — 서신 90편 · 문항 90 · 시장 A5 16/16 (2026-09-17)
 
 합본 벤치마크에서 A5(유형 다양성)가 시중 16 · 우리 15 로 졌고, 빠진 유형은 `purpose` 하나였다 — 재고 86건이 전부

@@ -23,6 +23,8 @@
     "db:types": "npx supabase gen types typescript --linked > packages/types/src/database.ts",
     "db:push": "npx supabase db push",
     "db:diff": "npx supabase db diff --use-migra",
+    "db:anon-grants": "node scripts/db/check-anon-rpc-grants.mjs",
+    "db:anon-grants:update": "node scripts/db/check-anon-rpc-grants.mjs --update",
     "db:new": "npx supabase migration new",
     "db:seed-dictionary": "node --env-file=.env.local scripts/seed-dictionary.mjs",
     "db:seed-dictionary:dry": "node --env-file=.env.local scripts/seed-dictionary.mjs --dry-run",

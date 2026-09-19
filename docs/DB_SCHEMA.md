@@ -592,7 +592,15 @@ P0 심층 평가(`docs/AI_CONTEXT/diagnostics/ext_quality_p0_20260718.md`)로 �
 
 ⚠️ **`admin_*` 18종은 일부러 남겼다** — anon 에 열려 있으나 본문 `IF NOT is_admin_or_curator() THEN RAISE EXCEPTION 'Forbidden'` 이 막는다(anon 호출이 실제 'Forbidden' 을 받는 것 확인). 다음 차수.
 
-⚠️ **`csat_items_public` 은 advisor 의 유일한 ERROR(`security_definer_view`) 지만 오탐이다** — SECURITY DEFINER 인 것이 **의도된 저작권 경계**다. 기반표 `csat_dcp_items` 는 RLS(`dcp_admin`)로 비관리자에게 0행이고 학습자는 이 뷰로만 안전 컬럼을 읽는다. `security_invoker` 로 바꾸면 학습자 화면이 죽는다. **고치지 말 것.**
+⚠️ **`csat_items_public` 은 advisor 의 유일한 ERROR(`security_definer_view`) 지만 오탐이다** — SECURITY DEFINER 인 것이 **의도된 저작권 경계**다. 기반표는 `csat_items` 이고 그 유일한 정책이 `csat_items_read {authenticated} SELECT USING (false)` 라 학습자에게 0행이며(anon 은 정책 자체가 없다), 학습자는 이 뷰로만 안전 컬럼(`stem`·`answer`·`points` 등, `passage`·`choices` 제외)을 읽는다. `security_invoker` 로 바꾸면 기반표 RLS 가 뷰에 적용돼 **`learner.ts`·`heatmap.ts`·`overlay.ts`·`session/catalog.ts`·`dissect-catalog.ts` 가 전부 0행**이 된다. **고치지 말 것.** 2026-09-20 재확인(뷰 `reloptions = {security_invoker=false}` 는 명시 설정이다).
+
+**v06.34 기본 권한 하드닝 — 세 번째 반복을 끝냈다** (`20260919231528` · `20260919231822` · `20260919232557`, 2026-09-20): 위 v06.164 와 v06.34 27종이 같은 실수를 두 번 기록했는데도 `csat_source_is_eligible` 에서 **세 번째**가 났다. 그 마이그레이션(`20260918140000`:73-74)은 `REVOKE ALL … FROM PUBLIC` + `GRANT … TO authenticated, service_role` 로 **이미 제대로 잠갔는데도** anon 이 EXECUTE 를 가졌다. 개별 마이그레이션을 아무리 성실히 써도 막히지 않는다는 뜻이라, 이번에는 기본값 자체를 고쳤다.
+
+- 경로가 **둘**이었다: ① 스키마별 기본값의 명시 `anon=X` GRANT(Supabase 가 설치) ② 전역 기본값의 내장 `PUBLIC EXECUTE`.
+- **스키마별 기본 권한은 전역을 대체하지 않고 더해진다.** 그래서 `ALTER DEFAULT PRIVILEGES IN SCHEMA public … REVOKE … FROM PUBLIC` 은 **구조적으로 무효**다 — 새 함수 proacl 에 `=X/postgres` 가 그대로 남는다(`20260919231822` 에 무영향으로 기록해 뒀다. 지우면 다음 사람이 또 적용한다). PUBLIC 은 **전역**에서만 회수된다.
+- 전역 회수는 postgres 가 만드는 **모든 스키마**에 걸리므로(실계수 public 260 · extensions 49 · pgmq 40), `extensions`·`pgmq` 는 스키마별로 다시 GRANT 해 영향을 public 으로 가뒀다.
+- 검증은 마이그레이션 성공이 아니라 **탐침 함수 실측**으로 했다(위 ⚠️ 의 교훈): 적용 후 public 일반/SECURITY DEFINER 모두 `anon=false`, extensions `anon=true`. 기존 함수 302/84/398 은 조치 전후 동일 — 회귀 0.
+- ⚠️ **이제 위험의 방향이 하나 늘었다** — anon 이 의도적으로 호출하는 RPC(`funnel_events_allow_anonymous`·`peek_class_by_code` 계열)를 새로 만들 때 `GRANT EXECUTE … TO anon` 을 빠뜨리면 **브라우저에서만** 조용히 막힌다. 그래서 가드는 한쪽이 아니라 양방향이다: `pnpm db:anon-grants`(`scripts/db/check-anon-rpc-grants.mjs`, 기준선 `scripts/db/anon-executable-functions.json` 84종). 늘어난 것과 **줄어든 것**을 똑같이 exit 1 로 잡는다.
 
 
 **v06.34 잔여 advisor 마무리** (`20260904084631`): `admin_*` **18종**에서 `anon` + `PUBLIC` EXECUTE 회수(이 18종은 앞 27종과 달리 `anon=X` **명시 부여와 PUBLIC 이 둘 다** 있어 양쪽을 걷어야 했다) · `mv_lemma_dominant_pos` 에서 anon SELECT 회수(**MV 는 RLS 를 걸 수 없다** — 11,085행이 통째로 읽혔다. `authenticated` 는 남긴다: `select_book_chapter_vocab` 이 SECURITY **INVOKER** 라 호출자 권한으로 이 MV 를 읽는다). **결과: anon 실행 가능 DEFINER 92 → 74 · anon 실행 가능 `admin_*` 18 → 0 · anon 노출 MV 1 → 0 · authenticated 137 유지.** 회귀 224 tests 통과.
