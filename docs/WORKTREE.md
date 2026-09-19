@@ -2,6 +2,7 @@
 
 > 여러 Claude Code / VS Code 세션이 **서로 다른 화면·기능을 동시에** 작업할 때의 git worktree 운영 가이드.
 > 핵심 원칙: **worktree 개수 = 동시에 굴리는 브랜치 개수** (화면 개수가 아님).
+> Claude Code 와 Codex CLI 를 함께 쓸 때 같은 워크트리의 쓰기 순서는 `agents/scripts/lock.mjs` 잠금으로 정한다 — [agents/router.md](../agents/router.md) §2.
 
 ---
 

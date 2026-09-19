@@ -23,6 +23,10 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
+      # 두 에이전트 설정 불변식(AGENTS.md 단일 출처 · MCP 생성물 드리프트 · 비밀값 0) + 훅·잠금·인수인계 회귀
+      - run: node agents/scripts/check.mjs
+      - run: node --test agents/scripts/__tests__/*.test.mjs
+
       # ⚠️ **실 DB 통합 테스트에 시크릿을 넘긴다.**
       #
       # 이 저장소에는 실 DB 를 치는 회귀가 24개 있고(2026-08-26 실측) 그중에는

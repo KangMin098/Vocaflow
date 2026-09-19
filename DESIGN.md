@@ -66,7 +66,9 @@
 | 현재 판면·서체·토큰·형태 문법 | [디자인 시스템](docs/DESIGN_SYSTEM.md), [주묵 판면](docs/design/03-system.md) |
 | 실제 토큰·글꼴 구현 | [tokens.css](packages/design-tokens/src/tokens.css), [Tailwind](apps/web/tailwind.config.ts) |
 | 제품의 학습 계층 | [학습 모델](docs/LEARNING_MODEL.md) |
-| CSAT 학습자 결정 | [학습자 결정](docs/csat-learner/DECISIONS.md) |
+| CSAT 학습자 결정 | [학습자 결정](docs/csat-learner/DECISIONS.md) · [통합 경험](docs/csat-learner/integrated-experience.md) |
+| 조사 → 방향 → 구현 → 캡처 → 비평 → 수정 | [디자인 작업 절차](docs/design/06-workflow.md) |
+| 레퍼런스를 고르는 이유 | [레퍼런스 인덱스](docs/design/references.md) |
 | 형태 씨앗 · 발산안 · 골든 | [00-form-seeds](docs/design/00-form-seeds.md) · [compare/](docs/design/compare/fit.md) · [golden/](docs/design/golden/README.md) |
 | 디자인 거버넌스 결정 | [design/DECISIONS](docs/design/DECISIONS.md) |
 | 겹치면 안 되는 자기 작업 | [own-portfolio](docs/design/own-portfolio.md) |

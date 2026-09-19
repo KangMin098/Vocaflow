@@ -1,10 +1,10 @@
 # apps/web — 웹 전용 가이드
 
-루트 `CLAUDE.md` 가 SSoT. 본 문서는 Next.js 14 App Router 한정 보충만 기록.
+루트 `AGENTS.md` 가 공용 지시 정본. 본 문서는 Next.js 14 App Router 한정 보충만 기록.
 
 ## 우선 읽을 것
 
-코드 작성 전 루트 `CLAUDE.md` §"🧠 디자인 철학 · 학습 과학 원칙"을 확인. 모든 학습 모듈은 이 원칙(Active Recall · Spaced Repetition · Calm UI · Empathetic Feedback 등)을 도구로 구현하는 것이지, 토큰·컬러는 그 도구. 새 PR 머지 전 동 섹션 끝의 **적용 체크리스트** 자가점검 필수.
+코드 작성 전 루트 `AGENTS.md`의 디자인 철학·학습 과학 원칙을 확인. 모든 학습 모듈은 이 원칙(Active Recall · Spaced Repetition · Calm UI · Empathetic Feedback 등)을 도구로 구현한다. 변경 후 `docs/CONVENTIONS.md`를 자가 점검한다.
 
 ## 토큰 로드
 
@@ -136,7 +136,7 @@ Library 에서는 '짧은 글' · `word_set` 이 '공용단어장'/'단어장'/'
 - `(auth)` — 인증 라우트 (헤더 없음)
 - `(marketing)` — 공개 랜딩
 - `(main)` — 로그인 후 앱 (Sidebar 포함)
-- `admin/` — 관리자 콘솔 (route group 미사용 → URL = `/admin/*`, AdminSidebar 적용, 보라 액센트로 시각 분리)
+- `admin/` — 관리자 콘솔 (route group 미사용 → URL = `/admin/*`, AdminSidebar 적용, Deep Ink `--p` + ShieldCheck + Admin 표기)
 - `dev/` — 개발 검증 (`/dev` 화면 인덱스 · `/dev/components` 카탈로그). robots 가 막는다
 
 각 그룹/세그먼트는 자체 `layout.tsx` 보유. 그룹 간 컴포넌트 공유는 `src/components/` 의 도메인 폴더로.
