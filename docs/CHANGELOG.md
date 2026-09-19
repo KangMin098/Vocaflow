@@ -9,6 +9,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- CSAT 통합 인수(Codex 한도 폴백): 미커밋 175건을 8커밋으로 정리 — 에이전트 공용 도구(agents/scripts·.codex) 추적 시작 · 원문 적격 캐시 마이그레이션 2개(이미 DB 적용) · 관리자 근거 콘솔·원천 작업공간 · 기출 학습자 화면(/csat/dissect · /csat/formulas, 골격 선언 채움) · VOA 보일러플레이트 · 시각 회귀 4파일. 통합이 깨뜨린 회귀 4건 수정(화면도움말 도식 · 라우트 매니페스트) + 실제 결함 1건(video-console 의 .limit(10000) → pagedSelect). 라쳇은 내리기만(grid-3eq 58 · ai-purple 318). 결정 DD-50.
+
 - DB 기본 권한 하드닝(발견 111) — 새 public 함수가 anon 에 자동 노출되던 **두 경로**를 닫았다: 스키마별 기본값의 명시 `anon=X` GRANT(`20260919231528`)와 전역 기본값의 `PUBLIC EXECUTE`(`20260919232557`, `extensions`·`pgmq` 는 명시 허용해 영향을 public 으로 한정). 스키마별 기본 권한은 전역을 대체하지 않고 **더해지므로** `IN SCHEMA public … REVOKE FROM PUBLIC` 은 무효다(`20260919231822` 에 무영향으로 기록). 기존 함수 302/84/398 불변. 양방향 가드 `pnpm db:anon-grants`(`scripts/db/check-anon-rpc-grants.mjs` + 기준선 84개) — 새로 열린 것과 **조용히 막힌 것**을 같이 잡는다.
 - 이미지 체계(방향 A 「원고지」) — 모눈 무대 토큰 `--grid-line` · 삽화 규칙 03-system §3-9 · 골든 3점(`docs/design/golden/illustrations/`) · 드레인 3단(`scripts/design/assets-drain-*` · `style-gate.mjs` · `asset-manifest-check.mjs`)으로 삽화 10점을 빈 상태 5 · 섹션 머리 5(`/pricing` `/about` `/` `/fit`)에 적용, 루트 OG 신설 · 공유 카드 각인 통일, 웹 아이콘 404 3건·파비콘·manifest 색 수정. 결정 DD-22~36 · 리포트 `docs/reports/image-system-gate6-20260919.md`.
 - CSAT 원문 배치 감사: 기존 자산·A–D 후보 기록, 계약 drift/고아 참조 검사, dry-run·revision·본문 해시 검증과 legacy 제목 기반 commit 차단. 17편 처리(V-Level 1·비산문 2·문항 연결 내용 판정 14), 본문/정답 보존·전수 재감사 통과. 상세 `docs/reports/csat-source-batch-discovery-20260919.md`.
