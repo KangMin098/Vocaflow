@@ -189,10 +189,10 @@ Lexile·ATOS 는 글만 재고 LingQ 의 known-word 카운트는 이진값이라
 - `DiscoveryFooter.tsx` — Library 전환
 
 ### 입력 폼 (`components/text-viewer/`)
-- `InputModeTabs.tsx` — 직접/파일/URL 탭
+- `NewTextPaint.tsx` — (2026-09-19) 붙여 넣은 본문을 그 자리에서 칠함 — `/fit` 의 `PaintedPassage`·`/api/fit` 재사용(`InputModeTabs` 는 준비 안 된 파일·URL 탭이라 삭제)
 - `TextInput.tsx` / `FileUploadArea.tsx` / `UrlInput.tsx`
 - `BookChapterInput.tsx` — v06.34 책 모드 워크벤치 (가로 레일 + Alt+←/→)
-- `SampleScripts.tsx` — 샘플 스크립트
+- `SampleScripts.tsx` — 예시 글(괘선 목록 · 낱말 수는 본문에서 셈)
 - `ScriptDisplay.tsx` / `AnalysisResult.tsx` / `WordList.tsx` / `WordCard.tsx`
 
 ### 워크스페이스 (`/text/[id]/`)

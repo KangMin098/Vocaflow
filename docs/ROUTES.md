@@ -41,7 +41,7 @@
 | 경로 | 파일 | 비고 |
 |---|---|---|
 | `/text` | `(main)/text/page.tsx` | 허브 — **My Library**. `?view=books\|scripts\|vocab` 로 세 면(Books·Texts·Decks) 직접 진입 (v08.4 · 사이드바 서브메뉴가 이 주소를 쓴다) |
-| `/text/new` | `(main)/text/new/page.tsx` | 입력 — 단일 / 책 (챕터별) 모드 (v06.34) |
+| `/text/new` | `(main)/text/new/page.tsx` | 입력 — 단일 / 책 (챕터별) 모드 (v06.34) · (2026-09-19) 붙여 넣으면 칠해짐(`/api/fit` · `PaintedPassage`) · 파일·URL 탭 제거 · 저장 후 `/text/{id}` 로 |
 | `/text/[id]` | `(main)/text/[id]/page.tsx` + `layout.tsx` | (2026-09-19) 레이아웃이 챕터 낱말 × `vocabularies` 를 조인해 원문 밑줄 두께 = R(t)(`word-states.ts`) · 원문 위 `ChapterWordLine` · 워크스페이스 (ReadingUniverse + ChapterSidebar) |
 | `/text/[id]/echo` | `(main)/text/[id]/echo/page.tsx` | EchoMatch 따라읽기 (v06.33) |
 | `/text/[id]/comic` | `(main)/text/[id]/comic/page.tsx` | Comic Reader (CCP) — 발행 만화 리더, 미발행 EmptyState degrade |
