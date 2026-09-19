@@ -131,3 +131,30 @@
 | # | 결정 | 근거 · 한 일 |
 |---|---|---|
 | **DD-21** | ① **허용**: `lazyweb-search-screens` · `lazyweb-search-flows` 만. 용도는 Gate 4 층 1(평균의 정의)과 Gate 6 사후 검증(닮은 화면 유무)뿐. ② **금지**: `lazyweb-apply-design-best-practices` 와 리포트·적용 계열 스킬 전부(`lazyweb-growth-report` · `-growth-score` · `-growth-backlog` · `-search-experiments` · 라우터 `lazyweb` 로의 우회 포함). ③ **세션 분리**: Lazyweb MCP 는 감사·검증 세션에서만 쓴다. Gate 5 브리프 작성 · 발산 · 골든 고정 · 구현 세션에서는 Lazyweb 도구를 호출하지 않는다. ④ **결과 처리**: 이미지는 저장소에 넣지 않는다. 레퍼런스 인덱스(references.md — 아직 미추적, 다른 세션 작업) 에 링크 · 첫 시선 골격 분류 · 평균 신호 수만 적는다. Lazyweb 결과를 G1 축 후보의 근거로 인용하지 않는다. ⑤ **예외 — 카테고리 밖 이식**: R(t) · 커버리지와 같은 데이터 구조를 가진 비교육 도메인(finance · health · utilities) 검색 결과는 형태 후보로 쓸 수 있되, 브리프에 「이식 출처」를 명시한다 | 사용자 결정. `lazyweb-apply-design-best-practices` 는 외부 취향 스킬의 SKILL.md 를 받아 그대로 적용한다 — AGENTS.md 의 활성 외부 취향 스킬 2개 제한과 vocaflow-design 판정 우선 원칙을 우회한다. 검색 결과는 「이미 있는 평균」을 정의하는 데 쓰여야지 형태의 출처가 되면 평균으로 수렴한다(§G 발명 목표와 충돌) — 그래서 발명 세션과 분리한다. 같은 업종 밖, 같은 데이터 구조의 화면은 평균이 아니라 이식이라 ⑤로 열어 둔다 |
+
+## 화면 재설계 실행 (2026-09-19~) — DD-22~
+
+> 지시: 감사(`audit/verdict.md` 평균·경계)를 `audit/priority.md` 순서로 한 화면씩 "서명 있음" 으로 옮긴다. **질문하지 않고** 선택 규칙 B4(① 새 데이터 작업 최소 ② 여정 ①② 앞 화면과 같은 몸짓 ③ 자기검토 통과, 갈리면 ②)로 고르고 여기 적는다.
+> 작업 환경: worktree `D:/workspace/Vocaflow-screen-redesign`(브랜치 `feat/screen-redesign`, `pc2-20260720-1` HEAD + `feat/ux-audit` + `feat/design-workflow-20260918` 병합) — 메인 워크트리에는 다른 세션의 미커밋 변경 214건이 있어 캡처·라쳇이 섞인다(DD-20 과 같은 이유). 진행 기록: [audit/PROGRESS.md](audit/PROGRESS.md) 「실행」 절.
+
+| # | 결정 | 근거 · 한 일 |
+|---|---|---|
+| **DD-22** | `/hub` = **A 「들어 올리는 곡선」**(망각). 첫 시선이 7일 기억 곡선(Σ R(t) 기대값) — 점선 그대로 두면 · 실선 오늘 N개를 다시 보면 · 사이의 면 = 남는 몫. 서명 = 「오늘 다시 볼 단어」 슬라이더 → 선·면 페이드 + 낱말 권점 200ms. 탈락: B 「내 기억으로 칠한 오늘의 글」(채색 지문) · C 「차오르는 서가」(환경 변형) · D 「오늘의 한 장」(시험지 사물) | B4: (1) 은 C·D(새 데이터 0), (2) 는 A·B(`/fit` 골든과 같은 「슬라이더 → 낱말 표면 200ms」) 로 갈림 → (2) 우선. A·B 중 B 는 **조인 필요** + 미진단 학습자(여정 ② 의 그 사람)에게 오늘의 글이 없어 골격이 사라진다 → A. C 는 실제 계정 추적 단어가 전부 risk(DB 98/98 · 136/136)라 서가가 빈다 · D 는 N4 약함(권점 외에는 자산 없이 그려진다). **브리프 후보 1 을 그대로 쓰지 않은 이유**: "안 하면 목요일에 흐려진다" 는 7일 안에 새로 흐려질 단어가 실제 계정 모두 **0** 이라 수평선이 된다 → "하면 올라간다" 로 뒤집었다. 구현: `lib/learner/memory-lift.ts`(순수 · FSRS `applyReview` 로 Good 1회 적용 후 R 재계산) · `hub-lift-query.ts`(세션 큐와 **같은 함수** `fetchStudyVocabularies` — 보여 준 앞 N개 = `/flashcard/play?limit=N`) · `TodayStage` 재작성 · `TodayFocus`·`NextWordsStrip` 은 허브에서 은퇴(곡선 아래 낱말 줄로 합침) · 관측 `hub_curve_interacted {count, words}`. 2회 수정(① 직사각형 곡선 → Σ R ② 진단 계정에서 CTA 가 폴드 밖 · 「시작」 둘 → CTA 를 슬라이더 아래로, 2차 링크 문구). 골든 [golden/hub.md](golden/hub.md) |
+| **DD-22b** | 관측 `hub_curve_interacted` 의 DB 허용 목록 = **승인 대기** — `supabase/migrations/_pending_funnel_allow_hub_curve.sql`(작성 시점 DB 제약 40 + 1). 적용하지 않았다 | A7(마이그레이션은 SQL 커밋 후 승인 대기). 적용 전에는 `db-allowlist.integration.test.ts` 가 이 1종에서 실패한다 — 맞는 실패. 화면 동작에는 영향 없음(관측만 빠진다) |
+
+### 공용 컴포넌트 교체 후보 (A5 — 화면 범위 밖이라 손대지 않은 것)
+
+| 후보 | 어디서 걸렸나 | 제안 |
+|---|---|---|
+| `components/home/GatewayLead.tsx` 의 테두리 상자 | `/hub` 곡선 바로 위 「다시 오셨어요」 가 카드형 상자로 첫 시선을 먼저 가져간다. `/hub-lab` VariantG 도 써서 허브 전용이 아니다 | 괘선 한 줄(`Rule`)로 — `/hub-lab` 은 내부 실험실이라 함께 바꿔도 된다 |
+| `components/ui/ios/index.ts` 배럴 | 배럴 import 한 줄이 쓰지 않는 `Card`(떠오르는 hover)까지 화면 트리에 싣는다 — 허브는 `ui/ios/Screen` 직접 import 로 피했다 | 학습자 화면의 `@/components/ui/ios` import 를 파일 직접으로(정적 신호 오탐 감소) |
+| 평균 신호 정규식이 **주석**도 센다 | `ui/press/index.tsx:6` 주석 속 `shadow-md` 가 이 파일을 가져오는 모든 화면의 정적 신호를 1 올린다 | 라쳇·`measure-screen.mjs`·`screen-graph.mjs` 가 `//`·`/* */` 주석을 걷고 세게(기준선 재측정 필요 — 규칙을 고치는 일이라 별도 커밋) |
+
+### 정본 변경 요청 (A2 — 토큰·씨앗·스킬은 고치지 않았다)
+
+- 없음(`/hub`). 선·면은 페이드(opacity), 권점은 색 전환 — 기존 예산 안에서 해결했다.
+
+### 이 세션이 만난 기존 결함 (범위 밖 — 고치지 않음)
+
+- 커밋된 트리의 타입 오류 3건: `app/admin/kice/item/[slug]/page.tsx:125` · `lib/csat/session/reveal.ts:14,79`(`AnchorOrigin` 없음 · `.from` 없음) — 다른 세션의 CSAT 작업 일부만 커밋된 흔적.
+- `lib/analytics/__tests__/wired.test.ts` 「funnel_events 2종도 호출부가 있다」 가 Windows(CRLF 체크아웃)에서 실패 — 정규식이 `\n\n` 만 본다. Linux CI 는 통과.

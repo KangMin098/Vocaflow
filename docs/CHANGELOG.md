@@ -9,6 +9,7 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- `/hub` 골든 2호(화면 재설계 실행 · 발산 A 「들어 올리는 곡선」) — 첫 시선이 7일 기억 곡선(Σ R(t), 오늘 N개를 다시 보면 vs 그대로 두면)과 세션 큐 순서 낱말(권점). `lib/learner/memory-lift.ts` · `hub-lift-query.ts`(새 조회 없음 — 세션과 같은 함수) · 관측 `hub_curve_interacted`(DB 허용 목록 승인 대기 `_pending_funnel_allow_hub_curve.sql`). 감사 평균 → 서명 있음, 정적 신호 3→1 · 카드형 2→0. `docs/design/golden/hub.md` · DD-22.
 - `/fit` 골든 1호(발산 A+B) — 붙여 넣은 지문이 학년 슬라이더로 칠해지는 입력칸(`PaintedPassage`) + 「학급에 나눠 줄 한 장」 출력 면(`ClassSheet`, 권점·난외·도장, 인쇄 첫 장). `/api/fit` 이 표면형→레벨 표를 함께 돌려준다(원문 미전송 유지). 관측 2종은 마이그레이션 승인 대기. 골든 `docs/design/golden/fit.md`.
 - UX 감사(설계 준비) — 화면 157 전수·대상 127 판정(서명 2·경계 5·평균 104·보류 14), 여정 4·카드 67·관리자 표 60·브리프 10·우선순위(브랜치 `feat/ux-audit` `docs/design/audit/`). 코드 수정 0.
 - 디자인 거버넌스 개정 — vocaflow-design 에 N4 형태 판정 · §G 형태 발명(자산이 골격) 추가, DESIGN_SYSTEM 1,509→360줄대(원문 `docs/design/archive/`) + 공용 「형태 문법」 절, DESIGN.md 에 방향 값·화면별 골격/서명, 06-workflow 비평에 익명성·평균 회귀·골든·포트폴리오, 외부 취향 스킬 13→활성 2(+dataviz, 11개 `_disabled/`). 사용자 결정 4건 확정(`docs/design/DECISIONS.md`).
