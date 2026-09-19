@@ -2,6 +2,7 @@
 
 'use client'
 
+import { formatDue, type RatingPreview } from '@/lib/flashcard/memory-line'
 import { formatNextReview } from '@/lib/srs/sm2'
 import type { SRSRating, SRSState } from '@/types/flashcard'
 
@@ -9,6 +10,14 @@ interface SRSBarProps {
   visible: boolean
   srs: SRSState
   onJudge: (rating: SRSRating) => void
+  /**
+   * FSRS 미리보기(2026-09-19 · DD-24) — 세션이 실제로 적용하는 스케줄러의 다음 만남.
+   * 있으면 버튼이 이것을 말한다. 예전에는 SM-2 간격(`formatNextReview`)을 보였는데 실제 스케줄은 FSRS 였다 —
+   * 버튼이 말한 날짜와 다시 만나는 날짜가 달랐다. `srsV2` 가 없는 카드(목업·일부 스코프)만 SM-2 표시가 남는다.
+   */
+  previews?: RatingPreview[]
+  /** 평가에 손을 얹음(hover·focus) — 기억선이 그 평가의 다음 곡선을 긋는다. 떠나면 null */
+  onPreview?: (rating: SRSRating | null) => void
 }
 
 const SRS_OPTIONS: Array<{
@@ -60,10 +69,15 @@ const VARIANT_STYLES = {
   },
 }
 
-export function SRSBar({ visible, srs, onJudge }: SRSBarProps) {
+export function SRSBar({ visible, srs, onJudge, previews, onPreview }: SRSBarProps) {
+  const dueText = (rating: SRSRating) => {
+    const p = previews?.find((x) => x.rating === rating)
+    return p ? formatDue(p.dueInDays) : formatNextReview(rating, srs)
+  }
   return (
     <div
-      className={`mt-6 grid w-full max-w-[540px] grid-cols-4 gap-2 transition-all duration-[var(--dur-slow)] ease-[var(--ease)] ${
+      onMouseLeave={() => onPreview?.(null)}
+      className={`mt-4 flex w-full max-w-[540px] gap-2 transition-all duration-[var(--dur-slow)] ease-[var(--ease)] ${
         visible ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-2.5 opacity-0'
       } `}
       aria-hidden={!visible}
@@ -76,8 +90,10 @@ export function SRSBar({ visible, srs, onJudge }: SRSBarProps) {
           <button
             key={rating}
             onClick={() => onJudge(rating)}
-            className={`group/srs relative flex min-h-[88px] flex-col items-center gap-2 rounded-[var(--r-md)] border bg-[var(--bg)] px-2 py-4 pb-3 text-center transition-[background-color,border-color] duration-[var(--dur-fast)] ease-[var(--ease)] active:translate-y-[1px] ${styles.border} ${styles.hover} `}
-            aria-label={`${label}, ${formatNextReview(rating, srs)}`}
+            onMouseEnter={() => onPreview?.(rating)}
+            onFocus={() => onPreview?.(rating)}
+            className={`group/srs relative flex min-h-[88px] flex-1 flex-col items-center gap-2 rounded-[var(--r-md)] border bg-[var(--bg)] px-2 py-4 pb-3 text-center transition-[background-color,border-color] duration-[var(--dur-fast)] ease-[var(--ease)] active:translate-y-[1px] ${styles.border} ${styles.hover} `}
+            aria-label={`${label}, ${dueText(rating)}`}
           >
             <span
               className="absolute right-1.5 top-1 rounded border border-[var(--bd)] bg-[var(--bg2)] px-[4px] py-[4px] font-mono text-[9px] font-[700] text-[var(--t2)] opacity-50 transition-opacity group-hover/srs:opacity-100"
@@ -97,7 +113,7 @@ export function SRSBar({ visible, srs, onJudge }: SRSBarProps) {
             </span>
             <span className={`font-display text-[13px] font-[700] ${styles.label}`}>{label}</span>
             <span className="font-mono text-[10px] font-[500] text-[var(--t2)]">
-              {formatNextReview(rating, srs)}
+              {dueText(rating)}
             </span>
           </button>
         )

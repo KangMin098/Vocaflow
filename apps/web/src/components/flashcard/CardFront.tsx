@@ -69,7 +69,7 @@ export function CardFront({
 
         {/* Recall Hint Area (1.5초 후 노출) */}
         <div
-          className={`mb-4 flex h-6 items-center justify-center gap-2 font-body text-[12px] italic text-[var(--t2)] transition-opacity duration-[var(--dur-slow)] ${hintVisible ? 'opacity-100' : 'opacity-0'} `}
+          className={`mb-4 flex h-6 items-center justify-center gap-2 font-body text-[12px] text-[var(--t2)] transition-opacity duration-[var(--dur-slow)] ${hintVisible ? 'opacity-100' : 'opacity-0'} `}
           aria-hidden={!hintVisible}
         >
           <span>첫 글자가 떠오르지 않으면:</span>
@@ -92,7 +92,8 @@ export function CardFront({
           <Volume2
             size={14}
             strokeWidth={2}
-            className={isAudioPlaying ? 'animate-[audio-pulse_0.8s_ease-in-out_infinite]' : ''}
+            // 재생 중 표시는 끝없는 펄스가 아니라 정지 색이다(끝나는 상태가 없는 모션 금지 — 2026-09-19)
+            className={isAudioPlaying ? 'text-[var(--ju)]' : ''}
             aria-hidden="true"
           />
             <span>발음 듣기</span>

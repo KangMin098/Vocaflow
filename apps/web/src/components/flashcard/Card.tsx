@@ -66,7 +66,7 @@ export function Card({
     >
       {/* Front Face */}
       <div
-        className="absolute inset-0 flex flex-col overflow-hidden rounded-[var(--r-2xl)] border border-[var(--bd)] bg-[var(--bg)] p-8 shadow-[var(--sh-card)]"
+        className="absolute inset-0 flex flex-col overflow-hidden rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-8"
         style={{
           backfaceVisibility: 'hidden',
           WebkitBackfaceVisibility: 'hidden',
@@ -86,7 +86,7 @@ export function Card({
 
       {/* Back Face */}
       <div
-        className="absolute inset-0 flex flex-col overflow-hidden rounded-[var(--r-2xl)] border border-[var(--bd)] bg-[var(--bg)] p-8 shadow-[var(--sh-card)]"
+        className="absolute inset-0 flex flex-col overflow-hidden rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-8"
         style={{
           backfaceVisibility: 'hidden',
           WebkitBackfaceVisibility: 'hidden',

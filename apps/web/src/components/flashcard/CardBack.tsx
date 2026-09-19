@@ -89,7 +89,7 @@ export function CardBack({ word, isExampleAudioPlaying }: CardBackProps) {
       )}
 
       {/* Example with audio indicator */}
-      <div className="relative mt-auto rounded-[0_var(--r-md)_var(--r-md)_0] border-l-[3px] border-[var(--p)] bg-gradient-to-br from-[var(--p-light)] to-[var(--bg2)] p-4 font-english text-[14px] italic leading-relaxed text-[var(--t1)]">
+      <div className="relative mt-auto rounded-[0_var(--r-md)_var(--r-md)_0] border-l-[3px] border-[var(--p)] bg-[var(--p-light)] p-4 font-english text-[14px] italic leading-relaxed text-[var(--t1)]">
         <span
           className={`absolute right-3 top-3 inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--p)] px-2 py-[4px] font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--on-p)] transition-opacity duration-[var(--dur-normal)] ${isExampleAudioPlaying ? 'opacity-100' : 'opacity-70'} `}
         >
@@ -97,7 +97,7 @@ export function CardBack({ word, isExampleAudioPlaying }: CardBackProps) {
             size={9}
             strokeWidth={2}
             className={
-              isExampleAudioPlaying ? 'animate-[audio-pulse_0.8s_ease-in-out_infinite]' : ''
+              isExampleAudioPlaying ? 'text-[var(--on-p)]' : 'opacity-80'
             }
             aria-hidden="true"
           />

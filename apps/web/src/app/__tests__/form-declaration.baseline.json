@@ -38,7 +38,6 @@
   "src/app/(main)/dictate/session/page.tsx",
   "src/app/(main)/dictate/setup/page.tsx",
   "src/app/(main)/flashcard/page.tsx",
-  "src/app/(main)/flashcard/play/page.tsx",
   "src/app/(main)/hub-lab/page.tsx",
   "src/app/(main)/library/books/[bookId]/page.tsx",
   "src/app/(main)/library/books/page.tsx",

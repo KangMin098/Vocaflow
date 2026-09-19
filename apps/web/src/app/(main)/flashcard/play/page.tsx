@@ -1,4 +1,5 @@
 // apps/web/src/app/(main)/flashcard/play/page.tsx
+// @form: 망각 — 평가에 손을 얹으면 이 단어의 다음 곡선과 다음 만남 눈금이 선다 · 모션 0 (ForgettingCurve · DD-24)
 // Flashcard 학습 세션 — hub(/flashcard) 또는 워크스페이스 "카드" pill 에서 진입.
 //
 // ?set={챕터 단어장 id} | ?text={스크립트 texts.id} 가 있으면 그 자료의 단어를

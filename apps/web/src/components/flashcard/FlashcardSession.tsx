@@ -1,4 +1,9 @@
 // apps/web/src/components/flashcard/FlashcardSession.tsx
+//
+// 2026-09-19 화면 재설계(발산 A 「이 단어의 기억선」 · docs/design/compare/flashcard-play.md · DD-24):
+//   카드 바로 아래에 이 단어의 R(t) 시간축(`ForgettingCurve`) — 뒤집으면 네 평가의 다음 만남 자리와,
+//   손을 얹은 평가의 다음 곡선이 선다. 평가 버튼의 날짜는 세션이 적용하는 FSRS 미리보기다.
+//   완료 화면은 이 세션에서 다시 본 낱말들의 7일 기억 곡선(허브 골든과 같은 문법).
 
 'use client'
 
@@ -10,6 +15,8 @@ import { useSrsFlushOnLeave } from '@/hooks/useSrsFlushOnLeave'
 import { useSpeechSynthesis } from '@/hooks/useSpeechSynthesis'
 import { flushPendingSession } from '@/lib/srs/flush-session'
 import { Rating, applyReview, type RatingValue } from '@/lib/srs'
+import type { SrsCard } from '@/lib/srs/fsrs'
+import { buildMemoryLine, type MemoryLine } from '@/lib/flashcard/memory-line'
 import { pushPendingResult } from '@/lib/srs/session-storage'
 import { cardToUpdatePayload } from '@/lib/srs/supabase-adapter'
 import type { FlashcardWord, PauseMessage, SRSRating } from '@/types/flashcard'
@@ -17,6 +24,7 @@ import type { FlashcardWord, PauseMessage, SRSRating } from '@/types/flashcard'
 import { Card } from './Card'
 import { CompletionState } from './CompletionState'
 import { FirstJudge } from './FirstJudge'
+import { ForgettingCurve } from './ForgettingCurve'
 import type { ContentRef } from '@/lib/content/content-ref'
 import { HonestyHint } from './HonestyHint'
 import { MicroPause } from './MicroPause'
@@ -88,6 +96,19 @@ export function FlashcardSession({
     supported: speechSupported,
   } = useSpeechSynthesis()
   const [isExampleAudioPlaying] = useState(false)
+
+  // ── 기억선 ── 카드가 바뀔 때마다 그 시점으로 계산한다.
+  // ⚠️ 브라우저에서만 계산한다 — FSRS 는 간격에 흔들림(enable_fuzz)을 넣고 그 씨앗이 시각이라,
+  //    서버 렌더와 하이드레이션의 날짜가 달라진다(2026-09-19 실측: 축 끝 18일 ↔ 22일 하이드레이션 경고).
+  const [preview, setPreview] = useState<SRSRating | null>(null)
+  const [line, setLine] = useState<MemoryLine | null>(null)
+  useEffect(() => {
+    setPreview(null)
+    setLine(currentWord?.srsV2 ? buildMemoryLine(currentWord.srsV2, new Date()) : null)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentWord?.id, cardChangeKey])
+  /** 이 세션에서 평가한 카드의 전·후 — 완료 화면의 7일 곡선 재료(DB 를 다시 읽지 않는다) */
+  const reviewedRef = useRef<Array<{ before: SrsCard; after: SrsCard }>>([])
 
   // 학습 모드 — 사이드바 dim
   useEffect(() => {
@@ -173,6 +194,7 @@ export function FlashcardSession({
         reviewedAt: new Date(),
         module: 'flashcard',
       })
+      reviewedRef.current.push({ before: currentWord.srsV2, after: result.card })
       // DB 연동 전 임시 큐. 연동 후엔 supabase.from('vocabularies').update(...) 직접 호출.
       pushPendingResult({
         cardId: result.card.id,
@@ -241,6 +263,7 @@ export function FlashcardSession({
         content={content}
         onRestart={handleRestart}
         recommendation={recommendation}
+        reviewed={reviewedRef.current}
       />
     )
   }
@@ -273,9 +296,28 @@ export function FlashcardSession({
         />
       </div>
 
-      <FirstJudge visible={phase === 'flippable'} onJudge={submitFirstJudge} />
+      {/* 골격 — 이 단어의 기억선. 뒤집기 전엔 지난 선과 오늘 상태, 뒤집으면 평가별 다음 자리 */}
+      {line && (
+        <ForgettingCurve
+          line={line}
+          // 손을 얹지 않았으면 「기억나요」 의 다음 곡선을 기본으로 보인다(터치에는 hover 가 없다)
+          preview={preview ?? 'good'}
+          showRatings={phase === 'flipped'}
+        />
+      )}
 
-      <SRSBar visible={phase === 'flipped'} srs={currentWord.srs} onJudge={handleSRSRating} />
+      {/* 뒤집은 뒤에는 자리를 비워 두지 않는다 — 390 에서 그 빈자리가 평가 버튼을 폴드 밖으로 밀었다(1회차 수정) */}
+      {phase !== 'flipped' && phase !== 'evaluated' && (
+        <FirstJudge visible={phase === 'flippable'} onJudge={submitFirstJudge} />
+      )}
+
+      <SRSBar
+        visible={phase === 'flipped'}
+        srs={currentWord.srs}
+        onJudge={handleSRSRating}
+        previews={line?.previews}
+        onPreview={setPreview}
+      />
 
       <HonestyHint visible={phase === 'flipped'} />
 
