@@ -58,7 +58,12 @@ const CAT: SessionCatalog = {
   },
 }
 const byId = (id: string) => CAT.items.find((i) => i.id === id)!
-const NOW = new Date('2026-09-17T09:00:00+09:00')
+// ⚠️ 시각은 **실행 시간대의 지역 시각**으로 만든다. `model.ts` 의 `dayKey`·`weekCount` 는
+//    「기기 시간대」 기준이 의도다(학습 기록은 학습자 기기에 남는다). 그런데 여기서 `+09:00`
+//    절대시각을 박아 두면 개발 머신(KST)에서만 통과하고 **CI(UTC)에서는 주 경계가 어긋난다** —
+//    2026-09-20 에 실제로 CI 만 빨강이었다(`이번 주 문항 수` 2 vs 1).
+//    같은 함정의 사촌: AGENTS.md 「하지 말 것」의 시각 주입 규칙(DD-46).
+const NOW = new Date(2026, 8, 17, 9, 0, 0) // 목요일
 const days = (d: number) => new Date(NOW.getTime() + d * 86_400_000)
 
 describe('F7 — 복습 큐', () => {
@@ -200,8 +205,8 @@ describe('기록 — 숫자 셋', () => {
   it('이번 주 문항 수는 월요일부터 센다', () => {
     // 2026-09-17 은 목요일 — 월요일은 09-14
     let r: LearnerRecord = EMPTY_RECORD
-    r = applyResult(r, { item: byId('2026#31'), correct: true, confused: false, sec: 1 }, new Date('2026-09-13T12:00:00+09:00'))
-    r = applyResult(r, { item: byId('2026#32'), correct: true, confused: false, sec: 1 }, new Date('2026-09-14T08:00:00+09:00'))
+    r = applyResult(r, { item: byId('2026#31'), correct: true, confused: false, sec: 1 }, new Date(2026, 8, 13, 12, 0, 0)) // 일요일 — 지난 주
+    r = applyResult(r, { item: byId('2026#32'), correct: true, confused: false, sec: 1 }, new Date(2026, 8, 14, 8, 0, 0)) // 월요일 — 이번 주 첫날
     r = applyResult(r, { item: byId('2026#36'), correct: true, confused: false, sec: 1 }, NOW)
     expect(weekCount(r, NOW)).toBe(2)
   })

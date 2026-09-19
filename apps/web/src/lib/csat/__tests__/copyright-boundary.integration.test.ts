@@ -188,11 +188,19 @@ describe('오버레이 앵커 데이터는 좌표만 담는다', () => {
 
   it('오버레이 화면·로더는 passage·choices 를 입에 올리지 않는다', () => {
     // 컬럼 이름이 코드에 **나타나지도 않아야** 한다. 나타나면 언젠가 select 에 들어간다.
-    for (const rel of [
+    //
+    // ⚠️ 목록의 파일이 **사라질 수 있다** — `668c3f05`(학습자 훈련·오버레이 걷기)에서 라우트와
+    //    OverlayClient 가 지워졌는데 이 목록이 따라오지 않아 ENOENT 로 죽었다(2026-09-20).
+    //    그래서 없는 파일은 건너뛰되, **하나도 안 봤으면 실패**시킨다 — 0건 통과는 측정 실패다.
+    const candidates = [
       'src/lib/csat/overlay.ts',
       'src/app/api/csat/overlay/route.ts',
       'src/app/(main)/csat/overlay/OverlayClient.tsx',
-    ]) {
+      'src/lib/csat/anchor-loader.ts',
+    ]
+    const present = candidates.filter((rel) => fs.existsSync(path.resolve(process.cwd(), rel)))
+    expect(present.length, `오버레이 계열 파일을 하나도 못 찾았다 — 목록이 낡았다: ${candidates.join(', ')}`).toBeGreaterThan(0)
+    for (const rel of present) {
       const src = fs.readFileSync(path.resolve(process.cwd(), rel), 'utf8')
       // 주석에서 「담지 않는다」고 설명하는 것은 허용한다 — 코드 줄에만 없어야 한다.
       const codeLines = src
@@ -339,7 +347,10 @@ describe('강의 대본 데이터의 경계', () => {
       for (const [id, lec] of Object.entries(j.lectures as Record<string, { cues: { id: string; segments: { lang: string; text: string }[] }[] }>))
         for (const c of lec.cues)
           for (const g of c.segments)
-            if (g.lang === 'en-US' && (g.text.match(/[A-Za-z']+/g) ?? []).length > 7) long.push(`${id} ${c.id}`)
+            // ⚠️ 아포스트로피는 **곱슬(’)도 센다**. `[A-Za-z']` 만 보면 `enemy’s` 가 두 낱말로
+            //    쪼개져 7단어 조각이 8단어로 잡힌다(2026-09-20 `2016#25 c6` 이 그래서 걸렸다 —
+            //    데이터는 규칙을 지키고 있었고 세는 쪽이 틀렸다).
+            if (g.lang === 'en-US' && (g.text.match(/[A-Za-z'’]+/g) ?? []).length > 7) long.push(`${id} ${c.id}`)
     }
     expect(long, `8단어 이상 영어 조각: ${long.slice(0, 5).join(', ')}`).toEqual([])
   })
