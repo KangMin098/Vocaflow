@@ -37,7 +37,7 @@
 | 26 | 해마다의 기출 | 시 | 연도가 적힌 시험지 묶음, 모서리가 부채꼴로 펼쳐짐 | 넘긴다 | 펼친 해의 도장 | B | `app/(marketing)/about/page.tsx` |
 | 27 | 해설은 난외에 | 주 | 지문 단과 난외 메모를 잇는 실선 | 잇는다 | 지지 실선 | S | `app/(marketing)/about/page.tsx` |
 | 28 | 들리는 대로 적는다 | 지 | 괘선 한 줄 위에 음절 길이만큼 끊긴 괘선 | 받아 적는다 | 첫 마디 권점 | E | `components/dictation/DictationSetupClient.tsx`(4와 짝) |
-| 29 | 찾는 낱말이 없다(검색 0) | 서 | 색인 카드 한 장 — 가나다 탭 사이 빈 자리 | 다시 찾는다 | 빈 자리 권점 | E | **자리 없음** — 유일한 후보 `components/textviewer/MyTextsGrid.tsx` 는 어디서도 import 되지 않는다(2026-09-19 grep). manifest `blocked` |
+| 29 | 찾는 낱말이 없다(검색 0) | 서 | 색인 카드 한 장 — 가나다 탭 사이 빈 자리 | 다시 찾는다 | 빈 자리 권점 | E | **자리 없음** — 유일한 후보였던 `components/textviewer/MyTextsGrid.tsx` 는 import 0 고아라 삭제(DD-37). manifest 대기 |
 | 30 | 오늘 복습할 것이 없다 | 망 | 7칸 달력 — 오늘 칸 비고 다음 복습일 칸에 표식 | 기다린다 | 다음 날 칸 권점 | E | `components/wordvault/WordVaultStudyClient.tsx`(「지금 복습할 단어가 없어요」 — `/wordvault/review` · `/wordvault/study`) |
 
 ## 계열 분포

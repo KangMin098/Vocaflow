@@ -182,3 +182,9 @@
 |---|---|---|
 | **DD-35** | **삽화 골든 3점 고정**: E #2 첫 글 · S #7 내가 아는 비율 · B #9 다시 보면 버틴다 → [golden/illustrations/](golden/illustrations/README.md). #10 「근거가 정답을 가리킨다」는 골든이 아니라 **이야기 선 규범 예시**(`norm/`) — 이후 생성물의 이야기 선은 #10 을 따른다(03-system §3-9). 확정 전 #16 권점 겹침 수정(낱말 위로) | 사용자 결정. 스타일 게이트 기준 입력 = 이 4점뿐(`style-gate.mjs --ref` — 선 굵기·서체·토큰 부분집합 + 주묵 선은 accent 층에만) |
 | **DD-36** | **Gate 6 — 드레인 생성 + 적용 완료**. 삽화 10점 앱 투입(`components/illustrations/Illustration.tsx` + `generated/*.ts` — CSS 변수를 받으려고 인라인 SVG) · 적용 13자리(빈 상태 5 · 섹션 머리 5 · OG 3). manifest **done 17 · blocked 19**(사유 전부). 적용 중 결정 4: ① #7 은 랜딩이 아니라 `/pricing` 머리로(랜딩 커버리지 자리는 서명 `CoverageHero` 가 증명 — DD-25 ①) ② #8 은 `/about` 학습 과학 머리로 ③ 섹션이 없는 개념은 섹션을 **만들지 않고** blocked(A5) ④ OG 는 Satori 가 CSS 변수를 못 읽어 토큰 값을 옮겨 적고, 공용 카드·`/fit/s` 각인을 주묵 「V」·모서리 2 로 앱 아이콘(DD-27)과 맞춤 · 루트 OG `app/opengraph-image.tsx` 신설 | 리포트 [reports/image-system-gate6-20260919.md](../reports/image-system-gate6-20260919.md). 루프: #15 도장 위치 · 루트 OG 빈 발 · `/fit/s` 각인 — 각 1회. 빈 상태 캡처는 `/dev/components` 「0. 삽화 — 빈 상태」 검수대(검증 계정으로 데이터 0 상태를 못 만든다 — 실계정 진입은 미검증). 남은 평균 신호(빈 상태 그라디언트 CTA 3곳)는 이번 변경 전부터 — A5 범위 밖 blocked. 라쳇 실패 4건은 전부 Codex 미커밋 CSAT 작업(DD-33) |
+
+### 사용자 결정 (2026-09-19, Gate 6 뒤) — DD-37~38
+
+| # | 결정 | 근거 · 한 일 |
+|---|---|---|
+| **DD-37** | DD-36 의 적용 판단 3건(#7 → `/pricing` · 섹션 없는 개념은 신설 없이 blocked · OG 토큰 값 옮겨 적기) **승인**. manifest blocked 19 는 섹션 신설 없이 **「대기」로 유지**. 위생: 고아 컴포넌트 `components/textviewer/MyTextsGrid.tsx` **삭제**(참조 0 재확인 — 정의 파일 자신뿐, 2026-09-05 감사 m9 와 같은 결론) | 사용자 결정. ⚠️ 이 삭제로 `components/textviewer/TextCard.tsx` 가 **새 고아**가 된다(유일한 사용처가 MyTextsGrid) — 지시 범위 밖이라 지우지 않고 기록만. MODULES.md 의 MyTextsGrid 줄은 HEAD 판에서 뺐다(DD-20 방식) |

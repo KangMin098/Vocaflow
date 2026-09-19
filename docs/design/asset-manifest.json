@@ -545,7 +545,7 @@
       "format": "svg",
       "status": "blocked",
       "version": 1,
-      "note": "blocked — 후보 components/textviewer/MyTextsGrid.tsx 가 어디서도 import 되지 않는다(고아 컴포넌트)"
+      "note": "대기 — 후보였던 components/textviewer/MyTextsGrid.tsx 는 import 0 고아라 2026-09-19 삭제(DD-37). 검색 0 빈 상태를 가진 화면이 생기면 재개"
     },
     {
       "id": "illo-30-no-review-today",
