@@ -33,7 +33,7 @@
 
 ---
 
-## 4. 자동 갱신 블록 (`scripts/sync-export-memory.mjs` 가 push 마다 regenerate)
+## 4. 자동 갱신 블록 (`pnpm sync:memory` 로 **사람이** 갱신 — pre-commit 훅은 낡았는지만 검사한다, DD-49)
 
 <!-- auto:branch -->
 **활성 브랜치**: `feat/plan-ui`

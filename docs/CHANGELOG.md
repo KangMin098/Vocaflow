@@ -9,6 +9,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- 보안: 검증 계정 2개(runtime-test · lexicon-test) 비밀번호 교체 — 값은 `.env*`(CI 는 저장소 시크릿)에만 · 코드 57파일의 평문 대체값 제거 · 추적 파일 전체 비밀값 검사를 CI verify 에(`scripts/security/secret-scan.mjs`) · pre-commit 훅이 더는 인덱스를 고치지 않는다(`git commit --only` 보호). 결정 DD-48 · DD-49.
+
 - 이미지 체계(방향 A 「원고지」) — 모눈 무대 토큰 `--grid-line` · 삽화 규칙 03-system §3-9 · 골든 3점(`docs/design/golden/illustrations/`) · 드레인 3단(`scripts/design/assets-drain-*` · `style-gate.mjs` · `asset-manifest-check.mjs`)으로 삽화 10점을 빈 상태 5 · 섹션 머리 5(`/pricing` `/about` `/` `/fit`)에 적용, 루트 OG 신설 · 공유 카드 각인 통일, 웹 아이콘 404 3건·파비콘·manifest 색 수정. 결정 DD-22~36 · 리포트 `docs/reports/image-system-gate6-20260919.md`.
 - `/fit` 골든 1호(발산 A+B) — 붙여 넣은 지문이 학년 슬라이더로 칠해지는 입력칸(`PaintedPassage`) + 「학급에 나눠 줄 한 장」 출력 면(`ClassSheet`, 권점·난외·도장, 인쇄 첫 장). `/api/fit` 이 표면형→레벨 표를 함께 돌려준다(원문 미전송 유지). 관측 2종은 마이그레이션 승인 대기. 골든 `docs/design/golden/fit.md`.
 - UX 감사(설계 준비) — 화면 157 전수·대상 127 판정(서명 2·경계 5·평균 104·보류 14), 여정 4·카드 67·관리자 표 60·브리프 10·우선순위(브랜치 `feat/ux-audit` `docs/design/audit/`). 코드 수정 0.
