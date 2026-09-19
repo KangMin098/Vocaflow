@@ -9,6 +9,7 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- `/diagnostic` 골든 3호(발산 A 「답할수록 칠해지는 지문」) — 데모 지문이 답마다 서버와 같은 규칙의 중간 추정(`lib/diagnostic/interim-level.ts`)으로 칠해지고, 결과 h1 이 「지금 N권을 읽을 수 있어요」(셸 사정권 분포 재사용 — 새 쿼리 0). 그라디언트 헤더 2 · 모달 glass 2 제거, 빈 상태 D5. 정적 신호 6→1 · 390 카드형 4→0. `docs/design/golden/diagnostic.md` · DD-23.
 - `/hub` 골든 2호(화면 재설계 실행 · 발산 A 「들어 올리는 곡선」) — 첫 시선이 7일 기억 곡선(Σ R(t), 오늘 N개를 다시 보면 vs 그대로 두면)과 세션 큐 순서 낱말(권점). `lib/learner/memory-lift.ts` · `hub-lift-query.ts`(새 조회 없음 — 세션과 같은 함수) · 관측 `hub_curve_interacted`(DB 허용 목록 승인 대기 `_pending_funnel_allow_hub_curve.sql`). 감사 평균 → 서명 있음, 정적 신호 3→1 · 카드형 2→0. `docs/design/golden/hub.md` · DD-22.
 - `/fit` 골든 1호(발산 A+B) — 붙여 넣은 지문이 학년 슬라이더로 칠해지는 입력칸(`PaintedPassage`) + 「학급에 나눠 줄 한 장」 출력 면(`ClassSheet`, 권점·난외·도장, 인쇄 첫 장). `/api/fit` 이 표면형→레벨 표를 함께 돌려준다(원문 미전송 유지). 관측 2종은 마이그레이션 승인 대기. 골든 `docs/design/golden/fit.md`.
 - UX 감사(설계 준비) — 화면 157 전수·대상 127 판정(서명 2·경계 5·평균 104·보류 14), 여정 4·카드 67·관리자 표 60·브리프 10·우선순위(브랜치 `feat/ux-audit` `docs/design/audit/`). 코드 수정 0.

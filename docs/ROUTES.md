@@ -88,7 +88,7 @@
 
 | 경로 | 파일 | 비고 |
 |---|---|---|
-| `/diagnostic` | `(main)/diagnostic/page.tsx` | 5 진단 (base / csat / business / academic / comprehensive) |
+| `/diagnostic` | `(main)/diagnostic/page.tsx` | 5 진단 (base / csat / business / academic / comprehensive) — 2026-09-19 「답할수록 칠해지는 지문」: 데모 지문이 답마다 중간 추정(서버와 같은 규칙)으로 칠해지고, 결과는 「지금 N권을 읽을 수 있어요」(셸 사정권 분포). async(데모 지문·사정권을 props 로) |
 | `/diagnostic/history` | `(main)/diagnostic/history/page.tsx` | user_level_snapshots audit timeline |
 
 ### 학습 모듈 hub + play

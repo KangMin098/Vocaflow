@@ -140,6 +140,7 @@
 | # | 결정 | 근거 · 한 일 |
 |---|---|---|
 | **DD-22** | `/hub` = **A 「들어 올리는 곡선」**(망각). 첫 시선이 7일 기억 곡선(Σ R(t) 기대값) — 점선 그대로 두면 · 실선 오늘 N개를 다시 보면 · 사이의 면 = 남는 몫. 서명 = 「오늘 다시 볼 단어」 슬라이더 → 선·면 페이드 + 낱말 권점 200ms. 탈락: B 「내 기억으로 칠한 오늘의 글」(채색 지문) · C 「차오르는 서가」(환경 변형) · D 「오늘의 한 장」(시험지 사물) | B4: (1) 은 C·D(새 데이터 0), (2) 는 A·B(`/fit` 골든과 같은 「슬라이더 → 낱말 표면 200ms」) 로 갈림 → (2) 우선. A·B 중 B 는 **조인 필요** + 미진단 학습자(여정 ② 의 그 사람)에게 오늘의 글이 없어 골격이 사라진다 → A. C 는 실제 계정 추적 단어가 전부 risk(DB 98/98 · 136/136)라 서가가 빈다 · D 는 N4 약함(권점 외에는 자산 없이 그려진다). **브리프 후보 1 을 그대로 쓰지 않은 이유**: "안 하면 목요일에 흐려진다" 는 7일 안에 새로 흐려질 단어가 실제 계정 모두 **0** 이라 수평선이 된다 → "하면 올라간다" 로 뒤집었다. 구현: `lib/learner/memory-lift.ts`(순수 · FSRS `applyReview` 로 Good 1회 적용 후 R 재계산) · `hub-lift-query.ts`(세션 큐와 **같은 함수** `fetchStudyVocabularies` — 보여 준 앞 N개 = `/flashcard/play?limit=N`) · `TodayStage` 재작성 · `TodayFocus`·`NextWordsStrip` 은 허브에서 은퇴(곡선 아래 낱말 줄로 합침) · 관측 `hub_curve_interacted {count, words}`. 2회 수정(① 직사각형 곡선 → Σ R ② 진단 계정에서 CTA 가 폴드 밖 · 「시작」 둘 → CTA 를 슬라이더 아래로, 2차 링크 문구). 골든 [golden/hub.md](golden/hub.md) |
+| **DD-23** | `/diagnostic` = **A 「답할수록 칠해지는 지문」**(채색 지문). 시작: 데모 지문 학습 낱말마다 dotted(아직 모름) · 문항: 서버와 같은 규칙의 중간 추정으로 지문을 칠함 · 결과: RPC 레벨로 칠한 지문 + h1 「지금 N권을 읽을 수 있어요」(셸 분포). 탈락: B 「불이 켜지는 서가」 · C 「시험지 한 장」 · D 「어휘 지층」 | B4: (1) 은 C·D(새 작업 0), (2) 는 **A 하나**(랜딩·`/fit` 과 같은 칠 함수 `runs` — 레벨이 움직이면 낱말 면 색) → (2) 우선 · A. B 는 312권 책등이 390 에서 1px, C 는 N4 약함, D 는 (a) 가 분석 도구로 읽힘. **중간 추정은 지어낸 값이 아니다** — `analyze_diagnostic_result` 를 pg_get_functiondef 로 읽어 같은 규칙(정답률 ≥ 0.70 인 최고 레벨, 없으면 1)을 `lib/diagnostic/interim-level.ts` 로 옮기고 테스트로 잠갔다. 새 쿼리 0(데모 지문 = 랜딩 계산 · 레벨별 사정권 = 셸 10분 캐시). 관측 신설 없음(결과는 DB 행으로 파생 — D4). 수정 2회. 골든 [golden/diagnostic.md](golden/diagnostic.md) |
 | **DD-22b** | 관측 `hub_curve_interacted` 의 DB 허용 목록 = **승인 대기** — `supabase/migrations/_pending_funnel_allow_hub_curve.sql`(작성 시점 DB 제약 40 + 1). 적용하지 않았다 | A7(마이그레이션은 SQL 커밋 후 승인 대기). 적용 전에는 `db-allowlist.integration.test.ts` 가 이 1종에서 실패한다 — 맞는 실패. 화면 동작에는 영향 없음(관측만 빠진다) |
 
 ### 공용 컴포넌트 교체 후보 (A5 — 화면 범위 밖이라 손대지 않은 것)
@@ -148,11 +149,13 @@
 |---|---|---|
 | `components/home/GatewayLead.tsx` 의 테두리 상자 | `/hub` 곡선 바로 위 「다시 오셨어요」 가 카드형 상자로 첫 시선을 먼저 가져간다. `/hub-lab` VariantG 도 써서 허브 전용이 아니다 | 괘선 한 줄(`Rule`)로 — `/hub-lab` 은 내부 실험실이라 함께 바꿔도 된다 |
 | `components/ui/ios/index.ts` 배럴 | 배럴 import 한 줄이 쓰지 않는 `Card`(떠오르는 hover)까지 화면 트리에 싣는다 — 허브는 `ui/ios/Screen` 직접 import 로 피했다 | 학습자 화면의 `@/components/ui/ios` import 를 파일 직접으로(정적 신호 오탐 감소) |
+| 감사 렌더 계측의 「카드형」 이 괘선 목록 행도 센다 | `/diagnostic` 목표별 진단을 카드에서 `divide-y` 목록으로 바꿨는데 1280 카드형이 3 남았다 — 행의 윗선을 테두리로 센다 | `measure-screen.mjs` · `capture.mjs` 의 cardsLike 를 "네 변 테두리 또는 그림자" 로 좁히기(감사 기준선 재측정 필요) |
 | 평균 신호 정규식이 **주석**도 센다 | `ui/press/index.tsx:6` 주석 속 `shadow-md` 가 이 파일을 가져오는 모든 화면의 정적 신호를 1 올린다 | 라쳇·`measure-screen.mjs`·`screen-graph.mjs` 가 `//`·`/* */` 주석을 걷고 세게(기준선 재측정 필요 — 규칙을 고치는 일이라 별도 커밋) |
 
 ### 정본 변경 요청 (A2 — 토큰·씨앗·스킬은 고치지 않았다)
 
 - 없음(`/hub`). 선·면은 페이드(opacity), 권점은 색 전환 — 기존 예산 안에서 해결했다.
+- 없음(`/diagnostic`). 칠은 `/fit` 과 같은 색 전환.
 
 ### 이 세션이 만난 기존 결함 (범위 밖 — 고치지 않음)
 

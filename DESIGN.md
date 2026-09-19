@@ -40,6 +40,7 @@
 | `/csat` 홈 | 시험지 사물 | 두 문항이 `=` 로 합류 · 패턴 교체 시 · 200ms | 현행 |
 | `/dashboard` | 환경 변형(목표) | 버티는 기간 사다리의 층 · 정지(모션 0) | **감사 판정 평균 · 선언 미렌더**(첫 화면이 빈 상태 문장 카드) |
 | `/hub` · 홈 | 망각 | 「오늘 다시 볼 단어」 슬라이더 → 7일 기억 곡선(Σ R(t))의 실선·면이 서고 낱말 권점이 옮겨 찍힘 · 200ms(`TodayStage`) | **서명 있음**(2026-09-19 골든 2호 [golden/hub.md](docs/design/golden/hub.md) · DD-22) |
+| `/diagnostic` | 채색 지문 | 「알아요 / 몰라요」 → 지금까지의 답으로 본 수준에서 지문 칠이 다시 갈림 · 200ms(`DiagnosticPassage`) · 결과 h1 = 지금 읽을 수 있는 책 수 | **서명 있음**(2026-09-19 골든 3호 [golden/diagnostic.md](docs/design/golden/diagnostic.md) · DD-23) |
 | `/wordvault` | 망각(목표) | — | **감사 판정 평균** — 링 게이지·4열 타일, 4색은 점·숫자 색뿐 · `/review` ≡ `/study` 픽셀 동일(우선순위 8위) |
 | `/library/books` 매대 | — | 표지 식별색(색상=갈래 · 명도=수준) | **다음 발산 대상**(`/fit` 골든 고정 후 착수 — DD-19) — 골격이 격자(평균). 발산 4안 [compare/library-books.md](docs/design/compare/library-books.md) → 사람이 고른다 |
 | `/flashcard` 등 학습 중 | 망각(목표) | 카드 뒤집기 0.55s(7종 안) | **감사 판정 평균** — 중앙 단일 카드, R(t)·망각 표시 0(Anki/Quizlet 와 같은 모양). `/flashcard/play` 우선순위 4위 · 학습 모듈 18화면 서명 0 |

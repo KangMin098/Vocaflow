@@ -10,11 +10,12 @@
 |--:|---|---|---|---|---|
 | 1 | `/fit` | 완료(앞 세션) | A+B | — | [golden/fit.md](../golden/fit.md) · DD-19 |
 | 2 | `/hub` | **완료** 2026-09-19 | A 「들어 올리는 곡선」(망각) | 3→**1** · 2→**0** | [compare/hub.md](../compare/hub.md) · [golden/hub.md](../golden/hub.md) · DD-22 |
-| 3 | `/diagnostic` | **다음** | — | — | [briefs/diagnostic.md](briefs/diagnostic.md) |
-| 4–10 | `/flashcard/play` · `/fit/s` · `/signup` · `/text/[id]` · `/wordvault/review` · 회고 · `/text/new` | 대기 | — | — | priority.md |
+| 3 | `/diagnostic` | **완료** 2026-09-19 | A 「답할수록 칠해지는 지문」(채색 지문) | 6→**1** · 4→**0** | [compare/diagnostic.md](../compare/diagnostic.md) · [golden/diagnostic.md](../golden/diagnostic.md) · DD-23 |
+| 4 | `/flashcard/play` | **다음** | — | — | [briefs/flashcard_play.md](briefs/flashcard_play.md) |
+| 5–10 | `/fit/s` · `/signup` · `/text/[id]` · `/wordvault/review` · 회고 · `/text/new` | 대기 | — | — | priority.md |
 
 - **보류**: 없음.
-- **라쳇**: average-signal learner `float-hover` 66→**65**(`/hub` — `TodayPlanCard` 칩). form-declaration 기준선 변화 없음(`/hub` 선언을 렌더와 일치하게 정정).
+- **라쳇**: average-signal learner `float-hover` 66→**65**(`/hub` — `TodayPlanCard` 칩) · `gradient` 171→**169** · `glass` 52→**50**(`/diagnostic`). form-declaration 무선언 목록 −1(`/diagnostic`). `/hub` 선언은 렌더와 일치하게 정정.
 - **승인 대기 마이그레이션**: `supabase/migrations/_pending_funnel_allow_hub_curve.sql`(관측 `hub_curve_interacted`).
 - **이 세션이 만난 기존 결함(범위 밖)**: 타입 오류 3(kice item · csat reveal) · 전체 vitest 실패 10(관리자 터치 타깃 78>70 · OFFSET 페이징 190→200 · `.limit` 1000 초과 · 학습자 라우트 매니페스트 textbooks · CSAT 드레인 경로 · 저작권 경계 · `wired.test` CRLF) — 전부 이 세션이 건드리지 않은 파일. DECISIONS DD-22 뒤 목록.
 
