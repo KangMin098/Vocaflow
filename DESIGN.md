@@ -53,7 +53,8 @@
 | `/flashcard/play` | 망각 | 평가에 손을 얹으면 이 단어의 다음 곡선과 다음 만남 눈금이 선다(모션 0 · 카드 뒤집기는 7종 안) · 완료 = 7일 곡선 | **서명 있음**(2026-09-19 골든 4호 [golden/flashcard-play.md](docs/design/golden/flashcard-play.md) · DD-24) |
 | `/flashcard` · `/spellforge` 허브 | 망각 | 오늘 담길 낱말 — 카드가 나오는 순서의 낱말 줄(밑줄 = 기억 상태), 세션 길이만큼 권점이 옮겨 찍힘 · 200ms(`/hub` 와 같은 몸짓) | **서명 있음**(2026-09-19 골든 14호 [golden/module-hubs.md](docs/design/golden/module-hubs.md) · DD-34) |
 | `/wordblitz` · `/pairflip` 허브 | 시험지 사물 | 이번 판 낱말 — 게임이 쓸 낱말 괘선 두 단, PairFlip 난이도의 쌍 수만큼 권점 · 시작은 주묵 하나 | **서명 있음**(2026-09-19 골든 15호 [golden/game-hubs.md](docs/design/golden/game-hubs.md) · DD-35) |
-| 다른 학습 모듈 허브(`/dictate` · `/scriptquiz`) | 망각(목표) | 카드 뒤집기 0.55s(7종 안) | **감사 판정 평균** — `/dictate` 는 머리(ModuleHero)만 판면 머리로 바뀜(DD-34) |
+| `/dictate` 허브 | 시험지 사물 | 오늘의 받아쓰기 문제지 — 다섯 줄의 빈칸(폭 = 낱말 길이, 내 낱말 자리 주묵), 글자는 보이지 않음 | **서명 있음**(2026-09-19 골든 16호 [golden/dictate.md](docs/design/golden/dictate.md) · DD-36) |
+| 다른 학습 모듈 허브(`/scriptquiz`) | 망각(목표) | 카드 뒤집기 0.55s(7종 안) | **감사 판정 평균** |
 | `/admin/*` | 환경 변형 · 주묵 문법 중 화면별 선언 | — | 액센트 = Deep Ink `--p` 확정(DD-01). 옛 보라는 신규 금지·감소만 |
 
 ## 평균 금지 — 목표는 혁신뿐

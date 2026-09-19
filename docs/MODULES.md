@@ -188,6 +188,9 @@ Lexile·ATOS 는 글만 재고 LingQ 의 known-word 카운트는 이진값이라
 - `EmptyState.tsx` — Cold 첫 진입
 - `DiscoveryFooter.tsx` — Library 전환
 
+### 받아쓰기 허브 (`components/dictation/`)
+- `DailySheet.tsx` — (2026-09-19 DD-36) 오늘의 받아쓰기 문제지: 다섯 줄 빈칸(폭 = 낱말 길이, 내 낱말 자리 주묵), 글자 비노출 · `blanksOf`
+
 ### 모듈 허브 공용 (`components/hub/`)
 - `ModuleHero.tsx` — 판면 머리(2026-09-19 — 면 칠 없음, 26/32px 제목) · `HubStartCard.tsx` — 길이 글자 탭 + 주묵 1차 행동
 - `GamePoolPanel.tsx` — (2026-09-19 DD-35) 이번 판 낱말 괘선 두 단 + `marked` 권점(PairFlip 쌍 수) · `RecentScoresList.tsx` 괘선 목록 · `HubStartCard` `cta.onStart`
