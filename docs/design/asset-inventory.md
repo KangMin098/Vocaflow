@@ -84,4 +84,4 @@
 | `apps/web/public/dev/csat-shots/*.png` | 22 | 대상 아님 — `.gitignore:222` 로 무시, 추적 0 |
 | `app/admin/**` 인라인 SVG | 9 파일 | 대상 아님 — Admin 은 삽화 체계 밖(04-application §4-4 층위 C). 도움말 동기화 규칙은 Admin 자산을 바꿀 때만 |
 | `packages/ui-shared` | 이미지 0 | — |
-| `docs/design/golden/*.png` · `docs/design/shots/**` | 문서 증거 | 제품 자산 아님 |
+| `docs/design/golden/*.png` · `docs/design/archive/shots-v07/**` | 문서 증거(`docs/design/shots/` 는 2026-09-19 부터 gitignore) | 제품 자산 아님 |

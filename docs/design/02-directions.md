@@ -1,7 +1,7 @@
 # 02 — 디자인 방향 3안
 
 작성 2026-09-16. 시안 화면 `/dev/directions` (개발 전용 · 학습자 라우트 아님).
-캡처 `docs/design/shots/directions-3up.png` (1420px, 2× DPR, fullPage).
+캡처 `docs/design/archive/shots-v07/directions-3up.png`(2026-09-19 이동, DD-47) (1420px, 2× DPR, fullPage).
 
 **같은 화면(`/hub` Today) · 같은 내용 · 같은 폭(390px)** 으로만 비교한다. 세 안의 데이터·문장·항목은
 글자 하나까지 동일하다 — 다른 것은 디자인뿐이다.

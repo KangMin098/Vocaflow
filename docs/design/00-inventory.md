@@ -257,4 +257,4 @@ dashboard 7` (합계 학습자 `.tsx` **447**)
 4. **아이콘/자산** — lucide 를 전량 교체하는 것은 5시간 예산 밖이다. **핵심 20개만 커스텀**하고
    나머지는 스타일 규칙(굵기·크기·컨테이너 금지)으로 묶는다.
 
-측정 산출물: `docs/design/shots/before/` (캡처 하네스 `scripts/design/capture-learner.mjs`)
+측정 산출물: `docs/design/archive/shots-v07/before/`(2026-09-19 이동, DD-47) (캡처 하네스 `scripts/design/capture-learner.mjs`)

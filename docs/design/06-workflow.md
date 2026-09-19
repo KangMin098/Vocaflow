@@ -85,7 +85,8 @@ OS와 프로젝트(뷰포트·테마)별 기준선을 분리한다. 앱 데이�
 | 캡처·감사 첨부 | `test-results/design-qa/` | 다음 실행 때 교체 |
 | HTML·JSON 보고서 | `playwright-report/design-qa/` | 다음 실행 때 교체 |
 | 로컬 픽셀 기준선 | `test-results-csat-learner/design-baselines/` | 비교 실행은 보존, 명시적 갱신만 변경 |
-| 손으로 찍은 디자인 캡처 | `docs/design/shots/`(저장소 루트 기준) | **gitignore — 커밋하지 않는다**(기출 원문·실제 사용자 데이터가 찍힐 수 있다). 이미 추적 중인 v07 전후 16장만 남아 있다(DD-47) |
+| 손으로 찍은 디자인 캡처 | `docs/design/shots/`(저장소 루트 기준) | **gitignore — 커밋하지 않는다**(기출 원문·실제 사용자 데이터가 찍힐 수 있다). (v07 전후 16장은 archive 로 옮겼다 — DD-47) |
+| 결정 증거 보관 | `docs/design/archive/`(저장소 루트 기준 — 예: `archive/shots-v07/`) | **커밋한다** — 지난 결정의 근거가 된 캡처·원문만. 기출 원문·실제 사용자 데이터가 없는 것만(검증 계정 시드 데이터는 가능) |
 | 골든 스크린 · 삽화 골든 | `docs/design/golden/`(저장소 루트 기준) | **커밋한다** — 단 `design-empty` 계정(`scripts/design/seed-empty-account.mjs`)·`/dev/components` 검수대 데이터로 찍은 것만. 기출 원문·실제 사용자 데이터 화면 금지 |
 
 골든을 뺀 모두가 gitignore 범위 안이다. 특히 기출 원문·개인 기록이 담긴 화면을 저장소에 올리지 않는다.

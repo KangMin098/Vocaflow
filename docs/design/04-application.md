@@ -78,17 +78,19 @@
 
 ## 4-5. before / after
 
+> 캡처는 `docs/design/archive/shots-v07/` 에 있다(2026-09-19 이동 — DD-47. 전부 검증 계정 `runtime-test-0705` 시드 데이터 · 기출 원문 0). `docs/design/shots/` 는 이제 gitignore 된 로컬 캡처 자리다.
+
 캡처 하네스 `scripts/design/capture-learner.mjs` — **같은 라우트·같은 폭·같은 계정**으로만 찍는다.
 
 | 화면 | before | after |
 |---|---|---|
-| `/hub` 390px | — (아래 주) | `shots/after/hub@390.png` |
-| `/dashboard` 390px | `shots/before/dashboard@390.png` | `shots/after/dashboard@390.png` |
-| `/flashcard/play` 390px | `shots/before/flashcard_play@390.png` | `shots/after/flashcard_play@390.png` |
-| `/wordvault/browse` 390px | `shots/before/wordvault_browse@390.png` | `shots/after/wordvault_browse@390.png` |
-| `/settings` · `/library` | — | `shots/after/` |
-| 다크 테마 | — | `shots/dark_pricing@390.png` · `shots/dark_fit@390.png` |
-| 3안 비교 | — | `shots/directions-3up.png` |
+| `/hub` 390px | — (아래 주) | `archive/shots-v07/after/hub@390.png` |
+| `/dashboard` 390px | `archive/shots-v07/before/dashboard@390.png` | `archive/shots-v07/after/dashboard@390.png` |
+| `/flashcard/play` 390px | `archive/shots-v07/before/flashcard_play@390.png` | `archive/shots-v07/after/flashcard_play@390.png` |
+| `/wordvault/browse` 390px | `archive/shots-v07/before/wordvault_browse@390.png` | `archive/shots-v07/after/wordvault_browse@390.png` |
+| `/settings` · `/library` | — | `archive/shots-v07/after/` |
+| 다크 테마 | — | `archive/shots-v07/dark_pricing@390.png` · `archive/shots-v07/dark_fit@390.png` |
+| 3안 비교 | — | `archive/shots-v07/directions-3up.png` |
 
 > ⚠️ `before/hub@390.png` 이 없다. 첫 캡처 때 **Git Bash 가 `/hub` 를
 > `C:/Program Files/Git/hub` 로 변환**해 잘못된 URL 로 이동했다(MSYS 경로 변환).

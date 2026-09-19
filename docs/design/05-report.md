@@ -234,7 +234,7 @@ node scripts/design/measure-identity.mjs --public   # DB 가 바쁠 때도 되�
 /signup  | 에러배지: 없음 | 콘솔에러 1 (같음)
 ```
 
-`shots/after/` 의 배지는 그 잔재가 찍힌 것이다 — **화면은 정상이고 배지만 남았다.**
+`archive/shots-v07/after/` 의 배지는 그 잔재가 찍힌 것이다 — **화면은 정상이고 배지만 남았다.**
 
 ---
 
