@@ -265,16 +265,16 @@ function TypeReports({
   }, [types, items])
 
   const picked = new Set(filter.type ?? [])
-  const blocked = shown.filter((r) => r.t.analystMeta.length > 0).length
+  const clear = shown.filter((r) => r.t.reportN !== null && r.t.analystMeta.length === 0).length
   const mismatched = shown.filter((r) => r.t.reportN !== null && r.t.reportN !== r.t.items).length
 
   return (
     <>
       <p className="mb-2 text-xs text-[var(--t3)]">
-        학습자 배포 가능 <span className="tabular-nums">{shown.length - blocked}</span> /{' '}
+        유형 서술 점검 통과 <span className="tabular-nums">{clear}</span> /{' '}
         <span className="tabular-nums">{shown.length}</span> · 계수 어긋남{' '}
-        <span className="tabular-nums">{mismatched}</span> — 배포 판정은 학습자 화면이 실제로 그리는 세
-        필드(근거 서술 · 상위 6 미끄러지는 자리 · 풀이 절차)를 전부 본다
+        <span className="tabular-nums">{mismatched}</span> — 근거 서술·실수 패턴·풀이 절차의 작업 용어 점검입니다.
+        개별 문항의 학습 준비 판정과는 별도입니다.
       </p>
       <div className="max-h-[38vh] overflow-y-auto">
         <table className="w-full text-[13px]">
@@ -283,7 +283,7 @@ function TypeReports({
               <th className="py-1.5 pr-3 font-medium">유형</th>
               <th className="py-1.5 pr-3 text-right font-medium">문항</th>
               <th className="py-1.5 pr-3 text-right font-medium">리포트 n</th>
-              <th className="py-1.5 pr-3 font-medium">학습자 배포</th>
+              <th className="py-1.5 pr-3 font-medium">서술 점검</th>
               <th className="py-1.5 font-medium">막는 것</th>
             </tr>
           </thead>
@@ -317,13 +317,13 @@ function TypeReports({
                     {mismatch ? <span aria-hidden> ✕</span> : null}
                   </td>
                   <td className="py-0.5 pr-3 text-xs">
-                    {t.analystMeta.length ? (
+                    {t.reportN === null ? <span>미확인</span> : t.analystMeta.length ? (
                       <span className="text-[var(--error-ink)]">
-                        <span aria-hidden>✕ </span>막힘
+                        <span aria-hidden>△ </span>검토 필요
                       </span>
                     ) : (
                       <span className="text-[var(--success-ink)]">
-                        <span aria-hidden>✓ </span>가능
+                        <span aria-hidden>✓ </span>통과
                       </span>
                     )}
                   </td>

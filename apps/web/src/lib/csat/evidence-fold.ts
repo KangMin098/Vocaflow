@@ -118,6 +118,8 @@ export function defectDef(code: DefectCode): DefectDef {
 
 /** 화면으로 내려보내는 문항 한 줄. **지문·선지 원문은 없다.** */
 export interface EvidenceItem {
+  analysisVersion?: number | null
+  analysisUpdatedAt?: string | null
   id: string
   examId: string
   examLabel: string

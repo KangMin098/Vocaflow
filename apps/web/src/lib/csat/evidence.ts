@@ -49,6 +49,7 @@ type ItemRow = {
   passage: string | null
 }
 type AnalysisRow = {
+  updated_at: string
   id: string
   item_id: string
   version: number
@@ -233,7 +234,7 @@ export async function loadEvidence(): Promise<EvidenceData> {
       db
         .from('csat_item_analyses')
         .select(
-          'id, item_id, version, answer_locus, choice_analysis, solve_procedure, required_vocab, time_budget_sec, difficulty',
+          'id, item_id, version, updated_at, answer_locus, choice_analysis, solve_procedure, required_vocab, time_budget_sec, difficulty',
         )
         .in('id', chunk),
     ),
@@ -331,6 +332,8 @@ export async function loadEvidence(): Promise<EvidenceData> {
     if (it.type_id && typeCountBad.has(it.type_id)) defects.push('reportCount')
 
     return {
+      analysisVersion: a?.version ?? null,
+      analysisUpdatedAt: a?.updated_at ?? null,
       id: it.id,
       examId: it.exam_id,
       examLabel: exam?.label ?? it.exam_id,
