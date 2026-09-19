@@ -165,3 +165,12 @@
 ### 사용자 결정 대기 (DD-29)
 
 1. 방향: **A 원고지** / B 책갈피 끈 / C 교정 부호 / D 책등 — 에이전트 권고 A(C 의 Hahmlet 난외 뜻은 A 로 옮길 수 있음).
+
+### 사용자 결정 (2026-09-19, 3회차 앞) — DD-30~33
+
+| # | 결정 | 근거 · 한 일 |
+|---|---|---|
+| **DD-30** | **방향 A 「원고지」** 확정. C 의 **주묵 한 획**(형태 문법 F2 실선+화살표)은 별도 안으로 합치지 않고 **A 의 「이야기 선」 어휘로 흡수** — 근거→목적지 관계를 그리는 개념에서만, 그 획이 곧 그 삽화의 액센트 한 점이다. **B 「책갈피 끈」 폐기**: 익명성 (a) △ · 평균 신호 1 — S·E 에서 끈이 설명 없이 일반 곡선 그래프로 읽힌다. **D 「책등」 폐기**: 익명성 (a) △ · 평균 신호 1 — 책등 띠를 넣은 뒤에도 B 띠가 막대그래프로 읽힌다 | 사용자 결정 · 판정은 [explore/20260919/compare.md](explore/20260919/compare.md) §비평 그대로 |
+| **DD-31** | 승인: `layout.tsx` `viewport.themeColor` 수정(DD-27 에 묶었던 범위 밖 한 파일) · `--bg2`↔`#F3EFEA` ΔE 1.00 L3 예외 · 큰 도형 비율 60~85% 정정 | 사용자 결정 |
+| **DD-32** | 06-workflow 가 가리키던 미등록 3파일 **추적 시작**: `.agents/skills/vocaflow-design-loop/SKILL.md` · `.agents/skills/vocaflow-visual-critic/SKILL.md` · `apps/web/playwright.visual.config.ts`(내용 무수정 · 비밀값 없음 확인) | 사용자 지시. ⚠️ 아직 남은 것: 설정의 `testDir` 인 **`apps/web/tests/visual/`(4파일) 미추적**, 이 설정을 부르는 `package.json` `test:design` 줄은 다른 세션 미커밋 hunk — 둘이 커밋될 때까지 다른 체크아웃에서 `test:design` 은 돌지 않는다 |
+| **DD-33** | 평균 신호 라쳇 **기준선 유지**(learner.grid-3eq 60 · admin.ai-purple 326). **갱신 필요 — 소유자 Codex**: 작업 트리에서는 59 · 318 로 **줄어** 두 검사가 "기준선을 내려라" 로 실패한다. 원인은 미커밋 CSAT 학습자·소스 작업(2026-09-17 claude→codex 인수인계 `.agent-handoff/latest.md` — 받은 쪽이 끝낸다). 그 작업을 커밋하는 **같은 커밋에서** `average-signal-ratchet.test.ts` BASELINE 을 59 · 318 로 내린다 | 사용자 결정. 이 세션의 커밋은 두 신호를 바꾸지 않았다(grid-cols-3 · 보라 추가 0) |
