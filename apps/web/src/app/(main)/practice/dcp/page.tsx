@@ -1,4 +1,8 @@
 // apps/web/src/app/(main)/practice/dcp/page.tsx
+// @form: 시험지 사물 — 구문 문항지: 문항 하나씩, 순서·위치로 문장을 맞춘다(`/practice` 「오늘의 연습지」 의 Use 면 문항)
+//
+// 2026-09-19 화면 재설계(DD-32): 빈 날의 가운데 정렬 그림자 카드(감사 평균 — 「기능 대신 없어요만」)를
+//   연습지와 같은 괘선 한 칸으로. 다 푼 날 · 아직 안 열린 날 모두 **다른 면으로 가는 길**(연습지)을 1차로 준다.
 //
 // CTP DCP(구문 연습) 플레이 화면 — 오늘 처방 practice 문항(order/insert/선택지)의 세션.
 // 흐름: 문항 → grade_dcp_item 서버 채점 → 피드백 → 오답 시 error_cause → 요약.
@@ -38,7 +42,7 @@ export default async function DcpPracticePage({
   const backCta = backLabel ? backLabel + '로 돌아가기' : '돌아가기'
 
   return (
-    <Screen width="compact" background="bg2" padX="md">
+    <Screen width="compact" background="bg" padX="md">
       <div className="flex flex-col gap-4 py-6 md:py-8">
         <header className="flex flex-col gap-1">
           <Link
@@ -62,9 +66,9 @@ export default async function DcpPracticePage({
              방금 마친 학습자에게 "학습 단계가 무르익으면 열려요"(잠김 안내)라고 말했다. */
           <section
             aria-label={doneToday ? '오늘 구문 연습 완료' : '구문 연습 없음'}
-            className="flex flex-col items-center gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-8 text-center shadow-[var(--sh-sm)]"
+            className="flex flex-col gap-3 border-y border-[var(--bd)] py-5"
           >
-            <p className="break-keep font-display text-[15px] font-[700] text-[var(--t1)]">
+            <p className="break-keep font-editorial text-[19px] font-[500] leading-[1.4] text-[var(--t1)]">
               {doneToday ? '오늘 구문 연습은 다 했어요' : '오늘 준비된 구문 연습이 없어요'}
             </p>
             <p className="break-keep font-body text-[13px] leading-relaxed text-[var(--t2)]">
@@ -72,12 +76,23 @@ export default async function DcpPracticePage({
                 ? '내일 새 문항으로 다시 만나요. 오늘은 읽기와 복습으로 흐름을 이어가 볼까요?'
                 : '구문 연습은 학습 단계가 무르익으면 열려요. 오늘은 읽기와 복습으로 흐름을 이어가 볼까요?'}
             </p>
-            <Link
-              href={backHref}
-              className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] bg-[var(--ju)] px-5 font-display text-[14px] font-[700] text-[var(--on-ju)] no-underline shadow-[var(--sh-xs)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--ju-ink)] active:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ju)]"
-            >
-              {backCta}
-            </Link>
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
+              {/* 1차 — 다른 면을 연습할 수 있는 연습지. 돌아갈 곳이 연습지면 한 버튼으로 합친다 */}
+              <Link
+                href="/practice"
+                className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] bg-[var(--ju)] px-5 font-display text-[14px] font-[700] text-[var(--on-ju)] no-underline transition-colors duration-[var(--dur-normal)] hover:bg-[var(--ju-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:translate-y-px"
+              >
+                다른 면 연습하기
+              </Link>
+              {!backHref.startsWith('/practice') && (
+                <Link
+                  href={backHref}
+                  className="inline-flex min-h-[44px] items-center font-display text-[13px] font-[600] text-[var(--t2)] underline decoration-[var(--bd)] underline-offset-4 transition-colors hover:text-[var(--p)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]"
+                >
+                  {backCta}
+                </Link>
+              )}
+            </div>
           </section>
         )}
       </div>

@@ -20,6 +20,7 @@ import {
   deriveWordState,
   deriveWordStates,
   facetDistribution,
+  pendingByFacet,
   weakestFacetOverall,
   type FacetAttempt,
   type FacetGap,
@@ -177,6 +178,8 @@ export interface FacetSummary {
   distribution: Record<FacetId, { passed: number; tried: number }>
   /** 가장 뒤처진 spine 면 (없으면 null) */
   weakest: FacetGap | null
+  /** 면마다 아직 통과하지 못한 낱말(면당 최대 8) — `/practice` 연습지의 문항(2026-09-19 · DD-32). 개수 외 첫 낱말 표본 */
+  pending: Record<FacetId, string[]>
 }
 
 export async function fetchFacetSummary(
@@ -192,5 +195,6 @@ export async function fetchFacetSummary(
     practiced: states.filter((s) => Object.keys(s.accuracy).length > 0).length,
     distribution,
     weakest: states.length === 0 ? null : weakestFacetOverall(distribution),
+    pending: pendingByFacet(states),
   }
 }

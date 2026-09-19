@@ -1,6 +1,12 @@
 // apps/web/src/app/(main)/practice/page.tsx
+// @form: 시험지 사물 — 오늘의 연습지: 여섯 면이 번호 붙은 문항, 문항마다 그 면에서 아직 걸리는 내 낱말
 //
 // Practice — 연습 단일 진입면.
+//
+// 2026-09-19 화면 재설계(DD-32 · docs/design/compare/practice.md 발산 A 「오늘의 연습지」):
+//   카드 격자 + 알약 칩(게임 이름 메뉴판)이 골격이었다(감사 평균 — 렌더 큰 모서리 10). 지금은 괘선 문항 여섯 줄,
+//   줄마다 **그 면에서 아직 통과하지 못한 내 낱말**(`pendingByFacet`)과 도구 링크. 면 요약은 서버에서 읽는다 —
+//   브라우저 조회(`useFacetSummary`)는 첫 화면에 "여기서부터" 를 그렸다가 "지금 가장 무른 곳" 으로 바꿔 흔들렸다.
 //
 // **왜 통합인가 (프로젝트가 이미 내린 결정의 이행)**
 // `lib/framework/axes.ts` 가 못박아 뒀다:
@@ -30,6 +36,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import type { Database } from '@vocaflow/types'
 
 import { Screen } from '@/components/ui/ios'
+import { fetchFacetSummary } from '@/lib/framework/word-progress-query'
 import { fetchDueGameWords } from '@/lib/game/due-words'
 import { fetchDcpPracticeItems } from '@/lib/learner/dcp-actions'
 import { fetchSessionQueue } from '@/lib/learner/session-queue-query'
@@ -63,17 +70,20 @@ export default async function PracticePage() {
   // 학습자에게도 "대기 5" 라고 말했다 — 그건 다른 카드들이 지키는 계약("각 도구가 실제로
   // 쓰는 함수를 그대로 부른다")을 이 줄만 어긴 것이었다. `/practice/dcp` 가 실제로 내주는
   // 목록을 그대로 받는다. 그래서 다 푼 날은 숫자가 아니라 **링크 자체가 사라진다**.
-  const [queue, gamePool, dcp] = user
+  const [queue, gamePool, dcp, facets] = user
     ? await Promise.all([
         fetchSessionQueue(client, user.id), // Flashcard · SpellForge 가 공유
         fetchDueGameWords(client, user.id), // WordBlitz
         fetchDcpPracticeItems(),
+        // 면 요약 — 실패하면 면별 낱말·진행 없이 선다(연습 링크는 그대로)
+        fetchFacetSummary(client as unknown as SupabaseClient, user.id).catch(() => null),
       ])
-    : [null, null, null]
+    : [null, null, null, null]
 
   return (
-    <Screen width="content" background="bg2" padX="md">
+    <Screen width="content" background="bg" padX="md">
       <PracticeChooser
+        facets={facets}
         ownedTotal={queue?.vocabTotal ?? null}
         sessionSize={queue ? queue.words.length : null}
         gamePoolSize={gamePool ? gamePool.words.length : null}

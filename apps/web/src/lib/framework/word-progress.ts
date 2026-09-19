@@ -221,3 +221,25 @@ export function facetDistribution(
   }
   return out
 }
+
+/**
+ * 면마다 **아직 통과하지 못한 낱말** — `/practice` 「오늘의 연습지」(2026-09-19 · DD-32)의 문항.
+ *
+ * 순서: 시도했는데 못 넘은 낱말(정답률 낮은 순) → 아직 시도하지 않은 낱말(입력 순). 면당 `cap` 개.
+ * 개수(`facetDistribution`)만 내던 화면은 "Recognize 3/12" 라고 말할 뿐 **어느 낱말**이 걸리는지
+ * 말하지 않았다 — 연습 화면이 연습할 낱말을 보여 주지 않았다.
+ */
+export function pendingByFacet(
+  states: WordFrameworkState[],
+  cap = 8,
+): Record<FacetId, string[]> {
+  const out = {} as Record<FacetId, string[]>
+  for (const facet of Object.keys(FACETS) as FacetId[]) {
+    const tried = states
+      .filter((s) => s.accuracy[facet] != null && !s.passed.includes(facet))
+      .sort((a, b) => (a.accuracy[facet] ?? 0) - (b.accuracy[facet] ?? 0))
+    const untried = states.filter((s) => s.accuracy[facet] == null)
+    out[facet] = [...tried, ...untried].slice(0, cap).map((s) => s.word)
+  }
+  return out
+}
