@@ -73,16 +73,18 @@ const SIGNALS: Record<string, { re: RegExp; why: string }> = {
  * 기준선 — 2026-09-18 실측, 2026-09-19 **커밋된 트리 기준으로 재측정**(처음에는 다른 세션의 미커밋 변경이
  * 섞인 작업 트리에서 재서 CI 와 어긋났다 — learner.grid-3eq 59→60 · admin.ai-purple 318→326). **내리기만 한다.**
  * learner 의 `infinite-anim` 는 `/text/[id]` risk 단어 `word-pulse` 제거(DD-06) 뒤의 값이다.
+ * 2026-09-19 내림(커밋된 트리): grid-3eq 60→59(고아 MyTextsGrid 삭제 — DD-37) · gradient 171→168 · float-hover 66→65
+ * (빈 상태 CTA 3곳 그라디언트·떠오르는 hover 제거 — DD-39). 작업 트리에는 Codex 미커밋 CSAT 몫이 더 있다(grid-3eq 58 · admin.ai-purple 318 — DD-33).
  */
 const BASELINE: Record<Surface, Record<string, number>> = {
   learner: {
-    'grid-3eq': 60,
+    'grid-3eq': 59,
     'shadow-heavy': 29,
     'rounded-big': 41,
-    gradient: 171,
+    gradient: 168,
     'ai-purple': 38,
     glass: 52,
-    'float-hover': 66,
+    'float-hover': 65,
     'infinite-anim': 12,
   },
   admin: {

@@ -62,6 +62,14 @@ manifest(36): **done 17 · blocked 19**(전부 note 에 사유) · target 실재
 
 **발견**: 만화 서가(`ComicsBrowser`)의 필터 0 은 **구조적으로 나오지 않는다** — 레벨 칩을 실재하는 편의 레벨로만 만든다(`bands` = 편이 있는 레벨). 그래서 #3 의 실제 경로는 단어장 서가다. 1280 캡처 5장은 `apps/web/test-results/design-qa/illo-20260919/real-*@1280-light.png`(로컬).
 
+## 다음 화면 작업 1번 — 빈 상태 CTA 그라디언트 제거 (DD-39, 별도 커밋)
+
+#1 · #2 · #4 의 1차 CTA 를 **주묵 단색(`--ju`) + 잉크 테두리(`--t1`)** 로. hover 는 색만(`--ju-ink`) · 누르면 1px(`active:translate-y-[1px]`) · 포커스 링 유지. 없앤 것: 그라디언트 3(보라·파랑) · 떠오르는 hover · 스케일 · 그림자.
+
+![전(왼쪽) · 후(오른쪽), 실제 경로 390 — #1 · #2 · #4](image-system-gate6-20260919/cta-before-after.png)
+
+평균 신호(커밋된 트리): learner.gradient 171→168 · float-hover 66→65 — 기준선을 같은 커밋에서 내렸다. 남은 가장 나쁜 것: #1 · #2 **섹션 바탕의 옅은 그라디언트**(`from-[--p]/10`·`from-[--p-light]/40`) — 이번 범위(CTA) 밖, 다음 차례.
+
 ## 회귀
 
 | 검사 | 결과 |

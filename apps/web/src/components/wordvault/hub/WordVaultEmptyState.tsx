@@ -38,7 +38,7 @@ export function WordVaultEmptyState() {
         <div className="flex flex-col gap-3 sm:flex-row">
           <Link
             href="/text/new"
-            className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-[var(--r-md)] bg-gradient-to-br from-[var(--learn-fresh)] to-[#4338CA] px-5 py-3 font-display text-[14px] font-[700] text-white shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] ease-[var(--ease-spring)] hover:scale-[1.02] hover:shadow-[var(--sh-md)] active:scale-[0.99]"
+            className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-[var(--r-md)] border border-[var(--t1)] bg-[var(--ju)] px-5 py-3 font-display text-[14px] font-[700] text-[var(--on-ju)] transition-[background-color,transform] duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--ju-ink)] active:translate-y-[1px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
           >
             <FileText size={16} aria-hidden="true" />
             <span>스크립트 추가하기</span>

@@ -674,8 +674,8 @@ export function DictationEmptyState({
       <button
         type="button"
         onClick={onBack}
-        className={`inline-flex h-11 items-center gap-2 rounded-[var(--r-md)] px-4 font-display text-[13px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)] transition-transform hover:-translate-y-0.5 ${FOCUS_RING}`}
-        style={{ background: `linear-gradient(135deg, ${DICTATION_ACCENT}, #1D4ED8)` }}
+        // 1차 CTA — 주묵 단색 + 잉크 테두리 · hover 는 색만 · 누르면 1px(03-system §3-2 · §3-6). 옛 파란 그라디언트·떠오르는 hover 제거
+        className={`inline-flex h-11 items-center gap-2 rounded-[var(--r-md)] border border-[var(--t1)] bg-[var(--ju)] px-4 font-display text-[13px] font-[700] text-[var(--on-ju)] transition-[background-color,transform] duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--ju-ink)] active:translate-y-[1px] ${FOCUS_RING}`}
       >
         자료 다시 고르기
         <ArrowRight size={14} />
