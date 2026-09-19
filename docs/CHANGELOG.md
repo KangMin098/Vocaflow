@@ -9,6 +9,7 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- 인증 3화면(`/login`·`/reset-password`·`/verify-email`) 골든 11호 — `/signup` 과 같은 「칠해진 지문 옆의 폼」(`AuthSpread`). 세 페이지를 서버 페이지 + 클라이언트 폼으로 분리(탭 제목 생김) · 주소 모르는 메일 확인은 잠긴 재발송 버튼 대신 이유 + 다시 가입 · 44px 미만 링크 3 · 그림자 카드 5벌 제거. 정적 신호 6·11·6→0. `docs/design/golden/auth.md` · DD-31.
 - `/text/new` 골든 10호(발산 A 「붙여 넣으면 칠해지는 입력칸」) — `/fit` 부품으로 붙여 넣은 본문을 그 자리에서 칠함(`NewTextPaint`) · 준비 안 된 파일·URL 탭 제거(`InputModeTabs` 삭제) · 예시 글의 지어낸 단어 수·난이도 제거 · 저장 후 새 글로 이동 · 관측 `text_created`(DB 허용 목록 승인 대기). 정적 신호 21→4. `docs/design/golden/text-new.md` · DD-30.
 - 회고 `/dashboard`·`/reports` 골든 9호(발산 A 「기억의 지층」) — 선언만 있던 환경 변형 골격을 렌더: 층 안에 실제 낱말(`buildStrata`) · 이번 주 권점 · 층 펼치기(관측 `retrospect_layer_opened`, DB 허용 목록 승인 대기). `/reports` 조회 실패를 빈 상태와 구분 · 두 회고 모두 분(分) 미사용. 흰 카드 7장·3열 카드 제거, 정적 신호 5→3 · 3→1. `docs/design/golden/retrospect.md` · DD-29.
 - `/wordvault/review`·`/study` 골든 8호 — `/flashcard/play` 의 「이 단어의 기억선」 재사용, 평가 간격 상수(I5) → FSRS 미리보기. **복습이 DB FSRS 카드 대신 새 카드에 적용되던 결함 수정**(안정도 리셋). review = 다시 볼 낱말(`attention`)만. 정적 신호 17→4. `docs/design/golden/wordvault-review.md` · DD-28.

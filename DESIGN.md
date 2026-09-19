@@ -36,7 +36,8 @@
 | `/` 랜딩 | 채색 지문 | 슬라이더 이동 → 단어 면 색 전환 · 200ms(`--dur-normal`) | 현행 |
 | `/fit` | 채색 지문 | 학년 슬라이더 → 낱말 면 색 200ms(랜딩과 같은 몸짓) · 출력 면 = 「학급에 나눠 줄 한 장」(권점·난외·도장) | **서명 있음 — 골든 1호**(2026-09-19, [golden/fit.md](docs/design/golden/fit.md)). A+B 채택, C 보류 · D 재검토 |
 | `/fit/s/[payload]` 공유 결과 | 채색 지문 | 학년 슬라이더 → 가장 어려운 낱말 줄 면 색 200ms(`/fit` 과 같은 `PaintedPassage`) · 1차 「내 지문으로 해 보기」 | **서명 있음**(2026-09-19 골든 5호 [golden/fit-s.md](docs/design/golden/fit-s.md) · DD-25) |
-| `/signup` (인증 대표) | 채색 지문 | 가입 폼 옆 지문이 학년 슬라이더로 칠해짐 · 200ms(`PaintedPassage`) — 모바일은 칠해진 두 줄 | **서명 있음**(2026-09-19 골든 6호 [golden/signup.md](docs/design/golden/signup.md) · DD-26) · 로그인·재설정·메일 확인은 아직 옛 틀 |
+| `/signup` (인증 대표) | 채색 지문 | 가입 폼 옆 지문이 학년 슬라이더로 칠해짐 · 200ms(`PaintedPassage`) — 모바일은 칠해진 두 줄 | **서명 있음**(2026-09-19 골든 6호 [golden/signup.md](docs/design/golden/signup.md) · DD-26) |
+| `/login` · `/reset-password` · `/verify-email` | 채색 지문 | `/signup` 과 같은 두 단 — 폼 옆 지문이 학년 슬라이더로 칠해짐 · 화면마다 첫 문장만 다름 | **서명 있음**(2026-09-19 골든 11호 [golden/auth.md](docs/design/golden/auth.md) · DD-31) |
 | `/text/[id]` | 채색 지문 × 망각 | 원문 낱말 밑줄 두께 3/2/1px = 이 학습자의 R(t) · 원문 위 낱말 줄, 누르면 원문의 그 자리로(모션 0) | **서명 있음**(2026-09-19 골든 7호 [golden/text-id.md](docs/design/golden/text-id.md) · DD-27) |
 | `/text/new` | 채색 지문 | 붙여 넣으면 입력칸 자리가 칠해진 원문으로 · 학년을 옮기면 처음 만나는 낱말에 주묵 면 200ms(`/fit` 과 같은 부품) · 저장하면 새 글로 | **서명 있음**(2026-09-19 골든 10호 [golden/text-new.md](docs/design/golden/text-new.md) · DD-30) |
 | `/csat` 분석 | 주묵 문법 | 대조 순간 지지 실선이 근거 → 정답으로 그어짐 · 200ms | 현행(선 그리기 모션은 §5.2 개정 전까지 페이드) |

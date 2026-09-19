@@ -150,10 +150,10 @@
 
 | 경로 | 비고 |
 |---|---|
-| `/login` | 로그인 |
+| `/login` | 로그인 — 2026-09-19 `page.tsx`(서버) + `LoginForm.tsx` · 칠해진 지문 옆의 폼(DD-31) |
 | `/signup` | 회원가입 — 2026-09-19 `page.tsx`(서버, 데모 지문) + `SignupForm.tsx`(클라이언트) · 칠해진 지문 옆의 폼 · `next` 보존(로그인 링크 양쪽) |
-| `/reset-password` | 비밀번호 재설정 |
-| `/verify-email` | 이메일 인증 |
+| `/reset-password` | 비밀번호 재설정 — 2026-09-19 `page.tsx`(서버) + `ResetPasswordForm.tsx`(요청·발송 완료·새 비밀번호) |
+| `/verify-email` | 이메일 인증 — 2026-09-19 `page.tsx`(서버) + `VerifyEmailClient.tsx` · 주소를 모르면 재발송 버튼 대신 다시 가입 |
 
 ---
 

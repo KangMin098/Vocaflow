@@ -148,6 +148,7 @@
 | **DD-28** | `/wordvault/review` · `/study` = **A 「이 단어의 기억선」**(망각 — `/flashcard/play` 골든 부품 수정 없이 재사용). review 는 **다시 볼 낱말(`attention`)만**, study 는 전체 — 두 라우트를 구분한다. 탈락: B 「곡선 위의 큐」(모션 개정 필요) · C 「차오르는 바탕」 · D 「오늘의 복습 한 장」(N4 약함) | B4: (1) A·C·D 0 (2) A 만 같은 부품·같은 몸짓 → A. **고친 데이터 결함**: `StudyMode` 가 낱말의 DB FSRS 카드(`srs`)를 쓰지 않고 세션 캐시가 비면 새 카드로 평가 — 이 화면의 복습은 매번 안정도를 리셋했다(`cardFor`). 상수 간격(I5) → FSRS 미리보기. 평균 신호 정적 17→4. 수정 2회. C6 미실행. 골든 [golden/wordvault-review.md](golden/wordvault-review.md) |
 | **DD-29** | 회고 `/dashboard` + `/reports` = **A 「기억의 지층」**(환경 변형 — 페이지가 선언만 하고 렌더하지 않던 골격을 세운다). 층 두께 = 낱말 수 · 층 안에 실제 낱말 · 이번 주에 되찾은 낱말에 권점(`/hub` 표식) · 층을 누르면 펼침. `/reports` 는 **통합하지 않고 같은 문법으로**(주마다 한 겹) — 라우트·입구(ManageSection)를 유지해 링크 그래프를 흔들지 않는다. 관측 `retrospect_layer_opened {rung, words}`(브리프의 `weeksBack` 은 B 안의 속성이라 A 에 맞게 바꿈). 탈락: B 「지난주의 나 × 오늘의 나」(과거 stability 이력이 없어 FSRS 재생 드레인 필요 — A6 보류 조건) · C 「28일 필사본」 · D 「주간 장부」(N4 불통과) | B4: (1) A·D 0, C 1, B 드레인 (2) A 만 앞 골든과 같은 표식(권점 · R(t) 로 칠한 낱말) → A. **고친 결함**: `/reports` 조회 실패 → 빈 상태로 보임 · 두 회고의 분(分) 기준 불일치(둘 다 분을 쓰지 않음) · 첫 화면 0 카운터 3개. 정적 신호 `/dashboard` 5→3 · `/reports` 3→1. 수정 1회. C6 미실행. 골든 [golden/retrospect.md](golden/retrospect.md) |
 | **DD-30** | `/text/new` = **A 「붙여 넣으면 칠해지는 입력칸」**(채색 지문 — `/fit` 골든 부품 `PaintedPassage`·`/api/fit` 수정 없이 재사용). 붙여 넣기·예시 선택이면 칠이 도착하는 순간 입력칸 자리가 칠해진 원문으로, 타이핑 중에는 바꾸지 않는다(`/fit` 과 같은 규칙). 준비 중인 파일·URL 입력은 **걷었다**(`InputModeTabs` 삭제 — 이 화면 전용) · 저장 후 **새 글로** 이동 · 관측 `text_created {coveragePct, chapters}`(브리프의 `forClass` 는 이 화면이 학급을 받지 않아 지어내지 않고 뺌). 탈락: B 「우리 반에 나눠 줄 한 장 먼저」(학급 데이터 0) · C 「내 단어장으로 칠한 글」(조회 1) · D 「원고지」(N4 불통과) | B4: (1) A·D 0 (2) A 만 `/fit`·`/signup`·`/diagnostic` 과 같은 몸짓 → A. 공용 `ExtractionPanel` 이 같은 글에 다른 커버리지(내 단어장 기준 39.4% vs 학년 기준 100%)를 한 화면에 세워 이 화면에서 걷었다(저장 후 `/text/[id]` 에 그대로). 정적 신호 21→4. 수정 1회. C6 미실행. 골든 [golden/text-new.md](golden/text-new.md) |
+| **DD-31** | 인증 3화면 `/login` · `/reset-password` · `/verify-email` = **A 「칠해진 지문 옆의 폼」**(`/signup` 골든 6호의 두 단을 그대로 — `AuthSpread` → `SignupProof`). 세 `page.tsx` 를 서버 페이지 + 클라이언트 폼으로 나눴다(폼 로직 불변, 탭 제목이 처음으로 생김). 주소를 모르는 메일 확인 화면은 잠긴 재발송 버튼 대신 이유 + 1차 「다시 가입하기」(e2e 계약 갱신). 탈락: B 「내 서가가 기다려요」(로그인 전엔 내 서가를 모름) · C 「한 줄 인증」 · D 「원고 봉투」(N4 불통과) | B1: 상위 10 다음 여정 ①② 의 남은 화면(`/verify-email`)이 브리프상 인증 4화면 한 단위. B4: (1) A·C·D 0 (2) A 만 `/signup` 과 같은 틀 → A. 정적 신호 6·11·6 → 0·0·0. 수정 0회. C6 미실행. 골든 [golden/auth.md](golden/auth.md) |
 | **DD-22b** | 관측 `hub_curve_interacted` 의 DB 허용 목록 = **승인 대기** — `supabase/migrations/_pending_funnel_allow_hub_curve.sql`(작성 시점 DB 제약 40 + 1). 적용하지 않았다 | A7(마이그레이션은 SQL 커밋 후 승인 대기). 적용 전에는 `db-allowlist.integration.test.ts` 가 이 1종에서 실패한다 — 맞는 실패. 화면 동작에는 영향 없음(관측만 빠진다) |
 
 ### 공용 컴포넌트 교체 후보 (A5 — 화면 범위 밖이라 손대지 않은 것)
@@ -166,6 +167,7 @@
 | `ExtractionPanel`(공용: `/text/[id]` · 옛 `/text/new`)이 한국어 판정 문장을 **이탤릭**으로 쓰고, 「커버리지」 를 **내 단어장 기준**으로 계산해 같은 글의 학년 기준 커버리지(`/fit` 계열)와 다른 숫자를 낸다 | `/text/new` 에서 두 숫자가 한 화면에 섰다(39.4% vs 100%) — 이 화면에서는 걷었다 | 한국어 이탤릭 제거 · 지표 이름을 「내 단어장으로 본 커버리지」 로 구분(또는 `/fit` 커버리지와 한 정의로) |
 | `useTheme` 의 첫 값이 서버(light)와 브라우저(OS 다크)에서 다르다 | 테마 아이콘을 그리는 화면(`/text/new` · `/wordvault`)이 다크 OS 에서 hydration 오류 3건 — `/text/new` 는 화면 안에서 막았다 | 훅이 `ready` 전에는 `theme` 을 `null` 로 내게 |
 | `saveText` · `saveUserBook` 이 새 글 표지 기본색으로 AI-보라(`#A78BFA → #6D28D9`)를 **DB 에 쓴다** | 화면 밖 데이터라 이 재설계에서 안 건드렸다 — 새 글마다 보라 표지가 쌓인다 | 표지 기본색을 토큰 계열(주묵·잉크)로. 기존 행은 그대로 |
+| `SignupProof` 가 `(auth)/signup/` 에 있는데 인증 4화면이 같이 쓴다 | 이름·자리가 가입 전용처럼 보인다 | `(auth)/AuthProof.tsx` 옆으로 옮기고 이름을 `AuthProofPassage` 로(동작 변경 없음) |
 | 평균 신호 정규식이 **주석**도 센다 | `ui/press/index.tsx:6` 주석 속 `shadow-md` 가 이 파일을 가져오는 모든 화면의 정적 신호를 1 올린다 | 라쳇·`measure-screen.mjs`·`screen-graph.mjs` 가 `//`·`/* */` 주석을 걷고 세게(기준선 재측정 필요 — 규칙을 고치는 일이라 별도 커밋) |
 
 ### 정본 변경 요청 (A2 — 토큰·씨앗·스킬은 고치지 않았다)
@@ -178,6 +180,7 @@
 - 없음(`/wordvault/review`). `/flashcard/play` 부품 그대로.
 - 없음(회고). 층 펼치기는 모션 0 · 색 전환만(7종 안).
 - 없음(`/text/new`). `/fit` 부품 그대로.
+- 없음(인증 3화면). `/signup` 부품 그대로.
 - 없음(`/flashcard/play`). 평가 미리보기 곡선은 모션 없이 바뀐다. (후보로만: 서명을 「곡선이 오른쪽으로 늘어나는 200ms」 로 키우려면 §5.2 화이트리스트에 「기억선 전환」 을 더하는 개정이 먼저다 — G4.)
 
 ### 이 세션이 만난 기존 결함 (범위 밖 — 고치지 않음)

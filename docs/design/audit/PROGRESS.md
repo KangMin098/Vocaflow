@@ -19,8 +19,15 @@
 | 9 | 회고 `/dashboard` + `/reports` | **완료** 2026-09-19 | A 「기억의 지층」(환경 변형 · `/reports` 는 주마다 한 겹) | 5→**3** · 3→**1** | [compare/retrospect.md](../compare/retrospect.md) · [golden/retrospect.md](../golden/retrospect.md) · DD-29 |
 | 10 | `/text/new` | **완료** 2026-09-19 | A 「붙여 넣으면 칠해지는 입력칸」(채색 지문 · `/fit` 부품) | 21→**4** · 390 그림자 3→**0** | [compare/text-new.md](../compare/text-new.md) · [golden/text-new.md](../golden/text-new.md) · DD-30 |
 
+
+**B1 다음 — 여정 ①② 의 남은 화면**
+
+| 순서 | 화면 | 상태 | 선택안 | 평균 신호 | 기록 |
+|--:|---|---|---|---|---|
+| 11 | 인증 3화면 `/login` · `/reset-password` · `/verify-email` | **완료** 2026-09-19 | A 「칠해진 지문 옆의 폼」(`/signup` 틀) | 6·11·6 → **0·0·0** | [compare/auth.md](../compare/auth.md) · [golden/auth.md](../golden/auth.md) · DD-31 |
+
 - **보류**: 없음.
-- **라쳇**: average-signal learner `float-hover` 66→**65**(`/hub` — `TodayPlanCard` 칩) · `gradient` 171→**169** · `glass` 52→**50**(`/diagnostic`) · `grid-3eq` 60→**59** · `gradient` 169→**165** · `float-hover` 65→**64** · `infinite-anim` 12→**10**(`/flashcard/play`) · `rounded-big` 41→**39**(`/signup`) · `ai-purple` 38→**37** · `glass` 50→**49**(`/text/[id]`) · `shadow-heavy` 29→**25** · `rounded-big` 39→**34** · `gradient` 165→**164** · `float-hover` 64→**61** · `infinite-anim` 10→**9**(`/wordvault`) · `grid-3eq` 59→**56** · `ai-purple` 37→**36** · `float-hover` 61→**60**(회고) · `grid-3eq` 56→**54** · `shadow-heavy` 25→**22** · `rounded-big` 34→**25** · `gradient` 164→**162** · `float-hover` 60→**59**(`/text/new`). form-declaration 무선언 목록 −1(`/diagnostic`) · −1(`/reports`) · −1(`/text/new`). `/hub` 선언은 렌더와 일치하게 정정.
+- **라쳇**: average-signal learner `float-hover` 66→**65**(`/hub` — `TodayPlanCard` 칩) · `gradient` 171→**169** · `glass` 52→**50**(`/diagnostic`) · `grid-3eq` 60→**59** · `gradient` 169→**165** · `float-hover` 65→**64** · `infinite-anim` 12→**10**(`/flashcard/play`) · `rounded-big` 41→**39**(`/signup`) · `ai-purple` 38→**37** · `glass` 50→**49**(`/text/[id]`) · `shadow-heavy` 29→**25** · `rounded-big` 39→**34** · `gradient` 165→**164** · `float-hover` 64→**61** · `infinite-anim` 10→**9**(`/wordvault`) · `grid-3eq` 59→**56** · `ai-purple` 37→**36** · `float-hover` 61→**60**(회고) · `grid-3eq` 56→**54** · `shadow-heavy` 25→**22** · `rounded-big` 34→**25** · `gradient` 164→**162** · `float-hover` 60→**59**(`/text/new`) · `shadow-heavy` 22→**18** · `rounded-big` 25→**15**(인증 3화면). form-declaration 무선언 목록 −1(`/diagnostic`) · −1(`/reports`) · −1(`/text/new`) · −3(인증 3화면). `/hub` 선언은 렌더와 일치하게 정정.
 - **승인 대기 마이그레이션**: `supabase/migrations/_pending_funnel_allow_hub_curve.sql`(관측 `hub_curve_interacted` · `retrospect_layer_opened` · `text_created` — 한 파일).
 - **이 세션이 만난 기존 결함(범위 밖)**: 타입 오류 3(kice item · csat reveal) · 전체 vitest 실패 10(관리자 터치 타깃 78>70 · OFFSET 페이징 190→200 · `.limit` 1000 초과 · 학습자 라우트 매니페스트 textbooks · CSAT 드레인 경로 · 저작권 경계 · `wired.test` CRLF) — 전부 이 세션이 건드리지 않은 파일. DECISIONS DD-22 뒤 목록.
 
