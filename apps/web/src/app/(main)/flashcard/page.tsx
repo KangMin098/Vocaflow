@@ -1,4 +1,5 @@
 // apps/web/src/app/(main)/flashcard/page.tsx
+// @form: 망각 — 오늘 담길 낱말: 카드가 나오는 순서의 낱말 줄(밑줄 = 기억 상태), 세션 길이만큼 권점이 옮겨 찍힘
 // Flashcard Hub — 실측 복습 큐 + 세션 길이 선택.
 //
 // v08.6 목업 제거. 이 화면은 전부 상수였다:

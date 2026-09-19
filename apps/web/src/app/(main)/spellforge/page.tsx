@@ -1,4 +1,5 @@
 // apps/web/src/app/(main)/spellforge/page.tsx
+// @form: 망각 — 오늘 담길 낱말: 철자로 만날 순서의 낱말 줄(밑줄 = 기억 상태), 세션 길이만큼 권점이 옮겨 찍힘
 // SpellForge Hub — 실측 철자 큐 + 실제 기록.
 //
 // v08.6 목업 제거. 이 화면도 전부 상수였다:

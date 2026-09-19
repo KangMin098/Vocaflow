@@ -58,13 +58,18 @@ async function sessionSize(page: Page): Promise<number> {
   return Number(m![1]);
 }
 
-/** TodayQueue 4칸의 숫자 합. */
-async function bucketSum(page: Page): Promise<number> {
-  const section = page.locator('section[aria-label="오늘의 학습 큐"]');
-  await expect(section).toBeVisible({ timeout: 30_000 });
-  const nums = await section.locator('li p.tabular-nums').allInnerTexts();
-  expect(nums.length, '큐 카드가 4칸이 아니다').toBe(4);
-  return nums.reduce((s, t) => s + Number(t.trim() || 0), 0);
+/**
+ * 낱말 줄에서 **권점이 찍힌** 낱말 수 — 이번 세션에 담기는 낱말.
+ *
+ * 2026-09-19 (DD-34): 4칸 숫자 타일(TodayQueue)을 play 순서 그대로의 낱말 줄(QueueLine)로 바꿨다.
+ * 계약은 같다 — 히어로가 말하는 세션 크기와 화면이 담는다고 보여 주는 낱말 수가 같아야 한다.
+ * 줄은 앞 36개까지만 그리므로 세션이 그보다 길면 36 이다.
+ */
+const LINE_MAX = 36
+async function markedCount(page: Page): Promise<number> {
+  const line = page.locator('section[data-queue-line]');
+  await expect(line).toBeVisible({ timeout: 30_000 });
+  return line.locator('[data-queue-word][data-on="true"]').count();
 }
 
 for (const hub of [
@@ -78,8 +83,8 @@ for (const hub of [
       await page.goto(hub.path, { waitUntil: 'domcontentloaded' });
 
       const size = await sessionSize(page);
-      const sum = await bucketSum(page);
-      expect(sum, `히어로는 ${size}, 버킷 합계는 ${sum} — 어긋났다`).toBe(size);
+      const marked = await markedCount(page);
+      expect(marked, `히어로는 ${size}, 권점 낱말은 ${marked} — 어긋났다`).toBe(Math.min(size, LINE_MAX));
       // 검증 계정은 vocabularies 225행 시드 → 빈 화면이면 계약을 검증한 게 아니다
       expect(size, '세션이 0장이다 — 시드가 사라졌거나 조회가 실패했다').toBeGreaterThan(0);
     });
@@ -116,7 +121,7 @@ for (const hub of [
       await expect
         .poll(() => sessionSize(page), { timeout: 15_000 })
         .toBe(10);
-      expect(await bucketSum(page), '길이를 바꿨는데 버킷 합계가 따라오지 않았다').toBe(10);
+      expect(await markedCount(page), '길이를 바꿨는데 권점이 따라오지 않았다').toBe(10);
 
       // 시작 링크가 그 길이를 실제로 넘기는지 — 예전 허브는 ?vocab/mode/length 를 넘기고도
       // play 라우트가 안 받아서 세 컨트롤 전부 무시됐다. 그 재발을 막는다.

@@ -1,0 +1,22 @@
+/* apps/web/src/components/hub/queue-line.module.css
+ *
+ * 모듈 허브 「오늘 담길 낱말」(2026-09-19 · DD-34)의 권점 — 이번 세션에 담기는 낱말.
+ * `/hub` 「오늘 다시 볼 낱말」 과 **같은 표식·같은 몸짓**(길이를 바꾸면 권점 색만 200ms 에 옮겨 찍힌다).
+ * 허브의 모듈 CSS 를 import 하지 않는다 — 남의 라우트 전용 CSS 를 끌어오면 그 화면을 고칠 때 여기가 바뀐다
+ * (권점 세 벌 — DECISIONS 공용 교체 후보).
+ */
+
+.word {
+  text-emphasis: open circle;
+  text-emphasis-position: over right;
+  text-emphasis-color: transparent;
+  -webkit-text-emphasis: open circle;
+  -webkit-text-emphasis-position: over right;
+  -webkit-text-emphasis-color: transparent;
+  transition: text-emphasis-color var(--dur-normal) var(--ease), color var(--dur-normal) var(--ease);
+}
+
+.word[data-on='true'] {
+  text-emphasis-color: var(--ju);
+  -webkit-text-emphasis-color: var(--ju);
+}

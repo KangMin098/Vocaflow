@@ -3,6 +3,10 @@
 // SpellForge 허브 표시부 — 세션 길이 선택만 클라이언트 상태.
 // 데이터는 전부 page.tsx(서버) 실측. 이 파일에 학습 데이터 상수가 있으면 안 된다.
 
+// 2026-09-19 화면 재설계(DD-34 · docs/design/compare/module-hubs.md 발산 A 「오늘 담길 낱말」):
+//   `/flashcard` 와 픽셀 단위로 같던 4열 타일 → 같은 **낱말 줄**(QueueLine · 권점 몸짓). 최근 기록은 시작 아래로
+//   (기록 0 인 「최근 기록」 이 첫 화면을 차지했다). 한국어 이탤릭 제거.
+
 'use client'
 
 import { Keyboard, Zap } from 'lucide-react'
@@ -12,7 +16,7 @@ import { useMemo, useState } from 'react'
 import { HubStartCard } from '@/components/hub/HubStartCard'
 import { ModuleHero } from '@/components/hub/ModuleHero'
 import { RecentScoresList } from '@/components/hub/RecentScoresList'
-import { TodayQueue } from '@/components/hub/TodayQueue'
+import { QueueLine } from '@/components/hub/QueueLine'
 import { bucketsOf, overdueOf, type SessionQueue } from '@/lib/learner/session-queue'
 import type { RecentScore } from '@/lib/scores/recent'
 
@@ -61,7 +65,11 @@ export function SpellForgeHubClient({
             ? '단어장에 단어를 추가하면 철자를 단련할 단어가 채워져요'
             : focus > 0
               ? `이번 세션에서 철자가 흔들리는 단어 ${focus}개를 만나요`
-              : '이번 세션은 안정된 단어들이에요 — 손에 익히는 시간'
+              : // 흔들림·흐릿함이 0 이라고 '안정' 이 아니다 — 처음 만나는 낱말이면 그렇게 말한다(2026-09-19 수정 2회차:
+                // 새 단어 20개인 세션에 「안정된 단어들이에요」 라고 적혀 있었다)
+                (buckets.find((b) => b.kind === 'new')?.count ?? 0) > 0
+                ? `이번 세션은 처음 쓰는 단어 ${buckets.find((b) => b.kind === 'new')?.count ?? 0}개로 시작해요`
+                : '이번 세션은 안정된 단어들이에요 — 손에 익히는 시간'
         }
         gradient={{ from: '#5CB8E0', to: '#3A7FAF' }}
         // PRACTICE 그룹 — 조용한 변형(형제 일관)
@@ -75,17 +83,7 @@ export function SpellForgeHubClient({
         ]}
       />
 
-      <TodayQueue
-        buckets={buckets}
-        totalLabel={empty ? '0개' : `내 단어 ${queue.vocabTotal}개 중 ${sessionSize}개`}
-      />
-
-      <RecentScoresList
-        scores={recent}
-        best={best}
-        accent={SPELLFORGE_ACCENT}
-        emptyHint="아직 이 모듈 기록이 없어요. 한 세션을 마치면 점수와 정확도가 여기에 남아요."
-      />
+      {!empty && <QueueLine words={queue.words} marked={sessionSize} unit="개" />}
 
       <HubStartCard
         title="세션 길이"
@@ -107,7 +105,7 @@ export function SpellForgeHubClient({
         }
         extras={
           <div className="space-y-2">
-            <p className="font-body text-[11px] italic leading-relaxed text-[var(--t2)]">
+            <p className="font-body text-[12px] leading-relaxed text-[var(--t2)]">
               <Zap size={10} className="mr-1 inline align-text-bottom text-[var(--active)]" aria-hidden />
               {/* 기존 문구는 "힌트 사용 시 점수 -20" 이었지만 그런 감점은 코드에 없다.
                   실제로는 FSRS 등급이 내려간다 — rating-mapper: 힌트 0·오류 0 → Easy,
@@ -131,6 +129,13 @@ export function SpellForgeHubClient({
           disabled: empty,
           disabledReason: '연습할 단어가 아직 없어요',
         }}
+      />
+
+      <RecentScoresList
+        scores={recent}
+        best={best}
+        accent={SPELLFORGE_ACCENT}
+        emptyHint="아직 이 모듈 기록이 없어요. 한 세션을 마치면 점수와 정확도가 여기에 남아요."
       />
     </div>
   )

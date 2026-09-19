@@ -1,10 +1,15 @@
 // apps/web/src/components/hub/HubStartCard.tsx
 // 모듈 시작 설정 + Primary CTA
 // 자율성(Autonomy) 지원 — 단어장·모드·길이를 학습자가 직접 선택
+//
+// 2026-09-19 (DD-34 · docs/design/compare/module-hubs.md): 상자(bg2 · 그림자) · 아이콘 칩 · 그림자 세그먼트 ·
+//   떠오르는 CTA(hover scale) · 모듈마다 다른 CTA 색(핑크 · 파랑)을 걷었다. 1차 행동은 주묵 하나 —
+//   다른 골든과 같은 규칙이다(`cta.accent` · `accentText` 는 호출부 호환을 위해 받기만 한다).
+//   선택지는 글자 탭(밑줄) — `/text/new` 의 한 편/책 탭과 같은 모양. 한국어 이탤릭(비활성 사유) 제거.
 
 'use client'
 
-import { Play, Settings as SettingsIcon } from 'lucide-react'
+import { Play } from 'lucide-react'
 import type { ReactNode } from 'react'
 
 export interface ChoiceField<T extends string> {
@@ -29,8 +34,9 @@ export interface HubStartCardProps {
   cta: {
     label: string
     href: string
+    /** 받기만 한다 — 1차 행동은 주묵 하나(2026-09-19) */
     accent?: string
-    /** 채움(accent) 위에 얹는 글자색 — 밝은 면(골드 등)에는 잉크를 넘겨야 AA 를 넘긴다 */
+    /** 받기만 한다 */
     accentText?: string
     /** 비활성 시 사유 메시지 */
     disabled?: boolean
@@ -38,38 +44,12 @@ export interface HubStartCardProps {
   }
 }
 
-export function HubStartCard({
-  title,
-  description,
-  vocabulary,
-  choices,
-  extras,
-  cta,
-}: HubStartCardProps) {
-  const accent = cta.accent ?? 'var(--p)'
-  // 기본은 종이색이지만, 밝은 채움에서는 호출부가 잉크를 지정한다(2026-08-09 axe: 골드 3.23 · 핑크 3.37).
-  const accentText = cta.accentText ?? 'var(--ti)'
+export function HubStartCard({ title, description, vocabulary, choices, extras, cta }: HubStartCardProps) {
   return (
-    <section
-      aria-label={title}
-      // Tertiary tone (배경 톤 변경) + spacing 통일 (p-5 → p-5 일관)
-      className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-5 shadow-[var(--sh-xs)] md:p-6"
-    >
-      <header className="mb-5 flex items-center gap-2">
-        <span
-          className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)]"
-          style={{ backgroundColor: `${accent}15`, color: accent }}
-          aria-hidden
-        >
-          <SettingsIcon size={13} strokeWidth={2} />
-        </span>
+    <section aria-label={title} className="flex flex-col">
+      <header className="mb-2 flex flex-wrap items-baseline gap-x-2 gap-y-1">
         <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">{title}</h2>
-        {description && (
-          <>
-            <span className="font-body text-[12px] text-[var(--t2)]">·</span>
-            <p className="font-body text-[12px] text-[var(--t2)]">{description}</p>
-          </>
-        )}
+        {description && <p className="font-body text-[12px] text-[var(--t2)]">{description}</p>}
       </header>
 
       {/* 단어장 선택 (별도 — 가로 폭 풀) */}
@@ -85,7 +65,7 @@ export function HubStartCard({
             id={`vocab-${vocabulary.label}`}
             value={vocabulary.value}
             onChange={(e) => vocabulary.onChange(e.target.value)}
-            className="w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2 font-body text-[13px] text-[var(--t1)] focus:border-[var(--bdf)] focus:outline-none focus:ring-2 focus:ring-[var(--p)]/20"
+            className="min-h-[44px] w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-body text-[13px] text-[var(--t1)] focus:border-[var(--bdf)] focus:outline-none focus:ring-2 focus:ring-[var(--p)]/20"
           >
             {vocabulary.options.map((o) => (
               <option key={o.value} value={o.value}>
@@ -97,14 +77,12 @@ export function HubStartCard({
         </div>
       )}
 
-      {/* 세그먼트 선택지들 */}
-      <div className="space-y-4">
+      {/* 선택지 — 글자 탭 */}
+      <div className="space-y-3">
         {choices.map((c) => (
-          <fieldset key={c.label} className="flex flex-wrap items-center gap-3">
-            <legend className="contents font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
-              {c.label}
-            </legend>
-            <div className="flex flex-wrap items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-1">
+          <fieldset key={c.label} className="m-0 flex flex-wrap items-center gap-x-4 gap-y-1 border-0 p-0">
+            <legend className="contents font-display text-[12px] font-[600] text-[var(--t2)]">{c.label}</legend>
+            <div role="radiogroup" aria-label={c.label} className="flex flex-wrap items-center gap-x-4 border-b border-[var(--bd)]">
               {c.options.map((opt) => {
                 const active = c.value === opt.value
                 return (
@@ -114,12 +92,8 @@ export function HubStartCard({
                     role="radio"
                     aria-checked={active}
                     onClick={() => c.onChange(opt.value)}
-                    // 44px 하한 — 실측 30px(`10장`·`20장`·`전체 50장`). 이 컴포넌트는
-                    // Flashcard·SpellForge·ScriptQuiz 허브가 공유하므로 한 곳이 세 화면을 정한다.
-                    className={`inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] px-3 py-2 font-display text-[12px] font-[600] transition-all duration-[var(--dur-normal)] ${
-                      active
-                        ? 'bg-[var(--bg)] text-[var(--t1)] shadow-[var(--sh-xs)]'
-                        : 'text-[var(--t2)] hover:text-[var(--t1)]'
+                    className={`-mb-px inline-flex min-h-[44px] items-center border-b-2 px-1 font-display text-[13px] font-[600] transition-colors duration-[var(--dur-normal)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] ${
+                      active ? 'border-[var(--ju)] text-[var(--t1)]' : 'border-transparent text-[var(--t2)] hover:text-[var(--t1)]'
                     }`}
                     title={opt.hint}
                   >
@@ -134,22 +108,14 @@ export function HubStartCard({
         {extras}
       </div>
 
-      {/* CTA */}
-      <div className="mt-6 flex flex-col items-start gap-2 border-t border-[var(--bd)] pt-5 sm:flex-row sm:items-center sm:justify-between">
-        {cta.disabled && cta.disabledReason ? (
-          <p className="font-body text-[12px] italic text-[var(--t2)]">{cta.disabledReason}</p>
-        ) : (
-          <p className="font-body text-[12px] text-[var(--t2)]">
-            준비됐어요. 시작 버튼을 눌러주세요.
-          </p>
-        )}
-
+      {/* CTA — 화면의 1차 행동 하나 */}
+      <div className="mt-5 flex flex-col items-start gap-2 sm:flex-row-reverse sm:items-center sm:justify-end sm:gap-4">
         {cta.disabled ? (
           <button
             type="button"
             disabled
             aria-disabled
-            className="inline-flex w-full items-center justify-center gap-2 rounded-[var(--r-md)] bg-[var(--bg3)] px-6 py-3 font-display text-[14px] font-[700] text-[var(--t2)] sm:w-auto"
+            className="inline-flex min-h-[48px] w-full cursor-not-allowed items-center justify-center gap-2 rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-6 font-display text-[14px] font-[700] text-[var(--t2)] sm:w-auto"
           >
             <Play size={14} strokeWidth={2.5} aria-hidden />
             {cta.label}
@@ -157,12 +123,14 @@ export function HubStartCard({
         ) : (
           <a
             href={cta.href}
-            className="inline-flex w-full items-center justify-center gap-2 rounded-[var(--r-md)] px-6 py-3 font-display text-[14px] font-[700] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:scale-[1.02] hover:shadow-[var(--sh-md)] active:scale-[0.97] sm:w-auto"
-            style={{ backgroundColor: accent, color: accentText }}
+            className="inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-[var(--r-md)] bg-[var(--ju)] px-6 font-display text-[14px] font-[700] text-[var(--on-ju)] no-underline transition-colors duration-[var(--dur-normal)] hover:bg-[var(--ju-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:translate-y-px sm:w-auto"
           >
             <Play size={14} strokeWidth={2.5} aria-hidden />
             {cta.label}
           </a>
+        )}
+        {cta.disabled && cta.disabledReason && (
+          <p className="font-body text-[12px] text-[var(--t2)]">{cta.disabledReason}</p>
         )}
       </div>
     </section>

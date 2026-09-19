@@ -1,6 +1,9 @@
 // apps/web/src/components/hub/ModuleHero.tsx
 // 모듈 hub 공통 헤로 — Minimal (v06.30)
 //
+// 2026-09-19 (DD-34 · docs/design/compare/module-hubs.md): 면(그라디언트 · 테두리 상자)을 걷고 **판면 머리**로 —
+//   두꺼운 괘선 아래 제목. 제목이 15px 였다(h1 인데 본문보다 작았다) → 26/32px 편집 서체.
+//
 // v06.30 슬림화 — 9개 hub 페이지 상단 영역이 너무 무겁다는 사용자 피드백 반영.
 // 이전 (v06.27 Editorial premium) 의 6개 장식 layer (conic accent · soft orbs · ghost icon
 // · grain · iridescent border · aurora edge) 와 거대한 폰트 (24-32px title) / padding
@@ -54,8 +57,8 @@ export function ModuleHero({
   title,
   note,
   tagline,
-  gradient,
-  quiet = false,
+  // 2026-09-19 (DD-34) — 면을 칠하지 않는다. `gradient` · `quiet` 는 호출부 호환을 위해 받기만 한다.
+  //   dictate(하늘→파랑) · pairflip 이 쓰던 그라디언트 띠가 판면 밖 SaaS 색으로 첫 화면의 주인이 됐다(감사 평균).
   icon: Icon,
   stats,
   primaryAction,
@@ -64,111 +67,43 @@ export function ModuleHero({
   const subText = note ?? tagline ?? null
 
   return (
-    // 이름 붙은 구역이다 — `<header>` 였을 때는 스크린리더에서 이름 없는 덩어리였고,
-    // 지면 배분 계측(`91-hub-design-capture`)도 이 블록을 통째로 놓쳤다. 그 결과 화면마다
-    // **측정된 한 조각이 "100%"로 인쇄**됐다 — 하네스가 스스로 함정으로 못 박은 바로 그 패턴이다.
-    // (`<main>` 안의 `<header>` 는 banner 랜드마크가 아니므로 잃는 의미가 없다.)
-    <section
-      aria-label={title}
-      className={
-        quiet
-          ? 'relative overflow-hidden rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-3 text-[var(--t1)] md:px-5 md:py-4'
-          : 'relative overflow-hidden rounded-[var(--r-md)] px-4 py-3 text-[var(--ti)] shadow-[var(--sh-xs)] md:px-5 md:py-4'
-      }
-      style={
-        quiet
-          ? undefined
-          : {
-              // Calm UI — 18% white overlay 로 모든 caller gradient 자동 톤다운
-              // (9 hub 공통 패턴 1 곳 변경 = 전 페이지 효과)
-              backgroundImage: `linear-gradient(rgba(255,255,255,0.16), rgba(255,255,255,0.16)), linear-gradient(135deg, ${gradient.from} 0%, ${gradient.to} 100%)`,
-            }
-      }
-    >
-      <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-        {/* Eyebrow + title 한 줄 (좁은 화면에선 wrap) */}
-        <div className="flex min-w-0 flex-1 items-center gap-2">
-          {Icon && (
-            <Icon
-              size={14}
-              aria-hidden
-              strokeWidth={2.25}
-              className="shrink-0 opacity-80"
-            />
-          )}
-          <span className="font-display text-[11px] font-[600] tracking-[0.04em] opacity-80">
-            {eyebrow}
-          </span>
-          <span className="opacity-30" aria-hidden>·</span>
-          <h1 className="font-editorial text-[15px] font-[700] leading-tight md:text-[16px]">
-            {title}
-          </h1>
-          {subText && (
-            <>
-              <span className="hidden opacity-30 sm:inline" aria-hidden>·</span>
-              <p className="hidden truncate font-body text-[12px] opacity-80 sm:block">
-                {subText}
-              </p>
-            </>
-          )}
-        </div>
-
+    // 판면 머리 — 다른 골든(`/practice` · `/reports` · `/dashboard`)과 같은 두꺼운 괘선 아래 제목
+    <section aria-label={title} data-module-hero="" className="border-b-2 border-[var(--t1)] pb-3 text-[var(--t1)]">
+      <p className="m-0 flex items-center gap-1.5 font-display text-[12px] font-[600] text-[var(--t2)]">
+        {Icon && <Icon size={13} aria-hidden strokeWidth={2.25} className="shrink-0" />}
+        {eyebrow}
+      </p>
+      <div className="mt-1 flex flex-wrap items-end justify-between gap-x-4 gap-y-2">
+        <h1 className="font-editorial text-[26px] font-[500] leading-[1.15] tracking-[-0.012em] md:text-[32px]">
+          {title}
+        </h1>
         {primaryAction && <div className="shrink-0">{primaryAction}</div>}
       </div>
-
-      {/* 좁은 화면 — subText 줄바꿈 */}
       {subText && (
-        <p className="mt-1 truncate font-body text-[12px] opacity-80 sm:hidden">
+        <p className="m-0 mt-1 max-w-[62ch] font-body text-[13px] leading-[1.6] text-[var(--t2)] [word-break:keep-all]">
           {subText}
         </p>
       )}
 
       {bottomSlot && <div className="mt-2">{bottomSlot}</div>}
 
-      {/* Stats — 인라인 가로 pill row */}
+      {/* Stats — 인라인 한 줄. 라벨과 값이 붙어 읽힌다 */}
       {stats && stats.length > 0 && (
-        <ul
-          className="mt-2 flex flex-wrap gap-x-3 gap-y-1 border-t border-white/15 pt-2"
-          aria-label="hub stats"
-        >
+        <ul className="m-0 mt-2 flex list-none flex-wrap gap-x-4 gap-y-1 p-0" aria-label="hub stats">
           {stats.map((s, i) => (
             // data-hero-stat — 라벨을 **선언**으로 노출한다. 이게 없으면 테스트가 화면 산문에서
-            // 숫자를 긁어야 하는데, 실제로 그렇게 했다가 SpellForge 히어로 설명문("이번 세션에서
-            // 철자가 흔들리는 단어 17개를 만나요")의 숫자를 통계값으로 잘못 읽었다.
+            // 숫자를 긁어야 하는데, 실제로 그렇게 했다가 SpellForge 히어로 설명문의 숫자를 통계값으로 잘못 읽었다.
             <li
               key={i}
               data-hero-stat={s.label}
               className="inline-flex items-baseline gap-1 font-display tabular-nums leading-tight"
             >
-              {/* 라벨 색은 면에 따라 뒤집힌다.
-                  `quiet` 면은 밝은 지면이라 흰 글자를 쓰면 **라벨이 통째로 사라진다** —
-                  실제로 그렇게 냈다(2026-08-15 PairFlip: "730점 ×4 1회" 만 남고
-                  Best·최고 콤보·게임 이 안 보였다). 값은 상속된 `text-*` 를 쓰므로 무사했고,
-                  라벨만 죽어서 **숫자가 무엇의 숫자인지 알 수 없는** 상태가 됐다. */}
-              <span
-                className={`text-[11px] font-[700] ${
-                  quiet
-                    ? s.emphasis
-                      ? 'text-[var(--t1)]'
-                      : 'text-[var(--t2)]'
-                    : s.emphasis
-                      ? 'text-white'
-                      : 'text-white/75'
-                }`}
-              >
+              <span className={`text-[11px] font-[700] ${s.emphasis ? 'text-[var(--t1)]' : 'text-[var(--t2)]'}`}>
                 {s.label}
               </span>
-              <span
-                className={`${
-                  s.emphasis ? 'text-[15px] font-[800]' : 'text-[13px] font-[700]'
-                }`}
-              >
+              <span className={s.emphasis ? 'text-[15px] font-[800]' : 'text-[13px] font-[700]'}>
                 {s.value}
-                {s.unit && (
-                  <span className="ml-0.5 text-[10px] font-[600] opacity-70">
-                    {s.unit}
-                  </span>
-                )}
+                {s.unit && <span className="ml-0.5 text-[10px] font-[600] text-[var(--t2)]">{s.unit}</span>}
               </span>
             </li>
           ))}

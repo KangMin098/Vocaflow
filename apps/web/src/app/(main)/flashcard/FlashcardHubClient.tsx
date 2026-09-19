@@ -5,6 +5,10 @@
 //
 // 길이를 바꾸면 큐 분포도 같이 바뀐다 — bucketsOf(words, limit) 를 다시 계산하기 때문에
 // 화면의 분포는 항상 "지금 시작하면 담길 카드" 와 같다. (자세한 이유는 session-queue.ts 주석)
+//
+// 2026-09-19 화면 재설계(DD-34 · docs/design/compare/module-hubs.md 발산 A 「오늘 담길 낱말」):
+//   4열 숫자 타일(TodayQueue) → play 순서 그대로의 **낱말 줄**(QueueLine) — 앞 N개에 권점, 길이를 바꾸면
+//   권점이 옮겨 찍힌다(`/hub` 골든과 같은 몸짓). 시작 카드는 줄 바로 아래(첫 화면 안).
 
 'use client'
 
@@ -14,8 +18,8 @@ import { useMemo, useState } from 'react'
 
 import { HubStartCard } from '@/components/hub/HubStartCard'
 import { ModuleHero } from '@/components/hub/ModuleHero'
-import { TodayQueue } from '@/components/hub/TodayQueue'
-import { bucketsOf, overdueOf, type SessionQueue } from '@/lib/learner/session-queue'
+import { QueueLine } from '@/components/hub/QueueLine'
+import { overdueOf, type SessionQueue } from '@/lib/learner/session-queue'
 
 // Flashcard 모듈 색(CLAUDE.md §13)은 #EC4899 이지만 그 핑크를 '채움 위 글자' 나 '작은 글자'
 // 로 쓰면 3.4~3.5:1 로 AA 미달이라(2026-08-09 axe) 채움 CTA 는 한 단계 깊은 톤을 쓴다
@@ -36,7 +40,6 @@ export function FlashcardHubClient({ queue, streak }: { queue: SessionQueue; str
   const [length, setLength] = useState<string>(steps.includes(20) ? '20' : ALL)
 
   const limit = length === ALL ? undefined : Number(length)
-  const buckets = useMemo(() => bucketsOf(queue.words, limit), [queue.words, limit])
   const sessionSize = limit === undefined ? total : Math.min(limit, total)
   const overdue = useMemo(() => overdueOf(queue.words, limit), [queue.words, limit])
 
@@ -67,14 +70,11 @@ export function FlashcardHubClient({ queue, streak }: { queue: SessionQueue; str
         ]}
       />
 
-      <TodayQueue
-        buckets={buckets}
-        totalLabel={empty ? '0개' : `내 단어 ${queue.vocabTotal}개 중 ${sessionSize}장`}
-      />
+      {!empty && <QueueLine words={queue.words} marked={sessionSize} unit="장" />}
 
       <HubStartCard
         title="세션 길이"
-        description={empty ? undefined : '고른 만큼 급한 순서로 담아요'}
+        description={empty ? undefined : '고른 만큼 위 줄의 앞에서부터 담아요'}
         choices={
           steps.length === 0
             ? []

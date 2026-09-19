@@ -14,7 +14,17 @@
 //   정렬된 단어 배열을 넘기고 클라이언트가 고른 길이만큼 잘라 **같은 함수**로 세면,
 //   화면의 분포는 항상 그 세션에 담길 카드와 같다. (배열은 50개 이하 · 1KB 미만)
 
-import type { QueueBucket } from '@/components/hub/TodayQueue'
+/**
+ * 기억 상태별 묶음 — 원래 `components/hub/TodayQueue` 의 타입이었다. 2026-09-19(DD-34) 그 4열 타일을
+ * 낱말 줄(`QueueLine`)로 바꾸며 컴포넌트를 지웠고, 계산부가 쓰는 타입만 여기로 옮겼다.
+ */
+export interface QueueBucket {
+  /** Memory Decay 4단계 + new */
+  kind: 'stable' | 'shaky' | 'risk' | 'new'
+  count: number
+  /** 미리보기 단어 (최대 3개) */
+  preview?: string[]
+}
 
 export type QueueKind = QueueBucket['kind']
 
