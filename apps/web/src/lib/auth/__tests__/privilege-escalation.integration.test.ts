@@ -19,7 +19,7 @@ const ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 const SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY
 
 const TEST_EMAIL = 'runtime-test-0705@vocaflow.dev'
-const TEST_PASSWORD = 'RuntimeTest1!'
+const TEST_PASSWORD = process.env.PLAYWRIGHT_RUNTIME_PASSWORD ?? ''
 
 const skip = !SUPABASE_URL || !ANON_KEY || !SERVICE_KEY
 

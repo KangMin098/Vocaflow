@@ -182,7 +182,7 @@ describe.skipIf(skipIfNoEnv)('발행 세트 RLS (integration · 노출 경계)',
 // ─────────────────────────────────────────────────────────────────────────────
 
 const LEARNER_EMAIL = process.env['E2E_TEST_EMAIL'] ?? 'runtime-test-0705@vocaflow.dev'
-const LEARNER_PASSWORD = process.env['E2E_TEST_PASSWORD'] ?? 'RuntimeTest1!'
+const LEARNER_PASSWORD = process.env['E2E_TEST_PASSWORD'] ?? process.env.PLAYWRIGHT_RUNTIME_PASSWORD ?? ''
 
 describe.skipIf(skipIfNoEnv)('발행 세트 노출 경계 — SECURITY DEFINER RPC', () => {
   let learner: SupabaseClient

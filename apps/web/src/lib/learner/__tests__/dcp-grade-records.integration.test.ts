@@ -30,7 +30,7 @@ const SERVICE_KEY = process.env['SUPABASE_SERVICE_ROLE_KEY']
 const skip = !SUPABASE_URL || !ANON_KEY || !SERVICE_KEY
 
 const TEST_EMAIL = 'runtime-test-0705@vocaflow.dev'
-const TEST_PASSWORD = 'RuntimeTest1!'
+const TEST_PASSWORD = process.env.PLAYWRIGHT_RUNTIME_PASSWORD ?? ''
 
 describe.skipIf(skip)('grade_dcp_item 이 관측을 남긴다 (integration)', () => {
   let learner: SupabaseClient

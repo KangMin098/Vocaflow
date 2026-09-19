@@ -26,7 +26,7 @@ import {
 
 const RUNTIME_USER = {
   email: process.env.PLAYWRIGHT_RUNTIME_EMAIL || 'runtime-test-0705@vocaflow.dev',
-  password: process.env.PLAYWRIGHT_RUNTIME_PASSWORD || 'RuntimeTest1!',
+  password: process.env.PLAYWRIGHT_RUNTIME_PASSWORD ?? (() => { throw new Error('PLAYWRIGHT_RUNTIME_PASSWORD 가 없다 — apps/web/.env.local (CI: 저장소 시크릿)') })(),
 }
 // runtime-test 계정 소유 EchoMatch 시드 텍스트 (5문장) — 04-ui-smoke 와 동일
 const ECHO_TEXT_ID = '89970bfa-f49d-44c2-92ce-75895a608317'

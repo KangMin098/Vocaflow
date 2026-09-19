@@ -52,7 +52,7 @@ const { createClient } = await import('@supabase/supabase-js')
 const db = createClient(URL_, ANON, { auth: { persistSession: false } })
 const { data, error } = await db.auth.signInWithPassword({
   email: process.env.PLAYWRIGHT_RUNTIME_EMAIL || 'runtime-test-0705@vocaflow.dev',
-  password: process.env.PLAYWRIGHT_RUNTIME_PASSWORD || 'RuntimeTest1!',
+  password: process.env.PLAYWRIGHT_RUNTIME_PASSWORD ?? (() => { throw new Error('PLAYWRIGHT_RUNTIME_PASSWORD 가 없다 — apps/web/.env.local (CI: 저장소 시크릿)') })(),
 })
 if (error || !data.session) {
   console.error('로그인 실패:', error?.message ?? '세션이 없다')

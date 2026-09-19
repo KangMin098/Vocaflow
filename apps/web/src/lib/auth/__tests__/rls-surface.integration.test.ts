@@ -23,7 +23,7 @@ const ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 const SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY
 
 const TEST_EMAIL = 'runtime-test-0705@vocaflow.dev'
-const TEST_PASSWORD = 'RuntimeTest1!'
+const TEST_PASSWORD = process.env.PLAYWRIGHT_RUNTIME_PASSWORD ?? ''
 
 /** 제품이 쓰지 않는데 열려 있던 테이블들. */
 const ORPHAN_TABLES = ['sw_players', 'sw_comments', 'st17_timetables'] as const

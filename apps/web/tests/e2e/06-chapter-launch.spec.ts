@@ -12,7 +12,7 @@ import { ensureWordSetPlanItem, ensureWordSetSubscription, userIdByEmail } from 
 
 const RUNTIME_USER = {
   email: process.env.PLAYWRIGHT_RUNTIME_EMAIL || 'runtime-test-0705@vocaflow.dev',
-  password: process.env.PLAYWRIGHT_RUNTIME_PASSWORD || 'RuntimeTest1!',
+  password: process.env.PLAYWRIGHT_RUNTIME_PASSWORD ?? (() => { throw new Error('PLAYWRIGHT_RUNTIME_PASSWORD 가 없다 — apps/web/.env.local (CI: 저장소 시크릿)') })(),
 };
 
 /** 교육과정 기본어휘 (고등) — 25 내부챕터(shared_words.chapter) 보유 세트 */
